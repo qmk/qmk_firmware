@@ -5,16 +5,12 @@
 
 #pragma once
 
-#include "config_common.h"
-
-#define RGB_DI_PIN F0
-
 // RGB Matrix config
 #if defined(RGB_MATRIX_ENABLE)
     #ifndef ID67_DISABLE_UNDERGLOW
-        #define DRIVER_LED_TOTAL 77
+        #define RGB_MATRIX_LED_COUNT 77
     #else
-        #define DRIVER_LED_TOTAL (77 - 10)
+        #define RGB_MATRIX_LED_COUNT (77 - 10)
     #endif
 
     #define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended

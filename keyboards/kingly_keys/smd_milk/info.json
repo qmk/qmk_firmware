@@ -6,11 +6,43 @@
   "usb": {
     "vid": "0xFEED",
     "pid": "0xB195",
-    "device_version": "0.0.1"
+    "device_version": "0.0.1",
+    "force_nkro": true
   },
+  "rgblight": {
+    "hue_steps": 6,
+    "saturation_steps": 4,
+    "brightness_steps": 10,
+    "led_count": 4,
+    "animations": {
+      "breathing": true,
+      "rainbow_mood": true,
+      "rainbow_swirl": true,
+      "snake": true,
+      "knight": true,
+      "christmas": true,
+      "static_gradient": true,
+      "rgb_test": true,
+      "alternating": true,
+      "twinkle": true
+    }
+  },
+  "ws2812": {
+    "pin": "B3"
+  },
+  "matrix_pins": {
+    "cols": ["D3"],
+    "rows": ["C5", "D2"]
+  },
+  "diode_direction": "ROW2COL",
+  "processor": "atmega32u2",
+  "bootloader": "atmel-dfu",
   "layouts": {
     "LAYOUT": {
-      "layout": [ {"x": 0, "y": 0 }, {"x": 0, "y": 1 }]
+      "layout": [
+        {"matrix": [0, 0], "x": 0, "y": 0},
+        {"matrix": [1, 0], "x": 0, "y": 1}
+      ]
     }
   }
 }

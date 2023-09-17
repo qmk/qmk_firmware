@@ -1,4 +1,4 @@
-/* Copyright 2021 adpenrose
+/* Copyright 2022 adpenrose
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,105 +23,52 @@
  * |---------------------------------------------------------------------|
  * |Caps  |A  |S  |D  |F  |G  |H  |J  |K  |L  |;  |'  |  Enter     | ENC |
  * |---------------------------------------------------------------------|
- * |Shft    |Z  |X  |C  |V  |B  |N  |M  |,  |.  |/  |Shift       |Up| M1 |
+ * |Shft    |Z  |X  |C  |V  |B  |N  |M  |,  |.  |/  |Shift    |Up| M0(3) |
  * |---------------------------------------------------------------------|
- * |Ctrl|GUI |Alt |     Space               |MO(2) |MO(3)|   |Lt |Dn |Rt |
+ * |Ctrl|GUI |Alt |     Space               |MO(1) |MO(2)|   |Lt |Dn |Rt |
  * `---------------------------------------------------------------------|'
  */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
-    [0] = LAYOUT_65_ansi_blocker(
+    [0] = LAYOUT(
           KC_ESC, KC_1,    KC_2,    KC_3,    KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,    KC_0,    KC_MINS,  KC_EQL,  KC_BSPC,
           KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,    KC_P,    KC_LBRC,  KC_RBRC, KC_BSLS,
           KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,    KC_SCLN, KC_QUOT,   KC_ENT,           KC_MUTE,
-          KC_LSFT,          KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT,   KC_UP,    KC_DEL,
-          KC_LCTL, KC_LGUI, KC_LALT,                        KC_SPC,                   MO(2), MO(3),           KC_LEFT, KC_DOWN,  KC_RIGHT
+          KC_LSFT,          KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT,   KC_UP,    MO(3),
+          KC_LCTL, KC_LGUI, KC_LALT,                        KC_SPC,                   MO(1), MO(2),           KC_LEFT, KC_DOWN,  KC_RIGHT
     ),
-    [1] = LAYOUT_65_ansi_blocker(
+    [1] = LAYOUT(
+      _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,    KC_F10,    KC_F11,  KC_F12, KC_DEL,
       _______,  _______,    _______,    _______,    _______,   _______,   _______,   _______,   _______,   _______,    _______,    _______,  _______, _______,
-      _______,  _______,    _______,    _______,    _______,   _______,   _______,   _______,   _______,   _______,    _______,    _______,  _______, _______,
-      _______,  _______,    _______,    _______,    _______,   _______,   _______,   _______,   _______,   _______,    _______,    _______,  _______,            _______,
+      QK_BOOT,  _______,    _______,    _______,    _______,   _______,   _______,   _______,   _______,   _______,    _______,    _______,  _______,            KC_MPLY,
       _______,              _______,    _______,    _______,   _______,   _______,   _______,   _______,   _______,    _______,    _______,  _______, _______,   _______,
       _______,  _______,    _______,                           _______,                                    _______,    _______,              _______,  _______,  _______
     ),
-    [2] = LAYOUT_65_ansi_blocker(
+    [2] = LAYOUT(
       _______,  _______,    _______,    _______,    _______,   _______,   _______,   _______,   _______,   _______,    _______,    _______,  _______, _______,
       _______,  _______,    _______,    _______,    _______,   _______,   _______,   _______,   _______,   _______,    _______,    _______,  _______, _______,
-      _______,  _______,    _______,    _______,    _______,   _______,   _______,   _______,   _______,   _______,    _______,    _______,  _______,            _______,
+      _______,  _______,    _______,    _______,    _______,   _______,   _______,   _______,   _______,   _______,    _______,    _______,  _______,            KC_MNXT,
       _______,              _______,    _______,    _______,   _______,   _______,   _______,   _______,   _______,    _______,    _______,  _______, _______,   _______,
       _______,  _______,    _______,                           _______,                                    _______,    _______,              _______,  _______,  _______
     ),
-    [3] = LAYOUT_65_ansi_blocker(
-      _______,    KC_F1,      KC_F2,      KC_F3,      KC_F4,     KC_F5,     KC_F6,     KC_F7,     KC_F8,     KC_F9,     KC_F10,     KC_F11,   KC_F12,  _______,
+    [3] = LAYOUT(
+      _______,    _______,      _______,      _______,      _______,     _______,     _______,     _______,     _______,     _______,     _______,     _______,   _______,  _______,
       _______,  _______,    _______,    _______,    _______,   _______,   _______,   _______,   _______,   _______,   _______,    _______,    _______,  _______,   
-      QK_BOOT,    _______,    _______,    _______,    _______,   _______,   _______,   _______,   _______,   _______,    _______,    _______,  _______,            KC_MPLY,
+      _______,    _______,    _______,    _______,    _______,   _______,   _______,   _______,   _______,   _______,    _______,    _______,  _______,            _______,
       _______,              _______,    _______,    _______,   _______,   _______,   _______,   _______,   _______,    _______,    _______,  _______, _______,   _______,
       _______,  _______,    _______,                           _______,                                    _______,    _______,              _______,  _______,  _______
     ),
 };
 
 /* Encoder */
-#ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    /* Used to change the layer using the encoder. */
-    static int8_t selected_layer = 0; 
-
-    if (clockwise){
-        /* Check if left shift is pressed: */
-        if (selected_layer < 4 && get_mods() & MOD_BIT(KC_LSFT)){
-            selected_layer ++;
-            /* If already on the last layer, jumps back to the first layer: */
-            if (selected_layer == 4) {
-                selected_layer = 0;
-            }
-            /* Move to the selected layer. */
-            layer_move(selected_layer); 
-        } else if (get_mods() & MOD_BIT(KC_RSFT)){ /* Check if right shift is pressed: */
-            switch (get_highest_layer(layer_state)){
-                default:
-                    /* Go to the next track. */
-                    tap_code(KC_MNXT);
-                    break;
-            }
-        } else {
-            /* If shift isn't pressed, encoder will do this stuff: */
-            switch (get_highest_layer(layer_state)){
-                default:
-                    /* Turn up the volume of the system. */
-                    tap_code(KC_VOLU);
-                    break;
-            }
-        }
-    } else {
-        /* Check if left shift is pressed: */
-        if (selected_layer > -1 && get_mods() & MOD_BIT(KC_LSFT)){
-            selected_layer --;
-            /* If already on the first layer, jumps up to the last layer: */
-            if (selected_layer == -1) {
-                selected_layer = 3;
-            }
-        /* Move to the selected layer. */
-            layer_move(selected_layer);
-        } else if (get_mods() & MOD_BIT(KC_RSFT)){ /* Check if right shift is pressed: */
-            switch (get_highest_layer(layer_state)){
-                default:
-                    /* Go to the previous track. */
-                    tap_code(KC_MPRV);
-                    break;
-            }
-        } else {
-            /* If shift isn't pressed, encoder will do this stuff: */
-            switch (get_highest_layer(layer_state)){
-                default:
-                    /* Turn down the volume of the system. */
-                    tap_code(KC_VOLD);
-                    break;
-            }
-        }
-    }
-    return false;
-}
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [0] =   { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [1] =  { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
+    [2] =  { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
+    [3] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) }
+};
 #endif
 
 #ifdef OLED_ENABLE
@@ -134,9 +81,9 @@ int   icon_med_wpm      = 50;           // WPM required to display the medium sn
 int   icon_fast_wpm     = 72;           // WPM required to display the fast snail
 // Layer names:  Should be exactly 5 characters in length if vertical display, or 6 characters if horizontal
 #define MA_LAYER_NAME     "QWRTY"      // Layer 0 name
-#define L1_LAYER_NAME     "KICAD"      // Layer 1 name
+#define L1_LAYER_NAME     "FUNCT"      // Layer 1 name
 #define L2_LAYER_NAME     "NMPAD"      // Layer 2 name
-#define L3_LAYER_NAME     "FUNCT"      // Layer 3 name
+#define L3_LAYER_NAME     "RANDM"      // Layer 3 name
 // Constants required for the background render, the graph render and the WPM counter. THESE VALUES SHOULD NOT BE CHANGED.
 bool  first_loop  = true;
 int   timer       = 0;

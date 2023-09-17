@@ -1,3 +1,9 @@
 {
-    "keyboard_name": "Onekey Teensy 3.5"
+    "keyboard_name": "Onekey Teensy 3.5",
+    "processor": "MK64FX512",
+    "bootloader": "halfkay",
+    "matrix_pins": {
+        "cols": ["D5"], // 20/A6
+        "rows": ["B2"]  // 19/A5
+    }
 }

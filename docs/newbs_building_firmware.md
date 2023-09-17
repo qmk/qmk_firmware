@@ -28,7 +28,7 @@ If you did not configure your environment, or you have multiple keyboards, you c
 
 Look at the output from that command, you should see something like this:
 
-    Ψ <github_username> keymap directory created in: /home/me/qmk_firmware/keyboards/clueboard/66/rev3/keymaps/<github_username>
+    Ψ Created a new keymap called <github_username> in: /home/me/qmk_firmware/keyboards/clueboard/66/rev3/keymaps/<github_username>.
 
 This is the location of your new `keymap.c` file.
 
@@ -40,7 +40,7 @@ Open your `keymap.c` file in your text editor. Inside this file you'll find the 
 
 This line indicates where the list of Layers begins. Below that you'll find lines containing `LAYOUT`, and these lines indicate the start of a layer. Below that line is the list of keys that comprise a particular layer.
 
-!> When editing your keymap file be careful not to add or remove any commas. If you do you will prevent your firmware from compiling and it may not be easy to figure out where the extra, or missing, comma is.
+!> When editing your keymap file be careful not to add or remove any commas. If you do, you will prevent your firmware from compiling and it may not be easy to figure out where the extra, or missing, comma is.
 
 ## Customize The Layout To Your Liking
 

@@ -164,21 +164,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case CU_2:
     NORM_ALGR(DK_2, KC_NUHS)
   case CU_4:
-    if (record->event.pressed) { \
-      timer_timeout(); \
-      if (lshift || rshift) { \
-        register_code(KC_LSFT); \
-        register_code(KC_ALGR); \
-        unregister_code(KC_3); \
-        tap_code(KC_3); \
-        unregister_code(KC_3); \
-      } else { \
-        unregister_code(KC_4); \
-        tap_code(KC_4); \
-      } \
-      unregister_code(KC_ALGR); \
-      unregister_code(KC_LSFT); \
-    } \
+    if (record->event.pressed) {
+      timer_timeout();
+      if (lshift || rshift) {
+        register_code(KC_LSFT);
+        register_code(KC_ALGR);
+        unregister_code(KC_3);
+        tap_code(KC_3);
+        unregister_code(KC_3);
+      } else {
+        unregister_code(KC_4);
+        tap_code(KC_4);
+      }
+      unregister_code(KC_ALGR);
+      unregister_code(KC_LSFT);
+    }
     return false;
   case CU_6:
     SHIFT_NORM(DK_6, KC_RBRC)

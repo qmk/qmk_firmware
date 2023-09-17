@@ -3,8 +3,6 @@
 
 #define MEDAPP LT(MEDIA, KC_APP)
 
-uint8_t current_layer_global = 255;
-
 enum layers {
     DEFAULT,
     PROG1,
@@ -28,83 +26,64 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [DEFAULT] = LAYOUT(\
-          KC_ESC,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10, KC_F11, KC_F12,           KC_PSCR,KC_SLCK,KC_PAUS,                                   \
-          KC_GRV,   KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,KC_MINS, KC_EQL,KC_BSPC,    KC_INS,KC_HOME,KC_PGUP,  KC_NLCK,KC_PSLS,KC_PAST,KC_PMNS, \
-          KC_TAB,   KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,KC_LBRC,KC_RBRC,KC_BSLS,    KC_DEL, KC_END,KC_PGDN,    KC_P7,  KC_P8,  KC_P9,KC_PPLS, \
-        TT(MOUSE1), KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,KC_SCLN,KC_QUOT,         KC_ENT,                               KC_P4,  KC_P5,  KC_P6,         \
-            LSHFT_PAREN,KC_NUBS,   KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,KC_COMM, KC_DOT,KC_SLSH,           RSHFT_PAREN,             KC_UP,            KC_P1,  KC_P2,  KC_P3,KC_PENT, \
+  [DEFAULT] = LAYOUT(
+          KC_ESC,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10, KC_F11, KC_F12,           KC_PSCR,KC_SCRL,KC_PAUS,
+          KC_GRV,   KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,KC_MINS, KC_EQL,KC_BSPC,    KC_INS,KC_HOME,KC_PGUP,  KC_NUM,KC_PSLS,KC_PAST,KC_PMNS,
+          KC_TAB,   KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,KC_LBRC,KC_RBRC,KC_BSLS,    KC_DEL, KC_END,KC_PGDN,    KC_P7,  KC_P8,  KC_P9,KC_PPLS,
+        TT(MOUSE1), KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,KC_SCLN,KC_QUOT,         KC_ENT,                               KC_P4,  KC_P5,  KC_P6,
+            LSHFT_PAREN,KC_NUBS,   KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,KC_COMM, KC_DOT,KC_SLSH,           RSHFT_PAREN,             KC_UP,            KC_P1,  KC_P2,  KC_P3,KC_PENT,
             LCTRL_BRACKET,KC_LGUI,   LALT_CURLY,              LT(MISC,  KC_SPC),                           RALT_CURLY,TT(PROG1), MEDAPP, RCTRL_BRACKET,   KC_LEFT,KC_DOWN,KC_RGHT,    KC_P0,KC_PDOT),
   /* Layer 1: Programming Layer 1, emulating US l ayout */
-  [PROG1] = LAYOUT(\
-          KC_ESC,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,           _______,_______,_______,                                   \
-          M_GRV,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_SLSH,S(KC_0),_______,   _______,_______,_______,  _______,_______,_______,_______, \
-         _______,_______,_______,_______,_______,_______,   KC_Z,_______,_______,_______,_______,ALGR(KC_8),ALGR(KC_9),ALGR(KC_MINS),  _______,_______,_______,  _______,_______,_______,_______, \
-         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,S(KC_COMM),S(KC_BSLS),        _______,                             _______,_______,_______,         \
-       MO(PROG2),_______,   KC_Y,_______,_______,_______,_______,_______,_______,_______,_______,   S(KC_7),      MO(PROG2),           _______,          _______,_______,_______,_______, \
+  [PROG1] = LAYOUT(
+          KC_ESC,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,           _______,_______,_______,
+          M_GRV,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_SLSH,S(KC_0),_______,   _______,_______,_______,  _______,_______,_______,_______,
+         _______,_______,_______,_______,_______,_______,   KC_Z,_______,_______,_______,_______,ALGR(KC_8),ALGR(KC_9),ALGR(KC_MINS),  _______,_______,_______,  _______,_______,_______,_______,
+         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,S(KC_COMM),S(KC_BSLS),        _______,                             _______,_______,_______,
+       MO(PROG2),_______,   KC_Y,_______,_______,_______,_______,_______,_______,_______,_______,   S(KC_7),      MO(PROG2),           _______,          _______,_______,_______,_______,
          _______,_______,_______,                        _______,                        _______,_______,_______,_______,   _______,_______,_______,  _______,_______),
     /* Layer 2: programming layer 2
        all keys that are not FN keys are sent as LSFT+key on this layer
     */
-  [PROG2] = LAYOUT(\
-         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,           _______,_______,_______,                                   \
-        ALGR(KC_RBRC),_______,  ALGR(KC_Q),KC_BSLS,_______,_______,M_CFLEX,  S(KC_6),S(KC_RBRC),   S(KC_8),S(KC_9),S(KC_SLSH),KC_RBRC,_______,   _______,_______,_______,  _______,_______,_______,_______, \
-         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,  ALGR(KC_7),ALGR(KC_0),ALGR(KC_NUBS),  _______,_______,_______,  _______,_______,_______,_______, \
-         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______, S(KC_DOT),   S(KC_2),        _______,                             _______,_______,_______,         \
-         _______,S(KC_NUBS),_______,_______,_______,_______,_______,_______,_______,KC_NUBS,S(KC_NUBS),S(KC_MINS),        _______,           _______,          _______,_______,_______,_______, \
+  [PROG2] = LAYOUT(
+         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,           _______,_______,_______,
+        ALGR(KC_RBRC),_______,  ALGR(KC_Q),KC_BSLS,_______,_______,M_CFLEX,  S(KC_6),S(KC_RBRC),   S(KC_8),S(KC_9),S(KC_SLSH),KC_RBRC,_______,   _______,_______,_______,  _______,_______,_______,_______,
+         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,  ALGR(KC_7),ALGR(KC_0),ALGR(KC_NUBS),  _______,_______,_______,  _______,_______,_______,_______,
+         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______, S(KC_DOT),   S(KC_2),        _______,                             _______,_______,_______,
+         _______,S(KC_NUBS),_______,_______,_______,_______,_______,_______,_______,KC_NUBS,S(KC_NUBS),S(KC_MINS),        _______,           _______,          _______,_______,_______,_______,
          _______,_______,_______,                        _______,                        _______,_______,_______,_______,   _______,_______,_______,  _______,_______),
     /* Layer 3: media layer */
-  [MEDIA] = LAYOUT(\
-          KC_PWR,KC_SLEP,KC_WAKE,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,           XXXXXXX,XXXXXXX,XXXXXXX,                                   \
-         XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,   KC_MPRV,KC_MPLY,KC_MNXT,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
-         XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,   KC_VOLD,KC_MUTE,KC_VOLU,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
-         XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,        XXXXXXX,                             XXXXXXX,XXXXXXX,XXXXXXX,         \
-         XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,        XXXXXXX,           KC_EJCT,          XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
+  [MEDIA] = LAYOUT(
+          KC_PWR,KC_SLEP,KC_WAKE,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,           XXXXXXX,XXXXXXX,XXXXXXX,
+         XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,   KC_MPRV,KC_MPLY,KC_MNXT,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+         XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,   KC_VOLD,KC_MUTE,KC_VOLU,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+         XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,        XXXXXXX,                             XXXXXXX,XXXXXXX,XXXXXXX,
+         XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,        XXXXXXX,           KC_EJCT,          XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
          XXXXXXX,XXXXXXX,XXXXXXX,                        XXXXXXX,                        XXXXXXX,XXXXXXX,_______,XXXXXXX,   KC_MRWD,KC_MSTP,KC_MFFD,  XXXXXXX,XXXXXXX),
     /* Layer 4: Mouse layer */
-  [MOUSE1] = LAYOUT(\
-            TO(DEFAULT),_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,           _______,_______,_______,                                   \
-         _______,KC_ACL0,KC_ACL1,KC_ACL2,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,   _______,_______,_______,  _______,_______,_______,_______, \
-         _______,KC_BTN4,KC_WH_D,KC_MS_U,KC_WH_U,_______,   C(KC_Z),_______,_______,_______,_______,_______,_______,_______,   _______,_______,_______,  _______,_______,_______,_______, \
-         _______,KC_BTN5,KC_MS_L,KC_MS_D,KC_MS_R,   CTRL_CLICK,KC_WH_L,KC_WH_D,KC_WH_U,KC_WH_R,_______,_______,        _______,                             _______,_______,_______,         \
-      MO(MOUSE2),_______,C(KC_Y),C(KC_X),C(KC_C),C(KC_V),_______,KC_BTN2,KC_BTN3,C(KC_PGUP),C(KC_PGDN),_______,        KC_RSFT,           _______,          _______,_______,_______,_______, \
+  [MOUSE1] = LAYOUT(
+            TO(DEFAULT),_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,           _______,_______,_______,
+         _______,KC_ACL0,KC_ACL1,KC_ACL2,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,   _______,_______,_______,  _______,_______,_______,_______,
+         _______,KC_BTN4,KC_WH_D,KC_MS_U,KC_WH_U,_______,   C(KC_Z),_______,_______,_______,_______,_______,_______,_______,   _______,_______,_______,  _______,_______,_______,_______,
+         _______,KC_BTN5,KC_MS_L,KC_MS_D,KC_MS_R,   CTRL_CLICK,KC_WH_L,KC_WH_D,KC_WH_U,KC_WH_R,_______,_______,        _______,                             _______,_______,_______,
+      MO(MOUSE2),_______,C(KC_Y),C(KC_X),C(KC_C),C(KC_V),_______,KC_BTN2,KC_BTN3,C(KC_PGUP),C(KC_PGDN),_______,        KC_RSFT,           _______,          _______,_______,_______,_______,
          KC_LCTL,_______,KC_LALT,                        KC_BTN1,                        KC_RALT,KC_RGUI, KC_APP,KC_RCTL,   _______,_______,_______,  _______,_______),
     /* Layer 5: Mouse layer 2*/
-  [MOUSE2] = LAYOUT(\
-         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,           _______,_______,_______,                                   \
-         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,   _______,_______,_______,  _______,_______,_______,_______, \
-         _______,_______,KC_BTN2,KC_WH_U,KC_BTN3,_______,_______,_______,_______,_______,_______,_______,_______,_______,   _______,_______,_______,  _______,_______,_______,_______, \
-         _______,_______,KC_WH_L,KC_WH_D,KC_WH_R,_______,KC_MS_L,KC_MS_D,KC_MS_U,KC_MS_R,_______,_______,        _______,                             _______,_______,_______,         \
-         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,        _______,           _______,          _______,_______,_______,_______, \
+  [MOUSE2] = LAYOUT(
+         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,           _______,_______,_______,
+         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,   _______,_______,_______,  _______,_______,_______,_______,
+         _______,_______,KC_BTN2,KC_WH_U,KC_BTN3,_______,_______,_______,_______,_______,_______,_______,_______,_______,   _______,_______,_______,  _______,_______,_______,_______,
+         _______,_______,KC_WH_L,KC_WH_D,KC_WH_R,_______,KC_MS_L,KC_MS_D,KC_MS_U,KC_MS_R,_______,_______,        _______,                             _______,_______,_______,
+         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,        _______,           _______,          _______,_______,_______,_______,
          _______,_______,_______,                        _______,                        _______,_______,_______,_______,   _______,_______,_______,  _______,_______),
     /* Layer 6: Misc layer */
-  [MISC] = LAYOUT(\
-         _______, KC_F13, KC_F14, KC_F15, KC_F16, KC_F17, KC_F18, KC_F19, KC_F20, KC_F21, KC_F22, KC_F23, KC_F24,           _______,_______,_______,                                   \
-         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,   _______,_______,_______,  _______,_______,_______,_______, \
-         _______,KC_SLCT,   C(KC_W),  KC_UP,_______,_______,_______,_______,KC_BSPC, KC_DEL,_______,_______,_______,_______,   _______,_______,_______,  _______,_______,_______,_______, \
-         _______,_______,KC_LEFT,KC_DOWN,KC_RGHT,_______,KC_HOME,KC_PGDN,KC_PGUP,_______,_______,_______,        _______,                             _______,_______,_______,         \
-         KC_LSFT,_______,C(KC_Y),C(KC_X),C(KC_C),C(KC_V), KC_SPC, KC_END,_______,C(KC_PGUP),C(KC_PGDN),_______,        _______,           _______,          _______,_______,_______,_______, \
+  [MISC] = LAYOUT(
+         _______, KC_F13, KC_F14, KC_F15, KC_F16, KC_F17, KC_F18, KC_F19, KC_F20, KC_F21, KC_F22, KC_F23, KC_F24,           _______,_______,_______,
+         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,   _______,_______,_______,  _______,_______,_______,_______,
+         _______,KC_SLCT,   C(KC_W),  KC_UP,_______,_______,_______,_______,KC_BSPC, KC_DEL,_______,_______,_______,_______,   _______,_______,_______,  _______,_______,_______,_______,
+         _______,_______,KC_LEFT,KC_DOWN,KC_RGHT,_______,KC_HOME,KC_PGDN,KC_PGUP,_______,_______,_______,        _______,                             _______,_______,_______,
+         KC_LSFT,_______,C(KC_Y),C(KC_X),C(KC_C),C(KC_V), KC_SPC, KC_END,_______,C(KC_PGUP),C(KC_PGDN),_______,        _______,           _______,          _______,_______,_______,_______,
          _______,_______,_______,               LT(MISC, KC_SPC),                        _______,_______,_______,_______,   _______,_______,_______,  _______,_______),
 };
-
-void matrix_scan_user(void) {
-    uint8_t layer;
-    layer = get_highest_layer(layer_state);
-
-    if (current_layer_global != layer) {
-        current_layer_global = layer;
-
-        // unset CAPSLOCK and SCROLL LOCK LEDs
-        led_set_kb(host_keyboard_leds() & ~(1<<USB_LED_CAPS_LOCK));
-        led_set_kb(host_keyboard_leds() & ~(1<<USB_LED_SCROLL_LOCK));
-        // set SCROLL LOCK LED when the mouse layer is active, CAPS LOCK when PROG layer is active
-        if (layer == MOUSE1 || layer == MOUSE2) {
-          led_set_kb(host_keyboard_leds() | (1<<USB_LED_SCROLL_LOCK));
-        } else if (layer == PROG1 || layer == PROG2) {
-          led_set_kb(host_keyboard_leds() | (1<<USB_LED_CAPS_LOCK));
-        }
-    }
-}
 
 void tap_helper(keyrecord_t *record, uint16_t orig_mod, uint16_t macro_mod, uint16_t macro_kc ) {
   if (record->event.pressed) {
@@ -136,7 +115,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (layer == PROG2) {
          if (keycode >= KC_A && keycode <= KC_EXSEL && \
              !(  // do not send LSFT + these keycodes, they are needed for emulating the US layout
-                 keycode == KC_NONUS_BSLASH ||
+                 keycode == KC_NUBS ||
                  keycode == KC_RBRC ||
                  keycode == KC_BSLS ||
                  keycode == KC_GRV

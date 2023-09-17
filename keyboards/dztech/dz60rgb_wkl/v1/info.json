@@ -2,5 +2,17 @@
     "usb": {
         "pid": "0x1320",
         "device_version": "1.0.0"
-    }
+    },
+    "rgb_matrix": {
+        "driver": "is31fl3733"
+    },
+    "matrix_pins": {
+        "cols": ["A6", "A7", "B0", "B13", "B15", "A8", "A15", "B3", "B4", "B5", "B8", "B9", "C13", "C14"],
+        "rows": ["B1", "B10", "B11", "B14", "B12"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "board": "QMK_PROTON_C",
+    "debounce": 3
 }

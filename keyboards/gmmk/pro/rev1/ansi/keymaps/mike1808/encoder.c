@@ -36,9 +36,9 @@ const encoder_callback encoder_mapping[][2] = {
 
 // clang-format on
 
-void volume_up() { tap_code(KC_VOLU); }
+void volume_up(void) { tap_code(KC_VOLU); }
 
-void volume_down() { tap_code(KC_VOLD); }
+void volume_down(void) { tap_code(KC_VOLD); }
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
     dprintf("current encoder state is: %d\n", state);
@@ -49,7 +49,8 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         (*encoder_mapping[state][1])();
     }
 
-    return true;
+    //return true; //set to return false to counteract enabled encoder in pro.c
+    return false;
 }
 
 void handle_rgb_key(bool pressed) {
@@ -64,7 +65,7 @@ void handle_rgb_key(bool pressed) {
 
 static KeyPressState *rgb_state;
 
-void keyboard_post_init_encoder() {
+void keyboard_post_init_encoder(void) {
     rgb_state = NewKeyPressState(handle_rgb_key);
 }
 

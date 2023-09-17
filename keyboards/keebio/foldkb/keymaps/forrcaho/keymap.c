@@ -14,6 +14,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+
+// Milliseconds the backlight is off (or on) when blinking to show
+// caps lock is on. In other words, half the time of a full blink cycle.
+#define CAPS_LOCK_BLINK_MS 350
+
 #include QMK_KEYBOARD_H
 
 enum layer {
@@ -23,7 +28,8 @@ enum layer {
 };
 
 enum custom_keycodes {
-    PG_BANG = SAFE_RANGE,
+    PG_ARRO = SAFE_RANGE,
+    PG_BANG,
     PG_ENDC,
     PG_EQEQ,
     PG_EQL,
@@ -48,9 +54,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ├────────┼───┼─────────────┼────────┼────────┼────────┼────────┼────────┤        ├────────┼────────┼────────┼────────┼────────┼────────┼────────┴────────┤
     MO(_MS),     KC_CAPS,      KC_A,    KC_S,    KC_D,    KC_F,    KC_G,             KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
 // ├────────┼───┴─────────────┼────────┼────────┼────────┼────────┼────────┤        ├────────┼────────┼────────┼────────┼────────┼────────┴────┬────────┬───┘
-    TG(_PG), KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,      MO(_PG),
+    TG(_PG), KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,      TG(_MS),
 // ├────────┼───┬──────────┬──┴──────┬─┴────────┼────────┼────────┼────────┤        ├────────┴─┬──────┴──────┬─┴────────┼────────┴─┬─────────┬─┴────────┤
-    TG(_MS),     KC_LGUI,   KC_LCTL,  KC_LALT,   MO(_PG), KC_SPC,  KC_SPC,           KC_SPC,    KC_SPC,       MO(_MS),   KC_RALT,   KC_RCTL,  KC_RGUI
+    TG(_MS),     KC_LGUI,   KC_LCTL,  KC_LALT,   MO(_PG), KC_SPC,  KC_SPC,           KC_SPC,    KC_SPC,       MO(_PG),   KC_RALT,   KC_RCTL,  KC_RGUI
 // └────────┴───┴──────────┴─────────┴──────────┴────────┴────────┴────────┘        └──────────┴─────────────┴──────────┴──────────┴─────────┴──────────┘
   ),
   [_PG] = LAYOUT(
@@ -61,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ├────────┼───┼─────────────┼────────┼────────┼────────┼────────┼────────┤        ├────────┼────────┼────────┼────────┼────────┼────────┼────────┴────────┤
     _______,     _______,      PG_ENDC, PG_VBAR, PG_LBRK, PG_RBRK, PG_EQEQ,          _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, KC_BSPC,
 // ├────────┼───┴─────────────┼────────┼────────┼────────┼────────┼────────┤        ├────────┼────────┼────────┼────────┼────────┼────────┴────┬────────┬───┘
-    _______, _______,          _______, PG_MINS, PG_EQL,  PG_BANG, _______,          _______, KC_END,  KC_DOWN, KC_PGDN, KC_DEL,  _______,      _______,
+    _______, _______,          _______, PG_MINS, PG_EQL,  PG_BANG, PG_ARRO,          _______, KC_END,  KC_DOWN, KC_PGDN, KC_DEL,  _______,      _______,
 // ├────────┼───┬──────────┬──┴──────┬─┴────────┼────────┼────────┼────────┤        ├────────┴─┬──────┴──────┬─┴────────┼────────┴─┬─────────┬─┴────────┤
     _______,     _______,   _______,  _______,   _______, _______, _______,          _______,   _______,      _______,   _______,   _______,  _______
 // └────────┴───┴──────────┴─────────┴──────────┴────────┴────────┴────────┘        └──────────┴─────────────┴──────────┴──────────┴─────────┴──────────┘
@@ -72,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ├────────┼───┬────┴────────┼────────┼────────┼────────┼────────┼────────┤        ├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
     _______,     _______,      _______, _______, _______, _______, _______,          _______, KC_BTN1, KC_MS_U, KC_BTN2, _______, _______, _______, _______,
 // ├────────┼───┼─────────────┼────────┼────────┼────────┼────────┼────────┤        ├────────┼────────┼────────┼────────┼────────┼────────┼────────┴────────┤
-    _______,     _______,      _______, _______, _______, _______, _______,          _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______, _______,
+    _______,     _______,      _______, _______, _______, _______, _______,          _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_BTN3, _______, _______,
 // ├────────┼───┴─────────────┼────────┼────────┼────────┼────────┼────────┤        ├────────┼────────┼────────┼────────┼────────┼────────┴────┬────────┬───┘
     _______, _______,          _______, _______, _______, _______, _______,          _______, _______, KC_MS_D, _______, _______, _______,      _______,
 // ├────────┼───┬──────────┬──┴──────┬─┴────────┼────────┼────────┼────────┤        ├────────┴─┬──────┴──────┬─┴────────┼────────┴─┬─────────┬─┴────────┤
@@ -97,9 +103,6 @@ const key_override_t pg_rpar_shift = ko_make_with_layers_and_negmods(MOD_MASK_SH
 const key_override_t pg_slas_none  = ko_make_with_layers_and_negmods(0, PG_SLAS, KC_SLASH, ~0, ~0);
 const key_override_t pg_slas_shift = ko_make_with_layers_and_negmods(MOD_MASK_SHIFT, PG_SLAS, KC_BACKSLASH, ~0, ~MOD_MASK_SHIFT);
 
-const key_override_t pg_vbar_none  = ko_make_with_layers_and_negmods(0, PG_VBAR, KC_PIPE, ~0, ~0);
-const key_override_t pg_vbar_shift = ko_make_with_layers_and_negmods(MOD_MASK_SHIFT, PG_VBAR, KC_AMPERSAND, ~0, ~MOD_MASK_SHIFT);
-
 const key_override_t ms_btn_none  = ko_make_with_layers_and_negmods(0, MS_BTN, KC_MS_BTN1, ~0, ~0);
 const key_override_t ms_btn_shift = ko_make_with_layers_and_negmods(MOD_MASK_SHIFT, MS_BTN, KC_MS_BTN2, ~0, ~MOD_MASK_SHIFT);
 
@@ -110,7 +113,6 @@ const key_override_t **key_overrides = (const key_override_t *[]){
     &pg_rbrk_none, &pg_rbrk_shift,
     &pg_rpar_none, &pg_rpar_shift,
     &pg_slas_none, &pg_slas_shift,
-    &pg_vbar_none, &pg_vbar_shift,
     &ms_btn_none, &ms_btn_shift,
     NULL};
 // clang-format on
@@ -128,6 +130,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (all_mods & (MOD_MASK_ALT | MOD_MASK_GUI)) return true;
 
     switch (keycode) {
+        case KC_CAPS:
+            // On caps lock release, if caps lock just got turned off, ensure that
+            // backlight is enabled when it stops blinking.
+            if (!record->event.pressed) {
+                if (!host_keyboard_led_state().caps_lock) {
+                    backlight_enable();
+                    // In this case, we want to continue processing
+                    return true;
+                }
+            }
+            break;
+        case PG_ARRO:
+            if (record->event.pressed) {
+                clear_mods();
+                clear_oneshot_mods();
+                if (shift_on) {
+                    if (!ctrl_on) SEND_STRING(" ");
+                    SEND_STRING("=>");
+                    if (!ctrl_on) SEND_STRING(" ");
+                } else {
+                    if (ctrl_on) SEND_STRING(" ");
+                    SEND_STRING("->");
+                    if (ctrl_on) SEND_STRING(" ");
+                }
+                set_mods(std_mods);
+                set_oneshot_mods(oneshot_mods);
+                return false;
+            }
+            break;
         case PG_BANG:
             if (record->event.pressed) {
                 clear_mods();
@@ -212,6 +243,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             break;
+        case PG_VBAR:
+            if (record->event.pressed) {
+                clear_mods();
+                clear_oneshot_mods();
+                if (!ctrl_on) SEND_STRING(" ");
+                shift_on ? SEND_STRING("&") : SEND_STRING("|");
+                if (!ctrl_on) SEND_STRING(" ");
+                set_mods(std_mods);
+                set_oneshot_mods(oneshot_mods);
+                return false;
+            }
+            break;
     }
     return true;
 }
@@ -226,21 +269,38 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return false;
 }
 
+static uint16_t caps_lock_blink_timer = 0;
+
+// This is called after every matrix scan. We make the backlight blink
+// when caps lock is on here. To ensure the backlight is in the on state
+// when caps lock is turned off, we also watch for the relase of the caps
+// lock key in process_record_user().
+void housekeeping_task_user(void) {
+    if (host_keyboard_led_state().caps_lock) {
+        if (timer_elapsed(caps_lock_blink_timer) >= CAPS_LOCK_BLINK_MS) {
+             backlight_toggle();
+            caps_lock_blink_timer = timer_read();
+        }
+    }
+}
+
+// The backlight level shows which layer we are in:
+// Mouse layer: dim | QWERTY layer: medium | Programming layer: bright
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
         case _MS:
-            backlight_level(2);
+            backlight_level(1);
             break;
         case _PG:
             backlight_level(3);
             break;
         default:
-            backlight_level(1);
+            backlight_level(2);
             break;
     }
     return state;
 }
 
 void keyboard_post_init(void) {
-    backlight_level(1);
+    backlight_level(2);
 }

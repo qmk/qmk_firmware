@@ -15,7 +15,7 @@ A 65%-ish keyboard with some extra features.
 ## General info
 
 * Keyboard Maintainer: [Arturo Avila](https://github.com/ADPenrose)
-* Hardware Supported: Kintsugi V1 PCB
+* Hardware Supported: Kintsugi v1 PCB
 * Hardware Availability: [Arturo Avila](https://github.com/ADPenrose)
 
 Make example for this keyboard (after setting up your build environment):

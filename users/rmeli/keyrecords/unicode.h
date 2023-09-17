@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
+
 #include QMK_KEYBOARD_H
 
 // Needs to be active on the OS side as well
@@ -44,42 +45,42 @@ enum unicode_names {
     UUML,
 };
 
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
     // KC_A
-    [aGRV] = 0x00E0,  // à
-    [AGRV] = 0x00C0,  // À
-    [aUML] = 0x00E4,  // ä
-    [AUML] = 0x00C4,  // Ä
+    [aGRV] = 0x00E0, // à
+    [AGRV] = 0x00C0, // À
+    [aUML] = 0x00E4, // ä
+    [AUML] = 0x00C4, // Ä
     // KC_E
-    [eGRV] = 0x00E8,  // è
-    [EGRV] = 0x00C8,  // È
-    [eACT] = 0x00E9,  // é
-    [EACT] = 0x00C9,  // É
+    [eGRV] = 0x00E8, // è
+    [EGRV] = 0x00C8, // È
+    [eACT] = 0x00E9, // é
+    [EACT] = 0x00C9, // É
     // KC_I
-    [iGRV] = 0x00EC,  // ì
-    [IGRV] = 0x00CC,  // Ì
-    [iCIR] = 0x00EE,  // î
-    [ICIR] = 0x00CE,  // Î
+    [iGRV] = 0x00EC, // ì
+    [IGRV] = 0x00CC, // Ì
+    [iCIR] = 0x00EE, // î
+    [ICIR] = 0x00CE, // Î
     // KC_O
-    [oGRV] = 0x00F2,  // ò
-    [OGRV] = 0x00D2,  // Ò
-    [oUML] = 0x00F6,  // ö
-    [OUML] = 0x00D6,  // Ö
+    [oGRV] = 0x00F2, // ò
+    [OGRV] = 0x00D2, // Ò
+    [oUML] = 0x00F6, // ö
+    [OUML] = 0x00D6, // Ö
     // KC_U
-    [uGRV] = 0x00F9,  // ù
-    [UGRV] = 0x00D9,  // Ù
-    [uUML] = 0x00FC,  // ü
-    [UUML] = 0x00DC,  // Ü
+    [uGRV] = 0x00F9, // ù
+    [UGRV] = 0x00D9, // Ù
+    [uUML] = 0x00FC, // ü
+    [UUML] = 0x00DC, // Ü
 };
 
 // Accents
-#define A_GRV XP(aGRV, AGRV)
-#define A_UML XP(aUML, AUML)
-#define E_GRV XP(eGRV, EGRV)
-#define E_ACT XP(eACT, EACT)
-#define I_GRV XP(iGRV, IGRV)
-#define I_CIR XP(iCIR, ICIR)
-#define O_GRV XP(oGRV, OGRV)
-#define O_UML XP(oUML, OUML)
-#define U_GRV XP(uGRV, UGRV)
-#define U_UML XP(uUML, UUML)
+#define A_GRV UP(aGRV, AGRV)
+#define A_UML UP(aUML, AUML)
+#define E_GRV UP(eGRV, EGRV)
+#define E_ACT UP(eACT, EACT)
+#define I_GRV UP(iGRV, IGRV)
+#define I_CIR UP(iCIR, ICIR)
+#define O_GRV UP(oGRV, OGRV)
+#define O_UML UP(oUML, OUML)
+#define U_GRV UP(uGRV, UGRV)
+#define U_UML UP(uUML, UUML)

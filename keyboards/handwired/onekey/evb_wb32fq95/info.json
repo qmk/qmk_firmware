@@ -1,3 +1,19 @@
 {
-    "keyboard_name": "Onekey WB32FQ95 Eval"
+    "keyboard_name": "Onekey WB32FQ95 Eval",
+    "processor": "WB32FQ95",
+    "bootloader": "wb32-dfu",
+    "matrix_pins": {
+        "cols": ["B12"],
+        "rows": ["B13"]
+    },
+    "backlight": {
+        "pin": "B8"
+    },
+    "ws2812": {
+        "pin": "A0"
+    },
+    "apa102": {
+        "data_pin": "A0",
+        "clock_pin": "B8"
+    }
 }

@@ -18,29 +18,13 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* Key matrix configuration. */
-#define MATRIX_ROWS 8 // Rows are doubled-up.
-#define MATRIX_COLS 6
-
-#define DIODE_DIRECTION ROW2COL
-
-/* Set 0 if debouncing isn't needed. */
-#define DEBOUNCE 5
-
-/* RGB settings. */
-#define RGBLED_NUM 42
-#define RGBLED_SPLIT \
-    { 21, 21 }
-
 /* RGB matrix support. */
 #ifdef RGB_MATRIX_ENABLE
 #    define SPLIT_TRANSPORT_MIRROR
-#    define DRIVER_LED_TOTAL RGBLED_NUM
-#    define RGB_MATRIX_SPLIT RGBLED_SPLIT
+#    define RGB_MATRIX_LED_COUNT 42
+#    define RGB_MATRIX_SPLIT { 21, 21 }
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 50
-#    define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#    define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED
 #    define RGB_MATRIX_KEYPRESSES
 #endif

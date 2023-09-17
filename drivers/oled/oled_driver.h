@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // an enumeration of the chips this driver supports
 #define OLED_IC_SSD1306 0
 #define OLED_IC_SH1106 1
+#define OLED_IC_SH1107 2
 
 #if defined(OLED_DISPLAY_CUSTOM)
 // Expected user to implement the necessary defines
@@ -68,6 +69,152 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // If OLED_BLOCK_TYPE is uint8_t, these tables would look like:
 // #define OLED_SOURCE_MAP { 0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 }
 // #define OLED_TARGET_MAP { 56, 120, 48, 112, 40, 104, 32, 96, 24, 88, 16, 80, 8, 72, 0, 64 }
+
+#elif defined(OLED_DISPLAY_64X32)
+#    ifndef OLED_DISPLAY_WIDTH
+#        define OLED_DISPLAY_WIDTH 64
+#    endif
+#    ifndef OLED_DISPLAY_HEIGHT
+#        define OLED_DISPLAY_HEIGHT 32
+#    endif
+#    ifndef OLED_COLUMN_OFFSET
+#        define OLED_COLUMN_OFFSET 32
+#    endif
+#    ifndef OLED_MATRIX_SIZE
+#        define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH)
+#    endif
+#    ifndef OLED_BLOCK_TYPE
+#        define OLED_BLOCK_TYPE uint8_t
+#    endif
+#    ifndef OLED_BLOCK_COUNT
+#        define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8) // 8 (compile time mathed)
+#    endif
+#    ifndef OLED_BLOCK_SIZE
+#        define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT) // 32 (compile time mathed)
+#    endif
+#    ifndef OLED_COM_PINS
+#        define OLED_COM_PINS COM_PINS_ALT
+#    endif
+
+#    ifndef OLED_SOURCE_MAP
+#        define OLED_SOURCE_MAP \
+            { 0, 8, 16, 24 }
+#    endif
+#    ifndef OLED_TARGET_MAP
+#        define OLED_TARGET_MAP \
+            { 24, 16, 8, 0 }
+#    endif
+
+#elif defined(OLED_DISPLAY_64X48)
+#    ifndef OLED_DISPLAY_WIDTH
+#        define OLED_DISPLAY_WIDTH 64
+#    endif
+#    ifndef OLED_DISPLAY_HEIGHT
+#        define OLED_DISPLAY_HEIGHT 48
+#    endif
+#    ifndef OLED_COLUMN_OFFSET
+#        define OLED_COLUMN_OFFSET 32
+#    endif
+#    ifndef OLED_MATRIX_SIZE
+#        define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH)
+#    endif
+#    ifndef OLED_BLOCK_TYPE
+#        define OLED_BLOCK_TYPE uint32_t
+#    endif
+#    ifndef OLED_BLOCK_COUNT
+#        define OLED_BLOCK_COUNT 24
+#    endif
+#    ifndef OLED_BLOCK_SIZE
+#        define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT)
+#    endif
+#    ifndef OLED_COM_PINS
+#        define OLED_COM_PINS COM_PINS_ALT
+#    endif
+
+#    ifndef OLED_SOURCE_MAP
+#        define OLED_SOURCE_MAP \
+            { 0, 8 }
+#    endif
+#    ifndef OLED_TARGET_MAP
+#        define OLED_TARGET_MAP \
+            { 8, 0 }
+#    endif
+
+#elif defined(OLED_DISPLAY_64X128)
+#    ifndef OLED_DISPLAY_WIDTH
+#        define OLED_DISPLAY_WIDTH 64
+#    endif
+#    ifndef OLED_DISPLAY_HEIGHT
+#        define OLED_DISPLAY_HEIGHT 128
+#    endif
+#    ifndef OLED_IC
+#        define OLED_IC OLED_IC_SH1107
+#    endif
+#    ifndef OLED_COM_PIN_OFFSET
+#        define OLED_COM_PIN_OFFSET 32
+#    endif
+#    ifndef OLED_MATRIX_SIZE
+#        define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH)
+#    endif
+#    ifndef OLED_BLOCK_TYPE
+#        define OLED_BLOCK_TYPE uint16_t
+#    endif
+#    ifndef OLED_BLOCK_COUNT
+#        define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8)
+#    endif
+#    ifndef OLED_BLOCK_SIZE
+#        define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT)
+#    endif
+#    ifndef OLED_COM_PINS
+#        define OLED_COM_PINS COM_PINS_ALT
+#    endif
+
+#    ifndef OLED_SOURCE_MAP
+#        define OLED_SOURCE_MAP \
+            { 0, 8, 16, 24, 32, 40, 48, 56 }
+#    endif
+#    ifndef OLED_TARGET_MAP
+#        define OLED_TARGET_MAP \
+            { 56, 48, 40, 32, 24, 16, 8, 0 }
+#    endif
+
+#elif defined(OLED_DISPLAY_128X128)
+// Quad height 128x128
+#    ifndef OLED_DISPLAY_WIDTH
+#        define OLED_DISPLAY_WIDTH 128
+#    endif
+#    ifndef OLED_DISPLAY_HEIGHT
+#        define OLED_DISPLAY_HEIGHT 128
+#    endif
+#    ifndef OLED_IC
+#        define OLED_IC OLED_IC_SH1107
+#    endif
+#    ifndef OLED_MATRIX_SIZE
+#        define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH) // 2048 (compile time mathed)
+#    endif
+#    ifndef OLED_BLOCK_TYPE
+#        define OLED_BLOCK_TYPE uint32_t
+#    endif
+#    ifndef OLED_BLOCK_COUNT
+#        define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8) // 32 (compile time mathed)
+#    endif
+#    ifndef OLED_BLOCK_SIZE
+#        define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT) // 64 (compile time mathed)
+#    endif
+#    ifndef OLED_COM_PINS
+#        define OLED_COM_PINS COM_PINS_ALT
+#    endif
+
+// For 90 degree rotation, we map our internal matrix to oled matrix using fixed arrays
+// The OLED writes to it's memory horizontally, starting top left, but our memory starts bottom left in this mode
+#    ifndef OLED_SOURCE_MAP
+#        define OLED_SOURCE_MAP \
+            { 0, 8, 16, 24, 32, 40, 48, 56 }
+#    endif
+#    ifndef OLED_TARGET_MAP
+#        define OLED_TARGET_MAP \
+            { 56, 48, 40, 32, 24, 16, 8, 0 }
+#    endif
 #else // defined(OLED_DISPLAY_128X64)
 // Default 128x32
 #    ifndef OLED_DISPLAY_WIDTH
@@ -170,6 +317,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define OLED_UPDATE_INTERVAL 50
 #endif
 
+#if !defined(OLED_UPDATE_PROCESS_LIMIT)
+#    define OLED_UPDATE_PROCESS_LIMIT 1
+#endif
+
 typedef struct __attribute__((__packed__)) {
     uint8_t *current_element;
     uint16_t remaining_element_count;
@@ -186,6 +337,12 @@ typedef enum {
 // Initialize the oled display, rotating the rendered output based on the define passed in.
 // Returns true if the OLED was initialized successfully
 bool oled_init(oled_rotation_t rotation);
+
+// Send commands and data to screen
+bool oled_send_cmd(const uint8_t *data, uint16_t size);
+bool oled_send_cmd_P(const uint8_t *data, uint16_t size);
+bool oled_send_data(const uint8_t *data, uint16_t size);
+void oled_driver_init(void);
 
 // Called at the start of oled_init, weak function overridable by the user
 // rotation - the value passed into oled_init
@@ -260,7 +417,7 @@ void oled_write_ln_P(const char *data, bool invert);
 void oled_write_raw_P(const char *data, uint16_t size);
 #else
 #    define oled_write_P(data, invert) oled_write(data, invert)
-#    define oled_write_ln_P(data, invert) oled_write(data, invert)
+#    define oled_write_ln_P(data, invert) oled_write_ln(data, invert)
 #    define oled_write_raw_P(data, size) oled_write_raw(data, size)
 #endif // defined(__AVR__)
 

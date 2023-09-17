@@ -24,8 +24,10 @@
  * STM32_I2C_USE_I2C1 is TRUE in the mcuconf.h file. Pins B6 and B7 are used
  * but using any other I2C pins should be trivial.
  */
-#include "quantum.h"
+
 #include "i2c_master.h"
+#include "gpio.h"
+#include "chibios_config.h"
 #include <string.h>
 #include <ch.h>
 #include <hal.h>

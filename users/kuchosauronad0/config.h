@@ -19,8 +19,17 @@
 #endif // !AUDIO_ENABLE
 
 #ifdef RGBLIGHT_ENABLE
-#  define RGBLIGHT_SLEEP
-#  undef  RGBLIGHT_ANIMATIONS
+#  undef RGBLIGHT_SLEEP
+#undef RGBLIGHT_EFFECT_BREATHING
+#undef RGBLIGHT_EFFECT_RAINBOW_MOOD
+#undef RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#undef RGBLIGHT_EFFECT_SNAKE
+#undef RGBLIGHT_EFFECT_KNIGHT
+#undef RGBLIGHT_EFFECT_CHRISTMAS
+#undef RGBLIGHT_EFFECT_STATIC_GRADIENT
+#undef RGBLIGHT_EFFECT_RGB_TEST
+#undef RGBLIGHT_EFFECT_ALTERNATING
+#undef RGBLIGHT_EFFECT_TWINKLE
 #  define RGBLIGHT_HUE_STEP 16
 #  define RGBLIGHT_SAT_STEP 16
 #  define RGBLIGHT_VAL_STEP 16
@@ -44,24 +53,18 @@
 #if defined(LEADER_ENABLE)
 #  define LEADER_PER_KEY_TIMING
 #  define LEADER_TIMEOUT 250
-#endif // !LEADER_ENABLE 
+#endif // !LEADER_ENABLE
 
 #if defined(COMBO_ENABLE)
-#  define COMBO_COUNT 4
 #  define COMBO_TERM 150
-#endif // !COMBO_ENABLE 
+#endif // !COMBO_ENABLE
 
 #if defined(NKRO_ENABLE)
 #  define FORCE_NKRO
 #endif // !NKRO_ENABLE
 
-// this makes it possible to do rolling combos (zx) with keys that
-// convert to other keys on hold (z becomes ctrl when you hold it,
-// and when this option isn't enabled, z rapidly followed by x
-// actually sends Ctrl-x. That's bad.)
-#define IGNORE_MOD_TAP_INTERRUPT
 #undef PERMISSIVE_HOLD
-//#define TAPPING_FORCE_HOLD
+//#define QUICK_TAP_TERM 0
 //#define RETRO_TAPPING
 
 #ifndef TAPPING_TOGGLE
@@ -82,5 +85,4 @@
 
 #define TAP_CODE_DELAY 5
 
-#define MACRO_TIMER 5 
-
+#define MACRO_TIMER 5

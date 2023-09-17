@@ -1,11 +1,11 @@
 # MNK65
 
-![MNK65](https://i.imgur.com/5BzAgPgl.png)
+![MNK65](https://i.imgur.com/YTrMDHjh.jpg)
 
-A QMK-powered, VIA-enabled 65% PCB with support for ANSI/ISO layouts, split Backspace and 6.25U/7U bottom row.
+A QMK-powered, VIA-enabled 65% PCB with support for ANSI/ISO layouts, split Backspace and various bottom row layout configurations.
 
 * Keyboard Maintainer: kopibeng
-* Hardware Supported: MONOKEI - Hiro
+* Hardware Supported: MONOKEI
 * Hardware Availability: https://monokei.co/
 
 Make example for this keyboard (after setting up your build environment):

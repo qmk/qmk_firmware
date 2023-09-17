@@ -1,0 +1,407 @@
+{
+    "aliases": {
+/*
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │ ‚ │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ ' │ + │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │ Q │ W │ E │ R │ T │ Z │ U │ I │ O │ P │ Š │ Đ │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │ A │ S │ D │ F │ G │ H │ J │ K │ L │ Č │ Ć │ Ž │    │
+ * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
+ * │    │ < │ Y │ X │ C │ V │ B │ N │ M │ , │ . │ - │          │
+ * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+        "KC_GRV": {
+            "key": "RS_SLQU",
+            "label": "‚ (dead)",
+        }
+        "KC_1": {
+            "key": "RS_1",
+            "label": "1",
+        }
+        "KC_2": {
+            "key": "RS_2",
+            "label": "2",
+        }
+        "KC_3": {
+            "key": "RS_3",
+            "label": "3",
+        }
+        "KC_4": {
+            "key": "RS_4",
+            "label": "4",
+        }
+        "KC_5": {
+            "key": "RS_5",
+            "label": "5",
+        }
+        "KC_6": {
+            "key": "RS_6",
+            "label": "6",
+        }
+        "KC_7": {
+            "key": "RS_7",
+            "label": "7",
+        }
+        "KC_8": {
+            "key": "RS_8",
+            "label": "8",
+        }
+        "KC_9": {
+            "key": "RS_9",
+            "label": "9",
+        }
+        "KC_0": {
+            "key": "RS_0",
+            "label": "0",
+        }
+        "KC_MINS": {
+            "key": "RS_QUOT",
+            "label": "'",
+        }
+        "KC_EQL": {
+            "key": "RS_PLUS",
+            "label": "+",
+        }
+        "KC_Q": {
+            "key": "RS_Q",
+            "label": "Q",
+        }
+        "KC_W": {
+            "key": "RS_W",
+            "label": "W",
+        }
+        "KC_E": {
+            "key": "RS_E",
+            "label": "E",
+        }
+        "KC_R": {
+            "key": "RS_R",
+            "label": "R",
+        }
+        "KC_T": {
+            "key": "RS_T",
+            "label": "T",
+        }
+        "KC_Y": {
+            "key": "RS_Z",
+            "label": "Z",
+        }
+        "KC_U": {
+            "key": "RS_U",
+            "label": "U",
+        }
+        "KC_I": {
+            "key": "RS_I",
+            "label": "I",
+        }
+        "KC_O": {
+            "key": "RS_O",
+            "label": "O",
+        }
+        "KC_P": {
+            "key": "RS_P",
+            "label": "P",
+        }
+        "KC_LBRC": {
+            "key": "RS_SCAR",
+            "label": "Š",
+        }
+        "KC_RBRC": {
+            "key": "RS_DSTR",
+            "label": "Đ",
+        }
+        "KC_A": {
+            "key": "RS_A",
+            "label": "A",
+        }
+        "KC_S": {
+            "key": "RS_S",
+            "label": "S",
+        }
+        "KC_D": {
+            "key": "RS_D",
+            "label": "D",
+        }
+        "KC_F": {
+            "key": "RS_F",
+            "label": "F",
+        }
+        "KC_G": {
+            "key": "RS_G",
+            "label": "G",
+        }
+        "KC_H": {
+            "key": "RS_H",
+            "label": "H",
+        }
+        "KC_J": {
+            "key": "RS_J",
+            "label": "J",
+        }
+        "KC_K": {
+            "key": "RS_K",
+            "label": "K",
+        }
+        "KC_L": {
+            "key": "RS_L",
+            "label": "L",
+        }
+        "KC_SCLN": {
+            "key": "RS_CCAR",
+            "label": "Č",
+        }
+        "KC_QUOT": {
+            "key": "RS_CACU",
+            "label": "Ć",
+        }
+        "KC_NUHS": {
+            "key": "RS_ZCAR",
+            "label": "Ž",
+        }
+        "KC_NUBS": {
+            "key": "RS_LABK",
+            "label": "<",
+        }
+        "KC_Z": {
+            "key": "RS_Y",
+            "label": "Y",
+        }
+        "KC_X": {
+            "key": "RS_X",
+            "label": "X",
+        }
+        "KC_C": {
+            "key": "RS_C",
+            "label": "C",
+        }
+        "KC_V": {
+            "key": "RS_V",
+            "label": "V",
+        }
+        "KC_B": {
+            "key": "RS_B",
+            "label": "B",
+        }
+        "KC_N": {
+            "key": "RS_N",
+            "label": "N",
+        }
+        "KC_M": {
+            "key": "RS_M",
+            "label": "M",
+        }
+        "KC_COMM": {
+            "key": "RS_COMM",
+            "label": ",",
+        }
+        "KC_DOT": {
+            "key": "RS_DOT",
+            "label": ".",
+        }
+        "KC_SLSH": {
+            "key": "RS_MINS",
+            "label": "-",
+        }
+/* Shifted symbols
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │ ~ │ ! │ " │ # │ $ │ % │ & │ / │ ( │ ) │ = │ ? │ * │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │   │   │   │   │   │   │   │   │   │   │   │   │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │   │   │   │   │   │   │   │   │   │   │   │   │    │
+ * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
+ * │    │ > │   │   │   │   │   │   │   │ ; │ : │ _ │          │
+ * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+        "S(RS_SLQU)": {
+            "key": "RS_TILD",
+            "label": "~",
+        }
+        "S(RS_1)": {
+            "key": "RS_EXLM",
+            "label": "!",
+        }
+        "S(RS_2)": {
+            "key": "RS_DQUO",
+            "label": "\"",
+        }
+        "S(RS_3)": {
+            "key": "RS_HASH",
+            "label": "#",
+        }
+        "S(RS_4)": {
+            "key": "RS_DLR",
+            "label": "$",
+        }
+        "S(RS_5)": {
+            "key": "RS_PERC",
+            "label": "%",
+        }
+        "S(RS_6)": {
+            "key": "RS_AMPR",
+            "label": "&",
+        }
+        "S(RS_7)": {
+            "key": "RS_SLSH",
+            "label": "/",
+        }
+        "S(RS_8)": {
+            "key": "RS_LPRN",
+            "label": "(",
+        }
+        "S(RS_9)": {
+            "key": "RS_RPRN",
+            "label": ")",
+        }
+        "S(RS_0)": {
+            "key": "RS_EQL",
+            "label": "=",
+        }
+        "S(RS_QUOT)": {
+            "key": "RS_QUES",
+            "label": "?",
+        }
+        "S(RS_PLUS)": {
+            "key": "RS_ASTR",
+            "label": "*",
+        }
+        "S(RS_LABK)": {
+            "key": "RS_RABK",
+            "label": ">",
+        }
+        "S(RS_COMM)": {
+            "key": "RS_SCLN",
+            "label": ";",
+        }
+        "S(RS_DOT)": {
+            "key": "RS_COLN",
+            "label": ":",
+        }
+        "S(RS_MINS)": {
+            "key": "RS_UNDS",
+            "label": "_",
+        }
+/* AltGr symbols
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │   │   │ ˇ │ ^ │ ˘ │ ° │ ˛ │ ` │ ˙ │ ´ │ ˝ │ ¨ │ ¸ │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │ \ │ | │ € │   │   │   │   │   │   │   │ ÷ │ × │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │   │   │   │ [ │ ] │   │   │ ł │ Ł │   │ ß │ ¤ │    │
+ * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
+ * │    │   │   │   │   │ @ │ { │ } │ § │   │   │   │          │
+ * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+        "ALGR(RS_2)": {
+            "key": "RS_CARN",
+            "label": "ˇ (dead)",
+        }
+        "ALGR(RS_3)": {
+            "key": "RS_CIRC",
+            "label": "^ (dead)",
+        }
+        "ALGR(RS_4)": {
+            "key": "RS_BREV",
+            "label": "˘ (dead)",
+        }
+        "ALGR(RS_5)": {
+            "key": "RS_RNGA",
+            "label": "° (dead)",
+        }
+        "ALGR(RS_6)": {
+            "key": "RS_OGON",
+            "label": "˛ (dead)",
+        }
+        "ALGR(RS_7)": {
+            "key": "RS_GRV",
+            "label": "`",
+        }
+        "ALGR(RS_8)": {
+            "key": "RS_DOTA",
+            "label": "˙ (dead)",
+        }
+        "ALGR(RS_9)": {
+            "key": "RS_ACUT",
+            "label": "´ (dead)",
+        }
+        "ALGR(RS_0)": {
+            "key": "RS_DACU",
+            "label": "˝ (dead)",
+        }
+        "ALGR(RS_QUOT)": {
+            "key": "RS_DIAE",
+            "label": "¨ (dead)",
+        }
+        "ALGR(RS_PLUS)": {
+            "key": "RS_CEDL",
+            "label": "¸ (dead)",
+        }
+        "ALGR(RS_Q)": {
+            "key": "RS_BSLS",
+            "label": "\\",
+        }
+        "ALGR(RS_W)": {
+            "key": "RS_PIPE",
+            "label": "|",
+        }
+        "ALGR(RS_E)": {
+            "key": "RS_EURO",
+            "label": "€",
+        }
+        "ALGR(RS_SCAR)": {
+            "key": "RS_DIV",
+            "label": "÷",
+        }
+        "ALGR(RS_DSTR)": {
+            "key": "RS_MUL",
+            "label": "×",
+        }
+        "ALGR(RS_F)": {
+            "key": "RS_LBRC",
+            "label": "[",
+        }
+        "ALGR(RS_G)": {
+            "key": "RS_RBRC",
+            "label": "]",
+        }
+        "ALGR(RS_K)": {
+            "key": "RS_LLST",
+            "label": "ł",
+        }
+        "ALGR(RS_L)": {
+            "key": "RS_CLST",
+            "label": "Ł",
+        }
+        "ALGR(RS_CACU)": {
+            "key": "RS_SS",
+            "label": "ß",
+        }
+        "ALGR(RS_ZCAR)": {
+            "key": "RS_CURR",
+            "label": "¤",
+        }
+        "ALGR(RS_V)": {
+            "key": "RS_AT",
+            "label": "@",
+        }
+        "ALGR(RS_B)": {
+            "key": "RS_LCBR",
+            "label": "{",
+        }
+        "ALGR(RS_N)": {
+            "key": "RS_RCBR",
+            "label": "}",
+        }
+        "ALGR(RS_M)": {
+            "key": "RS_SECT",
+            "label": "§",
+        }
+    }
+}

@@ -22,7 +22,7 @@ void keyboard_post_init_rgb(void) {
         return;
     }
     rgblight_enable_noeeprom();
-    rgblight_sethsv_noeeprom_orange();
+    rgblight_sethsv_noeeprom(HSV_ORANGE);
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
 }
 
@@ -64,31 +64,31 @@ layer_state_t layer_state_set_rgb(layer_state_t state) {
 #ifdef LAYERS_PROGRAMMER
         case _PROGRAMMER_SHIFTED:
 #endif
-            rgblight_sethsv_noeeprom_orange();
+            rgblight_sethsv_noeeprom(HSV_ORANGE);
             break;
 #ifdef LAYERS_ORTHO
         case _LOWER:
-            rgblight_sethsv_noeeprom_red();
+            rgblight_sethsv_noeeprom(HSV_RED);
             break;
         case _RAISE:
-            rgblight_sethsv_noeeprom_blue();
+            rgblight_sethsv_noeeprom(HSV_BLUE);
             break;
         case _ADJUST:
-            rgblight_sethsv_noeeprom_purple();
+            rgblight_sethsv_noeeprom(HSV_PURPLE);
             break;
 #endif
 #ifdef LAYER_FN
         case _FN:
-            rgblight_sethsv_noeeprom_chartreuse();
+            rgblight_sethsv_noeeprom(HSV_CHARTREUSE);
             break;
 #endif
 #ifdef LAYER_GIT
         case _GIT:
-            rgblight_sethsv_noeeprom_teal();
+            rgblight_sethsv_noeeprom(HSV_TEAL);
             break;
 #endif
         default:
-            rgblight_sethsv_noeeprom_white();
+            rgblight_sethsv_noeeprom(HSV_WHITE);
             break;
     }
     return state;

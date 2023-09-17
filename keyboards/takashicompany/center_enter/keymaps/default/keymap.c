@@ -30,14 +30,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     LAYOUT(
         KC_TRNS, KC_1, KC_2, KC_3, KC_4, KC_5,                          KC_6, KC_7, KC_8, KC_9, KC_0,
-        KC_TRNS, KC_EQL, KC_LBRC, KC_SLSH, KC_MINS, KC_RO,     KC_TRNS, KC_SCLN, KC_QUOT, KC_RBRC, KC_NUHS, KC_JYEN,
-        KC_TRNS, KC_LSFT, KC_LGUI, KC_LALT, KC_LANG2, KC_LSFT, KC_TRNS, KC_SPC, KC_LANG1, KC_TRNS, KC_TRNS, KC_DEL
+        KC_TRNS, KC_EQL, KC_LBRC, KC_SLSH, KC_MINS, KC_INT1,   KC_TRNS, KC_SCLN, KC_QUOT, KC_RBRC, KC_NUHS, KC_INT3,
+        KC_TRNS, KC_LSFT, KC_LGUI, KC_LALT, KC_LNG2, KC_LSFT, KC_TRNS, KC_SPC, KC_LNG1, KC_TRNS, KC_TRNS, KC_DEL
     ),
 
     LAYOUT(
         KC_TRNS, KC_ESC, KC_TAB, KC_NO, KC_NO, KC_NO,                   KC_NO, KC_NO, KC_UP, KC_NO, KC_NO,
         KC_TRNS, KC_LCTL, KC_TRNS, KC_QUES, KC_EXLM, KC_NO,    KC_TRNS, KC_NO, KC_LEFT, KC_DOWN, KC_RGHT, KC_NO,
-        KC_TRNS, KC_LSFT, KC_LGUI, KC_LALT, KC_LANG2, KC_TRNS, KC_TRNS, KC_TRNS, KC_LANG1, KC_NO, MO(3), KC_DEL
+        KC_TRNS, KC_LSFT, KC_LGUI, KC_LALT, KC_LNG2, KC_TRNS, KC_TRNS, KC_TRNS, KC_LNG1, KC_NO, MO(3), KC_DEL
     ),
 
     LAYOUT(
@@ -61,22 +61,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
 
                 if (is_lang1) {
-                    register_code(KC_LANG1);
+                    register_code(KC_LNG1);
                     is_lang1 = false;
                 }
                 else {
-                    register_code(KC_LANG2);
+                    register_code(KC_LNG2);
                     is_lang1 = true;
                 }
             }
             break;
-        case KC_LANG1:
+        case KC_LNG1:
             if (record->event.pressed) {
                 is_lang1 = false;
             }
             break;
 
-        case KC_LANG2:
+        case KC_LNG2:
             if (record->event.pressed) {
                 is_lang1 = true;
             }

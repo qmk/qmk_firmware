@@ -61,11 +61,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `--------------------------------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT(
-  KC_ESC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,          KC_MINS,\
-  KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,           KC_BSPC,    KC_P7,   KC_P8,   KC_P9, \
-  KC_CAPS,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    LT_MC(KC_SCLN), CTL_ENT,    KC_P4,   KC_P5,   KC_P6, \
-  KC_LSFT,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,         KC_EQL,    KC_P1,   KC_P2,   KC_P3, \
-  KC_GRV,    KC_RCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_RALT, KC_INS,  KC_DEL,       TG_NUMLAY,    KC_P0,   KC_PDOT, KC_PENT \
+  KC_ESC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,          KC_MINS,
+  KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,           KC_BSPC,    KC_P7,   KC_P8,   KC_P9,
+  KC_CAPS,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    LT_MC(KC_SCLN), CTL_ENT,    KC_P4,   KC_P5,   KC_P6,
+  KC_LSFT,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,         KC_EQL,    KC_P1,   KC_P2,   KC_P3,
+  KC_GRV,    KC_RCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_RALT, KC_INS,  KC_DEL,       TG_NUMLAY,    KC_P0,   KC_PDOT, KC_PENT
 ),
 
 /* Lower
@@ -82,11 +82,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `--------------------------------------------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT(
-  KC_ESC,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,      KC_NO,      KC_NO,   KC_NO,   KC_NO,   KC_NO, \
-  KC_1,       KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,       KC_8,       KC_9,    KC_0,  KC_GRV, KC_BSLS, _______, _______, _______, \
-  KC_CAPS,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,    KC_UNDS,     KC_EQL, KC_LBRC, KC_RBRC, KC_PIPE, _______, _______, _______, \
-  _______,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12, S(KC_NUHS), S(KC_NUBS), KC_LCBR, KC_RCBR, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______,    _______,    KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY, _______, _______, _______\
+  KC_ESC,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,      KC_NO,      KC_NO,   KC_NO,   KC_NO,   KC_NO,
+  KC_1,       KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,       KC_8,       KC_9,    KC_0,  KC_GRV, KC_BSLS, _______, _______, _______,
+  KC_CAPS,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,    KC_UNDS,     KC_EQL, KC_LBRC, KC_RBRC, KC_PIPE, _______, _______, _______,
+  _______,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12, S(KC_NUHS), S(KC_NUBS), KC_LCBR, KC_RCBR, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______,    _______,    KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY, _______, _______, _______
 ),
 
 /* Raise
@@ -103,11 +103,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `--------------------------------------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT(
-  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,   KC_F6, KC_F7,   KC_F8,      KC_F9,  KC_F10,   KC_F11,  KC_F12, \
-  KC_1,    KC_2,    KC_3,    KC_4,     KC_5,        KC_6,  KC_7,    KC_8,       KC_9,    KC_0,  KC_PLUS, KC_BSLS, _______, _______, _______, \
-  _______, KC_A,    KC_UP,   KC_D,     KC_PSCR,  _______,  KC_4,    KC_5,       KC_6, KC_PAST,  KC_COLN, KC_QUOT, _______, _______, _______, \
-  _______, KC_LEFT, KC_DOWN, KC_RIGHT, KC__MUTE, _______,  KC_1,    KC_2,       KC_3,   KC_UP,  KC_SLSH, _______, _______, _______, _______, \
-  _______, _______, _______, _______,   _______,  KC_SPC,  KC_0,   _______,  KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______, _______, _______  \
+  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,   KC_F6, KC_F7,   KC_F8,      KC_F9,  KC_F10,   KC_F11,  KC_F12,
+  KC_1,    KC_2,    KC_3,    KC_4,     KC_5,        KC_6,  KC_7,    KC_8,       KC_9,    KC_0,  KC_PLUS, KC_BSLS, _______, _______, _______,
+  _______, KC_A,    KC_UP,   KC_D,     KC_PSCR,  _______,  KC_4,    KC_5,       KC_6, KC_PAST,  KC_COLN, KC_QUOT, _______, _______, _______,
+  _______, KC_LEFT, KC_DOWN, KC_RIGHT, KC_MUTE,  _______,  KC_1,    KC_2,       KC_3,   KC_UP,  KC_SLSH, _______, _______, _______, _______,
+  _______, _______, _______, _______,   _______,  KC_SPC,  KC_0,   _______,  KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______, _______, _______
 ),
 
 /* FN layer on Esc key
@@ -124,11 +124,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `--------------------------------------------------------------------------------------------------------'
  */
 [_FNLAYER] = LAYOUT(
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   _______, _______,\
-  _______, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC, KC_CIRC,   KC_AMPR,    KC_ASTR, KC_LPRN, KC_RPRN, KC_PLUS, _______, _______, _______, \
-  _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS,     KC_EQL, KC_LBRC, KC_RBRC, KC_QUOT, _______, _______, _______, \
-  _______,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,S(KC_NUHS), S(KC_NUBS), KC_LCBR, KC_RCBR, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______,   _______,    KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY, _______, _______, _______ \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   _______, _______,
+  _______, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC, KC_CIRC,   KC_AMPR,    KC_ASTR, KC_LPRN, KC_RPRN, KC_PLUS, _______, _______, _______,
+  _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS,     KC_EQL, KC_LBRC, KC_RBRC, KC_QUOT, _______, _______, _______,
+  _______,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,S(KC_NUHS), S(KC_NUBS), KC_LCBR, KC_RCBR, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______,   _______,    KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY, _______, _______, _______
 ),
 
 /* Num Layer
@@ -145,11 +145,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `--------------------------------------------------------------------------------------------------------'
  */
 [_NUMLAY] = LAYOUT(
-  _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______,\
-  _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, KC_INS,  KC_HOME,  KC_PGUP,   \
-  _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, KC_DEL,   KC_END,  KC_PGDN,   \
-  _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, KC_PMNS,    KC_UP,   KC_PPLS,   \
-  _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RIGHT \
+  _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, KC_INS,  KC_HOME,  KC_PGUP,
+  _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, KC_DEL,   KC_END,  KC_PGDN,
+  _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, KC_PMNS,    KC_UP,   KC_PPLS,
+  _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RIGHT
 ),
 
 /* Mouse Layer (semi-col)
@@ -167,11 +167,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_MOUSECURSOR] = LAYOUT(
-  _______, KC_ACL0, KC_ACL1, KC_ACL2, _______, _______, _______, _______, _______, _______,   _______, _______,\
-  _______, _______, _______, _______, _______, KC_HOME, KC_PGUP, KC_WH_L, KC_MS_U, KC_WH_R, DEMOMACRO, _______, _______, _______, _______, \
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_END , KC_PGDN, KC_MS_L, KC_MS_D, KC_MS_R,   _______, _______, _______, _______, _______, \
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5,   _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, KC_BTN1, KC_BTN1, _______, _______, _______,   _______, _______, _______, _______, _______ \
+  _______, KC_ACL0, KC_ACL1, KC_ACL2, _______, _______, _______, _______, _______, _______,   _______, _______,
+  _______, _______, _______, _______, _______, KC_HOME, KC_PGUP, KC_WH_L, KC_MS_U, KC_WH_R, DEMOMACRO, _______, _______, _______, _______,
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_END , KC_PGDN, KC_MS_L, KC_MS_D, KC_MS_R,   _______, _______, _______, _______, _______,
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5,   _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, KC_BTN1, KC_BTN1, _______, _______, _______,   _______, _______, _______, _______, _______
 ),
 
 /* Adjust (Lower + Raise)
@@ -189,11 +189,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `--------------------------------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT(
-  QK_BOOT,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_VOLD, KC_VOLU, KC_MUTE, \
-  _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______,  KC_DEL, _______, _______, _______, \
-  _______, _______, _______,   AU_ON,  AU_OFF, AG_NORM, AG_SWAP,  QWERTY, _______, _______, _______, _______, _______, _______, _______, \
-  _______,  MUV_DE,  MUV_IN,   MU_ON,  MU_OFF,   MI_ON,  MI_OFF, _______, BL_DEC,  BL_INC,  BL_STEP, BL_TOGG, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
+  QK_BOOT,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_VOLD, KC_VOLU, KC_MUTE,
+  _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______,  KC_DEL, _______, _______, _______,
+  _______, _______, _______,   AU_ON,  AU_OFF, AG_NORM, AG_SWAP,  QWERTY, _______, _______, _______, _______, _______, _______, _______,
+  _______, AU_PREV, AU_NEXT,   MU_ON,  MU_OFF,   MI_ON,  MI_OFF, _______, BL_DOWN, BL_UP,   BL_STEP, BL_TOGG, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 )
 
 
@@ -325,13 +325,13 @@ void matrix_init_user(void) {
 
 #ifdef AUDIO_ENABLE
 
-void startup_user()
+void startup_user(void)
 {
     _delay_ms(20); // gets rid of tick
     PLAY_SONG(tone_startup);
 }
 
-void shutdown_user()
+void shutdown_user(void)
 {cc
     PLAY_SONG(tone_goodbye);
     _delay_ms(150);

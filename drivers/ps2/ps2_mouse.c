@@ -80,30 +80,29 @@ void ps2_mouse_task(void) {
     uint8_t rcv;
     rcv = ps2_host_send(PS2_MOUSE_READ_DATA);
     if (rcv == PS2_ACK) {
-        mouse_report.buttons = ps2_host_recv_response() | tp_buttons;
-        mouse_report.x       = ps2_host_recv_response() * PS2_MOUSE_X_MULTIPLIER;
-        mouse_report.y       = ps2_host_recv_response() * PS2_MOUSE_Y_MULTIPLIER;
+        mouse_report.buttons = ps2_host_recv_response();
+        mouse_report.x       = ps2_host_recv_response();
+        mouse_report.y       = ps2_host_recv_response();
 #    ifdef PS2_MOUSE_ENABLE_SCROLLING
-        mouse_report.v = -(ps2_host_recv_response() & PS2_MOUSE_SCROLL_MASK) * PS2_MOUSE_V_MULTIPLIER;
+        mouse_report.v = -(ps2_host_recv_response() & PS2_MOUSE_SCROLL_MASK);
 #    endif
     } else {
         if (debug_mouse) print("ps2_mouse: fail to get mouse packet\n");
-        return;
     }
 #else
     if (pbuf_has_data()) {
-        mouse_report.buttons = ps2_host_recv_response() | tp_buttons;
-        mouse_report.x       = ps2_host_recv_response() * PS2_MOUSE_X_MULTIPLIER;
-        mouse_report.y       = ps2_host_recv_response() * PS2_MOUSE_Y_MULTIPLIER;
+        mouse_report.buttons = ps2_host_recv_response();
+        mouse_report.x       = ps2_host_recv_response();
+        mouse_report.y       = ps2_host_recv_response();
 #    ifdef PS2_MOUSE_ENABLE_SCROLLING
-        mouse_report.v       = -(ps2_host_recv_response() & PS2_MOUSE_SCROLL_MASK) * PS2_MOUSE_V_MULTIPLIER;
+        mouse_report.v       = -(ps2_host_recv_response() & PS2_MOUSE_SCROLL_MASK);
 #    endif
     } else {
         if (debug_mouse) print("ps2_mouse: fail to get mouse packet\n");
-        return;
     }
 #endif
 
+    mouse_report.buttons |= tp_buttons;
     /* if mouse moves or buttons state changes */
     if (mouse_report.x || mouse_report.y || mouse_report.v || ((mouse_report.buttons ^ buttons_prev) & PS2_MOUSE_BTN_MASK)) {
 #ifdef PS2_MOUSE_DEBUG_RAW
@@ -169,6 +168,7 @@ void ps2_mouse_set_sample_rate(ps2_mouse_sample_rate_t sample_rate) {
 #define X_IS_OVF (mouse_report->buttons & (1 << PS2_MOUSE_X_OVFLW))
 #define Y_IS_OVF (mouse_report->buttons & (1 << PS2_MOUSE_Y_OVFLW))
 static inline void ps2_mouse_convert_report_to_hid(report_mouse_t *mouse_report) {
+#ifndef MOUSE_EXTENDED_REPORT
     // PS/2 mouse data is '9-bit integer'(-256 to 255) which is comprised of sign-bit and 8-bit value.
     // bit: 8    7 ... 0
     //      sign \8-bit/
@@ -176,18 +176,27 @@ static inline void ps2_mouse_convert_report_to_hid(report_mouse_t *mouse_report)
     // Meanwhile USB HID mouse indicates 8bit data(-127 to 127), note that -128 is not used.
     //
     // This converts PS/2 data into HID value. Use only -127-127 out of PS/2 9-bit.
+    mouse_report->x *= PS2_MOUSE_X_MULTIPLIER;
+    mouse_report->y *= PS2_MOUSE_Y_MULTIPLIER;
     mouse_report->x = X_IS_NEG ? ((!X_IS_OVF && -127 <= mouse_report->x && mouse_report->x <= -1) ? mouse_report->x : -127) : ((!X_IS_OVF && 0 <= mouse_report->x && mouse_report->x <= 127) ? mouse_report->x : 127);
     mouse_report->y = Y_IS_NEG ? ((!Y_IS_OVF && -127 <= mouse_report->y && mouse_report->y <= -1) ? mouse_report->y : -127) : ((!Y_IS_OVF && 0 <= mouse_report->y && mouse_report->y <= 127) ? mouse_report->y : 127);
+#else
+    // Sign extend if negative, otherwise leave positive 8-bits as-is
+    mouse_report->x = X_IS_NEG ? (mouse_report->x | ~0xFF) : mouse_report->x;
+    mouse_report->y = Y_IS_NEG ? (mouse_report->y | ~0xFF) : mouse_report->y;
+    mouse_report->x *= PS2_MOUSE_X_MULTIPLIER;
+    mouse_report->y *= PS2_MOUSE_Y_MULTIPLIER;
+#endif
+    mouse_report->v *= PS2_MOUSE_V_MULTIPLIER;
 
 #ifdef PS2_MOUSE_INVERT_BUTTONS
     // swap left & right buttons
-    uint8_t needs_left    = mouse_report->buttons & PS2_MOUSE_BTN_RIGHT;
-    uint8_t needs_right   = mouse_report->buttons & PS2_MOUSE_BTN_LEFT;
-    mouse_report->buttons = (mouse_report->buttons & ~(PS2_MOUSE_BTN_MASK)) | (needs_left ? PS2_MOUSE_BTN_LEFT : 0) | (needs_right ? PS2_MOUSE_BTN_RIGHT : 0);
-#else
+    bool needs_left       = mouse_report->buttons & (1 << PS2_MOUSE_BTN_RIGHT);
+    bool needs_right      = mouse_report->buttons & (1 << PS2_MOUSE_BTN_LEFT);
+    mouse_report->buttons = (mouse_report->buttons & ~((1 << PS2_MOUSE_BTN_LEFT) | (1 << PS2_MOUSE_BTN_RIGHT))) | (needs_left << PS2_MOUSE_BTN_LEFT) | (needs_right << PS2_MOUSE_BTN_RIGHT);
+#endif
     // remove sign and overflow flags
     mouse_report->buttons &= PS2_MOUSE_BTN_MASK;
-#endif
 
 #ifdef PS2_MOUSE_INVERT_X
     mouse_report->x = -mouse_report->x;
@@ -198,8 +207,8 @@ static inline void ps2_mouse_convert_report_to_hid(report_mouse_t *mouse_report)
 #endif
 
 #ifdef PS2_MOUSE_ROTATE
-    int8_t x = mouse_report->x;
-    int8_t y = mouse_report->y;
+    mouse_xy_report_t x = mouse_report->x;
+    mouse_xy_report_t y = mouse_report->y;
 #    if PS2_MOUSE_ROTATE == 90
     mouse_report->x = y;
     mouse_report->y = -x;

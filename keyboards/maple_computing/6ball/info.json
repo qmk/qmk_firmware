@@ -8,16 +8,41 @@
         "pid": "0x0007",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "led_count": 6,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "F7"
+    },
+    "matrix_pins": {
+        "cols": ["F4", "D4", "B5", "B6", "B2", "F6"],
+        "rows": ["F5"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"x":0, "y":0.5},
-                {"x":1, "y":0},
-                {"x":2, "y":0.5},
+                {"matrix": [0, 5], "x": 0, "y": 0.5},
+                {"matrix": [0, 0], "x": 1, "y": 0},
+                {"matrix": [0, 1], "x": 2, "y": 0.5},
 
-                {"x":0, "y":1.5},
-                {"x":1, "y":2},
-                {"x":2, "y":1.5}
+                {"matrix": [0, 4], "x": 0, "y": 1.5},
+                {"matrix": [0, 3], "x": 1, "y": 2},
+                {"matrix": [0, 2], "x": 2, "y": 1.5}
             ]
         }
     }

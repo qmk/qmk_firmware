@@ -13,27 +13,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "config_common.h"
 
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 20
+#pragma once
 
-#define MATRIX_ROW_PINS { A10, A9, A8, B14, B13, A2 }
-#define MATRIX_COL_PINS { A3, A4, A5, A6, A7, B0, B1, B2, B12, A15, B3, B4, B5, B6, B7, B8, C13, C14, C15, A0}
-
-#define DIODE_DIRECTION COL2ROW
-
-#define DEBOUNCE 5
-#define RGBLED_NUM 110
-#define DRIVER_LED_TOTAL 110
-#define RGB_DI_PIN B15
+#define RGB_MATRIX_LED_COUNT 104
 
 #ifdef RGB_MATRIX_ENABLE
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 #define RGB_MATRIX_KEYPRESSES 
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_ALL
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_ALL
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS
 #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
 #define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT

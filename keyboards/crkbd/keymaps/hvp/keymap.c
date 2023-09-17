@@ -1,9 +1,5 @@
 #include QMK_KEYBOARD_H
 #include "hvp.c"
-#ifdef SSD1306OLED
-#    include "ssd1306.h"
-#    include <string.h>
-#endif
 
 #ifdef RGBLIGHT_ENABLE
 //Following line allows macro to read current RGB settings
@@ -33,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
     LSFT_T(KC_ESC),  KC_A,  KC_S,  KC_D,  LT(3,KC_F), KC_G, KC_H,  KC_J,  KC_K,  KC_L,TD(TD1),TD(TD2),
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-    KC_LCTL,  KC_Z,  KC_X,  KC_C,  KC_V,  KC_B,                   KC_N,  KC_M,KC_COMM,KC_DOT,TD(TD3),KC_SFTENT,
+    KC_LCTL,  KC_Z,  KC_X,  KC_C,  KC_V,  KC_B,                   KC_N,  KC_M,KC_COMM,KC_DOT,TD(TD3),SC_SENT,
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                 KC_LGUI, LT(1,KC_SPC),MT(MOD_LSFT, KC_SPC),   MT(MOD_LSFT,KC_ENT), LT(2,KC_SPC),KC_LALT
                               //`--------------------'  `--------------------'

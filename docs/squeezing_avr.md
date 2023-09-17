@@ -27,8 +27,7 @@ SPACE_CADET_ENABLE = no
 GRAVE_ESC_ENABLE = no 
 MAGIC_ENABLE = no
 ```
-These features are enabled by default, but may not be needed. Double check to make sure, though. 
-Largest in size is "magic" -- the QMK magic keycodes -- which control things like NKRO toggling, GUI and ALT/CTRL swapping, etc. Disabling it will disable those functions.
+These features are enabled by default, but they may not be needed. Double check to make sure. The [Magic Keycodes](keycodes_magic.md) are the largest and control things like NKRO toggling, GUI and ALT/CTRL swapping, etc. Disabling them will disable those functions. See [Magic Functions](#magic-functions) for disabling related functions.
 
 If you use `sprintf` or `snprintf` functions you can save around ~400 Bytes by enabling this option.
 ```make
@@ -75,7 +74,7 @@ MUSIC_ENABLE = no
 
 There are also some options for layers, that can reduce the firmware size. All of these settings are for your `config.h`.
 
-You can limit the number of layers that the firmware uses -- if you're using less than 8 layers in total:
+You can limit the number of layers that the firmware uses -- if you're using up to 8 layers in total:
 ```c
 #define LAYER_STATE_8BIT
 ```
@@ -88,6 +87,21 @@ Or if you're not using layers at all, you can outright remove the functionality 
 #define NO_ACTION_LAYER
 ```
 
+## Magic Functions
+
+There are two `__attribute__ ((weak))` placeholder functions available to customize magic keycodes. If you are not using that feature to swap keycodes, such as backslash with backspace, add the following to your `keymap.c` or user space code:
+```c
+uint16_t keycode_config(uint16_t keycode) {
+    return keycode;
+}
+```
+Likewise, if you are not using magic keycodes to swap modifiers, such as Control with GUI, add the following to your `keymap.c` or user space code:
+```c
+uint8_t mod_config(uint8_t mod) {
+    return mod;
+}
+```
+Both of them will overwrite the placeholder functions with a simple return statement to reduce firmware size.
 
 ## OLED tweaks
 
@@ -192,6 +206,10 @@ That said, there are a number of Pro Micro replacements with ARM controllers:
 * [Adafruit KB2040](https://learn.adafruit.com/adafruit-kb2040)
 * [SparkFun Pro Micro - RP2040](https://www.sparkfun.com/products/18288)
 * [Blok](https://boardsource.xyz/store/628b95b494dfa308a6581622)
+* [Elite-Pi](https://keeb.io/products/elite-pi-usb-c-pro-micro-replacement-rp2040)
+* [0xCB Helios](https://keeb.supply/products/0xcb-helios) ([Open Source](https://github.com/0xCB-dev/0xCB-Helios), DIY/PCBA/Shop)
+* [Liatris](https://splitkb.com/products/liatris)
+* [Michi](https://github.com/ci-bus/michi-promicro-rp2040)
 
 There are other, non-Pro Micro compatible boards out there. The most popular being:
 * [WeAct Blackpill F411](https://www.aliexpress.com/item/1005001456186625.html) (~$6 USD)

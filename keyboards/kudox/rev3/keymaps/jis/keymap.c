@@ -10,7 +10,7 @@
 #define _LIGHT 2
 
 // Shortcut to make keymap more readable
-#define SYM_L2  LT(_SYMB, KC_LANG2)
+#define SYM_L2  LT(_SYMB, KC_LNG2)
 #define TO_LIGH TO(_LIGHT)
 #define TO_QWER TO(_QWERTY)
 
@@ -29,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤                                  ├────────┼────────┼────────┼────────┼────────┼────────┤
      KC_LSFT ,KC_Z    ,KC_X    ,KC_C    ,KC_V    ,KC_B    ,                                   KC_N    ,KC_M    ,JP_COMM ,JP_DOT  ,KC_UP   ,KC_RSFT ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                ┌────────┼────────┼────────┴────────┼────────┼────────┼────────┤
-     KC_ALES ,JP_YEN  ,JP_COLN ,SYM_L2  ,KC_ALEN ,KC_LGUI ,KC_SPC  ,                 KC_SPC  ,KC_RGUI ,TO_LIGH ,KC_LANG1,KC_LEFT, KC_DOWN ,KC_RIGHT
+     KC_ALES ,JP_YEN  ,JP_COLN ,SYM_L2  ,KC_ALEN ,KC_LGUI ,KC_SPC  ,                 KC_SPC  ,KC_RGUI ,TO_LIGH ,KC_LNG1 ,KC_LEFT, KC_DOWN ,KC_RIGHT
   //└────────┴────────┴────────┴────────┴────────┴────────┴────────┘                └────────┴────────┴────────┴────────┴────────┴────────┴────────┘
   ),
 

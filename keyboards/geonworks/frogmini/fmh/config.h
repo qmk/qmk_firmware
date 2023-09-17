@@ -17,20 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 14
-
-//                        C0 , C1 , C2 , C3 , C4 , C5 , C6 , C7 , C8 , C9 , C10, C11, C12, C13
-#define MATRIX_COL_PINS { C4 , C5 , B0 , C13, C14, C15, B9 , C1 , C2 , C3 , A6 , A5 , A4 , A0 }
-//                        R0 , R1 , R2 , R3 , R4 , R5 , R6
-#define MATRIX_ROW_PINS { A3 , A2 , A1 , B8 , A7 , C0 }
-
-#define DIODE_DIRECTION COL2ROW
-
-#define DEBOUNCE 5
-
 #define I2C_DRIVER I2CD1
 #define I2C_SCL_PIN B6
 #define I2C_SDA_PIN B7

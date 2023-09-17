@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 # Do not put the microcontroller into power saving mode
 # when we get USB suspend event. We want it to keep updating
 # backlight effects.
@@ -23,8 +17,6 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
 CIE1931_CURVE = yes
-
-LAYOUTS = 60_hhkb
 
 # project specific files
 SRC =	keyboards/wilba_tech/wt_main.c \

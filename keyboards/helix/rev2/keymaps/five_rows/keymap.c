@@ -97,7 +97,6 @@ enum custom_keycodes {
     LT(_RAISE,KC_ENT), KC_SPC, KC_RGUI, KC_RALT,  KC_APP, KC_LOWER, KC_LOWER
 #define GRV__QUOT  KC_GRV, KC_QUOT
 
-#if MATRIX_ROWS == 10 // HELIX_ROWS == 5
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Qwerty */
@@ -245,8 +244,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    ),
 
   /*  Keypad function layer */
-#define PAUS__SLCK__PSCR              KC_PAUS, KC_SLCK, KC_PSCR
-#define PSCR__SLCK__PAUS              KC_PSCR, KC_SLCK, KC_PAUS
+#define PAUS__SLCK__PSCR              KC_PAUS, KC_SCRL, KC_PSCR
+#define PSCR__SLCK__PAUS              KC_PSCR, KC_SCRL, KC_PAUS
 #define HOME___UP___PGUP              KC_HOME, KC_UP,   KC_PGUP
 #define PGUP___UP___HOME              KC_PGUP, KC_UP,   KC_HOME
 #define DEL____INS__LEFT__DOWN__RGHT  KC_DEL,  KC_INS,  KC_LEFT, KC_DOWN, KC_RGHT
@@ -273,8 +272,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    ),
 
   /* Lower */
-#define XXXX__PAUS__SLCK___INS         XXXX, KC_PAUS, KC_SLCK, KC_INS
-#define XXXX___INS__SLCK__PAUS__XXXX   XXXX, KC_INS,  KC_SLCK, KC_PAUS, XXXX
+#define XXXX__PAUS__SLCK___INS         XXXX, KC_PAUS, KC_SCRL, KC_INS
+#define XXXX___INS__SLCK__PAUS__XXXX   XXXX, KC_INS,  KC_SCRL, KC_PAUS, XXXX
 #define ADJ___ADJ                      KC_ADJ,  KC_ADJ
 #define HOME__XXXX___UP____DEL__PGUP   KC_HOME, XXXX, KC_UP, KC_DEL, KC_PGUP
 #define PGUP___DEL___UP___XXXX__HOME   KC_PGUP, KC_DEL,  KC_UP, XXXX, KC_HOME
@@ -372,11 +371,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    )
 };
 
-#else
-#error "undefined keymaps"
-#endif
-
-
 int current_default_layer;
 
 layer_state_t default_layer_state_set_user(layer_state_t state) {
@@ -446,24 +440,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case xEISU:
       if (record->event.pressed) {
         if(keymap_config.swap_lalt_lgui==false){
-          register_code(KC_LANG2);
+          register_code(KC_LNG2);
         }else{
           SEND_STRING(SS_LALT("`"));
         }
       } else {
-        unregister_code(KC_LANG2);
+        unregister_code(KC_LNG2);
       }
       return false;
       break;
     case xKANA:
       if (record->event.pressed) {
         if(keymap_config.swap_lalt_lgui==false){
-          register_code(KC_LANG1);
+          register_code(KC_LNG1);
         }else{
           SEND_STRING(SS_LALT("`"));
         }
       } else {
-        unregister_code(KC_LANG1);
+        unregister_code(KC_LNG1);
       }
       return false;
       break;

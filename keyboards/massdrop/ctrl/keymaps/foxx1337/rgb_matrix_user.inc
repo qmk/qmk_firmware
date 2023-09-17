@@ -26,7 +26,7 @@ RGB_MATRIX_EFFECT(hid_effect)
 // Define effects inside the `RGB_MATRIX_CUSTOM_EFFECT_IMPLS` ifdef block
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-RGB rgb_matrix_led_state[DRIVER_LED_TOTAL];
+RGB rgb_matrix_led_state[RGB_MATRIX_LED_COUNT];
 
 // e.g: A simple effect, self-contained within a single method
 static bool hid_effect(effect_params_t* params) {
@@ -38,7 +38,7 @@ static bool hid_effect(effect_params_t* params) {
             rgb_matrix_led_state[i].g,
             rgb_matrix_led_state[i].b);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return led_max < RGB_MATRIX_LED_COUNT;
 }
 
 #endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS

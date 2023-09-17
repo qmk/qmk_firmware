@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* Use I2C or Serial, not both */
-//
-//#define USE_SERIAL
-//#define USE_I2C
-
 //#ifdef RGBLIGHT_ENABLE
 //#   ifdef NORMAL_MODE
 //#       undef NORMAL_MODE

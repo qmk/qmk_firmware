@@ -47,10 +47,10 @@ enum {
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 
-int cur_dance (qk_tap_dance_state_t *state);
+int cur_dance (tap_dance_state_t *state);
 
-void u_finished (qk_tap_dance_state_t *state, void *user_data);
-void o_finished (qk_tap_dance_state_t *state, void *user_data);
+void u_finished (tap_dance_state_t *state, void *user_data);
+void o_finished (tap_dance_state_t *state, void *user_data);
 
 uint8_t rgb_mode = RGBLIGHT_MODE_BREATHING + 1;
 
@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = LAYOUT_ortho_4x12(
   KC_TILD, KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC,          KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_EQL,
   SLIGHTLY, SMILE, JOY, RELAXED, HEART, _______,              KC_HOME, KC_PGUP, _______, KC_LCBR, KC_RCBR, KC_PIPE,
-  SAD, CRY, NETRURAL, SCREAM, THUMBSUP, _______,              KC_END, KC_PGDOWN,_______, KC_LBRC, KC_RBRC, KC_PSCREEN,
+  SAD, CRY, NETRURAL, SCREAM, THUMBSUP, _______,              KC_END, KC_PGDN,  _______, KC_LBRC, KC_RBRC, KC_PSCR,
   _______, _______, _______, _______, _______, KC_INSERT,     KC_DEL, _______,  TD(NEXTPREV), KC_VOLD, KC_VOLU, KC_MPLY
 ),
 
@@ -121,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------'                `-----------------------------------------'
  */
 [_ADJUST] =  LAYOUT_ortho_4x12(
-  QK_BOOT, EEP_RST, _______, RALT(KC_SCLN), _______, _______,       _______, TD(U),  RALT(KC_Z),      TD(O),   _______, _______,
+  QK_BOOT, EE_CLR,  _______, RALT(KC_SCLN), _______, _______,       _______, TD(U),  RALT(KC_Z),      TD(O),   _______, _______,
   _______, RALT(KC_QUOT), _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______
@@ -281,7 +281,7 @@ void led_set_user(uint8_t usb_led) {
   rgblight_mode_noeeprom(rgb_mode);
 }
 
-int cur_dance (qk_tap_dance_state_t *state) {
+int cur_dance (tap_dance_state_t *state) {
   if (state->count == 1) {
     if (state->interrupted || !state->pressed)  return SINGLE_TAP;
     //key has not been interrupted, but they key is still held. Means you want to send a 'HOLD'.
@@ -317,7 +317,7 @@ static tap otap_state = {
   .state = 0
 };
 
-void u_finished (qk_tap_dance_state_t *state, void *user_data) {
+void u_finished (tap_dance_state_t *state, void *user_data) {
   utap_state.state = cur_dance(state);
   switch(utap_state.state) {
     case SINGLE_TAP: SEND_STRING(SS_RALT("]")); break;
@@ -326,7 +326,7 @@ void u_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void o_finished (qk_tap_dance_state_t *state, void *user_data) {
+void o_finished (tap_dance_state_t *state, void *user_data) {
   otap_state.state = cur_dance(state);
   switch(otap_state.state) {
     case SINGLE_TAP: SEND_STRING(SS_RALT("=")); break;
@@ -335,7 +335,7 @@ void o_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [U] = ACTION_TAP_DANCE_FN(u_finished),
   [O] = ACTION_TAP_DANCE_FN(o_finished),
   [NEXTPREV] = ACTION_TAP_DANCE_DOUBLE(KC_MNXT, KC_MPRV),

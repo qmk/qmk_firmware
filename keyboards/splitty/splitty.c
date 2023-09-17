@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "splitty.h"
+#include "quantum.h"
 
 #ifdef SWAP_HANDS_ENABLE
 // clang-format off

@@ -38,11 +38,13 @@ bool qgf_parse_format(qp_image_format_t format, uint8_t *bpp, bool *has_palette)
         [PALETTE_2BPP] = {.bpp = 2, .has_palette = true},
         [PALETTE_4BPP] = {.bpp = 4, .has_palette = true},
         [PALETTE_8BPP] = {.bpp = 8, .has_palette = true},
+        [RGB565_16BPP] = {.bpp = 16, .has_palette = false},
+        [RGB888_24BPP] = {.bpp = 24, .has_palette = false},
     };
     // clang-format on
 
     // Copy out the required info
-    if (format > PALETTE_8BPP) {
+    if (format > RGB888_24BPP) {
         qp_dprintf("Failed to parse frame_descriptor, invalid format 0x%02X\n", (int)format);
         return false;
     }

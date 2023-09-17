@@ -1,5 +1,18 @@
 {
     "usb": {
         "device_version": "0.0.1"
-    }
+    },
+    "matrix_pins": {
+        "cols": ["B4", "E6", "D7", "C6", "D4", "D0", "F7", "F6", "F5", "F4", "F1", "F0"],
+        "rows": ["B6", "B3", "B1", "D6", "B7", "B5", "D1"]
+    },
+    "diode_direction": "COL2ROW",
+    "indicators": {
+        "caps_lock": "B0",
+        "num_lock": "D2",
+        "scroll_lock": "D3",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "lufa-dfu"
 }

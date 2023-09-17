@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 // Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     // Tap once for first parameter, twice for second
     [_TD_CTGU] = ACTION_TAP_DANCE_DOUBLE(KC_LCTL, KC_LGUI),
     [_TD_PGUP] = ACTION_TAP_DANCE_DOUBLE(KC_PGUP, LCTL(KC_PGUP)),

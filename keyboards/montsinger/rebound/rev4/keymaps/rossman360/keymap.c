@@ -6,7 +6,7 @@
 #define SPCMOD LT(_FN1, KC_SPACE)
 #define ENTMOD LT(_FN2, KC_ENTER)
 #define ESCMOD LT(_NUM, KC_ESC)
-#define RSMOD LT(_FN1, KC_RSHIFT)
+#define RSMOD LT(_FN1, KC_RSFT)
 #
 
 enum layer_names {

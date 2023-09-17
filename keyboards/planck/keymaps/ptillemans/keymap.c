@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_INS, KC_HOME,    KC_UP,  KC_END, KC_PGUP, KC_PERC, KC_CIRC, KC_AMPR,   KC_F7,   KC_F8,   KC_F9,  KC_F10,
     KC_DEL, KC_LEFT,  KC_DOWN, KC_RGHT, KC_PGDN, _______, _______, _______,   KC_F4,   KC_F5,   KC_F6,  KC_F11,
     _______, KC_VOLU, _______, _______, _______, _______, _______, KC_TILD,   KC_F1,   KC_F2,   KC_F3,  KC_F12,
-    _______, KC_VOLD, _______, _______, KC_MNXT, _______, _______, _______,  TO(_QWERTY), KC_PSCR, KC_SLCK, KC_MPLY
+    _______, KC_VOLD, _______, _______, KC_MNXT, _______, _______, _______,  TO(_QWERTY), KC_PSCR, KC_SCRL, KC_MPLY
 ),
 
 /* Raise
@@ -146,10 +146,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid(
-    _______, QK_BOOT, DEBUG,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD,  RGB_VAI, RGB_VAD, KC_DEL ,
-    _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______,  QWERTY,  DVORAK,  PLOVER,  _______,
-    BACKLIT, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  TERM_ON, TERM_OFF, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______
+    _______, QK_BOOT, DB_TOGG, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL ,
+    _______, _______, MU_NEXT, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______,  QWERTY, DVORAK,  PLOVER,  _______,
+    BACKLIT, AU_PREV, AU_NEXT, MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 )
 };
 

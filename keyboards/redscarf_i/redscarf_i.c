@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "redscarf_i.h"
+#include "quantum.h"
 
 void keyboard_pre_init_kb(void) {
   // initialize top row leds

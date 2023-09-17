@@ -1,10 +1,3 @@
-# MCU name
-MCU = STM32F303
-BOARD = QMK_PROTON_C
-
-# Bootloader selection
-BOOTLOADER = stm32-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -20,7 +13,6 @@ USE_I2C = no
 RGBLIGHT_ENABLE = yes
 ENCODER_ENABLE = yes
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
 UNICODE_ENABLE = yes
 
 SRC += ds1307.c taphold.c

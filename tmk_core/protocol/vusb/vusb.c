@@ -35,9 +35,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "raw_hid.h"
 #endif
 
+#ifdef JOYSTICK_ENABLE
+#    include "joystick.h"
+#endif
+
 #if defined(CONSOLE_ENABLE)
 #    define RBUF_SIZE 128
 #    include "ring_buffer.h"
+#endif
+
+#ifdef OS_DETECTION_ENABLE
+#    include "os_detection.h"
 #endif
 
 #define NEXT_INTERFACE __COUNTER__
@@ -224,11 +232,9 @@ void console_task(void) {
 static uint8_t keyboard_leds(void);
 static void    send_keyboard(report_keyboard_t *report);
 static void    send_mouse(report_mouse_t *report);
-static void    send_system(uint16_t data);
-static void    send_consumer(uint16_t data);
-static void    send_programmable_button(uint32_t data);
+static void    send_extra(report_extra_t *report);
 
-static host_driver_t driver = {keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer, send_programmable_button};
+static host_driver_t driver = {keyboard_leds, send_keyboard, send_mouse, send_extra};
 
 host_driver_t *vusb_driver(void) {
     return &driver;
@@ -269,31 +275,19 @@ static void send_mouse(report_mouse_t *report) {
 #endif
 }
 
+static void send_extra(report_extra_t *report) {
 #ifdef EXTRAKEY_ENABLE
-static void send_extra(uint8_t report_id, uint16_t data) {
-    static uint8_t  last_id   = 0;
-    static uint16_t last_data = 0;
-    if ((report_id == last_id) && (data == last_data)) return;
-    last_id   = report_id;
-    last_data = data;
-
-    static report_extra_t report;
-    report = (report_extra_t){.report_id = report_id, .usage = data};
     if (usbInterruptIsReadyShared()) {
-        usbSetInterruptShared((void *)&report, sizeof(report_extra_t));
+        usbSetInterruptShared((void *)report, sizeof(report_extra_t));
     }
-}
-#endif
-
-static void send_system(uint16_t data) {
-#ifdef EXTRAKEY_ENABLE
-    send_extra(REPORT_ID_SYSTEM, data);
 #endif
 }
 
-static void send_consumer(uint16_t data) {
-#ifdef EXTRAKEY_ENABLE
-    send_extra(REPORT_ID_CONSUMER, data);
+void send_joystick(report_joystick_t *report) {
+#ifdef JOYSTICK_ENABLE
+    if (usbInterruptIsReadyShared()) {
+        usbSetInterruptShared((void *)report, sizeof(report_joystick_t));
+    }
 #endif
 }
 
@@ -305,16 +299,10 @@ void send_digitizer(report_digitizer_t *report) {
 #endif
 }
 
-static void send_programmable_button(uint32_t data) {
+void send_programmable_button(report_programmable_button_t *report) {
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
-    static report_programmable_button_t report = {
-        .report_id = REPORT_ID_PROGRAMMABLE_BUTTON,
-    };
-
-    report.usage = data;
-
     if (usbInterruptIsReadyShared()) {
-        usbSetInterruptShared((void *)&report, sizeof(report));
+        usbSetInterruptShared((void *)report, sizeof(report_programmable_button_t));
     }
 #endif
 }
@@ -447,6 +435,8 @@ const PROGMEM uchar keyboard_hid_report[] = {
     0x05, 0x08, //   Usage Page (LED)
     0x19, 0x01, //   Usage Minimum (Num Lock)
     0x29, 0x05, //   Usage Maximum (Kana)
+    0x15, 0x00, //   Logical Minimum (0)
+    0x25, 0x01, //   Logical Maximum (1)
     0x95, 0x05, //   Report Count (5)
     0x75, 0x01, //   Report Size (1)
     0x91, 0x02, //   Output (Data, Variable, Absolute)
@@ -554,38 +544,95 @@ const PROGMEM uchar shared_hid_report[] = {
     0xC0,                     // End Collection
 #endif
 
+#ifdef JOYSTICK_ENABLE
+    // Joystick report descriptor
+    0x05, 0x01,               // Usage Page (Generic Desktop)
+    0x09, 0x04,               // Usage (Joystick)
+    0xA1, 0x01,               // Collection (Application)
+    0x85, REPORT_ID_JOYSTICK, //   Report ID
+    0xA1, 0x00,               //   Collection (Physical)
+#    if JOYSTICK_AXIS_COUNT > 0
+    0x05, 0x01, //     Usage Page (Generic Desktop)
+    0x09, 0x30, //     Usage (X)
+#        if JOYSTICK_AXIS_COUNT > 1
+    0x09, 0x31, //     Usage (Y)
+#        endif
+#        if JOYSTICK_AXIS_COUNT > 2
+    0x09, 0x32, //     Usage (Z)
+#        endif
+#        if JOYSTICK_AXIS_COUNT > 3
+    0x09, 0x33, //     Usage (Rx)
+#        endif
+#        if JOYSTICK_AXIS_COUNT > 4
+    0x09, 0x34, //     Usage (Ry)
+#        endif
+#        if JOYSTICK_AXIS_COUNT > 5
+    0x09, 0x35, //     Usage (Rz)
+#        endif
+#        if JOYSTICK_AXIS_RESOLUTION == 8
+    0x15, -JOYSTICK_MAX_VALUE, //     Logical Minimum
+    0x25, JOYSTICK_MAX_VALUE,  //     Logical Maximum
+    0x95, JOYSTICK_AXIS_COUNT, //     Report Count
+    0x75, 0x08,                //     Report Size (8)
+#        else
+    0x16, HID_VALUE_16(-JOYSTICK_MAX_VALUE), //     Logical Minimum
+    0x26, HID_VALUE_16(JOYSTICK_MAX_VALUE),  //     Logical Maximum
+    0x95, JOYSTICK_AXIS_COUNT,               //     Report Count
+    0x75, 0x10,                              //     Report Size (16)
+#        endif
+    0x81, 0x02, //     Input (Data, Variable, Absolute)
+#    endif
+
+#    if JOYSTICK_BUTTON_COUNT > 0
+    0x05, 0x09,                  //     Usage Page (Button)
+    0x19, 0x01,                  //     Usage Minimum (Button 1)
+    0x29, JOYSTICK_BUTTON_COUNT, //     Usage Maximum
+    0x15, 0x00,                  //     Logical Minimum (0)
+    0x25, 0x01,                  //     Logical Maximum (1)
+    0x95, JOYSTICK_BUTTON_COUNT, //     Report Count
+    0x75, 0x01,                  //     Report Size (1)
+    0x81, 0x02,                  //     Input (Data, Variable, Absolute)
+
+#        if (JOYSTICK_BUTTON_COUNT % 8) != 0
+    0x95, 8 - (JOYSTICK_BUTTON_COUNT % 8), //     Report Count
+    0x75, 0x01,                            //     Report Size (1)
+    0x81, 0x03,                            //     Input (Constant)
+#        endif
+#    endif
+    0xC0, //   End Collection
+    0xC0, // End Collection
+#endif
+
 #ifdef DIGITIZER_ENABLE
     // Digitizer report descriptor
     0x05, 0x0D,                // Usage Page (Digitizers)
     0x09, 0x01,                // Usage (Digitizer)
     0xA1, 0x01,                // Collection (Application)
     0x85, REPORT_ID_DIGITIZER, //   Report ID
-    0x09, 0x22,                //   Usage (Finger)
+    0x09, 0x20,                //   Usage (Stylus)
     0xA1, 0x00,                //   Collection (Physical)
-    // Tip Switch (1 bit)
+    // In Range, Tip Switch & Barrel Switch (3 bits)
+    0x09, 0x32, //     Usage (In Range)
     0x09, 0x42, //     Usage (Tip Switch)
+    0x09, 0x44, //     Usage (Barrel Switch)
     0x15, 0x00, //     Logical Minimum
     0x25, 0x01, //     Logical Maximum
-    0x95, 0x01, //     Report Count (1)
-    0x75, 0x01, //     Report Size (16)
+    0x95, 0x03, //     Report Count (3)
+    0x75, 0x01, //     Report Size (1)
     0x81, 0x02, //     Input (Data, Variable, Absolute)
-    // In Range (1 bit)
-    0x09, 0x32, //     Usage (In Range)
-    0x81, 0x02, //     Input (Data, Variable, Absolute)
-    // Padding (6 bits)
-    0x95, 0x06, //     Report Count (6)
+    // Padding (5 bits)
+    0x95, 0x05, //     Report Count (5)
     0x81, 0x03, //     Input (Constant)
 
     // X/Y Position (4 bytes)
     0x05, 0x01,       //     Usage Page (Generic Desktop)
+    0x09, 0x30,       //     Usage (X)
+    0x09, 0x31,       //     Usage (Y)
     0x26, 0xFF, 0x7F, //     Logical Maximum (32767)
-    0x95, 0x01,       //     Report Count (1)
+    0x95, 0x02,       //     Report Count (2)
     0x75, 0x10,       //     Report Size (16)
     0x65, 0x33,       //     Unit (Inch, English Linear)
     0x55, 0x0E,       //     Unit Exponent (-2)
-    0x09, 0x30,       //     Usage (X)
-    0x81, 0x02,       //     Input (Data, Variable, Absolute)
-    0x09, 0x31,       //     Usage (Y)
     0x81, 0x02,       //     Input (Data, Variable, Absolute)
     0xC0,             //   End Collection
     0xC0,             // End Collection
@@ -617,9 +664,9 @@ const PROGMEM uchar shared_hid_report[] = {
 
 #ifdef RAW_ENABLE
 const PROGMEM uchar raw_hid_report[] = {
-    0x06, RAW_USAGE_PAGE_LO, RAW_USAGE_PAGE_HI, // Usage Page (Vendor Defined)
-    0x09, RAW_USAGE_ID,                         // Usage (Vendor Defined)
-    0xA1, 0x01,                                 // Collection (Application)
+    0x06, HID_VALUE_16(RAW_USAGE_PAGE), // Usage Page (Vendor Defined)
+    0x09, RAW_USAGE_ID,                 // Usage (Vendor Defined)
+    0xA1, 0x01,                         // Collection (Application)
     // Data to host
     0x09, 0x62,            //   Usage (Vendor Defined)
     0x15, 0x00,            //   Logical Minimum (0)
@@ -672,7 +719,7 @@ const PROGMEM uchar console_hid_report[] = {
 // clang-format off
 const PROGMEM usbStringDescriptor_t usbStringDescriptorZero = {
     .header = {
-        .bLength         = USB_STRING_LEN(1),
+        .bLength         = 4,
         .bDescriptorType = USBDESCR_STRING
     },
     .bString             = {0x0409} // US English
@@ -680,24 +727,24 @@ const PROGMEM usbStringDescriptor_t usbStringDescriptorZero = {
 
 const PROGMEM usbStringDescriptor_t usbStringDescriptorManufacturer = {
     .header = {
-        .bLength         = USB_STRING_LEN(sizeof(STR(MANUFACTURER)) - 1),
+        .bLength         = sizeof(USBSTR(MANUFACTURER)),
         .bDescriptorType = USBDESCR_STRING
     },
-    .bString             = LSTR(MANUFACTURER)
+    .bString             = USBSTR(MANUFACTURER)
 };
 
 const PROGMEM usbStringDescriptor_t usbStringDescriptorProduct = {
     .header = {
-        .bLength         = USB_STRING_LEN(sizeof(STR(PRODUCT)) - 1),
+        .bLength         = sizeof(USBSTR(PRODUCT)),
         .bDescriptorType = USBDESCR_STRING
     },
-    .bString             = LSTR(PRODUCT)
+    .bString             = USBSTR(PRODUCT)
 };
 
 #if defined(SERIAL_NUMBER)
 const PROGMEM usbStringDescriptor_t usbStringDescriptorSerial = {
     .header = {
-        .bLength         = USB_STRING_LEN(sizeof(SERIAL_NUMBER) - 1),
+        .bLength         = sizeof(USBSTR(SERIAL_NUMBER)),
         .bDescriptorType = USBDESCR_STRING
     },
     .bString             = USBSTR(SERIAL_NUMBER)
@@ -972,6 +1019,9 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
                     break;
 #endif
             }
+#ifdef OS_DETECTION_ENABLE
+            process_wlength(rq->wLength.word);
+#endif
             break;
         case USBDESCR_HID:
             switch (rq->wValue.bytes[0]) {

@@ -6,7 +6,6 @@
 #include "drashna.h"
 #ifdef OLED_ENABLE
 #    include "oled/oled_stuff.h"
-extern char keylog_str[OLED_KEYLOGGER_LENGTH];
 #endif
 
 typedef union {

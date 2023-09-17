@@ -185,7 +185,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid(
-    _______, QK_BOOT, DEBUG,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL ,
+    _______, QK_BOOT, DB_TOGG, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL ,
     _______, AU_ON,   AU_OFF,  _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, MU_ON,   MU_OFF,  _______, _______, _______, _______, _______, _______, _______, _______, BRUDERSCHAFT,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
@@ -397,11 +397,8 @@ enum combo_events {
   DELQ_COMBO,
   SAVEQ_COMBO,
   BSPCQ_COMBO,
-  BSPCWQ_COMBO,
-
-  COMBO_LENGTH
+  BSPCWQ_COMBO
 };
-uint16_t COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM ru_combo[] = {KC_R, U_CTRL, COMBO_END};
 const uint16_t PROGMEM en_combo[] = {U_CTRL, S_ALT, COMBO_END};
@@ -448,5 +445,3 @@ combo_t key_combos[] = {
     [SAVEQ_COMBO] = COMBO(saveq_combo, VIM_SAVE),
     [BSPCWQ_COMBO] = COMBO(bspcwq_combo, A(KC_BSPC)),
 };
-
-

@@ -137,7 +137,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		switch(keycode) {
 			case MACRO_0:
         // Save for Web Macro.
-				SEND_STRING(SS_LSFT(SS_LALT(SS_LCTRL("s"))));
+				SEND_STRING(SS_LSFT(SS_LALT(SS_LCTL("s"))));
 				return false;
 		}
 	}

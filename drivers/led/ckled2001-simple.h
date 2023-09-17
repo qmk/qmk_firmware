@@ -25,26 +25,26 @@ typedef struct ckled2001_led {
     uint8_t v;
 } __attribute__((packed)) ckled2001_led;
 
-extern const ckled2001_led PROGMEM g_ckled2001_leds[DRIVER_LED_TOTAL];
+extern const ckled2001_led PROGMEM g_ckled2001_leds[LED_MATRIX_LED_COUNT];
 
-void CKLED2001_init(uint8_t addr);
-bool CKLED2001_write_register(uint8_t addr, uint8_t reg, uint8_t data);
-bool CKLED2001_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
+void ckled2001_init(uint8_t addr);
+bool ckled2001_write_register(uint8_t addr, uint8_t reg, uint8_t data);
+bool ckled2001_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
 
-void CKLED2001_set_value(int index, uint8_t value);
-void CKLED2001_set_value_all(uint8_t value);
+void ckled2001_set_value(int index, uint8_t value);
+void ckled2001_set_value_all(uint8_t value);
 
-void CKLED2001_set_led_control_register(uint8_t index, bool value);
+void ckled2001_set_led_control_register(uint8_t index, bool value);
 
 // This should not be called from an interrupt
 // (eg. from a timer interrupt).
 // Call this while idle (in between matrix scans).
 // If the buffer is dirty, it will update the driver with the buffer.
-void CKLED2001_update_pwm_buffers(uint8_t addr, uint8_t index);
-void CKLED2001_update_led_control_registers(uint8_t addr, uint8_t index);
+void ckled2001_update_pwm_buffers(uint8_t addr, uint8_t index);
+void ckled2001_update_led_control_registers(uint8_t addr, uint8_t index);
 
-void CKLED2001_sw_return_normal(uint8_t addr);
-void CKLED2001_sw_shutdown(uint8_t addr);
+void ckled2001_sw_return_normal(uint8_t addr);
+void ckled2001_sw_shutdown(uint8_t addr);
 
 // Registers Page Define
 #define CONFIGURE_CMD_PAGE 0xFD

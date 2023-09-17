@@ -18,6 +18,7 @@
 
 #include "quantum.h"
 #include "oled_driver.h"
+#include "oled_assets.h"
 #ifdef DEFFERED_EXEC_ENABLE
 extern deferred_token kittoken;
 #endif
@@ -45,7 +46,8 @@ void            render_kitty(uint8_t col, uint8_t line);
 void            render_unicode_mode(uint8_t col, uint8_t line);
 void            render_rgb_hsv(uint8_t col, uint8_t line);
 void            render_mouse_mode(uint8_t col, uint8_t line);
-void            matrix_scan_oled(void);
+void            housekeeping_task_oled(void);
+void            render_oled_title(bool side);
 
 void oled_pan_section(bool left, uint16_t y_start, uint16_t y_end, uint16_t x_start, uint16_t x_end);
 
@@ -148,7 +150,7 @@ void oled_pan_section(bool left, uint16_t y_start, uint16_t y_end, uint16_t x_st
 #    define OLED_RENDER_WPM_COUNTER "WPM: "
 #endif
 
-extern char keylog_str[OLED_KEYLOGGER_LENGTH];
+extern char oled_keylog_str[OLED_KEYLOGGER_LENGTH + 1];
 
 #ifndef OLED_WPM_GRAPH_MAX_WPM
 #    define OLED_WPM_GRAPH_MAX_WPM 120

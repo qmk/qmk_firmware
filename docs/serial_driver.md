@@ -1,6 +1,6 @@
 # 'serial' Driver
 
-The serial driver powers the [Split Keyboard](feature_split_keyboard.md) feature. Several implementations are available, depending on the platform of your split keyboard. Note that none of the drivers support split keyboards with more then two halves.
+The serial driver powers the [Split Keyboard](feature_split_keyboard.md) feature. Several implementations are available, depending on the platform of your split keyboard. Note that none of the drivers support split keyboards with more than two halves.
 
 | Driver                                  | AVR                | ARM                | Connection between halves                                                                     |
 | --------------------------------------- | ------------------ | ------------------ | --------------------------------------------------------------------------------------------- |
@@ -105,7 +105,7 @@ For STM32 MCUs several GPIO configuration options can be changed as well. See th
 #define SERIAL_USART_TX_PAL_MODE 7 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
 ```
 
-1. Decide either for `SERIAL`, `SIO` or `PIO` subsystem, see the section ["Choosing a driver subsystem"](#choosing-a-driver-subsystem).
+4. Decide either for `SERIAL`, `SIO` or `PIO` subsystem, see the section ["Choosing a driver subsystem"](#choosing-a-driver-subsystem).
 
 <hr>
 

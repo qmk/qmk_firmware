@@ -27,33 +27,16 @@ enum Layer
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [JP] = LAYOUT(
-		JP_LABK,JP_RABK,JP_PLUS,JP_MINS,\
-		LT(CONFIG,JP_DOT),JP_COMM,JP_LBRC,LT(CONFIG,JP_RBRC)\
+		JP_LABK,JP_RABK,JP_PLUS,JP_MINS,
+		LT(CONFIG,JP_DOT),JP_COMM,JP_LBRC,LT(CONFIG,JP_RBRC)
 		),
 [EN] = LAYOUT(
-		KC_LT,KC_GT,KC_PLUS,KC_MINS,\
-		LT(CONFIG,KC_DOT),KC_COMM,KC_LBRC,LT(CONFIG,KC_RBRC)\
+		KC_LT,KC_GT,KC_PLUS,KC_MINS,
+		LT(CONFIG,KC_DOT),KC_COMM,KC_LBRC,LT(CONFIG,KC_RBRC)
 		),
 [CONFIG]= LAYOUT(
-		KC_NO,DF(JP),DF(JP),KC_NO,\
-		KC_TRNS,DF(EN),DF(JP),KC_TRNS\
+		KC_NO,DF(JP),DF(JP),KC_NO,
+		KC_TRNS,DF(EN),DF(JP),KC_TRNS
 		)
 
 };
-
-
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
-
-void led_set_user(uint8_t usb_led) {
-
-}

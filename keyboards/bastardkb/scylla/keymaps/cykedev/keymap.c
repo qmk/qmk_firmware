@@ -169,12 +169,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    )
 };
 
-bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case CM_SPAR:
-      return true;
-    default:
-      return false;
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+  if (keycode == CM_SPAR) {
+    return false;
+  } else if (QK_MOD_TAP <= keycode && keycode <= QK_MOD_TAP_MAX) {
+    return true; 
+  } else {
+    return false;
   }
 }
 
@@ -187,7 +188,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 const key_override_t tilde_esc_override = ko_make_basic(MOD_MASK_SHIFT, KC_ESC, S(KC_GRAVE));
 const key_override_t grave_esc_override = ko_make_basic(MOD_MASK_GUI, KC_ESC, KC_GRAVE);
-const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPACE, KC_DELETE);
+const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DELETE);
 
 
 const key_override_t **key_overrides = (const key_override_t *[]){

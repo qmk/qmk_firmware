@@ -17,6 +17,7 @@
 #pragma once
 
 #include <stdint.h>
+#include <stdbool.h>
 
 #include <hal.h>
 
@@ -28,32 +29,47 @@
 #    define SD1_TX_PIN A9
 #endif
 
-#ifndef SD1_TX_PAL_MODE
-#    define SD1_TX_PAL_MODE 7
-#endif
-
 #ifndef SD1_RX_PIN
 #    define SD1_RX_PIN A10
-#endif
-
-#ifndef SD1_RX_PAL_MODE
-#    define SD1_RX_PAL_MODE 7
 #endif
 
 #ifndef SD1_CTS_PIN
 #    define SD1_CTS_PIN A11
 #endif
 
-#ifndef SD1_CTS_PAL_MODE
-#    define SD1_CTS_PAL_MODE 7
-#endif
-
 #ifndef SD1_RTS_PIN
 #    define SD1_RTS_PIN A12
 #endif
 
-#ifndef SD1_RTS_PAL_MODE
-#    define SD1_RTS_PAL_MODE 7
+#ifdef USE_GPIOV1
+#    ifndef SD1_TX_PAL_MODE
+#        define SD1_TX_PAL_MODE PAL_MODE_ALTERNATE_PUSHPULL
+#    endif
+#    ifndef SD1_RX_PAL_MODE
+#        define SD1_RX_PAL_MODE PAL_MODE_INPUT
+#    endif
+#    ifndef SD1_CTS_PAL_MODE
+#        define SD1_CTS_PAL_MODE PAL_MODE_INPUT
+#    endif
+#    ifndef SD1_RTS_PAL_MODE
+#        define SD1_RTS_PAL_MODE PAL_MODE_ALTERNATE_PUSHPULL
+#    endif
+#else
+#    ifndef SD1_TX_PAL_MODE
+#        define SD1_TX_PAL_MODE 7
+#    endif
+
+#    ifndef SD1_RX_PAL_MODE
+#        define SD1_RX_PAL_MODE 7
+#    endif
+
+#    ifndef SD1_CTS_PAL_MODE
+#        define SD1_CTS_PAL_MODE 7
+#    endif
+
+#    ifndef SD1_RTS_PAL_MODE
+#        define SD1_RTS_PAL_MODE 7
+#    endif
 #endif
 
 #ifndef SD1_CR1

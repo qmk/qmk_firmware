@@ -1,9 +1,3 @@
-# MCU name
-MCU = STM32F303
-
-# Bootloader selection
-BOOTLOADER = stm32-dfu
-
 # Touch encoder needs
 VPATH += keyboards/rgbkb/common
 SRC += touch_encoder.c
@@ -25,13 +19,10 @@ AUDIO_DRIVER = dac_additive
 DYNAMIC_MACRO_ENABLE = yes
 DIP_SWITCH_ENABLE = yes
 
-WS2812_DRIVER = pwm
 RGBLIGHT_ENABLE = no
 RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = WS2812
 
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306    # Enable the OLED Driver
 
 ENCODER_ENABLE = yes
 
