@@ -37,10 +37,8 @@ enum combo_events {
   ED_ENTER,
 
   ED_CS_ENTER,
-  BSPC_LSFT_CLEAR,
-  COMBO_LENGTH
+  BSPC_LSFT_CLEAR
 };
-uint16_t COMBO_LEN = COMBO_LENGTH; // do not remove - needed for combos to work
 
 const uint16_t PROGMEM combo_up[] = {KC_W, KC_R, COMBO_END};
 const uint16_t PROGMEM combo_left[] = {KC_S, KC_E, COMBO_END};
@@ -122,7 +120,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
             tap_code16(A(KC_RIGHT));
           }
         }
-        break; 
+        break;
       case BSPC_LSFT_CLEAR:
         if (pressed) {
           tap_code16(KC_END);
@@ -134,7 +132,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         if (pressed) {
           tap_code16(C(S(KC_ENTER)));
         }
-        break;        
+        break;
     }
 }
 
@@ -210,63 +208,63 @@ void send_string_with_translation(char *string) {
 
         case 'w':
           toPrint = 'd';
-          break; 
+          break;
         case 'e':
           toPrint = 'r';
-          break; 
+          break;
         case 'r':
           toPrint = 'w';
-          break; 
+          break;
         case 't':
           toPrint = 'b';
-          break; 
+          break;
         case 'y':
           toPrint = 'j';
-          break; 
+          break;
         case 'u':
           toPrint = 'f';
-          break; 
+          break;
         case 'i':
           toPrint = 'u';
-          break; 
+          break;
         case 'o':
           toPrint = 'p';
-          break; 
+          break;
         case 'p':
           toPrint = ';';
-          break; 
+          break;
 
         case 'd':
           toPrint = 'h';
-          break; 
+          break;
         case 'f':
           toPrint = 't';
-          break; 
+          break;
         case 'h':
           toPrint = 'y';
-          break; 
+          break;
         case 'j':
           toPrint = 'n';
-          break; 
+          break;
         case 'k':
           toPrint = 'e';
-          break; 
+          break;
         case 'l':
           toPrint = 'o';
-          break; 
+          break;
         case ';':
           toPrint = 'i';
-          break; 
+          break;
 
         case 'b':
           toPrint = 'm';
-          break; 
+          break;
         case 'n':
           toPrint = 'k';
-          break; 
+          break;
         case 'm':
           toPrint = 'l';
-          break; 
+          break;
       }
       if (isUpperCase) {
         isUpperCase = 0;

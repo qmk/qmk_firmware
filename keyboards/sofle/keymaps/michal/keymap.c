@@ -182,7 +182,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // This section is like the keymap matrix, but for rotary encoders
 // My left encoder is currently not working, so I'm using Layers to cope :')
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_WORKMAN] = { ENCODER_CCW_CW(_______,     _______), ENCODER_CCW_CW(KC_VOLD,     KC_VOLU      )},
     [_QWERTY]  = { ENCODER_CCW_CW(_______,     _______), ENCODER_CCW_CW(KC_VOLD,     KC_VOLU      )},
     [_LOWER]   = { ENCODER_CCW_CW(_______,     _______), ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)},

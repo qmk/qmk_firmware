@@ -1,6 +1,5 @@
 #pragma once
 
-#define RGB_DI_PIN A15
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_LED_COUNT 72
 #    define RGB_MATRIX_KEYPRESSES // reacts to keypresses

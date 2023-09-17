@@ -66,7 +66,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 const uint16_t PROGMEM combo_slsh[] = {MT(MOD_RSFT, KC_DOT), KC_COMM, COMBO_END};
 
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
   [COMBO_SLSH] = COMBO(combo_slsh,KC_SLSH),
 
 };

@@ -15,32 +15,13 @@
  */
 #pragma once
 
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-#define MATRIX_ROW_PINS { B5, B4, D7, F6, C6, D4 }
-#define MATRIX_COL_PINS { D1, E6, F7, B1, B3, B2, D0 }
-
 #define MASTER_RIGHT
 #ifndef MASTER_RIGHT
 //  SPLIT_HAND_MATRIX_GRID was initially designed to use with left hand side diode D35 mounted and not pressing K7 on the right hand side during boot. However when a USB cable is reconnected immediately, it fails. Decided to use "MASTER_RIGHT" to make it more reliable.
 #   define SPLIT_HAND_MATRIX_GRID B5, D0
 #endif
 
-/* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 #define SPLIT_USB_DETECT
-
-#define RGB_DI_PIN D3
 
 #ifdef RGB_MATRIX_ENABLE
 
@@ -156,5 +137,3 @@
 // Initial velocity value (avoid using 127 since it is used as a special number in some sound sources.)
 #   define MIDI_INITIAL_VELOCITY 117
 #endif  //  MIDI_ENABLE
-
-#define TAP_CODE_DELAY 10

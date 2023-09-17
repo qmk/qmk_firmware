@@ -8,7 +8,7 @@ The PCB will feature:
  
 ---
 
-* Keyboard Maintainer: FJLabs
+* Keyboard Maintainer: [mrnoisytiger](https://github.com/mrnoisytiger)
 * Hardware Supported: Midway60
 
 Make example for this keyboard (after setting up your build environment):
