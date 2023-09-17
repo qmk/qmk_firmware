@@ -21,7 +21,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     uint8_t layer = biton32(state);
     switch (layer) {    
         case _CAPA1:
-            rgblight_sethsv_noeeprom(HSV_PURPLE);
+            rgblight_sethsv_noeeprom(HSV_GREEN);
             break;
 
         case _CAPA2:
@@ -29,7 +29,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             break;
 
         case _CAPA3:
-            rgblight_sethsv_noeeprom(HSV_GREEN);
+            rgblight_sethsv_noeeprom(HSV_PINK);
             break;
 
         case _CAPA4:
