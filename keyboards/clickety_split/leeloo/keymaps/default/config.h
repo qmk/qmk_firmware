@@ -20,8 +20,6 @@
 // you may try increasing or decreasing the value.
 // #define ENCODER_RESOLUTION 2
 
-#ifdef RGB_MATRIX_ENABLE
-
     #define RGB_MATRIX_KEYPRESSES               // reacts to keypresses
 //  #define RGB_MATRIX_KEYRELEASES              // reacts to keyreleases (instead of keypresses)
 //  #define RGB_DISABLE_AFTER_TIMEOUT 0         // number of ticks to wait until disabling effects
