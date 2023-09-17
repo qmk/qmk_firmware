@@ -18,9 +18,45 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include <string.h>
+#include "progmem.h"
+
+#define IS31FL3218_I2C_ADDRESS 0x54
+
+typedef struct is31fl3218_led_t {
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
+} __attribute__((packed)) is31fl3218_led_t;
+
+extern const is31fl3218_led_t PROGMEM g_is31fl3218_leds[RGB_MATRIX_LED_COUNT];
 
 void is31fl3218_init(void);
+
 void is31fl3218_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
+
 void is31fl3218_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
+
+void is31fl3218_set_led_control_register(uint8_t index, bool red, bool green, bool blue);
+
 void is31fl3218_update_pwm_buffers(void);
+
+void is31fl3218_update_led_control_registers(void);
+
+#define OUT1 0x01
+#define OUT2 0x02
+#define OUT3 0x03
+#define OUT4 0x04
+#define OUT5 0x05
+#define OUT6 0x06
+#define OUT7 0x07
+#define OUT8 0x08
+#define OUT9 0x09
+#define OUT10 0x0A
+#define OUT11 0x0B
+#define OUT12 0x0C
+#define OUT13 0x0D
+#define OUT14 0x0E
+#define OUT15 0x0F
+#define OUT16 0x10
+#define OUT17 0x11
+#define OUT18 0x12
