@@ -16,6 +16,8 @@ enum custom_keycodes {
     VRSN = SAFE_RANGE,
     U_BASE,
     U_GAMING,
+     // ascii emojies
+    SHRUG,
     NEW_SAFE_RANGE  //use "NEW_SAFE_RANGE" for keymap specific codes
 };
 
@@ -37,9 +39,6 @@ enum unicode_names {
     AA_U,
     IRONY,
     SNEK,
-    // ascii emojies
-    SHRUG,
-
 };
 
 #define KC_AE XP(AE_L,AE_U)
