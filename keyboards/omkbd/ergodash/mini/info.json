@@ -20,6 +20,25 @@
     "split": {
         "soft_serial_pin": "D0"
     },
+    "tapping": {
+        "term": 120
+    },
+    "rgblight": {
+        "led_count": 20,
+        "split_count": [10, 10],
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
     "ws2812": {
         "pin": "D3"
     },

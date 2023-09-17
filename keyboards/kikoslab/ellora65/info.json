@@ -18,6 +18,9 @@
             {"pin_a": "B0", "pin_b": "B1"}
         ]
     },
+    "rgblight": {
+        "led_count": 12
+    },
     "ws2812": {
         "pin": "E6"
     },

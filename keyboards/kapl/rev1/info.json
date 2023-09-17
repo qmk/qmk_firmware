@@ -12,10 +12,23 @@
     "pin": "D4"
   },
   "rgb_matrix": {
-    "driver": "WS2812"
+    "driver": "ws2812",
+    "speed_steps": 10
   },
   "rgblight": {
-    "max_brightness": 120
+    "saturation_steps": 16,
+    "brightness_steps": 16,
+    "led_count": 88,
+    "max_brightness": 120,
+    "split_count": [44, 44],
+    "animations": {
+      "breathing": true,
+      "rainbow_mood": true,
+      "rainbow_swirl": true,
+      "christmas": true,
+      "static_gradient": true,
+      "twinkle": true
+    }
   },
   "matrix_pins": {
     "cols": ["F5", "F6", "F7", "B1", "B3", "B2", "B6"],

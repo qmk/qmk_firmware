@@ -93,30 +93,20 @@ extern layer_state_t layer_state;
 #    include "process_music.h"
 #endif
 
-#if defined(BACKLIGHT_ENABLE) || defined(LED_MATRIX_ENABLE)
-#    include "process_backlight.h"
-#endif
-
 #ifdef LEADER_ENABLE
 #    include "leader.h"
-#    include "process_leader.h"
-#endif
-
-#ifdef UNICODE_ENABLE
-#    include "process_unicode.h"
-#endif
-
-#ifdef UCIS_ENABLE
-#    include "process_ucis.h"
-#endif
-
-#ifdef UNICODEMAP_ENABLE
-#    include "process_unicodemap.h"
 #endif
 
 #ifdef UNICODE_COMMON_ENABLE
 #    include "unicode.h"
-#    include "process_unicode_common.h"
+#endif
+
+#ifdef UCIS_ENABLE
+#    include "ucis.h"
+#endif
+
+#ifdef UNICODEMAP_ENABLE
+#    include "unicodemap.h"
 #endif
 
 #ifdef KEY_OVERRIDE_ENABLE
@@ -147,24 +137,8 @@ extern layer_state_t layer_state;
 #    include "process_space_cadet.h"
 #endif
 
-#ifdef MAGIC_KEYCODE_ENABLE
-#    include "process_magic.h"
-#endif
-
-#ifdef JOYSTICK_ENABLE
-#    include "process_joystick.h"
-#endif
-
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
-#    include "process_programmable_button.h"
-#endif
-
-#ifdef GRAVE_ESC_ENABLE
-#    include "process_grave_esc.h"
-#endif
-
-#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-#    include "process_rgb.h"
+#    include "programmable_button.h"
 #endif
 
 #ifdef HD44780_ENABLE
@@ -177,7 +151,6 @@ extern layer_state_t layer_state;
 
 #ifdef HAPTIC_ENABLE
 #    include "haptic.h"
-#    include "process_haptic.h"
 #endif
 
 #ifdef OLED_ENABLE
@@ -202,7 +175,6 @@ extern layer_state_t layer_state;
 
 #ifdef SECURE_ENABLE
 #    include "secure.h"
-#    include "process_secure.h"
 #endif
 
 #ifdef DYNAMIC_KEYMAP_ENABLE
@@ -248,7 +220,6 @@ extern layer_state_t layer_state;
 
 #ifdef TRI_LAYER_ENABLE
 #    include "tri_layer.h"
-#    include "process_tri_layer.h"
 #endif
 
 #ifdef REPEAT_KEY_ENABLE

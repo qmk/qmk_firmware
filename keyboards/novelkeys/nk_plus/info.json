@@ -27,7 +27,7 @@
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "rgb_matrix": {
-        "driver": "WS2812",
+        "driver": "ws2812",
         "layout": [
             {"flags": 1, "matrix": [0, 0], "x": 0, "y": 0},
             {"flags": 1, "matrix": [0, 1], "x": 13, "y": 0},

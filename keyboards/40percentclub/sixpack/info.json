@@ -9,6 +9,7 @@
       "device_version": "10.0.1"
     },
     "backlight": {
+      "driver": "timer",
       "pins": ["F4", "F5"],
       "levels": 6,
       "breathing": true

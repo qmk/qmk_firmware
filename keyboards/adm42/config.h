@@ -16,8 +16,6 @@
 
 #pragma once
 
-#define TAP_CODE_DELAY 1
-
 #if defined(CONSOLE_ENABLE)
 	#define DEBUG_MATRIX_SCAN_RATE
 #endif
