@@ -26,8 +26,9 @@
 #define IS31FL3729_REG_CONFIGURATION 0xA0
 #define IS31FL3729_REG_GLOBALCURRENT 0xA1
 #define IS31FL3729_REG_PULLDOWNUP 0xB0
-#define IS31FL3729_REG_RESET 0xCF
+#define IS31FL3729_REG_SPREAD_SPECTRUM 0xB1
 #define IS31FL3729_REG_PWM_FREQUENCY 0xB2
+#define IS31FL3729_REG_RESET 0xCF
 
 // Set defaults for Timeout and Persistence
 #ifndef IS31FL3729_I2C_TIMEOUT
@@ -46,6 +47,9 @@
 #endif
 #ifndef IS31FL3729_PULLDOWNUP
 #    define IS31FL3729_PULLDOWNUP 0x33
+#endif
+#ifndef IS31FL3729_SPREAD_SPECTRUM
+#    define IS31FL3729_SPREAD_SPECTRUM 0x00
 #endif
 #ifndef IS31FL3729_PWM_FREQUENCY
 #    define IS31FL3729_PWM_FREQUENCY 0x01
@@ -116,6 +120,9 @@ void is31fl3729_init(uint8_t addr) {
 
     // Set Pull up & Down for SWx CSy
     is31fl3729_write_register(addr, IS31FL3729_REG_PULLDOWNUP, IS31FL3729_PULLDOWNUP);
+
+    // Set Spread Spectrum Register if applicable
+    is31fl3729_write_register(addr, IS31FL3729_REG_SPREAD_SPECTRUM, IS31FL3729_SPREAD_SPECTRUM);
 
     // Set PWM Frequency Register if applicable
     is31fl3729_write_register(addr, IS31FL3729_REG_PWM_FREQUENCY, IS31FL3729_PWM_FREQUENCY);
