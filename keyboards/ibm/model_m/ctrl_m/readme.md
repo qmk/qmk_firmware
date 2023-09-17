@@ -13,7 +13,7 @@ Example how to compile for this keyboard (after setting up your build environmen
 
 Flashing example for this keyboard:
 
-    make %KEYBOARD%:default:flash
+    make ibm/model_m/ctrl_m:default:flash
 
 Or if you use the QMK tool:
 
