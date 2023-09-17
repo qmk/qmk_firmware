@@ -52,6 +52,35 @@ void is31fl3729_set_led_control_register(uint8_t index, bool red, bool green, bo
 void is31fl3729_update_pwm_buffers(uint8_t addr, uint8_t index);
 void is31fl3729_update_led_control_registers(uint8_t addr, uint8_t index);
 
+// Noise reduction using Spread Spectrum register
+#define SSP_DISABLE 0x00
+#define SSP_5_1980US 0x10
+#define SSP_5_1200US 0x11
+#define SSP_5_820US 0x12
+#define SSP_5_660US 0x13
+#define SSP_15_1980US 0x14
+#define SSP_15_1200US 0x15
+#define SSP_15_820US 0x16
+#define SSP_15_660US 0x17
+#define SSP_24_1980US 0x18
+#define SSP_24_1200US 0x19
+#define SSP_24_820US 0x1A
+#define SSP_24_660US 0x1B
+#define SSP_34_1980US 0x1C
+#define SSP_34_1200US 0x1D
+#define SSP_34_820US 0x1E
+#define SSP_34_660US 0x1F
+
+// Noise reduction using PWM Frequency register
+#define PWM_55KHZ 0x00
+#define PWM_32KHZ 0x01
+#define PWM_4KHZ 0x02
+#define PWM_2KHZ 0x03
+#define PWM_1KHZ 0x04
+#define PWM_500HZ 0x05 // If SWx cannot be more than 4
+#define PWM_250HZ 0x06 // If SWx cannot be more than 2
+#define PWM_80KHZ 0x07
+
 // Map CS SW locations to order in PWM / Scaling buffers
 // This matches the ORDER in the Datasheet Register not the POSITION
 // It will always count from 0x01 to (ISSI_MAX_LEDS - 1)
