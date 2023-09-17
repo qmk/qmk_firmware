@@ -530,7 +530,7 @@ Configures the [RGB Matrix](feature_rgb_matrix.md) feature.
         * The centroid (geometric center) of the LEDs. Used for certain effects.
         * Default: `[112, 32]`
     * `driver` (Required)
-        * The driver to use. Must be one of `aw20216s`, `ckled2001`, `custom`, `is31fl3731`, `is31fl3733`, `is31fl3736`, `is31fl3737`, `is31fl3741`, `is31fl3742a`, `is31fl3743a`, `is31fl3745`, `is31fl3746a`, `ws2812`.
+        * The driver to use. Must be one of `aw20216s`, `ckled2001`, `custom`, `is31fl3218`, `is31fl3731`, `is31fl3733`, `is31fl3736`, `is31fl3737`, `is31fl3741`, `is31fl3742a`, `is31fl3743a`, `is31fl3745`, `is31fl3746a`, `ws2812`.
     * `hue_steps`
         * The number of hue adjustment steps.
         * Default: `8`
