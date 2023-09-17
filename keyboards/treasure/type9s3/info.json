@@ -1,0 +1,65 @@
+{
+    "manufacturer": "Treasure",
+    "keyboard_name": "Type-9 Series III",
+    "maintainer": "arnstadm",
+    "bootloader": "atmel-dfu",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": true,
+        "rgb_matrix": true
+    },
+    "matrix_pins": {
+        "direct": [
+            ["C7", "C6", "D3"],
+            ["B7", "C5", "D2"],
+            ["B5", "B4", "D4"]
+        ]
+    },
+    "processor": "atmega32u2",
+    "url": "",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x5493",
+        "vid": "0x5452"
+    },
+    "ws2812": {
+        "pin": "B6"
+    },
+    "rgb_matrix": {
+        "driver": "ws2812",
+        "layout": [
+            { "matrix": [2, 0],"flags": 4, "x": 0, "y": 20 },
+            { "matrix": [2, 1],"flags": 4, "x": 10, "y": 20 },
+            { "matrix": [2, 2],"flags": 4, "x": 20, "y": 20 },
+            { "matrix": [1, 2],"flags": 4, "x": 20, "y": 10 },
+            { "matrix": [1, 1],"flags": 4, "x": 10, "y": 10 },
+            { "matrix": [1, 0],"flags": 4, "x": 0, "y": 10 },
+            { "matrix": [0, 0],"flags": 4, "x": 0, "y": 0 },
+            { "matrix": [0, 1],"flags": 4, "x": 10, "y": 0 },
+            { "matrix": [0, 2],"flags": 4, "x": 20, "y": 0 }
+        ]
+    },
+    "community_layouts": ["ortho_3x3"],
+    "layouts": {
+        "LAYOUT_ortho_3x3": {
+            "layout": [
+                { "matrix": [0, 0], "x": 0, "y": 0 },
+                { "matrix": [0, 1], "x": 1, "y": 0 },
+                { "matrix": [0, 2], "x": 2, "y": 0 },
+                
+                { "matrix": [1, 0], "x": 0, "y": 1 },
+                { "matrix": [1, 1], "x": 1, "y": 1 },
+                { "matrix": [1, 2], "x": 2, "y": 1 },
+                
+                { "matrix": [2, 0], "x": 0, "y": 2 },
+                { "matrix": [2, 1], "x": 1, "y": 2 },
+                { "matrix": [2, 2], "x": 2, "y": 2 }
+            ]
+        }
+    }
+}
