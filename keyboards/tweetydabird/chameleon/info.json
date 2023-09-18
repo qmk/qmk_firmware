@@ -23,7 +23,8 @@
         "mousekey": true,
         "nkro": true,
 		"encoder": true,
-        "rgblight": true
+        "rgblight": true,
+        "tri_layer": true
     },
     "matrix_pins": {
         "cols": ["GP15", "GP14", "GP6", "GP5", "GP4", "GP3"],
