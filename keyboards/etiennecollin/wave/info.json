@@ -6,13 +6,11 @@
     "bootloader_instructions": "Press the button marked RESET on the PCB or bridge the pins marked RST and GND on the Elite-C",
     "tags": ["ortho", "split"],
 
-    "bootloader": "atmel-dfu",
     "build": {
         "lto": true
     },
     "development_board": "elite_c",
     "pin_compatible": "elite_c",
-    "processor": "atmega32u4",
     "usb": {
         "device_version": "0.0.1",
         "vid": "0x6967",
