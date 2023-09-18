@@ -63,7 +63,7 @@
             "protocol": "i2c"
         },
         "usb_detect": {
-            "enabled": false
+            "enabled": true
         }
     },
     "url": "https://viktus.design/",
