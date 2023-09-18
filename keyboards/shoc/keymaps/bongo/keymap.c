@@ -163,7 +163,7 @@ bool oled_task_user(void) {
     oled_set_cursor(0,6);
     oled_write_P(PSTR("       WPM: "), false);
     oled_write(get_u8_str(get_current_wpm(), '0'), false);
-    if(host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)){
+    if(host_keyboard_led_state().caps_lock){
         oled_set_cursor(0,5);
         oled_write_P(PSTR("      CAPS  LOCK"), false);
     }

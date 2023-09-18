@@ -19,7 +19,6 @@ AUDIO_ENABLE = no           # Audio output
 
 # OLED enabled
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
 
 # RGB Matrix enabled
 RGB_MATRIX_ENABLE = yes

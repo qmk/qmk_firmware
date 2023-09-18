@@ -11,7 +11,7 @@
         "pin": "C7"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

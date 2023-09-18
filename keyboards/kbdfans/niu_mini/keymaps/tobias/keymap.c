@@ -377,37 +377,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
  */
 
 
-void led_set_user(uint8_t usb_led) {
-
-    if (usb_led & (1 << USB_LED_NUM_LOCK)) {
-        bnumlock = true;
-
-    } else {
-        bnumlock = false;
-    }
-
-    if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-
-    } else {
-
-    }
-
-    if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
-
-    } else {
-
-    }
-
-    if (usb_led & (1 << USB_LED_COMPOSE)) {
-
-    } else {
-
-    }
-
-    if (usb_led & (1 << USB_LED_KANA)) {
-
-    } else {
-
-    }
-
+bool led_update_user(led_t led_state) {
+  bnumlock = led_state.num_lock;
+  return false;
 }
