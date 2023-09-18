@@ -81,6 +81,13 @@ led_config_t g_led_config = { {
 #endif // KEYBOARD_keycapsss_kimiko_rev1
 
 #ifdef KEYBOARD_keycapsss_kimiko_rev2
+enum layers {
+   _QWERTY,
+   _LOWER,
+   _RAISE,
+   _ADJUST
+};
+
 #ifdef OLED_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
