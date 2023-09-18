@@ -7,7 +7,11 @@ RGB_MATRIX_EFFECT(PIXEL_FRACTAL)
 #    ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
 static bool PIXEL_FRACTAL(effect_params_t* params) {
-#        define MID_COL MATRIX_COLS / 2
+#        if MATRIX_COLS < 2
+#            define MID_COL 1
+#        else
+#            define MID_COL MATRIX_COLS / 2
+#        endif
     static bool     led[MATRIX_ROWS][MID_COL];
     static uint32_t wait_timer = 0;
 

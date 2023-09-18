@@ -9,7 +9,7 @@
 
 // Device definition
 typedef struct rgb565_surface_painter_device_t {
-    struct painter_driver_t base; // must be first, so it can be cast to/from the painter_device_t* type
+    painter_driver_t base; // must be first, so it can be cast to/from the painter_device_t* type
 
     // The target buffer
     uint16_t *buffer;
@@ -95,7 +95,7 @@ static inline void stream_pixdata(rgb565_surface_painter_device_t *surface, cons
 // Driver vtable
 
 static bool qp_rgb565_surface_init(painter_device_t device, painter_rotation_t rotation) {
-    struct painter_driver_t *        driver  = (struct painter_driver_t *)device;
+    painter_driver_t *               driver  = (painter_driver_t *)device;
     rgb565_surface_painter_device_t *surface = (rgb565_surface_painter_device_t *)driver;
     memset(surface->buffer, 0, driver->panel_width * driver->panel_height * driver->native_bits_per_pixel / 8);
     return true;
@@ -107,13 +107,13 @@ static bool qp_rgb565_surface_power(painter_device_t device, bool power_on) {
 }
 
 static bool qp_rgb565_surface_clear(painter_device_t device) {
-    struct painter_driver_t *driver = (struct painter_driver_t *)device;
+    painter_driver_t *driver = (painter_driver_t *)device;
     driver->driver_vtable->init(device, driver->rotation); // Re-init the surface
     return true;
 }
 
 static bool qp_rgb565_surface_flush(painter_device_t device) {
-    struct painter_driver_t *        driver  = (struct painter_driver_t *)device;
+    painter_driver_t *               driver  = (painter_driver_t *)device;
     rgb565_surface_painter_device_t *surface = (rgb565_surface_painter_device_t *)driver;
     surface->dirty_l = surface->dirty_t = UINT16_MAX;
     surface->dirty_r = surface->dirty_b = 0;
@@ -122,7 +122,7 @@ static bool qp_rgb565_surface_flush(painter_device_t device) {
 }
 
 static bool qp_rgb565_surface_viewport(painter_device_t device, uint16_t left, uint16_t top, uint16_t right, uint16_t bottom) {
-    struct painter_driver_t *        driver  = (struct painter_driver_t *)device;
+    painter_driver_t *               driver  = (painter_driver_t *)device;
     rgb565_surface_painter_device_t *surface = (rgb565_surface_painter_device_t *)driver;
 
     // Set the viewport locations
@@ -139,7 +139,7 @@ static bool qp_rgb565_surface_viewport(painter_device_t device, uint16_t left, u
 
 // Stream pixel data to the current write position in GRAM
 static bool qp_rgb565_surface_pixdata(painter_device_t device, const void *pixel_data, uint32_t native_pixel_count) {
-    struct painter_driver_t *        driver  = (struct painter_driver_t *)device;
+    painter_driver_t *               driver  = (painter_driver_t *)device;
     rgb565_surface_painter_device_t *surface = (rgb565_surface_painter_device_t *)driver;
     stream_pixdata(surface, (const uint16_t *)pixel_data, native_pixel_count);
     return true;
@@ -170,7 +170,7 @@ static bool qp_rgb565_surface_append_pixdata(painter_device_t device, uint8_t *t
     return true;
 }
 
-const struct painter_driver_vtable_t rgb565_surface_driver_vtable = {
+const painter_driver_vtable_t rgb565_surface_driver_vtable = {
     .init            = qp_rgb565_surface_init,
     .power           = qp_rgb565_surface_power,
     .clear           = qp_rgb565_surface_clear,
@@ -201,7 +201,7 @@ uint32_t qp_rgb565_surface_comms_send(painter_device_t device, const void *data,
     return byte_count;
 }
 
-struct painter_comms_vtable_t rgb565_surface_driver_comms_vtable = {
+painter_comms_vtable_t rgb565_surface_driver_comms_vtable = {
     // These are all effective no-op's because they're not actually needed.
     .comms_init  = qp_rgb565_surface_comms_init,
     .comms_start = qp_rgb565_surface_comms_start,
@@ -234,7 +234,7 @@ painter_device_t qp_rgb565_make_surface(uint16_t panel_width, uint16_t panel_hei
 // Drawing routine to copy out the dirty region and send it to another device
 
 bool qp_rgb565_surface_draw(painter_device_t surface, painter_device_t display, uint16_t x, uint16_t y) {
-    struct painter_driver_t *        surface_driver = (struct painter_driver_t *)surface;
+    painter_driver_t *               surface_driver = (painter_driver_t *)surface;
     rgb565_surface_painter_device_t *surface_handle = (rgb565_surface_painter_device_t *)surface_driver;
 
     // If we're not dirty... we're done.

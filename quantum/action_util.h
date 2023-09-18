@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdint.h>
 #include "report.h"
+#include "modifiers.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -64,8 +65,10 @@ void    clear_oneshot_mods(void);
 bool    has_oneshot_mods_timed_out(void);
 
 uint8_t get_oneshot_locked_mods(void);
+void    add_oneshot_locked_mods(uint8_t mods);
 void    set_oneshot_locked_mods(uint8_t mods);
 void    clear_oneshot_locked_mods(void);
+void    del_oneshot_locked_mods(uint8_t mods);
 
 typedef enum { ONESHOT_PRESSED = 0b01, ONESHOT_OTHER_KEY_PRESSED = 0b10, ONESHOT_START = 0b11, ONESHOT_TOGGLED = 0b100 } oneshot_fullfillment_t;
 void    set_oneshot_layer(uint8_t layer, uint8_t state);
@@ -97,6 +100,19 @@ void set_oneshot_swaphands(void);
 void release_oneshot_swaphands(void);
 void use_oneshot_swaphands(void);
 void clear_oneshot_swaphands(void);
+#endif
+
+#ifdef DUMMY_MOD_NEUTRALIZER_KEYCODE
+// KC_A is used as the lowerbound instead of QK_BASIC because the range QK_BASIC...KC_A includes
+// internal keycodes like KC_NO and KC_TRANSPARENT which are unsuitable for use with `tap_code(kc)`.
+#    if !(KC_A <= DUMMY_MOD_NEUTRALIZER_KEYCODE && DUMMY_MOD_NEUTRALIZER_KEYCODE <= QK_BASIC_MAX)
+#        error "DUMMY_MOD_NEUTRALIZER_KEYCODE must be a basic, unmodified, HID keycode!"
+#    endif
+void neutralize_flashing_modifiers(uint8_t active_mods);
+#endif
+#ifndef MODS_TO_NEUTRALIZE
+#    define MODS_TO_NEUTRALIZE \
+        { MOD_BIT(KC_LEFT_ALT), MOD_BIT(KC_LEFT_GUI) }
 #endif
 
 #ifdef __cplusplus

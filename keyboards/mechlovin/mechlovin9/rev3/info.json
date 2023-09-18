@@ -16,6 +16,7 @@
         "rows": ["B12", "B13", "B14", "B15", "A1"],
         "cols": ["B11", "B10", "B2", "B1", "B0", "A6", "A5", "A4", "A3", "C13", "B7", "B6", "B5", "B4", "B3"]
     },
+    "diode_direction": "COL2ROW",
     "indicators": {
         "caps_lock": "B9"
     }

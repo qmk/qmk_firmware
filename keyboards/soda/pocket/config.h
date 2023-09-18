@@ -15,23 +15,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-#define MATRIX_COL_PINS { A2, A1, B14, B4, B5, B6, B7}
-#define MATRIX_ROW_PINS { A7, B0, B1, B2, B10, B11 }
-#define DIODE_DIRECTION ROW2COL
-
-#define LED_NUM_LOCK_PIN B15
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-// enable NKRO_ENABLE
-#define FORCE_NKRO
-// The pin connected to the data pin of the LEDs
-#define RGB_DI_PIN C15
-// The number of LEDs connected
 
+// The number of LEDs connected
 #define RGB_MATRIX_LED_COUNT 34
 
 #ifdef RGB_MATRIX_ENABLE

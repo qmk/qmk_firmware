@@ -15,12 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
+#include "process_key_override.h"
 #include "report.h"
 #include "timer.h"
-#include "process_key_override.h"
-
-#include <debug.h>
+#include "debug.h"
+#include "wait.h"
+#include "action_util.h"
+#include "quantum.h"
+#include "quantum_keycodes.h"
 
 #ifndef KEY_OVERRIDE_REPEAT_DELAY
 #    define KEY_OVERRIDE_REPEAT_DELAY 500
@@ -321,6 +323,15 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
         key_override_printf("Activating override\n");
 
         clear_active_override(false);
+
+#ifdef DUMMY_MOD_NEUTRALIZER_KEYCODE
+        // Send a dummy keycode before unregistering the modifier(s)
+        // so that suppressing the modifier(s) doesn't falsely get interpreted
+        // by the host OS as a tap of a modifier key.
+        // For example, unintended activations of the start menu on Windows when
+        // using a GUI+<kc> key override with suppressed mods.
+        neutralize_flashing_modifiers(active_mods);
+#endif
 
         active_override                 = override;
         active_override_trigger_is_down = true;

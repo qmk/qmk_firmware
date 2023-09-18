@@ -13,5 +13,4 @@ AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes        # Enable Encoder
 DIP_SWITCH_ENABLE = yes
 RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = IS31FL3733
 LTO_ENABLE = yes
