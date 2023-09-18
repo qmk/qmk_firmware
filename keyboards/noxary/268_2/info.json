@@ -18,7 +18,12 @@
   },
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
-  "community_layouts": ["65_ansi_blocker"],
+  "community_layouts": [
+    "65_ansi_blocker",
+    "65_ansi_blocker_split_bs",
+    "65_ansi_blocker_tsangan",
+    "65_ansi_blocker_tsangan_split_bs"
+  ],
   "layout_aliases": {
     "LAYOUT": "LAYOUT_65_ansi_blocker",
     "LAYOUT_split_bs": "LAYOUT_65_ansi_blocker_split_bs",
