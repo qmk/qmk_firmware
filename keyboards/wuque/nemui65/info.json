@@ -12,7 +12,7 @@
         "rows": ["F1", "F0", "C6", "B6", "F5"]
     },
     "features": {
-        "bootmagic": true,
+        "bootmagic": false,
         "command": false,
         "console": false,
         "rgb_matrix": true,
