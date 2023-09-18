@@ -15,31 +15,32 @@
         "cols": ["B14", "A8", "A9"],
         "rows": ["B13", "B15"]
     },
-    "ws2812": {
-        "pin": "A7",
-        "driver": "spi"
-    },
-    "rgblight": {
-        "led_count": 12,
-        "animations": {
-            "breathing":true,
-            "alternating":true,
-            "christmas":true,
-            "knight":true,
-            "rainbow_mood":true,
-            "rainbow_swirl":true,
-            "snake":true,
-            "static_gradient":true,
-            "twinkle":true
-        }
-    },
     "processor": "STM32F072",
+    "rgblight": {
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        },
+        "led_count": 12
+    },
     "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x1000",
         "vid": "0x7877"
     },
+    "ws2812": {
+        "driver": "spi",
+        "pin": "A7"
+    },
+    "community_layouts": ["ortho_2x3"],
     "layouts": {
         "LAYOUT_ortho_2x3": {
             "layout": [

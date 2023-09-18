@@ -1,6 +1,6 @@
 # riot_pad
 
-![riot_pad](https://i.imgur.com/zH6H3pS.png)
+![riot_pad](https://i.imgur.com/zH6H3pSh.png)
 
 A RGB lovin', 6 key macropad.
 

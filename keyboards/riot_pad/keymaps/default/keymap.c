@@ -18,13 +18,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [1] = LAYOUT_ortho_2x3(
         RGB_MOD,    RGB_RMOD,    RGB_TOG,
         RGB_VAI,    RGB_VAD,    KC_TRNS
-    ),
-    [2] = LAYOUT_ortho_2x3(
-        KC_TRNS,    KC_TRNS,    KC_TRNS,
-        KC_TRNS,    KC_TRNS,    KC_TRNS
-    ),
-    [3] = LAYOUT_ortho_2x3(
-        KC_TRNS,    KC_TRNS,    KC_TRNS,
-        KC_TRNS,    KC_TRNS,    KC_TRNS
     )
 };
