@@ -3,9 +3,6 @@
 
 #pragma once
 
-/* Split Defines */
-#define SPLIT_USB_DETECT
-#define MASTER_LEFT
 
 #ifdef RGB_MATRIX_ENABLE
     // The number of LEDs connected
@@ -15,19 +12,3 @@
     #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
     #define EECONFIG_KB_DATA_SIZE 12
 #endif
-
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
