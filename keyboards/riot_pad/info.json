@@ -11,9 +11,6 @@
         "nkro": true,
         "rgblight": true
     },
-    "bootmagic": {
-        "matrix": [0, 0]
-    },
     "matrix_pins": {
         "cols": ["B14", "A8", "A9"],
         "rows": ["B13", "B15"]
