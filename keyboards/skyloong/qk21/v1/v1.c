@@ -47,11 +47,3 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 
 #endif  // NUM_LOCK_INDEX
 
-void suspend_power_down_kb() {
-    rgb_matrix_set_flags(LED_FLAG_NONE);
-    rgb_matrix_set_color_all(0, 0, 0);
-}
-
-void suspend_wakeup_init_kb() {
-    rgb_matrix_set_flags(LED_FLAG_ALL);
-}
