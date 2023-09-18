@@ -3,10 +3,10 @@
 #include "ansi.h"
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record)
+{
     if (!process_record_user(keycode, record)) {
         return false;
     }
-{
     switch (keycode) {
         case MAC_SEARCH:
             if (record->event.pressed) {
@@ -57,7 +57,6 @@ void dial_sw_scan(void)
     static uint8_t dial_save = 0xff;
     static uint32_t dial_scan_timer = 0;
 
-    // 20ms扫描间隔
     if (timer_elapsed32(dial_scan_timer) < 50) return;
     dial_scan_timer = timer_read32();  // store time of last refresh
 
