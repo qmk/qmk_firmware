@@ -13,6 +13,9 @@
             {"pin_a": "B5", "pin_b": "B4"}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 100
+    },
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "matrix_pins": {

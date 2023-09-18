@@ -5,6 +5,13 @@
         "rows": ["B12", "B13", "B14", "B15", "A8", "A10"]
     },
     "diode_direction": "COL2ROW",
+    "rgblight": {
+        "led_count": 57,
+        "split_count": [26, 31]
+    },
+    "build": {
+        "debounce_type": "asym_eager_defer_pk"
+    },
     "ws2812": {
         "pin": "A1",
         "driver": "pwm"

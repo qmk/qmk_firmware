@@ -46,9 +46,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
      * | Ctrl-  | Win    | Alt    | Del    | Space  |        | ADJ    |  | FN     |        | Space  | '"     | Alt    | App    | Ctrl=  |
      * '--------+--------+--------+--------|--------+--------+--------'  '--------+--------+--------+--------+--------+--------+--------'
-     *      Encoder 1         Encoder 2                                                                  Encoder 3         Encoder 4
-     * .-----------------------------------.                                                        .-----------------------------------.
-     * | VolUp  | VolDn  | VolUp  | VolDn  |                                                        | PgUp   | PgDn   | PgUp   | PgDn   |
      * |--------+--------+--------+--------+--------.                                      .--------+--------+--------+--------+--------|
      * | VolDn  | VolUp  | Next   | Play   | Prev   | Touch Encoder          Touch Encoder | RgbHuI | RgbHuD | RgbMdD | RgbTog | RgbMdI |
      * '--------+--------+--------+--------+--------'                                      '--------+--------+--------+--------+--------'
@@ -60,7 +57,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         SC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_LCBR,    KC_RCBR, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SC_RSPC,
         SC_LCPO, KC_LGUI, KC_LALT, KC_DEL,  KC_SPC,  KC_NO,   ADJ,        FN,      KC_NO,   KC_SPC,  KC_QUOTE,KC_RALT, KC_APP,  SC_RCPC,
 
-        KC_VOLU, KC_VOLD, KC_VOLU, KC_VOLD,                                                          MENU_DN, MENU_UP, MENU_DN, MENU_UP,
         KC_VOLD, KC_VOLU, KC_MNXT, KC_MPLY, KC_MPRV,                                        RGB_HUI, RGB_HUD, RGB_RMOD,RGB_TOG, RGB_MOD
     ),
 
@@ -76,9 +72,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
      * |        |        |        |        |        |        |        |  |        |        | Play   | Prev   | Next   | VolUp  | VolDn  |
      * '--------+--------+--------+--------+--------+--------+--------'  '--------+--------+--------+--------+--------+--------+--------'
-     *      Encoder 1         Encoder 2                                                                  Encoder 3         Encoder 4
-     * .-----------------------------------.                                                        .-----------------------------------.
-     * |        |        |        |        |                                                        |        |        |        |        |
      * |--------+--------+--------+--------+--------.                                      .--------+--------+--------+--------+--------|
      * |        |        |        |        |        | Touch Encoder          Touch Encoder |        |        |        |        |        |
      * '--------+--------+--------+--------+--------'                                      '--------+--------+--------+--------+--------'
@@ -90,7 +83,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, RGB_RST, _______, _______, _______, RGB_TOG, _______,    _______, _______, _______, KC_DEL,  KC_END,  KC_PGDN, _______,
         _______, _______, _______, _______, _______, _______, _______,    _______, _______, KC_MPLY, KC_MPRV, KC_MNXT, KC_VOLU, KC_VOLD,
 
-        _______, _______, _______, _______,                                                          _______, _______, _______, _______,
         _______, _______, _______, _______, _______,                                        _______, _______, _______, _______, _______
     ),
 
@@ -120,7 +112,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, EE_CLR,  _______,    _______, _______, KC_KP_1, KC_KP_2, KC_KP_3, KC_PENT, _______,
         _______, _______, _______, _______, _______, _______, _______,    _______, _______, _______, KC_KP_0, KC_PDOT, KC_PENT, _______,
 
-        _______, _______, _______, _______,                                                          _______, _______, _______, _______,
         _______, _______, _______, _______, _______,                                        _______, _______, _______, _______, _______
     )
 };
@@ -247,3 +238,11 @@ bool oled_task_user(void) {
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;
 }
+
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MENU_DN, MENU_UP), ENCODER_CCW_CW(MENU_DN, MENU_UP) },
+    [1] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______) },
+    [2] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______) }
+};
+#endif

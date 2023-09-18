@@ -22,6 +22,7 @@ RGB_MATRIX_EFFECT(unlocked)
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
 #include "dynamic_keymap.h"
+#include "action_layer.h"
 
 static bool active_keys_initialized = false;
 static uint8_t active_keys_table[RGB_MATRIX_LED_COUNT] = {0};

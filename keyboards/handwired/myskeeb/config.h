@@ -13,7 +13,3 @@
 #define OLED_FONT_HEIGHT 8
 #define OLED_FONT_WIDTH 6
 #define OLED_FONT_H "skeeb_font.c"
-
-// Tap Dance
-
-#define TAPPING_TERM 200
