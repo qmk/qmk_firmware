@@ -126,16 +126,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void matrix_init_user(void) {
-  if (!(host_keyboard_leds() & (1<<USB_LED_NUM_LOCK))) {
+  if (!host_keyboard_led_state().num_lock) {
     register_code(KC_NUM_LOCK);
     unregister_code(KC_NUM_LOCK);
   }
 }
 
-void led_set_user(uint8_t usb_led) {
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+bool led_update_user(led_t led_state) {
+    if (led_state.caps_lock) {
         rgblight_mode(18);
     } else {
         rgblight_mode(14);
     }
+    return false;
 }

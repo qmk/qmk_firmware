@@ -9,7 +9,7 @@
         "device_version": "0.0.1"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
     },
     "matrix_pins": {
         "cols": ["B13", "B14", "B3", "A4", "A6"],
@@ -17,7 +17,6 @@
     },
     "diode_direction": "COL2ROW",
     "backlight": {
-        "driver": "software",
         "pin": "B11",
         "levels": 5,
         "on_state": 0
