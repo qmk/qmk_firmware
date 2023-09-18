@@ -7,7 +7,7 @@ enum custom_layers {
     _BASE,
     _RAISE,
     _LOWER,
-    _SYS
+    _SYS,
 };
 
 #define MG_A LGUI_T(KC_A)
