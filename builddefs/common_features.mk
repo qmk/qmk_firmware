@@ -44,6 +44,31 @@ else ifeq ($(strip $(DEBUG_MATRIX_SCAN_RATE_ENABLE)), api)
     OPT_DEFS += -DDEBUG_MATRIX_SCAN_RATE
 endif
 
+ifeq ($(strip $(CONSOLE_ENABLE)), yes)
+    SENDCHAR_DRIVER ?= console
+else
+    SENDCHAR_DRIVER ?= none
+endif
+VALID_SENDCHAR_DRIVER_TYPES := console uart custom
+ifneq ($(strip $(SENDCHAR_DRIVER)),none)
+    ifeq ($(filter $(SENDCHAR_DRIVER),$(VALID_SENDCHAR_DRIVER_TYPES)),)
+        $(call CATASTROPHIC_ERROR,Invalid SENDCHAR_DRIVER,SENDCHAR_DRIVER="$(SENDCHAR_DRIVER)" is not a valid logging driver type)
+    else
+        OPT_DEFS += -DSENDCHAR_DRIVER_$(strip $(shell echo $(SENDCHAR_DRIVER) | tr '[:lower:]' '[:upper:]'))
+
+        ifneq ($(strip $(SENDCHAR_DRIVER)), custom)
+            QUANTUM_SRC += $(QUANTUM_DIR)/logging/sendchar_$(strip $(shell echo $(SENDCHAR_DRIVER) | tr '[:upper:]' '[:lower:]')).c
+        endif
+
+        ifeq ($(strip $(SENDCHAR_DRIVER)), uart)
+            UART_DRIVER_REQUIRED = yes
+        endif
+    endif
+else
+    OPT_DEFS += -DNO_PRINT
+    OPT_DEFS += -DNO_DEBUG
+endif
+
 AUDIO_ENABLE ?= no
 ifeq ($(strip $(AUDIO_ENABLE)), yes)
     ifeq ($(PLATFORM),CHIBIOS)

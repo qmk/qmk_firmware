@@ -30,7 +30,6 @@
 #include "usb_device_state.h"
 #include "mousekey.h"
 #include "led.h"
-#include "sendchar.h"
 #include "debug.h"
 #include "print.h"
 
