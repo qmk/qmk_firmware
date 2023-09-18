@@ -29,7 +29,6 @@
 	},
 	"debounce": 2,
 	"ws2812": {
-		"driver": "bitbang",
 		"pin": "A7"
 	},
 	"rgb_matrix": {
