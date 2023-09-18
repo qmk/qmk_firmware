@@ -104,10 +104,13 @@ const ckled2001_led PROGMEM g_ckled2001_leds[RGB_MATRIX_LED_COUNT] = {
 void suspend_power_down_kb() {
     writePinLow(SDB);
 
+    suspend_power_down_user();
 }
 
 void suspend_wakeup_init_kb() {
     writePinHigh(SDB);
+    
+    suspend_wakeup_init_user();
 }
 
 
