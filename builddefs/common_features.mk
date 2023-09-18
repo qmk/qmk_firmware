@@ -784,13 +784,15 @@ endif
 ifeq ($(strip $(UCIS_ENABLE)), yes)
     OPT_DEFS += -DUCIS_ENABLE
     UNICODE_COMMON := yes
-    SRC += $(QUANTUM_DIR)/process_keycode/process_ucis.c
+    SRC += $(QUANTUM_DIR)/process_keycode/process_ucis.c \
+           $(QUANTUM_DIR)/unicode/ucis.c
 endif
 
 ifeq ($(strip $(UNICODEMAP_ENABLE)), yes)
     OPT_DEFS += -DUNICODEMAP_ENABLE
     UNICODE_COMMON := yes
-    SRC += $(QUANTUM_DIR)/process_keycode/process_unicodemap.c
+    SRC += $(QUANTUM_DIR)/process_keycode/process_unicodemap.c \
+           $(QUANTUM_DIR)/unicode/unicodemap.c
 endif
 
 ifeq ($(strip $(UNICODE_ENABLE)), yes)

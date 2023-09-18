@@ -97,16 +97,16 @@ extern layer_state_t layer_state;
 #    include "leader.h"
 #endif
 
+#ifdef UNICODE_COMMON_ENABLE
+#    include "unicode.h"
+#endif
+
 #ifdef UCIS_ENABLE
-#    include "process_ucis.h"
+#    include "ucis.h"
 #endif
 
 #ifdef UNICODEMAP_ENABLE
-#    include "process_unicodemap.h"
-#endif
-
-#ifdef UNICODE_COMMON_ENABLE
-#    include "unicode.h"
+#    include "unicodemap.h"
 #endif
 
 #ifdef KEY_OVERRIDE_ENABLE
