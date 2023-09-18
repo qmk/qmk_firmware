@@ -14,8 +14,6 @@ Users have reported reduced finger movement, reduced wrist movement, and better 
     * MCU: Pro-Micro, Elite-C
 * Hardware Availability: moorekeys.etsy.com. Open source though so it varies.
 
-Note: Pteron56v0.1 users can also use this directory, but *must* use the brant keymap (pteron56:brant)
-
 Make example for this keyboard (after setting up your build environment):
 
     make pteron56:default
