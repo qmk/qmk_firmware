@@ -105,14 +105,13 @@ void keyboard_pre_init_kb(void) {
      * pathways to ground. If you're messing with this, know this: driving ANY
      * of these pins high will cause a short. On the MCU. Ka-blooey.
      */
-#ifdef UNUSABLE_PINS
-    const pin_t unused_pins[] = UNUSABLE_PINS;
+    const pin_t unused_pins[] = { GP1, GP3, GP4, GP6, GP8, GP10, GP14, GP16,
+        GP18, GP20, GP22, GP24, GP25, GP26, GP27, GP28, GP29 };
 
     for (uint8_t i = 0; i < (sizeof(unused_pins) / sizeof(pin_t)); i++) {
         setPinOutput(unused_pins[i]);
         writePinLow(unused_pins[i]);
     }
-#endif
 
     keyboard_pre_init_user();
 }
