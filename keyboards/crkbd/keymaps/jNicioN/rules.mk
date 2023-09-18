@@ -1,15 +1,14 @@
-MOUSEKEY_ENABLE = no    # Mouse keys
-RGBLIGHT_ENABLE = yes    # Enable WS2812 RGB underlight.
-OLED_ENABLE     = yes
-OLED_DRIVER     = SSD1306
-LTO_ENABLE      = yes
-EXTRAKEY_ENABLE = yes # for media keys
-TAP_DANCE_ENABLE = yes
-RGB_MATRIX_ENABLE = yes
+MOUSEKEY_ENABLE = yes    # Habilita el uso de teclas como Mouse
+RGBLIGHT_ENABLE = yes    # Habilita WS2812 RGB para luces de abajo.
+OLED_ENABLE     = yes    # Habilita las pantallas OLED
+LTO_ENABLE      = yes    # Habilita "Link-Time Optimization", (optimiza código y suele reducir espacio en memoria)
+EXTRAKEY_ENABLE = yes    # Habilita las teclas para multimedia
+TAP_DANCE_ENABLE = yes   # Habilita las funciones Tap Dance (Doble Click)
+RGB_MATRIX_ENABLE = yes  # Hbailita la matriz RGB del teclado
 
 SRC += oled.c
 
-#Prueba 
+#Configuraciones a considerar para no consumir memoria
 BOOTMAGIC_ENABLE  =	no
 SLEEP_LED_ENABLE  =	no
 NKRO_ENABLE       =	no
@@ -24,5 +23,4 @@ CONSOLE_ENABLE    =	no
 COMMAND_ENABLE = no
 SPACE_CADET_ENABLE = no
 GRAVE_ESCAPE_ENABLE = no
-#Prueba 
 
