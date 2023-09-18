@@ -1,18 +1,16 @@
-// Copyright 2021 Allen Choi (@thunderbird2086)
-// SPDX-License-Identifier: GPL-2.0-or-later
-
 #pragma once
 
 enum layers{
-	_QWERTY,
-	_NAV,
-	_SYMBOL,
-	_NUMPAD,
-	_CONFIG
+	_QWERTY,    // Capa para Teclado tipo qwerty
+	_NAV,       // Capa para Teclado de navegación
+	_SYMBOL,    // Capa para Teclado de Simbolos
+	_NUMPAD,    // Capa para Teclado Númerico
+	_CONFIG     // Capa para Teclado de Configuración
 };
 
-// Tap Dance acentos
+
 enum tapDance{
-	TD_CTRALT,
-	TD_MAYUS
+	TD_CTRALT,  //Tap para CTRL(⌃), doble tap para ALT(⌥)
+	TD_MAYUS,   //Tap para SHIFT, doble tap para BLOQ MAYUS
+	TD_QUESAPE  //Tap para (´), doble tap para (¿)
 };
