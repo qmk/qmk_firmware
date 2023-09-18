@@ -215,13 +215,14 @@ void suspend_power_down_kb() {
 #    ifdef RGB_MATRIX_ENABLE
     writePinLow(SDB);
 #    endif
+     suspend_power_down_user();
 }
 
 void suspend_wakeup_init_kb() {
 #    ifdef RGB_MATRIX_ENABLE
     writePinHigh(SDB);
-    rgb_matrix_set_flags(LED_FLAG_ALL);
 #    endif
+     suspend_wakeup_init_user();
 }
 
 void board_init(void) {
