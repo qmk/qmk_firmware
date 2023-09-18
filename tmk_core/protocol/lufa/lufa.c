@@ -42,7 +42,6 @@
 #include "keyboard.h"
 #include "action.h"
 #include "led.h"
-#include "sendchar.h"
 #include "debug.h"
 #ifdef SLEEP_LED_ENABLE
 #    include "sleep_led.h"
@@ -205,7 +204,7 @@ static void console_flush_task(void) {
     while (Endpoint_IsReadWriteAllowed())
         Endpoint_Write_8(0);
 
-    // flush sendchar packet
+    // flush console packet
     if (Endpoint_IsINReady()) {
         Endpoint_ClearIN();
     }
@@ -589,7 +588,7 @@ void send_digitizer(report_digitizer_t *report) {
 }
 
 /*******************************************************************************
- * sendchar
+ * CONSOLE
  ******************************************************************************/
 #ifdef CONSOLE_ENABLE
 #    define SEND_TIMEOUT 5
@@ -597,13 +596,13 @@ void send_digitizer(report_digitizer_t *report) {
  *
  * FIXME: Needs doc
  */
-int8_t sendchar(uint8_t c) {
+int8_t console_write(uint8_t c) {
     // Do not wait if the previous write has timed_out.
-    // Because sendchar() is called so many times, waiting each call causes big lag.
+    // Because console_write() is called so many times, waiting each call causes big lag.
     // The `timed_out` state is an approximation of the ideal `is_listener_disconnected?` state.
     static bool timed_out = false;
 
-    // prevents console_flush_task() from running during sendchar() runs.
+    // prevents console_flush_task() from running during console_write() runs.
     // or char will be lost. These two function is mutually exclusive.
     CONSOLE_FLUSH_SET(false);
 

@@ -16,20 +16,10 @@
  */
 #include <util/delay.h>
 #include "mschwingen.h"
-#include "uart.h"
 #include "print.h"
 #include "sendchar.h"
 #include "ws2812.h"
 #include "sleep_led.h"
-
-#ifdef UART_DEBUG
-#    undef sendchar
-static int8_t capture_sendchar(uint8_t c) {
-    //  sendchar(c);
-    uart_write(c);
-    return 0;
-}
-#endif
 
 static uint16_t blink_cycle_timer;
 static bool     blink_state = false;
@@ -103,11 +93,6 @@ void keyboard_pre_init_kb(void) {
     setPinOutput(MODELM_STATUS_LED);
     writePinHigh(MODELM_STATUS_LED);
     _delay_ms(50);
-#ifdef UART_DEBUG
-    uart_init(115200);
-    print_set_sendchar(capture_sendchar);
-    uprintf("\r\nHello world!\r\n");
-#endif
 
     setPinOutput(SR_LOAD_PIN);
     setPinOutput(SR_CLK_PIN);

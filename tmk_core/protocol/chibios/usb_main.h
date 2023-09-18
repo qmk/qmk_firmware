@@ -53,7 +53,7 @@ void usb_event_queue_task(void);
 #ifdef CONSOLE_ENABLE
 
 /* Putchar over the USB console */
-int8_t sendchar(uint8_t c);
+int8_t console_write(uint8_t c);
 
 #endif /* CONSOLE_ENABLE */
 
