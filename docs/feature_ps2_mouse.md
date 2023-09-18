@@ -155,6 +155,27 @@ In your keyboard config.h:
 #endif
 ```
 
+### RP2040 PIO Version :id=rp2040-pio-version
+
+This uses the RP2040's hardware feature called PIO and is therefore only
+available on boards that are based on the RP2040 MCU.
+
+The pin for the data signal must be followed directly by the pin for the clock
+within the GPIO pin numbering scheme. This is required due to the design of the
+PIO state machine code.
+
+Example info.json content:
+
+```
+    "ps2": {
+        "clock_pin": "GP1",
+        "data_pin": "GP0",
+        "driver": "vendor",
+        "enabled": true,
+        "mouse_enabled": true
+    }
+```
+
 ## Additional Settings :id=additional-settings
 
 ### PS/2 Mouse Features :id=ps2-mouse-features

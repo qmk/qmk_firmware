@@ -22,7 +22,7 @@
 #endif
 
 #if PS2_DATA_PIN + 1 != PS2_CLOCK_PIN
-#    error PS/2 Clock pin must be followed by data pin!
+#    error PS/2 data pin must be followed by clock pin!
 #endif
 
 static inline void pio_serve_interrupt(void);
