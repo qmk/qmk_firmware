@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 enum layers {
     _QWERTY,
-    _COLEMAKDH,
     _LOWER,
     _UPPER,
     _ADJUST,
@@ -30,7 +29,6 @@ enum layers {
 
 enum custom_keycodes {
     QWERTY = SAFE_RANGE,
-    COLEMAKDH,
     LOWER,
     UPPER,
     ADJUST,
@@ -41,7 +39,6 @@ enum custom_keycodes {
 #define UPPER MO(_UPPER)
 #define ADJUST MO(_ADJUST)
 #define DF_QWRT DF(_QWERTY)
-#define DF_CMDH DF(_COLEMAKDH)
 #define TG_GAME TG(_GAME)
 #define LGUI_A LGUI_T(KC_A)
 #define LALT_S LALT_T(KC_S)
@@ -51,6 +48,10 @@ enum custom_keycodes {
 #define RCTL_K RCTL_T(KC_K)
 #define RALT_L RALT_T(KC_L)
 #define RGUI_SC RGUI_T(KC_SCLN)
+#define LGUI_F1 LGUI_T(KC_F1)
+#define LALT_F2 LALT_T(KC_F2)
+#define LCTL_F3 LCTL_T(KC_F3)
+#define LSFT_F4 LSFT_T(KC_F4)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -70,24 +71,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_ESC,   LGUI_A,  LALT_S,  LCTL_D,  LSFT_F,    KC_G,       KC_H,  RSFT_J,  RCTL_K,  RALT_L, RGUI_SC, KC_QUOT,
       KC_CAPS,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,       KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ENT,
                                  XXXXXXX,   LOWER,  KC_SPC,    XXXXXXX,   UPPER,  XXXXXXX
-  ),
-
-  /* Colemak Mod-DH
-   * ,-----------------------------------------------------.  ,-----------------------------------------------------.
-   * |  Tab   |    Q   |    W   |    F   |    P   |    B   |  |    J   |    L   |    U   |    Y   |    ;   |  Bksp  |
-   * |--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
-   * |  Esc   |    A   |    R   |    S   |    T   |    G   |  |    M   |    N   |    E   |    I   |    O   |   ""   |
-   * |--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
-   * |  Alt   |    Z   |    X   |    C   |    D   |    V   |  |    K   |    H   |    ,   |    .   |    /   | Enter  |
-   * |--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
-   *                            |  Ctrl  | Lower  | Space  |  | Shift  | Upper  |  GUI   |
-   *                            `--------------------------'  `--------------------------'
-   */
-  [_COLEMAKDH] = LAYOUT_split_3x6_3(
-       KC_TAB,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,       KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN, KC_BSPC,
-       KC_ESC,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,       KC_M,    KC_N,    KC_E,    KC_I,    KC_O, KC_QUOT,
-      KC_LALT,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,       KC_K,    KC_H, KC_COMM,  KC_DOT, KC_SLSH,  KC_ENT,
-                                 KC_LCTL,   LOWER,  KC_SPC,    KC_RSFT,   UPPER, KC_RGUI
   ),
 
   /* Lower
@@ -121,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_UPPER] = LAYOUT_split_3x6_3(
        KC_TAB,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,       KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
-       KC_F11,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,     KC_INS, KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT,  KC_DEL,
+       KC_F11, LGUI_F1, LALT_F2, LCTL_F3, LSFT_F4,   KC_F5,     KC_INS, KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT,  KC_DEL,
        KC_F12,   KC_F5,   KC_F7,   KC_F8,   KC_F9,  KC_F10,    KC_PSCR, KC_HOME, KC_PGDN, KC_PGUP,  KC_END,  KC_ENT,
                                  KC_LCTL,  ADJUST,  KC_SPC,    KC_RSFT, KC_TRNS, KC_RGUI
   ),
@@ -132,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
    * |DF(QWRT)|        |        | Mouse2 | Mouse1 |        |  |  Vol+  |Ms Left |Ms Down | Ms Up  |Ms Right|        |
    * |--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
-   * |DF(CMDH)|        |        | Mouse4 | Mouse5 |        |  |  Vol-  | MsWl L | MsWl D | MsWl U | MsWl R |        |
+   * |        |        |        | Mouse4 | Mouse5 |        |  |  Vol-  | MsWl L | MsWl D | MsWl U | MsWl R |        |
    * |--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
    *                            |        | Lower  |        |  |        | Upper  |        |
    *                            `--------------------------'  `--------------------------'
@@ -140,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ADJUST] = LAYOUT_split_3x6_3(
       QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TG_GAME,     KC_MPLY, KC_MPRV, KC_MNXT, XXXXXXX, XXXXXXX, XXXXXXX,
       DF_QWRT, XXXXXXX, XXXXXXX, KC_BTN2, KC_BTN1, XXXXXXX,     KC_VOLU, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, XXXXXXX,
-      DF_CMDH, XXXXXXX, XXXXXXX, KC_BTN4, KC_BTN5, XXXXXXX,     KC_VOLD, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, KC_BTN4, KC_BTN5, XXXXXXX,     KC_VOLD, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, XXXXXXX,
                                  XXXXXXX, KC_TRNS, XXXXXXX,     XXXXXXX, KC_TRNS, XXXXXXX
   ),
 
