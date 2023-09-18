@@ -1,6 +1,6 @@
 # Wave
 
-![Wave pcb](https://raw.githubusercontent.com/etiennecollin/wave/main/resources/images/wave_pcb_rounded.svg)
+![Wave pcb](https://i.imgur.com/oWF1Fnr.png)
 
 _The Wave is a small, reversible keyboard inspired by the [Ferris](https://github.com/pierrechevalier83/ferris), the [Ferris Sweep](https://github.com/davidphilipbarr/Sweep), the [Swoop](https://github.com/jimmerricks/swoop) and the [Sweep36](https://github.com/sadekbaroudi/sweep36). It aims to solve a few issues I found with the keyboards._
 
