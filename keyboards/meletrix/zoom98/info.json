@@ -85,7 +85,7 @@
 },
   "matrix_pins": {
     "rows": ["E6", "B0", "F1", "D0", "F0", "B3", "C7", "D6", "B6", "C6", "B5", "D4"],
-    "cols": ["F7", "F4", "F6", "D2", "F5", "D5", "D1", "D7", "D3", "B4", "D0", "B7", "B2", "B3", "F7"]
+    "cols": ["F7", "F4", "F6", "D2", "F5", "D5", "D1", "D7", "D3", "B4"]
   },
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
