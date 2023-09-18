@@ -36,7 +36,7 @@
             "cycle_all": true,
             "solid_reactive_simple": true
         },
-		"layout":[
+        "layout": [
             { "matrix": [0, 13], "x":  15, "y": 0, "flags":4 }
          ]
     },
