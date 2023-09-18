@@ -18,7 +18,7 @@ jobs:
     - name: Disable safe.directory check
       run : git config --global --add safe.directory '*'
 
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
@@ -27,7 +27,7 @@ jobs:
 
     - name: Get changed files
       id: file_changes
-      uses: tj-actions/changed-files@v37
+      uses: tj-actions/changed-files@v38
 
     - name: Print info
       run: |

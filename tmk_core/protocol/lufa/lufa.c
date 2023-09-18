@@ -48,10 +48,10 @@
 #    include "sleep_led.h"
 #endif
 #include "suspend.h"
+#include "wait.h"
 
 #include "usb_descriptor.h"
 #include "lufa.h"
-#include "quantum.h"
 #include "usb_device_state.h"
 #include <util/atomic.h>
 
@@ -858,7 +858,7 @@ void protocol_post_init(void) {
 void protocol_pre_task(void) {
 #if !defined(NO_USB_STARTUP_CHECK)
     if (USB_DeviceState == DEVICE_STATE_Suspended) {
-        print("[s]");
+        dprintln("suspending keyboard");
         while (USB_DeviceState == DEVICE_STATE_Suspended) {
             suspend_power_down();
             if (USB_Device_RemoteWakeupEnabled && suspend_wakeup_condition()) {

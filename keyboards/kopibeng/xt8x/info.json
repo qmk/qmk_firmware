@@ -21,7 +21,18 @@
         "pin": "A10"
     },
     "rgblight": {
-        "max_brightness": 200
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 19,
+        "max_brightness": 200,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "static_gradient": true,
+            "rgb_test": true
+        }
     },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",

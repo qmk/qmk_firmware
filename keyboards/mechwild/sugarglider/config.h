@@ -19,10 +19,6 @@
 /* allows the "key" button on the blackpill to toggle caps lock for user testing before soldering */
 #define DIP_SWITCH_PINS { A0 }
 
-/* TAPPING_TERM value is used for the CIRQUE_PINNACLE_TAPPING_TERM as well by default
- * defining it this way allows us to easily modify it with DYNAMIC_TAPPING_TERM_ENABLE
- */
-#define TAPPING_TERM 0
 #define CIRQUE_PINNACLE_TAP_ENABLE
 #define POINTING_DEVICE_GESTURES_SCROLL_ENABLE
 
