@@ -1,7 +1,3 @@
-BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
-RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
-AUDIO_ENABLE = no           # Audio output
-MAGIC_ENABLE = yes			# Magic keycodes
 TRI_LAYER_ENABLE = yes		# Tri Layers
 
 AUDIO_SUPPORTED = no        # Audio is not supported
