@@ -24,9 +24,6 @@
 		"rows": ["C14", "C15", "A0", "A1", "A2", "A3"]
 	},
 	"diode_direction": "COL2ROW",
-	"dynamic_keymap": {
-		"layer_count": 8
-	},
 	"debounce": 2,
 	"ws2812": {
 		"pin": "A7"
