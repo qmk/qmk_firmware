@@ -18,7 +18,7 @@ enum custom_layers {
 #define MC_K RCTL_T(KC_K)
 #define MA_L LALT_T(KC_L)
 #define MG_SCLN RGUI_T(KC_SCLN)
-#define APP_N LALT(KC_TAB)
+#define APP_N A(KC_TAB)
 #define APP_P LSA(KC_TAB)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -32,12 +32,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_RAISE] = LAYOUT(
-        KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9     KC_0,
+        KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
         KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_LBRC,                      KC_RBRC, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR,
         KC_PIPE, KC_GRV,  KC_BSLS, KC_LPRN, KC_LCBR,                      KC_RCBR, KC_RPRN, KC_SLSH, KC_QUES, KC_TILD,
                  KC_MINS, KC_PLUS,                   KC_NO,      KC_LALT,                   KC_EQL,  KC_UNDS,
-                                   KC_NO_,  KC_NO,   KC_NO,      KC_RCTL, KC_RSFT, KC_RGUI,
-                                            KC_TRNS,                      MO(3)
+                                   KC_NO,   KC_NO,   KC_NO,      KC_RCTL, KC_RSFT, KC_RGUI,
+                                            _______,                      MO(3)
     ),
 
     [_LOWER] = LAYOUT(
@@ -46,7 +46,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_SCRL, KC_NO,   KC_NO,   KC_PGDN, KC_NO,                        KC_NO,   KC_VOLD, KC_MPLY, KC_MSTP, KC_NO,
                  KC_BRID, KC_BRIU,                   KC_LALT,      KC_NO,                   APP_N,   APP_P,
                                    KC_LGUI, KC_LSFT, KC_LCTL,      KC_NO, KC_NO,   KC_NO,
-    ),                                      MO(3),                        KC_TRNS
+                                            MO(3),                        _______
+    ),
 
     [_SYS] = LAYOUT(
         KC_NO, KC_NO,   KC_NO, KC_NO, KC_NO,                      KC_NO,  KC_NO,   KC_NO, KC_NO, KC_NO,
@@ -54,6 +55,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO, KC_NO,   KC_NO, KC_NO, KC_NO,                      KC_NO,  KC_NO,   KC_NO, KC_NO, KC_NO,
                KC_NO,   KC_NO,                 KC_NO,      KC_NO,                  KC_NO, KC_NO,
                                KC_NO, KC_NO,   KC_NO,      KC_NO, KC_NO,  KC_NO,
-                                      KC_TRNS,                    KC_TRNS
+                                      _______,                    _______
     ),
 };
