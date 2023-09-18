@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Mod Tap */
 #define TAP_CODE_DELAY 50
+#define QUICK_TAP_TERM 0
 
 /* Mouse key speed and acceleration. */
 #undef MOUSEKEY_DELAY
