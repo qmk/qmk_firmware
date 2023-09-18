@@ -1,5 +1,3 @@
-CONSOLE_ENABLE = no         # Console for debug
-COMMAND_ENABLE = no         # Commands for debug and configuration
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
@@ -7,7 +5,7 @@ MAGIC_ENABLE = yes			# Magic keycodes
 TRI_LAYER_ENABLE = yes		# Tri Layers
 
 AUDIO_SUPPORTED = no        # Audio is not supported
-RGBLIGHT_SUPPORTED = no     # RGB underglow is supported, but not enabled by default
+RGBLIGHT_SUPPORTED =  no
 
 SERIAL_DRIVER = vendor
 
