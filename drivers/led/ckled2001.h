@@ -48,6 +48,11 @@
 #define MSKPHASE_1CHANNEL CKLED2001_MSKPHASE_1CHANNEL
 // ========
 
+#define CKLED2001_I2C_ADDRESS_GND 0x74
+#define CKLED2001_I2C_ADDRESS_SCL 0x75
+#define CKLED2001_I2C_ADDRESS_SDA 0x76
+#define CKLED2001_I2C_ADDRESS_VDDIO 0x77
+
 typedef struct ckled2001_led {
     uint8_t driver : 2;
     uint8_t r;
