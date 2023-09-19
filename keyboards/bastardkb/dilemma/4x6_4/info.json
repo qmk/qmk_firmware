@@ -32,10 +32,8 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgb_matrix": true
-    },
-    "caps_word": {
-        "enabled": true
+        "rgb_matrix": true,
+        "caps_word": true
     },
     "ws2812": {
         "pin": "GP10",
