@@ -32,9 +32,6 @@
     "rgb_matrix": {
         "driver": "ckled2001",
         "max_brightness": 180,
-        "val_steps": 40,
-        "speed_steps": 51,
-        "hue_steps": 37,
         "animations": {
             "solid_color": true,
             "breathing": true,
