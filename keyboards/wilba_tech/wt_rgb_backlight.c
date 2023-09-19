@@ -155,11 +155,7 @@ uint8_t g_key_hit[BACKLIGHT_LED_COUNT];
 uint32_t g_any_key_hit = 0;
 
 #if defined(RGB_BACKLIGHT_HS60)
-
-// This is a 7-bit address, that gets left-shifted and bit 0
-// set to 0 for write, 1 for read (as per I2C protocol)
-// ADDR_2 is not needed. it is here as a dummy
-#define ISSI_ADDR_1 0x50
+#define ISSI_ADDR_1 IS31FL3733_I2C_ADDRESS_GND_GND
 
 const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
@@ -235,12 +231,8 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 };
 
 #elif defined(RGB_BACKLIGHT_NK65) || defined(RGB_BACKLIGHT_NEBULA68) || defined(RGB_BACKLIGHT_NK87) || defined(RGB_BACKLIGHT_KW_MEGA)
-
-// This is a 7-bit address, that gets left-shifted and bit 0
-// set to 0 for write, 1 for read (as per I2C protocol)
-// ADDR_2 is not needed. it is here as a dummy
-#define ISSI_ADDR_1 0x50
-#define ISSI_ADDR_2 0x52
+#define ISSI_ADDR_1 IS31FL3733_I2C_ADDRESS_GND_GND
+#define ISSI_ADDR_2 IS31FL3733_I2C_ADDRESS_GND_SDA
 
 const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
@@ -381,9 +373,7 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 };
 
 #elif defined(RGB_BACKLIGHT_NEBULA12)
-// This is a 7-bit address, that gets left-shifted and bit 0
-// set to 0 for write, 1 for read (as per I2C protocol)
-#define ISSI_ADDR_1 0x74
+#define ISSI_ADDR_1 IS31FL3731_I2C_ADDRESS_GND
 
 const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
@@ -411,11 +401,10 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 };
 
 #elif defined(RGB_BACKLIGHT_U80_A)
-
 // U80-A prototype uses 3 ISSI drivers
-#define ISSI_ADDR_1 0x74  // 11101[00] <- GND
-#define ISSI_ADDR_2 0x76  // 11101[10] <- SDA
-#define ISSI_ADDR_3 0x75  // 11101[01] <- SCL
+#define ISSI_ADDR_1 IS31FL3731_I2C_ADDRESS_GND
+#define ISSI_ADDR_2 IS31FL3731_I2C_ADDRESS_SDA
+#define ISSI_ADDR_3 IS31FL3731_I2C_ADDRESS_SCL
 
 const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
@@ -539,10 +528,8 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     {2, C8_16, C7_16, C6_16}, // LF17
 };
 #elif defined(RGB_BACKLIGHT_DAWN60)
-// This is a 7-bit address, that gets left-shifted and bit 0
-// set to 0 for write, 1 for read (as per I2C protocol)
-#define ISSI_ADDR_1 0x74
-#define ISSI_ADDR_2 0x76
+#define ISSI_ADDR_1 IS31FL3731_I2C_ADDRESS_GND
+#define ISSI_ADDR_2 IS31FL3731_I2C_ADDRESS_SDA
 
 const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
@@ -620,10 +607,8 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     {1, C9_16,  C7_15,  C6_15}  //D16
 };
 #elif defined(RGB_BACKLIGHT_PORTICO)
-// This is a 7-bit address, that gets left-shifted and bit 0
-// set to 0 for write, 1 for read (as per I2C protocol)
-#define ISSI_ADDR_1 0x74
-#define ISSI_ADDR_2 0x77
+#define ISSI_ADDR_1 IS31FL3731_I2C_ADDRESS_GND
+#define ISSI_ADDR_2 IS31FL3731_I2C_ADDRESS_VCC
 
 const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
@@ -706,9 +691,7 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 };
 
 #elif defined(RGB_BACKLIGHT_PORTICO75)
-// This is a 7-bit address, that gets left-shifted and bit 0
-// set to 0 for write, 1 for read (as per I2C protocol)
-#define ISSI_ADDR_1 0x30
+#define ISSI_ADDR_1 IS31FL3741_I2C_ADDRESS_GND
 #define ISSI_ADDR_2
 
 const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
@@ -843,9 +826,7 @@ const is31fl3218_led_t PROGMEM g_is31fl3218_leds[RGB_MATRIX_LED_COUNT] = {
     {OUT16, OUT17, OUT18}
 };
 #elif defined(RGB_BACKLIGHT_M10_C)
-// This is a 7-bit address, that gets left-shifted and bit 0
-// set to 0 for write, 1 for read (as per I2C protocol)
-#define ISSI_ADDR_1 0x74
+#define ISSI_ADDR_1 IS31FL3731_I2C_ADDRESS_GND
 #define ISSI_ADDR_2
 
 const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
@@ -863,10 +844,8 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     {0, C9_16, C7_15, C6_15}  // LB16
 };
 #else
-// This is a 7-bit address, that gets left-shifted and bit 0
-// set to 0 for write, 1 for read (as per I2C protocol)
-#define ISSI_ADDR_1 0x74
-#define ISSI_ADDR_2 0x76
+#define ISSI_ADDR_1 IS31FL3731_I2C_ADDRESS_GND
+#define ISSI_ADDR_2 IS31FL3731_I2C_ADDRESS_SDA
 
 const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
