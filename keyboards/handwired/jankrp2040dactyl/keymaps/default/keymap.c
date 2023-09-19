@@ -62,8 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,  KC_PIPE,KC_BSLS,KC_EQL, KC_LT,	KC_GT,        KC_LCBR,KC_RCBR,KC_UNDS,KC_ASTR,KC_PLUS,	KC_NO,
         MO(_FUNCTIONLAYER),  KC_QUES,KC_QUOT,KC_DQUO,KC_COLN,KC_SCLN,      KC_LPRN,KC_RPRN,KC_COMM,KC_DOT, KC_MINS,KC_NO,
         KC_LSFT,KC_CIRC,KC_PERC,KC_AMPR,KC_HASH,KC_SLSH,      KC_LBRC,KC_RBRC,KC_DLR,	KC_AT,	KC_EXLM,MO(_ARROWLAYER),
-
-				                  KC_DEL, KC_SPC,KC_BSPC,      KC_ENT, KC_TRNS, KC_TAB,     
+                                  KC_DEL, KC_SPC,KC_BSPC,       KC_ENT, MO(_SYMBOLLAYER), KC_TAB,    
                                   KC_LGUI,KC_LALT,             KC_RCTL,KC_NO                 
                                                                 	    
                                                                 
