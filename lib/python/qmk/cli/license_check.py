@@ -43,27 +43,37 @@ def _simplify_text(input):
     lines = [l for l in lines if l is not None and l != '']
     return ' '.join(lines)
 
-@cli.argument('filename', arg_only=True, type=Path, help='Input file')
+@cli.argument('filenames', nargs='*', arg_only=True, type=Path, help='Input files')
 @cli.subcommand('File license check.', hidden=False if cli.config.user.developer else True)
 def license_check(cli):
-    data = cli.args.filename.read_text()
-    if 'SPDX-License-Identifier:' in data:
+    # Pre-format all the licenses
+    for short_license, long_licenses in licenses:
+        for i in range(len(long_licenses)):
+            long_licenses[i] = _simplify_text(long_licenses[i])
 
-        res = data.split('SPDX-License-Identifier:')
-        license = re.split(r'\s|//|\*', res[1].strip())[0].strip()
-        cli.log.info(f'{{fg_cyan}}{cli.args.filename}{{fg_reset}} -- license found: {license} (SPDX License Identifier)')
-        return True
+    failed = False
+    for filename in sorted(cli.args.filenames):
+        data = filename.read_text()
+        if 'SPDX-License-Identifier:' in data:
 
-    else:
+            res = data.split('SPDX-License-Identifier:')
+            license = re.split(r'\s|//|\*', res[1].strip())[0].strip()
+            cli.log.info(f'{{fg_cyan}}{filename}{{fg_reset}} -- license found: {license} (SPDX License Identifier)')
 
-        linear_text = _simplify_text(data)
+        else:
 
-        for short_license, long_licenses in licenses:
-            for long_license in long_licenses:
-                license_text = _simplify_text(long_license)
-                if license_text in linear_text:
-                    cli.log.info(f'{{fg_cyan}}{cli.args.filename}{{fg_reset}} -- license found: {short_license} (Raw text)')
-                    return True
+            linear_text = _simplify_text(data)
 
-    cli.log.error(f'{{fg_cyan}}{cli.args.filename}{{fg_reset}} -- no license found, or unknown license!')
-    return False
+            found = False
+            for short_license, long_licenses in licenses:
+                for long_license in long_licenses:
+                    if long_license in linear_text:
+                        cli.log.info(f'{{fg_cyan}}{filename}{{fg_reset}} -- license found: {short_license} (Raw text)')
+                        found = True
+
+            if not found:
+                cli.log.error(f'{{fg_cyan}}{filename}{{fg_reset}} -- unknown license, or no license found!')
+                failed = True
+
+    if failed:
+        return False
