@@ -15,10 +15,7 @@
  */
 #pragma once
 
-#include "analog.h"
-#include "debug.h"
-#include "math.h"
-#include "quantum.h"
+#include <stdint.h>
 #include "state.h"
 
 int16_t xPos;
