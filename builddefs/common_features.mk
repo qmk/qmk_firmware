@@ -347,8 +347,13 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     endif
 endif
 
+# Deprecated driver names - do not use
+ifeq ($(strip $(LED_MATRIX_DRIVER)), ckled2001)
+LED_MATRIX_DRIVER := snled27351
+endif
+
 LED_MATRIX_ENABLE ?= no
-VALID_LED_MATRIX_TYPES := is31fl3731 is31fl3742a is31fl3743a is31fl3745 is31fl3746a ckled2001 custom
+VALID_LED_MATRIX_TYPES := is31fl3731 is31fl3742a is31fl3743a is31fl3745 is31fl3746a snled27351 custom
 # TODO: is31fl3733 is31fl3737 is31fl3741
 
 ifeq ($(strip $(LED_MATRIX_ENABLE)), yes)
@@ -405,18 +410,23 @@ endif
         QUANTUM_LIB_SRC += i2c_master.c
     endif
 
-	ifeq ($(strip $(LED_MATRIX_DRIVER)), ckled2001)
-        OPT_DEFS += -DCKLED2001 -DSTM32_I2C -DHAL_USE_I2C=TRUE
+	ifeq ($(strip $(LED_MATRIX_DRIVER)), snled27351)
+        OPT_DEFS += -DSNLED27351 -DSTM32_I2C -DHAL_USE_I2C=TRUE
         COMMON_VPATH += $(DRIVER_PATH)/led
-        SRC += ckled2001-simple.c
+        SRC += snled27351-simple.c
         QUANTUM_LIB_SRC += i2c_master.c
     endif
 
 endif
 
+# Deprecated driver names - do not use
+ifeq ($(strip $(RGB_MATRIX_DRIVER)), ckled2001)
+RGB_MATRIX_DRIVER := snled27351
+endif
+
 RGB_MATRIX_ENABLE ?= no
 
-VALID_RGB_MATRIX_TYPES := aw20216s is31fl3218 is31fl3731 is31fl3733 is31fl3736 is31fl3737 is31fl3741 is31fl3742a is31fl3743a is31fl3745 is31fl3746a ckled2001 ws2812 custom
+VALID_RGB_MATRIX_TYPES := aw20216s is31fl3218 is31fl3731 is31fl3733 is31fl3736 is31fl3737 is31fl3741 is31fl3742a is31fl3743a is31fl3745 is31fl3746a snled27351 ws2812 custom
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
     ifeq ($(filter $(RGB_MATRIX_DRIVER),$(VALID_RGB_MATRIX_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid RGB_MATRIX_DRIVER,RGB_MATRIX_DRIVER="$(RGB_MATRIX_DRIVER)" is not a valid matrix type)
@@ -514,10 +524,10 @@ endif
         QUANTUM_LIB_SRC += i2c_master.c
     endif
 
-    ifeq ($(strip $(RGB_MATRIX_DRIVER)), ckled2001)
-        OPT_DEFS += -DCKLED2001 -DSTM32_I2C -DHAL_USE_I2C=TRUE
+    ifeq ($(strip $(RGB_MATRIX_DRIVER)), snled27351)
+        OPT_DEFS += -DSNLED27351 -DSTM32_I2C -DHAL_USE_I2C=TRUE
         COMMON_VPATH += $(DRIVER_PATH)/led
-        SRC += ckled2001.c
+        SRC += snled27351.c
         QUANTUM_LIB_SRC += i2c_master.c
     endif
 
