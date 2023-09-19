@@ -10,12 +10,12 @@ A DIY version of the 3x5_2 PCB with promicro compatible footprint is also availa
 
 Make example for this keyboard (after setting up your build environment):
 
-    make bastardkb/dilemma/3x5_3:via
-    make bastardkb/dilemma/4x6_4:via
+    make bastardkb/dilemma/3x5_3:default
+    make bastardkb/dilemma/4x6_4:default
 
 Flashing example for this keyboard:
 
-    make bastardkb/dilemma/3x5_3:via:flash
-    make bastardkb/dilemma/4x6_4:via:flash
+    make bastardkb/dilemma/3x5_3:default:flash
+    make bastardkb/dilemma/4x6_4:default:flash
 
 See the [keyboard build instructions](http://docs.bastardkb.com/)
