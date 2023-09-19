@@ -1,0 +1,4 @@
+{
+    "development_board": "bluepill",
+    "bootloader": "stm32duino"
+}
