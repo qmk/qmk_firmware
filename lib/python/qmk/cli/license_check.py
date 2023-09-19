@@ -45,6 +45,7 @@ def _simplify_text(input):
 
 
 @cli.argument('filenames', nargs='*', arg_only=True, type=Path, help='Input files')
+@cli.argument('-s', '--short', action='store_true', help='Short output')
 @cli.subcommand('File license check.', hidden=False if cli.config.user.developer else True)
 def license_check(cli):
     # Pre-format all the licenses
@@ -59,7 +60,10 @@ def license_check(cli):
 
             res = data.split('SPDX-License-Identifier:')
             license = re.split(r'\s|//|\*', res[1].strip())[0].strip()
-            cli.log.info(f'{{fg_cyan}}{filename}{{fg_reset}} -- license found: {license} (SPDX License Identifier)')
+            if cli.args.short:
+                print(f'{filename} {license}')
+            else:
+                cli.log.info(f'{{fg_cyan}}{filename}{{fg_reset}} -- license found: {license} (SPDX License Identifier)')
 
         else:
 
@@ -71,12 +75,18 @@ def license_check(cli):
                     break
                 for long_license in long_licenses:
                     if long_license in linear_text:
-                        cli.log.info(f'{{fg_cyan}}{filename}{{fg_reset}} -- license found: {short_license} (Raw text)')
+                        if cli.args.short:
+                            print(f'{filename} {short_license}')
+                        else:
+                            cli.log.info(f'{{fg_cyan}}{filename}{{fg_reset}} -- license found: {short_license} (Raw text)')
                         found = True
                         break
 
             if not found:
-                cli.log.error(f'{{fg_cyan}}{filename}{{fg_reset}} -- unknown license, or no license found!')
+                if cli.args.short:
+                    print(f'{filename} UNKNOWN')
+                else:
+                    cli.log.error(f'{{fg_cyan}}{filename}{{fg_reset}} -- unknown license, or no license found!')
                 failed = True
 
     if failed:
