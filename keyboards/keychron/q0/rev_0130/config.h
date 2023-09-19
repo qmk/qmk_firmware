@@ -21,8 +21,7 @@
 #define DRIVER_ADDR_1 0b1110100
 
 /* RGB Matrix Configuration */
-#define DRIVER_1_LED_TOTAL 21
-#define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
+#define RGB_MATRIX_LED_COUNT 21
 
 /* Enable num-lock LED */
 #define NUM_LOCK_LED_INDEX 4

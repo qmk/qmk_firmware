@@ -21,13 +21,9 @@
 #define DRIVER_ADDR_1 0b1110111
 
 /* RGB Matrix Configuration */
-#define DRIVER_1_LED_TOTAL 26
-#define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
+#define RGB_MATRIX_LED_COUNT 26
 
 #define CKLED2001_PHASE_CHANNEL CKLED2001_MSKPHASE_9CHANNEL
 
 /* Enable num-lock LED */
 #define NUM_LOCK_LED_INDEX 5
-
-/* Encoder Configuration */
-#define ENCODER_DEFAULT_POS 0x3
