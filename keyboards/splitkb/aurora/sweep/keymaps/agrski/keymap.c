@@ -30,4 +30,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_Z,   KC_X,   KC_C,   KC_V,       KC_TAB,             KC_ESC, KC_B,   KC_N,   KC_M,   KC_DEL,
                                 KC_BSPC,    KC_SPC,             KC_ENT, XXXXXXX, // Replace NOOP with layer handling
     ),
+
+    [_SYM] = LAYOUT(),
+
+    [_NAV] = LAYOUT(
+        KC_MS_BTN3,     KC_MS_BTN2,     KC_UP,      KC_MS_BTN1, XXXXXXX,            XXXXXXX,    KC_MS_BTN1, KC_MS_U,    KC_MS_BTN2, KC_MS_BTN3,
+        XXXXXXX,        KC_LEFT,        KC_DOWN,    KC_RIGHT,   XXXXXXX,            XXXXXXX,    KC_MS_L,    KC_MS_D,    KC_MS_R,    XXXXXXX,
+        KC_END,         KC_HOME,        KC_PGDN,    KC_PGUP,    KC_WFWD,            KC_WBAK,    KC_WH_U,    KC_WH_D,    KC_WH_L,    KC_WH_R,
+                                                    KC_BSPC,    KC_SPC,             KC_ENT,     XXXXXXX
+    ),
 }
