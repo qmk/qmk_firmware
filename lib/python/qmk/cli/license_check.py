@@ -2,25 +2,52 @@ import re
 from pathlib import Path
 from milc import cli
 
-licenses = [(
-    'GPL-2.0-or-later', [
-        """
+licenses = [
+    (
+        'GPL-2.0-or-later', [
+            """\
         This program is free software; you can redistribute it and/or
         modify it under the terms of the GNU General Public License
         as published by the Free Software Foundation; either version 2
         of the License, or (at your option) any later version.
-        """, """
+        """, """\
         This program is free software; you can redistribute it and/or
         modify it under the terms of the GNU General Public License
         as published by the Free Software Foundation; either version 2
         of the License, or any later version.
         """
-    ]
-), ('GPL-2.0-only', ["""
+        ]
+    ),
+    ('GPL-2.0-only', ["""\
         This program is free software; you can redistribute it and/or
         modify it under the terms of the GNU General Public License as
         published by the Free Software Foundation; version 2.
-        """])]
+        """]),
+    (
+        'GPL-3.0-or-later', [
+            """\
+        This program is free software: you can redistribute it and/or
+        modify it under the terms of the GNU General Public License as
+        published by the Free Software Foundation, either version 3 of
+        the License, or (at your option) any later version.
+        """, """\
+        This program is free software: you can redistribute it and/or
+        modify it under the terms of the GNU General Public License as
+        published by the Free Software Foundation, either version 3 of
+        the License, or any later version.
+        """
+        ]
+    ),
+    ('GPL-3.0-only', ["""\
+        This program is free software: you can redistribute it and/or
+        modify it under the terms of the GNU General Public License as
+        published by the Free Software Foundation, version 3.
+        """]),
+    ('Apache-2.0', ["""\
+        Licensed under the Apache License, Version 2.0 (the "License");
+        you may not use this file except in compliance with the License.
+        """]),
+]
 
 lparen = re.compile(r'\(\[\{\<')
 rparen = re.compile(r'\)\]\}\>')
