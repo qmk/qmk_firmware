@@ -24,5 +24,3 @@
     }
     return false;
 }
-
-
