@@ -78,6 +78,20 @@ def _detect_license_from_file_contents(filename, absolute=False):
     if 'SPDX-License-Identifier:' in data:
         res = data.split('SPDX-License-Identifier:')
         license = re.split(r'\s|//|\*', res[1].strip())[0].strip()
+        found = False
+        for short_license, _ in LICENSE_TEXTS:
+            if license.lower() == short_license.lower():
+                license = short_license
+                found = True
+                break
+
+        if not found:
+            if cli.args.short:
+                print(f'{filename_out} UNKNOWN')
+            else:
+                cli.log.error(f'{{fg_cyan}}{filename_out}{{fg_reset}} -- unknown license, or no license detected!')
+            return False
+
         if cli.args.short:
             print(f'{filename_out} {license}')
         else:
