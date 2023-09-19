@@ -18,7 +18,7 @@
 
     "matrix_pins": {
         "cols": ["GP14", "GP15", "GP16", "GP17", "GP21", "GP22"],
-	    "rows": ["GP8", "GP9", "GP10", "GP11", "GP12"]
+        "rows": ["GP8", "GP9", "GP10", "GP11", "GP12"]
     },
 
     "processor": "RP2040",
