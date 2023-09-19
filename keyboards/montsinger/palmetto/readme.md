@@ -1,6 +1,6 @@
 # Palmetto PCB
 
-Palmetto PCB from Montsinger (https://carolinamech.com/cdn/shop/products/IMG_20210327_164948_040_1024x1024@2x.jpg?v=1620393767)
+Palmetto PCB from Montsinger (https://imgur.com/VmmAW97)
 
 * Keyboard Maintainer: [Ross Montsinger](https://github.com/rossman360)
 * Hardware Supported: RP2040
