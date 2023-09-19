@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MO(_FUNCTIONLAYER),   KC_C, 	KC_I,   KC_E,	  KC_A, 	KC_COMM,      KC_DOT,	KC_H, 	KC_T,	  KC_S,	  KC_N,	  KC_Q,
         KC_LSFT,KC_G, 	KC_X,   KC_J,	  KC_K, 	KC_MINS,      KC_SLSH,KC_R,   KC_M,	  KC_F,	  KC_P,	  MO(_ARROWLAYER),
 
-				                  KC_DEL, KC_SPC,KC_BSPC,       KC_ENT, MO(_SYMBOLLAYER), KC_TAB,    
+                                  KC_DEL, KC_SPC,KC_BSPC,       KC_ENT, MO(_SYMBOLLAYER), KC_TAB,    
                                   KC_LGUI,KC_LALT,              KC_RCTL,KC_NO                  
                                                                 	    
                                                                                    
