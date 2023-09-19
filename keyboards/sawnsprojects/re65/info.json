@@ -32,10 +32,9 @@
         ]
     },
     "rgblight": {
-        "led_count": 20,
+        "led_count": 32,
         "saturation_steps": 8,
         "brightness_steps": 8,
-        "max_brightness": 255,
         "sleep": true,
         "animations": {
             "alternating": true,
