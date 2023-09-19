@@ -17,6 +17,7 @@
 
 #include <stdint.h>
 #include "state.h"
+#include "quantum.h"
 
 int16_t xPos;
 int16_t yPos;
