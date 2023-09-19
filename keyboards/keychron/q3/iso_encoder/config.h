@@ -28,7 +28,7 @@
 /* Encoder Configuration */
 #define ENCODER_DEFAULT_POS 0x3
 
-#define CKLED2001_CURRENT_TUNE \
+#define SNLED27351_CURRENT_TUNE \
     { 0x9D, 0x9D, 0x44, 0x9D, 0x9D, 0x44, 0x9D, 0x9D, 0x44, 0x9D, 0x9D, 0x44 }
 
 /* Enable caps-lock LED */
