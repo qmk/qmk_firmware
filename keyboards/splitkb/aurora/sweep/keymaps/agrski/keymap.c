@@ -39,4 +39,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_END,         KC_HOME,        KC_PGDN,    KC_PGUP,    KC_WFWD,            KC_WBAK,    KC_WH_U,    KC_WH_D,    KC_WH_L,    KC_WH_R,
                                                     KC_BSPC,    KC_SPC,             KC_ENT,     XXXXXXX
     ),
+
+    [_FUN] = LAYOUT(
+        XXXXXXX,    KC_CUT, KC_COPY,    KC_PASTE,   XXXXXXX,                XXXXXXX,    ,   , XXXXXXX, XXXXXXX,
+        XXXXXXX,    KC_F1,  KC_F2,      KC_F3,      XXXXXXX,                XXXXXXX,    KC_F7,  KC_F8,  KC_F9,  XXXXXXX,
+        XXXXXXX,    KC_F4,  KC_F5,      KC_F6,      XXXXXXX,                XXXXXXX,    KC_F10, KC_F11, KC_F12, XXXXXXX,
+                                        KC_BSPC,    KC_SPC,                 KC_ENT,     XXXXXXX,
+    ),
 }
