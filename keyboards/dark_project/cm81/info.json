@@ -18,7 +18,6 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "haptic": false,
         "rgb_matrix": true
     },
     "matrix_pins": {
