@@ -2,7 +2,6 @@
 
 ![ziyoulang_k3_mod](https://i.imgur.com/z9mUvIoh.jpg)
 
-*This is a modifier to replace the Ziyoulang K3 keyboard controller with QMK.*
 
 This base keyboard has  SX83099 IC causes some problems. I needed QMK as an alternative, especially since the controller freezes when the backlight is off.
 
