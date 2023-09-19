@@ -22,3 +22,12 @@ enum layer_names {
     _NAV,
     _FUN,
 }
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    [_BASE] = LAYOUT(
+        KC_Q,   KC_W,   KC_E,   KC_R,       KC_T,               KC_P,   KC_Y,   KC_U,   KC_I,   xxxxxxx,
+        KC_A,   KC_S,   KC_D,   KC_F,       KC_G,               KC_O,   KC_H,   KC_J,   KC_K,   KC_L,
+        KC_Z,   KC_X,   KC_C,   KC_V,       KC_TAB,             KC_ESC, KC_B,   KC_N,   KC_M,   KC_DEL,
+                                KC_BSPC,    KC_SPC,             KC_ENT, XXXXXXX, // Replace NOOP with layer handling
+    ),
+}
