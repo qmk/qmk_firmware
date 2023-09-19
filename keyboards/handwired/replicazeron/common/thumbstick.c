@@ -15,6 +15,10 @@
  */
 
 #include "thumbstick.h"
+#include <math.h>
+#include "action.h"
+#include "keycode.h"
+#include "debug.h"
 
 void init_wasd_state (void) {
     wasd_state.w = wasd_state.a = wasd_state.s = wasd_state.d = false;
