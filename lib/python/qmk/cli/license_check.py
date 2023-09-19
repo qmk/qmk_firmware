@@ -125,7 +125,7 @@ def license_check(cli):
                 if file.is_file() and file.suffix in suffixes:
                     if not _check_file(file):
                         failed = True
-        else:
+        elif filename.is_file():
             if filename.suffix in suffixes:
                 if not _check_file(filename):
                     failed = True
