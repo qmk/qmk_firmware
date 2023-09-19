@@ -15,7 +15,6 @@
  */
 
 #include QMK_KEYBOARD_H
-#include <stdio.h>
 
 enum tap_dances {
     BOOT,
