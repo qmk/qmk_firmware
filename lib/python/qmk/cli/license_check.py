@@ -55,6 +55,7 @@ punctuation = re.compile(r'[\.,;:]+')
 trash_prefix = re.compile(r'^(\s|/|\*|#)+')
 trash_suffix = re.compile(r'(\s|/|\*|#|\\)+$')
 spaces = re.compile(r'\s+')
+suffixes = ['.c', '.h', '.cpp', '.cxx', '.hpp', '.hxx', '.def']
 
 
 def _simplify_text(input):
@@ -71,6 +72,43 @@ def _simplify_text(input):
     return ' '.join(lines)
 
 
+def _check_file(filename):
+    data = filename.read_text(encoding='utf-8', errors='ignore')
+    if 'SPDX-License-Identifier:' in data:
+
+        res = data.split('SPDX-License-Identifier:')
+        license = re.split(r'\s|//|\*', res[1].strip())[0].strip()
+        if cli.args.short:
+            print(f'{filename} {license}')
+        else:
+            cli.log.info(f'{{fg_cyan}}{filename}{{fg_reset}} -- license found: {license} (SPDX License Identifier)')
+        return True
+
+    else:
+
+        linear_text = _simplify_text(data)
+
+        found = False
+        for short_license, long_licenses in licenses:
+            if found:
+                break
+            for long_license in long_licenses:
+                if long_license in linear_text:
+                    if cli.args.short:
+                        print(f'{filename} {short_license}')
+                    else:
+                        cli.log.info(f'{{fg_cyan}}{filename}{{fg_reset}} -- license found: {short_license} (Raw text)')
+                    return True
+
+        if not found:
+            if cli.args.short:
+                print(f'{filename} UNKNOWN')
+            else:
+                cli.log.error(f'{{fg_cyan}}{filename}{{fg_reset}} -- unknown license, or no license found!')
+
+    return False
+
+
 @cli.argument('filenames', nargs='*', arg_only=True, type=Path, help='Input files')
 @cli.argument('-s', '--short', action='store_true', help='Short output')
 @cli.subcommand('File license check.', hidden=False if cli.config.user.developer else True)
@@ -82,39 +120,15 @@ def license_check(cli):
 
     failed = False
     for filename in sorted(cli.args.filenames):
-        data = filename.read_text()
-        if 'SPDX-License-Identifier:' in data:
-
-            res = data.split('SPDX-License-Identifier:')
-            license = re.split(r'\s|//|\*', res[1].strip())[0].strip()
-            if cli.args.short:
-                print(f'{filename} {license}')
-            else:
-                cli.log.info(f'{{fg_cyan}}{filename}{{fg_reset}} -- license found: {license} (SPDX License Identifier)')
-
+        if filename.is_dir():
+            for file in sorted(filename.rglob('*')):
+                if file.is_file() and file.suffix in suffixes:
+                    if not _check_file(file):
+                        failed = True
         else:
-
-            linear_text = _simplify_text(data)
-
-            found = False
-            for short_license, long_licenses in licenses:
-                if found:
-                    break
-                for long_license in long_licenses:
-                    if long_license in linear_text:
-                        if cli.args.short:
-                            print(f'{filename} {short_license}')
-                        else:
-                            cli.log.info(f'{{fg_cyan}}{filename}{{fg_reset}} -- license found: {short_license} (Raw text)')
-                        found = True
-                        break
-
-            if not found:
-                if cli.args.short:
-                    print(f'{filename} UNKNOWN')
-                else:
-                    cli.log.error(f'{{fg_cyan}}{filename}{{fg_reset}} -- unknown license, or no license found!')
-                failed = True
+            if filename.suffix in suffixes:
+                if not _check_file(filename):
+                    failed = True
 
     if failed:
         return False
