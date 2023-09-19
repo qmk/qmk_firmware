@@ -15,12 +15,8 @@
  */
 #pragma once
 
-#include QMK_KEYBOARD_H
-
-#include "oled_driver.h"
-#include "print.h"
+#include <stdint.h>
 #include "state.h"
-#include "stdio.h"
 #include "thumbstick.h"
 
 uint8_t shiftbits;
