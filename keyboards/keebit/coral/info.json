@@ -24,6 +24,7 @@
         "device_version": "1.0.0",
         "pid": "0x0000",
         "vid": "0xFEED",
+        "force_nkro": true,
         "polling_interval": 1,
         "suspend_wakeup_delay": 500
     },
@@ -59,7 +60,8 @@
         "enabled": true,
         "soft_serial_pin": "GP13",
         "transport": {
-            "protocol": "serial"
+            "protocol": "serial",
+            "watchdog": true
         },
         "matrix_pins": {
             "right": {
@@ -74,7 +76,7 @@
         },
         "usb_detect": {
             "enabled": true,
-            "timeout": 2500,
+            "timeout": 5000,
             "polling_interval": 1
         }
     },
