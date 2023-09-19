@@ -5,10 +5,7 @@
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
     "features": {
-        "backlight": false,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
