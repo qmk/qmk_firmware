@@ -15,6 +15,8 @@
  */
 #pragma once
 
+#include "replicazeron.h"
+
 #include <stdint.h>
 #include "state.h"
 #include "thumbstick.h"
