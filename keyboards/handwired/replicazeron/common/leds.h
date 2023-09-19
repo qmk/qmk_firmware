@@ -16,8 +16,7 @@
 
 #pragma once
 
-#include "gpio.h"
-#include "stdbool.h"
+#include <stdint.h>
 
 void init_leds(void);
 
