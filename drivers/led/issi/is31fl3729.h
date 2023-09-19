@@ -81,6 +81,16 @@ void is31fl3729_update_led_control_registers(uint8_t addr, uint8_t index);
 #define PWM_250HZ 0x06 // If SWx cannot be more than 2
 #define PWM_80KHZ 0x07
 
+// Change SWx Setting using Configuation register
+#define SWS_15_9 0x01 // 15 CS x 9 SW matrix mode
+#define SWS_16_8 0x11 // 16 CS x 8 SW matrix mode
+#define SWS_16_7 0x21 // 16 CS x 7 SW matrix mode
+#define SWS_16_6 0x31 // 16 CS x 6 SW matrix mode
+#define SWS_16_5 0x41 // 16 CS x 5 SW matrix mode
+#define SWS_16_4 0x51 // 16 CS x 4 SW matrix mode
+#define SWS_16_3 0x61 // 16 CS x 3 SW matrix mode
+#define SWS_16_2 0x71 // 16 CS x 2 SW matrix mode
+
 // Map CS SW locations to order in PWM / Scaling buffers
 // This matches the ORDER in the Datasheet Register not the POSITION
 // It will always count from 0x01 to (ISSI_MAX_LEDS - 1)
