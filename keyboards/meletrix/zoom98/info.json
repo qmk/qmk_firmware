@@ -82,8 +82,7 @@
         { "matrix": [7, 7], "x": 20.5, "y": 3, "flags": 4 },
         { "matrix": [9, 8], "x": 20.5, "y": 4, "flags": 4 },
         { "matrix": [9, 7], "x": 20.5, "y": 4, "flags": 4 },
-        { "matrix": [6, 0], "x": 0, "y": 20.5, "flags": 1 }
-
+        { "matrix": [6, 0], "x": 0, "y": 3.25, "flags": 1 }
      ]
   },
   "matrix_pins": {
