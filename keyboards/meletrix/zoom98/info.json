@@ -12,7 +12,7 @@
     "rotary": [
         {"pin_a": "B2", "pin_b": "B1", "resolution": 2}
     ]
-},
+  },
   "diode_direction": "COL2ROW",
   "features": {
     "bootmagic": true,
@@ -82,7 +82,7 @@
         { "matrix": [6, 0], "x":  0, "y": 0, "flags":1 }
 
      ]
-},
+  },
   "matrix_pins": {
     "rows": ["E6", "B0", "F1", "D0", "F0", "B3", "C7", "D6", "B6", "C6", "B5", "D4"],
     "cols": ["F7", "F4", "F6", "D2", "F5", "D5", "D1", "D7", "D3", "B4"]
