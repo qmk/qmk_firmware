@@ -4,7 +4,6 @@
 #pragma once
 
 #define RGB_TRIGGER_ON_KEYDOWN
-/* Force NKRO on boot up regardless of the setting saved in the EEPROM (uncomment to enable it) */
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
