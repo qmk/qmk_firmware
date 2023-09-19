@@ -2,11 +2,9 @@
 
 More Info at [Zoom98 Wired Version](https://meletrix.com/)
 ​
-
 * Keyboard Maintainer: [spbgzh](https://github.com/spbgzh)
 * Hardware Supported: Zoom98 Wired Version
-* Hardware Availability: [zoom98](https://meletrix.com/)  
-​
+* Hardware Availability: [zoom98](https://meletrix.com/)
 
 Make example for this keyboard (after setting up your build environment):  
 
