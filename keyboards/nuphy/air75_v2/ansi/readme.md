@@ -1,7 +1,7 @@
 # NuPhy Air75 V2
 
 *NuPhy Air75 V2 is a standard 84 key keyboard.*
-![NuPhy Air75 V2](https://imgur.com/a/id9mFSf)
+![NuPhy Air75 V2](https://i.imgur.com/D3XVyl3h.jpeg)
 
 * Keyboard Maintainer: [Persama](https://github.com/Persama)
 * Hardware Supported: NuPhy Air75 V2 PCB
