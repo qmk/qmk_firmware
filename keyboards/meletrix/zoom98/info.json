@@ -14,6 +14,9 @@
     ]
   },
   "diode_direction": "COL2ROW",
+  "dynamic_keymap": {
+    "layer_count": 3
+  },
   "features": {
     "bootmagic": true,
     "command": false,
