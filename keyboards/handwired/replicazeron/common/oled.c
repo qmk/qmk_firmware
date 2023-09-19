@@ -15,6 +15,9 @@
  */
 
 #include "oled.h"
+#include "oled_driver.h"
+#include "progmem.h"
+#include "util.h"
 
 uint8_t shiftbits =32 ;
 
