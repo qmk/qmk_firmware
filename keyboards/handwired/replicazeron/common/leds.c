@@ -15,6 +15,8 @@
  */
 
 #include "leds.h"
+#include <stdbool.h>
+#include "gpio.h"
 
 //////////// Status LEDs //////////////
 void init_leds(void) {
