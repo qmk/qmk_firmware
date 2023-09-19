@@ -27,6 +27,9 @@
 #define KK_COPY LCTL(KC_C)
 #define KK_PASTE RCTL(KC_V)
 #define KK_MOUSE MO(MouseLayer)
+#define KK_7 KC_7
+#define KK_8 KC_8
+#define KK_9 KC_9
 
 // ###### Tap-Dance ######
 
@@ -58,7 +61,7 @@ enum coral_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BaseLayer] = LAYOUT(
-        KC_1,    KC_2,  KC_3,    KC_4,    KC_5,   KC_6,           /**/        KC_7,    KC_8,    KC_9,     KC_0,    KC_MINUS, KC_EQUAL,
+        KC_1,    KC_2,  KC_3,    KC_4,    KC_5,   KC_6,           /**/        KK_7,    KK_8,    KK_9,     KC_0,    KC_MINUS, KC_EQUAL,
         KC_TAB,  KC_Q,  KC_W,    KC_E,    KC_R,   KC_T,           /**/        KC_Y,    KC_U,    KC_I,     KC_O,    KC_P,     KC_LBRC,
         KC_GRV,  GUI_A, ALT_S,   SFT_D,   CTL_F,  KC_G,           /**/        KC_H,    CTL_J,   SFT_K,    ALT_L,   GUI_SCLN, KC_QUOTE,
         KC_BSLS, KC_Z,  KC_X,    KC_C,    KC_V,   KC_B,           /**/        KC_N,    KC_M,    KC_COMMA, KC_DOT,  KC_SLASH, KC_RBRC,
@@ -91,6 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 enum coral_combos {
     CAPS_COMBO,
+    BOOTL_COMBO,
     COMBO_LENGTH
 };
 
@@ -98,9 +102,11 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
 
 // Left and right thumb is CapsLock
 const uint16_t PROGMEM caps_combo[] = {L_THUMB, R_THUMB, COMBO_END};
+const uint16_t PROGMEM bootl_combo[] = {KK_7, KK_8, KK_9, COMBO_END};
 
 combo_t key_combos[] = {
     [CAPS_COMBO] = COMBO(caps_combo, QK_CAPS_WORD_TOGGLE),
+    [BOOTL_COMBO] = COMBO(bootl_combo, QK_BOOTLOADER),
 };
 
 // ###### Encoders #######
