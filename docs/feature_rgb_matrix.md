@@ -513,7 +513,7 @@ Here is an example using 2 drivers.
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const aw20216s_led PROGMEM g_aw20216s_leds[RGB_MATRIX_LED_COUNT] = {
+const aw20216s_led_t PROGMEM g_aw20216s_leds[RGB_MATRIX_LED_COUNT] = {
 /* Each AW20216S channel is controlled by a register at some offset between 0x00
  * and 0xD7 inclusive.
  * See drivers/led/aw20216s.h for the mapping between register offsets and
