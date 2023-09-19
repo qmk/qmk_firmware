@@ -21,9 +21,6 @@
         "encoder": true,
         "encoder_map": true
     },
-    "dynamic_keymap": {
-        "layer_count": 6
-    },
     "diode_direction": "COL2ROW",
     "matrix_pins": {
         "rows": ["GP27", "GP26", "GP25", "GP29", "GP4"],
@@ -36,7 +33,6 @@
     },
     "rgblight": {
         "led_count": 20,
-        "hue_steps": 8,
         "saturation_steps": 8,
         "brightness_steps": 8,
         "max_brightness": 255,
@@ -58,8 +54,9 @@
         "pin": "GP21",
         "driver": "vendor"
     },
+    "community_layouts": ["65_ansi_blocker"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_65_ansi_blocker": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
