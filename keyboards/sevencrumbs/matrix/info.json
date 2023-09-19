@@ -1,0 +1,44 @@
+{
+	"keyboard_name": "Matrix",
+	"manufacturer": "Seven Crumbs",
+	"url": "https://zoid.com.au/matrix/",
+	"maintainer": "ZoidTechnology",
+	"bootloader_instructions": "Press and hold all four buttons while connecting the USB cable.",
+	"processor": "RP2040",
+	"board": "GENERIC_RP_RP2040",
+	"bootloader": "rp2040",
+	"bootmagic": {
+		"enabled": true
+	},
+	"usb": {
+		"vid": "0x2E8A",
+		"pid": "0x1069",
+		"device_version": "1.0.0",
+		"max_power": 200
+	},
+	"matrix_pins": {
+		"direct": [
+			["GP0", "GP1"],
+			["GP2", "GP3"]
+		]
+	},
+	"layouts": {
+		"LAYOUT": {
+			"layout": [
+				{"x": 0, "y": 0, "matrix": [0, 0]},
+				{"x": 1, "y": 0, "matrix": [0, 1]},
+				{"x": 0, "y": 1, "matrix": [1, 0]},
+				{"x": 1, "y": 1, "matrix": [1, 1]}
+			]
+		}
+	},
+	"rgb_matrix": {
+		"driver": "custom",
+		"layout": [
+			{"x": 104, "y": 24, "matrix": [0, 0], "flags": 4},
+			{"x": 120, "y": 24, "matrix": [0, 1], "flags": 4},
+			{"x": 104, "y": 40, "matrix": [1, 0], "flags": 4},
+			{"x": 120, "y": 40, "matrix": [1, 1], "flags": 4}
+		]
+	}
+}
