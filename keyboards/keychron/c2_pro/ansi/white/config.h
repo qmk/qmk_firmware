@@ -18,7 +18,7 @@
 
 /* LED Matrix Driver Configuration */
 #define CKLED2001_DRIVER_COUNT 1
-#define DRIVER_ADDR_1 0b1110100
+#define DRIVER_ADDR_1 CKLED2001_I2C_ADDRESS_GND
 
 /* Set LED driver current */
 #define CKLED2001_CURRENT_TUNE \
