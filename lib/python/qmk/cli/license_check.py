@@ -2,26 +2,25 @@ import re
 from pathlib import Path
 from milc import cli
 
-licenses = [
-    ('GPL-2.0-or-later',
-        ["""
+licenses = [(
+    'GPL-2.0-or-later', [
+        """
         This program is free software; you can redistribute it and/or
         modify it under the terms of the GNU General Public License
         as published by the Free Software Foundation; either version 2
         of the License, or (at your option) any later version.
-        ""","""
+        """, """
         This program is free software; you can redistribute it and/or
         modify it under the terms of the GNU General Public License
         as published by the Free Software Foundation; either version 2
         of the License, or any later version.
-        """]),
-    ('GPL-2.0-only',
-        ["""
+        """
+    ]
+), ('GPL-2.0-only', ["""
         This program is free software; you can redistribute it and/or
         modify it under the terms of the GNU General Public License as
         published by the Free Software Foundation; version 2.
-        """])
-]
+        """])]
 
 lparen = re.compile(r'\(\[\{\<')
 rparen = re.compile(r'\)\]\}\>')
@@ -30,18 +29,20 @@ trash_prefix = re.compile(r'^(\s|/|\*|#)+')
 trash_suffix = re.compile(r'(\s|/|\*|#|\\)+$')
 spaces = re.compile(r'\s+')
 
+
 def _simplify_text(input):
     lines = input.split('\n')
-    lines = [l.lower() for l in lines]
-    lines = [punctuation.sub('', l) for l in lines]
-    lines = [trash_prefix.sub('', l) for l in lines]
-    lines = [trash_suffix.sub('', l) for l in lines]
-    lines = [spaces.sub(' ', l) for l in lines]
-    lines = [lparen.sub('(', l) for l in lines]
-    lines = [rparen.sub(')', l) for l in lines]
-    lines = [l.strip() for l in lines]
-    lines = [l for l in lines if l is not None and l != '']
+    lines = [line.lower() for line in lines]
+    lines = [punctuation.sub('', line) for line in lines]
+    lines = [trash_prefix.sub('', line) for line in lines]
+    lines = [trash_suffix.sub('', line) for line in lines]
+    lines = [spaces.sub(' ', line) for line in lines]
+    lines = [lparen.sub('(', line) for line in lines]
+    lines = [rparen.sub(')', line) for line in lines]
+    lines = [line.strip() for line in lines]
+    lines = [line for line in lines if line is not None and line != '']
     return ' '.join(lines)
+
 
 @cli.argument('filenames', nargs='*', arg_only=True, type=Path, help='Input files')
 @cli.subcommand('File license check.', hidden=False if cli.config.user.developer else True)
@@ -66,10 +67,13 @@ def license_check(cli):
 
             found = False
             for short_license, long_licenses in licenses:
+                if found:
+                    break
                 for long_license in long_licenses:
                     if long_license in linear_text:
                         cli.log.info(f'{{fg_cyan}}{filename}{{fg_reset}} -- license found: {short_license} (Raw text)')
                         found = True
+                        break
 
             if not found:
                 cli.log.error(f'{{fg_cyan}}{filename}{{fg_reset}} -- unknown license, or no license found!')
