@@ -21,6 +21,7 @@ enum layer_names {
     _SYM,
     _NAV,
     _FUN,
+    _KITTY,
 }
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
