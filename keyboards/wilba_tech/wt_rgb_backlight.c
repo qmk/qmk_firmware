@@ -834,7 +834,14 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 };
 
 #elif defined(RGB_BACKLIGHT_M6_B)
-    // Driver has fixed mapping of index to the red, green and blue LEDs
+const is31fl3218_led_t PROGMEM g_is31fl3218_leds[RGB_MATRIX_LED_COUNT] = {
+    {OUT1,  OUT2,  OUT3},
+    {OUT4,  OUT5,  OUT6},
+    {OUT7,  OUT8,  OUT9},
+    {OUT10, OUT11, OUT12},
+    {OUT13, OUT14, OUT15},
+    {OUT16, OUT17, OUT18}
+};
 #elif defined(RGB_BACKLIGHT_M10_C)
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
@@ -2915,6 +2922,17 @@ void backlight_init_drivers(void)
 
 #if defined(RGB_BACKLIGHT_M6_B)
     is31fl3218_init();
+
+    for ( int index = 0; index < RGB_MATRIX_LED_COUNT; index++ )
+    {
+        bool enabled = true;
+
+        // This only caches it for later
+        is31fl3218_set_led_control_register( index, enabled, enabled, enabled );
+    }
+
+    // This actually updates the LED drivers
+    is31fl3218_update_led_control_registers();
 #elif defined(RGB_BACKLIGHT_HS60)
     is31fl3733_init( ISSI_ADDR_1, 0 );
 
