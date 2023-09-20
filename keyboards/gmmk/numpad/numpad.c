@@ -19,16 +19,13 @@
 
 #ifdef RGB_MATRIX_ENABLE
 
-const aw20216s_led g_aw20216s_leds[RGB_MATRIX_LED_COUNT] = {
-/* Each AW20216S channel is controlled by a register at some offset between 0x00
- * and 0xD7 inclusive.
- * See drivers/led/aw20216s.h for the mapping between register offsets and
- * driver pin locations.
+const aw20216s_led_t g_aw20216s_leds[RGB_MATRIX_LED_COUNT] = {
+/* Refer to AW20216S manual for these locations
  *   driver
  *   |     R location
- *   |     |         G location
- *   |     |         |         B location
- *   |     |         |         | */
+ *   |     |          G location
+ *   |     |          |          B location
+ *   |     |          |          | */
     {0, CS4_SW1,  CS5_SW1,  CS6_SW1  },  //  0  NUM
     {0, CS4_SW2,  CS5_SW2,  CS6_SW2  },  //  1  /
     {0, CS7_SW1,  CS8_SW1,  CS9_SW1  },  //  2  *

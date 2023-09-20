@@ -1,4 +1,5 @@
-/* Copyright 2021 Matt Gauf
+/*
+ * Copyright 2023 deddia permana (@depermana12)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,12 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "rgb_matrix.h"
+#pragma once
 
-void rgb_matrix_set_color_flags(uint8_t red, uint8_t green, uint8_t blue, uint8_t flags) {
-    for (uint8_t ii = 0; ii < RGB_MATRIX_LED_COUNT; ii++) {
-        if (g_led_config.flags[ii] & flags) {
-            rgb_matrix_set_color(ii, red, green, blue);
-        }
-    }
-}
+#if !defined(OLED_TIMEOUT)
+#    define OLED_TIMEOUT 30000
+#endif

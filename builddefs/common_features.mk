@@ -348,6 +348,9 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
 endif
 
 # Deprecated driver names - do not use
+ifeq ($(strip $(LED_MATRIX_DRIVER)), aw20216)
+LED_MATRIX_DRIVER := aw20216s
+endif
 ifeq ($(strip $(LED_MATRIX_DRIVER)), ckled2001)
 LED_MATRIX_DRIVER := snled27351
 endif
@@ -420,6 +423,9 @@ endif
 endif
 
 # Deprecated driver names - do not use
+ifeq ($(strip $(RGB_MATRIX_DRIVER)), aw20216)
+RGB_MATRIX_DRIVER := aw20216s
+endif
 ifeq ($(strip $(RGB_MATRIX_DRIVER)), ckled2001)
 RGB_MATRIX_DRIVER := snled27351
 endif
