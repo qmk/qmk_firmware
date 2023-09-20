@@ -7,8 +7,11 @@
 	"processor": "RP2040",
 	"board": "GENERIC_RP_RP2040",
 	"bootloader": "rp2040",
-	"bootmagic": {
-		"enabled": true
+	"features": {
+		"bootmagic": true,
+		"extrakey": true,
+		"mousekey": true,
+		"rgb_matrix": true
 	},
 	"usb": {
 		"vid": "0x2E8A",
