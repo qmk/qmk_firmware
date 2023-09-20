@@ -23,7 +23,8 @@
         "mousekey": true,
         "nkro": true,
         "backlight": true,
-        "encoder": true
+        "encoder": true,
+        "oled": true
     },
     "encoder": {
         "rotary": [
