@@ -3,8 +3,6 @@
 
 #pragma once
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 5
-
 /* Matrix COL and ROW definitions */
 #define MATRIX_ROWS 9
 #define MATRIX_COLS 6
