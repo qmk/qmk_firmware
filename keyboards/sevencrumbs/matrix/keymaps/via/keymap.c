@@ -4,7 +4,7 @@
 #include QMK_KEYBOARD_H
 #include "eeprom.h"
 #include "color.h"
-#include "backlight.h"
+#include "rgb_matrix_direct.h"
 
 typedef struct {
 	uint8_t hue;
@@ -34,23 +34,19 @@ static bool initialized;
 static bool suspended;
 static config_t config = {.brightness = 255};
 
-void config_save(void) {
+static void save(void) {
 	eeprom_update_block(&config, (void*) VIA_EEPROM_CUSTOM_CONFIG_ADDR, VIA_EEPROM_CUSTOM_CONFIG_SIZE);
 }
 
-void eeconfig_init_user(void) {
-	config_save();
-}
-
-void backlight_update(void) {
+static void update(void) {
 	if (!initialized) {
-		backlight_init();
+		rgb_matrix_direct_init();
 		eeprom_read_block(&config, (void*) VIA_EEPROM_CUSTOM_CONFIG_ADDR, VIA_EEPROM_CUSTOM_CONFIG_SIZE);
 		initialized = true;
 	}
 
 	if (suspended) {
-		backlight_set_color_all(0, 0, 0);
+		rgb_matrix_direct_set_color_all(0, 0, 0);
 	} else {
 		HSV color_hsv = {.v = config.brightness};
 
@@ -62,21 +58,25 @@ void backlight_update(void) {
 
 			RGB color_rgb = hsv_to_rgb(color_hsv);
 
-			backlight_set_color(index, color_rgb.r, color_rgb.g, color_rgb.b);
+			rgb_matrix_direct_set_color(index, color_rgb.r, color_rgb.g, color_rgb.b);
 		}
 	}
 
-	backlight_flush();
+	rgb_matrix_direct_flush();
+}
+
+void eeconfig_init_user(void) {
+	save();
 }
 
 void suspend_power_down_user(void) {
 	suspended = true;
-	backlight_update();
+	update();
 }
 
 void suspend_wakeup_init_user(void) {
 	suspended = false;
-	backlight_update();
+	update();
 }
 
 void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
@@ -84,14 +84,14 @@ void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
 
 	if (data[1] == id_custom_channel) {
 		if (command == id_custom_save) {
-			config_save();
+			save();
 			return;
 		}
 
 		if (data[2] == brightness) {
 			if (command == id_custom_set_value) {
 				config.brightness = data[3];
-				backlight_update();
+				update();
 				return;
 			}
 
@@ -110,7 +110,7 @@ void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
 				if (command == id_custom_set_value) {
 					color->hue = data[4];
 					color->saturation = data[5];
-					backlight_update();
+					update();
 					return;
 				}
 

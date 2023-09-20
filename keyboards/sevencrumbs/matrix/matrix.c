@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 #include "quantum.h"
-#include "backlight.h"
+#include "rgb_matrix_direct.h"
 
 void bootmagic_lite(void) {
 	matrix_scan();
@@ -18,10 +18,10 @@ void bootmagic_lite(void) {
 #ifdef RGB_MATRIX_ENABLE
 
 const rgb_matrix_driver_t rgb_matrix_driver = {
-	.init = backlight_init,
-	.set_color = backlight_set_color,
-	.set_color_all = backlight_set_color_all,
-	.flush = backlight_flush
+	.init = rgb_matrix_direct_init,
+	.set_color = rgb_matrix_direct_set_color,
+	.set_color_all = rgb_matrix_direct_set_color_all,
+	.flush = rgb_matrix_direct_flush
 };
 
 #endif
