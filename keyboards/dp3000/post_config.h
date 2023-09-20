@@ -1,4 +1,5 @@
-/* Copyright 2023 SapuSeven
+/*
+ * Copyright 2023 deddia permana (@depermana12)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,12 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include QMK_KEYBOARD_H
+#pragma once
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT_ortho_3x4(
-        KC_1, KC_2, KC_3, KC_PLUS,
-        KC_4, KC_5, KC_6, KC_MINUS,
-        KC_7, KC_8, KC_9, KC_0
-    )
-};
+#if !defined(OLED_TIMEOUT)
+#    define OLED_TIMEOUT 30000
+#endif
