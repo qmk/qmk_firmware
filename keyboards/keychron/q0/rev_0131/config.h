@@ -23,7 +23,6 @@
 /* RGB Matrix Configuration */
 #define RGB_MATRIX_LED_COUNT 26
 
-/* Scan phase of led driver set as MSKPHASE_9CHANNEL(defined as 0x03 in CKLED2001.h) */
 #define CKLED2001_PHASE_CHANNEL CKLED2001_MSKPHASE_9CHANNEL
 
 /* Enable num-lock LED */
