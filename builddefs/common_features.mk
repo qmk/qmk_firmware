@@ -347,6 +347,11 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     endif
 endif
 
+# Deprecated driver names - do not use
+ifeq ($(strip $(LED_MATRIX_DRIVER)), aw20216)
+LED_MATRIX_DRIVER := aw20216s
+endif
+
 LED_MATRIX_ENABLE ?= no
 VALID_LED_MATRIX_TYPES := is31fl3731 is31fl3742a is31fl3743a is31fl3745 is31fl3746a ckled2001 custom
 # TODO: is31fl3733 is31fl3737 is31fl3741
@@ -412,6 +417,11 @@ endif
         QUANTUM_LIB_SRC += i2c_master.c
     endif
 
+endif
+
+# Deprecated driver names - do not use
+ifeq ($(strip $(RGB_MATRIX_DRIVER)), aw20216)
+RGB_MATRIX_DRIVER := aw20216s
 endif
 
 RGB_MATRIX_ENABLE ?= no

@@ -49,16 +49,19 @@
 #ifdef DRIVER_2_EN
 #    define AW20216S_DRIVER_2_EN DRIVER_2_EN
 #endif
+
+#define aw_led aw20216s_led_t
+#define g_aw_leds g_aw20216s_leds
 // ========
 
-typedef struct aw20216s_led {
+typedef struct aw20216s_led_t {
     uint8_t driver : 2;
     uint8_t r;
     uint8_t g;
     uint8_t b;
-} aw20216s_led;
+} aw20216s_led_t;
 
-extern const aw20216s_led PROGMEM g_aw20216s_leds[RGB_MATRIX_LED_COUNT];
+extern const aw20216s_led_t PROGMEM g_aw20216s_leds[RGB_MATRIX_LED_COUNT];
 
 void aw20216s_init(pin_t cs_pin, pin_t en_pin);
 void aw20216s_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
