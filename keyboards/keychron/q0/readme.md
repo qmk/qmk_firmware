@@ -1,6 +1,6 @@
 # Keychron Q0
 
-![Keychron Q0](https://i.imgur.com/cLbEiZ0.jpg)
+![Keychron Q0](https://i.imgur.com/cLbEiZ0h.jpg)
 
 A customizable number keypad.
 
