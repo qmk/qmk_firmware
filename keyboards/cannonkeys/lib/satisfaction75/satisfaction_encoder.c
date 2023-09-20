@@ -1,7 +1,7 @@
 #include "satisfaction_core.h"
 #include "eeprom.h"
 
-void pre_encoder_mode_change(){
+void pre_encoder_mode_change(void){
   if(encoder_mode == ENC_MODE_CLOCK_SET){
     RTCDateTime timespec;
     timespec.year = year_config;
@@ -14,7 +14,7 @@ void pre_encoder_mode_change(){
   }
 }
 
-void post_encoder_mode_change(){
+void post_encoder_mode_change(void){
   if(encoder_mode == ENC_MODE_CLOCK_SET){
     hour_config = (last_minute / 60);
     minute_config = last_minute % 60;
@@ -84,7 +84,7 @@ void update_time_config(int8_t increment){
   }
 }
 
-uint16_t handle_encoder_clockwise(){
+uint16_t handle_encoder_clockwise(void){
   uint16_t mapped_code = 0;
   switch(encoder_mode){
     default:
@@ -126,7 +126,7 @@ uint16_t handle_encoder_clockwise(){
   return mapped_code;
 }
 
-uint16_t handle_encoder_ccw(){
+uint16_t handle_encoder_ccw(void){
   uint16_t mapped_code = 0;
   switch(encoder_mode){
     default:
@@ -169,7 +169,7 @@ uint16_t handle_encoder_ccw(){
   return mapped_code;
 }
 
-uint16_t handle_encoder_press(){
+uint16_t handle_encoder_press(void){
   uint16_t mapped_code = 0;
   switch(encoder_mode){
     case ENC_MODE_VOLUME:
