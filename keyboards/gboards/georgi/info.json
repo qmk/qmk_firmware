@@ -6,10 +6,14 @@
     "usb": {
         "vid": "0xFEED",
         "pid": "0x1337",
-        "device_version": "0.0.1"
+        "device_version": "0.0.1",
+        "force_nkro": true
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "tapping": {
+        "toggle": 2
+    },
     "layout_aliases": {
         "LAYOUT_georgi": "LAYOUT"
     },

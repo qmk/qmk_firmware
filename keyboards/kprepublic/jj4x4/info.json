@@ -6,7 +6,8 @@
     "usb": {
         "vid": "0x4B50",
         "pid": "0x0044",
-        "device_version": "2.0.0"
+        "device_version": "2.0.0",
+        "max_power": 100
     },
     "matrix_pins": {
         "cols": ["A1", "A0", "A2", "A3"],
@@ -17,6 +18,21 @@
         "pin": "D4",
         "levels": 12,
         "breathing": true
+    },
+    "rgblight": {
+        "led_count": 4,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "ws2812": {
         "driver": "i2c"

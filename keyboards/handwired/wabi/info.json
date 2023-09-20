@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Wabi", 
+    "keyboard_name": "Wabi",
     "manufacturer": "Montsinger",
-    "url": "www.montsinger.net", 
-    "maintainer": "Montsinger", 
+    "url": "www.montsinger.net",
+    "maintainer": "Montsinger",
     "usb": {
         "vid": "0xFEED",
         "pid": "0xB07D",

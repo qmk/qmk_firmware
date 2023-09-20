@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Zeal65", 
+    "keyboard_name": "Zeal65",
     "manufacturer": "ZealPC",
-    "url": "https://zealpc.net", 
-    "maintainer": "Wilba", 
+    "url": "https://zealpc.net",
+    "maintainer": "Wilba",
     "usb": {
         "vid": "0x5A45",
         "pid": "0x0065",

@@ -136,7 +136,7 @@ painter_font_handle_t qp_load_font_mem(const void *buffer) {
 
 bool qp_close_font(painter_font_handle_t font) {
     qff_font_handle_t *qff_font = (qff_font_handle_t *)font;
-    if (!qff_font->validate_ok) {
+    if (!qff_font || !qff_font->validate_ok) {
         qp_dprintf("qp_close_font: fail (invalid font)\n");
         return false;
     }
@@ -233,7 +233,7 @@ static inline bool qp_drawtext_prepare_glyph_for_render(qff_font_handle_t *qff_f
         uint8_t  glyph_width  = (uint8_t)(glyph_info.value & QFF_GLYPH_WIDTH_MASK);
         uint32_t glyph_offset = ((glyph_info.value & QFF_GLYPH_OFFSET_MASK) >> QFF_GLYPH_WIDTH_BITS);
         uint32_t data_offset  = sizeof(qff_font_descriptor_v1_t)                                                                                                                   // Skip the font descriptor
-                               + sizeof(qff_ascii_glyph_table_v1_t)                                                                                                                // Skip the ascii table
+                               + (qff_font->has_ascii_table ? sizeof(qff_ascii_glyph_table_v1_t) : 0)                                                                              // Skip the ascii table
                                + (qff_font->num_unicode_glyphs > 0 ? (sizeof(qff_unicode_glyph_table_v1_t) + (qff_font->num_unicode_glyphs * sizeof(qff_unicode_glyph_v1_t))) : 0) // Skip the unicode table
                                + (qff_font->has_palette ? (sizeof(qgf_palette_v1_t) + ((1 << qff_font->bpp) * sizeof(qgf_palette_entry_v1_t))) : 0)                                // Skip the palette
                                + sizeof(qgf_block_header_v1_t)                                                                                                                     // Skip the data block header
@@ -268,7 +268,7 @@ static inline bool qp_drawtext_prepare_glyph_for_render(qff_font_handle_t *qff_f
                 uint8_t  glyph_width  = (uint8_t)(glyph_info.value & QFF_GLYPH_WIDTH_MASK);
                 uint32_t glyph_offset = ((glyph_info.value & QFF_GLYPH_OFFSET_MASK) >> QFF_GLYPH_WIDTH_BITS);
                 uint32_t data_offset  = sizeof(qff_font_descriptor_v1_t)                                                                                                                   // Skip the font descriptor
-                                       + sizeof(qff_ascii_glyph_table_v1_t)                                                                                                                // Skip the ascii table
+                                       + (qff_font->has_ascii_table ? sizeof(qff_ascii_glyph_table_v1_t) : 0)                                                                              // Skip the ascii table
                                        + (qff_font->num_unicode_glyphs > 0 ? (sizeof(qff_unicode_glyph_table_v1_t) + (qff_font->num_unicode_glyphs * sizeof(qff_unicode_glyph_v1_t))) : 0) // Skip the unicode table
                                        + (qff_font->has_palette ? (sizeof(qgf_palette_v1_t) + ((1 << qff_font->bpp) * sizeof(qgf_palette_entry_v1_t))) : 0)                                // Skip the palette
                                        + sizeof(qgf_block_header_v1_t)                                                                                                                     // Skip the data block header
@@ -380,7 +380,7 @@ static inline bool qp_font_code_point_handler_drawglyph(qff_font_handle_t *qff_f
 
 int16_t qp_textwidth(painter_font_handle_t font, const char *str) {
     qff_font_handle_t *qff_font = (qff_font_handle_t *)font;
-    if (!qff_font->validate_ok) {
+    if (!qff_font || !qff_font->validate_ok) {
         qp_dprintf("qp_textwidth: fail (invalid font)\n");
         return false;
     }
@@ -406,13 +406,13 @@ int16_t qp_drawtext(painter_device_t device, uint16_t x, uint16_t y, painter_fon
 int16_t qp_drawtext_recolor(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char *str, uint8_t hue_fg, uint8_t sat_fg, uint8_t val_fg, uint8_t hue_bg, uint8_t sat_bg, uint8_t val_bg) {
     qp_dprintf("qp_drawtext_recolor: entry\n");
     painter_driver_t *driver = (painter_driver_t *)device;
-    if (!driver->validate_ok) {
+    if (!driver || !driver->validate_ok) {
         qp_dprintf("qp_drawtext_recolor: fail (validation_ok == false)\n");
         return 0;
     }
 
     qff_font_handle_t *qff_font = (qff_font_handle_t *)font;
-    if (!qff_font->validate_ok) {
+    if (!qff_font || !qff_font->validate_ok) {
         qp_dprintf("qp_drawtext_recolor: fail (invalid font)\n");
         return false;
     }

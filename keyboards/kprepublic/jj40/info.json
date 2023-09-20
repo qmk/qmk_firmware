@@ -6,7 +6,8 @@
   "usb": {
     "vid": "0x4B50",
     "pid": "0x0040",
-    "device_version": "2.0.0"
+    "device_version": "2.0.0",
+    "max_power": 100
   },
   "matrix_pins": {
     "cols": ["C4", "C5", "C6", "C7", "A4", "A5", "A6", "A7", "A3", "A2", "A1", "A0"],
@@ -17,6 +18,21 @@
     "pin": "D4",
     "levels": 12,
     "breathing": true
+  },
+  "rgblight": {
+    "led_count": 5,
+    "animations": {
+      "breathing": true,
+      "rainbow_mood": true,
+      "rainbow_swirl": true,
+      "snake": true,
+      "knight": true,
+      "christmas": true,
+      "static_gradient": true,
+      "rgb_test": true,
+      "alternating": true,
+      "twinkle": true
+    }
   },
   "ws2812": {
     "driver": "i2c"
@@ -82,7 +98,6 @@
         {"matrix": [3, 11], "x": 11, "y": 3}
       ]
     },
-
     "LAYOUT_ortho_4x12": {
       "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0},
@@ -138,7 +153,6 @@
         {"matrix": [3, 11], "x": 11, "y": 3}
       ]
     },
-
     "LAYOUT_planck_1x2uR": {
       "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0},

@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "THE50", 
+    "keyboard_name": "THE50",
     "manufacturer": "LazyDesigners",
-    "url": "http://lazydesigners.cn", 
-    "maintainer": "qmk", 
+    "url": "http://lazydesigners.cn",
+    "maintainer": "qmk",
     "usb": {
         "vid": "0x4C44",
         "pid": "0x0050",
@@ -16,6 +16,10 @@
     "backlight": {
         "pin": "B6",
         "levels": 6
+    },
+    "rgblight": {
+        "led_count": 1,
+        "sleep": true
     },
     "ws2812": {
         "pin": "E6"

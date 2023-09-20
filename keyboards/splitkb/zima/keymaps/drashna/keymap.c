@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef ENCODER_MAP_ENABLE
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] = { { KC_DOWN, KC_UP   } },
     [1] = { { KC_VOLD, KC_VOLU } },
     [2] = { { RGB_MOD, RGB_RMOD} },
@@ -142,14 +142,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     oled_timer = timer_read32();
 
     return true;
-}
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    oled_timer = timer_read32();
-    if (clockwise) {
-        tap_code_delay(KC_VOLU, 10);
-    } else {
-        tap_code_delay(KC_VOLD, 10);
-    }
-    return false;
 }

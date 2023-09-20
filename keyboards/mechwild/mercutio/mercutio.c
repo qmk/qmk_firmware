@@ -15,7 +15,7 @@
  */
 
 
-#include "mercutio.h"
+#include "quantum.h"
 
 #ifdef OLED_ENABLE
 static const char PROGMEM mercutio_name[] = {

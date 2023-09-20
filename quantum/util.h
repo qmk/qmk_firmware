@@ -47,6 +47,10 @@
 #    define ARRAY_SIZE(array) (__builtin_choose_expr(IS_ARRAY((array)), sizeof((array)) / sizeof((array)[0]), (void)0))
 #endif
 
+#if !defined(PACKED)
+#    define PACKED __attribute__((__packed__))
+#endif
+
 #if !defined(PRAGMA)
 /**
  * @brief Allows using pragmas inside other macros

@@ -10,6 +10,22 @@
         "pin": "A7",
         "driver": "pwm"
     },
+    "rgblight": {
+        "led_count": 4,
+        "max_brightness": 180,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
     "matrix_pins": {
         "cols": ["C13", "C14", "C15", "A3", "A4", "A5", "A6", "B12", "B13", "B14", "B15", "A8", "A9", "A10", "B8"],
         "rows": ["B0", "B1", "B2", "B10", "B11", "B9"]

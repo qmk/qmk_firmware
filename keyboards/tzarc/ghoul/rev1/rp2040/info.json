@@ -5,11 +5,7 @@
   "bootloader_instructions": "Hold the boot switch and tap the reset switch, or hold the top-left key when plugging in the board.",
   "encoder": {
     "rotary": [
-      {
-        "pin_a": "GP8",
-        "pin_b": "GP5",
-        "resolution": 2
-      }
+      {"pin_a": "GP8", "pin_b": "GP5", "resolution": 2}
     ]
   },
   "ws2812": {

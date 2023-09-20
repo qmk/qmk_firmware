@@ -7,7 +7,7 @@
   "processor": "RP2040",
   "encoder": {
     "rotary": [
-      { "pin_a": "GP8", "pin_b": "GP9" }
+      {"pin_a": "GP8", "pin_b": "GP9"}
     ]
   },
   "ws2812": {

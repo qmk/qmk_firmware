@@ -5,7 +5,8 @@
     "usb": {
         "vid": "0x4C58",
         "pid": "0x0002",
-        "device_version": "0.0.1"
+        "device_version": "0.0.1",
+        "force_nkro": true
     },
     "matrix_pins": {
         "cols": ["F1", "F0", "E6", "B0", "B1", "B2", "B3", "D6", "D7"],
@@ -15,6 +16,15 @@
     "backlight": {
         "pin": "B7",
         "breathing": true
+    },
+    "rgblight": {
+        "led_count": 40,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true
+        }
     },
     "ws2812": {
         "pin": "E2"

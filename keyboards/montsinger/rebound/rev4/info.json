@@ -1,5 +1,5 @@
 {
-    "keyboard":"Rebound Rev4",
+    "keyboard": "Rebound Rev4",
     "manufacturer": "Montsinger",
     "url": "https://montsinger.net",
     "maintainer": "rossman360",
@@ -17,6 +17,9 @@
         "rotary": [
             {"pin_a": "D2", "pin_b": "D3"}
         ]
+    },
+    "rgblight": {
+        "led_count": 17
     },
     "ws2812": {
         "pin": "B6"

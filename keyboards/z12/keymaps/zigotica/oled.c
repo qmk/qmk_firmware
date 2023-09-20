@@ -17,23 +17,36 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "zigotica.h"
 
 static void render_status(void) {
-    oled_write_P(PSTR("z12 v1.0\n"), false);
-    oled_write_P(PSTR("Layer: "), false);
     switch (get_highest_layer(layer_state)) {
-        case _VIM:
-            oled_write_P(PSTR("VIM      \n\nBUFFER         SCROLL"), false);
+        case _BASE:
+            oled_write_P(PSTR("Volume         Scroll"), false);
+            oled_write_P(PSTR("                     "), false);
+            oled_write_P(PSTR("                     "), false);
+            oled_write_P(PSTR("             z12 v1.1"), false);
             break;
         case _FIGMA:
-            oled_write_P(PSTR("FIGMA    \n\nTABS             ZOOM"), false);
+            oled_write_P(PSTR("Tabs             Zoom"), false);
+            oled_write_P(PSTR("                     "), false);
+            oled_write_P(PSTR("ZoomFit  Grids   Full"), false);
+            oled_write_P(PSTR("Zoom100  Next   Color"), false);
             break;
         case _BROWSER:
-            oled_write_P(PSTR("BROWSER  \n\nTABS           SCROLL"), false);
+            oled_write_P(PSTR("Tabs           Scroll"), false);
+            oled_write_P(PSTR("                     "), false);
+            oled_write_P(PSTR("Search   Fav  DevTool"), false);
+            oled_write_P(PSTR("Zoom100  Mute    Read"), false);
             break;
-        case _BASE:
-            oled_write_P(PSTR("BASE     \n\nVOLUME         SCROLL"), false);
+        case _VIM:
+            oled_write_P(PSTR("Buffer         Scroll"), false);
+            oled_write_P(PSTR("                     "), false);
+            oled_write_P(PSTR("Find-F  Format    New"), false);
+            oled_write_P(PSTR("Rename  Go-Def Action"), false);
             break;
         default:
-            oled_write_P(PSTR("Undef\n"), false);
+            oled_write_P(PSTR("                     "), false);
+            oled_write_P(PSTR("                     "), false);
+            oled_write_P(PSTR("                     "), false);
+            oled_write_P(PSTR("                     "), false);
     }
 }
 

@@ -1,11 +1,12 @@
 {
-    "keyboard_name": "KBD75 Hotswap", 
+    "keyboard_name": "KBD75 Hotswap",
     "manufacturer": "KBDfans",
-    "maintainer": "DZTECH", 
+    "maintainer": "DZTECH",
     "usb": {
         "vid": "0x4B42",
         "pid": "0x6062",
-        "device_version": "0.0.3"
+        "device_version": "0.0.3",
+        "force_nkro": true
     },
     "matrix_pins": {
         "cols": ["F7", "F6", "F5", "F4", "F1", "D0", "D1", "D2", "D3", "D5", "D4", "D6", "D7", "B4", "B5"],
@@ -14,6 +15,25 @@
     "diode_direction": "COL2ROW",
     "indicators": {
         "caps_lock": "C6"
+    },
+    "rgblight": {
+        "hue_steps": 10,
+        "saturation_steps": 10,
+        "brightness_steps": 10,
+        "led_count": 18,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "ws2812": {
         "pin": "F0"

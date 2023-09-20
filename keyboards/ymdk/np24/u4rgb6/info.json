@@ -16,6 +16,21 @@
         "pin": "B7",
         "levels": 31
     },
+    "rgblight": {
+        "led_count": 6,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
     "ws2812": {
         "pin": "E2"
     },
@@ -91,7 +106,6 @@
                 {"matrix": [0, 3], "x": 5, "y": 3, "w": 1.5}
             ]
         },
-
         "LAYOUT_ortho_4x6_left": {
             "layout": [
                 {"matrix": [0, 3], "x": 0, "y": 0, "w": 1.5},
@@ -123,7 +137,6 @@
                 {"matrix": [5, 0], "x": 5.5, "y": 3}
             ]
         },
-
         "LAYOUT_numpad_6x4": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},

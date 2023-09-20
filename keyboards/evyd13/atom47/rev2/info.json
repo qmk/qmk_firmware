@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Atom47 rev2", 
+    "keyboard_name": "Atom47 rev2",
     "manufacturer": "Evyd13",
-    "url": "", 
-    "maintainer": "evyd13", 
+    "url": "",
+    "maintainer": "evyd13",
     "usb": {
         "vid": "0x4705",
         "pid": "0x8E66",
@@ -17,6 +17,9 @@
         "pin": "B6",
         "levels": 4,
         "breathing": true
+    },
+    "rgblight": {
+        "led_count": 1
     },
     "ws2812": {
         "pin": "D0"

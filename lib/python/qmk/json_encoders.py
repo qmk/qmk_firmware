@@ -27,39 +27,56 @@ class QMKJSONEncoder(json.JSONEncoder):
 
         return float(obj)
 
-    def encode_dict_single_line(self, obj):
-        return "{" + ", ".join(f"{self.encode(key)}: {self.encode(element)}" for key, element in sorted(obj.items(), key=self.sort_layout)) + "}"
+    def encode_dict(self, obj, path):
+        """Encode a dict-like object.
+        """
+        if obj:
+            self.indentation_level += 1
 
-    def encode_list(self, obj, key=None):
+            items = sorted(obj.items(), key=self.sort_dict) if self.sort_keys else obj.items()
+            output = [self.indent_str + f"{json.dumps(key)}: {self.encode(value, path + [key])}" for key, value in items]
+
+            self.indentation_level -= 1
+
+            return "{\n" + ",\n".join(output) + "\n" + self.indent_str + "}"
+        else:
+            return "{}"
+
+    def encode_dict_single_line(self, obj, path):
+        """Encode a dict-like object onto a single line.
+        """
+        return "{" + ", ".join(f"{json.dumps(key)}: {self.encode(value, path + [key])}" for key, value in sorted(obj.items(), key=self.sort_layout)) + "}"
+
+    def encode_list(self, obj, path):
         """Encode a list-like object.
         """
         if self.primitives_only(obj):
-            return "[" + ", ".join(self.encode(element) for element in obj) + "]"
+            return "[" + ", ".join(self.encode(value, path + [index]) for index, value in enumerate(obj)) + "]"
 
         else:
             self.indentation_level += 1
 
-            if key in ('layout', 'rotary'):
-                # These are part of a layout or led/encoder config, put them on a single line.
-                output = [self.indent_str + self.encode_dict_single_line(element) for element in obj]
+            if path[-1] in ('layout', 'rotary'):
+                # These are part of a LED layout or encoder config, put them on a single line
+                output = [self.indent_str + self.encode_dict_single_line(value, path + [index]) for index, value in enumerate(obj)]
             else:
-                output = [self.indent_str + self.encode(element) for element in obj]
+                output = [self.indent_str + self.encode(value, path + [index]) for index, value in enumerate(obj)]
 
             self.indentation_level -= 1
 
             return "[\n" + ",\n".join(output) + "\n" + self.indent_str + "]"
 
-    def encode(self, obj, key=None):
-        """Encode keymap.json objects for QMK.
+    def encode(self, obj, path=[]):
+        """Encode JSON objects for QMK.
         """
         if isinstance(obj, Decimal):
             return self.encode_decimal(obj)
 
         elif isinstance(obj, (list, tuple)):
-            return self.encode_list(obj, key)
+            return self.encode_list(obj, path)
 
         elif isinstance(obj, dict):
-            return self.encode_dict(obj, key)
+            return self.encode_dict(obj, path)
 
         else:
             return super().encode(obj)
@@ -80,19 +97,10 @@ class QMKJSONEncoder(json.JSONEncoder):
 class InfoJSONEncoder(QMKJSONEncoder):
     """Custom encoder to make info.json's a little nicer to work with.
     """
-    def encode_dict(self, obj, key):
-        """Encode info.json dictionaries.
+    def sort_layout(self, item):
+        """Sorts the hashes in a nice way.
         """
-        if obj:
-            self.indentation_level += 1
-            output = [self.indent_str + f"{json.dumps(k)}: {self.encode(v, k)}" for k, v in sorted(obj.items(), key=self.sort_dict)]
-            self.indentation_level -= 1
-            return "{\n" + ",\n".join(output) + "\n" + self.indent_str + "}"
-        else:
-            return "{}"
-
-    def sort_layout(self, key):
-        key = key[0]
+        key = item[0]
 
         if key == 'label':
             return '00label'
@@ -117,14 +125,14 @@ class InfoJSONEncoder(QMKJSONEncoder):
 
         return key
 
-    def sort_dict(self, key):
+    def sort_dict(self, item):
         """Forces layout to the back of the sort order.
         """
-        key = key[0]
+        key = item[0]
 
         if self.indentation_level == 1:
             if key == 'manufacturer':
-                return '10keyboard_name'
+                return '10manufacturer'
 
             elif key == 'keyboard_name':
                 return '11keyboard_name'
@@ -150,19 +158,7 @@ class InfoJSONEncoder(QMKJSONEncoder):
 class KeymapJSONEncoder(QMKJSONEncoder):
     """Custom encoder to make keymap.json's a little nicer to work with.
     """
-    def encode_dict(self, obj, key):
-        """Encode dictionary objects for keymap.json.
-        """
-        if obj:
-            self.indentation_level += 1
-            output = [self.indent_str + f"{json.dumps(k)}: {self.encode(v, k)}" for k, v in sorted(obj.items(), key=self.sort_dict)]
-            self.indentation_level -= 1
-            return "{\n" + ",\n".join(output) + "\n" + self.indent_str + "}"
-
-        else:
-            return "{}"
-
-    def encode_list(self, obj, k=None):
+    def encode_list(self, obj, path):
         """Encode a list-like object.
         """
         if self.indentation_level == 2:
@@ -196,10 +192,10 @@ class KeymapJSONEncoder(QMKJSONEncoder):
 
             return "[\n" + ",\n".join(output) + "\n" + self.indent_str + "]"
 
-    def sort_dict(self, key):
+    def sort_dict(self, item):
         """Sorts the hashes in a nice way.
         """
-        key = key[0]
+        key = item[0]
 
         if self.indentation_level == 1:
             if key == 'version':

@@ -94,7 +94,6 @@
                 {"label": "Ctrl", "matrix": [4, 9], "x": 13.75, "y": 4, "w": 1.25}
             ]
         },
-
         "LAYOUT_60_ansi_split_bs_rshift": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},

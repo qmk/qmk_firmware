@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Yuri", 
+    "keyboard_name": "Yuri",
     "manufacturer": "Ocean",
-    "url": "tokopedia.com/strat0s", 
-    "maintainer": "Ocean", 
+    "url": "tokopedia.com/strat0s",
+    "maintainer": "Ocean",
     "usb": {
         "vid": "0x9624",
         "pid": "0x0003",

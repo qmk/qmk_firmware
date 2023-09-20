@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Lunar", 
+    "keyboard_name": "Lunar",
     "manufacturer": "Switchplate Peripherals",
-    "url": "https://geekhack.org/index.php?topic=96112.0", 
-    "maintainer": "ai03", 
+    "url": "https://geekhack.org/index.php?topic=96112.0",
+    "maintainer": "ai03",
     "usb": {
         "vid": "0xA103",
         "pid": "0x0001",

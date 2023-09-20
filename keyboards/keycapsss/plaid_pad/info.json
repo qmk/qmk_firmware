@@ -4,7 +4,11 @@
     "maintainer": "BenRoe",
     "usb": {
         "vid": "0x7983",
-        "pid": "0x5050"
+        "pid": "0x5050",
+        "max_power": 100
+    },
+    "qmk": {
+        "tap_keycode_delay": 60
     },
     "matrix_pins": {
         "cols": ["B0", "D7", "D6", "D5"],

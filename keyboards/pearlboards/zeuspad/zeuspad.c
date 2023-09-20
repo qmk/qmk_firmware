@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "zeuspad.h"
+#include "quantum.h"
 
 // 21 characters max
 #ifdef OLED_ENABLE

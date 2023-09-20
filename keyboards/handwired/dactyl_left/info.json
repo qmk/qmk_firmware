@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "dactyl_left", 
+    "keyboard_name": "dactyl_left",
     "manufacturer": "RedForty",
-    "url": "", 
-    "maintainer": "RedForty", 
+    "url": "",
+    "maintainer": "RedForty",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x0000",

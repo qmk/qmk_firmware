@@ -1,13 +1,11 @@
 {
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
-
     "matrix_pins": {
         "rows": ["C6", "D7", "E6", "B5"],
         "cols": ["F6", "F7", "B1", "B3", "B2", "B6"]
      },
     "diode_direction": "COL2ROW",
-
     "usb": {
       "vid": "0x4D4D",
       "pid": "0x4846",
@@ -18,7 +16,6 @@
             {"pin_a": "F5", "pin_b": "F4"}
         ]
     },
-
     "features": {
         "encoder": true,
         "extrakey": true,
@@ -34,13 +31,13 @@
             }
         }
     },
-
     "rgblight": {
         "led_count": 4,
         "split": true,
         "hue_steps": 8,
         "saturation_steps": 8,
-        "brightness_steps": 8
+        "brightness_steps": 8,
+        "sleep": true
     },
     "ws2812": {
         "pin": "D3"

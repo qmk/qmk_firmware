@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Arya", 
+    "keyboard_name": "Arya",
     "manufacturer": "KapCave",
-    "url": "https://kapcave.com/products/arya", 
-    "maintainer": "nachie", 
+    "url": "https://kapcave.com/products/arya",
+    "maintainer": "nachie",
     "usb": {
         "vid": "0x4B43",
         "pid": "0x4152",
@@ -19,6 +19,9 @@
             {"pin_a": "B14", "pin_b": "B15", "resolution": 2},
             {"pin_a": "C15", "pin_b": "C14", "resolution": 2}
         ]
+    },
+    "qmk": {
+        "tap_keycode_delay": 25
     },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",

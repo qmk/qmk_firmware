@@ -1,15 +1,15 @@
 {
-    "keyboard_name": "Bella RGB ISO", 
+    "keyboard_name": "Bella RGB ISO",
     "manufacturer": "KBDfans",
-    "url": "", 
-    "maintainer": "moyi4681", 
+    "url": "",
+    "maintainer": "moyi4681",
     "usb": {
         "vid": "0x4B42",
         "pid": "0x0009",
         "device_version": "0.0.1"
     },
     "rgb_matrix": {
-        "driver": "IS31FL3741"
+        "driver": "is31fl3741"
     },
     "matrix_pins": {
         "cols": ["C6", "C7", "F7", "F6", "F5", "F4", "F1", "F0", "D2", "D3", "D5", "D4", "D6", "D7", "B4", "B5"],

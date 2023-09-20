@@ -37,7 +37,9 @@
 #        define BACKLIGHT_PAL_MODE (PAL_MODE_ALTERNATE_PWM | PAL_RP_PAD_DRIVE12 | PAL_RP_GPIO_OE)
 #    endif
 #    define BACKLIGHT_PWM_COUNTER_FREQUENCY 1000000
-#    define BACKLIGHT_PWM_PERIOD BACKLIGHT_PWM_COUNTER_FREQUENCY / 2048
+#    ifndef BACKLIGHT_PWM_PERIOD
+#        define BACKLIGHT_PWM_PERIOD BACKLIGHT_PWM_COUNTER_FREQUENCY / 2048
+#    endif
 
 #    ifndef AUDIO_PWM_PAL_MODE
 #        define AUDIO_PWM_PAL_MODE (PAL_MODE_ALTERNATE_PWM | PAL_RP_PAD_DRIVE12 | PAL_RP_GPIO_OE)
@@ -71,7 +73,11 @@
 
 // STM32 compatibility
 #if defined(MCU_STM32)
-#    define CPU_CLOCK STM32_SYSCLK
+#    if defined(STM32_CORE_CK)
+#        define CPU_CLOCK STM32_CORE_CK
+#    else
+#        define CPU_CLOCK STM32_SYSCLK
+#    endif
 
 #    if defined(STM32F1XX)
 #        define USE_GPIOV1

@@ -1,12 +1,27 @@
 {
-    "keyboard_name": "Laplace", 
+    "keyboard_name": "Laplace",
     "manufacturer": "Keebio",
-    "url": "https://keeb.io", 
-    "maintainer": "nooges", 
+    "url": "https://keeb.io",
+    "maintainer": "nooges",
     "usb": {
         "vid": "0xCB10",
         "pid": "0x1147",
         "device_version": "1.0.0"
+    },
+    "rgblight": {
+        "led_count": 14,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "ws2812": {
         "pin": "D4"
@@ -74,5 +89,4 @@
             ]
         }
     }
-
 }

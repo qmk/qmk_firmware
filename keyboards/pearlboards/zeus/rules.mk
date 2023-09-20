@@ -12,6 +12,6 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = yes          # Audio output
 ENCODER_ENABLE = yes        # Rotary encoder
 HAPTIC_ENABLE = yes         # Rumble feefback
-HAPTIC_DRIVER = DRV2605L    # Rumble motor
+HAPTIC_DRIVER = drv2605l    # Rumble motor
 
 LTO_ENABLE = yes            # Link time optimization

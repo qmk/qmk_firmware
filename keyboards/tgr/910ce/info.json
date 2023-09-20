@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "910CE", 
+    "keyboard_name": "910CE",
     "manufacturer": "TGR",
-    "url": "", 
-    "maintainer": "qmk", 
+    "url": "",
+    "maintainer": "qmk",
     "usb": {
         "vid": "0x5447",
         "pid": "0x910C",
@@ -15,6 +15,21 @@
     "diode_direction": "COL2ROW",
     "backlight": {
         "pin": "D4"
+    },
+    "rgblight": {
+        "led_count": 18,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "ws2812": {
         "driver": "i2c"
@@ -106,7 +121,6 @@
                 {"matrix": [4, 14], "x": 15, "y": 4}
             ]
         },
-
         "LAYOUT_65_ansi_blocker": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
@@ -182,7 +196,6 @@
                 {"matrix": [4, 14], "x": 15, "y": 4}
             ]
         },
-
         "LAYOUT_65_iso_blocker": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},

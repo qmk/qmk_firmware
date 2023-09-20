@@ -125,12 +125,14 @@ bool u_xp(bool is_shifted, const char *shifted, const char *plain) {
 };
 
 void zalgo(void) {
+    unicode_input_start();
     int number = (rand() % (8 + 1 - 2)) + 2;
     unsigned int index;
     for (index=0; index<number; index++) {
         uint16_t hex = (rand() % (0x036F + 1 - 0x0300)) + 0x0300;
         register_hex(hex);
     }
+    unicode_input_finish();
 }
 
 bool combined_text(uint16_t keycode) {
@@ -138,16 +140,16 @@ bool combined_text(uint16_t keycode) {
         return false;
     }
     tap_code(keycode);
-    unicode_input_start();
+
     switch (combined_mode) {
         case CM_CIRCLE:
-          register_hex(0x20DD);
+          register_unicode(0x20DD);
           break;
         case CM_NO:
-          register_hex(0x20E0);
+          register_unicode(0x20E0);
           break;
         case CM_KEYCAP:
-          register_hex(0x20E3);
+          register_unicode(0x20E3);
           break;
         case CM_ZALGO:
           zalgo();
@@ -155,7 +157,6 @@ bool combined_text(uint16_t keycode) {
         default:
           break;
     }
-    unicode_input_finish();
     return true;
 }
 

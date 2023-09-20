@@ -1,7 +1,7 @@
 // Copyright 2022 zzeneg (@zzeneg)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "rev1.h"
+#include "quantum.h"
 
 #ifdef PICA40_RGBLIGHT_TIMEOUT
 

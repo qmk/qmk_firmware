@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Doppelganger", 
+    "keyboard_name": "Doppelganger",
     "manufacturer": "Yiancar-Designs",
-    "url": "", 
-    "maintainer": "yiancar", 
+    "url": "",
+    "maintainer": "yiancar",
     "usb": {
         "vid": "0x8968",
         "pid": "0x4447",
@@ -21,6 +21,10 @@
                 "rows": ["D7", "D6", "D4", "E6", "B5"]
             }
         }
+    },
+    "rgblight": {
+        "led_count": 2,
+        "split_count": [1, 1]
     },
     "ws2812": {
         "pin": "B4"

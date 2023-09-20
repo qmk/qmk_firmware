@@ -97,7 +97,6 @@
         {"matrix": [4, 13], "x": 13, "y": 4}
       ]
     },
-
     "LAYOUT_ortho_5x14_1x2uC": {
       "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0},
@@ -175,7 +174,6 @@
         {"matrix": [4, 13], "x": 13, "y": 4}
       ]
     },
-
     "LAYOUT_ortho_5x14_2x2u": {
       "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0},

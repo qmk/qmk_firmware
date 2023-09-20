@@ -25,6 +25,25 @@
   "ws2812": {
     "pin": "F7"
   },
+  "rgblight": {
+    "saturation_steps": 8,
+    "brightness_steps": 8,
+    "led_count": 5,
+    "max_brightness": 240,
+    "sleep": true,
+    "animations": {
+      "breathing": true,
+      "rainbow_mood": true,
+      "rainbow_swirl": true,
+      "snake": true,
+      "knight": true,
+      "christmas": true,
+      "static_gradient": true,
+      "rgb_test": true,
+      "alternating": true,
+      "twinkle": true
+    }
+  },
   "processor": "atmega32u4",
   "bootloader": "caterina",
   "community_layouts": ["ortho_5x4", "numpad_5x4"],

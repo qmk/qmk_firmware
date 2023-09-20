@@ -17,6 +17,23 @@
     "pin": "B6",
     "levels": 5
   },
+  "rgblight": {
+    "saturation_steps": 8,
+    "brightness_steps": 8,
+    "led_count": 16,
+    "animations": {
+      "breathing": true,
+      "rainbow_mood": true,
+      "rainbow_swirl": true,
+      "snake": true,
+      "knight": true,
+      "christmas": true,
+      "static_gradient": true,
+      "rgb_test": true,
+      "alternating": true,
+      "twinkle": true
+    }
+  },
   "ws2812": {
     "pin": "E2"
   },
@@ -97,7 +114,6 @@
         {"matrix": [4, 14], "x": 13.75, "y": 4, "w": 1.25}
       ]
     },
-
     "LAYOUT_60_ansi": {
       "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0},
@@ -167,7 +183,6 @@
         {"matrix": [4, 14], "x": 13.75, "y": 4, "w": 1.25}
       ]
     },
-
     "LAYOUT_60_iso": {
       "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0},
@@ -238,7 +253,6 @@
         {"matrix": [4, 14], "x": 13.75, "y": 4, "w": 1.25}
       ]
     },
-
     "LAYOUT_60_ansi_split_bs_rshift": {
       "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0},
@@ -310,7 +324,6 @@
         {"matrix": [4, 14], "x": 13.5, "y": 4, "w": 1.5}
       ]
     },
-
     "LAYOUT_60_ansi_split_rshift": {
       "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0},
@@ -381,7 +394,6 @@
         {"matrix": [4, 14], "x": 13.75, "y": 4, "w": 1.25}
       ]
     },
-
     "LAYOUT_60_ansi_tsangan_split_rshift": {
       "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0},
@@ -451,7 +463,6 @@
         {"matrix": [4, 14], "x": 13.5, "y": 4, "w": 1.5}
       ]
     },
-
     "LAYOUT_60_hhkb": {
       "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0},

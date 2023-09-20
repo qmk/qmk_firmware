@@ -24,8 +24,6 @@ SWAP_HANDS_ENABLE = yes     # Allow swapping hands of keyboard
 BACKLIGHT_SUPPORTED = no
 AUDIO_SUPPORTED = no
 
-DEBOUNCE_TYPE = sym_eager_pr
-
 # project specific files
 SRC += matrix.c 
 QUANTUM_LIB_SRC += i2c_master.c

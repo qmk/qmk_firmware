@@ -14,10 +14,10 @@
     },
     "diode_direction": "COL2ROW",
     "indicators": {
-    	"caps_lock": "B6",
-    	"num_lock": "B5",
-    	"scroll_lock": "B7",
-    	"on_state": 0
+        "caps_lock": "B6",
+        "num_lock": "B5",
+        "scroll_lock": "B7",
+        "on_state": 0
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

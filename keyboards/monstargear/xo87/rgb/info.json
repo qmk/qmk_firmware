@@ -1,8 +1,8 @@
 {
-  "keyboard_name": "XO87 RGB", 
+  "keyboard_name": "XO87 RGB",
   "manufacturer": "Monstargear",
-  "url": "https://www.monstargears.com/", 
-  "maintainer": "qmk", 
+  "url": "https://www.monstargears.com/",
+  "maintainer": "qmk",
   "usb": {
     "vid": "0x4D47",
     "pid": "0x584F",
@@ -12,7 +12,10 @@
     "pin": "D7"
   },
   "rgb_matrix": {
-    "driver": "WS2812"
+    "driver": "ws2812"
+  },
+  "rgblight": {
+    "max_brightness": 100
   },
   "matrix_pins": {
     "cols": ["C5", "C3", "C1", "E1", "D6", "D2", "B7", "B3", "F6", "F7", "F3", "A5", "A1", "E2", "C7", "A6"],

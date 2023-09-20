@@ -16,9 +16,6 @@ This is the C configuration file for the keymap
 #define MASTER_RIGHT
 // #define EE_HANDS
 
-//#define SSD1306OLED
-
-
 // By default, when holding a dual-function key shortly after tapping it, the
 // tapped key will begin repeating. This is handy for fast typists when typing
 // words with double letters, such as "happy". If you turn this setting ON, it
@@ -43,10 +40,8 @@ This is the C configuration file for the keymap
 #define QMK_SPEAKER C6
 
 // When enabled, typing a mod-tap plus second within term will register as the mod-combo
-// Ref: https://beta.docs.qmk.fm/using-qmk/software-features/tap_hold#permissive-hold 
+// Ref: https://beta.docs.qmk.fm/using-qmk/software-features/tap_hold#permissive-hold
 #define PERMISSIVE_HOLD
-
-#define COMBO_COUNT 2
 
 // Set the COMBO_TERM so low that I won't type the keys one after each other during normal typing.
 // They would have be held together intentionally to trigger this.
@@ -56,4 +51,3 @@ This is the C configuration file for the keymap
 // I want a relatively low timeout, so if I accidentally type "Shift", I can pause just briefly and move on.
 #define ONESHOT_TAP_TOGGLE 3  /* Tapping this number of times holds the key until tapped once again. */
 #define ONESHOT_TIMEOUT 2000  /* Time (in ms) before the one shot key is released */
-

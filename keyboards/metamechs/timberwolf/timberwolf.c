@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "timberwolf.h"
+#include "quantum.h"
 
 void led_update_ports(led_t led_state) {
     if (led_state.caps_lock) {

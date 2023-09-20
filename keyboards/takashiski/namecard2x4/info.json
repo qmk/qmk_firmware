@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "namecard2x4", 
+    "keyboard_name": "namecard2x4",
     "manufacturer": "takashiski",
-    "url": "https://skyhigh-works.hatenablog.com/", 
-    "maintainer": "takashiski", 
+    "url": "https://skyhigh-works.hatenablog.com/",
+    "maintainer": "takashiski",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x0000",

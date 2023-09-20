@@ -16,9 +16,6 @@
 
 #pragma once
 
-/* Forcing to use NKRO instead 6KRO */
-#define FORCE_NKRO
-
 // SPI configuration
 #define SPI_DRIVER SPID1
 #define SPI_SCK_PIN A5
@@ -32,10 +29,6 @@
 #define EXTERNAL_FLASH_SECTOR_SIZE 4096
 #define EXTERNAL_FLASH_BLOCK_SIZE 4096
 #define EXTERNAL_FLASH_SIZE (256 * 1024) // 2M-bit flash size
-
-// Wear-leveling driver configuration
-#define WEAR_LEVELING_LOGICAL_SIZE 1024
-#define WEAR_LEVELING_BACKING_SIZE (WEAR_LEVELING_LOGICAL_SIZE * 2)
 
 #ifdef OLED_ENABLE
     /* Mapping I2C2 for OLED */

@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Owlet60", 
+    "keyboard_name": "Owlet60",
     "manufacturer": "worthlessowl",
-    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/handwired/owlet60/", 
-    "maintainer": "worthlessowl", 
+    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/handwired/owlet60/",
+    "maintainer": "worthlessowl",
     "usb": {
         "vid": "0xFEED",
         "pid": "0xDA19",
@@ -10,6 +10,25 @@
     },
     "ws2812": {
         "pin": "D0"
+    },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 8,
+        "max_brightness": 128,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",

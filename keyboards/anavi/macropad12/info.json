@@ -1,0 +1,72 @@
+{
+    "keyboard_name": "Macro Pad 12",
+    "manufacturer": "ANAVI",
+    "url": "https://github.com/AnaviTechnology/anavi-macro-pad-12",
+    "maintainer": "leon-anavi",
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "diode_direction": "COL2ROW",
+    "matrix_pins": {
+        "cols": ["GP0", "GP2", "GP4"],
+        "rows": ["GP27", "GP28", "GP29", "GP1"]
+    },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgblight": true,
+        "backlight": true,
+        "oled": true
+    },
+    "rgblight": {
+        "led_count": 6,
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "GP3",
+        "driver": "vendor"
+    },
+    "backlight": {
+        "pin": "GP26"
+    },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_ortho_4x3"
+    },
+    "layouts": {
+        "LAYOUT_ortho_4x3": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+                {"matrix": [3, 0], "x": 0, "y": 3},
+                {"matrix": [3, 1], "x": 1, "y": 3},
+                {"matrix": [3, 2], "x": 2, "y": 3}
+            ]
+        }
+    },
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x9A25",
+        "vid": "0xFEED"
+    }
+}

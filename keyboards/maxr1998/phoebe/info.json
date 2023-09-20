@@ -94,30 +94,16 @@
         "timeout": 250
     },
     "matrix_pins": {
-        "cols": [
-            "D7",
-            "B4",
-            "B5",
-            "B6",
-            "C6",
-            "C7",
-            "B0",
-            "F1",
-            "F4",
-            "F5",
-            "F6",
-            "F7"
-        ],
-        "rows": [
-            "B7",
-            "B3",
-            "B2",
-            "B1",
-            "D6"
-        ]
+        "cols": ["D7", "B4", "B5", "B6", "C6", "C7", "B0", "F1", "F4", "F5", "F6", "F7"],
+        "rows": ["B7", "B3", "B2", "B1", "D6"]
     },
     "rgblight": {
-        "led_count": 8
+        "led_count": 8,
+        "animations": {
+            "rainbow_swirl": true,
+            "snake": true,
+            "christmas": true
+        }
     },
     "ws2812": {
         "pin": "F0"

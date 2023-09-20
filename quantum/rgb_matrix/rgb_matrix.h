@@ -22,12 +22,16 @@
 #include <stdbool.h>
 #include "rgb_matrix_types.h"
 #include "color.h"
-#include "quantum.h"
+#include "keyboard.h"
 
-#ifdef IS31FL3731
+#if defined(IS31FL3218)
+#    include "is31fl3218.h"
+#elif defined(IS31FL3731)
 #    include "is31fl3731.h"
 #elif defined(IS31FL3733)
 #    include "is31fl3733.h"
+#elif defined(IS31FL3736)
+#    include "is31fl3736.h"
 #elif defined(IS31FL3737)
 #    include "is31fl3737.h"
 #elif defined(IS31FL3741)
@@ -36,8 +40,8 @@
 #    include "is31flcommon.h"
 #elif defined(CKLED2001)
 #    include "ckled2001.h"
-#elif defined(AW20216)
-#    include "aw20216.h"
+#elif defined(AW20216S)
+#    include "aw20216s.h"
 #elif defined(WS2812)
 #    include "ws2812.h"
 #endif
@@ -47,8 +51,9 @@
 #endif
 
 #ifndef RGB_MATRIX_LED_PROCESS_LIMIT
-#    define RGB_MATRIX_LED_PROCESS_LIMIT (RGB_MATRIX_LED_COUNT + 4) / 5
+#    define RGB_MATRIX_LED_PROCESS_LIMIT ((RGB_MATRIX_LED_COUNT + 4) / 5)
 #endif
+#define RGB_MATRIX_LED_PROCESS_MAX_ITERATIONS ((RGB_MATRIX_LED_COUNT + RGB_MATRIX_LED_PROCESS_LIMIT - 1) / RGB_MATRIX_LED_PROCESS_LIMIT)
 
 #if defined(RGB_MATRIX_LED_PROCESS_LIMIT) && RGB_MATRIX_LED_PROCESS_LIMIT > 0 && RGB_MATRIX_LED_PROCESS_LIMIT < RGB_MATRIX_LED_COUNT
 #    if defined(RGB_MATRIX_SPLIT)

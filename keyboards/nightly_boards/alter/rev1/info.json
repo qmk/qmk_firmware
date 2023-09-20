@@ -4,9 +4,9 @@
     "url": "",
     "maintainer": "Neil Brian Ramirez",
     "usb": {
-    	"vid": "0x0717",
-    	"pid": "0x0002",
-    	"device_version": "0.0.1"
+        "vid": "0x0717",
+        "pid": "0x0002",
+        "device_version": "0.0.1"
     },
     "matrix_pins": {
         "cols": ["C7", "C6", "B6", "B5", "B0", "B1", "B2", "B3"],
@@ -14,12 +14,30 @@
     },
     "diode_direction": "COL2ROW",
     "indicators": {
-    	"caps_lock": "D6",
-    	"num_lock": "D7",
-    	"scroll_lock": "B4"
+        "caps_lock": "D6",
+        "num_lock": "D7",
+        "scroll_lock": "B4"
+    },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 18,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "ws2812": {
-    	"pin": "F1"
+        "pin": "F1"
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

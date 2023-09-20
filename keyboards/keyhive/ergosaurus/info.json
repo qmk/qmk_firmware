@@ -10,6 +10,19 @@
     "ws2812": {
         "pin": "B6"
     },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 32,
+        "max_brightness": 200,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "static_gradient": true
+        }
+    },
     "matrix_pins": {
         "cols": ["D7", "C6", "D0", "D1", "F7", "B1", "B3", "B2"],
         "rows": ["B5", "B4", "E6", "D4", "F6", "D3", "D2", "F4", "F5"]
