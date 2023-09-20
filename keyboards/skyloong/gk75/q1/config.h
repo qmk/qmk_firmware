@@ -3,7 +3,7 @@
 
 #pragma once
 
-#define ENCODER_MAP_KEY_DELAY 20
+#define ENCODER_MAP_KEY_DELAY 10
 
 #define DRIVER_ADDR_2 0b0100011
 #define DRIVER_COUNT 2
@@ -22,5 +22,7 @@
 
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 
 #define WAIT_FOR_USB
+
