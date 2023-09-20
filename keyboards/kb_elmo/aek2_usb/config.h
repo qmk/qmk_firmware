@@ -22,6 +22,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* reduce EEPROM usage */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 3
 #define LAYER_STATE_8BIT

@@ -21,6 +21,3 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* Reducing layer count to 3 for via support */
-#define DYNAMIC_KEYMAP_LAYER_COUNT  3

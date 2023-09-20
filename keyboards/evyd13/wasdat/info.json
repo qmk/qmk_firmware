@@ -13,6 +13,9 @@
     "bootmagic": {
         "matrix": [0, 5]
     },
+    "dynamic_keymap": {
+        "layer_count": 3
+    },
     "qmk_lufa_bootloader": {
         "esc_output": "D6",
         "esc_input": "D7",

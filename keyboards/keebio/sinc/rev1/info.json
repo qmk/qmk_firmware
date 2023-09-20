@@ -7,6 +7,9 @@
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",
+    "dynamic_keymap": {
+        "layer_count": 3
+    },
     "features": {
         "rgblight": true,
         "backlight": true

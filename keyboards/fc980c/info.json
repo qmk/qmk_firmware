@@ -8,6 +8,9 @@
     "pid": "0x980C",
     "device_version": "1.0.0"
   },
+  "dynamic_keymap": {
+    "layer_count": 3
+  },
   "indicators": {
     "caps_lock": "B5",
     "num_lock": "B4",

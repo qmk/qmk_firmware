@@ -11,6 +11,9 @@
     "backlight": {
         "pin": "D4"
     },
+    "dynamic_keymap": {
+        "layer_count": 3
+    },
     "rgblight": {
         "led_count": 18,
         "sleep": true,
