@@ -3,7 +3,6 @@
     "manufacturer": "CannonKeys",
     "maintainer": "awkannan",
     "usb": {
-        "vid": "0xCA04",
         "pid": "0x001A",
         "device_version": "0.0.1"
     },
@@ -30,12 +29,6 @@
         "rotary": [
             { "pin_a": "B9", "pin_b": "B8" }
         ]
-    },
-    "backlight": {
-        "breathing": true,
-        "breathing_period": 6,
-        "levels": 24,
-        "pin": "A6"
     },
     "indicators": {
         "caps_lock": "B14",
