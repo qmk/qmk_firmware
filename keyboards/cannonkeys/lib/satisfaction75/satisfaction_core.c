@@ -132,12 +132,6 @@ void custom_get_value(uint8_t *data) {
     }
 }
 
-// TODO
-// Refactor so this keyboard uses QMK Core backlight code,
-// then change this to via_custom_value_command_kb() so it
-// only handles the custom values not the backlight
-// (i.e. use QMK Core default handler for backlight values).
-//
 void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
     uint8_t *command_id        = &(data[0]);
     uint8_t *channel_id        = &(data[1]);
@@ -297,7 +291,7 @@ void custom_config_reset(void){
   eeprom_update_byte((uint8_t*)EEPROM_ENABLED_ENCODER_MODES, 0x1F);
 }
 
-void custom_config_load(){
+void custom_config_load(void){
 #ifdef DYNAMIC_KEYMAP_ENABLE
   oled_mode = eeprom_read_byte((uint8_t*)EEPROM_DEFAULT_OLED);
   enabled_encoder_modes = eeprom_read_byte((uint8_t*)EEPROM_ENABLED_ENCODER_MODES);
