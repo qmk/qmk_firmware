@@ -3,16 +3,11 @@
 #include "quantum.h"
 
 #include "via.h" // only for EEPROM address
+#include "satisfaction_keycodes.h"
 
 #define EEPROM_ENABLED_ENCODER_MODES (VIA_EEPROM_CUSTOM_CONFIG_ADDR)
 #define EEPROM_DEFAULT_OLED (VIA_EEPROM_CUSTOM_CONFIG_ADDR+1)
 #define EEPROM_CUSTOM_ENCODER (VIA_EEPROM_CUSTOM_CONFIG_ADDR+2)
-
-enum my_keycodes {
-  ENC_PRESS = QK_KB_0,
-  CLOCK_SET,
-  OLED_TOGG
-};
 
 enum s75_keyboard_value_id {
   id_encoder_modes = 1,
