@@ -8,15 +8,14 @@
 #define EEPROM_DEFAULT_OLED (VIA_EEPROM_CUSTOM_CONFIG_ADDR+1)
 #define EEPROM_CUSTOM_ENCODER (VIA_EEPROM_CUSTOM_CONFIG_ADDR+2)
 
-// Start these at the USER code range in VIA
 enum my_keycodes {
-  ENC_PRESS = 0x5F80,
+  ENC_PRESS = QK_KB_0,
   CLOCK_SET,
   OLED_TOGG
 };
 
 enum s75_keyboard_value_id {
-  id_encoder_modes = 0x80,
+  id_encoder_modes = 1,
   id_oled_default_mode,
   id_encoder_custom,
   id_oled_mode
