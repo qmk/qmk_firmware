@@ -20,18 +20,6 @@
 #include "i2c_master.h"
 #include "wait.h"
 
-// This is a 7-bit address, that gets left-shifted and bit 0
-// set to 0 for write, 1 for read (as per I2C protocol)
-// The address will vary depending on your wiring:
-// 00 <-> GND
-// 01 <-> SCL
-// 10 <-> SDA
-// 11 <-> VCC
-// ADDR1 represents A1:A0 of the 7-bit address.
-// ADDR2 represents A3:A2 of the 7-bit address.
-// The result is: 0b101(ADDR2)(ADDR1)
-#define IS31FL3736_I2C_ADDRESS_DEFAULT 0x50
-
 #define IS31FL3736_COMMANDREGISTER 0xFD
 #define IS31FL3736_COMMANDREGISTER_WRITELOCK 0xFE
 #define IS31FL3736_INTERRUPTMASKREGISTER 0xF0
@@ -48,12 +36,16 @@
 #define IS31FL3736_REG_SWPULLUP 0x0F      // PG3
 #define IS31FL3736_REG_CSPULLUP 0x10      // PG3
 
-#ifndef IS31FL3736_TIMEOUT
+#ifndef IS31FL3736_I2C_TIMEOUT
 #    define IS31FL3736_I2C_TIMEOUT 100
 #endif
 
 #ifndef IS31FL3736_I2C_PERSISTENCE
 #    define IS31FL3736_I2C_PERSISTENCE 0
+#endif
+
+#ifndef IS31FL3736_PWM_FREQUENCY
+#    define IS31FL3736_PWM_FREQUENCY IS31FL3736_PWM_FREQUENCY_8K4_HZ // PFS - IS31FL3736B only
 #endif
 
 #ifndef IS31FL3736_SWPULLUP
@@ -159,7 +151,7 @@ void is31fl3736_init(uint8_t addr) {
     // Set global current to maximum.
     is31fl3736_write_register(addr, IS31FL3736_REG_GLOBALCURRENT, IS31FL3736_GLOBALCURRENT);
     // Disable software shutdown.
-    is31fl3736_write_register(addr, IS31FL3736_REG_CONFIGURATION, 0x01);
+    is31fl3736_write_register(addr, IS31FL3736_REG_CONFIGURATION, ((IS31FL3736_PWM_FREQUENCY & 0b111) << 3) | 0x01);
 
     // Wait 10ms to ensure the device has woken up.
     wait_ms(10);

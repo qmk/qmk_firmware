@@ -19,6 +19,10 @@
 
 #pragma once
 
+#include <stdint.h>
+#include <stdbool.h>
+#include "progmem.h"
+
 // ======== DEPRECATED DEFINES - DO NOT USE ========
 #ifdef DRIVER_COUNT
 #    define IS31FL3737_DRIVER_COUNT DRIVER_COUNT
@@ -52,9 +56,10 @@
 #define PUR_32KR IS31FL3737_PUR_32KR
 // ========
 
-#include <stdint.h>
-#include <stdbool.h>
-#include "progmem.h"
+#define IS31FL3737_I2C_ADDRESS_GND 0x50
+#define IS31FL3737_I2C_ADDRESS_SCL 0x55
+#define IS31FL3737_I2C_ADDRESS_SDA 0x5A
+#define IS31FL3737_I2C_ADDRESS_VCC 0x5F
 
 typedef struct is31_led {
     uint8_t driver : 2;
@@ -89,6 +94,12 @@ void is31fl3737_update_led_control_registers(uint8_t addr, uint8_t index);
 #define IS31FL3737_PUR_8KR 0x05  // 8.0k Ohm resistor in t_NOL
 #define IS31FL3737_PUR_16KR 0x06 // 16k Ohm resistor in t_NOL
 #define IS31FL3737_PUR_32KR 0x07 // 32k Ohm resistor in t_NOL
+
+#define IS31FL3737_PWM_FREQUENCY_8K4_HZ 0b000
+#define IS31FL3737_PWM_FREQUENCY_4K2_HZ 0b001
+#define IS31FL3737_PWM_FREQUENCY_26K7_HZ 0b010
+#define IS31FL3737_PWM_FREQUENCY_2K1_HZ 0b011
+#define IS31FL3737_PWM_FREQUENCY_1K05_HZ 0b100
 
 #define A_1 0x00
 #define A_2 0x01

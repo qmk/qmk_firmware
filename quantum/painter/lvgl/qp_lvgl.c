@@ -81,8 +81,8 @@ bool qp_lvgl_attach(painter_device_t device) {
 
     lvgl_state_t *lv_task_handler_state = &lvgl_states[1];
     lv_task_handler_state->fnc_id       = 1;
-    lv_task_handler_state->delay_ms     = 5;
-    lv_task_handler_state->defer_token  = defer_exec_advanced(lvgl_executors, 2, 5, tick_task_callback, lv_task_handler_state);
+    lv_task_handler_state->delay_ms     = QP_LVGL_TASK_PERIOD;
+    lv_task_handler_state->defer_token  = defer_exec_advanced(lvgl_executors, 2, QP_LVGL_TASK_PERIOD, tick_task_callback, lv_task_handler_state);
 
     if (lv_task_handler_state->defer_token == INVALID_DEFERRED_TOKEN) {
         qp_dprintf("qp_lvgl_attach: fail (could not set up qp_lvgl executor)\n");

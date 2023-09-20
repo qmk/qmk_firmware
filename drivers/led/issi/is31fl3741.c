@@ -22,18 +22,6 @@
 #include "i2c_master.h"
 #include "wait.h"
 
-// This is a 7-bit address, that gets left-shifted and bit 0
-// set to 0 for write, 1 for read (as per I2C protocol)
-// The address will vary depending on your wiring:
-// 00 <-> GND
-// 01 <-> SCL
-// 10 <-> SDA
-// 11 <-> VCC
-// ADDR1 represents A1:A0 of the 7-bit address.
-// ADDR2 represents A3:A2 of the 7-bit address.
-// The result is: 0b101(ADDR2)(ADDR1)
-#define IS31FL3741_I2C_ADDRESS_DEFAULT 0x60
-
 #define IS31FL3741_COMMANDREGISTER 0xFD
 #define IS31FL3741_COMMANDREGISTER_WRITELOCK 0xFE
 #define IS31FL3741_INTERRUPTMASKREGISTER 0xF0
@@ -49,6 +37,7 @@
 #define IS31FL3741_REG_CONFIGURATION 0x00 // PG4
 #define IS31FL3741_REG_GLOBALCURRENT 0x01 // PG4
 #define IS31FL3741_REG_PULLDOWNUP 0x02    // PG4
+#define IS31FL3741_REG_PWM_FREQUENCY 0x36 // PG4
 #define IS31FL3741_REG_RESET 0x3F         // PG4
 
 #ifndef IS31FL3741_I2C_TIMEOUT
@@ -61,6 +50,10 @@
 
 #ifndef IS31FL3741_CONFIGURATION
 #    define IS31FL3741_CONFIGURATION 0x01
+#endif
+
+#ifndef IS31FL3741_PWM_FREQUENCY
+#    define IS31FL3741_PWM_FREQUENCY IS31FL3741_PWM_FREQUENCY_29K_HZ
 #endif
 
 #ifndef IS31FL3741_SWPULLUP
@@ -170,6 +163,8 @@ void is31fl3741_init(uint8_t addr) {
     is31fl3741_write_register(addr, IS31FL3741_REG_GLOBALCURRENT, IS31FL3741_GLOBALCURRENT);
     // Set Pull up & Down for SWx CSy
     is31fl3741_write_register(addr, IS31FL3741_REG_PULLDOWNUP, ((IS31FL3741_CSPULLUP << 4) | IS31FL3741_SWPULLUP));
+    // Set PWM frequency
+    is31fl3741_write_register(addr, IS31FL3741_REG_PWM_FREQUENCY, (IS31FL3741_PWM_FREQUENCY & 0b1111));
 
     // is31fl3741_update_led_scaling_registers(addr, 0xFF, 0xFF, 0xFF);
 

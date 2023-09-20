@@ -16,9 +16,6 @@
 
 #pragma once
 
-/* Use 5 dynamic keymap layers */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 6
-
 /* LED Indicators */
 #define LED_WIN_LOCK_PIN C11
 
@@ -35,7 +32,6 @@
 #define SPI_MOSI_PAL_MODE 5
 
 #define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN C12
-#define WEAR_LEVELING_BACKING_SIZE (8 * 1024)
 
 /* I2C Config for LED Driver */
 #define IS31FL3733_DRIVER_COUNT 2
