@@ -1,4 +1,4 @@
-#include "satisfaction75_core.h"
+#include "satisfaction_core.h"
 #include "eeprom.h"
 
 void pre_encoder_mode_change(){

@@ -1,4 +1,4 @@
-#include "satisfaction75_core.h"
+#include "satisfaction_core.h"
 #include <stdio.h>
 
 void draw_default(void);

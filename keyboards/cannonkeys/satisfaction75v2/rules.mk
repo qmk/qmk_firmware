@@ -4,7 +4,7 @@ DFU_SUFFIX_ARGS = -v FFFF -p FFFF
 VPATH += keyboards/cannonkeys/lib/satisfaction75
 SRC += satisfaction_encoder.c \
       satisfaction_oled.c \
-      satisfaction75_core.c 
+      satisfaction_core.c 
 
 OLED_DRIVER = ssd1306
 
