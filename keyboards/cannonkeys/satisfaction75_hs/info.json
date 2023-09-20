@@ -21,7 +21,7 @@
     },
     "encoder": {
         "rotary": [
-            { "pin_a": "B9", "pin_b": "B8" }
+            { "pin_a": "B8", "pin_b": "B9" }
         ]
     },
     "indicators": {
