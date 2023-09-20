@@ -9,7 +9,6 @@ Make example for this keyboard (after setting up your build environment):
 
     make cannonkeys/is0gr:default
 
-
 Flashing example for this keyboard:
 
     make cannonkeys/is0gr:default:flash
