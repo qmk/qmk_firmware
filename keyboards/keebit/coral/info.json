@@ -35,22 +35,15 @@
     "rgblight": {
         "split": true,
         "led_count": 1,
-        "hue_steps": 4,
-        "saturation_steps": 5,
-        "brightness_steps": 5,
-        "max_brightness": 50,
+        "hue_steps": 2,
+        "saturation_steps": 2,
+        "brightness_steps": 2,
+        "max_brightness": 20,
         "sleep": false,
         "layers": {
             "blink": true,
             "enabled": true,
-            "max": 22,
             "override_rgb": true
-        },
-        "animations": {
-            "breathing": true,
-            "christmas": true,
-            "rainbow_swirl": true,
-            "rgb_test": true
         }
     },
     "encoder": {
