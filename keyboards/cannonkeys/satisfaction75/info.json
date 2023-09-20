@@ -1,28 +1,28 @@
 {
-    "keyboard_name": "Satisfaction75",
     "manufacturer": "CannonKeys",
-    "url": "https://cannonkeys.com",
+    "keyboard_name": "Satisfaction75",
     "maintainer": "awkannan",
-    "usb": {
-        "vid": "0xCA04"
-    },
     "backlight": {
         "breathing": true,
         "breathing_period": 6,
         "levels": 24,
         "pin": "A6"
     },
+    "bootloader": "stm32-dfu",
     "features": {
+        "backlight": true,
         "bootmagic": true,
         "command": false,
         "console": false,
+        "encoder": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "backlight": true,
-        "encoder": true,
         "oled": true
     },
     "processor": "STM32F072",
-    "bootloader": "stm32-dfu"
+    "url": "https://cannonkeys.com",
+    "usb": {
+        "vid": "0xCA04"
+    }
 }
