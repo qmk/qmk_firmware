@@ -128,11 +128,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vitae nibh neque. Etiam sed enim ac ipsum maximus rhoncus id et dui. Nam mi orci, rutrum in ipsum eget, hendrerit aliquam nulla. Maecenas ac nisl nibh. Integer erat mi, molestie vitae aliquet ut, faucibus eget sem. Suspendisse vel lacus interdum, consectetur nisi vitae, vulputate purus. Etiam ut aliquam turpis, id pellentesque ligula. Curabitur semper nisi in facilisis vehicula. Pellentesque felis risus, maximus blandit erat vel, congue sagittis mi. Etiam aliquam arcu sed neque semper laoreet. Sed id posuere libero, sed volutpat sapien.");
             }
             return false;
-        // case QK_CAPS_WORD_TOGGLE:
-        //     if (record->event.pressed) {
-        //         rgblight_setrgb_at(RGB_WHITE, 0);
-        //     }
-        //     return true;
         default:
             return true;
     }
