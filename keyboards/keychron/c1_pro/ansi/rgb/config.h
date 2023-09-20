@@ -21,8 +21,8 @@
 
 /* RGB Matrix Driver Configuration */
 #define CKLED2001_DRIVER_COUNT 2
-#define DRIVER_ADDR_1 0b1110111
-#define DRIVER_ADDR_2 0b1110100
+#define DRIVER_ADDR_1 CKLED2001_I2C_ADDRESS_VDDIO
+#define DRIVER_ADDR_2 CKLED2001_I2C_ADDRESS_GND
 
 /* RGB Matrix Configuration */
 #define DRIVER_1_LED_TOTAL 49

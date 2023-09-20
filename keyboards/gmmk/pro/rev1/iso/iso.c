@@ -137,7 +137,7 @@ led_config_t g_led_config = {{
     2, 4, 2, 2, 4, 4, 2, 2, 4, 2, 2, 4, 4, 2, 2, 4, 4, 2, 2, 4, 4, 4, 4, 4
 }};
 
-const aw20216s_led g_aw20216s_leds[RGB_MATRIX_LED_COUNT] = {
+const aw20216s_led_t g_aw20216s_leds[RGB_MATRIX_LED_COUNT] = {
     {0, CS1_SW1, CS2_SW1, CS3_SW1},        //  0, ESC, k13
     {0, CS4_SW1, CS5_SW1, CS6_SW1},        //  1, ~, k16
     {0, CS7_SW1, CS8_SW1, CS9_SW1},        //  2, Tab, k11
