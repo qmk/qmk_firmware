@@ -7,7 +7,7 @@
     "bootloader": "rp2040",
     "usb": {
         "vid": "0x5043",
-        "pid": "0x5C46",
+        "pid": "0x5C47",
         "max_power": 100
     },
     "features": {
