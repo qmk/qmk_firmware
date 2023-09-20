@@ -166,7 +166,7 @@ PIO state machine code.
 
 Example info.json content:
 
-```
+```json
     "ps2": {
         "clock_pin": "GP1",
         "data_pin": "GP0",
