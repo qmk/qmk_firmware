@@ -1,17 +1,20 @@
 # Matrix
 
-A rugged four-button macro pad with a per-key customisable RGB backlight. For more information, see: https://zoid.com.au/matrix/
+A rugged four-button macro pad with a per-key customisable RGB backlight.
 
-## Compiling
+* Keyboard Maintainer: [Zoid Technology](https://github.com/ZoidTechnology)
+* Hardware Availability: Available Q4 2023
 
-To compile the firmware with the default keymap, use the following command:
+Make example for this keyboard (after setting up your build environment):
 
-	qmk compile -kb sevencrumbs/matrix -km default
+	make sevencrumbs/matrix:default
 
-[VIA](https://usevia.app/) is recommended for easily customising the keymap and backlight colour. To compile the firmware with VIA support, use the following command:
-
-	qmk compile -kb sevencrumbs/matrix -km via
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 ## Bootloader
 
-Press and hold all four buttons while connecting the USB cable to erase all settings and enter the bootloader.
+Enter the bootloader in 3 ways:
+
+* **Bootmagic reset**: Press and hold all four buttons while connecting the USB cable.
+* **Keycode in layout**: Press the button mapped to `QK_BOOT` if it is available.
+* **Physical reset**: In the case of firmware corruption, the other methods of entering the bootloader may not work. Open the enclosure and bridge the pads labelled "Boot" with a conductive object while connecting the USB cable.
