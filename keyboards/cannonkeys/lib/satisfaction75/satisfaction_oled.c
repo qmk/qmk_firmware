@@ -4,8 +4,6 @@
 void draw_default(void);
 void draw_clock(void);
 
-int init_tries = 0;
-
 #ifdef OLED_ENABLE
 
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) { return OLED_ROTATION_0; }
