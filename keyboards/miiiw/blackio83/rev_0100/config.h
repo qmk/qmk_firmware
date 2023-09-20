@@ -26,16 +26,10 @@
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { A7, A6, A5, A4, A3, A2 }
-#define MATRIX_COL_PINS { H0, H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14, H15 }
 
 /* Dip Switch */
 #define POWER_SWITCH_PIN B0
 #define DIP_SWITCH_PINS { POWER_SWITCH_PIN, B1, B8, B12 }
-
-/* LED indicator lights */
-#define LED_CAPS_LOCK_PIN B2
-#define LED_NUM_LOCK_PIN B14
 
 /* 16 with dummy columns for shift registers */
 #define SHR_SERIES_NUM 2

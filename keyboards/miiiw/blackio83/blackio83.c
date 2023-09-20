@@ -43,6 +43,23 @@ static void POWER_EnterSleep(void) {
 extern void ws2812_poweron(void);
 extern void ws2812_poweroff(void);
 
+static bool p_setup = false;
+static bool s_init = false;
+void ws2812_poweron(void) {
+    if(p_setup) return;
+    p_setup = true;
+    s_init = false;
+    setPinOutput(RGB_EN_PIN);
+    writePinHigh(RGB_EN_PIN);
+}
+
+void ws2812_poweroff(void) {
+    if(!p_setup) return;
+    p_setup = false;
+    setPinInputLow(WS2812_DI_PIN);
+    writePinLow(RGB_EN_PIN);
+}
+
 void keyboard_pre_init_kb() {
 	keyboard_pre_init_user();
 
@@ -80,7 +97,7 @@ void keyboard_post_init_kb(void) {
     loop10hz_token = defer_exec(LOOP_10HZ_PERIOD, loop_10Hz, NULL);
 }
 
-void shutdown_user(void) {
+__attribute__((weak)) void shutdown_user(void) {
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_set_suspend_state(true);
 #endif  // RGB_MATRIX_ENABLE

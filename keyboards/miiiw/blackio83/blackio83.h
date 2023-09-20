@@ -21,16 +21,10 @@
 #define XXX KC_NO
 
 enum custom_keycodes {
-#ifdef VIA_ENABLE
-    DEV_BT1 = SAFE_RANGE,
-#endif
+    DEV_BT1 = QK_KB,
     DEV_BT2,
     DEV_BT3,
     DEV_RF24,
     ALT_TAB,
     RGB_RST,
-	NEW_SAFE_RANGE
 };
-
-#undef SAFE_RANGE
-#define SAFE_RANGE NEW_SAFE_RANGE

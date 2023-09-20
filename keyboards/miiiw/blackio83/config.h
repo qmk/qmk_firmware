@@ -23,21 +23,6 @@
 // EEPROM i2c chip
 #define EEPROM_I2C_24LC256
 
-/* RGB Matrix */
-#ifdef RGB_MATRIX_ENABLE
-#   define RGB_MATRIX_KEYPRESSES // reacts to keypresses
-#   define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#   define RGB_MATRIX_LED_FLUSH_LIMIT 26
-//#   define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
-#   define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
-#   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 160 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
-#   define RGB_MATRIX_HUE_STEP 36
-#   define RGB_MATRIX_SAT_STEP 8
-#   define RGB_MATRIX_VAL_STEP 32
-#   define RGB_MATRIX_SPD_STEP 60
-#   define RGB_MATRIX_DEFAULT_HUE 170
-#   define RGB_MATRIX_DEFAULT_SPD (RGB_MATRIX_SPD_STEP + 15) 
-
 /* Disable the animations you don't want/need.  You will need to disable a good number of these    *
  * because they take up a lot of space.  Disable until you can successfully compile your firmware. */
 // RGB Matrix Animation modes. Explicitly enabled
@@ -72,21 +57,4 @@
 #    define ENABLE_RGB_MATRIX_PIXEL_RAIN
 #    define ENABLE_RGB_MATRIX_PIXEL_FLOW
 #    define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
-// enabled only if RGB_MATRIX_FRAMEBUFFER_EFFECTS is defined
-#    define ENABLE_RGB_MATRIX_TYPING_HEATMAP
-#    define ENABLE_RGB_MATRIX_DIGITAL_RAIN
-// enabled only of RGB_MATRIX_KEYPRESSES or RGB_MATRIX_KEYRELEASES is defined
-#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE
-#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
-#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
-#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
-#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
-#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
-#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
-#    define ENABLE_RGB_MATRIX_SPLASH
-#    define ENABLE_RGB_MATRIX_MULTISPLASH
-#    define ENABLE_RGB_MATRIX_SOLID_SPLASH
-#    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR
-#endif
