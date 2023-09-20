@@ -20,8 +20,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 500U
 
-#define LED_CAPS_LOCK_PIN GP12
-#define LED_PIN_ON_STATE 0
-
 #define PICO_XOSC_STARTUP_DELAY_MULTIPLIER 64
 
