@@ -335,15 +335,17 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     endif
 
     ifeq ($(strip $(RGBLIGHT_DRIVER)), ws2812)
+        OPT_DEFS += -DRGBLIGHT_WS2812
         WS2812_DRIVER_REQUIRED := yes
     endif
 
     ifeq ($(strip $(RGBLIGHT_DRIVER)), apa102)
+        OPT_DEFS += -DRGBLIGHT_APA102
         APA102_DRIVER_REQUIRED := yes
     endif
 
     ifeq ($(strip $(RGBLIGHT_DRIVER)), custom)
-        OPT_DEFS += -DRGBLIGHT_CUSTOM_DRIVER
+        OPT_DEFS += -DRGBLIGHT_CUSTOM
     endif
 endif
 
