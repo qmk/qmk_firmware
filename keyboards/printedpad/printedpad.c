@@ -18,7 +18,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 #ifdef OLED_ENABLE
-    key_pressed = record->event.pressed
+    key_pressed = record->event.pressed;
 #endif
     switch(keycode) {
         case LT(0, KC_NO):
