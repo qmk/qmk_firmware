@@ -61,7 +61,7 @@ __attribute__((weak)) bool qp_ssd1351_init(painter_device_t device, painter_rota
 
 bool qp_ssd1351_set_inversion(painter_device_t device, bool invert) {
     if (!device) {
-        qp_dprintf("qp_ssd1351_set_inversion: fail (un-initialized pointer)\n");
+        qp_dprintf("qp_ssd1351_set_inversion: fail (un-initialized device handle)\n");
         return false;
     }
 

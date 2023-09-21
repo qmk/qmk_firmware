@@ -211,7 +211,7 @@ static bool qp_drawimage_recolor_impl(painter_device_t device, uint16_t x, uint1
     qp_dprintf("qp_drawimage_recolor: entry\n");
     painter_driver_t *driver = (painter_driver_t *)device;
     if (!driver || !driver->validate_ok) {
-        qp_dprintf("qp_drawimage_recolor: fail (validation_ok == false)\n");
+        qp_dprintf("qp_drawimage_recolor: fail (bad device handle)\n");
         return false;
     }
 

@@ -407,7 +407,7 @@ int16_t qp_drawtext_recolor(painter_device_t device, uint16_t x, uint16_t y, pai
     qp_dprintf("qp_drawtext_recolor: entry\n");
     painter_driver_t *driver = (painter_driver_t *)device;
     if (!driver || !driver->validate_ok) {
-        qp_dprintf("qp_drawtext_recolor: fail (validation_ok == false)\n");
+        qp_dprintf("qp_drawtext_recolor: fail (bad device handle)\n");
         return 0;
     }
 

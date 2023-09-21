@@ -31,7 +31,7 @@ bool qp_init(painter_device_t device, painter_rotation_t rotation) {
     painter_driver_t *driver = (painter_driver_t *)device;
 
     if (!driver) {
-        qp_dprintf("qp_init: fail (pointer to NULL)\n");
+        qp_dprintf("qp_init: fail (un-initialized device handle)\n");
         return false;
     }
 
@@ -71,7 +71,7 @@ bool qp_power(painter_device_t device, bool power_on) {
     qp_dprintf("qp_power: entry\n");
     painter_driver_t *driver = (painter_driver_t *)device;
     if (!driver || !driver->validate_ok) {
-        qp_dprintf("qp_power: fail (validation_ok == false)\n");
+        qp_dprintf("qp_power: fail (bad device handle)\n");
         return false;
     }
 
@@ -93,7 +93,7 @@ bool qp_clear(painter_device_t device) {
     qp_dprintf("qp_clear: entry\n");
     painter_driver_t *driver = (painter_driver_t *)device;
     if (!driver || !driver->validate_ok) {
-        qp_dprintf("qp_clear: fail (validation_ok == false)\n");
+        qp_dprintf("qp_clear: fail (bad device handle)\n");
         return false;
     }
 
@@ -115,7 +115,7 @@ bool qp_flush(painter_device_t device) {
     qp_dprintf("qp_flush: entry\n");
     painter_driver_t *driver = (painter_driver_t *)device;
     if (!driver || !driver->validate_ok) {
-        qp_dprintf("qp_flush: fail (validation_ok == false)\n");
+        qp_dprintf("qp_flush: fail (bad device handle)\n");
         return false;
     }
 
@@ -138,7 +138,7 @@ void qp_get_geometry(painter_device_t device, uint16_t *width, uint16_t *height,
     painter_driver_t *driver = (painter_driver_t *)device;
 
     if (!driver) {
-        qp_dprintf("qp_get_geometry: fail (pointer to NULL)\n");
+        qp_dprintf("qp_get_geometry: fail (un-initialized device handle)\n");
         return;
     }
 
@@ -187,7 +187,7 @@ void qp_set_viewport_offsets(painter_device_t device, uint16_t offset_x, uint16_
     painter_driver_t *driver = (painter_driver_t *)device;
 
     if (!driver) {
-        qp_dprintf("qp_set_viewport_offsets: fail (pointer to NULL)\n");
+        qp_dprintf("qp_set_viewport_offsets: fail (un-initialized device handle)\n");
         return;
     }
 
@@ -204,7 +204,7 @@ bool qp_viewport(painter_device_t device, uint16_t left, uint16_t top, uint16_t 
     qp_dprintf("qp_viewport: entry\n");
     painter_driver_t *driver = (painter_driver_t *)device;
     if (!driver || !driver->validate_ok) {
-        qp_dprintf("qp_viewport: fail (validation_ok == false)\n");
+        qp_dprintf("qp_viewport: fail (bad device handle)\n");
         return false;
     }
 
@@ -227,7 +227,7 @@ bool qp_pixdata(painter_device_t device, const void *pixel_data, uint32_t native
     qp_dprintf("qp_pixdata: entry\n");
     painter_driver_t *driver = (painter_driver_t *)device;
     if (!driver || !driver->validate_ok) {
-        qp_dprintf("qp_pixdata: fail (validation_ok == false)\n");
+        qp_dprintf("qp_pixdata: fail (bad device handle)\n");
         return false;
     }
 

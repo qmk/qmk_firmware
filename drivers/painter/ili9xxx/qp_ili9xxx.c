@@ -6,7 +6,7 @@
 
 bool qp_ili9xxx_set_inversion(painter_device_t device, bool invert) {
     if (!device) {
-        qp_dprintf("qp_ili9xxx_set_inversion: fail (un-initialized pointer)\n");
+        qp_dprintf("qp_ili9xxx_set_inversion: fail (un-initialized device handle)\n");
         return false;
     }
 
