@@ -25,15 +25,15 @@
 #include "led_matrix_types.h"
 #include "keyboard.h"
 
-#ifdef IS31FL3731
+#ifdef LED_MATRIX_IS31FL3731
 #    include "is31fl3731-simple.h"
 #elif defined(IS31FLCOMMON)
 #    include "is31flcommon.h"
 #endif
-#ifdef IS31FL3733
+#ifdef LED_MATRIX_IS31FL3733
 #    include "is31fl3733-simple.h"
 #endif
-#ifdef SNLED27351
+#ifdef LED_MATRIX_SNLED27351
 #    include "snled27351-simple.h"
 #endif
 

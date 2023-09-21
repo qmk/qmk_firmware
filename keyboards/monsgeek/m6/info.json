@@ -25,6 +25,9 @@
         "rows": ["C6", "C7", "C8", "C9", "A8"]
     },
     "diode_direction": "ROW2COL",
+    "dynamic_keymap": {
+        "layer_count": 6
+    },
     "eeprom": {
         "driver": "wear_leveling",
         "wear_leveling": {

@@ -16,9 +16,6 @@
 
 #pragma once
 
-/* Use 5 dynamic keymap layers */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 6
-
 /* LED Indicators */
 #define LED_WIN_LOCK_PIN C11
 
