@@ -1,6 +1,6 @@
 # QK65 - Hotswap R2 PCB
 
-![qk65](https://i.imgur.com/kFhx5qS.png)
+![qk65](https://i.imgur.com/kFhx5qSh.png)
 
 A 65% made by Qwertykeys.
 
