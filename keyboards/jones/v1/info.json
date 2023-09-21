@@ -21,6 +21,9 @@
     "pin": "F1"
   },
   "diode_direction": "COL2ROW",
+  "dynamic_keymap": {
+    "layer_count": 6
+  },
   "eeprom": {
     "driver": "i2c"
   },

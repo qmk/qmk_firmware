@@ -22,15 +22,6 @@
 #include "i2c_master.h"
 #include "wait.h"
 
-// This is a 7-bit address, that gets left-shifted and bit 0
-// set to 0 for write, 1 for read (as per I2C protocol)
-// The address will vary depending on your wiring:
-// 0b1110100 AD <-> GND
-// 0b1110111 AD <-> VCC
-// 0b1110101 AD <-> SCL
-// 0b1110110 AD <-> SDA
-#define IS31FL3731_I2C_ADDRESS_DEFAULT 0x74
-
 #define IS31FL3731_REG_CONFIG 0x00
 #define IS31FL3731_REG_CONFIG_PICTUREMODE 0x00
 #define IS31FL3731_REG_CONFIG_AUTOPLAYMODE 0x08

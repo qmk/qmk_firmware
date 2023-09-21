@@ -166,6 +166,9 @@
     "dztech/volcano660": {
         "target": "ilumkb/volcano660"
     },
+    "dztech/og60": {
+        "target": "dztech/tofu60"
+    },
     "eek": {
         "target": "eek/silk_down"
     },
@@ -198,6 +201,9 @@
     },
     "handwired/dactyl_manuform/6x6_kinesis": {
         "target": "handwired/dactyl_kinesis"
+    },
+    "handwired/dactyl_manuform/dmote/62key": {
+        "target": "handwired/dmote"
     },
     "handwired/ferris": {
         "target": "ferris/0_1"

@@ -142,7 +142,7 @@ void aw20216s_init(pin_t cs_pin, pin_t en_pin) {
 }
 
 void aw20216s_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
-    aw20216s_led led;
+    aw20216s_led_t led;
     memcpy_P(&led, (&g_aw20216s_leds[index]), sizeof(led));
 
     if (g_pwm_buffer[led.driver][led.r] == red && g_pwm_buffer[led.driver][led.g] == green && g_pwm_buffer[led.driver][led.b] == blue) {

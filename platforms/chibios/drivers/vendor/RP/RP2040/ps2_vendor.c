@@ -1,6 +1,7 @@
 // Copyright 2022 Marek Kraus (@gamelaster)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+#include "gpio.h"
 #include "hardware/pio.h"
 #include "hardware/clocks.h"
 #include "ps2.h"
