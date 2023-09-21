@@ -7,6 +7,3 @@ SRC += satisfaction_encoder.c \
       satisfaction_core.c 
 
 OLED_DRIVER = ssd1306
-
-# Enter lower-power sleep mode when on the ChibiOS idle thread
-OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE

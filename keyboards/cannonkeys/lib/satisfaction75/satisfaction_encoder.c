@@ -1,3 +1,6 @@
+// Copyright 2023 Andrew Kannan
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include "satisfaction_core.h"
 #include "eeprom.h"
 
