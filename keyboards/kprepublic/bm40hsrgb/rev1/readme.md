@@ -1,6 +1,6 @@
 # bm40hsrgb
 
-![BM40 RGB](https://i.imgur.com/eOqXMlNh.jpg)
+![BM40 RGB](https://imgur.com/eOqXMlNh.jpeg)
 
 An ortholinear 40% hotswap keyboard with per-key RGB in-switch LEDs and RGB Backlighting, from KP Republic.
 
@@ -12,12 +12,10 @@ This firmware was originally taken from a kbfirmware.json and manually converted
 
 Make example for this keyboard (after setting up your build environment):
 
-    for rev1: make kprepublic/bm40hsrgb/rev1:default
-    for rev2: make kprepublic/bm40hsrgb/rev2:default
+    make kprepublic/bm40hsrgb/rev1:default
 
 Flashing example for this keyboard:
 
-    for rev1: make kprepublic/bm40hsrgb/rev1:default:flash
-    for rev2: make kprepublic/bm40hsrgb/rev2:default:flash
+    make kprepublic/bm40hsrgb/rev1:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
