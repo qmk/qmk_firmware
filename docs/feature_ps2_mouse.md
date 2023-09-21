@@ -157,12 +157,14 @@ In your keyboard config.h:
 
 ### RP2040 PIO Version :id=rp2040-pio-version
 
-This uses the RP2040's hardware feature called PIO and is therefore only
-available on boards that are based on the RP2040 MCU.
+The `PIO` subsystem is a Raspberry Pi RP2040 specific implementation, using the integrated PIO peripheral and is therefore only available on this MCU.
 
-The pin for the data signal must be followed directly by the pin for the clock
-within the GPIO pin numbering scheme. This is required due to the design of the
-PIO state machine code.
+There are strict requirements for pin ordering but any pair of GPIO pins can be used. The GPIO used for clock must be directly after data, see the included info.json snippet for an example of correct order.
+
+You may optionally switch the PIO peripheral used with the following define in config.h:
+```c
+#define PS2_PIO_USE_PIO1 // Force the usage of PIO1 peripheral, by default the PS2 implementation uses the PIO0 peripheral
+```
 
 Example info.json content:
 
