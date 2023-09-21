@@ -54,7 +54,7 @@ void set_fallacy_led(int index, bool state) {
 
 /* define LED matrix
  */
-const is31_led PROGMEM g_is31_leds[LED_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[LED_MATRIX_LED_COUNT] = {
     {0, C1_1},
     {0, C2_1},
     {0, C3_1},
