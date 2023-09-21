@@ -1,6 +1,8 @@
 // Copyright 2023 xia0 (@xia0)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+#pragma once
+
 // Sensitivity fine-tuning
 // values are percentage of full speed
 #define SENSITIVITY_X 50
