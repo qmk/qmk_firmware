@@ -901,7 +901,7 @@ __attribute__((weak)) void rgblight_call_driver(rgb_led_t *start_led, uint8_t nu
     ws2812_setleds(start_led, num_leds);
 }
 
-#ifndef RGBLIGHT_CUSTOM_DRIVER
+#ifndef RGBLIGHT_CUSTOM
 
 void rgblight_set(void) {
     rgb_led_t *start_led;

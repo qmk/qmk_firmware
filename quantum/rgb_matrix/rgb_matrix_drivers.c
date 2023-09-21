@@ -440,7 +440,7 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 };
 
 #elif defined(RGB_MATRIX_WS2812)
-#    if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_CUSTOM_DRIVER)
+#    if defined(RGBLIGHT_WS2812)
 #        pragma message "Cannot use RGBLIGHT and RGB Matrix using WS2812 at the same time."
 #        pragma message "You need to use a custom driver, or re-implement the WS2812 driver to use a different configuration."
 #    endif
