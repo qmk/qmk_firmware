@@ -246,7 +246,7 @@
                 { "label": ">", "matrix": [4, 9], "x": 10.25, "y": 4.25 },
                 { "label": "?", "matrix": [4, 10], "x": 11.25, "y": 4.25 },
                 { "label": "Shift", "matrix": [4, 13], "w": 1.75, "x": 12.25, "y": 4.25 },
-                { "label": "Up", "matrix": [4, 14], "x": 14.25, "y": 4.25 },
+                { "label": "Up", "matrix": [4, 14], "x": 14.25, "y": 4.5 },
                 { "label": "End", "matrix": [4, 15], "x": 15.5, "y": 4.25 },
                 { "label": "Ctrl", "matrix": [5, 0], "w": 1.25, "x": 0, "y": 5.25 },
                 { "label": "Win", "matrix": [5, 1], "w": 1.25, "x": 1.25, "y": 5.25 },
@@ -255,9 +255,9 @@
                 { "label": "Alt", "matrix": [5, 9], "x": 10, "y": 5.25 },
                 { "label": "Fn", "matrix": [5, 10], "x": 11, "y": 5.25 },
                 { "label": "Ctrl", "matrix": [5, 11], "x": 12, "y": 5.25 },
-                { "label": "Left", "matrix": [5, 13], "x": 13.25, "y": 5.25 },
-                { "label": "Down", "matrix": [5, 14], "x": 14.25, "y": 5.25 },
-                { "label": "Right", "matrix": [5, 15], "x": 15.25, "y": 5.25 }
+                { "label": "Left", "matrix": [5, 13], "x": 13.25, "y": 5.5 },
+                { "label": "Down", "matrix": [5, 14], "x": 14.25, "y": 5.5 },
+                { "label": "Right", "matrix": [5, 15], "x": 15.25, "y": 5.5 }
             ]
         },
         "LAYOUT_ansi": {
@@ -333,7 +333,7 @@
                 { "label": ">", "matrix": [4, 9], "x": 10.25, "y": 4.25 },
                 { "label": "?", "matrix": [4, 10], "x": 11.25, "y": 4.25 },
                 { "label": "Shift", "matrix": [4, 13], "w": 1.75, "x": 12.25, "y": 4.25 },
-                { "label": "Up", "matrix": [4, 14], "x": 14.25, "y": 4.25 },
+                { "label": "Up", "matrix": [4, 14], "x": 14.25, "y": 4.5 },
                 { "label": "End", "matrix": [4, 15], "x": 15.5, "y": 4.25 },
                 { "label": "Ctrl", "matrix": [5, 0], "w": 1.25, "x": 0, "y": 5.25 },
                 { "label": "Win", "matrix": [5, 1], "w": 1.25, "x": 1.25, "y": 5.25 },
@@ -342,9 +342,9 @@
                 { "label": "Alt", "matrix": [5, 9], "x": 10, "y": 5.25 },
                 { "label": "Fn", "matrix": [5, 10], "x": 11, "y": 5.25 },
                 { "label": "Ctrl", "matrix": [5, 11], "x": 12, "y": 5.25 },
-                { "label": "Left", "matrix": [5, 13], "x": 13.25, "y": 5.25 },
-                { "label": "Down", "matrix": [5, 14], "x": 14.25, "y": 5.25 },
-                { "label": "Right", "matrix": [5, 15], "x": 15.25, "y": 5.25 }
+                { "label": "Left", "matrix": [5, 13], "x": 13.25, "y": 5.5 },
+                { "label": "Down", "matrix": [5, 14], "x": 14.25, "y": 5.5 },
+                { "label": "Right", "matrix": [5, 15], "x": 15.25, "y": 5.5 }
             ]
         },
         "LAYOUT_iso": {
@@ -421,7 +421,7 @@
                 { "label": ">", "matrix": [4, 9], "x": 10.25, "y": 4.25 },
                 { "label": "?", "matrix": [4, 10], "x": 11.25, "y": 4.25 },
                 { "label": "Shift", "matrix": [4, 13], "w": 1.75, "x": 12.25, "y": 4.25 },
-                { "label": "Up", "matrix": [4, 14], "x": 14.25, "y": 4.25 },
+                { "label": "Up", "matrix": [4, 14], "x": 14.25, "y": 4.5 },
                 { "label": "End", "matrix": [4, 15], "x": 15.5, "y": 4.25 },
                 { "label": "Ctrl", "matrix": [5, 0], "w": 1.25, "x": 0, "y": 5.25 },
                 { "label": "Win", "matrix": [5, 1], "w": 1.25, "x": 1.25, "y": 5.25 },
@@ -430,9 +430,9 @@
                 { "label": "Alt", "matrix": [5, 9], "x": 10, "y": 5.25 },
                 { "label": "Fn", "matrix": [5, 10], "x": 11, "y": 5.25 },
                 { "label": "Ctrl", "matrix": [5, 11], "x": 12, "y": 5.25 },
-                { "label": "Left", "matrix": [5, 13], "x": 13.25, "y": 5.25 },
-                { "label": "Down", "matrix": [5, 14], "x": 14.25, "y": 5.25 },
-                { "label": "Right", "matrix": [5, 15], "x": 15.25, "y": 5.25 }
+                { "label": "Left", "matrix": [5, 13], "x": 13.25, "y": 5.5 },
+                { "label": "Down", "matrix": [5, 14], "x": 14.25, "y": 5.5 },
+                { "label": "Right", "matrix": [5, 15], "x": 15.25, "y": 5.5 }
             ]
         }
     }
