@@ -739,7 +739,7 @@ void rgblight_unblink_layers(void) {
 
 __attribute__((weak)) void rgblight_call_driver(rgb_led_t *start_led, uint8_t num_leds) { ws2812_setleds(start_led, num_leds); }
 
-#ifndef RGBLIGHT_CUSTOM_DRIVER
+#ifndef RGBLIGHT_CUSTOM
 void rgblight_set(void) {
     rgb_led_t *start_led;
     uint8_t   num_leds = rgblight_ranges.clipping_num_leds;
