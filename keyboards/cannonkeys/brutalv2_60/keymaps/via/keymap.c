@@ -4,9 +4,9 @@
 #include QMK_KEYBOARD_H
 
 enum layers {
-    _BASE = 0,
-    _FN1 = 1,
-    _FN2 = 2
+    _BASE,
+    _FN1,
+    _FN2,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
