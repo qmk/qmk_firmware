@@ -39,6 +39,7 @@
             {"flags": 1, "matrix": [4, 3], "x": 112, "y": 29}
         ]
     },
+    "community_layouts": ["numpad_6x4"],
     "layouts": {
         "LAYOUT_numpad_6x4": {
             "layout": [
