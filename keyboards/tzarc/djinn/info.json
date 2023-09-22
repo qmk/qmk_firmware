@@ -9,6 +9,9 @@
   "build": {
     "lto": true
   },
+  "eeprom": {
+    "driver": "spi"
+  },
   "features": {
     "audio": true,
     "backlight": true,
