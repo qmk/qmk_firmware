@@ -38,6 +38,11 @@ $(info QMK Firmware $(QMK_VERSION))
 endif
 endif
 
+# Try to determine userspace from qmk config, if set.
+ifeq ($(QMK_USERSPACE),)
+    QMK_USERSPACE = $(shell qmk config -ro user.overlay_dir | cut -d= -f2 | sed -e 's@^None$$@@g')
+endif
+
 # Determine which qmk cli to use
 QMK_BIN := qmk
 
