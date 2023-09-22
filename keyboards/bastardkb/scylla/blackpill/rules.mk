@@ -19,5 +19,4 @@ RGB_MATRIX_ENABLE = yes     # Enable keyboard RGB matrix functionality
 MOUSE_SHARED_EP = no # Unify multiple HID interfaces into a single Endpoint
 KEYBOARD_SHARED_EP = yes
 
-EEPROM_DRIVER = spi
 SERIAL_DRIVER = usart

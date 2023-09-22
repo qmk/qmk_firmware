@@ -13,7 +13,7 @@
         "pin": "B7"
     },
     "rgb_matrix": {
-        "driver": "WS2812",
+        "driver": "ws2812",
         "sat_steps": 24
     },
     "qmk": {

@@ -49,8 +49,8 @@ void eeconfig_init_quantum(void) {
 
     eeprom_update_word(EECONFIG_MAGIC, EECONFIG_MAGIC_NUMBER);
     eeprom_update_byte(EECONFIG_DEBUG, 0);
-    eeprom_update_byte(EECONFIG_DEFAULT_LAYER, 0);
-    default_layer_state = 0;
+    default_layer_state = (layer_state_t)1 << 0;
+    eeprom_update_byte(EECONFIG_DEFAULT_LAYER, default_layer_state);
     // Enable oneshot and autocorrect by default: 0b0001 0100 0000 0000
     eeprom_update_word(EECONFIG_KEYMAP, 0x1400);
     eeprom_update_byte(EECONFIG_BACKLIGHT, 0);
