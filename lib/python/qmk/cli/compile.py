@@ -9,7 +9,7 @@ from milc import cli
 import qmk.path
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.commands import compile_configurator_json, create_make_command, parse_configurator_json, build_environment
-from qmk.keyboard import keyboard_completer, keyboard_folder
+from qmk.keyboard import keyboard_completer, keyboard_folder_or_all, is_all_keyboards
 from qmk.keymap import keymap_completer, locate_keymap
 
 
@@ -24,7 +24,7 @@ def _is_keymap_target(keyboard, keymap):
 
 
 @cli.argument('filename', nargs='?', arg_only=True, type=qmk.path.FileType('r'), completer=FilesCompleter('.json'), help='The configurator export to compile')
-@cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='The keyboard to build a firmware for. Ignored when a configurator export is supplied.')
+@cli.argument('-kb', '--keyboard', type=keyboard_folder_or_all, completer=keyboard_completer, help='The keyboard to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.argument('-km', '--keymap', completer=keymap_completer, help='The keymap to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Don't actually build, just show the make command to be run.")
 @cli.argument('-j', '--parallel', type=int, default=1, help="Set the number of parallel make jobs; 0 means unlimited.")
@@ -40,6 +40,13 @@ def compile(cli):
 
     If a keyboard and keymap are provided this command will build a firmware based on that.
     """
+    if is_all_keyboards(cli.args.keyboard):
+        from .mass_compile import mass_compile
+        cli.args.builds = []
+        cli.args.filter = []
+        cli.args.no_temp = False
+        return mass_compile(cli)
+
     # Build the environment vars
     envs = build_environment(cli.args.env)
 
