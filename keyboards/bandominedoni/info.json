@@ -103,7 +103,7 @@
             {"matrix": [0, 0], "x": 19, "y": 56, "flags": 4}
         ],
         "led_count": 76,
-        "maximun_brightness": 50
+        "max_brightness": 50
     },
     "split": {
         "enabled": true,
