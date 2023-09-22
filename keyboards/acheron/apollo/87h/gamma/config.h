@@ -25,9 +25,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 
 // RGB Matrix defines
-#define DRIVER_ADDR_1 0b0110000
+#define DRIVER_ADDR_1 IS31FL3741_I2C_ADDRESS_GND
 
-#define DRIVER_COUNT 1
+#define IS31FL3741_DRIVER_COUNT 1
 #define DRIVER_1_LED_TOTAL 87
 #define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
 #define ISSI_DRIVER_TOTAL RGB_MATRIX_LED_COUNT
