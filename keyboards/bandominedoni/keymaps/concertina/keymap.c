@@ -63,6 +63,8 @@ enum layer_names {
 // Alias layout macros that expand groups of keys.
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 
+// The concertina keymap for bandominedoni
+// Make sure to use right-side keyboard as left-side keyboard, and vice versa.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_OPEN] = LAYOUT(
                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \

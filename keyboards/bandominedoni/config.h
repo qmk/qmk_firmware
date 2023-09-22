@@ -25,19 +25,13 @@
 
 #ifdef RGB_MATRIX_ENABLE
 
-/* ws2812 RGB MATRIX */
-#   define RGB_MATRIX_LED_COUNT 76
-
  // reacts to keypresses
 #   define RGB_MATRIX_KEYPRESSES
 
 //  for all fingers used at once.
 #   define LED_HITS_TO_REMEMBER 10
 
-#   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 50
 #   define RGB_MATRIX_DEFAULT_SPD 127
-// the above brighness setting has no effect on rgb_matrix_set_color().
-// Use darker colors instead.
 /*              RGB darker COLORS             */
 #   define RGB_DARKWHITE 0x33, 0x33, 0x33
 #   define RGB_DARKRED 0x33, 0x0, 0x0
