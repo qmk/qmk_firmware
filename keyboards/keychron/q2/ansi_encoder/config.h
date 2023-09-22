@@ -18,3 +18,6 @@
 
 /* RGB Matrix Configuration */
 #define RGB_MATRIX_LED_COUNT 67
+
+/* Enable caps-lock LED */
+#define CAPS_LOCK_LED_INDEX 30
