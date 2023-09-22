@@ -34,12 +34,14 @@ Here is an example using 2 drivers.
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
 // The address will vary depending on your wiring:
-// 0b1110100 AD <-> GND
-// 0b1110111 AD <-> VCC
-// 0b1110101 AD <-> SCL
-// 0b1110110 AD <-> SDA
-#define LED_DRIVER_ADDR_1 0b1110100
-#define LED_DRIVER_ADDR_2 0b1110110
+// 00 AD <-> GND
+// 01 AD <-> SCL
+// 10 AD <-> SDA
+// 11 AD <-> VCC
+// ADDR represents A1:A0 of the 7-bit address.
+// The result is: 0b11101(ADDR)
+#define LED_DRIVER_ADDR_1 IS31FL3731_I2C_ADDRESS_GND
+#define LED_DRIVER_ADDR_2 IS31FL3731_I2C_ADDRESS_SDA
 
 #define IS31FL3731_DRIVER_COUNT 2
 #define LED_DRIVER_1_LED_TOTAL 25
@@ -159,7 +161,7 @@ Then Define the array listing all the LEDs you want to override in your `<keyboa
 
 ```c
 const is31_led PROGMEM g_is31_scaling[ISSI_MANUAL_SCALING] = {
- *   LED Index
+/*   LED Index
  *   |  Scaling
  *   |  | */
     {5, 120},
@@ -248,16 +250,16 @@ enum led_matrix_effects {
     LED_MATRIX_CYCLE_OUT_IN,        // Full gradient scrolling out to in
     LED_MATRIX_DUAL_BEACON,         // Full gradient spinning around center of keyboard
     LED_MATRIX_SOLID_REACTIVE_SIMPLE,   // Pulses keys hit then fades out
-    LED_MATRIX_SOLID_REACTIVE_WIDE       // Value pulses near a single key hit then fades out
-    LED_MATRIX_SOLID_REACTIVE_MULTIWIDE  // Value pulses near multiple key hits then fades out
-    LED_MATRIX_SOLID_REACTIVE_CROSS      // Value pulses the same column and row of a single key hit then fades out
-    LED_MATRIX_SOLID_REACTIVE_MULTICROSS // Value pulses the same column and row of multiple key hits then fades out
-    LED_MATRIX_SOLID_REACTIVE_NEXUS      // Value pulses away on the same column and row of a single key hit then fades out
-    LED_MATRIX_SOLID_REACTIVE_MULTINEXUS // Value pulses away on the same column and row of multiple key hits then fades out
+    LED_MATRIX_SOLID_REACTIVE_WIDE,       // Value pulses near a single key hit then fades out
+    LED_MATRIX_SOLID_REACTIVE_MULTIWIDE,  // Value pulses near multiple key hits then fades out
+    LED_MATRIX_SOLID_REACTIVE_CROSS,      // Value pulses the same column and row of a single key hit then fades out
+    LED_MATRIX_SOLID_REACTIVE_MULTICROSS, // Value pulses the same column and row of multiple key hits then fades out
+    LED_MATRIX_SOLID_REACTIVE_NEXUS,      // Value pulses away on the same column and row of a single key hit then fades out
+    LED_MATRIX_SOLID_REACTIVE_MULTINEXUS, // Value pulses away on the same column and row of multiple key hits then fades out
     LED_MATRIX_SOLID_SPLASH,             // Value pulses away from a single key hit then fades out
     LED_MATRIX_SOLID_MULTISPLASH,        // Value pulses away from multiple key hits then fades out
-    LED_MATRIX_WAVE_LEFT_RIGHT           // Sine wave scrolling from left to right
-    LED_MATRIX_WAVE_UP_DOWN              // Sine wave scrolling from up to down
+    LED_MATRIX_WAVE_LEFT_RIGHT,           // Sine wave scrolling from left to right
+    LED_MATRIX_WAVE_UP_DOWN,              // Sine wave scrolling from up to down
     LED_MATRIX_EFFECT_MAX
 };
 ```

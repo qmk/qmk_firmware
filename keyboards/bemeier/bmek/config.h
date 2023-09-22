@@ -15,6 +15,4 @@
  */
 #pragma once
 
-
-#define DYNAMIC_KEYMAP_LAYER_COUNT 5
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 20 
