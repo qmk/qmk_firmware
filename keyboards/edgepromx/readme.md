@@ -1,5 +1,7 @@
 # EdgeProMX keyboard
 
+![EdgeProMX](https://www.edgepro.org/assets/images/edgepromx-assembled-cs.jpg)
+
 A compact 40% (12x4) ortholinear keyboard kit. Keyboard is based on EdgePro1 CPU board and comes with Sharp Memory LCD 400x240, encoder, mechanical switch, battery holder and protoboard development area. It is also equiped with standard 20 pin JTAG connector for easy programming and debugging.
 
 Keyboard Maintainer: [Jernej Turnsek](https://github.com/jturnsek)  
