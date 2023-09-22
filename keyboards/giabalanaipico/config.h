@@ -32,26 +32,17 @@
 /* (RP2040) Speedup boot sequence by avoiding to use SPLIT_USB_DETECT */
 #define USB_VBUS_PIN GP24
 
-//#define BACKLIGHT_PIN B7
-//#define BACKLIGHT_LEVELS 3
-//#define BACKLIGHT_BREATHING
-
 /* ws2812 RGB LED */
 #define WS2812_PIO_USE_PIO1 // Force the usage of PIO1 peripheral, by default the WS2812 implementation uses the PIO0 peripheral
 
 #ifdef RGB_MATRIX_ENABLE
 
 /* ws2812 RGB MATRIX */
-#   define RGB_MATRIX_LED_COUNT 123
 #   define RGB_MATRIX_KEYPRESSES  // reacts to keypresses
 
 //  for all fingers used at once.
 #   define LED_HITS_TO_REMEMBER 10
 
-#   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 50
-
-// the above brighness setting has no effect on rgb_matrix_set_color().
-// Use darker colors instead.
 /*              RGB darker COLORS             */
 #   define RGB_DARKWHITE 0x66, 0x66, 0x66
 #   define RGB_DARKRED 0x66, 0x0, 0x0
@@ -74,21 +65,6 @@
 
 #endif  // RGB_MATRIX_ENABLE
 
-/*
- * MIDI options
- */
-
-/* enable basic MIDI features:
-   - MIDI notes can be sent when in Music mode is on
-*/
-//#define MIDI_BASIC
-
-/* enable advanced MIDI features:
-   - MIDI notes can be added to the keymap
-   - Octave shift and transpose
-   - Virtual sustain, portamento, and modulation wheel
-   - etc.
-*/
 #ifdef MIDI_ENABLE
 #    define MIDI_ADVANCED
 // Initial velocity value (avoid using 127 since it is used as a special number in some sound sources.)

@@ -126,7 +126,7 @@
 			{"matrix": [ 19 , 2 ], "x": 200 , "y": 64 , "flags": 4 },
 			{"matrix": [ 19 , 1 ], "x": 208 , "y": 64 , "flags": 4 }
 		],
-        "max_brightness": 118,
+        "max_brightness": 50,
         "sat_steps": 8,
         "speed_steps": 10,
         "val_steps": 8,
