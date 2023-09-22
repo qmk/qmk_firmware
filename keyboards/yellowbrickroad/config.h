@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGB_MATRIX_ENABLE
 
 /* ws2812 RGB MATRIX */
-#   define RGB_MATRIX_LED_COUNT 56
 #   define RGB_MATRIX_KEYPRESSES  // reacts to keypresses
 
 //  for all fingers used at once.
@@ -30,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 50
 
+// Though RGB_MATRIX_DEFAULT_VAL = RGB_MATRIX_MAXIMUM_BRIGHTNESS is set in rgb_matrix.c,
 // the above brighness setting has no effect on rgb_matrix_set_color().
 // Use darker colors instead.
 /*              RGB darker COLORS             */
@@ -52,30 +52,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define RGB_DARKMAGENTA 0x33, 0x0, 0x33
 #   define RGB_DARKPINK 0x33, 0x19, 0x26
 
-
-// #   define RGB_DARKERGOLDENROD 0x0B, 0x01, 0x6
-
-//  https://docs.qmk.fm/#/feature_rgb_matrix
-//  Enable suspend mode.
-// #    define RGB_DISABLE_WHEN_USB_SUSPENDED true
-
 #endif  // RGB_MATRIX_ENABLE
 
-/*
- * MIDI options
- */
-
-/* enable basic MIDI features:
-   - MIDI notes can be sent when in Music mode is on
-*/
-//#define MIDI_BASIC
-
-/* enable advanced MIDI features:
-   - MIDI notes can be added to the keymap
-   - Octave shift and transpose
-   - Virtual sustain, portamento, and modulation wheel
-   - etc.
-*/
 #ifdef MIDI_ENABLE
 #   define MIDI_ADVANCED
 // Initial velocity value (avoid using 127 since it is used as a special number in some sound sources.)

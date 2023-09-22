@@ -16,3 +16,10 @@
 #pragma once
 #define DYNAMIC_KEYMAP_LAYER_COUNT 13
 
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_RAINBOW_MOVING_CHEVRON
+// https://github.com/qmk/qmk_firmware/blob/master/quantum/color.h
+// #define HSV_BLUE        170, 255, 255
+// but the RGB_MATRIX_DEFAULT_VAL = RGB_MATRIX_MAXIMUM_BRIGHTNESS should be 50, which is done by default in
+// quantum/rgb_matrix/rgb_matrix.c
+#define RGB_MATRIX_DEFAULT_HUE 170
+#define RGB_MATRIX_DEFAULT_SAT 255

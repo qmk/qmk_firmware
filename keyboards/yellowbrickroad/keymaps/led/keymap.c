@@ -487,12 +487,6 @@ void eeconfig_init_user(void) {  // EEPROM is getting reset!
     layer_state_set(_LS_BASE);
     current_default_layer = _BASE;
     layerFlipMode = false;
-
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_sethsv(HSV_BLUE);
-    //  party mode (for LED soldering test.)
-    rgb_matrix_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
-#endif
 }
 
 void keyboard_post_init_user(void) {
@@ -508,12 +502,6 @@ void keyboard_post_init_user(void) {
     //  load EEPROM data for isSingleBass
     user_config.raw = eeconfig_read_user();
     _load_eeprom_data();
-
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_sethsv(HSV_BLUE);
-    //  party mode (for LED soldering test.)
-    rgb_matrix_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
-#endif
 };
 
 
