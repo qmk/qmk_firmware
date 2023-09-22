@@ -1,6 +1,6 @@
 # Keychron Q0 Plus
 
-![Keychron Q0 Plus](https://i.imgur.com/EDbfVVO.jpg[/img])
+![Keychron Q0 Plus](https://i.imgur.com/EDbfVVOh.jpg)
 
 * Keyboard Maintainer: [Keychron](https://github.com/keychron)
 * Hardware Supported: Keychron Q0 Plus
