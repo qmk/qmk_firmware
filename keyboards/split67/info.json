@@ -8,6 +8,17 @@
         "pid": "0xBBBC",
         "device_version": "1.0.0"
     },
+    "build": {
+        "lto": true
+    },
+    "dynamic_keymap": {
+        "layer_count": 2
+    },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "nkro": true
+    },
     "matrix_pins": {
         "cols": [
             "F6",
@@ -29,6 +40,7 @@
     },
     "diode_direction": "COL2ROW",
     "split": {
+        "enabled": true,
         "soft_serial_pin": "D0",
         "matrix_pins": {
             "right": {
@@ -52,8 +64,7 @@
             }
         }
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "layouts": {
         "LAYOUT": {
             "layout": [
