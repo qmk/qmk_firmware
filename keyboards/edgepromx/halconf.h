@@ -24,4 +24,6 @@
 #define HAL_USE_I2C TRUE
 #define HAL_USE_PAL TRUE
 
+#define _CHIBIOS_HAL_CONF_VER_8_0_
+
 #include_next <halconf.h>
