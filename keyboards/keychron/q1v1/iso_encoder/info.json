@@ -5,12 +5,10 @@
     },
     "diode_direction": "ROW2COL",
     "encoder": {
+        "enabled": true,
         "rotary": [
             {"pin_a": "E6", "pin_b": "B7"}
         ]
-    },
-    "features": {
-        "encoder": true
     },
     "rgb_matrix": {
         "layout": [
