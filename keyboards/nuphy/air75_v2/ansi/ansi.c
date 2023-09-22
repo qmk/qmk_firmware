@@ -8,42 +8,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record)
         return false;
     }
     switch (keycode) {
-        case MAC_SEARCH:
-            if (record->event.pressed) {
-                register_code(KC_LGUI);
-                register_code(KC_SPACE);
-                wait_ms(50);
-                unregister_code(KC_LGUI);
-                unregister_code(KC_SPACE);
-            }
-            return false;
         case MAC_VOICE:
             if (record->event.pressed) {
                 host_consumer_send(0xcf);
             } else {
                 host_consumer_send(0);
-            }
-            return false;
-        case MAC_PRT:
-            if (record->event.pressed) {
-                register_code(KC_LGUI);
-                register_code(KC_LSFT);
-                register_code(KC_3);
-                wait_ms(50);
-                unregister_code(KC_3);
-                unregister_code(KC_LSFT);
-                unregister_code(KC_LGUI);
-            }
-            return false;
-        case MAC_PRTA:
-            if (record->event.pressed) {
-                register_code(KC_LGUI);
-                register_code(KC_LSFT);
-                register_code(KC_4);
-                wait_ms(50);
-                unregister_code(KC_4);
-                unregister_code(KC_LSFT);
-                unregister_code(KC_LGUI);
             }
             return false;
         default:

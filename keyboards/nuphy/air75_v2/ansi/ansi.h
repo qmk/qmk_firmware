@@ -5,8 +5,5 @@
 #include "quantum.h"
 
 enum custom_keycodes {
-    MAC_SEARCH = QK_KB_0,
-    MAC_VOICE,
-    MAC_PRT,
-    MAC_PRTA
+    MAC_VOICE = QK_KB_0,
 };
