@@ -20,61 +20,37 @@
 /* pull-up: left side,   pull-down: right side */
 #define SPLIT_HAND_PIN GP28
 
-/* test matrix scan speed */
-// #define DEBUG_MATRIX_SCAN_RATE
-
-// Right side has to be the master since 1, LED data is output from right side, and 2, Audio pin is prepared on right side as a reserve.
-#define MASTER_RIGHT
-
-// 2022/03/28 added. This might solve the "no left side communication via TRRS" issue.
-// #define SPLIT_USB_DETECT
-// SPLIT_USB_DETECT was not necessary since it is "Enabled by default on ChibiOS/ARM."
-/* (RP2040) Speedup boot sequence by avoiding to use SPLIT_USB_DETECT */
 #define USB_VBUS_PIN GP24
 
 /* ws2812 RGB LED */
 #define WS2812_PIO_USE_PIO1 // Force the usage of PIO1 peripheral, by default the WS2812 implementation uses the PIO0 peripheral
 
-#ifdef RGB_MATRIX_ENABLE
-
 /* ws2812 RGB MATRIX */
-#   define RGB_MATRIX_KEYPRESSES  // reacts to keypresses
+#define RGB_MATRIX_KEYPRESSES  // reacts to keypresses
 
 //  for all fingers used at once.
-#   define LED_HITS_TO_REMEMBER 10
+#define LED_HITS_TO_REMEMBER 10
 
 /*              RGB darker COLORS             */
-#   define RGB_DARKWHITE 0x66, 0x66, 0x66
-#   define RGB_DARKRED 0x66, 0x0, 0x0
-#   define RGB_DARKCORAL 0x66, 0x31, 0x1E
-#   define RGB_DARKORANGE 0x66, 0x33, 0x0
-#   define RGB_DARKGOLDENROD 0x56, 0x42, 0xD
-#   define RGB_DARKGOLD 0x66, 0x56, 0x0
-#   define RGB_DARKYELLOW 0x66, 0x66, 0x0
-#   define RGB_DARKCHARTREUSE 0x33, 0x66, 0x0
-#   define RGB_DARKGREEN 0x0, 0x66, 0x0
-#   define RGB_DARKSPRINGGREEN 0x0, 0x66, 0x33
-#   define RGB_DARKTURQUOISE 0x1C, 0x2C, 0x2A
-#   define RGB_DARKTEAL 0x0, 0x33, 0x33
-#   define RGB_DARKCYAN 0x0, 0x66, 0x66
-#   define RGB_DARKAZURE 0x3D, 0x62, 0x66
-#   define RGB_DARKBLUE 0x0, 0x0, 0x66
-#   define RGB_DARKPURPLE 0x30, 0x0, 0x66
-#   define RGB_DARKMAGENTA 0x66, 0x0, 0x66
-#   define RGB_DARKPINK 0x66, 0x33, 0x4C
+#define RGB_DARKWHITE 0x66, 0x66, 0x66
+#define RGB_DARKRED 0x66, 0x0, 0x0
+#define RGB_DARKCORAL 0x66, 0x31, 0x1E
+#define RGB_DARKORANGE 0x66, 0x33, 0x0
+#define RGB_DARKGOLDENROD 0x56, 0x42, 0xD
+#define RGB_DARKGOLD 0x66, 0x56, 0x0
+#define RGB_DARKYELLOW 0x66, 0x66, 0x0
+#define RGB_DARKCHARTREUSE 0x33, 0x66, 0x0
+#define RGB_DARKGREEN 0x0, 0x66, 0x0
+#define RGB_DARKSPRINGGREEN 0x0, 0x66, 0x33
+#define RGB_DARKTURQUOISE 0x1C, 0x2C, 0x2A
+#define RGB_DARKTEAL 0x0, 0x33, 0x33
+#define RGB_DARKCYAN 0x0, 0x66, 0x66
+#define RGB_DARKAZURE 0x3D, 0x62, 0x66
+#define RGB_DARKBLUE 0x0, 0x0, 0x66
+#define RGB_DARKPURPLE 0x30, 0x0, 0x66
+#define RGB_DARKMAGENTA 0x66, 0x0, 0x66
+#define RGB_DARKPINK 0x66, 0x33, 0x4C
 
-#endif  // RGB_MATRIX_ENABLE
-
-#ifdef MIDI_ENABLE
-#    define MIDI_ADVANCED
+#define MIDI_ADVANCED
 // Initial velocity value (avoid using 127 since it is used as a special number in some sound sources.)
-#    define MIDI_INITIAL_VELOCITY 117
-#endif  //  MIDI_ENABLE
-
-/* via layer setting */
-/* default: 4 */
-#ifdef VIA_ENABLE
-#   define DYNAMIC_KEYMAP_LAYER_COUNT 12
-#endif  //  VIA_ENABLE
-
-#define TAP_CODE_DELAY 10
+#define MIDI_INITIAL_VELOCITY 117

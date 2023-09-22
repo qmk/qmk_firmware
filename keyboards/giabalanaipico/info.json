@@ -18,6 +18,9 @@
         "rows": ["GP4", "GP5", "GP7", "GP9", "GP10", "GP11", "GP12", "GP13", "GP14", "GP15"]
     },
     "processor": "RP2040",
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "rgb_matrix": {
         "animations": {
             "alphas_mods": true,
@@ -203,7 +206,11 @@
                 ]
             }
         },
-        "soft_serial_pin": "GP0"
+        "main": "right",
+        "soft_serial_pin": "GP0",
+        "transport": {
+            "protocol": "serial"
+        }
     },
     "url": "https://github.com/3araht",
     "usb": {
