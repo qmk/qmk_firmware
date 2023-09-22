@@ -18,6 +18,7 @@ from qmk.search import search_keymap_targets
 @cli.argument('-t', '--no-temp', arg_only=True, action='store_true', help="Remove temporary files during build.")
 @cli.argument('-j', '--parallel', type=int, default=1, help="Set the number of parallel make jobs; 0 means unlimited.")
 @cli.argument('-c', '--clean', arg_only=True, action='store_true', help="Remove object files before compiling.")
+@cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Don't actually build, just show the commands to be run.")
 @cli.argument(
     '-f',
     '--filter',
@@ -48,23 +49,28 @@ def mass_compile(cli):
     if len(targets) == 0:
         return
 
-    builddir.mkdir(parents=True, exist_ok=True)
-    with open(makefile, "w") as f:
-
-        envs = build_environment(cli.args.env)
-
+    if cli.args.dry_run:
+        cli.log.info('Compilation targets:')
         for target in sorted(targets):
-            keyboard_name = target[0]
-            keymap_name = target[1]
-            keyboard_safe = keyboard_name.replace('/', '_')
-            build_log = f"{QMK_FIRMWARE}/.build/build.log.{os.getpid()}.{keyboard_safe}.{keymap_name}"
-            failed_log = f"{QMK_FIRMWARE}/.build/failed.log.{os.getpid()}.{keyboard_safe}.{keymap_name}"
+            cli.log.info(f"{{fg_cyan}}qmk compile -kb {target[0]} -km {target[1]}{{fg_reset}}")
+    else:
+        builddir.mkdir(parents=True, exist_ok=True)
+        with open(makefile, "w") as f:
 
-            make_command = create_make_command(keyboard_name, keymap_name, make_override='+@$(MAKE)', **envs)
-            command_text = ' '.join(make_command)
-            # yapf: disable
-            f.write(
-                f"""\
+            envs = build_environment(cli.args.env)
+
+            for target in sorted(targets):
+                keyboard_name = target[0]
+                keymap_name = target[1]
+                keyboard_safe = keyboard_name.replace('/', '_')
+                build_log = f"{QMK_FIRMWARE}/.build/build.log.{os.getpid()}.{keyboard_safe}.{keymap_name}"
+                failed_log = f"{QMK_FIRMWARE}/.build/failed.log.{os.getpid()}.{keyboard_safe}.{keymap_name}"
+
+                make_command = create_make_command(keyboard_name, keymap_name, make_override='+@$(MAKE)', **envs)
+                command_text = ' '.join(make_command)
+                # yapf: disable
+                f.write(
+                    f"""\
 all: {keyboard_safe}_{keymap_name}_binary
 {keyboard_safe}_{keymap_name}_binary:
 	@rm -f "{build_log}" || true
@@ -77,24 +83,24 @@ all: {keyboard_safe}_{keymap_name}_binary
 		|| printf "Build %-64s \e[1;32m[OK]\e[0m\\n" "{keyboard_name}:{keymap_name}"
 	@rm -f "{build_log}" || true
 """# noqa
-            )
-            # yapf: enable
-
-            if cli.args.no_temp:
-                # yapf: disable
-                f.write(
-                    f"""\
-	@rm -rf "{QMK_FIRMWARE}/.build/{keyboard_safe}_{keymap_name}.elf" 2>/dev/null || true
-	@rm -rf "{QMK_FIRMWARE}/.build/{keyboard_safe}_{keymap_name}.map" 2>/dev/null || true
-	@rm -rf "{QMK_FIRMWARE}/.build/obj_{keyboard_safe}_{keymap_name}" || true
-"""# noqa
                 )
                 # yapf: enable
-            f.write('\n')
 
-    cli.run([make_cmd, *get_make_parallel_args(cli.args.parallel), '-f', makefile.as_posix(), 'all'], capture_output=False, stdin=DEVNULL)
+                if cli.args.no_temp:
+                    # yapf: disable
+                    f.write(
+                        f"""\
+        @rm -rf "{QMK_FIRMWARE}/.build/{keyboard_safe}_{keymap_name}.elf" 2>/dev/null || true
+        @rm -rf "{QMK_FIRMWARE}/.build/{keyboard_safe}_{keymap_name}.map" 2>/dev/null || true
+        @rm -rf "{QMK_FIRMWARE}/.build/obj_{keyboard_safe}_{keymap_name}" || true
+    """# noqa
+                    )
+                    # yapf: enable
+                f.write('\n')
 
-    # Check for failures
-    failures = [f for f in builddir.glob(f'failed.log.{os.getpid()}.*')]
-    if len(failures) > 0:
-        return False
+        cli.run([make_cmd, *get_make_parallel_args(cli.args.parallel), '-f', makefile.as_posix(), 'all'], capture_output=False, stdin=DEVNULL)
+
+        # Check for failures
+        failures = [f for f in builddir.glob(f'failed.log.{os.getpid()}.*')]
+        if len(failures) > 0:
+            return False
