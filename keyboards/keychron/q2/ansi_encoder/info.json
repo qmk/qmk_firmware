@@ -4,12 +4,10 @@
         "device_version": "1.0.0"
     },
     "encoder": {
+        "enabled": true,
         "rotary": [
             {"pin_a": "A10", "pin_b": "B5"}
         ]
-    },
-    "features": {
-        "encoder": true
     },
     "rgb_matrix": {
         "layout": [
