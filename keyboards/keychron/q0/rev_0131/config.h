@@ -25,5 +25,8 @@
 
 #define CKLED2001_PHASE_CHANNEL CKLED2001_MSKPHASE_9CHANNEL
 
+/* Encoder Configuration*/
+#define ENCODER_DEFAULT_POS 0x3
+
 /* Enable num-lock LED */
 #define NUM_LOCK_LED_INDEX 5
