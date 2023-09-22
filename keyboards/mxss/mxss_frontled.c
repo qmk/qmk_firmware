@@ -25,7 +25,7 @@
 // Variables for controlling front LED application
 uint8_t fled_mode;  // Mode for front LEDs
 uint8_t fled_val;   // Brightness for front leds (0 - 255)
-LED_TYPE fleds[2];  // Front LED rgb values for indicator mode use
+rgb_led_t fleds[2];  // Front LED rgb values for indicator mode use
 
 // Layer indicator colors
 __attribute__ ((weak))

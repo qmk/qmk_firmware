@@ -10,7 +10,7 @@
         "force_nkro": true
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
     },
     "matrix_pins": {
         "cols": ["B14", "B13", "B12", "B0", "A7"],

@@ -80,6 +80,7 @@
     * [Caps Word](feature_caps_word.md)
     * [Combos](feature_combo.md)
     * [Debounce API](feature_debounce_type.md)
+    * [Digitizer](feature_digitizer.md)
     * [EEPROM](feature_eeprom.md)
     * [Key Lock](feature_key_lock.md)
     * [Key Overrides](feature_key_overrides.md)
@@ -115,7 +116,6 @@
     * [Bootmagic Lite](feature_bootmagic.md)
     * [Converters](feature_converters.md)
     * [Custom Matrix](custom_matrix.md)
-    * [Digitizer](feature_digitizer.md)
     * [DIP Switch](feature_dip_switch.md)
     * [Encoders](feature_encoders.md)
     * [Haptic Feedback](feature_haptic_feedback.md)
@@ -139,7 +139,7 @@
   * Breaking Changes
     * [Overview](breaking_changes.md)
     * [My Pull Request Was Flagged](breaking_changes_instructions.md)
-    * [Most Recent ChangeLog](ChangeLog/20230528.md "QMK v0.21.0 - 2023 May 28")
+    * [Most Recent ChangeLog](ChangeLog/20230827.md "QMK v0.22.0 - 2023 Aug 27")
     * [Past Breaking Changes](breaking_changes_history.md)
 
   * C Development

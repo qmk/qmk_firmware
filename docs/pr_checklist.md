@@ -11,7 +11,6 @@ If there are any inconsistencies with these recommendations, you're best off [cr
     - if submitter _does_ use their own `master` branch, they'll be given a link to the ["how to git"](newbs_git_using_your_master_branch.md) page after merging -- (end of this document will contain the contents of the message)
 - PRs should contain the smallest amount of modifications required for a single change to the codebase
     - multiple keyboards at the same time is not acceptable
-        - exception: keymaps for a single user targeting multiple keyboards and/or userspace is acceptable
     - **the smaller the PR, the higher likelihood of a quicker review, higher likelihood of quicker merge, and less chance of conflicts**
 - newly-added directories and filenames must be lowercase
     - the lowercase requirement may be relaxed if upstream sources originally had uppercase characters (e.g. LUFA, ChibiOS, or imported files from other repositories etc.)
@@ -40,9 +39,11 @@ If there are any inconsistencies with these recommendations, you're best off [cr
 
 ## Keymap PRs
 
+Note that personal keymap submissions will no longer be accepted. This section applies to manufacturer-supported keymaps.
+
 - `#include QMK_KEYBOARD_H` preferred to including specific board files
 - prefer layer `enum`s to `#define`s
-- require custom keycode `enum`s to `#define`s, first entry must have ` = SAFE_RANGE`
+- custom keycode `enum`s must have first entry `= SAFE_RANGE`
 - terminating backslash (`\`) in lines of LAYOUT macro parameters is superfluous and should be removed
 - some care with spacing (e.g., alignment on commas or first char of keycodes) makes for a much nicer-looking keymap
 
