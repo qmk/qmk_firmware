@@ -3,17 +3,20 @@
     "maintainer": "lalalademaxiya1",
     "bootloader": "stm32-dfu",
     "diode_direction": "ROW2COL",
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
     "features": {
-        "audio": false,
-        "backlight": false,
         "bootmagic": true,
+        "dip_switch": true,
         "command": false,
         "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgb_matrix": true,
-        "rgblight": false
+        "rgb_matrix": true
     },
     "processor": "STM32L432",
     "rgb_matrix": {
