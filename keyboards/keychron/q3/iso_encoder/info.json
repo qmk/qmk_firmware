@@ -106,6 +106,7 @@
             {"matrix": [4, 14], "x": 224, "y": 64, "flags": 1}
         ]
     },
+    "community_layouts": ["tkl_f13_iso"],
     "layouts": {
         "LAYOUT_tkl_f13_iso": {
             "layout": [
