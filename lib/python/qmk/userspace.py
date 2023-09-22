@@ -1,10 +1,12 @@
 from os import environ
 from pathlib import Path
+import json
 import jsonschema
 
 from milc import cli
 
 from qmk.json_schema import validate, json_load
+from qmk.json_encoders import UserspaceJSONEncoder
 
 
 def qmk_userspace_paths():
@@ -46,6 +48,7 @@ def detect_qmk_userspace():
 
 class UserspaceDefs:
     def __init__(self, userspace_json: Path):
+        self.path = userspace_json
         json = json_load(userspace_json)
         validate(json, 'qmk.user_repo.v0')  # `qmk.json` must have a userspace_version at minimum
 
@@ -57,5 +60,20 @@ class UserspaceDefs:
         except jsonschema.ValidationError:
             raise  # v1 always needs to raise here -- higher versions shouldn't bother and should just `pass`
 
+    def save(self):
+        target_json = {
+            "userspace_version": "1.0",  # Needs to match latest version
+            "build_targets":
+                self.build_targets  # Only other field needed in v1
+        }
+
+        try:
+            # Ensure what we're writing validates against the latest version of the schema
+            validate(target_json, 'qmk.user_repo.v1')
+        except jsonschema.ValidationError as err:
+            cli.log.error(f'Could not save userspace file: {err}')
+
+        self.path.write_text(json.dumps(target_json, cls=UserspaceJSONEncoder, sort_keys=True))
+
     def __load_v1(self, json):
-        self.json = json
+        self.build_targets = json['build_targets']
