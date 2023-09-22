@@ -465,6 +465,16 @@ def locate_keymap(keyboard, keymap):
                     return community_layout / 'keymap.c'
 
 
+def is_keymap_target(keyboard, keymap):
+    if keymap == 'all':
+        return True
+
+    if locate_keymap(keyboard, keymap):
+        return True
+
+    return False
+
+
 def list_keymaps(keyboard, c=True, json=True, additional_files=None, fullpath=False):
     """List the available keymaps for a keyboard.
 

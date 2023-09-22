@@ -10,17 +10,7 @@ import qmk.path
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.commands import compile_configurator_json, create_make_command, create_make_target, parse_configurator_json, build_environment
 from qmk.keyboard import keyboard_completer, keyboard_folder_or_all, is_all_keyboards
-from qmk.keymap import keymap_completer, locate_keymap
-
-
-def _is_keymap_target(keyboard, keymap):
-    if keymap == 'all':
-        return True
-
-    if locate_keymap(keyboard, keymap):
-        return True
-
-    return False
+from qmk.keymap import keymap_completer, is_keymap_target
 
 
 @cli.argument('filename', nargs='?', arg_only=True, type=qmk.path.FileType('r'), completer=FilesCompleter('.json'), help='The configurator export to compile')
@@ -61,7 +51,7 @@ def compile(cli):
 
     elif cli.config.compile.keyboard and cli.config.compile.keymap:
         # Generate the make command for a specific keyboard/keymap.
-        if not _is_keymap_target(cli.config.compile.keyboard, cli.config.compile.keymap):
+        if not is_keymap_target(cli.config.compile.keyboard, cli.config.compile.keymap):
             cli.log.error('Invalid keymap argument.')
             cli.print_help()
             return False
