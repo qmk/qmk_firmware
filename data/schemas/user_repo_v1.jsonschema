@@ -9,7 +9,8 @@
     ],
     "properties": {
         "userspace_version": {
-            "type": "string"
+            "type": "string",
+            "enum": ["1.0"]
         },
         "build_targets": {
             "type": "array",

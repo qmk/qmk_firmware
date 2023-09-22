@@ -98,10 +98,18 @@ def userspace_tests(qmk_firmware):
         cli.log.info(f'QMK home: {{fg_cyan}}{qmk_firmware}')
 
     for path in qmk_userspace_paths():
-        if qmk_userspace_validate(path):
+        validation_err = None
+
+        def validation_err_handler(err):
+            nonlocal validation_err
+            validation_err = err
+
+        if qmk_userspace_validate(path, validation_err_handler):
             cli.log.info(f'Testing userspace candidate: {{fg_cyan}}{path}{{fg_reset}} -- {{fg_green}}Valid `qmk.json`')
         else:
             cli.log.warn(f'Testing userspace candidate: {{fg_cyan}}{path}{{fg_reset}} -- {{fg_red}}Invalid `qmk.json`')
+            if validation_err is not None:
+                cli.log.warn(f' -- {{fg_cyan}}{path}/qmk.json{{fg_reset}} validation error: {validation_err}')
 
     if QMK_USERSPACE is not None:
         cli.log.info(f'QMK userspace: {{fg_cyan}}{QMK_USERSPACE}')

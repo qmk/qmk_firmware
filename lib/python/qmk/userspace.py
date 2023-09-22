@@ -23,13 +23,15 @@ def qmk_userspace_paths():
     return test_dirs
 
 
-def qmk_userspace_validate(path):
+def qmk_userspace_validate(path, validation_error_callback=None):
     try:
         if (path / 'qmk.json').is_file():
-            qmkjson = json_load(path / 'qmk.json')
-            validate(qmkjson, 'qmk.user_repo.v1')
-            return True
-    except jsonschema.ValidationError:
+            userspace_defs = UserspaceDefs(path / 'qmk.json')
+            if userspace_defs is not None:
+                return True
+    except jsonschema.ValidationError as err:
+        if validation_error_callback is not None:
+            validation_error_callback(err)
         pass
     return False
 
@@ -40,3 +42,20 @@ def detect_qmk_userspace():
         if qmk_userspace_validate(test_dir):
             return test_dir
     return None
+
+
+class UserspaceDefs:
+    def __init__(self, userspace_json: Path):
+        json = json_load(userspace_json)
+        validate(json, 'qmk.user_repo.v0')  # `qmk.json` must have a userspace_version at minimum
+
+        # TODO: validate different versions of json when we're ready to deal with versioning
+        # Start at highest version, then run down the list to v1
+        try:
+            validate(json, 'qmk.user_repo.v1')
+            self.__load_v1(json)
+        except jsonschema.ValidationError:
+            raise  # v1 always needs to raise here -- higher versions shouldn't bother and should just `pass`
+
+    def __load_v1(self, json):
+        self.json = json
