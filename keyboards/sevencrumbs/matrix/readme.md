@@ -1,5 +1,7 @@
 # Matrix
 
+![Matrix with illuminated buttons surrounded by parts from a disassembled Matrix](https://seven-crumbs-static.pages.dev/matrix-scene.png)
+
 A rugged four-button macro pad with a per-key customisable RGB backlight.
 
 * Keyboard Maintainer: [Zoid Technology](https://github.com/ZoidTechnology)
