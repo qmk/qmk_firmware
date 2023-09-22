@@ -21,7 +21,7 @@
                 "items": {
                     "type": "string",
                     "minLength": 1,
-                    "pattern": "^[0-9a-z][0-9a-z_]*$"
+                    "pattern": "^[0-9a-z][0-9a-z_/]*$"
                 }
             }
         }

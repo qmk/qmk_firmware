@@ -44,6 +44,7 @@ def detect_qmk_userspace():
 class UserspaceDefs:
     def __init__(self, userspace_json: Path):
         self.path = userspace_json
+        self.build_targets = []
         json = json_load(userspace_json)
 
         exception = UserspaceValidationException()
@@ -69,20 +70,36 @@ class UserspaceDefs:
     def save(self):
         target_json = {
             "userspace_version": "1.0",  # Needs to match latest version
-            "build_targets":
-                self.build_targets  # Only other field needed in v1
+            "build_targets": []
         }
+
+        for e in self.build_targets:
+            target_json['build_targets'].append([e['keyboard'], e['keymap']])
 
         try:
             # Ensure what we're writing validates against the latest version of the schema
             validate(target_json, 'qmk.user_repo.v1')
         except jsonschema.ValidationError as err:
             cli.log.error(f'Could not save userspace file: {err}')
+            return False
 
         self.path.write_text(json.dumps(target_json, cls=UserspaceJSONEncoder, sort_keys=True))
+        return True
+
+    def add_target(self, keyboard, keymap):
+        e = {"keyboard": keyboard, "keymap": keymap}
+        if e not in self.build_targets:
+            self.build_targets.append(e)
+
+    def remove_target(self, keyboard, keymap):
+        e = {"keyboard": keyboard, "keymap": keymap}
+        if e in self.build_targets:
+            self.build_targets.remove(e)
 
     def __load_v1(self, json):
-        self.build_targets = json['build_targets']
+        for e in json['build_targets']:
+            if len(e) == 2:
+                self.add_target(e[0], e[1])
 
 
 class UserspaceValidationException(Exception):

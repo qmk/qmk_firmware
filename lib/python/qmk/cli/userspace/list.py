@@ -11,3 +11,7 @@ def userspace_list(cli):
         return False
 
     userspace = UserspaceDefs(QMK_USERSPACE / 'qmk.json')
+    for target in userspace.build_targets:
+        keyboard = target['keyboard']
+        keymap = target['keymap']
+        cli.log.info(f'Keyboard: {{fg_cyan}}{keyboard}{{fg_reset}}, keymap: {{fg_cyan}}{keymap}{{fg_reset}}')
