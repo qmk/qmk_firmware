@@ -25,24 +25,19 @@ def qmk_userspace_paths():
     return test_dirs
 
 
-def qmk_userspace_validate(path, validation_error_callback=None):
-    try:
-        if (path / 'qmk.json').is_file():
-            userspace_defs = UserspaceDefs(path / 'qmk.json')
-            if userspace_defs is not None:
-                return True
-    except jsonschema.ValidationError as err:
-        if validation_error_callback is not None:
-            validation_error_callback(err)
-        pass
-    return False
+def qmk_userspace_validate(path):
+    if (path / 'qmk.json').is_file():
+        UserspaceDefs(path / 'qmk.json')
 
 
 def detect_qmk_userspace():
     test_dirs = qmk_userspace_paths()
     for test_dir in test_dirs:
-        if qmk_userspace_validate(test_dir):
+        try:
+            qmk_userspace_validate(test_dir)
             return test_dir
+        except UserspaceValidationException:
+            pass
     return None
 
 
@@ -50,15 +45,26 @@ class UserspaceDefs:
     def __init__(self, userspace_json: Path):
         self.path = userspace_json
         json = json_load(userspace_json)
-        validate(json, 'qmk.user_repo.v0')  # `qmk.json` must have a userspace_version at minimum
 
-        # TODO: validate different versions of json when we're ready to deal with versioning
-        # Start at highest version, then run down the list to v1
+        exception = UserspaceValidationException()
+        success = False
+
+        try:
+            validate(json, 'qmk.user_repo.v0')  # `qmk.json` must have a userspace_version at minimum
+        except jsonschema.ValidationError as err:
+            exception.add('qmk.user_repo.v0', err)
+            raise exception
+
+        # Iterate through each version of the schema, starting with the latest and decreasing to v1
         try:
             validate(json, 'qmk.user_repo.v1')
             self.__load_v1(json)
-        except jsonschema.ValidationError:
-            raise  # v1 always needs to raise here -- higher versions shouldn't bother and should just `pass`
+            success = True
+        except jsonschema.ValidationError as err:
+            exception.add('qmk.user_repo.v1', err)
+
+        if not success:
+            raise exception
 
     def save(self):
         target_json = {
@@ -77,3 +83,21 @@ class UserspaceDefs:
 
     def __load_v1(self, json):
         self.build_targets = json['build_targets']
+
+
+class UserspaceValidationException(Exception):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.__exceptions = []
+
+    def __str__(self):
+        return self.message
+
+    @property
+    def exceptions(self):
+        return self.__exceptions
+
+    def add(self, schema, exception):
+        self.__exceptions.append((schema, exception))
+        errorlist = "\n\n".join([f"{schema}: {exception}" for schema, exception in self.__exceptions])
+        self.message = f'Could not validate against any version of the userspace schema. Errors:\n\n{errorlist}'
