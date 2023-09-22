@@ -2,7 +2,7 @@
     "keyboard_name": "Dactyl ManuForm Mini 5x6_eic",
     "manufacturer": "l4u",
     "url": "https://github.com/l4u/dactyl-manuform-mini-keyboard",
-    "maintainer": "jceb",
+    "maintainer": "dunk2k",
     "usb": {
         "vid": "0x444D",
         "pid": "0x156B",

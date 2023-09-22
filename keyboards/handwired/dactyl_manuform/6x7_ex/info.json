@@ -2,7 +2,7 @@
     "keyboard_name": "Dactyl ManuForm 6x7_ex",
     "manufacturer": "tshort",
     "url": "https://github.com/tshort/dactyl-keyboard",
-    "maintainer": "qmk",
+    "maintainer": "dunk2k",
     "usb": {
         "vid": "0x444D",
         "pid": "0x067A",
