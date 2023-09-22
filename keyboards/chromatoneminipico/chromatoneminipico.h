@@ -18,36 +18,6 @@
 
 #include "quantum.h"
 
-/* This is a shortcut to help you visually see your layout.
- *
- * The first section contains all of the arguments representing the physical
- * layout of the board and position of the keys.
- *
- * The second converts the arguments into a two-dimensional array which
- * represents the switch matrix.
- */
-#define LAYOUT( \
-      sustain,     k01, k03, k05, k07, k09, k11, k13, k15, k17, k19, k21, k23, k25,  k27,  k29,  k31,  k33,  k35,  k37, \
-                      k02, k04, k06, k08, k10, k12, k14, k16, k18, k20, k22, k24, k26,  k28,  k30,  k32,  k34,  k36,    \
-        enc,       k38, k40, k42, k44, k46, k48, k50, k52, k54, k56, k58, k60, k62,  k64,  k66,  k68,  k70,  k72,  k74, \
-        up,           k39, k41, k43, k45, k47, k49, k51, k53, k55, k57, k59, k61, k63,  k65,  k67,  k69,  k71,  k73,    \
-    left, right,   k75, k77, k79, k81, k83, k85, k87, k89, k91, k93, k95, k97, k99, k101, k103, k105, k107, k109, k111, \
-        down,        k76, k78, k80, k82, k84, k86, k88, k90, k92, k94, k96, k98, k100, k102, k104, k106, k108, k110 \
-) { \
-    { sustain, k01,   k03,  k05,  k07,  k09,  k11,  k13, k15, k17 }, \
-    { enc,     KC_NO, k02,  k04,  k06,  k08,  k10,  k12, k14, k16 }, \
-    { up,      k38,   k40,  k42,  k44,  k46,  k48,  k50, k52, k54 }, \
-    { left,    KC_NO, k39,  k41,  k43,  k45,  k47,  k49, k51, k53 }, \
-    { right,   k75,   k77,  k79,  k81,  k83,  k85,  k87, k89, k91 }, \
-    { down,    KC_NO, k76,  k78,  k80,  k82,  k84,  k86, k88, k90 }, \
-    { k37,     k35,   k33,  k31,  k29,  k27,  k25,  k23, k21, k19 }, \
-    { k36,     k34,   k32,  k30,  k28,  k26,  k24,  k22, k20, k18 }, \
-    { k74,     k72,   k70,  k68,  k66,  k64,  k62,  k60, k58, k56 }, \
-    { k73,     k71,   k69,  k67,  k65,  k63,  k61,  k59, k57, k55 }, \
-    { k111,    k109,  k107, k105, k103, k101, k99,  k97, k95, k93 }, \
-    { k110,    k108,  k106, k104, k102, k100, k98,  k96, k94, k92 } \
-}
-
 #ifdef RGB_MATRIX_ENABLE
 extern led_config_t g_led_config;
 extern const uint8_t led_scale_indicator[12][12];

@@ -22,9 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef RGB_MATRIX_ENABLE
 
-/* ws2812 RGB MATRIX */
-#   define RGB_MATRIX_LED_COUNT 116
-
  // reacts to keypresses
 #   define RGB_MATRIX_KEYPRESSES
 
@@ -61,21 +58,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif  // RGB_MATRIX_ENABLE
 
-/*
- * MIDI options
- */
-
-/* enable basic MIDI features:
-   - MIDI notes can be sent when in Music mode is on
-*/
-//#define MIDI_BASIC
-
-/* enable advanced MIDI features:
-   - MIDI notes can be added to the keymap
-   - Octave shift and transpose
-   - Virtual sustain, portamento, and modulation wheel
-   - etc.
-*/
 #ifdef MIDI_ENABLE
 #   define MIDI_ADVANCED
 // Initial velocity value (avoid using 127 since it is used as a special number in some sound sources.)
