@@ -15,22 +15,20 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #pragma once
 
+// handedness
 #define USE_I2C
-// #define MASTER_LEFT
-// #define MASTER_RIGHT
 #define EE_HANDS
-// Rows are doubled-up
-// #define DEBOUNCE 5
+
+// tap
 #define TAPPING_TOGGLE 3
 #define ONESHOT_TAP_TOGGLE 3
 #define PERMISSIVE_HOLD
 #define TAPPING_TERM 300
-#ifdef RGBLED_NUM
-#  undef RGBLED_NUM
-#endif
+
+// rgblight
+#define WS2812_DI_PIN D3
 #define RGBLED_NUM 54
 #define RGBLIGHT_LIMIT_VAL 200
 #define RGBLIGHT_EFFECT_BREATHING

@@ -209,6 +209,30 @@
     "handwired/dactyl_manuform/3x5_3": {
         "target": "handwired/dactyl_minidox"
     },
+    "handwired/dactyl_manuform/4x5_5": {
+        "target": "handwired/dactyl_manuform_mini/4x5"
+    },
+    "handwired/dactyl_manuform/4x6_5": {
+        "target": "handwired/dactyl_manuform_mini/4x6"
+    },
+    "handwired/dactyl_manuform/5x6_2_5": {
+        "target": "handwired/dactyl_manuform_mini/5x6_ex"
+    },
+    "handwired/dactyl_manuform/5x6_5": {
+        "target": "handwired/dactyl_manuform_mini/5x6"
+    },
+    "handwired/dactyl_manuform/5x6_6": {
+        "target": "handwired/dactyl_manuform_carbonfet/5x6"
+    },
+    "handwired/dactyl_manuform/5x6_68": {
+        "target": "handwired/dactyl_manuform/5x6_ex"
+    },
+    "handwired/dactyl_manuform/5x7": {
+        "target": "handwired/dactyl_manuform/5x6_exic"
+    },
+    "handwired/dactyl_manuform/6x6_4": {
+        "target": "handwired/dactyl_manuform/6x6_ex"
+    },
     "handwired/dactyl_manuform/6x6_kinesis": {
         "target": "handwired/dactyl_kinesis"
     },

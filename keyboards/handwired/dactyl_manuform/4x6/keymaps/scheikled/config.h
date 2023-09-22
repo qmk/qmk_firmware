@@ -5,12 +5,9 @@
 #pragma once
 
 #define USE_I2C
-
 #define SPLIT_HAND_PIN F6
 
 // WS2812 RGB LED strip input and number of LEDs
-#undef WS2812_DI_PIN
-#undef RGBLED_NUM
 #define WS2812_DI_PIN F4
 #define RGBLED_NUM 52
 #define RGBLED_SPLIT {26, 26}
@@ -22,8 +19,6 @@
 // Amoeba royale PCBs (https://github.com/mtl/keyboard-pcbs/tree/master/amoeba-royale) use row to column layout (current can flow from row pin to column pin).
 #undef DIODE_DIRECTION
 #define DIODE_DIRECTION ROW2COL
-
-#define DEBOUNCE 5
 
 #define AUTO_SHIFT_TIMEOUT 100
 #define NO_AUTO_SHIFT_SPECIAL

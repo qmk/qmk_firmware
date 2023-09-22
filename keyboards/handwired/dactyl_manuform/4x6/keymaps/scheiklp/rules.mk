@@ -3,7 +3,5 @@
 
 BOOTLOADER = atmel-dfu
 AUTO_SHIFT_ENABLE = yes
-CONSOLE_ENABLE = no
-COMMAND_ENABLE = no
-NKRO_ENABLE = yes
 DEBOUNCE_TYPE = asym_eager_defer_pk
+USER_NAME := scheiklp
