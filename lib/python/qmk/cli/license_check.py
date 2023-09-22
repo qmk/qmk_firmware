@@ -9,7 +9,7 @@ PUNCTUATION = re.compile(r'[\.,;:]+')
 TRASH_PREFIX = re.compile(r'^(\s|/|\*|#)+')
 TRASH_SUFFIX = re.compile(r'(\s|/|\*|#|\\)+$')
 SPACE = re.compile(r'\s+')
-SUFFIXES = ['.c', '.h', '.cpp', '.cxx', '.hpp', '.hxx', '.py']  # , '.def', '.mk']  # ?
+SUFFIXES = ['.c', '.h', '.cpp', '.cxx', '.hpp', '.hxx']
 
 
 def _simplify_text(input):
@@ -71,24 +71,31 @@ def _detect_license_from_file_contents(filename, absolute=False):
     return False
 
 
-@cli.argument('filenames', nargs='*', arg_only=True, type=Path, help='Input files')
-@cli.argument('-s', '--short', action='store_true', help='Short output')
-@cli.argument('-a', '--absolute', action='store_true', help='Print absolute paths')
+@cli.argument('inputs', nargs='*', arg_only=True, type=Path, help='List of input files or directories.')
+@cli.argument('-s', '--short', action='store_true', help='Short output.')
+@cli.argument('-a', '--absolute', action='store_true', help='Print absolute paths.')
+@cli.argument('-e', '--extension', arg_only=True, action='append', default=[], help='Override list of extensions. Can be specified multiple times for multiple extensions.')
 @cli.subcommand('File license check.', hidden=False if cli.config.user.developer else True)
 def license_check(cli):
+    conditional = lambda s: s in SUFFIXES
+
+    if len(cli.args.extension) > 0:
+        suffixes = [f'.{s}' if not s.startswith('.') else s for s in cli.args.extension]
+        conditional = lambda s: s in suffixes
+
     # Pre-format all the licenses
     for _, long_licenses in LICENSE_TEXTS:
         for i in range(len(long_licenses)):
             long_licenses[i] = _simplify_text(long_licenses[i])
 
     check_list = set()
-    for filename in sorted(cli.args.filenames):
+    for filename in sorted(cli.args.inputs):
         if filename.is_dir():
             for file in sorted(filename.rglob('*')):
-                if file.is_file() and file.suffix in SUFFIXES:
+                if file.is_file() and conditional(file.suffix):
                     check_list.add(file)
         elif filename.is_file():
-            if filename.suffix in SUFFIXES:
+            if conditional(file.suffix):
                 check_list.add(filename)
 
     failed = False
