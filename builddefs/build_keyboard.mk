@@ -384,7 +384,8 @@ ifeq ("$(USER_NAME)","")
 endif
 USER_PATH := users/$(USER_NAME)
 
-ifneq ($(QMK_USERSPACE),)
+# If the equivalent users directory exists in userspace, use that in preference to anything currently in the main repo
+ifneq ($(wildcard $(QMK_USERSPACE)/$(USER_PATH)),)
     USER_PATH := $(QMK_USERSPACE)/$(USER_PATH)
 endif
 
@@ -426,6 +427,10 @@ ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
 endif
 ifneq ("$(KEYMAP_H)","")
     CONFIG_H += $(KEYMAP_H)
+endif
+
+ifeq ($(KEYMAP_C),)
+    $(call CATASTROPHIC_ERROR,Invalid keymap,Could not find keymap)
 endif
 
 OPT_DEFS += -DKEYMAP_C=\"$(KEYMAP_C)\"

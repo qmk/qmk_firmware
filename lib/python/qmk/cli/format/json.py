@@ -9,12 +9,12 @@ from milc import cli
 
 from qmk.info import info_json
 from qmk.json_schema import json_load, validate
-from qmk.json_encoders import InfoJSONEncoder, KeymapJSONEncoder
+from qmk.json_encoders import InfoJSONEncoder, KeymapJSONEncoder, UserspaceJSONEncoder
 from qmk.path import normpath
 
 
 @cli.argument('json_file', arg_only=True, type=normpath, help='JSON file to format')
-@cli.argument('-f', '--format', choices=['auto', 'keyboard', 'keymap'], default='auto', arg_only=True, help='JSON formatter to use (Default: autodetect)')
+@cli.argument('-f', '--format', choices=['auto', 'keyboard', 'keymap', 'userspace'], default='auto', arg_only=True, help='JSON formatter to use (Default: autodetect)')
 @cli.argument('-i', '--inplace', action='store_true', arg_only=True, help='If set, will operate in-place on the input file')
 @cli.argument('-p', '--print', action='store_true', arg_only=True, help='If set, will print the formatted json to stdout ')
 @cli.subcommand('Generate an info.json file for a keyboard.', hidden=False if cli.config.user.developer else True)
@@ -24,18 +24,27 @@ def format_json(cli):
     json_file = json_load(cli.args.json_file)
 
     if cli.args.format == 'auto':
+        json_encoder = None
         try:
-            validate(json_file, 'qmk.keyboard.v1')
-            json_encoder = InfoJSONEncoder
-
+            validate(json_file, 'qmk.user_repo.v1')
+            json_encoder = UserspaceJSONEncoder
         except ValidationError as e:
-            cli.log.warning('File %s did not validate as a keyboard:\n\t%s', cli.args.json_file, e)
-            cli.log.info('Treating %s as a keymap file.', cli.args.json_file)
-            json_encoder = KeymapJSONEncoder
+            pass
+
+        if json_encoder is None:
+            try:
+                validate(json_file, 'qmk.keyboard.v1')
+                json_encoder = InfoJSONEncoder
+            except ValidationError as e:
+                cli.log.warning('File %s did not validate as a keyboard info.json or userspace qmk.json:\n\t%s', cli.args.json_file, e)
+                cli.log.info('Treating %s as a keymap file.', cli.args.json_file)
+                json_encoder = KeymapJSONEncoder
     elif cli.args.format == 'keyboard':
         json_encoder = InfoJSONEncoder
     elif cli.args.format == 'keymap':
         json_encoder = KeymapJSONEncoder
+    elif cli.args.format == 'userspace':
+        json_encoder = UserspaceJSONEncoder
     else:
         # This should be impossible
         cli.log.error('Unknown format: %s', cli.args.format)

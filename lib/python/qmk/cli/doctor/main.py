@@ -13,7 +13,7 @@ from qmk.constants import QMK_FIRMWARE, QMK_FIRMWARE_UPSTREAM, QMK_USERSPACE, HA
 from .check import CheckStatus, check_binaries, check_binary_versions, check_submodules
 from qmk.git import git_check_repo, git_get_branch, git_get_tag, git_get_last_log_entry, git_get_common_ancestor, git_is_dirty, git_get_remotes, git_check_deviation
 from qmk.commands import in_virtualenv
-from qmk.userspace import userspace_doctor_checks
+from qmk.userspace import qmk_userspace_paths, qmk_userspace_validate
 
 
 def os_tests():
@@ -93,6 +93,21 @@ def output_submodule_status():
                 cli.log.error(f'- {sub_name}: <<< missing or unknown >>>')
 
 
+def userspace_tests(qmk_firmware):
+    if qmk_firmware:
+        cli.log.info(f'QMK home: {{fg_cyan}}{qmk_firmware}')
+
+    for path in qmk_userspace_paths():
+        if qmk_userspace_validate(path):
+            cli.log.info(f'Testing userspace candidate: {{fg_cyan}}{path}{{fg_reset}} -- {{fg_green}}Valid `qmk.json`')
+        else:
+            cli.log.warn(f'Testing userspace candidate: {{fg_cyan}}{path}{{fg_reset}} -- {{fg_red}}Invalid `qmk.json`')
+
+    if QMK_USERSPACE is not None:
+        cli.log.info(f'QMK userspace: {{fg_cyan}}{QMK_USERSPACE}')
+    cli.log.info(f'Userspace enabled: {{fg_cyan}}{HAS_QMK_USERSPACE}')
+
+
 @cli.argument('-y', '--yes', action='store_true', arg_only=True, help='Answer yes to all questions.')
 @cli.argument('-n', '--no', action='store_true', arg_only=True, help='Answer no to all questions.')
 @cli.subcommand('Basic QMK environment checks')
@@ -110,7 +125,7 @@ def doctor(cli):
 
     status = os_status = os_tests()
 
-    userspace_doctor_checks(None, QMK_USERSPACE, HAS_QMK_USERSPACE)
+    userspace_tests(None)
 
     git_status = git_tests()
 

@@ -8,7 +8,8 @@ from subprocess import DEVNULL
 from milc import cli
 
 from qmk.constants import QMK_FIRMWARE, QMK_USERSPACE, HAS_QMK_USERSPACE
-from qmk.commands import _find_make, get_make_parallel_args
+from qmk.commands import _find_make, get_make_parallel_args, compile_configurator_json, create_make_target, create_make_command, parse_configurator_json, build_environment
+
 from qmk.keyboard import resolve_keyboard
 from qmk.search import search_keymap_targets
 
@@ -34,7 +35,7 @@ def mass_compile(cli):
     """
     make_cmd = _find_make()
     if cli.args.clean:
-        cli.run([make_cmd, 'clean'], capture_output=False, stdin=DEVNULL)
+        cli.run(create_make_target('clean'), capture_output=False, stdin=DEVNULL)
 
     builddir = Path(QMK_FIRMWARE) / '.build'
     makefile = builddir / 'parallel_kb_builds.mk'
@@ -50,9 +51,7 @@ def mass_compile(cli):
     builddir.mkdir(parents=True, exist_ok=True)
     with open(makefile, "w") as f:
 
-        userspace_suffix = ''
-        if HAS_QMK_USERSPACE:
-            userspace_suffix = f'QMK_USERSPACE={Path(QMK_USERSPACE).resolve()}'
+        envs = build_environment(cli.args.env)
 
         for target in sorted(targets):
             keyboard_name = target[0]
@@ -60,6 +59,9 @@ def mass_compile(cli):
             keyboard_safe = keyboard_name.replace('/', '_')
             build_log = f"{QMK_FIRMWARE}/.build/build.log.{os.getpid()}.{keyboard_safe}.{keymap_name}"
             failed_log = f"{QMK_FIRMWARE}/.build/failed.log.{os.getpid()}.{keyboard_safe}.{keymap_name}"
+
+            make_command = create_make_command(keyboard_name, keymap_name, make_override='+@$(MAKE)', **envs)
+            command_text = ' '.join(make_command)
             # yapf: disable
             f.write(
                 f"""\
@@ -67,7 +69,7 @@ all: {keyboard_safe}_{keymap_name}_binary
 {keyboard_safe}_{keymap_name}_binary:
 	@rm -f "{build_log}" || true
 	@echo "Compiling QMK Firmware for target: '{keyboard_name}:{keymap_name}'..." >>"{build_log}"
-	+@$(MAKE) -C "{QMK_FIRMWARE}" -f "{QMK_FIRMWARE}/builddefs/build_keyboard.mk" KEYBOARD="{keyboard_name}" KEYMAP="{keymap_name}" COLOR=true SILENT=false {userspace_suffix} {' '.join(cli.args.env)} \\
+	{command_text} \\
 		>>"{build_log}" 2>&1 \\
 		|| cp "{build_log}" "{failed_log}"
 	@{{ grep '\[ERRORS\]' "{build_log}" >/dev/null 2>&1 && printf "Build %-64s \e[1;31m[ERRORS]\e[0m\\n" "{keyboard_name}:{keymap_name}" ; }} \\

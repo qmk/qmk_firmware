@@ -4,17 +4,19 @@
     "title": "User Repository Information",
     "type": "object",
     "required": [
-        "version",
+        "userspace_version",
         "build_targets"
     ],
     "properties": {
-        "version": {
+        "userspace_version": {
             "type": "string"
         },
         "build_targets": {
             "type": "array",
             "items": {
                 "type": "array",
+                "minItems": 2,
+                "maxItems": 2,
                 "items": {
                     "type": "string",
                     "minLength": 1,
