@@ -16,7 +16,6 @@
 
 #pragma once
 
-
 // EEPROM i2c chip
 #define EEPROM_I2C_24LC256
 
