@@ -57,7 +57,7 @@ void eeconfig_init_quantum(void) {
     eeprom_update_byte(EECONFIG_AUDIO, 0xFF); // On by default
     eeprom_update_dword(EECONFIG_RGBLIGHT, 0);
     eeprom_update_byte(EECONFIG_RGBLIGHT_EXTENDED, 0);
-    eeprom_update_byte(EECONFIG_VELOCIKEY, 0);
+    eeprom_update_byte(EECONFIG_UNUSED, 0);
     eeprom_update_byte(EECONFIG_UNICODEMODE, 0);
     eeprom_update_byte(EECONFIG_STENOMODE, 0);
     uint64_t dummy = 0;
