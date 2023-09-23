@@ -40,19 +40,19 @@
 
 // Set defaults for Registers
 #ifndef IS31FL3729_CONFIGURATION
-#    define IS31FL3729_CONFIGURATION SWS_15_9
+#    define IS31FL3729_CONFIGURATION IS31FL3729_CONFIGURATION_SWS_15_9
 #endif
 #ifndef IS31FL3729_GLOBALCURRENT
-#    define IS31FL3729_GLOBALCURRENT 0x40
+#    define IS31FL3729_GLOBALCURRENT 0b1000000
 #endif
 #ifndef IS31FL3729_PULLDOWNUP
-#    define IS31FL3729_PULLDOWNUP 0x33
+#    define IS31FL3729_PULLDOWNUP 0b110011
 #endif
 #ifndef IS31FL3729_SPREAD_SPECTRUM
-#    define IS31FL3729_SPREAD_SPECTRUM SSP_DISABLE
+#    define IS31FL3729_SPREAD_SPECTRUM IS31FL3729_SPREAD_SPECTRUM_DISABLE
 #endif
 #ifndef IS31FL3729_PWM_FREQUENCY
-#    define IS31FL3729_PWM_FREQUENCY PWM_32KHZ
+#    define IS31FL3729_PWM_FREQUENCY IS31FL3729_PWM_FREQUENCY_32K_HZ
 #endif
 
 // Set buffer sizes
@@ -138,9 +138,9 @@ void is31fl3729_init(uint8_t addr) {
 }
 
 void is31fl3729_set_value(int index, uint8_t value) {
-    is31_led led;
+    is31fl3729_led_t led;
     if (index >= 0 && index < LED_MATRIX_LED_COUNT) {
-        memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
+        memcpy_P(&led, (&g_is31fl3729_leds[index]), sizeof(led));
 
         if (g_pwm_buffer[led.driver][led.v] == value) {
             return;
@@ -158,8 +158,8 @@ void is31fl3729_set_value_all(uint8_t value) {
 }
 
 void is31fl3729_set_led_control_register(uint8_t index, bool value) {
-    is31_led led;
-    memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
+    is31fl3729_led_t led;
+    memcpy_P(&led, (&g_is31fl3729_leds[index]), sizeof(led));
 
     // need to do a bit of checking here since 3729 scaling is per CS pin.
     // not the usual per single LED key as per other ISSI drivers
