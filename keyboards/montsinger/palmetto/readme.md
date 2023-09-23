@@ -1,6 +1,6 @@
 # Palmetto PCB
 
-Palmetto PCB from Montsinger (https://i.imgur.com/VmmAW97)
+Palmetto PCB from Montsinger (https://i.imgur.com/VmmAW97.jpeg)
 
 * Keyboard Maintainer: [Ross Montsinger](https://github.com/rossman360)
 * Hardware Supported: RP2040
