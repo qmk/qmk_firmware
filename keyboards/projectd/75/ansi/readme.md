@@ -1,4 +1,5 @@
 # ProjectD 75% ANSI 
+![ProjectD 75 ANSI](https://imgur.com/dtNDC8zh.png)
 
 A 75% keyboard, Equipped with the WestBerry Q95 microcontroller.
 
