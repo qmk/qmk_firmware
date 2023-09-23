@@ -3,8 +3,8 @@
     "manufacturer": "wuque",
     "maintainer": "spbgzh",
     "usb": {
-        "vid": "0x807C",
-        "pid": "0x0005",
+        "vid": "0x36B5",
+        "pid": "0x00A5",
         "device_version": "0.0.1"
     },
     "matrix_pins": {
@@ -12,13 +12,13 @@
         "rows": ["F1", "F0", "C6", "B6", "F5"]
     },
     "features": {
-        "bootmagic": false,
+        "bootmagic": true,
         "command": false,
         "console": false,
         "rgb_matrix": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
+        "nkro": true
     },
     "diode_direction": "COL2ROW",
     "indicators": {
