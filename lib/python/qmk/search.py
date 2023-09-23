@@ -42,13 +42,9 @@ def _keymap_exists(keyboard, keymap):
         return keyboard if qmk.keymap.locate_keymap(keyboard, keymap) is not None else None
 
 
-def _load_keymap_info(keyboard, keymap):
+def _load_keymap_info(kb_km):
     with ignore_logging():
-        return (keyboard, keymap, keymap_json(keyboard, keymap))
-
-
-def _load_keymap_info_tuple(kb_km):
-    return _load_keymap_info(kb_km[0], kb_km[1])
+        return (kb_km[0], kb_km[1], keymap_json(kb_km[0], kb_km[1]))
 
 
 def expand_make_targets(targets: List[str]) -> List[Tuple[str, str]]:
@@ -102,7 +98,7 @@ def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str
             targets = [(kb, km, {}) for kb, km in target_list]
         else:
             cli.log.info('Parsing data for all matching keyboard/keymap combinations...')
-            valid_keymaps = [(e[0], e[1], dotty(e[2])) for e in pool.imap_unordered(_load_keymap_info_tuple, target_list)]
+            valid_keymaps = [(e[0], e[1], dotty(e[2])) for e in pool.imap_unordered(_load_keymap_info, target_list)]
 
             function_re = re.compile(r'^(?P<function>[a-zA-Z]+)\((?P<key>[a-zA-Z0-9_\.]+)(,\s*(?P<value>[^#]+))?\)$')
             equals_re = re.compile(r'^(?P<key>[a-zA-Z0-9_\.]+)\s*=\s*(?P<value>[^#]+)$')
