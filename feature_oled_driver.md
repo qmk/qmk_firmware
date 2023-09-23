@@ -10,6 +10,7 @@ Tested combinations:
 |SSD1306  |128x32 |AVR     |Primary support         |
 |SSD1306  |128x64 |AVR     |Verified working        |
 |SSD1306  |128x32 |Arm     |                        |
+|SSD1306  |128x64 |Arm     |Verified working        |
 |SH1106   |128x64 |AVR     |No scrolling            |
 |SH1107   |64x128 |AVR     |No scrolling            |
 |SH1107   |64x128 |Arm     |No scrolling            |
