@@ -1,10 +1,12 @@
 """Functions for searching through QMK keyboards and keymaps.
 """
 import contextlib
+import functools
 import fnmatch
 import logging
 import multiprocessing
 import re
+from typing import List, Tuple
 from dotty_dict import dotty
 from milc import cli
 
@@ -45,21 +47,54 @@ def _load_keymap_info(keyboard, keymap):
         return (keyboard, keymap, keymap_json(keyboard, keymap))
 
 
-def search_keymap_targets(keymap='default', filters=[], print_vals=[]):
-    targets = []
+def expand_make_targets(targets: List[str]) -> List[Tuple[str, str]]:
+    split_targets = []
+    for target in targets:
+        split_target = target.split(':')
+        if len(split_target) != 2:
+            cli.log.error(f"Invalid build target: {target}")
+            return []
+        split_targets.append((split_target[0], split_target[1]))
+    return expand_keymap_targets(split_targets)
 
+
+def _expand_keymap_target(keyboard: str, keymap: str, all_keyboards: List[str]) -> List[Tuple[str, str]]:
     with multiprocessing.Pool() as pool:
-        cli.log.info(f'Retrieving list of keyboards with keymap "{keymap}"...')
-        target_list = []
-        if keymap == 'all':
-            kb_to_kms = pool.map(_all_keymaps, qmk.keyboard.list_keyboards())
-            for targets in kb_to_kms:
-                keyboard = targets[0]
-                keymaps = targets[1]
-                target_list.extend([(keyboard, keymap) for keymap in keymaps])
+        targets = []
+        if keyboard == 'all':
+            if keymap == 'all':
+                cli.log.info('Retrieving list of all keyboards and keymaps...')
+                for keyboard, keymaps in pool.imap_unordered(_all_keymaps, all_keyboards):
+                    for keymap in keymaps:
+                        targets.append((keyboard, keymap))
+            else:
+                cli.log.info(f'Retrieving list of keyboards with keymap "{keymap}"...')
+                l = functools.partial(_keymap_exists, keymap=keymap)
+                for keyboard in pool.imap_unordered(l, all_keyboards):
+                    if keyboard is not None:
+                        targets.append((keyboard, keymap))
         else:
-            target_list = [(kb, keymap) for kb in filter(lambda kb: kb is not None, pool.starmap(_keymap_exists, [(kb, keymap) for kb in qmk.keyboard.list_keyboards()]))]
+            if keymap == 'all':
+                keyboard = qmk.keyboard.resolve_keyboard(keyboard)
+                cli.log.info(f'Retrieving list of keymaps for keyboard "{keyboard}"...')
+                for keymap in qmk.keymap.list_keymaps(keyboard):
+                    targets.append((keyboard, keymap))
+            else:
+                targets.append((keyboard, keymap))
+        return targets
 
+
+def expand_keymap_targets(targets: List[Tuple[str, str]]) -> List[Tuple[str, str]]:
+    overall_targets = []
+    all_keyboards = qmk.keyboard.list_keyboards()
+    for target in targets:
+        overall_targets.extend(_expand_keymap_target(target[0], target[1], all_keyboards))
+    return list(sorted(set(overall_targets)))
+
+
+def filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str] = [], print_vals: List[str] = []) -> List[Tuple[str, str, List[Tuple[str, str]]]]:
+    target_list = list(sorted(set(target_list)))
+    with multiprocessing.Pool() as pool:
         if len(filters) == 0:
             targets = [(kb, km, {}) for kb, km in target_list]
         else:
@@ -123,3 +158,11 @@ def search_keymap_targets(keymap='default', filters=[], print_vals=[]):
             targets = [(e[0], e[1], [(p, e[2].get(p)) for p in print_vals]) for e in valid_keymaps]
 
     return targets
+
+
+def search_keymap_targets(keymap='default', filters: List[str] = [], print_vals: List[str] = []) -> List[Tuple[str, str, List[Tuple[str, str]]]]:
+    return filter_keymap_targets(expand_keymap_targets([('all', keymap)]), filters, print_vals)
+
+
+def search_make_targets(targets: List[str], filters: List[str] = [], print_vals: List[str] = []) -> List[Tuple[str, str, List[Tuple[str, str]]]]:
+    return filter_keymap_targets(expand_make_targets(targets), filters, print_vals)
