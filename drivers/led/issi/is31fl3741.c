@@ -85,6 +85,7 @@ uint8_t g_twi_transfer_buffer[20] = {0xFF};
 // buffers and the transfers in is31fl3741_write_pwm_buffer() but it's
 // probably not worth the extra complexity.
 uint8_t g_pwm_buffer[DRIVER_COUNT][ISSI_MAX_LEDS];
+uint8_t g_pwm_buffer_send[DRIVER_COUNT][ISSI_MAX_LEDS];
 bool    g_pwm_buffer_update_required[DRIVER_COUNT]        = {false};
 bool    g_scaling_registers_update_required[DRIVER_COUNT] = {false};
 
@@ -223,11 +224,14 @@ void is31fl3741_set_led_control_register(uint8_t index, bool red, bool green, bo
 
 void is31fl3741_update_pwm_buffers(uint8_t addr, uint8_t index) {
     if (g_pwm_buffer_update_required[index]) {
-        // unlock the command register and select PG2
-        is31fl3741_write_register(addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
-        is31fl3741_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_PWM0);
+        if (memcmp(g_pwm_buffer, g_pwm_buffer_send, sizeof(g_pwm_buffer)) != 0) {
+            memcpy(g_pwm_buffer_send, g_pwm_buffer, sizeof(g_pwm_buffer));
+            // unlock the command register and select PG2
+            is31fl3741_write_register(addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
+            is31fl3741_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_PWM0);
 
-        is31fl3741_write_pwm_buffer(addr, g_pwm_buffer[index]);
+            is31fl3741_write_pwm_buffer(addr, g_pwm_buffer_send[index]);
+        }
     }
 
     g_pwm_buffer_update_required[index] = false;
