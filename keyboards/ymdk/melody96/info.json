@@ -17,6 +17,23 @@
         "pin": "B6",
         "levels": 5
     },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 18,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
     "ws2812": {
         "pin": "E2"
     },
@@ -35,6 +52,7 @@
         "LAYOUT": "LAYOUT_all",
         "LAYOUT_hotswap": "LAYOUT_96_ansi"
     },
+    "community_layouts": ["96_ansi", "96_iso"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

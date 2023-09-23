@@ -310,9 +310,6 @@ void matrix_init_user(void) {
 void matrix_scan_user(void) {
   uint8_t layer = get_highest_layer(layer_state);
 
-  //led 1, RED, Caps-Lock ON
-  //if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ergodox_right_led_1_on();
-
   //led 2, GREEN
   if (layer == LAYER_NUM)
       ergodox_right_led_2_on();
@@ -327,9 +324,10 @@ void matrix_scan_user(void) {
 };
 
 // Runs constantly in the background, in a loop.
-void led_set_user(uint8_t usb_led) {
-    if (usb_led & (1<<USB_LED_CAPS_LOCK))
+bool led_update_user(led_t led_state) {
+    if (led_state.caps_lock)
         ergodox_right_led_1_on();
     else
         ergodox_right_led_1_off();
+    return false;
 }

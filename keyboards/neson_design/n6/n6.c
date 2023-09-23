@@ -111,12 +111,12 @@ static void self_testing(void)
     switch(rgb_state.testing) {
         case ST_STAGE_1:
             if (rgb_state.index !=0 ) {
-                IS31FL3731_set_color_all(0, 0, 0);
+                is31fl3731_set_color_all(0, 0, 0);
             }
 
             if (rgb_state.index >= ST_LEFT_END) {
                 for (int i = rgb_state.index - 1; i < RGB_MATRIX_LED_COUNT - rgb_state.index + 1; i++) {
-                    IS31FL3731_set_color(i, led.r, led.g, led.b);
+                    is31fl3731_set_color(i, led.r, led.g, led.b);
                 }
                 if (rgb_state.index == ST_LEFT_END) {
                     rgb_state.index = ST_LEFT_BEGIN;
@@ -135,20 +135,20 @@ static void self_testing(void)
         break;
         case ST_STAGE_2: {
             // clear all
-            IS31FL3731_set_color_all(0, 0, 0);
+            is31fl3731_set_color_all(0, 0, 0);
             int i = 0;
             // light left and right
             for (i = 0; i < ST_LEFT_SIZE; i++) {
-                IS31FL3731_set_color(ST_LEFT_BEGIN+i, led.r, led.g, led.b);
+                is31fl3731_set_color(ST_LEFT_BEGIN+i, led.r, led.g, led.b);
             }
             for (i = 0; i < ST_RIGHT_SIZE; i++) {
-                IS31FL3731_set_color(ST_RIGHT_BEGIN+i, led.r, led.g, led.b);
+                is31fl3731_set_color(ST_RIGHT_BEGIN+i, led.r, led.g, led.b);
 
             }
             if (rgb_state.dir) {
                 // left to right
                 for (int i = rgb_state.index; i < rgb_state.index+ST_LEFT_SIZE+ST_RIGHT_SIZE; i++) {
-                    IS31FL3731_set_color(i, led.r, led.g, led.b);
+                    is31fl3731_set_color(i, led.r, led.g, led.b);
                 }
                 rgb_state.index += ST_LEFT_SIZE+ST_RIGHT_SIZE;
                 if (rgb_state.index == ST_RIGHT_BEGIN) {
@@ -158,7 +158,7 @@ static void self_testing(void)
             } else {
                 // right to left
                 for (int i = rgb_state.index - ST_RIGHT_SIZE; i < rgb_state.index; i++) {
-                    IS31FL3731_set_color(i, led.r, led.g, led.b);
+                    is31fl3731_set_color(i, led.r, led.g, led.b);
                 }
                 rgb_state.index -= ST_LEFT_SIZE + ST_RIGHT_SIZE;
                 if (rgb_state.index == ST_LEFT_BEGIN+ST_LEFT_SIZE) {
@@ -178,7 +178,7 @@ static void self_testing(void)
         break;
         case ST_STAGE_3:
             if (rgb_state.index != RGB_MATRIX_LED_COUNT/2) {
-                IS31FL3731_set_color_all(0, 0, 0);
+                is31fl3731_set_color_all(0, 0, 0);
             }
 
             // light left and right
@@ -197,11 +197,11 @@ static void self_testing(void)
             } else {
                 // left
                 for (int i = 0; i < rgb_state.index+1; i++) {
-                    IS31FL3731_set_color(i, led.r, led.g, led.b);
+                    is31fl3731_set_color(i, led.r, led.g, led.b);
                 }
                 // right
                 for (int i = ST_RIGHT_END; i > ST_RIGHT_END - rgb_state.index - 1; i--) {
-                    IS31FL3731_set_color(i, led.r, led.g, led.b);
+                    is31fl3731_set_color(i, led.r, led.g, led.b);
                 }
                 rgb_state.index ++;
             }
@@ -299,16 +299,16 @@ void matrix_init_kb(void)
     writePinLow(LED_CAPS_LOCK_PIN);
 
     i2c_init();
-    IS31FL3731_init(DRIVER_ADDR_1);
+    is31fl3731_init(DRIVER_ADDR_1);
 #ifdef DRIVER_ADDR_2
-    IS31FL3731_init(DRIVER_ADDR_2);
+    is31fl3731_init(DRIVER_ADDR_2);
 #endif
     for (int index = 0; index < RGB_MATRIX_LED_COUNT; index++) {
-        IS31FL3731_set_led_control_register(index, true, true, true);
+        is31fl3731_set_led_control_register(index, true, true, true);
     }
-    IS31FL3731_update_led_control_registers(DRIVER_ADDR_1, 0);
+    is31fl3731_update_led_control_registers(DRIVER_ADDR_1, 0);
 #ifdef DRIVER_ADDR_2
-    IS31FL3731_update_led_control_registers(DRIVER_ADDR_2, 1);
+    is31fl3731_update_led_control_registers(DRIVER_ADDR_2, 1);
 #endif
     update_ticks();
     matrix_init_user();
@@ -327,13 +327,13 @@ void housekeeping_task_kb(void)
             .b = 0x00,
         };
         if (rgb_state.alert) {
-            IS31FL3731_set_color_all(led.r, led.g, led.b);
+            is31fl3731_set_color_all(led.r, led.g, led.b);
             ws2812_setleds(&led, 1);
         } else {
             led.r = 0;
             led.g = 0;
             led.b = 0;
-            IS31FL3731_set_color_all(0, 0, 0);
+            is31fl3731_set_color_all(0, 0, 0);
             ws2812_setleds(&led, 1);
         }
 
@@ -343,9 +343,9 @@ void housekeeping_task_kb(void)
         }
     }
 
-    IS31FL3731_update_pwm_buffers(DRIVER_ADDR_1, 0);
+    is31fl3731_update_pwm_buffers(DRIVER_ADDR_1, 0);
 #ifdef DRIVER_ADDR_2
-    IS31FL3731_update_pwm_buffers(DRIVER_ADDR_2, 1);
+    is31fl3731_update_pwm_buffers(DRIVER_ADDR_2, 1);
 #endif
 
     housekeeping_task_user();
@@ -356,7 +356,7 @@ void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds)
     if (rgb_state.state != NORMAL) return;
 
     for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
-        IS31FL3731_set_color(i, start_led[i].r, start_led[i].g, start_led[i].b);
+        is31fl3731_set_color(i, start_led[i].r, start_led[i].g, start_led[i].b);
     }
     ws2812_setleds(start_led+RGB_MATRIX_LED_COUNT, 1);
 }

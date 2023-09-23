@@ -16,8 +16,6 @@
 
 #pragma once
 
-#define TAP_CODE_DELAY 10
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
@@ -34,6 +32,8 @@
 #define DRIVER_2_EN C13
 
 #define DRIVER_COUNT 2
+
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
