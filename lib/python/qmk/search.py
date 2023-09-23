@@ -33,21 +33,29 @@ def ignore_logging():
 
 
 def _all_keymaps(keyboard):
+    """Returns a tuple of (keyboard, all_keymaps) for the given keyboard.
+    """
     with ignore_logging():
         return (keyboard, qmk.keymap.list_keymaps(keyboard))
 
 
 def _keymap_exists(keyboard, keymap):
+    """Returns the keyboard name if the keyboard+keymap combination exists, otherwise None.
+    """
     with ignore_logging():
         return keyboard if qmk.keymap.locate_keymap(keyboard, keymap) is not None else None
 
 
 def _load_keymap_info(kb_km):
+    """Returns a tuple of (keyboard, keymap, info.json) for the given keyboard/keymap combination.
+    """
     with ignore_logging():
         return (kb_km[0], kb_km[1], keymap_json(kb_km[0], kb_km[1]))
 
 
 def expand_make_targets(targets: List[str]) -> List[Tuple[str, str]]:
+    """Expand a list of make targets into a list of (keyboard, keymap) tuples.
+    """
     split_targets = []
     for target in targets:
         split_target = target.split(':')
@@ -59,6 +67,10 @@ def expand_make_targets(targets: List[str]) -> List[Tuple[str, str]]:
 
 
 def _expand_keymap_target(keyboard: str, keymap: str, all_keyboards: List[str]) -> List[Tuple[str, str]]:
+    """Expand a keyboard input and keymap input into a list of (keyboard, keymap) tuples.
+
+    Caters for 'all' in either keyboard or keymap.
+    """
     with multiprocessing.Pool() as pool:
         targets = []
         if keyboard == 'all':
@@ -85,6 +97,8 @@ def _expand_keymap_target(keyboard: str, keymap: str, all_keyboards: List[str]) 
 
 
 def expand_keymap_targets(targets: List[Tuple[str, str]]) -> List[Tuple[str, str]]:
+    """Expand a list of (keyboard, keymap) tuples inclusive of 'all', into a list of explicit (keyboard, keymap) tuples.
+    """
     overall_targets = []
     all_keyboards = qmk.keyboard.list_keyboards()
     for target in targets:
@@ -93,8 +107,12 @@ def expand_keymap_targets(targets: List[Tuple[str, str]]) -> List[Tuple[str, str
 
 
 def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str] = [], print_vals: List[str] = []) -> List[Tuple[str, str, List[Tuple[str, str]]]]:
+    """Filter a list of (keyboard, keymap) tuples based on the supplied filters.
+
+    Optionally includes the values of the queried info.json keys.
+    """
     with multiprocessing.Pool() as pool:
-        if len(filters) == 0:
+        if len(filters) == 0 and len(print_vals) == 0:
             targets = [(kb, km, {}) for kb, km in target_list]
         else:
             cli.log.info('Parsing data for all matching keyboard/keymap combinations...')
@@ -160,8 +178,12 @@ def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str
 
 
 def search_keymap_targets(keymap='default', filters: List[str] = [], print_vals: List[str] = []) -> List[Tuple[str, str, List[Tuple[str, str]]]]:
+    """Search for build targets matching the supplied criteria.
+    """
     return list(sorted(_filter_keymap_targets(expand_keymap_targets([('all', keymap)]), filters, print_vals), key=lambda e: (e[0], e[1])))
 
 
 def search_make_targets(targets: List[str], filters: List[str] = [], print_vals: List[str] = []) -> List[Tuple[str, str, List[Tuple[str, str]]]]:
+    """Search for build targets matching the supplied criteria.
+    """
     return list(sorted(_filter_keymap_targets(expand_make_targets(targets), filters, print_vals), key=lambda e: (e[0], e[1])))
