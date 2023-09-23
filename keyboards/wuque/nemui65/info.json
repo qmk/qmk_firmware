@@ -37,7 +37,10 @@
             "solid_reactive_simple": true
         },
         "layout": [
-            { "matrix": [0, 13], "x":  15, "y": 0, "flags":4 }
+            { "matrix": [0, 12], "x":  14, "y": 0, "flags":4 },
+            { "matrix": [0, 13], "x":  15, "y": 0, "flags":4 },
+            { "matrix": [1, 12], "x":  14, "y": 1, "flags":1 },
+            { "matrix": [1, 13], "x":  15, "y": 1, "flags":1 }
          ]
     },
     "processor": "atmega32u4",
