@@ -3,10 +3,8 @@
         "pid": "0x0125",
         "device_version": "1.0.0"
     },
-    "features": {
-        "encoder": true
-    },
     "encoder": {
+        "enabled": true,
         "rotary": [
             {"pin_a": "A10", "pin_b": "A8"}
         ]
@@ -112,6 +110,10 @@
             {"matrix": [4, 14], "x": 224, "y": 64, "flags": 1}
         ]
     },
+    "layout_aliases": {
+        "LAYOUT_tkl_f13_jis": "LAYOUT_jis_92"
+    },
+    "community_layouts": ["tkl_f13_jis"],
     "layouts": {
         "LAYOUT_jis_92": {
             "layout": [
