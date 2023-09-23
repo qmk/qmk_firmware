@@ -41,7 +41,17 @@ def mass_compile(cli):
     makefile = builddir / 'parallel_kb_builds.mk'
 
     if len(cli.args.builds) > 0:
-        targets = list(sorted(set([(resolve_keyboard(e[0]), e[1]) for e in [b.split(':') for b in cli.args.builds]])))
+        targets = []
+        for target in cli.args.builds:
+            split_target = target.split(':')
+            if len(split_target) != 2:
+                cli.log.error(f"Invalid build target: {target}")
+                return False
+            if split_target[0] == 'all':
+                targets.extend(search_keymap_targets(split_target[1], []))
+            else:
+                targets.append((resolve_keyboard(split_target[0]), split_target[1]))
+        targets = list(sorted(set([(e[0], e[1]) for e in targets])))
     else:
         targets = search_keymap_targets(cli.args.keymap, cli.args.filter)
 
