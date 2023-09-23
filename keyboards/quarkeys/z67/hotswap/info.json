@@ -1,8 +1,8 @@
 {
     "keyboard_name": "Z67 Hotswap",
-    "manufacturer": "Quarkeys Stuidio",
-    "url": "www.quarkeys.com",
-    "maintainer": "TommyZ",
+    "manufacturer": "Quarkeys Studio",
+    "url": "https://www.quarkeys.com/",
+    "maintainer": "tommyamoszhao",
     "usb": {
         "vid": "0x8490",
         "pid": "0x4102",
