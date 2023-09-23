@@ -29,7 +29,7 @@
 
 /* Dip Switch */
 #define POWER_SWITCH_PIN B0
-#define DIP_SWITCH_PINS { POWER_SWITCH_PIN, B1, B8, B12 }
+#define DIP_SWITCH_PINS { B0, B1, B8, B12 }
 
 /* 16 with dummy columns for shift registers */
 #define SHR_SERIES_NUM 2
