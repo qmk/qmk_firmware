@@ -16,9 +16,6 @@
 
 #pragma once
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 16
 
 // EEPROM i2c chip
 #define EEPROM_I2C_24LC256
