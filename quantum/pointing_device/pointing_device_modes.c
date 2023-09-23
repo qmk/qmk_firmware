@@ -460,6 +460,7 @@ void pointing_tap_codes(uint16_t kc_left, uint16_t kc_down, uint16_t kc_up, uint
  *
  * @params map_id id of current map
  */
+#    ifdef POINTING_MODE_MAP_ENABLE
 static void pointing_exec_mapping(uint8_t map_id) {
     int16_t count = 0;
     uint8_t dir   = current_pointing_mode_direction();
@@ -483,12 +484,13 @@ static void pointing_exec_mapping(uint8_t map_id) {
     uint8_t taps = clamp_uint_16_to_8((uint16_t)abs(count));
     do {
         action_exec(MAKE_POINTING_MODE_EVENT(map_id, dir, true));
-#    if POINTING_TAP_DELAY > 0
+#        if POINTING_TAP_DELAY > 0
         wait_ms(POINTING_TAP_DELAY);
-#    endif // POINTING_TAP_DELAY > 0
+#        endif // POINTING_TAP_DELAY > 0
         action_exec(MAKE_POINTING_MODE_EVENT(map_id, dir, false));
     } while (--taps);
 }
+#    endif
 
 /**
  * @brief Core function to handle pointing mode task
@@ -571,7 +573,9 @@ static report_mouse_t process_pointing_mode(pointing_mode_t pointing_mode, repor
 
 #    ifdef POINTING_MODE_MAP_ENABLE
         default:
-            pointing_exec_mapping(pointing_mode.id - POINTING_MODE_MAP_START);
+            if(pointing_mode.id > POINTING_MODE_MAP_START) {
+                pointing_exec_mapping(pointing_mode.id - POINTING_MODE_MAP_START);
+            }
 #    endif
     }
     return mouse_report;

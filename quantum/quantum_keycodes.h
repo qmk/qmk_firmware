@@ -235,11 +235,11 @@
 // Default Pointing device pointing modes
 enum pointing_device_mode_list {
     PM_NONE = 0,
-    PM_PRECISION = 1,
-    PM_DRAG = 2,
-    PM_CARET = 3,
-    PM_HISTORY = 4,
-    PM_VOLUME = 5,
+    PM_PRECISION,
+    PM_DRAG,
+    PM_CARET,
+    PM_HISTORY,
+    PM_VOLUME,
     // safe range for custom modes with built in keycodes
     PM_SAFE_RANGE,
     // range for custom modes requiring custom activation/new keycodes
