@@ -50,7 +50,7 @@
 /* RGB Matrix config */
 #define RGB_EN_PIN A8
 #define RGBLED_NUM 83
-#define RGB_MATRIX_LED_COUNT RGBLED_NUM
+#define RGB_MATRIX_LED_COUNT 83
 #define RGB_MATRIX_CENTER { 62, 42 }
 
 // PWM RGB Underglow Defines
