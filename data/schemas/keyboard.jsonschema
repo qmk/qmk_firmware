@@ -256,7 +256,11 @@
                 "enabled": {"type": "boolean"}
             }
         },
-        "features": {"$ref": "qmk.definitions.v1#/boolean_array"},
+        "features": {
+            "$ref": "qmk.definitions.v1#/boolean_array",
+            "propertyNames": { "$ref": "qmk.definitions.v1#/snake_case" }
+
+        },
         "indicators": {
             "type": "object",
             "properties": {
@@ -370,6 +374,7 @@
             "properties": {
                 "animations": {
                     "type": "object",
+                    "propertyNames": { "$ref": "qmk.definitions.v1#/snake_case" }
                     "additionalProperties": {
                         "type": "boolean"
                     }
@@ -419,6 +424,7 @@
             "properties": {
                 "animations": {
                     "type": "object",
+                    "propertyNames": { "$ref": "qmk.definitions.v1#/snake_case" }
                     "additionalProperties": {
                         "type": "boolean"
                     }
@@ -471,6 +477,7 @@
             "properties": {
                 "animations": {
                     "type": "object",
+                    "propertyNames": { "$ref": "qmk.definitions.v1#/snake_case" }
                     "additionalProperties": {
                         "type": "boolean"
                     }
