@@ -48,7 +48,7 @@ def mass_compile(cli):
                 cli.log.error(f"Invalid build target: {target}")
                 return False
             if split_target[0] == 'all':
-                targets.extend(search_keymap_targets(split_target[1], []))
+                targets.extend(search_keymap_targets(split_target[1], cli.args.filter))
             else:
                 targets.append((resolve_keyboard(split_target[0]), split_target[1]))
         targets = list(sorted(set([(e[0], e[1]) for e in targets])))
