@@ -209,7 +209,7 @@ uint16_t keycode_at_pointing_mode_map_location_raw(uint8_t map_loc) {
     uint8_t map_id = map_loc >> 2;
     uint8_t dir    = map_loc & 0x03;
 
-    if (map_id < POINTING_MODE_MAP_COUNT) {
+    if (map_id < pointing_mode_map_count()) {
         return pgm_read_word(&pointing_mode_maps[map_id][dir]);
     }
     return KC_NO;

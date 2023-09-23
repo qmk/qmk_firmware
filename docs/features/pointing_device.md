@@ -978,11 +978,11 @@ Pointing device modes activated by toggle type functions/macros have their mode 
 | `PM_SAFE_RANGE`           |  _None_   |   5-6   | Start of free mode id range supported by the `PM_MO()` and `PM_TG()` key macros (_default start of mode maps_)                                              |
 | `PM_ADVANCED_RANGE_START` |  _None_   |    16   | Start of mode id range that will require the addition of custom keycode to activate them (_new keycodes, on layers etc._)                                   |
 
-
 ***Notes:***   
 -***These modes can all be overwritten with the exception of `PM_NONE`.***   
 -***Mode ids 6-15 are free to be used for custom modes without overwriting a mode and will be supported by the built in keycode macros `PM_MO(<pm>)` and `PM_TG(<pm>)` (see adding custom modes below)***
--***The `PM_PRECISION` mode has additional behaviour when it is toggled, all modes activated as momentary modes will have their divisors multiplied by `POINTING_PRECISION_DIVISOR` while `PM_PRECISION` is the current toggle mode (see adding divisors for more detail)***
+_***`PM_PRECISION` is intended to slow cursor movment when desired on devices without CPI settings or when changing CPI settings is unreliable or undesirable***
+-***`PM_PRECISION` has additional behaviour when it is toggled, all modes activated as momentary modes will have their divisors multiplied by `POINTING_PRECISION_DIVISOR` while `PM_PRECISION` is the current toggle mode (see adding divisors for more detail)***
 
 #### Use In A keymap:
 
@@ -1000,32 +1000,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ### Settings
 
 | Define                           | Description                                                                                        |  Range  |     Units    |                        Default |
-| -------------------------------- | -------------------------------------------------------------------------------------------------- | :-----: | :----------: | -----------------------------: |
-| `POINTING_DEVICE_MODES_ENABLE`   | (Required) Enables pointing device pointing device modes feature                                   |  `NA`   |    `None`    |                  _Not defined_ |
-| `POINTING_DEVICE_MODES_INVERT_X` | (optional) Inverts stored y axis accumulation (affects all modes)                                  |  `NA`   |    `None`    |                  _Not defined_ |
-| `POINTING_DEVICE_MODES_INVERT_Y` | (optional) Inverts stored x axis accumulation (affects all modes)                                  |  `NA`   |    `None`    |                  _Not defined_ |
-| `POINTING_MODE_DEFAULT`          | (optional) Default pointing device mode                                                            | `0-255` |    `None`    |                      `PM_NONE` |
-| `POINTING_TAP_DELAY`             | (optional) Delay between key presses in `pointing_tap_codes` in ms                                 | `0-255` |     `ms`     |               `TAP_CODE_DELAY` |
-| `POINTING_MODE_MAP_COUNT`        | (optional) Number of modes defined in `pointing_device_mode_maps`(_required if using mode maps_)   | `0-255` |    `None`    |                            `0` |
-| `POINTING_MODE_MAP_START`        | (optional) Starting mode id of `pointing_device_mode_maps`                                         | `0-255` |    `None`    |                `PM_SAFE_RANGE` |
-| `POINTING_DEFAULT_DIVISOR`       | (optional) Default divisor for all modes that do not have a defined divisor                        | `1-255` |   `Varies`   |                           `64` |
-| `POINTING_HISTORY_DIVISOR`       | (optional) Accumulated stored x/y per key tap in `PM_HISTORY` mode                                 | `1-255` | `(x\|y)/tap` |                           `64` |
-| `POINTING_VOLUME_DIVISOR`        | (optional) Accumulated stored x/y per key tap in `PM_VOLUME` mode                                  | `1-255` | `(x\|y)/tap` |                           `64` |
-| `POINTING_CARET_DIVISOR`         | (optional) Accumulated stored x/y per key tap in `PM_CARET` mode                                   | `1-255` | `(x\|y)/tap` |                           `32` |
-| `POINTING_CARET_DIVISOR_V`       | (optional) x input per left/right tap in `PM_CARET`(_overrides_ `POINTING_CARET_DIVISOR`)          | `1-255` |   `(y)/tap`  |       `POINTING_CARET_DIVISOR` |
-| `POINTING_CARET_DIVISOR_H`       | (optional) y input per up/down tap in `PM_CARET`(_overrides_ `POINTING_CARET_DIVISOR`)             | `1-255` |   `(x)/tap`  |       `POINTING_CARET_DIVISOR` |
-| `POINTING_PRECISION_DIVISOR`     | (optional) Pointing device x/y movement per output x/y in `PM_PRECISION` mode                      | `1-255` | `(x\|y)/dot` |                            `2` |
-| `POINTING_DRAG_DIVISOR`          | (optional) Pointing device x/y movement per h/v axis tick in `PM_DRAG` mode                        | `1-255` | `(x\|y)/dot` |                            `4` |
+| -------------------------------- | ----------------------------------------------------------------------------------------- | :-----: | :----------: | -----------------------: |
+| `POINTING_DEVICE_MODES_ENABLE`   | (Required) Enables pointing device pointing device modes feature                          |  `NA`   |    `None`    |            _Not defined_ |
+| `POINTING_DEVICE_MODES_INVERT_X` | (optional) Inverts stored y axis accumulation (affects all modes)                         |  `NA`   |    `None`    |            _Not defined_ |
+| `POINTING_DEVICE_MODES_INVERT_Y` | (optional) Inverts stored x axis accumulation (affects all modes)                         |  `NA`   |    `None`    |            _Not defined_ |
+| `POINTING_MODE_DEFAULT`          | (optional) Default pointing device mode                                                   | `0-255` |    `None`    |                `PM_NONE` |
+| `POINTING_TAP_DELAY`             | (optional) Delay between key presses in `pointing_tap_codes` in ms                        | `0-255` |     `ms`     |         `TAP_CODE_DELAY` |
+| `POINTING_MODE_MAP_ENABLE`       | (optional) Enable use of pointing mode maps                                               |  `NA`   |    `None`    |            _Not defined_ |
+| `POINTING_MODE_MAP_START`        | (optional) Starting mode id of `pointing_device_mode_maps`                                | `0-255` |    `None`    |          `PM_SAFE_RANGE` |
+| `POINTING_DEFAULT_DIVISOR`       | (optional) Default divisor for all modes that do not have a defined divisor               | `1-255` |   `Varies`   |                     `64` |
+| `POINTING_HISTORY_DIVISOR`       | (optional) Accumulated stored x/y per key tap in `PM_HISTORY` mode                        | `1-255` | `(x\|y)/tap` |                     `64` |
+| `POINTING_VOLUME_DIVISOR`        | (optional) Accumulated stored x/y per key tap in `PM_VOLUME` mode                         | `1-255` | `(x\|y)/tap` |                     `64` |
+| `POINTING_CARET_DIVISOR`         | (optional) Accumulated stored x/y per key tap in `PM_CARET` mode                          | `1-255` | `(x\|y)/tap` |                     `32` |
+| `POINTING_CARET_DIVISOR_V`       | (optional) x input per left/right tap in `PM_CARET`(_overrides_ `POINTING_CARET_DIVISOR`) | `1-255` |   `(y)/tap`  | `POINTING_CARET_DIVISOR` |
+| `POINTING_CARET_DIVISOR_H`       | (optional) y input per up/down tap in `PM_CARET`(_overrides_ `POINTING_CARET_DIVISOR`)    | `1-255` |   `(x)/tap`  | `POINTING_CARET_DIVISOR` |
+| `POINTING_PRECISION_DIVISOR`     | (optional) Pointing device x/y movement per output x/y in `PM_PRECISION` mode             | `1-255` | `(x\|y)/dot` |                      `2` |
+| `POINTING_DRAG_DIVISOR`          | (optional) Pointing device x/y movement per h/v axis tick in `PM_DRAG` mode               | `1-255` | `(x\|y)/dot` |                      `4` |
 
 !> For processors without hardware supported integer division it is generally recommended that powers of 2 are used for divisors (_i.e. 1, 2, 4, 8, 16, 32, 64, 128_) as it will usually optimize better (both faster and less code space), however **any positive integer of 255 or less** can work.
 
-Speed and sensitivity of any mode will be impacted by the pointing device CPI setting so divisors may need to be adjusted to personal preference and CPI settings typically used (_note dynamic divisors adjustment based on cpi could be used if desired_). 
+Speed and sensitivity of any mode will be impacted by the pointing device CPI setting so divisors may need to be adjusted to personal preference and CPI settings typically used (_note dynamic divisors adjustment based on cpi could be used for testing_).
 
-!> Drag scroll speed will be effected by OS mouse settings (_there are usually separate settings for scroll "wheel" and "wheel tilt" which is Vertical and Horzontal scroll respectively_)   
+!> Drag scroll speed will additionally be effected by OS mouse scoll settings, there are usually separate settings for scroll "wheel" and "wheel tilt" which is Vertical and Horzontal scroll respectively. The `POINTING_DRAG_DIVISOR` default value of 16 is based on having mouse settings in the OS set to three lines per tick of "mouse wheel" or "wheel tilt" (_Windows Default_).
 
-The `POINTING_DRAG_DIVISOR` default value of 16 is based on having mouse settings in the OS set to three lines per tick of "mouse wheel" or "wheel tilt" (_Windows Default_)
-
-!> `POINTING_PRECISION_DIVISOR` default will half cursor speed when active (_divisor of 2_) but a divisor of 4 is fine to use as well but the cursor will be quite a bit slower, however divisors of 8 or greater will likely only work well for very high cpi settings.
+`POINTING_PRECISION_DIVISOR` default will half cursor speed when active (_divisor of 2_) but a divisor of 4 is fine to use as well but the cursor will be twice as slow as the default, however divisors of 8 or greater will likely only work well for very high cpi settings.
 
 Recommended settings for `POINTING_CARET_DIVISOR_V` and `POINTING_CARET_DIVISOR_H` are `16` and `32` respectively which will give preference to horizontal caret movement (`KC_LEFT`, `KC_RIGHT`) over vertical (`KC_UP`, `KC_DOWN`) giving even more stability to horizontal movement (_reducing errant up and down movement_).
 
@@ -1037,9 +1035,7 @@ There are a couple of ways to add new pointing device modes, using the pointing 
 
 #### Pointing Device Mode Maps
 
-The easiest way to add pointing device modes that are only using keycode taps (similar to `PM_CARET`, `PM_VOLUME`, and `PM_HISTORY`) are through creating pointing device mode maps.
-
-!> Currently only **basic keycodes with modifiers** are supported by pointing device mode maps and the `pointing_tap_codes` function (custom and quantum keycodes are unsupported at this time)
+The easiest way to add pointing device modes that are only using keycode taps (similar to `PM_CARET`, `PM_VOLUME`, and `PM_HISTORY`) are through creating pointing device mode maps. Additionally Pointing Device Mode Maps support all QMK keycodes similar to encoder maps.
 
 ```c
 // Pointing Device Mode Maps Format
@@ -1064,22 +1060,29 @@ const uint16_t PROGMEM pointing_device_mode_maps[][POINTING_NUM_DIRECTIONS] = {
 ```c
 // in config.h:
 #define POINTING_DEVICE_MODES_ENABLE // (Required)
-#define POINTING_MODE_MAP_COUNT 4    // (Required) number of modes in map
-#define EXTRAKEY_ENABLE              // (optional) matters for mode id numbers
+#define POINTING_MODE_MAP_ENABLE     // (Required)
+#define EXTRAKEY_ENABLE              // (optional) 
 // pointing mode map start is left at default value in this example
 
 // in keymap.c
 // required enum to set mode id's
+// Note the use of POINTING_MODE_MAP_START here is essential
 enum keymap_pointing_mode_ids {
     PM_BROW = POINTING_MODE_MAP_START,  // BROWSER TAB Manipulation                      [mode id  6]
     PM_APP,                             // Open App browsing                             [mode id  7]
-    POSTMAP_PM_SAFE_RANGE               // To avoid overlap when adding additional modes [mode id  8]
+    PM_RGB_MB,                          // Change RGB Mode brightness                    [mode id  8]
+    PM_RGB_HS,                          // Change RGB Hue and Saturation                 [mode id  9]
+    PM_RGB_MSP,                         // Change RGB Mode and Speed                     [madi id 10]
+    POSTMAP_PM_SAFE_RANGE               // To avoid overlap when adding additional modes [mode id 11]
 };
 // (optional) enum to make things easier to read (index numbers can be used directly)
-// Must be in the same order as the above modes
+// Must be in the same order as the above mode ids
 enum keymap_pointing_mode_maps_index {
-    _PM_BROW, // first mode map  [index  0]
-    _PM_APP   // second mode map [index  1]
+    _PM_BROW,     // first mode map  [index  0]
+    _PM_APP,      // second mode map [index  1]
+    _PM_RGB_MB,   // third mode map  [index  2]
+    _PM_RGB_HS,   // fourth mode map [index  3]
+    _PM_RGB_MSP   // fifth mode map  [index  5]
 };
 
 const uint16_t PROGMEM pointing_device_mode_maps[][POINTING_NUM_DIRECTIONS] = {
@@ -1092,15 +1095,28 @@ const uint16_t PROGMEM pointing_device_mode_maps[][POINTING_NUM_DIRECTIONS] = {
                      KC_NO,
         A(S(KC_TAB)),       A(KC_TAB),
                      KC_NO
+    ),
+    [_PM_RGB_MB] = POINTING_MODE_LAYOUT(
+                 RGB_VAI,
+        RGB_RMOD,        RGB_MOD,
+                 RGB_VAD
+    ),
+    [_PM_RGB_HS] = POINTING_MODE_LAYOUT(
+                 RGB_HUI,
+        RGB_SAD,         RGB_SAI,n
+                 RGB_HUD
+    ),
+    [_PM_RGB_MSP] = POINTING_MODE_LAYOUT(
+                 RGB_SPI,
+        RGB_RMOD,        RGB_MOD,
+                 RGB_SPD
     )
 };
 
 ```
-!> use `KC_NO` is when no keycode is desired, use of `KC_TRNS` or `_______` is unsupported as these maps do not act like layers (only one can be active at a time).
+!> use `KC_NO` when no keycode is desired, use of `KC_TRNS` or `_______` is unsupported as these maps do not act like layers (only one can be active at a time).
 
-The mode map array starts at index 0 and **must** be in the **same order** as the maps mode_ids (i.e `<mode map array index> + POINTING_MODE_MAP_START = <mode map mode_id>`) and If mode maps and pointing mode processing callbacks are being used together to define multiple modes care must be taken to ensure that there is no overlap between mode ids as the callbacks will override the mode maps (_The reason for the definition of `POST_PM_SAFE_RANGE` at the end of enum in the above example_)
-
-!> Note that mode maps with a mode id greater than `POINTING_MODE_MAP_COUNT + POINTING_MODE_MAP_START - 1` or index higher than `POINTING_MODE_MAP_COUNT - 1` will be ignored and waste memory.nn
+The mode map array starts at index 0 and **must** be in the **same order** as the maps mode_ids (i.e `<mode map array index> + POINTING_MODE_MAP_START = <mode map mode_id>`), so use of `POINTING_MODE_MAP_START` and somethin mode maps and pointing mode processing callbacks are being used together to define multiple modes care must be taken to ensure that there is no overlap between mode ids to avoid unexpected behaviour (_The reason for the definition of `POSTMAP_PM_SAFE_RANGE` at the end of enum in the above example_)
 
 ### Adding & Customizing Divisors
 
@@ -1321,7 +1337,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             toggle_pointing_mode_id(PM_VOL);
             break;
         default:
-            // disable toggled pointing mode if 
+            // disable toggled pointing mode if
             switch(get_toggled_pointing_mode_id()) {
                 case PM_CARET:
                 case PM_VOL:
@@ -1360,7 +1376,7 @@ There are several functions available to assist with the creation of custom mode
 | `multiply_divisor_hv(int8_t value)`                                                         | Multiplies scroll value by the current divisor clamped to `int16_t` (_to collect the residual_) |   `int16_t`  |
 | `pointing_mode_divisor_override(uint8_t divisor)`                                           | Override current pointing mode divisor and still apply post processing for divisors             |    _None_    |
 
-!> Currently `pointing_tap_codes` only supports basic keycodes with modifiers (custom and quantum keycodes are unsupported) _it uses `tap_code16_delay` internally to send keycode taps_
+!> `pointing_tap_codes` only supports basic keycodes with modifiers (custom and quantum keycodes are unsupported) _it uses `tap_code16_delay` internally to send keycode taps_
 
 
 #### Creating modes using callback functions:
