@@ -47,6 +47,10 @@ def _load_keymap_info(keyboard, keymap):
         return (keyboard, keymap, keymap_json(keyboard, keymap))
 
 
+def _load_keymap_info_tuple(kb_km):
+    return _load_keymap_info(kb_km[0], kb_km[1])
+
+
 def expand_make_targets(targets: List[str]) -> List[Tuple[str, str]]:
     split_targets = []
     for target in targets:
@@ -92,14 +96,13 @@ def expand_keymap_targets(targets: List[Tuple[str, str]]) -> List[Tuple[str, str
     return list(sorted(set(overall_targets)))
 
 
-def filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str] = [], print_vals: List[str] = []) -> List[Tuple[str, str, List[Tuple[str, str]]]]:
-    target_list = list(sorted(set(target_list)))
+def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str] = [], print_vals: List[str] = []) -> List[Tuple[str, str, List[Tuple[str, str]]]]:
     with multiprocessing.Pool() as pool:
         if len(filters) == 0:
             targets = [(kb, km, {}) for kb, km in target_list]
         else:
             cli.log.info('Parsing data for all matching keyboard/keymap combinations...')
-            valid_keymaps = [(e[0], e[1], dotty(e[2])) for e in pool.starmap(_load_keymap_info, target_list)]
+            valid_keymaps = [(e[0], e[1], dotty(e[2])) for e in pool.imap_unordered(_load_keymap_info_tuple, target_list)]
 
             function_re = re.compile(r'^(?P<function>[a-zA-Z]+)\((?P<key>[a-zA-Z0-9_\.]+)(,\s*(?P<value>[^#]+))?\)$')
             equals_re = re.compile(r'^(?P<key>[a-zA-Z0-9_\.]+)\s*=\s*(?P<value>[^#]+)$')
@@ -161,8 +164,8 @@ def filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str]
 
 
 def search_keymap_targets(keymap='default', filters: List[str] = [], print_vals: List[str] = []) -> List[Tuple[str, str, List[Tuple[str, str]]]]:
-    return filter_keymap_targets(expand_keymap_targets([('all', keymap)]), filters, print_vals)
+    return list(sorted(_filter_keymap_targets(expand_keymap_targets([('all', keymap)]), filters, print_vals), key=lambda e: (e[0], e[1])))
 
 
 def search_make_targets(targets: List[str], filters: List[str] = [], print_vals: List[str] = []) -> List[Tuple[str, str, List[Tuple[str, str]]]]:
-    return filter_keymap_targets(expand_make_targets(targets), filters, print_vals)
+    return list(sorted(_filter_keymap_targets(expand_make_targets(targets), filters, print_vals), key=lambda e: (e[0], e[1])))
