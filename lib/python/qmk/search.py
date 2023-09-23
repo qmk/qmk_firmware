@@ -69,8 +69,8 @@ def _expand_keymap_target(keyboard: str, keymap: str, all_keyboards: List[str]) 
                         targets.append((keyboard, keymap))
             else:
                 cli.log.info(f'Retrieving list of keyboards with keymap "{keymap}"...')
-                l = functools.partial(_keymap_exists, keymap=keymap)
-                for keyboard in pool.imap_unordered(l, all_keyboards):
+                keyboard_filter = functools.partial(_keymap_exists, keymap=keymap)
+                for keyboard in pool.imap_unordered(keyboard_filter, all_keyboards):
                     if keyboard is not None:
                         targets.append((keyboard, keymap))
         else:
