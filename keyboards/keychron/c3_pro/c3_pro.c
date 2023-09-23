@@ -72,8 +72,6 @@ void housekeeping_task_kb(void) {
             os_switch_timer_buffer = timer_read32();
         }
     }
-
-    housekeeping_task_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
