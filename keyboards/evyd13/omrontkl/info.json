@@ -16,14 +16,14 @@
     "processor": "atmega32u4",
     "bootloader": "qmk-dfu",
     "layout_aliases": {
-        "LAYOUT_ansi": "LAYOUT_tkl_ansi",
-        "LAYOUT_iso": "LAYOUT_tkl_iso"
+        "LAYOUT_ansi": "LAYOUT_tkl_ansi_tsangan",
+        "LAYOUT_iso": "LAYOUT_tkl_iso_tsangan"
     },
     "community_layouts": [
-        "tkl_ansi",
-        "tkl_ansi_split_bs_rshift",
-        "tkl_iso",
-        "tkl_iso_split_bs_rshift"
+        "tkl_ansi_tsangan",
+        "tkl_ansi_tsangan_split_bs_rshift",
+        "tkl_iso_tsangan",
+        "tkl_iso_tsangan_split_bs_rshift"
     ],
     "layouts": {
         "LAYOUT_all": {
@@ -133,7 +133,7 @@
                 {"matrix": [5, 16], "x": 17.25, "y": 5.25}
             ]
         },
-        "LAYOUT_tkl_ansi": {
+        "LAYOUT_tkl_ansi_tsangan": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
 
@@ -236,7 +236,7 @@
                 {"matrix": [5, 16], "x": 17.25, "y": 5.25}
             ]
         },
-        "LAYOUT_tkl_ansi_split_bs_rshift": {
+        "LAYOUT_tkl_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
 
@@ -341,7 +341,7 @@
                 {"matrix": [5, 16], "x": 17.25, "y": 5.25}
             ]
         },
-        "LAYOUT_tkl_iso": {
+        "LAYOUT_tkl_iso_tsangan": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
 
@@ -445,7 +445,7 @@
                 {"matrix": [5, 16], "x": 17.25, "y": 5.25}
             ]
         },
-        "LAYOUT_tkl_iso_split_bs_rshift": {
+        "LAYOUT_tkl_iso_tsangan_split_bs_rshift": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
 
