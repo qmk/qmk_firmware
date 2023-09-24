@@ -6,6 +6,4 @@ SRC += satisfaction_encoder.c \
       satisfaction_oled.c \
       satisfaction_core.c 
 
-OLED_DRIVER = ssd1306
-
 DEFAULT_FOLDER = cannonkeys/satisfaction75/rev1
