@@ -70,13 +70,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             dynamic_keymap_set_keycode(0, 4, 2, KC_LALT);
                             dynamic_keymap_set_keycode(0, 4, 10, KC_RALT);
                             system_type = OS_WINDOWS;
-                            LED_FLAG    = none;
+                            LED_FLAG    = OS_UNSURE;
                         } else {
                             dynamic_keymap_set_keycode(0, 4, 1, KC_LALT);
                             dynamic_keymap_set_keycode(0, 4, 2, KC_LGUI);
                             dynamic_keymap_set_keycode(0, 4, 10, KC_RGUI);
-                            system_type = mac;
-                            LED_FLAG    = none;
+                            system_type = OS_MACOS;
+                            LED_FLAG    = OS_UNSURE;
                         }
                     }
                 } else {
