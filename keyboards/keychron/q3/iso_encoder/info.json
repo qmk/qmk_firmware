@@ -18,7 +18,6 @@
     },
     "processor": "STM32L432",
     "bootloader": "stm32-dfu",
-    "community_layouts": ["tkl_f13_iso"],
     "layouts": {
         "LAYOUT_tkl_f13_iso": {
             "layout": [
