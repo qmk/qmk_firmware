@@ -18,8 +18,12 @@
     },
     "processor": "STM32L432",
     "bootloader": "stm32-dfu",
+    "layout_alises": {
+        "LAYOUT_jis_92": "LAYOUT_tkl_f13_jis"
+    },
+    "community_layouts": ["tkl_f13_jis"],
     "layouts": {
-        "LAYOUT_jis_92": {
+        "LAYOUT_tkl_f13_jis": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1.25, "y": 0},
