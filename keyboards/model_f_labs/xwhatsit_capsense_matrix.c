@@ -544,11 +544,9 @@ uint16_t calibration_measure_all_valid_keys(uint8_t time, uint8_t reps, bool loo
     return min;
 }
 
-#if CAPSENSE_CAL_ENABLED
-#if defined(BOOTMAGIC_ENABLE) || defined(BOOTMAGIC_LITE)
-#error "Calibration is not supported in conjunction with BOOTMAGIC, because calibration requires that no keys are pressed while the keyboard is plugged in"
-#endif
-#endif
+// Calibration is not supported in conjunction with BOOTMAGIC, because calibration requires that no keys are
+// pressed while the keyboard is plugged in
+void bootmagic_lite(void) {}
 
 uint16_t cal_thresholds[CAPSENSE_CAL_BINS];
 matrix_row_t assigned_to_threshold[CAPSENSE_CAL_BINS][MATRIX_CAPSENSE_ROWS];
