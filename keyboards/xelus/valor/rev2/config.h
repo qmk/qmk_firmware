@@ -16,14 +16,6 @@
 
 #pragma once
 
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { B11, B10, A3, A1, A2 }
-#define MATRIX_COL_PINS { B2, B1, B0, A7, A6, A5, A4, A13, B7, B6, B5, B4, B3, A15, A14 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 
@@ -48,8 +40,6 @@
 #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 8191
 
 /* RGB Matrix */
-#define RGB_DI_PIN A9
-#define RGBLED_NUM 28
 #define RGB_MATRIX_LED_COUNT 28
 #define NOP_FUDGE 0.4
 

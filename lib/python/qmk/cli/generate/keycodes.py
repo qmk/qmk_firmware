@@ -96,6 +96,11 @@ def _generate_helpers(lines, keycodes):
 
 
 def _generate_aliases(lines, keycodes):
+    # Work around ChibiOS ch.h include guard
+    if 'CH_H' in [value['key'] for value in keycodes['aliases'].values()]:
+        lines.append('')
+        lines.append('#undef CH_H')
+
     lines.append('')
     lines.append('// Aliases')
     for key, value in keycodes["aliases"].items():
@@ -143,7 +148,7 @@ def generate_keycode_extras(cli):
     """
 
     # Build the header file.
-    keycodes_h_lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '#pragma once', '#include "keymap.h"', '// clang-format off']
+    keycodes_h_lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '#pragma once', '#include "keycodes.h"', '// clang-format off']
 
     keycodes = load_spec(cli.args.version, cli.args.lang)
 

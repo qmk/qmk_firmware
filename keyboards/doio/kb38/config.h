@@ -3,7 +3,6 @@
 
 #pragma once
 
-#define RGB_DI_PIN F6
 #define RGB_MATRIX_LED_COUNT 44
 
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200

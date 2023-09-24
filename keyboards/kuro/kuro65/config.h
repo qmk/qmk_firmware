@@ -19,8 +19,6 @@
 
 /* RGB Matrix defines*/
 #ifdef RGB_MATRIX_ENABLE
-// The pin connected to the data pin of the LEDs
-#    define RGB_DI_PIN E6
 // The number of LEDs connected
 #    define RGB_MATRIX_LED_COUNT 69
 

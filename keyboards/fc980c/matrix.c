@@ -29,8 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "matrix.h"
 #include "led.h"
 #include "avr/timer_avr.h"
-// #include QMK_KEYBOARD_H
-
 
 // Timer resolution check
 #if (1000000/TIMER_RAW_FREQ > 20)

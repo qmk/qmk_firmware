@@ -28,7 +28,6 @@
         "key_lock": false
     },
     "rgblight": {
-        "pin": "B0",
         "led_count": 18,
         "hue_steps": 8,
         "saturation_steps": 8,
@@ -47,6 +46,9 @@
             "static_gradient": true,
             "twinkle": true
         }
+    },
+    "ws2812": {
+        "pin": "B0"
     },
     "layouts": {
         "LAYOUT": {
@@ -110,7 +112,7 @@
                 {"label": "K75 (F7,D7)", "matrix": [7, 5], "x": 11.25, "y": 3, "w": 1.75},
                 {"label": "K66 (F6,D6)", "matrix": [6, 6], "x": 13, "y": 3},
                 {"label": "K76 (F7,D6)", "matrix": [7, 6], "x": 14, "y": 3},
-                
+
                 {"label": "K80 (F4,C7)", "matrix": [8, 0], "x": 0, "y": 4, "w": 1.25},
                 {"label": "K90 (F5,C7)", "matrix": [9, 0], "x": 1.25, "y": 4, "w": 1.25},
                 {"label": "K81 (F4,C6)", "matrix": [8, 1], "x": 2.5, "y": 4, "w": 1.25},

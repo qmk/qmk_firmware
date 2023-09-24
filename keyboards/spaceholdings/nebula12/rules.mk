@@ -16,7 +16,6 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 AUDIO_ENABLE = no                  # Audio output
 NO_USB_STARTUP_CHECK = no          # Disable initialization only when usb is plugged in
 RGBLIGHT_ENABLE = yes              # Underglow RGB
-WS2812_DRIVER = spi                # Underglow RGB Driver
 
 CIE1931_CURVE = yes
 

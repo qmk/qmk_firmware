@@ -17,23 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-#define MATRIX_ROW_PINS {B1,B2,B3,D4}
-#define MATRIX_COL_PINS {F0,F1,F4,F5,F6,F7,E6,D7,B4,B5,B6,C6,C7}
-
-/* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
@@ -102,18 +85,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENABLE_RGB_MATRIX_PIXEL_FLOW
 #define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
 // enabled only if RGB_MATRIX_FRAMEBUFFER_EFFECTS is defined
-#define ENABLE_RGB_MATRIX_TYPING_HEATMAP
-#define ENABLE_RGB_MATRIX_DIGITAL_RAIN
+// #define ENABLE_RGB_MATRIX_TYPING_HEATMAP
+// #define ENABLE_RGB_MATRIX_DIGITAL_RAIN
 // enabled only of RGB_MATRIX_KEYPRESSES or RGB_MATRIX_KEYRELEASES is defined
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
-#define ENABLE_RGB_MATRIX_SPLASH
-#define ENABLE_RGB_MATRIX_MULTISPLASH
-#define ENABLE_RGB_MATRIX_SOLID_SPLASH
-#define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
+// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE
+// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
+// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
+// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
+// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
+// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
+// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
+// #define ENABLE_RGB_MATRIX_SPLASH
+// #define ENABLE_RGB_MATRIX_MULTISPLASH
+// #define ENABLE_RGB_MATRIX_SOLID_SPLASH
+// #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH

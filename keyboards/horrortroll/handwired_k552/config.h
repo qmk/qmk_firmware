@@ -16,17 +16,6 @@
 
 #pragma once
 
-
-/* Key matrix pins */
-#define MATRIX_ROW_PINS { C12, C10, A10, A8, C8, C9 }
-#define MATRIX_COL_PINS { B15,  C6,  C7, A3, A1, C3, C1, B14, B13, A9, B3, B4, A0, C11, C4, C0, C2 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION ROW2COL
-
-/* Forcing to use NKRO instead 6KRO */
-#define FORCE_NKRO
-
 // SPI configuration
 #define SPI_DRIVER SPID1
 #define SPI_SCK_PIN A5
@@ -59,9 +48,6 @@
     #define RGB_MATRIX_LED_COUNT 24
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
     #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
-
-    /* RGB Matrix config */
-    #define RGB_DI_PIN C14
 
     /* RGB Matrix effect */
     #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN

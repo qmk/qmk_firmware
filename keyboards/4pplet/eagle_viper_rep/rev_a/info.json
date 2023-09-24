@@ -8,10 +8,36 @@
         "pid": "0x0007",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["A0", "B1", "B0", "A4", "B5", "B4", "B3"],
+        "rows": ["A2", "A1", "B8", "A10", "C15", "A15", "B7", "B6", "C14", "C13"]
+    },
+    "diode_direction": "COL2ROW",
     "backlight": {
         "pin": "A3",
         "levels": 10,
         "breathing": true
+    },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 16,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "A7",
+        "driver": "spi"
     },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
@@ -89,7 +115,6 @@
                 {"label": "Ctrl", "matrix": [8, 6], "x": 13.75, "y": 4, "w": 1.25}
             ]
         },
-
         "LAYOUT_60_ansi_split_bs_rshift": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -161,7 +186,6 @@
                 {"label": "Ctrl", "matrix": [8, 6], "x": 13.75, "y": 4, "w": 1.25}
             ]
         },
-
         "LAYOUT_60_tsangan_hhkb": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -232,7 +256,6 @@
                 {"label": "Ctrl", "matrix": [8, 6], "x": 13.5, "y": 4, "w": 1.5}
             ]
         },
-
         "LAYOUT_60_hhkb": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},

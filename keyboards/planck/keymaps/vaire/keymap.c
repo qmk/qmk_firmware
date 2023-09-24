@@ -80,47 +80,48 @@ void matrix_init_user(void)
     println("Matrix Init");
 }
 
-void led_set_user(uint8_t usb_led)
+bool led_update_user(led_t led_state)
 {
-    static uint8_t old_usb_led = 0;
+    static led_t old_led_state = {0};
 
     _delay_ms(10); // gets rid of tick
 
     if (!is_playing_notes())
     {
-        if ((usb_led & (1<<USB_LED_CAPS_LOCK)) && !(old_usb_led & (1<<USB_LED_CAPS_LOCK)))
+        if (led_state.caps_lock && !old_led_state.caps_lock)
         {
                 // If CAPS LK LED is turning on...
                 PLAY_SONG(tone_caps_on);
         }
-        else if (!(usb_led & (1<<USB_LED_CAPS_LOCK)) && (old_usb_led & (1<<USB_LED_CAPS_LOCK)))
+        else if (!led_state.caps_lock && old_led_state.caps_lock)
         {
                 // If CAPS LK LED is turning off...
                 PLAY_SONG(tone_caps_off);
         }
-        else if ((usb_led & (1<<USB_LED_NUM_LOCK)) && !(old_usb_led & (1<<USB_LED_NUM_LOCK)))
+        else if (led_state.num_lock && !old_led_state.num_lock)
         {
                 // If NUM LK LED is turning on...
                 PLAY_SONG(tone_numlk_on);
         }
-        else if (!(usb_led & (1<<USB_LED_NUM_LOCK)) && (old_usb_led & (1<<USB_LED_NUM_LOCK)))
+        else if (!led_state.num_lock && old_led_state.num_lock)
         {
                 // If NUM LED is turning off...
                 PLAY_SONG(tone_numlk_off);
         }
-        else if ((usb_led & (1<<USB_LED_SCROLL_LOCK)) && !(old_usb_led & (1<<USB_LED_SCROLL_LOCK)))
+        else if (led_state.scroll_lock && !old_led_state.scroll_lock)
         {
                 // If SCROLL LK LED is turning on...
                 PLAY_SONG(tone_scroll_on);
         }
-        else if (!(usb_led & (1<<USB_LED_SCROLL_LOCK)) && (old_usb_led & (1<<USB_LED_SCROLL_LOCK)))
+        else if (!led_state.scroll_lock && old_led_state.scroll_lock)
         {
                 // If SCROLL LED is turning off...
                 PLAY_SONG(tone_scroll_off);
         }
     }
 
-    old_usb_led = usb_led;
+    old_led_state = led_state;
+    return false;
 }
 
 
