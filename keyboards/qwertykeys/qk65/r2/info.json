@@ -2,6 +2,7 @@
     "manufacturer": "Qwertykeys",
     "keyboard_name": "QK65 Hotswap",
     "maintainer": "Siilwyn",
+    "bootloader": "custom",
     "diode_direction": "COL2ROW",
     "qmk": {
         "tap_keycode_delay": 5
