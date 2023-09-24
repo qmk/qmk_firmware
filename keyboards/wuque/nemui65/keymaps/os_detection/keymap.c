@@ -40,13 +40,6 @@ os_variant_t LED_FLAG = OS_UNSURE;
 
 void keyboard_post_init_user() {
     system_type = detected_host_os();
-    if (keycode_at_keymap_location(0, 4, 1) == KC_LGUI && keycode_at_keymap_location(0, 4, 2) == KC_LALT && keycode_at_keymap_location(0, 4, 10) == KC_RALT) {
-        system_type = win;
-    } else if (keycode_at_keymap_location(0, 4, 1) == KC_LALT && keycode_at_keymap_location(0, 4, 2) == KC_LGUI && keycode_at_keymap_location(0, 4, 10) == KC_RGUI) {
-        system_type = mac;
-    } else {
-        system_type = other;
-    }
 }
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
