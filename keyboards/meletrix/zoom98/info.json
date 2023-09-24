@@ -5,7 +5,7 @@
   "maintainer": "spbgzh",
   "usb": {
     "vid": "0x36B5",
-    "pid": "0x0098",
+    "pid": "0x27D6",
     "device_version": "0.0.1"
   },
   "encoder": {
