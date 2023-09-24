@@ -1,0 +1,3 @@
+VIA_ENABLE = yes
+LTO_ENABLE = yes
+OS_DETECTION_ENABLE = yes
