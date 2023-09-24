@@ -7,7 +7,7 @@ enum {
     _BL,
     _FL,
     _AL,
-    _CL
+    _CL,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
