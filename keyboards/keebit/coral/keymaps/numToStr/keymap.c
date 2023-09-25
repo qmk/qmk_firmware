@@ -24,18 +24,19 @@
 #define R_ROT TD(TD_MPLY_MUTE)
 
 // Custom Keys
-#define KK_COPY LCTL(KC_C)
+#define KK_COPY TD(TD_COPY_CUT)
 #define KK_PASTE RCTL(KC_V)
 #define KK_MOUSE MO(MouseLayer)
-#define KK_7 KC_7
-#define KK_8 KC_8
-#define KK_9 KC_9
+#define BOOTL_1 KC_7
+#define BOOTL_2 KC_8
+#define BOOTL_3 KC_9
 
 // ###### Tap-Dance ######
 
 enum coral_tapdance {
     TD_MNXT_MPREV,
     TD_MPLY_MUTE,
+    TD_COPY_CUT,
 };
 
 // Tap Dance definitions
@@ -44,6 +45,8 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_MNXT_MPREV] = ACTION_TAP_DANCE_DOUBLE(KC_MNXT, KC_MPRV),
     // Tap once for Play/Pause, twice for Audio Mute
     [TD_MPLY_MUTE] = ACTION_TAP_DANCE_DOUBLE(KC_MPLY, KC_MUTE),
+    // Tap once copy, twice for cut
+    [TD_COPY_CUT] = ACTION_TAP_DANCE_DOUBLE(LCTL(KC_C), LCTL(KC_X)),
 };
 
 // ###### Layers ######
@@ -61,7 +64,7 @@ enum coral_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BaseLayer] = LAYOUT(
-        KC_1,    KC_2,  KC_3,    KC_4,    KC_5,   KC_6,           /**/        KK_7,    KK_8,    KK_9,     KC_0,    KC_MINUS, KC_EQUAL,
+        KC_1,    KC_2,  KC_3,    KC_4,    KC_5,   KC_6,           /**/        BOOTL_1, BOOTL_2, BOOTL_3,  KC_0,    KC_MINUS, KC_EQUAL,
         KC_TAB,  KC_Q,  KC_W,    KC_E,    KC_R,   KC_T,           /**/        KC_Y,    KC_U,    KC_I,     KC_O,    KC_P,     KC_LBRC,
         KC_GRV,  GUI_A, ALT_S,   SFT_D,   CTL_F,  KC_G,           /**/        KC_H,    CTL_J,   SFT_K,    ALT_L,   GUI_SCLN, KC_QUOTE,
         KC_BSLS, KC_Z,  KC_X,    KC_C,    KC_V,   KC_B,           /**/        KC_N,    KC_M,    KC_COMMA, KC_DOT,  KC_SLASH, KC_RBRC,
@@ -102,7 +105,7 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
 
 // Left and right thumb is CapsLock
 const uint16_t PROGMEM caps_combo[] = {L_THUMB, R_THUMB, COMBO_END};
-const uint16_t PROGMEM bootl_combo[] = {KK_7, KK_8, KK_9, COMBO_END};
+const uint16_t PROGMEM bootl_combo[] = {BOOTL_1, BOOTL_2, BOOTL_3, COMBO_END};
 
 combo_t key_combos[] = {
     [CAPS_COMBO] = COMBO(caps_combo, QK_CAPS_WORD_TOGGLE),
