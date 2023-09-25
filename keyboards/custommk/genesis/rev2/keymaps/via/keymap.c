@@ -24,32 +24,28 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-	[0] = LAYOUT_via_6x4(
-		    KC_VOLD, KC_VOLU, KC_VOLD, KC_VOLU,
+	[0] = LAYOUT_ortho_5x4(
 			MO(1),   KC_PSLS, KC_PAST, KC_PMNS, 
 			KC_P7,   KC_P8,   KC_P9,   KC_PGUP, 
 			KC_P4,   KC_P5,   KC_P6,   KC_PPLS, 
 			KC_P1,   KC_P2,   KC_P3,   KC_PGDN, 
 			KC_P0,   KC_SPC,  KC_PDOT, KC_PENT),
 
-	[1] = LAYOUT_via_6x4(
-		    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+	[1] = LAYOUT_ortho_5x4(
 			KC_TRNS, RGB_TOG, RGB_MOD, KC_TRNS, 
 			KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
 			RGB_VAI, RGB_VAD, RGB_SPI, RGB_SPD, 
 			KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
 			RGB_HUI, RGB_HUD, KC_TRNS, KC_TRNS),
 
-	[2] = LAYOUT_via_6x4(
-		    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+	[2] = LAYOUT_ortho_5x4(
 			KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
 			KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
 			KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
 			KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
 			KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	[3] = LAYOUT_via_6x4(
-		    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+	[3] = LAYOUT_ortho_5x4(
 			KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
 			KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
 			KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
@@ -92,76 +88,11 @@ void keyboard_post_init_user(void) {
 }
 #endif
 
-
-keyevent_t encoder_left_ccw = {
-    .key = (keypos_t){.row = 5, .col = 0},
-    .pressed = false
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [0] =   { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+    [1] =   { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______)  },
+    [2] =   { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______)  },
+    [3] =   { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______)  }
 };
-
-keyevent_t encoder_left_cw = {
-    .key = (keypos_t){.row = 5, .col = 1},
-    .pressed = false
-};
-
-keyevent_t encoder_right_ccw = {
-    .key = (keypos_t){.row = 5, .col = 2},
-    .pressed = false
-};
-
-keyevent_t encoder_right_cw = {
-    .key = (keypos_t){.row = 5, .col = 3},
-    .pressed = false
-};
-
-void matrix_scan_user(void) {
-    if (IS_PRESSED(encoder_left_ccw)) {
-        encoder_left_ccw.pressed = false;
-        encoder_left_ccw.time = (timer_read() | 1);
-        action_exec(encoder_left_ccw);
-    }
-
-    if (IS_PRESSED(encoder_left_cw)) {
-        encoder_left_cw.pressed = false;
-        encoder_left_cw.time = (timer_read() | 1);
-        action_exec(encoder_left_cw);
-    }
-
-    if (IS_PRESSED(encoder_right_ccw)) {
-        encoder_right_ccw.pressed = false;
-        encoder_right_ccw.time = (timer_read() | 1);
-        action_exec(encoder_right_ccw);
-    }
-
-    if (IS_PRESSED(encoder_right_cw)) {
-        encoder_right_cw.pressed = false;
-        encoder_right_cw.time = (timer_read() | 1);
-        action_exec(encoder_right_cw);
-    }
-	
-}
-
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-	if (index == 0) {
-		if (clockwise) {
-			encoder_left_cw.pressed = true;
-			encoder_left_cw.time = (timer_read() | 1);
-			action_exec(encoder_left_cw);
-		} else {
-			encoder_left_ccw.pressed = true;
-			encoder_left_ccw.time = (timer_read() | 1);
-			action_exec(encoder_left_ccw);
-		}
-	} else {
-		if (clockwise) {
-			encoder_right_cw.pressed = true;
-			encoder_right_cw.time = (timer_read() | 1);
-			action_exec(encoder_right_cw);
-		} else {
-			encoder_right_ccw.pressed = true;
-			encoder_right_ccw.time = (timer_read() | 1);
-			action_exec(encoder_right_ccw);
-		}
-	}
-    return false;
-}
+#endif

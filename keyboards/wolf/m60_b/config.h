@@ -15,13 +15,11 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
-#include "config_common.h"
 
 /* Define RGB */
 #ifdef RGB_MATRIX_ENABLE
 
 #define RGB_MATRIX_LED_COUNT 62
-#define RGB_DI_PIN D1
 
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 #define RGB_MATRIX_KEYPRESSES 

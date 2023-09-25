@@ -362,112 +362,6 @@ float leader_succeed_song[][2] = SONG(STARTUP_SOUND);
 //float leader_fail_song[][2] = SONG(GOODBYE_SOUND);
 float leader_fail_song[][2] = SONG(NO_SOUND);
 #endif
-LEADER_EXTERNS();
-
-void matrix_scan_user(void) {
-  LEADER_DICTIONARY() {
-    did_leader_succeed = leading = false;
-
-    // tap dance
-    // sort by first key
-
-    SEQ_ONE_KEY(KC_C) {
-      SEND_STRING(SS_TAP(X_CAPS));
-      did_leader_succeed = true;
-    }
-
-    SEQ_ONE_KEY(KC_BSPC) {
-      SEND_STRING(SS_TAP(X_DEL));
-      did_leader_succeed = true;
-    }
-
-    SEQ_ONE_KEY(KC_D) {
-      SEND_STRING("{}"SS_TAP(X_LEFT));
-      did_leader_succeed = true;
-    }
-    SEQ_TWO_KEYS(KC_D, KC_B) {
-      SEND_STRING("Dear Brother");
-      did_leader_succeed = true;
-    }
-    SEQ_THREE_KEYS(KC_D, KC_B, KC_S) {
-      SEND_STRING("Dear Brothers and Sister");
-      did_leader_succeed = true;
-    }
-    SEQ_TWO_KEYS(KC_D, KC_D) {
-      SEND_STRING("{");
-      did_leader_succeed = true;
-    }
-    SEQ_THREE_KEYS(KC_D, KC_D, KC_D) {
-      SEND_STRING("}");
-      did_leader_succeed = true;
-    }
-    SEQ_TWO_KEYS(KC_D, KC_S) {
-      SEND_STRING("Dear Sister");
-      did_leader_succeed = true;
-    }
-
-    // Html Tags
-    SEQ_TWO_KEYS(KC_H, KC_T) {
-      SEND_STRING("<></>"SS_TAP(X_LEFT));
-      did_leader_succeed = true;
-    }
-
-    SEQ_TWO_KEYS(KC_I, KC_C) {
-      SEND_STRING("In Christ,");
-      did_leader_succeed = true;
-    }
-
-    SEQ_ONE_KEY(KC_J) {
-      SEND_STRING("<>"SS_TAP(X_LEFT));
-      did_leader_succeed = true;
-    }
-    SEQ_TWO_KEYS(KC_J, KC_J) {
-      SEND_STRING("<");
-      did_leader_succeed = true;
-    }
-    SEQ_THREE_KEYS(KC_J, KC_J, KC_J) {
-      SEND_STRING(">");
-      did_leader_succeed = true;
-    }
-
-    SEQ_TWO_KEYS(KC_T, KC_S) {
-      SEND_STRING("Thanks!");
-      did_leader_succeed = true;
-    }
-    SEQ_TWO_KEYS(KC_T, KC_Y) {
-      SEND_STRING("Thank you!");
-      did_leader_succeed = true;
-    }
-
-    SEQ_ONE_KEY(KC_X) {
-      SEND_STRING("()"SS_TAP(X_LEFT));
-      did_leader_succeed = true;
-    }
-    SEQ_TWO_KEYS(KC_X, KC_X) {
-      SEND_STRING("(");
-      did_leader_succeed = true;
-    }
-    SEQ_THREE_KEYS(KC_X, KC_X, KC_X) {
-      SEND_STRING(")");
-      did_leader_succeed = true;
-    }
-
-    SEQ_ONE_KEY(KC_Z) {
-      SEND_STRING("[]"SS_TAP(X_LEFT));
-      did_leader_succeed = true;
-    }
-    SEQ_TWO_KEYS(KC_Z, KC_Z) {
-      SEND_STRING("[");
-      did_leader_succeed = true;
-    }
-    SEQ_THREE_KEYS(KC_Z, KC_Z, KC_Z) {
-      SEND_STRING("]");
-      did_leader_succeed = true;
-    }
-
-    leader_end();
-  }
-}
 
 void leader_start_user(void) {
 #ifdef AUDIO_ENABLE
@@ -476,6 +370,105 @@ void leader_start_user(void) {
 }
 
 void leader_end_user(void) {
+  did_leader_succeed = false;
+
+  // tap dance
+  // sort by first key
+
+  if (leader_sequence_one_key(KC_C)) {
+    SEND_STRING(SS_TAP(X_CAPS));
+    did_leader_succeed = true;
+  }
+
+  if (leader_sequence_one_key(KC_BSPC)) {
+    SEND_STRING(SS_TAP(X_DEL));
+    did_leader_succeed = true;
+  }
+
+  if (leader_sequence_one_key(KC_D)) {
+    SEND_STRING("{}"SS_TAP(X_LEFT));
+    did_leader_succeed = true;
+  }
+  if (leader_sequence_two_keys(KC_D, KC_B)) {
+    SEND_STRING("Dear Brother");
+    did_leader_succeed = true;
+  }
+  if (leader_sequence_three_keys(KC_D, KC_B, KC_S)) {
+    SEND_STRING("Dear Brothers and Sister");
+    did_leader_succeed = true;
+  }
+  if (leader_sequence_two_keys(KC_D, KC_D)) {
+    SEND_STRING("{");
+    did_leader_succeed = true;
+  }
+  if (leader_sequence_three_keys(KC_D, KC_D, KC_D)) {
+    SEND_STRING("}");
+    did_leader_succeed = true;
+  }
+  if (leader_sequence_two_keys(KC_D, KC_S)) {
+    SEND_STRING("Dear Sister");
+    did_leader_succeed = true;
+  }
+
+  // Html Tags
+  if (leader_sequence_two_keys(KC_H, KC_T)) {
+    SEND_STRING("<></>"SS_TAP(X_LEFT));
+    did_leader_succeed = true;
+  }
+
+  if (leader_sequence_two_keys(KC_I, KC_C)) {
+    SEND_STRING("In Christ,");
+    did_leader_succeed = true;
+  }
+
+  if (leader_sequence_one_key(KC_J)) {
+    SEND_STRING("<>"SS_TAP(X_LEFT));
+    did_leader_succeed = true;
+  }
+  if (leader_sequence_two_keys(KC_J, KC_J)) {
+    SEND_STRING("<");
+    did_leader_succeed = true;
+  }
+  if (leader_sequence_three_keys(KC_J, KC_J, KC_J)) {
+    SEND_STRING(">");
+    did_leader_succeed = true;
+  }
+
+  if (leader_sequence_two_keys(KC_T, KC_S)) {
+    SEND_STRING("Thanks!");
+    did_leader_succeed = true;
+  }
+  if (leader_sequence_two_keys(KC_T, KC_Y)) {
+    SEND_STRING("Thank you!");
+    did_leader_succeed = true;
+  }
+
+  if (leader_sequence_one_key(KC_X)) {
+    SEND_STRING("()"SS_TAP(X_LEFT));
+    did_leader_succeed = true;
+  }
+  if (leader_sequence_two_keys(KC_X, KC_X)) {
+    SEND_STRING("(");
+    did_leader_succeed = true;
+  }
+  if (leader_sequence_three_keys(KC_X, KC_X, KC_X)) {
+    SEND_STRING(")");
+    did_leader_succeed = true;
+  }
+
+  if (leader_sequence_one_key(KC_Z)) {
+    SEND_STRING("[]"SS_TAP(X_LEFT));
+    did_leader_succeed = true;
+  }
+  if (leader_sequence_two_keys(KC_Z, KC_Z)) {
+    SEND_STRING("[");
+    did_leader_succeed = true;
+  }
+  if (leader_sequence_three_keys(KC_Z, KC_Z, KC_Z)) {
+    SEND_STRING("]");
+    did_leader_succeed = true;
+  }
+
   if (did_leader_succeed) {
 #ifdef AUDIO_ENABLE
     PLAY_SONG(leader_succeed_song);

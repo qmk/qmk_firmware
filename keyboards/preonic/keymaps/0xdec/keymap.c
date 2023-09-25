@@ -98,11 +98,11 @@ float tone_game[][2]    = {
 float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
 float music_scale[][2]  = SONG(MUSIC_SCALE_SOUND);
 
-void startup_user() {
+void startup_user(void) {
   _delay_ms(20); // gets rid of tick
   PLAY_SONG(tone_startup);
 }
-void shutdown_user() {
+void shutdown_user(void) {
   PLAY_SONG(tone_goodbye);
   _delay_ms(150);
   stop_all_notes();

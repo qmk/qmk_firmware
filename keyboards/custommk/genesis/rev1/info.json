@@ -1,20 +1,103 @@
 {
-    "keyboard_name": "Genesis Rev1", 
+    "keyboard_name": "Genesis Rev1",
     "manufacturer": "customMK",
-    "url": "https://www.customMK.com", 
-    "maintainer": "customMK", 
+    "url": "https://www.customMK.com",
+    "maintainer": "customMK",
     "usb": {
         "vid": "0xF35B",
         "pid": "0xFAB0",
         "device_version": "0.0.1"
     },
+    "ws2812": {
+        "pin": "E6"
+    },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 13,
+        "max_brightness": 128,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "matrix_pins": {
+        "cols": ["F4", "F5", "D7", "B4"],
+        "rows": ["F0", "C7", "C6", "B6", "B5"]
+    },
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "F6", "pin_b": "F7", "resolution": 2},
+            {"pin_a": "D2", "pin_b": "D1", "resolution": 2}
+        ]
+    },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu",
     "layouts": {
         "LAYOUT_ortho_5x4": {
-            "layout": [{"label":"MO(1)", "x":0, "y":0}, {"label":"/", "x":1, "y":0}, {"label":"*", "x":2, "y":0}, {"label":"Mute", "x":3, "y":0}, {"label":"7", "x":0, "y":1}, {"label":"8", "x":1, "y":1}, {"label":"9", "x":2, "y":1}, {"label":"+", "x":3, "y":1}, {"label":"4", "x":0, "y":2}, {"label":"5", "x":1, "y":2}, {"label":"6", "x":2, "y":2}, {"label":"Pg Up", "x":3, "y":2}, {"label":"1", "x":0, "y":3}, {"label":"2", "x":1, "y":3}, {"label":"3", "x":2, "y":3}, {"label":"Pg Dn", "x":3, "y":3}, {"label":"0", "x":0, "y":4}, {"label":"Spc", "x":1, "y":4}, {"label":".", "x":2, "y":4}, {"label":"Enter", "x":3, "y":4}]
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [1, 3], "x": 3, "y": 1},
+
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+                {"matrix": [2, 3], "x": 3, "y": 2},
+
+                {"matrix": [3, 0], "x": 0, "y": 3},
+                {"matrix": [3, 1], "x": 1, "y": 3},
+                {"matrix": [3, 2], "x": 2, "y": 3},
+                {"matrix": [3, 3], "x": 3, "y": 3},
+
+                {"matrix": [4, 0], "x": 0, "y": 4},
+                {"matrix": [4, 1], "x": 1, "y": 4},
+                {"matrix": [4, 2], "x": 2, "y": 4},
+                {"matrix": [4, 3], "x": 3, "y": 4}
+            ]
         },
         "LAYOUT_numpad_5x4": {
-            "layout": [{"label":"MO(1)", "x":0, "y":0}, {"label":"/", "x":1, "y":0}, {"label":"*", "x":2, "y":0}, {"label":"-", "x":3, "y":0}, {"label":"7", "x":0, "y":1}, {"label":"8", "x":1, "y":1}, {"label":"9", "x":2, "y":1}, {"label":"+", "x":3, "y":1, "h":2}, {"label":"4", "x":0, "y":2}, {"label":"5", "x":1, "y":2}, {"label":"6", "x":2, "y":2}, {"label":"1", "x":0, "y":3}, {"label":"2", "x":1, "y":3}, {"label":"3", "x":2, "y":3}, {"label":"Enter", "x":3, "y":3, "h":2}, {"label":"0", "x":0, "y":4, "w":2}, {"label":".", "x":2, "y":4}]
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [2, 0], "x": 3, "y": 1, "h": 2},
+
+                {"matrix": [2, 1], "x": 0, "y": 2},
+                {"matrix": [2, 2], "x": 1, "y": 2},
+                {"matrix": [2, 3], "x": 2, "y": 2},
+
+                {"matrix": [3, 0], "x": 0, "y": 3},
+                {"matrix": [3, 1], "x": 1, "y": 3},
+                {"matrix": [3, 2], "x": 2, "y": 3},
+                {"matrix": [4, 0], "x": 3, "y": 3, "h": 2},
+
+                {"matrix": [4, 2], "x": 0, "y": 4, "w": 2},
+                {"matrix": [4, 3], "x": 2, "y": 4}
+            ]
         }
-        
     }
 }

@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 CUSTOM_MATRIX 		= yes
 EXTRAKEY_ENABLE		= yes
 CONSOLE_ENABLE  	= yes

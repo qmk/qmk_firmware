@@ -29,9 +29,9 @@ ostype_t get_os() {
 
 #define MOD_SEND(KEY) (IS_OSX() ? SEND_STRING(SS_LCMD(KEY)) : SEND_STRING(SS_LCTL(KEY)))
 
-void macro_copy() { MOD_SEND("c"); }
-void macro_paste() { MOD_SEND("v"); }
-void macro_lock() {
+void macro_copy(void) { MOD_SEND("c"); }
+void macro_paste(void) { MOD_SEND("v"); }
+void macro_lock(void) {
   if (IS_OSX()) {
     SEND_STRING(SS_LCTL(SS_LCMD("q")));
   } else {

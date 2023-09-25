@@ -157,7 +157,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //   {NOTE_E5, 8}
 // };
 
-// void startup_user()
+// void startup_user(void)
 // {
 //     _delay_ms(20); // gets rid of tick
 //     PLAY_SONG(tone_startup);

@@ -1,7 +1,7 @@
 // Copyright 2022 Kyle McCreery (@kylemccreery)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "bbs.h"
+#include "quantum.h"
 
 #ifdef DIP_SWITCH_ENABLE
 bool dip_switch_update_kb(uint8_t index, bool active) { 
@@ -16,7 +16,7 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
 }
 #endif
 
-void eeconfig_init_kb() {
+void eeconfig_init_kb(void) {
     steno_set_mode(STENO_MODE_GEMINI); // or STENO_MODE_BOLT
     eeconfig_init_user();
 }

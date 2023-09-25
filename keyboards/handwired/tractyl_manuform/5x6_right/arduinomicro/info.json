@@ -1,3 +1,19 @@
 {
-    "keyboard_name": "Tractyl Manuform(5x6) Arduino Micro (r)/ Pro Micro (l)"
+    "keyboard_name": "Tractyl Manuform(5x6) Arduino Micro (r)/ Pro Micro (l)",
+    "matrix_pins": {
+        "cols": ["D4", "C6", "D7", "E6", "B4", "B5"],
+        "rows": ["F6", "F7", "B1", "B3", "B2", "B6"]
+    },
+    "diode_direction": "COL2ROW",
+    "split": {
+        "soft_serial_pin": "D0",
+        "matrix_pins": {
+            "right": {
+                "cols": ["D6", "D7", "B4", "D3", "C6", "C7"],
+                "rows": ["D4", "B7", "F7", "B6", "B5", "F6"]
+            }
+        }
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina"
 }

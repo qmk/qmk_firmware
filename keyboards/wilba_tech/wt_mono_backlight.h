@@ -76,3 +76,4 @@ void backlight_effect_speed_decrease(void);
 void backlight_brightness_increase(void);
 void backlight_brightness_decrease(void);
 
+void backlight_device_indication(uint8_t value);

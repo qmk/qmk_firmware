@@ -5,7 +5,7 @@
 #include "qp.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    LAYOUT_ortho_1x1(JS_BUTTON0)
+    LAYOUT_ortho_1x1(JS_0)
 };
 
 painter_device_t lcd;

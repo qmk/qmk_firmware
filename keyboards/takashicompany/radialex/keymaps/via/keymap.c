@@ -15,7 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 
-#define RADIALEX USER00
+#define RADIALEX QK_KB_0
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 

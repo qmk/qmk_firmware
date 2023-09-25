@@ -125,8 +125,6 @@ const uint16_t PROGMEM my_combos[][4] = {
     {KC_BTN1, KC_BTN2, KC_BTN3, COMBO_END},
 };
 
-const uint16_t COMBO_LEN = ARRAY_SIZE(my_action_combos) + ARRAY_SIZE(my_combos);
-
 #define MY_ACTION_COMBO(ck) \
     [ck] = { .keys = &(my_action_combos[ck][0]) }
 #define MY_COMBO(ck) \
@@ -534,43 +532,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef LEADER_ENABLE
-LEADER_EXTERNS();
-
-void matrix_scan_user(void) {
-  LEADER_DICTIONARY() {
-    leading = false;
-    leader_end();
-
+void leader_end_user(void) {
 #ifdef UCIS_ENABLE
-    SEQ_ONE_KEY(KC_U) {
-      ucis_start();
+    if (leader_sequence_one_key(KC_U)) {
+        ucis_start();
     }
 #endif
-    SEQ_ONE_KEY(KC_H) {
-      send_unicode_string("ᕕ( ᐛ )ᕗ");  // happy
+    if (leader_sequence_one_key(KC_H)) {
+        send_unicode_string("ᕕ( ᐛ )ᕗ");  // happy
     }
-    SEQ_ONE_KEY(KC_D) {
-      send_unicode_string("ಠ_ಠ");  // disapproval
+    if (leader_sequence_one_key(KC_D)) {
+        send_unicode_string("ಠ_ಠ");  // disapproval
     }
-    SEQ_ONE_KEY(KC_L) {
-      send_unicode_string("( ͡° ͜ʖ ͡°)");  // lenny
+    if (leader_sequence_one_key(KC_L)) {
+        send_unicode_string("( ͡° ͜ʖ ͡°)");  // lenny
     }
-    SEQ_ONE_KEY(KC_S) {
-      send_unicode_string("¯\\_(ツ)_/¯");  // shrug
+    if (leader_sequence_one_key(KC_S)) {
+        send_unicode_string("¯\\_(ツ)_/¯");  // shrug
     }
     // tableflip (LEADER - TF)
-    SEQ_TWO_KEYS(KC_T, KC_F) {
-      //set_unicode_input_mode(UNICODE_MODE_LINUX);
-      //send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B");
-      send_unicode_string("(╯°□°）╯︵ ┻━┻");
+    if (leader_sequence_two_keys(KC_T, KC_F)) {
+        //set_unicode_input_mode(UNICODE_MODE_LINUX);
+        //send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B");
+        send_unicode_string("(╯°□°）╯︵ ┻━┻");
     }
     // untableflip
-    SEQ_THREE_KEYS(KC_U, KC_T, KC_F) {
-      //set_unicode_input_mode(UNICODE_MODE_LINUX);
-      //send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B");
-      send_unicode_string("┬─┬ノ( º _ ºノ)");
+    if (leader_sequence_three_keys(KC_U, KC_T, KC_F)) {
+        //set_unicode_input_mode(UNICODE_MODE_LINUX);
+        //send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B");
+        send_unicode_string("┬─┬ノ( º _ ºノ)");
     }
-  }
 }
 #endif
 

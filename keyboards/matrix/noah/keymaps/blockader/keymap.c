@@ -645,7 +645,7 @@ bool process_record_user(uint16_t key, keyrecord_t* record) {
     return handle_common_key(key, record);
 }
 
-void keyboard_post_init_user() {
+void keyboard_post_init_user(void) {
     rgblight_disable_noeeprom();
     rgb_matrix_disable();
     common_layer_data.back = false;

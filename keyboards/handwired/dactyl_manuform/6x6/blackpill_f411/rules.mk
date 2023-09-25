@@ -1,13 +1,3 @@
-# Copyright 2021 Bartosz Nowak (@dumam)
-# SPDX-License-Identifier: GPL-2.0-or-later
-
-# MCU name
-MCU = STM32F411
-BOARD = BLACKPILL_STM32_F411
-
-# Bootloader selection
-BOOTLOADER = tinyuf2
-
 # Build Options
 #   change yes to no to disable
 #

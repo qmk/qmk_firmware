@@ -21,6 +21,26 @@
 #include <stdbool.h>
 #include "progmem.h"
 
+// ======== DEPRECATED DEFINES - DO NOT USE ========
+#ifdef DRIVER_COUNT
+#    define IS31FL3731_DRIVER_COUNT DRIVER_COUNT
+#endif
+#ifdef ISSI_TIMEOUT
+#    define IS31FL3731_I2C_TIMEOUT ISSI_TIMEOUT
+#endif
+#ifdef ISSI_PERSISTENCE
+#    define IS31FL3731_I2C_PERSISTENCE ISSI_PERSISTENCE
+#endif
+#ifdef ISSI_3731_DEGHOST
+#    define IS31FL3731_DEGHOST ISSI_3731_DEGHOST
+#endif
+// ========
+
+#define IS31FL3731_I2C_ADDRESS_GND 0x74
+#define IS31FL3731_I2C_ADDRESS_SCL 0x75
+#define IS31FL3731_I2C_ADDRESS_SDA 0x76
+#define IS31FL3731_I2C_ADDRESS_VCC 0x77
+
 typedef struct is31_led {
     uint8_t driver : 2;
     uint8_t r;
@@ -30,21 +50,21 @@ typedef struct is31_led {
 
 extern const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT];
 
-void IS31FL3731_init(uint8_t addr);
-void IS31FL3731_write_register(uint8_t addr, uint8_t reg, uint8_t data);
-void IS31FL3731_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
+void is31fl3731_init(uint8_t addr);
+void is31fl3731_write_register(uint8_t addr, uint8_t reg, uint8_t data);
+void is31fl3731_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
 
-void IS31FL3731_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
-void IS31FL3731_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
+void is31fl3731_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
+void is31fl3731_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
 
-void IS31FL3731_set_led_control_register(uint8_t index, bool red, bool green, bool blue);
+void is31fl3731_set_led_control_register(uint8_t index, bool red, bool green, bool blue);
 
 // This should not be called from an interrupt
 // (eg. from a timer interrupt).
 // Call this while idle (in between matrix scans).
 // If the buffer is dirty, it will update the driver with the buffer.
-void IS31FL3731_update_pwm_buffers(uint8_t addr, uint8_t index);
-void IS31FL3731_update_led_control_registers(uint8_t addr, uint8_t index);
+void is31fl3731_update_pwm_buffers(uint8_t addr, uint8_t index);
+void is31fl3731_update_led_control_registers(uint8_t addr, uint8_t index);
 
 #define C1_1 0x24
 #define C1_2 0x25

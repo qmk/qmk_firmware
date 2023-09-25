@@ -3,12 +3,7 @@
 
 #pragma once
 
-#include "config_common.h"
-
-#define DYNAMIC_KEYMAP_LAYER_COUNT 10
-#define RGB_DI_PIN GP15
 #define RGB_MATRIX_LED_COUNT 16
-#define RGBLED_NUM 16
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
@@ -65,7 +60,3 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0

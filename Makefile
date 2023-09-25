@@ -124,23 +124,10 @@ endef
 define PARSE_RULE
     RULE := $1
     COMMANDS :=
-    REQUIRE_PLATFORM_KEY :=
     # If the rule starts with all, then continue the parsing from
     # PARSE_ALL_KEYBOARDS
     ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,all),true)
         KEYBOARD_RULE=all
-        $$(eval $$(call PARSE_ALL_KEYBOARDS))
-    else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,all-avr),true)
-        KEYBOARD_RULE=all
-        REQUIRE_PLATFORM_KEY := avr
-        $$(eval $$(call PARSE_ALL_KEYBOARDS))
-    else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,all-chibios),true)
-        KEYBOARD_RULE=all
-        REQUIRE_PLATFORM_KEY := chibios
-        $$(eval $$(call PARSE_ALL_KEYBOARDS))
-    else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,all-arm_atsam),true)
-        KEYBOARD_RULE=all
-        REQUIRE_PLATFORM_KEY := arm_atsam
         $$(eval $$(call PARSE_ALL_KEYBOARDS))
     else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,test),true)
         $$(eval $$(call PARSE_TEST))
@@ -271,7 +258,7 @@ define PARSE_KEYMAP
     # Format it in bold
     KB_SP := $(BOLD)$$(KB_SP)$(NO_COLOR)
     # Specify the variables that we are passing forward to submake
-    MAKE_VARS := KEYBOARD=$$(CURRENT_KB) KEYMAP=$$(CURRENT_KM) REQUIRE_PLATFORM_KEY=$$(REQUIRE_PLATFORM_KEY) QMK_BIN=$$(QMK_BIN)
+    MAKE_VARS := KEYBOARD=$$(CURRENT_KB) KEYMAP=$$(CURRENT_KM) QMK_BIN=$$(QMK_BIN)
     # And the first part of the make command
     MAKE_CMD := $$(MAKE) -r -R -C $(ROOT_DIR) -f $(BUILDDEFS_PATH)/build_keyboard.mk $$(MAKE_TARGET)
     # The message to display
@@ -341,7 +328,7 @@ define PARSE_TEST
     ifeq ($$(TEST_NAME),all)
         MATCHED_TESTS := $$(TEST_LIST)
     else
-        MATCHED_TESTS := $$(foreach TEST, $$(TEST_LIST),$$(if $$(findstring $$(TEST_NAME), $$(notdir $$(TEST))), $$(TEST),))
+        MATCHED_TESTS := $$(foreach TEST, $$(TEST_LIST),$$(if $$(findstring x$$(TEST_NAME)x, x$$(notdir $$(TEST))x), $$(TEST),))
     endif
     $$(foreach TEST,$$(MATCHED_TESTS),$$(eval $$(call BUILD_TEST,$$(TEST),$$(TEST_TARGET))))
 endef

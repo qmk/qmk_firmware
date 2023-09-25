@@ -1,0 +1,4 @@
+{
+    "processor": "atmega32u2",
+    "bootloader": "atmel-dfu"
+}

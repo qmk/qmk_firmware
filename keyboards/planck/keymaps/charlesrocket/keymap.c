@@ -20,7 +20,7 @@
 #define LSA_T(kc) MT(MOD_LSFT | MOD_LALT, kc)
 
 enum planck_keycodes {
-  RGB_SLD = EZ_SAFE_RANGE,
+  RGB_SLD = SAFE_RANGE,
 };
 
 enum planck_layers {

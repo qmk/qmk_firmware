@@ -8,6 +8,16 @@ from qmk.path import normpath
 from qmk.keycodes import load_spec
 
 
+def _translate_group(group):
+    """Fix up any issues with badly chosen values
+    """
+    if group == 'modifiers':
+        return 'modifier'
+    if group == 'media':
+        return 'consumer'
+    return group
+
+
 def _render_key(key):
     width = 7
     if 'S(' in key:
@@ -82,10 +92,15 @@ def _generate_helpers(lines, keycodes):
     for group, codes in temp.items():
         lo = keycodes["keycodes"][f'0x{codes[0]:04X}']['key']
         hi = keycodes["keycodes"][f'0x{codes[1]:04X}']['key']
-        lines.append(f'#define IS_{ group.upper() }_KEYCODE(code) ((code) >= {lo} && (code) <= {hi})')
+        lines.append(f'#define IS_{ _translate_group(group).upper() }_KEYCODE(code) ((code) >= {lo} && (code) <= {hi})')
 
 
 def _generate_aliases(lines, keycodes):
+    # Work around ChibiOS ch.h include guard
+    if 'CH_H' in [value['key'] for value in keycodes['aliases'].values()]:
+        lines.append('')
+        lines.append('#undef CH_H')
+
     lines.append('')
     lines.append('// Aliases')
     for key, value in keycodes["aliases"].items():
@@ -133,7 +148,7 @@ def generate_keycode_extras(cli):
     """
 
     # Build the header file.
-    keycodes_h_lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '#pragma once', '#include "keymap.h"', '// clang-format off']
+    keycodes_h_lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '#pragma once', '#include "keycodes.h"', '// clang-format off']
 
     keycodes = load_spec(cli.args.version, cli.args.lang)
 

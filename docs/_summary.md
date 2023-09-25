@@ -41,7 +41,6 @@
     * [Keymap Overview](keymap.md)
     * Development Environments
       * [Docker Guide](getting_started_docker.md)
-      * [Vagrant Guide](getting_started_vagrant.md)
     * Flashing
       * [Flashing](flashing.md)
       * [Flashing ATmega32A (ps2avrgb)](flashing_bootloadhid.md)
@@ -71,6 +70,7 @@
     * [Macros](feature_macros.md)
     * [Mouse Keys](feature_mouse_keys.md)
     * [Programmable Button](feature_programmable_button.md)
+    * [Repeat Key](feature_repeat_key.md)
     * [Space Cadet Shift](feature_space_cadet.md)
     * [US ANSI Shifted Keys](keycodes_us_ansi_shifted.md)
 
@@ -80,6 +80,7 @@
     * [Caps Word](feature_caps_word.md)
     * [Combos](feature_combo.md)
     * [Debounce API](feature_debounce_type.md)
+    * [Digitizer](feature_digitizer.md)
     * [EEPROM](feature_eeprom.md)
     * [Key Lock](feature_key_lock.md)
     * [Key Overrides](feature_key_overrides.md)
@@ -93,6 +94,7 @@
     * [Swap Hands](feature_swap_hands.md)
     * [Tap Dance](feature_tap_dance.md)
     * [Tap-Hold Configuration](tap_hold.md)
+    * [Tri Layer](feature_tri_layer.md)
     * [Unicode](feature_unicode.md)
     * [Userspace](feature_userspace.md)
     * [WPM Calculation](feature_wpm.md)
@@ -114,7 +116,6 @@
     * [Bootmagic Lite](feature_bootmagic.md)
     * [Converters](feature_converters.md)
     * [Custom Matrix](custom_matrix.md)
-    * [Digitizer](feature_digitizer.md)
     * [DIP Switch](feature_dip_switch.md)
     * [Encoders](feature_encoders.md)
     * [Haptic Feedback](feature_haptic_feedback.md)
@@ -138,7 +139,7 @@
   * Breaking Changes
     * [Overview](breaking_changes.md)
     * [My Pull Request Was Flagged](breaking_changes_instructions.md)
-    * [Most Recent ChangeLog](ChangeLog/20221126.md "QMK v0.19.0 - 2022 Nov 26")
+    * [Most Recent ChangeLog](ChangeLog/20230827.md "QMK v0.22.0 - 2023 Aug 27")
     * [Past Breaking Changes](breaking_changes_history.md)
 
   * C Development

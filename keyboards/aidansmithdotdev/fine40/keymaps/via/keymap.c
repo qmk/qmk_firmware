@@ -41,3 +41,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______ , _______ , _______ , _______ , _______ , _______ , _______ , KC_MS_L , KC_MS_D , KC_MS_U , KC_MS_R , _______
 ),
 };
+
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [_MAIN] =  { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_LEFT] =  { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_RIGHT] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_TAB] =   { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+};
+#endif

@@ -218,7 +218,7 @@ float s_audio_on[][2]    = AUDIO_ON_SONG;
 float s_layer_lower[][2] = LAYER_LOWER_SONG;
 float s_layer_raise[][2] = LAYER_RAISE_SONG;
 
-void audio_on_user() { PLAY_SONG(s_audio_on); };
+void audio_on_user(void) { PLAY_SONG(s_audio_on); };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {

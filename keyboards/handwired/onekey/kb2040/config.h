@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #define DEBUG_MATRIX_SCAN_RATE
 

@@ -20,7 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "matrix.h"
 #include "debounce.h"
-#include "quantum.h"
+#include "atomic_util.h"
+
 #ifdef SPLIT_KEYBOARD
 #    include "split_common/split_util.h"
 #    include "split_common/transactions.h"
@@ -308,7 +309,7 @@ void matrix_init(void) {
 
     debounce_init(ROWS_PER_HAND);
 
-    matrix_init_quantum();
+    matrix_init_kb();
 }
 
 #ifdef SPLIT_KEYBOARD
@@ -342,7 +343,7 @@ uint8_t matrix_scan(void) {
     changed = debounce(raw_matrix, matrix + thisHand, ROWS_PER_HAND, changed) | matrix_post_scan();
 #else
     changed = debounce(raw_matrix, matrix, ROWS_PER_HAND, changed);
-    matrix_scan_quantum();
+    matrix_scan_kb();
 #endif
     return (uint8_t)changed;
 }

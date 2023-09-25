@@ -23,13 +23,10 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 /* RGB Matrix Driver Configuration */
-#define DRIVER_COUNT 2
-#define DRIVER_ADDR_1 0b1110111
-#define DRIVER_ADDR_2 0b1110100
+#define CKLED2001_DRIVER_COUNT 2
+#define DRIVER_ADDR_1 CKLED2001_I2C_ADDRESS_VDDIO
+#define DRIVER_ADDR_2 CKLED2001_I2C_ADDRESS_GND
 
 #define CKLED2001_CURRENT_TUNE \
     { 0xA4, 0xA4, 0x52, 0xA4, 0xA4, 0x52, 0xA4, 0xA4, 0x52, 0xA4, 0xA4, 0x52 }

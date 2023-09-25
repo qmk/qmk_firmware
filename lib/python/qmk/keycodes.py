@@ -90,6 +90,7 @@ def load_spec(version, lang=None):
 
     # Sort?
     spec['keycodes'] = dict(sorted(spec.get('keycodes', {}).items()))
+    spec['ranges'] = dict(sorted(spec.get('ranges', {}).items()))
 
     # Validate?
     _validate(spec)

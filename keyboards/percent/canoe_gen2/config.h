@@ -17,29 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
-// ROWS: Top to bottom, COLS: Left to right
-
-#define MATRIX_ROW_PINS {B1,B3,B2,F5,F4}
-#define MATRIX_COL_PINS {B0,D0,C6,B6,B5,B4,D7,D6,D4,D5,D3,D2,D1,F6,F7}
-
-/* Uncomment if your encoder doesn't react to every turn or skips */
-//#define ENCODER_RESOLUTION 2
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
@@ -47,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Backlight configuration
  */
-#define RGB_DI_PIN B7
 #define RGB_MATRIX_LED_COUNT 77
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
 
@@ -90,18 +66,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENABLE_RGB_MATRIX_PIXEL_FLOW
 #define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
 // enabled only if RGB_MATRIX_FRAMEBUFFER_EFFECTS is defined
-#define ENABLE_RGB_MATRIX_TYPING_HEATMAP
-#define ENABLE_RGB_MATRIX_DIGITAL_RAIN
+// #define ENABLE_RGB_MATRIX_TYPING_HEATMAP
+// #define ENABLE_RGB_MATRIX_DIGITAL_RAIN
 // enabled only of RGB_MATRIX_KEYPRESSES or RGB_MATRIX_KEYRELEASES is defined
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
-#define ENABLE_RGB_MATRIX_SPLASH
-#define ENABLE_RGB_MATRIX_MULTISPLASH
-#define ENABLE_RGB_MATRIX_SOLID_SPLASH
-#define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
+// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE
+// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
+// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
+// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
+// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
+// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
+// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
+// #define ENABLE_RGB_MATRIX_SPLASH
+// #define ENABLE_RGB_MATRIX_MULTISPLASH
+// #define ENABLE_RGB_MATRIX_SOLID_SPLASH
+// #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH

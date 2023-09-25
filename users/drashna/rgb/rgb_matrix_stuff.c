@@ -40,15 +40,12 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode
     }
 }
 
-__attribute__((weak)) void rgb_matrix_indicator_keymap(void) {}
-
-void matrix_scan_rgb_matrix(void) {
+void housekeeping_task_rgb_matrix(void) {
 #if defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
     if (userspace_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == RGB_MATRIX_TYPING_HEATMAP && sync_timer_elapsed32(hypno_timer) > 15000) {
         rgb_matrix_mode_noeeprom(RGB_MATRIX_REST_MODE);
     }
 #endif
-    rgb_matrix_indicator_keymap();
 }
 
 void keyboard_post_init_rgb_matrix(void) {
@@ -77,7 +74,7 @@ bool process_record_user_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 userspace_config.rgb_matrix_idle_anim ^= 1;
                 dprintf("RGB Matrix Idle Animation [EEPROM]: %u\n", userspace_config.rgb_matrix_idle_anim);
-                eeconfig_update_user(userspace_config.raw);
+                eeconfig_update_user_config(&userspace_config.raw);
                 if (userspace_config.rgb_matrix_idle_anim) {
                     rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
                 }
@@ -148,4 +145,46 @@ __attribute__((weak)) bool rgb_matrix_indicators_keymap(void) {
 }
 bool rgb_matrix_indicators_user(void) {
     return rgb_matrix_indicators_keymap();
+}
+
+
+//----------------------------------------------------------
+// RGB Matrix naming
+#include <rgb_matrix.h>
+
+#if defined(RGB_MATRIX_EFFECT)
+#    undef RGB_MATRIX_EFFECT
+#endif // defined(RGB_MATRIX_EFFECT)
+
+#define RGB_MATRIX_EFFECT(x) RGB_MATRIX_EFFECT_##x,
+enum {
+    RGB_MATRIX_EFFECT_NONE,
+#include "rgb_matrix_effects.inc"
+#undef RGB_MATRIX_EFFECT
+#ifdef RGB_MATRIX_CUSTOM_KB
+#    include "rgb_matrix_kb.inc"
+#endif
+#ifdef RGB_MATRIX_CUSTOM_USER
+#    include "rgb_matrix_user.inc"
+#endif
+};
+
+#define RGB_MATRIX_EFFECT(x)    \
+    case RGB_MATRIX_EFFECT_##x: \
+        return #x;
+const char* rgb_matrix_name(uint8_t effect) {
+    switch (effect) {
+        case RGB_MATRIX_EFFECT_NONE:
+            return "NONE";
+#include "rgb_matrix_effects.inc"
+#undef RGB_MATRIX_EFFECT
+#ifdef RGB_MATRIX_CUSTOM_KB
+#    include "rgb_matrix_kb.inc"
+#endif
+#ifdef RGB_MATRIX_CUSTOM_USER
+#    include "rgb_matrix_user.inc"
+#endif
+        default:
+            return "UNKNOWN";
+    }
 }
