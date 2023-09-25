@@ -300,17 +300,18 @@ endef
 define BUILD_TEST
     TEST_PATH := $1
     TEST_NAME := $$(notdir $$(TEST_PATH))
+    TEST_FULL_NAME := $$(subst /,_,$$(patsubst $$(ROOT_DIR)tests/%,%,$$(TEST_PATH)))
     MAKE_TARGET := $2
     COMMAND := $1
     MAKE_CMD := $$(MAKE) -r -R -C $(ROOT_DIR) -f $(BUILDDEFS_PATH)/build_test.mk $$(MAKE_TARGET)
-    MAKE_VARS := TEST=$$(TEST_NAME) TEST_PATH=$$(TEST_PATH) FULL_TESTS="$$(FULL_TESTS)"
+    MAKE_VARS := TEST=$$(TEST_NAME) TEST_OUTPUT=$$(TEST_FULL_NAME) TEST_PATH=$$(TEST_PATH) FULL_TESTS="$$(FULL_TESTS)"
     MAKE_MSG := $$(MSG_MAKE_TEST)
     $$(eval $$(call BUILD))
     ifneq ($$(MAKE_TARGET),clean)
-        TEST_EXECUTABLE := $$(TEST_OUTPUT_DIR)/$$(TEST_NAME).elf
-        TESTS += $$(TEST_NAME)
+        TEST_EXECUTABLE := $$(TEST_OUTPUT_DIR)/$$(TEST_FULL_NAME).elf
+        TESTS += $$(TEST_FULL_NAME)
         TEST_MSG := $$(MSG_TEST)
-        $$(TEST_NAME)_COMMAND := \
+        $$(TEST_FULL_NAME)_COMMAND := \
             printf "$$(TEST_MSG)\n"; \
             $$(TEST_EXECUTABLE); \
             if [ $$$$? -gt 0 ]; \
@@ -322,15 +323,22 @@ endef
 
 define PARSE_TEST
     TESTS :=
-    TEST_NAME := $$(firstword $$(subst :, ,$$(RULE)))
-    TEST_TARGET := $$(subst $$(TEST_NAME),,$$(subst $$(TEST_NAME):,,$$(RULE)))
+    # list of possible targets, colon-delimited, to reassign to MAKE_TARGET and remove
+    TARGETS := :clean:
+    ifneq (,$$(findstring :$$(lastword $$(subst :, ,$$(RULE))):, $$(TARGETS)))
+        MAKE_TARGET := $$(lastword $$(subst :, ,$$(RULE)))
+        TEST_SUBPATH := $$(subst $$(eval) ,/,$$(wordlist 2, $$(words $$(subst :, ,$$(RULE))), _ $$(subst :, ,$$(RULE))))
+    else
+        MAKE_TARGET :=
+        TEST_SUBPATH := $$(subst :,/,$$(RULE))
+    endif
     include $(BUILDDEFS_PATH)/testlist.mk
-    ifeq ($$(TEST_NAME),all)
+    ifeq ($$(RULE),all)
         MATCHED_TESTS := $$(TEST_LIST)
     else
-        MATCHED_TESTS := $$(foreach TEST, $$(TEST_LIST),$$(if $$(findstring x$$(TEST_NAME)x, x$$(notdir $$(TEST))x), $$(TEST),))
+        MATCHED_TESTS := $$(foreach TEST, $$(TEST_LIST),$$(if $$(findstring /$$(TEST_SUBPATH)/, $$(patsubst %,%/,$$(TEST))), $$(TEST),))
     endif
-    $$(foreach TEST,$$(MATCHED_TESTS),$$(eval $$(call BUILD_TEST,$$(TEST),$$(TEST_TARGET))))
+    $$(foreach TEST,$$(MATCHED_TESTS),$$(eval $$(call BUILD_TEST,$$(TEST),$$(MAKE_TARGET))))
 endef
 
 
