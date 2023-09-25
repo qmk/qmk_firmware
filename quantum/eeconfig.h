@@ -39,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EECONFIG_HANDEDNESS (uint8_t *)14
 #define EECONFIG_KEYBOARD (uint32_t *)15
 #define EECONFIG_USER (uint32_t *)19
-#define EECONFIG_VELOCIKEY (uint8_t *)23
+#define EECONFIG_UNUSED (uint8_t *)23
 // Mutually exclusive
 #define EECONFIG_LED_MATRIX (uint32_t *)24
 #define EECONFIG_RGB_MATRIX (uint64_t *)24

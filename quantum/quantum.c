@@ -68,10 +68,6 @@
 #    include "process_unicode_common.h"
 #endif
 
-#ifdef VELOCIKEY_ENABLE
-#    include "velocikey.h"
-#endif
-
 #ifdef AUDIO_ENABLE
 #    ifndef GOODBYE_SONG
 #        define GOODBYE_SONG SONG(GOODBYE_SOUND)
@@ -288,9 +284,9 @@ bool process_record_quantum(keyrecord_t *record) {
     }
 #endif
 
-#ifdef VELOCIKEY_ENABLE
-    if (velocikey_enabled() && record->event.pressed) {
-        velocikey_accelerate();
+#ifdef RGBLIGHT_ENABLE
+    if (record->event.pressed) {
+        preprocess_rgblight();
     }
 #endif
 
