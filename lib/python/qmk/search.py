@@ -36,6 +36,7 @@ def _all_keymaps(keyboard):
     """Returns a list of tuples of (keyboard, keymap) for all keymaps for the given keyboard.
     """
     with ignore_logging():
+        keyboard = qmk.keyboard.resolve_keyboard(keyboard)
         return [(keyboard, keymap) for keymap in qmk.keymap.list_keymaps(keyboard)]
 
 
@@ -56,7 +57,7 @@ def _load_keymap_info(kb_km):
 def expand_make_targets(targets: List[str]) -> List[Tuple[str, str]]:
     """Expand a list of make targets into a list of (keyboard, keymap) tuples.
 
-    Caters for 'all' in either keyboard or keymap.
+    Caters for 'all' in either keyboard or keymap, or both.
     """
     split_targets = []
     for target in targets:
@@ -71,12 +72,13 @@ def expand_make_targets(targets: List[str]) -> List[Tuple[str, str]]:
 def _expand_keymap_target(keyboard: str, keymap: str, all_keyboards: List[str] = None) -> List[Tuple[str, str]]:
     """Expand a keyboard input and keymap input into a list of (keyboard, keymap) tuples.
 
-    Caters for 'all' in either keyboard or keymap.
+    Caters for 'all' in either keyboard or keymap, or both.
     """
     if all_keyboards is None:
         all_keyboards = qmk.keyboard.list_keyboards()
-    with multiprocessing.Pool() as pool:
-        if keyboard == 'all':
+
+    if keyboard == 'all':
+        with multiprocessing.Pool() as pool:
             if keymap == 'all':
                 cli.log.info('Retrieving list of all keyboards and keymaps...')
                 targets = []
@@ -87,13 +89,13 @@ def _expand_keymap_target(keyboard: str, keymap: str, all_keyboards: List[str] =
                 cli.log.info(f'Retrieving list of keyboards with keymap "{keymap}"...')
                 keyboard_filter = functools.partial(_keymap_exists, keymap=keymap)
                 return [(kb, keymap) for kb in filter(lambda e: e is not None, pool.imap_unordered(keyboard_filter, all_keyboards))]
+    else:
+        if keymap == 'all':
+            keyboard = qmk.keyboard.resolve_keyboard(keyboard)
+            cli.log.info(f'Retrieving list of keymaps for keyboard "{keyboard}"...')
+            return _all_keymaps(keyboard)
         else:
-            if keymap == 'all':
-                keyboard = qmk.keyboard.resolve_keyboard(keyboard)
-                cli.log.info(f'Retrieving list of keymaps for keyboard "{keyboard}"...')
-                return _all_keymaps(keyboard)
-            else:
-                return [(keyboard, keymap)]
+            return [(qmk.keyboard.resolve_keyboard(keyboard), keymap)]
 
 
 def expand_keymap_targets(targets: List[Tuple[str, str]]) -> List[Tuple[str, str]]:
@@ -111,66 +113,66 @@ def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str
 
     Optionally includes the values of the queried info.json keys.
     """
-    with multiprocessing.Pool() as pool:
-        if len(filters) == 0 and len(print_vals) == 0:
-            targets = [(kb, km, {}) for kb, km in target_list]
-        else:
-            cli.log.info('Parsing data for all matching keyboard/keymap combinations...')
+    if len(filters) == 0 and len(print_vals) == 0:
+        targets = [(kb, km, {}) for kb, km in target_list]
+    else:
+        cli.log.info('Parsing data for all matching keyboard/keymap combinations...')
+        with multiprocessing.Pool() as pool:
             valid_keymaps = [(e[0], e[1], dotty(e[2])) for e in pool.imap_unordered(_load_keymap_info, target_list)]
 
-            function_re = re.compile(r'^(?P<function>[a-zA-Z]+)\((?P<key>[a-zA-Z0-9_\.]+)(,\s*(?P<value>[^#]+))?\)$')
-            equals_re = re.compile(r'^(?P<key>[a-zA-Z0-9_\.]+)\s*=\s*(?P<value>[^#]+)$')
+        function_re = re.compile(r'^(?P<function>[a-zA-Z]+)\((?P<key>[a-zA-Z0-9_\.]+)(,\s*(?P<value>[^#]+))?\)$')
+        equals_re = re.compile(r'^(?P<key>[a-zA-Z0-9_\.]+)\s*=\s*(?P<value>[^#]+)$')
 
-            for filter_expr in filters:
-                function_match = function_re.match(filter_expr)
-                equals_match = equals_re.match(filter_expr)
+        for filter_expr in filters:
+            function_match = function_re.match(filter_expr)
+            equals_match = equals_re.match(filter_expr)
 
-                if function_match is not None:
-                    func_name = function_match.group('function').lower()
-                    key = function_match.group('key')
-                    value = function_match.group('value')
+            if function_match is not None:
+                func_name = function_match.group('function').lower()
+                key = function_match.group('key')
+                value = function_match.group('value')
 
-                    if value is not None:
-                        if func_name == 'length':
-                            valid_keymaps = filter(lambda e, key=key, value=value: key in e[2] and len(e[2].get(key)) == int(value), valid_keymaps)
-                        elif func_name == 'contains':
-                            valid_keymaps = filter(lambda e, key=key, value=value: key in e[2] and value in e[2].get(key), valid_keymaps)
-                        else:
-                            cli.log.warning(f'Unrecognized filter expression: {function_match.group(0)}')
-                            continue
-
-                        cli.log.info(f'Filtering on condition: {{fg_green}}{func_name}{{fg_reset}}({{fg_cyan}}{key}{{fg_reset}}, {{fg_cyan}}{value}{{fg_reset}})...')
+                if value is not None:
+                    if func_name == 'length':
+                        valid_keymaps = filter(lambda e, key=key, value=value: key in e[2] and len(e[2].get(key)) == int(value), valid_keymaps)
+                    elif func_name == 'contains':
+                        valid_keymaps = filter(lambda e, key=key, value=value: key in e[2] and value in e[2].get(key), valid_keymaps)
                     else:
-                        if func_name == 'exists':
-                            valid_keymaps = filter(lambda e, key=key: key in e[2], valid_keymaps)
-                        elif func_name == 'absent':
-                            valid_keymaps = filter(lambda e, key=key: key not in e[2], valid_keymaps)
-                        else:
-                            cli.log.warning(f'Unrecognized filter expression: {function_match.group(0)}')
-                            continue
+                        cli.log.warning(f'Unrecognized filter expression: {function_match.group(0)}')
+                        continue
 
-                        cli.log.info(f'Filtering on condition: {{fg_green}}{func_name}{{fg_reset}}({{fg_cyan}}{key}{{fg_reset}})...')
-
-                elif equals_match is not None:
-                    key = equals_match.group('key')
-                    value = equals_match.group('value')
-                    cli.log.info(f'Filtering on condition: {{fg_cyan}}{key}{{fg_reset}} == {{fg_cyan}}{value}{{fg_reset}}...')
-
-                    def _make_filter(k, v):
-                        expr = fnmatch.translate(v)
-                        rule = re.compile(f'^{expr}$', re.IGNORECASE)
-
-                        def f(e):
-                            lhs = e[2].get(k)
-                            lhs = str(False if lhs is None else lhs)
-                            return rule.search(lhs) is not None
-
-                        return f
-
-                    valid_keymaps = filter(_make_filter(key, value), valid_keymaps)
+                    cli.log.info(f'Filtering on condition: {{fg_green}}{func_name}{{fg_reset}}({{fg_cyan}}{key}{{fg_reset}}, {{fg_cyan}}{value}{{fg_reset}})...')
                 else:
-                    cli.log.warning(f'Unrecognized filter expression: {filter_expr}')
-                    continue
+                    if func_name == 'exists':
+                        valid_keymaps = filter(lambda e, key=key: key in e[2], valid_keymaps)
+                    elif func_name == 'absent':
+                        valid_keymaps = filter(lambda e, key=key: key not in e[2], valid_keymaps)
+                    else:
+                        cli.log.warning(f'Unrecognized filter expression: {function_match.group(0)}')
+                        continue
+
+                    cli.log.info(f'Filtering on condition: {{fg_green}}{func_name}{{fg_reset}}({{fg_cyan}}{key}{{fg_reset}})...')
+
+            elif equals_match is not None:
+                key = equals_match.group('key')
+                value = equals_match.group('value')
+                cli.log.info(f'Filtering on condition: {{fg_cyan}}{key}{{fg_reset}} == {{fg_cyan}}{value}{{fg_reset}}...')
+
+                def _make_filter(k, v):
+                    expr = fnmatch.translate(v)
+                    rule = re.compile(f'^{expr}$', re.IGNORECASE)
+
+                    def f(e):
+                        lhs = e[2].get(k)
+                        lhs = str(False if lhs is None else lhs)
+                        return rule.search(lhs) is not None
+
+                    return f
+
+                valid_keymaps = filter(_make_filter(key, value), valid_keymaps)
+            else:
+                cli.log.warning(f'Unrecognized filter expression: {filter_expr}')
+                continue
 
             targets = [(e[0], e[1], [(p, e[2].get(p)) for p in print_vals]) for e in valid_keymaps]
 
