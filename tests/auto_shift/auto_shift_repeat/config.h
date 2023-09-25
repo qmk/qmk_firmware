@@ -1,4 +1,4 @@
-/* Copyright 2021 Stefan Kerkmann
+/* Copyright 2022 Isaac Elenbaas
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,4 +18,4 @@
 
 #include "test_common.h"
 
-#define PERMISSIVE_HOLD
+#define AUTO_SHIFT_REPEAT
