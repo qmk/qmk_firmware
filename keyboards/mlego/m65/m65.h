@@ -11,9 +11,6 @@ enum unicode_names { la = 0, lA, lb, lB, lc, lC, ld, lD, le, lE, lf, lF, lg, lG,
 
 enum layer_names { _QW = 0, _LWR, _RSE, _ADJ };
 
-// let us assume we start with both layers off
-static bool toggle_lwr = false;
-static bool toggle_rse = false;
 
 #ifdef OLED_ENABLE
 void user_oled_magic(void);
