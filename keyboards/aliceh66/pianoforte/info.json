@@ -15,7 +15,7 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
-    "community_layouts": ["tkl_f13_ansi", "tkl_f13_ansi_split_bs_rshift", "tkl_f13_ansi_tsangan", "tkl_f13_ansi_tsangan_split_bs_rshift", "tkl_f13_iso", "tkl_f13_iso_split_bs_rshift", "tkl_f13_iso_tsangan", "tkl_f13_iso_tsangan_split_bs_rshift"],
+    "community_layouts": ["tkl_f13_ansi", "tkl_f13_ansi_split_bs_rshift", "tkl_f13_iso", "tkl_f13_iso_split_bs_rshift", "tkl_f13_ansi_tsangan", "tkl_f13_ansi_tsangan_split_bs_rshift", "tkl_f13_iso_tsangan", "tkl_f13_iso_tsangan_split_bs_rshift"],
     "layout_aliases": {
         "LAYOUT_tkl_ansi_7u": "LAYOUT_tkl_f13_ansi_tsangan",
         "LAYOUT_tkl_iso_7u": "LAYOUT_tkl_f13_iso_tsangan"
