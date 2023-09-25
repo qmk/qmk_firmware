@@ -1,6 +1,6 @@
 /*
 Copyright 2020 Purdea Andrei
-Copyright 2021-2022 Matthew J Wolf
+Copyright 2021-2023 Matthew J Wolf
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -37,21 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *  These options are also useful to firmware size reduction.
  */
 
-/* disable debug print */
-// #define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-
-/* Bootmagic Lite key configuration */
-// #define BOOTMAGIC_LITE_ROW 0
-// #define BOOTMAGIC_LITE_COLUMN 0
-
 #define HOLD_ON_OTHER_KEY_PRESS
 
 /* XWHATSIT CONTROLLER TYPE */
@@ -87,28 +72,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // You can also tune the following for your solenoid:
 #define SOLENOID_DEFAULT_DWELL 4
 #define SOLENOID_MIN_DWELL 4
-//#define SOLENOID_MAX_DWELL 100
 #define NO_HAPTIC_MOD
-
-// If the lock lights are not used, then please don't define the below pins,
-// or leave them set as unused pins:
-
-// The following definitions match the lock lights as used by the original
-// xwhatsit firmware, but enabling all three of these is not compatible with
-// standard solenoid support, because B6 and B7 pins are already in use:
-//#define LED_NUM_LOCK_PIN B5
-//#define LED_CAPS_LOCK_PIN B6
-//#define LED_SCROLL_LOCK_PIN B4
-// Since solenoid support is enabled by default, the above lock light pin
-// assignments are disabled by default.
-// Instead the more common Num Lock and Caps Lock are assigned the following
-// way by default, and this can be used in combination with the solenoid:
-
-// Uncomment below if the leds are on when the pin is driving zero:
-//#define LED_NUM_LOCK_ACTIVE_LOW
-//#define LED_CAPS_LOCK_ACTIVE_LOW
-//#define LED_SCROLL_LOCK_ACTIVE_LOW
-
 
 // ----- xwhatsit hardware configuration (type_f) -----
 
