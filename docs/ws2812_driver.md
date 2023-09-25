@@ -10,7 +10,7 @@ The LEDs can be chained together, and the remaining data is passed on to the nex
 
 ## Usage :id=usage
 
-In most cases, the WS2812 driver code is automatically included if you are using either the [RGBLight](feature_rgblight.md) or [RGB Matrix](feature_rgb_matrix.md) features with the `ws2812` driver set, and you would use those APIs instead.
+In most cases, the WS2812 driver code is automatically included if you are using either the [RGBLight](feature_rgblight.md) or [RGB Matrix](feature_rgb_matrix.md) feature with the `ws2812` driver set, and you would use those APIs instead.
 
 However, if you need to use the driver standalone, add the following to your `rules.mk`:
 

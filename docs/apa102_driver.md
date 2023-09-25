@@ -4,7 +4,7 @@ This driver provides support for APA102 addressable RGB LEDs. They are similar t
 
 ## Usage :id=usage
 
-In most cases, the APA102 driver code is automatically included if you are using either the [RGBLight](feature_rgblight.md) or [RGB Matrix](feature_rgb_matrix.md) features with the `apa102` driver set, and you would use those APIs instead.
+In most cases, the APA102 driver code is automatically included if you are using either the [RGBLight](feature_rgblight.md) or [RGB Matrix](feature_rgb_matrix.md) feature with the `apa102` driver set, and you would use those APIs instead.
 
 However, if you need to use the driver standalone, add the following to your `rules.mk`:
 
