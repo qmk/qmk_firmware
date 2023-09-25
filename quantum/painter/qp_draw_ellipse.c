@@ -7,6 +7,8 @@
 #include "qp_comms.h"
 #include "qp_draw.h"
 
+#include <lib/lib8tion/lib8tion.h>
+
 // Utilize 4-way symmetry to draw an ellipse
 static bool qp_ellipse_helper_impl(painter_device_t device, uint16_t centerx, uint16_t centery, uint16_t offsetx, uint16_t offsety, bool filled) {
     /*
@@ -69,30 +71,6 @@ bool qp_ellipse(painter_device_t device, uint16_t x, uint16_t y, uint16_t sizex,
         return false;
     }
 
-    // Algorithm adapted from https://www.geeksforgeeks.org/midpoint-ellipse-drawing-algorithm/
-
-    // Works a lot worse if sizey<sizex, so flip them if needed and  keep trap of the change in order to flip offsets too
-    bool flipped = false;
-    if (sizey > sizex) {
-        flipped       = true;
-        uint16_t temp = sizex;
-        sizex         = sizey;
-        sizey         = temp;
-    }
-
-    // Compute x^2 and y^2 as they are used all over the place
-    int32_t xx = ((int16_t)sizex) * ((int16_t)sizex);
-    int32_t yy = ((int16_t)sizey) * ((int16_t)sizey);
-
-    int16_t offsetx = 0;
-    int16_t offsety = (int16_t)sizey;
-
-    int32_t dx = 0;
-    int32_t dy = 2 * xx * offsety;
-
-    bool temp_ret = true;
-    bool ret      = true;
-
     qp_internal_fill_pixdata(device, QP_MAX(sizex, sizey), hue, sat, val);
 
     if (!qp_comms_start(device)) {
@@ -100,61 +78,23 @@ bool qp_ellipse(painter_device_t device, uint16_t x, uint16_t y, uint16_t sizex,
         return false;
     }
 
-    // Simplified (and aproximated) form of the formula for region 1
-    //      in original code `sizey` would've been `(sizey-0.25)`
-    int32_t d1 = yy - xx * sizey;
-    while (dx < dy) {
-        // Draw current point
-        if (!flipped) {
-            temp_ret = qp_ellipse_helper_impl(device, x, y, offsetx, offsety, filled);
-        } else {
-            temp_ret = qp_ellipse_helper_impl(device, x, y, offsety, offsetx, filled);
-        }
-        // Check returned value
-        if (!temp_ret) {
-            ret = false;
-            break;
-        }
+    // parametric equation of the ellipse:
+    //    x = sizex * cos(t)
+    //    y = sizey * sin(t)
+    // where t: [0, 2pi) rads, 90deg is enough due to 4-fold symmetry
+    for (uint8_t degrees = 0; degrees < 90; ++degrees) {
+        // scale for lib8tion's input range
+        uint16_t angle = degrees * UINT16_MAX / 360;
 
-        // Compute next point, simplified version of the if/else in original code
-        offsetx += 1;
-        dx += 2 * yy;
-        if (d1 >= 0) {
-            offsety -= 1;
-            dy -= 2 * xx;
-            d1 -= dy;
-        }
-        d1 += dx + yy;
-    }
+        // cos16 and sin16 return [-U16MAX/2, U16MAX/2)
+        // compute with equations and divide back into [0, 1) range
+        uint16_t offsetx = cos16(angle) * sizex / (UINT16_MAX/2);
+        uint16_t offsety = sin16(angle) * sizey / (UINT16_MAX/2);
 
-    // Simplified (and aproximated) form of the formula for region 2
-    //      in original code 1st parenthesis would have and extra `+0.25`
-    //                       2nd one would have and extra `+1`
-    // Note: xx could be factored out from some terms
-    int32_t d2 = yy * (xx + sizex) + xx * (yy - 2 * sizey) - xx * yy;
-    while (offsety >= 0) {
-        if (!flipped) {
-            temp_ret = qp_ellipse_helper_impl(device, x, y, offsetx, offsety, filled);
-        } else {
-            temp_ret = qp_ellipse_helper_impl(device, x, y, offsety, offsetx, filled);
-        }
-
-        if (!temp_ret) {
-            ret = false;
-            break;
-        }
-
-        offsety -= 1;
-        dy -= 2 * xx;
-        if (d2 <= 0) {
-            offsetx += 1;
-            dx += 2 * yy;
-            d2 += dx;
-        }
-        d2 += xx - dy;
+        qp_ellipse_helper_impl(device, x, y, offsetx, offsety, filled);
     }
 
     qp_dprintf("qp_ellipse: %s\n", ret ? "ok" : "fail");
     qp_comms_stop(device);
-    return ret;
+    return true;
 }
