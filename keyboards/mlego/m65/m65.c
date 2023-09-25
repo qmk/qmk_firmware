@@ -7,7 +7,7 @@
 static bool toggle_lwr = false;
 static bool toggle_rse = false;
 
-#ifdef RGBLIGHT_ENABLE
+#if defined(RGBLIGHT_ENABLE)
 
 const rgblight_segment_t PROGMEM my_qwerty_layer[] = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_OFF});
 const rgblight_segment_t PROGMEM my_lwr_layer[]    = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_AZURE});
@@ -18,18 +18,13 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(m
 
 #endif
 
-
-#ifdef OLED_ENABLE
-static uint32_t oled_logo_timer = 0;
-static bool clear_logo = true;
-static const char PROGMEM m65_logo[] = {
-    0x92, 0x92, 0x93, 0x94, 0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8A, 0x8B, 0x8C, 0x8D, 0x8E, 0x8F, 0x90,
-    0x92, 0x92, 0x93, 0x94, 0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0xAF, 0xB0,
-    0xB2, 0x92, 0xB3, 0xB4, 0xC0, 0xC1, 0xC2, 0xC3, 0xC4, 0xC5, 0xC6, 0xC7, 0xC8, 0xC9, 0xCA, 0xCB, 0xCC, 0xCD, 0xCE, 0xCF, 0xD0,
-    0};
+#if defined(OLED_ENABLE)
+static uint32_t           oled_logo_timer = 0;
+static bool               clear_logo      = true;
+static const char PROGMEM m65_logo[]      = {0x92, 0x92, 0x93, 0x94, 0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8A, 0x8B, 0x8C, 0x8D, 0x8E, 0x8F, 0x90, 0x92, 0x92, 0x93, 0x94, 0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0xAF, 0xB0, 0xB2, 0x92, 0xB3, 0xB4, 0xC0, 0xC1, 0xC2, 0xC3, 0xC4, 0xC5, 0xC6, 0xC7, 0xC8, 0xC9, 0xCA, 0xCB, 0xCC, 0xCD, 0xCE, 0xCF, 0xD0, 0};
 #endif
 
-#ifdef RGBLIGHT_ENABLE
+#if defined(RGBLIGHT_ENABLE)
 
 void set_rgb_layers(layer_state_t state) {
     rgblight_set_layer_state(0, layer_state_cmp(state, _QW));
@@ -70,7 +65,7 @@ void toggle_leds(void) {
     }
 }
 
-#ifdef OLED_ENABLE
+#if defined(OLED_ENABLE)
 
 void init_timer(void) {
     oled_logo_timer = timer_read32();
@@ -104,33 +99,33 @@ void user_oled_magic(void) {
     oled_write_P(led_state.scroll_lock ? PSTR("Raise ") : PSTR("    "), false);
     oled_write_P(led_state.caps_lock ? PSTR("CapsLock ") : PSTR("    "), false);
 
-#    ifdef UNICODE_COMMON_ENABLE
+#    if defined(UNICODE_COMMON_ENABLE)
     oled_write_P(PSTR("\nunicode: "), false);
     switch (get_unicode_input_mode()) {
-      case UNICODE_MODE_LINUX:
-        oled_write_P(PSTR("Linux"), false);
-        break;
-      case UNICODE_MODE_MACOS:
-        oled_write_P(PSTR("apple"), false);
-        break;
-      case UNICODE_MODE_WINDOWS:
-        oled_write_P(PSTR("windows"), false);
-        break;
-      case UNICODE_MODE_WINCOMPOSE:
-        oled_write_P(PSTR("windows c"), false);
-        break;
-      case UNICODE_MODE_BSD:
-        oled_write_P(PSTR("bsd"), false);
-        break;
-      case UNICODE_MODE_EMACS:
-        oled_write_P(PSTR("emacs"), false);
-        break;
-      default:
-        oled_write_ln_P(PSTR("not supported"), false);
+        case UNICODE_MODE_LINUX:
+            oled_write_P(PSTR("Linux"), false);
+            break;
+        case UNICODE_MODE_MACOS:
+            oled_write_P(PSTR("apple"), false);
+            break;
+        case UNICODE_MODE_WINDOWS:
+            oled_write_P(PSTR("windows"), false);
+            break;
+        case UNICODE_MODE_WINCOMPOSE:
+            oled_write_P(PSTR("windows c"), false);
+            break;
+        case UNICODE_MODE_BSD:
+            oled_write_P(PSTR("bsd"), false);
+            break;
+        case UNICODE_MODE_EMACS:
+            oled_write_P(PSTR("emacs"), false);
+            break;
+        default:
+            oled_write_ln_P(PSTR("not supported"), false);
     }
 #    endif
 
-#    ifdef WPM_ENABLE
+#    if defined(WPM_ENABLE)
     oled_write_P(PSTR("\nwpm: "), false);
     uint8_t wpm = get_current_wpm();
     oled_write_P(wpm != 0 ? get_u8_str(wpm, ' ') : PSTR("   "), false);
@@ -172,17 +167,14 @@ bool oled_task_kb(void) {
 
 #endif
 
-
 void matrix_scan_kb(void) {
-
     matrix_scan_user();
 
     toggle_leds();
-
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
-#ifdef CONSOLE_ENABLE
+#if defined(CONSOLE_ENABLE)
     uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %u, time: %5u, int: %u, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
 #endif
 
@@ -207,22 +199,20 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
+    state = layer_state_set_user(state);
 
-   state = layer_state_set_user(state);
+#if defined(RGBLIGHT_ENABLE)
 
-#ifdef RGBLIGHT_ENABLE
-
-   set_rgb_layers(state);
+    set_rgb_layers(state);
 
 #endif
 
-   return update_tri_layer_state(state, _LWR, _RSE, _ADJ);
+    return update_tri_layer_state(state, _LWR, _RSE, _ADJ);
 }
 
-#ifdef RGBLIGHT_ENABLE
+#if defined(RGBLIGHT_ENABLE)
 
 layer_state_t default_layer_state_set_kb(layer_state_t state) {
-
     state = default_layer_state_set_user(state);
 
     set_default_rgb_layers(state);
@@ -233,25 +223,22 @@ layer_state_t default_layer_state_set_kb(layer_state_t state) {
 #endif
 
 void keyboard_post_init_kb(void) {
+    init_lwr_rse_led(toggle_lwr, toggle_rse);
 
-  init_lwr_rse_led(toggle_lwr, toggle_rse);
-
-#ifdef RGBLIGHT_ENABLE
-  // Enable the LED layers
-  rgblight_layers = my_rgb();
+#if defined(RGBLIGHT_ENABLE)
+    // Enable the LED layers
+    rgblight_layers = my_rgb();
 #endif
 
-
-#ifdef OLED_ENABLE
-  init_timer();
+#if defined(OLED_ENABLE)
+    init_timer();
 #endif
 
-#ifdef CONSOLE_ENABLE
-  debug_enable = true;
-  debug_matrix = true;
-  debug_keyboard = true;
+#if defined(CONSOLE_ENABLE)
+    debug_enable   = true;
+    debug_matrix   = true;
+    debug_keyboard = true;
 #endif
 
-  keyboard_post_init_user();
-
+    keyboard_post_init_user();
 }
