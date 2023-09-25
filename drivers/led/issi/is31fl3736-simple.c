@@ -187,7 +187,7 @@ void is31fl3736_set_led_control_register(uint8_t index, bool value) {
     // A1-A4=0x00 A5-A8=0x01
 
     uint8_t control_register = led.v / 8;
-    uint8_t bit_value = led.v % 8;
+    uint8_t bit_value        = led.v % 8;
 
     if (value) {
         g_led_control_registers[led.driver][control_register] |= (1 << bit_value);
