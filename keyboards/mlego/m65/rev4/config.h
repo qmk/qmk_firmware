@@ -3,8 +3,8 @@
 
 #pragma once
 
-#define LED_RSE_PIN B12
-#define LED_LWR_PIN B13
+#define LED_RSE_PIN B13
+#define LED_LWR_PIN B12
 
 #ifdef OLED_ENABLE
 #    define I2C1_SCL_PIN B9
