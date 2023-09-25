@@ -1,6 +1,6 @@
 // Copyright 2021 Paul Cotter (@gr1mr3aver)
 // Copyright 2021 Nick Brassel (@tzarc)
-// Copyright 2022 Pablo Martinez (@elpekenin)
+// Copyright 2023 Pablo Martinez (@elpekenin)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "qp_internal.h"
@@ -78,6 +78,7 @@ bool qp_ellipse(painter_device_t device, uint16_t x, uint16_t y, uint16_t sizex,
         return false;
     }
 
+    bool ret = true;
     // parametric equation of the ellipse:
     //    x = centerx + sizex * cos(t)
     //    y = centery + sizey * sin(t)
@@ -91,7 +92,10 @@ bool qp_ellipse(painter_device_t device, uint16_t x, uint16_t y, uint16_t sizex,
         uint16_t offsetx = cos16(angle) * sizex / (UINT16_MAX / 2);
         uint16_t offsety = sin16(angle) * sizey / (UINT16_MAX / 2);
 
-        qp_ellipse_helper_impl(device, x, y, offsetx, offsety, filled);
+        if (!qp_ellipse_helper_impl(device, x, y, offsetx, offsety, filled)) {
+            ret = false;
+            break;
+        }
     }
 
     qp_dprintf("qp_ellipse: %s\n", ret ? "ok" : "fail");
