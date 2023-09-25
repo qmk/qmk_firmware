@@ -329,7 +329,7 @@ Configures the [LED Matrix](feature_led_matrix.md) feature.
         * The centroid (geometric center) of the LEDs. Used for certain effects.
         * Default: `[112, 32]`
     * `driver` (Required)
-        * The driver to use. Must be one of `ckled2001`, `custom`, `is31fl3731`, `is31fl3742a`, `is31fl3743a`, `is31fl3745`, `is31fl3746a`.
+        * The driver to use. Must be one of `ckled2001`, `custom`, `is31fl3731`, `is31fl3736`, `is31fl3742a`, `is31fl3743a`, `is31fl3745`, `is31fl3746a`.
     * `layout` (Required)
         * List of LED configuration dictionaries. Each dictionary contains:
             * `flags` (Required)
