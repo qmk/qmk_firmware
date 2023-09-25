@@ -107,7 +107,7 @@ WS2812_DRIVER = pwm
 
 ### SPI Driver :id=spi-driver
 
-This driver is ARM-only, and leverages the onboard SPI peripheral and DMA to offload processing from the CPU. The DI pin **must** be connected to the MOSI pin on the MCU, and all other SPI pins **must** be left unused.
+This driver is ARM-only, and leverages the onboard SPI peripheral and DMA to offload processing from the CPU. The DI pin **must** be connected to the MOSI pin on the MCU, and all other SPI pins **must** be left unused. This is also very dependent on your MCU's SPI peripheral clock speed, and may or may not be possible depending on the MCU selected.
 
 ```make
 WS2812_DRIVER = spi
@@ -167,7 +167,7 @@ To adjust the SPI baudrate, you will need to derive the target baudrate from the
 #define WS2812_SPI_DIVISOR 16
 ```
 
-Only divisors of 2, 4, 8, 16, 32, 64, 128 and 256 are supported.
+Only divisors of 2, 4, 8, 16, 32, 64, 128 and 256 are supported on STM32 devices. Other MCUs may have similar constraints -- check the reference manual for your respective MCU for specifics.
 
 #### Circular Buffer :id=arm-spi-circular-buffer
 
