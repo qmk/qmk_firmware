@@ -1,5 +1,7 @@
 # doio/kb38
 
+![Megalodon DOIO Triple Knob 38%](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/keyboards/doio/kb38/2022-06-2917-52-00_A_R8_S4_1024xc.jpg)
+
 QMK for Megalodon DOIO Triple Knob 38% with OLED Screen. 
 
 * Keyboard Maintainer: [Katrina](https://github.com/PepperKats)

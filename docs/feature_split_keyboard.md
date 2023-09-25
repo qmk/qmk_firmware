@@ -298,7 +298,13 @@ This enables transmitting the pointing device status to the master side of the s
 #define SPLIT_HAPTIC_ENABLE
 ```
 
-This enables triggering of haptic feedback on the slave side of the split keyboard. For DRV2605L this will send the mode, but for solenoids it is expected that the desired mode is already set up on the slave.
+This enables the triggering of haptic feedback on the slave side of the split keyboard. This will send information to the slave side such as the mode, dwell, and whether buzz is enabled.
+
+```c
+#define SPLIT_ACTIVITY_ENABLE
+```
+
+This synchronizes the activity timestamps between sides of the split keyboard, allowing for activity timeouts to occur.
 
 ### Custom data sync between sides :id=custom-data-sync
 

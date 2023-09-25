@@ -12,6 +12,9 @@ vpath %.hpp $(VPATH_SRC)
 vpath %.S $(VPATH_SRC)
 VPATH :=
 
+# Helper to return the distinct elements of a list
+uniq = $(if $1,$(firstword $1) $(call uniq,$(filter-out $(firstword $1),$1)))
+
 # Convert all SRC to OBJ
 define OBJ_FROM_SRC
 $(patsubst %.c,$1/%.o,$(patsubst %.cpp,$1/%.o,$(patsubst %.cc,$1/%.o,$(patsubst %.S,$1/%.o,$(patsubst %.clib,$1/%.a,$($1_SRC))))))
@@ -152,6 +155,7 @@ endif
 # To produce a UF2 file in your build, add to your keyboard's rules.mk:
 #      FIRMWARE_FORMAT = uf2
 UF2CONV = $(TOP_DIR)/util/uf2conv.py
+UF2CONV_ARGS ?=
 UF2_FAMILY ?= 0x0
 
 # Compiler flags to generate dependency files.
@@ -175,7 +179,7 @@ MOVE_DEP = mv -f $(patsubst %.o,%.td,$@) $(patsubst %.o,%.d,$@)
 
 # For a ChibiOS build, ensure that the board files have the hook overrides injected
 define BOARDSRC_INJECT_HOOKS
-$(KEYBOARD_OUTPUT)/$(patsubst %.c,%.o,$(patsubst ./%,%,$1)): INIT_HOOK_CFLAGS += -include $(TOP_DIR)/tmk_core/protocol/chibios/init_hooks.h
+$(INTERMEDIATE_OUTPUT)/$(patsubst %.c,%.o,$(patsubst ./%,%,$1)): INIT_HOOK_CFLAGS += -include $(TOP_DIR)/tmk_core/protocol/chibios/init_hooks.h
 endef
 $(foreach LOBJ, $(BOARDSRC), $(eval $(call BOARDSRC_INJECT_HOOKS,$(LOBJ))))
 
@@ -219,7 +223,7 @@ gccversion :
 	@$(BUILD_CMD)
 
 %.uf2: %.elf
-	$(eval CMD=$(HEX) $< $(BUILD_DIR)/$(TARGET).tmp && $(UF2CONV) $(BUILD_DIR)/$(TARGET).tmp --output $@ --convert --family $(UF2_FAMILY) >/dev/null 2>&1)
+	$(eval CMD=$(HEX) $< $(BUILD_DIR)/$(TARGET).tmp && $(UF2CONV) $(UF2CONV_ARGS) $(BUILD_DIR)/$(TARGET).tmp --output $@ --convert --family $(UF2_FAMILY) >/dev/null 2>&1)
 	#@$(SILENT) || printf "$(MSG_EXECUTING) '$(CMD)':\n"
 	@$(SILENT) || printf "$(MSG_UF2) $@" | $(AWK_CMD)
 	@$(BUILD_CMD)
@@ -263,7 +267,7 @@ BEGIN = gccversion sizebefore
 # Note the obj.txt depeendency is there to force linking if a source file is deleted
 %.elf: $(OBJ) $(MASTER_OUTPUT)/cflags.txt $(MASTER_OUTPUT)/ldflags.txt $(MASTER_OUTPUT)/obj.txt | $(BEGIN)
 	@$(SILENT) || printf "$(MSG_LINKING) $@" | $(AWK_CMD)
-	$(eval CMD=MAKE=$(MAKE) $(CC) $(ALL_CFLAGS) $(filter-out %.txt,$^) --output $@ $(LDFLAGS))
+	$(eval CMD=MAKE=$(MAKE) $(CC) $(ALL_CFLAGS) $(call uniq,$(OBJ)) --output $@ $(LDFLAGS))
 	@$(BUILD_CMD)
 
 
@@ -379,31 +383,9 @@ dump_vars:
 objs-size:
 	for i in $(OBJ); do echo $$i; done | sort | xargs $(SIZE)
 
-ifeq ($(findstring avr-gcc,$(CC)),avr-gcc)
-SIZE_MARGIN = 1024
 
+# size check optionally implemented in its platform.mk
 check-size:
-	$(eval MAX_SIZE=$(shell n=`$(CC) -E -mmcu=$(MCU) -D__ASSEMBLER__ $(CFLAGS) $(OPT_DEFS) platforms/avr/bootloader_size.c 2> /dev/null | $(SED) -ne 's/\r//;/^#/n;/^AVR_SIZE:/,$${s/^AVR_SIZE: //;p;}'` && echo $$(($$n)) || echo 0))
-	$(eval CURRENT_SIZE=$(shell if [ -f $(BUILD_DIR)/$(TARGET).hex ]; then $(SIZE) --target=$(FORMAT) $(BUILD_DIR)/$(TARGET).hex | $(AWK) 'NR==2 {print $$4}'; else printf 0; fi))
-	$(eval FREE_SIZE=$(shell expr $(MAX_SIZE) - $(CURRENT_SIZE)))
-	$(eval OVER_SIZE=$(shell expr $(CURRENT_SIZE) - $(MAX_SIZE)))
-	$(eval PERCENT_SIZE=$(shell expr $(CURRENT_SIZE) \* 100 / $(MAX_SIZE)))
-	if [ $(MAX_SIZE) -gt 0 ] && [ $(CURRENT_SIZE) -gt 0 ]; then \
-		$(SILENT) || printf "$(MSG_CHECK_FILESIZE)" | $(AWK_CMD); \
-		if [ $(CURRENT_SIZE) -gt $(MAX_SIZE) ]; then \
-		    printf "\n * $(MSG_FILE_TOO_BIG)"; $(PRINT_ERROR_PLAIN); \
-		else \
-		    if [ $(FREE_SIZE) -lt $(SIZE_MARGIN) ]; then \
-			$(PRINT_WARNING_PLAIN); printf " * $(MSG_FILE_NEAR_LIMIT)"; \
-		    else \
-			$(PRINT_OK); $(SILENT) || printf " * $(MSG_FILE_JUST_RIGHT)"; \
-		    fi ; \
-		fi ; \
-	fi
-else
-check-size:
-	$(SILENT) || echo "$(MSG_CHECK_FILESIZE_SKIPPED)"
-endif
 
 check-md5:
 	$(MD5SUM) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT)

@@ -17,21 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/*
- * Keyboard Matrix Assignments
-*/
-#define MATRIX_ROW_PINS { B6, B4, D7, D6, D4}
-#define MATRIX_COL_PINS { B5, C6, C7, F7, F6, D5, D3, D2, F1, F4, B7, F5 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION ROW2COL
-
 // RGB Matrix
-#define DRIVER_ADDR_1 0b1110100
-#define DRIVER_ADDR_2 0b1110111
+#define DRIVER_ADDR_1 IS31FL3731_I2C_ADDRESS_GND
+#define DRIVER_ADDR_2 IS31FL3731_I2C_ADDRESS_VCC
 
-#define DRIVER_COUNT 2
+#define IS31FL3731_DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 32
 #define DRIVER_2_LED_TOTAL 32
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)

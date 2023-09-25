@@ -41,7 +41,6 @@ uint8_t velocikey_match_speed(uint8_t minValue, uint8_t maxValue) {
 }
 // End: Written by Chris Lewis
 
-static int shift_int = 0;
 uint8_t       current_os,
               mod_primary_mask,
               fade_interval,
@@ -53,8 +52,6 @@ Color         underglow,
 flashState    flash_state   = no_flash;
 fadeState     fade_state    = add_fade;
 activityState state         = boot;
-bool          aesthetic     = false,
-              shifty        = false;
 
 float song_ussr[][2]     = SONG(USSR_ANTHEM);
 
@@ -208,7 +205,7 @@ void set_os (uint8_t os, bool update) {
   flash_color           = underglow;
   flash_state           = flash_off;
   state                 = boot;
-  num_extra_flashes_off = 1;
+  num_extra_flashes_off = 3;
 }
 
 // register GUI if Mac or Ctrl if other
@@ -242,17 +239,6 @@ void sec_mod(bool press) {
     } else {
       unregister_code(KC_LGUI);
     }
-  }
-}
-
-// register Meh if Win or Hyper if other
-// KC_MEH/HYPR registers both sides, causes issues with some apps
-// I'll do it myself, then
-void meh_hyper(bool press) {
-  if (current_os == OS_WIN) {
-    (press) ? register_mods(L_BIT_MEH) : unregister_mods(L_BIT_MEH);
-  } else {
-    (press) ? register_mods(L_BIT_HYPR) : unregister_mods(L_BIT_HYPR);
   }
 }
 
@@ -441,56 +427,6 @@ void matrix_scan_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (aesthetic) {
-    switch (keycode) {
-    case KC_A ... KC_0:
-    case KC_SPACE ... KC_SLASH:
-      if (record->event.pressed) {
-        state = active;
-        velocikey_accelerate();
-        tap_code(keycode);
-        tap_code(KC_SPACE);
-      }
-      return false;
-
-    case KC_BACKSPACE:
-      if (record->event.pressed) {
-        state = active;
-        velocikey_accelerate();
-        tap_code(keycode);
-        tap_code(keycode);
-      }
-      return false;
-    default: // Do nothing
-      break;
-    }
-  }
-
-  if (shifty) {
-    switch (keycode) {
-    case KC_A ... KC_Z:
-      if (record->event.pressed) {
-        shift_int += (rand() % 5);
-        int shift = ((shift_int % 2) == 1) ? true : false;
-        state = active;
-        velocikey_accelerate();
-        (shift) ? register_code(KC_LSFT) : NULL;
-        tap_code(keycode);
-        (shift) ? unregister_code(KC_LSFT) : NULL;
-      }
-      return false;
-    case KC_SPC:
-      if (record->event.pressed) {
-        state = active;
-        velocikey_accelerate();
-        tap_code(keycode);
-      }
-      return false;
-    default: // Do nothing
-      break;
-    }
-  }
-
   switch (keycode) {
   #ifdef AUDIO_ENABLE
         case M_USSR:
@@ -509,29 +445,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       register_unicode(0x2014); // —
     }
     return false;
-  case M_LMHYP:
-  case M_EHYPR:
-    (keycode = M_LMHYP) ? (record->event.pressed) ? layer_on(_ARROW) : layer_off(_ARROW) : NULL;
-    meh_hyper(record->event.pressed);
-    return false;
-
-  case M_SFTY:
-    if(record->event.pressed){
-      num_extra_flashes_off = (shifty) ?  1 : 0;
-      shifty = !shifty;
-      flash_color = underglow;
-      flash_state = flash_off;
-      return false;
-    }
-
-  case M_AEST:
-    if(record->event.pressed){
-      num_extra_flashes_off = (aesthetic) ? 1 : 0;
-      aesthetic = !aesthetic;
-      flash_color = underglow;
-      flash_state = flash_off;
-      return false;
-    }
 
   default:
     if (record->event.pressed) {

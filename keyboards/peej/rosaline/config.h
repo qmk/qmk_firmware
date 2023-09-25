@@ -16,11 +16,5 @@
 
 #pragma once
 
-
-#define MATRIX_ROW_PINS { C0, B5, B4, B3, B2, B1, C3, D5 }
-#define MATRIX_COL_PINS { B0, D7, D6, C2, D4, D1, D0, C1 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
-#define USB_MAX_POWER_CONSUMPTION 100
+#define LED1 C5
+#define LED2 C4

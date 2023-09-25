@@ -16,16 +16,7 @@
 
 #pragma once
 
-#define MATRIX_COL_PINS { B10, B2, B11, A10, B7, B6, B5, B4, B3, A15, A14 }
-#define MATRIX_ROW_PINS { A9, A8, B15, B14, B13, B12, A4, A5, A6, A7, B0, B1 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-#define WEAR_LEVELING_LOGICAL_SIZE 2048
-#define WEAR_LEVELING_BACKING_SIZE WEAR_LEVELING_LOGICAL_SIZE*2

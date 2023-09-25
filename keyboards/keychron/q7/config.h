@@ -16,17 +16,10 @@
 
 #pragma once
 
-/* key matrix pins */
-#define MATRIX_ROW_PINS { B4, B3, A15, A14, A13 }
-#define MATRIX_COL_PINS { C14, C15, A0, A1, A2, A3, A4, A5, A6, A7, B0, B1, A8, A9, A10, B5 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION ROW2COL
-
 /* RGB Matrix Driver Configuration */
-#define DRIVER_COUNT 2
-#define DRIVER_ADDR_1 0b1110111
-#define DRIVER_ADDR_2 0b1110100
+#define CKLED2001_DRIVER_COUNT 2
+#define DRIVER_ADDR_1 CKLED2001_I2C_ADDRESS_VDDIO
+#define DRIVER_ADDR_2 CKLED2001_I2C_ADDRESS_GND
 
 /* Increase I2C speed to 1000 KHz */
 #define I2C1_TIMINGR_PRESC 0U
@@ -35,8 +28,7 @@
 #define I2C1_TIMINGR_SCLH 15U
 #define I2C1_TIMINGR_SCLL 51U
 
-/* Scan phase of led driver set as MSKPHASE_9CHANNEL(defined as 0x03 in CKLED2001.h) */
-#define SCAN_PHASE_CHANNEL MSKPHASE_9CHANNEL
+#define CKLED2001_PHASE_CHANNEL CKLED2001_MSKPHASE_9CHANNEL
 #define CKLED2001_CURRENT_TUNE \
     { 0xF8, 0xF8, 0x80, 0xF8, 0xF8, 0x80, 0xF8, 0xF8, 0x80, 0xF8, 0xF8, 0x80 }
 

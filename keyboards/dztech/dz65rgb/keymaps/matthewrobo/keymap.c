@@ -25,7 +25,6 @@ enum dz65rgb_keycodes {
 #define TG_NKRO MAGIC_TOGGLE_NKRO
 #define _V_V_V_ KC_TRNS
 #define LT_CAPS LT(_NAV, KC_CAPS)
-extern bool autoshift_enabled;
 #define MT_APP  RALT_T(KC_APP)
 #define LM_LALT LM(_FNM, MOD_LALT)
 
@@ -87,12 +86,12 @@ bool rgb_matrix_indicators_user(void) {
 		rgb_matrix_set_color(8, 0xFF, 0xFF, 0xFF);
 	}
 
-	uint8_t this_led = host_keyboard_leds();
+	led_t led_state = host_keyboard_led_state();
 
 	if (!g_suspend_state && rgb_matrix_config.enable) {
 		switch (get_highest_layer(layer_state)) {
 		case _NAV:
-			if (IS_LED_ON(this_led, USB_LED_NUM_LOCK)) {
+			if (led_state.num_lock) {
 				rgb_matrix_set_color(17, 0xFF, 0x00, 0x00);
 				rgb_matrix_set_color(26, 0xFF, 0xFF, 0x00);
 			} else {
@@ -170,12 +169,6 @@ bool rgb_matrix_indicators_user(void) {
 			rgb_matrix_set_color(32, 0xFF, 0x00, 0x00); // KC_MUTE
 			rgb_matrix_set_color(24, 0xFF, 0x40, 0x00); // KC_MPRV
 			rgb_matrix_set_color(25, 0xFF, 0x40, 0x00);
-
-			if (this_led & (1 << !autoshift_enabled)) {
-				rgb_matrix_set_color(15, 0xFF, 0x00, 0x00); // AS_TOGG
-			} else {
-				rgb_matrix_set_color(15, 0xFF, 0xFF, 0x00);
-			}
 
 			rgb_matrix_set_color(6, 0xFF, 0x80, 0x00); //RGB_MOD
 			rgb_matrix_set_color(48, 0xFF, 0x80, 0x00);
