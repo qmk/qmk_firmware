@@ -6,16 +6,6 @@ enum keymap_layout {
     SETTINGS
 };
 
-// Colors of the layer indicator LED
-// This list needs to define layer 0xFFFFFFFF, it is the end of the list, and the unknown layer
-const Layer_Info layer_info[] = {
-    // Layer      Mask          Red     Green   Blue
-    { 0x00000000, 0xFFFFFFFF, { 0x0000, 0x0FFF, 0x0000 } }, // base layer - green
-    { 0x00000002, 0xFFFFFFFE, { 0x0000, 0x0000, 0x0FFF } }, // function layer - blue
-    { 0x00000004, 0xFFFFFFFC, { 0x0FFF, 0x0000, 0x0FFF } }, // settings layer - magenta
-    { 0xFFFFFFFF, 0xFFFFFFFF, { 0x0FFF, 0x0FFF, 0x0FFF } }  // unknown layer - REQUIRED - white
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Keymap VANILLA: (Base Layer) Default Layer
      * ,---------.  ,------------------------------------------------------------.  ,---------.

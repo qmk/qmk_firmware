@@ -8,7 +8,7 @@ CONSOLE_ENABLE     = no
 COMMAND_ENABLE     = no
 BACKLIGHT_ENABLE   = no
 
-ifeq ($(strip $(LAYOUT_HAS_RGB)), yes)
+ifeq ($(strip $(LAYOUTS_HAS_RGB)), yes)
     RGBLIGHT_ENABLE            = yes
 endif
 
