@@ -121,24 +121,27 @@ __attribute__((weak)) uint16_t dac_value_generate(void) {
     /* doing additive wave synthesis over all currently playing tones = adding up
      * sine-wave-samples for each frequency, scaled by the number of active tones
      */
-    uint16_t value     = 0;
-    float    frequency = 0.0f;
+    uint_fast16_t value     = 0;
+    float         frequency = 0.0f;
 
-    for (uint8_t i = 0; i < active_tones_snapshot_length; i++) {
+    for (size_t i = 0; i < active_tones_snapshot_length; i++) {
         /* Note: a user implementation does not have to rely on the active_tones_snapshot, but
          * could directly query the active frequencies through audio_get_processed_frequency */
         frequency = active_tones_snapshot[i];
 
-        dac_if[i] = dac_if[i] + ((frequency * AUDIO_DAC_BUFFER_SIZE) / AUDIO_DAC_SAMPLE_RATE) * 2 / 3;
+        float new_dac_if = dac_if[i];
+        new_dac_if += frequency * ((float)AUDIO_DAC_BUFFER_SIZE / AUDIO_DAC_SAMPLE_RATE * 2.0f / 3.0f);
         /*Note: the 2/3 are necessary to get the correct frequencies on the
          *      DAC output (as measured with an oscilloscope), since the gpt
          *      timer runs with 3*AUDIO_DAC_SAMPLE_RATE; and the DAC callback
          *      is called twice per conversion.*/
 
-        dac_if[i] = fmodf(dac_if[i], AUDIO_DAC_BUFFER_SIZE);
+        while (new_dac_if >= AUDIO_DAC_BUFFER_SIZE)
+            new_dac_if -= AUDIO_DAC_BUFFER_SIZE;
+        dac_if[i] = new_dac_if;
 
         // Wavetable generation/lookup
-        uint16_t dac_i = (uint16_t)dac_if[i];
+        size_t dac_i = (size_t)new_dac_if;
 
 #if defined(AUDIO_DAC_SAMPLE_WAVEFORM_SINE)
         value += dac_buffer_sine[dac_i] / active_tones_snapshot_length;
