@@ -27,6 +27,10 @@
             KeyboardReport(KC_LSFT))))
 // clang-format on
 
+bool get_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
+    return true;
+}
+
 using ::testing::_;
 using ::testing::AnyNumber;
 using ::testing::AnyOf;
