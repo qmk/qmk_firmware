@@ -8,5 +8,5 @@
 
 1. The name of this keyboard is "Keychron Q0 Plus"
 2. Enables EC11 rotary encoder
-3. Turn clockwise to increase volume and turn anti-clockwise to decrease volume
-4. Press the knob button to mute
+    - Turn clockwise to increase volume and turn anti-clockwise to decrease volume
+    - Press the knob button to mute

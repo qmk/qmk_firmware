@@ -10,12 +10,12 @@ A customizable number keypad.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make keychron/q0/non_plus:default
+    make keychron/q0/base:default
     make keychron/q0/plus:default
 
 Flashing example for this keyboard:
 
-    make keychron/q0/non_plus:default:flash
+    make keychron/q0/base:default:flash
     make keychron/q0/plus:default:flash
 
 **Reset Key**: Hold down the key located at *K00*, commonly programmed as *Esc* while plugging in the keyboard.
