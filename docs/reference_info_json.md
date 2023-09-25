@@ -88,7 +88,7 @@ You can create `info.json` files at every level under `qmk_firmware/keyboards/<k
 
 ## APA102 :id=apa102
 
-Configures the APA102 driver.
+Configures the [APA102](apa102_driver.md) driver.
 
 * `apa102`
     * `clock_pin` (Required)

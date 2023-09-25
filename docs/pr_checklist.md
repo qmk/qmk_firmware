@@ -80,6 +80,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
       - Encoder Configuration
       - Bootmagic Configuration
       - LED Indicator Configuration
+    - Run `qmk format-json` on this file before submitting your PR. Be sure to append the `-i` flag to directly modify the file, or paste the outputted code into the file. 
 - `readme.md`
     - must follow the [template](https://github.com/qmk/qmk_firmware/blob/master/data/templates/keyboard/readme.md)
     - flash command is present, and has `:flash` at end
