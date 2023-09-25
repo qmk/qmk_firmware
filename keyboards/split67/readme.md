@@ -1,6 +1,6 @@
 # split67
 
-![split67](https://imgur.com/2eC03Sm.jpg)
+![split67](https://imgur.com/2eC03Smh.jpg)
 
 A 65% keys split keyboard.
 
