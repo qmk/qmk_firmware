@@ -223,7 +223,7 @@ layer_state_t default_layer_state_set_kb(layer_state_t state) {
 #endif
 
 void keyboard_post_init_kb(void) {
-    init_lwr_rse_led(toggle_lwr, toggle_rse);
+    init_lwr_rse_led();
 
 #if defined(RGBLIGHT_ENABLE)
     // Enable the LED layers
