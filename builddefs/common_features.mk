@@ -342,6 +342,10 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     ifeq ($(strip $(RGBLIGHT_DRIVER)), apa102)
         APA102_DRIVER_REQUIRED := yes
     endif
+
+    ifeq ($(strip $(VELOCIKEY_ENABLE)), yes)
+        OPT_DEFS += -DVELOCIKEY_ENABLE
+    endif
 endif
 
 # Deprecated driver names - do not use

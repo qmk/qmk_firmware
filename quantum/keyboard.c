@@ -99,9 +99,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef ST7565_ENABLE
 #    include "st7565.h"
 #endif
-#ifdef VELOCIKEY_ENABLE
-#    include "velocikey.h"
-#endif
 #ifdef VIA_ENABLE
 #    include "via.h"
 #endif
@@ -706,12 +703,6 @@ void keyboard_task(void) {
 
 #ifdef MIDI_ENABLE
     midi_task();
-#endif
-
-#ifdef VELOCIKEY_ENABLE
-    if (velocikey_enabled()) {
-        velocikey_decelerate();
-    }
 #endif
 
 #ifdef JOYSTICK_ENABLE
