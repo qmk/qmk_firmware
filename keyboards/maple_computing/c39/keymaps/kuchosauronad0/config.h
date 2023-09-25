@@ -29,6 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 )
 
 #ifdef RGBLIGHT_ENABLE
-#  define RGB_DI_PIN D0
+#  define WS2812_DI_PIN D0
 #  define RGBLED_NUM 4
 #endif // !RGBLIGHT_ENABLE

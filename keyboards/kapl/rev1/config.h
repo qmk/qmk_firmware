@@ -2,45 +2,15 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
-// wiring of each half
-#define MATRIX_ROW_PINS { C6, D7, E6, B4, B5 }
-#define MATRIX_COL_PINS { F5, F6, F7, B1, B3, B2, B6 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 /* Select hand configuration */
 #define MASTER_LEFT
-
-
-#define RGB_DI_PIN D4
-#define RGBLED_NUM 88
-#define RGBLED_SPLIT { 44, 44 }
-#define RGBLIGHT_SPLIT
-#define RGBLIGHT_LIMIT_VAL 120 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
 
 #define RGB_MATRIX_LED_COUNT 88
 #define RGB_MATRIX_SPLIT { 44, 44 }
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
 #define SPLIT_TRANSPORT_MIRROR
 
-#ifdef RGBLIGHT_ENABLE
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 16
-#define RGBLIGHT_VAL_STEP 16
-#define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#define RGBLIGHT_EFFECT_CHRISTMAS
-#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#define RGBLIGHT_EFFECT_TWINKLE
-#endif
-
 #ifdef RGB_MATRIX_ENABLE
-#define RGB_MATRIX_HUE_STEP 8
-#define RGB_MATRIX_SAT_STEP 16
-#define RGB_MATRIX_VAL_STEP 16
-#define RGB_MATRIX_SPD_STEP 10
 // EFFECTS
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS
 #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN

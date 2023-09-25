@@ -17,28 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define MATRIX_ROW_PINS { A4, A3, C13, A1, A2}
-#define MATRIX_COL_PINS { B10, B11, B2, B1, B0, A6, A5, A10, A9, A15, B3, B4, B5, B8, B9 }
-
-#ifdef  RGBLIGHT_ENABLE
-#define RGB_DI_PIN A7
 #define WS2812_SPI SPID1 // default: SPID1
 #define WS2812_SPI_MOSI_PAL_MODE 5 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 5
-#define RGBLED_NUM      23
-#define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#define RGBLIGHT_EFFECT_SNAKE
-#define RGBLIGHT_EFFECT_KNIGHT
-#define RGBLIGHT_EFFECT_CHRISTMAS
-#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#define RGBLIGHT_EFFECT_RGB_TEST
-#define RGBLIGHT_EFFECT_ALTERNATING
-#define RGBLIGHT_EFFECT_TWINKLE
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 8
-#define RGBLIGHT_VAL_STEP 8
-#endif 
 
 #ifdef RGB_MATRIX_ENABLE
 //rgb matrix setting
@@ -112,5 +92,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
 
 #endif
-
-#define TAP_CODE_DELAY 10

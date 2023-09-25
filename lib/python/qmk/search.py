@@ -45,7 +45,7 @@ def _load_keymap_info(keyboard, keymap):
         return (keyboard, keymap, keymap_json(keyboard, keymap))
 
 
-def search_keymap_targets(keymap='default', filters=[]):
+def search_keymap_targets(keymap='default', filters=[], print_vals=[]):
     targets = []
 
     with multiprocessing.Pool() as pool:
@@ -61,19 +61,48 @@ def search_keymap_targets(keymap='default', filters=[]):
             target_list = [(kb, keymap) for kb in filter(lambda kb: kb is not None, pool.starmap(_keymap_exists, [(kb, keymap) for kb in qmk.keyboard.list_keyboards()]))]
 
         if len(filters) == 0:
-            targets = target_list
+            targets = [(kb, km, {}) for kb, km in target_list]
         else:
             cli.log.info('Parsing data for all matching keyboard/keymap combinations...')
             valid_keymaps = [(e[0], e[1], dotty(e[2])) for e in pool.starmap(_load_keymap_info, target_list)]
 
+            function_re = re.compile(r'^(?P<function>[a-zA-Z]+)\((?P<key>[a-zA-Z0-9_\.]+)(,\s*(?P<value>[^#]+))?\)$')
             equals_re = re.compile(r'^(?P<key>[a-zA-Z0-9_\.]+)\s*=\s*(?P<value>[^#]+)$')
-            exists_re = re.compile(r'^exists\((?P<key>[a-zA-Z0-9_\.]+)\)$')
-            for filter_txt in filters:
-                f = equals_re.match(filter_txt)
-                if f is not None:
-                    key = f.group('key')
-                    value = f.group('value')
-                    cli.log.info(f'Filtering on condition ("{key}" == "{value}")...')
+
+            for filter_expr in filters:
+                function_match = function_re.match(filter_expr)
+                equals_match = equals_re.match(filter_expr)
+
+                if function_match is not None:
+                    func_name = function_match.group('function').lower()
+                    key = function_match.group('key')
+                    value = function_match.group('value')
+
+                    if value is not None:
+                        if func_name == 'length':
+                            valid_keymaps = filter(lambda e, key=key, value=value: key in e[2] and len(e[2].get(key)) == int(value), valid_keymaps)
+                        elif func_name == 'contains':
+                            valid_keymaps = filter(lambda e, key=key, value=value: key in e[2] and value in e[2].get(key), valid_keymaps)
+                        else:
+                            cli.log.warning(f'Unrecognized filter expression: {function_match.group(0)}')
+                            continue
+
+                        cli.log.info(f'Filtering on condition: {{fg_green}}{func_name}{{fg_reset}}({{fg_cyan}}{key}{{fg_reset}}, {{fg_cyan}}{value}{{fg_reset}})...')
+                    else:
+                        if func_name == 'exists':
+                            valid_keymaps = filter(lambda e, key=key: key in e[2], valid_keymaps)
+                        elif func_name == 'absent':
+                            valid_keymaps = filter(lambda e, key=key: key not in e[2], valid_keymaps)
+                        else:
+                            cli.log.warning(f'Unrecognized filter expression: {function_match.group(0)}')
+                            continue
+
+                        cli.log.info(f'Filtering on condition: {{fg_green}}{func_name}{{fg_reset}}({{fg_cyan}}{key}{{fg_reset}})...')
+
+                elif equals_match is not None:
+                    key = equals_match.group('key')
+                    value = equals_match.group('value')
+                    cli.log.info(f'Filtering on condition: {{fg_cyan}}{key}{{fg_reset}} == {{fg_cyan}}{value}{{fg_reset}}...')
 
                     def _make_filter(k, v):
                         expr = fnmatch.translate(v)
@@ -87,13 +116,10 @@ def search_keymap_targets(keymap='default', filters=[]):
                         return f
 
                     valid_keymaps = filter(_make_filter(key, value), valid_keymaps)
+                else:
+                    cli.log.warning(f'Unrecognized filter expression: {filter_expr}')
+                    continue
 
-                f = exists_re.match(filter_txt)
-                if f is not None:
-                    key = f.group('key')
-                    cli.log.info(f'Filtering on condition (exists: "{key}")...')
-                    valid_keymaps = filter(lambda e: e[2].get(key) is not None, valid_keymaps)
-
-            targets = [(e[0], e[1]) for e in valid_keymaps]
+            targets = [(e[0], e[1], [(p, e[2].get(p)) for p in print_vals]) for e in valid_keymaps]
 
     return targets

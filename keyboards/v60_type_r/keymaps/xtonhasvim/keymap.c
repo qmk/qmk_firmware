@@ -69,8 +69,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-void led_set_user(uint8_t usb_led) {
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+bool led_update_user(led_t led_state) {
+    if (led_state.caps_lock) {
         // output low
         DDRE  |=  (1<<PE6);
         PORTE &= ~(1<<PE6);
@@ -80,6 +80,7 @@ void led_set_user(uint8_t usb_led) {
         DDRE  &= ~(1<<PE6);
         PORTE &= ~(1<<PE6);
     }
+    return false;
 }
 
 #define C_RED 0xFF, 0x00, 0x00

@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "yurei.h"
+#include "quantum.h"
 
 bool led_update_kb(led_t led_state) {
     if (led_update_user(led_state)) {

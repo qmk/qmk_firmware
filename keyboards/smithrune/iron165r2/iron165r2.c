@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "iron165r2.h"
+#include "quantum.h"
 
 void board_init(void) {
     setPinInput(B6);
@@ -27,8 +27,6 @@ void board_init(void) {
     rgblight_set_effect_range(0,2);
 #endif
 }
-
-#define LED_PIN_ON_STATE 1
 
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);

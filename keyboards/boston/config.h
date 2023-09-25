@@ -16,12 +16,6 @@
 
 #pragma once
 
-#define MATRIX_COL_PINS \
-    { B10, B11, B12, B13, B14, B15, A8, A9, A10, A15, B3, B4, B7, B8, B9, C14, C15, F0, A3 }
-#define MATRIX_ROW_PINS \
-    { B5, B6, A7, B0, B1, B2, A4 }
-#define DIODE_DIRECTION COL2ROW
-
 #define BACKLIGHT_PWM_DRIVER PWMD3
 #define BACKLIGHT_PWM_CHANNEL 1
 #define BACKLIGHT_PAL_MODE 1
@@ -31,25 +25,10 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* Define RGBLED */
-#define RGB_DI_PIN A5
-#define RGBLED_NUM 1
-#define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#define RGBLIGHT_EFFECT_SNAKE
-#define RGBLIGHT_EFFECT_KNIGHT
-#define RGBLIGHT_EFFECT_CHRISTMAS
-#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#define RGBLIGHT_EFFECT_RGB_TEST
-#define RGBLIGHT_EFFECT_ALTERNATING
-#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLIGHT_LAYERS
 
 //The 3D-printed version of Boston uses APA106 LEDs, which are reversed
 #define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_RGB
-
-#define TAP_CODE_DELAY 15
 
 /*
  * Feature disable options
