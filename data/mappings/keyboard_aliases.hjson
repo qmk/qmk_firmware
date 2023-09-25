@@ -890,6 +890,9 @@
     "kelowna/rgb64": {
         "target": "weirdo/kelowna/rgb64"
     },
+    "keychron/q1": {
+        "target": "keychron/q1v1"
+    }
     "kprepublic/bm40hsrgb": {
         "target": "kprepublic/bm40hsrgb/rev1"
     },
