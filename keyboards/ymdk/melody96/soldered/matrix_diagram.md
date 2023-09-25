@@ -1,4 +1,4 @@
-# Matrix Diagram for YMDK Melody96
+# Matrix Diagram for YMDK Melody96 Soldered
 
 ```
 ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
