@@ -100,5 +100,5 @@ bool qp_ellipse(painter_device_t device, uint16_t x, uint16_t y, uint16_t sizex,
 
     qp_dprintf("qp_ellipse: %s\n", ret ? "ok" : "fail");
     qp_comms_stop(device);
-    return true;
+    return ret;
 }
