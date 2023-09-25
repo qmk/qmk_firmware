@@ -79,17 +79,17 @@ bool qp_ellipse(painter_device_t device, uint16_t x, uint16_t y, uint16_t sizex,
     }
 
     // parametric equation of the ellipse:
-    //    x = sizex * cos(t)
-    //    y = sizey * sin(t)
-    // where t: [0, 2pi) rads, 90deg is enough due to 4-fold symmetry
+    //    x = centerx + sizex * cos(t)
+    //    y = centery + sizey * sin(t)
+    // where t: [0, 2pi) rads, 90deg is enough due to 4-way symmetry
     for (uint8_t degrees = 0; degrees < 90; ++degrees) {
         // scale for lib8tion's input range
         uint16_t angle = degrees * UINT16_MAX / 360;
 
         // cos16 and sin16 return [-U16MAX/2, U16MAX/2)
         // compute with equations and divide back into [0, 1) range
-        uint16_t offsetx = cos16(angle) * sizex / (UINT16_MAX/2);
-        uint16_t offsety = sin16(angle) * sizey / (UINT16_MAX/2);
+        uint16_t offsetx = cos16(angle) * sizex / (UINT16_MAX / 2);
+        uint16_t offsety = sin16(angle) * sizey / (UINT16_MAX / 2);
 
         qp_ellipse_helper_impl(device, x, y, offsetx, offsety, filled);
     }
