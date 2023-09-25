@@ -48,6 +48,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_LWR] = {ENCODER_CCW_CW(KC_MNXT, KC_MPRV)},
     [_RSE] = {ENCODER_CCW_CW(KC_MFFD, KC_MRWD)},
     [_ADJ] = {ENCODER_CCW_CW(KC_PGDN, KC_PGUP)},
-};
 #endif
+};
 #endif
