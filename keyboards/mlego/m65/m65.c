@@ -1,7 +1,7 @@
 // Copyright 2020-2023 alin m elena (@alinelena)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "m65.h"
+#include QMK_KEYBOARD_H
 
 // let us assume we start with both layers off
 static bool toggle_lwr = false;
@@ -56,7 +56,7 @@ void set_led_toggle(const uint8_t layer, const bool state) {
     }
 }
 
-void toggle_leds(void) {
+void toggle_leds(const bool toggle_lwr, const bool toggle_rse) {
     led_lwr(toggle_lwr);
     led_rse(toggle_rse);
     if (layer_state_is(_ADJ)) {
@@ -169,8 +169,7 @@ bool oled_task_kb(void) {
 
 void matrix_scan_kb(void) {
     matrix_scan_user();
-
-    toggle_leds();
+    toggle_leds(toggle_lwr, toggle_rse);
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {

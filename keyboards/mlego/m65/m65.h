@@ -25,7 +25,7 @@ const rgblight_segment_t* const* my_rgb(void);
 void                             set_default_rgb_layers(layer_state_t);
 #endif
 
-void toggle_leds(void);
+void toggle_leds(const bool, const bool);
 void set_led_toggle(const uint8_t, const bool);
 
 static inline void init_lwr_rse_led(void) {
