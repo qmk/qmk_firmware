@@ -33,10 +33,10 @@ def ignore_logging():
 
 
 def _all_keymaps(keyboard):
-    """Returns a tuple of (keyboard, all_keymaps) for the given keyboard.
+    """Returns a list of tuples of (keyboard, keymap) for all keymaps for the given keyboard.
     """
     with ignore_logging():
-        return (keyboard, qmk.keymap.list_keymaps(keyboard))
+        return [(keyboard, keymap) for keymap in qmk.keymap.list_keymaps(keyboard)]
 
 
 def _keymap_exists(keyboard, keymap):
@@ -55,6 +55,8 @@ def _load_keymap_info(kb_km):
 
 def expand_make_targets(targets: List[str]) -> List[Tuple[str, str]]:
     """Expand a list of make targets into a list of (keyboard, keymap) tuples.
+
+    Caters for 'all' in either keyboard or keymap.
     """
     split_targets = []
     for target in targets:
@@ -66,34 +68,32 @@ def expand_make_targets(targets: List[str]) -> List[Tuple[str, str]]:
     return expand_keymap_targets(split_targets)
 
 
-def _expand_keymap_target(keyboard: str, keymap: str, all_keyboards: List[str]) -> List[Tuple[str, str]]:
+def _expand_keymap_target(keyboard: str, keymap: str, all_keyboards: List[str] = None) -> List[Tuple[str, str]]:
     """Expand a keyboard input and keymap input into a list of (keyboard, keymap) tuples.
 
     Caters for 'all' in either keyboard or keymap.
     """
+    if all_keyboards is None:
+        all_keyboards = qmk.keyboard.list_keyboards()
     with multiprocessing.Pool() as pool:
-        targets = []
         if keyboard == 'all':
             if keymap == 'all':
                 cli.log.info('Retrieving list of all keyboards and keymaps...')
-                for keyboard, keymaps in pool.imap_unordered(_all_keymaps, all_keyboards):
-                    for keymap in keymaps:
-                        targets.append((keyboard, keymap))
+                targets = []
+                for kb in pool.imap_unordered(_all_keymaps, all_keyboards):
+                    targets.extend(kb)
+                return targets
             else:
                 cli.log.info(f'Retrieving list of keyboards with keymap "{keymap}"...')
                 keyboard_filter = functools.partial(_keymap_exists, keymap=keymap)
-                for keyboard in pool.imap_unordered(keyboard_filter, all_keyboards):
-                    if keyboard is not None:
-                        targets.append((keyboard, keymap))
+                return [(kb, keymap) for kb in filter(lambda e: e is not None, pool.imap_unordered(keyboard_filter, all_keyboards))]
         else:
             if keymap == 'all':
                 keyboard = qmk.keyboard.resolve_keyboard(keyboard)
                 cli.log.info(f'Retrieving list of keymaps for keyboard "{keyboard}"...')
-                for keymap in qmk.keymap.list_keymaps(keyboard):
-                    targets.append((keyboard, keymap))
+                return _all_keymaps(keyboard)
             else:
-                targets.append((keyboard, keymap))
-        return targets
+                return [(keyboard, keymap)]
 
 
 def expand_keymap_targets(targets: List[Tuple[str, str]]) -> List[Tuple[str, str]]:
