@@ -148,6 +148,7 @@
     * [Compatible Microcontrollers](compatible_microcontrollers.md)
     * [Drivers](hardware_drivers.md)
       * [ADC Driver](adc_driver.md)
+      * [APA102 Driver](apa102_driver.md)
       * [Audio Driver](audio_driver.md)
       * [I2C Driver](i2c_driver.md)
       * [SPI Driver](spi_driver.md)
