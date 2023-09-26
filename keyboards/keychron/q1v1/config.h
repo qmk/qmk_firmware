@@ -28,9 +28,7 @@
 #define MATRIX_MASKED
 
 /* Encoder Configuration*/
-#ifdef ENCODER_ENABLE
-    #define ENCODER_DEFAULT_POS 0x3
-#endif
+#define ENCODER_DEFAULT_POS 0x3
 
 /* Disable RGB lighting when PC is in suspend */
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
