@@ -105,24 +105,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_FUN_NAV] = LAYOUT(
 /*
     .------.------.------.------.------.            .------.------.------.------.------.
-    | F1   | F2   | F3   | F4   | F5   |            | F6   | F7   | F8   | F9   | F10  |
-    |      |      |      |      |      |            |      | Prev | Play | Next | Mute |
-    |------+------+------+------+------|            |------+------+------+------+------|
-    |      |      | VIUP | VIDN |      |            | ←    | ↓    | ↑    | →    |      |
+    | F1   | F2   | F3   | F4   | F5   |            | Prev | Next | Play | VolD | VolU |
     |      |      |      |      |      |            |      |      |      |      |      |
     |------+------+------+------+------|            |------+------+------+------+------|
-    | KVM1 | KVM2 | KVM3 | KVM4 |      |            | F11  | F12  | ^    | RBG  | GAME |
-    |      |      |      |      |      |            | VolD | VolU |      | TOG  | TOG  |
+    | KVM1 | KVM2 | KVM3 | KVM4 | F6   |            | ←    | ↓    | ↑    | →    | Mute |
+    |      |      |      |      |      |            |      |      |      |      |      |
+    |------+------+------+------+------|            |------+------+------+------+------|
+    |      |      |      |      |      |            | ^    | VIDN | VIUP | RBG  | GAME |
+    |      |      |      |      |      |            |      |      |      | TOG  | TOG  |
     '------'------'------'------'------'            '------'------'------'------'------'
                             .------.------.      .------.------.
                             | ↓↓↓  | ESC  |      | ↓↓↓  | ↓↓↓  |
                             |      |      |      |      |      |
                             '------'------'      '------'------'
 */
-    KC_F1,   KC_F2,   KC_F3,    KC_F4,    KC_F5,        KC_F6,   KC_MPRV,  KC_MPLY, KC_MNXT,  KC_MUTE,
-    XXXXXXX, XXXXXXX, VIM_CTLU, VIM_CTLD, XXXXXXX,      KC_LEFT, KC_DOWN,  KC_UP,   KC_RIGHT, XXXXXXX,
-    KVM_1,   KVM_2,   KVM_3,    KVM_4,    XXXXXXX,      KC_VOLD, KC_VOLU,  KC_CIRC, RGB_TOG,  GAME_TOG,
-                                _______,  KC_ESC,       _______, _______
+    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,      KC_MPRV, KC_MNXT,  KC_MPLY,  KC_VOLD,  KC_VOLU,
+    KVM_1,   KVM_2,   KVM_2,   KVM_2,   KC_F6,      KC_LEFT, KC_DOWN,  KC_UP,    KC_RIGHT, KC_MUTE,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_CIRC, VIM_CTLD, VIM_CTLU, RGB_TOG,  GAME_TOG,
+                               _______, KC_ESC,     _______, _______
   ),
     [_GAME] = LAYOUT(
 /*
@@ -150,23 +150,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_GAME_FUN] = LAYOUT(
 /*
     .------.------.------.------.------.            .------.------.------.------.------.
-    | F1   | F2   | F3   | F4   | F5   |            | F6   | F7   | F8   | F9   | F10  |
-    |      |      |      |      |      |            |      | Prev | Play | Next | Mute |
-    |------+------+------+------+------|            |------+------+------+------+------|
-    | ↓↓↓  |      |      |      |      |            |      | \ |  | [ {  | ] }  |      |
+    | F1   | F2   | F3   | F4   | F5   |            | Prev | Next | Play | VolD | VolU |
     |      |      |      |      |      |            |      |      |      |      |      |
     |------+------+------+------+------|            |------+------+------+------+------|
-    | ↓↓↓  |      |      |      |      |            | F11  | F12  |      |      | ↓↓↓  |
-    |      |      |      |      |      |            | VolD | VolU |      |      |      |
+    | ↓↓↓  |      |      |      | F6   |            |      | \ |  | [ {  | ] }  | Mute |
+    |      |      |      |      |      |            |      |      |      |      |      |
+    |------+------+------+------+------|            |------+------+------+------+------|
+    | ↓↓↓  |      |      |      |      |            |      |      |      |      | ↓↓↓  |
+    |      |      |      |      |      |            |      |      |      |      |      |
     '------'------'------'------'------'            '------'------'------'------'------'
                             .------.------.      .------.------.
                             | ↓↓↓  | ↓↓↓  |      | ↓↓↓  | ↓↓↓  |
                             |      |      |      |      |      |
                             '------'------'      '------'------'
 */
-    KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE,
-    _______, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, KC_BSLS, KC_LBRC, KC_RBRC, XXXXXXX,
-    _______, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,      KC_VOLD, KC_VOLU, XXXXXXX, XXXXXXX, _______,
+    KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,        KC_MPRV, KC_MNXT, KC_MPLY, KC_VOLD, KC_VOLU,
+    _______, XXXXXXX,  XXXXXXX, XXXXXXX, KC_F6,        XXXXXXX, KC_BSLS, KC_LBRC, KC_RBRC, KC_MUTE,
+    _______, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
                                 _______, _______,      _______, _______
 )
 
