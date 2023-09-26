@@ -1,4 +1,4 @@
-# Etienne Collin's keymap
+# Feature keymap
 
 This keymap is heavily inspired by the [miryoku](https://github.com/manna-harbour/miryoku) layout.
 
