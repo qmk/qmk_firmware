@@ -27,9 +27,6 @@
 #ifdef EEPROM_ENABLE
 #    include "eeprom.h"
 #endif
-#ifdef VELOCIKEY_ENABLE
-#    include "velocikey.h"
-#endif
 
 #ifdef RGBLIGHT_SPLIT
 /* for split keyboard */
@@ -198,12 +195,13 @@ void eeconfig_update_rgblight_current(void) {
 }
 
 void eeconfig_update_rgblight_default(void) {
-    rgblight_config.enable = 1;
-    rgblight_config.mode   = RGBLIGHT_DEFAULT_MODE;
-    rgblight_config.hue    = RGBLIGHT_DEFAULT_HUE;
-    rgblight_config.sat    = RGBLIGHT_DEFAULT_SAT;
-    rgblight_config.val    = RGBLIGHT_DEFAULT_VAL;
-    rgblight_config.speed  = RGBLIGHT_DEFAULT_SPD;
+    rgblight_config.enable    = 1;
+    rgblight_config.velocikey = 0;
+    rgblight_config.mode      = RGBLIGHT_DEFAULT_MODE;
+    rgblight_config.hue       = RGBLIGHT_DEFAULT_HUE;
+    rgblight_config.sat       = RGBLIGHT_DEFAULT_SAT;
+    rgblight_config.val       = RGBLIGHT_DEFAULT_VAL;
+    rgblight_config.speed     = RGBLIGHT_DEFAULT_SPD;
     RGBLIGHT_SPLIT_SET_CHANGE_MODEHSVS;
     eeconfig_update_rgblight(rgblight_config.raw);
 }
@@ -211,6 +209,7 @@ void eeconfig_update_rgblight_default(void) {
 void eeconfig_debug_rgblight(void) {
     dprintf("rgblight_config EEPROM:\n");
     dprintf("rgblight_config.enable = %d\n", rgblight_config.enable);
+    dprintf("rgblight_config.velocikey = %d\n", rgblight_config.velocikey);
     dprintf("rghlight_config.mode = %d\n", rgblight_config.mode);
     dprintf("rgblight_config.hue = %d\n", rgblight_config.hue);
     dprintf("rgblight_config.sat = %d\n", rgblight_config.sat);
@@ -689,9 +688,9 @@ void rgblight_sethsv_at(uint8_t hue, uint8_t sat, uint8_t val, uint8_t index) {
 static uint8_t get_interval_time(const uint8_t *default_interval_address, uint8_t velocikey_min, uint8_t velocikey_max) {
     return
 #    ifdef VELOCIKEY_ENABLE
-        velocikey_enabled() ? velocikey_match_speed(velocikey_min, velocikey_max) :
+        rgblight_velocikey_enabled() ? rgblight_velocikey_match_speed(velocikey_min, velocikey_max) :
 #    endif
-                            pgm_read_byte(default_interval_address);
+                                     pgm_read_byte(default_interval_address);
 }
 
 #endif
@@ -1049,7 +1048,7 @@ static void rgblight_effect_dummy(animation_status_t *anim) {
     **/
 }
 
-void rgblight_task(void) {
+void rgblight_timer_task(void) {
     if (rgblight_status.timer_enabled) {
         effect_func_t effect_func   = rgblight_effect_dummy;
         uint16_t      interval_time = 2000; // dummy interval
@@ -1518,4 +1517,62 @@ void rgblight_effect_twinkle(animation_status_t *anim) {
 
     rgblight_set();
 }
+#endif
+
+void preprocess_rgblight(void) {
+#ifdef VELOCIKEY_ENABLE
+    if (rgblight_velocikey_enabled()) {
+        rgblight_velocikey_accelerate();
+    }
+#endif
+}
+
+void rgblight_task(void) {
+#ifdef RGBLIGHT_USE_TIMER
+    rgblight_timer_task();
+#endif
+
+#ifdef VELOCIKEY_ENABLE
+    if (rgblight_velocikey_enabled()) {
+        rgblight_velocikey_decelerate();
+    }
+#endif
+}
+
+#ifdef VELOCIKEY_ENABLE
+#    define TYPING_SPEED_MAX_VALUE 200
+
+static uint8_t typing_speed = 0;
+
+bool rgblight_velocikey_enabled(void) {
+    return rgblight_config.velocikey;
+}
+
+void rgblight_velocikey_toggle(void) {
+    dprintf("rgblight velocikey toggle [EEPROM]: rgblight_config.velocikey = %u\n", !rgblight_config.velocikey);
+    rgblight_config.velocikey = !rgblight_config.velocikey;
+    eeconfig_update_rgblight_current();
+}
+
+void rgblight_velocikey_accelerate(void) {
+    if (typing_speed < TYPING_SPEED_MAX_VALUE) typing_speed += (TYPING_SPEED_MAX_VALUE / 100);
+}
+
+void rgblight_velocikey_decelerate(void) {
+    static uint16_t decay_timer = 0;
+
+    if (timer_elapsed(decay_timer) > 500 || decay_timer == 0) {
+        if (typing_speed > 0) typing_speed -= 1;
+        // Decay a little faster at half of max speed
+        if (typing_speed > TYPING_SPEED_MAX_VALUE / 2) typing_speed -= 1;
+        // Decay even faster at 3/4 of max speed
+        if (typing_speed > TYPING_SPEED_MAX_VALUE / 4 * 3) typing_speed -= 2;
+        decay_timer = timer_read();
+    }
+}
+
+uint8_t rgblight_velocikey_match_speed(uint8_t minValue, uint8_t maxValue) {
+    return MAX(minValue, maxValue - (maxValue - minValue) * ((float)typing_speed / TYPING_SPEED_MAX_VALUE));
+}
+
 #endif
