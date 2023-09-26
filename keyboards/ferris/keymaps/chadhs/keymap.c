@@ -105,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_FUN_NAV] = LAYOUT(
 /*
     .------.------.------.------.------.            .------.------.------.------.------.
-    | F1   | F2   | F3   | F4   | F5   |            | Prev | Next | Play | VolU | VolD |
+    | F1   | F2   | F3   | F4   | F5   |            | Prev | Next | Play | VolD | VolU |
     |      |      |      |      |      |            |      |      |      |      |      |
     |------+------+------+------+------|            |------+------+------+------+------|
     | KVM1 | KVM2 | KVM3 | KVM4 | F6   |            | ←    | ↓    | ↑    | →    | Mute |
@@ -119,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             |      |      |      |      |      |
                             '------'------'      '------'------'
 */
-    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,      KC_MPRV, KC_MNXT,  KC_MPLY,  KC_VOLU,  KC_VOLD,
+    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,      KC_MPRV, KC_MNXT,  KC_MPLY,  KC_VOLD,  KC_VOLU,
     KVM_1,   KVM_2,   KVM_2,   KVM_2,   KC_F6,      KC_LEFT, KC_DOWN,  KC_UP,    KC_RIGHT, KC_MUTE,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_CIRC, VIM_CTLD, VIM_CTLU, RGB_TOG,  GAME_TOG,
                                _______, KC_ESC,     _______, _______
@@ -150,7 +150,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_GAME_FUN] = LAYOUT(
 /*
     .------.------.------.------.------.            .------.------.------.------.------.
-    | F1   | F2   | F3   | F4   | F5   |            | Prev | Next | Play | VolU | VolD |
+    | F1   | F2   | F3   | F4   | F5   |            | Prev | Next | Play | VolD | VolU |
     |      |      |      |      |      |            |      |      |      |      |      |
     |------+------+------+------+------|            |------+------+------+------+------|
     | ↓↓↓  |      |      |      | F6   |            |      | \ |  | [ {  | ] }  | Mute |
@@ -164,7 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             |      |      |      |      |      |
                             '------'------'      '------'------'
 */
-    KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,        KC_MPRV, KC_MNXT, KC_MPLY, KC_VOLU, KC_VOLD,
+    KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,        KC_MPRV, KC_MNXT, KC_MPLY, KC_VOLD, KC_VOLU,
     _______, XXXXXXX,  XXXXXXX, XXXXXXX, KC_F6,        XXXXXXX, KC_BSLS, KC_LBRC, KC_RBRC, KC_MUTE,
     _______, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
                                 _______, _______,      _______, _______
