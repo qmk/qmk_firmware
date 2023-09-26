@@ -342,9 +342,21 @@ Configures the [LED Matrix](feature_led_matrix.md) feature.
                 * The key matrix position associated with the LED.
                 * Example: `[0, 2]`
             * Example: `{"matrix": [2, 1], "x": 20, "y": 48, "flags": 2}`
+    * `led_flush_limit`
+        * Limits in milliseconds how frequently an animation will update the LEDs.
+        * Default: `16`
+    * `led_process_limit`
+        * Limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness).
+        * Default: `led_count / 5`
     * `max_brightness`
         * The maximum value which brightness is scaled to, from 0 to 255.
         * Default: `255`
+    * `react_on_keyup`
+        * Animations react to keyup instead of keydown.
+        * Default: `false`
+    * `sleep`
+        * Turn off the LEDs when the host goes to sleep.
+        * Default: `false`
     * `speed_steps`
         * The number of speed adjustment steps.
         * Default: `16`
@@ -546,12 +558,24 @@ Configures the [RGB Matrix](feature_rgb_matrix.md) feature.
                 * The key matrix position associated with the LED.
                 * Example: `[0, 2]`
             * Example: `{"matrix": [2, 1], "x": 20, "y": 48, "flags": 2}`
+    * `led_flush_limit`
+        * Limits in milliseconds how frequently an animation will update the LEDs.
+        * Default: `16`
+    * `led_process_limit`
+        * Limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness).
+        * Default: `led_count / 5`
     * `max_brightness`
         * The maximum value which the HSV "V" component is scaled to, from 0 to 255.
         * Default: `255`
+    * `react_on_keyup`
+        * Animations react to keyup instead of keydown.
+        * Default: `false`
     * `sat_steps`
         * The number of saturation adjustment steps.
         * Default: `16`
+    * `sleep`
+        * Turn off the LEDs when the host goes to sleep.
+        * Default: `false`
     * `speed_steps`
         * The number of speed adjustment steps.
         * Default: `16`
