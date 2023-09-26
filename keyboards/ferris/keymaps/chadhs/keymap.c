@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             '------'------'      '------'------'
 */
     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,      KC_MPRV, KC_MNXT,  KC_MPLY,  KC_VOLD,  KC_VOLU,
-    KVM_1,   KVM_2,   KVM_2,   KVM_2,   KC_F6,      KC_LEFT, KC_DOWN,  KC_UP,    KC_RIGHT, KC_MUTE,
+    KVM_1,   KVM_2,   KVM_3,   KVM_4,   KC_F6,      KC_LEFT, KC_DOWN,  KC_UP,    KC_RIGHT, KC_MUTE,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_CIRC, VIM_CTLD, VIM_CTLU, RGB_TOG,  GAME_TOG,
                                _______, KC_ESC,     _______, _______
   ),
