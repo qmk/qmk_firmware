@@ -52,6 +52,6 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
     flash_timer = timer_read();
     layer_changed = true;
     
-    return state;
+    return layer_state_set_user(state);
 }
 #endif
