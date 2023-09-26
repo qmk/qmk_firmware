@@ -15,6 +15,7 @@
  */
 
 #include "quantum.h"
+#include "iso.h"
 
 #ifdef RGB_MATRIX_ENABLE
 
@@ -159,3 +160,46 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 
     return false;
 }
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+
+    switch (keycode) {
+
+        case RGB_R:
+            if (record->event.pressed) {
+                rgb_matrix_sethsv(0, 255, 255);
+                rgb_matrix_mode(1);
+            }
+            return false; /* Skip all further processing of this key */
+
+        case RGB_G:
+            if (record->event.pressed) {
+                rgb_matrix_sethsv(85, 255, 255);
+                rgb_matrix_mode(1);
+            }
+            return false; /* Skip all further processing of this key */
+
+        case RGB_B:
+            if (record->event.pressed) {
+                rgb_matrix_sethsv(170, 255, 255);
+                rgb_matrix_mode(1);
+            }
+            return false; /* Skip all further processing of this key */
+
+        case RGB_W:
+            if (record->event.pressed) {
+                rgb_matrix_sethsv(0, 0, 255);
+                rgb_matrix_mode(1);
+            }
+            return false; /* Skip all further processing of this key */
+
+        case SW_cy:
+            rgb_matrix_sethsv(0, 255, 255);
+            rgb_matrix_mode(13);
+            return false; /* Skip all further processing of this key */
+
+        
+        default:
+            return true; /* Process all other keycodes normally */
+    }
+};
