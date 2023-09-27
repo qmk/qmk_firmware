@@ -1,4 +1,4 @@
-# Matrix Diagram for Acheron Athena
+# Matrix Diagram for Acheron Athena Alpha
 
 ```
 ┌───┐   ┌───┬───┬───┬───┐ ┌───┬───┬───┬───┐ ┌───┬───┬───┬───┐
