@@ -25,13 +25,16 @@
  * in their own files.
  */
 
-#if defined(LED_MATRIX_IS31FL3731) || defined(LED_MATRIX_IS31FL3733) || defined(LED_MATRIX_IS31FL3736) || defined(IS31FLCOMMON) || defined(LED_MATRIX_CKLED2001)
+#if defined(LED_MATRIX_IS31FL3218) || defined(LED_MATRIX_IS31FL3731) || defined(LED_MATRIX_IS31FL3733) || defined(LED_MATRIX_IS31FL3736) || defined(IS31FLCOMMON) || defined(LED_MATRIX_CKLED2001)
 #    include "i2c_master.h"
 
 static void init(void) {
     i2c_init();
 
-#    if defined(LED_MATRIX_IS31FL3731)
+#    if defined(LED_MATRIX_IS31FL3218)
+    is31fl3218_init();
+
+#    elif defined(LED_MATRIX_IS31FL3731)
     is31fl3731_init(LED_DRIVER_ADDR_1);
 #        if defined(LED_DRIVER_ADDR_2)
     is31fl3731_init(LED_DRIVER_ADDR_2);
@@ -109,7 +112,9 @@ static void init(void) {
 #    endif
 
     for (int index = 0; index < LED_MATRIX_LED_COUNT; index++) {
-#    if defined(LED_MATRIX_IS31FL3731)
+#    if defined(LED_MATRIX_IS31FL3218)
+        is31fl3218_set_led_control_register(index, true);
+#    elif defined(LED_MATRIX_IS31FL3731)
         is31fl3731_set_led_control_register(index, true);
 #    elif defined(LED_MATRIX_IS31FL3733)
         is31fl3733_set_led_control_register(index, true);
@@ -123,7 +128,10 @@ static void init(void) {
     }
 
 // This actually updates the LED drivers
-#    if defined(LED_MATRIX_IS31FL3731)
+#    if defined(LED_MATRIX_IS31FL3218)
+    is31fl3218_update_led_control_registers();
+
+#    elif defined(LED_MATRIX_IS31FL3731)
     is31fl3731_update_led_control_registers(LED_DRIVER_ADDR_1, 0);
 #        if defined(LED_DRIVER_ADDR_2)
     is31fl3731_update_led_control_registers(LED_DRIVER_ADDR_2, 1);
@@ -187,7 +195,19 @@ static void init(void) {
 #    endif
 }
 
-#    if defined(LED_MATRIX_IS31FL3731)
+#    if defined(LED_MATRIX_IS31FL3218)
+static void flush(void) {
+    is31fl3218_update_pwm_buffers();
+}
+
+const led_matrix_driver_t led_matrix_driver = {
+    .init          = init,
+    .flush         = flush,
+    .set_value     = is31fl3218_set_value,
+    .set_value_all = is31fl3218_set_value_all,
+};
+
+#    elif defined(LED_MATRIX_IS31FL3731)
 static void flush(void) {
     is31fl3731_update_pwm_buffers(LED_DRIVER_ADDR_1, 0);
 #        if defined(LED_DRIVER_ADDR_2)
@@ -202,9 +222,9 @@ static void flush(void) {
 }
 
 const led_matrix_driver_t led_matrix_driver = {
-    .init          = init,
-    .flush         = flush,
-    .set_value     = is31fl3731_set_value,
+    .init = init,
+    .flush = flush,
+    .set_value = is31fl3731_set_value,
     .set_value_all = is31fl3731_set_value_all,
 };
 
