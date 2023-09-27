@@ -9,7 +9,7 @@ yellowbrickroad is a MIDI keyboard which has 53 keys (= 4 octaves+ ) placed spir
 Size: 20 cm (approx 8 inches) x 23 cm (approx 9 inches).
 It fits in an A4 / Letter size paper.
 
-* Keyboard Maintainer: [3araht](https://github.com/yourusername)
+* Keyboard Maintainer: [3araht](https://github.com/3araht)
 * Hardware Supported: yellowbrickroad keyboard, a MIDI keyboard.
 * Hardware Availability: [Yushakobo](https://shop.yushakobo.jp/collections/keyboard/products/3442), [BOOTH](https://3araht.booth.pm/). Click [here](https://www.tenso.com/en/static/lp_shop_booth) for BOOTH overseas shipping!
 
@@ -22,6 +22,7 @@ Flashing example for this keyboard:
     make yellowbrickroad:default:flash
 
 Run this while Raspberry Pi Pico is in bootloader mode.
+
 ## Bootloader
 
 Enter the bootloader in 2 ways:

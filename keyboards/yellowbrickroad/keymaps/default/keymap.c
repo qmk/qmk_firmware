@@ -83,9 +83,6 @@ void my_init(void){
 void eeconfig_init_user(void) {  // EEPROM is getting reset!
     midi_init();
     my_init();
-
-    //  Reset the midi keyboard layout
-    set_single_persistent_default_layer(_BASE);
 }
 
 void keyboard_post_init_user(void) {

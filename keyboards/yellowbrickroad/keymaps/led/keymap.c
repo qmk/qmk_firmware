@@ -47,10 +47,6 @@ static bool melody_unison_suppress  = true;  //  true: velocity of octave unison
 //  use led indicator or not.
 static bool led_indicator_enable = true;
 
-#ifdef RGB_MATRIX_ENABLE
-extern rgb_config_t rgb_matrix_config;
-#endif
-
 // To record the status of Bass Chord (single or dyad, default: dyad.)
 typedef union {
     uint32_t raw;
