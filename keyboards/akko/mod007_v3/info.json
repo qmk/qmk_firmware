@@ -20,7 +20,10 @@
         "nkro": true,
         "encoder": true
     },
-   "matrix_pins": {
+    "dynamic_keymap": {
+        "layer_count": 6
+    },
+    "matrix_pins": {
         "cols": [ "C1", "C2", "C3", "A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "C4", "C5", "B0", "B1", "B2"],
         "rows": [ "B15", "C6", "C7", "C8", "C9", "A8"]
     },
