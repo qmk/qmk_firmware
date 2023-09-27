@@ -37,6 +37,9 @@
 #ifndef PLOOPY_DRAGSCROLL_MULTIPLIER
 #    define PLOOPY_DRAGSCROLL_MULTIPLIER 0.75  // Variable-DPI Drag Scroll
 #endif
+#ifndef PLOOPY_DRAGSCROLL_SEMAPHORE
+#    define PLOOPY_DRAGSCROLL_SEMAPHORE 0
+#endif
 
 keyboard_config_t keyboard_config;
 uint16_t          dpi_array[] = PLOOPY_DPI_OPTIONS;
@@ -50,15 +53,29 @@ uint16_t          dpi_array[] = PLOOPY_DPI_OPTIONS;
 // Trackball State
 bool     is_drag_scroll    = false;
 
+// drag scroll divisor state
+int8_t drag_scroll_x_semaphore = PLOOPY_DRAGSCROLL_SEMAPHORE;
+int8_t drag_scroll_y_semaphore = PLOOPY_DRAGSCROLL_SEMAPHORE;
+
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
     if (is_drag_scroll) {
-        mouse_report.h = mouse_report.x;
+        drag_scroll_x_semaphore -= abs(mouse_report.x);
+        drag_scroll_y_semaphore -= abs(mouse_report.y);
+
+        if (drag_scroll_x_semaphore <= 0) {
+            mouse_report.h = mouse_report.x;
+            drag_scroll_x_semaphore = PLOOPY_DRAGSCROLL_SEMAPHORE;
+        }
+
+        if (drag_scroll_y_semaphore <= 0) {
 #ifdef PLOOPY_DRAGSCROLL_INVERT
         // Invert vertical scroll direction
-        mouse_report.v = -mouse_report.y;
+            mouse_report.v = -mouse_report.y;
 #else
-        mouse_report.v = mouse_report.y;
+            mouse_report.v = mouse_report.y;
 #endif
+            drag_scroll_y_semaphore = PLOOPY_DRAGSCROLL_SEMAPHORE;
+        }
         mouse_report.x = 0;
         mouse_report.y = 0;
     }

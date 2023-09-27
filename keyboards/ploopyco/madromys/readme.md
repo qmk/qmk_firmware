@@ -28,3 +28,4 @@ Nothing needs to be enabled to use this functionality; it's enabled on Madromys 
 * `#define PLOOPY_DRAGSCROLL_FIXED` - Normally, when activating Drag Scroll, it uses a fraction of the current DPI. You can define this to use a specific, set DPI rather than a fraction of the current DPI. 
   * `#define PLOOPY_DRAGSCROLL_DPI 100` - When the fixed DPI option is enabled, this sets the DPI to be used for Drag Scroll.
 * `#define PLOOPY_DRAGSCROLL_INVERT` - This reverses the direction that the scroll is performed. 
+* `#define PLOOPY_DRAGSCROLL_SEMAPHORE` - This is a divisor on the drag scroll sensitivity. The default is 0, which means that the drag scroll is at maximum sensitivity. A value of 4 would mean that the drag scroll is 4 times less sensitive.
