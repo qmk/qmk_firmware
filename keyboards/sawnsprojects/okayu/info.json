@@ -41,7 +41,7 @@
         "pin": "B15",
         "driver": "spi"
     },
-        "rgblight": {
+    "rgblight": {
         "led_count": 24,
         "sleep": true,
         "animations": {
