@@ -23,6 +23,7 @@ Flashing example for this keyboard:
 
 Run this while Raspberry Pi Pico is in bootloader mode.
 
+
 ## Bootloader
 
 Enter the bootloader in 2 ways:
