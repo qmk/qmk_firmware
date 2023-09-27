@@ -89,10 +89,6 @@ void is31fl3736_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
 
 void is31fl3736_set_led_control_register(uint8_t index, bool red, bool green, bool blue);
 
-void is31fl3736_mono_set_brightness(int index, uint8_t value);
-void is31fl3736_mono_set_brightness_all(uint8_t value);
-void is31fl3736_mono_set_led_control_register(uint8_t index, bool enabled);
-
 // This should not be called from an interrupt
 // (eg. from a timer interrupt).
 // Call this while idle (in between matrix scans).
