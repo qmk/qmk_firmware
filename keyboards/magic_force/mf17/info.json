@@ -1,8 +1,8 @@
 {
-    "manufacturer": "Soda",
-    "keyboard_name": "Mango",
+    "manufacturer": "MagicForce",
+    "keyboard_name": "MF17",
     "url": "https://github.com/gezhaoyou",
-    "maintainer": "JeayoKeh",
+    "maintainer": "MagicForce",
     "diode_direction": "ROW2COL",
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",

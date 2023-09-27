@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Pocket",
+    "keyboard_name": "MagicForce",
     "url": "",
-    "maintainer": "qmk",
-    "manufacturer": "gezhaoyou",
+    "maintainer": "MagicForce",
+    "manufacturer": "MagicForce",
     "usb": {
         "vid": "0x1A53",
         "pid": "0x4F51",
