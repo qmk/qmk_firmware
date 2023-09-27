@@ -1,0 +1,4 @@
+COMB(combo_escape , KC_ESC, KC_Q, KC_W)
+COMB(combo_caps   , CW_TOGG, MT(MOD_LSFT,KC_Z),MT(MOD_LCTL,KC_X))
+COMB(combo_nav_ext, MO(L_NAV_EXT), LT(L_NUM,KC_TAB), LT(L_NAV,KC_SPC))
+TOGG(combo_togg_wasd, L_WASD, KC_R, KC_T)

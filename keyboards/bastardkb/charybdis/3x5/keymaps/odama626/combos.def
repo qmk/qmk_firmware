@@ -1,0 +1,7 @@
+DEFAULT_REF_LAYER(LAYER_BASE)
+
+COMB(combo_escape , KC_ESC, KC_Q, KC_W)
+// COMB(combo_caps   , CW_TOGG, OLR(KC_Z), OLI(KC_X))
+COMB(combo_nav_ext, MO(LAYER_NAV_EXT), O_TAB, O_SPC)
+TOGG(combo_togg_wasd, LAYER_WASD, KC_R, KC_T)
+COMB(combo_scroll, MO(LAYER_MOUSE),OLR(KC_Z), OLI(KC_X))
