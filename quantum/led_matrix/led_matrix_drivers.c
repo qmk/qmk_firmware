@@ -25,7 +25,7 @@
  * in their own files.
  */
 
-#if defined(LED_MATRIX_IS31FL3731) || defined(LED_MATRIX_IS31FL3733) || defined(LED_MATRIX_IS31FL3736)|| defined(IS31FLCOMMON) || defined(LED_MATRIX_SNLED27351)
+#if defined(LED_MATRIX_IS31FL3731) || defined(LED_MATRIX_IS31FL3733) || defined(LED_MATRIX_IS31FL3736) || defined(IS31FLCOMMON) || defined(LED_MATRIX_SNLED27351)
 #    include "i2c_master.h"
 
 static void init(void) {
