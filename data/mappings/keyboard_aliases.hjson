@@ -1321,5 +1321,9 @@
     },
     "zinc/reva": {
         "target": "25keys/zinc/reva"
+    },
+    // Moved during 2023 Q4 cycle
+    "ymdk/melody96": {
+        "target": "ymdk/melody96/soldered"
     }
 }

@@ -8,6 +8,15 @@
     "pid": "0x5353",
     "device_version": "0.0.1"
   },
+  "features": {
+    "bootmagic": true,
+    "command": false,
+    "console": false,
+    "extrakey": true,
+    "mousekey": true,
+    "nkro": false,
+    "rgblight": true
+  },
   "rgblight": {
     "saturation_steps": 8,
     "brightness_steps": 8,
