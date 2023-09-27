@@ -402,6 +402,10 @@
                 "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "val_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "speed_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "led_flush_limit": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "led_process_limit": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "react_on_keyup": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "sleep": {"type": "boolean"},
                 "split_count": {
                     "type": "array",
                     "minItems": 2,
@@ -454,6 +458,10 @@
                 "sat_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "val_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "speed_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "led_flush_limit": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "led_process_limit": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "react_on_keyup": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "sleep": {"type": "boolean"},
                 "split_count": {
                     "type": "array",
                     "minItems": 2,

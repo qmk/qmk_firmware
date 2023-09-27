@@ -552,3 +552,33 @@ In addition to setting the Clipping Range, you can use `RGBLIGHT_LED_MAP` togeth
 ## Hardware Modification
 
 If your keyboard lacks onboard underglow LEDs, you may often be able to solder on an RGB LED strip yourself. You will need to find an unused pin to wire to the data pin of your LED strip. Some keyboards may break out unused pins from the MCU to make soldering easier. The other two pins, VCC and GND, must also be connected to the appropriate power pins.
+
+## Velocikey
+
+Velocikey is a feature that lets you control the speed of lighting effects (like the Rainbow Swirl effect) with the speed of your typing. The faster you type, the faster the lights will go!
+
+### Usage
+For Velocikey to take effect, there are two steps. First, when compiling your keyboard, you'll need to set `VELOCIKEY_ENABLE=yes` in `rules.mk`, e.g.:
+
+```
+MOUSEKEY_ENABLE = no
+STENO_ENABLE = no
+EXTRAKEY_ENABLE = yes
+VELOCIKEY_ENABLE = yes
+```
+
+Then, while using your keyboard, you need to also turn it on with the `VK_TOGG` keycode, which toggles the feature on and off.
+
+The following light effects will all be controlled by Velocikey when it is enabled:
+ - RGB Breathing
+ - RGB Rainbow Mood
+ - RGB Rainbow Swirl
+ - RGB Snake
+ - RGB Knight
+
+Support for LED breathing effects is planned but not available yet.
+
+ As long as Velocikey is enabled, it will control the speed regardless of any other speed setting that your RGB lights are currently on.
+
+ ### Configuration
+ Velocikey doesn't currently support any configuration via keyboard settings. If you want to adjust something like the speed increase or decay rate, you would need to edit `velocikey.c` and adjust the values there to achieve the kinds of speeds that you like.
