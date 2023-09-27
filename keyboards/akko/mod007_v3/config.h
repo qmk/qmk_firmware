@@ -16,8 +16,6 @@
 
 #pragma once
 
-/* Use 6 dynamic keymap layers */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 6
 
 #define RGB_TRIGGER_ON_KEYDOWN
 
