@@ -15,8 +15,8 @@ from qmk.commands import parse_configurator_json
 from qmk.makefile import parse_rules_mk_file
 from qmk.math import compute
 
-true_values = [True, '1', 'on', 'yes']
-false_values = [False, '0', 'off', 'no']
+true_values = ['1', 'on', 'yes']
+false_values = ['0', 'off', 'no']
 
 
 def _keyboard_in_layout_name(keyboard, layout):
@@ -520,6 +520,8 @@ def _config_to_json(key_type, config_value):
             return list(map(str.strip, config_value.split(',')))
 
     elif key_type == 'bool':
+        if isinstance(config_value, bool):
+            return config_value
         return config_value in true_values
 
     elif key_type == 'hex':
