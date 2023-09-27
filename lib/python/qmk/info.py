@@ -520,6 +520,8 @@ def _config_to_json(key_type, config_value):
             return list(map(str.strip, config_value.split(',')))
 
     elif key_type == 'bool':
+        if isinstance(config_value, bool):
+            return config_value
         return config_value in true_values
 
     elif key_type == 'hex':
