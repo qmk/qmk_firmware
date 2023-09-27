@@ -70,21 +70,19 @@
 
 typedef struct is31_led {
     uint8_t driver : 2;
-    uint8_t r;
-    uint8_t g;
-    uint8_t b;
+    uint8_t v;
 } __attribute__((packed)) is31_led;
 
-extern const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT];
+extern const is31_led PROGMEM g_is31_leds[LED_MATRIX_LED_COUNT];
 
 void is31fl3736_init(uint8_t addr);
 void is31fl3736_write_register(uint8_t addr, uint8_t reg, uint8_t data);
 void is31fl3736_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
 
-void is31fl3736_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
-void is31fl3736_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
+void is31fl3736_set_value(int index, uint8_t value);
+void is31fl3736_set_value_all(uint8_t value);
 
-void is31fl3736_set_led_control_register(uint8_t index, bool red, bool green, bool blue);
+void is31fl3736_set_led_control_register(uint8_t index, bool value);
 
 // This should not be called from an interrupt
 // (eg. from a timer interrupt).

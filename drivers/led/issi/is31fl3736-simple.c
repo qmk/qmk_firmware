@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "is31fl3736.h"
+#include "is31fl3736-simple.h"
 #include <string.h>
 #include "i2c_master.h"
 #include "wait.h"
@@ -157,28 +157,26 @@ void is31fl3736_init(uint8_t addr) {
     wait_ms(10);
 }
 
-void is31fl3736_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
+void is31fl3736_set_value(int index, uint8_t value) {
     is31_led led;
-    if (index >= 0 && index < RGB_MATRIX_LED_COUNT) {
+    if (index >= 0 && index < LED_MATRIX_LED_COUNT) {
         memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
 
-        if (g_pwm_buffer[led.driver][led.r] == red && g_pwm_buffer[led.driver][led.g] == green && g_pwm_buffer[led.driver][led.b] == blue) {
+        if (g_pwm_buffer[led.driver][led.v] == value) {
             return;
         }
-        g_pwm_buffer[led.driver][led.r]          = red;
-        g_pwm_buffer[led.driver][led.g]          = green;
-        g_pwm_buffer[led.driver][led.b]          = blue;
+        g_pwm_buffer[led.driver][led.v]          = value;
         g_pwm_buffer_update_required[led.driver] = true;
     }
 }
 
-void is31fl3736_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
-    for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
-        is31fl3736_set_color(i, red, green, blue);
+void is31fl3736_set_value_all(uint8_t value) {
+    for (int i = 0; i < LED_MATRIX_LED_COUNT; i++) {
+        is31fl3736_set_value(i, value);
     }
 }
 
-void is31fl3736_set_led_control_register(uint8_t index, bool red, bool green, bool blue) {
+void is31fl3736_set_led_control_register(uint8_t index, bool value) {
     is31_led led;
     memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
 
@@ -188,28 +186,13 @@ void is31fl3736_set_led_control_register(uint8_t index, bool red, bool green, bo
     // But also, the LED control registers (0x00 to 0x17) are also interleaved, so:
     // A1-A4=0x00 A5-A8=0x01
 
-    uint8_t control_register_r = led.r / 8;
-    uint8_t control_register_g = led.g / 8;
-    uint8_t control_register_b = led.b / 8;
+    uint8_t control_register = led.v / 8;
+    uint8_t bit_value        = led.v % 8;
 
-    uint8_t bit_r = led.r % 8;
-    uint8_t bit_g = led.g % 8;
-    uint8_t bit_b = led.b % 8;
-
-    if (red) {
-        g_led_control_registers[led.driver][control_register_r] |= (1 << bit_r);
+    if (value) {
+        g_led_control_registers[led.driver][control_register] |= (1 << bit_value);
     } else {
-        g_led_control_registers[led.driver][control_register_r] &= ~(1 << bit_r);
-    }
-    if (green) {
-        g_led_control_registers[led.driver][control_register_g] |= (1 << bit_g);
-    } else {
-        g_led_control_registers[led.driver][control_register_g] &= ~(1 << bit_g);
-    }
-    if (blue) {
-        g_led_control_registers[led.driver][control_register_b] |= (1 << bit_b);
-    } else {
-        g_led_control_registers[led.driver][control_register_b] &= ~(1 << bit_b);
+        g_led_control_registers[led.driver][control_register] &= ~(1 << bit_value);
     }
 
     g_led_control_registers_update_required[led.driver] = true;
