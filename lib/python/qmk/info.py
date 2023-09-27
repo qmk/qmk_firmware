@@ -15,8 +15,8 @@ from qmk.commands import parse_configurator_json
 from qmk.makefile import parse_rules_mk_file
 from qmk.math import compute
 
-true_values = ['1', 'on', 'yes']
-false_values = ['0', 'off', 'no']
+true_values = [True, '1', 'on', 'yes']
+false_values = [False, '0', 'off', 'no']
 
 
 def _keyboard_in_layout_name(keyboard, layout):
