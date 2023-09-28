@@ -7,10 +7,12 @@ from argcomplete.completers import FilesCompleter
 from milc import cli
 
 import qmk.path
+from qmk.constants import QMK_FIRMWARE
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.commands import compile_configurator_json, create_make_command, create_make_target, parse_configurator_json, build_environment
 from qmk.keyboard import keyboard_completer, keyboard_folder_or_all, is_all_keyboards
 from qmk.keymap import keymap_completer, is_keymap_target
+from qmk.cli.generate.compilation_database import write_compilation_database
 
 
 @cli.argument('filename', nargs='?', arg_only=True, type=qmk.path.FileType('r'), completer=FilesCompleter('.json'), help='The configurator export to compile')
@@ -21,6 +23,7 @@ from qmk.keymap import keymap_completer, is_keymap_target
 @cli.argument('-e', '--env', arg_only=True, action='append', default=[], help="Set a variable to be passed to make. May be passed multiple times.")
 @cli.argument('-c', '--clean', arg_only=True, action='store_true', help="Remove object files before compiling.")
 @cli.argument('-t', '--target', type=str, default=None, help="Intended alternative build target, such as `production` in `make planck/rev4:default:production`.")
+@cli.argument('--compiledb', arg_only=True, action='store_true', help="Generates the clang compile_commands.json file during build. Implies --clean.")
 @cli.subcommand('Compile a QMK Firmware.')
 @automagic_keyboard
 @automagic_keymap
@@ -44,6 +47,9 @@ def compile(cli):
     # Determine the compile command
     commands = []
 
+    current_keyboard = None
+    current_keymap = None
+
     if cli.args.filename:
         # If a configurator JSON was provided generate a keymap and compile it
         user_keymap = parse_configurator_json(cli.args.filename)
@@ -60,10 +66,20 @@ def compile(cli):
             commands.append(create_make_target('clean'))
         commands.append(create_make_command(cli.config.compile.keyboard, cli.config.compile.keymap, target=cli.args.target, parallel=cli.config.compile.parallel, **envs))
 
+        current_keyboard = cli.config.compile.keyboard
+        current_keymap = cli.config.compile.keymap
+
     if not commands:
         cli.log.error('You must supply a configurator export, both `--keyboard` and `--keymap`, or be in a directory for a keyboard or keymap.')
         cli.print_help()
         return False
+
+    if cli.args.compiledb:
+        if current_keyboard is None or current_keymap is None:
+            cli.log.error('You must supply both `--keyboard` and `--keymap` or be in a directory with a keymap to generate a compile_commands.json file.')
+            cli.print_help()
+            return False
+        write_compilation_database(current_keyboard, current_keymap, QMK_FIRMWARE / 'compile_commands.json')
 
     cli.log.info('Compiling keymap with {fg_cyan}%s', ' '.join(commands[-1]))
     if not cli.args.dry_run:
