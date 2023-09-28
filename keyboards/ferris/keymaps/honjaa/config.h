@@ -101,12 +101,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Pick good defaults for enabling homerow modifiers
 #define TAPPING_TERM 200
 #define PERMISSIVE_HOLD
-#define IGNORE_MOD_TAP_INTERRUPT
+//#define IGNORE_MOD_TAP_INTERRUPT
 #define TAPPING_FORCE_HOLD
 
-#define COMBO_COUNT 10
+#define COMBO_COUNT 18
 //#define REPORT_MODS_SEPARATELY //suggested for RDP problems
 #define DOUBLE_REPORT //also suggested for RDP problems
 
 #define ONESHOT_TAP_TOGGLE 2  /* Tapping this number of times holds the key until tapped once again. */
 #define ONESHOT_TIMEOUT 5000  /* Time (in ms) before the one shot key is released */
+
+#define SPLIT_USB_TIMEOUT 10000
+#define SPLIT_USB_TIMEOUT_POLL 10

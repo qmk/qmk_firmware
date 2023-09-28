@@ -54,6 +54,15 @@ const uint16_t PROGMEM cdash_combo[] = {KC_C,NO_MINS, COMBO_END};
 const uint16_t PROGMEM cplus_combo[] = {KC_C,NO_PLUS, COMBO_END};
 const uint16_t PROGMEM leftcurdash_combo[] = {NO_LCBR,NO_MINS, COMBO_END};
 const uint16_t PROGMEM fg_combo[] = {KC_F,KC_G, COMBO_END};
+const uint16_t PROGMEM aq_combo[] = {KC_A,KC_Q, COMBO_END};
+const uint16_t PROGMEM sw_combo[] = {KC_S,KC_W, COMBO_END};
+const uint16_t PROGMEM de_combo[] = {KC_D,KC_E, COMBO_END};
+const uint16_t PROGMEM fr_combo[] = {KC_F,KC_R, COMBO_END};
+const uint16_t PROGMEM ju_combo[] = {KC_J,KC_U, COMBO_END};
+const uint16_t PROGMEM ki_combo[] = {KC_K,KC_I, COMBO_END};
+const uint16_t PROGMEM lo_combo[] = {KC_L,KC_O, COMBO_END};
+const uint16_t PROGMEM oslashp_combo[] = {NO_OSTR,KC_P COMBO_END};
+
 
 
 combo_t key_combos[COMBO_COUNT] = {
@@ -67,6 +76,14 @@ combo_t key_combos[COMBO_COUNT] = {
     COMBO(cplus_combo,QK_REBOOT),
     COMBO(leftcurdash_combo,QK_REBOOT),
     COMBO(fg_combo,KC_DEL),
+    COMBO(aq_combo,MOD_LALT),
+    COMBO(sw_combo,MOD_LGUI),
+    COMBO(de_combo,MOD_LCTL),
+    COMBO(fr_combo,MOD_LSFT),
+    COMBO(ju_combo,MOD_LSFT),
+    COMBO(ki_combo,MOD_LCTL),
+    COMBO(lo_combo,MOD_LGUI),
+    COMBO(oslashp_combo,MOD_LALT)
 };
 
 
