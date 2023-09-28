@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-<<<<<<< HEAD
 
 
 /* USB Device descriptor parameter */
@@ -87,12 +86,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // assuming a screen refresh rate of 60 Htz or higher
 // The default is 50. This (16) makes the mouse ~3 times faster and more accurate
 #define MOUSEKEY_INTERVAL 25
-=======
-// Set the mouse settings to a comfortable speed/accuracy trade-off,
-// assuming a screen refresh rate of 60 Htz or higher
-// The default is 50. This makes the mouse ~3 times faster and more accurate
-#define MOUSEKEY_INTERVAL 16
->>>>>>> d05b8260ff (Works with simple tap dance, macros and combos)
 // The default is 20. Since we made the mouse about 3 times faster with the previous setting,
 // give it more time to accelerate to max speed to retain precise control over short distances.
 #define MOUSEKEY_TIME_TO_MAX 40
@@ -111,18 +104,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IGNORE_MOD_TAP_INTERRUPT
 #define TAPPING_FORCE_HOLD
 
-<<<<<<< HEAD
-#define COMBO_COUNT 6
+#define COMBO_COUNT 10
+//#define REPORT_MODS_SEPARATELY //suggested for RDP problems
+#define DOUBLE_REPORT //also suggested for RDP problems
 
-
-=======
-// Underglow configuration
-#ifdef RGBLIGHT_ENABLE
-  #define RGBLIGHT_ANIMATIONS
-  #define RGBLIGHT_HUE_STEP 8
-  #define RGBLIGHT_SAT_STEP 8
-  #define RGBLIGHT_VAL_STEP 8
-#endif
-
-#define COMBO_COUNT 4
->>>>>>> d05b8260ff (Works with simple tap dance, macros and combos)
+#define ONESHOT_TAP_TOGGLE 2  /* Tapping this number of times holds the key until tapped once again. */
+#define ONESHOT_TIMEOUT 5000  /* Time (in ms) before the one shot key is released */
