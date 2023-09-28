@@ -1,5 +1,6 @@
 COMBO_ENABLE = yes
 TAP_DANCE_ENABLE = yes
+<<<<<<< HEAD
 AUTO_SHIFT_ENABLE = yes
 
 
@@ -24,3 +25,6 @@ UNICODE_ENABLE = no        # Unicode
 AUDIO_ENABLE = no           # Audio output
 SPLIT_KEYBOARD = yes        # Use shared split_common code
 LAYOUTS = split_3x5_2
+=======
+
+>>>>>>> d05b8260ff (Works with simple tap dance, macros and combos)
