@@ -22,3 +22,5 @@ Enter the bootloader in 3 ways:
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
 * **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+
+The single_pcb uses pin A10, which apparently is a design flaw that prevent the bootloader to start every time - https://docs.qmk.fm/#/platformdev_blackpill_f4x1?id=pins-to-be-avoided. There is a simple workaround that works most of the time - press the pin key (generally the letter R) during the boot.
