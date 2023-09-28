@@ -46,6 +46,55 @@
 #    include "ws2812.h"
 #endif
 
+#ifndef RGB_MATRIX_TIMEOUT
+#    define RGB_MATRIX_TIMEOUT 0
+#endif
+
+#ifndef RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS UINT8_MAX
+#endif
+
+#ifndef RGB_MATRIX_HUE_STEP
+#    define RGB_MATRIX_HUE_STEP 8
+#endif
+
+#ifndef RGB_MATRIX_SAT_STEP
+#    define RGB_MATRIX_SAT_STEP 16
+#endif
+
+#ifndef RGB_MATRIX_VAL_STEP
+#    define RGB_MATRIX_VAL_STEP 16
+#endif
+
+#ifndef RGB_MATRIX_SPD_STEP
+#    define RGB_MATRIX_SPD_STEP 16
+#endif
+
+#ifndef RGB_MATRIX_DEFAULT_MODE
+#    ifdef ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
+#        define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
+#    else
+// fallback to solid colors if RGB_MATRIX_CYCLE_LEFT_RIGHT is disabled in userspace
+#        define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR
+#    endif
+#endif
+
+#ifndef RGB_MATRIX_DEFAULT_HUE
+#    define RGB_MATRIX_DEFAULT_HUE 0
+#endif
+
+#ifndef RGB_MATRIX_DEFAULT_SAT
+#    define RGB_MATRIX_DEFAULT_SAT UINT8_MAX
+#endif
+
+#ifndef RGB_MATRIX_DEFAULT_VAL
+#    define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#endif
+
+#ifndef RGB_MATRIX_DEFAULT_SPD
+#    define RGB_MATRIX_DEFAULT_SPD UINT8_MAX / 2
+#endif
+
 #ifndef RGB_MATRIX_LED_FLUSH_LIMIT
 #    define RGB_MATRIX_LED_FLUSH_LIMIT 16
 #endif
