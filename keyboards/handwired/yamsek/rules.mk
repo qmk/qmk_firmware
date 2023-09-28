@@ -7,7 +7,7 @@ SRC += matrix.c
 
 RGB_MATRIX_ENABLE = no
 RGBLIGHT_ENABLE = no
-RGBLIGHT_DRIVER = WS2812
+RGBLIGHT_DRIVER = ws2812
 
 VPATH += drivers/gpio
 SRC += mcp23018.c
