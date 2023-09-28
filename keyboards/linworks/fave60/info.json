@@ -12,14 +12,14 @@
         "pin": "F5"
     },
      "rgblight": {
-        "led_count":18,
-        "sleep":true,
+        "led_count": 18,
+        "sleep": true,
         "animations": {
-             "knight":true,
-             "rainbow_mood":true,
-             "rainbow_swirl":true,
-             "snake":true,
-             "twinkle":true
+             "knight": true,
+             "rainbow_mood": true,
+             "rainbow_swirl": true,
+             "snake": true,
+             "twinkle": true
         }
     },
     "diode_direction": "COL2ROW",
