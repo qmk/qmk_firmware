@@ -1,0 +1,91 @@
+#include "text_helper.h"
+
+#include QMK_KEYBOARD_H
+
+const uint16_t* get_led_matrix_text(uint8_t rgb_mode) {
+    switch(rgb_mode) {
+        case RGB_MATRIX_SPLASH:
+            return u"Sp";
+        case RGB_MATRIX_MULTISPLASH:
+            return u"SpMu";
+        case RGB_MATRIX_SOLID_SPLASH:
+            return u"SpSo";
+        case RGB_MATRIX_SOLID_MULTISPLASH:
+            return u"SpSM";
+        case RGB_MATRIX_RAINBOW_MOVING_CHEVRON:
+            return u"Rnbw";
+        case RGB_MATRIX_BREATHING:
+            return u"Brth";
+        case RGB_MATRIX_SOLID_REACTIVE_SIMPLE:
+            return u"Smpl";
+        case RGB_MATRIX_SOLID_REACTIVE_CROSS:
+            return u"Crss";
+        case RGB_MATRIX_SOLID_REACTIVE:
+            return u"Rctv";
+        case RGB_MATRIX_SOLID_REACTIVE_WIDE:
+            return u"RtWd";
+        case RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE:
+            return u"RtMW";
+        case RGB_MATRIX_SOLID_REACTIVE_MULTICROSS:
+            return u"RtMC";
+        case RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS:
+            return u"RtMN";
+        case RGB_MATRIX_SOLID_REACTIVE_NEXUS:
+            return u"RtNe";
+        case RGB_MATRIX_ALPHAS_MODS:
+            return u"AlpM";
+        case RGB_MATRIX_GRADIENT_UP_DOWN:
+            return u"GrUD";
+        case RGB_MATRIX_GRADIENT_LEFT_RIGHT:
+            return u"GrLR";
+        case RGB_MATRIX_BAND_SAT:
+            return u"BndS";
+        case RGB_MATRIX_BAND_VAL:
+            return u"BndV";
+        case RGB_MATRIX_BAND_PINWHEEL_SAT:
+            return u"BPwS";
+        case RGB_MATRIX_BAND_PINWHEEL_VAL:
+            return u"BPwV";
+        case RGB_MATRIX_BAND_SPIRAL_SAT:
+            return u"BSpS";
+        case RGB_MATRIX_CYCLE_ALL:
+            return u"All";
+        case RGB_MATRIX_CYCLE_LEFT_RIGHT:
+            return u"CyLR";
+        case RGB_MATRIX_CYCLE_UP_DOWN:
+            return u"CyUD";
+        case RGB_MATRIX_CYCLE_OUT_IN:
+            return u"CyOI";
+        case RGB_MATRIX_CYCLE_OUT_IN_DUAL:
+            return u"CyDu";
+        case RGB_MATRIX_CYCLE_PINWHEEL:
+            return u"CyPw";
+        case RGB_MATRIX_CYCLE_SPIRAL:
+            return u"CySp";
+        case RGB_MATRIX_DUAL_BEACON:
+            return u"DuBc";
+        case RGB_MATRIX_RAINBOW_BEACON:
+            return u"RnBc";
+        case RGB_MATRIX_RAINBOW_PINWHEELS:
+            return u"RnPw";
+        case RGB_MATRIX_RAINDROPS:
+            return u"Rndp";
+        case RGB_MATRIX_JELLYBEAN_RAINDROPS:
+            return u"JRnp";
+        case RGB_MATRIX_HUE_BREATHING:
+            return u"HueB";
+        case RGB_MATRIX_HUE_PENDULUM:
+            return u"HueP";
+        case RGB_MATRIX_HUE_WAVE:
+            return u"HueW";
+        case RGB_MATRIX_PIXEL_FRACTAL:
+            return u"PxlF";
+        case RGB_MATRIX_PIXEL_FLOW:
+            return u"PxlF";
+        case RGB_MATRIX_PIXEL_RAIN:
+            return u"PxlR";
+        default:
+            return u"Unkn";
+    }
+}
+

@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_FONT_END	126
 #define OLED_FONT_H "base/fonts/base_font.h"
 #define OLED_BRIGHTNESS 60
-#define OLED_TIMEOUT 60000
+#define OLED_TIMEOUT 0
 #define OLED_FADE_OUT
 #define OLED_FADE_OUT_INTERVAL 7
 
@@ -34,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_LED_PROCESS_LIMIT 16  // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 #define RGB_MATRIX_LED_FLUSH_LIMIT 16                            // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 25
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 48
 #define RGB_DISABLE_AFTER_TIMEOUT 60000
 #define RGB_DISABLE_WHEN_USB_SUSPENDED true
 
@@ -79,3 +79,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
 #define ENABLE_RGB_MATRIX_PIXEL_FLOW
 #define ENABLE_RGB_MATRIX_PIXEL_RAIN
+
+#define RGB_MATRIX_HUE_STEP 4
+#define RGB_MATRIX_SAT_STEP 4
+#define RGB_MATRIX_VAL_STEP 4
+#define RGB_MATRIX_SPD_STEP 4
