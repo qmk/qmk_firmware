@@ -763,9 +763,38 @@ A number in front is the number of keys, the number at the back is the intended 
 
 #define ___6_THUMBS_2a___ BSPC_SYMB, ESC_TOPR, ESC_TOPR, ENT_NAV, ENT_NAV, SPC_TOPR
 #define ___6_THUMBS_2a_CB___ BSPC_SYMB, ESC_TOPR, ESC_TOPR, ENT_NAV, ENT_NAV, SPC_TOPR
+#+end_src
 
-// for the kyria
+*** Kyria and Franken kyria
+
+My franken kyria, weird thumbs.  Regular kyria uses the normal 6 key definitions.
+
+#+begin_src C :tangle perimeter/thumbs.h
+// for the kyria these are the 4 upper thumb keys.
 #define ___4_THUMBS_def___       OS_LALT, OS_LCTL, SML_NAV, OS_LSFT
+
+// frankenkyria
+// top row of u.
+// define something as the top two thumb keys on each side.
+//
+#define ___4_THUMBS_fkyria_ltr_def___  \
+  BSPC_SYMB, GUI_ESC, ENT_NAV, ACCENTS_RALT
+#define ___4_THUMBS_fkyria_def___  \
+  SML_NAV, OSL_SYMB, OS_LSFT, KC_TAB
+
+// bottom row of u.  ie. middle. Plus the first key 4th row.
+// 6_ergo  Has arrows for the franken kyria.
+#define ___6_ERGO_THUMBS_fkyria___                              \
+  KC_RIGHT, BSPC_SYMB, GUI_ESC, ENT_NAV, SPC_TOPR,  KC_UP
+#define ___6_ERGO_THUMBS_fkyria_ltr___                          \
+  KC_RIGHT, TH_LTR_SYM, GUI_ESC, ENT_NAV, SPC_TOPR, KC_UP
+
+// This ends up in 10_ergo_thumbs below. Cause thats what we need.
+// We need the left arrow and the down arrow on the inside, then whatever
+// on the outer 2 bottom corner keys. Smart lock Nav and keypad ?
+// Outer franken kyria thumbs.
+// SML_NAV KC_LEFT   6-ergo thumbs   KC_DOWN SML_KEYPAD.
+
 #+end_src
 
 *** Flavors - The Definitions !!
@@ -826,6 +855,14 @@ hands down and a few other layouts.
 #+begin_src C :tangle perimeter/thumbs.h
 #define ___6_ERGO_THUMBS_mod_layers_nav___                      \
   ALT_DEL, BSPC_SYMB, GUI_ESC,  ENT_NAV, SPC_TOPR, ACCENTS_RALT
+
+// kinesis has the big keys closer, not further
+// move enter and space -> so they are on the big easy keys.
+#define ___6_ERGO_THUMBS_mod_layers_nav_kinesis___                      \
+  BSPC_SYMB, SML_KEYPAD, GUI_ESC,  ACCENTS_RALT, ENT_NAV, SPC_TOPR
+
+#define ___6_ERGO_THUMBS_mod_layers_nav_kinesis_ltr___                  \
+  BSPC_SYMB, TH_LTR_SYM, GUI_ESC,  ACCENTS_RALT, ENT_NAV, SPC_TOPR
 
 #+end_src
 
@@ -953,6 +990,10 @@ should be created.
 #define HD_EXT _hd___  // takes a letter for the left thumb.
 #define HDA_EXT _hd_a___  // relocate backspace
 #define HD_SIMPLE_EXT _hd_simple___  // no LTs or MT´s.
+#define FKYRIA_EXT _fkyria___
+#define FKYRIA_LTR_EXT _fkyria_ltr___
+#define KINESIS_EXT _mod_layers_nav_kinesis___
+#define KINESIS_LTR_EXT _mod_layers_nav_kinesis_ltr___
 // for the function layers
 #define COMBO_EXT _COMBO___
 #define COMBO2_EXT _COMBO2___
@@ -972,12 +1013,21 @@ will use.
 This 6 key macro is then used in all other thumb key set definitions so they will all  be the same
 at their core.
 
-**** The core 6 keys, eg. Corne.
+**** The core 4 and 6 key thumb sets, eg. Corne, hummingbird, ferris.
+
 
 The real flavor selector is acting here.
 
 #+begin_src C :tangle perimeter/thumbs.h
 #define ___6_ERGO_THUMBS___ CAT2(___6_ERGO_THUMBS, THUMB_EXT)
+
+#define MIDDLE_FOUR_OF_SIX(K01, K02, K03, K04, K05, K06) \
+                         K02, K03, K04, K05
+#define MF(...) MIDDLE_FOUR_OF_SIX(__VA_ARGS__)
+#define ___4_ERGO_THUMBS___ MF(___6_ERGO_THUMBS___)
+
+#define ___4_ERGO_THUMBS_EN___ ___4_ERGO_THUMBS___
+#define ___4_ERGO_THUMBS_BP___ ___4_ERGO_THUMBS___
 #+end_src
 
 **** 6 keys per side, eg. Kinesis, Ergodox, Dactyl
@@ -1015,13 +1065,30 @@ should based on what was chosen in the config.
 
 Two default key sets, a 4 and a 10. Then we use them everywhere we want them.
 
+
+To do this properly I should make a new keyboard definition for the franken kyria.
+or maybe do a choice for the 10 ergo thumbs.
+
+
 #+begin_src C :tangle perimeter/thumbs.h
 #define ___10_ERGO_THUMBS_def___ _X_, _X_, ___6_ERGO_THUMBS___, _X_, _X_
 
-#define ___4_THUMBS_EN___ ___4_THUMBS_def___
-#define ___4_THUMBS_BP___ ___4_THUMBS_def___
-#define ___10_ERGO_THUMBS_EN___ ___10_ERGO_THUMBS_def___
-#define ___10_ERGO_THUMBS_BP___ ___10_ERGO_THUMBS_def___
+// #define ___4_THUMBS_EN___ ___4_THUMBS_def___
+// #define ___4_THUMBS_BP___ ___4_THUMBS_def___
+// #define ___10_ERGO_THUMBS_EN___ ___10_ERGO_THUMBS_def___
+// #define ___10_ERGO_THUMBS_BP___ ___10_ERGO_THUMBS_def___
+// #define SML_NAV KC_LEFT   6-ergo thumbs   KC_DOWN SML_KEYPAD.
+
+#define ___10_ERGO_THUMBS_fkyria_def___ OSL_ACCENTS, KC_LEFT,  \
+    ___6_ERGO_THUMBS___, KC_DOWN, SML_KEYPAD
+
+#define ___4_THUMBS_fkyria_EN___ ___4_THUMBS_fkyria_def___
+#define ___4_THUMBS_fkyria_BP___ ___4_THUMBS_fkyria_def___
+
+#define ___4_THUMBS_EN___ ___4_THUMBS_fkyria_def___
+#define ___4_THUMBS_BP___ ___4_THUMBS_fkyria_def___
+#define ___10_ERGO_THUMBS_EN___ ___10_ERGO_THUMBS_fkyria_def___
+#define ___10_ERGO_THUMBS_BP___ ___10_ERGO_THUMBS_fkyria_def___
 #+end_src
 
 **** 16 thumb keys - My weird dactyl
@@ -1045,6 +1112,48 @@ Craziness. 8 thumb keys per side.
 #define ___16_ALL_THUMBSa_BP___ ___16_ALL_THUMBSa___
 #+end_src
 
+**** Svalboard
+
+Craziness. Data hand thumbs.
+These definitions help fill the gaps for a svalboard layout.
+There are a lot of thumbs. so many I dont know what to do with them all.
+I used the original values from the default keymap. There is no direct mapping as
+the layers specific to svalboard do not exist here.
+
+I used tap holds and smart layers where it made sense.
+This is still pretty basic.
+
+#+begin_src C :tangle perimeter/thumbs.h
+// this is to fill in the east/west keys after the inner index column has been
+// mapped to 3 of them.  default is to put inner middle on index inner.
+// top goes on middle finger inner, and bottom goes on ring finger inner.
+// These are the way they are in the default svalboard keymap.
+
+// left hand, right hand. left to right.
+#define SVALBOARD_EAST_WEST_FILLER \
+        KC_DEL, KC_LBRC, KC_ESC, KC_GRAVE, KC_DOUBLE_QUOTE, \
+        KC_QUOTE, KC_COLON, KC_LGUI, KC_BSLS, KC_RBRC
+
+// Thumbs.
+// order shown in the slavboard doc. left altogether then right.
+// Original keys:
+// _ENTER, _CAPS, _TAB, normal_hold, _LSFT, _LCTL
+// _BSPC, tgNAS, _SPACE, _LALT, _moNAS, tgFUNC
+
+
+/* #define SVALBOARD_THUMBS-orig \ */
+/*     _ENTER, _CAPS, _TAB, Normal_hold, _LSFT, _LCTL, \ */
+/*     _BSPC, toggle-NAS, _SPACE, _LALT, Momentary-NAS, toggle-func */
+
+#define ___SVALBOARD_THUMBS___ \
+    ENT_NAV, KC_CAPS, KC_TAB, SML_NAV, KC_LSFT, KC_LCTL, \
+    BSPC_SYMB, SML_KEYPAD, SPC_TOPR, KC_LALT, MO_SYMB, MO_KEYPAD
+
+#define ___SVALBOARD_THUMBS_EN___ ___SVALBOARD_THUMBS___
+#define ___SVALBOARD_THUMBS_BP___ ___SVALBOARD_THUMBS___
+
+#+end_src
+
 **** The Combo Reference layers.
 
 These are just combo reference made up key codes so we can put different combos on
@@ -1058,6 +1167,7 @@ our thumbs using the reference layers if we want to.
 #define ___2_THUMBS_CB___       CB_1TH1,   CB_1TH2
 #define ___4_THUMBS_CB___       CB_0TH1,   CB_0TH2, CB_0TH3, CB_0TH4
 #define ___6_THUMBS_CB___       CB_1TH1,   CB_1TH2, CB_1TH3, CB_1TH4, CB_1TH5, CB_1TH6
+#define ___4_ERGO_THUMBS_CB___       CB_0TH1,   CB_0TH2, CB_0TH3, CB_0TH4
 
 #define ___10_ERGO_THUMBS_CB___ CB_THA,    CB_THB,      \
     ___6_ERGO_THUMBS___, CB_THC, CB_THD
@@ -1066,6 +1176,7 @@ our thumbs using the reference layers if we want to.
 #define ___12_DOX_ALL_THUMBS_CB___ ___4_THUMBS_CB___, ___2_THUMBS_CB___, ___6_ERGO_THUMBS___
 #define ___16_DOX_ALL_THUMBS_CB___ ___4_THUMBS_CB___, ___6_THUMBS_2_CB___, ___6_ERGO_THUMBS___
 #define ___16_DOX_ALL_THUMBSa_CB___ ___4_THUMBS_CB___, ___6_THUMBS_2a_CB___, ___6_ERGO_THUMBS___
+#define ___SVALBOARD_THUMBS_CB___ ___12_DOX_ALL_THUMBS_CB___
 
 #+end_src
 
@@ -1084,6 +1195,7 @@ our thumbs using the reference layers if we want to.
 #define ___12_DOX_ALL_THUMBS_CB2___ ___4_THUMBS_CB2___, ___2_THUMBS_CB2___, ___6_ERGO_THUMBS___
 #define ___16_DOX_ALL_THUMBS_CB2___ ___4_THUMBS_CB2___, ___6_THUMBS_2_CB2___, ___6_ERGO_THUMBS___
 #define ___16_DOX_ALL_THUMBSa_CB2___ ___4_THUMBS_CB2___, ___6_THUMBS_2a_CB2___, ___6_ERGO_THUMBS___
+#define ___SVALBOARD_THUMBS_CB2___ 12_DOX_ALL_THUMBS_CB2___
 
 #+end_src
 

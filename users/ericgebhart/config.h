@@ -36,7 +36,7 @@
 // #define BASE_NUMBER_ROW  // turn on 4 row base templates if youve got one.
 
 // OLED STUFF.
-// #define OLED_CUSTOM_ENABLE // custom oled here.
+//#define OLED_CUSTOM_ENABLE // custom oled here.
 //#define OLED_LOGO_ENABLE // turn on/off the logo.
 
 #define KEYLOGGER_ENABLE // 1500 bytes, track and print keypress info to oled.
@@ -85,8 +85,8 @@
 
 // HD, HDA, HD_SIMPLE, TH_LTR, HD_DASH, KINESIS, KINESIS_LTR,
 // MIRYOKU_TR_LTR, MIRYOKU_LTR, ...
-#define THUMBS_ARE KINESIS
-#define DEFAULT_THUMBS KINESIS
+#define THUMBS_ARE FKYRIA
+#define DEFAULT_THUMBS FKYRIA
 
 // for the base layers which need a thumb cluster which takes a letter.
 #define HANDS_DOWN_LTR_THUMBS_ARE KINESIS_LTR

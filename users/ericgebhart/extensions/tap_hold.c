@@ -59,6 +59,7 @@ void tap_taplong(uint16_t kc1, uint16_t kc2, keyrecord_t *record) {
   }
 }
 
+
 void tap_sml(uint16_t kc1, uint16_t kc2, keyrecord_t *record) {
   if (record->event.pressed) {
     tap_taplong_timer = timer_read();

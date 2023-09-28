@@ -257,32 +257,32 @@ enum userspace_custom_keycodes {
 #define MO_ADJUST ___
 #endif
 
+#define OSL_ACCENTS ___
+
 #ifdef ACCENTS_MORTE_LAYER_ENABLE
-//#define LN_ACCENTS_MORTE LANG_N(_ACCENTS_MORTE)
-#define OSL_ACCENTS_MORTE OSL(LANG_N(_ACCENTS_MORTE))
-#else
-#define OSL_ACCENTS_MORTE ___
+#define LN_ACCENTS_MORTE LANG_N(_ACCENTS_MORTE)
+#define OSL_ACCENTS_MORTE OSL(LN_ACCENTS_MORTE)
+#undef OSL_ACCENTS
+#define OSL_ACCENTS OSL(LN_ACCENTS_MORTE)
 #endif
 
 #ifdef ACCENTS_LAYER_ENABLE
 #define LN_ACCENTS LANG_N(_ACCENTS)
+#undef OSL_ACCENTS
 #define OSL_ACCENTS OSL(LN_ACCENTS)
-#else
-#define OSL_ACCENTS ___
 #endif
 
 #ifdef MORTE_LAYER_ENABLE
 #define LN_MORTE LANG_N(_MORTE)
+#undef OSL_ACCENTS
+#define OSL_ACCENTS OSL(LN_MORTE)
 #define OSL_MORTE OSL(LN_MORTE)
-#else
-#define OSL_MORTE ___
 #endif
-
 #define CTLGUI_T(kc) MT(MOD_LGUI | MOD_LCTL, kc)
 #define SFTGUI_T(kc) MT(MOD_LGUI | MOD_LSFT, kc)
 #define ALTGUI_T(kc) MT(MOD_LGUI | MOD_LALT, kc)
 
-#define ALT_ENT     ALGR_T(KC_ENT)       // Alt oor nter
+#define ALT_ENT     ALGR_T(KC_ENT)      // Alt or Enter
 #define CTL_ENT     CTL_T(KC_ENT)       // ctrl or space
 #define CTL_SPC     CTL_T(KC_SPC)       // ctrl or space
 #define CTL_BSPC    CTL_T(KC_BSPC)      // ctrl or backspace

@@ -39,11 +39,15 @@
 // top row of u.
 // define something as the top two thumb keys on each side.
 //
-#define ___4_THUMBS_fkyria_def___   BSPC_SYMB, GUI_ESC, ACCENTS_RALT, ENT_NAV
+#define ___4_THUMBS_fkyria_ltr_def___  \
+  BSPC_SYMB, GUI_ESC, ENT_NAV, ACCENTS_RALT
+#define ___4_THUMBS_fkyria_def___  \
+  SML_NAV, OSL_SYMB, OS_LSFT, KC_TAB
+
 // bottom row of u.  ie. middle. Plus the first key 4th row.
-// 6_urgo  Has arrows for the franken kyria.
+// 6_ergo  Has arrows for the franken kyria.
 #define ___6_ERGO_THUMBS_fkyria___                              \
-  KC_RIGHT, BSPC_SYMB, GUI_ESC, ENT_NAV, SPC_TOPR, KC_UP
+  KC_RIGHT, BSPC_SYMB, GUI_ESC, ENT_NAV, SPC_TOPR,  KC_UP
 #define ___6_ERGO_THUMBS_fkyria_ltr___                          \
   KC_RIGHT, TH_LTR_SYM, GUI_ESC, ENT_NAV, SPC_TOPR, KC_UP
 
@@ -53,11 +57,10 @@
 // Outer franken kyria thumbs.
 // SML_NAV KC_LEFT   6-ergo thumbs   KC_DOWN SML_KEYPAD.
 
+#define ___6_ERGO_THUMBS_layers___                              \
+  SML_NAV, BSPC_SYMB, ESC_TOPR, ENT_NAV, SPC_TOPR, ACCCENTS_RALT
 
-#define ___6_ERGO_THUMBS_layers___                                      \
-   SML_NAV, BSPC_SYMB, ESC_TOPR, ENT_NAV, SPC_TOPR, ACCCENTS_RALT
-
- // Transparent.
+// Transparent.
 #define ___6_ERGO_THUMBS_trns___ ___6___
 
 // A place to test stuff.
@@ -80,7 +83,6 @@
 
 #define ___6_ERGO_THUMBS_mod_layers_nav_kinesis_ltr___                  \
   BSPC_SYMB, TH_LTR_SYM, GUI_ESC,  ACCENTS_RALT, ENT_NAV, SPC_TOPR
-
 
 // for keymaps that need a letter on the thumb.
 #define ___6_ERGO_THUMBS_left_letter___                                 \
@@ -177,6 +179,14 @@
 
 #define ___6_ERGO_THUMBS___ CAT2(___6_ERGO_THUMBS, THUMB_EXT)
 
+#define MIDDLE_FOUR_OF_SIX(K01, K02, K03, K04, K05, K06) \
+                         K02, K03, K04, K05
+#define MF(...) MIDDLE_FOUR_OF_SIX(__VA_ARGS__)
+#define ___4_ERGO_THUMBS___ MF(___6_ERGO_THUMBS___)
+
+#define ___4_ERGO_THUMBS_EN___ ___4_ERGO_THUMBS___
+#define ___4_ERGO_THUMBS_BP___ ___4_ERGO_THUMBS___
+
 /* // consolidated for kinesis, ergodox, and dactyl */
 /* //for the ergodox and kinesis. */
 //___12___
@@ -190,8 +200,15 @@
 #define ___12_DOX_ALL_THUMBS_BP___ ___12_DOX_ALL_THUMBS___
 
 #define ___10_ERGO_THUMBS_def___ _X_, _X_, ___6_ERGO_THUMBS___, _X_, _X_
+
+// #define ___4_THUMBS_EN___ ___4_THUMBS_def___
+// #define ___4_THUMBS_BP___ ___4_THUMBS_def___
+// #define ___10_ERGO_THUMBS_EN___ ___10_ERGO_THUMBS_def___
+// #define ___10_ERGO_THUMBS_BP___ ___10_ERGO_THUMBS_def___
+// #define SML_NAV KC_LEFT   6-ergo thumbs   KC_DOWN SML_KEYPAD.
+
 #define ___10_ERGO_THUMBS_fkyria_def___ OSL_ACCENTS, KC_LEFT,  \
-    ___6_ERGO_THUMBS___, KC_RIGHT, SML_KEYPAD
+    ___6_ERGO_THUMBS___, KC_DOWN, SML_KEYPAD
 
 #define ___4_THUMBS_fkyria_EN___ ___4_THUMBS_fkyria_def___
 #define ___4_THUMBS_fkyria_BP___ ___4_THUMBS_fkyria_def___
@@ -216,12 +233,41 @@
 #define ___16_ALL_THUMBSa_EN___ ___16_ALL_THUMBSa___
 #define ___16_ALL_THUMBSa_BP___ ___16_ALL_THUMBSa___
 
+// this is to fill in the east/west keys after the inner index column has been
+// mapped to 3 of them.  default is to put inner middle on index inner.
+// top goes on middle finger inner, and bottom goes on ring finger inner.
+// These are the way they are in the default svalboard keymap.
+
+// left hand, right hand. left to right.
+#define SVALBOARD_EAST_WEST_FILLER \
+        KC_DEL, KC_LBRC, KC_ESC, KC_GRAVE, KC_DOUBLE_QUOTE, \
+        KC_QUOTE, KC_COLON, KC_LGUI, KC_BSLS, KC_RBRC
+
+// Thumbs.
+// order shown in the slavboard doc. left altogether then right.
+// Original keys:
+// _ENTER, _CAPS, _TAB, normal_hold, _LSFT, _LCTL
+// _BSPC, tgNAS, _SPACE, _LALT, _moNAS, tgFUNC
+
+
+/* #define SVALBOARD_THUMBS-orig \ */
+/*     _ENTER, _CAPS, _TAB, Normal_hold, _LSFT, _LCTL, \ */
+/*     _BSPC, toggle-NAS, _SPACE, _LALT, Momentary-NAS, toggle-func */
+
+#define ___SVALBOARD_THUMBS___ \
+    ENT_NAV, KC_CAPS, KC_TAB, SML_NAV, KC_LSFT, KC_LCTL, \
+    BSPC_SYMB, SML_KEYPAD, SPC_TOPR, KC_LALT, MO_SYMB, MO_KEYPAD
+
+#define ___SVALBOARD_THUMBS_EN___ ___SVALBOARD_THUMBS___
+#define ___SVALBOARD_THUMBS_BP___ ___SVALBOARD_THUMBS___
+
 // combo reference layer thumbs for the kyria.
 // for the kyria, note the odd numbering...a 0 row, and a,b,c,d for the extras
 // on either side of the central 6 thumbs.
 #define ___2_THUMBS_CB___       CB_1TH1,   CB_1TH2
 #define ___4_THUMBS_CB___       CB_0TH1,   CB_0TH2, CB_0TH3, CB_0TH4
 #define ___6_THUMBS_CB___       CB_1TH1,   CB_1TH2, CB_1TH3, CB_1TH4, CB_1TH5, CB_1TH6
+#define ___4_ERGO_THUMBS_CB___       CB_0TH1,   CB_0TH2, CB_0TH3, CB_0TH4
 
 #define ___10_ERGO_THUMBS_CB___ CB_THA,    CB_THB,      \
     ___6_ERGO_THUMBS___, CB_THC, CB_THD
@@ -230,6 +276,7 @@
 #define ___12_DOX_ALL_THUMBS_CB___ ___4_THUMBS_CB___, ___2_THUMBS_CB___, ___6_ERGO_THUMBS___
 #define ___16_DOX_ALL_THUMBS_CB___ ___4_THUMBS_CB___, ___6_THUMBS_2_CB___, ___6_ERGO_THUMBS___
 #define ___16_DOX_ALL_THUMBSa_CB___ ___4_THUMBS_CB___, ___6_THUMBS_2a_CB___, ___6_ERGO_THUMBS___
+#define ___SVALBOARD_THUMBS_CB___ ___12_DOX_ALL_THUMBS_CB___
 
 #define ___2_THUMBS_CB2___       CB2_1TH1, CB2_1TH2
 #define ___4_THUMBS_CB2___       CB2_0TH1, CB2_0TH2, CB2_0TH3, CB2_0TH4
@@ -241,6 +288,7 @@
 #define ___12_DOX_ALL_THUMBS_CB2___ ___4_THUMBS_CB2___, ___2_THUMBS_CB2___, ___6_ERGO_THUMBS___
 #define ___16_DOX_ALL_THUMBS_CB2___ ___4_THUMBS_CB2___, ___6_THUMBS_2_CB2___, ___6_ERGO_THUMBS___
 #define ___16_DOX_ALL_THUMBSa_CB2___ ___4_THUMBS_CB2___, ___6_THUMBS_2a_CB2___, ___6_ERGO_THUMBS___
+#define ___SVALBOARD_THUMBS_CB2___ 12_DOX_ALL_THUMBS_CB2___
 
 // for the kyria, mostly for the combo reference layers.
 // #define ___10_ERGO_THUMBS___ CATR(___10_ERGO_THUMBS, EXP_THUMB_EXT)

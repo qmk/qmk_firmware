@@ -16,34 +16,6 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-// Kyria
-#ifdef KEYBOARD_splitkb_kyria
-#define BASE Base_2x6_8_5
-#define BASEt6 Base_2x6_8_5t6
-#define TRANS Transient_2x6_8_5
-#define BASE_COLS_IN_OUT 5_6 // 5, 5_6, 6
-#endif
-
-// Corne
-#ifdef KEYBOARD_crkbd
-#define BASE Base_3x6_3
-#define BASEt6 Base_3x6_3t6
-#define TRANS Transient_3x6_3
-#define BASE_COLS_IN_OUT 5_6 // 5, 5_6, 6
-#endif
-
-// Ergodox ez.
-#ifdef KEYBOARD_ergodox_ez
-#define BASE Base_dox
-#define BASEt6 Base_doxt6
-#define TRANS Transient_dox
-#define BASE_COLS_IN_OUT 5_6 // 5, 5_6, 6
-// tell the keymap we want to specify number rows.
-// 4x10 input instead 3x10.
-#define BASE_NUMBER_ROW    // turn on 4 row base templates.
-#endif
-
 // XD75
 #ifdef KEYBOARD_xiudi_xd75
 #define BASE Base_5x15
@@ -62,11 +34,11 @@
 #define BASE_NUMBER_ROW    // turn on 4 row base templates.
 #endif
 
-// Rebound
-#ifdef KEYBOARD_montsinger_rebound
-#define BASE Base_rebound
-#define BASEt6 Base_reboundt6
-#define TRANS Rebound_transient
+// Corne
+#ifdef KEYBOARD_crkbd
+#define BASE Base_3x6_3
+#define BASEt6 Base_3x6_3t6
+#define TRANS Transient_3x6_3
 #define BASE_COLS_IN_OUT 5_6 // 5, 5_6, 6
 #endif
 
@@ -100,4 +72,64 @@
 #define TRANS Transient_4x6_5_8
 #define BASE_COLS_IN_OUT 5_6 // 5, 5_6, 6
 #define BASE_NUMBER_ROW    // turn on 4 row base templates.
+#endif
+
+// Ergodox ez.
+#ifdef KEYBOARD_ergodox_ez
+#define BASE Base_dox
+#define BASEt6 Base_doxt6
+#define TRANS Transient_dox
+#define BASE_COLS_IN_OUT 5_6 // 5, 5_6, 6
+// tell the keymap we want to specify number rows.
+// 4x10 input instead 3x10.
+#define BASE_NUMBER_ROW    // turn on 4 row base templates.
+#endif
+
+// Rebound
+#ifdef KEYBOARD_montsinger_rebound
+#define BASE Base_rebound
+#define BASEt6 Base_reboundt6
+#define TRANS Rebound_transient
+#define BASE_COLS_IN_OUT 5_6 // 5, 5_6, 6
+#endif
+
+// Kyria
+#ifdef KEYBOARD_splitkb_kyria
+#define BASE Base_2x6_8_5
+#define BASEt6 Base_2x6_8_5t6
+#define TRANS Transient_2x6_8_5
+#define BASE_COLS_IN_OUT 5_6 // 5, 5_6, 6
+#endif
+
+// Hummingbird
+#ifdef KEYBOARD_hummingbird
+#undef LAYOUT_VARG
+#define LAYOUT_VARG(...)     LAYOUT(__VA_ARGS__)
+#define BASE Base_2_3x3_2_2
+#define BASEt6 None
+#define TRANS Transient_2_3x3_2_2
+#undef BASE_COLS_IN_OUT
+#define BASE_COLS_IN_OUT 5 // 5, 5_6, 6
+#endif
+
+// Ferris
+#ifdef KEYBOARD_ferris
+#undef LAYOUT_VARG
+#define LAYOUT_VARG(...)     LAYOUT_split_3x5_2(__VA_ARGS__)
+#define BASE Base_3x5_2
+#define BASEt6 None
+#define TRANS Transient_3x5_2
+#undef BASE_COLS_IN_OUT
+#define BASE_COLS_IN_OUT 5 // 5, 5_6, 6
+#endif
+
+// Slavboard
+#ifdef KEYBOARD_svalboard
+#undef LAYOUT_VARG
+#define LAYOUT_VARG(...)     SVALBOARD_LAYOUT_PRETTY(__VA_ARGS__)
+#define BASE Base_5x4_6
+#define BASEt6 None
+#define TRANS Transient_5x4_6
+#undef BASE_COLS_IN_OUT
+#define BASE_COLS_IN_OUT 5 // 5, 5_6, 6
 #endif

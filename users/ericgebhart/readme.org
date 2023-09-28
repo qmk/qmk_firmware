@@ -266,6 +266,9 @@ keyboard shapes: Matrix size + 5th row + thumbs. Matrix size + thumbs.
 - montsinger/rebound/rev4 4x12 + 3 center keys.
 - -- 4x12
 - splitkb/kyria 3x6 + 7 or 3x5 + 7
+- ferris  3x5 + 2
+- hummingbird  2+3x3+2  + 2 thumbs.
+- svalboard   5x4 + 6 thumbs per side.
 
 ** Features
 :PROPERTIES:

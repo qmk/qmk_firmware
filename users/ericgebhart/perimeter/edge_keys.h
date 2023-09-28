@@ -308,19 +308,19 @@
 #define ___5_BOTTOM_LEFT_EN___  ___5_BOTTOM_LEFT___
 #define ___5_BOTTOM_RIGHT_EN___  ___5_BOTTOM_RIGHT___
 
-#define ___4_BOTTOM_LEFT___  LCTL(KC_V),  SML_NAV,  KC_LEFT,   KC_RIGHT
-#define ___4_BOTTOM_RIGHT___ KC_UP,       KC_DOWN, SML_KEYPAD, LCTL(KC_C)
+#define ___4_BOTTOM_LEFT___  LCTL(KC_V),  KC_INS,  KC_LEFT,   KC_RIGHT
+#define ___4_BOTTOM_RIGHT___ KC_UP,       KC_DOWN, KC_BSLS, LCTL(KC_C)
 
-#define ___4_BOTTOM_LEFT_EN___  ___4_BOTTOM_LEFT___
-#define ___4_BOTTOM_RIGHT_EN___ ___4_BOTTOM_RIGHT___
+#define ___4_BOTTOM_LEFT_EN___  ___4___ //___4_BOTTOM_LEFT___
+#define ___4_BOTTOM_RIGHT_EN___  ___4___ //___4_BOTTOM_RIGHT___
 
 // the bottom rows  for keyboards on bepo.
 // bepo on bepo - not enough space to go around....
 #define ___5_BOTTOM_LEFT_BP___  _X_,    BP_EACU,  _X_,           KC_LEFT, KC_RIGHT
 #define ___5_BOTTOM_RIGHT_BP___ KC_UP,  KC_DOWN,  BP_BSLS,  BP_CCED,  BP_PERC
 
-#define ___4_BOTTOM_LEFT_BP___  LCTL(BP_C),  SML_NAV,  KC_LEFT, KC_RIGHT
-#define ___4_BOTTOM_RIGHT_BP___ KC_UP,  KC_DOWN, SML_KEYPAD_BP,  BP_CCED
+#define ___4_BOTTOM_LEFT_BP___  LCTL(BP_C),  BP_EACU,  KC_LEFT, KC_RIGHT
+#define ___4_BOTTOM_RIGHT_BP___ KC_UP,  KC_DOWN, BP_BSLS,  BP_CCED
 
 // for combo ref layers for kinesis, dactyl and kinesis.
 #define ___5_BOTTOM_LEFT_FR___  ___X3___,  KC_LEFT, KC_RIGHT

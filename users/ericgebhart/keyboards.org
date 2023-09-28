@@ -1,5 +1,6 @@
 * Keyboards and their Layouts.
 
+
 These are my Keyboard layouts, which amounts to matrix definitions
 that keymap layers are defined with.
 
@@ -75,7 +76,7 @@ like dvorak, qwerty, colemak, beakl, etc., to be defined simply.
 This just contains all the mappings for the keyboard to its corresponding layouts and
 if it is 5 or 6 columns in and 5 or 6 columns out.
 
-#+begin_src C :tangle keyboards.h
+#+begin_src C :tangle keyboards/keyboards.h
 #pragma once
 /*
   Copyright 2018 Eric Gebhart <e.a.gebhart@gmail.com>
@@ -101,7 +102,7 @@ This file contains the matrix layouts. It uses the keyboards default *LAYOUT* ma
 and adds all the stuff to make the mod layers and all the other wrappers unravel to create a nice
 matrix for the keyboard to have in its layer stack.
 
-#+begin_src C :tangle layouts.h
+#+begin_src C :tangle keyboards/layouts.h
 #pragma once
 /*
   Copyright 2018 Eric Gebhart <e.a.gebhart@gmail.com>
@@ -125,7 +126,7 @@ matrix for the keyboard to have in its layer stack.
 
 These are the chunks and parts and macros we'll need when we make our layouts.
 
-#+begin_src C :tangle layouts.h
+#+begin_src C :tangle keyboards/layouts.h
 #include "base_layers.h"
 #include "mod_layer.h"
 #include "edge_keys.h"
@@ -138,7 +139,7 @@ These are the chunks and parts and macros we'll need when we make our layouts.
 The variadic *var_args* bit is the piece that makes wrappers work and causes them to
 unravel.
 
-#+begin_src C :tangle layouts.h
+#+begin_src C :tangle keyboards/layouts.h
 #if (!defined(LAYOUT) && defined(KEYMAP))
 #define LAYOUT KEYMAP
 #endif
@@ -146,7 +147,6 @@ unravel.
 // every keyboard has it's Layout. We start there and make a var args
 // out of it.
 
-#+begin_src C :tangle layouts.h
 #define LVARG_ergodox(...)    LAYOUT_ergodox(__VA_ARGS__)
 #define LVARG_edox(...)       LAYOUT_ergodox_pretty(__VA_ARGS__)
 #define LAYOUT_VARG(...)      LAYOUT(__VA_ARGS__)
@@ -166,10 +166,9 @@ That is so we can swap out the number row.
 if you never change the number row, then use 3 sets of left and right.
 and define the number row here.
 
-#+begin_src C :tangle layouts.h
 *** Base layout for 4x10 input matrices.
 
-#+begin_src C :tangle layouts.h
+#+begin_src C :tangle keyboards/layouts.h
 #define Base_5x15(                                                \
                   K01, K02, K03, K04, K05,                        \
                   K06, K07, K08, K09, K0A,                        \
@@ -201,7 +200,7 @@ and define the number row here.
 
 *** Base layout for 4x12 input matrices.
 
-#+begin_src C :tangle layouts.h
+#+begin_src C :tangle keyboards/layouts.h
 
 #define Base_5x15t6(                                                    \
                     K01, K02, K03, K04, K05, K06,                       \
@@ -226,12 +225,12 @@ and define the number row here.
              MAP_CHUNK(___3_MIDDLE_3),                                  \
              MOD_ROW(ROW3R)(K37, K38, K39, K3A, K3B, K3C),              \
              MAP_CHUNK(___15_BOTTOM)                                    \
+                                                                        )
 #+end_src
 
 *** No Mods transient layer layout for 3x10 input matrices.
 
-#+begin_src C :tangle layouts.h
-                                                                        )
+#+begin_src C :tangle keyboards/layouts.h
 
 // Makes 5 rows of 15. 3 columns transparent in the middle.
 // Transparent outer pinky columns.
@@ -263,7 +262,7 @@ and define the number row here.
 *** keyboards
 **** xd75
 
-#+begin_src C :tangle keyboards.h
+#+begin_src C :tangle keyboards/keyboards.h
 
 // XD75
 #ifdef KEYBOARD_xiudi_xd75
@@ -282,7 +281,7 @@ and define the number row here.
 
 *** Base layout for 3x10 input matrices.
 
-#+begin_src C :tangle layouts.h
+#+begin_src C :tangle keyboards/layouts.h
 
 /********************************************************************/
 /* viterbi  - Ortholinear 5x14  */
@@ -318,7 +317,7 @@ and define the number row here.
 
 *** Base layout for 3x12 input matrices.
 
-#+begin_src C :tangle layouts.h
+#+begin_src C :tangle keyboards/layouts.h
 #define Base_5x14t6(                                    \
                     K01, K02, K03, K04, K05, K06,       \
                     K07, K08, K09, K0A, K0B, K0C,       \
@@ -347,7 +346,7 @@ and define the number row here.
 
 *** No Mods transient layer layout for 3x10 input matrices.
 
-#+begin_src C :tangle layouts.h
+#+begin_src C :tangle keyboards/layouts.h
 // 4  rows of 12. 2 columns transparent in the middle.
 #define Transient_5x14(                                            \
                        K01, K02, K03, K04, K05,                    \
@@ -378,7 +377,7 @@ and define the number row here.
 
 **** Viterbi
 
-#+begin_src C :tangle keyboards.h
+#+begin_src C :tangle keyboards/keyboards.h
 
 // Viterbi
 #ifdef KEYBOARD_keebio_viterbi
@@ -397,7 +396,7 @@ This is just too easy not to include. I should add the 12 wide layout.
 
 *** Base 3x6 layout for 3x10 input matrices.
 
-#+begin_src C :tangle layouts.h
+#+begin_src C :tangle keyboards/layouts.h
 /********************************************************************/
 /* Ortholinear 4x12  */
 /********************************************************************/
@@ -426,7 +425,7 @@ This is just too easy not to include. I should add the 12 wide layout.
 
 *** No Mods transient layer layout for 3x10 input matrices.
 
-#+begin_src C :tangle layouts.h
+#+begin_src C :tangle keyboards/layouts.h
 // takes 3 makes 4  rows of 12.
 #define LAYOUT_4x12_transient(                                          \
                               K01, K02, K03, K04, K05, K06,             \
@@ -447,11 +446,12 @@ This is just too easy not to include. I should add the 12 wide layout.
              )                                                  \
 #+end_src
 
-** 3x5/6 split with 3 thumbs, Corne** Base 3x6 layout for 3x10 input matrices.
+** 3x5/6 split with 3 thumbs, Corne
+*** Base 3x6 layout for 3x10 input matrices.
 
 This fits a Corne/crkbd  which means it fits a lot of split keyboards.
 
-#+begin_src C :tangle layouts.h
+#+begin_src C :tangle keyboards/layouts.h
 
 /********************************************************************/
 /* CRKBD  Corne or any other 3x5/6 with 3 thumbs on each side.      */
@@ -481,7 +481,7 @@ This fits a Corne/crkbd  which means it fits a lot of split keyboards.
 
 *** Base 3x5 layout for 3x10 input matrices.
 
-#+begin_src C :tangle layouts.h
+#+begin_src C :tangle keyboards/layouts.h
 
 #define Base_3x6_3t6(                                                   \
                      K01, K02, K03, K04, K05, K06,                      \
@@ -505,7 +505,7 @@ This fits a Corne/crkbd  which means it fits a lot of split keyboards.
 
 *** No Mods transient layer layout for 3x10 input matrices.
 
-#+begin_src C :tangle layouts.h
+#+begin_src C :tangle keyboards/layouts.h
   // All we really need is to add the see through thumbs to the end.
 #define Transient_3x6_3(                                                \
                         K01, K02, K03, K04, K05,                        \
@@ -533,7 +533,7 @@ This fits a Corne/crkbd  which means it fits a lot of split keyboards.
 
 **** Corne
 
-#+begin_src C :tangle keyboards.h
+#+begin_src C :tangle keyboards/keyboards.h
 
 // Corne
 #ifdef KEYBOARD_crkbd
@@ -544,11 +544,12 @@ This fits a Corne/crkbd  which means it fits a lot of split keyboards.
 #endif
 #+end_src
 
+
 ** 4x6+5-6 thumbs, Kinesis Advantage
 
 *** Base layout for 3x10 input matrices.
 
-#+begin_src C :tangle layouts.h
+#+begin_src C :tangle keyboards/layouts.h
 /********************************************************************/
 /* Kinesis*/
 /********************************************************************/
@@ -584,7 +585,7 @@ This fits a Corne/crkbd  which means it fits a lot of split keyboards.
 
 *** Base layout for 3x12 input matrices.
 
-#+begin_src C :tangle layouts.h
+#+begin_src C :tangle keyboards/layouts.h
 
 #define Base_4x6_4_6t6(                                                 \
                        K01, K02, K03, K04, K05, K06,                    \
@@ -613,7 +614,7 @@ This fits a Corne/crkbd  which means it fits a lot of split keyboards.
 
 *** No Mods transient layer layout for 3x10 input matrices.
 
-#+begin_src C :tangle layouts.h
+#+begin_src C :tangle keyboards/layouts.h
 
 #define Transient_4x6_4_6(                                         \
                           K01, K02, K03, K04, K05,                 \
@@ -645,7 +646,7 @@ This fits a Corne/crkbd  which means it fits a lot of split keyboards.
 
 **** Kinesis
 
-#+begin_src C :tangle keyboards.h
+#+begin_src C :tangle keyboards/keyboards.h
 
 // Kinesis
 #if defined(KEYBOARD_kinesis_alvicstep)         \
@@ -677,7 +678,7 @@ number row, outside pinky keys, the 5th row, and thumbs.
 
 *** Base layout for 3x10 input matrices.
 
-#+begin_src C :tangle layouts.h
+#+begin_src C :tangle keyboards/layouts.h
 /********************************************************************/
 /* Dactyl with 8 thumb keys*/
 /********************************************************************/
@@ -712,7 +713,7 @@ number row, outside pinky keys, the 5th row, and thumbs.
 
 *** Base layout for 3x12 input matrices.
 
-#+begin_src C :tangle layouts.h
+#+begin_src C :tangle keyboards/layouts.h
 
 #define Base_4x6_5_8t6(                                                 \
                        K01, K02, K03, K04, K05, K06,                    \
@@ -741,7 +742,7 @@ number row, outside pinky keys, the 5th row, and thumbs.
 
 *** No Mods transient layer layout for 3x10 input matrices.
 
-#+begin_src C :tangle layouts.h
+#+begin_src C :tangle keyboards/layouts.h
 
 // so far no need for mods on the transient layers.
 // switching to 3x5 transients. 10 column defines.
@@ -771,7 +772,7 @@ number row, outside pinky keys, the 5th row, and thumbs.
 
 **** Dactyl
 
-#+begin_src C :tangle keyboards.h
+#+begin_src C :tangle keyboards/keyboards.h
 
 // My Morpho Dactyl
 #ifdef KEYBOARD_gebhart_morpho
@@ -794,7 +795,7 @@ Additionally it has 6 thumb keys per side which are hard to reach.
 
 *** Base layout for 3x10 input matrices.
 
-#+begin_src C :tangle layouts.h
+#+begin_src C :tangle keyboards/layouts.h
 
 /********************************************************************/
 /* Ergodox EZ                                                       */
@@ -834,7 +835,7 @@ Additionally it has 6 thumb keys per side which are hard to reach.
 
 *** Base layout for 3x12 input matrices.
 
-#+begin_src C :tangle layouts.h
+#+begin_src C :tangle keyboards/layouts.h
 
 #define Base_doxt6(                                                     \
                    K01, K02, K03, K04, K05, K06, \
@@ -863,7 +864,7 @@ Additionally it has 6 thumb keys per side which are hard to reach.
 
 *** No Mods transient layer layout for 3x10 input matrices.
 
-#+begin_src C :tangle layouts.h
+#+begin_src C :tangle keyboards/layouts.h
 
 #define Transient_dox(                                                  \
                       K01, K02, K03, K04, K05,                          \
@@ -891,7 +892,7 @@ Additionally it has 6 thumb keys per side which are hard to reach.
 *** Keyboards
 **** Ergodox Ez
 
-#+begin_src C :tangle keyboards.h
+#+begin_src C :tangle keyboards/keyboards.h
 
 // Ergodox ez.
 #ifdef KEYBOARD_ergodox_ez
@@ -911,7 +912,7 @@ The rebound is almost a 4 x 14.  It has a middle column with
 
 *** Base layout for 3x10 input matrices.
 
-#+begin_src C :tangle layouts.h
+#+begin_src C :tangle keyboards/layouts.h
 #define LVARG_rebound(...)    LAYOUT_all(__VA_ARGS__)
 #define Base_rebound(                                                   \
                      K01, K02, K03, K04, K05,                           \
@@ -938,7 +939,7 @@ The rebound is almost a 4 x 14.  It has a middle column with
 
 *** Base layout for 3x12 input matrices.
 
-#+begin_src C :tangle layouts.h
+#+begin_src C :tangle keyboards/layouts.h
 #define Base_reboundt6(                                                 \
                        K01, K02, K03, K04, K05, K06,                    \
                        K07, K08, K09, K0A, K0B, K0C,                    \
@@ -962,7 +963,7 @@ The rebound is almost a 4 x 14.  It has a middle column with
 
 *** No Mods transient layer layout for 3x10 input matrices.
 
-#+begin_src C :tangle layouts.h
+#+begin_src C :tangle keyboards/layouts.h
 
 #define Rebound_transient(                                              \
                           K01, K02, K03, K04, K05,                      \
@@ -990,7 +991,7 @@ The rebound is almost a 4 x 14.  It has a middle column with
 
 **** Rebound
 
-#+begin_src C :tangle keyboards.h
+#+begin_src C :tangle keyboards/keyboards.h
 
 // Rebound
 #ifdef KEYBOARD_montsinger_rebound
@@ -1006,7 +1007,7 @@ The rebound is almost a 4 x 14.  It has a middle column with
 ** Kyria - 3x5/6 with 7 on the last row
 *** Base layout for 3x10 input matrices.
 
-#+begin_src C :tangle layouts.h
+#+begin_src C :tangle keyboards/layouts.h
 /********************************************************************/
 /* Kyria  or any other 3x5/6 with 4 keys in the middle of the last  */
 /* Row. Followed by 5 thumb keys on each side. 7 thumb keys total.  */
@@ -1034,7 +1035,7 @@ The rebound is almost a 4 x 14.  It has a middle column with
 
 *** Base layout for 3x12 input matrices.
 
-#+begin_src C :tangle layouts.h
+#+begin_src C :tangle keyboards/layouts.h
 
 #define Base_2x6_8_5t6(                                                \
                        K01, K02, K03, K04, K05, K06,                    \
@@ -1057,7 +1058,7 @@ The rebound is almost a 4 x 14.  It has a middle column with
 
 *** No Mods transient layer layout for 3x10 input matrices.
 
-#+begin_src C :tangle layouts.h
+#+begin_src C :tangle keyboards/layouts.h
 
 // All we really need is to add the see through thumbs to the end.
 #define Transient_2x6_8_5(                                              \
@@ -1085,12 +1086,320 @@ The rebound is almost a 4 x 14.  It has a middle column with
 
 **** Kyria
 
-#+begin_src C :tangle keyboards.h
+#+begin_src C :tangle keyboards/keyboards.h
 // Kyria
 #ifdef KEYBOARD_splitkb_kyria
 #define BASE Base_2x6_8_5
 #define BASEt6 Base_2x6_8_5t6
 #define TRANS Transient_2x6_8_5
 #define BASE_COLS_IN_OUT 5_6 // 5, 5_6, 6
+#endif
+#+end_src
+
+** Hummingbird - 2+3x3+2 with 2 thumbs per side.
+*** Macros to trim down from a 3x5 to a 2+3x3+2.
+We drop the bottom corners.  For dvorak it is: *;xbz*
+Had to choose some rule, top or bottom corners make the most sense to drop.
+
+So this matrix trims down the 3rd row to 3 columns.
+Put your missing keys on combos or another layer. or somewhere else.
+
+Use the middle 4 keys from the 6 ergo thumbs setting for the four thumbs.
+
+#+begin_src C :tangle keyboards/layouts.h
+/********************************************************************/
+/* Hummingbird 2+3x3+2 with 2 thumbs.  A 30.                        */
+/********************************************************************/
+
+// Some macros to help trim the incoming matrix down.
+
+#define TAKE_FIRST_FOUR(K01, K02, K03, K04, K05) \
+                         K01, K02, K03, K04
+#define TFF(...) TAKE_FIRST_FOUR(__VA_ARGS__)
+
+#define TAKE_LAST_FOUR(K01, K02, K03, K04, K05) \
+                         K02, K03, K04, K05
+#define TLF(...) TAKE_LAST_FOUR(__VA_ARGS__)
+
+// 4 out of 6.
+#define TAKE_MIDDLE_FOUR(K01, K02, K03, K04, K05, K06) \
+                         K02, K03, K04, K05
+#define TMF(...) TAKE_MIDDLE_FOUR(__VA_ARGS__)
+
+// 3 from 5.
+#define TAKE_MIDDLE_THREE(K01, K02, K03, K04, K05) \
+                         K02, K03, K04
+#define TMT(...) TAKE_MIDDLE_THREE(__VA_ARGS__)
+#+end_src
+
+*** Base layout for 3x10 input matrices.
+
+#+begin_src C :tangle keyboards/layouts.h
+// Take a 3x10 and trim it down to fit.
+// drop the bottom corners of each hand.
+// so inner index and bottom pinky are dropped/lost.
+
+// Take the middle thumbs out of the Ergo 6.
+
+#define Base_2_3x3_2_2(                                                   \
+                     K01, K02, K03, K04, K05, \
+                     K06, K07, K08, K09, K0A,                           \
+                     K11, K12, K13, K14, K15,                           \
+                     K16, K17, K18, K19, K1A,                           \
+                     K21, K22, K23, K24, K25,                           \
+                     K26, K27, K28, K29, K2A)                           \
+  LAYOUT_VARG(                                                          \
+              MOD_ROW(ROW1L)(K01, K02, K03, K04, K05),                  \
+              MOD_ROW(ROW1R)(K06, K07, K08, K09, K0A),                  \
+                                                                        \
+              MOD_ROW(ROW2L)(K11, K12, K13, K14, K15),                  \
+              MOD_ROW(ROW2R)(K16, K17, K18, K19, K1A),                  \
+                                                                        \
+              TMT(MOD_ROW(ROW3L)(K21, K22, K23, K24, K25)), \
+              TMT(MOD_ROW(ROW3R)(K26, K27, K28, K29, K2A)),  \
+              MAP_CHUNK(___4_ERGO_THUMBS)             \
+                                                                        )
+#+end_src
+
+*** No Mods transient layer layout for 3x10 input matrices.
+
+#+begin_src C :tangle keyboards/layouts.h
+
+
+#define Transient_2_3x3_2_2(                                              \
+                          K01, K02, K03, K04, K05,                      \
+                          K07, K08, K09, K0A, K0B,                      \
+                          K11, K12, K13, K14, K15,                      \
+                          K17, K18, K19, K1A, K1B,                      \
+                          K21, K22, K23, K24, K25,                      \
+                          K27, K28, K29, K2A, K2B                       \
+                                                                        ) \
+  LAYOUT_VARG(                                                          \
+              K01, K02, K03, K04, K05,                                 \
+              K07, K08, K09, K0A, K0B,                                 \
+              K11, K12, K13, K14, K15,                                 \
+              K17, K18, K19, K1A, K1B,                                 \
+                   K22, K23, K24,                                      \
+                   K28, K29, K2A,                                      \
+              MAP_CHUNK(___4_ERGO_THUMBS)            \
+                                                                        )
+#+end_src
+
+
+*** Keyboards
+
+**** Hummingbird
+
+#+begin_src C :tangle keyboards/keyboards.h
+// Hummingbird
+#ifdef KEYBOARD_hummingbird
+#undef LAYOUT_VARG
+#define LAYOUT_VARG(...)     LAYOUT(__VA_ARGS__)
+#define BASE Base_2_3x3_2_2
+#define BASEt6 None
+#define TRANS Transient_2_3x3_2_2
+#undef BASE_COLS_IN_OUT
+#define BASE_COLS_IN_OUT 5 // 5, 5_6, 6
+#endif
+#+end_src
+** Ferris - 3x5 + 2 thumbs per side.
+*** Base layout for 3x10 input matrices.
+
+#+begin_src C :tangle keyboards/layouts.h
+// Take a 3x10 and trim it down to fit.
+// drop the bottom corners of each hand.
+// so inner index and bottom pinky are dropped/lost.
+
+// Take the middle thumbs out of the Ergo 6.
+
+#define Base_3x5_2(                                                   \
+                     K01, K02, K03, K04, K05, \
+                     K06, K07, K08, K09, K0A,                           \
+                     K11, K12, K13, K14, K15,                           \
+                     K16, K17, K18, K19, K1A,                           \
+                     K21, K22, K23, K24, K25,                           \
+                     K26, K27, K28, K29, K2A)                           \
+  LAYOUT_VARG(                                                          \
+              MOD_ROW(ROW1L)(K01, K02, K03, K04, K05),                  \
+              MOD_ROW(ROW1R)(K06, K07, K08, K09, K0A),                  \
+                                                                        \
+              MOD_ROW(ROW2L)(K11, K12, K13, K14, K15),                  \
+              MOD_ROW(ROW2R)(K16, K17, K18, K19, K1A),                  \
+                                                                        \
+              MOD_ROW(ROW3L)(K21, K22, K23, K24, K25), \
+              MOD_ROW(ROW3R)(K26, K27, K28, K29, K2A),  \
+              MAP_CHUNK(___4_ERGO_THUMBS)             \
+                                                                        )
+#+end_src
+
+*** No Mods transient layer layout for 3x10 input matrices.
+
+#+begin_src C :tangle keyboards/layouts.h
+
+
+#define Transient_3x5_2(                                              \
+                          K01, K02, K03, K04, K05,                      \
+                          K07, K08, K09, K0A, K0B,                      \
+                          K11, K12, K13, K14, K15,                      \
+                          K17, K18, K19, K1A, K1B,                      \
+                          K21, K22, K23, K24, K25,                      \
+                          K27, K28, K29, K2A, K2B                       \
+                                                                        ) \
+  LAYOUT_VARG(                                                          \
+              K01, K02, K03, K04, K05,                                 \
+              K07, K08, K09, K0A, K0B,                                 \
+              K11, K12, K13, K14, K15,                                 \
+              K17, K18, K19, K1A, K1B,                                 \
+              K21, K22, K23, K24, K25,                                 \
+              K27, K28, K29, K2A, K2B,                                 \
+              MAP_CHUNK(___4_ERGO_THUMBS)            \
+                                                                        )
+#+end_src
+
+
+*** Keyboards
+
+**** Ferris
+
+#+begin_src C :tangle keyboards/keyboards.h
+// Ferris
+#ifdef KEYBOARD_ferris
+#undef LAYOUT_VARG
+#define LAYOUT_VARG(...)     LAYOUT_split_3x5_2(__VA_ARGS__)
+#define BASE Base_3x5_2
+#define BASEt6 None
+#define TRANS Transient_3x5_2
+#undef BASE_COLS_IN_OUT
+#define BASE_COLS_IN_OUT 5 // 5, 5_6, 6
+#endif
+#+end_src
+
+
+** Svalboard - Data Hand.
+This maps a 3x10 matrix onto the 2 x 5x4 of the svalboard.
+The inner index column is mapped to the inner key of index, middle and ring fingers.
+The east west fillers put in the rest of the lateral keys.
+There is only one set of thumbs and east west fillers defined.
+
+*** Base layout for 3x10 input matrices.
+
+This is just rearranging the matrix so it can use a typical 3x10 layer specification.
+See the svalboard section in perimeter.org/thumbs.h.
+
+#+begin_src C :tangle keyboards/layouts.h
+// Take a 3x10 and rearrange it and fill in to fit.
+
+// Left to right.
+// top row,
+// home Row
+// bottom row
+// east west fillers.
+// thumbs.
+#define SVALBOARD_LAYOUT_PRETTY(                           \
+                     K01, K02, K03, K04, K05,              \
+                     K06, K07, K08, K09, K0A,              \
+\
+                     K11, K12, K13, K14, K15,              \
+                     K16, K17, K18, K19, K1A,              \
+\
+                     K21, K22, K23, K24, K25,              \
+                     K26, K27, K28, K29, K2A,              \
+\
+                     EW1, EW2, EW3, EW4, EW5,              \
+                     EW6, EW7, EW8, EW9, EWA,              \
+\
+                     TH1, TH2, TH3, TH4, TH5, TH6,         \
+                     TH7, TH8, TH9, THA, THB, THC          \
+                                                           )\
+  LAYOUT( \
+             /*Center   North  East   South    West*/  \
+        /*index*/ K17,  K07,   EW6,   K27,     K16,  \
+        /*R2*/    K18,  K08,   EW7,   K28,     K06,  \
+        /*R3*/    K19,  K09,   EW8,   K29,     K26,  \
+        /*pinky*/ K1A,  K0A,   EW9,   K2A,     EWA,  \
+  \
+        /*index*/ K14,  K04,   K15,   K24,     EW5,  \
+        /*L2*/    K13,  K03,   K05,   K23,     EW4,  \
+        /*L3*/    K12,  K02,   K25,   K22,     EW3,  \
+        /*pinky*/ K11,  K01,   EW2,   K21,     EW1,  \
+  \
+        /*      Down Inner Upper   Outer Upper  Outer Lower  Pushthrough*/  \
+        /*RT*/ THB,  TH9,  THC,    TH7,         THA,         TH8,  \
+        /*LT*/ TH5,  TH1,  TH4,    TH3,         TH6,         TH2  \
+    )
+
+#+end_src
+
+*** Base layout for 3x10 input matrices.
+
+#+begin_src C :tangle keyboards/layouts.h
+// Take a 3x10 and trim it down to fit.
+// drop the bottom corners of each hand.
+// so inner index and bottom pinky are dropped/lost.
+
+// Take the middle thumbs out of the Ergo 6.
+
+#define Base_5x4_6(                                                   \
+                     K01, K02, K03, K04, K05, \
+                     K06, K07, K08, K09, K0A,                           \
+                     K11, K12, K13, K14, K15,                           \
+                     K16, K17, K18, K19, K1A,                           \
+                     K21, K22, K23, K24, K25,                           \
+                     K26, K27, K28, K29, K2A)                           \
+  LAYOUT_VARG(                                                          \
+              MOD_ROW(ROW1L)(K01, K02, K03, K04, K05),                  \
+              MOD_ROW(ROW1R)(K06, K07, K08, K09, K0A),                  \
+                                                                        \
+              MOD_ROW(ROW2L)(K11, K12, K13, K14, K15),                  \
+              MOD_ROW(ROW2R)(K16, K17, K18, K19, K1A),                  \
+                                                                        \
+              MOD_ROW(ROW3L)(K21, K22, K23, K24, K25), \
+              MOD_ROW(ROW3R)(K26, K27, K28, K29, K2A),  \
+                                                                         \
+              SVALBOARD_EAST_WEST_FILLER,                              \
+              MAP_CHUNK(___SVALBOARD_THUMBS) \
+                                                                        )
+#+end_src
+
+*** No Mods transient layer layout for 3x10 input matrices.
+
+#+begin_src C :tangle keyboards/layouts.h
+
+
+#define Transient_5x4_6(                                              \
+                          K01, K02, K03, K04, K05,                      \
+                          K07, K08, K09, K0A, K0B,                      \
+                          K11, K12, K13, K14, K15,                      \
+                          K17, K18, K19, K1A, K1B,                      \
+                          K21, K22, K23, K24, K25,                      \
+                          K27, K28, K29, K2A, K2B                       \
+                                                                        ) \
+  LAYOUT_VARG(                                                          \
+              K01, K02, K03, K04, K05,                                 \
+              K07, K08, K09, K0A, K0B,                                 \
+              K11, K12, K13, K14, K15,                                 \
+              K17, K18, K19, K1A, K1B,                                 \
+              K21, K22, K23, K24, K24,                                 \
+              K27, K28, K29, K2A, K2B,                                     \
+              SVALBOARD_EAST_WEST_FILLER,   \
+              MAP_CHUNK(___SVALBOARD_THUMBS) \
+                                                                        )
+#+end_src
+
+
+*** Keyboards
+
+**** Slavboard
+
+#+begin_src C :tangle keyboards/keyboards.h
+// Slavboard
+#ifdef KEYBOARD_svalboard
+#undef LAYOUT_VARG
+#define LAYOUT_VARG(...)     SVALBOARD_LAYOUT_PRETTY(__VA_ARGS__)
+#define BASE Base_5x4_6
+#define BASEt6 None
+#define TRANS Transient_5x4_6
+#undef BASE_COLS_IN_OUT
+#define BASE_COLS_IN_OUT 5 // 5, 5_6, 6
 #endif
 #+end_src

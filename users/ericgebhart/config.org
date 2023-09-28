@@ -1,4 +1,4 @@
-  Copyright 2018 Eric Gebhart <e.a.gebhart@gmail.com>
+ Copyright 2018 Eric Gebhart <e.a.gebhart@gmail.com>
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -159,7 +159,7 @@ Not sure I need this at all. should try deleting it.
 
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+,*/
 
 #include "ericgebhart.h"
 
@@ -185,6 +185,15 @@ uint32_t layer_state_set_keymap (uint32_t state) {
 
 __attribute__ ((weak))
 void led_set_keymap(uint8_t usb_led) {}
+
+#ifdef CONVERT_TO_LIATRIS
+// turn off the liatris led.
+void keyboard_pre_init_user(void){
+  setPinOutput(24);
+  writePinHigh(24);
+}
+#endif
+
 #+end_src
 
 
@@ -281,7 +290,7 @@ being applied. 5 into 5, 5 into 6, and 6 into 6 are possible.
  It can also be managed in a fixed way in the keyboard layout definition.
  I dont use number rows most of the time.
  Ergodox, kinesis, kyria, corne, rebound, viterbi, are all 5 to 6.
- I also have a kyria that is just 5.
+ I also have a kyria that is just 5.  Hummingbird, ferris and svalboard are all 5.
 
 #+begin_src C :tangle config.h
 #define BASE_COLS_IN_OUT 5_6 // 5, 5_6, 6
@@ -318,7 +327,7 @@ Turn on/off this too.
 
 #+begin_src C :tangle config.h
 // OLED STUFF.
-// #define OLED_CUSTOM_ENABLE // custom oled here.
+//#define OLED_CUSTOM_ENABLE // custom oled here.
 //#define OLED_LOGO_ENABLE // turn on/off the logo.
 #+end_src
 
@@ -482,6 +491,8 @@ There are a growing number of thumb configurations, They can be chosen here.
 The part that changes, is the center 6 thumbs keys of a split. Like the corne.
 Bigger keyboards like the Kyria fill in around the core thumbs with more static choices.
 This layout started with the ergodox, so it still accommodates everything a keyboard might need.
+See _perimeter.org_ or _perimeter/thumbs.h_ for more.
+
 
 #+begin_src C :tangle config.h
 // Choose a thumb cluster.
@@ -493,8 +504,8 @@ This layout started with the ergodox, so it still accommodates everything a keyb
 
 // HD, HDA, HD_SIMPLE, TH_LTR, HD_DASH, KINESIS, KINESIS_LTR,
 // MIRYOKU_TR_LTR, MIRYOKU_LTR, ...
-#define THUMBS_ARE KINESIS
-#define DEFAULT_THUMBS KINESIS
+#define THUMBS_ARE FKYRIA
+#define DEFAULT_THUMBS FKYRIA
 #+end_src
 
 ** Alpha letter Thumb cluster.

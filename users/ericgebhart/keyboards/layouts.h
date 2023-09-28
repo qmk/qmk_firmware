@@ -22,59 +22,6 @@
 #include "thumbs.h"
 #include QMK_KEYBOARD_H
 
-/******************************************************************/
-/* This is where I put my Keyboard layouts.                       */
-/* The mod layer can be modified in mod_layer.h                   */
-/* can be applied here. The physical shape of the keyboard is     */
-/* also accounted for here. This makes it very simple to add a    */
-/* new keyboard and reuse all of my layouts and layers            */
-/*                                                                */
-/* With all of that in hand, we then create a LAYOUT wrapper      */
-/* macro that takes a list of keys, to create a keyboard matrix   */
-/* that fits the keyboard. Simple.                                */
-/*                                                                */
-/* The thumb keys, the bottom rows, etc.                          */
-/*                                                                */
-/* An attempt has been made to adapt the kinesis and ergodox      */
-/* Thumb keys to the rectangular shapes of the xd75, viterbi,     */
-/* and rebound.                                                   */
-/******************************************************************/
-
-/******************************************************************/
-/* * The XD75 is a 5x15 Ortholinear matrix which means it has 3   */
-/*       keys inbetween the usual left and right hand keys        */
-/* * The Viterbi is a split 5x14 Ortholinear with 2 middle keys.  */
-/* * The Ergodox is a split 5x14 Ortholinear with 2 middle keys,  */
-/*       thumbkeys. It is missing middle keys on (home) row 3.    */
-/* * The Corne is a split 3x12 with 6 thumb keys. It has no       */
-/*       extra middle keys                                        */
-/* * The Kinesis is 4x6 + 4 and 6 thumb keys.                     */
-/* * My Dactyl is 4x6 + 5 and 8 thumb keys.                     */
-/******************************************************************/
-
-
-/******************************************************************/
-/*   In all cases these keyboards are defined in a matrix which is */
-/*   a set of rows. Maybe like so, or not.                         */
-/*                                                                 */
-/*   -------------------------|------------------------ */
-/*   | Left0 | Numbers L | mid|dle0 | numbers R | Right0 | */
-/*   | Left1 | keys0-5   | mid|dle1 | Keys6-10  | Right1 | */
-/*   | Left2 | keys11-15 | mid|dle2 | Keys16-20 | Right2 | */
-/*   | Left3 | keys20-25 | mid|dle3 | Keys25-30 | Right3 | */
-/*   | Row5L                  |                    Row5R | */
-/*   |               ThumbsL  | ThumbsR                  | */
-/*   -------------------------|------------------------ */
-
-/* Generally speaking, the keys on the right and left don't change. */
-/* Neither does the bottom row or the thumbs. Frequently the numbers */
-/* row is identical across layers. Mostly, we want our Base layers to */
-/* be predctable.                                                     */
-
-
-// Since our quirky block definitions are basically a list of comma separated
-// arguments, we need a wrapper in order for these definitions to be
-// expanded before being used as arguments to the LAYOUT_xxx macro.
 #if (!defined(LAYOUT) && defined(KEYMAP))
 #define LAYOUT KEYMAP
 #endif
@@ -92,48 +39,6 @@
 #define LVARG_5x14(...)       LAYOUT_ortho_5x14(__VA_ARGS__)
 #define LVARG_5x15(...)       LAYOUT_ortho_5x15(__VA_ARGS__)
 
-/*
-  | Left | Numbers L | middle | numbers R | Right |
-  | Left | keys0-5   | middle | Keys6-10  | Right |
-  | Left | keys11-15 | middle | Keys16-20 | Right |
-  | Left | keys20-25 | middle | Keys25-30 | Right |
-  |Row5L                                  Row5R   |
-  |ThumbsL                                ThumbsR |
-*/
-
-/* Assuming that left, midddle, right, row5, and thumbs stay the same, */
-/* numbers, no numbers, numbers never change, whatever.                */
-/*   we can have a layout macro that takes a nice rectangle of keys.   */
-
-
-/*Some keyboards need number rows, some don't. there is a setting for that */
-/* the keymap will give number rows if BASE_NUMBER_ROW is defined.*/
-/* in that case, the layout should take 4 rows of 10. */
-/* If all the layouts you might ever want would have the same top row,*/
-/* Then it could be defined like that here, and it could take 3x10.*/
-/* All layouts are relatively simple to make. */
-/* The ROW macros add a universal mod layer so that mods can be defined once */
-/* and used everywhere. No matter the keymap or layer. this allows actual maps */
-/* like dvorak, qwerty, colemak, beakl, etc., to be defined simply. */
-
-
-/* Additional, usage examples can be found in keyboards.*/
-/* crkbd/keymaps/ericgebhart */
-/* kinesis/keymaps/ericgebhart */
-/* ergodox_ez/keymaps/ericgebhart */
-/* keebio/viterbi/keymaps/ericgebhart */
-/* xiudi/xd75/keymaps/ericgebhart */
-/* montsinger/rebound/rev4/keymaps/ericgebhart */
-
-
-
-/********************************************************************/
-/* xiudi/xd75  - Ortholinear 5x15  */
-/********************************************************************/
-/// These first two base layout templates take sets of 5 keys, left and right.
-// Using 4 sets allows for changing the number row if you have one.
-// if you never change the number row, then use 3 sets of left and right.
-// and define the number row here.
 #define Base_5x15(                                                \
                   K01, K02, K03, K04, K05,                        \
                   K06, K07, K08, K09, K0A,                        \
@@ -187,7 +92,8 @@
              MAP_CHUNK(___15_BOTTOM)                                    \
                                                                         )
 
-// 4  rows of 12. 3 columns transparent in the middle.
+// Makes 5 rows of 15. 3 columns transparent in the middle.
+// Transparent outer pinky columns.
 #define Transient_5x15(                                             \
                        K01, K02, K03, K04, K05,                     \
                        K07, K08, K09, K0A, K0B,                     \
@@ -211,7 +117,6 @@
              )                                                  \
 
 /********************************************************************/
-
 
 /********************************************************************/
 /* viterbi  - Ortholinear 5x14  */
@@ -243,6 +148,7 @@
              MOD_ROW(ROW3R)(K36, K37, K38, K39, K3A),                   \
              MAP_CHUNK(___14_BOTTOM)                                    \
                                                                         )
+
 #define Base_5x14t6(                                    \
                     K01, K02, K03, K04, K05, K06,       \
                     K07, K08, K09, K0A, K0B, K0C,       \
@@ -431,7 +337,6 @@
                MAP_CHUNK(___12_DOX_ALL_THUMBS)                          \
                                                                         )
 
-
 #define Base_4x6_4_6t6(                                                 \
                        K01, K02, K03, K04, K05, K06,                    \
                        K07, K08, K09, K0A, K0B, K0C,                    \
@@ -478,11 +383,6 @@
                                                                         )
 
 /* ___KINTFUNC_L___, ___KINTFUNC_R___,                      \ */
-
-/* This keyboard is a split, 4x6 + a row of 5 and a thumb cluster of 8. */
-/* So We need Base_4x6_5_8 As a layout template to add mods, and fill */
-/* out the perimeter keys of the keyboard. Perimeter keys being the */
-/* number row, outside pinky keys, the 5th row, and thumbs. */
 
 /********************************************************************/
 /* Dactyl with 8 thumb keys*/
@@ -537,7 +437,6 @@
                MAP_CHUNK(___5_BOTTOM_LEFT), MAP_CHUNK(___5_BOTTOM_RIGHT), \
                MAP_CHUNK(___16_ALL_THUMBSa)                             \
                                                                         )
-
 
 // so far no need for mods on the transient layers.
 // switching to 3x5 transients. 10 column defines.
@@ -642,10 +541,6 @@
              MAP_CHUNK(___12_DOX_ALL_THUMBS)                            \
                                                                         )
 
-
-/********************************************************************/
-/* Rebound 4 rows, 1x12, 3x13  */
-/********************************************************************/
 #define LVARG_rebound(...)    LAYOUT_all(__VA_ARGS__)
 #define Base_rebound(                                                   \
                      K01, K02, K03, K04, K05,                           \
@@ -668,6 +563,7 @@
                 MOD_ROW(ROW3R)(K26, K27, K28, K29, K2A),                \
                 MAP_CHUNK(___13_BOTTOM)                                 \
                                                                         )
+
 #define Base_reboundt6(                                                 \
                        K01, K02, K03, K04, K05, K06,                    \
                        K07, K08, K09, K0A, K0B, K0C,                    \
@@ -768,4 +664,201 @@
               ___4___,                                                \
               K27, K28, K29, K2A, K2B, ___,                           \
               MAP_CHUNK(___10_ERGO_THUMBS)                             \
+                                                                        )
+
+/********************************************************************/
+/* Hummingbird 2+3x3+2 with 2 thumbs.  A 30.                        */
+/********************************************************************/
+
+// Some macros to help trim the incoming matrix down.
+
+#define TAKE_FIRST_FOUR(K01, K02, K03, K04, K05) \
+                         K01, K02, K03, K04
+#define TFF(...) TAKE_FIRST_FOUR(__VA_ARGS__)
+
+#define TAKE_LAST_FOUR(K01, K02, K03, K04, K05) \
+                         K02, K03, K04, K05
+#define TLF(...) TAKE_LAST_FOUR(__VA_ARGS__)
+
+// 4 out of 6.
+#define TAKE_MIDDLE_FOUR(K01, K02, K03, K04, K05, K06) \
+                         K02, K03, K04, K05
+#define TMF(...) TAKE_MIDDLE_FOUR(__VA_ARGS__)
+
+// 3 from 5.
+#define TAKE_MIDDLE_THREE(K01, K02, K03, K04, K05) \
+                         K02, K03, K04
+#define TMT(...) TAKE_MIDDLE_THREE(__VA_ARGS__)
+
+// Take a 3x10 and trim it down to fit.
+// drop the bottom corners of each hand.
+// so inner index and bottom pinky are dropped/lost.
+
+// Take the middle thumbs out of the Ergo 6.
+
+#define Base_2_3x3_2_2(                                                   \
+                     K01, K02, K03, K04, K05, \
+                     K06, K07, K08, K09, K0A,                           \
+                     K11, K12, K13, K14, K15,                           \
+                     K16, K17, K18, K19, K1A,                           \
+                     K21, K22, K23, K24, K25,                           \
+                     K26, K27, K28, K29, K2A)                           \
+  LAYOUT_VARG(                                                          \
+              MOD_ROW(ROW1L)(K01, K02, K03, K04, K05),                  \
+              MOD_ROW(ROW1R)(K06, K07, K08, K09, K0A),                  \
+                                                                        \
+              MOD_ROW(ROW2L)(K11, K12, K13, K14, K15),                  \
+              MOD_ROW(ROW2R)(K16, K17, K18, K19, K1A),                  \
+                                                                        \
+              TMT(MOD_ROW(ROW3L)(K21, K22, K23, K24, K25)), \
+              TMT(MOD_ROW(ROW3R)(K26, K27, K28, K29, K2A)),  \
+              MAP_CHUNK(___4_ERGO_THUMBS)             \
+                                                                        )
+
+#define Transient_2_3x3_2_2(                                              \
+                          K01, K02, K03, K04, K05,                      \
+                          K07, K08, K09, K0A, K0B,                      \
+                          K11, K12, K13, K14, K15,                      \
+                          K17, K18, K19, K1A, K1B,                      \
+                          K21, K22, K23, K24, K25,                      \
+                          K27, K28, K29, K2A, K2B                       \
+                                                                        ) \
+  LAYOUT_VARG(                                                          \
+              K01, K02, K03, K04, K05,                                 \
+              K07, K08, K09, K0A, K0B,                                 \
+              K11, K12, K13, K14, K15,                                 \
+              K17, K18, K19, K1A, K1B,                                 \
+                   K22, K23, K24,                                      \
+                   K28, K29, K2A,                                      \
+              MAP_CHUNK(___4_ERGO_THUMBS)            \
+                                                                        )
+
+// Take a 3x10 and trim it down to fit.
+// drop the bottom corners of each hand.
+// so inner index and bottom pinky are dropped/lost.
+
+// Take the middle thumbs out of the Ergo 6.
+
+#define Base_3x5_2(                                                   \
+                     K01, K02, K03, K04, K05, \
+                     K06, K07, K08, K09, K0A,                           \
+                     K11, K12, K13, K14, K15,                           \
+                     K16, K17, K18, K19, K1A,                           \
+                     K21, K22, K23, K24, K25,                           \
+                     K26, K27, K28, K29, K2A)                           \
+  LAYOUT_VARG(                                                          \
+              MOD_ROW(ROW1L)(K01, K02, K03, K04, K05),                  \
+              MOD_ROW(ROW1R)(K06, K07, K08, K09, K0A),                  \
+                                                                        \
+              MOD_ROW(ROW2L)(K11, K12, K13, K14, K15),                  \
+              MOD_ROW(ROW2R)(K16, K17, K18, K19, K1A),                  \
+                                                                        \
+              MOD_ROW(ROW3L)(K21, K22, K23, K24, K25), \
+              MOD_ROW(ROW3R)(K26, K27, K28, K29, K2A),  \
+              MAP_CHUNK(___4_ERGO_THUMBS)             \
+                                                                        )
+
+#define Transient_3x5_2(                                              \
+                          K01, K02, K03, K04, K05,                      \
+                          K07, K08, K09, K0A, K0B,                      \
+                          K11, K12, K13, K14, K15,                      \
+                          K17, K18, K19, K1A, K1B,                      \
+                          K21, K22, K23, K24, K25,                      \
+                          K27, K28, K29, K2A, K2B                       \
+                                                                        ) \
+  LAYOUT_VARG(                                                          \
+              K01, K02, K03, K04, K05,                                 \
+              K07, K08, K09, K0A, K0B,                                 \
+              K11, K12, K13, K14, K15,                                 \
+              K17, K18, K19, K1A, K1B,                                 \
+              K21, K22, K23, K24, K25,                                 \
+              K27, K28, K29, K2A, K2B,                                 \
+              MAP_CHUNK(___4_ERGO_THUMBS)            \
+                                                                        )
+
+// Take a 3x10 and rearrange it and fill in to fit.
+
+// Left to right.
+// top row,
+// home Row
+// bottom row
+// east west fillers.
+// thumbs.
+#define SVALBOARD_LAYOUT_PRETTY(                           \
+                     K01, K02, K03, K04, K05,              \
+                     K06, K07, K08, K09, K0A,              \
+\
+                     K11, K12, K13, K14, K15,              \
+                     K16, K17, K18, K19, K1A,              \
+\
+                     K21, K22, K23, K24, K25,              \
+                     K26, K27, K28, K29, K2A,              \
+\
+                     EW1, EW2, EW3, EW4, EW5,              \
+                     EW6, EW7, EW8, EW9, EWA,              \
+\
+                     TH1, TH2, TH3, TH4, TH5, TH6,         \
+                     TH7, TH8, TH9, THA, THB, THC          \
+                                                           )\
+  LAYOUT( \
+             /*Center   North  East   South    West*/  \
+        /*index*/ K17,  K07,   EW6,   K27,     K16,  \
+        /*R2*/    K18,  K08,   EW7,   K28,     K06,  \
+        /*R3*/    K19,  K09,   EW8,   K29,     K26,  \
+        /*pinky*/ K1A,  K0A,   EW9,   K2A,     EWA,  \
+  \
+        /*index*/ K14,  K04,   K15,   K24,     EW5,  \
+        /*L2*/    K13,  K03,   K05,   K23,     EW4,  \
+        /*L3*/    K12,  K02,   K25,   K22,     EW3,  \
+        /*pinky*/ K11,  K01,   EW2,   K21,     EW1,  \
+  \
+        /*      Down Inner Upper   Outer Upper  Outer Lower  Pushthrough*/  \
+        /*RT*/ THB,  TH9,  THC,    TH7,         THA,         TH8,  \
+        /*LT*/ TH5,  TH1,  TH4,    TH3,         TH6,         TH2  \
+    )
+
+// Take a 3x10 and trim it down to fit.
+// drop the bottom corners of each hand.
+// so inner index and bottom pinky are dropped/lost.
+
+// Take the middle thumbs out of the Ergo 6.
+
+#define Base_5x4_6(                                                   \
+                     K01, K02, K03, K04, K05, \
+                     K06, K07, K08, K09, K0A,                           \
+                     K11, K12, K13, K14, K15,                           \
+                     K16, K17, K18, K19, K1A,                           \
+                     K21, K22, K23, K24, K25,                           \
+                     K26, K27, K28, K29, K2A)                           \
+  LAYOUT_VARG(                                                          \
+              MOD_ROW(ROW1L)(K01, K02, K03, K04, K05),                  \
+              MOD_ROW(ROW1R)(K06, K07, K08, K09, K0A),                  \
+                                                                        \
+              MOD_ROW(ROW2L)(K11, K12, K13, K14, K15),                  \
+              MOD_ROW(ROW2R)(K16, K17, K18, K19, K1A),                  \
+                                                                        \
+              MOD_ROW(ROW3L)(K21, K22, K23, K24, K25), \
+              MOD_ROW(ROW3R)(K26, K27, K28, K29, K2A),  \
+                                                                         \
+              SVALBOARD_EAST_WEST_FILLER,                              \
+              MAP_CHUNK(___SVALBOARD_THUMBS) \
+                                                                        )
+
+#define Transient_5x4_6(                                              \
+                          K01, K02, K03, K04, K05,                      \
+                          K07, K08, K09, K0A, K0B,                      \
+                          K11, K12, K13, K14, K15,                      \
+                          K17, K18, K19, K1A, K1B,                      \
+                          K21, K22, K23, K24, K25,                      \
+                          K27, K28, K29, K2A, K2B                       \
+                                                                        ) \
+  LAYOUT_VARG(                                                          \
+              K01, K02, K03, K04, K05,                                 \
+              K07, K08, K09, K0A, K0B,                                 \
+              K11, K12, K13, K14, K15,                                 \
+              K17, K18, K19, K1A, K1B,                                 \
+              K21, K22, K23, K24, K24,                                 \
+              K27, K28, K29, K2A, K2B,                                     \
+              SVALBOARD_EAST_WEST_FILLER,   \
+              MAP_CHUNK(___SVALBOARD_THUMBS) \
                                                                         )
