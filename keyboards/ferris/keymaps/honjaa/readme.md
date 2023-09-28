@@ -1,13 +1,9 @@
 A usable default keymap for the Ferris keyboard
 ===============================================
 
-Keymaps in general are quite personal, so it is difficult to come up with a default that will suit every user.
+Keymap adapted to my workflow using i3 and emacs (possibly some adaptations I have forgot)
 
-This keymap makes heavy use of keys behaving differently when tapped and held, so that all the keys one may need remain accessible despite the low number of thumb keys.
-
-It comes with a number of layers to give access to most of the keys one may need on a keyboard. It is not meant to be the best possible keymap, but rather a good base on which to build a keymap that works for you.
-
-This is not the only way to make 34 keys a comfortable typing experience, but it is one way to do so. If you don't already know of a better way, this may be as good a starting point as any :)
+It comes with a number of layers to give access to most of the keys one may need on a keyboard.
 
 What do all these layers do?
 ----------------------------
@@ -26,6 +22,10 @@ shift = f+r and j+u
 ctrl = d+e and k+i
 flash = q+p
 
+c+- combos on all layers should get you back to base layer
+
+pressing the key above where the on shot modifer would be on layer 2 and 3 together with the butten where the one shot modifier would be will give the same modifier.
+E.g. u+j gives shift, k+i gives ctrl and so on.
 
 ### Layer 1: Left Modifiers and Numbers
 
