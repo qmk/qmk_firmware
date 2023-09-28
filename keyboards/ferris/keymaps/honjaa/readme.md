@@ -62,3 +62,7 @@ y is media player forward and n is media player back
 
 
 
+Issues:
+I don't have umlauts anywhere.
+Combinations like ctrl+alt+end can be an issue, but possilby less now that I have added modifier combos.
+Knowing which layer one is on can be an issue, but  possilby less now that I have added base layer combos.

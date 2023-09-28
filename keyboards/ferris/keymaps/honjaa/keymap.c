@@ -155,17 +155,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  [_BASE] = LAYOUT(KC_Q, KC_W, KC_E, KC_R, KC_T,                                             KC_Y, KC_U, KC_I, KC_O, KC_P,
                   KC_A, KC_S, KC_D, KC_F, KC_G,                                                  KC_H, KC_J, KC_K, KC_L, NO_OSTR,
 		  KC_Z, KC_X, KC_C, KC_V, KC_B,                                                  KC_N, KC_M, KC_COMM, KC_DOT, NO_MINS,
-		  OSL(_LM_NUM), KC_BACKSPACE,                                                          KC_SPC, OSL(_RM_SYM)),
+		  MO(_LM_NUM), KC_BACKSPACE,                                                          KC_SPC, MO(_RM_SYM)),
 
  [_LM_NUM] = LAYOUT(KC_F1, KC_F2, KC_F3, KC_F4, KC_F5,                                           NO_QUOT , TD(DANCE_7), TD(DANCE_8), TD(DANCE_9), NO_EQL,
 		    OSM(MOD_LALT), OSM(MOD_LGUI), OSM(MOD_LCTL), OSM(MOD_LSFT), KC_TAB,          NO_SLSH , TD(DANCE_4), TD(DANCE_5), TD(DANCE_6), NO_ASTR,
 		    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_F11,      TD(DANCE_0), TD(DANCE_1),TD(DANCE_2), TD(DANCE_3), NO_PLUS,
-		                                   KC_TRANSPARENT,  KC_TRANSPARENT,              KC_TRANSPARENT,TT(_NAV)),
+		                                   KC_TRANSPARENT,  KC_TRANSPARENT,              KC_TRANSPARENT,TG(_NAV)),
 
  [_RM_SYM] = LAYOUT(NO_EXLM, NO_HASH, NO_LBRC, NO_RBRC, NO_PIPE,                                 KC_F6, KC_F7, KC_F8, KC_F9, KC_F10,
 		    NO_AT, NO_DLR,TD(DANCE_10) , TD(DANCE_11), NO_BSLS,                          OSM(MOD_RALT), OSM(MOD_LSFT), OSM(MOD_LCTL),  OSM(MOD_LGUI), OSM(MOD_LALT),
 		    NO_PERC, NO_CIRC, NO_LCBR,NO_RCBR ,NO_TILD ,                                 KC_F12, KC_TRANSPARENT, KC_ESC, KC_TRANSPARENT, KC_TRANSPARENT,
-		                                   TT(_MOUSE), KC_TRANSPARENT,                        KC_TRANSPARENT, KC_TRANSPARENT),
+		                                   TG(_MOUSE), KC_TRANSPARENT,                        KC_TRANSPARENT, KC_TRANSPARENT),
 
  [_NAV] = LAYOUT(MACRO_QUIT, LCTL(KC_W), KC_TRANSPARENT, LCTL(KC_R), LCTL(KC_T),                 KC_TRANSPARENT, KC_HOME, KC_PGDN, KC_PGUP, KC_END,
 		KC_ESC, MACRO_SAVE, MACRO_LINE, MACRO_TIME, KC_TRANSPARENT,                      KC_TRANSPARENT, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT,
