@@ -61,7 +61,7 @@ const uint16_t PROGMEM fr_combo[] = {KC_F,KC_R, COMBO_END};
 const uint16_t PROGMEM ju_combo[] = {KC_J,KC_U, COMBO_END};
 const uint16_t PROGMEM ki_combo[] = {KC_K,KC_I, COMBO_END};
 const uint16_t PROGMEM lo_combo[] = {KC_L,KC_O, COMBO_END};
-const uint16_t PROGMEM oslashp_combo[] = {NO_OSTR,KC_P COMBO_END};
+const uint16_t PROGMEM oslashp_combo[] = {NO_OSTR,KC_P, COMBO_END};
 
 
 
@@ -83,7 +83,7 @@ combo_t key_combos[COMBO_COUNT] = {
     COMBO(ju_combo,MOD_LSFT),
     COMBO(ki_combo,MOD_LCTL),
     COMBO(lo_combo,MOD_LGUI),
-    COMBO(oslashp_combo,MOD_LALT)
+    COMBO(oslashp_combo,MOD_LALT),
 };
 
 
