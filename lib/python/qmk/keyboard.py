@@ -1,6 +1,7 @@
 """Functions that help us work with keyboards.
 """
 from array import array
+from functools import lru_cache
 from math import ceil
 from pathlib import Path
 import os
@@ -144,6 +145,7 @@ def list_keyboards(resolve_defaults=True):
     return sorted(set(found))
 
 
+@lru_cache(maxsize=None)
 def resolve_keyboard(keyboard):
     cur_dir = Path('keyboards')
     rules = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk')
