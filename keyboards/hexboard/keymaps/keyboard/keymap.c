@@ -28,20 +28,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ❬   ᚛-᚜Alt᚛-᚜lyr᚛-᚜   ᚛-᚜LYR᚛-᚜ 🡓 ᚛-᚜ 🡒 ❭‾‾
      *  ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾ 
      */
-    [0] = LAYOUT_hexboard_landscape(
-                MI_BENDU,MI_OCTU,  RGB_HUI,
-          MI_BENDD,MI_OCTD,  RGB_VAD,   RGB_MOD,
+    [0] = LAYOUT_landscape(
+                MI_BNDU,MI_OCTU,  RGB_HUI,
+          MI_BNDD,MI_OCTD,  RGB_VAD,   RGB_MOD,
 
 
-MI_F_5, MI_Gb_5, MI_G_5,   MI_Ab_5,  MI_A_5,  MI_Bb_5, MI_B_5,
-    MI_D_5, MI_Eb_5,  MI_E_5,   MI_F_5,   MI_Gb_5, MI_G_5, MI_Ab_5,
-MI_Bb_4,MI_B_4,  MI_C_5,   MI_Db_5,  MI_D_5,  MI_Eb_5, MI_E_5,
-    MI_G_4, MI_Ab_4,  MI_A_4,   MI_Bb_4,  MI_B_4,  MI_C_5, MI_Db_5,
-MI_Eb_4,MI_E_4,  MI_F_4,   MI_Gb_4,  MI_G_4,  MI_Ab_4, MI_A_4,
-    MI_C_4, MI_Db_4,  MI_D_4,   MI_Eb_4,  MI_E_4,  MI_F_4, MI_Gb_4,
-MI_Ab_3,MI_A_3,  MI_Bb_3,  MI_B_3,  MI_C_4,   MI_Db_4, MI_D_4,
-    MI_F_3, MI_Gb_3,  MI_G_3,   MI_Ab_3,  MI_A_3,  MI_Bb_3,MI_B_3,
-MI_Db_3,MI_D_3,  MI_Eb_3,  MI_E_3,  MI_F_3,   MI_Gb_3, MI_G_3,
+MI_F5, MI_Gb5, MI_G5,   MI_Ab5,  MI_A5,  MI_Bb5, MI_B5,
+    MI_D5, MI_Eb5,  MI_E5,   MI_F5,   MI_Gb5, MI_G5, MI_Ab5,
+MI_Bb4,MI_B4,  MI_C5,   MI_Db5,  MI_D5,  MI_Eb5, MI_E5,
+    MI_G4, MI_Ab4,  MI_A4,   MI_Bb4,  MI_B4,  MI_C5, MI_Db5,
+MI_Eb4,MI_E4,  MI_F4,   MI_Gb4,  MI_G4,  MI_Ab4, MI_A4,
+    MI_C4, MI_Db4,  MI_D4,   MI_Eb4,  MI_E4,  MI_F4, MI_Gb4,
+MI_Ab3,MI_A3,  MI_Bb3,  MI_B3,  MI_C4,   MI_Db4, MI_D4,
+    MI_F3, MI_Gb3,  MI_G3,   MI_Ab3,  MI_A3,  MI_Bb3,MI_B3,
+MI_Db3,MI_D3,  MI_Eb3,  MI_E3,  MI_F3,   MI_Gb3, MI_G3,
     _______,KC_E,     _______,  _______,  KC_I,    _______,_______,
 KC_TAB, KC_W,    KC_R,  _______,    KC_U,     KC_O,   KC_BSPC,
     KC_Q,   KC_D,    KC_T,     KC_Y,     KC_K,    KC_P,   _______,
@@ -72,9 +72,9 @@ _______,KC_LALT, MO(1),    KC_SPC,  MO(2),    KC_DOWN,   KC_RGHT
      *  ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾ 
      */
 
-    [1] = LAYOUT_hexboard_landscape(
-                MI_BENDU,MI_OCTU,  RGB_M_SN,
-          MI_BENDD,MI_OCTD,  RGB_M_B,RGB_M_SW,
+    [1] = LAYOUT_landscape(
+                MI_BNDU,MI_OCTU,  RGB_M_SN,
+          MI_BNDD,MI_OCTD,  RGB_M_B,RGB_M_SW,
 _______,_______,_______,_______,_______,_______,_______,
     _______,_______,_______,_______,_______,_______,_______,
 _______,_______,_______,_______,_______,_______,_______,
@@ -111,9 +111,9 @@ _______,_______,_______,_______,_______,KC_PGDN,KC_END
      * ❬   ᚛-᚜   ᚛-᚜lyr᚛-᚜   ᚛-᚜LYR᚛-᚜ ⇓ ᚛-᚜ ⇲ ❭‾‾
      *  ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾ 
      */
-    [2] = LAYOUT_hexboard_landscape(
-                MI_BENDU,MI_OCTU,  RGB_HUI,
-          MI_BENDD,MI_OCTD,  RGB_VAD,RGB_MOD,
+    [2] = LAYOUT_landscape(
+                MI_BNDU,MI_OCTU,  RGB_HUI,
+          MI_BNDD,MI_OCTD,  RGB_VAD,RGB_MOD,
 _______,_______,_______,_______,_______,_______,_______,
     _______,_______,_______,_______,_______,_______,_______,
 _______,_______,_______,_______,_______,_______,_______,
