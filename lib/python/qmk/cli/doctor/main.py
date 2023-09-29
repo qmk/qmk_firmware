@@ -13,7 +13,7 @@ from qmk.constants import QMK_FIRMWARE, QMK_FIRMWARE_UPSTREAM, QMK_USERSPACE, HA
 from .check import CheckStatus, check_binaries, check_binary_versions, check_submodules
 from qmk.git import git_check_repo, git_get_branch, git_get_tag, git_get_last_log_entry, git_get_common_ancestor, git_is_dirty, git_get_remotes, git_check_deviation
 from qmk.commands import in_virtualenv
-from qmk.userspace import qmk_userspace_paths, qmk_userspace_validate, UserspaceValidationException
+from qmk.userspace import qmk_userspace_paths, qmk_userspace_validate, UserspaceValidationError
 
 
 def os_tests():
@@ -101,7 +101,9 @@ def userspace_tests(qmk_firmware):
         try:
             qmk_userspace_validate(path)
             cli.log.info(f'Testing userspace candidate: {{fg_cyan}}{path}{{fg_reset}} -- {{fg_green}}Valid `qmk.json`')
-        except UserspaceValidationException as err:
+        except FileNotFoundError as err:
+            cli.log.warn(f'Testing userspace candidate: {{fg_cyan}}{path}{{fg_reset}} -- {{fg_red}}Missing `qmk.json`')
+        except UserspaceValidationError as err:
             cli.log.warn(f'Testing userspace candidate: {{fg_cyan}}{path}{{fg_reset}} -- {{fg_red}}Invalid `qmk.json`')
             cli.log.warn(f' -- {{fg_cyan}}{path}/qmk.json{{fg_reset}} validation error: {err}')
 

@@ -28,6 +28,7 @@ def qmk_userspace_paths():
 def qmk_userspace_validate(path):
     if (path / 'qmk.json').is_file():
         UserspaceDefs(path / 'qmk.json')
+    raise FileNotFoundError('No qmk.json file found.')
 
 
 def detect_qmk_userspace():
@@ -36,8 +37,10 @@ def detect_qmk_userspace():
         try:
             qmk_userspace_validate(test_dir)
             return test_dir
-        except UserspaceValidationException:
-            pass
+        except FileNotFoundError:
+            continue
+        except UserspaceValidationError:
+            continue
     return None
 
 
@@ -47,7 +50,7 @@ class UserspaceDefs:
         self.build_targets = []
         json = json_load(userspace_json)
 
-        exception = UserspaceValidationException()
+        exception = UserspaceValidationError()
         success = False
 
         try:
@@ -102,7 +105,7 @@ class UserspaceDefs:
                 self.add_target(e[0], e[1])
 
 
-class UserspaceValidationException(Exception):
+class UserspaceValidationError(Exception):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.__exceptions = []
