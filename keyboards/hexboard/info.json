@@ -7,11 +7,13 @@
     "diode_direction": "COL2ROW",
     "features": {
     },
+    "ws2812": {
+		"pin": "GP22"
+    },
     "matrix_pins": {
         "io_delay": 50,
         "cols": ["GP14", "GP15", "GP13", "GP12", "GP11", "GP10", "GP9", "GP8", "GP7", "GP6"],
-        "rows": ["GP4", "GP5", "GP2", "GP3"],
-        "todo": "custom matrix for multiplexing"
+        "rows": ["GP4", "GP5", "GP2", "GP3"]
     },
     "url": "https://shapingthesilence.com",
     "layouts": {
