@@ -19,4 +19,4 @@ def userspace_compile(cli):
 
     userspace = UserspaceDefs(QMK_USERSPACE / 'qmk.json')
     make_targets = search_keymap_targets(userspace.targets)
-    mass_compile_targets(make_targets, cli.args.clean, cli.args.dry_run, cli.args.no_temp, cli.args.parallel, cli.args.env)
+    mass_compile_targets(make_targets, cli.args.clean, cli.args.dry_run, cli.config.userspace_compile.no_temp, cli.config.userspace_compile.parallel, cli.args.env)
