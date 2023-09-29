@@ -59,6 +59,10 @@
 #    define LED_MATRIX_SPD_STEP 16
 #endif
 
+#ifndef LED_MATRIX_DEFAULT_ON
+#    define LED_MATRIX_DEFAULT_ON true
+#endif
+
 #ifndef LED_MATRIX_DEFAULT_MODE
 #    define LED_MATRIX_DEFAULT_MODE LED_MATRIX_SOLID
 #endif
