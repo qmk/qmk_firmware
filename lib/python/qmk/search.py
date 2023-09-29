@@ -27,20 +27,19 @@ def _set_log_level(level):
 
 @contextlib.contextmanager
 def parallelize(parallel):
-    with contextlib.suppress(ImportError):
-        from mpire import WorkerPool
-        if parallel:
-            with WorkerPool() as pool:
-                yield functools.partial(pool.imap_unordered, progress_bar=True)
-        else:
-            yield map
+    if not parallel:
+        yield map
         return
 
-    if parallel:
-        with multiprocessing.Pool() as pool:
-            yield pool.imap_unordered
-    else:
-        yield map
+    with contextlib.suppress(ImportError):
+        from mpire import WorkerPool
+        with WorkerPool() as pool:
+            yield functools.partial(pool.imap_unordered, progress_bar=True)
+        return
+
+    with multiprocessing.Pool() as pool:
+        yield pool.imap_unordered
+    return
 
 
 @contextlib.contextmanager
@@ -68,7 +67,7 @@ def _keymap_exists(keyboard, keymap):
 def _load_keymap_info(arg0, arg1=None):
     """Returns a tuple of (keyboard, keymap, info.json) for the given keyboard/keymap combination.
 
-    Caters for the different unpacking requirements of each variatn of imap_unordered().
+    Caters for the different unpacking requirements of each variant of map()/imap_unordered().
     """
     with ignore_logging():
         if arg1 is None:
@@ -140,7 +139,6 @@ def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str
         targets = [(kb, km, {}) for kb, km in target_list]
     else:
         cli.log.info('Parsing data for all matching keyboard/keymap combinations...')
-
         with parallelize(parallel) as map_func:
             valid_keymaps = [(e[0], e[1], dotty(e[2])) for e in map_func(_load_keymap_info, target_list)]
 
