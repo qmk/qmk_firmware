@@ -7,6 +7,7 @@
 //#define _NAV 3
 //#define _MOUSE 4
 
+//layer declarations
 enum layers {
   _BASE = 0,
   _LM_NUM,
@@ -24,6 +25,7 @@ enum custom_keycodes {
     MACRO_UNDO,
 };
 
+//tap dance declarations
 enum tap_dance_codes {
   DANCE_0,
   DANCE_1,
@@ -63,7 +65,7 @@ const uint16_t PROGMEM lo_combo[] = {KC_L,KC_O, COMBO_END};
 const uint16_t PROGMEM oslashp_combo[] = {NO_OSTR,KC_P, COMBO_END};
 
 
-
+//combo definitions
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(df_combo, KC_ESC),
     COMBO(hj_combo, KC_ENT),
@@ -86,11 +88,10 @@ combo_t key_combos[COMBO_COUNT] = {
 };
 
 
-
-//tap dance declarations
 // Tap Dance Definitions
 tap_dance_action_t tap_dance_actions[] = {
     // simple tap dance
+  //    [DANCE_0] = ACTION_TAP_DANCE_DOUBLE(KC_0, LGUI(KC_0)), // replace with your keycodes. BASIC codes only, no custom codes.
     [DANCE_0] = ACTION_TAP_DANCE_DOUBLE(KC_0, LGUI(KC_0)), // replace with your keycodes. BASIC codes only, no custom codes.
     [DANCE_1] = ACTION_TAP_DANCE_DOUBLE(KC_1, LGUI(KC_1)), 
     [DANCE_2] = ACTION_TAP_DANCE_DOUBLE(KC_2, LGUI(KC_2)),
@@ -104,6 +105,10 @@ tap_dance_action_t tap_dance_actions[] = {
     [DANCE_10] = ACTION_TAP_DANCE_DOUBLE(NO_LPRN, NO_LABK), // ( on hold < on double tap
     [DANCE_11] = ACTION_TAP_DANCE_DOUBLE(NO_RPRN, NO_RABK),
 };
+
+//Tap dance functions
+//void DANCE_FUNC_ONE(qk_tap_dance_state_t *state, void *user_data){
+//}
 
 
 // Macro Definitions
@@ -154,7 +159,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  [_BASE] = LAYOUT(KC_Q, KC_W, KC_E, KC_R, KC_T,                                             KC_Y, KC_U, KC_I, KC_O, KC_P,
                   KC_A, KC_S, KC_D, KC_F, KC_G,                                                  KC_H, KC_J, KC_K, KC_L, NO_OSTR,
 		  KC_Z, KC_X, KC_C, KC_V, KC_B,                                                  KC_N, KC_M, KC_COMM, KC_DOT, NO_MINS,
-		  OSL(_LM_NUM), KC_BACKSPACE,                                                          LT(_NAV,KC_SPC), OSL(_RM_SYM)),
+		  OSL(_LM_NUM), LT(_NAV,KC_BACKSPACE),                                                          LT(_MOUSE,KC_SPC), OSL(_RM_SYM)),
 
  [_LM_NUM] = LAYOUT(KC_F1, KC_F2, KC_F3, KC_F4, KC_F5,                                           NO_QUOT , TD(DANCE_7), TD(DANCE_8), TD(DANCE_9), NO_EQL,
 		    OSM(MOD_LALT), OSM(MOD_LGUI), OSM(MOD_LCTL), OSM(MOD_LSFT), KC_TAB,          NO_SLSH , TD(DANCE_4), TD(DANCE_5), TD(DANCE_6), NO_ASTR,
