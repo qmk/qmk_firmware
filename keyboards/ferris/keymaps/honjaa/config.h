@@ -99,7 +99,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 100
 
 // Pick good defaults for enabling homerow modifiers
-#define TAPPING_TERM 200
+#define TAPPING_TERM 100
 #define PERMISSIVE_HOLD
 //#define IGNORE_MOD_TAP_INTERRUPT
 #define TAPPING_FORCE_HOLD
@@ -113,3 +113,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define SPLIT_USB_TIMEOUT 10000
 #define SPLIT_USB_TIMEOUT_POLL 10
+
+//recommended to save space
+#undef LOCKING_SUPPORT_ENABLE
+#undef LOCKING_RESYNC_ENABLE
+
+#define NO_MUSIC_MODE    /*some music mode I am not using*/
+#define LAYER_STATE_8BIT /*up to 8 layers */

@@ -26,3 +26,9 @@ SPLIT_KEYBOARD = yes        # Use shared split_common code
 LAYOUTS = split_3x5_2
 CONFIG_USB_ACM = yes        #recommended for atmega32u4 on linux
 
+#recommended to save space
+LTO_ENABLE = yes 	    # Link time optimization
+SPACE_CADET_ENABLE = no     #auto switch space I think 
+GRAVE_ESC_ENABLE = no       #not sure
+MAGIC_ENABLE = no           #disale magic keys
+MUSIC_ENABLE = no
