@@ -4,12 +4,12 @@ import contextlib
 import functools
 import fnmatch
 import logging
-import multiprocessing
 import re
 from typing import List, Tuple
 from dotty_dict import dotty
 from milc import cli
 
+from qmk.util import parallelize
 from qmk.info import keymap_json
 import qmk.keyboard
 import qmk.keymap
@@ -23,23 +23,6 @@ def _set_log_level(level):
     logging.root.setLevel(level)
     cli.release_lock()
     return old
-
-
-@contextlib.contextmanager
-def parallelize(parallel):
-    if not parallel:
-        yield map
-        return
-
-    with contextlib.suppress(ImportError):
-        from mpire import WorkerPool
-        with WorkerPool() as pool:
-            yield functools.partial(pool.imap_unordered, progress_bar=True)
-        return
-
-    with multiprocessing.Pool() as pool:
-        yield pool.imap_unordered
-    return
 
 
 @contextlib.contextmanager
