@@ -18,7 +18,7 @@ def parallelize():
     """
 
     # Work out if we've already got a config value for parallel searching
-    if not cli.config.user.parallel_search:
+    if cli.config.user.parallel_search is None:
         parallel_search = True
     else:
         parallel_search = cli.config.user.parallel_search
@@ -26,9 +26,9 @@ def parallelize():
     # If we haven't already written a value, write it to the file
     if cli.config.user.parallel_search != parallel_search:
         cli.args.read_only = False
-        cli.config.user.parallel_search = parallel_search
         config.set_config('user', 'parallel_search', parallel_search)
         cli.save_config()
+        cli.config.user.parallel_search = parallel_search
 
     # Non-parallel searches use use `map()`
     if not parallel_search:
