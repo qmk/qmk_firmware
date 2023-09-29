@@ -2,6 +2,8 @@
 
 This was the PCB for Falcon and it supports the gateron magnet switch. Actually the PCB was based on the Falcon EC PCB and not optimized for the magnet switch,
 and the matrix scan implementation can be also optimized. But it currently was a POC for the the magnet switch, so let it be.
+It support APC(use keymap layer 4 to set the actuation point)and RT (keymap 5 was used). The special keycodes(F1 to F24) were used to set the actuation point.
+F1 was the minimum, F24 was the maximum.
 
 Keyboard Maintainer: [astro](https://github.com/yulei)  
 Hardware Supported: Matrix Falcon Keyboard

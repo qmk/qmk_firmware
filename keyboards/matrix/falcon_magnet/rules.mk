@@ -1,4 +1,4 @@
 
 CUSTOM_MATRIX = lite
 
-SRC += matrix.c
+SRC += matrix.c apc.c

@@ -16,7 +16,7 @@
  */
 
 
-#include "quantum.h"
+#include "apc.h"
 #include "analog.h"
 
 #define LEFT_KEY_PIN            A1
@@ -87,28 +87,20 @@ void matrix_init_custom(void)
     palSetLineMode(LEFT_KEY_PIN, PAL_MODE_INPUT_ANALOG);
     palSetLineMode(RIGHT_KEY_PIN, PAL_MODE_INPUT_ANALOG);
     adcStart(&ADCD1, NULL);
+
+    apc_matrix_init();
 }
 
-static bool sense_key(bool left, bool on)
+static uint8_t right_col_map[] = {14, 15, 16, 13, 9, 12, 11, 10};
+
+static void sense_key(bool* left, bool *right, uint32_t row, uint32_t col)
 {
-    bool key_down = false;
-
     adcConvert(&ADCD1, &adcgrpcfg1, samples1, ADC_GRP1_BUF_DEPTH);
-
-    uint32_t data = left ? samples1[0] : samples1[1];//analogReadPin(LEFT_KEY_PIN);//adc_read(left_mux);
-
-    // press to release
-    if (on) {
-        if (data > MAG_TH_LOW) {
-            key_down = true;
-        }
-    } else {
-        if (data > MAG_TH_HIGH) {
-            key_down = true;
-        }
+    
+    *left = apc_matrix_update(row, col, samples1[0]);
+    if (right_col_map[col] != 16) {
+        *right = apc_matrix_update(row, right_col_map[col]-1, samples1[1]);
     }
-
-    return key_down;
 }
 
 bool matrix_scan_custom(matrix_row_t* raw)
@@ -121,25 +113,32 @@ bool matrix_scan_custom(matrix_row_t* raw)
         writePinHigh(custom_row_pins[row]);
         wait_us(400);
 
-        for (int col = 0; col < MATRIX_COLS; col++) {
+        for (int col = 0; col < 8; col++) {
             writePin(COL_A_PIN, (custom_col_pins[col]&COL_A_MASK) ? 1 : 0);
             writePin(COL_B_PIN, (custom_col_pins[col]&COL_B_MASK) ? 1 : 0);
             writePin(COL_C_PIN, (custom_col_pins[col]&COL_C_MASK) ? 1 : 0);
 
-            if (custom_col_pins[col]&L_MASK) {
-                writePinLow(LEFT_EN_PIN);
-            }
+            writePinLow(LEFT_EN_PIN);
+            writePinLow(RIGHT_EN_PIN);
+            bool left = false;
+            bool right = false;
 
-            if (custom_col_pins[col]&R_MASK) {
-                writePinLow(RIGHT_EN_PIN);
-            }
+            sense_key(&left, &right, row, col);
 
-            if (sense_key(col < 8, last_row_value&col)) {
+            if (left) {
                 current_row_value |= (1 << col);
             } else {
                 current_row_value &= ~(1 << col);
             }
 
+            if (right_col_map[col] != 16) {
+                if (right) {
+                    current_row_value |= (1 << (right_col_map[col]-1));
+                } else {
+                    current_row_value &= ~(1 << (right_col_map[col]-1));
+                }
+            }
+            
             if (last_row_value != current_row_value) {
                 raw[row] = current_row_value;
                 changed = true;
@@ -149,7 +148,7 @@ bool matrix_scan_custom(matrix_row_t* raw)
         writePinHigh(LEFT_EN_PIN);
         writePinHigh(RIGHT_EN_PIN);
         writePinLow(custom_row_pins[row]);
-        //wait_us(10);
+        wait_us(10);
     }
 
     return changed;
