@@ -22,26 +22,77 @@
 #include <stdbool.h>
 #include "rgb_matrix_types.h"
 #include "color.h"
-#include "quantum.h"
+#include "keyboard.h"
 
-#ifdef IS31FL3731
+#if defined(RGB_MATRIX_IS31FL3218)
+#    include "is31fl3218.h"
+#elif defined(RGB_MATRIX_IS31FL3731)
 #    include "is31fl3731.h"
-#elif defined(IS31FL3733)
+#elif defined(RGB_MATRIX_IS31FL3733)
 #    include "is31fl3733.h"
-#elif defined(IS31FL3736)
+#elif defined(RGB_MATRIX_IS31FL3736)
 #    include "is31fl3736.h"
-#elif defined(IS31FL3737)
+#elif defined(RGB_MATRIX_IS31FL3737)
 #    include "is31fl3737.h"
-#elif defined(IS31FL3741)
+#elif defined(RGB_MATRIX_IS31FL3741)
 #    include "is31fl3741.h"
 #elif defined(IS31FLCOMMON)
 #    include "is31flcommon.h"
-#elif defined(CKLED2001)
+#elif defined(RGB_MATRIX_CKLED2001)
 #    include "ckled2001.h"
-#elif defined(AW20216)
-#    include "aw20216.h"
-#elif defined(WS2812)
+#elif defined(RGB_MATRIX_AW20216S)
+#    include "aw20216s.h"
+#elif defined(RGB_MATRIX_WS2812)
 #    include "ws2812.h"
+#endif
+
+#ifndef RGB_MATRIX_TIMEOUT
+#    define RGB_MATRIX_TIMEOUT 0
+#endif
+
+#ifndef RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS UINT8_MAX
+#endif
+
+#ifndef RGB_MATRIX_HUE_STEP
+#    define RGB_MATRIX_HUE_STEP 8
+#endif
+
+#ifndef RGB_MATRIX_SAT_STEP
+#    define RGB_MATRIX_SAT_STEP 16
+#endif
+
+#ifndef RGB_MATRIX_VAL_STEP
+#    define RGB_MATRIX_VAL_STEP 16
+#endif
+
+#ifndef RGB_MATRIX_SPD_STEP
+#    define RGB_MATRIX_SPD_STEP 16
+#endif
+
+#ifndef RGB_MATRIX_DEFAULT_MODE
+#    ifdef ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
+#        define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
+#    else
+// fallback to solid colors if RGB_MATRIX_CYCLE_LEFT_RIGHT is disabled in userspace
+#        define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR
+#    endif
+#endif
+
+#ifndef RGB_MATRIX_DEFAULT_HUE
+#    define RGB_MATRIX_DEFAULT_HUE 0
+#endif
+
+#ifndef RGB_MATRIX_DEFAULT_SAT
+#    define RGB_MATRIX_DEFAULT_SAT UINT8_MAX
+#endif
+
+#ifndef RGB_MATRIX_DEFAULT_VAL
+#    define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#endif
+
+#ifndef RGB_MATRIX_DEFAULT_SPD
+#    define RGB_MATRIX_DEFAULT_SPD UINT8_MAX / 2
 #endif
 
 #ifndef RGB_MATRIX_LED_FLUSH_LIMIT
@@ -49,8 +100,9 @@
 #endif
 
 #ifndef RGB_MATRIX_LED_PROCESS_LIMIT
-#    define RGB_MATRIX_LED_PROCESS_LIMIT (RGB_MATRIX_LED_COUNT + 4) / 5
+#    define RGB_MATRIX_LED_PROCESS_LIMIT ((RGB_MATRIX_LED_COUNT + 4) / 5)
 #endif
+#define RGB_MATRIX_LED_PROCESS_MAX_ITERATIONS ((RGB_MATRIX_LED_COUNT + RGB_MATRIX_LED_PROCESS_LIMIT - 1) / RGB_MATRIX_LED_PROCESS_LIMIT)
 
 #if defined(RGB_MATRIX_LED_PROCESS_LIMIT) && RGB_MATRIX_LED_PROCESS_LIMIT > 0 && RGB_MATRIX_LED_PROCESS_LIMIT < RGB_MATRIX_LED_COUNT
 #    if defined(RGB_MATRIX_SPLIT)

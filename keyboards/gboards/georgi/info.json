@@ -11,6 +11,9 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "tapping": {
+        "toggle": 2
+    },
     "layout_aliases": {
         "LAYOUT_georgi": "LAYOUT"
     },

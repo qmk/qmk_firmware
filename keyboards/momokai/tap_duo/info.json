@@ -2,7 +2,7 @@
     "keyboard_name": "Tap Duo",
     "manufacturer": "Momokai",
     "url": "",
-    "maintainer": "qmk",
+    "maintainer": "peepeetee",
     "usb": {
         "vid": "0x69F9",
         "pid": "0x0005",
@@ -12,7 +12,7 @@
         "pin": "F0"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
     },
     "matrix_pins": {
         "cols": ["E6", "B2", "D1", "D2", "D3"],
@@ -21,6 +21,9 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "bootmagic": {
+        "matrix": [0, 3]
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -20,8 +20,13 @@
 #include "led_matrix.h"
 #include "progmem.h"
 #include "eeprom.h"
+#include "eeconfig.h"
+#include "keyboard.h"
+#include "sync_timer.h"
+#include "debug.h"
 #include <string.h>
 #include <math.h>
+#include <stdlib.h>
 #include "led_tables.h"
 
 #include <lib/lib8tion/lib8tion.h>
@@ -52,35 +57,6 @@ const led_point_t k_led_matrix_center = LED_MATRIX_CENTER;
 #undef LED_MATRIX_EFFECT
 // -----End led effect includes macros-------
 // ------------------------------------------
-
-#ifndef LED_MATRIX_TIMEOUT
-#    define LED_MATRIX_TIMEOUT 0
-#endif
-
-#if !defined(LED_MATRIX_MAXIMUM_BRIGHTNESS) || LED_MATRIX_MAXIMUM_BRIGHTNESS > UINT8_MAX
-#    undef LED_MATRIX_MAXIMUM_BRIGHTNESS
-#    define LED_MATRIX_MAXIMUM_BRIGHTNESS UINT8_MAX
-#endif
-
-#if !defined(LED_MATRIX_VAL_STEP)
-#    define LED_MATRIX_VAL_STEP 8
-#endif
-
-#if !defined(LED_MATRIX_SPD_STEP)
-#    define LED_MATRIX_SPD_STEP 16
-#endif
-
-#if !defined(LED_MATRIX_DEFAULT_MODE)
-#    define LED_MATRIX_DEFAULT_MODE LED_MATRIX_SOLID
-#endif
-
-#if !defined(LED_MATRIX_DEFAULT_VAL)
-#    define LED_MATRIX_DEFAULT_VAL LED_MATRIX_MAXIMUM_BRIGHTNESS
-#endif
-
-#if !defined(LED_MATRIX_DEFAULT_SPD)
-#    define LED_MATRIX_DEFAULT_SPD UINT8_MAX / 2
-#endif
 
 // globals
 led_eeconfig_t led_matrix_eeconfig; // TODO: would like to prefix this with g_ for global consistancy, do this in another pr
@@ -366,7 +342,10 @@ void led_matrix_task(void) {
         case RENDERING:
             led_task_render(effect);
             if (effect) {
-                led_matrix_indicators();
+                // Only run the basic indicators in the last render iteration (default there are 5 iterations)
+                if (led_effect_params.iter == LED_MATRIX_LED_PROCESS_MAX_ITERATIONS) {
+                    led_matrix_indicators();
+                }
                 led_matrix_indicators_advanced(&led_effect_params);
             }
             break;
@@ -624,7 +603,7 @@ void led_matrix_decrease_speed(void) {
 void led_matrix_set_flags_eeprom_helper(led_flags_t flags, bool write_to_eeprom) {
     led_matrix_eeconfig.flags = flags;
     eeconfig_flag_led_matrix(write_to_eeprom);
-    dprintf("led matrix set speed [%s]: %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", led_matrix_eeconfig.flags);
+    dprintf("led matrix set flags [%s]: %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", led_matrix_eeconfig.flags);
 }
 
 led_flags_t led_matrix_get_flags(void) {

@@ -40,7 +40,7 @@ Supported devices:
 | `QUANTUM_PAINTER_NUM_FONTS`                       | `4`     | The maximum number of fonts that can be loaded at any one time.                                                                                                                              |
 | `QUANTUM_PAINTER_CONCURRENT_ANIMATIONS`           | `4`     | The maximum number of animations that can be executed at the same time.                                                                                                                      |
 | `QUANTUM_PAINTER_LOAD_FONTS_TO_RAM`               | `FALSE` | Whether or not fonts should be loaded to RAM. Relevant for fonts stored in off-chip persistent storage, such as external flash.                                                              |
-| `QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE`             | `32`    | The limit of the amount of pixel data that can be transmitted in one transaction to the display. Higher values require more RAM on the MCU.                                                  |
+| `QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE`             | `1024`  | The limit of the amount of pixel data that can be transmitted in one transaction to the display. Higher values require more RAM on the MCU.                                                  |
 | `QUANTUM_PAINTER_SUPPORTS_256_PALETTE`            | `FALSE` | If 256-color palettes are supported. Requires significantly more RAM on the MCU.                                                                                                             |
 | `QUANTUM_PAINTER_SUPPORTS_NATIVE_COLORS`          | `FALSE` | If native color range is supported. Requires significantly more RAM on the MCU.                                                                                                              |
 | `QUANTUM_PAINTER_DEBUG`                           | _unset_ | Prints out significant amounts of debugging information to CONSOLE output. Significant performance degradation, use only for debugging.                                                      |
@@ -857,13 +857,52 @@ void keyboard_post_init_kb(void) {
 
 <!-- tabs:start -->
 
-#### ** Get Geometry **
+#### ** Gettters **
+
+These functions allow external code to retrieve the current width, height, rotation, and drawing offsets.
+
+<!-- tabs:start -->
+
+#### ** Width **
+
+```c
+uint16_t qp_get_width(painter_device_t device);
+```
+
+#### ** Height **
+
+```c
+uint16_t qp_get_height(painter_device_t device);
+```
+
+#### ** Rotation **
+
+```c
+painter_rotation_t qp_get_rotation(painter_device_t device);
+```
+
+#### ** Offset X **
+
+```c
+uint16_t qp_get_offset_x(painter_device_t device);
+```
+
+#### ** Offset Y **
+
+```c
+uint16_t qp_get_offset_y(painter_device_t device);
+```
+
+##### ** Everything **
+
+Convenience function to call all the previous ones at once.
+Note: You can pass `NULL` for the values you are not interested in.
 
 ```c
 void qp_get_geometry(painter_device_t device, uint16_t *width, uint16_t *height, painter_rotation_t *rotation, uint16_t *offset_x, uint16_t *offset_y);
 ```
 
-The `qp_get_geometry` function allows external code to retrieve the current width, height, rotation, and drawing offsets.
+<!-- tabs:end -->
 
 #### ** Set Viewport Offsets **
 

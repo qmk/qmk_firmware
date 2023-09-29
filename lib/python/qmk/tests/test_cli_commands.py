@@ -144,7 +144,7 @@ def test_list_keymaps_no_keyboard_found():
 def test_json2c():
     result = check_subcommand('json2c', 'keyboards/handwired/pytest/has_template/keymaps/default_json/keymap.json')
     check_returncode(result)
-    assert result.stdout == '#include QMK_KEYBOARD_H\nconst uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\t[0] = LAYOUT_ortho_1x1(KC_A)};\n\n'
+    assert result.stdout == '#include QMK_KEYBOARD_H\nconst uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\t[0] = LAYOUT_ortho_1x1(KC_A)};\n\n\n'
 
 
 def test_json2c_macros():
@@ -158,7 +158,7 @@ def test_json2c_macros():
 def test_json2c_stdin():
     result = check_subcommand_stdin('keyboards/handwired/pytest/has_template/keymaps/default_json/keymap.json', 'json2c', '-')
     check_returncode(result)
-    assert result.stdout == '#include QMK_KEYBOARD_H\nconst uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\t[0] = LAYOUT_ortho_1x1(KC_A)};\n\n'
+    assert result.stdout == '#include QMK_KEYBOARD_H\nconst uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\t[0] = LAYOUT_ortho_1x1(KC_A)};\n\n\n'
 
 
 def test_json2c_wrong_json():

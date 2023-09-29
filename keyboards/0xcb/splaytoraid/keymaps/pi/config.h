@@ -10,7 +10,6 @@
 
 
 #ifdef COMBO_ENABLE
-    #define COMBO_COUNT 9
     #define COMBO_TERM 20
     #define COMBO_ONLY_FROM_LAYER 0
 #endif

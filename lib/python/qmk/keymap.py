@@ -379,7 +379,7 @@ def write_json(keyboard, keymap, layout, layers, macros=None):
     """
     keymap_json = generate_json(keyboard, keymap, layout, layers, macros=None)
     keymap_content = json.dumps(keymap_json)
-    keymap_file = qmk.path.keymap(keyboard) / keymap / 'keymap.json'
+    keymap_file = qmk.path.keymaps(keyboard)[0] / keymap / 'keymap.json'
 
     return write_file(keymap_file, keymap_content)
 
@@ -406,7 +406,7 @@ def write(keymap_json):
             A list of macros for this keymap.
     """
     keymap_content = generate_c(keymap_json)
-    keymap_file = qmk.path.keymap(keymap_json['keyboard']) / keymap_json['keymap'] / 'keymap.c'
+    keymap_file = qmk.path.keymaps(keymap_json['keyboard'])[0] / keymap_json['keymap'] / 'keymap.c'
 
     return write_file(keymap_file, keymap_content)
 

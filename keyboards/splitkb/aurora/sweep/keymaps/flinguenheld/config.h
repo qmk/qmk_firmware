@@ -18,23 +18,21 @@
 
 /* Flash */
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET              // Activates the double-tap behavior
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 200U // Timeout window in ms in which the double tap can occur.
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 200U // In ms in which the double tap can occur
 
 /* OLED */
 #undef OLED_FONT_H
 #define OLED_FONT_H "./oled/glcdfont.c"
 
-#define  OLED_TIMEOUT 25000
-#define OLED_BRIGHTNESS 60 // Protect my eyesss
+#define OLED_TIMEOUT 25000
+#define OLED_BRIGHTNESS 50 // Protect my eyesss
 #define SPLIT_LAYER_STATE_ENABLE
 #define SPLIT_MODS_ENABLE
 #define SPLIT_OLED_ENABLE
 
 /* Auto shift ♥ */
 #define AUTO_SHIFT_TIMEOUT 115
-
-/* Redefine CTRL + space (See space cadet shift) */
-#define LCPO_KEYS KC_LCTL, KC_TRNS, KC_SPC
+#define TAPPING_TERM 155
 
 /* Unicode */
 // #define UNICODE_SELECTED_MODES UC_LNX
@@ -60,7 +58,6 @@
 
 #define MK_C_OFFSET_2 25
 #define MK_C_INTERVAL_2 10
-
 
 #define MK_W_OFFSET_0 1
 #define MK_W_INTERVAL_0 160

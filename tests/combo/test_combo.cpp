@@ -10,21 +10,6 @@
 #include "test_fixture.hpp"
 #include "test_keymap_key.hpp"
 
-extern "C" {
-enum combos { modtest, osmshift, COMBO_LENGTH };
-uint16_t COMBO_LEN = COMBO_LENGTH;
-
-uint16_t const modtest_combo[]  = {KC_Y, KC_U, COMBO_END};
-uint16_t const osmshift_combo[] = {KC_Z, KC_X, COMBO_END};
-
-// clang-format off
-combo_t key_combos[] = {
-    [modtest]  = COMBO(modtest_combo, RSFT_T(KC_SPACE)),
-    [osmshift] = COMBO(osmshift_combo, OSM(MOD_LSFT))
-};
-// clang-format on
-}
-
 using testing::_;
 using testing::InSequence;
 

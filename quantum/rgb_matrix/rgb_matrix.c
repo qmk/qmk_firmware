@@ -19,8 +19,13 @@
 #include "rgb_matrix.h"
 #include "progmem.h"
 #include "eeprom.h"
+#include "eeconfig.h"
+#include "keyboard.h"
+#include "sync_timer.h"
+#include "debug.h"
 #include <string.h>
 #include <math.h>
+#include <stdlib.h>
 
 #include <lib/lib8tion/lib8tion.h>
 
@@ -54,56 +59,6 @@ __attribute__((weak)) RGB rgb_matrix_hsv_to_rgb(HSV hsv) {
 #undef RGB_MATRIX_EFFECT
 // -----End rgb effect includes macros-------
 // ------------------------------------------
-
-#ifndef RGB_MATRIX_TIMEOUT
-#    define RGB_MATRIX_TIMEOUT 0
-#endif
-
-#if !defined(RGB_MATRIX_MAXIMUM_BRIGHTNESS) || RGB_MATRIX_MAXIMUM_BRIGHTNESS > UINT8_MAX
-#    undef RGB_MATRIX_MAXIMUM_BRIGHTNESS
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS UINT8_MAX
-#endif
-
-#if !defined(RGB_MATRIX_HUE_STEP)
-#    define RGB_MATRIX_HUE_STEP 8
-#endif
-
-#if !defined(RGB_MATRIX_SAT_STEP)
-#    define RGB_MATRIX_SAT_STEP 16
-#endif
-
-#if !defined(RGB_MATRIX_VAL_STEP)
-#    define RGB_MATRIX_VAL_STEP 16
-#endif
-
-#if !defined(RGB_MATRIX_SPD_STEP)
-#    define RGB_MATRIX_SPD_STEP 16
-#endif
-
-#if !defined(RGB_MATRIX_DEFAULT_MODE)
-#    ifdef ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
-#        define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
-#    else
-// fallback to solid colors if RGB_MATRIX_CYCLE_LEFT_RIGHT is disabled in userspace
-#        define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR
-#    endif
-#endif
-
-#if !defined(RGB_MATRIX_DEFAULT_HUE)
-#    define RGB_MATRIX_DEFAULT_HUE 0
-#endif
-
-#if !defined(RGB_MATRIX_DEFAULT_SAT)
-#    define RGB_MATRIX_DEFAULT_SAT UINT8_MAX
-#endif
-
-#if !defined(RGB_MATRIX_DEFAULT_VAL)
-#    define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
-#endif
-
-#if !defined(RGB_MATRIX_DEFAULT_SPD)
-#    define RGB_MATRIX_DEFAULT_SPD UINT8_MAX / 2
-#endif
 
 // globals
 rgb_config_t rgb_matrix_config; // TODO: would like to prefix this with g_ for global consistancy, do this in another pr
@@ -428,7 +383,10 @@ void rgb_matrix_task(void) {
         case RENDERING:
             rgb_task_render(effect);
             if (effect) {
-                rgb_matrix_indicators();
+                // Only run the basic indicators in the last render iteration (default there are 5 iterations)
+                if (rgb_effect_params.iter == RGB_MATRIX_LED_PROCESS_MAX_ITERATIONS) {
+                    rgb_matrix_indicators();
+                }
                 rgb_matrix_indicators_advanced(&rgb_effect_params);
             }
             break;
@@ -728,7 +686,7 @@ void rgb_matrix_decrease_speed(void) {
 void rgb_matrix_set_flags_eeprom_helper(led_flags_t flags, bool write_to_eeprom) {
     rgb_matrix_config.flags = flags;
     eeconfig_flag_rgb_matrix(write_to_eeprom);
-    dprintf("rgb matrix set speed [%s]: %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", rgb_matrix_config.flags);
+    dprintf("rgb matrix set flags [%s]: %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", rgb_matrix_config.flags);
 }
 
 led_flags_t rgb_matrix_get_flags(void) {

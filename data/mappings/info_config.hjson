@@ -43,12 +43,15 @@
     "DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD": {"info_key": "caps_word.double_tap_shift_turns_on", "value_type": "bool"},
 
     // Combos
-    "COMBO_COUNT": {"info_key": "combo.count", "value_type": "int"},
     "COMBO_TERM": {"info_key": "combo.term", "value_type": "int"},
 
     // Dynamic Keymap
     "DYNAMIC_KEYMAP_EEPROM_MAX_ADDR": {"info_key": "dynamic_keymap.eeprom_max_addr", "value_type": "int"},
     "DYNAMIC_KEYMAP_LAYER_COUNT": {"info_key": "dynamic_keymap.layer_count", "value_type": "int"},
+
+    // EEPROM
+    "WEAR_LEVELING_BACKING_SIZE": {"info_key": "eeprom.wear_leveling.backing_size", "value_type": "int", "to_json": false},
+    "WEAR_LEVELING_LOGICAL_SIZE": {"info_key": "eeprom.wear_leveling.logical_size", "value_type": "int", "to_json": false},
 
     // Indicators
     "LED_CAPS_LOCK_PIN": {"info_key": "indicators.caps_lock"},
@@ -64,14 +67,17 @@
     "LEADER_TIMEOUT": {"info_key": "leader_key.timeout", "value_type": "int"},
 
     // LED Matrix
+    "LED_DISABLE_WHEN_USB_SUSPENDED": {"info_key": "led_matrix.sleep", "value_type": "bool"},
     "LED_MATRIX_CENTER": {"info_key": "led_matrix.center_point", "value_type": "array.int"},
-    "LED_MATRIX_HUE_STEP": {"info_key": "led_matrix.hue_steps", "value_type": "int"},
+    "LED_MATRIX_KEYRELEASES": {"info_key": "led_matrix.react_on_keyup", "value_type": "bool"},
+    "LED_MATRIX_LED_FLUSH_LIMIT": {"info_key": "led_matrix.led_flush_limit", "value_type": "int"},
+    "LED_MATRIX_LED_PROCESS_LIMIT": {"info_key": "led_matrix.led_process_limit", "value_type": "int", "to_json": false},
     "LED_MATRIX_MAXIMUM_BRIGHTNESS": {"info_key": "led_matrix.max_brightness", "value_type": "int"},
-    "LED_MATRIX_SAT_STEP": {"info_key": "led_matrix.sat_steps", "value_type": "int"},
     "LED_MATRIX_SPD_STEP": {"info_key": "led_matrix.speed_steps", "value_type": "int"},
     "LED_MATRIX_SPLIT": {"info_key": "led_matrix.split_count", "value_type": "array.int"},
     "LED_MATRIX_TIMEOUT": {"info_key": "led_matrix.timeout", "value_type": "int"},
     "LED_MATRIX_VAL_STEP": {"info_key": "led_matrix.val_steps", "value_type": "int"},
+    "LED_MATRIX_LED_COUNT": {"info_key": "led_matrix.led_count", "value_type": "int", "to_json": false},
 
     // LUFA Bootloader
     "QMK_ESC_INPUT": {"info_key": "qmk_lufa_bootloader.esc_input"},
@@ -102,14 +108,19 @@
     "PS2_DATA_PIN": {"info_key": "ps2.data_pin"},
 
     // RGB Matrix
+    "RGB_DISABLE_WHEN_USB_SUSPENDED": {"info_key": "rgb_matrix.sleep", "value_type": "bool"},
     "RGB_MATRIX_CENTER": {"info_key": "rgb_matrix.center_point", "value_type": "array.int"},
     "RGB_MATRIX_HUE_STEP": {"info_key": "rgb_matrix.hue_steps", "value_type": "int"},
+    "RGB_MATRIX_KEYRELEASES": {"info_key": "rgb_matrix.react_on_keyup", "value_type": "bool"},
+    "RGB_MATRIX_LED_FLUSH_LIMIT": {"info_key": "rgb_matrix.led_flush_limit", "value_type": "int"},
+    "RGB_MATRIX_LED_PROCESS_LIMIT": {"info_key": "rgb_matrix.led_process_limit", "value_type": "int", "to_json": false},
     "RGB_MATRIX_MAXIMUM_BRIGHTNESS": {"info_key": "rgb_matrix.max_brightness", "value_type": "int"},
     "RGB_MATRIX_SAT_STEP": {"info_key": "rgb_matrix.sat_steps", "value_type": "int"},
     "RGB_MATRIX_SPD_STEP": {"info_key": "rgb_matrix.speed_steps", "value_type": "int"},
     "RGB_MATRIX_SPLIT": {"info_key": "rgb_matrix.split_count", "value_type": "array.int"},
     "RGB_MATRIX_TIMEOUT": {"info_key": "rgb_matrix.timeout", "value_type": "int"},
     "RGB_MATRIX_VAL_STEP": {"info_key": "rgb_matrix.val_steps", "value_type": "int"},
+    "RGB_MATRIX_LED_COUNT": {"info_key": "rgb_matrix.led_count", "value_type": "int", "to_json": false},
 
     // RGBLight
     "RGBLED_NUM": {"info_key": "rgblight.led_count", "value_type": "int"},
@@ -118,6 +129,7 @@
     "RGBLIGHT_LAYER_BLINK": {"info_key": "rgblight.layers.blink", "value_type": "bool"},
     "RGBLIGHT_LAYERS": {"info_key": "rgblight.layers.enabled", "value_type": "bool"},
     "RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF": {"info_key": "rgblight.layers.override_rgb", "value_type": "bool"},
+    "RGBLIGHT_LED_MAP": {"info_key": "rgblight.led_map", "value_type": "array.int"},
     "RGBLIGHT_LIMIT_VAL": {"info_key": "rgblight.max_brightness", "value_type": "int"},
     "RGBLIGHT_MAX_LAYERS": {"info_key": "rgblight.layers.max", "value_type": "int"},
     "RGBLIGHT_SAT_STEP": {"info_key": "rgblight.saturation_steps", "value_type": "int"},
@@ -182,9 +194,10 @@
     "TAPPING_FORCE_HOLD": {"info_key": "tapping.force_hold", "value_type": "bool", "deprecated": true},
     "TAPPING_FORCE_HOLD_PER_KEY": {"info_key": "tapping.force_hold_per_key", "value_type": "bool", "deprecated": true},
     "UNUSED_PINS": {"info_key": "_invalid.unused_pins", "deprecated": true},
+    "COMBO_COUNT": {"info_key": "_invalid.combo.count", "invalid": true},
 
     // USB params, need to mark as failure when specified in config.h, rather than deprecated
-    "DEVICE_VER": {"info_key": "usb.device_version", "value_type": "bcd_version", "deprecated": true, "replace_with": "`usb.device_version` in info.json"}
+    "DEVICE_VER": {"info_key": "usb.device_version", "value_type": "bcd_version", "deprecated": true, "replace_with": "`usb.device_version` in info.json"},
     "MANUFACTURER": {"info_key": "manufacturer", "value_type": "str", "deprecated": true, "replace_with": "`manufacturer` in info.json"},
     "PRODUCT": {"info_key": "keyboard_name", "warn_duplicate": false, "value_type": "str", "deprecated": true, "replace_with": "`keyboard_name` in info.json"},
     "PRODUCT_ID": {"info_key": "usb.pid", "value_type": "hex", "deprecated": true, "replace_with": "`usb.pid` in info.json"},

@@ -15,6 +15,15 @@
     "ws2812": {
         "pin": "B5"
     },
+    "rgblight": {
+        "led_count": 4,
+        "max_brightness": 40,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true
+        }
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "matrix_pins": {

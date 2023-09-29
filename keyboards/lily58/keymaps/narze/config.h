@@ -29,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define EE_HANDS
 
 #define COMBO_TERM 20
-#define COMBO_COUNT 3
 
 #define PERMISSIVE_HOLD
 

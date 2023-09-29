@@ -13,6 +13,9 @@
         "rows": ["E6", "D7", "B4", "B5"]
     },
     "diode_direction": "ROW2COL",
+    "dynamic_keymap": {
+        "layer_count": 7
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "F5", "pin_b": "F4"}
@@ -27,6 +30,9 @@
                 ]
             }
         }
+    },
+    "rgblight": {
+        "led_count": 10
     },
     "ws2812": {
         "pin": "B6"

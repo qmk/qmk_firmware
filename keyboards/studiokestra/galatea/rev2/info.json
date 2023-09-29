@@ -32,6 +32,25 @@
     "ws2812": {
         "pin": "D4"
     },
+    "rgblight": {
+        "led_count": 24,
+        "hue_steps": 8,
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "max_brightness": 200,
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
