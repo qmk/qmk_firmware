@@ -98,6 +98,6 @@ def mass_compile(cli):
     if len(cli.args.builds) > 0:
         targets = search_make_targets(cli.args.builds, cli.args.filter, parallel=not cli.args.disable_parallel_parsing)
     else:
-        targets = search_keymap_targets(cli.args.keymap, cli.args.filter, parallel=not cli.args.disable_parallel_parsing)
+        targets = search_keymap_targets([('all', cli.args.keymap)], cli.args.filter, parallel=not cli.args.disable_parallel_parsing)
 
     return mass_compile_targets(targets, cli.args.clean, cli.args.dry_run, cli.args.no_temp, cli.args.parallel, cli.args.env)
