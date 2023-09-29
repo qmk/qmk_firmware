@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "keymap_norwegian.h"
 
+
 //#define _BASE 0
 //#define _LM_NUM 1
 //#define _RM_SYM 2
@@ -27,7 +28,7 @@ enum custom_keycodes {
 
 //tap dance declarations
 enum tap_dance_codes {
-  DANCE_0,
+  DANCE_0 = 0,  
   DANCE_1,
   DANCE_2,
   DANCE_3,
@@ -87,12 +88,66 @@ combo_t key_combos[COMBO_COUNT] = {
     COMBO(oslashp_combo,KC_LALT),
 };
 
+// define tapdance hold
+typedef struct {
+    uint16_t tap;
+    uint16_t hold;
+    uint16_t held;
+} tap_dance_tap_hold_t;
+
+// tapdance tap hold finish function
+void tap_dance_tap_hold_finished(tap_dance_state_t *state, void *user_data) {
+    tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
+
+    if (state->pressed) {
+        if (state->count == 1
+    #ifndef PERMISSIVE_HOLD
+            && !state->interrupted
+    #endif
+        ){
+            register_code16(tap_hold->hold);
+            tap_hold->held = tap_hold->hold;
+        } else {
+            register_code16(tap_hold->tap);
+            tap_hold->held = tap_hold->tap;
+        }
+    }
+}
+// tap dance tap hold function finish
+void tap_dance_tap_hold_reset(tap_dance_state_t *state, void *user_data) {
+    tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
+
+    if (tap_hold->held) {
+        unregister_code16(tap_hold->held);
+        tap_hold->held = 0;
+    }
+}
+
+#define ACTION_TAP_DANCE_TAP_HOLD(tap, hold) \
+    { .fn = {NULL, tap_dance_tap_hold_finished, tap_dance_tap_hold_reset}, .user_data = (void *)&((tap_dance_tap_hold_t){tap, hold, 0}), }
+
+tap_dance_action_t tap_dance_actions[] = {
+    [DANCE_0] = ACTION_TAP_DANCE_TAP_HOLD(KC_0, LGUI(KC_0)),
+    [DANCE_1] = ACTION_TAP_DANCE_TAP_HOLD(KC_1, LGUI(KC_1)),
+    [DANCE_2] = ACTION_TAP_DANCE_TAP_HOLD(KC_2, LGUI(KC_2)),
+    [DANCE_3] = ACTION_TAP_DANCE_TAP_HOLD(KC_3, LGUI(KC_3)),
+    [DANCE_4] = ACTION_TAP_DANCE_TAP_HOLD(KC_4, LGUI(KC_4)),
+    [DANCE_5] = ACTION_TAP_DANCE_TAP_HOLD(KC_5, LGUI(KC_5)),
+    [DANCE_6] = ACTION_TAP_DANCE_TAP_HOLD(KC_6, LGUI(KC_6)),
+    //[DANCE_6] = ACTION_TAP_DANCE_DOUBLE(KC_6, LGUI(KC_6)),
+    [DANCE_7] = ACTION_TAP_DANCE_TAP_HOLD(KC_7, LGUI(KC_7)),
+    [DANCE_8] = ACTION_TAP_DANCE_TAP_HOLD(KC_8, LGUI(KC_8)),
+    [DANCE_9] = ACTION_TAP_DANCE_TAP_HOLD(KC_9, LGUI(KC_9)),
+    [DANCE_10] = ACTION_TAP_DANCE_DOUBLE(NO_LPRN, NO_LABK), // ( on hold < on double tap
+    [DANCE_11] = ACTION_TAP_DANCE_DOUBLE(NO_RPRN, NO_RABK), // ) on hold > on double tap                                          
+};
 
 // Tap Dance Definitions
+/*
 tap_dance_action_t tap_dance_actions[] = {
     // simple tap dance
   //    [DANCE_0] = ACTION_TAP_DANCE_DOUBLE(KC_0, LGUI(KC_0)), // replace with your keycodes. BASIC codes only, no custom codes.
-    [DANCE_0] = ACTION_TAP_DANCE_DOUBLE(KC_0, LGUI(KC_0)), // replace with your keycodes. BASIC codes only, no custom codes.
+    [DANCE_0] = ACTION_TAP_DANCE_TAP_HOLD(KC_0,KC_A), // replace with your keycodes. BASIC codes only, no custom codes.
     [DANCE_1] = ACTION_TAP_DANCE_DOUBLE(KC_1, LGUI(KC_1)), 
     [DANCE_2] = ACTION_TAP_DANCE_DOUBLE(KC_2, LGUI(KC_2)),
     [DANCE_3] = ACTION_TAP_DANCE_DOUBLE(KC_3, LGUI(KC_3)),
@@ -106,13 +161,12 @@ tap_dance_action_t tap_dance_actions[] = {
     [DANCE_11] = ACTION_TAP_DANCE_DOUBLE(NO_RPRN, NO_RABK),
 };
 
-//Tap dance functions
-//void DANCE_FUNC_ONE(qk_tap_dance_state_t *state, void *user_data){
-//}
+*/
 
 
 // Macro Definitions
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    tap_dance_action_t *action;
     switch (keycode) {
 
     // for basic strings
@@ -149,6 +203,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING(SS_LCTL(SS_TAP(X_X)) SS_DELAY(100) SS_TAP(X_U));
         }
         break;
+     case TD(DANCE_0):  // list all tap dance keycodes with tap-hold configurations
+        action = &tap_dance_actions[TD_INDEX(keycode)];
+        if (!record->event.pressed && action->state.count && !action->state.finished) {
+	  tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
+	  tap_code16(tap_hold->tap);
+	}
     }
   return true;
 }
