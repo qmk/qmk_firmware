@@ -5,7 +5,8 @@
 
 static const uint8_t columns[MATRIX_COLS] = MATRIX_COL_PINS;
 
-static const pin_t mux_pins[4] = {GP4, GP5, GP2, GP3}; // {MATRIX_ROW_PINS[0], MATRIX_ROW_PINS[1], MATRIX_ROW_PINS[2], MATRIX_ROW_PINS[3]};
+// At least four of these should be defined!
+static const pin_t mux_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 
 void matrix_init_custom(void) {
     // TODO: initialize hardware here
