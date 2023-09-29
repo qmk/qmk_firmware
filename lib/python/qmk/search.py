@@ -54,7 +54,7 @@ def _load_keymap_info(kb_km):
         return (kb_km[0], kb_km[1], keymap_json(kb_km[0], kb_km[1]))
 
 
-def expand_make_targets(targets: List[str]) -> List[Tuple[str, str]]:
+def expand_make_targets(targets: List[str], parallel=True) -> List[Tuple[str, str]]:
     """Expand a list of make targets into a list of (keyboard, keymap) tuples.
 
     Caters for 'all' in either keyboard or keymap, or both.
@@ -66,10 +66,10 @@ def expand_make_targets(targets: List[str]) -> List[Tuple[str, str]]:
             cli.log.error(f"Invalid build target: {target}")
             return []
         split_targets.append((split_target[0], split_target[1]))
-    return expand_keymap_targets(split_targets)
+    return expand_keymap_targets(split_targets, parallel)
 
 
-def _expand_keymap_target(keyboard: str, keymap: str, all_keyboards: List[str] = None) -> List[Tuple[str, str]]:
+def _expand_keymap_target(keyboard: str, keymap: str, all_keyboards: List[str] = None, parallel=True) -> List[Tuple[str, str]]:
     """Expand a keyboard input and keymap input into a list of (keyboard, keymap) tuples.
 
     Caters for 'all' in either keyboard or keymap, or both.
@@ -78,17 +78,25 @@ def _expand_keymap_target(keyboard: str, keymap: str, all_keyboards: List[str] =
         all_keyboards = qmk.keyboard.list_keyboards()
 
     if keyboard == 'all':
-        with multiprocessing.Pool() as pool:
+
+        def _inner_func(pool):
+            _map_func = pool.imap_unordered if pool is not None else map
             if keymap == 'all':
                 cli.log.info('Retrieving list of all keyboards and keymaps...')
                 targets = []
-                for kb in pool.imap_unordered(_all_keymaps, all_keyboards):
+                for kb in _map_func(_all_keymaps, all_keyboards):
                     targets.extend(kb)
                 return targets
             else:
                 cli.log.info(f'Retrieving list of keyboards with keymap "{keymap}"...')
                 keyboard_filter = functools.partial(_keymap_exists, keymap=keymap)
-                return [(kb, keymap) for kb in filter(lambda e: e is not None, pool.imap_unordered(keyboard_filter, all_keyboards))]
+                return [(kb, keymap) for kb in filter(lambda e: e is not None, _map_func(keyboard_filter, all_keyboards))]
+
+        if parallel:
+            with multiprocessing.Pool() as pool:
+                return _inner_func(pool)
+        return _inner_func(None)
+
     else:
         if keymap == 'all':
             keyboard = qmk.keyboard.resolve_keyboard(keyboard)
@@ -98,17 +106,17 @@ def _expand_keymap_target(keyboard: str, keymap: str, all_keyboards: List[str] =
             return [(qmk.keyboard.resolve_keyboard(keyboard), keymap)]
 
 
-def expand_keymap_targets(targets: List[Tuple[str, str]]) -> List[Tuple[str, str]]:
+def expand_keymap_targets(targets: List[Tuple[str, str]], parallel=True) -> List[Tuple[str, str]]:
     """Expand a list of (keyboard, keymap) tuples inclusive of 'all', into a list of explicit (keyboard, keymap) tuples.
     """
     overall_targets = []
     all_keyboards = qmk.keyboard.list_keyboards()
     for target in targets:
-        overall_targets.extend(_expand_keymap_target(target[0], target[1], all_keyboards))
+        overall_targets.extend(_expand_keymap_target(target[0], target[1], all_keyboards, parallel))
     return list(sorted(set(overall_targets)))
 
 
-def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str] = [], print_vals: List[str] = []) -> List[Tuple[str, str, List[Tuple[str, str]]]]:
+def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str] = [], print_vals: List[str] = [], parallel=True) -> List[Tuple[str, str, List[Tuple[str, str]]]]:
     """Filter a list of (keyboard, keymap) tuples based on the supplied filters.
 
     Optionally includes the values of the queried info.json keys.
@@ -117,8 +125,16 @@ def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str
         targets = [(kb, km, {}) for kb, km in target_list]
     else:
         cli.log.info('Parsing data for all matching keyboard/keymap combinations...')
-        with multiprocessing.Pool() as pool:
-            valid_keymaps = [(e[0], e[1], dotty(e[2])) for e in pool.imap_unordered(_load_keymap_info, target_list)]
+
+        def _inner_func(pool):
+            _map_func = pool.imap_unordered if pool is not None else map
+            return [(e[0], e[1], dotty(e[2])) for e in _map_func(_load_keymap_info, target_list)]
+
+        if parallel:
+            with multiprocessing.Pool() as pool:
+                valid_keymaps = _inner_func(pool)
+        else:
+            valid_keymaps = _inner_func(None)
 
         function_re = re.compile(r'^(?P<function>[a-zA-Z]+)\((?P<key>[a-zA-Z0-9_\.]+)(,\s*(?P<value>[^#]+))?\)$')
         equals_re = re.compile(r'^(?P<key>[a-zA-Z0-9_\.]+)\s*=\s*(?P<value>[^#]+)$')
@@ -179,13 +195,13 @@ def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str
     return targets
 
 
-def search_keymap_targets(keymap='default', filters: List[str] = [], print_vals: List[str] = []) -> List[Tuple[str, str, List[Tuple[str, str]]]]:
+def search_keymap_targets(keymap='default', filters: List[str] = [], print_vals: List[str] = [], parallel=True) -> List[Tuple[str, str, List[Tuple[str, str]]]]:
     """Search for build targets matching the supplied criteria.
     """
-    return list(sorted(_filter_keymap_targets(expand_keymap_targets([('all', keymap)]), filters, print_vals), key=lambda e: (e[0], e[1])))
+    return list(sorted(_filter_keymap_targets(expand_keymap_targets([('all', keymap)], parallel), filters, print_vals, parallel), key=lambda e: (e[0], e[1])))
 
 
-def search_make_targets(targets: List[str], filters: List[str] = [], print_vals: List[str] = []) -> List[Tuple[str, str, List[Tuple[str, str]]]]:
+def search_make_targets(targets: List[str], filters: List[str] = [], print_vals: List[str] = [], parallel=True) -> List[Tuple[str, str, List[Tuple[str, str]]]]:
     """Search for build targets matching the supplied criteria.
     """
-    return list(sorted(_filter_keymap_targets(expand_make_targets(targets), filters, print_vals), key=lambda e: (e[0], e[1])))
+    return list(sorted(_filter_keymap_targets(expand_make_targets(targets, parallel), filters, print_vals, parallel), key=lambda e: (e[0], e[1])))

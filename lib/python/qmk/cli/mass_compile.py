@@ -79,6 +79,7 @@ all: {keyboard_safe}_{keymap_name}_binary
 @cli.argument('-j', '--parallel', type=int, default=1, help="Set the number of parallel make jobs; 0 means unlimited.")
 @cli.argument('-c', '--clean', arg_only=True, action='store_true', help="Remove object files before compiling.")
 @cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Don't actually build, just show the commands to be run.")
+@cli.argument('-x', '--disable-parallel-parsing', arg_only=True, action='store_true', help="Disables parallel parsing of files, useful for debugging stalls.")
 @cli.argument(
     '-f',
     '--filter',
@@ -95,8 +96,8 @@ def mass_compile(cli):
     """Compile QMK Firmware against all keyboards.
     """
     if len(cli.args.builds) > 0:
-        targets = search_make_targets(cli.args.builds, cli.args.filter)
+        targets = search_make_targets(cli.args.builds, cli.args.filter, parallel=not cli.args.disable_parallel_parsing)
     else:
-        targets = search_keymap_targets(cli.args.keymap, cli.args.filter)
+        targets = search_keymap_targets(cli.args.keymap, cli.args.filter, parallel=not cli.args.disable_parallel_parsing)
 
     return mass_compile_targets(targets, cli.args.clean, cli.args.dry_run, cli.args.no_temp, cli.args.parallel, cli.args.env)
