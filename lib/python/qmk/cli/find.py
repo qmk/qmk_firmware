@@ -24,7 +24,7 @@ def find(cli):
     if len(cli.args.filter) == 0 and len(cli.args.print) > 0:
         cli.log.warning('No filters supplied -- keymaps not parsed, unable to print requested values.')
 
-    targets = search_keymap_targets([('all', cli.args.keymap)], cli.args.filter, cli.args.print, parallel=not cli.args.disable_parallel_parsing)
+    targets = search_keymap_targets([('all', cli.config.find.keymap)], cli.args.filter, cli.args.print, parallel=not cli.config.find.disable_parallel_parsing)
     for keyboard, keymap, print_vals in targets:
         print(f'{keyboard}:{keymap}')
 
