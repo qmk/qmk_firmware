@@ -18,5 +18,8 @@ def userspace_compile(cli):
         return False
 
     userspace = UserspaceDefs(QMK_USERSPACE / 'qmk.json')
-    make_targets = search_keymap_targets([(e['keyboard'], e['keymap']) for e in userspace.build_targets])
-    mass_compile_targets(make_targets, cli.args.clean, cli.args.dry_run, cli.config.userspace_compile.no_temp, cli.config.userspace_compile.parallel, cli.args.env)
+
+    build_targets = [(e['keyboard'], e['keymap']) for e in userspace.build_targets]
+    build_targets = search_keymap_targets(build_targets)
+
+    mass_compile_targets(build_targets, cli.args.clean, cli.args.dry_run, cli.config.userspace_compile.no_temp, cli.config.userspace_compile.parallel, cli.args.env)
