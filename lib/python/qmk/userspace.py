@@ -28,6 +28,7 @@ def qmk_userspace_paths():
 def qmk_userspace_validate(path):
     if (path / 'qmk.json').is_file():
         UserspaceDefs(path / 'qmk.json')
+        return
     raise FileNotFoundError('No qmk.json file found.')
 
 
