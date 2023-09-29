@@ -28,29 +28,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ❬D  ᚛-᚜Eb ᚛-᚜E  ᚛-᚜F  ᚛-᚜Gb ᚛-᚜G  ᚛-᚜Ab ❭‾‾
      *  ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾ 
      */
-    [0] = LAYOUT_hexboard_landscape(
-                MI_BENDU,MI_OCTU,  MI_ON,
-          MI_BENDD,MI_OCTD,  MI_ALLOFF,MI_ALLOFF,
+    [0] = LAYOUT_landscape(
+                MI_BNDU,MI_OCTU,  MI_ON,
+          MI_BNDD,MI_OCTD,  MI_AOFF,MI_AOFF,
 
 
-      MI_F_5,   MI_Gb_5, MI_G_5,   MI_Ab_5,  MI_A_5,  MI_Bb_5, MI_B_5,
-          MI_D_5,  MI_Eb_5,  MI_E_5,   MI_F_5,   MI_Gb_5, MI_G_5,   MI_Ab_5,
-      MI_Bb_4,  MI_B_4,  MI_C_5,   MI_Db_5,  MI_D_5,  MI_Eb_5, MI_E_5,
-          MI_G_4,  MI_Ab_4,  MI_A_4,   MI_Bb_4,  MI_B_4,  MI_C_5,   MI_Db_5,
-      MI_Eb_4,  MI_E_4,  MI_F_4,   MI_Gb_4,  MI_G_4,  MI_Ab_4, MI_A_4,
-          MI_C_4,  MI_Db_4,  MI_D_4,   MI_Eb_4,  MI_E_4,  MI_F_4,   MI_Gb_4,
-      MI_Ab_3,  MI_A_3,  MI_Bb_3,  MI_B_3,  MI_C_4,   MI_Db_4, MI_D_4,
-          MI_F_3,  MI_Gb_3,  MI_G_3,   MI_Ab_3,  MI_A_3,  MI_Bb_3,  MI_B_3,
-      MI_Db_3,  MI_D_3,  MI_Eb_3,  MI_E_3,  MI_F_3,   MI_Gb_3, MI_G_3,
-          MI_Bb_2,  MI_B_2,  MI_C_3,   MI_Db_3,  MI_D_3,  MI_Eb_3,  MI_E_3,
-      MI_Gb_2,  MI_G_2,  MI_Ab_2,  MI_A_2,  MI_Bb_2,  MI_B_2,  MI_C_3,
-          MI_Eb_2,  MI_E_2,  MI_F_2,   MI_Gb_2,  MI_G_2,  MI_Ab_2,  MI_A_2,
-      MI_B_1,   MI_C_2,  MI_Db_2,  MI_D_2,  MI_Eb_2,  MI_E_2,  MI_F_2,
-          MI_Ab_1,  MI_A_1,  MI_Bb_1,  MI_B_1,   MI_C_2,  MI_Db_2,  MI_D_2,
-      MI_E_1,   MI_F_1,  MI_Gb_1,  MI_G_1,  MI_Ab_1,  MI_A_1,  MI_Bb_1,
-          MI_Db_1,  MI_D_1,  MI_Eb_1,  MI_E_1,   MI_F_1,  MI_Gb_1,  MI_G_1,
-      MI_A,     MI_Bb,   MI_B,     MI_C_1,  MI_Db_1,  MI_D_1,  MI_Eb_1,
-          MI_Gb,  MI_G,      MI_Ab,    MI_A,     MI_Bb,   MI_B,     MI_C_1,
-      MI_D,     MI_Eb,   MI_E,     MI_F,  MI_Gb_1,    MI_G,    MI_Ab
+      MI_F5,   MI_Gb5, MI_G5,   MI_Ab5,  MI_A5,  MI_Bb5, MI_B5,
+          MI_D5,  MI_Eb5,  MI_E5,   MI_F5,   MI_Gb5, MI_G5,   MI_Ab5,
+      MI_Bb4,  MI_B4,  MI_C5,   MI_Db5,  MI_D5,  MI_Eb5, MI_E5,
+          MI_G4,  MI_Ab4,  MI_A4,   MI_Bb4,  MI_B4,  MI_C5,   MI_Db5,
+      MI_Eb4,  MI_E4,  MI_F4,   MI_Gb4,  MI_G4,  MI_Ab4, MI_A4,
+          MI_C4,  MI_Db4,  MI_D4,   MI_Eb4,  MI_E4,  MI_F4,   MI_Gb4,
+      MI_Ab3,  MI_A3,  MI_Bb3,  MI_B3,  MI_C4,   MI_Db4, MI_D4,
+          MI_F3,  MI_Gb3,  MI_G3,   MI_Ab3,  MI_A3,  MI_Bb3,  MI_B3,
+      MI_Db3,  MI_D3,  MI_Eb3,  MI_E3,  MI_F3,   MI_Gb3, MI_G3,
+          MI_Bb2,  MI_B2,  MI_C3,   MI_Db3,  MI_D3,  MI_Eb3,  MI_E3,
+      MI_Gb2,  MI_G2,  MI_Ab2,  MI_A2,  MI_Bb2,  MI_B2,  MI_C3,
+          MI_Eb2,  MI_E2,  MI_F2,   MI_Gb2,  MI_G2,  MI_Ab2,  MI_A2,
+      MI_B1,   MI_C2,  MI_Db2,  MI_D2,  MI_Eb2,  MI_E2,  MI_F2,
+          MI_Ab1,  MI_A1,  MI_Bb1,  MI_B1,   MI_C2,  MI_Db2,  MI_D2,
+      MI_E1,   MI_F1,  MI_Gb1,  MI_G1,  MI_Ab1,  MI_A1,  MI_Bb1,
+          MI_Db1,  MI_D1,  MI_Eb1,  MI_E1,   MI_F1,  MI_Gb1,  MI_G1,
+      MI_A,     MI_Bb,   MI_B,     MI_C1,  MI_Db1,  MI_D1,  MI_Eb1,
+          MI_Gb,  MI_G,      MI_Ab,    MI_A,     MI_Bb,   MI_B,     MI_C1,
+      MI_D,     MI_Eb,   MI_E,     MI_F,  MI_Gb1,    MI_G,    MI_Ab
     )
 };
