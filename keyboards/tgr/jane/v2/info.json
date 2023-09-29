@@ -33,7 +33,8 @@
     "tkl_iso",
     "tkl_iso_split_bs_rshift",
     "tkl_iso_tsangan",
-    "tkl_iso_tsangan_split_bs_rshift"],
+    "tkl_iso_tsangan_split_bs_rshift"
+  ],
   "layouts": {
     "LAYOUT_all": {
       "layout": [
