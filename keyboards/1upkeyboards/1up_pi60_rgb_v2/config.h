@@ -17,7 +17,6 @@
 #pragma once
 
 #define RGB_MATRIX_LED_COUNT 104
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 125
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
