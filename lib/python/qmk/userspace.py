@@ -44,7 +44,7 @@ def detect_qmk_userspace():
 class UserspaceDefs:
     def __init__(self, userspace_json: Path):
         self.path = userspace_json
-        self._build_targets = []
+        self.build_targets = []
         json = json_load(userspace_json)
 
         exception = UserspaceValidationException()
@@ -73,7 +73,7 @@ class UserspaceDefs:
             "build_targets": []
         }
 
-        for e in self._build_targets:
+        for e in self.build_targets:
             target_json['build_targets'].append([e['keyboard'], e['keymap']])
 
         try:
@@ -86,19 +86,15 @@ class UserspaceDefs:
         self.path.write_text(json.dumps(target_json, cls=UserspaceJSONEncoder, sort_keys=True))
         return True
 
-    @property
-    def targets(self):
-        return [(e['keyboard'], e['keymap']) for e in self._build_targets]
-
     def add_target(self, keyboard, keymap):
         e = {"keyboard": keyboard, "keymap": keymap}
-        if e not in self._build_targets:
-            self._build_targets.append(e)
+        if e not in self.build_targets:
+            self.build_targets.append(e)
 
     def remove_target(self, keyboard, keymap):
         e = {"keyboard": keyboard, "keymap": keymap}
-        if e in self._build_targets:
-            self._build_targets.remove(e)
+        if e in self.build_targets:
+            self.build_targets.remove(e)
 
     def __load_v1(self, json):
         for e in json['build_targets']:
