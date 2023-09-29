@@ -48,16 +48,6 @@ void keyoard_post_init_kb(void) {
 #endif
 }
 
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    #ifdef LED_CAPS_LOCK_PIN
-    if(res) {
-        writePin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
-    }
-    #endif
-    return res;
-}
-
 layer_state_t layer_state_set_kb(layer_state_t state) {
         switch (get_highest_layer(state)) {
         case 1:
