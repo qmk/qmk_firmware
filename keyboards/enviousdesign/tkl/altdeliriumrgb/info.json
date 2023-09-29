@@ -19,8 +19,8 @@
     },
     "processor": "RP2040",
     "rgb_matrix": {
-        "driver": "WS2812",
-		"max_brightness": 64,
+        "driver": "ws2812",
+        "max_brightness": 64,
         "animations": {
             "breathing": true,
             "cycle_all": true,

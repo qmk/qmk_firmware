@@ -24,7 +24,7 @@
         "vid": "0xE739"
     },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ortho_3x4": {
             "layout": [
                 {"label": "F13", "matrix": [0, 0], "x": 0, "y": 0, "w": 1},
                 {"label": "F14", "matrix": [0, 1], "x": 1, "y": 0, "w": 1},

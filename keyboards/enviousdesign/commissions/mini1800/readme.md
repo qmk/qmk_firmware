@@ -1,6 +1,6 @@
 # mini1800
 
-![mini1800](https://imgur.com/t55hjq8)
+![mini1800](https://i.imgur.com/t55hjq8.jpeg)
 
 *A mini1800 layout commission keyboard for LASERman71 utilising the RP2040 MCU*
 
@@ -10,11 +10,11 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make mini1800:default
+    make enviousdesign/commissions/mini1800:default
 
 Flashing example for this keyboard:
 
-    make mini1800:default:flash
+    make enviousdesign/commissions/mini1800:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
