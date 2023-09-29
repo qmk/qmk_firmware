@@ -5,7 +5,7 @@ colorama
 dotty-dict
 hid
 hjson
-jsonschema>=4
+jsonschema~=4.17.3
 milc>=1.4.2
 pygments
 pyserial
