@@ -4,6 +4,7 @@ import contextlib
 import functools
 import multiprocessing
 
+
 @contextlib.contextmanager
 def parallelize(do_parallel):
     """Returns a function that can be used in place of a map() call.
@@ -24,4 +25,3 @@ def parallelize(do_parallel):
 
     with multiprocessing.Pool() as pool:
         yield pool.imap_unordered
-    return
