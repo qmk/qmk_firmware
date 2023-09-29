@@ -1,7 +1,7 @@
 {
     "keyboard_name": "QQ 60% Hotswap",
     "maintainer": "zeix",
-    "manufacturer": "dnworks",
+    "manufacturer": "qwertyqop",
     "processor": "RP2040",
     "bootloader": "rp2040",
     "usb": {
