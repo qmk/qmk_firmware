@@ -195,10 +195,10 @@ def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str
     return targets
 
 
-def search_keymap_targets(keymap='default', filters: List[str] = [], print_vals: List[str] = [], parallel=True) -> List[Tuple[str, str, List[Tuple[str, str]]]]:
+def search_keymap_targets(targets: List[Tuple[str, str]] = [('all', 'default')], filters: List[str] = [], print_vals: List[str] = [], parallel=True) -> List[Tuple[str, str, List[Tuple[str, str]]]]:
     """Search for build targets matching the supplied criteria.
     """
-    return list(sorted(_filter_keymap_targets(expand_keymap_targets([('all', keymap)], parallel), filters, print_vals, parallel), key=lambda e: (e[0], e[1])))
+    return list(sorted(_filter_keymap_targets(expand_keymap_targets(targets, parallel), filters, print_vals, parallel), key=lambda e: (e[0], e[1])))
 
 
 def search_make_targets(targets: List[str], filters: List[str] = [], print_vals: List[str] = [], parallel=True) -> List[Tuple[str, str, List[Tuple[str, str]]]]:

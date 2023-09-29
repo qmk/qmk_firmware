@@ -32,7 +32,7 @@ def mass_compile_targets(targets, clean, dry_run, no_temp, parallel, env):
         builddir.mkdir(parents=True, exist_ok=True)
         with open(makefile, "w") as f:
 
-            envs = build_environment(cli.args.env)
+            envs = build_environment(env)
 
             for target in sorted(targets):
                 keyboard_name = target[0]
@@ -105,6 +105,6 @@ def mass_compile(cli):
     if len(cli.args.builds) > 0:
         targets = search_make_targets(cli.args.builds, cli.args.filter, parallel=not cli.args.disable_parallel_parsing)
     else:
-        targets = search_keymap_targets(cli.args.keymap, cli.args.filter, parallel=not cli.args.disable_parallel_parsing)
+        targets = search_keymap_targets([('all', cli.args.keymap)], cli.args.filter, parallel=not cli.args.disable_parallel_parsing)
 
     return mass_compile_targets(targets, cli.args.clean, cli.args.dry_run, cli.args.no_temp, cli.args.parallel, cli.args.env)
