@@ -1,6 +1,6 @@
 # Acheron Themis QMK firmware
 
-![themis](https://imgur.com/kwemOsJ.png)
+![themis](https://i.imgur.com/kwemOsJh.png)
 
 The Themis is Acheron Project's open-source, freely available tenkeyless (TKL) keyboard Printed Circuit Boards (PCB) which features:
 
