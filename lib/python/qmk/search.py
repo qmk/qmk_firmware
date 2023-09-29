@@ -9,7 +9,7 @@ from typing import List, Tuple
 from dotty_dict import dotty
 from milc import cli
 
-from qmk.util import parallelize
+from qmk.util import parallel_map
 from qmk.info import keymap_json
 import qmk.keyboard
 import qmk.keymap
@@ -58,7 +58,7 @@ def _load_keymap_info(arg0, arg1=None):
         return (arg0, arg1, keymap_json(arg0, arg1))
 
 
-def expand_make_targets(targets: List[str], parallel=True) -> List[Tuple[str, str]]:
+def expand_make_targets(targets: List[str]) -> List[Tuple[str, str]]:
     """Expand a list of make targets into a list of (keyboard, keymap) tuples.
 
     Caters for 'all' in either keyboard or keymap, or both.
@@ -70,10 +70,10 @@ def expand_make_targets(targets: List[str], parallel=True) -> List[Tuple[str, st
             cli.log.error(f"Invalid build target: {target}")
             return []
         split_targets.append((split_target[0], split_target[1]))
-    return expand_keymap_targets(split_targets, parallel)
+    return expand_keymap_targets(split_targets)
 
 
-def _expand_keymap_target(keyboard: str, keymap: str, all_keyboards: List[str] = None, parallel=True) -> List[Tuple[str, str]]:
+def _expand_keymap_target(keyboard: str, keymap: str, all_keyboards: List[str] = None) -> List[Tuple[str, str]]:
     """Expand a keyboard input and keymap input into a list of (keyboard, keymap) tuples.
 
     Caters for 'all' in either keyboard or keymap, or both.
@@ -85,15 +85,13 @@ def _expand_keymap_target(keyboard: str, keymap: str, all_keyboards: List[str] =
         if keymap == 'all':
             cli.log.info('Retrieving list of all keyboards and keymaps...')
             targets = []
-            with parallelize(parallel) as map_func:
-                for kb in map_func(_all_keymaps, all_keyboards):
-                    targets.extend(kb)
+            for kb in parallel_map(_all_keymaps, all_keyboards):
+                targets.extend(kb)
             return targets
         else:
             cli.log.info(f'Retrieving list of keyboards with keymap "{keymap}"...')
             keyboard_filter = functools.partial(_keymap_exists, keymap=keymap)
-            with parallelize(parallel) as map_func:
-                return [(kb, keymap) for kb in filter(lambda e: e is not None, map_func(keyboard_filter, all_keyboards))]
+            return [(kb, keymap) for kb in filter(lambda e: e is not None, parallel_map(keyboard_filter, all_keyboards))]
     else:
         if keymap == 'all':
             keyboard = qmk.keyboard.resolve_keyboard(keyboard)
@@ -103,17 +101,17 @@ def _expand_keymap_target(keyboard: str, keymap: str, all_keyboards: List[str] =
             return [(qmk.keyboard.resolve_keyboard(keyboard), keymap)]
 
 
-def expand_keymap_targets(targets: List[Tuple[str, str]], parallel=True) -> List[Tuple[str, str]]:
+def expand_keymap_targets(targets: List[Tuple[str, str]]) -> List[Tuple[str, str]]:
     """Expand a list of (keyboard, keymap) tuples inclusive of 'all', into a list of explicit (keyboard, keymap) tuples.
     """
     overall_targets = []
     all_keyboards = qmk.keyboard.list_keyboards()
     for target in targets:
-        overall_targets.extend(_expand_keymap_target(target[0], target[1], all_keyboards, parallel))
+        overall_targets.extend(_expand_keymap_target(target[0], target[1], all_keyboards))
     return list(sorted(set(overall_targets)))
 
 
-def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str] = [], print_vals: List[str] = [], parallel=True) -> List[Tuple[str, str, List[Tuple[str, str]]]]:
+def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str] = [], print_vals: List[str] = []) -> List[Tuple[str, str, List[Tuple[str, str]]]]:
     """Filter a list of (keyboard, keymap) tuples based on the supplied filters.
 
     Optionally includes the values of the queried info.json keys.
@@ -122,8 +120,7 @@ def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str
         targets = [(kb, km, {}) for kb, km in target_list]
     else:
         cli.log.info('Parsing data for all matching keyboard/keymap combinations...')
-        with parallelize(parallel) as map_func:
-            valid_keymaps = [(e[0], e[1], dotty(e[2])) for e in map_func(_load_keymap_info, target_list)]
+        valid_keymaps = [(e[0], e[1], dotty(e[2])) for e in parallel_map(_load_keymap_info, target_list)]
 
         function_re = re.compile(r'^(?P<function>[a-zA-Z]+)\((?P<key>[a-zA-Z0-9_\.]+)(,\s*(?P<value>[^#]+))?\)$')
         equals_re = re.compile(r'^(?P<key>[a-zA-Z0-9_\.]+)\s*=\s*(?P<value>[^#]+)$')
@@ -184,13 +181,13 @@ def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str
     return targets
 
 
-def search_keymap_targets(targets: List[Tuple[str, str]] = [('all', 'default')], filters: List[str] = [], print_vals: List[str] = [], parallel=True) -> List[Tuple[str, str, List[Tuple[str, str]]]]:
+def search_keymap_targets(targets: List[Tuple[str, str]] = [('all', 'default')], filters: List[str] = [], print_vals: List[str] = []) -> List[Tuple[str, str, List[Tuple[str, str]]]]:
     """Search for build targets matching the supplied criteria.
     """
-    return list(sorted(_filter_keymap_targets(expand_keymap_targets(targets, parallel), filters, print_vals, parallel), key=lambda e: (e[0], e[1])))
+    return list(sorted(_filter_keymap_targets(expand_keymap_targets(targets), filters, print_vals), key=lambda e: (e[0], e[1])))
 
 
-def search_make_targets(targets: List[str], filters: List[str] = [], print_vals: List[str] = [], parallel=True) -> List[Tuple[str, str, List[Tuple[str, str]]]]:
+def search_make_targets(targets: List[str], filters: List[str] = [], print_vals: List[str] = []) -> List[Tuple[str, str, List[Tuple[str, str]]]]:
     """Search for build targets matching the supplied criteria.
     """
-    return list(sorted(_filter_keymap_targets(expand_make_targets(targets, parallel), filters, print_vals, parallel), key=lambda e: (e[0], e[1])))
+    return list(sorted(_filter_keymap_targets(expand_make_targets(targets), filters, print_vals), key=lambda e: (e[0], e[1])))
