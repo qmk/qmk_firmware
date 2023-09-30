@@ -18,6 +18,3 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/*EEPROM for via*/
-#define DYNAMIC_KEYMAP_LAYER_COUNT 7

@@ -10,9 +10,7 @@
         "console": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "lto": true,
-        "key_override": true
+        "nkro": true
     },
     "matrix_pins": {
         "cols": ["GP20", "GP21"],
@@ -24,9 +22,6 @@
         "device_version": "1.0.0",
         "pid": "0x0003",
         "vid": "0x2E8A"
-    },
-    "usb_detect": {
-        "timeout": 2500
     }
     "layouts": {
         "LAYOUT_ortho_2x2": {
