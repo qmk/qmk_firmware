@@ -90,9 +90,9 @@
 
 /* enums */
 enum pointing_device_directions {
-    PD_DOWN = 0, // default value
-    PD_UP = 1,
-    PD_LEFT = 2,
+    PD_DOWN  = 0, // default value
+    PD_UP    = 1,
+    PD_LEFT  = 2,
     PD_RIGHT = 3
 };
 
@@ -153,7 +153,7 @@ report_mouse_t pointing_device_modes_task(report_mouse_t mouse_report); // inter
 /* ----------Pointing Device mode Mapping------------------------------------------------------------------------- */
 #ifdef POINTING_MODE_MAP_ENABLE
 #    define POINTING_MODE_LAYOUT(Y_POS, X_NEG, X_POS, Y_NEG) \
-             {Y_NEG, Y_POS, X_NEG, X_POS }
+        { Y_NEG, Y_POS, X_NEG, X_POS }
 #    ifndef POINTING_MODE_MAP_START
 #        define POINTING_MODE_MAP_START PM_SAFE_RANGE
 #    endif
