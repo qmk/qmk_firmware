@@ -25,16 +25,54 @@
 #include "led_matrix_types.h"
 #include "keyboard.h"
 
-#ifdef IS31FL3731
+#if defined(LED_MATRIX_IS31FL3218)
+#    include "is31fl3218-simple.h"
+#elif defined(LED_MATRIX_IS31FL3731)
 #    include "is31fl3731-simple.h"
-#elif defined(IS31FLCOMMON)
-#    include "is31flcommon.h"
 #endif
-#ifdef IS31FL3733
+#ifdef LED_MATRIX_IS31FL3733
 #    include "is31fl3733-simple.h"
 #endif
-#ifdef CKLED2001
+#ifdef LED_MATRIX_IS31FL3736
+#    include "is31fl3736-simple.h"
+#endif
+#if defined(IS31FLCOMMON)
+#    include "is31flcommon.h"
+#endif
+#ifdef LED_MATRIX_CKLED2001
 #    include "ckled2001-simple.h"
+#endif
+
+#ifndef LED_MATRIX_TIMEOUT
+#    define LED_MATRIX_TIMEOUT 0
+#endif
+
+#ifndef LED_MATRIX_MAXIMUM_BRIGHTNESS
+#    define LED_MATRIX_MAXIMUM_BRIGHTNESS UINT8_MAX
+#endif
+
+#ifndef LED_MATRIX_VAL_STEP
+#    define LED_MATRIX_VAL_STEP 8
+#endif
+
+#ifndef LED_MATRIX_SPD_STEP
+#    define LED_MATRIX_SPD_STEP 16
+#endif
+
+#ifndef LED_MATRIX_DEFAULT_ON
+#    define LED_MATRIX_DEFAULT_ON true
+#endif
+
+#ifndef LED_MATRIX_DEFAULT_MODE
+#    define LED_MATRIX_DEFAULT_MODE LED_MATRIX_SOLID
+#endif
+
+#ifndef LED_MATRIX_DEFAULT_VAL
+#    define LED_MATRIX_DEFAULT_VAL LED_MATRIX_MAXIMUM_BRIGHTNESS
+#endif
+
+#ifndef LED_MATRIX_DEFAULT_SPD
+#    define LED_MATRIX_DEFAULT_SPD UINT8_MAX / 2
 #endif
 
 #ifndef LED_MATRIX_LED_FLUSH_LIMIT
