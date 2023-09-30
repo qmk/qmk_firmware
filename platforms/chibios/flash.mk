@@ -115,6 +115,8 @@ else ifeq ($(strip $(MCU_FAMILY)),WB32)
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_WB32_DFU_UPDATER)
 else ifeq ($(strip $(MCU_FAMILY)),GD32V)
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_DFU_UTIL)
+else ifeq ($(strip $(BOOTLOADER)),ignition)
+	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_DFU_UTIL)
 else
 	$(PRINT_OK); $(SILENT) || printf "$(MSG_FLASH_BOOTLOADER)"
 endif

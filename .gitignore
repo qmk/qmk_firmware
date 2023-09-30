@@ -108,9 +108,6 @@ user_song_list.h
 /users/
 /layouts/
 /keyboards/*
-!/keyboards/ergodox_ez/
-!/keyboards/planck/
-!/keyboards/moonlander/
 
 # clangd
 compile_commands.json

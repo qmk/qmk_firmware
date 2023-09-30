@@ -227,7 +227,7 @@ else
     ifeq ($(PLATFORM),AVR)
       # Automatically provided by avr-libc, nothing required
     else ifeq ($(PLATFORM),CHIBIOS)
-      ifneq ($(filter %_STM32F072xB %_STM32F042x6, $(MCU_SERIES)_$(MCU_LDSCRIPT)),)
+      ifneq ($(filter %_STM32F072xB %_STM32F042x6 _GD32F303x6, $(MCU_SERIES)_$(MCU_LDSCRIPT)),)
         # STM32 Emulated EEPROM, backed by MCU flash (soon to be deprecated)
         OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_LEGACY_EMULATED_FLASH
         COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/flash
@@ -315,6 +315,7 @@ ifneq ($(strip $(FLASH_DRIVER)), none)
         endif
     endif
 endif
+
 
 RGBLIGHT_ENABLE ?= no
 VALID_RGBLIGHT_TYPES := ws2812 apa102 custom

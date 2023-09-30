@@ -1,6 +1,9 @@
 #include <string.h>
 #include "oryx.h"
 #include "eeprom.h"
+#ifdef KEYBOARD_voyager
+#    include "voyager.h"
+#endif
 
 rawhid_state_t rawhid_state = {.pairing = false, .paired = false};
 
@@ -69,6 +72,10 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                 rawhid_state.rgb_control = true;
 #    endif
             }
+            uint8_t event[RAW_EPSIZE];
+            event[0] = ORYX_EVT_RGB_CONTROL;
+            event[1] = rawhid_state.rgb_control;
+            raw_hid_send(event, RAW_EPSIZE);
 #else
             oryx_error(ORYX_ERR_RGB_MATRIX_NOT_ENABLED);
 #endif
@@ -81,6 +88,69 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             oryx_error(ORYX_ERR_RGB_MATRIX_NOT_ENABLED);
 #endif
             break;
+        case ORYX_SET_STATUS_LED:
+            switch (param[0]) {
+                case 0:
+#ifdef STATUS_LED_1
+                    STATUS_LED_1(param[1]);
+#else
+                    oryx_error(ORYX_ERR_STATUS_LED_OUT_OF_RANGE);
+#endif
+                    break;
+                case 1:
+#ifdef STATUS_LED_2
+                    STATUS_LED_2(param[1]);
+#else
+                    oryx_error(ORYX_ERR_STATUS_LED_OUT_OF_RANGE);
+#endif
+                    break;
+                case 2:
+#ifdef STATUS_LED_3
+                    STATUS_LED_3(param[1]);
+#else
+                    oryx_error(ORYX_ERR_STATUS_LED_OUT_OF_RANGE);
+#endif
+                    break;
+                case 3:
+#ifdef STATUS_LED_4
+                    STATUS_LED_4(param[1]);
+#else
+                    oryx_error(ORYX_ERR_STATUS_LED_OUT_OF_RANGE);
+#endif
+                    break;
+                case 4:
+#ifdef STATUS_LED_5
+                    STATUS_LED_5(param[1]);
+#else
+                    oryx_error(ORYX_ERR_STATUS_LED_OUT_OF_RANGE);
+#endif
+                    break;
+                case 5:
+#ifdef STATUS_LED_6
+                    STATUS_LED_6(param[1]);
+#else
+                    oryx_error(ORYX_ERR_STATUS_LED_OUT_OF_RANGE);
+#endif
+                    break;
+
+                default:
+                    oryx_error(ORYX_ERR_STATUS_LED_OUT_OF_RANGE);
+                    break;
+            }
+            break;
+        case ORYX_UPDATE_BRIGHTNESS:
+#if defined(RGB_MATRIX_ENABLE) && !defined(KEYBOARD_ergodox_ez_glow)
+            if (param[0]) {
+                rgb_matrix_increase_val_noeeprom();
+            } else {
+                rgb_matrix_decrease_val_noeeprom();
+            }
+#else
+            oryx_error(ORYX_ERR_RGB_MATRIX_NOT_ENABLED);
+#endif
+            break;
+        default:
+            oryx_error(ORYX_ERR_UNKNOWN_COMMAND);
     }
 }
 

@@ -845,3 +845,37 @@ ifneq ($(findstring GD32VF103, $(MCU)),)
 
   USE_FPU ?= no
 endif
+
+ifneq ($(findstring GD32F303, $(MCU)),)
+  # Cortex version
+  MCU = cortex-m4
+
+  # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
+  ARMV = 7
+
+  ## chip/board settings
+  # - the next two should match the directories in
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)
+  #   OR
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  MCU_PORT_NAME = GD
+  MCU_FAMILY = GD32F
+  MCU_SERIES = GD32F303
+
+  # Linker script to use
+  # - it should exist either in <chibios>/os/common/startup/ARMCMx/compilers/GCC/ld/
+  #   or <keyboard_dir>/ld/
+  MCU_LDSCRIPT ?= GD32F303x6
+
+  # Startup code to use
+  #  - it should exist in <chibios>/os/common/startup/ARMCMx/compilers/GCC/mk/
+  MCU_STARTUP ?= gd32f30x
+
+  # Board: it should exist either in <chibios>/os/hal/boards/,
+  # <keyboard_dir>/boards/, or drivers/boards/
+  BOARD ?= GD32F303C_EVAL
+
+  STM32_BOOTLOADER_ADDRESS ?= 0x08002000
+
+  USE_FPU ?= no
+endif

@@ -37,6 +37,8 @@ enum Oryx_Command_Code {
     ORYX_SET_LAYER,
     ORYX_RGB_CONTROL,
     ORYX_SET_RGB_LED,
+    ORYX_SET_STATUS_LED,
+    ORYX_UPDATE_BRIGHTNESS,
     ORYX_GET_PROTOCOL_VERSION = 0xFE,
 };
 
@@ -49,6 +51,7 @@ enum Oryx_Event_Code {
     ORYX_EVT_LAYER,
     ORYX_EVT_KEYDOWN,
     ORYX_EVT_KEYUP,
+    ORYX_EVT_RGB_CONTROL,
     ORYX_EVT_GET_PROTOCOL_VERSION = 0XFE,
     ORYX_EVT_ERROR                = 0xFF,
 };
@@ -59,6 +62,8 @@ enum Oryx_Error_Code {
     ORYX_ERR_PAIRING_KEY_INPUT_FAILED,
     ORYX_ERR_PAIRING_FAILED,
     ORYX_ERR_RGB_MATRIX_NOT_ENABLED,
+    ORYX_ERR_STATUS_LED_OUT_OF_RANGE,
+    ORYX_ERR_UNKNOWN_COMMAND = 0xFF,
 };
 
 extern bool oryx_state_live_training_enabled;

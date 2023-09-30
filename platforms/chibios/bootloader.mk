@@ -118,6 +118,13 @@ ifeq ($(strip $(BOOTLOADER)), wb32-dfu)
     OPT_DEFS += -DBOOTLOADER_WB32_DFU
     BOOTLOADER_TYPE = wb32_dfu
 endif
+ifeq ($(strip $(BOOTLOADER)), ignition)
+    OPT_DEFS += -DBOOTLOADER_IGNITION
+    BOOTLOADER_TYPE = ignition
+    MCU_LDSCRIPT = IGNITION
+    DFU_ARGS ?= -d 3297:0791 -a 0 -s 0x08002000:leave
+    DFU_SUFFIX_ARGS ?= -v 3297 -p 0791
+endif
 
 ifeq ($(strip $(BOOTLOADER_TYPE)),)
     ifneq ($(strip $(BOOTLOADER)),)
