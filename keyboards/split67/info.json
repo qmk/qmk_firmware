@@ -8,7 +8,7 @@
     "development_board": "promicro",
     "diode_direction": "COL2ROW",
     "dynamic_keymap": {
-        "layer_count": 2
+        "layer_count": 3
     },
     "features": {
         "bootmagic": true,
@@ -44,6 +44,7 @@
                 {"matrix": [0, 3], "x": 3, "y": 0},
                 {"matrix": [0, 4], "x": 4, "y": 0},
                 {"matrix": [0, 5], "x": 5, "y": 0},
+                {"matrix": [4, 5], "x": 7, "y": 4},
                 {"matrix": [5, 0], "x": 9, "y": 0},
                 {"matrix": [5, 1], "x": 10, "y": 0},
                 {"matrix": [5, 2], "x": 11, "y": 0},
@@ -98,7 +99,6 @@
                 {"matrix": [4, 2], "x": 2.5, "y": 4, "w": 1.25},
                 {"matrix": [4, 3], "x": 3.75, "y": 4, "w": 2.25},
                 {"matrix": [4, 4], "x": 6, "y": 4},
-                {"matrix": [4, 5], "x": 7, "y": 4},
                 {"matrix": [9, 0], "x": 9, "y": 4, "w": 2.75},
                 {"matrix": [9, 1], "x": 11.75, "y": 4, "w": 1.25},
                 {"matrix": [9, 2], "x": 13, "y": 4, "w": 1.25},
