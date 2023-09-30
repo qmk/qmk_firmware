@@ -1,8 +1,8 @@
 # syenakeyboards/aswagata
 
-![SyenaKeyboards Aswagata](https://images.tokopedia.net/img/cache/900/VqbcmM/2023/9/30/dc3e20b5-eb94-4f92-8a44-f2f556dcc1ab.jpg)
+![SyenaKeyboards Aswagata](https://i.imgur.com/YIcg9Cg.jpg)
 
-Aswagata as a macropad has four buttons with default functions: `copy`, `paste`, `cut`, and `select` (for Linux). It can be reconfigured with Via.
+Aswagata is a macropad with four buttons. The default functions are `copy`, `paste`, `cut`, and `select` for Linux, but can be customized.
 
 * Keyboard Maintainer: [Syenasweta](https://github.com/syenasweta)
 * Hardware Supported: RP2040
@@ -20,8 +20,6 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Bootloader
 
-Enter the bootloader in 3 ways:
+Enter the bootloader in 1 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Copy key) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+* **Bootmagic reset**: Hold down the top left key (assigned to `copy` by default) and plug in the keyboard.
