@@ -113,7 +113,7 @@ void tap_dance_tap_hold_finished(tap_dance_state_t *state, void *user_data) {
         }
     }
 }
-// tap dance tap hold function finish
+// tap dance tap hold function reset
 void tap_dance_tap_hold_reset(tap_dance_state_t *state, void *user_data) {
     tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
 
@@ -126,6 +126,8 @@ void tap_dance_tap_hold_reset(tap_dance_state_t *state, void *user_data) {
 #define ACTION_TAP_DANCE_TAP_HOLD(tap, hold) \
     { .fn = {NULL, tap_dance_tap_hold_finished, tap_dance_tap_hold_reset}, .user_data = (void *)&((tap_dance_tap_hold_t){tap, hold, 0}), }
 
+
+// Tap Dance Definitions
 tap_dance_action_t tap_dance_actions[] = {
     [DANCE_0] = ACTION_TAP_DANCE_TAP_HOLD(KC_0, LGUI(KC_0)),
     [DANCE_1] = ACTION_TAP_DANCE_TAP_HOLD(KC_1, LGUI(KC_1)),
@@ -134,34 +136,12 @@ tap_dance_action_t tap_dance_actions[] = {
     [DANCE_4] = ACTION_TAP_DANCE_TAP_HOLD(KC_4, LGUI(KC_4)),
     [DANCE_5] = ACTION_TAP_DANCE_TAP_HOLD(KC_5, LGUI(KC_5)),
     [DANCE_6] = ACTION_TAP_DANCE_TAP_HOLD(KC_6, LGUI(KC_6)),
-    //[DANCE_6] = ACTION_TAP_DANCE_DOUBLE(KC_6, LGUI(KC_6)),
     [DANCE_7] = ACTION_TAP_DANCE_TAP_HOLD(KC_7, LGUI(KC_7)),
     [DANCE_8] = ACTION_TAP_DANCE_TAP_HOLD(KC_8, LGUI(KC_8)),
     [DANCE_9] = ACTION_TAP_DANCE_TAP_HOLD(KC_9, LGUI(KC_9)),
     [DANCE_10] = ACTION_TAP_DANCE_DOUBLE(NO_LPRN, NO_LABK), // ( on hold < on double tap
     [DANCE_11] = ACTION_TAP_DANCE_DOUBLE(NO_RPRN, NO_RABK), // ) on hold > on double tap                                          
 };
-
-// Tap Dance Definitions
-/*
-tap_dance_action_t tap_dance_actions[] = {
-    // simple tap dance
-  //    [DANCE_0] = ACTION_TAP_DANCE_DOUBLE(KC_0, LGUI(KC_0)), // replace with your keycodes. BASIC codes only, no custom codes.
-    [DANCE_0] = ACTION_TAP_DANCE_TAP_HOLD(KC_0,KC_A), // replace with your keycodes. BASIC codes only, no custom codes.
-    [DANCE_1] = ACTION_TAP_DANCE_DOUBLE(KC_1, LGUI(KC_1)), 
-    [DANCE_2] = ACTION_TAP_DANCE_DOUBLE(KC_2, LGUI(KC_2)),
-    [DANCE_3] = ACTION_TAP_DANCE_DOUBLE(KC_3, LGUI(KC_3)),
-    [DANCE_4] = ACTION_TAP_DANCE_DOUBLE(KC_4, LGUI(KC_4)),
-    [DANCE_5] = ACTION_TAP_DANCE_DOUBLE(KC_5, LGUI(KC_5)),
-    [DANCE_6] = ACTION_TAP_DANCE_DOUBLE(KC_6, LGUI(KC_6)),
-    [DANCE_7] = ACTION_TAP_DANCE_DOUBLE(KC_7, LGUI(KC_7)),
-    [DANCE_8] = ACTION_TAP_DANCE_DOUBLE(KC_8, LGUI(KC_8)),
-    [DANCE_9] = ACTION_TAP_DANCE_DOUBLE(KC_9, LGUI(KC_9)),
-    [DANCE_10] = ACTION_TAP_DANCE_DOUBLE(NO_LPRN, NO_LABK), // ( on hold < on double tap
-    [DANCE_11] = ACTION_TAP_DANCE_DOUBLE(NO_RPRN, NO_RABK),
-};
-
-*/
 
 
 // Macro Definitions
