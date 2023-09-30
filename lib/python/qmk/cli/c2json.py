@@ -8,27 +8,30 @@ from milc import cli
 
 import qmk.path
 from qmk.json_encoders import InfoJSONEncoder
+from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.keyboard import keyboard_completer, keyboard_folder
+from qmk.keymap import locate_keymap, find_keymap_from_dir, generate_json, c2json as c2json_impl
 from qmk.errors import CppError
 from qmk.commands import dump_lines
-from qmk.keymap import locate_keymap, find_keymap_from_dir, generate_json, c2json as c2json_impl
 
 
 @cli.argument('--no-cpp', arg_only=True, action='store_false', help='Do not use \'cpp\' on keymap.c')
 @cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
-@cli.argument('-kb', '--keyboard', arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='The keyboard\'s name')
-@cli.argument('-km', '--keymap', arg_only=True, help='The keymap\'s name')
+@cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='The keyboard\'s name')
+@cli.argument('-km', '--keymap', help='The keymap\'s name')
 @cli.argument('filename', nargs='?', type=qmk.path.FileType('r'), arg_only=True, completer=FilesCompleter('.c'), help='keymap.c file')
 @cli.subcommand('Creates a keymap.json from a keymap.c file.')
+@automagic_keyboard
+@automagic_keymap
 def c2json(cli):
     """Generate a keymap.json from a keymap.c file.
 
     This command uses the `qmk.keymap` module to generate a keymap.json from a keymap.c file. The generated keymap is written to stdout, or to a file if -o is provided.
     """
     filename = cli.args.filename
-    keyboard = cli.args.keyboard
-    keymap = cli.args.keymap
+    keyboard = cli.config.c2json.keyboard
+    keymap = cli.config.c2json.keymap
 
     if filename:
         if not keyboard and not keymap:
