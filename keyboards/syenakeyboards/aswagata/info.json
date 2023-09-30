@@ -1,6 +1,6 @@
 {
     "manufacturer": "Syenasweta",
-    "keyboard_name": "SyenaKeyboards (Aswagata)",
+    "keyboard_name": "Aswagata SyenaKeyboards",
     "maintainer": "syenasweta",
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
@@ -20,8 +20,8 @@
     "url": "https://github.com/syenasweta/syenakeyboards",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0003",
-        "vid": "0x2E8A"
+        "pid": "0x4173",
+        "vid": "0x5373"
     }
     "layouts": {
         "LAYOUT_ortho_2x2": {

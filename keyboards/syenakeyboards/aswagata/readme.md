@@ -1,4 +1,4 @@
-# syenakeyboards/aswagata
+# Aswagata SyenaKeyboards
 
 ![SyenaKeyboards Aswagata](https://i.imgur.com/JMiFegah.jpg)
 
@@ -6,7 +6,7 @@ Aswagata is a macropad with four buttons. The default functions are `copy`, `pas
 
 * Keyboard Maintainer: [Syenasweta](https://github.com/syenasweta)
 * Hardware Supported: RP2040
-* Hardware Availability: [Tokopedia (Syenasweta)](https://tokopedia.link/iG6UfrrHvDb)
+* Hardware Availability: [Tokopedia (Syenasweta)](https://tokopedia.link/S8kvAP2KwDb)
 
 Make example for this keyboard (after setting up your build environment):
 
