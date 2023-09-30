@@ -75,17 +75,8 @@ uint8_t g_twi_transfer_buffer[20];
 uint8_t g_pwm_buffer[IS31FL3733_DRIVER_COUNT][192];
 bool    g_pwm_buffer_update_required[IS31FL3733_DRIVER_COUNT] = {false};
 
-/* There's probably a better way to init this... */
-#if IS31FL3733_DRIVER_COUNT == 1
-uint8_t g_led_control_registers[IS31FL3733_DRIVER_COUNT][24] = {{0}};
-#elif IS31FL3733_DRIVER_COUNT == 2
-uint8_t g_led_control_registers[IS31FL3733_DRIVER_COUNT][24] = {{0}, {0}};
-#elif IS31FL3733_DRIVER_COUNT == 3
-uint8_t g_led_control_registers[IS31FL3733_DRIVER_COUNT][24] = {{0}, {0}, {0}};
-#elif IS31FL3733_DRIVER_COUNT == 4
-uint8_t g_led_control_registers[IS31FL3733_DRIVER_COUNT][24] = {{0}, {0}, {0}, {0}};
-#endif
-bool g_led_control_registers_update_required[IS31FL3733_DRIVER_COUNT] = {false};
+uint8_t g_led_control_registers[IS31FL3733_DRIVER_COUNT][24]             = {0};
+bool    g_led_control_registers_update_required[IS31FL3733_DRIVER_COUNT] = {false};
 
 bool is31fl3733_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
     // If the transaction fails function returns false.
