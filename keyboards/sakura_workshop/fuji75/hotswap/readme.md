@@ -1,7 +1,6 @@
-#Fuji Hotswap
+# Fuji75 Hotswap
 
-![Fuji hotswap](https://i.imgur.com/SfucJxa.png)
-
+![Fuji75 hotswap](https://i.imgur.com/SfucJxa.png)
 
 * Keyboard Maintainer: [Freather](https://github.com/CMMS-Freather)
 * Hardware Supported: PCB, Atmega32u4
