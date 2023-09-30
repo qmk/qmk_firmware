@@ -4,7 +4,7 @@
     "maintainer": "itsvar8",
     "bootloader": "stm32-dfu",
     "diode_direction": "ROW2COL",
-	"debounce": 2,
+        "debounce": 2,
     "features": {
         "bootmagic": true,
         "command": false,
