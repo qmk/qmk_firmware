@@ -18,6 +18,7 @@
 
 enum layer_names {
     _BASE,
+    _NUM,
     _SYM,
     _NAV,
     _FUN,
