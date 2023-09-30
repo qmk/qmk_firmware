@@ -443,7 +443,7 @@ void oled_scroll_set_area(uint8_t start_line, uint8_t end_line);
 // Sets scroll speed, 0-7, fastest to slowest. Default is three.
 // Does not take effect until scrolling is either started or restarted
 // the ssd1306 supports 8 speeds with the delay
-// listed below betwen each frame of the scrolling effect
+// listed below between each frame of the scrolling effect
 // 0=2, 1=3, 2=4, 3=5, 4=25, 5=64, 6=128, 7=256
 void oled_scroll_set_speed(uint8_t speed);
 

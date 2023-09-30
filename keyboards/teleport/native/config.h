@@ -61,13 +61,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENABLE_RGB_MATRIX_CUSTOM_SINGLE_COLOR_RAINDROPS // 0 Single color raindrops, random keys lighting up at randomized intensity
 #define ENABLE_RGB_MATRIX_CUSTOM_STATIC_GAME_MODE       // - Game mode sets the entire matrix (static) once, then stops LED refreshes
 
-#define INDICATOR_MAX_BRIGHTNESS 255
-#ifdef RGB_MATRIX_MAXIMUM_BRIGHTNESS
-    #undef INDICATOR_MAX_BRIGHTNESS
-    #define INDICATOR_MAX_BRIGHTNESS RGB_MATRIX_MAXIMUM_BRIGHTNESS
-#endif
-
-
 /* Define indicator LED indices, used for lighting effects  */
 #define W_LED_INDEX 33
 #define A_LED_INDEX 47
