@@ -2,7 +2,7 @@
 
 ![SyenaKeyboards Aswagata](https://images.tokopedia.net/img/cache/900/VqbcmM/2023/9/30/dc3e20b5-eb94-4f92-8a44-f2f556dcc1ab.jpg)
 
-Aswagata as a macro keyboard has four buttons with special functions: Copy, Paste, Cut, and Select.
+Aswagata as a macropad has four buttons with default functions: `copy`, `paste`, `cut`, and `select` (for Linux). It can be reconfigured with Via.
 
 * Keyboard Maintainer: [Syenasweta](https://github.com/syenasweta)
 * Hardware Supported: RP2040
