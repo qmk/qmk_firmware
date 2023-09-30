@@ -28,7 +28,7 @@ enum custom_keycodes {
 
 //tap dance declarations
 enum tap_dance_codes {
-  DANCE_0 = 0,  
+  DANCE_0 ,  
   DANCE_1,
   DANCE_2,
   DANCE_3,
@@ -209,6 +209,70 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	  tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
 	  tap_code16(tap_hold->tap);
 	}
+	break;
+     case TD(DANCE_1):  // list all tap dance keycodes with tap-hold configurations
+        action = &tap_dance_actions[TD_INDEX(keycode)];
+        if (!record->event.pressed && action->state.count && !action->state.finished) {
+	  tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
+	  tap_code16(tap_hold->tap);
+	}
+	break;
+     case TD(DANCE_2):  // list all tap dance keycodes with tap-hold configurations
+        action = &tap_dance_actions[TD_INDEX(keycode)];
+        if (!record->event.pressed && action->state.count && !action->state.finished) {
+	  tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
+	  tap_code16(tap_hold->tap);
+	}
+	break;
+     case TD(DANCE_3):  // list all tap dance keycodes with tap-hold configurations
+        action = &tap_dance_actions[TD_INDEX(keycode)];
+        if (!record->event.pressed && action->state.count && !action->state.finished) {
+	  tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
+	  tap_code16(tap_hold->tap);
+	}
+	break;
+     case TD(DANCE_4):  // list all tap dance keycodes with tap-hold configurations
+        action = &tap_dance_actions[TD_INDEX(keycode)];
+        if (!record->event.pressed && action->state.count && !action->state.finished) {
+	  tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
+	  tap_code16(tap_hold->tap);
+	}
+	break;
+     case TD(DANCE_5):  // list all tap dance keycodes with tap-hold configurations
+        action = &tap_dance_actions[TD_INDEX(keycode)];
+        if (!record->event.pressed && action->state.count && !action->state.finished) {
+	  tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
+	  tap_code16(tap_hold->tap);
+	}
+	break;
+     case TD(DANCE_6):  // list all tap dance keycodes with tap-hold configurations
+        action = &tap_dance_actions[TD_INDEX(keycode)];
+        if (!record->event.pressed && action->state.count && !action->state.finished) {
+	  tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
+	  tap_code16(tap_hold->tap);
+	}
+	break;
+     case TD(DANCE_7):  // list all tap dance keycodes with tap-hold configurations
+        action = &tap_dance_actions[TD_INDEX(keycode)];
+        if (!record->event.pressed && action->state.count && !action->state.finished) {
+	  tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
+	  tap_code16(tap_hold->tap);
+	}
+	break;
+      case TD(DANCE_8):  // list all tap dance keycodes with tap-hold configurations
+        action = &tap_dance_actions[TD_INDEX(keycode)];
+        if (!record->event.pressed && action->state.count && !action->state.finished) {
+	  tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
+	  tap_code16(tap_hold->tap);
+	}
+	break;
+      case TD(DANCE_9):  // list all tap dance keycodes with tap-hold configurations
+        action = &tap_dance_actions[TD_INDEX(keycode)];
+        if (!record->event.pressed && action->state.count && !action->state.finished) {
+	  tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
+	  tap_code16(tap_hold->tap);
+	}
+	break;
     }
   return true;
 }
