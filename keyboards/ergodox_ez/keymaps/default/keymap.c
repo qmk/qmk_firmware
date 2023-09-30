@@ -16,6 +16,7 @@ const uint16_t PROGMEM combo_tab[] = {KC_W, KC_F, COMBO_END};
 const uint16_t PROGMEM combo_enter[] = {KC_L, KC_U, COMBO_END};
 const uint16_t PROGMEM combo_esc[] = {KC_F, KC_P, COMBO_END};
 const uint16_t PROGMEM combo_rctl[] = {KC_H, KC_COMMA, COMBO_END};
+const uint16_t PROGMEM combo_tmux[] = {KC_U, KC_Y, COMBO_END};
 
 bool is_alt_tab_active = false;
 uint16_t alt_tab_timer = 0;
@@ -33,6 +34,7 @@ combo_t key_combos[] = {
     COMBO(combo_enter, KC_ENTER),
     COMBO(combo_esc, KC_ESC),
     COMBO(combo_rctl, OSM(MOD_LCTL)),
+    COMBO(combo_tmux, LCTL(KC_B)),
 };
 
 enum custom_keycodes {
@@ -51,12 +53,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ALT_TAB,         KC_1,               KC_2,                 KC_3,                KC_4,                  KC_5,    KC_BRID,                   KC_BRIU,        KC_6,                  KC_7,                  KC_8,                      KC_9,                 KC_0,                   ALT_TAB2,
   KC_TAB,          KC_Q,               KC_W,                 KC_F,                KC_P,                  KC_B,    KC_SLASH,                  KC_LGUI,        KC_J,                  KC_L,                  KC_U,                      KC_Y,                 KC_BACKSLASH,           KC_BSPC,
   KC_ESC,          KC_A,               KC_R,                 KC_S,                KC_T,                  KC_G,                                               KC_M,                  KC_N,                  KC_E,                      KC_I,                 KC_O,                   KC_ENT,
-  KC_LSFT,         MT(MOD_LGUI, KC_Z), MT(MOD_LALT, KC_X),   MT(MOD_LSFT, KC_C),  MT(MOD_LCTL, KC_D),    KC_V,    KC_GRAVE,                  ALL_T(KC_QUOT), KC_K,                  MT(MOD_LCTL, KC_H),    MT(MOD_LSFT, KC_COMMA),    MT(MOD_LALT, KC_DOT), MT(MOD_LGUI, KC_MINUS), KC_RSFT,
-  KC_BTN2,         KC_TRNS,            LALT(KC_X),           LCTL(KC_X),          LCTL(KC_C),                                                                                        LCTL(KC_C),           LCTL(KC_X),                LALT(LSFT(KC_X)),     TG(SYMB),               KC_TRNS,
+  KC_LSFT,         KC_Z,               KC_X,                 KC_C,                KC_D,                  KC_V,    KC_GRAVE,                  ALL_T(KC_QUOT), KC_K,                  KC_H,                  KC_COMMA,                  KC_DOT,               KC_MINUS,      KC_RSFT,
+  KC_BTN2,         KC_TRNS,            KC_LALT,              KC_LGUI,             KC_LCTL,                                                                                          KC_LCTL,               KC_LGUI,                   KC_LCTL,              TG(SYMB),               KC_TRNS,
 
                                                          KC_BTN1,     KC_BTN2,                         KC_MPRV, KC_MNXT,
                                                                       KC_HOME,                         KC_VOLU,
-                                                 KC_SPC, KC_LGUI,     KC_LGUI,                         KC_VOLD, OSM(MOD_LCTL), MO(SYMB)
+                                                 KC_SPC, LCTL(KC_B),  KC_LGUI,                         KC_VOLD, KC_LSFT, MO(SYMB)
 ),
 
 [SYMB] = LAYOUT_ergodox_pretty(
