@@ -1,6 +1,6 @@
 # syenakeyboards/aswagata
 
-![SyenaKeyboards Aswagata](https://i.imgur.com/JMiFega.jpg)
+![SyenaKeyboards Aswagata](https://i.imgur.com/JMiFegah.jpg)
 
 Aswagata is a macropad with four buttons. The default functions are `copy`, `paste`, `cut`, and `select` for Linux, but can be customized.
 
