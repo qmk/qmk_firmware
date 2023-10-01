@@ -18,8 +18,22 @@
             {"pin_a": "D2", "pin_b": "B2"}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "split": {
         "soft_serial_pin": "D3"
+    },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 16,
+        "sleep": true,
+        "split_count": [8, 8],
+        "animations": {
+            "rainbow_mood": true,
+            "rainbow_swirl": true
+        }
     },
     "ws2812": {
         "pin": "B6"

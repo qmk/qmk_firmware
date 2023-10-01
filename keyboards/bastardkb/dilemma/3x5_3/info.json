@@ -5,7 +5,7 @@
         "pid": "0x1835"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
     },
     "matrix_pins": {
         "cols": ["GP8", "GP9", "GP7", "GP6", "GP28"],
@@ -14,6 +14,9 @@
     "diode_direction": "ROW2COL",
     "split": {
         "soft_serial_pin": "GP1"
+    },
+    "rgblight": {
+        "split_count": [18, 18]
     },
     "ws2812": {
         "pin": "GP0",

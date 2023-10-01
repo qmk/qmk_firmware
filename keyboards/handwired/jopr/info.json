@@ -8,6 +8,12 @@
     "pid": "0x1000",
     "device_version": "0.0.1"
   },
+  "rgblight": {
+    "hue_steps": 1,
+    "saturation_steps": 1,
+    "brightness_steps": 1,
+    "led_count": 1
+  },
   "ws2812": {
     "pin": "F4"
   },
@@ -18,6 +24,9 @@
   "diode_direction": "COL2ROW",
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
+  "tapping": {
+    "toggle": 3
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

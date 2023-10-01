@@ -3,6 +3,10 @@
     "usb": {
         "pid": "0x1830"
     },
+    "rgblight": {
+        "led_count": 36,
+        "split_count": [18, 18]
+    },
     "community_layouts": ["split_3x5_3"],
     "layouts": {
         "LAYOUT_split_3x5_3": {

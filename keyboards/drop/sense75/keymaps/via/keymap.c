@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, RGB_TOG, RGB_VAI, RGB_SPI, RGB_HUI, RGB_SAI, _______, _______, _______, _______, _______, _______, _______, _______,          KC_HOME,
         _______, RGB_MOD, RGB_VAD, RGB_SPD, RGB_HUD, RGB_SAD, _______, _______, _______, _______, _______, _______,          _______,          KC_END,
         _______,          RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW,_______, NK_TOGG, _______, _______, _______, _______,          _______, _______,
-        MO(2),   _______, _______,                            EE_CLR,                             _______, _______, _______, _______, _______, _______
+        MO(2),   _______, _______,                            EE_CLR,                             KC_APP,  _______, _______, _______, _______, _______
     ),
     [2] = LAYOUT(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
@@ -53,27 +53,3 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [2] = { ENCODER_CCW_CW(_______, _______) }
 };
 #endif
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!record->event.pressed) {
-        switch (keycode) {
-            case RGB_TOG:
-                switch (rgb_matrix_get_flags()) {
-                    case LED_FLAG_ALL:
-                        rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
-                        break;
-                    case (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR):
-                        rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
-                        break;
-                    case LED_FLAG_UNDERGLOW:
-                        rgb_matrix_set_flags(LED_FLAG_NONE);
-                        break;
-                    default:
-                        rgb_matrix_set_flags(LED_FLAG_ALL);
-                        break;
-                }
-                return false;
-        }
-    }
-    return true;
-};

@@ -13,7 +13,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "quantum.h"
+#include "bootmagic.h"
+#include "matrix.h"
+#include "keyboard.h"
+#include "wait.h"
+#include "eeconfig.h"
+#include "bootloader.h"
 
 /** \brief Reset eeprom
  *

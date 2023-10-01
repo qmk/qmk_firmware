@@ -19,22 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define PHYSICAL_LEDS_ENABLE
 
-/* ws2812 RGB LED */
 #define RGBLIGHT_TIMER
-#define RGBLED_NUM 7    // Number of LEDs
-#define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#define RGBLIGHT_EFFECT_SNAKE
-#define RGBLIGHT_EFFECT_KNIGHT
-#define RGBLIGHT_EFFECT_CHRISTMAS
-#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#define RGBLIGHT_EFFECT_RGB_TEST
-#define RGBLIGHT_EFFECT_ALTERNATING
-#define RGBLIGHT_EFFECT_TWINKLE
-
-#define RGBLIGHT_SLEEP
-#define RGBLIGHT_SPLIT
 
 #ifndef IOS_DEVICE_ENABLE
 #if RGBLED_NUM <= 6
@@ -51,8 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #define RGBLIGHT_VAL_STEP 4
 #endif
-#define RGBLIGHT_HUE_STEP 10
-#define RGBLIGHT_SAT_STEP 17
 
 #if defined(RGBLIGHT_ENABLE) && !defined(IOS_DEVICE_ENABLE)
 #define USB_MAX_POWER_CONSUMPTION 400
