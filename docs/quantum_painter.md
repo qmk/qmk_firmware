@@ -741,7 +741,9 @@ The `qp_drawimage` and `qp_drawimage_recolor` functions draw the supplied image 
 static painter_image_handle_t my_image;
 void keyboard_post_init_kb(void) {
     my_image = qp_load_image_mem(gfx_my_image);
-    qp_drawimage(display, (239 - my_image->width), (319 - my_image->height), my_image);
+    if (my_image != NULL) {
+        qp_drawimage(display, (239 - my_image->width), (319 - my_image->height), my_image);
+    }
 }
 ```
 
@@ -764,7 +766,9 @@ static painter_image_handle_t my_image;
 static deferred_token my_anim;
 void keyboard_post_init_kb(void) {
     my_image = qp_load_image_mem(gfx_my_image);
-    my_anim = qp_animate(display, (239 - my_image->width), (319 - my_image->height), my_image);
+    if (my_image != NULL) {
+        my_anim = qp_animate(display, (239 - my_image->width), (319 - my_image->height), my_image);
+    }
 }
 ```
 
@@ -850,9 +854,11 @@ The `qp_drawtext` and `qp_drawtext_recolor` functions draw the supplied string t
 static painter_font_handle_t my_font;
 void keyboard_post_init_kb(void) {
     my_font = qp_load_font_mem(font_noto11);
-    static const char *text = "Hello from QMK!";
-    int16_t width = qp_textwidth(my_font, text);
-    qp_drawtext(display, (239 - width), (319 - my_font->line_height), my_font, text);
+    if (my_font != NULL) {
+        static const char *text = "Hello from QMK!";
+        int16_t width = qp_textwidth(my_font, text);
+        qp_drawtext(display, (239 - width), (319 - my_font->line_height), my_font, text);
+    }
 }
 ```
 
