@@ -33,7 +33,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             G(KC_BSPC), S(KC_SPC),          C(KC_ENT),  A(KC_ESC),
     ),
 
-    [_SYM] = LAYOUT(),
+    [_NUM] = LAYOUT(
+            xxxxxxx,    xxxxxxx,    xxxxxxx,    xxxxxxx,    xxxxxxx,            xxxxxxx,    KC_4,       KC_4,       KC_5,    xxxxxxx,
+            xxxxxxx,    xxxxxxx,    xxxxxxx,    xxxxxxx,    xxxxxxx,            xxxxxxx,    KC_1,       KC_2,       KC_3,    KC_EQL,
+            xxxxxxx,    xxxxxxx,    xxxxxxx,    xxxxxxx,    xxxxxxx,            KC_0,       KC_7,       KC_8,       KC_9,    KC_PERC,
+                                                _______,    _______,            _______,    _______,
+    ),
 
     [_NAV] = LAYOUT(
         KC_MS_BTN3,     KC_MS_BTN2,     KC_UP,      KC_MS_BTN1, xxxxxxx,            xxxxxxx,    KC_MS_BTN1, KC_MS_U,    KC_MS_BTN2, KC_MS_BTN3,
