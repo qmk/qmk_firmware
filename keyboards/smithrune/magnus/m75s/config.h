@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PWM_DRIVER    PWMD3
 #define BACKLIGHT_PWM_CHANNEL   1
 #define BACKLIGHT_PAL_MODE      2
-#define BACKLIGHT_ON_STATE 1
 
 #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL+5
 
