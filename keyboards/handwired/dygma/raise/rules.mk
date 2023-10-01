@@ -1,10 +1,3 @@
-# MCU name
-MCU = STM32F411
-BOARD = BLACKPILL_STM32_F411
-
-# Bootloader selection
-BOOTLOADER = stm32-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -18,7 +11,6 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = custom
 CUSTOM_MATRIX = lite
 
 # TODO(ibash) we don't actually need to enable raw, but there's some side effect

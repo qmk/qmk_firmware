@@ -115,7 +115,7 @@ void  trackball_set_scrolling(bool scroll) { scrolling = scroll; }
 
 __attribute__((weak)) void pointing_device_init(void) { trackball_set_rgbw(0x80, 0x00, 0x00, 0x00); }
 
-void pointing_device_task(void) {
+bool pointing_device_task(void) {
     static bool     debounce;
     static uint16_t debounce_timer;
     uint8_t         state[5] = {};
@@ -173,5 +173,5 @@ void pointing_device_task(void) {
     update_member(&mouse.v, &h_offset);
 #endif
     pointing_device_set_report(mouse);
-    pointing_device_send();
+    return pointing_device_send();
 }

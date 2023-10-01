@@ -427,7 +427,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			break;
 		}
 
-        if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
+		led_t led_state = host_keyboard_led_state();
+
+        if (led_state.caps_lock) {
 			if (!caps_active) {
 				caps_active = true;
 				caps_flash_on = true;
@@ -453,7 +455,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         } else {
 			caps_active = false;
 		}
-        if (IS_HOST_LED_ON(USB_LED_SCROLL_LOCK)) {
+        if (led_state.scroll_lock) {
             rgb_matrix_set_color(LED_F10,  RGB_WHITE);
         }
         if (keymap_config.no_gui) {

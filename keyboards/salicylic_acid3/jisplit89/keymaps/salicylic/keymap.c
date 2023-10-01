@@ -38,7 +38,7 @@ enum tapdances{
   TD_ESAR,
 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_ESMS] = ACTION_TAP_DANCE_LAYER_MOVE(KC_ESC, _MOUSE),
   [TD_ESAR] = ACTION_TAP_DANCE_LAYER_MOVE(KC_ESC, _QWERTY),
 };

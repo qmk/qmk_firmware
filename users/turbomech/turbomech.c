@@ -101,8 +101,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
        register_code(KC_LPRN);
        unregister_code(KC_LPRN);
-       register_code(X(0x00B0));
-       unregister_code(X(0x00B0));
+       register_unicode(0x00B0);
 
         UC(0x256F);
         PROCESS_UNICODE(UC(0x00B0));

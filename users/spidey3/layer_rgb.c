@@ -73,9 +73,9 @@ const rgblight_segment_t *const PROGMEM _rgb_layers[] = {
     [LAYER_OFFSET + _NUMPAD] = _layer1_layer,
     [LAYER_OFFSET + _FN]     = _layer2_layer,
 
-    [LOCK_OFFSET + USB_LED_NUM_LOCK]    = _numlock_layer,
-    [LOCK_OFFSET + USB_LED_CAPS_LOCK]   = _capslock_layer,
-    [LOCK_OFFSET + USB_LED_SCROLL_LOCK] = _scrolllock_layer,
+    [LOCK_OFFSET + 0]    = _numlock_layer,
+    [LOCK_OFFSET + 1]   = _capslock_layer,
+    [LOCK_OFFSET + 2] = _scrolllock_layer,
 
     [MISC_OFFSET + 0] = _gflock_layer,
     [MISC_OFFSET + 1] = _glyphreplace_layer,
@@ -99,7 +99,7 @@ const rgblight_segment_t *const PROGMEM _rgb_layers[] = {
 
 const uint8_t PROGMEM _n_rgb_layers = ARRAY_SIZE(_rgb_layers) - 1;
 
-void clear_rgb_layers() {
+void clear_rgb_layers(void) {
     for (uint8_t i = 0; i < _n_rgb_layers; i++) {
         rgblight_set_layer_state(i, false);
     }
@@ -374,9 +374,9 @@ layer_state_t layer_state_set_user_rgb(layer_state_t state) {
 }
 
 bool led_update_user_rgb(led_t led_state) {
-    rgblight_set_layer_state(LOCK_OFFSET + USB_LED_NUM_LOCK, led_state.num_lock);
-    rgblight_set_layer_state(LOCK_OFFSET + USB_LED_CAPS_LOCK, led_state.caps_lock);
-    rgblight_set_layer_state(LOCK_OFFSET + USB_LED_SCROLL_LOCK, led_state.scroll_lock);
+    rgblight_set_layer_state(LOCK_OFFSET + 0, led_state.num_lock);
+    rgblight_set_layer_state(LOCK_OFFSET + 1, led_state.caps_lock);
+    rgblight_set_layer_state(LOCK_OFFSET + 2, led_state.scroll_lock);
 
     return true;
 }

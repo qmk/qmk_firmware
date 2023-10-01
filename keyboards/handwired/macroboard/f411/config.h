@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-#define MATRIX_ROW_PINS { A15, B3, B4, B5, B7 }
-#define MATRIX_COL_PINS { B12, B13, B14, B15, A8, A10 }
-
 #define AUDIO_INIT_DELAY
 #define AUDIO_PIN B10
 #define AUDIO_PWM_DRIVER PWMD2

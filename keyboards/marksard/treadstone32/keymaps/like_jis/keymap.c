@@ -56,7 +56,7 @@ enum custom_keycodes {
 // #define KC_CODO  TD(TD_CODO)
 // #define KC_SLRO  TD(TD_SLRO)
 
-// qk_tap_dance_action_t tap_dance_actions[] = {
+// tap_dance_action_t tap_dance_actions[] = {
 //   [TD_CODO] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_DOT),
 //   [TD_SLRO] = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, JP_BSLS),
 // };

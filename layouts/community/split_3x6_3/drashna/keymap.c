@@ -16,7 +16,9 @@
 
 #include "drashna.h"
 
-enum crkbd_keycodes { RGBRST = NEW_SAFE_RANGE };
+enum crkbd_keycodes {
+    RGBRST = USER_SAFE_RANGE,
+};
 
 /*
  * The `LAYOUT_crkbd_base` macro is a template to allow the use of identical
@@ -79,14 +81,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                      _______, _______, _______,        _______, _______, _______
   ),
 
-  [_RAISE] = LAYOUT_split_3x6_3_wrapper( \
+  [_RAISE] = LAYOUT_split_3x6_3_wrapper(
     _______, _________________RAISE_L1__________________,                    _________________RAISE_R1__________________, _______,
     _______, _________________RAISE_L2__________________,                    _________________RAISE_R2__________________, KC_BSLS,
     _______, _________________RAISE_L3__________________,                    _________________RAISE_R3__________________, _______,
                                      _______, _______, _______,        _______, _______, _______
   ),
 
-  [_ADJUST] = LAYOUT_split_3x6_3_wrapper( \
+  [_ADJUST] = LAYOUT_split_3x6_3_wrapper(
     QK_MAKE, _________________ADJUST_L1_________________,                    _________________ADJUST_R1_________________, QK_BOOT,
     VRSN,    _________________ADJUST_L2_________________,                    _________________ADJUST_R2_________________, EE_CLR,
     KEYLOCK, _________________ADJUST_L3_________________,                    _________________ADJUST_R3_________________, RGB_IDL,
@@ -96,33 +98,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 #ifdef OLED_ENABLE
-oled_rotation_t oled_init_keymap(oled_rotation_t rotation) { return OLED_ROTATION_270; }
+oled_rotation_t oled_init_keymap(oled_rotation_t rotation) {
+    return OLED_ROTATION_270;
+}
 
 #    ifdef CONVERT_TO_PROTON_C
 // WPM-responsive animation stuff here
 #        define SLEEP_FRAMES 2
-#        define SLEEP_SPEED  10  // below this wpm value your animation will idle
+#        define SLEEP_SPEED 10 // below this wpm value your animation will idle
 
-#        define WAKE_FRAMES  2  // uncomment if >1
+#        define WAKE_FRAMES 2 // uncomment if >1
 
-#        define KAKI_FRAMES  3
-#        define KAKI_SPEED   40  // above this wpm value typing animation to triggere
+#        define KAKI_FRAMES 3
+#        define KAKI_SPEED 40 // above this wpm value typing animation to triggere
 
 #        define RTOGI_FRAMES 2
-//#define LTOGI_FRAMES 2
+// #define LTOGI_FRAMES 2
 
-//#define ANIM_FRAME_DURATION 500 // how long each frame lasts in ms
-// #define SLEEP_TIMER 60000 // should sleep after this period of 0 wpm, needs fixing
-#        define ANIM_SIZE    512  // number of bytes in array, minimize for adequate firmware size, max is 1024
+// #define ANIM_FRAME_DURATION 500 // how long each frame lasts in ms
+//  #define SLEEP_TIMER 60000 // should sleep after this period of 0 wpm, needs fixing
+#        define ANIM_SIZE 512 // number of bytes in array, minimize for adequate firmware size, max is 1024
 
 uint32_t anim_timer          = 0;
 uint32_t anim_frame_duration = 500;
 uint8_t  current_sleep_frame = 0;
-uint8_t  current_wake_frame  = 0;  // uncomment if WAKE_FRAMES >1
+uint8_t  current_wake_frame  = 0; // uncomment if WAKE_FRAMES >1
 uint8_t  current_kaki_frame  = 0;
-#ifdef SWAP_HANDS_ENABLE
-uint8_t  current_rtogi_frame = 0;
-#endif
+#        ifdef SWAP_HANDS_ENABLE
+uint8_t current_rtogi_frame = 0;
+#        endif
 // uint8_t current_ltogi_frame = 0;
 // clang-format off
 void render_small_kitty(void) {

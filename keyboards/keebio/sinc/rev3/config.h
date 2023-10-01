@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SERIAL_USART_PIN_SWAP
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 1000U
-#define I2C_DRIVER I2CD2
+#define I2C_DRIVER I2CD1
 #define I2C1_SCL_PIN GP22
 #define I2C1_SDA_PIN GP23
 
@@ -68,7 +68,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
 #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
-#define RGB_DI_PIN GP18
 #define RGB_MATRIX_LED_COUNT 113
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS

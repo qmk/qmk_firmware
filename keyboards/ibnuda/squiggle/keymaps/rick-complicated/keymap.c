@@ -121,7 +121,7 @@ const uint16_t PROGMEM m_b_combo[]         = {KC_M, KC_B, COMBO_END};
 // both hand combinations.
 const uint16_t PROGMEM j_w_combo[]         = {KC_J, KC_W, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
     // left hand combinations.
     [COLON_COMMA]   = COMBO(colon_comma_combo,  KC_TAB),
     [COMMA_DOT]     = COMBO(comma_dot_combo,    KC_QUES),
@@ -181,15 +181,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 };
 
-LEADER_EXTERNS();
-
-void matrix_scan_user() {
-  LEADER_DICTIONARY() {
-    leading = false;
-    leader_end();
-
-    SEQ_ONE_KEY(KC_U) {
-      SEND_STRING(":luvu:\n");
+void leader_end_user(void) {
+    if (leader_sequence_one_key(KC_U)) {
+        SEND_STRING(":luvu:\n");
     }
-  }
 }

@@ -168,9 +168,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ________________NAV_R3_x5__________________ XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN
 #define ____________NAV_VIM_x4____________ KC_LEFT, KC_DOWN,  KC_UP, KC_RIGHT
 
-#define _______________CONFIG_R1_x5________________ UC_MOD,  KC_ASUP,   NK_ON, XXXXXXX, XXXXXXX
-#define _______________CONFIG_R2_x5________________ XXXXXXX, KC_ASTG, NK_TOGG, CG_TOGG, XXXXXXX
-#define _______________CONFIG_R3_x5________________ UC_RMOD, KC_ASDN,  NK_OFF, CG_NORM, XXXXXXX
+#define _______________CONFIG_R1_x5________________ UC_NEXT, AS_UP,    NK_ON,   XXXXXXX, XXXXXXX
+#define _______________CONFIG_R2_x5________________ XXXXXXX, AS_TOGG,  NK_TOGG, CG_TOGG, XXXXXXX
+#define _______________CONFIG_R3_x5________________ UC_PREV, AS_DOWN,  NK_OFF,  CG_NORM, XXXXXXX
 
 #define ________________RGB_L2_x5__________________  RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI
 #define ________________RGB_L3_x5__________________ RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD

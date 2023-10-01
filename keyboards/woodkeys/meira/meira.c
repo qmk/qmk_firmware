@@ -18,7 +18,6 @@
 #include "TWIlib.h"
 #include "lighting.h"
 #include "quantum.h"
-#define BACKLIGHT_BREATHING
 
 extern void backlight_set(uint8_t level);
 
@@ -86,7 +85,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 	return process_record_user(keycode, record);
 }
 
-void reset_keyboard_kb(){
+void reset_keyboard_kb(void){
 #ifdef WATCHDOG_ENABLE
     MCUSR = 0;
     wdt_disable();

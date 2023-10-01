@@ -12,8 +12,6 @@
 #undef  DEBOUNCE
 #define DEBOUNCE 15
 
-#undef  IGNORE_MOD_TAP_INTERRUPT
-#define IGNORE_MOD_TAP_INTERRUPT
 
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 
@@ -32,9 +30,7 @@
 #undef  ONESHOT_TIMEOUT
 #define ONESHOT_TIMEOUT 5000
 
-#define COMBO_COUNT 4
 #define COMBO_TERM 200
-
 
 #undef  RGBLIGHT_HUE_STEP
 #define RGBLIGHT_HUE_STEP 24
@@ -78,7 +74,7 @@
 // #define NO_PRINT
 
 // #define RETRO_TAPPING
-// #define TAPPING_FORCE_HOLD
+// #define QUICK_TAP_TERM 0
 
 // #define AUTO_SHIFT_TIMEOUT 150
 // #define NO_AUTO_SHIFT_SPECIAL

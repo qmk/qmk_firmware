@@ -31,7 +31,7 @@ enum tap_dances {
 };
 
 // Tap Dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     // Tap once for Escape, twice for Caps Lock
     [LAG] = ACTION_TAP_DANCE_DOUBLE(KC_LALT, KC_LGUI),
     [RAG] = ACTION_TAP_DANCE_DOUBLE(KC_RALT, KC_RGUI),

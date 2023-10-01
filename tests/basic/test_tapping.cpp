@@ -121,3 +121,72 @@ TEST_F(Tapping, ANewTapWithinTappingTermIsBuggy) {
     key_shift_hold_p_tap.release();
     run_one_scan_loop();
 }
+
+TEST_F(Tapping, TapA_CTL_T_KeyWhileReleasingShift) {
+    TestDriver driver;
+    InSequence s;
+    auto       shift_key        = KeymapKey(0, 7, 0, KC_LSFT);
+    auto       mod_tap_hold_key = KeymapKey(0, 8, 0, CTL_T(KC_P));
+
+    set_keymap({shift_key, mod_tap_hold_key});
+
+    shift_key.press();
+    // Shift is reported
+    EXPECT_REPORT(driver, (KC_LSFT));
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    mod_tap_hold_key.press();
+    // Tapping keys does nothing on press
+    EXPECT_NO_REPORT(driver);
+    run_one_scan_loop();
+
+    shift_key.release();
+    // Releasing shift is delayed while tapping is in progress
+    EXPECT_NO_REPORT(driver);
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    mod_tap_hold_key.release();
+    // Releasing mod-tap key reports the tap and releases shift
+    EXPECT_REPORT(driver, (KC_LSFT, KC_P));
+    EXPECT_REPORT(driver, (KC_P));
+    EXPECT_EMPTY_REPORT(driver);
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(Tapping, TapA_CTL_T_KeyWhileReleasingLayer) {
+    TestDriver driver;
+    InSequence s;
+    auto       layer_key         = KeymapKey(0, 7, 0, MO(1));
+    auto       trans_key         = KeymapKey(1, 7, 0, KC_TRNS);
+    auto       mod_tap_hold_key0 = KeymapKey(0, 8, 0, CTL_T(KC_P));
+    auto       mod_tap_hold_key1 = KeymapKey(1, 8, 0, CTL_T(KC_Q));
+
+    set_keymap({layer_key, trans_key, mod_tap_hold_key0, mod_tap_hold_key1});
+
+    layer_key.press();
+    // Pressing the layer key does nothing
+    EXPECT_NO_REPORT(driver);
+    run_one_scan_loop();
+
+    mod_tap_hold_key1.press();
+    // Tapping layer 1 mod-tap key does nothing on press
+    EXPECT_NO_REPORT(driver);
+    run_one_scan_loop();
+
+    layer_key.release();
+    // Releasing layer is delayed while tapping is in progress
+    EXPECT_NO_REPORT(driver);
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    mod_tap_hold_key1.release();
+    // Releasing mod-tap key reports the tap of the layer 1 key
+    // If delayed layer release is broken, this reports the layer 0 key
+    EXPECT_REPORT(driver, (KC_Q));
+    EXPECT_EMPTY_REPORT(driver);
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}

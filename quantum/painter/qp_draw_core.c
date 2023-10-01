@@ -37,21 +37,21 @@ __attribute__((__aligned__(4))) qp_pixel_t qp_internal_global_pixel_lookup_table
 // Helpers
 
 uint32_t qp_internal_num_pixels_in_buffer(painter_device_t device) {
-    struct painter_driver_t *driver = (struct painter_driver_t *)device;
+    painter_driver_t *driver = (painter_driver_t *)device;
     return ((QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE * 8) / driver->native_bits_per_pixel);
 }
 
 // qp_setpixel internal implementation, but accepts a buffer with pre-converted native pixel. Only the first pixel is used.
 bool qp_internal_setpixel_impl(painter_device_t device, uint16_t x, uint16_t y) {
-    struct painter_driver_t *driver = (struct painter_driver_t *)device;
+    painter_driver_t *driver = (painter_driver_t *)device;
     return driver->driver_vtable->viewport(device, x, y, x, y) && driver->driver_vtable->pixdata(device, qp_internal_global_pixdata_buffer, 1);
 }
 
 // Fills the global native pixel buffer with equivalent pixels matching the supplied HSV
 void qp_internal_fill_pixdata(painter_device_t device, uint32_t num_pixels, uint8_t hue, uint8_t sat, uint8_t val) {
-    struct painter_driver_t *driver            = (struct painter_driver_t *)device;
-    uint32_t                 pixels_in_pixdata = qp_internal_num_pixels_in_buffer(device);
-    num_pixels                                 = QP_MIN(pixels_in_pixdata, num_pixels);
+    painter_driver_t *driver            = (painter_driver_t *)device;
+    uint32_t          pixels_in_pixdata = qp_internal_num_pixels_in_buffer(device);
+    num_pixels                          = QP_MIN(pixels_in_pixdata, num_pixels);
 
     // Convert the color to native pixel format
     qp_pixel_t color = {.hsv888 = {.h = hue, .s = sat, .v = val}};
@@ -144,8 +144,8 @@ bool qp_internal_load_qgf_palette(qp_stream_t *stream, uint8_t bpp) {
 // Quantum Painter External API: qp_setpixel
 
 bool qp_setpixel(painter_device_t device, uint16_t x, uint16_t y, uint8_t hue, uint8_t sat, uint8_t val) {
-    struct painter_driver_t *driver = (struct painter_driver_t *)device;
-    if (!driver->validate_ok) {
+    painter_driver_t *driver = (painter_driver_t *)device;
+    if (!driver || !driver->validate_ok) {
         qp_dprintf("qp_setpixel: fail (validation_ok == false)\n");
         return false;
     }
@@ -174,8 +174,8 @@ bool qp_line(painter_device_t device, uint16_t x0, uint16_t y0, uint16_t x1, uin
     }
 
     qp_dprintf("qp_line(%d, %d, %d, %d): entry\n", (int)x0, (int)y0, (int)x1, (int)y1);
-    struct painter_driver_t *driver = (struct painter_driver_t *)device;
-    if (!driver->validate_ok) {
+    painter_driver_t *driver = (painter_driver_t *)device;
+    if (!driver || !driver->validate_ok) {
         qp_dprintf("qp_line: fail (validation_ok == false)\n");
         return false;
     }
@@ -228,8 +228,8 @@ bool qp_line(painter_device_t device, uint16_t x0, uint16_t y0, uint16_t x1, uin
 // Quantum Painter External API: qp_rect
 
 bool qp_internal_fillrect_helper_impl(painter_device_t device, uint16_t left, uint16_t top, uint16_t right, uint16_t bottom) {
-    uint32_t                 pixels_in_pixdata = qp_internal_num_pixels_in_buffer(device);
-    struct painter_driver_t *driver            = (struct painter_driver_t *)device;
+    uint32_t          pixels_in_pixdata = qp_internal_num_pixels_in_buffer(device);
+    painter_driver_t *driver            = (painter_driver_t *)device;
 
     uint16_t l = QP_MIN(left, right);
     uint16_t r = QP_MAX(left, right);
@@ -252,8 +252,8 @@ bool qp_internal_fillrect_helper_impl(painter_device_t device, uint16_t left, ui
 
 bool qp_rect(painter_device_t device, uint16_t left, uint16_t top, uint16_t right, uint16_t bottom, uint8_t hue, uint8_t sat, uint8_t val, bool filled) {
     qp_dprintf("qp_rect(%d, %d, %d, %d): entry\n", (int)left, (int)top, (int)right, (int)bottom);
-    struct painter_driver_t *driver = (struct painter_driver_t *)device;
-    if (!driver->validate_ok) {
+    painter_driver_t *driver = (painter_driver_t *)device;
+    if (!driver || !driver->validate_ok) {
         qp_dprintf("qp_rect: fail (validation_ok == false)\n");
         return false;
     }

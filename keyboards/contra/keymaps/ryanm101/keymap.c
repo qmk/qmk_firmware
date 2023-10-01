@@ -1,4 +1,4 @@
-#include "contra.h"
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 
 extern keymap_config_t keymap_config;
@@ -141,7 +141,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 // Parantheses
-void paranthesis_dance (qk_tap_dance_state_t *state, void *user_data) {
+void paranthesis_dance (tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     SEND_STRING("()"); register_code(KC_LEFT); unregister_code(KC_LEFT);
   } else if (state->count == 2) {
@@ -151,7 +151,7 @@ void paranthesis_dance (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void curly_dance (qk_tap_dance_state_t *state, void *user_data) {
+void curly_dance (tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     SEND_STRING("{}"); register_code(KC_LEFT); unregister_code(KC_LEFT);
   } else if (state->count == 2) {
@@ -161,7 +161,7 @@ void curly_dance (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void square_dance (qk_tap_dance_state_t *state, void *user_data) {
+void square_dance (tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     SEND_STRING("[]"); register_code(KC_LEFT); unregister_code(KC_LEFT);
   } else if (state->count == 2) {
@@ -171,7 +171,7 @@ void square_dance (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void angular_dance (qk_tap_dance_state_t *state, void *user_data) {
+void angular_dance (tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     SEND_STRING("<>"); register_code(KC_LEFT); unregister_code(KC_LEFT);
   } else if (state->count == 2) {
@@ -181,7 +181,7 @@ void angular_dance (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void tmux_dance (qk_tap_dance_state_t *state, void *user_data) {
+void tmux_dance (tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     SEND_STRING("tmux"); register_code(KC_ENT); unregister_code(KC_ENT);
   } else if (state->count == 2) {
@@ -194,7 +194,7 @@ void tmux_dance (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void cmd_dance (qk_tap_dance_state_t *state, void *user_data) {
+void cmd_dance (tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     register_mods(MOD_BIT(KC_LCTL));
     register_mods(MOD_BIT(KC_LALT));
@@ -219,7 +219,7 @@ void cmd_dance (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void cmd_sft_slash_pipe_down (qk_tap_dance_state_t *state, void *user_data) {
+void cmd_sft_slash_pipe_down (tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     if (state->interrupted || state->pressed==0) {
       register_code (KC_NONUS_BACKSLASH);
@@ -232,7 +232,7 @@ void cmd_sft_slash_pipe_down (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void cmd_sft_slash_pipe_up (qk_tap_dance_state_t *state, void *user_data) {
+void cmd_sft_slash_pipe_up (tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     if (keyboard_report->mods & MOD_BIT(KC_LSFT)) {
       unregister_code (KC_LSFT);
@@ -246,7 +246,7 @@ void cmd_sft_slash_pipe_up (qk_tap_dance_state_t *state, void *user_data) {
 }
 
  //All tap dance functions would go here. Only showing this one.
- qk_tap_dance_action_t tap_dance_actions[] = {
+ tap_dance_action_t tap_dance_actions[] = {
    [CLN] = ACTION_TAP_DANCE_DOUBLE (KC_SCLN, S(KC_SCLN ))
    ,[QUOT] = ACTION_TAP_DANCE_DOUBLE (KC_QUOT, S(KC_2))
    ,[CAD_CAE] = ACTION_TAP_DANCE_FN_ADVANCED( NULL, NULL, cmd_dance )

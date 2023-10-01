@@ -80,7 +80,7 @@
  };
 
  //https://unicode-table.com/en/#00F1
- const uint32_t PROGMEM unicode_map[] = {
+ const uint32_t unicode_map[] PROGMEM = {
      [CKC_EUR] = 0x20AC, //€
      [N_TILDE] = 0x00F1,  // ñ
      [COMB_ACUTE_ACCENT] = 0x0301,  // ´
@@ -132,7 +132,7 @@
  };
 
 
- void matrix_init_user(){
+ void matrix_init_user(void){
      set_unicode_input_mode(UNICODE_MODE_MACOS);
  }
 
@@ -163,7 +163,7 @@
  #define TD_CTRL_LANG TD(_TD_CTRL_LANG)
  #define TD_SCLN_NTILDE TD(_TD_SCLN_NTILDE) //TP with costum keycodes has to be a funtion
 
- void td_scln_ntilde(qk_tap_dance_state_t *state, void *user_data) {
+ void td_scln_ntilde(tap_dance_state_t *state, void *user_data) {
       if (state->count == 1) {
          register_code(KC_SCLN);
          unregister_code(KC_SCLN);
@@ -174,7 +174,7 @@
  }
 
  // Tap Dance Definitions
- qk_tap_dance_action_t tap_dance_actions[] = {
+ tap_dance_action_t tap_dance_actions[] = {
      [_TD_TAB_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_TAB, KC_ESC),
      [_TD_BSPC_WDEL] = ACTION_TAP_DANCE_DOUBLE(KC_BSPC, LALT(KC_BSPC)),
      [_TD_SFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
@@ -265,7 +265,7 @@
     *                             +-------------/         \--------------+
     */
 
-     [_ADJUST] = LAYOUT_reviung41(X(GRINNING_FACE), X(GRINNING_FACE_WITH_SWEAT), X(ROLLING_LAUGHING), X(WINKING_FACE), X(SMILING_FACE_HALO), X(SMILING_FACE_HEARTS), RGB_VAI, RGB_HUI, RGB_MOD, KC_BRIU, KC_MPLY, KC_VOLU, X(SMILING_FACE_HEART_EYES), X(FACE_BLOWING_KISS), X(FACE_ROLLING_EYES), X(PENSIVE_FACE), X(LOUDLY_CRYING_FACE), X(PILE_POO), RGB_VAD, RGB_HUD, RGB_RMOD, KC_BRID, KC_MSTP, KC_VOLD, X(THUMBSUP), X(THUMBSDOWN), X(CLAPPING_HANDS), X(EYES), X(MAN_FACEPALMING), X(GHOST), RGB_TOG, RGB_SAD, RGB_SAI, RGB_SPD, RGB_SPI, KC_MUTE, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS)
+     [_ADJUST] = LAYOUT_reviung41(UM(GRINNING_FACE), UM(GRINNING_FACE_WITH_SWEAT), UM(ROLLING_LAUGHING), UM(WINKING_FACE), UM(SMILING_FACE_HALO), UM(SMILING_FACE_HEARTS), RGB_VAI, RGB_HUI, RGB_MOD, KC_BRIU, KC_MPLY, KC_VOLU, UM(SMILING_FACE_HEART_EYES), UM(FACE_BLOWING_KISS), UM(FACE_ROLLING_EYES), UM(PENSIVE_FACE), UM(LOUDLY_CRYING_FACE), UM(PILE_POO), RGB_VAD, RGB_HUD, RGB_RMOD, KC_BRID, KC_MSTP, KC_VOLD, UM(THUMBSUP), UM(THUMBSDOWN), UM(CLAPPING_HANDS), UM(EYES), UM(MAN_FACEPALMING), UM(GHOST), RGB_TOG, RGB_SAD, RGB_SAI, RGB_SPD, RGB_SPI, KC_MUTE, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS)
 
  };
 

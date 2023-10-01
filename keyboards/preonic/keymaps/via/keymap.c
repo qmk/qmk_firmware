@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_DEL,
   KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
-  _______, KC_LCTL, KC_LALT, KC_LGUI, FN_MO13, KC_SPC,  KC_SPC,  FN_MO23, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+  _______, KC_LCTL, KC_LALT, KC_LGUI, TL_LOWR, KC_SPC,  KC_SPC,  TL_UPPR, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* Lower
@@ -190,8 +190,8 @@ void matrix_scan_user(void) {
 
 bool music_mask_user(uint16_t keycode) {
   switch (keycode) {
-    case FN_MO13:
-    case FN_MO23:
+    case TL_LOWR:
+    case TL_UPPR:
       return false;
     default:
       return true;

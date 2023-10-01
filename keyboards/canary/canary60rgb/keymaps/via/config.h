@@ -17,3 +17,4 @@
 #pragma once
 
 #define DISABLE_RGB_MATRIX_PIXEL_FLOW
+#define DYNAMIC_KEYMAP_LAYER_COUNT 5

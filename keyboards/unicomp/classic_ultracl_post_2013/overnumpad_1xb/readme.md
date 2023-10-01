@@ -2,7 +2,7 @@
 
 ![unicomp/classic_ultracl_post_2013/overnumpad_1xb](https://www.pckeyboard.com/mm5/graphics/00000001/UB4ZPHA_800x343.jpg)
 
-Will support the following Unicomp Classic and Ultra Classic keyboards:
+Will support the following Unicomp Classic, Ultra Classic, and New Model M keyboards:
   * 104-key ANSI and 105-key ISO keyboards with post-2013 bottom row are supported.
   * It will likely also support 103-key ANSI or 104-key ISO keyboard variants (not tested) (these are the keyboards with no menu key)
   * At this point in time it's unclear if it supports 101-key keyboard variants built after 2013.

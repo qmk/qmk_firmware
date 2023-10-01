@@ -16,7 +16,6 @@
  
 #pragma once
 
-#include "config_common.h"
 
 #ifdef RGB_MATRIX_ENABLE
 
@@ -27,7 +26,6 @@
 	#define WS2812_DMA_STREAM STM32_DMA1_STREAM6
 	#define WS2812_DMA_CHANNEL 7						//7 works, CxS[3:0] 0111 = TIM1_UP on Channel 6? (RM0394.pdf pg.298)
 
-	#define RGB_DI_PIN A7                               // The pin connected to the data pin of the LEDs    
     #define RGB_MATRIX_LED_COUNT 61                     // The number of LEDs connected
     
     #define RGB_MATRIX_KEYPRESSES                       // reacts to keypresses

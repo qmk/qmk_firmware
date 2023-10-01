@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 enum my_keycodes {
-  LOGO_LED_ON = USER00,
+  LOGO_LED_ON = QK_KB_0,
   LOGO_LED_OFF
 };
 

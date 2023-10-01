@@ -17,7 +17,7 @@
 
 
 // Tap Dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_A] = ACTION_TAP_DANCE_FN(dance_key_a),
     [TD_E] = ACTION_TAP_DANCE_FN(dance_key_e),
     [TD_I] = ACTION_TAP_DANCE_FN(dance_key_i),
@@ -197,7 +197,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = LAYOUT_ortho_5x12(
     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,    KC_F10,  KC_F11,    KC_F12,
     _______, QK_BOOT, DB_TOGG, _______, _______, _______, _______, _______, _______,  KC_INS,  KC_PSCR,   KC_DEL,
-    _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK,  DVORAK,  HUNGARIAN, WORKMAN,
+    _______, _______, MU_NEXT, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK,  DVORAK,  HUNGARIAN, WORKMAN,
     _______, _______, _______, _______, UC_NEXT, UC_PREV, NK_TOGG, CG_NORM, CG_SWAP,  _______, _______,   _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,   _______
 )

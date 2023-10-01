@@ -23,27 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* LSE clock */
 #define STM32_LSECLK 32768
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 16
-
-#define MATRIX_COL_PINS { B1, B2, B10, B11, B12, B13, B14, A8, A9, A10, B0, A7, A5, B5, A15, A1 }
-#define MATRIX_ROW_PINS { B3, B4, A0, A2, A4, A3 }
-#define DIODE_DIRECTION COL2ROW
-
-#define ENCODERS_PAD_A { B9 }
-#define ENCODERS_PAD_B { B8 }
-
-#define ENCODER_RESOLUTION 2
-
-//LEDS A6, RGB B15
-#define BACKLIGHT_LEVELS 24
-#define BACKLIGHT_BREATHING
-#define BREATHING_PERIOD 6
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
 // I2C config
 #define I2C_DRIVER I2CD1
 #define I2C1_SCL_PIN B6
@@ -55,9 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C1_TIMINGR_SDADEL 0x01U
 #define I2C1_TIMINGR_SCLH 0x03U
 #define I2C1_TIMINGR_SCLL 0x09U
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

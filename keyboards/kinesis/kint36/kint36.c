@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "kint36.h"
+#include "quantum.h"
 
 #define LED_POWER C5
 

@@ -20,4 +20,3 @@
 
 #undef STM32_I2C_USE_DMA
 #define STM32_I2C_USE_DMA FALSE
-

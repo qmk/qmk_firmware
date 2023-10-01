@@ -2,7 +2,6 @@
 #include <avr/timer_avr.h>
 #include <avr/wdt.h>
 #include "lfk65_hs.h"
-#include "keymap.h"
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record)
 {
@@ -13,7 +12,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record)
     return process_record_user(keycode, record);
 }
 
-void reset_keyboard_kb(){
+void reset_keyboard_kb(void){
 #ifdef WATCHDOG_ENABLE
     MCUSR = 0;
     wdt_disable();

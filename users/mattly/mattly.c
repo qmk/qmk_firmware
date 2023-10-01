@@ -9,7 +9,7 @@ static uint16_t current_state = 0;
 
 void set_lights_default(void) {
     #ifdef RGBLIGHT_ENABLE
-        if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
+        if (host_keyboard_led_state().caps_lock) {
             rgblight_sethsv_noeeprom(HSV_CAPS);
         } else {
             if (current_state == _BASE_MAC) {
@@ -30,6 +30,9 @@ void layer_state_set_rgb(layer_state_t state) {
         case _NAVNUM:
         case _NAVNUM_WIN:
             rgblight_sethsv_noeeprom(HSV_NAVNUM);
+            break;
+        case _GAME:
+            rgblight_sethsv_noeeprom(HSV_GAME);
             break;
         case _FUNCT:
         case _FUNCT_WIN:

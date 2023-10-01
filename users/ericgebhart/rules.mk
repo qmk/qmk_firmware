@@ -45,7 +45,7 @@ VPATH += $(USER_PATH)/oled
 # SERIAL_DRIVER = usart
 # AUDIO_ENABLE = no
 # LTO_ENABLE = no
-# CONVERT_TO_PROTON_C = yes
+# CONVERT_TO=proton_c
 
 # so the keyboard's code doesn't add stuff we don't need.
 # when we use our own oled renders.

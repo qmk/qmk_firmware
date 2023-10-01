@@ -2,9 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
-#include "config_common.h"
 
-#define RGB_DI_PIN F6
 #define RGB_MATRIX_LED_COUNT 44
 
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
@@ -16,11 +14,6 @@
 #define ENABLE_RGB_MATRIX_CYCLE_ALL
 #define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
 #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
-
-#define ENCODERS_PAD_A { C7, F7, D6 }
-#define ENCODERS_PAD_B { C6, E6, D7 }
-#define ENCODER_RESOLUTIONS { 4, 4, 2 }
-
 
 /*
  * Feature disable options
