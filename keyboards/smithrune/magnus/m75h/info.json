@@ -17,7 +17,7 @@
         "encoder": false,
         "extrakey": true,
         "lto": true,
-        "mousekey": false,
+        "mousekey": true,
         "nkro": true,
         "rgblight": true
     },
