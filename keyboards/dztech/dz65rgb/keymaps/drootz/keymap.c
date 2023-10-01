@@ -709,7 +709,7 @@ void leader_end_user(void) {
 
 /**************** DYNAMIC MACRO *********************/
 
-void dynamic_macro_record_start_user(void) {
+void dynamic_macro_record_start_user(int8_t direction) {
     onMac = false; /* reset layer bool as dynamic macro clear the keyboard and reset layers. */
     if (!isBlinking && !isRecording) {
         reset_blink_cycle();

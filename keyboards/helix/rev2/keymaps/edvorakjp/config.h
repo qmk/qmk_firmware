@@ -5,7 +5,6 @@
 #undef QUICK_TAP_TERM
 #undef TAPPING_TERM
 #define TAPPING_TERM 300
-#define IGNORE_MOD_TAP_INTERRUPT
 
 // If you need more program area, try select and reduce rgblight modes to use.
 

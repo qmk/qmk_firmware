@@ -1,12 +1,10 @@
 # creek70
 
 More Info at [creek70](https://shop.wuquestudio.com/)
-​
 
 * Keyboard Maintainer: [spbgzh](https://github.com/spbgzh)
 * Hardware Supported: creek 70
 * Hardware Availability: [creek70](https://shop.wuquestudio.com/)  
-​
 
 Make example for this keyboard (after setting up your build environment):  
 

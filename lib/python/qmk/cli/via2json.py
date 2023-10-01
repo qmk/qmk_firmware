@@ -141,5 +141,5 @@ def via2json(cli):
     # Generate the keymap.json
     keymap_json = generate_json(cli.args.keymap, cli.args.keyboard, keymap_layout, keymap_data, macro_data)
 
-    keymap_lines = [json.dumps(keymap_json, cls=KeymapJSONEncoder)]
+    keymap_lines = [json.dumps(keymap_json, cls=KeymapJSONEncoder, sort_keys=True)]
     dump_lines(cli.args.output, keymap_lines, cli.args.quiet)

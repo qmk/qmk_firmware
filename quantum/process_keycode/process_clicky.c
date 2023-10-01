@@ -1,5 +1,7 @@
-#include "audio.h"
 #include "process_clicky.h"
+#include "audio.h"
+#include "eeconfig.h"
+#include <stdlib.h>
 
 #ifdef AUDIO_CLICKY
 

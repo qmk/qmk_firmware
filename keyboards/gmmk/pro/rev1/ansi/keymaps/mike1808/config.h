@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#define COMBO_COUNT 1
 #define COMBO_TERM 100
 
 #define RGB_MATRIX_KEYPRESSES
