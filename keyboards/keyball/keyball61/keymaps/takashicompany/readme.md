@@ -8,7 +8,7 @@ https://user-images.githubusercontent.com/4215759/162611440-2bb0ec75-2dbf-48b8-8
 
 https://github.com/takashicompany/qmk_firmware/assets/4215759/fcb52261-c998-403f-87d8-aca8a3f2261d
 
-上述の動画と同様にトラックボールを動かした際に一定時間、トラックボールレイヤー(デフォルトでは7番目...index6のレイヤー)が有効になります。  
+上述の動画と同様にトラックボールを動かした際に一定時間、トラックボールレイヤー(デフォルトでは5番目...index4のレイヤー)が有効になります。  
 
 ## ファームウェアの書き込み
 
@@ -25,7 +25,7 @@ make keyball/keyball61:takashicompany:flash
 ## Remapでのマウスキーの書き込みについて
 
 当ファームウェアはRemapに対応しております。  
-レイヤー数は7となります。
+レイヤー数は5となります。
 
 <img src="https://github.com/takashicompany/qmk_firmware/assets/4215759/64da22ab-edbf-442f-8dd1-d6b6a4848bbc" width="600px"/>
 
