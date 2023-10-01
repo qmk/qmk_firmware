@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/arkadiuszlega/qmk_firmware/keyboards/lily58/keymaps/dvorak_prog",
+      "program": "/Users/arkadiuszlega/qmk_firmware/keyboards/lily58/keymaps/dvorak_prog/build/Debug/outDebug"
+    }
+  ]
+}
