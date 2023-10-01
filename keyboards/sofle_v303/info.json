@@ -10,6 +10,7 @@
     },
     "ws2812": {
         "pin": "GP0",
+        "driver": "vendor"
     },
     "rgb_matrix": {
         "driver": "ws2812"
