@@ -15,8 +15,6 @@
  */
 
 #include "quantum.h"
-#define LED_PIN_ON_STATE 1
-
 #define CAPS_COLOR_R 0xFF
 #define CAPS_COLOR_G 0xFF
 #define CAPS_COLOR_B 0xFF
