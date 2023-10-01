@@ -3,8 +3,8 @@
     "keyboard_name": "HexBoard",
     "maintainer": "earboxer",
     "usb": {
-        "vid": "0x4A48",
-        "pid": "0x4257",
+        "vid": "0x239a",
+        "pid": "0xcafe",
         "device_version": "1.0.0"
     },
     "processor": "RP2040",
@@ -13,7 +13,8 @@
     "features": {
     },
     "ws2812": {
-		"pin": "GP22"
+        "pin": "GP22",
+        "driver": "vendor"
     },
     "matrix_pins": {
         "io_delay": 50,
