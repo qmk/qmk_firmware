@@ -2,7 +2,11 @@
 
 [miniZone](https://github.com/takashicompany/minizone)で開発したファームウェアの実装をKeyball44に流用したものです。
 
+<!--
 https://user-images.githubusercontent.com/4215759/162611440-2bb0ec75-2dbf-48b8-8c0d-54c8666c1aff.mp4
+-->
+
+https://github.com/takashicompany/qmk_firmware/assets/4215759/fcb52261-c998-403f-87d8-aca8a3f2261d
 
 上述の動画と同様にトラックボールを動かした際に一定時間、トラックボールレイヤー(デフォルトでは7番目...index6のレイヤー)が有効になります。  
 
@@ -26,7 +30,7 @@ make keyball/keyball44:takashicompany:flash
 <img src="https://github.com/takashicompany/qmk_firmware/assets/4215759/64da22ab-edbf-442f-8dd1-d6b6a4848bbc" width="600px"/>
 
 
-|キー|Remapでの表記|Code(hex)|説明|
+|キー|RemapでのKeycode|Code(hex)|説明|
 |:--|:--|:--|:--|
 |マウスボタン1|User 0|0x5DAF|主に左クリックが設定されていることが多い。|
 |マウスボタン2|User 1|0x5DB0|主に右クリックが設定されていることが多い。|
