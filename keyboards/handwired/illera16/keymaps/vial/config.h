@@ -26,7 +26,7 @@
 
 
 #define RGB_DI_PIN D0
-#define RGBLED_NUM 6    /*es el pin on es conecta el din del RGB led strip*/
+#define RGBLED_NUM 6
 #define RGBLIGHT_LAYERS
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */

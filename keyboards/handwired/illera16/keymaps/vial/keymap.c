@@ -29,11 +29,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             break;
 
         case _CAPA3:
-            rgblight_sethsv_noeeprom(HSV_PURPLE);
+            rgblight_sethsv_noeeprom(HSV_PINK);
             break;
 
         case _CAPA4:
-            rgblight_sethsv_noeeprom(HSV_WHITE);
+            rgblight_sethsv_noeeprom(HSV_PURPLE);
             break;
 
         default:
@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * └───┴───┴───┴───┘
      */
     [0] = LAYOUT_ortho_4x4( /* CAPAS BASE */
-       KC_MUTE, TG(1),  _______,    KC_SLASH,
+        KC_DEL, TG(1),  ____,   KC_SLASH,
         KC_7,   KC_8,   KC_9,   KC_PAST,
         KC_4,   KC_5,   KC_6,   KC_PMNS,
         KC_1,   KC_2, KC_3, KC_0
@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_2,       KC_2,   KC_2,   KC_2
     ),
     [3] = LAYOUT_ortho_4x4( /* CAPA3 */
-        KC_3,       KC_NO,   TG(3),   KC_3,
+        KC_3,      TG(4),   TG(3),   KC_3,
         KC_3,       KC_3,   KC_3,   KC_3,
         KC_3,       KC_3,   KC_3,   KC_3,
         KC_3,       KC_3,   KC_3,   KC_3
@@ -93,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-------------------------------------------------'
      */
     [4] = LAYOUT_ortho_4x4(
-        _______,   _______, _______, _______,
+        _______,   TG(5), TG(4), _______,
         KC_BTN5, KC_BTN1, KC_MS_U, KC_BTN2,
         KC_BTN4, KC_MS_L, KC_MS_D, KC_MS_R,
         KC_BTN3, KC_WH_L, KC_WH_D, KC_WH_R
