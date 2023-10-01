@@ -645,6 +645,7 @@ enum rgb_matrix_effects {
     RGB_MATRIX_DUAL_BEACON,         // Full gradient spinning around center of keyboard
     RGB_MATRIX_RAINBOW_BEACON,      // Full tighter gradient spinning around center of keyboard
     RGB_MATRIX_RAINBOW_PINWHEELS,   // Full dual gradients spinning two halfs of keyboard
+    RGB_MATRIX_FLOWER_BLOOMING,     // Full tighter gradient of first half scrolling left to right and second half scrolling right to left
     RGB_MATRIX_RAINDROPS,           // Randomly changes a single key's hue
     RGB_MATRIX_JELLYBEAN_RAINDROPS, // Randomly changes a single key's hue and saturation
     RGB_MATRIX_HUE_BREATHING,       // Hue shifts up a slight ammount at the same time, then shifts back
@@ -697,6 +698,7 @@ You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `confi
 |`#define ENABLE_RGB_MATRIX_DUAL_BEACON`               |Enables `RGB_MATRIX_DUAL_BEACON`              |
 |`#define ENABLE_RGB_MATRIX_RAINBOW_BEACON`            |Enables `RGB_MATRIX_RAINBOW_BEACON`           |
 |`#define ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS`         |Enables `RGB_MATRIX_RAINBOW_PINWHEELS`        |
+|`#define ENABLE_RGB_MATRIX_FLOWER_BLOOMING`           |Enables `RGB_MATRIX_FLOWER_BLOOMING`          |
 |`#define ENABLE_RGB_MATRIX_RAINDROPS`                 |Enables `RGB_MATRIX_RAINDROPS`                |
 |`#define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS`       |Enables `RGB_MATRIX_JELLYBEAN_RAINDROPS`      |
 |`#define ENABLE_RGB_MATRIX_HUE_BREATHING`             |Enables `RGB_MATRIX_HUE_BREATHING`            |
@@ -878,6 +880,7 @@ These are defined in [`color.h`](https://github.com/qmk/qmk_firmware/blob/master
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT // Sets the default mode, if none has been set
 #define RGB_MATRIX_DEFAULT_HUE 0 // Sets the default hue value, if none has been set
 #define RGB_MATRIX_DEFAULT_SAT 255 // Sets the default saturation value, if none has been set
+#define RGB_MATRIX_DEFAULT_ON true // Sets the default enabled state, if none has been set
 #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set
 #define RGB_MATRIX_DEFAULT_SPD 127 // Sets the default animation speed, if none has been set
 #define RGB_MATRIX_DISABLE_KEYCODES // disables control of rgb matrix by keycodes (must use code functions to control the feature)

@@ -62,5 +62,5 @@
 // dynamic keymaps start after this.
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 7
 
-#define IS31FL3736_DRIVER_COUNT 2
-#define RGB_MATRIX_LED_COUNT 96
+#define IS31FL3736_DRIVER_COUNT 1
+#define LED_MATRIX_LED_COUNT 96

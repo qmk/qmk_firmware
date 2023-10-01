@@ -37,8 +37,9 @@ Add the following to your `config.h`:
 |`BREATHING_PERIOD`           |`6`               |The length of one backlight "breath" in seconds                                                                  |
 |`BACKLIGHT_ON_STATE`         |`1`               |The state of the backlight pin when the backlight is "on" - `1` for high, `0` for low                            |
 |`BACKLIGHT_LIMIT_VAL`        |`255`             |The maximum duty cycle of the backlight -- `255` allows for full brightness, any lower will decrease the maximum.|
+|`BACKLIGHT_DEFAULT_ON`       |`true`            |Enable backlight upon clearing the EEPROM                                                                        |
+|`BACKLIGHT_DEFAULT_BREATHING`|`false`           |Whether to enable backlight breathing upon clearing the EEPROM                                                   |
 |`BACKLIGHT_DEFAULT_LEVEL`    |`BACKLIGHT_LEVELS`|The default backlight level to use upon clearing the EEPROM                                                      |
-|`BACKLIGHT_DEFAULT_BREATHING`|*Not defined*     |Whether to enable backlight breathing upon clearing the EEPROM                                                   |
 |`BACKLIGHT_PWM_PERIOD`       |2048Hz            |Defaults to `BACKLIGHT_PWM_COUNTER_FREQUENCY / 2048`, which results in a PWM frequency of 2048Hz.                |
 
 Unless you are designing your own keyboard, you generally should not need to change the `BACKLIGHT_PIN` or `BACKLIGHT_ON_STATE`.
