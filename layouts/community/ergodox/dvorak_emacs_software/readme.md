@@ -6,7 +6,7 @@ instead of a firmware configuration. This layout is for those who run their comp
  * Control & Alt key on the thumbs (activated if pressed with another key).
  * In the same way, "U" and "R" are the shift modifier if pressed with another key.
  * "I" and "D" set the layer 1 for the auxiliary keys if pressed with another key.
- * Software layout set to english.
+ * Software layout set to English.
 
 ## Keymap Layers
  - L0: dvorak with some customizations (see layout below)
@@ -19,7 +19,7 @@ Keys with double values (like U/LSft) correspond to the 'tapped' key and the 'he
 <pre><code>
 
 ,--------------------------------------------------.           ,--------------------------------------------------.
-|        |   1  |   2  |   3  |   4  |   5  |  Esc |           |  Esc |   6  |   7  |   8  |   9  |   0  |   =    |
+|   `    |   1  |   2  |   3  |   4  |   5  |  Esc |           |  Esc |   6  |   7  |   8  |   9  |   0  |   =    |
 |--------|------|------|------|------|-------------|           |------|------|------|------|------|------|--------|
 |   ~    |  '   |   ,  |   .  |   P  |   Y  |   [  |           |   ]  |   F  |   G  |   C  |   H  |   L  |   /    |
 |--------|------|------|------|------|------|   {  |           |   }  |------|------|------|------|------|--------|
@@ -27,7 +27,7 @@ Keys with double values (like U/LSft) correspond to the 'tapped' key and the 'he
 |--------|------|------|------|------|------| LGUI |           | LGUI |------|------|------|------|------|--------|
 | {/LSft |   ;  |   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |   Z  | }/RSft |
 `--------|------|------|------|------|-------------'           `-------------|------|------|------|------|--------'
-  |      |      |      |      | ~L1  |                                       | ~L1  |      |      |   \  |      |
+  | L1   | CAPS | SCRL | INS  | ~L1  |                                       | ~L1  |      |      |   \  | L1   |
   `----------------------------------'                                       `----------------------------------'
                                        ,-------------.       ,-------------.
                                        | HOME |  END |       | LEFT | RIGHT|
@@ -44,21 +44,21 @@ Keys with double values (like U/LSft) correspond to the 'tapped' key and the 'he
 <pre><code>
 
 ,--------------------------------------------------.           ,--------------------------------------------------.
-|  VolUp |      |      |      |      |      | SLEEP            | PWR  |      |      |      |      |      |        |
+|  VolUp |      |      |      |      |      | SLEEP            | PWR  |      |      |      |      |      | Brigh+ |
 |--------|------|------|------|------|-------------|           |------|------|------|------|------|------|--------|
-|  VolDn |  F1  |  F2  |  F3  |  F4  |      |      |           |      |      |   7  |   8  |   9  |   *  |        |
+|  VolDn |  F1  |  F2  |  F3  |  F4  |      |      |           |      |      |   7  |   8  |   9  |   *  | Brigh- |
 |--------|------|------|------|------|------|      |           |      |------|------|------|------|------|--------|
-|        |  F5  |  F6  |  F7  |  F8  | TRANS|------|           |------|TRANS |   4  |   5  |   6  |   +  |        |
+|  Mute  |  F5  |  F6  |  F7  |  F8  | TRANS|------|           |------|TRANS |   4  |   5  |   6  |   +  |        |
 |--------|------|------|------|------|------|      |           |PSCR  |------|------|------|------|------|--------|
 |  TRANS |  F9  |  F10 |  F11 |  F12 |      |      |           |      |      |   1  |   2  |   3  |   /  |  TRANS |
 `--------|------|------|------|------|-------------'           `-------------|------|------|------|------|--------'
-  |CTRL-S|CTRL-Z|CTRL-X|CTRL-C| TRANS|                                       | TRANS|    . |   0  |   =  |      |
+  | TRANS|CTRL-Z|CTRL-X|CTRL-C|CTRL-S|                                       | TRANS|    . |   0  |   =  |  TRANS |
   `----------------------------------'                                       `----------------------------------'
                                        ,-------------.       ,-------------.
                                        | TRANS| TRANS|       | TRANS| TRANS|
                                 ,------|------|------|       |------|------|------.
                                 |      |      | TRANS|       | TRANS|      |      |
-                                |TRANS |TRANS |------|       |------| TRANS| TRANS|
+                                | Prev | Next |------|       |------| Stop | Play |
                                 |      |      | TRANS|       | TRANS|      |      |
                                 `--------------------'       `--------------------'
 
