@@ -18,8 +18,8 @@
 
 /* RGB Matrix Driver Configuration */
 #define IS31FL3733_DRIVER_COUNT 2
-#define DRIVER_ADDR_1 0b1010000
-#define DRIVER_ADDR_2 0b1011111
+#define DRIVER_ADDR_1 IS31FL3733_I2C_ADDRESS_GND_GND
+#define DRIVER_ADDR_2 IS31FL3733_I2C_ADDRESS_GND_VCC
 
 /* DIP switch */
 #define DIP_SWITCH_MATRIX_GRID  { {0,1} }
@@ -28,9 +28,7 @@
 #define MATRIX_MASKED
 
 /* Encoder Configuration*/
-#ifdef ENCODER_ENABLE
-    #define ENCODER_DEFAULT_POS 0x3
-#endif
+#define ENCODER_DEFAULT_POS 0x3
 
 /* Disable RGB lighting when PC is in suspend */
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
