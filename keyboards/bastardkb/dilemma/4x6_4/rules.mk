@@ -1,5 +1,3 @@
-TRI_LAYER_ENABLE = yes		# Tri Layers
-
 SERIAL_DRIVER = vendor
 
 POINTING_DEVICE_ENABLE = yes
