@@ -281,6 +281,7 @@
 #define ___2_THUMBS_CB2___       CB2_1TH1, CB2_1TH2
 #define ___4_THUMBS_CB2___       CB2_0TH1, CB2_0TH2, CB2_0TH3, CB2_0TH4
 #define ___6_THUMBS_CB2___       CB2_1TH1, CB2_1TH2, CB2_1TH3, CB2_1TH4, CB2_1TH5, CB2_1TH6
+#define ___4_ERGO_THUMBS_CB2___  CB2_0TH1,  CB2_0TH2, CB2_0TH3, CB2_0TH4
 #define ___10_ERGO_THUMBS_CB2___ CB2_THA,  CB2_THB,     \
     ___6_ERGO_THUMBS___, CB2_THC, CB2_THD
 #define ___12_ERGO_THUMBS_CB2___ ___2_THUMBS_CB2___,      \
@@ -288,7 +289,7 @@
 #define ___12_DOX_ALL_THUMBS_CB2___ ___4_THUMBS_CB2___, ___2_THUMBS_CB2___, ___6_ERGO_THUMBS___
 #define ___16_DOX_ALL_THUMBS_CB2___ ___4_THUMBS_CB2___, ___6_THUMBS_2_CB2___, ___6_ERGO_THUMBS___
 #define ___16_DOX_ALL_THUMBSa_CB2___ ___4_THUMBS_CB2___, ___6_THUMBS_2a_CB2___, ___6_ERGO_THUMBS___
-#define ___SVALBOARD_THUMBS_CB2___ 12_DOX_ALL_THUMBS_CB2___
+#define ___SVALBOARD_THUMBS_CB2___ ___12_DOX_ALL_THUMBS_CB2___
 
 // for the kyria, mostly for the combo reference layers.
 // #define ___10_ERGO_THUMBS___ CATR(___10_ERGO_THUMBS, EXP_THUMB_EXT)

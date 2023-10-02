@@ -268,7 +268,24 @@ keyboard shapes: Matrix size + 5th row + thumbs. Matrix size + thumbs.
 - splitkb/kyria 3x6 + 7 or 3x5 + 7
 - ferris  3x5 + 2
 - hummingbird  2+3x3+2  + 2 thumbs.
+  The hummingbird keyboard definition can be installed like this.
+  Be sure to copy recursive MyQMK afterward to get the empty keymap placeholder.
+#+begin_src shell
+  git clone https://github.com/kilipan/hummingbird_qmk qmk_firmware/keyboards/hummingbird
+#+end_src
 - svalboard   5x4 + 6 thumbs per side.
+  The svalboard keyboard definition can be installed like this.
+  Be sure to copy recursive MyQMK afterward to get the empty keymap placeholder.
+#+begin_src shell
+  git clone https://github.com/morganvenable/svalboard qmk_firmware/keyboards/svalboard
+#+end_src
+- svalboard   5x4 + 6 thumbs per side.
+
+Copy this repo into qmk.  This installes the keymap placeholders and the user space.
+#+begin_src shell
+git clone https://github.com/EricGebhart/MyQMK
+cp -r MyQMK/* qmk_firmware/
+#+end_src
 
 ** Features
 :PROPERTIES:

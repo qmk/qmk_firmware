@@ -1,4 +1,4 @@
- Copyright 2018 Eric Gebhart <e.a.gebhart@gmail.com>
+ Copyright 2018-2023 EricaLina, Eric Gebhart <e.a.gebhart@gmail.com>
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -15,6 +15,42 @@
 
 
 * Eric.a's Keyboard configuration
+
+** Note about User Space Keymaps:
+
+With the changes to QMK regarding user keymaps and the questionable future
+of user space I have added a *Makefile* to replace my user keymaps.
+My user keymaps are empty placeholders so it is not difficult to recreate them
+as needed and to therefore honor the removal of user keymaps.
+
+User keymaps are however, still required, as that is how qmk resolves its build targets.
+A sparce user space and qmk keyboards tree, is enough, but not
+worrying about them at all is better.
+
+Part of the setup of this user space is to make sure that the user keymap for this
+user space and the keyboard you wish to build exists.  The Makefile is data driven
+and has status and help.
+
+#+begin_src shell
+make status
+make help
+#+end_src
+
+To install the user keymap for the SplitKb Kyria do this.
+
+#+begin_src shell
+make splitkb/kyria
+#+end_src
+
+To install the keyboard definitions for keyboards external to _qmk_firmware_
+such as hummingbird and svalboard, the following commands will install them
+to the keyboards folder and make a user keymap for them.
+
+#+begin_src shell
+make hummingbird
+make svalboard
+#+end_src
+
 
 ** Introduction
 In addition to this config.org file there are several others which contribute to this user space
@@ -311,24 +347,18 @@ We have to enable this in both the rules.mk and in the config.h.
 The old =custom_enable= hangs on as the way to indicate turning
 on the stuff here in my configuration.
 
+If you are having I2C errors, it could be this is on, and your keyboard does not support it.
+
 *** Rules
 #+begin_src makefile :tangle rules.mk
-OLED_ENABLE = no
-OLED_CUSTOM_ENABLE = no
+OLED_ENABLE = yes
+OLED_CUSTOM_ENABLE = yes
 
 # I should check if this is still needed. I dont remember.
 ifeq ($(strip $(OLED_CUSTOM_ENABLE)), yes)
         SRC += $(USER_PATH)/oled/oled_stuff.c
 endif
 VPATH += $(USER_PATH)/oled
-#+end_src
-
-Turn on/off this too.
-
-#+begin_src C :tangle config.h
-// OLED STUFF.
-//#define OLED_CUSTOM_ENABLE // custom oled here.
-//#define OLED_LOGO_ENABLE // turn on/off the logo.
 #+end_src
 
 This is my default Oled display for AVR. all text. If 128x64 a map of the layer will be displayed.
@@ -348,12 +378,18 @@ mods, layer number, last character and matrix position typed, and a map of the c
 
 Turn off the logo to save some memory.
 
-
 Enable split layer state to share data between sides for oled.
 
+
 #+begin_src C :tangle config.h
-#define KEYLOGGER_ENABLE // 1500 bytes, track and print keypress info to oled.
+// OLED STUFF.
+#define OLED_CUSTOM_ENABLE // custom oled here.
+
+//#define OLED_LOGO_ENABLE // turn on/off the logo.
 //#define SPLIT_LAYER_STATE_ENABLE  // to sync state between sides.
+
+#define OLED_DISPLAY_128X64
+#define KEYLOGGER_ENABLE // 1500 bytes, track and print keypress info to oled.
 #+end_src
 
 ** AVR, Turn off a bunch of stuff.
@@ -652,6 +688,8 @@ for how to use it.  [[https://precondition.github.io/qmk-heatmap][See Preconditi
 #+begin_src C :tangle config.h
 //#define CONSOLE_KEY_LOGGER_ENABLE  // turn on keylogging for heat maps.
 #+end_src
+
+Turn on/off this too.
 
 It also must be turned on in the rules.mk.
 
