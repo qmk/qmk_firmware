@@ -1,4 +1,5 @@
-/* Copyright 2023 eerraa
+/**
+ * Copyright 2022 Charly Delay <charly@codesink.dev> (@0xcharly)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,12 +17,6 @@
 
 #pragma once
 
-/* BACKLIGHT PWM */
-#define BACKLIGHT_PWM_DRIVER PWMD7
-#define BACKLIGHT_PWM_CHANNEL RP2040_PWM_CHANNEL_B
+#define HAL_USE_SPI TRUE
 
-/* RGB Matrix */
-#define RGB_MATRIX_DEFAULT_VAL 60
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#define RGB_MATRIX_KEYPRESSES
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
+#include_next <halconf.h>
