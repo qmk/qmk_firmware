@@ -1,4 +1,5 @@
-// Default h101 keymap, using a WKL/Tsangan bottom row, 2u backspace, 2u numpad +/enter, no short shift.
+// Copyright 2023 Josh Hinnebusch (@hineybush)
+// SPDX-License-Identifier: GPL-2.0-or-later
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
