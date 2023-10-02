@@ -51,6 +51,6 @@
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 
 // Startup values.
-#    define RGB_MATRIX_DEFAULT_VAL 64
+#    define RGB_MATRIX_DEFAULT_VAL 128
 #    define RGB_MATRIX_DEFAULT_SPD 32
 #endif

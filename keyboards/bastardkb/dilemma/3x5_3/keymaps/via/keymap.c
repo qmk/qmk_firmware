@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "color.h"
 #include QMK_KEYBOARD_H
 
 enum dilemma_keymap_layers {
@@ -203,45 +204,50 @@ void rgb_matrix_update_pwm_buffers(void);
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (host_keyboard_led_state().caps_lock) {
         for (int i = led_min; i <= led_max; i++) {
-            if (g_led_config.flags[i] & LED_FLAG_MODIFIER) {
-                rgb_matrix_set_color(i, RGB_RED);
+            if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
+                rgb_matrix_set_color(i, rgb_matrix_get_val() + 76, 0x00, 0x00);
             }
         }
     }
 
     uint8_t layer = get_highest_layer(layer_state);
     if (layer > 0) {
-        RGB rgb;
+        HSV hsv = rgb_matrix_get_hsv();
         switch (get_highest_layer(layer_state)) {
             case 1:
-                rgb = (RGB){RGB_BLUE};
+                hsv = (HSV){HSV_BLUE};
                 break;
             case 2:
-                rgb = (RGB){RGB_CORAL};
+                hsv = (HSV){HSV_AZURE};
                 break;
             case 3:
-                rgb = (RGB){RGB_GREEN};
+                hsv = (HSV){HSV_ORANGE};
                 break;
             case 4:
-                rgb = (RGB){RGB_YELLOW};
+                hsv = (HSV){HSV_SPRINGGREEN};
                 break;
             case 5:
-                rgb = (RGB){RGB_PINK};
+                hsv = (HSV){HSV_TEAL};
                 break;
             case 6:
-                rgb = (RGB){RGB_MAGENTA};
+                hsv = (HSV){HSV_PURPLE};
                 break;
             case 7:
             default:
-                rgb = (RGB){RGB_RED};
+                hsv = (HSV){HSV_RED};
                 break;
         };
 
-        for (int i = led_min; i <= led_max; i++) {
-            if ( g_led_config.flags[i] & LED_FLAG_UNDERGLOW) {
+        if (hsv.v > rgb_matrix_get_val()) {
+            hsv.v = rgb_matrix_get_val() + 22;
+        }
+        RGB rgb = hsv_to_rgb(hsv);
+
+        for (uint8_t i = led_min; i < led_max; i++) {
+            if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
                 rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
             }
-        };
+        }
     }
     return false;
 };
@@ -262,7 +268,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 
 void shutdown_user(void) {
 #ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_sethsv_noeeprom(HSV_RED);
+    rgb_matrix_set_color_all(rgb_matrix_get_val(), 0x00, 0x00);
     rgb_matrix_update_pwm_buffers();
 #endif // RGB_MATRIX_ENABLE
 }
