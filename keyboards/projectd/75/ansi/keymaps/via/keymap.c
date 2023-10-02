@@ -19,58 +19,6 @@
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 
-enum my_keycodes {
-    RGB_R = QK_USER,
-    RGB_G,
-    RGB_B,
-    RGB_W,
-    SW_cy,
-};
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
-    switch (keycode) {
-
-        case RGB_R:
-            if (record->event.pressed) {
-                rgb_matrix_sethsv(0, 255, 255);
-                rgb_matrix_mode(1);
-            }
-            return false; /* Skip all further processing of this key */
-
-        case RGB_G:
-            if (record->event.pressed) {
-                rgb_matrix_sethsv(85, 255, 255);
-                rgb_matrix_mode(1);
-            }
-            return false; /* Skip all further processing of this key */
-
-        case RGB_B:
-            if (record->event.pressed) {
-                rgb_matrix_sethsv(170, 255, 255);
-                rgb_matrix_mode(1);
-            }
-            return false; /* Skip all further processing of this key */
-
-        case RGB_W:
-            if (record->event.pressed) {
-                rgb_matrix_sethsv(0, 0, 255);
-                rgb_matrix_mode(1);
-            }
-            return false; /* Skip all further processing of this key */
-
-        case SW_cy:
-            rgb_matrix_sethsv(0, 255, 255);
-            rgb_matrix_mode(13);
-            return false; /* Skip all further processing of this key */
-
-        
-        default:
-            return true; /* Process all other keycodes normally */
-    }
-};
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: Base Layer (Default Layer)
    */
