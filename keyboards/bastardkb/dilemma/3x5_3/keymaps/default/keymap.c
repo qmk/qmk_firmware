@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "keycodes.h"
 #include QMK_KEYBOARD_H
 
 enum dilemma_keymap_layers {
