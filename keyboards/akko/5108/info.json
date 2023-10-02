@@ -178,7 +178,7 @@
             { "flags": 4, "matrix": [5, 19], "x": 214, "y": 64 }
     ]
     },
-    "layouts_aliases": {
+    "layout_aliases": {
         "LAYOUT": "LAYOUT_fullsize_extended_ansi"
     },
     "community_layouts": ["fullsize_extended_ansi"],
