@@ -13,13 +13,22 @@ enum ferris_layers {
 };
 
 enum custom_keycodes {
-    KVM_1 = SAFE_RANGE,
-    KVM_2,
-    KVM_3,
-    KVM_4,
-    VIM_CTLU,
+    VIM_CTLU = SAFE_RANGE,
     VIM_CTLD,
 };
+
+/* tap dance keys */
+enum {
+    TD_KVM_1 = 0,
+    TD_KVM_2,
+    TD_KVM_3,
+    TD_KVM_4,
+};
+
+#define TD_KVM1 TD(TD_KVM_1)
+#define TD_KVM2 TD(TD_KVM_2)
+#define TD_KVM3 TD(TD_KVM_3)
+#define TD_KVM4 TD(TD_KVM_4)
 
 /* thumb mods */
 #define NUM_BSPC LT(_NUM_SYM,KC_BSPC)
@@ -120,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             '------'------'      '------'------'
 */
     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,      KC_MPRV, KC_MNXT,  KC_MPLY,  KC_VOLD,  KC_VOLU,
-    KVM_1,   KVM_2,   KVM_3,   KVM_4,   KC_F6,      KC_LEFT, KC_DOWN,  KC_UP,    KC_RIGHT, KC_MUTE,
+    TD_KVM1, TD_KVM2, TD_KVM3, TD_KVM4, KC_F6,      KC_LEFT, KC_DOWN,  KC_UP,    KC_RIGHT, KC_MUTE,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_CIRC, VIM_CTLD, VIM_CTLU, RGB_TOG,  GAME_TOG,
                                _______, KC_ESC,     _______, _______
   ),
@@ -176,26 +185,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* macro configuration */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case KVM_1:
-            if (record->event.pressed) {
-                SEND_STRING(SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_1));
-            }
-            break;
-        case KVM_2:
-            if (record->event.pressed) {
-                SEND_STRING(SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_2));
-            }
-            break;
-        case KVM_3:
-            if (record->event.pressed) {
-                SEND_STRING(SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_3));
-            }
-            break;
-        case KVM_4:
-            if (record->event.pressed) {
-                SEND_STRING(SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_4));
-            }
-            break;
         case VIM_CTLU:
             if (record->event.pressed) {
                 SEND_STRING(SS_LCTL("u"));
@@ -208,6 +197,51 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
     }
     return true;
+};
+
+/* tap dance configuration */
+void dance_kvm_1 (qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        SEND_STRING(SS_TAP(X_A));
+        reset_tap_dance (state);
+    } else if (state->count >= 2) {
+        SEND_STRING(SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_1));
+        reset_tap_dance (state);
+    }
+}
+void dance_kvm_2 (qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        SEND_STRING(SS_TAP(X_R));
+        reset_tap_dance (state);
+    } else if (state->count >= 2) {
+        SEND_STRING(SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_2));
+        reset_tap_dance (state);
+    }
+}
+void dance_kvm_3 (qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        SEND_STRING(SS_TAP(X_S));
+        reset_tap_dance (state);
+    } else if (state->count >= 2) {
+        SEND_STRING(SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_3));
+        reset_tap_dance (state);
+    }
+}
+void dance_kvm_4 (qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        SEND_STRING(SS_TAP(X_T));
+        reset_tap_dance (state);
+    } else if (state->count >= 2) {
+        SEND_STRING(SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_4));
+        reset_tap_dance (state);
+    }
+}
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [TD_KVM_1] = ACTION_TAP_DANCE_FN(dance_kvm_1),
+    [TD_KVM_2] = ACTION_TAP_DANCE_FN(dance_kvm_2),
+    [TD_KVM_3] = ACTION_TAP_DANCE_FN(dance_kvm_3),
+    [TD_KVM_4] = ACTION_TAP_DANCE_FN(dance_kvm_4),
 };
 
 /* per key configuration */
