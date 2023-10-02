@@ -20,8 +20,8 @@
     "url": "",
     "usb": {
         "device_version": "0.0.1",
-        "vid": "0x3369",
-        "pid": "0xA101"
+        "vid": "0x4069",
+        "pid": "0x0002"
     },
     "layouts": {
         "LAYOUT_h101_tsangan": {
