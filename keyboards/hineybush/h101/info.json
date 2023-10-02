@@ -23,6 +23,12 @@
         "vid": "0x4069",
         "pid": "0x0002"
     },
+    "indicators": {
+        "num_lock": "A6",
+        "caps_lock": "B14",
+        "scroll_lock": "B8",
+        "on_state": 0
+    },
     "layouts": {
         "LAYOUT_h101_tsangan": {
             "layout": [
