@@ -1,4 +1,4 @@
-# Matrix Diagram for qwertyqop60hs
+# Matrix Diagram for Zeix Qwertyqop60hs
 
 ```
                                                     ┌───────┐
