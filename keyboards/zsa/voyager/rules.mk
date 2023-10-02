@@ -1,4 +1,4 @@
-MCU_LDSCRIPT = ignition
+MCU_LDSCRIPT = voyager
 
 CUSTOM_MATRIX = lite
 DFU_ARGS = -d 3297:0791 -a 0 -s 0x08002000:leave
