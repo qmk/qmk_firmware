@@ -11,8 +11,6 @@ F13 full-size PCB with 1.25u function row Spacing.
 Make example for this keyboard (after setting up your build environment):
 
     make hineybush/h101:default
-    
-    make hineybush/h101:via
 
 Flashing example for this keyboard:
 
