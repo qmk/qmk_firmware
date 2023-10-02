@@ -1,6 +1,6 @@
 # Fuji75 Solder
 
-![Fuji75 Solder](https://i.imgur.com/tv6YdWt.png)
+![Fuji75 Solder](https://i.imgur.com/tv6YdWth.png)
 
 * Keyboard Maintainer: [Freather](https://github.com/CMMS-Freather)
 * Hardware Supported: PCB, Atmega32u4
