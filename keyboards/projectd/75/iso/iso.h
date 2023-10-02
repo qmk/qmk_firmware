@@ -16,6 +16,8 @@
 
 #pragma once
 
+#include "quantum.h"
+
 enum my_keycodes {
     RGB_R = QK_KB,
     RGB_G,
