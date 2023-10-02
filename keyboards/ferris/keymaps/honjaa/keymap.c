@@ -263,7 +263,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  [_BASE] = LAYOUT(KC_Q, KC_W, KC_E, KC_R, KC_T,                                             KC_Y, KC_U, KC_I, KC_O, KC_P,
                   KC_A, KC_S, KC_D, KC_F, KC_G,                                                  KC_H, KC_J, KC_K, KC_L, NO_OSTR,
 		  KC_Z, KC_X, KC_C, KC_V, KC_B,                                                  KC_N, KC_M, KC_COMM, KC_DOT, NO_MINS,
-		  OSL(_LM_NUM), LT(_NAV,KC_BACKSPACE),                                                          LT(_MOUSE,KC_SPC), OSL(_RM_SYM)),
+		  LT(_LM_NUM,KC_DEL), LT(_NAV,KC_BACKSPACE),                                     LT(_MOUSE,KC_SPC), LT(_RM_SYM,KC_ENT)),
 
  [_LM_NUM] = LAYOUT(KC_F1, KC_F2, KC_F3, KC_F4, KC_F5,                                           NO_QUOT , TD(DANCE_7), TD(DANCE_8), TD(DANCE_9), NO_EQL,
 		    OSM(MOD_LALT), OSM(MOD_LGUI), OSM(MOD_LCTL), OSM(MOD_LSFT), KC_TAB,          NO_SLSH , TD(DANCE_4), TD(DANCE_5), TD(DANCE_6), NO_ASTR,
@@ -277,12 +277,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
  [_NAV] = LAYOUT(MACRO_QUIT, LCTL(KC_W), KC_TRANSPARENT, LCTL(KC_R), LCTL(KC_T),                 KC_TRANSPARENT, KC_HOME, KC_PGDN, KC_PGUP, KC_END,
 		KC_ESC, MACRO_SAVE, MACRO_LINE, MACRO_TIME, KC_TRANSPARENT,                      KC_TRANSPARENT, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT,
-		MACRO_UNDO, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,      KC_TRANSPARENT,KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+		 MACRO_UNDO, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, TG(_MOUSE),      KC_TRANSPARENT,KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
 		                                   TO(_BASE), KC_TRANSPARENT,                        KC_SPC, KC_TRANSPARENT),
 
  [_MOUSE] = LAYOUT(KC_ESC, LCTL(KC_W), KC_MS_UP, LCTL(KC_R), LCTL(KC_T),                         KC_MEDIA_NEXT_TRACK, KC_UP, KC_MS_WH_UP, KC_PGUP,NO_ARNG,
 		  KC_ESC, KC_MS_LEFT, KC_MS_DOWN,  KC_MS_RIGHT, KC_TRANSPARENT,                  KC_MEDIA_PLAY_PAUSE, KC_MS_BTN1, KC_MS_BTN3, KC_MS_BTN2, NO_AE,
-		  KC_TRANSPARENT, KC_MS_WH_LEFT, KC_TRANSPARENT, KC_MS_WH_RIGHT, KC_TRANSPARENT, KC_MEDIA_PREV_TRACK, KC_DOWN, KC_MS_WH_DOWN, KC_PGDN, KC_TRANSPARENT,
+		   KC_TRANSPARENT, KC_MS_WH_LEFT, KC_TRANSPARENT, KC_MS_WH_RIGHT, TG(_NAV), KC_MEDIA_PREV_TRACK, KC_DOWN, KC_MS_WH_DOWN, KC_PGDN, KC_TRANSPARENT,
 		                                   KC_TRANSPARENT, KC_BACKSPACE,                     KC_TRANSPARENT, TO(_BASE)) 
 
 };
