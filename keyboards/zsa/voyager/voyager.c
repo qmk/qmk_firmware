@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "voyager.h"
+#include "action_layer.h"
 
 keyboard_config_t keyboard_config;
 
@@ -58,7 +59,10 @@ void voyager_led_task(void) {
 #endif
 #if !defined(VOYAGER_USER_LEDS)
     else {
-        layer_state_set_kb(layer_state);
+        static layer_state_t state = 0;
+        if (state != layer_state) {
+            state = layer_state_set_kb(layer_state);
+        }
     }
 #endif
 }
