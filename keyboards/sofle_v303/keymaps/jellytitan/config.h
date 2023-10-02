@@ -36,6 +36,10 @@
 /* Time until maximum scroll speed is reached */
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 15
 
+#define POINTING_DEVICE_ROTATION_90
+#define SPLIT_POINTING_ENABLE
+#define POINTING_DEVICE_RIGHT
+#define POINTING_DEVICE_TASK_THROTTLE_MS 8
 /*
     - RGB Stuff -
     All effects can be found in the QMK docs:
