@@ -1,4 +1,4 @@
-// Copyright 2023 y (@villeramassana)
+// Copyright 2023 Victor Illera (@villeramassana)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
@@ -25,8 +25,8 @@
 #define VIAL_UNLOCK_COMBO_COLS { 0,1 }
 
 
-#define RGB_DI_PIN D0
-#define RGBLED_NUM 6
+#define RGB_DI_PIN D0 /*es al pin on es conecta el din de RGB strip*/
+#define RGBLED_NUM 6  
 #define RGBLIGHT_LAYERS
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
