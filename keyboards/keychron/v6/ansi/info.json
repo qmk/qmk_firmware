@@ -13,8 +13,12 @@
     },
     "processor": "STM32L432",
     "bootloader": "stm32-dfu",
+    "layout_aliases": {
+        "LAYOUT_ansi_108": "LAYOUT_fullsize_extended_ansi"
+    },
+    "community_layouts": ["fullsize_extended_ansi"],
     "layouts": {
-        "LAYOUT_ansi_108": {
+        "LAYOUT_fullsize_extended_ansi": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 2, "y": 0},

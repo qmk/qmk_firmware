@@ -176,10 +176,14 @@
             { "flags": 4, "matrix": [5, 16], "x": 176, "y": 64 },
             { "flags": 4, "matrix": [5, 18], "x": 199, "y": 64 },
             { "flags": 4, "matrix": [5, 19], "x": 214, "y": 64 }
-    ]
+        ]
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_fullsize_extended_ansi"
+    },
+    "community_layouts": ["fullsize_extended_ansi"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_fullsize_extended_ansi": {
             "layout": [
                 { "label": "Esc", "matrix": [0, 0], "x": 0, "y": 0 },
                 { "label": "F1", "matrix": [0, 1], "x": 2, "y": 0 },
