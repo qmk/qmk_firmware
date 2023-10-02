@@ -3,8 +3,8 @@
     "keyboard_name": "HexBoard",
     "maintainer": "earboxer",
     "usb": {
-        "vid": "0x239a",
-        "pid": "0xcafe",
+        "vid": "0x239A",
+        "pid": "0xCAFE",
         "device_version": "1.0.0"
     },
     "processor": "RP2040",
