@@ -3,7 +3,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "voyager.h"
-#include "is31fl3731.h"
 #include "i2c_master.h"
 
 extern matrix_row_t matrix[MATRIX_ROWS];     // debounced values
