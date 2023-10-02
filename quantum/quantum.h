@@ -60,6 +60,9 @@
 #ifdef DEFERRED_EXEC_ENABLE
 #    include "deferred_exec.h"
 #endif
+#ifdef ACHORDION_ENABLE
+#    include "process_achordion.h"
+#endif
 
 extern layer_state_t default_layer_state;
 

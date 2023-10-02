@@ -951,3 +951,9 @@ ifeq ($(strip $(OS_DETECTION_ENABLE)), yes)
         OPT_DEFS += -DOS_DETECTION_DEBUG_ENABLE
     endif
 endif
+
+
+ifeq ($(strip $(ACHORDION_ENABLE)), yes)
+    OPT_DEFS += -DACHORDION_ENABLE -DPERMISSIVE_HOLD
+    SRC += $(QUANTUM_DIR)/process_keycode/process_achordion.c
+endif

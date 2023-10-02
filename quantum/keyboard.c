@@ -138,6 +138,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef WPM_ENABLE
 #    include "wpm.h"
 #endif
+#ifdef ACHORDION_ENABLE
+#    include "process_achordion.h"
+#endif
 
 static uint32_t last_input_modification_time = 0;
 uint32_t        last_input_activity_time(void) {
@@ -635,6 +638,10 @@ void quantum_task(void) {
 
 #ifdef SECURE_ENABLE
     secure_task();
+#endif
+
+#ifdef ACHORDION_ENABLE
+    achordion_task();
 #endif
 }
 
