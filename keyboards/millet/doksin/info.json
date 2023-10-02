@@ -1,0 +1,19 @@
+{
+  "keyboard_name": "doksin",
+  "manufacturer": "millet",
+  "url": "",
+  "maintainer": "millet",
+  "usb": {
+    "vid": "0xBDD1",
+    "pid": "0x1919",
+    "device_version": "0.0.1"
+  },
+  "layouts": {
+    "LAYOUT": {
+      "layout": [
+
+        { "x": 0, "y": 0 }
+      ]
+    }
+  }
+}
