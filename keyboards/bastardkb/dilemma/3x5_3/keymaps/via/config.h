@@ -18,3 +18,6 @@
 #pragma once
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 8
+
+#define SPLIT_LAYER_STATE_ENABLE
+#define SPLIT_LED_STATE_ENABLE
