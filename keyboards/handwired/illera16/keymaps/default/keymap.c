@@ -21,7 +21,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     uint8_t layer = biton32(state);
     switch (layer) {    
         case _CAPA1:
-            rgblight_sethsv_noeeprom(HSV_YELLOW);
+            rgblight_sethsv_noeeprom(HSV_GREEN);
             break;
 
         case _CAPA2:
@@ -29,7 +29,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             break;
 
         case _CAPA3:
-            rgblight_sethsv_noeeprom(HSV_WHITE);
+            rgblight_sethsv_noeeprom(HSV_PINK);
             break;
 
         case _CAPA4:
@@ -52,42 +52,42 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
      * ┌───┬───┬───┬───┐
-     * │ 7 │ 8 │ 9 │ / │
+     * │ 7 │c1 │ 9 │ / │
      * ├───┼───┼───┼───┤
-     * │ 4 │ 5 │ 6 │ * │
+     * │ 7 │ 8 │ 9 │ * │
      * ├───┼───┼───┼───┤
-     * │ 1 │ 2 │ 3 │ - │
+     * │ 4 │ 5 │ 6 │ - │
      * ├───┼───┼───┼───┤
-     * │ 0 │ . │Ent│ + │
+     * │ 1 │ 2 │ 3 │ 0 │
      * └───┴───┴───┴───┘
      */
     [0] = LAYOUT_ortho_4x4( /* CAPAS BASE */
-        LT(1, KC_7),   KC_8,   KC_9,   KC_SLASH,
-        KC_4,   KC_5,   KC_6,   KC_PAST,
-        KC_1,   KC_2,   KC_3,   KC_PMNS,
-        KC_0,   KC_PDOT, KC_PENT, KC_PPLS
+        KC_DEL, TG(1),  ____,   KC_SLASH,
+        KC_7,   KC_8,   KC_9,   KC_PAST,
+        KC_4,   KC_5,   KC_6,   KC_PMNS,
+        KC_1,   KC_2, KC_3, KC_0
     ),
-    [1] = LAYOUT_ortho_4x4( /* CAPAS */
-        _______, TG(5),     _______,   _______,
-        TG(2),   _______,   _______,   _______,
-        TG(3),   _______,   _______,   _______,
-        TG(4),   _______,   _______,   _______
+    [1] = LAYOUT_ortho_4x4( /* CAPA1 */
+        KC_1,     TG(2),   TG(1),   KC_1,
+        KC_1,     KC_1,   KC_1,   KC_1,
+        KC_1,     KC_1,   KC_1,   KC_1,
+        KC_1,     KC_1,   KC_1,   KC_1
     ),
     [2] = LAYOUT_ortho_4x4( /* CAPA2 */
-        TG(2),      KC_2,   KC_2,   KC_2,
+        KC_2,      TG(3),   TG(2),   KC_2,
         KC_2,       KC_2,   KC_2,   KC_2,
         KC_2,       KC_2,   KC_2,   KC_2,
         KC_2,       KC_2,   KC_2,   KC_2
     ),
     [3] = LAYOUT_ortho_4x4( /* CAPA3 */
-        TG(3),      KC_3,   KC_3,   KC_3,
+        KC_3,      TG(4),   TG(3),   KC_3,
         KC_3,       KC_3,   KC_3,   KC_3,
         KC_3,       KC_3,   KC_3,   KC_3,
         KC_3,       KC_3,   KC_3,   KC_3
     ),
     /* MOUSE
      * ,-------------------------------------------------.
-     * |           |           | SCROLL UP  |     X      |
+     * |           |           |     c3     |     X      |
      * |-----------+-----------+------------+------------|
      * |  BUTTON 5 |LEFT CLICK |     UP     |RIGHT CLICK |
      * |-----------+-----------+------------+------------|
@@ -97,14 +97,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-------------------------------------------------'
      */
     [4] = LAYOUT_ortho_4x4(
-        TG(4),   _______, KC_WH_U, _______,
+        _______,   TG(5), TG(4), _______,
         KC_BTN5, KC_BTN1, KC_MS_U, KC_BTN2,
         KC_BTN4, KC_MS_L, KC_MS_D, KC_MS_R,
         KC_BTN3, KC_WH_L, KC_WH_D, KC_WH_R
     ),
      /* NAV
    * ,-----------------------.
-   * | INS |PGUP | TAB |PRSCR|
+   * | INS |PGUP | c4 |PRSCR|
    * |-----+-----+-----+-----|
    * | DEL |PGDN |VOLD |VOLU |
    * |-----+-----+-----+-----|
@@ -114,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `---------------------- '
    */
   [5] = LAYOUT_ortho_4x4( /* NAV CLUSTER */
-    TG(5),  KC_PGUP, KC_TAB,  KC_PSCR,
+    KC_PGUP,  _______, TG(5),  KC_PSCR,
     KC_DEL,  KC_PGDN, KC_VOLD, KC_VOLU,
     KC_HOME, KC_UP,   KC_END,  _______,
     KC_LEFT, KC_DOWN, KC_RGHT, KC_ENT
