@@ -1,4 +1,6 @@
-/* Copyright 2023 eerraa
+/**
+ * Copyright 2021 Charly Delay <charly@codesink.dev> (@0xcharly)
+ * Copyright 2023 casuanoob <casuanoob@hotmail.com> (@casuanoob)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,15 +15,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #pragma once
 
-/* BACKLIGHT PWM */
-#define BACKLIGHT_PWM_DRIVER PWMD7
-#define BACKLIGHT_PWM_CHANNEL RP2040_PWM_CHANNEL_B
-
-/* RGB Matrix */
-#define RGB_MATRIX_DEFAULT_VAL 60
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#define RGB_MATRIX_KEYPRESSES
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define DYNAMIC_KEYMAP_LAYER_COUNT 8
