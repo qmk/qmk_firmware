@@ -13,10 +13,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #pragma once
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
+#include "quantum.h"
+
+enum keyboard_keycodes {
+    RGB_R = QK_KB,
+    RGB_G,
+    RGB_B,
+    RGB_W,
+    SW_cy,
+};
+
