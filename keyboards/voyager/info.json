@@ -8,8 +8,11 @@
     "pid": "0x1977",
     "device_version": "0.0.1"
   },
+    "layout_aliases": {
+        "LAYOUT_voyager": "LAYOUT"
+    },
   "layouts": {
-    "LAYOUT_voyager": {
+    "LAYOUT": {
       "layout": [
         {
           "x": 3,

@@ -1,3 +1,7 @@
+// Copyright 2023 ZSA Technology Labs, Inc <@zsa>
+// Copyright 2023 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 #include "version.h"
 
