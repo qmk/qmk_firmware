@@ -181,7 +181,7 @@
     "layouts_aliases": {
         "LAYOUT": "LAYOUT_fullsize_extended_ansi"
     },
-    "community_layouts": ["LAYOUT_fullsize_extended_ansi"],
+    "community_layouts": ["fullsize_extended_ansi"],
     "layouts": {
         "LAYOUT_fullsize_extended_ansi": {
             "layout": [
