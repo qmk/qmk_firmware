@@ -173,9 +173,9 @@ void is31fl3741_init(uint8_t addr) {
 }
 
 void is31fl3741_set_value(int index, uint8_t value) {
-    is31_led led;
+    is31fl3741_led_t led;
     if (index >= 0 && index < LED_MATRIX_LED_COUNT) {
-        memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
+        memcpy_P(&led, (&g_is31fl3741_leds[index]), sizeof(led));
 
         if (g_pwm_buffer[led.driver][led.v] == value) {
             return;
@@ -192,8 +192,8 @@ void is31fl3741_set_value_all(uint8_t value) {
 }
 
 void is31fl3741_set_led_control_register(uint8_t index, bool value) {
-    is31_led led;
-    memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
+    is31fl3741_led_t led;
+    memcpy_P(&led, (&g_is31fl3741_leds[index]), sizeof(led));
 
     if (value) {
         g_scaling_registers[led.driver][led.v] = 0xFF;
@@ -216,7 +216,7 @@ void is31fl3741_update_pwm_buffers(uint8_t addr, uint8_t index) {
     g_pwm_buffer_update_required[index] = false;
 }
 
-void is31fl3741_set_pwm_buffer(const is31_led *pled, uint8_t value) {
+void is31fl3741_set_pwm_buffer(const is31fl3741_led_t *pled, uint8_t value) {
     g_pwm_buffer[pled->driver][pled->v] = value;
 
     g_pwm_buffer_update_required[pled->driver] = true;
@@ -246,7 +246,7 @@ void is31fl3741_update_led_control_registers(uint8_t addr, uint8_t index) {
     }
 }
 
-void is31fl3741_set_scaling_registers(const is31_led *pled, uint8_t value) {
+void is31fl3741_set_scaling_registers(const is31fl3741_led_t *pled, uint8_t value) {
     g_scaling_registers[pled->driver][pled->v] = value;
 
     g_scaling_registers_update_required[pled->driver] = true;
