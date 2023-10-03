@@ -18,6 +18,16 @@ Flashing example for this keyboard:
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
+## Recommended Keymap
+
+For an everyday keyboard, it is recommended to use the `feature` keymap, as the default keymap is extremely barebone. Here is a make example:
+
+    make etiennecollin/wave:feature
+
+Flashing example:
+
+    make etiennecollin/wave:feature:flash
+
 ## Bootloader
 
 Enter the bootloader in 3 ways:
