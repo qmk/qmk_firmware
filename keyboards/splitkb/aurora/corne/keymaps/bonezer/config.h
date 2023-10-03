@@ -16,10 +16,11 @@
 
 #pragma once
 
-#define TAPPING_TERM 220
-#define HOLD_ON_OTHER_KEY_PRESS
-#define BILATERAL_COMBINATIONS 500
+#define TAPPING_TERM 150
+#define IGNORE_MOD_TAP_INTERRUPT
 
+#define LED_CAPS_LOCK_PIN 24
+#define LED_PIN_ON_STATE 0
 
 #ifdef RGB_MATRIX_ENABLE
 #   define RGB_MATRIX_KEYPRESSES // reacts to keypresses
