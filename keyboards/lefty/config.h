@@ -16,12 +16,6 @@
 
 #pragma once
 
-
-/* key matrix pins are in subfolders v1/v2 */
-
-/* Diode direction   */
-#define DIODE_DIRECTION COL2ROW
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 

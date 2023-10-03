@@ -3,7 +3,7 @@
 // Copyright 2022 Vino Rodrigues (@vinorodrigues)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "id67.h"
+#include "quantum.h"
 
 #define __ NO_LED
 

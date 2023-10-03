@@ -104,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef ENCODER_MAP_ENABLE
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_DEFAULT_LAYER_1] = { { KC_DOWN, KC_UP   } },
     [_DEFAULT_LAYER_2] = { { _______, _______ } },
     [_DEFAULT_LAYER_3] = { { _______, _______ } },
@@ -184,7 +184,7 @@ led_config_t g_led_config = {
 
 bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
     uint8_t this_mod = get_mods();
-    uint8_t this_led = host_keyboard_leds();
+    led_t   this_led = host_keyboard_led_state();
     uint8_t this_osm = get_oneshot_mods();
 #    ifdef KEYBOARD_planck_ez
 #        define THUMB_LED 41
@@ -208,7 +208,7 @@ bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
             break;
     }
 
-    if ((this_mod | this_osm) & MOD_MASK_SHIFT || this_led & (1 << USB_LED_CAPS_LOCK)) {
+    if ((this_mod | this_osm) & MOD_MASK_SHIFT || this_led.caps_lock) {
         if (!layer_state_cmp(layer_state, _ADJUST)) {
             RGB_MATRIX_INDICATOR_SET_COLOR(24, 0x00, 0xFF, 0x00);
         }
@@ -236,34 +236,6 @@ void keyboard_post_init_keymap(void) {
     // rgblight_mode(RGB_MATRIX_MULTISPLASH);
 }
 #endif  // RGB_MATRIX_INIT
-
-#ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    switch (get_highest_layer(layer_state)) {
-        case _RAISE:
-            clockwise ? tap_code(KC_VOLD) : tap_code(KC_VOLU);
-            break;
-        case _LOWER:
-#    ifdef RGB_MATRIX_ENABLE
-            clockwise ? rgb_matrix_step() : rgb_matrix_step_reverse();
-#    else
-            clockwise ? tap_code(KC_PGDN) : tap_code(KC_PGUP);
-#    endif
-            break;
-        case _ADJUST:
-#    ifdef AUDIO_CLICKY
-            clockwise ? clicky_freq_up() : clicky_freq_down();
-#    endif
-            break;
-        default:
-            clockwise ? tap_code(KC_DOWN) : tap_code(KC_UP);
-    }
-#    ifdef AUDIO_CLICKY
-    clicky_play();
-#    endif
-    return true;
-}
-#endif  // ENCODER_ENABLE
 
 #ifdef KEYBOARD_planck_rev6
 bool dip_switch_update_user(uint8_t index, bool active) {

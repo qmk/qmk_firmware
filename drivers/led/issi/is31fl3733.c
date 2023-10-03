@@ -80,7 +80,7 @@ uint8_t g_twi_transfer_buffer[20];
 // The control buffers match the PG0 LED On/Off registers.
 // Storing them like this is optimal for I2C transfers to the registers.
 // We could optimize this and take out the unused registers from these
-// buffers and the transfers in IS31FL3733_write_pwm_buffer() but it's
+// buffers and the transfers in is31fl3733_write_pwm_buffer() but it's
 // probably not worth the extra complexity.
 uint8_t g_pwm_buffer[DRIVER_COUNT][192];
 bool    g_pwm_buffer_update_required[DRIVER_COUNT] = {false};
@@ -88,7 +88,7 @@ bool    g_pwm_buffer_update_required[DRIVER_COUNT] = {false};
 uint8_t g_led_control_registers[DRIVER_COUNT][24]             = {0};
 bool    g_led_control_registers_update_required[DRIVER_COUNT] = {false};
 
-bool IS31FL3733_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
+bool is31fl3733_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
     // If the transaction fails function returns false.
     g_twi_transfer_buffer[0] = reg;
     g_twi_transfer_buffer[1] = data;
@@ -107,7 +107,7 @@ bool IS31FL3733_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
     return true;
 }
 
-bool IS31FL3733_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
+bool is31fl3733_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     // Assumes PG1 is already selected.
     // If any of the transactions fails function returns false.
     // Transmit PWM registers in 12 transfers of 16 bytes.
@@ -138,7 +138,7 @@ bool IS31FL3733_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     return true;
 }
 
-void IS31FL3733_init(uint8_t addr, uint8_t sync) {
+void is31fl3733_init(uint8_t addr, uint8_t sync) {
     // In order to avoid the LEDs being driven with garbage data
     // in the LED driver's PWM registers, shutdown is enabled last.
     // Set up the mode and other settings, clear the PWM registers,
@@ -146,49 +146,52 @@ void IS31FL3733_init(uint8_t addr, uint8_t sync) {
     // Sync is passed so set it according to the datasheet.
 
     // Unlock the command register.
-    IS31FL3733_write_register(addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
+    is31fl3733_write_register(addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
 
     // Select PG0
-    IS31FL3733_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_LEDCONTROL);
+    is31fl3733_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_LEDCONTROL);
     // Turn off all LEDs.
     for (int i = 0x00; i <= 0x17; i++) {
-        IS31FL3733_write_register(addr, i, 0x00);
+        is31fl3733_write_register(addr, i, 0x00);
     }
 
     // Unlock the command register.
-    IS31FL3733_write_register(addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
+    is31fl3733_write_register(addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
 
     // Select PG1
-    IS31FL3733_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_PWM);
+    is31fl3733_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_PWM);
     // Set PWM on all LEDs to 0
     // No need to setup Breath registers to PWM as that is the default.
     for (int i = 0x00; i <= 0xBF; i++) {
-        IS31FL3733_write_register(addr, i, 0x00);
+        is31fl3733_write_register(addr, i, 0x00);
     }
 
     // Unlock the command register.
-    IS31FL3733_write_register(addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
+    is31fl3733_write_register(addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
 
     // Select PG3
-    IS31FL3733_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_FUNCTION);
+    is31fl3733_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_FUNCTION);
     // Set de-ghost pull-up resistors (SWx)
-    IS31FL3733_write_register(addr, ISSI_REG_SWPULLUP, ISSI_SWPULLUP);
+    is31fl3733_write_register(addr, ISSI_REG_SWPULLUP, ISSI_SWPULLUP);
     // Set de-ghost pull-down resistors (CSx)
-    IS31FL3733_write_register(addr, ISSI_REG_CSPULLUP, ISSI_CSPULLUP);
+    is31fl3733_write_register(addr, ISSI_REG_CSPULLUP, ISSI_CSPULLUP);
     // Set global current to maximum.
-    IS31FL3733_write_register(addr, ISSI_REG_GLOBALCURRENT, ISSI_GLOBALCURRENT);
+    is31fl3733_write_register(addr, ISSI_REG_GLOBALCURRENT, ISSI_GLOBALCURRENT);
     // Disable software shutdown.
-    IS31FL3733_write_register(addr, ISSI_REG_CONFIGURATION, ((sync & 0b11) << 6) | ((ISSI_PWM_FREQUENCY & 0b111) << 3) | 0x01);
+    is31fl3733_write_register(addr, ISSI_REG_CONFIGURATION, ((sync & 0b11) << 6) | ((ISSI_PWM_FREQUENCY & 0b111) << 3) | 0x01);
 
     // Wait 10ms to ensure the device has woken up.
     wait_ms(10);
 }
 
-void IS31FL3733_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
+void is31fl3733_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     is31_led led;
     if (index >= 0 && index < RGB_MATRIX_LED_COUNT) {
         memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
 
+        if (g_pwm_buffer[led.driver][led.r] == red && g_pwm_buffer[led.driver][led.g] == green && g_pwm_buffer[led.driver][led.b] == blue) {
+            return;
+        }
         g_pwm_buffer[led.driver][led.r]          = red;
         g_pwm_buffer[led.driver][led.g]          = green;
         g_pwm_buffer[led.driver][led.b]          = blue;
@@ -196,13 +199,13 @@ void IS31FL3733_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     }
 }
 
-void IS31FL3733_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
+void is31fl3733_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
     for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
-        IS31FL3733_set_color(i, red, green, blue);
+        is31fl3733_set_color(i, red, green, blue);
     }
 }
 
-void IS31FL3733_set_led_control_register(uint8_t index, bool red, bool green, bool blue) {
+void is31fl3733_set_led_control_register(uint8_t index, bool red, bool green, bool blue) {
     is31_led led;
     memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
 
@@ -232,28 +235,28 @@ void IS31FL3733_set_led_control_register(uint8_t index, bool red, bool green, bo
     g_led_control_registers_update_required[led.driver] = true;
 }
 
-void IS31FL3733_update_pwm_buffers(uint8_t addr, uint8_t index) {
+void is31fl3733_update_pwm_buffers(uint8_t addr, uint8_t index) {
     if (g_pwm_buffer_update_required[index]) {
         // Firstly we need to unlock the command register and select PG1.
-        IS31FL3733_write_register(addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
-        IS31FL3733_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_PWM);
+        is31fl3733_write_register(addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
+        is31fl3733_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_PWM);
 
         // If any of the transactions fail we risk writing dirty PG0,
         // refresh page 0 just in case.
-        if (!IS31FL3733_write_pwm_buffer(addr, g_pwm_buffer[index])) {
+        if (!is31fl3733_write_pwm_buffer(addr, g_pwm_buffer[index])) {
             g_led_control_registers_update_required[index] = true;
         }
     }
     g_pwm_buffer_update_required[index] = false;
 }
 
-void IS31FL3733_update_led_control_registers(uint8_t addr, uint8_t index) {
+void is31fl3733_update_led_control_registers(uint8_t addr, uint8_t index) {
     if (g_led_control_registers_update_required[index]) {
         // Firstly we need to unlock the command register and select PG0
-        IS31FL3733_write_register(addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
-        IS31FL3733_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_LEDCONTROL);
+        is31fl3733_write_register(addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
+        is31fl3733_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_LEDCONTROL);
         for (int i = 0; i < 24; i++) {
-            IS31FL3733_write_register(addr, i, g_led_control_registers[index][i]);
+            is31fl3733_write_register(addr, i, g_led_control_registers[index][i]);
         }
     }
     g_led_control_registers_update_required[index] = false;

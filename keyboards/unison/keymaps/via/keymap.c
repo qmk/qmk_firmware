@@ -128,10 +128,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
    Post Initialize
 ------------------------------------------------------------------------------ */
 void keyboard_post_init_user(void) {
-    #ifdef RGB_DI_PIN
     // RGB Lighting: Set effect range from just after indicator.
     rgblight_set_effect_range(1, 16);
-    #endif
     #ifdef RGBLIGHT_LAYERS
     // RGB Lighting Layers: Setup LED layers
     rgblight_layers = my_rgb_layers;

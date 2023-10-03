@@ -1,5 +1,13 @@
 {
     "usb": {
         "device_version": "0.0.1"
+    },
+    "matrix_pins": {
+        "cols": ["D6", "D7", "B4", "B5", "B6", "F0", "D5"],
+        "rows": ["F5", "F6", "F4", "F1", "D4"]
+    },
+    "diode_direction": "COL2ROW",
+    "rgblight": {
+        "led_count": 41
     }
 }

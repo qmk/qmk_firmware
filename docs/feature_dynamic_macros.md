@@ -59,7 +59,7 @@ There are a number of hooks that you can use to add custom functionality and fee
 
 Note, that direction indicates which macro it is, with `1` being Macro 1, `-1` being Macro 2, and 0 being no macro. 
 
-* `dynamic_macro_record_start_user(void)` - Triggered when you start recording a macro.
+* `dynamic_macro_record_start_user(int8_t direction)` - Triggered when you start recording a macro.
 * `dynamic_macro_play_user(int8_t direction)` - Triggered when you play back a macro.
 * `dynamic_macro_record_key_user(int8_t direction, keyrecord_t *record)` - Triggered on each keypress while recording a macro.
 * `dynamic_macro_record_end_user(int8_t direction)` - Triggered when the macro recording is stopped. 

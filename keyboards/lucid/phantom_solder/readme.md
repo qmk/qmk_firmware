@@ -1,8 +1,12 @@
 # Phantom Solder PCB by Lucid
 
-The following is the QMK Firmware for the Phantom *Solder* PCB for [LucidKB](http://www.lucidkb.cm).
-* Keyboard Maintainer: Lucid
+The following is the QMK Firmware for the Phantom *Solder* PCB for [Maker Keyboards](https://www.makerkeyboards.com/) (formerly LucidKB).
+
+* Keyboard Maintainer: [mrnoisytiger](https://github.com/mrnoisytiger)
 * Hardware Supported: Phantom
+* Hardware Availability: [Maker Keyboards](https://www.makerkeyboards.com/)
+  * [Full Kit](https://www.makerkeyboards.com/products/phantom)
+  * [Extra Parts](https://www.makerkeyboards.com/products/phantom-extras)
 
 Make example for this keyboard (after setting up your build environment):
 

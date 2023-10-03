@@ -32,7 +32,7 @@
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
   ) \
   LAYOUT_wrapper( \
-      KC_ESC,  K01,     K02,     K03,     K04,     K05,                                             K06,     K07,     K08,     K09,     K0A,     KC_MINS, \
+  SH_T(KC_ESC), K01,    K02,     K03,     K04,     K05,                                             K06,     K07,     K08,     K09,     K0A,     SH_T(KC_MINS), \
    LALT_T(KC_TAB), K11, K12,     K13,     K14,     K15,                                             K16,     K17,     K18,     K19,     K1A, RALT_T(K1B), \
       OS_LSFT, CTL_T(K21), K22,  K23,     K24,     K25,  TG_GAME, MEH(KC_MINS),   TG_DBLO, KC_CAPS, K26,     K27,     K28,     K29, RCTL_T(K2A), OS_RSFT, \
                                  KC_MUTE, OS_LALT, KC_GRV,  KC_SPC,  BK_LWER,     DL_RAIS, KC_ENT,  OS_RGUI, UC(0x03A8), UC(0x2E2E) \
@@ -104,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef ENCODER_MAP_ENABLE
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_DEFAULT_LAYER_1] = { ENCODER_CCW_CW( KC_VOLD, KC_VOLU ), ENCODER_CCW_CW( KC_WH_D, KC_WH_U ) },
     [_DEFAULT_LAYER_2] = { ENCODER_CCW_CW( _______, _______ ), ENCODER_CCW_CW( _______, _______ ) },
     [_DEFAULT_LAYER_2] = { ENCODER_CCW_CW( _______, _______ ), ENCODER_CCW_CW( _______, _______ ) },
@@ -126,7 +126,7 @@ void render_oled_title(bool side) {
 }
 
 oled_rotation_t oled_init_keymap(oled_rotation_t rotation) {
-#    ifdef OLED_DRIVER_SH1107
+#    ifdef OLED_DISPLAY_128X128
     return OLED_ROTATION_0;
 #    else
     return OLED_ROTATION_180;
@@ -155,7 +155,7 @@ void oled_render_large_display(bool side) {
 }
 #endif
 
-#ifdef RGBLIGHT_LAYERS
+#if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
 const rgblight_segment_t PROGMEM shift_layers[]   = RGBLIGHT_LAYER_SEGMENTS({8, 1, 120, 255, 255}, {18, 1, 120, 255, 255});
 const rgblight_segment_t PROGMEM control_layers[] = RGBLIGHT_LAYER_SEGMENTS({6, 1, 0, 255, 255}, {16, 1, 0, 255, 255});
 const rgblight_segment_t PROGMEM alt_layers[]     = RGBLIGHT_LAYER_SEGMENTS({2, 1, 240, 255, 255}, {17, 1, 250, 255, 255});
@@ -174,12 +174,56 @@ void housekeeping_task_keymap(void) {
     rgblight_set_layer_state(2, mods & MOD_MASK_ALT);
     rgblight_set_layer_state(3, mods & MOD_MASK_GUI);
 }
-#endif
+#elif defined(RGB_MATRIX_ENABLE) && defined(KEYBOARD_splitkb_kyria_rev3)
+void keyboard_post_init_keymap(void) {
+    extern led_config_t g_led_config;
+    g_led_config.flags[30] = g_led_config.flags[24] = g_led_config.flags[18] = g_led_config.flags[12] = g_led_config.flags[11] = g_led_config.flags[10] = g_led_config.flags[9] = g_led_config.flags[8] = g_led_config.flags[7] = g_led_config.flags[6] = g_led_config.flags[37] = g_led_config.flags[38] = g_led_config.flags[39] = g_led_config.flags[40] = g_led_config.flags[41] = g_led_config.flags[42] = g_led_config.flags[43] = g_led_config.flags[49] = g_led_config.flags[55] = g_led_config.flags[61] = LED_FLAG_MODIFIER;
+}
 
-#ifdef KEYBOARD_splitkb_kyria_rev1_proton_c
-void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
-    for (int32_t i = 0; i < 40; i++) {
-        __asm__ volatile("nop" ::: "memory");
+void check_default_layer(uint8_t mode, uint8_t type, uint8_t led_min, uint8_t led_max) {
+    switch (get_highest_layer(default_layer_state)) {
+        case _QWERTY:
+            rgb_matrix_layer_helper(DEFAULT_LAYER_1_HSV, mode, rgb_matrix_config.speed, type, led_min, led_max);
+            break;
+        case _COLEMAK_DH:
+            rgb_matrix_layer_helper(DEFAULT_LAYER_2_HSV, mode, rgb_matrix_config.speed, type, led_min, led_max);
+            break;
+        case _COLEMAK:
+            rgb_matrix_layer_helper(DEFAULT_LAYER_3_HSV, mode, rgb_matrix_config.speed, type, led_min, led_max);
+            break;
+        case _DVORAK:
+            rgb_matrix_layer_helper(DEFAULT_LAYER_4_HSV, mode, rgb_matrix_config.speed, type, led_min, led_max);
+            break;
     }
+}
+
+bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
+    if (userspace_config.rgb_layer_change) {
+        switch (get_highest_layer(layer_state)) {
+            case _GAMEPAD:
+                rgb_matrix_layer_helper(HSV_ORANGE, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW, led_min, led_max);
+                break;
+            case _DIABLO:
+                rgb_matrix_layer_helper(HSV_RED, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW, led_min, led_max);
+                break;
+            case _RAISE:
+                rgb_matrix_layer_helper(HSV_YELLOW, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW, led_min, led_max);
+                break;
+            case _LOWER:
+                rgb_matrix_layer_helper(HSV_GREEN, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW, led_min, led_max);
+                break;
+            case _ADJUST:
+                rgb_matrix_layer_helper(HSV_RED, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW, led_min, led_max);
+                break;
+            case _MOUSE:
+                rgb_matrix_layer_helper(HSV_PURPLE, 1, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW, led_min, led_max);
+                break;
+            default:
+                check_default_layer(0, LED_FLAG_UNDERGLOW, led_min, led_max);
+                break;
+        }
+        check_default_layer(0, LED_FLAG_MODIFIER, led_min, led_max);
+    }
+    return false;
 }
 #endif

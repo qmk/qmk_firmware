@@ -11,7 +11,6 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = custom
 CUSTOM_MATRIX = lite
 
 # TODO(ibash) we don't actually need to enable raw, but there's some side effect

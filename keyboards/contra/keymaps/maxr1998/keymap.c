@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "contra.h"
+#include QMK_KEYBOARD_H
 #include "keymap_german.h"
 
 enum contra_layers {
@@ -176,10 +176,11 @@ void update_tri_layer_user(void) {
     }
 }
 
-void led_set_user(uint8_t usb_led) {
+bool led_update_user(led_t led_state) {
   // Force-enable Numlock
-  if (!(usb_led & (1<<USB_LED_NUM_LOCK))) {
+  if (!led_state.num_lock) {
     register_code(KC_NUM_LOCK);
     unregister_code(KC_NUM_LOCK);
   }
+  return false;
 }
