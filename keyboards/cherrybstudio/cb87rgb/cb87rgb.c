@@ -11,7 +11,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "cb87rgb.h"
+#include "quantum.h"
 
 //x = 224 / (NUMBER_OF_COLS - 1) * COL_POSITION
 //y =  64 / (NUMBER_OF_ROWS - 1) * ROW_POSITION

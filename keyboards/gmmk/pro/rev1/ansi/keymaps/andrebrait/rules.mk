@@ -3,21 +3,28 @@
 # Disabling MouseKey because it breaks my KVM switch
 MOUSEKEY_ENABLE = no
 
-# Cherry MX-style switches and diodes are not susceptible to noise, no need for noise-resistant algorithms.
-# This significantly reduces latency.
+# Use sym_eager_pk for better latency when gaming.
 #
-# The matrix scan frequency seems to be around 1820 Hz, so even sym_defer_g would perform ok,
-# but the "defer" part would mean we would wait DEBOUNCE ms before sending any events.
-# Using "asym_eager_defer_pk" does not seem to benefit us in anything.
-# The GMMK Pro has more then enough system resources for a per-key algorithm.
-# Using an "eager" algorithm leads to extremely low latency while also reducing the chances of chattering
-# due to it's "post-event" debouncing (of sorts).
+# Previous issues with sym_defer_pk (and sym_eager_pk and debounce times
+# shorter than 8ms) were due to Glorious' horrible hot-swap sockets. 
+# These issues were 100% resolved after I replaced them with Gateron hot-swap sockets.
 #
-# I have observed zero chattering or double-keypress issues on my Gateron Yellow switches.
-# Most chattering issues on the GMMK Pro seem to be related to its proprietary hot-swap sockets anyway.
+# The old sockets apparently didn't hold onto the legs of the switches at all.
+#
+# Using eager might not be a good idea with other switch types, but I only use 
+# linears now, so this should be ok.
+#
+# asym_eager_defer_pk also works well and it is more resistant to chatter at
+# the cost of delay when releasing a key being slightly higher.
 DEBOUNCE_TYPE = sym_eager_pk
 
 # Useful for debugging
 # CONSOLE_ENABLE = yes
 # DEBUG_MATRIX_SCAN_RATE_ENABLE = yes
 # DEBUG_MATRIX_SCAN_RATE = yes
+
+# Encoder Map support
+ENCODER_MAP_ENABLE = yes
+
+# Enables VIA
+VIA_ENABLE = yes

@@ -17,12 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define MATRIX_COL_PINS { B11, B10, B2, B1, B0, A7, B9, B8, B7, B6, B5, B4, B3, A15 }
-#define MATRIX_ROW_PINS { A6, A5, A4, A3, A2 }
-#define DIODE_DIRECTION COL2ROW
-
-#define RGB_DI_PIN B15
-#define RGBLED_NUM 3
 #define WS2812_SPI SPID2
 #define WS2812_SPI_MOSI_PAL_MODE 0
 #define WS2812_SPI_SCK_PAL_MODE 0

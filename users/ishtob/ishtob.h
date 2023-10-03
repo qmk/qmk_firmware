@@ -1,6 +1,6 @@
 #ifndef USERSPACE
 #define USERSPACE
-#include "quantum.h"
+#include QMK_KEYBOARD_H
 
 enum userspace_keycodes {
   QWERTY = SAFE_RANGE,
@@ -36,7 +36,7 @@ enum userspace_keycodes {
 #define _FNLAYER 6
 #define _NUMLAY 7
 #define _MOUSECURSOR 8
-#define _ADJUST 16
+#define _ADJUST 9
 
 
 

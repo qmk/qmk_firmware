@@ -2,7 +2,7 @@
 // Copyright 2022 Drashna Jael're (@Drashna Jael're)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include QMK_KEYBOARD_H
+#include "hotdox76v2.h"
 #include <string.h>
 #include <transactions.h>
 #include "oled_font_lib/logo2.h"

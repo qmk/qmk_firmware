@@ -15,9 +15,7 @@ const uint16_t PROGMEM sd_combo[] = {KC_S, KC_D, COMBO_END};
 const uint16_t PROGMEM copy_combo[] = {KC_X, KC_C, COMBO_END};
 const uint16_t PROGMEM paste_combo[] = {KC_X, KC_V, COMBO_END};
 
-
-// BE SURE TO UPDATE THE CONFIG.H "COMBO_COUNT" value when you add elements here!
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
   COMBO(jk_combo, KC_ESC),
   COMBO(df_combo, KC_COLON),
   COMBO(sd_combo, KC_SLASH),

@@ -187,8 +187,9 @@ static THD_FUNCTION(LEDthread, arg) {
   // initialize persistent variables
   pwm_step_status = 4; //full brightness
   page_status = 0; //start frame 0 (all off/on)
-  numlock_status = (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? 1 : 0;
-  capslock_status = (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? 1 : 0;
+  led_t led_state = host_keyboard_led_state();
+  numlock_status = led_state.num_lock ? 1 : 0;
+  capslock_status = led_state.caps_lock ? 1 : 0;
 
   while(true) {
     // wait for a message (asynchronous)

@@ -147,5 +147,5 @@ void boardInit(void) {}
 
 
 void restart_usb_driver(USBDriver *usbp) {
-    // Do nothing. Restarting the USB driver on these boards breaks it.
+  // Do nothing. Restarting the USB driver on these boards breaks it.
 }
