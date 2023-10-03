@@ -25,6 +25,9 @@
     "build": {
         "lto": false
     },
+    "bootmagic": {
+        "matrix": [0, 1]
+    },
     "diode_direction": "ROW2COL",
     "mousekey": {
         "delay": 0,
