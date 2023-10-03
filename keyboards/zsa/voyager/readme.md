@@ -1,7 +1,5 @@
 # Voyager
 
-![Voyager](https://zsa.io/static/gallery-white-case-7a2ef555f8f7f4ce1b9030477b16e517.png)
-
 A next-gen split, ergonomic keyboard with an active left side, USB type C, integrated wrist rest, and a thumb cluster that can move.
 
 * Keyboard Maintainer: [drashna](https://github.com/drashna), [ZSA](https://github.com/zsa/)
@@ -33,7 +31,7 @@ To make it extra gaming friendly, you can configure what happens when you discon
 
 Example for enabling a specific layer while right side is disconnected:
 
-```
+```c
 void housekeeping_task_user(void) {
     if (!is_transport_connected()) {
         // set layer
