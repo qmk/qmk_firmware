@@ -9,4 +9,3 @@ It uses the following features:
 -   Home row modifiers
 -   Usual special layers (`media`, `navigation`, `mouse`, `symbols`, `numbers`, `functions`, `system`)
 -   Combos (to access the `sys` layer by pressing both external thumb keys)
--   Tap dance (double tap the `boot` key to register it in the `sys` layer as a protection)

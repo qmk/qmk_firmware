@@ -16,10 +16,6 @@
 
 #include QMK_KEYBOARD_H
 
-enum tap_dances {
-    BOOT,
-};
-
 enum custom_layers {
     COL,
     QWE,
@@ -179,7 +175,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // --------+-------+-------+-------+-------|                    |-------+-------+-------+-------+-------|
   //                 |       |       |       |                    |       |       |       |
   //                 --------+-------+--------                    --------+-------+--------
-    TD(BOOT),           XXXXXXX,            DF(GAM),            DF(QWE),            DF(COL),            DF(COL),            DF(QWE),            DF(GAM),            XXXXXXX,            TD(BOOT),
+    QK_BOOT,            XXXXXXX,            DF(GAM),            DF(QWE),            DF(COL),            DF(COL),            DF(QWE),            DF(GAM),            XXXXXXX,            QK_BOOT,
     XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,
     XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,
                                             _______,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            _______
@@ -192,8 +188,4 @@ const uint16_t PROGMEM combo_sys_gam[] = {KC_LALT, LT(FUN, KC_ESC), COMBO_END};
 combo_t key_combos[] = {
   COMBO(combo_sys, MO(SYS)),
   COMBO(combo_sys_gam, MO(SYS))
-};
-
-tap_dance_action_t tap_dance_actions[] = {
-    [BOOT] = ACTION_TAP_DANCE_DOUBLE(XXXXXXX, QK_BOOT),
 };
