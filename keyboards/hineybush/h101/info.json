@@ -30,7 +30,7 @@
         "on_state": 0
     },
     "layouts": {
-        "LAYOUT_h101_tsangan": {
+        "LAYOUT_f13_tsangan": {
             "layout": [
                 {"matrix": [0,0], "label":"Esc", "x":0, "y":0},
                 {"matrix": [0,1], "label":"F1", "x":1.25, "y":0},
@@ -142,7 +142,7 @@
                 {"matrix": [5,20], "label":".", "x":20.5, "y":5.25}
             ]
         },
-        "LAYOUT_h101_all": {
+        "LAYOUT_all": {
             "layout": [
                 {"matrix": [0,0], "label":"Esc", "x":0, "y":0},
                 {"matrix": [0,1], "label":"F1", "x":1.25, "y":0},
@@ -260,7 +260,7 @@
                 {"matrix": [5,21], "label":"Enter", "x":21.5, "y":5.25}
             ]
         },
-        "LAYOUT_h100_all": {
+        "LAYOUT_f12_all": {
             "layout": [
                 {"matrix": [0,0], "label":"Esc", "x":0, "y":0},
                 {"matrix": [0,1], "label":"F1", "x":1.25, "y":0},
