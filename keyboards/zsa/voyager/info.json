@@ -4,7 +4,7 @@
     "maintainer": "ZSA Technology Labs",
     "url": "zsa.io/voyager",
     "processor": "STM32F303",
-    "bootloader": "stm32-dfu",
+    "bootloader": "custom",
     "usb": {
         "vid": "0x3297",
         "pid": "0x1977",

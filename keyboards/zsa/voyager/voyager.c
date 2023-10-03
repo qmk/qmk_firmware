@@ -329,7 +329,7 @@ void eeconfig_init_kb(void) { // EEPROM is getting reset!
 
 #define APP_ADDRESS 0x08002000
 
-void bootloader_jump(void) {
+__attribute__((weak)) void bootloader_jump(void) {
     // The ignition bootloader is checking for a high signal on A8 for 100ms when powering on the board.
     // Setting both A8 and A9 high will charge the capacitor quickly.
     // Setting A9 low before reset will cause the capacitor to discharge
@@ -345,15 +345,22 @@ void bootloader_jump(void) {
 }
 
 
-void mcu_reset(void) {
-    // When resetting the MCU, we want to jump to the application.
-    SCB->AIRCR = APP_ADDRESS & 0xFFFF;
+__attribute__((weak)) void mcu_reset(void) {
+    // // When resetting the MCU, we want to jump to the application.
+    // SCB->AIRCR = APP_ADDRESS & 0xFFFF;
 
-    // Set the stack pointer to the applications stack pointer
-    __asm__ volatile("msr msp, %0" ::"g"(*(volatile uint32_t *)APP_ADDRESS));
+    // // Set the stack pointer to the applications stack pointer
+    // __asm__ volatile("msr msp, %0" ::"g"(*(volatile uint32_t *)APP_ADDRESS));
 
-    // Jump to the application
-    (*(void (**)())(APP_ADDRESS + 4))();
-    while (1)
-        ;
+    // // Jump to the application
+    // (*(void (**)())(APP_ADDRESS + 4))();
+    // while (1)
+    //     ;
+
+    setPinOutputPushPull(A9);
+    setPinOutputPushPull(A8);
+    writePinLow(A8);
+    writePinLow(A9);
+
+    NVIC_SystemReset();
 }
