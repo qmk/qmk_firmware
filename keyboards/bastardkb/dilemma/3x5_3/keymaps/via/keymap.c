@@ -197,6 +197,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #endif     // POINTING_DEVICE_ENABLE
 
 #ifdef RGB_MATRIX_ENABLE
+#define rgb_min(a,b) (((a)<(b))?(a):(b))
 // Forward-declare this helper function since it is defined in rgb_matrix.c.
 void rgb_matrix_update_pwm_buffers(void);
 
@@ -205,7 +206,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (host_keyboard_led_state().caps_lock) {
         for (int i = led_min; i <= led_max; i++) {
             if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
-                rgb_matrix_set_color(i, rgb_matrix_get_val() + 76, 0x00, 0x00);
+                rgb_matrix_set_color(i, rgb_min(rgb_matrix_get_val() + 76, 255), 0x00, 0x00);
             }
         }
     }
@@ -224,7 +225,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 hsv = (HSV){HSV_ORANGE};
                 break;
             case 4:
-                hsv = (HSV){HSV_SPRINGGREEN};
+                hsv = (HSV){HSV_GREEN};
                 break;
             case 5:
                 hsv = (HSV){HSV_TEAL};
@@ -239,7 +240,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         };
 
         if (hsv.v > rgb_matrix_get_val()) {
-            hsv.v = rgb_matrix_get_val() + 22;
+            hsv.v = rgb_min(rgb_matrix_get_val() + 22, 255);
         }
         RGB rgb = hsv_to_rgb(hsv);
 
