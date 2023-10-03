@@ -117,25 +117,6 @@ const pointing_device_driver_t pointing_device_driver = {
 
 #elif defined(POINTING_DEVICE_DRIVER_azoteq_iqs5xx)
 
-void azoteq_iqs5xx_init(void) {
-    i2c_init();
-}
-
-report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report) {
-
-   azoteq_iqs5xx_base_data_t base_data = {0};
-   azoteq_iqs5xx_get_base_data(&base_data);
-
-#if defined(MOUSE_EXTENDED_REPORT)
-    mouse_report.x = (int16_t)AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l);
-    mouse_report.y = (int16_t)AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.y.h, base_data.y.l);
-#else
-    mouse_report.x = (int8_t)base_data.x.l;
-    mouse_report.y = (int8_t)base_data.y.l;
-#endif
-    return mouse_report;
-}
-
 // clang-format off
 const pointing_device_driver_t pointing_device_driver = {
     .init       = azoteq_iqs5xx_init,

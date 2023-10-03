@@ -4,6 +4,7 @@
 #pragma once
 
 #include "i2c_master.h"
+#include "pointing_device.h"
 
 typedef struct __attribute__((packed)) {
     uint8_t h : 8;
@@ -66,12 +67,49 @@ typedef struct __attribute__((packed)) {
 
 _Static_assert(sizeof(azoteq_iqs5xx_base_data_t) == 10, "azoteq_iqs5xx_basic_report_t should be 10 bytes");
 
+typedef struct __attribute__((packed)) {
+    uint8_t                     number_of_fingers;
+    azoteq_iqs5xx_relative_xy_t x;
+    azoteq_iqs5xx_relative_xy_t y;
+} azoteq_iqs5xx_report_data_t;
+
+_Static_assert(sizeof(azoteq_iqs5xx_report_data_t) == 5, "azoteq_iqs5xx_report_data_t should be 5 bytes");
+
+typedef struct __attribute__((packed)) {
+    bool event_mode : 1;
+    bool gesture_event : 1;
+    bool tp_event : 1;
+    bool reati_event : 1;
+    bool alp_prox_event : 1;
+    bool snap_event : 1;
+    bool touch_event : 1;
+    bool prox_event : 1;
+} azoteq_iqs5xx_system_config_1_t;
+
+typedef struct __attribute__((packed)) {
+    bool suspend : 1;
+    bool reset : 1;
+    int8_t _unused : 6;
+} azoteq_iqs5xx_system_control_1_t;
+
+typedef struct __attribute__((packed)) {
+    azoteq_iqs5xx_gesture_events_0_t single_finger_gestures;
+    azoteq_iqs5xx_gesture_events_1_t multi_finger_gestures;
+    uint16_t tap_time;
+    uint16_t tap_distance;
+    uint16_t hold_time;
+    uint16_t swipe_initial_time;
+    uint16_t swipe_initial_distance;
+    uint16_t swipe_consecutive_time;
+    uint16_t swipe_consecutive_distance;
+    uint8_t  swipe_angle;
+    uint16_t scroll_initial_distance;
+    uint8_t  scroll_angle;
+    uint16_t zoom_initial_distance;
+    uint16_t zoom_consecutive_distance;
+} azoteq_iqs5xx_gesture_config_t;
+
 #define AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(h, l) ((h << 8) | l)
 
-i2c_status_t azoteq_iqs5xx_get_base_data(azoteq_iqs5xx_base_data_t *base_data);
-
-i2c_status_t azoteq_iqs5xx_end_session(void);
-
-i2c_status_t azoteq_iqs5xx_get_report_rate(azoteq_iqs5xx_report_rate_t *report_rate, azoteq_charging_modes_t mode, bool END_SESSION);
-
-i2c_status_t azoteq_iqs5xx_set_report_rate(uint16_t report_rate_ms, azoteq_charging_modes_t mode, bool END_SESSION);
+void azoteq_iqs5xx_init(void);
+report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report);
