@@ -76,25 +76,42 @@ typedef struct __attribute__((packed)) {
 _Static_assert(sizeof(azoteq_iqs5xx_report_data_t) == 5, "azoteq_iqs5xx_report_data_t should be 5 bytes");
 
 typedef struct __attribute__((packed)) {
-    bool event_mode : 1;
-    bool gesture_event : 1;
-    bool tp_event : 1;
-    bool reati_event : 1;
+    bool event_mode     : 1;
+    bool gesture_event  : 1;
+    bool tp_event       : 1;
+    bool reati_event    : 1;
     bool alp_prox_event : 1;
-    bool snap_event : 1;
-    bool touch_event : 1;
-    bool prox_event : 1;
+    bool snap_event     : 1;
+    bool touch_event    : 1;
+    bool prox_event     : 1;
 } azoteq_iqs5xx_system_config_1_t;
 
 typedef struct __attribute__((packed)) {
-    bool suspend : 1;
-    bool reset : 1;
-    int8_t _unused : 6;
+    bool suspend    : 1;
+    bool reset      : 1;
+    int8_t _unused  : 6;
 } azoteq_iqs5xx_system_control_1_t;
 
 typedef struct __attribute__((packed)) {
-    azoteq_iqs5xx_gesture_events_0_t single_finger_gestures;
-    azoteq_iqs5xx_gesture_events_1_t multi_finger_gestures;
+    bool single_tap     : 1;
+    bool press_and_hold : 1;
+    bool swipe_x_minus  : 1;
+    bool swipe_x_plus   : 1;
+    bool swipe_y_minus  : 1;
+    bool swipe_y_plus   : 1;
+    int8_t _unused      : 2;
+} azoteq_iqs5xx_single_finger_gesture_enable_t;
+
+typedef struct __attribute__((packed)) {
+    bool two_finger_tap : 1;
+    bool scroll         : 1;
+    bool zoom           : 1;
+    int8_t _unused      : 5;
+} azoteq_iqs5xx_multi_finger_gesture_enable_t;
+
+typedef struct __attribute__((packed)) {
+    azoteq_iqs5xx_single_finger_gesture_enable_t single_finger_gestures;
+    azoteq_iqs5xx_multi_finger_gesture_enable_t multi_finger_gestures;
     uint16_t tap_time;
     uint16_t tap_distance;
     uint16_t hold_time;
