@@ -428,6 +428,15 @@ def _extract_split_transport(info_data, config_c):
         if 'protocol' not in info_data['split']['transport']:
             info_data['split']['transport']['protocol'] = 'serial'
 
+    # Migrate
+    transport = info_data.get('split', {}).get('transport', {})
+    if 'sync_matrix_state' in transport:
+        transport['sync'] = transport.get('sync', {})
+        transport['sync']['matrix_state'] = transport.pop('sync_matrix_state')
+    if 'sync_modifiers' in transport:
+        transport['sync'] = transport.get('sync', {})
+        transport['sync']['modifiers'] = transport.pop('sync_modifiers')
+
 
 def _extract_split_right_pins(info_data, config_c):
     # Figure out the right half matrix pins
