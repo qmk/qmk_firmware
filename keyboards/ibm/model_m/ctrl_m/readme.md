@@ -1,6 +1,6 @@
 # ctrl-M
 
-![ctrl-M PCB](https://github.com/nuess0r/ctrl-M/assets/14843228/2c2c5d48-6dd1-4914-bfdc-a574e429aa96)
+![ctrl-M PCB](https://i.imgur.com/wUqY8N3.jpeg)
 
 This is a configuration of QMK intended to be used with the [ctrl-M controller](https://github.com/nuess0r/ctrl-M). Many thanks to iw0rm3r, ashpil, mschwingen and all QMK contributors for working on similar projects and providing the foundation for this!
 
