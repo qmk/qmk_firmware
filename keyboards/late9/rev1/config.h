@@ -16,8 +16,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-/* Tap interval for tap dance */
-#define TAPPING_TERM 400
-
 /* Oneshot interval */
 #define ONESHOT_TIMEOUT 5000

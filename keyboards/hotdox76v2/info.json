@@ -19,7 +19,7 @@
         "lto": true
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
     },
     "matrix_pins": {
         "cols": ["F7", "F6", "F5", "F4", "F1", "F0", "E6"],

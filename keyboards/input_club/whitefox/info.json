@@ -8,7 +8,7 @@
         "device_version": "0.0.1"
     },
     "led_matrix": {
-        "driver": "IS31FL3731"
+        "driver": "is31fl3731"
     },
     "matrix_pins": {
         "cols": ["B2", "B3", "B18", "B19", "C0", "C8", "C9", "C10", "C11"],

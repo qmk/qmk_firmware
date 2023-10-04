@@ -23,7 +23,6 @@ RGBLIGHT_ENABLE = no
 RGB_MATRIX_ENABLE = yes
 
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306    # Enable the OLED Driver
 
 ENCODER_ENABLE = yes
 

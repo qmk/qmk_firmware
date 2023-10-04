@@ -21,8 +21,28 @@
             {"pin_a": "A2", "pin_b": "A3"}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 20
+    },
     "bootmagic": {
         "matrix": [4, 1]
+    },
+    "rgblight": {
+        "brightness_steps": 8,
+        "led_count": 16,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "ws2812": {
         "pin": "A4"

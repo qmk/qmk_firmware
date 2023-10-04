@@ -15,11 +15,22 @@
     "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
-            {"pin_a": "F4", "pin_b": "F5"}
+            {"pin_a": "F5", "pin_b": "F4"}
         ]
     },
     "split": {
-        "soft_serial_pin": "D2"
+        "soft_serial_pin": "D2",
+        "encoder": {
+            "right": {
+                "rotary": [
+                    {"pin_a": "F4", "pin_b": "F5"}
+                ]
+            }
+        }
+    },
+    "rgblight": {
+        "led_count": 60,
+        "split_count": [30, 30]
     },
     "ws2812": {
         "pin": "D3"

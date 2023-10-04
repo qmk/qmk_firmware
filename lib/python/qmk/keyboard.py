@@ -1,6 +1,7 @@
 """Functions that help us work with keyboards.
 """
 from array import array
+from functools import lru_cache
 from math import ceil
 from pathlib import Path
 import os
@@ -30,7 +31,27 @@ BOX_DRAWING_CHARACTERS = {
     },
 }
 
+
+class AllKeyboards:
+    """Represents all keyboards.
+    """
+    def __str__(self):
+        return 'all'
+
+    def __repr__(self):
+        return 'all'
+
+    def __eq__(self, other):
+        return isinstance(other, AllKeyboards)
+
+
 base_path = os.path.join(os.getcwd(), "keyboards") + os.path.sep
+
+
+def is_all_keyboards(keyboard):
+    """Returns True if the keyboard is an AllKeyboards object.
+    """
+    return isinstance(keyboard, AllKeyboards)
 
 
 def find_keyboard_from_dir():
@@ -86,6 +107,18 @@ def keyboard_folder(keyboard):
     return keyboard
 
 
+def keyboard_folder_or_all(keyboard):
+    """Returns the actual keyboard folder.
+
+    This checks aliases and DEFAULT_FOLDER to resolve the actual path for a keyboard.
+    If the supplied argument is "all", it returns an AllKeyboards object.
+    """
+    if keyboard == 'all':
+        return AllKeyboards()
+
+    return keyboard_folder(keyboard)
+
+
 def _find_name(path):
     """Determine the keyboard name by stripping off the base_path and rules.mk.
     """
@@ -112,6 +145,7 @@ def list_keyboards(resolve_defaults=True):
     return sorted(set(found))
 
 
+@lru_cache(maxsize=None)
 def resolve_keyboard(keyboard):
     cur_dir = Path('keyboards')
     rules = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk')
