@@ -5,7 +5,7 @@
 #include "nifty_numpad.h"
 #include "quantum.h"
 
-// Layer defines. Using defines instead of enums here to force the RG
+// Layer defines. Using defines instead of enums here to force the RGB
 // layer to be 3–this should be more convenient for creating custom
 // layers in VIA
 #define _LAYER_BL  0
@@ -14,10 +14,10 @@
 // Setup keymap
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
-     * SCN -> Screenshot
+     * BCK -> Backspace
      * WIN -> Task View
      * EXP -> Open Explorer
-     * BCK -> Backspace
+     * SCN -> Screenshot
      * ┌───┬───┐  ┌───┬───┬───┬───┐
      * │F13│F19│  │BCK│WIN│EXP│SCN│
      * └───┴───┘  └───┴───┴───┴───┘

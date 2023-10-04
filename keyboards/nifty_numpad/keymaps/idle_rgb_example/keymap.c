@@ -8,6 +8,7 @@
 // Layers 
 enum LAYERS {
     LAYER_BL,
+    LAYER_MOD,
     LAYER_RGB
 };
 
@@ -38,7 +39,7 @@ enum {
 void tap_dance_num_toggle(tap_dance_state_t *state, void *user_data){
     switch(state->count){
         case 1:
-            layer_invert(LAYER_RGB);
+            layer_invert(LAYER_MOD);
             break;
         case 2:
             tap_code16(KC_NUM);
@@ -87,12 +88,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * └───┴───┘  └───────┴───┴───┘
      */
     [LAYER_BL] = LAYOUT_numpad_6x6(
-        TD(TD_M1), TD(TD_M12),    LT(LAYER_RGB, KC_BSPC), RGUI(KC_TAB), RGUI(KC_E), RGUI(RSFT(KC_S)),
-        TD(TD_M2), TD(TD_M11),    TD(TD_NUM_TOGGLE),       KC_PSLS,      KC_PAST,    KC_PMNS,
-        TD(TD_M3), TD(TD_M10),    KC_P7,                   KC_P8,        KC_P9,      KC_PPLS,
-        TD(TD_M4), TD(TD_M9),     KC_P4,                   KC_P5,        KC_P6,      
-        TD(TD_M5), TD(TD_M8),     KC_P1,                   KC_P2,        KC_P3,      KC_PENT,
-        TD(TD_M6), TD(TD_M7),     KC_P0,                                 KC_PDOT
+        TD(TD_M1), TD(TD_M7) ,    LT(LAYER_RGB, KC_BSPC), RGUI(KC_TAB), RGUI(KC_E), RGUI(RSFT(KC_S)),
+        TD(TD_M2), TD(TD_M8) ,    TD(TD_NUM_TOGGLE),      KC_PSLS,      KC_PAST,    KC_PMNS,
+        TD(TD_M3), TD(TD_M9) ,    KC_P7,                  KC_P8,        KC_P9,      KC_PPLS,
+        TD(TD_M4), TD(TD_M10),    KC_P4,                  KC_P5,        KC_P6,      
+        TD(TD_M5), TD(TD_M11),    KC_P1,                  KC_P2,        KC_P3,      KC_PENT,
+        TD(TD_M6), TD(TD_M12),    KC_P0,                                KC_PDOT
     ),
 
     /*
@@ -111,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │___│___│  │~0     │~. │   │
      * └───┴───┘  └───────┴───┴───┘
      */
-    [LAYER_RGB] = LAYOUT_numpad_6x6(
+    [LAYER_MOD] = LAYOUT_numpad_6x6(
         _______, _______,    KC_F9,             KC_F10,         KC_F11,        KC_F12,
         _______, _______,    TD(TD_NUM_TOGGLE), RCTL(KC_PSLS), RCTL(KC_PAST), _______,
         _______, _______,    RCTL(KC_P7),       RCTL(KC_P8),   RCTL(KC_P9),   _______,
@@ -165,7 +166,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Set the layer toggle key to an indication of the active layer. This is a
 // bit janky and should be done better, but I'm trying to avoid scope creep.
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    if (layer_state_is(LAYER_RGB) && !rgb_matrix_idle_mode()) {
+    if (layer_state_is(LAYER_MOD) && !rgb_matrix_idle_mode()) {
         // Get a hue that contrasts with current hue
         uint8_t hue = rgb_matrix_get_hue() + 127; 
         // Make sure saturation is high enough to distiguish between hues

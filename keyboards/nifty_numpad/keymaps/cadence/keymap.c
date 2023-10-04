@@ -118,11 +118,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [LAYER_BL] = LAYOUT_numpad_6x6(
         TD(TD_M1), TD(TD_M12),    LT(LAYER_RGB, (KC_F1)), LALT(LWIN(KC_F)),   KC_F3,   KC_BACKSPACE,
-        TD(TD_M2), TD(TD_M11),    TD(TD_NUM_TOGGLE),                KC_PSLS,   KC_PAST, KC_PMNS,
-        TD(TD_M3), TD(TD_M10),    KC_P7,                            KC_P8,     KC_P9,   KC_PPLS,
-        TD(TD_M4), TD(TD_M9),     KC_P4,                            KC_P5,     KC_P6,   
-        TD(TD_M5), TD(TD_M8),     KC_P1,                            KC_P2,     KC_P3,   KC_PENT,
-        TD(TD_M6), TD(TD_M7),     KC_P0,                                       KC_PDOT
+        TD(TD_M2), TD(TD_M11),    TD(TD_NUM_TOGGLE),      KC_PSLS,            KC_PAST, KC_PMNS,
+        TD(TD_M3), TD(TD_M10),    KC_P7,                  KC_P8,              KC_P9,   KC_PPLS,
+        TD(TD_M4), TD(TD_M9),     KC_P4,                  KC_P5,              KC_P6,   
+        TD(TD_M5), TD(TD_M8),     KC_P1,                  KC_P2,              KC_P3,   KC_PENT,
+        TD(TD_M6), TD(TD_M7),     KC_P0,                                      KC_PDOT
     ),
 
     /*
@@ -166,7 +166,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │F18│F24│  │ 0     │ . │   │
      * └───┴───┘  └───────┴───┴───┘
      */
-    [LAYER_BL] = LAYOUT_numpad_6x6(
+    [LAYER_RGB] = LAYOUT_numpad_6x6(
         _______, _______,    _______, RGB_HUI, RGB_SAI, RGB_VAI,
         _______, _______,    _______, RGB_HUD, RGB_SAD, RGB_VAD,
         _______, _______,    _______, RGB_DEF, RGB_IEF, RGB_SPI,
