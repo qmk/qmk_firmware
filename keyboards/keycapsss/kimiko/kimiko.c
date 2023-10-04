@@ -267,9 +267,6 @@ void render_layer_state(void) {
 	} else {
 		oled_write_P(default_layer, false);
 	}
-	#ifdef OLED_DISPLAY_128X64
-		oled_write_P(PSTR("\n"), false);
-	#endif
 }
 
 void render_status_main(void) {
