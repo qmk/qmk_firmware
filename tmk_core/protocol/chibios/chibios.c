@@ -49,6 +49,8 @@
 #include "suspend.h"
 #include "wait.h"
 
+#define USB_GETSTATUS_REMOTE_WAKEUP_ENABLED (2U)
+
 /* -------------------------
  *   TMK host driver defs
  * -------------------------
@@ -182,12 +184,12 @@ void protocol_pre_task(void) {
 
 #if !defined(NO_USB_STARTUP_CHECK)
     if (USB_DRIVER.state == USB_SUSPENDED) {
-        print("[s]");
+        dprintln("suspending keyboard");
         while (USB_DRIVER.state == USB_SUSPENDED) {
             /* Do this in the suspended state */
             suspend_power_down(); // on AVR this deep sleeps for 15ms
             /* Remote wakeup */
-            if (suspend_wakeup_condition()) {
+            if ((USB_DRIVER.status & USB_GETSTATUS_REMOTE_WAKEUP_ENABLED) && suspend_wakeup_condition()) {
                 usbWakeupHost(&USB_DRIVER);
                 restart_usb_driver(&USB_DRIVER);
             }

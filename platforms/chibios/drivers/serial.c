@@ -2,8 +2,8 @@
  * WARNING: be careful changing this code, it is very timing dependent
  */
 
-#include "quantum.h"
 #include "serial.h"
+#include "gpio.h"
 #include "wait.h"
 #include "synchronization_util.h"
 

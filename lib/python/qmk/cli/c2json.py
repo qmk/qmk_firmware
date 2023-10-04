@@ -57,7 +57,7 @@ def c2json(cli):
         cli.args.output.parent.mkdir(parents=True, exist_ok=True)
         if cli.args.output.exists():
             cli.args.output.replace(cli.args.output.parent / (cli.args.output.name + '.bak'))
-        cli.args.output.write_text(json.dumps(keymap_json, cls=InfoJSONEncoder))
+        cli.args.output.write_text(json.dumps(keymap_json, cls=InfoJSONEncoder, sort_keys=True))
 
         if not cli.args.quiet:
             cli.log.info('Wrote keymap to %s.', cli.args.output)
