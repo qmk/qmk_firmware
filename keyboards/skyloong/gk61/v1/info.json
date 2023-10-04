@@ -42,7 +42,7 @@
             "splash": true,
             "solid_splash": true
         },
-        "driver": "ckled2001",
+        "driver": "snled27351",
         "hue_steps": 20,
         "layout": [
             {"matrix": [0, 0], "x": 0, "y": 0, "flags": 4},
