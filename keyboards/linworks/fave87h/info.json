@@ -24,6 +24,9 @@
     "layout_aliases": {
         "LAYOUT": "LAYOUT_tkl_ansi_split_bs"
     },
+    "community_layouts": [
+        "tkl_ansi"
+    ],
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [
