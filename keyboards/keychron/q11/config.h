@@ -27,8 +27,8 @@
 #define MATRIX_MASKED // actual mask is defined by `matrix_mask` in `q11.c`
 
 /* RGB Matrix Driver Configuration */
-#define CKLED2001_DRIVER_COUNT 1
-#define DRIVER_ADDR_1 CKLED2001_I2C_ADDRESS_GND
+#define SNLED27351_DRIVER_COUNT 1
+#define DRIVER_ADDR_1 SNLED27351_I2C_ADDRESS_GND
 
 /* Increase I2C speed to 1000 KHz */
 #define I2C1_TIMINGR_PRESC 0U
@@ -37,7 +37,7 @@
 #define I2C1_TIMINGR_SCLH 15U
 #define I2C1_TIMINGR_SCLL 51U
 
-#define CKLED2001_CURRENT_TUNE \
+#define SNLED27351_CURRENT_TUNE \
     { 0x80, 0xFF, 0xFF, 0x80, 0xFF, 0xFF, 0x80, 0xFF, 0xFF, 0x80, 0xFF, 0xFF } // 300mA
 
 /* EEPROM Driver Configuration */
