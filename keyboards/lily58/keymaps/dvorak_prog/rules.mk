@@ -6,9 +6,9 @@ COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = no
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
-RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
+RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 SWAP_HANDS_ENABLE = no      # Enable one-hand typing
-OLED_ENABLE= yes     # OLED display
+OLED_ENABLE= yes     	    # OLED display
 OLED_DRIVER_ENABLE= yes
 
 # If you want to change the display of OLED, you need to change here
