@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #define QUICK_TAP_TERM 0
-#define TAPPING_TERM 100
 
 #define SERIAL_SLAVE_BUFFER_LENGTH  ((MATRIX_ROWS)/2)
 #define SERIAL_MASTER_BUFFER_LENGTH ((MATRIX_ROWS)/2)
@@ -48,8 +47,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define AUDIO_PIN B5
 #endif
 
-//#define RGBLED_NUM 12    // Number of LEDs. see ./keymaps/default/config.h
-
 // Helix keyboard RGB LED support
 //    see ./rules.mk: LED_BACK_ENABLE or LED_UNDERGLOW_ENABLE set yes
 #ifdef RGBLED_BACK
@@ -73,8 +70,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #endif
   #define RGBLIGHT_VAL_STEP 4
 #endif
-#define RGBLIGHT_HUE_STEP 10
-#define RGBLIGHT_SAT_STEP 17
 
 #if defined(RGBLIGHT_ENABLE) && !defined(IOS_DEVICE_ENABLE)
 // USB_MAX_POWER_CONSUMPTION value for Helix keyboard

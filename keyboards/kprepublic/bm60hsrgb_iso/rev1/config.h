@@ -18,12 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #define RGB_MATRIX_LED_COUNT 70
-#    define RGBLED_NUM 70
 #    define RGB_MATRIX_KEYPRESSES
-    // #define RGBLIGHT_HUE_STEP 8
-    // #define RGBLIGHT_SAT_STEP 8
-    // #define RGBLIGHT_VAL_STEP 8
-    // #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180 // Limit to vendor-recommended value
 // RGB Matrix Animation modes. Explicitly enabled

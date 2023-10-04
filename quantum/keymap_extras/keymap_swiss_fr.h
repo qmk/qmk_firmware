@@ -27,6 +27,8 @@
 #include "keycodes.h"
 // clang-format off
 
+#undef CH_H
+
 // Aliases
 #define CH_SECT KC_GRV  // §
 #define CH_1    KC_1    // 1

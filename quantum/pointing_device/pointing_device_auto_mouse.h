@@ -16,11 +16,14 @@
 
 #pragma once
 
-#include <string.h>
-
-#include "quantum.h"
+#include <stdint.h>
+#include <stdbool.h>
 #include "pointing_device.h"
-#include "print.h"
+#include "keycodes.h"
+#include "action.h"
+#include "report.h"
+#include "action_layer.h"
+#include "action_tapping.h"
 
 /* check settings and set defaults */
 #ifndef POINTING_DEVICE_AUTO_MOUSE_ENABLE

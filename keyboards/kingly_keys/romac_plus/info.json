@@ -18,6 +18,24 @@
       {"pin_a": "B3", "pin_b": "B2"}
     ]
   },
+  "rgblight": {
+    "hue_steps": 6,
+    "saturation_steps": 4,
+    "brightness_steps": 8,
+    "led_count": 4,
+    "animations": {
+      "breathing": true,
+      "rainbow_mood": true,
+      "rainbow_swirl": true,
+      "snake": true,
+      "knight": true,
+      "christmas": true,
+      "static_gradient": true,
+      "rgb_test": true,
+      "alternating": true,
+      "twinkle": true
+    }
+  },
   "ws2812": {
     "pin": "F7"
   },
