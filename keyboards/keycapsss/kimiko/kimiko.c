@@ -276,12 +276,10 @@ void render_layer_state(void) {
 }
 
 void render_status_main(void) {
-    render_space();
-    render_space();
     render_logo();
-    render_space();
+    oled_advance_page(false);
     render_layer_state();
-    render_space();
+    oled_advance_page(false);
     render_mod_status_gui_alt(get_mods()|get_oneshot_mods());
     render_mod_status_ctrl_shift(get_mods()|get_oneshot_mods());
 }
