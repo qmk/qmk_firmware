@@ -1,12 +1,12 @@
-# hexboard
+# HexBoard
 
-![hexboard](imgur.com image replace me!)
+![HexBoard](https://shapingthesilence.com/wp-content/uploads/2023/05/IMG_7850-scaled-e1683770617108.jpeg)
 
-*A short description of the keyboard/project*
+*The HexBoard is a MIDI controller which can double as a 120% keyboard*
 
 * Keyboard Maintainer: [Zach DeCook](https://github.com/earboxer)
 * Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Availability: https://shapingthesilence.com/tech/hexboard-midi-controller/
 
 Make example for this keyboard (after setting up your build environment):
 
