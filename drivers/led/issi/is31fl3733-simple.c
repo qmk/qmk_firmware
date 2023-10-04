@@ -173,9 +173,9 @@ void is31fl3733_init(uint8_t addr, uint8_t sync) {
 }
 
 void is31fl3733_set_value(int index, uint8_t value) {
-    is31_led led;
+    is31fl3733_led_t led;
     if (index >= 0 && index < LED_MATRIX_LED_COUNT) {
-        memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
+        memcpy_P(&led, (&g_is31fl3733_leds[index]), sizeof(led));
 
         if (g_pwm_buffer[led.driver][led.v] == value) {
             return;
@@ -192,8 +192,8 @@ void is31fl3733_set_value_all(uint8_t value) {
 }
 
 void is31fl3733_set_led_control_register(uint8_t index, bool value) {
-    is31_led led;
-    memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
+    is31fl3733_led_t led;
+    memcpy_P(&led, (&g_is31fl3733_leds[index]), sizeof(led));
 
     uint8_t control_register = led.v / 8;
     uint8_t bit_value        = led.v % 8;

@@ -211,7 +211,7 @@ static void self_testing(void)
     update_ticks();
 }
 
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
     /* Refer to IS31 manual for these locations
      *   driver
      *   |  R location

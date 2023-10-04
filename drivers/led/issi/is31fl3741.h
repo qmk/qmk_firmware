@@ -46,6 +46,9 @@
 #    define IS31FL3741_GLOBALCURRENT ISSI_GLOBALCURRENT
 #endif
 
+#define is31_led is31fl3741_led_t
+#define g_is31_leds g_is31fl3741_leds
+
 #define PUR_0R IS31FL3741_PUR_0R
 #define PUR_05KR IS31FL3741_PUR_05KR
 #define PUR_1KR IS31FL3741_PUR_1KR
@@ -61,14 +64,14 @@
 #define IS31FL3741_I2C_ADDRESS_SDA 0x32
 #define IS31FL3741_I2C_ADDRESS_VCC 0x33
 
-typedef struct is31_led {
+typedef struct is31fl3741_led_t {
     uint32_t driver : 2;
     uint32_t r : 10;
     uint32_t g : 10;
     uint32_t b : 10;
-} __attribute__((packed)) is31_led;
+} __attribute__((packed)) is31fl3741_led_t;
 
-extern const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT];
+extern const is31fl3741_led_t PROGMEM g_is31fl3741_leds[RGB_MATRIX_LED_COUNT];
 
 void is31fl3741_init(uint8_t addr);
 void is31fl3741_write_register(uint8_t addr, uint8_t reg, uint8_t data);
@@ -85,9 +88,9 @@ void is31fl3741_set_led_control_register(uint8_t index, bool red, bool green, bo
 // If the buffer is dirty, it will update the driver with the buffer.
 void is31fl3741_update_pwm_buffers(uint8_t addr, uint8_t index);
 void is31fl3741_update_led_control_registers(uint8_t addr, uint8_t index);
-void is31fl3741_set_scaling_registers(const is31_led *pled, uint8_t red, uint8_t green, uint8_t blue);
+void is31fl3741_set_scaling_registers(const is31fl3741_led_t *pled, uint8_t red, uint8_t green, uint8_t blue);
 
-void is31fl3741_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green, uint8_t blue);
+void is31fl3741_set_pwm_buffer(const is31fl3741_led_t *pled, uint8_t red, uint8_t green, uint8_t blue);
 
 #define IS31FL3741_PUR_0R 0x00   // No PUR resistor
 #define IS31FL3741_PUR_05KR 0x01 // 0.5k Ohm resistor
