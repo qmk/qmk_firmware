@@ -90,12 +90,8 @@ enum layers {
 
 #ifdef OLED_ENABLE
 
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-	if (is_keyboard_master()) {
-        return OLED_ROTATION_270;
-	} else {
-        return OLED_ROTATION_270;
-	}
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
+    return OLED_ROTATION_270;
 }
 
 // NOTE: Most of the OLED code was originally written by Soundmonster for the Corne,
