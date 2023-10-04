@@ -34,6 +34,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LAYER_3             B0
 #define LAYER_4             B9
 #define LAYER_5             A9
-
-/* Added extra layer for use of layer leds */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 5

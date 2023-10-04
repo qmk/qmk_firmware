@@ -88,7 +88,7 @@ You can create `info.json` files at every level under `qmk_firmware/keyboards/<k
 
 ## APA102 :id=apa102
 
-Configures the APA102 driver.
+Configures the [APA102](apa102_driver.md) driver.
 
 * `apa102`
     * `clock_pin` (Required)
@@ -329,7 +329,7 @@ Configures the [LED Matrix](feature_led_matrix.md) feature.
         * The centroid (geometric center) of the LEDs. Used for certain effects.
         * Default: `[112, 32]`
     * `driver` (Required)
-        * The driver to use. Must be one of `ckled2001`, `custom`, `is31fl3731`, `is31fl3742a`, `is31fl3743a`, `is31fl3745`, `is31fl3746a`.
+        * The driver to use. Must be one of `ckled2001`, `custom`, `is31fl3218`, `is31fl3731`, `is31fl3733`, `is31fl3736`, `is31fl3737`, `is31fl3741`, `is31fl3742a`, `is31fl3743a`, `is31fl3745`, `is31fl3746a`.
     * `layout` (Required)
         * List of LED configuration dictionaries. Each dictionary contains:
             * `flags` (Required)
@@ -342,9 +342,21 @@ Configures the [LED Matrix](feature_led_matrix.md) feature.
                 * The key matrix position associated with the LED.
                 * Example: `[0, 2]`
             * Example: `{"matrix": [2, 1], "x": 20, "y": 48, "flags": 2}`
+    * `led_flush_limit`
+        * Limits in milliseconds how frequently an animation will update the LEDs.
+        * Default: `16`
+    * `led_process_limit`
+        * Limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness).
+        * Default: `led_count / 5`
     * `max_brightness`
         * The maximum value which brightness is scaled to, from 0 to 255.
         * Default: `255`
+    * `react_on_keyup`
+        * Animations react to keyup instead of keydown.
+        * Default: `false`
+    * `sleep`
+        * Turn off the LEDs when the host goes to sleep.
+        * Default: `false`
     * `speed_steps`
         * The number of speed adjustment steps.
         * Default: `16`
@@ -530,7 +542,7 @@ Configures the [RGB Matrix](feature_rgb_matrix.md) feature.
         * The centroid (geometric center) of the LEDs. Used for certain effects.
         * Default: `[112, 32]`
     * `driver` (Required)
-        * The driver to use. Must be one of `aw20216`, `ckled2001`, `custom`, `is31fl3731`, `is31fl3733`, `is31fl3736`, `is31fl3737`, `is31fl3741`, `is31fl3742a`, `is31fl3743a`, `is31fl3745`, `is31fl3746a`, `ws2812`.
+        * The driver to use. Must be one of `aw20216s`, `ckled2001`, `custom`, `is31fl3218`, `is31fl3731`, `is31fl3733`, `is31fl3736`, `is31fl3737`, `is31fl3741`, `is31fl3742a`, `is31fl3743a`, `is31fl3745`, `is31fl3746a`, `ws2812`.
     * `hue_steps`
         * The number of hue adjustment steps.
         * Default: `8`
@@ -546,12 +558,24 @@ Configures the [RGB Matrix](feature_rgb_matrix.md) feature.
                 * The key matrix position associated with the LED.
                 * Example: `[0, 2]`
             * Example: `{"matrix": [2, 1], "x": 20, "y": 48, "flags": 2}`
+    * `led_flush_limit`
+        * Limits in milliseconds how frequently an animation will update the LEDs.
+        * Default: `16`
+    * `led_process_limit`
+        * Limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness).
+        * Default: `led_count / 5`
     * `max_brightness`
         * The maximum value which the HSV "V" component is scaled to, from 0 to 255.
         * Default: `255`
+    * `react_on_keyup`
+        * Animations react to keyup instead of keydown.
+        * Default: `false`
     * `sat_steps`
         * The number of saturation adjustment steps.
         * Default: `16`
+    * `sleep`
+        * Turn off the LEDs when the host goes to sleep.
+        * Default: `false`
     * `speed_steps`
         * The number of speed adjustment steps.
         * Default: `16`
