@@ -45,8 +45,8 @@
 #if defined(IS31FLCOMMON)
 #    include "is31flcommon.h"
 #endif
-#ifdef LED_MATRIX_CKLED2001
-#    include "ckled2001-simple.h"
+#ifdef LED_MATRIX_SNLED27351
+#    include "snled27351-simple.h"
 #endif
 
 #ifndef LED_MATRIX_TIMEOUT

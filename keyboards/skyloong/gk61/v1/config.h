@@ -15,22 +15,9 @@
  */
 #pragma once
 
-/*
- * RGB matrix driver config (CKLED2001)
- *
- * This is a 7-bit address, that gets left-shifted and bit 0
- * set to 0 for write, 1 for read (as per I2C protocol)
- * The address will vary depending on your wiring:
- * 00 <-> GND
- * 01 <-> SCL
- * 10 <-> SDA
- * 11 <-> VCC
- * ADDR/CS represents A1:A0 of the 7-bit address.
- * The result is: 0b11101(ADDR/CS)
- */
-#define DRIVER_ADDR_1  0b1110100
+#define DRIVER_ADDR_1 SNLED27351_I2C_ADDRESS_GND
 
-#define DRIVER_COUNT 1
+#define SNLED27351_DRIVER_COUNT 1
 #define RGB_MATRIX_LED_COUNT 64
 
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS  //Enable frame effects

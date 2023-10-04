@@ -38,8 +38,8 @@
 #    include "is31fl3741.h"
 #elif defined(IS31FLCOMMON)
 #    include "is31flcommon.h"
-#elif defined(RGB_MATRIX_CKLED2001)
-#    include "ckled2001.h"
+#elif defined(RGB_MATRIX_SNLED27351)
+#    include "snled27351.h"
 #elif defined(RGB_MATRIX_AW20216S)
 #    include "aw20216s.h"
 #elif defined(RGB_MATRIX_WS2812)
