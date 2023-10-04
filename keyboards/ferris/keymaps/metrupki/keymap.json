@@ -36,9 +36,6 @@
          "KC_TRNS"     , "KC_LGUI"     , "KC_NO"          , "LCTL(KC_LALT)" , "LCA(KC_LSFT)",
 
          "KC_TRNS"     , "KC_HOME"     , "KC_PGDN"        , "KC_END"        , "KC_TRNS",
-         "KC_TRNS"     , "KC_TRNS"     , "KC_TRNS"        , "KC_TRNS"       , "KC_TRNS",
-
-         "KC_TRNS"     , "KC_TRNS",
          "KC_TRNS"     , "KC_TRNS"
         ],
         ["KC_TRNS"     , "KC_TRNS"     , "KC_TRNS"        , "KC_TRNS"       , "KC_TRNS",
