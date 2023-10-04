@@ -119,7 +119,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [BaseLayer] = { ENCODER_CCW_CW(KC_MS_WH_DOWN, KC_MS_WH_UP), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [NavLayer] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______) },
     [MouseLayer] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______) },
-    [FnLayer] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______) },
+    [FnLayer] = { ENCODER_CCW_CW(RGB_MODE_REVERSE, RGB_MODE_FORWARD), ENCODER_CCW_CW(_______, _______) },
 };
 #endif
 

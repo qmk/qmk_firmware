@@ -44,6 +44,13 @@
             "blink": true,
             "enabled": true,
             "override_rgb": true
+        },
+        "animations": {
+            "breathing": true,
+            "christmas": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "twinkle": true
         }
     },
     "encoder": {
