@@ -1,7 +1,7 @@
 #pragma once
 
 //rgb matrix setting
-#define DRIVER_ADDR_1 IS31FL3731_I2C_ADDRESS_SDA
+#define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_SDA
 #define IS31FL3731_DRIVER_COUNT 1
 #define RGB_MATRIX_LED_COUNT 25
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses

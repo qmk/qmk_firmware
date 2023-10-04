@@ -27,13 +27,6 @@
 #if defined(RGB_MATRIX_IS31FL3218) || defined(RGB_MATRIX_IS31FL3731) || defined(RGB_MATRIX_IS31FL3733) || defined(RGB_MATRIX_IS31FL3736) || defined(RGB_MATRIX_IS31FL3737) || defined(RGB_MATRIX_IS31FL3741) || defined(IS31FLCOMMON) || defined(RGB_MATRIX_SNLED27351)
 #    include "i2c_master.h"
 
-// TODO: Remove this at some later date
-#    if defined(DRIVER_ADDR_1) && defined(DRIVER_ADDR_2)
-#        if DRIVER_ADDR_1 == DRIVER_ADDR_2
-#            error "Setting DRIVER_ADDR_2 == DRIVER_ADDR_1 is obsolete. If you are only using one ISSI driver, set DRIVER_COUNT to 1 and remove DRIVER_ADDR_2"
-#        endif
-#    endif
-
 static void init(void) {
     i2c_init();
 
@@ -41,13 +34,13 @@ static void init(void) {
     is31fl3218_init();
 
 #    elif defined(RGB_MATRIX_IS31FL3731)
-    is31fl3731_init(DRIVER_ADDR_1);
-#        if defined(DRIVER_ADDR_2)
-    is31fl3731_init(DRIVER_ADDR_2);
-#            if defined(DRIVER_ADDR_3)
-    is31fl3731_init(DRIVER_ADDR_3);
-#                if defined(DRIVER_ADDR_4)
-    is31fl3731_init(DRIVER_ADDR_4);
+    is31fl3731_init(IS31FL3731_I2C_ADDRESS_1);
+#        if defined(IS31FL3731_I2C_ADDRESS_2)
+    is31fl3731_init(IS31FL3731_I2C_ADDRESS_2);
+#            if defined(IS31FL3731_I2C_ADDRESS_3)
+    is31fl3731_init(IS31FL3731_I2C_ADDRESS_3);
+#                if defined(IS31FL3731_I2C_ADDRESS_4)
+    is31fl3731_init(IS31FL3731_I2C_ADDRESS_4);
 #                endif
 #            endif
 #        endif
@@ -165,13 +158,13 @@ static void init(void) {
     is31fl3218_update_led_control_registers();
 
 #    elif defined(RGB_MATRIX_IS31FL3731)
-    is31fl3731_update_led_control_registers(DRIVER_ADDR_1, 0);
-#        if defined(DRIVER_ADDR_2)
-    is31fl3731_update_led_control_registers(DRIVER_ADDR_2, 1);
-#            if defined(DRIVER_ADDR_3)
-    is31fl3731_update_led_control_registers(DRIVER_ADDR_3, 2);
-#                if defined(DRIVER_ADDR_4)
-    is31fl3731_update_led_control_registers(DRIVER_ADDR_4, 3);
+    is31fl3731_update_led_control_registers(IS31FL3731_I2C_ADDRESS_1, 0);
+#        if defined(IS31FL3731_I2C_ADDRESS_2)
+    is31fl3731_update_led_control_registers(IS31FL3731_I2C_ADDRESS_2, 1);
+#            if defined(IS31FL3731_I2C_ADDRESS_3)
+    is31fl3731_update_led_control_registers(IS31FL3731_I2C_ADDRESS_3, 2);
+#                if defined(IS31FL3731_I2C_ADDRESS_4)
+    is31fl3731_update_led_control_registers(IS31FL3731_I2C_ADDRESS_4, 3);
 #                endif
 #            endif
 #        endif
@@ -267,13 +260,13 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 
 #    elif defined(RGB_MATRIX_IS31FL3731)
 static void flush(void) {
-    is31fl3731_update_pwm_buffers(DRIVER_ADDR_1, 0);
-#        if defined(DRIVER_ADDR_2)
-    is31fl3731_update_pwm_buffers(DRIVER_ADDR_2, 1);
-#            if defined(DRIVER_ADDR_3)
-    is31fl3731_update_pwm_buffers(DRIVER_ADDR_3, 2);
-#                if defined(DRIVER_ADDR_4)
-    is31fl3731_update_pwm_buffers(DRIVER_ADDR_4, 3);
+    is31fl3731_update_pwm_buffers(IS31FL3731_I2C_ADDRESS_1, 0);
+#        if defined(IS31FL3731_I2C_ADDRESS_2)
+    is31fl3731_update_pwm_buffers(IS31FL3731_I2C_ADDRESS_2, 1);
+#            if defined(IS31FL3731_I2C_ADDRESS_3)
+    is31fl3731_update_pwm_buffers(IS31FL3731_I2C_ADDRESS_3, 2);
+#                if defined(IS31FL3731_I2C_ADDRESS_4)
+    is31fl3731_update_pwm_buffers(IS31FL3731_I2C_ADDRESS_4, 3);
 #                endif
 #            endif
 #        endif
