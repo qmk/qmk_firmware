@@ -1,11 +1,9 @@
 VIA_ENABLE = yes
-# Blue Pill STM32F103C6T6 which only has 22KB of available space.
-# In order to reduce the size of Firmware, disabling mousekey and via LTO were necessary.
+
 MOUSEKEY_ENABLE = no
 LTO_ENABLE = yes
 CONSOLE_ENABLE = no
 
-# https://github.com/qmk/qmk_firmware/blob/master/docs/feature_oled_driver.md
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
 
