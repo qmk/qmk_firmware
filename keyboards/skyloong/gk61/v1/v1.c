@@ -99,7 +99,7 @@ const ckled2001_led PROGMEM g_ckled2001_leds[RGB_MATRIX_LED_COUNT] = {
 
 
 };
-#endif
+#endif // RGB_MATRIX_ENABLE
 
 void suspend_power_down_kb() {
     writePinLow(SDB);
