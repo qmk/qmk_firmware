@@ -4,7 +4,7 @@
         "device_version": "1.0.0",
         "pid": "0x6087"
     },
-
+    "community_layouts": ["tkl_ansi"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -104,7 +104,7 @@
                 {"label": "Right", "matrix": [5, 15], "x": 17.25, "y": 5.25}
             ]
         },
-        "LAYOUT_ansi_87": {
+        "LAYOUT_tkl_ansi": {
             "layout": [
                 {"label": "ESC", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "F1", "matrix": [0, 2], "x": 2, "y": 0},
