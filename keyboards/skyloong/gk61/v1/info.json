@@ -41,7 +41,6 @@
             "solid_reactive_multinexus": true,
             "splash": true,
             "solid_splash": true
-
         },
         "driver": "ckled2001",
         "hue_steps": 20,
