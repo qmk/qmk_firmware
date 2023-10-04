@@ -68,7 +68,7 @@
             "solid_splash": true,
             "splash": true,
             "typing_heatmap": true
-    },
+        },
         "driver": "ws2812",
         "layout": [
             {"x": 4, "y": 5, "flags": 2},
