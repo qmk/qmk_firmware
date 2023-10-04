@@ -257,10 +257,10 @@ Configure the hardware via your `config.h`:
 | `IS31FL3737_CSPULLUP` | (Optional) Set the value of the CSx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
 | `IS31FL3737_DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
 | `RGB_MATRIX_LED_COUNT` | (Required) How many RGB lights are present across all drivers | |
-| `DRIVER_ADDR_1` | (Required) Address for the first RGB driver | |
-| `DRIVER_ADDR_2` | (Optional) Address for the second RGB driver | |
-| `DRIVER_ADDR_3` | (Optional) Address for the third RGB driver | |
-| `DRIVER_ADDR_4` | (Optional) Address for the fourth RGB driver | |
+| `IS31FL3737_I2C_ADDRESS_1` | (Required) Address for the first RGB driver | |
+| `IS31FL3737_I2C_ADDRESS_2` | (Optional) Address for the second RGB driver | |
+| `IS31FL3737_I2C_ADDRESS_3` | (Optional) Address for the third RGB driver | |
+| `IS31FL3737_I2C_ADDRESS_4` | (Optional) Address for the fourth RGB driver | |
 
 The IS31FL3737 IC's have on-chip resistors that can be enabled to allow for de-ghosting of the RGB matrix. By default these resistors are not enabled (`IS31FL3737_SWPULLUP`/`IS31FL3737_CSPULLUP` are given the value of `IS31FL3737_PUR_0R`), the values that can be set to enable de-ghosting are as follows:
 
@@ -287,8 +287,8 @@ Here is an example using 2 drivers.
 // 1111 ADDR <-> VCC
 // ADDR represents A3:A0 of the 7-bit address.
 // The result is: 0b101(ADDR)
-#define DRIVER_ADDR_1 IS31FL3737_I2C_ADDRESS_GND
-#define DRIVER_ADDR_2 IS31FL3737_I2C_ADDRESS_SCL
+#define IS31FL3737_I2C_ADDRESS_1 IS31FL3737_I2C_ADDRESS_GND
+#define IS31FL3737_I2C_ADDRESS_2 IS31FL3737_I2C_ADDRESS_SCL
 
 #define IS31FL3737_DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 30
