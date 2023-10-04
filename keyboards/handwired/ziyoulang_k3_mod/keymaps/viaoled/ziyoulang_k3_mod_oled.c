@@ -51,8 +51,11 @@ static void render_logo(void) {
         0xC0, 0xC1, 0xC2, 0xC3, 0xC4, 0xC5, 0xC6, 0xC7, 0xC8, 0xC9, 0xCA, 0xCB, 0xCC, 0xCD, 0xCE, 0xCF, 0xD0, 0xD1, 0xD2, 0xD3, 0xD4, 0x00
     };
     oled_write_P(qmk_logo, false);
-    // oled_set_cursor(3, 0);
-    // oled_write_P(PSTR("Ziyoulang K3 Mod"), false);
+#ifdef CONSOLE_ENABLE
+    uprintf("Ziyoulang K3 Mod\n");
+    oled_set_cursor(3, 0);
+    oled_write_P(PSTR("Ziyoulang K3 Mod"), false);
+#endif
 }
 
 bool oled_task_user(void) {
@@ -75,9 +78,6 @@ bool oled_task_user(void) {
         case 2:
             oled_write_P(PSTR("3\n"), false);
             break;
-//        case 3:
-//            oled_write_P(PSTR("4\n"), false);
-//            break;
         default:
             // Or use the write_ln shortcut over adding '\n' to the end of your string
             oled_write_ln_P(PSTR("Undefined"), false);
