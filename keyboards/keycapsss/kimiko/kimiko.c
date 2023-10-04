@@ -292,7 +292,7 @@ bool oled_task_kb(void) {
     if (is_keyboard_master()) {
         render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
-        render_status_secondary();
+        render_logo();
     }
 
     return true;
