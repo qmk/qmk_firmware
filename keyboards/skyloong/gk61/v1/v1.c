@@ -113,7 +113,6 @@ void suspend_wakeup_init_kb() {
     suspend_wakeup_init_user();
 }
 
-
 void board_init(void) {
     setPinOutput(SDB);
     writePinHigh(SDB);
