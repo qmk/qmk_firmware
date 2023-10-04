@@ -4,6 +4,7 @@
         "device_version": "1.0.0",
         "pid": "0x6088"
     },
+    "community_layouts": ["tkl_iso"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -74,7 +75,6 @@
                 {"label": "k49", "matrix": [3, 12], "x": 12.75, "y": 3.25},
                 {"label": "Ent", "matrix": [3, 13], "x": 13.75, "y": 2.25, "w": 1.25, "h":2},
 
-
                 {"label": "Shift", "matrix": [4, 0], "x": 0, "y": 4.25, "w": 1.25},
                 {"label": "k45", "matrix": [5, 3], "x": 1.25, "y": 4.25},
                 {"label": "Z", "matrix": [4, 1], "x": 2.25, "y": 4.25},
@@ -105,8 +105,7 @@
                 {"label": "Right", "matrix": [5, 15], "x": 17.25, "y": 5.25}
             ]
         },
-
-        "LAYOUT_iso_87": {
+        "LAYOUT_tkl_iso": {
             "layout": [
                 {"label": "ESC", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "F1", "matrix": [0, 2], "x": 2, "y": 0},
