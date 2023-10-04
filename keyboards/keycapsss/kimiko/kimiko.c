@@ -96,9 +96,6 @@ oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
 
 // NOTE: Most of the OLED code was originally written by Soundmonster for the Corne,
 // and has been copied directly from `crkbd/soundmonster/keymap.c`
-void render_space(void) {
-    oled_write_P(PSTR("     "), false);
-}
 
 void render_mod_status_gui_alt(uint8_t modifiers) {
     static const char PROGMEM gui_off_1[] = {0x85, 0x86, 0};
