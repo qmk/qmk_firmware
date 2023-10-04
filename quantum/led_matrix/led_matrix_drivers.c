@@ -123,13 +123,13 @@ static void init(void) {
     writePinHigh(LED_DRIVER_SHUTDOWN_PIN);
 #        endif
 
-    snled27351_init(DRIVER_ADDR_1);
-#        if defined(DRIVER_ADDR_2)
-    snled27351_init(DRIVER_ADDR_2);
-#            if defined(DRIVER_ADDR_3)
-    snled27351_init(DRIVER_ADDR_3);
-#                if defined(DRIVER_ADDR_4)
-    snled27351_init(DRIVER_ADDR_4);
+    snled27351_init(SNLED27351_I2C_ADDRESS_1);
+#        if defined(SNLED27351_I2C_ADDRESS_2)
+    snled27351_init(SNLED27351_I2C_ADDRESS_2);
+#            if defined(SNLED27351_I2C_ADDRESS_3)
+    snled27351_init(SNLED27351_I2C_ADDRESS_3);
+#                if defined(SNLED27351_I2C_ADDRESS_4)
+    snled27351_init(SNLED27351_I2C_ADDRESS_4);
 #                endif
 #            endif
 #        endif
@@ -233,14 +233,15 @@ static void init(void) {
 #                endif
 #            endif
 #        endif
+
 #    elif defined(LED_MATRIX_SNLED27351)
-    snled27351_update_led_control_registers(DRIVER_ADDR_1, 0);
-#        if defined(DRIVER_ADDR_2)
-    snled27351_update_led_control_registers(DRIVER_ADDR_2, 1);
-#            if defined(DRIVER_ADDR_3)
-    snled27351_update_led_control_registers(DRIVER_ADDR_3, 2);
-#                if defined(DRIVER_ADDR_4)
-    snled27351_update_led_control_registers(DRIVER_ADDR_4, 3);
+    snled27351_update_led_control_registers(SNLED27351_I2C_ADDRESS_1, 0);
+#        if defined(SNLED27351_I2C_ADDRESS_2)
+    snled27351_update_led_control_registers(SNLED27351_I2C_ADDRESS_2, 1);
+#            if defined(SNLED27351_I2C_ADDRESS_3)
+    snled27351_update_led_control_registers(SNLED27351_I2C_ADDRESS_3, 2);
+#                if defined(SNLED27351_I2C_ADDRESS_4)
+    snled27351_update_led_control_registers(SNLED27351_I2C_ADDRESS_4, 3);
 #                endif
 #            endif
 #        endif
@@ -386,13 +387,13 @@ const led_matrix_driver_t led_matrix_driver = {
 };
 #    elif defined(LED_MATRIX_SNLED27351)
 static void flush(void) {
-    snled27351_update_pwm_buffers(DRIVER_ADDR_1, 0);
-#        if defined(DRIVER_ADDR_2)
-    snled27351_update_pwm_buffers(DRIVER_ADDR_2, 1);
-#            if defined(DRIVER_ADDR_3)
-    snled27351_update_pwm_buffers(DRIVER_ADDR_3, 2);
-#                if defined(DRIVER_ADDR_4)
-    snled27351_update_pwm_buffers(DRIVER_ADDR_4, 3);
+    snled27351_update_pwm_buffers(SNLED27351_I2C_ADDRESS_1, 0);
+#        if defined(SNLED27351_I2C_ADDRESS_2)
+    snled27351_update_pwm_buffers(SNLED27351_I2C_ADDRESS_2, 1);
+#            if defined(SNLED27351_I2C_ADDRESS_3)
+    snled27351_update_pwm_buffers(SNLED27351_I2C_ADDRESS_3, 2);
+#                if defined(SNLED27351_I2C_ADDRESS_4)
+    snled27351_update_pwm_buffers(SNLED27351_I2C_ADDRESS_4, 3);
 #                endif
 #            endif
 #        endif
