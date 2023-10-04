@@ -157,7 +157,7 @@ uint32_t g_any_key_hit = 0;
 #if defined(RGB_BACKLIGHT_HS60)
 #define ISSI_ADDR_1 IS31FL3733_I2C_ADDRESS_GND_GND
 
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3733_led_t PROGMEM g_is31fl3733_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -234,7 +234,7 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 #define ISSI_ADDR_1 IS31FL3733_I2C_ADDRESS_GND_GND
 #define ISSI_ADDR_2 IS31FL3733_I2C_ADDRESS_GND_SDA
 
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3733_led_t PROGMEM g_is31fl3733_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -375,7 +375,7 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 #elif defined(RGB_BACKLIGHT_NEBULA12)
 #define ISSI_ADDR_1 IS31FL3731_I2C_ADDRESS_GND
 
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -406,7 +406,7 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 #define ISSI_ADDR_2 IS31FL3731_I2C_ADDRESS_SDA
 #define ISSI_ADDR_3 IS31FL3731_I2C_ADDRESS_SCL
 
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -531,7 +531,7 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 #define ISSI_ADDR_1 IS31FL3731_I2C_ADDRESS_GND
 #define ISSI_ADDR_2 IS31FL3731_I2C_ADDRESS_SDA
 
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -610,7 +610,7 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 #define ISSI_ADDR_1 IS31FL3731_I2C_ADDRESS_GND
 #define ISSI_ADDR_2 IS31FL3731_I2C_ADDRESS_VCC
 
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |   R location
@@ -694,7 +694,7 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 #define ISSI_ADDR_1 IS31FL3741_I2C_ADDRESS_GND
 #define ISSI_ADDR_2
 
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3741_led_t PROGMEM g_is31fl3741_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |   R location
@@ -829,7 +829,7 @@ const is31fl3218_led_t PROGMEM g_is31fl3218_leds[RGB_MATRIX_LED_COUNT] = {
 #define ISSI_ADDR_1 IS31FL3731_I2C_ADDRESS_GND
 #define ISSI_ADDR_2
 
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
     {0, C1_9,  C3_10, C4_10}, // LB1
     {0, C1_10, C2_10, C4_11}, // LB2
     {0, C1_11, C2_11, C3_11}, // LB3
@@ -847,7 +847,7 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 #define ISSI_ADDR_1 IS31FL3731_I2C_ADDRESS_GND
 #define ISSI_ADDR_2 IS31FL3731_I2C_ADDRESS_SDA
 
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
