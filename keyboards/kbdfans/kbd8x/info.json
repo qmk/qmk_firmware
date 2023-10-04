@@ -246,7 +246,7 @@
         {"matrix": [5, 10], "x": 17.25, "y": 5.5}
       ]
     },
-    "LAYOUT_tkl_ansi_split_br_rshift": {
+    "LAYOUT_tkl_ansi_split_bs_rshift": {
       "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0},
 
