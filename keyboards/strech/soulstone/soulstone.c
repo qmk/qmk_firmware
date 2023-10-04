@@ -1,4 +1,4 @@
-/* Copyright 2023 eerraa
+/* Copyright 2023 Strech
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,14 +14,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "quantum.h"
 
-/* BACKLIGHT PWM */
-#define BACKLIGHT_PWM_DRIVER PWMD7
-#define BACKLIGHT_PWM_CHANNEL RP2040_PWM_CHANNEL_B
+// Prepare layer indicator LED
+void keyboard_post_init_kb(void) {
+    setPinOutput(LAYER_INDICATOR_LED_PIN);
+    writePinLow(LAYER_INDICATOR_LED_PIN);
+    keyboard_post_init_user();
+}
 
-/* RGB Matrix */
-#define RGB_MATRIX_DEFAULT_VAL 60
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#define RGB_MATRIX_KEYPRESSES
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
+// Function for layer indicator LED
+layer_state_t layer_state_set_kb(layer_state_t state) {
+    writePin(LAYER_INDICATOR_LED_PIN, !layer_state_cmp(state, 0));
+    return layer_state_set_user(state);
+}
