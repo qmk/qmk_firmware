@@ -412,16 +412,16 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 static void init(void) {
     spi_init();
 
-    aw20216s_init(AW20216S_DRIVER_1_CS, AW20216S_DRIVER_1_EN);
-#    if defined(AW20216S_DRIVER_2_CS)
-    aw20216s_init(AW20216S_DRIVER_2_CS, AW20216S_DRIVER_2_EN);
+    aw20216s_init(AW20216S_CS_PIN_1, AW20216S_EN_PIN_2);
+#    if defined(AW20216S_CS_PIN_2)
+    aw20216s_init(AW20216S_CS_PIN_2, AW20216S_EN_PIN_2);
 #    endif
 }
 
 static void flush(void) {
-    aw20216s_update_pwm_buffers(AW20216S_DRIVER_1_CS, 0);
-#    if defined(AW20216S_DRIVER_2_CS)
-    aw20216s_update_pwm_buffers(AW20216S_DRIVER_2_CS, 1);
+    aw20216s_update_pwm_buffers(AW20216S_CS_PIN_1, 0);
+#    if defined(AW20216S_CS_PIN_2)
+    aw20216s_update_pwm_buffers(AW20216S_CS_PIN_1, 1);
 #    endif
 }
 

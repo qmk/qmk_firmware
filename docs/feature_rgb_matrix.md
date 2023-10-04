@@ -480,10 +480,10 @@ You can use up to 2 AW20216S IC's. Do not specify `DRIVER_<N>_xxx` defines for I
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `AW20216S_DRIVER_1_CS` | (Required) MCU pin connected to first RGB driver chip select line  | B13 |
-| `AW20216S_DRIVER_2_CS` | (Optional) MCU pin connected to second RGB driver chip select line  | |
-| `AW20216S_DRIVER_1_EN` | (Required) MCU pin connected to first RGB driver hardware enable line  | C13 |
-| `AW20216S_DRIVER_2_EN` | (Optional) MCU pin connected to second RGB driver hardware enable line  | |
+| `AW20216S_CS_PIN_1` | (Required) MCU pin connected to first RGB driver chip select line  | B13 |
+| `AW20216S_CS_PIN_2` | (Optional) MCU pin connected to second RGB driver chip select line  | |
+| `AW20216S_EN_PIN_1` | (Required) MCU pin connected to first RGB driver hardware enable line  | C13 |
+| `AW20216S_EN_PIN_2` | (Optional) MCU pin connected to second RGB driver hardware enable line  | |
 | `DRIVER_1_LED_TOTAL` | (Required) How many RGB lights are connected to first RGB driver  | |
 | `DRIVER_2_LED_TOTAL` | (Optional) How many RGB lights are connected to second RGB driver  | |
 | `AW20216S_DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
@@ -496,11 +496,11 @@ You can use up to 2 AW20216S IC's. Do not specify `DRIVER_<N>_xxx` defines for I
 Here is an example using 2 drivers.
 
 ```c
-#define AW20216S_DRIVER_1_CS B13
-#define AW20216S_DRIVER_2_CS B14
+#define AW20216S_CS_PIN_1 B13
+#define AW20216S_CS_PIN_2 B14
 // Hardware enable lines may be connected to the same pin
-#define AW20216S_DRIVER_1_EN C13
-#define AW20216S_DRIVER_2_EN C13
+#define AW20216S_EN_PIN_1 C13
+#define AW20216S_EN_PIN_2 C13
 
 #define AW20216S_DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 66
