@@ -237,6 +237,8 @@ void render_logo(void) {
     static const char PROGMEM kimiko_logo[] = {
         0xA0, 0xA1, 0xA2, 0xA3, 0xA4,
         0xC0, 0xC1, 0xC2, 0xC3, 0xC4, 0};
+    oled_advance_page(false);
+    oled_advance_page(false);
     oled_write_P(kimiko_logo, false);
     // oled_write_P(PSTR("Kimiko"), false);
 }
