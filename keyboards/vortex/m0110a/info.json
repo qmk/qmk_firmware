@@ -60,9 +60,8 @@
                     { "label": "0", "matrix": [8, 7], "x": 10, "y": 0 },
                     { "label": "-", "matrix": [8, 6], "x": 11, "y": 0 },
                     { "label": "=", "matrix": [6, 6], "x": 12, "y": 0 },
-                    { "label": "\\", "matrix": [10, 2], "x": 13, "y": 0 },
-                    { "label": "delete", "matrix": [6, 5], "x": 14, "y": 0 },
-                    { "label": "Backspace", "matrix": [10, 1], "x": 15, "y": 0},
+                    { "label": "delete", "matrix": [6, 5], "x": 13, "y": 0 },
+                    { "label": "Backspace", "matrix": [10, 1], "x": 14, "y": 0},
 
                     { "label": "Numlock", "matrix": [11, 4], "x": 15.5, "y": 0 },
                     { "label": "Num/", "matrix": [12, 4], "x": 16.5, "y": 0 },
