@@ -4,7 +4,6 @@
     "maintainer": "JZ-Skyloong",
     "bootloader": "stm32duino",
     "diode_direction": "ROW2COL",
-
     "features": {
         "bootmagic": true,
         "extrakey": true,
