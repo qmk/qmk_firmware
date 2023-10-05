@@ -89,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *
 */
 	LAYOUT(
-		KC_TRNS, KC_TRNS, RESET, TO(0), TO(1), TO(2)),
+		KC_TRNS, KC_TRNS, QK_BOOT, TO(0), TO(1), TO(2)),
 
 // More Layers that can be used, but are not by default
 
@@ -272,44 +272,6 @@ void matrix_init_user(void) {
 
 	set_layer_led(0);
 }
-
-void matrix_scan_user(void) {
-}
-
-void led_set_user(uint8_t usb_led) {
-
-	if (usb_led & (1 << USB_LED_NUM_LOCK)) {
-
-	} else {
-
-	}
-
-	if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-
-	} else {
-
-	}
-
-	if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
-
-	} else {
-
-	}
-
-	if (usb_led & (1 << USB_LED_COMPOSE)) {
-
-	} else {
-
-	}
-
-	if (usb_led & (1 << USB_LED_KANA)) {
-
-	} else {
-
-	}
-
-}
-
 
 /*
 *   NOTE:

@@ -41,11 +41,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* FN 2 Layer
  * ,-----------------------------------------------.
- * |  FN_2 |RGB_VAD|RGB_VAI|RGB_MOD|TSKMGR | RESET |
+ * |  FN_2 |RGB_VAD|RGB_VAI|RGB_MOD|TSKMGR | QK_BOOT |
  * `-----------------------------------------------'
  */
 [_FN_2] = LAYOUT(
-  _______, RGB_VAD, RGB_VAI, RGB_MOD, TSKMGR, RESET
+  _______, RGB_VAD, RGB_VAI, RGB_MOD, TSKMGR, QK_BOOT
 )
 
 };

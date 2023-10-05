@@ -4,7 +4,7 @@ static tap k_numpad_hyper_state = {
     .state           = 0
 };
 
-void k_numpad_hyper_finished(qk_tap_dance_state_t *state, void *user_data) {
+void k_numpad_hyper_finished(tap_dance_state_t *state, void *user_data) {
     k_numpad_hyper_state.state = current_dance(state);
     switch (k_numpad_hyper_state.state) {
         case SINGLE_TAP:
@@ -24,7 +24,7 @@ void k_numpad_hyper_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void k_numpad_hyper_reset(qk_tap_dance_state_t *state, void *user_data) {
+void k_numpad_hyper_reset(tap_dance_state_t *state, void *user_data) {
     switch (k_numpad_hyper_state.state) {
         case SINGLE_TAP:
             unregister_code(KC_K);

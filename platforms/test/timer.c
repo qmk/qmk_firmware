@@ -15,8 +15,9 @@
  */
 
 #include "timer.h"
+#include <stdatomic.h>
 
-static uint32_t current_time = 0;
+static atomic_uint_least32_t current_time = 0;
 
 void timer_init(void) {
     current_time = 0;

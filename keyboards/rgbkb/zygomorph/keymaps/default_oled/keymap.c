@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * \------+------+------+------+------+------/  \------+------+------+------+------+------/
    */
   [_QWERTY] = LAYOUT_ortho_5x12(
-    KC_GESC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
+    QK_GESC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
      KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSLS,
     FN_CAPS,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,   KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
     KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ENT,
@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * \------+------+------+------+------+------/  \------+------+------+------+------+------/
    */
   [_COLEMAK] = LAYOUT_ortho_5x12(
-    KC_GESC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
+    QK_GESC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
      KC_TAB,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,   KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN, KC_BSLS,
     FN_CAPS,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,   KC_K,    KC_N,    KC_E,    KC_I,    KC_O, KC_QUOT,
     KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,   KC_M,    KC_H, KC_COMM,  KC_DOT, KC_SLSH,  KC_ENT,
@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * /-----------------------------------------\  /-----------------------------------------\
    * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
    * |------+------+------+------+------+------|  |------+------+------+------+------+------|
-   * |      | SAD  | VAI  | SAI  | RESET|      |  |      |      |      |      |      |      |
+   * |      | SAD  | VAI  | SAI  | QK_BOOT|      |  |      |      |      |      |      |      |
    * |------+------+------+------+------+------|  |------+------+------+------+------+------|
    * |      | HUD  | VAD  | HUI  |RGBRST|      |  |      |QWERTY|COLEMK|      |      |      |
    * |------+------+------+------+------+------|  |------+------+------+------+------+------|
@@ -105,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_ADJ] =  LAYOUT_ortho_5x12(
     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
-    _______, RGB_SAD, RGB_VAI, RGB_SAI, RESET,   _______, _______, _______, _______, _______, _______, _______,
+    _______, RGB_SAD, RGB_VAI, RGB_SAI, QK_BOOT,   _______, _______, _______, _______, _______, _______, _______,
     _______, RGB_HUD, RGB_VAD, RGB_HUI, RGBRST,  _______, _______, QWERTY,  COLEMAK, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI,
     _______, _______, _______, RGB_MOD, _______, _______, _______, _______, RGB_RMOD,RGB_HUD, RGB_SAD, RGB_VAD
@@ -198,7 +198,7 @@ static void render_status(void) {
 
   // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
   oled_write_P(PSTR("Layer: "), false);
-  switch (biton32(layer_state)) {
+  switch (get_highest_layer(layer_state)) {
     case _QWERTY:
       oled_write_ln_P(PSTR("QWERTY"), false);
       break;
@@ -216,10 +216,10 @@ static void render_status(void) {
   }
 
   // Host Keyboard LED Status
-  uint8_t led_usb_state = host_keyboard_leds();
-  oled_write_P(led_usb_state & (1<<USB_LED_NUM_LOCK) ? PSTR("NUMLCK ") : PSTR("       "), false);
-  oled_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR("CAPLCK ") : PSTR("       "), false);
-  oled_write_ln_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK ") : PSTR("       "), false);
+  led_t led_state = host_keyboard_led_state();
+  oled_write_P(led_state.num_lock ? PSTR("NUMLCK ") : PSTR("       "), false);
+  oled_write_P(led_state.caps_lock ? PSTR("CAPLCK ") : PSTR("       "), false);
+  oled_write_ln_P(led_state.scroll_lock ? PSTR("SCRLCK ") : PSTR("       "), false);
 }
 
 bool oled_task_user(void) {

@@ -17,16 +17,15 @@
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /* Base */
-    /* ENC1_CCW, ENC1_P,  ENC1_CW,   ENC2_CCW, ENC2_P, ENC2_CW,
-		         MACRO1,  MACRO2,    MACRO3,   MACRO4,
-			     MACRO5,  MACRO6,    MACRO7,   MACRO8
-	*/
 	[0] = LAYOUT(
-		KC_VOLD, KC_ESC,   KC_VOLU,  KC_BRID, RESET,  KC_BRIU,
+                           KC_ESC, QK_BOOT,
 		         KC_Q,     KC_W,     KC_E,     KC_R,
 			     KC_A,     KC_S,     KC_D,     KC_F
-		
-    ),
+    )
 };
 
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [0] =   { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_BRID, KC_BRIU)  }
+};
+#endif

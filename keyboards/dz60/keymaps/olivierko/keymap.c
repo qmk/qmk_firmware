@@ -49,12 +49,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_DELETE,
 		KC_NO,		DF(_BL),	DF(_SL),	KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_INS,	
 		KC_LSFT,	KC_NO,		KC_NO,		KC_CAPS,	KC_NO,		KC_NO,		KC_NO,		KC_MUTE,	KC_NO,		KC_NO,		KC_NO,		KC_PGUP,	KC_RSFT,	
-		KC_LCTL,	MO(_CL),	KC_LALT,										KC_MPLY,										KC_HOME,	KC_PGDOWN,	KC_END,		KC_RCTL),
+		KC_LCTL,	MO(_CL),	KC_LALT,										KC_MPLY,										KC_HOME,	KC_PGDN,	KC_END,		KC_RCTL),
 											
 	[_CL] = LAYOUT_olivierko(								
 		RGB_TOG,	RGB_MOD,	RGB_HUI,	RGB_HUD,	RGB_SAI,	RGB_SAD,	RGB_VAI,	RGB_VAD,	KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,			KC_NO,
-		KC_NO,		KC_NO,		KC_NO,		KC_NO,		RESET,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
-		KC_NO,		KC_NO,		KC_NO,		DEBUG,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,	
+		KC_NO,		KC_NO,		KC_NO,		KC_NO,		QK_BOOT,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
+		KC_NO,		KC_NO,		KC_NO,		DB_TOGG,	KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,	
 		KC_LSFT,	KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_RSFT,	
 		KC_NO,		KC_NO,		KC_NO,											KC_NO,											KC_NO,		KC_NO,		KC_NO,		KC_NO),
 };

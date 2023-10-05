@@ -28,7 +28,7 @@ enum custom_keycodes {
 };
 
 // Shortcut to make keymap more readable
-#define KC_BKSL KC_BSLASH
+#define KC_BKSL KC_BSLS
 #define SYM_L   MO(_SYMB)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    //                              ┌────────┐                                                            ┌────────┬────────┐
                                     KC_MPRV,                                                              XXXXXXX, XXXXXXX,
   //┌────────┬────────┬────────┬───┼────┬───┼────┬────────┐                                           ┌──┼─────┬──┼─────┬──┼─────┬────────┬────────┬────────┐
-     RESET    ,KC_F1   ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5,                                               KC_F6   ,KC_F7   ,KC_F8   ,KC_F9   ,KC_F10  ,KC_F11  ,
+     QK_BOOT    ,KC_F1   ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5,                                               KC_F6   ,KC_F7   ,KC_F8   ,KC_F9   ,KC_F10  ,KC_F11  ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,KC_F12 ,                           XXXXXXX ,XXXXXXX ,XXXXXXX, KC_UP ,XXXXXXX ,XXXXXXX ,XXXXXXX  ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤

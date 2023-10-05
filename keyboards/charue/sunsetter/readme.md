@@ -10,7 +10,7 @@ A 65 + 10% F-Key Column Keyboard kit made and sold by Charue Design. [More info 
 
 #### Jumping to Bootloader
 
-To enter the bootloader, you may use bootmagic by holding `Space+B` or by holding the reset button located at the back of the PCB, right beside the left shift key, for a few seconds.
+To enter the bootloader, you may use bootmagic by holding the key at top left (usually escape) or by holding the reset button located at the back of the PCB, right beside the left shift key, for a few seconds.
 
 Make example for this keyboard (after setting up your build environment):
 

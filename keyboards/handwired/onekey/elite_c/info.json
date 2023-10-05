@@ -1,0 +1,18 @@
+{
+    "keyboard_name": "Onekey Elite-C",
+    "development_board": "elite_c",
+    "matrix_pins": {
+        "cols": ["F4"],
+        "rows": ["F5"]
+    },
+    "backlight": {
+        "pin": "B6"
+    },
+    "ws2812": {
+        "pin": "F6"
+    },
+    "apa102": {
+        "data_pin": "F6",
+        "clock_pin": "B1"
+    }
+}

@@ -11,11 +11,38 @@ from qmk.json_encoders import InfoJSONEncoder
 from qmk.constants import COL_LETTERS, ROW_LETTERS
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.keyboard import keyboard_completer, keyboard_folder, render_layouts, render_layout, rules_mk
+from qmk.info import info_json, keymap_json
 from qmk.keymap import locate_keymap
-from qmk.info import info_json
 from qmk.path import is_keyboard
 
 UNICODE_SUPPORT = sys.stdout.encoding.lower().startswith('utf')
+
+
+def _strip_api_content(info_json):
+    # Ideally this would only be added in the API pathway.
+    info_json.pop('platform', None)
+    info_json.pop('platform_key', None)
+    info_json.pop('processor_type', None)
+    info_json.pop('protocol', None)
+    info_json.pop('config_h_features', None)
+    info_json.pop('keymaps', None)
+    info_json.pop('keyboard_folder', None)
+    info_json.pop('parse_errors', None)
+    info_json.pop('parse_warnings', None)
+
+    for layout in info_json.get('layouts', {}).values():
+        layout.pop('filename', None)
+        layout.pop('c_macro', None)
+        layout.pop('json_layout', None)
+
+    if 'matrix_pins' in info_json:
+        info_json.pop('matrix_size', None)
+
+    for feature in ['rgb_matrix', 'led_matrix']:
+        if info_json.get(feature, {}).get("layout", None):
+            info_json[feature].pop('led_count', None)
+
+    return info_json
 
 
 def show_keymap(kb_info_json, title_caps=True):
@@ -81,7 +108,6 @@ def print_friendly_output(kb_info_json):
         cli.echo('{fg_blue}Maintainer{fg_reset}: QMK Community')
     else:
         cli.echo('{fg_blue}Maintainer{fg_reset}: %s', kb_info_json['maintainer'])
-    cli.echo('{fg_blue}Keyboard Folder{fg_reset}: %s', kb_info_json.get('keyboard_folder', 'Unknown'))
     cli.echo('{fg_blue}Layouts{fg_reset}: %s', ', '.join(sorted(kb_info_json['layouts'].keys())))
     cli.echo('{fg_blue}Processor{fg_reset}: %s', kb_info_json.get('processor', 'Unknown'))
     cli.echo('{fg_blue}Bootloader{fg_reset}: %s', kb_info_json.get('bootloader', 'Unknown'))
@@ -135,12 +161,13 @@ def print_parsed_rules_mk(keyboard_name):
 
 
 @cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='Keyboard to show info for.')
-@cli.argument('-km', '--keymap', help='Show the layers for a JSON keymap too.')
+@cli.argument('-km', '--keymap', help='Keymap to show info for (Optional).')
 @cli.argument('-l', '--layouts', action='store_true', help='Render the layouts.')
 @cli.argument('-m', '--matrix', action='store_true', help='Render the layouts with matrix information.')
 @cli.argument('-f', '--format', default='friendly', arg_only=True, help='Format to display the data in (friendly, text, json) (Default: friendly).')
 @cli.argument('--ascii', action='store_true', default=not UNICODE_SUPPORT, help='Render layout box drawings in ASCII only.')
 @cli.argument('-r', '--rules-mk', action='store_true', help='Render the parsed values of the keyboard\'s rules.mk file.')
+@cli.argument('-a', '--api', action='store_true', help='Show fully processed info intended for API consumption.')
 @cli.subcommand('Keyboard information.')
 @automagic_keyboard
 @automagic_keymap
@@ -161,12 +188,22 @@ def info(cli):
         print_parsed_rules_mk(cli.config.info.keyboard)
         return False
 
+    # default keymap stored in config file should be ignored
+    if cli.config_source.info.keymap == 'config_file':
+        cli.config_source.info.keymap = None
+
     # Build the info.json file
-    kb_info_json = info_json(cli.config.info.keyboard)
+    if cli.config.info.keymap:
+        kb_info_json = keymap_json(cli.config.info.keyboard, cli.config.info.keymap)
+    else:
+        kb_info_json = info_json(cli.config.info.keyboard)
+
+    if not cli.args.api:
+        kb_info_json = _strip_api_content(kb_info_json)
 
     # Output in the requested format
     if cli.args.format == 'json':
-        print(json.dumps(kb_info_json, cls=InfoJSONEncoder))
+        print(json.dumps(kb_info_json, cls=InfoJSONEncoder, sort_keys=True))
         return True
     elif cli.args.format == 'text':
         print_dotted_output(kb_info_json)
@@ -178,11 +215,12 @@ def info(cli):
         cli.log.error('Unknown format: %s', cli.args.format)
         return False
 
+    # Output requested extras
     if cli.config.info.layouts:
         show_layouts(kb_info_json, title_caps)
 
     if cli.config.info.matrix:
         show_matrix(kb_info_json, title_caps)
 
-    if cli.config_source.info.keymap and cli.config_source.info.keymap != 'config_file':
+    if cli.config.info.keymap:
         show_keymap(kb_info_json, title_caps)

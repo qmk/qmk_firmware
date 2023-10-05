@@ -1,20 +1,126 @@
 /* Copyright 2022 Daniel Weeks (@xanimos)
-  * 
-  * This program is free software: you can redistribute it and/or modify 
-  * it under the terms of the GNU General Public License as published by 
-  * the Free Software Foundation, either version 2 of the License, or 
-  * (at your option) any later version. 
-  * 
-  * This program is distributed in the hope that it will be useful, 
-  * but WITHOUT ANY WARRANTY; without even the implied warranty of 
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
-  * GNU General Public License for more details. 
-  * 
-  * You should have received a copy of the GNU General Public License 
-  * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
-  */ 
+  *
+  * This program is free software: you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation, either version 2 of the License, or
+  * (at your option) any later version.
+  *
+  * This program is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  * GNU General Public License for more details.
+  *
+  * You should have received a copy of the GNU General Public License
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  */
 
-#include "keymap.h"
+#include QMK_KEYBOARD_H
+#include <string.h>
+
+#define MILLISECONDS_IN_SECOND 1000
+
+// These are just to make it neater to use builtin HSV values in the keymap
+#define RED {HSV_RED}
+#define CORAL {HSV_CORAL}
+#define ORANGE {HSV_ORANGE}
+#define GOLDEN {HSV_GOLDENROD}
+#define GOLD {HSV_GOLD}
+#define YELLOW {HSV_YELLOW}
+#define CHART {HSV_CHARTREUSE}
+#define GREEN {HSV_GREEN}
+#define SPRING {HSV_SPRINGGREEN}
+#define TURQ {HSV_TURQUOISE}
+#define TEAL {HSV_TEAL}
+#define CYAN {HSV_CYAN}
+#define AZURE {HSV_AZURE}
+#define BLUE {HSV_BLUE}
+#define PURPLE {HSV_PURPLE}
+#define MAGENT {HSV_MAGENTA}
+#define PINK {HSV_PINK}
+
+//========================================================== CONFIGURABLE DEFAULTS ==========================================================
+#define RGB_DEFAULT_TIME_OUT 30
+#define RGB_FAST_MODE_TIME_OUT 3
+#define RGB_TIME_OUT_MAX 600
+#define RGB_TIME_OUT_MIN 10
+#define RGB_TIME_OUT_STEP 10
+
+extern rgb_config_t rgb_matrix_config;
+bool disable_layer_color;
+
+bool rgb_enabled_flag;                  // Current LED state flag. If false then LED is off.
+bool rgb_time_out_enable;               // Idle LED toggle enable. If false then LED will not turn off after idle timeout.
+bool rgb_time_out_fast_mode_enabled;    // Enable flag for RGB timeout fast mode
+bool rgb_time_out_user_value;           // This holds the toggle value set by user with ROUT_TG. It's necessary as RGB_TOG changes timeout enable.
+uint16_t rgb_time_out_seconds;          // Idle LED timeout value, in seconds not milliseconds
+uint16_t rgb_time_out_saved_seconds;    // The saved user config for RGB timeout period
+led_flags_t rgb_time_out_saved_flag;    // Store LED flag before timeout so it can be restored when LED is turned on again.
+
+enum layout_names {
+    _KL=0,       // Keys Layout: The main keyboard layout that has all the characters
+    _FL,         // Function Layout: The function key activated layout with default functions and some added ones
+    _GL,         // GIT Layout: GIT shortcuts and macros
+    _NUMPAD,     // Numpad Layout: Adds a numpad to the keys
+};
+
+// Tap Dance keycodes
+enum td_keycodes {
+    TD_FN_SWITCH = 0
+};
+
+// Define a type containing as many tapdance states as you need
+typedef enum {
+    TD_NONE,
+    TD_UNKNOWN,
+    TD_SINGLE_HOLD,
+    TD_DOUBLE_HOLD
+} td_state_t;
+
+typedef struct {
+    bool is_press_action;
+    td_state_t state;
+} td_tap_t;
+
+// Declare your tapdance functions:
+
+// Function to determine the current tapdance state
+td_state_t cur_dance(tap_dance_state_t *state);
+
+// `finished` and `reset` functions for each tapdance keycode
+void fn_tap_finished(tap_dance_state_t *state, void *user_data);
+void fn_tap_reset(tap_dance_state_t *state, void *user_data);
+
+enum ctrl_keycodes {
+    MD_BOOT = SAFE_RANGE,  // Restart into bootloader after hold timeout
+    ROUT_TG,               // Timeout Toggle. Toggle idle LED time out on or off
+    ROUT_VI,               // Timeout Value Increase. Increase idle time out before LED disabled
+    ROUT_VD,               // Timeout Value Decrease. Decrease idle time out before LED disabled
+    ROUT_FM,               // RGB timeout fast mode toggle
+    TOG_NPD,               // Toggle Numpad On/Off
+    COPY_ALL,              // Copy all text using ctrl(a+c)
+};
+
+enum string_macro_keycodes {
+    // The start of this enum should always be equal to end of ctrl_keycodes + 1
+    G_INIT = COPY_ALL + 1, // git init
+    G_CLONE,               // git clone
+    G_ADD,                 // git add
+    G_DIFF,                // git diff
+    G_RESET,               // git reset --soft
+    G_BRANH,               // git branch list
+    G_CHECK,               // git checkout
+    G_REMTE,               // git remote add
+    G_FETCH,               // git fetch
+    G_PULL,                // git pull
+    G_PUPST,               // git pull upstream
+    G_PUSH,                // git push
+    G_PSORG,               // git push -u origin
+    G_PSFWL,               // git push --force-with-lease
+    G_COMM,                // git commit
+    G_COMSG,               // git commit -m ": [TFS-]"
+    G_STAT,                // git status
+    G_LOG,                 // git log
+};
 
 static uint16_t idle_timer;             // Idle LED timeout timer
 static uint8_t idle_second_counter;     // Idle LED seconds counter, counts seconds not milliseconds
@@ -44,7 +150,7 @@ static const char * sendstring_commands[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_KL] = LAYOUT(
     //    ESC       F1       F2       F3       F4       F5       F6       F7       F8       F9       F10     F11      F12              PRINT    SCLCK    PAUSE
-        KC_ESC ,  KC_F1 ,  KC_F2 ,  KC_F3 ,  KC_F4 ,  KC_F5 ,  KC_F6 ,  KC_F7 ,  KC_F8 ,  KC_F9 ,  KC_F10,  KC_F11,  KC_F12,          KC_PSCR, KC_SLCK,RCS(KC_M),
+        KC_ESC ,  KC_F1 ,  KC_F2 ,  KC_F3 ,  KC_F4 ,  KC_F5 ,  KC_F6 ,  KC_F7 ,  KC_F8 ,  KC_F9 ,  KC_F10,  KC_F11,  KC_F12,          KC_PSCR, KC_SCRL,RCS(KC_M),
     //     ~        1        2        3        4        5        6        7        8        9        0        -        =      BCKSP     INS      HOME     PGUP
         KC_GRV ,  KC_1  ,  KC_2  ,  KC_3  ,  KC_4  ,  KC_5  ,  KC_6  ,  KC_7  ,  KC_8  ,  KC_9  ,  KC_0  , KC_MINS,  KC_EQL, KC_BSPC, KC_INS , KC_HOME, KC_PGUP,
     //    TAB       Q        W        E        R        T        Y        U        I        O        P        [        ]        \       DEL      END      PGDN
@@ -52,9 +158,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //   CAPS       A        S        D        F        G        H        J        K        L        ;        '      ENTER
         KC_CAPS,  KC_A  ,  KC_S  ,  KC_D  ,  KC_F  ,  KC_G  ,  KC_H  ,  KC_J  ,  KC_K  ,  KC_L  , KC_SCLN, KC_QUOT, KC_ENT ,
     //   SHIFT      Z        X        C        V        B        N        M        ,        .        /      RSHIFT                               UP
-        KC_LSPO,  KC_Z  ,  KC_X  ,  KC_C  ,  KC_V  ,  KC_B  ,  KC_N  ,  KC_M  , KC_COMM, KC_DOT , KC_SLSH, KC_RSPC,                             KC_UP ,
+        SC_LSPO,  KC_Z  ,  KC_X  ,  KC_C  ,  KC_V  ,  KC_B  ,  KC_N  ,  KC_M  , KC_COMM, KC_DOT , KC_SLSH, SC_RSPC,                             KC_UP ,
     //   CTRL      GUI      ALT                       SPACE                               RALT     MENU     RGUI     RCTRL             LEFT     DOWN     RIGHT
-       KC_LCTRL, KC_LGUI, KC_LALT,                    KC_SPC,                   TD(TD_FN_SWITCH), KC_RALT, KC_RGUI, KC_RCTL,          KC_LEFT, KC_DOWN, KC_RGHT
+       KC_LCTL,  KC_LGUI, KC_LALT,                    KC_SPC,                   TD(TD_FN_SWITCH), KC_RALT, KC_RGUI, KC_RCTL,          KC_LEFT, KC_DOWN, KC_RGHT
     ),
     [_FL] = LAYOUT(
     //    ESC       F1       F2       F3       F4       F5       F6       F7       F8       F9       F10     F11      F12              PRINT    SCLCK    PAUSE
@@ -118,7 +224,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #define __OFF__ {0, 0, 0}
 
-const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
+const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
     [_FL] = {
         //  These remain on base layer rgb to see adjustments ;)
         //       |----------------------------------|
@@ -274,7 +380,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // ======================================================== CUSTOM KEYCOADS BELOW ========================================================
             case COPY_ALL:
                 // Selects all and text and copy
-                SEND_STRING(SS_LCTRL("ac"));
+                SEND_STRING(SS_LCTL("ac"));
                 return false;
             case ROUT_TG:
                 // Toggle idle LED timeout on or off
@@ -323,7 +429,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void set_layer_color(int layer) {
     if (layer == 0) { return; }
-    for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+    for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
         HSV hsv = {
             .h = pgm_read_byte(&ledmap[layer][i][0]),
             .s = pgm_read_byte(&ledmap[layer][i][1]),
@@ -334,7 +440,7 @@ void set_layer_color(int layer) {
             float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
             rgb_matrix_set_color(i, f * rgb.r, f * rgb.g, f * rgb.b);
             continue;
-        } 
+        }
         if(layer == _FL && i <= 4 && i >= 1) {
             continue; // Leave RGB for F1-F4 of function layer to adjust RGB settings
         }
@@ -343,18 +449,19 @@ void set_layer_color(int layer) {
     }
 }
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     if (disable_layer_color ||
         rgb_matrix_get_flags() == LED_FLAG_NONE ||
         rgb_matrix_get_flags() == LED_FLAG_UNDERGLOW) {
             return;
         }
     set_layer_color(get_highest_layer(layer_state));
+    return false;
 }
 
 
 
-td_state_t cur_dance(qk_tap_dance_state_t *state) {
+td_state_t cur_dance(tap_dance_state_t *state) {
     if (state->pressed && !state->interrupted) {
         if (state->count == 1) { return TD_SINGLE_HOLD; }
         return TD_DOUBLE_HOLD;
@@ -367,7 +474,7 @@ static td_tap_t fn_tap_state = {
     .state = TD_NONE
 };
 
-void fn_tap_finished(qk_tap_dance_state_t *state, void *user_data) {
+void fn_tap_finished(tap_dance_state_t *state, void *user_data) {
     fn_tap_state.state = cur_dance(state);
     switch (fn_tap_state.state) {
         case TD_SINGLE_HOLD:
@@ -386,7 +493,7 @@ void fn_tap_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void fn_tap_reset(qk_tap_dance_state_t *state, void *user_data) {
+void fn_tap_reset(tap_dance_state_t *state, void *user_data) {
     switch (fn_tap_state.state) {
         case TD_UNKNOWN:
             unregister_code(KC_APP);
@@ -405,6 +512,6 @@ void fn_tap_reset(qk_tap_dance_state_t *state, void *user_data) {
     fn_tap_state.state = TD_NONE;
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_FN_SWITCH] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, fn_tap_finished, fn_tap_reset)
 };

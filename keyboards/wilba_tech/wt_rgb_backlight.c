@@ -144,7 +144,6 @@ backlight_config g_config = {
 };
 
 bool g_suspend_state = false;
-uint8_t g_indicator_state = 0;
 
 // Global tick at 20 Hz
 uint32_t g_tick = 0;
@@ -162,7 +161,7 @@ uint32_t g_any_key_hit = 0;
 // ADDR_2 is not needed. it is here as a dummy
 #define ISSI_ADDR_1 0x50
 
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -243,7 +242,7 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 #define ISSI_ADDR_1 0x50
 #define ISSI_ADDR_2 0x52
 
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -386,7 +385,7 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 // set to 0 for write, 1 for read (as per I2C protocol)
 #define ISSI_ADDR_1 0x74
 
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -418,7 +417,7 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 #define ISSI_ADDR_2 0x76  // 11101[10] <- SDA
 #define ISSI_ADDR_3 0x75  // 11101[01] <- SCL
 
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -545,7 +544,7 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 #define ISSI_ADDR_1 0x74
 #define ISSI_ADDR_2 0x76
 
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -626,7 +625,7 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 #define ISSI_ADDR_1 0x74
 #define ISSI_ADDR_2 0x77
 
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |   R location
@@ -712,7 +711,7 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 #define ISSI_ADDR_1 0x30
 #define ISSI_ADDR_2
 
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |   R location
@@ -842,7 +841,7 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 #define ISSI_ADDR_1 0x74
 #define ISSI_ADDR_2
 
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     {0, C1_9,  C3_10, C4_10}, // LB1
     {0, C1_10, C2_10, C4_11}, // LB2
     {0, C1_11, C2_11, C3_11}, // LB3
@@ -862,7 +861,7 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 #define ISSI_ADDR_1 0x74
 #define ISSI_ADDR_2 0x76
 
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -1772,36 +1771,36 @@ void map_row_column_to_led( uint8_t row, uint8_t column, uint8_t *led )
 void backlight_update_pwm_buffers(void)
 {
 #if defined(RGB_BACKLIGHT_M6_B)
-    IS31FL3218_update_pwm_buffers();
+    is31fl3218_update_pwm_buffers();
 #elif defined(RGB_BACKLIGHT_PORTICO75)
-	IS31FL3741_update_pwm_buffers( ISSI_ADDR_1, 0 );
-    IS31FL3741_update_led_control_registers( ISSI_ADDR_1, 0 );
+	is31fl3741_update_pwm_buffers( ISSI_ADDR_1, 0 );
+    is31fl3741_update_led_control_registers( ISSI_ADDR_1, 0 );
 #elif defined(RGB_BACKLIGHT_M10_C)
-    IS31FL3731_update_pwm_buffers( ISSI_ADDR_1, 0 );
-    IS31FL3731_update_led_control_registers( ISSI_ADDR_1, 0 );
+    is31fl3731_update_pwm_buffers( ISSI_ADDR_1, 0 );
+    is31fl3731_update_led_control_registers( ISSI_ADDR_1, 0 );
 #elif defined(RGB_BACKLIGHT_HS60)
-    IS31FL3733_update_pwm_buffers( ISSI_ADDR_1, 0 );
-    IS31FL3733_update_led_control_registers( ISSI_ADDR_1, 0 );
+    is31fl3733_update_pwm_buffers( ISSI_ADDR_1, 0 );
+    is31fl3733_update_led_control_registers( ISSI_ADDR_1, 0 );
 #elif defined(RGB_BACKLIGHT_NK65) || defined(RGB_BACKLIGHT_NEBULA68) || defined(RGB_BACKLIGHT_NK87) || defined(RGB_BACKLIGHT_KW_MEGA)
-    IS31FL3733_update_pwm_buffers( ISSI_ADDR_1, 0 );
-    IS31FL3733_update_pwm_buffers( ISSI_ADDR_2, 1 );
-    IS31FL3733_update_led_control_registers( ISSI_ADDR_1, 0 );
-    IS31FL3733_update_led_control_registers( ISSI_ADDR_2, 1 );
+    is31fl3733_update_pwm_buffers( ISSI_ADDR_1, 0 );
+    is31fl3733_update_pwm_buffers( ISSI_ADDR_2, 1 );
+    is31fl3733_update_led_control_registers( ISSI_ADDR_1, 0 );
+    is31fl3733_update_led_control_registers( ISSI_ADDR_2, 1 );
 #elif defined(RGB_BACKLIGHT_NEBULA12)
-    IS31FL3731_update_pwm_buffers( ISSI_ADDR_1, 0 );
-    IS31FL3731_update_led_control_registers( ISSI_ADDR_1, 0 );
+    is31fl3731_update_pwm_buffers( ISSI_ADDR_1, 0 );
+    is31fl3731_update_led_control_registers( ISSI_ADDR_1, 0 );
 #elif defined(RGB_BACKLIGHT_U80_A)
     static uint8_t driver = 0;
     switch ( driver )
     {
         case 0:
-            IS31FL3731_update_pwm_buffers( ISSI_ADDR_1, 0 );
+            is31fl3731_update_pwm_buffers( ISSI_ADDR_1, 0 );
             break;
         case 1:
-            IS31FL3731_update_pwm_buffers( ISSI_ADDR_2, 1 );
+            is31fl3731_update_pwm_buffers( ISSI_ADDR_2, 1 );
             break;
         case 2:
-            IS31FL3731_update_pwm_buffers( ISSI_ADDR_3, 2 );
+            is31fl3731_update_pwm_buffers( ISSI_ADDR_3, 2 );
             break;
     }
     if ( ++driver > 2 )
@@ -1809,70 +1808,70 @@ void backlight_update_pwm_buffers(void)
         driver = 0;
     }
 #else
-    IS31FL3731_update_pwm_buffers( ISSI_ADDR_1, 0 );
-    IS31FL3731_update_pwm_buffers( ISSI_ADDR_2, 1 );
-    IS31FL3731_update_led_control_registers( ISSI_ADDR_1, 0 );
-    IS31FL3731_update_led_control_registers( ISSI_ADDR_2, 1 );
+    is31fl3731_update_pwm_buffers( ISSI_ADDR_1, 0 );
+    is31fl3731_update_pwm_buffers( ISSI_ADDR_2, 1 );
+    is31fl3731_update_led_control_registers( ISSI_ADDR_1, 0 );
+    is31fl3731_update_led_control_registers( ISSI_ADDR_2, 1 );
 #endif
 }
 
 void backlight_set_color( int index, uint8_t red, uint8_t green, uint8_t blue )
 {
 #if defined(RGB_BACKLIGHT_M6_B)
-    IS31FL3218_set_color( index, red, green, blue );
+    is31fl3218_set_color( index, red, green, blue );
 #elif defined(RGB_BACKLIGHT_HS60) || defined(RGB_BACKLIGHT_NK65) || defined(RGB_BACKLIGHT_NEBULA68) || defined(RGB_BACKLIGHT_KW_MEGA)
-    IS31FL3733_set_color( index, red, green, blue );
+    is31fl3733_set_color( index, red, green, blue );
 #elif defined (RGB_BACKLIGHT_PORTICO)
-    IS31FL3731_set_color( index, red, green, blue );
+    is31fl3731_set_color( index, red, green, blue );
 #elif defined (RGB_BACKLIGHT_PORTICO75)
-    IS31FL3741_set_color( index, red, green, blue );
+    is31fl3741_set_color( index, red, green, blue );
 #elif defined(RGB_BACKLIGHT_NK87)
     // This is done to avoid indicator LEDs being set
     if (( index != 63+64-1 ) && ( index != 48+64-1 )) {
-        IS31FL3733_set_color( index, red, green, blue );
+        is31fl3733_set_color( index, red, green, blue );
     }
 #elif defined(RGB_BACKLIGHT_DAWN60)
-    if( index < DRIVER_LED_TOTAL ) {
-        IS31FL3731_set_color( index, red, green, blue );
+    if( index < RGB_MATRIX_LED_COUNT ) {
+        is31fl3731_set_color( index, red, green, blue );
     } else {
-        g_ws2812_leds[index - DRIVER_LED_TOTAL].r = red;
-        g_ws2812_leds[index - DRIVER_LED_TOTAL].g = green;
-        g_ws2812_leds[index - DRIVER_LED_TOTAL].b = blue;
+        g_ws2812_leds[index - RGB_MATRIX_LED_COUNT].r = red;
+        g_ws2812_leds[index - RGB_MATRIX_LED_COUNT].g = green;
+        g_ws2812_leds[index - RGB_MATRIX_LED_COUNT].b = blue;
         ws2812_setleds(g_ws2812_leds, WS2812_LED_TOTAL);
     }
 #else
-    IS31FL3731_set_color( index, red, green, blue );
+    is31fl3731_set_color( index, red, green, blue );
 #endif
 }
 
 void backlight_set_color_all( uint8_t red, uint8_t green, uint8_t blue )
 {
 #if defined(RGB_BACKLIGHT_M6_B)
-    IS31FL3218_set_color_all( red, green, blue );
+    is31fl3218_set_color_all( red, green, blue );
 #elif defined(RGB_BACKLIGHT_HS60) || defined(RGB_BACKLIGHT_NK65) || defined(RGB_BACKLIGHT_NEBULA68) || defined(RGB_BACKLIGHT_KW_MEGA)
     // This is done to avoid indicator LEDs being set
     for (int i = 0; i < BACKLIGHT_LED_COUNT; i++) {
-        IS31FL3733_set_color(i, red, green, blue);
+        is31fl3733_set_color(i, red, green, blue);
     }
 #elif defined (RGB_BACKLIGHT_PORTICO)
     // This is done to avoid indicator LEDs being set
     for (int i = 0; i < BACKLIGHT_LED_COUNT; i++) {
-        IS31FL3731_set_color(i, red, green, blue);
+        is31fl3731_set_color(i, red, green, blue);
     }
 #elif defined (RGB_BACKLIGHT_PORTICO75)
     // This is done to avoid indicator LEDs being set
     for (int i = 0; i < BACKLIGHT_LED_COUNT; i++) {
-        IS31FL3741_set_color(i, red, green, blue);
+        is31fl3741_set_color(i, red, green, blue);
     }
 #elif defined(RGB_BACKLIGHT_NK87)
     // This is done to avoid indicator LEDs being set
     for (int i = 0; i < BACKLIGHT_LED_COUNT; i++) {
         if (( i != 63+64-1 ) && ( i != 48+64-1 )) {
-            IS31FL3733_set_color(i, red, green, blue);
+            is31fl3733_set_color(i, red, green, blue);
         }
     }
 #elif defined(RGB_BACKLIGHT_DAWN60)
-    IS31FL3731_set_color_all( red, green, blue );
+    is31fl3731_set_color_all( red, green, blue );
     for (uint8_t i = 0; i < WS2812_LED_TOTAL; i++) {
         g_ws2812_leds[i].r = red;
         g_ws2812_leds[i].g = green;
@@ -1880,7 +1879,7 @@ void backlight_set_color_all( uint8_t red, uint8_t green, uint8_t blue )
     }
     ws2812_setleds(g_ws2812_leds, WS2812_LED_TOTAL);
 #else
-    IS31FL3731_set_color_all( red, green, blue );
+    is31fl3731_set_color_all( red, green, blue );
 #endif
 }
 
@@ -1980,11 +1979,6 @@ void backlight_timer_disable(void)
 void backlight_set_suspend_state(bool state)
 {
     g_suspend_state = state;
-}
-
-void backlight_set_indicator_state(uint8_t state)
-{
-    g_indicator_state = state;
 }
 
 void backlight_effect_rgb_test(void)
@@ -2131,9 +2125,9 @@ void backlight_effect_alphas_mods(void)
     for (int i = 0; i < WS2812_LED_TOTAL; i++) {
         if ((RGB_UNDERGLOW_ALPHA_TOP_START <= i && i <= RGB_UNDERGLOW_ALPHA_TOP_END) ||
             (RGB_UNDERGLOW_ALPHA_BOT_START <= i && i <= RGB_UNDERGLOW_ALPHA_BOT_END)) {
-            backlight_set_color(i + DRIVER_LED_TOTAL, rgb1.r, rgb1.g, rgb1.b);
+            backlight_set_color(i + RGB_MATRIX_LED_COUNT, rgb1.r, rgb1.g, rgb1.b);
         } else {
-            backlight_set_color(i + DRIVER_LED_TOTAL, rgb2.r, rgb2.g, rgb2.b);
+            backlight_set_color(i + RGB_MATRIX_LED_COUNT, rgb2.r, rgb2.g, rgb2.b);
         }
     }
 #endif
@@ -2423,10 +2417,9 @@ void backlight_effect_indicators_set_colors( uint8_t index, HS color )
 
 // This runs after another backlight effect and replaces
 // colors already set
-void backlight_effect_indicators(void)
+__attribute__ ((weak)) void backlight_effect_indicators(void)
 {
-    if ( g_config.caps_lock_indicator.index != 255 &&
-            ( g_indicator_state & (1<<USB_LED_CAPS_LOCK) ) )
+    if ( g_config.caps_lock_indicator.index != 255 && host_keyboard_led_state().caps_lock )
     {
         backlight_effect_indicators_set_colors( g_config.caps_lock_indicator.index, g_config.caps_lock_indicator.color );
     }
@@ -2561,9 +2554,7 @@ static void gpt_backlight_timer_task(GPTDriver *gptp)
 
     if ( ! suspend_backlight )
     {
-#if !defined(RGB_BACKLIGHT_M6_B) && !defined(RGB_BACKLIGHT_M10_C)
         backlight_effect_indicators();
-#endif
     }
 }
 
@@ -2923,11 +2914,11 @@ void backlight_init_drivers(void)
     i2c_init();
 
 #if defined(RGB_BACKLIGHT_M6_B)
-    IS31FL3218_init();
+    is31fl3218_init();
 #elif defined(RGB_BACKLIGHT_HS60)
-    IS31FL3733_init( ISSI_ADDR_1, 0 );
+    is31fl3733_init( ISSI_ADDR_1, 0 );
 
-    for ( int index = 0; index < DRIVER_LED_TOTAL; index++ )
+    for ( int index = 0; index < RGB_MATRIX_LED_COUNT; index++ )
     {
 #if defined(HS60_ANSI)
         bool enabled = !( ( index == 48-1 ) || //LA48
@@ -2941,30 +2932,30 @@ void backlight_init_drivers(void)
                           ( index == 61-1 ) ); //LA61
 #endif
                 // This only caches it for later
-        IS31FL3733_set_led_control_register( index, enabled, enabled, enabled );
+        is31fl3733_set_led_control_register( index, enabled, enabled, enabled );
     }
     // This actually updates the LED drivers
-    IS31FL3733_update_led_control_registers( ISSI_ADDR_1, 0 );
+    is31fl3733_update_led_control_registers( ISSI_ADDR_1, 0 );
 #elif defined(RGB_BACKLIGHT_NK65)
-    IS31FL3733_init( ISSI_ADDR_1, 0 );
-    IS31FL3733_init( ISSI_ADDR_2, 0 );
+    is31fl3733_init( ISSI_ADDR_1, 0 );
+    is31fl3733_init( ISSI_ADDR_2, 0 );
 
-    for ( int index = 0; index < DRIVER_LED_TOTAL; index++ )
+    for ( int index = 0; index < RGB_MATRIX_LED_COUNT; index++ )
     {
         bool enabled = !( ( index == 61-1 )   || //LA61
                           ( index > 6+64-1 ) ); //LB7-LB64
         // This only caches it for later
-        IS31FL3733_set_led_control_register( index, enabled, enabled, enabled );
+        is31fl3733_set_led_control_register( index, enabled, enabled, enabled );
     }
-    IS31FL3733_set_led_control_register( 7+64-1, 0, 1, 0 ); //Enable LB7 green enable for indicators
+    is31fl3733_set_led_control_register( 7+64-1, 0, 1, 0 ); //Enable LB7 green enable for indicators
     // This actually updates the LED drivers
-    IS31FL3733_update_led_control_registers( ISSI_ADDR_1, 0 );
-    IS31FL3733_update_led_control_registers( ISSI_ADDR_2, 1 );
+    is31fl3733_update_led_control_registers( ISSI_ADDR_1, 0 );
+    is31fl3733_update_led_control_registers( ISSI_ADDR_2, 1 );
 #elif defined(RGB_BACKLIGHT_NK87)
-    IS31FL3733_init( ISSI_ADDR_1, 0 );
-    IS31FL3733_init( ISSI_ADDR_2, 0 );
+    is31fl3733_init( ISSI_ADDR_1, 0 );
+    is31fl3733_init( ISSI_ADDR_2, 0 );
 
-    for ( int index = 0; index < DRIVER_LED_TOTAL; index++ )
+    for ( int index = 0; index < RGB_MATRIX_LED_COUNT; index++ )
     {
         bool enabled = !( ( index == 61-1 )   || //LA61
                           ( (index >= 2+64-1) && (index <= 4+64-1) ) ||
@@ -2984,59 +2975,59 @@ void backlight_init_drivers(void)
                           ( index == 58+64-1 )   ||
                           ( index == 62+64-1 ) );
         // This only caches it for later
-        IS31FL3733_set_led_control_register( index, enabled, enabled, enabled );
+        is31fl3733_set_led_control_register( index, enabled, enabled, enabled );
     }
-    IS31FL3733_set_led_control_register( 48+64-1, 0, 0, 1 ); //Enable LB48 blue enable for indicators
+    is31fl3733_set_led_control_register( 48+64-1, 0, 0, 1 ); //Enable LB48 blue enable for indicators
     // This actually updates the LED drivers
-    IS31FL3733_update_led_control_registers( ISSI_ADDR_1, 0 );
-    IS31FL3733_update_led_control_registers( ISSI_ADDR_2, 1 );
+    is31fl3733_update_led_control_registers( ISSI_ADDR_1, 0 );
+    is31fl3733_update_led_control_registers( ISSI_ADDR_2, 1 );
 #elif defined(RGB_BACKLIGHT_NEBULA68)
-    IS31FL3733_init( ISSI_ADDR_1, 0 );
-    IS31FL3733_init( ISSI_ADDR_2, 0 );
+    is31fl3733_init( ISSI_ADDR_1, 0 );
+    is31fl3733_init( ISSI_ADDR_2, 0 );
 
-    for ( int index = 0; index < DRIVER_LED_TOTAL; index++ )
+    for ( int index = 0; index < RGB_MATRIX_LED_COUNT; index++ )
     {
         bool enabled = !( ( index == 61-1 )   || //LA61
                           ( index > 5+64-1 ) ); //LB6-LB64
         // This only caches it for later
-        IS31FL3733_set_led_control_register( index, enabled, enabled, enabled );
+        is31fl3733_set_led_control_register( index, enabled, enabled, enabled );
     }
     // This actually updates the LED drivers
-    IS31FL3733_update_led_control_registers( ISSI_ADDR_1, 0 );
-    IS31FL3733_update_led_control_registers( ISSI_ADDR_2, 1 );
+    is31fl3733_update_led_control_registers( ISSI_ADDR_1, 0 );
+    is31fl3733_update_led_control_registers( ISSI_ADDR_2, 1 );
 #elif defined(RGB_BACKLIGHT_PORTICO75)
-    IS31FL3741_init( ISSI_ADDR_1 );
+    is31fl3741_init( ISSI_ADDR_1 );
 	bool enabled = true;
-    for ( int index = 0; index < DRIVER_LED_TOTAL; index++ )
+    for ( int index = 0; index < RGB_MATRIX_LED_COUNT; index++ )
     {
-        IS31FL3741_set_led_control_register( index, enabled, enabled, enabled );
+        is31fl3741_set_led_control_register( index, enabled, enabled, enabled );
     }
     // This actually updates the LED drivers
-    IS31FL3741_update_led_control_registers( ISSI_ADDR_1, 0 );
+    is31fl3741_update_led_control_registers( ISSI_ADDR_1, 0 );
 #elif defined(RGB_BACKLIGHT_KW_MEGA)
-    IS31FL3733_init( ISSI_ADDR_1, 0 );
-    IS31FL3733_init( ISSI_ADDR_2, 0 );
+    is31fl3733_init( ISSI_ADDR_1, 0 );
+    is31fl3733_init( ISSI_ADDR_2, 0 );
 
-    for ( int index = 0; index < DRIVER_LED_TOTAL; index++ )
+    for ( int index = 0; index < RGB_MATRIX_LED_COUNT; index++ )
     {
         bool enabled = !( ( index == 61-1 )   || //LA61
                           ( index > 6+64-1 ) ); //LB7-LB64
         // This only caches it for later
-        IS31FL3733_set_led_control_register( index, enabled, enabled, enabled );
+        is31fl3733_set_led_control_register( index, enabled, enabled, enabled );
     }
     // This actually updates the LED drivers
-    IS31FL3733_update_led_control_registers( ISSI_ADDR_1, 0 );
-    IS31FL3733_update_led_control_registers( ISSI_ADDR_2, 1 );
+    is31fl3733_update_led_control_registers( ISSI_ADDR_1, 0 );
+    is31fl3733_update_led_control_registers( ISSI_ADDR_2, 1 );
 #else
     // Init the #1 driver
-    IS31FL3731_init( ISSI_ADDR_1 );
+    is31fl3731_init( ISSI_ADDR_1 );
     // Init the #2 driver (if used)
 #if !defined(RGB_BACKLIGHT_NEBULA12) && !defined(RGB_BACKLIGHT_M10_C)
-    IS31FL3731_init( ISSI_ADDR_2 );
+    is31fl3731_init( ISSI_ADDR_2 );
 #endif
     // Init the #3 driver (if used)
 #if defined(RGB_BACKLIGHT_U80_A)
-    IS31FL3731_init( ISSI_ADDR_3 );
+    is31fl3731_init( ISSI_ADDR_3 );
 #endif
 
     // Experimental feature, not in configuration yet
@@ -3044,7 +3035,7 @@ void backlight_init_drivers(void)
     bool disable_spacebar_stab_leds = false;
 #endif
 
-    for ( int index = 0; index < DRIVER_LED_TOTAL; index++ )
+    for ( int index = 0; index < RGB_MATRIX_LED_COUNT; index++ )
     {
         // OR the possible "disabled" cases together, then NOT the result to get the enabled state
         // LC6 LD13 not present on Zeal65
@@ -3165,16 +3156,16 @@ void backlight_init_drivers(void)
         bool enabled = true;
 #endif
         // This only caches it for later
-        IS31FL3731_set_led_control_register( index, enabled, enabled, enabled );
+        is31fl3731_set_led_control_register( index, enabled, enabled, enabled );
     }
     // This actually updates the LED drivers
     // TODO: refactor this to use DRIVER_COUNT
-    IS31FL3731_update_led_control_registers( ISSI_ADDR_1, 0 );
+    is31fl3731_update_led_control_registers( ISSI_ADDR_1, 0 );
 #if !defined(RGB_BACKLIGHT_NEBULA12) && !defined(RGB_BACKLIGHT_M10_C)
-    IS31FL3731_update_led_control_registers( ISSI_ADDR_2, 1 );
+    is31fl3731_update_led_control_registers( ISSI_ADDR_2, 1 );
 #endif
 #if defined(RGB_BACKLIGHT_U80_A)
-    IS31FL3731_update_led_control_registers( ISSI_ADDR_3, 2 );
+    is31fl3731_update_led_control_registers( ISSI_ADDR_3, 2 );
 #endif
 #endif
 
@@ -3408,11 +3399,11 @@ void backlight_test_led( uint8_t index, bool red, bool green, bool blue )
     {
         if ( i == index )
         {
-            IS31FL3731_set_led_control_register( i, red, green, blue );
+            is31fl3731_set_led_control_register( i, red, green, blue );
         }
         else
         {
-            IS31FL3731_set_led_control_register( i, false, false, false );
+            is31fl3731_set_led_control_register( i, false, false, false );
         }
     }
 }
@@ -3433,3 +3424,14 @@ void backlight_debug_led( bool state )
     }
 }
 #endif // defined(RGB_DEBUGGING_ONLY)
+
+void backlight_device_indication(uint8_t value)
+{
+    static uint8_t current_effect = 0;
+    static uint8_t alternate_effect = 0;
+    if ( value == 0 ) {
+        current_effect = g_config.effect;
+        alternate_effect = g_config.effect > 0 ? 0 : 1;
+    }
+    g_config.effect = value % 2 == 0 ? alternate_effect : current_effect;
+}

@@ -13,8 +13,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include "process_space_cadet.h"
+#include "keycodes.h"
+#include "timer.h"
+#include "action.h"
 #include "action_tapping.h"
+#include "action_util.h"
 
 // ********** OBSOLETE DEFINES, STOP USING! (pls?) **********
 // Shift / paren setup
@@ -89,21 +94,16 @@ void perform_space_cadet(keyrecord_t *record, uint16_t sc_keycode, uint8_t holdM
 #ifdef SPACE_CADET_MODIFIER_CARRYOVER
         sc_mods = get_mods();
 #endif
-        if (IS_MOD(holdMod)) {
+        if (IS_MODIFIER_KEYCODE(holdMod)) {
             register_mods(MOD_BIT(holdMod));
         }
     } else {
-#ifdef TAPPING_TERM_PER_KEY
-        if (sc_last == holdMod && timer_elapsed(sc_timer) < get_tapping_term(sc_keycode, record))
-#else
-        if (sc_last == holdMod && timer_elapsed(sc_timer) < TAPPING_TERM)
-#endif
-        {
+        if (sc_last == holdMod && timer_elapsed(sc_timer) < GET_TAPPING_TERM(sc_keycode, record)) {
             if (holdMod != tapMod) {
-                if (IS_MOD(holdMod)) {
+                if (IS_MODIFIER_KEYCODE(holdMod)) {
                     unregister_mods(MOD_BIT(holdMod));
                 }
-                if (IS_MOD(tapMod)) {
+                if (IS_MODIFIER_KEYCODE(tapMod)) {
                     register_mods(MOD_BIT(tapMod));
                 }
             }
@@ -114,11 +114,11 @@ void perform_space_cadet(keyrecord_t *record, uint16_t sc_keycode, uint8_t holdM
 #ifdef SPACE_CADET_MODIFIER_CARRYOVER
             clear_weak_mods();
 #endif
-            if (IS_MOD(tapMod)) {
+            if (IS_MODIFIER_KEYCODE(tapMod)) {
                 unregister_mods(MOD_BIT(tapMod));
             }
         } else {
-            if (IS_MOD(holdMod)) {
+            if (IS_MODIFIER_KEYCODE(holdMod)) {
                 unregister_mods(MOD_BIT(holdMod));
             }
         }
@@ -127,31 +127,31 @@ void perform_space_cadet(keyrecord_t *record, uint16_t sc_keycode, uint8_t holdM
 
 bool process_space_cadet(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case KC_LSPO: {
+        case QK_SPACE_CADET_LEFT_SHIFT_PARENTHESIS_OPEN: {
             perform_space_cadet(record, keycode, LSPO_KEYS);
             return false;
         }
-        case KC_RSPC: {
+        case QK_SPACE_CADET_RIGHT_SHIFT_PARENTHESIS_CLOSE: {
             perform_space_cadet(record, keycode, RSPC_KEYS);
             return false;
         }
-        case KC_LCPO: {
+        case QK_SPACE_CADET_LEFT_CTRL_PARENTHESIS_OPEN: {
             perform_space_cadet(record, keycode, LCPO_KEYS);
             return false;
         }
-        case KC_RCPC: {
+        case QK_SPACE_CADET_RIGHT_CTRL_PARENTHESIS_CLOSE: {
             perform_space_cadet(record, keycode, RCPC_KEYS);
             return false;
         }
-        case KC_LAPO: {
+        case QK_SPACE_CADET_LEFT_ALT_PARENTHESIS_OPEN: {
             perform_space_cadet(record, keycode, LAPO_KEYS);
             return false;
         }
-        case KC_RAPC: {
+        case QK_SPACE_CADET_RIGHT_ALT_PARENTHESIS_CLOSE: {
             perform_space_cadet(record, keycode, RAPC_KEYS);
             return false;
         }
-        case KC_SFTENT: {
+        case QK_SPACE_CADET_RIGHT_SHIFT_ENTER: {
             perform_space_cadet(record, keycode, SFTENT_KEYS);
             return false;
         }

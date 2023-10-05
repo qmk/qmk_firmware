@@ -1,7 +1,6 @@
 SRC += muse.c
 ENCODER_ENABLE = yes # Enables basic encoder support
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306 # Enables support for OLED displays
 # UNICODE_ENABLE = yes # Allow inputting basic unicode characters
 UNICODEMAP_ENABLE = yes # Enable use of Unicode mapping array
 # UCIS_ENABLE = yes # Another method for generating Unicode characters via maps
@@ -19,9 +18,6 @@ KEY_LOCK_ENABLE = yes # Enables using lock key to maintain holds
 # LTO_ENABLE = yes # Does some optimisation to make firmware size smaller
 # SWAP_HANDS_ENABLE = yes # Enables the swap hands function
 # DEBOUNCE_TYPE = sym_eager_pk # Change debounce algorithm
-
-# NOTE: The following requires a lot of memory to include
-TERMINAL_ENABLE = yes # Enables a command-line-like interface designed to communicate through a text editor with keystrokes
 
 # NOTE: The following is not yet available in main qmk branch
 KEY_OVERRIDE_ENABLE = yes # Allows overiding modifier combos (change Shift+1 without affecting 1 or Shift's normal operation)

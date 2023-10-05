@@ -13,20 +13,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "helix.h"
+#include "rev2.h"
 
 // Each keymap.c should use is_keyboard_master() instead of 'is_master'.
 // But keep 'is_master' for a while for backwards compatibility
 //  for the old keymap.c.
 uint8_t is_master = false;
-
-#ifdef SSD1306OLED
-#include "ssd1306.h"
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-	return process_record_gfx(keycode,record) && process_record_user(keycode, record);
-}
-#endif
 
 bool is_mac_mode(void) {
     // This is the opposite of the QMK standard, but we'll leave it for backwards compatibility.
@@ -59,12 +51,6 @@ void keyboard_post_init_kb(void) {
     keyboard_post_init_user();
 }
 
-#if defined(SPLIT_KEYBOARD) && defined(SSD1306OLED)
-void matrix_slave_scan_user(void) {
-    matrix_scan_user();
-}
-#endif
-
 #ifdef OLED_ENABLE
 void render_helix_logo(void) {
     static const char helix_logo[] PROGMEM ={
@@ -82,7 +68,7 @@ bool oled_task_kb(void) {
         oled_write_P(led_state.num_lock ? PSTR("NUMLOCK") : PSTR("       "), false);
         oled_write_P(led_state.caps_lock ? PSTR("CAPS") : PSTR("    "), false);
         oled_write_P(led_state.scroll_lock ? PSTR("SCLK") : PSTR("    "), false);
-        oled_write_P(PSTR("\n"), false);
+        oled_advance_page(true);
         render_helix_logo();
     }
     return false;

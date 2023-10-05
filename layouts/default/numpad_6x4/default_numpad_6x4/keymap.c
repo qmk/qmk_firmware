@@ -1,3 +1,6 @@
+// Copyright 2023 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -41,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * └───────┴───┘───┘
      */
     [1] = LAYOUT_numpad_6x4(
-        RESET,   _______, _______, _______,
+        QK_BOOT,   _______, _______, _______,
         _______, _______, _______, _______,
         KC_HOME, KC_UP,   KC_PGUP,
         KC_LEFT, XXXXXXX, KC_RGHT, _______,

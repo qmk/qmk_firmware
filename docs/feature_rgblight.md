@@ -28,17 +28,18 @@ For APA102 LEDs, add the following to your `rules.mk`:
 
 ```make
 RGBLIGHT_ENABLE = yes
-RGBLIGHT_DRIVER = APA102
+RGBLIGHT_DRIVER = apa102
 ```
 
 At minimum you must define the data pin your LED strip is connected to, and the number of LEDs in the strip, in your `config.h`. For APA102 LEDs, you must also define the clock pin. If your keyboard has onboard RGB LEDs, and you are simply creating a keymap, you usually won't need to modify these.
 
-|Define         |Description                                                                                              |
-|---------------|---------------------------------------------------------------------------------------------------------|
-|`RGB_DI_PIN`   |The pin connected to the data pin of the LEDs                                                            |
-|`RGB_CI_PIN`   |The pin connected to the clock pin of the LEDs (APA102 only)                                             |
-|`RGBLED_NUM`   |The number of LEDs connected                                                                             |
-|`RGBLED_SPLIT` |(Optional) For split keyboards, the number of LEDs connected on each half directly wired to `RGB_DI_PIN` |
+|Define         |Description                                                              |
+|---------------|-------------------------------------------------------------------------|
+|`WS2812_DI_PIN`|The pin connected to the data pin of the LEDs (WS2812)                   |
+|`APA102_DI_PIN`|The pin connected to the data pin of the LEDs (APA102)                   |
+|`APA102_CI_PIN`|The pin connected to the clock pin of the LEDs (APA102)                  |
+|`RGBLED_NUM`   |The number of LEDs connected                                             |
+|`RGBLED_SPLIT` |(Optional) For split keyboards, the number of LEDs connected on each half|
 
 Then you should be able to use the keycodes below to change the RGB lighting to your liking.
 
@@ -89,7 +90,7 @@ Your RGB lighting can be configured by placing these `#define`s in your `config.
 
 |Define                     |Default                     |Description                                                                                                                |
 |---------------------------|----------------------------|---------------------------------------------------------------------------------------------------------------------------|
-|`RGBLIGHT_HUE_STEP`        |`10`                        |The number of steps to cycle through the hue by                                                                            |
+|`RGBLIGHT_HUE_STEP`        |`8`                         |The number of steps to cycle through the hue by                                                                            |
 |`RGBLIGHT_SAT_STEP`        |`17`                        |The number of steps to increment the saturation by                                                                         |
 |`RGBLIGHT_VAL_STEP`        |`17`                        |The number of steps to increment the brightness by                                                                         |
 |`RGBLIGHT_LIMIT_VAL`       |`255`                       |The maximum brightness level                                                                                               |
@@ -105,7 +106,7 @@ Your RGB lighting can be configured by placing these `#define`s in your `config.
 ## Effects and Animations
 
 Not only can this lighting be whatever color you want,
-if `RGBLIGHT_EFFECT_xxxx` or `RGBLIGHT_ANIMATIONS` is defined, you also have a number of animation modes at your disposal:
+if `RGBLIGHT_EFFECT_xxxx` is defined, you also have a number of animation modes at your disposal:
 
 |Mode number symbol           |Additional number  |Description                            |
 |-----------------------------|-------------------|---------------------------------------|
@@ -125,13 +126,14 @@ Check out [this video](https://youtube.com/watch?v=VKrpPAHlisY) for a demonstrat
 
 Note: For versions older than 0.6.117, The mode numbers were written directly. In `quantum/rgblight/rgblight.h` there is a contrast table between the old mode number and the current symbol.
 
+
 ### Effect and Animation Toggles
 
 Use these defines to add or remove animations from the firmware. When you are running low on flash space, it can be helpful to disable animations you are not using.
 
 |Define                              |Default      |Description                                                              |
 |------------------------------------|-------------|-------------------------------------------------------------------------|
-|`RGBLIGHT_ANIMATIONS`               |*Not defined*|Enable all additional animation modes.                                   |
+|`RGBLIGHT_ANIMATIONS`               |*Not defined*|Enable all additional animation modes.  (deprecated)                     |
 |`RGBLIGHT_EFFECT_ALTERNATING`       |*Not defined*|Enable alternating animation mode.                                       |
 |`RGBLIGHT_EFFECT_BREATHING`         |*Not defined*|Enable breathing animation mode.                                         |
 |`RGBLIGHT_EFFECT_CHRISTMAS`         |*Not defined*|Enable christmas animation mode.                                         |
@@ -142,6 +144,8 @@ Use these defines to add or remove animations from the firmware. When you are ru
 |`RGBLIGHT_EFFECT_SNAKE`             |*Not defined*|Enable snake animation mode.                                             |
 |`RGBLIGHT_EFFECT_STATIC_GRADIENT`   |*Not defined*|Enable static gradient mode.                                             |
 |`RGBLIGHT_EFFECT_TWINKLE`           |*Not defined*|Enable twinkle animation mode.                                           |
+
+!> `RGBLIGHT_ANIMATIONS` is being deprecated and animation modes should be explicitly defined.
 
 ### Effect and Animation Settings
 
@@ -162,14 +166,12 @@ The following options are used to tweak the various animations:
 |`RGBLIGHT_EFFECT_TWINKLE_PROBABILITY`|`1/127`     |Adjusts how likely each LED is to twinkle (on each animation step)                             |
 
 ### Example Usage to Reduce Memory Footprint
-  1. Remove `RGBLIGHT_ANIMATIONS` from `config.h`.
-  1. Selectively add the animations you want to enable. The following would enable two animations and save about 4KiB:
+  1. Use `#undef` to selectively disable animations. The following would disable two animations and save about 4KiB:
 
 ```diff
  #undef RGBLED_NUM
--#define RGBLIGHT_ANIMATIONS
-+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
++#undef RGBLIGHT_EFFECT_STATIC_GRADIENT
++#undef RGBLIGHT_EFFECT_RAINBOW_SWIRL
  #define RGBLED_NUM 12
  #define RGBLIGHT_HUE_STEP 8
  #define RGBLIGHT_SAT_STEP 8
@@ -301,7 +303,7 @@ void keyboard_post_init_user(void) {
 // after the flag has been flipped...
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case DEBUG:
+        case QK_DEBUG_TOGGLE:
             rgblight_blink_layer(debug_enable ? 0 : 1, 500);
             break;
 
@@ -318,13 +320,26 @@ You can also use `rgblight_blink_layer_repeat` to specify the amount of times th
 ```c
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case DEBUG:
+        case QK_DEBUG_TOGGLE:
             rgblight_blink_layer_repeat(debug_enable ? 0 : 1, 200, 3);
             break;
     }
 }
 ```
-would turn the layer 0 (or 1) on and off again three times when `DEBUG` is pressed.
+would turn the layer 0 (or 1) on and off again three times when `DB_TOGG` is pressed.
+
+Blinking accumulates layers so if multiple layers are set blinking at the same time they will all blink for the duration and repeat times of the last layer to be blinked.
+To stop these other layers from blinking use `rgblight_unblink_layer` or `rgblight_unblink_all_but_layer`:
+
+```c
+rgblight_blink_layer(1, 500);
+rgblight_unblink_all_but_layer(1);
+```
+
+```c
+rgblight_unblink_layer(3);
+rgblight_blink_layer(2, 500);
+```
 
 !> Lighting layers on split keyboards will require layer state synced to the slave half (e.g. `#define SPLIT_LAYER_STATE_ENABLE`). See [data sync options](feature_split_keyboard.md#data-sync-options) for more details.
 
@@ -508,37 +523,6 @@ By defining `RGBLIGHT_LED_MAP` as in the example below, you can specify the LED 
 
 ```
 <img src="https://user-images.githubusercontent.com/2170248/55743725-08ad7a80-5a6e-11e9-83ed-126a2b0209fc.JPG" alt="simple mapped" width="50%"/>
-
-For keyboards that use the RGB LEDs as a backlight for each key, you can also define it as in the example below.
-
-```c
-// config.h
-
-#define RGBLED_NUM 30
-
-/* RGB LED Conversion macro from physical array to electric array */
-#define LED_LAYOUT( \
-    L00, L01, L02, L03, L04, L05,  \
-    L10, L11, L12, L13, L14, L15,  \
-    L20, L21, L22, L23, L24, L25,  \
-    L30, L31, L32, L33, L34, L35,  \
-    L40, L41, L42, L43, L44, L45 ) \
-  { \
-    L05, L04, L03, L02, L01, L00,   \
-    L10, L11, L12, L13, L14, L15,   \
-    L25, L24, L23, L22, L21, L20,   \
-    L30, L31, L32, L33, L34, L35,   \
-    L46, L45, L44, L43, L42, L41    \
-  }
-
-/* RGB LED logical order map */
-/* Top->Bottom, Right->Left */
-#define RGBLIGHT_LED_MAP LED_LAYOUT( \
-  25, 20, 15, 10,  5,  0,       \
-  26, 21, 16, 11,  6,  1,       \
-  27, 22, 17, 12,  7,  2,       \
-  28, 23, 18, 13,  8,  3,       \
-  29, 24, 19, 14,  9,  4 )
 
 ```
 ## Clipping Range

@@ -14,13 +14,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "kint36.h"
+#include "quantum.h"
+
+#define LED_POWER C5
 
 void matrix_init_kb(void) {
     matrix_init_user();
 
-// Turn on the Teensy 3.6 Power LED:
-#define LED_POWER C5
+    // Turn on the Teensy 3.6 Power LED:
     setPinOutput(LED_POWER);
     writePinHigh(LED_POWER);
 }

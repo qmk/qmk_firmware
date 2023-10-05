@@ -22,8 +22,8 @@
 #include "protocol.h"
 
 ap2_led_t       led_mask[KEY_COUNT];
+ap2_led_t       led_colors[KEY_COUNT];
 ap2_led_status_t ap2_led_status;
-uint8_t rgb_row_changed[NUM_ROW];
 
 void led_command_callback(const message_t *msg) {
     switch (msg->command) {
@@ -60,15 +60,13 @@ void ap2_led_enable(void) { proto_tx(CMD_LED_ON, NULL, 0, 3); }
 
 void ap2_led_set_profile(uint8_t prof) { proto_tx(CMD_LED_SET_PROFILE, &prof, sizeof(prof), 3); }
 
-void ap2_led_get_status() { proto_tx(CMD_LED_GET_STATUS, NULL, 0, 3); }
+void ap2_led_next_profile(void) { proto_tx(CMD_LED_NEXT_PROFILE, NULL, 0, 3); }
 
-void ap2_led_next_profile() { proto_tx(CMD_LED_NEXT_PROFILE, NULL, 0, 3); }
+void ap2_led_next_intensity(void) { proto_tx(CMD_LED_NEXT_INTENSITY, NULL, 0, 3); }
 
-void ap2_led_next_intensity() { proto_tx(CMD_LED_NEXT_INTENSITY, NULL, 0, 3); }
+void ap2_led_next_animation_speed(void) { proto_tx(CMD_LED_NEXT_ANIMATION_SPEED, NULL, 0, 3); }
 
-void ap2_led_next_animation_speed() { proto_tx(CMD_LED_NEXT_ANIMATION_SPEED, NULL, 0, 3); }
-
-void ap2_led_prev_profile() { proto_tx(CMD_LED_PREV_PROFILE, NULL, 0, 3); }
+void ap2_led_prev_profile(void) { proto_tx(CMD_LED_PREV_PROFILE, NULL, 0, 3); }
 
 void ap2_led_mask_set_key(uint8_t row, uint8_t col, ap2_led_t color) {
     uint8_t payload[] = {row, col, color.p.blue, color.p.green, color.p.red, color.p.alpha};
@@ -91,6 +89,32 @@ void ap2_led_mask_set_all(void) {
 /* Set all keys to a given color */
 void ap2_led_mask_set_mono(const ap2_led_t color) { proto_tx(CMD_LED_MASK_SET_MONO, (uint8_t *)&color, sizeof(color), 1); }
 
+void ap2_led_colors_set_key(uint8_t row, uint8_t col, ap2_led_t color) {
+    uint8_t payload[] = {row, col, color.p.blue, color.p.green, color.p.red, color.p.alpha};
+    proto_tx(CMD_LED_COLOR_SET_KEY, payload, sizeof(payload), 1);
+}
+
+/* Push a whole local row to the shine */
+void ap2_led_colors_set_row(uint8_t row) {
+    uint8_t payload[NUM_COLUMN * sizeof(ap2_led_t) + 1];
+    payload[0] = row;
+    memcpy(payload + 1, &led_colors[ROWCOL2IDX(row, 0)], sizeof(*led_colors) * NUM_COLUMN);
+    proto_tx(CMD_LED_COLOR_SET_ROW, payload, sizeof(payload), 1);
+}
+
+/* Synchronize all rows */
+void ap2_led_colors_set_all(void) {
+    for (int row = 0; row < 5; row++) ap2_led_colors_set_row(row);
+}
+
+/* Set all keys to a given color */
+void ap2_led_colors_set_mono(const ap2_led_t color) { proto_tx(CMD_LED_COLOR_SET_MONO, (uint8_t *)&color, sizeof(color), 1); }
+
+void ap2_led_set_manual_control(uint8_t manual) {
+    uint8_t payload[] = {manual};
+    proto_tx(CMD_LED_SET_MANUAL, payload, sizeof(payload), 1);
+}
+
 void ap2_led_blink(uint8_t row, uint8_t col, ap2_led_t color, uint8_t count, uint8_t hundredths) {
     uint8_t payload[] = {row, col, color.p.blue, color.p.green, color.p.red, color.p.alpha, count, hundredths};
     proto_tx(CMD_LED_KEY_BLINK, payload, sizeof(payload), 1);
@@ -101,7 +125,7 @@ void ap2_led_set_foreground_color(uint8_t red, uint8_t green, uint8_t blue) {
     ap2_led_mask_set_mono(color);
 }
 
-void ap2_led_reset_foreground_color() {
+void ap2_led_reset_foreground_color(void) {
     ap2_led_t color = {
         .p.red   = 0,
         .p.green = 0,
@@ -109,6 +133,24 @@ void ap2_led_reset_foreground_color() {
         .p.alpha = 0,
     };
     ap2_led_mask_set_mono(color);
+}
+
+void ap2_led_sticky_set_key(uint8_t row, uint8_t col, ap2_led_t color) {
+    uint8_t payload[] = {row, col, color.p.blue, color.p.green, color.p.red, color.p.alpha};
+    proto_tx(CMD_LED_STICKY_SET_KEY, payload, sizeof(payload), 1);
+}
+
+void ap2_led_unset_sticky_key(uint8_t row, uint8_t col) {
+    uint8_t payload[] = {row, col};
+    proto_tx(CMD_LED_STICKY_UNSET_KEY, payload, sizeof(payload), 1);
+}
+
+void ap2_led_unset_sticky_row(uint8_t row) {
+    uint8_t payload[] = {row};
+    proto_tx(CMD_LED_STICKY_UNSET_ROW, payload, sizeof(payload), 1);
+}
+void ap2_led_unset_sticky_all(void) {
+    proto_tx(CMD_LED_STICKY_UNSET_ALL, NULL, 0, 1);
 }
 
 /*

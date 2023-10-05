@@ -47,6 +47,7 @@ POSSIBILITY OF SUCH DAMAGE.
 // chibiOS headers
 #    include "ch.h"
 #    include "hal.h"
+#    include "gpio.h"
 #endif
 
 #include "ps2.h"
@@ -66,8 +67,8 @@ uint8_t ps2_error = PS2_ERR_NONE;
 
 static inline uint8_t pbuf_dequeue(void);
 static inline void    pbuf_enqueue(uint8_t data);
-static inline bool    pbuf_has_data(void);
 static inline void    pbuf_clear(void);
+bool                  pbuf_has_data(void);
 
 #if defined(PROTOCOL_CHIBIOS)
 void ps2_interrupt_service_routine(void);
@@ -76,17 +77,18 @@ void palCallback(void *arg) {
 }
 
 #    define PS2_INT_INIT()                                 \
-        { palSetLineMode(PS2_CLOCK_PIN, PAL_MODE_INPUT); } \
-        while (0)
+        do {                                               \
+            palSetLineMode(PS2_CLOCK_PIN, PAL_MODE_INPUT); \
+        } while (0)
 #    define PS2_INT_ON()                                                    \
-        {                                                                   \
+        do {                                                                \
             palEnableLineEvent(PS2_CLOCK_PIN, PAL_EVENT_MODE_FALLING_EDGE); \
             palSetLineCallback(PS2_CLOCK_PIN, palCallback, NULL);           \
-        }                                                                   \
-        while (0)
+        } while (0)
 #    define PS2_INT_OFF()                       \
-        { palDisableLineEvent(PS2_CLOCK_PIN); } \
-        while (0)
+        do {                                    \
+            palDisableLineEvent(PS2_CLOCK_PIN); \
+        } while (0)
 #endif // PROTOCOL_CHIBIOS
 
 void ps2_host_init(void) {
@@ -309,7 +311,7 @@ static inline uint8_t pbuf_dequeue(void) {
 
     return val;
 }
-static inline bool pbuf_has_data(void) {
+bool pbuf_has_data(void) {
 #if defined(__AVR__)
     uint8_t sreg = SREG;
     cli();

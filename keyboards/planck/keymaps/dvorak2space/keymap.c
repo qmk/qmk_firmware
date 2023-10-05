@@ -105,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_F13,      KC_F14,      KC_F15,      KC_F16,      KC_F17,      KC_F18,      KC_F19,      KC_F20,      KC_F21,      KC_F22,      KC_F23,      KC_F24,
     LCTL(KC_F13),LCTL(KC_F14),LCTL(KC_F15),LCTL(KC_F16),LCTL(KC_F17),LCTL(KC_F18),LCTL(KC_F19),LCTL(KC_F20),LCTL(KC_F21),LCTL(KC_F22),LCTL(KC_F23),LCTL(KC_F24),
     LSFT(KC_F13),LSFT(KC_F14),LSFT(KC_F15),LSFT(KC_F16),LSFT(KC_F17),LSFT(KC_F18),LSFT(KC_F19),LSFT(KC_F20),LSFT(KC_F21),LSFT(KC_F22),LSFT(KC_F23),LSFT(KC_F24),
-    RESET,       LALT(KC_F14),LALT(KC_F15),OSL(PASS_L),              CAD,         LALT(KC_F19),             LALT(KC_F21),LALT(KC_F22),HK_SLP,      HK_COSL
+    QK_BOOT,     LALT(KC_F14),LALT(KC_F15),OSL(PASS_L),              CAD,         LALT(KC_F19),             LALT(KC_F21),LALT(KC_F22),HK_SLP,      HK_COSL
   ),
 //Locked Screen
   [5] = LAYOUT_planck_2x2u(
@@ -137,8 +137,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { //X_KEY doesn'
       if(record->event.pressed) {
         (IS_LAYER_ON(SHFT_L)) //if shifted release correct shift, send, and press same shift, else send shift enter
           ? (get_mods() & MOD_BIT(KC_LSFT))
-            ? SEND_STRING(SS_UP(X_LSHIFT) SS_TAP(X_ENTER) SS_DOWN(X_LSHIFT))
-            : SEND_STRING(SS_UP(X_RSHIFT) SS_TAP(X_ENTER) SS_DOWN(X_RSHIFT))
+            ? SEND_STRING(SS_UP(X_LSFT) SS_TAP(X_ENTER) SS_DOWN(X_LSFT))
+            : SEND_STRING(SS_UP(X_RSFT) SS_TAP(X_ENTER) SS_DOWN(X_RSFT))
           : SEND_STRING(SS_LSFT(SS_TAP(X_ENTER)));
       }
       return false;
@@ -179,7 +179,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { //X_KEY doesn'
 };
 
 //tapdance state evaluation
-int cur_dance(qk_tap_dance_state_t *state) {
+int cur_dance(tap_dance_state_t *state) {
   int press = 0;
   switch(state->count) {
     case 1:
@@ -196,11 +196,11 @@ int cur_dance(qk_tap_dance_state_t *state) {
   return press;
 }
 
-void back_tap(qk_tap_dance_state_t *state, void *user_data) { tap_code(KC_BSPACE); }
+void back_tap(tap_dance_state_t *state, void *user_data) { tap_code(KC_BACKSPACE); }
 
-void back_finished(qk_tap_dance_state_t *state, void *user_data) { if(!(state->interrupted || !state->pressed)) tap_code16(LCTL(KC_BSPACE)); }
+void back_finished(tap_dance_state_t *state, void *user_data) { if(!(state->interrupted || !state->pressed)) tap_code16(LCTL(KC_BACKSPACE)); }
 
-void slash_finished(qk_tap_dance_state_t *state, void *user_data) {
+void slash_finished(tap_dance_state_t *state, void *user_data) {
   int td_state = cur_dance(state);
   switch(td_state) {
     case SINGLE_TAP:
@@ -213,7 +213,7 @@ void slash_finished(qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void dash_finished(qk_tap_dance_state_t *state, void *user_data) {
+void dash_finished(tap_dance_state_t *state, void *user_data) {
   int td_state = cur_dance(state);
   switch(td_state) {
     case SINGLE_TAP:
@@ -233,7 +233,7 @@ void dash_finished(qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [LPN] = ACTION_TAP_DANCE_DOUBLE(KC_LPRN, KC_LBRC),
   [RPN] = ACTION_TAP_DANCE_DOUBLE(KC_RPRN, KC_RBRC),
   [FB]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, slash_finished, NULL),

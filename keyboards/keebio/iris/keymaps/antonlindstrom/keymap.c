@@ -11,7 +11,7 @@
 
 #define KC_LOWR MO(_LOWER)
 #define KC_RASE MO(_RAISE)
-#define KC_RST RESET
+#define KC_RST QK_BOOT
 
 #define KC_LBR SE_LBRC
 #define KC_RBR SE_RBRC

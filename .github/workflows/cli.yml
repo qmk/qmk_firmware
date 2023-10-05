@@ -1,5 +1,8 @@
 name: CLI CI
 
+permissions:
+  contents: read
+
 on:
   push:
     branches:
@@ -15,12 +18,16 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    container: qmkfm/qmk_cli
+    container: ghcr.io/qmk/qmk_cli
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Disable safe.directory check
+      run : git config --global --add safe.directory '*'
+
+    - uses: actions/checkout@v4
       with:
         submodules: recursive
+
     - name: Install dependencies
       run: pip3 install -r requirements-dev.txt
     - name: Run tests

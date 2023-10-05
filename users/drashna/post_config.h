@@ -5,7 +5,16 @@
 
 // because layouts seem to not be respecting config.h order atm
 #ifdef RGBLIGHT_ENABLE
-#    undef RGBLIGHT_ANIMATIONS
+#    undef RGBLIGHT_EFFECT_BREATHING
+#    undef RGBLIGHT_EFFECT_RAINBOW_MOOD
+#    undef RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#    undef RGBLIGHT_EFFECT_SNAKE
+#    undef RGBLIGHT_EFFECT_KNIGHT
+#    undef RGBLIGHT_EFFECT_CHRISTMAS
+#    undef RGBLIGHT_EFFECT_STATIC_GRADIENT
+#    undef RGBLIGHT_EFFECT_RGB_TEST
+#    undef RGBLIGHT_EFFECT_ALTERNATING
+#    undef RGBLIGHT_EFFECT_TWINKLE
 #    if defined(__AVR__) && (!defined(__AVR_AT90USB1286__) && !defined(RGBLIGHT_ALL_ANIMATIONS))
 #        define RGBLIGHT_EFFECT_BREATHING
 #        define RGBLIGHT_EFFECT_SNAKE
@@ -34,11 +43,8 @@
 #            define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN
 #        endif
 #    endif
-#    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_REST_MODE
-#endif
-
-#ifndef QMK_KEYS_PER_SCAN
-#    define QMK_KEYS_PER_SCAN 8
+#    undef RGB_MATRIX_DEFAULT_MODE
+#    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_REST_MODE
 #endif
 
 #ifdef MOUSEKEY_ENABLE
@@ -115,15 +121,23 @@
 #    ifndef MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS
 #        define MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS 8
 #    endif
-#endif  // MOUSEKEY_ENABLE
+#endif // MOUSEKEY_ENABLE
 
-#if !defined(LAYER_STATE_16BIT) && !defined(LAYER_STATE_8BIT) && !defined(LAYER_STATE_32BIT)
-#    define LAYER_STATE_16BIT
-#endif
-#ifndef DYNAMIC_KEYMAP_LAYER_COUNT
-#    define DYNAMIC_KEYMAP_LAYER_COUNT 11
-#endif
+#define MOUSE_EXTENDED_REPORT
 
 #ifndef TAPPING_TERM
 #    define TAPPING_TERM 175
+#endif
+
+#if (__has_include("../../../qmk_secrets/config.h") && !defined(NO_SECRETS))
+#    include "../../../qmk_secrets/config.h"
+#endif
+
+#if defined(SPLIT_KEYBOARD) && defined(PROTOCOL_CHIBIOS) && !defined(USB_SUSPEND_WAKEUP_DELAY)
+#    define USB_SUSPEND_WAKEUP_DELAY 500
+#endif
+
+#if defined(XAP_ENABLE) && !defined(__AVR__)
+#    undef DYNAMIC_KEYMAP_LAYER_COUNT
+#    define DYNAMIC_KEYMAP_LAYER_COUNT 12
 #endif

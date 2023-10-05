@@ -1,22 +1,22 @@
  /* Copyright 2021 latincompass
-  * 
-  * This program is free software: you can redistribute it and/or modify 
-  * it under the terms of the GNU General Public License as published by 
-  * the Free Software Foundation, either version 2 of the License, or 
-  * (at your option) any later version. 
-  * 
-  * This program is distributed in the hope that it will be useful, 
-  * but WITHOUT ANY WARRANTY; without even the implied warranty of 
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
-  * GNU General Public License for more details. 
-  * 
-  * You should have received a copy of the GNU General Public License 
-  * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
-  */ 
-#include "latin60rgb.h"
+  *
+  * This program is free software: you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation, either version 2 of the License, or
+  * (at your option) any later version.
+  *
+  * This program is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  * GNU General Public License for more details.
+  *
+  * You should have received a copy of the GNU General Public License
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  */
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     { 0, K_13, J_13, L_13 },
     { 0, K_12, J_12, L_12 },
     { 0, K_11, J_11, L_11 },
@@ -49,9 +49,9 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     { 0, H_1,  G_1,  I_1 },
 
     { 0, E_16, D_16, F_16 },
-    { 0, E_15, D_15, F_15 },	
+    { 0, E_15, D_15, F_15 },
     { 0, E_14, D_14, F_14 },
-    { 0, E_13, D_13, F_13 },	
+    { 0, E_13, D_13, F_13 },
     { 0, E_12, D_12, F_12 },
     { 0, E_11, D_11, F_11 },
     { 0, E_10, D_10, F_10 },
@@ -91,7 +91,7 @@ led_config_t g_led_config = {
         {  18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5      },
         {           4,   3,       2,               1 ,0           }
     }, {
-        { 224,   0 }, { 208,   0 }, { 192,   0 }, { 176,   0 }, { 160,   0 }, { 144,   0 }, { 128,   0 }, { 112,   0 }, {  96,   0 }, {  80,   0 }, {  64,   0 }, {  48,   0 }, {  32,   0 }, {  16,   0 }, 
+        { 224,   0 }, { 208,   0 }, { 192,   0 }, { 176,   0 }, { 160,   0 }, { 144,   0 }, { 128,   0 }, { 112,   0 }, {  96,   0 }, {  80,   0 }, {  64,   0 }, {  48,   0 }, {  32,   0 }, {  16,   0 },
         { 220,  16 }, { 200,  16 }, { 184,  16 }, { 168,  16 }, { 152,  16 }, { 136,  16 }, { 120,  16 }, { 104,  16 }, {  88,  16 }, {  72,  16 }, {  56,  16 }, {  40,  16 }, {  24,  16 }, {   4,  16 },
         { 204,  32 }, { 188,  32 }, { 172,  32 }, { 156,  32 }, { 140,  32 }, { 124,  32 }, { 108,  32 }, {  92,  32 }, {  76,  32 }, {  60,  32 }, {  44,  32 }, {  28,  32 },               {   6,  32 },
         { 224,  48 }, { 198,  64 }, { 202,  48 }, { 180,  48 }, { 164,  48 }, { 148,  48 }, { 132,  48 }, { 116,  48 }, { 100,  48 }, {  84,  48 }, {  68,  48 }, {  52,  48 }, {  20,  48 }, {  10,  48 },
@@ -115,10 +115,13 @@ void suspend_wakeup_init_kb(void) {
     suspend_wakeup_init_user();
 }
 
-__attribute__ ((weak))
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
     if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(41, 0xFF, 0xFF, 0xFF);
     }
+    return true;
 }
 #endif

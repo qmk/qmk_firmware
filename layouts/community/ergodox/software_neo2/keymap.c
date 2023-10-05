@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
 
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     ergodox_board_led_off();
     ergodox_right_led_1_off();
@@ -106,7 +106,7 @@ void matrix_scan_user(void) {
     ergodox_right_led_3_off();
     ergodox_board_led_off();
 
-    if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
+    if (host_keyboard_led_state().caps_lock) {
         ergodox_right_led_3_on();
     }
 

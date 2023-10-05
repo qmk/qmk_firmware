@@ -19,5 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CONFIG_USER_H
 
 #define TAPPING_TERM 1000
+#define PERMISSIVE_HOLD
 
 #endif

@@ -15,11 +15,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef _LED_MATRIX_H_
-#define _LED_MATRIX_H_
+#pragma once
 
-#include "quantum.h"
-#include "eeprom.h"
+#include <stdint.h>
 
 // From keyboard
 #include "config_led.h"
@@ -200,5 +198,3 @@ void md_led_changed(void);
 #else
 extern uint8_t gcr_desired;
 #endif // USE_MASSDROP_CONFIGURATOR
-
-#endif //_LED_MATRIX_H_
