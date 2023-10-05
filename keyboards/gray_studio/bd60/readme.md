@@ -8,11 +8,11 @@
 
  Make example for this keyboard (after setting up your build environment):
 
- 	make gray_studio bd60:default
+ 	make gray_studio/bd60:default
 
  Flashing example for this keyboard:
 
- 	make gray_studio bd60:default:flash
+ 	make gray_studio/bd60:default:flash
 
 ## Bootloader
 
