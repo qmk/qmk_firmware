@@ -1,4 +1,4 @@
-/* Copyright 2023 @ Keychron (https://www.keychron.com)
+/* Copyright 2022 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,16 +18,10 @@
 
 /* RGB Matrix Driver Configuration */
 #define SNLED27351_DRIVER_COUNT 1
-#define DRIVER_ADDR_1 SNLED27351_I2C_ADDRESS_VDDIO
+#define DRIVER_ADDR_1 SNLED27351_I2C_ADDRESS_GND
 
 /* RGB Matrix Configuration */
-#define DRIVER_1_LED_TOTAL 26
-#define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
-
-#define SNLED27351_PHASE_CHANNEL SNLED27351_MSKPHASE_9CHANNEL
+#define RGB_MATRIX_LED_COUNT 21
 
 /* Enable num-lock LED */
-#define NUM_LOCK_LED_INDEX 5
-
-/* Encoder Configuration */
-#define ENCODER_DEFAULT_POS 0x3
+#define NUM_LOCK_LED_INDEX 4

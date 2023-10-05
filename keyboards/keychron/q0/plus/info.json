@@ -1,33 +1,15 @@
 {
     "keyboard_name": "Keychron Q0 Plus",
-    "manufacturer": "Keychron",
-    "url": "https://github.com/Keychron",
-    "maintainer": "lalalademaxiya1",
     "usb": {
-        "vid": "0x3434",
         "pid": "0x0131",
-        "device_version": "1.0.0",
-        "force_nkro": true
+        "device_version": "1.0.0"
     },
     "matrix_pins": {
         "cols": ["C14", "C15", "A0", "A1", "A2"],
         "rows": ["B5", "B4", "B3", "A15", "A14", "A13"]
     },
-    "features": {
-        "audio": false,
-        "backlight": false,
-        "bootmagic": true,
-        "command": false,
-        "console": false,
-        "encoder": true,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": true,
-        "rgb_matrix": true,
-        "rgblight": false
-    },
-    "diode_direction": "ROW2COL",
     "encoder": {
+        "enabled": true,
         "rotary": [
             {"pin_a": "A3", "pin_b": "A4"}
         ]
@@ -35,33 +17,7 @@
     "bootmagic": {
         "matrix": [0, 1]
     },
-    "processor": "STM32L432",
-    "bootloader": "stm32-dfu",
     "rgb_matrix": {
-        "driver": "snled27351",
-        "animations": {
-            "band_spiral_val": true,
-            "breathing": true,
-            "cycle_all": true,
-            "cycle_left_right": true,
-            "cycle_up_down": true,
-            "rainbow_moving_chevron": true,
-            "cycle_out_in": true,
-            "cycle_out_in_dual": true,
-            "cycle_pinwheel": true,
-            "cycle_spiral": true,
-            "dual_beacon": true,
-            "rainbow_beacon": true,
-            "jellybean_raindrops": true,
-            "pixel_rain": true,
-            "typing_heatmap": true,
-            "digital_rain": true,
-            "solid_reactive_simple": true,
-            "solid_reactive_multiwide": true,
-            "solid_reactive_multinexus": true,
-            "splash": true,
-            "solid_splash": true
-        },
         "layout": [
             {"flags": 1, "matrix": [0, 1], "x": 56, "y": 0},
             {"flags": 1, "matrix": [0, 2], "x": 112, "y": 0},
@@ -96,6 +52,7 @@
             {"flags": 1, "matrix": [5, 3], "x": 168, "y": 64}
         ]
     },
+    "community_layouts": ["numpad_6x5"],
     "layouts": {
         "LAYOUT_numpad_6x5": {
             "layout": [
