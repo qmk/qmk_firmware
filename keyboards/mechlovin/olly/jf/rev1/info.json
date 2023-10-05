@@ -4,12 +4,14 @@
         "pid": "0xD180",
         "device_version": "0.0.1"
     },
+    "features": {
+        "backlight": true
+    },
     "matrix_pins": {
         "custom_lite": true,
         "rows": ["D5", "D6", "A5", "A4", "A3", "A6"]
     },
     "backlight": {
-        "enabled": true,
         "pin": "D4",
         "breathing": true
     },
