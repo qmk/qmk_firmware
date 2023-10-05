@@ -22,7 +22,6 @@
 enum my_keycodes {
     KC_SIRI = QK_USER,
     KC_DND,
-    KC_SPOT,
     KC_EJ,
 };
 
@@ -43,14 +42,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 host_system_send(0x9B);
             } else {
                 host_system_send(0);
-            }
-            return false; /* Skip all further processing of this key */
-
-        case KC_SPOT:
-            if (record->event.pressed) {
-                host_consumer_send(0x221);
-            } else {
-                host_consumer_send(0);
             }
             return false; /* Skip all further processing of this key */
 
