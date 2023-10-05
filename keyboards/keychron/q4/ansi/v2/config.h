@@ -21,11 +21,4 @@
 #define DRIVER_ADDR_1 SNLED27351_I2C_ADDRESS_GND
 
 /* RGB Matrix Configuration */
-#define DRIVER_1_LED_TOTAL 61
-#define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
-
-#define SNLED27351_CURRENT_TUNE \
-    { 0xCA, 0xCA, 0x60, 0xCA, 0xCA, 0x60, 0xCA, 0xCA, 0x60, 0xCA, 0xCA, 0x60 }
-
-/* Enable CapsLcok LED*/
-#define CAPS_LOCK_LED_INDEX 28
+#define RGB_MATRIX_LED_COUNT 61
