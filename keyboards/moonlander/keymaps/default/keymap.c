@@ -16,15 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-
 #include QMK_KEYBOARD_H
 #include "version.h"
 
 enum layers {
-    BASE,  // default layer
-    SYMB,  // symbols
-    MDIA,  // media keys
+    BASE, // default layer
+    SYMB, // symbols
+    MDIA, // media keys
 };
 
 enum custom_keycodes {
