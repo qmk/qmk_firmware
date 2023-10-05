@@ -55,42 +55,38 @@ bool led_matrix_indicators_kb(void) {
     } else {
         led_matrix_set_value(108, 0x00);
     }
-    return true;
-}
-
-
-layer_state_t layer_state_set_kb(layer_state_t state) {
-  // if on layer 1, turn on L1 LED, otherwise off.
-    if (get_highest_layer(state) == 0) {
+  // if on layer 0, turn on L1 LED, otherwise off.
+    if (layer_state_is(0)) {
         led_matrix_set_value(109, 0xFF);
     } else {
         led_matrix_set_value(109, 0x00);
     }
-  // if on layer 2, turn on L2 LED, otherwise off.
-    if (get_highest_layer(state) == 1) {
+  // if on layer 1, turn on L2 LED, otherwise off.
+    if (layer_state_is(1)) {
         led_matrix_set_value(110, 0xFF);
     } else {
         led_matrix_set_value(110, 0x00);
     }
 
-  // if on layer 3, turn on L3 LED, otherwise off.
-    if (get_highest_layer(state) == 2) {
+  // if on layer 2, turn on L3 LED, otherwise off.
+    if (layer_state_is(2)) {
         led_matrix_set_value(111, 0xFF);
     } else {
         led_matrix_set_value(111, 0x00);
     }
 
-  // if on layer 4, turn on L4 LED, otherwise off.
-    if (get_highest_layer(state) == 3) {
+  // if on layer 3, turn on L4 LED, otherwise off.
+    if (layer_state_is(3)) {
         led_matrix_set_value(112, 0xFF);
     } else {
         led_matrix_set_value(112, 0x00);
     }
-  // if on layer 5, turn on L5 LED, otherwise off.
-    if (get_highest_layer(state) == 4) {
+  // if on layer 4, turn on L5 LED, otherwise off.
+    if (layer_state_is(4)) {
         led_matrix_set_value(113, 0xFF);
     } else {
         led_matrix_set_value(114, 0x00);
     }
-    return layer_state_set_user(state);
+
+    return true;
 }
