@@ -8,7 +8,7 @@
 
 const uint16_t PROGMEM ctrlaltdelete[] = {KC_LCTL, KC_LALT, COMBO_END};
 combo_t key_combos[] = {
-    COMBO(ctrlaltdelete, MO(2))
+    COMBO(ctrlaltdelete, KC_LCTL, KC_LALT, MO(2))
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
