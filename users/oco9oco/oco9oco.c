@@ -42,8 +42,8 @@ void appcmd(uint16_t keycode) {
 // process_record_user
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case LT(_IPC, KC_BSPC):
-        case LT(_NUM, KC_DEL):
+        case THUMB_L2:
+        case THUMB_L3:
             if (__PRESSED__) {
                 prns_pressed = false;
                 brkt_pressed = false;
