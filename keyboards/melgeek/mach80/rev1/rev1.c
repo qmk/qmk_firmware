@@ -19,7 +19,7 @@
 #ifdef RGB_MATRIX_ENABLE
 
 
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3741_led_t PROGMEM g_is31fl3741_leds[RGB_MATRIX_LED_COUNT] = {
     {0, CS9_SW1,  CS8_SW1,  CS7_SW1},  /* RGB1 */
     {0, CS9_SW2,  CS8_SW2,  CS7_SW2},  /* RGB2 */
     {0, CS9_SW3,  CS8_SW3,  CS7_SW3},  /* RGB3 */
@@ -144,7 +144,7 @@ led_config_t g_led_config = {
 	}
 };
 
-const is31_led g_is31_indicator_leds[3] = {
+const is31fl3741_led_t g_is31_indicator_leds[3] = {
     {0, CS6_SW1, CS5_SW1, CS4_SW1}, /* RGB107 */
     {0, CS6_SW2, CS5_SW2, CS4_SW2}, /* RGB108 */
     {0, CS6_SW3, CS5_SW3, CS4_SW3}, /* RGB109 */
@@ -175,7 +175,7 @@ bool led_update_kb(led_t led_state) {
 
 void matrix_init_kb(void) {
     for (int i = 0; i < DRIVER_INDICATOR_LED_TOTAL; ++i) {
-        is31_led led = g_is31_indicator_leds[i];
+        is31fl3741_led_t led = g_is31_indicator_leds[i];
         is31fl3741_set_scaling_registers(&led, 0xFF, 0xFF, 0xFF);
     }
 

@@ -52,7 +52,7 @@ backlight_config g_config = {
     .color_1 = MONO_BACKLIGHT_COLOR_1,
 };
 
-const is31_led PROGMEM g_is31_leds[LED_MATRIX_LED_COUNT] = {
+const is31fl3736_led_t PROGMEM g_is31fl3736_leds[LED_MATRIX_LED_COUNT] = {
     {0, A_1},
     {0, A_2},
     {0, A_3},
