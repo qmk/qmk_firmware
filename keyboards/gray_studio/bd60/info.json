@@ -30,6 +30,7 @@
 "rgblight": {
     "led_count": 1,
       "sleep": true,
+      "max_brightness": 150,
         "animations": {
             "alternating": true,
             "breathing": true,
