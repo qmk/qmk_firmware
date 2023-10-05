@@ -16,23 +16,19 @@
 
 #include "quantum.h"
 
-void keyboard_pre_init_user(void) {
-  // Call the keyboard pre init code.
+void led_init_ports(void) {
+    // Call the keyboard pre init code.
 
-  // Set our LED pins as output
-  setPinOutput(A10);
-  setPinOutput(B12);
-  setPinOutput(B8);
-  setPinOutput(C0);
+    // Set our LED pins as output
+    setPinOutput(A10);
+    setPinOutput(B12);
+    setPinOutput(B8);
+    setPinOutput(C0);
 }
 
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if(res) {
-        writePin(A10, led_state.caps_lock);
-        writePin(B12, led_state.scroll_lock);
-        writePin(B8,  led_state.num_lock);
-        writePin(C0,  led_state.num_lock);
-    }
-    return res;
+void led_update_ports(led_t led_state) {
+    writePin(A10, led_state.caps_lock);
+    writePin(B12, led_state.scroll_lock);
+    writePin(B8,  led_state.num_lock);
+    writePin(C0,  led_state.num_lock);
 }
