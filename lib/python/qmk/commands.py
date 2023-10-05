@@ -99,6 +99,10 @@ def create_make_command(keyboard, keymap, target=None, dry_run=False, parallel=1
     if dry_run:
         make_command.append('-n')
 
+    from qmk.keymap import locate_keymap
+    keymap_location = locate_keymap(keyboard, keymap)
+    keymap_path = keymap_location.parent
+
     make_command.extend([
         *get_make_parallel_args(parallel),
         '-r',
@@ -115,6 +119,11 @@ def create_make_command(keyboard, keymap, target=None, dry_run=False, parallel=1
         f'KEYMAP={keymap}',
         'SILENT=false',
         'QMK_BIN="qmk"',
+        f'MAIN_KEYMAP_PATH_1={keymap_path}',
+        f'MAIN_KEYMAP_PATH_2={keymap_path}',
+        f'MAIN_KEYMAP_PATH_3={keymap_path}',
+        f'MAIN_KEYMAP_PATH_4={keymap_path}',
+        f'MAIN_KEYMAP_PATH_5={keymap_path}',
     ])
 
     if cli.config.general.verbose:

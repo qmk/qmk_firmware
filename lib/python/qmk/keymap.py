@@ -13,7 +13,7 @@ from pygments import lex
 
 import qmk.path
 from qmk.constants import QMK_FIRMWARE, QMK_USERSPACE, HAS_QMK_USERSPACE
-from qmk.keyboard import find_keyboard_from_dir, keyboard_folder
+from qmk.keyboard import find_keyboard_from_dir, keyboard_folder, keyboard_aliases
 from qmk.errors import CppError
 from qmk.info import info_json
 
@@ -430,23 +430,34 @@ def locate_keymap(keyboard, keymap):
     # Check the keyboard folder first, last match wins
     keymap_path = ''
 
-    for search_dir in [QMK_FIRMWARE, QMK_USERSPACE] if HAS_QMK_USERSPACE else [QMK_FIRMWARE]:
-        checked_dirs = ''
-        for dir in keyboard_folder(keyboard).split('/'):
-            if checked_dirs:
-                checked_dirs = '/'.join((checked_dirs, dir))
-            else:
-                checked_dirs = dir
+    search_dirs = [QMK_FIRMWARE]
+    keyboard_dirs = [keyboard_folder(keyboard)]
+    if HAS_QMK_USERSPACE:
+        # When we've got userspace, check there _last_ as we want them to override anything in the main repo.
+        search_dirs.append(QMK_USERSPACE)
+        # We also want to search for any aliases as QMK's folder structure may have changed, with an alias, but the user
+        # hasn't updated their keymap location yet.
+        keyboard_dirs.extend(keyboard_aliases(keyboard))
+        keyboard_dirs = list(set(keyboard_dirs))
 
-            keymap_dir = Path(search_dir) / Path('keyboards') / checked_dirs / 'keymaps'
+    for search_dir in search_dirs:
+        for keyboard_dir in keyboard_dirs:
+            checked_dirs = ''
+            for dir in keyboard_dir.split('/'):
+                if checked_dirs:
+                    checked_dirs = '/'.join((checked_dirs, dir))
+                else:
+                    checked_dirs = dir
 
-            if (keymap_dir / keymap / 'keymap.c').exists():
-                keymap_path = keymap_dir / keymap / 'keymap.c'
-            if (keymap_dir / keymap / 'keymap.json').exists():
-                keymap_path = keymap_dir / keymap / 'keymap.json'
+                keymap_dir = Path(search_dir) / Path('keyboards') / checked_dirs / 'keymaps'
 
-    if keymap_path:
-        return keymap_path
+                if (keymap_dir / keymap / 'keymap.c').exists():
+                    keymap_path = keymap_dir / keymap / 'keymap.c'
+                if (keymap_dir / keymap / 'keymap.json').exists():
+                    keymap_path = keymap_dir / keymap / 'keymap.json'
+
+        if keymap_path:
+            return keymap_path
 
     # Check community layouts as a fallback
     info = info_json(keyboard)

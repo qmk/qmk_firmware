@@ -109,6 +109,22 @@ def keyboard_folder(keyboard):
     return keyboard
 
 
+def keyboard_aliases(keyboard):
+    """Returns the list of aliases for the supplied keyboard.
+
+    Includes the keyboard itself.
+    """
+    aliases = json_load(Path('data/mappings/keyboard_aliases.hjson'))
+
+    if keyboard in aliases:
+        keyboard = aliases[keyboard].get('target', keyboard)
+
+    keyboards = set(filter(lambda k: aliases[k].get('target', '') == keyboard, aliases.keys()))
+    keyboards.add(keyboard)
+    keyboards = list(sorted(keyboards))
+    return keyboards
+
+
 def keyboard_folder_or_all(keyboard):
     """Returns the actual keyboard folder.
 
