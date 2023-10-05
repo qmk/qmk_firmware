@@ -46,6 +46,7 @@ void keyoard_post_init_kb(void) {
 #ifndef LED_INDICATOR_5
     writePin(LED_INDICATOR_5, 0);
 #endif
+    keyboard_post_init_user();
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
