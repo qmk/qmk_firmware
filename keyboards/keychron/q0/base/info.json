@@ -1,58 +1,14 @@
 {
     "keyboard_name": "Q0",
-    "manufacturer": "Keychron",
-    "url": "https://github.com/Keychron",
-    "maintainer": "lalalademaxiya1",
     "usb": {
-        "vid": "0x3434",
         "pid": "0x0130",
-        "device_version": "1.0.2",
-        "force_nkro": true
+        "device_version": "1.0.2"
     },
     "matrix_pins": {
         "cols": ["A5", "A6", "A7", "B0"],
         "rows": ["B5", "B4", "B3", "A15", "A14", "A13"]
     },
-    "features": {
-        "audio": false,
-        "backlight": false,
-        "bootmagic": true,
-        "command": false,
-        "console": false,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": true,
-        "rgb_matrix": true,
-        "rgblight": false
-    },
-    "diode_direction": "ROW2COL",
-    "processor": "STM32L432",
-    "bootloader": "stm32-dfu",
     "rgb_matrix": {
-        "driver": "snled27351",
-        "animations": {
-            "band_spiral_val": true,
-            "breathing": true,
-            "cycle_all": true,
-            "cycle_left_right": true,
-            "cycle_up_down": true,
-            "rainbow_moving_chevron": true,
-            "cycle_out_in": true,
-            "cycle_out_in_dual": true,
-            "cycle_pinwheel": true,
-            "cycle_spiral": true,
-            "dual_beacon": true,
-            "rainbow_beacon": true,
-            "jellybean_raindrops": true,
-            "pixel_rain": true,
-            "typing_heatmap": true,
-            "digital_rain": true,
-            "solid_reactive_simple": true,
-            "solid_reactive_multiwide": true,
-            "solid_reactive_multinexus": true,
-            "splash": true,
-            "solid_splash": true
-        },
         "center_point": [56, 16],
         "layout": [
             {"flags": 1, "matrix": [0, 0], "x": 0, "y": 0},
@@ -83,6 +39,7 @@
             {"flags": 1, "matrix": [4, 3], "x": 112, "y": 29}
         ]
     },
+    "community_layouts": ["numpad_6x4"],
     "layouts": {
         "LAYOUT_numpad_6x4": {
             "layout": [

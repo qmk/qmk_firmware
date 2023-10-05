@@ -890,6 +890,9 @@
     "kelowna/rgb64": {
         "target": "weirdo/kelowna/rgb64"
     },
+    "keychron/q0": {
+        "target": "keychron/q0/base"
+    },
     "keychron/q1": {
         "target": "keychron/q1v1"
     }
