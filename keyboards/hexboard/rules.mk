@@ -9,7 +9,7 @@ RGB_MATRIX_DRIVER = ws2812
 #OLED_DRIVER = ssd1306
 #OLED_TRANSPORT = i2c
 
-#AUDIO_ENABLE = yes
-#AUDIO_DRIVER = pwm_software
+# AUDIO_ENABLE = yes
+# AUDIO_DRIVER = pwm_hardware
 
 CONSOLE_ENABLE = yes
