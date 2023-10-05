@@ -4,7 +4,6 @@ from pathlib import Path
 
 from milc import cli
 
-from qmk.constants import QMK_FIRMWARE
 from qmk.json_schema import json_load
 from qmk.keyboard import resolve_keyboard, keyboard_folder
 
