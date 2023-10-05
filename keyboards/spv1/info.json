@@ -21,6 +21,7 @@
         "backlight": true
     },
     "backlight": {
+        "driver": "pwm",
         "breathing": true,
         "levels": 30,
         "pin": "C7"
