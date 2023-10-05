@@ -890,6 +890,15 @@
     "kelowna/rgb64": {
         "target": "weirdo/kelowna/rgb64"
     },
+    "keychron/q0": {
+        "target": "keychron/q0/base"
+    },
+    "keychron/q1": {
+        "target": "keychron/q1v1"
+    }
+    "keychron/q4": {
+        "target": "keychron/q4/ansi"
+    }
     "kprepublic/bm40hsrgb": {
         "target": "kprepublic/bm40hsrgb/rev1"
     },
@@ -1321,5 +1330,9 @@
     },
     "zinc/reva": {
         "target": "25keys/zinc/reva"
+    },
+    // Moved during 2023 Q4 cycle
+    "ymdk/melody96": {
+        "target": "ymdk/melody96/soldered"
     }
 }

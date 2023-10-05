@@ -112,7 +112,6 @@
     * [分割キーボード](ja/feature_split_keyboard.md)
     * [速記](ja/feature_stenography.md)
     * [感熱式プリンタ](ja/feature_thermal_printer.md)
-    * [Velocikey](ja/feature_velocikey.md)
 
 * QMK の開発
   * [PR チェックリスト](ja/pr_checklist.md)

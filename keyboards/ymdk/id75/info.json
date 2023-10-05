@@ -3,7 +3,6 @@
     "keyboard_name": "Idobao x YMDK ID75",
     "maintainer": "qmk",
     "bootloader": "uf2boot",
-    "board": "STM32_F103_STM32DUINO",
     "diode_direction": "ROW2COL",
     "features": {
         "bootmagic": true,
