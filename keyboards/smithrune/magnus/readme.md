@@ -1,6 +1,6 @@
 # Smith and Rune Magnus QMK folder
 
-![magnus](https://smithrune.com/cdn/shop/products/15-SR.jpg)
+![magnus](https://imgur.com/bemM7ZZh.jpg)
 
 ## Introduction
 
