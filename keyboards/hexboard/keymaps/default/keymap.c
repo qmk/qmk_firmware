@@ -3,8 +3,8 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Hexboard Harmonic table layout (landscape)
      *       ___   ___   ___
-     *      ❬BnU ᚛-᚜OcU ᚛-᚜MiO❭__
-     *   ❬BnD᚛-᚜OcD᚛-᚜Pnc᚛-᚜Pnc❭
+     *      ❬BnU ᚛-᚜   ᚛-᚜VlM❭__
+     *   ❬BnD᚛-᚜Mod᚛-᚜VlL᚛-᚜VlH❭
      *    ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾ 
      *  ___   ___   ___   ___   ___   ___   ___
      * ❬F 5᚛-᚜Gb5᚛-᚜G 5᚛-᚜Ab5᚛-᚜A 5᚛-᚜Bb5᚛-᚜B 5❭__
@@ -29,8 +29,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *  ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾ 
      */
     [0] = LAYOUT_landscape(
-                MI_BNDU,MI_OCTU,  MI_ON,
-          MI_BNDD,MI_OCTD,  MI_AOFF,MI_AOFF,
+                MI_BNDU,_______,MI_VL5,
+          MI_BNDD,MI_MOD,  MI_VL2,MI_VL8,
 
 
       MI_F5,   MI_Gb5, MI_G5,   MI_Ab5,  MI_A5,  MI_Bb5, MI_B5,
