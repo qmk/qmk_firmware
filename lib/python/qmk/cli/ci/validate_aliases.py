@@ -21,10 +21,6 @@ def _target_keyboard_exists(target):
     if not target:
         return False
 
-    # If the target directory doesn't exist, then we can't build it.
-    if not (QMK_FIRMWARE / 'keyboards' / target).exists():
-        return False
-
     # If the target directory existed but there was no rules.mk or rules.mk was incorrectly parsed, then we can't build it.
     if not resolve_keyboard(target):
         return False

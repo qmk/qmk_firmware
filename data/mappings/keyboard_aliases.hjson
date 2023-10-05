@@ -1315,5 +1315,10 @@
     },
     "zinc/reva": {
         "target": "25keys/zinc/reva"
-    }
+    },
+
+    /* This list of aliases is for testing purposes -- ensures "linked list" recursive traversal works correctly. */
+    "_test_a": { "target": "_test_b" },
+    "_test_b": { "target": "_test_c" },
+    "_test_c": { "target": "planck/rev6" }
 }
