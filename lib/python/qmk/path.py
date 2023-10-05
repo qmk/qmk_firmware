@@ -60,13 +60,28 @@ def keymaps(keyboard_name):
     keyboard_folder = keyboard(keyboard_name)
     found_dirs = []
 
-    for root_dir in [QMK_USERSPACE, QMK_FIRMWARE] if HAS_QMK_USERSPACE else [QMK_FIRMWARE]:
-        this_keyboard_folder = root_dir / keyboard_folder
+    if HAS_QMK_USERSPACE:
+        this_keyboard_folder = Path(QMK_USERSPACE) / keyboard_folder
         for _ in range(MAX_KEYBOARD_SUBFOLDERS):
             if (this_keyboard_folder / 'keymaps').exists():
                 found_dirs.append((this_keyboard_folder / 'keymaps').resolve())
 
             this_keyboard_folder = this_keyboard_folder.parent
+            if this_keyboard_folder.resolve() == QMK_USERSPACE.resolve():
+                break
+
+        # We don't have any relevant keymap directories in userspace, so we'll use the fully-qualified path instead.
+        if len(found_dirs) == 0:
+            found_dirs.append((QMK_USERSPACE / keyboard_folder / 'keymaps').resolve())
+
+    this_keyboard_folder = QMK_FIRMWARE / keyboard_folder
+    for _ in range(MAX_KEYBOARD_SUBFOLDERS):
+        if (this_keyboard_folder / 'keymaps').exists():
+            found_dirs.append((this_keyboard_folder / 'keymaps').resolve())
+
+        this_keyboard_folder = this_keyboard_folder.parent
+        if this_keyboard_folder.resolve() == QMK_FIRMWARE.resolve():
+            break
 
     if len(found_dirs) > 0:
         return found_dirs

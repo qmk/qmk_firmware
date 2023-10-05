@@ -56,9 +56,6 @@ def new_keymap(cli):
     keymap_path_default = keymap(kb_name, 'default')
     keymap_path_new = keymaps_dirs[0] / user_name
 
-    if HAS_QMK_USERSPACE:
-        keymap_path_new = Path(QMK_USERSPACE) / keymaps_dirs[0].relative_to(QMK_FIRMWARE) / user_name
-
     if not keymap_path_default.exists():
         cli.log.error(f'Default keymap {{fg_cyan}}{keymap_path_default}{{fg_reset}} does not exist!')
         return False
