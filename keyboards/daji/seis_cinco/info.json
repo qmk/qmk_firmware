@@ -15,8 +15,13 @@
     "diode_direction": "COL2ROW",
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
+    "layouts_aliases": {
+        "LAYOUT_default": "LAYOUT_65_ansi_blocker_tsangan",
+        "LAYOUT_all": "LAYOUT_65_ansi_blocker_tsangan_split_bs"
+    },
+    "community_layouts": ["65_ansi_blocker_tsangan", "65_ansi_blocker_tsangan_split_bs"],
     "layouts": {
-        "LAYOUT_default": {
+        "LAYOUT_65_ansi_blocker_tsangan": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -91,7 +96,7 @@
                 {"matrix": [4, 15], "x": 15, "y": 4}
             ]
         },
-        "LAYOUT_all": {
+        "LAYOUT_65_ansi_blocker_tsangan_split_bs": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
