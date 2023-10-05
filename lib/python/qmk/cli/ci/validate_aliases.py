@@ -15,6 +15,7 @@ def _safe_keyboard_folder(target):
     except Exception:
         return None
 
+
 def _target_keyboard_exists(target):
     # If there's no target, then we can't build it.
     if not target:
