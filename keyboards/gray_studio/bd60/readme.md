@@ -4,7 +4,6 @@
 
  * Keyboard Maintainer: [edwardslau](https://github.com/edwardslau)
  * Hardware Support: bd60
- * Hardware Availability:
 
  Make example for this keyboard (after setting up your build environment):
 
