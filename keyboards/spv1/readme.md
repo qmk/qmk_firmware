@@ -1,6 +1,6 @@
 # SPV1 keyboard QMK firmware
 
-![spv1](https://i.imgur.com/C2tNDzY.jpg)
+![spv1](https://i.imgur.com/C2tNDzYh.jpg)
 
 SPV1 is a southpaw 75% with numpad designed by Bisoromi and sold through CannonKeys.
 
