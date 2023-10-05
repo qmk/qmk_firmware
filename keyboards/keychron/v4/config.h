@@ -17,8 +17,8 @@
 #pragma once
 
 /* RGB Matrix Driver Configuration */
-#define CKLED2001_DRIVER_COUNT 1
-#define DRIVER_ADDR_1 CKLED2001_I2C_ADDRESS_VDDIO
+#define SNLED27351_DRIVER_COUNT 1
+#define DRIVER_ADDR_1 SNLED27351_I2C_ADDRESS_VDDIO
 
 /* Increase I2C speed to 1000 KHz */
 #define I2C1_TIMINGR_PRESC 0U
@@ -27,7 +27,7 @@
 #define I2C1_TIMINGR_SCLH 15U
 #define I2C1_TIMINGR_SCLL 51U
 
-#define CKLED2001_CURRENT_TUNE \
+#define SNLED27351_CURRENT_TUNE \
     { 0xD0, 0xD0, 0x60, 0xD0, 0xD0, 0x60, 0xD0, 0xD0, 0x60, 0xD0, 0xD0, 0x60 }
 
 /* DIP switch */

@@ -17,11 +17,11 @@
 #pragma once
 
 /* LED Matrix Driver Configuration */
-#define CKLED2001_DRIVER_COUNT 1
-#define DRIVER_ADDR_1 CKLED2001_I2C_ADDRESS_GND
+#define SNLED27351_DRIVER_COUNT 1
+#define DRIVER_ADDR_1 SNLED27351_I2C_ADDRESS_GND
 
 /* Set LED driver current */
-#define CKLED2001_CURRENT_TUNE \
+#define SNLED27351_CURRENT_TUNE \
     { 0xA0, 0xA0, 0xA0, 0xA0, 0xA0, 0xA0, 0xA0, 0xA0, 0xA0, 0xA0, 0xA0, 0xA0 }
 
 /* LED Matrix Configuration */

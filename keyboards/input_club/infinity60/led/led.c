@@ -4,7 +4,7 @@
 #include "quantum.h"
 
 #ifdef LED_MATRIX_ENABLE
-const is31_led g_is31_leds[LED_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t g_is31fl3731_leds[LED_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *  driver
  *  |   LED address

@@ -161,9 +161,9 @@ void is31fl3737_init(uint8_t addr) {
 }
 
 void is31fl3737_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
-    is31_led led;
+    is31fl3737_led_t led;
     if (index >= 0 && index < RGB_MATRIX_LED_COUNT) {
-        memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
+        memcpy_P(&led, (&g_is31fl3737_leds[index]), sizeof(led));
 
         if (g_pwm_buffer[led.driver][led.r] == red && g_pwm_buffer[led.driver][led.g] == green && g_pwm_buffer[led.driver][led.b] == blue) {
             return;
@@ -182,8 +182,8 @@ void is31fl3737_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void is31fl3737_set_led_control_register(uint8_t index, bool red, bool green, bool blue) {
-    is31_led led;
-    memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
+    is31fl3737_led_t led;
+    memcpy_P(&led, (&g_is31fl3737_leds[index]), sizeof(led));
 
     uint8_t control_register_r = led.r / 8;
     uint8_t control_register_g = led.g / 8;

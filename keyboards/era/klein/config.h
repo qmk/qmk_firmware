@@ -21,9 +21,7 @@
 #define BACKLIGHT_PWM_CHANNEL RP2040_PWM_CHANNEL_B
 
 /* RGB Matrix */
-#define WS2812_PIO_USE_PIO1 // Force the usage of PIO1 peripheral, by default the WS2812 implementation uses the PIO0 peripheral
 #define RGB_MATRIX_DEFAULT_VAL 60
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
-#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
