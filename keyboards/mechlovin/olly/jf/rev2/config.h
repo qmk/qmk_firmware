@@ -20,11 +20,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
 // The address will vary depending on your wiring:
-// 0b1110100 AD <-> GND
-// 0b1110111 AD <-> VCC
-// 0b1110101 AD <-> SCL
-// 0b1110110 AD <-> SDA
-#define LED_DRIVER_ADDR_1 0b1110110
+// 00 AD <-> GND
+// 01 AD <-> SCL
+// 10 AD <-> SDA
+// 11 AD <-> VCC
+// ADDR represents A1:A0 of the 7-bit address.
+// The result is: 0b11101(ADDR)
+#define LED_DRIVER_ADDR_1 IS31FL3731_I2C_ADDRESS_SDA
 #define I2C_DRIVER I2CD2
 #define I2C1_SCL_PIN B10
 #define I2C1_SDA_PIN B11
