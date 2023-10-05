@@ -92,8 +92,11 @@ def keyboard_folder(keyboard):
     """
     aliases = json_load(Path('data/mappings/keyboard_aliases.hjson'))
 
-    if keyboard in aliases:
+    while keyboard in aliases:
+        last_keyboard = keyboard
         keyboard = aliases[keyboard].get('target', keyboard)
+        if keyboard == last_keyboard:
+            break
 
     rules_mk_file = Path(base_path, keyboard, 'rules.mk')
 
