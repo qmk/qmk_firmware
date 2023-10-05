@@ -2,8 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
-#include "nifty_numpad.h"
-#include "quantum.h"
 
 // Custom String Definitions
 #define STR_EDIT_GEN      "emg"

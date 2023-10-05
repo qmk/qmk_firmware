@@ -2,8 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
-#include "nifty_numpad.h"
-#include "quantum.h"
 
 // Layer defines. Using defines instead of enums here to force the RGB
 // layer to be 3–this should be more convenient for creating custom
