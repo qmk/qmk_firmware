@@ -16,25 +16,31 @@
 
 #include "quantum.h"
 
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if(res) {
-        writePin(LED_CAPS, led_state.caps_lock);
-        writePin(LED_IND1, led_state.caps_lock);
-        writePin(LED_IND2, led_state.num_lock);
-        writePin(LED_IND3, led_state.scroll_lock);
+void keyboard_post_init_kb(void) {
+     setPinOutput(LED_CAPS);
+     setPinOutput(LED_IND1);
+     setPinOutput(LED_IND2);
+     setPinOutput(LED_IND3);
+     setPinOutput(LED_IND4);
+     setPinOutput(LED_IND5);
+     setPinOutput(LED_IND6);
+     setPinOutput(LED_IND7);
+     setPinOutput(LED_IND8);
+}
 
-        writePin(LED_IND4, led_state.scroll_lock);
-        writePin(LED_IND6, led_state.scroll_lock);
-
-        writePin(LED_IND5, led_state.num_lock);
-        writePin(LED_IND8, led_state.num_lock);
-    }
-    return res;
+void led_update_ports(led_t led_state) {
+    writePin(LED_CAPS, led_state.caps_lock);
+    writePin(LED_IND1, led_state.caps_lock);
+    writePin(LED_IND2, led_state.num_lock);
+    writePin(LED_IND3, led_state.scroll_lock);
+    writePin(LED_IND4, led_state.scroll_lock);
+    writePin(LED_IND6, led_state.scroll_lock);
+    writePin(LED_IND5, led_state.num_lock);
+    writePin(LED_IND8, led_state.num_lock);
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
     if (get_highest_layer(state) > 0) writePin(LED_IND7, 1);
     else writePin(LED_IND7, 0);
-    return state;
+    return layer_state_set_user(state);
 }
