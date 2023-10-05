@@ -20,7 +20,8 @@
 #define CAPS_COLOR_B 0xFF
 
 void keyboard_post_init_kb(void) {
-    rgblight_set_effect_range(0,29) ;
+    rgblight_set_effect_range(0,29);
+    keyboard_post_init_user();
 }
 
 bool led_update_kb(led_t led_state) {
