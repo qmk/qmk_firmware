@@ -53,6 +53,7 @@ const snled27351_led_t PROGMEM g_snled27351_leds[RGB_MATRIX_LED_COUNT] = {
     {0, I_11,   G_11,   H_11},
     {0, I_12,   G_12,   H_12},
     {0, I_13,   G_13,   H_13},
+    {0, I_14,   G_14,   H_14},
 
     {0, L_1,    J_1,    K_1},
     {0, L_2,    J_2,    K_2},
@@ -67,10 +68,8 @@ const snled27351_led_t PROGMEM g_snled27351_leds[RGB_MATRIX_LED_COUNT] = {
     {0, L_11,   J_11,   K_11},
     {0, L_12,   J_12,   K_12},
     {0, L_14,   J_14,   K_14},
-    {0, I_14,   G_14,   H_14},
 
     {0, C_1,    A_1,    B_1},
-    {0, C_2,    A_2,    B_2},
     {0, C_3,    A_3,    B_3},
     {0, C_4,    A_4,    B_4},
     {0, C_5,    A_5,    B_5},

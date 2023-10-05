@@ -1,4 +1,4 @@
-/* Copyright 2022 @ Keychron(https://www.keychron.com)
+/* Copyright 2022 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,10 +16,13 @@
 
 #pragma once
 
-#define SNLED27351_CURRENT_TUNE { 0xFF, 0xFF, 0x70, 0xFF, 0xFF, 0x70, 0xFF, 0xFF, 0x70, 0xFF, 0xFF, 0x70 }
+/* RGB Matrix Driver Configuration */
+#define SNLED27351_DRIVER_COUNT 2
+#define DRIVER_ADDR_1 SNLED27351_I2C_ADDRESS_VDDIO
+#define DRIVER_ADDR_2 SNLED27351_I2C_ADDRESS_GND
 
-/* turn off effects when suspended */
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
+/* RGB Matrix Configuration */
+#define RGB_MATRIX_LED_COUNT 61
 
-#define RGB_MATRIX_KEYPRESSES
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+/* Scan phase of led driver set as SNLED27351_MSKPHASE_9CHANNEL(defined as 0x03 in SNLED27351.h) */
+#define SNLED27351_PHASE_CHANNEL SNLED27351_MSKPHASE_9CHANNEL

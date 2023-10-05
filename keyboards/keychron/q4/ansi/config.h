@@ -1,4 +1,4 @@
-/* Copyright 2022 @ Keychron(https://www.keychron.com)
+/* Copyright 2022 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,10 +16,5 @@
 
 #pragma once
 
-#define SNLED27351_CURRENT_TUNE { 0xFF, 0xFF, 0x70, 0xFF, 0xFF, 0x70, 0xFF, 0xFF, 0x70, 0xFF, 0xFF, 0x70 }
-
-/* turn off effects when suspended */
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
-
-#define RGB_MATRIX_KEYPRESSES
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+/* Enable CapsLcok LED*/
+#define CAPS_LOCK_LED_INDEX 28
