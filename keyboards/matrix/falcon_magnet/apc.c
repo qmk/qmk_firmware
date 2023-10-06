@@ -71,11 +71,7 @@ static uint32_t apc_compute_interval(uint32_t row, uint32_t col, uint32_t index)
 // enabled the rapid trigger feature
 static uint32_t apc_get_key_interval(uint32_t row, uint32_t col, uint32_t layer)
 {
-#ifdef DYNAMIC_KEYMAP_ENABLE
-    uint16_t keycode = dynamic_keymap_get_keycode(layer, row, col);
-#else
-    uint16_t keycode = keymaps[layer][row][col];
-#endif
+    uint16_t keycode = keycode_at_keymap_location(layer, row, col);
     uint16_t index = 0;
     if (keycode>=KC_F1 && keycode <= KC_F12) {
         index = keycode - KC_F1 + 1;
