@@ -117,11 +117,9 @@
             {"matrix": [4, 16], "x": 224, "y": 58, "flags": 1}
         ]
     },
-    "url": "https://github.com/Keychron",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0160",
-        "vid": "0x3434"
+        "pid": "0x0160"
     },
     "layouts": {
         "LAYOUT_ansi_108": {

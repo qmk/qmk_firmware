@@ -80,26 +80,6 @@ void console_task(void);
 void midi_ep_task(void);
 #endif
 
-/* TESTING
- * Amber LED blinker thread, times are in milliseconds.
- */
-/* set this variable to non-zero anywhere to blink once */
-// static THD_WORKING_AREA(waThread1, 128);
-// static THD_FUNCTION(Thread1, arg) {
-
-//   (void)arg;
-//   chRegSetThreadName("blinker");
-//   while (true) {
-//     systime_t time;
-
-//     time = USB_DRIVER.state == USB_ACTIVE ? 250 : 500;
-//     palClearLine(LINE_CAPS_LOCK);
-//     chSysPolledDelayX(MS2RTC(STM32_HCLK, time));
-//     palSetLine(LINE_CAPS_LOCK);
-//     chSysPolledDelayX(MS2RTC(STM32_HCLK, time));
-//   }
-// }
-
 /* Early initialisation
  */
 __attribute__((weak)) void early_hardware_init_pre(void) {
@@ -135,9 +115,6 @@ void boardInit(void) {
 
 void protocol_setup(void) {
     usb_device_state_init();
-
-    // TESTING
-    // chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);
 }
 
 static host_driver_t *driver = NULL;
@@ -189,6 +166,14 @@ void protocol_pre_task(void) {
                 /* issue a remote wakeup event to the host which should resume
                  * the bus and get our keyboard out of suspension. */
                 usbWakeupHost(&USB_DRIVER);
+#    if USB_SUSPEND_WAKEUP_DELAY > 0
+                /* Some hubs, kvm switches, and monitors do weird things, with
+                 * USB device state bouncing around wildly on wakeup, yielding
+                 * race conditions that can corrupt the keyboard state.
+                 *
+                 * Pause for a while to let things settle... */
+                wait_ms(USB_SUSPEND_WAKEUP_DELAY);
+#    endif
             }
         }
         /* after a successful wakeup a USB_EVENT_WAKEUP is signaled to QMK by

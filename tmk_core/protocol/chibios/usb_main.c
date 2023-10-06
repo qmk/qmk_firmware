@@ -784,34 +784,19 @@ void init_usb_driver(USBDriver *usbp) {
 #endif
     }
 
-    /*
-     * Activates the USB driver and then the USB bus pull-up on D+.
-     * Note, a delay is inserted in order to not have to disconnect the cable
-     * after a reset.
-     */
-    usbDisconnectBus(usbp);
-    usbStop(usbp);
-    wait_ms(50);
-    usbStart(usbp, &usbcfg);
-    usbConnectBus(usbp);
+    restart_usb_driver(usbp);
 
     chVTObjectInit(&keyboard_idle_timer);
 }
 
+/** @brief Restarts the USB driver and emulates a physical bus reconnection.
+ * Note that the bus reconnection is MCU and even board specific, so it might
+ * be a NOP on some hardware platforms.
+ */
 __attribute__((weak)) void restart_usb_driver(USBDriver *usbp) {
     usbDisconnectBus(usbp);
     usbStop(usbp);
-
-#if USB_SUSPEND_WAKEUP_DELAY > 0
-    // Some hubs, kvm switches, and monitors do
-    // weird things, with USB device state bouncing
-    // around wildly on wakeup, yielding race
-    // conditions that can corrupt the keyboard state.
-    //
-    // Pause for a while to let things settle...
-    wait_ms(USB_SUSPEND_WAKEUP_DELAY);
-#endif
-
+    wait_ms(50);
     usbStart(usbp, &usbcfg);
     usbConnectBus(usbp);
 }
