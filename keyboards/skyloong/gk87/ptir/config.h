@@ -12,9 +12,17 @@
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-#    define DRIVER_ADDR_2 0b0100011
+#    define DRIVER_1_CS B12
+#    define DRIVER_2_CS B11
+// Hardware enable lines may be connected to the same pin
+#    define DRIVER_1_EN B5
+#    define DRIVER_2_EN B5
+
 #    define DRIVER_COUNT 2
-#    define RGB_MATRIX_LED_COUNT 91
+#    define DRIVER_1_LED_TOTAL 47
+#    define DRIVER_2_LED_TOTAL 44
+#    define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+
 #    define CAPS_LOCK_INDEX 50
 #    define WIN_MOD_INDEX 22
 #    define MAC_MOD_INDEX 23
