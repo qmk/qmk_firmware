@@ -21,12 +21,7 @@
         "console": false,
         "extrakey": true,
         "mousekey": false,
-        "nkro": true,
-        "backlight": false,
-        "rgblight": false,
-        "rgb_matrix": false,
-        "audio": true,
-        "encoder": false
+        "nkro": true
     },
     "build": {
         "lto": true
