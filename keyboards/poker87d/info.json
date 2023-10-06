@@ -25,7 +25,23 @@
         "pin": "E2"
     },
     "rgblight": {
-        "max_brightness": 180
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 125,
+        "max_brightness": 180,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
@@ -89,7 +105,7 @@
                 {"matrix": [2, 9], "x": 9.5, "y": 2.5},
                 {"matrix": [2, 10], "x": 10.5, "y": 2.5},
                 {"matrix": [2, 11], "x": 11.5, "y": 2.5},
-                {"matrix": [2, 12], "x": 12.5, "y": 2.5, "w": 1.25},
+                {"matrix": [2, 12], "x": 12.5, "y": 2.5},
 
                 {"matrix": [2, 14], "x": 15.25, "y": 2.5},
                 {"matrix": [5, 13], "x": 16.25, "y": 2.5},

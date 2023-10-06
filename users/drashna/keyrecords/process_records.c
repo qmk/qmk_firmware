@@ -6,9 +6,11 @@
 #ifdef OS_DETECTION_ENABLE
 #    include "os_detection.h"
 #endif
+#ifdef CUSTOM_DYNAMIC_MACROS_ENABLE
+#    include "keyrecords/dynamic_macros.h"
+#endif
 
 uint16_t copy_paste_timer;
-bool     host_driver_disabled = false;
 // Defines actions tor my global custom keycodes. Defined in drashna.h file
 // Then runs the _keymap's record handier if not processed here
 
@@ -56,29 +58,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #if defined(CUSTOM_POINTING_DEVICE)
           && process_record_pointing(keycode, record)
 #endif
+#ifdef CUSTOM_DYNAMIC_MACROS_ENABLE
+          && process_record_dynamic_macro(keycode, record)
+#endif
           && true)) {
         return false;
     }
 
     switch (keycode) {
-        case FIRST_DEFAULT_LAYER_KEYCODE ... LAST_DEFAULT_LAYER_KEYCODE:
-            if (record->event.pressed) {
-                uint8_t mods = mod_config(get_mods() | get_oneshot_mods());
-                if (!mods) {
-                    set_single_persistent_default_layer(keycode - FIRST_DEFAULT_LAYER_KEYCODE);
-#if LAST_DEFAULT_LAYER_KEYCODE > (FIRST_DEFAULT_LAYER_KEYCODE + 3)
-                } else if (mods & MOD_MASK_SHIFT) {
-                    set_single_persistent_default_layer(keycode - FIRST_DEFAULT_LAYER_KEYCODE + 4);
-#    if LAST_DEFAULT_LAYER_KEYCODE > (FIRST_DEFAULT_LAYER_KEYCODE + 7)
-
-                } else if (mods & MOD_MASK_CTRL) {
-                    set_single_persistent_default_layer(keycode - FIRST_DEFAULT_LAYER_KEYCODE + 8);
-#    endif
-#endif
-                }
-            }
-            break;
-
         case VRSN: // Prints firmware version
             if (record->event.pressed) {
                 send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), TAP_CODE_DELAY);
@@ -111,7 +98,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 userspace_config.rgb_layer_change ^= 1;
                 dprintf("rgblight layer change [EEPROM]: %u\n", userspace_config.rgb_layer_change);
-                eeconfig_update_user(userspace_config.raw);
+                eeconfig_update_user_config(&userspace_config.raw);
                 if (userspace_config.rgb_layer_change) {
 #    if defined(CUSTOM_RGB_MATRIX)
                     rgb_matrix_set_flags(LED_FLAG_UNDERGLOW | LED_FLAG_KEYLIGHT | LED_FLAG_INDICATOR);
@@ -168,38 +155,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
 #    endif
                 if (is_eeprom_updated) {
-                    eeconfig_update_user(userspace_config.raw);
+                    eeconfig_update_user_config(&userspace_config.raw);
                 }
             }
             break;
 #endif
-        case KEYLOCK: {
-            static host_driver_t *host_driver = 0;
-
+        case KEYLOCK:
             if (record->event.pressed) {
-                if (host_get_driver()) {
-                    host_driver = host_get_driver();
-                    clear_keyboard();
-                    host_set_driver(0);
-                    host_driver_disabled = true;
-                } else {
-                    host_set_driver(host_driver);
-                    host_driver_disabled = false;
-                }
+                toggle_keyboard_lock();
             }
             break;
-        }
-        case OLED_LOCK: {
-#if defined(OLED_ENABLE) && defined(CUSTOM_OLED_DRIVER)
-            extern bool is_oled_locked;
-            if (record->event.pressed) {
-                is_oled_locked = !is_oled_locked;
-                if (is_oled_locked) {
-                    oled_on();
-                }
-            }
-#endif
-        } break;
 #if defined(OS_DETECTION_ENABLE) && defined(OS_DETECTION_DEBUG_ENABLE)
         case STORE_SETUPS:
             if (record->event.pressed) {
@@ -218,5 +183,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 __attribute__((weak)) void post_process_record_keymap(uint16_t keycode, keyrecord_t *record) {}
 void                       post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+#if defined(OS_DETECTION_ENABLE) && defined(UNICODE_COMMON_ENABLE)
+    switch (keycode) {
+        case QK_MAGIC_SWAP_LCTL_LGUI:
+        case QK_MAGIC_SWAP_RCTL_RGUI:
+        case QK_MAGIC_SWAP_CTL_GUI:
+        case QK_MAGIC_UNSWAP_LCTL_LGUI:
+        case QK_MAGIC_UNSWAP_RCTL_RGUI:
+        case QK_MAGIC_UNSWAP_CTL_GUI:
+        case QK_MAGIC_TOGGLE_CTL_GUI:
+            set_unicode_input_mode_soft(keymap_config.swap_lctl_lgui ? UNICODE_MODE_MACOS : UNICODE_MODE_WINCOMPOSE);
+            break;
+    }
+#endif
     post_process_record_keymap(keycode, record);
 }

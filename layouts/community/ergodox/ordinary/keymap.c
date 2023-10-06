@@ -238,7 +238,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
     // shift or caps lock turns on red light
-    if ((keyboard_report->mods & MOD_BIT(KC_LSFT)) || (keyboard_report->mods & MOD_BIT(KC_RSFT)) || (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK))) {
+    if ((keyboard_report->mods & MOD_BIT(KC_LSFT)) || (keyboard_report->mods & MOD_BIT(KC_RSFT)) || host_keyboard_led_state().caps_lock) {
         ergodox_right_led_1_on();
     } else {
         ergodox_right_led_1_off();

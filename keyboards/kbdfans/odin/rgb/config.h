@@ -16,7 +16,6 @@
 
 #pragma once
 
-#define RGBLED_NUM 104
 #define RGB_MATRIX_LED_COUNT 104
 
 #ifdef RGB_MATRIX_ENABLE

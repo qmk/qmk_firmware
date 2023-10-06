@@ -6,12 +6,27 @@
         "pid": "0xA649",
         "device_version": "0.0.3"
     },
+    "rgblight": {
+        "led_count": 9,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
     "ws2812": {
         "pin": "A1",
         "driver": "pwm"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
     },
     "matrix_pins": {
         "cols": ["B11", "B10", "B2", "B1", "A7", "B0"],
@@ -90,7 +105,7 @@
                 {"matrix": [8, 2], "x": 2, "y": 4},
                 {"matrix": [9, 3], "x": 3, "y": 4},
                 {"matrix": [9, 4], "x": 4, "y": 4},
-                {"matrix": [9, 5], "x": 5, "y": 4, "w": 2},
+                {"matrix": [9, 0], "x": 5, "y": 4, "w": 2},
                 {"matrix": [9, 1], "x": 7, "y": 4},
                 {"matrix": [9, 2], "x": 8, "y": 4},
                 {"matrix": [8, 3], "x": 9, "y": 4},
@@ -223,7 +238,7 @@
                 {"matrix": [8, 1], "x": 1, "y": 4},
                 {"matrix": [8, 2], "x": 2, "y": 4},
                 {"matrix": [9, 3], "x": 3, "y": 4},
-                {"matrix": [9, 4], "x": 4, "y": 4, "w": 2},
+                {"matrix": [9, 5], "x": 4, "y": 4, "w": 2},
                 {"matrix": [9, 0], "x": 6, "y": 4},
                 {"matrix": [9, 1], "x": 7, "y": 4},
                 {"matrix": [9, 2], "x": 8, "y": 4},
@@ -290,8 +305,8 @@
                 {"matrix": [8, 1], "x": 1, "y": 4},
                 {"matrix": [8, 2], "x": 2, "y": 4},
                 {"matrix": [9, 3], "x": 3, "y": 4},
-                {"matrix": [9, 4], "x": 4, "y": 4, "w": 2},
-                {"matrix": [9, 0], "x": 6, "y": 4, "w": 2},
+                {"matrix": [9, 5], "x": 4, "y": 4, "w": 2},
+                {"matrix": [9, 1], "x": 6, "y": 4, "w": 2},
                 {"matrix": [9, 2], "x": 8, "y": 4},
                 {"matrix": [8, 3], "x": 9, "y": 4},
                 {"matrix": [8, 4], "x": 10, "y": 4},

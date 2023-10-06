@@ -24,9 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* ws2812 RGB LED */
-#define RGBLED_NUM 12    // Number of LEDs
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

@@ -41,7 +41,7 @@
         ]
     },
     "rgb_matrix": {
-        "driver": "WS2812",
+        "driver": "ws2812",
         "layout": [
             {"flags": 2, "x": 17, "y": 50},
             {"flags": 2, "x": 37, "y": 50},
@@ -112,7 +112,7 @@
                 {"label": "'", "matrix": [2, 11], "x": 11.75, "y": 2},
                 {"label": "ISO'", "matrix": [2, 12], "x": 12.75, "y": 2},
                 {"label": "Enter", "matrix": [2, 13], "w": 1.25, "x": 13.75, "y": 2},
-                {"label": "LShift", "matrix": [3, 0], "w": 1.25, "x": 0, "y": 3},
+                {"label": "LShift", "matrix": [3, 15], "w": 1.25, "x": 0, "y": 3},
                 {"label": "ISO<>", "matrix": [3, 1], "x": 1.25, "y": 3},
                 {"label": "Z", "matrix": [3, 2], "x": 2.25, "y": 3},
                 {"label": "X", "matrix": [3, 3], "x": 3.25, "y": 3},

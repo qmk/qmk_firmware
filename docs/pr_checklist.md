@@ -11,7 +11,6 @@ If there are any inconsistencies with these recommendations, you're best off [cr
     - if submitter _does_ use their own `master` branch, they'll be given a link to the ["how to git"](newbs_git_using_your_master_branch.md) page after merging -- (end of this document will contain the contents of the message)
 - PRs should contain the smallest amount of modifications required for a single change to the codebase
     - multiple keyboards at the same time is not acceptable
-        - exception: keymaps for a single user targeting multiple keyboards and/or userspace is acceptable
     - **the smaller the PR, the higher likelihood of a quicker review, higher likelihood of quicker merge, and less chance of conflicts**
 - newly-added directories and filenames must be lowercase
     - the lowercase requirement may be relaxed if upstream sources originally had uppercase characters (e.g. LUFA, ChibiOS, or imported files from other repositories etc.)
@@ -40,9 +39,11 @@ If there are any inconsistencies with these recommendations, you're best off [cr
 
 ## Keymap PRs
 
+Note that personal keymap submissions will no longer be accepted. This section applies to manufacturer-supported keymaps.
+
 - `#include QMK_KEYBOARD_H` preferred to including specific board files
 - prefer layer `enum`s to `#define`s
-- require custom keycode `enum`s to `#define`s, first entry must have ` = SAFE_RANGE`
+- custom keycode `enum`s must have first entry `= SAFE_RANGE`
 - terminating backslash (`\`) in lines of LAYOUT macro parameters is superfluous and should be removed
 - some care with spacing (e.g., alignment on commas or first char of keycodes) makes for a much nicer-looking keymap
 
@@ -79,6 +80,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
       - Encoder Configuration
       - Bootmagic Configuration
       - LED Indicator Configuration
+    - Run `qmk format-json` on this file before submitting your PR. Be sure to append the `-i` flag to directly modify the file, or paste the outputted code into the file. 
 - `readme.md`
     - must follow the [template](https://github.com/qmk/qmk_firmware/blob/master/data/templates/keyboard/readme.md)
     - flash command is present, and has `:flash` at end
@@ -132,6 +134,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - if using `MO(1)` and `MO(2)` keycodes together to access a third layer, the [Tri Layer](https://docs.qmk.fm/#/feature_tri_layer) feature should be used, rather than manually implementing this using `layer_on/off()` and `update_tri_layer()` functions in the keymap's `process_record_user()`.
 - default (and via) keymaps should be "pristine"
     - bare minimum to be used as a "clean slate" for another user to develop their own user-specific keymap
+    - what does pristine mean? no custom keycodes. no advanced features like tap dance or macros. basic mod taps and home row mods would be acceptable where their use is necessary
     - standard layouts preferred in these keymaps, if possible
     - should use [encoder map feature](https://docs.qmk.fm/#/feature_encoders?id=encoder-map), rather than `encoder_update_user()`
     - default keymap should not enable VIA -- the VIA integration documentation requires a keymap called `via`
