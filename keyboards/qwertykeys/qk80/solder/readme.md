@@ -1,6 +1,6 @@
 # qk80 - Solder PCB
 
-![qk80](https://i.imgur.com/qSXHoWyh.jpg)
+![qk80](https://i.imgur.com/QNDIxFGh.jpg)
 
 A 80% made by Qwertykeys.
 

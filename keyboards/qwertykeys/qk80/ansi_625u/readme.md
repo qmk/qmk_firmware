@@ -1,6 +1,6 @@
 # qk80 - 625U ANSI PCB
 
-![qk80](https://i.imgur.com/qSXHoWyh.jpg)
+![qk80](https://i.imgur.com/5DAfN7eh.jpg)
 
 A 80% made by Qwertykeys.
 
