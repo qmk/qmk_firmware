@@ -47,11 +47,6 @@ struct apc_key
 
 static struct apc_key apc_matrix[MATRIX_ROWS][MATRIX_COLS];
 
-#ifdef DYNAMIC_KEYMAP_ENABLE
-#include "dynamic_keymap.h"
-#else
-extern const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS];
-#endif
 
 //
 // TODO:
