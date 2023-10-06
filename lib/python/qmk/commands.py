@@ -219,9 +219,6 @@ def parse_configurator_json(configurator_file):
         if 'target' in aliases[orig_keyboard]:
             user_keymap['keyboard'] = aliases[orig_keyboard]['target']
 
-        if 'layouts' in aliases[orig_keyboard] and user_keymap['layout'] in aliases[orig_keyboard]['layouts']:
-            user_keymap['layout'] = aliases[orig_keyboard]['layouts'][user_keymap['layout']]
-
     return user_keymap
 
 

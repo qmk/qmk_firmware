@@ -30,7 +30,18 @@
         "saturation_steps": 8,
         "brightness_steps": 8,
         "led_count": 3,
-        "sleep": true
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true
+        }
     },
     "tapping": {
         "term": 0

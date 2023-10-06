@@ -1,7 +1,7 @@
-#include "quantum.h"
 #include "ws2812.h"
-#include <ch.h>
-#include <hal.h>
+
+#include "gpio.h"
+#include "chibios_config.h"
 
 /* Adapted from https://github.com/bigjosh/SimpleNeoPixelDemo/ */
 
@@ -72,7 +72,7 @@ void ws2812_init(void) {
 }
 
 // Setleds for standard RGB
-void ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
+void ws2812_setleds(rgb_led_t *ledarray, uint16_t leds) {
     static bool s_init = false;
     if (!s_init) {
         ws2812_init();

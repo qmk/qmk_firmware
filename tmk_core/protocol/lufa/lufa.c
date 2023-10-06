@@ -48,10 +48,10 @@
 #    include "sleep_led.h"
 #endif
 #include "suspend.h"
+#include "wait.h"
 
 #include "usb_descriptor.h"
 #include "lufa.h"
-#include "quantum.h"
 #include "usb_device_state.h"
 #include <util/atomic.h>
 

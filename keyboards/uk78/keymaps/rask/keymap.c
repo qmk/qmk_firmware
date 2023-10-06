@@ -74,10 +74,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-void led_set_user(uint8_t usb_led) {
-  if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
+bool led_update_user(led_t led_state) {
+  if (led_state.caps_lock) {
     DDRA |= (1 << 3); PORTA |= (1 << 3);
   } else {
     DDRA &= ~(1 << 3); PORTA &= ~(1 << 3);
   }
+  return false;
 }

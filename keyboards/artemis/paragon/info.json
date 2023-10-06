@@ -18,18 +18,16 @@
     },
     "processor": "atmega32u4",
     "url": "",
-    "encoder": {
-        "rotary": [
-            { "pin_a": "D3", "pin_b": "D5" }
-        ]
-    },
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x3449",
         "vid": "0x8C27"
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_all"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0 },
                 { "matrix": [0, 2], "x": 1.5, "y": 0 },
