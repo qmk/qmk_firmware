@@ -15,52 +15,52 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- #pragma once
+#pragma once
 
 #include "quantum.h"
 
 #ifndef APC_KEY_MIN
-#define APC_KEY_MIN             2048
+#    define APC_KEY_MIN 2048
 #endif
 
 #ifndef APC_KEY_MAX
-#define APC_KEY_MAX             4096
+#    define APC_KEY_MAX 4096
 #endif
 
 #ifndef APC_INTERVAL_MIN
-#define APC_INTERVAL_MIN        50
+#    define APC_INTERVAL_MIN 50
 #endif
 
 #ifndef APC_INTERVAL_MAX
-#define APC_INTERVAL_MAX        2048
+#    define APC_INTERVAL_MAX 2048
 #endif
 
 #ifndef APC_INTERVAL_COUNT
-#define APC_INTERVAL_COUNT      24
+#    define APC_INTERVAL_COUNT 24
 #endif
 
 #ifndef APC_INTERVAL_INVALID
-#define APC_INTERVAL_INVALID    0
+#    define APC_INTERVAL_INVALID 0
 #endif
 
 #ifndef APC_INTERVAL_DEFAULT
-#define APC_INTERVAL_DEFAULT    500
+#    define APC_INTERVAL_DEFAULT 500
 #endif
 
 #ifndef APC_INTERVAL_INDEX
-#define APC_INTERVAL_INDEX      5
+#    define APC_INTERVAL_INDEX 5
 #endif
 
 #ifndef APC_THRESHOLD
-#define APC_THRESHOLD           100
+#    define APC_THRESHOLD 100
 #endif
 
 #ifndef APC_KEYMAP_DOWN_LAYER
-#define APC_KEYMAP_DOWN_LAYER   4
+#    define APC_KEYMAP_DOWN_LAYER 4
 #endif
 
 #ifndef APC_KEYMAP_UP_LAYER
-#define APC_KEYMAP_UP_LAYER     5
+#    define APC_KEYMAP_UP_LAYER 5
 #endif
 
 void apc_matrix_init(void);
