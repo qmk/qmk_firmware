@@ -4,6 +4,13 @@
     //     "target": "<keyboard_folder>"
     // }
     //
+
+    /* This list of aliases is for testing purposes -- ensures "linked list" recursive traversal works correctly. */
+    "_test_a": { "target": "_test_b" },
+    "_test_b": { "target": "_test_c" },
+    "_test_c": { "target": "planck/rev6" },
+
+    /* The main list of aliases for moved keyboards within QMK. */
     "2_milk": {
         "target": "spaceman/2_milk"
     },
@@ -71,7 +78,7 @@
         "target": "kakunpc/angel17"
     },
     "angel64": {
-        "target": "angel64/alpha"
+        "target": "kakunpc/angel64/alpha"
     },
     "angel64/alpha": {
         "target": "kakunpc/angel64/alpha"
@@ -92,10 +99,10 @@
         "target": "viktus/at101_bh"
     },
     "atom47/rev2": {
-        "target": "maartenwut/atom47/rev2"
+        "target": "evyd13/atom47/rev2"
     },
     "atom47/rev3": {
-        "target": "maartenwut/atom47/rev3"
+        "target": "evyd13/atom47/rev3"
     },
     "bakeneko60": {
         "target": "kkatano/bakeneko60"
@@ -140,7 +147,7 @@
         "target": "drhigsby/bkf"
     },
     "bm16a": {
-        "target": "kprepublic/bm16a"
+        "target": "kprepublic/bm16a/v1"
     },
     "bm16s": {
         "target": "kprepublic/bm16s"
@@ -152,16 +159,16 @@
         "target": "kprepublic/bm43a"
     },
     "bm60poker": {
-        "target": "kprepublic/bm60poker"
+        "target": "kprepublic/bm60poker/rev1"
     },
     "bm60rgb": {
-        "target": "kprepublic/bm60rgb"
+        "target": "kprepublic/bm60rgb/rev1"
     },
     "bm60rgb_iso": {
-        "target": "kprepublic/bm60rgb_iso"
+        "target": "kprepublic/bm60rgb_iso/rev1"
     },
     "bm68rgb": {
-        "target": "kprepublic/bm68rgb"
+        "target": "kprepublic/bm68rgb/rev1"
     },
     "bpiphany/pegasushoof": {
         "target": "bpiphany/pegasushoof/2013"
@@ -290,7 +297,10 @@
         "target": "drhigsby/dubba175"
     },
     "durgod/k320": {
-        "target": "durgod/k3x0/k320"
+        "target": "durgod/k320/base"
+    },
+    "durgod/k3x0/k320": {
+        "target": "durgod/k320/base"
     },
     "durgod/hades": {
         "target": "durgod/dgk6x/hades_ansi"
@@ -410,7 +420,7 @@
         "target": "ferris/0_1"
     },
     "handwired/hillside/0_1": {
-        "target": "handwired/hillside/48"
+        "target": "hillside/48/0_1"
     },
     "handwired/ibm122m": {
         "target": "ibm/model_m_122/ibm122m"
@@ -485,10 +495,10 @@
         "target": "keyhive/honeycomb"
     },
     "id67/default_rgb": {
-        "target": "idobao/id67/default_rgb"
+        "target": "idobao/id67"
     },
     "id67/rgb": {
-        "target": "idobao/id67/rgb"
+        "target": "idobao/id67"
     },
     "id80": {
         "target": "idobao/id80/v2/ansi"
@@ -500,7 +510,7 @@
         "target": "idb/idb_60"
     },
     "idobo": {
-        "target": "idobao/id75"
+        "target": "idobao/id75/v1"
     },
     "idobao/id80/v1/ansi": {
         "target": "idobao/id80/v2/ansi"
@@ -716,7 +726,7 @@
         "target": "mechlovin/adelais/rgb_led/rev1"
     },
     "mechlovin/adelais/standard_led": {
-        "target": "mechlovin/adelais/standard_led/rev2"
+        "target": "mechlovin/adelais/standard_led/arm/rev2"
     },
     "mechlovin/delphine": {
         "target": "mechlovin/delphine/mono_led"
@@ -881,10 +891,10 @@
         "target": "drhigsby/packrat"
     },
     "pancake/feather": {
-        "target": "spaceman/pancake/feather"
+        "target": "spaceman/pancake/rev1/feather"
     },
     "pancake/promicro": {
-        "target": "spaceman/pancake/promicro"
+        "target": "spaceman/pancake/rev1/promicro"
     },
     "peiorisboards/ixora": {
         "target": "coarse/ixora"
@@ -902,7 +912,7 @@
         "target": "dm9records/plaid"
     },
     "plain60": {
-        "target": "maartenwut/plain60"
+        "target": "evyd13/plain60"
     },
     "plexus75": {
         "target": "checkerboards/plexus75"
@@ -962,7 +972,7 @@
         "target": "rmi_kb/chevron"
     },
     "ramonimbao/herringbone": {
-        "target": "ramonimbao/herringbone/v1"
+        "target": "rmi_kb/herringbone/v1"
     },
     "ramonimbao/herringbone/pro": {
         "target": "rmi_kb/herringbone/pro"
@@ -971,7 +981,7 @@
         "target": "rmi_kb/herringbone/v1"
     },
     "ramonimbao/mona": {
-        "target": "ramonimbao/mona/v1"
+        "target": "rmi_kb/mona/v1"
     },
     "ramonimbao/mona/v1": {
         "target": "rmi_kb/mona/v1"
@@ -1124,7 +1134,7 @@
         "target": "tkw/stoutgat/v1"
     },
     "suihankey": {
-        "target": "suihankey/split/alpha"
+        "target": "kakunpc/suihankey/split/alpha"
     },
     "suihankey/alpha": {
         "target": "kakunpc/suihankey/alpha"
@@ -1136,7 +1146,7 @@
         "target": "kakunpc/suihankey/split"
     },
     "ta65": {
-        "target": "maartenwut/ta65"
+        "target": "evyd13/ta65"
     },
     "tartan": {
         "target": "dm9records/tartan"
@@ -1169,7 +1179,7 @@
         "target": "marksard/treadstone48/rev2"
     },
     "tronguylabs/m122_3270": {
-        "target": "ibm/model_m_122/m122_3270"
+        "target": "ibm/model_m_122/m122_3270/teensy"
     },
     "txuu": {
         "target": "matthewdias/txuu"
@@ -1178,7 +1188,7 @@
         "target": "nacly/ua62"
     },
     "underscore33": {
-        "target": "underscore33/rev1"
+        "target": "tominabox1/underscore33/rev1"
     },
     "underscore33/rev1": {
         "target": "tominabox1/underscore33/rev1"
@@ -1205,7 +1215,7 @@
         "target": "qpockets/wanten"
     },
     "wasdat": {
-        "target": "maartenwut/wasdat"
+        "target": "evyd13/wasdat"
     },
     "westfoxtrot/cypher": {
         "target": "westfoxtrot/cypher/rev1"
@@ -1235,10 +1245,10 @@
         "target": "xiudi/xd002"
     },
     "xd004": {
-        "target": "xiudi/xd004"
+        "target": "xiudi/xd004/v1"
     },
     "xd60": {
-        "target": "xiudi/xd60"
+        "target": "xiudi/xd60/rev2"
     },
     "xd68": {
         "target": "xiudi/xd68"
@@ -1274,7 +1284,7 @@
         "target": "ydkb/yd68"
     },
     "ymd75": {
-        "target": "ymdk/ymd75"
+        "target": "ymdk/ymd75/rev1"
     },
     "ymd96": {
         "target": "ymdk/ymd96"
