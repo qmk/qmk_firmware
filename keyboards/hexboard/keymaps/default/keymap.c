@@ -1,3 +1,6 @@
+// Copyright 2022-2023 Zach DeCook
+// SPDX-License-Identifier: GPL-3.0-only
+
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

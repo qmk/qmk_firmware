@@ -1,3 +1,6 @@
+// Copyright 2022-2023 Zach DeCook
+// SPDX-License-Identifier: GPL-3.0-only
+
 #include "hexboard.h"
 
 #ifdef RGB_MATRIX_ENABLE
