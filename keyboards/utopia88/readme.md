@@ -1,6 +1,7 @@
 # Utopia88
 
-![Utopia88](https://i.imgur.com/pRKQIIH.jpeg)
+![Utopia88](https://i.imgur.com/pRKQIIHh.jpeg)
+
 
 * Keyboard Maintainer: [kelwin](https://github.com/Kelwin0313)
 * Hardware Supported: Utopia88 PCBs, atmega32u4
