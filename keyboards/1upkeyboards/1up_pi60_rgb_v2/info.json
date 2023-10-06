@@ -180,7 +180,6 @@
         "driver": "vendor",
         "pin": "GP28"
     },
-    "community_layouts": ["60_ansi"],
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [
