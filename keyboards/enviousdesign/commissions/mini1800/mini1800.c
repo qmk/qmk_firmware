@@ -1,5 +1,7 @@
 /* SPDX-License-Identifier: GPL-2.0-or-later */
 
+#include "quantum.h"
+
 void matrix_init_user(void) {
   setPinOutput(GP9); //init gpio
   writePinLow(GP9);
