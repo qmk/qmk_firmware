@@ -53,7 +53,7 @@
     "layout_aliases": {
         "LAYOUT_grid": "LAYOUT_ortho_4x12"
     },
-    "community_layouts": "LAYOUT_ortho_4x12",
+    "community_layouts": ["ortho_4x12"],
     "layouts": {
         "LAYOUT_ortho_4x12": {
             "layout": [
