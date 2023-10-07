@@ -49,6 +49,10 @@
     "DYNAMIC_KEYMAP_EEPROM_MAX_ADDR": {"info_key": "dynamic_keymap.eeprom_max_addr", "value_type": "int"},
     "DYNAMIC_KEYMAP_LAYER_COUNT": {"info_key": "dynamic_keymap.layer_count", "value_type": "int"},
 
+    // EEPROM
+    "WEAR_LEVELING_BACKING_SIZE": {"info_key": "eeprom.wear_leveling.backing_size", "value_type": "int", "to_json": false},
+    "WEAR_LEVELING_LOGICAL_SIZE": {"info_key": "eeprom.wear_leveling.logical_size", "value_type": "int", "to_json": false},
+
     // Indicators
     "LED_CAPS_LOCK_PIN": {"info_key": "indicators.caps_lock"},
     "LED_NUM_LOCK_PIN": {"info_key": "indicators.num_lock"},
@@ -63,12 +67,17 @@
     "LEADER_TIMEOUT": {"info_key": "leader_key.timeout", "value_type": "int"},
 
     // LED Matrix
+    "LED_DISABLE_WHEN_USB_SUSPENDED": {"info_key": "led_matrix.sleep", "value_type": "bool"},
     "LED_MATRIX_CENTER": {"info_key": "led_matrix.center_point", "value_type": "array.int"},
+    "LED_MATRIX_KEYRELEASES": {"info_key": "led_matrix.react_on_keyup", "value_type": "bool"},
+    "LED_MATRIX_LED_FLUSH_LIMIT": {"info_key": "led_matrix.led_flush_limit", "value_type": "int"},
+    "LED_MATRIX_LED_PROCESS_LIMIT": {"info_key": "led_matrix.led_process_limit", "value_type": "int", "to_json": false},
     "LED_MATRIX_MAXIMUM_BRIGHTNESS": {"info_key": "led_matrix.max_brightness", "value_type": "int"},
     "LED_MATRIX_SPD_STEP": {"info_key": "led_matrix.speed_steps", "value_type": "int"},
     "LED_MATRIX_SPLIT": {"info_key": "led_matrix.split_count", "value_type": "array.int"},
     "LED_MATRIX_TIMEOUT": {"info_key": "led_matrix.timeout", "value_type": "int"},
     "LED_MATRIX_VAL_STEP": {"info_key": "led_matrix.val_steps", "value_type": "int"},
+    "LED_MATRIX_LED_COUNT": {"info_key": "led_matrix.led_count", "value_type": "int", "to_json": false},
 
     // LUFA Bootloader
     "QMK_ESC_INPUT": {"info_key": "qmk_lufa_bootloader.esc_input"},
@@ -99,14 +108,19 @@
     "PS2_DATA_PIN": {"info_key": "ps2.data_pin"},
 
     // RGB Matrix
+    "RGB_DISABLE_WHEN_USB_SUSPENDED": {"info_key": "rgb_matrix.sleep", "value_type": "bool"},
     "RGB_MATRIX_CENTER": {"info_key": "rgb_matrix.center_point", "value_type": "array.int"},
     "RGB_MATRIX_HUE_STEP": {"info_key": "rgb_matrix.hue_steps", "value_type": "int"},
+    "RGB_MATRIX_KEYRELEASES": {"info_key": "rgb_matrix.react_on_keyup", "value_type": "bool"},
+    "RGB_MATRIX_LED_FLUSH_LIMIT": {"info_key": "rgb_matrix.led_flush_limit", "value_type": "int"},
+    "RGB_MATRIX_LED_PROCESS_LIMIT": {"info_key": "rgb_matrix.led_process_limit", "value_type": "int", "to_json": false},
     "RGB_MATRIX_MAXIMUM_BRIGHTNESS": {"info_key": "rgb_matrix.max_brightness", "value_type": "int"},
     "RGB_MATRIX_SAT_STEP": {"info_key": "rgb_matrix.sat_steps", "value_type": "int"},
     "RGB_MATRIX_SPD_STEP": {"info_key": "rgb_matrix.speed_steps", "value_type": "int"},
     "RGB_MATRIX_SPLIT": {"info_key": "rgb_matrix.split_count", "value_type": "array.int"},
     "RGB_MATRIX_TIMEOUT": {"info_key": "rgb_matrix.timeout", "value_type": "int"},
     "RGB_MATRIX_VAL_STEP": {"info_key": "rgb_matrix.val_steps", "value_type": "int"},
+    "RGB_MATRIX_LED_COUNT": {"info_key": "rgb_matrix.led_count", "value_type": "int", "to_json": false},
 
     // RGBLight
     "RGBLED_NUM": {"info_key": "rgblight.led_count", "value_type": "int"},

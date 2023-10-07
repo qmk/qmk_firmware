@@ -207,7 +207,7 @@ static void self_testing(void)
     update_ticks();
 }
 
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
     /* Refer to IS31 manual for these locations
      *   driver
      *   |  R location
@@ -322,7 +322,7 @@ void housekeeping_task_kb(void)
     } else if (rgb_state.state == CAPS_ALERT) {
         if (rgb_state.alert) {
             is31fl3731_set_color_all(ALERM_LED_R, ALERM_LED_G, ALERM_LED_B);
-            LED_TYPE leds[4];
+            rgb_led_t leds[4];
             for (int i = 0; i < 4; i++) {
                 leds[i].r = ALERM_LED_G;
                 leds[i].g = ALERM_LED_R;
@@ -331,7 +331,7 @@ void housekeeping_task_kb(void)
             ws2812_setleds(leds, 4);
         } else {
             is31fl3731_set_color_all(0, 0, 0);
-            LED_TYPE leds[4] = {0};
+            rgb_led_t leds[4] = {0};
             ws2812_setleds(leds, 4);
         }
 
@@ -349,14 +349,14 @@ void housekeeping_task_kb(void)
     housekeeping_task_user();
 }
 
-void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds)
+void rgblight_call_driver(rgb_led_t *start_led, uint8_t num_leds)
 {
     if (rgb_state.state != NORMAL) return;
 
     for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
         is31fl3731_set_color(i, start_led[i].r, start_led[i].g, start_led[i].b);
     }
-    LED_TYPE leds[4];
+    rgb_led_t leds[4];
     for (int i = 0; i < 4; i++) {
         leds[i].r = start_led[RGB_MATRIX_LED_COUNT+i].g;
         leds[i].g = start_led[RGB_MATRIX_LED_COUNT+i].r;

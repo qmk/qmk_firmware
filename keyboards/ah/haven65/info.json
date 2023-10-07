@@ -44,8 +44,14 @@
             "twinkle": true
         }
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_65_ansi_blocker"
+    },
+    "community_layouts": [
+        "65_ansi_blocker"
+    ],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_65_ansi_blocker": {
             "layout": [
               { "label": "Esc",             "matrix":[0,0],"x": 0, "y": 0 },
               { "label": "1",               "matrix":[0,1],"x": 1, "y": 0 },

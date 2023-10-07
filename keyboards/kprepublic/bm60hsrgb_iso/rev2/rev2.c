@@ -24,7 +24,7 @@
 #    include "ws2812.h"
 
 
-const PROGMEM is31_led g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const PROGMEM is31fl3733_led_t g_is31fl3733_leds[RGB_MATRIX_LED_COUNT] = {
     { 0, B_1, A_1, C_1 },
     { 0, B_2, A_2, C_2 },
     { 0, B_3, A_3, C_3 },
@@ -148,7 +148,7 @@ bool rgb_matrix_indicators_kb(void) {
 // ==========================================================================
 
 #    if WS2812_LED_TOTAL > 0
-LED_TYPE rgb_matrix_ws2812_array[WS2812_LED_TOTAL];
+rgb_led_t rgb_matrix_ws2812_array[WS2812_LED_TOTAL];
 #    endif
 
 static void rgb_matrix_driver_init(void) {

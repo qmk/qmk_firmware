@@ -92,7 +92,7 @@ static void render_status(void) {
 
     // Only update if the LED state has changed
     // Otherwise, the OLED will not turn off if an LED is on.
-    if (persistent_led_state != led_state) {
+    if (persistent_led_state.raw != led_state.raw) {
         persistent_led_state = led_state;
         
         oled_write_ln_P(PSTR(""), false);

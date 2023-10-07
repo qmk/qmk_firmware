@@ -1,0 +1,52 @@
+{
+    "manufacturer": "Keychron Q3",
+    "maintainer": "lalalademaxiya1",
+    "bootloader": "stm32-dfu",
+    "diode_direction": "ROW2COL",
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
+    "features": {
+        "bootmagic": true,
+        "dip_switch": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgb_matrix": true
+    },
+    "processor": "STM32L432",
+    "rgb_matrix": {
+        "animations": {
+            "band_spiral_val": true,
+            "breathing": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_out_in": true,
+            "cycle_out_in_dual": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "cycle_up_down": true,
+            "digital_rain": true,
+            "dual_beacon": true,
+            "jellybean_raindrops": true,
+            "pixel_rain": true,
+            "rainbow_beacon": true,
+            "rainbow_moving_chevron": true,
+            "solid_reactive_multinexus": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_simple": true,
+            "solid_splash": true,
+            "splash": true,
+            "typing_heatmap": true
+        },
+        "driver": "snled27351"
+    },
+    "url": "https://github.com/Keychron",
+    "usb": {
+        "vid": "0x3434"
+    }
+}

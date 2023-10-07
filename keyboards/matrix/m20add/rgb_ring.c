@@ -30,7 +30,7 @@
 #endif
 // rgb ring leds setting
 
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -357,7 +357,7 @@ static void custom_effects(void)
     effect_funcs[rgb_ring.effect]();
 }
 
-void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds)
+void rgblight_call_driver(rgb_led_t *start_led, uint8_t num_leds)
 {
     if (rgb_ring.state != RING_STATE_QMK) {
         return;
