@@ -18,6 +18,7 @@
   },
   "processor": "at90usb1286",
   "bootloader": "atmel-dfu",
+  "community_layouts": ["ortho_5x14"],
   "layouts": {
     "LAYOUT_ortho_5x14": {
       "layout": [

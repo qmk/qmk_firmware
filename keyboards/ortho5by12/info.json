@@ -17,7 +17,8 @@
     "matrix": [7, 2]
   },
   "processor": "atmega328p",
-    "bootloader": "usbasploader",
+  "bootloader": "usbasploader",
+  "commubity_layouts": ["ortho_5x12"],
   "layouts": {
     "LAYOUT_ortho_5x12_1x2uC": {
       "layout": [

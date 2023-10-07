@@ -41,7 +41,11 @@
     },
     "processor": "atmega32a",
     "bootloader": "bootloadhid",
-    "community_layouts": ["ortho_6x4", "numpad_6x4"],
+    "community_layouts": [
+        "ortho_4x6",
+        "ortho_6x4",
+        "numpad_6x4"
+    ],
     "layout_aliases": {
         "LAYOUT": "LAYOUT_ortho_4x6"
     },

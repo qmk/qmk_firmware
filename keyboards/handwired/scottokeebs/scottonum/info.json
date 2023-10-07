@@ -30,8 +30,12 @@
         "pid": "0x0014",
         "vid": "0x534B"
     },
+    "layout_aliases": {
+        "LAYOUT_numpad_4x5": "LAYOUT_numpad_5x4"
+    },
+    "community_layouts": ["numpad_5x4"],
     "layouts": {
-        "LAYOUT_numpad_4x5": {
+        "LAYOUT_numpad_5x4": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0 },
                 { "matrix": [0, 1], "x": 1, "y": 0 },
