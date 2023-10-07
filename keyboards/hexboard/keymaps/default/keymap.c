@@ -8,7 +8,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *       ___   ___   ___
      *      ❬BnU ᚛-᚜   ᚛-᚜VlM❭__
      *   ❬BnD᚛-᚜Mod᚛-᚜VlL᚛-᚜VlH❭
-     *    ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾ 
+     *    ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾
      *  ___   ___   ___   ___   ___   ___   ___
      * ❬F 5᚛-᚜Gb5᚛-᚜G 5᚛-᚜Ab5᚛-᚜A 5᚛-᚜Bb5᚛-᚜B 5❭__
      *  ᚛-᚜D 5᚛-᚜Eb5᚛-᚜E 5᚛-᚜F 5᚛-᚜Gb5᚛-᚜G 5᚛-᚜Ab5❭
@@ -29,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ❬A  ᚛-᚜Bb ᚛-᚜B  ᚛-᚜C 1᚛-᚜Db1᚛-᚜D 1᚛-᚜Eb1᚛-᚜
      *  ᚛-᚜Gb ᚛-᚜G  ᚛-᚜Ab ᚛-᚜A  ᚛-᚜Bb ᚛-᚜B  ᚛-᚜C 1❭
      * ❬D  ᚛-᚜Eb ᚛-᚜E  ᚛-᚜F  ᚛-᚜Gb ᚛-᚜G  ᚛-᚜Ab ❭‾‾
-     *  ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾ 
+     *  ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾
      */
     [0] = LAYOUT_landscape(
                 MI_BNDU,_______,MI_VL5,
@@ -57,3 +57,40 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       MI_D,     MI_Eb,   MI_E,     MI_F,  MI_Gb1,    MI_G,    MI_Ab
     )
 };
+
+
+void rgb_matrix_set_hsv(uint8_t i, uint8_t h, uint8_t s, uint8_t v) {
+    HSV hsv = {h, s, v};
+    RGB rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+}
+
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    if (get_highest_layer(layer_state) < 0) {
+        return false;
+    }
+    uint8_t layer = get_highest_layer(layer_state);
+    for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
+        for (uint8_t col = 0; col < MATRIX_COLS; ++col) {
+            uint8_t index = g_led_config.matrix_co[row][col];
+            if (index < led_min || index >= led_max || index == NO_LED) continue;
+            uint16_t keycode = keymap_key_to_keycode(layer, (keypos_t){col, row});
+            if (keycode >= QK_MIDI_NOTE_C_0 && keycode <= QK_MIDI_NOTE_B_5) {
+                rgb_matrix_set_hsv(index, ((keycode - QK_MIDI_NOTE_C_0) % 12) * 21, 255, rgb_matrix_config.hsv.v);
+            } else if (keycode == QK_MIDI_PITCH_BEND_DOWN || keycode == QK_MIDI_PITCH_BEND_UP) {
+                // TODO: Make this reflect the internal pitch bend value.
+                rgb_matrix_set_hsv(index, 0, 255, rgb_matrix_config.hsv.v);
+            } else if (keycode == QK_MIDI_MODULATION) {
+                // TODO: Make this reflect the internal modulation value.
+                rgb_matrix_set_hsv(index, 85, 255, rgb_matrix_config.hsv.v);
+            } else if (keycode >= QK_MIDI_VELOCITY_0 && keycode <= QK_MIDI_VELOCITY_10) {
+                uint8_t vlev = keycode - QK_MIDI_VELOCITY_0; // 0-10
+                // Set brightness based on which is closest.
+                uint8_t brightness = rgb_matrix_config.hsv.v - abs(vlev * 12 - midi_config.velocity);
+                // Highest velocity is red.
+                rgb_matrix_set_hsv(index, (10 - (vlev)) * 20, 255, brightness);
+            }
+        }
+    }
+    return false;
+}

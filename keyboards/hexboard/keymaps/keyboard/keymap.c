@@ -205,7 +205,9 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             else if (keycode >= KC_LEFT_CTRL && keycode <= KC_RIGHT_GUI)
                 rgb_matrix_set_hsv(index, HSC_PURPLE);
             // TODO: magic keycodes
-            // TODO: MIDI keycodes
+            else if(keycode >= QK_MIDI_NOTE_C_0 && keycode <= QK_MIDI_NOTE_B_5) {
+				rgb_matrix_set_hsv(index, ((keycode-QK_MIDI_NOTE_C_0)%12) * 21, 255, rgb_matrix_config.hsv.v);
+            }
             // sequencer, joystick, programmable, settings...
             else if (keycode == MO(1) || keycode == MO(2)) rgb_matrix_set_hsv(index, HSC_PINK);
         }
