@@ -7,7 +7,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *       ___   ___   ___
      *      ❬BnU ᚛-᚜AuTg᚛-᚜MiO❭__
      *   ❬BnD᚛-᚜MuT᚛-᚜Pnc᚛-᚜Pnc❭
-     *    ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾ 
+     *    ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾
      *  ___   ___   ___   ___   ___   ___   ___
      * ❬F 5᚛-᚜Gb5᚛-᚜G 5᚛-᚜Ab5᚛-᚜A 5᚛-᚜Bb5᚛-᚜B 5❭__
      *  ᚛-᚜D 5᚛-᚜Eb5᚛-᚜E 5᚛-᚜F 5᚛-᚜Gb5᚛-᚜G 5᚛-᚜Ab5❭
@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ❬   ᚛-᚜   ᚛-᚜   ᚛-᚜   ᚛-᚜   ᚛-᚜   ᚛-᚜   ᚛-᚜
      *  ᚛-᚜Ctl᚛-᚜Sup᚛-᚜   ᚛-᚜   ᚛-᚜ 🡐 ᚛-᚜ 🡑 ᚛-᚜ ⏎ ❭
      * ❬   ᚛-᚜Alt᚛-᚜lyr᚛-᚜   ᚛-᚜LYR᚛-᚜ 🡓 ᚛-᚜ 🡒 ❭‾‾
-     *  ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾ 
+     *  ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾
      */
     [0] = LAYOUT_landscape(
                 MI_BNDU,AU_TOGG,  RGB_HUI,
@@ -58,9 +58,9 @@ _______,KC_LALT, MO(1),    KC_SPC,  MO(2),    KC_DOWN,   KC_RGHT
 
 
     // "lower"
-		/**
-		 *  ... top rows fall through to other layer.
-		 *     ___   ___   ___   ___   ___   ___   ___
+    /**
+     *  ... top rows fall through to other layer.
+     *     ___   ___   ___   ___   ___   ___   ___
      *  ᚛-᚜   ᚛-᚜   ᚛-᚜   ᚛-᚜   ᚛-᚜ + ᚛-᚜   ᚛-᚜   ❭
      * ❬ ~ ᚛-᚜   ᚛-᚜   ᚛-᚜   ᚛-᚜ _ ᚛-᚜ { ᚛-᚜   ᚛-᚜
      *  ᚛-᚜   ᚛-᚜ # ᚛-᚜   ᚛-᚜   ᚛-᚜ * ᚛-᚜ } ᚛-᚜   ❭
@@ -71,7 +71,7 @@ _______,KC_LALT, MO(1),    KC_SPC,  MO(2),    KC_DOWN,   KC_RGHT
      * ❬   ᚛-᚜   ᚛-᚜   ᚛-᚜   ᚛-᚜   ᚛-᚜   ᚛-᚜   ᚛-᚜
      *  ᚛-᚜   ᚛-᚜   ᚛-᚜   ᚛-᚜   ᚛-᚜ ⇱ ᚛-᚜ ⇑ ᚛-᚜   ❭
      * ❬   ᚛-᚜   ᚛-᚜lyr᚛-᚜   ᚛-᚜LYR᚛-᚜ ⇓ ᚛-᚜ ⇲ ❭‾‾
-     *  ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾ 
+     *  ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾
      */
 
     [1] = LAYOUT_landscape(
@@ -98,9 +98,9 @@ _______,_______,_______,_______,_______,_______,_______,
 _______,_______,_______,_______,_______,KC_PGDN,KC_END
     ),
     // "raise"
-		/**
-		 *  ... top rows fall through to other layer.
-		 *     ___   ___   ___   ___   ___   ___   ___
+    /**
+     *  ... top rows fall through to other layer.
+     *     ___   ___   ___   ___   ___   ___   ___
      *  ᚛-᚜   ᚛-᚜   ᚛-᚜   ᚛-᚜   ᚛-᚜ = ᚛-᚜   ᚛-᚜   ❭
      * ❬ ~ ᚛-᚜   ᚛-᚜   ᚛-᚜   ᚛-᚜ _ ᚛-᚜ [ ᚛-᚜   ᚛-᚜
      *  ᚛-᚜   ᚛-᚜ 3 ᚛-᚜   ᚛-᚜   ᚛-᚜ 8 ᚛-᚜ ] ᚛-᚜   ❭
@@ -111,7 +111,7 @@ _______,_______,_______,_______,_______,KC_PGDN,KC_END
      * ❬   ᚛-᚜   ᚛-᚜   ᚛-᚜   ᚛-᚜   ᚛-᚜   ᚛-᚜   ᚛-᚜
      *  ᚛-᚜   ᚛-᚜   ᚛-᚜   ᚛-᚜   ᚛-᚜ ⇱ ᚛-᚜ ⇑ ᚛-᚜   ❭
      * ❬   ᚛-᚜   ᚛-᚜lyr᚛-᚜   ᚛-᚜LYR᚛-᚜ ⇓ ᚛-᚜ ⇲ ❭‾‾
-     *  ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾ 
+     *  ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾
      */
     [2] = LAYOUT_landscape(
                 MI_BNDU,AU_TOGG,  RGB_HUI,
@@ -140,6 +140,46 @@ _______,_______,_______,_______,_______,KC_PGDN,KC_END
 
 };
 
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    if (get_highest_layer(layer_state) < 0) {
+        return false;
+    }
+    uint8_t layer = get_highest_layer(layer_state);
+    for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
+        for (uint8_t col = 0; col < MATRIX_COLS; ++col) {
+            uint8_t index = g_led_config.matrix_co[row][col];
+            if (index < led_min || index >= led_max || index == NO_LED) continue;
+            uint16_t keycode = keymap_key_to_keycode(layer, (keypos_t){col, row});
+            if (keycode >= KC_1 && keycode <= KC_0)
+                rgb_matrix_set_color(index, RGB_YELLOW);
+            else if (keycode >= S(KC_1) && keycode <= S(KC_0))
+                rgb_matrix_set_color(index, RGB_GOLD);
+            else if (keycode == KC_ENTER || keycode == KC_TAB || keycode == KC_SPACE)
+                rgb_matrix_set_color(index, RGB_SPRINGGREEN);
+            else if (keycode == KC_BACKSPACE || keycode == KC_DELETE)
+                rgb_matrix_set_color(index, RGB_RED);
+            else if (keycode == KC_CAPS_LOCK)
+                rgb_matrix_set_color(index, RGB_BLUE);
+            else if (keycode >= KC_A && keycode <= KC_SLASH)
+                rgb_matrix_set_color(index, RGB_WHITE);
+            else if (keycode >= S(KC_A) && keycode <= S(KC_SLASH))
+                rgb_matrix_set_color(index, 100, 100, 100); // GRAY
+            else if (keycode >= KC_F1 && keycode <= KC_NUM_LOCK)
+                rgb_matrix_set_color(index, RGB_BLUE);
+            // TODO: numpad keycodes
+            else if (keycode >= KC_APPLICATION && keycode <= KC_MS_ACCEL2)
+                rgb_matrix_set_color(index, RGB_BLUE);
+            else if (keycode >= KC_LEFT_CTRL && keycode <= KC_RIGHT_GUI)
+                rgb_matrix_set_color(index, RGB_PURPLE);
+            // TODO: magic keycodes
+            // TODO: MIDI keycodes
+            // sequencer, joystick, programmable, settings...
+            else if (keycode == MO(1) || keycode == MO(2)) rgb_matrix_set_color(index, RGB_PINK);
+        }
+    }
+    return false;
+}
+
 #ifdef OLED_ENABLE
 bool oled_task_user(void) {
     // Host Keyboard Layer Status
@@ -165,7 +205,7 @@ bool oled_task_user(void) {
     oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
     oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
     oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
-    
+
     return false;
 }
 #endif
