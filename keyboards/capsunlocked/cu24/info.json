@@ -39,11 +39,12 @@
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "Layout_aliases": {
+        "LAYOUT_grid": "ortho_6x4",
         "LAYOUT_numpad": "LAYOUT_numpad_6x4"
     },
-    "community_layouts": ["numpad_6x4"],
+    "community_layouts": ["numpad_6x4", "ortho_6x4"],
     "layouts": {
-        "LAYOUT_grid": {
+        "LAYOUT_ortho_6x4": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
