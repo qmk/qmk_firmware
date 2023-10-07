@@ -4,9 +4,9 @@ More Info at [epiphany70](https://shop.wuquestudio.com/)
 
 * Keyboard Maintainer: [spbgzh](https://github.com/spbgzh)
 * Hardware Supported: epiphany 70
-* Hardware Availability: [epiphany70](https://shop.wuquestudio.com/)  
+* Hardware Availability: [epiphany70](https://shop.wuquestudio.com/)
 
-Make example for this keyboard (after setting up your build environment):  
+Make example for this keyboard (after setting up your build environment):
 
     make wuque/epiphany70:default
 
