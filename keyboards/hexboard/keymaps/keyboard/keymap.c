@@ -174,10 +174,10 @@ void rgb_matrix_set_hsv(uint8_t i, uint8_t h, uint8_t s, uint8_t v) {
 }
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    if (get_highest_layer(layer_state) < 0) {
+    uint8_t layer = get_highest_layer(layer_state);
+    if (layer < 0) {
         return false;
     }
-    uint8_t layer = get_highest_layer(layer_state);
     for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
         for (uint8_t col = 0; col < MATRIX_COLS; ++col) {
             uint8_t index = g_led_config.matrix_co[row][col];
@@ -222,17 +222,17 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 bool oled_task_user(void) {
     // Host Keyboard Layer Status
-    oled_write_P(PSTR("Layer: "), false);
+    oled_write_P(PSTR(" Layer: "), false);
 
     switch (get_highest_layer(layer_state)) {
         case 0:
             oled_write_P(PSTR("Default\n"), false);
             break;
         case 1:
-            oled_write_P(PSTR("FN\n"), false);
+            oled_write_P(PSTR("symbols\n"), false);
             break;
         case 2:
-            oled_write_P(PSTR("ADJ\n"), false);
+            oled_write_P(PSTR("numbers\n"), false);
             break;
         default:
             // Or use the write_ln shortcut over adding '\n' to the end of your string
@@ -240,10 +240,10 @@ bool oled_task_user(void) {
     }
 
     // Host Keyboard LED Status
-    led_t led_state = host_keyboard_led_state();
-    oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
-    oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
-    oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
+    // led_t led_state = host_keyboard_led_state();
+    // oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
+    // oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
+    // oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
 
     return false;
 }
