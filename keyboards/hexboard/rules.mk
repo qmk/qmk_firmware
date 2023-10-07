@@ -15,4 +15,4 @@ RGB_MATRIX_CUSTOM_KB = yes
 # AUDIO_ENABLE = yes
 # AUDIO_DRIVER = pwm_hardware
 
-CONSOLE_ENABLE = yes
+#CONSOLE_ENABLE = yes
