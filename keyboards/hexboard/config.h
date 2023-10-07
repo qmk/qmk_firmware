@@ -23,3 +23,6 @@
 // (The name of these defines is confusing...)
 #define I2C1_SDA_PIN GP16
 #define I2C1_SCL_PIN GP17
+#define OLED_BRIGHTNESS 55
+#define OLED_IC OLED_IC_SH1106
+// #define OLED_DISPLAY_CUSTOM OLED_DISPLAY_128X64
