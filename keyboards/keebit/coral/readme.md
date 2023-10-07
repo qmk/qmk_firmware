@@ -1,6 +1,6 @@
 # Coral | Split Keyboard
 
-![keebit/coral](imgur.com image replace me!)
+![keebit/coral](https://user-images.githubusercontent.com/24727447/273894600-d73eba98-1507-43d7-8015-42daecd5f762.jpg)
 
 _A 58 keys (56 MX + 2 EC11) 5x6 column-staggered wired split keyboard using Waveshare RP2040-Zero inspired by corne and sofle_v1_
 
