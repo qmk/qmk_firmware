@@ -24,7 +24,9 @@
     "processor": "STM32F103",
     "rgb_matrix": {
         "animations": {
+
             "breathing": true,
+           // "solid_green_effect": true,
             "band_spiral_val": true,
             "cycle_all": true,
             "cycle_left_right": true,
@@ -45,7 +47,6 @@
             "solid_reactive_multinexus": true,
             "splash": true,
             "solid_splash": true
-
         },
         "driver": "is31fl3743a",
         "max_brightness": 200,

@@ -19,10 +19,10 @@
  * For full list of effects, see:
  * https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
  */
-
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CUSTOM_solid_green
 
 #define WAIT_FOR_USB
 
