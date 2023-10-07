@@ -9,10 +9,10 @@
     "diode_direction": "COL2ROW",
 	"encoder": {
         "rotary": [
-            {"pin_a": "GP18", "pin_b": "GP19", "resolution": 2},
-			{"pin_a": "GP27", "pin_b": "GP0", "resolution": 2},
-			{"pin_a": "GP17", "pin_b": "GP16", "resolution": 2},
-			{"pin_a": "GP10", "pin_b": "GP9", "resolution": 2}
+            	{"pin_a": "GP18", "pin_b": "GP19", "resolution": 2},
+		{"pin_a": "GP27", "pin_b": "GP0", "resolution": 2},
+		{"pin_a": "GP17", "pin_b": "GP16", "resolution": 2},
+		{"pin_a": "GP10", "pin_b": "GP9", "resolution": 2}
         ]
     },
     "features": {
@@ -22,7 +22,7 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-		"encoder": true,
+	"encoder": true,
         "rgblight": true,
         "tri_layer": true
     },
