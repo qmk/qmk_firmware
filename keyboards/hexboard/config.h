@@ -18,4 +18,8 @@
 // #define AUDIO_PWM_DRIVER PWMD3
 // #define AUDIO_PWM_CHANNEL RP2040_PWM_CHANNEL_B
 
-// #define I2C_DRIVER I2CD0
+// From the data sheet, pins 16/17 can use I2C0 DA/CL
+#define I2C_DRIVER I2CD0
+// (The name of these defines is confusing...)
+#define I2C1_SDA_PIN GP16
+#define I2C1_SCL_PIN GP17
