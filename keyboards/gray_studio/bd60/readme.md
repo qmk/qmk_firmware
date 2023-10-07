@@ -1,5 +1,7 @@
 # Gray Studio bd60
 
+![BD60](https://i.imgur.com/BTneFkMh.jpeg)
+
  A 60% keyboard by Graystudio. PCB designed and manufactured by DEMO Studio.
 
  * Keyboard Maintainer: [edwardslau](https://github.com/edwardslau)
