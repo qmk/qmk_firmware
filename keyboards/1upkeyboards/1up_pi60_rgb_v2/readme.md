@@ -1,6 +1,6 @@
 # 1up pi60 rgb v2
 
-![1up pi60 rgb v2](https://i.imgur.com/J0ZyLYF.jpeg)
+![1up pi60 rgb v2](https://i.imgur.com/H1tRGZh.png)
 
 The pi60 RGB v2 is a 60% pcb from 1upkeyboards. This keyboard features an ANSI layout hot swap PCB with per-key in-switch RGB lighting as well as RGB underglow. The controller is a Raspberry Pi rp2040 microcontroller.
 
