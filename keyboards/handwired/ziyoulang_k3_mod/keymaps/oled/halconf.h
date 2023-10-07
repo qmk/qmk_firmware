@@ -16,11 +16,6 @@
 
 #pragma once
 
-//#define HAL_USE_ADC TRUE
-
-// https://github.com/qmk/qmk_firmware/blob/master/docs/i2c_driver.md#chibiosarm-configuration-idarm-configuration
 #define HAL_USE_I2C TRUE
-
-//#define HAL_USE_PWM TRUE
 
 #include_next <halconf.h>
