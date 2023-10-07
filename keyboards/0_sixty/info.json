@@ -90,8 +90,8 @@
                 {"matrix": [4, 10], "x": 10, "y": 4},
                 {"matrix": [4, 11], "x": 11, "y": 4}
             ]
-    },
-    "LAYOUT_2x2uC": {
+        },
+        "LAYOUT_2x2uC": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -225,7 +225,7 @@
                 {"matrix": [4, 11], "x": 11, "y": 4}
             ]
         },
-    "LAYOUT_1x2uR": {
+        "LAYOUT_1x2uR": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
