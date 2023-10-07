@@ -9,16 +9,13 @@ from milc import cli
 import qmk.path
 from qmk.constants import QMK_FIRMWARE
 from qmk.decorators import automagic_keyboard, automagic_keymap
-from qmk.commands import compile_configurator_json, create_make_command, parse_configurator_json, build_environment
+from qmk.commands import build_environment
 from qmk.keyboard import keyboard_completer, keyboard_folder_or_all, is_all_keyboards
 from qmk.keymap import keymap_completer, locate_keymap
-from qmk.cli.generate.compilation_database import write_compilation_database
+from qmk.build_targets import KeyboardKeymapBuildTarget, JsonKeymapBuildTarget
 
 
 def _is_keymap_target(keyboard, keymap):
-    if keymap == 'all':
-        return True
-
     if locate_keymap(keyboard, keymap):
         return True
 
@@ -53,47 +50,24 @@ def compile(cli):
     # Build the environment vars
     envs = build_environment(cli.args.env)
 
-    # Determine the compile command
-    commands = []
-
-    current_keyboard = None
-    current_keymap = None
+    # Handler for the build target
+    target = None
 
     if cli.args.filename:
-        # If a configurator JSON was provided generate a keymap and compile it
-        user_keymap = parse_configurator_json(cli.args.filename)
-        commands = [compile_configurator_json(user_keymap, parallel=cli.config.compile.parallel, clean=cli.args.clean, **envs)]
+        target = JsonKeymapBuildTarget(cli.args.filename)
 
     elif cli.config.compile.keyboard and cli.config.compile.keymap:
-        # Generate the make command for a specific keyboard/keymap.
         if not _is_keymap_target(cli.config.compile.keyboard, cli.config.compile.keymap):
             cli.log.error('Invalid keymap argument.')
             cli.print_help()
             return False
 
-        if cli.args.clean:
-            commands.append(create_make_command(cli.config.compile.keyboard, cli.config.compile.keymap, 'clean', **envs))
-        commands.append(create_make_command(cli.config.compile.keyboard, cli.config.compile.keymap, parallel=cli.config.compile.parallel, **envs))
+        target = KeyboardKeymapBuildTarget(cli.config.compile.keyboard, cli.config.compile.keymap)
 
-        current_keyboard = cli.config.compile.keyboard
-        current_keymap = cli.config.compile.keymap
-
-    if not commands:
+    if not target:
         cli.log.error('You must supply a configurator export, both `--keyboard` and `--keymap`, or be in a directory for a keyboard or keymap.')
         cli.print_help()
         return False
 
-    if cli.args.compiledb:
-        if current_keyboard is None or current_keymap is None:
-            cli.log.error('You must supply both `--keyboard` and `--keymap` or be in a directory with a keymap to generate a compile_commands.json file.')
-            cli.print_help()
-            return False
-        write_compilation_database(current_keyboard, current_keymap, QMK_FIRMWARE / 'compile_commands.json')
-
-    cli.log.info('Compiling keymap with {fg_cyan}%s', ' '.join(commands[-1]))
-    if not cli.args.dry_run:
-        cli.echo('\n')
-        for command in commands:
-            ret = cli.run(command, capture_output=False)
-            if ret.returncode:
-                return ret.returncode
+    target.configure(parallel=cli.config.compile.parallel, clean=cli.args.clean, compiledb=cli.args.compiledb)
+    target.compile(**envs)
