@@ -60,7 +60,7 @@ static pin_t custom_col_pins[] = MATRIX_COL_CHANNELS;
 
 void matrix_init_custom(void) {
     // initialize row pins
-    for (int i = 0; i < MATRIX_ROWS; i++) {
+    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
         setPinOutput(custom_row_pins[i]);
         writePinLow(custom_row_pins[i]);
     }
@@ -103,13 +103,13 @@ static void sense_key(bool* left, bool* right, uint32_t row, uint32_t col) {
 bool matrix_scan_custom(matrix_row_t* raw) {
     bool changed = false;
 
-    for (int row = 0; row < MATRIX_ROWS; row++) {
+    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         matrix_row_t last_row_value    = raw[row];
         matrix_row_t current_row_value = last_row_value;
         writePinHigh(custom_row_pins[row]);
         wait_us(400);
 
-        for (int col = 0; col < 8; col++) {
+        for (uint8_t col = 0; col < 8; col++) {
             writePin(COL_A_PIN, (custom_col_pins[col] & COL_A_MASK) ? 1 : 0);
             writePin(COL_B_PIN, (custom_col_pins[col] & COL_B_MASK) ? 1 : 0);
             writePin(COL_C_PIN, (custom_col_pins[col] & COL_C_MASK) ? 1 : 0);

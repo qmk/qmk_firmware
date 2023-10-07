@@ -89,8 +89,8 @@ static void apc_update_key_interval(uint32_t row, uint32_t col) {
 }
 
 void apc_matrix_init(void) {
-    for (int i = 0; i < MATRIX_ROWS; i++) {
-        for (int j = 0; j < MATRIX_COLS; j++) {
+    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+        for (uint8_t j = 0; j < MATRIX_COLS; j++) {
             apc_matrix[i][j].state   = APC_KEY_STATE_DEFAULT;
             apc_matrix[i][j].min     = APC_KEY_MIN_DEFAULT;
             apc_matrix[i][j].max     = APC_KEY_MAX_DEFAULT;
