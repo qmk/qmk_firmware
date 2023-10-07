@@ -23,7 +23,6 @@
 #define I2C1_SDA_PIN GP18
 #define I2C1_SCL_PIN GP19
 
-#ifdef RGB_MATRIX_ENABLE
 #    define DRIVER_ADDR_1 0b0110000
 #    define DRIVER_COUNT 1
 #    define RGB_MATRIX_LED_COUNT 74
@@ -31,4 +30,3 @@
 #    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_ALL
 #    define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#endif // RGB_MATRIX_ENABLE
