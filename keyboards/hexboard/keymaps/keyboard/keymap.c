@@ -141,11 +141,6 @@ _______,_______,_______,_______,_______,KC_PGDN,KC_END
 
 };
 
-void keyboard_post_init_user(void) {
-    rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
-    //rgb_matrix_sethsv_noeeprom(0, 255, 50);
-}
-
 // Hue, Saturation, Config
 #define HSC_AZURE       132, 102, rgb_matrix_config.hsv.v
 #define HSC_BLUE        170, 255, rgb_matrix_config.hsv.v
@@ -166,6 +161,11 @@ void keyboard_post_init_user(void) {
 #define HSC_WHITE         0,   0, rgb_matrix_config.hsv.v
 #define HSC_YELLOW       43, 255, rgb_matrix_config.hsv.v
 #define HSC_GRAY          0,   0, rgb_matrix_config.hsv.v>>1
+// Categories
+#define HSC_LETTERS HSC_GRAY
+#define HSC_SLETTERS HSC_WHITE
+#define HSC_NUMBERS HSC_YELLOW>>1
+#define HSC_SNUMBERS HSC_YELLOW
 
 void rgb_matrix_set_hsv(uint8_t i, uint8_t h, uint8_t s, uint8_t v) {
 	HSV hsv = {h, s, v};
@@ -184,9 +184,9 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             if (index < led_min || index >= led_max || index == NO_LED) continue;
             uint16_t keycode = keymap_key_to_keycode(layer, (keypos_t){col, row});
             if (keycode >= KC_1 && keycode <= KC_0)
-                rgb_matrix_set_hsv(index, HSC_YELLOW);
+                rgb_matrix_set_hsv(index, HSC_NUMBERS);
             else if (keycode >= S(KC_1) && keycode <= S(KC_0))
-                rgb_matrix_set_hsv(index, HSC_GOLD);
+                rgb_matrix_set_hsv(index, HSC_SNUMBERS);
             else if (keycode == KC_ENTER || keycode == KC_TAB || keycode == KC_SPACE)
                 rgb_matrix_set_hsv(index, HSC_SPRINGGREEN);
             else if (keycode == KC_BACKSPACE || keycode == KC_DELETE)
@@ -194,9 +194,9 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             else if (keycode == KC_CAPS_LOCK)
                 rgb_matrix_set_hsv(index, HSC_BLUE);
             else if (keycode >= KC_A && keycode <= KC_SLASH)
-                rgb_matrix_set_hsv(index, HSC_WHITE);
+                rgb_matrix_set_hsv(index, HSC_LETTERS);
             else if (keycode >= S(KC_A) && keycode <= S(KC_SLASH))
-                rgb_matrix_set_hsv(index, HSC_GRAY);
+                rgb_matrix_set_hsv(index, HSC_SLETTERS);
             else if (keycode >= KC_F1 && keycode <= KC_NUM_LOCK)
                 rgb_matrix_set_hsv(index, HSC_BLUE);
             // TODO: numpad keycodes

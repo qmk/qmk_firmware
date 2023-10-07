@@ -46,4 +46,10 @@ led_config_t g_led_config = { {
   8,8,8,8,8,8,8,8,8,8, 8,8,8,8,8,8,8,8,8,8, 8,8,8,8,8,8,8,8,8,8, 
   8,8,8,8,8,8,8,8,8,8, 8,8,8,8,8,8,8,8,8,8
 } };
+
+
+void keyboard_post_init_user(void) {
+	// Start them OFF
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_my_off_effect);
+}
 #endif
