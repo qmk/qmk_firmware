@@ -1,6 +1,7 @@
 // Copyright 2022-2023 Zach DeCook
 // SPDX-License-Identifier: GPL-3.0-only
 #include QMK_KEYBOARD_H
+#include "quantum/color.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Hexboard Keyboard layout (landscape)
@@ -140,6 +141,39 @@ _______,_______,_______,_______,_______,KC_PGDN,KC_END
 
 };
 
+// non-indicator keys default to off.
+void keyboard_post_init_user(void) {
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
+    rgb_matrix_sethsv_noeeprom(HSV_OFF);
+}
+
+#define HS_AZURE       132, 102
+#define HS_BLACK         0,   0
+#define HS_BLUE        170, 255
+#define HS_CHARTREUSE   64, 255
+#define HS_CORAL        11, 176
+#define HS_CYAN        128, 255
+#define HS_GOLD         36, 255
+#define HS_GOLDENROD    30, 218
+#define HS_GREEN        85, 255
+#define HS_MAGENTA     213, 255
+#define HS_ORANGE       21, 255
+#define HS_PINK        234, 128
+#define HS_PURPLE      191, 255
+#define HS_RED           0, 255
+#define HS_SPRINGGREEN 106, 255
+#define HS_TEAL        128, 255
+#define HS_TURQUOISE   123,  90
+#define HS_WHITE         0,   0
+#define HS_YELLOW       43, 255
+#define HS_OFF         HS_BLACK
+
+void rgb_matrix_set_hsv(uint8_t i, uint8_t h, uint8_t s, uint8_t v) {
+	HSV hsv = {h, s, v};
+    RGB rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+}
+
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (get_highest_layer(layer_state) < 0) {
         return false;
@@ -151,30 +185,30 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             if (index < led_min || index >= led_max || index == NO_LED) continue;
             uint16_t keycode = keymap_key_to_keycode(layer, (keypos_t){col, row});
             if (keycode >= KC_1 && keycode <= KC_0)
-                rgb_matrix_set_color(index, RGB_YELLOW);
+                rgb_matrix_set_hsv(index, HS_YELLOW, rgb_matrix_config.hsv.v);
             else if (keycode >= S(KC_1) && keycode <= S(KC_0))
-                rgb_matrix_set_color(index, RGB_GOLD);
+                rgb_matrix_set_hsv(index, HS_GOLD, rgb_matrix_config.hsv.v);
             else if (keycode == KC_ENTER || keycode == KC_TAB || keycode == KC_SPACE)
-                rgb_matrix_set_color(index, RGB_SPRINGGREEN);
+                rgb_matrix_set_hsv(index, HS_SPRINGGREEN, rgb_matrix_config.hsv.v);
             else if (keycode == KC_BACKSPACE || keycode == KC_DELETE)
-                rgb_matrix_set_color(index, RGB_RED);
+                rgb_matrix_set_hsv(index, HS_RED, rgb_matrix_config.hsv.v);
             else if (keycode == KC_CAPS_LOCK)
-                rgb_matrix_set_color(index, RGB_BLUE);
+                rgb_matrix_set_hsv(index, HS_BLUE, rgb_matrix_config.hsv.v);
             else if (keycode >= KC_A && keycode <= KC_SLASH)
-                rgb_matrix_set_color(index, RGB_WHITE);
+                rgb_matrix_set_hsv(index, HS_WHITE, rgb_matrix_config.hsv.v);
             else if (keycode >= S(KC_A) && keycode <= S(KC_SLASH))
-                rgb_matrix_set_color(index, 100, 100, 100); // GRAY
+                rgb_matrix_set_hsv(index, 0, 0, rgb_matrix_config.hsv.v>>1); // GRAY
             else if (keycode >= KC_F1 && keycode <= KC_NUM_LOCK)
-                rgb_matrix_set_color(index, RGB_BLUE);
+                rgb_matrix_set_hsv(index, HS_BLUE, rgb_matrix_config.hsv.v);
             // TODO: numpad keycodes
             else if (keycode >= KC_APPLICATION && keycode <= KC_MS_ACCEL2)
-                rgb_matrix_set_color(index, RGB_BLUE);
+                rgb_matrix_set_hsv(index, HS_BLUE, rgb_matrix_config.hsv.v);
             else if (keycode >= KC_LEFT_CTRL && keycode <= KC_RIGHT_GUI)
-                rgb_matrix_set_color(index, RGB_PURPLE);
+                rgb_matrix_set_hsv(index, HS_PURPLE, rgb_matrix_config.hsv.v);
             // TODO: magic keycodes
             // TODO: MIDI keycodes
             // sequencer, joystick, programmable, settings...
-            else if (keycode == MO(1) || keycode == MO(2)) rgb_matrix_set_color(index, RGB_PINK);
+            else if (keycode == MO(1) || keycode == MO(2)) rgb_matrix_set_hsv(index, HS_PINK, rgb_matrix_config.hsv.v);
         }
     }
     return false;
