@@ -78,8 +78,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_AMPERSAND, KC_LEFT_BRACKET, KC_LEFT_CURLY_BRACE, KC_RIGHT_CURLY_BRACE, KC_LEFT_PAREN, KC_KP_EQUAL,        		_______, _______, _______, _______,  _______, _______,
   KC_QUOTE,  	_______, 	          _______,            KC_7,                 KC_8,    	     KC_9,                  _______, KC_PLUS, KC_MINUS,KC_EQL,   _______, KC_CIRCUMFLEX,
   KC_CAPS,  	_______,    	      _______,   	        KC_4,   		          KC_5,   	     KC_6,                  _______, KC_LBRC, KC_RBRC, _______,  _______, _______,
-  _______,   	_______,   	        KC_0,   	          KC_1,  		            KC_2,  	       KC_3,    _______,  _______, 	KC_LEFT, KC_DOWN, KC_UP,  KC_RIGHT, ________, KC_BSLS,
-                             	 	               _______,        _______,		_______,   _______,    _______,  XXXXXXX, _______, _______
+  _______,   	_______,   	        KC_0,   	          KC_1,  		            KC_2,  	       KC_3,    _______,  _______, 	_______, KC_LEFT, KC_DOWN, KC_UP,  KC_RIGHT, KC_BSLS,
+                             	 	                             _______,        _______,		_______,   _______,    _______,  XXXXXXX, _______, _______
 ),
 //================================================================================================================
 
