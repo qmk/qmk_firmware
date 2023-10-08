@@ -104,7 +104,6 @@ class KeyboardKeymapBuildTarget(BuildTarget):
         target = f'{self._keyboard_safe}_{self.keymap}'
         intermediate_output = Path(f'{INTERMEDIATE_OUTPUT_PREFIX}{self._keyboard_safe}_{self.keymap}')
         keymap_file = Path(locate_keymap(self.keyboard, self.keymap))
-        keymap_dir = keymap_file.parent
 
         compile_args.extend([
             f'KEYBOARD={self.keyboard}',
