@@ -2,9 +2,6 @@
     "manufacturer": "Alpaca",
     "keyboard_name": "WFEclipse",
     "bootloader": "stm32duino",
-    "bootmagic": {
-        "matrix": [0, 0]
-    },
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
