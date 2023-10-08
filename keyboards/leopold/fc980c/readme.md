@@ -3,33 +3,33 @@
 FC980C Alt Controller
 =====================
 
-This file and the entire QMK port of this board are based on its TMK implementation: https://github.com/tmk/tmk_keyboard/tree/master/keyboard/fc980c
+This file and the entire QMK port of this board are based on its TMK implementation: <https://github.com/tmk/tmk_keyboard/tree/master/keyboard/fc980c>
 
 ------------
 
 - Keyboard Maintainer: [Balz Guenat](https://github.com/BalzGuenat)
 - Hardware Supported: Hasu's Alt Controller (see below)
-- Hardware Availability: https://geekhack.org/index.php?topic=90104.0
+- Hardware Availability: <https://geekhack.org/index.php?topic=90104.0>
 
 Make example for this keyboard (after setting up your build environment):
 
-    make fc980c:default
+    make leopold/fc980c:default
 
 See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
 To flash the firmware, press the reset button on the controller and run:
 
-    sudo make fc980c:default:dfu
+    make leopold/fc980c:default:dfu
 
 -----------
 
 This controller replaces original controller of Leopold FC980C and makes the keyboard programmable.
 
-Discuss this here: https://geekhack.org/index.php?topic=90681.0
+Discuss this here: <https://geekhack.org/index.php?topic=90681.0>
 
 The keyboard is very similar electronically to its sibling model FC660C you can also refer this.
 
-FC660C Alt Controller: https://geekhack.org/index.php?topic=88439.0
+FC660C Alt Controller: <https://geekhack.org/index.php?topic=88439.0>
 
 
 Actuation Point adjustment
@@ -138,25 +138,17 @@ LV4051A(Z4, Z5) select one of 16 column lines to sense capacitance of switches.
     |F   |1   |1   |1   |1   |
 
 
-Firmware
---------
-Just `make` to build firmware. And consult with wiki for further information.
-
-- https://github.com/tmk/tmk_keyboard/tree/master/keyboard/fc660c
-- https://github.com/tmk/tmk_keyboard/wiki
-
-
 Datasheets
 ----------
-- Hirose DF14A-20P-1.25H: http://www.mouser.com/ds/2/185/DF14_catalog-939195.pdf
-- LV07A: http://www.ti.com/lit/ds/symlink/sn74lv07a.pdf
-- LV138A: http://www.ti.com/lit/ds/symlink/sn74lvc138a.pdf
-- LV4051A: http://www.ti.com/lit/ds/symlink/sn74lv4051a.pdf
-- AD5258: http://www.analog.com/media/en/technical-documentation/data-sheets/AD5258.pdf
-- JST S5B-PH-SM4: http://www.jst-mfg.com/product/pdf/eng/ePH.pdf
-- Hirose UX60SC-MB-5S8: https://www.hirose.com/product/en/products/UX/UX60SC-MB-5S8%2880%29/
-- Tr(E42) for LED?: http://www.bklighting.com/cimages/specs-758.pdf
-- TYU TU1252WNR-05S: http://php2.twinner.com.tw/files/goodjob/TY1252series.pdf
+- Hirose DF14A-20P-1.25H: <http://www.mouser.com/ds/2/185/DF14_catalog-939195.pdf>
+- LV07A: <http://www.ti.com/lit/ds/symlink/sn74lv07a.pdf>
+- LV138A: <http://www.ti.com/lit/ds/symlink/sn74lvc138a.pdf>
+- LV4051A: <http://www.ti.com/lit/ds/symlink/sn74lv4051a.pdf>
+- AD5258: <http://www.analog.com/media/en/technical-documentation/data-sheets/AD5258.pdf>
+- JST S5B-PH-SM4: <http://www.jst-mfg.com/product/pdf/eng/ePH.pdf>
+- Hirose UX60SC-MB-5S8: <https://www.hirose.com/product/en/products/UX/UX60SC-MB-5S8%2880%29/>
+- Tr(E42) for LED?: <http://www.bklighting.com/cimages/specs-758.pdf>
+- TYU TU1252WNR-05S: <http://php2.twinner.com.tw/files/goodjob/TY1252series.pdf>
 
 
 3.3V power supply
@@ -177,9 +169,9 @@ USB connector board
 -------------------
 The keyboard has USB receptacle on small separate 1.0mm-thick PCB. USB receptacle is Hirose UX60SC-MB-5S8 while wire-to-PCB connector is TYU TU1252WNR-05S.
 
-http://i.imgur.com/Nucn6h9.jpg
+![USB daughterboard](https://i.imgur.com/Nucn6h9.jpg)
 
 
 Resources
 ---------
-- Pics: http://imgur.com/a/HhyIq
+- Pics: <http://imgur.com/a/HhyIq>

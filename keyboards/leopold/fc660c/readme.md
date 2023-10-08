@@ -1,7 +1,7 @@
 FC660C Alt Controller
 =================
 
-This file and the entire QMK port of this board are based on its TMK implementation: https://github.com/tmk/tmk_keyboard/tree/master/keyboard/fc980c
+This file and the entire QMK port of this board are based on its TMK implementation: <https://github.com/tmk/tmk_keyboard/tree/master/keyboard/fc980c>
 
 ------------
 
@@ -17,7 +17,7 @@ See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools)
 
 To flash the firmware, press the reset button on the controller and run:
 
-    sudo make fc660c:default:dfu
+    make leopold/fc660c:default:flash
 
 --------
 
@@ -88,11 +88,11 @@ Row5-7 have no key, you can omit scaning on those lines. Topre original controll
     |   7|    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
 
 Logic analyzer pics:
-- http://i.imgur.com/9XoNTev.png
-- https://i.imgur.com/5FCP1Ay.png
+- <http://i.imgur.com/9XoNTev.png>
+- <https://i.imgur.com/5FCP1Ay.png>
 
 This code emuluates what original cotnroller does for matrix scan.
-- https://github.com/tmk/tmk_keyboard/blob/master/keyboard/fc660c/fc660c.c
+- <https://github.com/tmk/tmk_keyboard/blob/master/keyboard/fc660c/fc660c.c>
 
 
 ### Row designation
@@ -135,19 +135,19 @@ LV4051A(Z4, Z5) select one of 16 column lines to sense capacitance of switches.
 
 FCC documents
 -------------
-https://fccid.io/RPKFC660C
+<https://fccid.io/RPKFC660C>
 
-- schematic: https://fccid.io/pdf.php?id=1888185
-- part list: https://fccid.io/pdf.php?id=1888184
+- schematic: <https://fccid.io/pdf.php?id=1888185>
+- part list: <https://fccid.io/pdf.php?id=1888184>
 
 
 Datasheets
 ----------
-- Hirose DF14A-20P-1.25H: http://www.mouser.com/ds/2/185/DF14_catalog-939195.pdf
-- LV07A: http://www.ti.com/lit/ds/symlink/sn74lv07a.pdf
-- LV138A: http://www.ti.com/lit/ds/symlink/sn74lvc138a.pdf
-- LV4051A: http://www.ti.com/lit/ds/symlink/sn74lv4051a.pdf
-- AD5258: http://www.analog.com/media/en/technical-documentation/data-sheets/AD5258.pdf
+- Hirose DF14A-20P-1.25H: <http://www.mouser.com/ds/2/185/DF14_catalog-939195.pdf>
+- LV07A: <http://www.ti.com/lit/ds/symlink/sn74lv07a.pdf>
+- LV138A: <http://www.ti.com/lit/ds/symlink/sn74lvc138a.pdf>
+- LV4051A: <http://www.ti.com/lit/ds/symlink/sn74lv4051a.pdf>
+- AD5258: <http://www.analog.com/media/en/technical-documentation/data-sheets/AD5258.pdf>
 
 
 3.3V power supply
@@ -164,4 +164,4 @@ Lower value of RDAC register causes shallower actuation point.
 
 Resources
 ---------
-- Pics: https://imgur.com/a/UTR8Z
+- Pics: <https://imgur.com/a/UTR8Z>
