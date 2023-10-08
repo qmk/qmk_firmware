@@ -112,8 +112,6 @@ class KeyboardKeymapBuildTarget(BuildTarget):
             f'KEYBOARD_FILESAFE={self._keyboard_safe}',
             f'TARGET={target}',
             f'INTERMEDIATE_OUTPUT={intermediate_output}',
-            f'KEYMAP_C={keymap_file}',
-            f'KEYMAP_PATH={keymap_dir}',
             f'VERBOSE={verbose}',
             f'COLOR={color}',
             'SILENT=false',
