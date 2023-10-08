@@ -15,6 +15,4 @@
  */
 
 #pragma once
-
-#define RGB_MATRIX_KEYPRESSES
 #define HOLD_ON_OTHER_KEY_PRESS
