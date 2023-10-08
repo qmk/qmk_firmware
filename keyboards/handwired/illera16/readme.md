@@ -1,7 +1,5 @@
 # handwired/illera16
 
-![handwired/illera16](imgur.com image replace me!)
-
 *hand wired 4x4 macro pad*
 
 * Keyboard Maintainer: [victor_illera](https://github.com/villeramassana)
