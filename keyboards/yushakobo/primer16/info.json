@@ -4,39 +4,24 @@
     "keyboard_name": "primer16",
     "maintainer": "yushakobo",
     "bootloader": "caterina",
-    "bootmagic": {
-        "enabled": true
-    },
-    "debounce": 5,
     "diode_direction": "COL2ROW",
     "encoder": {
-        "enabled": true,
         "rotary": [
-            {"pin_a": "F6", "pin_b": "F7", "resolution": 4},
-            {"pin_a": "F4", "pin_b": "F5", "resolution": 4}
+            {"pin_a": "F6", "pin_b": "F7"},
+            {"pin_a": "F4", "pin_b": "F5"}
         ]
     },
     "features": {
-        "audio": false,
-        "backlight": false,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": false,
-        "rgblight": true,
-        "via": true
+        "rgblight": true
     },
     "matrix_pins": {
         "cols": ["E6", "D7", "C6", "B1"],
         "rows": ["B3", "D0", "D1", "D2", "D3"]
     },
-    "mouse_key": {
-        "enabled": true
-    },
-    "processor": "atmega32u4",
     "rgblight": {
         "animations": {
             "breathing": true,
