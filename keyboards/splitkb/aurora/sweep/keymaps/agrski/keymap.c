@@ -27,24 +27,24 @@ enum layer_names {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT(
-        KC_Q,       KC_W,   KC_F,           KC_P,       KC_G,               KC_J,       KC_L,       KC_U,   KC_Y,           KC_Z,
-        KC_A,       KC_R,   LT(_NUM, KC_S), KC_T,       KC_D,               KC_H,       KC_N,       KC_E,   KLT(_SYM, C_I), KC_O,
-        TG(_NAV),   KC_X,   KC_C,           KC_V,       KC_TAB,             KC_DEL,     KC_M,       KC_K,   KC_B,           TG(_FUN),
-                                            G(KC_BSPC), S(KC_SPC),          C(KC_ENT),  A(KC_ESC),
+        KC_Q,       KC_W,   KC_F,           KC_P,           KC_G,                   KC_J,           KC_L,           KC_U,   KC_Y,           KC_Z,
+        KC_A,       KC_R,   LT(_NUM, KC_S), KC_T,           KC_D,                   KC_H,           KC_N,           KC_E,   LT(_SYM, KC_I), KC_O,
+        TG(_NAV),   KC_X,   KC_C,           KC_V,           KC_TAB,                 KC_DEL,         KC_M,           KC_K,   KC_B,           TG(_FUN),
+                                            CMD_T(KC_BSPC), SFT_T(KC_SPC),          CTL_T(KC_ENT),  ALT_T(KC_ESC),
     ),
 
     [_NUM] = LAYOUT(
-            xxxxxxx,    xxxxxxx,    xxxxxxx,    xxxxxxx,        xxxxxxx,            xxxxxxx,        KC_7,       KC_8,       KC_9,    xxxxxxx,
-            xxxxxxx,    _______,    KC_MINS,    KC_EQL,         xxxxxxx,            xxxxxxx,        KC_1,       KC_2,       KC_3,    KC_PERC,
-            xxxxxxx,    xxxxxxx,    xxxxxxx,    KC_GRAVE,       xxxxxxx,            xxxxxxx,        KC_4,       KC_5,       KC_6,    xxxxxxx,
-                                                G(KC_COMMA),    S(KC_DOT),          C(KC_QUOTE),    A(KC_0),
+            xxxxxxx,    xxxxxxx,    xxxxxxx,    xxxxxxx,            xxxxxxx,                xxxxxxx,            KC_7,           KC_8,       KC_9,    xxxxxxx,
+            xxxxxxx,    _______,    KC_MINS,    KC_EQL,             xxxxxxx,                xxxxxxx,            KC_1,           KC_2,       KC_3,    KC_PERC,
+            xxxxxxx,    xxxxxxx,    xxxxxxx,    KC_GRAVE,           xxxxxxx,                xxxxxxx,            KC_4,           KC_5,       KC_6,    xxxxxxx,
+                                                CMD_T(KC_COMMA),    SFT_T(KC_DOT),          CTL_T(KC_QUOTE),    ALT_T(KC_0),
     ),
 
     [_SYM] = LAYOUT(
-            KC_LABK,    KC_LBRC,    KC_RBRC,    KC_RABK,    xxxxxxx,            xxxxxxx,        xxxxxxx,    xxxxxxx,    xxxxxxx,    xxxxxxx,
-            KC_CIRC,    KC_LPRN,    KC_RPRN,    KC_DLR,     KC_AT,              xxxxxxx,        KC_TILDE,   KC_PIPE,    _______,    xxxxxxx,
-            xxxxxxx,    KC_LCBR,    KC_RCBR,    KC_SCLN,    KC_AMPR,            xxxxxxx,        KC_EXLM,    xxxxxxx,    xxxxxxx,    xxxxxxx,
-                                                G(KC_HASH), S(KC_ASTR),         C(KC_SLASH),    A(KC_BSLS),
+            KC_LABK,    KC_LBRC,    KC_RBRC,    KC_RABK,        xxxxxxx,                xxxxxxx,            xxxxxxx,        xxxxxxx,    xxxxxxx,    xxxxxxx,
+            KC_CIRC,    KC_LPRN,    KC_RPRN,    KC_DLR,         KC_AT,                  xxxxxxx,            KC_TILDE,       KC_PIPE,    _______,    xxxxxxx,
+            xxxxxxx,    KC_LCBR,    KC_RCBR,    KC_SCLN,        KC_AMPR,                xxxxxxx,            KC_EXLM,        xxxxxxx,    xxxxxxx,    xxxxxxx,
+                                                CMD_T(KC_HASH), SFT_T(KC_ASTR),         CTL_T(KC_SLASH),    ALT_T(KC_BSLS),
     ),
 
     [_NAV] = LAYOUT(
