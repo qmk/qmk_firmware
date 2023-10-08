@@ -7,8 +7,6 @@
 #define _CAPA1 1
 #define _CAPA2 2
 #define _CAPA3 3
-#define _CAPA4 4
-#define _CAPA5 5
 
 layer_state_t layer_state_set_user(layer_state_t state);
 
@@ -32,14 +30,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             rgblight_sethsv_noeeprom(HSV_PINK);
             break;
 
-        case _CAPA4:
-            rgblight_sethsv_noeeprom(HSV_PURPLE);
-            break;
-
-        case _CAPA5:
-            rgblight_sethsv_noeeprom(HSV_CORAL);
-            break;
-
         default:
             rgblight_sethsv_noeeprom(HSV_BLUE); // MI COLOR
             break;
@@ -61,11 +51,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │ 1 │ 2 │ 3 │ 0 │
      * └───┴───┴───┴───┘
      */
+    
     [0] = LAYOUT_ortho_4x4( /* CAPAS BASE */
-        KC_DEL, TG(1),  ____,   KC_SLASH,
-        KC_7,   KC_8,   KC_9,   KC_PAST,
-        KC_4,   KC_5,   KC_6,   KC_PMNS,
-        KC_1,   KC_2, KC_3, KC_0
+        KC_DEL, TG(1),  _______,   KC_SLASH,
+        KC_7,   KC_8,   KC_9,      KC_PAST,
+        KC_4,   KC_5,   KC_6,      KC_PMNS,
+        KC_1,   KC_2,   KC_3,      KC_0
     ),
     [1] = LAYOUT_ortho_4x4( /* CAPA1 */
         KC_1,     TG(2),   TG(1),   KC_1,
@@ -80,45 +71,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_2,       KC_2,   KC_2,   KC_2
     ),
     [3] = LAYOUT_ortho_4x4( /* CAPA3 */
-        KC_3,      TG(4),   TG(3),   KC_3,
-        KC_3,       KC_3,   KC_3,   KC_3,
-        KC_3,       KC_3,   KC_3,   KC_3,
-        KC_3,       KC_3,   KC_3,   KC_3
+        KC_3,      KC_NO,    TG(3),   KC_3,
+        KC_3,       KC_3,     KC_3,   KC_3,
+        KC_3,       KC_3,     KC_3,   KC_3,
+        KC_3,       KC_3,     KC_3,   KC_3
     ),
-    /* MOUSE
-     * ,-------------------------------------------------.
-     * |           |           |     c3     |     X      |
-     * |-----------+-----------+------------+------------|
-     * |  BUTTON 5 |LEFT CLICK |     UP     |RIGHT CLICK |
-     * |-----------+-----------+------------+------------|
-     * |  BUTTON 4 |   LEFT    |    DOWN    |   RIGHT    |
-     * |-----------+-----------+------------+------=-----|
-     * |  BUTTON 3 |SCROLL LEFT|SCROLL DOWN |SCROLL RIGHT|
-     * `-------------------------------------------------'
-     */
-    [4] = LAYOUT_ortho_4x4(
-        _______,   TG(5), TG(4), _______,
-        KC_BTN5, KC_BTN1, KC_MS_U, KC_BTN2,
-        KC_BTN4, KC_MS_L, KC_MS_D, KC_MS_R,
-        KC_BTN3, KC_WH_L, KC_WH_D, KC_WH_R
-    ),
-     /* NAV
-   * ,-----------------------.
-   * | INS |PGUP | c4 |PRSCR|
-   * |-----+-----+-----+-----|
-   * | DEL |PGDN |VOLD |VOLU |
-   * |-----+-----+-----+-----|
-   * |HOME | UP  | END |     |
-   * |-----+-----+-----+-----|
-   * |LEFT |DOWN |RIGHT|ENTER|
-   * `---------------------- '
-   */
-  [5] = LAYOUT_ortho_4x4( /* NAV CLUSTER */
-    KC_PGUP,  _______, TG(5),  KC_PSCR,
-    KC_DEL,  KC_PGDN, KC_VOLD, KC_VOLU,
-    KC_HOME, KC_UP,   KC_END,  _______,
-    KC_LEFT, KC_DOWN, KC_RGHT, KC_ENT
-  ),
+
 
 };
+/*
+ * ROTARY ENCODER
+ */
+
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [0] =  { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),         ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN) },
+    [1] =  { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),         ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN) },
+    [2] =  { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),         ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN) },
+    [3] =  { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),         ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN) },
+};
+
+#endif
+
+
 
