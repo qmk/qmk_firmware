@@ -14,9 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
+#pragma once
 
 // place overrides here
 
@@ -27,5 +25,3 @@
 // this should probably stay in the range +/-5.
 #undef ACTUATION_DEPTH_ADJUSTMENT
 #define ACTUATION_DEPTH_ADJUSTMENT +2
-
-#endif

@@ -13,13 +13,13 @@ This file and the entire QMK port of this board are based on its TMK implementat
 
 Make example for this keyboard (after setting up your build environment):
 
-    make leopold/fc980c:default
+    make leopold/fc980c/tmk:default
 
 See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
 To flash the firmware, press the reset button on the controller and run:
 
-    make leopold/fc980c:default:dfu
+    make leopold/fc980c/tmk:default:flash
 
 -----------
 

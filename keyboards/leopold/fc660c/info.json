@@ -1,6 +1,5 @@
 {
-    "keyboard_name": "FC660C",
-    "manufacturer": "Hasu",
+    "keyboard_name": "FC660C with tmk controller",
     "url": "",
     "maintainer": "qmk",
     "usb": {
