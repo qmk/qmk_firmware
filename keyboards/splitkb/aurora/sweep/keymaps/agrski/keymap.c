@@ -34,37 +34,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_NUM] = LAYOUT(
-            xxxxxxx,    xxxxxxx,    xxxxxxx,    xxxxxxx,            xxxxxxx,                xxxxxxx,            KC_7,           KC_8,       KC_9,    xxxxxxx,
-            xxxxxxx,    _______,    KC_MINS,    KC_EQL,             xxxxxxx,                xxxxxxx,            KC_1,           KC_2,       KC_3,    KC_PERC,
-            xxxxxxx,    xxxxxxx,    xxxxxxx,    KC_GRAVE,           xxxxxxx,                xxxxxxx,            KC_4,           KC_5,       KC_6,    xxxxxxx,
+            XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,            XXXXXXX,                XXXXXXX,            KC_7,           KC_8,       KC_9,    XXXXXXX,
+            XXXXXXX,    _______,    KC_MINS,    KC_EQL,             XXXXXXX,                XXXXXXX,            KC_1,           KC_2,       KC_3,    KC_PERC,
+            XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_GRAVE,           XXXXXXX,                XXXXXXX,            KC_4,           KC_5,       KC_6,    XXXXXXX,
                                                 CMD_T(KC_COMMA),    SFT_T(KC_DOT),          CTL_T(KC_QUOTE),    ALT_T(KC_0)
     ),
 
     [_SYM] = LAYOUT(
-            KC_LABK,    KC_LBRC,    KC_RBRC,    KC_RABK,        xxxxxxx,                xxxxxxx,            xxxxxxx,        xxxxxxx,    xxxxxxx,    xxxxxxx,
-            KC_CIRC,    KC_LPRN,    KC_RPRN,    KC_DLR,         KC_AT,                  xxxxxxx,            KC_TILDE,       KC_PIPE,    _______,    xxxxxxx,
-            xxxxxxx,    KC_LCBR,    KC_RCBR,    KC_SCLN,        KC_AMPR,                xxxxxxx,            KC_EXLM,        xxxxxxx,    xxxxxxx,    xxxxxxx,
+            KC_LABK,    KC_LBRC,    KC_RBRC,    KC_RABK,        XXXXXXX,                XXXXXXX,            XXXXXXX,        XXXXXXX,    XXXXXXX,    XXXXXXX,
+            KC_CIRC,    KC_LPRN,    KC_RPRN,    KC_DLR,         KC_AT,                  XXXXXXX,            KC_TILDE,       KC_PIPE,    _______,    XXXXXXX,
+            XXXXXXX,    KC_LCBR,    KC_RCBR,    KC_SCLN,        KC_AMPR,                XXXXXXX,            KC_EXLM,        XXXXXXX,    XXXXXXX,    XXXXXXX,
                                                 CMD_T(KC_HASH), SFT_T(KC_ASTR),         CTL_T(KC_SLASH),    ALT_T(KC_BSLS)
     ),
 
     [_NAV] = LAYOUT(
-        KC_MS_BTN3,     KC_MS_BTN2,     KC_UP,      KC_MS_BTN1, xxxxxxx,            xxxxxxx,    KC_MS_BTN1, KC_MS_U,    KC_MS_BTN2, KC_MS_BTN3,
+        KC_MS_BTN3,     KC_MS_BTN2,     KC_UP,      KC_MS_BTN1, XXXXXXX,            XXXXXXX,    KC_MS_BTN1, KC_MS_U,    KC_MS_BTN2, KC_MS_BTN3,
         KC_ESC,         KC_LEFT,        KC_DOWN,    KC_RIGHT,   KC_WBAK,            KC_WFWD,    KC_MS_L,    KC_MS_D,    KC_MS_R,    KC_ESC,
         _______,        KC_END,         KC_PGDN,    KC_PGUP,    KC_HOME,            KC_WH_L,    KC_WH_U,    KC_WH_D,    KC_WH_R,    _______,
                                                     KC_LCMD,    KC_LSFT,            KC_LCTL,    KC_LALT
     ),
 
     [_FUN] = LAYOUT(
-        xxxxxxx,    xxxxxxx,    xxxxxxx,    xxxxxxx,    xxxxxxx,                xxxxxxx,    BL_UP,  BL_TOGG,    BL_DOWN,    xxxxxxx,
-        xxxxxxx,    KC_F1,      KC_F2,      KC_F3,      xxxxxxx,                xxxxxxx,    KC_F7,  KC_F8,      KC_F9,      xxxxxxx,
-        _______,    KC_F4,      KC_F5,      KC_F6,      xxxxxxx,                xxxxxxx,    KC_F10, KC_F11,     KC_F12,     _______,
+        XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,                XXXXXXX,    BL_UP,  BL_TOGG,    BL_DOWN,    XXXXXXX,
+        XXXXXXX,    KC_F1,      KC_F2,      KC_F3,      XXXXXXX,                XXXXXXX,    KC_F7,  KC_F8,      KC_F9,      XXXXXXX,
+        _______,    KC_F4,      KC_F5,      KC_F6,      XXXXXXX,                XXXXXXX,    KC_F10, KC_F11,     KC_F12,     _______,
                                             KC_PASTE,   KC_COPY,                KC_VOLD,    KC_VOLU
     ),
 
     [_KITTY] = LAYOUT(
-        xxxxxxx,        xxxxxxx,        xxxxxxx,        xxxxxxx,        xxxxxxx,            xxxxxxx,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-        RCS(KC_COMMA),  S(KC_LEFT),     S(KC_RIGHT),    RCS(KC_DOT),    xxxxxxx,            xxxxxxx,    xxxxxxx, _______, xxxxxxx, xxxxxxx,
-        RCS(KC_B),      RCS(KC_LEFT),   RCS(KC_RIGHT),  RCS(KC_F),      xxxxxxx,            xxxxxxx,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-                                                        RCS(KC_DOWN),   S(KC_DOWN),         RCS(KC_L),  xxxxxxx
+        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,            XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        RCS(KC_COMMA),  S(KC_LEFT),     S(KC_RIGHT),    RCS(KC_DOT),    XXXXXXX,            XXXXXXX,    XXXXXXX, _______, XXXXXXX, XXXXXXX,
+        RCS(KC_B),      RCS(KC_LEFT),   RCS(KC_RIGHT),  RCS(KC_F),      XXXXXXX,            XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                                                        RCS(KC_DOWN),   S(KC_DOWN),         RCS(KC_L),  XXXXXXX
     ),
 }
