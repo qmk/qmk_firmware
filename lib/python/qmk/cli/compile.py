@@ -7,19 +7,11 @@ from argcomplete.completers import FilesCompleter
 from milc import cli
 
 import qmk.path
-from qmk.constants import QMK_FIRMWARE
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.commands import build_environment
 from qmk.keyboard import keyboard_completer, keyboard_folder_or_all, is_all_keyboards
 from qmk.keymap import keymap_completer, locate_keymap
 from qmk.build_targets import KeyboardKeymapBuildTarget, JsonKeymapBuildTarget
-
-
-def _is_keymap_target(keyboard, keymap):
-    if locate_keymap(keyboard, keymap):
-        return True
-
-    return False
 
 
 @cli.argument('filename', nargs='?', arg_only=True, type=qmk.path.FileType('r'), completer=FilesCompleter('.json'), help='The configurator export to compile')
@@ -29,6 +21,7 @@ def _is_keymap_target(keyboard, keymap):
 @cli.argument('-j', '--parallel', type=int, default=1, help="Set the number of parallel make jobs; 0 means unlimited.")
 @cli.argument('-e', '--env', arg_only=True, action='append', default=[], help="Set a variable to be passed to make. May be passed multiple times.")
 @cli.argument('-c', '--clean', arg_only=True, action='store_true', help="Remove object files before compiling.")
+@cli.argument('-t', '--target', type=str, default=None, help="Intended alternative build target, such as `production` in `make planck/rev4:default:production`.")
 @cli.argument('--compiledb', arg_only=True, action='store_true', help="Generates the clang compile_commands.json file during build. Implies --clean.")
 @cli.subcommand('Compile a QMK Firmware.')
 @automagic_keyboard
@@ -54,14 +47,17 @@ def compile(cli):
     target = None
 
     if cli.args.filename:
+        # if we were given a filename, assume we have a json build target
         target = JsonKeymapBuildTarget(cli.args.filename)
 
     elif cli.config.compile.keyboard and cli.config.compile.keymap:
-        if not _is_keymap_target(cli.config.compile.keyboard, cli.config.compile.keymap):
+        # if we got a keyboard and keymap, attempt to find it
+        if not locate_keymap(cli.config.compile.keyboard, cli.config.compile.keymap):
             cli.log.error('Invalid keymap argument.')
             cli.print_help()
             return False
 
+        # If we got here, then we have a valid keyboard and keymap for a build target
         target = KeyboardKeymapBuildTarget(cli.config.compile.keyboard, cli.config.compile.keymap)
 
     if not target:
@@ -70,4 +66,4 @@ def compile(cli):
         return False
 
     target.configure(parallel=cli.config.compile.parallel, clean=cli.args.clean, compiledb=cli.args.compiledb)
-    target.compile(**envs)
+    target.compile(cli.args.target, **envs)

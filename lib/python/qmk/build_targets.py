@@ -1,16 +1,19 @@
 # Copyright 2023 Nick Brassel (@tzarc)
 # SPDX-License-Identifier: GPL-2.0-or-later
+import json
 from typing import List
 from pathlib import Path
 from milc import cli
-from qmk.constants import QMK_FIRMWARE
+from qmk.constants import QMK_FIRMWARE, INTERMEDIATE_OUTPUT_PREFIX
 from qmk.commands import _find_make, get_make_parallel_args, parse_configurator_json, create_make_target
+from qmk.keymap import locate_keymap
 from qmk.cli.generate.compilation_database import write_compilation_database
 
 
 class BuildTarget:
     def __init__(self, keyboard: str, keymap: str):
         self._keyboard = keyboard
+        self._keyboard_safe = keyboard.replace('/', '_')
         self._keymap = keymap
         self._parallel = 1
         self._clean = False
@@ -41,24 +44,23 @@ class BuildTarget:
     def prepare_build(self, build_target: str = None, dry_run: bool = False, **env_vars) -> None:
         raise NotImplementedError("prepare_build() not implemented in base class")
 
-    def compile_commands(self, build_target: str = None, dry_run: bool = False, **env_vars) -> List[str]:
-        raise NotImplementedError("compile_commands() not implemented in base class")
+    def compile_command(self, build_target: str = None, dry_run: bool = False, **env_vars) -> List[str]:
+        raise NotImplementedError("compile_command() not implemented in base class")
 
-    def generate_compilation_database(self, skip_clean: bool = False, **env_vars) -> None:
-        self.prepare_build(**env_vars)
-        command = self.compile_commands(dry_run=True, **env_vars)
+    def generate_compilation_database(self, build_target: str = None, skip_clean: bool = False, **env_vars) -> None:
+        self.prepare_build(build_target=build_target, **env_vars)
+        command = self.compile_command(build_target=build_target, dry_run=True, **env_vars)
         write_compilation_database(command=command, output_path=QMK_FIRMWARE / 'compile_commands.json', skip_clean=skip_clean, **env_vars)
 
     def compile(self, build_target: str = None, dry_run: bool = False, **env_vars) -> None:
         if self._clean or self._compiledb:
             cli.run(create_make_target("clean", dry_run=dry_run, parallel=1, **env_vars), capture_output=False)
 
-        self.prepare_build(build_target=build_target, **env_vars)
-
         if self._compiledb and not dry_run:
-            self.generate_compilation_database(skip_clean=True, **env_vars)
+            self.generate_compilation_database(build_target=build_target, skip_clean=True, **env_vars)
 
-        command = self.compile_commands(build_target=build_target, **env_vars)
+        self.prepare_build(build_target=build_target, dry_run=dry_run, **env_vars)
+        command = self.compile_command(build_target=build_target, **env_vars)
         cli.log.info('Compiling keymap with {fg_cyan}%s', ' '.join(command))
         if not dry_run:
             cli.echo('\n')
@@ -77,47 +79,137 @@ class KeyboardKeymapBuildTarget(BuildTarget):
     def prepare_build(self, build_target: str = None, dry_run: bool = False, **env_vars) -> None:
         pass
 
-    def compile_commands(self, build_target: str = None, dry_run: bool = False, **env_vars) -> List[str]:
-        """This needs to be rewritten to do a full `make` invocation, rather than the old syntax!
-
-        See commands.py for actual implementation.
-        """
+    def compile_command(self, build_target: str = None, dry_run: bool = False, **env_vars) -> List[str]:
+        verbose = 'true' if cli.config.general.verbose else 'false'
+        color = 'true' if cli.config.general.color else 'false'
 
         compile_args = [
             _find_make(),
             *get_make_parallel_args(self._parallel),
+            '-r',
+            '-R',
+            '-f',
+            'builddefs/build_keyboard.mk',
         ]
+
+        if not cli.config.general.verbose:
+            compile_args.append('-s')
 
         if dry_run:
             compile_args.append('-n')
 
-        if not build_target:
-            compile_args.append(f'{self.keyboard}:{self.keymap}')
-        else:
-            compile_args.append(f'{self.keyboard}:{self.keymap}:{build_target}')
+        if build_target:
+            compile_args.append(build_target)
+
+        target = f'{self._keyboard_safe}_{self.keymap}'
+        intermediate_output = Path(f'{INTERMEDIATE_OUTPUT_PREFIX}{self._keyboard_safe}_{self.keymap}')
+        keymap_file = Path(locate_keymap(self.keyboard, self.keymap))
+        keymap_dir = keymap_file.parent
+
+        compile_args.extend([
+            f'KEYBOARD={self.keyboard}',
+            f'KEYMAP={self.keymap}',
+            f'KEYBOARD_FILESAFE={self._keyboard_safe}',
+            f'TARGET={target}',
+            f'INTERMEDIATE_OUTPUT={intermediate_output}',
+            f'KEYMAP_C={keymap_file}',
+            f'KEYMAP_PATH={keymap_dir}',
+            f'VERBOSE={verbose}',
+            f'COLOR={color}',
+            'SILENT=false',
+            'QMK_BIN="qmk"',
+        ])
 
         for key, value in env_vars.items():
             compile_args.append(f'{key}={value}')
-
-        if cli.config.general.verbose:
-            compile_args.append('VERBOSE=true')
 
         return compile_args
 
 
 class JsonKeymapBuildTarget(BuildTarget):
-    def __init__(self, json_path: Path, json: dict = None):
-        self.json_path = Path(json_path)
-        if json is None:
-            json = parse_configurator_json(self.json_path)
-        self.json = json
+    def __init__(self, json_path):
+        if isinstance(json_path, Path):
+            self.json_path = json_path
+        else:
+            self.json_path = None
+
+        self.json = parse_configurator_json(json_path)  # Will load from stdin if provided
+
+        # In case the user passes a keymap.json from a keymap directory directly to the CLI.
+        # e.g.: qmk compile - < keyboards/clueboard/california/keymaps/default/keymap.json
+        self.json["keymap"] = self.json.get("keymap", "default_json")
+
         super().__init__(self.json['keyboard'], self.json['keymap'])
 
     def __repr__(self):
         return f'JsonKeymapTarget(keyboard={self.keyboard}, keymap={self.keymap}, path={self.json_path})'
 
     def prepare_build(self, build_target: str = None, dry_run: bool = False, **env_vars) -> None:
-        pass
+        intermediate_output = Path(f'{INTERMEDIATE_OUTPUT_PREFIX}{self._keyboard_safe}_{self.json["keymap"]}')
+        keymap_dir = intermediate_output / 'src'
+        keymap_json = keymap_dir / 'keymap.json'
 
-    def compile_commands(self, build_target: str = None, dry_run: bool = False, **env_vars) -> List[str]:
-        return []
+        # begin with making the deepest folder in the tree
+        keymap_dir.mkdir(exist_ok=True, parents=True)
+
+        # Compare minified to ensure consistent comparison
+        new_content = json.dumps(self.json, separators=(',', ':'))
+        if keymap_json.exists():
+            old_content = json.dumps(json.loads(keymap_json.read_text(encoding='utf-8')), separators=(',', ':'))
+            if old_content == new_content:
+                new_content = None
+
+        # Write the keymap.json file if different
+        if new_content:
+            keymap_json.write_text(new_content, encoding='utf-8')
+
+    def compile_command(self, build_target: str = None, dry_run: bool = False, **env_vars) -> List[str]:
+        verbose = 'true' if cli.config.general.verbose else 'false'
+        color = 'true' if cli.config.general.color else 'false'
+
+        compile_args = [
+            _find_make(),
+            *get_make_parallel_args(self._parallel),
+            '-r',
+            '-R',
+            '-f',
+            'builddefs/build_keyboard.mk',
+        ]
+
+        if not cli.config.general.verbose:
+            compile_args.append('-s')
+
+        if dry_run:
+            compile_args.append('-n')
+
+        if build_target:
+            compile_args.append(build_target)
+
+        target = f'{self._keyboard_safe}_{self.keymap}'
+        intermediate_output = Path(f'{INTERMEDIATE_OUTPUT_PREFIX}{self._keyboard_safe}_{self.json["keymap"]}')
+        keymap_dir = intermediate_output / 'src'
+        keymap_json = keymap_dir / 'keymap.json'
+
+        compile_args.extend([
+            f'KEYBOARD={self.keyboard}',
+            f'KEYMAP={self.keymap}',
+            f'KEYBOARD_FILESAFE={self._keyboard_safe}',
+            f'TARGET={target}',
+            f'INTERMEDIATE_OUTPUT={intermediate_output}',
+            f'MAIN_KEYMAP_PATH_1={intermediate_output}',
+            f'MAIN_KEYMAP_PATH_2={intermediate_output}',
+            f'MAIN_KEYMAP_PATH_3={intermediate_output}',
+            f'MAIN_KEYMAP_PATH_4={intermediate_output}',
+            f'MAIN_KEYMAP_PATH_5={intermediate_output}',
+            f'KEYMAP_JSON={keymap_json}',
+            f'KEYMAP_PATH={keymap_dir}',
+            f'VERBOSE={verbose}',
+            f'COLOR={color}',
+            'SILENT=false',
+            'QMK_BIN="qmk"',
+        ])
+
+        for key, value in env_vars.items():
+            compile_args.append(f'{key}={value}')
+
+        return compile_args
