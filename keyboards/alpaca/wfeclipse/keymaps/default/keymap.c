@@ -18,10 +18,8 @@
 
 enum layer_names
 {    
-    WIN_BASE = 0,
-    WIN_FN,
-    NONE1,
-    NONE2
+    WIN_BASE,
+    WIN_FN
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
