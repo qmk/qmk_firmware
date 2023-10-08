@@ -60,4 +60,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,    KC_F4,      KC_F5,      KC_F6,      xxxxxxx,                xxxxxxx,    KC_F10, KC_F11,     KC_F12,     _______,
                                             KC_PASTE,   KC_COPY,                KC_VOLD,    KC_VOLU,
     ),
+
+    [_KITTY] = LAYOUT(
+        xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,                xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
+        xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,                xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
+        xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,                xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
+                                   xxxxxxx, xxxxxxx,                xxxxxxx, xxxxxxx,
+    ),
 }
