@@ -42,7 +42,7 @@ class BuildTarget:
     def keymap(self) -> str:
         return self._keymap
 
-    def _common_make_args(self):
+    def _common_make_args(self, dry_run: bool = False, build_target: str = None):
         compile_args = [
             _find_make(),
             *get_make_parallel_args(self._parallel),
@@ -55,13 +55,16 @@ class BuildTarget:
         if not cli.config.general.verbose:
             compile_args.append('-s')
 
-        return compile_args
-
-    def _common_make_vars(self):
         verbose = 'true' if cli.config.general.verbose else 'false'
         color = 'true' if cli.config.general.color else 'false'
 
-        make_args = [
+        if dry_run:
+            compile_args.append('-n')
+
+        if build_target:
+            compile_args.append(build_target)
+
+        compile_args.extend([
             f'KEYBOARD={self.keyboard}',
             f'KEYMAP={self.keymap}',
             f'KEYBOARD_FILESAFE={self._keyboard_safe}',
@@ -71,9 +74,9 @@ class BuildTarget:
             f'COLOR={color}',
             'SILENT=false',
             'QMK_BIN="qmk"',
-        ]
+        ])
 
-        return make_args
+        return compile_args
 
     def prepare_build(self, build_target: str = None, dry_run: bool = False, **env_vars) -> None:
         raise NotImplementedError("prepare_build() not implemented in base class")
@@ -116,16 +119,7 @@ class KeyboardKeymapBuildTarget(BuildTarget):
         pass
 
     def compile_command(self, build_target: str = None, dry_run: bool = False, **env_vars) -> List[str]:
-        compile_args = self._common_make_args()
-
-        if dry_run:
-            compile_args.append('-n')
-
-        if build_target:
-            compile_args.append(build_target)
-
-        compile_args.extend(self._common_make_vars())
-
+        compile_args = self._common_make_args(dry_run=dry_run, build_target=build_target)
         for key, value in env_vars.items():
             compile_args.append(f'{key}={value}')
 
@@ -169,15 +163,7 @@ class JsonKeymapBuildTarget(BuildTarget):
             keymap_json.write_text(new_content, encoding='utf-8')
 
     def compile_command(self, build_target: str = None, dry_run: bool = False, **env_vars) -> List[str]:
-        compile_args = self._common_make_args()
-
-        if dry_run:
-            compile_args.append('-n')
-
-        if build_target:
-            compile_args.append(build_target)
-
-        compile_args.extend(self._common_make_vars())
+        compile_args = self._common_make_args(dry_run=dry_run, build_target=build_target)
 
         keymap_dir = self._intermediate_output / 'src'
         keymap_json = keymap_dir / 'keymap.json'
