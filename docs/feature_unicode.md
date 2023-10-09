@@ -210,7 +210,7 @@ Not currently implemented. If you're a BSD user and want to contribute support f
 |`UP(i, j)`                  |         |Send Unicode code point at index `i`, or `j` if Shift/Caps is on|
 |`QK_UNICODE_MODE_NEXT`      |`UC_NEXT`|Cycle through selected input modes                              |
 |`QK_UNICODE_MODE_PREVIOUS`  |`UC_PREV`|Cycle through selected input modes in reverse                   |
-|`QK_UNICODE_MODE_MACOSOS`     |`UC_MAC` |Switch to macOS input                                           |
+|`QK_UNICODE_MODE_MACOS`     |`UC_MAC` |Switch to macOS input                                           |
 |`QK_UNICODE_MODE_LINUX`     |`UC_LINX`|Switch to Linux input                                           |
 |`QK_UNICODE_MODE_WINDOWS`   |`UC_WIN` |Switch to Windows input                                         |
 |`QK_UNICODE_MODE_BSD`       |`UC_BSD` |Switch to BSD input (not implemented)                           |
