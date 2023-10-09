@@ -20,12 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 
 #ifdef ACTUATION_DEPTH_ADJUSTMENT
-#    include "../ad5258.h"
-
-// see keymaps/actuation-point-example to see how these functions can be used.
-void actuation_point_up(void);
-void actuation_point_down(void);
-
-// be careful with this.
-void adjust_actuation_point(int offset);
+#    include "../../ad5258.h"
+#    include "../../actuation_point.h"
 #endif

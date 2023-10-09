@@ -15,12 +15,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "tmk.h"
+#pragma once
 
-#ifdef ACTUATION_DEPTH_ADJUSTMENT
-void matrix_init_kb(void) {
-    adjust_actuation_point(ACTUATION_DEPTH_ADJUSTMENT);
+void actuation_point_up(void);
 
-    matrix_init_user();
-}
-#endif
+void actuation_point_down(void);
+
+void adjust_actuation_point(int offset);
