@@ -25,7 +25,7 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
         RGB_MATRIX_INDICATOR_SET_COLOR(50, 16, 16, 16); // assuming caps lock is at led #50
     } 
     if (host_keyboard_led_state().scroll_lock) {
-        RGB_MATRIX_INDICATOR_SET_COLOR(14, 16, 16, 16); // assuming caps lock is at led #14
+        RGB_MATRIX_INDICATOR_SET_COLOR(14, 16, 16, 16); // assuming scroll lock is at led #14
     }
     if (get_highest_layer(layer_state) == 1) {
         RGB_MATRIX_INDICATOR_SET_COLOR(83, 16, 16 ,16);
