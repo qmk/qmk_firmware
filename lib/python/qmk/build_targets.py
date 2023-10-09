@@ -122,8 +122,10 @@ class KeyboardKeymapBuildTarget(BuildTarget):
 
     def compile_command(self, build_target: str = None, dry_run: bool = False, **env_vars) -> List[str]:
         compile_args = self._common_make_args(dry_run=dry_run, build_target=build_target)
+
         for key, value in env_vars.items():
             compile_args.append(f'{key}={value}')
+
         return compile_args
 
 
@@ -162,7 +164,8 @@ class JsonKeymapBuildTarget(BuildTarget):
             if old_content == new_content:
                 new_content = None
 
-        # Write the keymap.json file if different
+        # Write the keymap.json file if different so timestamps are only updated
+        # if the content changes -- running `make` won't treat it as modified.
         if new_content:
             self._keymap_json.write_text(new_content, encoding='utf-8')
 
