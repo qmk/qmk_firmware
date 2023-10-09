@@ -9,9 +9,11 @@
         "cols": ["C11","A2" ,"C3" ,"A0" ,"A1" ,"B10","B1" ,"B0" ,"C5" ,"C4" ,"A7" ,"A6" ,"A5" ,"A4" ,"A15"]
     },
     "diode_direction": "COL2ROW",
+    "build": {
+        "lto": true,
+    },
     "features": {
         "bootmagic": true,
-        "lto":       true,
         "mousekey":  true,
         "extrakey":  true,
         "console":   false,
@@ -267,7 +269,7 @@
                 {"matrix": [7, 11], "x": 17.25, "y": 5.5}
             ]
         },
-        "LAYOUT_tkl_ansi_split_bs_shift": {
+        "LAYOUT_tkl_ansi_split_bs_rshift": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 2], "x": 2, "y": 0},
@@ -470,7 +472,7 @@
                 {"matrix": [7, 11], "x": 17.25, "y": 5.5}
             ]
         },
-        "LAYOUT_tkl_ansi_tsangan_split_bs_shift": {
+        "LAYOUT_tkl_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 2], "x": 2, "y": 0},
@@ -674,7 +676,7 @@
                 {"matrix": [7, 11], "x": 17.25, "y": 5.5}
             ]
         },
-        "LAYOUT_tkl_f13_ansi_split_bs_shift": {
+        "LAYOUT_tkl_f13_ansi_split_bs_rshift": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1.25, "y": 0},
@@ -879,7 +881,7 @@
                 {"matrix": [7, 11], "x": 17.25, "y": 5.5}
             ]
         },
-        "LAYOUT_tkl_f13_ansi_tsangan_split_bs_shift": {
+        "LAYOUT_tkl_f13_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1.25, "y": 0},
@@ -1084,7 +1086,7 @@
                 {"matrix": [7, 11], "x": 17.25, "y": 5.5}
             ]
         },
-        "LAYOUT_tkl_iso_split_bs_shift": {
+        "LAYOUT_tkl_iso_split_bs_rshift": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 2], "x": 2, "y": 0},
@@ -1289,7 +1291,7 @@
                 {"matrix": [7, 11], "x": 17.25, "y": 5.5}
             ]
         },
-        "LAYOUT_tkl_iso_tsangan_split_bs_shift": {
+        "LAYOUT_tkl_iso_tsangan_split_bs_rshift": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 2], "x": 2, "y": 0},
@@ -1495,7 +1497,7 @@
                 {"matrix": [7, 11], "x": 17.25, "y": 5.5}
             ]
         },
-        "LAYOUT_tkl_f13_iso_split_bs_shift": {
+        "LAYOUT_tkl_f13_iso_split_bs_rshift": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1.25, "y": 0},
@@ -1702,7 +1704,7 @@
                 {"matrix": [7, 11], "x": 17.25, "y": 5.5}
             ]
         },
-        "LAYOUT_tkl_f13_iso_tsangan_split_bs_shift": {
+        "LAYOUT_tkl_f13_iso_tsangan_split_bs_rshift": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1.25, "y": 0},
