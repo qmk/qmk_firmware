@@ -22,39 +22,6 @@ def find_make():
     return make_cmd
 
 
-def create_make_target(target, dry_run=False, parallel=1, **env_vars):
-    """Create a make command
-
-    Args:
-
-        target
-            Usually a make rule, such as 'clean' or 'all'.
-
-        dry_run
-            make -n -- don't actually build
-
-        parallel
-            The number of make jobs to run in parallel
-
-        **env_vars
-            Environment variables to be passed to make.
-
-    Returns:
-
-        A command that can be run to make the specified keyboard and keymap
-    """
-    env = []
-    make_cmd = find_make()
-
-    for key, value in env_vars.items():
-        env.append(f'{key}={value}')
-
-    if cli.config.general.verbose:
-        env.append('VERBOSE=true')
-
-    return [make_cmd, *(['-n'] if dry_run else []), *get_make_parallel_args(parallel), *env, target]
-
-
 def get_make_parallel_args(parallel=1):
     """Returns the arguments for running the specified number of parallel jobs.
     """

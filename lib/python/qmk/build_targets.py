@@ -6,7 +6,7 @@ from typing import List
 from pathlib import Path
 from milc import cli
 from qmk.constants import QMK_FIRMWARE, INTERMEDIATE_OUTPUT_PREFIX
-from qmk.commands import find_make, get_make_parallel_args, parse_configurator_json, create_make_target
+from qmk.commands import find_make, get_make_parallel_args, parse_configurator_json
 from qmk.cli.generate.compilation_database import write_compilation_database
 
 
@@ -93,7 +93,9 @@ class BuildTarget:
 
     def compile(self, build_target: str = None, dry_run: bool = False, **env_vars) -> None:
         if self._clean or self._compiledb:
-            command = create_make_target("clean", dry_run=dry_run, parallel=1, **env_vars)
+            command = [find_make(), "clean"]
+            if dry_run:
+                command.append('-n')
             cli.log.info('Cleaning with {fg_cyan}%s', ' '.join(command))
             cli.run(command, capture_output=False)
 

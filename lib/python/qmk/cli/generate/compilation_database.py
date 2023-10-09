@@ -12,7 +12,7 @@ from typing import Dict, Iterator, List, Union
 
 from milc import cli, MILC
 
-from qmk.commands import create_make_target
+from qmk.commands import find_make
 from qmk.constants import QMK_FIRMWARE
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.keyboard import keyboard_completer, keyboard_folder
@@ -94,7 +94,7 @@ def write_compilation_database(keyboard: str = None, keymap: str = None, output_
 
     # re-use same executable as the main make invocation (might be gmake)
     if not skip_clean:
-        clean_command = create_make_target("clean")
+        clean_command = [find_make(), "clean"]
         cli.log.info('Making clean with {fg_cyan}%s', ' '.join(clean_command))
         cli.run(clean_command, capture_output=False, check=True, env=env)
 

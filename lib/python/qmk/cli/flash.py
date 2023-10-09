@@ -17,16 +17,6 @@ from qmk.flashers import flasher
 from qmk.build_targets import KeyboardKeymapBuildTarget, JsonKeymapBuildTarget
 
 
-def _is_keymap_target(keyboard, keymap):
-    if keymap == 'all':
-        return True
-
-    if locate_keymap(keyboard, keymap):
-        return True
-
-    return False
-
-
 def _list_bootloaders():
     """Prints the available bootloaders listed in docs.qmk.fm.
     """
