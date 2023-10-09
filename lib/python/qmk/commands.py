@@ -30,7 +30,7 @@ def get_make_parallel_args(parallel=1):
     if int(parallel) <= 0:
         # 0 or -1 means -j without argument (unlimited jobs)
         parallel_args.append('--jobs')
-    else:
+    elif int(parallel) > 1:
         parallel_args.append('--jobs=' + str(parallel))
 
     if int(parallel) != 1:
