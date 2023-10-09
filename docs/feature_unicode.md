@@ -140,7 +140,7 @@ To set the list of enabled input modes, add the `UNICODE_SELECTED_MODES` define 
 ```c
 #define UNICODE_SELECTED_MODES UNICODE_MODE_LINUX
 // or
-#define UNICODE_SELECTED_MODES UNICODE_MODE_MAC, UNICODE_MODE_WINCOMPOSE
+#define UNICODE_SELECTED_MODES UNICODE_MODE_MACOS, UNICODE_MODE_WINCOMPOSE
 ```
 
 These modes can then be cycled through using the `UC_NEXT` and `UC_PREV` keycodes. You can also switch to any input mode, even if it is not specified in `UNICODE_SELECTED_MODES`, using their respective keycodes.
@@ -151,7 +151,7 @@ If your keyboard has working EEPROM, it will remember the last used input mode a
 
 ### ** macOS **
 
-**Mode Name:** `UNICODE_MODE_MAC`
+**Mode Name:** `UNICODE_MODE_MACOS`
 
 macOS has built-in support for Unicode input as its own input source. It supports all possible code points by way of surrogate pairs for code points above `U+FFFF`.
 
@@ -210,7 +210,7 @@ Not currently implemented. If you're a BSD user and want to contribute support f
 |`UP(i, j)`                  |         |Send Unicode code point at index `i`, or `j` if Shift/Caps is on|
 |`QK_UNICODE_MODE_NEXT`      |`UC_NEXT`|Cycle through selected input modes                              |
 |`QK_UNICODE_MODE_PREVIOUS`  |`UC_PREV`|Cycle through selected input modes in reverse                   |
-|`QK_UNICODE_MODE_MACOS`     |`UC_MAC` |Switch to macOS input                                           |
+|`QK_UNICODE_MODE_MACOSOS`     |`UC_MAC` |Switch to macOS input                                           |
 |`QK_UNICODE_MODE_LINUX`     |`UC_LINX`|Switch to Linux input                                           |
 |`QK_UNICODE_MODE_WINDOWS`   |`UC_WIN` |Switch to Windows input                                         |
 |`QK_UNICODE_MODE_BSD`       |`UC_BSD` |Switch to BSD input (not implemented)                           |
