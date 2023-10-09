@@ -1,4 +1,5 @@
 // Copyright 2023 Dasky (@daskygit)
+// Copyright 2023 George Norton (@george-norton)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once

@@ -1,4 +1,5 @@
 // Copyright 2023 Dasky (@daskygit)
+// Copyright 2023 George Norton (@george-norton)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "azoteq_iqs5xx.h"
@@ -51,6 +52,38 @@
 #define AZOTEQ_IQS5XX_REG_ 0x000
 
 #define AZOTEQ_IQS5XX_REG_END_COMMS 0xEEEE
+
+// Gesture configuration
+#ifndef AZOTEQ_IQS5XX_TAP_ENABLE
+    #define AZOTEQ_IQS5XX_TAP_ENABLE true
+#endif
+// A tap mast last fewer than this many milliseconds to be registered
+#ifndef AZOTEQ_IQS5XX_TAP_TIME
+    #define AZOTEQ_IQS5XX_TAP_TIME 250
+#endif
+// A tap must move less than this distance to be registered
+#ifndef AZOTEQ_IQS5XX_TAP_DISTANCE
+    #define AZOTEQ_IQS5XX_TAP_DISTANCE 50
+#endif
+#ifndef AZOTEQ_IQS5XX_PRESS_AND_HOLD_ENABLE
+    #define AZOTEQ_IQS5XX_PRESS_AND_HOLD_ENABLE true
+#endif
+// A tap must be held for this many milliseconds, before it triggers press and hold
+#ifndef AZOTEQ_IQS5XX_HOLD_TIME
+    #define AZOTEQ_IQS5XX_HOLD_TIME 500
+#endif
+#ifndef AZOTEQ_IQS5XX_TWO_FINGER_TAP_ENABLE
+    #define AZOTEQ_IQS5XX_TWO_FINGER_TAP_ENABLE true
+#endif
+#ifndef AZOTEQ_IQS5XX_SCROLL_ENABLE
+    #define AZOTEQ_IQS5XX_SCROLL_ENABLE true
+#endif
+// The move distance before a scroll is registered
+#ifndef AZOTEQ_IQS5XX_SCROLL_INITIAL_DISTANCE
+    #define AZOTEQ_IQS5XX_SCROLL_INITIAL_DISTANCE 5
+#endif
+
+static uint8_t previous_button_state = 0;
 
 i2c_status_t azoteq_iqs5xx_end_session(void) {
     const uint8_t END_BYTE = 1; // any data
@@ -116,14 +149,14 @@ void azoteq_iqs5xx_set_gesture_config(void) {
     azoteq_iqs5xx_gesture_config_t config = {0};
     i2c_status_t                 status = i2c_readReg16(AZOTEQ_IQS5XX_ADDRESS, AZOTEQ_IQS5XX_REG_SINGLE_FINGER_GESTURES, (uint8_t *)&config, sizeof(azoteq_iqs5xx_gesture_config_t), AZOTEQ_IQS5XX_TIMEOUT_MS);
     if (status == I2C_STATUS_SUCCESS) {
-        config.single_finger_gestures.single_tap    = true;
-        config.single_finger_gestures.press_and_hold= true;
-        config.multi_finger_gestures.two_finger_tap = true;
-        config.multi_finger_gestures.scroll         = true;
-        config.tap_time                             = 500;
-        config.hold_time                            = 1000;
-        config.tap_distance                         = 10;
-        config.scroll_initial_distance              = 5;
+        config.single_finger_gestures.single_tap    = AZOTEQ_IQS5XX_TAP_ENABLE;
+        config.single_finger_gestures.press_and_hold= AZOTEQ_IQS5XX_PRESS_AND_HOLD_ENABLE;
+        config.multi_finger_gestures.two_finger_tap = AZOTEQ_IQS5XX_TWO_FINGER_TAP_ENABLE;
+        config.multi_finger_gestures.scroll         = AZOTEQ_IQS5XX_SCROLL_ENABLE;
+        config.tap_time                             = AZOTEQ_IQS5XX_TAP_TIME;
+        config.hold_time                            = AZOTEQ_IQS5XX_HOLD_TIME;
+        config.tap_distance                         = AZOTEQ_IQS5XX_TAP_DISTANCE;
+        config.scroll_initial_distance              = AZOTEQ_IQS5XX_SCROLL_INITIAL_DISTANCE;
         status = i2c_writeReg16(AZOTEQ_IQS5XX_ADDRESS, AZOTEQ_IQS5XX_REG_SINGLE_FINGER_GESTURES, (uint8_t *)&config, sizeof(azoteq_iqs5xx_gesture_config_t), AZOTEQ_IQS5XX_TIMEOUT_MS);
     }
     azoteq_iqs5xx_end_session();
@@ -164,6 +197,11 @@ report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report) {
             temp_report.y = (int8_t)base_data.y.l;
 #endif
         }
+        previous_button_state = temp_report.buttons;
+    }
+    else {
+        // Avoid dropping a tap-hold if there was an I2C error
+        temp_report.buttons = previous_button_state;
     }
 
     return temp_report;
