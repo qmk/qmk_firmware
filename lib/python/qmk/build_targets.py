@@ -1,6 +1,7 @@
 # Copyright 2023 Nick Brassel (@tzarc)
 # SPDX-License-Identifier: GPL-2.0-or-later
 import json
+import shutil
 from typing import List
 from pathlib import Path
 from milc import cli
@@ -19,6 +20,7 @@ class BuildTarget:
         self._compiledb = False
         self._target = f'{self._keyboard_safe}_{self.keymap}'
         self._intermediate_output = Path(f'{INTERMEDIATE_OUTPUT_PREFIX}{self._target}')
+        self._generated_files_path = self._intermediate_output / 'src'
 
     def __str__(self):
         return f'{self.keyboard}:{self.keymap}'
@@ -122,7 +124,6 @@ class KeyboardKeymapBuildTarget(BuildTarget):
         compile_args = self._common_make_args(dry_run=dry_run, build_target=build_target)
         for key, value in env_vars.items():
             compile_args.append(f'{key}={value}')
-
         return compile_args
 
 
@@ -141,41 +142,40 @@ class JsonKeymapBuildTarget(BuildTarget):
 
         super().__init__(self.json['keyboard'], self.json['keymap'])
 
+        self._keymap_json = self._generated_files_path / 'keymap.json'
+
     def __repr__(self):
         return f'JsonKeymapTarget(keyboard={self.keyboard}, keymap={self.keymap}, path={self.json_path})'
 
     def prepare_build(self, build_target: str = None, dry_run: bool = False, **env_vars) -> None:
-        keymap_dir = self._intermediate_output / 'src'
-        keymap_json = keymap_dir / 'keymap.json'
+        if self._clean:
+            if self._intermediate_output.exists():
+                shutil.rmtree(self._intermediate_output)
 
         # begin with making the deepest folder in the tree
-        keymap_dir.mkdir(exist_ok=True, parents=True)
+        self._generated_files_path.mkdir(exist_ok=True, parents=True)
 
         # Compare minified to ensure consistent comparison
         new_content = json.dumps(self.json, separators=(',', ':'))
-        if keymap_json.exists():
-            old_content = json.dumps(json.loads(keymap_json.read_text(encoding='utf-8')), separators=(',', ':'))
+        if self._keymap_json.exists():
+            old_content = json.dumps(json.loads(self._keymap_json.read_text(encoding='utf-8')), separators=(',', ':'))
             if old_content == new_content:
                 new_content = None
 
         # Write the keymap.json file if different
         if new_content:
-            keymap_json.write_text(new_content, encoding='utf-8')
+            self._keymap_json.write_text(new_content, encoding='utf-8')
 
     def compile_command(self, build_target: str = None, dry_run: bool = False, **env_vars) -> List[str]:
         compile_args = self._common_make_args(dry_run=dry_run, build_target=build_target)
-
-        keymap_dir = self._intermediate_output / 'src'
-        keymap_json = keymap_dir / 'keymap.json'
-
         compile_args.extend([
             f'MAIN_KEYMAP_PATH_1={self._intermediate_output}',
             f'MAIN_KEYMAP_PATH_2={self._intermediate_output}',
             f'MAIN_KEYMAP_PATH_3={self._intermediate_output}',
             f'MAIN_KEYMAP_PATH_4={self._intermediate_output}',
             f'MAIN_KEYMAP_PATH_5={self._intermediate_output}',
-            f'KEYMAP_JSON={keymap_json}',
-            f'KEYMAP_PATH={keymap_dir}',
+            f'KEYMAP_JSON={self._keymap_json}',
+            f'KEYMAP_PATH={self._generated_files_path}',
         ])
 
         for key, value in env_vars.items():
