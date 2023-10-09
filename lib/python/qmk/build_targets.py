@@ -6,7 +6,7 @@ from typing import List
 from pathlib import Path
 from milc import cli
 from qmk.constants import QMK_FIRMWARE, INTERMEDIATE_OUTPUT_PREFIX
-from qmk.commands import _find_make, get_make_parallel_args, parse_configurator_json, create_make_target
+from qmk.commands import find_make, get_make_parallel_args, parse_configurator_json, create_make_target
 from qmk.cli.generate.compilation_database import write_compilation_database
 
 
@@ -46,7 +46,7 @@ class BuildTarget:
 
     def _common_make_args(self, dry_run: bool = False, build_target: str = None):
         compile_args = [
-            _find_make(),
+            find_make(),
             *get_make_parallel_args(self._parallel),
             '-r',
             '-R',

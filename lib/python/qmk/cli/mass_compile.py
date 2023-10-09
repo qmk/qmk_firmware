@@ -8,7 +8,7 @@ from subprocess import DEVNULL
 from milc import cli
 
 from qmk.constants import QMK_FIRMWARE
-from qmk.commands import _find_make, get_make_parallel_args
+from qmk.commands import find_make, get_make_parallel_args
 from qmk.search import search_keymap_targets, search_make_targets
 
 
@@ -16,7 +16,7 @@ def mass_compile_targets(targets, clean, dry_run, no_temp, parallel, env):
     if len(targets) == 0:
         return
 
-    make_cmd = _find_make()
+    make_cmd = find_make()
     builddir = Path(QMK_FIRMWARE) / '.build'
     makefile = builddir / 'parallel_kb_builds.mk'
 

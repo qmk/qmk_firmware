@@ -12,7 +12,7 @@ from typing import Dict, Iterator, List, Union
 
 from milc import cli, MILC
 
-from qmk.commands import create_make_command, create_make_target
+from qmk.commands import create_make_target
 from qmk.constants import QMK_FIRMWARE
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.keyboard import keyboard_completer, keyboard_folder
@@ -79,7 +79,9 @@ def parse_make_n(f: Iterator[str]) -> List[Dict[str, str]]:
 def write_compilation_database(keyboard: str = None, keymap: str = None, output_path: Path = QMK_FIRMWARE / 'compile_commands.json', skip_clean: bool = False, command: List[str] = None) -> bool:
     # Generate the make command for a specific keyboard/keymap.
     if not command:
-        command = create_make_command(keyboard, keymap, dry_run=True)
+        from qmk.build_targets import KeyboardKeymapBuildTarget  # Lazy load due to circular references
+        target = KeyboardKeymapBuildTarget(keyboard, keymap)
+        command = target.compile_command(dry_run=True)
 
     if not command:
         cli.log.error('You must supply both `--keyboard` and `--keymap`, or be in a directory for a keyboard or keymap.')
