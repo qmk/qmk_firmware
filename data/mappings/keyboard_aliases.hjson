@@ -904,10 +904,10 @@
         "target": "keychron/q0/base"
     },
     "keychron/q1": {
-        "target": "keychron/q1v1"
+        "target": "keychron/q1v1/ansi"
     }
     "keychron/q4": {
-        "target": "keychron/q4/ansi"
+        "target": "keychron/q4/ansi/v1"
     }
     "kprepublic/bm40hsrgb": {
         "target": "kprepublic/bm40hsrgb/rev1"
