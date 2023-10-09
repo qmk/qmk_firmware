@@ -17,6 +17,8 @@ class BuildTarget:
         self._parallel = 1
         self._clean = False
         self._compiledb = False
+        self._target = f'{self._keyboard_safe}_{self.keymap}'
+        self._intermediate_output = Path(f'{INTERMEDIATE_OUTPUT_PREFIX}{self._target}')
 
     def __str__(self):
         return f'{self.keyboard}:{self.keymap}'
@@ -59,15 +61,12 @@ class BuildTarget:
         verbose = 'true' if cli.config.general.verbose else 'false'
         color = 'true' if cli.config.general.color else 'false'
 
-        target = f'{self._keyboard_safe}_{self.keymap}'
-        intermediate_output = Path(f'{INTERMEDIATE_OUTPUT_PREFIX}{self._keyboard_safe}_{self.keymap}')
-
         make_args = [
             f'KEYBOARD={self.keyboard}',
             f'KEYMAP={self.keymap}',
             f'KEYBOARD_FILESAFE={self._keyboard_safe}',
-            f'TARGET={target}',
-            f'INTERMEDIATE_OUTPUT={intermediate_output}',
+            f'TARGET={self._target}',
+            f'INTERMEDIATE_OUTPUT={self._intermediate_output}',
             f'VERBOSE={verbose}',
             f'COLOR={color}',
             'SILENT=false',
@@ -152,8 +151,7 @@ class JsonKeymapBuildTarget(BuildTarget):
         return f'JsonKeymapTarget(keyboard={self.keyboard}, keymap={self.keymap}, path={self.json_path})'
 
     def prepare_build(self, build_target: str = None, dry_run: bool = False, **env_vars) -> None:
-        intermediate_output = Path(f'{INTERMEDIATE_OUTPUT_PREFIX}{self._keyboard_safe}_{self.json["keymap"]}')
-        keymap_dir = intermediate_output / 'src'
+        keymap_dir = self._intermediate_output / 'src'
         keymap_json = keymap_dir / 'keymap.json'
 
         # begin with making the deepest folder in the tree
@@ -181,16 +179,15 @@ class JsonKeymapBuildTarget(BuildTarget):
 
         compile_args.extend(self._common_make_vars())
 
-        intermediate_output = Path(f'{INTERMEDIATE_OUTPUT_PREFIX}{self._keyboard_safe}_{self.json["keymap"]}')
-        keymap_dir = intermediate_output / 'src'
+        keymap_dir = self._intermediate_output / 'src'
         keymap_json = keymap_dir / 'keymap.json'
 
         compile_args.extend([
-            f'MAIN_KEYMAP_PATH_1={intermediate_output}',
-            f'MAIN_KEYMAP_PATH_2={intermediate_output}',
-            f'MAIN_KEYMAP_PATH_3={intermediate_output}',
-            f'MAIN_KEYMAP_PATH_4={intermediate_output}',
-            f'MAIN_KEYMAP_PATH_5={intermediate_output}',
+            f'MAIN_KEYMAP_PATH_1={self._intermediate_output}',
+            f'MAIN_KEYMAP_PATH_2={self._intermediate_output}',
+            f'MAIN_KEYMAP_PATH_3={self._intermediate_output}',
+            f'MAIN_KEYMAP_PATH_4={self._intermediate_output}',
+            f'MAIN_KEYMAP_PATH_5={self._intermediate_output}',
             f'KEYMAP_JSON={keymap_json}',
             f'KEYMAP_PATH={keymap_dir}',
         ])
