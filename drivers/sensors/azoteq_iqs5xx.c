@@ -83,22 +83,13 @@
     #define AZOTEQ_IQS5XX_SCROLL_INITIAL_DISTANCE 5
 #endif
 
-static uint8_t previous_button_state = 0;
-
 i2c_status_t azoteq_iqs5xx_end_session(void) {
     const uint8_t END_BYTE = 1; // any data
     return i2c_writeReg16(AZOTEQ_IQS5XX_ADDRESS, AZOTEQ_IQS5XX_REG_END_COMMS, &END_BYTE, 1, AZOTEQ_IQS5XX_TIMEOUT_MS);
 }
 
 i2c_status_t azoteq_iqs5xx_get_base_data(azoteq_iqs5xx_base_data_t *base_data) {
-    //azoteq_iqs5xx_report_rate_t  report_rate  = {0};
-    //azoteq_iqs5xx_get_report_rate(&report_rate, ACTIVE, false);
     i2c_status_t status = i2c_readReg16(AZOTEQ_IQS5XX_ADDRESS, AZOTEQ_IQS5XX_REG_PREVIOUS_CYCLE_TIME, (uint8_t *)base_data,10, AZOTEQ_IQS5XX_TIMEOUT_MS);
-    //uint16_t report_rate_f = AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(report_rate.h, report_rate.l);
-    // uprintf("report rate: %d missed: %d mode: %d\n", report_rate_f, basic_report.system_info_1.rr_missed, basic_report.system_info_0.charging_mode);
-    // if (report_rate_f == 13){
-    //         azoteq_iqs5xx_set_report_rate(8, ACTIVE, true);
-    // }
     azoteq_iqs5xx_end_session();
     return status;
 }
@@ -133,7 +124,7 @@ i2c_status_t azoteq_iqs5xx_set_report_rate(uint16_t report_rate_ms, azoteq_charg
     return status;
 }
 
-void azoteq_iqs5xx_set_event_mode(bool enabled) {
+i2c_status_t azoteq_iqs5xx_set_event_mode(bool enabled) {
     azoteq_iqs5xx_system_config_1_t config = {0};
     i2c_status_t                    status = i2c_readReg16(AZOTEQ_IQS5XX_ADDRESS, AZOTEQ_IQS5XX_REG_SYSTEM_CONFIG_1, (uint8_t *)&config, sizeof(azoteq_iqs5xx_system_config_1_t), AZOTEQ_IQS5XX_TIMEOUT_MS);
     if (status == I2C_STATUS_SUCCESS) {
@@ -143,9 +134,10 @@ void azoteq_iqs5xx_set_event_mode(bool enabled) {
         status             = i2c_writeReg16(AZOTEQ_IQS5XX_ADDRESS, AZOTEQ_IQS5XX_REG_SYSTEM_CONFIG_1, (uint8_t *)&config, sizeof(azoteq_iqs5xx_system_config_1_t), AZOTEQ_IQS5XX_TIMEOUT_MS);
     }
     azoteq_iqs5xx_end_session();
+    return status;
 }
 
-void azoteq_iqs5xx_set_gesture_config(void) {
+i2c_status_t azoteq_iqs5xx_set_gesture_config(void) {
     azoteq_iqs5xx_gesture_config_t config = {0};
     i2c_status_t                 status = i2c_readReg16(AZOTEQ_IQS5XX_ADDRESS, AZOTEQ_IQS5XX_REG_SINGLE_FINGER_GESTURES, (uint8_t *)&config, sizeof(azoteq_iqs5xx_gesture_config_t), AZOTEQ_IQS5XX_TIMEOUT_MS);
     if (status == I2C_STATUS_SUCCESS) {
@@ -160,49 +152,5 @@ void azoteq_iqs5xx_set_gesture_config(void) {
         status = i2c_writeReg16(AZOTEQ_IQS5XX_ADDRESS, AZOTEQ_IQS5XX_REG_SINGLE_FINGER_GESTURES, (uint8_t *)&config, sizeof(azoteq_iqs5xx_gesture_config_t), AZOTEQ_IQS5XX_TIMEOUT_MS);
     }
     azoteq_iqs5xx_end_session();
-}
-
-void azoteq_iqs5xx_init(void) {
-    i2c_init();
-    azoteq_iqs5xx_set_report_rate(5, ACTIVE, true);
-    azoteq_iqs5xx_set_event_mode(true);
-    azoteq_iqs5xx_set_gesture_config();
-};
-
-report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report) {
-    report_mouse_t              temp_report = {0};
-    azoteq_iqs5xx_base_data_t   base_data = {0};
-    i2c_status_t status = azoteq_iqs5xx_get_base_data(&base_data);
-
-    if (status == I2C_STATUS_SUCCESS) {
-        if (base_data.gesture_events_0.single_tap || base_data.gesture_events_0.press_and_hold) {
-            temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON1);
-        }
-        if (base_data.gesture_events_1.two_finger_tap) {
-            temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON2);
-        }
-        if (base_data.gesture_events_1.scroll) {
-#if defined(MOUSE_EXTENDED_REPORT)
-            temp_report.v = (int16_t) AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l);
-#else
-            temp_report.v = (int8_t) base_data.x.l;
-#endif
-        }
-        else if (base_data.number_of_fingers != 0) {
-#if defined(MOUSE_EXTENDED_REPORT)
-            temp_report.x = (int16_t)AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l);
-            temp_report.y = (int16_t)AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.y.h, base_data.y.l);
-#else
-            temp_report.x = (int8_t)base_data.x.l;
-            temp_report.y = (int8_t)base_data.y.l;
-#endif
-        }
-        previous_button_state = temp_report.buttons;
-    }
-    else {
-        // Avoid dropping a tap-hold if there was an I2C error
-        temp_report.buttons = previous_button_state;
-    }
-
-    return temp_report;
+    return status;
 }

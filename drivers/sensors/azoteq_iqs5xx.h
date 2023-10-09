@@ -131,3 +131,8 @@ typedef struct __attribute__((packed)) {
 
 void azoteq_iqs5xx_init(void);
 report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report);
+i2c_status_t azoteq_iqs5xx_get_report_rate(azoteq_iqs5xx_report_rate_t *report_rate, azoteq_charging_modes_t mode, bool END_SESSION);
+i2c_status_t azoteq_iqs5xx_set_report_rate(uint16_t report_rate_ms, azoteq_charging_modes_t mode, bool END_SESSION);
+i2c_status_t azoteq_iqs5xx_set_event_mode(bool enabled);
+i2c_status_t azoteq_iqs5xx_set_gesture_config(void);
+i2c_status_t azoteq_iqs5xx_get_base_data(azoteq_iqs5xx_base_data_t *base_data);

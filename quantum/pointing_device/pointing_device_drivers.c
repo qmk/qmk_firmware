@@ -117,6 +117,53 @@ const pointing_device_driver_t pointing_device_driver = {
 
 #elif defined(POINTING_DEVICE_DRIVER_azoteq_iqs5xx)
 
+static uint8_t previous_button_state = 0;
+
+void azoteq_iqs5xx_init(void) {
+    i2c_init();
+    azoteq_iqs5xx_set_report_rate(8, ACTIVE, true);
+    azoteq_iqs5xx_set_event_mode(true);
+    azoteq_iqs5xx_set_gesture_config();
+};
+
+report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report) {
+    report_mouse_t              temp_report = {0};
+    azoteq_iqs5xx_base_data_t   base_data = {0};
+    i2c_status_t status = azoteq_iqs5xx_get_base_data(&base_data);
+
+    if (status == I2C_STATUS_SUCCESS) {
+        if (base_data.gesture_events_0.single_tap || base_data.gesture_events_0.press_and_hold) {
+            temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON1);
+        }
+        if (base_data.gesture_events_1.two_finger_tap) {
+            temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON2);
+        }
+        if (base_data.gesture_events_1.scroll) {
+#if defined(MOUSE_EXTENDED_REPORT)
+            temp_report.v = (int16_t) AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l);
+#else
+            temp_report.v = (int8_t) base_data.x.l;
+#endif
+        }
+        else if (base_data.number_of_fingers != 0) {
+#if defined(MOUSE_EXTENDED_REPORT)
+            temp_report.x = (int16_t)AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l);
+            temp_report.y = (int16_t)AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.y.h, base_data.y.l);
+#else
+            temp_report.x = (int8_t)base_data.x.l;
+            temp_report.y = (int8_t)base_data.y.l;
+#endif
+        }
+        previous_button_state = temp_report.buttons;
+    }
+    else {
+        // Avoid dropping a tap-hold if there was an I2C error
+        temp_report.buttons = previous_button_state;
+    }
+
+    return temp_report;
+}
+
 // clang-format off
 const pointing_device_driver_t pointing_device_driver = {
     .init       = azoteq_iqs5xx_init,
