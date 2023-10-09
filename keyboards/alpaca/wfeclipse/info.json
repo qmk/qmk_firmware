@@ -17,7 +17,7 @@
     },
     "processor": "STM32F103",   
     "usb": {
-        "vid": "0x038F",
+        "vid": "0x308F",
         "pid": "0x0038",
         "device_version": "1.0.4"
     },
