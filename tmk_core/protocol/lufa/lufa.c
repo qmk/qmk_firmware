@@ -67,6 +67,10 @@
 #    include "raw_hid.h"
 #endif
 
+#ifdef LAMPARRAY_ENABLE
+#    include "lamparray.h"
+#endif
+
 uint8_t keyboard_idle = 0;
 /* 0: Boot Protocol, 1: Report Protocol(default) */
 uint8_t        keyboard_protocol  = 1;
@@ -409,6 +413,11 @@ void EVENT_USB_Device_ConfigurationChanged(void) {
     ConfigSuccess &= Endpoint_ConfigureEndpoint((DIGITIZER_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, DIGITIZER_EPSIZE, 1);
 #endif
 
+#ifdef LAMPARRAY_ENABLE
+    /* Setup LampArray endpoint */
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((LAMPARRAY_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, LAMPARRAY_EPSIZE, 1);
+#endif
+
     usb_device_state_set_configuration(USB_DeviceState == DEVICE_STATE_Configured, USB_Device_ConfigurationNumber);
 }
 
@@ -446,6 +455,26 @@ void EVENT_USB_Device_ControlRequest(void) {
                         ReportData = (uint8_t *)&keyboard_report_sent;
                         ReportSize = sizeof(keyboard_report_sent);
                         break;
+#ifdef LAMPARRAY_ENABLE
+                    case LAMPARRAY_INTERFACE:
+                        switch ((USB_ControlRequest.wValue & 0xFF)) {
+                            case LAMPARRAY_REPORT_ID_ATTRIBUTES:
+                                static lamparray_attributes_report_t ret = {.report_id = LAMPARRAY_REPORT_ID_ATTRIBUTES};
+                                lamparray_get_attributes(&ret.attributes);
+
+                                ReportData = (uint8_t *)&ret;
+                                ReportSize = sizeof(ret);
+                                break;
+                            case LAMPARRAY_REPORT_ID_ATTRIBUTES_RESPONSE:
+                                static lamparray_attributes_response_report_t res = {.report_id = LAMPARRAY_REPORT_ID_ATTRIBUTES_RESPONSE};
+                                lamparray_get_attributes_response(&res.attributes_response);
+
+                                ReportData = (uint8_t *)&res;
+                                ReportSize = sizeof(res);
+                                break;
+                        }
+                        break;
+#endif
                 }
 
                 /* Write the report data to the control endpoint */
@@ -481,6 +510,26 @@ void EVENT_USB_Device_ControlRequest(void) {
                         Endpoint_ClearOUT();
                         Endpoint_ClearStatusStage();
                         break;
+#ifdef LAMPARRAY_ENABLE
+                    case LAMPARRAY_INTERFACE:
+                        Endpoint_ClearSETUP();
+
+                        while (!(Endpoint_IsINReady()))
+                            ;
+
+                        static universal_lamparray_response_t universal_lamparray_report_buf;
+
+                        Endpoint_Read_Control_Stream_LE(&universal_lamparray_report_buf, USB_ControlRequest.wLength);
+                        Endpoint_ClearIN();
+
+                        // handle directly to avoid sync issues with get 
+                        if (universal_lamparray_report_buf.report_id == LAMPARRAY_REPORT_ID_ATTRIBUTES_REQUEST) {
+                            lamparray_set_attributes_response(universal_lamparray_report_buf.lamp_id);
+                        } else {
+                            lamparray_queue_request(&universal_lamparray_report_buf);
+                        }
+                        break;
+#endif
                 }
             }
 
