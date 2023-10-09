@@ -98,7 +98,7 @@ inline void serial_transport_driver_clear(void) {
 #endif
 
 inline bool serial_transport_send(const uint8_t* source, const size_t size) {
-    bool success = (size_t)chnWriteTimeout(serial_driver, source, size, TIME_MS2I(SERIAL_USART_TIMEOUT)) == size;
+    bool success = (size_t)chnWriteTimeout(serial_driver, source, size, TIME_MS2I(size * SERIAL_USART_TIMEOUT)) == size;
 
 #if !defined(SERIAL_USART_FULL_DUPLEX)
     /* Half duplex fills the input queue with the data we wrote - just throw it away. */
