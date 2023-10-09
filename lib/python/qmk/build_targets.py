@@ -6,7 +6,6 @@ from pathlib import Path
 from milc import cli
 from qmk.constants import QMK_FIRMWARE, INTERMEDIATE_OUTPUT_PREFIX
 from qmk.commands import _find_make, get_make_parallel_args, parse_configurator_json, create_make_target
-from qmk.keymap import locate_keymap
 from qmk.cli.generate.compilation_database import write_compilation_database
 
 
@@ -41,6 +40,42 @@ class BuildTarget:
     def keymap(self) -> str:
         return self._keymap
 
+    def _common_make_args(self):
+        compile_args = [
+            _find_make(),
+            *get_make_parallel_args(self._parallel),
+            '-r',
+            '-R',
+            '-f',
+            'builddefs/build_keyboard.mk',
+        ]
+
+        if not cli.config.general.verbose:
+            compile_args.append('-s')
+
+        return compile_args
+
+    def _common_make_vars(self):
+        verbose = 'true' if cli.config.general.verbose else 'false'
+        color = 'true' if cli.config.general.color else 'false'
+
+        target = f'{self._keyboard_safe}_{self.keymap}'
+        intermediate_output = Path(f'{INTERMEDIATE_OUTPUT_PREFIX}{self._keyboard_safe}_{self.keymap}')
+
+        make_args = [
+            f'KEYBOARD={self.keyboard}',
+            f'KEYMAP={self.keymap}',
+            f'KEYBOARD_FILESAFE={self._keyboard_safe}',
+            f'TARGET={target}',
+            f'INTERMEDIATE_OUTPUT={intermediate_output}',
+            f'VERBOSE={verbose}',
+            f'COLOR={color}',
+            'SILENT=false',
+            'QMK_BIN="qmk"',
+        ]
+
+        return make_args
+
     def prepare_build(self, build_target: str = None, dry_run: bool = False, **env_vars) -> None:
         raise NotImplementedError("prepare_build() not implemented in base class")
 
@@ -54,7 +89,9 @@ class BuildTarget:
 
     def compile(self, build_target: str = None, dry_run: bool = False, **env_vars) -> None:
         if self._clean or self._compiledb:
-            cli.run(create_make_target("clean", dry_run=dry_run, parallel=1, **env_vars), capture_output=False)
+            command = create_make_target("clean", dry_run=dry_run, parallel=1, **env_vars)
+            cli.log.info('Cleaning with {fg_cyan}%s', ' '.join(command))
+            cli.run(command, capture_output=False)
 
         if self._compiledb and not dry_run:
             self.generate_compilation_database(build_target=build_target, skip_clean=True, **env_vars)
@@ -80,20 +117,7 @@ class KeyboardKeymapBuildTarget(BuildTarget):
         pass
 
     def compile_command(self, build_target: str = None, dry_run: bool = False, **env_vars) -> List[str]:
-        verbose = 'true' if cli.config.general.verbose else 'false'
-        color = 'true' if cli.config.general.color else 'false'
-
-        compile_args = [
-            _find_make(),
-            *get_make_parallel_args(self._parallel),
-            '-r',
-            '-R',
-            '-f',
-            'builddefs/build_keyboard.mk',
-        ]
-
-        if not cli.config.general.verbose:
-            compile_args.append('-s')
+        compile_args = self._common_make_args()
 
         if dry_run:
             compile_args.append('-n')
@@ -101,21 +125,7 @@ class KeyboardKeymapBuildTarget(BuildTarget):
         if build_target:
             compile_args.append(build_target)
 
-        target = f'{self._keyboard_safe}_{self.keymap}'
-        intermediate_output = Path(f'{INTERMEDIATE_OUTPUT_PREFIX}{self._keyboard_safe}_{self.keymap}')
-        keymap_file = Path(locate_keymap(self.keyboard, self.keymap))
-
-        compile_args.extend([
-            f'KEYBOARD={self.keyboard}',
-            f'KEYMAP={self.keymap}',
-            f'KEYBOARD_FILESAFE={self._keyboard_safe}',
-            f'TARGET={target}',
-            f'INTERMEDIATE_OUTPUT={intermediate_output}',
-            f'VERBOSE={verbose}',
-            f'COLOR={color}',
-            'SILENT=false',
-            'QMK_BIN="qmk"',
-        ])
+        compile_args.extend(self._common_make_vars())
 
         for key, value in env_vars.items():
             compile_args.append(f'{key}={value}')
@@ -161,20 +171,7 @@ class JsonKeymapBuildTarget(BuildTarget):
             keymap_json.write_text(new_content, encoding='utf-8')
 
     def compile_command(self, build_target: str = None, dry_run: bool = False, **env_vars) -> List[str]:
-        verbose = 'true' if cli.config.general.verbose else 'false'
-        color = 'true' if cli.config.general.color else 'false'
-
-        compile_args = [
-            _find_make(),
-            *get_make_parallel_args(self._parallel),
-            '-r',
-            '-R',
-            '-f',
-            'builddefs/build_keyboard.mk',
-        ]
-
-        if not cli.config.general.verbose:
-            compile_args.append('-s')
+        compile_args = self._common_make_args()
 
         if dry_run:
             compile_args.append('-n')
@@ -182,17 +179,13 @@ class JsonKeymapBuildTarget(BuildTarget):
         if build_target:
             compile_args.append(build_target)
 
-        target = f'{self._keyboard_safe}_{self.keymap}'
+        compile_args.extend(self._common_make_vars())
+
         intermediate_output = Path(f'{INTERMEDIATE_OUTPUT_PREFIX}{self._keyboard_safe}_{self.json["keymap"]}')
         keymap_dir = intermediate_output / 'src'
         keymap_json = keymap_dir / 'keymap.json'
 
         compile_args.extend([
-            f'KEYBOARD={self.keyboard}',
-            f'KEYMAP={self.keymap}',
-            f'KEYBOARD_FILESAFE={self._keyboard_safe}',
-            f'TARGET={target}',
-            f'INTERMEDIATE_OUTPUT={intermediate_output}',
             f'MAIN_KEYMAP_PATH_1={intermediate_output}',
             f'MAIN_KEYMAP_PATH_2={intermediate_output}',
             f'MAIN_KEYMAP_PATH_3={intermediate_output}',
@@ -200,10 +193,6 @@ class JsonKeymapBuildTarget(BuildTarget):
             f'MAIN_KEYMAP_PATH_5={intermediate_output}',
             f'KEYMAP_JSON={keymap_json}',
             f'KEYMAP_PATH={keymap_dir}',
-            f'VERBOSE={verbose}',
-            f'COLOR={color}',
-            'SILENT=false',
-            'QMK_BIN="qmk"',
         ])
 
         for key, value in env_vars.items():
