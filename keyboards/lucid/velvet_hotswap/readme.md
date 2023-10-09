@@ -1,4 +1,4 @@
-# Velvet Hotswap PCB by Lucid
+# Velvet Hotswap PCB by Maker Keyboards
 
 The following is the QMK Firmware for the Velvet Hotswap PCB by [Maker Keyboards](http://www.makerkeyboards.com).
 * Keyboard Maintainer: Maker Keyboards

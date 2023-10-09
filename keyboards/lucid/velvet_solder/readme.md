@@ -1,4 +1,4 @@
-# Velvet Solder PCB by Lucid
+# Velvet Solder PCB by Maker Keyboards
 
 The following is the QMK Firmware for the Velvet Solder PCB by [Maker Keyboards](http://www.makerkeyboards.com).
 * Keyboard Maintainer: Maker Keyboards
