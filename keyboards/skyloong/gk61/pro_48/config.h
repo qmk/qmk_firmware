@@ -14,3 +14,5 @@
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+
+#define g_suspend_state rgb_matrix_get_suspend_state()
