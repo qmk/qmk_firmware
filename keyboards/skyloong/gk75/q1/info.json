@@ -24,7 +24,6 @@
     "processor": "STM32F103",
     "rgb_matrix": {
         "animations": {
-
             "breathing": true,
             "solid_green_effect": true,
             "band_spiral_val": true,
