@@ -19,10 +19,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdint.h>
 
+#define AD5258_RDAC_MAX 63
+#define AD5258_RDAC_MIN 0
+
 void ad5258_init(void);
 
-uint8_t ad5258_read_rdac(void);
+int8_t ad5258_read_rdac(void);
 
-uint8_t ad5258_read_eeprom(void);
+int8_t ad5258_read_eeprom(void);
 
-void ad5258_write_rdac(uint8_t rdac);
+int8_t ad5258_write_rdac(uint8_t rdac);
+
+void ad5258_restore_from_eeprom(void);
