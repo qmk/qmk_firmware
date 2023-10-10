@@ -8,16 +8,10 @@
     "device_version": "0.0.1"
   },
   "features": {
-      "here": true,
       "bootmagic": true,
       "mousekey": true,
       "extrakey": true,
-      "console": false,
-      "command": false,
-      "nkro": true,
-      "backlight": false,
-      "rgblight": false,
-      "audio": false,
+      "nkro": true
   },
   "matrix_pins": {
     "cols": ["D0", "D1", "D2", "D3", "F7", "F6", "F5", "F4", "F1", "F0"],
