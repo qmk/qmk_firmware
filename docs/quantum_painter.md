@@ -857,13 +857,52 @@ void keyboard_post_init_kb(void) {
 
 <!-- tabs:start -->
 
-#### ** Get Geometry **
+#### ** Gettters **
+
+These functions allow external code to retrieve the current width, height, rotation, and drawing offsets.
+
+<!-- tabs:start -->
+
+#### ** Width **
+
+```c
+uint16_t qp_get_width(painter_device_t device);
+```
+
+#### ** Height **
+
+```c
+uint16_t qp_get_height(painter_device_t device);
+```
+
+#### ** Rotation **
+
+```c
+painter_rotation_t qp_get_rotation(painter_device_t device);
+```
+
+#### ** Offset X **
+
+```c
+uint16_t qp_get_offset_x(painter_device_t device);
+```
+
+#### ** Offset Y **
+
+```c
+uint16_t qp_get_offset_y(painter_device_t device);
+```
+
+##### ** Everything **
+
+Convenience function to call all the previous ones at once.
+Note: You can pass `NULL` for the values you are not interested in.
 
 ```c
 void qp_get_geometry(painter_device_t device, uint16_t *width, uint16_t *height, painter_rotation_t *rotation, uint16_t *offset_x, uint16_t *offset_y);
 ```
 
-The `qp_get_geometry` function allows external code to retrieve the current width, height, rotation, and drawing offsets.
+<!-- tabs:end -->
 
 #### ** Set Viewport Offsets **
 

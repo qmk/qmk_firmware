@@ -27,7 +27,6 @@ NO_USB_STARTUP_CHECK = yes	# Disable initialization only when usb is plugged in
 RGB_MATRIX_ENABLE = yes
 
 RGBLIGHT_ENABLE = yes
-RGBLIGHT_CUSTOM_DRIVER = yes
 WS2812_DRIVER_REQUIRED = yes
 
 CUSTOM_MATRIX = yes

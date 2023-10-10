@@ -1,6 +1,5 @@
 {
     "rgb_matrix": {
-        "driver": "CKLED2001",
         "layout": [
             {"matrix": [0, 0], "x": 0, "y": 0, "flags": 1},
             {"matrix": [0, 1], "x": 21, "y": 0, "flags": 1},

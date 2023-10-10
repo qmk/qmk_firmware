@@ -22,42 +22,42 @@
 /* Initialization settings
 
  * Feedback Control Settings */
-#ifndef FB_ERM_LRA
-#    define FB_ERM_LRA 1 /* For ERM:0 or LRA:1*/
+#ifndef DRV2605L_FB_ERM_LRA
+#    define DRV2605L_FB_ERM_LRA 1 /* For ERM:0 or LRA:1*/
 #endif
-#ifndef FB_BRAKEFACTOR
-#    define FB_BRAKEFACTOR 3 /* For 1x:0, 2x:1, 3x:2, 4x:3, 6x:4, 8x:5, 16x:6, Disable Braking:7 */
+#ifndef DRV2605L_FB_BRAKEFACTOR
+#    define DRV2605L_FB_BRAKEFACTOR 3 /* For 1x:0, 2x:1, 3x:2, 4x:3, 6x:4, 8x:5, 16x:6, Disable Braking:7 */
 #endif
-#ifndef FB_LOOPGAIN
-#    define FB_LOOPGAIN 1 /* For  Low:0, Medium:1, High:2, Very High:3 */
+#ifndef DRV2605L_FB_LOOPGAIN
+#    define DRV2605L_FB_LOOPGAIN 1 /* For  Low:0, Medium:1, High:2, Very High:3 */
 #endif
 
 /* LRA specific settings */
-#if FB_ERM_LRA == 1
-#    ifndef V_RMS
-#        define V_RMS 2.0
+#if DRV2605L_FB_ERM_LRA == 1
+#    ifndef DRV2605L_V_RMS
+#        define DRV2605L_V_RMS 2.0
 #    endif
-#    ifndef V_PEAK
-#        define V_PEAK 2.1
+#    ifndef DRV2605L_V_PEAK
+#        define DRV2605L_V_PEAK 2.1
 #    endif
-#    ifndef F_LRA
-#        define F_LRA 205
+#    ifndef DRV2605L_F_LRA
+#        define DRV2605L_F_LRA 205
 #    endif
-#    ifndef RATED_VOLTAGE
-#        define RATED_VOLTAGE 2 /* 2v as safe range in case device voltage is not set */
+#    ifndef DRV2605L_RATED_VOLTAGE
+#        define DRV2605L_RATED_VOLTAGE 2 /* 2v as safe range in case device voltage is not set */
 #    endif
 #endif
 
-#ifndef RATED_VOLTAGE
-#    define RATED_VOLTAGE 2 /* 2v as safe range in case device voltage is not set */
+#ifndef DRV2605L_RATED_VOLTAGE
+#    define DRV2605L_RATED_VOLTAGE 2 /* 2v as safe range in case device voltage is not set */
 #endif
-#ifndef V_PEAK
-#    define V_PEAK 2.8
+#ifndef DRV2605L_V_PEAK
+#    define DRV2605L_V_PEAK 2.8
 #endif
 
 /* Library Selection */
 #ifndef DRV2605L_LIBRARY
-#    if FB_ERM_LRA == 1
+#    if DRV2605L_FB_ERM_LRA == 1
 #        define DRV2605L_LIBRARY 6 /* For Empty:0' TS2200 library A to D:1-5, LRA Library: 6 */
 #    else
 #        define DRV2605L_LIBRARY 1
@@ -65,69 +65,69 @@
 #endif
 
 #ifndef DRV2605L_GREETING
-#    define DRV2605L_GREETING alert_750ms
+#    define DRV2605L_GREETING DRV2605L_EFFECT_750_MS_ALERT_100
 #endif
 #ifndef DRV2605L_DEFAULT_MODE
-#    define DRV2605L_DEFAULT_MODE strong_click1
+#    define DRV2605L_DEFAULT_MODE DRV2605L_EFFECT_STRONG_CLICK_1_100
 #endif
 
 /* Control 1 register settings */
-#ifndef DRIVE_TIME
-#    define DRIVE_TIME 25
+#ifndef DRV2605L_DRIVE_TIME
+#    define DRV2605L_DRIVE_TIME 25
 #endif
-#ifndef AC_COUPLE
-#    define AC_COUPLE 0
+#ifndef DRV2605L_AC_COUPLE
+#    define DRV2605L_AC_COUPLE 0
 #endif
-#ifndef STARTUP_BOOST
-#    define STARTUP_BOOST 1
+#ifndef DRV2605L_STARTUP_BOOST
+#    define DRV2605L_STARTUP_BOOST 1
 #endif
 
 /* Control 2 Settings */
-#ifndef BIDIR_INPUT
-#    define BIDIR_INPUT 1
+#ifndef DRV2605L_BIDIR_INPUT
+#    define DRV2605L_BIDIR_INPUT 1
 #endif
-#ifndef BRAKE_STAB
-#    define BRAKE_STAB 1 /* Loopgain is reduced when braking is almost complete to improve stability */
+#ifndef DRV2605L_BRAKE_STAB
+#    define DRV2605L_BRAKE_STAB 1 /* Loopgain is reduced when braking is almost complete to improve stability */
 #endif
-#ifndef SAMPLE_TIME
-#    define SAMPLE_TIME 3
+#ifndef DRV2605L_SAMPLE_TIME
+#    define DRV2605L_SAMPLE_TIME 3
 #endif
-#ifndef BLANKING_TIME
-#    define BLANKING_TIME 1
+#ifndef DRV2605L_BLANKING_TIME
+#    define DRV2605L_BLANKING_TIME 1
 #endif
-#ifndef IDISS_TIME
-#    define IDISS_TIME 1
+#ifndef DRV2605L_IDISS_TIME
+#    define DRV2605L_IDISS_TIME 1
 #endif
 
 /* Control 3 settings */
-#ifndef NG_THRESH
-#    define NG_THRESH 2
+#ifndef DRV2605L_NG_THRESH
+#    define DRV2605L_NG_THRESH 2
 #endif
-#ifndef ERM_OPEN_LOOP
-#    define ERM_OPEN_LOOP 1
+#ifndef DRV2605L_ERM_OPEN_LOOP
+#    define DRV2605L_ERM_OPEN_LOOP 1
 #endif
-#ifndef SUPPLY_COMP_DIS
-#    define SUPPLY_COMP_DIS 0
+#ifndef DRV2605L_SUPPLY_COMP_DIS
+#    define DRV2605L_SUPPLY_COMP_DIS 0
 #endif
-#ifndef DATA_FORMAT_RTO
-#    define DATA_FORMAT_RTO 0
+#ifndef DRV2605L_DATA_FORMAT_RTO
+#    define DRV2605L_DATA_FORMAT_RTO 0
 #endif
-#ifndef LRA_DRIVE_MODE
-#    define LRA_DRIVE_MODE 0
+#ifndef DRV2605L_LRA_DRIVE_MODE
+#    define DRV2605L_LRA_DRIVE_MODE 0
 #endif
-#ifndef N_PWM_ANALOG
-#    define N_PWM_ANALOG 0
+#ifndef DRV2605L_N_PWM_ANALOG
+#    define DRV2605L_N_PWM_ANALOG 0
 #endif
-#ifndef LRA_OPEN_LOOP
-#    define LRA_OPEN_LOOP 0
+#ifndef DRV2605L_LRA_OPEN_LOOP
+#    define DRV2605L_LRA_OPEN_LOOP 0
 #endif
 
 /* Control 4 settings */
-#ifndef ZC_DET_TIME
-#    define ZC_DET_TIME 0
+#ifndef DRV2605L_ZC_DET_TIME
+#    define DRV2605L_ZC_DET_TIME 0
 #endif
-#ifndef AUTO_CAL_TIME
-#    define AUTO_CAL_TIME 3
+#ifndef DRV2605L_AUTO_CAL_TIME
+#    define DRV2605L_AUTO_CAL_TIME 3
 #endif
 
 #define DRV2605L_I2C_ADDRESS 0x5A
@@ -175,203 +175,169 @@ void    drv2605l_rtp_init(void);
 void    drv2605l_amplitude(const uint8_t amplitude);
 void    drv2605l_pulse(const uint8_t sequence);
 
-typedef enum DRV_EFFECT {
-    clear_sequence,
-    strong_click,
-    strong_click_60,
-    strong_click_30,
-    sharp_click,
-    sharp_click_60,
-    sharp_click_30,
-    soft_bump,
-    soft_bump_60,
-    soft_bump_30,
-    dbl_click,
-    dbl_click_60,
-    trp_click,
-    soft_fuzz,
-    strong_buzz,
-    alert_750ms,
-    alert_1000ms,
-    strong_click1,
-    strong_click2_80,
-    strong_click3_60,
-    strong_click4_30,
-    medium_click1,
-    medium_click2_80,
-    medium_click3_60,
-    sharp_tick1,
-    sharp_tick2_80,
-    sharp_tick3_60,
-    sh_dblclick_str,
-    sh_dblclick_str_80,
-    sh_dblclick_str_60,
-    sh_dblclick_str_30,
-    sh_dblclick_med,
-    sh_dblclick_med_80,
-    sh_dblclick_med_60,
-    sh_dblsharp_tick,
-    sh_dblsharp_tick_80,
-    sh_dblsharp_tick_60,
-    lg_dblclick_str,
-    lg_dblclick_str_80,
-    lg_dblclick_str_60,
-    lg_dblclick_str_30,
-    lg_dblclick_med,
-    lg_dblclick_med_80,
-    lg_dblclick_med_60,
-    lg_dblsharp_tick,
-    lg_dblsharp_tick_80,
-    lg_dblsharp_tick_60,
-    buzz,
-    buzz_80,
-    buzz_60,
-    buzz_40,
-    buzz_20,
-    pulsing_strong,
-    pulsing_strong_80,
-    pulsing_medium,
-    pulsing_medium_80,
-    pulsing_sharp,
-    pulsing_sharp_80,
-    transition_click,
-    transition_click_80,
-    transition_click_60,
-    transition_click_40,
-    transition_click_20,
-    transition_click_10,
-    transition_hum,
-    transition_hum_80,
-    transition_hum_60,
-    transition_hum_40,
-    transition_hum_20,
-    transition_hum_10,
-    transition_rampdown_long_smooth1,
-    transition_rampdown_long_smooth2,
-    transition_rampdown_med_smooth1,
-    transition_rampdown_med_smooth2,
-    transition_rampdown_short_smooth1,
-    transition_rampdown_short_smooth2,
-    transition_rampdown_long_sharp1,
-    transition_rampdown_long_sharp2,
-    transition_rampdown_med_sharp1,
-    transition_rampdown_med_sharp2,
-    transition_rampdown_short_sharp1,
-    transition_rampdown_short_sharp2,
-    transition_rampup_long_smooth1,
-    transition_rampup_long_smooth2,
-    transition_rampup_med_smooth1,
-    transition_rampup_med_smooth2,
-    transition_rampup_short_smooth1,
-    transition_rampup_short_smooth2,
-    transition_rampup_long_sharp1,
-    transition_rampup_long_sharp2,
-    transition_rampup_med_sharp1,
-    transition_rampup_med_sharp2,
-    transition_rampup_short_sharp1,
-    transition_rampup_short_sharp2,
-    transition_rampdown_long_smooth1_50,
-    transition_rampdown_long_smooth2_50,
-    transition_rampdown_med_smooth1_50,
-    transition_rampdown_med_smooth2_50,
-    transition_rampdown_short_smooth1_50,
-    transition_rampdown_short_smooth2_50,
-    transition_rampdown_long_sharp1_50,
-    transition_rampdown_long_sharp2_50,
-    transition_rampdown_med_sharp1_50,
-    transition_rampdown_med_sharp2_50,
-    transition_rampdown_short_sharp1_50,
-    transition_rampdown_short_sharp2_50,
-    transition_rampup_long_smooth1_50,
-    transition_rampup_long_smooth2_50,
-    transition_rampup_med_smooth1_50,
-    transition_rampup_med_smooth2_50,
-    transition_rampup_short_smooth1_50,
-    transition_rampup_short_smooth2_50,
-    transition_rampup_long_sharp1_50,
-    transition_rampup_long_sharp2_50,
-    transition_rampup_med_sharp1_50,
-    transition_rampup_med_sharp2_50,
-    transition_rampup_short_sharp1_50,
-    transition_rampup_short_sharp2_50,
-    long_buzz_for_programmatic_stopping,
-    smooth_hum1_50,
-    smooth_hum2_40,
-    smooth_hum3_30,
-    smooth_hum4_20,
-    smooth_hum5_10,
-    drv_effect_max
-} DRV_EFFECT;
+typedef enum drv2605l_effect_t {
+    DRV2605L_EFFECT_CLEAR_SEQUENCE,
+    DRV2605L_EFFECT_STRONG_CLICK_100,
+    DRV2605L_EFFECT_STRONG_CLICK_60,
+    DRV2605L_EFFECT_STRONG_CLICK_30,
+    DRV2605L_EFFECT_SHARP_CLICK_100,
+    DRV2605L_EFFECT_SHARP_CLICK_60,
+    DRV2605L_EFFECT_SHARP_CLICK_30,
+    DRV2605L_EFFECT_SOFT_BUMP_100,
+    DRV2605L_EFFECT_SOFT_BUMP_60,
+    DRV2605L_EFFECT_SOFT_BUMP_30,
+    DRV2605L_EFFECT_DOUBLE_CLICK_100,
+    DRV2605L_EFFECT_DOUBLE_CLICK_60,
+    DRV2605L_EFFECT_TRIPLE_CLICK_100,
+    DRV2605L_EFFECT_SOFT_FUZZ_60,
+    DRV2605L_EFFECT_STRONG_BUZZ_100,
+    DRV2605L_EFFECT_750_MS_ALERT_100,
+    DRV2605L_EFFECT_1000_MS_ALERT_100,
+    DRV2605L_EFFECT_STRONG_CLICK_1_100,
+    DRV2605L_EFFECT_STRONG_CLICK_2_80,
+    DRV2605L_EFFECT_STRONG_CLICK_3_60,
+    DRV2605L_EFFECT_STRONG_CLICK_4_30,
+    DRV2605L_EFFECT_MEDIUM_CLICK_1_100,
+    DRV2605L_EFFECT_MEDIUM_CLICK_2_80,
+    DRV2605L_EFFECT_MEDIUM_CLICK_3_60,
+    DRV2605L_EFFECT_SHARP_TICK_1_100,
+    DRV2605L_EFFECT_SHARP_TICK_2_80,
+    DRV2605L_EFFECT_SHARP_TICK_3_60,
+    DRV2605L_EFFECT_SHORT_DOUBLE_CLICK_STRONG_1_100,
+    DRV2605L_EFFECT_SHORT_DOUBLE_CLICK_STRONG_2_80,
+    DRV2605L_EFFECT_SHORT_DOUBLE_CLICK_STRONG_3_60,
+    DRV2605L_EFFECT_SHORT_DOUBLE_CLICK_STRONG_4_30,
+    DRV2605L_EFFECT_SHORT_DOUBLE_CLICK_MEDIUM_1_100,
+    DRV2605L_EFFECT_SHORT_DOUBLE_CLICK_MEDIUM_2_80,
+    DRV2605L_EFFECT_SHORT_DOUBLE_CLICK_MEDIUM_3_60,
+    DRV2605L_EFFECT_SHORT_DOUBLE_SHARP_TICK_1_100,
+    DRV2605L_EFFECT_SHORT_DOUBLE_SHARP_TICK_2_80,
+    DRV2605L_EFFECT_SHORT_DOUBLE_SHARP_TICK_3_60,
+    DRV2605L_EFFECT_LONG_DOUBLE_SHARP_CLICK_STRONG_1_100,
+    DRV2605L_EFFECT_LONG_DOUBLE_SHARP_CLICK_STRONG_2_80,
+    DRV2605L_EFFECT_LONG_DOUBLE_SHARP_CLICK_STRONG_3_60,
+    DRV2605L_EFFECT_LONG_DOUBLE_SHARP_CLICK_STRONG_4_30,
+    DRV2605L_EFFECT_LONG_DOUBLE_SHARP_CLICK_MEDIUM_1_100,
+    DRV2605L_EFFECT_LONG_DOUBLE_SHARP_CLICK_MEDIUM_2_80,
+    DRV2605L_EFFECT_LONG_DOUBLE_SHARP_CLICK_MEDIUM_3_60,
+    DRV2605L_EFFECT_LONG_DOUBLE_SHARP_TICK_1_100,
+    DRV2605L_EFFECT_LONG_DOUBLE_SHARP_TICK_2_80,
+    DRV2605L_EFFECT_LONG_DOUBLE_SHARP_TICK_3_60,
+    DRV2605L_EFFECT_BUZZ_1_100,
+    DRV2605L_EFFECT_BUZZ_2_80,
+    DRV2605L_EFFECT_BUZZ_3_60,
+    DRV2605L_EFFECT_BUZZ_4_40,
+    DRV2605L_EFFECT_BUZZ_5_20,
+    DRV2605L_EFFECT_PULSING_STRONG_1_100,
+    DRV2605L_EFFECT_PULSING_STRONG_2_60,
+    DRV2605L_EFFECT_PULSING_MEDIUM_1_100,
+    DRV2605L_EFFECT_PULSING_MEDIUM_2_60,
+    DRV2605L_EFFECT_PULSING_SHARP_1_100,
+    DRV2605L_EFFECT_PULSING_SHARP_2_60,
+    DRV2605L_EFFECT_TRANSITION_CLICK_1_100,
+    DRV2605L_EFFECT_TRANSITION_CLICK_2_80,
+    DRV2605L_EFFECT_TRANSITION_CLICK_3_60,
+    DRV2605L_EFFECT_TRANSITION_CLICK_4_40,
+    DRV2605L_EFFECT_TRANSITION_CLICK_5_20,
+    DRV2605L_EFFECT_TRANSITION_CLICK_6_10,
+    DRV2605L_EFFECT_TRANSITION_HUM_1_100,
+    DRV2605L_EFFECT_TRANSITION_HUM_2_80,
+    DRV2605L_EFFECT_TRANSITION_HUM_3_60,
+    DRV2605L_EFFECT_TRANSITION_HUM_4_40,
+    DRV2605L_EFFECT_TRANSITION_HUM_5_20,
+    DRV2605L_EFFECT_TRANSITION_HUM_6_10,
+    DRV2605L_EFFECT_TRANSITION_RAMP_DOWN_LONG_SMOOTH_1_100,
+    DRV2605L_EFFECT_TRANSITION_RAMP_DOWN_LONG_SMOOTH_2_100,
+    DRV2605L_EFFECT_TRANSITION_RAMP_DOWN_MEDIUM_SMOOTH_1_100,
+    DRV2605L_EFFECT_TRANSITION_RAMP_DOWN_MEDIUM_SMOOTH_2_100,
+    DRV2605L_EFFECT_TRANSITION_RAMP_DOWN_SHORT_SMOOTH_1_100,
+    DRV2605L_EFFECT_TRANSITION_RAMP_DOWN_SHORT_SMOOTH_2_100,
+    DRV2605L_EFFECT_TRANSITION_RAMP_DOWN_LONG_SHARP_1_100,
+    DRV2605L_EFFECT_TRANSITION_RAMP_DOWN_LONG_SHARP_2_100,
+    DRV2605L_EFFECT_TRANSITION_RAMP_DOWN_MEDIUM_SHARP_1_100,
+    DRV2605L_EFFECT_TRANSITION_RAMP_DOWN_MEDIUM_SHARP_2_100,
+    DRV2605L_EFFECT_TRANSITION_RAMP_DOWN_SHORT_SHARP_1_100,
+    DRV2605L_EFFECT_TRANSITION_RAMP_DOWN_SHORT_SHARP_2_100,
+    DRV2605L_EFFECT_TRANSITION_RAMP_UP_LONG_SMOOTH_1_100,
+    DRV2605L_EFFECT_TRANSITION_RAMP_UP_LONG_SMOOTH_2_100,
+    DRV2605L_EFFECT_TRANSITION_RAMP_UP_MEDIUM_SMOOTH_1_100,
+    DRV2605L_EFFECT_TRANSITION_RAMP_UP_MEDIUM_SMOOTH_2_100,
+    DRV2605L_EFFECT_TRANSITION_RAMP_UP_SHORT_SMOOTH_1_100,
+    DRV2605L_EFFECT_TRANSITION_RAMP_UP_SHORT_SMOOTH_2_100,
+    DRV2605L_EFFECT_TRANSITION_RAMP_UP_LONG_SHARP_1_100,
+    DRV2605L_EFFECT_TRANSITION_RAMP_UP_LONG_SHARP_2_100,
+    DRV2605L_EFFECT_TRANSITION_RAMP_UP_MEDIUM_SHARP_1_100,
+    DRV2605L_EFFECT_TRANSITION_RAMP_UP_MEDIUM_SHARP_2_100,
+    DRV2605L_EFFECT_TRANSITION_RAMP_UP_SHORT_SHARP_1_100,
+    DRV2605L_EFFECT_TRANSITION_RAMP_UP_SHORT_SHARP_2_100,
+    DRV2605L_EFFECT_TRANSITION_RAMP_DOWN_LONG_SMOOTH_1_50,
+    DRV2605L_EFFECT_TRANSITION_RAMP_DOWN_LONG_SMOOTH_2_50,
+    DRV2605L_EFFECT_TRANSITION_RAMP_DOWN_MEDIUM_SMOOTH_1_50,
+    DRV2605L_EFFECT_TRANSITION_RAMP_DOWN_MEDIUM_SMOOTH_2_50,
+    DRV2605L_EFFECT_TRANSITION_RAMP_DOWN_SHORT_SMOOTH_1_50,
+    DRV2605L_EFFECT_TRANSITION_RAMP_DOWN_SHORT_SMOOTH_2_50,
+    DRV2605L_EFFECT_TRANSITION_RAMP_DOWN_LONG_SHARP_1_50,
+    DRV2605L_EFFECT_TRANSITION_RAMP_DOWN_LONG_SHARP_2_50,
+    DRV2605L_EFFECT_TRANSITION_RAMP_DOWN_MEDIUM_SHARP_1_50,
+    DRV2605L_EFFECT_TRANSITION_RAMP_DOWN_MEDIUM_SHARP_2_50,
+    DRV2605L_EFFECT_TRANSITION_RAMP_DOWN_SHORT_SHARP_1_50,
+    DRV2605L_EFFECT_TRANSITION_RAMP_DOWN_SHORT_SHARP_2_50,
+    DRV2605L_EFFECT_TRANSITION_RAMP_UP_LONG_SMOOTH_1_50,
+    DRV2605L_EFFECT_TRANSITION_RAMP_UP_LONG_SMOOTH_2_50,
+    DRV2605L_EFFECT_TRANSITION_RAMP_UP_MEDIUM_SMOOTH_1_50,
+    DRV2605L_EFFECT_TRANSITION_RAMP_UP_MEDIUM_SMOOTH_2_50,
+    DRV2605L_EFFECT_TRANSITION_RAMP_UP_SHORT_SMOOTH_1_50,
+    DRV2605L_EFFECT_TRANSITION_RAMP_UP_SHORT_SMOOTH_2_50,
+    DRV2605L_EFFECT_TRANSITION_RAMP_UP_LONG_SHARP_1_50,
+    DRV2605L_EFFECT_TRANSITION_RAMP_UP_LONG_SHARP_2_50,
+    DRV2605L_EFFECT_TRANSITION_RAMP_UP_MEDIUM_SHARP_1_50,
+    DRV2605L_EFFECT_TRANSITION_RAMP_UP_MEDIUM_SHARP_2_50,
+    DRV2605L_EFFECT_TRANSITION_RAMP_UP_SHORT_SHARP_1_50,
+    DRV2605L_EFFECT_TRANSITION_RAMP_UP_SHORT_SHARP_2_50,
+    DRV2605L_EFFECT_LONG_BUZZ_FOR_PROGRAMMATIC_STOPPING,
+    DRV2605L_EFFECT_SMOOTH_HUM_1_50,
+    DRV2605L_EFFECT_SMOOTH_HUM_2_40,
+    DRV2605L_EFFECT_SMOOTH_HUM_3_30,
+    DRV2605L_EFFECT_SMOOTH_HUM_4_20,
+    DRV2605L_EFFECT_SMOOTH_HUM_5_10,
+    DRV2605L_EFFECT_COUNT
+} drv2605l_effect_t;
 
 /* Register bit array unions */
 
-typedef union DRVREG_STATUS { /* register 0x00 */
-    uint8_t Byte;
-    struct {
-        uint8_t OC_DETECT : 1; /* set to 1 when overcurrent event is detected */
-        uint8_t OVER_TEMP : 1; /* set to 1 when device exceeds temp threshold */
-        uint8_t FB_STS : 1;    /* set to 1 when feedback controller has timed out */
-        /* auto-calibration routine and diagnostic result
-         * result  |  auto-calibation  |      diagnostic       |
-         *   0     |      passed       | actuator func normal  |
-         *   1     |      failed       | actuator func fault*  |
-         * * actuator is not present or is shorted, timing out, or giving out–of-range back-EMF */
-        uint8_t DIAG_RESULT : 1;
-        uint8_t : 1;
-        uint8_t DEVICE_ID : 3; /* Device IDs 3: DRV2605  4: DRV2604  5: DRV2604L  6: DRV2605L */
-    } Bits;
-} DRVREG_STATUS;
-
-typedef union DRVREG_MODE { /* register 0x01 */
-    uint8_t Byte;
-    struct {
-        uint8_t MODE : 3; /* Mode setting */
-        uint8_t : 3;
-        uint8_t STANDBY : 1; /* 0:standby 1:ready */
-    } Bits;
-} DRVREG_MODE;
-
-typedef union DRVREG_WAIT {
-    uint8_t Byte;
-    struct {
-        uint8_t WAIT_MODE : 1; /* Set to 1 to interpret as wait for next 7 bits x10ms */
-        uint8_t WAIT_TIME : 7;
-    } Bits;
-} DRVREG_WAIT;
-
-typedef union DRVREG_FBR { /* register 0x1A */
-    uint8_t Byte;
+typedef union { /* register 0x1A */
+    uint8_t raw;
     struct {
         uint8_t BEMF_GAIN : 2;
         uint8_t LOOP_GAIN : 2;
         uint8_t BRAKE_FACTOR : 3;
         uint8_t ERM_LRA : 1;
-    } Bits;
-} DRVREG_FBR;
+    } bits;
+} drv2605l_reg_feedback_ctrl_t;
 
-typedef union DRVREG_CTRL1 { /* register 0x1B */
-    uint8_t Byte;
+typedef union { /* register 0x1B */
+    uint8_t raw;
     struct {
         uint8_t C1_DRIVE_TIME : 5;
         uint8_t C1_AC_COUPLE : 1;
         uint8_t : 1;
         uint8_t C1_STARTUP_BOOST : 1;
-    } Bits;
-} DRVREG_CTRL1;
+    } bits;
+} drv2605l_reg_ctrl1_t;
 
-typedef union DRVREG_CTRL2 { /* register 0x1C */
-    uint8_t Byte;
+typedef union { /* register 0x1C */
+    uint8_t raw;
     struct {
         uint8_t C2_IDISS_TIME : 2;
         uint8_t C2_BLANKING_TIME : 2;
         uint8_t C2_SAMPLE_TIME : 2;
         uint8_t C2_BRAKE_STAB : 1;
         uint8_t C2_BIDIR_INPUT : 1;
-    } Bits;
-} DRVREG_CTRL2;
+    } bits;
+} drv2605l_reg_ctrl2_t;
 
-typedef union DRVREG_CTRL3 { /* register 0x1D */
-    uint8_t Byte;
+typedef union { /* register 0x1D */
+    uint8_t raw;
     struct {
         uint8_t C3_LRA_OPEN_LOOP : 1;
         uint8_t C3_N_PWM_ANALOG : 1;
@@ -380,11 +346,11 @@ typedef union DRVREG_CTRL3 { /* register 0x1D */
         uint8_t C3_SUPPLY_COMP_DIS : 1;
         uint8_t C3_ERM_OPEN_LOOP : 1;
         uint8_t C3_NG_THRESH : 2;
-    } Bits;
-} DRVREG_CTRL3;
+    } bits;
+} drv2605l_reg_ctrl3_t;
 
-typedef union DRVREG_CTRL4 { /* register 0x1E */
-    uint8_t Byte;
+typedef union { /* register 0x1E */
+    uint8_t raw;
     struct {
         uint8_t C4_OTP_PROGRAM : 1;
         uint8_t : 1;
@@ -392,16 +358,5 @@ typedef union DRVREG_CTRL4 { /* register 0x1E */
         uint8_t : 1;
         uint8_t C4_AUTO_CAL_TIME : 2;
         uint8_t C4_ZC_DET_TIME : 2;
-    } Bits;
-} DRVREG_CTRL4;
-
-typedef union DRVREG_CTRL5 { /* register 0x1F */
-    uint8_t Byte;
-    struct {
-        uint8_t C5_IDISS_TIME : 2;
-        uint8_t C5_BLANKING_TIME : 2;
-        uint8_t C5_PLAYBACK_INTERVAL : 1;
-        uint8_t C5_LRA_AUTO_OPEN_LOOP : 1;
-        uint8_t C5_AUTO_OL_CNT : 2;
-    } Bits;
-} DRVREG_CTRL5;
+    } bits;
+} drv2605l_reg_ctrl4_t;

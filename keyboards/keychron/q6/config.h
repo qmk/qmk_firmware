@@ -21,11 +21,11 @@
 #define MATRIX_COLS 20
 
 /* RGB Matrix Driver Configuration */
-#define DRIVER_COUNT 2
-#define DRIVER_ADDR_1 0b1110111
-#define DRIVER_ADDR_2 0b1110100
+#define SNLED27351_DRIVER_COUNT 2
+#define DRIVER_ADDR_1 SNLED27351_I2C_ADDRESS_VDDIO
+#define DRIVER_ADDR_2 SNLED27351_I2C_ADDRESS_GND
 
-#define CKLED2001_CURRENT_TUNE \
+#define SNLED27351_CURRENT_TUNE \
     { 0xA4, 0xA4, 0x52, 0xA4, 0xA4, 0x52, 0xA4, 0xA4, 0x52, 0xA4, 0xA4, 0x52 }
 
 /* DIP switch */
@@ -38,13 +38,7 @@
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 
 /* Encoder Configuration */
-#ifdef ENCODER_ENABLE
-    #define ENCODER_DEFAULT_POS 0x3
-#endif
-
-/* EEPROM Driver Configuration */
-#define WEAR_LEVELING_LOGICAL_SIZE 2048
-#define WEAR_LEVELING_BACKING_SIZE (WEAR_LEVELING_LOGICAL_SIZE * 2)
+#define ENCODER_DEFAULT_POS 0x3
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
