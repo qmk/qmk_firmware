@@ -24,6 +24,18 @@
 #ifdef DRIVER_COUNT
 #    define SNLED27351_DRIVER_COUNT DRIVER_COUNT
 #endif
+#ifdef DRIVER_ADDR_1
+#    define SNLED27351_I2C_ADDRESS_1 DRIVER_ADDR_1
+#endif
+#ifdef DRIVER_ADDR_2
+#    define SNLED27351_I2C_ADDRESS_2 DRIVER_ADDR_2
+#endif
+#ifdef DRIVER_ADDR_3
+#    define SNLED27351_I2C_ADDRESS_3 DRIVER_ADDR_3
+#endif
+#ifdef DRIVER_ADDR_4
+#    define SNLED27351_I2C_ADDRESS_4 DRIVER_ADDR_4
+#endif
 #ifdef CKLED2001_TIMEOUT
 #    define SNLED27351_I2C_TIMEOUT CKLED2001_TIMEOUT
 #endif
@@ -83,6 +95,8 @@ void snled27351_set_led_control_register(uint8_t index, bool red, bool green, bo
 // If the buffer is dirty, it will update the driver with the buffer.
 void snled27351_update_pwm_buffers(uint8_t addr, uint8_t index);
 void snled27351_update_led_control_registers(uint8_t addr, uint8_t index);
+
+void snled27351_flush(void);
 
 void snled27351_sw_return_normal(uint8_t addr);
 void snled27351_sw_shutdown(uint8_t addr);

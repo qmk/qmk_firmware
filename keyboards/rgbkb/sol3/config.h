@@ -41,9 +41,6 @@
 #endif
 
 /* Split Transport Features */
-#define SPLIT_TRANSPORT_MIRROR
-#define SPLIT_LAYER_STATE_ENABLE
-#define SPLIT_LED_STATE_ENABLE
 #define SPLIT_TRANSACTION_IDS_KB TOUCH_ENCODER_SYNC, RGB_MENU_SYNC
 
 /* LED Turbo DIP Switch */

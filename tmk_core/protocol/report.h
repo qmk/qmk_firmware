@@ -125,21 +125,7 @@ enum desktop_usages {
 
 // clang-format on
 
-#define NKRO_SHARED_EP
-/* key report size(NKRO or boot mode) */
-#if defined(NKRO_ENABLE)
-#    if defined(PROTOCOL_LUFA) || defined(PROTOCOL_CHIBIOS)
-#        include "protocol/usb_descriptor.h"
-#        define NKRO_REPORT_BITS (SHARED_EPSIZE - 2)
-#    elif defined(PROTOCOL_ARM_ATSAM)
-#        include "protocol/arm_atsam/usb/udi_device_epsize.h"
-#        define NKRO_REPORT_BITS (NKRO_EPSIZE - 1)
-#        undef NKRO_SHARED_EP
-#        undef MOUSE_SHARED_EP
-#    else
-#        error "NKRO not supported with this protocol"
-#    endif
-#endif
+#define NKRO_REPORT_BITS 30
 
 #ifdef KEYBOARD_SHARED_EP
 #    define KEYBOARD_REPORT_SIZE 9
@@ -173,26 +159,20 @@ extern "C" {
  * desc |Lcontrol|Lshift  |Lalt    |Lgui    |Rcontrol|Rshift  |Ralt    |Rgui
  *
  */
-typedef union {
-    uint8_t raw[KEYBOARD_REPORT_SIZE];
-    struct {
+typedef struct {
 #ifdef KEYBOARD_SHARED_EP
-        uint8_t report_id;
+    uint8_t report_id;
 #endif
-        uint8_t mods;
-        uint8_t reserved;
-        uint8_t keys[KEYBOARD_REPORT_KEYS];
-    };
-#ifdef NKRO_ENABLE
-    struct nkro_report {
-#    ifdef NKRO_SHARED_EP
-        uint8_t report_id;
-#    endif
-        uint8_t mods;
-        uint8_t bits[NKRO_REPORT_BITS];
-    } nkro;
-#endif
+    uint8_t mods;
+    uint8_t reserved;
+    uint8_t keys[KEYBOARD_REPORT_KEYS];
 } PACKED report_keyboard_t;
+
+typedef struct {
+    uint8_t report_id;
+    uint8_t mods;
+    uint8_t bits[NKRO_REPORT_BITS];
+} PACKED report_nkro_t;
 
 typedef struct {
     uint8_t  report_id;
@@ -330,20 +310,20 @@ static inline uint16_t KEYCODE2CONSUMER(uint8_t key) {
     }
 }
 
-uint8_t has_anykey(report_keyboard_t* keyboard_report);
-uint8_t get_first_key(report_keyboard_t* keyboard_report);
-bool    is_key_pressed(report_keyboard_t* keyboard_report, uint8_t key);
+uint8_t has_anykey(void);
+uint8_t get_first_key(void);
+bool    is_key_pressed(uint8_t key);
 
 void add_key_byte(report_keyboard_t* keyboard_report, uint8_t code);
 void del_key_byte(report_keyboard_t* keyboard_report, uint8_t code);
 #ifdef NKRO_ENABLE
-void add_key_bit(report_keyboard_t* keyboard_report, uint8_t code);
-void del_key_bit(report_keyboard_t* keyboard_report, uint8_t code);
+void add_key_bit(report_nkro_t* nkro_report, uint8_t code);
+void del_key_bit(report_nkro_t* nkro_report, uint8_t code);
 #endif
 
-void add_key_to_report(report_keyboard_t* keyboard_report, uint8_t key);
-void del_key_from_report(report_keyboard_t* keyboard_report, uint8_t key);
-void clear_keys_from_report(report_keyboard_t* keyboard_report);
+void add_key_to_report(uint8_t key);
+void del_key_from_report(uint8_t key);
+void clear_keys_from_report(void);
 
 #ifdef MOUSE_ENABLE
 bool has_mouse_report_changed(report_mouse_t* new_report, report_mouse_t* old_report);

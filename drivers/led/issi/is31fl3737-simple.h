@@ -84,6 +84,8 @@ void is31fl3737_set_led_control_register(uint8_t index, bool value);
 void is31fl3737_update_pwm_buffers(uint8_t addr, uint8_t index);
 void is31fl3737_update_led_control_registers(uint8_t addr, uint8_t index);
 
+void is31fl3737_flush(void);
+
 #define IS31FL3737_PUR_0R 0x00   // No PUR resistor
 #define IS31FL3737_PUR_05KR 0x01 // 0.5k Ohm resistor in t_NOL
 #define IS31FL3737_PUR_1KR 0x02  // 1.0k Ohm resistor in t_NOL

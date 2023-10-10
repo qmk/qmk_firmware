@@ -23,6 +23,18 @@
 #include "progmem.h"
 
 // ======== DEPRECATED DEFINES - DO NOT USE ========
+#ifdef LED_DRIVER_ADDR_1
+#    define IS31FL3731_I2C_ADDRESS_1 LED_DRIVER_ADDR_1
+#endif
+#ifdef LED_DRIVER_ADDR_2
+#    define IS31FL3731_I2C_ADDRESS_2 LED_DRIVER_ADDR_2
+#endif
+#ifdef LED_DRIVER_ADDR_3
+#    define IS31FL3731_I2C_ADDRESS_3 LED_DRIVER_ADDR_3
+#endif
+#ifdef LED_DRIVER_ADDR_4
+#    define IS31FL3731_I2C_ADDRESS_4 LED_DRIVER_ADDR_4
+#endif
 #ifdef LED_DRIVER_COUNT
 #    define IS31FL3731_DRIVER_COUNT LED_DRIVER_COUNT
 #endif
@@ -67,6 +79,8 @@ void is31fl3731_set_led_control_register(uint8_t index, bool value);
 // If the buffer is dirty, it will update the driver with the buffer.
 void is31fl3731_update_pwm_buffers(uint8_t addr, uint8_t index);
 void is31fl3731_update_led_control_registers(uint8_t addr, uint8_t index);
+
+void is31fl3731_flush(void);
 
 #define C1_1 0x24
 #define C1_2 0x25

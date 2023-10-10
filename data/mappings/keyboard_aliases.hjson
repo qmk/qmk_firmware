@@ -1236,6 +1236,9 @@
     "stella": {
         "target": "hnahkb/stella"
     },
+    "studiokestra/line_tkl": {
+        "target": "studiokestra/line_friends_tkl"
+    },
     "suihankey/alpha": {
         "target": "kakunpc/suihankey/alpha"
     },

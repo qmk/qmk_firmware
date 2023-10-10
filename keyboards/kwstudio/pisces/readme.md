@@ -1,20 +1,18 @@
-# studiokestra/line_tkl
+# Pisces
 
-![studiokestra/line_tkl](https://i.imgur.com/3MmRQkh.png)
+![Pisces](https://i.imgur.com/fqEBVD8h.jpeg)
 
-PCB developed for Mino Keys in collaboration with Line Friends (C).
-
-* Keyboard Maintainer: [Studio Kestra](https://github.com/studiokestra/)
-* Hardware Supported: Line TKL
-* Hardware Availability: https://minokeys.com/collections/line-friends
+* Keyboard Maintainer: [khchen](https://github.com/khchen2004)
+* Hardware Supported: Pisces PCB
+* Hardware Availability: Private GB
 
 Make example for this keyboard (after setting up your build environment):
 
-    make studiokestra/line_tkl:default
+    make kwstudio/pisces:default
 
 Flashing example for this keyboard:
 
-    make studiokestra/line_tkl:default:flash
+    make kwstudio/pisces:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
