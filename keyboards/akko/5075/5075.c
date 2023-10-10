@@ -164,15 +164,6 @@ void led_init_ports(void) {
     writePinLow(LED_WIN_LOCK_PIN);
 }
 
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if (res) {
-        writePin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
-        writePin(LED_MAC_OS_PIN, default_layer_state & ((1<<MAC_B)|(1<<MAC_W)));
-        writePin(LED_WIN_LOCK_PIN, keymap_config.no_gui);
-    }
-    return res;
-}
 
 bool dip_switch_update_kb(uint8_t index, bool active) {
     if (!dip_switch_update_user(index, active)) {
