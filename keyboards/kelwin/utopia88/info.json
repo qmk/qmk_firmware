@@ -1,11 +1,11 @@
 {
     "keyboard_name": "Utopia88",
-    "manufacturer": "Kelwin_Studio",
-    "maintainer": "Kelwin_Studio",
+    "manufacturer": "Kelwin Studio",
+    "maintainer": "Kelwin Studio",
     "url": "",
     "usb": {
-        "vid": "0x0088",
-        "pid": "0x0888",
+        "vid": "0xFEED",
+        "pid": "0x0001",
         "device_version": "1.0.0"
     },
     "matrix_pins": {
