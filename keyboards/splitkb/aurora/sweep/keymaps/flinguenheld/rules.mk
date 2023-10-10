@@ -7,7 +7,6 @@ SRC += features/leader.c
 SRC += oled/oled.c
 
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
 
 MOUSEKEY_ENABLE = yes
 AUTO_SHIFT_ENABLE = yes

@@ -122,40 +122,36 @@ __attribute__((weak)) uint16_t keycode_config(uint16_t keycode) {
  */
 
 __attribute__((weak)) uint8_t mod_config(uint8_t mod) {
+    /**
+     * Note: This function is for the 5-bit packed mods, NOT the full 8-bit mods.
+     * More info about the mods can be seen in modifiers.h.
+     */
     if (keymap_config.swap_lalt_lgui) {
-        if ((mod & MOD_RGUI) == MOD_LGUI) {
-            mod &= ~MOD_LGUI;
-            mod |= MOD_LALT;
-        } else if ((mod & MOD_RALT) == MOD_LALT) {
-            mod &= ~MOD_LALT;
-            mod |= MOD_LGUI;
+        /** If both modifiers pressed or neither pressed, do nothing
+         * Otherwise swap the values
+         * Note: The left mods are ANDed with the right-hand values to check
+         * if they were pressed with the right hand bit set
+         */
+        if (((mod & MOD_RALT) == MOD_LALT) ^ ((mod & MOD_RGUI) == MOD_LGUI)) {
+            mod ^= (MOD_LALT | MOD_LGUI);
         }
     }
     if (keymap_config.swap_ralt_rgui) {
-        if ((mod & MOD_RGUI) == MOD_RGUI) {
-            mod &= ~MOD_RGUI;
-            mod |= MOD_RALT;
-        } else if ((mod & MOD_RALT) == MOD_RALT) {
-            mod &= ~MOD_RALT;
-            mod |= MOD_RGUI;
+        if (((mod & MOD_RALT) == MOD_RALT) ^ ((mod & MOD_RGUI) == MOD_RGUI)) {
+            /* lefthand values to preserve the right hand bit */
+            mod ^= (MOD_LALT | MOD_LGUI);
         }
     }
     if (keymap_config.swap_lctl_lgui) {
-        if ((mod & MOD_RGUI) == MOD_LGUI) {
-            mod &= ~MOD_LGUI;
-            mod |= MOD_LCTL;
-        } else if ((mod & MOD_RCTL) == MOD_LCTL) {
-            mod &= ~MOD_LCTL;
-            mod |= MOD_LGUI;
+        /* left mods ANDed with right-hand values to check for right hand bit */
+        if (((mod & MOD_RCTL) == MOD_LCTL) ^ ((mod & MOD_RGUI) == MOD_LGUI)) {
+            mod ^= (MOD_LCTL | MOD_LGUI);
         }
     }
     if (keymap_config.swap_rctl_rgui) {
-        if ((mod & MOD_RGUI) == MOD_RGUI) {
-            mod &= ~MOD_RGUI;
-            mod |= MOD_RCTL;
-        } else if ((mod & MOD_RCTL) == MOD_RCTL) {
-            mod &= ~MOD_RCTL;
-            mod |= MOD_RGUI;
+        if (((mod & MOD_RCTL) == MOD_RCTL) ^ ((mod & MOD_RGUI) == MOD_RGUI)) {
+            /* lefthand values to preserve the right hand bit */
+            mod ^= (MOD_LCTL | MOD_LGUI);
         }
     }
     if (keymap_config.no_gui) {

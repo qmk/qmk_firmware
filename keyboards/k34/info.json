@@ -13,10 +13,10 @@
         "rows": ["F4", "B2", "E6", "B4"]
     },
     "diode_direction": "COL2ROW",
-    "processor": "atmega32u4",
-    "bootloader": "atmel-dfu",
+    "development_board": "promicro",
+    "community_layouts": ["split_3x5_2"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_split_3x5_2": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0.3},
                 {"matrix": [0, 1], "x": 1, "y": 0.1},

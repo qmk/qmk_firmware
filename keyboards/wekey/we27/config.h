@@ -80,9 +80,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif
 
-#define ENCODERS_CW_KEY { { 4, 5 } }
-#define ENCODERS_CCW_KEY { { 4, 3 } }
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

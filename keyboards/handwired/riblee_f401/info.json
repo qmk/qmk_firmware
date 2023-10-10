@@ -8,13 +8,15 @@
         "pid": "0x002A",
         "device_version": "0.0.1"
     },
+    "tapping": {
+        "term": 175
+    },
     "matrix_pins": {
         "cols": ["B10", "B1", "B0", "B15", "A8", "B3", "B4", "B5", "B6", "B7", "B8", "B9"],
         "rows": ["A6", "A5", "A4", "A3", "A2"]
     },
     "diode_direction": "COL2ROW",
     "backlight": {
-        "driver": "software",
         "pin": "A0",
         "levels": 5
     },

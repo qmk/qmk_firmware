@@ -17,8 +17,6 @@
 
 #pragma once
 
-#define TAP_CODE_DELAY 10
-
 /* Define custom font */
 #define OLED_FONT_H "lib/mercutiofont.c"
 

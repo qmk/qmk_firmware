@@ -24,7 +24,7 @@
         "cols": ["GP29", "GP28", "GP26", "GP25", "GP24", "GP23", "GP22", "GP21", "GP20", "GP19", "GP18", "GP17", "GP16", "GP27", "GP9", "GP1", "GP0"]
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
     },
     "ws2812": {
         "pin": "GP2",
