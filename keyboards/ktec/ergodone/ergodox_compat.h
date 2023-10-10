@@ -51,19 +51,25 @@ static inline void ergodox_right_led_off(uint8_t l) {
              break;
         }
 }
-static inline void ergodox_board_led_off(void) { setPinOutput(D5); writePin(D5, !ERGODOX_BOARD_LED_ON_STATE); }
-static inline void ergodox_board_led_on(void) { setPinOutput(D5); writePin(D5, ERGODOX_BOARD_LED_ON_STATE); }
+static inline void ergodox_rx_led_off(void) { setPinOutput(B0); writePin(B0, !ERGODOX_BOARD_LED_ON_STATE); }
+static inline void ergodox_rx_led_on(void) { setPinOutput(B0); writePin(B0, ERGODOX_BOARD_LED_ON_STATE); }
+static inline void ergodox_tx_led_off(void) { setPinOutput(D5); writePin(D5, !ERGODOX_BOARD_LED_ON_STATE); }
+static inline void ergodox_tx_led_on(void) { setPinOutput(D5); writePin(D5, ERGODOX_BOARD_LED_ON_STATE); }
+static inline void ergodox_board_led_off(void)  { ergodox_tx_led_off(); }
+static inline void ergodox_board_led_on(void) { ergodox_tx_led_on(); }
 static inline void ergodox_led_all_on(void) {
     ergodox_right_led_1_on();
     ergodox_right_led_2_on();
     ergodox_right_led_3_on();
-    ergodox_board_led_on();
+    ergodox_tx_led_on();
+    ergodox_rx_led_on();
 }
 static inline void ergodox_led_all_off(void) {
     ergodox_right_led_1_off();
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
-    ergodox_board_led_off();
+    ergodox_tx_led_off();
+    ergodox_rx_led_off();
 }
 static inline void ergodox_right_led_1_set(uint8_t n)          {}
 static inline void ergodox_right_led_2_set(uint8_t n)          {}
@@ -73,7 +79,9 @@ static inline void ergodox_led_all_set(uint8_t n)              {}
 static inline void ergodox_led_init(void) {}
 static inline void ergodox_blink_all_leds(void) {
     ergodox_led_all_off();
-    ergodox_board_led_on();
+    ergodox_tx_led_on();
+    wait_ms(50);
+    ergodox_rx_led_on();
     wait_ms(50);
     ergodox_right_led_1_on();
     wait_ms(50);
@@ -87,7 +95,8 @@ static inline void ergodox_blink_all_leds(void) {
     wait_ms(50);
     ergodox_right_led_3_off();
     wait_ms(50);
-    ergodox_board_led_off();
+    ergodox_tx_led_off();
+    ergodox_rx_led_off();
     //ergodox_led_all_on();
     //wait_ms(333);
     ergodox_led_all_off();
