@@ -17,8 +17,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "tmk.h"
 
-#ifdef ACTUATION_DEPTH_ADJUSTMENT
+#include "../fc980c.h"
+
 void matrix_init_kb(void) {
+    fc980c_matrix_init_kb();
+
     matrix_init_user();
 }
-#endif
+
+void eeconfig_init_kb(void) {
+    fc980c_eeconfig_init_kb();
+
+    eeconfig_init_user();
+}
+
+void keyboard_post_init_kb(void) {
+    fc980c_keyboard_post_init_kb();
+
+    keyboard_post_init_user();
+}
