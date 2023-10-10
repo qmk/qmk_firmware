@@ -49,6 +49,11 @@ Configuration-wise, you'll need to set up the peripheral as per your MCU's datas
 
 As per the AVR configuration, you may choose any other standard GPIO as a slave select pin, which should be supplied to `spi_start()`.
 
+If a complete SPI interface is not required, then the following can be done to disable certain SPI pins, so they don't occupy a GPIO unnecessarily:
+ - in `config.h`: `#define SPI_MISO_PIN NO_PIN`
+ - in `config.h`: `#define SPI_MOSI_PIN NO_PIN`
+ - in `mcuconf.h`: `#define SPI_SELECT_MODE SPI_SELECT_MODE_NONE`, in this case the `slavePin` argument passed to `spi_start()` may be `NO_PIN` if the slave select pin is not used.
+
 ## API :id=api
 
 ### `void spi_init(void)` :id=api-spi-init

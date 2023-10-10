@@ -18,6 +18,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "util.h"
 
 // clang-format off
 
@@ -73,16 +74,6 @@
 
 // clang-format on
 
-#if defined(__GNUC__)
-#    define PACKED __attribute__((__packed__))
-#else
-#    define PACKED
-#endif
-
-#if defined(_MSC_VER)
-#    pragma pack(push, 1)
-#endif
-
 #define WS2812_BYTE_ORDER_RGB 0
 #define WS2812_BYTE_ORDER_GRB 1
 #define WS2812_BYTE_ORDER_BGR 2
@@ -117,10 +108,6 @@ typedef struct PACKED HSV {
     uint8_t s;
     uint8_t v;
 } HSV;
-
-#if defined(_MSC_VER)
-#    pragma pack(pop)
-#endif
 
 RGB hsv_to_rgb(HSV hsv);
 RGB hsv_to_rgb_nocie(HSV hsv);
