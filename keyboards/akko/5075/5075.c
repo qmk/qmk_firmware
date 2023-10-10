@@ -164,6 +164,15 @@ void led_init_ports(void) {
     writePinLow(LED_WIN_LOCK_PIN);
 }
 
+void housekeeping_task_kb(void) {
+    /* Execute every 1ms */
+    static uint32_t last_time = 0;
+    if (timer_elapsed32(last_time) >= 1) {
+        last_time = timer_read32();
+        writePin(LED_MAC_OS_PIN, default_layer_state & ((1<<MAC_B)|(1<<MAC_W)));
+        writePin(LED_WIN_LOCK_PIN, keymap_config.no_gui);
+    }
+}
 
 bool dip_switch_update_kb(uint8_t index, bool active) {
     if (!dip_switch_update_user(index, active)) {
