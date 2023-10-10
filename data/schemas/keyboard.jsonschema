@@ -346,6 +346,14 @@
                 "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
             }
         },
+        "locking": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "enabled": {"type": "boolean"},
+                "resync": {"type": "boolean"}
+            }
+        },
         "matrix_pins": {
             "type": "object",
             "additionalProperties": false,

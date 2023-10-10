@@ -66,6 +66,10 @@
     "LEADER_KEY_STRICT_KEY_PROCESSING": {"info_key": "leader_key.strict_processing", "value_type": "bool"},
     "LEADER_TIMEOUT": {"info_key": "leader_key.timeout", "value_type": "int"},
 
+    // Locking Switch
+    "LOCKING_SUPPORT_ENABLE": {"info_key": "locking.enabled", "value_type": "bool"},
+    "LOCKING_RESYNC_ENABLE": {"info_key": "locking.resync", "value_type": "bool"},
+
     // LED Matrix
     "LED_DISABLE_WHEN_USB_SUSPENDED": {"info_key": "led_matrix.sleep", "value_type": "bool"},
     "LED_MATRIX_CENTER": {"info_key": "led_matrix.center_point", "value_type": "array.int"},
