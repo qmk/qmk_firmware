@@ -21,6 +21,22 @@
         "caps_lock": "A4",
         "num_lock": "A3"
     },
+    "rgblight": {
+        "led_count": 26,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
     "ws2812": {
         "pin": "A15"
     },

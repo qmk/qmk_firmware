@@ -1,4 +1,4 @@
-/* Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
+/* Copyright 2023 HorrorTroll <https://github.com/HorrorTroll>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,8 +25,6 @@ enum layer_names {
     _BASE,
     _FN,
 };
-
-// enum layer_keycodes { };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -86,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        │    │    │    │                        │    │ Fn │    │    ││   │   │   │
        └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘└───┴───┴───┘
 */
-    /*  Row:    0        1        2        3        4        5        6        7        8        9        10       11       12       13       14       15       16      */
+    /*  Row:    0        1        2        3        4        5        6        7        8        9        10       11       12       13       14       15       16     */
     [_FN]   = LAYOUT_tkl_f13_ansi(
                 QK_BOOT, KC_MSEL, KC_VOLD, KC_VOLU, KC_MUTE, KC_MSTP, KC_MPRV, KC_MPLY, KC_MNXT, KC_MAIL, KC_WHOM, KC_CALC, KC_WSCH, KC_MYCM, _______, _______, _______,
                 NK_TOGG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,

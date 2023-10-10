@@ -10,7 +10,6 @@ AUDIO_ENABLE = yes              # Audio output on port C6
 UNICODE_ENABLE = no             # Unicode
 BLUETOOTH_ENABLE = no           # Disable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = yes           # Enable RGB underlight
-RGBLIGHT_CUSTOM_DRIVER = yes    # RGB code is implemented in lefkeyboards, not WS2812
 SLEEP_LED_ENABLE = yes
 TAP_DANCE_ENABLE = yes
 

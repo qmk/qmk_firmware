@@ -11,7 +11,6 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = yes          # Enable keyboard backlight functionality
 AUDIO_ENABLE = yes              # Audio output
 RGBLIGHT_ENABLE = yes           # Enable RGB underlight
-RGBLIGHT_CUSTOM_DRIVER = yes    # RGB code is implemented in lefkeyboards, not WS2812
 SLEEP_LED_ENABLE = yes
 
 ISSI_ENABLE = yes			# If the I2C pullup resistors aren't install this must be disabled

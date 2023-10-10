@@ -28,6 +28,9 @@
       }
     }
   },
+  "tapping": {
+    "term": 100
+  },
   "processor": "atmega32u4",
   "bootloader": "caterina",
   "layouts": {

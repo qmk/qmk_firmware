@@ -1,6 +1,7 @@
 // Copyright 2023 Massdrop, Inc.
 // SPDX-License-Identifier: GPL-2.0-or-later
 #ifdef RGB_MATRIX_ENABLE
+#    include "host.h"
 #    include "rgb_matrix.h"
 
 const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
