@@ -370,6 +370,16 @@ Configures the [LED Matrix](feature_led_matrix.md) feature.
         * The number of brightness adjustment steps.
         * Default: `8`
 
+## Mechanical Lock Switch Support :id=locking-support
+
+* `locking`
+    * `enabled`
+        * Enable locking switch support
+        * Default: `false`
+    * `resync`
+        * Keep switch state consistent with keyboard LED state
+        * Default: `false`
+
 ## Matrix :id=matrix
 
 * `debounce`
