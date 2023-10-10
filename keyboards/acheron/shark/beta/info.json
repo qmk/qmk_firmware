@@ -9,6 +9,9 @@
         "rows": ["A8", "B14", "A4", "A3"]
     },
     "diode_direction": "COL2ROW",
+    "eeprom": {
+        "driver": "i2c"
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "C15", "pin_b": "C14"}

@@ -25,8 +25,16 @@
         "cols": ["C1","C2","C3","A0","A1","A2","A3","A4","A5","A6","A7","C4"],
         "rows": ["C6", "C7", "C8", "C9"]
     },
+    "diode_direction": "ROW2COL",
+    "eeprom": {
+        "driver": "wear_leveling",
+        "wear_leveling": {
+            "driver": "spi_flash",
+            "backing_size": 4096
+        }
+    },
     "rgb_matrix": {
-        "driver": "is31fl3733",
+        "driver": "snled27351",
         "max_brightness": 200,
         "animations": {
             "breathing": true,
@@ -99,9 +107,14 @@
             { "flags": 4, "matrix": [3, 11],  "x": 224, "y": 64}
         ]
     },
-    "diode_direction": "ROW2COL",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_planck_mit"
+    },
+    "community_layouts": [
+        "planck_mit"
+    ],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_planck_mit": {
             "layout": [
                 { "label": "Esc", "matrix": [0, 0],"x": 0, "y": 0 },
                 { "label": "Q", "matrix": [0, 1], "x": 1, "y": 0 },
