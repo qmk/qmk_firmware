@@ -17,8 +17,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-void actuation_point_up(void);
+#include <stdint.h>
 
-void actuation_point_down(void);
+int8_t actuation_point_make_shallower(void);
 
-void adjust_actuation_point(int offset);
+int8_t actuation_point_make_deeper(void);
+
+int8_t actuation_point_adjust(int8_t offset);
+
+void actuation_point_reset(void);

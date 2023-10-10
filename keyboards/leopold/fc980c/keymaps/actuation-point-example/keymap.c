@@ -51,12 +51,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
         {
         case AP_UP:
         {
-            actuation_point_up();
+            actuation_point_make_shallower();
             return false;
         }
         case AP_DN:
         {
-            actuation_point_down();
+            actuation_point_make_deeper();
             return false;
         }
         case AP_READ_RDAC:

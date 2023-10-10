@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef ACTUATION_DEPTH_ADJUSTMENT
 void matrix_init_kb(void) {
-    adjust_actuation_point(ACTUATION_DEPTH_ADJUSTMENT);
+    actuation_point_adjust(ACTUATION_DEPTH_ADJUSTMENT);
 
     matrix_init_user();
 }
