@@ -9,27 +9,22 @@
 #    include "split_common/transactions.h"
 #    include <string.h>
 
-#    define ROWS_PER_HAND (MATRIX_ROWS / 2)
-#else
-#    define ROWS_PER_HAND (MATRIX_ROWS)
-#endif
-
-#ifndef MATRIX_IO_DELAY
-#    define MATRIX_IO_DELAY 30
-#endif
+#    ifndef MATRIX_IO_DELAY
+#        define MATRIX_IO_DELAY 30
+#    endif
 
 /* matrix state(1:on, 0:off) */
 matrix_row_t raw_matrix[MATRIX_ROWS];
 matrix_row_t matrix[MATRIX_ROWS];
 
-#ifdef SPLIT_KEYBOARD
+#    ifdef SPLIT_KEYBOARD
 // row offsets for each hand
 uint8_t thisHand, thatHand;
-#endif
+#    endif
 
-#ifdef MATRIX_MASKED
+#    ifdef MATRIX_MASKED
 extern const matrix_row_t matrix_mask[];
-#endif
+#    endif
 
 // user-defined overridable functions
 
@@ -62,23 +57,23 @@ inline bool matrix_is_on(uint8_t row, uint8_t col) {
 inline matrix_row_t matrix_get_row(uint8_t row) {
     // Matrix mask lets you disable switches in the returned matrix data. For example, if you have a
     // switch blocker installed and the switch is always pressed.
-#ifdef MATRIX_MASKED
+#    ifdef MATRIX_MASKED
     return matrix[row] & matrix_mask[row];
-#else
+#    else
     return matrix[row];
-#endif
+#    endif
 }
 
-#if (MATRIX_COLS <= 8)
-#    define print_matrix_header() print("\nr/c 01234567\n")
-#    define print_matrix_row(row) print_bin_reverse8(matrix_get_row(row))
-#elif (MATRIX_COLS <= 16)
-#    define print_matrix_header() print("\nr/c 0123456789ABCDEF\n")
-#    define print_matrix_row(row) print_bin_reverse16(matrix_get_row(row))
-#elif (MATRIX_COLS <= 32)
-#    define print_matrix_header() print("\nr/c 0123456789ABCDEF0123456789ABCDEF\n")
-#    define print_matrix_row(row) print_bin_reverse32(matrix_get_row(row))
-#endif
+#    if (MATRIX_COLS <= 8)
+#        define print_matrix_header() print("\nr/c 01234567\n")
+#        define print_matrix_row(row) print_bin_reverse8(matrix_get_row(row))
+#    elif (MATRIX_COLS <= 16)
+#        define print_matrix_header() print("\nr/c 0123456789ABCDEF\n")
+#        define print_matrix_row(row) print_bin_reverse16(matrix_get_row(row))
+#    elif (MATRIX_COLS <= 32)
+#        define print_matrix_header() print("\nr/c 0123456789ABCDEF0123456789ABCDEF\n")
+#        define print_matrix_row(row) print_bin_reverse32(matrix_get_row(row))
+#    endif
 
 void matrix_print(void) {
     print_matrix_header();
@@ -91,7 +86,7 @@ void matrix_print(void) {
     }
 }
 
-#ifdef SPLIT_KEYBOARD
+#    ifdef SPLIT_KEYBOARD
 bool matrix_post_scan(void) {
     bool changed = false;
     if (is_keyboard_master()) {
@@ -120,7 +115,7 @@ bool matrix_post_scan(void) {
 
     return changed;
 }
-#endif
+#    endif
 
 /* `matrix_io_delay ()` exists for backwards compatibility. From now on, use matrix_output_unselect_delay(). */
 __attribute__((weak)) void matrix_io_delay(void) {
@@ -139,18 +134,18 @@ __attribute__((weak)) bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     return true;
 }
 
-#ifdef SPLIT_KEYBOARD
+#    ifdef SPLIT_KEYBOARD
 __attribute__((weak)) void matrix_slave_scan_kb(void) {
     matrix_slave_scan_user();
 }
 __attribute__((weak)) void matrix_slave_scan_user(void) {}
-#endif
+#    endif
 
 __attribute__((weak)) void matrix_init(void) {
-#ifdef SPLIT_KEYBOARD
+#    ifdef SPLIT_KEYBOARD
     thisHand = isLeftHand ? 0 : (ROWS_PER_HAND);
     thatHand = ROWS_PER_HAND - thisHand;
-#endif
+#    endif
 
     matrix_init_custom();
 
@@ -160,7 +155,7 @@ __attribute__((weak)) void matrix_init(void) {
         matrix[i]     = 0;
     }
 
-    debounce_init(ROWS_PER_HAND);
+    debounce_init();
 
     matrix_init_kb();
 }
@@ -168,12 +163,12 @@ __attribute__((weak)) void matrix_init(void) {
 __attribute__((weak)) uint8_t matrix_scan(void) {
     bool changed = matrix_scan_custom(raw_matrix);
 
-#ifdef SPLIT_KEYBOARD
-    changed = debounce(raw_matrix, matrix + thisHand, ROWS_PER_HAND, changed) | matrix_post_scan();
-#else
-    changed = debounce(raw_matrix, matrix, ROWS_PER_HAND, changed);
+#    ifdef SPLIT_KEYBOARD
+    changed = debounce(raw_matrix, matrix + thisHand, changed) | matrix_post_scan();
+#    else
+    changed = debounce(raw_matrix, matrix, changed);
     matrix_scan_kb();
-#endif
+#    endif
 
     return changed;
 }

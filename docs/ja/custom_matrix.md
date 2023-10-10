@@ -80,7 +80,7 @@ void matrix_init(void) {
     // TODO: ここでハードウェアとグローバルマトリックスの状態を初期化します
 
     // ハードウェアによるデバウンスがない場合 - 設定されているデバウンスルーチンを初期化します
-    debounce_init(MATRIX_ROWS);
+    debounce_init();
 
     // 正しいキーボード動作のためにこれを呼び出す*必要があります*
     matrix_init_kb();
@@ -92,7 +92,7 @@ uint8_t matrix_scan(void) {
     // TODO: ここにマトリックススキャンルーチンを追加します
 
     // ハードウェアによるデバウンスがない場合 - 設定されているデバウンスルーチンを使用します
-    changed = debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
+    changed = debounce(raw_matrix, matrix, changed);
 
     // 正しいキーボード動作のためにこれを呼び出す*必要があります*
     matrix_scan_kb();

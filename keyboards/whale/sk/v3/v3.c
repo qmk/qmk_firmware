@@ -5,7 +5,6 @@
 #    include <avr/interrupt.h>
 #endif
 
-#define ROWS_PER_HAND (MATRIX_ROWS / 2)
 #define SLAVE_MATRIX_SYNC_ADDR (0x01)
 
 typedef struct {
