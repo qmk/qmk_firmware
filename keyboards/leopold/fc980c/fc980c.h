@@ -5,6 +5,11 @@
 
 #include "quantum.h"
 
+#ifdef ACTUATION_DEPTH_ADJUSTMENT
+#    include "ad5258.h"
+#    include "actuation_point.h"
+#endif
+
 typedef union {
     uint32_t raw;
     struct {

@@ -6,10 +6,6 @@
 #include "debug.h"
 #include "i2c_master.h"
 
-#ifdef ACTUATION_DEPTH_ADJUSTMENT
-#include "../ad5258.h"
-#endif
-
 keyboard_config_t fc980c_config;
 
 void fc980c_matrix_init_kb(void) {
