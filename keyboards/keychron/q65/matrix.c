@@ -32,8 +32,6 @@ static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 #endif // MATRIX_COL_PINS
 
-#define ROWS_PER_HAND (MATRIX_ROWS)
-
 static inline void writePinLow_atomic(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
         gpio_write_pin_low(pin);
