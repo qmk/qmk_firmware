@@ -21,6 +21,12 @@ DEBOUNCE milliseconds have elapsed since the last change.
 #include "timer.h"
 #include <stdlib.h>
 
+#ifdef PROTOCOL_CHIBIOS
+#    if CH_CFG_USE_MEMCORE == FALSE
+#        error ChibiOS is configured without a memory allocator. Your keyboard may have set `#define CH_CFG_USE_MEMCORE FALSE`, which is incompatible with this debounce algorithm.
+#    endif
+#endif
+
 #ifndef DEBOUNCE
 #    define DEBOUNCE 5
 #endif
