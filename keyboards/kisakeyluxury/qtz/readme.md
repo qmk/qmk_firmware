@@ -2,7 +2,7 @@
 
 35% keyboard designed by Iceage
 
-![pcb image](https://i.imgur.com/D2OmIkU.png)
+![pcb image](https://i.imgur.com/D2OmIkUh.png)
 
 * Keyboard Maintainer: [kisakey-luxury](https://github.com/kisakey-luxury)
 * Hardware Supported: *not released yet*
