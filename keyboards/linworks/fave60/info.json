@@ -43,7 +43,7 @@
         "pid": "0x000D",
         "vid": "0x4C58"
     },
-    "Layout_aliases": {
+    "layout_aliases": {
         "LAYOUT_all": "LAYOUT_60_ansi_split_bs_rshift"
     },
     "community_layouts": [
