@@ -27,10 +27,10 @@
   "bootloader": "caterina",
   "community_layouts": ["ortho_4x12"],
   "layout_aliases": {
-    "LAYOUT_ortho_4x12": "LAYOUT"
+    "LAYOUT": "LAYOUT_ortho_4x12"
   },
   "layouts": {
-    "LAYOUT": {
+    "LAYOUT_ortho_4x12": {
       "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0},
         {"matrix": [0, 1], "x": 1, "y": 0},

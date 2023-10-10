@@ -39,7 +39,10 @@
   },
   "processor": "STM32F103",
   "bootloader": "stm32duino",
-  "community_layouts": ["ortho_4x12"],
+  "layout_aliases": {
+    "LAYOUT_1x2uC": "LAYOUT_planck_mit"
+  },
+  "community_layouts": ["ortho_4x12", "planck_mit"],
   "layouts": {
     "LAYOUT_ortho_4x12": {
       "layout": [
@@ -96,7 +99,7 @@
         {"matrix": [3, 11], "x": 11, "y": 3}
       ]
     },
-    "LAYOUT_1x2uC": {
+    "LAYOUT_planck_mit": {
       "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0},
         {"matrix": [0, 1], "x": 1, "y": 0},
