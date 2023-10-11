@@ -10,6 +10,12 @@
         "pin": "B5"
     },
     "rgblight": {
-        "max_brightness": 40
+        "led_count": 3,
+        "max_brightness": 40,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true
+        }
     }
 }

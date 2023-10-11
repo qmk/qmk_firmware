@@ -42,8 +42,14 @@
             "twinkle": true
         }
     },
+    "tapping": {
+        "term": 0
+    },
     "ws2812": {
         "pin": "B5"
+    },
+    "build": {
+        "debounce_type": "sym_eager_pk"
     },
     "encoder": {
         "rotary": [

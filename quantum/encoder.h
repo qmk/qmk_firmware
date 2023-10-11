@@ -17,7 +17,9 @@
 
 #pragma once
 
-#include "quantum.h"
+#include <stdint.h>
+#include <stdbool.h>
+#include "gpio.h"
 #include "util.h"
 
 void encoder_init(void);

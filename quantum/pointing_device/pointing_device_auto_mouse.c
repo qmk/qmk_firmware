@@ -17,7 +17,11 @@
 
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
 
+#    include <string.h>
 #    include "pointing_device_auto_mouse.h"
+#    include "debug.h"
+#    include "action_util.h"
+#    include "quantum_keycodes.h"
 
 /* local data structure for tracking auto mouse */
 static auto_mouse_context_t auto_mouse_context = {

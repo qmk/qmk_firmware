@@ -8,11 +8,28 @@
         "pid": "0x6002",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 18,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
     "ws2812": {
         "pin": "A15"
     },
     "rgb_matrix": {
-        "driver": "IS31FL3731"
+        "driver": "is31fl3731"
     },
     "matrix_pins": {
         "cols": ["B11", "B10", "B2", "B1", "B0", "A7", "A6", "A0", "C15", "B4", "B5", "B3", "C13", "C14"],

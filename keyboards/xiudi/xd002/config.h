@@ -15,8 +15,6 @@
  */
 #pragma once
 
-#define RGBLED_NUM 2
-
 // Save as much space as we can...
 #define LAYER_STATE_8BIT
 #define NO_ACTION_LAYER

@@ -40,7 +40,7 @@
         "pin": "GP24"
     },
     "rgb_matrix": {
-        "driver": "WS2812",
+        "driver": "ws2812",
         "layout": [
         { "flags": 4, "matrix": [0, 0], "x": 23, "y": 26 },
         { "flags": 4, "matrix": [0, 1], "x": 62, "y": 26 },

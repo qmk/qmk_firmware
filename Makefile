@@ -328,7 +328,7 @@ define PARSE_TEST
     ifeq ($$(TEST_NAME),all)
         MATCHED_TESTS := $$(TEST_LIST)
     else
-        MATCHED_TESTS := $$(foreach TEST, $$(TEST_LIST),$$(if $$(findstring $$(TEST_NAME), $$(notdir $$(TEST))), $$(TEST),))
+        MATCHED_TESTS := $$(foreach TEST, $$(TEST_LIST),$$(if $$(findstring x$$(TEST_NAME)x, x$$(notdir $$(TEST))x), $$(TEST),))
     endif
     $$(foreach TEST,$$(MATCHED_TESTS),$$(eval $$(call BUILD_TEST,$$(TEST),$$(TEST_TARGET))))
 endef

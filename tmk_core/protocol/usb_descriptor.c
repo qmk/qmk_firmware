@@ -93,6 +93,8 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM KeyboardReport[] = {
         HID_RI_USAGE_PAGE(8, 0x08),    // LED
         HID_RI_USAGE_MINIMUM(8, 0x01), // Num Lock
         HID_RI_USAGE_MAXIMUM(8, 0x05), // Kana
+        HID_RI_LOGICAL_MINIMUM(8, 0x00),
+        HID_RI_LOGICAL_MAXIMUM(8, 0x01),
         HID_RI_REPORT_COUNT(8, 0x05),
         HID_RI_REPORT_SIZE(8, 0x01),
         HID_RI_OUTPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE),

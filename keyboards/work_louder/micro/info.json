@@ -37,13 +37,14 @@
         "hue_steps": 8,
         "led_count": 8,
         "max_brightness": 150,
-        "saturation_steps": 8
+        "saturation_steps": 8,
+        "sleep": true
     },
     "ws2812": {
         "pin": "D1"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
     },
     "url": "https://worklouder.cc/",
     "usb": {

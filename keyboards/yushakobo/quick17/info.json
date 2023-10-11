@@ -9,10 +9,24 @@
         "device_version": "0.0.1"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812",
+        "sat_steps": 8,
+        "val_steps": 8,
+        "speed_steps": 10
     },
     "rgblight": {
-        "max_brightness": 150
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 18,
+        "max_brightness": 150,
+        "led_map": [6, 7, 12, 13, 14, 15, 16, 17, 11, 10, 9, 8, 0, 1, 2, 3, 4, 5],
+        "animations": {
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true
+        }
     },
     "matrix_pins": {
         "cols": ["F5", "D4", "E6", "F7", "C6", "D7"],

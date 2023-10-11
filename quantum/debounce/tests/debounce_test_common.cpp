@@ -23,9 +23,8 @@
 #include <sstream>
 
 extern "C" {
-#include "quantum.h"
-#include "timer.h"
 #include "debounce.h"
+#include "timer.h"
 
 void set_time(uint32_t t);
 void advance_time(uint32_t ms);
