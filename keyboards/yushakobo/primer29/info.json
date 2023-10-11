@@ -1,0 +1,59 @@
+{
+    "manufacturer": "yushakobo",
+    "keyboard_name": "primer29",
+    "maintainer": "yushakobo",
+    "bootloader": "caterina",
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "processor": "atmega32u4",
+    "url": "",
+    "usb": {
+        "device_version": "1.0.0",
+        "vid": "0x3265",
+        "pid": "0x0012"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+            {"matrix": [ 0, 0 ], "x":0,   "y":0},
+            {"matrix": [ 5, 0 ], "x":1,   "y":0},
+            {"matrix": [ 0, 1 ], "x":2,   "y":0},
+            {"matrix": [ 5, 1 ], "x":3.5, "y":0},
+            {"matrix": [ 0, 2 ], "x":4.5, "y":0},
+            {"matrix": [ 5, 2 ], "x":5.5, "y":0},
+            {"matrix": [ 0, 3 ], "x":6.5, "y":0},
+
+            {"matrix": [ 1, 0 ], "x":0,   "y":1},
+            {"matrix": [ 6, 0 ], "x":1,   "y":1},
+            {"matrix": [ 1, 1 ], "x":2,   "y":1},
+            {"matrix": [ 6, 1 ], "x":3.5, "y":1},
+            {"matrix": [ 1, 2 ], "x":4.5, "y":1},
+            {"matrix": [ 6, 2 ], "x":5.5, "y":1},
+            {"matrix": [ 2, 3 ], "x":6.5, "y":1, "h":2},
+
+            {"matrix": [ 7, 1 ], "x":3.5, "y":2},
+            {"matrix": [ 2, 2 ], "x":4.5, "y":2},
+            {"matrix": [ 7, 2 ], "x":5.5, "y":2},
+
+            {"matrix": [ 3, 0 ], "x":0,   "y":3},
+            {"matrix": [ 8, 0 ], "x":1,   "y":3},
+            {"matrix": [ 3, 1 ], "x":2,   "y":3},
+            {"matrix": [ 8, 1 ], "x":3.5, "y":3},
+            {"matrix": [ 3, 2 ], "x":4.5, "y":3},
+            {"matrix": [ 8, 2 ], "x":5.5, "y":3},
+            {"matrix": [ 4, 3 ], "x":6.5, "y":3, "h":2},
+
+            {"matrix": [ 4, 0 ], "x":0,   "y":4},
+            {"matrix": [ 9, 0 ], "x":1,   "y":4},
+            {"matrix": [ 4, 1 ], "x":2,   "y":4},
+            {"matrix": [ 4, 2 ], "x":3.5, "y":4, "w":2},
+            {"matrix": [ 9, 2 ], "x":5.5, "y":4}]
+        }
+    }
+}
