@@ -1,6 +1,6 @@
 {
     "manufacturer": "Envious.Design",
-    "keyboard_name": "Alt Delirium RGB",
+    "keyboard_name": "Delirium RGB",
     "maintainer": "Envious.Design",
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
