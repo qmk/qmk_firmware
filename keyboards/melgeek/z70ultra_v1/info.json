@@ -11,6 +11,7 @@
     "processor": "STM32F303",
     "bootloader": "stm32-dfu",
     "board": "QMK_PROTON_C",
+    "board": "QMK_PROTON_C",
     "diode_direction": "COL2ROW",
     "debounce": 3,
     "features": {
