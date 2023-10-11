@@ -1,0 +1,33 @@
+# primer61
+
+![primer61](https://drive.google.com/uc?export=view&id={14yIqf5XfCR3nu6v57iXRixEVLnlZrEVY})
+
+A simple 60% keyboard for the beginners.
+
+* Keyboard Maintainer: [yushakobo](https://github.com/yushakobo)
+* Hardware Supported: primer61 PCB, Pro Micro (ATmega32U4)
+* Hardware Availability: [yushakobo Shop](https://yushakobo.jp/shop/primer61/)
+
+
+Make example for this keyboard (after setting up your build environment):
+
+    make yushakobo/primer61:default
+    or
+    qmk compile -kb yushakobo/primer61 -km default
+
+Flashing example for this keyboard:
+
+    make yushakobo/primer61:default
+    or
+    qmk flash -kb yushakobo/primer61 -km default 
+
+
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+## Bootloader
+
+Enter the bootloader in 3 ways:
+
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
+* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
