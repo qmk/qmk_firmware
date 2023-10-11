@@ -2,7 +2,6 @@
     "manufacturer": "yushakobo",
     "keyboard_name": "primer61",
     "maintainer": "yushakobo",
-    "bootloader": "caterina",
     "features": {
         "bootmagic": true,
         "command": false,
