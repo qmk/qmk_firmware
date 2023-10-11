@@ -23,10 +23,7 @@
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0000",
-        "vid": "0xFEED",
-        "force_nkro": true,
-        "polling_interval": 1,
-        "suspend_wakeup_delay": 500
+        "vid": "0xFEED"
     },
     "ws2812": {
         "driver": "vendor",
