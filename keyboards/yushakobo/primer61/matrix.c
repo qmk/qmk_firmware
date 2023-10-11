@@ -153,6 +153,6 @@ bool matrix_scan_custom(matrix_row_t current_matrix[])
   for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
     changed |= read_rows_on_col(current_matrix, current_col);
   }
-  
+
   return changed;
 }
