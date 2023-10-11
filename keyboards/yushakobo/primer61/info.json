@@ -21,8 +21,9 @@
         "vid": "0x3265",
         "pid": "0x0013"
     },
+    "community_layouts": ["60_ansi"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_60_ansi": {
             "layout": [
                 {"matrix": [ 0, 0 ], "x": 0,     "y": 0},
                 {"matrix": [ 5, 0 ], "x": 1,     "y": 0},
