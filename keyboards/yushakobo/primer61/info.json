@@ -10,7 +10,11 @@
         "mousekey": true,
         "nkro": true
     },
-    "processor": "atmega32u4",
+    "matrix_pins": {
+        "cols": ["F4", "F5", "F6", "F7", "B1", "B3", "B2"],
+        "rows": ["C6", "D7", "E6", "B4", "B5"]
+    },
+    "development_board": "promicro",
     "url": "",
     "usb": {
         "device_version": "1.0.0",
