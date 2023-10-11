@@ -1,5 +1,5 @@
 # KD87A_BFG_Edition 
-
+![KD87A_BFG_Edition](https://imgur.com/uOUvWvwh.png)
 
 An 87 keys keyboard, Equipped with the WestBerry Q95 microcontroller.
 
