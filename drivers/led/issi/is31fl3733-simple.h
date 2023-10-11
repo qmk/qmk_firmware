@@ -47,6 +47,9 @@
 #    define IS31FL3733_GLOBALCURRENT ISSI_GLOBALCURRENT
 #endif
 
+#define is31_led is31fl3733_led_t
+#define g_is31_leds g_is31fl3733_leds
+
 #define PUR_0R IS31FL3733_PUR_0R
 #define PUR_05KR IS31FL3733_PUR_05KR
 #define PUR_3KR IS31FL3733_PUR_3KR
@@ -56,12 +59,29 @@
 #define PUR_32KR IS31FL3733_PUR_32KR
 // ========
 
-typedef struct is31_led {
+#define IS31FL3733_I2C_ADDRESS_GND_GND 0x50
+#define IS31FL3733_I2C_ADDRESS_GND_SCL 0x51
+#define IS31FL3733_I2C_ADDRESS_GND_SDA 0x52
+#define IS31FL3733_I2C_ADDRESS_GND_VCC 0x53
+#define IS31FL3733_I2C_ADDRESS_SCL_GND 0x54
+#define IS31FL3733_I2C_ADDRESS_SCL_SCL 0x55
+#define IS31FL3733_I2C_ADDRESS_SCL_SDA 0x56
+#define IS31FL3733_I2C_ADDRESS_SCL_VCC 0x57
+#define IS31FL3733_I2C_ADDRESS_SDA_GND 0x58
+#define IS31FL3733_I2C_ADDRESS_SDA_SCL 0x59
+#define IS31FL3733_I2C_ADDRESS_SDA_SDA 0x5A
+#define IS31FL3733_I2C_ADDRESS_SDA_VCC 0x5B
+#define IS31FL3733_I2C_ADDRESS_VCC_GND 0x5C
+#define IS31FL3733_I2C_ADDRESS_VCC_SCL 0x5D
+#define IS31FL3733_I2C_ADDRESS_VCC_SDA 0x5E
+#define IS31FL3733_I2C_ADDRESS_VCC_VCC 0x5F
+
+typedef struct is31fl3733_led_t {
     uint8_t driver : 2;
     uint8_t v;
-} __attribute__((packed)) is31_led;
+} __attribute__((packed)) is31fl3733_led_t;
 
-extern const is31_led PROGMEM g_is31_leds[LED_MATRIX_LED_COUNT];
+extern const is31fl3733_led_t PROGMEM g_is31fl3733_leds[LED_MATRIX_LED_COUNT];
 
 void is31fl3733_init(uint8_t addr, uint8_t sync);
 bool is31fl3733_write_register(uint8_t addr, uint8_t reg, uint8_t data);

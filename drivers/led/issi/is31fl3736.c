@@ -20,18 +20,6 @@
 #include "i2c_master.h"
 #include "wait.h"
 
-// This is a 7-bit address, that gets left-shifted and bit 0
-// set to 0 for write, 1 for read (as per I2C protocol)
-// The address will vary depending on your wiring:
-// 00 <-> GND
-// 01 <-> SCL
-// 10 <-> SDA
-// 11 <-> VCC
-// ADDR1 represents A1:A0 of the 7-bit address.
-// ADDR2 represents A3:A2 of the 7-bit address.
-// The result is: 0b101(ADDR2)(ADDR1)
-#define IS31FL3736_I2C_ADDRESS_DEFAULT 0x50
-
 #define IS31FL3736_COMMANDREGISTER 0xFD
 #define IS31FL3736_COMMANDREGISTER_WRITELOCK 0xFE
 #define IS31FL3736_INTERRUPTMASKREGISTER 0xF0
@@ -84,8 +72,8 @@ uint8_t g_twi_transfer_buffer[20];
 uint8_t g_pwm_buffer[IS31FL3736_DRIVER_COUNT][192];
 bool    g_pwm_buffer_update_required[IS31FL3736_DRIVER_COUNT] = {false};
 
-uint8_t g_led_control_registers[IS31FL3736_DRIVER_COUNT][24] = {{0}, {0}};
-bool    g_led_control_registers_update_required              = false;
+uint8_t g_led_control_registers[IS31FL3736_DRIVER_COUNT][24]             = {0};
+bool    g_led_control_registers_update_required[IS31FL3736_DRIVER_COUNT] = {false};
 
 void is31fl3736_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
     g_twi_transfer_buffer[0] = reg;
@@ -170,9 +158,9 @@ void is31fl3736_init(uint8_t addr) {
 }
 
 void is31fl3736_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
-    is31_led led;
+    is31fl3736_led_t led;
     if (index >= 0 && index < RGB_MATRIX_LED_COUNT) {
-        memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
+        memcpy_P(&led, (&g_is31fl3736_leds[index]), sizeof(led));
 
         if (g_pwm_buffer[led.driver][led.r] == red && g_pwm_buffer[led.driver][led.g] == green && g_pwm_buffer[led.driver][led.b] == blue) {
             return;
@@ -191,21 +179,14 @@ void is31fl3736_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void is31fl3736_set_led_control_register(uint8_t index, bool red, bool green, bool blue) {
-    is31_led led;
-    memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
+    is31fl3736_led_t led;
+    memcpy_P(&led, (&g_is31fl3736_leds[index]), sizeof(led));
 
-    // IS31FL3733
-    // The PWM register for a matrix position (0x00 to 0xBF) can be
-    // divided by 8 to get the LED control register (0x00 to 0x17),
-    // then mod 8 to get the bit position within that register.
-
-    // IS31FL3736
     // The PWM register for a matrix position (0x00 to 0xBF) is interleaved, so:
     // A1=0x00 A2=0x02 A3=0x04 A4=0x06 A5=0x08 A6=0x0A A7=0x0C A8=0x0E
     // B1=0x10 B2=0x12 B3=0x14
     // But also, the LED control registers (0x00 to 0x17) are also interleaved, so:
     // A1-A4=0x00 A5-A8=0x01
-    // So, the same math applies.
 
     uint8_t control_register_r = led.r / 8;
     uint8_t control_register_g = led.g / 8;
@@ -231,41 +212,7 @@ void is31fl3736_set_led_control_register(uint8_t index, bool red, bool green, bo
         g_led_control_registers[led.driver][control_register_b] &= ~(1 << bit_b);
     }
 
-    g_led_control_registers_update_required = true;
-}
-
-void is31fl3736_mono_set_brightness(int index, uint8_t value) {
-    if (index >= 0 && index < 96) {
-        // Index in range 0..95 -> A1..A8, B1..B8, etc.
-        // Map index 0..95 to registers 0x00..0xBE (interleaved)
-        uint8_t pwm_register            = index * 2;
-        g_pwm_buffer[0][pwm_register]   = value;
-        g_pwm_buffer_update_required[0] = true;
-    }
-}
-
-void is31fl3736_mono_set_brightness_all(uint8_t value) {
-    for (int i = 0; i < 96; i++) {
-        is31fl3736_mono_set_brightness(i, value);
-    }
-}
-
-void is31fl3736_mono_set_led_control_register(uint8_t index, bool enabled) {
-    // Index in range 0..95 -> A1..A8, B1..B8, etc.
-
-    // Map index 0..95 to registers 0x00..0xBE (interleaved)
-    uint8_t pwm_register = index * 2;
-    // Map register 0x00..0xBE (interleaved) into control register and bit
-    uint8_t control_register = pwm_register / 8;
-    uint8_t bit              = pwm_register % 8;
-
-    if (enabled) {
-        g_led_control_registers[0][control_register] |= (1 << bit);
-    } else {
-        g_led_control_registers[0][control_register] &= ~(1 << bit);
-    }
-
-    g_led_control_registers_update_required = true;
+    g_led_control_registers_update_required[led.driver] = true;
 }
 
 void is31fl3736_update_pwm_buffers(uint8_t addr, uint8_t index) {
@@ -279,15 +226,14 @@ void is31fl3736_update_pwm_buffers(uint8_t addr, uint8_t index) {
     }
 }
 
-void is31fl3736_update_led_control_registers(uint8_t addr1, uint8_t addr2) {
-    if (g_led_control_registers_update_required) {
+void is31fl3736_update_led_control_registers(uint8_t addr, uint8_t index) {
+    if (g_led_control_registers_update_required[index]) {
         // Firstly we need to unlock the command register and select PG0
-        is31fl3736_write_register(addr1, IS31FL3736_COMMANDREGISTER_WRITELOCK, 0xC5);
-        is31fl3736_write_register(addr1, IS31FL3736_COMMANDREGISTER, IS31FL3736_PAGE_LEDCONTROL);
+        is31fl3736_write_register(addr, IS31FL3736_COMMANDREGISTER_WRITELOCK, 0xC5);
+        is31fl3736_write_register(addr, IS31FL3736_COMMANDREGISTER, IS31FL3736_PAGE_LEDCONTROL);
         for (int i = 0; i < 24; i++) {
-            is31fl3736_write_register(addr1, i, g_led_control_registers[0][i]);
-            // is31fl3736_write_register(addr2, i, g_led_control_registers[1][i]);
+            is31fl3736_write_register(addr, i, g_led_control_registers[index][i]);
         }
-        g_led_control_registers_update_required = false;
+        g_led_control_registers_update_required[index] = false;
     }
 }

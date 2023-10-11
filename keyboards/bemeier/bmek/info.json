@@ -7,6 +7,9 @@
         "vid": "0x626D",
         "pid": "0x656B"
     },
+    "dynamic_keymap": {
+        "layer_count": 5
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

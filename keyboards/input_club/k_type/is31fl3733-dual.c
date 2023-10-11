@@ -20,18 +20,6 @@
 #include "i2c_master.h"
 #include "wait.h"
 
-// This is a 7-bit address, that gets left-shifted and bit 0
-// set to 0 for write, 1 for read (as per I2C protocol)
-// The address will vary depending on your wiring:
-// 00 <-> GND
-// 01 <-> SCL
-// 10 <-> SDA
-// 11 <-> VCC
-// ADDR1 represents A1:A0 of the 7-bit address.
-// ADDR2 represents A3:A2 of the 7-bit address.
-// The result is: 0b101(ADDR2)(ADDR1)
-#define IS31FL3733_I2C_ADDRESS_DEFAULT 0x50
-
 #define IS31FL3733_COMMANDREGISTER 0xFD
 #define IS31FL3733_COMMANDREGISTER_WRITELOCK 0xFE
 #define IS31FL3733_INTERRUPTMASKREGISTER 0xF0
@@ -184,9 +172,9 @@ void is31fl3733_init(uint8_t bus, uint8_t addr, uint8_t sync) {
 }
 
 void is31fl3733_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
-    is31_led led;
+    is31fl3733_led_t led;
     if (index >= 0 && index < RGB_MATRIX_LED_COUNT) {
-        memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
+        memcpy_P(&led, (&g_is31fl3733_leds[index]), sizeof(led));
 
         if (g_pwm_buffer[led.driver][led.r] == red && g_pwm_buffer[led.driver][led.g] == green && g_pwm_buffer[led.driver][led.b] == blue) {
             return;
@@ -205,8 +193,8 @@ void is31fl3733_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void is31fl3733_set_led_control_register(uint8_t index, bool red, bool green, bool blue) {
-    is31_led led;
-    memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
+    is31fl3733_led_t led;
+    memcpy_P(&led, (&g_is31fl3733_leds[index]), sizeof(led));
 
     uint8_t control_register_r = led.r / 8;
     uint8_t control_register_g = led.g / 8;

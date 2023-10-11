@@ -39,7 +39,7 @@
         ]
     },
     "rgb_matrix": {
-        "driver": "is31fl3733",
+        "driver": "snled27351",
         "animations": {
             "breathing": true,
             "cycle_all": true,

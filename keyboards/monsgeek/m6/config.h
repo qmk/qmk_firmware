@@ -16,9 +16,6 @@
 
 #pragma once
 
-/* Use 6 dynamic keymap layers */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 6
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
@@ -34,9 +31,9 @@
 #define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN C12
 
 /* I2C Config for LED Driver */
-#define IS31FL3733_DRIVER_COUNT 2
-#define DRIVER_ADDR_1 0b1110100
-#define DRIVER_ADDR_2 0b1110111
+#define SNLED27351_DRIVER_COUNT 2
+#define DRIVER_ADDR_1 SNLED27351_I2C_ADDRESS_GND
+#define DRIVER_ADDR_2 SNLED27351_I2C_ADDRESS_VDDIO
 #define I2C1_SCL_PAL_MODE 4
 #define I2C1_OPMODE OPMODE_I2C
 #define I2C1_CLOCK_SPEED 400000 /* 400000 */

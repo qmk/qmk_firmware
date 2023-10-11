@@ -22,15 +22,6 @@
 #include "i2c_master.h"
 #include "wait.h"
 
-// This is a 7-bit address, that gets left-shifted and bit 0
-// set to 0 for write, 1 for read (as per I2C protocol)
-// The address will vary depending on your wiring:
-// 0b1110100 AD <-> GND
-// 0b1110111 AD <-> VCC
-// 0b1110101 AD <-> SCL
-// 0b1110110 AD <-> SDA
-#define IS31FL3731_I2C_ADDRESS_DEFAULT 0x74
-
 #define IS31FL3731_REG_CONFIG 0x00
 #define IS31FL3731_REG_CONFIG_PICTUREMODE 0x00
 #define IS31FL3731_REG_CONFIG_AUTOPLAYMODE 0x08
@@ -70,31 +61,8 @@ uint8_t g_twi_transfer_buffer[20];
 uint8_t g_pwm_buffer[IS31FL3731_DRIVER_COUNT][144];
 bool    g_pwm_buffer_update_required[IS31FL3731_DRIVER_COUNT] = {false};
 
-/* There's probably a better way to init this... */
-#if IS31FL3731_DRIVER_COUNT == 1
-uint8_t g_led_control_registers[IS31FL3731_DRIVER_COUNT][18] = {{0}};
-#elif IS31FL3731_DRIVER_COUNT == 2
-uint8_t g_led_control_registers[IS31FL3731_DRIVER_COUNT][18] = {{0}, {0}};
-#elif IS31FL3731_DRIVER_COUNT == 3
-uint8_t g_led_control_registers[IS31FL3731_DRIVER_COUNT][18] = {{0}, {0}, {0}};
-#elif IS31FL3731_DRIVER_COUNT == 4
-uint8_t g_led_control_registers[IS31FL3731_DRIVER_COUNT][18] = {{0}, {0}, {0}, {0}};
-#endif
-bool g_led_control_registers_update_required[IS31FL3731_DRIVER_COUNT] = {false};
-
-// This is the bit pattern in the LED control registers
-// (for matrix A, add one to register for matrix B)
-//
-//  reg -  b7  b6  b5  b4  b3  b2  b1  b0
-// 0x00 - R08,R07,R06,R05,R04,R03,R02,R01
-// 0x02 - G08,G07,G06,G05,G04,G03,G02,R00
-// 0x04 - B08,B07,B06,B05,B04,B03,G01,G00
-// 0x06 -  - , - , - , - , - ,B02,B01,B00
-// 0x08 -  - , - , - , - , - , - , - , -
-// 0x0A - B17,B16,B15, - , - , - , - , -
-// 0x0C - G17,G16,B14,B13,B12,B11,B10,B09
-// 0x0E - R17,G15,G14,G13,G12,G11,G10,G09
-// 0x10 - R16,R15,R14,R13,R12,R11,R10,R09
+uint8_t g_led_control_registers[IS31FL3731_DRIVER_COUNT][18]             = {0};
+bool    g_led_control_registers_update_required[IS31FL3731_DRIVER_COUNT] = {false};
 
 void is31fl3731_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
     g_twi_transfer_buffer[0] = reg;
@@ -192,9 +160,9 @@ void is31fl3731_init(uint8_t addr) {
 }
 
 void is31fl3731_set_value(int index, uint8_t value) {
-    is31_led led;
+    is31fl3731_led_t led;
     if (index >= 0 && index < LED_MATRIX_LED_COUNT) {
-        memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
+        memcpy_P(&led, (&g_is31fl3731_leds[index]), sizeof(led));
 
         // Subtract 0x24 to get the second index of g_pwm_buffer
 
@@ -213,8 +181,8 @@ void is31fl3731_set_value_all(uint8_t value) {
 }
 
 void is31fl3731_set_led_control_register(uint8_t index, bool value) {
-    is31_led led;
-    memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
+    is31fl3731_led_t led;
+    memcpy_P(&led, (&g_is31fl3731_leds[index]), sizeof(led));
 
     uint8_t control_register = (led.v - 0x24) / 8;
     uint8_t bit_value        = (led.v - 0x24) % 8;

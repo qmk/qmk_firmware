@@ -35,12 +35,14 @@ Here is an example using 2 drivers.
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
 // The address will vary depending on your wiring:
-// 0b1110100 AD <-> GND
-// 0b1110111 AD <-> VCC
-// 0b1110101 AD <-> SCL
-// 0b1110110 AD <-> SDA
-#define DRIVER_ADDR_1 0b1110100
-#define DRIVER_ADDR_2 0b1110110
+// 00 AD <-> GND
+// 01 AD <-> SCL
+// 10 AD <-> SDA
+// 11 AD <-> VCC
+// ADDR represents A1:A0 of the 7-bit address.
+// The result is: 0b11101(ADDR)
+#define DRIVER_ADDR_1 IS31FL3731_I2C_ADDRESS_GND
+#define DRIVER_ADDR_2 IS31FL3731_I2C_ADDRESS_SDA
 
 #define IS31FL3731_DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 25
@@ -50,12 +52,12 @@ Here is an example using 2 drivers.
 
 !> Note the parentheses, this is so when `RGB_MATRIX_LED_COUNT` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
 
-For split keyboards using `RGB_MATRIX_SPLIT` with an LED driver, you can either have the same driver address or different driver addresses. If using different addresses, use `DRIVER_ADDR_1` for one and `DRIVER_ADDR_2` for the other one. Then, in `g_is31_leds`, fill out the correct driver index (0 or 1). If using one address, use `DRIVER_ADDR_1` for both, and use index 0 for `g_is31_leds`.
+For split keyboards using `RGB_MATRIX_SPLIT` with an LED driver, you can either have the same driver address or different driver addresses. If using different addresses, use `DRIVER_ADDR_1` for one and `DRIVER_ADDR_2` for the other one. Then, in `g_is31fl3731_leds`, fill out the correct driver index (0 or 1). If using one address, use `DRIVER_ADDR_1` for both, and use index 0 for `g_is31fl3731_leds`.
 
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -118,15 +120,15 @@ Here is an example using 2 drivers.
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
 // The address will vary depending on your wiring:
-// 00 <-> GND
-// 01 <-> SCL
-// 10 <-> SDA
-// 11 <-> VCC
+// 00 ADDRn <-> GND
+// 01 ADDRn <-> SCL
+// 10 ADDRn <-> SDA
+// 11 ADDRn <-> VCC
 // ADDR1 represents A1:A0 of the 7-bit address.
 // ADDR2 represents A3:A2 of the 7-bit address.
 // The result is: 0b101(ADDR2)(ADDR1)
-#define DRIVER_ADDR_1 0b1010000
-#define DRIVER_ADDR_2 0b1010011
+#define DRIVER_ADDR_1 IS31FL3733_I2C_ADDRESS_GND_GND
+#define DRIVER_ADDR_2 IS31FL3733_I2C_ADDRESS_GND_VCC
 
 #define IS31FL3733_DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 58
@@ -141,7 +143,7 @@ Currently only 4 drivers are supported, but it would be trivial to support all 8
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3733_led_t PROGMEM g_is31fl3733_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -202,14 +204,15 @@ Here is an example using 2 drivers.
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
 // The address will vary depending on your wiring:
-// 0000 <-> GND
-// 0101 <-> SCL
-// 1010 <-> SDA
-// 1111 <-> VCC
-// ADDR represents A3:A0 of the 7-bit address.
-// The result is: 0b101(ADDR)
-#define DRIVER_ADDR_1 0b1010000
-#define DRIVER_ADDR_2 0b1010001
+// 00 ADDRn <-> GND
+// 01 ADDRn <-> SCL
+// 10 ADDRn <-> SDA
+// 11 ADDRn <-> VCC
+// ADDR1 represents A1:A0 of the 7-bit address.
+// ADDR2 represents A3:A2 of the 7-bit address.
+// The result is: 0b101(ADDR2)(ADDR1)
+#define DRIVER_ADDR_1 IS31FL3736_I2C_ADDRESS_GND_GND
+#define DRIVER_ADDR_2 IS31FL3736_I2C_ADDRESS_GND_SCL
 
 #define IS31FL3736_DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 30
@@ -221,7 +224,7 @@ Here is an example using 2 drivers.
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3736_led_t PROGMEM g_is31fl3736_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -278,14 +281,14 @@ Here is an example using 2 drivers.
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
 // The address will vary depending on your wiring:
-// 0000 <-> GND
-// 0101 <-> SCL
-// 1010 <-> SDA
-// 1111 <-> VCC
+// 0000 ADDR <-> GND
+// 0101 ADDR <-> SCL
+// 1010 ADDR <-> SDA
+// 1111 ADDR <-> VCC
 // ADDR represents A3:A0 of the 7-bit address.
 // The result is: 0b101(ADDR)
-#define DRIVER_ADDR_1 0b1010000
-#define DRIVER_ADDR_2 0b1010001
+#define DRIVER_ADDR_1 IS31FL3737_I2C_ADDRESS_GND
+#define DRIVER_ADDR_2 IS31FL3737_I2C_ADDRESS_SCL
 
 #define IS31FL3737_DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 30
@@ -297,7 +300,7 @@ Here is an example using 2 drivers.
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3737_led_t PROGMEM g_is31fl3737_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -407,7 +410,7 @@ Then Define the array listing all the LEDs you want to override in your `<keyboa
 
 ```c
 const is31_led PROGMEM g_is31_scaling[ISSI_MANUAL_SCALING] = {
- *   LED Index
+/*   LED Index
  *   |  R scaling
  *   |  |    G scaling
  *   |  |    |    B scaling
@@ -510,7 +513,7 @@ Here is an example using 2 drivers.
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const aw20216s_led PROGMEM g_aw20216s_leds[RGB_MATRIX_LED_COUNT] = {
+const aw20216s_led_t PROGMEM g_aw20216s_leds[RGB_MATRIX_LED_COUNT] = {
 /* Each AW20216S channel is controlled by a register at some offset between 0x00
  * and 0xD7 inclusive.
  * See drivers/led/aw20216s.h for the mapping between register offsets and
@@ -642,6 +645,7 @@ enum rgb_matrix_effects {
     RGB_MATRIX_DUAL_BEACON,         // Full gradient spinning around center of keyboard
     RGB_MATRIX_RAINBOW_BEACON,      // Full tighter gradient spinning around center of keyboard
     RGB_MATRIX_RAINBOW_PINWHEELS,   // Full dual gradients spinning two halfs of keyboard
+    RGB_MATRIX_FLOWER_BLOOMING,     // Full tighter gradient of first half scrolling left to right and second half scrolling right to left
     RGB_MATRIX_RAINDROPS,           // Randomly changes a single key's hue
     RGB_MATRIX_JELLYBEAN_RAINDROPS, // Randomly changes a single key's hue and saturation
     RGB_MATRIX_HUE_BREATHING,       // Hue shifts up a slight ammount at the same time, then shifts back
@@ -654,12 +658,12 @@ enum rgb_matrix_effects {
     RGB_MATRIX_DIGITAL_RAIN,        // That famous computer simulation
     RGB_MATRIX_SOLID_REACTIVE_SIMPLE,   // Pulses keys hit to hue & value then fades value out
     RGB_MATRIX_SOLID_REACTIVE,      // Static single hue, pulses keys hit to shifted hue then fades to current hue
-    RGB_MATRIX_SOLID_REACTIVE_WIDE       // Hue & value pulse near a single key hit then fades value out
-    RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE  // Hue & value pulse near multiple key hits then fades value out
-    RGB_MATRIX_SOLID_REACTIVE_CROSS      // Hue & value pulse the same column and row of a single key hit then fades value out
-    RGB_MATRIX_SOLID_REACTIVE_MULTICROSS // Hue & value pulse the same column and row of multiple key hits then fades value out
-    RGB_MATRIX_SOLID_REACTIVE_NEXUS      // Hue & value pulse away on the same column and row of a single key hit then fades value out
-    RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS // Hue & value pulse away on the same column and row of multiple key hits then fades value out
+    RGB_MATRIX_SOLID_REACTIVE_WIDE,       // Hue & value pulse near a single key hit then fades value out
+    RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE,  // Hue & value pulse near multiple key hits then fades value out
+    RGB_MATRIX_SOLID_REACTIVE_CROSS,      // Hue & value pulse the same column and row of a single key hit then fades value out
+    RGB_MATRIX_SOLID_REACTIVE_MULTICROSS, // Hue & value pulse the same column and row of multiple key hits then fades value out
+    RGB_MATRIX_SOLID_REACTIVE_NEXUS,      // Hue & value pulse away on the same column and row of a single key hit then fades value out
+    RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS, // Hue & value pulse away on the same column and row of multiple key hits then fades value out
     RGB_MATRIX_SPLASH,              // Full gradient & value pulse away from a single key hit then fades value out
     RGB_MATRIX_MULTISPLASH,         // Full gradient & value pulse away from multiple key hits then fades value out
     RGB_MATRIX_SOLID_SPLASH,        // Hue & value pulse away from a single key hit then fades value out
@@ -694,6 +698,7 @@ You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `confi
 |`#define ENABLE_RGB_MATRIX_DUAL_BEACON`               |Enables `RGB_MATRIX_DUAL_BEACON`              |
 |`#define ENABLE_RGB_MATRIX_RAINBOW_BEACON`            |Enables `RGB_MATRIX_RAINBOW_BEACON`           |
 |`#define ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS`         |Enables `RGB_MATRIX_RAINBOW_PINWHEELS`        |
+|`#define ENABLE_RGB_MATRIX_FLOWER_BLOOMING`           |Enables `RGB_MATRIX_FLOWER_BLOOMING`          |
 |`#define ENABLE_RGB_MATRIX_RAINDROPS`                 |Enables `RGB_MATRIX_RAINDROPS`                |
 |`#define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS`       |Enables `RGB_MATRIX_JELLYBEAN_RAINDROPS`      |
 |`#define ENABLE_RGB_MATRIX_HUE_BREATHING`             |Enables `RGB_MATRIX_HUE_BREATHING`            |
@@ -875,6 +880,7 @@ These are defined in [`color.h`](https://github.com/qmk/qmk_firmware/blob/master
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT // Sets the default mode, if none has been set
 #define RGB_MATRIX_DEFAULT_HUE 0 // Sets the default hue value, if none has been set
 #define RGB_MATRIX_DEFAULT_SAT 255 // Sets the default saturation value, if none has been set
+#define RGB_MATRIX_DEFAULT_ON true // Sets the default enabled state, if none has been set
 #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set
 #define RGB_MATRIX_DEFAULT_SPD 127 // Sets the default animation speed, if none has been set
 #define RGB_MATRIX_DISABLE_KEYCODES // disables control of rgb matrix by keycodes (must use code functions to control the feature)
