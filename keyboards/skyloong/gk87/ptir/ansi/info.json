@@ -200,7 +200,7 @@
                 {"label": "Right", "matrix": [5, 15], "x": 17.25, "y": 5.25}
             ]
         },
-        "LAYOUT_ansi_space_split": {
+        "LAYOUT_split_space_ansi": {
             "layout": [
                 {"label": "ESC", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "F1", "matrix": [0, 2], "x": 2, "y": 0},
