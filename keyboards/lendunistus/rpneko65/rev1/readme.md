@@ -4,10 +4,10 @@
 
 *PCB rear side*
 
-A multi-layout PCB for the Bakeneko65
+A multi-layout PCB designed to fit the Bakeneko65 case by kkatano.
 
 * Keyboard Maintainer: [lendunistus](https://github.com/lendunistus)
-* Hardware Supported: [Bakeneko65 V3](https://github.com/kkatano/bakeneko-65)
+* Hardware Supported: RPNeko65 PCB; [Bakeneko65 V3 Case](https://github.com/kkatano/bakeneko-65)
 * Hardware Availability: [Open source on GitHub](https://github.com/lendunistus/rpneko65)
 
 Make example for this keyboard (after setting up your build environment):
