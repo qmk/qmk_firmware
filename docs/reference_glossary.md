@@ -113,7 +113,7 @@ A modifier that acts as if it is held down until another key is released, so you
 A low cost AVR development board. Clones of this device are often found on ebay very inexpensively (under $5) but people often struggle with flashing their pro micros.
 
 ## Pull Request
-A request to submit code to QMK. We encourage all users to submit Pull Requests for their personal keymaps.
+A request to submit code to QMK. We encourage all users to submit Pull Requests for bugfixes and new features.
 
 ## QWERTY
 The standard English keyboard layout, and often a shortcut for other language's standard layouts. Named for the first 6 letters on the keyboard.

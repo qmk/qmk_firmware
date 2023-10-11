@@ -48,7 +48,7 @@
             "raindrops": true,
             "ranbow_beacon": true
         },
-        "driver": "WS2812",
+        "driver": "ws2812",
         "hue_steps": 20,
         "layout": [
             {"matrix": [0, 0], "x": 0, "y": 0, "flags": 4},

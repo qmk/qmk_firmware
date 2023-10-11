@@ -3,8 +3,11 @@
     "usb": {
         "device_version": "1.0.0"
     },
+    "eeprom": {
+        "driver": "spi"
+    },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
     },
     "ws2812": {
         "pin": "A1",

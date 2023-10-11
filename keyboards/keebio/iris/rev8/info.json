@@ -156,7 +156,7 @@
             "solid_splash": true,
             "solid_multisplash": true
         },
-        "driver": "WS2812",
+        "driver": "ws2812",
         "split_count": [34, 34],
         "max_brightness": 120,
         "layout": [

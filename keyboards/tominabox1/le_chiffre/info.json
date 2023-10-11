@@ -31,7 +31,7 @@
         "led_count": 11
     },
     "rgb_matrix": {
-        "driver": "WS2812",
+        "driver": "ws2812",
         "animations": {
             "gradient_up_down": true,
             "gradient_left_right": true,
