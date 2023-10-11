@@ -10,8 +10,7 @@
        "60_iso_tsangan",
        "60_tsangan_hhkb"
     ],
-    "layouts": {
-        
+    "layouts": {  
         "LAYOUT_60_ansi": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
