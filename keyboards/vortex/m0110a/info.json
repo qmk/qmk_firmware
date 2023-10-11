@@ -10,15 +10,11 @@
     "dynamic_keymap": {
         "layer_count": 5
     },
-    "encoder": {
-        "enabled": false
-    },
     "features": {
         "audio": false,
         "bootmagic": true,
         "command": false,
         "console": false,
-        "encoder": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
