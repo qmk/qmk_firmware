@@ -49,16 +49,20 @@ static void render_secondary_oled(void) {
     // Version Information
 #if defined(KEYBOARD_clickety_split_leeloo_rev1)
     oled_write_P(PSTR("Leeloo v1\n\n"), false);
-#else
+#elif defined(KEYBOARD_clickety_split_leeloo_rev2)
     oled_write_P(PSTR("Leeloo v2\n\n"), false);
+#else
+    oled_write_P(PSTR("Leeloo v2.1\n\n"), false);
 #endif
     
     oled_write_P(PSTR("Firmware: "), false);
     
 #if defined(KEYBOARD_clickety_split_leeloo_rev1)
     oled_write_P(PSTR("v1.13"), false);
-#else
+#elif defined(KEYBOARD_clickety_split_leeloo_rev2)
     oled_write_P(PSTR("v2.13"), false);
+#else
+    oled_write_P(PSTR("v2.14"), false);
 #endif
     
     oled_write_P(PSTR("\n"), false);
