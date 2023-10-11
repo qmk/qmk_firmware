@@ -1,5 +1,4 @@
-/* Copyright 2022 Clickety Split Ltd.
- *                https://clicketysplit.ca
+/* Copyright 2023 Clickety Split Ltd.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,9 +47,20 @@ static void render_mod_status(uint8_t modifiers) {
 
 static void render_secondary_oled(void) {
     // Version Information
-    oled_write_P(PSTR("Leeloo\n\n"), false);
+#if defined(KEYBOARD_clickety_split_leeloo_rev1)
+    oled_write_P(PSTR("Leeloo v1\n\n"), false);
+#else
+    oled_write_P(PSTR("Leeloo v2\n\n"), false);
+#endif
+    
     oled_write_P(PSTR("Firmware: "), false);
-    oled_write_P(PSTR("v1.0"), false);
+    
+#if defined(KEYBOARD_clickety_split_leeloo_rev1)
+    oled_write_P(PSTR("v1.13"), false);
+#else
+    oled_write_P(PSTR("v2.13"), false);
+#endif
+    
     oled_write_P(PSTR("\n"), false);
     oled_write_P(PSTR("Clickety Split Ltd."), false);
 }
@@ -58,7 +68,7 @@ static void render_secondary_oled(void) {
 static void render_status(void) {
     // Host Keyboard Layer Status
     switch (get_highest_layer(default_layer_state)) {
-        case _BASE:
+        case 0:
             oled_write_P(PSTR("QWERTY | "), false);
             break;
     }
@@ -69,15 +79,15 @@ static void render_status(void) {
             oled_write_P(PSTR("Base   \n"), false);
             break;
 
-        case _LOWER:
+        case 1:
             oled_write_P(PSTR("Lower   \n"), false);
             break;
 
-        case _RAISE:
+        case 2:
             oled_write_P(PSTR("Raise   \n"), false);
             break;
 
-        case _ADJUST:
+        case 3:
             oled_write_P(PSTR("Adjust  \n"), false);
             break;
 
@@ -128,4 +138,4 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     }
     return true;
 }
-#endif
+#endif // ENCODER_ENABLE
