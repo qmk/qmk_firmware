@@ -132,7 +132,6 @@
                 {"matrix": [5, 16], "x": 17.25, "y": 5.25}
             ]
         },
-
         "LAYOUT_tkl_ansi_split_bs": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
