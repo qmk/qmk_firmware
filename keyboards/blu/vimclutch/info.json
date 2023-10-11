@@ -11,9 +11,9 @@
     "development_board": "promicro",
     "diode_direction": "ROW2COL",
     "matrix_pins": {
-	"direct": [
-	    ["B3", "B2", "B6"]
-	]
+        "direct": [
+            ["B3", "B2", "B6"]
+        ]
     },
     "layouts": {
         "LAYOUT": {
