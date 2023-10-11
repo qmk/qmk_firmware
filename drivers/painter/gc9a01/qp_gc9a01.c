@@ -96,7 +96,9 @@ bool qp_gc9a01_set_inversion(painter_device_t device, bool invert) {
         return false;
     }
 
+    qp_comms_start(device);
     qp_comms_command(device, invert ? GC9A01_CMD_INVERT_ON : GC9A01_CMD_INVERT_OFF);
+    qp_comms_stop(device);
 
     qp_dprintf("qp_gc9a01_set_inversion: ok\n");
     return true;

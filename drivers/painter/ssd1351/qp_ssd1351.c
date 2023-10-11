@@ -65,7 +65,9 @@ bool qp_ssd1351_set_inversion(painter_device_t device, bool invert) {
         return false;
     }
 
+    qp_comms_start(device);
     qp_comms_command(device, invert ? SSD1351_INVERTDISPLAY : SSD1351_NORMALDISPLAY);
+    qp_comms_stop(device);
 
     qp_dprintf("qp_ssd1351_set_inversion: ok\n");
     return true;

@@ -10,7 +10,9 @@ bool qp_ili9xxx_set_inversion(painter_device_t device, bool invert) {
         return false;
     }
 
+    qp_comms_start(device);
     qp_comms_command(device, invert ? ILI9XXX_CMD_INVERT_ON : ILI9XXX_CMD_INVERT_OFF);
+    qp_comms_stop(device);
 
     qp_dprintf("qp_ili9xxx_set_inversion: ok\n");
     return true;
