@@ -2,7 +2,7 @@
     "manufacturer": "lucky_studio",
     "keyboard_name": "Kalice",
     "maintainer": "yuezp",
-    "bootloader": "stm32duino",
+    "development_board": "bluepill",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
@@ -14,7 +14,6 @@
         "cols": ["A4", "B10", "B1", "B0", "A7", "A6", "A5", "B7", "B6", "B5", "B4", "B3", "A15", "B13", "B8", "B9"],
         "rows": ["A3", "A2", "A1", "B12", "B11"]
     },
-    "processor": "STM32F103",
     "rgblight": {
         "animations": {
             "alternating": true,
