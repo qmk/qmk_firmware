@@ -1,6 +1,6 @@
 # primer61
 
-![primer61](https://imgur.com/a/AtEjG6h)
+![primer61](https://i.imgur.com/nU35TG7h.jpeg)
 
 A simple 60% keyboard for the beginners.
 
