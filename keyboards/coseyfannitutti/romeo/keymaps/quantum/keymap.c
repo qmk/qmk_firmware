@@ -20,9 +20,10 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
   switch(combo_index) {
 	case CTRL_ALT_DELETE:
 		if (pressed) {
-			tap_code16(KC_LCTL);
-			tap_code16(KC_LALT);
-			tap_code16(KC_DEL);
+			register_code(KC_LCTL);
+			register_code(KC_LALT);
+			register_code(KC_DEL);
+			clear_keyboard();
 			}
 			break;
 		}
