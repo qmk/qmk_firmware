@@ -18,21 +18,6 @@
 
 #include "quantum.h"
 
-// min/max macros
-#define max(a,b)             \
-({                           \
-    __typeof__ (a) _a = (a); \
-    __typeof__ (b) _b = (b); \
-    _a > _b ? _a : _b;       \
-})
-
-#define min(a,b)             \
-({                           \
-    __typeof__ (a) _a = (a); \
-    __typeof__ (b) _b = (b); \
-    _a < _b ? _a : _b;       \
-})
-
 /*
 * ┌───┬───┐  ┌───┬───┬───┬───┐
 * │F13│F19│  │F1 │F2 │F3 │F4 │
@@ -50,13 +35,14 @@
 * └───┴───┘  └───────┴───┴───┘
 */
 
-#ifdef RGB_IDLE_ENABLE
-#define _LAYER_RGB 15
-// Custom keycode declarations
 enum custom_keycodes {
     RGB_DEF = SAFE_RANGE,
     RGB_IEF
 };
+
+#ifdef RGB_IDLE_ENABLE
+#define _LAYER_RGB 15
+// Custom keycode declarations
 
 #define RGB_IDLE_TIMEOUT_MS (10*60*1000)
 

@@ -182,7 +182,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         uint8_t hue = rgb_matrix_get_hue() + 127; 
         // Make sure saturation is high enough to distiguish between hues
         uint8_t sat = 255;
-        uint8_t val = min((uint16_t) rgb_matrix_get_val() + 50, 255);
+        uint8_t val = MIN((uint16_t) rgb_matrix_get_val() + 50, 255);
         RGB rgb = hsv_to_rgb((HSV) {hue, sat, val});
         rgb_matrix_set_color(_LAYER_CAD_LED_INDEX, rgb.r, rgb.g, rgb.b);
     }
