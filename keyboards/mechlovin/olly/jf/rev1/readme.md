@@ -1,4 +1,4 @@
-# Mechlovin Olly JF
+# Mechlovin Olly JF Rev. 1
 
 ![jf](https://i.imgur.com/IrfTGE7h.png)
 
