@@ -1,6 +1,6 @@
 # MidEvil
 
-![MidEvil](https://i.imgur.com/WCE6GIU.jpg)
+<img width="600" src="https://user-images.githubusercontent.com/800930/274618949-4c9ed22e-2058-478e-86d4-d0328ce30bf2.jpg" />
 
 If number pads are evil, then this keyboard places all that evilness smack dab in the middle.
 

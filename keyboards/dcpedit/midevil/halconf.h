@@ -10,6 +10,3 @@
 
 #undef SPI_USE_WAIT
 #define SPI_USE_WAIT TRUE
-
-#undef HAL_USE_PWM
-#define HAL_USE_PWM TRUE
