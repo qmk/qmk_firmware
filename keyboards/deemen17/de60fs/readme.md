@@ -4,8 +4,8 @@
 
 *A short description of the keyboard/project*
 
-* Keyboard Maintainer: [Pham Duc Minh](https://github.com/Pham Duc Minh)
-* Hardware Supported: *The PCBs, controllers supported*
+* Keyboard Maintainer: [Deemen17](https://github.com/Deemen17)
+* Hardware Supported: De60fs PCB, RP2040
 * Hardware Availability: *Links to where you can find this hardware*
 
 Make example for this keyboard (after setting up your build environment):
