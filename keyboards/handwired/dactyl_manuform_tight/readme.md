@@ -1,22 +1,21 @@
-# Dactyl ManuForm
+# Dactyl ManuForm Tight
 
-![Imgur](https://i.imgur.com/7y0Vbydh.jpg)  
-*Pair of Dactyl ManuForm 4x6*
+![GlamShot](https://i.imgur.com/h9UHeofh.jpeg)  
+*Dactyl ManuForm Tight 4x6*
 
-Forked from the [Dactyl](/keyboards/handwired/dactyl), the *Dactyl ManuForm* is a parameterized, handwired, split bodied, tented, concave key-well design that incorporates the thumb cluster from the [ManuForm](https://geekhack.org/index.php?topic=46015.0).  
-The *Dactyl ManuForm* requires two micro controller boards, one per half, which differs from the *Dactyl's* original implementation of a micro controller and an I/O expander. 
+Forked from the [Dactyl ManuForm](/keyboards/handwired/dactyl_manuform), the *Dactyl ManuForm Tight* replaces the former's thumb key cluster with a 3 key thumb cluster.
 
-* Keyboard Maintainer: [Tom Short](https://github.com/tshort)
+* Keyboard Maintainer: [Joshua Shreve](https://github.com/joshreve)
 * Hardware Supported: Pro Micro, or clone of
-* Hardware Availability: [Github](https://github.com/tshort/dactyl-keyboard)
+* Hardware Availability: [Github](https://github.com/joshreve/dactyl-keyboard)
 
 ## Variants
 
-*Dactyl ManuForms* are built in variations that cater for different row and column counts.  
+*Dactyl ManuForm Tights* are built in variations that cater for different row and column counts.  
 
 As standard, per half: 
 - The finger keywell bottom row has 2 keys, 1 each in ring and middle columns
-- The thumb cluster has 6 keys, arranged in a staggered 2 columns by 3 rows 
+- The thumb cluster has 3 keys, arranged in 1 row. 
 
 Variants are denoted as `RowCount`*x*`ColumnCount`*(_`Alteration`)*
 
@@ -55,17 +54,17 @@ Readme.md in each variant's directory will detail the required settings to repro
 
 Make examples for this keyboard (after setting up your build environment):
 
-    make handwired/dactyl_manuform/4x6:default
-    make handwired/dactyl_manuform/4x6_ex:default
-    make handwired/dactyl_manuform/5x6_eic:default
-    make handwired/dactyl_manuform/5x6_exic:default
+    make handwired/dactyl_manuform_tight/4x6:default
+    make handwired/dactyl_manuform_tight/4x6_ex:default
+    make handwired/dactyl_manuform_tight/5x6_eic:default
+    make handwired/dactyl_manuform_tight/5x6_exic:default
 
 Flashing examples for this keyboard:
 
-    make handwired/dactyl_manuform/4x6:default:flash
-    make handwired/dactyl_manuform/4x6_ex:default:flash
-    make handwired/dactyl_manuform/5x6_eic:default:flash
-    make handwired/dactyl_manuform/5x6_exic:default:flash
+    make handwired/dactyl_manuform_tight/4x6:default:flash
+    make handwired/dactyl_manuform_tight/4x6_ex:default:flash
+    make handwired/dactyl_manuform_tight/5x6_eic:default:flash
+    make handwired/dactyl_manuform_tight/5x6_exic:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 

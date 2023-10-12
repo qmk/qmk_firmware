@@ -13,7 +13,7 @@ Forked from the [Dactyl ManuForm](/keyboards/handwired/dactyl_manuform), the *Da
 
 *Dactyl ManuForm Minis* are built in variations that cater for different row and column counts.  
 
-As standard: 
+As standard, per half: 
 - The finger keywell bottom row has 2 keys, 1 each in ring and middle columns
 - The thumb cluster has 5 keys, arranged in 2 rows; 3 keys on the upper row and 2 keys on the lower row. 
 

@@ -212,6 +212,9 @@
     "handwired/dactyl_manuform/4x5_5": {
         "target": "handwired/dactyl_manuform_mini/4x5"
     },
+    "handwired/dactyl_manuform/4x6_4_3": {
+        "target": "handwired/dactyl_manuform_tight/5x6_ex"
+    },
     "handwired/dactyl_manuform/4x6_5": {
         "target": "handwired/dactyl_manuform_mini/4x6"
     },
