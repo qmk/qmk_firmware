@@ -1,0 +1,10 @@
+## Dactyl Generator
+
+- Presets
+    - Manuform: Original
+- Keys:
+    - Thumb Key Cluster: 5 (Mini)
+    - Number of Columns: 6
+    - Number of Rows: 5
+    - Last Row Key Count: Use All Keys
+    - Inner Index Finger's Column: Normal

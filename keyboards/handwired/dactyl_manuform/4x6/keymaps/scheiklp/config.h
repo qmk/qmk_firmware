@@ -3,14 +3,8 @@
 
 #pragma once
 
-
 #define USE_I2C
 #define SPLIT_HAND_PIN F6
-
-#undef WS2812_DI_PIN
-#undef RGBLED_NUM
-
-#define DEBOUNCE 5
 
 #define AUTO_SHIFT_TIMEOUT 100
 #define NO_AUTO_SHIFT_SPECIAL

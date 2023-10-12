@@ -1,10 +1,15 @@
+// Copyright 2016 (@Twentylives)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
 
-#define _BASE 0
-#define _RAISE 1
-#define _LOWER 2
+enum layers {
+    _BASE,
+    _RAISE,
+    _LOWER,
+};
 
 // Fillers to make layering more clear
 
@@ -19,8 +24,6 @@ extern keymap_config_t keymap_config;
 #define KC_MR KC_MS_RIGHT
 #define KC_MU KC_MS_UP
 #define KC_MD KC_MS_DOWN
-#define KC_MB1 KC_MS_BTN1
-#define KC_MB2 KC_MS_BTN1
 
 #define RAISE MO(_RAISE)
 #define LOWER MO(_LOWER)
@@ -83,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ____, ____,  KC_MU, ____,  ____,                          KC_VOLU, ____,    KC_UP,   ____,     KC_PGUP,
   ____, KC_ML, KC_MD, KC_MR, ____,                          KC_MUTE, KC_LEFT, KC_DOWN, KC_RIGHT, KC_PGDN,
   ____, ____,  ____,  ____,  ____,                          KC_VOLD, KC_SLSH, KC_BSLS, KC_QUES,  KC_PIPE,
-        ____,  ____,                                                          KC_MB1,  KC_MB2,
+        ____,  ____,                                                          KC_BTN1, KC_BTN2,
                                    ____, ____,  ____, ____,
                                    ____, ____,  ____, ____,
                                    ____, ____,  ____, ____

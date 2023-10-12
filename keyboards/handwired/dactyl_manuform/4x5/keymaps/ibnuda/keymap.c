@@ -1,10 +1,12 @@
+// Copyright 2016 Ibnu Daru Aji (@ibnuda)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
 #include "ibnuda.h"
 
 #define TAB KC_TAB
 #define GUI KC_LGUI
-#define MIN KC_MINS
 #define SLS KC_SLSH
 #define CTL KC_LCTL
 #define DEL KC_DEL
