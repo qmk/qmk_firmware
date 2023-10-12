@@ -13,7 +13,7 @@ Forked from the [Dactyl ManuForm](/keyboards/handwired/dactyl_manuform), the *Da
 
 *Dactyl ManuForm Carbonfets* are built in variations that cater for different row and column counts.  
 
-As standard: 
+As standard, per half: 
 - The finger keywell bottom row has 2 keys, 1 each in ring and middle columns
 - The thumb cluster has 6 keys, arranged in a 2 row by 3 column arrangement. 
 
