@@ -13,14 +13,8 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "mousekey": false,
-        "extrakey": true,
-        "console": false,
-        "command": false,
-        "nkro": false,
-        "backlight": false,
-        "rgblight": false,
-        "audio": false
+        "mousekey": true,
+        "extrakey": true
     },
     "bootmagic": {
         "matrix": [7, 9]
