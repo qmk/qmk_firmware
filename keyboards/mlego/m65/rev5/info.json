@@ -1,9 +1,8 @@
 {
     "manufacturer": "Alin Elena",
-    "keyboard_name": "m65 rev5 with rp2040 ",
+    "keyboard_name": "m65 rev5 with rp2040 pico",
     "maintainer": "alin elena",
     "bootloader": "rp2040",
-    "debounce": 5,
     "diode_direction": "COL2ROW",
     "encoder": {
         "enabled": true,
