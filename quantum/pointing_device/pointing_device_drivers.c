@@ -125,7 +125,7 @@ void azoteq_iqs5xx_init(void) {
     i2c_init();
     azoteq_iqs5xx_wake();
     azoteq_iqs5xx_init_status = azoteq_iqs5xx_set_report_rate(AZOTEQ_IQS5XX_REPORT_RATE, ACTIVE, false);
-    azoteq_iqs5xx_init_status = azoteq_iqs5xx_set_event_mode(AZOTEQ_IQS5XX_EVENT_MODE, false);
+    azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_event_mode(AZOTEQ_IQS5XX_EVENT_MODE, false);
     azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_gesture_config(true);
     wait_ms(AZOTEQ_IQS5XX_REPORT_RATE+1);
 
