@@ -1,3 +1,6 @@
+// Copyright 2023 Ming-Gih Lam (@dcpedit)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include "qp_comms.h"
 #include "image/background.qgf.h"
 #include "image/animated.qgf.h"
@@ -9,6 +12,7 @@ painter_image_handle_t animated;
 void keyboard_post_init_kb(void) {
     background = qp_load_image_mem(gfx_background);
     animated = qp_load_image_mem(gfx_animated);
+
     // Turn on the LCD
     setPinOutput(LCD_LED_PIN);
     writePinHigh(LCD_LED_PIN);
@@ -21,14 +25,6 @@ void keyboard_post_init_kb(void) {
 
     // Turn on the LCD and clear the display
     qp_power(lcd, true);
-
-    /*
-    // Invert image
-    qp_comms_start(lcd);
-    qp_comms_command(lcd, ILI9XXX_CMD_INVERT_OFF);
-    qp_comms_command(lcd, 0x21);
-    qp_comms_stop(lcd);
-    */
 
     // Draw image
     qp_drawimage(lcd, 0, 0, background);
