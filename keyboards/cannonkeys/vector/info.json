@@ -31,7 +31,8 @@
         "60_ansi_tsangan",
         "60_tsangan_hhkb",
         "60_hhkb",
-        "60_iso_tsangan"
+        "60_iso_tsangan",
+        "60_iso_tsangan_split_bs_rshift"
     ],
     "layouts": {
         "LAYOUT_all": {

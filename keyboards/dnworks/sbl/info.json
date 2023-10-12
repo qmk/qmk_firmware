@@ -37,7 +37,8 @@
         "60_hhkb",
         "60_iso",
         "60_iso_split_bs_rshift",
-        "60_iso_tsangan"
+        "60_iso_tsangan",
+        "60_iso_tsangan_split_bs_rshift"
     ],
     "layouts": {
         "LAYOUT_all": {

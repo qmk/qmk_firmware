@@ -42,6 +42,9 @@
     },
     "processor": "atmega32u4",
     "bootloader": "qmk-dfu",
+    "layout_aliases": {
+        "LAYOUT_60_tsangan_hhkb_iso": "LAYOUT_60_iso_tsangan_split_bs_rshift"
+    },
     "community_layouts": [
         "60_ansi",
         "60_ansi_arrow",
@@ -52,7 +55,8 @@
         "60_hhkb",
         "60_iso",
         "60_iso_split_bs_rshift",
-        "60_iso_tsangan"
+        "60_iso_tsangan",
+        "60_iso_tsangan_split_bs_rshift"
     ],
     "layouts": {
         "LAYOUT_all": {
@@ -901,7 +905,7 @@
                 {"label": "\u2192", "matrix": [4, 13], "x": 14, "y": 4}
             ]
         },
-        "LAYOUT_60_tsangan_hhkb_iso": {
+        "LAYOUT_60_iso_tsangan_split_bs_rshift": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "1", "matrix": [0, 1], "x": 1, "y": 0},

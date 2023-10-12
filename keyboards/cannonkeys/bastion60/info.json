@@ -49,7 +49,17 @@
         "driver": "vendor",
         "pin": "GP7"
     },
-    "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift", "60_iso_tsangan"],
+    "community_layouts": [
+        "60_ansi",
+        "60_ansi_split_bs_rshift",
+        "60_ansi_tsangan",
+        "60_tsangan_hhkb",
+        "60_hhkb",
+        "60_iso",
+        "60_iso_split_bs_rshift",
+        "60_iso_tsangan",
+        "60_iso_tsangan_split_bs_rshift"
+    ],
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [
