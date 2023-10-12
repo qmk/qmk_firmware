@@ -1,7 +1,6 @@
 # rpneko65
 
-![rpneko65](https://i.imgur.com/QUIUSqJh.png)
-
+![rpneko65](https://i.imgur.com/QUIUSqJh.png)\
 *PCB rear side*
 
 A multi-layout PCB designed to fit the Bakeneko65 case by kkatano.
