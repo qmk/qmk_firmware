@@ -13,6 +13,8 @@ COMB(quickVimNavJ,   KC_J,            NUM_BSPC, HOME_N)
 COMB(quickVimNavK,   KC_K,            NUM_BSPC, HOME_E)
 COMB(quickVimNavH,   KC_H,            NUM_BSPC, KC_M)
 COMB(quickVimNavL,   KC_L,            NUM_BSPC, HOME_I)
+//// function/nav layer
+COMB(altMute,        KC_MUTE,         KC_VOLD, KC_VOLU)
 //// gaming layer
 COMB(gameT,          KC_T,            KC_E, KC_R)
 COMB(gameG,          KC_G,            KC_D, KC_F)
