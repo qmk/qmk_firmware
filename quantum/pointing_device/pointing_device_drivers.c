@@ -128,8 +128,8 @@ void azoteq_iqs5xx_init(void) {
     // i2c_stop();
     wait_us(200);
     azoteq_iqs5xx_init_status = azoteq_iqs5xx_set_report_rate(8, ACTIVE, false);
-    azoteq_iqs5xx_init_status = azoteq_iqs5xx_set_event_mode(false, false);
-    // azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_gesture_config(true);
+    azoteq_iqs5xx_init_status = azoteq_iqs5xx_set_event_mode(true, false);
+    azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_gesture_config(true);
 };
 
 report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report) {

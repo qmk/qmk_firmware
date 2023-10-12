@@ -59,18 +59,18 @@
 #endif
 // A tap mast last fewer than this many milliseconds to be registered
 #ifndef AZOTEQ_IQS5XX_TAP_TIME
-#    define AZOTEQ_IQS5XX_TAP_TIME 250
+#    define AZOTEQ_IQS5XX_TAP_TIME 0x96
 #endif
 // A tap must move less than this distance to be registered
 #ifndef AZOTEQ_IQS5XX_TAP_DISTANCE
-#    define AZOTEQ_IQS5XX_TAP_DISTANCE 50
+#    define AZOTEQ_IQS5XX_TAP_DISTANCE 0x19
 #endif
 #ifndef AZOTEQ_IQS5XX_PRESS_AND_HOLD_ENABLE
 #    define AZOTEQ_IQS5XX_PRESS_AND_HOLD_ENABLE true
 #endif
 // A tap must be held for this many milliseconds, before it triggers press and hold
 #ifndef AZOTEQ_IQS5XX_HOLD_TIME
-#    define AZOTEQ_IQS5XX_HOLD_TIME 500
+#    define AZOTEQ_IQS5XX_HOLD_TIME 0x96
 #endif
 #ifndef AZOTEQ_IQS5XX_TWO_FINGER_TAP_ENABLE
 #    define AZOTEQ_IQS5XX_TWO_FINGER_TAP_ENABLE true
@@ -80,11 +80,11 @@
 #endif
 // 64tan(degrees)
 #ifndef AZOTEQ_IQS5XX_SCROLL_ANGLE
-#    define AZOTEQ_IQS5XX_SCROLL_ANGLE 0
+#    define AZOTEQ_IQS5XX_SCROLL_ANGLE 0x17
 #endif
 // The move distance before a scroll is registered
 #ifndef AZOTEQ_IQS5XX_SCROLL_INITIAL_DISTANCE
-#    define AZOTEQ_IQS5XX_SCROLL_INITIAL_DISTANCE 5
+#    define AZOTEQ_IQS5XX_SCROLL_INITIAL_DISTANCE 0x32
 #endif
 
 i2c_status_t azoteq_iqs5xx_end_session(void) {
