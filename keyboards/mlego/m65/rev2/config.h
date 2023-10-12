@@ -1,6 +1,5 @@
-// Copyright 2020-2023 alin m elena (@alinelena)
+// Copyright 2020-2023 alin m elena (@alinelena, @drFaustroll)
 // SPDX-License-Identifier: GPL-2.0-or-later
-
 #pragma once
 
 #define LED_RSE_PIN B13
@@ -16,3 +15,4 @@
         uint16_t flash_size = *(uint16_t*)FLASHSIZE_BASE; \
         (flash_size <= 512) ? flash_size : 512;           \
     })
+//#define DEBUG_MATRIX_SCAN_RATE
