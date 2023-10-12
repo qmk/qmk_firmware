@@ -34,7 +34,7 @@ def mass_compile_targets(targets, clean, dry_run, no_temp, parallel, **env):
                 keyboard_name = target.keyboard
                 keymap_name = target.keymap
                 target.configure(parallel=1)  # We ignore parallelism on a per-build basis as we defer to the parent make invocation
-                target.prepare_build(**env)
+                target.prepare_build(**env)  # If we've got json targets, allow them to write out any extra info to .build before we kick off `make`
                 command = target.compile_command(**env)
                 command[0] = '+@$(MAKE)'  # Override the make so that we can use jobserver to handle parallelism
                 keyboard_safe = keyboard_name.replace('/', '_')
