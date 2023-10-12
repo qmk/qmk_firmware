@@ -194,6 +194,12 @@
     "exclusive/e85": {
         "target": "exclusive/e85/hotswap"
     },
+    "fc660c": {
+        "target": "leopold/fc660c"
+    },
+    "fc980c": {
+        "target": "leopold/fc980c/tmk"
+    },
     "gh60": {
         "target": "gh60/revc"
     },
