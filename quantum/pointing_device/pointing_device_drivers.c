@@ -179,8 +179,8 @@ report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report) {
 const pointing_device_driver_t pointing_device_driver = {
     .init       = azoteq_iqs5xx_init,
     .get_report = azoteq_iqs5xx_get_report,
-    .set_cpi    = NULL,
-    .get_cpi    = NULL
+    .set_cpi    = azoteq_iqs5xx_set_cpi,
+    .get_cpi    = azoteq_iqs5xx_get_cpi
 };
 // clang-format on
 

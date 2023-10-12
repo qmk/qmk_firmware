@@ -7,6 +7,14 @@
 #include "i2c_master.h"
 #include "pointing_device.h"
 
+#ifndef AZOTEQ_IQS5XX_WIDTH_MM
+    #define AZOTEQ_IQS5XX_WIDTH_MM 43
+#endif
+
+#ifndef AZOTEQ_IQS5XX_HEIGHT_MM
+    #define AZOTEQ_IQS5XX_HEIGHT_MM 40
+#endif
+
 typedef struct __attribute__((packed)) {
     uint8_t h : 8;
     uint8_t l : 8;
@@ -127,6 +135,11 @@ typedef struct __attribute__((packed)) {
     uint16_t                                     zoom_consecutive_distance;
 } azoteq_iqs5xx_gesture_config_t;
 
+typedef struct __attribute__((packed)) {
+    uint16_t                                     x_resolution;
+    uint16_t                                     y_resolution;
+} azoteq_iqs5xx_resolution_t;
+
 #define AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(h, l) ((h << 8) | l)
 #define AZOTEQ_IQS5XX_SWAP_H_L_BYTES(b) ((uint16_t)(b << 8) | (b >> 8))
 
@@ -148,3 +161,5 @@ i2c_status_t   azoteq_iqs5xx_set_report_rate(uint16_t report_rate_ms, azoteq_cha
 i2c_status_t   azoteq_iqs5xx_set_event_mode(bool enabled, bool end_session);
 i2c_status_t   azoteq_iqs5xx_set_gesture_config(bool end_session);
 i2c_status_t   azoteq_iqs5xx_get_base_data(azoteq_iqs5xx_base_data_t *base_data);
+void           azoteq_iqs5xx_set_cpi(uint16_t cpi);
+uint16_t       azoteq_iqs5xx_get_cpi(void);

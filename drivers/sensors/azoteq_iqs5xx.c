@@ -47,6 +47,9 @@
 
 #define AZOTEQ_IQS5XX_REG_SYSTEM_CONFIG_1 0x058F
 
+#define AZOTEQ_IQS5XX_REG_X_RESOLUTION 0x066E
+#define AZOTEQ_IQS5XX_REG_Y_RESOLUTION 0x0670
+
 #define AZOTEQ_IQS5XX_REG_SINGLE_FINGER_GESTURES 0x06B7
 #define AZOTEQ_IQS5XX_REG_MULTI_FINGER_GESTURES 0x06B8
 
@@ -87,6 +90,27 @@
 #ifndef AZOTEQ_IQS5XX_SCROLL_INITIAL_DISTANCE
 #    define AZOTEQ_IQS5XX_SCROLL_INITIAL_DISTANCE 0x32
 #endif
+
+#ifndef AZOTEQ_IQS5XX_TYPE
+    #define AZOTEQ_IQS5XX_TYPE IQS550
+#endif
+
+#if (AZOTEQ_IQS5XX_TYPE == IQS550)
+    #define AZOTEQ_IQS5XX_MAX_X_RESOLUTION 3584
+    #define AZOTEQ_IQS5XX_MAX_Y_RESOLUTION 2304
+#elif (AZOTEQ_IQS5XX_TYPE == IQS572)
+    #define AZOTEQ_IQS5XX_MAX_X_RESOLUTION 2048
+    #define AZOTEQ_IQS5XX_MAX_Y_RESOLUTION 1792
+#elif (AZOTEQ_IQS5XX_TYPE == IQS525)
+    #define AZOTEQ_IQS5XX_MAX_X_RESOLUTION 1280
+    #define AZOTEQ_IQS5XX_MAX_Y_RESOLUTION 768
+#endif
+
+#define DIVIDE_UNSIGNED_ROUND(numerator, denominator) (((numerator) + ((denominator) / 2)) / (denominator))
+#define AZOTEQ_IQS5XX_INCH_TO_RESOLUTION_X(inch) (DIVIDE_UNSIGNED_ROUND((inch) * (uint32_t) AZOTEQ_IQS5XX_WIDTH_MM * 10, 254))
+#define AZOTEQ_IQS5XX_RESOLUTION_X_TO_INCH(px) (DIVIDE_UNSIGNED_ROUND((px) * (uint32_t)254, AZOTEQ_IQS5XX_WIDTH_MM * 10))
+#define AZOTEQ_IQS5XX_INCH_TO_RESOLUTION_Y(inch) (DIVIDE_UNSIGNED_ROUND((inch) * (uint32_t) AZOTEQ_IQS5XX_HEIGHT_MM * 10, 254))
+#define AZOTEQ_IQS5XX_RESOLUTION_Y_TO_INCH(px) (DIVIDE_UNSIGNED_ROUND((px) * (uint32_t)254, AZOTEQ_IQS5XX_HEIGHT_MM * 10))
 
 i2c_status_t azoteq_iqs5xx_wake(void){
     uint8_t data = 0;
@@ -176,4 +200,20 @@ i2c_status_t azoteq_iqs5xx_set_gesture_config(bool end_session) {
         azoteq_iqs5xx_end_session();
     }
     return status;
+}
+
+void azoteq_iqs5xx_set_cpi(uint16_t cpi) {
+    azoteq_iqs5xx_resolution_t resolution = {0};
+    resolution.x_resolution = MIN(AZOTEQ_IQS5XX_MAX_X_RESOLUTION, AZOTEQ_IQS5XX_SWAP_H_L_BYTES(AZOTEQ_IQS5XX_INCH_TO_RESOLUTION_X(cpi)));
+    resolution.y_resolution = MIN(AZOTEQ_IQS5XX_MAX_Y_RESOLUTION, AZOTEQ_IQS5XX_SWAP_H_L_BYTES(AZOTEQ_IQS5XX_INCH_TO_RESOLUTION_Y(cpi)));
+    i2c_writeReg16(AZOTEQ_IQS5XX_ADDRESS, AZOTEQ_IQS5XX_REG_X_RESOLUTION, (uint8_t *)&resolution, sizeof(azoteq_iqs5xx_resolution_t), AZOTEQ_IQS5XX_TIMEOUT_MS);
+}
+
+uint16_t azoteq_iqs5xx_get_cpi(void) {
+    azoteq_iqs5xx_resolution_t resolution = {0};
+    i2c_status_t               status = i2c_readReg16(AZOTEQ_IQS5XX_ADDRESS, AZOTEQ_IQS5XX_REG_X_RESOLUTION, (uint8_t *)&resolution, sizeof(azoteq_iqs5xx_resolution_t), AZOTEQ_IQS5XX_TIMEOUT_MS);
+    if (status == I2C_STATUS_SUCCESS) {
+        return AZOTEQ_IQS5XX_RESOLUTION_X_TO_INCH(AZOTEQ_IQS5XX_SWAP_H_L_BYTES(resolution.x_resolution));
+    }
+    return 0;
 }
