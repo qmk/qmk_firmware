@@ -52,7 +52,3 @@
 
 /* Old default behavior of mod-taps */
 #define HOLD_ON_OTHER_KEY_PRESS
-
-/* Factory test keys */
-#define F_RESET_KEY1 KC_7
-#define FN_KEY1 MO(4)
