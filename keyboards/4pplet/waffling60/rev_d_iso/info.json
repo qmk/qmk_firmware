@@ -18,6 +18,7 @@
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all"
     },
+    "community_layouts": ["60_iso_tsangan_split_bs_rshift"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
