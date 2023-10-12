@@ -150,8 +150,9 @@
 
         ]
     },
+    "community_layouts": ["tkl_ansi"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_tkl_ansi": {
             "layout": [
                 { "label": "Esc", "matrix": [0, 0], "x": 0, "y": 0 },
                 { "label": "F1", "matrix": [0, 1], "x": 2, "y": 0 },
