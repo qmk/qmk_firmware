@@ -121,7 +121,6 @@ i2c_status_t azoteq_iqs5xx_set_report_rate(uint16_t report_rate_ms, azoteq_charg
     report_rate.h                            = (uint8_t)((report_rate_ms >> 8) & 0xFF);
     report_rate.l                            = (uint8_t)(report_rate_ms & 0xFF);
     i2c_status_t status                      = i2c_writeReg16(AZOTEQ_IQS5XX_ADDRESS, selected_reg, (uint8_t *)&report_rate, 2, AZOTEQ_IQS5XX_TIMEOUT_MS);
-
     if (end_session) {
         azoteq_iqs5xx_end_session();
     }
@@ -132,9 +131,9 @@ i2c_status_t azoteq_iqs5xx_set_event_mode(bool enabled, bool end_session) {
     azoteq_iqs5xx_system_config_1_t config = {0};
     i2c_status_t                    status = i2c_readReg16(AZOTEQ_IQS5XX_ADDRESS, AZOTEQ_IQS5XX_REG_SYSTEM_CONFIG_1, (uint8_t *)&config, sizeof(azoteq_iqs5xx_system_config_1_t), AZOTEQ_IQS5XX_TIMEOUT_MS);
     if (status == I2C_STATUS_SUCCESS) {
-        config.event_mode     = true;
-        config.touch_event    = false;
-        config.tp_event       = false;
+        config.event_mode     = enabled;
+        config.touch_event    = true;
+        config.tp_event       = true;
         config.prox_event     = false;
         config.snap_event     = false;
         config.reati_event    = false;
@@ -157,10 +156,10 @@ i2c_status_t azoteq_iqs5xx_set_gesture_config(bool end_session) {
         config.single_finger_gestures.press_and_hold = AZOTEQ_IQS5XX_PRESS_AND_HOLD_ENABLE;
         config.multi_finger_gestures.two_finger_tap  = AZOTEQ_IQS5XX_TWO_FINGER_TAP_ENABLE;
         config.multi_finger_gestures.scroll          = AZOTEQ_IQS5XX_SCROLL_ENABLE;
-        config.tap_time                              = AZOTEQ_IQS5XX_TAP_TIME;
-        config.hold_time                             = AZOTEQ_IQS5XX_HOLD_TIME;
-        config.tap_distance                          = AZOTEQ_IQS5XX_TAP_DISTANCE;
-        config.scroll_initial_distance               = AZOTEQ_IQS5XX_SCROLL_INITIAL_DISTANCE;
+        config.tap_time                              = AZOTEQ_IQS5XX_SWAP_H_L_BYTES(AZOTEQ_IQS5XX_TAP_TIME);
+        config.hold_time                             = AZOTEQ_IQS5XX_SWAP_H_L_BYTES(AZOTEQ_IQS5XX_HOLD_TIME);
+        config.tap_distance                          = AZOTEQ_IQS5XX_SWAP_H_L_BYTES(AZOTEQ_IQS5XX_TAP_DISTANCE);
+        config.scroll_initial_distance               = AZOTEQ_IQS5XX_SWAP_H_L_BYTES(AZOTEQ_IQS5XX_SCROLL_INITIAL_DISTANCE);
         status = i2c_writeReg16(AZOTEQ_IQS5XX_ADDRESS, AZOTEQ_IQS5XX_REG_SINGLE_FINGER_GESTURES, (uint8_t *)&config, sizeof(azoteq_iqs5xx_gesture_config_t), AZOTEQ_IQS5XX_TIMEOUT_MS);
     }
     if (end_session) {

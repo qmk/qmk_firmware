@@ -128,6 +128,7 @@ typedef struct __attribute__((packed)) {
 } azoteq_iqs5xx_gesture_config_t;
 
 #define AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(h, l) ((h << 8) | l)
+#define AZOTEQ_IQS5XX_SWAP_H_L_BYTES(b) ((uint16_t)(b << 8) | (b >> 8))
 
 #ifndef AZOTEQ_IQS5XX_REPORT_RATE
 #    define AZOTEQ_IQS5XX_REPORT_RATE 10
