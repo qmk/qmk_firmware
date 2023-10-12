@@ -11,7 +11,6 @@ enum unicode_names { la = 0, lA, lb, lB, lc, lC, ld, lD, le, lE, lf, lF, lg, lG,
 
 enum layer_names { _QW = 0, _LWR, _RSE, _ADJ };
 
-
 #if defined(OLED_ENABLE)
 void user_oled_magic(void);
 void render_logo(void);
@@ -44,10 +43,9 @@ static inline void init_lwr_rse_led(void) {
 
 static inline void led_lwr(const bool on) {
 #if defined(LED_LWR_PIN)
-    if ((PRODUCT_ID == 0x6064) || (PRODUCT_ID == 0x6065) ||
-        (PRODUCT_ID == 0x6066) || (PRODUCT_ID == 0x6067)) {
+    if ((PRODUCT_ID == 0x6064) || (PRODUCT_ID == 0x6065) || (PRODUCT_ID == 0x6066) || (PRODUCT_ID == 0x6067)) {
         writePin(LED_LWR_PIN, !on);
-    }else{
+    } else {
         writePin(LED_LWR_PIN, on);
     }
 #endif
@@ -55,10 +53,9 @@ static inline void led_lwr(const bool on) {
 
 static inline void led_rse(const bool on) {
 #if defined(LED_RSE_PIN)
-    if ((PRODUCT_ID == 0x6064) || (PRODUCT_ID == 0x6065) ||
-        (PRODUCT_ID == 0x6066) || (PRODUCT_ID == 0x6067)) {
+    if ((PRODUCT_ID == 0x6064) || (PRODUCT_ID == 0x6065) || (PRODUCT_ID == 0x6066) || (PRODUCT_ID == 0x6067)) {
         writePin(LED_RSE_PIN, !on);
-    }else{
+    } else {
         writePin(LED_RSE_PIN, on);
     }
 #endif
