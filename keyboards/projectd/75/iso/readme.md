@@ -1,10 +1,10 @@
 # ProjectD 75% ISO 
 ![ProjectD 75 ISO](https://imgur.com/pbGXTUdh.png)
 
-A 75% keyboard, Equipped with the WestBerry Q95 microcontroller.
+A 75% keyboard with the WestBerry Q95 microcontroller integrated into PCB.
 
 * Keyboard Maintainer: [GSKY](https://github.com/gksygithub)
-* Hardware Supported: projectd_75_iso
+* Hardware Supported: ProjectD 75% ISO PCB
 * Hardware Availability: [GSKY](https://github.com/gskygithub/projectd_75_iso)
 
 Make example for this keyboard (after setting up your build environment):
