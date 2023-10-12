@@ -4,3 +4,7 @@
 
 #define LED_RSE_PIN B13
 #define LED_LWR_PIN B12
+
+#if defined(CONSOLE_ENABLE)
+#define DEBUG_MATRIX_SCAN_RATE
+#endif

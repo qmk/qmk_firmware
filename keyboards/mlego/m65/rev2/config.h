@@ -15,4 +15,7 @@
         uint16_t flash_size = *(uint16_t*)FLASHSIZE_BASE; \
         (flash_size <= 512) ? flash_size : 512;           \
     })
-//#define DEBUG_MATRIX_SCAN_RATE
+
+#if defined(CONSOLE_ENABLE)
+#define DEBUG_MATRIX_SCAN_RATE
+#endif

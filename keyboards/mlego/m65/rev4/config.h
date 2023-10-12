@@ -11,4 +11,7 @@
 #    define OLED_BRIGHTNESS 128
 #    define OLED_FONT_H "keyboards/mlego/m65/lib/glcdfont.c"
 #endif
-//#define DEBUG_MATRIX_SCAN_RATE
+
+#if defined(CONSOLE_ENABLE)
+#define DEBUG_MATRIX_SCAN_RATE
+#endif
