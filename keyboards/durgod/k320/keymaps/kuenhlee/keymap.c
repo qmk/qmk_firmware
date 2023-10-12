@@ -35,11 +35,6 @@
 #define KC_STOP LCTL(LSFT(KC_HOME))   // Select from Cursor to Home
 #define KC_SEND LCTL(LSFT(KC_END))    // Select from Cursor to End
 
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-  KC_TGUI = SAFE_RANGE  // Toggle between GUI Lock or Unlock
-};
-
 // °±²³µ©ΩθΩ√∞∆≈≠→↓←↑≡■□●○∴«»÷≤≥Σ
 // Defines the Enumeration for Unicode Map
 enum unicode_names {
@@ -74,7 +69,7 @@ enum unicode_names {
   SUM,
 };
 
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
   [DEGR]  = 0x00B0, // °
   [PONE]  = 0x00B1, // ±
   [POW2]  = 0x00B2, // ²
@@ -109,7 +104,7 @@ const uint32_t PROGMEM unicode_map[] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BL] = LAYOUT_tkl_ansi( /* Base Layer */
-      KC_ESC,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,             KC_PSCR,  KC_SLCK,  KC_PAUS,
+      KC_ESC,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,             KC_PSCR,  KC_SCRL,  KC_PAUS,
       KC_GRV,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,  KC_INS,   KC_HOME,  KC_PGUP,
       KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,  KC_DEL,   KC_END,   KC_PGDN,
       KC_CAPS,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,  KC_ENT,
@@ -137,14 +132,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_UL] = LAYOUT_tkl_ansi( /* Unicode Layer */
       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,
-      X(APPR),  X(NEQU),  X(POW2),  X(POW3),  XXXXXXX,  XXXXXXX,  X(BSQR),  X(WSQR),  X(INFI),  X(BDOT),  X(WDOT),  XXXXXXX,  X(PONE),  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-      XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  X(SUM),   XXXXXXX,  X(MYU),   X(SAME),  XXXXXXX,  X(OHM),   X(DLAR),  X(DRAR),  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-      XXXXXXX,  XXXXXXX,  X(SQRT),  X(DELT),  XXXXXXX,  XXXXXXX,  X(THFR),  XXXXXXX,  XXXXXXX,  XXXXXXX,  X(THET),  X(DEGR),  XXXXXXX,
-      XXXXXXX,            XXXXXXX,  XXXXXXX,  X(COPY),  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  X(LTOE),  X(MTOE),  X(DIV),   XXXXXXX,                      X(UARR),
-      XXXXXXX,  XXXXXXX,  XXXXXXX,                                XXXXXXX,                                XXXXXXX,  KC_TRNS,  KC_TRNS,  XXXXXXX,  X(LARR),  X(DARR),  X(RARR)
+      UM(APPR),  UM(NEQU),  UM(POW2),  UM(POW3),  XXXXXXX,  XXXXXXX,  UM(BSQR),  UM(WSQR),  UM(INFI),  UM(BDOT),  UM(WDOT),  XXXXXXX,  UM(PONE),  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+      XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  UM(SUM),   XXXXXXX,  UM(MYU),   UM(SAME),  XXXXXXX,  UM(OHM),   UM(DLAR),  UM(DRAR),  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+      XXXXXXX,  XXXXXXX,  UM(SQRT),  UM(DELT),  XXXXXXX,  XXXXXXX,  UM(THFR),  XXXXXXX,  XXXXXXX,  XXXXXXX,  UM(THET),  UM(DEGR),  XXXXXXX,
+      XXXXXXX,            XXXXXXX,  XXXXXXX,  UM(COPY),  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  UM(LTOE),  UM(MTOE),  UM(DIV),   XXXXXXX,                      UM(UARR),
+      XXXXXXX,  XXXXXXX,  XXXXXXX,                                XXXXXXX,                                XXXXXXX,  KC_TRNS,  KC_TRNS,  XXXXXXX,  UM(LARR),  UM(DARR),  UM(RARR)
   )
 };
 
 void matrix_init_user(void) {
-  set_unicode_input_mode(UC_WINC);
+  set_unicode_input_mode(UNICODE_MODE_WINCOMPOSE);
 }

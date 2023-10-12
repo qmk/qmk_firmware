@@ -34,20 +34,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-        KC_DEL,          NEO_1,         NEO_2,         NEO_3,         NEO_4,   NEO_5,   KC_MPLY,
-        KC_TAB,          NEO_X,         NEO_V,         NEO_L,         NEO_C,   NEO_W,   KC_ESC,
-        NEO_L1_L,        NEO_U,         NEO_I,         NEO_A,         NEO_E,   NEO_O,
-        KC_LSFT,         CTL_T(NEO_UE), GUI_T(NEO_OE), ALT_T(NEO_AE), NEO_P,   NEO_Z,   TG(1),
-        NEO_L2_L,        KC_HOME,       KC_PGDN,       KC_PGUP,       KC_END,
+        KC_DEL,          NE_1,         NE_2,         NE_3,         NE_4,   NE_5,   KC_MPLY,
+        KC_TAB,          NE_X,         NE_V,         NE_L,         NE_C,   NE_W,   KC_ESC,
+        NE_L3L,        NE_U,         NE_I,         NE_A,         NE_E,   NE_O,
+        KC_LSFT,         CTL_T(NE_UDIA), GUI_T(NE_ODIA), ALT_T(NE_ADIA), NE_P,   NE_Z,   TG(1),
+        NE_L4L,        KC_HOME,       KC_PGDN,       KC_PGUP,       KC_END,
                                                 C_S_T(KC_ESC),KC_LGUI,
                                                               KC_ENT,
                                                KC_SPC,KC_BSPC,KC_TAB,
         // right hand
-        KC_MNXT,     NEO_6,   NEO_7,   NEO_8,   NEO_9,   NEO_0,   NEO_SS,
-        KC_ESC,      NEO_K,   NEO_H,   NEO_G,   NEO_F,   NEO_Q,   NEO_Y,
-                     NEO_S,   NEO_N,   NEO_R,   NEO_T,   NEO_D,   NEO_L1_R,
-        TG(1),       NEO_B,   NEO_M,   NEO_COMM, NEO_DOT, NEO_J,   KC_RSFT,
-                              KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, NEO_L2_R,
+        KC_MNXT,     NE_6,   NE_7,   NE_8,   NE_9,   NE_0,   NE_SS,
+        KC_ESC,      NE_K,   NE_H,   NE_G,   NE_F,   NE_Q,   NE_Y,
+                     NE_S,   NE_N,   NE_R,   NE_T,   NE_D,   NE_L3R,
+        TG(1),       NE_B,   NE_M,   NE_COMM, NE_DOT, NE_J,   KC_RSFT,
+                              KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, NE_L4R,
         KC_LALT,KC_RGUI,
         KC_DEL,
         KC_ESC,KC_ENT, KC_SPC
@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
 
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     ergodox_board_led_off();
     ergodox_right_led_1_off();
@@ -106,7 +106,7 @@ void matrix_scan_user(void) {
     ergodox_right_led_3_off();
     ergodox_board_led_off();
 
-    if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
+    if (host_keyboard_led_state().caps_lock) {
         ergodox_right_led_3_on();
     }
 

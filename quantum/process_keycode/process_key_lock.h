@@ -16,6 +16,9 @@
 
 #pragma once
 
-#include "quantum.h"
+#include <stdint.h>
+#include <stdbool.h>
+#include "action.h"
 
+void cancel_key_lock(void);
 bool process_key_lock(uint16_t *keycode, keyrecord_t *record);

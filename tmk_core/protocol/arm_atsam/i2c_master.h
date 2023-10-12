@@ -95,10 +95,19 @@ void    i2c1_init(void);
 uint8_t i2c1_transmit(uint8_t address, uint8_t *data, uint16_t length, uint16_t timeout);
 void    i2c1_stop(void);
 
-#endif  // MD_BOOTLOADER
+#endif // MD_BOOTLOADER
 
 void    i2c0_init(void);
 uint8_t i2c0_transmit(uint8_t address, uint8_t *data, uint16_t length, uint16_t timeout);
 void    i2c0_stop(void);
 
-#endif  // _I2C_MASTER_H_
+// Terrible interface compatiblity...
+#define I2C_STATUS_SUCCESS (0)
+#define I2C_STATUS_ERROR (-1)
+
+typedef int16_t i2c_status_t;
+
+void         i2c_init(void);
+i2c_status_t i2c_transmit(uint8_t address, const uint8_t *data, uint16_t length, uint16_t timeout);
+
+#endif // _I2C_MASTER_H_

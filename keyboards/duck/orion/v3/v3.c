@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "v3.h"
+#include "quantum.h"
 #include "indicator_leds.h"
 
 // Alphas              PB1
@@ -36,8 +36,4 @@ bool led_update_kb(led_t led_state) {
         writePin(D7, !led_state.scroll_lock);
     }
     return true;
-}
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-  return process_record_user(keycode, record);
 }

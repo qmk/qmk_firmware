@@ -2,8 +2,6 @@
     "keyboard_name": "Alice layout with Split Backspace",
     "url": "",
     "maintainer": "qmk",
-    "width": 18.35,
-    "height": 5.1,
     "layouts": {
         "LAYOUT_alice_split_bs": {
             "layout": [

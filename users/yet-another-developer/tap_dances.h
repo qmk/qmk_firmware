@@ -23,4 +23,4 @@ enum {
   TD_ABR   // single double angle brackets
 };
 #endif // TAP_DANCE_ENABLE
-void td_parenthesis (qk_tap_dance_state_t *state, void *user_data);
+void td_parenthesis (tap_dance_state_t *state, void *user_data);

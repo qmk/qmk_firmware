@@ -16,17 +16,8 @@
 
 #include "drashna.h"
 
-#ifdef UNICODEMAP_ENABLE
-#    include "drashna_unicode.h"
-#endif  // UNICODEMAP_ENABLE
-#ifndef UNICODE_ENABLE
-#    define UC(x) KC_NO
-#endif
-
 enum more_custom_keycodes {
-    KC_SWAP_NUM = NEW_SAFE_RANGE,
-    PM_SCROLL,
-    PM_PRECISION,
+    KC_SWAP_NUM = USER_SAFE_RANGE,
 };
 
 // define layer change stuff for underglow indicator
@@ -51,167 +42,41 @@ bool skip_leds = false;
   LAYOUT_ergodox_pretty_wrapper( \
       KC_ESC,  ________________NUMBER_LEFT________________, UC_FLIP,                 UC_TABL, ________________NUMBER_RIGHT_______________, KC_MINS, \
       LALT_T(KC_TAB), K01, K02, K03,      K04,     K05,     TG_DBLO,         TG_DBLO, K06,     K07,     K08,     K09,     K0A,     KC_BSLS, \
-      KC_C1R3, K11,    K12,     K13,      K14,     K15,                                       K16,     K17,     K18,     K19,     K1A, RALT_T(K1B), \
-      KC_MLSF, CTL_T(K21), K22, K23,      K24,     K25,     TG_GAME,       TG_GAME, K26,     K27,     K28,     K29, RCTL_T(K2A), KC_MRSF, \
-      KC_GRV,  OS_MEH, OS_HYPR, KC_LBRC, KC_RBRC,                                            KC_BTN1, KC_BTN3, KC_BTN2,   PM_SCROLL, PM_PRECISION,  \
+      KC_C1R3, K11,    K12,     K13,      K14,     K15,                                        K16,     K17,     K18,     K19,     K1A, RALT_T(K1B), \
+      KC_MLSF, CTL_T(K21), K22, K23,      K24,     K25,     TG_GAME,         TG_GAME, K26,     K27,     K28,     K29, RCTL_T(K2A), KC_MRSF, \
+      KC_GRV,  OS_MEH, OS_HYPR, KC_LBRC, KC_RBRC,                                              KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT, KC_NO,  \
                                                   OS_LALT, OS_LGUI,                 OS_RGUI, CTL_T(KC_ESCAPE),                                      \
                                                            KC_APP,                  KC_MENU,                                                        \
                               KC_SPC, LT(_LOWER, KC_BSPC), OS_LWR,                  OS_RSE, LT(_RAISE, KC_DEL), KC_ENT                              \
     )
 
-#define LAYOUT_ergodox_pretty_base_wrapper(...)       LAYOUT_ergodox_pretty_base(__VA_ARGS__)
+#define LAYOUT_base_wrapper(...)       LAYOUT_ergodox_pretty_base(__VA_ARGS__)
 
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/* Keymap 0: QWERTY Layer
- *
- *
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   = +  |  1 ! | 2 @  | 3 #  | 4 $  | 5 %  | TG(4)|           | TG(4)| 6 ^  | 7 &  |  8 * | 9 (  |  0 ) |  - _   |
- * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |   TAB  |   Q  |   W  |   E  |   R  |   T  | TG(3)|           |TG(3) |   Y  |   U  |   I  |   O  |   P  |  \ |   |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |  Bksp  |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |  ' "   |
- * |--------+------+------+------+------+------| TG(2)|           | TG(2)|------+------+------+------+------+--------|
- * | Shift  |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |  , < |  . > |  ? / | Shift  |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | `/SYM|  MEH | LGUI |  [ { | ] }  |                                       | LEFT | DOWN |  UP  |RIGHT | SYMB |
- *   `----------------------------------'                                       `----------------------------------'
- *                                        ,--------------.       ,--------------.
- *                                        |Alt/Ap|  Win  |       | Alt  |Ctl/Esc|
- *                                 ,------|------|-------|       |------+-------+------.
- *                                 |      |      | Home  |       | PgUp |       |      |
- *                                 | Space| Bksp |-------|       |------|  DEL  |Enter |
- *                                 |      |      | End   |       | PgDn |       |      |
- *                                 `---------------------'       `---------------------'
- */
-  [_QWERTY] = LAYOUT_ergodox_pretty_base_wrapper(
-    _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
-    _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
-    _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
-  ),
-/* Keymap 0: COLEMAK layer
- *
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   =    |   1  |   2  |   3  |   4  |   5  | LEFT |           | RIGHT|   6  |   7  |   8  |   9  |   0  |   -    |
- * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Del    |   Q  |   W  |   F  |   P  |   G  |  L1  |           |  L1  |   J  |   L  |   U  |   Y  |   ;  |   \    |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | BkSp   |   A  |   R  |   S  |   T  |   D  |------|           |------|   H  |   N  |   E  |   I  |O / L2|   '    |
- * |--------+------+------+------+------+------| OVER |           | Meh  |------+------+------+------+------+--------|
- * | LShift |Z/Ctrl|   X  |   C  |   V  |   B  |      |           |      |   K  |   M  |   ,  |   .  |//Ctrl| RShift |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | `/SYM|  MEH | LGUI |  [ { | ] }  |                                       | LEFT | DOWN |  UP  |RIGHT | SYMB |
- *   `----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        | App  | LGui |       | Alt  |Ctrl/Esc|
- *                                 ,------|------|------|       |------+--------+------.
- *                                 |      |      | Home |       | PgUp |        |      |
- *                                 | Space|Backsp|------|       |------|  Tab   |Enter |
- *                                 |      |ace   | End  |       | PgDn |        |      |
- *                                 `--------------------'       `----------------------'
- */
-// If it accepts an argument (i.e, is a function), it doesn't need KC_.
-// Otherwise, it needs KC_*
-  [_COLEMAK] = LAYOUT_ergodox_pretty_base_wrapper(
-    _________________COLEMAK_L1________________, _________________COLEMAK_R1________________,
-    _________________COLEMAK_L2________________, _________________COLEMAK_R2________________,
-    _________________COLEMAK_L3________________, _________________COLEMAK_R3________________
-  ),
-/* Keymap 0: DVORAK Layout
- *
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   =    |   1  |   2  |   3  |   4  |   5  | LEFT |           | RIGHT|   6  |   7  |   8  |   9  |   0  |   \    |
- * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Del    |   '  |   ,  |   .  |   P  |   Y  |  L1  |           |  L1  |   F  |   G  |   C  |   R  |   L  |   /    |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | BkSp   |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |S / L2|   -    |
- * |--------+------+------+------+------+------| Hyper|           | Meh  |------+------+------+------+------+--------|
- * | LShift |:/Ctrl|   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |Z/Ctrl| RShift |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | `/SYM|  MEH | LGUI |  [ { | ] }  |                                       | LEFT | DOWN |  UP  |RIGHT | SYMB |
- *   `----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        | App  | LGui |       | Alt  |Ctrl/Esc|
- *                                 ,------|------|------|       |------+--------+------.
- *                                 |      |      | Home |       | PgUp |        |      |
- *                                 | Space|Backsp|------|       |------|  Tab   |Enter |
- *                                 |      |ace   | End  |       | PgDn |        |      |
- *                                 `--------------------'       `----------------------'
- */
-// If it accepts an argument (i.e, is a function), it doesn't need KC_.
-// Otherwise, it needs KC_*
-  [_DVORAK] = LAYOUT_ergodox_pretty_base_wrapper(
-    _________________DVORAK_L1_________________, _________________DVORAK_R1_________________,
-    _________________DVORAK_L2_________________, _________________DVORAK_R2_________________,
-    _________________DVORAK_L3_________________, _________________DVORAK_R3_________________
-  ),
-/* Keymap 0: WORKMAN layer
- *
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   =    |   1  |   2  |   3  |   4  |   5  | LEFT |           | RIGHT|   6  |   7  |   8  |   9  |   0  |   -    |
- * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Del    |   Q  |   D  |   R  |   W  |   B  |  L1  |           |  L1  |   J  |   F  |   U  |   P  |   ;  |   \    |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | BkSp   |   A  |   S  |   H  |   T  |   D  |------|           |------|   Y  |   N  |   E  |   O  |   I  |   '    |
- * |--------+------+------+------+------+------| OVER |           | Meh  |------+------+------+------+------+--------|
- * | LShift |Z/Ctrl|   X  |   M  |   C  |   V  |      |           |      |   K  |   L  |   ,  |   .  |//Ctrl| RShift |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | `/SYM|  MEH | LGUI |  [ { | ] }  |                                       | LEFT | DOWN |  UP  |RIGHT | SYMB |
- *   `----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        | App  | LGui |       | Alt  |Ctrl/Esc|
- *                                 ,------|------|------|       |------+--------+------.
- *                                 |      |      | Home |       | PgUp |        |      |
- *                                 | Space|Backsp|------|       |------|  Tab   |Enter |
- *                                 |      |ace   | End  |       | PgDn |        |      |
- *                                 `--------------------'       `----------------------'
- */
+    [_DEFAULT_LAYER_1] = LAYOUT_base_wrapper(
+        _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
+        _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
+        _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
+    ),
 
-  [_WORKMAN] = LAYOUT_ergodox_pretty_base_wrapper(
-    _________________WORKMAN_L1________________, _________________WORKMAN_R1________________,
-    _________________WORKMAN_L2________________, _________________WORKMAN_R2________________,
-    _________________WORKMAN_L3________________, _________________WORKMAN_R3________________
-  ),
+    [_DEFAULT_LAYER_2] = LAYOUT_base_wrapper(
+        ______________COLEMAK_MOD_DH_L1____________, ______________COLEMAK_MOD_DH_R1____________,
+        ______________COLEMAK_MOD_DH_L2____________, ______________COLEMAK_MOD_DH_R2____________,
+        ______________COLEMAK_MOD_DH_L3____________, ______________COLEMAK_MOD_DH_R3____________
+    ),
+    [_DEFAULT_LAYER_3] = LAYOUT_base_wrapper(
+        _________________COLEMAK_L1________________, _________________COLEMAK_R1________________,
+        _________________COLEMAK_L2________________, _________________COLEMAK_R2________________,
+        _________________COLEMAK_L3________________, _________________COLEMAK_R3________________
+    ),
 
-  [_NORMAN] = LAYOUT_ergodox_pretty_base_wrapper(
-    _________________NORMAN_L1_________________, _________________NORMAN_L1_________________,
-    _________________NORMAN_L2_________________, _________________NORMAN_R2_________________,
-    _________________NORMAN_L3_________________, _________________NORMAN_R3_________________
-  ),
-
-  [_MALTRON] = LAYOUT_ergodox_pretty_base_wrapper(
-    _________________MALTRON_L1________________, _________________MALTRON_R1________________,
-    _________________MALTRON_L2________________, _________________MALTRON_R2________________,
-    _________________MALTRON_L3________________, _________________MALTRON_R3________________
-  ),
-
-  [_EUCALYN] = LAYOUT_ergodox_pretty_base_wrapper(
-    _________________EUCALYN_L1________________, _________________EUCALYN_R1________________,
-    _________________EUCALYN_L2________________, _________________EUCALYN_R2________________,
-    _________________EUCALYN_L3________________, _________________EUCALYN_R3________________
-  ),
-
-  [_CARPLAX] = LAYOUT_ergodox_pretty_base_wrapper(
-    _____________CARPLAX_QFMLWY_L1_____________, _____________CARPLAX_QFMLWY_R1_____________,
-    _____________CARPLAX_QFMLWY_L2_____________, _____________CARPLAX_QFMLWY_R2_____________,
-    _____________CARPLAX_QFMLWY_L3_____________, _____________CARPLAX_QFMLWY_R3_____________
-  ),
-
-
-// Reverts OSM(Shift) to normal Shifts. However, may not need since we fixed the issue with RDP (LOCAL RESOURCES)
-  [_MODS] = LAYOUT_ergodox_pretty_wrapper(
-             _______, _______, _______, _______, _______, _______, _______,                 _______, _______, _______, _______, _______, _______, _______,
-             _______, _______, _______, _______, _______, _______, _______,                 _______, _______, _______, _______, _______, _______, _______,
-             _______, _______, _______, _______, _______, _______,                                   _______, _______, _______, _______, _______, _______,
-             KC_LSFT, _______, _______, _______, _______, _______, _______,                 _______, _______, _______, _______, _______, _______, KC_RSFT,
-             _______, _______, _______, _______, _______,                                                     _______, _______, _______, _______, _______,
-                                                          _______, _______,                 _______, _______,
-                                                                   _______,                 _______,
-                                                 _______, _______, _______,                 _______, _______, _______
-            ),
-
+    [_DEFAULT_LAYER_4] = LAYOUT_base_wrapper(
+        _________________DVORAK_L1_________________, _________________DVORAK_R1_________________,
+        _________________DVORAK_L2_________________, _________________DVORAK_R2_________________,
+        _________________DVORAK_L3_________________, _________________DVORAK_R3_________________
+    ),
 
 /* Keymap 4: Customized Overwatch Layout
  *
@@ -293,17 +158,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_GRV,  _________________RAISE_L1__________________, _______,                 _______, _________________RAISE_R1__________________, KC_BSLS,
              _______, _________________RAISE_L2__________________,                                   _________________RAISE_R2__________________, KC_QUOT,
              _______, _________________RAISE_L3__________________, _______,                 _______, _________________RAISE_R3__________________, KC_PSCR,
-             _______, _______, _______, _______, _______,                                                     KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_SLCK,
+             _______, _______, _______, _______, _______,                                                     KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_SCRL,
                                                           _______, _______,                 _______, _______,
                                                                    _______,                 _______,
                                                  _______, _______, _______,                 _______, _______, _______
             ),
 
   [_ADJUST] = LAYOUT_ergodox_pretty_wrapper(
-             KC_MAKE, _______, _______, _______, _______, _______, UC_MOD,                  KC_NUKE, _________________ADJUST_R1_________________, KC_RST,
-             VRSN,    _________________ADJUST_L1_________________, _______,                 _______, _________________ADJUST_R1_________________, EEP_RST,
+             QK_MAKE, _______, _______, _______, _______, _______, UC_NEXT,                 KC_NUKE, _________________ADJUST_R1_________________, QK_BOOT,
+             VRSN,    _________________ADJUST_L1_________________, _______,                 _______, _________________ADJUST_R1_________________, EE_CLR,
              _______, _________________ADJUST_L2_________________,                                   _________________ADJUST_R2_________________, RGB_IDL,
-             _______, _________________ADJUST_L3_________________, _______,                 _______, _________________ADJUST_R3_________________, TG(_MODS),
+             KEYLOCK, _________________ADJUST_L3_________________, _______,                 _______, _________________ADJUST_R3_________________, TG_MODS,
              _______, _______, _______, _______, _______,                                                     _______, _______, _______, _______, _______,
                                                           _______, _______,                 _______, _______,
                                                                    _______,                 _______,
@@ -312,39 +177,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 // clang-format on
-
-#ifdef PIMORONI_TRACKBALL_ENABLE
-void run_trackball_cleanup(void) {
-    if (trackball_is_scrolling()) {
-        trackball_set_rgbw(RGB_CYAN, 0x00);
-    } else if (trackball_get_precision() != 1.0) {
-        trackball_set_rgbw(RGB_GREEN, 0x00);
-    } else {
-        trackball_set_rgbw(RGB_MAGENTA, 0x00);
-    }
-}
-
-void keyboard_post_init_keymap(void) {
-    // trackball_set_precision(1.5);
-    trackball_set_rgbw(RGB_MAGENTA, 0x00);
-}
-void shutdown_keymap(void) {
-    trackball_set_rgbw(RGB_RED, 0x00);
-}
-
-static bool mouse_button_one, trackball_button_one;
-
-void trackball_check_click(bool pressed, report_mouse_t* mouse) {
-    if (mouse_button_one | pressed) {
-        mouse->buttons |= MOUSE_BTN1;
-    } else {
-        mouse->buttons &= ~MOUSE_BTN1;
-    }
-    trackball_button_one = pressed;
-}
-#endif
-
-
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -371,43 +203,18 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         case KC_SWAP_NUM:
             if (record->event.pressed) {
                 userspace_config.swapped_numbers ^= 1;
-                eeconfig_update_user(userspace_config.raw);
+                eeconfig_update_user_config(&userspace_config.raw);
             }
             break;
-#ifdef PIMORONI_TRACKBALL_ENABLE
-        case PM_SCROLL:
-            trackball_set_scrolling(record->event.pressed);
-            run_trackball_cleanup();
-            break;
-        case PM_PRECISION:
-            if (record->event.pressed) {
-                trackball_set_precision(1.5);
-            } else {
-                trackball_set_precision(1);
-            }
-            run_trackball_cleanup();
-            break;
-#if !defined(MOUSEKEY_ENABLE)
-                    case KC_MS_BTN1:
-                        mouse_button_one = record->event.pressed;
-                        trackball_register_button(mouse_button_one | trackball_button_one, MOUSE_BTN1);
-                        break;
-                    case KC_MS_BTN2:
-                        trackball_register_button(record->event.pressed, MOUSE_BTN2);
-                        break;
-                    case KC_MS_BTN3:
-                        trackball_register_button(record->event.pressed, MOUSE_BTN3);
-                        break;
-#    endif
-#endif
     }
     return true;
 }
 
-void matrix_scan_keymap(void) {  // runs frequently to update info
-    uint8_t modifiers     = get_mods();
-    uint8_t led_usb_state = host_keyboard_leds();
-    uint8_t one_shot      = get_oneshot_mods();
+void housekeeping_task_keymap(void) {  // runs frequently to update info
+#ifdef KEYBOARD_ergodox_ez
+    uint8_t modifiers = get_mods();
+    led_t   led_state = host_keyboard_led_state();
+    uint8_t one_shot  = get_oneshot_mods();
 
     if (!skip_leds) {
         ergodox_board_led_off();
@@ -418,7 +225,7 @@ void matrix_scan_keymap(void) {  // runs frequently to update info
         // Since we're not using the LEDs here for layer indication anymore,
         // then lets use them for modifier indicators.  Shame we don't have 4...
         // Also, no "else", since we want to know each, independently.
-        if ((modifiers | one_shot) & MOD_MASK_SHIFT || led_usb_state & (1 << USB_LED_CAPS_LOCK)) {
+        if ((modifiers | one_shot) & MOD_MASK_SHIFT || led_state.caps_lock) {
             ergodox_right_led_2_on();
             ergodox_right_led_2_set(50);
         }
@@ -431,6 +238,7 @@ void matrix_scan_keymap(void) {  // runs frequently to update info
             ergodox_right_led_3_set(10);
         }
     }
+#endif
 }
 
 bool indicator_is_this_led_used_keyboard(uint8_t index) {
@@ -449,8 +257,7 @@ void suspend_power_down_keymap(void) { rgb_matrix_set_suspend_state(true); }
 
 void suspend_wakeup_init_keymap(void) { rgb_matrix_set_suspend_state(false); }
 
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-
+bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
     if (layer_state_is(_GAMEPAD)) {
         RGB_MATRIX_INDICATOR_SET_COLOR(32, 0x00, 0xFF, 0x00);  // Q
         RGB_MATRIX_INDICATOR_SET_COLOR(31, 0x00, 0xFF, 0xFF);  // W
@@ -463,54 +270,9 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
         RGB_MATRIX_INDICATOR_SET_COLOR((userspace_config.swapped_numbers ? 26 : 27), 0xFF, 0xFF, 0xFF);  // 1
         RGB_MATRIX_INDICATOR_SET_COLOR((userspace_config.swapped_numbers ? 27 : 26), 0x00, 0xFF, 0x00);  // 2
-        RGB_MATRIX_INDICATOR_SET_COLOR(25, 0x7A, 0x00, 0xFF);                                          // 3
+        RGB_MATRIX_INDICATOR_SET_COLOR(25, 0x7A, 0x00, 0xFF);                                            // 3
     }
-
-
-    if (userspace_config.rgb_layer_change) {
-        bool mods_enabled = IS_LAYER_ON(_MODS);
-        switch (get_highest_layer(layer_state|default_layer_state)) {
-            case _GAMEPAD:
-                rgb_matrix_layer_helper(HSV_ORANGE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _DIABLO:
-                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed * 8, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _RAISE:
-                rgb_matrix_layer_helper(HSV_YELLOW, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _LOWER:
-                rgb_matrix_layer_helper(HSV_GREEN, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _ADJUST:
-                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _QWERTY:
-                rgb_matrix_layer_helper(HSV_CYAN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _COLEMAK:
-                rgb_matrix_layer_helper(HSV_MAGENTA, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _DVORAK:
-                rgb_matrix_layer_helper(HSV_SPRINGGREEN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _WORKMAN:
-                rgb_matrix_layer_helper(HSV_GOLDENROD, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _NORMAN:
-                rgb_matrix_layer_helper(HSV_CORAL, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _MALTRON:
-                rgb_matrix_layer_helper(HSV_YELLOW, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _EUCALYN:
-                rgb_matrix_layer_helper(HSV_PINK, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-            case _CARPLAX:
-                rgb_matrix_layer_helper(HSV_BLUE, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER, led_min, led_max);
-                break;
-        }
-    }
+    return true;
 }
 
 #endif  // RGB_MATRIX_INIT

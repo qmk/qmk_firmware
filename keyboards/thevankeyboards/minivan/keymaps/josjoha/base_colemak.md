@@ -16,7 +16,7 @@ Colemak keymaps
 ![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_base_layer_colemak_ve.jpg)
 Layer: `..._BASE`
 
-![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_nsy_layer_qwerty_vb.jpg)
+![Minivan layout Image BASEdef](http://socialism.nl/misc/minivan/minivan_nsy_layer_qwerty_vc.jpg)
 Layer: `..._NSY`
 
 ──────────in common────────────
@@ -25,7 +25,7 @@ Layer: `..._NSY`
 
 For more about the other layers, see ➡ ![readme.md](./readme.md) ⬅
 
-![Minivan illustration Overview layers by key, Colemak](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_colemak_2000_vh.jpg)
+![Minivan illustration Overview layers by key, Colemak](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_colemak_2000_vi.jpg)
 
 Layers (text)
 =============
@@ -79,7 +79,7 @@ Holding either one of the just above mentioned `_DEF_NSY` layer keys (<3 and 3>)
               -*-                          <|>                                  //(toggle) Access on _FUN
      BASE     !     @     #     $     %     | ^     &     *     (    )       Del
      Tab+LCtl 1!    2@    3#    4$    5%    | 6^    7&    8*    9(   0)  `~+RCtl
-     -+LSht   [{    ]}    -_    \|    =+    | +     |     _     {     }  `~+RSht // limitation prevents ~
+     -+LSht   [{    ]}    -_    \|    =+    | +     |     _     {     }   ~+RSht 
                           ^^                              ^  // Only differences with Dvorak version _DEF_NSY
      ---------------------------------------------------------------------------
                  Left+LAlt ___   ___   Ent  | .   ___   RGUI  Right+RAlt

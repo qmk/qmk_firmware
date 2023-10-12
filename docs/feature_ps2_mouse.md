@@ -30,49 +30,39 @@ Note: This is not recommended, you may encounter jerky movement or unsent inputs
 
 In rules.mk:
 
-```makefile
+```make
 PS2_MOUSE_ENABLE = yes
-PS2_USE_BUSYWAIT = yes
+PS2_ENABLE = yes
+PS2_DRIVER = busywait
 ```
 
 In your keyboard config.h:
 
 ```c
-#ifdef PS2_USE_BUSYWAIT
-#   define PS2_CLOCK_PORT  PORTD
-#   define PS2_CLOCK_PIN   PIND
-#   define PS2_CLOCK_DDR   DDRD
-#   define PS2_CLOCK_BIT   1
-#   define PS2_DATA_PORT   PORTD
-#   define PS2_DATA_PIN    PIND
-#   define PS2_DATA_DDR    DDRD
-#   define PS2_DATA_BIT    2
+#ifdef PS2_DRIVER_BUSYWAIT
+#   define PS2_CLOCK_PIN   D1
+#   define PS2_DATA_PIN    D2
 #endif
 ```
 
-## Interrupt Version :id=interrupt-version
+### Interrupt Version (AVR/ATMega32u4) :id=interrupt-version-avr
 
 The following example uses D2 for clock and D5 for data. You can use any INT or PCINT pin for clock, and any pin for data.
 
 In rules.mk:
 
-```makefile
+```make
 PS2_MOUSE_ENABLE = yes
-PS2_USE_INT = yes
+PS2_ENABLE = yes
+PS2_DRIVER = interrupt
 ```
 
 In your keyboard config.h:
 
 ```c
-#ifdef PS2_USE_INT
-#define PS2_CLOCK_PORT  PORTD
-#define PS2_CLOCK_PIN   PIND
-#define PS2_CLOCK_DDR   DDRD
-#define PS2_CLOCK_BIT   2
-#define PS2_DATA_PORT   PORTD
-#define PS2_DATA_PIN    PIND
-#define PS2_DATA_DDR    DDRD
-#define PS2_DATA_BIT    5
+#ifdef PS2_DRIVER_INTERRUPT
+#define PS2_CLOCK_PIN   D2
+#define PS2_DATA_PIN    D5
 
 #define PS2_INT_INIT()  do {    \
     EICRA |= ((1<<ISC21) |      \
@@ -88,29 +78,49 @@ In your keyboard config.h:
 #endif
 ```
 
-## USART Version :id=usart-version
+### Interrupt Version (ARM chibios) :id=interrupt-version-chibios
 
-To use USART on the ATMega32u4, you have to use PD5 for clock and PD2 for data. If one of those are unavailable, you need to use interrupt version.
+Pretty much any two pins can be used for the (software) interrupt variant on ARM cores. The example below uses A8 for clock, and A9 for data.
 
 In rules.mk:
 
-```makefile
+```
 PS2_MOUSE_ENABLE = yes
-PS2_USE_USART = yes
+PS2_ENABLE = yes
+PS2_DRIVER = interrupt
 ```
 
 In your keyboard config.h:
 
 ```c
-#ifdef PS2_USE_USART
-#define PS2_CLOCK_PORT  PORTD
-#define PS2_CLOCK_PIN   PIND
-#define PS2_CLOCK_DDR   DDRD
-#define PS2_CLOCK_BIT   5
-#define PS2_DATA_PORT   PORTD
-#define PS2_DATA_PIN    PIND
-#define PS2_DATA_DDR    DDRD
-#define PS2_DATA_BIT    2
+#define PS2_CLOCK_PIN A8
+#define PS2_DATA_PIN  A9
+```
+
+And in the chibios specifig halconf.h:
+```c
+#define PAL_USE_CALLBACKS TRUE
+```
+
+
+### USART Version :id=usart-version
+
+To use USART on the ATMega32u4, you have to use PD5 for clock and PD2 for data. If one of those are unavailable, you need to use interrupt version.
+
+In rules.mk:
+
+```make
+PS2_MOUSE_ENABLE = yes
+PS2_ENABLE = yes
+PS2_DRIVER = usart
+```
+
+In your keyboard config.h:
+
+```c
+#ifdef PS2_DRIVER_USART
+#define PS2_CLOCK_PIN   D5
+#define PS2_DATA_PIN    D2
 
 /* synchronous, odd parity, 1-bit stop, 8-bit data, sample at falling edge */
 /* set DDR of CLOCK as input to be slave */
@@ -143,6 +153,29 @@ In your keyboard config.h:
 #define PS2_USART_ERROR         (UCSR1A & ((1<<FE1) | (1<<DOR1) | (1<<UPE1)))
 #define PS2_USART_RX_VECT       USART1_RX_vect
 #endif
+```
+
+### RP2040 PIO Version :id=rp2040-pio-version
+
+The `PIO` subsystem is a Raspberry Pi RP2040 specific implementation, using the integrated PIO peripheral and is therefore only available on this MCU.
+
+There are strict requirements for pin ordering but any pair of GPIO pins can be used. The GPIO used for clock must be directly after data, see the included info.json snippet for an example of correct order.
+
+You may optionally switch the PIO peripheral used with the following define in config.h:
+```c
+#define PS2_PIO_USE_PIO1 // Force the usage of PIO1 peripheral, by default the PS2 implementation uses the PIO0 peripheral
+```
+
+Example info.json content:
+
+```json
+    "ps2": {
+        "clock_pin": "GP1",
+        "data_pin": "GP0",
+        "driver": "vendor",
+        "enabled": true,
+        "mouse_enabled": true
+    }
 ```
 
 ## Additional Settings :id=additional-settings
@@ -245,6 +278,16 @@ Fine control over the scrolling is supported with the following defines:
 #define PS2_MOUSE_SCROLL_DIVISOR_H 2
 #define PS2_MOUSE_SCROLL_DIVISOR_V 2
 ```
+
+### Invert Mouse buttons :id=invert-buttons
+
+To invert the left & right buttons you can put:
+
+```c
+#define PS2_MOUSE_INVERT_BUTTONS
+```
+
+into config.h.
 
 ### Invert Mouse and Scroll Axes :id=invert-mouse-and-scroll-axes
 

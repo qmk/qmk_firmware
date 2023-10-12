@@ -15,6 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "opt_encoder.h"
+#include <stdbool.h>
+
+enum State { HIHI, HILO, LOLO, LOHI };
 
 enum State state;
 
@@ -44,6 +47,12 @@ int  arHighA[SCROLLER_AR_SIZE];
 int  arLowB[SCROLLER_AR_SIZE];
 int  arHighB[SCROLLER_AR_SIZE];
 
+void calculateThresholdA(int curA);
+void calculateThresholdB(int curB);
+int  calculateThreshold(int cur, int* low, int* high, bool* cLow, bool* cHigh, int arLow[], int arHigh[], int* lowIndex, int* highIndex, bool* lowOverflow, bool* highOverflow);
+int  thresholdEquation(int lo, int hi);
+void incrementIndex(int* index, bool* ovflw);
+
 /* Setup function for the scroll wheel. Initializes
    the relevant variables. */
 void opt_encoder_init(void) {
@@ -70,7 +79,7 @@ void opt_encoder_init(void) {
     scrollThresholdB = 0;
 }
 
-int opt_encoder_handler(int curA, int curB) {
+int8_t opt_encoder_handler(uint16_t curA, uint16_t curB) {
     if (lowOverflowA == false || highOverflowA == false) calculateThresholdA(curA);
     if (lowOverflowB == false || highOverflowB == false) calculateThresholdB(curB);
 

@@ -1,12 +1,32 @@
 {
-    "keyboard_name": "DC01 Arrow Cluster",
+    "keyboard_name": "DC01 Arrow",
+    "manufacturer": "Mechboards",
     "url": "",
     "maintainer": "Yiancar-Designs",
-    "width": 3,
-    "height": 5,
+    "usb": {
+        "vid": "0x8968",
+        "pid": "0x1012",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
-            "layout": [{"label":"Insert", "x":0, "y":0}, {"label":"Home", "x":1, "y":0}, {"label":"PgUp", "x":2, "y":0}, {"label":"Delete", "x":0, "y":1}, {"label":"End", "x":1, "y":1}, {"label":"PgDn", "x":2, "y":1}, {"label":"\u2191", "x":1, "y":3}, {"label":"\u2190", "x":0, "y":4}, {"label":"\u2193", "x":1, "y":4}, {"label":"\u2192", "x":2, "y":4}]
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+
+                {"matrix": [3, 1], "x": 1, "y": 3},
+
+                {"matrix": [4, 0], "x": 0, "y": 4},
+                {"matrix": [4, 1], "x": 1, "y": 4},
+                {"matrix": [4, 2], "x": 2, "y": 4}
+            ]
         }
     }
 }

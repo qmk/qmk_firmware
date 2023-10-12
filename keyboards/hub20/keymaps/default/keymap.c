@@ -15,7 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 
-#define MO_NLCK LT(1, KC_NLCK) // Numlock on tap, layer change on hold
+#define MO_NLCK LT(1, KC_NUM) // Numlock on tap, layer change on hold
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_all(
@@ -27,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_PENT,  KC_PDOT,    KC_P0,      KC_P0
 ),
     [1] = LAYOUT_all(
-                   RESET,  _______,
+                   QK_BOOT,  _______,
        RGB_TOG, RGB_RMOD,  RGB_MOD,    _______,
        _______,  RGB_VAD,  RGB_VAI,    _______,
        _______,  RGB_HUD,  RGB_HUI,    _______,
@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* Left Encoder */
         if (clockwise) {
             tap_code(KC_VOLU);
@@ -50,4 +50,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_MPRV);
         }
     }
+    return true;
 }

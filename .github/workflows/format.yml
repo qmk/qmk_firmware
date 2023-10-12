@@ -1,0 +1,55 @@
+name: PR Lint Format
+
+permissions:
+  contents: read
+
+on:
+  pull_request:
+    paths:
+    - 'drivers/**'
+    - 'lib/arm_atsam/**'
+    - 'lib/lib8tion/**'
+    - 'lib/python/**'
+    - 'platforms/**'
+    - 'quantum/**'
+    - 'tests/**'
+    - 'tmk_core/**'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    container: ghcr.io/qmk/qmk_cli
+
+    steps:
+    - name: Disable safe.directory check
+      run : git config --global --add safe.directory '*'
+
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Install dependencies
+      run: |
+        pip3 install -r requirements-dev.txt
+
+    - name: Get changed files
+      id: file_changes
+      uses: tj-actions/changed-files@v39
+
+    - name: Run qmk formatters
+      shell: 'bash {0}'
+      run: |
+        echo '${{ steps.file_changes.outputs.added_files}}' '${{ steps.file_changes.outputs.modified_files}}' > ~/files_changed.txt
+        qmk format-c --core-only $(< ~/files_changed.txt) || true
+        qmk format-python $(< ~/files_changed.txt) || true
+        qmk format-text $(< ~/files_changed.txt) || true
+
+    - name: Fail when formatting required
+      run: |
+        git diff
+        for file in $(git diff --name-only); do
+          echo "File '${file}' Requires Formatting"
+          echo "::error file=${file}::Requires Formatting"
+        done
+        test -z "$(git diff --name-only)"

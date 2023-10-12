@@ -10,7 +10,7 @@ enum planck_layers {
   _RAISE,
   _PLOVER,
   _ADJUST,
-  
+
   _FN1,
   _DPAD,
   _DPADNUM
@@ -23,7 +23,7 @@ enum planck_keycodes {
   PLOVER,
   BACKLIT,
   EXT_PLV,
-  
+
   DP_ON,
   DP_OFF
 };
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
 		KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
 		KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, RSFT_T(KC_ENT),
-		KC_APP,  KC_LCTL, KC_LGUI, KC_LALT, LOWER,   SPACEFN, SPACEFN, RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT 
+		KC_APP,  KC_LCTL, KC_LGUI, KC_LALT, LOWER,   SPACEFN, SPACEFN, RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT
 	),
 
 	/* Colemak
@@ -155,9 +155,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 * `-----------------------------------------------------------------------------------'
 	 */
 	[_ADJUST] = LAYOUT_ortho_4x12(
-		_______, RESET,   DEBUG,    RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL ,
-		_______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  PLOVER,  _______,
-		_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  TERM_ON, TERM_OFF, _______, _______, _______,
+		_______, QK_BOOT, DB_TOGG, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL ,
+		_______, _______, MU_NEXT, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  PLOVER,  _______,
+		_______, AU_PREV, AU_NEXT, MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______,
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 	),
 
@@ -218,10 +218,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef AUDIO_ENABLE
   float plover_song[][2]     = SONG(PLOVER_SOUND);
   float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
-  
+
   // Borrowing audio from unused audio
   // Caps Lock on and off sound too similar
-  
+
   float caps_song_on[][2] = SONG(NUM_LOCK_ON_SOUND);
   float caps_song_off[][2] = SONG(SCROLL_LOCK_ON_SOUND);
 
@@ -236,7 +236,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 #else
-	
+
 layer_state_t layer_state_set_user(layer_state_t state) {
   // LED control, lighting up when Fn layer is activated
   state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
@@ -256,7 +256,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return state;
 }
 
-#endif 
+#endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -324,8 +324,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-	  
-	  
+
+
 // Play audio upon switching Caps Lock and custom layers
 
 	case KC_CAPS:
@@ -339,26 +339,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			#endif
 		}
 		return true;
-		
+
 	case DP_ON:
 		if (record->event.pressed) {
-			
+
 		} else {
 			#ifdef AUDIO_ENABLE
 			PLAY_SONG(dpad_song_on);
 			#endif
-			
+
 			layer_off(_FN1);
 			layer_on(_DPAD);
 		}
-		
+
 	case DP_OFF:
 		if (record->event.pressed) {
-			#ifdef AUDIO_ENABLE	
+			#ifdef AUDIO_ENABLE
 			PLAY_SONG(dpad_song_off);
 			#endif
-			
-			layer_off(_DPAD);	
+
+			layer_off(_DPAD);
 		}
     }
   return true;
@@ -370,7 +370,7 @@ uint16_t muse_counter = 0;
 uint8_t muse_offset = 70;
 uint16_t muse_tempo = 50;
 
-void encoder_update(bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   if (muse_mode) {
     if (IS_LAYER_ON(_RAISE)) {
       if (clockwise) {
@@ -392,9 +392,10 @@ void encoder_update(bool clockwise) {
       tap_code(KC_PGUP);
     }
   }
+    return true;
 }
 
-void dip_update(uint8_t index, bool active) {
+bool dip_switch_update_user(uint8_t index, bool active) {
   switch (index) {
     case 0:
       if (active) {
@@ -419,6 +420,7 @@ void dip_update(uint8_t index, bool active) {
         #endif
       }
    }
+    return true;
 }
 
 void matrix_scan_user(void) {

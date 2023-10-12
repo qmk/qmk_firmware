@@ -33,6 +33,18 @@ static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 static matrix_row_t read_cols(void);
 static void select_row(uint8_t col);
 
+// user-defined overridable functions
+
+__attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
+
+__attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
+
+__attribute__((weak)) void matrix_init_user(void) {}
+
+__attribute__((weak)) void matrix_scan_user(void) {}
+
+// helper functions
+
 inline uint8_t matrix_rows(void)
 {
   return MATRIX_ROWS;
@@ -58,7 +70,7 @@ void matrix_init(void)
     matrix_debouncing[i] = 0;
   }
 
-  matrix_init_quantum();
+  matrix_init_kb();
 }
 
 uint8_t matrix_scan(void)
@@ -78,7 +90,7 @@ uint8_t matrix_scan(void)
   }
 
   debounce(matrix_debouncing, matrix, matrix_rows(), changed);
-  matrix_scan_quantum();
+  matrix_scan_kb();
 
   return (uint8_t)changed;
 }
@@ -97,15 +109,6 @@ void matrix_print(void)
     print_bin_reverse16(matrix_get_row(row));
     print("\n");
   }
-}
-
-uint8_t matrix_key_count(void)
-{
-  uint8_t count = 0;
-  for (uint8_t i = 0; i < matrix_rows(); i++) {
-    count += bitpop16(matrix_get_row(i));
-  }
-  return count;
 }
 
 static matrix_row_t read_cols(void)

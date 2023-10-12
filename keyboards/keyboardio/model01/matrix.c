@@ -25,6 +25,17 @@
 static matrix_row_t rows[MATRIX_ROWS];
 #define ROWS_PER_HAND (MATRIX_ROWS / 2)
 
+// user-defined overridable functions
+
+__attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
+
+__attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
+
+__attribute__((weak)) void matrix_init_user(void) {}
+
+__attribute__((weak)) void matrix_scan_user(void) {}
+
+// helper functions
 inline
 uint8_t matrix_rows(void) {
   return MATRIX_ROWS;
@@ -66,14 +77,14 @@ void matrix_init(void) {
   i2c_set_keyscan_interval(RIGHT, 2);
   memset(rows, 0, sizeof(rows));
 
-  matrix_init_quantum();
+  matrix_init_kb();
 }
 
 uint8_t matrix_scan(void) {
   uint8_t ret = 0;
   ret |= i2c_read_hand(LEFT);
   ret |= i2c_read_hand(RIGHT);
-  matrix_scan_quantum();
+  matrix_scan_kb();
   return ret;
 }
 

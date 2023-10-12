@@ -1,6 +1,6 @@
 RGB_MATRIX_ENABLE = yes
 MOUSEKEY_ENABLE = no
-OLED_DRIVER_ENABLE = yes
+OLED_ENABLE = yes
 LTO_ENABLE = yes
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE

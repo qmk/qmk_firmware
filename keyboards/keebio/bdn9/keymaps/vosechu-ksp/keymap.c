@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, XXXXXXX, XXXXXXX
     ),
     [_PANIC] = LAYOUT(
-        RESET  , BASE   , XXXXXXX,
+        QK_BOOT, BASE   , XXXXXXX,
         _______, XXXXXXX, _______,
         KC_F2  , KC_F5  , KC_F9
     ),
@@ -58,13 +58,13 @@ bool panic_mode = false;
 bool flight_mode = false;
 bool rcs_mode = false;
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
     base_mode = false;
     panic_mode = false;
     flight_mode = false;
     rcs_mode = false;
 
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
     case _PANIC:
         panic_mode = true; // For use in encoder evaluation
         rgblight_sethsv_noeeprom(HSV_RED);
@@ -106,7 +106,7 @@ void keyboard_post_init_user(void) {
 //     return true;
 // }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if(base_mode == true) {
         if (index == 0) {
             if (clockwise) {
@@ -169,4 +169,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             }
         }
     }
+    return true;
 }

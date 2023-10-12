@@ -20,15 +20,12 @@
 
 #include QMK_KEYBOARD_H
 
-#define KC_ KC_TRNS
-
 #define KC_FN1 MO(_FN)
 #define KC_FN2 LT(_FN, KC_CAPS)
 
-#define KC_BLUP BL_INC   // Backlight increase
-#define KC_BLDN BL_DEC   // Backlight decrease
+#define KC_BLUP BL_UP    // Backlight increase
+#define KC_BLDN BL_DOWN  // Backlight decrease
 #define KC_BLTOG BL_TOGG // Backlight toggle
-#define KC_TERM TERM_ON  // Terminal mode on
 #define KC_REC1 DM_REC1  // Record macro 1
 #define KC_PLY1 DM_PLY1  // Play macro 1
 #define KC_REC2 DM_REC2  // Record macro 2
@@ -54,30 +51,30 @@ enum {
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[_QWERTY] = LAYOUT_kc( /* Default layer
+[_QWERTY] = LAYOUT_68_ansi( /* Default layer
    ┏━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━━━━━┓ ┏━━━━┳━━━━┓ */
-    GESC, 1  , 2  , 3  , 4  , 5  , 6  , 7  , 8  , 9  , 0  ,MINS,EQL ,  BSPC  ,  INS ,PGUP, /*
+    QK_GESC, KC_1  , KC_2  , KC_3  , KC_4  , KC_5  , KC_6  , KC_7  , KC_8  , KC_9  , KC_0  ,KC_MINS,KC_EQL ,  KC_BSPC  ,  KC_INS ,KC_PGUP, /*
    ┣━━━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━━━━━┫ ┣━━━━╋━━━━┫ */
-     TAB  , Q  , W  , E  , R  , T  , Y  , U  , I  , O  , P  ,LBRC,RBRC, BSLS ,  DEL ,PGDN, /*
+     KC_TAB  , KC_Q  , KC_W  , KC_E  , KC_R  , KC_T  , KC_Y  , KC_U  , KC_I  , KC_O  , KC_P  ,KC_LBRC,KC_RBRC, KC_BSLS ,  KC_DEL ,KC_PGDN, /*
    ┣━━━━━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━━━━━━┫ ┗━━━━┻━━━━┛ */
-      FN2   , A  , S  , D  , F  , G  , H  , J  , K  , L  ,SCLN,QUOT,  ENTER  ,             /*
+      KC_FN2   , KC_A  , KC_S  , KC_D  , KC_F  , KC_G  , KC_H  , KC_J  , KC_K  , KC_L  ,KC_SCLN,KC_QUOT,  KC_ENTER  ,         /*
    ┣━━━━━━━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━┳━━┻━━━━━━━━━┫ ┏━━━━┓      */
-       LSFT   , Z  , X  , C  , V  , B  , N  , M  ,COMM,DOT ,SLSH,    RSFT    ,   UP ,      /*
+       KC_LSFT   , KC_Z  , KC_X  , KC_C  , KC_V  , KC_B  , KC_N  , KC_M  ,KC_COMM,KC_DOT ,KC_SLSH,    KC_RSFT    ,   KC_UP ,  /*
    ┣━━━━━┳━━━━┻┳━━━┻━┳━━┻━━━━┻━━━━┻━━━━┻━━━━┻━━━━┻━━━┳┻━━━━╋━━━━┻┳━━━━━┳━━┳━━┻━╋━━━━╋━━━━┓ */
-    LCTL ,LGUI ,LALT ,             SPACE             ,RALT , FN1 ,RCTL ,   LEFT,DOWN,RGHT  /*
+    KC_LCTL ,KC_LGUI ,KC_LALT ,             KC_SPACE             ,KC_RALT , KC_FN1 ,KC_RCTL ,   KC_LEFT,KC_DOWN,KC_RGHT  /*
    ┗━━━━━┻━━━━━┻━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━┻━━━━━┻━━━━━┛  ┗━━━━┻━━━━┻━━━━┛ */),
 
-[_FN] = LAYOUT_kc( /* FN & CAPS layer
+[_FN] = LAYOUT_68_ansi( /* FN & CAPS layer
    ┏━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━━━━━┓ ┏━━━━┳━━━━┓ */
-    GRV , F1 , F2 , F3 , F4 , F5 , F6 , F7 , F8 , F9 , F10, F11, F12,  RSTP  ,  PSCR,HOME, /*
+    KC_GRV , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 , KC_F6 , KC_F7 , KC_F8 , KC_F9 , KC_F10, KC_F11, KC_F12,  KC_RSTP  ,  KC_PSCR,KC_HOME, /*
    ┣Esc ┻ 1! ┻ 2@ ┻ 3# ┻ 4$ ┻ 5% ┻ 6^ ┻ 7& ┻ 8* ┻ 9( ┻ 0) ┻ -_ ┻ =+ ┻━┳━ ←─ ━┫ ┣Ins ╋PgUp┫ */
-          ,PLY1,PLY2,    ,    ,    ,    ,    , 7  , 8  , 9  ,BLDN,BLUP,BLTOG ,      ,END , /*
+  _______ ,KC_PLY1,KC_PLY2,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_7  , KC_8  , KC_9  ,KC_BLDN,KC_BLUP,KC_BLTOG ,KC_TRNS  ,KC_END , /*
    ┣ Tab ━┻ Q ━┻ W ━┻ E ━┻ R ━┻ T ━┻ Y ━┻ U ━┻ I ━┻ O ━┻ P ━┻ [{ ┻ ]} ┻━ \| ━┫ ┗Del ┻PgDn┛ */
-            ,    ,    ,    ,    ,    ,    ,    , 4  , 5  , 6  ,    ,   TERM  ,             /*
+    _______ ,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_4  , KC_5  , KC_6  ,KC_TRNS,   KC_TRNS  ,         /*
    ┣━ Caps ━┻ A ━┻ S ━┻ D ━┻ F ━┻ G ━┻ H ━┻ J ━┻ K ━┻ L ━┻ ;: ┻ '" ┻━ Enter ━┫ ┏━━━━┓      */
-              ,REC1,REC2,    ,    ,MSTP,    ,MUTE, 1  , 2  , 3  ,            ,  VOLU,      /*
+    _______   ,KC_REC1,KC_REC2,KC_TRNS,KC_TRNS,KC_MSTP,KC_TRNS,KC_MUTE, KC_1  , KC_2  , KC_3  ,KC_TRNS        ,  KC_VOLU,  /*
    ┣━━ Shift ━┻ Z ━┻ X ━┻ C ━┻ V ━┻ B ━┻ N ━┻ M ━┻ ,< ┻ .> ╋ /? ┻┳━━ Shift ━━┻━╋ ↑ ━╋━━━━┓ */
-         ,     ,     ,             MPLY              ,  0  ,     ,     ,   MPRV,VOLD,MNXT  /*
+  _______,KC_TRNS ,KC_TRNS ,         KC_MPLY              ,  KC_0  ,KC_TRNS ,KC_TRNS ,   KC_MPRV,KC_VOLD,KC_MNXT  /*
    ┗Ctrl ┻ GUI ┻ Alt ┻━━━━━━━━━━━━ Space ━━━━━━━━━━━━┻ Alt ┻ Fn ━┻Ctrl ┛  ┗ ← ━┻ ↓ ━┻ → ━┛ */)
 };
 // clang-format on
@@ -141,7 +138,7 @@ void led_blink(void) {
     backlight_toggle();
 }
 
-void dynamic_macro_record_start_user(void) {
+void dynamic_macro_record_start_user(int8_t direction) {
     led_blink();
 }
 
@@ -160,11 +157,11 @@ void dynamic_macro_record_end_user(int8_t direction) {
 // Custom Caps Lock backlight behaviour
 // ------------------------------------
 
-void led_set_user(uint8_t usb_led) {
+bool led_update_user(led_t led_state) {
     // This exists because I don't like the backlight to turn OFF when the Caps Lock is ON.
     // That is, this will turn the backlight ON (at half the brightness) when the Caps Lock is ON as well.
     static bool prev_is_caps_on;
-    bool is_caps_on = IS_LED_ON(usb_led, USB_LED_CAPS_LOCK);
+    bool is_caps_on = led_state.caps_lock;
 
     if (prev_is_caps_on != is_caps_on) {
         prev_is_caps_on = is_caps_on;
@@ -181,7 +178,7 @@ void led_set_user(uint8_t usb_led) {
     }
 
     // Turn on the Pro Micro's on-board LEDs for Caps Lock
-    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+    if (led_state.caps_lock) {
         // Set to low
         setPinOutput(B0);
         writePinLow(B0);
@@ -192,6 +189,7 @@ void led_set_user(uint8_t usb_led) {
         setPinInput(B0);
         setPinInput(D5);
     }
+    return false;
 }
 
 // Backlight idle timeout feature
@@ -200,7 +198,7 @@ void led_set_user(uint8_t usb_led) {
 static uint32_t timer;
 static bool is_idle;
 
-void matrix_scan_user() {
+void matrix_scan_user(void) {
     // Check the timer only if the keyboard is not idle
     if (!is_idle) {
         if (timer_elapsed32(timer) >= (uint32_t) BACKLIGHT_IDLE_TIMEOUT * 1000) {

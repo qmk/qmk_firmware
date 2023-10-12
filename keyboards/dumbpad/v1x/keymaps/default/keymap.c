@@ -47,10 +47,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     \-----------------------------------------------------'
     */
     [1] = LAYOUT(
-                    _______,     _______,     _______,      RESET,
+                    _______,     _______,     _______,      QK_BOOT,
                     _______,     _______,     _______,      KC_KP_PLUS,
                     _______,     _______,     _______,      KC_KP_MINUS,
-        KC_LOCK,    _______,     _______,     _______,      KC_EQL
+        QK_LOCK,    _______,     _______,     _______,      KC_EQL
     ),
 };
 
@@ -72,7 +72,7 @@ void keyboard_post_init_user(void) {
     //debug_mouse = true;
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     /*  Custom encoder control - handles CW/CCW turning of encoder
      *  Default behavior:
      *    main layer:
@@ -103,4 +103,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 break;
         }
     }
+    return true;
 }

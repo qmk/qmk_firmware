@@ -48,11 +48,11 @@ static td_state_t td_state;
 // declare your tapdance functions:
 
 // function to determine the current tapdance state
-int cur_dance (qk_tap_dance_state_t *state);
+int cur_dance (tap_dance_state_t *state);
 
 // `finished` and `reset` functions for each tapdance keycode
-void altlp_finished (qk_tap_dance_state_t *state, void *user_data);
-void altlp_reset (qk_tap_dance_state_t *state, void *user_data);
+void altlp_finished (tap_dance_state_t *state, void *user_data);
+void altlp_reset (tap_dance_state_t *state, void *user_data);
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -123,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         )
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (clockwise) {
             tap_code(KC_VOLD);
@@ -131,12 +131,13 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_VOLU);
         }
     }
+    return true;
 }
 
 // Tapdance! Hold to use as a modifier to the _MOD layout, tap to change it between _BASE and _MACRO
 
 // determine the tapdance state to return
-int cur_dance (qk_tap_dance_state_t *state) {
+int cur_dance (tap_dance_state_t *state) {
   if (state->count == 1) {
     if (state->interrupted || !state->pressed) { return SINGLE_TAP; }
     else { return SINGLE_HOLD; }
@@ -145,7 +146,7 @@ int cur_dance (qk_tap_dance_state_t *state) {
 
 // handle the possible states for each tapdance keycode you define:
 
-void altlp_finished (qk_tap_dance_state_t *state, void *user_data) {
+void altlp_finished (tap_dance_state_t *state, void *user_data) {
   td_state = cur_dance(state);
   switch (td_state) {
     case SINGLE_TAP:
@@ -157,7 +158,7 @@ void altlp_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void altlp_reset (qk_tap_dance_state_t *state, void *user_data) {
+void altlp_reset (tap_dance_state_t *state, void *user_data) {
   switch (td_state) {
     case SINGLE_TAP:
       break;
@@ -168,6 +169,6 @@ void altlp_reset (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 // define `ACTION_TAP_DANCE_FN_ADVANCED()` for each tapdance keycode, passing in `finished` and `reset` functions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [LAY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, altlp_finished, altlp_reset)
 };

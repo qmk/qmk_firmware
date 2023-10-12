@@ -8,7 +8,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 }
 
 // determine the tapdance state to return
-int cur_dance (qk_tap_dance_state_t *state) {
+int cur_dance (tap_dance_state_t *state) {
   if (state->count == 1) {
     if (state->interrupted || !state->pressed) { return SINGLE_TAP; }
     else { return SINGLE_HOLD; }
@@ -18,21 +18,21 @@ int cur_dance (qk_tap_dance_state_t *state) {
 }
 
 // handle the possible states for each tapdance keycode you define:
-void ctl_copy_finished (qk_tap_dance_state_t *state, void *user_data) {
+void ctl_copy_finished (tap_dance_state_t *state, void *user_data) {
   td_state = cur_dance(state);
   switch (td_state) {
     case SINGLE_TAP:
-      SEND_STRING(SS_LCTRL("c"));
+      SEND_STRING(SS_LCTL("c"));
       break;
     case SINGLE_HOLD:
       register_mods(MOD_BIT(KC_RCTL));
       break;
     case DOUBLE_TAP:
-      SEND_STRING(SS_LCTRL("v"));
+      SEND_STRING(SS_LCTL("v"));
   }
 }
 
-void ctl_copy_reset (qk_tap_dance_state_t *state, void *user_data) {
+void ctl_copy_reset (tap_dance_state_t *state, void *user_data) {
   switch (td_state) {
     case SINGLE_TAP:
       break;
@@ -45,7 +45,7 @@ void ctl_copy_reset (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 #if defined(HAS_ROTARY)
-  void encoder_update_user(uint8_t index, bool clockwise) {
+  bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder */
         if (clockwise) {
             tap_code(KC_VOLD);
@@ -53,6 +53,7 @@ void ctl_copy_reset (qk_tap_dance_state_t *state, void *user_data) {
             tap_code(KC_VOLU);
         }
     }
+    return true;
   }
 #endif
 
@@ -60,14 +61,14 @@ void ctl_copy_reset (qk_tap_dance_state_t *state, void *user_data) {
   static uint8_t led_user = 0;
 #endif
 
-void lock_unlock (qk_tap_dance_state_t *state, void *user_data) {
+void lock_unlock (tap_dance_state_t *state, void *user_data) {
   td_state = cur_dance(state);
   switch (td_state) {
     case SINGLE_TAP: // Ctl + Alt + Del to unlock workstation
     tap_code16(KC_CAD);
     #if defined(HAS_INDICATORS)
       led_user = 0;
-      #if defined(KEYBOARD_sneakbox_aliceclone)
+      #if defined(KEYBOARD_sneakbox_aliceclone) || defined(KEYBOARD_mechlovin_adelais_standard_led_arm_rev4_stm32f303)
         led_user = 1;
       #endif
       writePin(INDICATOR_PIN_0, !led_user);
@@ -75,7 +76,7 @@ void lock_unlock (qk_tap_dance_state_t *state, void *user_data) {
       writePin(INDICATOR_PIN_1, !led_user);
       wait_ms(200);
       writePin(INDICATOR_PIN_2, !led_user);
-    #endif      
+    #endif
       break;
     case SINGLE_HOLD:
       break;
@@ -83,7 +84,7 @@ void lock_unlock (qk_tap_dance_state_t *state, void *user_data) {
     tap_code16(KC_LOCK);
     #if defined(HAS_INDICATORS)
       led_user = 1;
-      #if defined(KEYBOARD_sneakbox_aliceclone)
+      #if defined(KEYBOARD_sneakbox_aliceclone) || defined(KEYBOARD_mechlovin_adelais_standard_led_arm_rev4_stm32f303)
         led_user = 0;
       #endif
       writePin(INDICATOR_PIN_2, !led_user);
@@ -91,12 +92,12 @@ void lock_unlock (qk_tap_dance_state_t *state, void *user_data) {
       writePin(INDICATOR_PIN_1, !led_user);
       wait_ms(200);
       writePin(INDICATOR_PIN_0, !led_user);
-    #endif    
+    #endif
       break;
   }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_WIN] = ACTION_TAP_DANCE_FN(lock_unlock),
   [TD_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_GRV),
   [TD_RCTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctl_copy_finished, ctl_copy_reset)

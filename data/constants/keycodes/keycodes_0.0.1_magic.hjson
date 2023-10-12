@@ -1,0 +1,249 @@
+{
+    "keycodes": {
+        "0x7000": {
+            "group": "magic",
+            "key": "MAGIC_SWAP_CONTROL_CAPSLOCK",
+            "aliases": [
+                "CL_SWAP"
+            ]
+        },
+        "0x7001": {
+            "group": "magic",
+            "key": "MAGIC_UNSWAP_CONTROL_CAPSLOCK",
+            "aliases": [
+                "CL_NORM"
+            ]
+        },
+        "0x7002": {
+            "group": "magic",
+            "key": "MAGIC_TOGGLE_CONTROL_CAPSLOCK",
+            "aliases": [
+                "CL_TOGG"
+            ]
+        },
+        "0x7003": {
+            "group": "magic",
+            "key": "MAGIC_UNCAPSLOCK_TO_CONTROL",
+            "aliases": [
+                "CL_CAPS"
+            ]
+        },
+        "0x7004": {
+            "group": "magic",
+            "key": "MAGIC_CAPSLOCK_TO_CONTROL",
+            "aliases": [
+                "CL_CTRL"
+            ]
+        },
+        "0x7005": {
+            "group": "magic",
+            "key": "MAGIC_SWAP_LALT_LGUI",
+            "aliases": [
+                "LAG_SWP"
+            ]
+        },
+        "0x7006": {
+            "group": "magic",
+            "key": "MAGIC_UNSWAP_LALT_LGUI",
+            "aliases": [
+                "LAG_NRM"
+            ]
+        },
+        "0x7007": {
+            "group": "magic",
+            "key": "MAGIC_SWAP_RALT_RGUI",
+            "aliases": [
+                "RAG_SWP"
+            ]
+        },
+        "0x7008": {
+            "group": "magic",
+            "key": "MAGIC_UNSWAP_RALT_RGUI",
+            "aliases": [
+                "RAG_NRM"
+            ]
+        },
+        "0x7009": {
+            "group": "magic",
+            "key": "MAGIC_UNNO_GUI",
+            "aliases": [
+                "GUI_ON"
+            ]
+        },
+        "0x700A": {
+            "group": "magic",
+            "key": "MAGIC_NO_GUI",
+            "aliases": [
+                "GUI_OFF"
+            ]
+        },
+        "0x700B": {
+            "group": "magic",
+            "key": "MAGIC_TOGGLE_GUI",
+            "aliases": [
+                "GUI_TOG"
+            ]
+        },
+        "0x700C": {
+            "group": "magic",
+            "key": "MAGIC_SWAP_GRAVE_ESC",
+            "aliases": [
+                "GE_SWAP"
+            ]
+        },
+        "0x700D": {
+            "group": "magic",
+            "key": "MAGIC_UNSWAP_GRAVE_ESC",
+            "aliases": [
+                "GE_NORM"
+            ]
+        },
+        "0x700E": {
+            "group": "magic",
+            "key": "MAGIC_SWAP_BACKSLASH_BACKSPACE",
+            "aliases": [
+                "BS_SWAP"
+            ]
+        },
+        "0x700F": {
+            "group": "magic",
+            "key": "MAGIC_UNSWAP_BACKSLASH_BACKSPACE",
+            "aliases": [
+                "BS_NORM"
+            ]
+        },
+        "0x7010": {
+            "group": "magic",
+            "key": "MAGIC_TOGGLE_BACKSLASH_BACKSPACE",
+            "aliases": [
+                "BS_TOGG"
+            ]
+        },
+        "0x7011": {
+            "group": "magic",
+            "key": "MAGIC_HOST_NKRO",
+            "aliases": [
+                "NK_ON"
+            ]
+        },
+        "0x7012": {
+            "group": "magic",
+            "key": "MAGIC_UNHOST_NKRO",
+            "aliases": [
+                "NK_OFF"
+            ]
+        },
+        "0x7013": {
+            "group": "magic",
+            "key": "MAGIC_TOGGLE_NKRO",
+            "aliases": [
+                "NK_TOGG"
+            ]
+        },
+        "0x7014": {
+            "group": "magic",
+            "key": "MAGIC_SWAP_ALT_GUI",
+            "aliases": [
+                "AG_SWAP"
+            ]
+        },
+        "0x7015": {
+            "group": "magic",
+            "key": "MAGIC_UNSWAP_ALT_GUI",
+            "aliases": [
+                "AG_NORM"
+            ]
+        },
+        "0x7016": {
+            "group": "magic",
+            "key": "MAGIC_TOGGLE_ALT_GUI",
+            "aliases": [
+                "AG_TOGG"
+            ]
+        },
+        "0x7017": {
+            "group": "magic",
+            "key": "MAGIC_SWAP_LCTL_LGUI",
+            "aliases": [
+                "LCG_SWP"
+            ]
+        },
+        "0x7018": {
+            "group": "magic",
+            "key": "MAGIC_UNSWAP_LCTL_LGUI",
+            "aliases": [
+                "LCG_NRM"
+            ]
+        },
+        "0x7019": {
+            "group": "magic",
+            "key": "MAGIC_SWAP_RCTL_RGUI",
+            "aliases": [
+                "RCG_SWP"
+            ]
+        },
+        "0x701A": {
+            "group": "magic",
+            "key": "MAGIC_UNSWAP_RCTL_RGUI",
+            "aliases": [
+                "RCG_NRM"
+            ]
+        },
+        "0x701B": {
+            "group": "magic",
+            "key": "MAGIC_SWAP_CTL_GUI",
+            "aliases": [
+                "CG_SWAP"
+            ]
+        },
+        "0x701C": {
+            "group": "magic",
+            "key": "MAGIC_UNSWAP_CTL_GUI",
+            "aliases": [
+                "CG_NORM"
+            ]
+        },
+        "0x701D": {
+            "group": "magic",
+            "key": "MAGIC_TOGGLE_CTL_GUI",
+            "aliases": [
+                "CG_TOGG"
+            ]
+        },
+        "0x701E": {
+            "group": "magic",
+            "key": "MAGIC_EE_HANDS_LEFT",
+            "aliases": [
+                "EH_LEFT"
+            ]
+        },
+        "0x701F": {
+            "group": "magic",
+            "key": "MAGIC_EE_HANDS_RIGHT",
+            "aliases": [
+                "EH_RGHT"
+            ]
+        },
+        "0x7020": {
+            "group": "magic",
+            "key": "MAGIC_SWAP_ESCAPE_CAPSLOCK",
+            "aliases": [
+                "EC_SWAP"
+            ]
+        },
+        "0x7021": {
+            "group": "magic",
+            "key": "MAGIC_UNSWAP_ESCAPE_CAPSLOCK",
+            "aliases": [
+                "EC_NORM"
+            ]
+        },
+        "0x7022": {
+            "group": "magic",
+            "key": "MAGIC_TOGGLE_ESCAPE_CAPSLOCK",
+            "aliases": [
+                "EC_TOGG"
+            ]
+        }
+    }
+}

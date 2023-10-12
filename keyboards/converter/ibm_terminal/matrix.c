@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define print_matrix_row(row)  print_bin_reverse8(matrix_get_row(row))
 #define print_matrix_header()  print("\nr/c 01234567\n")
-#define matrix_bitpop(i)       bitpop(matrix[i])
 #define ROW_SHIFTER ((uint8_t)1)
 
 
@@ -83,7 +82,7 @@ uint8_t matrix_scan(void)
         KBD_ID1,
         CONFIG,
         READY,
-        F0,
+        F0_BREAK,
     } state = RESET;
 
     uint8_t code;
@@ -132,7 +131,7 @@ uint8_t matrix_scan(void)
                 case 0x00:
                     break;
                 case 0xF0:
-                    state = F0;
+                    state = F0_BREAK;
                     debug(" ");
                     break;
                 default:    // normal key make
@@ -145,7 +144,7 @@ uint8_t matrix_scan(void)
                     debug("\n");
             }
             break;
-        case F0:    // Break code
+        case F0_BREAK:    // Break code
             switch (code) {
                 case 0x00:
                     break;

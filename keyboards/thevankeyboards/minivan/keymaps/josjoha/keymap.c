@@ -40,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    * accented characters are defined in unicode_weurope.h
    *
    * Unicode macros facilitate recomputing for re-computing the Dvorak with changed letters 
-   * ('descramble'), and exist because space ran out for * XP(…).
+   * ('descramble'), and exist because space ran out for * UP(…).
    *
    * The led color code might be a bit hairy, due to speed/count middle led overlapping layer color. 
    *
@@ -118,8 +118,8 @@ enum {
 enum {
     _NORMAL_, // BASE layer is _DEF_BASE
     _FULL_,   // BASE layer is _ALT_BASE
-# ifdef DVORAK_DESCRAMBLE_HALF // not used with other keymaps
-    _HALF_,   // BASE layer is _ALT_BASE For DVORAK_DESCRAMBLE_HALF keymap: does *not* re-compute letters in Unicode
+# ifdef DVORAK_DESCRAMBLE // not used with other keymaps
+    _HALF_,   // BASE layer is _ALT_BASE For DVORAK_DESCRAMBLE keymap: does *not* re-compute letters in Unicode
               // This is for different Unicode encodings than “Control+U+HEX” (Linux). It will go through what is set on _RAR
 # endif
 };
@@ -146,7 +146,7 @@ bool led_middle_on = TRUE; // Set to off later, if startup setting is off.
 bool isolate_trigger = FALSE; // detects if _FUN layer move was pressed, and no other key (no normal use of Shift).
 bool capslock; // keeps track of capslock state
 bool numlock; // keeps track of numlock state
-layer_state_t state_recall; // We are calling the function set_led_colors_ from this file as well.
+//layer_state_t state_recall; // We are calling the function set_led_colors_ from this file as well.
 // speed measuring
 bool     speed_measure = SPEED_INIT_VALUE; // feature activated or not on startup
 uint32_t speed_counttime; // counts the time
@@ -288,9 +288,9 @@ void speed_led (int speed) {
 
 
 // do this in one place to handle left/right leds being off here
-void isolate_rgblight_set () {
-# ifdef RGBLIGHT_ENABLE
+void isolate_rgblight_set (void) {
 
+# ifdef RGBLIGHT_ENABLE
     if (!leds_on) { // left/right leds are off
         // overwrite previously colors
         uint8_t led0r = 0; uint8_t led0g = 0; uint8_t led0b = 0;
@@ -305,8 +305,8 @@ void isolate_rgblight_set () {
         setrgb(led2r, led2g, led2b, (LED_TYPE *)&led[2]); // Led 2
     }
     rgblight_set ();
-
 # endif
+
 }
 
 
@@ -335,7 +335,7 @@ void indicate_fun_stay (void) {
 
 
 // _RAR layer leds
-// It is a function because this is called when the Base layer OTHER_BASE key is pressed
+// It is a function because this is also called when the Base layer OTHER_BASE key is pressed
 void indicate_base (void) {
 # ifdef RGBLIGHT_ENABLE
 
@@ -350,7 +350,8 @@ void indicate_base (void) {
         led2r = 100; // purple
         led2b = 100;
     }
-#     ifdef DVORAK_DESCRAMBLE_HALF // not used with other keymaps
+
+#     ifdef DVORAK_DESCRAMBLE // not used with other keymaps
       else if (_HALF_ == alternate) { // alternate mode, 1 (normal unicode)
         led0r = 100; // purple
         led0b = 100;
@@ -359,6 +360,7 @@ void indicate_base (void) {
         led2b = 100;
     }
 #     endif
+
       else if (_FULL_ == alternate) { // alternate mode, 1 (recomputed unicode for DVORAK_DESCRAMBLE)
         led0r = 100; // purple
         led0b = 100;
@@ -471,7 +473,13 @@ void set_led_colors_ (layer_state_t state) {
     // Alternate BASE layer (alternate)
     else if (layer_state_cmp (state, _ALT_BASE)) {
 
-#     if !defined(BASE_NUMPAD__ALT_BASE) // Normal led colors for ‛regular’ base layers like Dvorak, Qwerty. 
+#     ifdef LEDS_OFF_BASE_ALT // Alternative Base leds off (always)
+
+        rgblight_disable_noeeprom ();
+
+#     else // do use leds on Alternative Base layer
+
+#         if !defined(BASE_NUMPAD__ALT_BASE) // Normal led colors for ‛regular’ base layers like Dvorak, Qwerty. 
 
         if (capslock) {
            led2r = 255; // Brighter version to indicate capslock
@@ -482,32 +490,34 @@ void set_led_colors_ (layer_state_t state) {
            led2g = color_ddl; // 
            led2b = color_ddl; // 
         }
+        middle_led_control (HSV_TEAL); // seems to be the same as CYAN/AZURE, conflicts with _ACC
 
-#     else // BASE_NUMPAD__ALT_BASE: numpad on Alternate Base, which should show the state of NumLock
+#         else // Numpad configured on Alternate Base, which should show the state of NumLock
 
         // This is a copy of the _PAD led colors, but less bright
         if (numlock) {
             led0b = 80; // Blue for the numbers part 
             led2g = 80; // Green for the navigation part
         }else{
-            led0g = 80; // reversed 
-            led2b = 80; //
+            led2b = 80; // reversed 
+            led0g = 80; //
         }
-        middle_led_control (60, 20, 100); // yellow (low saturation)
+        middle_led_control (60, 20, 100);  // light-blue
 
-#     endif
+#         endif // BASE_NUMPAD__ALT_BASE
 
-        middle_led_control (HSV_TEAL); // seems to be the same as CYAN/AZURE, conflicts with _ACC
+#     endif // LEDS_OFF_BASE_ALT 
+
     }
     // Default layer (generally), normal BASE layer
     else if (layer_state_cmp (state, _DEF_BASE)) { // letters
 
-#     ifdef LEDS_OFF_BASE_DEF 
-        led0r = 0; // All leds off when in Default Base
-        led0g = 0; // 
-        led0b = 0; // 
+#     ifdef LEDS_OFF_BASE_DEF // Default Base leds off (always)
+
         rgblight_disable_noeeprom ();
-#     else
+
+#     else // Do use leds on Default Base
+
         if (capslock) {
             led0r = 255; // Brighter version to indicate capslock
             led0g = 255; // 
@@ -517,16 +527,18 @@ void set_led_colors_ (layer_state_t state) {
             led0g = 28; // 
             led0b = 28; // 
         }
-
         middle_led_control (HSV_TEAL);
+
 #     endif // LEDS_OFF_BASE_DEF 
+
     }
     //---
 
+    // pushes the configuration
     setrgb (led0r, led0g, led0b, (LED_TYPE *)&led[0]); // Led 0
     setrgb (led2r, led2g, led2b, (LED_TYPE *)&led[2]); // Led 2
 
-    isolate_rgblight_set ();
+    isolate_rgblight_set (); // Activates the led color change, after on/off check.
 
 # endif //RGBLIGHT_ENABLE
 }
@@ -600,6 +612,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                         * Numpad *
 # if defined(BASE_NUMPAD__ALT_BASE)
 #     include "./base_numpad.c" // Numbers pad
+# endif
+
+//                         * Hebrew *
+# if defined(BASE_HEBREW__DEF_BASE) || defined(BASE_HEBREW__ALT_BASE)
+#     include "./base_hebrew.c" // Hebrew
 # endif
 
 // // ⬇ insert your ./base_YOUR_KEYMAP.c #include here:
@@ -1090,13 +1107,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 , MORE_key1 
 #     endif
 
-                , KC_DEL , KC_ENT , _______ 
+                , KC_DEL , KC_ENT 
+
+#     ifndef SPACE_LEFT__ENTER_RIGHT      // standard, layer switch on Base
+                                  , _______ 
+#     else                                // reversed
+                                  , KC_PGUP 
+#     endif
+
 
 #     ifdef TRANSMINIVAN_MIDLEFT
                                             , TRANS_MIDLEFT
 #     endif
 
+
+#     ifndef SPACE_LEFT__ENTER_RIGHT                // standard
                                             , KC_PGUP 
+#     else                                          // reversed, layer switch on Base
+                                            , _______ 
+#     endif
+
 
 #     ifdef TRANSMINIVAN_RIGHTSIDE
                                                       , TRANS_RIGHT
@@ -1161,8 +1191,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //      <pink2    , <pinky           , <ring            , <middl           , <index           , <indx2           |, indx2>        , index>  , middl>           , ring>              , pinky>  , pink2>        ,
 //                ,                  ,                  ,                  , -*-              ,                 <|,>              ,         ,                  ,                    ,         ,               ,
         CTO_BASE  , COUNT_TOG        , COUNT_NULL       , COUNT_WORDMIN    , COUNT_REPORT     , SPEED_TOG         , SPEED_REPORT  , KC_MPLY , KC_MNXT          , KC_MPRV            , KC_MSTP , KC_RSFT       ,
-        KC_CAPS   , C_KC_PWR         , C_KC_WAKE        , C_KC_SLEP        , C_KC_PAUS        , KC_SLCK           , KC_PSCR       , XXXXXXX , KC_VOLU          , KC_VOLD            , KC_MUTE , KC_INS        ,
-        XP_DRA_CG , UNICODE_MODE_LNX , UNICODE_MODE_BSD , UNICODE_MODE_OSX , UNICODE_MODE_WIN , UNICODE_MODE_WINC , XXXXXXX       , XXXXXXX , KC_BRIGHTNESS_UP , KC_BRIGHTNESS_DOWN , XXXXXXX , KC_APP        ,
+        KC_CAPS   , C_KC_PWR         , C_KC_WAKE        , C_KC_SLEP        , C_KC_PAUS        , KC_SCRL           , KC_PSCR       , XXXXXXX , KC_VOLU          , KC_VOLD            , KC_MUTE , KC_INS        ,
+        XP_DRA_CG , UC_LINX          , UC_BSD           , UC_MAC           , UC_WIN           , UC_WINC           , XXXXXXX       , XXXXXXX , KC_BRIGHTNESS_UP , KC_BRIGHTNESS_DOWN , XXXXXXX , KC_APP        ,
 //      -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         LEDS_ON  
 #     ifdef TRANSMINIVAN_LEFTSIDE
@@ -1259,7 +1289,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                 , TRANS_MIDLEFT
 #             endif
 
-                                                , KC_NUMLOCK , XXXXXXX , KC__YGUI
+                                                , KC_NUM , XXXXXXX , KC__YGUI
 
 #             ifdef TRANSMINIVAN_RIGHTSIDE
                                                                                   , TRANS_RIGHT
@@ -1351,7 +1381,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     , TRANS_MIDLEFT
 #             endif
 
-                                                    , KC_NUMLOCK , KC_KP_0 
+                                                    , KC_NUM , KC_KP_0 
 
 // See comment in ./base_numpad.c on the first layout (double handed Base layer), about the next few keys:
 // This layer follows that layout Base Numpad.

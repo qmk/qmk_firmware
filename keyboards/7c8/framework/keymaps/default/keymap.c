@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_LOWER] = LAYOUT_ortho_5x12(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MINS, KC_EQL,  _______,
-    KC_LEAD, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______, _______, _______, _______, KC_LBRC, KC_RBRC, KC_BSLS,
+    QK_LEAD, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______, _______, _______, _______, KC_LBRC, KC_RBRC, KC_BSLS,
     KC_DEL,  KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______, _______, _______, _______, _______, _______, _______,
     KC_TRNS, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, _______, _______, _______,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, _______, _______, KC_TRNS, KC_HOME, KC_PGDN, KC_PGUP, KC_END
@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, LALT(KC_F4), _______, KC_MYCM, LGUI(KC_R), _______, _______, _______, _______, _______, _______, _______,
     _______, _______,     _______, _______, _______,    _______, _______, _______, _______, _______, _______, _______,
     _______, _______,     _______, _______, _______,    _______, _______, _______, _______, _______, _______, _______,
-    _______, _______,     _______, _______, _______,    _______, _______, _______, _______, _______, _______, DEBUG
+    _______, _______,     _______, _______, _______,    _______, _______, _______, _______, _______, _______, DB_TOGG
 ),
 
 [_FN] = LAYOUT_ortho_5x12(
@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         switch (get_highest_layer(layer_state)) {
             case _BASE:
@@ -93,7 +93,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 break;
 
             case _RAISE:
-                if (clockwise) { 
+                if (clockwise) {
                     tap_code16(LCTL(KC_RGHT));
                 } else {
                     tap_code16(LCTL(KC_LEFT));
@@ -120,6 +120,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 break;
         }
     }
+    return true;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

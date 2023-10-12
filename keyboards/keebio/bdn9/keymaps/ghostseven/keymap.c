@@ -34,18 +34,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LEFT, KC_DOWN, KC_RGHT
     ),
     /*
-        | RESET          | Shift+CMD+B (Build VS Code) | Media Stop |
+        | QK_BOOT          | Shift+CMD+B (Build VS Code) | Media Stop |
         | Held: Layer 2  | Home | RGB Mode   |
         | Media Previous | End  | Media Next |
      */
     [1] = LAYOUT(
-        RESET  , S(G(KC_B)), KC_STOP,
+        QK_BOOT, S(G(KC_B)), KC_STOP,
         _______, KC_HOME, RGB_MOD,
         KC_MPRV, KC_END , KC_MNXT
     ),
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == _LEFT) {
         if (clockwise) {
             tap_code(KC_VOLD);
@@ -67,4 +67,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_PGDN);
         }
     }
+    return true;
 }

@@ -149,25 +149,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                            , CHOLTAP_ACCE , DUO_HOLD
 # endif
 
-                                                     , LT__MOV__KC_ENT 
+                                                     , LEFTCENTER_THUMB
 
 #     ifdef TRANSMINIVAN_MIDLEFT
                                                      , TRANS_MIDLEFT
 #     endif
 
-                                                                       , KC_SPC , DUO_HOLD , KC__YGUI
+                                                                       , RIGHTCENTER_THUMB , DUO_HOLD , KC__YGUI
 
 # ifdef TRANSMINIVAN_RIGHTSIDE
-                                                                                                      , MO ( _FUN )
-# endif
-
-# ifdef MORE_KEY__ARROW
-                                                                                                      , MORE_key2  
-# endif
-
-                                                                                                      , CHOLTAP_LAYR
-//                         ,              ,          ,               <|,>       ,          ,          ,
-//      <1           ±  ±  , <2           , <3       , <4             |, 4>     , 3>       , 2>       , ±  ±  1>
+                                                                                                                 , MO ( _FUN )
+# endif                                                                                    
+                                                                                           
+# ifdef MORE_KEY__ARROW                                                                    
+                                                                                                                 , MORE_key2  
+# endif                                                                                    
+                                                                                           
+                                                                                                                 , CHOLTAP_LAYR
+//                         ,              ,          ,               <|,>                  ,          ,          ,
+//      <1           ±  ±  , <2           , <3       , <4             |, 4>                , 3>       , 2>       , ±  ±  1>
 
                       ),
 
@@ -188,7 +188,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
               -*-                          <|>                                  //(toggle) Access on _FUN
      BASE     !     @     #     $     %     | ^     &     *     (    )       Del
      Tab+LCtl 1!    2@    3#    4$    5%    | 6^    7&    8*    9(   0)  `~+RCtl
-     -+LSht   -_    =+    [{    \|    ]}    | }     |     {     _     +  `~+RSht            // row 2, raw
+     -+LSht   -_    =+    [{    \|    ]}    | }     |     {     _     +   ~+RSht            // row 2, raw
      ---------------------------------------------------------------------------
      Left+LAlt ___   ___   Ent  | .   ___   LGUI  Right+RAlt
                      -*-       <|>    -*-                                         //(hold) Access on _DEF_BASE
@@ -205,7 +205,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //                         , -*-     ,        ,         ,         ,       <|,>        ,         ,         ,         , -*-     ,                    ,
         CTO_BASE           , KC_EXLM , KC_AT  , KC_HASH , KC_DLR  , KC_PERC , KC_CIRC , KC_AMPR , KC_ASTR , KC_LPRN , KC_RPRN , KC_DEL             ,
         LCTL_T ( KC_TAB )  , KC_1    , KC_2   , KC_3    , KC_4    , KC_5    , KC_6    , KC_7    , KC_8    , KC_9    , KC_0    , RCTL_T ( KC_GRV )  , 
-        LSFT_T ( KC_MINS ) , KC_MINS , KC_EQL , KC_LBRC , KC_BSLS , KC_RBRC , KC_RCBR , KC_PIPE , KC_LCBR , KC_UNDS , KC_PLUS , RSFT_T ( KC_TILD ) ,  
+        LSFT_DASH          , KC_MINS , KC_EQL , KC_LBRC , KC_BSLS , KC_RBRC , KC_RCBR , KC_PIPE , KC_LCBR , KC_UNDS , KC_PLUS , RSFT_TILDE         ,  
 //      --------------------------------------------------------------------------------------------------------------------------------------------
         LALT_T ( KC_LEFT ) 
 

@@ -113,7 +113,7 @@ A modifier that acts as if it is held down until another key is released, so you
 A low cost AVR development board. Clones of this device are often found on ebay very inexpensively (under $5) but people often struggle with flashing their pro micros.
 
 ## Pull Request
-A request to submit code to QMK. We encourage all users to submit Pull Requests for their personal keymaps.
+A request to submit code to QMK. We encourage all users to submit Pull Requests for bugfixes and new features.
 
 ## QWERTY
 The standard English keyboard layout, and often a shortcut for other language's standard layouts. Named for the first 6 letters on the keyboard.
@@ -130,7 +130,7 @@ A 1 byte number that is sent as part of a HID report over USB that represents a 
 ## Space Cadet Shift
 A special set of shift keys which allow you to type various types of braces by tapping the left or right shift one or more times.
 
-* [Space Cadet Shift Documentation](feature_space_cadet_shift.md)
+* [Space Cadet Shift Documentation](feature_space_cadet.md)
 
 ## Tap
 Pressing and releasing a key. In some situations you will need to distinguish between a key down and a key up event, and Tap always refers to both at once.

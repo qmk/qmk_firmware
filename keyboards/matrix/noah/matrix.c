@@ -13,6 +13,10 @@
 #include "print.h"
 #include "matrix.h"
 
+#ifndef DEBOUNCE
+#    define DEBOUNCE 5
+#endif
+
 /**
  *
  * Row pins are input with internal pull-down.
@@ -26,6 +30,17 @@ static matrix_row_t matrix_debouncing[MATRIX_COLS];
 static bool debouncing = false;
 static uint16_t debouncing_time = 0;
 
+// user-defined overridable functions
+
+__attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
+
+__attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
+
+__attribute__((weak)) void matrix_init_user(void) {}
+
+__attribute__((weak)) void matrix_scan_user(void) {}
+
+// helper functions
 void matrix_init(void)
 {
     //debug_enable = true;
@@ -70,7 +85,7 @@ void matrix_init(void)
     memset(matrix, 0, MATRIX_ROWS * sizeof(matrix_row_t));
     memset(matrix_debouncing, 0, MATRIX_COLS * sizeof(matrix_row_t));
 
-    matrix_init_quantum();
+    matrix_init_kb();
 }
 
 uint8_t matrix_scan(void)
@@ -141,7 +156,7 @@ uint8_t matrix_scan(void)
         debouncing = false;
     }
 
-    matrix_scan_quantum();
+    matrix_scan_kb();
 
     return 1;
 }

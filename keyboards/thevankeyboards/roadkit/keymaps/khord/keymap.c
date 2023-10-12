@@ -29,9 +29,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * | L1  | L2  |     |     | Layer hold
    */
   [_NP] = LAYOUT_ortho_4x4( /* Numpad */
-    KC_P7,        KC_P8,         KC_P9,   KC_BSPC, \
-    KC_P4,        KC_P5,         KC_P6,   KC_TAB, \
-    KC_P1,        KC_P2,         KC_P3,   KC_PENT, \
+    KC_P7,        KC_P8,         KC_P9,   KC_BSPC,
+    KC_P4,        KC_P5,         KC_P6,   KC_TAB,
+    KC_P1,        KC_P2,         KC_P3,   KC_PENT,
     LT(1, KC_P0), LT(2, KC_SPC), KC_PDOT, KC_PSLS
   ),
 
@@ -47,9 +47,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----`-----`-----`-----'
    */
   [_L1] = LAYOUT_ortho_4x4( /* LAYER 1 */
-    RESET,   XXXXXXX, XXXXXXX, KC_DEL, \
-    KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, \
-    STR192,  STR255,  XXXXXXX, XXXXXXX, \
+    QK_BOOT, XXXXXXX, XXXXXXX, KC_DEL,
+    KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
+    STR192,  STR255,  XXXXXXX, XXXXXXX,
     _______, BL_STEP, _______, XXXXXXX
   ),
 
@@ -65,9 +65,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----`-----`-----`-----'
    */
   [_L2] = LAYOUT_ortho_4x4( /* LAYER 2 */
-    XXXXXXX, XXXXXXX, ADMIN,   SMSPC1, \
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+    XXXXXXX, XXXXXXX, ADMIN,   SMSPC1,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, _______, XXXXXXX, XXXXXXX
   )
 };

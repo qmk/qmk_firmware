@@ -24,7 +24,7 @@
 #define ALT_X       ALT_T(KC_X)
 #define ALT_N       ALGR_T(KC_N)
 #define CTL_M       RCTL_T(KC_M)
-#define WIN_C		LGUI_T(KC_C)
+#define WIN_C       LGUI_T(KC_C)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -35,11 +35,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [1] = LAYOUT(
-    _______, _______, _______, RESET,   _______,  KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS, KC_F10, KC_F7,   KC_F8,   KC_F9,
+    _______, _______, _______, QK_BOOT, _______,  KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS, KC_F10, KC_F7,   KC_F8,   KC_F9,
     _______, _______, _______, _______, _______,  KC_COMM, KC_DOT,  KC_SLSH, KC_SCLN, KC_QUOT, KC_TAB, KC_F4,   KC_F5,   KC_F6,
-    _______, _______, KC_LGUI, _______, KC_DEL,	  _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,         KC_F1,   KC_F2,   KC_F3
+    _______, _______, KC_LGUI, _______, KC_DEL,   _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,         KC_F1,   KC_F2,   KC_F3
   ),
-	
+    
   [2] = LAYOUT(
     _______, _______, _______, _______, _______,  KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, _______, _______, _______, _______,
     _______, _______, _______, _______, _______,  KC_LABK, KC_RABK, KC_QUES, KC_COLN, KC_DQUO, _______, _______, _______, _______,

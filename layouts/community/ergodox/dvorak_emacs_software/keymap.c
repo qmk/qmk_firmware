@@ -20,13 +20,6 @@
 /* #define CBRACK 3 // key ] or left alt */
 /* #define CAPS   4 // caps lock */
 
-// LEDS
-#define USB_LED_NUM_LOCK    0
-#define USB_LED_CAPS_LOCK   1
-#define USB_LED_SCROLL_LOCK 2
-#define USB_LED_COMPOSE     3
-#define USB_LED_KANA        4
-
 // TIMERS
 #define KEY_TAP_FAST 85
 #define KEY_TAP_SLOW 95
@@ -121,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
 
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     ergodox_board_led_off();
     ergodox_right_led_1_off();

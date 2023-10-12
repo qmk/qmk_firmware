@@ -1,6 +1,3 @@
-// this is the style you want to emulate.
-// This is the canonical layout file for the Quantum project. If you want to add another keyboard,
-
 #include QMK_KEYBOARD_H
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
@@ -23,21 +20,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GRV , KC_1   , KC_2   , KC_3   , KC_4   ,                   KC_LPRN, KC_RPRN, KC_MINS, KC_EQL , KC_LBRC,
     KC_TAB , KC_5   , KC_6   , KC_7   , KC_8   ,                   KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, KC_RBRC,
     _______, KC_9   , KC_0   , KC_DOT , KC_COMM,                   KC_HOME, KC_PGDN, KC_PGUP, KC_END , _______,
-    _______, _______, _______, _______, KC_DEL , F(MOUS), _______, _______, _______, _______, _______, _______
+    _______, _______, _______, _______, KC_DEL , TG(MOUS), _______, _______, _______, _______, _______, _______
   ),
 
   [MOUS] = LAYOUT( /* Mouse and Media Keys */
-    KC_SLCK, KC_PAUSE, KC_F11 , KC_F10 , KC_F9  ,                   KC_F8  , KC_F7  , KC_F6  , KC_F5  , KC_F4,
+    KC_SCRL, KC_PAUSE, KC_F11 , KC_F10 , KC_F9  ,                   KC_F8  , KC_F7  , KC_F6  , KC_F5  , KC_F4,
     KC_VOLD, KC_ACL0 , KC_ACL1, KC_ACL2, KC_VOLU,                   KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_F3,
     KC_MUTE, KC_MPRV , KC_MPLY, KC_MNXT, KC_MUTE,                   KC_WH_R, KC_WH_U, KC_WH_D, KC_WH_L, KC_F2,
-    _______, _______ , _______, _______, _______, _______, _______, KC_BTN1, F(BASE), RESET  , KC_F12 , KC_F1
+    _______, _______ , _______, _______, _______, _______, _______, KC_BTN1, TO(BASE), QK_BOOT, KC_F12 , KC_F1
   ),
-};
-
-
-// I prefer this layer switching strategy to the TG and MO functions.
-// so that I can get out of mouse mode just by tapping/holding my base layer FN key.
-const uint16_t PROGMEM fn_actions[] = {
-  [BASE] = ACTION_LAYER_OFF(2, 1),  // switch back to layer 0
-  [MOUS] = ACTION_LAYER_ON(2, 1)  // switch to layer 2
 };

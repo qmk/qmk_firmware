@@ -15,7 +15,7 @@
  */
 
 #include "indicators.h"
-#include "drivers/issi/is31fl3731-simple.h"
+#include "drivers/led/issi/is31fl3731-simple.h"
 #include "i2c_master.h"
 
 /* Set up IS31FL3731 for use in powering indicator LEDs. Absolutely overkill for this job but it was already in the design.
@@ -23,20 +23,20 @@
  */
 void init_fallacy_leds(void) {
     i2c_init();
-    IS31FL3731_init(LED_DRIVER_ADDR_1);
+    is31fl3731_init(LED_DRIVER_ADDR_1);
 
-    for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
-        IS31FL3731_set_led_control_register(i, true);
+    for (int i = 0; i < LED_MATRIX_LED_COUNT; i++) {
+        is31fl3731_set_led_control_register(i, true);
     }
 
-    IS31FL3731_update_led_control_registers(LED_DRIVER_ADDR_1, 0);
+    is31fl3731_update_led_control_registers(LED_DRIVER_ADDR_1, 0);
 }
 
 
 /* update the buffer
  */
 void update_fallacy_leds(void) {
-    IS31FL3731_update_pwm_buffers(LED_DRIVER_ADDR_1, 0);    
+    is31fl3731_update_pwm_buffers(LED_DRIVER_ADDR_1, 0);    
 }
 
 
@@ -44,17 +44,17 @@ void update_fallacy_leds(void) {
  */
 void set_fallacy_led(int index, bool state) {
     if (state) {
-        IS31FL3731_set_value(index, 128);
+        is31fl3731_set_value(index, 128);
     } 
     else {
-        IS31FL3731_set_value(index, 0);
+        is31fl3731_set_value(index, 0);
     }
 }
 
 
 /* define LED matrix
  */
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[LED_MATRIX_LED_COUNT] = {
     {0, C1_1},
     {0, C2_1},
     {0, C3_1},

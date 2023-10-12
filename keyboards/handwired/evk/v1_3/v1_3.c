@@ -12,7 +12,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "v1_3.h"
+#include "quantum.h"
 
 // Optional override functions below.
 // You can leave any or all of these undefined.
@@ -27,20 +27,6 @@ void matrix_init_kb(void) {
 
     matrix_init_user();
 }
-
-// looping keyboard codes
-// runs every cycle (a lot)
-/*void matrix_scan_kb(void) {
-
-    matrix_scan_user();
-}*/
-
-// per-action keyboard codes
-// runs for every key-press action, just before processing by the firmware
-/*bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-
-    return process_record_user(keycode, record);
-}*/
 
 // Set LED based on layer
 __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {

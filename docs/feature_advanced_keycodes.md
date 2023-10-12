@@ -2,24 +2,27 @@
 
 These allow you to combine a modifier with a keycode. When pressed, the keydown event for the modifier, then `kc` will be sent. On release, the keyup event for `kc`, then the modifier will be sent.
 
-|Key       |Aliases                        |Description                                           |
-|----------|-------------------------------|------------------------------------------------------|
-|`LCTL(kc)`|`C(kc)`                        |Hold Left Control and press `kc`                      |
-|`LSFT(kc)`|`S(kc)`                        |Hold Left Shift and press `kc`                        |
-|`LALT(kc)`|`A(kc)`, `LOPT(kc)`            |Hold Left Alt and press `kc`                          |
-|`LGUI(kc)`|`G(kc)`, `LCMD(kc)`, `LWIN(kc)`|Hold Left GUI and press `kc`                          |
-|`RCTL(kc)`|                               |Hold Right Control and press `kc`                     |
-|`RSFT(kc)`|                               |Hold Right Shift and press `kc`                       |
-|`RALT(kc)`|`ROPT(kc)`, `ALGR(kc)`         |Hold Right Alt and press `kc`                         |
-|`RGUI(kc)`|`RCMD(kc)`, `LWIN(kc)`         |Hold Right GUI and press `kc`                         |
-|`SGUI(kc)`|`SCMD(kc)`, `SWIN(kc)`         |Hold Left Shift and GUI and press `kc`                |
-|`LCA(kc)` |                               |Hold Left Control and Alt and press `kc`              |
-|`LSA(kc)` |                               |Hold Left Shift and Left Alt and press `kc`           |
-|`RSA(kc)` |`SAGR(kc)`                     |Hold Right Shift and Right Alt (AltGr) and press `kc` |
-|`RCS(kc)` |                               |Hold Right Control and Right Shift and press `kc`     |
-|`LCAG(kc)`|                               |Hold Left Control, Alt and GUI and press `kc`         |
-|`MEH(kc)` |                               |Hold Left Control, Shift and Alt and press `kc`       |
-|`HYPR(kc)`|                               |Hold Left Control, Shift, Alt and GUI and press `kc`  |
+|Key       |Aliases                           |Description                                           |
+|----------|----------------------------------|------------------------------------------------------|
+|`LCTL(kc)`|`C(kc)`                           |Hold Left Control and press `kc`                      |
+|`LSFT(kc)`|`S(kc)`                           |Hold Left Shift and press `kc`                        |
+|`LALT(kc)`|`A(kc)`, `LOPT(kc)`               |Hold Left Alt and press `kc`                          |
+|`LGUI(kc)`|`G(kc)`, `LCMD(kc)`, `LWIN(kc)`   |Hold Left GUI and press `kc`                          |
+|`RCTL(kc)`|                                  |Hold Right Control and press `kc`                     |
+|`RSFT(kc)`|                                  |Hold Right Shift and press `kc`                       |
+|`RALT(kc)`|`ROPT(kc)`, `ALGR(kc)`            |Hold Right Alt and press `kc`                         |
+|`RGUI(kc)`|`RCMD(kc)`, `LWIN(kc)`            |Hold Right GUI and press `kc`                         |
+|`LSG(kc)` |`SGUI(kc)`, `SCMD(kc)`, `SWIN(kc)`|Hold Left Shift and GUI and press `kc`                |
+|`LAG(kc)` |                                  |Hold Left Alt and Left GUI and press `kc`             |
+|`RSG(kc)` |                                  |Hold Right Shift and Right GUI and press `kc`         |
+|`RAG(kc)` |                                  |Hold Right Alt and Right GUI and press `kc`           |
+|`LCA(kc)` |                                  |Hold Left Control and Alt and press `kc`              |
+|`LSA(kc)` |                                  |Hold Left Shift and Left Alt and press `kc`           |
+|`RSA(kc)` |`SAGR(kc)`                        |Hold Right Shift and Right Alt (AltGr) and press `kc` |
+|`RCS(kc)` |                                  |Hold Right Control and Right Shift and press `kc`     |
+|`LCAG(kc)`|                                  |Hold Left Control, Alt and GUI and press `kc`         |
+|`MEH(kc)` |                                  |Hold Left Control, Shift and Alt and press `kc`       |
+|`HYPR(kc)`|                                  |Hold Left Control, Shift, Alt and GUI and press `kc`  |
 
 You can also chain them, for example `LCTL(LALT(KC_DEL))` or `C(A(KC_DEL))` makes a key that sends Control+Alt+Delete with a single keypress.
 
@@ -34,9 +37,9 @@ For more information on bitwise operators in C, click [here](https://en.wikipedi
 
 In practice, this means that you can check whether a given modifier is active with `get_mods() & MOD_BIT(KC_<modifier>)` (see the [list of modifier keycodes](keycodes_basic.md#modifiers)) or with `get_mods() & MOD_MASK_<modifier>` if the difference between left and right hand modifiers is not important and you want to match both. Same thing can be done for one-shot modifiers if you replace `get_mods()` with `get_oneshot_mods()`.
 
-To check that *only* a specific set of mods is active at a time, AND the modifier state and your desired mod mask as explained above and compare the result to the mod mask itself: `get_mods() & <mod mask> == <mod mask>`.
+To check that *only* a specific set of mods is active at a time, use a simple equality operator: `get_mods() == <mod mask>`.
 
-For example, let's say you want to trigger a piece of custom code if one-shot left control and one-shot left shift are on but every other one-shot mods are off. To do so, you can compose the desired mod mask by combining the mod bits for left control and shift with `(MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT))` and then plug it in: `get_oneshot_mods & (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT)) == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT))`. Using `MOD_MASK_CS` instead for the mod bitmask would have forced you to press four modifier keys (both versions of control and shift) to fulfill the condition.
+For example, let's say you want to trigger a piece of custom code if one-shot left control and one-shot left shift are on but every other one-shot mods are off. To do so, you can compose the desired mod mask by combining the mod bits for left control and shift with `(MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT))` and then plug it in: `get_oneshot_mods() == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT))`. Using `MOD_MASK_CS` instead for the mod bitmask would have forced you to press four modifier keys (both versions of control and shift) to fulfill the condition.
 
 The full list of mod masks is as follows:
 
@@ -88,7 +91,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case KC_ESC:
         // Detect the activation of only Left Alt
-        if ((get_mods() & MOD_BIT(KC_LALT)) == MOD_BIT(KC_LALT)) {
+        if (get_mods() == MOD_BIT(KC_LALT)) {
             if (record->event.pressed) {
                 // No need to register KC_LALT because it's already active.
                 // The Alt modifier will apply on this KC_TAB.
@@ -157,8 +160,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 ```
+Alternatively, this can be done with [Key Overrides](feature_key_overrides?id=simple-example).
 
-# Legacy Content :id=legacy-content
+# Advanced topics :id=advanced-topics
 
 This page used to encompass a large set of features. We have moved many sections that used to be part of this page to their own pages. Everything below this point is simply a redirect so that people following old links on the web find what they're looking for.
 
@@ -177,3 +181,7 @@ This page used to encompass a large set of features. We have moved many sections
 ## Tap-Hold Configuration Options :id=tap-hold-configuration-options
 
 * [Tap-Hold Configuration Options](tap_hold.md)
+
+## Key Overrides :id=key-overrides
+
+* [Key Overrides](feature_key_overrides.md)

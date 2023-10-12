@@ -50,4 +50,3 @@
 #define CH_DBG_FILL_THREADS TRUE
 
 #include_next <chconf.h>
-

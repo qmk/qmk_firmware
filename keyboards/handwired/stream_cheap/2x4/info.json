@@ -1,20 +1,32 @@
 {
-    "keyboard_name": "Stream Cheap 2x4",
+    "keyboard_name": "2x4",
+    "manufacturer": "Stream Cheap",
     "url": "https://www.thingiverse.com/thing:4497991",
     "maintainer": "qmk",
-    "width": 4,
-    "height": 2,
+    "usb": {
+        "vid": "0x7363",
+        "pid": "0x1214",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "matrix_pins": {
+        "direct": [
+            ["D1", "D0", "D4", "C6"],
+            ["D7", "E6", "B4", "B5"]
+        ]
+    },
     "layouts": {
         "LAYOUT_ortho_2x4": {
             "layout": [
-                {"label":"K00", "x":0, "y":0},
-                {"label":"K01", "x":1, "y":0},
-                {"label":"K02", "x":2, "y":0},
-                {"label":"K03", "x":3, "y":0},
-                {"label":"K04", "x":0, "y":1},
-                {"label":"K05", "x":1, "y":1},
-                {"label":"K06", "x":2, "y":1},
-                {"label":"K07", "x":3, "y":1}
+                {"x": 0, "y": 0, "matrix": [0, 0]},
+                {"x": 1, "y": 0, "matrix": [0, 1]},
+                {"x": 2, "y": 0, "matrix": [0, 2]},
+                {"x": 3, "y": 0, "matrix": [0, 3]},
+                {"x": 0, "y": 1, "matrix": [1, 0]},
+                {"x": 1, "y": 1, "matrix": [1, 1]},
+                {"x": 2, "y": 1, "matrix": [1, 2]},
+                {"x": 3, "y": 1, "matrix": [1, 3]}
             ]
         }
     }

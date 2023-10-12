@@ -18,7 +18,7 @@ Dvorak² keymaps
 ![Minivan layout Image BASEdef-alt](http://socialism.nl/misc/minivan/minivan_base_layer_dvorak_ve.jpg)
 Layer: `..._BASE`
 
-![Minivan layout Image NSYdef-alt](http://socialism.nl/misc/minivan/minivan_nsy_layer_dvorak_vb.jpg)
+![Minivan layout Image NSYdef-alt](http://socialism.nl/misc/minivan/minivan_nsy_layer_dvorak_vc.jpg)
 Layer: `..._NSY`
 
 ──────────in common────────────
@@ -27,7 +27,7 @@ Layer: `..._NSY`
 
 For more about the other layers, see ➡ ![readme.md](./readme.md) ⬅
 
-![Minivan illustration Overview layers by key, Dvorak](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_dvorak_2000_vh.jpg)
+![Minivan illustration Overview layers by key, Dvorak](http://socialism.nl/misc/minivan/minivan-all-layers-clear-visualization-by-key_dvorak_2000_vi.jpg)
 
 Layers (text)
 =============
@@ -78,7 +78,7 @@ Layers (text)
               -*-                          <|>                                  //(toggle) Access on _FUN
      BASE     !     @     #     $     %     | ^     &     *     (    )       Del
      Tab+LCtl 1!    2@    3#    4$    5%    | 6^    7&    8*    9(   0)  `~+RCtl
-     -+LSht   -_    =+    [{    \|    ]}    | }     |     {     _     +  `~+RSht            // row 2, raw
+     -+LSht   -_    =+    [{    \|    ]}    | }     |     {     _     +   ~+RSht            // row 2, raw
      ---------------------------------------------------------------------------
                  Left+LAlt ___   ___   Ent  | .   ___   RGUI  Right+RAlt
                                  -*-       <|>    -*-                        //(hold) Access on _DEF_BASE
@@ -131,5 +131,5 @@ Key associations
 ----------------
 Key placement associations between layers for Dvorak.
 
-![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-relationships_dvorak-descramble_1500_vd.jpg)
+![Minivan layout Image associations](http://socialism.nl/misc/minivan/minivan-relationships_dvorak-descramble_1500_ve.jpg)
 
