@@ -4,6 +4,7 @@
 
 #include "azoteq_iqs5xx.h"
 #include "pointing_device_internal.h"
+#include "wait.h"
 
 #define AZOTEQ_IQS5XX_ADDRESS 0x74 << 1
 #define AZOTEQ_IQS5XX_TIMEOUT_MS 10
@@ -87,6 +88,13 @@
 #    define AZOTEQ_IQS5XX_SCROLL_INITIAL_DISTANCE 0x32
 #endif
 
+i2c_status_t azoteq_iqs5xx_wake(void){
+    uint8_t data = 0;
+    i2c_status_t status = i2c_readReg16(0x74 << 1, AZOTEQ_IQS5XX_REG_PREVIOUS_CYCLE_TIME, (uint8_t *)&data, sizeof(data), 1);
+    i2c_stop();
+    wait_us(150);
+    return status;
+}
 i2c_status_t azoteq_iqs5xx_end_session(void) {
     const uint8_t END_BYTE = 1; // any data
     return i2c_writeReg16(AZOTEQ_IQS5XX_ADDRESS, AZOTEQ_IQS5XX_REG_END_COMMS, &END_BYTE, 1, AZOTEQ_IQS5XX_TIMEOUT_MS);
@@ -94,7 +102,9 @@ i2c_status_t azoteq_iqs5xx_end_session(void) {
 
 i2c_status_t azoteq_iqs5xx_get_base_data(azoteq_iqs5xx_base_data_t *base_data) {
     i2c_status_t status = i2c_readReg16(AZOTEQ_IQS5XX_ADDRESS, AZOTEQ_IQS5XX_REG_PREVIOUS_CYCLE_TIME, (uint8_t *)base_data, 10, AZOTEQ_IQS5XX_TIMEOUT_MS);
-    azoteq_iqs5xx_end_session();
+    if (status == I2C_STATUS_SUCCESS) {
+        azoteq_iqs5xx_end_session();
+    }
     return status;
 }
 

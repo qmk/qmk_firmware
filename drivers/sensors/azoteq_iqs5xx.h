@@ -131,10 +131,17 @@ typedef struct __attribute__((packed)) {
 #define AZOTEQ_IQS5XX_SWAP_H_L_BYTES(b) ((uint16_t)(b << 8) | (b >> 8))
 
 #ifndef AZOTEQ_IQS5XX_REPORT_RATE
-#    define AZOTEQ_IQS5XX_REPORT_RATE 10
+#    define AZOTEQ_IQS5XX_REPORT_RATE 8
+#endif
+
+#ifdef POINTING_DEVICE_MOTION_PIN
+#    define AZOTEQ_IQS5XX_EVENT_MODE true
+#else
+#    define AZOTEQ_IQS5XX_EVENT_MODE false
 #endif
 
 void           azoteq_iqs5xx_init(void);
+i2c_status_t   azoteq_iqs5xx_wake(void);
 report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report);
 i2c_status_t   azoteq_iqs5xx_get_report_rate(azoteq_iqs5xx_report_rate_t *report_rate, azoteq_charging_modes_t mode, bool end_session);
 i2c_status_t   azoteq_iqs5xx_set_report_rate(uint16_t report_rate_ms, azoteq_charging_modes_t mode, bool end_session);

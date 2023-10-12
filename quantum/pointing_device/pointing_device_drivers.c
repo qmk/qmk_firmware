@@ -123,13 +123,12 @@ static i2c_status_t azoteq_iqs5xx_init_status = 1;
 // clean up
 void azoteq_iqs5xx_init(void) {
     i2c_init();
-    // uint16_t data = 0;
-    // i2c_readReg16(0x74 << 1, 0, (uint8_t *)&data, sizeof(data), 100);
-    // i2c_stop();
-    wait_us(200);
-    azoteq_iqs5xx_init_status = azoteq_iqs5xx_set_report_rate(8, ACTIVE, false);
-    azoteq_iqs5xx_init_status = azoteq_iqs5xx_set_event_mode(true, false);
+    azoteq_iqs5xx_wake();
+    azoteq_iqs5xx_init_status = azoteq_iqs5xx_set_report_rate(AZOTEQ_IQS5XX_REPORT_RATE, ACTIVE, false);
+    azoteq_iqs5xx_init_status = azoteq_iqs5xx_set_event_mode(AZOTEQ_IQS5XX_EVENT_MODE, false);
     azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_gesture_config(true);
+    wait_ms(AZOTEQ_IQS5XX_REPORT_RATE+1);
+
 };
 
 report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report) {
