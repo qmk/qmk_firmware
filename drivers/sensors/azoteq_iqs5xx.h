@@ -7,20 +7,13 @@
 #include "i2c_master.h"
 #include "pointing_device.h"
 
-#ifndef AZOTEQ_IQS5XX_WIDTH_MM
-    #define AZOTEQ_IQS5XX_WIDTH_MM 43
-#endif
-
-#ifndef AZOTEQ_IQS5XX_HEIGHT_MM
-    #define AZOTEQ_IQS5XX_HEIGHT_MM 40
-#endif
+typedef enum { UNKNOWN, IQS550 = 40, IQS525 = 52, IQS572 = 58} azoteq_product_numbers_t;
+typedef enum { ACTIVE, IDLE_TOUCH, IDLE, LP1, LP2 } azoteq_charging_modes_t;
 
 typedef struct __attribute__((packed)) {
     uint8_t h : 8;
     uint8_t l : 8;
 } azoteq_iqs5xx_report_rate_t;
-
-typedef enum { ACTIVE, IDLE_TOUCH, IDLE, LP1, LP2 } azoteq_charging_modes_t;
 
 typedef struct __attribute__((packed)) {
     bool    single_tap : 1;     // Single tap gesture status
@@ -163,3 +156,5 @@ i2c_status_t   azoteq_iqs5xx_set_gesture_config(bool end_session);
 i2c_status_t   azoteq_iqs5xx_get_base_data(azoteq_iqs5xx_base_data_t *base_data);
 void           azoteq_iqs5xx_set_cpi(uint16_t cpi);
 uint16_t       azoteq_iqs5xx_get_cpi(void);
+uint16_t       azoteq_iqs5xx_get_product(void);
+void           azoteq_iqs5xx_setup_resolution(void);
