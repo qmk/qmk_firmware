@@ -247,6 +247,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 /* per key configuration */
 
 // https://precondition.github.io/home-row-mods#finding-the-sweet-spot
+// TODO: address breaking changes when pulling latest master
 bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case CMD_TAB:  // make CMD SPC faster
@@ -277,7 +278,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-// https://beta.docs.qmk.fm/using-qmk/software-features/tap_hold
+// TODO: address breaking changes when pulling latest master
+// https://github.com/qmk/qmk_firmware/blob/master/docs/ChangeLog/20230226.md
 bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case NUM_BSPC:
