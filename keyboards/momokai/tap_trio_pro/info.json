@@ -1,0 +1,74 @@
+{
+    "manufacturer": "momokai",
+    "keyboard_name": "hall_effect",
+    "maintainer": "peepeetee",
+    "bootloader": "rp2040",
+    "features": {
+        "bootmagic": false,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "rgb_matrix": true,
+        "nkro": true,
+        "deferred_exec": true
+    },
+    "bootmagic": {
+        "matrix": [2, 0]
+    },
+    "build": {
+        "lto": true
+      },
+    "matrix_pins": {
+        "direct":[
+        ["NO_PIN", "GP0", "NO_PIN" ],
+        ["GP28", "GP27", "GP26" ],
+        ["GP10", "GP9", "GP8" ]
+        ]
+    },
+    "processor": "RP2040",
+    "url": "",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0016",
+        "vid": "0x69F9"
+    },
+    "encoder": {
+        "enabled": true,
+        "rotary": [
+            {
+                "pin_a": "GP1",
+                "pin_b": "GP2"
+            }
+        ]
+    },
+    "ws2812": {
+        "pin": "GP29",
+        "driver": "vendor"
+    },
+    "rgb_matrix": {
+
+        "driver": "ws2812",
+        "layout": [
+            {"flags": 4, "matrix": [1, 0], "x": 0, "y": 0},
+            {"flags": 4, "matrix": [1, 1], "x": 0, "y": 32},
+            {"flags": 4, "matrix": [1, 2], "x": 0, "y": 64}
+        ]
+
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 1], "x": 1, "y": 0},
+
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+
+                {"matrix": [2, 0], "x": 0.5, "y": 2.25, "w": 0.5, "h": 0.5},
+                {"matrix": [2, 1], "x": 1, "y": 2.25, "w": 0.5, "h": 0.5},
+                {"matrix": [2, 2], "x": 1.5, "y": 2.25, "w": 0.5, "h": 0.5}
+            ]
+        }
+    }
+}
