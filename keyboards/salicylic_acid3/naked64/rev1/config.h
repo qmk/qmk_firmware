@@ -31,10 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLIGHT_VAL_STEP 4
 #endif
 
-// Selection of RGBLIGHT MODE to use.
-#define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_EFFECT_SNAKE
-
 #if defined(RGBLIGHT_ENABLE) && !defined(IOS_DEVICE_ENABLE)
 // USB_MAX_POWER_CONSUMPTION value for naked48 keyboard
 //  120  RGBoff, OLEDoff

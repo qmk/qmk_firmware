@@ -17,16 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* RGB stripe */
-#    define RGBLIGHT_EFFECT_ALTERNATING
-#    define RGBLIGHT_EFFECT_BREATHING
-#    define RGBLIGHT_EFFECT_CHRISTMAS
-#    define RGBLIGHT_EFFECT_KNIGHT
-#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#    define RGBLIGHT_EFFECT_SNAKE
-#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#    define RGBLIGHT_EFFECT_TWINKLE
 #    define OWL_VOLUME_RANGE 50
 
 /* RGB matrix*/
@@ -39,8 +29,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGB_MATRIX_LED_FLUSH_LIMIT    26
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
 #    define RGB_MATRIX_DEFAULT_VAL        128
-#    define DRIVER_ADDR_1                 0b0110000
-#    define DRIVER_COUNT                  1
+#    define DRIVER_ADDR_1                 IS31FL3741_I2C_ADDRESS_GND
+#    define IS31FL3741_DRIVER_COUNT                  1
 #    define RGB_MATRIX_LED_COUNT              71
 
 // RGB Matrix Animation modes. Explicitly enabled

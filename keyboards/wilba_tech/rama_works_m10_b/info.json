@@ -13,6 +13,9 @@
     "rows": ["E6"]
   },
   "diode_direction": "COL2ROW",
+  "dynamic_keymap": {
+    "layer_count": 10
+  },
   "backlight": {
     "pin": "C6"
   },
