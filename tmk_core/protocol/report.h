@@ -172,7 +172,7 @@ typedef struct {
     uint8_t report_id;
     uint8_t mods;
     uint8_t bits[NKRO_REPORT_BITS];
-} report_nkro_t;
+} PACKED report_nkro_t;
 
 typedef struct {
     uint8_t  report_id;
