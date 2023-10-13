@@ -15,16 +15,12 @@
  */
 
 #include "report.h"
+#include "action_util.h"
 #include "host.h"
 #include "keycode_config.h"
 #include "debug.h"
 #include "util.h"
 #include <string.h>
-
-extern report_keyboard_t* keyboard_report;
-#ifdef NKRO_ENABLE
-extern report_nkro_t* nkro_report;
-#endif
 
 #ifdef RING_BUFFERED_6KRO_REPORT_ENABLE
 #    define RO_ADD(a, b) ((a + b) % KEYBOARD_REPORT_KEYS)
