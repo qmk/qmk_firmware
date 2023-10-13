@@ -18,6 +18,5 @@
 #include "quantum.h"
 
 enum keyboard_keycodes {
-    KC_SIRI = QK_KB_0,
+    KC_SIRI = QK_KB_0
 };
-
