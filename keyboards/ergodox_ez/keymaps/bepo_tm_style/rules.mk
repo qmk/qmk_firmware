@@ -3,14 +3,15 @@ EXTRAKEY_ENABLE      = yes # Audio control and System control
 COMMAND_ENABLE       = yes # Commands for debug and configuration
 NKRO_ENABLE          = yes # USB Nkey Rollover - for issues, see github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 SWAP_HANDS_ENABLE    = yes # Allow swapping hands of keyboard
-KEY_LOCK_ENABLE      = yes # Enable the KC_LOCK key
 TAP_DANCE_ENABLE     = yes # Enable the tap dance feature.
 CONSOLE_ENABLE       = yes # Console for debug
 DYNAMIC_MACRO_ENABLE = yes # Dynamic macro recording
 LTO_ENABLE           = yes # Link time optimization (forces NO_ACTION_MACRO and NO_ACTION_FUNCTION in config.h)
 NO_USB_STARTUP_CHECK = yes # Don't do USB startup checks, might help with some KVM.
+CAPS_WORD_ENABLE     = yes # Activate the QK_CAPS_WORD_TOGGLE key.
 
-BOOTMAGIC_ENABLE   = no  # Disable Bootmagic lite
+BOOTMAGIC_ENABLE   = no # Enable Bootmagic Lite
+KEY_LOCK_ENABLE    = no  # Disable the QK_LOCK key
 UNICODE_ENABLE     = no
 SLEEP_LED_ENABLE   = no
 RGBLIGHT_ENABLE    = no

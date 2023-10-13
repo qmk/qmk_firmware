@@ -25,8 +25,15 @@
 #define TAPPING_TOGGLE  3
 #define TAPPING_TERM    150
 
+#define CAPS_WORD_IDLE_TIMEOUT 3000
+#undef DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
+#undef BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+#undef CAPS_WORD_INVERT_ON_SHIFT
+
 // Disable the option to have recursive macros that can block the keyboard.
 #define DYNAMIC_MACRO_NO_NESTING
+// Old behavior for dynamic macros, controlled from process_user_record.
+#define DYNAMIC_MACRO_USER_CALL 
 
 // NKRO is activated by default (otherwise we need a keyboard command for it).
 #define FORCE_NKRO
