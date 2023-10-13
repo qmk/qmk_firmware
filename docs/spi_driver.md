@@ -2,6 +2,18 @@
 
 The SPI Master drivers used in QMK have a set of common functions to allow portability between MCUs.
 
+## Usage :id=usage
+
+In most cases, the SPI Master driver code is automatically included if you are using a feature or driver which requires it, such as [OLED](feature_oled_driver.md).
+
+However, if you need to use the driver standalone, add the following to your `rules.mk`:
+
+```make
+SPI_DRIVER_REQUIRED = yes
+```
+
+You can then call the SPI API by including `spi_master.h` in your code.
+
 ## AVR Configuration :id=avr-configuration
 
 No special setup is required - just connect the `SS`, `SCK`, `MOSI` and `MISO` pins of your SPI devices to the matching pins on the MCU:
