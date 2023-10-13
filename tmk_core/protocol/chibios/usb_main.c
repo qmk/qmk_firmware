@@ -71,7 +71,7 @@ static virtual_timer_t keyboard_idle_timer;
 
 static void keyboard_idle_timer_cb(struct ch_virtual_timer *, void *arg);
 
-report_keyboard_t keyboard_report_sent = {{0}};
+report_keyboard_t keyboard_report_sent = {0};
 report_mouse_t    mouse_report_sent    = {0};
 
 union {
@@ -883,24 +883,20 @@ void send_report(uint8_t endpoint, void *report, size_t size) {
 /* prepare and start sending a report IN
  * not callable from ISR or locked state */
 void send_keyboard(report_keyboard_t *report) {
-    uint8_t ep   = KEYBOARD_IN_EPNUM;
-    size_t  size = KEYBOARD_REPORT_SIZE;
-
     /* If we're in Boot Protocol, don't send any report ID or other funky fields */
     if (!keyboard_protocol) {
-        send_report(ep, &report->mods, 8);
+        send_report(KEYBOARD_IN_EPNUM, &report->mods, 8);
     } else {
-#ifdef NKRO_ENABLE
-        if (keymap_config.nkro) {
-            ep   = SHARED_IN_EPNUM;
-            size = sizeof(struct nkro_report);
-        }
-#endif
-
-        send_report(ep, report, size);
+        send_report(KEYBOARD_IN_EPNUM, report, KEYBOARD_REPORT_SIZE);
     }
 
     keyboard_report_sent = *report;
+}
+
+void send_nkro(report_nkro_t *report) {
+#ifdef NKRO_ENABLE
+    send_report(SHARED_IN_EPNUM, report, sizeof(report_nkro_t));
+#endif
 }
 
 /* ---------------------------------------------------------

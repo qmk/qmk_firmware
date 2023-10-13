@@ -91,6 +91,7 @@ enum usb_interfaces {
 
 static uint8_t keyboard_led_state = 0;
 static uint8_t vusb_idle_rate     = 0;
+uint8_t        keyboard_protocol  = 1;
 
 /* Keyboard report send buffer */
 #define KBUF_SIZE 16
@@ -231,10 +232,11 @@ void console_task(void) {
  *------------------------------------------------------------------*/
 static uint8_t keyboard_leds(void);
 static void    send_keyboard(report_keyboard_t *report);
+static void    send_nkro(report_nkro_t *report);
 static void    send_mouse(report_mouse_t *report);
 static void    send_extra(report_extra_t *report);
 
-static host_driver_t driver = {keyboard_leds, send_keyboard, send_mouse, send_extra};
+static host_driver_t driver = {keyboard_leds, send_keyboard, send_nkro, send_mouse, send_extra};
 
 host_driver_t *vusb_driver(void) {
     return &driver;
@@ -257,6 +259,10 @@ static void send_keyboard(report_keyboard_t *report) {
     usbPoll();
     vusb_transfer_keyboard();
     keyboard_report_sent = *report;
+}
+
+static void send_nkro(report_nkro_t *report) {
+    // TODO: Implement NKRO
 }
 
 #ifndef KEYBOARD_SHARED_EP

@@ -35,6 +35,9 @@ static uint8_t suppressed_mods    = 0;
 // TODO: pointer variable is not needed
 // report_keyboard_t keyboard_report = {};
 report_keyboard_t *keyboard_report = &(report_keyboard_t){};
+#ifdef NKRO_ENABLE
+report_nkro_t *nkro_report = &(report_nkro_t){};
+#endif
 
 extern inline void add_key(uint8_t key);
 extern inline void del_key(uint8_t key);
@@ -256,7 +259,7 @@ bool is_oneshot_enabled(void) {
  *
  * FIXME: needs doc
  */
-void send_keyboard_report(void) {
+void send_6kro_report(void) {
     keyboard_report->mods = real_mods;
     keyboard_report->mods |= weak_mods;
 
@@ -269,7 +272,7 @@ void send_keyboard_report(void) {
         }
 #    endif
         keyboard_report->mods |= oneshot_mods;
-        if (has_anykey(keyboard_report)) {
+        if (has_anykey()) {
             clear_oneshot_mods();
         }
     }
@@ -292,6 +295,53 @@ void send_keyboard_report(void) {
         memcpy(&last_report, keyboard_report, sizeof(report_keyboard_t));
         host_keyboard_send(keyboard_report);
     }
+#endif
+}
+
+#ifdef NKRO_ENABLE
+void send_nkro_report(void) {
+    nkro_report->mods = real_mods | weak_mods;
+
+#    ifndef NO_ACTION_ONESHOT
+    if (oneshot_mods) {
+#        if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+        if (has_oneshot_mods_timed_out()) {
+            dprintf("Oneshot: timeout\n");
+            clear_oneshot_mods();
+        }
+#        endif
+        nkro_report->mods |= oneshot_mods;
+        if (has_anykey()) {
+            clear_oneshot_mods();
+        }
+    }
+#    endif
+
+#    ifdef KEY_OVERRIDE_ENABLE
+    // These need to be last to be able to properly control key overrides
+    nkro_report->mods &= ~suppressed_mods;
+    nkro_report->mods |= weak_override_mods;
+#    endif
+
+    static report_nkro_t last_report;
+
+    /* Only send the report if there are changes to propagate to the host. */
+    if (memcmp(nkro_report, &last_report, sizeof(report_nkro_t)) != 0) {
+        memcpy(&last_report, nkro_report, sizeof(report_nkro_t));
+        host_nkro_send(nkro_report);
+    }
+}
+#endif
+
+void send_keyboard_report(void) {
+#ifdef NKRO_ENABLE
+    if (keymap_config.nkro) {
+        send_nkro_report();
+    } else {
+        send_6kro_report();
+    }
+#else
+    send_6kro_report();
 #endif
 }
 
