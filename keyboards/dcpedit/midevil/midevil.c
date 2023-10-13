@@ -5,9 +5,31 @@
 #include "image/background.qgf.h"
 #include "image/animated.qgf.h"
 
-painter_device_t lcd;
-painter_image_handle_t background;
-painter_image_handle_t animated;
+static painter_device_t lcd;
+static painter_image_handle_t background;
+static painter_image_handle_t animated;
+
+static int animation_state;
+static deferred_token my_anim;
+
+void start_animation(void) {
+    my_anim = qp_animate(lcd, 116, 194, animated);
+    animation_state = 1;
+}
+
+void stop_animation(void) {
+    qp_stop_animation(my_anim);
+    animation_state = 0;
+}
+
+void toggle_animation(void) {
+    if (animation_state == 1) {
+        stop_animation();
+    }
+    else {
+        start_animation();
+    }
+}
 
 void keyboard_post_init_kb(void) {
     background = qp_load_image_mem(gfx_background);
@@ -28,7 +50,7 @@ void keyboard_post_init_kb(void) {
 
     // Draw image
     qp_drawimage(lcd, 0, 0, background);
-    qp_animate(lcd, 116, 194, animated);
+    start_animation();
 
     // Turn on the LCD backlight
     setPinOutput(LCD_LED_PIN);
@@ -36,4 +58,20 @@ void keyboard_post_init_kb(void) {
 
     // Allow for user post-init
     keyboard_post_init_user();
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+
+    case KC_CNCL:
+      if (record->event.pressed){
+        toggle_animation();
+      }
+      return false;
+
+    default:
+      return true;
+
+  }
+  return process_record_user(keycode, record);
 }
