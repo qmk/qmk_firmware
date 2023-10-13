@@ -17,10 +17,6 @@
         "nkro": true,
         "rgb_matrix": true
     },
-    "matrix_size": {
-        "cols": 20,
-        "rows": 6
-    },
     "processor": "STM32L432",
     "rgb_matrix": {
         "animations": {
