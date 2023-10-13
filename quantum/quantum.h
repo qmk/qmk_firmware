@@ -56,6 +56,7 @@
 #include "suspend.h"
 #include <stddef.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 #ifdef DEFERRED_EXEC_ENABLE
 #    include "deferred_exec.h"
