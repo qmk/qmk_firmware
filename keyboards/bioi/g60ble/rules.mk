@@ -15,5 +15,5 @@ LTO_ENABLE = yes
 
 BLUETOOTH_ENABLE = yes
 
-QUANTUM_LIB_SRC += uart.c
+UART_DRIVER_REQUIRED = yes
 SRC += bluetooth_custom.c
