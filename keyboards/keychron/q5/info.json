@@ -46,8 +46,6 @@
     },
     "url": "https://github.com/Keychron",
     "usb": {
-        "device_version": "1.0.0",
-        "pid": "0x0150",
         "vid": "0x3434"
     }
 }
