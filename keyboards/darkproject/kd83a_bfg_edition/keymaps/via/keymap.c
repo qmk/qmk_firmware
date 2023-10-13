@@ -19,44 +19,6 @@
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 
-enum my_keycodes {
-    KC_SIRI = QK_USER,
-    KC_DND,
-    KC_EJ,
-};
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
-    switch (keycode) {
-
-        case KC_SIRI:
-            if (record->event.pressed) {
-                host_consumer_send(0xCF);
-            } else {
-                host_consumer_send(0);
-            }
-            return false; /* Skip all further processing of this key */
-
-        case KC_DND:
-            if (record->event.pressed) {
-                host_system_send(0x9B);
-            } else {
-                host_system_send(0);
-            }
-            return false; /* Skip all further processing of this key */
-
-        case KC_EJ:
-            if (record->event.pressed) {
-                host_consumer_send(0x0B8);
-            } else {
-                host_consumer_send(0);
-            }
-            return false; /* Skip all further processing of this key */
-        default:
-            return true; /* Process all other keycodes normally */
-    }
-};
-
 enum custom_layers {
     Win,
     Mac,

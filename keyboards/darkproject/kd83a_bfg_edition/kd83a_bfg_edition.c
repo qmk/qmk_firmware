@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
+#include "kd83a_bfg_edition.h"
 
 #ifdef RGB_MATRIX_ENABLE
 
@@ -153,4 +153,20 @@ void keyboard_pre_init_kb(void) {
 };
 void housekeeping_task_kb(void) {
     writePin(C15, keymap_config.no_gui);
+};
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+
+    switch (keycode) {
+
+        case KC_SIRI:
+            if (record->event.pressed) {
+                host_consumer_send(0xCF);
+            } else {
+                host_consumer_send(0);
+            }
+            return false; /* Skip all further processing of this key */
+        default:
+            return true; /* Process all other keycodes normally */
+    }
 };
