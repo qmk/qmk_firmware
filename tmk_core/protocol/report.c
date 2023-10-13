@@ -21,9 +21,9 @@
 #include "util.h"
 #include <string.h>
 
-extern report_keyboard_t *keyboard_report;
+extern report_keyboard_t* keyboard_report;
 #ifdef NKRO_ENABLE
-extern report_nkro_t *nkro_report;
+extern report_nkro_t* nkro_report;
 #endif
 
 #ifdef RING_BUFFERED_6KRO_REPORT_ENABLE
