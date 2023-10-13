@@ -168,27 +168,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 host_consumer_send(0);
             }
             return false; /* Skip all further processing of this key */
-        case KC_DND:
-            if (record->event.pressed) {
-                host_system_send(0x9B);
-            } else {
-                host_system_send(0);
-            }
-            return false; /* Skip all further processing of this key */
-        case KC_SPOT:
-            if (record->event.pressed) {
-                host_consumer_send(0x221);
-            } else {
-                host_consumer_send(0);
-            }
-            return false; /* Skip all further processing of this key */
-        case KC_EJ:
-            if (record->event.pressed) {
-                host_consumer_send(0x0B8);
-            } else {
-                host_consumer_send(0);
-            }
-            return false; /* Skip all further processing of this key */
         default:
             return true; /* Process all other keycodes normally */
     }

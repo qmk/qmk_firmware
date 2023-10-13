@@ -19,8 +19,5 @@
 
 enum keyboard_keycodes {
     KC_SIRI = QK_KB_0,
-    KC_DND,
-    KC_SPOT,
-    KC_EJ,
 };
 
