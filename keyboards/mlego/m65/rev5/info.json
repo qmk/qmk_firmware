@@ -5,7 +5,6 @@
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
     "encoder": {
-        "enabled": true,
         "rotary": [
             {"pin_a": "GP4", "pin_b": "GP5", "resolution": 4}
         ]
