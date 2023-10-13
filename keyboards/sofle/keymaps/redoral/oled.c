@@ -19,8 +19,9 @@
 
 #ifdef OLED_ENABLE
 
+
 static void render_logo(void) {
-    static const char PROGMEM qmk_logo[] = {
+    static const char PROGMEM totk_logo[] = {
 0x46, 0x41, 0x80, 0x00, 0x18, 0x18, 0x20, 0xc0, 0x40, 0x24, 0x2a, 0x11, 0x00, 0x00, 0x01, 0x02, 
 0x1d, 0x05, 0xc2, 0x21, 0x00, 0x80, 0x80, 0x40, 0x40, 0xc1, 0x61, 0x22, 0x02, 0x04, 0x88, 0x50, 
 0x40, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
@@ -55,7 +56,7 @@ static void render_logo(void) {
 0x30, 0xce, 0x09, 0x44, 0x84, 0x48, 0x32, 0x8c, 0x4b, 0x30, 0x02, 0x01, 0x00, 0x00, 0x80, 0x60
     };
 
-    oled_write_P(qmk_logo, false);
+    oled_write_raw_P(totk_logo, sizeof(totk_logo));
 }
 
 static void print_status_narrow(void) {
@@ -67,25 +68,21 @@ static void print_status_narrow(void) {
             oled_write_ln_P(PSTR("Qwrt"), false);
             break;
         case 1:
-            oled_write_ln_P(PSTR("Clmk"), false);
+            oled_write_ln_P(PSTR("M01"), false);
             break;
         default:
-            oled_write_P(PSTR("Mod\n"), false);
+            oled_write_P(PSTR("Undef\n"), false);
             break;
     }
     oled_write_P(PSTR("\n\n"), false);
-    // Print current layer
+    // Print current layerb                                               
     oled_write_ln_P(PSTR("LAYER"), false);
     switch (get_highest_layer(layer_state)) {
         case 0:
-        case 1:
             oled_write_P(PSTR("Base\n"), false);
             break;
-        case 2:
-            oled_write_P(PSTR("Raise"), false);
-            break;
-        case 3:
-            oled_write_P(PSTR("Lower"), false);
+        case 1:
+            oled_write_P(PSTR("L1\n"), false);
             break;
         default:
             oled_write_ln_P(PSTR("Undef"), false);
