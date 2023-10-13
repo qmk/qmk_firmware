@@ -23,26 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 /*
- * Enable RGB Underlighting
- */
-#define RGBLED_NUM 15
-#define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#define RGBLIGHT_EFFECT_SNAKE
-#define RGBLIGHT_EFFECT_KNIGHT
-#define RGBLIGHT_EFFECT_CHRISTMAS
-#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#define RGBLIGHT_EFFECT_RGB_TEST
-#define RGBLIGHT_EFFECT_ALTERNATING
-#define RGBLIGHT_EFFECT_TWINKLE
-//#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-//#define RGBLIGHT_EFFECT_KNIGHT
-//#define RGBLIGHT_EFFECT_TWINKLE
-//#define RGBLIGHT_EFFECT_BREATHING
-
-
-/*
  * Enable Audio Subsystem with two voices
  */
 // #define AUDIO_PIN C6

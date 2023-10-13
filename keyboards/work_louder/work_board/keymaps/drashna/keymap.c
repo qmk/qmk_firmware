@@ -110,7 +110,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 
 bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
     uint8_t this_mod = get_mods();
-    uint8_t this_led = host_keyboard_leds();
+    led_t   this_led = host_keyboard_led_state();
     uint8_t this_osm = get_oneshot_mods();
 #define THUMB_LED                                   6
 #define RGB_MATRIX_INDICATOR_SET_COLOR_wrapper(...) RGB_MATRIX_INDICATOR_SET_COLOR(__VA_ARGS__)
@@ -134,7 +134,7 @@ bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
         }
     }
 
-    if ((this_mod | this_osm) & MOD_MASK_SHIFT || this_led & (1 << USB_LED_CAPS_LOCK)) {
+    if ((this_mod | this_osm) & MOD_MASK_SHIFT || this_led.caps_lock) {
         if (!layer_state_is(_ADJUST)) {
             RGB_MATRIX_INDICATOR_SET_COLOR(12, 0x00, 0xFF, 0x00);
             RGB_MATRIX_INDICATOR_SET_COLOR(13, 0x00, 0xFF, 0x00);
