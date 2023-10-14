@@ -28,9 +28,10 @@ class KeyboardReportMatcher : public testing::MatcherInterface<report_keyboard_t
     virtual bool MatchAndExplain(report_keyboard_t& report, testing::MatchResultListener* listener) const override;
     virtual void DescribeTo(::std::ostream* os) const override;
     virtual void DescribeNegationTo(::std::ostream* os) const override;
- private:
+private:
     report_keyboard_t m_report;
 };
+
 
 template<typename... Ts>
 inline testing::Matcher<report_keyboard_t&> KeyboardReport(Ts... keys) {
