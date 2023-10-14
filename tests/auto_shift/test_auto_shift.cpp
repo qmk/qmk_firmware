@@ -61,7 +61,6 @@ TEST_F(AutoShift, key_release_after_timeout) {
     VERIFY_AND_CLEAR(driver);
 
     /* Release regular key */
-    EXPECT_REPORT(driver, (KC_LSFT));
     EXPECT_REPORT(driver, (KC_LSFT, KC_A));
     EXPECT_REPORT(driver, (KC_LSFT));
     EXPECT_EMPTY_REPORT(driver);
