@@ -30,7 +30,7 @@
     "processor": "STM32L433",
     "bootloader": "custom",
     "layouts": {
-        "LAYOUT_87": {
+        "LAYOUT_tkl_f13_ansi_tsangan": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
 
