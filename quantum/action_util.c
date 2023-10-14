@@ -278,6 +278,8 @@ static uint8_t get_mods_for_report(void) {
     mods &= ~suppressed_mods;
     mods |= weak_override_mods;
 #endif
+
+    return mods;
 }
 
 void send_6kro_report(void) {
