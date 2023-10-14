@@ -48,7 +48,7 @@ static void render_logo(void) {
 static void print_status_narrow(void) {
     // Print name
     oled_write_P(PSTR("\n\n"), false);
-    oled_write_ln_P(PSTR("redoral"), false);
+    oled_write_ln_P(PSTR("Red"), false);
     oled_write_P(PSTR("\n\n"), false);
 
     // Print current layer                                              
