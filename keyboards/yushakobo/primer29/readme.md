@@ -1,20 +1,24 @@
 # primer29
 
-![primer29](imgur.com image replace me!)
+![primer29](https://i.imgur.com/EhQxZ4R.jpeg)
 
-*A short description of the keyboard/project*
+A simple macropad keyboard for the beginners.
 
-* Keyboard Maintainer: [yushakobo](https://github.com/marby3)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [yushakobo](https://github.com/yushakobo)
+* Hardware Supported: primer61 PCB, Pro Micro (ATmega32U4)
+* Hardware Availability: [yushakobo Shop](https://yushakobo.jp/shop/primer29/)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make primer29:default
+    make yushakobo/primer29:default
+    or
+    qmk compile -kb yushakobo/primer29 -km default
 
 Flashing example for this keyboard:
 
-    make primer29:default:flash
+    make yushakobo/primer29:default
+    or
+    qmk flash -kb yushakobo/primer29 -km default 
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
