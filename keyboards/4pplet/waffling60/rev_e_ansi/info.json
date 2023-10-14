@@ -1,6 +1,6 @@
 {
     "manufacturer": "4pplet",
-    "keyboard_name": "waffling60 Rev E ANSI",
+    "keyboard_name": "waffling60 Rev E ANSI HS",
     "maintainer": "4pplet",
     "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",

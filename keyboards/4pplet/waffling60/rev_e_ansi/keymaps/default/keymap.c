@@ -1,5 +1,5 @@
 /*
-Copyright 2020 Stefan Sundin "4pplet" <4pplet@protonmail.com>
+Copyright 2023 Stefan Sundin "4pplet" <mail@4pplet.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
