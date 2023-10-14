@@ -97,7 +97,7 @@ bool is_key_pressed(uint8_t key) {
         }
     }
 #endif
-    for (int i = 0; i < NKRO_REPORT_BITS; i++) {
+    for (int i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
         if (keyboard_report->keys[i] == key) {
             return true;
         }
