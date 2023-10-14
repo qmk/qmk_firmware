@@ -1,0 +1,56 @@
+{                                                                 
+    "manufacturer": "millet",                                     
+    "keyboard_name": "family",                                    
+    "maintainer": "millet",                                       
+    "bootloader": "atmel-dfu",                                    
+    "bootmagic": {                                                
+        "enabled": false                                          
+    },                                                            
+    "diode_direction": "COL2ROW",                                 
+    "features": {                                                 
+        "audio": false,                                           
+        "backlight": false,                                       
+        "bootmagic": false,                                       
+        "command": false,                                         
+        "console": false,                                         
+        "extrakey": false,                                        
+        "mousekey": false,                                        
+        "nkro": false,                                            
+        "rgblight": false,                                        
+        "swap_hands": false                                       
+    },   
+    
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B3", "pin_b": "B4"},
+            {"pin_a": "B5", "pin_b": "B6"}
+        ]
+    },
+    
+    "matrix_pins": {                                              
+        "cols": ["D1", "D2", "D3"],
+        "rows": ["B2", "C6"]                                                
+    },                                                            
+    "mouse_key": {                                                
+        "enabled": false                                          
+    },                                                            
+    "processor": "atmega32u2",                                    
+    "url": "",                                                    
+    "usb": {                                                      
+        "device_version": "0.0.1",                                
+        "pid": "0x1910",                                          
+        "vid": "0xBDD2"                                           
+    },                                                            
+    "layouts": {                                                  
+        "LAYOUT": {                                               
+            "layout": [                                           
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1}
+            ]                                                     
+        }                                                         
+    }                                                             
+}                                                                 
