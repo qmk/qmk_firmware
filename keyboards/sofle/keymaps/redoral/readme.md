@@ -4,9 +4,10 @@ Layout in [Keyboard Layout Editor](http://www.keyboard-layout-editor.com/#/gists
 
 Features:
 
--   Qwerty base, custom MO(1) layer by personal preference
--   Transparent MO(2) and MO(3) layers (to start from scratch)
--   The OLED on master half shows selected mode and caps lock state and is rotated.
+-   Qwerty base, custom MO(1) layer tailored to my own preference
+-   All transparent MO(2) and MO(3) layers (to start from scratch)
+-   The OLED on master half shows selected layer and caps lock state and is rotated
 -   The OLED on the other half shows a [ToTK logo from u/cassolab](https://www.reddit.com/r/MechanicalKeyboards/comments/15v1o4b/made_a_totk_pic_for_my_oled/)
--   Mouse keys support
--   Via support
+-   Mouse keys support, MO(1) layer by default has mouse key bindings on offhand board
+-   RGB support
+-   VIA support
