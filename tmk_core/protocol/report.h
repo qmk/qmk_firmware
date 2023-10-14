@@ -129,10 +129,10 @@ enum desktop_usages {
 #if defined(NKRO_ENABLE)
 #    if defined(PROTOCOL_LUFA) || defined(PROTOCOL_CHIBIOS)
 #        include "protocol/usb_descriptor.h"
-#        define KEYBOARD_REPORT_BITS (SHARED_EPSIZE - 2)
+#        define NKRO_REPORT_BITS (SHARED_EPSIZE - 2)
 #    elif defined(PROTOCOL_ARM_ATSAM)
 #        include "protocol/arm_atsam/usb/udi_device_epsize.h"
-#        define KEYBOARD_REPORT_BITS (NKRO_EPSIZE - 1)
+#        define NKRO_REPORT_BITS (NKRO_EPSIZE - 1)
 #        undef NKRO_SHARED_EP
 #        undef MOUSE_SHARED_EP
 #    else
@@ -188,7 +188,7 @@ typedef union {
         uint8_t report_id;
 #    endif
         uint8_t mods;
-        uint8_t bits[KEYBOARD_REPORT_BITS];
+        uint8_t bits[NKRO_REPORT_BITS];
     } nkro;
 #endif
 } __attribute__((packed)) report_keyboard_t;
