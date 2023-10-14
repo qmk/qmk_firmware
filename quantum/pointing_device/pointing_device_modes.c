@@ -425,7 +425,7 @@ static void pointing_tap_keycodes_raw(uint16_t* pm_keycodes) {
             break;
     }
     // skip if KC_TRNS or KC_NO (but allow for axes update above)
-    //if (pm_keycodes[dir] < 2) return;
+    // if (pm_keycodes[dir] < 2) return;
 
     // tap codes
     uint8_t taps = clamp_uint_16_to_8((uint16_t)abs(count));
@@ -573,7 +573,7 @@ static report_mouse_t process_pointing_mode(pointing_mode_t pointing_mode, repor
 
 #    ifdef POINTING_MODE_MAP_ENABLE
         default:
-            if(pointing_mode.id > POINTING_MODE_MAP_START) {
+            if (pointing_mode.id > POINTING_MODE_MAP_START) {
                 pointing_exec_mapping(pointing_mode.id - POINTING_MODE_MAP_START);
             }
 #    endif
