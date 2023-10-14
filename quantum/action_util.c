@@ -255,13 +255,8 @@ bool is_oneshot_enabled(void) {
 
 #endif
 
-/** \brief Send keyboard report
- *
- * FIXME: needs doc
- */
-void send_6kro_report(void) {
-    keyboard_report->mods = real_mods;
-    keyboard_report->mods |= weak_mods;
+static uint8_t get_mods_for_report(void) {
+    uint8_t mods = real_mods | weak_mods;
 
 #ifndef NO_ACTION_ONESHOT
     if (oneshot_mods) {
@@ -271,19 +266,22 @@ void send_6kro_report(void) {
             clear_oneshot_mods();
         }
 #    endif
-        keyboard_report->mods |= oneshot_mods;
+        mods |= oneshot_mods;
         if (has_anykey()) {
             clear_oneshot_mods();
         }
     }
-
 #endif
 
 #ifdef KEY_OVERRIDE_ENABLE
     // These need to be last to be able to properly control key overrides
-    keyboard_report->mods &= ~suppressed_mods;
-    keyboard_report->mods |= weak_override_mods;
+    mods &= ~suppressed_mods;
+    mods |= weak_override_mods;
 #endif
+}
+
+void send_6kro_report(void) {
+    keyboard_report->mods = get_mods_for_report();
 
 #ifdef PROTOCOL_VUSB
     host_keyboard_send(keyboard_report);
@@ -300,28 +298,7 @@ void send_6kro_report(void) {
 
 #ifdef NKRO_ENABLE
 void send_nkro_report(void) {
-    nkro_report->mods = real_mods | weak_mods;
-
-#    ifndef NO_ACTION_ONESHOT
-    if (oneshot_mods) {
-#        if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
-        if (has_oneshot_mods_timed_out()) {
-            dprintf("Oneshot: timeout\n");
-            clear_oneshot_mods();
-        }
-#        endif
-        nkro_report->mods |= oneshot_mods;
-        if (has_anykey()) {
-            clear_oneshot_mods();
-        }
-    }
-#    endif
-
-#    ifdef KEY_OVERRIDE_ENABLE
-    // These need to be last to be able to properly control key overrides
-    nkro_report->mods &= ~suppressed_mods;
-    nkro_report->mods |= weak_override_mods;
-#    endif
+    nkro_report->mods = get_mods_for_report();
 
     static report_nkro_t last_report;
 
@@ -333,9 +310,13 @@ void send_nkro_report(void) {
 }
 #endif
 
+/** \brief Send keyboard report
+ *
+ * FIXME: needs doc
+ */
 void send_keyboard_report(void) {
 #ifdef NKRO_ENABLE
-    if (keymap_config.nkro) {
+    if (keyboard_protocol && keymap_config.nkro) {
         send_nkro_report();
     } else {
         send_6kro_report();
