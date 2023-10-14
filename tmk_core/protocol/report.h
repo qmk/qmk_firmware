@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include <stdbool.h>
 #include "keycode.h"
+#include "util.h"
 
 // clang-format off
 
@@ -129,10 +130,10 @@ enum desktop_usages {
 #if defined(NKRO_ENABLE)
 #    if defined(PROTOCOL_LUFA) || defined(PROTOCOL_CHIBIOS)
 #        include "protocol/usb_descriptor.h"
-#        define KEYBOARD_REPORT_BITS (SHARED_EPSIZE - 2)
+#        define NKRO_REPORT_BITS (SHARED_EPSIZE - 2)
 #    elif defined(PROTOCOL_ARM_ATSAM)
 #        include "protocol/arm_atsam/usb/udi_device_epsize.h"
-#        define KEYBOARD_REPORT_BITS (NKRO_EPSIZE - 1)
+#        define NKRO_REPORT_BITS (NKRO_EPSIZE - 1)
 #        undef NKRO_SHARED_EP
 #        undef MOUSE_SHARED_EP
 #    else
@@ -188,20 +189,20 @@ typedef union {
         uint8_t report_id;
 #    endif
         uint8_t mods;
-        uint8_t bits[KEYBOARD_REPORT_BITS];
+        uint8_t bits[NKRO_REPORT_BITS];
     } nkro;
 #endif
-} __attribute__((packed)) report_keyboard_t;
+} PACKED report_keyboard_t;
 
 typedef struct {
     uint8_t  report_id;
     uint16_t usage;
-} __attribute__((packed)) report_extra_t;
+} PACKED report_extra_t;
 
 typedef struct {
     uint8_t  report_id;
     uint32_t usage;
-} __attribute__((packed)) report_programmable_button_t;
+} PACKED report_programmable_button_t;
 
 #ifdef MOUSE_EXTENDED_REPORT
 typedef int16_t mouse_xy_report_t;
@@ -222,7 +223,7 @@ typedef struct {
     mouse_xy_report_t y;
     int8_t            v;
     int8_t            h;
-} __attribute__((packed)) report_mouse_t;
+} PACKED report_mouse_t;
 
 typedef struct {
 #ifdef DIGITIZER_SHARED_EP
@@ -234,7 +235,7 @@ typedef struct {
     uint8_t  reserved : 5;
     uint16_t x;
     uint16_t y;
-} __attribute__((packed)) report_digitizer_t;
+} PACKED report_digitizer_t;
 
 typedef struct {
 #ifdef JOYSTICK_SHARED_EP
@@ -251,7 +252,7 @@ typedef struct {
 #if JOYSTICK_BUTTON_COUNT > 0
     uint8_t buttons[(JOYSTICK_BUTTON_COUNT - 1) / 8 + 1];
 #endif
-} __attribute__((packed)) report_joystick_t;
+} PACKED report_joystick_t;
 
 /* keycode to system usage */
 static inline uint16_t KEYCODE2SYSTEM(uint8_t key) {
