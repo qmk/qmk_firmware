@@ -1,10 +1,10 @@
  /* Copyright 2023 Red Oral
   * Forked the via folder and modified it to my own keymap and OLED display preference
-  * TotK byte array from https://www.reddit.com/r/MechanicalKeyboards/comments/15v1o4b/made_a_totk_pic_for_my_oled/
+  * TotK logo byte array from https://www.reddit.com/r/MechanicalKeyboards/comments/15v1o4b/made_a_totk_pic_for_my_oled/
   */
 
 //Sets up what the OLED screens display.
-#ifdef OLED_ENABLE
+#ifdef OLED_ENABLE 
 
 static void render_logo(void) {
     static const char PROGMEM totk_logo[] = {
@@ -46,33 +46,31 @@ static void render_logo(void) {
 }
 
 static void print_status_narrow(void) {
-    // Print current mode
+    // Print :3
+    oled_write_P(PSTR("\n\n"), false);
+    oled_write_ln_P(PSTR("Red"), false);
     oled_write_P(PSTR("\n\n"), false);
 
-    switch (get_highest_layer(layer_state)) {
-        case 0:
-            oled_write_ln_P(PSTR("Qwrt"), false);
-            break;
-        case 1:
-            oled_write_ln_P(PSTR("M01"), false);
-            break;
-        default:
-            oled_write_P(PSTR("Undef\n"), false);
-            break;
-    }
-    oled_write_P(PSTR("\n\n"), false);
-    // Print current layerb                                               
+    // Print current layer                                              
     oled_write_ln_P(PSTR("LAYER"), false);
     switch (get_highest_layer(layer_state)) {
         case 0:
             oled_write_P(PSTR("Base\n"), false);
             break;
         case 1:
-            oled_write_P(PSTR("L1\n"), false);
+            oled_write_P(PSTR("MO(1)"), false);
+            break;
+        case 2:
+            oled_write_P(PSTR("MO(2)"), false);
+            break;
+        case 3:
+            oled_write_P(PSTR("MO(3)"), false);
             break;
         default:
             oled_write_ln_P(PSTR("Undef"), false);
     }
+
+    // CAPSLOCK
     oled_write_P(PSTR("\n\n"), false);
     led_t led_usb_state = host_keyboard_led_state();
     oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
