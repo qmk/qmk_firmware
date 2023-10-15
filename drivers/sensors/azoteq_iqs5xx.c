@@ -211,8 +211,8 @@ i2c_status_t azoteq_iqs5xx_set_gesture_config(bool end_session) {
 void azoteq_iqs5xx_set_cpi(uint16_t cpi) {
     if (azoteq_iqs5xx_product_number != UNKNOWN) {
         azoteq_iqs5xx_resolution_t resolution = {0};
-        resolution.x_resolution               = MIN(azoteq_iqs5xx_device_resolution_t.resolution_x, AZOTEQ_IQS5XX_SWAP_H_L_BYTES(AZOTEQ_IQS5XX_INCH_TO_RESOLUTION_X(cpi)));
-        resolution.y_resolution               = MIN(azoteq_iqs5xx_device_resolution_t.resolution_y, AZOTEQ_IQS5XX_SWAP_H_L_BYTES(AZOTEQ_IQS5XX_INCH_TO_RESOLUTION_Y(cpi)));
+        resolution.x_resolution               = AZOTEQ_IQS5XX_SWAP_H_L_BYTES(MIN(azoteq_iqs5xx_device_resolution_t.resolution_x, AZOTEQ_IQS5XX_INCH_TO_RESOLUTION_X(cpi)));
+        resolution.y_resolution               = AZOTEQ_IQS5XX_SWAP_H_L_BYTES(MIN(azoteq_iqs5xx_device_resolution_t.resolution_y, AZOTEQ_IQS5XX_INCH_TO_RESOLUTION_Y(cpi)));
         i2c_writeReg16(AZOTEQ_IQS5XX_ADDRESS, AZOTEQ_IQS5XX_REG_X_RESOLUTION, (uint8_t *)&resolution, sizeof(azoteq_iqs5xx_resolution_t), AZOTEQ_IQS5XX_TIMEOUT_MS);
     }
 }
