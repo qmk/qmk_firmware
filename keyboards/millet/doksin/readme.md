@@ -1,6 +1,6 @@
 # DOKСИН
 
-![DOKСИН](https://i.imgur.com/OaDlfwr.jpg)
+![DOKСИН](https://i.imgur.com/OaDlfwrh.jpg)
 
 Can be used as a keyboard...
 
