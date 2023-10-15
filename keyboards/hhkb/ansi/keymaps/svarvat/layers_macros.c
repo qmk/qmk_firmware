@@ -880,14 +880,6 @@ bool processKeycodeIfLThumbMs(uint16_t keycode, keyrecord_t* record) {
                 isLThumbEWeakPristine = true;
             }
             return false;
-        case MA_MS_BTN2_TAP:
-            if (isWeakLaMouseStarted) {
-                tap_code16(KC_MS_BTN2);
-                return false;
-            } else {
-                tap_code16(KC_LGUI);
-            }
-            return true;
         case KC_MS_BTN1:
             if (isWeakLaMouseStarted) {
                 return true;
