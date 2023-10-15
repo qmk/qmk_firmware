@@ -147,23 +147,11 @@ report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report) {
                 temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON2);
             }
             if (base_data.gesture_events_1.scroll) {
-#    if defined(MOUSE_EXTENDED_REPORT)
-                temp_report.v = (int16_t)AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l);
-                temp_report.h = (int16_t)AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.y.h, base_data.y.l);
-
-#    else
-                temp_report.v = (int8_t)base_data.x.l;
-                temp_report.h = (int8_t)base_data.y.l;
-
-#    endif
+                temp_report.h = CONSTRAIN_HID(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l));
+                temp_report.v = CONSTRAIN_HID(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.y.h, base_data.y.l));
             } else if (base_data.number_of_fingers != 0) {
-#    if defined(MOUSE_EXTENDED_REPORT)
-                temp_report.x = (int16_t)AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l);
-                temp_report.y = (int16_t)AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.y.h, base_data.y.l);
-#    else
-                temp_report.x = (int8_t)base_data.x.l;
-                temp_report.y = (int8_t)base_data.y.l;
-#    endif
+                temp_report.x = CONSTRAIN_HID_XY(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l));
+                temp_report.y = CONSTRAIN_HID_XY(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.y.h, base_data.y.l));
             }
             previous_button_state = temp_report.buttons;
         } else {

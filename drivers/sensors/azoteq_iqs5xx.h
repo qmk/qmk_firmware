@@ -7,7 +7,7 @@
 #include "i2c_master.h"
 #include "pointing_device.h"
 
-typedef enum { UNKNOWN, IQS550 = 40, IQS525 = 52, IQS572 = 58} azoteq_product_numbers_t;
+typedef enum { UNKNOWN, IQS550 = 40, IQS525 = 52, IQS572 = 58 } azoteq_product_numbers_t;
 typedef enum { ACTIVE, IDLE_TOUCH, IDLE, LP1, LP2 } azoteq_charging_modes_t;
 
 typedef struct __attribute__((packed)) {
@@ -129,11 +129,11 @@ typedef struct __attribute__((packed)) {
 } azoteq_iqs5xx_gesture_config_t;
 
 typedef struct __attribute__((packed)) {
-    uint16_t                                     x_resolution;
-    uint16_t                                     y_resolution;
+    uint16_t x_resolution;
+    uint16_t y_resolution;
 } azoteq_iqs5xx_resolution_t;
 
-#define AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(h, l) ((h << 8) | l)
+#define AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(h, l) ((int16_t)(h << 8) | l)
 #define AZOTEQ_IQS5XX_SWAP_H_L_BYTES(b) ((uint16_t)(b << 8) | (b >> 8))
 
 #ifndef AZOTEQ_IQS5XX_REPORT_RATE
