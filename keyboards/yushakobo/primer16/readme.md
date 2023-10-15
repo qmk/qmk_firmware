@@ -6,7 +6,7 @@ This is 16 keys keyboard.
 It is designed for beginners.
 
 * Keyboard Maintainer: [yushakobo](https://github.com/yushakobo)
-* Hardware Supported: Quick17 PCBs, Pro Micro (ATmega32u4)
+* Hardware Supported: Primer16 PCBs, Pro Micro (ATmega32u4)
 * Hardware Availability: [yushakobo shop](https://shop.yushakobo.jp/products/5386)
 
 Make example for this keyboard (after setting up your build environment):
