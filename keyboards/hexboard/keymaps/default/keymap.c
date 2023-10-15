@@ -3,6 +3,16 @@
 
 #include QMK_KEYBOARD_H
 
+// Define the keycode, `QK_USER` avoids collisions with existing keycodes
+enum keycodes {
+  KC_CYCLE_LAYERS = QK_USER,
+};
+
+// 1st layer on the cycle
+#define LAYER_CYCLE_START 0
+// Last layer on the cycle
+#define LAYER_CYCLE_END   3
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Hexboard Harmonic table layout (landscape)
      *       ___   ___   ___
@@ -32,8 +42,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *  ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾   ‾‾‾
      */
     [0] = LAYOUT_landscape(
-                MI_BNDU,_______,MI_VL5,
-          MI_BNDD,MI_MOD,  MI_VL2,MI_VL8,
+              MI_BNDU,KC_CYCLE_LAYERS,MI_VL5,
+          MI_BNDD,MI_MOD,          MI_VL2,MI_VL10,
 
 
       MI_F5,   MI_Gb5, MI_G5,   MI_Ab5,  MI_A5,  MI_Bb5, MI_B5,
@@ -55,7 +65,61 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       MI_A,     MI_Bb,   MI_B,     MI_C1,  MI_Db1,  MI_D1,  MI_Eb1,
           MI_Gb,  MI_G,      MI_Ab,    MI_A,     MI_Bb,   MI_B,     MI_C1,
       MI_D,     MI_Eb,   MI_E,     MI_F,  MI_Gb1,    MI_G,    MI_Ab
-    )
+    ),
+    // wickiHaydenLayout
+    // ./makeLayout.py 79 2 -7 qmk
+    [1] = LAYOUT_portrait(
+MI_VL10, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+MI_VL5,  MI_G5, MI_A5, MI_B5, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+      MI_C5, MI_D5, MI_E5, MI_Gb5, MI_Ab5, MI_Bb5, KC_NO, KC_NO, KC_NO, KC_NO,
+MI_VL2,  MI_G4, MI_A4, MI_B4, MI_Db5, MI_Eb5, MI_F5, MI_G5, MI_A5, MI_B5,
+      MI_C4, MI_D4, MI_E4, MI_Gb4, MI_Ab4, MI_Bb4, MI_C5, MI_D5, MI_E5, MI_Gb5,
+QK_USER, MI_G3, MI_A3, MI_B3, MI_Db4, MI_Eb4, MI_F4, MI_G4, MI_A4, MI_B4,
+      MI_C3, MI_D3, MI_E3, MI_Gb3, MI_Ab3, MI_Bb3, MI_C4, MI_D4, MI_E4, MI_Gb4,
+MI_MOD,  MI_G2, MI_A2, MI_B2, MI_Db3, MI_Eb3, MI_F3, MI_G3, MI_A3, MI_B3,
+      MI_C2, MI_D2, MI_E2, MI_Gb2, MI_Ab2, MI_Bb2, MI_C3, MI_D3, MI_E3, MI_Gb3,
+MI_BNDU, MI_G1, MI_A1, MI_B1, MI_Db2, MI_Eb2, MI_F2, MI_G2, MI_A2, MI_B2,
+      MI_C1, MI_D1, MI_E1, MI_Gb1, MI_Ab1, MI_Bb1, MI_C2, MI_D2, MI_E2, MI_Gb2,
+MI_BNDD, MI_G, MI_A, MI_B, MI_Db1, MI_Eb1, MI_F1, MI_G1, MI_A1, MI_B1,
+      MI_C, MI_D, MI_E, MI_Gb, MI_Ab, MI_Bb, MI_C1, MI_D1, MI_E1, MI_Gb1
+    ),
+    // gerhardLayout
+    // ./makeLayout.py 62 -1 -3 qmk
+    [2] = LAYOUT_portrait(
+MI_VL10, MI_D5, MI_Db5, MI_C5, MI_B4, MI_Bb4, MI_A4, MI_Ab4, MI_G4, MI_Gb4,
+      MI_B4, MI_Bb4, MI_A4, MI_Ab4, MI_G4, MI_Gb4, MI_F4, MI_E4, MI_Eb4, MI_D4,
+MI_VL5,  MI_G4, MI_Gb4, MI_F4, MI_E4, MI_Eb4, MI_D4, MI_Db4, MI_C4, MI_B3,
+      MI_E4, MI_Eb4, MI_D4, MI_Db4, MI_C4, MI_B3, MI_Bb3, MI_A3, MI_Ab3, MI_G3,
+MI_VL2,  MI_C4, MI_B3, MI_Bb3, MI_A3, MI_Ab3, MI_G3, MI_Gb3, MI_F3, MI_E3,
+      MI_A3, MI_Ab3, MI_G3, MI_Gb3, MI_F3, MI_E3, MI_Eb3, MI_D3, MI_Db3, MI_C3,
+QK_USER, MI_F3, MI_E3, MI_Eb3, MI_D3, MI_Db3, MI_C3, MI_B2, MI_Bb2, MI_A2,
+      MI_D3, MI_Db3, MI_C3, MI_B2, MI_Bb2, MI_A2, MI_Ab2, MI_G2, MI_Gb2, MI_F2,
+MI_MOD,  MI_Bb2, MI_A2, MI_Ab2, MI_G2, MI_Gb2, MI_F2, MI_E2, MI_Eb2, MI_D2,
+      MI_G2, MI_Gb2, MI_F2, MI_E2, MI_Eb2, MI_D2, MI_Db2, MI_C2, MI_B1, MI_Bb1,
+MI_BNDU, MI_Eb2, MI_D2, MI_Db2, MI_C2, MI_B1, MI_Bb1, MI_A1, MI_Ab1, MI_G1,
+      MI_C2, MI_B1, MI_Bb1, MI_A1, MI_Ab1, MI_G1, MI_Gb1, MI_F1, MI_E1, MI_Eb1,
+MI_BNDD, MI_Ab1, MI_G1, MI_Gb1, MI_F1, MI_E1, MI_Eb1, MI_D1, MI_Db1, MI_C1,
+      MI_F1, MI_E1, MI_Eb1, MI_D1, MI_Db1, MI_C1, MI_B, MI_Bb, MI_A, MI_Ab
+    ),
+    // "Full" layout -- notably not full in qmk
+    // ./makeLayout.py 132 -1 -9 qmk
+    [3] = LAYOUT_portrait(
+MI_VL10, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+MI_VL5,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+MI_VL2,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+QK_USER, KC_NO, KC_NO, KC_NO, KC_NO, MI_B5, MI_Bb5, MI_A5, MI_Ab5, MI_G5,
+      MI_Gb5, MI_F5, MI_E5, MI_Eb5, MI_D5, MI_Db5, MI_C5, MI_B4, MI_Bb4, MI_A4,
+MI_MOD,  MI_Ab4, MI_G4, MI_Gb4, MI_F4, MI_E4, MI_Eb4, MI_D4, MI_Db4, MI_C4,
+      MI_B3, MI_Bb3, MI_A3, MI_Ab3, MI_G3, MI_Gb3, MI_F3, MI_E3, MI_Eb3, MI_D3,
+MI_BNDU, MI_Db3, MI_C3, MI_B2, MI_Bb2, MI_A2, MI_Ab2, MI_G2, MI_Gb2, MI_F2,
+      MI_E2, MI_Eb2, MI_D2, MI_Db2, MI_C2, MI_B1, MI_Bb1, MI_A1, MI_Ab1, MI_G1,
+MI_BNDD, MI_Gb1, MI_F1, MI_E1, MI_Eb1, MI_D1, MI_Db1, MI_C1, MI_B, MI_Bb,
+      MI_A, MI_Ab, MI_G, MI_Gb, MI_F, MI_E, MI_Eb, MI_D, MI_Db, MI_C
+    ),
 };
 
 
@@ -86,11 +150,42 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             } else if (keycode >= QK_MIDI_VELOCITY_0 && keycode <= QK_MIDI_VELOCITY_10) {
                 uint8_t vlev = keycode - QK_MIDI_VELOCITY_0; // 0-10
                 // Set brightness based on which is closest.
-                uint8_t brightness = rgb_matrix_config.hsv.v - abs(vlev * 12 - midi_config.velocity);
+                uint8_t brightness = 127 - abs((vlev * 12) - midi_config.velocity);
+                if (brightness > rgb_matrix_config.hsv.v) brightness = rgb_matrix_config.hsv.v;
                 // Highest velocity is red.
                 rgb_matrix_set_hsv(index, (10 - (vlev)) * 20, 255, brightness);
             }
         }
     }
     return false;
+}
+
+// Add the behaviour of this new keycode
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case KC_CYCLE_LAYERS:
+      // Our logic will happen on presses, nothing is done on releases
+      if (!record->event.pressed) { 
+        // We've already handled the keycode (doing nothing), let QMK know so no further code is run unnecessarily
+        return false;
+      }
+
+      uint8_t current_layer = get_highest_layer(layer_state);
+
+      // Check if we are within the range, if not quit
+      if (current_layer > LAYER_CYCLE_END || current_layer < LAYER_CYCLE_START) {
+        return false;
+      }
+
+      uint8_t next_layer = current_layer + 1;
+      if (next_layer > LAYER_CYCLE_END) {
+          next_layer = LAYER_CYCLE_START;
+      }
+      layer_move(next_layer);
+      return false;
+
+    // Process other keycodes normally
+    default:
+      return true;
+  }
 }
