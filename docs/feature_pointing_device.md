@@ -90,8 +90,8 @@ Specific device profiles are provided which set the required values for dimensio
 
 | Setting                          | Description                                                |
 | -------------------------------- | ---------------------------------------------------------- |
-| `AZOTEQ_IQS5XX_TPS43`            | (Required) Width of the trackpad sensor in millimeters.    |
-| `AZOTEQ_IQS5XX_TPS65`            | (Required) Height of the trackpad sensor in millimeters.   |
+| `AZOTEQ_IQS5XX_TPS43`            | (Pick One) Sets resolution/mm to TPS43 specifications.     |
+| `AZOTEQ_IQS5XX_TPS65`            | (Pick One) Sets resolution/mm to TPS65 specifications.     |
 
 ?> If using one of the above defines you can skip to gesture settings.
 
