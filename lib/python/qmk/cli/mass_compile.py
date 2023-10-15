@@ -8,22 +8,21 @@ from subprocess import DEVNULL
 from milc import cli
 
 from qmk.constants import QMK_FIRMWARE
-from qmk.commands import _find_make, get_make_parallel_args
+from qmk.commands import find_make, get_make_parallel_args, build_environment
 from qmk.search import search_keymap_targets, search_make_targets
-from qmk.commands import _find_make, get_make_parallel_args, create_make_command, build_environment
 
 
-def mass_compile_targets(targets, clean, dry_run, no_temp, parallel, env):
+def mass_compile_targets(targets, clean, dry_run, no_temp, parallel, **env):
     if len(targets) == 0:
         return
 
-    make_cmd = _find_make()
+    make_cmd = find_make()
     builddir = Path(QMK_FIRMWARE) / '.build'
     makefile = builddir / 'parallel_kb_builds.mk'
 
     if dry_run:
         cli.log.info('Compilation targets:')
-        for target in sorted(targets):
+        for target in sorted(targets, key=lambda t: f'{t}'):
             cli.log.info(f"{{fg_cyan}}qmk compile -kb {target[0]} -km {target[1]}{{fg_reset}}")
     else:
         if clean:
@@ -31,18 +30,16 @@ def mass_compile_targets(targets, clean, dry_run, no_temp, parallel, env):
 
         builddir.mkdir(parents=True, exist_ok=True)
         with open(makefile, "w") as f:
-
-            envs = build_environment(env)
-
-            for target in sorted(targets):
-                keyboard_name = target[0]
-                keymap_name = target[1]
+            for target, _ in sorted(targets, key=lambda t: f'{t[0]}'):
+                keyboard_name = target.keyboard
+                keymap_name = target.keymap
+                target.configure(parallel=1)  # We ignore parallelism on a per-build basis as we defer to the parent make invocation
+                target.prepare_build(**env)  # If we've got json targets, allow them to write out any extra info to .build before we kick off `make`
+                command = target.compile_command(**env)
+                command[0] = '+@$(MAKE)'  # Override the make so that we can use jobserver to handle parallelism
                 keyboard_safe = keyboard_name.replace('/', '_')
                 build_log = f"{QMK_FIRMWARE}/.build/build.log.{os.getpid()}.{keyboard_safe}.{keymap_name}"
                 failed_log = f"{QMK_FIRMWARE}/.build/failed.log.{os.getpid()}.{keyboard_safe}.{keymap_name}"
-
-                make_command = create_make_command(keyboard_name, keymap_name, make_override='+@$(MAKE)', **envs)
-                command_text = ' '.join(make_command)
                 # yapf: disable
                 f.write(
                     f"""\
@@ -50,7 +47,7 @@ all: {keyboard_safe}_{keymap_name}_binary
 {keyboard_safe}_{keymap_name}_binary:
 	@rm -f "{build_log}" || true
 	@echo "Compiling QMK Firmware for target: '{keyboard_name}:{keymap_name}'..." >>"{build_log}"
-	{command_text} \\
+	{' '.join(command)} \\
 		>>"{build_log}" 2>&1 \\
 		|| cp "{build_log}" "{failed_log}"
 	@{{ grep '\[ERRORS\]' "{build_log}" >/dev/null 2>&1 && printf "Build %-64s \e[1;31m[ERRORS]\e[0m\\n" "{keyboard_name}:{keymap_name}" ; }} \\
@@ -73,7 +70,7 @@ all: {keyboard_safe}_{keymap_name}_binary
                     # yapf: enable
                 f.write('\n')
 
-        cli.run([make_cmd, *get_make_parallel_args(parallel), '-f', makefile.as_posix(), 'all'], capture_output=False, stdin=DEVNULL)
+        cli.run([find_make(), *get_make_parallel_args(parallel), '-f', makefile.as_posix(), 'all'], capture_output=False, stdin=DEVNULL)
 
         # Check for failures
         failures = [f for f in builddir.glob(f'failed.log.{os.getpid()}.*')]
@@ -106,4 +103,4 @@ def mass_compile(cli):
     else:
         targets = search_keymap_targets([('all', cli.config.mass_compile.keymap)], cli.args.filter)
 
-    return mass_compile_targets(targets, cli.args.clean, cli.args.dry_run, cli.config.mass_compile.no_temp, cli.config.mass_compile.parallel, cli.args.env)
+    return mass_compile_targets(targets, cli.args.clean, cli.args.dry_run, cli.config.mass_compile.no_temp, cli.config.mass_compile.parallel, **build_environment(cli.args.env))

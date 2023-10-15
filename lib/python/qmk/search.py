@@ -13,6 +13,7 @@ from qmk.util import parallel_map
 from qmk.info import keymap_json
 import qmk.keyboard
 import qmk.keymap
+from qmk.build_targets import KeyboardKeymapBuildTarget, BuildTarget
 
 
 def _set_log_level(level):
@@ -181,13 +182,13 @@ def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str
     return targets
 
 
-def search_keymap_targets(targets: List[Tuple[str, str]] = [('all', 'default')], filters: List[str] = [], print_vals: List[str] = []) -> List[Tuple[str, str, List[Tuple[str, str]]]]:
+def search_keymap_targets(targets: List[Tuple[str, str]] = [('all', 'default')], filters: List[str] = [], print_vals: List[str] = []) -> List[Tuple[BuildTarget, List[Tuple[str, str]]]]:
     """Search for build targets matching the supplied criteria.
     """
-    return list(sorted(_filter_keymap_targets(expand_keymap_targets(targets), filters, print_vals), key=lambda e: (e[0], e[1])))
+    return [(KeyboardKeymapBuildTarget(e[0], e[1]), e[2]) for e in sorted(_filter_keymap_targets(expand_keymap_targets(targets), filters, print_vals), key=lambda e: (e[0], e[1]))]
 
 
-def search_make_targets(targets: List[str], filters: List[str] = [], print_vals: List[str] = []) -> List[Tuple[str, str, List[Tuple[str, str]]]]:
+def search_make_targets(targets: List[str], filters: List[str] = [], print_vals: List[str] = []) -> List[Tuple[BuildTarget, List[Tuple[str, str]]]]:
     """Search for build targets matching the supplied criteria.
     """
-    return list(sorted(_filter_keymap_targets(expand_make_targets(targets), filters, print_vals), key=lambda e: (e[0], e[1])))
+    return [(KeyboardKeymapBuildTarget(e[0], e[1]), e[2]) for e in sorted(_filter_keymap_targets(expand_make_targets(targets), filters, print_vals), key=lambda e: (e[0], e[1]))]

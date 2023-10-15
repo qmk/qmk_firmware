@@ -7,12 +7,11 @@ from argcomplete.completers import FilesCompleter
 from milc import cli
 
 import qmk.path
-from qmk.constants import QMK_FIRMWARE
 from qmk.decorators import automagic_keyboard, automagic_keymap
-from qmk.commands import compile_configurator_json, create_make_command, create_make_target, parse_configurator_json, build_environment
+from qmk.commands import build_environment
 from qmk.keyboard import keyboard_completer, keyboard_folder_or_all, is_all_keyboards
-from qmk.keymap import keymap_completer, is_keymap_target
-from qmk.cli.generate.compilation_database import write_compilation_database
+from qmk.keymap import keymap_completer, locate_keymap
+from qmk.build_targets import KeyboardKeymapBuildTarget, JsonKeymapBuildTarget
 
 
 @cli.argument('filename', nargs='?', arg_only=True, type=qmk.path.FileType('r'), completer=FilesCompleter('.json'), help='The configurator export to compile')
@@ -38,53 +37,35 @@ def compile(cli):
         from .mass_compile import mass_compile
         cli.args.builds = []
         cli.args.filter = []
-        cli.args.no_temp = False
+        cli.config.mass_compile.keymap = cli.config.compile.keymap
+        cli.config.mass_compile.parallel = cli.config.compile.parallel
+        cli.config.mass_compile.no_temp = False
         return mass_compile(cli)
 
     # Build the environment vars
     envs = build_environment(cli.args.env)
 
-    # Determine the compile command
-    commands = []
-
-    current_keyboard = None
-    current_keymap = None
+    # Handler for the build target
+    target = None
 
     if cli.args.filename:
-        # If a configurator JSON was provided generate a keymap and compile it
-        user_keymap = parse_configurator_json(cli.args.filename)
-        commands = [compile_configurator_json(user_keymap, target=cli.args.target, parallel=cli.config.compile.parallel, clean=cli.args.clean, **envs)]
+        # if we were given a filename, assume we have a json build target
+        target = JsonKeymapBuildTarget(cli.args.filename)
 
     elif cli.config.compile.keyboard and cli.config.compile.keymap:
-        # Generate the make command for a specific keyboard/keymap.
-        if not is_keymap_target(cli.config.compile.keyboard, cli.config.compile.keymap):
+        # if we got a keyboard and keymap, attempt to find it
+        if not locate_keymap(cli.config.compile.keyboard, cli.config.compile.keymap):
             cli.log.error('Invalid keymap argument.')
             cli.print_help()
             return False
 
-        if cli.args.clean:
-            commands.append(create_make_target('clean'))
-        commands.append(create_make_command(cli.config.compile.keyboard, cli.config.compile.keymap, target=cli.args.target, parallel=cli.config.compile.parallel, **envs))
+        # If we got here, then we have a valid keyboard and keymap for a build target
+        target = KeyboardKeymapBuildTarget(cli.config.compile.keyboard, cli.config.compile.keymap)
 
-        current_keyboard = cli.config.compile.keyboard
-        current_keymap = cli.config.compile.keymap
-
-    if not commands:
+    if not target:
         cli.log.error('You must supply a configurator export, both `--keyboard` and `--keymap`, or be in a directory for a keyboard or keymap.')
         cli.print_help()
         return False
 
-    if cli.args.compiledb:
-        if current_keyboard is None or current_keymap is None:
-            cli.log.error('You must supply both `--keyboard` and `--keymap` or be in a directory with a keymap to generate a compile_commands.json file.')
-            cli.print_help()
-            return False
-        write_compilation_database(current_keyboard, current_keymap, QMK_FIRMWARE / 'compile_commands.json')
-
-    cli.log.info('Compiling keymap with {fg_cyan}%s', ' '.join(commands[-1]))
-    if not cli.args.dry_run:
-        cli.echo('\n')
-        for command in commands:
-            ret = cli.run(command, capture_output=False)
-            if ret.returncode:
-                return ret.returncode
+    target.configure(parallel=cli.config.compile.parallel, clean=cli.args.clean, compiledb=cli.args.compiledb)
+    target.compile(cli.args.target, dry_run=cli.args.dry_run, **envs)
