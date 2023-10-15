@@ -16,23 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 9
-
-// wiring of each half
-#define MATRIX_ROW_PINS { F6, F7, B1, B2, B3 }
-#define MATRIX_COL_PINS { D4, C6, D7, E6, B4, D2, D3, B5, B6 }
-#define UNUSED_PINS
-
-#define ENCODERS_PAD_A { D1, F5 }
-#define ENCODERS_PAD_B { D0, F4 }
-#define ENCODER_RESOLUTION 3
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
