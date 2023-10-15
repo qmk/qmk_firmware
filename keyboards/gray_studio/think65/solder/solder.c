@@ -18,12 +18,7 @@
 // Optional override functions below.
 // You can leave any or all of these undefined.
 // These are only required if you want to perform custom actions.
-#define CAPS_LOCK_LED A5
-#define SCROLL_LOCK_LED A15
-
-#define LAYER_1_PIN C8
-#define LAYER_2_PIN C7
-#define LAYER_3_PIN C6
+ 
 
 void matrix_init_kb(void) {
   // put your keyboard start-up code here
