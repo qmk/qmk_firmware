@@ -8,7 +8,7 @@ from pathlib import Path
 from milc import cli
 import jsonschema
 
-from qmk.constants import QMK_FIRMWARE, INTERMEDIATE_OUTPUT_PREFIX, QMK_USERSPACE, HAS_QMK_USERSPACE
+from qmk.constants import QMK_USERSPACE, HAS_QMK_USERSPACE
 from qmk.json_schema import json_load, validate
 
 
