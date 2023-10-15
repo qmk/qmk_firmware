@@ -1,6 +1,6 @@
 # mariorion_v25
 
-![mariorion_v25](imgur.com image replace me!)
+![mariorion_v25](https://imgur.com/a/FINDY2V)
 
 *A short description of the keyboard/project*
 
