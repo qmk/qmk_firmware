@@ -30,7 +30,7 @@ def parallelize():
         cli.save_config()
         cli.config.user.parallel_search = parallel_search
 
-    # Non-parallel searches use use `map()`
+    # Non-parallel searches use `map()`
     if not parallel_search:
         yield map
         return
