@@ -6,8 +6,12 @@
 #include "pointing_device_internal.h"
 #include "wait.h"
 
-#define AZOTEQ_IQS5XX_ADDRESS 0x74 << 1
-#define AZOTEQ_IQS5XX_TIMEOUT_MS 10
+#ifndef AZOTEQ_IQS5XX_ADDRESS
+#    define AZOTEQ_IQS5XX_ADDRESS 0x74 << 1
+#endif
+#ifndef AZOTEQ_IQS5XX_TIMEOUT_MS
+#    define AZOTEQ_IQS5XX_TIMEOUT_MS 10
+#endif
 
 #define AZOTEQ_IQS5XX_REG_PRODUCT_NUMBER 0x0000
 #define AZOTEQ_IQS5XX_REG_PROJECT_NUMBER 0x0002
