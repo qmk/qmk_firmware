@@ -79,7 +79,7 @@ tags
 *.apng
 *.mng
 *.svg
-*.webp
+# *.webp
 *.webm
 *.avi
 *.mp4
