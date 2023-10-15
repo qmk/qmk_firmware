@@ -1,6 +1,7 @@
 # mariorion_v25
 
-![mariorion_v25](https://imgur.com/a/FINDY2V)
+![mariorion_v25_1](https://i.imgur.com/3OrUK2ph.jpeg)
+![mariorion_v25_2](https://i.imgur.com/OvMBHOlh.jpeg)
 
 *A short description of the keyboard/project*
 
