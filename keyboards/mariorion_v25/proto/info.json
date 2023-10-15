@@ -44,16 +44,8 @@
         "pid": "0x1111",
         "vid": "0x1111"
     },
-    "community_layouts": {
-        "tkl_ansi",
-        "tkl_ansi_split_bs_rshift",
-        "tkl_ansi_tsangan",
-        "tkl_ansi_tsangan_split_bs_rshift",
-        "tkl_iso",
-        "tkl_iso_split_bs_rshift",
-        "tkl_iso_tsangan",
-        "tkl_iso_tsangan_split_bs_rshift"
-    },
+    "community_layouts": ["tkl_ansi", "tkl_ansi_split_bs_rshift", "tkl_ansi_tsangan", "tkl_ansi_tsangan_split_bs_rshift",
+        "tkl_iso", "tkl_iso_split_bs_rshift", "tkl_iso_tsangan", "tkl_iso_tsangan_split_bs_rshift"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
