@@ -33,4 +33,5 @@ Arrow, navigation, mouse, and bracket keys.
 ### MO(2) and MO(3)
 
 Blank layers. I personally have no use for these layers so all keys are transparent by default so you can start with a clean slate if you do want to use these layers.
+
 ![MO(2) and MO(3) layers](./screenshots/mo2_3.webp?raw=true "MO(2) and MO(3)")
