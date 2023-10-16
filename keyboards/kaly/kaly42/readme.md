@@ -2,7 +2,7 @@
 
 ![kaly/kaly42](https://i.imgur.com/wSmUjFUh.jpeg)
 
-The Kaly is a split, ergonomic keyboard inspired by the [Ferris](https://github.com/pierrechevalier83/ferris) and the [Cantor](https://github.com/diepala/cantor) with the main goals of comfort, affordability and cuteness! The stand-out feature of the Kaly is the ease-to-solder and the natural thumb keys that allow users to confortably reach all 3 keys.
+The Kaly is a split, ergonomic keyboard inspired by the [Ferris](https://github.com/pierrechevalier83/ferris) and the [Cantor](https://github.com/diepala/cantor) with the main goals of comfort, affordability and cuteness! The stand-out features of the Kaly is the ease-to-solder and the natural thumb cluster that allow users to confortably reach all keys of the keyboard! To see more of the Kaly, visit [this video](https://www.youtube.com/watch?v=PhxM8o__9Xo) outlining the journey of making this keybord.
 
 * Keyboard Maintainer: [Kael Soares Augusto](https://github.com/Dwctor)
 * Hardware Supported: Blackpill STM32F401
