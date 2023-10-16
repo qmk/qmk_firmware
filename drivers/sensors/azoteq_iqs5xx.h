@@ -6,16 +6,17 @@
 
 #include "i2c_master.h"
 #include "pointing_device.h"
+#include "util.h"
 
 typedef enum { UNKNOWN, IQS550 = 40, IQS525 = 52, IQS572 = 58 } azoteq_product_numbers_t;
 typedef enum { ACTIVE, IDLE_TOUCH, IDLE, LP1, LP2 } azoteq_charging_modes_t;
 
-typedef struct __attribute__((packed)) {
+typedef struct {
     uint8_t h : 8;
     uint8_t l : 8;
 } azoteq_iqs5xx_report_rate_t;
 
-typedef struct __attribute__((packed)) {
+typedef struct PACKED {
     bool    single_tap : 1;     // Single tap gesture status
     bool    press_and_hold : 1; // Press and hold gesture status
     bool    swipe_x_neg : 1;    // Swipe in negative X direction status
@@ -25,14 +26,14 @@ typedef struct __attribute__((packed)) {
     uint8_t _unused : 2;        // unused
 } azoteq_iqs5xx_gesture_events_0_t;
 
-typedef struct __attribute__((packed)) {
+typedef struct PACKED {
     bool    two_finger_tap : 1; // Two finger tap gesture status
     bool    scroll : 1;         // Scroll status
     bool    zoom : 1;           // Zoom gesture status
     uint8_t _unused : 5;        // unused
 } azoteq_iqs5xx_gesture_events_1_t;
 
-typedef struct __attribute__((packed)) {
+typedef struct PACKED {
     azoteq_charging_modes_t charging_mode : 3;      // Indicates current mode
     bool                    ati_error : 1;          //
     bool                    reati_occurred : 1;     //
@@ -41,7 +42,7 @@ typedef struct __attribute__((packed)) {
     bool                    show_reset : 1;         //
 } azoteq_iqs5xx_system_info_0_t;
 
-typedef struct __attribute__((packed)) {
+typedef struct PACKED {
     bool    tp_movement : 1;      //
     bool    palm_detect : 1;      //  Palm detect status
     bool    too_many_fingers : 1; // Total finger status
@@ -51,12 +52,12 @@ typedef struct __attribute__((packed)) {
     uint8_t _unused : 2;          // unused
 } azoteq_iqs5xx_system_info_1_t;
 
-typedef struct __attribute__((packed)) {
+typedef struct {
     uint8_t h : 8;
     uint8_t l : 8;
 } azoteq_iqs5xx_relative_xy_t;
 
-typedef struct __attribute__((packed)) {
+typedef struct {
     uint8_t                          previous_cycle_time;
     azoteq_iqs5xx_gesture_events_0_t gesture_events_0;
     azoteq_iqs5xx_gesture_events_1_t gesture_events_1;
@@ -69,7 +70,7 @@ typedef struct __attribute__((packed)) {
 
 _Static_assert(sizeof(azoteq_iqs5xx_base_data_t) == 10, "azoteq_iqs5xx_basic_report_t should be 10 bytes");
 
-typedef struct __attribute__((packed)) {
+typedef struct {
     uint8_t                     number_of_fingers;
     azoteq_iqs5xx_relative_xy_t x;
     azoteq_iqs5xx_relative_xy_t y;
@@ -77,7 +78,7 @@ typedef struct __attribute__((packed)) {
 
 _Static_assert(sizeof(azoteq_iqs5xx_report_data_t) == 5, "azoteq_iqs5xx_report_data_t should be 5 bytes");
 
-typedef struct __attribute__((packed)) {
+typedef struct PACKED {
     bool event_mode : 1;
     bool gesture_event : 1;
     bool tp_event : 1;
@@ -88,13 +89,13 @@ typedef struct __attribute__((packed)) {
     bool prox_event : 1;
 } azoteq_iqs5xx_system_config_1_t;
 
-typedef struct __attribute__((packed)) {
+typedef struct PACKED {
     bool   suspend : 1;
     bool   reset : 1;
     int8_t _unused : 6;
 } azoteq_iqs5xx_system_control_1_t;
 
-typedef struct __attribute__((packed)) {
+typedef struct PACKED {
     bool   single_tap : 1;
     bool   press_and_hold : 1;
     bool   swipe_x_minus : 1;
@@ -104,14 +105,14 @@ typedef struct __attribute__((packed)) {
     int8_t _unused : 2;
 } azoteq_iqs5xx_single_finger_gesture_enable_t;
 
-typedef struct __attribute__((packed)) {
+typedef struct PACKED {
     bool   two_finger_tap : 1;
     bool   scroll : 1;
     bool   zoom : 1;
     int8_t _unused : 5;
 } azoteq_iqs5xx_multi_finger_gesture_enable_t;
 
-typedef struct __attribute__((packed)) {
+typedef struct {
     azoteq_iqs5xx_single_finger_gesture_enable_t single_finger_gestures;
     azoteq_iqs5xx_multi_finger_gesture_enable_t  multi_finger_gestures;
     uint16_t                                     tap_time;
@@ -128,7 +129,7 @@ typedef struct __attribute__((packed)) {
     uint16_t                                     zoom_consecutive_distance;
 } azoteq_iqs5xx_gesture_config_t;
 
-typedef struct __attribute__((packed)) {
+typedef struct {
     uint16_t x_resolution;
     uint16_t y_resolution;
 } azoteq_iqs5xx_resolution_t;
