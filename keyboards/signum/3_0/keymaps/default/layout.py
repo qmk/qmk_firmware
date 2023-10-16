@@ -396,7 +396,7 @@ qmk_dict = {
     # One Shot Keys missing
     # Swap Hands
     "_sp_swp": "SHT(KC_SPC)",
-    # Unicode support (via X()) included implicitly
+    # Unicode support included implicitly
     # Switching Unicode Input Modes
     "UC_win": "UC_WINC", "UC_lnx": "UC_LINX", "UC_mac": "UC_MAC",
 

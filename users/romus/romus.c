@@ -291,13 +291,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case TUR_A:
             if (record->event.pressed) {
                 if ( is_capital ) {
-                    unicode_input_start();
-                    register_hex(0x00c2);
-                    unicode_input_finish();
+                    register_unicode(0x00c2);
                 } else {
-                    unicode_input_start();
-                    register_hex(0x00e2);
-                    unicode_input_finish();
+                    register_unicode(0x00e2);
                 }
             }
             return false;
@@ -305,13 +301,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case TUR_O:
             if (record->event.pressed) {
                 if ( is_capital ) {
-                    unicode_input_start();
-                    register_hex(0x00d6);
-                    unicode_input_finish();
+                    register_unicode(0x00d6);
                 } else {
-                    unicode_input_start();
-                    register_hex(0x00f6);
-                    unicode_input_finish();
+                    register_unicode(0x00f6);
                 }
             }
             return false;
@@ -319,13 +311,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case TUR_U:
             if (record->event.pressed) {
                 if ( is_capital ) {
-                    unicode_input_start();
-                    register_hex(0x00dc);
-                    unicode_input_finish();
+                    register_unicode(0x00dc);
                 } else {
-                    unicode_input_start();
-                    register_hex(0x00fc);
-                    unicode_input_finish();
+                    register_unicode(0x00fc);
                 }
             }
             return false;
@@ -333,13 +321,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case TUR_I:
             if (record->event.pressed) {
                 if ( is_capital ) {
-                    unicode_input_start();
-                    register_hex(0x0130);
-                    unicode_input_finish();
+                    register_unicode(0x0130);
                 } else {
-                    unicode_input_start();
-                    register_hex(0x0131);
-                    unicode_input_finish();
+                    register_unicode(0x0131);
                 }
             }
             return false;
@@ -347,13 +331,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case TUR_G:
             if (record->event.pressed) {
                 if ( is_capital ) {
-                    unicode_input_start();
-                    register_hex(0x011e);
-                    unicode_input_finish();
+                    register_unicode(0x011e);
                 } else {
-                    unicode_input_start();
-                    register_hex(0x011f);
-                    unicode_input_finish();
+                    register_unicode(0x011f);
                 }
             }
             return false;
@@ -361,13 +341,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case TUR_C:
             if (record->event.pressed) {
                 if ( is_capital ) {
-                    unicode_input_start();
-                    register_hex(0x00c7);
-                    unicode_input_finish();
+                    register_unicode(0x00c7);
                 } else {
-                    unicode_input_start();
-                    register_hex(0x00e7);
-                    unicode_input_finish();
+                    register_unicode(0x00e7);
                 }
             }
             return false;
@@ -375,13 +351,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case TUR_S:
             if (record->event.pressed) {
                 if ( is_capital ) {
-                    unicode_input_start();
-                    register_hex(0x015e);
-                    unicode_input_finish();
+                    register_unicode(0x015e);
                 } else {
-                    unicode_input_start();
-                    register_hex(0x015f);
-                    unicode_input_finish();
+                    register_unicode(0x015f);
                 }
             }
             return false;

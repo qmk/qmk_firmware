@@ -8,6 +8,5 @@ LEADER_ENABLE     = yes
 ENCODER_ENABLE    = yes
 ENCODER_MAP_ENABLE = yes
 OLED_ENABLE = yes           # Enable OLED Screen
-OLED_DRIVER = SSD1306       # Set OLED Driver
 
 RGBLIGHT_ENABLE   = yes     # Enable keyboard RGB underglow

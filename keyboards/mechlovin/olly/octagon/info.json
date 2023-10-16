@@ -8,11 +8,28 @@
         "pid": "0xD750",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 26,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
     "ws2812": {
         "pin": "A7"
     },
     "led_matrix": {
-        "driver": "IS31FL3731"
+        "driver": "is31fl3731"
     },
     "matrix_pins": {
         "cols": ["A10", "A9", "A8", "B15", "B14", "B13", "B2", "B1", "A15", "B3", "B9", "B8", "B7", "B6", "B5", "B4"],

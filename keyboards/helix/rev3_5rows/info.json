@@ -9,7 +9,10 @@
     "device_version": "0.0.1"
   },
   "rgb_matrix": {
-    "driver": "WS2812"
+    "driver": "ws2812",
+    "sat_steps": 8,
+    "val_steps": 8,
+    "speed_steps": 10
   },
   "encoder": {
     "rotary": [
@@ -23,7 +26,15 @@
     "pin": "D3"
   },
   "rgblight": {
-    "max_brightness": 120
+    "led_count": 64,
+    "max_brightness": 120,
+    "split_count": [32, 32],
+    "animations": {
+      "rainbow_mood": true,
+      "rainbow_swirl": true,
+      "static_gradient": true,
+      "rgb_test": true
+    }
   },
   "processor": "atmega32u4",
   "bootloader": "caterina",

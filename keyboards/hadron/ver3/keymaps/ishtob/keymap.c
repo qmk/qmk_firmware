@@ -239,12 +239,3 @@ bool music_mask_user(uint16_t keycode) {
       return true;
   }
 }
-
-
-void matrix_init_keymap(void) {
-}
-
-
-void matrix_scan_keymap(void) {
-}
-

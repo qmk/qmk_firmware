@@ -45,32 +45,40 @@ void eeconfig_init_kb(void) {  // EEPROM is getting reset!
 
 #ifdef RGBLIGHT_ENABLE
 
-__attribute__ ((weak))
-void led_set_user(uint8_t usb_led) {
-    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        sethsv_raw(HSV_CAPS, (LED_TYPE *)&led[0]);
-    } else {
-        sethsv(HSV_BLACK, (LED_TYPE *)&led[0]);
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if (res) {
+        if (led_state.caps_lock) {
+            sethsv_raw(HSV_CAPS, (LED_TYPE *)&led[0]);
+        } else {
+            sethsv(HSV_BLACK, (LED_TYPE *)&led[0]);
+        }
+        if (led_state.num_lock) {
+            sethsv_raw(HSV_NLCK, (LED_TYPE *)&led[1]);
+        } else {
+            sethsv(HSV_BLACK, (LED_TYPE *)&led[1]);
+        }
+        if (led_state.scroll_lock) {
+            sethsv_raw(HSV_SCRL, (LED_TYPE *)&led[2]);
+        } else {
+            sethsv(HSV_BLACK, (LED_TYPE *)&led[2]);
+        }
+        rgblight_set();
     }
-    if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-        sethsv_raw(HSV_NLCK, (LED_TYPE *)&led[1]);
-    } else {
-        sethsv(HSV_BLACK, (LED_TYPE *)&led[1]);
-    }
-    if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
-        sethsv_raw(HSV_SCRL, (LED_TYPE *)&led[2]);
-    } else {
-        sethsv(HSV_BLACK, (LED_TYPE *)&led[2]);
-    }
-    rgblight_set();
+    return false;
 }
 
 __attribute__ ((weak))
 void keyboard_post_init_user(void) {
     rgblight_set_effect_range(3, RGBLED_NUM-3);
-    led_set_user(_BV(USB_LED_CAPS_LOCK)|_BV(USB_LED_NUM_LOCK)|_BV(USB_LED_SCROLL_LOCK));
+    led_t led_state = {
+        .caps_lock = true,
+        .num_lock = true,
+        .scroll_lock = true
+    };
+    led_update_kb(led_state);
     wait_ms(300);
-    led_set_user(0);
+    led_update_kb((led_t){0});
 }
 
 __attribute__ ((weak))

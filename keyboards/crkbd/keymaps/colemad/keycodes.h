@@ -19,6 +19,6 @@
 
 /* Macros */
 enum custom_keycodes {
-    VSCTERM = SAFE_RANGE,
+    VSCTERM = QK_USER,
     CHNLANG 
 };
