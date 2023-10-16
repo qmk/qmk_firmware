@@ -1,4 +1,6 @@
 # kd83a_bfg_edition 
+![KD83A_BFG_EDITION](https://imgur.com/UXuXerrh.png)
+![KD83A_BFG_EDITION](https://imgur.com/Dn852gEh.png)
 
 An 83 keys keyboard, Equipped with the WestBerry Q95 microcontroller.
 

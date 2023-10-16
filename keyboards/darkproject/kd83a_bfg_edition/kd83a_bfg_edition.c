@@ -156,7 +156,9 @@ void housekeeping_task_kb(void) {
 };
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-
+     if (!process_record_user(keycode, record)) {
+        return false;
+    }
     switch (keycode) {
 
         case KC_SIRI:
@@ -170,3 +172,17 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             return true; /* Process all other keycodes normally */
     }
 };
+
+#if defined(ENCODER_ENABLE)
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) {
+        return false;
+    }
+    if (clockwise) {
+        tap_code(KC_VOLU);
+    } else {
+        tap_code(KC_VOLD);
+    }
+    return false;
+};
+#endif
