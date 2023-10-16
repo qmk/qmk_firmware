@@ -122,6 +122,8 @@ Specific device profiles are provided which set the required values for dimensio
 | `AZOTEQ_IQS5XX_TAP_DISTANCE`           | (Optional) Maximum deviation in pixels before single tap is no longer valid. | `25`               |
 | `AZOTEQ_IQS5XX_SCROLL_INITIAL_DISTANCE`| (Optional) Minimum travel in pixels before scroll is registered.             | `50`               |
 
+?> Scroll direction is not automatically adjusted when using `POINTING_DEVICE_ROTATION_*` and will require handling in `pointing_device_task_*`.
+
 ### Cirque Trackpad
 
 To use the Cirque Trackpad sensor, add this to your `rules.mk`:
