@@ -186,9 +186,6 @@ report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report) {
             }
 #    endif
             previous_button_state = temp_report.buttons;
-        } else {
-            // Avoid dropping a tap-hold if there was an I2C error
-            temp_report.buttons = previous_button_state;
         }
     } else {
         pd_dprintf("azoteq status: %d \n", azoteq_iqs5xx_init_status);
