@@ -203,7 +203,7 @@ report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report) {
                 temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON6);
                 ignore_movement     = true;
             } else if (base_data.gesture_events_0.swipe_y_pos) {
-                pd_dprintf("IQS5XX - Y-.\n");
+                pd_dprintf("IQS5XX - Y+.\n");
                 temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON3);
                 ignore_movement     = true;
             } else if (base_data.gesture_events_1.zoom) {
