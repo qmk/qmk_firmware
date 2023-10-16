@@ -114,6 +114,7 @@ Specific device profiles are provided which set the required values for dimensio
 | Setting                                | Description                                                                          | Default     |
 | -------------------------------------- | ------------------------------------------------------------------------------------ | ----------- |
 | `AZOTEQ_IQS5XX_TAP_ENABLE`             | (Optional) Enable single finger tap. (Left click)                                    | `true`      |
+| `AZOTEQ_IQS5XX_TWO_FINGER_TAP_ENABLE`  | (Optional) Enable two finger tap. (Right click)                                      | `true`      |
 | `AZOTEQ_IQS5XX_PRESS_AND_HOLD_ENABLE`  | (Optional) Emulates holding left click to select text.                               | `false`     |
 | `AZOTEQ_IQS5XX_SWIPE_X_ENABLE`         | (Optional) Enable swipe gestures X+ (Mouse Button 5) / X- (Mouse Button 4)           | `false`     |
 | `AZOTEQ_IQS5XX_SWIPE_Y_ENABLE`         | (Optional) Enable swipe gestures Y+ (Mouse Button 3) / Y- (Mouse Button 6)           | `false`     |
