@@ -153,6 +153,11 @@ report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report) {
                 temp_report.x = CONSTRAIN_HID_XY(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l));
                 temp_report.y = CONSTRAIN_HID_XY(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.y.h, base_data.y.l));
             }
+#    if defined(POINTING_DEVICE_MOTION_PIN)
+            if (previous_button_state != temp_report.buttons) {
+                azoteq_iqs5xx_set_event_mode(temp_report.buttons == 0, true); // Disabling event mode forces the RDY to become active on an interval preventing stuck buttons.
+            }
+#    endif
             previous_button_state = temp_report.buttons;
         } else {
             // Avoid dropping a tap-hold if there was an I2C error
