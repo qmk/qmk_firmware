@@ -2,7 +2,7 @@
     "manufacturer": "Dwctor",
     "keyboard_name": "kaly/kaly42",
     "maintainer": "Dwctor",
-    "bootloader": "stm32-dfu",
+    "development_board": "blackpill_f401",
     "features": {
         "bootmagic": true,
         "command": false,
@@ -20,6 +20,7 @@
         ]
     },
     "split": {
+        "enabled": true,
         "bootmagic": {
             "matrix": [4, 5]
         },
@@ -34,7 +35,6 @@
             }
         }
     },
-    "processor": "STM32F401",
     "url": "https://github.com/Dwctor/Kaly",
     "usb": {
         "device_version": "1.0.0",
