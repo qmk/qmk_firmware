@@ -136,14 +136,14 @@ report_mouse_t azoteq_iqs5xx_rotate(report_mouse_t mouse_report) {
 
 #    if defined(POINTING_DEVICE_ROTATION_90) || defined(POINTING_DEVICE_ROTATION_180) || defined(POINTING_DEVICE_ROTATION_270)
 #        if defined(POINTING_DEVICE_ROTATION_90)
-    mouse_report.h = old_report.v;
-    mouse_report.v = -old_report.h;
+    mouse_report.h            = old_report.v;
+    mouse_report.v            = -old_report.h;
 #        elif defined(POINTING_DEVICE_ROTATION_180)
-    mouse_report.h = -old_report.h;
-    mouse_report.v = -old_report.v;
+    mouse_report.h                         = -old_report.h;
+    mouse_report.v                         = -old_report.v;
 #        elif defined(POINTING_DEVICE_ROTATION_270)
-    mouse_report.h = -old_report.v;
-    mouse_report.v = old_report.h;
+    mouse_report.h                         = -old_report.v;
+    mouse_report.v                         = old_report.h;
 #        endif
 #    endif
     return mouse_report;
@@ -154,10 +154,10 @@ azoteq_iqs5xx_base_data_t azoteq_iqs5xx_rotate_swipes(azoteq_iqs5xx_base_data_t 
 
 #    if defined(POINTING_DEVICE_ROTATION_90) || defined(POINTING_DEVICE_ROTATION_180) || defined(POINTING_DEVICE_ROTATION_270)
 #        if defined(POINTING_DEVICE_ROTATION_90)
-    base_data.gesture_events_0.swipe_x_neg = old_base_data.gesture_events_0.swipe_y_neg;
-    base_data.gesture_events_0.swipe_x_pos = old_base_data.gesture_events_0.swipe_y_pos;
-    base_data.gesture_events_0.swipe_y_neg = old_base_data.gesture_events_0.swipe_x_pos;
-    base_data.gesture_events_0.swipe_y_pos = old_base_data.gesture_events_0.swipe_x_neg;
+    base_data.gesture_events_0.swipe_x_neg  = old_base_data.gesture_events_0.swipe_y_neg;
+    base_data.gesture_events_0.swipe_x_pos  = old_base_data.gesture_events_0.swipe_y_pos;
+    base_data.gesture_events_0.swipe_y_neg  = old_base_data.gesture_events_0.swipe_x_pos;
+    base_data.gesture_events_0.swipe_y_pos  = old_base_data.gesture_events_0.swipe_x_neg;
 #        elif defined(POINTING_DEVICE_ROTATION_180)
     base_data.gesture_events_0.swipe_x_neg = old_base_data.gesture_events_0.swipe_x_pos;
     base_data.gesture_events_0.swipe_x_pos = old_base_data.gesture_events_0.swipe_x_neg;
@@ -282,7 +282,7 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
     static uint16_t   x = 0, y = 0, last_scale = 0;
 
 #        if defined(CIRQUE_PINNACLE_TAP_ENABLE)
-    mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, false, POINTING_DEVICE_BUTTON1);
+    mouse_report.buttons        = pointing_device_handle_buttons(mouse_report.buttons, false, POINTING_DEVICE_BUTTON1);
 #        endif
 #        ifdef POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
     cursor_glide_t glide_report = {0};
