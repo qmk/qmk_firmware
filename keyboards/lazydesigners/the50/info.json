@@ -17,6 +17,10 @@
         "pin": "B6",
         "levels": 6
     },
+    "rgblight": {
+        "led_count": 1,
+        "sleep": true
+    },
     "ws2812": {
         "pin": "E6"
     },

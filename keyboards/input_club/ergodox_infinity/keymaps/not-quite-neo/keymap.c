@@ -21,11 +21,6 @@ A layout based on neo2
 #endif
 #define LEADER_TIMEOUT 300
 
-#define TAP_ONCE(code)  \
-  register_code (code); \
-  unregister_code (code)
-
-
 // Automatic number generation of important keywords
 enum my_keycodes{
     // Layer numbers follow the neo2 terminology, i.e. base layer = layer 1
@@ -257,22 +252,11 @@ L06 -> <TBD>: UNSPECIFIED
 
 void leader_end_user(void) {
   if (leader_sequence_one_key(KC_1)) {
-    // ¯\_(ツ)_/¯
-    unicode_input_start(); register_hex(0xaf); unicode_input_finish();
-    register_code (KC_RALT); TAP_ONCE (KC_MINS); unregister_code (KC_RALT);
-    register_code (KC_RSFT); TAP_ONCE (KC_8); unregister_code (KC_RSFT);
-    unicode_input_start (); register_hex(0x30c4); unicode_input_finish();
-    register_code (KC_RSFT); TAP_ONCE (KC_9); TAP_ONCE(KC_7); unregister_code (KC_RSFT);
-    unicode_input_start (); register_hex(0xaf); unicode_input_finish();
+    send_unicode_string("¯\\_(ツ)_/¯");
   }
 
   if (leader_sequence_one_key(KC_2)) {
-    // 凸(ツ)凸
-    unicode_input_start(); register_hex(0x51F8); unicode_input_finish();
-    register_code (KC_RSFT); TAP_ONCE (KC_8); unregister_code (KC_RSFT);
-    unicode_input_start (); register_hex(0x30c4); unicode_input_finish();
-    register_code (KC_RSFT); TAP_ONCE (KC_9); unregister_code (KC_RSFT);
-    unicode_input_start (); register_hex(0x51F8); unicode_input_finish();
+    send_unicode_string("凸(ツ)凸");
   }
 }
 
