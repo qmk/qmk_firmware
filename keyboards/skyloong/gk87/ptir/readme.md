@@ -1,7 +1,7 @@
 # GK87 PTIR Keyboard
 
-![GK87 PTIR ansi](https://i.imgur.com/TYx22dhh.jpg)
-![GK87 PTIR iso](https://i.imgur.com/RFngtv6h.jpg)
+![GK87 PTIR ANSI](https://i.imgur.com/TYx22dhh.jpg)
+![GK87 PTIR ISO](https://i.imgur.com/RFngtv6h.jpg)
 
 ## The PCB features:
 * QMK & VIA compatibility
