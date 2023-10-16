@@ -1,5 +1,7 @@
 # Velvet Solder PCB by Maker Keyboards
 
+![Velvet Solder PCB](https://imgur.com/4lMWY6Dh.jpg)
+
 The following is the QMK Firmware for the Velvet Solder PCB by [Maker Keyboards](http://www.makerkeyboards.com).
 * Keyboard Maintainer: Maker Keyboards
 * Hardware Supported: Velvet
