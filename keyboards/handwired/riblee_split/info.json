@@ -16,7 +16,6 @@
         "cols": ["B10", "B1", "B0", "A7", "A6", "A5"],
         "rows": ["A4", "A3", "A2", "A1", "A0"]
     },
-    "processor": "STM32F411",
     "development_board": "blackpill_f411",
     "url": "",
     "usb": {
@@ -30,6 +29,7 @@
             "sync_matrix_state": true
         }
     },
+    "community_layouts": ["ortho_5x12"],
     "layouts": {
         "LAYOUT_ortho_5x12": {
             "layout": [
