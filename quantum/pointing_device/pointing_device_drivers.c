@@ -133,6 +133,48 @@ void azoteq_iqs5xx_init(void) {
     }
 };
 
+report_mouse_t azoteq_iqs5xx_rotate(report_mouse_t mouse_report) {
+    report_mouse_t old_report = mouse_report;
+
+#    if defined(POINTING_DEVICE_ROTATION_90) || defined(POINTING_DEVICE_ROTATION_180) || defined(POINTING_DEVICE_ROTATION_270)
+#        if defined(POINTING_DEVICE_ROTATION_90)
+    mouse_report.h = old_report.v;
+    mouse_report.v = -old_report.h;
+#        elif defined(POINTING_DEVICE_ROTATION_180)
+    mouse_report.h = -old_report.h;
+    mouse_report.v = -old_report.v;
+#        elif defined(POINTING_DEVICE_ROTATION_270)
+    mouse_report.h = -old_report.v;
+    mouse_report.v = old_report.h;
+#        endif
+#    endif
+    return mouse_report;
+}
+
+azoteq_iqs5xx_base_data_t azoteq_iqs5xx_rotate_swipes(azoteq_iqs5xx_base_data_t base_data) {
+    azoteq_iqs5xx_base_data_t old_base_data = base_data;
+
+#    if defined(POINTING_DEVICE_ROTATION_90) || defined(POINTING_DEVICE_ROTATION_180) || defined(POINTING_DEVICE_ROTATION_270)
+#        if defined(POINTING_DEVICE_ROTATION_90)
+    base_data.gesture_events_0.swipe_x_neg = old_base_data.gesture_events_0.swipe_y_neg;
+    base_data.gesture_events_0.swipe_x_pos = old_base_data.gesture_events_0.swipe_y_pos;
+    base_data.gesture_events_0.swipe_y_neg = old_base_data.gesture_events_0.swipe_x_pos;
+    base_data.gesture_events_0.swipe_y_pos = old_base_data.gesture_events_0.swipe_x_neg;
+#        elif defined(POINTING_DEVICE_ROTATION_180)
+    base_data.gesture_events_0.swipe_x_neg = old_base_data.gesture_events_0.swipe_x_pos;
+    base_data.gesture_events_0.swipe_x_pos = old_base_data.gesture_events_0.swipe_x_neg;
+    base_data.gesture_events_0.swipe_y_neg = old_base_data.gesture_events_0.swipe_y_pos;
+    base_data.gesture_events_0.swipe_y_pos = old_base_data.gesture_events_0.swipe_x_neg;
+#        elif defined(POINTING_DEVICE_ROTATION_270)
+    base_data.gesture_events_0.swipe_x_neg = old_base_data.gesture_events_0.swipe_y_pos;
+    base_data.gesture_events_0.swipe_x_pos = old_base_data.gesture_events_0.swipe_y_neg;
+    base_data.gesture_events_0.swipe_y_neg = old_base_data.gesture_events_0.swipe_x_neg;
+    base_data.gesture_events_0.swipe_y_pos = old_base_data.gesture_events_0.swipe_x_pos;
+#        endif
+#    endif
+    return base_data;
+}
+
 report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report) {
     report_mouse_t temp_report = {0};
     if (azoteq_iqs5xx_init_status == I2C_STATUS_SUCCESS) {
@@ -141,6 +183,7 @@ report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report) {
         bool                      ignore_movement = false;
 
         if (status == I2C_STATUS_SUCCESS) {
+            base_data = azoteq_iqs5xx_rotate_swipes(base_data);
             if (base_data.gesture_events_0.single_tap || base_data.gesture_events_0.press_and_hold) {
                 pd_dprintf("IQS5XX - Single tap/hold.\n");
                 temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON1);
@@ -180,6 +223,7 @@ report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report) {
                 temp_report.x = CONSTRAIN_HID_XY(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l));
                 temp_report.y = CONSTRAIN_HID_XY(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.y.h, base_data.y.l));
             }
+            temp_report = azoteq_iqs5xx_rotate(temp_report);
 #    if defined(POINTING_DEVICE_MOTION_PIN)
             if (previous_button_state != temp_report.buttons) {
                 azoteq_iqs5xx_set_event_mode(temp_report.buttons == 0, true); // Disabling event mode forces the RDY to become active on an interval preventing stuck buttons.
