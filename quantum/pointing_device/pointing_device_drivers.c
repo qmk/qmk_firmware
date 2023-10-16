@@ -164,7 +164,7 @@ azoteq_iqs5xx_base_data_t azoteq_iqs5xx_rotate_swipes(azoteq_iqs5xx_base_data_t 
     base_data.gesture_events_0.swipe_x_neg = old_base_data.gesture_events_0.swipe_x_pos;
     base_data.gesture_events_0.swipe_x_pos = old_base_data.gesture_events_0.swipe_x_neg;
     base_data.gesture_events_0.swipe_y_neg = old_base_data.gesture_events_0.swipe_y_pos;
-    base_data.gesture_events_0.swipe_y_pos = old_base_data.gesture_events_0.swipe_x_neg;
+    base_data.gesture_events_0.swipe_y_pos = old_base_data.gesture_events_0.swipe_y_neg;
 #        elif defined(POINTING_DEVICE_ROTATION_270)
     base_data.gesture_events_0.swipe_x_neg = old_base_data.gesture_events_0.swipe_y_pos;
     base_data.gesture_events_0.swipe_x_pos = old_base_data.gesture_events_0.swipe_y_neg;
