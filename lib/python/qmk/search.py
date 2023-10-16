@@ -47,15 +47,11 @@ def _keymap_exists(keyboard, keymap):
         return keyboard if qmk.keymap.locate_keymap(keyboard, keymap) is not None else None
 
 
-def _load_keymap_info(arg0, arg1=None):
+def _load_keymap_info(kb_km):
     """Returns a tuple of (keyboard, keymap, info.json) for the given keyboard/keymap combination.
-
-    Caters for the different unpacking requirements of each variant of map()/imap_unordered().
     """
     with ignore_logging():
-        if arg1 is None:
-            return (arg0[0], arg0[1], keymap_json(arg0[0], arg0[1]))
-        return (arg0, arg1, keymap_json(arg0, arg1))
+        return (kb_km[0], kb_km[1], keymap_json(kb_km[0], kb_km[1]))
 
 
 def expand_make_targets(targets: List[str]) -> List[Tuple[str, str]]:

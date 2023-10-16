@@ -1,7 +1,6 @@
 """Utility functions.
 """
 import contextlib
-import functools
 import multiprocessing
 
 from milc import cli
@@ -30,8 +29,15 @@ def parallelize():
     # Prefer mpire's `WorkerPool` if it's available
     with contextlib.suppress(ImportError):
         from mpire import WorkerPool
+        from mpire.utils import make_single_arguments
         with WorkerPool() as pool:
-            yield functools.partial(pool.imap_unordered, progress_bar=True)
+
+            def _worker(func, *args):
+                # Ensure we don't unpack tuples -- mpire's `WorkerPool` tries to do so normally so we tell it not to.
+                for r in pool.imap_unordered(func, make_single_arguments(*args, generator=False), progress_bar=True):
+                    yield r
+
+            yield _worker
         return
 
     # Otherwise fall back to multiprocessing's `Pool`
