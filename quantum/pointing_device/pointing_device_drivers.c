@@ -117,10 +117,8 @@ const pointing_device_driver_t pointing_device_driver = {
 
 #elif defined(POINTING_DEVICE_DRIVER_azoteq_iqs5xx)
 
-static uint8_t      previous_button_state     = 0;
 static i2c_status_t azoteq_iqs5xx_init_status = 1;
 
-// clean up
 void azoteq_iqs5xx_init(void) {
     i2c_init();
     azoteq_iqs5xx_wake();
@@ -176,7 +174,8 @@ azoteq_iqs5xx_base_data_t azoteq_iqs5xx_rotate_swipes(azoteq_iqs5xx_base_data_t 
 }
 
 report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report) {
-    report_mouse_t temp_report = {0};
+    static uint8_t previous_button_state = 0;
+    report_mouse_t temp_report           = {0};
     if (azoteq_iqs5xx_init_status == I2C_STATUS_SUCCESS) {
         azoteq_iqs5xx_base_data_t base_data       = {0};
         i2c_status_t              status          = azoteq_iqs5xx_get_base_data(&base_data);
@@ -232,7 +231,7 @@ report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report) {
             previous_button_state = temp_report.buttons;
         }
     } else {
-        pd_dprintf("azoteq status: %d \n", azoteq_iqs5xx_init_status);
+        pd_dprintf("IQS5XX - Init failed: %d \n", azoteq_iqs5xx_init_status);
     }
 
     return temp_report;
