@@ -34,3 +34,21 @@ QMK is developed and maintained by Jack Humbert of OLKB with contributions from 
 ## Official Website
 
 [qmk.fm](https://qmk.fm) is the official website of QMK, where you can find links to this page, the documentation, and the keyboards supported by QMK.
+
+
+## Cheapwire
+
+The cheapwire takes as inspiration the [ScottoSplit](https://scottokeebs.com/blogs/keyboards/scottosplit-handwired-keyboard).
+now is compatible with via and vial, the most atracctive quality from the cheapwire is the cost, approximately 15 - 20 usd
+
+## BOM / Bill Of Materials
+    * 42 diodes 1n4148
+    * 42 switches 
+    * 1 set of keycaps
+    * 2 db25 female
+    * 2 db25 male
+    * 2 db25 cover
+    * coaxial cable aprox 1.5 mts
+
+## pinout for rp pico
+i found some problem when i make my pinout but i'll gonna explain it now using my wiring driagram and the info.json
