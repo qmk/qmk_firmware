@@ -6,7 +6,7 @@
 *A short description of the keyboard/project*
 
 * Keyboard Maintainer: [Maria](https://github.com/toril940)
-* Hardware Supported: MariOrion v2.5
+* Hardware Supported: MariOrion v2.5 PCB
 * Hardware Availability: *Links to where you can find this hardware*
 
 Make example for this keyboard (after setting up your build environment):
