@@ -38,7 +38,7 @@ enum combo_events {
 };
 
 const uint16_t PROGMEM lock_combo[] = {KC_J, KC_K, KC_L, KC_SCLN, COMBO_END};
-combo_t key_combos[COMBO_COUNT] = {COMBO(lock_combo, SCR_LCK)};
+combo_t key_combos[] = {COMBO(lock_combo, SCR_LCK)};
 
 // Layer shorthand
 #define _QW 0

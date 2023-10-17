@@ -28,7 +28,6 @@
         "key_lock": false
     },
     "rgblight": {
-        "pin": "F0",
         "led_count": 14,
         "hue_steps": 8,
         "saturation_steps": 8,
@@ -47,6 +46,9 @@
             "static_gradient": true,
             "twinkle": true
         }
+    },
+    "ws2812": {
+        "pin": "F0"
     },
     "layouts": {
         "LAYOUT": {
@@ -121,5 +123,5 @@
                 {"label": "K4F (F5,D0)", "matrix": [4, 15], "x": 15, "y": 4}
            ]
         }
-    },
+    }
 }

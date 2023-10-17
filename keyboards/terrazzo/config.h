@@ -15,16 +15,6 @@
  */
 #pragma once
 
-
-/* key matrix pins */
-
-// SWAP FOR PRO MICRO
-// #define MATRIX_ROW_PINS { D2, D7, E6, B4, B5, B6, B2, B3 }
-#define MATRIX_ROW_PINS { D2, D7, E6, B4, B5, B6, B2, B3, F0 }
-#define MATRIX_COL_PINS { D3, F4, F5, F6, F7, B1 }
-
-#define DIODE_DIRECTION COL2ROW
-
 #ifdef LED_MATRIX_ENABLE
 
 #define LED_DRIVER_ADDR_1 0x74

@@ -15,12 +15,6 @@
  */
 #pragma once
 
-#define MATRIX_ROW_PINS { B15, B14, B12, B1, B0 }
-#define MATRIX_COL_PINS { B13, A7, A6, A5, A4, A3, A2, B7, B6, B5, B4, B3, A15, A14 }
-
-// COL2ROW or ROW2COL
-#define DIODE_DIRECTION COL2ROW
-
 // Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap
 #define LOCKING_SUPPORT_ENABLE
 
@@ -50,6 +44,3 @@
 
 // HSE CLK
 #define STM32_HSECLK 16000000
-
-//Force NKRO
-#define FORCE_NKRO

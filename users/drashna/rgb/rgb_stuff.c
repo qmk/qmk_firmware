@@ -11,6 +11,9 @@ void rgblight_sethsv_default_helper(uint8_t index) {
     rgblight_sethsv_at(rgblight_get_hue(), rgblight_get_sat(), rgblight_get_val(), index);
 }
 void rgblight_set_hsv_and_mode(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode) {
+    if (val > RGBLIGHT_LIMIT_VAL) {
+        val = RGBLIGHT_LIMIT_VAL;
+    }
     rgblight_sethsv_noeeprom(hue, sat, val);
     // wait_us(175);  // Add a slight delay between color and mode to ensure it's processed correctly
     rgblight_mode_noeeprom(mode);
@@ -47,6 +50,15 @@ uint32_t rgb_startup_animation(uint32_t triger_time, void *cb_arg) {
     return is_rgblight_startup ? 10 : 0;
 }
 #endif
+
+bool is_rgblight_startup_running(void) {
+#if defined(RGBLIGHT_STARTUP_ANIMATION)
+    return is_rgblight_startup && is_keyboard_master();
+#else
+    return false;
+#endif
+}
+
 
 void keyboard_post_init_rgb_light(void) {
 #if defined(RGBLIGHT_STARTUP_ANIMATION)
@@ -120,4 +132,34 @@ layer_state_t default_layer_state_set_rgb_light(layer_state_t state) {
             break;
     }
     return state;
+}
+
+#define _RGBM_SINGLE_STATIC(sym) \
+    case RGBLIGHT_MODE_##sym:    \
+        return #sym;
+#define _RGBM_SINGLE_DYNAMIC(sym)  \
+    case RGBLIGHT_MODE_##sym:    \
+        return #sym;
+#define _RGBM_MULTI_STATIC(sym)  \
+    case RGBLIGHT_MODE_##sym:    \
+        return #sym;
+#define _RGBM_MULTI_DYNAMIC(sym)  \
+    case RGBLIGHT_MODE_##sym:    \
+        return #sym;
+#define _RGBM_TMP_STATIC(sym, msym)  \
+    case RGBLIGHT_MODE_##sym:    \
+        return #msym;
+#define _RGBM_TMP_DYNAMIC(sym, msym)  \
+    case RGBLIGHT_MODE_##sym:    \
+        return #msym;
+
+
+const char* rgblight_name(uint8_t effect) {
+    switch (effect) {
+#include "rgblight_modes.h"
+    case 0:
+        return "Off";
+    default:
+        return "UNKNOWN";
+    }
 }

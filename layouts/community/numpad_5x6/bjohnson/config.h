@@ -1,7 +1,7 @@
 #pragma once
 
 #if defined(RGBLIGHT_ENABLE) && !defined(RGBLED_NUM)
-#define RGB_DI_PIN B7
+#define WS2812_DI_PIN B7
 #define RGBLED_NUM 13     // Number of LEDs
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

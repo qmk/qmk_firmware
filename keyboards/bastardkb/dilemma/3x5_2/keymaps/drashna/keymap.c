@@ -84,14 +84,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-
-void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
-    for (int32_t i = 0; i < 40; i++) {
-        __asm__ volatile("nop" ::: "memory");
-    }
-}
-
-
 #if defined(OLED_ENABLE) && defined(OLED_DISPLAY_128X128)
 #    ifdef UNICODE_COMMON_ENABLE
 #        include "process_unicode_common.h"
@@ -100,8 +92,6 @@ void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
 
 extern const char PROGMEM display_border[3];
 
-
-extern uint32_t oled_timer;
 extern bool is_oled_enabled;
 
 

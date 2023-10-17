@@ -7,7 +7,7 @@
 #define USE_I2C
 #define SPLIT_HAND_PIN F6
 
-#undef RGB_DI_PIN
+#undef WS2812_DI_PIN
 #undef RGBLED_NUM
 
 #define DEBOUNCE 5

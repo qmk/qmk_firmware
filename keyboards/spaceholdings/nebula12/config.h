@@ -24,13 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* LSE clock */
 #define STM32_LSECLK 32768
 
-#define MATRIX_ROW_PINS { A8, C15, A0, A1 }
-#define MATRIX_COL_PINS { A9, C13, C14 }
-// To enable debugger set A13 A14 -> A5 A7
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 /* Ensure we jump to bootloader if the QK_BOOT keycode was pressed */
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 
@@ -46,25 +39,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WS2812_SPI_MOSI_PAL_MODE 0 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 5
 #define WS2812_SPI_SCK_PAL_MODE 0
 #define WS2812_SPI_SCK_PIN B13
-
-#define RGB_DI_PIN B15
-#ifdef RGB_DI_PIN
-  #define RGBLED_NUM 10 /* If number is smaller, buffer updates too fast causing glitches */
-  #define RGBLIGHT_HUE_STEP 8
-  #define RGBLIGHT_SAT_STEP 8
-  #define RGBLIGHT_VAL_STEP 8
-  #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
-#define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#define RGBLIGHT_EFFECT_SNAKE
-#define RGBLIGHT_EFFECT_KNIGHT
-#define RGBLIGHT_EFFECT_CHRISTMAS
-#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#define RGBLIGHT_EFFECT_RGB_TEST
-#define RGBLIGHT_EFFECT_ALTERNATING
-#define RGBLIGHT_EFFECT_TWINKLE
-#endif
 
 /* Backlight options */
 

@@ -43,7 +43,7 @@ typedef struct is31_led {
     uint8_t b;
 } __attribute__((packed)) is31_led;
 
-extern const is31_led __flash g_is31_leds[RGB_MATRIX_LED_COUNT];
+extern const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT];
 
 #elif defined(LED_MATRIX_ENABLE)
 typedef struct is31_led {
@@ -51,11 +51,11 @@ typedef struct is31_led {
     uint8_t v;
 } __attribute__((packed)) is31_led;
 
-extern const is31_led __flash g_is31_leds[LED_MATRIX_LED_COUNT];
+extern const is31_led PROGMEM g_is31_leds[LED_MATRIX_LED_COUNT];
 #endif
 
 #ifdef ISSI_MANUAL_SCALING
-extern const is31_led __flash g_is31_scaling[];
+extern const is31_led PROGMEM g_is31_scaling[];
 void                          IS31FL_set_manual_scaling_buffer(void);
 #endif
 
