@@ -44,6 +44,7 @@ now is compatible with via and vial, the most atracctive quality from the cheapw
  * 2 db25 male
  * 2 db25 cover
  * coaxial cable aprox 1.5 mts
+ *     {as non etical recomend used in this build, you can make some aliexpress accounts to use the newbie discount}
 
 ## pinout for rp pico[info.json](https://github.com/cocolizo945/qmk_firmware/files/12981521/info.json)
 
