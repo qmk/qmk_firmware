@@ -474,6 +474,7 @@ static uint8_t my_framebuffer[SURFACE_REQUIRED_BUFFER_BYTE_SIZE(240, 80, 16)]; /
 void keyboard_post_init_kb(void) {
     my_surface = qp_rgb565_make_surface(240, 80, my_framebuffer);
     qp_init(my_surface, QP_ROTATION_0);
+    keyboard_post_init_user();
 }
 ```
 
