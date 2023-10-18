@@ -149,6 +149,8 @@ for some reason takes the matrix as a line but is corrected by wiring as is indi
 ## Matrix Wiring
 There is the wiring but remember, both sides are independent from the other. is just a graphical guide if you are lost in the wiring
 ![Matrix wiring](https://github.com/cocolizo945/qmk_firmware/assets/81886929/c6b1ece0-cfaa-4f8a-aee9-fac3a4ad008c)
+![image](https://github.com/cocolizo945/qmk_firmware/assets/81886929/8ea87875-f0c0-4fe1-b23d-02942c8d2cb3)
+
 
 ## db25
 well in is case there is not a fixed way to make the connection, so you are free to experiment in this case. :D
