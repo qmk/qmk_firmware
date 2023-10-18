@@ -1,6 +1,6 @@
 # Big Knob
 
-![big_knob](https://i.imgur.com/KLS0O7Zm.png)
+![big_knob](https://i.imgur.com/KLS0O7Zh.png)
 
 A 3D printed single encoder volume knob with a SPI Screen.
 
