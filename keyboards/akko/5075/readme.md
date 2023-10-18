@@ -1,4 +1,5 @@
 # 5075
+![5075](https://github.com/jonylee1986/qmk_firmware_master/assets/108282809/e2b46a2b-4ab5-48bd-90d2-7e8a7a841d7e)
 
 A customizable 75% encoder keyboard.
 
