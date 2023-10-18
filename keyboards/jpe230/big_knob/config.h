@@ -3,8 +3,6 @@
 
 #pragma once
 
-#define ENCODER_RESOLUTION 4
-
 // SPI pins
 #define SPI_DRIVER SPID0
 #define SPI_SCK_PIN GP22

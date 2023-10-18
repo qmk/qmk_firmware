@@ -84,9 +84,7 @@ void keyboard_post_init_kb(void) {
 
     // Show logo
     painter_image_handle_t logo_image = qp_load_image_mem(gfx_logo);
-    if (logo_image != NULL) {
-        qp_drawimage(lcd, 0, 0, logo_image);
-    }
+    qp_drawimage(lcd, 0, 0, logo_image);
 
     keyboard_post_init_user();
 }
