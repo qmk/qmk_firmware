@@ -2,12 +2,10 @@
     "processor": "RP2040",
     "bootloader": "rp2040",
     "encoder": {
-        "enabled": true,
         "rotary": [
             {
                 "pin_a": "GP13",
-                "pin_b": "GP14",
-                "resolution": 4
+                "pin_b": "GP14"
             }
         ]
     },
