@@ -49,13 +49,16 @@ class SVG:
 keycode_blank = 'NO'
 transparent_keycodes = ('_______', 'KC_TRNS')
 
-_LAYERS = ('LSYM', 'LNUM')
+_LAYERS = ('LSYM', 'LNUM', 'LMOV')
 _LAYER_KEYS = (('TD', 'TD_'), ('TT', ''), ('OSL', ''), ('MO', ''))
 def _layer_keys(l):
-    return [f'{m}({p}{l})' for (m, p) in _LAYER_KEYS]
+    keys = [f'{m}({p}{l})' for (m, p) in _LAYER_KEYS]
+    if 'MOV' in l:
+        keys.append('MOV_SPC')
+    return keys
 
 annotation_keycodes = {
-    'layer': [f'{m}({p}{l})' for (m, p) in _LAYER_KEYS for l in _LAYERS],
+    'layer': [f'{m}({p}{l})' for (m, p) in _LAYER_KEYS for l in _LAYERS] + ['MOV_SPC'],
     'one-shot': ['OSM_ALT', 'OSM_GUI', 'OSM_CTL', 'OSM_SFT'],
     'held': []
 }
@@ -206,23 +209,14 @@ LAYER_DISPLAY_NAMES = {
     'LMOV': 'Movement Keys',
     'LMSE': 'Mouse Keys',
     'LQWE': 'QWERTY',
-
-
-    # for wayne
-    '_DEF': 'QWERTY',
-    '_NUM': 'Numbers',
-    '_SYM': 'Symbols',
-    '_NAV': 'Navigation',
-    '_FUN': 'Function',
-    '_WNAV': 'Win Nav',
 }
 
 LAYER_HELD_KEYCODES = {  # indicate which keys are held to get to a layer
     'LSYM': [f'{m}({p}LSYM)' for (m, p) in _LAYER_KEYS],
     'LNUM': [f'{m}({p}LNUM)' for (m, p) in _LAYER_KEYS],
-    'LMOV': [f'{m}({p}LMOV)' for (m, p) in _LAYER_KEYS],
+    'LMOV': [f'{m}({p}LMOV)' for (m, p) in _LAYER_KEYS] + ['MOV_SPC'],
     'LFUN': [f'{m}({p}{l})' for (m, p) in _LAYER_KEYS for l in _LAYERS],
-    'LMOV': ['MOV_SPC'],
+#    'LMOV': ['MOV_SPC'],
 }
 
 MODS_HELD_KEYCODES = {
@@ -239,7 +233,6 @@ MODS_HELD_KEYCODES = {
     'SFT_Z': 'Shift',
     'SFT_SLS': 'Shift',
     'SFT_QUO': 'Shift',
-    'MOV_SPC': 'Mov',
 }
 
 keycode_prefix = 'KC_'
@@ -382,6 +375,10 @@ key_names.update(
 
 key_names.update(
     {k: 'Num' for k in _layer_keys('LNUM')}
+)
+
+key_names.update(
+    {k: 'Mov' for k in _layer_keys('LMOV')}
 )
 
 
@@ -576,6 +573,8 @@ def create_svg_for_row(args, row, num_cols, layer_name, x, y, base_row):
 
         # get the key label, defaulting to the part after KC_
         key_label = key_names.get(key, key.removeprefix(keycode_prefix))
+        if key_label == 'Num':
+            print(f'{key_label=} {key=} {key.removeprefix(keycode_prefix)=} {keycode_prefix=}')
 
         # CSS classes to apply to the key
         key_is_held = key in LAYER_HELD_KEYCODES.get(layer_name, '')
@@ -589,6 +588,7 @@ def create_svg_for_row(args, row, num_cols, layer_name, x, y, base_row):
         else:  # get the annnotation
             for antype, keys in annotation_keycodes.items():
                 if key in keys:
+                    print(f'Have {antype=} and {keys=} for {key_label=}')
                     annotation = f'<div class="annotation {antype}">{antype}</div>'
 
         svg_raw += svg_key_template.substitute({
