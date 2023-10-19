@@ -54,35 +54,42 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // clang-format off
 
     [WIN] = LAYOUT(
-        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR,          KC_MUTE,
-        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,          KC_DEL,
-        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,          KC_PGUP,
-        KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,           KC_PGDN,
-        KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT, KC_UP,   KC_END,
-        KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RALT, TT(MAC), KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
+        KC_ESC,  KC_F1,     KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,     KC_F12,  KC_PSCR,          KC_MUTE,
+        KC_GRV,  KC_1,      KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,    KC_EQL,  KC_BSPC,          KC_INS,
+        KC_TAB,  KC_Q,      KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC,    KC_RBRC, KC_BSLS,          KC_DEL,
+        KC_CAPS, KC_A,      KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,             KC_ENT,           KC_HOME,
+        KC_LSFT, KC_Z,      KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,             KC_RSFT, KC_UP,   KC_END,
+        KC_LCTL, KC_LGUI,   KC_LALT,                            KC_SPC,                             KC_RALT, MO(WIN_FN), KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
-    // TODO: set KC_PSCR to LT(MAC, KC_PSCR) to act as PS and switch to MAC layer
-    // switch TT(MAC) to MO(WIN_FN) layer
+
+    [WIN_FN] = LAYOUT(
+        _______, KC_MYCM,   KC_WHOM, KC_CALC, KC_MSEL, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_MUTE, KC_VOLD, KC_VOLU,    _______, _______,          _______,
+        _______, RGB_TOG,   DF(MAC), _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______, _______,          _______,
+        _______, _______,   RGB_VAI, _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______, QK_BOOT,          _______,
+        _______, _______,   RGB_VAD, _______, _______, _______, _______, _______, _______, _______, _______, _______,             _______,          _______,
+        _______,            _______, RGB_HUI, _______, _______, _______, NK_TOGG, _______, _______, _______, _______,             _______, RGB_MOD, _______,
+        _______, _______,   _______,                            _______,                            _______, _______,    _______, RGB_SPD, RGB_RMOD,RGB_SPI
+    ),
 
     [MAC] = LAYOUT(
-        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR,          KC_MUTE,
-        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,          KC_DEL,
-        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,          KC_PGUP,
-        KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,           KC_PGDN,
-        KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT, KC_UP,   KC_END,
-        KC_LGUI, MO(DEBUG),KC_LGUI,                           KC_SPC,                             KC_RGUI, KC_TRNS, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
+        KC_ESC,  KC_F1,     KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,     KC_F12,  KC_PSCR,          KC_MUTE,
+        KC_GRV,  KC_1,      KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,    KC_EQL,  KC_BSPC,          KC_INS,
+        KC_TAB,  KC_Q,      KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC,    KC_RBRC, KC_BSLS,          KC_DEL,
+        KC_CAPS, KC_A,      KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,             KC_ENT,           KC_HOME,
+        KC_LSFT,            KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,             KC_RSFT, KC_UP,   KC_END,
+        KC_LGUI, MO(MAC_FN),KC_LGUI,                            KC_SPC,                             KC_RGUI, KC_TRNS,    KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
-    [DEBUG] = LAYOUT(
-        _______, KC_MYCM, KC_WHOM, KC_CALC, KC_MSEL, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______,          _______,
-        _______, RGB_TOG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-        _______, _______, RGB_VAI, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT,          _______,
-        _______, _______, RGB_VAD, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          _______,
-        _______,          _______, RGB_HUI, _______, _______, _______, NK_TOGG, _______, _______, _______, _______,          _______, RGB_MOD, _______,
-        _______, _______, _______,                            _______,                            _______, _______, _______, RGB_SPD, RGB_RMOD,RGB_SPI
+    [MAC_FN] = LAYOUT(
+        _______, KC_MYCM,   KC_WHOM, KC_CALC, KC_MSEL, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_MUTE, KC_VOLD, KC_VOLU,    _______, _______,          _______,
+        _______, RGB_TOG,   _______, _______, _______, _______, _______, _______, _______, _______, DF(WIN), _______,    _______, _______,          _______,
+        _______, _______,   RGB_VAI, _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______, QK_BOOT,          _______,
+        _______, _______,   RGB_VAD, _______, _______, _______, _______, _______, _______, _______, _______, _______,             _______,          _______,
+        _______,            _______, RGB_HUI, _______, _______, _______, NK_TOGG, _______, _______, _______, _______,             _______, RGB_MOD, _______,
+        _______, _______,   _______,                            _______,                            _______, _______,    _______, RGB_SPD, RGB_RMOD,RGB_SPI
     ),
+    // clang-format on
 };
-// clang-format on
 
 // There are 2 flags set for enabling encoding; it is not clear which one is the correct one to enable.
 // 1. https://github.com/qmk/qmk_firmware/blob/26b2288bde48659566809b2221a8e76bcd8dd20b/keyboards/gmmk/pro/rev1/ansi/rules.mk#L13
@@ -93,15 +100,17 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [WIN] =
         {// encoder 1
          ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+    [WIN_FN] = {},
     // KC_TRNS = use the same key mapping in the layer closest to 0
     // https://github.com/qmk/qmk_firmware/blob/master/docs/keycodes_basic.md#special-keys
     [MAC] =
         {// encoder 1
          ENCODER_CCW_CW(KC_TRNS, KC_TRNS)},
-    [DEBUG] = {},
+    [MAC_FN] = {},
 };
 #endif
 
+// TODO: this function is probably outdated
 void determine_rgb_per_layer(uint8_t led_min, uint8_t led_max) {
     switch (get_highest_layer(layer_state)) {
         case WIN:
@@ -109,13 +118,16 @@ void determine_rgb_per_layer(uint8_t led_min, uint8_t led_max) {
                 RGB_MATRIX_INDICATOR_SET_COLOR(3, 255, 0, 0);
             }
             break;
+        case WIN_FN:
+            rgb_matrix_set_color_all(40, 247, 134);
+            break;
         case MAC:
             if (host_keyboard_led_state().caps_lock) {
                 RGB_MATRIX_INDICATOR_SET_COLOR(3, 0, 30, 255);
             }
             break;
-        case DEBUG:
-            rgb_matrix_set_color_all(255, 196, 0);
+        case MAC_FN:
+            rgb_matrix_set_color_all(207, 207, 207);
             break;
         default:
             break;

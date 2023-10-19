@@ -16,9 +16,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 enum LAYER_NAME_TO_LAYER_INDEX_MAP {
-    WIN,   // defaults to 0 and increments by 1
-    MAC,   // is equal to 1
-    DEBUG  // is equal to 2
+    WIN,    // defaults to 0 and increments by 1
+    WIN_FN, // is equal to 1
+    MAC,    // is equal to 2
+    MAC_FN   // is equal to 3
 };
 
 enum LED_INDEX_TO_KEY_MAP {
