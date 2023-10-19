@@ -6,7 +6,7 @@ SERIAL_DRIVER = vendor
 BOOTMAGIC_ENABLE = yes
 
 # Default Folder
-DEFAULT_FOLDER = sofle_v303/rev1
+DEFAULT_FOLDER = sofle_pico/rev1
 
 # @todo: Move to json
 # OLED_DRIVER = SSD1306

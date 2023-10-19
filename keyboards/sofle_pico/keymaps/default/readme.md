@@ -1,6 +1,6 @@
-# Default sofle_v303 Keymap
+# Default sofle_pico Keymap
 
-This is the default layout for sofle_v303. For the most part it's a normal QWERTY layout. The exceptions being the thumb keys, rotary encoders, and lack of caps lock (which is replaced by escape).
+This is the default layout for sofle_pico. For the most part it's a normal QWERTY layout. The exceptions being the thumb keys, rotary encoders, and lack of caps lock (which is replaced by escape).
 
 One of the biggest features of QMK is it brings layers into the mix which can give you access to even more keys. There are 4 layers: the default/base layer (QWERTY), a symbol layer, an extension layer, and an adjust layer.
 
@@ -16,7 +16,7 @@ Those arrows for the bottom legends on the encoders are mouse scroll directions.
 
 Red legends are the layer activated by holding down a key.
 
-![sofle_v303's QWERTY Layout](https://i.imgur.com/fXGt5Jh.png)
+![sofle_pico's QWERTY Layout](https://i.imgur.com/fXGt5Jh.png)
 
 ## Symbol Layer
 
@@ -26,7 +26,7 @@ On the symbol layer, the right side is a number pad, and the left side contains 
 
 Holding down delete within the symbol layer will take you to the adjust layer.
 
-![sofle_v303's Symbol Layer](https://i.imgur.com/6F35Z4Wh.png)
+![sofle_pico's Symbol Layer](https://i.imgur.com/6F35Z4Wh.png)
 
 ## Extension Layer
 
@@ -36,7 +36,7 @@ On the extension layer, the right side is the function keys in a number-pad-esqu
 
 Holding down backspace within the extension layer will take you to the adjust layer.
 
-![sofle_v303's Extension Layer](https://i.imgur.com/FETcqkCh.png)
+![sofle_pico's Extension Layer](https://i.imgur.com/FETcqkCh.png)
 
 ## Adjust Layer
 
@@ -44,7 +44,7 @@ This layer's theme is adjusting the keyboard's settings, it's accessed by holdin
 
 On the adjust layer, the right side is the keyboard's settings: clear data, reboot, toggle debug mode, enter the bootloader, and change the base layer between QWERTY and [Colemak-DH](#colemak-dh). The left side adjusts the RGB lighting.
 
-![sofle_v303's Adjust Layer](https://i.imgur.com/fRsdlt3h.png)
+![sofle_pico's Adjust Layer](https://i.imgur.com/fRsdlt3h.png)
 
 ## Colemak-DH
 
@@ -54,4 +54,4 @@ QWERTY is default when flashing your keyboard, but you can change it to Colemak-
 
 If you've never heard of it, Colemak is a keyboard layout that was designed to be a more ergonomic, modern, efficient, and comfortable replacement to QWERTY. Colemak was designed to place the most common letters in english on the home row along with many of the most common bigrams together (two letters typed in a row). Colemak-DH is a variant of Colemak that moves D and H to beneath the index fingers rather than the home row since most people find it easier and faster to reach the keys that way rather than the middle of the home row.
 
-![sofle_v303's Colemak-DH Layout](https://i.imgur.com/8biZfn2h.png)
+![sofle_pico's Colemak-DH Layout](https://i.imgur.com/8biZfn2h.png)

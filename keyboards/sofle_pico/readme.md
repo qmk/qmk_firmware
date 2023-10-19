@@ -1,18 +1,18 @@
-# sofle_v303 <!-- omit from toc -->
+# sofle_pico <!-- omit from toc -->
 
-![sofle_v303](https://i.imgur.com/WzZaIgQh.jpg)
+![sofle_pico](https://i.imgur.com/WzZaIgQh.jpg)
 
-sofle_v303 is a 60% Raspberry Pi Pico powered split keyboard boasting a 4x6 layout with an aggressive columnar stagger. It has 5 "thumb" keys on either side, support for 2-4 rotary encoders, and per-key RGB lighting.
+sofle_pico is a 60% Raspberry Pi Pico powered split keyboard boasting a 4x6 layout with an aggressive columnar stagger. It has 5 "thumb" keys on either side, support for 2-4 rotary encoders, and per-key RGB lighting.
 
 - Keyboard Maintainer: [Dane Skalski](https://github.com/Daneski13)
-- Hardware Supported: sofle_v303 PCB, Raspberry Pi Pico
-- Hardware Availability: [PCB, Case, Parts List](https://github.com/Daneski13/sofle_v303)
+- Hardware Supported: sofle_pico PCB, Raspberry Pi Pico
+- Hardware Availability: [PCB, Case, Parts List](https://github.com/Daneski13/sofle_pico)
 
 Remember you have to flash both halves of the keyboard for it to work!
 
 Make example for this keyboard (after setting up your build environment):
 
-    make sofle_v303:default
+    make sofle_pico:default
 
 Flashing example for this keyboard:
 

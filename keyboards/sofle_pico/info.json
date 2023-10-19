@@ -1,7 +1,7 @@
 {
     "manufacturer": "Ryan Neff",
-    "keyboard_name": "sofle_v303",
-    "url": "https://github.com/JellyTitan/sofle_v303",
+    "keyboard_name": "sofle_pico",
+    "url": "https://github.com/JellyTitan/sofle_pico",
     "maintainer": "Ryan Neff <github@JellyTitan.com>",
     "usb": {
         "vid": "0x4413",
