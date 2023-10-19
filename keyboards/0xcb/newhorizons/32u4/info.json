@@ -4,9 +4,8 @@
         "pin": "F1"
     },
     "encoder": {
-        "enabled": true,
         "rotary": [
-            {"pin_a": "D5", "pin_b": "C7", "resolution": 4}
+            {"pin_a": "D5", "pin_b": "C7"}
         ]
     },
     "build": {
