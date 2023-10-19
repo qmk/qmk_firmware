@@ -66,6 +66,14 @@ You can create `info.json` files at every level under `qmk_firmware/keyboards/<k
     * `tap_keycode_delay`
         * The delay between keydown and keyup for tap events in milliseconds.
         * Default: `0` (no delay)
+    * `locking`
+        * `enabled`
+            * Enable locking switch support
+            * Default: `false`
+        * `resync`
+            * Keep switch state consistent with keyboard LED state
+            * Default: `false`
+
 * `tapping`
     * `hold_on_other_key_press`
         * Default: `false`
@@ -369,16 +377,6 @@ Configures the [LED Matrix](feature_led_matrix.md) feature.
     * `val_steps`
         * The number of brightness adjustment steps.
         * Default: `8`
-
-## Mechanical Lock Switch Support :id=locking-support
-
-* `locking`
-    * `enabled`
-        * Enable locking switch support
-        * Default: `false`
-    * `resync`
-        * Keep switch state consistent with keyboard LED state
-        * Default: `false`
 
 ## Matrix :id=matrix
 

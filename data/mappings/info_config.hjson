@@ -66,10 +66,6 @@
     "LEADER_KEY_STRICT_KEY_PROCESSING": {"info_key": "leader_key.strict_processing", "value_type": "bool"},
     "LEADER_TIMEOUT": {"info_key": "leader_key.timeout", "value_type": "int"},
 
-    // Locking Switch
-    "LOCKING_SUPPORT_ENABLE": {"info_key": "locking.enabled", "value_type": "bool"},
-    "LOCKING_RESYNC_ENABLE": {"info_key": "locking.resync", "value_type": "bool"},
-
     // LED Matrix
     "LED_DISABLE_WHEN_USB_SUSPENDED": {"info_key": "led_matrix.sleep", "value_type": "bool"},
     "LED_MATRIX_CENTER": {"info_key": "led_matrix.center_point", "value_type": "array.int"},
@@ -82,6 +78,10 @@
     "LED_MATRIX_TIMEOUT": {"info_key": "led_matrix.timeout", "value_type": "int"},
     "LED_MATRIX_VAL_STEP": {"info_key": "led_matrix.val_steps", "value_type": "int"},
     "LED_MATRIX_LED_COUNT": {"info_key": "led_matrix.led_count", "value_type": "int", "to_json": false},
+
+    // Locking Switch
+    "LOCKING_SUPPORT_ENABLE": {"info_key": "qmk.locking.enabled", "value_type": "bool"},
+    "LOCKING_RESYNC_ENABLE": {"info_key": "qmk.locking.resync", "value_type": "bool"},
 
     // LUFA Bootloader
     "QMK_ESC_INPUT": {"info_key": "qmk_lufa_bootloader.esc_input"},
