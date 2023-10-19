@@ -5,12 +5,30 @@ Custom keymap created by: Chad Stovern <hello@chadstovern.com>
 #include QMK_KEYBOARD_H
 
 enum ferris_layers {
-  _COLEMAK_DH,
-  _NUM_SYM,
-  _FUN_NAV,
-  _GAME,
-  _GAME_FUN,
+    _COLEMAK_DH,
+    _NUM_SYM,
+    _FUN_NAV,
+    _GAME,
+    _GAME_FUN,
 };
+
+enum custom_keycodes {
+    VIM_CTLU = SAFE_RANGE,
+    VIM_CTLD,
+};
+
+/* tap dance keys */
+enum {
+    TD_KVM_1 = 0,
+    TD_KVM_2,
+    TD_KVM_3,
+    TD_KVM_4,
+};
+
+#define TD_KVM1 TD(TD_KVM_1)
+#define TD_KVM2 TD(TD_KVM_2)
+#define TD_KVM3 TD(TD_KVM_3)
+#define TD_KVM4 TD(TD_KVM_4)
 
 /* thumb mods */
 #define NUM_BSPC LT(_NUM_SYM,KC_BSPC)
@@ -30,12 +48,6 @@ enum ferris_layers {
 #define HOME_E OPT_T(KC_E)
 #define HOME_I CTL_T(KC_I)
 #define HOME_O SFT_T(KC_O)
-#define HOME_DWN CMD_T(KC_DOWN)
-#define HOME_UP OPT_T(KC_UP)
-#define HOME_RGT CTL_T(KC_RGHT)
-#define HOME_J CMD_T(KC_J)
-#define HOME_K OPT_T(KC_K)
-#define HOME_L CTL_T(KC_L)
 #define HOME_QT SFT_T(KC_QUOT)
 
 /* misc mods */
@@ -48,7 +60,7 @@ enum ferris_layers {
 #include "g/keymap_combo.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_COLEMAK_DH] = LAYOUT(
+    [_COLEMAK_DH] = LAYOUT(
 /*
     .------.------.------.------.------.            .------.------.------.------.------.
     | Q    | W    | F    | P    | B    |            | J    | L    | U    | Y    | ; :  |
@@ -71,52 +83,57 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             CMD_TAB, NUM_BSPC,     FUN_SPC, CMD_ENT
   ),
 
-  [_NUM_SYM] = LAYOUT(
+    [_NUM_SYM] = LAYOUT(
 /*
+    commonly used symbols:
+    - javascript: ( ) { } ; = > / [ ] + _ |
+    - clojure:    ( ) [ ] : ; / { } - > = _ +
+    - misc/nav:   $ % ~ | ^
+
     .------.------.------.------.------.            .------.------.------.------.------.
     | 1 !  | 2 @  | 3 #  | 4 $  | 5 %  |            | 6 ^  | 7 &  | 8 *  | 9 (  | 0 )  |
     |      |      |      |      |      |            |      |      |      |      |      |
     |------+------+------+------+------|            |------+------+------+------+------|
-    | ` ~  |      |      |      |      |            | H    | J    | K    | L    | ' "  |
-    | SFT  | RCTL | OPT  | CMD  |      |            |      | CMD  | OPT  | CTL  | SFT  |
+    | `    | {    | }    | $    | %    |            | +    | -    | (    | )    | ' "  |
+    | SFT  |      |      |      |      |            |      |      |      |      | SFT  |
     |------+------+------+------+------|            |------+------+------+------+------|
-    |      |      |      |      |      |            | - _  | = +  | [ {  | ] }  | \ |  |
-    | SFT  | .    | ,    |      |      |            |      |      |      |      | SFT  |
+    |      | <    | >    | ~    | |    |            | &    | =    | [    | ]    | \ |  |
+    | SFT  |      |      |      |      |            |      |      |      |      | SFT  |
     '------'------'------'------'------'            '------'------'------'------'------'
                             .------.------.      .------.------.
                             | ↓↓↓  | ↓↓↓  |      | ↓↓↓  | ↓↓↓  |
                             |      |      |      |      |      |
                             '------'------'      '------'------'
 */
-    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,         KC_6,    KC_7,   KC_8,    KC_9,    KC_0,
-    HOME_BT, KC_RCTL, KC_LOPT, KC_LCMD, XXXXXXX,      KC_H,    HOME_J, HOME_K,  HOME_L,  HOME_QT,
-    KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      KC_MINS, KC_EQL, KC_LBRC, KC_RBRC, SFT_BSLS,
-                               KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS
+    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,         KC_6,    KC_7,    KC_8,    KC_9,     KC_0,
+    HOME_BT, KC_LCBR, KC_RCBR, KC_DLR,  KC_PERC,      KC_PLUS, KC_MINS, KC_LPRN, KC_RPRN, HOME_QT,
+    KC_LSFT, KC_LABK, KC_RABK, KC_TILD, KC_PIPE,      KC_AMPR, KC_EQL,  KC_LBRC, KC_RBRC,  SFT_BSLS,
+                               _______, _______,      _______, _______
   ),
 
-  [_FUN_NAV] = LAYOUT(
+    [_FUN_NAV] = LAYOUT(
 /*
     .------.------.------.------.------.            .------.------.------.------.------.
-    | F1   | F2   | F3   | F4   | F5   |            | F6   | F7   | F8   | F9   | F10  |
-    |      |      |      |      |      |            |      | Prev | Play | Next | Mute |
+    | F1   | F2   | F3   | F4   | F5   |            | Prev | Next | Play | VolD | VolU |
+    |      |      |      |      |      |            |      |      |      |      |      |
     |------+------+------+------+------|            |------+------+------+------+------|
-    |      |      |      |      |      |            | ←    | ↓    | ↑    | →    |      |
-    | SFT  | CTL  | OPT  | CMD  |      |            |      | CMD  | OPT  | CTL  | SFT  |
+    | KVM4 | KVM3 | KVM2 | KVM1 | F6   |            | ←    | ↓    | ↑    | →    | ↓↓↓  |
+    |      |      |      |      |      |            |      |      |      |      |      |
     |------+------+------+------+------|            |------+------+------+------+------|
-    | RGB  |      |      |      |      |            | F11  | F12  | PGDN | PGUP | GAME |
-    | TOG  |      |      |      |      |            | VolD | VolU |      |      | TOG  |
+    |      |      |      |      |      |            | ^    | VIDN | VIUP | RBG  | GAME |
+    |      |      |      |      |      |            |      |      |      | TOG  | TOG  |
     '------'------'------'------'------'            '------'------'------'------'------'
                             .------.------.      .------.------.
                             | ↓↓↓  | ESC  |      | ↓↓↓  | ↓↓↓  |
                             |      |      |      |      |      |
                             '------'------'      '------'------'
 */
-    KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_MPRV,  KC_MPLY, KC_MNXT,  KC_MUTE,
-    KC_LSFT, KC_LCTL,  KC_LOPT, KC_LCMD, XXXXXXX,      KC_LEFT, HOME_DWN, HOME_UP, HOME_RGT, KC_RSFT,
-    RGB_TOG, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,      KC_VOLD, KC_VOLU,  KC_PGDN, KC_PGUP,  GAME_TOG,
-                                KC_TRNS, KC_ESC,       KC_TRNS, KC_TRNS
+    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,      KC_MPRV, KC_MNXT,  KC_MPLY,  KC_VOLD,  KC_VOLU,
+    TD_KVM4, TD_KVM3, TD_KVM2, TD_KVM1, KC_F6,      KC_LEFT, KC_DOWN,  KC_UP,    KC_RIGHT, _______,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_CIRC, VIM_CTLD, VIM_CTLU, RGB_TOG,  GAME_TOG,
+                               _______, KC_ESC,     _______, _______
   ),
-  [_GAME] = LAYOUT(
+    [_GAME] = LAYOUT(
 /*
     .------.------.------.------.------.            .------.------.------.------.------.
     | TAB  | Q    | W    | E    | R    |            | Y    | U    | I    | O    | P    |
@@ -139,79 +156,135 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             KC_LCTL, KC_SPC,      GFUN_SPC, GOPT_ENT
 ),
 
-  [_GAME_FUN] = LAYOUT(
+    [_GAME_FUN] = LAYOUT(
 /*
     .------.------.------.------.------.            .------.------.------.------.------.
-    | ↓↓↓  |      |      |      | T    |            |      | F7   | F8   | F9   | F10  |
-    |      |      |      |      |      |            |      | Prev | Play | Next | Mute |
-    |------+------+------+------+------|            |------+------+------+------+------|
-    | ↓↓↓  |      |      |      | G    |            |      | \ |  | [ {  | ] }  |      |
+    | F1   | F2   | F3   | F4   | F5   |            | Prev | Next | Play | VolD | VolU |
     |      |      |      |      |      |            |      |      |      |      |      |
     |------+------+------+------+------|            |------+------+------+------+------|
-    | ↓↓↓  |      |      |      | B    |            | F11  | F12  |      |      | ↓↓↓  |
-    |      |      |      |      |      |            | VolD | VolU |      |      |      |
+    | ↓↓↓  |      |      |      | F6   |            |      | \ |  | [ {  | ] }  | ↓↓↓  |
+    |      |      |      |      |      |            |      |      |      |      |      |
+    |------+------+------+------+------|            |------+------+------+------+------|
+    | ↓↓↓  |      |      |      |      |            |      |      |      |      | ↓↓↓  |
+    |      |      |      |      |      |            |      |      |      |      |      |
     '------'------'------'------'------'            '------'------'------'------'------'
                             .------.------.      .------.------.
                             | ↓↓↓  | ↓↓↓  |      | ↓↓↓  | ↓↓↓  |
                             |      |      |      |      |      |
                             '------'------'      '------'------'
 */
-    KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, KC_T,         XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE,
-    KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, KC_G,         XXXXXXX, KC_BSLS, KC_LBRC, KC_RBRC, XXXXXXX,
-    KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, KC_B,         KC_VOLD, KC_VOLU, XXXXXXX, XXXXXXX, KC_TRNS,
-                                KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS
+    KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,        KC_MPRV, KC_MNXT, KC_MPLY, KC_VOLD, KC_VOLU,
+    _______, XXXXXXX,  XXXXXXX, XXXXXXX, KC_F6,        XXXXXXX, KC_BSLS, KC_LBRC, KC_RBRC, _______,
+    _______, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+                                _______, _______,      _______, _______
 )
 
 };
 
 
+/* macro configuration */
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case VIM_CTLU:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTL("u"));
+            }
+            break;
+        case VIM_CTLD:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTL("d"));
+            }
+            break;
+    }
+    return true;
+};
+
+/* tap dance configuration */
+void dance_kvm_1 (qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        SEND_STRING(SS_TAP(X_A));
+        reset_tap_dance (state);
+    } else if (state->count >= 2) {
+        SEND_STRING(SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_1));
+        reset_tap_dance (state);
+    }
+}
+void dance_kvm_2 (qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        SEND_STRING(SS_TAP(X_R));
+        reset_tap_dance (state);
+    } else if (state->count >= 2) {
+        SEND_STRING(SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_2));
+        reset_tap_dance (state);
+    }
+}
+void dance_kvm_3 (qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        SEND_STRING(SS_TAP(X_S));
+        reset_tap_dance (state);
+    } else if (state->count >= 2) {
+        SEND_STRING(SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_3));
+        reset_tap_dance (state);
+    }
+}
+void dance_kvm_4 (qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        SEND_STRING(SS_TAP(X_T));
+        reset_tap_dance (state);
+    } else if (state->count >= 2) {
+        SEND_STRING(SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_4));
+        reset_tap_dance (state);
+    }
+}
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [TD_KVM_1] = ACTION_TAP_DANCE_FN(dance_kvm_1),
+    [TD_KVM_2] = ACTION_TAP_DANCE_FN(dance_kvm_2),
+    [TD_KVM_3] = ACTION_TAP_DANCE_FN(dance_kvm_3),
+    [TD_KVM_4] = ACTION_TAP_DANCE_FN(dance_kvm_4),
+};
+
 /* per key configuration */
 
 // https://precondition.github.io/home-row-mods#finding-the-sweet-spot
+// TODO: address breaking changes when pulling latest master
 bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-    case CMD_TAB:  // make CMD SPC faster
-    case SFT_Z:    // make bottom row SFT faster
-    case SFT_SLSH: // make bottom row SFT faster
-    case SFT_BSLS: // make bottom row SFT faster
-        return false;
-    default:
-        return true;
+        case CMD_TAB:  // make CMD SPC faster
+        case SFT_Z:    // make bottom row SFT faster
+        case SFT_SLSH: // make bottom row SFT faster
+        case SFT_BSLS: // make bottom row SFT faster
+            return false;
+        default:
+            return true;
     }
 }
 
 // https://precondition.github.io/home-row-mods#finding-the-sweet-spot
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-    /* adjust home row key timing to prevent letter rolls triggering modifiers */
-    case HOME_A:
-    case HOME_R:
-    case HOME_S:
-    case HOME_T:
-    case HOME_N:
-    case HOME_E:
-    case HOME_I:
-    case HOME_O:
-        return TAPPING_TERM + 75;
-    default:
-        return TAPPING_TERM;
+        /* adjust home row key timing to prevent letter rolls triggering modifiers */
+        case HOME_A:
+        case HOME_R:
+        case HOME_S:
+        case HOME_T:
+        case HOME_N:
+        case HOME_E:
+        case HOME_I:
+        case HOME_O:
+            return TAPPING_TERM + 75;
+        default:
+            return TAPPING_TERM;
     }
 }
 
-// https://beta.docs.qmk.fm/using-qmk/software-features/tap_hold
+// TODO: address breaking changes when pulling latest master
+// https://github.com/qmk/qmk_firmware/blob/master/docs/ChangeLog/20230226.md
 bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case NUM_BSPC:
         case FUN_SPC:
         case CMD_ENT:
-        case HOME_J:
-        case HOME_K:
-        case HOME_L:
-        case KC_H:
-        case HOME_DWN:
-        case HOME_UP:
-        case HOME_RGT:
-        case KC_LEFT:
             return false;
         default:
             return true;

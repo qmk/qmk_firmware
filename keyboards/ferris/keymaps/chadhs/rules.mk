@@ -1,5 +1,5 @@
 BOOTMAGIC_ENABLE = yes # enable Bootmagic Lite
-TAP_DANCE_ENABLE = no
+TAP_DANCE_ENABLE = yes
 RGBLIGHT_ENABLE = yes
 NKRO_ENABLE = no # usb nkey rollover
 FORCE_NKRO = no
