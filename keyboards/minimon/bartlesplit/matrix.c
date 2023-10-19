@@ -105,7 +105,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
     wait_us(30);
 
     // For each row...
-    for (uint8_t row_index = 0; row_index < MATRIX_ROWS-1; row_index++) {
+    for (uint8_t row_index = 0; row_index < MATRIX_ROWS; row_index++) {
         // Store last value of row prior to reading
         matrix_row_t last_row_value = current_matrix[row_index];
 
@@ -145,7 +145,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
 
     // Set row, read cols
     // for (uint8_t current_row = MATRIX_ROWS-1; current_row >= 0; current_row--) {
-    for (uint8_t current_row = 0; current_row < MATRIX_ROWS-1; current_row++) {
+    for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
         changed |= read_cols_on_row(current_matrix, current_row);
     }
     // Set col, read rows
