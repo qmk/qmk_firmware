@@ -9,6 +9,9 @@
             {"pin_a": "D5", "pin_b": "C7", "resolution": 4}
         ]
     },
+    "build": {
+        "lto": true
+    },
     "features": {
         "audio": false,
         "bootmagic": true,
