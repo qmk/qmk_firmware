@@ -16,7 +16,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include QMK_KEYBOARD_H
 #include "pogues.h"
+
 
 void set_mods_lights(uint16_t keycode, bool active);
 
@@ -46,11 +48,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [LNUM] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            XXXXXXX, XXXXXXX,   KC_NO, KC_UNDS,   KC_NO, KC_PERC,                      KC_PLUS,    KC_7,    KC_8,    KC_9, XXXXXXX, XXXXXXX,
+            XXXXXXX, XXXXXXX,  KC_INS, KC_UNDS,   KC_NO, KC_PERC,                      KC_PLUS,    KC_7,    KC_8,    KC_9, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
               KC_NO, OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT, KC_ASTR,                      KC_MINS,    KC_4,    KC_5,    KC_6, KC_ASTR, KC_PERC,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            XXXXXXX,   KC_NO,   KC_NO, KC_COMM,  KC_DOT, KC_SLSH,                       KC_EQL,    KC_1,    KC_2,    KC_3, KC_SLSH, XXXXXXX,
+            XXXXXXX, KC_BSPC,  KC_SPC, KC_COMM,  KC_DOT, KC_SLSH,                       KC_EQL,    KC_1,    KC_2,    KC_3, KC_SLSH, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                               _______, _______,  _______,     KC_0,  _______, _______
                                             //`--------------------------'  `--------------------------'
@@ -96,6 +98,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  ******************************************************************************/
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+    if (!process_achordion(keycode, record)) {
+        return false; 
+    }
     if (!process_compose(keycode, record, MY_COMP)) {
         return false;
     }
@@ -108,7 +113,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
     return true;
 }
+ 
 
+void matrix_scan_user(void) {
+    achordion_task();
+}
 
 /*******************************************************************************
  * quick tap term keys (requires QUICK_TAP_TERM_PER_KEY set) a return of non 0
@@ -128,6 +137,139 @@ uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
             return 0;
     }
 }
+
+/*******************************************************************************
+ * hold on other key (requires HOLD_ON_OTHER_KEY_PER_KEY set) a return of true
+ * will mean that the hold action is triggered as soon as another key is pressed 
+ * (so D(k) D(anything) U(k) will cause hold_k and anything to be pressed)
+ * a return of false will use the default behaviour from other settings
+ *******************************************************************************/
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case CTL_Y:
+            // Immediately select the hold action when another key is pressed.
+            return true;
+        default:
+            // Do not select the hold action when another key is pressed.
+            return false;
+    }
+}
+
+/********************************************************************************
+ * achordion configuration
+ ********************************************************************************/
+
+/********************************************************************************
+ * achordion_chord is called as the main config point.  return true to decide the
+ * action as hold, false for a tap.
+ ********************************************************************************/
+bool achordion_chord(
+    uint16_t tap_hold_keycode,
+    keyrecord_t* tap_hold_record,
+    uint16_t other_keycode,
+    keyrecord_t* other_record
+) {
+    switch (tap_hold_keycode) {
+        // shift and movement layer are on tap-hold keys and we want the hold to take 
+        // precedence even on same hands
+        case MOV_SPC:
+        case SFT_BSP:
+	    return true;
+            break;
+
+        
+	// for the top right control we want "y " to take precedence over ctrl-space
+	// and ctrl-v to take precedence over "yv"
+        case CTL_Y:
+	    if (other_keycode == MOV_SPC) { return false; }
+	    if (other_keycode == KC_V) {return true; }
+      	    break;
+    }
+
+    // Otherwise, follow the opposite hands rule.
+    return achordion_opposite_hands(tap_hold_record, other_record);
+}
+
+// let achordion run for 800ms only
+uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
+    // switch (tap_hold_keycode) {
+    //     case HOME_SC:
+    //     case HOME_Z:
+    //         return 0;  // Bypass Achordion for these keys.
+    // }
+
+  return 800;  // Otherwise use a timeout of 800 ms.
+}
+
+// achordion_eager_mod determines which mods are applied while waiting for the tap-hold
+// to be resolved.  useful for ctrl-click for instance
+bool achordion_eager_mod(uint8_t mod) {
+    switch (mod) {
+      // Eagerly apply Shift and Ctrl mods.
+      case MOD_LSFT:
+      case MOD_RSFT:
+      case MOD_LCTL:
+      case MOD_RCTL:
+          return true;
+
+      default:
+          return false;
+  }
+}
+
+
+/******************************************************************************
+ * combo keys
+ ******************************************************************************/
+enum combo_keys {
+    // left hand only
+    WF_ESC,
+    CD_TAB,
+    ZX_Q,           // trial on zx for q - skeletyl
+
+    RESET_COMBO,    // put the board into bootloader mode
+
+    // right hand only
+    UY_DEL,
+    HCOM_ENT,
+    JY_CTLBSP,
+    DOTSLSH_COMPOSE,  // trial compose on right lower ring/pinkie for skeletyl
+
+    // both hands, not using pl / fu any more due to typing mishits
+    WY_LMSE,
+
+    COMBO_LENGTH
+};
+uint16_t COMBO_LEN = COMBO_LENGTH;
+
+const uint16_t PROGMEM combo_esc[] = {CTL_W, KC_F, COMBO_END};
+const uint16_t PROGMEM combo_tab[] = {KC_C, KC_D, COMBO_END};
+const uint16_t PROGMEM combo_reset[] = {KC_ESC, KC_TAB, COMBO_END};
+const uint16_t PROGMEM combo_del[] = {KC_U, CTL_Y, COMBO_END};
+const uint16_t PROGMEM combo_ent[] = {KC_H, KC_COMM, COMBO_END};
+const uint16_t PROGMEM combo_bspc[] = {KC_J, CTL_Y, COMBO_END};
+const uint16_t PROGMEM combo_q[] = {SFT_Z, KC_X, COMBO_END};
+const uint16_t PROGMEM combo_compose[] = {KC_DOT, SFT_SLS, COMBO_END};
+const uint16_t PROGMEM combo_mouse[] = {CTL_W, CTL_Y, COMBO_END};
+
+combo_t key_combos[] = {
+    [WF_ESC] = COMBO(combo_esc, KC_ESC),
+    [CD_TAB] = COMBO(combo_tab, KC_TAB),
+    [ZX_Q] = COMBO(combo_q, KC_Q),
+
+    [UY_DEL] = COMBO(combo_del, KC_DEL),
+    [HCOM_ENT] = COMBO(combo_ent, KC_ENT),
+    [JY_CTLBSP] = COMBO(combo_bspc, LCTL(KC_BSPC)),
+    [DOTSLSH_COMPOSE] = COMBO(combo_compose, MY_COMP),
+#ifdef MOUSEKEY_ENABLE
+    [RESET_COMBO] = COMBO(combo_reset, QK_BOOTLOADER),
+    [WY_LMSE] = COMBO(combo_mouse, TO(LMSE)),
+#endif
+};
+
+/******************************************************************************
+ * combo keys end
+ ******************************************************************************/
 
 /*******************************************************************************
  * RGB lighting on layer change
@@ -185,10 +327,10 @@ uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
 
 const rgblight_segment_t PROGMEM layer_default_lights[] = THUMB_KEYS(OFF)
 const rgblight_segment_t PROGMEM layer_numpad_lights[] = THUMB_KEYS(ORANGE)
-const rgblight_segment_t PROGMEM layer_symbols_lights[] = THUMB_KEYS(GREEN)
+const rgblight_segment_t PROGMEM layer_symbols_lights[] = THUMB_KEYS(PURPLE)
 const rgblight_segment_t PROGMEM layer_motion_lights[] = THUMB_KEYS(BLUE)
-const rgblight_segment_t PROGMEM layer_functions_lights[] = THUMB_KEYS(PURPLE)
-const rgblight_segment_t PROGMEM layer_mouse_lights[] = THUMB_KEYS(RED)
+const rgblight_segment_t PROGMEM layer_functions_lights[] = THUMB_KEYS(RED)
+const rgblight_segment_t PROGMEM layer_mouse_lights[] = THUMB_KEYS(WHITE)
 
 const rgblight_segment_t PROGMEM oneshot_ctrl_active[] = MIDDLE_KEYS(BLUE)
 const rgblight_segment_t PROGMEM oneshot_shift_active[] = INDEX_KEYS(GREEN)

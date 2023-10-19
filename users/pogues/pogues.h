@@ -1,6 +1,7 @@
 #pragma once
 
 #include QMK_KEYBOARD_H
+#include "features/achordion.h"
 #include "features/casemodes.h"
 #include "features/compose.h"
 

@@ -28,10 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // for the following options look at https://precondition.github.io/home-row-mods
 
-// use tapping term to decide when to apply the modifier rather than the next keypress.
-// This stops rolling [D(a), D(b), U(a), U(b)] from triggering the modified version
-#define IGNORE_MOD_TAP_INTERRUPT
-
 // when you tap then hold - setting quick tap term to 0 means you get the hold action,
 // otherwise the tap to hold time must be below this to activate autorepeat.
 // NOTE this breaks the ONESHOT_TAP_TOGGLE !!
@@ -42,7 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // without this if the above is within tapping tarm you get ab instead.
 #define PERMISSIVE_HOLD
 // hold on other key press will mean that D(mod), D(b), U(mod), U(b) will emit the hold action on mod
-//#define HOLD_ON_OTHER_KEY_PRESS
+#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 
 #define TAPPING_TERM 175
 
@@ -78,6 +74,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_HUE_STEP 10
     #define RGBLIGHT_SAT_STEP 17
     #define RGBLIGHT_VAL_STEP 17
+#endif
+
+// if RGB matrix is on, turn off many animations to save space
+#ifdef RGB_MATRIX_ENABLE
+    // leave solid colour on
+    #define ENABLE_RGB_MATRIX_SOLID_COLOR
+
+    // all others off
+    #undef ENABLE_RGB_MATRIX_ALPHAS_MODS
+    #undef ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
+    #undef ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
+    #undef ENABLE_RGB_MATRIX_BREATHING
+    #undef ENABLE_RGB_MATRIX_BAND_SAT
+    #undef ENABLE_RGB_MATRIX_BAND_VAL
+    #undef ENABLE_RGB_MATRIX_BAND_SPIRAL_SAT
+    #undef ENABLE_RGB_MATRIX_BAND_SPIRAL_VAL
+    #undef ENABLE_RGB_MATRIX_CYCLE_ALL
+    #undef ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
+    #undef ENABLE_RGB_MATRIX_CYCLE_SPIRAL
+    #undef ENABLE_RGB_MATRIX_RAINDROPS
+    #undef ENABLE_RGB_MATRIX_HUE_BREATHING
+    #undef ENABLE_RGB_MATRIX_PIXEL_FRACTAL
+    #undef ENABLE_RGB_MATRIX_TYPING_HEATMAP
+    #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+    #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE
+    #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
+    #undef ENABLE_RGB_MATRIX_SPLASH
+    #undef ENABLE_RGB_MATRIX_SOLID_SPLASH
 #endif
 
 //#define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"

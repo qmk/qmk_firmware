@@ -1,60 +1,6 @@
 #include "pogues.h"
 
 /******************************************************************************
- * combo keys
- ******************************************************************************/
-enum combo_keys {
-    // naming is combo _ hand _ fingers (r=ring, m=middle, i=index) _ row (t=top, b=bottom) _ key
-    // left hand only
-    WF_ESC,
-    CD_TAB,
-    ZX_Q,           // trial on zx for q - skeletyl
-
-    RESET_COMBO,
-
-    // right hand only
-    UY_DEL,
-    HCOM_ENT,
-    JY_CTLBSP,
-    DOTSLSH_COMPOSE,  // trial compose on right lower ring/pinkie for skeletyl
-
-    // both hands, not using pl / fu any more due to typing mishits
-    WY_LMSE,
-
-    COMBO_LENGTH
-};
-uint16_t COMBO_LEN = COMBO_LENGTH;
-
-const uint16_t PROGMEM combo_esc[] = {CTL_W, KC_F, COMBO_END};
-const uint16_t PROGMEM combo_tab[] = {KC_C, KC_D, COMBO_END};
-const uint16_t PROGMEM combo_reset[] = {KC_ESC, KC_TAB, COMBO_END};
-const uint16_t PROGMEM combo_del[] = {KC_U, CTL_Y, COMBO_END};
-const uint16_t PROGMEM combo_ent[] = {KC_H, KC_COMM, COMBO_END};
-const uint16_t PROGMEM combo_bspc[] = {KC_J, CTL_Y, COMBO_END};
-const uint16_t PROGMEM combo_q[] = {SFT_Z, KC_X, COMBO_END};
-const uint16_t PROGMEM combo_compose[] = {KC_DOT, SFT_SLS, COMBO_END};
-const uint16_t PROGMEM combo_mouse[] = {CTL_W, CTL_Y, COMBO_END};
-
-combo_t key_combos[] = {
-    [WF_ESC] = COMBO(combo_esc, KC_ESC),
-    [CD_TAB] = COMBO(combo_tab, KC_TAB),
-    [ZX_Q] = COMBO(combo_q, KC_Q),
-
-    [UY_DEL] = COMBO(combo_del, KC_DEL),
-    [HCOM_ENT] = COMBO(combo_ent, KC_ENT),
-    [JY_CTLBSP] = COMBO(combo_bspc, LCTL(KC_BSPC)),
-    [DOTSLSH_COMPOSE] = COMBO(combo_compose, MY_COMP),
-#ifdef MOUSEKEY_ENABLE
-    [RESET_COMBO] = COMBO(combo_reset, QK_BOOTLOADER),
-    [WY_LMSE] = COMBO(combo_mouse, TO(LMSE)),
-#endif
-};
-
-/******************************************************************************
- * combo keys end
- ******************************************************************************/
-
-/******************************************************************************
  * compose key mapping function
  ******************************************************************************/
 uint8_t compose_mapping(uint16_t* sequence, uint8_t sequence_len) {
