@@ -6,18 +6,20 @@ Macro keypad
 * Hardware Supported: https://github.com/0xcb-dev/0xcb-1337
 * Hardware Availability: On [KeebSupply](https://keeb.supply/products/0xcb-1337) or order your own parts - the hardware in the repo is Open Source :D
 
-![](https://keeb.supply/descriptions/1337/1337-new-rgb.webp)
+![](https://keeb.supply/assets/1337-mjf.webp)
 
 ![](https://keeb.supply/assets/pcb.webp)
+
+More Pictures [here](https://0xcb.dev/1337/)
 
 To go to bootloader press row 0 col 2 key (top right [the encoder]) while plugging in the board.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make 0xcb/1337:default
+    make 0xcb/1337/v5:default
 
 Flashing example for this keyboard:
 
-    make 0xcb/1337:default:flash
+    make 0xcb/1337/v5:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

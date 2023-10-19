@@ -1,0 +1,86 @@
+{
+    "usb": {
+        "device_version": "5.0.0"
+    },
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "encoder": {
+        "enabled": true,
+        "rotary": [
+            {
+                "pin_a": "GP11",
+                "pin_b": "GP10",
+                "resolution": 4
+            }
+        ]
+    },
+    "features": {
+        "audio": false,
+        "backlight": false,
+        "bootmagic": true,
+        "combo": false,
+        "command": false,
+        "console": false,
+        "encoder": true,
+        "encoder_map": true,
+        "extrakey": true,
+        "key_override": false,
+        "mousekey": true,
+        "nkro": true,
+        "rgb_matrix": true,
+        "oled": true,
+        "sleep_led": false,
+        "tap_dance": false
+    },
+    "bootmagic": {
+        "enabled": true,
+        "matrix": [0, 2]
+    },
+    "matrix_pins": {
+        "direct": [
+            ["GP27", "GP29", "GP9"],
+            ["GP26", "GP28", "GP8"],
+            ["GP18", "GP17", "GP12"]
+        ]
+    },
+    "ws2812": {
+        "driver": "vendor",
+        "pin": "GP25"
+    },
+    "rgb_matrix": {
+        "driver": "ws2812",
+        "layout": [
+            { "flags": 4, "matrix": [0, 1], "x": 112, "y": 13 },
+            { "flags": 4, "matrix": [0, 0], "x": 45, "y": 13 },
+            { "flags": 4, "matrix": [1, 0], "x": 45, "y": 32 },
+            { "flags": 4, "matrix": [1, 1], "x": 112, "y": 32 },
+            { "flags": 4, "matrix": [1, 2], "x": 179, "y": 32 },
+            { "flags": 4, "matrix": [2, 2], "x": 179, "y": 51 },
+            { "flags": 4, "matrix": [2, 1], "x": 112, "y": 51 },
+            { "flags": 4, "matrix": [2, 0], "x": 45, "y": 51 },
+            { "flags": 2, "x": 22, "y": 64 },
+            { "flags": 2, "x": 67, "y": 64 },
+            { "flags": 2, "x": 112, "y": 64 },
+            { "flags": 2, "x": 134, "y": 64 },
+            { "flags": 2, "x": 157, "y": 64 },
+            { "flags": 2, "x": 202, "y": 64 },
+            { "flags": 2, "x": 224, "y": 58 },
+            { "flags": 2, "x": 224, "y": 45 },
+            { "flags": 2, "x": 224, "y": 32 },
+            { "flags": 2, "x": 224, "y": 26 },
+            { "flags": 2, "x": 224, "y": 19 },
+            { "flags": 2, "x": 224, "y": 6 },
+            { "flags": 2, "x": 202, "y": 0 },
+            { "flags": 2, "x": 157, "y": 0 },
+            { "flags": 2, "x": 112, "y": 0 },
+            { "flags": 2, "x": 67, "y": 0 },
+            { "flags": 2, "x": 22, "y": 0 },
+            { "flags": 2, "x": 0, "y": 6 },
+            { "flags": 2, "x": 0, "y": 19 },
+            { "flags": 2, "x": 0, "y": 26 },
+            { "flags": 2, "x": 0, "y": 32 },
+            { "flags": 2, "x": 0, "y": 45 },
+            { "flags": 2, "x": 0, "y": 58 }
+        ]
+    }
+}

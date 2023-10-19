@@ -1,0 +1,66 @@
+{
+    "usb": {
+        "device_version": "4.0.0",
+        "max_power": 500
+    },
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu",
+    "debounce": 5,
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
+    "encoder": {
+        "enabled": true,
+        "rotary": [
+            {"pin_a": "F1", "pin_b": "F0", "resolution": 4}
+        ]
+    },
+    "features": {
+        "audio": false,
+        "backlight": false,
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "encoder": true,
+        "encoder_map": true,
+        "extrakey": true,
+        "lto": true,
+        "mousekey": true,
+        "nkro": false,
+        "oled": true,
+        "rgb_matrix": true,
+        "sleep_led": false
+    },
+    "matrix_pins": {
+        "direct": [
+            ["B6", "C6", "B1"],
+            ["B4", "B5", "B7"],
+            ["D7", "D6", "D4"]
+        ]
+    },
+    "bootmagic": {
+        "enabled": true,
+        "matrix": [0, 2]
+    },
+    "rgb_matrix": {
+        "driver": "ws2812",
+        "layout": [
+            {"x": 0, "y": 0, "flags": 2},
+            {"matrix": [0, 1], "x": 112, "y": 0, "flags": 4},
+            {"x": 0, "y": 32, "flags": 2},
+            {"matrix": [0, 0], "x": 112, "y": 32, "flags": 4},
+            {"matrix": [1, 2], "x": 224, "y": 32, "flags": 4},
+            {"x": 0, "y": 64, "flags": 2},
+            {"matrix": [1, 1], "x": 112, "y": 64, "flags": 4},
+            {"x": 224, "y": 64, "flags": 2},
+            {"matrix": [1, 0], "x": 56, "y": 16, "flags": 4},
+            {"matrix": [2, 2], "x": 168, "y": 16, "flags": 4},
+            {"matrix": [2, 1], "x": 56, "y": 48, "flags": 4},
+            {"matrix": [2, 0], "x": 168, "y": 48, "flags": 4}
+        ],
+        "max_brightness": 255
+    },
+    "ws2812": {
+        "pin": "B0"
+    }
+}
