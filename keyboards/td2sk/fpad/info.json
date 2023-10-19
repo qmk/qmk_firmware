@@ -8,7 +8,6 @@
         "pid": "0x1185",
         "vid": "0xFEED"
     },
-    "debounce": 5,
     "bootloader": "caterina",
     "diode_direction": "COL2ROW",
     "features": {
