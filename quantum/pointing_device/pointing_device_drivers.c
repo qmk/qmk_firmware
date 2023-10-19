@@ -132,9 +132,8 @@ void azoteq_iqs5xx_init(void) {
 };
 
 report_mouse_t azoteq_iqs5xx_rotate(report_mouse_t mouse_report) {
-    report_mouse_t old_report = mouse_report;
-
 #    if defined(POINTING_DEVICE_ROTATION_90) || defined(POINTING_DEVICE_ROTATION_180) || defined(POINTING_DEVICE_ROTATION_270)
+    report_mouse_t old_report = mouse_report;
 #        if defined(POINTING_DEVICE_ROTATION_90)
     mouse_report.h            = old_report.v;
     mouse_report.v            = -old_report.h;
@@ -150,9 +149,8 @@ report_mouse_t azoteq_iqs5xx_rotate(report_mouse_t mouse_report) {
 }
 
 azoteq_iqs5xx_base_data_t azoteq_iqs5xx_rotate_swipes(azoteq_iqs5xx_base_data_t base_data) {
-    azoteq_iqs5xx_base_data_t old_base_data = base_data;
-
 #    if defined(POINTING_DEVICE_ROTATION_90) || defined(POINTING_DEVICE_ROTATION_180) || defined(POINTING_DEVICE_ROTATION_270)
+    azoteq_iqs5xx_base_data_t old_base_data = base_data;
 #        if defined(POINTING_DEVICE_ROTATION_90)
     base_data.gesture_events_0.swipe_x_neg  = old_base_data.gesture_events_0.swipe_y_neg;
     base_data.gesture_events_0.swipe_x_pos  = old_base_data.gesture_events_0.swipe_y_pos;
@@ -174,8 +172,7 @@ azoteq_iqs5xx_base_data_t azoteq_iqs5xx_rotate_swipes(azoteq_iqs5xx_base_data_t 
 }
 
 report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report) {
-    static uint8_t previous_button_state = 0;
-    report_mouse_t temp_report           = {0};
+    report_mouse_t temp_report = {0};
     if (azoteq_iqs5xx_init_status == I2C_STATUS_SUCCESS) {
         azoteq_iqs5xx_base_data_t base_data       = {0};
         i2c_status_t              status          = azoteq_iqs5xx_get_base_data(&base_data);
@@ -224,11 +221,12 @@ report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report) {
             }
             temp_report = azoteq_iqs5xx_rotate(temp_report);
 #    if defined(POINTING_DEVICE_MOTION_PIN)
+            static uint8_t previous_button_state = 0;
             if (previous_button_state != temp_report.buttons) {
+                previous_button_state = temp_report.buttons;
                 azoteq_iqs5xx_set_event_mode(temp_report.buttons == 0, true); // Disabling event mode forces the RDY to become active on an interval preventing stuck buttons.
             }
 #    endif
-            previous_button_state = temp_report.buttons;
         }
     } else {
         pd_dprintf("IQS5XX - Init failed: %d \n", azoteq_iqs5xx_init_status);
