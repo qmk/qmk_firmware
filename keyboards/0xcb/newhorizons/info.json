@@ -14,6 +14,21 @@
     },
     "rgb_matrix": {
         "driver": "ws2812",
+        "animations": {
+            "alphas_mods": true,
+            "gradient_up_down": true,
+            "gradient_left_right": true,
+            "breathing": true,
+            "band_val": true,
+            "band_spiral_val": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "cycle_out_in": true,
+            "cycle_pinwheel": true,
+            "rainbow_pinwheels": true,
+            "raindrops": true
+        },
         "layout": [
             {"x": 45, "y": 19, "flags": 2},
             {"x": 67, "y": 19, "flags": 2},
