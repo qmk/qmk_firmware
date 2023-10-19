@@ -24,27 +24,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
         ENCODER_CCW_CW(KC_WH_L, KC_WH_R),
         ENCODER_CCW_CW(RGB_RMOD, RGB_MOD)
     },
-    [_1] = {
-        ENCODER_CCW_CW(KC_TRNS, KC_TRNS),
-        ENCODER_CCW_CW(KC_TRNS, KC_TRNS),
-        ENCODER_CCW_CW(KC_TRNS, KC_TRNS),
-        ENCODER_CCW_CW(KC_TRNS, KC_TRNS),
-        ENCODER_CCW_CW(KC_TRNS, KC_TRNS)
-    },
-    [_2] = {
-        ENCODER_CCW_CW(KC_TRNS, KC_TRNS),
-        ENCODER_CCW_CW(KC_TRNS, KC_TRNS),
-        ENCODER_CCW_CW(KC_TRNS, KC_TRNS),
-        ENCODER_CCW_CW(KC_TRNS, KC_TRNS),
-        ENCODER_CCW_CW(KC_TRNS, KC_TRNS)
-    },
-    [_3] = {
-        ENCODER_CCW_CW(KC_TRNS, KC_TRNS),
-        ENCODER_CCW_CW(KC_TRNS, KC_TRNS),
-        ENCODER_CCW_CW(KC_TRNS, KC_TRNS),
-        ENCODER_CCW_CW(KC_TRNS, KC_TRNS),
-        ENCODER_CCW_CW(KC_TRNS, KC_TRNS)
-    },
 };
 // clang-format on
 
