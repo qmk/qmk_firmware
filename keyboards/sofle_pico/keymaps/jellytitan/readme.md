@@ -1,10 +1,11 @@
 # JellyTitan sofle_pico Keymap
 ![jellytitan](https://i.imgur.com/JqGPWCn.png)
 
-This keymap is derived from Ergodox layouts and is adapted for the [sofle_pico](https://github.com/daneski13/sofle_pico). 
+This keymap is derived from Ergodox layouts and is adapted for the [sofle_pico](https://github.com/JellyTitan/sofle_pico). 
 It is notable for it's semi-complex programming examples that include the use of rotary encoders.
 
 Plenty of useful examples:
+* Pimaroni enabled
 * Advanced knob programming! (Three-layer usage + clicks)
 * Macros! (Fancy key combos tied to the rotary encoders)
 * Tap Dance! (Double tap your '5' key for 'Enter')
