@@ -11,20 +11,12 @@
     },
     "features": {
         "audio": false,
-        "backlight": false,
         "bootmagic": true,
-        "combo": false,
-        "command": false,
-        "console": false,
         "encoder": true,
-        "encoder_map": true,
         "extrakey": true,
-        "key_override": false,
         "mousekey": true,
         "nkro": true,
         "rgb_matrix": true,
-        "sleep_led": false,
-        "tap_dance": false
     },
     "ws2812": {
         "driver": "vendor",
