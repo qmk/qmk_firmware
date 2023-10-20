@@ -20,7 +20,6 @@ SPACE_CADET_ENABLE = no
 
 # OLED enabled
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
 
 # RGB Matrix enabled
 RGB_MATRIX_ENABLE = yes

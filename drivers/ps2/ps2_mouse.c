@@ -191,13 +191,12 @@ static inline void ps2_mouse_convert_report_to_hid(report_mouse_t *mouse_report)
 
 #ifdef PS2_MOUSE_INVERT_BUTTONS
     // swap left & right buttons
-    uint8_t needs_left    = mouse_report->buttons & PS2_MOUSE_BTN_RIGHT;
-    uint8_t needs_right   = mouse_report->buttons & PS2_MOUSE_BTN_LEFT;
-    mouse_report->buttons = (mouse_report->buttons & ~(PS2_MOUSE_BTN_MASK)) | (needs_left ? PS2_MOUSE_BTN_LEFT : 0) | (needs_right ? PS2_MOUSE_BTN_RIGHT : 0);
-#else
+    bool needs_left       = mouse_report->buttons & (1 << PS2_MOUSE_BTN_RIGHT);
+    bool needs_right      = mouse_report->buttons & (1 << PS2_MOUSE_BTN_LEFT);
+    mouse_report->buttons = (mouse_report->buttons & ~((1 << PS2_MOUSE_BTN_LEFT) | (1 << PS2_MOUSE_BTN_RIGHT))) | (needs_left << PS2_MOUSE_BTN_LEFT) | (needs_right << PS2_MOUSE_BTN_RIGHT);
+#endif
     // remove sign and overflow flags
     mouse_report->buttons &= PS2_MOUSE_BTN_MASK;
-#endif
 
 #ifdef PS2_MOUSE_INVERT_X
     mouse_report->x = -mouse_report->x;

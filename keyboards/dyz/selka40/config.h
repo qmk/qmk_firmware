@@ -17,6 +17,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define TAP_CODE_DELAY 10 // Need this delay for some keys like VOLD/VOLU to work
-
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3

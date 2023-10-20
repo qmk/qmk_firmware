@@ -13,21 +13,22 @@ void matrix_init_user(void)
 
 #ifdef AUDIO_ENABLE
 #ifdef BACKLIGHT_ENABLE
-void led_set_user(uint8_t usb_led)
+bool led_update_user(led_t led_state)
 {
-  static uint8_t old_usb_led = 0;
+  static led_t old_led_state = {0};
   _delay_ms(10);                            // gets rid of tick
   if (!is_playing_notes()) {
-    if ((usb_led & (1<<USB_LED_CAPS_LOCK)) && !(old_usb_led & (1<<USB_LED_CAPS_LOCK))) {
+    if (led_state.caps_lock && !old_led_state.caps_lock) {
       // if capslock LED is turning on
       PLAY_SONG(song_caps_on);
     }
-    else if (!(usb_led & (1<<USB_LED_CAPS_LOCK)) && (old_usb_led & (1<<USB_LED_CAPS_LOCK))) {
+    else if (!led_state.caps_lock && old_led_state.caps_lock) {
       // if capslock LED is turning off
       PLAY_SONG(song_caps_off);
     }
   }
-  old_usb_led = usb_led;
+  old_led_state = led_state;
+  return false;
 }
 #endif
 

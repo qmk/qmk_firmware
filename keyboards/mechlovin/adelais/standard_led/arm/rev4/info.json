@@ -9,6 +9,9 @@
             {"pin_a": "B7", "pin_b": "B6"}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_alice_split_bs"
     },
