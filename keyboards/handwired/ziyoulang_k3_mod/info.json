@@ -2,7 +2,7 @@
     "keyboard_name": "ziyoulang k3 mod",
     "development_board": "bluepill",
     "usb": {
-        "device_version": "1.0.0",
+        "device_version": "1.1.0",
         "pid": "0xE002",
         "vid": "0x5006"
     },
@@ -11,8 +11,9 @@
         "command": false,
         "console": false,
         "extrakey": true,
-        "mousekey": true,
-        "nkro": false
+        "mousekey": false,
+        "nkro": false,
+        "lto": true
     },
     "diode_direction": "COL2ROW",
     "dynamic_keymap": {
