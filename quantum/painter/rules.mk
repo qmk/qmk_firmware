@@ -188,7 +188,7 @@ endif
 # If SPI comms is needed, set up the required files
 ifeq ($(strip $(QUANTUM_PAINTER_NEEDS_COMMS_SPI)), yes)
     OPT_DEFS += -DQUANTUM_PAINTER_SPI_ENABLE
-    QUANTUM_LIB_SRC += spi_master.c
+    SPI_DRIVER_REQUIRED = yes
     VPATH += $(DRIVER_PATH)/painter/comms
     SRC += \
         $(QUANTUM_DIR)/painter/qp_comms.c \
@@ -202,7 +202,7 @@ endif
 # If I2C comms is needed, set up the required files
 ifeq ($(strip $(QUANTUM_PAINTER_NEEDS_COMMS_I2C)), yes)
     OPT_DEFS += -DQUANTUM_PAINTER_I2C_ENABLE
-    QUANTUM_LIB_SRC += i2c_master.c
+    I2C_DRIVER_REQUIRED = yes
     VPATH += $(DRIVER_PATH)/painter/comms
     SRC += \
         $(QUANTUM_DIR)/painter/qp_comms.c \
