@@ -40,3 +40,6 @@ enum layers { _QWERTY = 0, _LOWER, _RAISE, _ADJUST };
 #define SC_COLO LSFT(KC_COMM)
 #define SC_SCOL LSFT(KC_DOT)
 #define SC_UNSC LSFT(KC_SLSH)
+
+#define SC_PRVW LSG(KC_MINS) // LSG = LSFT + LGUI
+#define SC_NEXW LGUI(KC_MINS)
