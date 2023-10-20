@@ -99,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     if (!process_achordion(keycode, record)) {
-        return false; 
+        return false;
     }
     if (!process_compose(keycode, record, MY_COMP)) {
         return false;
@@ -113,7 +113,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
     return true;
 }
- 
+
 
 void matrix_scan_user(void) {
     achordion_task();
@@ -140,7 +140,7 @@ uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
 
 /*******************************************************************************
  * hold on other key (requires HOLD_ON_OTHER_KEY_PER_KEY set) a return of true
- * will mean that the hold action is triggered as soon as another key is pressed 
+ * will mean that the hold action is triggered as soon as another key is pressed
  * (so D(k) D(anything) U(k) will cause hold_k and anything to be pressed)
  * a return of false will use the default behaviour from other settings
  *******************************************************************************/
@@ -170,20 +170,19 @@ bool achordion_chord(
     keyrecord_t* other_record
 ) {
     switch (tap_hold_keycode) {
-        // shift and movement layer are on tap-hold keys and we want the hold to take 
+        // shift and movement layer are on tap-hold keys and we want the hold to take
         // precedence even on same hands
         case MOV_SPC:
         case SFT_BSP:
-	    return true;
+            return true;
             break;
 
-        
-	// for the top right control we want "y " to take precedence over ctrl-space
-	// and ctrl-v to take precedence over "yv"
+        // for the top right control we want "y " to take precedence over ctrl-space
+        // and ctrl-v to take precedence over "yv"
         case CTL_Y:
-	    if (other_keycode == MOV_SPC) { return false; }
-	    if (other_keycode == KC_V) {return true; }
-      	    break;
+            if (other_keycode == MOV_SPC) { return false; }
+            if (other_keycode == KC_V) {return true; }
+            break;
     }
 
     // Otherwise, follow the opposite hands rule.
