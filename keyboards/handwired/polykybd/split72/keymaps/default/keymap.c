@@ -7,6 +7,8 @@
 #include "base/spi_helper.h"
 #include "base/shift_reg.h"
 #include "base/text_helper.h"
+#include "base/fonts/NotoSans_Regular_Base_11pt.h"
+#include "base/fonts/NotoSans_Medium_Base_8pt.h"
 #include "base/fonts/gfx_used_fonts.h"
 
 #include "quantum/quantum_keycodes.h"
@@ -89,7 +91,6 @@ enum refresh_mode { START_FIRST_HALF, START_SECOND_HALF, DONE_ALL, ALL_AT_ONCE }
 static enum refresh_mode g_refresh = DONE_ALL;
 static int8_t g_contrast = FULL_BRIGHT;
 static layer_state_t g_default_ls = 0;
-static uint16_t last_key = 0;
 
 enum com_state { NOT_INITIALIZED, USB_HOST, BRIDGE };
 static enum com_state com = NOT_INITIALIZED;
@@ -124,16 +125,16 @@ typedef struct _poly_state_t {
 
 poly_state_t g_state;
 
-static int32_t last_update;
+static int32_t last_update = 0;
 static bool g_first_sync = false;
 
 void oled_draw_kybd(void);
 void oled_draw_poly(void);
 bool display_wakeup(keyrecord_t* record);
 void update_displays(enum refresh_mode mode);
-bool set_displays(int8_t contrast);
+bool set_displays(int8_t old_contrast, int8_t contrast);
 void set_selected_displays(int8_t old_value, int8_t new_value);
-static int8_t old_contrast = 0;
+//static int8_t old_contrast = 0;
 
 void inc_brightness(void) {
     if (g_contrast < FULL_BRIGHT) {
@@ -167,10 +168,6 @@ void clear_all_displays(void) {
 void early_hardware_init_post(void) {
     spi_hw_setup();
 
-}
-
-void set_last_key(uint16_t keycode) {
-    last_key = keycode;
 }
 
 void update_performed(void) {
@@ -213,7 +210,7 @@ void sync_and_refresh_displays(void) {
     }
 
     if (g_state.s.contrast != g_contrast && g_refresh == DONE_ALL) {
-        bool need_refresh = set_displays(g_contrast);
+        bool need_refresh = set_displays(g_state.s.contrast, g_contrast);
         g_state.s.contrast = g_contrast;
         if (!is_usb_host_side() && need_refresh) {
             request_disp_refresh();
@@ -530,7 +527,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case RGB_RMOD:
         return u"RGB\v" ICON_LEFT;
     case RGB_TOG:
-        return get_led_matrix_text(rgb_matrix_get_mode());
+        return rgb_matrix_is_enabled()? u"RGB\r\v" ICON_SWITCH_ON : u"RGB\r\v" ICON_SWITCH_OFF;
     case RGB_MOD:
         return u"RGB\v" ICON_RIGHT;
     case RGB_HUI:
@@ -549,9 +546,9 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         return u"Spd+";
     case RGB_SPD:
         return u"Spd-";
-    case RGB_M_P:
-        return u"No\v\tAnim";
-    case RGB_M_B:
+    case RGB_MODE_PLAIN:
+        return u"Plain";
+    case RGB_MODE_BREATHE:
         return u"Brth";
     case KC_MEDIA_NEXT_TRACK:
         return ICON_RIGHT ICON_RIGHT;
@@ -680,9 +677,9 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case KC_NO:
         return u"";
     case KC_DECC:
-        return u" -";
+        return u"Dsp-";
     case KC_INCC:
-        return u" +";
+        return u"Dsp+";
     case KC_LANG:
         return PRIVATE_WORLD;
     case SH_TOGG:
@@ -1122,13 +1119,18 @@ void show_splash_screen(void) {
     display_message(2, 1, u"KYBD", &FreeSansBold24pt7b);
 }
 
-void set_status_displays_by_kdisp(int8_t contrast) {
-    if ((old_contrast <= DISP_OFF && contrast > DISP_OFF) || (contrast > DISP_OFF && !is_oled_on())) {
-        oled_on();
-    } else if ((old_contrast > DISP_OFF && contrast <= DISP_OFF) || (contrast <= DISP_OFF && is_oled_on())) {
-        oled_off();
-    }
-}
+// void set_status_displays_by_kdisp(int8_t contrast) {
+//     /*if ((old_contrast <= DISP_OFF && contrast > DISP_OFF) || (contrast > DISP_OFF && !is_oled_on())) {
+//         oled_on();
+//     } else if ((old_contrast > DISP_OFF && contrast <= DISP_OFF) || (contrast <= DISP_OFF && is_oled_on())) {
+//         oled_off();
+//     }*/
+//     if (old_contrast > DISP_OFF && contrast == DISP_OFF) {
+//         oled_off();
+//     } else if (old_contrast == DISP_OFF && contrast > DISP_OFF) {
+//         oled_on();
+//     }
+// }
 
 void set_selected_displays(int8_t old_value, int8_t new_value) {
     if (old_value <= DISP_OFF && new_value > DISP_OFF) {
@@ -1147,14 +1149,23 @@ void set_selected_displays(int8_t old_value, int8_t new_value) {
     }
 }
 
-bool set_displays(int8_t contrast) {
-    set_status_displays_by_kdisp(contrast);
+bool set_displays(int8_t old_contrast, int8_t contrast) {
+    if(contrast==old_contrast)
+        return false;
+    //set_status_displays_by_kdisp(contrast);
 
     select_all_displays();
     set_selected_displays(old_contrast, contrast);
 
     bool needs_refresh = old_contrast <= DISP_OFF && contrast > DISP_OFF;
-    old_contrast = contrast;
+
+    if(old_contrast == DISP_OFF && g_contrast==DISP_OFF && is_oled_on()) {
+        oled_off();
+    } else if(g_contrast>=MIN_BRIGHT && !is_oled_on()) {
+        oled_on();
+    }
+
+    //old_contrast = contrast;
     return needs_refresh;
 }
 
@@ -1174,7 +1185,7 @@ bool display_wakeup(keyrecord_t* record) {
 
     return accept_keypress;
 }
-
+//void oled_render_logos(void);
 void keyboard_post_init_user(void) {
     // Customise these values to desired behaviour
     debug_enable = true;
@@ -1193,13 +1204,17 @@ void keyboard_post_init_user(void) {
     com = is_keyboard_master() ? USB_HOST : BRIDGE;
     side = is_keyboard_left() ? LEFT_SIDE : RIGHT_SIDE;
 
+    setPinInputHigh(GP25);
+    setPinInputHigh(GP29);
+
     dprintf("PolyKybd ready.");
-    oled_on();
+
     wait_ms(500);
     transaction_register_rpc(USER_SYNC_POLY_DATA, user_sync_poly_data_handler);
 }
 
 void keyboard_pre_init_user(void) {
+    memset(&g_state, 0, sizeof(g_state));
     kdisp_hw_setup();
     kdisp_init(NUM_SHIFT_REGISTERS);
     peripherals_reset();
@@ -1211,50 +1226,120 @@ void keyboard_pre_init_user(void) {
     kdisp_scroll(false);
 
 
-    set_displays(FULL_BRIGHT);
+    set_displays(0, FULL_BRIGHT);
     show_splash_screen();
 
     setPinInputHigh(I2C1_SDA_PIN);
 }
 
-
-bool oled_task_user(void) {
-    // char buffer[32];
-
-    // led_t led_state = host_keyboard_led_state();
-    // snprintf(buffer, sizeof(buffer), "Layer: %d %s %s %s",
-    //     get_highest_layer(layer_state),
-    //     led_state.num_lock ? "NUM" : "[ ]",
-    //     led_state.caps_lock ? "CAP" : "[ ]",
-    //     led_state.scroll_lock ? "SCR" : "[ ]"
-    // );
-    // oled_write(buffer, false);
-
-    // snprintf(buffer, sizeof(buffer), "\nLast Key: 0x%04x", last_key);
-    // oled_write(buffer, false);
-
-    // snprintf(buffer, sizeof(buffer), "\nRGB:%2d", rgb_matrix_get_mode());
-    // oled_write(buffer, false);
-
-    // snprintf(buffer, sizeof(buffer), "\n%s %s",
-    //     com==NOT_INITIALIZED ? "!Initialized" : (is_usb_host_side() ? "USB-Host" : "Bridge"),
-    //     side==UNDECIDED ? "UNDECIDED" : (is_left_side() ? "LEFT" : "RIGHT"));
-
-    // oled_write(buffer, false);
-
-    // oled_set_cursor(0, 4);
-    // static const char PROGMEM raw_logo[] = { 0x80, 0xc0, 0xc0, 0x40, 0x40, 0x40, 0xc0, 0xc0, 0xc0, 0x80, 0x00, 0x80, 0xc0, 0xc0, 0x40, 0x40, 0x40, 0x40, 0xc0, 0xc0, 0x80, 0x00, 0x80, 0xc0, 0x40, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0x80, 0x00, 0x80, 0xc0, 0x40, 0xc0, 0xc0, 0xc0, 0xc0, 0x40, 0xc0, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    //                                         0xff, 0xff, 0x00, 0xef, 0xef, 0xef, 0xf0, 0xff, 0xff, 0xff, 0x00, 0xff, 0xff, 0x00, 0xff, 0xff, 0xff, 0xff, 0x00, 0xff, 0xff, 0x00, 0xff, 0xff, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0xff, 0xff, 0xf8, 0xf7, 0xf7, 0x07, 0xf7, 0xf8, 0xff, 0xff, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x00, 0x00, 0x00, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x00, 0x00, 0x00, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x00, 0x00, 0x00, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x00, 0x00, 0x00, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x00, 0x00, 0x00, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x00, 0x00, 0x00, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x00, 0x00, 0x00, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x00,
-    //                                         0x01, 0x03, 0x02, 0x03, 0x73, 0x73, 0x63, 0x03, 0x73, 0x61, 0x30, 0x01, 0x03, 0x03, 0x02, 0x02, 0x02, 0x02, 0x03, 0x03, 0x01, 0x00, 0x01, 0x03, 0x03, 0x02, 0x02, 0x02, 0x02, 0x02, 0x03, 0x01, 0x00, 0x01, 0x03, 0x03, 0x03, 0x03, 0x02, 0x03, 0x03, 0xff, 0xff, 0x00, 0xcf, 0xdf, 0x2f, 0xf0, 0xff, 0xff, 0xff, 0x00, 0xff, 0xff, 0x01, 0xee, 0xee, 0xfe, 0xfe, 0xfe, 0xff, 0xff, 0x00, 0xff, 0xff, 0xf0, 0xef, 0xef, 0x0f, 0xef, 0xf0, 0xff, 0xff, 0x00, 0xff, 0xff, 0x00, 0xfe, 0xfe, 0xee, 0xce, 0x31, 0xff, 0xff, 0x00, 0xff, 0xff, 0x01, 0xfe, 0xfe, 0xfe, 0xfe, 0x01, 0xff, 0xff, 0x00, 0xff, 0xff, 0x07, 0xb9, 0xbe, 0xbe, 0xb9, 0x07, 0xff, 0xff, 0x00, 0xff, 0xff, 0x01, 0xde, 0xde, 0x9e, 0x61, 0xff, 0xff, 0xff, 0x00, 0xff, 0xff, 0x00, 0xfe, 0xfe, 0xfe, 0xfd, 0x03, 0xff, 0xff,
-    //                                         0x00, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x21, 0x27, 0x21, 0x20, 0x27, 0x22, 0x27, 0x20, 0x27, 0x23, 0x23, 0x20, 0x27, 0x25, 0x27, 0x20, 0x27, 0x27, 0x24, 0x20, 0x27, 0x27, 0x24, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x23, 0x27, 0x24, 0x27, 0x27, 0x27, 0x24, 0x27, 0x27, 0x23, 0x20, 0x23, 0x27, 0x26, 0x25, 0x25, 0x25, 0x25, 0x25, 0x27, 0x23, 0x20, 0x23, 0x27, 0x27, 0x27, 0x27, 0x24, 0x27, 0x27, 0x27, 0x23, 0x20, 0x23, 0x27, 0x24, 0x25, 0x25, 0x25, 0x25, 0x26, 0x27, 0x23, 0x20, 0x23, 0x27, 0x26, 0x25, 0x25, 0x25, 0x25, 0x26, 0x27, 0x23, 0x20, 0x23, 0x27, 0x24, 0x27, 0x27, 0x27, 0x27, 0x24, 0x27, 0x03, 0x20, 0x03, 0x27, 0x04, 0x27, 0x07, 0x67, 0x34, 0x77, 0x07, 0x13, 0x70, 0x13, 0x07, 0x74, 0x55, 0x75, 0x05, 0x76, 0x37, 0x77, 0x03 };
-    // oled_write_raw_P(raw_logo, sizeof(raw_logo));
-
-    if(is_left_side()) {
-        oled_draw_poly();
+void num_to_u16_string(char* buffer, uint8_t buffer_len, uint8_t value) {
+    if(value<10) {
+        snprintf((char*) buffer, buffer_len, "%d", value);
+        buffer[1] = 0;
+        buffer[2] = 0;
+        buffer[3] = 0;
+    } else if(value>99) {
+        snprintf((char*) buffer, buffer_len, "%d %d %d", value/100, (value/10)%10, value%10);
+        buffer[1] = 0;
+        buffer[3] = 0;
+        buffer[5] = 0;
+        buffer[6] = 0;
+        buffer[7] = 0;
     } else {
-        oled_draw_kybd();
+        snprintf((char*) buffer, buffer_len, "%d %d", value/10, value%10);
+        buffer[1] = 0;
+        buffer[3] = 0;
+        buffer[4] = 0;
+        buffer[5] = 0;
+    }
+}
+
+void hex_to_u16_string(char* buffer, uint8_t buffer_len, uint8_t value) {
+    if(value<16) {
+        snprintf((char*) buffer, buffer_len, "%X", value);
+        buffer[1] = 0;
+        buffer[2] = 0;
+        buffer[3] = 0;
+    } else {
+        snprintf((char*) buffer, buffer_len, "%X %X", value/16, value%16);
+        buffer[1] = 0;
+        buffer[3] = 0;
+        buffer[4] = 0;
+        buffer[5] = 0;
+    }
+}
+
+void oled_status_screen(void) {
+    uint16_t buffer[32];
+
+    kdisp_set_buffer(0);
+
+    const GFXfont* displayFont[] = { &NotoSans_Regular11pt7b };
+    const GFXfont* smallFont[] = { &NotoSans_Medium8pt7b };
+    kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 0, 14, ICON_LAYER);
+    num_to_u16_string((char*) buffer, sizeof(buffer), get_highest_layer(layer_state));
+    kdisp_write_gfx_text(displayFont, 1, 20, 14, buffer);
+    if(side==UNDECIDED) {
+        kdisp_write_gfx_text(displayFont, 1, 50, 14, u"Uknw");
+    } else {
+        kdisp_write_gfx_text(displayFont, 1, 38, 14, is_left_side() ? u"LEFT" : u"RIGHT");
     }
 
+    kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 108, 16, g_state.led_state.num_lock ? ICON_NUMLOCK_ON : ICON_NUMLOCK_OFF);
+    kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 108, 38, g_state.led_state.caps_lock ? ICON_CAPSLOCK_ON : ICON_CAPSLOCK_OFF);
+    if(g_state.led_state.scroll_lock) {
+        kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 112, 54, ARROWS_DOWNSTOP);
+    } else {
+        kdisp_write_gfx_text(smallFont, 1, 112, 56, is_usb_host_side() ? u"H" : u"B");
+    }
+    kdisp_write_gfx_text(smallFont, 1, 0, 30, u"RGB");
+
+
+    if(!rgb_matrix_is_enabled()) {
+        kdisp_write_gfx_text(smallFont, 1, 34, 30, u"Off");
+    } else {
+        num_to_u16_string((char*) buffer, sizeof(buffer), rgb_matrix_get_mode());
+        kdisp_write_gfx_text(smallFont, 1, 34, 30, buffer);
+        kdisp_write_gfx_text(smallFont, 1, 58, 30, get_led_matrix_text(rgb_matrix_get_mode()));
+        kdisp_write_gfx_text(smallFont, 1, 0, 44, u"HSV");
+        hex_to_u16_string((char*) buffer, sizeof(buffer), rgb_matrix_get_hue());
+        kdisp_write_gfx_text(smallFont, 1, 38, 44, buffer);
+        hex_to_u16_string((char*) buffer, sizeof(buffer), rgb_matrix_get_sat());
+        kdisp_write_gfx_text(smallFont, 1, 60, 44, buffer);
+        hex_to_u16_string((char*) buffer, sizeof(buffer), rgb_matrix_get_val());
+        kdisp_write_gfx_text(smallFont, 1, 82, 44, buffer);
+
+        kdisp_write_gfx_text(smallFont, 1, 68, 58, u"S");
+        num_to_u16_string((char*) buffer, sizeof(buffer), rgb_matrix_get_speed());
+        kdisp_write_gfx_text(smallFont, 1, 80, 58, buffer);
+    }
+
+    kdisp_write_gfx_text(smallFont, 1, 0, 58, u"WPM");
+    num_to_u16_string((char*) buffer, sizeof(buffer), get_current_wpm());
+    kdisp_write_gfx_text(smallFont, 1, 44, 58, buffer);
+
+   // snprintf(buffer, sizeof(buffer), "\nRGB:%s %s:%d", get_led_matrix_text(rgb_matrix_get_mode()), rgb_matrix_is_enabled() ? "Speed" : "[Off]", rgb_matrix_get_speed());
+
+    oled_clear();
+    oled_write_raw((char *)get_scratch_buffer(), get_scratch_buffer_size());
+}
+
+void oled_render_logos(void) {
+    if(is_left_side()) {
+        oled_draw_poly();
+        oled_scroll_right();
+    } else {
+        oled_draw_kybd();
+        oled_scroll_left();
+    }
+}
+bool oled_task_user(void) {
+    if(g_contrast <= DISP_OFF) {
+        oled_render_logos();
+    } else {
+        oled_scroll_off();
+        oled_status_screen();
+    }
     return false;
 }
 
@@ -1315,6 +1400,11 @@ void matrix_slave_scan_user(void) {
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation){
     oled_off();
+    oled_clear();
+    oled_render();
+    oled_scroll_set_speed(0);
+    oled_render_logos();
+    oled_on();
     return rotation;
 }
 

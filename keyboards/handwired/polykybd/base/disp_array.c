@@ -59,6 +59,14 @@
 
 uint8_t scratch_buffer[BUFFER_BYTE_WIDTH * BUFFER_BYTE_HEIGHT];
 
+uint8_t* get_scratch_buffer(void) {
+    return scratch_buffer;
+}
+
+int16_t get_scratch_buffer_size(void) {
+    return BUFFER_BYTE_WIDTH * BUFFER_BYTE_HEIGHT;
+}
+
 #define test_bmp_width 82
 #define test_bmp_height 64
 

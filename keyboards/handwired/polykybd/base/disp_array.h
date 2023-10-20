@@ -31,3 +31,8 @@ void kdisp_hw_setup(void);
 void kdisp_init(const int8_t num_shift_regs);
 
 void kdisp_setup(bool turn_on);
+
+uint8_t* get_scratch_buffer(void);
+
+int16_t get_scratch_buffer_size(void);
+

@@ -27,9 +27,9 @@
 #define I2C1_SCL_PIN GP0
 #define I2C1_SDA_PIN GP1
 #define I2C1_OPMODE OPMODE_I2C
-#define I2C1_CLOCK_SPEED 100000
+#define I2C1_CLOCK_SPEED 400000
 //#define OLED_UPDATE_INTERVAL 1
-#define I2C1_DUTY_CYCLE STD_DUTY_CYCLE
+//#define I2C1_DUTY_CYCLE STD_DUTY_CYCLE
 
 #define OLED_INIT
 
@@ -70,7 +70,7 @@
 
 #define ENCODERS_PAD_A { GP25 }
 #define ENCODERS_PAD_B { GP29 }
-#define ENCODER_RESOLUTION 4
+#define ENCODER_RESOLUTION 2
 
 //see also https://docs.qmk.fm/#/feature_pointing_device?id=split-keyboard-configuration
 

@@ -17,3 +17,4 @@ POINTING_DEVICE_ENABLE = yes
 POINTING_DEVICE_DRIVER = cirque_pinnacle_i2c #POINTING_DEVICE_DRIVER = pimoroni_trackball
 
 RAW_ENABLE = yes
+WPM_ENABLE = yes
