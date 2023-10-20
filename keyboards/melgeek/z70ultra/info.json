@@ -9,7 +9,7 @@
         "device_version": "0.0.1"
     },
     "rgb_matrix": {
-        "driver": "IS31FL3741"
+        "driver": "is31fl3741"
     },
     "matrix_pins": {
         "cols": ["B11", "B10", "B1", "A10", "B5", "B4", "B3", "A15", "A2", "A1", "A0", "C15", "C14", "C13"],

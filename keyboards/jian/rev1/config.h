@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EE_HANDS
 
 // different Jian configs
-#define DIPS_ENABLE
 #define PHYSICAL_LEDS_ENABLE
 #define NUM_LOCK_LED_PIN C6
 #define CAPS_LOCK_LED_PIN D7
@@ -71,18 +70,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define UPDATE_SCROLL_LOCK_LED() writePin(SCROLL_LOCK_LED_PIN, !led_state.scroll_lock)
 #endif // SCROLL_NMOSFET
 
-/* ws2812 RGB LED */
 #define RGBLIGHT_TIMER
-#define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#define RGBLIGHT_EFFECT_SNAKE
-#define RGBLIGHT_EFFECT_KNIGHT
-#define RGBLIGHT_EFFECT_CHRISTMAS
-#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#define RGBLIGHT_EFFECT_RGB_TEST
-#define RGBLIGHT_EFFECT_ALTERNATING
-#define RGBLIGHT_EFFECT_TWINKLE
 
 #if defined(RGBLIGHT_ENABLE) && !defined(IOS_DEVICE_ENABLE)
 #define USB_MAX_POWER_CONSUMPTION 400
@@ -90,3 +78,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // iOS device need lessthan 100
 #define USB_MAX_POWER_CONSUMPTION 100
 #endif
+
+#define DIP_SWITCH_MATRIX_GRID { \
+    {1, 0}, {2, 0}, {3, 0}, {3, 1}, {3, 2}, {3, 3}, \
+    {7, 3}, {7, 2}, {7, 1}, {7, 0}, {6, 0}, {5, 0} \
+}
