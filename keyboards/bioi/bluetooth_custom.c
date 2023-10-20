@@ -161,3 +161,10 @@ void bluetooth_send_consumer(uint16_t usage)
     bluefruit_trace_footer();
 #endif
 }
+
+/* Todo: implement system and led state */
+void bluetooth_send_system(uint16_t usage) {}
+
+uint8_t bluetooth_led_state(void) {
+    return 0;
+}
