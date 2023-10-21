@@ -500,10 +500,10 @@ check-size: top-symbols
 top-symbols: build
 	echo "###########################################"
 	echo "# Highest flash usage:"
-	$(NM) -Crtd --size-sort $(BUILD_DIR)/$(TARGET).elf | grep -i ' [t] ' | head -n$(NUM_TOP_SYMBOLS) | sed -e 's#^0000000#       #g' -e 's#^000000#      #g' -e 's#^00000#     #g' -e 's#^0000#    #g' -e 's#^000#   #g' -e 's#^00#  #g' -e 's#^0# #g'
+	$(NM) -Crtd --size-sort $(BUILD_DIR)/$(TARGET).elf | grep ' [RrTt] ' | head -n$(NUM_TOP_SYMBOLS) | sed -e 's#^0000000#       #g' -e 's#^000000#      #g' -e 's#^00000#     #g' -e 's#^0000#    #g' -e 's#^000#   #g' -e 's#^00#  #g' -e 's#^0# #g'
 	echo "###########################################"
 	echo "# Highest RAM usage:"
-	$(NM) -Crtd --size-sort $(BUILD_DIR)/$(TARGET).elf | grep -i ' [dbv] ' | head -n$(NUM_TOP_SYMBOLS) | sed -e 's#^0000000#       #g' -e 's#^000000#      #g' -e 's#^00000#     #g' -e 's#^0000#    #g' -e 's#^000#   #g' -e 's#^00#  #g' -e 's#^0# #g'
+	$(NM) -Crtd --size-sort $(BUILD_DIR)/$(TARGET).elf | grep ' [BbCDdGgSs] ' | head -n$(NUM_TOP_SYMBOLS) | sed -e 's#^0000000#       #g' -e 's#^000000#      #g' -e 's#^00000#     #g' -e 's#^0000#    #g' -e 's#^000#   #g' -e 's#^00#  #g' -e 's#^0# #g'
 	echo "###########################################"
 endif
 
