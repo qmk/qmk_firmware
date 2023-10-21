@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,   SFT_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM,  KC_DOT, SFT_SLS, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                               KC_LGUI, MO(LNUM), MOV_SPC,    SFT_BSP, MO(LSYM), KC_LALT
+                                              KC_LGUI, OSL(LNUM), MOV_SPC,   SFT_BSP, OSL(LSYM), KC_LALT
                                             //`--------------------------'  `--------------------------'
     ),
     [LSYM] = LAYOUT_split_3x6_3(
@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,  KC_EQL,  MY_GBP, KC_LCBR, KC_RCBR, KC_SLSH,                      KC_AMPR,   KC_LT,   KC_GT,  KC_DLR, KC_CIRC, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                               _______, _______, CTL_SPC,     _______,  _______, _______
+                                               _______,   KC_NO, CTL_SPC,     _______,  _______, _______
                                             //`--------------------------'  `--------------------------'
     ),
     [LNUM] = LAYOUT_split_3x6_3(
@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX, KC_BSPC,  KC_SPC, KC_COMM,  KC_DOT, KC_SLSH,                       KC_EQL,    KC_1,    KC_2,    KC_3, KC_SLSH, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              _______, _______,  _______,     KC_0,  _______, _______
+                                              _______, _______,  _______,     KC_0,   KC_NO, _______
                                             //`--------------------------'  `--------------------------'
     ),
     [LFUN] = LAYOUT_split_3x6_3(
@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                       KC_F12,   KC_F1,   KC_F2,   KC_F3,   KC_NO, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              _______, _______,   KC_SPC,     _______, _______, _______
+                                              _______, TO(LCMK),   KC_SPC,     _______, TO(LCMK), _______
                                             //`--------------------------'  `--------------------------'
     ),
     [LMOV] = LAYOUT_split_3x6_3(
@@ -130,6 +130,8 @@ uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
         case OSM_CTL:
         case OSM_GUI:
         case OSM_ALT:
+        case OSL(LNUM):
+        case OSL(LSYM):
             // make the one shot mod tap toggle work...
             return QUICK_TAP_TERM;
         default:
@@ -146,8 +148,10 @@ uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
  *******************************************************************************/
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case CTL_Y:
+        case MOV_SPC:
+        case SFT_BSP:
             // Immediately select the hold action when another key is pressed.
+            // for the shift mod and mov layer
             return true;
         default:
             // Do not select the hold action when another key is pressed.
@@ -235,7 +239,8 @@ enum combo_keys {
     DOTSLSH_COMPOSE,  // trial compose on right lower ring/pinkie for skeletyl
 
     // both hands, not using pl / fu any more due to typing mishits
-    WY_LMSE,
+    WY_LFUN,
+    GM_LMSE,
 
     COMBO_LENGTH
 };
@@ -249,7 +254,8 @@ const uint16_t PROGMEM combo_ent[] = {KC_H, KC_COMM, COMBO_END};
 const uint16_t PROGMEM combo_bspc[] = {KC_J, CTL_Y, COMBO_END};
 const uint16_t PROGMEM combo_q[] = {SFT_Z, KC_X, COMBO_END};
 const uint16_t PROGMEM combo_compose[] = {KC_DOT, SFT_SLS, COMBO_END};
-const uint16_t PROGMEM combo_mouse[] = {CTL_W, CTL_Y, COMBO_END};
+const uint16_t PROGMEM combo_function[] = {CTL_W, CTL_Y, COMBO_END};
+const uint16_t PROGMEM combo_mouse[] = {SFT_Z, SFT_SLS, COMBO_END};
 
 combo_t key_combos[] = {
     [WF_ESC] = COMBO(combo_esc, KC_ESC),
@@ -260,9 +266,10 @@ combo_t key_combos[] = {
     [HCOM_ENT] = COMBO(combo_ent, KC_ENT),
     [JY_CTLBSP] = COMBO(combo_bspc, LCTL(KC_BSPC)),
     [DOTSLSH_COMPOSE] = COMBO(combo_compose, MY_COMP),
+    [WY_LFUN] = COMBO(combo_function, TO(LFUN)),
 #ifdef MOUSEKEY_ENABLE
+    [GM_LMSE] = COMBO(combo_mouse, TO(LMSE)),
     [RESET_COMBO] = COMBO(combo_reset, QK_BOOTLOADER),
-    [WY_LMSE] = COMBO(combo_mouse, TO(LMSE)),
 #endif
 };
 
@@ -392,9 +399,7 @@ void keyboard_post_init_user(void) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     // check the tristate layer and update
-    state = update_tri_layer_state(state, LNUM, LSYM, LFUN);
-    // TODO - find out why the below is not working..
-    //state = update_tri_layer_state(state, LSYM, LMOV, LMSE);
+    //state = update_tri_layer_state(state, LNUM, LSYM, LFUN);
 
     // set the led status to indicate layer
     rgblight_set_layer_state(RGBL_DEFAULT, layer_state_cmp(state, LCMK));
@@ -419,6 +424,12 @@ void oneshot_locked_mods_changed_user(uint8_t mods) {
     rgblight_set_layer_state(RGBL_OSM_SFT, mods & MOD_MASK_SHIFT);
     rgblight_set_layer_state(RGBL_OSM_GUI, mods & MOD_MASK_GUI);
     rgblight_set_layer_state(RGBL_OSM_ALT, mods & MOD_MASK_ALT);
+}
+
+void oneshot_layer_changed_user(uint8_t layer) {
+    rgblight_set_layer_state(RGBL_NUMPAD, layer == LNUM);
+    rgblight_set_layer_state(RGBL_SYMBOLS, layer == LSYM);
+    rgblight_set_layer_state(RGBL_DEFAULT, layer == LCMK);  // actually 0
 }
 
 /*******************************************************************************
