@@ -421,7 +421,7 @@ static void init(void) {
 static void flush(void) {
     aw20216s_update_pwm_buffers(AW20216S_CS_PIN_1, 0);
 #    if defined(AW20216S_CS_PIN_2)
-    aw20216s_update_pwm_buffers(AW20216S_CS_PIN_1, 1);
+    aw20216s_update_pwm_buffers(AW20216S_CS_PIN_2, 1);
 #    endif
 }
 
