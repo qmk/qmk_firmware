@@ -24,6 +24,18 @@
 #include "progmem.h"
 
 // ======== DEPRECATED DEFINES - DO NOT USE ========
+#ifdef DRIVER_ADDR_1
+#    define IS31FL3737_I2C_ADDRESS_1 DRIVER_ADDR_1
+#endif
+#ifdef DRIVER_ADDR_2
+#    define IS31FL3737_I2C_ADDRESS_2 DRIVER_ADDR_2
+#endif
+#ifdef DRIVER_ADDR_3
+#    define IS31FL3737_I2C_ADDRESS_3 DRIVER_ADDR_3
+#endif
+#ifdef DRIVER_ADDR_4
+#    define IS31FL3737_I2C_ADDRESS_4 DRIVER_ADDR_4
+#endif
 #ifdef DRIVER_COUNT
 #    define IS31FL3737_DRIVER_COUNT DRIVER_COUNT
 #endif

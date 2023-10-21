@@ -35,8 +35,6 @@
 
 #include "drivers/led/issi/is31fl3736-simple.h"
 
-#define ISSI_ADDR_DEFAULT 0x50
-
 #define BACKLIGHT_EFFECT_MAX 3
 
 #ifndef MONO_BACKLIGHT_COLOR_1
@@ -172,14 +170,14 @@ uint32_t g_any_key_hit = 0;
 
 void backlight_init_drivers(void)
 {
-	// Initialize I2C
-	i2c_init();
-	is31fl3736_init( ISSI_ADDR_DEFAULT );
+    // Initialize I2C
+    i2c_init();
+    is31fl3736_init( IS31FL3736_I2C_ADDRESS_1 );
 
-	for ( uint8_t index = 0; index < 96; index++ )	{
-		is31fl3736_set_led_control_register( index, true );
-	}
-	is31fl3736_update_led_control_registers( ISSI_ADDR_DEFAULT, 0 );
+    for ( uint8_t index = 0; index < 96; index++ )  {
+        is31fl3736_set_led_control_register( index, true );
+    }
+    is31fl3736_update_led_control_registers( IS31FL3736_I2C_ADDRESS_1, 0 );
 }
 
 void backlight_set_key_hit(uint8_t row, uint8_t column)
@@ -471,7 +469,7 @@ void backlight_config_save(void)
 
 void backlight_update_pwm_buffers(void)
 {
-	is31fl3736_update_pwm_buffers(ISSI_ADDR_DEFAULT, 0);
+    is31fl3736_update_pwm_buffers(IS31FL3736_I2C_ADDRESS_1, 0);
 }
 
 bool process_record_backlight(uint16_t keycode, keyrecord_t *record)

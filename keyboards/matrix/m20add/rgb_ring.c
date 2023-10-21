@@ -372,12 +372,12 @@ void rgblight_call_driver(rgb_led_t *start_led, uint8_t num_leds)
 void rgb_ring_init(void)
 {
     i2c_init();
-    is31fl3731_init(DRIVER_ADDR_1);
+    is31fl3731_init(IS31FL3731_I2C_ADDRESS_1);
     for (int index = 0; index < RGB_MATRIX_LED_COUNT; index++) {
         bool enabled = true;
         is31fl3731_set_led_control_register(index, enabled, enabled, enabled);
     }
-    is31fl3731_update_led_control_registers(DRIVER_ADDR_1, 0);
+    is31fl3731_update_led_control_registers(IS31FL3731_I2C_ADDRESS_1, 0);
 }
 
 void rgb_ring_task(void)
@@ -396,7 +396,7 @@ void rgb_ring_task(void)
             break;
     };
 
-    is31fl3731_update_pwm_buffers(DRIVER_ADDR_1, 0);
+    is31fl3731_update_pwm_buffers(IS31FL3731_I2C_ADDRESS_1, 0);
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record)

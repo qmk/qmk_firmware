@@ -145,8 +145,8 @@ led_config_t g_led_config = { {
 // Custom Driver
 static void init(void) {
     i2c_init();
-    is31fl3731_init(DRIVER_ADDR_1);
-    is31fl3731_init(DRIVER_ADDR_2);
+    is31fl3731_init(IS31FL3731_I2C_ADDRESS_1);
+    is31fl3731_init(IS31FL3731_I2C_ADDRESS_2);
     for (int index = 0; index < ISSI_DRIVER_TOTAL; index++) {
         bool enabled = !(   ( index == 18+5) || //B5
                             ( index == 36+17) || //C17
@@ -154,13 +154,13 @@ static void init(void) {
                         );
         is31fl3731_set_led_control_register(index, enabled, enabled, enabled);
     }
-    is31fl3731_update_led_control_registers(DRIVER_ADDR_1, 0);
-    is31fl3731_update_led_control_registers(DRIVER_ADDR_2, 1);
+    is31fl3731_update_led_control_registers(IS31FL3731_I2C_ADDRESS_1, 0);
+    is31fl3731_update_led_control_registers(IS31FL3731_I2C_ADDRESS_2, 1);
 }
 
 static void flush(void) {
-    is31fl3731_update_pwm_buffers(DRIVER_ADDR_1, 0);
-    is31fl3731_update_pwm_buffers(DRIVER_ADDR_2, 1);
+    is31fl3731_update_pwm_buffers(IS31FL3731_I2C_ADDRESS_1, 0);
+    is31fl3731_update_pwm_buffers(IS31FL3731_I2C_ADDRESS_2, 1);
 }
 
 static void set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
