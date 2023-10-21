@@ -1,6 +1,6 @@
 # purin
 
-![purin](https://i.imgur.com/ig8DWEF.jpg)
+![purin](https://i.imgur.com/ig8DWEFh.jpg)
 
 Keyboard developed by oREo!
 Project for learning about qmk, Atmega32u4.
