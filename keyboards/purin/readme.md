@@ -1,12 +1,12 @@
 # purin
 
-![purin](imgur.com image replace me!)
+![purin](https://imgur.com/a/A8S9bwr)
 
 *A short description of the keyboard/project*
 
 * Keyboard Maintainer: [oRE-o](https://github.com/oRE-o)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: Purin PCB by oREo
+* Hardware Availability: Not yet
 
 Make example for this keyboard (after setting up your build environment):
 
