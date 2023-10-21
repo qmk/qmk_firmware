@@ -12,6 +12,7 @@
 Make example for this keyboard (after setting up your build environment):
 
     make mariorion_v25/prod:default
+    make mariorion_v25/proto:default
 
 Flashing example for this keyboard:
 
