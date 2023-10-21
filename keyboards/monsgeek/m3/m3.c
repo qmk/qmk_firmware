@@ -17,7 +17,7 @@
 #include "quantum.h"
 // clang-format off
 #ifdef RGB_MATRIX_ENABLE
-const ckled2001_led PROGMEM g_ckled2001_leds[RGB_MATRIX_LED_COUNT] = {
+const snled27351_led_t PROGMEM g_snled27351_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
