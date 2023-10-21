@@ -1,6 +1,6 @@
 {
     "manufacturer": "Maria",
-    "keyboard_name": "mariorion_v25",
+    "keyboard_name": "MariOrion v2.5",
     "maintainer": "toril940",
     "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",
@@ -41,8 +41,8 @@
     "url": "",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x1111",
-        "vid": "0x1111"
+        "pid": "0x0001",
+        "vid": "0x6108"
     },
     "community_layouts": ["tkl_ansi", "tkl_ansi_split_bs_rshift", "tkl_ansi_tsangan", "tkl_ansi_tsangan_split_bs_rshift",
         "tkl_iso", "tkl_iso_split_bs_rshift", "tkl_iso_tsangan", "tkl_iso_tsangan_split_bs_rshift"],
