@@ -2,7 +2,8 @@
 
 ![purin](https://i.imgur.com/ig8DWEF.jpg)
 
-*A short description of the keyboard/project*
+Keyboard developed by oREo!
+Project for learning about qmk, Atmega32u4.
 
 * Keyboard Maintainer: [oRE-o](https://github.com/oRE-o)
 * Hardware Supported: Purin PCB by oREo
