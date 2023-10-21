@@ -233,3 +233,16 @@ void is31fl3737_update_led_control_registers(uint8_t addr, uint8_t index) {
         g_led_control_registers_update_required[index] = false;
     }
 }
+
+void is31fl3737_flush(void) {
+    is31fl3737_update_pwm_buffers(IS31FL3737_I2C_ADDRESS_1, 0);
+#if defined(IS31FL3737_I2C_ADDRESS_2)
+    is31fl3737_update_pwm_buffers(IS31FL3737_I2C_ADDRESS_2, 1);
+#    if defined(IS31FL3737_I2C_ADDRESS_3)
+    is31fl3737_update_pwm_buffers(IS31FL3737_I2C_ADDRESS_3, 2);
+#        if defined(IS31FL3737_I2C_ADDRESS_4)
+    is31fl3737_update_pwm_buffers(IS31FL3737_I2C_ADDRESS_4, 3);
+#        endif
+#    endif
+#endif
+}

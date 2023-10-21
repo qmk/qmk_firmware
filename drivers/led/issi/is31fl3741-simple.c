@@ -251,3 +251,16 @@ void is31fl3741_set_scaling_registers(const is31fl3741_led_t *pled, uint8_t valu
 
     g_scaling_registers_update_required[pled->driver] = true;
 }
+
+void is31fl3741_flush(void) {
+    is31fl3741_update_pwm_buffers(IS31FL3741_I2C_ADDRESS_1, 0);
+#if defined(IS31FL3741_I2C_ADDRESS_2)
+    is31fl3741_update_pwm_buffers(IS31FL3741_I2C_ADDRESS_2, 1);
+#    if defined(IS31FL3741_I2C_ADDRESS_3)
+    is31fl3741_update_pwm_buffers(IS31FL3741_I2C_ADDRESS_3, 2);
+#        if defined(IS31FL3741_I2C_ADDRESS_4)
+    is31fl3741_update_pwm_buffers(IS31FL3741_I2C_ADDRESS_4, 3);
+#        endif
+#    endif
+#endif
+}

@@ -218,6 +218,19 @@ void snled27351_update_led_control_registers(uint8_t addr, uint8_t index) {
     g_led_control_registers_update_required[index] = false;
 }
 
+void snled27351_flush(void) {
+    snled27351_update_pwm_buffers(SNLED27351_I2C_ADDRESS_1, 0);
+#if defined(SNLED27351_I2C_ADDRESS_2)
+    snled27351_update_pwm_buffers(SNLED27351_I2C_ADDRESS_2, 1);
+#    if defined(SNLED27351_I2C_ADDRESS_3)
+    snled27351_update_pwm_buffers(SNLED27351_I2C_ADDRESS_3, 2);
+#        if defined(SNLED27351_I2C_ADDRESS_4)
+    snled27351_update_pwm_buffers(SNLED27351_I2C_ADDRESS_4, 3);
+#        endif
+#    endif
+#endif
+}
+
 void snled27351_sw_return_normal(uint8_t addr) {
     // Select to function page
     snled27351_write_register(addr, SNLED27351_REG_CONFIGURE_CMD_PAGE, SNLED27351_FUNCTION_PAGE);

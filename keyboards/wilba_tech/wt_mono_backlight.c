@@ -469,7 +469,7 @@ void backlight_config_save(void)
 
 void backlight_update_pwm_buffers(void)
 {
-    is31fl3736_update_pwm_buffers(IS31FL3736_I2C_ADDRESS_1, 0);
+    is31fl3736_flush();
 }
 
 bool process_record_backlight(uint16_t keycode, keyrecord_t *record)
