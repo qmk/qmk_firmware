@@ -24,9 +24,11 @@
                 "rows": ["B6", "B5", "B4", "D7", "E6"]
             }
         },
-        "sync" :{
-            "indicators": true,
-            "layer_state": true
+        "transport":{
+            "sync" :{
+                "indicators": true,
+                "layer_state": true
+            }
         }
     },
     "processor": "atmega32u4",
