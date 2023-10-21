@@ -61,6 +61,10 @@
 #define IS31FL3737_I2C_ADDRESS_SDA 0x5A
 #define IS31FL3737_I2C_ADDRESS_VCC 0x5F
 
+#if defined(LED_MATRIX_IS31FL3737)
+#    define IS31FL3737_LED_COUNT LED_MATRIX_LED_COUNT
+#endif
+
 typedef struct is31fl3737_led_t {
     uint8_t driver : 2;
     uint8_t v;

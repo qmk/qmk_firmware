@@ -76,6 +76,10 @@
 #define IS31FL3741_I2C_ADDRESS_SDA 0x32
 #define IS31FL3741_I2C_ADDRESS_VCC 0x33
 
+#if defined(RGB_MATRIX_IS31FL3741)
+#    define IS31FL3741_LED_COUNT RGB_MATRIX_LED_COUNT
+#endif
+
 typedef struct is31fl3741_led_t {
     uint32_t driver : 2;
     uint32_t r : 10;
