@@ -197,7 +197,7 @@ uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
     //         return 0;  // Bypass Achordion for these keys.
     // }
 
-  return 800;  // Otherwise use a timeout of 800 ms.
+    return 800;  // Otherwise use a timeout of 800 ms.
 }
 
 // achordion_eager_mod determines which mods are applied while waiting for the tap-hold
