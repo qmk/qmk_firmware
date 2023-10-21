@@ -412,7 +412,7 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 static void init(void) {
     spi_init();
 
-    aw20216s_init(AW20216S_CS_PIN_1, AW20216S_EN_PIN_2);
+    aw20216s_init(AW20216S_CS_PIN_1, AW20216S_EN_PIN_1);
 #    if defined(AW20216S_CS_PIN_2)
     aw20216s_init(AW20216S_CS_PIN_2, AW20216S_EN_PIN_2);
 #    endif
