@@ -1,6 +1,6 @@
 # purin
 
-![purin](https://imgur.com/a/A8S9bwr)
+![purin](https://i.imgur.com/ig8DWEF.jpg)
 
 *A short description of the keyboard/project*
 
