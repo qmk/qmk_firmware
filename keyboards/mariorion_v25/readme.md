@@ -1,4 +1,4 @@
-# mariorion_v25
+# MariOrion v2.5
 
 ![mariorion_v25_1](https://i.imgur.com/3OrUK2ph.jpeg)
 ![mariorion_v25_2](https://i.imgur.com/OvMBHOlh.jpeg)
@@ -6,20 +6,21 @@
 *A short description of the keyboard/project*
 
 * Keyboard Maintainer: [Maria](https://github.com/toril940)
-* Hardware Supported: MariOrion v2.5
+* Hardware Supported: MariOrion v2.5 PCB
 * Hardware Availability: *Links to where you can find this hardware*
 
 Make example for this keyboard (after setting up your build environment):
 
     make mariorion_v25/prod:default
+    make mariorion_v25/proto:default
 
 Flashing example for this keyboard:
 
     make mariorion_v25/prod:default:flash
+    make mariorion_v25/proto:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-Note: change prod to proto if you have a prototype PCB.
 
 ## Bootloader
 
