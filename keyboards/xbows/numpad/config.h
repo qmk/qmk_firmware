@@ -47,7 +47,7 @@
 #    define ENABLE_RGB_MATRIX_SPLASH                  // Full gradient & value pulse away from a single key hit then fades value out
 #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH       // Hue & value pulse away from multiple key hits then fades value out
 
-#    define DRIVER_ADDR_1 IS31FL3731_I2C_ADDRESS_VCC
+#    define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_VCC
 #    define IS31FL3731_DRIVER_COUNT 1
 #    define RGB_MATRIX_LED_COUNT 22
 #endif
