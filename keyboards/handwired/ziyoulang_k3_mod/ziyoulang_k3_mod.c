@@ -3,8 +3,6 @@
 
 #include <stdio.h>
 
-#include QMK_KEYBOARD_H
-
 #ifdef CONSOLE_ENABLE
    #include <print.h>
 #endif
@@ -16,8 +14,7 @@ void keyboard_post_init_user(void) {
   debug_enable=true;
   debug_matrix=true;
 #endif
-  //debug_keyboard=true;
-  //debug_mouse=true;
+ keyboard_post_init_user();
 
 }
 
@@ -25,7 +22,10 @@ static uint16_t last_keycode = KC_NO;
 static uint16_t last_col = 0;
 static uint16_t last_row = 0;
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
    // コンソールが有効化されている場合、マトリックス上の位置とキー押下状態を出力します
 #ifdef CONSOLE_ENABLE
     uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
@@ -40,7 +40,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     return OLED_ROTATION_180;
 }
 
@@ -58,7 +58,10 @@ static void render_logo(void) {
 #endif
 }
 
-bool oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
     int uptime_seconds = (int)(timer_read32() / 1000);
     if (uptime_seconds < 5) {
         render_logo();
