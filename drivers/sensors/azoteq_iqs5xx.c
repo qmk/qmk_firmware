@@ -83,7 +83,7 @@
 #define AZOTEQ_IQS5XX_INCH_TO_RESOLUTION_Y(inch) (DIVIDE_UNSIGNED_ROUND((inch) * (uint32_t)AZOTEQ_IQS5XX_HEIGHT_MM * 10, 254))
 #define AZOTEQ_IQS5XX_RESOLUTION_Y_TO_INCH(px) (DIVIDE_UNSIGNED_ROUND((px) * (uint32_t)254, AZOTEQ_IQS5XX_HEIGHT_MM * 10))
 
-static uint16_t azoteq_iqs5xx_product_number = UNKNOWN;
+static uint16_t azoteq_iqs5xx_product_number = AZOTEQ_IQS5XX_UNKNOWN;
 
 static struct {
     uint16_t resolution_x;
@@ -110,8 +110,8 @@ i2c_status_t azoteq_iqs5xx_get_base_data(azoteq_iqs5xx_base_data_t *base_data) {
     return status;
 }
 
-i2c_status_t azoteq_iqs5xx_get_report_rate(azoteq_iqs5xx_report_rate_t *report_rate, azoteq_charging_modes_t mode, bool end_session) {
-    if (mode > LP2) {
+i2c_status_t azoteq_iqs5xx_get_report_rate(azoteq_iqs5xx_report_rate_t *report_rate, azoteq_iqs5xx_charging_modes_t mode, bool end_session) {
+    if (mode > AZOTEQ_IQS5XX_LP2) {
         pd_dprintf("IQS5XX - Invalid mode for get report rate.\n");
         return I2C_STATUS_ERROR;
     }
@@ -123,8 +123,8 @@ i2c_status_t azoteq_iqs5xx_get_report_rate(azoteq_iqs5xx_report_rate_t *report_r
     return status;
 }
 
-i2c_status_t azoteq_iqs5xx_set_report_rate(uint16_t report_rate_ms, azoteq_charging_modes_t mode, bool end_session) {
-    if (mode > LP2) {
+i2c_status_t azoteq_iqs5xx_set_report_rate(uint16_t report_rate_ms, azoteq_iqs5xx_charging_modes_t mode, bool end_session) {
+    if (mode > AZOTEQ_IQS5XX_LP2) {
         pd_dprintf("IQS5XX - Invalid mode for set report rate.\n");
         return I2C_STATUS_ERROR;
     }
@@ -188,7 +188,7 @@ i2c_status_t azoteq_iqs5xx_set_gesture_config(bool end_session) {
 }
 
 void azoteq_iqs5xx_set_cpi(uint16_t cpi) {
-    if (azoteq_iqs5xx_product_number != UNKNOWN) {
+    if (azoteq_iqs5xx_product_number != AZOTEQ_IQS5XX_UNKNOWN) {
         azoteq_iqs5xx_resolution_t resolution = {0};
         resolution.x_resolution               = AZOTEQ_IQS5XX_SWAP_H_L_BYTES(MIN(azoteq_iqs5xx_device_resolution_t.resolution_x, AZOTEQ_IQS5XX_INCH_TO_RESOLUTION_X(cpi)));
         resolution.y_resolution               = AZOTEQ_IQS5XX_SWAP_H_L_BYTES(MIN(azoteq_iqs5xx_device_resolution_t.resolution_y, AZOTEQ_IQS5XX_INCH_TO_RESOLUTION_Y(cpi)));
@@ -197,7 +197,7 @@ void azoteq_iqs5xx_set_cpi(uint16_t cpi) {
 }
 
 uint16_t azoteq_iqs5xx_get_cpi(void) {
-    if (azoteq_iqs5xx_product_number != UNKNOWN) {
+    if (azoteq_iqs5xx_product_number != AZOTEQ_IQS5XX_UNKNOWN) {
         azoteq_iqs5xx_resolution_t resolution = {0};
         i2c_status_t               status     = i2c_readReg16(AZOTEQ_IQS5XX_ADDRESS, AZOTEQ_IQS5XX_REG_X_RESOLUTION, (uint8_t *)&resolution, sizeof(azoteq_iqs5xx_resolution_t), AZOTEQ_IQS5XX_TIMEOUT_MS);
         if (status == I2C_STATUS_SUCCESS) {
@@ -219,15 +219,15 @@ uint16_t azoteq_iqs5xx_get_product(void) {
 void azoteq_iqs5xx_setup_resolution(void) {
 #if !defined(AZOTEQ_IQS5XX_RESOLUTION_X) && !defined(AZOTEQ_IQS5XX_RESOLUTION_Y)
     switch (azoteq_iqs5xx_product_number) {
-        case IQS550:
+        case AZOTEQ_IQS550:
             azoteq_iqs5xx_device_resolution_t.resolution_x = 3584;
             azoteq_iqs5xx_device_resolution_t.resolution_y = 2304;
             break;
-        case IQS572:
+        case AZOTEQ_IQS572:
             azoteq_iqs5xx_device_resolution_t.resolution_x = 2048;
             azoteq_iqs5xx_device_resolution_t.resolution_y = 1792;
             break;
-        case IQS525:
+        case AZOTEQ_IQS525:
             azoteq_iqs5xx_device_resolution_t.resolution_x = 1280;
             azoteq_iqs5xx_device_resolution_t.resolution_y = 768;
             break;

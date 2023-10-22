@@ -8,8 +8,19 @@
 #include "pointing_device.h"
 #include "util.h"
 
-typedef enum { UNKNOWN, IQS550 = 40, IQS525 = 52, IQS572 = 58 } azoteq_product_numbers_t;
-typedef enum { ACTIVE, IDLE_TOUCH, IDLE, LP1, LP2 } azoteq_charging_modes_t;
+typedef enum {
+    AZOTEQ_IQS5XX_UNKNOWN,
+    AZOTEQ_IQS550 = 40,
+    AZOTEQ_IQS525 = 52,
+    AZOTEQ_IQS572 = 58,
+} azoteq_iqs5xx_product_numbers_t;
+typedef enum {
+    AZOTEQ_IQS5XX_ACTIVE,
+    AZOTEQ_IQS5XX_IDLE_TOUCH,
+    AZOTEQ_IQS5XX_IDLE,
+    AZOTEQ_IQS5XX_LP1,
+    AZOTEQ_IQS5XX_LP2,
+} azoteq_iqs5xx_charging_modes_t;
 
 typedef struct {
     uint8_t h : 8;
@@ -34,12 +45,12 @@ typedef struct PACKED {
 } azoteq_iqs5xx_gesture_events_1_t;
 
 typedef struct PACKED {
-    azoteq_charging_modes_t charging_mode : 3;      // Indicates current mode
-    bool                    ati_error : 1;          //
-    bool                    reati_occurred : 1;     //
-    bool                    alp_ati_error : 1;      //
-    bool                    alp_reati_occurred : 1; //
-    bool                    show_reset : 1;         //
+    azoteq_iqs5xx_charging_modes_t charging_mode : 3;      // Indicates current mode
+    bool                           ati_error : 1;          //
+    bool                           reati_occurred : 1;     //
+    bool                           alp_ati_error : 1;      //
+    bool                           alp_reati_occurred : 1; //
+    bool                           show_reset : 1;         //
 } azoteq_iqs5xx_system_info_0_t;
 
 typedef struct PACKED {
@@ -150,8 +161,8 @@ typedef struct {
 void           azoteq_iqs5xx_init(void);
 i2c_status_t   azoteq_iqs5xx_wake(void);
 report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report);
-i2c_status_t   azoteq_iqs5xx_get_report_rate(azoteq_iqs5xx_report_rate_t *report_rate, azoteq_charging_modes_t mode, bool end_session);
-i2c_status_t   azoteq_iqs5xx_set_report_rate(uint16_t report_rate_ms, azoteq_charging_modes_t mode, bool end_session);
+i2c_status_t   azoteq_iqs5xx_get_report_rate(azoteq_iqs5xx_report_rate_t *report_rate, azoteq_iqs5xx_charging_modes_t mode, bool end_session);
+i2c_status_t   azoteq_iqs5xx_set_report_rate(uint16_t report_rate_ms, azoteq_iqs5xx_charging_modes_t mode, bool end_session);
 i2c_status_t   azoteq_iqs5xx_set_event_mode(bool enabled, bool end_session);
 i2c_status_t   azoteq_iqs5xx_set_gesture_config(bool end_session);
 i2c_status_t   azoteq_iqs5xx_get_base_data(azoteq_iqs5xx_base_data_t *base_data);
