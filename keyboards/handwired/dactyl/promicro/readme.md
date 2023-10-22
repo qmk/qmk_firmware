@@ -13,6 +13,3 @@ Wiring of the rows to each micro controller is identical approach to the Dactyl 
 | Row4 | B3 | B1 |
 | Row5 | B2 | F7 |
 | Row6 | B6 | F6 |
-
-## Optional Hardware
-A speaker can be hooked-up to either side to the `5` (`C6`) pin and `GND`, and turned on via `AUDIO_ENABLE`.
