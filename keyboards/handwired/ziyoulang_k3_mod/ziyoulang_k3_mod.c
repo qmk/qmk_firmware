@@ -3,9 +3,6 @@
 
 #include "quantum.h"
 #include <stdio.h>
-#ifdef CONSOLE_ENABLE
-   #include <print.h>
-#endif
 
 void keyboard_post_init_kb(void) {
 #ifdef CONSOLE_ENABLE
