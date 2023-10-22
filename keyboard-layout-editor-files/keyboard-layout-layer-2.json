@@ -1,0 +1,317 @@
+[
+  [
+    {
+      "x": 3,
+      "a": 7
+    },
+    "PgUp"
+  ],
+  [
+    {
+      "y": -0.75,
+      "x": 2,
+      "fa": [
+        2
+      ]
+    },
+    "PgDn",
+    {
+      "x": 1,
+      "f": 3
+    },
+    "End"
+  ],
+  [
+    {
+      "y": -0.75
+    },
+    "",
+    {
+      "f": 3
+    },
+    "Home",
+    {
+      "x": 3
+    },
+    ""
+  ],
+  [
+    {
+      "y": -0.5,
+      "x": 3,
+      "f": 3
+    },
+    "<i class='kb kb-Arrows-Up'></i>"
+  ],
+  [
+    {
+      "y": -0.75,
+      "x": 2,
+      "f": 3
+    },
+    "<i class='kb kb-Arrows-Down'></i>",
+    {
+      "x": 1,
+      "f": 3,
+      "n": true
+    },
+    "<i class='kb kb-Arrows-Right'></i>"
+  ],
+  [
+    {
+      "y": -0.75
+    },
+    "",
+    {
+      "x": -1,
+      "f": 3
+    },
+    "<i class='kb kb-Multimedia-Volume-Down-1'></i>",
+    {
+      "f": 3
+    },
+    "<i class='kb kb-Arrows-Left'></i>",
+    {
+      "x": 3
+    },
+    "",
+    {
+      "x": 3.75,
+      "a": 4
+    },
+    "\n<i class='fa fa-mouse-pointer'></i>\n\n\n\n\n<i class='kb kb-Unicode-Stopwatch'></i>\n\n\n1"
+  ],
+  [
+    {
+      "y": -0.5,
+      "x": 3,
+      "a": 7
+    },
+    ""
+  ],
+  [
+    {
+      "y": -0.75,
+      "x": 2
+    },
+    "",
+    {
+      "x": 1,
+      "f": 3
+    },
+    "<i class='kb kb-Multimedia-FastForwar'></i>"
+  ],
+  [
+    {
+      "y": -0.75,
+      "f": 3
+    },
+    "<i class='kb kb-Multimedia-Mute-2'></i>",
+    {
+      "f": 3
+    },
+    "<i class='kb kb-Multimedia-Rewind'></i>",
+    {
+      "x": 3
+    },
+    ""
+  ],
+  [
+    {
+      "x": 3.5,
+      "f": 3
+    },
+    "~"
+  ],
+  [
+    {
+      "y": -0.8500000000000001,
+      "x": 4.75,
+      "f": 3
+    },
+    "MO(3)"
+  ],
+  [
+    {
+      "y": 0.34999999999999964,
+      "a": 6,
+      "f": 3,
+      "w": 8,
+      "h": 3,
+      "d": true
+    },
+    "<h3><p>Author: <b>Sal O'Rak</b></p><p>Layer: <b>2</b></p><p>Keyboard: <b>Corne Choc</b></p></h3>"
+  ],
+  [
+    {
+      "rx": 11.75,
+      "a": 4,
+      "fa": [
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        8,
+        1
+      ]
+    },
+    "\n<i class='fa fa-mouse-pointer'></i>\n\n\n\n\n\n\n\n<i class='kb kb-Arrows-Bottom-4'></i>\n<i class='kb kb-Unicode-Scroll-2'></i>"
+  ],
+  [
+    {
+      "y": -0.75,
+      "x": -1,
+      "f": 3
+    },
+    "\n<i class='fa fa-mouse-pointer'></i>\n\n\n\n\n\n\n\nLClk",
+    {
+      "x": 1,
+      "fa": [
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        8
+      ]
+    },
+    "\n<i class='fa fa-mouse-pointer'></i>\n\n\n\n\n\n\n\n<i class='kb kb-Arrows-Top-4'></i>\n<i class='kb kb-Unicode-Scroll-2'></i>"
+  ],
+  [
+    {
+      "y": -0.75,
+      "x": -2,
+      "f": 3
+    },
+    "\n<i class='fa fa-mouse-pointer'></i>\n\n\n\n\n<i class='kb kb-Unicode-Stopwatch'></i>\n\n\n0",
+    {
+      "x": 3,
+      "fa": [
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "\n<i class='fa fa-mouse-pointer'></i>\n\n\n\n\n\n\n\nRClk",
+    {
+      "a": 7,
+      "f": 3
+    },
+    "PrtScr"
+  ],
+  [
+    {
+      "y": -0.5,
+      "a": 4
+    },
+    "\n<i class='fa fa-mouse-pointer'></i>\n\n\n\n\n\n\n\n<i class='kb kb-Arrows-Down'></i>"
+  ],
+  [
+    {
+      "y": -0.75,
+      "x": -1,
+      "n": true
+    },
+    "\n<i class='fa fa-mouse-pointer'></i>\n\n\n\n\n\n\n\n<i class='kb kb-Arrows-Left'></i>",
+    {
+      "x": 1
+    },
+    "\n<i class='fa fa-mouse-pointer'></i>\n\n\n\n\n\n\n\n<i class='kb kb-Arrows-Up'></i>"
+  ],
+  [
+    {
+      "y": -0.75,
+      "x": 2
+    },
+    "\n<i class='fa fa-mouse-pointer'></i>\n\n\n\n\n\n\n\n<i class='kb kb-Arrows-Right'></i>",
+    {
+      "a": 7,
+      "f": 3
+    },
+    "<i class='kb kb-Multimedia-Volume-Up-2'></i>"
+  ],
+  [
+    {
+      "y": -0.5,
+      "f": 3
+    },
+    "<i class='kb kb-Multimedia-Play'></i>"
+  ],
+  [
+    {
+      "y": -0.75,
+      "x": -1
+    },
+    "",
+    {
+      "x": 1,
+      "f": 3
+    },
+    "<i class='kb kb-Multimedia-Stop'></i>"
+  ],
+  [
+    {
+      "y": -0.75,
+      "x": -2,
+      "a": 4
+    },
+    "\n<i class='fa fa-mouse-pointer'></i>\n\n\n\n\n<i class='kb kb-Unicode-Stopwatch'></i>\n\n\n2",
+    {
+      "x": 3,
+      "a": 7
+    },
+    "",
+    ""
+  ],
+  [
+    {
+      "x": -0.5
+    },
+    ""
+  ],
+  [
+    {
+      "y": -0.8500000000000001,
+      "x": -1.75,
+      "f": 3
+    },
+    "Hold"
+  ],
+  [
+    {
+      "r": 75,
+      "rx": 9.5,
+      "ry": 4,
+      "x": -0.75,
+      "f": 3,
+      "w2": 1.5
+    },
+    "ENT"
+  ],
+  [
+    {
+      "r": 105,
+      "rx": 7.25,
+      "x": -0.5,
+      "f": 3,
+      "w2": 1.5
+    },
+    "SPC"
+  ]
+]

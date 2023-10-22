@@ -32,11 +32,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      KC_TAB, KC_SEMICOLON, KC_COMMA, KC_DOT, KC_P,  KC_Y,                       KC_F,    KC_G,    KC_C,    KC_R,   KC_L,  KC_ESC,
+      KC_TAB, KC_QUOTE, KC_COMMA, KC_DOT, KC_P,  KC_Y,                       KC_F,    KC_G,    KC_C,    KC_R,   KC_L,  KC_ESC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_DEL, MG(KC_A),  MA(KC_O),    MS(KC_E), MC(KC_U), KC_I,                   KC_D,    MC(KC_H),    MS(KC_T),    MA(KC_N), MG(KC_S), KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-   KC_QUOTE, KC_BACKSLASH,  KC_Q,  KC_J,    KC_K,  KC_X,                           KC_B,    KC_M,    KC_W,    KC_V,     KC_Z, KC_SLASH,
+   KC_TILD, KC_SEMICOLON,  KC_Q,  KC_J,    KC_K,  KC_X,                           KC_B,    KC_M,    KC_W,    KC_V,     KC_Z, KC_SLASH,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_GRV,   MO(1),  KC_SPC,    KC_ENT,   MO(2), KC_BSLS
                                       //`--------------------------'  `--------------------------'
@@ -46,9 +46,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_TAB,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_ESC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       KC_DEL , KC_DQUO, KC_LBRC, S(KC_LBRC), S(KC_9), S(KC_1),               KC_EQL, S(KC_0), S(KC_RBRC), KC_RBRC, KC_QUOTE,  KC_BSPC,
+       KC_DEL , KC_DQUO, KC_LBRC, S(KC_LBRC), S(KC_9), S(KC_EQL),               KC_EQL, S(KC_0), S(KC_RBRC), KC_RBRC, KC_QUOTE,  KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_MINUS, KC_EXLM,  KC_AT,  KC_HASH, KC_DLR,  KC_PSLS,                     KC_PAST, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR,  KC_UNDS,
+      KC_MINUS, KC_EXLM,  KC_AT,  KC_HASH, KC_DLR,  KC_PERC,                     KC_CIRC, KC_AMPR, KC_ASTR, KC_UNDS, KC_QUES,  KC_PLUS,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           XXXXXXX, _______,  KC_SPC,     KC_ENT,   MO(3), KC_PIPE
                                       //`--------------------------'  `--------------------------'
@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [2] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP, KC_END, XXXXXXX,                    KC_MS_ACCEL0, XXXXXXX, KC_MS_WH_DOWN, KC_MS_WH_UP, XXXXXXX, XXXXXXX,
+      XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP, KC_END, XXXXXXX,                    KC_MS_ACCEL0, KC_MS_BTN1, KC_MS_WH_DOWN, KC_MS_WH_UP, KC_MS_BTN2, KC_PSCR,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_VOLD, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, XXXXXXX,            KC_MS_ACCEL1, KC_MS_LEFT, KC_MS_DOWN, KC_MS_UP, KC_MS_RIGHT, KC_VOLU,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
