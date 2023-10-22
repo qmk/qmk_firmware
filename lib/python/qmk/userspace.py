@@ -19,20 +19,33 @@ def qmk_userspace_paths():
             test_dirs.append(current_dir)
         current_dir = current_dir.parent
 
-    test_dirs.append(environ.get('QMK_USERSPACE'))
-    test_dirs.append(cli.config.user.overlay_dir)
-    test_dirs = list(dict.fromkeys([Path(x) for x in filter(lambda x: x is not None and Path(x).is_dir(), test_dirs)]))
+    # If we have a QMK_USERSPACE environment variable, use that
+    if environ.get('QMK_USERSPACE') is not None:
+        current_dir = Path(environ.get('QMK_USERSPACE'))
+        if current_dir.is_dir():
+            test_dirs.append(current_dir)
+
+    # If someone has configured a directory, use that
+    if cli.config.user.overlay_dir is not None:
+        current_dir = Path(cli.config.user.overlay_dir)
+        if current_dir.is_dir():
+            test_dirs.append(current_dir)
+
     return test_dirs
 
 
 def qmk_userspace_validate(path):
+    # Construct a UserspaceDefs object to ensure it validates correctly
     if (path / 'qmk.json').is_file():
         UserspaceDefs(path / 'qmk.json')
         return
+
+    # No qmk.json file found
     raise FileNotFoundError('No qmk.json file found.')
 
 
 def detect_qmk_userspace():
+    # Iterate through all the detected userspace paths and return the first one that validates correctly
     test_dirs = qmk_userspace_paths()
     for test_dir in test_dirs:
         try:
@@ -87,23 +100,38 @@ class UserspaceDefs:
             cli.log.error(f'Could not save userspace file: {err}')
             return False
 
-        self.path.write_text(json.dumps(target_json, cls=UserspaceJSONEncoder, sort_keys=True))
+        # Only actually write out data if it changed
+        old_data = json.dumps(json.loads(self.path.read_text()), cls=UserspaceJSONEncoder, sort_keys=True)
+        new_data = json.dumps(target_json, cls=UserspaceJSONEncoder, sort_keys=True)
+        if old_data != new_data:
+            self.path.write_text(new_data)
+            cli.log.info(f'Saved userspace file to {self.path}.')
         return True
 
-    def add_target(self, keyboard, keymap):
+    def add_target(self, keyboard, keymap, do_print=True):
         e = {"keyboard": keyboard, "keymap": keymap}
         if e not in self.build_targets:
             self.build_targets.append(e)
+            if do_print:
+                cli.log.info(f'Added {keyboard}:{keymap} to userspace build targets.')
+        else:
+            if do_print:
+                cli.log.info(f'{keyboard}:{keymap} is already a userspace build target.')
 
-    def remove_target(self, keyboard, keymap):
+    def remove_target(self, keyboard, keymap, do_print=True):
         e = {"keyboard": keyboard, "keymap": keymap}
         if e in self.build_targets:
             self.build_targets.remove(e)
+            if do_print:
+                cli.log.info(f'Removed {keyboard}:{keymap} from userspace build targets.')
+        else:
+            if do_print:
+                cli.log.info(f'{keyboard}:{keymap} is not a userspace build target.')
 
     def __load_v1(self, json):
         for e in json['build_targets']:
             if len(e) == 2:
-                self.add_target(e[0], e[1])
+                self.add_target(e[0], e[1], False)
 
 
 class UserspaceValidationError(Exception):

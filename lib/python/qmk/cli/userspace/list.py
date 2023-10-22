@@ -2,7 +2,7 @@ from milc import cli
 
 from qmk.constants import QMK_USERSPACE, HAS_QMK_USERSPACE
 from qmk.userspace import UserspaceDefs
-from qmk.keyboard import keyboard_folder_or_all, is_all_keyboards
+from qmk.keyboard import is_all_keyboards
 from qmk.keymap import is_keymap_target
 from qmk.search import search_keymap_targets
 
@@ -20,9 +20,14 @@ def userspace_list(cli):
     if cli.args.expand:
         build_targets = search_keymap_targets(build_targets)
 
-    for target in build_targets:
-        keyboard = keyboard_folder_or_all(target[0])
-        keymap = target[1]
+    for e in build_targets:
+        if isinstance(e[0], str):
+            keyboard = e[0]
+            keymap = e[1]
+        else:
+            keyboard = e[0].keyboard
+            keymap = e[0].keymap
+
         if is_all_keyboards(keyboard) or is_keymap_target(keyboard, keymap):
             cli.log.info(f'Keyboard: {{fg_cyan}}{keyboard}{{fg_reset}}, keymap: {{fg_cyan}}{keymap}{{fg_reset}}')
         else:

@@ -51,6 +51,8 @@ base_path = os.path.join(os.getcwd(), "keyboards") + os.path.sep
 def is_all_keyboards(keyboard):
     """Returns True if the keyboard is an AllKeyboards object.
     """
+    if isinstance(keyboard, str):
+        return (keyboard == 'all')
     return isinstance(keyboard, AllKeyboards)
 
 

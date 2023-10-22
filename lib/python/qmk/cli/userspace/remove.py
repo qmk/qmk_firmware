@@ -16,4 +16,4 @@ def userspace_remove(cli):
 
     userspace = UserspaceDefs(QMK_USERSPACE / 'qmk.json')
     userspace.remove_target(cli.args.keyboard, cli.args.keymap)
-    userspace.save()
+    return userspace.save()
