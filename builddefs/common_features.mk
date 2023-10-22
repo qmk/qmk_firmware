@@ -151,30 +151,25 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
         endif
         OPT_DEFS += -DPOINTING_DEVICE_DRIVER_$(strip $(POINTING_DEVICE_DRIVER))
         ifeq ($(strip $(POINTING_DEVICE_DRIVER)), adns9800)
-            OPT_DEFS += -DSTM32_SPI -DHAL_USE_SPI=TRUE
-            QUANTUM_LIB_SRC += spi_master.c
+            SPI_DRIVER_REQUIRED = yes
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), analog_joystick)
             OPT_DEFS += -DSTM32_ADC -DHAL_USE_ADC=TRUE
             LIB_SRC += analog.c
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), cirque_pinnacle_i2c)
-            OPT_DEFS += -DSTM32_I2C -DHAL_USE_I2C=TRUE
+            I2C_DRIVER_REQUIRED = yes
             SRC += drivers/sensors/cirque_pinnacle.c
             SRC += drivers/sensors/cirque_pinnacle_gestures.c
             SRC += $(QUANTUM_DIR)/pointing_device/pointing_device_gestures.c
-            QUANTUM_LIB_SRC += i2c_master.c
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), cirque_pinnacle_spi)
-            OPT_DEFS += -DSTM32_SPI -DHAL_USE_SPI=TRUE
+            SPI_DRIVER_REQUIRED = yes
             SRC += drivers/sensors/cirque_pinnacle.c
             SRC += drivers/sensors/cirque_pinnacle_gestures.c
             SRC += $(QUANTUM_DIR)/pointing_device/pointing_device_gestures.c
-            QUANTUM_LIB_SRC += spi_master.c
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), pimoroni_trackball)
-            OPT_DEFS += -DSTM32_SPI -DHAL_USE_I2C=TRUE
-            QUANTUM_LIB_SRC += i2c_master.c
+            I2C_DRIVER_REQUIRED = yes
         else ifneq ($(filter $(strip $(POINTING_DEVICE_DRIVER)),pmw3360 pmw3389),)
-            OPT_DEFS += -DSTM32_SPI -DHAL_USE_SPI=TRUE
+            SPI_DRIVER_REQUIRED = yes
             SRC += drivers/sensors/pmw33xx_common.c
-            QUANTUM_LIB_SRC += spi_master.c
         endif
     endif
 endif
@@ -204,12 +199,12 @@ else
   else ifeq ($(strip $(EEPROM_DRIVER)), i2c)
     # External I2C EEPROM implementation
     OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_I2C
-    QUANTUM_LIB_SRC += i2c_master.c
+    I2C_DRIVER_REQUIRED = yes
     SRC += eeprom_driver.c eeprom_i2c.c
   else ifeq ($(strip $(EEPROM_DRIVER)), spi)
     # External SPI EEPROM implementation
     OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_SPI
-    QUANTUM_LIB_SRC += spi_master.c
+    SPI_DRIVER_REQUIRED = yes
     SRC += eeprom_driver.c eeprom_spi.c
   else ifeq ($(strip $(EEPROM_DRIVER)), legacy_stm32_flash)
     # STM32 Emulated EEPROM, backed by MCU flash (soon to be deprecated)
@@ -308,10 +303,10 @@ ifneq ($(strip $(FLASH_DRIVER)), none)
     else
         OPT_DEFS += -DFLASH_ENABLE
         ifeq ($(strip $(FLASH_DRIVER)),spi)
+            SPI_DRIVER_REQUIRED = yes
             OPT_DEFS += -DFLASH_DRIVER -DFLASH_SPI
             COMMON_VPATH += $(DRIVER_PATH)/flash
             SRC += flash_spi.c
-            QUANTUM_LIB_SRC += spi_master.c
         endif
     endif
 endif
@@ -380,80 +375,73 @@ endif
     CIE1931_CURVE := yes
 
     ifeq ($(strip $(LED_MATRIX_DRIVER)), is31fl3218)
-        OPT_DEFS += -DHAL_USE_I2C=TRUE
+        I2C_DRIVER_REQUIRED = yes
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31fl3218-simple.c
-        QUANTUM_LIB_SRC += i2c_master.c
     endif
 
     ifeq ($(strip $(LED_MATRIX_DRIVER)), is31fl3731)
-        OPT_DEFS += -DHAL_USE_I2C=TRUE
+        I2C_DRIVER_REQUIRED = yes
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31fl3731-simple.c
-        QUANTUM_LIB_SRC += i2c_master.c
     endif
 
     ifeq ($(strip $(LED_MATRIX_DRIVER)), is31fl3733)
-        OPT_DEFS += -DHAL_USE_I2C=TRUE
+        I2C_DRIVER_REQUIRED = yes
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31fl3733-simple.c
-        QUANTUM_LIB_SRC += i2c_master.c
     endif
 
     ifeq ($(strip $(LED_MATRIX_DRIVER)), is31fl3736)
-        OPT_DEFS += -DHAL_USE_I2C=TRUE
+        I2C_DRIVER_REQUIRED = yes
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31fl3736-simple.c
-        QUANTUM_LIB_SRC += i2c_master.c
     endif
 
     ifeq ($(strip $(LED_MATRIX_DRIVER)), is31fl3737)
-        OPT_DEFS += -DHAL_USE_I2C=TRUE
+        I2C_DRIVER_REQUIRED = yes
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31fl3737-simple.c
-        QUANTUM_LIB_SRC += i2c_master.c
     endif
 
     ifeq ($(strip $(LED_MATRIX_DRIVER)), is31fl3741)
-        OPT_DEFS += -DHAL_USE_I2C=TRUE
+        I2C_DRIVER_REQUIRED = yes
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31fl3741-simple.c
-        QUANTUM_LIB_SRC += i2c_master.c
     endif
 
     ifeq ($(strip $(LED_MATRIX_DRIVER)), is31fl3742a)
-        OPT_DEFS += -DIS31FLCOMMON -DHAL_USE_I2C=TRUE
+        OPT_DEFS += -DIS31FLCOMMON
+        I2C_DRIVER_REQUIRED = yes
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31flcommon.c
-        QUANTUM_LIB_SRC += i2c_master.c
     endif
 
     ifeq ($(strip $(LED_MATRIX_DRIVER)), is31fl3743a)
-        OPT_DEFS += -DIS31FLCOMMON -DHAL_USE_I2C=TRUE
+        OPT_DEFS += -DIS31FLCOMMON
+        I2C_DRIVER_REQUIRED = yes
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31flcommon.c
-        QUANTUM_LIB_SRC += i2c_master.c
     endif
 
     ifeq ($(strip $(LED_MATRIX_DRIVER)), is31fl3745)
-        OPT_DEFS += -DIS31FLCOMMON -DHAL_USE_I2C=TRUE
+        OPT_DEFS += -DIS31FLCOMMON
+        I2C_DRIVER_REQUIRED = yes
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31flcommon.c
-        QUANTUM_LIB_SRC += i2c_master.c
     endif
 
     ifeq ($(strip $(LED_MATRIX_DRIVER)), is31fl3746a)
-        OPT_DEFS += -DIS31FLCOMMON -DHAL_USE_I2C=TRUE
+        OPT_DEFS += -DIS31FLCOMMON
+        I2C_DRIVER_REQUIRED = yes
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31flcommon.c
-        QUANTUM_LIB_SRC += i2c_master.c
     endif
 
     ifeq ($(strip $(LED_MATRIX_DRIVER)), snled27351)
-        OPT_DEFS += -DHAL_USE_I2C=TRUE
+        I2C_DRIVER_REQUIRED = yes
         COMMON_VPATH += $(DRIVER_PATH)/led
         SRC += snled27351-simple.c
-        QUANTUM_LIB_SRC += i2c_master.c
     endif
 
 endif
@@ -491,87 +479,79 @@ endif
     RGB_KEYCODES_ENABLE := yes
 
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), aw20216s)
-        OPT_DEFS += -DHAL_USE_SPI=TRUE
+        SPI_DRIVER_REQUIRED = yes
         COMMON_VPATH += $(DRIVER_PATH)/led
         SRC += aw20216s.c
-        QUANTUM_LIB_SRC += spi_master.c
     endif
 
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), is31fl3218)
-        OPT_DEFS += -DHAL_USE_I2C=TRUE
+        I2C_DRIVER_REQUIRED = yes
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31fl3218.c
-        QUANTUM_LIB_SRC += i2c_master.c
     endif
 
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), is31fl3731)
-        OPT_DEFS += -DHAL_USE_I2C=TRUE
+        I2C_DRIVER_REQUIRED = yes
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31fl3731.c
-        QUANTUM_LIB_SRC += i2c_master.c
     endif
 
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), is31fl3733)
-        OPT_DEFS += -DHAL_USE_I2C=TRUE
+        I2C_DRIVER_REQUIRED = yes
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31fl3733.c
-        QUANTUM_LIB_SRC += i2c_master.c
     endif
 
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), is31fl3736)
-        OPT_DEFS += -DHAL_USE_I2C=TRUE
+        I2C_DRIVER_REQUIRED = yes
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31fl3736.c
-        QUANTUM_LIB_SRC += i2c_master.c
     endif
 
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), is31fl3737)
-        OPT_DEFS += -DHAL_USE_I2C=TRUE
+        I2C_DRIVER_REQUIRED = yes
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31fl3737.c
-        QUANTUM_LIB_SRC += i2c_master.c
     endif
 
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), is31fl3741)
-        OPT_DEFS += -DHAL_USE_I2C=TRUE
+        I2C_DRIVER_REQUIRED = yes
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31fl3741.c
-        QUANTUM_LIB_SRC += i2c_master.c
     endif
 
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), is31fl3742a)
-        OPT_DEFS += -DIS31FLCOMMON -DHAL_USE_I2C=TRUE
+        OPT_DEFS += -DIS31FLCOMMON
+        I2C_DRIVER_REQUIRED = yes
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31flcommon.c
-        QUANTUM_LIB_SRC += i2c_master.c
     endif
 
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), is31fl3743a)
-        OPT_DEFS += -DIS31FLCOMMON -DHAL_USE_I2C=TRUE
+        OPT_DEFS += -DIS31FLCOMMON
+        I2C_DRIVER_REQUIRED = yes
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31flcommon.c
-        QUANTUM_LIB_SRC += i2c_master.c
     endif
 
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), is31fl3745)
-        OPT_DEFS += -DIS31FLCOMMON -DHAL_USE_I2C=TRUE
+        OPT_DEFS += -DIS31FLCOMMON
+        I2C_DRIVER_REQUIRED = yes
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31flcommon.c
-        QUANTUM_LIB_SRC += i2c_master.c
     endif
 
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), is31fl3746a)
-        OPT_DEFS += -DIS31FLCOMMON -DHAL_USE_I2C=TRUE
+        OPT_DEFS += -DIS31FLCOMMON
+        I2C_DRIVER_REQUIRED = yes
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31flcommon.c
-        QUANTUM_LIB_SRC += i2c_master.c
     endif
 
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), snled27351)
-        OPT_DEFS += -DHAL_USE_I2C=TRUE
+        I2C_DRIVER_REQUIRED = yes
         COMMON_VPATH += $(DRIVER_PATH)/led
         SRC += snled27351.c
-        QUANTUM_LIB_SRC += i2c_master.c
     endif
 
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), ws2812)
@@ -636,35 +616,6 @@ ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
             SRC += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/backlight_$(strip $(BACKLIGHT_DRIVER)).c
         endif
     endif
-endif
-
-VALID_WS2812_DRIVER_TYPES := bitbang custom i2c pwm spi vendor
-
-WS2812_DRIVER ?= bitbang
-ifeq ($(strip $(WS2812_DRIVER_REQUIRED)), yes)
-    ifeq ($(filter $(WS2812_DRIVER),$(VALID_WS2812_DRIVER_TYPES)),)
-        $(call CATASTROPHIC_ERROR,Invalid WS2812_DRIVER,WS2812_DRIVER="$(WS2812_DRIVER)" is not a valid WS2812 driver)
-    endif
-
-    OPT_DEFS += -DWS2812_$(strip $(shell echo $(WS2812_DRIVER) | tr '[:lower:]' '[:upper:]'))
-
-    SRC += ws2812_$(strip $(WS2812_DRIVER)).c
-
-    ifeq ($(strip $(PLATFORM)), CHIBIOS)
-        ifeq ($(strip $(WS2812_DRIVER)), pwm)
-            OPT_DEFS += -DSTM32_DMA_REQUIRED=TRUE
-        endif
-    endif
-
-    # add extra deps
-    ifeq ($(strip $(WS2812_DRIVER)), i2c)
-        QUANTUM_LIB_SRC += i2c_master.c
-    endif
-endif
-
-ifeq ($(strip $(APA102_DRIVER_REQUIRED)), yes)
-    COMMON_VPATH += $(DRIVER_PATH)/led
-    SRC += apa102.c
 endif
 
 ifeq ($(strip $(CIE1931_CURVE)), yes)
@@ -787,8 +738,8 @@ ifeq ($(strip $(HAPTIC_ENABLE)),yes)
         COMMON_VPATH += $(DRIVER_PATH)/haptic
 
         ifeq ($(strip $(HAPTIC_DRIVER)), drv2605l)
+            I2C_DRIVER_REQUIRED = yes
             SRC += drv2605l.c
-            QUANTUM_LIB_SRC += i2c_master.c
         endif
 
         ifeq ($(strip $(HAPTIC_DRIVER)), solenoid)
@@ -823,10 +774,10 @@ ifeq ($(strip $(OLED_ENABLE)), yes)
 
             OPT_DEFS += -DOLED_TRANSPORT_$(strip $(shell echo $(OLED_TRANSPORT) | tr '[:lower:]' '[:upper:]'))
             ifeq ($(strip $(OLED_TRANSPORT)), i2c)
-                QUANTUM_LIB_SRC += i2c_master.c
+                I2C_DRIVER_REQUIRED = yes
             endif
             ifeq ($(strip $(OLED_TRANSPORT)), spi)
-                QUANTUM_LIB_SRC += spi_master.c
+                SPI_DRIVER_REQUIRED = yes
             endif
         endif
     endif
@@ -834,9 +785,9 @@ endif
 
 ifeq ($(strip $(ST7565_ENABLE)), yes)
     OPT_DEFS += -DST7565_ENABLE
+    SPI_DRIVER_REQUIRED = yes
     COMMON_VPATH += $(DRIVER_PATH)/oled # For glcdfont.h
     COMMON_VPATH += $(DRIVER_PATH)/lcd
-    QUANTUM_LIB_SRC += spi_master.c
     SRC += st7565.c
 endif
 
@@ -974,18 +925,16 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
     SRC += outputselect.c
 
     ifeq ($(strip $(BLUETOOTH_DRIVER)), bluefruit_le)
-        OPT_DEFS += -DHAL_USE_SPI=TRUE
+        SPI_DRIVER_REQUIRED = yes
         SRC += $(DRIVER_PATH)/bluetooth/bluetooth.c
         SRC += $(DRIVER_PATH)/bluetooth/bluefruit_le.cpp
         QUANTUM_LIB_SRC += analog.c
-        QUANTUM_LIB_SRC += spi_master.c
     endif
 
     ifeq ($(strip $(BLUETOOTH_DRIVER)), rn42)
-        OPT_DEFS += -DHAL_USE_SERIAL=TRUE
+        UART_DRIVER_REQUIRED = yes
         SRC += $(DRIVER_PATH)/bluetooth/bluetooth.c
         SRC += $(DRIVER_PATH)/bluetooth/rn42.c
-        QUANTUM_LIB_SRC += uart.c
     endif
 endif
 
@@ -1003,4 +952,48 @@ ifeq ($(strip $(OS_DETECTION_ENABLE)), yes)
     ifeq ($(strip $(OS_DETECTION_DEBUG_ENABLE)), yes)
         OPT_DEFS += -DOS_DETECTION_DEBUG_ENABLE
     endif
+endif
+
+VALID_WS2812_DRIVER_TYPES := bitbang custom i2c pwm spi vendor
+
+WS2812_DRIVER ?= bitbang
+ifeq ($(strip $(WS2812_DRIVER_REQUIRED)), yes)
+    ifeq ($(filter $(WS2812_DRIVER),$(VALID_WS2812_DRIVER_TYPES)),)
+        $(call CATASTROPHIC_ERROR,Invalid WS2812_DRIVER,WS2812_DRIVER="$(WS2812_DRIVER)" is not a valid WS2812 driver)
+    endif
+
+    OPT_DEFS += -DWS2812_$(strip $(shell echo $(WS2812_DRIVER) | tr '[:lower:]' '[:upper:]'))
+
+    SRC += ws2812_$(strip $(WS2812_DRIVER)).c
+
+    ifeq ($(strip $(PLATFORM)), CHIBIOS)
+        ifeq ($(strip $(WS2812_DRIVER)), pwm)
+            OPT_DEFS += -DSTM32_DMA_REQUIRED=TRUE
+        endif
+    endif
+
+    # add extra deps
+    ifeq ($(strip $(WS2812_DRIVER)), i2c)
+        I2C_DRIVER_REQUIRED = yes
+    endif
+endif
+
+ifeq ($(strip $(APA102_DRIVER_REQUIRED)), yes)
+    COMMON_VPATH += $(DRIVER_PATH)/led
+    SRC += apa102.c
+endif
+
+ifeq ($(strip $(I2C_DRIVER_REQUIRED)), yes)
+    OPT_DEFS += -DHAL_USE_I2C=TRUE
+    QUANTUM_LIB_SRC += i2c_master.c
+endif
+
+ifeq ($(strip $(SPI_DRIVER_REQUIRED)), yes)
+    OPT_DEFS += -DHAL_USE_SPI=TRUE
+    QUANTUM_LIB_SRC += spi_master.c
+endif
+
+ifeq ($(strip $(UART_DRIVER_REQUIRED)), yes)
+    OPT_DEFS += -DHAL_USE_SERIAL=TRUE
+    QUANTUM_LIB_SRC += uart.c
 endif

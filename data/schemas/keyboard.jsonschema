@@ -663,10 +663,32 @@
                             "type": "string",
                             "enum": ["custom", "i2c", "serial", "serial_usart"]
                         },
-                        "sync_matrix_state": {"type": "boolean"},
-                        "sync_modifiers": {"type": "boolean"},
+                        "sync": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "activity": {"type": "boolean"},
+                                "detected_os": {"type": "boolean"},
+                                "haptic": {"type": "boolean"},
+                                "layer_state": {"type": "boolean"},
+                                "indicators": {"type": "boolean"},
+                                "matrix_state": {"type": "boolean"},
+                                "modifiers": {"type": "boolean"},
+                                "oled": {"type": "boolean"},
+                                "st7565": {"type": "boolean"},
+                                "wpm": {"type": "boolean"}
+                            }
+                        }
                         "watchdog": {"type": "boolean"},
-                        "watchdog_timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                        "watchdog_timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                        "sync_matrix_state": {
+                            "type": "boolean",
+                            "$comment": "Deprecated: use sync.matrix_state instead"
+                        },
+                        "sync_modifiers": {
+                            "type": "boolean",
+                            "$comment": "Deprecated: use sync.modifiers instead"
+                        }
                     }
                 },
                 "usb_detect": {

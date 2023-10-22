@@ -633,12 +633,37 @@ Configures the [Split Keyboard](feature_split_keyboard.md) feature.
     * `transport`
         * `protocol`
             * The split transport protocol to use. Must be one of `custom`, `i2c`, `serial`, `serial_usart`.
-        * `sync_matrix_state`
-            * Mirror the main/primary half's matrix state to the secondary half.
-            * Default: `false`
-        * `sync_modifiers`
-            * Mirror the modifier state to the secondary half.
-            * Default: `false`
+        * `sync`
+            * `activity`
+                * Mirror the activity timestamps to the secondary half.
+                * Default: `false`
+            * `detected_os`
+                * Mirror the [detected OS](feature_os_detection.md) to the secondary half.
+                * Default: `false`
+            * `haptic`
+                * Mirror the haptic state and process haptic feedback to the secondary half.
+                * Default: `false`
+            * `layer_state`
+                * Mirror the layer state to the secondary half.
+                * Default: `false`
+            * `indicators`
+                * Mirror the indicator state to the secondary half.
+                * Default: `false`
+            * `matrix_state`
+                * Mirror the main/primary half's matrix state to the secondary half.
+                * Default: `false`
+            * `modifiers`
+                * Mirror the modifier state to the secondary half.
+                * Default: `false`
+            * `oled`
+                * Mirror the OLED on/off status to the secondary half.
+                * Default: `false`
+            * `st7565`
+                * Mirror the ST7565 on/off status to the secondary half.
+                * Default: `false`
+            * `wpm`
+                * Mirror the current WPM value to the secondary half.
+                * Default: `false`
         * `watchdog`
             * Reboot the secondary half if it loses connection.
             * Default: `false`

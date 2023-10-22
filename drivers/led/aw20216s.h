@@ -38,16 +38,16 @@
 #    define AW20216S_SPI_DIVISOR AW_SPI_DIVISOR
 #endif
 #ifdef DRIVER_1_CS
-#    define AW20216S_DRIVER_1_CS DRIVER_1_CS
+#    define AW20216S_CS_PIN_1 DRIVER_1_CS
 #endif
 #ifdef DRIVER_2_CS
-#    define AW20216S_DRIVER_2_CS DRIVER_2_CS
+#    define AW20216S_CS_PIN_2 DRIVER_2_CS
 #endif
 #ifdef DRIVER_1_EN
-#    define AW20216S_DRIVER_1_EN DRIVER_1_EN
+#    define AW20216S_EN_PIN_1 DRIVER_1_EN
 #endif
 #ifdef DRIVER_2_EN
-#    define AW20216S_DRIVER_2_EN DRIVER_2_EN
+#    define AW20216S_EN_PIN_2 DRIVER_2_EN
 #endif
 
 #define aw_led aw20216s_led_t

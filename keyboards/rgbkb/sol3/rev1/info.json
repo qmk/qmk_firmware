@@ -65,6 +65,13 @@
                 "cols": ["B9", "B8", "B4", "A6", "A3", "B10", "B12", "B11"],
                 "rows": ["B15", "B14", "A8", "A13", "A7", null]
             }
+        },
+        "transport": {
+            "sync": {
+                "indicators": true,
+                "layer_state": true,
+                "matrix_state": true
+            }
         }
     },
     "qmk": {

@@ -22,26 +22,26 @@
 
 static void init(void) {
     i2c_init(&I2CD1, I2C1_SCL_PIN, I2C1_SDA_PIN);
-    is31fl3733_init(0, DRIVER_ADDR_1, 0);
+    is31fl3733_init(0, IS31FL3733_I2C_ADDRESS_1, 0);
 #    ifdef USE_I2C2
     i2c_init(&I2CD2, I2C2_SCL_PIN, I2C2_SDA_PIN);
-    is31fl3733_init(1, DRIVER_ADDR_2, 0);
+    is31fl3733_init(1, IS31FL3733_I2C_ADDRESS_2, 0);
 #    endif
     for (int index = 0; index < RGB_MATRIX_LED_COUNT; index++) {
         bool enabled = true;
         // This only caches it for later
         is31fl3733_set_led_control_register(index, enabled, enabled, enabled);
     }
-    is31fl3733_update_led_control_registers(DRIVER_ADDR_1, 0);
+    is31fl3733_update_led_control_registers(IS31FL3733_I2C_ADDRESS_1, 0);
 #    ifdef USE_I2C2
-    is31fl3733_update_led_control_registers(DRIVER_ADDR_2, 1);
+    is31fl3733_update_led_control_registers(IS31FL3733_I2C_ADDRESS_2, 1);
 #    endif
 }
 
 static void flush(void) {
-    is31fl3733_update_pwm_buffers(DRIVER_ADDR_1, 0);
+    is31fl3733_update_pwm_buffers(IS31FL3733_I2C_ADDRESS_1, 0);
 #    ifdef USE_I2C2
-    is31fl3733_update_pwm_buffers(DRIVER_ADDR_2, 1);
+    is31fl3733_update_pwm_buffers(IS31FL3733_I2C_ADDRESS_2, 1);
 #    endif
 }
 

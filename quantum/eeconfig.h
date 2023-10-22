@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "eeprom.h"
 
 #ifndef EECONFIG_MAGIC_NUMBER
 #    define EECONFIG_MAGIC_NUMBER (uint16_t)0xFEE6 // When changing, decrement this value to avoid future re-init issues

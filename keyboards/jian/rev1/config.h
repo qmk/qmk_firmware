@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EE_HANDS
 
 // different Jian configs
-#define DIPS_ENABLE
 #define PHYSICAL_LEDS_ENABLE
 #define NUM_LOCK_LED_PIN C6
 #define CAPS_LOCK_LED_PIN D7
@@ -79,3 +78,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // iOS device need lessthan 100
 #define USB_MAX_POWER_CONSUMPTION 100
 #endif
+
+#define DIP_SWITCH_MATRIX_GRID { \
+    {1, 0}, {2, 0}, {3, 0}, {3, 1}, {3, 2}, {3, 3}, \
+    {7, 3}, {7, 2}, {7, 1}, {7, 0}, {6, 0}, {5, 0} \
+}

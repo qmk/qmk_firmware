@@ -86,9 +86,6 @@ enum jian_layers {
   _LEFT,
   _RIGHT,
 #endif //TRAINING_HALFES_LOCK
-#ifdef DIPS_ENABLE
-  _DIPS,
-#endif // DIPS_ENABLE
 #ifdef STENO_ENABLE
   _PLOVER
 #endif // STENO_ENABLE
@@ -107,7 +104,7 @@ enum jian_keycodes {
   CH_QWE,
   CH_DVK,
 //endif // ALT_LAYOUTS_ENABLE
-#ifdef DIPS_ENABLE
+#ifdef DIP_SWITCH_ENABLE
   LAYOUT0,
   LAYOUT1,
   LAYOUT2,
@@ -120,18 +117,18 @@ enum jian_keycodes {
   DIP9,
   DIP10,
   DIP11,
-#endif // DIPS_ENABLE
+#endif // DIP_SWITCH_ENABLE
 };
 
 #ifdef TRAINING_HALFES_LOCK
 static uint8_t lock_timeout = 1;
 static uint8_t lock_cooldown = 0;
 #endif //TRAINING_HALFES_LOCK
-#ifdef DIPS_ENABLE
+#ifdef DIP_SWITCH_ENABLE
 #ifdef ALT_LAYOUTS_ENABLE
 static uint8_t layout_conversion_dip_state = 0;
 #endif // ALT_LAYOUTS_ENABLE
-#endif // DIPS_ENABLE
+#endif // DIP_SWITCH_ENABLE
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
@@ -189,13 +186,6 @@ static uint8_t layout_conversion_dip_state = 0;
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_QWERTY] = LAYOUT_base_wrapper(QWERTY_base),
-
-#ifdef DIPS_ENABLE
-[_DIPS] = LAYOUT_dips(
-  LAYOUT0, LAYOUT1, LAYOUT2, LAYOUT3, DIP_ISO, FLIP_TH,
-  LAYOUT0, LAYOUT1, LAYOUT2, LAYOUT3, DIP_ISO, FLIP_TH
-),
-#endif // DIPS_ENABLE
 
 [_LOWER] = LAYOUT(
   _______, KC_UNDS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  F12_RGU,
@@ -282,7 +272,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
-#ifdef DIPS_ENABLE
+#ifdef DIP_SWITCH_ENABLE
 #ifdef ALT_LAYOUTS_ENABLE
 void layout_convert(uint8_t statuses) {
   switch (0b1111 & statuses) {
@@ -337,13 +327,7 @@ void layout_convert(uint8_t statuses) {
    }
 }
 #endif // ALT_LAYOUTS_ENABLE
-#endif // DIPS_ENABLE
-
-void matrix_init_user(void) {
-#ifdef DIPS_ENABLE
-  layer_on(_DIPS);
-#endif // DIPS_ENABLE
-}
+#endif // DIP_SWITCH_ENABLE
 
 void keyboard_post_init_user(void) {
   user_config.raw = eeconfig_read_user();
@@ -515,56 +499,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
 #endif // ALT_LAYOUTS_ENABLE
-#ifdef DIPS_ENABLE
-#ifdef ALT_LAYOUTS_ENABLE
-    case LAYOUT0:
-      if (record->event.pressed) {
-        layout_conversion_dip_state |= 1 << 0;
-      } else {
-        layout_conversion_dip_state &= ~(1 << 0);
-      }
-      layout_convert(layout_conversion_dip_state);
-      return false;
-    case LAYOUT1:
-      if (record->event.pressed) {
-        layout_conversion_dip_state |= 1 << 1;
-      } else {
-        layout_conversion_dip_state &= ~(1 << 1);
-      }
-      layout_convert(layout_conversion_dip_state);
-      return false;
-    case LAYOUT2:
-      if (record->event.pressed) {
-        layout_conversion_dip_state |= 1 << 2;
-      } else {
-        layout_conversion_dip_state &= ~(1 << 2);
-      }
-      layout_convert(layout_conversion_dip_state);
-      return false;
-    case LAYOUT3:
-      if (record->event.pressed) {
-        layout_conversion_dip_state |= 1 << 3;
-      } else {
-        layout_conversion_dip_state &= ~(1 << 3);
-      }
-      layout_convert(layout_conversion_dip_state);
-      return false;
-#endif // ALT_LAYOUTS_ENABLE
-    case DIP_ISO:
-      if (record->event.pressed) {
-          layer_on(_ISO);
-      } else {
-          layer_off(_ISO);
-      }
-      return false;
-    case FLIP_TH:
-      if (record->event.pressed) {
-          layer_on(_THUMB_ALT);
-      } else {
-          layer_off(_THUMB_ALT);
-      }
-      return false;
-#endif // DIPS_ENABLE
     case THUMB_ALT:
       if (record->event.pressed) {
         layer_invert(_THUMB_ALT);
@@ -582,3 +516,66 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
+
+#if defined(DIP_SWITCH_ENABLE)
+bool dip_switch_update_user(uint8_t index, bool active) {
+  switch (index) {
+#    if defined(ALT_LAYOUTS_ENABLE)
+    case 0: // LAYOUT0
+    case 6:
+      if (active) {
+        layout_conversion_dip_state |= 1 << 0;
+      } else {
+        layout_conversion_dip_state &= ~(1 << 0);
+      }
+      layout_convert(layout_conversion_dip_state);
+      break;
+    case 1: // LAYOUT1
+    case 7:
+      if (active) {
+        layout_conversion_dip_state |= 1 << 1;
+      } else {
+        layout_conversion_dip_state &= ~(1 << 1);
+      }
+      layout_convert(layout_conversion_dip_state);
+      break;
+    case 2: // LAYOUT2
+    case 8:
+      if (active) {
+        layout_conversion_dip_state |= 1 << 2;
+      } else {
+        layout_conversion_dip_state &= ~(1 << 2);
+      }
+      layout_convert(layout_conversion_dip_state);
+      break;
+    case 3: // LAYOUT3
+    case 9:
+      if (active) {
+        layout_conversion_dip_state |= 1 << 3;
+      } else {
+        layout_conversion_dip_state &= ~(1 << 3);
+      }
+      layout_convert(layout_conversion_dip_state);
+      break;
+    case 4: // DIP_ISO
+    case 10:
+      if (active) {
+        layer_on(_ISO);
+      } else {
+        layer_off(_ISO);
+      }
+      break;
+    case 5:  // FLIP_TH
+    case 11:
+      if (active) {
+        layer_on(_THUMB_ALT);
+      } else {
+        layer_off(_THUMB_ALT);
+      }
+      break;
+#    endif
+  }
+
+  return true;
+}
+#endif

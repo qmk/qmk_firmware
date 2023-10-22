@@ -188,7 +188,7 @@ led_config_t g_led_config = { {
 
 static void init(void) {
     i2c_init();
-    is31fl3741_init(DRIVER_ADDR_1);
+    is31fl3741_init(IS31FL3741_I2C_ADDRESS_1);
     for (int index = 0; index < ISSI_DRIVER_TOTAL; index++) {
         bool enabled = !(   ( index == -1+0+13) || //A13
                             ( index == -1+13+3) || //B3
@@ -223,11 +223,11 @@ static void init(void) {
                         );
         is31fl3741_set_led_control_register(index, enabled, enabled, enabled);
     }
-    is31fl3741_update_led_control_registers(DRIVER_ADDR_1, 0);
+    is31fl3741_update_led_control_registers(IS31FL3741_I2C_ADDRESS_1, 0);
 }
 
 static void flush(void) {
-    is31fl3741_update_pwm_buffers(DRIVER_ADDR_1, 0);
+    is31fl3741_update_pwm_buffers(IS31FL3741_I2C_ADDRESS_1, 0);
 }
 
 const rgb_matrix_driver_t rgb_matrix_driver = {
