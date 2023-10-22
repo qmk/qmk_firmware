@@ -15,6 +15,9 @@
         "nkro": false,
         "oled": true
     },
+    "build": {
+        "lto": true
+    },
     "diode_direction": "ROW2COL",
     "dynamic_keymap": {
         "layer_count": 3
