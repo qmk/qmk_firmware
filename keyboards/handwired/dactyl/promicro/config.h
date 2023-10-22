@@ -11,9 +11,7 @@
 /* Enables This makes it easier for fast typists to use dual-function keys */
 #define PERMISSIVE_HOLD
 
-#ifdef AUDIO_ENABLE
 #define AUDIO_PIN C6
-#endif
 
 /*
  * Feature disable options
