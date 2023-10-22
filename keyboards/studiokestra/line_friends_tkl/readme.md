@@ -1,20 +1,20 @@
-# studiokestra/line_tkl
+# studiokestra/line_friends_tkl
 
-![studiokestra/line_tkl](https://i.imgur.com/3MmRQkh.png)
+![studiokestra/line_friends_tkl](https://i.imgur.com/3MmRQkh.png)
 
 PCB developed for Mino Keys in collaboration with Line Friends (C).
 
 * Keyboard Maintainer: [Studio Kestra](https://github.com/studiokestra/)
-* Hardware Supported: Line TKL
+* Hardware Supported: LINE FRIENDS TKL
 * Hardware Availability: https://minokeys.com/collections/line-friends
 
 Make example for this keyboard (after setting up your build environment):
 
-    make studiokestra/line_tkl:default
+    make studiokestra/line_friends_tkl:default
 
 Flashing example for this keyboard:
 
-    make studiokestra/line_tkl:default:flash
+    make studiokestra/line_friends_tkl:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
