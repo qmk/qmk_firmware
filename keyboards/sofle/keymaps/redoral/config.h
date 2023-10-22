@@ -9,6 +9,8 @@
   
 #pragma once
 
+#define SPLIT_WPM_ENABLE
+
 #if defined(KEYBOARD_sofle_rev1)
 // Add RGB underglow and top facing lighting
 #    define WS2812_DI_PIN D3
