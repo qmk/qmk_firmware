@@ -4,7 +4,7 @@ The Conone 65 is a custom keyboard designed and machined in Belgium.
 
 * Keyboard Maintainer: [Evyd13](https://github.com/evyd13)
 * Hardware Supported: Conone 65 PCB
-* Hardware Availability: [Group buy](https://forms.gle/nEFTxzBxy4KDm3nG8)
+* Hardware Availability: https://www.kindakeyboards.be/conone65
 
 Make example for this keyboard (after setting up your build environment):
 
