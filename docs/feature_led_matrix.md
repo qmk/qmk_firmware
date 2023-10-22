@@ -23,10 +23,10 @@ You can use between 1 and 4 IS31FL3731 IC's. Do not specify `LED_DRIVER_ADDR_<N>
 | `IS31FL3731_I2C_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
 | `IS31FL3731_DRIVER_COUNT` | (Required) How many LED driver IC's are present | |
 | `LED_MATRIX_LED_COUNT` | (Required) How many LED lights are present across all drivers | |
-| `LED_DRIVER_ADDR_1` | (Required) Address for the first LED driver | |
-| `LED_DRIVER_ADDR_2` | (Optional) Address for the second LED driver | |
-| `LED_DRIVER_ADDR_3` | (Optional) Address for the third LED driver | |
-| `LED_DRIVER_ADDR_4` | (Optional) Address for the fourth LED driver | |
+| `IS31FL3731_I2C_ADDRESS_1` | (Required) Address for the first LED driver | |
+| `IS31FL3731_I2C_ADDRESS_2` | (Optional) Address for the second LED driver | |
+| `IS31FL3731_I2C_ADDRESS_3` | (Optional) Address for the third LED driver | |
+| `IS31FL3731_I2C_ADDRESS_4` | (Optional) Address for the fourth LED driver | |
 
 Here is an example using 2 drivers.
 
@@ -40,8 +40,8 @@ Here is an example using 2 drivers.
 // 11 AD <-> VCC
 // ADDR represents A1:A0 of the 7-bit address.
 // The result is: 0b11101(ADDR)
-#define LED_DRIVER_ADDR_1 IS31FL3731_I2C_ADDRESS_GND
-#define LED_DRIVER_ADDR_2 IS31FL3731_I2C_ADDRESS_SDA
+#define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
+#define IS31FL3731_I2C_ADDRESS_2 IS31FL3731_I2C_ADDRESS_SDA
 
 #define IS31FL3731_DRIVER_COUNT 2
 #define LED_DRIVER_1_LED_TOTAL 25
@@ -51,7 +51,7 @@ Here is an example using 2 drivers.
 
 !> Note the parentheses, this is so when `LED_MATRIX_LED_COUNT` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (LED_DRIVER_1_LED_TOTAL + LED_DRIVER_2_LED_TOTAL)` will give very different results than `rand() % LED_DRIVER_1_LED_TOTAL + LED_DRIVER_2_LED_TOTAL`.
 
-For split keyboards using `LED_MATRIX_SPLIT` with an LED driver, you can either have the same driver address or different driver addresses. If using different addresses, use `DRIVER_ADDR_1` for one and `DRIVER_ADDR_2` for the other one. Then, in `g_is31fl3731_leds`, fill out the correct driver index (0 or 1). If using one address, use `DRIVER_ADDR_1` for both, and use index 0 for `g_is31fl3731_leds`.
+For split keyboards using `LED_MATRIX_SPLIT` with an LED driver, you can either have the same driver address or different driver addresses. If using different addresses, use `IS31FL3731_I2C_ADDRESS_1` for one and `IS31FL3731_I2C_ADDRESS_2` for the other one. Then, in `g_is31fl3731_leds`, fill out the correct driver index (0 or 1). If using one address, use `IS31FL3731_I2C_ADDRESS_1` for both, and use index 0 for `g_is31fl3731_leds`.
 
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 

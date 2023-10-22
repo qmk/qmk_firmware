@@ -24,6 +24,18 @@
 #include "progmem.h"
 
 // ======== DEPRECATED DEFINES - DO NOT USE ========
+#ifdef DRIVER_ADDR_1
+#    define IS31FL3741_I2C_ADDRESS_1 DRIVER_ADDR_1
+#endif
+#ifdef DRIVER_ADDR_2
+#    define IS31FL3741_I2C_ADDRESS_2 DRIVER_ADDR_2
+#endif
+#ifdef DRIVER_ADDR_3
+#    define IS31FL3741_I2C_ADDRESS_3 DRIVER_ADDR_3
+#endif
+#ifdef DRIVER_ADDR_4
+#    define IS31FL3741_I2C_ADDRESS_4 DRIVER_ADDR_4
+#endif
 #ifdef DRIVER_COUNT
 #    define IS31FL3741_DRIVER_COUNT DRIVER_COUNT
 #endif
@@ -91,6 +103,8 @@ void is31fl3741_update_led_control_registers(uint8_t addr, uint8_t index);
 void is31fl3741_set_scaling_registers(const is31fl3741_led_t *pled, uint8_t red, uint8_t green, uint8_t blue);
 
 void is31fl3741_set_pwm_buffer(const is31fl3741_led_t *pled, uint8_t red, uint8_t green, uint8_t blue);
+
+void is31fl3741_flush(void);
 
 #define IS31FL3741_PUR_0R 0x00   // No PUR resistor
 #define IS31FL3741_PUR_05KR 0x01 // 0.5k Ohm resistor

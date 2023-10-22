@@ -17,6 +17,6 @@ RGB_MATRIX_ENABLE = yes
 
 #project specific files
 SRC += matrix.c
-QUANTUM_LIB_SRC += i2c_master.c
+I2C_DRIVER_REQUIRED = yes
 
 MOUSE_SHARED_EP = no

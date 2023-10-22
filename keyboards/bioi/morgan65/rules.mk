@@ -18,5 +18,5 @@ BLUETOOTH_ENABLE = yes
 
 VIA_ENABLE = yes            # VIA support should be enabled here due to the main() loop will be compiled first.
 
-QUANTUM_LIB_SRC += uart.c
+UART_DRIVER_REQUIRED = yes
 SRC += bluetooth_custom.c

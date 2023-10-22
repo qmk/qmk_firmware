@@ -59,7 +59,7 @@ uint8_t get_first_key(report_keyboard_t* keyboard_report) {
 #ifdef NKRO_ENABLE
     if (keyboard_protocol && keymap_config.nkro) {
         uint8_t i = 0;
-        for (; i < KEYBOARD_REPORT_BITS && !keyboard_report->nkro.bits[i]; i++)
+        for (; i < NKRO_REPORT_BITS && !keyboard_report->nkro.bits[i]; i++)
             ;
         return i << 3 | biton(keyboard_report->nkro.bits[i]);
     }
@@ -89,7 +89,7 @@ bool is_key_pressed(report_keyboard_t* keyboard_report, uint8_t key) {
     }
 #ifdef NKRO_ENABLE
     if (keyboard_protocol && keymap_config.nkro) {
-        if ((key >> 3) < KEYBOARD_REPORT_BITS) {
+        if ((key >> 3) < NKRO_REPORT_BITS) {
             return keyboard_report->nkro.bits[key >> 3] & 1 << (key & 7);
         } else {
             return false;
@@ -216,7 +216,7 @@ void del_key_byte(report_keyboard_t* keyboard_report, uint8_t code) {
  * FIXME: Needs doc
  */
 void add_key_bit(report_keyboard_t* keyboard_report, uint8_t code) {
-    if ((code >> 3) < KEYBOARD_REPORT_BITS) {
+    if ((code >> 3) < NKRO_REPORT_BITS) {
         keyboard_report->nkro.bits[code >> 3] |= 1 << (code & 7);
     } else {
         dprintf("add_key_bit: can't add: %02X\n", code);
@@ -228,7 +228,7 @@ void add_key_bit(report_keyboard_t* keyboard_report, uint8_t code) {
  * FIXME: Needs doc
  */
 void del_key_bit(report_keyboard_t* keyboard_report, uint8_t code) {
-    if ((code >> 3) < KEYBOARD_REPORT_BITS) {
+    if ((code >> 3) < NKRO_REPORT_BITS) {
         keyboard_report->nkro.bits[code >> 3] &= ~(1 << (code & 7));
     } else {
         dprintf("del_key_bit: can't del: %02X\n", code);

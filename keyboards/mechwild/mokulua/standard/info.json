@@ -22,8 +22,16 @@
         "tap_keycode_delay": 10
     },
     "split": {
-        "enabled": true,
-        "soft_serial_pin": "D3"
+        "enabled": true
+        "soft_serial_pin": "D3",
+        "transport": {
+            "sync": {
+                "indicators": true,
+                "layer_state": true,
+                "modifiers": true,
+                "oled": true
+            }
+        }
     },
     "rgblight": {
         "saturation_steps": 8,
