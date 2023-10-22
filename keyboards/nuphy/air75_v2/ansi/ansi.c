@@ -2,8 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "ansi.h"
 
-bool process_record_kb(uint16_t keycode, keyrecord_t *record)
-{
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) {
         return false;
     }
@@ -20,30 +19,25 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record)
     }
 }
 
-void dial_sw_scan(void)
-{
-    static uint8_t dial_scan = 0;
-    static uint8_t dial_save = 0xff;
-    static uint32_t dial_scan_timer = 0;
-
-    if (timer_elapsed32(dial_scan_timer) < 50) return;
-    dial_scan_timer = timer_read32();  // store time of last refresh
-
-    dial_scan = readPin(SYS_MODE_PIN);
-    if (dial_scan != dial_save) {
-        if (dial_scan) {
-            default_layer_set(1 << 0);  // MAC
-            keymap_config.nkro = 0;
-        } else {
-            default_layer_set(1 << 2);  // WIN
-            keymap_config.nkro = 1;
-        }
+bool dip_switch_update_kb(uint8_t index, bool active) {
+    if (!dip_switch_update_user(index, active)) {
+        return false;
     }
-    dial_save = dial_scan;
+    switch (index) {
+        case 0:
+            if (active) {
+                default_layer_set(1 << 2); // WIN
+                keymap_config.nkro = 1;
+            } else {
+                default_layer_set(1 << 0); // MAC
+                keymap_config.nkro = 0;
+            }
+            break;
+    }
+    return false;
 }
 
-void keyboard_post_init_kb(void)
-{
+void keyboard_post_init_kb(void) {
     setPinOutput(DRIVER_LED_CS_PIN);
     setPinOutput(DC_BOOST_PIN);
     setPinInputHigh(SYS_MODE_PIN);
@@ -52,10 +46,4 @@ void keyboard_post_init_kb(void)
     writePinHigh(DC_BOOST_PIN);
 
     keyboard_post_init_user();
-}
-
-void housekeeping_task_kb(void)
-{
-    dial_sw_scan();
-    housekeeping_task_user();
 }
