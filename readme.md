@@ -12,19 +12,24 @@ QMK is a keyboard firmware based on the [tmk\_keyboard firmware](https://github.
 
 I've used [Keyboard Layout Editor](www.keyboard-layout-editor.com) to create an image of my keyboard layout. 
 
-I'm currently using Dvorak and I added some custom keymaps.
+I'm currently using Dvorak and I added some custom keymaps to adapt my needs.
+
 ### Layer 0 
 
 Layer 0 is my base layer and it is where all my alpha keys are mapped.
+
 ![Dvorak Layer 0](dvorak-layer-0.jpg)
 
 ### Layer 1 
 
 Layer 1 is the **symbols** and **numbers** layout.
+
 ![Dvorak Layer 1](dvorak-layer-1.jpg)
 
 ### Layer 2
+
 Layer 2 is the **misc*** and **movement** layout. It include the ability to fully use the mouse without a mouse!
+
 ![Dvorak Layer 2](dvorak-layer-2.jpg)
 
 
