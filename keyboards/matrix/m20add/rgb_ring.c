@@ -396,7 +396,7 @@ void rgb_ring_task(void)
             break;
     };
 
-    is31fl3731_update_pwm_buffers(IS31FL3731_I2C_ADDRESS_1, 0);
+    is31fl3731_flush();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record)

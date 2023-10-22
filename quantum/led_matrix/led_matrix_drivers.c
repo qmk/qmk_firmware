@@ -249,159 +249,64 @@ static void init(void) {
 }
 
 #    if defined(LED_MATRIX_IS31FL3218)
-static void flush(void) {
-    is31fl3218_update_pwm_buffers();
-}
-
 const led_matrix_driver_t led_matrix_driver = {
     .init          = init,
-    .flush         = flush,
+    .flush         = is31fl3218_update_pwm_buffers,
     .set_value     = is31fl3218_set_value,
     .set_value_all = is31fl3218_set_value_all,
 };
 
 #    elif defined(LED_MATRIX_IS31FL3731)
-static void flush(void) {
-    is31fl3731_update_pwm_buffers(IS31FL3731_I2C_ADDRESS_1, 0);
-#        if defined(IS31FL3731_I2C_ADDRESS_2)
-    is31fl3731_update_pwm_buffers(IS31FL3731_I2C_ADDRESS_2, 1);
-#            if defined(IS31FL3731_I2C_ADDRESS_3)
-    is31fl3731_update_pwm_buffers(IS31FL3731_I2C_ADDRESS_3, 2);
-#                if defined(IS31FL3731_I2C_ADDRESS_4)
-    is31fl3731_update_pwm_buffers(IS31FL3731_I2C_ADDRESS_4, 3);
-#                endif
-#            endif
-#        endif
-}
-
 const led_matrix_driver_t led_matrix_driver = {
     .init = init,
-    .flush = flush,
+    .flush = is31fl3731_flush,
     .set_value = is31fl3731_set_value,
     .set_value_all = is31fl3731_set_value_all,
 };
 
 #    elif defined(LED_MATRIX_IS31FL3733)
-static void flush(void) {
-    is31fl3733_update_pwm_buffers(IS31FL3733_I2C_ADDRESS_1, 0);
-#        if defined(IS31FL3733_I2C_ADDRESS_2)
-    is31fl3733_update_pwm_buffers(IS31FL3733_I2C_ADDRESS_2, 1);
-#            if defined(IS31FL3733_I2C_ADDRESS_3)
-    is31fl3733_update_pwm_buffers(IS31FL3733_I2C_ADDRESS_3, 2);
-#                if defined(IS31FL3733_I2C_ADDRESS_4)
-    is31fl3733_update_pwm_buffers(IS31FL3733_I2C_ADDRESS_4, 3);
-#                endif
-#            endif
-#        endif
-}
-
 const led_matrix_driver_t led_matrix_driver = {
     .init = init,
-    .flush = flush,
+    .flush = is31fl3733_flush,
     .set_value = is31fl3733_set_value,
     .set_value_all = is31fl3733_set_value_all,
 };
 
 #    elif defined(LED_MATRIX_IS31FL3736)
-static void flush(void) {
-    is31fl3736_update_pwm_buffers(IS31FL3736_I2C_ADDRESS_1, 0);
-#        if defined(IS31FL3736_I2C_ADDRESS_2)
-    is31fl3736_update_pwm_buffers(IS31FL3736_I2C_ADDRESS_2, 1);
-#            if defined(IS31FL3736_I2C_ADDRESS_3)
-    is31fl3736_update_pwm_buffers(IS31FL3736_I2C_ADDRESS_3, 2);
-#                if defined(IS31FL3736_I2C_ADDRESS_4)
-    is31fl3736_update_pwm_buffers(IS31FL3736_I2C_ADDRESS_4, 3);
-#                endif
-#            endif
-#        endif
-}
-
 const led_matrix_driver_t led_matrix_driver = {
     .init = init,
-    .flush = flush,
+    .flush = is31fl3736_flush,
     .set_value = is31fl3736_set_value,
     .set_value_all = is31fl3736_set_value_all,
 };
 
 #    elif defined(LED_MATRIX_IS31FL3737)
-static void flush(void) {
-    is31fl3737_update_pwm_buffers(IS31FL3737_I2C_ADDRESS_1, 0);
-#        if defined(IS31FL3737_I2C_ADDRESS_2)
-    is31fl3737_update_pwm_buffers(IS31FL3737_I2C_ADDRESS_2, 1);
-#            if defined(IS31FL3737_I2C_ADDRESS_3)
-    is31fl3737_update_pwm_buffers(IS31FL3737_I2C_ADDRESS_3, 2);
-#                if defined(IS31FL3737_I2C_ADDRESS_4)
-    is31fl3737_update_pwm_buffers(IS31FL3737_I2C_ADDRESS_4, 3);
-#                endif
-#            endif
-#        endif
-}
-
 const led_matrix_driver_t led_matrix_driver = {
     .init = init,
-    .flush = flush,
+    .flush = is31fl3737_flush,
     .set_value = is31fl3737_set_value,
     .set_value_all = is31fl3737_set_value_all,
 };
 
 #    elif defined(LED_MATRIX_IS31FL3741)
-static void flush(void) {
-    is31fl3741_update_pwm_buffers(IS31FL3741_I2C_ADDRESS_1, 0);
-#        if defined(IS31FL3741_I2C_ADDRESS_2)
-    is31fl3741_update_pwm_buffers(IS31FL3741_I2C_ADDRESS_2, 1);
-#            if defined(IS31FL3741_I2C_ADDRESS_3)
-    is31fl3741_update_pwm_buffers(IS31FL3741_I2C_ADDRESS_3, 2);
-#                if defined(IS31FL3741_I2C_ADDRESS_4)
-    is31fl3741_update_pwm_buffers(IS31FL3741_I2C_ADDRESS_4, 3);
-#                endif
-#            endif
-#        endif
-}
-
 const led_matrix_driver_t led_matrix_driver = {
     .init = init,
-    .flush = flush,
+    .flush = is31fl3741_flush,
     .set_value = is31fl3741_set_value,
     .set_value_all = is31fl3741_set_value_all,
 };
 
 #    elif defined(IS31FLCOMMON)
-static void flush(void) {
-    IS31FL_common_update_pwm_register(DRIVER_ADDR_1, 0);
-#        if defined(LED_DRIVER_ADDR_2)
-    IS31FL_common_update_pwm_register(DRIVER_ADDR_2, 1);
-#            if defined(LED_DRIVER_ADDR_3)
-    IS31FL_common_update_pwm_register(DRIVER_ADDR_3, 2);
-#                if defined(LED_DRIVER_ADDR_4)
-    IS31FL_common_update_pwm_register(DRIVER_ADDR_4, 3);
-#                endif
-#            endif
-#        endif
-}
-
 const led_matrix_driver_t led_matrix_driver = {
     .init = init,
-    .flush = flush,
+    .flush = IS31FL_common_flush,
     .set_value = IS31FL_simple_set_brightness,
     .set_value_all = IS31FL_simple_set_brigntness_all,
 };
 #    elif defined(LED_MATRIX_SNLED27351)
-static void flush(void) {
-    snled27351_update_pwm_buffers(SNLED27351_I2C_ADDRESS_1, 0);
-#        if defined(SNLED27351_I2C_ADDRESS_2)
-    snled27351_update_pwm_buffers(SNLED27351_I2C_ADDRESS_2, 1);
-#            if defined(SNLED27351_I2C_ADDRESS_3)
-    snled27351_update_pwm_buffers(SNLED27351_I2C_ADDRESS_3, 2);
-#                if defined(SNLED27351_I2C_ADDRESS_4)
-    snled27351_update_pwm_buffers(SNLED27351_I2C_ADDRESS_4, 3);
-#                endif
-#            endif
-#        endif
-}
-
 const led_matrix_driver_t led_matrix_driver = {
     .init = init,
-    .flush = flush,
+    .flush = snled27351_flush,
     .set_value = snled27351_set_value,
     .set_value_all = snled27351_set_value_all,
 };

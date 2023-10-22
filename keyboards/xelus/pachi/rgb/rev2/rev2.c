@@ -232,13 +232,9 @@ static void init(void) {
     is31fl3741_update_led_control_registers(IS31FL3741_I2C_ADDRESS_1, 0);
 }
 
-static void flush(void) {
-    is31fl3741_update_pwm_buffers(IS31FL3741_I2C_ADDRESS_1, 0);
-}
-
 const rgb_matrix_driver_t rgb_matrix_driver = {
     .init = init,
-    .flush = flush,
+    .flush = is31fl3741_flush,
     .set_color = is31fl3741_set_color,
     .set_color_all = is31fl3741_set_color_all
 };
