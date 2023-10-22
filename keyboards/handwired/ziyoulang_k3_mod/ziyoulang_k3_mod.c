@@ -1,8 +1,8 @@
 // Copyright 2023 Coom (@coomstoolbox)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+#include "ziyoulang_k3_mod.h"
 #include <stdio.h>
-#include QMK_KEYBOARD_H
 #ifdef CONSOLE_ENABLE
    #include <print.h>
 #endif
