@@ -156,8 +156,7 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
             OPT_DEFS += -DSTM32_ADC -DHAL_USE_ADC=TRUE
             LIB_SRC += analog.c
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), azoteq_iqs5xx)
-            OPT_DEFS += -DSTM32_I2C -DHAL_USE_I2C=TRUE
-            QUANTUM_LIB_SRC += i2c_master.c
+            I2C_DRIVER_REQUIRED = yes
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), cirque_pinnacle_i2c)
             I2C_DRIVER_REQUIRED = yes
             SRC += drivers/sensors/cirque_pinnacle.c
