@@ -16,46 +16,8 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "features/casemodes.h"
-#include "features/compose.h"
+#include "pogues.h"
 
-enum userspace_layers {
-    LCMK = 0,
-    LSYM = 1,
-    LNUM = 2,
-    LFUN = 3,
-    LMOV = 4,
-#ifdef MOUSEKEY_ENABLE
-    LMSE = 5,
-#endif
-};
-
-// rename some keys here to allow for the difference in keymap between US and GB
-#define MY_PIPE LSFT(KC_NUBS)
-#define MY_TILD KC_PIPE
-#define MY_AT KC_DQUO
-#define MY_DQUO LSFT(KC_2)
-#define MY_GBP KC_HASH      // just shift-3
-#define ALT_TAB ALT_T(KC_TAB)
-
-// one shot mod and layer keys to make the map shorter
-#define OSM_ALT OSM(MOD_LALT)
-#define OSM_GUI OSM(MOD_LGUI)
-#define OSM_CTL OSM(MOD_LCTL)
-#define OSM_SFT OSM(MOD_LSFT)
-
-#define SFT_BSP SFT_T(KC_BSPC)
-#define CTL_SPC CTL_T(KC_SPC)
-
-#define CTL_W CTL_T(KC_W)
-#define CTL_Y CTL_T(KC_Y)
-#define SFT_Z SFT_T(KC_Z)
-#define SFT_SLS SFT_T(KC_SLSH)
-#define MOV_SPC LT(LMOV, KC_SPC)
-
-enum custom_keycodes {
-    MY_COMP = SAFE_RANGE,
-};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -67,8 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
          SFT_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM,  KC_DOT, SFT_SLS,
     //|--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
-                              //KC_LGUI, MO(LNUM), MOV_SPC,     SFT_BSP, MO(LSYM) , KC_LALT
-                                KC_LGUI, MOV_SPC, MO(LNUM),     MO(LSYM), SFT_BSP, KC_LALT
+                                KC_LGUI, OSL(LNUM), MOV_SPC,    SFT_BSP, OSL(LSYM), KC_LALT
                               //`--------------------------'  `--------------------------'
     ),
 
@@ -80,37 +41,49 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
         KC_EQL,  MY_GBP, KC_LCBR, KC_RCBR, KC_SLSH,                      KC_AMPR,   KC_LT,   KC_GT,  KC_DLR, KC_CIRC,
     //|--------+--------+--------+--------+--------|--------|  |--------+--------+--------+--------+--------+--------|
-                                 _______, CTL_SPC,  _______,     _______, _______, _______
+                                  _______, TO(LCMK), CTL_SPC,   _______, _______, _______
                                //`--------------------------'  `--------------------------'
     ),
 
     [LNUM] = LAYOUT_split_3x5_3(
     //,--------------------------------------------.                    ,--------------------------------------------.
-        KC_NO,   KC_NO, KC_UNDS,   KC_NO, KC_PERC,                       KC_PLUS,    KC_7,    KC_8,    KC_9, KC_BSPC,
+          KC_NO,  KC_INS, KC_UNDS,  KC_NO, KC_PERC,                       KC_PLUS,    KC_7,    KC_8,    KC_9, KC_BSPC,
     //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-       OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT, KC_ASTR,                      KC_MINS,    KC_4,    KC_5,    KC_6, KC_ASTR,
+       OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT, KC_ASTR,                       KC_MINS,    KC_4,    KC_5,    KC_6, KC_ASTR,
     //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
-          KC_NO,   KC_NO, KC_COMM,  KC_DOT, KC_SLSH,                      KC_EQL,    KC_1,    KC_2,    KC_3, KC_SLSH,
+         KC_NO,   KC_NO, KC_COMM,  KC_DOT, KC_SLSH,                        KC_EQL,    KC_1,    KC_2,    KC_3, KC_SLSH,
     //|--------+--------+--------+--------+--------|--------|  |--------+--------+--------+--------+--------+--------|
-                                 _______, _______,  _______,    _______,  KC_0, _______
+                                 _______, _______,  _______,      KC_0, TO(LCMK), _______
+                               //`--------------------------'  `--------------------------'
+    ),
+
+    [LFUN] = LAYOUT_split_3x5_3(
+    //,--------------------------------------------.                    ,--------------------------------------------.
+         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                       KC_F10,   KC_F7,   KC_F8,   KC_F9, KC_NO,
+    //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
+       OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT,   KC_NO,                       KC_F11,   KC_F4,   KC_F5,   KC_F6, KC_NO,
+    //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
+         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                       KC_F12,   KC_F1,   KC_F2,   KC_F3, KC_NO,
+    //|--------+--------+--------+--------+--------|--------|  |--------+--------+--------+--------+--------+--------|
+                                 _______, TO(LCMK),  CTL_SPC,    _______, TO(LCMK), _______
                                //`--------------------------'  `--------------------------'
     ),
 
     [LMOV] = LAYOUT_split_3x5_3(
     //,--------------------------------------------.                    ,--------------------------------------------.
-        XXXXXXX, ALT_TAB, RGB_VAD, RGB_VAI, RGB_TOG,                     KC_PGUP, KC_HOME,   KC_UP,  KC_END,  KC_DEL,
+        XXXXXXX, ALT_TAB,  KC_NO,   KC_NO,   KC_NO,                     KC_PGUP, KC_HOME,   KC_UP,  KC_END,  KC_DEL,
     //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
        OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT,   KC_NO,                      KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT,  KC_ENT,
     //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
         C(KC_Z), C(KC_X), C(KC_C),   KC_NO, C(KC_V),                       KC_NO,  KC_TAB, KC_PGDN, KC_PGUP,   KC_NO,
     //|--------+--------+--------+--------+--------|--------|  |--------+--------+--------+--------+--------+--------|
-                                  _______, _______,  KC_NO,      KC_NO, _______, _______
+                                  _______,  KC_NO, _______,      _______, KC_NO, _______
                                //`--------------------------'  `--------------------------'
     ),
 #ifdef MOUSEKEY_ENABLE
     [LMSE] = LAYOUT_split_3x5_3(
     //,--------------------------------------------.                    ,--------------------------------------------.
-        TO(LCMK),  KC_ESC,  KC_TAB,   KC_NO,   KC_NO,                      KC_NO,   KC_NO, KC_MS_U,   KC_NO,  KC_DEL,
+         KC_NO,  KC_ESC,  KC_TAB,   KC_NO,   KC_NO,                      KC_NO,   KC_NO, KC_MS_U,   KC_NO,  KC_DEL,
     //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
        OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT,   KC_NO,                      KC_WH_U, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D,
     //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
@@ -128,6 +101,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  ******************************************************************************/
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+    if (!process_achordion(keycode, record)) {
+        return false;
+    }
     if (!process_compose(keycode, record, MY_COMP)) {
         return false;
     }
@@ -136,6 +112,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     }
 
     return true;
+}
+
+
+void matrix_scan_user(void) {
+    achordion_task();
 }
 
 
@@ -155,10 +136,12 @@ enum combo_keys {
     UY_DEL,
     HCOM_ENT,
     JY_CTLBSP,
+    DOTSLSH_COMPOSE,
 
     // both hands, not using pl / fu any more due to typing mishits
     // moved movement (fu) to left thumb hold and function to tri state
-    WY_LMSE,
+    WY_LFUN,
+    SS_LMSE,
 
     COMBO_LENGTH
 };
@@ -166,11 +149,14 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM combo_esc[] = {CTL_W, KC_F, COMBO_END};
 const uint16_t PROGMEM combo_tab[] = {KC_C, KC_D, COMBO_END};
+const uint16_t PROGMEM combo_reset[] = {KC_ESC, KC_TAB, COMBO_END};
 const uint16_t PROGMEM combo_del[] = {KC_U, CTL_Y, COMBO_END};
 const uint16_t PROGMEM combo_ent[] = {KC_H, KC_COMM, COMBO_END};
 const uint16_t PROGMEM combo_bspc[] = {KC_J, CTL_Y, COMBO_END};
 const uint16_t PROGMEM combo_q[] = {SFT_Z, KC_X, COMBO_END};
-const uint16_t PROGMEM combo_mouse[] = {CTL_W, CTL_Y, COMBO_END};
+const uint16_t PROGMEM combo_compose[] = {KC_DOT, SFT_SLS, COMBO_END};
+const uint16_t PROGMEM combo_function[] = {CTL_W, CTL_Y, COMBO_END};
+const uint16_t PROGMEM combo_mouse[] = {SFT_Z, SFT_SLS, COMBO_END};
 
 combo_t key_combos[] = {
     [WF_ESC] = COMBO(combo_esc, KC_ESC),
@@ -180,171 +166,15 @@ combo_t key_combos[] = {
     [UY_DEL] = COMBO(combo_del, KC_DEL),
     [HCOM_ENT] = COMBO(combo_ent, KC_ENT),
     [JY_CTLBSP] = COMBO(combo_bspc, LCTL(KC_BSPC)),
+    [DOTSLSH_COMPOSE] = COMBO(combo_compose, MY_COMP),
+    [WY_LFUN] = COMBO(combo_function, TO(LFUN)),
 #ifdef MOUSEKEY_ENABLE
-    [WY_LMSE] = COMBO(combo_mouse, TO(LMSE)),
+    [SS_LMSE] = COMBO(combo_mouse, TO(LMSE)),
+    [RESET_COMBO] = COMBO(combo_reset, QK_BOOTLOADER),
 #endif
 };
 
 /******************************************************************************
  * combo keys end
- ******************************************************************************/
-
-/******************************************************************************
- * compose key mapping function
- ******************************************************************************/
-uint8_t compose_mapping(uint16_t* sequence, uint8_t sequence_len) {
-    // NOTE that the COMPOSE_MAPPING will return if there is a full or partial
-    // match to the sequence.
-
-    /**********************************************************************
-     * general
-     *********************************************************************/
-    // caps word
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_C),
-        { toggle_caps_word(); }
-    )
-
-    // quit dwm
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_Q),
-        { SEND_STRING(SS_LGUI(SS_LSFT("q"))); }
-    )
-
-    /**********************************************************************
-     * copy paste
-     *********************************************************************/
-    // copy all
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_A, KC_C),
-        { SEND_STRING(SS_LCTL("ac")); }
-    )
-    // cut all
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_A, KC_X),
-        { SEND_STRING(SS_LCTL("ax")); }
-    )
-    // paste
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_A, KC_P),
-        { SEND_STRING(SS_LCTL("v")); }
-    )
-
-    /**********************************************************************
-     * qzdev
-     *********************************************************************/
-    // open a file
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_O),
-        { SEND_STRING(SS_LCTL(SS_LSFT("o"))); }
-    )
-
-    /**********************************************************************
-     * qzdev diff
-     *********************************************************************/
-    // diff current
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_D, KC_C),
-        { SEND_STRING(SS_LCTL(SS_LSFT("g"))); }
-    )
-    // diff approved
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_D, KC_A),
-        { SEND_STRING(SS_LCTL(SS_LSFT("v"))); }
-    )
-    // diff prod
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_D, KC_P),
-        { SEND_STRING(SS_LCTL(SS_LSFT("p"))); }
-    )
-    // diff head
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_D, KC_H),
-        { SEND_STRING(SS_LCTL(SS_LSFT("e"))); }
-    )
-    // diff against version
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_D, KC_V),
-        { SEND_STRING(SS_LCTL(SS_LSFT("d"))); }
-    )
-
-    /**********************************************************************
-     * qzdev vc
-     *********************************************************************/
-    // vc blame
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_V, KC_B),
-        { SEND_STRING(SS_LCTL(SS_LSFT("b"))); }
-    )
-
-    // vc log
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_V, KC_L),
-        { SEND_STRING(SS_LCTL(SS_LSFT("l"))); }
-    )
-
-    // vc commit
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_V, KC_C),
-        { SEND_STRING(SS_LCTL(SS_LSFT("c"))); }
-    )
-
-    // vc request review
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_V, KC_R),
-        { SEND_STRING(SS_LCTL(SS_LSFT("w"))); }
-    )
-
-    // push to
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_V, KC_P),
-        { SEND_STRING(SS_LCTL(SS_LSFT("s"))); }
-    )
-
-    // vc update
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_V, KC_U),
-        { SEND_STRING(SS_LCTL(SS_LSFT("u"))); }
-    )
-
-    /**********************************************************************
-     * qzdev run test
-     *********************************************************************/
-    // run test function
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_T, KC_F),
-        { SEND_STRING(SS_LCTL(SS_TAP(X_F10))); }
-    )
-    // run test class
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_T, KC_C),
-        { SEND_STRING(SS_LCTL(SS_LSFT(SS_TAP(X_F10)))); }
-    )
-    // run test module
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_T, KC_S),
-        { SEND_STRING(SS_LCTL(SS_LALT(SS_TAP(X_F10)))); }
-    )
-
-    /**********************************************************************
-     * qzdev run
-     *********************************************************************/
-    // run script
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_R, KC_S),
-        { tap_code(KC_F9); }
-    )
-    // run script with restart
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_R, KC_R),
-        { SEND_STRING(SS_LCTL(SS_TAP(X_F9))); }
-    )
-
-    return COMPOSE_ERROR;
-}
-
-
-/******************************************************************************
- * compose end
  ******************************************************************************/
 
