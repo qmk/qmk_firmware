@@ -1,7 +1,0 @@
-RGB_MATRIX_EFFECT(STARTUP_SWIRL_ANIM)
-
-#ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
-
-#include "lib/startup_swirl_anim.h"
-
-#endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS

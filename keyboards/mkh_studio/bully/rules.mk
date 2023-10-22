@@ -1,1 +1,0 @@
-DFU_SUFFIX_ARGS = -p FFFF -v FFFF # allow for APM32 MCU
