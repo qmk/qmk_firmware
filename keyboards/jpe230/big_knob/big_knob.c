@@ -22,9 +22,11 @@ void keyboard_post_init_kb(void) {
     qp_init(lcd, LCD_ROTATION);
 
     // Invert Colour
+    #ifdef LCD_INVERT_COLOUR
     qp_comms_start(lcd);
     qp_comms_command(lcd, ST77XX_CMD_INVERT_ON);
     qp_comms_stop(lcd);
+    #endif
 
     // Apply Offset
     qp_set_viewport_offsets(lcd, LCD_OFFSET_X, LCD_OFFSET_Y);
