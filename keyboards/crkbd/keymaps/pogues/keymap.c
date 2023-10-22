@@ -43,18 +43,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,  KC_EQL,  MY_GBP, KC_LCBR, KC_RCBR, KC_SLSH,                      KC_AMPR,   KC_LT,   KC_GT,  KC_DLR, KC_CIRC, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                               _______,   KC_NO, CTL_SPC,     _______,  _______, _______
+                                               _______,TO(LCMK), CTL_SPC,     _______,  _______, _______
                                             //`--------------------------'  `--------------------------'
     ),
     [LNUM] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
             XXXXXXX, XXXXXXX,  KC_INS, KC_UNDS,   KC_NO, KC_PERC,                      KC_PLUS,    KC_7,    KC_8,    KC_9, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-              KC_NO, OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT, KC_ASTR,                      KC_MINS,    KC_4,    KC_5,    KC_6, KC_ASTR, KC_PERC,
+              KC_NO, OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT, KC_ASTR,                      KC_MINS,    KC_4,    KC_5,    KC_6, KC_ASTR, KC_BSPC,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX, KC_BSPC,  KC_SPC, KC_COMM,  KC_DOT, KC_SLSH,                       KC_EQL,    KC_1,    KC_2,    KC_3, KC_SLSH, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              _______, _______,  _______,     KC_0,   KC_NO, _______
+                                              _______, _______,  _______,     KC_0,TO(LCMK), _______
                                             //`--------------------------'  `--------------------------'
     ),
     [LFUN] = LAYOUT_split_3x6_3(
@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                       KC_F12,   KC_F1,   KC_F2,   KC_F3,   KC_NO, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              _______, TO(LCMK),   KC_SPC,     _______, TO(LCMK), _______
+                                              _______, TO(LCMK),  CTL_SPC,     _______, TO(LCMK), _______
                                             //`--------------------------'  `--------------------------'
     ),
     [LMOV] = LAYOUT_split_3x6_3(
@@ -119,108 +119,6 @@ void matrix_scan_user(void) {
     achordion_task();
 }
 
-/*******************************************************************************
- * quick tap term keys (requires QUICK_TAP_TERM_PER_KEY set) a return of non 0
- * will enable tap then hold to autorepeat (which I generally dont want) but this
- * is required to get the ONESHOT_TAP_TOGGLE working
- *******************************************************************************/
-uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case OSM_SFT:
-        case OSM_CTL:
-        case OSM_GUI:
-        case OSM_ALT:
-        case OSL(LNUM):
-        case OSL(LSYM):
-            // make the one shot mod tap toggle work...
-            return QUICK_TAP_TERM;
-        default:
-            // all others off (so the hold key is done on tap/hold rather than autorepeat)
-            return 0;
-    }
-}
-
-/*******************************************************************************
- * hold on other key (requires HOLD_ON_OTHER_KEY_PER_KEY set) a return of true
- * will mean that the hold action is triggered as soon as another key is pressed
- * (so D(k) D(anything) U(k) will cause hold_k and anything to be pressed)
- * a return of false will use the default behaviour from other settings
- *******************************************************************************/
-bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case MOV_SPC:
-        case SFT_BSP:
-            // Immediately select the hold action when another key is pressed.
-            // for the shift mod and mov layer
-            return true;
-        default:
-            // Do not select the hold action when another key is pressed.
-            return false;
-    }
-}
-
-/********************************************************************************
- * achordion configuration
- ********************************************************************************/
-
-/********************************************************************************
- * achordion_chord is called as the main config point.  return true to decide the
- * action as hold, false for a tap.
- ********************************************************************************/
-bool achordion_chord(
-    uint16_t tap_hold_keycode,
-    keyrecord_t* tap_hold_record,
-    uint16_t other_keycode,
-    keyrecord_t* other_record
-) {
-    switch (tap_hold_keycode) {
-        // shift and movement layer are on tap-hold keys and we want the hold to take
-        // precedence even on same hands
-        case MOV_SPC:
-        case SFT_BSP:
-            return true;
-            break;
-
-        // for the top right control we want "y " to take precedence over ctrl-space
-        // and ctrl-v to take precedence over "yv"
-        case CTL_Y:
-            if (other_keycode == MOV_SPC) { return false; }
-            if (other_keycode == KC_V) {return true; }
-            break;
-    }
-
-    // Otherwise, follow the opposite hands rule.
-    return achordion_opposite_hands(tap_hold_record, other_record);
-}
-
-// let achordion run for 800ms only
-uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
-    // switch (tap_hold_keycode) {
-    //     case HOME_SC:
-    //     case HOME_Z:
-    //         return 0;  // Bypass Achordion for these keys.
-    // }
-
-    return 800;  // Otherwise use a timeout of 800 ms.
-}
-
-// achordion_eager_mod determines which mods are applied while waiting for the tap-hold
-// to be resolved.  useful for ctrl-click for instance
-bool achordion_eager_mod(uint8_t mod) {
-    switch (mod) {
-      // Eagerly apply Shift and Ctrl mods.
-      case MOD_LSFT:
-      case MOD_RSFT:
-      case MOD_LCTL:
-      case MOD_RCTL:
-          return true;
-
-      default:
-          return false;
-  }
-}
-
-
 /******************************************************************************
  * combo keys
  ******************************************************************************/
@@ -240,7 +138,7 @@ enum combo_keys {
 
     // both hands, not using pl / fu any more due to typing mishits
     WY_LFUN,
-    GM_LMSE,
+    SS_LMSE,
 
     COMBO_LENGTH
 };
@@ -268,7 +166,7 @@ combo_t key_combos[] = {
     [DOTSLSH_COMPOSE] = COMBO(combo_compose, MY_COMP),
     [WY_LFUN] = COMBO(combo_function, TO(LFUN)),
 #ifdef MOUSEKEY_ENABLE
-    [GM_LMSE] = COMBO(combo_mouse, TO(LMSE)),
+    [SS_LMSE] = COMBO(combo_mouse, TO(LMSE)),
     [RESET_COMBO] = COMBO(combo_reset, QK_BOOTLOADER),
 #endif
 };

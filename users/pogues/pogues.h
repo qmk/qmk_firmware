@@ -11,7 +11,9 @@ enum userspace_layers {
     LNUM = 2,
     LFUN = 3,
     LMOV = 4,
+#ifdef MOUSEKEY_ENABLE
     LMSE = 5,
+#endif
 };
 
 // rename some keys here to allow for the difference in keymap between US and GB
