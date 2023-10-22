@@ -18,6 +18,7 @@ You will also likely need to select an appropriate driver in `rules.mk`, which i
 The QMK CLI can be used to convert from normal images such as PNG files or animated GIFs, as well as fonts from TTF files.
 
 Supported devices:
+
 | Display Panel | Panel Type         | Size             | Comms Transport | Driver                                   |
 |---------------|--------------------|------------------|-----------------|------------------------------------------|
 | GC9A01        | RGB LCD (circular) | 240x240          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += gc9a01_spi`  |
