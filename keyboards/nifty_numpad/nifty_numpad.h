@@ -39,7 +39,7 @@ enum custom_keycodes {
     RGB_DEF = SAFE_RANGE,
     RGB_IEF
 };
-#define LAYER_RGB 15
+#define LAYER_RGB (MAX_LAYER - 1)
 
 #ifdef RGB_IDLE_ENABLE
 // Custom keycode declarations

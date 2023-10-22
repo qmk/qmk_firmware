@@ -3,18 +3,10 @@
 
 #include QMK_KEYBOARD_H
 
-// Layer defines. Using defines instead of enums here to force the RGB
-// layer to be 3–this should be more convenient for creating custom
-// layers in VIA
-#define _LAYER_BL  0
-
-// Define the RGB settings layer if it's not defined. 
-// NOTE: If you want to use idle RGB mode with VIA, you may need to either enable more than 4 layers in VIA or change
-// LAYER_RGB to 3 in nifty_numpad.h
-#ifdef LAYER_RGB
-#undef LAYER_RGB
-#endif
-#define LAYER_RGB 3
+// NOTE: LAYER_RGB is defined in nifty_numpad.h
+enum LAYERS {
+    LAYER_BL = 0,
+};
 
 // Setup keymap
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -38,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │F18│F24│  │ 0     │ . │   │
      * └───┴───┘  └───────┴───┴───┘
      */
-    [_LAYER_BL] = LAYOUT_numpad_6x6(
+    [LAYER_BL] = LAYOUT_numpad_6x6(
         KC_F13, KC_F19,    LT(LAYER_RGB, KC_BSPC), RGUI(KC_TAB), RGUI(KC_E), RGUI(RSFT(KC_S)),
         KC_F14, KC_F20,    MT(MOD_RCTL, KC_NUM),    KC_PSLS,      KC_PAST,    KC_PMNS,
         KC_F15, KC_F21,    KC_P7,                   KC_P8,        KC_P9,      KC_PPLS,

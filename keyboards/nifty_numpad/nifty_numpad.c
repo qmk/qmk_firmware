@@ -28,7 +28,6 @@ typedef struct {
     rgb_matrix_state_t idle_rgb_matrix;
 } kb_config_t;
 
-static uint32_t idle_timer = 0; 
 bool rgb_idle_mode = false;
 bool rgb_idle_edit_mode = false;
 static rgb_matrix_state_t active_rgb_matrix;
@@ -56,20 +55,18 @@ void rgb_matrix_state_restore(rgb_matrix_state_t* state){
 }
 #endif
 
-void matrix_scan_kb(void) {
+void housekeeping_task_kb(void) {
 
     #ifdef RGB_IDLE_ENABLE
     // Check if enough time has passed since last keypress to go into idle mode
-    if ( timer_elapsed32(idle_timer) > RGB_IDLE_TIMEOUT_MS && !rgb_idle_mode ) {
+    if ( last_input_activity_elapsed() > RGB_IDLE_TIMEOUT_MS && !rgb_idle_mode ) {
         rgb_matrix_state_save(&active_rgb_matrix);
         rgb_idle_mode = true;
-        idle_timer = timer_read32();
 
         rgb_matrix_state_restore(&idle_rgb_matrix);
     }
     #endif
 
-    matrix_scan_user();
 };
 
 
@@ -108,7 +105,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     #ifdef RGB_IDLE_ENABLE
     // If we were idling and a key was pressed, restore active RGB
     if (record->event.pressed) {
-        idle_timer = timer_read32();
         if(rgb_idle_mode){
             rgb_matrix_state_restore(&active_rgb_matrix);
             rgb_idle_mode = false;
@@ -214,8 +210,6 @@ void keyboard_post_init_kb(void) {
     idle_rgb_matrix = config.idle_rgb_matrix;
     // Restore the active matrix
     rgb_matrix_state_restore(&active_rgb_matrix);
-    // Start the idle timer for idle mode
-    idle_timer = timer_read32();
     #endif
 
     keyboard_post_init_user();

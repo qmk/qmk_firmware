@@ -20,7 +20,7 @@
 #define STR_MOVE          "m"
 
 // Layers. 
-// NOTE: Layer 15 is reserved for RGB layer and is defined in nifty_numpad.h
+// NOTE: LAYER_RGB is defined in nifty_numpad.h
 enum LAYERS {
     LAYER_BL,
     LAYER_CAD,
