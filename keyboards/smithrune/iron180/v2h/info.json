@@ -1,20 +1,20 @@
 {
-    "keyboard_name": "Iron180 Sv2",
+    "keyboard_name": "Iron180H v2",
     "manufacturer": "SmithRune",
     "url": "",
     "maintainer": "Gondolindrim",
     "usb": {
         "vid": "0x8384",
-        "pid": "0x1181",
+        "pid": "0x1182",
         "device_version": "0.0.1"
     },
     "matrix_pins": {
-        "cols": ["C7" , "C6" , "B15", "B14", "B13", "B12", "B10", "B3" , "D2" , "B0" , "C5" , "C12", "C10", "A10", "A15", "C0" , "C1" , "A7"],
-        "rows": ["B4" , "C11", "A8" , "C9" , "B1" , "C4" , "B5" , "B6"]
+        "cols": ["C8" , "C7" , "C6" , "B15", "B14", "B13", "B12", "B3" , "D2" , "B1" , "B0" , "C12", "C10", "A10", "A15", "C0" , "C1" , "C4"],
+        "rows": ["B4" , "C11", "A8" , "C9" , "B10", "C5" , "B5" , "B6"]
     },
     "features": {
         "audio": false,
-        "backlight": true,
+        "backlight": false,
         "bootmagic": true,
         "command": false,
         "console": false,
@@ -24,18 +24,12 @@
         "mousekey": true,
         "nkro": true,
         "rgblight": false
-    },  
-    "diode_direction": "COL2ROW",
-    "backlight": {
-        "pin": "C8",
-        "levels": 20,
-        "breathing": false,
-        "as_caps_lock": true
     },
+    "diode_direction": "COL2ROW",
     "processor": "STM32F401",
     "bootloader": "stm32-dfu",
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
 
@@ -111,11 +105,9 @@
                 {"label": "L", "matrix": [3, 9], "x": 9.75, "y": 3.25},
                 {"label": ";", "matrix": [3, 10], "x": 10.75, "y": 3.25},
                 {"label": "'", "matrix": [3, 11], "x": 11.75, "y": 3.25},
-                {"label": "#", "matrix": [3, 12], "x": 12.75, "y": 3.25},
                 {"label": "Enter", "matrix": [3, 13], "x": 13.75, "y": 3.25, "w": 1.25},
 
                 {"label": "Shift", "matrix": [4, 0], "x": 0, "y": 4.25, "w": 1.25},
-                {"label": "\\", "matrix": [4, 1], "x": 1.25, "y": 4.25},
                 {"label": "Z", "matrix": [4, 2], "x": 2.25, "y": 4.25},
                 {"label": "X", "matrix": [4, 3], "x": 3.25, "y": 4.25},
                 {"label": "C", "matrix": [4, 4], "x": 4.25, "y": 4.25},
