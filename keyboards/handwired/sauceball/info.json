@@ -10,9 +10,7 @@
         "console": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "debug_mouse": true,
-        "debug_enable": true
+        "nkro": true
     },
     "matrix_pins": {
         "cols": ["F4", "F5", "F6", "F7"],
