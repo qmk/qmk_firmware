@@ -167,5 +167,5 @@ static void ap2_ble_extra(report_extra_t *report) {
 static void ap2_ble_keyboard(report_keyboard_t *report) {
     sdPut(&SD1, 0x0);
     sdWrite(&SD1, ble_mcu_send_report, sizeof(ble_mcu_send_report));
-    sdWrite(&SD1, &report->raw[0], KEYBOARD_REPORT_SIZE);
+    sdWrite(&SD1, (uint8_t *)report, KEYBOARD_REPORT_SIZE);
 }

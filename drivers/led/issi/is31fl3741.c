@@ -173,9 +173,9 @@ void is31fl3741_init(uint8_t addr) {
 }
 
 void is31fl3741_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
-    is31_led led;
+    is31fl3741_led_t led;
     if (index >= 0 && index < RGB_MATRIX_LED_COUNT) {
-        memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
+        memcpy_P(&led, (&g_is31fl3741_leds[index]), sizeof(led));
 
         if (g_pwm_buffer[led.driver][led.r] == red && g_pwm_buffer[led.driver][led.g] == green && g_pwm_buffer[led.driver][led.b] == blue) {
             return;
@@ -194,8 +194,8 @@ void is31fl3741_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void is31fl3741_set_led_control_register(uint8_t index, bool red, bool green, bool blue) {
-    is31_led led;
-    memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
+    is31fl3741_led_t led;
+    memcpy_P(&led, (&g_is31fl3741_leds[index]), sizeof(led));
 
     if (red) {
         g_scaling_registers[led.driver][led.r] = 0xFF;
@@ -230,7 +230,7 @@ void is31fl3741_update_pwm_buffers(uint8_t addr, uint8_t index) {
     g_pwm_buffer_update_required[index] = false;
 }
 
-void is31fl3741_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green, uint8_t blue) {
+void is31fl3741_set_pwm_buffer(const is31fl3741_led_t *pled, uint8_t red, uint8_t green, uint8_t blue) {
     g_pwm_buffer[pled->driver][pled->r] = red;
     g_pwm_buffer[pled->driver][pled->g] = green;
     g_pwm_buffer[pled->driver][pled->b] = blue;
@@ -262,7 +262,7 @@ void is31fl3741_update_led_control_registers(uint8_t addr, uint8_t index) {
     }
 }
 
-void is31fl3741_set_scaling_registers(const is31_led *pled, uint8_t red, uint8_t green, uint8_t blue) {
+void is31fl3741_set_scaling_registers(const is31fl3741_led_t *pled, uint8_t red, uint8_t green, uint8_t blue) {
     g_scaling_registers[pled->driver][pled->r] = red;
     g_scaling_registers[pled->driver][pled->g] = green;
     g_scaling_registers[pled->driver][pled->b] = blue;

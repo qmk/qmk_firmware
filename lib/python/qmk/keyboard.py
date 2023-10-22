@@ -1,6 +1,7 @@
 """Functions that help us work with keyboards.
 """
 from array import array
+from functools import lru_cache
 from math import ceil
 from pathlib import Path
 import os
@@ -91,8 +92,11 @@ def keyboard_folder(keyboard):
     """
     aliases = json_load(Path('data/mappings/keyboard_aliases.hjson'))
 
-    if keyboard in aliases:
+    while keyboard in aliases:
+        last_keyboard = keyboard
         keyboard = aliases[keyboard].get('target', keyboard)
+        if keyboard == last_keyboard:
+            break
 
     rules_mk_file = Path(base_path, keyboard, 'rules.mk')
 
@@ -144,6 +148,7 @@ def list_keyboards(resolve_defaults=True):
     return sorted(set(found))
 
 
+@lru_cache(maxsize=None)
 def resolve_keyboard(keyboard):
     cur_dir = Path('keyboards')
     rules = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk')

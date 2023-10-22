@@ -25,7 +25,7 @@
 #ifdef RGB_MATRIX_ENABLE
 rgb_led_t rgb_matrix_ws2812_array[WS2812_LED_TOTAL];
 
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -167,22 +167,22 @@ led_config_t g_led_config = { {
 //Custom Driver
 static void init(void) {
     i2c_init();
-    is31fl3731_init(DRIVER_ADDR_1);
-    is31fl3731_init(DRIVER_ADDR_2);
+    is31fl3731_init(IS31FL3731_I2C_ADDRESS_1);
+    is31fl3731_init(IS31FL3731_I2C_ADDRESS_2);
     for (int index = 0; index < ISSI_DRIVER_TOTAL; index++) {
         bool enabled = true;
         is31fl3731_set_led_control_register(index, enabled, enabled, enabled);
     }
-    is31fl3731_update_led_control_registers(DRIVER_ADDR_1, 0);
-    is31fl3731_update_led_control_registers(DRIVER_ADDR_2, 1);
+    is31fl3731_update_led_control_registers(IS31FL3731_I2C_ADDRESS_1, 0);
+    is31fl3731_update_led_control_registers(IS31FL3731_I2C_ADDRESS_2, 1);
     
     //RGB Underglow ws2812
     
 }
 
 static void flush(void) {
-    is31fl3731_update_pwm_buffers(DRIVER_ADDR_1, 0);
-    is31fl3731_update_pwm_buffers(DRIVER_ADDR_2, 1);
+    is31fl3731_update_pwm_buffers(IS31FL3731_I2C_ADDRESS_1, 0);
+    is31fl3731_update_pwm_buffers(IS31FL3731_I2C_ADDRESS_2, 1);
     ws2812_setleds(rgb_matrix_ws2812_array, WS2812_LED_TOTAL);
 }
 

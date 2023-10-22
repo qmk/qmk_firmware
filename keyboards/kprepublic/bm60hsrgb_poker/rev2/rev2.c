@@ -21,7 +21,7 @@
 #    include "is31fl3733.h"
 #    include "ws2812.h"
 
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3733_led_t PROGMEM g_is31fl3733_leds[RGB_MATRIX_LED_COUNT] = {
     { 0, B_1, A_1, C_1 },
     { 0, B_2, A_2, C_2 },
     { 0, B_3, A_3, C_3 },
@@ -149,16 +149,16 @@ rgb_led_t rgb_matrix_ws2812_array[WS2812_LED_TOTAL];
 
 static void rgb_matrix_driver_init(void) {
     i2c_init();
-    is31fl3733_init(DRIVER_ADDR_1, 0);
+    is31fl3733_init(IS31FL3733_I2C_ADDRESS_1, 0);
     for (uint8_t index = 0; index < ISSI_LED_TOTAL; index++) {
         bool enabled = true;
         is31fl3733_set_led_control_register(index, enabled, enabled, enabled);
     }
-    is31fl3733_update_led_control_registers(DRIVER_ADDR_1, 0);
+    is31fl3733_update_led_control_registers(IS31FL3733_I2C_ADDRESS_1, 0);
 }
 
 static void rgb_matrix_driver_flush(void) {
-    is31fl3733_update_pwm_buffers(DRIVER_ADDR_1, 0);
+    is31fl3733_update_pwm_buffers(IS31FL3733_I2C_ADDRESS_1, 0);
 #    if WS2812_LED_TOTAL > 0
     ws2812_setleds(rgb_matrix_ws2812_array, WS2812_LED_TOTAL);
 #    endif

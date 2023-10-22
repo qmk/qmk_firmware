@@ -72,7 +72,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
-#    define DRIVER_ADDR_1 IS31FL3741_I2C_ADDRESS_GND
+#    define IS31FL3741_I2C_ADDRESS_1 IS31FL3741_I2C_ADDRESS_GND
 #    define IS31FL3741_DRIVER_COUNT 1
 #    define DRIVER_1_LED_TOTAL 98
 #    define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL

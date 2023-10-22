@@ -22,6 +22,18 @@
 #include "progmem.h"
 
 // ======== DEPRECATED DEFINES - DO NOT USE ========
+#ifdef DRIVER_ADDR_1
+#    define IS31FL3736_I2C_ADDRESS_1 DRIVER_ADDR_1
+#endif
+#ifdef DRIVER_ADDR_2
+#    define IS31FL3736_I2C_ADDRESS_2 DRIVER_ADDR_2
+#endif
+#ifdef DRIVER_ADDR_3
+#    define IS31FL3736_I2C_ADDRESS_3 DRIVER_ADDR_3
+#endif
+#ifdef DRIVER_ADDR_4
+#    define IS31FL3736_I2C_ADDRESS_4 DRIVER_ADDR_4
+#endif
 #ifdef DRIVER_COUNT
 #    define IS31FL3736_DRIVER_COUNT DRIVER_COUNT
 #endif
@@ -40,6 +52,9 @@
 #ifdef ISSI_GLOBALCURRENT
 #    define IS31FL3736_GLOBALCURRENT ISSI_GLOBALCURRENT
 #endif
+
+#define is31_led is31fl3736_led_t
+#define g_is31_leds g_is31fl3736_leds
 
 #define PUR_0R IS31FL3736_PUR_0R
 #define PUR_05KR IS31FL3736_PUR_05KR
@@ -68,14 +83,14 @@
 #define IS31FL3736_I2C_ADDRESS_VCC_SDA 0x5E
 #define IS31FL3736_I2C_ADDRESS_VCC_VCC 0x5F
 
-typedef struct is31_led {
+typedef struct is31fl3736_led_t {
     uint8_t driver : 2;
     uint8_t r;
     uint8_t g;
     uint8_t b;
-} __attribute__((packed)) is31_led;
+} __attribute__((packed)) is31fl3736_led_t;
 
-extern const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT];
+extern const is31fl3736_led_t PROGMEM g_is31fl3736_leds[RGB_MATRIX_LED_COUNT];
 
 void is31fl3736_init(uint8_t addr);
 void is31fl3736_write_register(uint8_t addr, uint8_t reg, uint8_t data);
@@ -85,10 +100,6 @@ void is31fl3736_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
 void is31fl3736_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
 
 void is31fl3736_set_led_control_register(uint8_t index, bool red, bool green, bool blue);
-
-void is31fl3736_mono_set_brightness(int index, uint8_t value);
-void is31fl3736_mono_set_brightness_all(uint8_t value);
-void is31fl3736_mono_set_led_control_register(uint8_t index, bool enabled);
 
 // This should not be called from an interrupt
 // (eg. from a timer interrupt).

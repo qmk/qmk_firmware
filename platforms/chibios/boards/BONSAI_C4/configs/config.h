@@ -66,7 +66,7 @@
 #endif
 
 // WS2812-style LED control on pin A10
-#ifdef WS2812_DRIVER_PWM
+#ifdef WS2812_PWM
 #    ifndef WS2812_DI_PIN
 #        define WS2812_DI_PIN PAL_LINE(GPIOA, 10)
 #    endif
