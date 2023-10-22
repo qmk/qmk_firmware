@@ -19,11 +19,11 @@
 #define STR_PAM           "pam"
 #define STR_MOVE          "m"
 
-// Layers 
+// Layers. 
+// NOTE: Layer 15 is reserved for RGB layer and is defined in nifty_numpad.h
 enum LAYERS {
     LAYER_BL,
     LAYER_CAD,
-    LAYER_RGB
 };
 
 #define _LAYER_CAD_LED_INDEX 8

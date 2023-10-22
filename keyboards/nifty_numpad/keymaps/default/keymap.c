@@ -4,9 +4,9 @@
 #include QMK_KEYBOARD_H
 
 // Layers 
+// NOTE: Layer 15 is reserved for RGB layer and is defined in nifty_numpad.h
 enum LAYERS {
     LAYER_BL,
-    LAYER_RGB
 };
 
 // Setup keymap

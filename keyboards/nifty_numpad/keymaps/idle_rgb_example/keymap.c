@@ -6,10 +6,10 @@
 #include "quantum.h"
 
 // Layers 
+// NOTE: Layer 15 is reserved for RGB layer and is defined in nifty_numpad.h
 enum LAYERS {
-    LAYER_BL,
+    LAYER_BL = 0,
     LAYER_MOD,
-    LAYER_RGB
 };
 
 // Layer Indicator LED index

@@ -39,9 +39,9 @@ enum custom_keycodes {
     RGB_DEF = SAFE_RANGE,
     RGB_IEF
 };
+#define LAYER_RGB 15
 
 #ifdef RGB_IDLE_ENABLE
-#define _LAYER_RGB 15
 // Custom keycode declarations
 
 #define RGB_IDLE_TIMEOUT_MS (10*60*1000)

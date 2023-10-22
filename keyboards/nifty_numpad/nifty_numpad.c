@@ -79,12 +79,12 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
     // Track if the last layer was the RGB edit layer
     static bool rgb_was_on = false;
 
-    if (IS_LAYER_ON_STATE(state, _LAYER_RGB)) {
+    if (IS_LAYER_ON_STATE(state, LAYER_RGB)) {
         rgb_was_on = true;
     }
 
     // Not in RGB edit layer, but previously were
-    if (!IS_LAYER_ON_STATE(state, _LAYER_RGB) && rgb_was_on) {
+    if (!IS_LAYER_ON_STATE(state, LAYER_RGB) && rgb_was_on) {
         rgb_was_on = false;
         if (rgb_idle_edit_mode) {
             // If we were editing the RGB idle mode, we are done now. 
