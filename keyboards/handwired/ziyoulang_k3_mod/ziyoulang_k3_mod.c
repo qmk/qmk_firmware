@@ -2,20 +2,17 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include <stdio.h>
-
+#include QMK_KEYBOARD_H
 #ifdef CONSOLE_ENABLE
    #include <print.h>
 #endif
 
-void keyboard_post_init_user(void) {
-
-  // Customise these values to desired behaviour
+void keyboard_post_init_kb(void) {
 #ifdef CONSOLE_ENABLE
-  debug_enable=true;
-  debug_matrix=true;
+    debug_enable=true;
+    debug_matrix=true;
 #endif
- keyboard_post_init_user();
-
+    keyboard_post_init_user();
 }
 
 static uint16_t last_keycode = KC_NO;
@@ -40,6 +37,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     return OLED_ROTATION_180;
 }
@@ -121,3 +119,4 @@ bool oled_task_kb(void) {
 
     return false;
 }
+#endif
