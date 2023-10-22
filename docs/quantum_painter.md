@@ -28,6 +28,7 @@ Supported devices:
 | SSD1351        | RGB OLED           | 128x128          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ssd1351_spi`    |
 | ST7735         | RGB LCD            | 132x162, 80x160  | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += st7735_spi`     |
 | ST7789         | RGB LCD            | 240x320, 240x240 | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += st7789_spi`     |
+| IL91874        | 3-color e-Ink      | 176x264          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += il91874_spi`    |
 | RGB565 Surface | Virtual            | User-defined     | None            | `QUANTUM_PAINTER_DRIVERS += rgb565_surface` |
 
 ## Quantum Painter Configuration :id=quantum-painter-config
@@ -383,6 +384,46 @@ The maximum number of displays can be configured by changing the following in yo
 Native color format rgb565 is compatible with ST7789
 
 !> Some ST7789 devices are known to have different drawing offsets -- despite being a 240x320 pixel display controller internally, some display panels are only 240x240, or smaller. These may require an offset to be applied; see `qp_set_viewport_offsets` above for information on how to override the offsets if they aren't correctly rendered.
+
+<!-- tabs:end -->
+
+### ** Common:  3-color e-Ink (SPI + D/C + RST) **
+
+Most of these display panels use a 5-pin interface -- SPI SCK, SPI MOSI, SPI CS, D/C, and RST pins.
+
+For these displays, QMK's `spi_master` must already be correctly configured for the platform you're building for.
+
+The pin assignments for SPI CS, D/C, and RST are specified during device construction.
+
+?> Note: This driver uses **two** `surface` displays internally, you should read their docs section too.
+
+!> If writing new driver: Dont use this code as base for screens with partial refresh (closer to TFT driver) nor monochrome ones (closer to OLED)
+
+<!-- tabs:start -->
+#### ** IL91874 **
+
+Enabling support for the IL91874 in Quantum Painter is done by adding the following to `rules.mk`:
+
+```make
+QUANTUM_PAINTER_ENABLE = yes
+QUANTUM_PAINTER_DRIVERS += il91874_spi
+```
+
+Creating a IL91874 device in firmware can then be done with the following API:
+
+```c
+uint8_t buffer[EINK_BYTES_REQD(panel_width, panel_height)]; // buffer where to store pixel data
+painter_device_t qp_il91874_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode, void *buffer);
+```
+
+The device handle returned from the `qp_il91874_make_spi_device` function can be used to perform all other drawing operations.
+
+The maximum number of displays can be configured by changing the following in your `config.h` (default is 1):
+
+```c
+// 3 displays:
+#define IL91874_NUM_DEVICES 3
+```
 
 <!-- tabs:end -->
 
