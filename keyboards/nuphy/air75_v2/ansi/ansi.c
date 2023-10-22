@@ -40,10 +40,8 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
 void keyboard_post_init_kb(void) {
     setPinOutput(DRIVER_LED_CS_PIN);
     setPinOutput(DC_BOOST_PIN);
-    setPinInputHigh(SYS_MODE_PIN);
-
     writePinLow(DRIVER_LED_CS_PIN);
     writePinHigh(DC_BOOST_PIN);
-
+    
     keyboard_post_init_user();
 }
