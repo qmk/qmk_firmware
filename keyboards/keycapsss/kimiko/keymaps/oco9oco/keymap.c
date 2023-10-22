@@ -42,9 +42,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_IPC] = LAYOUT_kimiko_wrapper(
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
-    _______, PDF_HL,  KC_P,    KC_X,    ALT_F4,  XXXXXXX,                            KC_LBRC, KC_RBRC, KC_LPRN, KC_RPRN, XXXXXXX, _______,
-    _______, XXXXXXX, XXXXXXX, CLASS_E, CLASS_A, KC_SLSH,                            KC_GRV,  _________NUM_789_________, XXXXXXX, _______,
-    _______, IPC(A),  IPC(S),  IPC_MIN, IPC(F), KC_DOT,                              AT_IPC,  _________NUM_456_________, KC_COLN, KC_DQUO,
+    _______, PDF_HL,  KC_P,    KC_X,    ALT_F4,  XXXXXXX,                                 KC_LBRC, KC_RBRC, KC_LPRN, KC_RPRN, XXXXXXX, _______,
+    _______, XXXXXXX, XXXXXXX, CLASS_E, CLASS_A, KC_SLSH,                                 KC_GRV,  _________NUM_789_________, XXXXXXX, _______,
+    _______, IPC(A),  IPC(S),  IPC_MIN, IPC(F), KC_DOT,                                   AT_IPC,  _________NUM_456_________, KC_COLN, KC_DQUO,
     _______, IPC(Z),  HWP_CITE,IPC(C),  KC_EQL,  KC_BSLS, TO(_ONEHAND),          XXXXXXX, XXXXXXX, _________NUM_123_________, _______, KC_PIPE,
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
                       KC_WH_U, KC_WH_D, _______, _______, _______,          _______, LT(_NAV, KC_0), _______, KC_LPRN, KC_RPRN
