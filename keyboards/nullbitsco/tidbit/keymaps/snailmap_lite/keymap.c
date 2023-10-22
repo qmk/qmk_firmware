@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef ENCODER_MAP_ENABLE
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), },
     [1] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), },
     [2] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), },
@@ -179,13 +179,13 @@ static void render_wpm_counters(uint8_t current_wpm) {
 
 static void render_led_status(void) {
     // Host Keyboard LED Status
-    uint8_t led_usb_state = host_keyboard_leds();
+    led_t led_state = host_keyboard_led_state();
     oled_set_cursor(0, 8);
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK) ? PSTR(CAPLCK_STR) : PSTR(EMPTY_STR), false);
+    oled_write_P(led_state.caps_lock ? PSTR(CAPLCK_STR) : PSTR(EMPTY_STR), false);
     oled_set_cursor(0, 9);
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK) ? PSTR(NUMLCK_STR) : PSTR(EMPTY_STR), false);
+    oled_write_P(led_state.num_lock ? PSTR(NUMLCK_STR) : PSTR(EMPTY_STR), false);
     oled_set_cursor(0, 10);
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR(SCRLK_STR) : PSTR(EMPTY_STR), false);
+    oled_write_P(led_state.scroll_lock ? PSTR(SCRLK_STR) : PSTR(EMPTY_STR), false);
 }
 
 // Update WPM snail icon

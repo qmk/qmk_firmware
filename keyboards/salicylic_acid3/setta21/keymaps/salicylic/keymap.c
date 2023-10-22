@@ -173,8 +173,8 @@ void render_layer_state(void) {
     oled_write_P(PSTR(" Macro "), layer_state_is(_MACRO));
 }
 
-void render_keylock_status(uint8_t led_usb_state) {
-    oled_write_P(PSTR("NumLock"), led_usb_state & (1 << USB_LED_NUM_LOCK));
+void render_keylock_status(led_t led_state) {
+    oled_write_P(PSTR("NumLock"), led_state.num_lock);
     oled_write_P(PSTR("              "), false);
 }
 
@@ -186,7 +186,7 @@ void render_layer_messages(void) {
 void render_status(void) {
     /* Show Keyboard Layout  */
     render_layer_messages();
-    render_keylock_status(host_keyboard_leds());
+    render_keylock_status(host_keyboard_led_state());
     render_layer_state();
 }
 

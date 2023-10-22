@@ -79,7 +79,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef ENCODER_MAP_ENABLE
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] =       { ENCODER_CCW_CW(KC_WH_U, KC_WH_D) },
     [1 ... 6] = { ENCODER_CCW_CW(_______, _______) },
 };

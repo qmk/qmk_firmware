@@ -36,7 +36,7 @@
         "pin": "F6"
     },
     "rgb_matrix": {
-        "driver": "WS2812",
+        "driver": "ws2812",
         "layout": [
             {"flags": 4, "matrix": [0, 0], "x": 0, "y": 0},
             {"flags": 4, "matrix": [0, 1], "x": 62.2, "y": 0},
@@ -118,6 +118,10 @@
                 {"matrix": [2, 5], "label": "HOME", "x": 5.25, "y": 2.25},
                 {"matrix": [2, 6], "label": "PGUP", "x": 6.25, "y": 2.25},
 
+                {"matrix": [5, 5], "label": "KNOB_L", "x": 7.5, "y": 2.25},
+
+                {"matrix": [5, 6], "label": "KNOB_R", "x": 9.5, "y": 2.25},
+
                 {"matrix": [3, 0], "label": "4", "x": 0, "y": 3.25},
                 {"matrix": [3, 1], "label": "5", "x": 1, "y": 3.25},
                 {"matrix": [3, 2], "label": "6", "x": 2, "y": 3.25},
@@ -131,14 +135,13 @@
                 {"matrix": [4, 3], "label": "PENT", "x": 3, "y": 4.25, "h": 2},
                 {"matrix": [4, 5], "label": "UP", "x": 5.25, "y": 4.25},
 
+                {"matrix": [5, 7], "label": "KNOB_D", "x": 7.5, "y": 3.25, "w": 3, "h": 3}
+
                 {"matrix": [5, 0], "label": "0", "x": 0, "y": 5.25, "w": 2},
                 {"matrix": [5, 1], "label": "PDOT", "x": 2, "y": 5.25},
                 {"matrix": [5, 2], "label": "LEFT", "x": 4.25, "y": 5.25},
                 {"matrix": [5, 3], "label": "DOWN", "x": 5.25, "y": 5.25},
-                {"matrix": [5, 4], "label": "RIGHT", "x": 6.25, "y": 5.25},
-                {"matrix": [5, 5], "label": "KNOB_L", "x": 7.5, "y": 2.25},
-                {"matrix": [5, 6], "label": "KNOB_R", "x": 9.5, "y": 2.25},
-                {"matrix": [5, 7], "label": "KNOB_D", "x": 7.5, "y": 3.25, "w": 3, "h": 3}
+                {"matrix": [5, 4], "label": "RIGHT", "x": 6.25, "y": 5.25}
             ]
         }
     }

@@ -23,6 +23,9 @@
         "force_nkro": true
     },
     "diode_direction": "COL2ROW",
+    "dynamic_keymap": {
+        "layer_count": 5
+    },
     "rgblight": {
         "led_count": 10,
         "max_brightness": 255,
@@ -47,6 +50,9 @@
     },
     "ws2812": {
         "pin": "B5"
+    },
+    "build": {
+        "debounce_type": "sym_eager_pk"
     },
     "encoder": {
         "rotary": [

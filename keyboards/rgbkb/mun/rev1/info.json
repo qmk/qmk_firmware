@@ -10,20 +10,38 @@
     },
     "rgblight": {
         "led_count": 98,
-        "split_count": [49, 49]
+        "split_count": [49, 49],
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "ws2812": {
         "pin": "B5",
         "driver": "pwm"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
     },
     "matrix_pins": {
         "cols": ["A0", "B11", "B0", "B10", "B12", "B2", "A8"],
-        "rows": ["A1", "A3", "B3", "A13", "B15", null, null]
+        "rows": ["A1", "A3", "B3", "A13", "B15", null, null],
+        "io_delay": 5
     },
     "diode_direction": "COL2ROW",
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "B8", "pin_b": "A14"},
@@ -34,7 +52,14 @@
         "tap_keycode_delay": 5
     },
     "split": {
-        "soft_serial_pin": "A9"
+        "soft_serial_pin": "A9",
+        "transport": {
+            "sync": {
+                "indicators": true,
+                "layer_state": true,
+                "matrix_state": true
+            }
+        }
     },
     "processor": "STM32F303",
     "bootloader": "stm32-dfu",

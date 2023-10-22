@@ -16,14 +16,15 @@
  */
 
 #pragma once
+
 #include <stdint.h>
 #include <stdbool.h>
 
-#ifndef HAPTIC_FEEDBACK_DEFAULT
-#    define HAPTIC_FEEDBACK_DEFAULT 0
+#ifndef HAPTIC_DEFAULT_FEEDBACK
+#    define HAPTIC_DEFAULT_FEEDBACK 0
 #endif
-#ifndef HAPTIC_MODE_DEFAULT
-#    define HAPTIC_MODE_DEFAULT DRV_MODE_DEFAULT
+#ifndef HAPTIC_DEFAULT_MODE
+#    define HAPTIC_DEFAULT_MODE DRV2605L_DEFAULT_MODE
 #endif
 
 /* EEPROM config settings */

@@ -17,7 +17,7 @@
     "nkro": true
   },
   "led_matrix": {
-    "driver": "IS31FL3731"
+    "driver": "is31fl3731"
   },
   "matrix_pins": {
     "cols": ["B10", "B2", "B1", "B0", "A7", "B4", "B3", "B7"],
@@ -28,7 +28,7 @@
     "pid": "0x2391",
     "vid": "0xC1ED"
   },
-  "community_layouts": [],
+  "community_layouts": ["66_ansi"],
   "layout_aliases": {
     "LAYOUT": "LAYOUT_all"
   },

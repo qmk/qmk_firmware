@@ -59,7 +59,7 @@ uint8_t get_first_key(report_keyboard_t* keyboard_report) {
 #ifdef NKRO_ENABLE
     if (keyboard_protocol && keymap_config.nkro) {
         uint8_t i = 0;
-        for (; i < KEYBOARD_REPORT_BITS && !keyboard_report->nkro.bits[i]; i++)
+        for (; i < NKRO_REPORT_BITS && !keyboard_report->nkro.bits[i]; i++)
             ;
         return i << 3 | biton(keyboard_report->nkro.bits[i]);
     }
@@ -89,7 +89,7 @@ bool is_key_pressed(report_keyboard_t* keyboard_report, uint8_t key) {
     }
 #ifdef NKRO_ENABLE
     if (keyboard_protocol && keymap_config.nkro) {
-        if ((key >> 3) < KEYBOARD_REPORT_BITS) {
+        if ((key >> 3) < NKRO_REPORT_BITS) {
             return keyboard_report->nkro.bits[key >> 3] & 1 << (key & 7);
         } else {
             return false;
@@ -216,7 +216,7 @@ void del_key_byte(report_keyboard_t* keyboard_report, uint8_t code) {
  * FIXME: Needs doc
  */
 void add_key_bit(report_keyboard_t* keyboard_report, uint8_t code) {
-    if ((code >> 3) < KEYBOARD_REPORT_BITS) {
+    if ((code >> 3) < NKRO_REPORT_BITS) {
         keyboard_report->nkro.bits[code >> 3] |= 1 << (code & 7);
     } else {
         dprintf("add_key_bit: can't add: %02X\n", code);
@@ -228,7 +228,7 @@ void add_key_bit(report_keyboard_t* keyboard_report, uint8_t code) {
  * FIXME: Needs doc
  */
 void del_key_bit(report_keyboard_t* keyboard_report, uint8_t code) {
-    if ((code >> 3) < KEYBOARD_REPORT_BITS) {
+    if ((code >> 3) < NKRO_REPORT_BITS) {
         keyboard_report->nkro.bits[code >> 3] &= ~(1 << (code & 7));
     } else {
         dprintf("del_key_bit: can't del: %02X\n", code);
@@ -281,13 +281,21 @@ void clear_keys_from_report(report_keyboard_t* keyboard_report) {
 
 #ifdef MOUSE_ENABLE
 /**
- * @brief Compares 2 mouse reports for difference and returns result
+ * @brief Compares 2 mouse reports for difference and returns result. Empty
+ * reports always evaluate as unchanged.
  *
  * @param[in] new_report report_mouse_t
  * @param[in] old_report report_mouse_t
  * @return bool result
  */
 __attribute__((weak)) bool has_mouse_report_changed(report_mouse_t* new_report, report_mouse_t* old_report) {
-    return memcmp(new_report, old_report, sizeof(report_mouse_t));
+    // memcmp doesn't work here because of the `report_id` field when using
+    // shared mouse endpoint
+    bool changed = ((new_report->buttons != old_report->buttons) ||
+#    ifdef MOUSE_EXTENDED_REPORT
+                    (new_report->boot_x != 0 && new_report->boot_x != old_report->boot_x) || (new_report->boot_y != 0 && new_report->boot_y != old_report->boot_y) ||
+#    endif
+                    (new_report->x != 0 && new_report->x != old_report->x) || (new_report->y != 0 && new_report->y != old_report->y) || (new_report->h != 0 && new_report->h != old_report->h) || (new_report->v != 0 && new_report->v != old_report->v));
+    return changed;
 }
 #endif

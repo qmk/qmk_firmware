@@ -16,7 +16,7 @@
         "rows": ["GP29", "GP28", "GP27", "GP26", "GP22"]
     },
     "rgb_matrix": {
-        "driver": "IS31FL3737",
+        "driver": "is31fl3737",
         "layout": [
             {"flags": 1, "matrix": [0, 0], "x": 0, "y": 0},
             {"flags": 4, "matrix": [0, 1], "x": 15, "y": 0},

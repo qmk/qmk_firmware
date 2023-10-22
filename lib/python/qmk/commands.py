@@ -212,16 +212,16 @@ def parse_configurator_json(configurator_file):
         cli.log.error(f'Invalid JSON keymap: {configurator_file} : {e.message}')
         exit(1)
 
-    orig_keyboard = user_keymap['keyboard']
+    keyboard = user_keymap['keyboard']
     aliases = json_load(Path('data/mappings/keyboard_aliases.hjson'))
 
-    if orig_keyboard in aliases:
-        if 'target' in aliases[orig_keyboard]:
-            user_keymap['keyboard'] = aliases[orig_keyboard]['target']
+    while keyboard in aliases:
+        last_keyboard = keyboard
+        keyboard = aliases[keyboard].get('target', keyboard)
+        if keyboard == last_keyboard:
+            break
 
-        if 'layouts' in aliases[orig_keyboard] and user_keymap['layout'] in aliases[orig_keyboard]['layouts']:
-            user_keymap['layout'] = aliases[orig_keyboard]['layouts'][user_keymap['layout']]
-
+    user_keymap['keyboard'] = keyboard
     return user_keymap
 
 
