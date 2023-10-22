@@ -38,16 +38,9 @@ static void init(void) {
 #    endif
 }
 
-static void flush(void) {
-    is31fl3733_update_pwm_buffers(IS31FL3733_I2C_ADDRESS_1, 0);
-#    ifdef USE_I2C2
-    is31fl3733_update_pwm_buffers(IS31FL3733_I2C_ADDRESS_2, 1);
-#    endif
-}
-
 const rgb_matrix_driver_t rgb_matrix_driver = {
     .init = init,
-    .flush = flush,
+    .flush = is31fl3733_flush,
     .set_color = is31fl3733_set_color,
     .set_color_all = is31fl3733_set_color_all,
 };

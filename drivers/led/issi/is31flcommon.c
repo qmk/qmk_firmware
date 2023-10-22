@@ -174,6 +174,19 @@ void IS31FL_common_update_scaling_register(uint8_t addr, uint8_t index) {
     }
 }
 
+void IS31FL_common_flush(void) {
+    IS31FL_common_update_pwm_register(DRIVER_ADDR_1, 0);
+#if defined(DRIVER_ADDR_2)
+    IS31FL_common_update_pwm_register(DRIVER_ADDR_2, 1);
+#    if defined(DRIVER_ADDR_3)
+    IS31FL_common_update_pwm_register(DRIVER_ADDR_3, 2);
+#        if defined(DRIVER_ADDR_4)
+    IS31FL_common_update_pwm_register(DRIVER_ADDR_4, 3);
+#        endif
+#    endif
+#endif
+}
+
 #ifdef RGB_MATRIX_ENABLE
 // Colour is set by adjusting PWM register
 void IS31FL_RGB_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {

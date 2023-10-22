@@ -68,6 +68,8 @@ void aw20216s_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
 void aw20216s_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
 void aw20216s_update_pwm_buffers(pin_t cs_pin, uint8_t index);
 
+void aw20216s_flush(void);
+
 #define CS1_SW1 0x00
 #define CS2_SW1 0x01
 #define CS3_SW1 0x02

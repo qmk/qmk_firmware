@@ -79,6 +79,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define DRIVER_INDICATOR_LED_TOTAL 0
 #else
 // WT_RGB IS31FL3741 driver code
+#    define IS31FL3741_I2C_ADDRESS_1 IS31FL3741_I2C_ADDRESS_GND
 #    define IS31FL3741_DRIVER_COUNT 1
 #    define RGB_MATRIX_LED_COUNT 98
 

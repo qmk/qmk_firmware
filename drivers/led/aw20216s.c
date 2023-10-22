@@ -166,3 +166,10 @@ void aw20216s_update_pwm_buffers(pin_t cs_pin, uint8_t index) {
     }
     g_pwm_buffer_update_required[index] = false;
 }
+
+void aw20216s_flush(void) {
+    aw20216s_update_pwm_buffers(AW20216S_CS_PIN_1, 0);
+#if defined(AW20216S_CS_PIN_2)
+    aw20216s_update_pwm_buffers(AW20216S_CS_PIN_2, 1);
+#endif
+}

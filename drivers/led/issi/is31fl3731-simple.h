@@ -80,6 +80,8 @@ void is31fl3731_set_led_control_register(uint8_t index, bool value);
 void is31fl3731_update_pwm_buffers(uint8_t addr, uint8_t index);
 void is31fl3731_update_led_control_registers(uint8_t addr, uint8_t index);
 
+void is31fl3731_flush(void);
+
 #define C1_1 0x24
 #define C1_2 0x25
 #define C1_3 0x26

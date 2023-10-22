@@ -343,10 +343,7 @@ void housekeeping_task_kb(void)
         }
     }
 
-    is31fl3731_update_pwm_buffers(IS31FL3731_I2C_ADDRESS_1, 0);
-#ifdef IS31FL3731_I2C_ADDRESS_2
-    is31fl3731_update_pwm_buffers(IS31FL3731_I2C_ADDRESS_2, 1);
-#endif
+    is31fl3731_flush();
 
     housekeeping_task_user();
 }

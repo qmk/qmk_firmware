@@ -36,7 +36,7 @@ void init_fallacy_leds(void) {
 /* update the buffer
  */
 void update_fallacy_leds(void) {
-    is31fl3731_update_pwm_buffers(IS31FL3731_I2C_ADDRESS_1, 0);    
+    is31fl3731_flush();
 }
 
 

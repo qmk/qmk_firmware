@@ -67,6 +67,8 @@ void IS31FL_common_init(uint8_t addr, uint8_t ssr);
 void IS31FL_common_update_pwm_register(uint8_t addr, uint8_t index);
 void IS31FL_common_update_scaling_register(uint8_t addr, uint8_t index);
 
+void IS31FL_common_flush(void);
+
 #ifdef RGB_MATRIX_ENABLE
 // RGB Matrix Specific scripts
 void IS31FL_RGB_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);

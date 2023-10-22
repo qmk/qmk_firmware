@@ -48,6 +48,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #else
 // IS31FL3731 driver
+#define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
+#define IS31FL3731_I2C_ADDRESS_2 IS31FL3731_I2C_ADDRESS_VCC
 #define IS31FL3731_DRIVER_COUNT 2
 #define RGB_MATRIX_LED_COUNT 67
 
