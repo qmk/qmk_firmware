@@ -455,6 +455,7 @@ $(eval $(call add_qmk_prefix_defs,MCU_PORT_NAME,MCU_PORT_NAME))
 $(eval $(call add_qmk_prefix_defs,MCU_FAMILY,MCU_FAMILY))
 $(eval $(call add_qmk_prefix_defs,MCU_SERIES,MCU_SERIES))
 $(eval $(call add_qmk_prefix_defs,BOARD,BOARD))
+$(eval $(call add_qmk_prefix_defs,OPT,OPT))
 
 # Control whether intermediate file listings are generated
 # e.g.:
