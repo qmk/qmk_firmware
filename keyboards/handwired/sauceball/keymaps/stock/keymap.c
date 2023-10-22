@@ -2,8 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
-#include "print.h"
-#include "mousekey.h"
 
 enum custom_keycodes {
   NO_SCROLL = QK_USER,
