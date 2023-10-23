@@ -6,18 +6,12 @@ _qmk_install_prepare() {
 
     case $(brew config) in
         *x86_64*)
-            echo "x86_brew"
             brew update && brew upgrade --formulae --ignore-pinned
             QMK_BREW="default"
             ;;
         *arm64*)
             if [ -f "/usr/local/bin/brew" ]; then
                 echo "You have x86 Homebrew installation at /usr/local/bin/brew."
-                if ! arch -x86_64 /usr/local/bin/brew --version >/dev/null 2>&1; then
-                    echo "Error! X86 homebrew is broken."
-                    echo "Please run \`/usr/local/bin/brew doctor\` or follow the installation instructions at https://brew.sh/, then re-run this script."
-                    return 1
-                fi
                 QMK_BREW="ibrew_default"
                 arch -x86_64 /usr/local/bin/brew update
                 arch -x86_64 /usr/local/bin/brew upgrade --formulae --ignore-pinned
