@@ -2,8 +2,8 @@
 
 Satisfaction75 Keyboard
 
-Keyboard Maintainer: [Andrew Kannan](https://github.com/awkannan)  
-Hardware Supported: STM32F072CBT6  
+* Keyboard Maintainer: [Andrew Kannan](https://github.com/awkannan)
+* Hardware Supported: STM32F072CBT6
 
 ## Revisions
 

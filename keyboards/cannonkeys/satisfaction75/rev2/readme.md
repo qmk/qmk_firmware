@@ -7,8 +7,8 @@ This PCB was released in late 2023/2024. If you have a Satisfaction75 PCB from b
 
 The revision 2 of the PCB also has "Revision 2" printed on it.
 
-Keyboard Maintainer: [Andrew Kannan](https://github.com/awkannan)  
-Hardware Supported: STM32F072CBT6  
+* Keyboard Maintainer: [Andrew Kannan](https://github.com/awkannan)
+* Hardware Supported: STM32F072CBT6
 
 Make example for this keyboard (after setting up your build environment):
 
