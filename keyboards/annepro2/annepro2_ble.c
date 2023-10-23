@@ -31,7 +31,7 @@ static void ap2_ble_swtich_ble_driver(void);
 
 /* -------------------- Static Local Variables ------------------------------ */
 static host_driver_t ap2_ble_driver = {
-    ap2_ble_leds, ap2_ble_keyboard, ap2_ble_mouse, ap2_ble_extra
+    ap2_ble_leds, ap2_ble_keyboard, NULL, ap2_ble_mouse, ap2_ble_extra
 };
 
 static uint8_t ble_mcu_wakeup[11] = {0x7b, 0x12, 0x53, 0x00, 0x03, 0x00, 0x01, 0x7d, 0x02, 0x01, 0x02};
