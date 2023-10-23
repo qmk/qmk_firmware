@@ -23,11 +23,13 @@ extern matrix_row_t matrix[MATRIX_ROWS];     // debounced values
 
 void matrix_init_pins(void) {
     //default implementation for rows 0 and 2 only
-    for (int row = 0; row < ROWS_PER_HAND || row != 1; row++) {
-        for (int col = 0; col < MATRIX_COLS; col++) {
-            pin_t pin = matrix_pins[row][col];
-            if (pin != NO_PIN) {
-                setPinInputHigh(pin);
+    for (int row = 0; row < ROWS_PER_HAND; row++) {
+        if (row != 1){
+            for (int col = 0; col < MATRIX_COLS; col++) {
+                pin_t pin = matrix_pins[row][col];
+                if (pin != NO_PIN) {
+                    setPinInputHigh(pin);
+                }
             }
         }
     }

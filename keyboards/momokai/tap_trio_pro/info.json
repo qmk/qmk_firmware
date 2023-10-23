@@ -1,12 +1,13 @@
 {
     "manufacturer": "momokai",
-    "keyboard_name": "hall_effect",
+    "keyboard_name": "tap_trio_pro",
     "maintainer": "peepeetee",
     "bootloader": "rp2040",
     "features": {
         "bootmagic": false,
         "command": false,
-        "console": false,
+        "console": true,
+        "debug": true,
         "extrakey": true,
         "mousekey": true,
         "rgb_matrix": true,

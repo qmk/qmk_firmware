@@ -10,7 +10,7 @@
 
 #define EECONFIG_KB_DATA_SIZE 6
 
-//#define DEBUG_ENABLE
+#define DEBUG_ENABLE
 #define DEBUG_MATRIX_SCAN_RATE
 
 #define ADC_RESOLUTION 12
@@ -18,25 +18,6 @@
 #define CALIBRATION_RANGE 255
 
 
-
-
-
-
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
 
 #ifdef RGB_MATRIX_ENABLE
 #define RGB_MATRIX_LED_COUNT 3
