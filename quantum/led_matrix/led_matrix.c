@@ -413,7 +413,7 @@ struct led_matrix_limits_t led_matrix_get_limits(uint8_t iter) {
     if (is_keyboard_left() && (limits.led_max_index > k_led_matrix_split[0])) limits.led_max_index = k_led_matrix_split[0];
     if (!(is_keyboard_left()) && (limits.led_min_index < k_led_matrix_split[0])) limits.led_min_index = k_led_matrix_split[0];
 #    else
-    limits.led_min_index  = 0;
+    limits.led_min_index = 0;
     limits.led_max_index = LED_MATRIX_LED_COUNT;
 #    endif
 #endif
