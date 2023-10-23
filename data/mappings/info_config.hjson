@@ -50,6 +50,9 @@
     "DYNAMIC_KEYMAP_LAYER_COUNT": {"info_key": "dynamic_keymap.layer_count", "value_type": "int"},
 
     // EEPROM
+    "EXTERNAL_EEPROM_WP_PIN": {"info_key": "eeprom.i2c.write_protect_pin"},
+    "EXTERNAL_EEPROM_I2C_BASE_ADDRESS": {"info_key": "eeprom.i2c.address", "to_json": false},
+    "EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN": {"info_key": "eeprom.spi.chip_select_pin"},
     "WEAR_LEVELING_BACKING_SIZE": {"info_key": "eeprom.wear_leveling.backing_size", "value_type": "int", "to_json": false},
     "WEAR_LEVELING_LOGICAL_SIZE": {"info_key": "eeprom.wear_leveling.logical_size", "value_type": "int", "to_json": false},
 

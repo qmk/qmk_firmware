@@ -248,6 +248,23 @@
         "eeprom": {
             "properties": {
                 "driver": {"type": "string"},
+                "i2c": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "device": {"type": "string"},
+                        "address": {"$ref": "qmk.definitions.v1#/hex_number_2d"},
+                        "write_protect_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"}
+                    }
+                },
+                "spi": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "device": {"type": "string"},
+                        "chip_select_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"}
+                    }
+                },
                 "wear_leveling": {
                     "type": "object",
                     "additionalProperties": false,

@@ -110,6 +110,17 @@ def generate_config_items(kb_info_json, config_h_lines):
             config_h_lines.append(generate_define(config_key, config_value))
 
 
+def generate_eeprom_config(eeprom_json, config_h_lines):
+    """Generate the config.h lines for eeprom."""
+    if 'driver' in eeprom_json:
+        driver = eeprom_json['driver']
+        if driver in eeprom_json:
+            driver_json = eeprom_json[driver]
+            if 'device' in driver_json:
+                device = driver_json['device']
+                config_h_lines.append(generate_define(f'EEPROM_{driver.upper()}_{device.upper()}'))
+
+
 def generate_encoder_config(encoder_json, config_h_lines, postfix=''):
     """Generate the config.h lines for encoders."""
     a_pads = []
@@ -198,6 +209,9 @@ def generate_config_h(cli):
 
     if 'matrix_pins' in kb_info_json:
         config_h_lines.append(matrix_pins(kb_info_json['matrix_pins']))
+
+    if 'eeprom' in kb_info_json:
+        generate_eeprom_config(kb_info_json['eeprom'], config_h_lines)
 
     if 'encoder' in kb_info_json:
         generate_encoder_config(kb_info_json['encoder'], config_h_lines)
