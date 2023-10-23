@@ -377,14 +377,7 @@ void led_matrix_indicators_advanced(effect_params_t *params) {
      * and not sure which would be better. Otherwise, this should be called from
      * led_task_render, right before the iter++ line.
      */
-#if defined(LED_MATRIX_LED_PROCESS_LIMIT) && LED_MATRIX_LED_PROCESS_LIMIT > 0 && LED_MATRIX_LED_PROCESS_LIMIT < LED_MATRIX_LED_COUNT
-    uint8_t min = LED_MATRIX_LED_PROCESS_LIMIT * (params->iter - 1);
-    uint8_t max = min + LED_MATRIX_LED_PROCESS_LIMIT;
-    if (max > LED_MATRIX_LED_COUNT) max = LED_MATRIX_LED_COUNT;
-#else
-    uint8_t min = 0;
-    uint8_t max = LED_MATRIX_LED_COUNT;
-#endif
+    LED_MATRIX_USE_LIMITS_ITER(min, max, params->iter - 1);
     led_matrix_indicators_advanced_kb(min, max);
     led_matrix_indicators_advanced_user(min, max);
 }
