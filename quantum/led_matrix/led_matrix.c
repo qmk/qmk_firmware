@@ -343,7 +343,7 @@ void led_matrix_task(void) {
             led_task_render(effect);
             if (effect) {
                 if (led_task_state == FLUSHING) {
-                    led_matrix_indicators(); //ensure we only draw basic indicators once rendering is finished
+                    led_matrix_indicators(); // ensure we only draw basic indicators once rendering is finished
                 }
                 led_matrix_indicators_advanced(&led_effect_params);
             }
