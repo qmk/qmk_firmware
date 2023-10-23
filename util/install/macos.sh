@@ -13,8 +13,7 @@ _qmk_install_prepare() {
             if [ -f "/usr/local/bin/brew" ]; then
                 echo "You have x86 Homebrew installation at /usr/local/bin/brew."
                 QMK_BREW="ibrew_default"
-                arch -x86_64 /usr/local/bin/brew update
-                arch -x86_64 /usr/local/bin/brew upgrade --formulae --ignore-pinned
+                arch -x86_64 /usr/local/bin/brew update && arch -x86_64 /usr/local/bin/brew upgrade --formulae --ignore-pinned
                 else
                     echo "You dont have x86_64 homebrew install in your mac or it's not locate at /usr/local/bin/brew. Please follow the installation instructions at https://docs.brew.sh/Installation and re-run this script"
                     return 1
