@@ -55,6 +55,8 @@ When this finishes you must find the MCU which we will be building/debugging for
 
 We need to let eclipse know the device we intent to build QMK on. Right click on the QMK folder -> Properties -> C/C++ Build -> Settings. Select the Devices tab and under Devices select the appropriate variant of your MCU. For my example it is STM32F303CC
 
+Select the environment and add the path where the qmk command is located in the PATH. For MacOS, it would be `/opt/homebrew/bin`.
+
 While we are here let's setup the build command as well. Select C/C++ Build and then the Behavior tab. On the Build command, replace `all` with your necessary make command. For example for a rev6 Planck with the default keymap this would be `planck/rev6:default`. Select Apply and Close.
 
 ## Building
