@@ -65,10 +65,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 eeconfig_init_kb();
                 break;
             case AP_PRINT_VAL:
-                dprintf("actuation_point (AD5258): rdac %"PRIu8", eeprom %"PRIu8"\n", ad5258_read_rdac(), ad5258_read_eeprom());
+                dprintf("actuation_point (AD5258): rdac %"PRId8", eeprom %"PRId8"\n", ad5258_read_rdac(), ad5258_read_eeprom());
 #ifdef SEND_STRING_ENABLE
                 char rdac_buf[3];
-                snprintf(rdac_buf, sizeof(rdac_buf), "%"PRIu8, ad5258_read_rdac());
+                snprintf(rdac_buf, sizeof(rdac_buf), "%"PRId8, ad5258_read_rdac());
                 send_string(rdac_buf);
 #endif
                 break;
