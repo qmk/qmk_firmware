@@ -389,7 +389,6 @@ void led_matrix_task(void) {
 
 void led_matrix_indicators(void) {
     led_matrix_indicators_kb();
-    led_matrix_indicators_user();
 }
 
 __attribute__((weak)) bool led_matrix_indicators_kb(void) {
