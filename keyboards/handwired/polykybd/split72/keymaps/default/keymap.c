@@ -21,10 +21,10 @@
 
 #include "lang/lang_lut.h"
 
-#define FULL_BRIGHT 49
+#define FULL_BRIGHT 50
 #define MIN_BRIGHT 1
 #define DISP_OFF 0
-#define BRIGHT_STEP 4
+#define BRIGHT_STEP 1
 
 //6 sec
 #define FADE_TRANSITION_TIME 6000
@@ -86,7 +86,7 @@ struct display_info key_display[] = {
 struct display_info disp_row_0 = { BITMASK1(0) };
 struct display_info disp_row_3 = { BITMASK4(0) };
 
-static bool g_stagger = false;
+
 enum refresh_mode { START_FIRST_HALF, START_SECOND_HALF, DONE_ALL, ALL_AT_ONCE };
 static enum refresh_mode g_refresh = DONE_ALL;
 
@@ -107,11 +107,22 @@ bool is_left_side(void) {
 bool is_right_side(void) {
     return side == RIGHT_SIDE;
 }
+typedef struct _poly_eeconf_t {
+    uint8_t lang;
+    uint8_t brightness;
+    uint16_t unused;
+} poly_eeconf_t;
 
+typedef union _poly_eeconf{
+    uint32_t raw;
+    poly_eeconf_t conf;
+} poly_eeconf;
+
+enum flags { STATUS_DISP_ON = 1, USE_STAGGER = 2, DISP_IDLE = 4};
 typedef struct _poly_sync_t {
     uint8_t lang;
-    int8_t contrast;
-    bool status_off;
+    uint8_t contrast;
+    uint8_t flags;
     layer_state_t default_ls;
 } poly_sync_t;
 
@@ -132,8 +143,9 @@ void oled_draw_kybd(void);
 void oled_draw_poly(void);
 bool display_wakeup(keyrecord_t* record);
 void update_displays(enum refresh_mode mode);
-bool set_displays(int8_t old_contrast, int8_t contrast);
+bool set_displays(uint8_t old_contrast, uint8_t contrast, bool idle);
 void set_selected_displays(int8_t old_value, int8_t new_value);
+void toggle_stagger(bool new_state);
 //static int8_t old_contrast = 0;
 
 void inc_brightness(void) {
@@ -143,6 +155,12 @@ void inc_brightness(void) {
     if (g_local.contrast > FULL_BRIGHT) {
         g_local.contrast = FULL_BRIGHT;
     }
+
+    poly_eeconf ee;
+    ee.conf.lang = g_local.lang;
+    ee.conf.brightness = g_local.contrast;
+    ee.conf.unused = 0;
+    eeconfig_update_user(ee.raw);
 }
 
 void dec_brightness(void) {
@@ -151,6 +169,12 @@ void dec_brightness(void) {
     } else {
         g_local.contrast = MIN_BRIGHT;
     }
+
+    poly_eeconf ee;
+    ee.conf.lang = g_local.lang;
+    ee.conf.brightness = g_local.contrast;
+    ee.conf.unused = 0;
+    eeconfig_update_user(ee.raw);
 }
 
 void select_all_displays(void) {
@@ -210,13 +234,13 @@ void sync_and_refresh_displays(void) {
         }
     }
     if(!retry) {
-        oled_on_off(!g_local.status_off);
+        oled_on_off((g_local.flags&STATUS_DISP_ON)!=0);
 
-        if (g_state.s.contrast != g_local.contrast ) {
-            bool need_refresh = set_displays(g_state.s.contrast, g_local.contrast);
-            if (!is_usb_host_side() && need_refresh) {
-                request_disp_refresh();
-            }
+        if (g_state.s.contrast != g_local.contrast || g_state.s.flags!=g_local.flags) {
+            set_displays(g_state.s.contrast, g_local.contrast, (g_local.flags&DISP_IDLE)!=0);
+            // if (!is_usb_host_side()) {
+            //     request_disp_refresh();
+            // }
         }
 
         led_t led_state = host_keyboard_led_state();
@@ -244,6 +268,10 @@ void sync_and_refresh_displays(void) {
             update_displays(g_refresh);
             g_refresh = DONE_ALL;
         }
+
+        if((g_local.flags&USE_STAGGER)!=(g_state.s.flags&USE_STAGGER)) {
+            toggle_stagger((g_local.flags&USE_STAGGER)==0);
+        }
         g_state.s = g_local;
     }
 }
@@ -255,28 +283,31 @@ void housekeeping_task_user(void) {
     uint32_t elapsed_time_since_update = timer_elapsed32(last_update);
 
     if (is_usb_host_side()) {
-        g_local.status_off = false;
-        if(elapsed_time_since_update > FADE_OUT_TIME && g_local.contrast >= MIN_BRIGHT) {
+        g_local.flags |= STATUS_DISP_ON;
+
+        if(elapsed_time_since_update > FADE_OUT_TIME && g_local.contrast >= MIN_BRIGHT && (g_local.flags & DISP_IDLE)==0) {
+            poly_eeconf ee; ee.raw = eeconfig_read_user();
             int32_t time_after = elapsed_time_since_update - FADE_OUT_TIME;
-            g_local.contrast = ((FADE_TRANSITION_TIME - time_after) * FULL_BRIGHT) / FADE_TRANSITION_TIME;
+            int16_t brightness = ((FADE_TRANSITION_TIME - time_after) * ee.conf.brightness) / FADE_TRANSITION_TIME;
 
             //transition to pulsing mode
-            if(g_local.contrast<=MIN_BRIGHT) {
-                g_local.contrast = -MIN_BRIGHT;
+            if(brightness<=MIN_BRIGHT) {
+                g_local.contrast = DISP_OFF;
+                g_local.flags |= DISP_IDLE;
+            } else if(brightness>FULL_BRIGHT) {
+                g_local.contrast = FULL_BRIGHT;
+            } else{
+                g_local.contrast = brightness;
             }
         } else if(elapsed_time_since_update > TURN_OFF_TIME) {
             g_local.contrast = DISP_OFF;
-            g_local.status_off = true;
-        } else if(g_local.contrast < MIN_BRIGHT) {
+            g_local.flags &= ~((uint8_t)STATUS_DISP_ON);
+            g_local.flags &= ~((uint8_t)DISP_IDLE);
+        } else if((g_local.flags & DISP_IDLE)!=0) {
             int32_t time_after = PK_MAX(elapsed_time_since_update - FADE_OUT_TIME - FADE_TRANSITION_TIME, 0)/300;
-            int8_t amplitude = time_after%14;
-            if(amplitude>7) amplitude = 14-amplitude;
-
-            if(amplitude>2) amplitude = amplitude-2;
-            else if(amplitude==2) amplitude = 1;
-            else amplitude = 0;
-
-            g_local.contrast = -amplitude;
+            g_local.contrast = time_after%50;
+        } else {
+            g_local.flags &= ~((uint8_t)DISP_IDLE);
         }
     }
 }
@@ -473,7 +504,7 @@ led_config_t g_led_config = { {// Key Matrix to LED Index
 
 const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     switch (keycode) {
-    case KC_STAGGER: return u"Stgr";
+    case KC_STAGGER: return (g_local.flags&USE_STAGGER)==0 ? u"Stgr\r\v" ICON_SWITCH_OFF : u"Stgr\r\v" ICON_SWITCH_ON;
     case QK_UNICODE_MODE_MACOS: return u"Mac";
     case QK_UNICODE_MODE_LINUX: return u"Lnx";
     case QK_UNICODE_MODE_WINDOWS: return u"Win";
@@ -830,16 +861,25 @@ void update_displays(enum refresh_mode mode) {
     }
 }
 
-#define IDLE_ARRAY_SIZE 36
-static uint8_t idle[IDLE_ARRAY_SIZE];
-static uint8_t old_idle[IDLE_ARRAY_SIZE];
+uint8_t to_brightness(uint8_t b) {
+    switch(b) {
+        case 23: case 24: case 25: case 26: case 27: return 7;
+        case 22: case 28: return 6;
+        case 21: case 29: return 5;
+        case 20: case 30: return 4;
+        case 19: case 31: return 3;
+        case 18: case 32: return 2;
+        case 16: case 17: case 33: case 34: return 1;
+        default: return 0;
+    }
+}
 
-void kdisp_idle(void) {
+void kdisp_idle(uint8_t contrast) {
     uint8_t offset = is_left_side() ? 0 : MATRIX_ROWS_PER_SIDE;
     uint8_t skip = 0;
     sr_shift_out_buffer_latch(disp_row_0.bitmask, sizeof(struct display_info));
 
-    uint8_t idx = 0;
+    //uint8_t idx = 0;
     for (uint8_t r = 0; r < MATRIX_ROWS_PER_SIDE; ++r) {
         for (uint8_t c = 0; c < MATRIX_COLS; ++c) {
             uint8_t  disp_idx = LAYOUT_TO_INDEX(r, c);
@@ -849,11 +889,15 @@ void kdisp_idle(void) {
             uint16_t keycode = keymaps[_BL][r + offset][c];
             if (keycode == KC_NO) {
                 skip++;
-            }
-            else {
+            } else {
                 if (disp_idx != 255) {
-                  set_selected_displays(old_idle[idx], idle[idx]);
-                  idx = (idx+1) % IDLE_ARRAY_SIZE;
+                    uint8_t idle_brightness = to_brightness((contrast+c+r+keycode%(10+r+c)+offset)%50);
+                    if(idle_brightness==0) {
+                        kdisp_enable(false);
+                    } else {
+                        kdisp_enable(true);
+                        kdisp_set_contrast(idle_brightness-1);
+                    }
                 }
                 sr_shift_once_latch();
             }
@@ -971,9 +1015,10 @@ void shiftr_3keys(const uint8_t r1, const uint8_t c1, const uint8_t r2, const ui
     keymaps[g_local.default_ls][r1][c1] = swap;
 }
 
-void toggle_stagger(bool newState) {
-    if(g_stagger!=newState) {
-        if(newState) {
+void toggle_stagger(bool new_state) {
+    bool current_state = (g_local.flags&USE_STAGGER) != 0;
+    if(current_state!=new_state) {
+        if(new_state) {
             shiftr_row(3,1,6);
 
             keymaps[g_local.default_ls][0][2] = MO(_FL1);
@@ -996,7 +1041,6 @@ void toggle_stagger(bool newState) {
             shiftr_row(7,1,7);
             shiftr_row(5,1,7);
         }
-        g_stagger = newState;
     }
 }
 
@@ -1008,7 +1052,11 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
     if (!record->event.pressed) {
         switch (keycode) {
         case KC_STAGGER:
-            toggle_stagger(!g_stagger);
+            if((g_local.flags&USE_STAGGER)==0) {
+                g_local.flags |= USE_STAGGER;
+            } else {
+                g_local.flags &= ~((uint8_t)USE_STAGGER);
+            }
             request_disp_refresh();
             break;
         case KC_L0:
@@ -1132,31 +1180,21 @@ void oled_on_off(bool on) {
     }
 }
 
-void set_selected_displays(int8_t old_value, int8_t new_value) {
-    if (old_value <= DISP_OFF && new_value > DISP_OFF) {
-        kdisp_scroll(false);
-        kdisp_enable(true); //turn on again
-    } else if (old_value > DISP_OFF && new_value <= DISP_OFF) {
-        kdisp_scroll(true); //start idling
-    } else if(old_value == DISP_OFF && new_value!= DISP_OFF) {
-        kdisp_enable(true); //turn on
+bool set_displays(uint8_t old_contrast, uint8_t contrast, bool idle) {
+    if(idle) {
+        kdisp_idle(contrast);
+    } else {
+        select_all_displays();
+        if(contrast==DISP_OFF) {
+            kdisp_enable(false);
+            return false;
+        } else {
+            kdisp_enable(true);
+            kdisp_set_contrast(contrast - 1);
+        }
     }
 
-    if (new_value == DISP_OFF) {
-        kdisp_enable(false); //turn off
-    } else if(old_value != new_value) {
-        kdisp_set_contrast(PK_ABS(new_value) - 1); //update contrast/brightness
-    }
-}
-
-bool set_displays(int8_t old_contrast, int8_t contrast) {
-    if(contrast==old_contrast)
-        return false;
-
-    select_all_displays();
-    set_selected_displays(old_contrast, contrast);
-
-    return old_contrast <= DISP_OFF && contrast > DISP_OFF;
+    return old_contrast == DISP_OFF;
 }
 
 
@@ -1164,11 +1202,14 @@ bool set_displays(int8_t old_contrast, int8_t contrast) {
 //disable first keypress if the displays are turned off
 bool display_wakeup(keyrecord_t* record) {
     bool accept_keypress = true;
-    if (g_local.contrast < MIN_BRIGHT && record->event.pressed) {
+    if ((g_local.contrast==DISP_OFF || (g_local.flags & DISP_IDLE)!=0) && record->event.pressed) {
         if(g_local.contrast==DISP_OFF) {
             accept_keypress = timer_elapsed32(last_update) <= TURN_OFF_TIME;
         }
-        g_local.contrast = FULL_BRIGHT; //not always full bright, but the set value
+        poly_eeconf ee; ee.raw = eeconfig_read_user();
+        g_local.contrast = ee.conf.brightness;
+        g_local.flags &= ~((uint8_t)DISP_IDLE);
+        g_local.flags |= STATUS_DISP_ON;
         update_performed();
         request_disp_refresh();
     }
@@ -1197,6 +1238,7 @@ void keyboard_post_init_user(void) {
     setPinInputHigh(GP25);
     setPinInputHigh(GP29);
 
+    //srand(halGetCounterValue());
     dprintf("PolyKybd ready.");
 
     wait_ms(500);
@@ -1215,16 +1257,27 @@ void keyboard_pre_init_user(void) {
     kdisp_scroll_modehv(true, 3, 1);
     kdisp_scroll(false);
 
-    g_local.lang = g_lang_init;
-    g_local.default_ls = 0;
-    g_local.contrast = FULL_BRIGHT;
-    g_local.status_off = false;
+    poly_eeconf ee; ee.raw = eeconfig_read_user();
 
-    set_displays(0, FULL_BRIGHT);
+    g_local.lang = ee.conf.lang;
+    g_local.default_ls = 0;
+    g_local.contrast = ee.conf.brightness;
+    g_local.flags = STATUS_DISP_ON;
+
+    set_displays(0, g_local.contrast, false);
     show_splash_screen();
 
     setPinInputHigh(I2C1_SDA_PIN);
 }
+
+void eeconfig_init_user(void) {
+    poly_eeconf ee;
+    ee.conf.lang = g_lang_init;
+    ee.conf.brightness = FULL_BRIGHT;
+    ee.conf.unused = 0;
+    eeconfig_update_user(ee.raw);
+}
+
 
 void num_to_u16_string(char* buffer, uint8_t buffer_len, uint8_t value) {
     if(value<10) {
@@ -1295,13 +1348,27 @@ void oled_status_screen(void) {
         num_to_u16_string((char*) buffer, sizeof(buffer), rgb_matrix_get_mode());
         kdisp_write_gfx_text(smallFont, 1, 34, 30, buffer);
         kdisp_write_gfx_text(smallFont, 1, 58, 30, get_led_matrix_text(rgb_matrix_get_mode()));
-        kdisp_write_gfx_text(smallFont, 1, 0, 44, u"HSV");
-        hex_to_u16_string((char*) buffer, sizeof(buffer), rgb_matrix_get_hue());
-        kdisp_write_gfx_text(smallFont, 1, 38, 44, buffer);
-        hex_to_u16_string((char*) buffer, sizeof(buffer), rgb_matrix_get_sat());
-        kdisp_write_gfx_text(smallFont, 1, 60, 44, buffer);
-        hex_to_u16_string((char*) buffer, sizeof(buffer), rgb_matrix_get_val());
-        kdisp_write_gfx_text(smallFont, 1, 82, 44, buffer);
+
+        if(is_left_side()) {
+            kdisp_write_gfx_text(smallFont, 1, 0, 44, u"HSV");
+            hex_to_u16_string((char*) buffer, sizeof(buffer), rgb_matrix_get_hue());
+            kdisp_write_gfx_text(smallFont, 1, 38, 44, buffer);
+            hex_to_u16_string((char*) buffer, sizeof(buffer), rgb_matrix_get_sat());
+            kdisp_write_gfx_text(smallFont, 1, 60, 44, buffer);
+            hex_to_u16_string((char*) buffer, sizeof(buffer), rgb_matrix_get_val());
+            kdisp_write_gfx_text(smallFont, 1, 82, 44, buffer);
+        } else {
+            kdisp_write_gfx_text(smallFont, 1, 0, 44, u"Dsp*");
+            num_to_u16_string((char*) buffer, sizeof(buffer), g_local.contrast);
+            kdisp_write_gfx_text(smallFont, 1, 42, 44, buffer);
+            uint8_t i=0;
+            for(;i<(g_local.contrast/5);++i) {
+                buffer[i] = 'l';
+            }
+            buffer[i] = 0;
+            buffer[i+1] = 0;
+            kdisp_write_gfx_text(smallFont, 1, 64, 44, buffer);
+        }
 
         kdisp_write_gfx_text(smallFont, 1, 68, 58, u"S");
         num_to_u16_string((char*) buffer, sizeof(buffer), rgb_matrix_get_speed());
@@ -1311,8 +1378,6 @@ void oled_status_screen(void) {
     kdisp_write_gfx_text(smallFont, 1, 0, 58, u"WPM");
     num_to_u16_string((char*) buffer, sizeof(buffer), get_current_wpm());
     kdisp_write_gfx_text(smallFont, 1, 44, 58, buffer);
-
-   // snprintf(buffer, sizeof(buffer), "\nRGB:%s %s:%d", get_led_matrix_text(rgb_matrix_get_mode()), rgb_matrix_is_enabled() ? "Speed" : "[Off]", rgb_matrix_get_speed());
 
     oled_clear();
     oled_write_raw((char *)get_scratch_buffer(), get_scratch_buffer_size());
@@ -1328,7 +1393,7 @@ void oled_render_logos(void) {
     }
 }
 bool oled_task_user(void) {
-    if(g_local.contrast <= DISP_OFF) {
+    if((g_local.flags&DISP_IDLE) != 0) {
         oled_render_logos();
     } else {
         oled_scroll_off();
@@ -1404,12 +1469,16 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation){
 
 void suspend_power_down_kb(void) {
     dprint("Suspend power down\n");
+    g_local.flags &= ~((uint8_t)STATUS_DISP_ON);
+    g_local.flags &= ~((uint8_t)DISP_IDLE);
     g_local.contrast = DISP_OFF;
     sync_and_refresh_displays();
 }
 
 void suspend_wakeup_init_kb(void) {
     dprint("Suspend wakeup\n");
+    g_local.flags |= STATUS_DISP_ON;
+    g_local.flags &= ~((uint8_t)DISP_IDLE);
     g_local.contrast = FULL_BRIGHT;
     sync_and_refresh_displays();
 }
