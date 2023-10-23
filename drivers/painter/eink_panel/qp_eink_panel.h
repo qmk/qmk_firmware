@@ -20,9 +20,6 @@
 typedef struct eink_panel_dc_reset_painter_driver_vtable_t {
     painter_driver_vtable_t base; // must be first, so it can be cast to/from the painter_driver_vtable_t* type
 
-    // Whether or not the x/y coords should be swapped on 90/270 rotation
-    bool swap_window_coords;
-
     // Opcodes for normal display operation
     // some may not exist on some displays
     struct {

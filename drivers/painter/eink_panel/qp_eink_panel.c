@@ -57,9 +57,11 @@ static inline void decode_masked_pixels(uint8_t *pixels, uint32_t byte, uint8_t 
     }
 }
 
-// Interpolate any HSV888 to the nearest of the three
-static inline uint32_t hsv_distance(HSV hsv1, HSV hsv2) {
-    return (hsv1.h - hsv2.h) * (hsv1.h - hsv2.h) + (hsv1.s - hsv2.s) * (hsv1.s - hsv2.s) + (hsv1.v - hsv2.v) * (hsv1.v - hsv2.v);
+// Used to interpolate any HSV888 to the nearest of the three colors
+// Instead of doing sqrt(dx**2 + dy**2 + dz**2) - aka: pythagorean distance
+// ... Lets just add the differences together, which is faster
+static inline uint16_t hsv_distance(HSV hsv1, HSV hsv2) {
+    return abs(hsv1.h - hsv2.h) + abs(hsv1.s - hsv2.s) + abs(hsv1.v - hsv2.v);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -141,7 +143,8 @@ bool qp_eink_panel_pixdata(painter_device_t device, const void *pixel_data, uint
 
         // stream data to display
         decode_masked_pixels(pixels, byte, &black_data, &color_data);
-        // this is very slow with debugging on, call the vtable's function manually instead
+
+        // this is very slow with debugging on, should maybe call the vtable's function directly
         ret &= qp_pixdata(driver->black_surface, (const void *)&black_data, pixels_this_loop);
         ret &= qp_pixdata(driver->color_surface, (const void *)&color_data, pixels_this_loop);
 
@@ -163,9 +166,9 @@ bool qp_eink_panel_palette_convert(painter_device_t device, int16_t palette_size
 
     for (int16_t i = 0; i < palette_size; ++i) {
         HSV      hsv            = (HSV){palette[i].hsv888.h, palette[i].hsv888.s, palette[i].hsv888.v};
-        uint32_t white_distance = hsv_distance(hsv, (HSV){HSV_WHITE});
-        uint32_t black_distance = hsv_distance(hsv, (HSV){HSV_BLACK});
-        uint32_t color_distance = hsv_distance(hsv, driver->color);
+        uint16_t white_distance = hsv_distance(hsv, (HSV){HSV_WHITE});
+        uint16_t black_distance = hsv_distance(hsv, (HSV){HSV_BLACK});
+        uint16_t color_distance = hsv_distance(hsv, driver->color);
 
         // Default to white
         bool black = false;
