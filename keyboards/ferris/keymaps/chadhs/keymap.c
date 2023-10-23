@@ -15,6 +15,7 @@ enum ferris_layers {
 enum custom_keycodes {
     VIM_CTLU = SAFE_RANGE,
     VIM_CTLD,
+    NO_IDLE,
 };
 
 /* tap dance keys */
@@ -120,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     | KVM4 | KVM3 | KVM2 | KVM1 | F6   |            | ←    | ↓    | ↑    | →    | ↓↓↓  |
     |      |      |      |      |      |            |      |      |      |      |      |
     |------+------+------+------+------|            |------+------+------+------+------|
-    |      |      |      |      |      |            | ^    | VIDN | VIUP | RBG  | GAME |
+    | IDLE |      |      |      |      |            | ^    | VIDN | VIUP | RBG  | GAME |
     |      |      |      |      |      |            |      |      |      | TOG  | TOG  |
     '------'------'------'------'------'            '------'------'------'------'------'
                             .------.------.      .------.------.
@@ -130,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,      KC_MPRV, KC_MNXT,  KC_MPLY,  KC_VOLD,  KC_VOLU,
     TD_KVM4, TD_KVM3, TD_KVM2, TD_KVM1, KC_F6,      KC_LEFT, KC_DOWN,  KC_UP,    KC_RIGHT, _______,
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_CIRC, VIM_CTLD, VIM_CTLU, RGB_TOG,  GAME_TOG,
+    NO_IDLE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_CIRC, VIM_CTLD, VIM_CTLU, RGB_TOG,  GAME_TOG,
                                _______, KC_ESC,     _______, _______
   ),
     [_GAME] = LAYOUT(
@@ -165,7 +166,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     | ↓↓↓  |      |      |      | F6   |            |      | \ |  | [ {  | ] }  | ↓↓↓  |
     |      |      |      |      |      |            |      |      |      |      |      |
     |------+------+------+------+------|            |------+------+------+------+------|
-    | ↓↓↓  |      |      |      |      |            |      |      |      |      | ↓↓↓  |
+    | IDLE |      |      |      |      |            |      |      |      |      | ↓↓↓  |
     |      |      |      |      |      |            |      |      |      |      |      |
     '------'------'------'------'------'            '------'------'------'------'------'
                             .------.------.      .------.------.
@@ -175,12 +176,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
     KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,        KC_MPRV, KC_MNXT, KC_MPLY, KC_VOLD, KC_VOLU,
     _______, XXXXXXX,  XXXXXXX, XXXXXXX, KC_F6,        XXXXXXX, KC_BSLS, KC_LBRC, KC_RBRC, _______,
-    _______, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+    NO_IDLE, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
                                 _______, _______,      _______, _______
 )
 
 };
 
+
+/* anti-idle config */
+/* https://www.reddit.com/r/olkb/comments/fo6lo8/timed_key_press_using_qmk/ */
+static uint32_t idle_key_timer = 0;
+static bool idle_key_trigger = false;
 
 /* macro configuration */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -195,9 +201,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING(SS_LCTL("d"));
             }
             break;
+        /* anti-idle key */
+        case NO_IDLE:
+            if (record->event.pressed) {
+                idle_key_trigger ^= true;
+                if (idle_key_trigger) {
+                    rgblight_set_layer_state(5, true); // toggle rgb_anti_idle_layer on
+                } else {
+                    rgblight_set_layer_state(5, false); // toggle rgb_anti_idle_layer off
+                }
+            }
+            break;
     }
     return true;
 };
+
+void matrix_scan_user(void) {
+    /* anti-idle key execution */
+    if (timer_elapsed32(idle_key_timer) > 30000) { // 30000 = 30 seconds
+        idle_key_timer = timer_read32();  // resets timer
+        if (idle_key_trigger) {
+            tap_code(KC_Z);
+        }
+    }
+}
 
 /* tap dance configuration */
 void dance_kvm_1 (qk_tap_dance_state_t *state, void *user_data) {
@@ -350,14 +377,19 @@ const rgblight_segment_t PROGMEM rgb_gaming2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 2, HSV_BLUE}
 );
 
+const rgblight_segment_t PROGMEM rgb_anti_idle_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 2, HSV_ORANGE}
+);
+
 // array of layers
 const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     rgb_capslock_layer,  // not used, see comment on duplicated layer below
     rgb_colemakdh_layer, // default layer
     rgb_gaming_layer,    // overrides other layers
     rgb_gaming2_layer,   // overrides other layers
-    // there seems to be a bug activating layer 0, so adding caps as layer 5 as well
-    rgb_capslock_layer
+    // there seems to be a bug activating layer 0, so adding caps as layer 4 as well
+    rgb_capslock_layer,
+    rgb_anti_idle_layer
 );
 
 void keyboard_post_init_user(void) {
