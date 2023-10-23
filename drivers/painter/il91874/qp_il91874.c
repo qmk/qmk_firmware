@@ -93,7 +93,6 @@ const eink_panel_dc_reset_painter_driver_vtable_t il91874_driver_vtable = {
             .append_pixels   = qp_eink_panel_append_pixels,
             .append_pixdata  = qp_eink_panel_append_pixdata
         },
-    .swap_window_coords = false,
     .opcodes =
         {
             .display_on      = IL91874_POWER_ON,
