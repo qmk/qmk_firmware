@@ -21,6 +21,9 @@
         "nkro": true,
         "rgb_matrix": true
     },
+    "eeprom": {
+        "driver": "wear_leveling"
+    },
     "matrix_pins": {
         "rows": ["B13", "A1", "A2", "A3", "A4", "B7"],
         "cols": ["B1", "C7", "C13", "B9"]
