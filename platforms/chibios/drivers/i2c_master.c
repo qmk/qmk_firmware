@@ -29,6 +29,7 @@
 #include "gpio.h"
 #include "chibios_config.h"
 #include <string.h>
+#include <math.h>
 #include <ch.h>
 #include <hal.h>
 
