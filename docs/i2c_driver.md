@@ -120,7 +120,12 @@ See [this page](https://www.playembedded.org/blog/stm32-i2c-chibios/#8_I2Cv2_I2C
 ### I2C Fallback :id=arm-configuration-i2cfallback
 
 ChibiOS provides a software solution through the I2C Fallback driver for cases where hardware I2C is not available.
-To enable it, modify your board's `halconf.h` to enable the I2C Fallback driver( assuming selected I2C peripheral is `I2CD1`).
+To enable it instead of the hardware driver, add the following to your `rules.mk`:
+
+```make
+USE_HAL_I2C_FALLBACK = yes
+```
+Then modify your board's `halconf.h` to select the I2C Fallback driver( assuming selected I2C peripheral is `I2CD1`).
 ```c
 #define SW_I2C_USE_I2C1 TRUE
 ```
