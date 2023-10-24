@@ -7,7 +7,7 @@
     "bootloader": "wb32-dfu",
     "usb": {
         "device_version": "1.0.0",
-        "vid": "0x3555",
+        "vid": "0xC001",
         "pid": "0x3667",
         "suspend_wakeup_delay": 1000
     },
