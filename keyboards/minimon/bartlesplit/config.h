@@ -29,4 +29,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 // Pick good defaults for enabling homerow modifiers
-// #define TAPPING_TERM 230
+#define TAPPING_TERM 200
