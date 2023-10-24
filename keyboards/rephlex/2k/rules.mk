@@ -4,4 +4,4 @@ SRC += matrix.c lut.c scanfunctions.c
 
 CUSTOM_MATRIX = lite
 
-OPT = 3
+OPT = 2
