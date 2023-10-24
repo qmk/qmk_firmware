@@ -24,8 +24,10 @@
 *******************************************************************************/
 
 #pragma once
-#include "keymap.h"
+#include "keycodes.h"
 // clang-format off
+
+#undef CH_H
 
 // Aliases
 #define CH_SECT KC_GRV  // §

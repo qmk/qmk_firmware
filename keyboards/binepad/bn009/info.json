@@ -1,28 +1,33 @@
 {
-  "keyboard_name": "BN009",
   "manufacturer": "Binepad",
-  "url": "https://binepad.com",
+  "keyboard_name": "BN009",
   "maintainer": "binepad",
-  "usb": {
-    "vid": "0x4249",
-    "pid": "0x4295",
-    "device_version": "0.0.1"
+  "features": {
+      "bootmagic": true,
+      "command": false,
+      "console": false,
+      "extrakey": true,
+      "mousekey": true,
+      "nkro": false
   },
-  "processor": "atmega32u4",
-  "bootloader": "atmel-dfu",
+  "url": "http://binepad.com",
+  "usb": {
+      "vid": "0x4249",
+      "pid": "0x4295"
+  },
   "layouts": {
-    "LAYOUT": {
-      "layout": [
-        {"x":0, "y":0, "matrix": [0, 0]},
-        {"x":1, "y":0, "matrix": [0, 1]},
-        {"x":2, "y":0, "matrix": [0, 2]},
-        {"x":0, "y":1, "matrix": [1, 0]},
-        {"x":1, "y":1, "matrix": [1, 1]},
-        {"x":2, "y":1, "matrix": [1, 2]},
-        {"x":0, "y":2, "matrix": [2, 0]},
-        {"x":1, "y":2, "matrix": [2, 1]},
-        {"x":2, "y":2, "matrix": [2, 2]}
-      ]
-    }
+      "LAYOUT_ortho_3x3": {
+          "layout": [
+              {"matrix": [0, 0], "x": 0, "y": 0, "label": "k00"},
+              {"matrix": [0, 1], "x": 1, "y": 0, "label": "k01"},
+              {"matrix": [0, 2], "x": 2, "y": 0, "label": "k02"},
+              {"matrix": [1, 0], "x": 0, "y": 1, "label": "k10"},
+              {"matrix": [1, 1], "x": 1, "y": 1, "label": "k11"},
+              {"matrix": [1, 2], "x": 2, "y": 1, "label": "k12"},
+              {"matrix": [2, 0], "x": 0, "y": 2, "label": "k20"},
+              {"matrix": [2, 1], "x": 1, "y": 2, "label": "k21"},
+              {"matrix": [2, 2], "x": 2, "y": 2, "label": "k22"}
+          ]
+      }
   }
 }

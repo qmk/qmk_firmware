@@ -4,10 +4,6 @@
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 #define MAX(x, y) (((x) > (y)) ? (x) : (y))
 
-#ifdef SSD1306OLED
-  #include "ssd1306.h"
-#endif
-
 #define LAYOUT_half( \
     L00, L01, L02, L03, L04, L05,       \
     L10, L11, L12, L13, L14, L15,       \
@@ -71,7 +67,6 @@ enum macro_keycodes {
 //Macros
 #define M_SAMPLE M(KC_SAMPLEMACRO)
 
-#if MATRIX_ROWS == 10 // HELIX_ROWS == 5
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Base
@@ -178,10 +173,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______,  _______, KC_PDOT,    KC_COMM, _______, _______,        _______
       )
 };
-#else
-#error "undefined keymaps"
-#endif
-
 
 #ifdef AUDIO_ENABLE
 
@@ -455,10 +446,6 @@ void matrix_init_user(void) {
     #ifdef RGBLIGHT_ENABLE
       RGB_current_mode = rgblight_get_mode();
     #endif
-    //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
-    #ifdef SSD1306OLED
-        iota_gfx_init(!has_usb());   // turns on the display
-    #endif
 }
 
 
@@ -560,10 +547,6 @@ uint8_t layer_state_old;
 
 //runs every scan cycle (a lot)
 void matrix_scan_user(void) {
-  #ifdef SSD1306OLED
-    iota_gfx_task();  // this is what updates the display continuously
-  #endif
-
   if(delay_key_stat && (timer_elapsed(key_timer) > DELAY_TIME)){
     register_delay_code(_BASE);
     if(!delay_key_pressed){
@@ -633,119 +616,6 @@ void matrix_scan_user(void) {
     }
   #endif
 }
-
-//SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
-#ifdef SSD1306OLED
-
-void matrix_update(struct CharacterMatrix *dest,
-                          const struct CharacterMatrix *source) {
-  if (memcmp(dest->display, source->display, sizeof(dest->display))) {
-    memcpy(dest->display, source->display, sizeof(dest->display));
-    dest->dirty = true;
-  }
-}
-
-// Render to OLED
-void render_status(struct CharacterMatrix *matrix) {
-
-  // froggy logo
-  static char logo[4][1][17]=
-  {
-    {
-      {0x65,0x66,0x67,0x68,0x69,0x6a,0x6b,0x6c,0x6d,0x6e,0x6f,0x70,0x71,0x72,0x73,0x74,0}
-    },
-    {
-      {0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,0}
-    },
-    {
-      {0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,0}
-    },
-    {
-      {0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0}
-    }
-  };
-
-  static char indctr[8][2][4]=
-  {
-    // white icon
-    {
-      {0x60,0x61,0x62,0},
-      {0x63,0x64,0}
-    },
-    {
-      {0x80,0x81,0x82,0},
-      {0x83,0x84,0}
-    },
-    {
-      {0xa0,0xa1,0xa2,0},
-      {0xa3,0xa4,0}
-    },
-    {
-      {0xc0,0xc1,0xc2,0},
-      {0xc3,0xc4,0}
-    },
-    // Black icon
-    {
-      {0x75,0x76,0x77,0},
-      {0x78,0x79,0}
-    },
-    {
-      {0x95,0x96,0x97,0},
-      {0x98,0x99,0}
-    },
-    {
-      {0xb5,0xb6,0xb7,0},
-      {0xb8,0xb9,0}
-    },
-    {
-      {0xd5,0xd6,0xd7,0},
-      {0xd8,0xd9,0}
-    },
-  };
-
-  int rown = 0;
-  int rowf = 0;
-  int rowa = 0;
-  int rows = 0;
-
-  //Set Indicator icon
-  if (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) { rown = 4; } else { rown = 0; }
-  if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) { rowa = 4; } else { rowa = 0; }
-  if (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) { rows = 4; } else { rows = 0; }
-  if (layer_state == L_FUNC) { rowf = 4; }
-
-  matrix_write(matrix, indctr[rown]  [0]);
-  matrix_write(matrix, indctr[rowf]  [1]);
-  matrix_write(matrix, logo  [0]     [0]);
-  matrix_write(matrix, indctr[rown+1][0]);
-  matrix_write(matrix, indctr[rowf+1][1]);
-  matrix_write(matrix, logo  [1]     [0]);
-  matrix_write(matrix, indctr[rowa+2][0]);
-  matrix_write(matrix, indctr[rows+2][1]);
-  matrix_write(matrix, logo  [2]     [0]);
-  matrix_write(matrix, indctr[rowa+3][0]);
-  matrix_write(matrix, indctr[rows+3][1]);
-  matrix_write(matrix, logo  [3]     [0]);
-
-}
-
-void iota_gfx_task_user(void) {
-  struct CharacterMatrix matrix;
-
-#if DEBUG_TO_SCREEN
-  if (debug_enable) {
-    return;
-  }
-#endif
-
-  matrix_clear(&matrix);
-  if (is_keyboard_master()) {
-    render_status(&matrix);
-  }
-  matrix_update(&display, &matrix);
-}
-
-#endif // end of SSD1306OLED
 
 //OLED update loop
 #ifdef OLED_ENABLE
@@ -818,9 +688,10 @@ void render_status(void) {
   int rows = 0;
 
   //Set Indicator icon
-  if (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) { rown = 4; } else { rown = 0; }
-  if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) { rowa = 4; } else { rowa = 0; }
-  if (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) { rows = 4; } else { rows = 0; }
+  led_t led_state = host_keyboard_led_state();
+  if (led_state.num_lock) { rown = 4; } else { rown = 0; }
+  if (led_state.caps_lock) { rowa = 4; } else { rowa = 0; }
+  if (led_state.scroll_lock) { rows = 4; } else { rows = 0; }
   if (layer_state == L_FUNC) { rowf = 4; }
 
   oled_write(indctr[rown]  [0], false);

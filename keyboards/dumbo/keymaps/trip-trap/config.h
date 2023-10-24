@@ -19,9 +19,6 @@
 // Tapping term is ever so slightly lowered from the 200ms default to make layer and mod usage more snappy.
 #define TAPPING_TERM 200
 
-// Prevent normal rollover on alphas from accidentally triggering mods.
-#define IGNORE_MOD_TAP_INTERRUPT
-
 // If you are using an Elite C rev3 on the slave side, uncomment the lines below:
 // #define SPLIT_USB_DETECT
 // #define NO_USB_STARTUP_CHECK

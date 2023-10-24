@@ -17,26 +17,12 @@
 
 #pragma once
 
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { B3, B4, A0,  A2, A3 }
-#define MATRIX_COL_PINS { B0, B1, B2, B10, A7, A6, A5, A4, B5, B6, A1, B7, B8, B9 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* Forcing to use NKRO instead 6KRO */
-#define FORCE_NKRO
-
 #ifdef RGB_MATRIX_ENABLE
     #define RGB_MATRIX_LED_COUNT 76
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
     #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
     #define RGB_MATRIX_KEYPRESSES
     #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-
-    /* RGB Matrix config */
-    #define RGB_DI_PIN B15
 
     /* RGB Matrix effect */
     #define ENABLE_RGB_MATRIX_ALPHAS_MODS

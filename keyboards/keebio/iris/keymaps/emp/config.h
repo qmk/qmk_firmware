@@ -50,12 +50,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #undef PERMISSIVE_HOLD
 
-/* IGNORE_MOD_TAP_INTERRUPT
- * when on: rolling tap-hold keys taps all keys
- * when off: rolling tap-hold keys modifies keys
-*/
-#undef IGNORE_MOD_TAP_INTERRUPT
-
 /* TAPPING_TERM x (ms)
  * how long before a tap becomes a hold. if set above 500, a key tapped during
  * the tapping term will turn it into a hold too

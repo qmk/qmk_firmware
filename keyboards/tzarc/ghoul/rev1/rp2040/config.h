@@ -22,7 +22,6 @@
 #define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN GP2
 
 // RGB configuration
-#define RGB_DI_PIN GP13
 #define RGB_ENABLE_PIN GP6
 
 // ADC Configuration

@@ -17,30 +17,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-// wiring of each half
-#define MATRIX_ROW_PINS { D2, D3, D5, D7, D6 }
-#define MATRIX_COL_PINS { F1, F4, F5, F6, D4, B4 }
 #define SPLIT_HAND_PIN F0
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* ws2812 RGB LED */
-#define RGB_DI_PIN F7
-#define RGBLED_NUM 12    // Number of LEDs
-#define RGBLED_SPLIT { 6, 6 }
-#define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#define RGBLIGHT_EFFECT_SNAKE
-#define RGBLIGHT_EFFECT_KNIGHT
-#define RGBLIGHT_EFFECT_CHRISTMAS
-#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#define RGBLIGHT_EFFECT_RGB_TEST
-#define RGBLIGHT_EFFECT_ALTERNATING
-#define RGBLIGHT_EFFECT_TWINKLE

@@ -6,7 +6,7 @@
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses (will slow down matrix scan by a lot)
 // #   define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (not recommened)
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-// #    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
+#define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 
 #undef ENABLE_RGB_MATRIX_ALPHAS_MODS
 #undef ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN

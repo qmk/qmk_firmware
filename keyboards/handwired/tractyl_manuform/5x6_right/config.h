@@ -18,9 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-#define DIODE_DIRECTION             COL2ROW
-
 #define ROTATIONAL_TRANSFORM_ANGLE  -25
 #define POINTING_DEVICE_INVERT_X
 
