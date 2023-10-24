@@ -269,40 +269,40 @@ static void send_nkro(report_nkro_t *report) {
 }
 
 #ifndef KEYBOARD_SHARED_EP
-#    define usbInterruptIsReadyShared usbInterruptIsReady3
-#    define usbSetInterruptShared usbSetInterrupt3
+#    define MOUSE_IN_EPNUM 3
+#    define SHARED_IN_EPNUM 3
 #else
-#    define usbInterruptIsReadyShared usbInterruptIsReady
-#    define usbSetInterruptShared usbSetInterrupt
+#    define MOUSE_IN_EPNUM 1
+#    define SHARED_IN_EPNUM 1
 #endif
 
 static void send_mouse(report_mouse_t *report) {
 #ifdef MOUSE_ENABLE
-    send_report(3, report, sizeof(report_mouse_t));
+    send_report(MOUSE_IN_EPNUM, report, sizeof(report_mouse_t));
 #endif
 }
 
 static void send_extra(report_extra_t *report) {
 #ifdef EXTRAKEY_ENABLE
-    send_report(3, report, sizeof(report_extra_t));
+    send_report(SHARED_IN_EPNUM, report, sizeof(report_extra_t));
 #endif
 }
 
 void send_joystick(report_joystick_t *report) {
 #ifdef JOYSTICK_ENABLE
-    send_report(3, report, sizeof(report_joystick_t));
+    send_report(SHARED_IN_EPNUM, report, sizeof(report_joystick_t));
 #endif
 }
 
 void send_digitizer(report_digitizer_t *report) {
 #ifdef DIGITIZER_ENABLE
-    send_report(3, report, sizeof(report_digitizer_t));
+    send_report(SHARED_IN_EPNUM, report, sizeof(report_digitizer_t));
 #endif
 }
 
 void send_programmable_button(report_programmable_button_t *report) {
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
-    send_report(3, report, sizeof(report_programmable_button_t));
+    send_report(SHARED_IN_EPNUM, report, sizeof(report_programmable_button_t));
 #endif
 }
 
