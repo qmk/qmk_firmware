@@ -355,8 +355,7 @@ usbMsgLen_t usbFunctionSetup(uchar data[8]) {
                 dprintf("SET_IDLE: %02X", vusb_idle_rate);
                 break;
             case USBRQ_HID_SET_PROTOCOL:
-                // Report Type: 0x02(Out)/ReportID: 0x00(none) && Interface: 0(keyboard)
-                if (rq->wValue.word == 0x0200 && rq->wIndex.word == KEYBOARD_INTERFACE) {
+                if (rq->wIndex.word == KEYBOARD_INTERFACE) {
                     keyboard_protocol = rq->wValue.bytes[1];
                     dprintf("SET_PROTOCOL: %02X", keyboard_protocol);
                 }
