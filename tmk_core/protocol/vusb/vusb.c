@@ -356,10 +356,10 @@ usbMsgLen_t usbFunctionSetup(uchar data[8]) {
                 break;
             case USBRQ_HID_SET_PROTOCOL:
                 if (rq->wIndex.word == KEYBOARD_INTERFACE) {
-                    keyboard_protocol = rq->wValue.bytes[1];
+                    keyboard_protocol = rq->wValue.word & 0xFF;
                     dprintf("SET_PROTOCOL: %02X", keyboard_protocol);
                 }
-                return USB_NO_MSG; // to get data in usbFunctionWrite
+                break;
             default:
                 dprint("UNKNOWN:");
                 break;
