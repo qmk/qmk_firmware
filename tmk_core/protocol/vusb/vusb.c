@@ -325,30 +325,44 @@ usbMsgLen_t usbFunctionSetup(uchar data[8]) {
     usbRequest_t *rq = (void *)data;
 
     if ((rq->bmRequestType & USBRQ_TYPE_MASK) == USBRQ_TYPE_CLASS) { /* class request type */
-        if (rq->bRequest == USBRQ_HID_GET_REPORT) {
-            dprint("GET_REPORT:");
-            if (rq->wIndex.word == KEYBOARD_INTERFACE) {
-                usbMsgPtr = (usbMsgPtr_t)&keyboard_report_sent;
-                return sizeof(keyboard_report_sent);
-            }
-        } else if (rq->bRequest == USBRQ_HID_GET_IDLE) {
-            dprint("GET_IDLE:");
-            usbMsgPtr = (usbMsgPtr_t)&vusb_idle_rate;
-            return 1;
-        } else if (rq->bRequest == USBRQ_HID_SET_IDLE) {
-            vusb_idle_rate = rq->wValue.bytes[1];
-            dprintf("SET_IDLE: %02X", vusb_idle_rate);
-        } else if (rq->bRequest == USBRQ_HID_SET_REPORT) {
-            dprint("SET_REPORT:");
-            // Report Type: 0x02(Out)/ReportID: 0x00(none) && Interface: 0(keyboard)
-            if (rq->wValue.word == 0x0200 && rq->wIndex.word == KEYBOARD_INTERFACE) {
-                dprint("SET_LED:");
-                last_req.kind = SET_LED;
-                last_req.len  = rq->wLength.word;
-            }
-            return USB_NO_MSG; // to get data in usbFunctionWrite
-        } else {
-            dprint("UNKNOWN:");
+        switch (rq->bRequest) {
+            case USBRQ_HID_GET_REPORT:
+                dprint("GET_REPORT:");
+                if (rq->wIndex.word == KEYBOARD_INTERFACE) {
+                    usbMsgPtr = (usbMsgPtr_t)&keyboard_report_sent;
+                    return sizeof(keyboard_report_sent);
+                }
+                break;
+            case USBRQ_HID_GET_IDLE:
+                dprint("GET_IDLE:");
+                usbMsgPtr = (usbMsgPtr_t)&vusb_idle_rate;
+                return 1;
+            case USBRQ_HID_GET_PROTOCOL:
+                dprint("GET_PROTOCOL:");
+                usbMsgPtr = (usbMsgPtr_t)&keyboard_protocol;
+                return 1;
+            case USBRQ_HID_SET_REPORT:
+                dprint("SET_REPORT:");
+                // Report Type: 0x02(Out)/ReportID: 0x00(none) && Interface: 0(keyboard)
+                if (rq->wValue.word == 0x0200 && rq->wIndex.word == KEYBOARD_INTERFACE) {
+                    dprint("SET_LED:");
+                    last_req.kind = SET_LED;
+                    last_req.len  = rq->wLength.word;
+                }
+                return USB_NO_MSG; // to get data in usbFunctionWrite
+            case USBRQ_HID_SET_IDLE:
+                vusb_idle_rate = rq->wValue.bytes[1];
+                dprintf("SET_IDLE: %02X", vusb_idle_rate);
+                break;
+            case USBRQ_HID_SET_PROTOCOL:
+                if (rq->wIndex.word == KEYBOARD_INTERFACE) {
+                    keyboard_protocol = rq->wValue.word & 0xFF;
+                    dprintf("SET_PROTOCOL: %02X", keyboard_protocol);
+                }
+                break;
+            default:
+                dprint("UNKNOWN:");
+                break;
         }
     } else {
         dprint("VENDOR:");
