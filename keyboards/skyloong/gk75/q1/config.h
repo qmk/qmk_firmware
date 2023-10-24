@@ -24,6 +24,3 @@
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CUSTOM_solid_green
 #define RGB_MATRIX_DEFAULT_HUE 0
-
-#define WAIT_FOR_USB
-
