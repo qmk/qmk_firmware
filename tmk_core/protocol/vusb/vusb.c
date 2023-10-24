@@ -93,12 +93,6 @@ static uint8_t keyboard_led_state = 0;
 static uint8_t vusb_idle_rate     = 0;
 uint8_t        keyboard_protocol  = 1;
 
-/* Keyboard report send buffer */
-#define KBUF_SIZE 16
-static report_keyboard_t kbuf[KBUF_SIZE];
-static uint8_t           kbuf_head = 0;
-static uint8_t           kbuf_tail = 0;
-
 static report_keyboard_t keyboard_report_sent;
 
 static void send_report_fragment(uint8_t endpoint, void *data, size_t size) {
@@ -134,35 +128,6 @@ static void send_report(uint8_t endpoint, void *report, size_t size) {
     uint8_t remainder = size % 8;
     if (remainder) {
         send_report_fragment(endpoint, temp, remainder);
-    }
-}
-
-#define VUSB_TRANSFER_KEYBOARD_MAX_TRIES 10
-
-/* transfer keyboard report from buffer */
-void vusb_transfer_keyboard(void) {
-    for (int i = 0; i < VUSB_TRANSFER_KEYBOARD_MAX_TRIES; i++) {
-        if (usbInterruptIsReady()) {
-            if (kbuf_head != kbuf_tail) {
-#ifndef KEYBOARD_SHARED_EP
-                usbSetInterrupt((void *)&kbuf[kbuf_tail], sizeof(report_keyboard_t));
-#else
-                // Ugly hack! :(
-                usbSetInterrupt((void *)&kbuf[kbuf_tail], sizeof(report_keyboard_t) - 1);
-                while (!usbInterruptIsReady()) {
-                    usbPoll();
-                }
-                usbSetInterrupt((void *)(&(kbuf[kbuf_tail].keys[5])), 1);
-#endif
-                kbuf_tail = (kbuf_tail + 1) % KBUF_SIZE;
-                if (debug_keyboard) {
-                    dprintf("V-USB: kbuf[%d->%d](%02X)\n", kbuf_tail, kbuf_head, (kbuf_head < kbuf_tail) ? (KBUF_SIZE - kbuf_tail + kbuf_head) : (kbuf_head - kbuf_tail));
-                }
-            }
-            break;
-        }
-        usbPoll();
-        wait_ms(1);
     }
 }
 
@@ -250,17 +215,12 @@ static uint8_t keyboard_leds(void) {
 }
 
 static void send_keyboard(report_keyboard_t *report) {
-    uint8_t next = (kbuf_head + 1) % KBUF_SIZE;
-    if (next != kbuf_tail) {
-        kbuf[kbuf_head] = *report;
-        kbuf_head       = next;
+    if (!keyboard_protocol) {
+        send_report(1, &report->mods, 8);
     } else {
-        dprint("kbuf: full\n");
+        send_report(1, report, sizeof(report_keyboard_t));
     }
 
-    // NOTE: send key strokes of Macro
-    usbPoll();
-    vusb_transfer_keyboard();
     keyboard_report_sent = *report;
 }
 
