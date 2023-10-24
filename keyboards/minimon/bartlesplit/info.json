@@ -12,7 +12,7 @@
     "usb": {
         "device_version": "1.0.0",
         "vid": "0x4B49",
-        "pid": "0x1306",
+        "pid": "0x1306"
     },
     "development_board": "promicro",
     "pin_compatible": "promicro",
@@ -22,10 +22,10 @@
             "B3", "B3", "B1", "B1", "F7", "F7",
             "E6", "E6", "D7", "D7", "C6", "C6"
         ],
-        "rows": ["B5", "B4", "B2", "B6"],
+        "rows": ["B5", "B4", "B2", "B6"]
     },
     "layouts": {
-        "LAYOUT_3x5_3": {
+        "LAYOUT_3x6_3": {
             "layout": [
                 { "matrix": [0, 5], "x": 0, "y": 0.25 },
                 { "matrix": [0, 4], "x": 1, "y": 0.125 },
