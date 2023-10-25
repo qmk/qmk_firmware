@@ -2,7 +2,6 @@
 
 ![Pisces](https://i.imgur.com/fqEBVD8h.jpeg)
 
-
 * Keyboard Maintainer: [khchen](https://github.com/khchen2004)
 * Hardware Supported: Pisces PCB
 * Hardware Availability: Private GB
