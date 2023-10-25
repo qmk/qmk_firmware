@@ -375,14 +375,7 @@ void led_matrix_indicators_advanced(effect_params_t *params) {
      * and not sure which would be better. Otherwise, this should be called from
      * led_task_render, right before the iter++ line.
      */
-#if defined(LED_MATRIX_LED_PROCESS_LIMIT) && LED_MATRIX_LED_PROCESS_LIMIT > 0 && LED_MATRIX_LED_PROCESS_LIMIT < LED_MATRIX_LED_COUNT
-    uint8_t min = LED_MATRIX_LED_PROCESS_LIMIT * (params->iter - 1);
-    uint8_t max = min + LED_MATRIX_LED_PROCESS_LIMIT;
-    if (max > LED_MATRIX_LED_COUNT) max = LED_MATRIX_LED_COUNT;
-#else
-    uint8_t min = 0;
-    uint8_t max = LED_MATRIX_LED_COUNT;
-#endif
+    LED_MATRIX_USE_LIMITS_ITER(min, max, params->iter - 1);
     led_matrix_indicators_advanced_kb(min, max);
 }
 
@@ -392,6 +385,36 @@ __attribute__((weak)) bool led_matrix_indicators_advanced_kb(uint8_t led_min, ui
 
 __attribute__((weak)) bool led_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     return true;
+}
+
+struct led_matrix_limits_t led_matrix_get_limits(uint8_t iter) {
+    struct led_matrix_limits_t limits = {0};
+#if defined(LED_MATRIX_LED_PROCESS_LIMIT) && LED_MATRIX_LED_PROCESS_LIMIT > 0 && LED_MATRIX_LED_PROCESS_LIMIT < LED_MATRIX_LED_COUNT
+#    if defined(LED_MATRIX_SPLIT)
+    limits.led_min_index = LED_MATRIX_LED_PROCESS_LIMIT * (iter);
+    limits.led_max_index = limits.led_min_index + LED_MATRIX_LED_PROCESS_LIMIT;
+    if (limits.led_max_index > LED_MATRIX_LED_COUNT) limits.led_max_index = LED_MATRIX_LED_COUNT;
+    uint8_t k_led_matrix_split[2] = LED_MATRIX_SPLIT;
+    if (is_keyboard_left() && (limits.led_max_index > k_led_matrix_split[0])) limits.led_max_index = k_led_matrix_split[0];
+    if (!(is_keyboard_left()) && (limits.led_min_index < k_led_matrix_split[0])) limits.led_min_index = k_led_matrix_split[0];
+#    else
+    limits.led_min_index = LED_MATRIX_LED_PROCESS_LIMIT * (iter);
+    limits.led_max_index = limits.led_min_index + LED_MATRIX_LED_PROCESS_LIMIT;
+    if (limits.led_max_index > LED_MATRIX_LED_COUNT) limits.led_max_index = LED_MATRIX_LED_COUNT;
+#    endif
+#else
+#    if defined(LED_MATRIX_SPLIT)
+    limits.led_min_index                = 0;
+    limits.led_max_index                = LED_MATRIX_LED_COUNT;
+    const uint8_t k_led_matrix_split[2] = LED_MATRIX_SPLIT;
+    if (is_keyboard_left() && (limits.led_max_index > k_led_matrix_split[0])) limits.led_max_index = k_led_matrix_split[0];
+    if (!(is_keyboard_left()) && (limits.led_min_index < k_led_matrix_split[0])) limits.led_min_index = k_led_matrix_split[0];
+#    else
+    limits.led_min_index = 0;
+    limits.led_max_index = LED_MATRIX_LED_COUNT;
+#    endif
+#endif
+    return limits;
 }
 
 void led_matrix_init(void) {
