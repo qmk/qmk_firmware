@@ -5,6 +5,7 @@
     },
     "matrix_pins": {
         "custom_lite": true,
+        "custom_lite": true,
         "rows": ["D5", "D2", "D4", "D3", "D0", "D1"]
     },
     "indicators": {
