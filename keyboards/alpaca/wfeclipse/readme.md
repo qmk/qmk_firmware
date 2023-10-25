@@ -1,6 +1,6 @@
 # Alpaca Keyboards whitefox-eclipse
 
-![Alpaca Keyboards whitefox-eclipse](https://i.imgur.com/VlyDBYG.jpg)
+![Alpaca Keyboards whitefox-eclipse](https://i.imgur.com/VlyDBYGh.jpg)
 
 A customizable 68% keyboard.
 
