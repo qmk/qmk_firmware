@@ -293,14 +293,14 @@ const uint16_t PROGMEM gravminus_combo[] = {LT(_MEH,KC_GRV), KC_MINUS, COMBO_END
 
 const uint16_t PROGMEM xcv_combo[] = {KC_X, KC_C, KC_V, COMBO_END};
 
-const uint16_t PROGMEM cal_combo[]   = {KC_C, KC_A, KC_L, COMBO_END};
+const uint16_t PROGMEM cal_combo[]   = {KC_C, KC_A, MT(MOD_LALT, KC_L), COMBO_END};
 const uint16_t PROGMEM phone_combo[] = {KC_P, KC_Q, COMBO_END};
 const uint16_t PROGMEM qnm_combo[]   = {KC_Q, KC_N, KC_M, COMBO_END};
 const uint16_t PROGMEM qin_combo[]   = {KC_Q, KC_I, KC_N, COMBO_END};
-const uint16_t PROGMEM eml_combo[]   = {KC_E, KC_M, KC_L, COMBO_END};
-const uint16_t PROGMEM wrk_combo[]   = {KC_W, KC_R, KC_K, COMBO_END};
+const uint16_t PROGMEM eml_combo[]   = {KC_E, KC_M, MT(MOD_LALT, KC_L), COMBO_END};
+const uint16_t PROGMEM wrk_combo[]   = {KC_W, KC_R, MT(MOD_LGUI, KC_K), COMBO_END};
 const uint16_t PROGMEM rbu_combo[]   = {KC_R, KC_B, KC_U, COMBO_END};
-const uint16_t PROGMEM rbl_combo[]   = {KC_R, KC_B, KC_L, COMBO_END};
+const uint16_t PROGMEM rbl_combo[]   = {KC_R, KC_B, MT(MOD_LALT, KC_L), COMBO_END};
 
 const uint16_t PROGMEM togwin_combo[] = {KC_9, KC_2, COMBO_END};
 const uint16_t PROGMEM toggame_combo[] = {KC_0, KC_1, COMBO_END};
