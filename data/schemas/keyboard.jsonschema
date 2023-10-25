@@ -756,7 +756,15 @@
             "properties": {
                 "keys_per_scan": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
                 "tap_keycode_delay": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                "tap_capslock_delay": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                "tap_capslock_delay": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "locking": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "enabled": {"type": "boolean"},
+                        "resync": {"type": "boolean"}
+                    }
+                }
             }
         },
         "qmk_lufa_bootloader": {

@@ -60,6 +60,13 @@ You can create `info.json` files at every level under `qmk_firmware/keyboards/<k
     }
     ```
 * `qmk`
+    * `locking`
+        * `enabled`
+            * Enable locking switch support.
+            * Default: `false`
+        * `resync`
+            * Keep switch state consistent with keyboard LED state.
+            * Default: `false`
     * `tap_capslock_delay`
         * The delay between keydown and keyup for Caps Lock tap events in milliseconds.
         * Default: `80` (80 ms)

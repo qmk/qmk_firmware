@@ -79,6 +79,10 @@
     "LED_MATRIX_VAL_STEP": {"info_key": "led_matrix.val_steps", "value_type": "int"},
     "LED_MATRIX_LED_COUNT": {"info_key": "led_matrix.led_count", "value_type": "int", "to_json": false},
 
+    // Locking Switch
+    "LOCKING_SUPPORT_ENABLE": {"info_key": "qmk.locking.enabled", "value_type": "bool"},
+    "LOCKING_RESYNC_ENABLE": {"info_key": "qmk.locking.resync", "value_type": "bool"},
+
     // LUFA Bootloader
     "QMK_ESC_INPUT": {"info_key": "qmk_lufa_bootloader.esc_input"},
     "QMK_ESC_OUTPUT": {"info_key": "qmk_lufa_bootloader.esc_output"},
