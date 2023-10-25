@@ -89,35 +89,21 @@
 #    define LED_MATRIX_LED_PROCESS_LIMIT ((LED_MATRIX_LED_COUNT + 4) / 5)
 #endif
 
-#if defined(LED_MATRIX_LED_PROCESS_LIMIT) && LED_MATRIX_LED_PROCESS_LIMIT > 0 && LED_MATRIX_LED_PROCESS_LIMIT < LED_MATRIX_LED_COUNT
-#    if defined(LED_MATRIX_SPLIT)
-#        define LED_MATRIX_USE_LIMITS(min, max)                                                   \
-            uint8_t min = LED_MATRIX_LED_PROCESS_LIMIT * params->iter;                            \
-            uint8_t max = min + LED_MATRIX_LED_PROCESS_LIMIT;                                     \
-            if (max > LED_MATRIX_LED_COUNT) max = LED_MATRIX_LED_COUNT;                           \
-            uint8_t k_led_matrix_split[2] = LED_MATRIX_SPLIT;                                     \
-            if (is_keyboard_left() && (max > k_led_matrix_split[0])) max = k_led_matrix_split[0]; \
-            if (!(is_keyboard_left()) && (min < k_led_matrix_split[0])) min = k_led_matrix_split[0];
-#    else
-#        define LED_MATRIX_USE_LIMITS(min, max)                        \
-            uint8_t min = LED_MATRIX_LED_PROCESS_LIMIT * params->iter; \
-            uint8_t max = min + LED_MATRIX_LED_PROCESS_LIMIT;          \
-            if (max > LED_MATRIX_LED_COUNT) max = LED_MATRIX_LED_COUNT;
-#    endif
-#else
-#    if defined(LED_MATRIX_SPLIT)
-#        define LED_MATRIX_USE_LIMITS(min, max)                                                   \
-            uint8_t       min                   = 0;                                              \
-            uint8_t       max                   = LED_MATRIX_LED_COUNT;                           \
-            const uint8_t k_led_matrix_split[2] = LED_MATRIX_SPLIT;                               \
-            if (is_keyboard_left() && (max > k_led_matrix_split[0])) max = k_led_matrix_split[0]; \
-            if (!(is_keyboard_left()) && (min < k_led_matrix_split[0])) min = k_led_matrix_split[0];
-#    else
-#        define LED_MATRIX_USE_LIMITS(min, max) \
-            uint8_t min = 0;                    \
-            uint8_t max = LED_MATRIX_LED_COUNT;
-#    endif
-#endif
+struct led_matrix_limits_t {
+    uint8_t led_min_index;
+    uint8_t led_max_index;
+};
+
+struct led_matrix_limits_t led_matrix_get_limits(uint8_t iter);
+
+#define LED_MATRIX_USE_LIMITS_ITER(min, max, iter)                   \
+    struct led_matrix_limits_t limits = led_matrix_get_limits(iter); \
+    uint8_t                    min    = limits.led_min_index;        \
+    uint8_t                    max    = limits.led_max_index;        \
+    (void)min;                                                       \
+    (void)max;
+
+#define LED_MATRIX_USE_LIMITS(min, max) LED_MATRIX_USE_LIMITS_ITER(min, max, params->iter)
 
 #define LED_MATRIX_TEST_LED_FLAGS() \
     if (!HAS_ANY_FLAGS(g_led_config.flags[i], params->flags)) continue
