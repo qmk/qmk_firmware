@@ -10,14 +10,26 @@
     },
     "rgblight": {
         "led_count": 98,
-        "split_count": [49, 49]
+        "split_count": [49, 49],
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "ws2812": {
         "pin": "B5",
         "driver": "pwm"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
     },
     "matrix_pins": {
         "cols": ["A0", "B11", "B0", "B10", "B12", "B2", "A8"],

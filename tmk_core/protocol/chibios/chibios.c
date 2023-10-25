@@ -80,6 +80,26 @@ void console_task(void);
 void midi_ep_task(void);
 #endif
 
+/* TESTING
+ * Amber LED blinker thread, times are in milliseconds.
+ */
+/* set this variable to non-zero anywhere to blink once */
+// static THD_WORKING_AREA(waThread1, 128);
+// static THD_FUNCTION(Thread1, arg) {
+
+//   (void)arg;
+//   chRegSetThreadName("blinker");
+//   while (true) {
+//     systime_t time;
+
+//     time = USB_DRIVER.state == USB_ACTIVE ? 250 : 500;
+//     palClearLine(LINE_CAPS_LOCK);
+//     chSysPolledDelayX(MS2RTC(STM32_HCLK, time));
+//     palSetLine(LINE_CAPS_LOCK);
+//     chSysPolledDelayX(MS2RTC(STM32_HCLK, time));
+//   }
+// }
+
 /* Early initialisation
  */
 __attribute__((weak)) void early_hardware_init_pre(void) {
@@ -115,6 +135,9 @@ void boardInit(void) {
 
 void protocol_setup(void) {
     usb_device_state_init();
+
+    // TESTING
+    // chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);
 }
 
 static host_driver_t *driver = NULL;
@@ -157,32 +180,28 @@ void protocol_post_init(void) {
 }
 
 void protocol_pre_task(void) {
+    usb_event_queue_task();
+
 #if !defined(NO_USB_STARTUP_CHECK)
     if (USB_DRIVER.state == USB_SUSPENDED) {
         dprintln("suspending keyboard");
         while (USB_DRIVER.state == USB_SUSPENDED) {
-            suspend_power_down();
+            /* Do this in the suspended state */
+            suspend_power_down(); // on AVR this deep sleeps for 15ms
+            /* Remote wakeup */
             if ((USB_DRIVER.status & USB_GETSTATUS_REMOTE_WAKEUP_ENABLED) && suspend_wakeup_condition()) {
-                /* issue a remote wakeup event to the host which should resume
-                 * the bus and get our keyboard out of suspension. */
                 usbWakeupHost(&USB_DRIVER);
-#    if USB_SUSPEND_WAKEUP_DELAY > 0
-                /* Some hubs, kvm switches, and monitors do weird things, with
-                 * USB device state bouncing around wildly on wakeup, yielding
-                 * race conditions that can corrupt the keyboard state.
-                 *
-                 * Pause for a while to let things settle... */
-                wait_ms(USB_SUSPEND_WAKEUP_DELAY);
-#    endif
+                restart_usb_driver(&USB_DRIVER);
             }
         }
-        /* after a successful wakeup a USB_EVENT_WAKEUP is signaled to QMK by
-         * ChibiOS, which triggers a wakeup callback that restores the state of
-         * the keyboard. Therefore we do nothing here. */
+        /* Woken up */
+        // variables has been already cleared by the wakeup hook
+        send_keyboard_report();
+#    ifdef MOUSEKEY_ENABLE
+        mousekey_send();
+#    endif /* MOUSEKEY_ENABLE */
     }
 #endif
-
-    usb_event_queue_task();
 }
 
 void protocol_post_task(void) {
