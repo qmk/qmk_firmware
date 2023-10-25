@@ -312,7 +312,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
 	case COLEMAK:
       if (record->event.pressed) {
-//        persistent_default_layer_set(1UL << _COLEMAK);
         default_layer_set(1UL << _COLEMAK);
         layer_move (_COLEMAK);
         keymap_config.nkro = 0;
@@ -321,7 +320,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case QWERTY:
       if (record->event.pressed) {
-//        persistent_default_layer_set(1UL << _QWERTY);
         default_layer_set(1UL << _QWERTY);
         layer_move (_QWERTY);
         keymap_config.nkro = 0;
