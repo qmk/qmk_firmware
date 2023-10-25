@@ -30,25 +30,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
 };
-
-const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS({2, 1, HSV_GREEN});
-const rgblight_segment_t PROGMEM my_numlock_layer[] = RGBLIGHT_LAYER_SEGMENTS({0, 1, HSV_GREEN});
-const rgblight_segment_t PROGMEM my_scroll_layer[] = RGBLIGHT_LAYER_SEGMENTS({1, 1, HSV_GREEN});
-
-// Now define the array of layers. Later layers take precedence
-const rgblight_segment_t* const PROGMEM my_rgb_layers[] =
-RGBLIGHT_LAYERS_LIST( 
-            my_capslock_layer,
-            my_numlock_layer,
-            my_scroll_layer
-        );
-void keyboard_post_init_user(void) {
-    rgblight_layers = my_rgb_layers;
-}
-// Activate rgb layer for caps when capslock is enabled
-bool led_update_user(led_t led_state) {
-rgblight_set_layer_state(0, led_state.caps_lock);
-rgblight_set_layer_state(1, led_state.num_lock);
-rgblight_set_layer_state(2, led_state.scroll_lock);
-return true;
-}
