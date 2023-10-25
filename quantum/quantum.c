@@ -483,7 +483,11 @@ void set_single_persistent_default_layer(uint8_t default_layer) {
 #if defined(AUDIO_ENABLE) && defined(DEFAULT_LAYER_SONGS)
     PLAY_SONG(default_layer_songs[default_layer]);
 #endif
+#if defined(DEFAULT_LAYER_BITMASK_ENABLE)
     eeconfig_update_default_layer((layer_state_t)1 << default_layer);
+#else
+    eeconfig_update_default_layer(default_layer);
+#endif
     default_layer_set((layer_state_t)1 << default_layer);
 }
 
