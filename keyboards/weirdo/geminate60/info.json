@@ -8,6 +8,9 @@
         "pid": "0x676D",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "led_count": 1
+    },
     "ws2812": {
         "pin": "A6"
     },

@@ -686,7 +686,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   if ((capslock_state & MOD_MASK_SHIFT) == MOD_MASK_SHIFT) {
     // CAPSLOCK is currently active, disable it
-    if (host_keyboard_leds() & (1 << USB_LED_CAPS_LOCK)) {
+    if (host_keyboard_led_state().caps_lock) {
       unregister_code(KC_LOCKING_CAPS_LOCK);
     } else {
       register_code(KC_LOCKING_CAPS_LOCK);
@@ -695,11 +695,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   return process_record_user_shifted(keycode, record);
-};
-
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void){
-
 };
 
 // Runs constantly in the background, in a loop.

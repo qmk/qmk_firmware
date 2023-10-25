@@ -27,7 +27,7 @@ You can define up to 32 macros in a `keymap.json` file, as used by [Configurator
         ],
         [
             {"action":"tap", "keycodes": ["F1"]},
-            {"action":"delay", "duration": "1000"},
+            {"action":"delay", "duration": 1000},
             {"action":"tap", "keycodes": ["PGDN"]}
         ]
     ],

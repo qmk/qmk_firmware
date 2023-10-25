@@ -14,7 +14,6 @@
 #endif // SERIAL_USART_SPEED
 
 // RGB configuration
-#define RGBLED_NUM 84
 #define RGB_MATRIX_LED_COUNT 84
 #define RGB_MATRIX_SPLIT \
     { 42, 42 }

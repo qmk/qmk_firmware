@@ -18,5 +18,3 @@ RGB_MATRIX_ENABLE = no
 SRC += k_type-rgbdriver.c
 QUANTUM_LIB_SRC += i2c_master.c is31fl3733-dual.c
 
-# Enter lower-power sleep mode when on the ChibiOS idle thread
-OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
