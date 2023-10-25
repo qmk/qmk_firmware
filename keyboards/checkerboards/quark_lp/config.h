@@ -16,32 +16,17 @@
 
 #pragma once
 
-/* key matrix pins */
-#define MATRIX_ROW_PINS { C5, C4, C6, C7 }
-#define MATRIX_COL_PINS { B6, B5, B4, B3, B0, D6, D5, D4, D3, D2, D1, D0 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define TAPPING_TOGGLE 2
-
-#define RGB_DI_PIN C2 // pin the DI on the ws2812 is hooked-up to
-
 #ifdef RGB_MATRIX_ENABLE
 #define RGB_MATRIX_LED_COUNT 51
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 125 // limits maximum brightness of LEDs to 125 out of 255. Higher may cause the controller to crash.
-#define RGB_MATRIX_HUE_STEP 8
-#define RGB_MATRIX_SAT_STEP 8
-#define RGB_MATRIX_VAL_STEP 8
-#define RGB_MATRIX_SPD_STEP 10
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:

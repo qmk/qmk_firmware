@@ -1,7 +1,7 @@
 // Copyright 2022 gachiham (@gachiham)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include QMK_KEYBOARD_H
+#include "quantum.h"
 
 const matrix_row_t matrix_mask[MATRIX_ROWS] = {
     0b1111111111111110,

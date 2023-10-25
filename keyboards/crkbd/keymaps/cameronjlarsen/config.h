@@ -25,7 +25,6 @@
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 135
 
-#define IGNORE_MOD_TAP_INTERRUPT
 #define CAPS_WORD_IDLE_TIMEOUT 5000  // Turn off Caps Word after 5 seconds.
 
 #ifdef RGBLIGHT_ENABLE

@@ -14,6 +14,5 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #pragma once
-#define IGNORE_MOD_TAP_INTERRUPT
 #define TAPPING_TERM 230
 #define TAPPING_TERM_PER_KEY

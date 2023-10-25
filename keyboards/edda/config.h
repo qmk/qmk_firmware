@@ -13,15 +13,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-
-// ROWS: Top to bottom, COLS: Left to right
-
-#define MATRIX_ROW_PINS {F1, F0, E6, B5, B4}
-#define MATRIX_COL_PINS {F4, F5, F6, F7, C7, C6, B6, B3, D7, D6, D4, D5, D3, D2, D1, D0 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 // Indicators
 #define INDICATOR_PIN_0 B2
 #define INDICATOR_PIN_1 B1

@@ -1,8 +1,0 @@
-{
-    "usb": {
-        "device_version": "0.0.2"
-    },
-    "processor": "STM32F411",
-    "bootloader": "stm32-dfu",
-    "board": "BLACKPILL_STM32_F411"
-}

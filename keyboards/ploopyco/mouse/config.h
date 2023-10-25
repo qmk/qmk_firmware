@@ -23,19 +23,10 @@
 #define UNUSABLE_PINS \
     { B4, D6, F1, F5, F6, F7 }
 
-#define USB_MAX_POWER_CONSUMPTION 100
-
 /* disable action features */
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-#define RGB_DI_PIN B5
-#define RGBLED_NUM 4
-#define RGBLIGHT_LIMIT_VAL 40
-#define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 
 // #define DEBUG_LED_PIN F7
 

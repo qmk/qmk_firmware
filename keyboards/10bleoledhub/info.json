@@ -8,6 +8,32 @@
         "pid": "0x7C99",
         "device_version": "0.0.1"
     },
+    "bluetooth": {
+        "driver": "bluefruit_le"
+    },
+    "rgblight": {
+        "led_count": 4,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "B7"
+    },
+    "matrix_pins": {
+        "cols": ["D6", "D7", "B5"],
+        "rows": ["F0", "F5", "F4", "F6"]
+    },
+    "diode_direction": "ROW2COL",
     "encoder": {
         "rotary": [
             {"pin_a": "C7", "pin_b": "F7"}
@@ -18,16 +44,19 @@
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"label":"Num Lock", "x":0, "y":0, "w":0.8, "h":0.8},
-                {"label":"7", "x":0, "y":1},
-                {"label":"8", "x":1, "y":1},
-                {"label":"9", "x":2, "y":1},
-                {"label":"4", "x":0, "y":2},
-                {"label":"5", "x":1, "y":2},
-                {"label":"6", "x":2, "y":2},
-                {"label":"1", "x":0, "y":3},
-                {"label":"2", "x":1, "y":3},
-                {"label":"3", "x":2, "y":3}
+                {"matrix": [0, 0], "x": 0, "y": 0, "w": 0.8, "h": 0.8},
+
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+
+                {"matrix": [3, 0], "x": 0, "y": 3},
+                {"matrix": [3, 1], "x": 1, "y": 3},
+                {"matrix": [3, 2], "x": 2, "y": 3}
             ]
         }
     }

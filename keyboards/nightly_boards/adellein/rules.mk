@@ -11,6 +11,3 @@ BACKLIGHT_ENABLE = no         # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes         # Enable keyboard RGB underglow
 ENCODER_ENABLE = yes          # Enable Rotary Encoders
 LTO_ENABLE = yes
-
-# Added encoder Action
-SRC += encoder_action.c

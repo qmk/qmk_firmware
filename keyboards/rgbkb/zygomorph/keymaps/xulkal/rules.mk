@@ -11,7 +11,6 @@ NKRO_ENABLE = no            # Nkey Rollover - if this doesn't work, see here: ht
 RGBLIGHT_ENABLE = no        # Enable global lighting effects. Do not enable with RGB Matrix
 RGBLIGHT_SPLIT_ENABLE = no  # Split RGBLight Support
 RGB_MATRIX_ENABLE = yes  	# Enable per-key coordinate based RGB effects. Do not enable with RGBlight
-RGB_MATRIX_DRIVER = WS2812
 RGB_MATRIX_KEYPRESSES = no  # Enable reactive per-key effects.
 SPLIT_RGB_MATRIX_ENABLE = yes # For split RGB Matrix support
 RGBLIGHT_FULL_POWER = yes   # Allow maximum RGB brightness. Otherwise, limited to a safe level for a normal USB-A port

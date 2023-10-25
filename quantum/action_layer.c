@@ -2,8 +2,8 @@
 #include <stdint.h>
 
 #include "keyboard.h"
-#include "keymap.h"
 #include "action.h"
+#include "encoder.h"
 #include "util.h"
 #include "action_layer.h"
 

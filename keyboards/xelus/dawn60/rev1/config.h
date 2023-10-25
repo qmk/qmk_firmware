@@ -15,21 +15,9 @@
  */
 #pragma once
 
-
-//no underglow - prototype
-//#define MATRIX_ROW_PINS { B1, B3, B7, F6, F7 }
-//#define MATRIX_COL_PINS { B0, D5, B2, F5, D2, D3, D4, D6, D7, B4, B5, B6, C6, C7 }
-
-//underglow
-#define MATRIX_ROW_PINS { B1, B3, F1, F6, F7 }
-#define MATRIX_COL_PINS { B0, D5, B2, F5, D3, D2, C7, C6, B6, B5, B4, D7, D6, D4 }
-
 // IS31FL3731 driver
 #define DRIVER_COUNT 2
 #define RGB_MATRIX_LED_COUNT 64
-
-// COL2ROW or ROW2COL
-#define DIODE_DIRECTION COL2ROW
 
 // Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap
 #define LOCKING_SUPPORT_ENABLE
@@ -58,7 +46,6 @@
 #define RGB_BACKLIGHT_DAWN60
 
 //RGB Underglow defines
-#define RGB_DI_PIN F0
 #define WS2812_LED_TOTAL 20
 
 #define RGB_UNDERGLOW_ALPHA_TOP_START 0
