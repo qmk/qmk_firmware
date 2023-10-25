@@ -1,10 +1,10 @@
 # Pisces
 
-![Pisces](https://i.imgur.com/fqEBVD8.jpeg)
+![Pisces](https://i.imgur.com/fqEBVD8h.jpeg)
 
 
 * Keyboard Maintainer: [khchen](https://github.com/khchen2004)
-* Hardware Supported: Pisces PCBs, atmega32u4
+* Hardware Supported: Pisces PCB
 * Hardware Availability: Private GB
 
 Make example for this keyboard (after setting up your build environment):
