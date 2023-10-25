@@ -39,11 +39,11 @@ void matirx_scan_kb (void) {
   rgblight_mode(RGB_current_mode);   // revert RGB to initial mode prior to RGB mode change
   TOG_STATUS = false;
 }
-
+/*
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
-}
+}*/
 /*void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
     rgblight_mode(RGB_current_mode);

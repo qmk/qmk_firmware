@@ -161,28 +161,23 @@ tap_dance_action_t tap_dance_actions[] = {
   [RGT_END] = ACTION_TAP_DANCE_DOUBLE(KC_RGHT, KC_END)
 };
 
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_QWERTY);
+        set_single_persistent_default_layer(_QWERTY);
       }
       return false;
       break;
     case COLEMAK:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_COLEMAK);
+        set_single_persistent_default_layer(_COLEMAK);
       }
       return false;
       break;
     case DVORAK:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_DVORAK);
+        set_single_persistent_default_layer(_DVORAK);
       }
       return false;
       break;

@@ -110,11 +110,6 @@ bool LAYOUT_STATUS = JP_LAYOUT;
 
 bool SHIFT_PRESSED = false;
 
-void persistent_default_layer_set(uint16_t default_layer) {
-    eeconfig_update_default_layer(default_layer);
-    default_layer_set(default_layer);
-}
-
 #define SEND_STRING_RESTORE(STR) (SHIFT_PRESSED ? SEND_STRING(STR SS_DOWN(X_LSFT)) : SEND_STRING(STR SS_UP(X_LSFT)))
 
 #define KEY(CODE) (record->event.pressed ? SEND_STRING(SS_DOWN(X_##CODE)) : SEND_STRING_RESTORE(SS_UP(X_##CODE)))

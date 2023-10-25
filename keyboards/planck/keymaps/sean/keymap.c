@@ -210,16 +210,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case DVRK:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_DVRK);
+        set_single_persistent_default_layer(_DVRK);
         layer_on(_DVRK);
       }
       return false;
@@ -246,7 +241,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case SDRK:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_SDRK);
+        set_single_persistent_default_layer(_SDRK);
         layer_on(_SDRK);
       }
       return false;

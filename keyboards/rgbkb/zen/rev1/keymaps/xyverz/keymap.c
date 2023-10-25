@@ -108,11 +108,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
 void matrix_init_user(void) {
    // This will disable the red LEDs on the ProMicros
    DDRD &= ~(1<<5);
@@ -125,25 +120,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
         case DVORAK:
           if (record->event.pressed) {
-            persistent_default_layer_set(1UL<<_DVORAK);
+            set_single_persistent_default_layer(_DVORAK);
           }
           return false;
           break;
         case QWERTY:
           if (record->event.pressed) {
-            persistent_default_layer_set(1UL<<_QWERTY);
+            set_single_persistent_default_layer(_QWERTY);
           }
           return false;
           break;
         case COLEMAK:
           if (record->event.pressed) {
-            persistent_default_layer_set(1UL<<_COLEMAK);
+            set_single_persistent_default_layer(_COLEMAK);
           }
           return false;
           break;
         case WOW:
           if (record->event.pressed) {
-            persistent_default_layer_set(1UL<<_WOW);
+            set_single_persistent_default_layer(_WOW);
           }
           return false;
           break;

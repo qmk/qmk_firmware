@@ -125,11 +125,6 @@ void matrix_init_user(void) {
   #endif
 }
 
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case COLEMAK:
@@ -137,7 +132,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #ifdef AUDIO_ENABLE
         PLAY_SONG(tone_colemak);
         #endif
-        persistent_default_layer_set(1UL<<_COLEMAK);
+        set_single_persistent_default_layer(_COLEMAK);
       }
       break;
     case GAME:
@@ -145,7 +140,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #ifdef AUDIO_ENABLE
         PLAY_SONG(tone_game);
         #endif
-        persistent_default_layer_set(1UL<<_GAME);
+        set_single_persistent_default_layer(_GAME);
       }
       break;
     case RAISE:

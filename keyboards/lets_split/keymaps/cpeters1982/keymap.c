@@ -121,11 +121,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #endif */
 
 
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
@@ -133,7 +128,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_qwerty);
         #endif
-        persistent_default_layer_set(1UL<<_QWERTY);
+        set_single_persistent_default_layer(_QWERTY);
       }
       return false;
       break;
@@ -197,10 +192,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       rgblight_mode(23);
       break;
     default:
-      if (default_layer & (1UL << _COLEMAK)) {
+      if (default_layer == _COLEMAK) {
         rgblight_set_magenta;
       }
-      else if (default_layer & (1UL << _DVORAK)) {
+      else if (default_layer == _DVORAK) {
         rgblight_set_green;
       }
       else {

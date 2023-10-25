@@ -151,11 +151,6 @@ float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
 float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 #endif
 
-void persistant_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
         case QWERTY:
@@ -163,7 +158,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             #ifdef AUDIO_ENABLE
               PLAY_SONG(tone_qwerty);
             #endif
-            persistant_default_layer_set(1UL<<_QWERTY);
+            set_single_persistent_default_layer(_QWERTY);
           }
           return false;
           break;

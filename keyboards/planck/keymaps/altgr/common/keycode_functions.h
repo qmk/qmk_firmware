@@ -572,12 +572,6 @@ void tap_layer(keyrecord_t *record, uint8_t layer)
 
 // ..................................................................... Keymaps
 
-// void persistant_default_layer_set(uint16_t default_layer)
-// {
-//   eeconfig_update_default_layer(default_layer);
-//   default_layer_set            (default_layer);
-// }
-
 void clear_layers(void)
 {
   uint8_t layer;

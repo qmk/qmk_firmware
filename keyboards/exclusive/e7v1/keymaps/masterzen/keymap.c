@@ -70,13 +70,6 @@ void matrix_init_user(void)
   mode = rgblight_config.mode;
 }
 
-
-void persistent_default_layer_set(uint16_t default_layer)
-{
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
   switch (keycode)
@@ -85,14 +78,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   case LAY_LIN:
     if (record->event.pressed)
     {
-      persistent_default_layer_set(1UL << BASE);
+      set_single_persistent_default_layer(BASE);
     }
     return false;
     break;
   case LAY_OSX:
     if (record->event.pressed)
     {
-      persistent_default_layer_set(1UL << OSX);
+      set_single_persistent_default_layer(OSX);
     }
     return false;
     break;

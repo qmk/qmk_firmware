@@ -205,11 +205,6 @@ float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
 #endif
 
 
-void persistant_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
 //  Helper Functions
 void tap(uint16_t keycode){ register_code(keycode); unregister_code(keycode); };
 
@@ -221,7 +216,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_qwerty);
         #endif
-        persistant_default_layer_set(1UL<<_QWERTY);
+        set_single_persistent_default_layer(_QWERTY);
       }
       return false;
       break;
@@ -230,7 +225,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_colemak);
         #endif
-        persistant_default_layer_set(1UL<<_COLEMAK);
+        set_single_persistent_default_layer(_COLEMAK);
       }
       return false;
       break;
@@ -239,7 +234,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_dvorak);
         #endif
-        persistant_default_layer_set(1UL<<_DVORAK);
+        set_single_persistent_default_layer(_DVORAK);
       }
       return false;
       break;

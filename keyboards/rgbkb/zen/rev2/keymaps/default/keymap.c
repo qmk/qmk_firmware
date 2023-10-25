@@ -88,13 +88,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        set_single_persistent_default_layer(1UL<<_QWERTY);
+        set_single_persistent_default_layer(QWERTY);
       }
       return false;
       break;
     //case COLEMAK:
       //if (record->event.pressed) {
-        //set_single_persistent_default_layer(1UL<<_COLEMAK);
+        //set_single_persistent_default_layer(COLEMAK);
       //}
       //return false;
       //break;

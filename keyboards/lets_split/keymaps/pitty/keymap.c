@@ -121,12 +121,6 @@ bool RGB_INIT = false;
 bool TOG_STATUS = false;
 int RGB_current_mode;
 
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
-
 void matrix_scan_user(void) {
    uint8_t layer = get_highest_layer(layer_state);
    switch (layer) {

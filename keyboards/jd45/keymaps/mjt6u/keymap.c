@@ -81,11 +81,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-void persistent_default_layer_set(uint16_t default_layer)
-{
-    eeconfig_update_default_layer(default_layer);
-    default_layer_set(default_layer);
-}
 
 static bool singular_key = false;
 
@@ -117,7 +112,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     case USEFNMODS:
         if (record->event.pressed)
         {
-            persistent_default_layer_set(1UL << _QWERTY);
+            set_single_persistent_default_layer(_QWERTY);
 #ifdef AUDIO_ENABLE
             PLAY_SONG(tone_fnpc);
 #endif
@@ -128,7 +123,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     case USENUMMODS:
         if (record->event.pressed)
         {
-            persistent_default_layer_set(1UL << _QWERTYNUMMODS);
+            set_single_persistent_default_layer(_QWERTYNUMMODS);
 #ifdef AUDIO_ENABLE
             PLAY_SONG(tone_fnmac);
 #endif

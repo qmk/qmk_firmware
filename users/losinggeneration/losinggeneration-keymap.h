@@ -315,39 +315,37 @@ float tone_workman;
 #define PLAY_SONG(tone)
 #endif
 
-void persistent_default_layer_set(uint16_t default_layer) {
-  layer_state_set(default_layer);
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
         PLAY_SONG(tone_qwerty);
-        persistent_default_layer_set(1UL<<_QWERTY);
+        layer_state_set(1UL<<_QWERTY);
+        set_single_persistent_default_layer(_QWERTY);
       }
       return false;
       break;
     case COLEMAK:
       if (record->event.pressed) {
         PLAY_SONG(tone_colemak);
-        persistent_default_layer_set(1UL<<_COLEMAK);
+        layer_state_set(1UL<<_COLEMAK);
+        set_single_persistent_default_layer(_COLEMAK);
       }
       return false;
       break;
     case WORKMAN:
       if (record->event.pressed) {
         PLAY_SONG(tone_workman);
-        persistent_default_layer_set(1UL<<_WORKMAN);
+        layer_state_set(1UL<<_WORKMAN);
+        set_single_persistent_default_layer(_WORKMAN);
       }
       return false;
       break;
     case DVORAK:
       if (record->event.pressed) {
         PLAY_SONG(tone_dvorak);
-        persistent_default_layer_set(1UL<<_DVORAK);
+        layer_state_set(1UL<<_DVORAK);
+        set_single_persistent_default_layer(_DVORAK);
       }
       return false;
       break;

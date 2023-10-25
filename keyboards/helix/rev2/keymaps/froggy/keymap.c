@@ -188,11 +188,6 @@ float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 //bool TOG_STATUS = false;
 int RGB_current_mode;
 
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
 bool find_mairix(uint16_t keycode, uint8_t *row, uint8_t *col){
   for(uint8_t i=0; i<MATRIX_ROWS; i++){
     for(uint8_t j=0; j<MATRIX_COLS; j++){

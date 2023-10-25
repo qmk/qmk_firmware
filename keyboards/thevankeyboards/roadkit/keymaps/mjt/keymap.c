@@ -84,11 +84,6 @@ float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
 #endif
 
-void persistant_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
 bool fn_tap_used = false; // sets to false when space is pressed,
                           // sets to true when any other key is pressed,
                           //when space is lifted, if another key was prssed, don't send space.
@@ -147,7 +142,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_numpad);
         #endif
-        persistant_default_layer_set(1UL<<_NUMPAD);
+        set_single_persistent_default_layer(_NUMPAD);
       }
       return false;
       break;
@@ -156,7 +151,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_navigation);
         #endif
-        persistant_default_layer_set(1UL<<_NAVIGATION);
+        set_single_persistent_default_layer(_NAVIGATION);
       }
       return false;
       break;
@@ -165,7 +160,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_excel);
         #endif
-        persistant_default_layer_set(1UL<<_EXCEL);
+        set_single_persistent_default_layer(_EXCEL);
       }
       return false;
       break;

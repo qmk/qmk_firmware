@@ -117,12 +117,6 @@ tap_dance_action_t tap_dance_actions[] = {
         [TD_MIN] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_MINS),
         [TD_USC] = ACTION_TAP_DANCE_DOUBLE(KC_DOT, KC_UNDS)};
 
-void persistent_default_layer_set(uint16_t default_layer)
-{
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-};
-
 void matrix_scan_user(void){};
 
 void matrix_init_user(void){};
@@ -134,7 +128,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   case COLE:
     if (record->event.pressed)
     {
-      persistent_default_layer_set(1UL << _COLE);
+      set_single_persistent_default_layer(_COLE);
     }
     return false;
     break;

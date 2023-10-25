@@ -14,11 +14,6 @@ void tap(uint16_t keycode){
     unregister_code(keycode);
 };
 
-void persistent_default_layer_set(uint16_t default_layer){
-    eeconfig_update_default_layer(default_layer);
-    default_layer_set(default_layer);
-};
-
 // Automatic number generation of important keywords
 enum my_keycodes{
     // Layer numbers
@@ -198,7 +193,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case COLEMAK:
         if(record->event.pressed){
-            persistent_default_layer_set(1UL<<_COLEMAK);
+            set_single_persistent_default_layer(_COLEMAK);
             #ifdef AUDIO_ENABLE
               PLAY_SONG(tone_colemak);
             #endif
@@ -207,7 +202,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
     case SWCOLE:
         if(record->event.pressed){
-            persistent_default_layer_set(1UL<<_SWCOLE);
+            set_single_persistent_default_layer(_SWCOLE);
             #ifdef AUDIO_ENABLE
               PLAY_SONG(tone_swcole);
             #endif

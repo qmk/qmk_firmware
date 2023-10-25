@@ -64,6 +64,8 @@
 #define KF_LAYO SAFE_RANGE
 #endif
 
+#define DEFAULT_LAYER_BITMASK_ENABLE
+
 const uint8_t highest_base_layer;
 bool process_record_save_default_layer(uint16_t keycode, keyrecord_t *record);
 bool process_record_select_default_layer(uint16_t keycode, keyrecord_t *record);

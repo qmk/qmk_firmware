@@ -381,8 +381,7 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 void update_base_layer(int base)
 {
     if( current_default_layer != base ) {
-        eeconfig_update_default_layer(1UL<<base);
-        default_layer_set(1UL<<base);
+        set_single_persistent_default_layer(base);
         layer_off(_AUX);
         layer_off(_KAUX);
     } else {

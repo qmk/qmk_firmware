@@ -196,7 +196,11 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
             PLAY_SONG(default_layer_songs[get_highest_layer(state)]);
         }
 #endif
+#ifdef DEFAULT_LAYER_BITMASK_ENABLE
         eeconfig_update_default_layer(state);
+#else
+        eeconfig_update_default_layer(get_highest_layer(state));
+#endif
     } else {
         has_init_been_ran = true;
     }

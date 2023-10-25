@@ -140,7 +140,11 @@ void matrix_init_user(void) {
 
 layer_state_t default_layer_state_set_kb(layer_state_t state) {
   // persist changes to default layers
+#ifdef DEFAULT_LAYER_BITMASK_ENABLE
   eeconfig_update_default_layer(state);
+#else
+  econfig_update_default_layer(get_highest_layer(state));
+#endif
   return state;
 }
 

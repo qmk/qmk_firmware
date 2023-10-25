@@ -133,11 +133,6 @@ void matrix_init_user(void) {
 }
 #endif
 
-void persistant_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   // handle the _ADJUST layer and custom keycodes:

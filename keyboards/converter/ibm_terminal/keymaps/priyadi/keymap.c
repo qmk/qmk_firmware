@@ -246,35 +246,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
 };
 
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     /* layout switcher */
     case LAY_QWE:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<QWE);
+        set_single_persistent_default_layer(QWE);
       }
       return false;
       break;
     case LAY_COL:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<COL);
+        set_single_persistent_default_layer(COL);
       }
       return false;
       break;
     case LAY_WOR:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<WOR);
+        set_single_persistent_default_layer(WOR);
       }
       return false;
       break;
     case LAY_DVO:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<DVO);
+        set_single_persistent_default_layer(DVO);
       }
       return false;
       break;
