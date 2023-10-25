@@ -121,6 +121,7 @@
         }
     },
     "ws2812": {
+        "driver": "vendor",
         "pin": "GP18"
     },
     "rgb_matrix": {

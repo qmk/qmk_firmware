@@ -115,6 +115,7 @@ typedef struct qgf_frame_info_t {
     painter_compression_t compression_scheme;
     uint8_t               bpp;
     bool                  has_palette;
+    bool                  is_panel_native;
     bool                  is_delta;
     uint16_t              left;
     uint16_t              top;
@@ -143,7 +144,7 @@ static bool qp_drawimage_prepare_frame_for_stream_read(painter_device_t device, 
     }
 
     // Parse out the frame info
-    if (!qgf_parse_frame_descriptor(&frame_descriptor, &info->bpp, &info->has_palette, &info->is_delta, &info->compression_scheme, &info->delay)) {
+    if (!qgf_parse_frame_descriptor(&frame_descriptor, &info->bpp, &info->has_palette, &info->is_panel_native, &info->is_delta, &info->compression_scheme, &info->delay)) {
         return false;
     }
 
@@ -236,8 +237,8 @@ static bool qp_drawimage_recolor_impl(painter_device_t device, uint16_t x, uint1
     if (frame_info->is_delta) {
         l = x + frame_info->left;
         t = y + frame_info->top;
-        r = x + frame_info->right - 1;
-        b = y + frame_info->bottom - 1;
+        r = x + frame_info->right;
+        b = y + frame_info->bottom;
     } else {
         l = x;
         t = y;
@@ -263,7 +264,7 @@ static bool qp_drawimage_recolor_impl(painter_device_t device, uint16_t x, uint1
     }
 
     bool ret = false;
-    if (frame_info->bpp <= 8) {
+    if (!frame_info->is_panel_native) {
         // Set up the output state
         qp_internal_pixel_output_state_t output_state = {.device = device, .pixel_write_pos = 0, .max_pixels = qp_internal_num_pixels_in_buffer(device)};
 

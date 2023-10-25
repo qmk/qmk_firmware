@@ -122,7 +122,7 @@
         }
     },
     "led_matrix": {
-        "driver": "ckled2001",
+        "driver": "snled27351",
         "animations": {
             "none": true,
             "solid": true,

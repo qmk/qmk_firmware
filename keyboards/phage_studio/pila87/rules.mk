@@ -16,7 +16,3 @@ AUDIO_ENABLE = no           # Audio output
 
 # RGB Matrix enabled
 RGB_MATRIX_ENABLE = yes
-
-# Wear-levelling driver
-EEPROM_DRIVER = wear_leveling
-WEAR_LEVELING_DRIVER = embedded_flash

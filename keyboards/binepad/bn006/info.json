@@ -24,6 +24,11 @@
         "pid": "0x426E",
         "device_version": "1.0.0"
     },
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
     "ws2812": {
         "pin": "B15"
     },

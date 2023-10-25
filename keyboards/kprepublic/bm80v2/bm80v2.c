@@ -16,7 +16,7 @@
 
 #ifdef RGB_MATRIX_ENABLE
 
-const is31_led g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3741_led_t g_is31fl3741_leds[RGB_MATRIX_LED_COUNT] = {
     {0, CS6_SW1, CS5_SW1, CS4_SW1},
     {0, CS6_SW3, CS5_SW3, CS4_SW3},
     {0, CS6_SW4, CS5_SW4, CS4_SW4},

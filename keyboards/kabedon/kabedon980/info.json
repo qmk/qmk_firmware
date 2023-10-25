@@ -33,6 +33,9 @@
         "rows": ["D0", "D2", "F7", "B1", "B0", "D6", "C7", "D7", "B5", "B2"]
     },
     "diode_direction": "ROW2COL",
+    "dynamic_keymap": {
+        "layer_count": 3
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {

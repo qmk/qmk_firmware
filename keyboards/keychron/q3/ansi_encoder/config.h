@@ -21,14 +21,9 @@
 #define MATRIX_COL_PINS { C14, C15, A0, A1, A2, A3, A4, A5, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN }
 
 /* RGB Matrix Configuration */
-#define DRIVER_1_LED_TOTAL 48
-#define DRIVER_2_LED_TOTAL 39
-#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+#define RGB_MATRIX_LED_COUNT 87
 
-/* Encoder Configuration */
-#define ENCODER_DEFAULT_POS 0x3
-
-#define CKLED2001_CURRENT_TUNE \
+#define SNLED27351_CURRENT_TUNE \
     { 0x9D, 0x9D, 0x44, 0x9D, 0x9D, 0x44, 0x9D, 0x9D, 0x44, 0x9D, 0x9D, 0x44 }
 
 /* Enable CapsLcok LED */

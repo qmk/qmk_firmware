@@ -97,7 +97,7 @@ float rgb_brightness = 1.0;
 void rgbflag(uint8_t r, uint8_t g, uint8_t b) {
   float rgb_brightness = ((float)rgblight_get_val())/256;
   if(rgb_brightness == 0) rgb_brightness = 0.05;
-  LED_TYPE *target_led = user_rgb_mode ? shadowed_led : led;
+  rgb_led_t *target_led = user_rgb_mode ? shadowed_led : led;
   target_led[0].r = (uint8_t)(r*rgb_brightness);
   target_led[0].g = (uint8_t)(g*rgb_brightness);
   target_led[0].b = (uint8_t)(b*rgb_brightness);

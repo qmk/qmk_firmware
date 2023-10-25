@@ -48,18 +48,18 @@ enum {
 
 // led index
 #define ST_LEFT_BEGIN       0
-#ifdef DRIVER_ADDR_2
+#ifdef IS31FL3731_I2C_ADDRESS_2
 #define ST_LEFT_SIZE        4
 #else
 #define ST_LEFT_SIZE        2
 #endif
 #define ST_LEFT_END         (ST_LEFT_BEGIN+ST_LEFT_SIZE-1)
-#ifdef DRIVER_ADDR_2
+#ifdef IS31FL3731_I2C_ADDRESS_2
 #define ST_RIGHT_BEGIN      60
 #else
 #define ST_RIGHT_BEGIN      30
 #endif
-#ifdef DRIVER_ADDR_2
+#ifdef IS31FL3731_I2C_ADDRESS_2
 #define ST_RIGHT_SIZE       4
 #else
 #define ST_RIGHT_SIZE       2
@@ -207,7 +207,7 @@ static void self_testing(void)
     update_ticks();
 }
 
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
     /* Refer to IS31 manual for these locations
      *   driver
      *   |  R location
@@ -295,16 +295,16 @@ void matrix_init_kb(void)
     writePinLow(LED_CAPS_LOCK_PIN);
 
     i2c_init();
-    is31fl3731_init(DRIVER_ADDR_1);
-#ifdef DRIVER_ADDR_2
-    is31fl3731_init(DRIVER_ADDR_2);
+    is31fl3731_init(IS31FL3731_I2C_ADDRESS_1);
+#ifdef IS31FL3731_I2C_ADDRESS_2
+    is31fl3731_init(IS31FL3731_I2C_ADDRESS_2);
 #endif
     for (int index = 0; index < RGB_MATRIX_LED_COUNT; index++) {
         is31fl3731_set_led_control_register(index, true, true, true);
     }
-    is31fl3731_update_led_control_registers(DRIVER_ADDR_1, 0);
-#ifdef DRIVER_ADDR_2
-    is31fl3731_update_led_control_registers(DRIVER_ADDR_2, 1);
+    is31fl3731_update_led_control_registers(IS31FL3731_I2C_ADDRESS_1, 0);
+#ifdef IS31FL3731_I2C_ADDRESS_2
+    is31fl3731_update_led_control_registers(IS31FL3731_I2C_ADDRESS_2, 1);
 #endif
     update_ticks();
     matrix_init_user();
@@ -322,7 +322,7 @@ void housekeeping_task_kb(void)
     } else if (rgb_state.state == CAPS_ALERT) {
         if (rgb_state.alert) {
             is31fl3731_set_color_all(ALERM_LED_R, ALERM_LED_G, ALERM_LED_B);
-            LED_TYPE leds[4];
+            rgb_led_t leds[4];
             for (int i = 0; i < 4; i++) {
                 leds[i].r = ALERM_LED_G;
                 leds[i].g = ALERM_LED_R;
@@ -331,7 +331,7 @@ void housekeeping_task_kb(void)
             ws2812_setleds(leds, 4);
         } else {
             is31fl3731_set_color_all(0, 0, 0);
-            LED_TYPE leds[4] = {0};
+            rgb_led_t leds[4] = {0};
             ws2812_setleds(leds, 4);
         }
 
@@ -341,22 +341,19 @@ void housekeeping_task_kb(void)
         }
     }
 
-    is31fl3731_update_pwm_buffers(DRIVER_ADDR_1, 0);
-#ifdef DRIVER_ADDR_2
-    is31fl3731_update_pwm_buffers(DRIVER_ADDR_2, 1);
-#endif
+    is31fl3731_flush();
 
     housekeeping_task_user();
 }
 
-void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds)
+void rgblight_call_driver(rgb_led_t *start_led, uint8_t num_leds)
 {
     if (rgb_state.state != NORMAL) return;
 
     for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
         is31fl3731_set_color(i, start_led[i].r, start_led[i].g, start_led[i].b);
     }
-    LED_TYPE leds[4];
+    rgb_led_t leds[4];
     for (int i = 0; i < 4; i++) {
         leds[i].r = start_led[RGB_MATRIX_LED_COUNT+i].g;
         leds[i].g = start_led[RGB_MATRIX_LED_COUNT+i].r;

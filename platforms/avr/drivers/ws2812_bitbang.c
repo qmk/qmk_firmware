@@ -37,13 +37,13 @@
 
 static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t masklo, uint8_t maskhi);
 
-void ws2812_setleds(LED_TYPE *ledarray, uint16_t number_of_leds) {
+void ws2812_setleds(rgb_led_t *ledarray, uint16_t number_of_leds) {
     DDRx_ADDRESS(WS2812_DI_PIN) |= pinmask(WS2812_DI_PIN);
 
     uint8_t masklo = ~(pinmask(WS2812_DI_PIN)) & PORTx_ADDRESS(WS2812_DI_PIN);
     uint8_t maskhi = pinmask(WS2812_DI_PIN) | PORTx_ADDRESS(WS2812_DI_PIN);
 
-    ws2812_sendarray_mask((uint8_t *)ledarray, number_of_leds * sizeof(LED_TYPE), masklo, maskhi);
+    ws2812_sendarray_mask((uint8_t *)ledarray, number_of_leds * sizeof(rgb_led_t), masklo, maskhi);
 
     _delay_us(WS2812_TRST_US);
 }

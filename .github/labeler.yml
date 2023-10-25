@@ -40,3 +40,7 @@ translation:
   - docs/ru-ru/**/*
 CI:
   - .github/**/*
+dd:
+  - data/constants/**/*
+  - data/mappings/**/*
+  - data/schemas/**/*

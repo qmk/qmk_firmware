@@ -12,7 +12,7 @@
         "tap_keycode_delay": 10
     },
     "rgb_matrix": {
-        "driver": "aw20216"
+        "driver": "aw20216s"
     },
     "matrix_pins": {
         "cols": ["A0", "A1", "A2", "A3", "A4", "A8", "A9", "A10"],

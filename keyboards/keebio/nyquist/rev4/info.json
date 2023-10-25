@@ -28,7 +28,9 @@
             }
         },
         "transport": {
-            "sync_matrix_state": true
+            "sync" :{
+                "matrix_state": true
+            }
         }
     },
     "matrix_pins": {

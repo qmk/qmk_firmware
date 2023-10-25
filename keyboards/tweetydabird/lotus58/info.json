@@ -56,8 +56,13 @@
         "soft_serial_pin": "D2",
         "transport": {
             "protocol": "serial",
-            "sync_matrix_state": true,
-            "sync_modifiers": true
+            "sync": {
+                "indicators": true,
+                "layer_state": true,
+                "matrix_state": true,
+                "modifiers": true,
+                "oled": true
+            }
         },
         "usb_detect": {
             "enabled": true

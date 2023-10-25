@@ -1328,33 +1328,25 @@ void send_degree_symbol(tap_dance_state_t* state, void* user_data) {
     switch (state->count) {
         case 4:
             // ℃
-            unicode_input_start();
-            register_hex(0x2103);
-            unicode_input_finish();
+            register_unicode(0x2103);
             print("You pressed the Degrees key 4 times!\n");
             reset_tap_dance(state);
             break;
         case 3:
             //℉
-            unicode_input_start();
-            register_hex(0x2109);
-            unicode_input_finish();
+            register_unicode(0x2109);
             print("You pressed the Degrees key 3 times!\n");
             reset_tap_dance(state);
             break;
         case 2:
             // €
-            unicode_input_start();
-            register_hex(0x20AC);
-            unicode_input_finish();
+            register_unicode(0x20AC);
             print("You pressed the Degrees key 2 times!\n");
             reset_tap_dance(state);
             break;
         case 1:
             // °
-            unicode_input_start();
-            register_hex(0x00B0);
-            unicode_input_finish();
+            register_unicode(0x00B0);
             print("You pressed the Degrees key 1 time!\n");
             reset_tap_dance(state);
             break;

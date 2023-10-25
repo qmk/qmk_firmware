@@ -45,7 +45,7 @@ void matrix_scan_keymap(void) {
 
 uint16_t effect_start_timer = 0;
 uint8_t user_rgb_mode = 0;
-LED_TYPE shadowed_led[RGBLED_NUM] = {{0}};
+rgb_led_t shadowed_led[RGBLED_NUM] = {{0}};
 
 void start_firey_return(void) {
   user_rgb_mode = BREATH_FIRE;
@@ -79,7 +79,7 @@ void set_color_for_offsets(uint16_t time_offset, uint16_t space_offset, uint8_t 
   float alpha = (time_progress + 0.1) * 7.0 - space_progress;
   alpha = fmin(1.0, alpha*alpha);
 
-  LED_TYPE px[1] = {{0}};
+  rgb_led_t px[1] = {{0}};
   sethsv((uint16_t)(fmod(time_progress * 1.5 + space_progress,1.0)*360), 255, (uint8_t)(progress*255),&px[0]);
   led[idx].r = alpha * px[0].r + ( 1.0 - alpha) * shadowed_led[idx].r;
   led[idx].g = alpha * px[0].g + ( 1.0 - alpha) * shadowed_led[idx].g;

@@ -15,7 +15,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include QMK_KEYBOARD_H
-#include "actuation_point.h"
 
 enum custom_keycodes
 {
@@ -62,12 +61,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
         }
         case AP_READ_RDAC:
         {
-            xprintf("RDAC: %d", read_rdac());
+            xprintf("RDAC: %d", ad5258_read_rdac());
             return false;
         }
         case AP_READ_EEPROM:
         {
-            xprintf("EEPROM: %d", read_eeprom());
+            xprintf("EEPROM: %d", ad5258_read_eeprom());
             return false;
         }
 

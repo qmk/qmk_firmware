@@ -26,7 +26,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define HAL_USE_SERIAL TRUE
 #define SPLIT_HAND_PIN B9
 #define SERIAL_USART_DRIVER SD1
 #define SERIAL_USART_TX_PAL_MODE 7

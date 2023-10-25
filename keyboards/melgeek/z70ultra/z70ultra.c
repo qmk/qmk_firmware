@@ -18,7 +18,7 @@
 
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3741_led_t PROGMEM g_is31fl3741_leds[RGB_MATRIX_LED_COUNT] = {
     {0, CS28_SW1, CS30_SW1, CS29_SW1}, /* RGB10 */
     {0, CS28_SW2, CS30_SW2, CS29_SW2}, /* RGB11 */
     {0, CS28_SW3, CS30_SW3, CS29_SW3}, /* RGB12 */
@@ -117,7 +117,7 @@ led_config_t g_led_config = {
 	}
 };
 
-const is31_led g_is31_indicator_leds[6] = {
+const is31fl3741_led_t g_is31_indicator_leds[6] = {
     {0, CS5_SW1, CS3_SW1, CS4_SW1}, /* RGB71 */
     {0, CS5_SW2, CS3_SW2, CS4_SW2}, /* RGB72 */
     {0, CS5_SW3, CS3_SW3, CS4_SW3}, /* RGB73 */
@@ -157,11 +157,11 @@ bool led_update_kb(led_t led_state) {
 
 void matrix_init_kb(void) {
     for (int i = 0; i < DRIVER_INDICATOR_LED_TOTAL; ++i) {
-        is31_led led = g_is31_indicator_leds[i];
+        is31fl3741_led_t led = g_is31_indicator_leds[i];
         is31fl3741_set_scaling_registers(&led, 0xFF, 0xFF, 0xFF);
     }
 
-    is31fl3741_update_led_control_registers(DRIVER_ADDR_1, 0);
+    is31fl3741_update_led_control_registers(IS31FL3741_I2C_ADDRESS_1, 0);
 
     matrix_init_user();
 }

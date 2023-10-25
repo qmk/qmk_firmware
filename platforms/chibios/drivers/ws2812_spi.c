@@ -6,8 +6,8 @@
 /* Adapted from https://github.com/gamazeps/ws2812b-chibios-SPIDMA/ */
 
 // Define the spi your LEDs are plugged to here
-#ifndef WS2812_SPI
-#    define WS2812_SPI SPID1
+#ifndef WS2812_SPI_DRIVER
+#    define WS2812_SPI_DRIVER SPID1
 #endif
 
 #ifndef WS2812_SPI_MOSI_PAL_MODE
@@ -106,7 +106,7 @@ static uint8_t get_protocol_eq(uint8_t data, int pos) {
     return eq;
 }
 
-static void set_led_color_rgb(LED_TYPE color, int pos) {
+static void set_led_color_rgb(rgb_led_t color, int pos) {
     uint8_t* tx_start = &txbuf[PREAMBLE_SIZE];
 
 #if (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_GRB)
@@ -179,15 +179,15 @@ void ws2812_init(void) {
 #endif
     };
 
-    spiAcquireBus(&WS2812_SPI);     /* Acquire ownership of the bus.    */
-    spiStart(&WS2812_SPI, &spicfg); /* Setup transfer parameters.       */
-    spiSelect(&WS2812_SPI);         /* Slave Select assertion.          */
+    spiAcquireBus(&WS2812_SPI_DRIVER);     /* Acquire ownership of the bus.    */
+    spiStart(&WS2812_SPI_DRIVER, &spicfg); /* Setup transfer parameters.       */
+    spiSelect(&WS2812_SPI_DRIVER);         /* Slave Select assertion.          */
 #ifdef WS2812_SPI_USE_CIRCULAR_BUFFER
-    spiStartSend(&WS2812_SPI, ARRAY_SIZE(txbuf), txbuf);
+    spiStartSend(&WS2812_SPI_DRIVER, ARRAY_SIZE(txbuf), txbuf);
 #endif
 }
 
-void ws2812_setleds(LED_TYPE* ledarray, uint16_t leds) {
+void ws2812_setleds(rgb_led_t* ledarray, uint16_t leds) {
     static bool s_init = false;
     if (!s_init) {
         ws2812_init();
@@ -202,9 +202,9 @@ void ws2812_setleds(LED_TYPE* ledarray, uint16_t leds) {
     // Instead spiSend can be used to send synchronously (or the thread logic can be added back).
 #ifndef WS2812_SPI_USE_CIRCULAR_BUFFER
 #    ifdef WS2812_SPI_SYNC
-    spiSend(&WS2812_SPI, ARRAY_SIZE(txbuf), txbuf);
+    spiSend(&WS2812_SPI_DRIVER, ARRAY_SIZE(txbuf), txbuf);
 #    else
-    spiStartSend(&WS2812_SPI, ARRAY_SIZE(txbuf), txbuf);
+    spiStartSend(&WS2812_SPI_DRIVER, ARRAY_SIZE(txbuf), txbuf);
 #    endif
 #endif
 }

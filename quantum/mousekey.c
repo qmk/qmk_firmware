@@ -389,7 +389,20 @@ void mousekey_on(uint8_t code) {
     if (mouse_timer == 0) {
         mouse_timer = timer_read();
     }
-#    endif /* #ifdef MK_KINETIC_SPEED */
+#    endif
+
+#    ifndef MOUSEKEY_INERTIA
+    // If mouse report is not zero, the current mousekey press is overlapping
+    // with another. Restart acceleration for smoother directional transition.
+    if (mouse_report.x || mouse_report.y || mouse_report.h || mouse_report.v) {
+#        ifdef MK_KINETIC_SPEED
+        mouse_timer = timer_read() - (MOUSEKEY_INTERVAL << 2);
+#        else
+        mousekey_repeat       = MOUSEKEY_MOVE_DELTA;
+        mousekey_wheel_repeat = MOUSEKEY_WHEEL_DELTA;
+#        endif
+    }
+#    endif // ifndef MOUSEKEY_INERTIA
 
 #    ifdef MOUSEKEY_INERTIA
 

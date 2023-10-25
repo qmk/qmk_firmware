@@ -7,4 +7,5 @@ COMMAND_ENABLE		= yes
 # know what you're doing.
 #
 # No touchy, capiche?
-SRC += matrix.c i2c_master.c
+SRC += matrix.c
+I2C_DRIVER_REQUIRED = yes

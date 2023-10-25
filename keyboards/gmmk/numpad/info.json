@@ -8,13 +8,20 @@
         "pid": "0x5088",
         "device_version": "0.0.1"
     },
+    "eeprom": {
+        "driver": "wear_leveling",
+        "wear_leveling": {
+            "driver": "spi_flash",
+            "backing_size": 2048
+        }
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "A2", "pin_b": "A1"}
         ]
     },
     "rgb_matrix": {
-        "driver": "aw20216"
+        "driver": "aw20216s"
     },
     "processor": "WB32F3G71",
     "bootloader": "wb32-dfu",

@@ -13,6 +13,9 @@
         "rows": ["F4", "F1", "F0", "C6"]
     },
     "diode_direction": "COL2ROW",
+    "dynamic_keymap": {
+        "layer_count": 5
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "D2", "pin_b": "D1"}

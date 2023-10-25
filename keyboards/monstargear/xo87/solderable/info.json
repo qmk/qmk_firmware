@@ -346,9 +346,9 @@
                 {"label": "\u2191", "matrix": [4, 14], "x": 16.25, "y": 4.25},
 
                 {"label": "Ctrl", "matrix": [5, 0], "x": 0, "y": 5.25, "w": 1.5},
-                {"label": "GUI", "matrix": [5, 1], "x": 1.25, "y": 5.25},
+                {"label": "GUI", "matrix": [5, 1], "x": 1.5, "y": 5.25},
                 {"label": "Alt", "matrix": [5, 2], "x": 2.5, "y": 5.25, "w": 1.5},
-                {"label": "Space", "matrix": [5, 6], "x": 3.75, "y": 5.25, "w": 7},
+                {"label": "Space", "matrix": [5, 6], "x": 4, "y": 5.25, "w": 7},
                 {"label": "Alt", "matrix": [5, 11], "x": 11, "y": 5.25, "w": 1.5},
                 {"label": "Fn", "matrix": [5, 12], "x": 12.5, "y": 5.25},
                 {"label": "Ctrl", "matrix": [4, 15], "x": 13.5, "y": 5.25, "w": 1.5},

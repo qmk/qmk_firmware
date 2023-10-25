@@ -19,5 +19,5 @@ CUSTOM_MATRIX = lite       # Split custom matrix
 # Project specific files
 SRC +=  common/bitc_led.c \
         common/remote_kb.c \
-        matrix.c \
-        uart.c
+        matrix.c
+UART_DRIVER_REQUIRED = yes

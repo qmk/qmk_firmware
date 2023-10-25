@@ -12,7 +12,7 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define WS2812_SPI SPID2
+#define WS2812_SPI_DRIVER SPID2
 #define WS2812_SPI_MOSI_PAL_MODE 0
 #define WS2812_SPI_SCK_PAL_MODE 0
 #define WS2812_SPI_SCK_PIN B13

@@ -5,6 +5,9 @@
   "build": {
     "lto": true
   },
+  "eeprom": {
+    "driver": "spi"
+  },
   "features": {
     "bootmagic": true,
     "console": true,

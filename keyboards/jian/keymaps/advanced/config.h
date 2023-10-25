@@ -24,3 +24,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define AUTO_SHIFT_MODIFIERS
 #define ALT_LAYOUTS_ENABLE
 //#define TRAINING_HALFES_LOCK
+
+#define LAYER_STATE_32BIT

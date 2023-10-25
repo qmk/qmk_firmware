@@ -14,5 +14,5 @@ SWAP_HANDS_ENABLE       = yes # Allow swapping hands of keyboard
 RGBLIGHT_ENABLE         = no
 
 # project specific files
-QUANTUM_LIB_SRC += i2c_master.c
+I2C_DRIVER_REQUIRED = yes
 SRC += matrix.c

@@ -41,6 +41,13 @@
                 "cols": ["F6", "F7", "B1", "B3", "B2", "B6", null],
                 "rows": ["C6", "D7", "E6", "B4", "B5"]
             }
+        },
+        "transport": {
+            "sync": {
+                "matrix_state": true,
+                "oled": true,
+                "wpm": true
+            }
         }
     },
     "qmk": {

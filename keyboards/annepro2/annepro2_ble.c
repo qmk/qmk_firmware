@@ -31,7 +31,7 @@ static void ap2_ble_swtich_ble_driver(void);
 
 /* -------------------- Static Local Variables ------------------------------ */
 static host_driver_t ap2_ble_driver = {
-    ap2_ble_leds, ap2_ble_keyboard, ap2_ble_mouse, ap2_ble_extra
+    ap2_ble_leds, ap2_ble_keyboard, NULL, ap2_ble_mouse, ap2_ble_extra
 };
 
 static uint8_t ble_mcu_wakeup[11] = {0x7b, 0x12, 0x53, 0x00, 0x03, 0x00, 0x01, 0x7d, 0x02, 0x01, 0x02};
@@ -167,5 +167,5 @@ static void ap2_ble_extra(report_extra_t *report) {
 static void ap2_ble_keyboard(report_keyboard_t *report) {
     sdPut(&SD1, 0x0);
     sdWrite(&SD1, ble_mcu_send_report, sizeof(ble_mcu_send_report));
-    sdWrite(&SD1, &report->raw[0], KEYBOARD_REPORT_SIZE);
+    sdWrite(&SD1, (uint8_t *)report, KEYBOARD_REPORT_SIZE);
 }

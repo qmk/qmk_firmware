@@ -5,6 +5,9 @@
         "rows": ["B12", "B13", "B14", "B15", "A8", "A10"]
     },
     "diode_direction": "COL2ROW",
+    "eeprom": {
+        "driver": "spi"
+    },
     "rgblight": {
         "led_count": 57,
         "split_count": [26, 31]

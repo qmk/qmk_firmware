@@ -25,13 +25,13 @@
 #include "progmem.h"
 
 // Which variant header file to use
-#ifdef IS31FL3742A
+#if defined(LED_MATRIX_IS31FL3742A) || defined(RGB_MATRIX_IS31FL3742A)
 #    include "is31fl3742.h"
-#elif defined(IS31FL3743A)
+#elif defined(LED_MATRIX_IS31FL3743A) || defined(RGB_MATRIX_IS31FL3743A)
 #    include "is31fl3743.h"
-#elif defined(IS31FL3745)
+#elif defined(LED_MATRIX_IS31FL3745) || defined(RGB_MATRIX_IS31FL3745)
 #    include "is31fl3745.h"
-#elif defined(IS31FL3746A)
+#elif defined(LED_MATRIX_IS31FL3746A) || defined(RGB_MATRIX_IS31FL3746A)
 #    include "is31fl3746.h"
 #endif
 
@@ -66,6 +66,8 @@ void IS31FL_common_init(uint8_t addr, uint8_t ssr);
 
 void IS31FL_common_update_pwm_register(uint8_t addr, uint8_t index);
 void IS31FL_common_update_scaling_register(uint8_t addr, uint8_t index);
+
+void IS31FL_common_flush(void);
 
 #ifdef RGB_MATRIX_ENABLE
 // RGB Matrix Specific scripts

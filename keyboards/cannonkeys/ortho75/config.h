@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define WS2812_SPI SPID2
+#define WS2812_SPI_DRIVER SPID2
 
 /*
  * Feature disable options

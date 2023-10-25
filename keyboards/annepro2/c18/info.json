@@ -3,6 +3,13 @@
     "usb": {
         "pid": "0xAC18"
     },
+    "eeprom": {
+        "driver": "wear_leveling",
+        "wear_leveling": {
+            "driver": "spi_flash",
+            "backing_size": 2048
+        }
+    },
     "rgb_matrix": {
         "driver": "custom"
     },

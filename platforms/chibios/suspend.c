@@ -42,7 +42,6 @@ void suspend_wakeup_init(void) {
     clear_keys();
 #ifdef MOUSEKEY_ENABLE
     mousekey_clear();
-    mousekey_send();
 #endif /* MOUSEKEY_ENABLE */
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
     programmable_button_clear();

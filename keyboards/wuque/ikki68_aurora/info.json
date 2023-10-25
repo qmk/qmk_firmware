@@ -41,6 +41,7 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "community_layouts": ["68_ansi", "68_iso"],
     "layouts": {
         "LAYOUT_68_ansi": {
             "layout": [
@@ -502,7 +503,8 @@
                 {"matrix": [2, 12], "x": 12.75, "y": 2},
                 {"matrix": [1, 13], "x": 13.75, "y": 1, "w": 1.25, "h": 2},
 
-                {"matrix": [3, 0], "x": 0, "y": 3, "w": 2.25},
+                {"matrix": [3, 0], "x": 0, "y": 3, "w": 1.25},
+                {"matrix": [3, 1], "x": 1.25, "y": 3},
                 {"matrix": [3, 2], "x": 2.25, "y": 3},
                 {"matrix": [3, 3], "x": 3.25, "y": 3},
                 {"matrix": [3, 4], "x": 4.25, "y": 3},

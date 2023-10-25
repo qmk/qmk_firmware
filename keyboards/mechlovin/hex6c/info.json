@@ -13,6 +13,11 @@
         "rows": ["A10", "B13", "B12", "B11", "C14", "C15"]
     },
     "diode_direction": "COL2ROW",
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "A15", "pin_b": "A2"}

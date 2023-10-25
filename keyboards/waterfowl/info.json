@@ -20,7 +20,13 @@
         ]
     },
     "split": {
-        "soft_serial_pin": "D2"
+        "soft_serial_pin": "D2",
+        "transport": {
+            "sync": {
+                "modifiers": true,
+                "wpm": true
+            }
+        }
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

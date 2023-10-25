@@ -54,6 +54,7 @@
 #define RP_IRQ_USB0_PRIORITY                3
 #define RP_IRQ_I2C0_PRIORITY                2
 #define RP_IRQ_I2C1_PRIORITY                2
+#define RP_IRQ_RTC_PRIORITY                 3
 
 /*
  * ADC driver system settings.

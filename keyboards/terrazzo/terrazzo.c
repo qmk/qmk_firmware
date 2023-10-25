@@ -21,7 +21,7 @@
     #include "print.h"
     #include "quantum.h"
 
-const is31_led PROGMEM g_is31_leds[LED_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[LED_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  * https://cdn-learn.adafruit.com/downloads/pdf/adafruit-15x7-7x15-charlieplex-led-matrix-charliewing-featherwing.pdf
  */

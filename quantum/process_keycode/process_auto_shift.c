@@ -66,7 +66,7 @@ __attribute__((weak)) bool get_custom_auto_shifted_key(uint16_t keycode, keyreco
     return false;
 }
 
-/** \brief Called on physical press, returns whether is Auto Shift key */
+/** \brief Called on physical press, returns whether key is an Auto Shift key */
 __attribute__((weak)) bool get_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
 #ifndef NO_AUTO_SHIFT_ALPHA
@@ -178,9 +178,8 @@ static bool autoshift_press(uint16_t keycode, uint16_t now, keyrecord_t *record)
     }
 
     // Store record to be sent to user functions if there's no release record then.
-    autoshift_lastrecord               = *record;
-    autoshift_lastrecord.event.pressed = false;
-    autoshift_lastrecord.event.time    = 0;
+    autoshift_lastrecord            = *record;
+    autoshift_lastrecord.event.time = 0;
     // clang-format off
 #if defined(AUTO_SHIFT_REPEAT) || defined(AUTO_SHIFT_REPEAT_PER_KEY)
     if (keycode == autoshift_lastkey &&
@@ -409,8 +408,12 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
             // If Retro Shift is disabled, possible custom actions shouldn't happen.
             // clang-format off
 #if defined(RETRO_SHIFT) && !defined(NO_ACTION_TAPPING)
-#    ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
-            const bool is_hold_on_interrupt = get_hold_on_other_key_press(keycode, record);
+#    ifdef HOLD_ON_OTHER_KEY_PRESS
+            const bool is_hold_on_interrupt = (IS_QK_MOD_TAP(keycode)
+#        ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+                && get_hold_on_other_key_press(keycode, record)
+#        endif
+            );
 #    else
             const bool is_hold_on_interrupt = false;
 #    endif
@@ -450,8 +453,12 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
 #endif
         ) {
             // Fixes modifiers not being applied to rolls with AUTO_SHIFT_MODIFIERS set.
-#ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
-            if (autoshift_flags.in_progress && get_hold_on_other_key_press(keycode, record)) {
+#ifdef HOLD_ON_OTHER_KEY_PRESS
+            if (autoshift_flags.in_progress
+#    ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+                && get_hold_on_other_key_press(keycode, record)
+#    endif
+            ) {
                 autoshift_end(KC_NO, now, false, &autoshift_lastrecord);
             }
 #endif
@@ -488,10 +495,8 @@ void retroshift_poll_time(keyevent_t *event) {
 }
 // Used to swap the times of Retro Shifted key and Auto Shift key that interrupted it.
 void retroshift_swap_times(void) {
-    if (last_retroshift_time != 0 && autoshift_flags.in_progress) {
-        uint16_t temp        = retroshift_time;
-        retroshift_time      = last_retroshift_time;
-        last_retroshift_time = temp;
+    if (autoshift_flags.in_progress) {
+        autoshift_time = last_retroshift_time;
     }
 }
 #endif

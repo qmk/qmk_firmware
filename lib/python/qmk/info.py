@@ -428,6 +428,15 @@ def _extract_split_transport(info_data, config_c):
         if 'protocol' not in info_data['split']['transport']:
             info_data['split']['transport']['protocol'] = 'serial'
 
+    # Migrate
+    transport = info_data.get('split', {}).get('transport', {})
+    if 'sync_matrix_state' in transport:
+        transport['sync'] = transport.get('sync', {})
+        transport['sync']['matrix_state'] = transport.pop('sync_matrix_state')
+    if 'sync_modifiers' in transport:
+        transport['sync'] = transport.get('sync', {})
+        transport['sync']['modifiers'] = transport.pop('sync_modifiers')
+
 
 def _extract_split_right_pins(info_data, config_c):
     # Figure out the right half matrix pins
@@ -520,6 +529,8 @@ def _config_to_json(key_type, config_value):
             return list(map(str.strip, config_value.split(',')))
 
     elif key_type == 'bool':
+        if isinstance(config_value, bool):
+            return config_value
         return config_value in true_values
 
     elif key_type == 'hex':
@@ -705,6 +716,9 @@ def _extract_led_config(info_data, keyboard):
                     info_data[feature]["layout"] = ret
             except Exception as e:
                 _log_warning(info_data, f'led_config: {file.name}: {e}')
+
+        if info_data[feature].get("layout", None) and not info_data[feature].get("led_count", None):
+            info_data[feature]["led_count"] = len(info_data[feature]["layout"])
 
     return info_data
 

@@ -4,6 +4,18 @@ The UART drivers used in QMK have a set of common functions to allow portability
 
 Currently, this driver does not support enabling hardware flow control (the `RTS` and `CTS` pins) if available, but may do so in future.
 
+## Usage :id=usage
+
+In most cases, the UART driver code is automatically included if you are using a feature or driver which requires it.
+
+However, if you need to use the driver standalone, add the following to your `rules.mk`:
+
+```make
+UART_DRIVER_REQUIRED = yes
+```
+
+You can then call the UART API by including `uart.h` in your code.
+
 ## AVR Configuration :id=avr-configuration
 
 No special setup is required - just connect the `RX` and `TX` pins of your UART device to the opposite pins on the MCU:

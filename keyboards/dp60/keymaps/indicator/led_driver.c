@@ -20,7 +20,7 @@
 #define ws2812_setleds_pin indicator_setleds_pin
 #include "ws2812_bitbang.c"
 
-void indicator_write(LED_TYPE *start_led, uint8_t num_leds)
+void indicator_write(rgb_led_t *start_led, uint8_t num_leds)
 {
     indicator_setleds(start_led, num_leds);
 }

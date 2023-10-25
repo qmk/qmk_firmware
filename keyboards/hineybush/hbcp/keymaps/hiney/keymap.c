@@ -79,19 +79,19 @@ void matrix_scan_user(void) {
 // The first three LEDs are used as indicators for CAPS_LOCK, NUM_LOCK and SCROLL_LOCK.
 bool led_update_user(led_t led_state) {
     if (led_state.caps_lock) {
-        sethsv_raw(HSV_SOFT_RED, (LED_TYPE *)&led[0]);
+        sethsv_raw(HSV_SOFT_RED, (rgb_led_t *)&led[0]);
     } else {
-        sethsv(HSV_BLACK, (LED_TYPE *)&led[0]);
+        sethsv(HSV_BLACK, (rgb_led_t *)&led[0]);
     }
     if (led_state.num_lock) {
-        sethsv_raw(HSV_WARM_WHITE, (LED_TYPE *)&led[1]);
+        sethsv_raw(HSV_WARM_WHITE, (rgb_led_t *)&led[1]);
     } else {
-        sethsv(HSV_BLACK, (LED_TYPE *)&led[1]);
+        sethsv(HSV_BLACK, (rgb_led_t *)&led[1]);
     }
     if (led_state.scroll_lock) {
-        sethsv_raw(HSV_SOFT_BLUE, (LED_TYPE *)&led[2]);
+        sethsv_raw(HSV_SOFT_BLUE, (rgb_led_t *)&led[2]);
     } else {
-        sethsv(HSV_BLACK, (LED_TYPE *)&led[2]);
+        sethsv(HSV_BLACK, (rgb_led_t *)&led[2]);
     }
     rgblight_set();
     return false;

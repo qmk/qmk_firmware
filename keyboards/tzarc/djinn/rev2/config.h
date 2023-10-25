@@ -25,10 +25,9 @@
 #define RGB_CURR_3000mA_OK_PIN C4
 
 // EEPROM configuration
+#define EEPROM_SPI_MB85RS64V
 #define EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN B5
 #define EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR 8 // (160MHz/8) => 20MHz
-#define EXTERNAL_EEPROM_BYTE_COUNT 8192
-#define EXTERNAL_EEPROM_PAGE_SIZE 64 // it's FRAM, so it doesn't actually matter, this just sets the RAM buffer size
 
 // External flash config
 #define EXTERNAL_FLASH_SPI_MODE 3

@@ -21,6 +21,7 @@
 #include "dual_beacon_anim.h"
 #include "rainbow_beacon_anim.h"
 #include "rainbow_pinwheels_anim.h"
+#include "flower_blooming_anim.h"
 #include "raindrops_anim.h"
 #include "jellybean_raindrops_anim.h"
 #include "hue_breathing_anim.h"

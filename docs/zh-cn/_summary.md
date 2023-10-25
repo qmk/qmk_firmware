@@ -121,7 +121,6 @@
     * [分体式键盘](zh-cn/feature_split_keyboard.md)
     * [速记](zh-cn/feature_stenography.md)
     * [热敏打印机](zh-cn/feature_thermal_printer.md)
-    * [Velocikey](zh-cn/feature_velocikey.md)
 
 * QMK开发
   * [PR Checklist](zh-cn/pr_checklist.md)

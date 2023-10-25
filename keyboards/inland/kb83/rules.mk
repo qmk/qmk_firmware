@@ -14,6 +14,4 @@ AUDIO_ENABLE = no           # Audio output
 DIP_SWITCH_ENABLE = yes		# DPI Switch
 ENCODER_ENABLE = yes
 RGB_MATRIX_ENABLE = yes
-EEPROM_DRIVER = wear_leveling
-WEAR_LEVELING_DRIVER = spi_flash
 #RGB_MATRIX_CUSTOM_USER = yes #Add turnoff LED
