@@ -187,7 +187,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void default_layer_led_set(void) {
     uint8_t current_default_layer;
 #ifdef DEFAULT_LAYER_BITMASK_ENABLE
-    current_default_layer = biton32(eeconfig_read_default_layer());
+    current_default_layer = get_highest_layer(eeconfig_read_default_layer());
 #else
     current_default_layer = eeconfig_read_default_layer();
 #endif

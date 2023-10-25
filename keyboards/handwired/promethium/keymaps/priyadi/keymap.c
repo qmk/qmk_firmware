@@ -1118,7 +1118,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         set_single_persistent_default_layer(_QWERTY);
 #ifdef RGBSPS_ENABLE
-            led_set_default_layer_indicator();
+        led_set_default_layer_indicator();
 #endif
       }
       return false;
@@ -1128,7 +1128,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         set_single_persistent_default_layer(_DVORAK);
 #ifdef RGBSPS_ENABLE
-            led_set_default_layer_indicator();
+        led_set_default_layer_indicator();
 #endif
       }
       return false;
@@ -1139,7 +1139,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         set_single_persistent_default_layer(_COLEMAK);
 #ifdef RGBSPS_ENABLE
-            led_set_default_layer_indicator();
+        led_set_default_layer_indicator();
 #endif
       }
       return false;
@@ -1150,7 +1150,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         set_single_persistent_default_layer(_WORKMAN);
 #ifdef RGBSPS_ENABLE
-            led_set_default_layer_indicator();
+        led_set_default_layer_indicator();
 #endif
       }
       return false;
@@ -1161,7 +1161,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         set_single_persistent_default_layer(_NORMAN);
 #ifdef RGBSPS_ENABLE
-            led_set_default_layer_indicator();
+        led_set_default_layer_indicator();
 #endif
       }
       return false;
