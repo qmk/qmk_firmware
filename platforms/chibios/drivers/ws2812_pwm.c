@@ -1,6 +1,6 @@
 #include "ws2812.h"
-#include "quantum.h"
-#include <hal.h>
+#include "gpio.h"
+#include "chibios_config.h"
 
 /* Adapted from https://github.com/joewa/WS2812-LED-Driver_ChibiOS/ */
 
