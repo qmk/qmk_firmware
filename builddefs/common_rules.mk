@@ -392,6 +392,8 @@ check-size:
 	if [ $(MAX_SIZE) -gt 0 ] && [ $(CURRENT_SIZE) -gt 0 ]; then \
 		$(SILENT) || printf "$(MSG_CHECK_FILESIZE)" | $(AWK_CMD); \
 		if [ $(CURRENT_SIZE) -gt $(MAX_SIZE) ]; then \
+			$(REMOVE) $(TARGET).$(FIRMWARE_FORMAT); \
+			$(REMOVE) $(BUILD_DIR)/$(TARGET).{hex,bin,uf2}; \
 		    printf "\n * $(MSG_FILE_TOO_BIG)"; $(PRINT_ERROR_PLAIN); \
 		else \
 		    if [ $(FREE_SIZE) -lt $(SIZE_MARGIN) ]; then \
