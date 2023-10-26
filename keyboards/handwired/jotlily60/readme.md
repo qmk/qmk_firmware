@@ -1,6 +1,6 @@
 # jotlily60
 
-![Jotanck](https://i.imgur.com/bBfO4L2.jpg)
+![Jotanck](https://imgur.com/Usv0mlD)
 
 A split keyboard kit made by jotix, inspired in the Lily58 keyboard.
 
@@ -11,23 +11,29 @@ Hardware Supported: Arduino Pro Micro
 
 | Rows        | 0  | 1  | 2  | 3  | 4  |
 |-------------|----|----|----|----|----|
-| Arduino pin | 6  | 7  | 10 | 16 | 16 |
-| QMK pin     | D7 | E6 | B6 | B2 | B2 |
+| Arduino pin | A0 | 15 | 14 | 16 | 10 |
+| QMK pin     | F7 | B1 | B3 | B2 | B6 |
 
-| Columns     | 0  | 1  | 2  | 3  | 4  | 5  | 6   |
-|-------------|----|----|----|----|----|----|-----|
-| Arduino pin | A3 | A2 | A1 | A0 | 15 | 14 | TX0 |
-| QMK pin     | F4 | F5 | F6 | F7 | B1 | B3 | D3  |
+| Columns     | 0  | 1  | 2  | 3  | 4  | 5  | 6  |
+|-------------|----|----|----|----|----|----|----|
+| Arduino pin |  3 |  4 |  5 |  6 |  7 |  8 |  9 |
+| QMK pin     | D0 | D4 | C6 | D7 | E6 | B4 | B5 |
+
+| Serial pin  |     |
+|-------------|-----|
+| Arduino pin | TX0 |
+| QMK pin     |  D3 |
 
 ### Compiling the Firmware
 
 Make example for this keyboard (after setting up your build environment):
+    
+    # left half
+    qmk compile -kb handwired/jotlily60 -km default -bl avrdude-split-left
 
-    qmk compile -kb handwired/jotlily60 -km default
+    right half
+    qmk compile -kb handwired/jotlily60 -km default -bl avrdude-split-right
    
-    # for VIA support
-    qmk compile -kb handwired/jotlily60 -km via
-
 ### The Defaukt Keymap
 
 ![Default Keymap](https://i.imgur.com/xh7Dmd7.png)
