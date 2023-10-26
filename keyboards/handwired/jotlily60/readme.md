@@ -1,6 +1,6 @@
 # jotlily60
 
-![Jotanck](https://imgur.com/Usv0mlD)
+![Jotanck](https://i.imgur.com/Usv0mlD.jpg)
 
 A split keyboard kit made by jotix, inspired in the Lily58 keyboard.
 
