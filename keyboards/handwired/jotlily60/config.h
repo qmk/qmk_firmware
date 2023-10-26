@@ -21,3 +21,10 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+/* Handedness by EEPROM
+ * flash the two halves with
+ * qmk flash -kb <keyboard> -km <keymap> -bl avrdude-split-left
+ * qmk flash -kb <keyboard> -km <keymap> -bl avrdude-split-right
+ * */
+#define EE_HANDS

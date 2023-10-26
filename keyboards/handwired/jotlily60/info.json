@@ -11,13 +11,13 @@
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "matrix_pins": {
-        "cols": [ "" ],
-        "rows": [ "" ]
+        "cols": [ "D0","D4","C6","D7","E6","B4","B5" ],
+        "rows": [ "F7","B1","B3","B2","B6" ]
     },
     "diode_direction": "COL2ROW",
     "split": {
         "enabled": true,
-        "soft_serial_pin": ""
+        "soft_serial_pin": "D3"
     },
     "layouts": {
         "LAYOUT": {
