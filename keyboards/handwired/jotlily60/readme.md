@@ -1,6 +1,6 @@
 # jotlily60
 
-![Jotanck](https://i.imgur.com/Usv0mlD.jpg)
+![jotlily60](https://i.imgur.com/Usv0mlD.jpg)
 
 A split keyboard kit made by jotix, inspired in the Lily58 keyboard.
 
@@ -19,24 +19,24 @@ Hardware Supported: Arduino Pro Micro
 | Arduino pin |  3 |  4 |  5 |  6 |  7 |  8 |  9 |
 | QMK pin     | D0 | D4 | C6 | D7 | E6 | B4 | B5 |
 
-| Serial pin  |     |
+| Serial      |     |
 |-------------|-----|
 | Arduino pin | TX0 |
 | QMK pin     |  D3 |
 
 ### Compiling the Firmware
 
-Make example for this keyboard (after setting up your build environment):
+Compile example for this keyboard (after setting up your build environment):
     
     # left half
     qmk compile -kb handwired/jotlily60 -km default -bl avrdude-split-left
 
-    right half
+    # right half
     qmk compile -kb handwired/jotlily60 -km default -bl avrdude-split-right
    
 ### The Defaukt Keymap
 
-![Default Keymap](https://i.imgur.com/xh7Dmd7.png)
+![Default Keymap](https://i.imgur.com/0r56CUd.png)
 
 To reset the keyboard press Lower+Raise+Q
 
