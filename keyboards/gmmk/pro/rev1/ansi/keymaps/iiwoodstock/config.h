@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define FORCE_NKRO
 
 //Set keyboard debounce time
-#define DEBOUNCE 5
+#define DEBOUNCE 7
 
 #ifdef RGB_MATRIX_ENABLE 
     // RGB step values
