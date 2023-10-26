@@ -15,6 +15,25 @@
 
 #pragma once
 
+//Custom color aliases
+
+#define RGB_DLAVENDER	0x50, 0x20, 0xFF
+#define RGB_LLAVENDER	0x70, 0x38, 0xFF
+#define RGB_WINERED	0xFF, 0x00, 0x10
+#define RGB_PEACH	0xFF, 0x40, 0x40
+#define RGB_BISQUE	0xFF, 0xD0, 0x80
+#define RGB_SUISEI	0x30, 0x40, 0xFF
+#define RGB_FAUNA	0xA0, 0xFF, 0xA0
+
+#define HSV_DLAVENDER	179, 223, 255
+#define HSV_LLAVENDER	183, 199, 255
+#define HSV_WINERED	253, 255, 255
+#define HSV_PEACH	  0, 191, 255
+#define HSV_BISQUE	 27, 127, 255
+#define HSV_SUISEI	167, 207, 255
+#define HSV_FAUNA	 85,  95, 255
+
+
 // All of these config options can be changed by keyboard in their config.h
 // These are all just the defaults I like for most of my keyboards
 
