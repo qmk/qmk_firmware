@@ -53,17 +53,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-#ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise) {
-  if (index == 0) { /* First encoder */
-    if (clockwise) {
-      tap_code16(KC_WH_U);
-    } else {
-      tap_code16(KC_WH_D);
-    }
-  }
-  return false;
-}
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [_BASE] = { ENCODER_CCW_CW(KC_WH_U, KC_WH_D) },
+    [_FN1] = { ENCODER_CCW_CW(KC_NO, KC_NO) },
+    [_FN2] = { ENCODER_CCW_CW(KC_NO, KC_NO) },
+    [_FN3] = { ENCODER_CCW_CW(KC_NO, KC_NO) },
+};
 #endif
 
 #ifdef RGBLIGHT_LAYERS
