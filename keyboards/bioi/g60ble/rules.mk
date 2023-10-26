@@ -15,7 +15,6 @@ LTO_ENABLE = yes
 
 # these lines are all for bluetooth
 BLUETOOTH_ENABLE = yes
-BLUETOOTH_DRIVER = custom
 SRC += usart.c ble.c
 OPT_DEFS += -DUART_RX1_BUFFER_SIZE=16 -DUART_TX1_BUFFER_SIZE=16
 OPT_DEFS += -DUSART1_ENABLED

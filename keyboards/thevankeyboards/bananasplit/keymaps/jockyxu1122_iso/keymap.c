@@ -91,12 +91,13 @@ Capslock's led cannot be controlled separately on bananasplit and you can only t
   leds at once. If you only install led for capslock, it will look like capslock has toggable
   backlight.
 */
-void led_set_user(uint8_t usb_led) {
-  if (usb_led && (1 << USB_LED_CAPS_LOCK)) {
+bool led_update_user(led_t led_state) {
+  if (led_state.caps_lock) {
     DDRB |= (1 << 7);
     PORTB |= (1 << 7);
   } else {
     DDRB &= ~(1 << 7);
     PORTB &= ~(1 << 7);
   }
+  return false;
 }

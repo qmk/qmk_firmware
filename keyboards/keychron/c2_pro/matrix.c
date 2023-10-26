@@ -24,10 +24,10 @@
 #endif
 
 #if defined(SHIFT_COL_START) && defined(SHIFT_COL_END)
-#    if ((SHIFT_COL_END - SHIFT_COL_START) > 16)
+#    if ((SHIFT_COL_END - SHIFT_COL_START + 1) > 16)
 #        define SIZE_T uint32_t
 #        define UNSELECT_ALL_COL 0xFFFFFFFF
-#    elif ((SHIFT_COL_END - SHIFT_COL_START) > 8)
+#    elif ((SHIFT_COL_END - SHIFT_COL_START + 1) > 8)
 #        define SIZE_T uint16_t
 #        define UNSELECT_ALL_COL 0xFFFF
 #    else
