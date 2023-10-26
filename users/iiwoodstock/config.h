@@ -20,7 +20,7 @@
 
 #ifndef RGB_MATRIX_TIMEOUT
 // If the keyboard is unused for 10 minutes then just turn off RGB
-#    define RGB_MATRIX_TIMEOUT 600000 // 10 minutes (10 * 60 * 1000ms)
+#    define RGB_MATRIX_TIMEOUT 300000 // 5 minutes (5 * 60 * 1000ms)
 #endif
 
 #ifndef MAC_LAYER_DEFAULT_COLOR
@@ -73,7 +73,7 @@
 
 #ifndef GUILOCK_INDICATOR_COLOR
 // If GUILOCK is enabled, the key on the fn layer that toggles it will light up this color
-#    define GUILOCK_INDICATOR_COLOR RGB_OFF
+#    define GUILOCK_INDICATOR_COLOR RGB_RED
 #endif
 
 // Don't light up my whole room when the pc is asleep
