@@ -29,6 +29,11 @@
         "led_map": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 24, 23, 22, 21, 20],
         "sleep": true
     },
+    "indicators": {
+        "caps_lock": "A5",
+        "num_lock": "A15",
+        "on_state": 0
+    },
     "ws2812": {
         "driver": "pwm",
         "pin": "B9"
