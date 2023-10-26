@@ -1,6 +1,6 @@
 # jotlily60
 
-![jotlily60](https://i.imgur.com/Usv0mlD.jpg)
+![jotlily60](https://i.imgur.com/I68WGmJ.jpg)
 
 A split keyboard kit made by jotix, inspired in the Lily58 keyboard.
 
@@ -37,7 +37,5 @@ Compile example for this keyboard (after setting up your build environment):
 ### The Defaukt Keymap
 
 ![Default Keymap](https://i.imgur.com/0r56CUd.png)
-
-To reset the keyboard press Lower+Raise+Q
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
