@@ -17,13 +17,16 @@ analog_config g_config = {
     .release_hysteresis = 5
 };
 
+#ifdef BOOTMAGIC_ENABLE
 extern pin_t matrix_pins[MATRIX_ROWS][MATRIX_COLS];
 void         bootmagic_lite(void) {
     if (analogReadPin(matrix_pins[BOOTMAGIC_LITE_ROW][BOOTMAGIC_LITE_COLUMN]) < 1350) {
         bootloader_jump();
     }
 }
+#endif
 
+#ifdef DEFERRED_EXEC_ENABLE
 uint32_t idle_recalibrate_callback(uint32_t trigger_time, void *cb_arg) {
     get_sensor_offsets();
     return 10000;
@@ -34,6 +37,7 @@ bool           process_record_kb(uint16_t keycode, keyrecord_t *record) {
     extend_deferred_exec(idle_recalibrate_token, 300000);
     return true;
 }
+#endif
 
 #ifdef DEBUG_ENABLE
 static uint8_t i = 0;
@@ -69,7 +73,9 @@ void          eeconfig_init_kb() {
 }
 
 void keyboard_post_init_kb(void) {
+#ifdef DEFERRED_EXEC_ENABLE
     idle_recalibrate_token = defer_exec(300000, idle_recalibrate_callback, NULL);
+#endif
     values_load();
 }
 
