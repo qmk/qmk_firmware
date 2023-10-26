@@ -44,6 +44,13 @@
 #define RGB_WHITE       0xFF, 0xFF, 0xFF
 #define RGB_YELLOW      0xFF, 0xFF, 0x00
 #define RGB_OFF         RGB_BLACK
+#define RGB_DLAVENDER	0x50, 0x20, 0xFF
+#define RGB_LLAVENDER	0x70, 0x38, 0xFF
+#define RGB_WINERED	0xFF, 0x00, 0x10
+#define RGB_PEACH		0xFF, 0x40, 0x40
+#define RGB_BISQUE	0xFF, 0xD0, 0x80
+#define RGB_SUISEI	0x30, 0x40, 0xFF
+#define RGB_FAUNA		0xA0, 0xFF, 0xA0
 
 /*
  * HSV Colors
@@ -70,6 +77,13 @@
 #define HSV_WHITE         0,   0, 255
 #define HSV_YELLOW       43, 255, 255
 #define HSV_OFF         HSV_BLACK
+#define HSV_DLAVENDER	179, 223, 255
+#define HSV_LLAVENDER	183, 199, 255
+#define HSV_WINERED	253, 255, 255
+#define HSV_PEACH		  0, 191, 255
+#define HSV_BISQUE	 27, 127, 255
+#define HSV_SUISEI	167, 207, 255
+#define HSV_FAUNA		 85,  95, 255
 
 // clang-format on
 
