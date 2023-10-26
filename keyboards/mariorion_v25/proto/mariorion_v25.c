@@ -29,14 +29,6 @@ void matrix_init_kb(void) {
 	matrix_init_user();
 }
 
-__attribute__((weak)) bool led_update_kb(led_t led_state) {
-	if(led_update_user(led_state)) {
-		writePin(CAPS_LOCK_LED, !led_state.caps_lock);
-		writePin(SCROLL_LOCK_LED, !led_state.num_lock);
-	}
-	return true;
-}
-
 __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
 	switch (get_highest_layer(state)) {
 		case 1:
