@@ -43,7 +43,7 @@
 #include "usb_device_state.h"
 #include "usb_descriptor.h"
 #include "usb_driver.h"
-#include "usb_request.h"
+#include "usb_types.h"
 
 #ifdef NKRO_ENABLE
 #    include "keycode_config.h"
