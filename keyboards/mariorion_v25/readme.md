@@ -3,16 +3,14 @@
 ![mariorion_v25_1](https://i.imgur.com/3OrUK2ph.jpeg)
 ![mariorion_v25_2](https://i.imgur.com/OvMBHOlh.jpeg)
 
-This project was a revival of the Duck Orion v2.5, where we don't have very many PCBs with modern features, and 
-especially Alps support as well. This PCB has both Alps and MX support as well as universal layout support! It also 
-features a 3u/1u/3u split spacebar variant for fun :)
+*A short description of the keyboard/project*
 
 The prototype version is for use only by Maria, and it's the r0 run in essence. Please do use prod unless otherwise 
 stated (prod me if you're confused, @mawiaa on Discord)!
 
 * Keyboard Maintainer: [Maria](https://github.com/toril940)
 * Hardware Supported: MariOrion v2.5 PCB
-* Hardware Availability: Link coming soon, through Hineybush :)
+* Hardware Availability: *Links to where you can find this hardware*
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -32,5 +30,5 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Hold the reset button on the back of the PCB for 4-10 seconds or so - 
+* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
