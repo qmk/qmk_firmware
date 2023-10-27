@@ -48,16 +48,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "os_detection.h"
 #endif
 
-#define NEXT_INTERFACE __COUNTER__
-
 /*
  * Interface indexes
  */
 enum usb_interfaces {
 #ifndef KEYBOARD_SHARED_EP
-    KEYBOARD_INTERFACE = NEXT_INTERFACE,
+    KEYBOARD_INTERFACE,
 #else
-    SHARED_INTERFACE = NEXT_INTERFACE,
+    SHARED_INTERFACE,
 #    define KEYBOARD_INTERFACE SHARED_INTERFACE
 #endif
 
@@ -65,32 +63,30 @@ enum usb_interfaces {
 // interface number, to support Linux/OSX platforms and chrome.hid
 // If Raw HID is enabled, let it be always 1.
 #ifdef RAW_ENABLE
-    RAW_INTERFACE = NEXT_INTERFACE,
+    RAW_INTERFACE,
 #endif
 
 #if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
-    SHARED_INTERFACE = NEXT_INTERFACE,
+    SHARED_INTERFACE,
 #endif
 
 #ifdef CONSOLE_ENABLE
-    CONSOLE_INTERFACE = NEXT_INTERFACE,
+    CONSOLE_INTERFACE,
 #endif
 
-    TOTAL_INTERFACES = NEXT_INTERFACE
+    TOTAL_INTERFACES
 };
 
 #define MAX_INTERFACES 3
 
-#if (NEXT_INTERFACE - 1) > MAX_INTERFACES
-#    error There are not enough available interfaces to support all functions. Please disable one or more of the following: Mouse Keys, Extra Keys, Raw HID, Console
-#endif
+_Static_assert(TOTAL_INTERFACES <= MAX_INTERFACES, "There are not enough available interfaces to support all functions. Please disable one or more of the following: Mouse Keys, Extra Keys, Raw HID, Console.");
 
 #if (defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)) && CONSOLE_ENABLE
 #    error Mouse/Extra Keys share an endpoint with Console. Please disable one of the two.
 #endif
 
 static uint8_t keyboard_led_state = 0;
-static uint8_t vusb_idle_rate     = 0;
+uint8_t        keyboard_idle      = 0;
 uint8_t        keyboard_protocol  = 1;
 
 /* Keyboard report send buffer */
@@ -335,7 +331,7 @@ usbMsgLen_t usbFunctionSetup(uchar data[8]) {
                 break;
             case USBRQ_HID_GET_IDLE:
                 dprint("GET_IDLE:");
-                usbMsgPtr = (usbMsgPtr_t)&vusb_idle_rate;
+                usbMsgPtr = (usbMsgPtr_t)&keyboard_idle;
                 return 1;
             case USBRQ_HID_GET_PROTOCOL:
                 dprint("GET_PROTOCOL:");
@@ -351,8 +347,8 @@ usbMsgLen_t usbFunctionSetup(uchar data[8]) {
                 }
                 return USB_NO_MSG; // to get data in usbFunctionWrite
             case USBRQ_HID_SET_IDLE:
-                vusb_idle_rate = rq->wValue.bytes[1];
-                dprintf("SET_IDLE: %02X", vusb_idle_rate);
+                keyboard_idle = (rq->wValue.word & 0xFF00) >> 8;
+                dprintf("SET_IDLE: %02X", keyboard_idle);
                 break;
             case USBRQ_HID_SET_PROTOCOL:
                 if (rq->wIndex.word == KEYBOARD_INTERFACE) {
@@ -1044,7 +1040,7 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
 #endif
             break;
         case USBDESCR_HID:
-            switch (rq->wValue.bytes[0]) {
+            switch (rq->wIndex.word) {
 #ifndef KEYBOARD_SHARED_EP
                 case KEYBOARD_INTERFACE:
                     usbMsgPtr = (usbMsgPtr_t)&usbConfigurationDescriptor.keyboardHID;
