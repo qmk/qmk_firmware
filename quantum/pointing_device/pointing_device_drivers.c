@@ -145,13 +145,21 @@ void azoteq_iqs5xx_init(void) {
 };
 
 report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report) {
-    report_mouse_t temp_report = {0};
+    report_mouse_t temp_report           = {0};
+    static uint8_t previous_button_state = 0;
+    static uint8_t read_error_count      = 0;
+
     if (azoteq_iqs5xx_init_status == I2C_STATUS_SUCCESS) {
-        azoteq_iqs5xx_base_data_t base_data       = {0};
-        i2c_status_t              status          = azoteq_iqs5xx_get_base_data(&base_data);
-        bool                      ignore_movement = false;
+        azoteq_iqs5xx_base_data_t base_data = {0};
+#    if !defined(POINTING_DEVICE_MOTION_PIN)
+        azoteq_iqs5xx_wake();
+#    endif
+        i2c_status_t status          = azoteq_iqs5xx_get_base_data(&base_data);
+        bool         ignore_movement = false;
 
         if (status == I2C_STATUS_SUCCESS) {
+            // pd_dprintf("IQS5XX - previous cycle time: %d \n", base_data.previous_cycle_time);
+            read_error_count = 0;
             if (base_data.gesture_events_0.single_tap || base_data.gesture_events_0.press_and_hold) {
                 pd_dprintf("IQS5XX - Single tap/hold.\n");
                 temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON1);
@@ -191,13 +199,22 @@ report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report) {
                 temp_report.x = CONSTRAIN_HID_XY(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l));
                 temp_report.y = CONSTRAIN_HID_XY(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.y.h, base_data.y.l));
             }
-#    if defined(POINTING_DEVICE_MOTION_PIN)
-            static uint8_t previous_button_state = 0;
+
             if (previous_button_state != temp_report.buttons) {
                 previous_button_state = temp_report.buttons;
+#    if defined(POINTING_DEVICE_MOTION_PIN)
                 azoteq_iqs5xx_set_event_mode(temp_report.buttons == 0, true); // Disabling event mode forces the RDY to become active on an interval preventing stuck buttons.
-            }
 #    endif
+            }
+        } else {
+            if (read_error_count > 10) {
+                read_error_count      = 0;
+                previous_button_state = 0;
+            } else {
+                read_error_count++;
+            }
+            temp_report.buttons = previous_button_state;
+            pd_dprintf("IQS5XX - get report failed: %d \n", status);
         }
     } else {
         pd_dprintf("IQS5XX - Init failed: %d \n", azoteq_iqs5xx_init_status);
