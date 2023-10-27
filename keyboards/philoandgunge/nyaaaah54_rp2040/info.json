@@ -2,7 +2,7 @@
   "keyboard_name": "nyaaaah54_rp2040",
   "manufacturer": "0xPHGU",
   "url": "https://philoandgunge.com",
-  "maintainer": "gunge the great and glorious",
+  "maintainer": "jkaunert",
   "usb": {
         "device_version": "1.0.0",
         "pid": "0x0000",
