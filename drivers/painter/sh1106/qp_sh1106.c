@@ -213,4 +213,4 @@ painter_device_t qp_sh1106_make_i2c_device(uint16_t panel_width, uint16_t panel_
     return NULL;
 }
 
-#endif // QUANTUM_PAINTER_SH1106_SPI_ENABLE
+#endif // QUANTUM_PAINTER_SH1106_I2C_ENABLE
