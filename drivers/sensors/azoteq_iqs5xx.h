@@ -168,7 +168,7 @@ typedef struct {
 #define AZOTEQ_IQS5XX_SWAP_H_L_BYTES(b) ((uint16_t)(b << 8) | (b >> 8))
 
 #ifndef AZOTEQ_IQS5XX_REPORT_RATE
-#    define AZOTEQ_IQS5XX_REPORT_RATE 8
+#    define AZOTEQ_IQS5XX_REPORT_RATE 10
 #endif
 
 #ifdef POINTING_DEVICE_MOTION_PIN
