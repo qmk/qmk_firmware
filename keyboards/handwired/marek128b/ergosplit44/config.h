@@ -20,7 +20,7 @@
 //#define NO_ACTION_ONESHOT
 
 
-//define rgb for ws2812b - 2020 leds 
+//define rgb for some ws2812b - 2020 leds 
 //#define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_RGB
 
 //vial | get the uid: python3 util/vial_generate_keyboard_uid.py
