@@ -17,8 +17,6 @@
         "rgb_matrix": true
     },
     "matrix_pins": {
-	//cols: 12
-	//rows: 4
         "cols": ["GP6", "GP7", "GP8", "GP9", "GP10", "GP11", "GP12", "GP13", "GP14", "GP15", "GP17", "GP18"],
         "rows": ["GP2", "GP3", "GP4", "GP5"]
     },
