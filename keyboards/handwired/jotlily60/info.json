@@ -1,20 +1,28 @@
 {
-    "keyboard_name": "jotlily60",
     "manufacturer": "Jotix",
-    "url": "",
-    "maintainer": "jotix",
+    "keyboard_name": "jotlily60",
+    "maintainer" : "jotix",
+    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/handwired/jotlily60",
     "usb": {
         "vid": "0x4A4F",
         "pid": "0x2332",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
     "processor": "atmega32u4",
     "bootloader": "caterina",
-    "matrix_pins": {
-        "cols": [ "D0","D4","C6","D7","E6","B4","B5" ],
-        "rows": [ "F7","B1","B3","B2","B6" ]
-    },
     "diode_direction": "COL2ROW",
+    "matrix_pins": {
+        "cols": [ "D0", "D4", "C6", "D7", "E6", "B4", "B5" ],
+        "rows": [ "F7", "B1", "B3", "B2", "B6" ],
+    },
     "split": {
         "enabled": true,
         "soft_serial_pin": "D3"
@@ -70,9 +78,9 @@
                 {"matrix": [3, 3], "x": 3, "y": 3},
                 {"matrix": [3, 4], "x": 4, "y": 3.25},
                 {"matrix": [3, 5], "x": 5, "y": 3.25},
-                {"matrix": [3, 5], "x": 6, "y": 3.5},
+                {"matrix": [3, 6], "x": 6, "y": 3.5},
 
-                {"matrix": [8, 5], "x":  9, "y": 3.5},
+                {"matrix": [8, 6], "x":  9, "y": 3.5},
                 {"matrix": [8, 5], "x": 10, "y": 3.25},
                 {"matrix": [8, 4], "x": 11, "y": 3.25},
                 {"matrix": [8, 3], "x": 12, "y": 3},
@@ -86,11 +94,11 @@
                 {"matrix": [4, 5], "x": 5, "y": 4.5},
                 {"matrix": [4, 6], "x": 6, "y": 4.75},
 
-                {"matrix": [9, 7], "x": 9,  "y": 4.75},
-                {"matrix": [9, 6], "x": 10, "y": 4.5},
-                {"matrix": [9, 5], "x": 11, "y": 4.25},
-                {"matrix": [9, 4], "x": 12, "y": 4},
-                {"matrix": [9, 3], "x": 13, "y": 4.25}
+                {"matrix": [9, 6], "x": 9,  "y": 4.75},
+                {"matrix": [9, 5], "x": 10, "y": 4.5},
+                {"matrix": [9, 4], "x": 11, "y": 4.25},
+                {"matrix": [9, 3], "x": 12, "y": 4},
+                {"matrix": [9, 2], "x": 13, "y": 4.25}
             ]
         }
     }
