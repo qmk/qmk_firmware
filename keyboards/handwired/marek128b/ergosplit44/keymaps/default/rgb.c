@@ -31,5 +31,5 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max)
 	{
         rgb_matrix_set_color(3, RGB_YELLOW);
     } 
-    return false;
+    return true;
 }
