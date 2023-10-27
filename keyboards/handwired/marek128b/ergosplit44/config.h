@@ -23,10 +23,5 @@
 //define rgb for some ws2812b - 2020 leds 
 //#define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_RGB
 
-//vial | get the uid: python3 util/vial_generate_keyboard_uid.py
-#define VIAL_KEYBOARD_UID {0x5F, 0x97, 0x91, 0x98, 0xCB, 0x9F, 0x51, 0xCD}
-#define VIAL_UNLOCK_COMBO_ROWS {0, 0}
-#define VIAL_UNLOCK_COMBO_COLS {0, 1}
-
 //layer count 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 5
