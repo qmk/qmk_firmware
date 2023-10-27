@@ -23,6 +23,9 @@
         "cols": [ "D0", "D4", "C6", "D7", "E6", "B4", "B5" ],
         "rows": [ "F7", "B1", "B3", "B2", "B6" ],
     },
+    "dynamic_keymap": {
+	"layer_count": 4
+    }
     "split": {
         "enabled": true,
         "soft_serial_pin": "D3"
