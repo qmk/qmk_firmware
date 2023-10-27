@@ -1,3 +1,5 @@
+/* Copyright 2023 @Marek128b */
+
 #include "quantum.h"
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) 
