@@ -22,17 +22,17 @@ bool rgb_matrix_indicators_kb(void) {
         rgb_matrix_set_color(2, RGB_RED);
     }
 	
-	if (get_highest_layer(layer_state) == 1) 
+	switch (get_highest_layer(layer_state))
 	{
-        rgb_matrix_set_color(3, RGB_CYAN);
-    } 
-	else if (get_highest_layer(layer_state) == 2) 
-	{
-        rgb_matrix_set_color(3, RGB_MAGENTA);
-    } 
-	else if (get_highest_layer(layer_state) == 3) 
-	{
-        rgb_matrix_set_color(3, RGB_YELLOW);
+        case 1: 
+            rgb_matrix_set_color(3, RGB_CYAN);
+        break;
+        case 2: 
+            rgb_matrix_set_color(3, RGB_MAGENTA);
+        break;
+        case 3:
+            rgb_matrix_set_color(3, RGB_YELLOW);
+        break;
     } 
     return true;
 }
