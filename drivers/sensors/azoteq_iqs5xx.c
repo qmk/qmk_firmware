@@ -15,9 +15,12 @@
 
 #define AZOTEQ_IQS5XX_REG_PRODUCT_NUMBER 0x0000
 #define AZOTEQ_IQS5XX_REG_PREVIOUS_CYCLE_TIME 0x000C
+#define AZOTEQ_IQS5XX_REG_SYSTEM_CONTROL_1 0x0432
 #define AZOTEQ_IQS5XX_REG_REPORT_RATE_ACTIVE 0x057A
+#define AZOTEQ_IQS5XX_REG_SYSTEM_CONFIG_0 0x058E
 #define AZOTEQ_IQS5XX_REG_SYSTEM_CONFIG_1 0x058F
 #define AZOTEQ_IQS5XX_REG_X_RESOLUTION 0x066E
+#define AZOTEQ_IQS5XX_REG_XY_CONFIG_0 0x0669
 #define AZOTEQ_IQS5XX_REG_Y_RESOLUTION 0x0670
 #define AZOTEQ_IQS5XX_REG_SINGLE_FINGER_GESTURES 0x06B7
 #define AZOTEQ_IQS5XX_REG_END_COMMS 0xEEEE
@@ -151,6 +154,19 @@ i2c_status_t azoteq_iqs5xx_set_report_rate(uint16_t report_rate_ms, azoteq_iqs5x
     return status;
 }
 
+i2c_status_t azoteq_iqs5xx_set_reati(bool enabled, bool end_session) {
+    azoteq_iqs5xx_system_config_0_t config = {0};
+    i2c_status_t                    status = i2c_readReg16(AZOTEQ_IQS5XX_ADDRESS, AZOTEQ_IQS5XX_REG_SYSTEM_CONFIG_0, (uint8_t *)&config, sizeof(azoteq_iqs5xx_system_config_0_t), AZOTEQ_IQS5XX_TIMEOUT_MS);
+    if (status == I2C_STATUS_SUCCESS) {
+        config.reati = enabled;
+        status       = i2c_writeReg16(AZOTEQ_IQS5XX_ADDRESS, AZOTEQ_IQS5XX_REG_SYSTEM_CONFIG_0, (uint8_t *)&config, sizeof(azoteq_iqs5xx_system_config_0_t), AZOTEQ_IQS5XX_TIMEOUT_MS);
+    }
+    if (end_session) {
+        azoteq_iqs5xx_end_session();
+    }
+    return status;
+}
+
 i2c_status_t azoteq_iqs5xx_set_event_mode(bool enabled, bool end_session) {
     azoteq_iqs5xx_system_config_1_t config = {0};
     i2c_status_t                    status = i2c_readReg16(AZOTEQ_IQS5XX_ADDRESS, AZOTEQ_IQS5XX_REG_SYSTEM_CONFIG_1, (uint8_t *)&config, sizeof(azoteq_iqs5xx_system_config_1_t), AZOTEQ_IQS5XX_TIMEOUT_MS);
@@ -196,6 +212,42 @@ i2c_status_t azoteq_iqs5xx_set_gesture_config(bool end_session) {
         config.zoom_initial_distance                 = AZOTEQ_IQS5XX_SWAP_H_L_BYTES(AZOTEQ_IQS5XX_ZOOM_INITIAL_DISTANCE);
         config.zoom_consecutive_distance             = AZOTEQ_IQS5XX_SWAP_H_L_BYTES(AZOTEQ_IQS5XX_ZOOM_CONSECUTIVE_DISTANCE);
         status                                       = i2c_writeReg16(AZOTEQ_IQS5XX_ADDRESS, AZOTEQ_IQS5XX_REG_SINGLE_FINGER_GESTURES, (uint8_t *)&config, sizeof(azoteq_iqs5xx_gesture_config_t), AZOTEQ_IQS5XX_TIMEOUT_MS);
+    }
+    if (end_session) {
+        azoteq_iqs5xx_end_session();
+    }
+    return status;
+}
+
+i2c_status_t azoteq_iqs5xx_set_xy_config(bool flip_x, bool flip_y, bool switch_xy, bool palm_reject, bool end_session) {
+    azoteq_iqs5xx_xy_config_0_t config = {0};
+    i2c_status_t                status = i2c_readReg16(AZOTEQ_IQS5XX_ADDRESS, AZOTEQ_IQS5XX_REG_XY_CONFIG_0, (uint8_t *)&config, sizeof(azoteq_iqs5xx_xy_config_0_t), AZOTEQ_IQS5XX_TIMEOUT_MS);
+    if (status == I2C_STATUS_SUCCESS) {
+        if (flip_x) {
+            config.flip_x = !config.flip_x;
+        }
+        if (flip_y) {
+            config.flip_y = !config.flip_y;
+        }
+        if (switch_xy) {
+            config.switch_xy_axis = !config.switch_xy_axis;
+        }
+        config.palm_reject = palm_reject;
+        status             = i2c_writeReg16(AZOTEQ_IQS5XX_ADDRESS, AZOTEQ_IQS5XX_REG_XY_CONFIG_0, (uint8_t *)&config, sizeof(azoteq_iqs5xx_xy_config_0_t), AZOTEQ_IQS5XX_TIMEOUT_MS);
+    }
+    if (end_session) {
+        azoteq_iqs5xx_end_session();
+    }
+    return status;
+}
+
+i2c_status_t azoteq_iqs5xx_reset_suspend(bool reset, bool suspend, bool end_session) {
+    azoteq_iqs5xx_system_control_1_t config = {0};
+    i2c_status_t                     status = i2c_readReg16(AZOTEQ_IQS5XX_ADDRESS, AZOTEQ_IQS5XX_REG_SYSTEM_CONTROL_1, (uint8_t *)&config, sizeof(azoteq_iqs5xx_system_control_1_t), AZOTEQ_IQS5XX_TIMEOUT_MS);
+    if (status == I2C_STATUS_SUCCESS) {
+        config.reset   = reset;
+        config.suspend = suspend;
+        status         = i2c_writeReg16(AZOTEQ_IQS5XX_ADDRESS, AZOTEQ_IQS5XX_REG_SYSTEM_CONTROL_1, (uint8_t *)&config, sizeof(azoteq_iqs5xx_system_control_1_t), AZOTEQ_IQS5XX_TIMEOUT_MS);
     }
     if (end_session) {
         azoteq_iqs5xx_end_session();

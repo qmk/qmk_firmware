@@ -90,6 +90,17 @@ typedef struct {
 _Static_assert(sizeof(azoteq_iqs5xx_report_data_t) == 5, "azoteq_iqs5xx_report_data_t should be 5 bytes");
 
 typedef struct PACKED {
+    bool sw_input : 1;
+    bool sw_input_select : 1;
+    bool reati : 1;
+    bool alp_reati : 1;
+    bool sw_input_event : 1;
+    bool wdt : 1;
+    bool setup_complete : 1;
+    bool manual_control : 1;
+} azoteq_iqs5xx_system_config_0_t;
+
+typedef struct PACKED {
     bool event_mode : 1;
     bool gesture_event : 1;
     bool tp_event : 1;
@@ -99,6 +110,14 @@ typedef struct PACKED {
     bool touch_event : 1;
     bool prox_event : 1;
 } azoteq_iqs5xx_system_config_1_t;
+
+typedef struct PACKED {
+    bool    flip_x : 1;
+    bool    flip_y : 1;
+    bool    switch_xy_axis : 1;
+    bool    palm_reject : 1;
+    uint8_t _unused : 4;
+} azoteq_iqs5xx_xy_config_0_t;
 
 typedef struct PACKED {
     bool   suspend : 1;
@@ -164,7 +183,10 @@ report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report);
 i2c_status_t   azoteq_iqs5xx_get_report_rate(azoteq_iqs5xx_report_rate_t *report_rate, azoteq_iqs5xx_charging_modes_t mode, bool end_session);
 i2c_status_t   azoteq_iqs5xx_set_report_rate(uint16_t report_rate_ms, azoteq_iqs5xx_charging_modes_t mode, bool end_session);
 i2c_status_t   azoteq_iqs5xx_set_event_mode(bool enabled, bool end_session);
+i2c_status_t   azoteq_iqs5xx_set_reati(bool enabled, bool end_session);
 i2c_status_t   azoteq_iqs5xx_set_gesture_config(bool end_session);
+i2c_status_t   azoteq_iqs5xx_set_xy_config(bool flip_x, bool flip_y, bool switch_xy, bool palm_reject, bool end_session);
+i2c_status_t   azoteq_iqs5xx_reset_suspend(bool reset, bool suspend, bool end_session);
 i2c_status_t   azoteq_iqs5xx_get_base_data(azoteq_iqs5xx_base_data_t *base_data);
 void           azoteq_iqs5xx_set_cpi(uint16_t cpi);
 uint16_t       azoteq_iqs5xx_get_cpi(void);

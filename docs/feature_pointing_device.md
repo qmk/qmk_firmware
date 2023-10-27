@@ -131,6 +131,14 @@ Specific device profiles are provided which set the required values for dimensio
 | `AZOTEQ_IQS5XX_ZOOM_INITIAL_DISTANCE`     | (Optional) Minimum travel in pixels before zoom is registered.                       | `50`        |
 | `AZOTEQ_IQS5XX_ZOOM_CONSECUTIVE_DISTANCE` | (Optional) Maximum time to travel zoom distance before zoom is registered.           | `25`        |
 
+#### Rotation settings
+
+| Setting                      | Description                                                | Default       |
+| ---------------------------- | ---------------------------------------------------------- | ------------- |
+| `AZOTEQ_IQS5XX_ROTATION_90`  | (Optional) Configures hardware for 90 degree rotation.     | _not defined_ |
+| `AZOTEQ_IQS5XX_ROTATION_180` | (Optional) Configures hardware for 180 degree rotation.    | _not defined_ |
+| `AZOTEQ_IQS5XX_ROTATION_270` | (Optional) Configures hardware for 270 degree rotation.    | _not defined_ |
+
 ### Cirque Trackpad
 
 To use the Cirque Trackpad sensor, add this to your `rules.mk`:

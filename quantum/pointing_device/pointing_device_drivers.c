@@ -122,54 +122,27 @@ static i2c_status_t azoteq_iqs5xx_init_status = 1;
 void azoteq_iqs5xx_init(void) {
     i2c_init();
     azoteq_iqs5xx_wake();
+    azoteq_iqs5xx_reset_suspend(true, false, true);
+    wait_ms(100);
+    azoteq_iqs5xx_wake();
     if (azoteq_iqs5xx_get_product() != AZOTEQ_IQS5XX_UNKNOWN) {
         azoteq_iqs5xx_setup_resolution();
         azoteq_iqs5xx_init_status = azoteq_iqs5xx_set_report_rate(AZOTEQ_IQS5XX_REPORT_RATE, AZOTEQ_IQS5XX_ACTIVE, false);
         azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_event_mode(AZOTEQ_IQS5XX_EVENT_MODE, false);
+        azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_reati(true, false);
+#    if defined(AZOTEQ_IQS5XX_ROTATION_90)
+        azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_xy_config(false, true, true, true, false);
+#    elif defined(AZOTEQ_IQS5XX_ROTATION_180)
+        azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_xy_config(true, true, false, true, false);
+#    elif defined(AZOTEQ_IQS5XX_ROTATION_270)
+        azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_xy_config(true, false, true, true, false);
+#    else
+        azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_xy_config(false, false, false, true, false);
+#    endif
         azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_gesture_config(true);
         wait_ms(AZOTEQ_IQS5XX_REPORT_RATE + 1);
     }
 };
-
-report_mouse_t azoteq_iqs5xx_rotate(report_mouse_t mouse_report) {
-#    if defined(POINTING_DEVICE_ROTATION_90) || defined(POINTING_DEVICE_ROTATION_180) || defined(POINTING_DEVICE_ROTATION_270)
-    report_mouse_t old_report = mouse_report;
-#        if defined(POINTING_DEVICE_ROTATION_90)
-    mouse_report.h            = old_report.v;
-    mouse_report.v            = -old_report.h;
-#        elif defined(POINTING_DEVICE_ROTATION_180)
-    mouse_report.h                         = -old_report.h;
-    mouse_report.v                         = -old_report.v;
-#        elif defined(POINTING_DEVICE_ROTATION_270)
-    mouse_report.h                         = -old_report.v;
-    mouse_report.v                         = old_report.h;
-#        endif
-#    endif
-    return mouse_report;
-}
-
-azoteq_iqs5xx_base_data_t azoteq_iqs5xx_rotate_swipes(azoteq_iqs5xx_base_data_t base_data) {
-#    if defined(POINTING_DEVICE_ROTATION_90) || defined(POINTING_DEVICE_ROTATION_180) || defined(POINTING_DEVICE_ROTATION_270)
-    azoteq_iqs5xx_base_data_t old_base_data = base_data;
-#        if defined(POINTING_DEVICE_ROTATION_90)
-    base_data.gesture_events_0.swipe_x_neg  = old_base_data.gesture_events_0.swipe_y_neg;
-    base_data.gesture_events_0.swipe_x_pos  = old_base_data.gesture_events_0.swipe_y_pos;
-    base_data.gesture_events_0.swipe_y_neg  = old_base_data.gesture_events_0.swipe_x_pos;
-    base_data.gesture_events_0.swipe_y_pos  = old_base_data.gesture_events_0.swipe_x_neg;
-#        elif defined(POINTING_DEVICE_ROTATION_180)
-    base_data.gesture_events_0.swipe_x_neg = old_base_data.gesture_events_0.swipe_x_pos;
-    base_data.gesture_events_0.swipe_x_pos = old_base_data.gesture_events_0.swipe_x_neg;
-    base_data.gesture_events_0.swipe_y_neg = old_base_data.gesture_events_0.swipe_y_pos;
-    base_data.gesture_events_0.swipe_y_pos = old_base_data.gesture_events_0.swipe_y_neg;
-#        elif defined(POINTING_DEVICE_ROTATION_270)
-    base_data.gesture_events_0.swipe_x_neg = old_base_data.gesture_events_0.swipe_y_pos;
-    base_data.gesture_events_0.swipe_x_pos = old_base_data.gesture_events_0.swipe_y_neg;
-    base_data.gesture_events_0.swipe_y_neg = old_base_data.gesture_events_0.swipe_x_neg;
-    base_data.gesture_events_0.swipe_y_pos = old_base_data.gesture_events_0.swipe_x_pos;
-#        endif
-#    endif
-    return base_data;
-}
 
 report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report) {
     report_mouse_t temp_report = {0};
@@ -179,7 +152,6 @@ report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report) {
         bool                      ignore_movement = false;
 
         if (status == I2C_STATUS_SUCCESS) {
-            base_data = azoteq_iqs5xx_rotate_swipes(base_data);
             if (base_data.gesture_events_0.single_tap || base_data.gesture_events_0.press_and_hold) {
                 pd_dprintf("IQS5XX - Single tap/hold.\n");
                 temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON1);
@@ -219,7 +191,6 @@ report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report) {
                 temp_report.x = CONSTRAIN_HID_XY(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l));
                 temp_report.y = CONSTRAIN_HID_XY(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.y.h, base_data.y.l));
             }
-            temp_report                          = azoteq_iqs5xx_rotate(temp_report);
 #    if defined(POINTING_DEVICE_MOTION_PIN)
             static uint8_t previous_button_state = 0;
             if (previous_button_state != temp_report.buttons) {
