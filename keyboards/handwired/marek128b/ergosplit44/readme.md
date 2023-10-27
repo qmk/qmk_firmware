@@ -1,6 +1,6 @@
 # ergosplit44
 
-![ergosplit44](https://i.imgur.com/RhRIe2a.png)
+![ergosplit44](https://i.imgur.com/RhRIe2ah.png)
 
 This is a handdwired split 44 key keyboard. the two sides are connectd via a custom 2x8P pin header cable.
 
