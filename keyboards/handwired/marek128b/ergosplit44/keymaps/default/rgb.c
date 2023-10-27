@@ -1,4 +1,5 @@
-/* Copyright 2023 @Marek128b */
+// Copyright 2023 @Marek128b
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "quantum.h"
 
