@@ -7,9 +7,6 @@
     "dynamic_keymap": {
         "layer_count": 5
     },
-    "dynamic_keymap": {
-        "layer_count": 5
-    },
     "features": {
         "bootmagic": true,
         "command": false,
