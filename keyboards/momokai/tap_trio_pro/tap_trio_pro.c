@@ -9,7 +9,7 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 #include "scanfunctions.h"
 
 analog_config g_config = {
-    .mode = dynamic_actuation,
+    .mode = static_actuation,
     .actuation_point = 32,
     .press_sensitivity = 32,
     .release_sensitivity = 32,
@@ -18,11 +18,47 @@ analog_config g_config = {
 };
 
 extern pin_t matrix_pins[MATRIX_ROWS][MATRIX_COLS];
-void         bootmagic_lite(void) {
-    if (analogReadPin(matrix_pins[BOOTMAGIC_LITE_ROW][BOOTMAGIC_LITE_COLUMN]) < 1350) {
-        bootloader_jump();
-    }
-}
+
+// void         bootmagic_lite(void) {
+//     if (BOOTMAGIC_LITE_ROW == 1) {
+//         if (analogReadPin(matrix_pins[BOOTMAGIC_LITE_ROW][BOOTMAGIC_LITE_COLUMN]) < 1350) {
+//             bootloader_jump();
+//         }
+//     }
+//     else {
+//     // default implementation
+
+//     // We need multiple scans because debouncing can't be turned off.
+//     matrix_scan();
+// #if defined(DEBOUNCE) && DEBOUNCE > 0
+//     wait_ms(DEBOUNCE * 2);
+// #else
+//     wait_ms(30);
+// #endif
+//     matrix_scan();
+
+//     // If the configured key (commonly Esc) is held down on power up,
+//     // reset the EEPROM valid state and jump to bootloader.
+//     // This isn't very generalized, but we need something that doesn't
+//     // rely on user's keymaps in firmware or EEPROM.
+//     uint8_t row = BOOTMAGIC_LITE_ROW;
+//     uint8_t col = BOOTMAGIC_LITE_COLUMN;
+
+// #if defined(SPLIT_KEYBOARD) && defined(BOOTMAGIC_LITE_ROW_RIGHT) && defined(BOOTMAGIC_LITE_COLUMN_RIGHT)
+//     if (!is_keyboard_left()) {
+//         row = BOOTMAGIC_LITE_ROW_RIGHT;
+//         col = BOOTMAGIC_LITE_COLUMN_RIGHT;
+//     }
+// #endif
+
+//     if (matrix_get_row(row) & (1 << col)) {
+//         bootmagic_lite_reset_eeprom();
+
+//         // Jump to bootloader.
+//         bootloader_jump();
+//     }
+//     }
+// }
 
 uint32_t idle_recalibrate_callback(uint32_t trigger_time, void *cb_arg) {
     get_sensor_offsets();

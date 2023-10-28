@@ -4,10 +4,10 @@
     "maintainer": "peepeetee",
     "bootloader": "rp2040",
     "features": {
-        "bootmagic": false,
+        "bootmagic": true,
         "command": false,
         "console": true,
-        "debug": true,
+        "debug": false,
         "extrakey": true,
         "mousekey": true,
         "rgb_matrix": true,
@@ -18,7 +18,8 @@
         "matrix": [2, 0]
     },
     "build": {
-        "lto": true
+        "lto": true,
+        "debounce_type": "sym_eager_pk"
       },
     "matrix_pins": {
         "direct":[
