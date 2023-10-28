@@ -1,6 +1,6 @@
 # nyaaaah54_rp2040
 
-![nyaaaah54_rp2040](https://i.imgur.com/nyaaaah54_rp2040.jpg)
+![nyaaaah54_rp2040](https://imgur.com/a/vgqw9SO)
 
 A trashy, handwired hotswap-ish monoblock ergo. Made from salvaged & upcycled parts and materials from the all-knowing trash heap in the back alleyway.
 
