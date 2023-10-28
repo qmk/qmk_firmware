@@ -1,55 +1,36 @@
 {
-  "manufacturer": "0xPHGU",
-  "keyboard_name": "nyaaaah54_rp2040",
-  "maintainer": "jkaunert",
-  "bootloader": "rp2040",
-  "diode_direction": "COL2ROW",
-  "features": {
-    "bootmagic": true,
-    "extrakey": true,
-    "mousekey": true,
-    "nkro": true
-  },
-  "matrix_pins": {
-    "cols": [
-      "GP21",
-      "GP20",
-      "GP19",
-      "GP18",
-      "GP17",
-      "GP16",
-      "GP15",
-      "GP14",
-      "GP13",
-      "GP12",
-      "GP11",
-      "GP10"
-    ],
-    "rows": [
-      "GP5",
-      "GP6",
-      "GP7",
-      "GP8",
-      "GP9"
-    ]
-  },
-  "processor": "RP2040",
-  "qmk": {
-    "tap_keycode_delay": 10
-  },
-  "url": "https://philoandgunge.com",
-  "usb": {
-    "device_version": "1.0.0",
-    "pid": "0x0000",
-    "vid": "0xFEED"
-  },
-  "ws2812": {
-    "driver": "vendor",
-    "pin": "GP29"
-  },
-  "layouts": {
-    "LAYOUT": {
-      "layout": [
+    "manufacturer": "0xPHGU",
+    "keyboard_name": "nyaaaah54_rp2040",
+    "maintainer": "jkaunert",
+    "bootloader": "rp2040",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "matrix_pins": {
+        "cols": ["GP21", "GP20", "GP19", "GP18", "GP17", "GP16", "GP15", "GP14", "GP13", "GP12", "GP11", "GP10"],
+        "rows": ["GP5", "GP6", "GP7", "GP8", "GP9"]
+    },
+    "processor": "RP2040",
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
+    "url": "https://philoandgunge.com",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0000",
+        "vid": "0xFEED"
+    },
+    "ws2812": {
+        "driver": "vendor",
+        "pin": "GP29"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
                 {"label": "~`", "matrix": [0, 11], "x": 0, "y": 0.75},
                 {"label": "!1", "matrix": [0, 10], "x": 1, "y": 0.75},
                 {"label": "@2", "matrix": [0, 9], "x": 2, "y": 0.5},
@@ -105,6 +86,6 @@
                 {"label": "Bspc", "matrix": [4, 4], "x": 1.5, "y": 17.7},
                 {"label": "Ctrl", "matrix": [4, 3], "x": 2.5, "y": 17.6}
             ]
+        }
     }
-  }
 }
