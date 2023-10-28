@@ -39,7 +39,7 @@ bool ucis_add(uint16_t keycode) {
     char c = keycode_to_char(keycode);
     if (c && count < UCIS_MAX_INPUT_LENGTH - 1) {
         input[count++] = c;
-        input[count] = 0;
+        input[count]   = 0;
         return true;
     }
     return false;
