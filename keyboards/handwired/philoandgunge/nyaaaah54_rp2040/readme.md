@@ -10,11 +10,11 @@ A trashy, handwired hotswap-ish monoblock ergo. Made from salvaged & upcycled pa
 
 Make example for this keyboard (after setting up your build environment):
 
-    make philoandgunge/nyaaaah54_rp2040:default
+    make handwired/philoandgunge/nyaaaah54_rp2040:default
 
 Flashing example for this keyboard:
 
-    make philoandgunge/nyaaaah54_rp2040:default:flash
+    make handwired/philoandgunge/nyaaaah54_rp2040:default:flash
 
 ## Bootloader
 
