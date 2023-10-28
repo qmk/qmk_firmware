@@ -37,11 +37,14 @@ static char keycode_to_char(uint16_t keycode) {
 
 bool ucis_add(uint16_t keycode) {
     char c = keycode_to_char(keycode);
-    if (c && count < UCIS_MAX_INPUT_LENGTH - 1) {
-        input[count++] = c;
-        input[count]   = 0;
-        return true;
+    if (count < UCIS_MAX_INPUT_LENGTH - 1) {
+        if (c) {
+            input[count++] = c;
+            input[count]   = 0;
+            return true;
+        }
     }
+    tap_code(KC_BACKSPACE);
     return false;
 }
 
