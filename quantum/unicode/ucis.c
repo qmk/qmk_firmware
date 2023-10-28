@@ -44,12 +44,12 @@ bool ucis_add(uint16_t keycode) {
             return true;
         }
     }
-    tap_code(KC_BACKSPACE);
     return false;
 }
 
 bool ucis_remove_last(void) {
     if (count) {
+        input[count] = 0;
         count--;
         return true;
     }
@@ -76,10 +76,11 @@ void ucis_finish(void) {
         }
     }
 
+    for (uint8_t j = 0; j <= count; j++) {
+        tap_code(KC_BACKSPACE);
+    }
+
     if (found) {
-        for (uint8_t j = 0; j <= count; j++) {
-            tap_code(KC_BACKSPACE);
-        }
         register_ucis(i);
     }
 
@@ -87,6 +88,10 @@ void ucis_finish(void) {
 }
 
 void ucis_cancel(void) {
+    for (uint8_t i = 0; i <= count; i++) {
+        tap_code(KC_BACKSPACE);
+    }
+
     count  = 0;
     active = false;
 }
