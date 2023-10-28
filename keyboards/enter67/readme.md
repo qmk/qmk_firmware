@@ -2,7 +2,7 @@
 
 ![enter67](https://imgur.com/igF8Lurh.jpg)
 
-A 67 layout pcb.
+67 layout PCB, with option for stepped Caps Lock
 
 * Keyboard Maintainer: https://github.com/LXF-YZP
 * Hardware Supported: enter67 PCB
