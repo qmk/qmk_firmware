@@ -19,8 +19,10 @@
     },
     "features":{
         "bootmagic": true,
-        "nkro": true,
-        "mouse_key.enabled": true
+        "nkro": true
+    },
+    "mouse_key": {
+        "enabled": true
     },
     "layouts": {
         "LAYOUT": {
