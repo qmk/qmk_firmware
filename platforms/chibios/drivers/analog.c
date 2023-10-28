@@ -278,7 +278,7 @@ __attribute__((weak)) adc_mux pinToMux(pin_t pin) {
         case C3: return TO_MUX( ADC_CHANNEL_IN4,  0 ); // Can also be ADC2 or ADC3
         case C4: return TO_MUX( ADC_CHANNEL_IN13, 0 ); // Can also be ADC2
         case C5: return TO_MUX( ADC_CHANNEL_IN14, 0 ); // Can also be ADC2
-#    if STM32_ADC_USE_ADC3
+#    if STM32_HAS_GPIOF && STM32_ADC_USE_ADC3
         case F3:  return TO_MUX( ADC_CHANNEL_IN6,  2 );
         case F4:  return TO_MUX( ADC_CHANNEL_IN7,  2 );
         case F5:  return TO_MUX( ADC_CHANNEL_IN8,  2 );
@@ -289,75 +289,46 @@ __attribute__((weak)) adc_mux pinToMux(pin_t pin) {
         case F10: return TO_MUX( ADC_CHANNEL_IN13, 2 );
 #    endif
 #elif defined(STM32G4XX)
-#    if STM32_ADC_USE_ADC1
-        case A0:  return TO_MUX( ADC_CHANNEL_IN1,  0 );
-        case A1:  return TO_MUX( ADC_CHANNEL_IN2,  0 );
+        case A0:  return TO_MUX( ADC_CHANNEL_IN1,  0 ); // Can also be ADC2
+        case A1:  return TO_MUX( ADC_CHANNEL_IN2,  0 ); // Can also be ADC2
         case A2:  return TO_MUX( ADC_CHANNEL_IN3,  0 );
         case A3:  return TO_MUX( ADC_CHANNEL_IN4,  0 );
-        case B0:  return TO_MUX( ADC_CHANNEL_IN15, 0 );
-        case B1:  return TO_MUX( ADC_CHANNEL_IN12, 0 );
-        case B11: return TO_MUX( ADC_CHANNEL_IN14, 0 );
-        case B12: return TO_MUX( ADC_CHANNEL_IN11, 0 );
-        case B14: return TO_MUX( ADC_CHANNEL_IN5,  0 );
-        case C0:  return TO_MUX( ADC_CHANNEL_IN6,  0 );
-        case C1:  return TO_MUX( ADC_CHANNEL_IN7,  0 );
-        case C2:  return TO_MUX( ADC_CHANNEL_IN8,  0 );
-        case C3:  return TO_MUX( ADC_CHANNEL_IN9,  0 );
-        case F0:  return TO_MUX( ADC_CHANNEL_IN10, 0 );
-#    endif
-#    if STM32_ADC_USE_ADC2
-        case A0:  return TO_MUX( ADC_CHANNEL_IN1,  1 );
-        case A1:  return TO_MUX( ADC_CHANNEL_IN2,  1 );
         case A4:  return TO_MUX( ADC_CHANNEL_IN17, 1 );
         case A5:  return TO_MUX( ADC_CHANNEL_IN13, 1 );
         case A6:  return TO_MUX( ADC_CHANNEL_IN3,  1 );
         case A7:  return TO_MUX( ADC_CHANNEL_IN4,  1 );
+        case B0:  return TO_MUX( ADC_CHANNEL_IN15, 0 ); // Can also be ADC3
+        case B1:  return TO_MUX( ADC_CHANNEL_IN12, 0 ); // Can also be ADC3
         case B2:  return TO_MUX( ADC_CHANNEL_IN12, 1 );
-        case B11: return TO_MUX( ADC_CHANNEL_IN14, 1 );
-        case B15: return TO_MUX( ADC_CHANNEL_IN15, 1 );
-        case C0:  return TO_MUX( ADC_CHANNEL_IN6,  1 );
-        case C1:  return TO_MUX( ADC_CHANNEL_IN7,  1 );
-        case C2:  return TO_MUX( ADC_CHANNEL_IN8,  1 );
-        case C3:  return TO_MUX( ADC_CHANNEL_IN9,  1 );
+        case B11: return TO_MUX( ADC_CHANNEL_IN14, 0 ); // Can also be ADC2
+        case B12: return TO_MUX( ADC_CHANNEL_IN11, 0 ); // Can also be ADC4
+        case B13: return TO_MUX( ADC_CHANNEL_IN5,  2 );
+        case B14: return TO_MUX( ADC_CHANNEL_IN5,  0 ); // Can also be ADC4
+        case B15: return TO_MUX( ADC_CHANNEL_IN15, 1 ); // Can also be ADC4
+        case C0:  return TO_MUX( ADC_CHANNEL_IN6,  0 ); // Can also be ADC2
+        case C1:  return TO_MUX( ADC_CHANNEL_IN7,  0 ); // Can also be ADC2
+        case C2:  return TO_MUX( ADC_CHANNEL_IN8,  0 ); // Can also be ADC2
+        case C3:  return TO_MUX( ADC_CHANNEL_IN9,  0 ); // Can also be ADC2
         case C4:  return TO_MUX( ADC_CHANNEL_IN5,  1 );
         case C5:  return TO_MUX( ADC_CHANNEL_IN11, 1 );
-        case F1:  return TO_MUX( ADC_CHANNEL_IN10, 1 );
-#    endif
-#    if STM32_ADC_USE_ADC3
-        case B0:  return TO_MUX( ADC_CHANNEL_IN12, 2 );
-        case B1:  return TO_MUX( ADC_CHANNEL_IN1,  2 );
-        case B13: return TO_MUX( ADC_CHANNEL_IN5,  2 );
-        case D10: return TO_MUX( ADC_CHANNEL_IN7,  2 );
-        case D11: return TO_MUX( ADC_CHANNEL_IN8,  2 );
-        case D12: return TO_MUX( ADC_CHANNEL_IN9,  2 );
-        case D13: return TO_MUX( ADC_CHANNEL_IN10, 2 );
-        case D14: return TO_MUX( ADC_CHANNEL_IN11, 2 );
-        case E7:  return TO_MUX( ADC_CHANNEL_IN4,  2 );
-        case E8:  return TO_MUX( ADC_CHANNEL_IN6,  2 );
-        case E9:  return TO_MUX( ADC_CHANNEL_IN2,  2 );
-        case E10: return TO_MUX( ADC_CHANNEL_IN14, 2 );
-        case E11: return TO_MUX( ADC_CHANNEL_IN15, 2 );
-        case E12: return TO_MUX( ADC_CHANNEL_IN16, 2 );
-        case E13: return TO_MUX( ADC_CHANNEL_IN3,  2 );
-#    endif
-#   if STM32_ADC_USE_ADC4
-        case B12: return TO_MUX( ADC_CHANNEL_IN3,  3 );
-        case B14: return TO_MUX( ADC_CHANNEL_IN4,  3 );
-        case B15: return TO_MUX( ADC_CHANNEL_IN5,  3 );
         case D8:  return TO_MUX( ADC_CHANNEL_IN12, 3 );
         case D9:  return TO_MUX( ADC_CHANNEL_IN13, 3 );
-        case D10: return TO_MUX( ADC_CHANNEL_IN7,  3 );
-        case D11: return TO_MUX( ADC_CHANNEL_IN8,  3 );
-        case D12: return TO_MUX( ADC_CHANNEL_IN9,  3 );
-        case D13: return TO_MUX( ADC_CHANNEL_IN10, 3 );
-        case D14: return TO_MUX( ADC_CHANNEL_IN11, 3 );
+        case D10: return TO_MUX( ADC_CHANNEL_IN7,  2 ); // Can also be ADC4
+        case D11: return TO_MUX( ADC_CHANNEL_IN8,  2 ); // Can also be ADC4
+        case D12: return TO_MUX( ADC_CHANNEL_IN9,  2 ); // Can also be ADC4
+        case D13: return TO_MUX( ADC_CHANNEL_IN10, 2 ); // Can also be ADC4
+        case D14: return TO_MUX( ADC_CHANNEL_IN11, 2 ); // Can also be ADC4
         case E5:  return TO_MUX( ADC_CHANNEL_IN2,  3 );
-        case E8:  return TO_MUX( ADC_CHANNEL_IN6,  3 );
-        case E10: return TO_MUX( ADC_CHANNEL_IN14, 3 );
-        case E11: return TO_MUX( ADC_CHANNEL_IN15, 3 );
-        case E12: return TO_MUX( ADC_CHANNEL_IN16, 3 );
+        case E7:  return TO_MUX( ADC_CHANNEL_IN4,  2 );
+        case E8:  return TO_MUX( ADC_CHANNEL_IN6,  2 ); // Can also be ADC4
+        case E9:  return TO_MUX( ADC_CHANNEL_IN2,  2 );
+        case E10: return TO_MUX( ADC_CHANNEL_IN14, 2 ); // Can also be ADC4
+        case E11: return TO_MUX( ADC_CHANNEL_IN15, 2 ); // Can also be ADC4
+        case E12: return TO_MUX( ADC_CHANNEL_IN16, 2 ); // Can also be ADC4
+        case E13: return TO_MUX( ADC_CHANNEL_IN3,  2 );
         case E14: return TO_MUX( ADC_CHANNEL_IN1,  3 );
-#    endif
+        case F0:  return TO_MUX( ADC_CHANNEL_IN10, 0 );
+        case F1:  return TO_MUX( ADC_CHANNEL_IN10, 1 );
 #elif defined(RP2040)
         case 26U: return TO_MUX(0, 0);
         case 27U: return TO_MUX(1, 0);
