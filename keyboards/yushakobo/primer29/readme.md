@@ -5,7 +5,7 @@
 A simple macropad keyboard for the beginners.
 
 * Keyboard Maintainer: [yushakobo](https://github.com/yushakobo)
-* Hardware Supported: primer61 PCB, Pro Micro (ATmega32U4)
+* Hardware Supported: primer29 PCB, Pro Micro (ATmega32U4)
 * Hardware Availability: [yushakobo Shop](https://yushakobo.jp/shop/primer29/)
 
 Make example for this keyboard (after setting up your build environment):
