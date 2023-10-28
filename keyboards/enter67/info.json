@@ -23,7 +23,7 @@
     "usb": {
         "device_version": "0.0.1",
         "pid": "0xAA66",
-        "vid": "0x1000"
+        "vid": "0x4040"
     },
     "community_layouts": ["65_ansi_blocker"],
     "layouts": {
@@ -90,7 +90,7 @@
                 {"label": "Shift", "matrix": [3, 11], "x": 12.25, "y": 3, "w": 1.75},
                 {"label": "Up", "matrix": [3, 13], "x": 14, "y": 3},
                 {"label": "PgDn", "matrix": [3, 14], "x": 15, "y": 3},
-                
+
                 {"label": "Ctrl", "matrix": [4, 0], "x": 0, "y": 4, "w": 1.25},
                 {"label": "Win", "matrix": [4, 1], "x": 1.25, "y": 4, "w": 1.25},
                 {"label": "Alt", "matrix": [4, 2], "x": 2.5, "y": 4, "w": 1.25},
