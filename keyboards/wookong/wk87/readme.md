@@ -4,17 +4,17 @@
 
 A customizable 80% keyboard with two encoders.
 
-* Keyboard Maintainer: [Arbiter](https://www.ciy.ink/)
+* Keyboard Maintainer: Gyphae Team
 * Hardware Supported: Wookong WK87
-* Hardware Availability: [Arbiter](https://www.ciy.ink/)
+* Hardware Availability: Wookong
 
 Make example for this keyboard (after setting up your build environment):
 
-  make arbiter/wk87:default
+  make wookong/wk87:default
 
 Flashing example for this keyboard:
 
-  make arbiter/wk87:default:flash
+  make wookong/wk87:default:flash
 
 **Reset Key**: Hold down the key located at *K00*, commonly programmed as *Esc* while plugging in the keyboard.
 
