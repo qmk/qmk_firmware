@@ -11,8 +11,6 @@ A simple macropad keyboard for the beginners.
 Make example for this keyboard (after setting up your build environment):
 
     make yushakobo/primer29:default
-    or
-    qmk compile -kb yushakobo/primer29 -km default
 
 Flashing example for this keyboard:
 
