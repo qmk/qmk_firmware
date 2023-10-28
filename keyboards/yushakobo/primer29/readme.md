@@ -1,6 +1,6 @@
 # primer29
 
-![primer29](https://i.imgur.com/EhQxZ4R.jpeg)
+![primer29](https://i.imgur.com/EhQxZ4Rh.jpeg)
 
 A simple macropad keyboard for the beginners.
 
