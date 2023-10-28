@@ -6,4 +6,4 @@
 #undef HAL_USE_SPI
 #define HAL_USE_SPI FALSE
 
-#include_next "halconf.h"
+#include_next <halconf.h>
