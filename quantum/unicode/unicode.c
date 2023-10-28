@@ -228,6 +228,7 @@ __attribute__((weak)) void unicode_input_start(void) {
             register_code(UNICODE_KEY_MAC);
             break;
         case UNICODE_MODE_LINUX:
+            wait_ms(UNICODE_TYPE_DELAY);
             tap_code16(UNICODE_KEY_LNX);
             break;
         case UNICODE_MODE_WINDOWS:
@@ -260,7 +261,9 @@ __attribute__((weak)) void unicode_input_finish(void) {
             unregister_code(UNICODE_KEY_MAC);
             break;
         case UNICODE_MODE_LINUX:
+            wait_ms(UNICODE_TYPE_DELAY);
             tap_code(KC_SPACE);
+            wait_ms(UNICODE_TYPE_DELAY);
             if (unicode_saved_led_state.caps_lock) {
                 tap_code(KC_CAPS_LOCK);
             }
@@ -288,7 +291,9 @@ __attribute__((weak)) void unicode_input_cancel(void) {
             unregister_code(UNICODE_KEY_MAC);
             break;
         case UNICODE_MODE_LINUX:
+            wait_ms(UNICODE_TYPE_DELAY);
             tap_code(KC_ESCAPE);
+            wait_ms(UNICODE_TYPE_DELAY);
             if (unicode_saved_led_state.caps_lock) {
                 tap_code(KC_CAPS_LOCK);
             }
@@ -320,6 +325,11 @@ static void send_nibble_wrapper(uint8_t digit) {
         tap_code(kc);
         return;
     }
+
+    if (unicode_config.input_mode == UNICODE_MODE_LINUX) {
+        wait_ms(UNICODE_TYPE_DELAY);
+    }
+
     send_nibble(digit);
 }
 
