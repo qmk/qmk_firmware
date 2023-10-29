@@ -18,6 +18,9 @@
         "mousekey": true,
         "rgblight": true
     },
+    "bootmagic": {
+        "matrix": [1,0]
+    },
     "matrix_pins": {
         "cols": ["E6", "D7", "C6", "B1"],
         "rows": ["B3", "D0", "D1", "D2", "D3"]
