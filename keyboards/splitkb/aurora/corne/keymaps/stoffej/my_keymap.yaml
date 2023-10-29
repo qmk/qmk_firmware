@@ -1,0 +1,305 @@
+layout: {qmk_keyboard: splitkb/aurora/corne/rev1, qmk_layout: LAYOUT_split_3x6_3}
+layers:
+  L0: [ESC, Q, W, F, P, B, J, L, U, Y, ;, '''', LALT, SHFT KC A, CTL KC R, S, T, G, M, N, E, CTL KC I, SHFT KC O, RALT, LWIN, Z, X, C, D, V, K, H, ',', ., /, LWIN,
+    'LT(LAY0, BSPC )', 'LT(LAY1,  DEL )', 'LT(LAY2, TAB)', 'LT(LAY3, ENT)', 'LT(LAY4, SPC )', 'LT(LAY5,   LWIN )']
+  L1:
+  - QK BOOT
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - SE PLUS
+  - '7'
+  - '8'
+  - '9'
+  - /
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - LSFT
+  - LCTL
+  - LALT
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - SE MINS
+  - '4'
+  - '5'
+  - '6'
+  - ','
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - SE EQAL
+  - '1'
+  - '2'
+  - '3'
+  - .
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - SE LPRN
+  - '0'
+  - SE RPRN
+  L2:
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - PGUP
+  - HOME
+  - UP
+  - END
+  - INS
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - LSFT
+  - LCTL
+  - LALT
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - PGDN
+  - LEFT
+  - DOWN
+  - RGHT
+  - M GIT ST
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - U CUT
+  - U CPY
+  - U PST
+  - U RDO
+  - U UND
+  - M CD DOT
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - SE LCBR
+  - {t: ▽, type: trans}
+  - SE RCBR
+  L3:
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - SE DQUO
+  - {t: ▽, type: trans}
+  - SE QUO
+  - SE AMPR
+  - SE ASTR
+  - SE BSLH
+  - {t: ▽, type: trans}
+  - SE GRAV
+  - {t: ▽, type: trans}
+  - LSFT
+  - LCTL
+  - LALT
+  - SE DIAE
+  - SE ACUT
+  - SE COL
+  - SE DLR
+  - SE PERC
+  - SE CIRC
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - SE TILD
+  - SE EXCL
+  - SE AT
+  - SE HASH
+  - SE PIPE
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - SE LBRC
+  - SE MINS
+  - SE RBRC
+  L4:
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - MUTE
+  - {t: ▽, type: trans}
+  - VOLU
+  - {t: ▽, type: trans}
+  - F9
+  - F10
+  - F11
+  - F12
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - MPRV
+  - MPLY
+  - MNXT
+  - VOLD
+  - {t: ▽, type: trans}
+  - F5
+  - F6
+  - F7
+  - F8
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - F1
+  - F2
+  - F3
+  - F4
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - TAB
+  - SPC
+  - ESC
+  L5:
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - SE AA
+  - SE AE
+  - SE OE
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - LSFT
+  - LCTL
+  - LALT
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  L6:
+  - QK BOOT
+  - {t: ▽, type: trans}
+  - VS MV FILE PRV
+  - VS MV FILE NXT
+  - VS GROUP 1
+  - VS GROUP 2
+  - X(USMIL)
+  - X(UKB)
+  - X(UCOFFEE)
+  - X(UVOLT)
+  - X(UBEER)
+  - QK BOOT
+  - VS SYMBOLEDITOR
+  - VS REFERENCES
+  - VS IMPLEMENTATION
+  - VS DEFINITION
+  - VS BACK
+  - VS FRONT
+  - X(THNK)
+  - X(PARTY)
+  - SE AA
+  - SE AE
+  - SE OE
+  - TG(LAY6)
+  - VS CLOSEPANEL
+  - VS CLOSETAB
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - VS TABLEFT
+  - VS TABRIGHT
+  - X(UBOMB)
+  - X(UORHEART)
+  - X(UBIC)
+  - X(UNERD)
+  - X(UBUG)
+  - X(UPARTY)
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - X(UTHMUP)
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  L7:
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - UP
+  - {t: ▽, type: trans}
+  - PGUP
+  - SE PLUS
+  - '7'
+  - '8'
+  - '9'
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - LEFT
+  - DOWN
+  - RGHT
+  - PGDN
+  - SE MINS
+  - '4'
+  - '5'
+  - '6'
+  - ','
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - TG(LAY6)
+  - SE EQAL
+  - '1'
+  - '2'
+  - '3'
+  - .
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - '0'
+  - {t: ▽, type: trans}
