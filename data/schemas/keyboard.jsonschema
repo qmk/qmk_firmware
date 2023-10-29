@@ -20,7 +20,15 @@
                     }
                 }
             }
-        }
+        },
+        "dip_switch_config": {
+            "type": "object",
+            "properties": {
+                "pins": {
+                    "$ref": "qmk.definitions.v1#/mcu_pin_array"
+                }
+            }
+        },
     },
     "type": "object",
     "not": { "required": [ "vendorId", "productId" ] }, // reject via keys...
@@ -244,6 +252,25 @@
         "community_layouts": {
             "type": "array",
             "items": {"$ref": "qmk.definitions.v1#/filename"}
+        },
+        "dip_switch": {
+            "$ref": "#/definitions/dip_switch_config",
+            "properties": {
+                "enabled": {"type": "boolean"},
+                "matrix_grid": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "type": "array",
+                        "minItems": 2,
+                        "maxItems": 2,
+                        "items": {
+                            "type": "integer",
+                            "minimum": 0
+                        }
+                    }
+                }
+            }
         },
         "eeprom": {
             "properties": {
@@ -633,6 +660,15 @@
                                 "rows": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
                                 "unused": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
                             }
+                        }
+                    }
+                },
+                "dip_switch": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "right": {
+                            "$ref": "#/definitions/dip_switch_config"
                         }
                     }
                 },

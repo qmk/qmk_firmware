@@ -201,6 +201,20 @@ Configures the [Combo](feature_combo.md) feature.
         * The amount of time to recognize a combo in milliseconds.
         * Default: `50` (50 ms)
 
+## DIP Switches :id=dip-switch
+
+Configures the [DIP Switches](feature_dip_switch.md) feature.
+
+* `dip_switch`
+    * `enabled`
+        * Enable the DIP Switches feature.
+        * Default: `false`
+    * `pins`
+        * A list of GPIO pins connected to the MCU.
+    * `matrix_grid`
+        * A list of matrix locations in the key matrix.
+        * Example: `[ [0,6], [1,6], [2,6] ]`
+
 ## EEPROM :id=eeprom
 
 Configures the [EEPROM](eeprom_driver.md) driver.
@@ -622,6 +636,10 @@ Configures the [Split Keyboard](feature_split_keyboard.md) feature.
     * `bootmagic`
         * `matrix`
             * See [Bootmagic](#bootmagic) config.
+    * `dip_switch`
+        * `right`
+            * `pins`
+                * See [DIP Switches](#dip-switch) config.
     * `enabled`
         * Enable the Split Keyboard feature.
         * Default: `false`
