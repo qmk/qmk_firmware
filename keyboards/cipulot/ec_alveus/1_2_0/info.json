@@ -17,7 +17,7 @@
     "processor": "STM32F401",
     "usb": {
         "device_version": "1.2.0",
-        "pid": "0x6BB2",
+        "pid": "0x6B90",
         "shared_endpoint": {
             "keyboard": true
         },

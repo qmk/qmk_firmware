@@ -18,5 +18,3 @@
 
 // This is the firmware version for VIA support to avoid conflicts on menu fetching
 #define VIA_FIRMWARE_VERSION 1
-// This is the size of the EEPROM for the custom VIA-specific data
-#define EECONFIG_USER_DATA_SIZE 4

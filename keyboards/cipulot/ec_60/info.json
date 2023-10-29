@@ -18,7 +18,7 @@
     "url": "https://www.github.com/Cipulot/EC60",
     "usb": {
         "device_version": "0.0.1",
-        "pid": "0x6BAD",
+        "pid": "0x6B84",
         "shared_endpoint": {
             "keyboard": true
         },

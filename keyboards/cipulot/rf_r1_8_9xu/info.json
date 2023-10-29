@@ -41,7 +41,7 @@
     "url": "https://www.github.com/Cipulot/RF_R1_8-9Xu",
     "usb": {
         "device_version": "0.0.1",
-        "pid": "0x6BAC",
+        "pid": "0x6B8B",
         "shared_endpoint": {
             "keyboard": true
         },

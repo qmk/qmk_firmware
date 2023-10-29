@@ -40,7 +40,7 @@
     "url": "https://www.github.com/Cipulot/EC23U",
     "usb": {
         "device_version": "0.0.1",
-        "pid": "0x6BAE",
+        "pid": "0x6B95",
         "shared_endpoint": {
             "keyboard": true
         },
