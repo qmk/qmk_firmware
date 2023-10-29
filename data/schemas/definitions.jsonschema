@@ -130,6 +130,10 @@
                 "pattern": "^GP\\d{1,2}$"
             },
             {
+                "type": "string",
+                "pattern": "^P[0-1]_\\d{1,2}$"
+            },
+            {
                 "type": "integer"
             },
             {
