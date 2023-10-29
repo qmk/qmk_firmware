@@ -371,13 +371,7 @@ void rgblight_call_driver(rgb_led_t *start_led, uint8_t num_leds)
 
 void rgb_ring_init(void)
 {
-    i2c_init();
-    is31fl3731_init(IS31FL3731_I2C_ADDRESS_1);
-    for (int index = 0; index < RGB_MATRIX_LED_COUNT; index++) {
-        bool enabled = true;
-        is31fl3731_set_led_control_register(index, enabled, enabled, enabled);
-    }
-    is31fl3731_update_led_control_registers(IS31FL3731_I2C_ADDRESS_1, 0);
+    is31fl3731_init_drivers();
 }
 
 void rgb_ring_task(void)

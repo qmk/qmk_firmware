@@ -48,6 +48,7 @@ typedef struct is31fl3733_led_t {
 
 extern const is31fl3733_led_t PROGMEM g_is31fl3733_leds[RGB_MATRIX_LED_COUNT];
 
+void is31fl3733_init_drivers(void);
 void is31fl3733_init(uint8_t bus, uint8_t addr, uint8_t sync);
 bool is31fl3733_write_register(uint8_t index, uint8_t addr, uint8_t reg, uint8_t data);
 bool is31fl3733_write_pwm_buffer(uint8_t index, uint8_t addr, uint8_t *pwm_buffer);

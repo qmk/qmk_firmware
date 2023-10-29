@@ -125,6 +125,24 @@ bool is31fl3733_write_pwm_buffer(uint8_t index, uint8_t addr, uint8_t *pwm_buffe
     return true;
 }
 
+void is31fl3733_init_drivers(void) {
+    i2c_init(&I2CD1, I2C1_SCL_PIN, I2C1_SDA_PIN);
+    is31fl3733_init(0, IS31FL3733_I2C_ADDRESS_1, 0);
+#    ifdef USE_I2C2
+    i2c_init(&I2CD2, I2C2_SCL_PIN, I2C2_SDA_PIN);
+    is31fl3733_init(1, IS31FL3733_I2C_ADDRESS_2, 0);
+#    endif
+
+    for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+        is31fl3733_set_led_control_register(i, true, true, true);
+    }
+
+    is31fl3733_update_led_control_registers(IS31FL3733_I2C_ADDRESS_1, 0);
+#    ifdef USE_I2C2
+    is31fl3733_update_led_control_registers(IS31FL3733_I2C_ADDRESS_2, 1);
+#    endif
+}
+
 void is31fl3733_init(uint8_t bus, uint8_t addr, uint8_t sync) {
     // In order to avoid the LEDs being driven with garbage data
     // in the LED driver's PWM registers, shutdown is enabled last.

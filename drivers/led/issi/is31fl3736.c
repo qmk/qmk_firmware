@@ -112,6 +112,36 @@ void is31fl3736_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     }
 }
 
+void is31fl3736_init_drivers(void) {
+    i2c_init();
+
+    is31fl3736_init(IS31FL3736_I2C_ADDRESS_1);
+#if defined(IS31FL3736_I2C_ADDRESS_2)
+    is31fl3736_init(IS31FL3736_I2C_ADDRESS_2);
+#    if defined(IS31FL3736_I2C_ADDRESS_3)
+    is31fl3736_init(IS31FL3736_I2C_ADDRESS_3);
+#        if defined(IS31FL3736_I2C_ADDRESS_4)
+    is31fl3736_init(IS31FL3736_I2C_ADDRESS_4);
+#        endif
+#    endif
+#endif
+
+    for (int i = 0; i < IS31FL3736_LED_COUNT; i++) {
+        is31fl3736_set_led_control_register(i, true, true, true);
+    }
+
+    is31fl3736_update_led_control_registers(IS31FL3736_I2C_ADDRESS_1, 0);
+#if defined(IS31FL3736_I2C_ADDRESS_2)
+    is31fl3736_update_led_control_registers(IS31FL3736_I2C_ADDRESS_2, 1);
+#    if defined(IS31FL3736_I2C_ADDRESS_3)
+    is31fl3736_update_led_control_registers(IS31FL3736_I2C_ADDRESS_3, 2);
+#        if defined(IS31FL3736_I2C_ADDRESS_4)
+    is31fl3736_update_led_control_registers(IS31FL3736_I2C_ADDRESS_4, 3);
+#        endif
+#    endif
+#endif
+}
+
 void is31fl3736_init(uint8_t addr) {
     // In order to avoid the LEDs being driven with garbage data
     // in the LED driver's PWM registers, shutdown is enabled last.
@@ -159,7 +189,7 @@ void is31fl3736_init(uint8_t addr) {
 
 void is31fl3736_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     is31fl3736_led_t led;
-    if (index >= 0 && index < RGB_MATRIX_LED_COUNT) {
+    if (index >= 0 && index < IS31FL3736_LED_COUNT) {
         memcpy_P(&led, (&g_is31fl3736_leds[index]), sizeof(led));
 
         if (g_pwm_buffer[led.driver][led.r] == red && g_pwm_buffer[led.driver][led.g] == green && g_pwm_buffer[led.driver][led.b] == blue) {
@@ -173,7 +203,7 @@ void is31fl3736_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void is31fl3736_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
-    for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+    for (int i = 0; i < IS31FL3736_LED_COUNT; i++) {
         is31fl3736_set_color(i, red, green, blue);
     }
 }

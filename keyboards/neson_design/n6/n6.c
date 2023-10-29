@@ -298,18 +298,8 @@ void matrix_init_kb(void)
     setPinOutput(LED_CAPS_LOCK_PIN);
     writePinLow(LED_CAPS_LOCK_PIN);
 
-    i2c_init();
-    is31fl3731_init(IS31FL3731_I2C_ADDRESS_1);
-#ifdef IS31FL3731_I2C_ADDRESS_2
-    is31fl3731_init(IS31FL3731_I2C_ADDRESS_2);
-#endif
-    for (int index = 0; index < RGB_MATRIX_LED_COUNT; index++) {
-        is31fl3731_set_led_control_register(index, true, true, true);
-    }
-    is31fl3731_update_led_control_registers(IS31FL3731_I2C_ADDRESS_1, 0);
-#ifdef IS31FL3731_I2C_ADDRESS_2
-    is31fl3731_update_led_control_registers(IS31FL3731_I2C_ADDRESS_2, 1);
-#endif
+    is31fl3731_init_drivers();
+
     update_ticks();
     matrix_init_user();
 }

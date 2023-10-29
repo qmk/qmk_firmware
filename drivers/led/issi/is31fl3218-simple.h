@@ -30,7 +30,7 @@ typedef struct is31fl3218_led_t {
     uint8_t v;
 } __attribute__((packed)) is31fl3218_led_t;
 
-extern const is31fl3218_led_t PROGMEM g_is31fl3218_leds[LED_MATRIX_LED_COUNT];
+extern const is31fl3218_led_t PROGMEM g_is31fl3218_leds[IS31FL3218_LED_COUNT];
 
 void is31fl3218_init(void);
 
