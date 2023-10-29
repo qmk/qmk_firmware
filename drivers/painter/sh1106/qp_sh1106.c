@@ -65,7 +65,7 @@ __attribute__((weak)) bool qp_sh1106_init(painter_device_t device, painter_rotat
     if (driver->oled.base.panel_height != 64) {
         sh1106_init_sequence[3] = driver->oled.base.panel_height - 1;
     }
-    
+
     // For 128x32 or 96x16 displays, change SH1106_COM_PADS_HW_CFG data byte from alternative (0x12) to sequential (0x02) configuration
     if (driver->oled.base.panel_height <= 32) {
         sh1106_init_sequence[20] = 0x02;
