@@ -35,57 +35,57 @@ const led_matrix_driver_t led_matrix_driver = {
 
 #elif defined(LED_MATRIX_IS31FL3731)
 const led_matrix_driver_t led_matrix_driver = {
-    .init = is31fl3731_init_drivers,
-    .flush = is31fl3731_flush,
-    .set_value = is31fl3731_set_value,
+    .init          = is31fl3731_init_drivers,
+    .flush         = is31fl3731_flush,
+    .set_value     = is31fl3731_set_value,
     .set_value_all = is31fl3731_set_value_all,
 };
 
 #elif defined(LED_MATRIX_IS31FL3733)
 const led_matrix_driver_t led_matrix_driver = {
-    .init = is31fl3733_init_drivers,
-    .flush = is31fl3733_flush,
-    .set_value = is31fl3733_set_value,
+    .init          = is31fl3733_init_drivers,
+    .flush         = is31fl3733_flush,
+    .set_value     = is31fl3733_set_value,
     .set_value_all = is31fl3733_set_value_all,
 };
 
 #elif defined(LED_MATRIX_IS31FL3736)
 const led_matrix_driver_t led_matrix_driver = {
-    .init = is31fl3736_init_drivers,
-    .flush = is31fl3736_flush,
-    .set_value = is31fl3736_set_value,
+    .init          = is31fl3736_init_drivers,
+    .flush         = is31fl3736_flush,
+    .set_value     = is31fl3736_set_value,
     .set_value_all = is31fl3736_set_value_all,
 };
 
 #elif defined(LED_MATRIX_IS31FL3737)
 const led_matrix_driver_t led_matrix_driver = {
-    .init = is31fl3737_init_drivers,
-    .flush = is31fl3737_flush,
-    .set_value = is31fl3737_set_value,
+    .init          = is31fl3737_init_drivers,
+    .flush         = is31fl3737_flush,
+    .set_value     = is31fl3737_set_value,
     .set_value_all = is31fl3737_set_value_all,
 };
 
 #elif defined(LED_MATRIX_IS31FL3741)
 const led_matrix_driver_t led_matrix_driver = {
-    .init = is31fl3741_init_drivers,
-    .flush = is31fl3741_flush,
-    .set_value = is31fl3741_set_value,
+    .init          = is31fl3741_init_drivers,
+    .flush         = is31fl3741_flush,
+    .set_value     = is31fl3741_set_value,
     .set_value_all = is31fl3741_set_value_all,
 };
 
 #elif defined(IS31FLCOMMON)
 const led_matrix_driver_t led_matrix_driver = {
-    .init = IS31FL_simple_init_drivers,
-    .flush = IS31FL_common_flush,
-    .set_value = IS31FL_simple_set_brightness,
+    .init          = IS31FL_simple_init_drivers,
+    .flush         = IS31FL_common_flush,
+    .set_value     = IS31FL_simple_set_brightness,
     .set_value_all = IS31FL_simple_set_brigntness_all,
 };
 
 #elif defined(LED_MATRIX_SNLED27351)
 const led_matrix_driver_t led_matrix_driver = {
-    .init = snled27351_init_drivers,
-    .flush = snled27351_flush,
-    .set_value = snled27351_set_value,
+    .init          = snled27351_init_drivers,
+    .flush         = snled27351_flush,
+    .set_value     = snled27351_set_value,
     .set_value_all = snled27351_set_value_all,
 };
 

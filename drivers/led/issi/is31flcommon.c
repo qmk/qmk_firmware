@@ -190,35 +190,35 @@ void IS31FL_common_flush(void) {
 #ifdef RGB_MATRIX_ENABLE
 void IS31FL_RGB_init_drivers(void) {
     IS31FL_common_init(DRIVER_ADDR_1, ISSI_SSR_1);
-#if defined(DRIVER_ADDR_2)
+#    if defined(DRIVER_ADDR_2)
     IS31FL_common_init(DRIVER_ADDR_2, ISSI_SSR_2);
-#    if defined(DRIVER_ADDR_3)
+#        if defined(DRIVER_ADDR_3)
     IS31FL_common_init(DRIVER_ADDR_3, ISSI_SSR_3);
-#        if defined(DRIVER_ADDR_4)
+#            if defined(DRIVER_ADDR_4)
     IS31FL_common_init(DRIVER_ADDR_4, ISSI_SSR_4);
+#            endif
 #        endif
 #    endif
-#endif
 
     for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
         IS31FL_RGB_set_scaling_buffer(i, true, true, true);
     }
 
     // This actually updates the LED drivers
-#ifdef ISSI_MANUAL_SCALING
+#    ifdef ISSI_MANUAL_SCALING
     IS31FL_set_manual_scaling_buffer();
-#endif
+#    endif
 
     IS31FL_common_update_scaling_register(DRIVER_ADDR_1, 0);
-#if defined(DRIVER_ADDR_2)
+#    if defined(DRIVER_ADDR_2)
     IS31FL_common_update_scaling_register(DRIVER_ADDR_2, 1);
-#    if defined(DRIVER_ADDR_3)
+#        if defined(DRIVER_ADDR_3)
     IS31FL_common_update_scaling_register(DRIVER_ADDR_3, 2);
-#        if defined(DRIVER_ADDR_4)
+#            if defined(DRIVER_ADDR_4)
     IS31FL_common_update_scaling_register(DRIVER_ADDR_4, 3);
+#            endif
 #        endif
 #    endif
-#endif
 }
 
 // Colour is set by adjusting PWM register
@@ -266,35 +266,35 @@ void IS31FL_RGB_set_scaling_buffer(uint8_t index, bool red, bool green, bool blu
 // LED Matrix Specific scripts
 void IS31FL_simple_init_drivers(void) {
     IS31FL_common_init(DRIVER_ADDR_1, ISSI_SSR_1);
-#if defined(DRIVER_ADDR_2)
+#    if defined(DRIVER_ADDR_2)
     IS31FL_common_init(DRIVER_ADDR_2, ISSI_SSR_2);
-#    if defined(DRIVER_ADDR_3)
+#        if defined(DRIVER_ADDR_3)
     IS31FL_common_init(DRIVER_ADDR_3, ISSI_SSR_3);
-#        if defined(DRIVER_ADDR_4)
+#            if defined(DRIVER_ADDR_4)
     IS31FL_common_init(DRIVER_ADDR_4, ISSI_SSR_4);
+#            endif
 #        endif
 #    endif
-#endif
 
     for (int i = 0; i < LED_MATRIX_LED_COUNT; i++) {
         IS31FL_simple_set_scaling_buffer(i, true);
     }
 
 // This actually updates the LED drivers
-#ifdef ISSI_MANUAL_SCALING
+#    ifdef ISSI_MANUAL_SCALING
     IS31FL_set_manual_scaling_buffer();
-#endif
+#    endif
 
     IS31FL_common_update_scaling_register(DRIVER_ADDR_1, 0);
-#if defined(DRIVER_ADDR_2)
+#    if defined(DRIVER_ADDR_2)
     IS31FL_common_update_scaling_register(DRIVER_ADDR_2, 1);
-#    if defined(DRIVER_ADDR_3)
+#        if defined(DRIVER_ADDR_3)
     IS31FL_common_update_scaling_register(DRIVER_ADDR_3, 2);
-#        if defined(DRIVER_ADDR_4)
+#            if defined(DRIVER_ADDR_4)
     IS31FL_common_update_scaling_register(DRIVER_ADDR_4, 3);
+#            endif
 #        endif
 #    endif
-#endif
 }
 
 void IS31FL_simple_set_scaling_buffer(uint8_t index, bool value) {

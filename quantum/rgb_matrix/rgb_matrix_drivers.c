@@ -34,57 +34,57 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 
 #elif defined(RGB_MATRIX_IS31FL3731)
 const rgb_matrix_driver_t rgb_matrix_driver = {
-    .init = is31fl3731_init_drivers,
-    .flush = is31fl3731_flush,
-    .set_color = is31fl3731_set_color,
+    .init          = is31fl3731_init_drivers,
+    .flush         = is31fl3731_flush,
+    .set_color     = is31fl3731_set_color,
     .set_color_all = is31fl3731_set_color_all,
 };
 
 #elif defined(RGB_MATRIX_IS31FL3733)
 const rgb_matrix_driver_t rgb_matrix_driver = {
-    .init = is31fl3733_init_drivers,
-    .flush = is31fl3733_flush,
-    .set_color = is31fl3733_set_color,
+    .init          = is31fl3733_init_drivers,
+    .flush         = is31fl3733_flush,
+    .set_color     = is31fl3733_set_color,
     .set_color_all = is31fl3733_set_color_all,
 };
 
 #elif defined(RGB_MATRIX_IS31FL3736)
 const rgb_matrix_driver_t rgb_matrix_driver = {
-    .init = is31fl3736_init_drivers,
-    .flush = is31fl3736_flush,
-    .set_color = is31fl3736_set_color,
+    .init          = is31fl3736_init_drivers,
+    .flush         = is31fl3736_flush,
+    .set_color     = is31fl3736_set_color,
     .set_color_all = is31fl3736_set_color_all,
 };
 
 #elif defined(RGB_MATRIX_IS31FL3737)
 const rgb_matrix_driver_t rgb_matrix_driver = {
-    .init = is31fl3737_init_drivers,
-    .flush = is31fl3737_flush,
-    .set_color = is31fl3737_set_color,
+    .init          = is31fl3737_init_drivers,
+    .flush         = is31fl3737_flush,
+    .set_color     = is31fl3737_set_color,
     .set_color_all = is31fl3737_set_color_all,
 };
 
 #elif defined(RGB_MATRIX_IS31FL3741)
 const rgb_matrix_driver_t rgb_matrix_driver = {
-    .init = is31fl3741_init_drivers,
-    .flush = is31fl3741_flush,
-    .set_color = is31fl3741_set_color,
+    .init          = is31fl3741_init_drivers,
+    .flush         = is31fl3741_flush,
+    .set_color     = is31fl3741_set_color,
     .set_color_all = is31fl3741_set_color_all,
 };
 
 #elif defined(IS31FLCOMMON)
 const rgb_matrix_driver_t rgb_matrix_driver = {
-    .init = IS31FL_RGB_init_drivers,
-    .flush = IS31FL_common_flush,
-    .set_color = IS31FL_RGB_set_color,
+    .init          = IS31FL_RGB_init_drivers,
+    .flush         = IS31FL_common_flush,
+    .set_color     = IS31FL_RGB_set_color,
     .set_color_all = IS31FL_RGB_set_color_all,
 };
 
 #elif defined(RGB_MATRIX_SNLED27351)
 const rgb_matrix_driver_t rgb_matrix_driver = {
-    .init = snled27351_init_drivers,
-    .flush = snled27351_flush,
-    .set_color = snled27351_set_color,
+    .init          = snled27351_init_drivers,
+    .flush         = snled27351_flush,
+    .set_color     = snled27351_set_color,
     .set_color_all = snled27351_set_color_all,
 };
 
