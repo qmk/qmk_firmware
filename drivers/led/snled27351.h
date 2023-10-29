@@ -71,6 +71,10 @@
 #define SNLED27351_I2C_ADDRESS_SDA 0x76
 #define SNLED27351_I2C_ADDRESS_VDDIO 0x77
 
+#if defined(RGB_MATRIX_SNLED27351)
+#    define SNLED27351_LED_COUNT RGB_MATRIX_LED_COUNT
+#endif
+
 typedef struct snled27351_led_t {
     uint8_t driver : 2;
     uint8_t r;

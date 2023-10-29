@@ -54,6 +54,10 @@
 #define g_aw_leds g_aw20216s_leds
 // ========
 
+#if defined(RGB_MATRIX_AW20216S)
+#    define AW20216S_LED_COUNT RGB_MATRIX_LED_COUNT
+#endif
+
 typedef struct aw20216s_led_t {
     uint8_t driver : 2;
     uint8_t r;

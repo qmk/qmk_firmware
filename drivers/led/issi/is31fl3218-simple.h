@@ -22,6 +22,10 @@
 
 #define IS31FL3218_I2C_ADDRESS 0x54
 
+#if defined(LED_MATRIX_IS31FL3218)
+#    define IS31FL3218_LED_COUNT LED_MATRIX_LED_COUNT
+#endif
+
 typedef struct is31fl3218_led_t {
     uint8_t v;
 } __attribute__((packed)) is31fl3218_led_t;
