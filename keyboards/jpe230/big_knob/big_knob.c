@@ -12,7 +12,7 @@ painter_device_t lcd;
 // Init board:
 // - Draw logo
 
-void keyboard_post_init_kb(void) {    
+void keyboard_post_init_kb(void) {
     backlight_set(BACKLIGHT_DEFAULT_LEVEL);
 
     wait_ms(LCD_WAIT_TIME);
@@ -30,7 +30,7 @@ void keyboard_post_init_kb(void) {
 
     // Apply Offset
     qp_set_viewport_offsets(lcd, LCD_OFFSET_X, LCD_OFFSET_Y);
-    
+
     // Turn on the LCD and clear the display
     qp_power(lcd, true);
     qp_rect(lcd, 0, 0, LCD_WIDTH, LCD_HEIGHT, HSV_BLACK, true);
@@ -43,21 +43,22 @@ void keyboard_post_init_kb(void) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Lights handling: 
+// Lights handling:
 //  - Turn off backlight (screen) after timeout or suspend
 //  - Turn off rgblight after timeout or suspend
 
 static uint16_t key_timer;
 bool lights_off = false;
 
+__attribute__((weak)) void lights_wakeup_user(void) {};
+__attribute__((weak)) void lights_suspend_user(void) {};
+
 void backlight_wakeup(void) {
-    backlight_enable();
     backlight_set(BACKLIGHT_DEFAULT_LEVEL);
 }
 
 void backlight_suspend(void) {
     backlight_set(0);
-    backlight_disable();
 }
 
 void lights_wakeup(void) {
@@ -68,10 +69,12 @@ void lights_wakeup(void) {
     lights_off = false;
     rgblight_wakeup();
     backlight_wakeup();
+    lights_wakeup_user();
 }
 
 void lights_suspend(void) {
     lights_off = true;
+    lights_suspend_user();
     rgblight_suspend();
     backlight_suspend();
 }
