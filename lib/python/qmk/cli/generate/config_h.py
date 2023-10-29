@@ -86,9 +86,9 @@ def generate_config_items(kb_info_json, config_h_lines):
     for config_key, info_dict in info_config_map.items():
         info_key = info_dict['info_key']
         key_type = info_dict.get('value_type', 'raw')
-        to_config = info_dict.get('to_config', True)
+        to_c = info_dict.get('to_c', True)
 
-        if not to_config:
+        if not to_c:
             continue
 
         try:
