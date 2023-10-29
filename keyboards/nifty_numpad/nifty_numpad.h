@@ -36,7 +36,7 @@
 */
 
 enum custom_keycodes {
-    RGB_DEF = SAFE_RANGE,
+    RGB_DEF = QK_KB,
     RGB_IEF
 };
 #define LAYER_RGB (MAX_LAYER - 1)

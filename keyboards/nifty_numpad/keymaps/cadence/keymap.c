@@ -32,7 +32,7 @@ enum LAYERS {
 
 // Custom keycode declarations
 enum cadence_keycodes {
-    EDIT_GEN = RGB_IEF + 1,
+    EDIT_GEN = QK_USER,
     EDIT_PLACE,
     EDIT_ETCH,
     EDIT_SHAPE,
