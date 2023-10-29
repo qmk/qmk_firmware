@@ -332,7 +332,8 @@ bool shutdown_user(bool jump_to_bootloader) {
     }
     // force flushing -- otherwise will never happen
     rgb_matrix_update_pwm_buffers();
-    return true;
+    // false to not process kb level
+    return false;
 }
 ```
 
