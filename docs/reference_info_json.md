@@ -647,6 +647,12 @@ Configures the [Split Keyboard](feature_split_keyboard.md) feature.
         * `right`
             * `rotary`
                 * See [Encoder](#encoder) config.
+    * `handedness`
+        * `pin`
+            * The GPIO pin connected to determine handedness.
+        * `matrix_grid`
+            * The GPIO pins of the matrix position which determines the handedness.
+            * Example: `["A1", "B5"]`
     * `matrix_pins`
         * `right`
             * See [Matrix](#matrix) config.

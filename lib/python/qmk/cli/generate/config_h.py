@@ -141,6 +141,12 @@ def generate_encoder_config(encoder_json, config_h_lines, postfix=''):
 
 def generate_split_config(kb_info_json, config_h_lines):
     """Generate the config.h lines for split boards."""
+    if 'handedness' in kb_info_json['split']:
+        # TODO: change SPLIT_HAND_MATRIX_GRID to require brackets
+        handedness = kb_info_json['split']['handedness']
+        if 'matrix_grid' in handedness:
+            config_h_lines.append(generate_define('SPLIT_HAND_MATRIX_GRID', ', '.join(handedness['matrix_grid'])))
+
     if 'protocol' in kb_info_json['split'].get('transport', {}):
         if kb_info_json['split']['transport']['protocol'] == 'i2c':
             config_h_lines.append(generate_define('USE_I2C'))
