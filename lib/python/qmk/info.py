@@ -352,57 +352,6 @@ def _extract_secure_unlock(info_data, config_c):
         info_data['secure']['unlock_sequence'] = unlock_array
 
 
-def _extract_split_main(info_data, config_c):
-    """Populate data about the split configuration
-    """
-    # Figure out how the main half is determined
-    if config_c.get('SPLIT_HAND_PIN') is True:
-        if 'split' not in info_data:
-            info_data['split'] = {}
-
-        if 'main' in info_data['split']:
-            _log_warning(info_data, 'Split main hand is specified in both config.h (SPLIT_HAND_PIN) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
-
-        info_data['split']['main'] = 'pin'
-
-    if config_c.get('SPLIT_HAND_MATRIX_GRID'):
-        if 'split' not in info_data:
-            info_data['split'] = {}
-
-        if 'main' in info_data['split']:
-            _log_warning(info_data, 'Split main hand is specified in both config.h (SPLIT_HAND_MATRIX_GRID) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
-
-        info_data['split']['main'] = 'matrix_grid'
-        info_data['split']['matrix_grid'] = _extract_pins(config_c['SPLIT_HAND_MATRIX_GRID'])
-
-    if config_c.get('EE_HANDS') is True:
-        if 'split' not in info_data:
-            info_data['split'] = {}
-
-        if 'main' in info_data['split']:
-            _log_warning(info_data, 'Split main hand is specified in both config.h (EE_HANDS) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
-
-        info_data['split']['main'] = 'eeprom'
-
-    if config_c.get('MASTER_RIGHT') is True:
-        if 'split' not in info_data:
-            info_data['split'] = {}
-
-        if 'main' in info_data['split']:
-            _log_warning(info_data, 'Split main hand is specified in both config.h (MASTER_RIGHT) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
-
-        info_data['split']['main'] = 'right'
-
-    if config_c.get('MASTER_LEFT') is True:
-        if 'split' not in info_data:
-            info_data['split'] = {}
-
-        if 'main' in info_data['split']:
-            _log_warning(info_data, 'Split main hand is specified in both config.h (MASTER_LEFT) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
-
-        info_data['split']['main'] = 'left'
-
-
 def _extract_split_transport(info_data, config_c):
     # Figure out the transport method
     if config_c.get('USE_I2C') is True:
@@ -594,7 +543,6 @@ def _extract_config_h(info_data, config_c):
     _extract_matrix_info(info_data, config_c)
     _extract_audio(info_data, config_c)
     _extract_secure_unlock(info_data, config_c)
-    _extract_split_main(info_data, config_c)
     _extract_split_transport(info_data, config_c)
     _extract_split_right_pins(info_data, config_c)
     _extract_encoders(info_data, config_c)

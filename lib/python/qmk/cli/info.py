@@ -42,9 +42,6 @@ def _strip_api_content(info_json):
         if info_json.get(feature, {}).get("layout", None):
             info_json[feature].pop('led_count', None)
 
-    if 'split' in info_json:
-        info_json['split'].pop('main', None)
-
     return info_json
 
 
