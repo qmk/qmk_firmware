@@ -21,7 +21,9 @@ We've tried to make QMK as easy to set up as possible. You only have to prepare 
 
 ### ** Windows **
 
-Currently, the best option is to install QMK WSL from [here](https://wsl.qmk.fm/). The only downside it has, is that for many microcontrollers, you will not be able to flash or read console directly from the command line. You will need [QMK Toolbox](https://github.com/qmk/qmk_toolbox) installed as well for flashing and HID console (which for most Windows users is the preferred interface anyway). 
+QMK maintains a WSL2 distribution—[QMK WSL](https://wsl.qmk.fm/)—and a bundle of MSYS2 which includes the CLI and all necessary dependencies—[QMK MSYS](https://msys.qmk.fm/).
+
+While WSL2 significantly outperforms MSYS2, restrictions on USB access mean that [QMK Toolbox](https://github.com/qmk/qmk_toolbox) is required for [HID console](https://docs.qmk.fm/#/faq_debug) and [flashing some microcontrollers](https://wsl.qmk.fm/faq.html#why-can-t-i-flash-my-keyboard-from-within-wsl).
 
 Alternatively, QMK maintains a Bundle of MSYS2, the CLI and all necessary dependencies. You will need to install [QMK MSYS](https://msys.qmk.fm/). The latest release is available [here](https://github.com/qmk/qmk_distro_msys/releases/latest). Due to file system implementation, this option compiles extraordinarily slow. 
 
