@@ -1,0 +1,36 @@
+{
+    "manufacturer": "Jumar",
+    "keyboard_name": "Bens-smile",
+    "maintainer": "Jumar",
+    "bootloader": "caterina",
+    "diode_direction": "ROW2COL",
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": false,
+        "mousekey": false,
+        "nkro": true,
+        "unicode": true,
+        "tap_dance": false
+    },
+    "matrix_pins": {
+        "cols": ["B4", "E6"],
+        "rows": ["B5"]
+    },
+    "processor": "atmega32u4",
+    "url": "",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0000",
+        "vid": "0xFEED"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0}
+            ]
+        }
+    }
+}
