@@ -8,18 +8,12 @@
     },
     "diode_direction": "COL2ROW",
     "features": {
-        "audio": false,
-        "backlight": false,
-        "bootmagic": true,
-        "command": false,
+        "bootmagic": false,
         "console": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
         "rgblight": true
-    },
-    "mouse_key": {
-        "enabled": true
     },
     "processor": "STM32F401",
     "rgblight": {
@@ -43,7 +37,7 @@
     "url": "https://www.github.com/Cipulot/EC-Pro-X",
     "usb": {
         "device_version": "0.0.1",
-        "pid": "0x6B98",
+        "pid": "0x6BAF",
         "shared_endpoint": {
             "keyboard": true
         },

@@ -8,23 +8,16 @@
     },
     "diode_direction": "COL2ROW",
     "features": {
-        "audio": false,
-        "backlight": false,
-        "bootmagic": true,
-        "command": false,
+        "bootmagic": false,
         "console": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "rgblight": false
-    },
-    "mouse_key": {
-        "enabled": true
+        "nkro": true
     },
     "processor": "STM32F401",
     "usb": {
         "device_version": "1.2.0",
-        "pid": "0x6B90",
+        "pid": "0x6BB2",
         "shared_endpoint": {
             "keyboard": true
         },

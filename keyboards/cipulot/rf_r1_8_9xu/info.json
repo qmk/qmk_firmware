@@ -8,18 +8,12 @@
     },
     "diode_direction": "COL2ROW",
     "features": {
-        "audio": false,
-        "backlight": false,
-        "bootmagic": true,
-        "command": false,
+        "bootmagic": false,
         "console": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
         "rgblight": true
-    },
-    "mouse_key": {
-        "enabled": true
     },
     "indicators": {
         "caps_lock": "B3",
@@ -47,7 +41,7 @@
     "url": "https://www.github.com/Cipulot/RF_R1_8-9Xu",
     "usb": {
         "device_version": "0.0.1",
-        "pid": "0x6B8B",
+        "pid": "0x6BAC",
         "shared_endpoint": {
             "keyboard": true
         },
