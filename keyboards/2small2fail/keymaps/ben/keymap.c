@@ -11,19 +11,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case GRIN_TEAMS:
         if (record->event.pressed) {
-            // when keycode QMKBEST is pressed
+            // when keycode GRIN_TEAMS is pressed
             SEND_STRING("(beamingfacewithsmilingeyes)");
         } else {
-            // when keycode QMKBEST is released
+            // when keycode GRIN_TEAMS is released
         }
         break;
 
     case GRIN_SLACK:
         if (record->event.pressed) {
-            // when keycode QMKURL is pressed
+            // when keycode GRIN_SLACK is pressed
             SEND_STRING(":grin:");
         } else {
-            // when keycode QMKURL is released
+            // when keycode GRIN_SLACK is released
         }
         break;
     }
