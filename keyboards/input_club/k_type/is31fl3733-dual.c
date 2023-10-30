@@ -146,7 +146,7 @@ void is31fl3733_init_drivers(void) {
     is31fl3733_init(1, IS31FL3733_I2C_ADDRESS_2, IS31FL3733_SYNC_2);
 #    endif
 
-    for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+    for (int i = 0; i < IS31FL3733_LED_COUNT; i++) {
         is31fl3733_set_led_control_register(i, true, true, true);
     }
 
@@ -204,7 +204,7 @@ void is31fl3733_init(uint8_t bus, uint8_t addr, uint8_t sync) {
 
 void is31fl3733_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     is31fl3733_led_t led;
-    if (index >= 0 && index < RGB_MATRIX_LED_COUNT) {
+    if (index >= 0 && index < IS31FL3733_LED_COUNT) {
         memcpy_P(&led, (&g_is31fl3733_leds[index]), sizeof(led));
 
         if (g_pwm_buffer[led.driver][led.r] == red && g_pwm_buffer[led.driver][led.g] == green && g_pwm_buffer[led.driver][led.b] == blue) {
@@ -218,7 +218,7 @@ void is31fl3733_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void is31fl3733_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
-    for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+    for (int i = 0; i < IS31FL3733_LED_COUNT; i++) {
         is31fl3733_set_color(i, red, green, blue);
     }
 }
