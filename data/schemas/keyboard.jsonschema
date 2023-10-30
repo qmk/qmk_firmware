@@ -681,10 +681,6 @@
                         }
                     }
                 },
-                "main": {
-                    "type": "string",
-                    "enum": ["eeprom", "left", "matrix_grid", "pin", "right"]
-                },
                 "soft_serial_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
                 "soft_serial_speed": {
                     "type": "integer",
@@ -735,6 +731,11 @@
                         "polling_interval": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                         "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
                     }
+                },
+                "main": {
+                    "type": "string",
+                    "enum": ["eeprom", "left", "matrix_grid", "pin", "right"],
+                    "$comment": "Deprecated: use config.h options for now"
                 }
             }
         },
