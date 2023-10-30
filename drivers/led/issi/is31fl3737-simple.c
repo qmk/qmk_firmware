@@ -130,7 +130,7 @@ void is31fl3737_init_drivers(void) {
 #endif
 
     for (int i = 0; i < IS31FL3737_LED_COUNT; i++) {
-        is31fl3737_set_led_control_register(index, true);
+        is31fl3737_set_led_control_register(i, true);
     }
 
     is31fl3737_update_led_control_registers(IS31FL3737_I2C_ADDRESS_1, 0);

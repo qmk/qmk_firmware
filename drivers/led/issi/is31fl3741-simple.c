@@ -158,7 +158,7 @@ void is31fl3741_init_drivers(void) {
 #endif
 
     for (int i = 0; i < IS31FL3741_LED_COUNT; i++) {
-        is31fl3741_set_led_control_register(index, true);
+        is31fl3741_set_led_control_register(i, true);
     }
 
     is31fl3741_update_led_control_registers(IS31FL3741_I2C_ADDRESS_1, 0);
