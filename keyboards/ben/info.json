@@ -1,0 +1,40 @@
+{
+    "manufacturer": "Julien Marbach",
+    "keyboard_name": "ben",
+    "maintainer": "Julien Marbach",
+    "bootloader": "atmel-dfu",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "matrix_pins": {
+        "cols": ["B4", "E6"],
+        "rows": ["B5"]
+    },
+    "processor": "atmega32u4",
+    "rgblight": {
+        "animations": {
+            "all": true
+        },
+        "led_count": 2,
+        "pin": "D3"
+    },
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0000",
+        "vid": "0xFEED"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0}
+            ]
+        }
+    }
+}

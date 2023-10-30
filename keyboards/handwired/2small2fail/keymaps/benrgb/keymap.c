@@ -7,6 +7,17 @@ enum custom_keycodes {
     GRIN_SLACK,
 };
 
+// Tap Dance declarations
+enum {
+    TD_GRIN_SLK_RGB_TOG,
+};
+
+// Tap Dance definitions
+tap_dance_action_t tap_dance_actions[] = {
+    // Tap once for Escape, twice for Caps Lock
+    [TD_GRIN_SLK_RGB_TOG] = ACTION_TAP_DANCE_DOUBLE(GRIN_SLACK, RGB_TOG),
+};
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case GRIN_TEAMS:
@@ -32,7 +43,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
+        //RGB_TOG,
         GRIN_TEAMS,
         GRIN_SLACK
+        //TD(TD_GRIN_SLK_RGB_TOG)
     ),
 };
