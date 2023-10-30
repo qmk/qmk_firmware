@@ -189,6 +189,8 @@ void IS31FL_common_flush(void) {
 
 #ifdef RGB_MATRIX_ENABLE
 void IS31FL_RGB_init_drivers(void) {
+    i2c_init();
+
     IS31FL_common_init(DRIVER_ADDR_1, ISSI_SSR_1);
 #    if defined(DRIVER_ADDR_2)
     IS31FL_common_init(DRIVER_ADDR_2, ISSI_SSR_2);
@@ -265,6 +267,8 @@ void IS31FL_RGB_set_scaling_buffer(uint8_t index, bool red, bool green, bool blu
 #elif defined(LED_MATRIX_ENABLE)
 // LED Matrix Specific scripts
 void IS31FL_simple_init_drivers(void) {
+    i2c_init();
+
     IS31FL_common_init(DRIVER_ADDR_1, ISSI_SSR_1);
 #    if defined(DRIVER_ADDR_2)
     IS31FL_common_init(DRIVER_ADDR_2, ISSI_SSR_2);

@@ -63,6 +63,19 @@
 #    define IS31FL3733_GLOBALCURRENT 0xFF
 #endif
 
+#ifndef IS31FL3733_SYNC_1
+#    define IS31FL3733_SYNC_1 IS31FL3733_SYNC_NONE
+#endif
+#ifndef IS31FL3733_SYNC_2
+#    define IS31FL3733_SYNC_2 IS31FL3733_SYNC_NONE
+#endif
+#ifndef IS31FL3733_SYNC_3
+#    define IS31FL3733_SYNC_3 IS31FL3733_SYNC_NONE
+#endif
+#ifndef IS31FL3733_SYNC_4
+#    define IS31FL3733_SYNC_4 IS31FL3733_SYNC_NONE
+#endif
+
 // Transfer buffer for TWITransmitData()
 uint8_t g_twi_transfer_buffer[20];
 
@@ -129,24 +142,12 @@ bool is31fl3733_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
 void is31fl3733_init_drivers(void) {
     i2c_init();
 
-#if !defined(IS31FL3733_SYNC_1)
-#    define IS31FL3733_SYNC_1 0
-#endif
     is31fl3733_init(IS31FL3733_I2C_ADDRESS_1, IS31FL3733_SYNC_1);
 #if defined(IS31FL3733_I2C_ADDRESS_2)
-#    if !defined(IS31FL3733_SYNC_2)
-#        define IS31FL3733_SYNC_2 0
-#    endif
     is31fl3733_init(IS31FL3733_I2C_ADDRESS_2, IS31FL3733_SYNC_2);
 #    if defined(IS31FL3733_I2C_ADDRESS_3)
-#        if !defined(IS31FL3733_SYNC_3)
-#            define IS31FL3733_SYNC_3 0
-#        endif
     is31fl3733_init(IS31FL3733_I2C_ADDRESS_3, IS31FL3733_SYNC_3);
 #        if defined(IS31FL3733_I2C_ADDRESS_4)
-#            if !defined(IS31FL3733_SYNC_4)
-#                define IS31FL3733_SYNC_4 0
-#            endif
     is31fl3733_init(IS31FL3733_I2C_ADDRESS_4, IS31FL3733_SYNC_4);
 #        endif
 #    endif
