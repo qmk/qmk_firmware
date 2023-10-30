@@ -187,6 +187,12 @@ To enable, run the following as an administrator, then reboot:
 reg add "HKCU\Control Panel\Input Method" -v EnableHexNumpad -t REG_SZ -d 1
 ```
 
+### ** Windows (Alt codes) **
+
+**Mode Name:** `UNICODE_MODE_ALTCODES`
+
+This is Windows' built-in Alt code input mode. It only supports code points found in [the Windows-1252 character set](https://en.wikipedia.org/wiki/Alt_code).
+
 ### ** Emacs **
 
 **Mode Name:** `UNICODE_MODE_EMACS`
@@ -216,6 +222,7 @@ Not currently implemented. If you're a BSD user and want to contribute support f
 |`QK_UNICODE_MODE_BSD`       |`UC_BSD` |Switch to BSD input (not implemented)                           |
 |`QK_UNICODE_MODE_WINCOMPOSE`|`UC_WINC`|Switch to Windows input using WinCompose                        |
 |`QK_UNICODE_MODE_EMACS`     |`UC_EMAC`|Switch to emacs (`C-x-8 RET`)                                   |
+|`QK_UNICODE_MODE_ALTCODES`  |`UC_ALTC`|Switch to Windows input using Alt codes                         |
 
 ## API :id=api
 

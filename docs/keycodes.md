@@ -858,3 +858,4 @@ See also: [Unicode Support](feature_unicode.md)
 |`QK_UNICODE_MODE_BSD`       |`UC_BSD` |Switch to BSD input (not implemented)                           |
 |`QK_UNICODE_MODE_WINCOMPOSE`|`UC_WINC`|Switch to Windows input using WinCompose                        |
 |`QK_UNICODE_MODE_EMACS`     |`UC_EMAC`|Switch to emacs (`C-x-8 RET`)                                   |
+|`QK_UNICODE_MODE_ALTCODES`  |`UC_ALTC`|Switch to Windows input using Alt codes                         |

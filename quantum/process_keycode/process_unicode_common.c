@@ -64,6 +64,9 @@ bool process_unicode_common(uint16_t keycode, keyrecord_t *record) {
             case QK_UNICODE_MODE_EMACS:
                 set_unicode_input_mode(UNICODE_MODE_EMACS);
                 break;
+            case QK_UNICODE_MODE_ALTCODES:
+                set_unicode_input_mode(UNICODE_MODE_ALTCODES);
+                break;
         }
     }
 

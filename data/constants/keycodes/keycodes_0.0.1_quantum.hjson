@@ -220,6 +220,13 @@
                 "UC_EMAC"
             ]
         },
+        "0x7C38": {
+            "group": "quantum",
+            "key": "QK_UNICODE_MODE_ALTCODES",
+            "aliases": [
+                "UC_ALTC"
+            ]
+        },
 
         "0x7C40": {
             "group": "quantum",

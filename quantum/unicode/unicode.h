@@ -44,6 +44,7 @@ enum unicode_input_modes {
     UNICODE_MODE_BSD,        // BSD (not implemented)
     UNICODE_MODE_WINCOMPOSE, // Windows using WinCompose (https://github.com/samhocevar/wincompose)
     UNICODE_MODE_EMACS,      // Emacs is an operating system in search of a good text editor
+    UNICODE_MODE_ALTCODES,   // Windows using Alt codes (only supports characters included in the Windows-1252 encoding)
 
     UNICODE_MODE_COUNT // Number of available input modes (always leave at the end)
 };
@@ -116,6 +117,13 @@ void register_hex(uint16_t hex);
  * \param hex The number to send.
  */
 void register_hex32(uint32_t hex);
+
+/**
+ * \brief Input a single Unicode character using Alt codes, if possible.
+ *
+ * \param unicode_code_point The Unicode code point of the character to send.
+ */
+void register_altcode(uint32_t unicode_code_point);
 
 /**
  * \brief Input a single Unicode character. A surrogate pair will be sent if required by the input mode.

@@ -63,6 +63,18 @@
 #    define UNICODE_TYPE_DELAY 10
 #endif
 
+// clang-format off
+
+// The Unicode codepoints for Windows-1252 characters 0x80 - 0x9F.
+// All other codepoints are the same as Unicode.
+// Gaps are represented by 0.
+static uint32_t altcodes[] = {
+    0x20ac, 0x0000, 0x201a, 0x0192, 0x201e, 0x2026, 0x2020, 0x2021, 0x02c6, 0x2030, 0x0160, 0x2039, 0x0152, 0x0000, 0x017d, 0x0000, // 0x80 - 0x8F
+    0x0000, 0x2018, 0x2019, 0x201c, 0x201d, 0x2022, 0x2013, 0x2014, 0x02dc, 0x2122, 0x0161, 0x203a, 0x0153, 0x0000, 0x017e, 0x0178, // 0x90 - 0x9F
+};
+
+// clang-format on
+
 unicode_config_t unicode_config;
 uint8_t          unicode_saved_mods;
 led_t            unicode_saved_led_state;
@@ -231,13 +243,16 @@ __attribute__((weak)) void unicode_input_start(void) {
             tap_code16(UNICODE_KEY_LNX);
             break;
         case UNICODE_MODE_WINDOWS:
+        case UNICODE_MODE_ALTCODES:
             // For increased reliability, use numpad keys for inputting digits
             if (!unicode_saved_led_state.num_lock) {
                 tap_code(KC_NUM_LOCK);
             }
             register_code(KC_LEFT_ALT);
             wait_ms(UNICODE_TYPE_DELAY);
-            tap_code(KC_KP_PLUS);
+            if (unicode_config.input_mode == UNICODE_MODE_WINDOWS) {
+                tap_code(KC_KP_PLUS);
+            }
             break;
         case UNICODE_MODE_WINCOMPOSE:
             tap_code(UNICODE_KEY_WINC);
@@ -266,6 +281,7 @@ __attribute__((weak)) void unicode_input_finish(void) {
             }
             break;
         case UNICODE_MODE_WINDOWS:
+        case UNICODE_MODE_ALTCODES:
             unregister_code(KC_LEFT_ALT);
             if (!unicode_saved_led_state.num_lock) {
                 tap_code(KC_NUM_LOCK);
@@ -297,6 +313,7 @@ __attribute__((weak)) void unicode_input_cancel(void) {
             tap_code(KC_ESCAPE);
             break;
         case UNICODE_MODE_WINDOWS:
+        case UNICODE_MODE_ALTCODES:
             unregister_code(KC_LEFT_ALT);
             if (!unicode_saved_led_state.num_lock) {
                 tap_code(KC_NUM_LOCK);
@@ -313,7 +330,7 @@ __attribute__((weak)) void unicode_input_cancel(void) {
 // clang-format off
 
 static void send_nibble_wrapper(uint8_t digit) {
-    if (unicode_config.input_mode == UNICODE_MODE_WINDOWS) {
+    if (unicode_config.input_mode == UNICODE_MODE_WINDOWS || unicode_config.input_mode == UNICODE_MODE_ALTCODES) {
         uint8_t kc = digit < 10
                    ? KC_KP_1 + (10 + digit - 1) % 10
                    : KC_A + (digit - 10);
@@ -357,6 +374,35 @@ void register_hex32(uint32_t hex) {
     }
 }
 
+void register_altcode(uint32_t code_point) {
+    uint8_t altcode = 0x00;
+
+    if (code_point < 0x80 || (code_point > 0x9F && code_point <= 0xFF)) {
+        altcode = code_point;
+    } else {
+        for (int i = 0; i < 32; i++) {
+            if (altcodes[i] == code_point) {
+                altcode = i + 0x80;
+                break;
+            }
+        }
+    }
+
+    if (altcode == 0x00) {
+        // No altcode matching the character was found.
+        return;
+    }
+
+    send_nibble_wrapper(0);
+    if (altcode >= 100) {
+        send_nibble_wrapper(altcode / 100);
+    }
+    if (altcode >= 10) {
+        send_nibble_wrapper(altcode / 10 % 10);
+    }
+    send_nibble_wrapper(altcode % 10);
+}
+
 void register_unicode(uint32_t code_point) {
     if (code_point > 0x10FFFF || (code_point > 0xFFFF && unicode_config.input_mode == UNICODE_MODE_WINDOWS)) {
         // Code point out of range, do nothing
@@ -370,6 +416,8 @@ void register_unicode(uint32_t code_point) {
         uint32_t lo = code_point & 0x3FF, hi = (code_point & 0xFFC00) >> 10;
         register_hex32(hi + 0xD800);
         register_hex32(lo + 0xDC00);
+    } else if (unicode_config.input_mode == UNICODE_MODE_ALTCODES) {
+        register_altcode(code_point);
     } else {
         register_hex32(code_point);
     }
