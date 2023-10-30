@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = LAYOUT(
   _______,  _______,   _______, _______, _______, _______,                    KC_ASTERISK,KC_RIGHT_PAREN, KC_PLUS,    KC_RIGHT_BRACKET, KC_EXCLAIM, KC_HASH,
   _______,  _______,   _______, _______, _______, _______,                    _______,    _______,        RALT(KC_C), _______,          RALT(KC_L),    KC_AT,
-  _______,  _______,   _______, _______, _______, _______,                    _______,    _______,        _______,    RALT(N),          RALT(KC_S),    KC_UNDERSCORE,
+  _______,  _______,   _______, _______, _______, _______,                    _______,    _______,        _______,    RALT(KC_N),       RALT(KC_S),    KC_UNDERSCORE,
   _______,  _______,   _______, _______, _______, _______,  _______, _______, KC_LEFT,    KC_DOWN,        KC_UP,      KC_RIGHT,         RALT(KC_Z),    KC_PIPE,
                                 _______, _______, XXXXXXX, _______,   _______, _______,  _______, _______
 ),
@@ -73,10 +73,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   `----------------------------'           '------''--------------------'
  */
 [_RAISE] = LAYOUT(
-  KC_AMPERSAND, KC_LEFT_BRACKET, KC_LEFT_CURLY_BRACE, KC_RIGHT_CURLY_BRACE, KC_LEFT_PAREN, KC_EQUAL,        		           _______, _______, _______, _______,  _______, _______,
-  _______,  	  _______, 	       _______,             _______,              _______,       _______,                        _______, _______, _______, _______,  _______, _______,
-  KC_CAPS,  	  RALT(KC_A),      RALT(KC_O),   	      RALT(KC_E),           _______,   	   _______,                        _______, _______, _______, _______,  _______, _______,
-  _______,   	  KC_CIRCUMFLEX,   KC_DOLLAR,   	      KC_AT,  		          KC_PERCENT,  	 KC_BACKSLASH, _______, _______, _______, _______, _______, _______,  _______, _______,
+  KC_AMPERSAND, KC_LEFT_BRACKET, KC_LEFT_CURLY_BRACE, KC_RIGHT_CURLY_BRACE, KC_LEFT_PAREN, KC_EQUAL,        		       _______, _______, _______, _______,  _______, _______,
+  _______,  	_______, 	     _______,             _______,              _______,       _______,                        _______, _______, _______, _______,  _______, _______,
+  KC_CAPS,  	RALT(KC_A),      RALT(KC_O),   	      RALT(KC_E),           _______,   	   _______,                        _______, _______, _______, _______,  _______, _______,
+  _______,   	KC_CIRCUMFLEX,   KC_DOLLAR,   	      KC_AT,  		        KC_PERCENT,    KC_BACKSLASH, _______, _______, _______, _______, _______, _______,  _______, _______,
                                	 	                                    _______, _______, _______,   _______,          _______,  XXXXXXX, _______, _______
 ),
 
@@ -96,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   `----------------------------'           '------''--------------------'
  */
 [_NUMBERS] = LAYOUT(
-  _______, _______, _______, _______, _______, _______,        		            _______, _______, _______,   _______,     _______, _______,
+  _______, _______, _______, _______, _______, _______,        		          _______, _______, _______,   _______,     _______, _______,
   _______, _______, _______, KC_7,    KC_8,    KC_9,                          _______, KC_PLUS, KC_MINUS,  KC_EQL,      KC_NUBS, KC_CIRCUMFLEX,
   _______, _______, _______, KC_4,    KC_5,    KC_6,                          _______, KC_LBRC, KC_RBRC,   KC_ASTERISK, KC_PERCENT, _______,
   _______, _______, KC_0,    KC_1,    KC_2,    KC_3,    _______,   _______,   _______, _______, _______,   _______,     _______, _______,
@@ -127,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 /*================================================================================================================
-/* ADJUST
+ * ADJUST
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
@@ -151,12 +151,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-  return update_tri_layer_state(state, _LOWER, _RAISE, _NUMBERS, _EFS, _ADJUST);
+    state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+    state = update_tri_layer_state(state, _LOWER, _NUMBERS, _EFS);
+    return state;
 }
 
-//SSD1306 OLED update loop, make sure to enable OLED_ENABLE=yes in rules.mk
+/* SSD1306 OLED update loop, make sure to enable OLED_ENABLE=yes in rules.mk */
 #ifdef OLED_ENABLE
-
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!is_keyboard_master())
     return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
@@ -175,14 +176,15 @@ const char *read_keylogs(void);
 // void set_timelog(void);
 // const char *read_timelog(void);
 
+char wpm_str[26];
 bool oled_task_user(void) {
   if (is_keyboard_master()) {
     // If you want to change the display of OLED, you need to change here
     oled_write_ln(read_layer_state(), false);
     oled_write_ln(read_keylog(), false);
     oled_write_ln(read_keylogs(), false);
-    //sprintf(wpm_str, "WPM: %03d", get_current_wpm());
-    //oled_write_ln(wpm_str, false);
+    oled_write_P(PSTR("WPM: "), false);
+    oled_write(get_u8_str(get_current_wpm(), ' '), false);
 
     //oled_write_ln(read_mode_icon(keymap_config.swap_lalt_lgui), false);
     //oled_write_ln(read_host_led_state(), false);
