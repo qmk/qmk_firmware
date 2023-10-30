@@ -1,6 +1,6 @@
 # Duet Switch Tester
 
-![Cover image](https://raw.githubusercontent.com/ai03-2725/duet-switch-tester/main/images/cover.jpg)
+![Cover image](https://i.imgur.com/sFuHJbL.png)
 
 A switch tester intended for event/storefront use
 
