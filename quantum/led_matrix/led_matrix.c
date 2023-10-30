@@ -389,7 +389,6 @@ void led_matrix_task(void) {
 
 void led_matrix_indicators(void) {
     led_matrix_indicators_kb();
-    led_matrix_indicators_user();
 }
 
 __attribute__((weak)) bool led_matrix_indicators_kb(void) {
@@ -415,7 +414,6 @@ void led_matrix_indicators_advanced(effect_params_t *params) {
     uint8_t max = LED_MATRIX_LED_COUNT;
 #endif
     led_matrix_indicators_advanced_kb(min, max);
-    led_matrix_indicators_advanced_user(min, max);
 }
 
 __attribute__((weak)) bool led_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
