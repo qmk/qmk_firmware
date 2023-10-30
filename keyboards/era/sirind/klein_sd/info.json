@@ -3,7 +3,6 @@
     "keyboard_name": "Klein_SD",
     "maintainer": "eerraa",
     "backlight": {
-        "levels": 5,
         "pin": "GP15"
     },
     "bootloader": "rp2040",
