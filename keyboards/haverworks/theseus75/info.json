@@ -23,12 +23,12 @@
         "rgb_matrix": true
     },
     "matrix_pins": {
-        "cols": ["B11", "C15", "B6", "B5", "B4", "B3", "C11", "C10", null],
+        "cols": ["B11", "C14", "B6", "B5", "B4", "B3", "C11", "C10", null],
         "rows": ["A9", "A10", "B15", "B12", "B13", "B14"]
     },
     "processor": "STM32G431",
     "rgb_matrix": {
-        "driver": "WS2812",
+        "driver": "ws2812",
         "layout": [
             {"matrix": [3, 1], "x": 32, "y": 34, "flags": 8},
             {"x": 28, "y": 1, "flags": 2},
@@ -110,7 +110,7 @@
         },
         "matrix_pins": {
             "right": {
-                "cols": ["A10", "A9", "A8", "C6", "B15", "B14", "B13", "B12", "C15"],
+                "cols": ["A10", "A9", "A8", "C6", "B15", "B14", "B13", "B12", "C14"],
                 "rows": ["B3", "C10", "C11", "A1", "A0", "B6"]
             }
         },

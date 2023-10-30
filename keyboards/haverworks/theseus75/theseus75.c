@@ -14,19 +14,18 @@ void keyboard_post_init_kb(void) {
         writePinHigh(A15);
 
         // Enable inputs used for current negotiation
-        setPinInput(F0);
-        setPinInput(F1);
+        setPinInputHigh(F0);
+        setPinInputHigh(F1);
 
         // Not needed in this mode (always high-Z with pull-up on PCB if port controller is sink)
-        setPinInput(A14);
+        setPinInputHigh(A13);
     } else {
-        // Do not turn on power to the USB source port (let the port controller handle VBUS)
+        // Prepare output to enable power for USB output after negotiation
         setPinOutput(A15);
-        //writePinHigh(A15);
 
-        // Disable the hub, route USB from split con to USB connector for downstream port
-        setPinOutput(A13);
-        writePinHigh(A13);
+        // Switch the USB MUXes between hub and ports
+        setPinOutput(A14);
+        writePinHigh(A14);
 
         // Enable outputs used for current negotiation
         setPinOutput(F0);
@@ -37,6 +36,16 @@ void keyboard_post_init_kb(void) {
         writePinLow(F1);
 
         // Use ID pin to check if client is detected (if low: USB source port powered)
-        setPinInput(A14);
-    };
+        setPinInputHigh(A13);
+    }
+}
+
+// Todo: Insert timer based delay to avoid spamming pin reads/writes, only set on pin change
+void housekeeping_task_kb(void) {
+    // On peripheral side - If A14 is low: USB client negotiated 5V successfully -> enable power routing
+    if (!is_keyboard_master()) {
+        if(!readPin(A13)) {
+            writePinHigh(A15);
+        }
+    }
 }
