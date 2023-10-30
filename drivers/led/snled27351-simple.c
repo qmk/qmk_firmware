@@ -112,7 +112,7 @@ void snled27351_init_drivers(void) {
 #endif
 
     for (int i = 0; i < SNLED27351_LED_COUNT; i++) {
-        snled27351_set_led_control_register(i, true, true, true);
+        snled27351_set_led_control_register(i, true);
     }
 
     snled27351_update_led_control_registers(SNLED27351_I2C_ADDRESS_1, 0);

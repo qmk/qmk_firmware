@@ -22,7 +22,7 @@ void matrix_io_delay(void) { __asm__ volatile("nop\nnop\nnop\n"); }
 #ifdef RGB_MATRIX_ENABLE
 #include "i2c_master.h"
 #include "drivers/led/issi/is31fl3741.h"
-const is31fl3741_led_t PROGMEM g_is31fl3741_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3741_led_t PROGMEM g_is31fl3741_leds[IS31FL3741_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -195,7 +195,7 @@ led_config_t g_led_config = { {
 static void init(void) {
     i2c_init();
     is31fl3741_init(IS31FL3741_I2C_ADDRESS_1);
-    for (int index = 0; index < ISSI_DRIVER_TOTAL; index++) {
+    for (int index = 0; index < IS31FL3741_LED_COUNT; index++) {
         bool enabled = !(   ( index == -1+0+13) || //A13
                             ( index == -1+13+3) || //B3
                             ( index == -1+13+13) || //B13
