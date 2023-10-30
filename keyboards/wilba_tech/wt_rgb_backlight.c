@@ -2913,7 +2913,7 @@ void backlight_init_drivers(void)
     // This actually updates the LED drivers
     is31fl3218_update_led_control_registers();
 #elif defined(RGB_BACKLIGHT_HS60)
-    is31fl3733_init( ISSI_ADDR_1, 0 );
+    is31fl3733_init( ISSI_ADDR_1, IS31FL3733_SYNC_NONE );
 
     for ( int index = 0; index < RGB_MATRIX_LED_COUNT; index++ )
     {
@@ -2934,8 +2934,8 @@ void backlight_init_drivers(void)
     // This actually updates the LED drivers
     is31fl3733_update_led_control_registers( ISSI_ADDR_1, 0 );
 #elif defined(RGB_BACKLIGHT_NK65)
-    is31fl3733_init( ISSI_ADDR_1, 0 );
-    is31fl3733_init( ISSI_ADDR_2, 0 );
+    is31fl3733_init( ISSI_ADDR_1, IS31FL3733_SYNC_NONE );
+    is31fl3733_init( ISSI_ADDR_2, IS31FL3733_SYNC_NONE );
 
     for ( int index = 0; index < RGB_MATRIX_LED_COUNT; index++ )
     {
@@ -2949,8 +2949,8 @@ void backlight_init_drivers(void)
     is31fl3733_update_led_control_registers( ISSI_ADDR_1, 0 );
     is31fl3733_update_led_control_registers( ISSI_ADDR_2, 1 );
 #elif defined(RGB_BACKLIGHT_NK87)
-    is31fl3733_init( ISSI_ADDR_1, 0 );
-    is31fl3733_init( ISSI_ADDR_2, 0 );
+    is31fl3733_init( ISSI_ADDR_1, IS31FL3733_SYNC_NONE );
+    is31fl3733_init( ISSI_ADDR_2, IS31FL3733_SYNC_NONE );
 
     for ( int index = 0; index < RGB_MATRIX_LED_COUNT; index++ )
     {
@@ -2979,8 +2979,8 @@ void backlight_init_drivers(void)
     is31fl3733_update_led_control_registers( ISSI_ADDR_1, 0 );
     is31fl3733_update_led_control_registers( ISSI_ADDR_2, 1 );
 #elif defined(RGB_BACKLIGHT_NEBULA68)
-    is31fl3733_init( ISSI_ADDR_1, 0 );
-    is31fl3733_init( ISSI_ADDR_2, 0 );
+    is31fl3733_init( ISSI_ADDR_1, IS31FL3733_SYNC_NONE );
+    is31fl3733_init( ISSI_ADDR_2, IS31FL3733_SYNC_NONE );
 
     for ( int index = 0; index < RGB_MATRIX_LED_COUNT; index++ )
     {
@@ -3002,8 +3002,8 @@ void backlight_init_drivers(void)
     // This actually updates the LED drivers
     is31fl3741_update_led_control_registers( ISSI_ADDR_1, 0 );
 #elif defined(RGB_BACKLIGHT_KW_MEGA)
-    is31fl3733_init( ISSI_ADDR_1, 0 );
-    is31fl3733_init( ISSI_ADDR_2, 0 );
+    is31fl3733_init( ISSI_ADDR_1, IS31FL3733_SYNC_NONE );
+    is31fl3733_init( ISSI_ADDR_2, IS31FL3733_SYNC_NONE );
 
     for ( int index = 0; index < RGB_MATRIX_LED_COUNT; index++ )
     {
