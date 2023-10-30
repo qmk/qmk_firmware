@@ -74,7 +74,14 @@ def generate_matrix_size(kb_info_json, config_h_lines):
 
 def generate_matrix_masked(kb_info_json, config_h_lines):
     """"Enable matrix mask if required"""
+    mask_required = False
+
     if 'matrix_grid' in kb_info_json.get('dip_switch', {}):
+        mask_required = True
+    if 'matrix_grid' in kb_info_json.get('split', {}).get('handedness', {}):
+        mask_required = True
+
+    if mask_required:
         config_h_lines.append(generate_define('MATRIX_MASKED'))
 
 
