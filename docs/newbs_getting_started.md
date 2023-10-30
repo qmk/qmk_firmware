@@ -25,7 +25,9 @@ QMK maintains a WSL2 distribution—[QMK WSL](https://wsl.qmk.fm/)—and a bundl
 
 While WSL2 significantly outperforms MSYS2, restrictions on USB access mean that [QMK Toolbox](https://github.com/qmk/qmk_toolbox) is required for [HID console](https://docs.qmk.fm/#/faq_debug) and [flashing some microcontrollers](https://wsl.qmk.fm/faq.html#why-can-t-i-flash-my-keyboard-from-within-wsl).
 
-Alternatively, QMK maintains a Bundle of MSYS2, the CLI and all necessary dependencies. You will need to install [QMK MSYS](https://msys.qmk.fm/). The latest release is available [here](https://github.com/qmk/qmk_distro_msys/releases/latest). Due to file system implementation, this option compiles extraordinarily slow. 
+#### Prerequisites
+Install either [QMK WSL](https://wsl.qmk.fm/) or [QMK MSYS](https://msys.qmk.fm/) before proceeding.
+The rest of the Windows section only applies to QMK MSYS. QMK WSL users should [switch to the Linux/WSL instructions](https://docs.qmk.fm/#/newbs_getting_started?id=-linuxwsl-). 
 
 <details>
   <summary>Advanced Users</summary>
