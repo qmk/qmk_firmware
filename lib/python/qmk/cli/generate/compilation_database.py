@@ -76,12 +76,12 @@ def parse_make_n(f: Iterator[str]) -> List[Dict[str, str]]:
     return records
 
 
-def write_compilation_database(keyboard: str = None, keymap: str = None, output_path: Path = QMK_FIRMWARE / 'compile_commands.json', skip_clean: bool = False, command: List[str] = None) -> bool:
+def write_compilation_database(keyboard: str = None, keymap: str = None, output_path: Path = QMK_FIRMWARE / 'compile_commands.json', skip_clean: bool = False, command: List[str] = None, **env_vars) -> bool:
     # Generate the make command for a specific keyboard/keymap.
     if not command:
         from qmk.build_targets import KeyboardKeymapBuildTarget  # Lazy load due to circular references
         target = KeyboardKeymapBuildTarget(keyboard, keymap)
-        command = target.compile_command(dry_run=True)
+        command = target.compile_command(dry_run=True, **env_vars)
 
     if not command:
         cli.log.error('You must supply both `--keyboard` and `--keymap`, or be in a directory for a keyboard or keymap.')
