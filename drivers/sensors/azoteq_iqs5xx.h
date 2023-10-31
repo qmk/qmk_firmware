@@ -142,7 +142,7 @@ typedef struct PACKED {
     int8_t _unused : 5;
 } azoteq_iqs5xx_multi_finger_gesture_enable_t;
 
-typedef struct {
+typedef struct PACKED {
     azoteq_iqs5xx_single_finger_gesture_enable_t single_finger_gestures;
     azoteq_iqs5xx_multi_finger_gesture_enable_t  multi_finger_gestures;
     uint16_t                                     tap_time;
@@ -158,6 +158,8 @@ typedef struct {
     uint16_t                                     zoom_initial_distance;
     uint16_t                                     zoom_consecutive_distance;
 } azoteq_iqs5xx_gesture_config_t;
+
+_Static_assert(sizeof(azoteq_iqs5xx_gesture_config_t) == 24, "azoteq_iqs5xx_gesture_config_t should be 24 bytes");
 
 typedef struct {
     uint16_t x_resolution;
