@@ -9,21 +9,19 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[0] = LAYOUT(
-		KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,
-		KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,
-		KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,
-		KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,
-		KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,
-		KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0
-	),
-
+        KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,
+        KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,
+        KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,
+        KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,
+        KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,
+        KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0,    KC_0
+    ),
 };
 
 
 /* String generation */
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record)
-{
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     if (record->event.pressed) {
         char col = record->event.key.col + 'a';

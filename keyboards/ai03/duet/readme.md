@@ -1,6 +1,6 @@
 # Duet Switch Tester
 
-![Cover image](https://i.imgur.com/sFuHJbL.png)
+![Cover image](https://i.imgur.com/sFuHJbLh.png)
 
 A switch tester intended for event/storefront use
 
