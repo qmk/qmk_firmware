@@ -167,11 +167,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
                 eeconfig_update_keymap(keymap_config.raw);
             }
             return false;
-        case GU_TOGG:
-            if (record->event.pressed) {
-                writePin(LED_WIN_LOCK_PIN, !keymap_config.no_gui);
-            }
-            return true;
         case RGB_TOG:
             if (record->event.pressed) {
                 switch (rgb_matrix_get_flags()) {
