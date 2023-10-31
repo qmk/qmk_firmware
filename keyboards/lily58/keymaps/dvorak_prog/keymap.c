@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|DELETE |    |RGUI   |------+------+------+------+------+------|
  * |      |      |      |      |      |      |-------|    |-------| left | down |  up  | right|   ż  |   |  |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | LAlt |NUMBERS 	    | /Space  /       \Enter \  |RAISE |BackSP| EFS  |
+ *                   | LAlt |NUMBERS 	  | /Space  /       \Enter \  |RAISE |BackSP| EFS  |
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
@@ -114,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|DELETE |    |RGUI   |------+------+------+------+------+------|
  * |      |      |  F9  |  F10 |  F11 |  F12 |-------|    |-------|      |      |      |      |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | LAlt |      | 	    | /Space  /       \Enter \  |RAISE |BackSP|      |
+ *                   | LAlt |      | 	  | /Space  /       \Enter \  |RAISE |BackSP|      |
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
@@ -157,8 +157,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 /* SSD1306 OLED update loop, make sure to enable OLED_ENABLE=yes in rules.mk */
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-  if (!is_keyboard_master())
-    return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
+  if (is_keyboard_master())
+    return OLED_ROTATION_270;  // flips the display 180 degrees if offhand
   return rotation;
 }
 
@@ -169,24 +169,48 @@ void set_keylog(uint16_t keycode, keyrecord_t *record);
 const char *read_keylog(void);
 const char *read_keylogs(void);
 
-// const char *read_mode_icon(bool swap);
-// const char *read_host_led_state(void);
 // void set_timelog(void);
 // const char *read_timelog(void);
 
-char wpm_str[26];
+void render_default_layer_state(void) {
+    oled_write_P(PSTR("Layer"), false);
+    oled_write_P(PSTR(" "), false);
+    switch (get_highest_layer(layer_state)) {
+        case _DVORAK:
+            oled_write_P(PSTR("DVRK"), false);
+            break;
+        case _LOWER:
+            oled_write_ln_P(PSTR("LOW"), false);
+            break;
+        case _RAISE:
+            oled_write_P(PSTR("HIGH"), false);
+            break;
+        case _ADJUST:
+            oled_write_ln_P(PSTR("ADJ"), false);
+            break;
+        case _NUMBERS:
+            oled_write_ln_P(PSTR("NUM"), false);
+            break;
+        case _EFS:
+            oled_write_ln_P(PSTR("EFS"), false);
+            break;
+
+        default:
+            oled_write_ln_P(PSTR("Undefined"), false);
+    }
+}
+
+char wpm_str[3];
 bool oled_task_user(void) {
   if (is_keyboard_master()) {
-    // If you want to change the display of OLED, you need to change here
-    oled_write_ln(read_layer_state(), false);
-    oled_write_ln(read_keylog(), false);
+    oled_write_P(PSTR("-----"), false);
     oled_write_ln(read_keylogs(), false);
+    oled_write_P(PSTR("-----"), false);
     oled_write_P(PSTR("WPM: "), false);
-    oled_write(get_u8_str(get_current_wpm(), ' '), false);
-
-    //oled_write_ln(read_mode_icon(keymap_config.swap_lalt_lgui), false);
-    //oled_write_ln(read_host_led_state(), false);
-    //oled_write_ln(read_timelog(), false);
+    oled_write_ln(get_u8_str(get_current_wpm(), ' '), false);
+    oled_write_P(PSTR("-----"), false);
+    render_default_layer_state();
+    oled_write_P(PSTR("-----"), false);
   } else {
     oled_write(read_logo(), false);
   }
