@@ -11,8 +11,8 @@ from milc import cli
 
 from qmk.util import parallel_map
 from qmk.info import keymap_json
-import qmk.keyboard
-import qmk.keymap
+from qmk.keyboard import list_keyboards, keyboard_folder
+from qmk.keymap import list_keymaps, locate_keymap
 from qmk.build_targets import KeyboardKeymapBuildTarget, BuildTarget
 
 
@@ -37,15 +37,15 @@ def _all_keymaps(keyboard):
     """Returns a list of tuples of (keyboard, keymap) for all keymaps for the given keyboard.
     """
     with ignore_logging():
-        keyboard = qmk.keyboard.resolve_keyboard(keyboard)
-        return [(keyboard, keymap) for keymap in qmk.keymap.list_keymaps(keyboard)]
+        keyboard = keyboard_folder(keyboard)
+        return [(keyboard, keymap) for keymap in list_keymaps(keyboard)]
 
 
 def _keymap_exists(keyboard, keymap):
     """Returns the keyboard name if the keyboard+keymap combination exists, otherwise None.
     """
     with ignore_logging():
-        return keyboard if qmk.keymap.locate_keymap(keyboard, keymap) is not None else None
+        return keyboard if locate_keymap(keyboard, keymap) is not None else None
 
 
 def _load_keymap_info(kb_km):
@@ -76,7 +76,7 @@ def _expand_keymap_target(keyboard: str, keymap: str, all_keyboards: List[str] =
     Caters for 'all' in either keyboard or keymap, or both.
     """
     if all_keyboards is None:
-        all_keyboards = qmk.keyboard.list_keyboards()
+        all_keyboards = list_keyboards()
 
     if keyboard == 'all':
         if keymap == 'all':
@@ -88,21 +88,21 @@ def _expand_keymap_target(keyboard: str, keymap: str, all_keyboards: List[str] =
         else:
             cli.log.info(f'Retrieving list of keyboards with keymap "{keymap}"...')
             keyboard_filter = functools.partial(_keymap_exists, keymap=keymap)
-            return [(kb, keymap) for kb in filter(lambda e: e is not None, parallel_map(keyboard_filter, all_keyboards))]
+            return [(keyboard_folder(kb), keymap) for kb in filter(lambda e: e is not None, parallel_map(keyboard_filter, all_keyboards))]
     else:
         if keymap == 'all':
-            keyboard = qmk.keyboard.resolve_keyboard(keyboard)
+            keyboard = keyboard_folder(keyboard)
             cli.log.info(f'Retrieving list of keymaps for keyboard "{keyboard}"...')
             return _all_keymaps(keyboard)
         else:
-            return [(qmk.keyboard.resolve_keyboard(keyboard), keymap)]
+            return [(keyboard_folder(keyboard), keymap)]
 
 
 def expand_keymap_targets(targets: List[Tuple[str, str]]) -> List[Tuple[str, str]]:
     """Expand a list of (keyboard, keymap) tuples inclusive of 'all', into a list of explicit (keyboard, keymap) tuples.
     """
     overall_targets = []
-    all_keyboards = qmk.keyboard.list_keyboards()
+    all_keyboards = list_keyboards()
     for target in targets:
         overall_targets.extend(_expand_keymap_target(target[0], target[1], all_keyboards))
     return list(sorted(set(overall_targets)))
