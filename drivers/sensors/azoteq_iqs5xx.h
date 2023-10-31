@@ -167,7 +167,7 @@ typedef struct {
 } azoteq_iqs5xx_resolution_t;
 
 #define AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(h, l) ((int16_t)(h << 8) | l)
-#define AZOTEQ_IQS5XX_SWAP_H_L_BYTES(b) ((uint16_t)(b << 8) | (b >> 8))
+#define AZOTEQ_IQS5XX_SWAP_H_L_BYTES(b) ((uint16_t)((b & 0xff) << 8) | (b >> 8))
 
 #ifndef AZOTEQ_IQS5XX_REPORT_RATE
 #    define AZOTEQ_IQS5XX_REPORT_RATE 10
