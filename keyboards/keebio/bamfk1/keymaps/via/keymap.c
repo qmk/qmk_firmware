@@ -14,26 +14,27 @@ enum layer_names {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MAIN] = LAYOUT(
         RGB_MOD,            // Big Switch
-        TL_LOWR, KC_MUTE,   // Encoder presses
-        KC_DOWN, KC_UP,     // Left encoder turns
-        KC_VOLD, KC_VOLU    // Right encoder turns
+        TL_LOWR, KC_MUTE    // Encoder presses
     ),
     [_FN1] = LAYOUT(
         KC_B,               // Big Switch
-        _______, KC_C,      // Encoder presses
-        KC_PGDN, KC_PGUP,   // Left encoder turns
-        KC_VOLU, KC_VOLD    // Right encoder turns
+        _______, KC_C       // Encoder presses
     ),
     [_FN2] = LAYOUT(
         _______,            // Big Switch
-        _______, _______,   // Encoder presses
-        _______, _______,   // Left encoder turns
-        _______, _______    // Right encoder turns
+        _______, _______    // Encoder presses
     ),
     [_FN3] = LAYOUT(
         _______,            // Big Switch
-        _______, _______,   // Encoder presses
-        _______, _______,   // Left encoder turns
-        _______, _______    // Right encoder turns
+        _______, _______    // Encoder presses
     )
 };
+
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [0] =   { ENCODER_CCW_CW(KC_DOWN, KC_UP), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+    [1] =   { ENCODER_CCW_CW(KC_PGDN, KC_PGUP), ENCODER_CCW_CW(_______, _______)  },
+    [2] =   { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______)  },
+    [3] =   { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______)  }
+};
+#endif

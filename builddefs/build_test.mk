@@ -75,6 +75,10 @@ $(TEST)_SRC += \
 	tests/test_common/main.cpp \
 	$(QUANTUM_PATH)/logging/print.c
 
+ifneq ($(strip $(INTROSPECTION_KEYMAP_C)),)
+$(TEST)_DEFS += -DINTROSPECTION_KEYMAP_C=\"$(strip $(INTROSPECTION_KEYMAP_C))\"
+endif
+
 $(TEST_OBJ)/$(TEST)_SRC := $($(TEST)_SRC)
 $(TEST_OBJ)/$(TEST)_INC := $($(TEST)_INC) $(VPATH) $(GTEST_INC)
 $(TEST_OBJ)/$(TEST)_DEFS := $($(TEST)_DEFS)

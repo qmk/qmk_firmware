@@ -17,16 +17,6 @@
 
 #pragma once
 
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { D0, D1, D4, C3, C0, C1, C2}
-#define MATRIX_COL_PINS { B0, D7, D6, D5, B1, B2, B3}
-
-#define TAP_CODE_DELAY 10
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 /* Define custom font */
 #define OLED_FONT_H "lib/mercutiofont.c"
 

@@ -60,8 +60,8 @@ bool qp_lvgl_attach(painter_device_t device) {
     qp_dprintf("qp_lvgl_start: entry\n");
     qp_lvgl_detach();
 
-    struct painter_driver_t *driver = (struct painter_driver_t *)device;
-    if (!driver->validate_ok) {
+    painter_driver_t *driver = (painter_driver_t *)device;
+    if (!driver || !driver->validate_ok) {
         qp_dprintf("qp_lvgl_attach: fail (validation_ok == false)\n");
         qp_lvgl_detach();
         return false;
@@ -111,9 +111,6 @@ bool qp_lvgl_attach(painter_device_t device) {
 
     uint16_t panel_width, panel_height, offset_x, offset_y;
     qp_get_geometry(selected_display, &panel_width, &panel_height, NULL, &offset_x, &offset_y);
-
-    panel_width -= offset_x;
-    panel_height -= offset_y;
 
     // Setting up display driver
     static lv_disp_drv_t disp_drv;     /*Descriptor of a display driver*/

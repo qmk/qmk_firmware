@@ -17,16 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-#define MATRIX_ROW_PINS { B7, B4, F7, F6 }
-#define MATRIX_COL_PINS { F4, F5, D7 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 /* RGB options */
 
-#define RGB_DI_PIN D5
 #define RGB_MATRIX_LED_COUNT 16
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255
 #define RGB_DISABLE_WHEN_USB_SUSPENDED

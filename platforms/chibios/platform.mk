@@ -235,6 +235,11 @@ else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/ld/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(KEYBOARD_PATH_2)/ld/$(MCU_LDSCRIPT).ld
 else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/ld/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(KEYBOARD_PATH_1)/ld/$(MCU_LDSCRIPT).ld
+else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/ld/$(MCU_LDSCRIPT)_$(BOOTLOADER).ld)","")
+    LDFLAGS += -L$(TOP_DIR)/platforms/chibios/boards/$(BOARD)/ld
+    LDSCRIPT = $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/ld/$(MCU_LDSCRIPT)_$(BOOTLOADER).ld
+else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/boards/common/ld/$(MCU_LDSCRIPT)_$(BOOTLOADER).ld)","")
+    LDSCRIPT = $(TOP_DIR)/platforms/chibios/boards/common/ld/$(MCU_LDSCRIPT)_$(BOOTLOADER).ld
 else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/ld/$(MCU_LDSCRIPT).ld)","")
     LDFLAGS += -L$(TOP_DIR)/platforms/chibios/boards/$(BOARD)/ld
     LDSCRIPT = $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/ld/$(MCU_LDSCRIPT).ld
@@ -426,6 +431,15 @@ else
         OPT_DEFS += -DCORTEX_USE_FPU=FALSE
     endif
 endif
+
+# Extra config.h files for the platform
+ifneq ("$(wildcard $(PLATFORM_COMMON_DIR)/vendors/$(MCU_FAMILY)/$(MCU_SERIES)/config.h)","")
+    CONFIG_H += $(PLATFORM_COMMON_DIR)/vendors/$(MCU_FAMILY)/$(MCU_SERIES)/config.h
+endif
+ifneq ("$(wildcard $(PLATFORM_COMMON_DIR)/vendors/$(MCU_FAMILY)/config.h)","")
+    CONFIG_H += $(PLATFORM_COMMON_DIR)/vendors/$(MCU_FAMILY)/config.h
+endif
+CONFIG_H += $(PLATFORM_COMMON_DIR)/config.h
 
 # Assembler flags
 ASFLAGS  += $(SHARED_ASFLAGS) $(TOOLCHAIN_ASFLAGS)

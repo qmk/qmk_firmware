@@ -1,6 +1,7 @@
 """Functions that help us work with keyboards.
 """
 from array import array
+from functools import lru_cache
 from math import ceil
 from pathlib import Path
 import os
@@ -30,7 +31,27 @@ BOX_DRAWING_CHARACTERS = {
     },
 }
 
+
+class AllKeyboards:
+    """Represents all keyboards.
+    """
+    def __str__(self):
+        return 'all'
+
+    def __repr__(self):
+        return 'all'
+
+    def __eq__(self, other):
+        return isinstance(other, AllKeyboards)
+
+
 base_path = os.path.join(os.getcwd(), "keyboards") + os.path.sep
+
+
+def is_all_keyboards(keyboard):
+    """Returns True if the keyboard is an AllKeyboards object.
+    """
+    return isinstance(keyboard, AllKeyboards)
 
 
 def find_keyboard_from_dir():
@@ -71,8 +92,11 @@ def keyboard_folder(keyboard):
     """
     aliases = json_load(Path('data/mappings/keyboard_aliases.hjson'))
 
-    if keyboard in aliases:
+    while keyboard in aliases:
+        last_keyboard = keyboard
         keyboard = aliases[keyboard].get('target', keyboard)
+        if keyboard == last_keyboard:
+            break
 
     rules_mk_file = Path(base_path, keyboard, 'rules.mk')
 
@@ -84,6 +108,18 @@ def keyboard_folder(keyboard):
         raise ValueError(f'Invalid keyboard: {keyboard}')
 
     return keyboard
+
+
+def keyboard_folder_or_all(keyboard):
+    """Returns the actual keyboard folder.
+
+    This checks aliases and DEFAULT_FOLDER to resolve the actual path for a keyboard.
+    If the supplied argument is "all", it returns an AllKeyboards object.
+    """
+    if keyboard == 'all':
+        return AllKeyboards()
+
+    return keyboard_folder(keyboard)
 
 
 def _find_name(path):
@@ -112,6 +148,7 @@ def list_keyboards(resolve_defaults=True):
     return sorted(set(found))
 
 
+@lru_cache(maxsize=None)
 def resolve_keyboard(keyboard):
     cur_dir = Path('keyboards')
     rules = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk')
@@ -182,7 +219,7 @@ def render_layout(layout_data, render_ascii, key_labels=None):
 
         if x >= 0.25 and w == 1.25 and h == 2:
             render_key_isoenter(textpad, x, y, w, h, label, style)
-        elif w == 2.25 and h == 2:
+        elif w == 1.5 and h == 2:
             render_key_baenter(textpad, x, y, w, h, label, style)
         else:
             render_key_rect(textpad, x, y, w, h, label, style)
@@ -275,7 +312,7 @@ def render_key_baenter(textpad, x, y, w, h, label, style):
     w = ceil(w * 4)
     h = ceil(h * 3)
 
-    label_len = w - 2
+    label_len = w + 1
     label_leftover = label_len - len(label)
 
     if len(label) > label_len:
@@ -292,9 +329,9 @@ def render_key_baenter(textpad, x, y, w, h, label, style):
     lab_line = array('u', box_chars['v'] + label_middle + box_chars['v'])
     bot_line = array('u', box_chars['bl'] + label_border_bottom + box_chars['br'])
 
-    textpad[y][x + 3:x + w] = top_line
-    textpad[y + 1][x + 3:x + w] = mid_line
-    textpad[y + 2][x + 3:x + w] = mid_line
-    textpad[y + 3][x:x + w] = crn_line
-    textpad[y + 4][x:x + w] = lab_line
-    textpad[y + 5][x:x + w] = bot_line
+    textpad[y][x:x + w] = top_line
+    textpad[y + 1][x:x + w] = mid_line
+    textpad[y + 2][x:x + w] = mid_line
+    textpad[y + 3][x - 3:x + w] = crn_line
+    textpad[y + 4][x - 3:x + w] = lab_line
+    textpad[y + 5][x - 3:x + w] = bot_line

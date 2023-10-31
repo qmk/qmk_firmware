@@ -205,7 +205,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
 #ifdef ZEAL_RGB
     case BL_TOGG:
-      if (IS_PRESSED(record->event)) {
+      if (record->event.pressed) {
         if (g_config.effect) {
           last_effect = g_config.effect;
           g_config.effect = 0;
@@ -215,7 +215,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
     case EFFECT...EFFECT_END:
-      if (IS_PRESSED(record->event)) {
+      if (record->event.pressed) {
         uint8_t effect = keycode - EFFECT;
         if(effect == g_config.effect)
           effect = 0; // Toggle effect on second press

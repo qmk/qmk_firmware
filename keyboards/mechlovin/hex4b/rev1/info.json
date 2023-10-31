@@ -3,6 +3,11 @@
     "usb": {
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B6", "B5", "B3", "B2", "B1", "B0", "A0", "A6", "A7", "C7", "C6", "C5", "C4", "D1", "D0"],
+        "rows": ["B7", "A2", "A1", "A3", "A4", "A5"]
+    },
+    "diode_direction": "COL2ROW",
     "backlight": {
         "pin": "D4",
         "levels": 5,
