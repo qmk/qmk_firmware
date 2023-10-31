@@ -1439,6 +1439,6 @@ enum qk_keycode_defines {
 #define MACRO_KEYCODE_RANGE                 QK_MACRO_0 ... QK_MACRO_31
 #define BACKLIGHT_KEYCODE_RANGE             QK_BACKLIGHT_ON ... QK_BACKLIGHT_TOGGLE_BREATHING
 #define RGB_KEYCODE_RANGE                   RGB_TOG ... RGB_MODE_TWINKLE
-#define QUANTUM_KEYCODE_RANGE               QK_BOOTLOADER ... QK_TRI_LAYER_UPPER
+#define QUANTUM_KEYCODE_RANGE               QK_BOOTLOADER ... QK_ALT_REPEAT_KEY
 #define KB_KEYCODE_RANGE                    QK_KB_0 ... QK_KB_31
 #define USER_KEYCODE_RANGE                  QK_USER_0 ... QK_USER_31
