@@ -1,8 +1,10 @@
+from pathlib import Path
 from milc import cli
 
 from qmk.constants import QMK_USERSPACE, HAS_QMK_USERSPACE
 from qmk.commands import build_environment
 from qmk.userspace import UserspaceDefs
+from qmk.build_targets import JsonKeymapBuildTarget
 from qmk.search import search_keymap_targets
 from qmk.cli.mass_compile import mass_compile_targets
 
@@ -20,7 +22,11 @@ def userspace_compile(cli):
 
     userspace = UserspaceDefs(QMK_USERSPACE / 'qmk.json')
 
-    build_targets = [(e['keyboard'], e['keymap']) for e in userspace.build_targets]
-    build_targets = search_keymap_targets(build_targets)
+    build_targets = []
+    for e in userspace.build_targets:
+        if isinstance(e, Path):
+            build_targets.append([JsonKeymapBuildTarget(e), None])
+        elif isinstance(e, dict):
+            build_targets.extend(search_keymap_targets([(e['keyboard'], e['keymap'])]))
 
     mass_compile_targets(build_targets, cli.args.clean, cli.args.dry_run, cli.config.userspace_compile.no_temp, cli.config.userspace_compile.parallel, **build_environment(cli.args.env))

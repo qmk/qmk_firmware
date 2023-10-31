@@ -15,14 +15,7 @@
         "build_targets": {
             "type": "array",
             "items": {
-                "type": "array",
-                "minItems": 2,
-                "maxItems": 2,
-                "items": {
-                    "type": "string",
-                    "minLength": 1,
-                    "pattern": "^[0-9a-z][0-9a-z_/]*$"
-                }
+                "$ref": "qmk.definitions.v1#/build_target"
             }
         }
     }

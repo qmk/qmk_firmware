@@ -91,7 +91,10 @@ class UserspaceDefs:
         }
 
         for e in self.build_targets:
-            target_json['build_targets'].append([e['keyboard'], e['keymap']])
+            if isinstance(e, dict):
+                target_json['build_targets'].append([e['keyboard'], e['keymap']])
+            elif isinstance(e, Path):
+                target_json['build_targets'].append(str(e.relative_to(self.path.parent)))
 
         try:
             # Ensure what we're writing validates against the latest version of the schema
@@ -108,30 +111,46 @@ class UserspaceDefs:
             cli.log.info(f'Saved userspace file to {self.path}.')
         return True
 
-    def add_target(self, keyboard, keymap, do_print=True):
-        e = {"keyboard": keyboard, "keymap": keymap}
-        if e not in self.build_targets:
-            self.build_targets.append(e)
-            if do_print:
-                cli.log.info(f'Added {keyboard}:{keymap} to userspace build targets.')
+    def add_target(self, keyboard, keymap=None, do_print=True):
+        if keymap is None:
+            # Assume we're adding a json filename/path
+            json_path = Path(keyboard)
+            self.build_targets.append(json_path)
         else:
-            if do_print:
-                cli.log.info(f'{keyboard}:{keymap} is already a userspace build target.')
+            # Both keyboard/keymap specified
+            e = {"keyboard": keyboard, "keymap": keymap}
+            if e not in self.build_targets:
+                self.build_targets.append(e)
+                if do_print:
+                    cli.log.info(f'Added {keyboard}:{keymap} to userspace build targets.')
+            else:
+                if do_print:
+                    cli.log.info(f'{keyboard}:{keymap} is already a userspace build target.')
 
-    def remove_target(self, keyboard, keymap, do_print=True):
-        e = {"keyboard": keyboard, "keymap": keymap}
-        if e in self.build_targets:
-            self.build_targets.remove(e)
-            if do_print:
-                cli.log.info(f'Removed {keyboard}:{keymap} from userspace build targets.')
+    def remove_target(self, keyboard, keymap=None, do_print=True):
+        if keymap is None:
+            # Assume we're adding a json filename/path
+            json_path = Path(keyboard)
+            self.build_targets.remove(json_path)
         else:
-            if do_print:
-                cli.log.info(f'{keyboard}:{keymap} is not a userspace build target.')
+            # Both keyboard/keymap specified
+            e = {"keyboard": keyboard, "keymap": keymap}
+            if e in self.build_targets:
+                self.build_targets.remove(e)
+                if do_print:
+                    cli.log.info(f'Removed {keyboard}:{keymap} from userspace build targets.')
+            else:
+                if do_print:
+                    cli.log.info(f'{keyboard}:{keymap} is not a userspace build target.')
 
     def __load_v1(self, json):
         for e in json['build_targets']:
-            if len(e) == 2:
+            if isinstance(e, list) and len(e) == 2:
                 self.add_target(e[0], e[1], False)
+            if isinstance(e, str):
+                p = self.path.parent / e
+                if p.exists() and p.suffix == '.json':
+                    self.add_target(p)
 
 
 class UserspaceValidationError(Exception):

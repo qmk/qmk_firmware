@@ -1,3 +1,4 @@
+from pathlib import Path
 from milc import cli
 
 from qmk.constants import QMK_USERSPACE, HAS_QMK_USERSPACE
@@ -16,15 +17,27 @@ def userspace_list(cli):
 
     userspace = UserspaceDefs(QMK_USERSPACE / 'qmk.json')
 
-    build_targets = [(e['keyboard'], e['keymap']) for e in userspace.build_targets]
     if cli.args.expand:
-        build_targets = search_keymap_targets(build_targets)
+        build_targets = []
+        for e in userspace.build_targets:
+            if isinstance(e, Path):
+                build_targets.append(e)
+            elif isinstance(e, dict):
+                build_targets.extend(search_keymap_targets([(e['keyboard'], e['keymap'])]))
+    else:
+        build_targets = userspace.build_targets
 
     for e in build_targets:
-        if isinstance(e[0], str):
-            keyboard = e[0]
-            keymap = e[1]
-        else:
+        if isinstance(e, Path):
+            # JSON keymap from userspace
+            cli.log.info(f'JSON keymap: {{fg_cyan}}{e}{{fg_reset}}')
+            continue
+        elif isinstance(e, dict):
+            # keyboard/keymap dict from userspace
+            keyboard = e['keyboard']
+            keymap = e['keymap']
+        elif isinstance(e, tuple):
+            # BuildTarget from search_keymap_targets()
             keyboard = e[0].keyboard
             keymap = e[0].keymap
 

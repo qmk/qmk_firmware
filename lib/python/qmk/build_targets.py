@@ -8,6 +8,7 @@ from milc import cli
 from qmk.constants import QMK_FIRMWARE, INTERMEDIATE_OUTPUT_PREFIX
 from qmk.commands import find_make, get_make_parallel_args, parse_configurator_json
 from qmk.cli.generate.compilation_database import write_compilation_database
+from qmk.keymap import locate_keymap
 
 
 class BuildTarget:
@@ -127,6 +128,18 @@ class KeyboardKeymapBuildTarget(BuildTarget):
 
         for key, value in env_vars.items():
             compile_args.append(f'{key}={value}')
+
+        # Need to override the keymap path just in case a userspace directory
+        # has their keymap located at a historical aliased path
+        keymap_location = locate_keymap(self.keyboard, self.keymap)
+        keymap_directory = keymap_location.parent
+        compile_args.extend([
+            f'MAIN_KEYMAP_PATH_1={keymap_directory}',
+            f'MAIN_KEYMAP_PATH_2={keymap_directory}',
+            f'MAIN_KEYMAP_PATH_3={keymap_directory}',
+            f'MAIN_KEYMAP_PATH_4={keymap_directory}',
+            f'MAIN_KEYMAP_PATH_5={keymap_directory}',
+        ])
 
         return compile_args
 
