@@ -17,14 +17,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-// ROWS: Top to bottom, COLS: Left to right
-
-#define MATRIX_ROW_PINS { B1, B2, E6, F1, F4, F5 }
-#define MATRIX_COL_PINS { F0, D5, D3, D2, B3, F6, F7, C7, C6, B6, B5, B4, D7, D6, D4 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 /*EEPROM for via*/
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3

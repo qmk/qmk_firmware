@@ -72,12 +72,12 @@ WS2812_DRIVER = i2c
 
 Configure the hardware via your config.h:
 ```c
-#define WS2812_ADDRESS 0xb0 // default: 0xb0
-#define WS2812_TIMEOUT 100 // default: 100
+#define WS2812_I2C_ADDRESS 0xB0 // default: 0xB0
+#define WS2812_I2C_TIMEOUT 100 // default: 100
 ```
 
 ### SPI
-Targeting STM32 boards where WS2812 support is offloaded to an SPI hardware device. The advantage is that the use of DMA offloads processing of the WS2812 protocol from the MCU. `RGB_DI_PIN` for this driver is the configured SPI MOSI pin. Due to the nature of repurposing SPI to drive the LEDs, the other SPI pins, MISO and SCK, **must** remain unused. To configure it, add this to your rules.mk:
+Targeting STM32 boards where WS2812 support is offloaded to an SPI hardware device. The advantage is that the use of DMA offloads processing of the WS2812 protocol from the MCU. `WS2812_DI_PIN` for this driver is the configured SPI MOSI pin. Due to the nature of repurposing SPI to drive the LEDs, the other SPI pins, MISO and SCK, **must** remain unused. To configure it, add this to your rules.mk:
 
 ```make
 WS2812_DRIVER = spi
@@ -170,7 +170,7 @@ To configure it, add this to your rules.mk:
 WS2812_DRIVER = vendor
 ```
 
-Configure the hardware via your config.h:
+You may optionally switch the PIO peripheral used with the following define in config.h:
 ```c
 #define WS2812_PIO_USE_PIO1 // Force the usage of PIO1 peripheral, by default the WS2812 implementation uses the PIO0 peripheral
 ```
@@ -183,7 +183,7 @@ This can be configured for bitbang, PWM and SPI.
 
 Note: This only applies to STM32 boards.
 
- To configure the `RGB_DI_PIN` to open drain configuration add this to your config.h file: 
+ To configure the `WS2812_DI_PIN` to open drain configuration add this to your config.h file: 
 ```c
 #define WS2812_EXTERNAL_PULLUP
 ```

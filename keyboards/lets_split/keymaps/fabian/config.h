@@ -19,14 +19,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MASTER_LEFT
 // #define MASTER_RIGHT
 // #define EE_HANDS
-
-
-#ifdef SUBPROJECT_rev1
-    #include "../../rev1/config.h"
-#endif
-#ifdef SUBPROJECT_rev2
-    #include "../../rev2/config.h"
-#endif
-#ifdef SUBPROJECT_rev2fliphalf
-	#include "../../rev2fliphalf/config.h"
-#endif

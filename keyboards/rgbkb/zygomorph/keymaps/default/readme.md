@@ -97,10 +97,7 @@ RGBLIGHT_FULL_POWER = yes   # Allow maximum RGB brightness. Otherwise, limited t
 SWAP_HANDS_ENABLE = no      # Enable one-hand typing
 ENCODER_ENABLE = yes        # Enable rotary encoder (+90)
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306    # Enable the OLED Driver (+5000)
 IOS_DEVICE_ENABLE = no      # Limit max brightness to connect to IOS device (iPad,iPhone)
-
-
 ```
 ## Compile
 

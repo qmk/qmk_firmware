@@ -9,7 +9,7 @@ from pathlib import Path
 from milc import cli
 import jsonschema
 
-from qmk.constants import KEYBOARD_OUTPUT_PREFIX
+from qmk.constants import INTERMEDIATE_OUTPUT_PREFIX
 from qmk.json_schema import json_load, validate
 
 
@@ -50,6 +50,9 @@ def create_make_target(target, dry_run=False, parallel=1, **env_vars):
 
     for key, value in env_vars.items():
         env.append(f'{key}={value}')
+
+    if cli.config.general.verbose:
+        env.append('VERBOSE=true')
 
     return [make_cmd, *(['-n'] if dry_run else []), *get_make_parallel_args(parallel), *env, target]
 
@@ -131,16 +134,13 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, clean=Fa
 
     keyboard_filesafe = user_keymap['keyboard'].replace('/', '_')
     target = f'{keyboard_filesafe}_{user_keymap["keymap"]}'
-    keyboard_output = Path(f'{KEYBOARD_OUTPUT_PREFIX}{keyboard_filesafe}')
-    keymap_output = Path(f'{keyboard_output}_{user_keymap["keymap"]}')
-    keymap_dir = keymap_output / 'src'
+    intermediate_output = Path(f'{INTERMEDIATE_OUTPUT_PREFIX}{keyboard_filesafe}_{user_keymap["keymap"]}')
+    keymap_dir = intermediate_output / 'src'
     keymap_json = keymap_dir / 'keymap.json'
 
     if clean:
-        if keyboard_output.exists():
-            shutil.rmtree(keyboard_output)
-        if keymap_output.exists():
-            shutil.rmtree(keymap_output)
+        if intermediate_output.exists():
+            shutil.rmtree(intermediate_output)
 
     # begin with making the deepest folder in the tree
     keymap_dir.mkdir(exist_ok=True, parents=True)
@@ -175,21 +175,17 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, clean=Fa
     if bootloader:
         make_command.append(bootloader)
 
-    for key, value in env_vars.items():
-        make_command.append(f'{key}={value}')
-
     make_command.extend([
         f'KEYBOARD={user_keymap["keyboard"]}',
         f'KEYMAP={user_keymap["keymap"]}',
         f'KEYBOARD_FILESAFE={keyboard_filesafe}',
         f'TARGET={target}',
-        f'KEYBOARD_OUTPUT={keyboard_output}',
-        f'KEYMAP_OUTPUT={keymap_output}',
-        f'MAIN_KEYMAP_PATH_1={keymap_output}',
-        f'MAIN_KEYMAP_PATH_2={keymap_output}',
-        f'MAIN_KEYMAP_PATH_3={keymap_output}',
-        f'MAIN_KEYMAP_PATH_4={keymap_output}',
-        f'MAIN_KEYMAP_PATH_5={keymap_output}',
+        f'INTERMEDIATE_OUTPUT={intermediate_output}',
+        f'MAIN_KEYMAP_PATH_1={intermediate_output}',
+        f'MAIN_KEYMAP_PATH_2={intermediate_output}',
+        f'MAIN_KEYMAP_PATH_3={intermediate_output}',
+        f'MAIN_KEYMAP_PATH_4={intermediate_output}',
+        f'MAIN_KEYMAP_PATH_5={intermediate_output}',
         f'KEYMAP_JSON={keymap_json}',
         f'KEYMAP_PATH={keymap_dir}',
         f'VERBOSE={verbose}',
@@ -197,6 +193,9 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, clean=Fa
         'SILENT=false',
         'QMK_BIN="qmk"',
     ])
+
+    for key, value in env_vars.items():
+        make_command.append(f'{key}={value}')
 
     return make_command
 
@@ -213,16 +212,16 @@ def parse_configurator_json(configurator_file):
         cli.log.error(f'Invalid JSON keymap: {configurator_file} : {e.message}')
         exit(1)
 
-    orig_keyboard = user_keymap['keyboard']
+    keyboard = user_keymap['keyboard']
     aliases = json_load(Path('data/mappings/keyboard_aliases.hjson'))
 
-    if orig_keyboard in aliases:
-        if 'target' in aliases[orig_keyboard]:
-            user_keymap['keyboard'] = aliases[orig_keyboard]['target']
+    while keyboard in aliases:
+        last_keyboard = keyboard
+        keyboard = aliases[keyboard].get('target', keyboard)
+        if keyboard == last_keyboard:
+            break
 
-        if 'layouts' in aliases[orig_keyboard] and user_keymap['layout'] in aliases[orig_keyboard]['layouts']:
-            user_keymap['layout'] = aliases[orig_keyboard]['layouts'][user_keymap['layout']]
-
+    user_keymap['keyboard'] = keyboard
     return user_keymap
 
 

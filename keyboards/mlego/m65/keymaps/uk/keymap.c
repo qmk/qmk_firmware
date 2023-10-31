@@ -190,9 +190,9 @@ MS - mouse directions
 */
  [_LWR] = LAYOUT_ortho_5x13(
      KC_GRV ,  KC_MUTE,  KC_VOLU,  KC_VOLD,  KC_MPRV,  KC_MPLY,  KC_MNXT,  G(KC_P),  KC_SLEP,    KC_WAKE,    KC_PSCR,      KC_DEL,      UK_EQL,
-     KC_BTN3,XP(lq,lQ),XP(lw,lW),XP(le,lE),XP(lr,lR),XP(lt,lT),XP(ly,lY),XP(lu,lU),XP(li,lI),  XP(lo,lO),  XP(lp,lP),     _______,     _______,
-     KC_BTN2,XP(la,lA),XP(ls,lS),XP(ld,lD),XP(lf,lF),XP(lg,lG),XP(lh,lH),XP(lj,lJ),XP(lk,lK),  XP(ll,lL),XP(ll1,lL1), XP(lk1,lK1),     _______,
-     _______,  KC_BTN1,XP(lz,lZ),XP(lx,lX),XP(lc,lC),XP(lv,lV),XP(lb,lB),XP(ln,lN),XP(lm,lM),XP(lc1,lC1),XP(lp1,lP1),     KC_MS_U, XP(lq1,lQ1),
+     KC_BTN3,UP(lq,lQ),UP(lw,lW),UP(le,lE),UP(lr,lR),UP(lt,lT),UP(ly,lY),UP(lu,lU),UP(li,lI),  UP(lo,lO),  UP(lp,lP),     _______,     _______,
+     KC_BTN2,UP(la,lA),UP(ls,lS),UP(ld,lD),UP(lf,lF),UP(lg,lG),UP(lh,lH),UP(lj,lJ),UP(lk,lK),  UP(ll,lL),UP(ll1,lL1), UP(lk1,lK1),     _______,
+     _______,  KC_BTN1,UP(lz,lZ),UP(lx,lX),UP(lc,lC),UP(lv,lV),UP(lb,lB),UP(ln,lN),UP(lm,lM),UP(lc1,lC1),UP(lp1,lP1),     KC_MS_U, UP(lq1,lQ1),
      _______,  KC_BTN4,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,    KC_MS_L,     KC_MS_D,    KC_MS_R),
 
 /*
@@ -224,9 +224,9 @@ raise layer shifted
 */
   [_RSE] = LAYOUT_ortho_5x13(
       KC_ESC ,    KC_F1  ,   KC_F2  , KC_F3  ,  KC_F4  ,  KC_F5  , KC_F6  , KC_F7  ,  KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12  ,
-      _______,XP(ra1,rA1),   _______, _______,  _______,XP(rt,rT), _______, _______,XP(ri,rI), _______, _______, _______, _______ ,
-      KC_CAPS,  XP(ra,rA), XP(rs,rS), _______,  _______,  _______, _______, _______,  _______, _______, _______, _______, _______ ,
-      _______,    KC_F20 ,   _______, _______,XP(rc,rC),  _______, _______, _______,  _______, _______, _______, KC_WH_U, _______ ,
+      _______,UP(ra1,rA1),   _______, _______,  _______,UP(rt,rT), _______, _______,UP(ri,rI), _______, _______, _______, _______ ,
+      KC_CAPS,  UP(ra,rA), UP(rs,rS), _______,  _______,  _______, _______, _______,  _______, _______, _______, _______, _______ ,
+      _______,    KC_F20 ,   _______, _______,UP(rc,rC),  _______, _______, _______,  _______, _______, _______, KC_WH_U, _______ ,
       _______,    _______,   _______, _______,  _______,  _______, _______, _______,  _______, _______, KC_WH_L, KC_WH_D, KC_WH_R),
 /*
 adj layer

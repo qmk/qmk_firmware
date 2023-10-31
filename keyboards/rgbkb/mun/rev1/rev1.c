@@ -12,58 +12,23 @@
 #define NUMBER_OF_TOUCH_ENCODERS 2
 #define TOUCH_ENCODER_OPTIONS TOUCH_SEGMENTS + 2
 
-#define NUMBER_OF_ENCODERS 4
-#define ENCODER_OPTIONS 2
-
 typedef struct PACKED {
     uint8_t r;
     uint8_t c;
 } encodermap_t;
 
-// this maps encoders and then touch encoders to their respective electrical matrix entry
-// mapping is row (y) then column (x) when looking at the electrical layout
-const encodermap_t encoder_map[NUMBER_OF_ENCODERS][ENCODER_OPTIONS] = 
-{
-    { {  5, 0 }, {  5, 1 } }, // Encoder 1 matrix entries
-    { {  5, 2 }, {  5, 3 } }, // Encoder 2 matrix entries
-    { { 12, 0 }, { 12, 1 } }, // Encoder 3 matrix entries
-    { { 12, 2 }, { 12, 3 } }, // Encoder 4 matrix entries
-}; 
-
-const encodermap_t touch_encoder_map[NUMBER_OF_TOUCH_ENCODERS][TOUCH_ENCODER_OPTIONS] = 
+const encodermap_t touch_encoder_map[NUMBER_OF_TOUCH_ENCODERS][TOUCH_ENCODER_OPTIONS] =
 {
     { {  6, 0 }, {  6, 1 }, {  6, 2 }, {  6, 3 }, {  6, 4 } }, // Touch Encoder 1 matrix entries
     { { 13, 0 }, { 13, 1 }, { 13, 2 }, { 13, 3 }, { 13, 4 } }  // Touch Encoder 2 matrix entries
 };
 
 static void process_encoder_matrix(encodermap_t pos) {
-    action_exec((keyevent_t){
-        .key = (keypos_t){.row = pos.r, .col = pos.c}, .pressed = true, .time = (timer_read() | 1) /* time should not be 0 */
-    });
+    action_exec(MAKE_KEYEVENT(pos.r, pos.c, true));
 #if TAP_CODE_DELAY > 0
     wait_ms(TAP_CODE_DELAY);
 #endif
-    action_exec((keyevent_t){
-        .key = (keypos_t){.row = pos.r, .col = pos.c}, .pressed = false, .time = (timer_read() | 1) /* time should not be 0 */
-    });
-}
-
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise))
-        return false;
-
-    // Mapping clockwise (typically increase) to zero, and counter clockwise (decrease) to 1
-    process_encoder_matrix(encoder_map[index][clockwise ? 0 : 1]);
-    return false;
-}
-
-bool touch_encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!touch_encoder_update_user(index, clockwise))
-        return false;
-
-    // Mapping clockwise (typically increase) to zero, and counter clockwise (decrease) to 1
-    process_encoder_matrix(touch_encoder_map[index][clockwise ? 0 : 1]);
-    return false;
+    action_exec(MAKE_KEYEVENT(pos.r, pos.c, false));
 }
 
 bool touch_encoder_tapped_kb(uint8_t index, uint8_t section) {
