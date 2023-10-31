@@ -10,6 +10,7 @@ from milc import cli
 from qmk.constants import QMK_FIRMWARE
 from qmk.commands import find_make, get_make_parallel_args, build_environment
 from qmk.search import search_keymap_targets, search_make_targets
+from qmk.build_targets import JsonKeymapBuildTarget
 
 
 def mass_compile_targets(targets, clean, dry_run, no_temp, parallel, **env):
@@ -99,7 +100,10 @@ def mass_compile(cli):
     """Compile QMK Firmware against all keyboards.
     """
     if len(cli.args.builds) > 0:
-        targets = search_make_targets(cli.args.builds, cli.args.filter)
+        json_like_targets = list([Path(p) for p in filter(lambda e: Path(e).exists() and Path(e).suffix == '.json', cli.args.builds)])
+        make_like_targets = list(filter(lambda e: Path(e) not in json_like_targets, cli.args.builds))
+        targets = search_make_targets(make_like_targets, cli.args.filter)
+        targets.extend([(JsonKeymapBuildTarget(e), []) for e in json_like_targets])
     else:
         targets = search_keymap_targets([('all', cli.config.mass_compile.keymap)], cli.args.filter)
 
