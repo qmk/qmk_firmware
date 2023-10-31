@@ -16,9 +16,6 @@
 
 #pragma once
 
-
-#define RGB_TRIGGER_ON_KEYDOWN
-
 /* encoder */
 #define ENCODER_DEFAULT_POS 0x3
 
