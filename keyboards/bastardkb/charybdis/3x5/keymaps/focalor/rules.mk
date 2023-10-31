@@ -1,7 +1,6 @@
 # RP2040-specific options
 ALLOW_WARNINGS = yes
 PICO_INTRINSICS_ENABLED = no # ATM Unsupported by ChibiOS.
-BOARD = RP_PICO_RP2040
 # Build Options
 #   change yes to no to disable
 #

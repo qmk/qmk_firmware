@@ -32,5 +32,7 @@
     },
     "clangd.arguments": [
         "--header-insertion=never"
-    ]
+    ],
+    "codechecker.editor.showDatabaseDialog": false,
+    "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools"
 }

@@ -43,9 +43,18 @@ K20,   K21,   K22,   K23,   K24,          K25,   K26,   K27,   K28,   K29, \
 
 /* SPI & PMW3360 settings. */
 #define SPI_DRIVER SPID0
+#ifdef SPI_SCK_PIN
+#    undef SPI_SCK_PIN
+#endif
 #define SPI_SCK_PIN GP22
 #define SPI_MISO_PIN GP20
+#ifdef SPI_MOSI_PIN
+#    undef SPI_MOSI_PIN
+#endif
 #define SPI_MOSI_PIN GP23
+#ifdef POINTING_DEVICE_CS_PIN
+#    undef POINTING_DEVICE_CS_PIN
+#endif
 #define POINTING_DEVICE_CS_PIN GP16
 
 /* Reset. */
