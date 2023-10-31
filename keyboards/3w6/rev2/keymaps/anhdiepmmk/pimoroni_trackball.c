@@ -22,7 +22,7 @@ static int16_t x_offset       = 0;
 static int16_t y_offset       = 0;
 static int16_t h_offset       = 0;
 static int16_t v_offset       = 0;
-static float   precisionSpeed = 1;
+static float   precisionSpeed = 2;
 
 static uint16_t i2c_timeout_timer;
 
