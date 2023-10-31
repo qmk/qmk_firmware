@@ -7,7 +7,7 @@
 #include "wait.h"
 
 #ifndef AZOTEQ_IQS5XX_ADDRESS
-#    define AZOTEQ_IQS5XX_ADDRESS 0x74 << 1
+#    define AZOTEQ_IQS5XX_ADDRESS (0x74 << 1)
 #endif
 #ifndef AZOTEQ_IQS5XX_TIMEOUT_MS
 #    define AZOTEQ_IQS5XX_TIMEOUT_MS 10
