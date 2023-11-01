@@ -3,6 +3,8 @@
 
 #pragma once
 
+#define DEBUG_MATRIX_SCAN_RATE // only want api
+
 #define SPI_DRIVER SPID0
 #define SPI_SCK_PIN GP18
 #define SPI_MOSI_PIN GP19

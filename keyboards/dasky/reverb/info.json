@@ -11,6 +11,7 @@
         "bootmagic": true,
         "extrakey": true,
         "mousekey": true,
+        "wpm": true,
         "quantum_painter": true,
         "rgb_matrix": true
     },
