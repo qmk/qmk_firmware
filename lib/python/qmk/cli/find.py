@@ -24,4 +24,4 @@ def find(cli):
         print(f'{target}')
 
         for key in cli.args.print:
-            print(f'    {key}={target.json.get(key, None)}')
+            print(f'    {key}={target.dotty.get(key, None)}')

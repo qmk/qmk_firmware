@@ -24,7 +24,7 @@ class BuildTarget:
         self._target = f'{self._keyboard_safe}_{self.keymap}'
         self._intermediate_output = Path(f'{INTERMEDIATE_OUTPUT_PREFIX}{self._target}')
         self._generated_files_path = self._intermediate_output / 'src'
-        self._json = json if isinstance(json, Dotty) else dotty(json)
+        self._json = json.to_dict() if isinstance(json, Dotty) else json
 
     def __str__(self):
         return f'{self.keyboard}:{self.keymap}'
@@ -53,8 +53,12 @@ class BuildTarget:
         if not self._json:
             self._load_json()
         if not self._json:
-            return dotty({})
+            return {}
         return self._json
+
+    @property
+    def dotty(self) -> Dotty:
+        return dotty(self.json)
 
     def _common_make_args(self, dry_run: bool = False, build_target: str = None):
         compile_args = [
@@ -132,7 +136,7 @@ class KeyboardKeymapBuildTarget(BuildTarget):
         return f'KeyboardKeymapTarget(keyboard={self.keyboard}, keymap={self.keymap})'
 
     def _load_json(self):
-        self._json = dotty(keymap_json(self.keyboard, self.keymap))
+        self._json = keymap_json(self.keyboard, self.keymap)
 
     def prepare_build(self, build_target: str = None, dry_run: bool = False, **env_vars) -> None:
         pass
