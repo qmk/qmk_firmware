@@ -23,3 +23,6 @@
 #define WS2812_PIO_USE_PIO1
 #define NOP_FUDGE 0.4
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 2.0 //1.0 to 2.7
+
+// Tap-Hold Settings
+#define TAPPING_TERM 100
