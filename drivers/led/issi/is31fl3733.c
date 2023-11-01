@@ -38,6 +38,9 @@
 #define IS31FL3733_REG_SWPULLUP 0x0F      // PG3
 #define IS31FL3733_REG_CSPULLUP 0x10      // PG3
 
+#define IS31FL3733_PWM_REGISTER_COUNT 192
+#define IS31FL3733_LED_CONTROL_REGISTER_COUNT 24
+
 #ifndef IS31FL3733_I2C_TIMEOUT
 #    define IS31FL3733_I2C_TIMEOUT 100
 #endif
@@ -84,11 +87,11 @@ uint8_t g_twi_transfer_buffer[20];
 // We could optimize this and take out the unused registers from these
 // buffers and the transfers in is31fl3733_write_pwm_buffer() but it's
 // probably not worth the extra complexity.
-uint8_t g_pwm_buffer[IS31FL3733_DRIVER_COUNT][192];
+uint8_t g_pwm_buffer[IS31FL3733_DRIVER_COUNT][IS31FL3733_PWM_REGISTER_COUNT];
 bool    g_pwm_buffer_update_required[IS31FL3733_DRIVER_COUNT] = {false};
 
-uint8_t g_led_control_registers[IS31FL3733_DRIVER_COUNT][24]             = {0};
-bool    g_led_control_registers_update_required[IS31FL3733_DRIVER_COUNT] = {false};
+uint8_t g_led_control_registers[IS31FL3733_DRIVER_COUNT][IS31FL3733_LED_CONTROL_REGISTER_COUNT] = {0};
+bool    g_led_control_registers_update_required[IS31FL3733_DRIVER_COUNT]                        = {false};
 
 bool is31fl3733_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
     // If the transaction fails function returns false.
@@ -116,7 +119,7 @@ bool is31fl3733_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     // g_twi_transfer_buffer[] is 20 bytes
 
     // Iterate over the pwm_buffer contents at 16 byte intervals.
-    for (int i = 0; i < 192; i += 16) {
+    for (int i = 0; i < IS31FL3733_PWM_REGISTER_COUNT; i += 16) {
         g_twi_transfer_buffer[0] = i;
         // Copy the data from i to i+15.
         // Device will auto-increment register for data after the first byte
@@ -181,7 +184,7 @@ void is31fl3733_init(uint8_t addr, uint8_t sync) {
     // Select PG0
     is31fl3733_write_register(addr, IS31FL3733_COMMANDREGISTER, IS31FL3733_PAGE_LEDCONTROL);
     // Turn off all LEDs.
-    for (int i = 0x00; i <= 0x17; i++) {
+    for (int i = 0; i < IS31FL3733_LED_CONTROL_REGISTER_COUNT; i++) {
         is31fl3733_write_register(addr, i, 0x00);
     }
 
@@ -192,7 +195,7 @@ void is31fl3733_init(uint8_t addr, uint8_t sync) {
     is31fl3733_write_register(addr, IS31FL3733_COMMANDREGISTER, IS31FL3733_PAGE_PWM);
     // Set PWM on all LEDs to 0
     // No need to setup Breath registers to PWM as that is the default.
-    for (int i = 0x00; i <= 0xBF; i++) {
+    for (int i = 0; i < IS31FL3733_PWM_REGISTER_COUNT; i++) {
         is31fl3733_write_register(addr, i, 0x00);
     }
 
@@ -285,7 +288,7 @@ void is31fl3733_update_led_control_registers(uint8_t addr, uint8_t index) {
         // Firstly we need to unlock the command register and select PG0
         is31fl3733_write_register(addr, IS31FL3733_COMMANDREGISTER_WRITELOCK, 0xC5);
         is31fl3733_write_register(addr, IS31FL3733_COMMANDREGISTER, IS31FL3733_PAGE_LEDCONTROL);
-        for (int i = 0; i < 24; i++) {
+        for (int i = 0; i < IS31FL3733_LED_CONTROL_REGISTER_COUNT; i++) {
             is31fl3733_write_register(addr, i, g_led_control_registers[index][i]);
         }
         g_led_control_registers_update_required[index] = false;
