@@ -67,7 +67,7 @@
 #endif
 
 typedef struct is31fl3741_led_t {
-    uint8_t driver : 2;
+    uint8_t  driver : 2;
     uint16_t v : 9;
 } PACKED is31fl3741_led_t;
 
