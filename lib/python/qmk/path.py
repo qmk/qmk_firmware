@@ -19,13 +19,11 @@ def is_keyboard(keyboard_name):
         return rules_mk.exists()
 
 
-def under_qmk_firmware():
+def under_qmk_firmware(path=Path(os.environ['ORIG_CWD'])):
     """Returns a Path object representing the relative path under qmk_firmware, or None.
     """
-    cwd = Path(os.environ['ORIG_CWD'])
-
     try:
-        return cwd.relative_to(QMK_FIRMWARE)
+        return path.relative_to(QMK_FIRMWARE)
     except ValueError:
         return None
 
