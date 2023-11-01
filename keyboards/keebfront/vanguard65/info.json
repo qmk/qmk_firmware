@@ -8,7 +8,6 @@
     },
     "diode_direction": "COL2ROW",
     "encoder": {
-        "enabled": true,
         "rotary": [
             {"pin_a": "E6", "pin_b": "D4"}
         ]
