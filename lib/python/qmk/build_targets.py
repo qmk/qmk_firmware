@@ -2,16 +2,18 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 import json
 import shutil
-from typing import List
+from typing import List, Union
 from pathlib import Path
+from dotty_dict import dotty, Dotty
 from milc import cli
 from qmk.constants import QMK_FIRMWARE, INTERMEDIATE_OUTPUT_PREFIX
 from qmk.commands import find_make, get_make_parallel_args, parse_configurator_json
+from qmk.info import keymap_json
 from qmk.cli.generate.compilation_database import write_compilation_database
 
 
 class BuildTarget:
-    def __init__(self, keyboard: str, keymap: str):
+    def __init__(self, keyboard: str, keymap: str, json: Union[dict, Dotty] = None):
         self._keyboard = keyboard
         self._keyboard_safe = keyboard.replace('/', '_')
         self._keymap = keymap
@@ -21,6 +23,7 @@ class BuildTarget:
         self._target = f'{self._keyboard_safe}_{self.keymap}'
         self._intermediate_output = Path(f'{INTERMEDIATE_OUTPUT_PREFIX}{self._target}')
         self._generated_files_path = self._intermediate_output / 'src'
+        self._json = json if isinstance(json, Dotty) else dotty(json)
 
     def __str__(self):
         return f'{self.keyboard}:{self.keymap}'
@@ -43,6 +46,14 @@ class BuildTarget:
     @property
     def keymap(self) -> str:
         return self._keymap
+
+    @property
+    def json(self) -> dict:
+        if not self._json:
+            self._load_json()
+        if not self._json:
+            return dotty({})
+        return self._json
 
     def _common_make_args(self, dry_run: bool = False, build_target: str = None):
         compile_args = [
@@ -113,11 +124,14 @@ class BuildTarget:
 
 
 class KeyboardKeymapBuildTarget(BuildTarget):
-    def __init__(self, keyboard: str, keymap: str):
-        super().__init__(keyboard, keymap)
+    def __init__(self, keyboard: str, keymap: str, json: dict = None):
+        super().__init__(keyboard=keyboard, keymap=keymap, json=json)
 
     def __repr__(self):
         return f'KeyboardKeymapTarget(keyboard={self.keyboard}, keymap={self.keymap})'
+
+    def _load_json(self):
+        self._json = dotty(keymap_json(self.keyboard, self.keymap))
 
     def prepare_build(self, build_target: str = None, dry_run: bool = False, **env_vars) -> None:
         pass
@@ -138,18 +152,21 @@ class JsonKeymapBuildTarget(BuildTarget):
         else:
             self.json_path = None
 
-        self.json = parse_configurator_json(json_path)  # Will load from stdin if provided
+        json = parse_configurator_json(json_path)  # Will load from stdin if provided
 
         # In case the user passes a keymap.json from a keymap directory directly to the CLI.
         # e.g.: qmk compile - < keyboards/clueboard/california/keymaps/default/keymap.json
-        self.json["keymap"] = self.json.get("keymap", "default_json")
+        json["keymap"] = json.get("keymap", "default_json")
 
-        super().__init__(self.json['keyboard'], self.json['keymap'])
+        super().__init__(keyboard=json['keyboard'], keymap=json['keymap'], json=json)
 
         self._keymap_json = self._generated_files_path / 'keymap.json'
 
     def __repr__(self):
         return f'JsonKeymapTarget(keyboard={self.keyboard}, keymap={self.keymap}, path={self.json_path})'
+
+    def _load_json(self):
+        pass  # Already loaded in constructor
 
     def prepare_build(self, build_target: str = None, dry_run: bool = False, **env_vars) -> None:
         if self._clean:
