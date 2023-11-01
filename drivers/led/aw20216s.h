@@ -65,8 +65,9 @@ typedef struct aw20216s_led_t {
     uint8_t b;
 } aw20216s_led_t;
 
-extern const aw20216s_led_t PROGMEM g_aw20216s_leds[RGB_MATRIX_LED_COUNT];
+extern const aw20216s_led_t PROGMEM g_aw20216s_leds[AW20216S_LED_COUNT];
 
+void aw20216s_init_drivers(void);
 void aw20216s_init(pin_t cs_pin, pin_t en_pin);
 void aw20216s_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
 void aw20216s_set_color_all(uint8_t red, uint8_t green, uint8_t blue);

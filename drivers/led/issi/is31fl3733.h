@@ -110,8 +110,9 @@ typedef struct is31fl3733_led_t {
     uint8_t b;
 } __attribute__((packed)) is31fl3733_led_t;
 
-extern const is31fl3733_led_t PROGMEM g_is31fl3733_leds[RGB_MATRIX_LED_COUNT];
+extern const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT];
 
+void is31fl3733_init_drivers(void);
 void is31fl3733_init(uint8_t addr, uint8_t sync);
 bool is31fl3733_write_register(uint8_t addr, uint8_t reg, uint8_t data);
 bool is31fl3733_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
@@ -143,6 +144,10 @@ void is31fl3733_flush(void);
 #define IS31FL3733_PWM_FREQUENCY_26K7_HZ 0b010
 #define IS31FL3733_PWM_FREQUENCY_2K1_HZ 0b011
 #define IS31FL3733_PWM_FREQUENCY_1K05_HZ 0b100
+
+#define IS31FL3733_SYNC_NONE 0b00
+#define IS31FL3733_SYNC_MASTER 0b01
+#define IS31FL3733_SYNC_SLAVE 0b10
 
 #define A_1 0x00
 #define A_2 0x01

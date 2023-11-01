@@ -98,6 +98,34 @@ bool snled27351_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     return true;
 }
 
+void snled27351_init_drivers(void) {
+    snled27351_init(SNLED27351_I2C_ADDRESS_1);
+#if defined(SNLED27351_I2C_ADDRESS_2)
+    snled27351_init(SNLED27351_I2C_ADDRESS_2);
+#    if defined(SNLED27351_I2C_ADDRESS_3)
+    snled27351_init(SNLED27351_I2C_ADDRESS_3);
+#        if defined(SNLED27351_I2C_ADDRESS_4)
+    snled27351_init(SNLED27351_I2C_ADDRESS_4);
+#        endif
+#    endif
+#endif
+
+    for (int i = 0; i < SNLED27351_LED_COUNT; i++) {
+        snled27351_set_led_control_register(i, true, true, true);
+    }
+
+    snled27351_update_led_control_registers(SNLED27351_I2C_ADDRESS_1, 0);
+#if defined(SNLED27351_I2C_ADDRESS_2)
+    snled27351_update_led_control_registers(SNLED27351_I2C_ADDRESS_2, 1);
+#    if defined(SNLED27351_I2C_ADDRESS_3)
+    snled27351_update_led_control_registers(SNLED27351_I2C_ADDRESS_3, 2);
+#        if defined(SNLED27351_I2C_ADDRESS_4)
+    snled27351_update_led_control_registers(SNLED27351_I2C_ADDRESS_4, 3);
+#        endif
+#    endif
+#endif
+}
+
 void snled27351_init(uint8_t addr) {
     // Select to function page
     snled27351_write_register(addr, SNLED27351_REG_CONFIGURE_CMD_PAGE, SNLED27351_FUNCTION_PAGE);
@@ -146,7 +174,7 @@ void snled27351_init(uint8_t addr) {
 
 void snled27351_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     snled27351_led_t led;
-    if (index >= 0 && index < RGB_MATRIX_LED_COUNT) {
+    if (index >= 0 && index < SNLED27351_LED_COUNT) {
         memcpy_P(&led, (&g_snled27351_leds[index]), sizeof(led));
 
         if (g_pwm_buffer[led.driver][led.r] == red && g_pwm_buffer[led.driver][led.g] == green && g_pwm_buffer[led.driver][led.b] == blue) {
@@ -160,7 +188,7 @@ void snled27351_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void snled27351_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
-    for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+    for (int i = 0; i < SNLED27351_LED_COUNT; i++) {
         snled27351_set_color(i, red, green, blue);
     }
 }

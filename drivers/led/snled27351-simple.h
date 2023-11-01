@@ -68,8 +68,9 @@ typedef struct snled27351_led_t {
     uint8_t v;
 } __attribute__((packed)) snled27351_led_t;
 
-extern const snled27351_led_t PROGMEM g_snled27351_leds[LED_MATRIX_LED_COUNT];
+extern const snled27351_led_t PROGMEM g_snled27351_leds[SNLED27351_LED_COUNT];
 
+void snled27351_init_drivers(void);
 void snled27351_init(uint8_t addr);
 bool snled27351_write_register(uint8_t addr, uint8_t reg, uint8_t data);
 bool snled27351_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);

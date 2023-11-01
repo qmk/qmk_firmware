@@ -63,6 +63,19 @@
 #    define IS31FL3733_GLOBALCURRENT 0xFF
 #endif
 
+#ifndef IS31FL3733_SYNC_1
+#    define IS31FL3733_SYNC_1 IS31FL3733_SYNC_NONE
+#endif
+#ifndef IS31FL3733_SYNC_2
+#    define IS31FL3733_SYNC_2 IS31FL3733_SYNC_NONE
+#endif
+#ifndef IS31FL3733_SYNC_3
+#    define IS31FL3733_SYNC_3 IS31FL3733_SYNC_NONE
+#endif
+#ifndef IS31FL3733_SYNC_4
+#    define IS31FL3733_SYNC_4 IS31FL3733_SYNC_NONE
+#endif
+
 // Transfer buffer for TWITransmitData()
 uint8_t g_twi_transfer_buffer[20];
 
@@ -126,6 +139,36 @@ bool is31fl3733_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     return true;
 }
 
+void is31fl3733_init_drivers(void) {
+    i2c_init();
+
+    is31fl3733_init(IS31FL3733_I2C_ADDRESS_1, IS31FL3733_SYNC_1);
+#if defined(IS31FL3733_I2C_ADDRESS_2)
+    is31fl3733_init(IS31FL3733_I2C_ADDRESS_2, IS31FL3733_SYNC_2);
+#    if defined(IS31FL3733_I2C_ADDRESS_3)
+    is31fl3733_init(IS31FL3733_I2C_ADDRESS_3, IS31FL3733_SYNC_3);
+#        if defined(IS31FL3733_I2C_ADDRESS_4)
+    is31fl3733_init(IS31FL3733_I2C_ADDRESS_4, IS31FL3733_SYNC_4);
+#        endif
+#    endif
+#endif
+
+    for (int i = 0; i < IS31FL3733_LED_COUNT; i++) {
+        is31fl3733_set_led_control_register(i, true);
+    }
+
+    is31fl3733_update_led_control_registers(IS31FL3733_I2C_ADDRESS_1, 0);
+#if defined(IS31FL3733_I2C_ADDRESS_2)
+    is31fl3733_update_led_control_registers(IS31FL3733_I2C_ADDRESS_2, 1);
+#    if defined(IS31FL3733_I2C_ADDRESS_3)
+    is31fl3733_update_led_control_registers(IS31FL3733_I2C_ADDRESS_3, 2);
+#        if defined(IS31FL3733_I2C_ADDRESS_4)
+    is31fl3733_update_led_control_registers(IS31FL3733_I2C_ADDRESS_4, 3);
+#        endif
+#    endif
+#endif
+}
+
 void is31fl3733_init(uint8_t addr, uint8_t sync) {
     // In order to avoid the LEDs being driven with garbage data
     // in the LED driver's PWM registers, shutdown is enabled last.
@@ -174,7 +217,7 @@ void is31fl3733_init(uint8_t addr, uint8_t sync) {
 
 void is31fl3733_set_value(int index, uint8_t value) {
     is31fl3733_led_t led;
-    if (index >= 0 && index < LED_MATRIX_LED_COUNT) {
+    if (index >= 0 && index < IS31FL3733_LED_COUNT) {
         memcpy_P(&led, (&g_is31fl3733_leds[index]), sizeof(led));
 
         if (g_pwm_buffer[led.driver][led.v] == value) {
@@ -186,7 +229,7 @@ void is31fl3733_set_value(int index, uint8_t value) {
 }
 
 void is31fl3733_set_value_all(uint8_t value) {
-    for (int i = 0; i < LED_MATRIX_LED_COUNT; i++) {
+    for (int i = 0; i < IS31FL3733_LED_COUNT; i++) {
         is31fl3733_set_value(i, value);
     }
 }

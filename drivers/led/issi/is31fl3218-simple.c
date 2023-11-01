@@ -68,6 +68,8 @@ void is31fl3218_write_pwm_buffer(uint8_t *pwm_buffer) {
 }
 
 void is31fl3218_init(void) {
+    i2c_init();
+
     // In case we ever want to reinitialize (?)
     is31fl3218_write_register(IS31FL3218_REG_RESET, 0x00);
 
@@ -86,11 +88,17 @@ void is31fl3218_init(void) {
 
     // Load PWM registers and LED Control register data
     is31fl3218_write_register(IS31FL3218_REG_UPDATE, 0x01);
+
+    for (int i = 0; i < IS31FL3218_LED_COUNT; i++) {
+        is31fl3218_set_led_control_register(i, true);
+    }
+
+    is31fl3218_update_led_control_registers();
 }
 
 void is31fl3218_set_value(int index, uint8_t value) {
     is31fl3218_led_t led;
-    if (index >= 0 && index < LED_MATRIX_LED_COUNT) {
+    if (index >= 0 && index < IS31FL3218_LED_COUNT) {
         memcpy_P(&led, (&g_is31fl3218_leds[index]), sizeof(led));
     }
     if (g_pwm_buffer[led.v - IS31FL3218_REG_PWM] == value) {
@@ -101,7 +109,7 @@ void is31fl3218_set_value(int index, uint8_t value) {
 }
 
 void is31fl3218_set_value_all(uint8_t value) {
-    for (int i = 0; i < LED_MATRIX_LED_COUNT; i++) {
+    for (int i = 0; i < IS31FL3218_LED_COUNT; i++) {
         is31fl3218_set_value(i, value);
     }
 }
