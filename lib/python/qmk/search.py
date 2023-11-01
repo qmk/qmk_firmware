@@ -88,14 +88,13 @@ def _expand_keymap_target(keyboard: str, keymap: str, all_keyboards: List[str] =
         else:
             cli.log.info(f'Retrieving list of keyboards with keymap "{keymap}"...')
             keyboard_filter = functools.partial(_keymap_exists, keymap=keymap)
-            return [(keyboard_folder(kb), keymap) for kb in filter(lambda e: e is not None, parallel_map(keyboard_filter, all_keyboards))]
+            return [(kb, keymap) for kb in filter(lambda e: e is not None, parallel_map(keyboard_filter, all_keyboards))]
     else:
         if keymap == 'all':
-            keyboard = keyboard_folder(keyboard)
             cli.log.info(f'Retrieving list of keymaps for keyboard "{keyboard}"...')
             return _all_keymaps(keyboard)
         else:
-            return [(keyboard_folder(keyboard), keymap)]
+            return [(keyboard, keymap)]
 
 
 def expand_keymap_targets(targets: List[Tuple[str, str]]) -> List[Tuple[str, str]]:
@@ -108,13 +107,13 @@ def expand_keymap_targets(targets: List[Tuple[str, str]]) -> List[Tuple[str, str
     return list(sorted(set(overall_targets)))
 
 
-def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str] = [], print_vals: List[str] = []) -> List[Tuple[str, str, List[Tuple[str, str]]]]:
+def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str] = []) -> List[BuildTarget]:
     """Filter a list of (keyboard, keymap) tuples based on the supplied filters.
 
     Optionally includes the values of the queried info.json keys.
     """
-    if len(filters) == 0 and len(print_vals) == 0:
-        targets = [(kb, km, {}) for kb, km in target_list]
+    if len(filters) == 0:
+        targets = [KeyboardKeymapBuildTarget(keyboard=kb, keymap=km) for kb, km in target_list]
     else:
         cli.log.info('Parsing data for all matching keyboard/keymap combinations...')
         valid_keymaps = [(e[0], e[1], dotty(e[2])) for e in parallel_map(_load_keymap_info, target_list)]
@@ -173,18 +172,18 @@ def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str
                 cli.log.warning(f'Unrecognized filter expression: {filter_expr}')
                 continue
 
-            targets = [(e[0], e[1], [(p, e[2].get(p)) for p in print_vals]) for e in valid_keymaps]
+            targets = [KeyboardKeymapBuildTarget(keyboard=e[0], keymap=e[1], json=e[2]) for e in valid_keymaps]
 
     return targets
 
 
-def search_keymap_targets(targets: List[Tuple[str, str]] = [('all', 'default')], filters: List[str] = [], print_vals: List[str] = []) -> List[Tuple[BuildTarget, List[Tuple[str, str]]]]:
+def search_keymap_targets(targets: List[Tuple[str, str]] = [('all', 'default')], filters: List[str] = []) -> List[BuildTarget]:
     """Search for build targets matching the supplied criteria.
     """
-    return [(KeyboardKeymapBuildTarget(e[0], e[1]), e[2]) for e in sorted(_filter_keymap_targets(expand_keymap_targets(targets), filters, print_vals), key=lambda e: (e[0], e[1]))]
+    return _filter_keymap_targets(expand_keymap_targets(targets), filters)
 
 
-def search_make_targets(targets: List[str], filters: List[str] = [], print_vals: List[str] = []) -> List[Tuple[BuildTarget, List[Tuple[str, str]]]]:
+def search_make_targets(targets: List[str], filters: List[str] = []) -> List[BuildTarget]:
     """Search for build targets matching the supplied criteria.
     """
-    return [(KeyboardKeymapBuildTarget(e[0], e[1]), e[2]) for e in sorted(_filter_keymap_targets(expand_make_targets(targets), filters, print_vals), key=lambda e: (e[0], e[1]))]
+    return _filter_keymap_targets(expand_make_targets(targets), filters)

@@ -3,6 +3,7 @@
 This will compile everything in parallel, for testing purposes.
 """
 import os
+from typing import List
 from pathlib import Path
 from subprocess import DEVNULL
 from milc import cli
@@ -10,10 +11,10 @@ from milc import cli
 from qmk.constants import QMK_FIRMWARE
 from qmk.commands import find_make, get_make_parallel_args, build_environment
 from qmk.search import search_keymap_targets, search_make_targets
-from qmk.build_targets import JsonKeymapBuildTarget
+from qmk.build_targets import BuildTarget, JsonKeymapBuildTarget
 
 
-def mass_compile_targets(targets, clean, dry_run, no_temp, parallel, **env):
+def mass_compile_targets(targets: List[BuildTarget], clean: bool, dry_run: bool, no_temp: bool, parallel: int, **env):
     if len(targets) == 0:
         return
 
@@ -23,7 +24,7 @@ def mass_compile_targets(targets, clean, dry_run, no_temp, parallel, **env):
 
     if dry_run:
         cli.log.info('Compilation targets:')
-        for target in sorted(targets, key=lambda t: f'{t}'):
+        for target in sorted(targets, key=lambda t: (t.keyboard, t.keymap)):
             cli.log.info(f"{{fg_cyan}}qmk compile -kb {target[0]} -km {target[1]}{{fg_reset}}")
     else:
         if clean:
@@ -31,7 +32,7 @@ def mass_compile_targets(targets, clean, dry_run, no_temp, parallel, **env):
 
         builddir.mkdir(parents=True, exist_ok=True)
         with open(makefile, "w") as f:
-            for target, _ in sorted(targets, key=lambda t: f'{t[0]}'):
+            for target in sorted(targets, key=lambda t: (t.keyboard, t.keymap)):
                 keyboard_name = target.keyboard
                 keymap_name = target.keymap
                 target.configure(parallel=1)  # We ignore parallelism on a per-build basis as we defer to the parent make invocation
@@ -102,8 +103,8 @@ def mass_compile(cli):
     if len(cli.args.builds) > 0:
         json_like_targets = list([Path(p) for p in filter(lambda e: Path(e).exists() and Path(e).suffix == '.json', cli.args.builds)])
         make_like_targets = list(filter(lambda e: Path(e) not in json_like_targets, cli.args.builds))
-        targets = search_make_targets(make_like_targets, cli.args.filter)
-        targets.extend([(JsonKeymapBuildTarget(e), []) for e in json_like_targets])
+        targets = search_make_targets(make_like_targets)
+        targets.extend([JsonKeymapBuildTarget(e) for e in json_like_targets])
     else:
         targets = search_keymap_targets([('all', cli.config.mass_compile.keymap)], cli.args.filter)
 
