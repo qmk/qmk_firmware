@@ -15,7 +15,8 @@
     "features": {
         "extrakey": true,
         "midi": true,
-        "rgblight": true
+        "rgblight": true,
+        "encoder": true
     },
     "matrix_pins": {
         "cols": ["F0", "B1", "B2", "B3", "B7", "D0", "D1", "D2", "D3", "D5", "D7", "B4", "B5", "B6", "C6"],
