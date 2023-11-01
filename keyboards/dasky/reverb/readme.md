@@ -6,7 +6,7 @@ A unibody split with SK6803 mini-e per key RGB, GC9A01 display and Raspberry Pi 
 
 * Keyboard Maintainer: [Dasky](https://github.com/daskygit)
 * Hardware Supported: Raspberry Pi Pico, GC9A01
-* Hardware Availability: TBA
+* Hardware Availability: https://mechboards.co.uk/products/reverb-kit
 
 Make example for this keyboard (after setting up your build environment):
 
