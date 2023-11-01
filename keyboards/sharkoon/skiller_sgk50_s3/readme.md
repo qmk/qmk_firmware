@@ -1,6 +1,6 @@
 # SHARKOON SKILLER SGK50 S3
 
-![Imgur](https://i.imgur.com/q35h8v0.png)
+![Imgur](https://i.imgur.com/q35h8v0h.png)
 
 * Keyboard Maintainer: [JoyLee](https://github.com/itarze)
 * Hardware Supported: SHARKOON SKILLER SGK50 S3 PCB
