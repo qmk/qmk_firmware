@@ -61,13 +61,18 @@
 #define IS31FL3737_I2C_ADDRESS_SDA 0x5A
 #define IS31FL3737_I2C_ADDRESS_VCC 0x5F
 
+#if defined(LED_MATRIX_IS31FL3737)
+#    define IS31FL3737_LED_COUNT LED_MATRIX_LED_COUNT
+#endif
+
 typedef struct is31fl3737_led_t {
     uint8_t driver : 2;
     uint8_t v;
 } __attribute__((packed)) is31fl3737_led_t;
 
-extern const is31fl3737_led_t PROGMEM g_is31fl3737_leds[LED_MATRIX_LED_COUNT];
+extern const is31fl3737_led_t PROGMEM g_is31fl3737_leds[IS31FL3737_LED_COUNT];
 
+void is31fl3737_init_drivers(void);
 void is31fl3737_init(uint8_t addr);
 void is31fl3737_write_register(uint8_t addr, uint8_t reg, uint8_t data);
 void is31fl3737_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);

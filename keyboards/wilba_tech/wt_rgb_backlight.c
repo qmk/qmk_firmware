@@ -157,7 +157,7 @@ uint32_t g_any_key_hit = 0;
 #if defined(RGB_BACKLIGHT_HS60)
 #define ISSI_ADDR_1 IS31FL3733_I2C_ADDRESS_GND_GND
 
-const is31fl3733_led_t PROGMEM g_is31fl3733_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -234,7 +234,7 @@ const is31fl3733_led_t PROGMEM g_is31fl3733_leds[RGB_MATRIX_LED_COUNT] = {
 #define ISSI_ADDR_1 IS31FL3733_I2C_ADDRESS_GND_GND
 #define ISSI_ADDR_2 IS31FL3733_I2C_ADDRESS_GND_SDA
 
-const is31fl3733_led_t PROGMEM g_is31fl3733_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -375,7 +375,7 @@ const is31fl3733_led_t PROGMEM g_is31fl3733_leds[RGB_MATRIX_LED_COUNT] = {
 #elif defined(RGB_BACKLIGHT_NEBULA12)
 #define ISSI_ADDR_1 IS31FL3731_I2C_ADDRESS_GND
 
-const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -406,7 +406,7 @@ const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
 #define ISSI_ADDR_2 IS31FL3731_I2C_ADDRESS_SDA
 #define ISSI_ADDR_3 IS31FL3731_I2C_ADDRESS_SCL
 
-const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -531,7 +531,7 @@ const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
 #define ISSI_ADDR_1 IS31FL3731_I2C_ADDRESS_GND
 #define ISSI_ADDR_2 IS31FL3731_I2C_ADDRESS_SDA
 
-const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -610,7 +610,7 @@ const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
 #define ISSI_ADDR_1 IS31FL3731_I2C_ADDRESS_GND
 #define ISSI_ADDR_2 IS31FL3731_I2C_ADDRESS_VCC
 
-const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |   R location
@@ -694,7 +694,7 @@ const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
 #define ISSI_ADDR_1 IS31FL3741_I2C_ADDRESS_GND
 #define ISSI_ADDR_2
 
-const is31fl3741_led_t PROGMEM g_is31fl3741_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3741_led_t PROGMEM g_is31fl3741_leds[IS31FL3741_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |   R location
@@ -817,7 +817,7 @@ const is31fl3741_led_t PROGMEM g_is31fl3741_leds[RGB_MATRIX_LED_COUNT] = {
 };
 
 #elif defined(RGB_BACKLIGHT_M6_B)
-const is31fl3218_led_t PROGMEM g_is31fl3218_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3218_led_t PROGMEM g_is31fl3218_leds[IS31FL3218_LED_COUNT] = {
     {OUT1,  OUT2,  OUT3},
     {OUT4,  OUT5,  OUT6},
     {OUT7,  OUT8,  OUT9},
@@ -829,7 +829,7 @@ const is31fl3218_led_t PROGMEM g_is31fl3218_leds[RGB_MATRIX_LED_COUNT] = {
 #define ISSI_ADDR_1 IS31FL3731_I2C_ADDRESS_GND
 #define ISSI_ADDR_2
 
-const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
     {0, C1_9,  C3_10, C4_10}, // LB1
     {0, C1_10, C2_10, C4_11}, // LB2
     {0, C1_11, C2_11, C3_11}, // LB3
@@ -847,7 +847,7 @@ const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
 #define ISSI_ADDR_1 IS31FL3731_I2C_ADDRESS_GND
 #define ISSI_ADDR_2 IS31FL3731_I2C_ADDRESS_SDA
 
-const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -1817,12 +1817,12 @@ void backlight_set_color( int index, uint8_t red, uint8_t green, uint8_t blue )
         is31fl3733_set_color( index, red, green, blue );
     }
 #elif defined(RGB_BACKLIGHT_DAWN60)
-    if( index < RGB_MATRIX_LED_COUNT ) {
+    if( index < IS31FL3731_LED_COUNT ) {
         is31fl3731_set_color( index, red, green, blue );
     } else {
-        g_ws2812_leds[index - RGB_MATRIX_LED_COUNT].r = red;
-        g_ws2812_leds[index - RGB_MATRIX_LED_COUNT].g = green;
-        g_ws2812_leds[index - RGB_MATRIX_LED_COUNT].b = blue;
+        g_ws2812_leds[index - IS31FL3731_LED_COUNT].r = red;
+        g_ws2812_leds[index - IS31FL3731_LED_COUNT].g = green;
+        g_ws2812_leds[index - IS31FL3731_LED_COUNT].b = blue;
         ws2812_setleds(g_ws2812_leds, WS2812_LED_TOTAL);
     }
 #else
@@ -2111,9 +2111,9 @@ void backlight_effect_alphas_mods(void)
     for (int i = 0; i < WS2812_LED_TOTAL; i++) {
         if ((RGB_UNDERGLOW_ALPHA_TOP_START <= i && i <= RGB_UNDERGLOW_ALPHA_TOP_END) ||
             (RGB_UNDERGLOW_ALPHA_BOT_START <= i && i <= RGB_UNDERGLOW_ALPHA_BOT_END)) {
-            backlight_set_color(i + RGB_MATRIX_LED_COUNT, rgb1.r, rgb1.g, rgb1.b);
+            backlight_set_color(i + IS31FL3731_LED_COUNT, rgb1.r, rgb1.g, rgb1.b);
         } else {
-            backlight_set_color(i + RGB_MATRIX_LED_COUNT, rgb2.r, rgb2.g, rgb2.b);
+            backlight_set_color(i + IS31FL3731_LED_COUNT, rgb2.r, rgb2.g, rgb2.b);
         }
     }
 #endif
@@ -2902,7 +2902,7 @@ void backlight_init_drivers(void)
 #if defined(RGB_BACKLIGHT_M6_B)
     is31fl3218_init();
 
-    for ( int index = 0; index < RGB_MATRIX_LED_COUNT; index++ )
+    for ( int index = 0; index < IS31FL3218_LED_COUNT; index++ )
     {
         bool enabled = true;
 
@@ -2913,9 +2913,9 @@ void backlight_init_drivers(void)
     // This actually updates the LED drivers
     is31fl3218_update_led_control_registers();
 #elif defined(RGB_BACKLIGHT_HS60)
-    is31fl3733_init( ISSI_ADDR_1, 0 );
+    is31fl3733_init( ISSI_ADDR_1, IS31FL3733_SYNC_NONE );
 
-    for ( int index = 0; index < RGB_MATRIX_LED_COUNT; index++ )
+    for ( int index = 0; index < IS31FL3733_LED_COUNT; index++ )
     {
 #if defined(HS60_ANSI)
         bool enabled = !( ( index == 48-1 ) || //LA48
@@ -2934,10 +2934,10 @@ void backlight_init_drivers(void)
     // This actually updates the LED drivers
     is31fl3733_update_led_control_registers( ISSI_ADDR_1, 0 );
 #elif defined(RGB_BACKLIGHT_NK65)
-    is31fl3733_init( ISSI_ADDR_1, 0 );
-    is31fl3733_init( ISSI_ADDR_2, 0 );
+    is31fl3733_init( ISSI_ADDR_1, IS31FL3733_SYNC_NONE );
+    is31fl3733_init( ISSI_ADDR_2, IS31FL3733_SYNC_NONE );
 
-    for ( int index = 0; index < RGB_MATRIX_LED_COUNT; index++ )
+    for ( int index = 0; index < IS31FL3733_LED_COUNT; index++ )
     {
         bool enabled = !( ( index == 61-1 )   || //LA61
                           ( index > 6+64-1 ) ); //LB7-LB64
@@ -2949,10 +2949,10 @@ void backlight_init_drivers(void)
     is31fl3733_update_led_control_registers( ISSI_ADDR_1, 0 );
     is31fl3733_update_led_control_registers( ISSI_ADDR_2, 1 );
 #elif defined(RGB_BACKLIGHT_NK87)
-    is31fl3733_init( ISSI_ADDR_1, 0 );
-    is31fl3733_init( ISSI_ADDR_2, 0 );
+    is31fl3733_init( ISSI_ADDR_1, IS31FL3733_SYNC_NONE );
+    is31fl3733_init( ISSI_ADDR_2, IS31FL3733_SYNC_NONE );
 
-    for ( int index = 0; index < RGB_MATRIX_LED_COUNT; index++ )
+    for ( int index = 0; index < IS31FL3733_LED_COUNT; index++ )
     {
         bool enabled = !( ( index == 61-1 )   || //LA61
                           ( (index >= 2+64-1) && (index <= 4+64-1) ) ||
@@ -2979,10 +2979,10 @@ void backlight_init_drivers(void)
     is31fl3733_update_led_control_registers( ISSI_ADDR_1, 0 );
     is31fl3733_update_led_control_registers( ISSI_ADDR_2, 1 );
 #elif defined(RGB_BACKLIGHT_NEBULA68)
-    is31fl3733_init( ISSI_ADDR_1, 0 );
-    is31fl3733_init( ISSI_ADDR_2, 0 );
+    is31fl3733_init( ISSI_ADDR_1, IS31FL3733_SYNC_NONE );
+    is31fl3733_init( ISSI_ADDR_2, IS31FL3733_SYNC_NONE );
 
-    for ( int index = 0; index < RGB_MATRIX_LED_COUNT; index++ )
+    for ( int index = 0; index < IS31FL3733_LED_COUNT; index++ )
     {
         bool enabled = !( ( index == 61-1 )   || //LA61
                           ( index > 5+64-1 ) ); //LB6-LB64
@@ -2995,17 +2995,17 @@ void backlight_init_drivers(void)
 #elif defined(RGB_BACKLIGHT_PORTICO75)
     is31fl3741_init( ISSI_ADDR_1 );
 	bool enabled = true;
-    for ( int index = 0; index < RGB_MATRIX_LED_COUNT; index++ )
+    for ( int index = 0; index < IS31FL3741_LED_COUNT; index++ )
     {
         is31fl3741_set_led_control_register( index, enabled, enabled, enabled );
     }
     // This actually updates the LED drivers
     is31fl3741_update_led_control_registers( ISSI_ADDR_1, 0 );
 #elif defined(RGB_BACKLIGHT_KW_MEGA)
-    is31fl3733_init( ISSI_ADDR_1, 0 );
-    is31fl3733_init( ISSI_ADDR_2, 0 );
+    is31fl3733_init( ISSI_ADDR_1, IS31FL3733_SYNC_NONE );
+    is31fl3733_init( ISSI_ADDR_2, IS31FL3733_SYNC_NONE );
 
-    for ( int index = 0; index < RGB_MATRIX_LED_COUNT; index++ )
+    for ( int index = 0; index < IS31FL3733_LED_COUNT; index++ )
     {
         bool enabled = !( ( index == 61-1 )   || //LA61
                           ( index > 6+64-1 ) ); //LB7-LB64
@@ -3032,7 +3032,7 @@ void backlight_init_drivers(void)
     bool disable_spacebar_stab_leds = false;
 #endif
 
-    for ( int index = 0; index < RGB_MATRIX_LED_COUNT; index++ )
+    for ( int index = 0; index < BACKLIGHT_LED_COUNT; index++ )
     {
         // OR the possible "disabled" cases together, then NOT the result to get the enabled state
         // LC6 LD13 not present on Zeal65

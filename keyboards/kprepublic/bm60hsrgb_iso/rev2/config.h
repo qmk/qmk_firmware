@@ -82,7 +82,7 @@
 // IS31FL3733+WS2812 driver setup used by this board the LED controller drivers
 // are compiled unconditionally).
 
-#define ISSI_LED_TOTAL DRIVER_1_LED_TOTAL
+#define IS31FL3733_LED_COUNT DRIVER_1_LED_TOTAL
 
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180
 
@@ -94,7 +94,7 @@
 #    define WS2812_LED_TOTAL 6
 #endif
 
-#define RGB_MATRIX_LED_COUNT (ISSI_LED_TOTAL + WS2812_LED_TOTAL)
+#define RGB_MATRIX_LED_COUNT (IS31FL3733_LED_COUNT + WS2812_LED_TOTAL)
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_KEYPRESSES

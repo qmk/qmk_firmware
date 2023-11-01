@@ -71,11 +71,13 @@ void IS31FL_common_flush(void);
 
 #ifdef RGB_MATRIX_ENABLE
 // RGB Matrix Specific scripts
+void IS31FL_RGB_init_drivers(void);
 void IS31FL_RGB_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
 void IS31FL_RGB_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
 void IS31FL_RGB_set_scaling_buffer(uint8_t index, bool red, bool green, bool blue);
 #elif defined(LED_MATRIX_ENABLE)
 // LED Matrix Specific scripts
+void IS31FL_simple_init_drivers(void);
 void IS31FL_simple_set_scaling_buffer(uint8_t index, bool value);
 void IS31FL_simple_set_brightness(int index, uint8_t value);
 void IS31FL_simple_set_brigntness_all(uint8_t value);

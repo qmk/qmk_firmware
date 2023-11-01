@@ -81,7 +81,7 @@
 #define IS31FL3733_I2C_ADDRESS_1 IS31FL3733_I2C_ADDRESS_GND_GND
 #define DRIVER_1_LED_TOTAL 61
 
-#define ISSI_LED_TOTAL DRIVER_1_LED_TOTAL
+#define IS31FL3733_LED_COUNT DRIVER_1_LED_TOTAL
 
 // Underglow LEDs are WS2812, but someone might want to use RGBLIGHT for them;
 // don't use those LEDs in RGB Matrix in that case.
@@ -91,7 +91,7 @@
 #    define WS2812_LED_TOTAL 6
 #endif
 
-#define RGB_MATRIX_LED_COUNT (ISSI_LED_TOTAL + WS2812_LED_TOTAL)
+#define RGB_MATRIX_LED_COUNT (IS31FL3733_LED_COUNT + WS2812_LED_TOTAL)
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_KEYPRESSES

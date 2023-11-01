@@ -29,7 +29,6 @@
     },
     "split": {
         "enabled": true,
-        "main": "left",
         "matrix_pins": {
             "right": {
                 "direct": [
