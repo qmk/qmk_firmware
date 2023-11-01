@@ -24,6 +24,9 @@
 #define IS31FL3218_REG_UPDATE 0x16
 #define IS31FL3218_REG_RESET 0x17
 
+#define IS31FL3218_PWM_REGISTER_COUNT 18
+#define IS31FL3218_LED_CONTROL_REGISTER_COUNT 3
+
 #ifndef IS31FL3218_I2C_TIMEOUT
 #    define IS31FL3218_I2C_TIMEOUT 100
 #endif
@@ -36,11 +39,11 @@
 uint8_t g_twi_transfer_buffer[20];
 
 // IS31FL3218 has 18 PWM outputs and a fixed I2C address, so no chaining.
-uint8_t g_pwm_buffer[18];
+uint8_t g_pwm_buffer[IS31FL3218_PWM_REGISTER_COUNT];
 bool    g_pwm_buffer_update_required = false;
 
-uint8_t g_led_control_registers[3]              = {0};
-bool    g_led_control_registers_update_required = false;
+uint8_t g_led_control_registers[IS31FL3218_LED_CONTROL_REGISTER_COUNT] = {0};
+bool    g_led_control_registers_update_required                        = false;
 
 void is31fl3218_write_register(uint8_t reg, uint8_t data) {
     g_twi_transfer_buffer[0] = reg;
@@ -77,12 +80,12 @@ void is31fl3218_init(void) {
     is31fl3218_write_register(IS31FL3218_REG_SHUTDOWN, 0x01);
 
     // Set all PWM values to zero
-    for (uint8_t i = 0; i < 18; i++) {
+    for (uint8_t i = 0; i < IS31FL3218_PWM_REGISTER_COUNT; i++) {
         is31fl3218_write_register(IS31FL3218_REG_PWM + i, 0x00);
     }
 
     // turn off all LEDs in the LED control register
-    for (uint8_t i = 0; i < 3; i++) {
+    for (uint8_t i = 0; i < IS31FL3218_LED_CONTROL_REGISTER_COUNT; i++) {
         is31fl3218_write_register(IS31FL3218_REG_CONTROL + i, 0x00);
     }
 
@@ -158,7 +161,7 @@ void is31fl3218_update_pwm_buffers(void) {
 
 void is31fl3218_update_led_control_registers(void) {
     if (g_led_control_registers_update_required) {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < IS31FL3218_LED_CONTROL_REGISTER_COUNT; i++) {
             is31fl3218_write_register(IS31FL3218_REG_CONTROL + i, g_led_control_registers[i]);
         }
 
