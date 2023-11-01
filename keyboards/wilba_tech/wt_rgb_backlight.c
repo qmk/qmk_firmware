@@ -306,14 +306,7 @@ const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT] = {
 #elif defined(RGB_BACKLIGHT_PORTICO75)
 // ...
 #elif defined(RGB_BACKLIGHT_M6_B)
-const is31fl3218_led_t PROGMEM g_is31fl3218_leds[IS31FL3218_LED_COUNT] = {
-    {OUT1,  OUT2,  OUT3},
-    {OUT4,  OUT5,  OUT6},
-    {OUT7,  OUT8,  OUT9},
-    {OUT10, OUT11, OUT12},
-    {OUT13, OUT14, OUT15},
-    {OUT16, OUT17, OUT18}
-};
+// ...
 #elif defined(RGB_BACKLIGHT_M10_C)
 const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
     {0, C1_9,  C3_10, C4_10}, // LB1
