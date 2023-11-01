@@ -26,17 +26,6 @@
         "rows": ["B3", "D0", "D1", "D2", "D3"]
     },
     "rgblight": {
-        "animations": {
-            "breathing": true,
-            "rainbow_mood": true,
-            "rainbow_swirl": true,
-            "snake": true,
-            "knight": true,
-            "christmas": true,
-            "static_gradient": true,
-            "rgb_test": true,
-            "alternating": true
-        },
         "brightness_steps": 4,
         "hue_steps": 10,
         "led_count": 1,
