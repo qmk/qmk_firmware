@@ -341,10 +341,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     //キー毎に時間差で色が変化していく
     if (aqours_next_color_timer_count % NEXT_CHANGE_TARGET_TIME == 0) {
       if (target_col < MATRIX_COLS) {
-        sethsv(aqours_h[aqours_num], aqours_s[aqours_num], aqours_v[aqours_num], (LED_TYPE *)&led[target_col]);
-        sethsv(aqours_h[aqours_num], aqours_s[aqours_num], aqours_v[aqours_num], (LED_TYPE *)&led[11 - target_col]);
-        sethsv(aqours_h[aqours_num], aqours_s[aqours_num], aqours_v[aqours_num], (LED_TYPE *)&led[12 + target_col]);
-        sethsv(aqours_h[aqours_num], aqours_s[aqours_num], aqours_v[aqours_num], (LED_TYPE *)&led[23 - target_col]);
+        sethsv(aqours_h[aqours_num], aqours_s[aqours_num], aqours_v[aqours_num], (rgb_led_t *)&led[target_col]);
+        sethsv(aqours_h[aqours_num], aqours_s[aqours_num], aqours_v[aqours_num], (rgb_led_t *)&led[11 - target_col]);
+        sethsv(aqours_h[aqours_num], aqours_s[aqours_num], aqours_v[aqours_num], (rgb_led_t *)&led[12 + target_col]);
+        sethsv(aqours_h[aqours_num], aqours_s[aqours_num], aqours_v[aqours_num], (rgb_led_t *)&led[23 - target_col]);
         target_col++;
         rgblight_set();
       }

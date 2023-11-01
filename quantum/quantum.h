@@ -56,6 +56,8 @@
 #include "suspend.h"
 #include <stddef.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
 #ifdef DEFERRED_EXEC_ENABLE
 #    include "deferred_exec.h"
@@ -207,6 +209,10 @@ extern layer_state_t layer_state;
 
 #ifdef POINTING_DEVICE_ENABLE
 #    include "pointing_device.h"
+#endif
+
+#ifdef MOUSEKEY_ENABLE
+#    include "mousekey.h"
 #endif
 
 #ifdef CAPS_WORD_ENABLE

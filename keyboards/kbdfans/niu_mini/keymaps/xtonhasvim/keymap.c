@@ -162,7 +162,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /** Set just 4 LEDs closest to the user. Slightly less annoying to bystanders.*/
 void rgbflag(uint8_t r, uint8_t g, uint8_t b, uint8_t rr, uint8_t gg, uint8_t bb) {
-  LED_TYPE *target_led = user_rgb_mode ? shadowed_led : led;
+  rgb_led_t *target_led = user_rgb_mode ? shadowed_led : led;
   for (int i = 0; i < RGBLED_NUM; i++)  {
     switch (i) {
     case 12: case 13:
