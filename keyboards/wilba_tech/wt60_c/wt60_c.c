@@ -1,25 +1,13 @@
-/* Copyright 2020 Jason Williams (Wilba)
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-#ifndef RGB_BACKLIGHT_M65_BX
-#    error RGB_BACKLIGHT_M65_BX not defined
-#else
+// Copyright 2022 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+#include "wt60_c.h"
+
+#ifdef RGB_BACKLIGHT_WT60_BX
 #    include "drivers/led/issi/is31fl3731.h"
 #endif
 
-#if defined(RGB_MATRIX_ENABLE) || defined(RGB_BACKLIGHT_M65_BX)
+#if defined(RGB_MATRIX_ENABLE) || defined(RGB_BACKLIGHT_WT60_BX)
 const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
