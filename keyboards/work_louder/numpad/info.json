@@ -29,7 +29,7 @@
         "lto": true
     },
     "rgb_matrix": {
-        "driver": "WS2812",
+        "driver": "ws2812",
         "layout": [
             {"flags": 1, "matrix": [3, 3], "x": 141, "y": 64},
             {"flags": 1, "matrix": [3, 2], "x": 122, "y": 64},

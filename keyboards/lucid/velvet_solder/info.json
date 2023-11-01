@@ -4,7 +4,7 @@
     "url": "http://www.makerkeyboards.com",
     "maintainer": "Maker Keyboards",
     "usb": {
-        "device_version": "1.0.0",
+        "device_version": "1.0.1",
         "pid": "0x0007",
         "vid": "0x7667"
     },
@@ -14,9 +14,6 @@
         "rows": ["B4", "B5", "B6", "C0", "E1", "E0"]
     },
     "features": {
-        "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

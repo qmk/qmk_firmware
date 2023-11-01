@@ -23,7 +23,7 @@ void board_init(void) {
 
 void keyboard_post_init_kb(void){
  // Defining the backlight pin (A6) as an floating (no pullup or pulldown resistor) opendrain output pin
-    palSetLineMode(BACKLIGHT_PIN, PAL_MODE_ALTERNATE(BACKLIGHT_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_FLOATING);
+    palSetLineMode(BACKLIGHT_PIN, PAL_MODE_ALTERNATE(2) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_FLOATING);
 }
 
 void led_init_ports(void) {

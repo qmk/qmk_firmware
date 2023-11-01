@@ -22,6 +22,12 @@
 #include "raw_hid.h"
 #include "rgb_matrix.h"
 #include "version.h"
+#include "keyboard.h"
+#include "eeprom.h"
+#include "matrix.h"
+#include "action_layer.h"
+#include "bootloader.h"
+#include "wait.h"
 
 enum Command {
     CMD_PROBE         = 1,   // Probe for System76 EC protocol

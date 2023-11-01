@@ -22,9 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* FIXME: Add doxygen comments here. */
 
-/* keyboard LEDs */
-#define USB_LED_CAPS_LOCK 1
-
 #ifdef __cplusplus
 extern "C" {
 #endif

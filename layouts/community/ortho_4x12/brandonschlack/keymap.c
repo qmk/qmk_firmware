@@ -100,12 +100,13 @@ void keyboard_post_init_keymap(void) {
 }
 
 // Use Green LED for Caps Lock
-void led_set_user(uint8_t usb_led) {
-    if (IS_LED_OFF(usb_led, USB_LED_CAPS_LOCK)) {
+bool led_update_user(led_t led_state) {
+    if (led_state.caps_lock) {
         writePinLow(LED_GREEN);
     } else {
         writePinHigh(LED_GREEN);
     }
+    return false;
 }
 #endif
 

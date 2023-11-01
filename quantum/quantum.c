@@ -16,24 +16,56 @@
 
 #include "quantum.h"
 
+#if defined(BACKLIGHT_ENABLE) || defined(LED_MATRIX_ENABLE)
+#    include "process_backlight.h"
+#endif
+
 #ifdef BLUETOOTH_ENABLE
 #    include "outputselect.h"
 #endif
 
-#ifdef BACKLIGHT_ENABLE
-#    include "backlight.h"
+#ifdef GRAVE_ESC_ENABLE
+#    include "process_grave_esc.h"
+#endif
+
+#ifdef HAPTIC_ENABLE
+#    include "process_haptic.h"
+#endif
+
+#ifdef JOYSTICK_ENABLE
+#    include "process_joystick.h"
+#endif
+
+#ifdef LEADER_ENABLE
+#    include "process_leader.h"
+#endif
+
+#ifdef MAGIC_KEYCODE_ENABLE
+#    include "process_magic.h"
 #endif
 
 #ifdef MIDI_ENABLE
 #    include "process_midi.h"
 #endif
 
-#ifdef VELOCIKEY_ENABLE
-#    include "velocikey.h"
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+#    include "process_programmable_button.h"
 #endif
 
-#ifdef HAPTIC_ENABLE
-#    include "haptic.h"
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+#    include "process_rgb.h"
+#endif
+
+#ifdef SECURE_ENABLE
+#    include "process_secure.h"
+#endif
+
+#ifdef TRI_LAYER_ENABLE
+#    include "process_tri_layer.h"
+#endif
+
+#ifdef UNICODE_COMMON_ENABLE
+#    include "process_unicode_common.h"
 #endif
 
 #ifdef AUDIO_ENABLE
@@ -252,9 +284,9 @@ bool process_record_quantum(keyrecord_t *record) {
     }
 #endif
 
-#ifdef VELOCIKEY_ENABLE
-    if (velocikey_enabled() && record->event.pressed) {
-        velocikey_accelerate();
+#ifdef RGBLIGHT_ENABLE
+    if (record->event.pressed) {
+        preprocess_rgblight();
     }
 #endif
 
@@ -310,14 +342,14 @@ bool process_record_quantum(keyrecord_t *record) {
 #if (defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))) && !defined(NO_MUSIC_MODE)
             process_music(keycode, record) &&
 #endif
+#ifdef CAPS_WORD_ENABLE
+            process_caps_word(keycode, record) &&
+#endif
 #ifdef KEY_OVERRIDE_ENABLE
             process_key_override(keycode, record) &&
 #endif
 #ifdef TAP_DANCE_ENABLE
             process_tap_dance(keycode, record) &&
-#endif
-#ifdef CAPS_WORD_ENABLE
-            process_caps_word(keycode, record) &&
 #endif
 #if defined(UNICODE_COMMON_ENABLE)
             process_unicode_common(keycode, record) &&
