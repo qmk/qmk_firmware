@@ -7,7 +7,7 @@ from qmk.keymap import keymap_completer, is_keymap_target
 from qmk.userspace import UserspaceDefs
 
 
-@cli.argument('builds', nargs='*', arg_only=True, help="List of builds in form <keyboard>:<keymap> to compile in parallel. Specifying this overrides all other target search options.")
+@cli.argument('builds', nargs='*', arg_only=True, help="List of builds in form <keyboard>:<keymap>, or path to a keymap JSON file.")
 @cli.argument('-kb', '--keyboard', type=keyboard_folder_or_all, completer=keyboard_completer, help='The keyboard to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.argument('-km', '--keymap', completer=keymap_completer, help='The keymap to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.subcommand('Adds a build target to userspace `qmk.json`.')
@@ -34,6 +34,6 @@ def userspace_add(cli):
             cli.log.error('Invalid keymap argument.')
             return False
 
-        userspace.add_target(cli.args.keyboard, cli.args.keymap)
+        userspace.add_target(keyboard=cli.args.keyboard, keymap=cli.args.keymap)
 
     return userspace.save()
