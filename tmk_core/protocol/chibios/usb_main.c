@@ -827,24 +827,7 @@ uint8_t keyboard_leds(void) {
 }
 
 void send_report(uint8_t endpoint, void *report, size_t size) {
-    osalSysLock();
-    if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
-        osalSysUnlock();
-        return;
-    }
-
-    if (usbGetTransmitStatusI(&USB_DRIVER, endpoint)) {
-        /* Need to either suspend, or loop and call unlock/lock during
-         * every iteration - otherwise the system will remain locked,
-         * no interrupts served, so USB not going through as well.
-         * Note: for suspend, need USB_USE_WAIT == TRUE in halconf.h */
-        if (osalThreadSuspendTimeoutS(&(&USB_DRIVER)->epc[endpoint]->in_state->thread, TIME_MS2I(10)) == MSG_TIMEOUT) {
-            osalSysUnlock();
-            return;
-        }
-    }
-    usbStartTransmitI(&USB_DRIVER, endpoint, report, size);
-    osalSysUnlock();
+    usbTransmit(&USB_DRIVER, endpoint, report, size);
 }
 
 /* prepare and start sending a report IN
