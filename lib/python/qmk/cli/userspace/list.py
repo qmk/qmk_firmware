@@ -1,8 +1,10 @@
 from pathlib import Path
+from dotty_dict import Dotty
 from milc import cli
 
 from qmk.constants import QMK_USERSPACE, HAS_QMK_USERSPACE
 from qmk.userspace import UserspaceDefs
+from qmk.build_targets import BuildTarget
 from qmk.keyboard import is_all_keyboards
 from qmk.keymap import is_keymap_target
 from qmk.search import search_keymap_targets
@@ -22,7 +24,7 @@ def userspace_list(cli):
         for e in userspace.build_targets:
             if isinstance(e, Path):
                 build_targets.append(e)
-            elif isinstance(e, dict):
+            elif isinstance(e, dict) or isinstance(e, Dotty):
                 build_targets.extend(search_keymap_targets([(e['keyboard'], e['keymap'])]))
     else:
         build_targets = userspace.build_targets
@@ -32,14 +34,14 @@ def userspace_list(cli):
             # JSON keymap from userspace
             cli.log.info(f'JSON keymap: {{fg_cyan}}{e}{{fg_reset}}')
             continue
-        elif isinstance(e, dict):
+        elif isinstance(e, dict) or isinstance(e, Dotty):
             # keyboard/keymap dict from userspace
             keyboard = e['keyboard']
             keymap = e['keymap']
-        elif isinstance(e, tuple):
+        elif isinstance(e, BuildTarget):
             # BuildTarget from search_keymap_targets()
-            keyboard = e[0].keyboard
-            keymap = e[0].keymap
+            keyboard = e.keyboard
+            keymap = e.keymap
 
         if is_all_keyboards(keyboard) or is_keymap_target(keyboard, keymap):
             cli.log.info(f'Keyboard: {{fg_cyan}}{keyboard}{{fg_reset}}, keymap: {{fg_cyan}}{keymap}{{fg_reset}}')
