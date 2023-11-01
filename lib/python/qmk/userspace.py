@@ -111,12 +111,11 @@ class UserspaceDefs:
             cli.log.info(f'Saved userspace file to {self.path}.')
         return True
 
-    def add_target(self, keyboard, keymap=None, do_print=True):
-        if keymap is None:
+    def add_target(self, keyboard=None, keymap=None, json_path=None, do_print=True):
+        if json_path is not None:
             # Assume we're adding a json filename/path
-            json_path = Path(keyboard)
-            self.build_targets.append(json_path)
-        else:
+            self.build_targets.append(Path(json_path))
+        elif keyboard is not None and keymap is not None:
             # Both keyboard/keymap specified
             e = {"keyboard": keyboard, "keymap": keymap}
             if e not in self.build_targets:
@@ -127,12 +126,10 @@ class UserspaceDefs:
                 if do_print:
                     cli.log.info(f'{keyboard}:{keymap} is already a userspace build target.')
 
-    def remove_target(self, keyboard, keymap=None, do_print=True):
-        if keymap is None:
-            # Assume we're adding a json filename/path
-            json_path = Path(keyboard)
-            self.build_targets.remove(json_path)
-        else:
+    def remove_target(self, keyboard=None, keymap=None, json_path=None, do_print=True):
+        if json_path is not None:
+            self.build_targets.remove(Path(json_path))
+        elif keyboard is not None and keymap is not None:
             # Both keyboard/keymap specified
             e = {"keyboard": keyboard, "keymap": keymap}
             if e in self.build_targets:
@@ -146,11 +143,11 @@ class UserspaceDefs:
     def __load_v1(self, json):
         for e in json['build_targets']:
             if isinstance(e, list) and len(e) == 2:
-                self.add_target(e[0], e[1], False)
+                self.add_target(keyboard=e[0], keymap=e[1], do_print=False)
             if isinstance(e, str):
                 p = self.path.parent / e
                 if p.exists() and p.suffix == '.json':
-                    self.add_target(p)
+                    self.add_target(json_path=p, do_print=False)
 
 
 class UserspaceValidationError(Exception):
