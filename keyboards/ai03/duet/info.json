@@ -22,9 +22,6 @@
         "pid": "0x0028",
         "vid": "0xA103"
     },
-    "eeprom": {
-        "driver": "wear_leveling"
-    },
     "layouts": {
         "LAYOUT": {
             "layout": [
