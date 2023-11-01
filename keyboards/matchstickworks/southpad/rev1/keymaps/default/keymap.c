@@ -16,7 +16,7 @@
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT_numpad_6x4_southpaw( /* Base */
+    [0] = LAYOUT( /* Base */
         KC_BSPC, KC_EQL,  KC_LPRN, KC_RPRN,
         KC_PMNS, KC_PAST, KC_PSLS, KC_NUM,
                  KC_P9,   KC_P8,   KC_P7,

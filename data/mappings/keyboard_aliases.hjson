@@ -407,6 +407,9 @@
     "maartenwut/wonderland": {
         "target": "evyd13/wonderland"
     },
+    "matchstickworks/southpad": {
+        "target": "matchstickworks/southpad/rev2/"
+    },
     "matrix/m12og": {
         "target": "matrix/m12og/rev1"
     },
