@@ -19,6 +19,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "progmem.h"
+#include "util.h"
 
 // ======== DEPRECATED DEFINES - DO NOT USE ========
 #ifdef DRIVER_COUNT
@@ -66,7 +67,7 @@
 typedef struct snled27351_led_t {
     uint8_t driver : 2;
     uint8_t v;
-} __attribute__((packed)) snled27351_led_t;
+} PACKED snled27351_led_t;
 
 extern const snled27351_led_t PROGMEM g_snled27351_leds[SNLED27351_LED_COUNT];
 
