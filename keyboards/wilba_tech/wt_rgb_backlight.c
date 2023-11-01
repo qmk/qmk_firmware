@@ -160,7 +160,9 @@ uint32_t g_any_key_hit = 0;
 // ...
 #elif defined(RGB_BACKLIGHT_NEBULA68)
 // ...
-#elif defined(RGB_BACKLIGHT_NK87) || defined(RGB_BACKLIGHT_KW_MEGA)
+#elif defined(RGB_BACKLIGHT_NK87)
+// ...
+#elif defined(RGB_BACKLIGHT_KW_MEGA)
 const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
