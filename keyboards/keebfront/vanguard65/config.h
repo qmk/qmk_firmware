@@ -17,6 +17,4 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* Define MIDI */
 #define MIDI_ADVANCED
-#define SLIDER_PINA D6
