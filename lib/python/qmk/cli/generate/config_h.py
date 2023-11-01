@@ -74,7 +74,14 @@ def generate_matrix_size(kb_info_json, config_h_lines):
 
 def generate_matrix_masked(kb_info_json, config_h_lines):
     """"Enable matrix mask if required"""
+    mask_required = False
+
     if 'matrix_grid' in kb_info_json.get('dip_switch', {}):
+        mask_required = True
+    if 'matrix_grid' in kb_info_json.get('split', {}).get('handedness', {}):
+        mask_required = True
+
+    if mask_required:
         config_h_lines.append(generate_define('MATRIX_MASKED'))
 
 
@@ -141,6 +148,12 @@ def generate_encoder_config(encoder_json, config_h_lines, postfix=''):
 
 def generate_split_config(kb_info_json, config_h_lines):
     """Generate the config.h lines for split boards."""
+    if 'handedness' in kb_info_json['split']:
+        # TODO: change SPLIT_HAND_MATRIX_GRID to require brackets
+        handedness = kb_info_json['split']['handedness']
+        if 'matrix_grid' in handedness:
+            config_h_lines.append(generate_define('SPLIT_HAND_MATRIX_GRID', ', '.join(handedness['matrix_grid'])))
+
     if 'protocol' in kb_info_json['split'].get('transport', {}):
         if kb_info_json['split']['transport']['protocol'] == 'i2c':
             config_h_lines.append(generate_define('USE_I2C'))

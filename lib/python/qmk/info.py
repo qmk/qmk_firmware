@@ -352,6 +352,14 @@ def _extract_secure_unlock(info_data, config_c):
         info_data['secure']['unlock_sequence'] = unlock_array
 
 
+def _extract_split_handedness(info_data, config_c):
+    # Migrate
+    split = info_data.get('split', {})
+    if 'matrix_grid' in split:
+        split['handedness'] = split.get('handedness', {})
+        split['handedness']['matrix_grid'] = split.pop('matrix_grid')
+
+
 def _extract_split_transport(info_data, config_c):
     # Figure out the transport method
     if config_c.get('USE_I2C') is True:
@@ -543,6 +551,7 @@ def _extract_config_h(info_data, config_c):
     _extract_matrix_info(info_data, config_c)
     _extract_audio(info_data, config_c)
     _extract_secure_unlock(info_data, config_c)
+    _extract_split_handedness(info_data, config_c)
     _extract_split_transport(info_data, config_c)
     _extract_split_right_pins(info_data, config_c)
     _extract_encoders(info_data, config_c)

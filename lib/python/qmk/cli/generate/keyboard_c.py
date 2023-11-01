@@ -63,13 +63,14 @@ def _gen_matrix_mask(info_data):
     cols = info_data['matrix_size']['cols']
     rows = info_data['matrix_size']['rows']
 
-    # Default mask to everything enabled
-    mask = [['1'] * cols for i in range(rows)]
+    # Default mask to everything disabled
+    mask = [['0'] * cols for i in range(rows)]
 
-    # Automatically mask out dip_switch.matrix_grid locations
-    matrix_grid = info_data.get('dip_switch', {}).get('matrix_grid', [])
-    for row, col in matrix_grid:
-        mask[row][col] = '0'
+    # Mirror layout macros squashed on top of each other
+    for layout_data in info_data['layouts'].values():
+        for key_data in layout_data['layout']:
+            row, col = key_data['matrix']
+            mask[row][col] = '1'
 
     lines = []
     lines.append('#ifdef MATRIX_MASKED')

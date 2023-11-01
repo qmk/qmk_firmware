@@ -640,10 +640,6 @@
                         }
                     }
                 },
-                "matrix_grid": {
-                    "type": "array",
-                    "items": {"$ref": "qmk.definitions.v1#/mcu_pin"}
-                },
                 "matrix_pins": {
                     "type": "object",
                     "additionalProperties": false,
@@ -678,6 +674,18 @@
                     "properties": {
                         "right": {
                             "$ref": "#/definitions/encoder_config"
+                        }
+                    }
+                },
+                "handedness": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                        "matrix_grid": {
+                            "$ref": "qmk.definitions.v1#/mcu_pin_array",
+                            "minItems": 2,
+                            "maxItems": 2
                         }
                     }
                 },
@@ -736,6 +744,11 @@
                     "type": "string",
                     "enum": ["eeprom", "left", "matrix_grid", "pin", "right"],
                     "$comment": "Deprecated: use config.h options for now"
+                },
+                "matrix_grid": {
+                    "type": "array",
+                    "items": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                    "$comment": "Deprecated: use split.handedness.matrix_grid instead"
                 }
             }
         },
