@@ -1,13 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "bootloader.h"
-#include "mousekey.h"
-#include "pointing_device.h"
-#include "report.h"
-
-#ifdef PROTOCOL_LUFA
-  #include "lufa.h"
-  #include "split_util.h"
-#endif
 
 extern bool isScrollMode;
 

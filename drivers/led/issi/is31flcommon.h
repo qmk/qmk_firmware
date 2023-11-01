@@ -25,13 +25,13 @@
 #include "progmem.h"
 
 // Which variant header file to use
-#ifdef IS31FL3742A
+#if defined(LED_MATRIX_IS31FL3742A) || defined(RGB_MATRIX_IS31FL3742A)
 #    include "is31fl3742.h"
-#elif defined(IS31FL3743A)
+#elif defined(LED_MATRIX_IS31FL3743A) || defined(RGB_MATRIX_IS31FL3743A)
 #    include "is31fl3743.h"
-#elif defined(IS31FL3745)
+#elif defined(LED_MATRIX_IS31FL3745) || defined(RGB_MATRIX_IS31FL3745)
 #    include "is31fl3745.h"
-#elif defined(IS31FL3746A)
+#elif defined(LED_MATRIX_IS31FL3746A) || defined(RGB_MATRIX_IS31FL3746A)
 #    include "is31fl3746.h"
 #endif
 
@@ -67,13 +67,17 @@ void IS31FL_common_init(uint8_t addr, uint8_t ssr);
 void IS31FL_common_update_pwm_register(uint8_t addr, uint8_t index);
 void IS31FL_common_update_scaling_register(uint8_t addr, uint8_t index);
 
+void IS31FL_common_flush(void);
+
 #ifdef RGB_MATRIX_ENABLE
 // RGB Matrix Specific scripts
+void IS31FL_RGB_init_drivers(void);
 void IS31FL_RGB_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
 void IS31FL_RGB_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
 void IS31FL_RGB_set_scaling_buffer(uint8_t index, bool red, bool green, bool blue);
 #elif defined(LED_MATRIX_ENABLE)
 // LED Matrix Specific scripts
+void IS31FL_simple_init_drivers(void);
 void IS31FL_simple_set_scaling_buffer(uint8_t index, bool value);
 void IS31FL_simple_set_brightness(int index, uint8_t value);
 void IS31FL_simple_set_brigntness_all(uint8_t value);

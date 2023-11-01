@@ -23,15 +23,73 @@
 #include <stdbool.h>
 #include "progmem.h"
 
-typedef struct is31_led {
+// ======== DEPRECATED DEFINES - DO NOT USE ========
+#ifdef DRIVER_ADDR_1
+#    define IS31FL3741_I2C_ADDRESS_1 DRIVER_ADDR_1
+#endif
+#ifdef DRIVER_ADDR_2
+#    define IS31FL3741_I2C_ADDRESS_2 DRIVER_ADDR_2
+#endif
+#ifdef DRIVER_ADDR_3
+#    define IS31FL3741_I2C_ADDRESS_3 DRIVER_ADDR_3
+#endif
+#ifdef DRIVER_ADDR_4
+#    define IS31FL3741_I2C_ADDRESS_4 DRIVER_ADDR_4
+#endif
+#ifdef DRIVER_COUNT
+#    define IS31FL3741_DRIVER_COUNT DRIVER_COUNT
+#endif
+#ifdef ISSI_TIMEOUT
+#    define IS31FL3741_I2C_TIMEOUT ISSI_TIMEOUT
+#endif
+#ifdef ISSI_PERSISTENCE
+#    define IS31FL3741_I2C_PERSISTENCE ISSI_PERSISTENCE
+#endif
+#ifdef ISSI_CONFIGURATION
+#    define IS31FL3741_CONFIGURATION ISSI_CONFIGURATION
+#endif
+#ifdef ISSI_SWPULLUP
+#    define IS31FL3741_SWPULLUP ISSI_SWPULLUP
+#endif
+#ifdef ISSI_CSPULLUP
+#    define IS31FL3741_CSPULLUP ISSI_CSPULLUP
+#endif
+#ifdef ISSI_GLOBALCURRENT
+#    define IS31FL3741_GLOBALCURRENT ISSI_GLOBALCURRENT
+#endif
+
+#define is31_led is31fl3741_led_t
+#define g_is31_leds g_is31fl3741_leds
+
+#define PUR_0R IS31FL3741_PUR_0R
+#define PUR_05KR IS31FL3741_PUR_05KR
+#define PUR_1KR IS31FL3741_PUR_1KR
+#define PUR_2KR IS31FL3741_PUR_2KR
+#define PUR_4KR IS31FL3741_PUR_4KR
+#define PUR_8KR IS31FL3741_PUR_8KR
+#define PUR_16KR IS31FL3741_PUR_16KR
+#define PUR_32KR IS31FL3741_PUR_32KR
+// ========
+
+#define IS31FL3741_I2C_ADDRESS_GND 0x30
+#define IS31FL3741_I2C_ADDRESS_SCL 0x31
+#define IS31FL3741_I2C_ADDRESS_SDA 0x32
+#define IS31FL3741_I2C_ADDRESS_VCC 0x33
+
+#if defined(RGB_MATRIX_IS31FL3741)
+#    define IS31FL3741_LED_COUNT RGB_MATRIX_LED_COUNT
+#endif
+
+typedef struct is31fl3741_led_t {
     uint32_t driver : 2;
     uint32_t r : 10;
     uint32_t g : 10;
     uint32_t b : 10;
-} __attribute__((packed)) is31_led;
+} __attribute__((packed)) is31fl3741_led_t;
 
-extern const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT];
+extern const is31fl3741_led_t PROGMEM g_is31fl3741_leds[IS31FL3741_LED_COUNT];
 
+void is31fl3741_init_drivers(void);
 void is31fl3741_init(uint8_t addr);
 void is31fl3741_write_register(uint8_t addr, uint8_t reg, uint8_t data);
 bool is31fl3741_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
@@ -47,18 +105,25 @@ void is31fl3741_set_led_control_register(uint8_t index, bool red, bool green, bo
 // If the buffer is dirty, it will update the driver with the buffer.
 void is31fl3741_update_pwm_buffers(uint8_t addr, uint8_t index);
 void is31fl3741_update_led_control_registers(uint8_t addr, uint8_t index);
-void is31fl3741_set_scaling_registers(const is31_led *pled, uint8_t red, uint8_t green, uint8_t blue);
+void is31fl3741_set_scaling_registers(const is31fl3741_led_t *pled, uint8_t red, uint8_t green, uint8_t blue);
 
-void is31fl3741_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green, uint8_t blue);
+void is31fl3741_set_pwm_buffer(const is31fl3741_led_t *pled, uint8_t red, uint8_t green, uint8_t blue);
 
-#define PUR_0R 0x00   // No PUR resistor
-#define PUR_05KR 0x01 // 0.5k Ohm resistor
-#define PUR_1KR 0x02  // 1.0k Ohm resistor
-#define PUR_2KR 0x03  // 2.0k Ohm resistor
-#define PUR_4KR 0x04  // 4.0k Ohm resistor
-#define PUR_8KR 0x05  // 8.0k Ohm resistor
-#define PUR_16KR 0x06 // 16k Ohm resistor
-#define PUR_32KR 0x07 // 32k Ohm resistor
+void is31fl3741_flush(void);
+
+#define IS31FL3741_PUR_0R 0x00   // No PUR resistor
+#define IS31FL3741_PUR_05KR 0x01 // 0.5k Ohm resistor
+#define IS31FL3741_PUR_1KR 0x02  // 1.0k Ohm resistor
+#define IS31FL3741_PUR_2KR 0x03  // 2.0k Ohm resistor
+#define IS31FL3741_PUR_4KR 0x04  // 4.0k Ohm resistor
+#define IS31FL3741_PUR_8KR 0x05  // 8.0k Ohm resistor
+#define IS31FL3741_PUR_16KR 0x06 // 16k Ohm resistor
+#define IS31FL3741_PUR_32KR 0x07 // 32k Ohm resistor
+
+#define IS31FL3741_PWM_FREQUENCY_29K_HZ 0b0000
+#define IS31FL3741_PWM_FREQUENCY_3K6_HZ 0b0011
+#define IS31FL3741_PWM_FREQUENCY_1K8_HZ 0b0111
+#define IS31FL3741_PWM_FREQUENCY_900_HZ 0b1011
 
 #define CS1_SW1 0x00
 #define CS2_SW1 0x01
