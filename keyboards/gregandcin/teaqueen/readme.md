@@ -1,20 +1,19 @@
-# Conone 65
+# gregandcin/teaqueen
 
-![Conone65 PCB](https://i.imgur.com/50dKAqh.jpeg)
+![gregandcin/teaqueen](https://i.imgur.com/Wf1EIqwh.png)
 
-The Conone 65 is a custom keyboard designed and machined in Belgium.
+An Alice inspired, split layout keyboar featuring Kailh hotswap sockets.
 
-* Keyboard Maintainer: [Evyd13](https://github.com/evyd13), [Matt Chan](https://github.com/mattchan)
-* Hardware Supported: Conone 65 PCB, ATMega32u4
-* Hardware Availability: https://www.kindakeyboards.be/conone65
+* Keyboard Maintainer: [gregandcin](https://github.com/gregandcin)
+* Hardware Supported: Elite-Pi, other RP2040 Community Edition Boards
 
 Make example for this keyboard (after setting up your build environment):
 
-    make kindakeyboards/conone65:default
+    make gregandcin/teaqueen:default
 
 Flashing example for this keyboard:
 
-    make kindakeyboards/conone65:default:flash
+    make gregandcin/teaqueen:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
