@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "portico75.h"
 
-#ifdef RGB_BACKLIGHT_PORTICO
+#ifdef RGB_BACKLIGHT_PORTICO75
 #    include "drivers/led/issi/is31fl3741.h"
 #endif
 
