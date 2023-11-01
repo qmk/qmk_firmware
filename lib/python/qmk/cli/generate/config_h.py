@@ -165,10 +165,13 @@ def generate_split_config(kb_info_json, config_h_lines):
         generate_encoder_config(kb_info_json['split']['encoder']['right'], config_h_lines, '_RIGHT')
 
 
-def generate_led_animations_config(led_feature_json, config_h_lines, prefix):
+def generate_led_animations_config(feature, led_feature_json, config_h_lines, enable_prefix, animation_prefix):
+    if 'animation' in led_feature_json.get('default', {}):
+        config_h_lines.append(generate_define(f'{feature.upper()}_DEFAULT_MODE', f'{animation_prefix}{led_feature_json["default"]["animation"].upper()}'))
+
     for animation in led_feature_json.get('animations', {}):
         if led_feature_json['animations'][animation]:
-            config_h_lines.append(generate_define(f'{prefix}{animation.upper()}'))
+            config_h_lines.append(generate_define(f'{enable_prefix}{animation.upper()}'))
 
 
 @cli.argument('filename', nargs='?', arg_only=True, type=FileType('r'), completer=FilesCompleter('.json'), help='A configurator export JSON to be compiled and flashed or a pre-compiled binary firmware file (bin/hex) to be flashed.')
@@ -209,13 +212,13 @@ def generate_config_h(cli):
         generate_split_config(kb_info_json, config_h_lines)
 
     if 'led_matrix' in kb_info_json:
-        generate_led_animations_config(kb_info_json['led_matrix'], config_h_lines, 'ENABLE_LED_MATRIX_')
+        generate_led_animations_config('led_matrix', kb_info_json['led_matrix'], config_h_lines, 'ENABLE_LED_MATRIX_', 'LED_MATRIX_')
 
     if 'rgb_matrix' in kb_info_json:
-        generate_led_animations_config(kb_info_json['rgb_matrix'], config_h_lines, 'ENABLE_RGB_MATRIX_')
+        generate_led_animations_config('rgb_matrix', kb_info_json['rgb_matrix'], config_h_lines, 'ENABLE_RGB_MATRIX_', 'RGB_MATRIX_')
 
     if 'rgblight' in kb_info_json:
-        generate_led_animations_config(kb_info_json['rgblight'], config_h_lines, 'RGBLIGHT_EFFECT_')
+        generate_led_animations_config('rgblight', kb_info_json['rgblight'], config_h_lines, 'RGBLIGHT_EFFECT_', 'RGBLIGHT_MODE_')
 
     # Show the results
     dump_lines(cli.args.output, config_h_lines, cli.args.quiet)
