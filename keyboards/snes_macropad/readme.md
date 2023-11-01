@@ -1,6 +1,13 @@
 # snes_macropad
 
-![snes_macropad](https://github.com/JBarberU/dotfiles/assets/1499062/f7cd0d38-fa97-4782-8115-c67dae159b4a)
+![Completed Build](https://i.imgur.com/WzzPJ3Yh.jpg)
+*Completed Build*
+
+![Completed Build, closer with RGB off](https://i.imgur.com/D7ki7Kkh.jpg)
+*Completed Build, closer with RGB off*
+
+![PCB and FR4 top/bottom plates](https://i.imgur.com/TgOev7lh.jpg)
+*PCB and FR4 top/bottom plates*
 
 The SNES Macropad is, as it sounds, a macropad that features a SNES connector. In addition it has a qwiic connector and a 3.5mm jack for 3.3V I2C (not audio), allowing additional expansion.
 

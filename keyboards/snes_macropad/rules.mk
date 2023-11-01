@@ -1,8 +1,4 @@
 # Enable features
-OLED_ENABLE = yes
-OLED_DRIVER = ssd1306
-RGBLIGHT_ENABLE = yes
 CUSTOM_MATRIX = lite
 
-OPT_DEFS += -DHAL_USE_I2C=TRUE
 SRC += matrix.c

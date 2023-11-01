@@ -1,31 +1,9 @@
 // Copyright 2023 John Barbero Unenge (@jbarberu)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+#include "quantum.h"
+
 // oled keylog rendering has been kindly borrowed from crkbd <3
-
-#include QMK_KEYBOARD_H
-
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    return rotation;
-}
-
-__attribute__((weak)) const char * get_layer_name_user(int layer) {
-    return "Unknown";
-}
-
-static void oled_render_layer(void) {
-    oled_write("Layer: ", false);
-    oled_write_ln(get_layer_name_user(get_highest_layer(layer_state)), false);
-}
-
-static void oled_render_keylog(void);
-
-bool oled_task_user(void) {
-    oled_render_layer();
-    oled_render_keylog();
-    oled_write_ln("", false);
-    return false;
-}
 
 char     key_name = ' ';
 uint16_t last_keycode;
@@ -80,6 +58,26 @@ static void oled_render_keylog(void) {
     oled_write_char(key_name, false);
 }
 
+__attribute__((weak)) const char * get_layer_name_user(int layer) {
+    return "Unknown";
+}
+
+static void oled_render_layer(void) {
+    oled_write("Layer: ", false);
+    oled_write_ln(get_layer_name_user(get_highest_layer(layer_state)), false);
+}
+
+bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
+
+    oled_render_layer();
+    oled_render_keylog();
+    oled_write_ln("", false);
+    return false;
+}
+
 static void setupForFlashing(void) {
     oled_clear();
     oled_write("                     ", false);
@@ -123,8 +121,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     return process_record_user(keycode, record);
 }
 
-void keyboard_post_init_user(void) {
+void keyboard_post_init_kb(void) {
     rgblight_enable_noeeprom();
     rgblight_sethsv_noeeprom(HSV_MAGENTA);
     rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_SWIRL);
+    keyboard_post_init_user();
 }
