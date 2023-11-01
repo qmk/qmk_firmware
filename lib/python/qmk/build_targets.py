@@ -8,6 +8,7 @@ from dotty_dict import dotty, Dotty
 from milc import cli
 from qmk.constants import QMK_FIRMWARE, INTERMEDIATE_OUTPUT_PREFIX
 from qmk.commands import find_make, get_make_parallel_args, parse_configurator_json
+from qmk.keyboard import keyboard_folder
 from qmk.info import keymap_json
 from qmk.cli.generate.compilation_database import write_compilation_database
 from qmk.keymap import locate_keymap
@@ -15,8 +16,8 @@ from qmk.keymap import locate_keymap
 
 class BuildTarget:
     def __init__(self, keyboard: str, keymap: str, json: Union[dict, Dotty] = None):
-        self._keyboard = keyboard
-        self._keyboard_safe = keyboard.replace('/', '_')
+        self._keyboard = keyboard_folder(keyboard)
+        self._keyboard_safe = self._keyboard.replace('/', '_')
         self._keymap = keymap
         self._parallel = 1
         self._clean = False
