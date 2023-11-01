@@ -18,20 +18,19 @@
     },
     "features": {
         "bootmagic": true,
-        "mousekey": false,
+        "mousekey": true,
         "extrakey": true,
         "console": false,
         "command": false,
         "nkro": true,
-        "backlight": false,
         "rgb_matrix": true,
 		"dip_switch": true,
 		"encoder": true
     },
 	"encoder": {
         "rotary": [
-            {"pin_a": "B0", "pin_b": "B1", "resolution": 4},
-            {"pin_a": "A2", "pin_b": "A3", "resolution": 4}
+            {"pin_a": "B0", "pin_b": "B1"},
+            {"pin_a": "A2", "pin_b": "A3"}
         ]
     },
 	"ws2812": {
