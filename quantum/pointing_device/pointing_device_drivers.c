@@ -128,7 +128,7 @@ void azoteq_iqs5xx_init(void) {
     if (azoteq_iqs5xx_get_product() != AZOTEQ_IQS5XX_UNKNOWN) {
         azoteq_iqs5xx_setup_resolution();
         azoteq_iqs5xx_init_status = azoteq_iqs5xx_set_report_rate(AZOTEQ_IQS5XX_REPORT_RATE, AZOTEQ_IQS5XX_ACTIVE, false);
-        azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_event_mode(AZOTEQ_IQS5XX_EVENT_MODE, false);
+        azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_event_mode(false, false);
         azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_reati(true, false);
 #    if defined(AZOTEQ_IQS5XX_ROTATION_90)
         azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_xy_config(false, true, true, true, false);
@@ -200,12 +200,8 @@ report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report) {
                 temp_report.y = CONSTRAIN_HID_XY(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.y.h, base_data.y.l));
             }
 
-            if (previous_button_state != temp_report.buttons) {
-                previous_button_state = temp_report.buttons;
-#    if defined(POINTING_DEVICE_MOTION_PIN)
-                azoteq_iqs5xx_set_event_mode(temp_report.buttons == 0, true); // Disabling event mode forces the RDY to become active on an interval preventing stuck buttons.
-#    endif
-            }
+            previous_button_state = temp_report.buttons;
+
         } else {
             if (read_error_count > 10) {
                 read_error_count      = 0;
