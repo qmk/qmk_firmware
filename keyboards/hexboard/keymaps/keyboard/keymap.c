@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [0] = LAYOUT_landscape(
                 MI_BNDU,AU_TOGG,  RGB_HUI,
-          MI_BNDD,MU_TOGG,  RGB_VAD,   RGB_MOD,
+          MI_BNDD,MI_TOGG,  RGB_VAD,   RGB_MOD,
 
 
 MI_F5, MI_Gb5, MI_G5,   MI_Ab5,  MI_A5,  MI_Bb5, MI_B5,
@@ -85,7 +85,7 @@ _______,KC_LALT, MO(1),    KC_SPC,  MO(2),    KC_DOWN,   KC_RGHT
 
     [1] = LAYOUT_landscape(
                 MI_BNDU,AU_TOGG,  RGB_M_SN,
-          MI_BNDD,MU_TOGG,  RGB_M_B,RGB_M_SW,
+          MI_BNDD,MI_TOGG,  RGB_M_B,RGB_M_SW,
 _______,_______,_______,_______,_______,_______,_______,
     _______,_______,_______,_______,_______,_______,_______,
 _______,_______,_______,_______,_______,_______,_______,

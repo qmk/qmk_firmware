@@ -14,6 +14,7 @@ OLED_TRANSPORT = i2c
 
 AUDIO_ENABLE = yes
 AUDIO_DRIVER = pwm_hardware
+MUSIC_ENABLE = no
 
 ENCODER_ENABLE = yes
 
