@@ -7,6 +7,8 @@ A split keyboard kit made by jotix, inspired in the Lily58 keyboard.
 Keyboard Maintainer: [jotix](https://github.com/jotix)
 Hardware Supported: Arduino Pro Micro
 
+---
+
 ### Arduino Pro Micro Pinout
 
 | Rows        | 0  | 1  | 2  | 3  | 4  |
@@ -24,15 +26,17 @@ Hardware Supported: Arduino Pro Micro
 | Arduino pin | TX0 |
 | QMK pin     |  D3 |
 
+---
+
 ### Compiling the Firmware
 
 Compile example for this keyboard (after setting up your build environment):
     
     qmk compile -kb handwired/jotlily60 -km default 
    
-### The Defaukt Keymap
-
 ---
+
+### The Defaukt Keymap
 
 ![Default Keymap](https://i.imgur.com/KZK6eVe.png)
 
