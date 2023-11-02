@@ -19,6 +19,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "progmem.h"
+#include "util.h"
 
 #define IS31FL3218_I2C_ADDRESS 0x54
 
@@ -30,7 +31,7 @@ typedef struct is31fl3218_led_t {
     uint8_t r;
     uint8_t g;
     uint8_t b;
-} __attribute__((packed)) is31fl3218_led_t;
+} PACKED is31fl3218_led_t;
 
 extern const is31fl3218_led_t PROGMEM g_is31fl3218_leds[IS31FL3218_LED_COUNT];
 

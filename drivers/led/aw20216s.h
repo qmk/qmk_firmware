@@ -20,6 +20,7 @@
 #include <stdbool.h>
 #include "progmem.h"
 #include "gpio.h"
+#include "util.h"
 
 // ======== DEPRECATED DEFINES - DO NOT USE ========
 #ifdef DRIVER_COUNT
@@ -63,7 +64,7 @@ typedef struct aw20216s_led_t {
     uint8_t r;
     uint8_t g;
     uint8_t b;
-} aw20216s_led_t;
+} PACKED aw20216s_led_t;
 
 extern const aw20216s_led_t PROGMEM g_aw20216s_leds[AW20216S_LED_COUNT];
 

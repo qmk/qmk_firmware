@@ -23,6 +23,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "progmem.h"
+#include "util.h"
 
 // Which variant header file to use
 #if defined(LED_MATRIX_IS31FL3742A) || defined(RGB_MATRIX_IS31FL3742A)
@@ -37,19 +38,19 @@
 
 #ifdef RGB_MATRIX_ENABLE
 typedef struct is31_led {
-    uint8_t driver;
+    uint8_t driver : 2;
     uint8_t r;
     uint8_t g;
     uint8_t b;
-} __attribute__((packed)) is31_led;
+} PACKED is31_led;
 
 extern const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT];
 
 #elif defined(LED_MATRIX_ENABLE)
 typedef struct is31_led {
-    uint8_t driver;
+    uint8_t driver : 2;
     uint8_t v;
-} __attribute__((packed)) is31_led;
+} PACKED is31_led;
 
 extern const is31_led PROGMEM g_is31_leds[LED_MATRIX_LED_COUNT];
 #endif
