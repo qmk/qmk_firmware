@@ -16,7 +16,7 @@
 #include QMK_KEYBOARD_H
 
 enum my_keycodes {
-  RETRO_RGB = SAFE_RANGE
+  RETRO_RGB = QK_KB_0
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (host_keyboard_led_state().caps_lock) {
         for (uint8_t i = 50; i <= 55; i++) {
-            rgb_matrix_set_color(i, RGB_GOLD);
+            rgb_matrix_set_color(i, 255, 86, 0);
         }
     }
     return false;
