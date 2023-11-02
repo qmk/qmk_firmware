@@ -20,6 +20,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "progmem.h"
+#include "util.h"
 
 // ======== DEPRECATED DEFINES - DO NOT USE ========
 #ifdef DRIVER_ADDR_1
@@ -65,7 +66,7 @@ typedef struct is31fl3731_led_t {
     uint8_t r;
     uint8_t g;
     uint8_t b;
-} __attribute__((packed)) is31fl3731_led_t;
+} PACKED is31fl3731_led_t;
 
 extern const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT];
 

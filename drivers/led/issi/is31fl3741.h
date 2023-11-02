@@ -22,6 +22,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "progmem.h"
+#include "util.h"
 
 // ======== DEPRECATED DEFINES - DO NOT USE ========
 #ifdef DRIVER_ADDR_1
@@ -81,11 +82,11 @@
 #endif
 
 typedef struct is31fl3741_led_t {
-    uint32_t driver : 2;
-    uint32_t r : 10;
-    uint32_t g : 10;
-    uint32_t b : 10;
-} __attribute__((packed)) is31fl3741_led_t;
+    uint8_t  driver : 2;
+    uint16_t r : 9;
+    uint16_t g : 9;
+    uint16_t b : 9;
+} PACKED is31fl3741_led_t;
 
 extern const is31fl3741_led_t PROGMEM g_is31fl3741_leds[IS31FL3741_LED_COUNT];
 
