@@ -114,16 +114,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 switch (rgb_matrix_get_flags()) {
                     case LED_FLAG_ALL: {
                         rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
+                        fn_pressed = false
                         rgb_matrix_set_color_all(0, 0, 0);
                     }
                     break;
                     case (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR): {
                         rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
+                        fn_pressed = false
                         rgb_matrix_set_color_all(0, 0, 0);
                     }
                     break;
                     case (LED_FLAG_UNDERGLOW): {
                         rgb_matrix_set_flags(LED_FLAG_NONE);
+                        fn_pressed = false
                         rgb_matrix_set_color_all(0, 0, 0);
                     }
                     break;
@@ -154,7 +157,7 @@ bool rgb_matrix_indicators_user(void) {
     uint8_t green = keymap_config.no_gui ? 255 : 0;
 
     if (fn_pressed) {// sets fn key led to white if pressed
-        rgb_matrix_set_color(31, RGB_WHITE);
+        //rgb_matrix_set_color(31, RGB_WHITE);
     }
     if ((rgb_matrix_get_flags() & LED_FLAG_KEYLIGHT)) {
         if (host_keyboard_led_state().num_lock) {
