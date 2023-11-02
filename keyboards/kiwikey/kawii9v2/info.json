@@ -1,0 +1,104 @@
+{
+    "manufacturer": "KiwiKey",
+    "keyboard_name": "Kawii9 Rev.2",
+    "maintainer": "kiwikey",
+    "url": "https://kiwikey.vn/mechkey/kawii9/",
+    "bootloader_instructions": "Press the RESET button on the back of the PCB",
+    "bootloader": "atmel-dfu",
+    "processor": "atmega32u4",
+    "usb": {
+        "device_version": "2.0.0",
+        "pid": "0x3302",
+        "vid": "0x4B57"
+    },
+    "build": {
+        "lto": true
+    },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": false,
+        "rgblight": false,
+        "rgb_matrix": true,
+        "encoder": true
+    },
+    "diode_direction": "COL2ROW",
+    "matrix_pins": {
+        "cols": [ "F4", "F5", "F6", "D4", "B1" ],
+        "rows": [ "B6", "B5", "B4", "D7", "B0" ]
+    },
+    "ws2812": {
+        "pin": "B7"
+    },
+    "rgb_matrix": {
+        "driver": "ws2812",
+        "max_brightness": 240,
+        "val_steps": 12,
+        "animations": {
+            "breathing": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "dual_beacon": true,
+            "rainbow_beacon": true,
+            "raindrops": true,
+            "typing_heatmap": true,
+            "solid_reactive_simple": true,
+            "solid_reactive": true,
+            "solid_reactive_cross": true,
+            "solid_reactive_nexus": true,
+            "splash": true,
+            "solid_splash": true
+        },
+        "layout": [
+            { "flags": 2, "x": 96,  "y": 19 },
+            { "flags": 2, "x": 128, "y": 19 },
+            { "flags": 2, "x": 128, "y": 42 },
+            { "flags": 2, "x": 96,  "y": 42 },
+            { "flags": 4, "matrix": [0, 0], "x": 81,  "y": 16 },
+            { "flags": 4, "matrix": [0, 1], "x": 112, "y": 16 },
+            { "flags": 4, "matrix": [0, 2], "x": 143, "y": 16 },
+            { "flags": 4, "matrix": [1, 0], "x": 81,  "y": 32 },
+            { "flags": 4, "matrix": [1, 1], "x": 112, "y": 32 },
+            { "flags": 4, "matrix": [1, 2], "x": 143, "y": 32 },
+            { "flags": 4, "matrix": [2, 0], "x": 81,  "y": 48 },
+            { "flags": 4, "matrix": [2, 1], "x": 112, "y": 48 },
+            { "flags": 4, "matrix": [2, 2], "x": 143, "y": 48 },
+            { "flags": 2, "x": 12,  "y": 42 },
+            { "flags": 2, "x": 49,  "y": 42 },
+            { "flags": 2, "x": 49,  "y": 19 },
+            { "flags": 2, "x": 12,  "y": 19 },
+            { "flags": 8, "x": 31,  "y": 10 }
+        ]
+    },
+    "encoder": {
+        "enabled": true,
+        "rotary": [
+            { "pin_a": "D3", "pin_b": "D5" },
+            { "pin_a": "B2", "pin_b": "B3" }
+        ]
+    }
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                { "matrix": [0, 0], "x": 0, "y": 0 },
+                { "matrix": [0, 1], "x": 1, "y": 0 },
+                { "matrix": [0, 2], "x": 2, "y": 0 },
+
+                { "matrix": [1, 0], "x": 0, "y": 1 },
+                { "matrix": [1, 1], "x": 1, "y": 1 },
+                { "matrix": [1, 2], "x": 2, "y": 1 },
+
+                { "matrix": [2, 0], "x": 0, "y": 2 },
+                { "matrix": [2, 1], "x": 1, "y": 2 },
+                { "matrix": [2, 2], "x": 2, "y": 2 },
+
+                { "matrix": [3, 3], "x": 3, "y": 3 },
+                { "matrix": [4, 4], "x": 4, "y": 4 }
+            ]
+        }
+    }
+}
