@@ -153,7 +153,9 @@ bool rgb_matrix_indicators_user(void) {
     uint8_t blue = host_keyboard_led_state().scroll_lock ? 255 : 0;
     uint8_t green = keymap_config.no_gui ? 255 : 0;
 
-
+    if (fn_pressed) {// sets fn key led to white if pressed
+        rgb_matrix_set_color(31, RGB_WHITE);
+    }
     if ((rgb_matrix_get_flags() & LED_FLAG_KEYLIGHT)) {
         if (host_keyboard_led_state().num_lock) {
             rgb_matrix_set_color(46, 255, 0, 0);
@@ -164,9 +166,6 @@ bool rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(32, RGB_WHITE);
         }
     } else {
-        if (fn_pressed) {// sets fn key led to white if pressed
-            rgb_matrix_set_color(31, RGB_WHITE);
-        }
         if (host_keyboard_led_state().num_lock) {
             rgb_matrix_set_color(46, 255, 0, 0);
         } else {
@@ -175,6 +174,25 @@ bool rgb_matrix_indicators_user(void) {
         rgb_matrix_set_color(104, red, green, blue);
     }
     return false;
+/*
+    if ((rgb_matrix_get_flags() & LED_FLAG_KEYLIGHT)) {
+        if (host_keyboard_led_state().num_lock) {
+            rgb_matrix_set_color(46, 255, 0, 0);
+        }if (host_keyboard_led_state().caps_lock) {
+            rgb_matrix_set_color(32, RGB_WHITE);
+        }
+        rgb_matrix_set_color(104, red, green, blue);
+    } if (fn_pressed) {// sets fn key led to white if pressed
+            rgb_matrix_set_color(31, RGB_WHITE);
+        } else {
+            if (host_keyboard_led_state().num_lock) {
+                rgb_matrix_set_color(46, 255, 0, 0);
+            } else {
+                rgb_matrix_set_color(46, 0, 0, 0);
+            }
+            rgb_matrix_set_color(104, red, green, blue);
+    }
+    return false;*/
 }
 
 #ifdef ENCODER_MAP_ENABLE
