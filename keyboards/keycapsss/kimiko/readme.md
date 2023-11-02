@@ -25,7 +25,7 @@ A split keyboard with 4x6 vertically staggered keys and a Kyria style thumb thum
 Make firmware .hex for this keyboard (after setting up your build environment):
 
 ```bash
-qmk compile -kb keycapsss/kimiko/rev2 -km rev2
+qmk compile -kb keycapsss/kimiko/rev2 -km default
 ```
 
 Use [QMK Toolbox](https://github.com/qmk/qmk_toolbox) to flash the firmware hex file to the keyboard controller.
