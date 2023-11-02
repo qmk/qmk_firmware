@@ -162,6 +162,9 @@ bool rgb_matrix_indicators_user(void) {
         if (fn_pressed & LED_FLAG_KEYLIGHT) {// sets fn key led to white if pressed
             rgb_matrix_set_color(31, RGB_WHITE);
         }
+        if (host_keyboard_led_state().caps_lock) {
+            rgb_matrix_set_color(32, RGB_WHITE);
+        }
     } else {
         if (host_keyboard_led_state().num_lock) {
             rgb_matrix_set_color(46, 255, 0, 0);
