@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
+#include "quantum.h"
 
 enum layer_names {
     _QWERTY,
@@ -52,7 +53,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                     _______,    _______,    _______,    _______,                _______,    _______,    _______,    _______
         ),
 };
-
 
 bool rgb_matrix_indicators_kb(void) {
     if (!rgb_matrix_indicators_user()) {
