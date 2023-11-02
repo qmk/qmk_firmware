@@ -161,7 +161,7 @@ bool rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(32, RGB_WHITE);
         }
         rgb_matrix_set_color(104, red, green, blue);
-    } if (fn_pressed) {// sets fn key led to white if pressed
+    } if (fn_pressed & LED_FLAG_KEYLIGHT) {// sets fn key led to white if pressed
             rgb_matrix_set_color(31, RGB_WHITE);
         } else {
             if (host_keyboard_led_state().num_lock) {
@@ -205,7 +205,7 @@ void housekeeping_task_user(void) {
   #ifdef RGBLIGHT_TIMEOUT
   check_rgb_timeout();
   #endif
-  
+
   /* rest of the function code here */
 }
 
@@ -223,6 +223,6 @@ void post_encoder_update_user(uint8_t index, bool clockwise) {
   #ifdef RGBLIGHT_TIMEOUT
   refresh_rgb();
   #endif
-  
+
   /* rest of the function code here */
 }
