@@ -19,10 +19,6 @@
     },
     "processor": "atmega32u4",
     "bootloader": "qmk-dfu",
-    "layout_aliases": {
-        "LAYOUT_ansi": "LAYOUT_60_ansi_tsangan"
-    },
-    "community_layouts": ["60_ansi_tsangan"],
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -93,7 +89,7 @@
                 {"matrix": [4, 13], "x": 13.5, "y": 4, "w": 1.5}
             ]
         },
-        "LAYOUT_60_ansi_tsangan": {
+        "LAYOUT_ansi": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
