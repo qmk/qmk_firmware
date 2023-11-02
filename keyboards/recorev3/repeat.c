@@ -42,6 +42,10 @@ bool process_repeat_key(uint16_t keycode, keyrecord_t *record) {
 
                 return false;
         }
+    } else {
+        if (key_pressed) {
+            key_pressed = false;
+        }
     }
     return true;
 }
