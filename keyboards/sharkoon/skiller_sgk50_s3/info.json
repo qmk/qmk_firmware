@@ -173,6 +173,10 @@
     "ws2812": {
         "pin": "A8"
     },
+    "community_layouts": [
+        "75_ansi",
+        "75_iso"
+    ],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
