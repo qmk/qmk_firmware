@@ -1,0 +1,1 @@
+#undef MIDI_ADVANCED
