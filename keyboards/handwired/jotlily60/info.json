@@ -16,7 +16,10 @@
         "mousekey": true,
         "nkro": true,
         "autoshift": true,
-        "dynamictypingterm": true
+        "dynamicmacro": true
+    },
+    "tapping": {
+        "term": 175
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",

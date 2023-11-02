@@ -23,9 +23,9 @@
 #define F18_RCT RCTL_T(KC_F18)  // Tap: F18   - Hold: Right Control
 #define EN_RSFT RSFT_T(KC_ENT)  // Tap: Enter = Hold: Right Shift
 
-#define ADJUST MO(ADJUST)
+#define ADJUST MO(_ADJUST)
 
-#define SFT_TAB LSFT(TAB) // Left Shift + Tab
+#define SFT_TAB LSFT(KC_TAB) // Left Shift + Tab
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_BSPC,
     KC_TAB, KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,
     EN_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_LBRC,KC_RBRC,KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,EN_RSFT,
-                    F13_LCT,F14_LSG,F15_LAL,DEL_LGU,SPC_FN, SPC_FN, DEL_RGU,F16_RAL,F17_RGU,F17_RCT
+                    F13_LCT,F14_LSG,F15_LAL,DEL_LGU,SPC_FN, SPC_FN, DEL_RGU,F16_RAL,F17_RSG,F18_RCT
 ),
 
 /* FN
@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_FN] = LAYOUT (
     KC_F12, KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,                  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11,
     ADJUST, KC_BTN1,KC_MS_U,KC_BTN2,KC_WH_U,DM_PLY1,                KC_INS, KC_APP, KC_PSCR,KC_SCRL,KC_PAUS,ADJUST,
-    LST_TAB,KC_MS_L,KC_MS_D,KC_MS_R,KC_WH_D,DM_PLY2,                KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,KC_PIPE,KC_GRV,
+    SFT_TAB,KC_MS_L,KC_MS_D,KC_MS_R,KC_WH_D,DM_PLY2,                KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,KC_PIPE,KC_GRV,
     KC_CAPS,KC_ACL0,KC_ACL1,KC_ACL2,KC_VOLD,KC_MUTE,KC_VOLU,KC_TILD,KC_HOME,KC_END, KC_PGUP,KC_PGDN,KC_BSLS,KC_CAPS,
                     _______,_______,_______,_______,_______,_______,_______,_______,_______,_______
 ),
