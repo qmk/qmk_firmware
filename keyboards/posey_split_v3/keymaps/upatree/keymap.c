@@ -8,13 +8,10 @@
 // //Custom Layers
 #define _TEMPRTY 1
 #define _SC2 6
-#define _DIABLO 7
-#define _PLAYERS 8
 
 // Custom Macros
 #define QUICK_GAME_TYPE_ENABLED
 #define TEMP_TYPE_LAYER _TEMPRTY
-#define DIABLO_PLAYERS_CHANGE_ENABLED
 #define REPEAT_ENABLED
 #define REPEAT_DELAY 135
 #define REPEAT_TERM 10
@@ -52,8 +49,6 @@ enum custom_keycodes {
    NAV,
    ADJUST,
    SC2,
-   THECORE,
-   DIABLO,
    //quick type
    CTT,
    TTC,
@@ -106,13 +101,13 @@ enum custom_keycodes {
 #define PL_C OSL(_PLAYERS)
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-   #ifdef QUICK_GAME_TYPE_ENABLED
+   #ifdef DIABLO_PLAYERS_CHANGE_ENABLED
    if (!process_diablo_player_change(keycode, record)) {
       return false;
    }
    #endif
 
-   #ifdef DIABLO_PLAYERS_CHANGE_ENABLED
+   #ifdef QUICK_GAME_TYPE_ENABLED
    if (!process_quick_game_type(keycode, record)) {
       return false;
    }
@@ -190,45 +185,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_SC2] = LAYOUT_posey_split(
     // ┌────────┐        ┌────────┬────────┬────────┬────────┬────────┬───────┐ ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬───────┐
-        KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, SYM_Q  ,
      //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼───────┤ ├────────┼────────┼────────┼────────┼────────┼────────┼────────┴───────┤
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,
      //├────────┴────────┼────────┼────────┼────────┼────────┼────────┼───────┤ ├────────┼────────┼────────┼────────┼────────┼────────┼────────┬───────┤
         KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
      //├─────────────────┼────────┼────────┼────────┼────────┼────────┼───────┤ ├────────┼────────┼────────┼────────┼────────┼────────┼────────┴───────┤
-        SYM_NAV,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,        CTT,
+        KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,        CTT,
      //├─────────────────┼────────┼────────┼────────┼────────┼────────┼───────┤ ├────────┼────────┼────────┼────────┼────────┼────────┴────────────────┤
         KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
-     //├────────────┬────┴────────┼────────┴────────┼────────┼────────┼───────┤ ├────────┴────────┴────────┴────────┴────────┴─────────────────────────┤
-        KC_TRNS,    KC_TRNS,          KC_TRNS,                 KC_TRNS,                   KC_TRNS,          KC_TRNS, KC_TRNS,  KC_TRNS,     KC_TRNS
-     //└────────────┴─────────────┴─────────────────┴─────────────────────────┘ └──────────────────────────┴────────┴────────┴───────────┴─────────────┘
-    ),
-    [_DIABLO] = LAYOUT_posey_split(
-    // ┌────────┐        ┌────────┬────────┬────────┬────────┬────────┬───────┐ ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬───────┐
-        KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, SYM_L  ,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼───────┤ ├────────┼────────┼────────┼────────┼────────┼────────┼────────┴───────┤
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,
-     //├────────┴────────┼────────┼────────┼────────┼────────┼────────┼───────┤ ├────────┼────────┼────────┼────────┼────────┼────────┼────────┬───────┤
-        KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-     //├─────────────────┼────────┼────────┼────────┼────────┼────────┼───────┤ ├────────┼────────┼────────┼────────┼────────┼────────┼────────┴───────┤
-        SYM_NAV,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,       CTT,
-     //├─────────────────┼────────┼────────┼────────┼────────┼────────┼───────┤ ├────────┼────────┼────────┼────────┼────────┼────────┴────────────────┤
-        KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,           KC_TRNS,
-     //├────────────┬────┴────────┼────────┴────────┼────────┼────────┼───────┤ ├────────┴────────┴────────┴────────┴────────┴─────────────────────────┤
-        KC_TRNS,    KC_TRNS,          KC_TRNS,                 KC_TRNS,                   KC_TRNS,          KC_TRNS, KC_TRNS,  KC_TRNS,     KC_TRNS
-     //└────────────┴─────────────┴─────────────────┴─────────────────────────┘ └──────────────────────────┴────────┴────────┴───────────┴─────────────┘
-    ),
-    [_PLAYERS] = LAYOUT_posey_split(
-    // ┌────────┐        ┌────────┬────────┬────────┬────────┬────────┬───────┐ ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬───────┐
-        KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼───────┤ ├────────┼────────┼────────┼────────┼────────┼────────┼────────┴───────┤
-        PL_8    ,PL_1    ,PL_2    ,PL_3    ,PL_4    ,PL_5    ,PL_6    ,PL_7,     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,
-     //├────────┴────────┼────────┼────────┼────────┼────────┼────────┼───────┤ ├────────┼────────┼────────┼────────┼────────┼────────┼────────┬───────┤
-        KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-     //├─────────────────┼────────┼────────┼────────┼────────┼────────┼───────┤ ├────────┼────────┼────────┼────────┼────────┼────────┼────────┴───────┤
-        KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS,
-     //├─────────────────┼────────┼────────┼────────┼────────┼────────┼───────┤ ├────────┼────────┼────────┼────────┼────────┼────────┴────────────────┤
-        KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,           KC_TRNS,
      //├────────────┬────┴────────┼────────┴────────┼────────┼────────┼───────┤ ├────────┴────────┴────────┴────────┴────────┴─────────────────────────┤
         KC_TRNS,    KC_TRNS,          KC_TRNS,                 KC_TRNS,                   KC_TRNS,          KC_TRNS, KC_TRNS,  KC_TRNS,     KC_TRNS
      //└────────────┴─────────────┴─────────────────┴─────────────────────────┘ └──────────────────────────┴────────┴────────┴───────────┴─────────────┘
@@ -267,9 +232,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
          break;
       case _SC2:
          rgblight_sethsv(HSV_RED);
-         break;
-      case _DIABLO:
-         rgblight_sethsv(HSV_ORANGE);
          break;
       case _TEMPRTY:         
          rgblight_sethsv(HSV_GREEN);

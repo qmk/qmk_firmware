@@ -2,7 +2,7 @@
 
 static uint16_t key_timer = 0;
 static bool key_pressed = false;
-static uint16_t repeat_count = 0;
+static bool key_repeating = false;
 static uint16_t key_repeat = 0;
 static uint16_t keys_to_repeat[] = { FAST_REPEAT_KEYS };
 static uint16_t layers_to_check[] = { FAST_REPEAT_LAYERS };
@@ -35,29 +35,31 @@ bool process_repeat_key(uint16_t keycode, keyrecord_t *record) {
                     key_repeat = keycode;
                     key_pressed = true;
                     key_timer = timer_read();
-                    repeat_count = 0;
                 } else {
                     key_pressed = false;
+                    key_repeating = false;
                 }
 
                 return false;
         }
-    } else {
-        if (key_pressed) {
-            key_pressed = false;
-        }
+    } else if (key_pressed) {
+        key_pressed = false;
+        key_repeating = false;
     }
     return true;
 }
 
 void matrix_scan_user(void) { 
     if (key_pressed) {
-        if (timer_elapsed(key_timer) > REPEAT_DELAY) {
-            if (timer_elapsed(key_timer) > REPEAT_DELAY + repeat_count * REPEAT_TERM) {
-                repeat_count += 1;
-                register_code(key_repeat);
-                unregister_code(key_repeat);
-            }
+        if (!key_repeating && timer_elapsed(key_timer) > REPEAT_DELAY) {
+            key_repeating = true;
+            key_timer = timer_read();
         }
+        if (key_repeating && timer_elapsed(key_timer) > REPEAT_TERM) {
+            register_code(key_repeat);
+            key_timer = timer_read();
+            unregister_code(key_repeat);
+        }
+        
     }
 }

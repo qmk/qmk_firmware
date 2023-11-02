@@ -18,7 +18,7 @@
 #define DIABLO_PLAYERS_CHANGE_ENABLED
 #define REPEAT_ENABLED
 #define REPEAT_DELAY 150
-#define REPEAT_TERM 5
+#define REPEAT_TERM 4
 #define FAST_REPEAT_KEYS    KC_P, \
                             KC_EQL, \
                             KC_RBRC, \
