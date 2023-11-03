@@ -112,26 +112,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case RGB_TOG:
             if (record->event.pressed) {
                 switch (rgb_matrix_get_flags()) {
-                    case LED_FLAG_ALL: {
-                        rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
-                        rgb_matrix_set_color_all(0, 0, 0);
-                    }
-                    break;
-                    case (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR): {
-                        rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
-                        rgb_matrix_set_color_all(0, 0, 0);
-                    }
-                    break;
                     case (LED_FLAG_UNDERGLOW): {
                         rgb_matrix_set_flags(LED_FLAG_NONE);
-                        rgb_matrix_set_color_all(0, 0, 0);
                     }
-                    break;
+                    case (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR): {
+                        rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
+                    }
+                    case LED_FLAG_ALL: {
+                        rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
+                    }
                     default: {
                         rgb_matrix_set_flags(LED_FLAG_ALL);
                         rgb_matrix_enable_noeeprom();
+                        break;
                     }
-                    break;
+                    rgb_matrix_set_color_all(0, 0, 0);
                 }
             }
             return false;
@@ -153,11 +148,12 @@ bool rgb_matrix_indicators_user(void) {
     uint8_t blue = host_keyboard_led_state().scroll_lock ? 255 : 0;
     uint8_t green = keymap_config.no_gui ? 255 : 0;
 
-
-    if ((rgb_matrix_get_flags() & LED_FLAG_KEYLIGHT)) {
-        if (host_keyboard_led_state().num_lock) {
+    if (host_keyboard_led_state().num_lock) {
             rgb_matrix_set_color(46, 255, 0, 0);
+        } else {
+            rgb_matrix_set_color(46, 0, 0, 0);
         }
+    if ((rgb_matrix_get_flags() & LED_FLAG_KEYLIGHT)) {
         rgb_matrix_set_color(104, red, green, blue);
         if (fn_pressed) {// sets fn key led to white if pressed
         rgb_matrix_set_color(31, RGB_WHITE);
@@ -166,11 +162,6 @@ bool rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(32, RGB_WHITE);
         }
     } else {
-        if (host_keyboard_led_state().num_lock) {
-            rgb_matrix_set_color(46, 255, 0, 0);
-        } else {
-            rgb_matrix_set_color(46, 0, 0, 0);
-        }
         rgb_matrix_set_color(104, red, green, blue);
     }
     return false;
