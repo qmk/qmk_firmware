@@ -13,7 +13,7 @@
         "command": true,
         "console": true,
         "extrakey": true,
-        "mousekey": true,
+        "mousekey": false,
         "nkro": true
     },
     "tapping": {
