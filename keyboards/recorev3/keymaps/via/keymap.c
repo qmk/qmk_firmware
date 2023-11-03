@@ -17,6 +17,7 @@
 #define TEMP_TYPE_LAYER _TEMPRTY
 #define DIABLO_PLAYERS_CHANGE_ENABLED
 #define REPEAT_ENABLED
+#define REPEAT_ALL_KEYS_ENABLED
 #define REPEAT_DELAY 150
 #define REPEAT_TERM 4
 #define FAST_REPEAT_KEYS    KC_P, \
@@ -41,8 +42,9 @@
                             KC_PGUP, \
                             KC_C, \
                             KC_PAST, \
-                            KC_X
-#define FAST_REPEAT_KEY_COUNT 23
+                            KC_X, \
+                            KC_T
+#define FAST_REPEAT_KEY_COUNT 24
 
 #define FAST_REPEAT_LAYERS _RECORE
 #define FAST_REPEAT_LAYER_COUNT 1

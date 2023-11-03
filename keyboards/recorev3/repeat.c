@@ -28,6 +28,7 @@ bool check_if_repeat_key(uint8_t keycode){
 // bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 bool process_repeat_key(uint16_t keycode, keyrecord_t *record) {
     if (check_large_layer()){
+        #ifndef REPEAT_ALL_KEYS_ENABLED
         if (check_if_repeat_key(keycode)){
             if (record->event.pressed){
                     register_code(keycode);
@@ -42,6 +43,24 @@ bool process_repeat_key(uint16_t keycode, keyrecord_t *record) {
 
                 return false;
         }
+        #endif
+        #ifdef REPEAT_ALL_KEYS_ENABLED
+        switch (keycode) {
+            case KC_A ... KC_F24:
+                if (record->event.pressed){
+                            register_code(keycode);
+                            unregister_code(keycode);
+                            key_repeat = keycode;
+                            key_pressed = true;
+                            key_timer = timer_read();
+                        } else {
+                            key_pressed = false;
+                            key_repeating = false;
+                        }
+
+                        return false;
+        }
+        #endif
     } else if (key_pressed) {
         key_pressed = false;
         key_repeating = false;
