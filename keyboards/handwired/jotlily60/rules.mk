@@ -1,5 +1,3 @@
 # build options
 
-AUTO_SHIFT_ENABLE = yes
-DYNAMIC_TAPPING_TERM_ENABLE = yes
-
+DYNAMIC_MACRO_ENABLE = yes

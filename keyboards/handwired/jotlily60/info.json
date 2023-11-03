@@ -14,9 +14,7 @@
         "console": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "autoshift": true,
-        "dynamicmacro": true
+        "nkro": true
     },
     "tapping": {
         "term": 175

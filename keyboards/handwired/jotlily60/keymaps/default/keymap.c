@@ -7,25 +7,15 @@
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 
-#define _QWERTY   0
-#define _FN       1
-#define _ADJUST   2
+#define _QWERTY 0
+#define _FN     1
+#define _MOUSE  2
+#define _ADJUST 3
 
-#define EN_LSFT LSFT_T(KC_ENT)  // Tap: Enter - Hold: Lesft Shift
-#define F13_LCT LCTL_T(KC_F13)  // Tap: F13   - Hold: Left Control
-#define F14_LSG LSG_T(KC_F14)   // Tap: F14   - Hold: Left Shift+Super
-#define F15_LAL LALT_T(KC_F15)  // Tap: F15   - Hold: Left Alt
-#define DEL_LGU LGUI_T(KC_DEL)  // Tap: Del   - Hold: Left Super
-#define SPC_FN  LT(_FN, KC_SPC) // Tap: Space - Hold: FN
-#define DEL_RGU LGUI_T(KC_DEL)  // Tap: Del   - Hold: Right Super
-#define F16_RAL RALT_T(KC_F16)  // Tap: F16   - Hold: Right Alt
-#define F17_RSG RSG_T(KC_F17)   // Tap: F17   - Hold: Right Shift+Super
-#define F18_RCT RCTL_T(KC_F18)  // Tap: F18   - Hold: Right Control
-#define EN_RSFT RSFT_T(KC_ENT)  // Tap: Enter = Hold: Right Shift
-
+#define FN MO(_FN)
+#define MOUSE MO(_MOUSE)
+#define TGMOUSE TG(_MOUSE)
 #define ADJUST MO(_ADJUST)
-
-#define SFT_TAB LSFT(KC_TAB) // Left Shift + Tab
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -33,50 +23,57 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * +-------+-------+-------+-------+-------+-------+               +-------+-------+-------+-------+-------+-------+
  * |   =   |   1   |   2   |   3   |   4   |   5   |               |   6   |   7   |   8   |   9   |   0   |   -   |
  * +-------+-------+-------+-------+-------+-------+               +-------+-------+-------+-------+-------+-------+
- * |  esc  |   Q   |   W   |   E   |   R   |   T   |               |   Y   |   U   |   I   |   O   |   P   |  bksp |
+ * |  esc  |   Q   |   W   |   E   |   R   |   T   |               |   Y   |   U   |   I   |   O   |   P   |  tab  |
  * +-------+-------+-------+-------+-------+-------+               +-------+-------+-------+-------+-------+-------+
- * |  tab  |   A   |   S   |   D   |   F   |   G   |               |   H   |   J   |   K   |   L   |   ;   |   '   |
+ * | mouse |   A   |   S   |   D   |   F   |   G   |               |   H   |   J   |   K   |   L   |   ;   |   '   |
  * +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
- * |en_lsft|   Z   |   X   |   C   |   V   |   B   |   [   |   ]   |   N   |   M   |   ,   |   .   |   /   |en_rsft|
+ * | shift |   Z   |   X   |   C   |   V   |   B   |   [   |   ]   |   N   |   M   |   ,   |   .   |   /   | enter |
  * +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
- *                 |f13_lct|f14_lgu|f15_lal|del_lsg| spc_fn| spc_fn|del_rsg|f16_ral|f17_rgu|f18_rct|
+ *                 | super |  alt  |  ctrl | space |   fn  |   fn  |  del  | bspc  |  ralt |tgmouse| 
  *                 +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
  */
 [_QWERTY] = LAYOUT (
     KC_EQL, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,                   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,
-    KC_ESC, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_BSPC,
-    KC_TAB, KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,
-    EN_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_LBRC,KC_RBRC,KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,EN_RSFT,
-                    F13_LCT,F14_LSG,F15_LAL,DEL_LGU,SPC_FN, SPC_FN, DEL_RGU,F16_RAL,F17_RSG,F18_RCT
+    KC_ESC, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_TAB,
+    MOUSE,  KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,
+    KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_LBRC,KC_RBRC,KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_ENT,
+                    KC_LGUI,KC_LALT,KC_LCTL,KC_SPC, FN,     FN,     KC_DEL, KC_BSPC,KC_RALT,TGMOUSE
 ),
 
-/* FN
+/* +-------+-------+-------+-------+-------+-------+               +-------+-------+-------+-------+-------+-------+
+ * |   +   |   F1  |   F2  |   F3  |   F4  |   F5  |               |   F6  |   F7  |   F8  |   F9  |  F10  |   _   |
  * +-------+-------+-------+-------+-------+-------+               +-------+-------+-------+-------+-------+-------+
- * |  F12  |   F1  |   F2  |   F3  |   F4  |   F5  |               |   F6  |   F7  |   F8  |   F9  |  F10  |  F11  |
+ * | adjust|  F11  |  F12  |  F13  |  F14  |  F15  |               |  F16  |  F17  |  F18  |  F19  |  F20  |adjust |
  * +-------+-------+-------+-------+-------+-------+               +-------+-------+-------+-------+-------+-------+
- * |adjust | Btn1  |MouseUp| Btn2  | WhUp  | WhLeft|               |  Ins  |  Caps | PScr  |  Slck | Pause |adjust |
- * +-------+-------+-------+-------+-------+-------+               +-------+-------+-------+-------+-------+-------+
- * |lst_tab|MouseL |MouseDn|MouseR | WhDown| WhRght|               |  Left |  Down |   Up  | Right |   |   |   `   |
+ * |  caps |  vol- |  mute |  vol+ | macro1| macro2|               |  Left |  Down |   Up  | Right |   |   |  grv  |
  * +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
- * | caps  | Acc0  | Acc1  | Acc2  | Vol-  | Mute  | Vol+  |   ~   |  Home |  End  | PgUp  | PgDn  |   \   | caps  |
+ * |       |  prev |  play |  next | mrec1 | mrec2 | rstp  |   ~   |  Home |  End  | PgUp  | PgDn  |   \   |       |
  * +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
  *                 |       |       |       |       |       |       |       |       |       |       |
  *                 +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
  */
 [_FN] = LAYOUT (
-    KC_F12, KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,                  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11,
-    ADJUST, KC_BTN1,KC_MS_U,KC_BTN2,KC_WH_U,DM_PLY1,                KC_INS, KC_APP, KC_PSCR,KC_SCRL,KC_PAUS,ADJUST,
-    SFT_TAB,KC_MS_L,KC_MS_D,KC_MS_R,KC_WH_D,DM_PLY2,                KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,KC_PIPE,KC_GRV,
-    KC_CAPS,KC_ACL0,KC_ACL1,KC_ACL2,KC_VOLD,KC_MUTE,KC_VOLU,KC_TILD,KC_HOME,KC_END, KC_PGUP,KC_PGDN,KC_BSLS,KC_CAPS,
+    KC_PLUS,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,                  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_UNDS,
+    ADJUST, KC_F11, KC_F12, KC_F13, KC_F14, KC_F15,                 KC_F16, KC_F17, KC_F18, KC_F19, KC_F20, ADJUST,  
+    KC_CAPS,KC_VOLD,KC_MUTE,KC_VOLU,DM_PLY1,DM_PLY2,                KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,KC_PIPE,KC_GRV,
+    _______,KC_ACL0,KC_ACL1,KC_ACL2,DM_REC1,DM_REC2,DM_RSTP,KC_TILD,KC_HOME,KC_END, KC_PGUP,KC_PGDN,KC_BSLS,_______, 
                     _______,_______,_______,_______,_______,_______,_______,_______,_______,_______
+),
+
+[_MOUSE] = LAYOUT (
+    _______,_______,_______,_______,_______,_______,                _______,_______,_______,_______,_______,_______,
+    _______,_______,_______,_______,_______,_______,                KC_WH_U,KC_WH_L,KC_MS_U,KC_WH_R,_______,_______,
+    _______,_______,_______,_______,_______,_______,                KC_WH_D,KC_MS_L,KC_MS_D,KC_MS_R,_______,_______,
+    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_ACL0,KC_ACL1,KC_ACL2,_______,
+                    _______,_______,_______,_______,KC_BTN1,KC_BTN2,_______,_______,_______,TGMOUSE
 ),
 
 [_ADJUST] = LAYOUT (
     _______,_______,_______,_______,_______,_______,                _______,_______,_______,_______,_______,_______,
-    _______,QK_BOOT,_______,_______,_______,DM_REC1,                _______,_______,_______,_______,_______,_______,
-    _______,_______,_______,DB_TOGG,_______,DM_REC2,                _______,_______,_______,_______,_______,_______,
-    AS_TOGG,AS_UP,  AS_DOWN,AS_RPT, _______,DM_RSTP,_______,_______,_______,_______,_______,_______,_______,_______,
-                    DT_UP,  DT_DOWN,DT_PRNT,_______,_______,_______,_______,_______,_______,_______
+    _______,QK_BOOT,_______,_______,_______,_______,                _______,_______,_______,_______,_______,_______,
+    _______,_______,_______,DB_TOGG,_______,_______,                _______,_______,_______,_______,_______,_______,
+    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+                    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______
 ),
 };
 
