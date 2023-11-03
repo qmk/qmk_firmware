@@ -9,11 +9,6 @@ enum layer_names {
    
 };
 
-enum custom_keycodes {
-    QWERTY,
-    COLEMAK,
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         [_QWERTY] = LAYOUT(
