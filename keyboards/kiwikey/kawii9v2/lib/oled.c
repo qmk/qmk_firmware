@@ -187,13 +187,13 @@ void render_stats(void) {
 }
 
 
-void keyboard_post_init_user(void) {
+void keyboard_post_init_kb(void) {
     oled_on();
     oled_init(OLED_ROTATION_0);
     render_ui_frame();
 }
 
-bool oled_task_user(void) {
+bool oled_task_kb(void) {
     render_stats();
     switch (sub_ui_mode) {
         case 0:
@@ -217,7 +217,7 @@ bool oled_task_user(void) {
     return false;
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     oled_on();
     switch (keycode) {
         case QK_LIGHTING ... QK_LIGHTING_MAX:
