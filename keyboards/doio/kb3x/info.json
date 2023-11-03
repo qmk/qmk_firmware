@@ -30,9 +30,9 @@
     },
     "encoder": {
         "rotary": [
-            {"pin_a": "B5", "pin_b": "B6", "resolution": 2},           
-            {"pin_a": "A1", "pin_b": "A2", "resolution": 2},
-            {"pin_a": "A3", "pin_b": "A4", "resolution": 2}
+            {"pin_a": "B6", "pin_b": "B5", "resolution": 2},           
+            {"pin_a": "A2", "pin_b": "A1", "resolution": 2},
+            {"pin_a": "A4", "pin_b": "A3", "resolution": 2}
         ]
     },
     "ws2812": {
