@@ -32,27 +32,52 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-//A description for expressing the layer position in LED mode.
-layer_state_t layer_state_set_user(layer_state_t state) {
-#ifdef RGBLIGHT_ENABLE
-    switch (get_highest_layer(state)) {
-    case 1:
-      rgblight_sethsv_at(HSV_BLUE, 0);
-      break;
-    case 2:
-      rgblight_sethsv_at(HSV_RED, 0);
-      break;
-    case 3:
-      rgblight_sethsv_at(HSV_GREEN, 0);
-      break;
-    default: //  for any other layers, or the default layer
-      rgblight_sethsv_at( 0, 0, 0, 0);
-      break;
-    }
-    rgblight_set_effect_range( 1, 5);
-#endif
-return state;
+
+const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 1, HSV_WHITE}
+);
+const rgblight_segment_t PROGMEM my_layer0_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 1, HSV_BLACK}
+);
+const rgblight_segment_t PROGMEM my_layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 1, HSV_BLUE}
+);
+const rgblight_segment_t PROGMEM my_layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 1, HSV_RED}
+);
+const rgblight_segment_t PROGMEM my_layer3_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 1, HSV_GREEN}
+);
+
+const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    my_layer0_layer,
+    my_capslock_layer,
+    my_layer1_layer,
+    my_layer2_layer,
+    my_layer3_layer
+);
+
+void keyboard_post_init_user(void) {
+    rgblight_layers = my_rgb_layers;
 }
+
+bool led_update_user(led_t led_state) {
+    rgblight_set_layer_state(1, led_state.caps_lock);
+    return true;
+}
+
+layer_state_t default_layer_state_set_user(layer_state_t state) {
+    rgblight_set_layer_state(0, layer_state_cmp(state, 0));
+    return state;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    rgblight_set_layer_state(2, layer_state_cmp(state, 1));
+    rgblight_set_layer_state(3, layer_state_cmp(state, 2));
+    rgblight_set_layer_state(4, layer_state_cmp(state, 3));
+    return state;
+}
+
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
