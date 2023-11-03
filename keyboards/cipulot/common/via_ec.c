@@ -21,9 +21,9 @@
 #ifdef VIA_ENABLE
 
 void ec_rescale_values(uint8_t item);
+void ec_save_threshold_data(uint8_t option);
 void ec_save_bottoming_reading(void);
 void ec_show_calibration_data(void);
-bool calibration_data_shown = false;
 
 // Declaring enums for VIA config menu
 enum via_enums {
@@ -31,11 +31,12 @@ enum via_enums {
     id_actuation_mode = 1,
     id_mode_0_actuation_threshold = 2,
     id_mode_0_release_threshold = 3,
-    id_mode_1_initial_deadzone_offset = 4,
-    id_mode_1_actuation_sensitivity = 5,
-    id_mode_1_release_sensitivity = 6,
-    id_bottoming_calibration = 7,
-    id_show_calibration_data = 8
+    id_save_threshold_data = 4,
+    id_mode_1_initial_deadzone_offset = 5,
+    id_mode_1_actuation_sensitivity = 6,
+    id_mode_1_release_sensitivity = 7,
+    id_bottoming_calibration = 8,
+    id_show_calibration_data = 9
     // clang-format on
 };
 
@@ -58,37 +59,35 @@ void via_config_set_value(uint8_t *data) {
                 uprintf("# Actuation Mode: Rapid Trigger #\n");
                 uprintf("#################################\n");
             }
+            eeconfig_update_kb_datablock(&eeprom_ec_config);
             break;
         }
         case id_mode_0_actuation_threshold: {
-            eeprom_ec_config.mode_0_actuation_threshold = value_data[1] | (value_data[0] << 8);
-            ec_config.mode_0_actuation_threshold        = eeprom_ec_config.mode_0_actuation_threshold;
-            ec_rescale_values(0);
+            ec_config.mode_0_actuation_threshold = value_data[1] | (value_data[0] << 8);
             uprintf("APC Mode Actuation Threshold: %d\n", ec_config.mode_0_actuation_threshold);
             break;
         }
         case id_mode_0_release_threshold: {
             eeprom_ec_config.mode_0_release_threshold = value_data[1] | (value_data[0] << 8);
             ec_config.mode_0_release_threshold        = eeprom_ec_config.mode_0_release_threshold;
-            ec_rescale_values(1);
             uprintf("APC Mode Release Threshold: %d\n", ec_config.mode_0_release_threshold);
             break;
         }
         case id_mode_1_initial_deadzone_offset: {
-            eeprom_ec_config.mode_1_initial_deadzone_offset = value_data[1] | (value_data[0] << 8);
-            ec_config.mode_1_initial_deadzone_offset        = eeprom_ec_config.mode_1_initial_deadzone_offset;
-            ec_rescale_values(2);
+            ec_config.mode_1_initial_deadzone_offset = value_data[1] | (value_data[0] << 8);
             uprintf("Rapid Trigger Mode Initial Deadzone Offset: %d\n", ec_config.mode_1_initial_deadzone_offset);
             break;
         }
         case id_mode_1_actuation_sensitivity: {
             eeprom_ec_config.mode_1_actuation_sensitivity = value_data[0];
             ec_config.mode_1_actuation_sensitivity        = eeprom_ec_config.mode_1_actuation_sensitivity;
+            eeconfig_update_kb_datablock(&eeprom_ec_config);
             break;
         }
         case id_mode_1_release_sensitivity: {
             eeprom_ec_config.mode_1_release_sensitivity = value_data[0];
             ec_config.mode_1_release_sensitivity        = eeprom_ec_config.mode_1_release_sensitivity;
+            eeconfig_update_kb_datablock(&eeprom_ec_config);
             break;
         }
         case id_bottoming_calibration: {
@@ -103,17 +102,19 @@ void via_config_set_value(uint8_t *data) {
                 uprintf("## Bottoming calibration done ##\n");
                 ec_show_calibration_data();
             }
+            eeconfig_update_kb_datablock(&eeprom_ec_config);
+            break;
+        }
+        case id_save_threshold_data: {
+            ec_save_threshold_data(value_data[0]);
             break;
         }
         case id_show_calibration_data: {
             // Show calibration data once if the user toggle the switch
-            if ((value_data[0] == 1) && (calibration_data_shown == false)) {
-                calibration_data_shown = true;
+            if (value_data[0] == 0) {
                 ec_show_calibration_data();
-            } else {
-                calibration_data_shown = false;
+                break;
             }
-            break;
         }
     }
 }
@@ -152,20 +153,11 @@ void via_config_get_value(uint8_t *data) {
             value_data[0] = eeprom_ec_config.mode_1_release_sensitivity;
             break;
         }
-        case id_bottoming_calibration: {
-            if (ec_config.bottoming_calibration) {
-                value_data[0] = 1;
-            } else {
-                value_data[0] = 0;
-            }
+        default: {
+            // Unhandled value.
             break;
         }
     }
-}
-
-// Save the data to persistent memory after changes are made
-void via_eeprrom_ec_update_config(void) {
-    eeconfig_update_kb_datablock(&eeprom_ec_config);
 }
 
 void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
@@ -185,7 +177,7 @@ void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
                 break;
             }
             case id_custom_save: {
-                via_eeprrom_ec_update_config();
+                // Bypass the save function in favor of pinpointed saves
                 break;
             }
             default: {
@@ -228,6 +220,22 @@ void ec_rescale_values(uint8_t item) {
         default:
             break;
     }
+}
+
+void ec_save_threshold_data(uint8_t option) {
+    if (option == 0) {
+        eeprom_ec_config.mode_0_actuation_threshold = ec_config.mode_0_actuation_threshold;
+        eeprom_ec_config.mode_0_release_threshold   = ec_config.mode_0_release_threshold;
+        ec_rescale_values(0);
+        ec_rescale_values(1);
+    } else if (option == 1) {
+        eeprom_ec_config.mode_1_initial_deadzone_offset = ec_config.mode_1_initial_deadzone_offset;
+        ec_rescale_values(2);
+    }
+    eeconfig_update_kb_datablock(&eeprom_ec_config);
+    uprintf("####################################\n");
+    uprintf("# New thresholds applied and saved #\n");
+    uprintf("####################################\n");
 }
 
 // Save the bottoming reading
