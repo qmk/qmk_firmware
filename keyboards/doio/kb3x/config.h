@@ -19,7 +19,6 @@
 
 /* Ecoder */
 #define ENCODER_DEFAULT_POS 0X03
-#define ENCODER_DIRECTION_FLIP
 
 /* RGB Matrix config */
 #define RGB_MATRIX_LED_COUNT 6
