@@ -124,11 +124,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     default: {
                         rgb_matrix_set_flags(LED_FLAG_ALL);
                         rgb_matrix_enable_noeeprom();
-                        break;
+                        return true;
                     }
-                    rgb_matrix_set_color_all(0, 0, 0);
                 }
             }
+            rgb_matrix_set_color_all(0, 0, 0);
             return false;
         case MO(_FN): //checks if fn key is pressed
             if (record->event.pressed) {
@@ -156,7 +156,7 @@ bool rgb_matrix_indicators_user(void) {
     if ((rgb_matrix_get_flags() & LED_FLAG_KEYLIGHT)) {
         rgb_matrix_set_color(104, red, green, blue);
         if (fn_pressed) {// sets fn key led to white if pressed
-        rgb_matrix_set_color(31, RGB_WHITE);
+            rgb_matrix_set_color(31, RGB_WHITE);
         }
         if (host_keyboard_led_state().caps_lock) {
             rgb_matrix_set_color(32, RGB_WHITE);
@@ -165,25 +165,6 @@ bool rgb_matrix_indicators_user(void) {
         rgb_matrix_set_color(104, red, green, blue);
     }
     return false;
-/*
-    if ((rgb_matrix_get_flags() & LED_FLAG_KEYLIGHT)) {
-        if (host_keyboard_led_state().num_lock) {
-            rgb_matrix_set_color(46, 255, 0, 0);
-        }if (host_keyboard_led_state().caps_lock) {
-            rgb_matrix_set_color(32, RGB_WHITE);
-        }
-        rgb_matrix_set_color(104, red, green, blue);
-    } if (fn_pressed) {// sets fn key led to white if pressed
-            rgb_matrix_set_color(31, RGB_WHITE);
-        } else {
-            if (host_keyboard_led_state().num_lock) {
-                rgb_matrix_set_color(46, 255, 0, 0);
-            } else {
-                rgb_matrix_set_color(46, 0, 0, 0);
-            }
-            rgb_matrix_set_color(104, red, green, blue);
-    }
-    return false;*/
 }
 
 #ifdef ENCODER_MAP_ENABLE
