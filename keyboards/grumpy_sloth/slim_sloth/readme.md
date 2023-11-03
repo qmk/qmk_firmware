@@ -1,12 +1,15 @@
-# grumpy_sloth
+# Grumpy Sloth
 
-![grumpy_sloth](imgur.com image replace me!)
+![grumpy_sloth](https://i.imgur.com/4MyNhtV.png)
 
-*A short description of the keyboard/project*
 
-* Keyboard Maintainer: [Scott Moyse](https://github.com/RonnyM82)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+![Slim Sloth Keyboard](https://i.imgur.com/ymsQhI0h.jpg)
+
+A full billet low profile keyboard manufactured in New Zealand. All keycaps are metal, with per key RGB lighting.
+
+* Keyboard Maintainer: [RonnyM82](https://github.com/RonnyM82)
+* Hardware Supported: Custom PCB to suit the Kailh Choc V1 switches, running the RP2040 MCU
+* Hardware Availability: [Grump Sloth eStore](https://grumpysloth.co)
 
 Make example for this keyboard (after setting up your build environment):
 
