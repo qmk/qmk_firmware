@@ -21,7 +21,8 @@
         "extrakey": true,
         "mousekey": false,
         "nkro": false,
-        "rgblight": false,
+        "oled": true,
+        "wpm": true,
         "rgb_matrix": true,
         "encoder": true
     },
