@@ -13,9 +13,10 @@ bool check_large_layer(void){
             return true;
         }
     }
-    return false;
+    return false
 }
 
+#ifndef REPEAT_ALL_KEYS_ENABLED
 bool check_if_repeat_key(uint8_t keycode){
     for (int i = 0; i < FAST_REPEAT_KEY_COUNT; i++){
         if (keys_to_repeat[i] == keycode){
@@ -24,8 +25,8 @@ bool check_if_repeat_key(uint8_t keycode){
     }
     return false;
 }
+#endif
 
-// bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 bool process_repeat_key(uint16_t keycode, keyrecord_t *record) {
     if (check_large_layer()){
         #ifndef REPEAT_ALL_KEYS_ENABLED
