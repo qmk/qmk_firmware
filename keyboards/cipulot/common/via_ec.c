@@ -102,7 +102,6 @@ void via_config_set_value(uint8_t *data) {
                 uprintf("## Bottoming calibration done ##\n");
                 ec_show_calibration_data();
             }
-            eeconfig_update_kb_datablock(&eeprom_ec_config);
             break;
         }
         case id_save_threshold_data: {
