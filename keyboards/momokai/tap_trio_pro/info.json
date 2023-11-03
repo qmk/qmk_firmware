@@ -24,7 +24,7 @@
     "matrix_pins": {
         "direct":[
         ["NO_PIN", "GP0", "NO_PIN" ],
-        ["GP28", "GP27", "GP26" ],
+        ["NO_PIN", "GP27", "GP26" ],
         ["GP10", "GP9", "GP8" ]
         ]
     },

@@ -100,14 +100,14 @@ void values_save(void) {
     eeconfig_update_kb_datablock(&g_config);
 }
 
-void          eeconfig_init_kb() {
-    values_save();
-}
+// void          eeconfig_init_kb() {
+//     values_save();
+// }
 
-void keyboard_post_init_kb(void) {
-    idle_recalibrate_token = defer_exec(300000, idle_recalibrate_callback, NULL);
-    values_load();
-}
+// void keyboard_post_init_kb(void) {
+//     idle_recalibrate_token = defer_exec(300000, idle_recalibrate_callback, NULL);
+//     values_load();
+// }
 
 #ifdef VIA_ENABLE
 void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
