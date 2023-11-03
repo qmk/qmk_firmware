@@ -9,6 +9,7 @@ from qmk.commands import dump_lines
 from qmk.git import git_get_qmk_hash, git_get_version, git_is_dirty
 from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
 from qmk.keycodes import list_versions
+from qmk.util import triplet_to_bcd
 
 TIME_FMT = '%Y-%m-%d-%H:%M:%S'
 
@@ -32,14 +33,18 @@ def generate_version_h(cli):
     if cli.args.skip_git:
         git_dirty = False
         keycode_version = "NA"
+        keycode_bcd_version = "NA"
         git_version = "NA"
+        git_bcd_version = "NA"
         git_qmk_hash = "NA"
         chibios_version = "NA"
         chibios_contrib_version = "NA"
     else:
         git_dirty = git_is_dirty()
-        keycode_version = convert_version_to_hex(list_versions()[0])
+        keycode_version = list_versions()[0]
+        keycode_bcd_version = triplet_to_bcd(*(list(map(int, keycode_version.split('.')))))
         git_version = git_get_version() or current_time
+        git_bcd_version = triplet_to_bcd(*(list(map(int, (git_version.split('-')[0]).split('.')))))
         git_qmk_hash = git_get_qmk_hash() or "Unknown"
         chibios_version = git_get_version("chibios", "os") or current_time
         chibios_contrib_version = git_get_version("chibios-contrib", "os") or current_time
@@ -50,8 +55,8 @@ def generate_version_h(cli):
     version_h_lines.append(
         f"""
 #define QMK_VERSION "{git_version}"
-#define QMK_VERSION_HEX {convert_version_to_hex(git_version.split('-')[0])}
-#define KEYCODE_VERSION_HEX {keycode_version}
+#define QMK_BCD_VERSION {git_bcd_version}
+#define KEYCODE_BCD_VERSION {keycode_bcd_version}
 #define QMK_BUILDDATE "{current_time}"
 #define QMK_GIT_HASH  "{git_qmk_hash}{'*' if git_dirty else ''}"
 #define CHIBIOS_VERSION "{chibios_version}"
@@ -61,12 +66,3 @@ def generate_version_h(cli):
 
     # Show the results
     dump_lines(cli.args.output, version_h_lines, cli.args.quiet)
-
-def convert_version_to_hex(version):
-    hex_conversion = version.split('.')
-    if len(hex_conversion) != 3:
-        return None
-
-    hex_conversion = [hex(int(item))[2:].zfill(2) for item in hex_conversion]
-    hex_conversion[2] = hex_conversion[2].zfill(4)
-    return "".join(hex_conversion)

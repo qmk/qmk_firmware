@@ -54,3 +54,7 @@ def parallel_map(*args, **kwargs):
         # before the results are returned. Returning a list ensures results are
         # materialised before any worker pool is shut down.
         return list(map_fn(*args, **kwargs))
+
+
+def triplet_to_bcd(major: int, minor: int, patch: int):
+    return f"0x{major:02d}{minor:02d}{patch:04d}"
