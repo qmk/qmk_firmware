@@ -11,11 +11,11 @@
                        "KC_LCTL", "KC_LGUI",                       "KC_LALT", "KC_APP",  "KC_SPC",      "KC_P0",   "KC_P0",   "KC_PDOT", "KC_PENT",     "KC_SPC",  "KC_RALT",            "KC_RGUI", "KC_RALT",                                  "KC_LEFT", "KC_DOWN", "KC_RGHT"
         ],
         [
-            "QK_RBT",  "KC_CNCL", "KC_F1",   "KC_F2",   "KC_F3",   "KC_F4",   "KC_F5",                  "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",                "KC_F6",   "KC_F7",   "KC_F8",   "KC_F9",   "KC_F10",  "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "QK_BOOT", 
+            "QK_RBT",  "KC_TRNS", "KC_F1",   "KC_F2",   "KC_F3",   "KC_F4",   "KC_F5",                  "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",                "KC_F6",   "KC_F7",   "KC_F8",   "KC_F9",   "KC_F10",  "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "QK_BOOT", 
                        "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",                "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",                "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",            "KC_TRNS", 
                        "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",                "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",                "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",                       "KC_TRNS",
             "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",     "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",     "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",            "KC_TRNS", 
-                       "KC_TRNS", "KC_TRNS",                       "KC_TRNS", "KC_TRNS", "KC_TRNS",     "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",     "KC_TRNS", "KC_TRNS",            "KC_TRNS", "KC_TRNS",                                  "KC_TRNS", "KC_TRNS", "KC_TRNS"
+                       "KC_LNG8", "KC_LNG9",                       "KC_TRNS", "KC_TRNS", "KC_TRNS",     "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",     "KC_TRNS", "KC_TRNS",            "KC_TRNS", "KC_TRNS",                                  "KC_TRNS", "KC_TRNS", "KC_TRNS"
         ]
     ]
 }
