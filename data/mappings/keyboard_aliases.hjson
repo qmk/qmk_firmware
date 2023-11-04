@@ -1081,7 +1081,7 @@
         "target": "checkerboards/pursuit40"
     },
     "pw88": {
-        "target": smoll/pw88"
+        "target": "smoll/pw88"
     },
     "qaz": {
         "target": "tominabox1/qaz"
