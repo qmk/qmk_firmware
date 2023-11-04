@@ -16,6 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <stdint.h>
 #include QMK_KEYBOARD_H
 
 #define MG(k) LGUI_T(k)
@@ -27,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /**
  * DVORAK with HomeRows
  **/
+
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -46,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_TAB,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_ESC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       KC_DEL , KC_DQUO, KC_LBRC, S(KC_LBRC), S(KC_9), S(KC_EQL),               KC_EQL, S(KC_0), S(KC_RBRC), KC_RBRC, KC_QUOTE,  KC_BSPC,
+       KC_DEL , MG(KC_DQUO), MA(KC_LBRC), MS(KC_LCBR), MC(KC_LPRN), S(KC_EQL),               KC_EQL, MC(KC_RPRN), MS(KC_RCBR), MA(KC_RBRC), MG(KC_QUOTE),  KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_MINUS, KC_EXLM,  KC_AT,  KC_HASH, KC_DLR,  KC_PERC,                     KC_CIRC, KC_AMPR, KC_ASTR, KC_UNDS, KC_QUES,  KC_PLUS,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -79,3 +81,52 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //`--------------------------'  `--------------------------'
   )
 };
+
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record){
+    switch (keycode){
+        case MG(KC_DQUO):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(KC_DQUO);
+                return false;
+            }
+            break;
+        case MA(KC_LBRC):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(KC_LBRC);
+                return false;
+            }
+            break;
+        case MS(KC_LCBR):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(KC_LCBR);
+                return false;
+            }
+            break;
+        case MC(KC_LPRN):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(KC_LPRN);
+                return false;
+            }
+            break;
+        case MC(KC_RPRN):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(KC_RPRN);
+                return false;
+            }
+            break;
+        case MS(KC_RCBR):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(KC_RCBR);
+                return false;
+            }
+            break;
+        case MA(KC_RBRC):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(KC_RBRC);
+                return false;
+            }
+            break;
+    }
+    return true;
+}
