@@ -36,7 +36,8 @@ enum via_enums {
     id_mode_1_actuation_sensitivity = 6,
     id_mode_1_release_sensitivity = 7,
     id_bottoming_calibration = 8,
-    id_show_calibration_data = 9
+    id_noise_floor_calibration = 9,
+    id_show_calibration_data = 10
     // clang-format on
 };
 
@@ -107,6 +108,18 @@ void via_config_set_value(uint8_t *data) {
         case id_save_threshold_data: {
             ec_save_threshold_data(value_data[0]);
             break;
+        }
+        case id_noise_floor_calibration: {
+            if (value_data[0] == 0) {
+                ec_noise_floor();
+                ec_rescale_values(0);
+                ec_rescale_values(1);
+                ec_rescale_values(2);
+                uprintf("#############################\n");
+                uprintf("# Noise floor data acquired #\n");
+                uprintf("#############################\n");
+                break;
+            }
         }
         case id_show_calibration_data: {
             // Show calibration data once if the user toggle the switch
