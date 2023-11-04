@@ -44,7 +44,9 @@ GENERIC_FEATURES = \
 define HANDLE_GENERIC_FEATURE
     # $$(info "Processing: $1_ENABLE $2.c")
     SRC += $$(wildcard $$(QUANTUM_DIR)/process_keycode/process_$2.c)
+    SRC += $$(wildcard $$(QUANTUM_DIR)/$2/$2.c)
     SRC += $$(wildcard $$(QUANTUM_DIR)/$2.c)
+    VPATH += $$(wildcard $$(QUANTUM_DIR)/$2/)
     OPT_DEFS += -D$1_ENABLE
 endef
 
