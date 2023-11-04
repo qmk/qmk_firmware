@@ -1,6 +1,6 @@
 # Voyager
 
-A next-gen split, ergonomic keyboard with an active left side, USB type C, integrated wrist rest, and a thumb cluster that can move.
+A next-gen split, ergonomic keyboard with an active left side, USB type C, and low profile switches.
 
 * Keyboard Maintainer: [drashna](https://github.com/drashna), [ZSA](https://github.com/zsa/)
 * Hardware Supported: Voyager (STM32F303xC)
@@ -21,9 +21,9 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ### Indicator LEDs
 
-There are 6 functions for enabling and disabling the LEDs on the top of the boards. The functions are `ML_LED_1(bool)` through `ML_LED_6(bool)`, with the first LED being the left most LED on the left hand, and the sixth LED being the right most LED on the right side. 
+There are 6 functions for enabling and disabling the LEDs on the top of the boards. The functions are `STATUS_LED_1(bool)` through `STATUS_LED_4(bool)`, with the first LED being the top most LED on the left hand, and the fourth LED being the bottom most LED on the right side.
 
-By default, the Indicator LEDs are used to indicate the layer state for the keyboard.  If you wish to change this (and indicate caps/num/scroll lock status instead), then define `VOYAGER_USER_LEDS` in your `config.h` file. 
+By default, the Indicator LEDs are used to indicate the layer state for the keyboard.  If you wish to change this (and indicate caps/num/scroll lock status instead), then define `VOYAGER_USER_LEDS` in your `config.h` file.
 
 ### Detecting split / Gaming mode
 

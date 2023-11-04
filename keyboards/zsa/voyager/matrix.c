@@ -14,7 +14,7 @@ static matrix_row_t raw_matrix_right[MATRIX_COLS];
 #    define VOYAGER_I2C_TIMEOUT 100
 #endif
 
-extern bool mcp23018_leds[3];
+extern bool mcp23018_leds[2];
 extern bool is_launching;
 
 bool mcp23018_initd = false;
@@ -119,7 +119,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         if (mcp23018_initd) {
             // select row
             mcp23018_tx[0] = 0x12;                                                                  // GPIOA
-            mcp23018_tx[1] = (0b01111111 & ~(1 << (row))) | ((uint8_t)!mcp23018_leds[2] << 7);      // activate row
+            mcp23018_tx[1] = (0b01111111 & ~(1 << (row)));      // activate row
             mcp23018_tx[2] = ((uint8_t)!mcp23018_leds[1] << 6) | ((uint8_t)!mcp23018_leds[0] << 7); // activate row
 
             if (MSG_OK != i2c_transmit(MCP23018_DEFAULT_ADDRESS << 1, mcp23018_tx, 3, VOYAGER_I2C_TIMEOUT)) {
