@@ -53,7 +53,7 @@
             "solid_splash": true,
             "solid_multisplash": true
         },
-        "driver": "ws2812"
+        "driver": "ws2812",
         "layout": [
             {"matrix": [3, 0], "x": 0, "y": 64, "flags": 4},
             {"matrix": [3, 1], "x": 45, "y": 64, "flags": 4},
