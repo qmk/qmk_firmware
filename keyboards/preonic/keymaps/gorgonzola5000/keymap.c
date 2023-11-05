@@ -74,8 +74,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		),
 	[_NUMPAD] = LAYOUT_preonic_1x2uC(	
 		KC_GRV, 		KC_1, 			KC_2, 			KC_3, 			KC_4, 			KC_5, 			KC_6, 			KC_7, 			KC_8, 			KC_9, 			KC_0, 			KC_MINS,
-		KC_TAB, 		KC_NO, 			KC_LBRC, 		KC_RBRC, 		KC_DLR, 		RALT(KC_U), 	KC_NO, 			KC_7, 			KC_8, 			KC_9, 			KC_NO, 			KC_BSPC,
-		KC_ESC, 		KC_NO, 			KC_BSLS, 		KC_SLSH, 		KC_MINS, 		KC_EQL, 		KC_NO, 			KC_4, 			KC_5, 			KC_6, 			KC_SCLN, 		KC_QUOT,
+		KC_TAB, 		KC_LBRC, 		KC_RBRC, 		KC_DLR, 		RALT(KC_U), 	KC_NO,			KC_NO, 			KC_7, 			KC_8, 			KC_9, 			KC_NO, 			KC_BSPC,
+		KC_ESC, 		KC_BSLS, 		KC_SLSH, 		KC_MINS, 		KC_EQL, 		KC_NO	 		KC_NO, 			KC_4, 			KC_5, 			KC_6, 			KC_SCLN, 		KC_QUOT,
 		KC_NO, 			KC_NO, 			KC_NO, 			KC_NO, 			KC_NO, 			KC_NO, 			KC_NO, 			KC_1, 			KC_2, 			KC_3, 			KC_SLSH, 		KC_ENT,
 		RELEASE, 		OSM(MOD_LCTL), 	OSM(MOD_LGUI), 	OSM(MOD_LALT), 	OSM(MOD_LSFT), 			KC_SPC, 				KC_0, 			KC_COMM, 		KC_DOT, 		KC_NO, 			KC_F14
 		),
