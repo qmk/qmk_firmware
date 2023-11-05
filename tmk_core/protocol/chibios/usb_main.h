@@ -1,24 +1,19 @@
-/*
- * (c) 2015 flabberast <s3+flabbergast@sdfeu.org>
- *
- * Based on the following work:
- *  - Guillaume Duc's raw hid example (MIT License)
- *    https://github.com/guiduc/usb-hid-chibios-example
- *  - PJRC Teensy examples (MIT License)
- *    https://www.pjrc.com/teensy/usb_keyboard.html
- *  - hasu's TMK keyboard code (GPL v2 and some code Modified BSD)
- *    https://github.com/tmk/tmk_keyboard/
- *  - ChibiOS demo code (Apache 2.0 License)
- *    http://www.chibios.org
- *
- * Since some GPL'd code is used, this work is licensed under
- * GPL v2 or later.
- */
+// Copyright 2023 Stefan Kerkmann (@KarlK90)
+// Copyright 2020 Ryan (@fauxpark)
+// Copyright 2020 Joel Challis (@zvecr)
+// Copyright 2018 James Laird-Wah
+// Copyright 2016 Fredizzimo
+// Copyright 2016 Giovanni Di Sirio
+// SPDX-License-Identifier: GPL-3.0-or-later OR Apache-2.0
 
 #pragma once
 
 #include <ch.h>
 #include <hal.h>
+
+#include "usb_device_state.h"
+#include "usb_descriptor.h"
+#include "usb_driver.h"
 
 /* -------------------------
  * General USB driver header
