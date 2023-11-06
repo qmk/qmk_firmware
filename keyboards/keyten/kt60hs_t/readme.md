@@ -2,7 +2,7 @@
 
 60% MX Hot-Swap Tsangan PCB
 
-![kt60HS-T image](https://i.imgur.com/Iqrf6tHl.jpg)
+![kt60HS-T image](https://i.imgur.com/Iqrf6tHh.jpg)
 
 * Keyboard Maintainer: [keyten](https://github.com/key10iq)
 * Hardware Supported: keyten kt60HS-T
