@@ -1,8 +1,5 @@
 // Copyright 2023 abhiakl (@abhijithabhiakl)
 // SPDX-License-Identifier: GPL-2.0-or-later
-#ifndef CONFIG_H
-#define CONFIG_H
-
 #pragma once
 
 /*
