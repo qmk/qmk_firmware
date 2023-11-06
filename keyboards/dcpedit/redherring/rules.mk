@@ -1,4 +1,2 @@
 F_CPU = 16000000
-OLED_ENABLE = yes
-HAPTIC_ENABLE = yes
 HAPTIC_DRIVER = solenoid
