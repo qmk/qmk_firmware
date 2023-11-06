@@ -8,9 +8,7 @@
 #include <stdio.h>
 #include <math.h>
 
-static painter_device_t       reverb_display;
 static painter_image_handle_t reverb_logo;
-static painter_font_handle_t  roboto_font;
 static deferred_token         display_task_token;
 static uint32_t               key_pressed_count = 0;
 
@@ -25,6 +23,7 @@ uint32_t display_task_callback(uint32_t trigger_time, void *cb_arg) {
 void display_init_kb(void) {
     reverb_display = qp_gc9a01_make_spi_device(240, 240, DISPLAY_CS, DISPLAY_DC, DISPLAY_RST, 2, 0); // always init display
     qp_init(reverb_display, QP_ROTATION_0);
+    roboto_font = qp_load_font_mem(font_robotomono20);
     if (!display_init_user()) {
         return;
     }
@@ -36,7 +35,6 @@ void display_init_kb(void) {
     qp_drawimage(reverb_display, 0, 0, splash_image);
     qp_flush(reverb_display);
     qp_close_image(splash_image);
-    roboto_font        = qp_load_font_mem(font_robotomono20);
     display_task_token = defer_exec(2000, display_task_callback, NULL);
 }
 

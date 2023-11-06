@@ -5,6 +5,9 @@
 
 #include "qp.h"
 
+painter_device_t       reverb_display;
+painter_font_handle_t  roboto_font;
+
 void display_key_counter(void);
 void display_init_kb(void);
 bool display_init_user(void);
