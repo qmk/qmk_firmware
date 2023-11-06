@@ -15,24 +15,36 @@ RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = is31fl3729
 ```
 
-You can use between 1 and 4 IS31FL3729 IC's. Do not specify `DRIVER_ADDR_<N>` defines for IC's that are not present on your keyboard. You can define the following items in `config.h`:
+You can use between 1 and 4 IS31FL3729 IC's. Do not specify `IS31FL3729_I2C_ADDRESS_<N>` defines for IC's that are not present on your keyboard. You can define the following items in `config.h`:
 
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `IS31FL3729_I2C_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
 | `IS31FL3729_I2C_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
-| `IS31FL3729_CONFIGURATION` | (Optional) Configuration for the Configuration Register | 0x01 |
+| `IS31FL3729_CONFIGURATION` | (Optional) Configuration for the Configuration Register | SWS_15_9 |
 | `IS31FL3729_GLOBALCURRENT` | (Optional) Configuration for the Global Current Register | 0x40 |
 | `IS31FL3729_PULLDOWNUP` | (Optional) Configuration for the Pull Up & Pull Down Register | 0x33 |
-| `IS31FL3729_PWM_FREQUENCY` | (Optional) Configuration for the PWM Frequency Register | 0x01 |
+| `IS31FL3729_SPREAD_SPECTRUM` | (Optional) Configuration for the Spread Spectrum Register | SSP_DISABLE |
+| `IS31FL3729_PWM_FREQUENCY` | (Optional) Configuration for the PWM Frequency Register | 32K_HZ |
 | `IS31FL3729_DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
 | `RGB_MATRIX_LED_COUNT` | (Required) How many RGB lights are present across all drivers | |
-| `DRIVER_ADDR_1` | (Required) Address for the first RGB driver | |
-| `DRIVER_ADDR_2` | (Optional) Address for the second RGB driver | |
-| `DRIVER_ADDR_3` | (Optional) Address for the third RGB driver | |
-| `DRIVER_ADDR_4` | (Optional) Address for the fourth RGB driver | |
+| `IS31FL3729_I2C_ADDRESS_1` | (Required) Address for the first RGB driver | |
+| `IS31FL3729_I2C_ADDRESS_2` | (Optional) Address for the second RGB driver | |
+| `IS31FL3729_I2C_ADDRESS_3` | (Optional) Address for the third RGB driver | |
+| `IS31FL3729_I2C_ADDRESS_4` | (Optional) Address for the fourth RGB driver | |
 
-Drivers does support many matrix layout by using SWS on `IS31FL3729_CONFIGURATION`. RGB Matrix is only supported 15 x 9 matrix layout (15 CS pin & 9 SW pin). More info [in datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3729_DS.pdf)
+The IS31FL3729 IC's support multiple matrix layouts. By default 15 x 9 matrix layout is used (`IS31FL3729_CONFIGURATION` is given the value of `IS31FL3729_CONFIG_SWS_15_9`), the values that can be set to choose matrix layouts are as follows:
+
+| `IS31FL3729_CONFIGURATION` | Description |
+|----------------------------|-------------|
+| `IS31FL3729_CONFIG_SWS_15_9` | (Default) 15 CS x 9 SW matrix |
+| `IS31FL3729_CONFIG_SWS_16_8` | 16 CS x 8 SW matrix |
+| `IS31FL3729_CONFIG_SWS_16_7` | 16 CS x 7 SW matrix |
+| `IS31FL3729_CONFIG_SWS_16_6` | 16 CS x 6 SW matrix |
+| `IS31FL3729_CONFIG_SWS_16_5` | 16 CS x 5 SW matrix |
+| `IS31FL3729_CONFIG_SWS_16_4` | 16 CS x 4 SW matrix |
+| `IS31FL3729_CONFIG_SWS_16_3` | 16 CS x 3 SW matrix |
+| `IS31FL3729_CONFIG_SWS_16_2` | 16 CS x 2 SW matrix |
 
 Here is an example using 2 drivers.
 
@@ -40,12 +52,14 @@ Here is an example using 2 drivers.
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
 // The address will vary depending on your wiring:
-// 0b0110100 AD <-> GND
-// 0b0110101 AD <-> SCL
-// 0b0110110 AD <-> SDA
-// 0b0110111 AD <-> VCC
-#define DRIVER_ADDR_1 0b0110100
-#define DRIVER_ADDR_2 0b0110101
+// 00 AD <-> GND
+// 01 AD <-> SCL
+// 10 AD <-> SDA
+// 11 AD <-> VCC
+// ADDR represents A2:A1 of the 7-bit address.
+// The result is: 0b01101(ADDR)
+#define IS31FL3729_I2C_ADDRESS_1 IS31FL3729_I2C_ADDRESS_GND
+#define IS31FL3729_I2C_ADDRESS_2 IS31FL3729_I2C_ADDRESS_SCL
 
 #define IS31FL3729_DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 39
@@ -55,12 +69,12 @@ Here is an example using 2 drivers.
 
 !> Note the parentheses, this is so when `RGB_MATRIX_LED_COUNT` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
 
-For split keyboards using `RGB_MATRIX_SPLIT` with an LED driver, you can either have the same driver address or different driver addresses. If using different addresses, use `DRIVER_ADDR_1` for one and `DRIVER_ADDR_2` for the other one. Then, in `g_is31_leds`, fill out the correct driver index (0 or 1). If using one address, use `DRIVER_ADDR_1` for both, and use index 0 for `g_is31_leds`.
+For split keyboards using `RGB_MATRIX_SPLIT` with an LED driver, you can either have the same driver address or different driver addresses. If using different addresses, use `IS31FL3729_I2C_ADDRESS_1` for one and `IS31FL3729_I2C_ADDRESS_2` for the other one. Then, in `g_is31fl3729_leds`, fill out the correct driver index (0 or 1). If using one address, use `IS31FL3729_I2C_ADDRESS_1` for both, and use index 0 for `g_is31fl3729_leds`.
 
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3729_led_t PROGMEM g_is31fl3729_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -84,7 +98,7 @@ RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = is31fl3731
 ```
 
-You can use between 1 and 4 IS31FL3731 IC's. Do not specify `DRIVER_ADDR_<N>` defines for IC's that are not present on your keyboard. You can define the following items in `config.h`:
+You can use between 1 and 4 IS31FL3731 IC's. Do not specify `IS31FL3731_I2C_ADDRESS_<N>` defines for IC's that are not present on your keyboard. You can define the following items in `config.h`:
 
 | Variable | Description | Default |
 |----------|-------------|---------|
@@ -148,7 +162,7 @@ RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = is31fl3733
 ```
 
-You can use between 1 and 4 IS31FL3733 IC's. Do not specify `DRIVER_ADDR_<N>` defines for IC's that are not present on your keyboard. You can define the following items in `config.h`:
+You can use between 1 and 4 IS31FL3733 IC's. Do not specify `IS31FL3733_I2C_ADDRESS_<N>` defines for IC's that are not present on your keyboard. You can define the following items in `config.h`:
 
 | Variable | Description | Default |
 |----------|-------------|---------|
@@ -231,7 +245,7 @@ There is basic support for addressable RGB matrix lighting with the I2C IS31FL37
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = is31fl3736
 ```
-You can use between 1 and 4 IS31FL3736 IC's. Do not specify `DRIVER_ADDR_<N>` defines for IC's that are not present on your keyboard.
+You can use between 1 and 4 IS31FL3736 IC's. Do not specify `IS31FL3736_I2C_ADDRESS_<N>` defines for IC's that are not present on your keyboard.
 
 Configure the hardware via your `config.h`:
 
@@ -306,7 +320,7 @@ There is basic support for addressable RGB matrix lighting with the I2C IS31FL37
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = is31fl3737
 ```
-You can use between 1 and 4 IS31FL3737 IC's. Do not specify `DRIVER_ADDR_<N>` defines for IC's that are not present on your keyboard.
+You can use between 1 and 4 IS31FL3737 IC's. Do not specify `IS31FL3737_I2C_ADDRESS_<N>` defines for IC's that are not present on your keyboard.
 
 Configure the hardware via your `config.h`:
 

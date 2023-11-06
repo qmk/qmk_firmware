@@ -27,6 +27,10 @@
 #define IS31FL3729_I2C_ADDRESS_SDA 0x36
 #define IS31FL3729_I2C_ADDRESS_VCC 0x37
 
+#if defined(RGB_MATRIX_IS31FL3729)
+#    define IS31FL3729_LED_COUNT RGB_MATRIX_LED_COUNT
+#endif
+
 typedef struct is31fl3729_led_t {
     uint8_t driver : 2;
     uint8_t r;
@@ -34,8 +38,9 @@ typedef struct is31fl3729_led_t {
     uint8_t b;
 } __attribute__((packed)) is31fl3729_led_t;
 
-extern const is31fl3729_led_t PROGMEM g_is31fl3729_leds[RGB_MATRIX_LED_COUNT];
+extern const is31fl3729_led_t PROGMEM g_is31fl3729_leds[IS31FL3729_LED_COUNT];
 
+void is31fl3729_init_drivers(void);
 void is31fl3729_init(uint8_t addr);
 void is31fl3729_write_register(uint8_t addr, uint8_t reg, uint8_t data);
 bool is31fl3729_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
@@ -52,44 +57,46 @@ void is31fl3729_set_led_control_register(uint8_t index, bool red, bool green, bo
 void is31fl3729_update_pwm_buffers(uint8_t addr, uint8_t index);
 void is31fl3729_update_led_control_registers(uint8_t addr, uint8_t index);
 
+void is31fl3729_flush(void);
+
 // Noise reduction using Spread Spectrum register
-#define IS31FL3729_SPREAD_SPECTRUM_DISABLE 0b00000
-#define IS31FL3729_SPREAD_SPECTRUM_5_1980US 0b10000
-#define IS31FL3729_SPREAD_SPECTRUM_5_1200US 0b10001
-#define IS31FL3729_SPREAD_SPECTRUM_5_820US 0b10010
-#define IS31FL3729_SPREAD_SPECTRUM_5_660US 0b10011
-#define IS31FL3729_SPREAD_SPECTRUM_15_1980US 0b10100
-#define IS31FL3729_SPREAD_SPECTRUM_15_1200US 0b10101
-#define IS31FL3729_SPREAD_SPECTRUM_15_820US 0b10110
-#define IS31FL3729_SPREAD_SPECTRUM_15_660US 0b10111
-#define IS31FL3729_SPREAD_SPECTRUM_24_1980US 0b11000
-#define IS31FL3729_SPREAD_SPECTRUM_24_1200US 0b11001
-#define IS31FL3729_SPREAD_SPECTRUM_24_820US 0b11010
-#define IS31FL3729_SPREAD_SPECTRUM_24_660US 0b11011
-#define IS31FL3729_SPREAD_SPECTRUM_34_1980US 0b11100
-#define IS31FL3729_SPREAD_SPECTRUM_34_1200US 0b11101
-#define IS31FL3729_SPREAD_SPECTRUM_34_820US 0b11110
-#define IS31FL3729_SPREAD_SPECTRUM_34_660US 0b11111
+#define IS31FL3729_SSP_DISABLE 0x00
+#define IS31FL3729_SSP_5_1980US 0x10
+#define IS31FL3729_SSP_5_1200US 0x11
+#define IS31FL3729_SSP_5_820US 0x12
+#define IS31FL3729_SSP_5_660US 0x13
+#define IS31FL3729_SSP_15_1980US 0x14
+#define IS31FL3729_SSP_15_1200US 0x15
+#define IS31FL3729_SSP_15_820US 0x16
+#define IS31FL3729_SSP_15_660US 0x17
+#define IS31FL3729_SSP_24_1980US 0x18
+#define IS31FL3729_SSP_24_1200US 0x19
+#define IS31FL3729_SSP_24_820US 0x1A
+#define IS31FL3729_SSP_24_660US 0x1B
+#define IS31FL3729_SSP_34_1980US 0x1C
+#define IS31FL3729_SSP_34_1200US 0x1D
+#define IS31FL3729_SSP_34_820US 0x1E
+#define IS31FL3729_SSP_34_660US 0x1F
 
 // Noise reduction using PWM Frequency register
-#define IS31FL3729_PWM_FREQUENCY_55K_HZ 0b000
-#define IS31FL3729_PWM_FREQUENCY_32K_HZ 0b001
-#define IS31FL3729_PWM_FREQUENCY_4K_HZ 0b010
-#define IS31FL3729_PWM_FREQUENCY_2K_HZ 0b011
-#define IS31FL3729_PWM_FREQUENCY_1K_HZ 0b100
-#define IS31FL3729_PWM_FREQUENCY_500_HZ 0b101 // If SWx cannot be more than 4
-#define IS31FL3729_PWM_FREQUENCY_250_HZ 0b110 // If SWx cannot be more than 2
-#define IS31FL3729_PWM_FREQUENCY_80K_HZ 0b111
+#define IS31FL3729_PWM_FREQ_55K_HZ 0x00
+#define IS31FL3729_PWM_FREQ_32K_HZ 0x01
+#define IS31FL3729_PWM_FREQ_4K_HZ 0x02
+#define IS31FL3729_PWM_FREQ_2K_HZ 0x03
+#define IS31FL3729_PWM_FREQ_1K_HZ 0x04
+#define IS31FL3729_PWM_FREQ_500_HZ 0x05 // If SWx cannot be more than 4
+#define IS31FL3729_PWM_FREQ_250_HZ 0x06 // If SWx cannot be more than 2
+#define IS31FL3729_PWM_FREQ_80K_HZ 0x07
 
-// Change SWx Setting using Configuation register
-#define IS31FL3729_CONFIGURATION_SWS_15_9 0b0000001 // 15 CS x 9 SW matrix mode
-#define IS31FL3729_CONFIGURATION_SWS_16_8 0b0010001 // 16 CS x 8 SW matrix mode
-#define IS31FL3729_CONFIGURATION_SWS_16_7 0b0100001 // 16 CS x 7 SW matrix mode
-#define IS31FL3729_CONFIGURATION_SWS_16_6 0b0110001 // 16 CS x 6 SW matrix mode
-#define IS31FL3729_CONFIGURATION_SWS_16_5 0b1000001 // 16 CS x 5 SW matrix mode
-#define IS31FL3729_CONFIGURATION_SWS_16_4 0b1010001 // 16 CS x 4 SW matrix mode
-#define IS31FL3729_CONFIGURATION_SWS_16_3 0b1100001 // 16 CS x 3 SW matrix mode
-#define IS31FL3729_CONFIGURATION_SWS_16_2 0b1110001 // 16 CS x 2 SW matrix mode
+// Change SWx Setting using Configuration register
+#define IS31FL3729_CONFIG_SWS_15_9 0x01 // 15 CS x 9 SW matrix
+#define IS31FL3729_CONFIG_SWS_16_8 0x11 // 16 CS x 8 SW matrix
+#define IS31FL3729_CONFIG_SWS_16_7 0x21 // 16 CS x 7 SW matrix
+#define IS31FL3729_CONFIG_SWS_16_6 0x31 // 16 CS x 6 SW matrix
+#define IS31FL3729_CONFIG_SWS_16_5 0x41 // 16 CS x 5 SW matrix
+#define IS31FL3729_CONFIG_SWS_16_4 0x51 // 16 CS x 4 SW matrix
+#define IS31FL3729_CONFIG_SWS_16_3 0x61 // 16 CS x 3 SW matrix
+#define IS31FL3729_CONFIG_SWS_16_2 0x71 // 16 CS x 2 SW matrix
 
 // Map CS SW locations to order in PWM / Scaling buffers
 // This matches the ORDER in the Datasheet Register not the POSITION

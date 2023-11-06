@@ -40,34 +40,34 @@
 
 // Set defaults for Registers
 #ifndef IS31FL3729_CONFIGURATION
-#    define IS31FL3729_CONFIGURATION IS31FL3729_CONFIGURATION_SWS_15_9
+#    define IS31FL3729_CONFIGURATION IS31FL3729_CONFIG_SWS_15_9
 #endif
 #ifndef IS31FL3729_GLOBALCURRENT
-#    define IS31FL3729_GLOBALCURRENT 0b1000000
+#    define IS31FL3729_GLOBALCURRENT 0x40
 #endif
 #ifndef IS31FL3729_PULLDOWNUP
-#    define IS31FL3729_PULLDOWNUP 0b110011
+#    define IS31FL3729_PULLDOWNUP 0x33
 #endif
 #ifndef IS31FL3729_SPREAD_SPECTRUM
-#    define IS31FL3729_SPREAD_SPECTRUM IS31FL3729_SPREAD_SPECTRUM_DISABLE
+#    define IS31FL3729_SPREAD_SPECTRUM IS31FL3729_SSP_DISABLE
 #endif
 #ifndef IS31FL3729_PWM_FREQUENCY
-#    define IS31FL3729_PWM_FREQUENCY IS31FL3729_PWM_FREQUENCY_32K_HZ
+#    define IS31FL3729_PWM_FREQUENCY IS31FL3729_PWM_FREQ_32K_HZ
 #endif
 
 // Set buffer sizes
-#define IS31FL3729_MAX_LEDS 143
-#define IS31FL3729_MAX_SCALINGS 16
+#define IS31FL3729_PWM_REGISTER_COUNT 143
+#define IS31FL3729_SCALINGS_REGISTER_COUNT 16
 
 // Transfer buffer for TWITransmitData()
 uint8_t g_twi_transfer_buffer[20];
 
 // These buffers match the PWM & scaling registers.
 // Storing them like this is optimal for I2C transfers to the registers.
-uint8_t g_pwm_buffer[IS31FL3729_DRIVER_COUNT][IS31FL3729_MAX_LEDS];
+uint8_t g_pwm_buffer[IS31FL3729_DRIVER_COUNT][IS31FL3729_PWM_REGISTER_COUNT];
 bool    g_pwm_buffer_update_required[IS31FL3729_DRIVER_COUNT] = {false};
 
-uint8_t g_scaling_registers[IS31FL3729_DRIVER_COUNT][IS31FL3729_MAX_SCALINGS];
+uint8_t g_scaling_registers[IS31FL3729_DRIVER_COUNT][IS31FL3729_SCALINGS_REGISTER_COUNT];
 bool    g_scaling_registers_update_required[IS31FL3729_DRIVER_COUNT] = {false};
 
 void is31fl3729_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
@@ -85,31 +85,61 @@ void is31fl3729_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
 }
 
 bool is31fl3729_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
-    // iterate over the pwm_buffer contents at IS31FL3729_MAX_SCALINGS byte intervals
+    // iterate over the pwm_buffer contents at IS31FL3729_SCALINGS_REGISTER_COUNT byte intervals
     // datasheet does not mention it, but it auto-increments in 15x9 mode, and
     // hence does not require us to skip any addresses
-    for (int i = 0; i <= IS31FL3729_MAX_LEDS; i += IS31FL3729_MAX_SCALINGS) {
+    for (int i = 0; i <= IS31FL3729_PWM_REGISTER_COUNT; i += IS31FL3729_SCALINGS_REGISTER_COUNT) {
         g_twi_transfer_buffer[0] = i;
 
-        // copy the data from i to i+IS31FL3729_MAX_SCALINGS
+        // copy the data from i to i+IS31FL3729_SCALINGS_REGISTER_COUNT
         // device will auto-increment register for data after the first byte
         // thus this sets registers 0x01-0x10, 0x11-0x20, etc. in one transfer
-        memcpy(g_twi_transfer_buffer + 1, pwm_buffer + i, IS31FL3729_MAX_SCALINGS);
+        memcpy(g_twi_transfer_buffer + 1, pwm_buffer + i, IS31FL3729_SCALINGS_REGISTER_COUNT);
 
 #if IS31FL3729_I2C_PERSISTENCE > 0
         for (uint8_t i = 0; i < IS31FL3729_I2C_PERSISTENCE; i++) {
-            if (i2c_transmit(addr << 1, g_twi_transfer_buffer, IS31FL3729_MAX_SCALINGS + 1, IS31FL3729_I2C_TIMEOUT) != 0) {
+            if (i2c_transmit(addr << 1, g_twi_transfer_buffer, IS31FL3729_SCALINGS_REGISTER_COUNT + 1, IS31FL3729_I2C_TIMEOUT) != 0) {
                 return false;
             }
         }
 #else
-        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, IS31FL3729_MAX_SCALINGS + 1, IS31FL3729_I2C_TIMEOUT) != 0) {
+        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, IS31FL3729_SCALINGS_REGISTER_COUNT + 1, IS31FL3729_I2C_TIMEOUT) != 0) {
             return false;
         }
 #endif
     }
 
     return true;
+}
+
+void is31fl3729_init_drivers(void) {
+    i2c_init();
+
+    is31fl3729_init(IS31FL3729_I2C_ADDRESS_1);
+#if defined(IS31FL3729_I2C_ADDRESS_2)
+    is31fl3729_init(IS31FL3729_I2C_ADDRESS_2);
+#    if defined(IS31FL3729_I2C_ADDRESS_3)
+    is31fl3729_init(IS31FL3729_I2C_ADDRESS_3);
+#        if defined(IS31FL3729_I2C_ADDRESS_4)
+    is31fl3729_init(IS31FL3729_I2C_ADDRESS_4);
+#        endif
+#    endif
+#endif
+
+    for (int i = 0; i < IS31FL3729_LED_COUNT; i++) {
+        is31fl3729_set_led_control_register(i, true);
+    }
+
+    is31fl3729_update_led_control_registers(IS31FL3729_I2C_ADDRESS_1, 0);
+#if defined(IS31FL3729_I2C_ADDRESS_2)
+    is31fl3729_update_led_control_registers(IS31FL3729_I2C_ADDRESS_2, 1);
+#    if defined(IS31FL3729_I2C_ADDRESS_3)
+    is31fl3729_update_led_control_registers(IS31FL3729_I2C_ADDRESS_3, 2);
+#        if defined(IS31FL3729_I2C_ADDRESS_4)
+    is31fl3729_update_led_control_registers(IS31FL3729_I2C_ADDRESS_4, 3);
+#        endif
+#    endif
+#endif
 }
 
 void is31fl3729_init(uint8_t addr) {
@@ -139,7 +169,7 @@ void is31fl3729_init(uint8_t addr) {
 
 void is31fl3729_set_value(int index, uint8_t value) {
     is31fl3729_led_t led;
-    if (index >= 0 && index < LED_MATRIX_LED_COUNT) {
+    if (index >= 0 && index < IS31FL3729_LED_COUNT) {
         memcpy_P(&led, (&g_is31fl3729_leds[index]), sizeof(led));
 
         if (g_pwm_buffer[led.driver][led.v] == value) {
@@ -152,7 +182,7 @@ void is31fl3729_set_value(int index, uint8_t value) {
 }
 
 void is31fl3729_set_value_all(uint8_t value) {
-    for (int i = 0; i < LED_MATRIX_LED_COUNT; i++) {
+    for (int i = 0; i < IS31FL3729_LED_COUNT; i++) {
         is31fl3729_set_value(i, value);
     }
 }
@@ -183,10 +213,23 @@ void is31fl3729_update_pwm_buffers(uint8_t addr, uint8_t index) {
 
 void is31fl3729_update_led_control_registers(uint8_t addr, uint8_t index) {
     if (g_scaling_registers_update_required[index]) {
-        for (int i = 0; i < IS31FL3729_MAX_SCALINGS; i++) {
+        for (int i = 0; i < IS31FL3729_SCALINGS_REGISTER_COUNT; i++) {
             is31fl3729_write_register(addr, IS31FL3729_REG_SCALING + i, g_scaling_registers[index][i]);
         }
 
         g_scaling_registers_update_required[index] = false;
     }
+}
+
+void is31fl3729_flush(void) {
+    is31fl3729_update_pwm_buffers(IS31FL3729_I2C_ADDRESS_1, 0);
+#if defined(IS31FL3729_I2C_ADDRESS_2)
+    is31fl3729_update_pwm_buffers(IS31FL3729_I2C_ADDRESS_2, 1);
+#    if defined(IS31FL3729_I2C_ADDRESS_3)
+    is31fl3729_update_pwm_buffers(IS31FL3729_I2C_ADDRESS_3, 2);
+#        if defined(IS31FL3729_I2C_ADDRESS_4)
+    is31fl3729_update_pwm_buffers(IS31FL3729_I2C_ADDRESS_4, 3);
+#        endif
+#    endif
+#endif
 }
