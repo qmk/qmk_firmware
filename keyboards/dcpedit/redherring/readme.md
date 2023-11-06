@@ -1,40 +1,27 @@
-# Red Herring Firmware
-This branch contains OLED drivers for the SH/SSD1107 display from:
-https://github.com/qmk/qmk_firmware/compare/master...sigprof:oled-driver-new-hardware-support-v2 
+# Red Herring
 
-## Vial:
+![Red Herring](https://i.imgur.com/b6lKmW0.jpg)
 
-Build Vial firmware:
+Unibody ergonomic orthilinar keyboard with through-hole components.  Supports standard keycaps, a 64x128 OLED, large rotary encoder knob, and a solenoid.
 
-`make dcpedit/redherring:vial`
+* Keyboard Maintainer: [dcpedit](https://github.com/dcpedit)
+* Hardware Supported: ATMEGA32A
+* Hardware Availability: https://github.com/dcpedit/redherring
 
-Use Vial software to set keymap and rotary encoder:
-https://get.vial.today/
-    
-## Bootloader
-https://github.com/coseyfannitutti/discipline/tree/master/doc/bootloader
+Make example for this keyboard (after setting up your build environment):
 
-[QMK's ISP Flashing Guide](https://github.com/qmk/qmk_firmware/blob/master/docs/isp_flashing_guide.md)
+    make dcpedit/redherring:default
 
-Edit Makefile.inc and replace the `/dev/tty.usbmodem123451` with the path QMK Toolbox displays when you plug in your AVR-ISP programmer:
+Flashing example for this keyboard:
 
-`PROGRAMMER = -c avrisp -P /dev/tty.usbmodem123451`
-
-### Commands
-
-`make` (build)
-
-`make flash` (flashes makefile)
-
-`make fuse` (sets fuses for microcontroller)
-
-
-The usbasploader build available on [hsgw's repository](https://github.com/hsgw/USBaspLoader/tree/plaid) will work if you need to flash a new and unprepared replacement microcontroller. To flash this onto your fresh microcontroller, you will need to use the provided ISP headers and an external ISP programmer.
-
-In order to put the board into bootloader mode you must first hold the boot button (labeled BOOT) and while holding the boot button, press the reset button (labeled RESET) and release it. Wait for another second, then release the boot button as well. The microcontroller will now be in bootloader mode if the bootloader is present and prepared correctly. Continue to flash as you normally would from this point (ie. QMK Toolbox). If you have autoflash enabled on QMK Toolbox, it will do it automatically now. Reset the board once more in order to use the new firmware (you can do this by unplugging and replugging it or by pressing and releasing the reset button.)
-
-By default, keyboard firmware has bootmagic enabled (lite). This means that instead of holding or pressing either of the small buttons, you are able to unplug the keyboard, hold the F1 key, plug the keyboard back in, and then release the F1. This will work the same to put the keyboard into bootloader mode. For more information, see the [bootmagic feature page](https://beta.docs.qmk.fm/using-qmk/hardware-features/feature_bootmagic). Reset the board once more in order to use the new firmware (you can do this by unplugging and replugging it or by pressing and releasing the reset button.)
-
-
+    make dcpedit/midevil:redherring:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+## Bootloader
+
+Enter the bootloader in 3 ways:
+
+* **Bootmagic reset**: Hold down the ESC key (top-left key) and plug in the keyboard
+* **Physical reset button**: On the PCB, while holding down the BOOT button, press and release the RESET button
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
