@@ -8,6 +8,10 @@
 * Hardware Supported: keyten kt60HS-T
 * Hardware Availability: private GB
 
+Supports:
+1. Split Backspace
+2. Stepped Caps Lock
+
 Make example for this keyboard (after setting up your build environment):
 
     make keyten/kt60hs_t:default
