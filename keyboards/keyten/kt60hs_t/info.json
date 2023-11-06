@@ -22,8 +22,9 @@
         "rows": ["B15", "B14", "B12", "B13", "B0"],
         "cols": ["A3", "A4", "A5", "A6", "A7", "B9", "B8", "B7", "B6", "B5", "B4", "B3", "A15", "A14"]
     },
+    "community_layouts": ["60_tsangan_hhkb"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_60_tsangan_hhkb": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0 },
                 { "matrix": [0, 1], "x": 1, "y": 0 },
