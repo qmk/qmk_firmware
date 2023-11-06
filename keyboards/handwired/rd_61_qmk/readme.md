@@ -16,7 +16,7 @@ Flashing example for this keyboard:
 
     make handwired/rd_61_qmk:default:flash
     
-Also can be flashed with QMK *[QMK toolbox](https://github.com/qmk/qmk_toolbox)* or *[avrdudes](https://blog.zakkemble.net/avrdudess-a-gui-for-avrdude/)*
+Also can be flashed with QMK *[QMK toolbox](https://github.com/qmk/qmk_toolbox)* or *[avrdudess](https://blog.zakkemble.net/avrdudess-a-gui-for-avrdude/)*
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
