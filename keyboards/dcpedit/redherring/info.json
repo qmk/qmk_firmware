@@ -19,7 +19,9 @@
         "bootmagic": true,
         "extrakey": true,
         "mousekey": true,
-        "encoder": true
+        "encoder": true,
+        "oled": true,
+        "haptic": true
     },
     "matrix_pins": {
         "cols": ["A1", "A2", "A3", "B0", "B1", "B2", "B3", "B4", "D0", "D1", "D5", "D6", "C5", "C4", "C3"],
