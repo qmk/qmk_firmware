@@ -1,6 +1,6 @@
 # Red Herring
 
-![Red Herring](https://i.imgur.com/b6lKmW0.jpg)
+![Red Herring](https://i.imgur.com/b6lKmW0h.jpg)
 
 Unibody ergonomic orthilinar keyboard with through-hole components.  Supports standard keycaps, a 64x128 OLED, large rotary encoder knob, and a solenoid.
 
@@ -14,7 +14,7 @@ Make example for this keyboard (after setting up your build environment):
 
 Flashing example for this keyboard:
 
-    make dcpedit/midevil:redherring:flash
+    make dcpedit/redherring:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
