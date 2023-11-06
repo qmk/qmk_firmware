@@ -1,6 +1,6 @@
 # Red Herring
 
-![Red Herring](https://i.imgur.com/b6lKmW0.jpg)
+![Red Herring](https://i.imgur.com/b6lKmW0h.jpg)
 
 Unibody ergonomic orthilinar keyboard with through-hole components.  Supports standard keycaps, a 64x128 OLED, large rotary encoder knob, and a solenoid.
 
