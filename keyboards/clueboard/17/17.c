@@ -1,16 +1,6 @@
-#include "17.h"
+#include "quantum.h"
 
 int pwm_level;
-
-void matrix_init_kb(void) {
-    // put your keyboard start-up code here
-    // runs once when the firmware starts up
-    matrix_init_user();
-};
-
-void led_set_kb(uint8_t usb_led) {
-    print("led_set\n");
-}
 
 void backlight_init_ports(void) {
     // Set C7 to output

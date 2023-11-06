@@ -17,7 +17,7 @@
 #include "yoruian.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[0] = LAYOUT_ergodox_YORUIAN\
+[0] = LAYOUT_ergodox_YORUIAN
 (9,  7,    5,    3,    1,    GRV,  MINS, EQL,  LBRC, 0,    2,    4,    6,    8,
  ES, RBRC, Y,    O,    R,    BSLS, P3,   P3,   J,    V,    D,    F,    W,    Q,
  LC, U,    I,    A,    N,    SCLN,             M,    H,    T,    S,    C,    RC,
@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              BSPC, RALT, P2,   TAB,
                                    NO,   NO,
                        E,    LSFT, NO,   NO,   ENT,  SPC),
-[1] = LAYOUT_ergodox_YORUIAN\
+[1] = LAYOUT_ergodox_YORUIAN
 (TR, TR,   TR,   TR,   TR,   TR,   TR,   TR,   TR,   F5,   F6,   F7,   F8,   F9,
  TR, TR,   TR,   TR,   TR,   TR,   TR,   TR,   TR,   F1,   F2,   F3,   F4,   FT,
  TR, TR,   TR,   TR,   TR,   TR,               PAUS, LEFT, DOWN, UP,   RGHT, FE,
@@ -35,13 +35,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              TR,   TR,   TR,   TR,
                                    TR,   TR,
                        TR,   TR,   TR,   TR,   TR,   TR),
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-    return MACRO_NONE;
-};
-
-void matrix_init_user(void) {
 };
 
 void matrix_scan_user(void) {

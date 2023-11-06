@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Runs just one time when the keyboard initializes.
 #ifdef RGBLIGHT_ENABLE
-void keyboard_post_init_user(void) {
-    rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_SWIRL);
+void eeconfig_init_user(void) {
+    rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
 };
 #endif

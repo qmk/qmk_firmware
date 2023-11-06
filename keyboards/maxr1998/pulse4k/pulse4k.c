@@ -16,44 +16,16 @@
  */
 
 #include "pulse4k.h"
-#include "rgblight.h"
 
-enum combo_events {
-    LED_ADJUST
-};
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) return false;
 
-extern const uint16_t PROGMEM led_adjust_combo[3];
-
-combo_t key_combos[COMBO_COUNT] = {
-    [LED_ADJUST] = COMBO_ACTION(led_adjust_combo)
-};
-
-bool led_adjust_active = false;
-
-void process_combo_event(uint8_t combo_index, bool pressed) {
-    if (combo_index == LED_ADJUST) {
-        led_adjust_active = pressed;
-    }
-}
-
-void encoder_update_kb(uint8_t index, bool clockwise) {
     if (index == 0) {
-        if (led_adjust_active) {
-            if (clockwise) {
-                rgblight_increase_val();
-            } else {
-                rgblight_decrease_val();
-            }
-        } else encoder_one_update(clockwise);
+        encoder_one_update(clockwise);
     } else if (index == 1) {
-        if (led_adjust_active) {
-            if (clockwise) {
-                rgblight_increase_hue();
-            } else {
-                rgblight_decrease_hue();
-            }
-        } else encoder_two_update(clockwise);
+        encoder_two_update(clockwise);
     }
+    return true;
 }
 
 __attribute__((weak)) void encoder_one_update(bool clockwise) {

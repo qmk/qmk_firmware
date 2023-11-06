@@ -75,7 +75,7 @@ To display our keyboard in a way that resembles the physical keyboard, we need t
 
 ## Building the JSON file
 
-To build the JSON file, the easiest way is to build the layout in [Keyboard Layout Editor](http://www.keyboard-layout-editor.com/) ("KLE"), from which we'll feed the Raw Data into a QMK tool that converts this data into a JSON the Configurator will read and use. Since KLE opens by default with a numpad layout, we're just going to remove the Getting Started instructions, and use what's left.
+To build the JSON file, the easiest way is to build the layout in [Keyboard Layout Editor](https://www.keyboard-layout-editor.com/) ("KLE"), from which we'll feed the Raw Data into a QMK tool that converts this data into a JSON the Configurator will read and use. Since KLE opens by default with a numpad layout, we're just going to remove the Getting Started instructions, and use what's left.
 
 Once the layout is as desired, move to the Raw Data tab in KLE, and copy the contents:
 
@@ -99,8 +99,6 @@ Use the `keyboard_name` object to set the name of the keyboard. For instruction 
     "tags": {
         "form_factor": "numpad"
     },
-    "width": 4,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -170,7 +168,7 @@ k33   | {"label":"Enter", "x":3, "y":3, "h":2}
 k40   | {"label":"0", "x":0, "y":4, "w":2}
 k42   | {"label":".", "x":2, "y":4}
 
-When a user selects the top-left key in the Configurator, and assigns Num Lock to it, the Configurator builds a keymap file with `KC_NLCK` as the first key, and so on as the keymap is built. The `label` keys are not used; they are only for the user's reference in identifying specific keys when debugging the `info.json` file.
+When a user selects the top-left key in the Configurator, and assigns Num Lock to it, the Configurator builds a keymap file with `KC_NUM` as the first key, and so on as the keymap is built. The `label` keys are not used; they are only for the user's reference in identifying specific keys when debugging the `info.json` file.
 
 
 ## Issues and Hazards

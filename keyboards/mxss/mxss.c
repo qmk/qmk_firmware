@@ -16,11 +16,9 @@
  * EEPROM management code from ../cannonkeys/stm32f072/keyboard.c
  */
 
-#include QMK_KEYBOARD_H
-#include "tmk_core/common/eeprom.h"
-#include "tmk_core/common/action_layer.h"
-#include "rgblight.h"
-#include "via.h"
+#include "quantum.h"
+#include "eeprom.h"
+#include "mxss_frontled.h"
 #include "version.h" // for QMK_BUILDDATE used in EEPROM magic
 
 void via_init_kb(void) {
@@ -37,13 +35,6 @@ void matrix_init_kb(void) {
 #endif // VIA_ENABLE
 
 	matrix_init_user();
-}
-
-void matrix_scan_kb(void) {
-	// put your looping keyboard code here
-	// runs every cycle (a lot)
-
-	matrix_scan_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {

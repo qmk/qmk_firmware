@@ -2,11 +2,10 @@
 
 ![x268](https://geekhack.org/index.php?action=dlattach;topic=96377.0;attach=198826;image)
 
-A fully customizable 65% keyboard.
+A fully customizable RGB 65% keyboard.
 
 * Keyboard Maintainer: [Rozakiin](https://github.com/rozakiin)
 * Hardware Supported: x268 PCB
-  * rev1 
 * Hardware Availability: 
   * [Noxary - 268](https://geekhack.org/index.php?topic=92066.0)
   * [LZ - CLS ms](https://geekhack.org/index.php?topic=96377)

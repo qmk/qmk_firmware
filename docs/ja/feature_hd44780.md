@@ -1,11 +1,11 @@
 # HD44780 LCD ディスプレイ
 
 <!---
-  original document: 0.8.123:docs/feature_hd44780.md
-  git diff 0.8.123 HEAD -- docs/feature_hd44780.md | cat
+  original document: 0.9.43:docs/feature_hd44780.md
+  git diff 0.9.43 HEAD -- docs/feature_hd44780.md | cat
 -->
 
-これは Peter Fleury の LCD ライブラリの統合です。このページは基本について説明します。[詳細なドキュメントについてはこのページをご覧ください](http://homepage.hispeed.ch/peterfleury/doxygen/avr-gcc-libraries/group__pfleury__lcd.html) (訳注）原文のリンク先のページは、サービスの終了に伴って削除されています。移行先は (http://www.peterfleury.epizy.com/doxygen/avr-gcc-libraries/group__pfleury__lcd.html) と思われます。
+これは Peter Fleury の LCD ライブラリの統合です。このページは基本について説明します。[詳細なドキュメントについてはこのページをご覧ください](http://www.peterfleury.epizy.com/doxygen/avr-gcc-libraries/group__pfleury__lcd.html)
 
 HD44780 ディスプレイのサポートを有効にするには、キーボードの `rules.mk` の `HD44780_ENABLE` フラグを yes に設定します。
 
@@ -59,4 +59,4 @@ LCD_DISP_ON_CURSOR_BLINK : ディスプレイオン、点滅カーソル
 
 ディスプレイに何かを表示するには、最初に `lcd_gotoxy(column, line)` を呼びます。最初の行の先頭に移動するには、`lcd_gotoxy(0, 0)` を呼び出し、その後 `lcd_puts("example string")` を使って文字列を出力します。
 
-ディスプレイを制御することができる、より多くのメソッドがあります。[詳細なドキュメントについてはリンクされたページをご覧ください](http://homepage.hispeed.ch/peterfleury/doxygen/avr-gcc-libraries/group__pfleury__lcd.html) (訳注）原文のリンク先のページは、サービスの終了に伴って削除されています。移行先は (http://www.peterfleury.epizy.com/doxygen/avr-gcc-libraries/group__pfleury__lcd.html) と思われます。
+ディスプレイを制御することができる、より多くのメソッドがあります。[詳細なドキュメントについてはリンクされたページをご覧ください](http://www.peterfleury.epizy.com/doxygen/avr-gcc-libraries/group__pfleury__lcd.html)

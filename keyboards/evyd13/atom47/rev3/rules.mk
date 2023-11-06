@@ -1,0 +1,1 @@
+BACKLIGHT_ENABLE = yes

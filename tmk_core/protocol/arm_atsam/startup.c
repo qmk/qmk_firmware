@@ -28,7 +28,6 @@
  */
 
 #include "samd51.h"
-#include "md_bootloader.h"
 
 /* Initialize segments */
 extern uint32_t _sfixed;
@@ -495,6 +494,11 @@ __attribute__((section(".vectors"))) const DeviceVectors exception_table = {
     .pvReserved136 = (void *)(0UL)  /* 136 Reserved */
 #endif
 };
+
+// WARNING: These are only for CTRL bootloader release "v2.18Jun 22 2018 17:28:08" for bootloader_jump support
+extern uint32_t _eram;
+#define BOOTLOADER_MAGIC 0x3B9ACA00
+#define MAGIC_ADDR (uint32_t *)((intptr_t)(&_eram) - 4)
 
 /**
  * \brief This is the code that gets called on processor reset.

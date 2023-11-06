@@ -1,9 +1,5 @@
-#ifndef MUSE_H
-#define MUSE_H
+#pragma once
 
-#include "quantum.h"
-#include "process_audio.h"
+#include <stdint.h>
 
 uint8_t muse_clock_pulse(void);
-
-#endif

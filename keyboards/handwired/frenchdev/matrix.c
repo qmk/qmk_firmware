@@ -111,7 +111,7 @@ void matrix_init(void)
         matrix_debouncing[i] = 0;
     }
 
-    matrix_init_quantum();
+    matrix_init_kb();
 }
 
 void matrix_power_up(void) {
@@ -169,15 +169,9 @@ uint8_t matrix_scan(void)
         }
     }
 
-    matrix_scan_quantum();
+    matrix_scan_kb();
 
     return 1;
-}
-
-bool matrix_is_modified(void)
-{
-    if (debouncing) return false;
-    return true;
 }
 
 inline
@@ -196,19 +190,10 @@ void matrix_print(void)
 {
     print("\nr/c 0123456789ABCDEF\n");
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        phex(row); print(": ");
-        pbin_reverse16(matrix_get_row(row));
+        print_hex8(row); print(": ");
+        print_bin_reverse16(matrix_get_row(row));
         print("\n");
     }
-}
-
-uint8_t matrix_key_count(void)
-{
-    uint8_t count = 0;
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        count += bitpop16(matrix[i]);
-    }
-    return count;
 }
 
 /* Column pin configuration

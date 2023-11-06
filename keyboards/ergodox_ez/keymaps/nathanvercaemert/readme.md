@@ -1,7 +1,6 @@
 # The nathanvercaemert ErgoDox EZ configuration
 
-Centered around the home row and the use of mouse keys, this configuration focuses
-on minimal finger movement. No key is more than one unit away from a finger on the home row.
+Centered around the home row and the use of mouse keys, this configuration focuses on minimal finger movement. No key is more than one unit away from the home row.
 
 ## Layers
 
@@ -20,7 +19,9 @@ on minimal finger movement. No key is more than one unit away from a finger on t
   navigation layers.
 * Navigation Layers
   * From the Mouse Layer, taps to the left home row navigate to scroll keys, arrow keys, and page keys.
+* Notes on Acceleration
+  * Designated as "Slow" and "Fast" on the mouse layers (movement and scroll,) these keys can be held to allow for slow/precise or fast/efficient control.
 
 Here is the image of my keymap:
 
-![Default](https://i.imgur.com/kXywQIq.png)
+![Imgur Image](https://i.imgur.com/x6VgH9Z.png)

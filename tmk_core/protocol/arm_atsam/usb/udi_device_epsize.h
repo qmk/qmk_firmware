@@ -21,11 +21,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KEYBOARD_EPSIZE 8
 #define MOUSE_EPSIZE 8
 #define EXTRAKEY_EPSIZE 8
-#define RAW_EPSIZE 64
+#define RAW_EPSIZE 32
 #define CONSOLE_EPSIZE 32
 #define NKRO_EPSIZE 32
 #define MIDI_STREAM_EPSIZE 64
 #define CDC_NOTIFICATION_EPSIZE 8
 #define CDC_EPSIZE 16
 
-#endif  //_UDI_DEVICE_EPSIZE_H_
+#endif //_UDI_DEVICE_EPSIZE_H_

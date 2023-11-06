@@ -18,12 +18,13 @@
 #undef MOUSEKEY_WHEEL_INTERVAL
 #define MOUSEKEY_WHEEL_INTERVAL 50
 
+#undef MK_COMBINED
+#define MK_COMBINED
+
 // /* Temporarily defining a tapping term that is ridiculous to see if i can tell if lt is working. */
 // #undef TAPPING_TERM
 // #define TAPPING_TERM 499
 
-/* Turning permissive hold and ignore mod tap interrupt off in order to test the tapping term. */
+/* Turning permissive hold off in order to test the tapping term. */
 #undef PERMISSIVE_HOLD
 #define PERMISSIVE_HOLD
-#undef IGNORE_MOD_TAP_INTERRUPT
-#define IGNORE_MOD_TAP_INTERRUPT

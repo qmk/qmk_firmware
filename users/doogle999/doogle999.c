@@ -382,22 +382,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
 	static char text[CALC_BUFFER_SIZE + 1]; // Used to store input and then output when ready to print
 	static char backspaceText[CALC_BUFFER_SIZE + 1]; // Pretty dumb waste of memory because only backspace characters, used with send_string to backspace and remove input
 
-	if((biton32(layer_state) == CALC_LAYER && CALC_FORCE_NUM_LOCK_INSIDE_CALC) || (biton32(layer_state) != CALC_LAYER && CALC_FORCE_NUM_LOCK_OUTSIDE_CALC))
+	if((get_highest_layer(layer_state) == CALC_LAYER && CALC_FORCE_NUM_LOCK_INSIDE_CALC) || (get_highest_layer(layer_state) != CALC_LAYER && CALC_FORCE_NUM_LOCK_OUTSIDE_CALC))
 	{
 		bool numpadKeyPressed = record->event.pressed &&
 			!(get_mods() & MODS_SHIFT_MASK) &&
 			/* KC_KP_1, KC_KP_2, ..., KC_KP_0, KC_KP_DOT */
 			(keycode >= KC_KP_1 && keycode <= KC_KP_DOT);
 
-		if(numpadKeyPressed && !(host_keyboard_leds() & (1 << USB_LED_NUM_LOCK)))
+		if(numpadKeyPressed && !host_keyboard_led_state().num_lock)
 		{
-			add_key(KC_NLCK);
+			add_key(KC_NUM_LOCK);
 			send_keyboard_report();
-			del_key(KC_NLCK);
+			del_key(KC_NUM_LOCK);
 		}
 	}
 
-	if(biton32(layer_state) != CALC_LAYER) { return true; }
+	if(get_highest_layer(layer_state) != CALC_LAYER) { return true; }
 
 	int action = process_input(keycode, get_mods(), record->event);
 	switch(action)

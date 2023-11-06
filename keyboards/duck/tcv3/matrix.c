@@ -21,8 +21,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "print.h"
 #include "debug.h"
-#include "debounce.h"
-#include "wait.h"
+
+#ifndef DEBOUNCE
+#    define DEBOUNCE 5
+#endif
+
+static uint8_t debouncing = DEBOUNCE;
 
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
@@ -74,16 +78,13 @@ void matrix_init(void) {
     matrix_debouncing[i] = 0;
   }
 
-  debounce_init(MATRIX_ROWS);
-
-  matrix_init_quantum();
+  matrix_init_kb();
 }
-uint8_t matrix_scan(void) {
-    bool changed = false;
 
-    for (uint8_t col = 0; col < MATRIX_COLS; col++) {
+uint8_t matrix_scan(void) {
+  for (uint8_t col = 0; col < MATRIX_COLS; col++) {
     select_col(col);
-    wait_us(30);
+    _delay_us(3);
 
     uint8_t rows = read_rows(col);
 
@@ -92,16 +93,27 @@ uint8_t matrix_scan(void) {
       bool curr_bit = rows & (1<<row);
       if (prev_bit != curr_bit) {
         matrix_debouncing[row] ^= ((matrix_row_t)1<<col);
-        changed = true;
+        if (debouncing) {
+            dprint("bounce!: "); dprintf("%02X", debouncing); dprintln();
+        }
+        debouncing = DEBOUNCE;
       }
     }
     unselect_cols();
   }
 
-  debounce(matrix, matrix_debouncing, MATRIX_ROWS, changed);
+  if (debouncing) {
+    if (--debouncing) {
+      _delay_ms(1);
+    } else {
+      for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+        matrix[i] = matrix_debouncing[i];
+      }
+    }
+  }
 
-  matrix_scan_quantum();
-  return (uint8_t)changed;
+  matrix_scan_kb();
+  return 1;
 }
 
 inline matrix_row_t matrix_get_row(uint8_t row) {
@@ -132,7 +144,7 @@ static void init_rows(void) {
 }
 
 static uint8_t read_rows(uint8_t col) {
-  if (col == 20) {
+  if (col == 19) {
     return PINE&(1<<2) ? 0 : (1<<0);
   } else {
       return (PIND&(1<<0) ? (1<<1) : 0) |

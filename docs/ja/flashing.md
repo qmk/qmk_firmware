@@ -1,8 +1,8 @@
 # 書き込みの手順とブートローダ情報
 
 <!---
-  original document: 0.8.62:docs/flashing.md
-  git diff 0.8.62 HEAD -- docs/flashing.md | cat
+  original document: 0.10.33:docs/flashing.md
+  git diff 0.10.33 HEAD -- docs/flashing.md | cat
 -->
 
 キーボードが使用するブートローダにはかなり多くの種類があり、ほぼ全てが異なる書き込みの方法を使います。幸いなことに、[QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) のようなプロジェクトは、あまり深く考える必要無しに様々なタイプと互換性を持つことを目指していますが、この文章では様々なタイプのブートローダとそれらを書き込むために利用可能な方法について説明します。
@@ -34,7 +34,7 @@ BOOTLOADER = atmel-dfu
 
 書き込み手順:
 
-1. `RESET` キーコードを押すか、RESET ボタンをタップします(または RST を GND にショートします)。
+1. `QK_BOOT` キーコードを押すか、RESET ボタンをタップします(または RST を GND にショートします)。
 2. OS がデバイスを検知するのを待ちます。
 3. メモリを消去します(自動的に実行されるかもしれません)
 4. .hex ファイルを書き込みます
@@ -89,12 +89,12 @@ BOOTLOADER = caterina
 互換性のあるフラッシャ:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (推奨の GUI)
-* avr109 を使った [avrdude](http://www.nongnu.org/avrdude/) / `:avrdude` (推奨のコマンドライン)
+* avr109 を使った [avrdude](https://www.nongnu.org/avrdude/) / `:avrdude` (推奨のコマンドライン)
 * [AVRDUDESS](https://github.com/zkemble/AVRDUDESS)
 
 書き込み手順:
 
-1. `RESET` キーコードを押すか、RST をすばやく GND にショートします (入力後7秒で書き込みます)
+1. `QK_BOOT` キーコードを押すか、RST をすばやく GND にショートします (入力後7秒で書き込みます)
 2. OS がデバイスを検知するのを待ちます。
 3. .hex ファイルを書き込みます
 4. デバイスが自動的にリセットされるのを待ちます
@@ -141,7 +141,7 @@ BOOTLOADER = halfkay
 
 書き込み手順:
 
-1. `RESET` キーコードを押すか、RST をすばやく GND にショートします (入力後7秒で書き込みます)
+1. `QK_BOOT` キーコードを押すか、RST をすばやく GND にショートします (入力後7秒で書き込みます)
 2. OS がデバイスを検知するのを待ちます。
 3. .hex ファイルを書き込みます
 4. デバイスをアプリケーションモードにリセットします(自動的に実行されるかもしれません)
@@ -167,12 +167,12 @@ BOOTLOADER = USBasp
 互換性のあるフラッシャ:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (推奨の GUI)
-* `usbasp` プログラマを使った [avrdude](http://www.nongnu.org/avrdude/)
+* `usbasp` プログラマを使った [avrdude](https://www.nongnu.org/avrdude/)
 * [AVRDUDESS](https://github.com/zkemble/AVRDUDESS)
 
 書き込み手順:
 
-1. `RESET` キーコードを押すか、RST を GND にすばやくショートしながら、ブートピンを GND にショートしたままにします。
+1. `QK_BOOT` キーコードを押すか、RST を GND にすばやくショートしながら、ブートピンを GND にショートしたままにします。
 2. OS がデバイスを検知するのを待ちます。
 3. .hex ファイルを書き込みます
 4. デバイスをアプリケーションモードにリセットします(自動的に実行されるかもしれません)
@@ -203,7 +203,7 @@ BOOTLOADER = bootloadHID
 書き込み手順:
 
 1. 以下のいずれかの方法を使ってブートローダに入ります:
-   * `RESET` キーコードをタップします (全てのデバイスでは動作しないかもしれません)
+   * `QK_BOOT` キーコードをタップします (全てのデバイスでは動作しないかもしれません)
    * キーボードを接続しながらソルトキーを押し続けます (通常はキーボードの readme に書かれています)
 2. OS がデバイスを検知するのを待ちます。
 3. .hex ファイルを書き込みます
@@ -227,7 +227,7 @@ BOOTLOADER = bootloadHID
 書き込み手順:
 
 1. 以下のいずれかの方法を使ってブートローダに入ります:
-   * `RESET` キーコードをタップします (STM32F042 デバイスでは動作しないかもしれません)
+   * `QK_BOOT` キーコードをタップします (STM32F042 デバイスでは動作しないかもしれません)
    * リセット回路が存在する場合、RESET ボタンをタップします
    * それ以外の場合は、(BOOT0 ボタンあるいはブリッジ経由で)BOOT0 を VCC にブリッジし、(REEST ボタンあるいはブリッジ経由で)RESET を GND にショートし、BOOT0 ブリッジを放す必要があります。
 2. OS がデバイスを検知するのを待ちます。
@@ -244,3 +244,4 @@ BOOTLOADER = bootloadHID
 * `:dfu-util-split-left` - デフォルトのオプション (`:dfu-util`) と同様に、通常のファームウェアが書き込まれます。ただし、分割キーボードの「左側の」 EEPROM の設定も行われます。
 * `:dfu-util-split-right` - デフォルトのオプション (`:dfu-util`) と同様に、通常のファームウェアが書き込まれます。ただし、分割キーボードの「右側の」 EEPROM の設定も行われます。
 * `:st-link-cli` - dfu-util ではなく、ST-LINK の CLI ユーティリティを介してファームウェアを書き込めます。
+* `:st-flash` - dfu-util ではなく、[STLink Tools](https://github.com/stlink-org/stlink) の `st-flash` ユーティリティを介してファームウェアを書き込めます。

@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "enums.h"
+#include "lufa.h"
 
 // Render Blank Space
 void render_space(void) {

@@ -16,17 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
-
-
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6535
-#define DEVICE_VER      0x0100
-#define MANUFACTURER    QMK
-#define PRODUCT         IBM Terminal Keyboard
-#define DESCRIPTION     USB converter for IBM Terminal Keyboard
-
+#pragma once
 
 /* matrix size */
 #define MATRIX_ROWS 17  // keycode bit: 3-0
@@ -39,24 +29,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key combination for command */
 #define IS_COMMAND() ( \
-    get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT) | MOD_BIT(KC_RALT) | MOD_BIT(KC_RCTL)) \
+    get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT) | MOD_BIT(KC_RALT) | MOD_BIT(KC_RCTL)) \
 )
 
 
 /*
  * PS/2 USART configuration for ATMega32U4
  */
-#ifdef PS2_USE_USART
+#ifdef PS2_DRIVER_USART
 /* XCK for clock line */
-#define PS2_CLOCK_PORT  PORTD
-#define PS2_CLOCK_PIN   PIND
-#define PS2_CLOCK_DDR   DDRD
-#define PS2_CLOCK_BIT   5
-/* RXD for data line */
-#define PS2_DATA_PORT   PORTD
-#define PS2_DATA_PIN    PIND
-#define PS2_DATA_DDR    DDRD
-#define PS2_DATA_BIT    2
+#define PS2_CLOCK_PIN   D5
+#define PS2_DATA_PIN    D2
 
 /* synchronous, odd parity, 1-bit stop, 8-bit data, sample at falling edge */
 /* set DDR of CLOCK as input to be slave */
@@ -94,17 +77,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * PS/2 Interrupt configuration
  */
-#ifdef PS2_USE_INT
+#ifdef PS2_DRIVER_INTERRUPT
 /* uses INT1 for clock line(ATMega32U4) */
-#define PS2_CLOCK_PORT  PORTD
-#define PS2_CLOCK_PIN   PIND
-#define PS2_CLOCK_DDR   DDRD
-#define PS2_CLOCK_BIT   1
-
-#define PS2_DATA_PORT   PORTD
-#define PS2_DATA_PIN    PIND
-#define PS2_DATA_DDR    DDRD
-#define PS2_DATA_BIT    0
+#define PS2_CLOCK_PIN   D1
+#define PS2_DATA_PIN    D0
 
 #define PS2_INT_INIT()  do {    \
     EICRA |= ((1<<ISC11) |      \
@@ -123,16 +99,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * PS/2 Busywait configuration
  */
-#ifdef PS2_USE_BUSYWAIT
-#define PS2_CLOCK_PORT  PORTD
-#define PS2_CLOCK_PIN   PIND
-#define PS2_CLOCK_DDR   DDRD
-#define PS2_CLOCK_BIT   1
-
-#define PS2_DATA_PORT   PORTD
-#define PS2_DATA_PIN    PIND
-#define PS2_DATA_DDR    DDRD
-#define PS2_DATA_BIT    0
-#endif
-
+#ifdef PS2_DRIVER_BUSYWAIT
+#define PS2_CLOCK_PIN   D1
+#define PS2_DATA_PIN    D0
 #endif

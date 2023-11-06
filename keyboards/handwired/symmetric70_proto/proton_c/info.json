@@ -1,0 +1,6 @@
+{
+    "keyboard_name": "Symmetric70 prototype proton-c",
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "board": "QMK_PROTON_C"
+}

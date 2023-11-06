@@ -13,10 +13,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <quantum.h>
-#include <i2c_master.h>
-#include <led_tables.h>
-#include <rgb_matrix.h>
+#include "quantum.h"
+#include "i2c_master.h"
+#include "led_tables.h"
+#include "rgb_matrix.h"
 #include <string.h>
 #include "model01.h"
 
@@ -89,7 +89,7 @@ static void set_color(int index, uint8_t r, uint8_t g, uint8_t b) {
 }
 
 static void set_color_all(uint8_t r, uint8_t g, uint8_t b) {
-  for (int i=0; i<DRIVER_LED_TOTAL; i++)
+  for (int i=0; i<RGB_MATRIX_LED_COUNT; i++)
     set_color(i, r, g, b);
 }
 

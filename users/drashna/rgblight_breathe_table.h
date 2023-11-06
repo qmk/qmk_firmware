@@ -1,3 +1,6 @@
+// Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #ifndef RGBLIGHT_EFFECT_BREATHE_TABLE
 #define RGBLIGHT_EFFECT_BREATHE_TABLE
 

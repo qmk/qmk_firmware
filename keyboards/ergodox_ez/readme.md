@@ -11,6 +11,11 @@ The ErgoDox EZ is a mass produced version of the original ErgoDox keyboard, with
 Make example for this keyboard (after setting up your build environment):
 
     make ergodox_ez:default:flash
+    
+For the ErgoDox EZ Shine, and Glow, use one of the following: 
+
+    make ergodox_ez/shine:default:flash
+    make ergodox_ez/glow:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 

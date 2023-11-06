@@ -1,0 +1,133 @@
+{
+    "keyboard_name": "Leftover30",
+    "manufacturer": "marksard",
+    "url": "https://github.com/marksard/Keyboards",
+    "maintainer": "marksard",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0xDFA8",
+        "device_version": "0.0.1"
+    },
+    "matrix_pins": {
+        "cols": ["B5", "B4", "E6", "D7", "C6"],
+        "rows": ["B6", "B2", "F7", "F6", "B3", "B1", "D4", "D0"]
+    },
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "F4", "pin_b": "F5"}
+        ]
+    },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 6,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "D3"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "layouts": {
+        "LAYOUT_all": {
+            "layout": [
+                {"label": "Q", "matrix": [4, 4], "x": 0.5, "y": 0},
+                {"label": "W", "matrix": [4, 3], "x": 1.5, "y": 0},
+                {"label": "E", "matrix": [4, 2], "x": 2.5, "y": 0},
+                {"label": "R", "matrix": [4, 1], "x": 3.5, "y": 0},
+                {"label": "T", "matrix": [4, 0], "x": 4.5, "y": 0},
+                {"label": "Y", "matrix": [0, 4], "x": 5.5, "y": 0},
+                {"label": "U", "matrix": [0, 3], "x": 6.5, "y": 0},
+                {"label": "I", "matrix": [0, 2], "x": 7.5, "y": 0},
+                {"label": "O", "matrix": [0, 1], "x": 8.5, "y": 0},
+                {"label": "P", "matrix": [0, 0], "x": 9.5, "y": 0},
+                {"label": "Backspace", "matrix": [3, 0], "x": 10.5, "y": 0},
+
+                {"label": "A", "matrix": [5, 4], "x": 0.75, "y": 1},
+                {"label": "S", "matrix": [5, 3], "x": 1.75, "y": 1},
+                {"label": "D", "matrix": [5, 2], "x": 2.75, "y": 1},
+                {"label": "F", "matrix": [5, 1], "x": 3.75, "y": 1},
+                {"label": "G", "matrix": [5, 0], "x": 4.75, "y": 1},
+                {"label": "H", "matrix": [1, 4], "x": 5.75, "y": 1},
+                {"label": "J", "matrix": [1, 3], "x": 6.75, "y": 1},
+                {"label": "K", "matrix": [1, 2], "x": 7.75, "y": 1},
+                {"label": "L", "matrix": [1, 1], "x": 8.75, "y": 1},
+                {"label": "Enter", "matrix": [1, 0], "x": 9.75, "y": 1, "w": 1.75},
+
+                {"label": "Z", "matrix": [6, 4], "x": 1.25, "y": 2},
+                {"label": "X", "matrix": [6, 3], "x": 2.25, "y": 2},
+                {"label": "C", "matrix": [6, 2], "x": 3.25, "y": 2},
+                {"label": "V", "matrix": [6, 1], "x": 4.25, "y": 2},
+                {"label": "B", "matrix": [6, 0], "x": 5.25, "y": 2},
+                {"label": "N", "matrix": [2, 4], "x": 6.25, "y": 2},
+                {"label": "M", "matrix": [2, 3], "x": 7.25, "y": 2},
+                {"label": ",", "matrix": [2, 2], "x": 8.25, "y": 2},
+                {"label": ".", "matrix": [2, 1], "x": 9.25, "y": 2},
+                {"label": "/", "matrix": [2, 0], "x": 10.25, "y": 2, "w": 1.25},
+
+                {"label": "Ctrl", "matrix": [7, 4], "x": 0, "y": 3},
+
+                {"label": "Alt", "matrix": [3, 4], "x": 1.5, "y": 3, "w": 1.25},
+                {"label": "Space", "matrix": [3, 3], "x": 2.75, "y": 3, "w": 6.25},
+                {"label": "Fn", "matrix": [3, 2], "x": 9, "y": 3},
+                {"label": "Ctrl", "matrix": [3, 1], "x": 10, "y": 3, "w": 1.5}
+            ]
+        },
+        "LAYOUT_isoenter": {
+            "layout": [
+                {"label": "Q", "matrix": [4, 4], "x": 0.5, "y": 0},
+                {"label": "W", "matrix": [4, 3], "x": 1.5, "y": 0},
+                {"label": "E", "matrix": [4, 2], "x": 2.5, "y": 0},
+                {"label": "R", "matrix": [4, 1], "x": 3.5, "y": 0},
+                {"label": "T", "matrix": [4, 0], "x": 4.5, "y": 0},
+                {"label": "Y", "matrix": [0, 4], "x": 5.5, "y": 0},
+                {"label": "U", "matrix": [0, 3], "x": 6.5, "y": 0},
+                {"label": "I", "matrix": [0, 2], "x": 7.5, "y": 0},
+                {"label": "O", "matrix": [0, 1], "x": 8.5, "y": 0},
+                {"label": "P", "matrix": [0, 0], "x": 9.5, "y": 0},
+                {"label": "Backspace", "matrix": [3, 0], "x": 10.5, "y": 0},
+
+                {"label": "A", "matrix": [5, 4], "x": 0.75, "y": 1},
+                {"label": "S", "matrix": [5, 3], "x": 1.75, "y": 1},
+                {"label": "D", "matrix": [5, 2], "x": 2.75, "y": 1},
+                {"label": "F", "matrix": [5, 1], "x": 3.75, "y": 1},
+                {"label": "G", "matrix": [5, 0], "x": 4.75, "y": 1},
+                {"label": "H", "matrix": [1, 4], "x": 5.75, "y": 1},
+                {"label": "J", "matrix": [1, 3], "x": 6.75, "y": 1},
+                {"label": "K", "matrix": [1, 2], "x": 7.75, "y": 1},
+                {"label": "L", "matrix": [1, 1], "x": 8.75, "y": 1},
+                {"label": "Enter", "matrix": [1, 0], "x": 10.25, "y": 1, "w": 1.25, "h": 2},
+
+                {"label": "Z", "matrix": [6, 4], "x": 1.25, "y": 2},
+                {"label": "X", "matrix": [6, 3], "x": 2.25, "y": 2},
+                {"label": "C", "matrix": [6, 2], "x": 3.25, "y": 2},
+                {"label": "V", "matrix": [6, 1], "x": 4.25, "y": 2},
+                {"label": "B", "matrix": [6, 0], "x": 5.25, "y": 2},
+                {"label": "N", "matrix": [2, 4], "x": 6.25, "y": 2},
+                {"label": "M", "matrix": [2, 3], "x": 7.25, "y": 2},
+                {"label": ",", "matrix": [2, 2], "x": 8.25, "y": 2},
+                {"label": ".", "matrix": [2, 1], "x": 9.25, "y": 2},
+
+                {"label": "Ctrl", "matrix": [7, 4], "x": 0, "y": 3},
+
+                {"label": "Alt", "matrix": [3, 4], "x": 1.5, "y": 3, "w": 1.25},
+                {"label": "Space", "matrix": [3, 3], "x": 2.75, "y": 3, "w": 6.25},
+                {"label": "Fn", "matrix": [3, 2], "x": 9, "y": 3},
+                {"label": "Ctrl", "matrix": [3, 1], "x": 10, "y": 3, "w": 1.5}
+            ]
+        }
+    }
+}

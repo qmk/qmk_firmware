@@ -21,9 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define AUTO_SHIFT_TIMEOUT 200
-#define NO_AUTO_SHIFT_NUMERIC
-
 // RGB lighting
 #define RGBLIGHT_SLEEP
 #undef RGBLED_NUM

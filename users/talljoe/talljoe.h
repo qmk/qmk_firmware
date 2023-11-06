@@ -1,7 +1,24 @@
-#ifndef USERSPACE
-#define USERSPACE
+/* Copyright 2020 Joseph Wasson
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-#include "quantum.h"
+#pragma once
+
+#include QMK_KEYBOARD_H
+#include "tapdance/tapdance.h"
+#include "macros.h"
 
 enum userspace_custom_keycodes {
   KC_MAKE = SAFE_RANGE, // can always be here
@@ -22,6 +39,7 @@ enum layers {
     _DVORAK,
     _COLMAK,
     _MALTROFF,
+    _NORTRON,
     _GAME,
     _NAV,
     _NUM,
@@ -29,14 +47,12 @@ enum layers {
     _RESET = RESET_LAYER,
 };
 
-enum tap_dancers {
-  TD_SEMICOLON,
-  TD_GRAVE,
-  TD_QUOTE,
-};
+#ifdef VISUALIZER_ENABLE
+  extern const char layer_names[][16];
+#endif
 
 #define MO_NAV    MO(_NAV)
-#define MO_ADJ    MO(_ADJUST)
+#define MO_ADJ    TD(TD_FUNCTION)
 #define MO_RST    MO(_RESET)
 #define TG_ADJ    TG(_ADJUST)
 #define TG_NUM    TG(_NUM)
@@ -52,8 +68,10 @@ enum tap_dancers {
 #define LY_CLMK   DF(_COLMAK)
 #if SPACE_COUNT >= 2
   #define LY_MALT DF(_MALTROFF)
+  #define LY_NTRN DF(_NORTRON)
 #else
   #define LY_MALT KC_NO
+  #define LY_NTRN KC_NO
 #endif
 #define TG_NKRO   MAGIC_TOGGLE_NKRO
 #define KC_PTT    KC_F24
@@ -66,60 +84,29 @@ enum tap_dancers {
 #define US_BSLS   LCA_T(KC_BSLS)
 #define US_SCLN   TD(TD_SEMICOLON)
 #define US_GRV    TD(TD_GRAVE)
-#define US_QUOT   TD(TD_QUOTE)
 #define US_TAB    C_S_T(KC_TAB)
 #define SH_LBRC   LSFT_T(KC_LBRC)
 #define SH_RBRC   RSFT_T(KC_RBRC)
+#define US_LOCK   TD(TD_LOCK)
 
 #define MLT_E     LT(_NUM, KC_E)
 
-#ifndef SPACE_COUNT
-  #define SPACE_COUNT 1
+#ifndef SWAP_HANDS_ENABLE
+#undef SH_T
+#define SH_T
 #endif
-#if (SPACE_COUNT == 1)
-  #define KC_SPC1   LT(_NAV, KC_SPC)
-  #define KC_SPC2   XXXXXXX
-  #define KC_SPC3   XXXXXXX
 
-  #define NV_SPC1   _______
-  #define NV_SPC2   _______
-  #define NV_SPC3   _______
+#define KC_SPC1   LT(_NAV,KC_SPC)
+#define KC_SPC2   LT(_NUM,KC_ENT)
+#define KC_SPC3   SH_T(KC_BSPC)
 
-  #define NM_SPC1   _______
-  #define NM_SPC2   _______
-  #define NM_SPC3   _______
-#elif (SPACE_COUNT == 2)
-  #define KC_SPC1   LT(_NAV,KC_SPC)
-  #define KC_SPC2   LT(_NUM,KC_ENT)
+#define NV_SPC1   KC_SPC
+#define NV_SPC2   KC_ENT
+#define NV_SPC3   KC_SPC
 
-  #define NV_SPC1   KC_SPC
-  #define NV_SPC2   KC_ENT
-
-  #define NM_SPC1   KC_0
-  #define NM_SPC2   KC_SPC
-
-  #define KC_SPC3   XXXXXXX
-  #define NV_SPC3   XXXXXXX
-  #define NM_SPC3   XXXXXXX
-#elif (SPACE_COUNT == 3)
-  #ifdef SWAP_HANDS_ENABLE
-    #define KC_SPC1 SH_T(KC_BSPC)
-  #else
-    #define KC_SPC1 KC_BSPC
-  #endif
-  #define KC_SPC2   LT(_NUM,KC_ENT)
-  #define KC_SPC3   LT(_NAV,KC_SPC)
-
-  #define NV_SPC1   KC_SPC
-  #define NV_SPC2   KC_ENT
-  #define NV_SPC3   KC_SPC
-
-  #define NM_SPC1   KC_SPC
-  #define NM_SPC2   XXXXXXX
-  #define NM_SPC3   KC_0
-#else
-  #error "Unsupported space count:" SPACE_COUNT
-#endif
+#define NM_SPC1   KC_0
+#define NM_SPC2   XXXXXXX
+#define NM_SPC3   KC_SPC
 
 #ifndef ZEAL_RGB
   #define BR_INC KC_NO
@@ -136,7 +123,7 @@ enum tap_dancers {
   #define H2_DEC KC_NO
   #define S2_INC KC_NO
   #define S2_DEC KC_NO
-  #define FN_MO13 KC_NO
+  #define TL_LOWR KC_NO
   #define FN_MO2 KC_NO
 #endif
 
@@ -189,11 +176,9 @@ enum tap_dancers {
 
 #ifndef TEMPLATE_RESET
   #define TEMPLATE_RESET TEMPLATE_ALT( \
-      RESET  , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET  ,  \
-      RESET  , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET  ,           \
+      QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,  \
+      QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,           \
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,           \
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX,           \
-      RESET  , XXXXXXX, XXXXXXX,                   XXXXXXX, RESET  , XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX)
-#endif
-
+      QK_BOOT, XXXXXXX, XXXXXXX,                   XXXXXXX, QK_BOOT, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX)
 #endif

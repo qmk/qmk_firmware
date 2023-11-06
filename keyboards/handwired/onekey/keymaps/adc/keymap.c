@@ -19,9 +19,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 char buffer[50];
                 sprintf(buffer, "ADC:%u\n", val);
 #ifdef CONSOLE_ENABLE
-                    printf(buffer);
+                    uprintf("%s", buffer);
 #else
-                    SEND_STRING(buffer);
+                    send_string(buffer);
 #endif
             }
             break;

@@ -1,4 +1,4 @@
-#include "alice.h"
+#include "quantum.h"
 
 void keyboard_pre_init_kb(void) {
     setPinOutput(INDICATOR_PIN_0);
@@ -7,6 +7,7 @@ void keyboard_pre_init_kb(void) {
 
     keyboard_pre_init_user();
 }
+
 
 bool led_update_kb(led_t led_state) {
     bool runDefault = led_update_user(led_state);

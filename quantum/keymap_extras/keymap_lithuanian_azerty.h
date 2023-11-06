@@ -1,39 +1,33 @@
-/* Copyright 2020
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2023 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+/*******************************************************************************
+  88888888888 888      d8b                .d888 d8b 888               d8b
+      888     888      Y8P               d88P"  Y8P 888               Y8P
+      888     888                        888        888
+      888     88888b.  888 .d8888b       888888 888 888  .d88b.       888 .d8888b
+      888     888 "88b 888 88K           888    888 888 d8P  Y8b      888 88K
+      888     888  888 888 "Y8888b.      888    888 888 88888888      888 "Y8888b.
+      888     888  888 888      X88      888    888 888 Y8b.          888      X88
+      888     888  888 888  88888P'      888    888 888  "Y8888       888  88888P'
+                                                        888                 888
+                                                        888                 888
+                                                        888                 888
+     .d88b.   .d88b.  88888b.   .d88b.  888d888 8888b.  888888 .d88b.   .d88888
+    d88P"88b d8P  Y8b 888 "88b d8P  Y8b 888P"      "88b 888   d8P  Y8b d88" 888
+    888  888 88888888 888  888 88888888 888    .d888888 888   88888888 888  888
+    Y88b 888 Y8b.     888  888 Y8b.     888    888  888 Y88b. Y8b.     Y88b 888
+     "Y88888  "Y8888  888  888  "Y8888  888    "Y888888  "Y888 "Y8888   "Y88888
+         888
+    Y8b d88P
+     "Y88P"
+*******************************************************************************/
 
 #pragma once
-
-#include "keymap.h"
-
+#include "keycodes.h"
 // clang-format off
 
-/*
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ ` │ ! │ - │ / │ ; │ : │ , │ . │ = │ ( │ ) │ ? │ X │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │ Ą │ Ž │ E │ R │ T │ Y │ U │ I │ O │ P │ Į │ W │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │ A │ S │ D │ Š │ G │ H │ J │ K │ L │ Ų │ Ė │ Q │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │ < │ Z │ Ū │ C │ V │ B │ N │ M │ Č │ F │ Ę │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
+// Aliases
 #define LT_GRV  KC_GRV  // `
 #define LT_EXLM KC_1    // !
 #define LT_MINS KC_2    // -
@@ -47,7 +41,6 @@
 #define LT_RPRN KC_0    // )
 #define LT_QUES KC_MINS // ?
 #define LT_X    KC_EQL  // X
-// Row 2
 #define LT_AOGO KC_Q    // Ą
 #define LT_ZCAR KC_W    // Ž
 #define LT_E    KC_E    // E
@@ -60,7 +53,6 @@
 #define LT_P    KC_P    // P
 #define LT_IOGO KC_LBRC // Į
 #define LT_W    KC_RBRC // W
-// Row 3
 #define LT_A    KC_A    // A
 #define LT_S    KC_S    // S
 #define LT_D    KC_D    // D
@@ -73,7 +65,6 @@
 #define LT_UOGO KC_SCLN // Ų
 #define LT_EDOT KC_QUOT // Ė
 #define LT_Q    KC_NUHS // Q
-// Row 4
 #define LT_LABK KC_NUBS // <
 #define LT_Z    KC_Z    // Z
 #define LT_UMAC KC_X    // Ū
@@ -85,21 +76,6 @@
 #define LT_CCAR KC_COMM // Č
 #define LT_F    KC_DOT  // F
 #define LT_EOGO KC_SLSH // Ę
-
-/* Shifted symbols
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ ~ │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ + │   │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │   │   │   │   │   │   │   │   │   │   │   │   │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │   │   │   │   │   │   │   │   │   │   │   │   │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │ > │   │   │   │   │   │   │   │   │   │   │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
 #define LT_TILD S(LT_GRV)  // ~
 #define LT_1    S(LT_EXLM) // 1
 #define LT_2    S(LT_MINS) // 2
@@ -112,23 +88,7 @@
 #define LT_9    S(LT_LPRN) // 9
 #define LT_0    S(LT_RPRN) // 0
 #define LT_PLUS S(LT_QUES) // +
-// Row 4
 #define LT_RABK S(LT_LABK) // >
-
-/* AltGr symbols
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ ´ │ @ │ _ │ # │ $ │ § │ ^ │ & │ * │ [ │ ] │ ' │ % │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │   │   │ € │   │   │   │   │   │   │   │ { │ } │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │   │   │   │   │   │   │   │   │   │   │ " │ | │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │ – │   │   │   │   │   │   │   │ „ │ “ │ \ │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
 #define LT_ACUT ALGR(LT_GRV)  // ´
 #define LT_AT   ALGR(LT_EXLM) // @
 #define LT_UNDS ALGR(LT_MINS) // _
@@ -138,19 +98,17 @@
 #define LT_CIRC ALGR(LT_COMM) // ^
 #define LT_AMPR ALGR(LT_DOT)  // &
 #define LT_ASTR ALGR(LT_EQL)  // *
-#define LT_LBRC ALGR(LT_LRPN) // [
+#define LT_LBRC ALGR(LT_LPRN) // [
 #define LT_RBRC ALGR(LT_RPRN) // ]
 #define LT_QUOT ALGR(LT_QUES) // '
 #define LT_PERC ALGR(LT_X)    // %
-// Row 2
 #define LT_EURO ALGR(LT_E)    // €
 #define LT_LCBR ALGR(LT_IOGO) // {
 #define LT_RCBR ALGR(LT_W)    // }
-// Row 3
 #define LT_DQUO ALGR(LT_EDOT) // "
 #define LT_PIPE ALGR(LT_Q)    // |
-// Row 4
 #define LT_NDSH ALGR(LT_LABK) // –
 #define LT_DLQU ALGR(LT_CCAR) // „
 #define LT_LDQU ALGR(LT_F)    // “
 #define LT_BSLS ALGR(LT_EOGO) // (backslash)
+

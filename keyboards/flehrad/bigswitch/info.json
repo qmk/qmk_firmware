@@ -1,0 +1,43 @@
+{
+    "keyboard_name": "BigSwitch PCB",
+    "manufacturer": "flehrad",
+    "maintainer": "qmk",
+    "usb": {
+        "vid": "0x1209",
+        "pid": "0xB195",
+        "device_version": "0.0.1"
+    },
+    "rgblight": {
+        "led_count": 8,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "D3"
+    },
+    "matrix_pins": {
+        "cols": ["B6"],
+        "rows": ["B5"]
+    },
+    "diode_direction": "ROW2COL",
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "debounce": 50,
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0, "w": 4, "h": 4}
+            ]
+        }
+    }
+}

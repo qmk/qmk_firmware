@@ -1,39 +1,33 @@
-/* Copyright 2020
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2023 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+/*******************************************************************************
+  88888888888 888      d8b                .d888 d8b 888               d8b
+      888     888      Y8P               d88P"  Y8P 888               Y8P
+      888     888                        888        888
+      888     88888b.  888 .d8888b       888888 888 888  .d88b.       888 .d8888b
+      888     888 "88b 888 88K           888    888 888 d8P  Y8b      888 88K
+      888     888  888 888 "Y8888b.      888    888 888 88888888      888 "Y8888b.
+      888     888  888 888      X88      888    888 888 Y8b.          888      X88
+      888     888  888 888  88888P'      888    888 888  "Y8888       888  88888P'
+                                                        888                 888
+                                                        888                 888
+                                                        888                 888
+     .d88b.   .d88b.  88888b.   .d88b.  888d888 8888b.  888888 .d88b.   .d88888
+    d88P"88b d8P  Y8b 888 "88b d8P  Y8b 888P"      "88b 888   d8P  Y8b d88" 888
+    888  888 88888888 888  888 88888888 888    .d888888 888   88888888 888  888
+    Y88b 888 Y8b.     888  888 Y8b.     888    888  888 Y88b. Y8b.     Y88b 888
+     "Y88888  "Y8888  888  888  "Y8888  888    "Y888888  "Y888 "Y8888   "Y88888
+         888
+    Y8b d88P
+     "Y88P"
+*******************************************************************************/
 
 #pragma once
-
-#include "keymap.h"
-
+#include "keycodes.h"
 // clang-format off
 
-/*
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ \ │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ ' │ « │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │ Q │ W │ E │ R │ T │ Y │ U │ I │ O │ P │ + │ ´ │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │ A │ S │ D │ F │ G │ H │ J │ K │ L │ Ç │ º │ ~ │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │ < │ Z │ X │ C │ V │ B │ N │ M │ , │ . │ - │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
+// Aliases
 #define PT_BSLS KC_GRV  // (backslash)
 #define PT_1    KC_1    // 1
 #define PT_2    KC_2    // 2
@@ -47,7 +41,6 @@
 #define PT_0    KC_0    // 0
 #define PT_QUOT KC_MINS // '
 #define PT_LDAQ KC_EQL  // «
-// Row 2
 #define PT_Q    KC_Q    // Q
 #define PT_W    KC_W    // W
 #define PT_E    KC_E    // E
@@ -60,7 +53,6 @@
 #define PT_P    KC_P    // P
 #define PT_PLUS KC_LBRC // +
 #define PT_ACUT KC_RBRC // ´ (dead)
-// Row 3
 #define PT_A    KC_A    // A
 #define PT_S    KC_S    // S
 #define PT_D    KC_D    // D
@@ -73,7 +65,6 @@
 #define PT_CCED KC_SCLN // Ç
 #define PT_MORD KC_QUOT // º
 #define PT_TILD KC_NUHS // ~ (dead)
-// Row 4
 #define PT_LABK KC_NUBS // <
 #define PT_Z    KC_Z    // Z
 #define PT_X    KC_X    // X
@@ -85,21 +76,6 @@
 #define PT_COMM KC_COMM // ,
 #define PT_DOT  KC_DOT  // .
 #define PT_MINS KC_SLSH // -
-
-/* Shifted symbols
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ | │ ! │ " │ # │ $ │ % │ & │ / │ ( │ ) │ = │ ? │ » │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │   │   │   │   │   │   │   │   │   │   │ * │ ` │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │   │   │   │   │   │   │   │   │   │   │ ª │ ^ │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │ > │   │   │   │   │   │   │   │ ; │ : │ _ │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
 #define PT_PIPE S(PT_BSLS) // |
 #define PT_EXLM S(PT_1)    // !
 #define PT_DQUO S(PT_2)    // "
@@ -113,32 +89,14 @@
 #define PT_EQL  S(PT_0)    // =
 #define PT_QUES S(PT_QUOT) // ?
 #define PT_RDAQ S(PT_LDAQ) // »
-// Row 2
 #define PT_ASTR S(PT_PLUS) // *
 #define PT_GRV  S(PT_ACUT) // ` (dead)
-// Row 3
 #define PT_FORD S(PT_MORD) // ª
 #define PT_CIRC S(PT_TILD) // ^ (dead)
-// Row 4
 #define PT_RABK S(PT_LABK) // >
 #define PT_SCLN S(PT_COMM) // ;
 #define PT_COLN S(PT_DOT)  // :
 #define PT_UNDS S(PT_MINS) // _
-
-/* AltGr symbols
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │   │   │ @ │ £ │ § │   │   │ { │ [ │ ] │ } │   │   │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │   │   │ € │   │   │   │   │   │   │   │ ¨ │   │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │   │   │   │   │   │   │   │   │   │   │   │   │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │   │   │   │   │   │   │   │   │   │   │   │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
 #define PT_AT   ALGR(PT_2)    // @
 #define PT_PND  ALGR(PT_3)    // £
 #define PT_SECT ALGR(PT_4)    // §
@@ -146,6 +104,6 @@
 #define PT_LBRC ALGR(PT_8)    // [
 #define PT_RBRC ALGR(PT_9)    // ]
 #define PT_RCBR ALGR(PT_0)    // }
-// Row 2
 #define PT_DIAE ALGR(PT_PLUS) // ¨ (dead)
 #define PT_EURO ALGR(PT_E)    // €
+

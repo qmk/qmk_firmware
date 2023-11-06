@@ -1,8 +1,8 @@
 # 自動シフト: なぜシフトキーが必要ですか？
 
 <!---
-  original document: 5d5ff80:docs/feature_auto_shift.md
-  git diff 5d5ff80 HEAD -- docs/feature_auto_shift.md | cat
+  original document: 0.10.33:docs/feature_auto_shift.md
+  git diff 0.10.33 HEAD -- docs/feature_auto_shift.md | cat
 -->
 
 キーをタップすると、その文字を取得します。キーをタップするが、*わずかに*長く押し続けると、シフト状態になります。ほら！シフトキーは必要ありません！
@@ -109,7 +109,7 @@ AからZを含むアルファベット文字を自動シフトしません。
 5. タイムアウトを増やすことに決めた場合は、`KC_ASUP` にマップしたキーを押し、ステップ1に戻ります。
 6. 結果に満足したら、`KC_ASRP` にマップしたキーを押します。キーボードは `AUTO_SHIFT_TIMEOUT` の値を自動的に入力します。
 7. 報告された値で `config.h` の `AUTO_SHIFT_TIMEOUT` を更新します。
-8. `config.h` から `AUTO_SHIFT_SETUP` を削除します。
+8. `config.h` に `AUTO_SHIFT_NO_SETUP` を追加します。
 9. `KC_ASDN`、`KC_ASUP` および `KC_ASRP` のキーバインディングを削除します。
 10. 新しいファームウェアをコンパイルしてアップロードします。
 

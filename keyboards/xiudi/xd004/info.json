@@ -1,0 +1,45 @@
+{
+    "keyboard_name": "XD004",
+    "manufacturer": "XIUDI",
+    "maintainer": "qmk",
+    "usb": {
+        "vid": "0x7844",
+        "pid": "0x0404",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "D5",
+        "levels": 6
+    },
+    "rgblight": {
+        "hue_steps": 10,
+        "led_count": 2,
+        "animations": {
+            "rainbow_swirl": true,
+            "static_gradient": true
+        }
+    },
+    "ws2812": {
+        "pin": "C6"
+    },
+    "processor": "atmega16u2",
+    "bootloader": "atmel-dfu",
+    "matrix_pins": {
+        "direct": [
+            ["D3", "D0", "C4", "B4"]
+        ]
+    },
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT_ortho_1x4"
+    },
+    "layouts": {
+        "LAYOUT_ortho_1x4": {
+            "layout": [
+                {"label": "L", "matrix": [0, 0], "x": 0, "y": 0},
+                {"label": "O", "matrix": [0, 1], "x": 1, "y": 0},
+                {"label": "V", "matrix": [0, 2], "x": 2, "y": 0},
+                {"label": "E", "matrix": [0, 3], "x": 3, "y": 0}
+            ]
+        }
+    }
+}

@@ -47,9 +47,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT( 
-  DE_CIRC, DE_EXLM,  DE_QST, DE_PARA, DE_EURO,  DE_TILD,  DE_DLR, DE_LPRN, DE_RPRN, DE_LESS, DE_MORE, KC_BSPC,
+  DE_CIRC, DE_EXLM, DE_QUES, DE_SECT, DE_EURO,  DE_TILD,  DE_DLR, DE_LPRN, DE_RPRN, DE_LABK, DE_RABK, KC_BSPC,
    KC_DEL, KC_VOLU, KC_MPRV, KC_MNXT, KC_MPLY,  DE_AMPR,   DE_AT, DE_LCBR, DE_RCBR, DE_LBRC, DE_RBRC,  KC_ENT,
-  KC_LSFT, KC_VOLD, _______, _______, _______,  DE_PIPE, DE_PERC, DE_SLSH, DE_BSLS, DE_QUOT, DE_DQOT, KC_RSFT,
+  KC_LSFT, KC_VOLD, _______, _______, _______,  DE_PIPE, DE_PERC, DE_SLSH, DE_BSLS, DE_QUOT, DE_DQUO, KC_RSFT,
   KC_LCTL, _______, _______, _______, _______,  _______, _______, _______,  DE_EQL, DE_ASTR, _______, _______ 
 ),
 
@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_RAISE] = LAYOUT( 
   DE_SLSH,    KC_7,    KC_8,    KC_9, DE_ASTR, _______, _______, _______, DE_HASH, KC_LALT, DE_ACUT, KC_BSPC,
-   KC_DEL,    KC_4,    KC_5,    KC_6, DE_MINS, KC_HOME,  KC_END,   DE_AE,   DE_OE,   DE_UE,   DE_SS,  KC_ENT,
+   KC_DEL,    KC_4,    KC_5,    KC_6, DE_MINS, KC_HOME,  KC_END,   DE_ADIA, DE_ODIA, DE_UDIA, DE_SS,  KC_ENT,
   KC_LSFT,    KC_1,    KC_2,    KC_3, DE_PLUS, KC_PGUP, KC_PGDN, _______, _______, _______, _______, KC_LSFT,
   _______,  DE_DOT,    KC_0,  DE_EQL, _______, _______, _______, _______, _______, _______, _______, _______
 ),

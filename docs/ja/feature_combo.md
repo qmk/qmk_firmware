@@ -1,8 +1,8 @@
 # コンボ
 
 <!---
-  original document: 0.8.94:docs/feature_combo.md
-  git diff 0.8.94 HEAD -- docs/feature_combo.md | cat
+  original document: 0.10.36:docs/feature_combo.md
+  git diff 0.10.36 HEAD -- docs/feature_combo.md | cat
 -->
 
 コンボ機能は、同時押し方式でのカスタムアクション追加機能です。同時に複数のキーを押して、異なる効果を生み出すことができます。例えば、タッピング時間内で `A` と `S` を押すと、代わりに `ESC` が押されます。もっと複雑なタスクを実行させることもできます。
@@ -18,7 +18,7 @@
 
 ```c
 const uint16_t PROGMEM test_combo[] = {KC_A, KC_B, COMBO_END};
-combo_t key_combos[COMBO_COUNT] = {COMBO(test_combo, KC_ESC)};
+combo_t key_combos[] = {COMBO(test_combo, KC_ESC)};
 ```
 
 これは、A と B のキーを押した場合に、"Escape" を送信します。
@@ -38,7 +38,7 @@ enum combos {
 const uint16_t PROGMEM ab_combo[] = {KC_A, KC_B, COMBO_END};
 const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
   [AB_ESC] = COMBO(ab_combo, KC_ESC),
   [JK_TAB] = COMBO(jk_combo, KC_TAB)
 };
@@ -55,12 +55,12 @@ enum combo_events {
 const uint16_t PROGMEM copy_combo[] = {KC_Z, KC_C, COMBO_END};
 const uint16_t PROGMEM paste_combo[] = {KC_X, KC_V, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
   [ZC_COPY] = COMBO_ACTION(copy_combo),
   [XV_PASTE] = COMBO_ACTION(paste_combo),
 };
 
-void process_combo_event(uint8_t combo_index, bool pressed) {
+void process_combo_event(uint16_t combo_index, bool pressed) {
   switch(combo_index) {
     case ZC_COPY:
       if (pressed) {

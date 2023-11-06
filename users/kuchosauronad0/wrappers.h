@@ -152,13 +152,13 @@ NOTE: These are all the same length.  If you do a search/replace
 #endif
 
 #ifdef UNICODEMAP_ENABLE
-#  define _______________UNICODE_L1__________________     X(SMRK),  X(THINK),  X(CLOWN), X(HUNDR),  X(BANG)
-#  define _______________UNICODE_L2__________________     X(GRIN),  X(MONKEY), X(OKOK),  X(EGGPL),  X(LIT)
-#  define _______________UNICODE_L3__________________     X(WEARY), X(UNAMU),  X(EFFU),  X(MONOCL), X(IRONY)
+#  define _______________UNICODE_L1__________________     UM(SMRK),  UM(THINK),  UM(CLOWN), UM(HUNDR),  UM(BANG)
+#  define _______________UNICODE_L2__________________     UM(GRIN),  UM(MONKEY), UM(OKOK),  UM(EGGPL),  UM(LIT)
+#  define _______________UNICODE_L3__________________     UM(WEARY), UM(UNAMU),  UM(EFFU),  UM(MONOCL), UM(IRONY)
 
-#  define _______________UNICODE_R1__________________     X(DRUG0),   X(THUP),  X(INUP),  X(DIZZY), X(COOL)
-#  define _______________UNICODE_R2__________________     X(FIST0),   X(FIST2), X(FIST3), X(FIST1), X(OKOK)
-#  define _______________UNICODE_R3__________________     X(MNDBLWN), X(THDN),  X(SPOCK), X(HOLE),  X(DASH)
+#  define _______________UNICODE_R1__________________     UM(DRUG0),   UM(THUP),  UM(INUP),  UM(DIZZY), UM(COOL)
+#  define _______________UNICODE_R2__________________     UM(FIST0),   UM(FIST2), UM(FIST3), UM(FIST1), UM(OKOK)
+#  define _______________UNICODE_R3__________________     UM(MNDBLWN), UM(THDN),  UM(SPOCK), UM(HOLE),  UM(DASH)
 #endif
 
 #define ________________NUMBER_LEFT________________       KC_1,    KC_2,    KC_3,    KC_4,    KC_5
@@ -194,11 +194,11 @@ NOTE: These are all the same length.  If you do a search/replace
 #define _________________ADJUST_R3_________________       _________________MEDIA_RIGHT_______________
 
 #define _________________RGB_UP____________________       RGB_MOD,  RGB_HUI, RGB_SAI, RGB_VAI, RGB_TOG
-#define _________________RGB_CENTER________________       MU_TOG ,  CK_TOGG, AU_ON,   AU_OFF,  AG_NORM
+#define _________________RGB_CENTER________________       MU_TOGG,  CK_TOGG, AU_ON,   AU_OFF,  AG_NORM
 #define _________________RGB_DOWN__________________       RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, KC_RGB_T
 
 #define _________________RGB_R1____________________       RGB_MOD,  RGB_HUI, RGB_SAI, RGB_VAI, RGB_TOG
-#define _________________RGB_R2____________________       MU_TOG ,  CK_TOGG, AU_ON,   AU_OFF,  AG_NORM
+#define _________________RGB_R2____________________       MU_TOGG,  CK_TOGG, AU_ON,   AU_OFF,  AG_NORM
 #define _________________RGB_R3____________________       RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, KC_RGB_T
 
 #define __________________GAMEPAD_L1_______________       _______,  KC_Q,    KC_W,    KC_E,     _______

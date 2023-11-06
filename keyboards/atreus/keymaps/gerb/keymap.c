@@ -42,20 +42,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_WH_L, KC_MS_U, KC_WH_R, KC_WH_U,                   DF(_QW), KC_F7,   KC_F8,   KC_F9,   KC_F10,
     KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D,                   DF(_CM), KC_F6,   KC_F5,   KC_F6,   KC_F11,
     KC_BTN4, KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4,                   DF(_DV), KC_F1,   KC_F2,   KC_F3,   KC_F12,
-    KC_TRNS, KC_TRNS, KC_LGUI, KC_LSFT, KC_BSPC, KC_LALT, KC_RCTL, KC_SPC,  KC_TRNS, KC_TRNS, KC_TRNS, RESET
+    KC_TRNS, KC_TRNS, KC_LGUI, KC_LSFT, KC_BSPC, KC_LALT, KC_RCTL, KC_SPC,  KC_TRNS, KC_TRNS, KC_TRNS, QK_BOOT
   ),
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  // MACRODOWN only works in this function
-  switch(id) {
-    case 0:
-      if (record->event.pressed) {
-        register_code(KC_RSFT);
-      } else {
-        unregister_code(KC_RSFT);
-      }
-    break;
-  }
-  return MACRO_NONE;
 };

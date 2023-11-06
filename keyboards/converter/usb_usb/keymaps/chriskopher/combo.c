@@ -27,13 +27,13 @@ const uint16_t PROGMEM sd_combo[] = {KC_S, KC_D, COMBO_END};  // Combo: S + D fo
 const uint16_t PROGMEM kl_combo[] = {KC_K, KC_L, COMBO_END};  // Combo: K + L for Meh modifier
 
 // Register the combo action
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
     [SD_LAYER_COMBO] = COMBO_ACTION(sd_combo),
     [KL_MEH_COMBO]   = COMBO_ACTION(kl_combo),
 };
 
 // Called after a combo event is triggered
-void process_combo_event(uint8_t combo_index, bool pressed) {
+void process_combo_event(uint16_t combo_index, bool pressed) {
     switch (combo_index) {
         case SD_LAYER_COMBO:
             if (pressed) {

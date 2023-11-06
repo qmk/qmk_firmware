@@ -33,10 +33,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
         KC_NO,    KC_1,   KC_2,     KC_3,    KC_4,    KC_5,      MO(MOUS),
-        KC_TAB,   SE_AA,  SE_AE,    SE_OSLH, KC_P,    KC_Y,      KC_NO,
+        KC_TAB,   SE_ARNG,SE_ADIA,  SE_ODIA, KC_P,    KC_Y,      KC_NO,
         KC_ESC,   KC_A,   KC_O,     KC_E,    KC_U,    KC_I,
         KC_LSFT,  KC_DOT, KC_Q,     KC_J,    KC_K,    KC_X,      KC_NO,
-        KC_LCTRL, KC_NO,  KC_NO,    KC_LALT, KC_LCMD,
+        KC_LCTL,  KC_NO,  KC_NO,    KC_LALT, KC_LCMD,
                                                       KC_INSERT, KC_DEL,
                                                                  KC_NO,
                                              KC_BSPC, KC_TAB,    KC_NO,
@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TG(QWRT), KC_6,   KC_7,     KC_8,    KC_9,    KC_0,      SE_PLUS,
         KC_DEL,   KC_F,   KC_G,     KC_C,    KC_R,    KC_L,      KC_COMM,
                   KC_D,   KC_H,     KC_T,    KC_N,    KC_S,      SE_MINS,
-        KC_RCTRL, KC_B,   KC_M,     KC_W,    KC_V,    KC_Z,      KC_RSFT,
+        KC_RCTL,  KC_B,   KC_M,     KC_W,    KC_V,    KC_Z,      KC_RSFT,
                           MO(SYMB), KC_LEFT, KC_DOWN, KC_UP,     KC_RGHT,
         KC_HOME,  KC_END,
         KC_PGUP,
@@ -84,9 +84,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                              KC_TRNS, KC_NO,   KC_NO,
        // right hand
        KC_NO, KC_NO,         KC_NO,       KC_NO,       KC_NO,       KC_NO,   KC_NO,
-       KC_NO, LSFT(KC_2),    SE_QUES,     LSFT(KC_6),  SE_LESS,     SE_GRTR, KC_NO,
+       KC_NO, LSFT(KC_2),    SE_QUES,     LSFT(KC_6),  SE_LABK,     SE_RABK, KC_NO,
               KC_HASH,       SE_CIRC,     KC_HASH,     LSFT(KC_2),  SE_TILD, KC_NO,
-       KC_NO, KC_PERC,       SE_ACUT,     SE_APOS,     SE_ASTR,     SE_GRV,  KC_NO,
+       KC_NO, KC_PERC,       SE_ACUT,     SE_QUOT,     SE_ASTR,     SE_GRV,  KC_NO,
                              KC_NO,       KC_NO,       KC_NO,       KC_NO,   KC_NO,
        KC_NO, KC_NO,
        KC_NO,
@@ -162,14 +162,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,         KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,     KC_TRNS,
     KC_CAPS,        KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
     KC_LSFT,        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,     SE_ACUT,
-    CTL_T(SE_APOS), SE_CIRC, SE_ASTR, KC_LALT, KC_LGUI,
-                                                        KC_LCTRL, KC_LALT,
+    CTL_T(SE_QUOT), SE_CIRC, SE_ASTR, KC_LALT, KC_LGUI,
+                                                        KC_LCTL,  KC_LALT,
                                                                   SE_TILD,
                                                KC_BSPC, KC_TAB,   KC_ESC,
     // right hand
     KC_TRNS,        KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     SE_PLUS,
-    KC_TRNS,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     SE_AA,
-                    KC_H,    KC_J,    KC_K,    KC_L,    SE_OSLH,  SE_AE,
+    KC_TRNS,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     SE_ARNG,
+                    KC_H,    KC_J,    KC_K,    KC_L,    SE_ODIA,  SE_ADIA,
     KC_DEL,         KC_N,    KC_M,    KC_COMM, KC_DOT,  SE_MINS,  KC_RSFT,
                              KC_ALGR, KC_DOWN, KC_UP,   KC_LEFT,  KC_RGHT,
     KC_HOME,        KC_END,
@@ -186,7 +186,7 @@ void matrix_init_user(void) {
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
 
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     ergodox_board_led_off();
     ergodox_right_led_1_off();
