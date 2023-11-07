@@ -30,6 +30,9 @@
                 "rows": ["GP5", "GP16", "GP20", "GP28", "GP14"],
                 "cols": ["GP15", "GP21", "GP9", "GP13", "GP10", "GP11", "GP12"]
             }
+        },
+        "bootmagic": {
+            "matrix": [5, 0]
         }
     },
     "build": {
