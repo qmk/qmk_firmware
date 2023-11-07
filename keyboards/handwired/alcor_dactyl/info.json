@@ -27,7 +27,7 @@
         "rows": ["GP5", "GP4", "GP3", "GP2", "GP1", "GP0"]
     },
     "rgb_matrix": {
-        "driver": "WS2812",
+        "driver": "ws2812",
         "layout": [
             {"x": 0, "y": 0.375},
             {"x": 16.5, "y": 0.38}

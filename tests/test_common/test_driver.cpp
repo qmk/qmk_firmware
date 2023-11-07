@@ -60,7 +60,10 @@ void TestDriver::send_extra(report_extra_t* report) {
 namespace internal {
 void expect_unicode_code_point(TestDriver& driver, uint32_t code_point) {
     testing::InSequence seq;
-    EXPECT_REPORT(driver, (KC_LCTL, KC_LSFT, KC_U));
+    EXPECT_REPORT(driver, (KC_LEFT_CTRL, KC_LEFT_SHIFT));
+    EXPECT_REPORT(driver, (KC_LEFT_CTRL, KC_LEFT_SHIFT, KC_U));
+    EXPECT_REPORT(driver, (KC_LEFT_CTRL, KC_LEFT_SHIFT));
+    EXPECT_EMPTY_REPORT(driver);
 
     bool print_zero = false;
     for (int i = 7; i >= 0; --i) {
@@ -71,10 +74,12 @@ void expect_unicode_code_point(TestDriver& driver, uint32_t code_point) {
         const uint8_t digit = (code_point >> (i * 4)) & 0xf;
         if (digit || print_zero) {
             EXPECT_REPORT(driver, (hex_digit_to_keycode(digit)));
+            EXPECT_EMPTY_REPORT(driver);
             print_zero = true;
         }
     }
 
-    EXPECT_REPORT(driver, (KC_SPC));
+    EXPECT_REPORT(driver, (KC_SPACE));
+    EXPECT_EMPTY_REPORT(driver);
 }
 } // namespace internal

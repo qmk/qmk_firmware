@@ -17,6 +17,15 @@
         "pin": "B7",
         "breathing": true
     },
+    "rgblight": {
+        "led_count": 40,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true
+        }
+    },
     "ws2812": {
         "pin": "E2"
     },

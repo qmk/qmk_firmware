@@ -12,12 +12,16 @@
         "mousekey": false,
         "nkro": false
     },
+    "build": {
+        "debounce_type": "sym_eager_pk"
+    },
     "matrix_pins": {
         "rows": ["B10", "B1", "B0", "A7", "A6", "A5", "A4", "A3"],
         "cols": ["A2", "B8", "A0", "C15", "C14", "A14", "A13", "B7", "B6", "B5", "B4", "B3", "A15", "A10", "A8", "B15", "B14", "B12"],
         "ghost": true,
         "io_delay": 5
     },
+    "debounce": 3,
     "processor": "STM32F401",
     "url": "",
     "usb": {

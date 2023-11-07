@@ -23,7 +23,7 @@ def find(cli):
     if len(cli.args.filter) == 0 and len(cli.args.print) > 0:
         cli.log.warning('No filters supplied -- keymaps not parsed, unable to print requested values.')
 
-    targets = search_keymap_targets(cli.args.keymap, cli.args.filter, cli.args.print)
+    targets = search_keymap_targets([('all', cli.config.find.keymap)], cli.args.filter, cli.args.print)
     for keyboard, keymap, print_vals in targets:
         print(f'{keyboard}:{keymap}')
 

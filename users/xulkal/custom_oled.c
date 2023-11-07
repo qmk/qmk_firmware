@@ -71,15 +71,15 @@ static void render_layer(void)
 static void render_keyboard_leds(void)
 {
     // Host Keyboard LED Status
-    uint8_t led_state = host_keyboard_leds();
+    led_t led_state = host_keyboard_led_state();
 #ifdef OLED_90ROTATION
-    oled_write_P(IS_LED_ON(led_state, USB_LED_NUM_LOCK) ? PSTR("NUMLK") : PSTR("     "), false);
-    oled_write_P(IS_LED_ON(led_state, USB_LED_CAPS_LOCK) ? PSTR("CAPLK") : PSTR("     "), false);
-    oled_write_P(IS_LED_ON(led_state, USB_LED_SCROLL_LOCK) ? PSTR("SCRLK") : PSTR("     "), false);
+    oled_write_P(led_state.num_lock ? PSTR("NUMLK") : PSTR("     "), false);
+    oled_write_P(led_state.caps_lock ? PSTR("CAPLK") : PSTR("     "), false);
+    oled_write_P(led_state.scroll_lock ? PSTR("SCRLK") : PSTR("     "), false);
 #else
-    oled_write_P(IS_LED_ON(led_state, USB_LED_NUM_LOCK) ? PSTR("NUM  ") : PSTR("     "), false);
-    oled_write_P(IS_LED_ON(led_state, USB_LED_CAPS_LOCK) ? PSTR("CAPS ") : PSTR("     "), false);
-    oled_write_P(IS_LED_ON(led_state, USB_LED_SCROLL_LOCK) ? PSTR("SCRL") : PSTR("    "), false);
+    oled_write_P(led_state.num_lock ? PSTR("NUM  ") : PSTR("     "), false);
+    oled_write_P(led_state.caps_lock ? PSTR("CAPS ") : PSTR("     "), false);
+    oled_write_P(led_state.scroll_lock ? PSTR("SCRL") : PSTR("    "), false);
 #endif
 }
 

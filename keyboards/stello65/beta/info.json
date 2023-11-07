@@ -8,6 +8,9 @@
         "pid": "0x0003",
         "device_version": "0.0.1"
     },
+    "build": {
+        "debounce_type": "sym_defer_pk"
+    },
     "matrix_pins": {
         "cols": ["C7", "B6", "B5", "B4", "D7", "D6", "D4", "D5"],
         "rows": ["F0", "E6", "D0", "D1", "C6", "F7", "F6", "F5", "F4", "F1"]
