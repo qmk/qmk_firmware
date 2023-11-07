@@ -38,3 +38,4 @@ Entering the bootloader:
 
 * **Physical reset button**: Briefly press the button soldered to promicro (In my case i soldered the reset button to the promicro with wires and glued in outside in front of the case)
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available ( I haven't added that in the keymap since i added a physical reset button )
+* **Bootmagic key at [0,0]**: Hold this key down when plugging the keyboard in. Just the single key
