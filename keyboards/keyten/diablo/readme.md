@@ -2,7 +2,7 @@
 
 Diablo - 60% keyboard with Leaf-Spring PCB Sandwich mount
 
-![Diablo image](https://i.imgur.com/zxOPpNil.jpg)
+![Diablo image](https://i.imgur.com/zxOPpNih.jpg)
 
 * Keyboard Maintainer: [keyten](https://github.com/key10iq)
 * Hardware Supported: keyten Diablo
