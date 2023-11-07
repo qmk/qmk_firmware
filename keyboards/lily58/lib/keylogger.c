@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include "action.h"
 
-char keylog_str[24] = {};
-char keylogs_str[21] = {};
+char keylog_str[26] = {};
+char keylogs_str[26] = {};
 int keylogs_str_idx = 0;
 
 const char code_to_name[60] = {
