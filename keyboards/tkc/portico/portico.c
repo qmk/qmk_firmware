@@ -17,7 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "portico.h"
 
-#ifdef RGB_MATRIX_ENABLE
+#ifdef RGB_BACKLIGHT_PORTICO
+#    include "drivers/led/issi/is31fl3731.h"
+#endif
+
+#if defined(RGB_MATRIX_ENABLE) || defined(RGB_BACKLIGHT_PORTICO)
 
 const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
     { 0, C2_1,  C3_1,  C4_1  },
@@ -92,7 +96,9 @@ const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
     { 1, C9_16, C7_15, C6_15 },
     { 1, C8_16, C7_16, C6_16 }
 };
+#endif
 
+#ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = {
     {
         {  0,      1,  2,      3,      4,      5,  6,      7,      8,      9, 10, 11, 12,     13, 14 },

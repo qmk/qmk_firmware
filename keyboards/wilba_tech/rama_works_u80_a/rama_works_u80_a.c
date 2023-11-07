@@ -1,25 +1,13 @@
-/* Copyright 2020 Jason Williams (Wilba)
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-#ifndef RGB_BACKLIGHT_M65_BX
-#    error RGB_BACKLIGHT_M65_BX not defined
-#else
+// Copyright 2022 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+#include "rama_works_u80_a.h"
+
+#ifdef RGB_BACKLIGHT_U80_A
 #    include "drivers/led/issi/is31fl3731.h"
 #endif
 
-#if defined(RGB_MATRIX_ENABLE) || defined(RGB_BACKLIGHT_M65_BX)
+#if defined(RGB_MATRIX_ENABLE) || defined(RGB_BACKLIGHT_U80_A)
 const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
@@ -102,5 +90,43 @@ const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
     {1, C9_15, C8_15, C6_14}, // LD15
     {1, C9_16, C7_15, C6_15}, // LD16
     {1, C8_16, C7_16, C6_16}, // LD17
+
+    {2, C2_1,  C3_1,  C4_1},  // LE0
+    {2, C1_1,  C3_2, C4_2},   // LE1
+    {2, C1_2,  C2_2, C4_3},   // LE2
+    {2, C1_3,  C2_3, C3_3},   // LE3
+    {2, C1_4,  C2_4, C3_4},   // LE4
+    {2, C1_5,  C2_5, C3_5},   // LE5
+    {2, C1_6,  C2_6, C3_6},   // LE6
+    {2, C1_7,  C2_7, C3_7},   // LE7
+    {2, C1_8,  C2_8, C3_8},   // LE8
+    {2, C9_1,  C8_1,  C7_1},  // LE9
+    {2, C9_2,  C8_2, C7_2},   // LE10
+    {2, C9_3,  C8_3, C7_3},   // LE11
+    {2, C9_4,  C8_4, C7_4},   // LE12
+    {2, C9_5,  C8_5, C7_5},   // LE13
+    {2, C9_6,  C8_6, C7_6},   // LE14
+    {2, C9_7,  C8_7, C6_6},   // LE15
+    {2, C9_8,  C7_7, C6_7},   // LE16
+    {2, C8_8,  C7_8, C6_8},   // LE17
+
+    {2, C2_9,  C3_9,  C4_9},  // LF0
+    {2, C1_9,  C3_10, C4_10}, // LF1
+    {2, C1_10, C2_10, C4_11}, // LF2
+    {2, C1_11, C2_11, C3_11}, // LF3
+    {2, C1_12, C2_12, C3_12}, // LF4
+    {2, C1_13, C2_13, C3_13}, // LF5
+    {2, C1_14, C2_14, C3_14}, // LF6
+    {2, C1_15, C2_15, C3_15}, // LF7
+    {2, C1_16, C2_16, C3_16}, // LF8
+    {2, C9_9,  C8_9,  C7_9},  // LF9
+    {2, C9_10, C8_10, C7_10}, // LF10
+    {2, C9_11, C8_11, C7_11}, // LF11
+    {2, C9_12, C8_12, C7_12}, // LF12
+    {2, C9_13, C8_13, C7_13}, // LF13
+    {2, C9_14, C8_14, C7_14}, // LF14
+    {2, C9_15, C8_15, C6_14}, // LF15
+    {2, C9_16, C7_15, C6_15}, // LF16
+    {2, C8_16, C7_16, C6_16}, // LF17
 };
 #endif
