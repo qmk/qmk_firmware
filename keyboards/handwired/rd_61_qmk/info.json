@@ -6,6 +6,11 @@
     "development_board": "promicro",
     "diode_direction": "ROW2COL",
 
+
+    
+    "bootmagic": {
+        "matrix": [0, 0]
+    },
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x7421",
