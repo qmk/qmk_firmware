@@ -105,11 +105,9 @@ static const char *depad_str(const char *depad_str, char depad_char) {
 }
 
 static void oled_render_keylog(void) {
-    const char *last_row_str = get_u8_str(last_row, ' ');
-    oled_write(depad_str(last_row_str, ' '), false);
+    oled_write_char('0' + last_row, false);
     oled_write_P(PSTR("x"), false);
-    const char *last_col_str = get_u8_str(last_col, ' ');
-    oled_write(depad_str(last_col_str, ' '), false);
+    oled_write_char('0' + last_col, false);
     oled_write_P(PSTR(", k"), false);
     const char *last_keycode_str = get_u16_str(last_keycode, ' ');
     oled_write(depad_str(last_keycode_str, ' '), false);
