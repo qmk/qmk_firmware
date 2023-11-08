@@ -10,7 +10,8 @@
     "features": {
         "bootmagic": true,
         "extrakey": true,
-        "mousekey": true
+        "mousekey": true,
+        "backlight": true
     },
     "matrix_pins": {
         "cols": ["GP27", "GP28", "GP11", "GP10", "GP9", "GP4", "GP3", "GP2", "GP1", "GP0"],
