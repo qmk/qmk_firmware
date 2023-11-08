@@ -23,6 +23,7 @@
     "COMMAND_ENABLE": {"info_key": "features.command", "value_type": "bool"},
     "CONSOLE_ENABLE": {"info_key": "features.console", "value_type": "bool"},
     "DEBOUNCE_TYPE": {"info_key": "build.debounce_type"},
+    "DIP_SWITCH_ENABLE": {"info_key": "features.dip_switch", "value_type": "bool"},
     "EEPROM_DRIVER": {"info_key": "eeprom.driver"},
     "ENCODER_ENABLE": {"info_key": "features.encoder", "value_type": "bool"},
     "EXTRAKEY_ENABLE": {"info_key": "features.extrakey", "value_type": "bool"},
