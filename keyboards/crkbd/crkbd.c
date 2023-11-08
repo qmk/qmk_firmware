@@ -71,6 +71,10 @@ uint8_t  last_col;
 static const char PROGMEM code_to_name[60] = {' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'R', 'E', 'B', 'T', '_', '-', '=', '[', ']', '\\', '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '};
 
 static void set_keylog(uint16_t keycode, keyrecord_t *record) {
+    // save the row and column (useful even if we can't find a keycode to show)
+    last_row = record->event.key.row;
+    last_col = record->event.key.col;
+
     key_name     = ' ';
     last_keycode = keycode;
     if (IS_QK_MOD_TAP(keycode)) {
@@ -92,8 +96,6 @@ static void set_keylog(uint16_t keycode, keyrecord_t *record) {
 
     // update keylog
     key_name = pgm_read_byte(&code_to_name[keycode]);
-    last_row = record->event.key.row;
-    last_col = record->event.key.col;
 }
 
 static const char *depad_str(const char *depad_str, char depad_char) {
