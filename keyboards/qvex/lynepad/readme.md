@@ -1,4 +1,4 @@
-# QVEX Lynepad 2
+# QVEX Lynepad
 
 ![QVEX Lynepad 2.1](https://i.imgur.com/eDvVaE4h.jpeg)
 
@@ -6,7 +6,7 @@
 
 * Keyboard Maintainer: [QVEX Tech](https://github.com/QVEX-Tech) ([seflm](https://github.com/seflm))
 * Hardware Supported: QVEX Lynepad
-* Hardware Availability: [QVEX Lynepad on Tindie](https://www.tindie.com/products/qvex_tech/lynepad-21-hot-swap-macropad-w-joystick/)
+* Hardware Availability: [QVEX Lynepad on Tindie](https://www.lynepad.com/)
 
 Make example for this keyboard (after setting up your build environment):
 
