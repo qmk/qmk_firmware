@@ -2,13 +2,8 @@
     "manufacturer": "keyten",
     "keyboard_name": "Diablo",
     "maintainer": "key10iq",
-    "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
-    "usb": {
-        "vid": "0xEB69",
-        "pid": "0x6003",
-        "device_version": "0.0.1"
-    },
+    "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
         "command": false,
@@ -17,12 +12,17 @@
         "mousekey": true,
         "nkro": true
     },
-    "diode_direction": "COL2ROW",
     "matrix_pins": {
-        "rows": ["D4", "D1", "F7", "F6", "F5"],
-        "cols": ["B7", "F0", "F1", "F4", "C7", "C6", "B6", "B5", "B4", "D7", "D6", "D5", "D3", "D2"]
+        "cols": ["B7", "F0", "F1", "F4", "C7", "C6", "B6", "B5", "B4", "D7", "D6", "D5", "D3", "D2"],
+        "rows": ["D4", "D1", "F7", "F6", "F5"]
     },
-	"community_layouts": ["60_tsangan_hhkb"],
+    "processor": "atmega32u4",
+    "usb": {
+        "device_version": "0.0.1",
+        "pid": "0x6003",
+        "vid": "0xEB69"
+    },
+    "community_layouts": ["60_tsangan_hhkb"],
     "layouts": {
         "LAYOUT_60_tsangan_hhkb": {
             "layout": [
