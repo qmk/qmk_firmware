@@ -47,7 +47,6 @@ void keyboard_post_init_kb(void) {
 //  - Turn off backlight (screen) after timeout or suspend
 //  - Turn off rgblight after timeout or suspend
 
-static uint16_t key_timer;
 bool lights_off = false;
 
 __attribute__((weak)) void lights_wakeup_user(void) {};
@@ -62,10 +61,6 @@ void backlight_suspend(void) {
 }
 
 void lights_wakeup(void) {
-    key_timer = timer_read();
-    if (!lights_off) {
-        return;
-    }
     lights_off = false;
     rgblight_wakeup();
     backlight_wakeup();
@@ -79,31 +74,12 @@ void lights_suspend(void) {
     backlight_suspend();
 }
 
-void post_process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed){
+void housekeeping_task_kb(void) {
+    if ( lights_off && last_input_activity_elapsed() <= LIGHTS_TIMEOUT)
+    {
         lights_wakeup();
     }
-    post_process_record_user(keycode, record);
-}
-
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    lights_wakeup();
-    if (!encoder_update_user(index, clockwise)) {
-      return false;
-    }
-
-    if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    }
-    return true;
-}
-
-void housekeeping_task_kb(void) {
-    if (!lights_off && timer_elapsed(key_timer) > LIGHTS_TIMEOUT) {
+    if (!lights_off && last_input_activity_elapsed() > LIGHTS_TIMEOUT) {
         lights_suspend();
     }
 }
