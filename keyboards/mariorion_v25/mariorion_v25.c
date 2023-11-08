@@ -1,4 +1,4 @@
-// Copyright 2023 Maria @toril940
+// Copyright <year> <name> <email> @<github_username>
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@ void matrix_init_kb(void) {
 	matrix_init_user();
 }
 
-__attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
+layer_state_t layer_state_set_kb(layer_state_t state) {
 	switch (get_highest_layer(state)) {
 		case 1:
 			writePinHigh(INDICATOR_0);
@@ -52,7 +52,7 @@ __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
 			writePinHigh(INDICATOR_2);
 			break;
 	}
-	return state;
+	return layer_state_set_user(state);
 }
 
 void suspend_power_down_kb(void) {
