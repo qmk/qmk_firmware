@@ -104,7 +104,7 @@ def license_check(cli):
                 if file.is_file() and conditional(file.suffix):
                     check_list.add(file)
         elif filename.is_file():
-            if conditional(file.suffix):
+            if conditional(filename.suffix):
                 check_list.add(filename)
 
     failed = False
