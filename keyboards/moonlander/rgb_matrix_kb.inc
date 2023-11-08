@@ -2,12 +2,15 @@
 RGB_MATRIX_EFFECT(oryx_webhid_effect)
 #    ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
+extern RGB webhid_leds[RGB_MATRIX_LED_COUNT];
+
 static void oryx_webhid_effect_init(void) {
     // Paint it black
-    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; ++i) {
+    for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; ++i) {
         webhid_leds[i] = (RGB){0, 0, 0};
     }
 }
+
 
 static bool oryx_webhid_effect_run(effect_params_t* params) {
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
