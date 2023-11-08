@@ -6,7 +6,7 @@
 enum Layer {
     L_Numpad = 0,
     L_Symbols,
-    L_RGB
+    L_RGB,
 };
 
 // clang-format off

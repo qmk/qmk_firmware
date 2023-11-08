@@ -13,6 +13,9 @@ uint8_t  last_col;
 static const char PROGMEM code_to_name[60] = {' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'R', 'E', 'B', 'T', '_', '-', '=', '[', ']', '\\', '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '};
 
 static void set_keylog(uint16_t keycode, keyrecord_t *record) {
+    last_row = record->event.key.row;
+    last_col = record->event.key.col;
+
     key_name     = ' ';
     last_keycode = keycode;
     if (IS_QK_MOD_TAP(keycode)) {
@@ -34,8 +37,6 @@ static void set_keylog(uint16_t keycode, keyrecord_t *record) {
 
     // update keylog
     key_name = pgm_read_byte(&code_to_name[keycode]);
-    last_row = record->event.key.row;
-    last_col = record->event.key.col;
 }
 
 static const char *depad_str(const char *depad_str, char depad_char) {
@@ -46,11 +47,9 @@ static const char *depad_str(const char *depad_str, char depad_char) {
 }
 
 static void oled_render_keylog(void) {
-    const char *last_row_str = get_u8_str(last_row, ' ');
-    oled_write(depad_str(last_row_str, ' '), false);
+    oled_write_char('0' + last_row, false);
     oled_write("x", false);
-    const char *last_col_str = get_u8_str(last_col, ' ');
-    oled_write(depad_str(last_col_str, ' '), false);
+    oled_write_char('0' + last_col, false);
     oled_write(", k", false);
     const char *last_keycode_str = get_u16_str(last_keycode, ' ');
     oled_write(depad_str(last_keycode_str, ' '), false);
@@ -74,7 +73,7 @@ bool oled_task_kb(void) {
 
     oled_render_layer();
     oled_render_keylog();
-    oled_write_ln("", false);
+    oled_advance_page(true);
     return false;
 }
 
@@ -93,6 +92,8 @@ static void setupForFlashing(void) {
     for (size_t num = 0; num < numIterations; ++num) {
         oled_render();
     }
+    // todo: Replace the above hack with this, once develop branch is merged at the end of November 2023
+    // oled_render_dirty(true);
 
     // Set alternating backlight colors
     const uint8_t max = 20;
