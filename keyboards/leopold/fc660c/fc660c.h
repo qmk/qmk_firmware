@@ -20,6 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 
 #ifdef ACTUATION_DEPTH_ADJUSTMENT
-#    include "../ad5258.h"
-#    include "../actuation_point.h"
+#    include "ad5258.h"
+#    include "actuation_point.h"
 #endif
