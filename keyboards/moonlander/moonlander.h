@@ -60,11 +60,12 @@ extern bool mcp23018_leds[];
     l60, l70, l80, \
     lb6, lb5, lb4, lb3 \
 }
-// clang-format on
 
-enum planck_ez_keycodes {
+// clang-format on
+enum moonlander_keycodes {
     TOGGLE_LAYER_COLOR = QK_KB_0,
     LED_LEVEL,
+    ML_SAFE_RANGE,
 };
 
 typedef union {

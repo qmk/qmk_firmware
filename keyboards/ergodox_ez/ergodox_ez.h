@@ -125,6 +125,7 @@ inline void ergodox_led_all_set(uint8_t n) {
 enum ergodox_ez_keycodes {
     LED_LEVEL = QK_KB_0,
     TOGGLE_LAYER_COLOR,
+    EZ_SAFE_RANGE
 };
 
 typedef union {
