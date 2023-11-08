@@ -79,18 +79,18 @@ def _detect_license_from_file_contents(filename, absolute=False):
 @cli.argument('-e', '--extension', arg_only=True, action='append', default=[], help='Override list of extensions. Can be specified multiple times for multiple extensions.')
 @cli.subcommand('File license check.', hidden=False if cli.config.user.developer else True)
 def license_check(cli):
-    def defaultsuffix_condition(s):
+    def _default_suffix_condition(s):
         return s in SUFFIXES
 
-    conditional = defaultsuffix_condition
+    conditional = _default_suffix_condition
 
     if len(cli.args.extension) > 0:
         suffixes = [f'.{s}' if not s.startswith('.') else s for s in cli.args.extension]
 
-        def specific_suffix_condition(s):
+        def _specific_suffix_condition(s):
             return s in suffixes
 
-        conditional = specific_suffix_condition
+        conditional = _specific_suffix_condition
 
     # Pre-format all the licenses
     for _, long_licenses in LICENSE_TEXTS:
