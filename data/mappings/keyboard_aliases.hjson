@@ -1215,6 +1215,12 @@
     "setta21": {
         "target": "salicylic_acid3/setta21"
     },
+    "soda/mango": {
+        "target": "magic_force/mf17"
+    },
+    "soda/pocket": {
+        "target": "magic_force/mf34"
+    },
     "space_space/rev1": {
         "target": "qpockets/space_space/rev1"
     },
