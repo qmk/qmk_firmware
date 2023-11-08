@@ -24,32 +24,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool rgb_matrix_indicators_user(void) {
-    if (host_keyboard_led_state().caps_lock) 
-	{
+    if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(0, RGB_RED);
     }
 	
-	if (host_keyboard_led_state().num_lock) 
-	{
+    if (host_keyboard_led_state().num_lock) {
         rgb_matrix_set_color(1, RGB_RED);
     }
 
-	if (host_keyboard_led_state().scroll_lock) 
-	{
+    if (host_keyboard_led_state().scroll_lock) {
         rgb_matrix_set_color(2, RGB_RED);
     }
 	
-	switch (get_highest_layer(layer_state))
-	{
+    switch (get_highest_layer(layer_state)) {
         case 1: 
             rgb_matrix_set_color(3, RGB_CYAN);
-        break;
+            break;
         case 2: 
             rgb_matrix_set_color(3, RGB_MAGENTA);
-        break;
+            break;
         case 3:
             rgb_matrix_set_color(3, RGB_YELLOW);
-        break;
+            break;
     } 
     return true;
 }
