@@ -135,7 +135,7 @@ bool backing_store_lock(void) {
 }
 
 static backing_store_int_t backing_store_safe_read_from_location(backing_store_int_t *loc) {
-    uint32_t value;
+    backing_store_int_t value;
     is_issuing_read    = true;
     ecc_error_occurred = false;
     value              = ~(*loc);
@@ -146,7 +146,7 @@ static backing_store_int_t backing_store_safe_read_from_location(backing_store_i
 bool backing_store_read(uint32_t address, backing_store_int_t *value) {
     uint32_t             offset = (base_offset + address);
     backing_store_int_t *loc    = (backing_store_int_t *)flashGetOffsetAddress(flash, offset);
-    uint32_t             tmp    = backing_store_safe_read_from_location(loc);
+    backing_store_int_t  tmp    = backing_store_safe_read_from_location(loc);
 
     if (ecc_error_occurred) {
         bs_dprintf("Failed to read from backing store, ECC error detected\n");
