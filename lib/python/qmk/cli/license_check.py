@@ -1,3 +1,5 @@
+# Copyright 2023 Nick Brassel (@tzarc)
+# SPDX-License-Identifier: GPL-2.0-or-later
 import re
 from pathlib import Path
 from milc import cli
@@ -77,11 +79,18 @@ def _detect_license_from_file_contents(filename, absolute=False):
 @cli.argument('-e', '--extension', arg_only=True, action='append', default=[], help='Override list of extensions. Can be specified multiple times for multiple extensions.')
 @cli.subcommand('File license check.', hidden=False if cli.config.user.developer else True)
 def license_check(cli):
-    conditional = lambda s: s in SUFFIXES
+    def defaultsuffix_condition(s):
+        return s in SUFFIXES
+
+    conditional = defaultsuffix_condition
 
     if len(cli.args.extension) > 0:
         suffixes = [f'.{s}' if not s.startswith('.') else s for s in cli.args.extension]
-        conditional = lambda s: s in suffixes
+
+        def specific_suffix_condition(s):
+            return s in suffixes
+
+        conditional = specific_suffix_condition
 
     # Pre-format all the licenses
     for _, long_licenses in LICENSE_TEXTS:
