@@ -1,6 +1,6 @@
 # Chameleon 
 
-![chameleon](https://imgur.com/a/WNtE4U6)
+![chameleon](https://i.imgur.com/BEAzgK8h.jpeg)
 
 Chameleon is a 46-60 Key Grid Ortho Keyboard with optional 5x12 or 4x12 layouts.
 
