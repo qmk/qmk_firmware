@@ -317,7 +317,7 @@ static bool is_on = false;
 static bool is_dynamic_recording = false;
 static uint16_t dynamic_loop_timer;
 
-void dynamic_macro_record_start_user(void) {
+void dynamic_macro_record_start_user(int8_t direction) {
     is_dynamic_recording = true;
     dynamic_loop_timer = timer_read();
     planck_ez_left_led_on();
