@@ -1,6 +1,6 @@
 # Chameleon 
 
-![chameleon](imgur.com image replace me!)
+![chameleon](https://lectronz.com/lectronz/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBalFoIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--4be3beffa89240abba6874d8ef242fc7b0b10994/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lKU2xCRlJ3WTZCa1ZVT2hSeVpYTnBlbVZmZEc5ZmJHbHRhWFJiQjJrQ3dBTnBBb0FDIiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--3e445397da8bf51b531321877b7934091a51a638/IMG_1311.JPEG)
 
 Chameleon is a 46-60 Key Grid Ortho Keyboard with optional 5x12 or 4x12 layouts.
 
