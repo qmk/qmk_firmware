@@ -3,13 +3,9 @@
 
 #pragma once
 
-#ifdef OLED_ENABLE
-#    define OLED_DISPLAY_128X64
-#    define OLED_TIMEOUT 30000
-#    define OLED_FONT_H "keyboards/kiwikey/kawii9v2/lib/glcdfont.c"
-#endif
+#define OLED_DISPLAY_128X64
+#define OLED_TIMEOUT 30000
+#define OLED_FONT_H "lib/glcdfont.c"
 
-#ifdef RGB_MATRIX_ENABLE
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
-#    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_UP_DOWN // Set default RGB Matrix mode
-#endif
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_UP_DOWN
