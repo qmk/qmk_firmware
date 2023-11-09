@@ -1,19 +1,11 @@
-Redox wireless Cygnus
-=======
+# Redox wireless Cygnus
 
 ![Redox wireless Cygnus](https://i.imgur.com/jDlgLBN.jpg)
 
 Make example for this keyboard (after setting up your build environment):
-
-```sh
-make redox_w_cygnus:default
-```
-
+    make redox_w_cygnus:default
 Example of flashing this keyboard:
-
-```sh
-make redox_w_cygnus:default:avrdude
-```
+    make redox_w_cygnus:default:avrdude
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
