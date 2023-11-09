@@ -48,6 +48,7 @@
         "driver": "vendor",
         "pin": "GP20"
     },
+    "community_layouts": ["ortho_5x12"],
     "layouts": {
         "LAYOUT_ortho_5x12": {
             "layout": [
