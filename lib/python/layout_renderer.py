@@ -118,15 +118,13 @@ class LayoutRenderer():
         legend_length = ceil(w * 4) - 1
 
         if x >= 0.25 and w == 1.25 and h == 2:
+            # ISO Enter
             self._render_key_nonrect(canvas_left - 1, canvas_left, canvas_top, canvas_right, canvas_bottom)
             self._render_key_legend(canvas_left - 1, canvas_top, legend_length + 1, legend)
-        #elif w == 1.5 and h == 2:
-        #    # Non-overlapping BAE
-        #    self._render_key_nonrect(canvas_left, canvas_left - 3, canvas_top, canvas_right, canvas_bottom)
-        #    self._render_key_legend(canvas_left - 3, canvas_top + 2, legend_length, legend)
-        elif w == 2.25 and h == 2:
-            self._render_key_nonrect(canvas_left + 3, canvas_left, canvas_top, canvas_right, canvas_bottom)
-            self._render_key_legend(canvas_left, canvas_top + 2, legend_length, legend)
+        elif w == 1.5 and h == 2:
+            # Big Enter
+            self._render_key_nonrect(canvas_left, canvas_left - 3, canvas_top, canvas_right, canvas_bottom)
+            self._render_key_legend(canvas_left - 3, canvas_top + 2, legend_length, legend)
         else:
             self._render_key_rect(canvas_left, canvas_top, canvas_right, canvas_bottom)
             if h >= 1 and w >= 0.25:
