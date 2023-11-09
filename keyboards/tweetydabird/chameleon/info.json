@@ -49,11 +49,6 @@
         "pin": "GP20"
     },
     "community_layouts": ["ortho_5x12", "ortho_4x12", "planck_mit"],
-    "layout_aliases": {
-        "LAYOUT_planck_grid": "LAYOUT_ortho_4x12",
-        "LAYOUT_planck_mit": "LAYOUT_planck_1x2uC",
-        "LAYOUT_preonic_grid": "LAYOUT_ortho_5x12"
-    },
     "layouts": {
         "LAYOUT_ortho_4x12": {
             "layout": [
@@ -171,7 +166,7 @@
                 {"matrix": [9, 0], "x": 11, "y": 4}
             ]
         },
-        "LAYOUT_planck_1x2uC": {
+        "LAYOUT_planck_mit": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -222,7 +217,7 @@
                 {"matrix": [7, 0], "x": 11, "y": 3}
             ]
         },
-        "LAYOUT_planck_1x2uL": {
+        "LAYOUT_ortho_4x12_1x2uL": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -273,7 +268,7 @@
                 {"matrix": [7, 0], "x": 11, "y": 3}
             ]
         },
-        "LAYOUT_planck_1x2uR": {
+        "LAYOUT_ortho_4x12_1x2uR": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -324,7 +319,7 @@
                 {"matrix": [7, 0], "x": 11, "y": 3}
             ]
         },
-        "LAYOUT_planck_2x2u": {
+        "LAYOUT_ortho_4x12_2x2u": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -374,7 +369,7 @@
                 {"matrix": [7, 0], "x": 11, "y": 3}
             ]
         },
-        "LAYOUT_preonic_1x2uC": {
+        "LAYOUT_ortho_5x12_1x2uC": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -437,7 +432,7 @@
                 {"matrix": [9, 0], "x": 11, "y": 4}
             ]
         },
-        "LAYOUT_preonic_1x2uL": {
+        "LAYOUT_ortho_5x12_1x2uL": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -500,7 +495,7 @@
                 {"matrix": [9, 0], "x": 11, "y": 4}
             ]
         },
-        "LAYOUT_preonic_1x2uR": {
+        "LAYOUT_ortho_5x12_1x2uR": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -563,7 +558,7 @@
                 {"matrix": [9, 0], "x": 11, "y": 4}
             ]
         },
-        "LAYOUT_preonic_2x2u": {
+        "LAYOUT_ortho_5x12_2x2u": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
