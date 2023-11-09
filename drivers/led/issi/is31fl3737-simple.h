@@ -38,23 +38,23 @@
 #    define IS31FL3737_PWM_FREQUENCY ISSI_PWM_FREQUENCY
 #endif
 #ifdef ISSI_SWPULLUP
-#    define IS31FL3737_SWPULLUP ISSI_SWPULLUP
+#    define IS31FL3737_SW_PULLUP ISSI_SWPULLUP
 #endif
 #ifdef ISSI_CSPULLUP
-#    define IS31FL3737_CSPULLUP ISSI_CSPULLUP
+#    define IS31FL3737_CS_PULLDOWN ISSI_CSPULLUP
 #endif
 #ifdef ISSI_GLOBALCURRENT
 #    define IS31FL3737_GLOBALCURRENT ISSI_GLOBALCURRENT
 #endif
 
-#define PUR_0R IS31FL3737_PUR_0R
-#define PUR_05KR IS31FL3737_PUR_05KR
-#define PUR_1KR IS31FL3737_PUR_1KR
-#define PUR_2KR IS31FL3737_PUR_2KR
-#define PUR_4KR IS31FL3737_PUR_4KR
-#define PUR_8KR IS31FL3737_PUR_8KR
-#define PUR_16KR IS31FL3737_PUR_16KR
-#define PUR_32KR IS31FL3737_PUR_32KR
+#define PUR_0R IS31FL3737_PUR_0_OHM
+#define PUR_05KR IS31FL3737_PUR_0K5_OHM
+#define PUR_1KR IS31FL3737_PUR_1K_OHM
+#define PUR_2KR IS31FL3737_PUR_2K_OHM
+#define PUR_4KR IS31FL3737_PUR_4K_OHM
+#define PUR_8KR IS31FL3737_PUR_8K_OHM
+#define PUR_16KR IS31FL3737_PUR_16K_OHM
+#define PUR_32KR IS31FL3737_PUR_32K_OHM
 // ========
 
 #define IS31FL3737_I2C_ADDRESS_GND 0x50
@@ -92,14 +92,23 @@ void is31fl3737_update_led_control_registers(uint8_t addr, uint8_t index);
 
 void is31fl3737_flush(void);
 
-#define IS31FL3737_PUR_0R 0x00   // No PUR resistor
-#define IS31FL3737_PUR_05KR 0x01 // 0.5k Ohm resistor in t_NOL
-#define IS31FL3737_PUR_1KR 0x02  // 1.0k Ohm resistor in t_NOL
-#define IS31FL3737_PUR_2KR 0x03  // 2.0k Ohm resistor in t_NOL
-#define IS31FL3737_PUR_4KR 0x04  // 4.0k Ohm resistor in t_NOL
-#define IS31FL3737_PUR_8KR 0x05  // 8.0k Ohm resistor in t_NOL
-#define IS31FL3737_PUR_16KR 0x06 // 16k Ohm resistor in t_NOL
-#define IS31FL3737_PUR_32KR 0x07 // 32k Ohm resistor in t_NOL
+#define IS31FL3737_PDR_0_OHM 0b000   // No pull-down resistor
+#define IS31FL3737_PDR_0K5_OHM 0b001 // 0.5 kOhm resistor
+#define IS31FL3737_PDR_1K_OHM 0b010  // 1 kOhm resistor
+#define IS31FL3737_PDR_2K_OHM 0b011  // 2 kOhm resistor
+#define IS31FL3737_PDR_4K_OHM 0b100  // 4 kOhm resistor
+#define IS31FL3737_PDR_8K_OHM 0b101  // 8 kOhm resistor
+#define IS31FL3737_PDR_16K_OHM 0b110 // 16 kOhm resistor
+#define IS31FL3737_PDR_32K_OHM 0b111 // 32 kOhm resistor
+
+#define IS31FL3737_PUR_0_OHM 0b000   // No pull-up resistor
+#define IS31FL3737_PUR_0K5_OHM 0b001 // 0.5 kOhm resistor
+#define IS31FL3737_PUR_1K_OHM 0b010  // 1 kOhm resistor
+#define IS31FL3737_PUR_2K_OHM 0b011  // 2 kOhm resistor
+#define IS31FL3737_PUR_4K_OHM 0b100  // 4 kOhm resistor
+#define IS31FL3737_PUR_8K_OHM 0b101  // 8 kOhm resistor
+#define IS31FL3737_PUR_16K_OHM 0b110 // 16 kOhm resistor
+#define IS31FL3737_PUR_32K_OHM 0b111 // 32 kOhm resistor
 
 #define IS31FL3737_PWM_FREQUENCY_8K4_HZ 0b000
 #define IS31FL3737_PWM_FREQUENCY_4K2_HZ 0b001
