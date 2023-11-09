@@ -190,9 +190,9 @@ def test_info_keyboard_render():
     assert 'Layouts:' in result.stdout
 
     if is_windows:
-        assert '|  |' in result.stdout
+        assert '|   |' in result.stdout
     else:
-        assert '│  │' in result.stdout
+        assert '│   │' in result.stdout
 
 
 def test_info_keymap_render():
@@ -202,9 +202,9 @@ def test_info_keymap_render():
     assert 'Processor: atmega32u4' in result.stdout
 
     if is_windows:
-        assert '|A |' in result.stdout
+        assert '| A |' in result.stdout
     else:
-        assert '│A │' in result.stdout
+        assert '│ A │' in result.stdout
 
 
 def test_info_matrix_render():
@@ -215,9 +215,9 @@ def test_info_matrix_render():
     assert 'LAYOUT_ortho_1x1' in result.stdout
 
     if is_windows:
-        assert '|0A|' in result.stdout
+        assert '|0,0|' in result.stdout
     else:
-        assert '│0A│' in result.stdout
+        assert '│0,0│' in result.stdout
 
     assert 'Matrix for "LAYOUT_ortho_1x1"' in result.stdout
 
