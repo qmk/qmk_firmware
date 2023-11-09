@@ -29,20 +29,6 @@
             "alternating": true
         }
     },
-    "encoder": {
-        "rotary": [
-            {"pin_a": "A9", "pin_b": "A8"},
-            {"pin_a": "B4", "pin_b": "B3"},
-            {"pin_a": "B7", "pin_b": "B6"}
-        ]
-    },
-    "processor": "STM32F072",
-    "bootloader": "stm32-dfu",
-    "matrix_pins": {
-        "direct": [
-            ["B14", "A1", "A2", "A3", "A4", "B13", "A6", "A7", "B0", "A5", "B12", "B11", "B10", "B2", "B1", "A15", "B5", "A10", null, null, null, null, null, null]
-        ]
-    },
     "ws2812": {
         "pin": "F7"
     },
