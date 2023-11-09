@@ -79,9 +79,9 @@ static void print_status_narrow(void) {
 #ifdef AUTO_SHIFT_ENABLE
 
 	bool autoshift = get_autoshift_state();
-	oled_write_P(PSTR("\n"), false);
-	oled_write_P(PSTR("Auto-Shift"), autoshift);
-	oled_write_P(PSTR("\n"), false);
+    oled_advance_page(true);
+    oled_write_P(PSTR("Auto-Shift"), autoshift);
+    oled_advance_page(true);
 	
 #endif
 
