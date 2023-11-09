@@ -58,11 +58,11 @@ int16_t axisCoordinate(pin_t pin, uint16_t origin, uint8_t axis) {
         if (position < minAxisValues[axis]) {
             minAxisValues[axis] = position;
         }
-        range              = origin - minAxisValues[axis];
+        range = origin - minAxisValues[axis];
 #else
-        range              = origin - minAxisValue;
+        range = origin - minAxisValue;
 #endif
-        direction          = -1;
+        direction = -1;
     } else {
         distanceFromOrigin = position - origin;
 
@@ -70,11 +70,11 @@ int16_t axisCoordinate(pin_t pin, uint16_t origin, uint8_t axis) {
         if (position > maxAxisValues[axis]) {
             maxAxisValues[axis] = position;
         }
-        range              = maxAxisValues[axis] - origin;
+        range = maxAxisValues[axis] - origin;
 #else
-        range              = maxAxisValue - origin;
+        range = maxAxisValue - origin;
 #endif
-        direction          = 1;
+        direction = 1;
     }
 
     float   percent    = (float)distanceFromOrigin / range;
@@ -90,11 +90,11 @@ int16_t axisCoordinate(pin_t pin, uint16_t origin, uint8_t axis) {
 
 int8_t axisToMouseComponent(pin_t pin, int16_t origin, uint8_t maxSpeed, uint8_t axis) {
     int16_t coordinate = axisCoordinate(pin, origin, axis);
-    int8_t result;
+    int8_t  result;
 #ifndef ANALOG_JOYSTICK_WEIGHTS
     if (coordinate != 0) {
         float percent = (float)coordinate / 100;
-        result = percent * maxCursorSpeed * (abs(coordinate) / speedRegulator);
+        result        = percent * maxCursorSpeed * (abs(coordinate) / speedRegulator);
     } else {
         return 0;
     }
@@ -103,7 +103,7 @@ int8_t axisToMouseComponent(pin_t pin, int16_t origin, uint8_t maxSpeed, uint8_t
 #endif
 
 #ifdef ANALOG_JOYSTICK_CUTOFF
-    uint8_t pv = prevValues[axis];
+    uint8_t pv       = prevValues[axis];
     prevValues[axis] = abs(result);
     if (pv > abs(result)) {
         return 0;
