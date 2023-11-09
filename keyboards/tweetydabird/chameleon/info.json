@@ -4,20 +4,20 @@
     "maintainer": "TweetyDaBird",
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
-	"encoder": {
+    "encoder": {
         "rotary": [
-            	{"pin_a": "GP18", "pin_b": "GP19", "resolution": 2},
-		{"pin_a": "GP27", "pin_b": "GP0", "resolution": 2},
-		{"pin_a": "GP17", "pin_b": "GP16", "resolution": 2},
-		{"pin_a": "GP10", "pin_b": "GP9", "resolution": 2}
+            {"pin_a": "GP18", "pin_b": "GP19", "resolution": 2},
+            {"pin_a": "GP27", "pin_b": "GP0", "resolution": 2},
+            {"pin_a": "GP17", "pin_b": "GP16", "resolution": 2},
+            {"pin_a": "GP10", "pin_b": "GP9", "resolution": 2}
         ]
     },
     "features": {
         "bootmagic": true,
+        "encoder": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-	"encoder": true,
         "rgblight": true,
         "tri_layer": true
     },
@@ -26,27 +26,27 @@
         "rows": ["GP29", "GP22", "GP21", "GP24", "GP13", "GP1", "GP11", "GP2", "GP12", "GP8"]
     },
     "processor": "RP2040",
-	"rgblight": {
-        "led_count": 8,
-		"sleep": true,
-		"layers": {
-             "enabled": true
-        },
+    "rgblight": {
         "animations": {
             "alternating": true,
             "breathing": true,
             "rainbow_mood": true
-        }
-    },
-	"ws2812": {
-		"driver": "vendor",
-        "pin": "GP20"
+        },
+        "layers": {
+            "enabled": true
+        },
+        "led_count": 8,
+        "sleep": true
     },
     "url": "https://lectronz.com/stores/tweetys-wild-thinking",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x23B0",
         "vid": "0xFEED"
+    },
+    "ws2812": {
+        "driver": "vendor",
+        "pin": "GP20"
     },
     "layouts": {
         "LAYOUT_ortho_5x12": {
