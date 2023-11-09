@@ -40,7 +40,7 @@
 #    include "process_leader.h"
 #endif
 
-#ifdef MAGIC_KEYCODE_ENABLE
+#ifdef MAGIC_ENABLE
 #    include "process_magic.h"
 #endif
 
@@ -366,7 +366,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef SPACE_CADET_ENABLE
             process_space_cadet(keycode, record) &&
 #endif
-#ifdef MAGIC_KEYCODE_ENABLE
+#ifdef MAGIC_ENABLE
             process_magic(keycode, record) &&
 #endif
 #ifdef GRAVE_ESC_ENABLE

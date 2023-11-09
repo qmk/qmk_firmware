@@ -79,10 +79,7 @@ ifeq ($(strip $(AUDIO_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(SEQUENCER_ENABLE)), yes)
-    OPT_DEFS += -DSEQUENCER_ENABLE
     MUSIC_ENABLE = yes
-    SRC += $(QUANTUM_DIR)/sequencer/sequencer.c
-    SRC += $(QUANTUM_DIR)/process_keycode/process_sequencer.c
 endif
 
 ifeq ($(strip $(MIDI_ENABLE)), yes)
@@ -96,11 +93,6 @@ ifeq ($(strip $(MIDI_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/midi/bytequeue/bytequeue.c
     SRC += $(QUANTUM_DIR)/midi/bytequeue/interrupt_setting.c
     SRC += $(QUANTUM_DIR)/process_keycode/process_midi.c
-endif
-
-MUSIC_ENABLE ?= no
-ifeq ($(MUSIC_ENABLE), yes)
-    SRC += $(QUANTUM_DIR)/process_keycode/process_music.c
 endif
 
 VALID_STENO_PROTOCOL_TYPES := geminipr txbolt all
@@ -128,14 +120,8 @@ ifeq ($(strip $(STENO_ENABLE)), yes)
     endif
 endif
 
-ifeq ($(strip $(VIRTSER_ENABLE)), yes)
-    OPT_DEFS += -DVIRTSER_ENABLE
-endif
-
 ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
-    OPT_DEFS += -DMOUSEKEY_ENABLE
     MOUSE_ENABLE := yes
-    SRC += $(QUANTUM_DIR)/mousekey.c
 endif
 
 VALID_POINTING_DEVICE_DRIVER_TYPES := adns5050 adns9800 analog_joystick cirque_pinnacle_i2c cirque_pinnacle_spi paw3204 pmw3320 pmw3360 pmw3389 pimoroni_trackball custom
@@ -364,10 +350,7 @@ ifeq ($(strip $(LED_MATRIX_ENABLE)), yes)
     endif
     OPT_DEFS += -DLED_MATRIX_ENABLE
     OPT_DEFS += -DLED_MATRIX_$(strip $(shell echo $(LED_MATRIX_DRIVER) | tr '[:lower:]' '[:upper:]'))
-ifneq (,$(filter $(MCU), atmega16u2 atmega32u2 at90usb162))
-    # ATmegaxxU2 does not have hardware MUL instruction - lib8tion must be told to use software multiplication routines
-    OPT_DEFS += -DLIB8_ATTINY
-endif
+
     COMMON_VPATH += $(QUANTUM_DIR)/led_matrix
     COMMON_VPATH += $(QUANTUM_DIR)/led_matrix/animations
     COMMON_VPATH += $(QUANTUM_DIR)/led_matrix/animations/runners
@@ -375,7 +358,7 @@ endif
     SRC += $(QUANTUM_DIR)/process_keycode/process_backlight.c
     SRC += $(QUANTUM_DIR)/led_matrix/led_matrix.c
     SRC += $(QUANTUM_DIR)/led_matrix/led_matrix_drivers.c
-    SRC += $(LIB_PATH)/lib8tion/lib8tion.c
+    LIB8TION_ENABLE := yes
     CIE1931_CURVE := yes
 
     ifeq ($(strip $(LED_MATRIX_DRIVER)), is31fl3218)
@@ -467,10 +450,7 @@ ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
     endif
     OPT_DEFS += -DRGB_MATRIX_ENABLE
     OPT_DEFS += -DRGB_MATRIX_$(strip $(shell echo $(RGB_MATRIX_DRIVER) | tr '[:lower:]' '[:upper:]'))
-ifneq (,$(filter $(MCU), atmega16u2 atmega32u2 at90usb162))
-    # ATmegaxxU2 does not have hardware MUL instruction - lib8tion must be told to use software multiplication routines
-    OPT_DEFS += -DLIB8_ATTINY
-endif
+
     COMMON_VPATH += $(QUANTUM_DIR)/rgb_matrix
     COMMON_VPATH += $(QUANTUM_DIR)/rgb_matrix/animations
     COMMON_VPATH += $(QUANTUM_DIR)/rgb_matrix/animations/runners
@@ -478,7 +458,7 @@ endif
     SRC += $(QUANTUM_DIR)/color.c
     SRC += $(QUANTUM_DIR)/rgb_matrix/rgb_matrix.c
     SRC += $(QUANTUM_DIR)/rgb_matrix/rgb_matrix_drivers.c
-    SRC += $(LIB_PATH)/lib8tion/lib8tion.c
+    LIB8TION_ENABLE := yes
     CIE1931_CURVE := yes
     RGB_KEYCODES_ENABLE := yes
 
@@ -636,8 +616,6 @@ ifeq ($(strip $(VIA_ENABLE)), yes)
     RAW_ENABLE := yes
     BOOTMAGIC_ENABLE := yes
     TRI_LAYER_ENABLE := yes
-    SRC += $(QUANTUM_DIR)/via.c
-    OPT_DEFS += -DVIA_ENABLE
 endif
 
 ifeq ($(strip $(XAP_ENABLE)), yes)
@@ -738,15 +716,18 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
     COMMON_VPATH += $(QUANTUM_PATH)/split_common
 endif
 
-ifeq ($(strip $(CRC_ENABLE)), yes)
-    OPT_DEFS += -DCRC_ENABLE
-    SRC += crc.c
-endif
-
 ifeq ($(strip $(FNV_ENABLE)), yes)
     OPT_DEFS += -DFNV_ENABLE
     VPATH += $(LIB_PATH)/fnv
     SRC += qmk_fnv_type_validation.c hash_32a.c hash_64a.c
+endif
+
+ifeq ($(strip $(LIB8TION_ENABLE)), yes)
+    ifneq (,$(filter $(MCU), atmega16u2 atmega32u2 at90usb162))
+        # ATmegaxxU2 does not have hardware MUL instruction - lib8tion must be told to use software multiplication routines
+        OPT_DEFS += -DLIB8_ATTINY
+    endif
+    SRC += $(LIB_PATH)/lib8tion/lib8tion.c
 endif
 
 VALID_HAPTIC_DRIVER_TYPES := drv2605l solenoid
@@ -837,27 +818,6 @@ ifeq ($(strip $(UNICODE_COMMON)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_unicode_common.c \
            $(QUANTUM_DIR)/unicode/unicode.c \
            $(QUANTUM_DIR)/unicode/utf8.c
-endif
-
-MAGIC_ENABLE ?= yes
-ifeq ($(strip $(MAGIC_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/process_keycode/process_magic.c
-    OPT_DEFS += -DMAGIC_KEYCODE_ENABLE
-endif
-
-SEND_STRING_ENABLE ?= yes
-ifeq ($(strip $(SEND_STRING_ENABLE)), yes)
-    OPT_DEFS += -DSEND_STRING_ENABLE
-    COMMON_VPATH += $(QUANTUM_DIR)/send_string
-    SRC += $(QUANTUM_DIR)/send_string/send_string.c
-endif
-
-ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/process_keycode/process_auto_shift.c
-    OPT_DEFS += -DAUTO_SHIFT_ENABLE
-    ifeq ($(strip $(AUTO_SHIFT_MODIFIERS)), yes)
-        OPT_DEFS += -DAUTO_SHIFT_MODIFIERS
-    endif
 endif
 
 ifeq ($(strip $(PS2_MOUSE_ENABLE)), yes)
@@ -963,14 +923,6 @@ ifeq ($(strip $(ENCODER_ENABLE)), yes)
     OPT_DEFS += -DENCODER_ENABLE
     ifeq ($(strip $(ENCODER_MAP_ENABLE)), yes)
         OPT_DEFS += -DENCODER_MAP_ENABLE
-    endif
-endif
-
-ifeq ($(strip $(OS_DETECTION_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/os_detection.c
-    OPT_DEFS += -DOS_DETECTION_ENABLE
-    ifeq ($(strip $(OS_DETECTION_DEBUG_ENABLE)), yes)
-        OPT_DEFS += -DOS_DETECTION_DEBUG_ENABLE
     endif
 endif
 
