@@ -3,9 +3,6 @@
     "keyboard_name": "Chameleon (QMK)",
     "maintainer": "TweetyDaBird",
     "bootloader": "rp2040",
-	"bootmagic": {
-        "matrix": [0, 0]
-    },
     "diode_direction": "COL2ROW",
 	"encoder": {
         "rotary": [
