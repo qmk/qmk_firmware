@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |---------------+------+------+------+------+------+------+------+------+------+------+-----------+------+------|
      * | Ctrl   |  Win   |  ALT   |                     0                     |         |         |      |      |      |
      * `--------+--------+--------+-------------------------------------------+---------+---------+------+------+------'
-     */                
+     */
     [1] = LAYOUT_65_ansi_blocker(
         QK_BOOT, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_TRNS, KC_TRNS,
         KC_TRNS, KC_PGUP, KC_HOME, KC_UP,   KC_END,  KC_DEL,  KC_BSLS, KC_7,    KC_8,    KC_9,    RGB_TOG, RGB_MOD, RGB_VAI, KC_TRNS, KC_TRNS,
@@ -82,4 +82,3 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(3, layer_state_cmp(state, 3));
     return state;
 }
-
