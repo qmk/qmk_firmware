@@ -2,7 +2,7 @@
 
 ![proteus67](https://i.imgur.com/mYhl7Ja.png)
 
-*A short description of the keyboard/project*
+* 67 key ortholinear split keyboard with rotary encoder 
 
 * Keyboard Maintainer: [James Gzowski](https://github.com/gzowski)
 * Hardware Supported: Elite-C, Elite-Pi or equivilent Pro-Micro with additional I/O along bottom.
