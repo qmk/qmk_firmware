@@ -1,8 +1,6 @@
 """Functions that help us work with keyboards.
 """
-from array import array
 from functools import lru_cache
-from math import ceil
 from pathlib import Path
 import os
 from glob import glob
