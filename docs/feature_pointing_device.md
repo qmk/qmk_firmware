@@ -69,11 +69,15 @@ The Analog Joystick is an analog (ADC) driven sensor.  There are a variety of jo
 | `ANALOG_JOYSTICK_Y_AXIS_PIN`      | (Required) The pin used for the horizontal/Y axis.                         | _not defined_ |
 | `ANALOG_JOYSTICK_AXIS_MIN`        | (Optional) Sets the lower range to be considered movement.                 | `0`           |
 | `ANALOG_JOYSTICK_AXIS_MAX`        | (Optional) Sets the upper range to be considered movement.                 | `1023`        |
+| `ANALOG_JOYSTICK_AUTO_AXIS`       | (Optional) Sets ranges to be considered movement automatically.            | _not defined_ |
 | `ANALOG_JOYSTICK_SPEED_REGULATOR` | (Optional) The divisor used to slow down movement. (lower makes it faster) | `20`          |
 | `ANALOG_JOYSTICK_READ_INTERVAL`   | (Optional) The interval in milliseconds between reads.                     | `10`          |
 | `ANALOG_JOYSTICK_SPEED_MAX`       | (Optional) The maximum value used for motion.                              | `2`           |
 | `ANALOG_JOYSTICK_CLICK_PIN`       | (Optional) The pin wired up to the press switch of the analog stick.       | _not defined_ |
 | `ANALOG_JOYSTICK_WEIGHTS`         | (Optional) Use custom weights for lever positions.                         | _not defined_ |
+| `ANALOG_JOYSTICK_CUTOFF`          | (Optional) Cut off movement when joystick returns to start position.       | _not defined_ |
+
+If `ANALOG_JOYSTICK_AUTO_AXIS` is used, then `ANALOG_JOYSTICK_AXIS_MIN` and `ANALOG_JOYSTICK_AXIS_MAX` are ignored.
 
 By default analog joystick implementation uses `x^2` weighting for lever positions. `ANALOG_JOYSTICK_WEIGHTS` allows to experiment with different configurations that might feel better.
 
