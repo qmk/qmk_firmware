@@ -80,6 +80,7 @@ void ucis_finish(void) {
     }
 
     active = false;
+     memset(input, 0, sizeof input);
 }
 
 void ucis_cancel(void) {
