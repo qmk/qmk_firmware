@@ -25,11 +25,11 @@ eeprom_ec_config_t eeprom_ec_config;
 ec_config_t        ec_config;
 
 // Pin and port array
-const uint32_t row_pins[]                                 = MATRIX_ROW_PINS;
-const uint32_t amux_sel_pins[]                            = AMUX_SEL_PINS;
-const uint32_t amux_en_pins[]                             = AMUX_EN_PINS;
-const uint8_t  amux_n_col_sizes[]                         = AMUX_COL_CHANNELS_SIZES;
-const uint8_t  amux_n_col_channels[][AMUX_MAX_COLS_COUNT] = {AMUX_COL_CHANNELS};
+const pin_t row_pins[]                                 = MATRIX_ROW_PINS;
+const pin_t amux_sel_pins[]                            = AMUX_SEL_PINS;
+const pin_t amux_en_pins[]                             = AMUX_EN_PINS;
+const pin_t  amux_n_col_sizes[]                         = AMUX_COL_CHANNELS_SIZES;
+const pin_t  amux_n_col_channels[][AMUX_MAX_COLS_COUNT] = {AMUX_COL_CHANNELS};
 #define AMUX_SEL_PINS_COUNT (sizeof(amux_sel_pins) / sizeof(amux_sel_pins[0]))
 #define EXPECTED_AMUX_SEL_PINS_COUNT ceil(log2(AMUX_MAX_COLS_COUNT)
 // Checks for the correctness of the configuration
