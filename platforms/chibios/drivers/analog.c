@@ -109,7 +109,7 @@
 #endif
 
 // For more sampling rate options, look at hal_adc_lld.h in ChibiOS
-#ifndef ADC_SAMPLING_RATE
+#if !defined(ADC_SAMPLING_RATE) && !defined(RP2040)
 #    if defined(ADC_SMPR_SMP_1P5)
 #        define ADC_SAMPLING_RATE ADC_SMPR_SMP_1P5
 #    elif defined(ADC_SMPR_SMP_2P5) // STM32L4XX, STM32L4XXP, STM32G4XX, STM32WBXX
