@@ -1,6 +1,6 @@
 # proteus67
 
-![proteus67](https://i.imgur.com/mYhl7Ja.png)
+![proteus67](https://i.imgur.com/mYhl7Jah.png)
 
 *A short description of the keyboard/project*
 
