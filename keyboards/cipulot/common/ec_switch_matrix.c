@@ -21,15 +21,17 @@
 #include "print.h"
 #include "wait.h"
 
+#define OPEN_DRAIN_SUPPORT defined(PAL_MODE_OUTPUT_OPENDRAIN)
+
 eeprom_ec_config_t eeprom_ec_config;
 ec_config_t        ec_config;
 
 // Pin and port array
-const uint32_t row_pins[]                                 = MATRIX_ROW_PINS;
-const uint32_t amux_sel_pins[]                            = AMUX_SEL_PINS;
-const uint32_t amux_en_pins[]                             = AMUX_EN_PINS;
-const uint8_t  amux_n_col_sizes[]                         = AMUX_COL_CHANNELS_SIZES;
-const uint8_t  amux_n_col_channels[][AMUX_MAX_COLS_COUNT] = {AMUX_COL_CHANNELS};
+const pin_t row_pins[]                                 = MATRIX_ROW_PINS;
+const pin_t amux_sel_pins[]                            = AMUX_SEL_PINS;
+const pin_t amux_en_pins[]                             = AMUX_EN_PINS;
+const pin_t amux_n_col_sizes[]                         = AMUX_COL_CHANNELS_SIZES;
+const pin_t amux_n_col_channels[][AMUX_MAX_COLS_COUNT] = {AMUX_COL_CHANNELS};
 #define AMUX_SEL_PINS_COUNT (sizeof(amux_sel_pins) / sizeof(amux_sel_pins[0]))
 #define EXPECTED_AMUX_SEL_PINS_COUNT ceil(log2(AMUX_MAX_COLS_COUNT)
 // Checks for the correctness of the configuration
@@ -89,12 +91,21 @@ void disable_unused_amux(uint8_t channel) {
 }
 // Discharge the peak hold capacitor
 void discharge_capacitor(void) {
+#if OPEN_DRAIN_SUPPORT
     writePinLow(DISCHARGE_PIN);
+#else
+    writePinLow(DISCHARGE_PIN);
+    setPinOutput(DISCHARGE_PIN);
+#endif
 }
 
 // Charge the peak hold capacitor
 void charge_capacitor(uint8_t row) {
+#if OPEN_DRAIN_SUPPORT
     writePinHigh(DISCHARGE_PIN);
+#else
+    setPinInput(DISCHARGE_PIN);
+#endif
     writePinHigh(row_pins[row]);
 }
 
@@ -109,7 +120,11 @@ int ec_init(void) {
 
     // Initialize discharge pin as discharge mode
     writePinLow(DISCHARGE_PIN);
+#if OPEN_DRAIN_SUPPORT
     setPinOutputOpenDrain(DISCHARGE_PIN);
+#else
+    setPinOutput(DISCHARGE_PIN);
+#endif
 
     // Initialize drive lines
     init_row();
