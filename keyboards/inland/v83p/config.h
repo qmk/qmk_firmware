@@ -4,10 +4,6 @@
 
 #define ENCODER_DEFAULT_POS 0x3
 
-/* DIP switch */
-#define DIP_SWITCH_PINS \
-    { C11 }
-
 /* I2C Config for LED Driver */
 #define SNLED27351_DRIVER_COUNT 2
 #define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_GND
