@@ -8,9 +8,6 @@ enum custom_layer {
     _RAISE,
 };
 
-#define RAISE MO(_RAISE)
-#define ADJUST MO(_ADJUST)
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT_ortho_5x14(
         KC_ESC , KC_1  ,KC_2   ,KC_3   , KC_4  , KC_5  , KC_MINUS  , 			KC_EQL  , KC_6   , KC_7    , KC_8    , KC_9   , KC_0   , KC_GRV ,
