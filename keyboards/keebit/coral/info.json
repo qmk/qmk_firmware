@@ -52,7 +52,7 @@
     },
     "encoder": {
         "enabled": true,
-        "rotary": [{ "pin_a": "GP9", "pin_b": "GP8", "resolution": 1 }]
+        "rotary": [{ "pin_a": "GP9", "pin_b": "GP8", "resolution": 2 }]
     },
     "split": {
         "enabled": true,
@@ -69,7 +69,7 @@
         },
         "encoder": {
             "right": {
-                "rotary": [{ "pin_a": "GP9", "pin_b": "GP8", "resolution": 1 }]
+                "rotary": [{ "pin_a": "GP9", "pin_b": "GP8", "resolution": 2 }]
             }
         },
         "usb_detect": {
