@@ -22,9 +22,6 @@
 #include "util.h"
 
 // ======== DEPRECATED DEFINES - DO NOT USE ========
-#ifdef DRIVER_COUNT
-#    define SNLED27351_DRIVER_COUNT DRIVER_COUNT
-#endif
 #ifdef DRIVER_ADDR_1
 #    define SNLED27351_I2C_ADDRESS_1 DRIVER_ADDR_1
 #endif
@@ -74,6 +71,16 @@
 
 #if defined(RGB_MATRIX_SNLED27351)
 #    define SNLED27351_LED_COUNT RGB_MATRIX_LED_COUNT
+#endif
+
+#if defined(SNLED27351_I2C_ADDRESS_4)
+#    define SNLED27351_DRIVER_COUNT 4
+#elif defined(SNLED27351_I2C_ADDRESS_3)
+#    define SNLED27351_DRIVER_COUNT 3
+#elif defined(SNLED27351_I2C_ADDRESS_2)
+#    define SNLED27351_DRIVER_COUNT 2
+#elif defined(SNLED27351_I2C_ADDRESS_1)
+#    define SNLED27351_DRIVER_COUNT 1
 #endif
 
 typedef struct snled27351_led_t {
