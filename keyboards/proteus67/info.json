@@ -10,7 +10,11 @@
         ]
     },
     "features": {
-        "encoder": true
+        "encoder": true,
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
 	"rgblight": true
     },
     "matrix_pins": {
