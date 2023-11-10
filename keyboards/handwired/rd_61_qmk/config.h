@@ -7,3 +7,6 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+/* QK_MAKE support*/
+#define ENABLE_COMPILE_KEYCODE
