@@ -1,3 +1,2 @@
 RGBLIGHT_ENABLE = yes
 ENCODER_MAP_ENABLE = yes
-CONVERT_TO = elite_pi

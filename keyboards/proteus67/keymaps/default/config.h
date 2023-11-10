@@ -20,3 +20,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_LAYERS
 #define RGBLIGHT_MAX_LAYERS 3
 #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
+#define ENCODER_DIRECTION_FLIP
