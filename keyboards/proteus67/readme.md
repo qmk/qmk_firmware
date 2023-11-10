@@ -8,13 +8,14 @@
 * Hardware Supported: Elite-C, Elite-Pi or equivilent Pro-Micro with additional I/O along bottom.
 * Build Guide: [Proteus67](https://github.com/gzowski/Proteus67)
 
-Generate firmware:
+Make example for this keyboard (after setting up your build environment):
 
-Default firmware:
-qmk flash --kb proteus67 --km default
+    make proteus67:default
 
-VIA supported firmware:
-qmk flash --kb proteus67 --km via
+Flashing example for this keyboard:
+
+    make proteus67:default:flash
+
 
 * Not curently listed within VIA, requires design json from [here](https://github.com/gzowski/Proteus67/blob/main/QMK%20Firmware/via.json)
 * Enable design mode on [usevia.app](https://usevia.app/settings) and Load Draft definition within the design tab
