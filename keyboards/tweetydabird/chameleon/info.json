@@ -432,7 +432,7 @@
                 {"matrix": [9, 0], "x": 11, "y": 4}
             ]
         },
-        "LAYOUT_ortho_5x12_1x2uL": {
+        "LAYOUT_preonic_1x2uR": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -495,7 +495,7 @@
                 {"matrix": [9, 0], "x": 11, "y": 4}
             ]
         },
-        "LAYOUT_ortho_5x12_1x2uR": {
+        "LAYOUT_preonic_1x2uL": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
