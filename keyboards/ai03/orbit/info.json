@@ -23,6 +23,12 @@
                 "cols": ["D4", "D6", "F1", "F0", "F4", "F5", "C6"],
                 "rows": ["B6", "B5", "B4", "D7", "E6"]
             }
+        },
+        "transport":{
+            "sync" :{
+                "indicators": true,
+                "layer_state": true
+            }
         }
     },
     "processor": "atmega32u4",

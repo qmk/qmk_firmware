@@ -20,6 +20,7 @@
 #include "debug.h"
 #include "usb_device_state.h"
 #include "gpio.h"
+#include "keyboard.h"
 
 #ifdef HAPTIC_DRV2605L
 #    include "drv2605l.h"
@@ -58,6 +59,11 @@ static void set_haptic_config_enable(bool enabled) {
 }
 
 void haptic_init(void) {
+// only initialize on secondary boards if the user desires
+#if defined(SPLIT_KEYBOARD) && !defined(SPLIT_HAPTIC_ENABLE)
+    if (!is_keyboard_master()) return;
+#endif
+
     if (!eeconfig_is_enabled()) {
         eeconfig_init();
     }
@@ -99,8 +105,12 @@ void haptic_init(void) {
 
 void haptic_task(void) {
 #ifdef HAPTIC_SOLENOID
+// Only run task on seconary boards if the user desires
+#    if defined(SPLIT_KEYBOARD) && !defined(SPLIT_HAPTIC_ENABLE)
+    if (!is_keyboard_master()) return;
+#    endif
     solenoid_check();
-#endif
+#endif // HAPTIC_SOLENOID
 }
 
 void eeconfig_debug_haptic(void) {
