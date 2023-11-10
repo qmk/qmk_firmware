@@ -2,24 +2,21 @@
 
 ![proteus67](https://i.imgur.com/mYhl7Ja.png)
 
-* 67 key ortholinear split keyboard with rotary encoder 
+*A short description of the keyboard/project*
 
 * Keyboard Maintainer: [James Gzowski](https://github.com/gzowski)
-* Hardware Supported: Elite-C, Elite-Pi or equivilent Pro-Micro with additional I/O along bottom.
+* Hardware Supported: Elite-Pi or equivilent RP2040 controller with additional I/O along bottom.
 * Build Guide: [Proteus67](https://github.com/gzowski/Proteus67)
 
 Make example for this keyboard (after setting up your build environment):
-
+	
     make proteus67:default
 
 Flashing example for this keyboard:
 
     make proteus67:default:flash
 
-
-* Not curently listed within VIA, requires design json from [here](https://github.com/gzowski/Proteus67/blob/main/QMK%20Firmware/via.json)
-* Enable design mode on [usevia.app](https://usevia.app/settings) and Load Draft definition within the design tab
-* Choose the json file linked above.
+* VIA support using the via keymap instead of default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
