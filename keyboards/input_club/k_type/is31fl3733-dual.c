@@ -30,11 +30,11 @@
 #define IS31FL3733_PAGE_AUTOBREATH 0x02 // PG2
 #define IS31FL3733_PAGE_FUNCTION 0x03   // PG3
 
-#define IS31FL3733_REG_CONFIGURATION 0x00 // PG3
-#define IS31FL3733_REG_GLOBALCURRENT 0x01 // PG3
-#define IS31FL3733_REG_RESET 0x11         // PG3
-#define IS31FL3733_REG_SW_PULLUP 0x0F     // PG3
-#define IS31FL3733_REG_CS_PULLDOWN 0x10   // PG3
+#define IS31FL3733_REG_CONFIGURATION 0x00  // PG3
+#define IS31FL3733_REG_GLOBAL_CURRENT 0x01 // PG3
+#define IS31FL3733_REG_RESET 0x11          // PG3
+#define IS31FL3733_REG_SW_PULLUP 0x0F      // PG3
+#define IS31FL3733_REG_CS_PULLDOWN 0x10    // PG3
 
 #define IS31FL3733_PWM_REGISTER_COUNT 192
 #define IS31FL3733_LED_CONTROL_REGISTER_COUNT 24
@@ -59,8 +59,8 @@
 #    define IS31FL3733_CS_PULLDOWN IS31FL3733_PDR_0_OHM
 #endif
 
-#ifndef IS31FL3733_GLOBALCURRENT
-#    define IS31FL3733_GLOBALCURRENT 0xFF
+#ifndef IS31FL3733_GLOBAL_CURRENT
+#    define IS31FL3733_GLOBAL_CURRENT 0xFF
 #endif
 
 #ifndef IS31FL3733_SYNC_1
@@ -197,7 +197,7 @@ void is31fl3733_init(uint8_t bus, uint8_t addr, uint8_t sync) {
     // Set de-ghost pull-down resistors (CSx)
     is31fl3733_write_register(bus, addr, IS31FL3733_REG_CS_PULLDOWN, IS31FL3733_CS_PULLDOWN);
     // Set global current to maximum.
-    is31fl3733_write_register(bus, addr, IS31FL3733_REG_GLOBALCURRENT, IS31FL3733_GLOBALCURRENT);
+    is31fl3733_write_register(bus, addr, IS31FL3733_REG_GLOBAL_CURRENT, IS31FL3733_GLOBAL_CURRENT);
     // Disable software shutdown.
     is31fl3733_write_register(bus, addr, IS31FL3733_REG_CONFIGURATION, ((sync & 0b11) << 6) | ((IS31FL3733_PWM_FREQUENCY & 0b111) << 3) | 0x01);
 

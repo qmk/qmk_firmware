@@ -34,10 +34,10 @@
 #define AW20216S_WRITE 0
 #define AW20216S_READ 1
 
-#define AW20216S_REG_CONFIGURATION 0x00 // PG0
-#define AW20216S_REG_GLOBALCURRENT 0x01 // PG0
-#define AW20216S_REG_RESET 0x2F         // PG0
-#define AW20216S_REG_MIXFUNCTION 0x46   // PG0
+#define AW20216S_REG_CONFIGURATION 0x00  // PG0
+#define AW20216S_REG_GLOBAL_CURRENT 0x01 // PG0
+#define AW20216S_REG_RESET 0x2F          // PG0
+#define AW20216S_REG_MIXFUNCTION 0x46    // PG0
 
 // Default value of AW20216S_REG_CONFIGURATION
 // D7:D4 = 1011, SWSEL (SW1~SW12 active)
@@ -114,7 +114,7 @@ static void aw20216s_init_scaling(pin_t cs_pin) {
 
 static inline void aw20216s_init_current_limit(pin_t cs_pin) {
     // Push config
-    aw20216s_write_register(cs_pin, AW20216S_PAGE_FUNCTION, AW20216S_REG_GLOBALCURRENT, AW20216S_GLOBAL_CURRENT_MAX);
+    aw20216s_write_register(cs_pin, AW20216S_PAGE_FUNCTION, AW20216S_REG_GLOBAL_CURRENT, AW20216S_GLOBAL_CURRENT_MAX);
 }
 
 static inline void aw20216s_soft_enable(pin_t cs_pin) {
