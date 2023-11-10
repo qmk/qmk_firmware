@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /*
  * Feature disable options
@@ -26,7 +25,6 @@
 #define SERIAL_USART_FULL_DUPLEX
 #define SERIAL_USART_TX_PIN GP10
 #define SERIAL_USART_RX_PIN GP9
-#define RGB_DI_PIN GP16
 #define RGB_MATRIX_LED_COUNT 2
 #define RGB_MATRIX_SPLIT { 1, 1 }
 #define EE_HANDS

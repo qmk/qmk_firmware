@@ -9,7 +9,7 @@
 #define _FL2 2
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  /* _BL: Base Layer(Default) - For ISO enter use ANSI \
+  /* _BL: Base Layer(Default) - For ISO enter use ANSI
    * ,-------------------------------------------------------------------------------.
    * |`   | 1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =| \|Del |NLck|  P/|  P*|  P-|
    * |-------------------------------------------------------------------------------|
@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL, KC_LALT, KC_LALT,                         KC_SPC,                             KC_RALT, KC_LGUI, KC_LGUI, KC_LEFT,  KC_DOWN, KC_RGHT, KC_P0,   KC_PDOT, KC_PENT
   ),
 
-  /* _FL1: Function Layer 1 - For ISO enter use ANSI \
+  /* _FL1: Function Layer 1 - For ISO enter use ANSI
    * ,-------------------------------------------------------------------------------.
    * |Esc|F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|PScr|Ins|    |    |    |    |
    * |-------------------------------------------------------------------------------|
@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______,                            _______,                            _______, _______, _______, KC_HOME, KC_PGDN, KC_END,  _______, _______, _______
   ),
 
-  /* _FL2: Function Layer 2 - For ISO enter use ANSI \
+  /* _FL2: Function Layer 2 - For ISO enter use ANSI
    * ,-------------------------------------------------------------------------------.
    * |   |  |   |   |   |   |   |   |   |   |   |   |   |    |   |    |    |    |    |
    * |-------------------------------------------------------------------------------|
@@ -74,47 +74,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-
-void matrix_init_user(void) {
-}
-
-void matrix_scan_user(void) {
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
-
-void led_set_user(uint8_t usb_led) {
-
-  if (usb_led & (1 << USB_LED_NUM_LOCK)) {
-
-  } else {
-
-  }
-
-  if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
+bool led_update_user(led_t led_state) {
+  if (led_state.caps_lock) {
     DDRA |= (1 << 3); PORTA |= (1 << 3);
   } else {
     DDRA &= ~(1 << 3); PORTA &= ~(1 << 3);
   }
-
-  if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
-
-  } else {
-
-  }
-
-  if (usb_led & (1 << USB_LED_COMPOSE)) {
-
-  } else {
-
-  }
-
-  if (usb_led & (1 << USB_LED_KANA)) {
-
-  } else {
-
-  }
-
+  return false;
 }

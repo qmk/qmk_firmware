@@ -56,7 +56,7 @@ enum tapdances{
 #define KC_CODO  TD(TD_CODO)
 // #define KC_MNUB  TD(TD_MNUB)
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_CODO] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_DOT),
   // [TD_MNUB] = ACTION_TAP_DANCE_DOUBLE(KC_MINS, LSFT(JP_BSLS)),
 };

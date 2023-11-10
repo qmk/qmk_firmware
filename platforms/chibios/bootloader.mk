@@ -36,6 +36,8 @@
 # the respective file under `platforms/<PLATFORM>/bootloaders/custom.c` to see
 # which functions may be overridden.
 
+FIRMWARE_FORMAT?=bin
+
 ifeq ($(strip $(BOOTLOADER)), custom)
     OPT_DEFS += -DBOOTLOADER_CUSTOM
     BOOTLOADER_TYPE = custom
@@ -91,7 +93,6 @@ ifeq ($(strip $(BOOTLOADER)), kiibohd)
 endif
 ifeq ($(strip $(BOOTLOADER)), stm32duino)
     OPT_DEFS += -DBOOTLOADER_STM32DUINO
-    MCU_LDSCRIPT = STM32F103x8_stm32duino_bootloader
     BOARD = STM32_F103_STM32DUINO
     BOOTLOADER_TYPE = stm32duino
 
@@ -102,6 +103,11 @@ endif
 ifeq ($(strip $(BOOTLOADER)), tinyuf2)
     OPT_DEFS += -DBOOTLOADER_TINYUF2
     BOOTLOADER_TYPE = tinyuf2
+    FIRMWARE_FORMAT = uf2
+endif
+ifeq ($(strip $(BOOTLOADER)), uf2boot)
+    OPT_DEFS += -DBOOTLOADER_UF2BOOT
+    BOOTLOADER_TYPE = uf2boot
     FIRMWARE_FORMAT = uf2
 endif
 ifeq ($(strip $(BOOTLOADER)), rp2040)

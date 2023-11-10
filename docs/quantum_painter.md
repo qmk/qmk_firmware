@@ -32,15 +32,20 @@ Supported devices:
 
 ## Quantum Painter Configuration :id=quantum-painter-config
 
-| Option                                  | Default | Purpose                                                                                                                                     |
-|-----------------------------------------|---------|---------------------------------------------------------------------------------------------------------------------------------------------|
-| `QUANTUM_PAINTER_NUM_IMAGES`            | `8`     | The maximum number of images/animations that can be loaded at any one time.                                                                 |
-| `QUANTUM_PAINTER_NUM_FONTS`             | `4`     | The maximum number of fonts that can be loaded at any one time.                                                                             |
-| `QUANTUM_PAINTER_CONCURRENT_ANIMATIONS` | `4`     | The maximum number of animations that can be executed at the same time.                                                                     |
-| `QUANTUM_PAINTER_LOAD_FONTS_TO_RAM`     | `FALSE` | Whether or not fonts should be loaded to RAM. Relevant for fonts stored in off-chip persistent storage, such as external flash.             |
-| `QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE`   | `32`    | The limit of the amount of pixel data that can be transmitted in one transaction to the display. Higher values require more RAM on the MCU. |
-| `QUANTUM_PAINTER_SUPPORTS_256_PALETTE`  | `FALSE` | If 256-color palettes are supported. Requires significantly more RAM on the MCU.                                                            |
-| `QUANTUM_PAINTER_DEBUG`                 | _unset_ | Prints out significant amounts of debugging information to CONSOLE output. Significant performance degradation, use only for debugging.     |
+| Option                                            | Default | Purpose                                                                                                                                                                                      |
+|---------------------------------------------------|---------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `QUANTUM_PAINTER_DISPLAY_TIMEOUT`                 | `30000` | This controls the amount of time (in milliseconds) that all displays will remain on after the last user input. If set to `0`, the display will remain on indefinitely.                       |
+| `QUANTUM_PAINTER_TASK_THROTTLE`                   | `1`     | This controls the amount of time (in milliseconds) that the Quantum Painter internal task will wait between each execution. Affects animations, display timeout, and LVGL timing if enabled. |
+| `QUANTUM_PAINTER_NUM_IMAGES`                      | `8`     | The maximum number of images/animations that can be loaded at any one time.                                                                                                                  |
+| `QUANTUM_PAINTER_NUM_FONTS`                       | `4`     | The maximum number of fonts that can be loaded at any one time.                                                                                                                              |
+| `QUANTUM_PAINTER_CONCURRENT_ANIMATIONS`           | `4`     | The maximum number of animations that can be executed at the same time.                                                                                                                      |
+| `QUANTUM_PAINTER_LOAD_FONTS_TO_RAM`               | `FALSE` | Whether or not fonts should be loaded to RAM. Relevant for fonts stored in off-chip persistent storage, such as external flash.                                                              |
+| `QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE`             | `1024`  | The limit of the amount of pixel data that can be transmitted in one transaction to the display. Higher values require more RAM on the MCU.                                                  |
+| `QUANTUM_PAINTER_SUPPORTS_256_PALETTE`            | `FALSE` | If 256-color palettes are supported. Requires significantly more RAM on the MCU.                                                                                                             |
+| `QUANTUM_PAINTER_SUPPORTS_NATIVE_COLORS`          | `FALSE` | If native color range is supported. Requires significantly more RAM on the MCU.                                                                                                              |
+| `QUANTUM_PAINTER_DEBUG`                           | _unset_ | Prints out significant amounts of debugging information to CONSOLE output. Significant performance degradation, use only for debugging.                                                      |
+| `QUANTUM_PAINTER_DEBUG_ENABLE_FLUSH_TASK_OUTPUT`  | _unset_ | By default, debug output is disabled while the internal task is flushing the display(s). If you want to keep it enabled, add this to your `config.h`. Note: Console will get clogged.        |
+
 
 Drivers have their own set of configurable options, and are described in their respective sections.
 
@@ -63,7 +68,7 @@ options:
   -d, --no-deltas       Disables the use of delta frames when encoding animations.
   -r, --no-rle          Disables the use of RLE when encoding images.
   -f FORMAT, --format FORMAT
-                        Output format, valid types: pal256, pal16, pal4, pal2, mono256, mono16, mono4, mono2
+                        Output format, valid types: rgb888, rgb565, pal256, pal16, pal4, pal2, mono256, mono16, mono4, mono2
   -o OUTPUT, --output OUTPUT
                         Specify output directory. Defaults to same directory as input.
   -i INPUT, --input INPUT
@@ -77,16 +82,18 @@ The `OUTPUT` argument needs to be a directory, and will default to the same dire
 
 The `FORMAT` argument can be any of the following:
 
-| Format    | Meaning                                                               |
-|-----------|-----------------------------------------------------------------------|
-| `pal256`  | 256-color palette (requires `QUANTUM_PAINTER_SUPPORTS_256_PALETTE`)   |
-| `pal16`   | 16-color palette                                                      |
-| `pal4`    | 4-color palette                                                       |
-| `pal2`    | 2-color palette                                                       |
-| `mono256` | 256-shade grayscale (requires `QUANTUM_PAINTER_SUPPORTS_256_PALETTE`) |
-| `mono16`  | 16-shade grayscale                                                    |
-| `mono4`   | 4-shade grayscale                                                     |
-| `mono2`   | 2-shade grayscale                                                     |
+| Format    | Meaning                                                                                   |
+|-----------|-------------------------------------------------------------------------------------------|
+| `rgb888`  | 16,777,216 colors in 8-8-8 RGB format (requires `QUANTUM_PAINTER_SUPPORTS_NATIVE_COLORS`) |
+| `rgb565`  | 65,536 colors in 5-6-5 RGB format (requires `QUANTUM_PAINTER_SUPPORTS_NATIVE_COLORS`)     |
+| `pal256`  | 256-color palette (requires `QUANTUM_PAINTER_SUPPORTS_256_PALETTE`)                       |
+| `pal16`   | 16-color palette                                                                          |
+| `pal4`    | 4-color palette                                                                           |
+| `pal2`    | 2-color palette                                                                           |
+| `mono256` | 256-shade grayscale (requires `QUANTUM_PAINTER_SUPPORTS_256_PALETTE`)                     |
+| `mono16`  | 16-shade grayscale                                                                        |
+| `mono4`   | 4-shade grayscale                                                                         |
+| `mono2`   | 2-shade grayscale                                                                         |
 
 **Examples**:
 
@@ -154,7 +161,7 @@ options:
   -w, --raw             Writes out the QFF file as raw data instead of c/h combo.
   -r, --no-rle          Disable the use of RLE to minimise converted image size.
   -f FORMAT, --format FORMAT
-                        Output format, valid types: pal256, pal16, pal4, pal2, mono256, mono16, mono4, mono2
+                        Output format, valid types: rgb565, pal256, pal16, pal4, pal2, mono256, mono16, mono4, mono2
   -u UNICODE_GLYPHS, --unicode-glyphs UNICODE_GLYPHS
                         Also generate the specified unicode glyphs.
   -n, --no-ascii        Disables output of the full ASCII character set (0x20..0x7E), exporting only the glyphs specified.
@@ -215,6 +222,8 @@ The maximum number of displays can be configured by changing the following in yo
 #define GC9A01_NUM_DEVICES 3
 ```
 
+Native color format rgb565 is compatible with GC9A01
+
 #### ** ILI9163 **
 
 Enabling support for the ILI9163 in Quantum Painter is done by adding the following to `rules.mk`:
@@ -238,6 +247,8 @@ The maximum number of displays can be configured by changing the following in yo
 // 3 displays:
 #define ILI9163_NUM_DEVICES 3
 ```
+
+Native color format rgb565 is compatible with ILI9163
 
 #### ** ILI9341 **
 
@@ -263,6 +274,8 @@ The maximum number of displays can be configured by changing the following in yo
 #define ILI9341_NUM_DEVICES 3
 ```
 
+Native color format rgb565 is compatible with ILI9341
+
 #### ** ILI9488 **
 
 Enabling support for the ILI9488 in Quantum Painter is done by adding the following to `rules.mk`:
@@ -286,6 +299,8 @@ The maximum number of displays can be configured by changing the following in yo
 // 3 displays:
 #define ILI9488_NUM_DEVICES 3
 ```
+
+Native color format rgb888 is compatible with ILI9488
 
 #### ** SSD1351 **
 
@@ -311,6 +326,8 @@ The maximum number of displays can be configured by changing the following in yo
 #define SSD1351_NUM_DEVICES 3
 ```
 
+Native color format rgb565 is compatible with SSD1351
+
 #### ** ST7735 **
 
 Enabling support for the ST7735 in Quantum Painter is done by adding the following to `rules.mk`:
@@ -334,6 +351,8 @@ The maximum number of displays can be configured by changing the following in yo
 // 3 displays:
 #define ST7735_NUM_DEVICES 3
 ```
+
+Native color format rgb565 is compatible with ST7735
 
 !> Some ST7735 devices are known to have different drawing offsets -- despite being a 132x162 pixel display controller internally, some display panels are only 80x160, or smaller. These may require an offset to be applied; see `qp_set_viewport_offsets` above for information on how to override the offsets if they aren't correctly rendered.
 
@@ -360,6 +379,8 @@ The maximum number of displays can be configured by changing the following in yo
 // 3 displays:
 #define ST7789_NUM_DEVICES 3
 ```
+
+Native color format rgb565 is compatible with ST7789
 
 !> Some ST7789 devices are known to have different drawing offsets -- despite being a 240x320 pixel display controller internally, some display panels are only 240x240, or smaller. These may require an offset to be applied; see `qp_set_viewport_offsets` above for information on how to override the offsets if they aren't correctly rendered.
 

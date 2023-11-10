@@ -30,7 +30,7 @@ enum tapdance {
     TD_APP_CAPS_LOCK,
 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_SINGLE_QUOTE_DOUBLE_QUOTES] = ACTION_TAP_DANCE_DOUBLE(KC_QUOT, KC_DQUO),
     [TD_APP_CAPS_LOCK]              = ACTION_TAP_DANCE_DOUBLE(KC_APP, KC_CAPS),
 };

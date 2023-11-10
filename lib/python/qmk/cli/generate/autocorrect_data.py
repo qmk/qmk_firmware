@@ -33,9 +33,11 @@ from typing import Any, Dict, Iterator, List, Tuple
 
 from milc import cli
 
-import qmk.path
+from qmk.commands import dump_lines
+from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
 from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.keymap import keymap_completer, locate_keymap
+from qmk.path import normpath
 
 KC_A = 4
 KC_SPC = 0x2c
@@ -61,11 +63,18 @@ def parse_file(file_name: str) -> List[Tuple[str, str]]:
   """
 
     try:
+        import english_words
+        correct_words = english_words.get_english_words_set(['web2'], lower=True, alpha=True)
+    except AttributeError:
         from english_words import english_words_lower_alpha_set as correct_words
+        if not cli.args.quiet:
+            cli.echo('The english_words package is outdated, update by running:')
+            cli.echo('  {fg_cyan}python3 -m pip install english_words --upgrade')
     except ImportError:
-        cli.echo('Autocorrection will falsely trigger when a typo is a substring of a correctly spelled word.')
-        cli.echo('To check for this, install the english_words package and rerun this script:')
-        cli.echo('  {fg_cyan}python3 -m pip install english_words')
+        if not cli.args.quiet:
+            cli.echo('Autocorrection will falsely trigger when a typo is a substring of a correctly spelled word.')
+            cli.echo('To check for this, install the english_words package and rerun this script:')
+            cli.echo('  {fg_cyan}python3 -m pip install english_words')
         # Use a minimal word list as a fallback.
         correct_words = ('information', 'available', 'international', 'language', 'loosest', 'reference', 'wealthier', 'entertainment', 'association', 'provides', 'technology', 'statehood')
 
@@ -232,58 +241,51 @@ def encode_link(link: Dict[str, Any]) -> List[int]:
     return [byte_offset & 255, byte_offset >> 8]
 
 
-def write_generated_code(autocorrections: List[Tuple[str, str]], data: List[int], file_name: str) -> None:
-    """Writes autocorrection data as generated C code to `file_name`.
-  Args:
-    autocorrections: List of (typo, correction) tuples.
-    data: List of ints in 0-255, the serialized trie.
-    file_name: String, path of the output C file.
-  """
-    assert all(0 <= b <= 255 for b in data)
-
-    def typo_len(e: Tuple[str, str]) -> int:
-        return len(e[0])
-
-    min_typo = min(autocorrections, key=typo_len)[0]
-    max_typo = max(autocorrections, key=typo_len)[0]
-    generated_code = ''.join([
-        '// Generated code.\n\n', f'// Autocorrection dictionary ({len(autocorrections)} entries):\n', ''.join(sorted(f'//   {typo:<{len(max_typo)}} -> {correction}\n' for typo, correction in autocorrections)),
-        f'\n#define AUTOCORRECT_MIN_LENGTH {len(min_typo)}  // "{min_typo}"\n', f'#define AUTOCORRECT_MAX_LENGTH {len(max_typo)}  // "{max_typo}"\n\n', f'#define DICTIONARY_SIZE {len(data)}\n\n',
-        textwrap.fill('static const uint8_t autocorrect_data[DICTIONARY_SIZE] PROGMEM = {%s};' % (', '.join(map(str, data))), width=120, subsequent_indent='    '), '\n\n'
-    ])
-
-    with open(file_name, 'wt') as f:
-        f.write(generated_code)
+def typo_len(e: Tuple[str, str]) -> int:
+    return len(e[0])
 
 
-@cli.argument('filename', default='autocorrect_dict.txt', help='The autocorrection database file')
+def to_hex(b: int) -> str:
+    return f'0x{b:02X}'
+
+
+@cli.argument('filename', type=normpath, help='The autocorrection database file')
 @cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='The keyboard to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.argument('-km', '--keymap', completer=keymap_completer, help='The keymap to build a firmware for. Ignored when a configurator export is supplied.')
-@cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
+@cli.argument('-o', '--output', arg_only=True, type=normpath, help='File to write to')
+@cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
 @cli.subcommand('Generate the autocorrection data file from a dictionary file.')
 def generate_autocorrect_data(cli):
     autocorrections = parse_file(cli.args.filename)
     trie = make_trie(autocorrections)
     data = serialize_trie(autocorrections, trie)
-    # Environment processing
-    if cli.args.output == '-':
-        cli.args.output = None
 
-    if cli.args.output:
-        cli.args.output.parent.mkdir(parents=True, exist_ok=True)
-        cli.log.info('Creating autocorrect database at {fg_cyan}%s', cli.args.output)
-        write_generated_code(autocorrections, data, cli.args.output)
+    current_keyboard = cli.args.keyboard or cli.config.user.keyboard or cli.config.generate_autocorrect_data.keyboard
+    current_keymap = cli.args.keymap or cli.config.user.keymap or cli.config.generate_autocorrect_data.keymap
 
-    else:
-        current_keyboard = cli.args.keyboard or cli.config.user.keyboard or cli.config.generate_autocorrect_data.keyboard
-        current_keymap = cli.args.keymap or cli.config.user.keymap or cli.config.generate_autocorrect_data.keymap
+    if current_keyboard and current_keymap:
+        cli.args.output = locate_keymap(current_keyboard, current_keymap).parent / 'autocorrect_data.h'
 
-        if current_keyboard and current_keymap:
-            filename = locate_keymap(current_keyboard, current_keymap).parent / 'autocorrect_data.h'
-            cli.log.info('Creating autocorrect database at {fg_cyan}%s', filename)
-            write_generated_code(autocorrections, data, filename)
+    assert all(0 <= b <= 255 for b in data)
 
-        else:
-            write_generated_code(autocorrections, data, 'autocorrect_data.h')
+    min_typo = min(autocorrections, key=typo_len)[0]
+    max_typo = max(autocorrections, key=typo_len)[0]
 
-    cli.log.info('Processed %d autocorrection entries to table with %d bytes.', len(autocorrections), len(data))
+    # Build the autocorrect_data.h file.
+    autocorrect_data_h_lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '#pragma once', '']
+
+    autocorrect_data_h_lines.append(f'// Autocorrection dictionary ({len(autocorrections)} entries):')
+    for typo, correction in autocorrections:
+        autocorrect_data_h_lines.append(f'//   {typo:<{len(max_typo)}} -> {correction}')
+
+    autocorrect_data_h_lines.append('')
+    autocorrect_data_h_lines.append(f'#define AUTOCORRECT_MIN_LENGTH {len(min_typo)} // "{min_typo}"')
+    autocorrect_data_h_lines.append(f'#define AUTOCORRECT_MAX_LENGTH {len(max_typo)} // "{max_typo}"')
+    autocorrect_data_h_lines.append(f'#define DICTIONARY_SIZE {len(data)}')
+    autocorrect_data_h_lines.append('')
+    autocorrect_data_h_lines.append('static const uint8_t autocorrect_data[DICTIONARY_SIZE] PROGMEM = {')
+    autocorrect_data_h_lines.append(textwrap.fill('    %s' % (', '.join(map(to_hex, data))), width=100, subsequent_indent='    '))
+    autocorrect_data_h_lines.append('};')
+
+    # Show the results
+    dump_lines(cli.args.output, autocorrect_data_h_lines, cli.args.quiet)

@@ -8,10 +8,17 @@
         "pid": "0x0001",
         "device_version": "0.0.3"
     },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "matrix_pins": {
+        "direct": [
+            ["B1"]
+        ]
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"matrix": [0, 0], "x":0, "y":0}
+                {"matrix": [0, 0], "x": 0, "y": 0}
             ]
         }
     }

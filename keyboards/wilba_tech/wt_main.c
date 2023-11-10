@@ -89,29 +89,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record)
     process_record_backlight(keycode, record);
 #endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
 
-    switch (keycode) {
-        case FN_MO13:
-            if (record->event.pressed) {
-                layer_on(1);
-                update_tri_layer(1, 2, 3);
-            } else {
-                layer_off(1);
-                update_tri_layer(1, 2, 3);
-            }
-            return false;
-            break;
-        case FN_MO23:
-            if (record->event.pressed) {
-                layer_on(2);
-                update_tri_layer(1, 2, 3);
-            } else {
-                layer_off(2);
-                update_tri_layer(1, 2, 3);
-            }
-            return false;
-            break;
-    }
-
     return process_record_user(keycode, record);
 }
 
@@ -173,6 +150,14 @@ void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
 
     // DO NOT call raw_hid_send(data,length) here, let caller do this
 }
+
+void via_set_device_indication(uint8_t value)
+{
+#if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
+    backlight_device_indication(value);
+#endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
+}
+
 #endif // VIA_ENABLE
 
 //

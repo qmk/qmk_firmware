@@ -14,7 +14,7 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
 
-#include "sp_mini.h"
+#include "quantum.h"
 
 void keyboard_pre_init_kb(void) {
     // enable built in pullups to avoid timeouts when right hand not connected

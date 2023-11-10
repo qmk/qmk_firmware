@@ -12,7 +12,7 @@ __attribute__ ((weak)) void handle_oled_keypress(uint16_t keycode, keyrecord_t *
 __attribute__ ((weak)) oled_rotation_t rotate_master(oled_rotation_t rotation) {return rotation;}
 __attribute__ ((weak)) oled_rotation_t rotate_slave(oled_rotation_t rotation) {return rotation;}
 
-void oled_timer_reset() { oled_timer = timer_read32(); }
+void oled_timer_reset(void) { oled_timer = timer_read32(); }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 

@@ -20,7 +20,6 @@
      * PLEASE NOTE:  Because the BN006 only has 6 keys, not all the animations are visually viable
      * =========================================================================================== */
 
-    #define RGB_DI_PIN B15
     #define RGB_MATRIX_LED_COUNT 6
     #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
     #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended

@@ -165,7 +165,7 @@ if(IS_LAYER_ON(NSSL)) {
 
 //capslock leds
 
-if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
+if (host_keyboard_led_state().caps_lock) {
     rgb_matrix_set_color_all(50, 15.6, 0);
   }
 
@@ -177,7 +177,7 @@ enum {
 };
 
 //tap dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_MEDIA] = ACTION_TAP_DANCE_DOUBLE( KC_MPLY , KC_MNXT ),
     [TD_SCREEN] = ACTION_TAP_DANCE_DOUBLE( (G(S(KC_S))) , S(C(KC_4)) ),
 };

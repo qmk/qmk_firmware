@@ -16,18 +16,18 @@
  */
 
 #include "apa102.h"
-#include "quantum.h"
+#include "gpio.h"
 
 #ifndef APA102_NOPS
 #    if defined(__AVR__)
 #        define APA102_NOPS 0 // AVR at 16 MHz already spends 62.5 ns per clock, so no extra delay is needed
 #    elif defined(PROTOCOL_CHIBIOS)
-
 #        include "hal.h"
+#        include "chibios_config.h"
 #        if defined(STM32F0XX) || defined(STM32F1XX) || defined(STM32F3XX) || defined(STM32F4XX) || defined(STM32L0XX) || defined(GD32VF103)
 #            define APA102_NOPS (100 / (1000000000L / (CPU_CLOCK / 4))) // This calculates how many loops of 4 nops to run to delay 100 ns
 #        else
-#            error("APA102_NOPS configuration required")
+#            error APA102_NOPS configuration required
 #            define APA102_NOPS 0 // this just pleases the compile so the above error is easier to spot
 #        endif
 #    endif
@@ -43,14 +43,14 @@
         }                                       \
     } while (0)
 
-#define APA102_SEND_BIT(byte, bit)               \
-    do {                                         \
-        writePin(RGB_DI_PIN, (byte >> bit) & 1); \
-        io_wait;                                 \
-        writePinHigh(RGB_CI_PIN);                \
-        io_wait;                                 \
-        writePinLow(RGB_CI_PIN);                 \
-        io_wait;                                 \
+#define APA102_SEND_BIT(byte, bit)                  \
+    do {                                            \
+        writePin(APA102_DI_PIN, (byte >> bit) & 1); \
+        io_wait;                                    \
+        writePinHigh(APA102_CI_PIN);                \
+        io_wait;                                    \
+        writePinLow(APA102_CI_PIN);                 \
+        io_wait;                                    \
     } while (0)
 
 uint8_t apa102_led_brightness = APA102_DEFAULT_BRIGHTNESS;
@@ -77,11 +77,11 @@ void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds) {
 }
 
 void static apa102_init(void) {
-    setPinOutput(RGB_DI_PIN);
-    setPinOutput(RGB_CI_PIN);
+    setPinOutput(APA102_DI_PIN);
+    setPinOutput(APA102_CI_PIN);
 
-    writePinLow(RGB_DI_PIN);
-    writePinLow(RGB_CI_PIN);
+    writePinLow(APA102_DI_PIN);
+    writePinLow(APA102_CI_PIN);
 }
 
 void apa102_set_brightness(uint8_t brightness) {

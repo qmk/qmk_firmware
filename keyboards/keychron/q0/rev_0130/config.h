@@ -16,6 +16,10 @@
 
 #pragma once
 
+/* RGB Matrix Driver Configuration */
+#define DRIVER_COUNT 1
+#define DRIVER_ADDR_1 0b1110100
+
 /* RGB Matrix Configuration */
 #define DRIVER_1_LED_TOTAL 21
 #define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL

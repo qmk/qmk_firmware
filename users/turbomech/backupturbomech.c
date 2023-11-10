@@ -135,14 +135,15 @@ void matrix_init_user(void) {
 }
 
 static bool is_capslocked = false;
-void led_set_user(uint8_t usb_led) {
-  if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+bool led_update_user(led_t led_state) {
+  if (led_state.caps_lock) {
     is_capslocked = true;
    //     DDRB |= (1 << 2); PORTB &= ~(1 << 2);
   } else {
     is_capslocked = false;
   //  DDRB &= ~(1 << 2); PORTB &= ~(1 << 2);
   }
+  return false;
 }
   //rgblight_set();
 

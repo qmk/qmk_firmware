@@ -12,15 +12,15 @@
 
 // Power control
 bool qp_tft_panel_power(painter_device_t device, bool power_on) {
-    struct painter_driver_t *                          driver = (struct painter_driver_t *)device;
-    struct tft_panel_dc_reset_painter_driver_vtable_t *vtable = (struct tft_panel_dc_reset_painter_driver_vtable_t *)driver->driver_vtable;
+    painter_driver_t *                          driver = (painter_driver_t *)device;
+    tft_panel_dc_reset_painter_driver_vtable_t *vtable = (tft_panel_dc_reset_painter_driver_vtable_t *)driver->driver_vtable;
     qp_comms_command(device, power_on ? vtable->opcodes.display_on : vtable->opcodes.display_off);
     return true;
 }
 
 // Screen clear
 bool qp_tft_panel_clear(painter_device_t device) {
-    struct painter_driver_t *driver = (struct painter_driver_t *)device;
+    painter_driver_t *driver = (painter_driver_t *)device;
     driver->driver_vtable->init(device, driver->rotation); // Re-init the LCD
     return true;
 }
@@ -33,8 +33,8 @@ bool qp_tft_panel_flush(painter_device_t device) {
 
 // Viewport to draw to
 bool qp_tft_panel_viewport(painter_device_t device, uint16_t left, uint16_t top, uint16_t right, uint16_t bottom) {
-    struct painter_driver_t *                          driver = (struct painter_driver_t *)device;
-    struct tft_panel_dc_reset_painter_driver_vtable_t *vtable = (struct tft_panel_dc_reset_painter_driver_vtable_t *)driver->driver_vtable;
+    painter_driver_t *                          driver = (painter_driver_t *)device;
+    tft_panel_dc_reset_painter_driver_vtable_t *vtable = (tft_panel_dc_reset_painter_driver_vtable_t *)driver->driver_vtable;
 
     // Fix up the drawing location if required
     left += driver->offset_x;
@@ -80,7 +80,7 @@ bool qp_tft_panel_viewport(painter_device_t device, uint16_t left, uint16_t top,
 
 // Stream pixel data to the current write position in GRAM
 bool qp_tft_panel_pixdata(painter_device_t device, const void *pixel_data, uint32_t native_pixel_count) {
-    struct painter_driver_t *driver = (struct painter_driver_t *)device;
+    painter_driver_t *driver = (painter_driver_t *)device;
     qp_comms_send(device, pixel_data, native_pixel_count * driver->native_bits_per_pixel / 8);
     return true;
 }
@@ -124,5 +124,10 @@ bool qp_tft_panel_append_pixels_rgb888(painter_device_t device, uint8_t *target_
         target_buffer[(pixel_offset + i) * 3 + 1] = palette[palette_indices[i]].rgb888.g;
         target_buffer[(pixel_offset + i) * 3 + 2] = palette[palette_indices[i]].rgb888.b;
     }
+    return true;
+}
+
+bool qp_tft_panel_append_pixdata(painter_device_t device, uint8_t *target_buffer, uint32_t pixdata_offset, uint8_t pixdata_byte) {
+    target_buffer[pixdata_offset] = pixdata_byte;
     return true;
 }

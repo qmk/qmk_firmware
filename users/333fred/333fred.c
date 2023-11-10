@@ -31,7 +31,7 @@ typedef enum {
 static tap_dance_state_enum tap_dance_state;
 static bool tap_dance_active = false;
 
-void tap_dance_sym_vim_finished(qk_tap_dance_state_t *state, void *user_data) {
+void tap_dance_sym_vim_finished(tap_dance_state_t *state, void *user_data) {
     // Determine the current state
     if (state->count == 1) {
         if (state->interrupted || state->pressed == 0) tap_dance_state = SINGLE_TAP;
@@ -60,7 +60,7 @@ void tap_dance_sym_vim_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void tap_dance_sym_vim_reset(qk_tap_dance_state_t *state, void *user_data) {
+void tap_dance_sym_vim_reset(tap_dance_state_t *state, void *user_data) {
     switch(tap_dance_state) {
         case SINGLE_TAP:
             clear_oneshot_layer_state(ONESHOT_PRESSED);
@@ -74,7 +74,7 @@ void tap_dance_sym_vim_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void tap_dance_copy_paste_finished(qk_tap_dance_state_t *state, void *user_data) {
+void tap_dance_copy_paste_finished(tap_dance_state_t *state, void *user_data) {
     bool is_paste = state->count == 2;
     // If either the one-shot shift is set, or if shift is being held, count as shift being held.
     // We'll clear the one-shot shift if it was held
@@ -103,7 +103,7 @@ void tap_dance_copy_paste_finished(qk_tap_dance_state_t *state, void *user_data)
     }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_SYM_VIM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tap_dance_sym_vim_finished, tap_dance_sym_vim_reset),
     [TD_COPY_PASTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tap_dance_copy_paste_finished, NULL)
 };

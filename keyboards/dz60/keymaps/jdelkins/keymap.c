@@ -35,10 +35,10 @@ enum {
 
 int ctl_state = 0;
 
-void ctl_finished(qk_tap_dance_state_t *state, void *user_data) {
+void ctl_finished(tap_dance_state_t *state, void *user_data) {
     ctl_state = cur_dance(state);
     switch (ctl_state) {
-        case SINGLE_TAP:    qk_leader_start(); break;
+        case SINGLE_TAP:    leader_start(); break;
         case SINGLE_HOLD:   register_code(KC_LCTL); break;
         case DOUBLE_TAP:    tap_code(KC_RCTL); break;
         case DOUBLE_HOLD:   register_code(KC_RCTL); break;
@@ -47,7 +47,7 @@ void ctl_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void ctl_reset(qk_tap_dance_state_t *state, void *user_data) {
+void ctl_reset(tap_dance_state_t *state, void *user_data) {
     switch (ctl_state) {
         case SINGLE_HOLD:   unregister_code(KC_LCTL); break;
         case DOUBLE_HOLD:
@@ -56,7 +56,7 @@ void ctl_reset(qk_tap_dance_state_t *state, void *user_data) {
     ctl_state = 0;
 }
 
-void g_finished(qk_tap_dance_state_t *state, void *user_data) {
+void g_finished(tap_dance_state_t *state, void *user_data) {
     switch (cur_dance(state)) {
         case SINGLE_TAP:
             tap_code16(C(KC_END));
@@ -69,7 +69,7 @@ void g_finished(qk_tap_dance_state_t *state, void *user_data) {
 
 int kp_state = 0;
 
-void kp_finished(qk_tap_dance_state_t *state, void *user_data) {
+void kp_finished(tap_dance_state_t *state, void *user_data) {
     kp_state = hold_cur_dance(state);
     switch (kp_state) {
         case SINGLE_TAP:
@@ -81,7 +81,7 @@ void kp_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void kp_reset(qk_tap_dance_state_t *state, void *user_data) {
+void kp_reset(tap_dance_state_t *state, void *user_data) {
     switch (kp_state) {
         case SINGLE_HOLD:
         case DOUBLE_HOLD:
@@ -97,7 +97,7 @@ enum {
     TD_KP,
 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_LDCTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctl_finished, ctl_reset),
     [TD_G]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL, g_finished, NULL),
     [TD_KP]    = ACTION_TAP_DANCE_FN_ADVANCED(NULL, kp_finished, kp_reset),
@@ -229,7 +229,47 @@ void keyboard_post_init_keymap(void) {
     bspc_timer = 0;
 }
 
-LEADER_EXTERNS();
+void leader_end_user(void) {
+    // layer navigation
+    if (leader_sequence_one_key(KC_R)) { layer_invert(_RPT); }
+    if (leader_sequence_one_key(KC_G)) { layer_invert(_GAME); }
+    if (leader_sequence_one_key(KC_K)) { layer_invert(_KP); }
+    if (leader_sequence_one_key(KC_KP_5)) { layer_invert(_KP); }
+
+    // tmux navigation
+    if (leader_sequence_one_key(KC_L))    { SEND_STRING(SS_LCTL("a") "n"); }
+    if (leader_sequence_one_key(KC_H))    { SEND_STRING(SS_LCTL("a") "p"); }
+    if (leader_sequence_one_key(KC_N))    { SEND_STRING(SS_LCTL("a") "c"); }
+    if (leader_sequence_one_key(KC_W))    { SEND_STRING(SS_LCTL("a") "x"); }
+    if (leader_sequence_one_key(KC_MINS)) { SEND_STRING(SS_LCTL("a") "-"); }
+    if (leader_sequence_one_key(KC_QUOT)) { SEND_STRING(SS_LCTL("a") "\""); }
+    if (leader_sequence_one_key(KC_1))    { SEND_STRING(SS_LCTL("a") "1"); }
+    if (leader_sequence_one_key(KC_2))    { SEND_STRING(SS_LCTL("a") "2"); }
+    if (leader_sequence_one_key(KC_3))    { SEND_STRING(SS_LCTL("a") "3"); }
+    if (leader_sequence_one_key(KC_4))    { SEND_STRING(SS_LCTL("a") "4"); }
+    if (leader_sequence_one_key(KC_5))    { SEND_STRING(SS_LCTL("a") "5"); }
+    if (leader_sequence_one_key(KC_6))    { SEND_STRING(SS_LCTL("a") "6"); }
+    if (leader_sequence_one_key(KC_7))    { SEND_STRING(SS_LCTL("a") "7"); }
+    if (leader_sequence_one_key(KC_8))    { SEND_STRING(SS_LCTL("a") "8"); }
+    if (leader_sequence_one_key(KC_9))    { SEND_STRING(SS_LCTL("a") "9"); }
+
+    // secrets
+    if (leader_sequence_two_keys(KC_SCLN, KC_M))    { send_secret_string(0); }
+    if (leader_sequence_two_keys(KC_SCLN, KC_COMM)) { send_secret_string(1); }
+    if (leader_sequence_two_keys(KC_SCLN, KC_DOT))  { send_secret_string(2); }
+    if (leader_sequence_two_keys(KC_SCLN, KC_J))    { send_secret_string(3); }
+    if (leader_sequence_two_keys(KC_SCLN, KC_K))    { send_secret_string(4); }
+    if (leader_sequence_two_keys(KC_SCLN, KC_L))    { send_secret_string(5); }
+
+    // fast control-C
+    if (leader_sequence_one_key(KC_C)) { tap_code16(C(KC_C)); }
+
+    // neovim: terminal escape
+    if (leader_sequence_one_key(KC_BSLS)) {
+        tap_code16(C(KC_BSLS));
+        tap_code16(C(KC_N));
+    }
+}
 
 void matrix_scan_keymap(void) {
     if (rgblight_is_enabled() && timer_elapsed(rgb_timer) > 1000) {
@@ -247,50 +287,6 @@ void matrix_scan_keymap(void) {
         layer_off(_FUNC);
         bspc_timer = 0;
         register_code(KC_BSPC);
-    }
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
-
-        // layer navigation
-        SEQ_ONE_KEY(KC_R) { layer_invert(_RPT); }
-        SEQ_ONE_KEY(KC_G) { layer_invert(_GAME); }
-        SEQ_ONE_KEY(KC_K) { layer_invert(_KP); }
-        SEQ_ONE_KEY(KC_KP_5) { layer_invert(_KP); }
-
-        // tmux navigation
-        SEQ_ONE_KEY(KC_L)    { SEND_STRING(SS_LCTL("a") "n"); }
-        SEQ_ONE_KEY(KC_H)    { SEND_STRING(SS_LCTL("a") "p"); }
-        SEQ_ONE_KEY(KC_N)    { SEND_STRING(SS_LCTL("a") "c"); }
-        SEQ_ONE_KEY(KC_W)    { SEND_STRING(SS_LCTL("a") "x"); }
-        SEQ_ONE_KEY(KC_MINS) { SEND_STRING(SS_LCTL("a") "-"); }
-        SEQ_ONE_KEY(KC_QUOT) { SEND_STRING(SS_LCTL("a") "\""); }
-        SEQ_ONE_KEY(KC_1)    { SEND_STRING(SS_LCTL("a") "1"); }
-        SEQ_ONE_KEY(KC_2)    { SEND_STRING(SS_LCTL("a") "2"); }
-        SEQ_ONE_KEY(KC_3)    { SEND_STRING(SS_LCTL("a") "3"); }
-        SEQ_ONE_KEY(KC_4)    { SEND_STRING(SS_LCTL("a") "4"); }
-        SEQ_ONE_KEY(KC_5)    { SEND_STRING(SS_LCTL("a") "5"); }
-        SEQ_ONE_KEY(KC_6)    { SEND_STRING(SS_LCTL("a") "6"); }
-        SEQ_ONE_KEY(KC_7)    { SEND_STRING(SS_LCTL("a") "7"); }
-        SEQ_ONE_KEY(KC_8)    { SEND_STRING(SS_LCTL("a") "8"); }
-        SEQ_ONE_KEY(KC_9)    { SEND_STRING(SS_LCTL("a") "9"); }
-
-        // secrets
-        SEQ_TWO_KEYS(KC_SCLN, KC_M)    { send_secret_string(0); }
-        SEQ_TWO_KEYS(KC_SCLN, KC_COMM) { send_secret_string(1); }
-        SEQ_TWO_KEYS(KC_SCLN, KC_DOT)  { send_secret_string(2); }
-        SEQ_TWO_KEYS(KC_SCLN, KC_J)    { send_secret_string(3); }
-        SEQ_TWO_KEYS(KC_SCLN, KC_K)    { send_secret_string(4); }
-        SEQ_TWO_KEYS(KC_SCLN, KC_L)    { send_secret_string(5); }
-
-        // fast control-C
-        SEQ_ONE_KEY(KC_C) { tap_code16(C(KC_C)); }
-
-        // neovim: terminal escape
-        SEQ_ONE_KEY(KC_BSLS) {
-            tap_code16(C(KC_BSLS));
-            tap_code16(C(KC_N));
-        }
     }
 }
 

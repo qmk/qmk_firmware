@@ -18,8 +18,7 @@
 
 // place overrides here
 
-#define RGB_DI_PIN D3
-#ifdef RGB_DI_PIN
+#define WS2812_DI_PIN D3
   #define RGBLED_NUM 6
   #define RGBLIGHT_HUE_STEP 16
   #define RGBLIGHT_SAT_STEP 16
@@ -36,10 +35,3 @@
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-// /*== customize breathing effect ==*/
-//   /*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
-//   #define RGBLIGHT_BREATHE_TABLE_SIZE 256      // 256(default) or 128 or 64
-//   /*==== use exp() and sin() ====*/
-//   #define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
-//   #define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
-#endif

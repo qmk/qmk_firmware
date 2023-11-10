@@ -5,6 +5,7 @@ core:
   - tests/**/*
   - util/**/*
   - platforms/**/*
+  - builddefs/**/*
   - Makefile
   - '*.mk'
 dependencies:
@@ -39,3 +40,7 @@ translation:
   - docs/ru-ru/**/*
 CI:
   - .github/**/*
+dd:
+  - data/constants/**/*
+  - data/mappings/**/*
+  - data/schemas/**/*

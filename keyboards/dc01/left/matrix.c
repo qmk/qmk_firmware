@@ -93,16 +93,6 @@ static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 #endif
 
 __attribute__ ((weak))
-void matrix_init_quantum(void) {
-    matrix_init_kb();
-}
-
-__attribute__ ((weak))
-void matrix_scan_quantum(void) {
-    matrix_scan_kb();
-}
-
-__attribute__ ((weak))
 void matrix_init_kb(void) {
     matrix_init_user();
 }
@@ -154,7 +144,7 @@ void matrix_init(void) {
         matrix_debouncing[i] = 0;
     }
 
-    matrix_init_quantum();
+    matrix_init_kb();
 }
 
 uint8_t matrix_scan(void)
@@ -223,7 +213,7 @@ if (i2c_transaction(SLAVE_I2C_ADDRESS_NUMPAD, 0x1FFFF, 11)) {
     }
 }
 
-    matrix_scan_quantum();
+    matrix_scan_kb();
     return 1;
 }
 

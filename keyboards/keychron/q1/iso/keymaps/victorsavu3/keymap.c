@@ -31,7 +31,7 @@ enum unicode_names {
     SAD,
 };
 
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
     [GRIN]  = 0x1F600,  // 😀
     [SAD]   = 0x1F61E,  // 😞
 };
@@ -55,8 +55,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TRNS,  KC_TRNS,  KC_TRNS,                                KC_TRNS,                                KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS),
 
 [WIN_BASE] = LAYOUT_iso_83(
-     KC_ESC,             KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_DEL,   X(SAD),
-     KC_GRV,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,            X(GRIN),
+     KC_ESC,             KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_DEL,   UM(SAD),
+     KC_GRV,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,            UM(GRIN),
      KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_LBRC,  KC_RBRC,                      KC_PGUP,
      QK_LEAD,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,  KC_NUHS,  KC_ENT,             KC_PGDN,
      KC_LSFT,  KC_NUBS,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,            KC_RSFT,  KC_UP,
@@ -76,68 +76,62 @@ static bool wiggle_mouse;
 static uint16_t wiggle_timer;
 static uint16_t next_wiggle;
 
-
-LEADER_EXTERNS();
-
-void matrix_scan_user(void) {
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
-
-        SEQ_ONE_KEY(QK_LEAD) {
-            tap_code(KC_CAPS);
-        }
-
-        SEQ_FOUR_KEYS(KC_I, KC_D, KC_L, KC_E) {
-            wiggle_mouse = !wiggle_mouse;
-            wiggle_timer = timer_read();
-        }
-
-        SEQ_TWO_KEYS(KC_O, KC_K) {
-            send_unicode_string("👍");
-        }
-
-        SEQ_THREE_KEYS(KC_S, KC_A, KC_D) {
-            send_unicode_string("😞");
-        }
-
-        SEQ_FIVE_KEYS(KC_C, KC_H, KC_E, KC_C, KC_K) {
-            send_unicode_string("✅");
-        }
-
-        SEQ_FIVE_KEYS(KC_C, KC_R, KC_O, KC_S, KC_S) {
-            send_unicode_string("❎");
-        }
-
-        SEQ_FIVE_KEYS(KC_T, KC_H, KC_A, KC_N, KC_K) {
-            send_unicode_string("🙏");
-        }
-
-        SEQ_FIVE_KEYS(KC_S, KC_M, KC_I, KC_L, KC_E) {
-            send_unicode_string("😊");
-        }
-
-        SEQ_FIVE_KEYS(KC_P, KC_A, KC_R, KC_T, KC_Y) {
-            send_unicode_string("🎉");
-        }
-
-        SEQ_FOUR_KEYS(KC_E, KC_Y, KC_E, KC_S) {
-            send_unicode_string("(ಠ_ಠ)");
-        }
-
-        SEQ_FIVE_KEYS(KC_M, KC_A, KC_G, KC_I, KC_C) {
-            send_unicode_string("(ಠ_ಠ) 🪄 ⠁⭒*.✫.*⭒⠁");
-        }
-
-        SEQ_FIVE_KEYS(KC_T, KC_A, KC_B, KC_L, KC_E) {
-            send_unicode_string("(ノಠ痊ಠ)ノ彡┻━┻");
-        }
-
-        SEQ_FIVE_KEYS(KC_S, KC_H, KC_R, KC_U, KC_G) {
-            send_unicode_string("¯\\_(ツ)_/¯");
-        }
+void leader_end_user(void) {
+    if (leader_sequence_one_key(QK_LEAD)) {
+        tap_code(KC_CAPS);
     }
 
+    if (leader_sequence_four_keys(KC_I, KC_D, KC_L, KC_E)) {
+        wiggle_mouse = !wiggle_mouse;
+        wiggle_timer = timer_read();
+    }
+
+    if (leader_sequence_two_keys(KC_O, KC_K)) {
+        send_unicode_string("👍");
+    }
+
+    if (leader_sequence_three_keys(KC_S, KC_A, KC_D)) {
+        send_unicode_string("😞");
+    }
+
+    if (leader_sequence_five_keys(KC_C, KC_H, KC_E, KC_C, KC_K)) {
+        send_unicode_string("✅");
+    }
+
+    if (leader_sequence_five_keys(KC_C, KC_R, KC_O, KC_S, KC_S)) {
+        send_unicode_string("❎");
+    }
+
+    if (leader_sequence_five_keys(KC_T, KC_H, KC_A, KC_N, KC_K)) {
+        send_unicode_string("🙏");
+    }
+
+    if (leader_sequence_five_keys(KC_S, KC_M, KC_I, KC_L, KC_E)) {
+        send_unicode_string("😊");
+    }
+
+    if (leader_sequence_five_keys(KC_P, KC_A, KC_R, KC_T, KC_Y)) {
+        send_unicode_string("🎉");
+    }
+
+    if (leader_sequence_four_keys(KC_E, KC_Y, KC_E, KC_S)) {
+        send_unicode_string("(ಠ_ಠ)");
+    }
+
+    if (leader_sequence_five_keys(KC_M, KC_A, KC_G, KC_I, KC_C)) {
+        send_unicode_string("(ಠ_ಠ) 🪄 ⠁⭒*.✫.*⭒⠁");
+    }
+
+    if (leader_sequence_five_keys(KC_T, KC_A, KC_B, KC_L, KC_E)) {
+        send_unicode_string("(ノಠ痊ಠ)ノ彡┻━┻");
+    }
+
+    if (leader_sequence_five_keys(KC_S, KC_H, KC_R, KC_U, KC_G)) {
+        send_unicode_string("¯\\_(ツ)_/¯");
+    }
+}
+
+void matrix_scan_user(void) {
     if (wiggle_mouse && timer_elapsed(wiggle_timer) > next_wiggle) {
         wiggle_timer = timer_read();
 

@@ -58,7 +58,7 @@ enum alfrdmalr_keycodes {
 #define K47    SYMR
 #define K48    KC_RALT
 #define K49    SETLAYER
-#define K4A    MU_TOG
+#define K4A    MU_TOGG
 
 // leftmost column
 #define K00    KC_ESC
@@ -261,7 +261,7 @@ enum alfrdmalr_keycodes {
 // - CORE
 #define ___SETTINGS_L1___    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO
 #define ___SETTINGS_L2___    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO
-#define ___SETTINGS_L3___    MU_TOG,   AU_OFF,   AU_ON,    KC_NO,    KC_NO
+#define ___SETTINGS_L3___    MU_TOGG,  AU_OFF,   AU_ON,    KC_NO,    KC_NO
 
 // - MODS
 #define ___SETTINGS_L4___    KC_NO,    KC_NO,    KC_NO,    KC_TRNS,  KC_NO

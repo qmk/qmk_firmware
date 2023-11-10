@@ -196,7 +196,7 @@ layer_state_t layer_state_set_user(layer_state_t state);
 // Method called at the end of the tap dance on the TAP_MACRO key. That key is
 // used to start recording a macro (double tap or more), to stop recording (any
 // number of tap), or to play the recorded macro (1 tap).
-void macro_tapdance_fn(qk_tap_dance_state_t *state, void *user_data) {
+void macro_tapdance_fn(tap_dance_state_t *state, void *user_data) {
   uint16_t keycode;
   keyrecord_t record;
   dprintf("macro_tap_dance_fn %d\n", state->count);
@@ -219,7 +219,7 @@ void macro_tapdance_fn(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 // The definition of the tap dance actions:
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   // This Tap dance plays the macro 1 on TAP and records it on double tap.
   [TAP_MACRO] = ACTION_TAP_DANCE_FN(macro_tapdance_fn),
 };
@@ -253,12 +253,7 @@ void matrix_scan_user(void) {
 };
 
 // The state of the LEDs requested by the system, as a bitmask.
-static uint8_t sys_led_state = 0;
-
-// Use these masks to read the system LEDs state.
-static const uint8_t sys_led_mask_num_lock = 1 << USB_LED_NUM_LOCK;
-static const uint8_t sys_led_mask_caps_lock = 1 << USB_LED_CAPS_LOCK;
-static const uint8_t sys_led_mask_scroll_lock = 1 << USB_LED_SCROLL_LOCK;
+static led_t sys_led_state = {0};
 
 // Value to use to switch LEDs on. The default value of 255 is far too bright.
 static const uint8_t max_led_value = 20;
@@ -294,25 +289,26 @@ void led_3_off(void) {
 }
 
 // Called when the computer wants to change the state of the keyboard LEDs.
-void led_set_user(uint8_t usb_led) {
-  sys_led_state = usb_led;
+bool led_update_user(led_t led_state) {
+  sys_led_state = led_state;
   if (LAYER_ON(SYSLEDS)) {
-    if (sys_led_state & sys_led_mask_caps_lock) {
+    if (sys_led_state.caps_lock) {
       led_1_on();
     } else {
       led_1_off();
     }
-    if (sys_led_state & sys_led_mask_num_lock) {
+    if (sys_led_state.num_lock) {
       led_2_on();
     } else {
       led_2_off();
     }
-    if (sys_led_state & sys_led_mask_scroll_lock) {
+    if (sys_led_state.scroll_lock) {
       led_3_on();
     } else {
       led_3_off();
     }
   }
+  return false;
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -327,7 +323,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   }
 
   if (LAYER_ON(SYSLEDS)) {
-    led_set_user(sys_led_state);
+    led_update_user(sys_led_state);
     return state;
   }
 

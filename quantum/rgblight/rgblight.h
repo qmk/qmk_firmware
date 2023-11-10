@@ -68,23 +68,6 @@
 |-----------------|-----------------------------------|
  *****/
 
-#ifdef RGBLIGHT_ANIMATIONS
-// for backward compatibility
-#    define RGBLIGHT_EFFECT_BREATHING
-#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#    define RGBLIGHT_EFFECT_SNAKE
-#    define RGBLIGHT_EFFECT_KNIGHT
-#    define RGBLIGHT_EFFECT_CHRISTMAS
-#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#    define RGBLIGHT_EFFECT_RGB_TEST
-#    define RGBLIGHT_EFFECT_ALTERNATING
-#endif
-
-#ifdef RGBLIGHT_STATIC_PATTERNS
-#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#endif
-
 // clang-format off
 
 // check dynamic animation effects chose ?
@@ -191,6 +174,10 @@ typedef struct {
     uint8_t val;
 } rgblight_segment_t;
 
+// rgblight_set_layer_state doesn't take effect until the next time
+// rgblight_task runs, so timers must be enabled for layers to work.
+#    define RGBLIGHT_USE_TIMER
+
 #    define RGBLIGHT_END_SEGMENT_INDEX (255)
 #    define RGBLIGHT_END_SEGMENTS \
         { RGBLIGHT_END_SEGMENT_INDEX, 0, 0, 0 }
@@ -257,18 +244,19 @@ extern const uint16_t RGBLED_RGBTEST_INTERVALS[1] PROGMEM;
 extern const uint8_t  RGBLED_TWINKLE_INTERVALS[3] PROGMEM;
 extern bool           is_rgblight_initialized;
 
-// Should stay in sycn with rgb matrix config as we reuse eeprom storage for both (for now)
 typedef union {
-    uint32_t raw;
+    uint64_t raw;
     struct {
         bool    enable : 1;
         uint8_t mode : 7;
         uint8_t hue : 8;
         uint8_t sat : 8;
         uint8_t val : 8;
-        uint8_t speed : 8; // EECONFIG needs to be increased to support this
+        uint8_t speed : 8;
     };
 } rgblight_config_t;
+
+_Static_assert(sizeof(rgblight_config_t) == sizeof(uint64_t), "RGB Light EECONFIG out of spec.");
 
 typedef struct _rgblight_status_t {
     uint8_t base_mode;
@@ -338,6 +326,7 @@ void rgblight_enable(void);
 void rgblight_enable_noeeprom(void);
 void rgblight_disable(void);
 void rgblight_disable_noeeprom(void);
+void rgblight_enabled_noeeprom(bool state);
 
 /*   hue, sat, val change */
 void rgblight_increase_hue(void);
@@ -379,10 +368,10 @@ HSV     rgblight_get_hsv(void);
 void     rgblight_init(void);
 void     rgblight_suspend(void);
 void     rgblight_wakeup(void);
-uint32_t rgblight_read_dword(void);
-void     rgblight_update_dword(uint32_t dword);
-uint32_t eeconfig_read_rgblight(void);
-void     eeconfig_update_rgblight(uint32_t val);
+uint64_t rgblight_read_qword(void);
+void     rgblight_update_qword(uint64_t qword);
+uint64_t eeconfig_read_rgblight(void);
+void     eeconfig_update_rgblight(uint64_t val);
 void     eeconfig_update_rgblight_current(void);
 void     eeconfig_update_rgblight_default(void);
 void     eeconfig_debug_rgblight(void);

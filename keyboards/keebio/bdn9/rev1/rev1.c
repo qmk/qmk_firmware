@@ -1,4 +1,4 @@
-#include "rev1.h"
+#include "quantum.h"
 
 void eeconfig_init_kb(void) {
 #ifdef BACKLIGHT_ENABLE

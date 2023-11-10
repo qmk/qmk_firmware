@@ -37,7 +37,7 @@
  * Enable rapid switch from tap to hold.  Disable auto-repeat when pressing key
  * twice, except for one-shot keys.
  */
-#define TAPPING_FORCE_HOLD
+#define QUICK_TAP_TERM 0
 
 /*
  * Tap-or-Hold decision modes.
@@ -58,18 +58,6 @@
  *   Mod(a)🠗 e🠗 e🠕 Mod(a)🠕 ➞ Mod+e
  */
 #define PERMISSIVE_HOLD
-
-/**
- * Prevent normal rollover on alphas from accidentally triggering mods.
- *
- * Ignores key presses that interrupt a mod-tap.  Must-have for Home Row mod.
- *
- * Without `IGNORE_MOD_TAP_INTERRUPT`, within `TAPPING_TERM`:
- *   Mod(a)🠗 e🠗 Mod(a)🠕 e🠕 ➞ Mod+e
- * With `IGNORE_MOD_TAP_INTERRUPT`, within `TAPPING_TERM`:
- *   Mod(a)🠗 e🠗 Mod(a)🠕 e🠕 ➞ ae
- */
-#define IGNORE_MOD_TAP_INTERRUPT
 
 /** Dilemma-specific features. */
 
