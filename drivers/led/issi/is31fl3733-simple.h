@@ -26,9 +26,6 @@
 #include "util.h"
 
 // ======== DEPRECATED DEFINES - DO NOT USE ========
-#ifdef LED_DRIVER_COUNT
-#    define IS31FL3733_DRIVER_COUNT LED_DRIVER_COUNT
-#endif
 #ifdef ISSI_TIMEOUT
 #    define IS31FL3733_I2C_TIMEOUT ISSI_TIMEOUT
 #endif
@@ -79,6 +76,16 @@
 
 #if defined(LED_MATRIX_IS31FL3733)
 #    define IS31FL3733_LED_COUNT LED_MATRIX_LED_COUNT
+#endif
+
+#if defined(IS31FL3733_I2C_ADDRESS_4)
+#    define IS31FL3733_DRIVER_COUNT 4
+#elif defined(IS31FL3733_I2C_ADDRESS_3)
+#    define IS31FL3733_DRIVER_COUNT 3
+#elif defined(IS31FL3733_I2C_ADDRESS_2)
+#    define IS31FL3733_DRIVER_COUNT 2
+#elif defined(IS31FL3733_I2C_ADDRESS_1)
+#    define IS31FL3733_DRIVER_COUNT 1
 #endif
 
 typedef struct is31fl3733_led_t {

@@ -23,9 +23,6 @@
 #include "util.h"
 
 // ======== DEPRECATED DEFINES - DO NOT USE ========
-#ifdef DRIVER_COUNT
-#    define AW20216S_DRIVER_COUNT DRIVER_COUNT
-#endif
 #ifdef AW_SCALING_MAX
 #    define AW20216S_SCALING_MAX AW_SCALING_MAX
 #endif
@@ -57,6 +54,12 @@
 
 #if defined(RGB_MATRIX_AW20216S)
 #    define AW20216S_LED_COUNT RGB_MATRIX_LED_COUNT
+#endif
+
+#if defined(AW20216S_CS_PIN_2)
+#    define AW20216S_DRIVER_COUNT 2
+#elif defined(AW20216S_CS_PIN_1)
+#    define AW20216S_DRIVER_COUNT 1
 #endif
 
 typedef struct aw20216s_led_t {
