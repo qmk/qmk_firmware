@@ -2,7 +2,7 @@
 
 ![chameleon](https://i.imgur.com/BEAzgK8h.jpeg)
 
-Chameleon is a 46-60 Key Grid Ortho Keyboard with optional 5x12 or 4x12 layouts.
+Chameleon is a 46-60 Key Grid Ortho Keyboard that can be built as both 5x12 and 4x12 with several optional bottom row layouts.
 
 * Keyboard Maintainer: [TweetyDaBird](https://github.com/TweetyDaBird)
 * Hardware Supported: Chameleon 46-60 key PCB
