@@ -1,6 +1,6 @@
 # Nifty Numpad
 
-![Nifty Numpad](https://i.imgur.com/jfB8tfK.png)
+![Nifty Numpad](https://i.imgur.com/jfB8tfKh.png)
 
 Nifty Numpad is a full sized numpad with an extra row and two extra columns of macro keys. It was created because I wanted a companion to my TKL keyboard for work. My main workflow involves heavy use of ECAD programs, so the design was tailored for that, but it is generic enough to be nice for many workflows! 
 
