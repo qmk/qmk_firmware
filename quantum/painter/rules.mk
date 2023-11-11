@@ -168,6 +168,7 @@ ifeq ($(strip $(QUANTUM_PAINTER_ST77XX)), yes)
     SRC += \
         $(DRIVER_PATH)/painter/tft_panel/qp_tft_panel.c \
         $(DRIVER_PATH)/painter/st77xx/qp_st77xx.c
+endif
 
 # If a surface is needed, set up the required files
 ifeq ($(strip $(QUANTUM_PAINTER_NEEDS_SURFACE)), yes)
