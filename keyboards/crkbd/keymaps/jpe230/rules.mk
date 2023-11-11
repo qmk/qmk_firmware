@@ -1,6 +1,5 @@
 # Shared rules for both of my Corne
 OLED_ENABLE       = yes
-OLED_DRIVER       = SSD1306
 VIA_ENABLE        = yes
 RGB_MATRIX_ENABLE = yes
 
@@ -22,4 +21,3 @@ else
     SRC +=  oled/avr/master/oled_master_handler.c \
             oled/avr/slave/oled_slave_handler.c
 endif
-

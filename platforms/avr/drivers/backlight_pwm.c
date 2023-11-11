@@ -1,5 +1,5 @@
 #include "backlight.h"
-#include "backlight_driver_common.h"
+#include "gpio.h"
 #include "progmem.h"
 #include <avr/io.h>
 #include <avr/interrupt.h>
@@ -8,14 +8,6 @@
 #ifndef BACKLIGHT_LIMIT_VAL
 #    define BACKLIGHT_LIMIT_VAL 255
 #endif
-
-// This logic is a bit complex, we support 3 setups:
-//
-//   1. Hardware PWM when backlight is wired to a PWM pin.
-//      Depending on this pin, we use a different output compare unit.
-//   2. Software PWM with hardware timers, but the used timer
-//      depends on the Audio setup (Audio wins over Backlight).
-//   3. Full software PWM, driven by the matrix scan, if both timers are used by Audio.
 
 #if (defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__)) && (BACKLIGHT_PIN == B5 || BACKLIGHT_PIN == B6 || BACKLIGHT_PIN == B7)
 #    define ICRx ICR1
@@ -122,105 +114,33 @@
 #        define COMxx1 COM1B1
 #        define OCRxx OCR1B
 #    endif
-#elif (AUDIO_PIN != B5) && (AUDIO_PIN != B6) && (AUDIO_PIN != B7) && (AUDIO_PIN_ALT != B5) && (AUDIO_PIN_ALT != B6) && (AUDIO_PIN_ALT != B7)
-// Timer 1 is not in use by Audio feature, Backlight can use it
-#    pragma message "Using hardware timer 1 with software PWM"
-#    define BACKLIGHT_PWM_TIMER
-#    define ICRx ICR1
-#    define TCCRxA TCCR1A
-#    define TCCRxB TCCR1B
-#    define TIMERx_COMPA_vect TIMER1_COMPA_vect
-#    define TIMERx_OVF_vect TIMER1_OVF_vect
-#    if defined(__AVR_ATmega32A__) // This MCU has only one TIMSK register
-#        define TIMSKx TIMSK
-#    else
-#        define TIMSKx TIMSK1
-#    endif
-#    define TOIEx TOIE1
-
-#    define OCIExA OCIE1A
-#    define OCRxx OCR1A
-#elif (AUDIO_PIN != C4) && (AUDIO_PIN != C5) && (AUDIO_PIN != C6)
-#    pragma message "Using hardware timer 3 with software PWM"
-// Timer 3 is not in use by Audio feature, Backlight can use it
-#    define BACKLIGHT_PWM_TIMER
-#    define ICRx ICR1
-#    define TCCRxA TCCR3A
-#    define TCCRxB TCCR3B
-#    define TIMERx_COMPA_vect TIMER3_COMPA_vect
-#    define TIMERx_OVF_vect TIMER3_OVF_vect
-#    define TIMSKx TIMSK3
-#    define TOIEx TOIE3
-
-#    define OCIExA OCIE3A
-#    define OCRxx OCR3A
 #endif
 
-#ifndef BACKLIGHT_PWM_TIMER // pwm through software
+#ifndef BACKLIGHT_RESOLUTION
+#    define BACKLIGHT_RESOLUTION 0xFFFFU
+#endif
+
+#if (BACKLIGHT_RESOLUTION > 0xFFFF || BACKLIGHT_RESOLUTION < 0x00FF)
+#    error "Backlight resolution must be between 0x00FF and 0xFFFF"
+#endif
+
+#define BREATHING_SCALE_FACTOR F_CPU / BACKLIGHT_RESOLUTION / 120
 
 static inline void enable_pwm(void) {
-#    if BACKLIGHT_ON_STATE == 1
+#if BACKLIGHT_ON_STATE == 1
     TCCRxA |= _BV(COMxx1);
-#    else
+#else
     TCCRxA |= _BV(COMxx1) | _BV(COMxx0);
-#    endif
+#endif
 }
 
 static inline void disable_pwm(void) {
-#    if BACKLIGHT_ON_STATE == 1
+#if BACKLIGHT_ON_STATE == 1
     TCCRxA &= ~(_BV(COMxx1));
-#    else
+#else
     TCCRxA &= ~(_BV(COMxx1) | _BV(COMxx0));
-#    endif
-}
-
 #endif
-
-#ifdef BACKLIGHT_PWM_TIMER
-
-// The idea of software PWM assisted by hardware timers is the following
-// we use the hardware timer in fast PWM mode like for hardware PWM, but
-// instead of letting the Output Match Comparator control the led pin
-// (which is not possible since the backlight is not wired to PWM pins on the
-// CPU), we do the LED on/off by oursleves.
-// The timer is setup to count up to 0xFFFF, and we set the Output Compare
-// register to the current 16bits backlight level (after CIE correction).
-// This means the CPU will trigger a compare match interrupt when the counter
-// reaches the backlight level, where we turn off the LEDs,
-// but also an overflow interrupt when the counter rolls back to 0,
-// in which we're going to turn on the LEDs.
-// The LED will then be on for OCRxx/0xFFFF time, adjusted every 244Hz,
-// or F_CPU/BACKLIGHT_CUSTOM_RESOLUTION if used.
-
-// Triggered when the counter reaches the OCRx value
-ISR(TIMERx_COMPA_vect) {
-    backlight_pins_off();
 }
-
-// Triggered when the counter reaches the TOP value
-// this one triggers at F_CPU/ICRx = 16MHz/65536 =~ 244 Hz
-ISR(TIMERx_OVF_vect) {
-#    ifdef BACKLIGHT_BREATHING
-    if (is_breathing()) {
-        breathing_task();
-    }
-#    endif
-    // for very small values of OCRxx (or backlight level)
-    // we can't guarantee this whole code won't execute
-    // at the same time as the compare match interrupt
-    // which means that we might turn on the leds while
-    // trying to turn them off, leading to flickering
-    // artifacts (especially while breathing, because breathing_task
-    // takes many computation cycles).
-    // so better not turn them on while the counter TOP is very low.
-    if (OCRxx > ICRx / 250 + 5) {
-        backlight_pins_on();
-    }
-}
-
-#endif
-
-#define TIMER_TOP 0xFFFFU
 
 // See http://jared.geek.nz/2013/feb/linear-led-pwm
 static uint16_t cie_lightness(uint16_t v) {
@@ -254,26 +174,11 @@ void backlight_set(uint8_t level) {
     if (level > BACKLIGHT_LEVELS) level = BACKLIGHT_LEVELS;
 
     if (level == 0) {
-#ifdef BACKLIGHT_PWM_TIMER
-        if (OCRxx) {
-            TIMSKx &= ~(_BV(OCIExA));
-            TIMSKx &= ~(_BV(TOIEx));
-        }
-#else
         // Turn off PWM control on backlight pin
         disable_pwm();
-#endif
-        backlight_pins_off();
     } else {
-#ifdef BACKLIGHT_PWM_TIMER
-        if (!OCRxx) {
-            TIMSKx |= _BV(OCIExA);
-            TIMSKx |= _BV(TOIEx);
-        }
-#else
         // Turn on PWM control of backlight pin
         enable_pwm();
-#endif
     }
     // Set the brightness
     set_pwm(cie_lightness(rescale_limit_val(ICRx * (uint32_t)level / BACKLIGHT_LEVELS)));
@@ -282,7 +187,6 @@ void backlight_set(uint8_t level) {
 void backlight_task(void) {}
 
 #ifdef BACKLIGHT_BREATHING
-
 #    define BREATHING_NO_HALT 0
 #    define BREATHING_HALT_OFF 1
 #    define BREATHING_HALT_ON 2
@@ -293,39 +197,20 @@ static uint16_t breathing_counter = 0;
 
 static uint8_t breath_scale_counter = 1;
 /* Run the breathing loop at ~120Hz*/
-const uint8_t   breathing_ISR_frequency     = 120;
-static uint16_t breathing_freq_scale_factor = 2;
-
-#    ifdef BACKLIGHT_PWM_TIMER
-static bool breathing = false;
-
-bool is_breathing(void) {
-    return breathing;
-}
-
-#        define breathing_interrupt_enable() \
-            do {                             \
-                breathing = true;            \
-            } while (0)
-#        define breathing_interrupt_disable() \
-            do {                              \
-                breathing = false;            \
-            } while (0)
-#    else
+const uint8_t breathing_ISR_frequency = 120;
 
 bool is_breathing(void) {
     return !!(TIMSKx & _BV(TOIEx));
 }
 
-#        define breathing_interrupt_enable() \
-            do {                             \
-                TIMSKx |= _BV(TOIEx);        \
-            } while (0)
-#        define breathing_interrupt_disable() \
-            do {                              \
-                TIMSKx &= ~_BV(TOIEx);        \
-            } while (0)
-#    endif
+#    define breathing_interrupt_enable() \
+        do {                             \
+            TIMSKx |= _BV(TOIEx);        \
+        } while (0)
+#    define breathing_interrupt_disable() \
+        do {                              \
+            TIMSKx &= ~_BV(TOIEx);        \
+        } while (0)
 
 #    define breathing_min()        \
         do {                       \
@@ -374,20 +259,14 @@ static inline uint16_t scale_backlight(uint16_t v) {
     return v / BACKLIGHT_LEVELS * get_backlight_level();
 }
 
-#    ifdef BACKLIGHT_PWM_TIMER
-void breathing_task(void)
-#    else
 /* Assuming a 16MHz CPU clock and a timer that resets at 64k (ICR1), the following interrupt handler will run
  * about 244 times per second.
  *
  * The following ISR runs at F_CPU/ISRx. With a 16MHz clock and default pwm resolution, that means 244Hz
  */
-ISR(TIMERx_OVF_vect)
-#    endif
-{
-
+ISR(TIMERx_OVF_vect) {
     // Only run this ISR at ~120 Hz
-    if (breath_scale_counter++ == breathing_freq_scale_factor) {
+    if (breath_scale_counter++ == BREATHING_SCALE_FACTOR) {
         breath_scale_counter = 1;
     } else {
         return;
@@ -412,19 +291,17 @@ ISR(TIMERx_OVF_vect)
 #endif // BACKLIGHT_BREATHING
 
 void backlight_init_ports(void) {
-    // Setup backlight pin as output and output to on state.
-    backlight_pins_init();
+    setPinOutput(BACKLIGHT_PIN);
+#if BACKLIGHT_ON_STATE == 1
+    writePinLow(BACKLIGHT_PIN);
+#else
+    writePinHigh(BACKLIGHT_PIN);
+#endif
 
     // I could write a wall of text here to explain... but TL;DW
     // Go read the ATmega32u4 datasheet.
     // And this: http://blog.saikoled.com/post/43165849837/secret-konami-cheat-code-to-high-resolution-pwm-on
 
-#ifdef BACKLIGHT_PWM_TIMER
-    // TimerX setup, Fast PWM mode count to TOP set in ICRx
-    TCCRxA = _BV(WGM11); // = 0b00000010;
-    // clock select clk/1
-    TCCRxB = _BV(WGM13) | _BV(WGM12) | _BV(CS10); // = 0b00011001;
-#else                                             // hardware PWM
     // Pin PB7 = OCR1C (Timer 1, Channel C)
     // Compare Output Mode = Clear on compare match, Channel C = COM1C1=1 COM1C0=0
     // (i.e. start high, go low when counter matches.)
@@ -438,23 +315,10 @@ void backlight_init_ports(void) {
     */
     TCCRxA = _BV(COMxx1) | _BV(WGM11);            // = 0b00001010;
     TCCRxB = _BV(WGM13) | _BV(WGM12) | _BV(CS10); // = 0b00011001;
-#endif
-
-#ifdef BACKLIGHT_CUSTOM_RESOLUTION
-#    if (BACKLIGHT_CUSTOM_RESOLUTION > 0xFFFF || BACKLIGHT_CUSTOM_RESOLUTION < 1)
-#        error "This out of range of the timer capabilities"
-#    elif (BACKLIGHT_CUSTOM_RESOLUTION < 0xFF)
-#        warning "Resolution lower than 0xFF isn't recommended"
-#    endif
-#    ifdef BACKLIGHT_BREATHING
-    breathing_freq_scale_factor = F_CPU / BACKLIGHT_CUSTOM_RESOLUTION / 120;
-#    endif
-    ICRx = BACKLIGHT_CUSTOM_RESOLUTION;
-#else
-    ICRx = TIMER_TOP;
-#endif
+    ICRx   = BACKLIGHT_RESOLUTION;
 
     backlight_init();
+
 #ifdef BACKLIGHT_BREATHING
     if (is_backlight_breathing()) {
         breathing_enable();
