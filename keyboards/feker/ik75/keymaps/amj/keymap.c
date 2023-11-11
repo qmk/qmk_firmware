@@ -138,6 +138,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     }
                 }
             }
+            rgb_matrix_set_color_all(0, 0, 0);
             return false;
         case MO(_FN): //checks if fn key is pressed
             fn_pressed = not(fn_pressed);
