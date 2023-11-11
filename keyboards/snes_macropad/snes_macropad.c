@@ -9,8 +9,6 @@ char     key_name = ' ';
 uint16_t last_keycode;
 uint8_t  last_row;
 uint8_t  last_col;
-char     layer_str[3] = ""; // 2 digits + null terminator
-_Static_assert(MAX_LAYER < 100, "layer_str is too small");
 
 static const char PROGMEM code_to_name[60] = {' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'R', 'E', 'B', 'T', '_', '-', '=', '[', ']', '\\', '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '};
 
@@ -59,9 +57,8 @@ static void oled_render_keylog(void) {
     oled_write_char(key_name, false);
 }
 
-__attribute__((weak)) const char * get_layer_name_user(int layer) {
-    snprintf(layer_str, sizeof(layer_str), "%d", layer);
-    return layer_str;
+__attribute__((weak)) const char * get_layer_name_user(uint8_t layer) {
+    return get_u8_str(layer, ' ');
 }
 
 static void oled_render_layer(void) {
