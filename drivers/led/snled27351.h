@@ -19,10 +19,20 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "progmem.h"
+#include "util.h"
 
 // ======== DEPRECATED DEFINES - DO NOT USE ========
-#ifdef DRIVER_COUNT
-#    define SNLED27351_DRIVER_COUNT DRIVER_COUNT
+#ifdef DRIVER_ADDR_1
+#    define SNLED27351_I2C_ADDRESS_1 DRIVER_ADDR_1
+#endif
+#ifdef DRIVER_ADDR_2
+#    define SNLED27351_I2C_ADDRESS_2 DRIVER_ADDR_2
+#endif
+#ifdef DRIVER_ADDR_3
+#    define SNLED27351_I2C_ADDRESS_3 DRIVER_ADDR_3
+#endif
+#ifdef DRIVER_ADDR_4
+#    define SNLED27351_I2C_ADDRESS_4 DRIVER_ADDR_4
 #endif
 #ifdef CKLED2001_TIMEOUT
 #    define SNLED27351_I2C_TIMEOUT CKLED2001_TIMEOUT
@@ -59,15 +69,30 @@
 #define SNLED27351_I2C_ADDRESS_SDA 0x76
 #define SNLED27351_I2C_ADDRESS_VDDIO 0x77
 
+#if defined(RGB_MATRIX_SNLED27351)
+#    define SNLED27351_LED_COUNT RGB_MATRIX_LED_COUNT
+#endif
+
+#if defined(SNLED27351_I2C_ADDRESS_4)
+#    define SNLED27351_DRIVER_COUNT 4
+#elif defined(SNLED27351_I2C_ADDRESS_3)
+#    define SNLED27351_DRIVER_COUNT 3
+#elif defined(SNLED27351_I2C_ADDRESS_2)
+#    define SNLED27351_DRIVER_COUNT 2
+#elif defined(SNLED27351_I2C_ADDRESS_1)
+#    define SNLED27351_DRIVER_COUNT 1
+#endif
+
 typedef struct snled27351_led_t {
     uint8_t driver : 2;
     uint8_t r;
     uint8_t g;
     uint8_t b;
-} __attribute__((packed)) snled27351_led_t;
+} PACKED snled27351_led_t;
 
-extern const snled27351_led_t PROGMEM g_snled27351_leds[RGB_MATRIX_LED_COUNT];
+extern const snled27351_led_t PROGMEM g_snled27351_leds[SNLED27351_LED_COUNT];
 
+void snled27351_init_drivers(void);
 void snled27351_init(uint8_t addr);
 bool snled27351_write_register(uint8_t addr, uint8_t reg, uint8_t data);
 bool snled27351_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
@@ -83,6 +108,8 @@ void snled27351_set_led_control_register(uint8_t index, bool red, bool green, bo
 // If the buffer is dirty, it will update the driver with the buffer.
 void snled27351_update_pwm_buffers(uint8_t addr, uint8_t index);
 void snled27351_update_led_control_registers(uint8_t addr, uint8_t index);
+
+void snled27351_flush(void);
 
 void snled27351_sw_return_normal(uint8_t addr);
 void snled27351_sw_shutdown(uint8_t addr);

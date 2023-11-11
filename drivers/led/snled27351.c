@@ -17,6 +17,9 @@
 #include "snled27351.h"
 #include "i2c_master.h"
 
+#define SNLED27351_PWM_REGISTER_COUNT 192
+#define SNLED27351_LED_CONTROL_REGISTER_COUNT 24
+
 #ifndef SNLED27351_I2C_TIMEOUT
 #    define SNLED27351_I2C_TIMEOUT 100
 #endif
@@ -43,11 +46,11 @@ uint8_t g_twi_transfer_buffer[65];
 // We could optimize this and take out the unused registers from these
 // buffers and the transfers in snled27351_write_pwm_buffer() but it's
 // probably not worth the extra complexity.
-uint8_t g_pwm_buffer[SNLED27351_DRIVER_COUNT][192];
+uint8_t g_pwm_buffer[SNLED27351_DRIVER_COUNT][SNLED27351_PWM_REGISTER_COUNT];
 bool    g_pwm_buffer_update_required[SNLED27351_DRIVER_COUNT] = {false};
 
-uint8_t g_led_control_registers[SNLED27351_DRIVER_COUNT][24]             = {0};
-bool    g_led_control_registers_update_required[SNLED27351_DRIVER_COUNT] = {false};
+uint8_t g_led_control_registers[SNLED27351_DRIVER_COUNT][SNLED27351_LED_CONTROL_REGISTER_COUNT] = {0};
+bool    g_led_control_registers_update_required[SNLED27351_DRIVER_COUNT]                        = {false};
 
 bool snled27351_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
     // If the transaction fails function returns false.
@@ -74,7 +77,7 @@ bool snled27351_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     // Transmit PWM registers in 3 transfers of 64 bytes.
 
     // Iterate over the pwm_buffer contents at 64 byte intervals.
-    for (uint8_t i = 0; i < 192; i += 64) {
+    for (uint8_t i = 0; i < SNLED27351_PWM_REGISTER_COUNT; i += 64) {
         g_twi_transfer_buffer[0] = i;
         // Copy the data from i to i+63.
         // Device will auto-increment register for data after the first byte
@@ -96,6 +99,36 @@ bool snled27351_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
 #endif
     }
     return true;
+}
+
+void snled27351_init_drivers(void) {
+    i2c_init();
+
+    snled27351_init(SNLED27351_I2C_ADDRESS_1);
+#if defined(SNLED27351_I2C_ADDRESS_2)
+    snled27351_init(SNLED27351_I2C_ADDRESS_2);
+#    if defined(SNLED27351_I2C_ADDRESS_3)
+    snled27351_init(SNLED27351_I2C_ADDRESS_3);
+#        if defined(SNLED27351_I2C_ADDRESS_4)
+    snled27351_init(SNLED27351_I2C_ADDRESS_4);
+#        endif
+#    endif
+#endif
+
+    for (int i = 0; i < SNLED27351_LED_COUNT; i++) {
+        snled27351_set_led_control_register(i, true, true, true);
+    }
+
+    snled27351_update_led_control_registers(SNLED27351_I2C_ADDRESS_1, 0);
+#if defined(SNLED27351_I2C_ADDRESS_2)
+    snled27351_update_led_control_registers(SNLED27351_I2C_ADDRESS_2, 1);
+#    if defined(SNLED27351_I2C_ADDRESS_3)
+    snled27351_update_led_control_registers(SNLED27351_I2C_ADDRESS_3, 2);
+#        if defined(SNLED27351_I2C_ADDRESS_4)
+    snled27351_update_led_control_registers(SNLED27351_I2C_ADDRESS_4, 3);
+#        endif
+#    endif
+#endif
 }
 
 void snled27351_init(uint8_t addr) {
@@ -146,7 +179,7 @@ void snled27351_init(uint8_t addr) {
 
 void snled27351_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     snled27351_led_t led;
-    if (index >= 0 && index < RGB_MATRIX_LED_COUNT) {
+    if (index >= 0 && index < SNLED27351_LED_COUNT) {
         memcpy_P(&led, (&g_snled27351_leds[index]), sizeof(led));
 
         if (g_pwm_buffer[led.driver][led.r] == red && g_pwm_buffer[led.driver][led.g] == green && g_pwm_buffer[led.driver][led.b] == blue) {
@@ -160,7 +193,7 @@ void snled27351_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void snled27351_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
-    for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+    for (int i = 0; i < SNLED27351_LED_COUNT; i++) {
         snled27351_set_color(i, red, green, blue);
     }
 }
@@ -211,11 +244,24 @@ void snled27351_update_pwm_buffers(uint8_t addr, uint8_t index) {
 void snled27351_update_led_control_registers(uint8_t addr, uint8_t index) {
     if (g_led_control_registers_update_required[index]) {
         snled27351_write_register(addr, SNLED27351_REG_CONFIGURE_CMD_PAGE, SNLED27351_LED_CONTROL_PAGE);
-        for (int i = 0; i < 24; i++) {
+        for (int i = 0; i < SNLED27351_LED_CONTROL_REGISTER_COUNT; i++) {
             snled27351_write_register(addr, i, g_led_control_registers[index][i]);
         }
     }
     g_led_control_registers_update_required[index] = false;
+}
+
+void snled27351_flush(void) {
+    snled27351_update_pwm_buffers(SNLED27351_I2C_ADDRESS_1, 0);
+#if defined(SNLED27351_I2C_ADDRESS_2)
+    snled27351_update_pwm_buffers(SNLED27351_I2C_ADDRESS_2, 1);
+#    if defined(SNLED27351_I2C_ADDRESS_3)
+    snled27351_update_pwm_buffers(SNLED27351_I2C_ADDRESS_3, 2);
+#        if defined(SNLED27351_I2C_ADDRESS_4)
+    snled27351_update_pwm_buffers(SNLED27351_I2C_ADDRESS_4, 3);
+#        endif
+#    endif
+#endif
 }
 
 void snled27351_sw_return_normal(uint8_t addr) {

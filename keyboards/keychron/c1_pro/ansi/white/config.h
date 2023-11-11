@@ -21,7 +21,7 @@
 
 /* LED Matrix Driver Configuration */
 #define SNLED27351_DRIVER_COUNT 1
-#define DRIVER_ADDR_1 SNLED27351_I2C_ADDRESS_GND
+#define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_GND
 
 /* LED Matrix Configuration */
 #define LED_MATRIX_LED_COUNT 90
