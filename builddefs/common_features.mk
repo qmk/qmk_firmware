@@ -935,7 +935,7 @@ ifeq ($(strip $(APA102_DRIVER_REQUIRED)), yes)
 endif
 
 ifeq ($(strip $(ANALOG_DRIVER_REQUIRED)), yes)
-    OPT_DEFS += -DSTM32_ADC -DHAL_USE_ADC=TRUE
+    OPT_DEFS += -DHAL_USE_ADC=TRUE
     QUANTUM_LIB_SRC += analog.c
 endif
 
