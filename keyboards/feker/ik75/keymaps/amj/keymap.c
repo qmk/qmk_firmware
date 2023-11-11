@@ -17,11 +17,13 @@
 
 #include QMK_KEYBOARD_H
 
-static uint16_t key_timer; // timer to track the last keyboard activity
-static void refresh_rgb(void); // refreshes the activity timer and RGB, invoke whenever activity happens
-static void check_rgb_timeout(void); // checks if enough time has passed for RGB to timeout
-bool is_rgb_timeout = false; // store if RGB has timed out or not in a boolean
+//RGB timeout https://gist.github.com/aashreys/01cb34605a290a7cfb94a856bdabc94c
+
+
 bool fn_pressed = false; // value if fn key is pressed
+bool mute_pressed = false; // value if mute key is pressed
+bool vol_UP = false;
+bool vol_DOWN = false;
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -71,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
     /*  Row:    0        1        2        3      4      5      6       7      8      9        10       11       12       13       14       15     */
     [_BASE] = LAYOUT(
-                KC_ESC,  KC_F1,   KC_F2,   KC_F3, KC_F4, KC_F5, KC_F6,  KC_F7, KC_F8, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,           KC_MUTE,
+                KC_ESC,  KC_F1,   KC_F2,   KC_F3, KC_F4, KC_F5, KC_F6,  KC_F7, KC_F8, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,           LT(0,KC_MUTE),
                 KC_GRV,  KC_1,    KC_2,    KC_3,  KC_4,  KC_5,  KC_6,   KC_7,  KC_8,  KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,          KC_INS,
                 KC_TAB,  KC_Q,    KC_W,    KC_E,  KC_R,  KC_T,  KC_Y,   KC_U,  KC_I,  KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,          KC_END,
                 KC_CAPS, KC_A,    KC_S,    KC_D,  KC_F,  KC_G,  KC_H,   KC_J,  KC_K,  KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,  KC_PGUP,
@@ -107,22 +109,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             ),
 };
 
+void refresh_matrix(LED_FLAG) {
+    rgb_matrix_set_flags(LED_FLAG);
+    rgb_matrix_set_color_all(0, 0, 0);
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case RGB_TOG:
             if (record->event.pressed) {
                 switch (rgb_matrix_get_flags()) {
                     case (LED_FLAG_UNDERGLOW): {
-                        rgb_matrix_set_flags(LED_FLAG_NONE);
-                        break;
+                        refresh_matrix(LED_FLAG_NONE);
+                        return true;
                     }
                     case (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR): {
-                        rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
-                        break;
+                        refresh_matrix(LED_FLAG_UNDERGLOW);
+                        return true;
                     }
                     case LED_FLAG_ALL: {
-                        rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
-                        break;
+                        refresh_matrix(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
+                        return true;
                     }
                     default: {
                         rgb_matrix_set_flags(LED_FLAG_ALL);
@@ -130,18 +137,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         return true;
                     }
                 }
-                rgb_matrix_set_color_all(0, 0, 0);
             }
             return false;
         case MO(_FN): //checks if fn key is pressed
+            fn_pressed = not(fn_pressed);
+        case KC_MUTE:{ //checks if fn key is pressed
             if (record->event.pressed) {
-                fn_pressed = true;
-            } else {
-                fn_pressed = false;
+                mute_pressed = not(mute_pressed);
             }
+        }
+        case KC_VOLD:{ //checks if fn key is pressed
+            vol_DOWN = not(vol_DOWN);
+        }
+        case KC_VOLI:{ //checks if fn key is pressed
+            vol_UP = not(vol_UP);
+        }
+        
+        case LT(0,KC_MUTE):{ //sends colon on tap and semicolon on hold
+            if (record->tap.count && record->event.pressed) {
+                return true; // Return true for normal processing of tap keycode
+            } else if (record->event.pressed) {
+                tap_code16(KC_MEDIA_PLAY_PAUSE); // Intercept hold function to send SEMICOLON    
+                return false;
+            }
+            return true; // this allows for normal processing of key release!
+        }
 	}
     return true;
 }
+
 
 bool rgb_matrix_indicators_user(void) {
     rgb_matrix_set_color(46, 0, 0, 0);
@@ -151,21 +175,35 @@ bool rgb_matrix_indicators_user(void) {
     uint8_t blue = host_keyboard_led_state().scroll_lock ? 255 : 0;
     uint8_t green = keymap_config.no_gui ? 255 : 0;
 
+    rgb_matrix_set_color(104, red, green, blue);
+
     if (host_keyboard_led_state().num_lock) {
             rgb_matrix_set_color(46, 255, 0, 0);
         } else {
             rgb_matrix_set_color(46, 0, 0, 0);
         }
     if ((rgb_matrix_get_flags() & LED_FLAG_KEYLIGHT)) {
-        rgb_matrix_set_color(104, red, green, blue);
         if (fn_pressed) {// sets fn key led to white if pressed
             rgb_matrix_set_color(31, RGB_WHITE);
+        }
+        if (vol_UP) {
+            rgb_matrix_set_color(101, RGB_RED);
+        }
+        if (vol_DOWN) {
+            rgb_matrix_set_color(100, RGB_GREEN);
         }
         if (host_keyboard_led_state().caps_lock) {
             rgb_matrix_set_color(32, RGB_WHITE);
         }
+    }
+    if (mute_pressed){
+        rgb_matrix_set_color(99, RGB_WHITE);
+        rgb_matrix_set_color(100, RGB_WHITE);
+        rgb_matrix_set_color(101, RGB_WHITE);
     } else {
-        rgb_matrix_set_color(104, red, green, blue);
+        rgb_matrix_set_color(99, 0, 0, 0);
+        rgb_matrix_set_color(100, 0, 0, 0);
+        rgb_matrix_set_color(101, 0, 0, 0);
     }
     return false;
 }
@@ -173,52 +211,6 @@ bool rgb_matrix_indicators_user(void) {
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [_FN]   = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
+    [_FN]   = { ENCODER_CCW_CW(RGB_SAD, RGB_SAI) },
 };
 #endif
-
-void refresh_rgb() {
-  key_timer = timer_read(); // store time of last refresh
-  if (is_rgb_timeout) { // only do something if rgb has timed out
-    //print("Activity detected, removing timeout\n");
-    is_rgb_timeout = false;
-    rgb_matrix_enable_noeeprom();
-  }
-}
-
-void check_rgb_timeout() {
-  if (!is_rgb_timeout && timer_elapsed(key_timer) > RGBLIGHT_TIMEOUT) {
-    rgb_matrix_disable_noeeprom();
-    is_rgb_timeout = true;
-  }
-}
-
-
-/* Then, call the above functions from QMK's built in post processing functions like so */
-
-/* Runs at the end of each scan loop, check if RGB timeout has occured */
-void housekeeping_task_user(void) {
-  #ifdef RGBLIGHT_TIMEOUT
-  check_rgb_timeout();
-  #endif
-
-  /* rest of the function code here */
-}
-
-/* Runs after each key press, check if activity occurred */
-void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
-  #ifdef RGBLIGHT_TIMEOUT
-  if (record->event.pressed) refresh_rgb();
-  #endif
-
-  /* rest of the function code here */
-}
-
-/* Runs after each encoder tick, check if activity occurred */
-void post_encoder_update_user(uint8_t index, bool clockwise) {
-  #ifdef RGBLIGHT_TIMEOUT
-  refresh_rgb();
-  #endif
-
-  /* rest of the function code here */
-}
