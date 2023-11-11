@@ -19,7 +19,7 @@
 /* RGB Matrix Configuration */
 #define RGB_MATRIX_LED_COUNT 71
 
-#define CKLED2001_CURRENT_TUNE \
+#define SNLED27351_CURRENT_TUNE \
     { 0xBD, 0xBD, 0x5D, 0xBD, 0xBD, 0x5D, 0xBD, 0xBD, 0x5D, 0xBD, 0xBD, 0x5D }
 
 /* Encoder Configuration */

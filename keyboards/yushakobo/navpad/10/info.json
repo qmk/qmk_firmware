@@ -23,7 +23,11 @@
         "brightness_steps": 8,
         "led_count": 9,
         "max_brightness": 120,
-        "sleep": true
+        "sleep": true,
+        "animations": {
+            "rainbow_swirl": true,
+            "rgb_test": true
+        }
     },
     "processor": "atmega32u4",
     "bootloader": "caterina"

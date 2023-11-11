@@ -22,7 +22,7 @@
 /* RGB Matrix Configuration */
 #define RGB_MATRIX_LED_COUNT 87
 
-#define CKLED2001_CURRENT_TUNE \
+#define SNLED27351_CURRENT_TUNE \
     { 0x95, 0x95, 0x55, 0x95, 0x95, 0x55, 0x95, 0x95, 0x55, 0x95, 0x95, 0x55 }
 
 /* Enable CapsLcok LED */

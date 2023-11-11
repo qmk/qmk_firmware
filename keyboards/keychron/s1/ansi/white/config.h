@@ -17,13 +17,12 @@
 #pragma once
 
 /* LED Matrix Driver Configuration */
-#define DRIVER_COUNT 1
-#define DRIVER_ADDR_1 0b1110100
+#define SNLED27351_DRIVER_COUNT 1
+#define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_GND
 #define LED_MATRIX_LED_COUNT 84
 
-/* Scan phase of led driver set as MSKPHASE_9CHANNEL(defined as 0x03 in CKLED2001.h) */
-#define PHASE_CHANNEL MSKPHASE_6CHANNEL
-#define CKLED2001_CURRENT_TUNE \
+#define SNLED27351_PHASE_CHANNEL SNLED27351_MSKPHASE_6CHANNEL
+#define SNLED27351_CURRENT_TUNE \
     { 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80 } // 250mA
     // { 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40 } // 127mA
 
@@ -32,9 +31,3 @@
 
 /* Enable caps-lock LED */
 #define CAPS_LOCK_LED_INDEX 46
-
-// LED Matrix Animation modes. Explicitly enabled
-// For full list of effects, see:
-// https://docs.qmk.fm/#/feature_led_matrix?id=led-matrix-effects
-#define LED_MATRIX_KEYPRESSES
-#define LED_MATRIX_KEYRELEASES

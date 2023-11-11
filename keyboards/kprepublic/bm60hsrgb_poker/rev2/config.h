@@ -15,16 +15,6 @@
  */
 #pragma once
 
-//rgb light setting
-#define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#define RGBLIGHT_EFFECT_SNAKE
-#define RGBLIGHT_EFFECT_KNIGHT
-#define RGBLIGHT_EFFECT_CHRISTMAS
-#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#define RGBLIGHT_EFFECT_RGB_TEST
-#define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_MOOD
 
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
@@ -87,11 +77,11 @@
 // are compiled unconditionally).
 
 // Configure the IS31FL3733 driver for per-key RGB LEDs
-#define DRIVER_COUNT 1
-#define DRIVER_ADDR_1 0b1010000
+#define IS31FL3733_DRIVER_COUNT 1
+#define IS31FL3733_I2C_ADDRESS_1 IS31FL3733_I2C_ADDRESS_GND_GND
 #define DRIVER_1_LED_TOTAL 61
 
-#define ISSI_LED_TOTAL DRIVER_1_LED_TOTAL
+#define IS31FL3733_LED_COUNT DRIVER_1_LED_TOTAL
 
 // Underglow LEDs are WS2812, but someone might want to use RGBLIGHT for them;
 // don't use those LEDs in RGB Matrix in that case.
@@ -101,7 +91,7 @@
 #    define WS2812_LED_TOTAL 6
 #endif
 
-#define RGB_MATRIX_LED_COUNT (ISSI_LED_TOTAL + WS2812_LED_TOTAL)
+#define RGB_MATRIX_LED_COUNT (IS31FL3733_LED_COUNT + WS2812_LED_TOTAL)
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_KEYPRESSES

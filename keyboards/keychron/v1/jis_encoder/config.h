@@ -19,7 +19,7 @@
 /* RGB Matrix Configuration */
 #define RGB_MATRIX_LED_COUNT 86
 
-#define CKLED2001_CURRENT_TUNE \
+#define SNLED27351_CURRENT_TUNE \
     { 0xA0, 0xA0, 0x4D, 0xA0, 0xA0, 0x4D, 0xA0, 0xA0, 0x4D, 0xA0, 0xA0, 0x4D }
 
 /* Enable caps-lock LED */
