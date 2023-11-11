@@ -418,6 +418,13 @@
                 "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
             }
         },
+        "potentiometer": {
+            "type": "object",
+            "properties": {
+                "enabled": {"type": "boolean"},
+                "pins": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
+            }
+        },
         "led_matrix": {
             "type": "object",
             "properties": {

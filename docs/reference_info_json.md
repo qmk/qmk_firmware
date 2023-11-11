@@ -480,6 +480,17 @@ Configures [One Shot keys](one_shot_keys.md).
     * `timeout`
         * The amount of time before the key is released in milliseconds.
 
+## Potentiometer :id=potentiometer
+
+Configures the [Potentiometer](feature_Potentiometers.md) feature.
+
+* `potentiometer`
+    * `enabled`
+        * Enable the Potentiometer feature.
+        * Default: `false`
+    * `pins` (Required)
+        * The GPIO pin(s) connected to the Potentiometer(s).
+
 ## PS/2 :id=ps2
 
 Configures the [PS/2](feature_ps2_mouse.md) feature.

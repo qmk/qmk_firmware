@@ -60,6 +60,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef ENCODER_ENABLE
 #    include "encoder.h"
 #endif
+#ifdef POTENTIOMETER_ENABLE
+#    include "potentiometer.h"
+#endif
 #ifdef HAPTIC_ENABLE
 #    include "haptic.h"
 #endif
@@ -142,6 +145,9 @@ uint32_t        last_input_activity_time(void) {
 }
 uint32_t last_input_activity_elapsed(void) {
     return sync_timer_elapsed32(last_input_modification_time);
+}
+void last_input_activity_trigger(void) {
+    last_input_modification_time = sync_timer_read32();
 }
 
 static uint32_t last_matrix_modification_time = 0;
@@ -440,6 +446,9 @@ void keyboard_init(void) {
 #ifdef DIP_SWITCH_ENABLE
     dip_switch_init();
 #endif
+#ifdef POTENTIOMETER_ENABLE
+    potentiometer_init();
+#endif
 #ifdef SLEEP_LED_ENABLE
     sleep_led_init();
 #endif
@@ -665,6 +674,13 @@ void keyboard_task(void) {
 #ifdef ENCODER_ENABLE
     if (encoder_read()) {
         last_encoder_activity_trigger();
+        activity_has_occurred = true;
+    }
+#endif
+
+#ifdef POTENTIOMETER_ENABLE
+    if (potentiometer_task()) {
+        last_input_activity_trigger();
         activity_has_occurred = true;
     }
 #endif

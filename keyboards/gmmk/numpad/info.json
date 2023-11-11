@@ -20,6 +20,9 @@
             {"pin_a": "A2", "pin_b": "A1"}
         ]
     },
+    "potentiometer": {
+        "pins": ["B0"]
+    },
     "rgb_matrix": {
         "driver": "aw20216s"
     },

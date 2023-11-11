@@ -117,6 +117,9 @@
     "ONESHOT_TIMEOUT": {"info_key": "oneshot.timeout", "value_type": "int"},
     "ONESHOT_TAP_TOGGLE": {"info_key": "oneshot.tap_toggle", "value_type": "int"},
 
+    // Potentiometer
+    "POTENTIOMETER_PINS": {"info_key": "potentiometer.pins", "value_type": "array"},
+
     // PS/2
     "PS2_CLOCK_PIN": {"info_key": "ps2.clock_pin"},
     "PS2_DATA_PIN": {"info_key": "ps2.data_pin"},

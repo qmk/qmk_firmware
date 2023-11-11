@@ -13,11 +13,10 @@ AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes
 KEYBOARD_SHARED_EP = yes
 MIDI_ENABLE = yes
+POTENTIOMETER_ENABLE = yes
 
 RGB_MATRIX_ENABLE = yes
 
 LTO_ENABLE = yes
-
-ANALOG_DRIVER_REQUIRED = yes
 
 SRC += matrix.c
