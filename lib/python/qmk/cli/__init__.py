@@ -69,6 +69,7 @@ subcommands = [
     'qmk.cli.import.keymap',
     'qmk.cli.info',
     'qmk.cli.json2c',
+    'qmk.cli.license_check',
     'qmk.cli.lint',
     'qmk.cli.kle2json',
     'qmk.cli.list.keyboards',

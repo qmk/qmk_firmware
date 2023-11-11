@@ -40,6 +40,8 @@
 #define IS31FL3741_REG_PWM_FREQUENCY 0x36 // PG4
 #define IS31FL3741_REG_RESET 0x3F         // PG4
 
+#define IS31FL3741_PWM_REGISTER_COUNT 351
+
 #ifndef IS31FL3741_I2C_TIMEOUT
 #    define IS31FL3741_I2C_TIMEOUT 100
 #endif
@@ -56,19 +58,17 @@
 #    define IS31FL3741_PWM_FREQUENCY IS31FL3741_PWM_FREQUENCY_29K_HZ
 #endif
 
-#ifndef IS31FL3741_SWPULLUP
-#    define IS31FL3741_SWPULLUP IS31FL3741_PUR_32KR
+#ifndef IS31FL3741_SW_PULLUP
+#    define IS31FL3741_SW_PULLUP IS31FL3741_PUR_32K_OHM
 #endif
 
-#ifndef IS31FL3741_CSPULLUP
-#    define IS31FL3741_CSPULLUP IS31FL3741_PUR_32KR
+#ifndef IS31FL3741_CS_PULLDOWN
+#    define IS31FL3741_CS_PULLDOWN IS31FL3741_PDR_32K_OHM
 #endif
 
 #ifndef IS31FL3741_GLOBALCURRENT
 #    define IS31FL3741_GLOBALCURRENT 0xFF
 #endif
-
-#define IS31FL3741_MAX_LEDS 351
 
 // Transfer buffer for TWITransmitData()
 uint8_t g_twi_transfer_buffer[20] = {0xFF};
@@ -79,11 +79,11 @@ uint8_t g_twi_transfer_buffer[20] = {0xFF};
 // We could optimize this and take out the unused registers from these
 // buffers and the transfers in is31fl3741_write_pwm_buffer() but it's
 // probably not worth the extra complexity.
-uint8_t g_pwm_buffer[IS31FL3741_DRIVER_COUNT][IS31FL3741_MAX_LEDS];
+uint8_t g_pwm_buffer[IS31FL3741_DRIVER_COUNT][IS31FL3741_PWM_REGISTER_COUNT];
 bool    g_pwm_buffer_update_required[IS31FL3741_DRIVER_COUNT]        = {false};
 bool    g_scaling_registers_update_required[IS31FL3741_DRIVER_COUNT] = {false};
 
-uint8_t g_scaling_registers[IS31FL3741_DRIVER_COUNT][IS31FL3741_MAX_LEDS];
+uint8_t g_scaling_registers[IS31FL3741_DRIVER_COUNT][IS31FL3741_PWM_REGISTER_COUNT];
 
 void is31fl3741_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
     g_twi_transfer_buffer[0] = reg;
@@ -192,7 +192,7 @@ void is31fl3741_init(uint8_t addr) {
     // Set Golbal Current Control Register
     is31fl3741_write_register(addr, IS31FL3741_REG_GLOBALCURRENT, IS31FL3741_GLOBALCURRENT);
     // Set Pull up & Down for SWx CSy
-    is31fl3741_write_register(addr, IS31FL3741_REG_PULLDOWNUP, ((IS31FL3741_CSPULLUP << 4) | IS31FL3741_SWPULLUP));
+    is31fl3741_write_register(addr, IS31FL3741_REG_PULLDOWNUP, ((IS31FL3741_CS_PULLDOWN << 4) | IS31FL3741_SW_PULLUP));
     // Set PWM frequency
     is31fl3741_write_register(addr, IS31FL3741_REG_PWM_FREQUENCY, (IS31FL3741_PWM_FREQUENCY & 0b1111));
 

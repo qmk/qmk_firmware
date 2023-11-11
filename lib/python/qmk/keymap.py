@@ -192,15 +192,14 @@ def _strip_any(keycode):
     return keycode
 
 
-def find_keymap_from_dir():
-    """Returns `(keymap_name, source)` for the directory we're currently in.
-
+def find_keymap_from_dir(*args):
+    """Returns `(keymap_name, source)` for the directory provided (or cwd if not specified).
     """
-    def _impl_find_keymap_from_dir(relative_cwd):
-        if relative_cwd and len(relative_cwd.parts) > 1:
+    def _impl_find_keymap_from_dir(relative_path):
+        if relative_path and len(relative_path.parts) > 1:
             # If we're in `qmk_firmware/keyboards` and `keymaps` is in our path, try to find the keyboard name.
-            if relative_cwd.parts[0] == 'keyboards' and 'keymaps' in relative_cwd.parts:
-                current_path = Path('/'.join(relative_cwd.parts[1:]))  # Strip 'keyboards' from the front
+            if relative_path.parts[0] == 'keyboards' and 'keymaps' in relative_path.parts:
+                current_path = Path('/'.join(relative_path.parts[1:]))  # Strip 'keyboards' from the front
 
                 if 'keymaps' in current_path.parts and current_path.name != 'keymaps':
                     while current_path.parent.name != 'keymaps':
@@ -209,21 +208,21 @@ def find_keymap_from_dir():
                     return current_path.name, 'keymap_directory'
 
             # If we're in `qmk_firmware/layouts` guess the name from the community keymap they're in
-            elif relative_cwd.parts[0] == 'layouts' and is_keymap_dir(relative_cwd):
-                return relative_cwd.name, 'layouts_directory'
+            elif relative_path.parts[0] == 'layouts' and is_keymap_dir(relative_path):
+                return relative_path.name, 'layouts_directory'
 
             # If we're in `qmk_firmware/users` guess the name from the userspace they're in
-            elif relative_cwd.parts[0] == 'users':
+            elif relative_path.parts[0] == 'users':
                 # Guess the keymap name based on which userspace they're in
-                return relative_cwd.parts[1], 'users_directory'
+                return relative_path.parts[1], 'users_directory'
         return None, None
 
     if HAS_QMK_USERSPACE:
-        name, source = _impl_find_keymap_from_dir(qmk.path.under_qmk_userspace())
+        name, source = _impl_find_keymap_from_dir(qmk.path.under_qmk_userspace(*args))
         if name and source:
             return name, source
 
-    name, source = _impl_find_keymap_from_dir(qmk.path.under_qmk_firmware())
+    name, source = _impl_find_keymap_from_dir(qmk.path.under_qmk_firmware(*args))
     if name and source:
         return name, source
 
@@ -697,7 +696,7 @@ def parse_keymap_c(keymap_file, use_cpp=True):
     Returns:
         a dictionary containing the parsed keymap
     """
-    if keymap_file == '-':
+    if not isinstance(keymap_file, (Path, str)) or keymap_file == '-':
         if use_cpp:
             keymap_file = _c_preprocess(None, sys.stdin)
         else:

@@ -23,11 +23,9 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "progmem.h"
+#include "util.h"
 
 // ======== DEPRECATED DEFINES - DO NOT USE ========
-#ifdef LED_DRIVER_COUNT
-#    define IS31FL3733_DRIVER_COUNT LED_DRIVER_COUNT
-#endif
 #ifdef ISSI_TIMEOUT
 #    define IS31FL3733_I2C_TIMEOUT ISSI_TIMEOUT
 #endif
@@ -38,10 +36,10 @@
 #    define IS31FL3733_PWM_FREQUENCY ISSI_PWM_FREQUENCY
 #endif
 #ifdef ISSI_SWPULLUP
-#    define IS31FL3733_SWPULLUP ISSI_SWPULLUP
+#    define IS31FL3733_SW_PULLUP ISSI_SWPULLUP
 #endif
 #ifdef ISSI_CSPULLUP
-#    define IS31FL3733_CSPULLUP ISSI_CSPULLUP
+#    define IS31FL3733_CS_PULLDOWN ISSI_CSPULLUP
 #endif
 #ifdef ISSI_GLOBALCURRENT
 #    define IS31FL3733_GLOBALCURRENT ISSI_GLOBALCURRENT
@@ -50,13 +48,13 @@
 #define is31_led is31fl3733_led_t
 #define g_is31_leds g_is31fl3733_leds
 
-#define PUR_0R IS31FL3733_PUR_0R
-#define PUR_05KR IS31FL3733_PUR_05KR
-#define PUR_3KR IS31FL3733_PUR_3KR
-#define PUR_4KR IS31FL3733_PUR_4KR
-#define PUR_8KR IS31FL3733_PUR_8KR
-#define PUR_16KR IS31FL3733_PUR_16KR
-#define PUR_32KR IS31FL3733_PUR_32KR
+#define PUR_0R IS31FL3733_PUR_0_OHM
+#define PUR_05KR IS31FL3733_PUR_1K_OHM
+#define PUR_3KR IS31FL3733_PUR_2K_OHM
+#define PUR_4KR IS31FL3733_PUR_4K_OHM
+#define PUR_8KR IS31FL3733_PUR_8K_OHM
+#define PUR_16KR IS31FL3733_PUR_16K_OHM
+#define PUR_32KR IS31FL3733_PUR_32K_OHM
 // ========
 
 #define IS31FL3733_I2C_ADDRESS_GND_GND 0x50
@@ -80,10 +78,20 @@
 #    define IS31FL3733_LED_COUNT LED_MATRIX_LED_COUNT
 #endif
 
+#if defined(IS31FL3733_I2C_ADDRESS_4)
+#    define IS31FL3733_DRIVER_COUNT 4
+#elif defined(IS31FL3733_I2C_ADDRESS_3)
+#    define IS31FL3733_DRIVER_COUNT 3
+#elif defined(IS31FL3733_I2C_ADDRESS_2)
+#    define IS31FL3733_DRIVER_COUNT 2
+#elif defined(IS31FL3733_I2C_ADDRESS_1)
+#    define IS31FL3733_DRIVER_COUNT 1
+#endif
+
 typedef struct is31fl3733_led_t {
     uint8_t driver : 2;
     uint8_t v;
-} __attribute__((packed)) is31fl3733_led_t;
+} PACKED is31fl3733_led_t;
 
 extern const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT];
 
@@ -106,13 +114,23 @@ void is31fl3733_update_led_control_registers(uint8_t addr, uint8_t index);
 
 void is31fl3733_flush(void);
 
-#define IS31FL3733_PUR_0R 0x00   // No PUR resistor
-#define IS31FL3733_PUR_05KR 0x02 // 0.5k Ohm resistor in t_NOL
-#define IS31FL3733_PUR_3KR 0x03  // 3.0k Ohm resistor on all the time
-#define IS31FL3733_PUR_4KR 0x04  // 4.0k Ohm resistor on all the time
-#define IS31FL3733_PUR_8KR 0x05  // 8.0k Ohm resistor on all the time
-#define IS31FL3733_PUR_16KR 0x06 // 16k Ohm resistor on all the time
-#define IS31FL3733_PUR_32KR 0x07 // 32k Ohm resistor in t_NOL
+#define IS31FL3733_PDR_0_OHM 0b000   // No pull-down resistor
+#define IS31FL3733_PDR_0K5_OHM 0b001 // 0.5 kOhm resistor
+#define IS31FL3733_PDR_1K_OHM 0b010  // 1 kOhm resistor
+#define IS31FL3733_PDR_2K_OHM 0b011  // 2 kOhm resistor
+#define IS31FL3733_PDR_4K_OHM 0b100  // 4 kOhm resistor
+#define IS31FL3733_PDR_8K_OHM 0b101  // 8 kOhm resistor
+#define IS31FL3733_PDR_16K_OHM 0b110 // 16 kOhm resistor
+#define IS31FL3733_PDR_32K_OHM 0b111 // 32 kOhm resistor
+
+#define IS31FL3733_PUR_0_OHM 0b000   // No pull-up resistor
+#define IS31FL3733_PUR_0K5_OHM 0b001 // 0.5 kOhm resistor
+#define IS31FL3733_PUR_1K_OHM 0b010  // 1 kOhm resistor
+#define IS31FL3733_PUR_2K_OHM 0b011  // 2 kOhm resistor
+#define IS31FL3733_PUR_4K_OHM 0b100  // 4 kOhm resistor
+#define IS31FL3733_PUR_8K_OHM 0b101  // 8 kOhm resistor
+#define IS31FL3733_PUR_16K_OHM 0b110 // 16 kOhm resistor
+#define IS31FL3733_PUR_32K_OHM 0b111 // 32 kOhm resistor
 
 #define IS31FL3733_PWM_FREQUENCY_8K4_HZ 0b000
 #define IS31FL3733_PWM_FREQUENCY_4K2_HZ 0b001

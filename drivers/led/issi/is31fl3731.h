@@ -20,6 +20,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "progmem.h"
+#include "util.h"
 
 // ======== DEPRECATED DEFINES - DO NOT USE ========
 #ifdef DRIVER_ADDR_1
@@ -33,9 +34,6 @@
 #endif
 #ifdef DRIVER_ADDR_4
 #    define IS31FL3731_I2C_ADDRESS_4 DRIVER_ADDR_4
-#endif
-#ifdef DRIVER_COUNT
-#    define IS31FL3731_DRIVER_COUNT DRIVER_COUNT
 #endif
 #ifdef ISSI_TIMEOUT
 #    define IS31FL3731_I2C_TIMEOUT ISSI_TIMEOUT
@@ -60,12 +58,22 @@
 #    define IS31FL3731_LED_COUNT RGB_MATRIX_LED_COUNT
 #endif
 
+#if defined(IS31FL3731_I2C_ADDRESS_4)
+#    define IS31FL3731_DRIVER_COUNT 4
+#elif defined(IS31FL3731_I2C_ADDRESS_3)
+#    define IS31FL3731_DRIVER_COUNT 3
+#elif defined(IS31FL3731_I2C_ADDRESS_2)
+#    define IS31FL3731_DRIVER_COUNT 2
+#elif defined(IS31FL3731_I2C_ADDRESS_1)
+#    define IS31FL3731_DRIVER_COUNT 1
+#endif
+
 typedef struct is31fl3731_led_t {
     uint8_t driver : 2;
     uint8_t r;
     uint8_t g;
     uint8_t b;
-} __attribute__((packed)) is31fl3731_led_t;
+} PACKED is31fl3731_led_t;
 
 extern const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT];
 

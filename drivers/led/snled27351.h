@@ -19,11 +19,9 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "progmem.h"
+#include "util.h"
 
 // ======== DEPRECATED DEFINES - DO NOT USE ========
-#ifdef DRIVER_COUNT
-#    define SNLED27351_DRIVER_COUNT DRIVER_COUNT
-#endif
 #ifdef DRIVER_ADDR_1
 #    define SNLED27351_I2C_ADDRESS_1 DRIVER_ADDR_1
 #endif
@@ -75,12 +73,22 @@
 #    define SNLED27351_LED_COUNT RGB_MATRIX_LED_COUNT
 #endif
 
+#if defined(SNLED27351_I2C_ADDRESS_4)
+#    define SNLED27351_DRIVER_COUNT 4
+#elif defined(SNLED27351_I2C_ADDRESS_3)
+#    define SNLED27351_DRIVER_COUNT 3
+#elif defined(SNLED27351_I2C_ADDRESS_2)
+#    define SNLED27351_DRIVER_COUNT 2
+#elif defined(SNLED27351_I2C_ADDRESS_1)
+#    define SNLED27351_DRIVER_COUNT 1
+#endif
+
 typedef struct snled27351_led_t {
     uint8_t driver : 2;
     uint8_t r;
     uint8_t g;
     uint8_t b;
-} __attribute__((packed)) snled27351_led_t;
+} PACKED snled27351_led_t;
 
 extern const snled27351_led_t PROGMEM g_snled27351_leds[SNLED27351_LED_COUNT];
 
