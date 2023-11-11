@@ -103,6 +103,8 @@ bool snled27351_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
 }
 
 void snled27351_init_drivers(void) {
+    i2c_init();
+
     snled27351_init(SNLED27351_I2C_ADDRESS_1);
 #if defined(SNLED27351_I2C_ADDRESS_2)
     snled27351_init(SNLED27351_I2C_ADDRESS_2);
