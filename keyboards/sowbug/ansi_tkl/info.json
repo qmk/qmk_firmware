@@ -22,10 +22,12 @@
     "processor": "STM32F103",
     "bootloader": "stm32duino",
     "layout_aliases": {
-        "LAYOUT": "LAYOUT_default"
+        "LAYOUT": "LAYOUT_tkl_ansi",
+        "LAYOUT_default": "LAYOUT_tkl_ansi"
     },
+    "community_layouts": ["tkl_ansi"],
     "layouts": {
-        "LAYOUT_default": {
+        "LAYOUT_tkl_ansi": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
 
