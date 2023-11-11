@@ -152,12 +152,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_VOLI:{ //checks if fn key is pressed
             vol_UP = not(vol_UP);
         }
-        
+
         case LT(0,KC_MUTE):{ //sends colon on tap and semicolon on hold
             if (record->tap.count && record->event.pressed) {
                 return true; // Return true for normal processing of tap keycode
             } else if (record->event.pressed) {
-                tap_code16(KC_MEDIA_PLAY_PAUSE); // Intercept hold function to send SEMICOLON    
+                tap_code16(KC_MEDIA_PLAY_PAUSE); // Intercept hold function to send SEMICOLON
                 return false;
             }
             return true; // this allows for normal processing of key release!
