@@ -136,7 +136,7 @@ void snled27351_init(uint8_t addr) {
     // Setting LED driver to shutdown mode
     snled27351_write_register(addr, SNLED27351_FUNCTION_REG_SOFTWARE_SHUTDOWN, SNLED27351_SOFTWARE_SHUTDOWN_SSD_SHUTDOWN);
     // Setting internal channel pulldown/pullup
-    snled27351_write_register(addr, SNLED27351_REG_PULLDOWNUP, SNLED27351_PULLDOWNUP_ALL_ENABLED);
+    snled27351_write_register(addr, SNLED27351_FUNCTION_REG_PULLDOWNUP, SNLED27351_PULLDOWNUP_ALL_ENABLED);
     // Select number of scan phase
     snled27351_write_register(addr, SNLED27351_FUNCTION_REG_SCAN_PHASE, SNLED27351_PHASE_CHANNEL);
     // Setting PWM Delay Phase
@@ -258,7 +258,7 @@ void snled27351_sw_shutdown(uint8_t addr) {
     // Select to function page
     snled27351_write_register(addr, SNLED27351_REG_COMMAND, SNLED27351_COMMAND_FUNCTION);
     // Setting LED driver to shutdown mode
-    snled27351_write_register(addr, SNLED27351_FUNCTION_REG_CONFIGURATION, SNLED27351_SOFTWARE_SHUTDOWN_SSD_SHUTDOWN);
+    snled27351_write_register(addr, SNLED27351_FUNCTION_REG_SOFTWARE_SHUTDOWN, SNLED27351_SOFTWARE_SHUTDOWN_SSD_SHUTDOWN);
     // Write SW Sleep Register
     snled27351_write_register(addr, SNLED27351_FUNCTION_REG_SOFTWARE_SLEEP, SNLED27351_SOFTWARE_SLEEP_ENABLE);
 }
