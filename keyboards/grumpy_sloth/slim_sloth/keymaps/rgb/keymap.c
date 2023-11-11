@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RALT, MO(_RGBL), KC_APP,  KC_RCTL,    KC_LEFT, KC_DOWN, KC_RGHT,    KC_P0,            KC_PDOT
     ),
     [_RGBL] = LAYOUT_fullsize_ansi(
-        EE_CLR,           _______, _______, _______, _______, KC_MPRV, KC_MPLY, KC_MSTP, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, KC_CALC, _______, _______, _______, _______,  _______,  _______,  _______,
+        EE_CLR,           _______, _______, _______, _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, KC_CALC, _______, _______, _______, _______,  _______,  _______,  _______,
 
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_HUI, RGB_SAI, RGB_VAI, _______,  _______,  _______,  _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_HUD, RGB_SAD, RGB_VAD, RGB_M_X,  RGB_M_G,  RGB_M_TW, _______,
