@@ -148,10 +148,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
         }
         case KC_VOLD:{ //checks if fn key is pressed
-            vol_DOWN = not(vol_DOWN);
+            vol_DOWN = !(vol_DOWN);
         }
-        case KC_VOLI:{ //checks if fn key is pressed
-            vol_UP = not(vol_UP);
+        case KC_VOLU:{ //checks if fn key is pressed
+            vol_UP = !(vol_UP);
         }
 
         case LT(0,KC_MUTE):{ //sends colon on tap and semicolon on hold
