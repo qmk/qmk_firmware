@@ -1,12 +1,14 @@
 /* Copyright 2023 RephlexZero (@RephlexZero)
 SPDX-License-Identifier: GPL-2.0-or-later */
 #include <stdint.h>
+#include <stdio.h>
 #include <stdbool.h>
 #include "2k.h"
 #include "quantum.h"
 #include "analog.h"
 #include "eeprom.h"
 #include "scanfunctions.h"
+#include "print.h"
 
 analog_config g_config = {
     .mode = dynamic_actuation,
@@ -27,36 +29,42 @@ void         bootmagic_lite(void) {
 #endif
 
 #ifdef DEFERRED_EXEC_ENABLE
-uint32_t idle_recalibrate_callback(uint32_t trigger_time, void *cb_arg) {
-    get_sensor_offsets();
-    return 10000;
+
+#    ifdef DEBUG_ENABLE
+deferred_token debug_token;
+bool           debug_print(void) {
+    char buffer[MATRIX_ROWS * MATRIX_COLS * 5 + MATRIX_ROWS * 2];
+    buffer[0] = '\0';
+
+    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+        for (uint8_t col = 0; col < MATRIX_COLS; col++) {
+            key_t *key = &keys[row][col];
+            char   temp[6];
+            snprintf(temp, sizeof(temp), "%5u", key->value);
+            strcat(buffer, temp);
+        }
+        strcat(buffer, "\n");
+    }
+
+    uprintf("Analog values:\n%s", buffer);
+    return true;
 }
+
+uint32_t debug_print_callback(uint32_t trigger_time, void *cb_arg) {
+    debug_print();
+    return 25;
+}
+#    endif
 
 deferred_token idle_recalibrate_token;
 bool           process_record_kb(uint16_t keycode, keyrecord_t *record) {
     extend_deferred_exec(idle_recalibrate_token, 300000);
     return true;
 }
-#endif
 
-#ifdef DEBUG_ENABLE
-static uint8_t i = 0;
-void           housekeeping_task_kb(void) {
-    if (i == 0) {
-        char formattedString[200]; // Adjust the buffer size as needed
-
-        snprintf(formattedString, sizeof(formattedString), "Mode: %d Actuation Point: %d Press/Release Sensitivity: %d/%d\n", g_config.mode, g_config.actuation_point, g_config.press_sensitivity, g_config.release_sensitivity);
-
-        for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-            for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-                snprintf(formattedString + strlen(formattedString), sizeof(formattedString) - strlen(formattedString), "%d/%d/%d ", keys[row][col].value, keys[row][col].extremum, analogReadPin(matrix_pins[row][col]));
-            }
-            strcat(formattedString, "\n\n");
-        }
-
-        uprintf("%s", formattedString);
-    }
-    i++;
+uint32_t idle_recalibrate_callback(uint32_t trigger_time, void *cb_arg) {
+    get_sensor_offsets();
+    return 10000;
 }
 #endif
 
@@ -68,12 +76,15 @@ void values_save(void) {
     eeconfig_update_kb_datablock(&g_config);
 }
 
-void          eeconfig_init_kb() {
+void eeconfig_init_kb() {
     values_save();
 }
 
 void keyboard_post_init_kb(void) {
 #ifdef DEFERRED_EXEC_ENABLE
+#    ifdef DEBUG_ENABLE
+    debug_token = defer_exec(1000, debug_print_callback, NULL);
+#    endif
     idle_recalibrate_token = defer_exec(300000, idle_recalibrate_callback, NULL);
 #endif
     values_load();

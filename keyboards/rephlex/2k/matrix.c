@@ -4,7 +4,6 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 #include <stdbool.h>
 #include <string.h>
 #include <stdlib.h>
-#include "print.h"
 #include "quantum.h"
 #include "analog.h"
 #include "lut.h"
