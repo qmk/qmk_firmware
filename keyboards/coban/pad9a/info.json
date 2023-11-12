@@ -44,9 +44,6 @@
             {"flags": 4, "matrix": [0, 7], "x": 224, "y": 64}
         ]
     },
-    "rgblight": {
-        "led_count": 6
-    },
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -1,8 +1,8 @@
 # Coban Pad 9A
 
-![Coban Pad 9A](https://i.imgur.com/0afuIuYh.png)
+![Coban Pad 9A](https://i.imgur.com/5svg1RM.jpeg)
 
-Small macro keyboard with 2 hotswapable button and 1 EC11 rotary encoder
+Small macro keyboard with 6 hotswapable button and 2 EC11 rotary encoder
 
 * Keyboard Maintainer: [RyanDam](https://github.com/RyanDam)  
 * Hardware Supported: Coban Pad 9A
