@@ -1,6 +1,6 @@
 {
     "manufacturer": "Tweetys Wild Thinking",
-    "keyboard_name": "Chameleon (QMK)",
+    "keyboard_name": "Chameleon",
     "maintainer": "TweetyDaBird",
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
