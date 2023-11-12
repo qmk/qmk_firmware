@@ -28,10 +28,6 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 }
 #endif
 
-void pointing_device_init_kb(void) {
-    pointing_device_set_cpi(PMW3360_INITIAL_CPI);
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_F18:
