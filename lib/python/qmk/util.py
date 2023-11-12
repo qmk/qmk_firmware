@@ -61,5 +61,5 @@ def parallel_map(*args, **kwargs):
 def triplet_to_bcd(stringVersion: str):
     m = TRIPLET_PATTERN.match(stringVersion)
     if not m:
-        return '0'
+        return '0x00000000'
     return f'0x{int(m.group(1)):02d}{int(m.group(2)):02d}{int(m.group(3)):04d}'
