@@ -39,7 +39,3 @@
 
 /* turn off effects when suspended */
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
-
-/* EEPROM Driver Configuration */
-#define WEAR_LEVELING_LOGICAL_SIZE 2048
-#define WEAR_LEVELING_BACKING_SIZE (WEAR_LEVELING_LOGICAL_SIZE * 2)

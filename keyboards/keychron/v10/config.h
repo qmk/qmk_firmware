@@ -53,7 +53,3 @@
 
 /* Encoder Configuration */
 #define ENCODER_DEFAULT_POS 0x3
-
-/* EEPROM Driver Configuration */
-#define WEAR_LEVELING_LOGICAL_SIZE 2048
-#define WEAR_LEVELING_BACKING_SIZE (WEAR_LEVELING_LOGICAL_SIZE * 2)

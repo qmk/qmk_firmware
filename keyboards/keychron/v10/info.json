@@ -8,24 +8,25 @@
         "matrix": [0, 1]
     },
     "diode_direction": "ROW2COL",
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "A10", "pin_b": "A8"}
         ]
     },
     "features": {
-        "audio": false,
-        "backlight": false,
         "bootmagic": true,
         "command": false,
         "console": false,
         "dip_switch": true,
-        "encoder": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgb_matrix": true,
-        "rgblight": false
+        "rgb_matrix": true
     },
     "processor": "STM32L432",
     "rgb_matrix": {
@@ -52,7 +53,7 @@
             "splash": true,
             "typing_heatmap": true
         },
-        "driver": "CKLED2001"
+        "driver": "snled27351"
     },
     "usb": {
         "vid": "0x3434"
