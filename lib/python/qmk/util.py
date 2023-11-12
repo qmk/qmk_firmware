@@ -59,8 +59,8 @@ def parallel_map(*args, **kwargs):
         return list(map_fn(*args, **kwargs))
 
 
-def triplet_to_bcd(stringVersion: str):
-    m = TRIPLET_PATTERN.match(stringVersion)
+def triplet_to_bcd(ver: str):
+    m = TRIPLET_PATTERN.match(ver)
     if not m:
         return '0x00000000'
     return f'0x{int(m.group(1)):02d}{int(m.group(2)):02d}{int(m.group(3)):04d}'
