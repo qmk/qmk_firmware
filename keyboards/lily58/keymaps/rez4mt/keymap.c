@@ -17,8 +17,6 @@
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 
-//extern uint8_t is_master;
-
 enum layer_number {
   _QWERTY = 0,
   _LOWER,
@@ -146,6 +144,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
+
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+                // Mappings for 1st Encoder                        // Mappings for 2nd Encoder
+    [_QWERTY] = { ENCODER_CCW_CW(KC_MS_WH_LEFT, KC_MS_WH_RIGHT),  ENCODER_CCW_CW(KC_MS_WH_DOWN, KC_MS_WH_UP)  },
+    [_LOWER]  = { ENCODER_CCW_CW(XXXXXXX, XXXXXXX),               ENCODER_CCW_CW(KC_VOLU, KC_VOLD)  },
+    [_RAISE]  = { ENCODER_CCW_CW(C(KC_Z), C(KC_Y)),               ENCODER_CCW_CW(XXXXXXX, XXXXXXX)  },
+    [_ADJUST] = { ENCODER_CCW_CW(XXXXXXX, XXXXXXX),               ENCODER_CCW_CW(XXXXXXX, XXXXXXX) },
+
+    // You can add more layers here if you need them, or you can also delete lines for layers you are not using
+};
+#endif
+
 #ifdef OLED_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -210,7 +221,6 @@ const char *read_keylog(void) {
 const char *read_keylogs(void) {
   return keylogs_str;
 }
-//new
 
 bool oled_task_user(void) {
   if (is_keyboard_master()) {
@@ -255,48 +265,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-#ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    bool isLeft = index != RIGHT_ENCODER_INDEX;
-    switch (biton32(layer_state)) {
-        case _QWERTY:
-            if (isLeft) {
-                if (clockwise) {
-                    tap_code(KC_MS_WH_RIGHT);
-                } else {
-                    tap_code(KC_MS_WH_LEFT);
-                }
-            } else {
-                if (clockwise) {
-                    tap_code(KC_MS_WH_UP);
-                } else {
-                    tap_code(KC_MS_WH_DOWN);
-                }
-            }
-            break;
-        case _LOWER:
-            if (isLeft) {
-                // No action because its hard to rotate the encoder when layer is enabled
-            } else {
-                if (clockwise) {
-                    tap_code(KC_VOLD);
-                } else {
-                    tap_code(KC_VOLU);
-                }
-            }
-            break;
-        case _RAISE:
-            if (isLeft) {
-                if (clockwise) {
-                    tap_code16(C(KC_Y));
-                } else {
-                    tap_code16(C(KC_Z));
-                }
-            } else {
-                // No action because its hard to rotate the encoder when layer is enabled
-            }
-            break;
-    }
-    return false;
-}
-#endif
