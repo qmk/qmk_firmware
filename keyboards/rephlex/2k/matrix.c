@@ -11,7 +11,7 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 
 pin_t         matrix_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
 
-key_t         keys[MATRIX_ROWS][MATRIX_COLS]        = {0};
+analog_key_t         keys[MATRIX_ROWS][MATRIX_COLS]        = {0};
 
 void matrix_init_custom(void) {
     generate_lut();
@@ -27,7 +27,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
 
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
         for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
-            key_t *key = &keys[current_row][current_col];
+            analog_key_t *key = &keys[current_row][current_col];
             key->value = lut[analogReadPin(matrix_pins[current_row][current_col]) + key->offset];
             key->value = MIN((key->value << 8) / lut[1100 + key->offset], 255);
 

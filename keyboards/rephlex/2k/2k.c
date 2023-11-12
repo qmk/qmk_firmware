@@ -38,7 +38,7 @@ bool           debug_print(void) {
 
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-            key_t *key = &keys[row][col];
+            analog_key_t *key = &keys[row][col];
             char   temp[6];
             snprintf(temp, sizeof(temp), "%5u", key->value);
             strcat(buffer, temp);
