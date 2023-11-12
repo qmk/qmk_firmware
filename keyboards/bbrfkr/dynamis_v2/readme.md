@@ -1,7 +1,7 @@
 # dynamis
 
 ## general information
-![dynamis](https://i.imgur.com/Zs6MWPe.jpeg)
+![dynamis](https://i.imgur.com/Zs6MWPeh.jpeg)
 
 Upgradable 65% row staggered keyboard integrated a trackball
 
