@@ -19,14 +19,9 @@ AUDIO_ENABLE = no           # Audio output
 
 # OLED enabled
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
 
 # RGB Matrix enabled
 RGB_MATRIX_ENABLE = yes
 
 # Encoder enabled
 ENCODER_ENABLE = yes
-
-# Wear-levelling driver
-EEPROM_DRIVER = wear_leveling
-WEAR_LEVELING_DRIVER = embedded_flash

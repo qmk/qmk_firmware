@@ -23,7 +23,7 @@
     },
     "processor": "atmega32u4",
     "rgb_matrix": {
-        "driver": "WS2812",
+        "driver": "ws2812",
         "layout": [
             {"flags": 4, "matrix": [2, 0], "x": 7, "y": 32},
             {"flags": 4, "matrix": [1, 0], "x": 4, "y": 16},
