@@ -8,6 +8,7 @@ from milc import cli
 
 TRIPLET_PATTERN = re.compile(r'^(\d+)\.(\d+)\.(\d+)')
 
+
 @contextlib.contextmanager
 def parallelize():
     """Returns a function that can be used in place of a map() call.

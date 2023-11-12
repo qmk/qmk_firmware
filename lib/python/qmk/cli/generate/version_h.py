@@ -49,7 +49,6 @@ def generate_version_h(cli):
         chibios_version = git_get_version("chibios", "os") or current_time
         chibios_contrib_version = git_get_version("chibios-contrib", "os") or current_time
 
-
     # Build the version.h file.
     version_h_lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '#pragma once']
 
