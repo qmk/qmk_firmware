@@ -1,20 +1,19 @@
-# relapsekb/h87nu
+# OR87
 
-![relapsekb/h87nu](imgur.com image replace me!)
+![OR87](https://i.imgur.com/nvXwreYl.jpg)
 
-*A short description of the keyboard/project*
+TKL keyboard by Relapse-KB.
 
 * Keyboard Maintainer: [Ramon Imbao](https://github.com/ramonimbao)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: ATmega32u4
 
 Make example for this keyboard (after setting up your build environment):
 
-    make relapsekb/h87nu:default
+    make relapsekb/or87:default
 
 Flashing example for this keyboard:
 
-    make relapsekb/h87nu:default:flash
+    make relapsekb/or87:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
