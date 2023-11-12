@@ -4,9 +4,9 @@
     "url": "",
     "maintainer": "dunk2k",
     "usb": {
-        "vid": "0x444D",
-        "pid": "0x3536",
-        "device_version": "0.0.1"
+        "vid": "0x444C",
+        "pid": "0xA57B",
+        "device_version": "1.0.0"
     },
     "features": {
         "bootmagic": true,

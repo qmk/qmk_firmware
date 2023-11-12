@@ -98,7 +98,6 @@
             "matrix": [4, 6]
         },
         "soft_serial_pin": "D2",
-        "main": "matrix_grid",
         "matrix_pins": {
             "right": {
                 "rows": ["F6", "F7", "B1", "B3"],
@@ -123,7 +122,7 @@
         "pin": "D3"
     },
     "rgb_matrix": {
-        "driver": "WS2812",
+        "driver": "ws2812",
         "layout": [
             {"flags": 2, "x": 75, "y": 2},                     // L RGB1
             {"flags": 2, "x": 50, "y": 1},                     // L RGB2
