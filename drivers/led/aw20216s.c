@@ -91,16 +91,16 @@ static void aw20216s_init_scaling(pin_t cs_pin) {
 
 static inline void aw20216s_init_current_limit(pin_t cs_pin) {
     // Push config
-    aw20216s_write_register(cs_pin, AW20216S_PAGE_FUNCTION, AW20216S_REG_GLOBAL_CURRENT, AW20216S_GLOBAL_CURRENT_MAX);
+    aw20216s_write_register(cs_pin, AW20216S_PAGE_FUNCTION, AW20216S_FUNCTION_REG_GLOBAL_CURRENT, AW20216S_GLOBAL_CURRENT_MAX);
 }
 
 static inline void aw20216s_soft_enable(pin_t cs_pin) {
     // Push config
-    aw20216s_write_register(cs_pin, AW20216S_PAGE_FUNCTION, AW20216S_REG_CONFIGURATION, AW20216S_CONFIGURATION);
+    aw20216s_write_register(cs_pin, AW20216S_PAGE_FUNCTION, AW20216S_FUNCTION_REG_CONFIGURATION, AW20216S_CONFIGURATION);
 }
 
 static inline void aw20216s_auto_lowpower(pin_t cs_pin) {
-    aw20216s_write_register(cs_pin, AW20216S_PAGE_FUNCTION, AW20216S_REG_MIX_FUNCTION, AW20216S_MIX_FUNCTION);
+    aw20216s_write_register(cs_pin, AW20216S_PAGE_FUNCTION, AW20216S_FUNCTION_REG_MIX_FUNCTION, AW20216S_MIX_FUNCTION);
 }
 
 void aw20216s_init_drivers(void) {
