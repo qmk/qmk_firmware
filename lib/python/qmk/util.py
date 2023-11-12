@@ -2,9 +2,11 @@
 """
 import contextlib
 import multiprocessing
+import re
 
 from milc import cli
 
+TRIPLET_PATTERN = re.compile(r'^(\d+)\.(\d+)\.(\d+)')
 
 @contextlib.contextmanager
 def parallelize():
@@ -56,5 +58,8 @@ def parallel_map(*args, **kwargs):
         return list(map_fn(*args, **kwargs))
 
 
-def triplet_to_bcd(major: int, minor: int, patch: int):
-    return f"0x{major:02d}{minor:02d}{patch:04d}"
+def triplet_to_bcd(stringVersion: str):
+    m = TRIPLET_PATTERN.match(stringVersion)
+    if not m:
+        return '0'
+    return f'0x{int(m.group(1)):02d}{int(m.group(2)):02d}{int(m.group(3)):04d}'

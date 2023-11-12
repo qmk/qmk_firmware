@@ -42,17 +42,13 @@ def generate_version_h(cli):
     else:
         git_dirty = git_is_dirty()
         keycode_version = list_versions()[0]
-        keycode_bcd_version = triplet_to_bcd(*(list(map(int, keycode_version.split('.')))))
+        keycode_bcd_version = triplet_to_bcd(keycode_version) or "0x00000000"
         git_version = git_get_version() or current_time
+        git_bcd_version = triplet_to_bcd(git_version) or "0x00000000"
         git_qmk_hash = git_get_qmk_hash() or "Unknown"
         chibios_version = git_get_version("chibios", "os") or current_time
         chibios_contrib_version = git_get_version("chibios-contrib", "os") or current_time
 
-        git_bcd_version = list(map(int, (git_version.split('-')[0]).split('.')))
-        if (len(git_bcd_version) != 3):
-            git_bcd_version = "0x00000000"
-        else:
-            git_bcd_version = triplet_to_bcd(*(git_bcd_version))
 
     # Build the version.h file.
     version_h_lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '#pragma once']
