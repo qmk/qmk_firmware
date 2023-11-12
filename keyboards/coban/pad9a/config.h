@@ -1,4 +1,4 @@
-/* Copyright 2021 RyanDam (https://github.com/RyanDam)
+/* Copyright 2023 RyanDam (https://github.com/RyanDam)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,10 +19,7 @@
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 500U
 
-#define WS2812_PIO_USE_PIO1 // Force the usage of PIO1 peripheral, by default the WS2812 implementation uses the PIO0 peripheral
-#define WS2812_DI_PIN GP14
-#define RGBLED_NUM 6
-#define RGB_MATRIX_LED_COUNT RGBLED_NUM
+#define WS2812_PIO_USE_PIO1
 
 #ifdef RGB_MATRIX_ENABLE
 #define RGB_MATRIX_KEYPRESSES           // reacts to keypresses

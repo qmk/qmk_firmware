@@ -1,4 +1,4 @@
-/* Copyright 2021 RyanDam (https://github.com/RyanDam)
+/* Copyright 2023 RyanDam (https://github.com/RyanDam)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,23 +15,6 @@
  */
 
 #include "quantum.h"
-
-#ifdef RGB_MATRIX_ENABLE
-
-led_config_t g_led_config = {
-{
-    {  NO_LED,          NO_LED,
-        2,      1,      0,
-        3,      4,      5 },
-}, {
-    {0,0}   , {112,0},  {224,0},
-    {0,64}  , {112,64}, {224,64}
-}, {
-    4, 4, 4, 4, 4, 4
-} };
-
-#endif
-
 
 #if defined(ENCODER_ENABLE)
 bool encoder_update_kb(uint8_t index, bool clockwise) {
