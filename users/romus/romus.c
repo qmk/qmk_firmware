@@ -42,7 +42,7 @@ float tone_windows[][2] = SONG(UNICODE_WINDOWS);
 |*-----TAP-DANCE-----*|
 \*-------------------*/
 #ifdef TAP_DANCE_ENABLE
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     // Shift on double tap of semicolon
     [SCL] = ACTION_TAP_DANCE_DOUBLE( KC_SCLN, KC_COLN )
 };
@@ -142,7 +142,7 @@ void matrix_init_user (void) {
 
     // Correct unicode
 #ifdef UNICODE_ENABLE
-    set_unicode_input_mode(UC_LNX);
+    set_unicode_input_mode(UNICODE_MODE_LINUX);
 #endif
 
     // Make beginning layer DVORAK
@@ -250,7 +250,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-        case MU_TOG:
+        case QK_MUSIC_TOGGLE:
             if (record->event.pressed) {
                 // On press, turn off layer if active
                 if ( layer == _SE ) {
@@ -272,7 +272,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 stop_all_notes();
                 PLAY_SONG(tone_linux);
 #endif
-                set_unicode_input_mode(UC_LNX);
+                set_unicode_input_mode(UNICODE_MODE_LINUX);
             }
             return false;
             break;
@@ -282,7 +282,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 stop_all_notes();
                 PLAY_SONG(tone_windows);
 #endif
-                set_unicode_input_mode(UC_WIN);
+                set_unicode_input_mode(UNICODE_MODE_WINDOWS);
             }
             return false;
             break;
@@ -291,13 +291,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case TUR_A:
             if (record->event.pressed) {
                 if ( is_capital ) {
-                    unicode_input_start();
-                    register_hex(0x00c2);
-                    unicode_input_finish();
+                    register_unicode(0x00c2);
                 } else {
-                    unicode_input_start();
-                    register_hex(0x00e2);
-                    unicode_input_finish();
+                    register_unicode(0x00e2);
                 }
             }
             return false;
@@ -305,13 +301,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case TUR_O:
             if (record->event.pressed) {
                 if ( is_capital ) {
-                    unicode_input_start();
-                    register_hex(0x00d6);
-                    unicode_input_finish();
+                    register_unicode(0x00d6);
                 } else {
-                    unicode_input_start();
-                    register_hex(0x00f6);
-                    unicode_input_finish();
+                    register_unicode(0x00f6);
                 }
             }
             return false;
@@ -319,13 +311,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case TUR_U:
             if (record->event.pressed) {
                 if ( is_capital ) {
-                    unicode_input_start();
-                    register_hex(0x00dc);
-                    unicode_input_finish();
+                    register_unicode(0x00dc);
                 } else {
-                    unicode_input_start();
-                    register_hex(0x00fc);
-                    unicode_input_finish();
+                    register_unicode(0x00fc);
                 }
             }
             return false;
@@ -333,13 +321,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case TUR_I:
             if (record->event.pressed) {
                 if ( is_capital ) {
-                    unicode_input_start();
-                    register_hex(0x0130);
-                    unicode_input_finish();
+                    register_unicode(0x0130);
                 } else {
-                    unicode_input_start();
-                    register_hex(0x0131);
-                    unicode_input_finish();
+                    register_unicode(0x0131);
                 }
             }
             return false;
@@ -347,13 +331,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case TUR_G:
             if (record->event.pressed) {
                 if ( is_capital ) {
-                    unicode_input_start();
-                    register_hex(0x011e);
-                    unicode_input_finish();
+                    register_unicode(0x011e);
                 } else {
-                    unicode_input_start();
-                    register_hex(0x011f);
-                    unicode_input_finish();
+                    register_unicode(0x011f);
                 }
             }
             return false;
@@ -361,13 +341,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case TUR_C:
             if (record->event.pressed) {
                 if ( is_capital ) {
-                    unicode_input_start();
-                    register_hex(0x00c7);
-                    unicode_input_finish();
+                    register_unicode(0x00c7);
                 } else {
-                    unicode_input_start();
-                    register_hex(0x00e7);
-                    unicode_input_finish();
+                    register_unicode(0x00e7);
                 }
             }
             return false;
@@ -375,13 +351,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case TUR_S:
             if (record->event.pressed) {
                 if ( is_capital ) {
-                    unicode_input_start();
-                    register_hex(0x015e);
-                    unicode_input_finish();
+                    register_unicode(0x015e);
                 } else {
-                    unicode_input_start();
-                    register_hex(0x015f);
-                    unicode_input_finish();
+                    register_unicode(0x015f);
                 }
             }
             return false;

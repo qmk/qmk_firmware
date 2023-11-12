@@ -29,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     RGB_TOG, RGB_HUD, RGB_HUI,
         RGB_M_B,    RGB_M_P, RGB_SAD, RGB_SAI,
                     KC_NO,   RGB_VAD, RGB_VAI,
-        RGB_M_P,    KC_NLCK, RGB_RMOD,RGB_MOD
+        RGB_M_P,    KC_NUM,  RGB_RMOD,RGB_MOD
     ),
 };
 // clang-format on

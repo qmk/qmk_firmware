@@ -64,7 +64,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     //Checking all other non-backspace keys to clear the backspace buffer. This is to prevent the bug of deleting N chars sometime after using a macro
     switch (keycode) {
       case LT(COMBOS,KC_BSPC):
-      case KC_BSPACE:
+      case KC_BACKSPACE:
       case KC_DEL:
       case KC_LSFT:
       case KC_RSFT:
@@ -537,7 +537,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         bool shifted = get_mods() & MOD_MASK_SHIFT;
         clear_mods();
               
-        press_n_times(15, KC_BSPACE);
+        press_n_times(15, KC_BACKSPACE);
         send_string_with_translation("heckout ");
         char_to_bspace = 13;
         if (shifted) {
@@ -553,7 +553,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         bool shifted = get_mods() & MOD_MASK_SHIFT;
         clear_mods();
 
-        press_n_times(15, KC_BSPACE);
+        press_n_times(15, KC_BACKSPACE);
         send_string_with_translation("ommit ");
         char_to_bspace = 11;
         layer_off(GIT_C);
@@ -616,7 +616,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case G_RBASE:
       if (!record->event.pressed) {
-        press_n_times(18, KC_BSPACE);
+        press_n_times(18, KC_BACKSPACE);
         send_string_with_translation("base -i ");
         char_to_bspace = 14;
         layer_off(GIT_R);
@@ -624,7 +624,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case G_RVERT:
       if (!record->event.pressed) {
-        press_n_times(18, KC_BSPACE);
+        press_n_times(18, KC_BACKSPACE);
         send_string_with_translation("vert ");
         char_to_bspace = 11;
         layer_off(GIT_R);
@@ -635,7 +635,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         bool shifted = get_mods() & MOD_MASK_SHIFT;
         clear_mods();
 
-        press_n_times(18, KC_BSPACE);
+        press_n_times(18, KC_BACKSPACE);
         send_string_with_translation("set ");
         char_to_bspace = 10;
 
@@ -654,7 +654,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case G_SHOW:
       if (!record->event.pressed) {
-        press_n_times(16, KC_BSPACE);
+        press_n_times(16, KC_BACKSPACE);
         send_string_with_translation("how ");
         char_to_bspace = 9;
         layer_off(GIT_S);
@@ -665,7 +665,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         bool shifted = get_mods() & MOD_MASK_SHIFT;
         clear_mods();
 
-        press_n_times(16, KC_BSPACE);
+        press_n_times(16, KC_BACKSPACE);
         send_string_with_translation("tash ");
         char_to_bspace = 10;
 
@@ -681,7 +681,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;		
     case G_STAT:
       if (!record->event.pressed) {
-        press_n_times(16, KC_BSPACE);
+        press_n_times(16, KC_BACKSPACE);
         send_string_with_translation("tatus ");
         char_to_bspace = 11;
         layer_off(GIT_S);

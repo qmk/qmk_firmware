@@ -49,6 +49,8 @@
 #include "suspend.h"
 #include "wait.h"
 
+#define USB_GETSTATUS_REMOTE_WAKEUP_ENABLED (2U)
+
 /* -------------------------
  *   TMK host driver defs
  * -------------------------
@@ -58,13 +60,10 @@
 uint8_t keyboard_leds(void);
 void    send_keyboard(report_keyboard_t *report);
 void    send_mouse(report_mouse_t *report);
-void    send_system(uint16_t data);
-void    send_consumer(uint16_t data);
-void    send_programmable_button(uint32_t data);
-void    send_digitizer(report_digitizer_t *report);
+void    send_extra(report_extra_t *report);
 
 /* host struct */
-host_driver_t chibios_driver = {keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer, send_programmable_button};
+host_driver_t chibios_driver = {keyboard_leds, send_keyboard, send_mouse, send_extra};
 
 #ifdef VIRTSER_ENABLE
 void virtser_task(void);
@@ -185,12 +184,12 @@ void protocol_pre_task(void) {
 
 #if !defined(NO_USB_STARTUP_CHECK)
     if (USB_DRIVER.state == USB_SUSPENDED) {
-        print("[s]");
+        dprintln("suspending keyboard");
         while (USB_DRIVER.state == USB_SUSPENDED) {
             /* Do this in the suspended state */
             suspend_power_down(); // on AVR this deep sleeps for 15ms
             /* Remote wakeup */
-            if (suspend_wakeup_condition()) {
+            if ((USB_DRIVER.status & USB_GETSTATUS_REMOTE_WAKEUP_ENABLED) && suspend_wakeup_condition()) {
                 usbWakeupHost(&USB_DRIVER);
                 restart_usb_driver(&USB_DRIVER);
             }

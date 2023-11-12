@@ -57,9 +57,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
 [_CLMK_DH] = LAYOUT_wrapper(
-    CAPSWRD, __COLEMAK_MOD_DH_L1________________________,                                     __COLEMAK_MOD_DH_R1_W_QUOT_________________, KC_BSLS,
+    CW_TOGG, __COLEMAK_MOD_DH_L1________________________,                                     __COLEMAK_MOD_DH_R1_W_QUOT_________________, KC_BSLS,
     HY_ESC,  __COLEMAK_MOD_DH_L2_W_GACS_________________,                                     __COLEMAK_MOD_DH_R2_W_SCAG_________________, KC_QUOT,
-    TD_LAYR, __COLEMAK_MOD_DH_L3________________________, KC_LSFT, KC_LEAD, KC_DEL,  KC_TAB,  __COLEMAK_MOD_DH_R3________________________, KC_SFTENT,
+    TD_LAYR, __COLEMAK_MOD_DH_L3________________________, KC_LSFT, QK_LEAD, KC_DEL,  KC_TAB,  __COLEMAK_MOD_DH_R3________________________, SC_SENT,
                                KC_MUTE, KC_DEL,  HY_ESC,  LOW_BSP, RAI_ENT, KC_BSPC, NAV_SPC, HY_ESC,  RAI_TAB, KC_RALT
 ),
 [_QWERTY] = LAYOUT_wrapper(
@@ -135,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_NAV] = LAYOUT_wrapper(
-      _______, __VIM_L1___________________________________,                                     __NAV_R1___________________________________, KC_SLCK,
+      _______, __VIM_L1___________________________________,                                     __NAV_R1___________________________________, KC_SCRL,
       _______, __BLANK_W_GACS_____________________________,                                     __NAV_R2___________________________________, KC_CAPS,
       _______, __BLANK____________________________________, _______, _______, _______, _______, __NAV_R3___________________________________, _______,
                                  __BLANK____________________________________, __BLANK____________________________________
@@ -144,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * Adjust Layer: Function keys, RGB
      *
      * ,-------------------------------------------.                              ,-------------------------------------------.
-     * | QK_BOOT  |QK_BOOT |DEBUG |      |      |      |                              |      | F1   |  F2  | F3   | F4   |        |
+     * |  Boot  | Boot |Debug |      |      |      |                              |      | F1   |  F2  | F3   | F4   |        |
      * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
      * |        | TOG  | SAI  | HUI  | VAI  | MOD  |                              |      | F5   |  F6  | F7   | F8   |        |
      * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|

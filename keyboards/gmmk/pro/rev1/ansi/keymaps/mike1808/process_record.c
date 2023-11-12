@@ -116,4 +116,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
            process_record_fun(keycode, record);
 }
 
-void keyboard_post_init_user() { keyboard_post_init_encoder(); }
+void keyboard_post_init_user(void) { keyboard_post_init_encoder(); }

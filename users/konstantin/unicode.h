@@ -31,7 +31,7 @@
 
 #define UCM_NAME(name, code)    UCM_ ## name,
 #define UCM_ENTRY(name, code)   [UCM_ ## name] = code,
-#define UCM_KEYCODE(name, code) name = X(UCM_ ## name),
+#define UCM_KEYCODE(name, code) name = UM(UCM_ ## name),
 
 #if defined(UNICODE_ENABLE)
 enum unicode_keycodes {
@@ -42,7 +42,7 @@ enum unicode_names {
     FOREACH_UNICODE(UCM_NAME)
 };
 
-extern const uint32_t PROGMEM unicode_map[];
+extern const uint32_t unicode_map[] PROGMEM;
 
 enum unicode_keycodes {
     FOREACH_UNICODE(UCM_KEYCODE)

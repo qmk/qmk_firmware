@@ -56,13 +56,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |'/Ctrl|  ´   | Alt  |  Bsp |Space |  Win |   | Entr | Space| Bsb  | AlGr |   *  |Ctrl/¨|
  * `-----------------------------------------'   '-----------------------------------------'
  */
-[BASE] = LAYOUT( \
+[BASE] = LAYOUT(
                 //       LEFT HAND                                               RIGHT HAND
-  KC_ESC,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,        KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    SE_PLUS, \
-  KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    SE_ARNG, \
-  MO(ARRW), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,        KC_H,    KC_J,    KC_K,    KC_L,    MD_ODIA, SM_ADIA, \
-  KC_LSPO,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,        KC_N,    KC_M,    KC_COMM, KC_DOT,  SE_MINS, KC_RSPC, \
-  CT_APOS,  SE_ACUT, KC_LALT, KC_BSPC, KC_SPC,  KC_LGUI,     KC_ENT,  KC_SPC,  KC_BSPC, KC_ALGR, SE_ASTR, CT_TILD  \
+  KC_ESC,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,        KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    SE_PLUS,
+  KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    SE_ARNG,
+  MO(ARRW), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,        KC_H,    KC_J,    KC_K,    KC_L,    MD_ODIA, SM_ADIA,
+  SC_LSPO,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,        KC_N,    KC_M,    KC_COMM, KC_DOT,  SE_MINS, SC_RSPC,
+  CT_APOS,  SE_ACUT, KC_LALT, KC_BSPC, KC_SPC,  KC_LGUI,     KC_ENT,  KC_SPC,  KC_BSPC, KC_ALGR, SE_ASTR, CT_TILD
 ),
 
 /* Gaming layer
@@ -78,13 +78,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Ctrl |  ´   | Alt  |  Bsp |Space |  Win |   | Entr | Space| Bsb  | AlGr |   *  | Ctrl |
  * `-----------------------------------------'   '-----------------------------------------'
  */
-[GAME] = LAYOUT( \
+[GAME] = LAYOUT(
                 //       LEFT HAND                                               RIGHT HAND
-  KC_ESC,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,        KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    SE_PLUS, \
-  KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    SE_ARNG, \
-  MO(ARRW), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,        KC_H,    KC_J,    KC_K,    KC_L,    MD_ODIA, SM_ADIA, \
-  KC_LSFT,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,        KC_N,    KC_M,    KC_COMM, KC_DOT,  SE_MINS, KC_RSFT, \
-  KC_LCTL,  SE_ACUT, KC_LALT, KC_BSPC, KC_SPC,  KC_LGUI,     KC_ENT,  KC_SPC,  KC_BSPC, KC_ALGR, SE_ASTR, KC_RCTL  \
+  KC_ESC,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,        KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    SE_PLUS,
+  KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    SE_ARNG,
+  MO(ARRW), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,        KC_H,    KC_J,    KC_K,    KC_L,    MD_ODIA, SM_ADIA,
+  KC_LSFT,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,        KC_N,    KC_M,    KC_COMM, KC_DOT,  SE_MINS, KC_RSFT,
+  KC_LCTL,  SE_ACUT, KC_LALT, KC_BSPC, KC_SPC,  KC_LGUI,     KC_ENT,  KC_SPC,  KC_BSPC, KC_ALGR, SE_ASTR, KC_RCTL
 ),
 
 /* Symbols layer
@@ -100,12 +100,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |   <  |  >   |      |   |      |      |   .  |   0  |   =  |      |
  * `-----------------------------------------'   '-----------------------------------------'
  */
-[SYMB] = LAYOUT( \
-  _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  \
-  _______, KC_EXLM, SE_AT,   SE_LCBR, SE_RCBR, SE_PIPE,     KC_UP,   KC_7,    KC_8,    KC_9,    SE_ASTR, KC_F12,  \
-  _______, KC_HASH, SE_DLR,  SE_LPRN, SE_RPRN, SE_GRV,      KC_DOWN, KC_4,    KC_5,    KC_6,    SE_PLUS, _______, \
-  _______, KC_PERC, SE_CIRC, SE_LBRC, SE_RBRC, SE_TILD,     SE_AMPR, KC_1,    KC_2,    KC_3,    SE_MINS, _______, \
-  _______, _______, _______, SE_LABK, SE_RABK, _______,     _______, _______, KC_DOT,  KC_0,    SE_EQL,  _______  \
+[SYMB] = LAYOUT(
+  _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
+  _______, KC_EXLM, SE_AT,   SE_LCBR, SE_RCBR, SE_PIPE,     KC_UP,   KC_7,    KC_8,    KC_9,    SE_ASTR, KC_F12,
+  _______, KC_HASH, SE_DLR,  SE_LPRN, SE_RPRN, SE_GRV,      KC_DOWN, KC_4,    KC_5,    KC_6,    SE_PLUS, _______,
+  _______, KC_PERC, SE_CIRC, SE_LBRC, SE_RBRC, SE_TILD,     SE_AMPR, KC_1,    KC_2,    KC_3,    SE_MINS, _______,
+  _______, _______, _______, SE_LABK, SE_RABK, _______,     _______, _______, KC_DOT,  KC_0,    SE_EQL,  _______
 ),
 
 /* Media layer
@@ -121,12 +121,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |   |      |      |      |      |      |      |
  * `-----------------------------------------'   '-----------------------------------------'
  */
-[MDIA] = LAYOUT( \
-  _______,  _______,  _______,  _______,  _______,  _______,     _______,  _______,  _______,  _______,  _______,  _______, \
-  _______,  _______,  _______,  _______,  _______,  _______,     _______,  _______,  _______,  _______,  _______,  _______, \
-  _______,  _______,  _______,  _______,  _______,  _______,     _______,  _______,  _______,  _______,  _______,  _______, \
-  _______,  _______,  _______,  _______,  _______,  _______,     _______,  _______,  _______,  _______,  _______,  _______, \
-  _______,  _______,  _______,  _______,  _______,  _______,     _______,  _______,  _______,  _______,  _______,  _______  \
+[MDIA] = LAYOUT(
+  _______,  _______,  _______,  _______,  _______,  _______,     _______,  _______,  _______,  _______,  _______,  _______,
+  _______,  _______,  _______,  _______,  _______,  _______,     _______,  _______,  _______,  _______,  _______,  _______,
+  _______,  _______,  _______,  _______,  _______,  _______,     _______,  _______,  _______,  _______,  _______,  _______,
+  _______,  _______,  _______,  _______,  _______,  _______,     _______,  _______,  _______,  _______,  _______,  _______,
+  _______,  _______,  _______,  _______,  _______,  _______,     _______,  _______,  _______,  _______,  _______,  _______
 ),
 
 /* Arrow layer
@@ -142,12 +142,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |  Del |      |      |   |      |      |      |      |      |      |
  * `-----------------------------------------'   '-----------------------------------------'
  */
-[ARRW] = LAYOUT( \
-  SE_HALF,  _______,  _______,  _______ ,  _______,  _______,     _______,  _______,  DF(BASE),  KC_INS ,  KC_HOME,  KC_PGUP, \
-  _______,  _______,  KC_UP  ,  _______ ,  _______,  _______,     _______,  _______,  DF(GAME),  KC_DEL ,  KC_END ,  KC_PGDN, \
-  _______,  KC_LEFT,  KC_DOWN,  KC_RIGHT,  _______,  KC_WBAK,     KC_WFWD,  _______,  _______,  _______,  _______,  _______, \
-  _______,  _______,  _______,  _______ ,  _______,  _______,     _______,  _______,  _______,  _______,  _______,  _______, \
-  _______,  _______,  _______,  KC_DEL  ,  _______,  _______,     _______,  _______,  _______,  _______,  _______,  _______  \
+[ARRW] = LAYOUT(
+  SE_HALF,  _______,  _______,  _______ ,  _______,  _______,     _______,  _______,  DF(BASE),  KC_INS ,  KC_HOME,  KC_PGUP,
+  _______,  _______,  KC_UP  ,  _______ ,  _______,  _______,     _______,  _______,  DF(GAME),  KC_DEL ,  KC_END ,  KC_PGDN,
+  _______,  KC_LEFT,  KC_DOWN,  KC_RIGHT,  _______,  KC_WBAK,     KC_WFWD,  _______,  _______,  _______,  _______,  _______,
+  _______,  _______,  _______,  _______ ,  _______,  _______,     _______,  _______,  _______,  _______,  _______,  _______,
+  _______,  _______,  _______,  KC_DEL  ,  _______,  _______,     _______,  _______,  _______,  _______,  _______,  _______
 ),
 
 /* Adjust ()
@@ -163,12 +163,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |   |      |      |      |      |      |      |
  * `-----------------------------------------'   '-----------------------------------------'
  */
-[_ADJUST] =  LAYOUT( \
-  _______,  _______,  _______,  _______,  _______,  _______,     _______,  _______,  _______,  _______,  _______,  _______, \
-  _______,  QK_BOOT,  RGB_TOG,  RGB_MOD,  RGB_HUD,  RGB_HUI,     RGB_SAD,  RGB_SAI,  RGB_VAD,  RGB_VAI,  _______,  _______, \
-  _______,  _______,  _______,  AU_ON,    AU_OFF,   AG_NORM,     AG_SWAP,  QWERTY,   COLEMAK,  DVORAK,   _______,  _______, \
-  _______,  _______,  _______,  _______,  _______,  _______,     _______,  _______,  _______,  _______,  _______,  _______, \
-  _______,  _______,  _______,  _______,  _______,  _______,     _______,  _______,  _______,  _______,  _______,  _______  \
+[_ADJUST] =  LAYOUT(
+  _______,  _______,  _______,  _______,  _______,  _______,     _______,  _______,  _______,  _______,  _______,  _______,
+  _______,  QK_BOOT,  RGB_TOG,  RGB_MOD,  RGB_HUD,  RGB_HUI,     RGB_SAD,  RGB_SAI,  RGB_VAD,  RGB_VAI,  _______,  _______,
+  _______,  _______,  _______,  AU_ON,    AU_OFF,   AG_NORM,     AG_SWAP,  QWERTY,   COLEMAK,  DVORAK,   _______,  _______,
+  _______,  _______,  _______,  _______,  _______,  _______,     _______,  _______,  _______,  _______,  _______,  _______,
+  _______,  _______,  _______,  _______,  _______,  _______,     _______,  _______,  _______,  _______,  _______,  _______
 )
 
 };

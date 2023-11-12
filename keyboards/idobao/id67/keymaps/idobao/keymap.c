@@ -24,15 +24,13 @@ typedef union {
 #endif  // RGB_MATRIX_ENABLE
 
 enum {
-    KC_MCON = USER00,  // macOS Open Mission Control
-    KC_LPAD,           // macOS Open Launchpad
     #ifdef RGB_MATRIX_ENABLE
-    RGB_TPK,           // Toggle Per-Key
+    RGB_TPK = QK_KB_0,  // Toggle Per-Key
     #ifndef ID67_DISABLE_UNDERGLOW
     RGB_TUG,           // Toggle Underglow
     #endif  // ID67_DISABLE_UNDERGLOW
     #endif  //RGB_MATRIX_ENABLE
-    KB_VRSN = USER09   // debug, type version
+    KB_VRSN = QK_KB_9   // debug, type version
 };
 
 #ifndef RGB_MATRIX_ENABLE
@@ -43,11 +41,6 @@ enum {
         #define RGB_TUG _______
     #endif  // ID67_DISABLE_UNDERGLOW
 #endif  // RGB_MATRIX_ENABLE
-
-enum macos_consumer_usages {
-    _AC_SHOW_ALL_WINDOWS = 0x29F,  // mapped to KC_MCON
-    _AC_SHOW_ALL_APPS    = 0x2A0   // mapped to KC_LPAD
-};
 
 /* Special Keys */
 #define SK_LT1C LT(1, KC_CAPS)  // Layer Tap 1, i.e., Tap = Caps Lock, Hold = Layer 1
@@ -198,7 +191,7 @@ void eeconfig_init_user(void) {
     id67_update_rgb_mode();
 }
 
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     // Caps Lock key stuff
 
     if (host_keyboard_led_state().caps_lock) {
@@ -216,6 +209,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     } else if (user_config.rgb_disable_perkey) {
         rgb_matrix_set_color(ID67_CAPS_LOCK_KEY_INDEX, HSV_OFF);  // off
     }
+    return false;
 }
 
 #endif  // RGB_MATRIX_ENABLE
@@ -315,23 +309,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (!record->event.pressed) {
                     SEND_STRING(QMK_KEYBOARD ":" QMK_KEYMAP " (v" QMK_VERSION ")");
                 }
-            }
-            return false;
-
-        // @see: https://github.com/qmk/qmk_firmware/issues/10111#issuecomment-752300353
-        case KC_MCON:
-            if (record->event.pressed) {
-                host_consumer_send(_AC_SHOW_ALL_WINDOWS);
-            } else {
-                host_consumer_send(0);
-            }
-            return false;
-
-        case KC_LPAD:
-            if (record->event.pressed) {
-                host_consumer_send(_AC_SHOW_ALL_APPS);
-            } else {
-                host_consumer_send(0);
             }
             return false;
 

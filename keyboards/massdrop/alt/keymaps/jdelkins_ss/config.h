@@ -17,4 +17,4 @@
 
 #pragma once
 
-#define RGB_MATRIX_STARTUP_SPD 20
+#define RGB_MATRIX_DEFAULT_SPD 20

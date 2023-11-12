@@ -15,6 +15,8 @@ from milc import cli, MILC
 from qmk.commands import create_make_command
 from qmk.constants import QMK_FIRMWARE
 from qmk.decorators import automagic_keyboard, automagic_keymap
+from qmk.keyboard import keyboard_completer, keyboard_folder
+from qmk.keymap import keymap_completer
 
 
 @lru_cache(maxsize=10)
@@ -74,37 +76,13 @@ def parse_make_n(f: Iterator[str]) -> List[Dict[str, str]]:
     return records
 
 
-@cli.argument('-kb', '--keyboard', help='The keyboard to build a firmware for. Ignored when a configurator export is supplied.')
-@cli.argument('-km', '--keymap', help='The keymap to build a firmware for. Ignored when a configurator export is supplied.')
-@cli.subcommand('Create a compilation database.')
-@automagic_keyboard
-@automagic_keymap
-def generate_compilation_database(cli: MILC) -> Union[bool, int]:
-    """Creates a compilation database for the given keyboard build.
-
-    Does a make clean, then a make -n for this target and uses the dry-run output to create
-    a compilation database (compile_commands.json). This file can help some IDEs and
-    IDE-like editors work better. For more information about this:
-
-        https://clang.llvm.org/docs/JSONCompilationDatabase.html
-    """
-    command = None
-    # check both config domains: the magic decorator fills in `generate_compilation_database` but the user is
-    # more likely to have set `compile` in their config file.
-    current_keyboard = cli.config.generate_compilation_database.keyboard or cli.config.user.keyboard
-    current_keymap = cli.config.generate_compilation_database.keymap or cli.config.user.keymap
-
-    if current_keyboard and current_keymap:
-        # Generate the make command for a specific keyboard/keymap.
-        command = create_make_command(current_keyboard, current_keymap, dry_run=True)
-    elif not current_keyboard:
-        cli.log.error('Could not determine keyboard!')
-    elif not current_keymap:
-        cli.log.error('Could not determine keymap!')
+def write_compilation_database(keyboard: str, keymap: str, output_path: Path) -> bool:
+    # Generate the make command for a specific keyboard/keymap.
+    command = create_make_command(keyboard, keymap, dry_run=True)
 
     if not command:
         cli.log.error('You must supply both `--keyboard` and `--keymap`, or be in a directory for a keyboard or keymap.')
-        cli.echo('usage: qmk compiledb [-kb KEYBOARD] [-km KEYMAP]')
+        cli.echo('usage: qmk generate-compilation-database [-kb KEYBOARD] [-km KEYMAP]')
         return False
 
     # remove any environment variable overrides which could trip us up
@@ -126,9 +104,34 @@ def generate_compilation_database(cli: MILC) -> Union[bool, int]:
 
     cli.log.info("Found %s compile commands", len(db))
 
-    dbpath = QMK_FIRMWARE / 'compile_commands.json'
-
-    cli.log.info(f"Writing build database to {dbpath}")
-    dbpath.write_text(json.dumps(db, indent=4))
+    cli.log.info(f"Writing build database to {output_path}")
+    output_path.write_text(json.dumps(db, indent=4))
 
     return True
+
+
+@cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='The keyboard\'s name')
+@cli.argument('-km', '--keymap', completer=keymap_completer, help='The keymap\'s name')
+@cli.subcommand('Create a compilation database.')
+@automagic_keyboard
+@automagic_keymap
+def generate_compilation_database(cli: MILC) -> Union[bool, int]:
+    """Creates a compilation database for the given keyboard build.
+
+    Does a make clean, then a make -n for this target and uses the dry-run output to create
+    a compilation database (compile_commands.json). This file can help some IDEs and
+    IDE-like editors work better. For more information about this:
+
+        https://clang.llvm.org/docs/JSONCompilationDatabase.html
+    """
+    # check both config domains: the magic decorator fills in `generate_compilation_database` but the user is
+    # more likely to have set `compile` in their config file.
+    current_keyboard = cli.config.generate_compilation_database.keyboard or cli.config.user.keyboard
+    current_keymap = cli.config.generate_compilation_database.keymap or cli.config.user.keymap
+
+    if not current_keyboard:
+        cli.log.error('Could not determine keyboard!')
+    elif not current_keymap:
+        cli.log.error('Could not determine keymap!')
+
+    return write_compilation_database(current_keyboard, current_keymap, QMK_FIRMWARE / 'compile_commands.json')

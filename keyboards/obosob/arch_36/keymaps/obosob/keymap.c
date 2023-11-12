@@ -219,7 +219,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                                      |________|        |  |        |________|
 //                                               |________|  |________|
     [_ADJUST] = LAYOUT_split_3x5_3(
-        XXXXXXX, WOKE,    EEP_RST, QK_BOOT, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, WOKE,    EE_CLR,  QK_BOOT, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI,                     XXXXXXX, QWERTY,  COLEMAK, XXXXXXX, XXXXXXX,
         XXXXXXX, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                                    XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX

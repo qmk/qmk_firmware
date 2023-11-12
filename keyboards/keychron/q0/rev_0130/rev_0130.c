@@ -20,7 +20,7 @@
 
 // clang-format off
 
-const ckled2001_led PROGMEM g_ckled2001_leds[DRIVER_LED_TOTAL] = {
+const ckled2001_led PROGMEM g_ckled2001_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to CKLED manual for these locations
  *   driver
  *   |  R location
@@ -54,37 +54,4 @@ const ckled2001_led PROGMEM g_ckled2001_leds[DRIVER_LED_TOTAL] = {
     {0, L_1,    J_1,    K_1}, // 19
     {0, C_2,    A_2,    B_2}, // 20
 };
-
-#define __ NO_LED
-
-led_config_t g_led_config = {
-    {
-        // Key Matrix to LED Index
-        {  0,  1,  2,  3 },
-        {  4,  5,  6,  7 },
-        {  8,  9, 10, 14 },
-        { 11, 12, 13, __ },
-        { 15, 16, 17, 20 },
-        { 18, __, 19, __ }
-    },
-    {
-        // LED Index to Physical Position
-        {0,0},  {37,0},  {75,0},  {112,0},
-        {0,6},  {37,6},  {75,6},  {112,6},
-        {0,13}, {37,13}, {75,13},
-        {0,19}, {37,19}, {75,19}, {112,16},
-        {0,25}, {37,25}, {75,25},
-        {18,32},         {75,32}, {112,29},
-    },
-    {
-        // LED Index to Flag
-        1, 1, 1, 1,
-        9, 4, 4, 4,
-        4, 4, 4,
-        4, 4, 4, 4,
-        4, 4, 4,
-        4,    4, 1
-    }
-};
-
 #endif // RGB_MATRIX_ENABLE

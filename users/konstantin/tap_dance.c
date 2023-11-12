@@ -19,11 +19,11 @@
 
 #define ACTION_TAP_DANCE_DOUBLE_MOD(mod1, mod2) {                       \
         .fn        = { td_double_mod_each, NULL, td_double_mod_reset }, \
-        .user_data = &(qk_tap_dance_pair_t){ mod1, mod2 },              \
+        .user_data = &(tap_dance_pair_t){ mod1, mod2 },              \
     }
 
-void td_double_mod_each(qk_tap_dance_state_t *state, void *user_data) {
-    qk_tap_dance_pair_t *data = (qk_tap_dance_pair_t *)user_data;
+void td_double_mod_each(tap_dance_state_t *state, void *user_data) {
+    tap_dance_pair_t *data = (tap_dance_pair_t *)user_data;
 
     // Single tap → mod1, double tap → mod2, triple tap etc. → mod1+mod2
     if (state->count == 1 || state->count == 3) {
@@ -36,8 +36,8 @@ void td_double_mod_each(qk_tap_dance_state_t *state, void *user_data) {
     state->weak_mods &= ~(MOD_BIT(data->kc1) | MOD_BIT(data->kc2));
 }
 
-void td_double_mod_reset(qk_tap_dance_state_t *state, void *user_data) {
-    qk_tap_dance_pair_t *data = (qk_tap_dance_pair_t *)user_data;
+void td_double_mod_reset(tap_dance_state_t *state, void *user_data) {
+    tap_dance_pair_t *data = (tap_dance_pair_t *)user_data;
 
     if (state->count == 1 || state->count >= 3) {
         unregister_code(data->kc1);
@@ -49,11 +49,11 @@ void td_double_mod_reset(qk_tap_dance_state_t *state, void *user_data) {
 
 #define ACTION_TAP_DANCE_MOD_LAYER(mod, layer) {                      \
         .fn        = { td_mod_layer_each, NULL, td_mod_layer_reset }, \
-        .user_data = &(qk_tap_dance_dual_role_t){ mod, layer },       \
+        .user_data = &(tap_dance_dual_role_t){ mod, layer },       \
     }
 
-void td_mod_layer_each(qk_tap_dance_state_t *state, void *user_data) {
-    qk_tap_dance_dual_role_t *data = (qk_tap_dance_dual_role_t *)user_data;
+void td_mod_layer_each(tap_dance_state_t *state, void *user_data) {
+    tap_dance_dual_role_t *data = (tap_dance_dual_role_t *)user_data;
 
     // Single tap → mod, double tap → layer, triple tap etc. → mod+layer
     if (state->count == 1 || state->count == 3) {
@@ -66,8 +66,8 @@ void td_mod_layer_each(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void td_mod_layer_reset(qk_tap_dance_state_t *state, void *user_data) {
-    qk_tap_dance_dual_role_t *data = (qk_tap_dance_dual_role_t *)user_data;
+void td_mod_layer_reset(tap_dance_state_t *state, void *user_data) {
+    tap_dance_dual_role_t *data = (tap_dance_dual_role_t *)user_data;
 
     if (state->count == 1 || state->count >= 3) {
         unregister_code(data->kc);
@@ -79,7 +79,7 @@ void td_mod_layer_reset(qk_tap_dance_state_t *state, void *user_data) {
 
 #define ACTION_TAP_DANCE_LAYER_MOD(layer, mod) {                      \
         .fn        = { td_layer_mod_each, NULL, td_layer_mod_reset }, \
-        .user_data = &(qk_tap_dance_layer_mod_t){ layer, mod, 0, 0 }, \
+        .user_data = &(tap_dance_layer_mod_t){ layer, mod, 0, 0 }, \
     }
 
 typedef struct {
@@ -87,10 +87,10 @@ typedef struct {
     uint16_t kc;
     bool     layer_on;  // Layer state when tap dance started
     bool     started;
-} qk_tap_dance_layer_mod_t;
+} tap_dance_layer_mod_t;
 
-void td_layer_mod_each(qk_tap_dance_state_t *state, void *user_data) {
-    qk_tap_dance_layer_mod_t *data = (qk_tap_dance_layer_mod_t *)user_data;
+void td_layer_mod_each(tap_dance_state_t *state, void *user_data) {
+    tap_dance_layer_mod_t *data = (tap_dance_layer_mod_t *)user_data;
     if (!data->started) {
         data->layer_on = IS_LAYER_ON(data->layer);
         data->started = true;
@@ -107,8 +107,8 @@ void td_layer_mod_each(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void td_layer_mod_reset(qk_tap_dance_state_t *state, void *user_data) {
-    qk_tap_dance_layer_mod_t *data = (qk_tap_dance_layer_mod_t *)user_data;
+void td_layer_mod_reset(tap_dance_state_t *state, void *user_data) {
+    tap_dance_layer_mod_t *data = (tap_dance_layer_mod_t *)user_data;
 
     if ((state->count == 1 || state->count >= 3) && !data->layer_on) {
         layer_off(data->layer);
@@ -120,7 +120,7 @@ void td_layer_mod_reset(qk_tap_dance_state_t *state, void *user_data) {
     data->started = false;
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_DST_A_R] = ACTION_TAP_DANCE_DOUBLE(DST_ADD, DST_REM),
 
     [TD_RAL_RGU] = ACTION_TAP_DANCE_DOUBLE_MOD(KC_RALT, KC_RGUI),

@@ -24,9 +24,13 @@
 #        define ATOMIC_BLOCK _Static_assert(0, "ATOMIC_BLOCK not implemented")
 #        define ATOMIC_BLOCK_RESTORESTATE _Static_assert(0, "ATOMIC_BLOCK_RESTORESTATE not implemented")
 #        define ATOMIC_BLOCK_FORCEON _Static_assert(0, "ATOMIC_BLOCK_FORCEON not implemented")
+#        define ATOMIC_FORCEON _Static_assert(0, "ATOMIC_FORCEON not implemented")
+#        define ATOMIC_RESTORESTATE _Static_assert(0, "ATOMIC_RESTORESTATE not implemented")
 #    endif
 #else /* do nothing atomic macro */
-#    define ATOMIC_BLOCK for (uint8_t __ToDo = 1; __ToDo; __ToDo = 0)
-#    define ATOMIC_BLOCK_RESTORESTATE ATOMIC_BLOCK
-#    define ATOMIC_BLOCK_FORCEON ATOMIC_BLOCK
+#    define ATOMIC_BLOCK(t) for (uint8_t __ToDo = 1; __ToDo; __ToDo = 0)
+#    define ATOMIC_FORCEON
+#    define ATOMIC_RESTORESTATE
+#    define ATOMIC_BLOCK_RESTORESTATE ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+#    define ATOMIC_BLOCK_FORCEON ATOMIC_BLOCK(ATOMIC_FORCEON)
 #endif

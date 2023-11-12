@@ -31,7 +31,7 @@ enum unicode_names {
 };
 
 /* Unicode map */
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
     [SAE] = 0x00E4, // ä
     [BAE] = 0x00C4, // Ä
     [SUE] = 0x00FC, // ü
@@ -128,10 +128,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
  */
 [FUNCTIONS] = LAYOUT_ortho_4x12(
-    _______, _______, _______, _______, _______, KC__MUTE, KC_MPRV, KC__VOLDOWN, KC_VOLU, KC_MNXT, KC_MEDIA_PLAY_PAUSE, KC_DEL,
-    KC_CAPS, _______, KC_WBAK, _______, _______, KC_WFWD,  KC_LEFT, KC_DOWN,     KC_UP,   KC_RGHT, _______,             _______,
-    _______, _______, _______, _______, _______, _______,  KC_HOME, KC_PGDN,     KC_PGUP, KC_END,  _______,             _______,
-    _______, _______, _______, _______, _______, _______,  _______, _______,     _______, _______, _______,             _______
+    _______, _______, _______, _______, _______, KC_MUTE, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, KC_MEDIA_PLAY_PAUSE, KC_DEL,
+    KC_CAPS, _______, KC_WBAK, _______, _______, KC_WFWD, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______,             _______,
+    _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______,             _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,             _______
 ),
 
 /* Unicode Layer
@@ -146,9 +146,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
  */
 [UNICODE] = LAYOUT_ortho_4x12(
-    _______, _______,      _______, X(EUR),  _______, _______, _______, XP(SUE, BUE), _______, XP(SOE, BOE), _______, _______,
-    _______, XP(SAE, BAE), X(SS),   _______, _______, _______, _______, _______,      _______, _______,      _______, _______,
-    _______, _______,      _______, X(CPR),  _______, _______, _______, _______,      _______, _______,      _______, _______,
+    _______, _______,      _______, UM(EUR), _______, _______, _______, UP(SUE, BUE), _______, UP(SOE, BOE), _______, _______,
+    _______, UP(SAE, BAE), UM(SS),  _______, _______, _______, _______, _______,      _______, _______,      _______, _______,
+    _______, _______,      _______, UM(CPR), _______, _______, _______, _______,      _______, _______,      _______, _______,
     _______, _______,      _______, _______, _______, _______, _______, _______,      _______, _______,      _______, _______
 ),
 
@@ -164,8 +164,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
  */
 [SPECIALS] = LAYOUT_ortho_4x12(
-    XXXXXXX, XXXXXXX, UC_M_WC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, UC_M_OS, XXXXXXX, XXXXXXX,
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, UC_M_LN, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, UC_WINC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, UC_MAC,  XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, UC_LINX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 )

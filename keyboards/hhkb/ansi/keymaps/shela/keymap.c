@@ -50,8 +50,8 @@ enum custom_keycodes {
 /* Additional custom keycodes */
 #define MO_HHKB MO(_HHKB)
 #define LT_SPFN LT(_SPACE_FN, KC_SPC)
-#define DM_STA1 DYN_REC_START1
-#define DM_PLY1 DYN_MACRO_PLAY1
+#define DM_STA1 DM_REC1
+#define DM_PLY1 DM_PLY1
 
 /* User settings structure for the EEPROM */
 typedef union {
@@ -220,7 +220,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_HHKB] = LAYOUT(
         KC_PWR,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_INS,  KC_DEL,
-        KC_CAPS, QWERTY,  DVORAK,  COLEMAK, PSEUDO,  TENKEY,  MOUSE,   XXXXXXX, KC_PSCR, KC_SLCK, KC_PAUS, KC_UP,   XXXXXXX, KC_NLCK,
+        KC_CAPS, QWERTY,  DVORAK,  COLEMAK, PSEUDO,  TENKEY,  MOUSE,   XXXXXXX, KC_PSCR, KC_SCRL, KC_PAUS, KC_UP,   XXXXXXX, KC_NUM,
         _______, KC_VOLD, KC_VOLU, KC_MUTE, KC_EJCT, XXXXXXX, KC_PAST, KC_PSLS, KC_HOME, KC_PGUP, KC_LEFT, KC_RGHT, KC_PENT,
         _______, DM_STA1, DM_PLY1, XXXXXXX, MACMODE, XXXXXXX, KC_PPLS, KC_PMNS, KC_END,  KC_PGDN, KC_DOWN, _______, _______,
         _______, _______, KC_SPC,  _______, _______
@@ -241,7 +241,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_SPACE_FN] = LAYOUT(
         _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX, KC_DEL,
-        _______, KC_HOME, KC_UP,   KC_END,  XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME, KC_END,  XXXXXXX, KC_PSCR, KC_SLCK, KC_PAUS, KC_INS,
+        _______, KC_HOME, KC_UP,   KC_END,  XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME, KC_END,  XXXXXXX, KC_PSCR, KC_SCRL, KC_PAUS, KC_INS,
         _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGUP, XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, XXXXXXX, _______,
         _______, XXXXXXX, XXXXXXX, KC_PGDN, XXXXXXX, KC_SPC,  XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX, XXXXXXX, _______, XXXXXXX,
         _______, _______, _______, _______, _______
@@ -340,11 +340,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     } else {
                         if (TIMER_DIFF_16(record->event.time, l_time) < TAPPING_TERM) {
                             if (mac_mode) {
-                                register_code(KC_LANG2);
-                                unregister_code(KC_LANG2);
+                                register_code(KC_LNG2);
+                                unregister_code(KC_LNG2);
                             } else {
-                                register_code(KC_MHEN);
-                                unregister_code(KC_MHEN);
+                                register_code(KC_INT5);
+                                unregister_code(KC_INT5);
                             }
                         } else {
                             register_code(l_inner);
@@ -367,11 +367,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     } else {
                         if (TIMER_DIFF_16(record->event.time, r_time) < TAPPING_TERM) {
                             if (mac_mode) {
-                                register_code(KC_LANG1);
-                                unregister_code(KC_LANG1);
+                                register_code(KC_LNG1);
+                                unregister_code(KC_LNG1);
                             } else {
-                                register_code(KC_KANA);
-                                unregister_code(KC_KANA);
+                                register_code(KC_INT2);
+                                unregister_code(KC_INT2);
                             }
                         } else {
                             register_code(r_inner);

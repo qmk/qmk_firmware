@@ -128,7 +128,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NATURAL] = LAYOUT(
-        MI_C, MI_BENDD,   MI_BENDU,  MI_G,
+        MI_C, MI_BNDD,    MI_BNDU,   MI_G,
         MI_D, MIDI_CC80,  MIDI_CC81, MI_A,
         MI_E, MIDI_CC82,  MIDI_CC83, MI_B,
         MI_F, MI_OCTD,    MI_OCTU,   MI_C,
@@ -137,12 +137,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MI_Cs, KC_TRNS,  KC_TRNS,  MI_Gs,
         MI_Ds, KC_TRNS,  KC_TRNS,  MI_As,
         MI_F , KC_TRNS,  KC_TRNS,  MI_C ,
-        MI_Fs, MI_TRNSD, MI_TRNSU, MI_Cs,
+        MI_Fs, MI_TRSD,  MI_TRSU,  MI_Cs,
                KC_TRNS,  KC_TRNS),
     [_FLAT] = LAYOUT(
         MI_B , KC_TRNS,  KC_TRNS,  MI_Gb,
         MI_Db, KC_TRNS,  KC_TRNS,  MI_Ab,
         MI_Eb, KC_TRNS,  KC_TRNS,  MI_Bb,
-        MI_E , MI_TRNSD, MI_TRNSU, MI_B,
+        MI_E , MI_TRSD,  MI_TRSU,  MI_B,
                KC_TRNS,  KC_TRNS),
 };

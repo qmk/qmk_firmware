@@ -1,9 +1,9 @@
 // Copyright 2022 Massdrop, Inc.
 // SPDX-License-Identifier: GPL-2.0-or-later
-#include "rgb_matrix.h"
-
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+#    include "rgb_matrix.h"
+
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 // top underglow sd2-sd17
     { 0, B_2,  A_2,  C_2  },
     { 0, B_3,  A_3,  C_3  },
@@ -132,17 +132,4 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     { 1, K_15, J_15, L_15 },
     { 1, H_16, G_16, I_16 }
 };
-#endif
-
-#ifdef ENCODER_ENABLE
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) return false;
-
-    if (clockwise) {
-        tap_code(KC_VOLU);
-    } else {
-        tap_code(KC_VOLD);
-    }
-    return false; 
-}
 #endif

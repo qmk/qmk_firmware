@@ -15,8 +15,9 @@
  */
 #pragma once
 
-// #define HAL_USE_DAC TRUE
-#define HAL_USE_PWM TRUE
-#define HAL_USE_SERIAL TRUE
+#if defined(KEYBOARD_crkbd)
+#    define HAL_USE_PWM TRUE
+#    define HAL_USE_SERIAL TRUE
+#endif
 
 #include_next <halconf.h>

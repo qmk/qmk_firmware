@@ -4,6 +4,6 @@
     "bootloader": "stm32-dfu",
     "matrix_pins": {
         "cols": ["C2"],
-        "rows": ["C3"],
+        "rows": ["C3"]
     }
 }

@@ -130,21 +130,21 @@ static td_tap_t td_tap_state = {
     .state           = TD_NONE
 };
 
-td_state_t td_current       (qk_tap_dance_state_t *state);
-void       td_kc_ly_finished(qk_tap_dance_state_t *state, void *user_data);
-void       td_kc_ly_reset   (qk_tap_dance_state_t *state, void *user_data);
+td_state_t td_current       (tap_dance_state_t *state);
+void       td_kc_ly_finished(tap_dance_state_t *state, void *user_data);
+void       td_kc_ly_reset   (tap_dance_state_t *state, void *user_data);
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TAB] = ACTION_TAP_DANCE_DOUBLE(KC_TAB, KC_CAPS),
-    [ESC] = ACTION_TAP_DANCE_FN_ADVANCED_USER(NULL, td_kc_ly_finished, td_kc_ly_reset, \
+    [ESC] = ACTION_TAP_DANCE_FN_ADVANCED_USER(NULL, td_kc_ly_finished, td_kc_ly_reset,
                                               &((td_user_data_t) { KC_ESC, { _NAVIGATION, _QWERTY_ES, _QWERTY_ES }})),
-    [SPC] = ACTION_TAP_DANCE_FN_ADVANCED_USER(NULL, td_kc_ly_finished, td_kc_ly_reset, \
+    [SPC] = ACTION_TAP_DANCE_FN_ADVANCED_USER(NULL, td_kc_ly_finished, td_kc_ly_reset,
                                               &((td_user_data_t) { KC_SPC, { _SYMBOL    , _QWERTY_ES, _QWERTY_ES }})),
-    [ENT] = ACTION_TAP_DANCE_FN_ADVANCED_USER(NULL, td_kc_ly_finished, td_kc_ly_reset, \
+    [ENT] = ACTION_TAP_DANCE_FN_ADVANCED_USER(NULL, td_kc_ly_finished, td_kc_ly_reset,
                                               &((td_user_data_t) { KC_ENT, { _SYMBOL    , _QWERTY_ES, _QWERTY_ES }})),
-    [LWR] = ACTION_TAP_DANCE_FN_ADVANCED_USER(NULL, td_kc_ly_finished, td_kc_ly_reset, \
+    [LWR] = ACTION_TAP_DANCE_FN_ADVANCED_USER(NULL, td_kc_ly_finished, td_kc_ly_reset,
                                               &((td_user_data_t) {  KC_NO, { _NAVIGATION, _GIT_CMDS , _QWERTY_ES }})),
-    [RAI] = ACTION_TAP_DANCE_FN_ADVANCED_USER(NULL, td_kc_ly_finished, td_kc_ly_reset, \
+    [RAI] = ACTION_TAP_DANCE_FN_ADVANCED_USER(NULL, td_kc_ly_finished, td_kc_ly_reset,
                                               &((td_user_data_t) {  KC_NO, { _FN_NUMPAD , _GIT_CMDS , _QWERTY_ES }}))
 };
 #endif
@@ -311,7 +311,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NAVIGATION] = LAYOUT(
       _______, XXXXXXX, KC_BTN1, KC_MS_U, KC_BTN2, XXXXXXX,                                     KC_PGUP, KC_HOME,   KC_UP,  KC_END, KC_PGUP, _______,
       _______,  KC_APP, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX,                                     KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______,
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, _______, XXXXXXX, KC_PSCR, KC_SLCK, KC_PAUS, XXXXXXX, _______,
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, _______, XXXXXXX, KC_PSCR, KC_SCRL, KC_PAUS, XXXXXXX, _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 /*
@@ -505,7 +505,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  * TAP DANCE FUNCTIONS
  */
 #ifdef TAP_DANCE_ENABLE
-td_state_t td_current(qk_tap_dance_state_t *state) {
+td_state_t td_current(tap_dance_state_t *state) {
     switch (state->count) {
         case 1:
             return ((!state->pressed) ? TD_SINGLE_TAP : TD_SINGLE_HOLD);
@@ -516,7 +516,7 @@ td_state_t td_current(qk_tap_dance_state_t *state) {
     }
 }
 
-void td_kc_ly_finished(qk_tap_dance_state_t *state, void *user_data) {
+void td_kc_ly_finished(tap_dance_state_t *state, void *user_data) {
     td_tap_state.state  = td_current(state);
     uint16_t  keycode   = ((td_user_data_t *)user_data)->keycode;
     uint8_t  *layer_arr = ((td_user_data_t *)user_data)->layer;
@@ -576,7 +576,7 @@ void td_kc_ly_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void td_kc_ly_reset(qk_tap_dance_state_t *state, void *user_data) {
+void td_kc_ly_reset(tap_dance_state_t *state, void *user_data) {
     uint8_t *layer_arr = ((td_user_data_t *)user_data)->layer;
 
     if (td_tap_state.state == TD_SINGLE_HOLD) {

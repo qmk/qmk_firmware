@@ -6,16 +6,22 @@
     "usb": {
         "vid": "0x5043",
         "pid": "0x1EAB",
-        "device_version": "0.0.1"
+        "device_version": "0.0.1",
+        "max_power": 100
     },
+    "bootmagic": {
+        "matrix": [0, 3]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"x":0, "y":0, "h":2},
-                {"x":1, "y":0.25, "h":1.5},
-                {"x":2, "y":0, "h":2},
-                {"x":3.5, "y":0, "h":2},
-                {"x":4.5, "y":0, "h":2}
+                {"x": 0, "y": 0, "h": 2, "matrix": [0, 0]},
+                {"x": 1, "y": 0.25, "h": 1.5, "matrix": [0, 1]},
+                {"x": 2, "y": 0, "h": 2, "matrix": [0, 2]},
+                {"x": 3.5, "y": 0, "h": 2, "matrix": [0, 3]},
+                {"x": 4.5, "y": 0, "h": 2, "matrix": [0, 4]}
             ]
         }
     }

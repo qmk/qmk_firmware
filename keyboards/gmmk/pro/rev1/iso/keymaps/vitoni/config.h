@@ -4,11 +4,11 @@
 #pragma once
 
 #if defined(RGB_MATRIX_ENABLE)
-    #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR
+    #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR
      // number of milliseconds to wait until turning off RGB automatically
-    #define RGB_DISABLE_TIMEOUT 300000 // 300 seconds / 5 min
+    #define RGB_MATRIX_TIMEOUT 300000 // 300 seconds / 5 min
     // start fading out before getting disabled
-    // fading out is timed (depending on the rgb_matrix_config.speed) to have finished before reaching RGB_DISABLE_TIMEOUT
+    // fading out is timed (depending on the rgb_matrix_config.speed) to have finished before reaching RGB_MATRIX_TIMEOUT
     #define RGB_DISABLE_WITH_FADE_OUT
     #define RGB_DISABLE_WHEN_USB_SUSPENDED
     // number of milliseconds to wait until activating RGB idle effects

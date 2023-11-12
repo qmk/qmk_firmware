@@ -1,0 +1,33 @@
+{
+    "keyboard_name": "Coban Pad 3A",
+    "name": "Coban Pad 3A",
+    "url": "https://cobanstationery.com",
+    "maintainer": "Coban Stationery",
+    "manufacturer": "Coban Stationery",
+    "usb": {
+        "pid": "0xCC3A",
+        "vid": "0xCB3A",
+        "device_version": "1.1.0"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "GP5", "pin_b": "GP4"}
+        ]
+    },
+    "matrix_pins": {
+        "direct": [
+            ["GP8", "GP7", "GP6"]
+        ]
+    },
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label": "Mute", "x": 0, "y": 0, "matrix": [0, 0]},
+                {"label": "Next", "x": 1, "y": 0, "matrix": [0, 1]},
+                {"label": "Push", "x": 3, "y": 0, "matrix": [0, 2]}
+            ]
+        }
+    }
+}

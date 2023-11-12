@@ -3,5 +3,5 @@
 
 #pragma once
 
-#define TAPPING_TERM 168
+#define TAPPING_TERM 136
 #define TAPPING_TERM_PER_KEY

@@ -3,67 +3,12 @@
 
 #pragma once
 
-#include "config_common.h"
-
-// Key matrix size.
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 24
-
-// Key pins (including encoder press switches).
-// The NO_PIN entries are reserved for encoder rotation mappings.
-#define DIRECT_PINS                                                                                                                \
-    {                                                                                                                              \
-        { F4, C7, D4, D5, D1, F5, C6, D6, D3, D2, F6, B6, D7, B4, B5, B2, D0, E6, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN } \
-    }
-
-// clang-format off
-
-// Encoder pins.
-// Encoder numbering (assuming the default board orientation with encoders on
-// the top side):
-//   0 - left
-//   1 - center (with a longer shaft and a larger knob)
-//   2 - right
-#define ENCODERS_PAD_A { F1, B0, B3 }
-#define ENCODERS_PAD_B { F0, B1, B7 }
-#define ENCODER_RESOLUTION 4
-
-// Encoder mappings (used for VIA).
-#define ENCODERS 3
-#define ENCODERS_CW_KEY  { { 22, 0 }, { 18, 0 }, { 20, 0 } }
-#define ENCODERS_CCW_KEY { { 23, 0 }, { 19, 0 }, { 21, 0 } }
-
 // clang-format on
-
-// RGB LED parameters.
-// This PCB uses a single chain of WS2812-compatible addressable RGB LEDs for
-// per-key backlight and underglow.
-#define RGB_DI_PIN F7
-#define RGBLED_NUM 27
-#define RGBLIGHT_LIMIT_VAL 150
-
-// RGB Lighting configuration.  This mode is used by the vendor firmware, and
-// can be chosen if the full RGB Matrix support is not desired for some reason.
-#ifdef RGBLIGHT_ENABLE
-#    define RGBLIGHT_HUE_STEP 8
-#    define RGBLIGHT_SAT_STEP 8
-#    define RGBLIGHT_VAL_STEP 8
-#    define RGBLIGHT_SLEEP
-#    define RGBLIGHT_EFFECT_BREATHING
-#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#    define RGBLIGHT_EFFECT_SNAKE
-#    define RGBLIGHT_EFFECT_KNIGHT
-#    define RGBLIGHT_EFFECT_CHRISTMAS
-#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#    define RGBLIGHT_EFFECT_RGB_TEST
-#    define RGBLIGHT_EFFECT_ALTERNATING
-#endif
 
 // RGB Matrix configuration.
 #ifdef RGB_MATRIX_ENABLE
-#    define DRIVER_LED_TOTAL RGBLED_NUM
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS RGBLIGHT_LIMIT_VAL
+#    define RGB_MATRIX_LED_COUNT 27
+#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
 
 #    define RGB_MATRIX_CENTER \
         { 35, 35 }
@@ -133,6 +78,3 @@
 #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
 #endif
-
-// Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed.
-#define DEBOUNCE 5

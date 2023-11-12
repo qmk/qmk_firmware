@@ -29,23 +29,23 @@ typedef struct is31_led {
     uint8_t b;
 } __attribute__((packed)) is31_led;
 
-extern const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL];
+extern const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT];
 
-void IS31FL3733_init(uint8_t bus, uint8_t addr, uint8_t sync);
-bool IS31FL3733_write_register(uint8_t index, uint8_t addr, uint8_t reg, uint8_t data);
-bool IS31FL3733_write_pwm_buffer(uint8_t index, uint8_t addr, uint8_t *pwm_buffer);
+void is31fl3733_init(uint8_t bus, uint8_t addr, uint8_t sync);
+bool is31fl3733_write_register(uint8_t index, uint8_t addr, uint8_t reg, uint8_t data);
+bool is31fl3733_write_pwm_buffer(uint8_t index, uint8_t addr, uint8_t *pwm_buffer);
 
-void IS31FL3733_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
-void IS31FL3733_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
+void is31fl3733_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
+void is31fl3733_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
 
-void IS31FL3733_set_led_control_register(uint8_t index, bool red, bool green, bool blue);
+void is31fl3733_set_led_control_register(uint8_t index, bool red, bool green, bool blue);
 
 // This should not be called from an interrupt
 // (eg. from a timer interrupt).
 // Call this while idle (in between matrix scans).
 // If the buffer is dirty, it will update the driver with the buffer.
-void IS31FL3733_update_pwm_buffers(uint8_t addr, uint8_t index); // index is the driver index
-void IS31FL3733_update_led_control_registers(uint8_t addr, uint8_t index);
+void is31fl3733_update_pwm_buffers(uint8_t addr, uint8_t index); // index is the driver index
+void is31fl3733_update_led_control_registers(uint8_t addr, uint8_t index);
 
 #define A_1 0x00
 #define A_2 0x01

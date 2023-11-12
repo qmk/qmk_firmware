@@ -22,7 +22,7 @@ enum states {
 #if defined(RGB_DISABLE_WITH_FADE_OUT)
     ,FADE_OUT           //!< before supending
 #endif
-    ,SUSPENDED          //!< expecting to be suspended by RGB_DISABLE_TIMEOUT any time
+    ,SUSPENDED          //!< expecting to be suspended by RGB_MATRIX_TIMEOUT any time
 };
 
 /**
@@ -99,8 +99,8 @@ bool fade_in(const uint8_t time);
 #endif
 
 #if defined(RGB_DISABLE_WITH_FADE_OUT)
-#   if !defined(RGB_DISABLE_TIMEOUT)
-#       warning "RGB_DISABLE_WITH_FADE_OUT expects RGB_DISABLE_TIMEOUT to be defined"
+#   if !defined(RGB_MATRIX_TIMEOUT)
+#       warning "RGB_DISABLE_WITH_FADE_OUT expects RGB_MATRIX_TIMEOUT to be defined"
 #   endif
 #endif
 

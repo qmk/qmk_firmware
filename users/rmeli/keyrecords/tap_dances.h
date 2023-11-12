@@ -60,12 +60,12 @@ typedef struct {
 // + --------- +
 
 // Tap dance for fast modifiers; favors being held over being tapped.
-td_state_t hold_cur_dance(qk_tap_dance_state_t *state);
+td_state_t hold_cur_dance(tap_dance_state_t *state);
 
 // Left Shift Parenthesis Open (LSPO) and Caps Lock (CAPS) on DOUBLE_TAP
-void LSPO_CAPS_finished(qk_tap_dance_state_t *state, void *user_data);
-void LSPO_CAPS_reset(qk_tap_dance_state_t *state, void *user_data);
+void LSPO_CAPS_finished(tap_dance_state_t *state, void *user_data);
+void LSPO_CAPS_reset(tap_dance_state_t *state, void *user_data);
 
 // Right Shift Parenthesis Close (RSPC) and Caps Lock (CAPS) on DOUBLE_TAP
-void RSPC_CAPS_finished(qk_tap_dance_state_t *state, void *user_data);
-void RSPC_CAPS_reset(qk_tap_dance_state_t *state, void *user_data);
+void RSPC_CAPS_finished(tap_dance_state_t *state, void *user_data);
+void RSPC_CAPS_reset(tap_dance_state_t *state, void *user_data);

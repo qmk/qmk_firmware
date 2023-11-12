@@ -14,15 +14,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       LT(3, KC_TAB), _______, _______,      _______, _______, LT(3, KC_DEL)
 ),
 [2] = LAYOUT(
-  _______, KC_NLCK,         KC_PSLS, KC_P7,   KC_P8,   KC_P9,   KC_PMNS,      KC_VOLU, KC_HOME, KC_PSCR, KC_PGUP, KC_SLCK, KC_CAPS,        _______,
+  _______, KC_NUM,          KC_PSLS, KC_P7,   KC_P8,   KC_P9,   KC_PMNS,      KC_VOLU, KC_HOME, KC_PSCR, KC_PGUP, KC_SCRL, KC_CAPS,        _______,
            LCTL_T(KC_EQL),  KC_PAST, KC_P4,   KC_P5,   KC_P6,   KC_PPLS,      KC_MUTE, KC_LEFT, KC_UP,   KC_RGHT, KC_INS,  RCTL_T(KC_APP),
            _______,         KC_P0,   KC_P1,   KC_P2,   KC_P3,   KC_PCMM,      KC_VOLD, KC_END,  KC_DOWN, KC_PGDN, KC_PAUS, _______,
                                         _______, _______, LT(3, KC_ENT),      LT(3, KC_ESC), _______, _______
 ),
-[3] = LAYOUT_symmetric(
-  QK_BOOT,   DEBUG,   XXXXXXX, BL_INC,  RGB_VAI, RGB_HUD, RGB_HUI,
-           XXXXXXX, XXXXXXX, BL_DEC,  RGB_VAD, RGB_SAD, RGB_SAI,
-           XXXXXXX, BL_BRTG, BL_TOGG, RGB_TOG, RGB_RMOD,RGB_MOD,
-                                      _______, SH_TG,   _______
+[3] = LAYOUT(
+  QK_BOOT, DB_TOGG, XXXXXXX, BL_UP,   RGB_VAI, RGB_HUD, RGB_HUI,      RGB_HUI, RGB_HUD, RGB_VAI, BL_UP,   XXXXXXX, DB_TOGG, QK_BOOT,
+           XXXXXXX, XXXXXXX, BL_DOWN, RGB_VAD, RGB_SAD, RGB_SAI,      RGB_SAI, RGB_SAD, RGB_VAD, BL_DOWN, XXXXXXX, XXXXXXX,
+           XXXXXXX, BL_BRTG, BL_TOGG, RGB_TOG, RGB_RMOD,RGB_MOD,      RGB_MOD, RGB_RMOD,RGB_TOG, BL_TOGG, BL_BRTG, XXXXXXX,
+                                      _______, SH_TOGG, _______,      _______, SH_TOGG, _______
 )
 };

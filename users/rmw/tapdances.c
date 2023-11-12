@@ -2,7 +2,7 @@
 
 #include "tapdances.h"
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [SHCAP]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, caps, shift_reset)
    ,[TDGUI]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shiftgui, gui_reset)
    ,[TDGUI2] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, guictl, ubermod_reset)
@@ -22,13 +22,13 @@ qk_tap_dance_action_t tap_dance_actions[] = {
    ,[FRBK]   = ACTION_TAP_DANCE_DOUBLE(KC_WWW_BACK,KC_WWW_FORWARD)
 };
 
-void caps(qk_tap_dance_state_t *state, void *user_data) // Shift, Caps
+void caps(tap_dance_state_t *state, void *user_data) // Shift, Caps
 { if (state->count >= 2) {register_code(KC_CAPS); unregister_code(KC_CAPS);}
   else if (state->pressed) {register_mods(MOD_LSFT);} else {set_oneshot_mods(MOD_LSFT);}
   reset_tap_dance(state);
 }
 
-void forward_back_mac(qk_tap_dance_state_t *state, void *user_data) // G<-, then G->
+void forward_back_mac(tap_dance_state_t *state, void *user_data) // G<-, then G->
 {
   if (state->count > 1) {
     tap_code16(G(KC_RGHT));
@@ -39,7 +39,7 @@ void forward_back_mac(qk_tap_dance_state_t *state, void *user_data) // G<-, then
   reset_tap_dance(state);
 }
 
-void shiftgui(qk_tap_dance_state_t *state, void *user_data) // G->SG
+void shiftgui(tap_dance_state_t *state, void *user_data) // G->SG
 {
   if (state->count > 1) {
     if (state->pressed) { 
@@ -58,7 +58,7 @@ void shiftgui(qk_tap_dance_state_t *state, void *user_data) // G->SG
   reset_tap_dance(state);
 }
 
-void guictl(qk_tap_dance_state_t *state, void *user_data) // G->GC
+void guictl(tap_dance_state_t *state, void *user_data) // G->GC
 {
   if (state->count > 1) {
     if (state->pressed) { 
@@ -77,7 +77,7 @@ void guictl(qk_tap_dance_state_t *state, void *user_data) // G->GC
   reset_tap_dance(state);
 }
 
-void deleter(qk_tap_dance_state_t *state, void *user_data) // bkspc -> delwrd -> delline
+void deleter(tap_dance_state_t *state, void *user_data) // bkspc -> delwrd -> delline
 {
   if (state->count > 3) {
     tap_code16(G(KC_BSPC));
@@ -91,7 +91,7 @@ void deleter(qk_tap_dance_state_t *state, void *user_data) // bkspc -> delwrd ->
   reset_tap_dance(state);
 }
 
-void ubermod(qk_tap_dance_state_t *state, void *user_data) // CTL->ALT->GUI
+void ubermod(tap_dance_state_t *state, void *user_data) // CTL->ALT->GUI
 {
   if (state->count > 2) {
     if (state->pressed) { 
@@ -118,7 +118,7 @@ void ubermod(qk_tap_dance_state_t *state, void *user_data) // CTL->ALT->GUI
   reset_tap_dance(state);
 }
 
-void ubermod_mac(qk_tap_dance_state_t *state, void *user_data) // GUI->CTL->ALT
+void ubermod_mac(tap_dance_state_t *state, void *user_data) // GUI->CTL->ALT
 {
   if (state->count > 2) {
     if (state->pressed) { 
@@ -145,7 +145,7 @@ void ubermod_mac(qk_tap_dance_state_t *state, void *user_data) // GUI->CTL->ALT
   reset_tap_dance(state);
 }
 
-void ubermod2(qk_tap_dance_state_t *state, void *user_data) // ALT->CTL->GUI
+void ubermod2(tap_dance_state_t *state, void *user_data) // ALT->CTL->GUI
 {
   if (state->count > 2) {
     if (state->pressed) { 
@@ -172,7 +172,7 @@ void ubermod2(qk_tap_dance_state_t *state, void *user_data) // ALT->CTL->GUI
   reset_tap_dance(state);
 }
 
-void ubermod2_mac(qk_tap_dance_state_t *state, void *user_data) // ALT->GUI->CTL
+void ubermod2_mac(tap_dance_state_t *state, void *user_data) // ALT->GUI->CTL
 {
   if (state->count > 2) {
     if (state->pressed) { 
@@ -199,30 +199,30 @@ void ubermod2_mac(qk_tap_dance_state_t *state, void *user_data) // ALT->GUI->CTL
   reset_tap_dance(state);
 }
 
-void shift_reset(qk_tap_dance_state_t *state, void *user_data)
+void shift_reset(tap_dance_state_t *state, void *user_data)
 {
   unregister_mods(MOD_LSFT);
   // clear_oneshot_mods();
 }
-void gui_reset(qk_tap_dance_state_t *state, void *user_data)
+void gui_reset(tap_dance_state_t *state, void *user_data)
 {
   unregister_mods(MOD_LSFT | MOD_LGUI);
 } 
-void CAS_reset(qk_tap_dance_state_t *state, void *user_data)
+void CAS_reset(tap_dance_state_t *state, void *user_data)
 {
   unregister_mods(MOD_LCTL | MOD_LSFT | MOD_LALT);
 }
-void CASG_reset(qk_tap_dance_state_t *state, void *user_data)
+void CASG_reset(tap_dance_state_t *state, void *user_data)
 {
   unregister_mods(MOD_LCTL | MOD_LSFT | MOD_LALT | MOD_LGUI);
   // clear_oneshot_mods();
 }
-void ubermod_reset(qk_tap_dance_state_t *state, void *user_data) // AKA CAG_reset
+void ubermod_reset(tap_dance_state_t *state, void *user_data) // AKA CAG_reset
 {
   unregister_mods(MOD_LCTL | MOD_LALT | MOD_LGUI);
 }
 
-void shiftenter(qk_tap_dance_state_t *state, void *user_data)
+void shiftenter(tap_dance_state_t *state, void *user_data)
 {
   if (state->count > 1) {
     tap_code(KC_ENT);
@@ -236,7 +236,7 @@ void shiftenter(qk_tap_dance_state_t *state, void *user_data)
   reset_tap_dance(state);
 }
 
-void shiftentercaps(qk_tap_dance_state_t *state, void *user_data)
+void shiftentercaps(tap_dance_state_t *state, void *user_data)
 {
   if (state->count > 2) {
     tap_code(KC_CAPS);
@@ -253,7 +253,7 @@ void shiftentercaps(qk_tap_dance_state_t *state, void *user_data)
   reset_tap_dance(state);
 }
 
-void ctrl_all_mac(qk_tap_dance_state_t *state, void *user_data) // C->CG->CAG
+void ctrl_all_mac(tap_dance_state_t *state, void *user_data) // C->CG->CAG
 {
   if (state->count > 2) {
     if (state->pressed) { 
@@ -280,7 +280,7 @@ void ctrl_all_mac(qk_tap_dance_state_t *state, void *user_data) // C->CG->CAG
   reset_tap_dance(state);
 }
 
-void ctrl_all(qk_tap_dance_state_t *state, void *user_data) // C->CA->SC
+void ctrl_all(tap_dance_state_t *state, void *user_data) // C->CA->SC
 {
   if (state->count > 2) {
     if (state->pressed) { 
@@ -307,7 +307,7 @@ void ctrl_all(qk_tap_dance_state_t *state, void *user_data) // C->CA->SC
   reset_tap_dance(state);
 }
 
-void alt_all(qk_tap_dance_state_t *state, void *user_data) // A->SA->AC
+void alt_all(tap_dance_state_t *state, void *user_data) // A->SA->AC
 {
   if (state->count > 2) {
     if (state->pressed) { 
@@ -334,7 +334,7 @@ void alt_all(qk_tap_dance_state_t *state, void *user_data) // A->SA->AC
   reset_tap_dance(state);
 }
 
-void shift_and(qk_tap_dance_state_t *state, void *user_data) // SC->SA->SG
+void shift_and(tap_dance_state_t *state, void *user_data) // SC->SA->SG
 {
   if (state->count > 2) {
     if (state->pressed) { 
@@ -361,7 +361,7 @@ void shift_and(qk_tap_dance_state_t *state, void *user_data) // SC->SA->SG
   reset_tap_dance(state);
 }
 
-void shift_and_mac(qk_tap_dance_state_t *state, void *user_data) // SG->SC->SA
+void shift_and_mac(tap_dance_state_t *state, void *user_data) // SG->SC->SA
 {
   if (state->count > 1) {
     if (state->pressed) { 

@@ -36,8 +36,8 @@ enum userspace_layers { _QWERTY = 0, _CDH, _SYM, _MOV, _DMOV, _NUM };
 /*
 define modifiers here, since MOD_* doesn't seem to work for these
  */
-#define MODS_SHIFT_MASK (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))
-#define MODS_CTRL_MASK (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTRL))
+#define MODS_SHIFT_MASK (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT))
+#define MODS_CTRL_MASK (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL))
 #define MODS_ALT_MASK (MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT))
 #define MODS_GUI_MASK (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI))
 
@@ -69,7 +69,7 @@ enum userspace_custom_keycodes {
 
 #define QWERTY KC_QWERTY
 #define COLEMAK KC_CDH
-#define KC_RESET RESET
+#define KC_RESET QK_BOOT
 
 #if (!defined(LAYOUT) && defined(KEYMAP))
 #    define LAYOUT KEYMAP
@@ -259,7 +259,7 @@ enum userspace_custom_keycodes {
 #define __________________SSYM_R1__________________ KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN
 
 #define _________________ADJUST_L1_________________ RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_TOG
-#define _________________ADJUST_L2_________________ MU_TOG, CK_TOGG, AU_ON, AU_OFF, AG_NORM
+#define _________________ADJUST_L2_________________ MU_TOGG, CK_TOGG, AU_ON, AU_OFF, AG_NORM
 #define _________________ADJUST_L3_________________ RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, KC_RGB_T
 
 #define _________________ADJUST_R1_________________ KC_SEC1, KC_SEC2, KC_SEC3, KC_SEC4, KC_SEC5

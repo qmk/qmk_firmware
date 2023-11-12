@@ -37,48 +37,42 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_TAB,     JP_Q,     JP_W,     JP_E,     JP_R,     JP_T,     JP_AT,    JP_LBRC,  JP_Y,     JP_U,     JP_I,     JP_O,     JP_P,       KC_BSPC,
            KC_LCTL,    JP_A,     JP_S,     JP_D,     JP_F,     JP_G,     JP_COLN,  JP_RBRC,  JP_H,     JP_J,     JP_K,     JP_L,     JP_SCLN,    KC_ENT,
         KC_LSFT,  KC_LSFT,  JP_Z,     JP_X,     JP_C,     JP_V,     JP_B,     JP_SLSH,  JP_BSLS,  JP_N,     JP_M,     JP_COMM,  JP_DOT,   KC_DOWN,  KC_UP,
-        KC_MUTE,  KC_LGUI,  KC_LALT,     JP_MHEN,       SP_LOW,        SP_RAI,   KC_BSPC,     SP_RAI,SP_RAI,       JP_HENK,     JP_KANA,  KC_LEFT,  KC_RGHT,
-        KC_VOLD,  KC_VOLU,                                                                                                                KC_VOLD,  KC_VOLU
+        KC_MUTE,  KC_LGUI,  KC_LALT,     JP_MHEN,       SP_LOW,        SP_RAI,   KC_BSPC,     SP_RAI,SP_RAI,       JP_HENK,     JP_KANA,  KC_LEFT,  KC_RGHT
     ),
     [_BASE2] = LAYOUT(
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSLS,  KC_PAST,  KC_PMNS,  _______,  _______,
            _______,     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_P7,    KC_P8,    KC_P9,    KC_PPLS,   _______,
            _______,     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_P4,    KC_P5,    KC_P6,    KC_PPLS,   _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_P1,    KC_P2,    KC_P3,    _______,  _______,
-        _______,  _______,  _______,     _______,        _______,      _______,  _______,      _______,_______,    KC_P0,       KC_PDOT,  _______,  _______,
-        _______,  _______,                                                                                                                _______,  _______
+        _______,  _______,  _______,     _______,        _______,      _______,  _______,      _______,_______,    KC_P0,       KC_PDOT,  _______,  _______
     ),
     [_BASE3] = LAYOUT(
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
            _______,     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,
            _______,     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
-        _______,  _______,  _______,     _______,        _______,      _______,  _______,      _______,_______,     _______,    _______,  _______,  _______,
-        _______,  _______,                                                                                                                _______,  _______
+        _______,  _______,  _______,     _______,        _______,      _______,  _______,      _______,_______,     _______,    _______,  _______,  _______
     ),
     [_LOWER] = LAYOUT(
         _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    _______,  _______,  KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,
             _______,    JP_EXLM,  JP_DQUO,  JP_HASH,  JP_DLR,   JP_PERC,  JP_TILD,  JP_PIPE,  JP_AMPR,  JP_QUOT,  JP_LPRN,  JP_RPRN,  JP_EQL,   KC_INS,
             _______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  KC_MUTE,  KC_VOLD,  KC_VOLU,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
-        _______,  _______,  _______,     _______,        _______,      SP_ADJ,   _______,     SP_ADJ,SP_ADJ,       _______,     _______,  _______,  _______,
-        _______,  _______,                                                                                                                _______,  _______
+        _______,  _______,  _______,     _______,        _______,      SP_ADJ,   _______,     SP_ADJ,SP_ADJ,       _______,     _______,  _______,  _______
     ),
     [_RAISE] = LAYOUT(
         KC_GRV,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    _______,  _______,  KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,
             KC_ESC,     JP_1,     JP_2,     JP_3,     JP_4,     JP_5,     JP_CIRC,  JP_YEN,   JP_6,     JP_7,     JP_8,     JP_9,     JP_0,     KC_DEL,
             _______,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    _______,  _______,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  _______,  _______,
         _______,  _______,  KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   _______,  _______,
-        _______,  _______,  _______,     _______,        SP_ADJ,       _______,  _______,      _______,_______,     _______,    _______,  KC_DOWN,  KC_UP,
-        _______,  _______,                                                                                                                _______,  _______
+        _______,  _______,  _______,     _______,        SP_ADJ,       _______,  _______,      _______,_______,     _______,    _______,  KC_DOWN,  KC_UP
     ),
     [_ADJUST] = LAYOUT(
-        _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSCR,  KC_SLCK,  KC_PAUS,
+        _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSCR,  KC_SCRL,  KC_PAUS,
             _______,    DF(_BASE1),DF(_BASE2),DF(_BASE3),_______,  _______,  _______,  _______,  RGB_HUI,  RGB_SAI,  RGB_VAI,  _______,  RGB_RMOD,  _______,
-            _______,    AU_TOG,   CK_TOGG,  MU_TOG,   MU_MOD,   _______,  _______,  _______,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,   _______,
+            _______,    AU_TOGG,   CK_TOGG,  MU_TOGG,   MU_NEXT,   _______,  _______,  _______,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,   _______,
         KC_CAPS,  KC_CAPS,  CK_RST,   CK_DOWN,  CK_UP,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
-        _______,  _______,  _______,     _______,        _______,      _______,  _______,      _______,_______,     _______,    _______,  _______,  _______,
-        _______,  _______,                                                                                                                _______,  _______
+        _______,  _______,  _______,     _______,        _______,      _______,  _______,      _______,_______,     _______,    _______,  _______,  _______
     ),
 };
 
@@ -158,61 +152,28 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 }
 
 bool led_update_user(led_t led_state) {
-    rgblight_set_layer_state(3, IS_HOST_LED_ON(USB_LED_CAPS_LOCK));
+    rgblight_set_layer_state(3, led_state.caps_lock);
 
     return true;
 }
 #endif
 
-
-//------------------------------------------------------------------------------
-// Rotary Encoder
-//------------------------------------------------------------------------------
-static uint8_t  encoder_state[ENCODERS] = {0};
-static keypos_t encoder_cw[ENCODERS]    = ENCODERS_CW_KEY;
-static keypos_t encoder_ccw[ENCODERS]   = ENCODERS_CCW_KEY;
-
-void encoder_action_unregister(void) {
-    for (int index = 0; index < ENCODERS; ++index) {
-        if (encoder_state[index]) {
-            keyevent_t encoder_event = (keyevent_t) {
-                .key = encoder_state[index] >> 1 ? encoder_cw[index] : encoder_ccw[index],
-                .pressed = false,
-                .time = (timer_read() | 1)
-            };
-            encoder_state[index] = 0;
-            action_exec(encoder_event);
-        }
-    }
-}
-
-void encoder_action_register(uint8_t index, bool clockwise) {
-    keyevent_t encoder_event = (keyevent_t) {
-        .key = clockwise ? encoder_cw[index] : encoder_ccw[index],
-        .pressed = true,
-        .time = (timer_read() | 1)
-    };
-    encoder_state[index] = (clockwise ^ 1) | (clockwise << 1);
-    action_exec(encoder_event);
-}
-
-void matrix_scan_kb(void) {
-    encoder_action_unregister();
-    matrix_scan_user();
-}
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    encoder_action_register(index, clockwise);
-    return true;
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [1] = { ENCODER_CCW_CW(_______, _______) },
+    [2] = { ENCODER_CCW_CW(_______, _______) },
+    [3] = { ENCODER_CCW_CW(_______, _______) },
+    [4] = { ENCODER_CCW_CW(_______, _______) },
+    [5] = { ENCODER_CCW_CW(_______, _______) },
 };
-
+#endif
 
 //------------------------------------------------------------------------------
 // Keyboard Initialization
 //------------------------------------------------------------------------------
 void keyboard_post_init_user(void) {
 debug_enable=true;
-#ifdef RGB_DI_PIN
   #ifdef RGBLIGHT_LAYERS
     // Enable the LED layers.
     rgblight_layers = my_rgb_layers;
@@ -220,6 +181,5 @@ debug_enable=true;
     // prevent RGB light overrides layer indicator.
     layer_state_set(default_layer_state);
   #endif
-#endif
 
 }

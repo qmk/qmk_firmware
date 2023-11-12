@@ -6,7 +6,10 @@
         "cols": ["GP4"],
         "rows": ["GP5"]
     },
-    "rgblight": {
-        "pin": "A1"
+    "backlight": {
+        "pin": "GP25"
+    },
+    "ws2812": {
+        "pin": "GP25"
     }
 }

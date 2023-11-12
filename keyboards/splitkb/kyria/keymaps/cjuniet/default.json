@@ -6,8 +6,8 @@
     [
       "KC_ESC", "KC_Q", "KC_W", "KC_F", "KC_P", "KC_G", "KC_J", "KC_L", "KC_U", "KC_Y", "KC_SCLN", "KC_BSLS",
       "LCTL_T(KC_BSPC)", "KC_A", "KC_R", "KC_S", "KC_T", "KC_D", "KC_H", "KC_N", "KC_E", "KC_I", "KC_O", "KC_QUOT",
-      "LSFT_T(KC_DEL)", "KC_Z", "KC_X", "KC_C", "KC_V", "KC_B", "KC_LAPO", "LGUI_T(KC_LBRC)", "RGUI_T(KC_RBRC)", "KC_RAPC", "KC_K", "KC_M", "KC_COMM", "KC_DOT", "KC_SLSH", "KC_MINS",
-      "KC_TAB", "KC_LGUI", "TT(1)", "LSFT_T(KC_SPC)", "LCTL_T(KC_ENT)", "RCTL_T(KC_ENT)", "RSFT_T(KC_SPC)", "TT(2)", "KC_RGUI", "KC_LEAD"
+      "LSFT_T(KC_DEL)", "KC_Z", "KC_X", "KC_C", "KC_V", "KC_B", "SC_LAPO", "LGUI_T(KC_LBRC)", "RGUI_T(KC_RBRC)", "SC_RAPC", "KC_K", "KC_M", "KC_COMM", "KC_DOT", "KC_SLSH", "KC_MINS",
+      "KC_TAB", "KC_LGUI", "TT(1)", "LSFT_T(KC_SPC)", "LCTL_T(KC_ENT)", "RCTL_T(KC_ENT)", "RSFT_T(KC_SPC)", "TT(2)", "KC_RGUI", "QK_LEAD"
     ],
     [
       "KC_TRNS", "KC_EXLM", "KC_AT", "KC_HASH", "KC_DLR", "KC_PERC", "KC_CIRC", "KC_AMPR", "KC_ASTR", "KC_LPRN", "KC_RPRN", "KC_TILD",
@@ -22,7 +22,7 @@
       "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_P0", "KC_PDOT"
     ],
     [
-      "KC_TRNS", "KC_NLCK", "KC_CAPS", "KC_SLCK", "KC_LANG1", "KC_LANG2", "KC_TRNS", "KC_PSCR", "KC_SLCK", "KC_PAUS", "KC_TRNS", "KC_TRNS",
+      "KC_TRNS", "KC_NUM", "KC_CAPS", "KC_SCRL", "KC_LNG1", "KC_LNG2", "KC_TRNS", "KC_PSCR", "KC_SCRL", "KC_PAUS", "KC_TRNS", "KC_TRNS",
       "KC_TRNS", "RGB_TOG", "RGB_SAI", "RGB_HUI", "RGB_VAI", "RGB_MOD", "KC_TRNS", "KC_INS", "KC_HOME", "KC_PGUP", "KC_TRNS", "KC_TRNS",
       "KC_TRNS", "KC_NO", "RGB_SAD", "RGB_HUD", "RGB_VAD", "RGB_RMOD", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_DEL", "KC_END", "KC_PGDN", "KC_TRNS", "KC_TRNS",
       "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS"
