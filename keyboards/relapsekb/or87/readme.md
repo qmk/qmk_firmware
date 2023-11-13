@@ -1,6 +1,6 @@
 # OR87
 
-![OR87](https://i.imgur.com/nvXwreYl.jpg)
+![OR87](https://i.imgur.com/nvXwreYlh.jpg)
 
 TKL keyboard by Relapse-KB.
 
