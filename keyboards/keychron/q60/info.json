@@ -49,7 +49,7 @@
             "splash": true,
             "typing_heatmap": true
         },
-        "driver": "CKLED2001"
+        "driver": "snled27351"
     },
     "url": "https://github.com/Keychron",
     "usb": {
