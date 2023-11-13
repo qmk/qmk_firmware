@@ -2,7 +2,7 @@
 
 ![TOKKI]( https://i.imgur.com/nW9b5xWh.png )
 
-PCB 65% soldered with many layout and top right blocker
+65% soldered PCB with multiple layout configurations and top right blocker
 
 * Keyboard Maintainer: [Alabahuy](https://github.com/Alabahuy)
 * Hardware Supported: Tokki PCB, RP2040, RGB

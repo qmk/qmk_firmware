@@ -47,16 +47,6 @@
         "pid": "0x0768",
         "vid": "0x414C"
     },
-    "layout_aliases": {
-        "LAYOUT_65_ansi_blocker": "LAYOUT_ansi_blocker",
-        "LAYOUT_65_ansi_blocker_split_bs": "LAYOUT_ansi_blocker_split_bs",
-        "LAYOUT_65_ansi_blocker_tsangan": "LAYOUT_ansi_blocker_tsangan",
-        "LAYOUT_65_ansi_blocker_tsangan_split_bs": "LAYOUT_ansi_blocker_tsangan_split_bs",
-        "LAYOUT_65_iso_blocker": "LAYOUT_iso_blocker",
-        "LAYOUT_65_iso_blocker_split_bs": "LAYOUT_iso_blocker_split_bs",
-        "LAYOUT_65_iso_blocker_tsangan": "LAYOUT_iso_blocker_tsangan",
-        "LAYOUT_65_iso_blocker_tsangan_split_bs": "LAYOUT_iso_blocker_tsangan_split_bs"
-    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
