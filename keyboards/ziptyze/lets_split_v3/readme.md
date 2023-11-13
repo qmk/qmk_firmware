@@ -1,28 +1,26 @@
-Levinson
-========
+# Let's Split v3
 
-A split 40% split 4x12 ortholinear keyboard made and sold by Keebio. It's essentially a Let's Split with LED backlight support and 2u thumb key support. [More info at Keebio](https://keeb.io).
+![Let's Split v3](https://i.imgur.com/ksZ64dK.jpg)
 
-Keyboard Maintainer: [Bakingpy/nooges](https://github.com/nooges)  
-Hardware Supported: Pro Micro, Elite-C  
-Hardware Availability: [Keebio](https://keeb.io)  
+Version 3 of the Let's Split keyboard, originally designed by Wootapatoot. This version features identical PCBs for both halves powered by an RP2040 controller. Each half features full hot swap capability as well as in-switch addressable LEDs and 39 1mm underglow LEDs.
+
+Keyboard Maintainer: [ziptyze](https://github.com/ziptyze)  
+Hardware Supported: Let's Split v3 PCB
+Hardware Availability: [1upkeyboards](https://1upkeyboards.com/shop/keyboard-kits/diy-40-kits/lets-split-v3/#choose-your-kit)  
 
 Make example for this keyboard (after setting up your build environment):
 
-    make keebio/levinson/rev3:default
+    make ziptyze/lets_split_v3:default
 
-Example of flashing this keyboard with Pro micro:
+Flashing example for this keyboard:
 
-    make keebio/levinson/rev3:default:avrdude
-
-Example of flashing this keyboard with Elite-C:
-
-You'll need to add `BOOTLOADER = atmel-dfu` to your `rules.mk` to ensure that resetting the board works properly.
-
-Hold the reset button on the Elite-C board, or the reset button on the keyboard if already assembled, then release the button and run:
-
-    make keebio/levinson/rev3:default:dfu
+    make ziptyze/lets_split_v3:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-A build guide for this keyboard can be found here: [Levinson Build Guide](https://docs.keeb.io)
+## Bootloader
+
+Enter the bootloader in 2 ways:
+
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix, the top left key, and plug in the keyboard
+* **BOOTSEL button**: Hold down the reset button on the PCB, and plug in the keyboard
