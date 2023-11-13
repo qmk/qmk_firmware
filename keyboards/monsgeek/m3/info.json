@@ -11,6 +11,13 @@
     },
     "processor": "WB32FQ95",
     "bootloader": "wb32-dfu",
+    "eeprom": {
+        "driver": "wear_leveling",
+        "wear_leveling": {
+            "driver": "spi_flash",
+            "backing_size": 8192
+        }
+    },
     "features": {
         "bootmagic": true,
         "extrakey": true,
