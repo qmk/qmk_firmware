@@ -18,9 +18,10 @@
     "bootloader": "rp2040",
     "features": {
         "encoder": true,
+        "rgb_matrix": true,
+        "bootmagic": true,
         "extrakey": true,
-        "mousekey": true,
-        "rgb_matrix": true
+        "mousekey": true
     },
     "encoder": {
         "enabled": true,
