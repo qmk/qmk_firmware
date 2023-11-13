@@ -6,6 +6,13 @@
     "bootmagic": {
         "matrix": [1, 3]
     },
+    "eeprom": {
+        "driver": "wear_leveling",
+        "wear_leveling": {
+            "driver": "spi_flash",
+            "backing_size": 4096
+        }
+    },
     "diode_direction": "COL2ROW",
     "dynamic_keymap": {
         "layer_count": 10
@@ -175,9 +182,6 @@
         "device_version": "0.0.2",
         "pid": "0x000F",
         "vid": "0x3233"
-    },
-    "eeprom": {
-        "driver": "wear_leveling"
     },
     "layouts": {
         "LAYOUT": {
