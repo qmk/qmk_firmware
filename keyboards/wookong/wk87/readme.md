@@ -1,6 +1,6 @@
 # Wookong WK87
 
-![Wookong WK87](https://i.imgur.com/Vv3RaTO.png)
+![Wookong WK87](https://i.imgur.com/Vv3RaTOh.png)
 
 A customizable 80% keyboard with two encoders.
 
