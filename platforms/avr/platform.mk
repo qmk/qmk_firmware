@@ -12,7 +12,9 @@ HEX = $(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature
 EEP = $(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 --no-change-warnings -O $(FORMAT)
 BIN =
 
-COMPILEFLAGS += $(call cc-option, --param=min-pagesize=0)
+ifeq ("$(shell echo "int main(){}" | $(CC) --param=min-pagesize=0 -x c - -o /dev/null 2>&1)", "")
+COMPILEFLAGS += --param=min-pagesize=0
+endif
 
 COMPILEFLAGS += -funsigned-char
 COMPILEFLAGS += -funsigned-bitfields
