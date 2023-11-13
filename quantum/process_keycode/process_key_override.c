@@ -325,12 +325,19 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
         clear_active_override(false);
 
 #ifdef DUMMY_MOD_NEUTRALIZER_KEYCODE
-        // Send a dummy keycode before unregistering the modifier(s)
-        // so that suppressing the modifier(s) doesn't falsely get interpreted
-        // by the host OS as a tap of a modifier key.
-        // For example, unintended activations of the start menu on Windows when
-        // using a GUI+<kc> key override with suppressed mods.
-        neutralize_flashing_modifiers(active_mods);
+        // If the replacement is a modded keycode, the activation of those mods
+        // will happen in the same keyboard report as the deactivation of the
+        // suppressed mods, so there is no “flashing modifiers” problem.
+        if (!QK_MODS_GET_MODS(override->replacement)) {
+            // Send a dummy keycode before unregistering the modifier(s)
+            // so that suppressing the modifier(s) doesn't falsely get interpreted
+            // by the host OS as a tap of a modifier key.
+            // For example, unintended activations of the start menu on Windows when
+            // using a GUI+<kc> key override with suppressed mods.
+            neutralize_flashing_modifiers(active_mods & override->suppressed_mods);
+            // The `& override->suppressed_mods` is to make sure we don't waste our time
+            // neutralizing modifiers that aren't even going to be suppressed anyways.
+        }
 #endif
 
         active_override                 = override;
