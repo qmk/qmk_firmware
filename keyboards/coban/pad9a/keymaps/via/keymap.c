@@ -17,11 +17,15 @@
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT(KC_MPLY, KC_ENT, KC_MPRV, KC_UP, KC_MNXT, KC_LEFT, KC_DOWN, KC_RIGHT),
+    [0] = LAYOUT(
+        KC_MPLY,          KC_ENT,
+        KC_MPRV, KC_UP,   KC_MNXT,
+        KC_LEFT, KC_DOWN, KC_RIGHT
+    ),
 };
 
 #if defined(ENCODER_MAP_ENABLE)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_WH_U, KC_WH_D) },
 };
 #endif

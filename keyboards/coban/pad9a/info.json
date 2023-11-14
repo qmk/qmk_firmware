@@ -36,6 +36,7 @@
     },
     "rgb_matrix": {
         "driver": "ws2812",
+        "max_brightness": 150,
         "layout": [
             {"flags": 4, "matrix": [0, 4], "x": 0, "y": 0},
             {"flags": 4, "matrix": [0, 3], "x": 112, "y": 0},
@@ -43,7 +44,20 @@
             {"flags": 4, "matrix": [0, 5], "x": 64, "y": 64},
             {"flags": 4, "matrix": [0, 6], "x": 112, "y": 64},
             {"flags": 4, "matrix": [0, 7], "x": 224, "y": 64}
-        ]
+        ],
+        "animations": {
+            "breathing": true,
+            "cycle_all": true,
+            "rainbow_beacon": true,
+            "raindrops": true,
+            "pixel_rain": true,
+            "typing_heatmap": true,
+            "digital_rain": true,
+            "solid_reactive_simple": true,
+            "solid_reactive_wide": true,
+            "solid_reactive_nexus": true,
+            "splash": true
+        }
     },
     "layouts": {
         "LAYOUT": {
@@ -52,7 +66,7 @@
                 {"label":"push_right",  "x":2, "y":0, "matrix": [0, 1]},
                 {"label":"key_1",       "x":0, "y":1, "matrix": [0, 2]},
                 {"label":"key_2",       "x":1, "y":1, "matrix": [0, 3]},
-                {"label":"key_3",       "x":3, "y":1, "matrix": [0, 4]},
+                {"label":"key_3",       "x":2, "y":1, "matrix": [0, 4]},
                 {"label":"key_4",       "x":0, "y":2, "matrix": [0, 5]},
                 {"label":"key_5",       "x":1, "y":2, "matrix": [0, 6]},
                 {"label":"key_6",       "x":2, "y":3, "matrix": [0, 7]}
