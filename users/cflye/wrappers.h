@@ -37,13 +37,13 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define _________________QWERTY_R2_NO_HOME__________    KC_H,              KC_J,              KC_K,              KC_L,              KC_SCLN
 #define _________________QWERTY_R3__________________    KC_N,              KC_M,              KC_COMM,           KC_DOT,            KC_SLASH
 
-#define _________________GAMING_L1__________________    KC_Q,              KC_W,              KC_F,              KC_P,              KC_B
-#define _________________GAMING_L2__________________    KC_A,              KC_R,              KC_S,              KC_T,              KC_G
-#define _________________GAMING_L3__________________    KC_Z,              KC_X,              KC_C,              KC_D,              KC_V
+#define _________________GAMING_L1__________________    KC_Q,              KC_W,              KC_E,              KC_R,              KC_T
+#define _________________GAMING_L2__________________    KC_A,              KC_S,              KC_D,              KC_F,              KC_G
+#define _________________GAMING_L3__________________    KC_Z,              KC_X,              KC_C,              KC_V,              KC_B
 
-#define _________________GAMING_R1__________________    KC_J,              KC_L,              KC_U,              KC_Y,              KC_SCLN
-#define _________________GAMING_R2__________________    KC_M,              KC_N,              KC_E,              KC_I,              KC_O
-#define _________________GAMING_R3__________________    KC_K,              KC_H,              KC_COMM,           KC_DOT,            KC_SLASH
+#define _________________GAMING_R1__________________    KC_Y,              KC_U,              KC_I,              KC_O,              KC_P
+#define _________________GAMING_R2__________________    KC_H,              KC_J,              KC_K,              KC_L,              KC_SCLN
+#define _________________GAMING_R3__________________    KC_N,              KC_M,              KC_COMM,           KC_DOT,            KC_SLASH 
 
 #define ___________________SYM_L1___________________    KC_QUOT,           KC_LABK,           KC_RABK,           KC_DQUO,           KC_GRV
 #define ___________________SYM_L2___________________    KC_EXLM,           KC_MINS,           KC_PLUS,           KC_EQL,            KC_HASH
@@ -61,7 +61,7 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define ___________________NUM_L3___________________    KC_0,              KC_1,              KC_2,              KC_3,              KC_PLUS
 #define ___________________NUM_L4___________________    _______,           _______,           _______,           _______,           _______
 
-#define ___________________NUM_R1___________________    KC_NO,             TD(TD_BASE),       TD(TD_GAMING),     TD(TD_EECLEAR),    TD(TD_BOOT)
+#define ___________________NUM_R1___________________    TD(TD_ALT),        TD(TD_BASE),       TD(TD_GAMING),     TD(TD_EECLEAR),    TD(TD_BOOT)
 #define ___________________NUM_R2___________________    KC_NO,             KC_LSFT,           KC_LCTL,           KC_LALT,           KC_LGUI
 #define ___________________NUM_R3___________________    KC_NO,             KC_AE,             KC_OE,             KC_AA,             XXXXXXX
 #define ___________________NUM_R4___________________    _______,           _______,           _______,           _______,           _______
@@ -72,7 +72,7 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define ___________________FUN_L4___________________    _______,           _______,           _______,           _______,           _______
 // TODO: kc_app 
 
-#define ___________________FUN_R1___________________    TD(TD_QWERTY),     TD(TD_BASE),       TD(TD_GAMING),     TD(TD_EECLEAR),    TD(TD_BOOT)
+#define ___________________FUN_R1___________________    XXXXXXX,           TD(TD_BASE),       TD(TD_GAMING),     TD(TD_EECLEAR),    TD(TD_BOOT)
 #define ___________________FUN_R2___________________    XXXXXXX,           KC_LSFT,           KC_LCTL,           KC_LALT,           KC_LGUI
 #define ___________________FUN_R3___________________    SHRUG,             _______,           _______,           _______,           _______
 #define ___________________FUN_R4___________________    _______,           _______,           _______,           _______,           _______
@@ -84,8 +84,9 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 
 #define __________________MEDIA_R1__________________    RGB_TOG,           RGB_MOD,           RGB_HUI,           RGB_SAI,           RGB_VAI
 #define __________________MEDIA_R2__________________    U_NU,              KC_MPRV,           KC_VOLD,           KC_VOLU,           KC_MNXT
-#define __________________MEDIA_R3__________________    OU_AUTO,           U_NU,              KC_MPLY,              U_NU,              U_NU
-#define __________________MEDIA_R4__________________    KC_MSTP,           KC_MPLY,           KC_MUTE,           U_NP,              U_NP
+#define __________________MEDIA_R3__________________    OU_AUTO,           KC_MPLY,           KC_MSTP,           KC_MUTE,              U_NU
+#define __________________MEDIA_R4__________________    _______,           _______,           _______,           _______,           _______
+
 
 #define ___________________NAV_L1___________________    ________________CLIPBOARD_L________________
 #define ___________________NAV_L2___________________    KC_LGUI,           KC_LALT,           KC_LCTL,           KC_LSFT,           XXXXXXX
@@ -98,7 +99,7 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define ___________________NAV_R4___________________    _______,           _______,           _______,           _______,           _______
 
 
-#define __________________MOUSE_L1__________________    TD(TD_BOOT),       XXXXXXX,           XXXXXXX,           XXXXXXX,        XXXXXXX
+#define __________________MOUSE_L1__________________    TD(TD_BOOT),       XXXXXXX,           XXXXXXX,           XXXXXXX,           XXXXXXX
 #define __________________MOUSE_L2__________________    KC_LGUI,           KC_LALT,           KC_LCTL,           KC_LSFT,           U_NA
 #define __________________MOUSE_L3__________________    _______,           _______,           _______,           _______,           _______
 #define __________________MOUSE_L4__________________    _______,           _______,           _______,           _______,           _______
@@ -106,7 +107,7 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define __________________MOUSE_R1__________________    ________________CLIPBOARD_R________________
 #define __________________MOUSE_R2__________________    U_NU,              KC_MS_L,           KC_MS_D,           KC_MS_U,           KC_MS_R
 #define __________________MOUSE_R3__________________    U_NU,              KC_WH_L,           KC_WH_D,           KC_WH_U,           KC_WH_R
-#define __________________MOUSE_R4__________________    KC_BTN2,           KC_BTN1,           KC_BTN3,           U_NP,              U_NP
+#define __________________MOUSE_R4__________________    KC_BTN1,           KC_BTN2,           KC_BTN3,           U_NP,              U_NP
 
 #define ________________NUMBER_LEFT________________       KC_1,    KC_2,    KC_3,    KC_4,    KC_5
 #define ________________NUMBER_RIGHT_______________       KC_6,    KC_7,    KC_8,    KC_9,    KC_0
@@ -121,7 +122,7 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define ___________________NAV_VI_R3________________    KC_HOME,           KC_PGDN,           KC_PGUP,           KC_END,            KC_INS
 
 #define __________________MEDIA_VI_R2_______________    KC_MPRV,           KC_VOLD,           KC_VOLU,           KC_MNXT,           U_NU
-#define __________________MEDIA_VI_R3_______________    U_NU,              KC_MPLY,           U_NU,              U_NU,              OU_AUTO
+#define __________________MEDIA_VI_R3_______________    OU_AUTO,           KC_MPLY,           KC_MSTP,           KC_MUTE,           U_NU
 
 #define __________________MOUSE_VI_R2_______________    KC_MS_L,           KC_MS_D,           KC_MS_U,           KC_MS_R,           U_NU
 #define __________________MOUSE_VI_R3_______________    KC_WH_L,           KC_WH_D,           KC_WH_U,           KC_WH_R,           U_NU

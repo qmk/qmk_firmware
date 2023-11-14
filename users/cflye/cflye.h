@@ -10,11 +10,12 @@
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 
-enum layers { _BASE, _QWERTY, _GAMING, _SYM, _NUM, _NAV,  _MEDIA, _FUN, _MOUSE  };
+enum layers { _BASE, _ALT, _GAMING, _SYM, _NUM, _NAV,  _MEDIA, _FUN, _MOUSE  };
 
 enum custom_keycodes {
     VRSN = SAFE_RANGE,
     U_BASE,
+    U_ALT,
     U_GAMING,
      // ascii emojies
     SHRUG,
@@ -26,8 +27,8 @@ enum {
     TD_BOOT,
     TD_EECLEAR,
     TD_BASE,
-    TD_GAMING,
-    TD_QWERTY
+    TD_ALT,
+    TD_GAMING
 };
 
 enum unicode_names {

@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _________________QWERTY_L3__________________, _________________QWERTY_R3__________________,
         _________________THUMB_LEFT________________,  _________________THUMB_RIGHT_______________
     ),
-    [_QWERTY] = LAYOUT_base_wrapper(
+    [_ALT] = LAYOUT_base_wrapper(
         _________________COLEMAK_L1_________________, _________________COLEMAK_R1_________________,
         _________________COLEMAK_L2_________________, _________________COLEMAK_R2_________________,
         _________________COLEMAK_L3_________________, _________________COLEMAK_R3_________________,
@@ -70,14 +70,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_NAV] = LAYOUT_base_wrapper(
         ___________________NAV_L1___________________, ___________________NAV_R1___________________,
-        ___________________NAV_L2___________________, ___________________NAV_R2___________________,
-        ___________________NAV_L3___________________, ___________________NAV_R3___________________,
+        ___________________NAV_L2___________________, ___________________NAV_VI_R2________________,
+        ___________________NAV_L3___________________, ___________________NAV_VI_R3________________,
         ___________________NAV_L4___________________, ___________________NAV_R4___________________
     ),
     [_MEDIA] = LAYOUT_base_wrapper(
         __________________MEDIA_L1__________________, __________________MEDIA_R1__________________,
-        __________________MEDIA_L2__________________, __________________MEDIA_R2__________________,
-        __________________MEDIA_L3__________________, __________________MEDIA_R3__________________,
+        __________________MEDIA_L2__________________, __________________MEDIA_VI_R2_______________,
+        __________________MEDIA_L3__________________, __________________MEDIA_VI_R3_______________,
         __________________MEDIA_L4__________________, __________________MEDIA_R4__________________
     ),
     [_FUN] = LAYOUT_base_wrapper(
@@ -88,8 +88,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_MOUSE] = LAYOUT_base_wrapper(
         __________________MOUSE_L1__________________, __________________MOUSE_R1__________________,
-        __________________MOUSE_L2__________________, __________________MOUSE_R2__________________,
-        __________________MOUSE_L3__________________, __________________MOUSE_R3__________________,
+        __________________MOUSE_L2__________________, __________________MOUSE_VI_R2_______________,
+        __________________MOUSE_L3__________________, __________________MOUSE_VI_R3_______________,
         __________________MOUSE_L4__________________, __________________MOUSE_R4__________________
     ),
 };
@@ -116,11 +116,12 @@ bool achordion_chord(uint16_t tap_hold_keycode,
   return achordion_opposite_hands(tap_hold_record, other_record);
 }
 
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    state = update_tri_layer_state(state, _NAV, _SYM, _FUN);
-    return state;
-}
+// TODO: This makes fun not work on a single button
+//  
+//layer_state_t layer_state_set_user(layer_state_t state) {
+//    state = update_tri_layer_state(state, _NAV, _SYM, _FUN);
+//    return state;
+//}
 
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -141,9 +142,7 @@ void oled_render_layer_state(void) {
         case _BASE:
           oled_write_ln_P(PSTR("_BASE: "), false);
           break;
-        case _GAMING:
-          oled_write_ln_P(PSTR("_GAMING: "), false);
-          break;
+
         case _SYM:
           oled_write_ln_P(PSTR("_SYM: "), false);
           break;

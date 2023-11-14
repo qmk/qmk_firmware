@@ -26,6 +26,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case _BASE:
           strcpy(A, "_BASE" );
           break;
+        case _ALT:
+          strcpy(A, "_ALT" );
+          break;
         case _GAMING:
           strcpy(A, "_GAMING" );
           break;
@@ -58,6 +61,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
     case U_BASE: 
         default_layer_set((layer_state_t)1 << _BASE);
+        return false; 
+    case U_ALT: 
+        default_layer_set((layer_state_t)1 << _ALT);
         return false;   
     case U_GAMING: 
         default_layer_set((layer_state_t)1 << _GAMING);
@@ -91,7 +97,13 @@ void fn_eeclear(tap_dance_state_t *state, void *user_data) {
 
 void fn_base(tap_dance_state_t *state, void *user_data){
     if (state ->count == 2){
-        set_single_persistent_default_layer(_BASE);
+        default_layer_set((layer_state_t)1 << _BASE);
+    }
+}
+
+void fn_alt(tap_dance_state_t *state, void *user_data){
+    if (state ->count == 2){
+        default_layer_set((layer_state_t)1 << _ALT);
     }
 }
 
@@ -101,18 +113,12 @@ void fn_gaming(tap_dance_state_t *state, void *user_data){
     }
 }
 
-void fn_qwerty(tap_dance_state_t *state, void *user_data){
-    if (state ->count == 2){
-        default_layer_set((layer_state_t)1 << _QWERTY);
-    }
-}
-
 // Tap Dance definitions
 tap_dance_action_t tap_dance_actions[] = {
     [TD_BOOT] = ACTION_TAP_DANCE_FN(fn_boot),
     [TD_BASE] = ACTION_TAP_DANCE_FN(fn_base),
+    [TD_ALT] = ACTION_TAP_DANCE_FN(fn_alt),
     [TD_GAMING] = ACTION_TAP_DANCE_FN(fn_gaming),
-    [TD_QWERTY] = ACTION_TAP_DANCE_FN(fn_qwerty),
     [TD_EECLEAR] = ACTION_TAP_DANCE_FN(fn_eeclear),
 };
 
