@@ -3,6 +3,7 @@ name: 'Close stale issues and PRs'
 permissions:
   issues: write
   pull-requests: write
+  actions: write
 
 on:
   schedule:
