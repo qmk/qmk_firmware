@@ -41,8 +41,13 @@
   },
   "processor": "atmega32a",
   "bootloader": "bootloadhid",
+  "layout_aliases": {
+    "LAYOUT": "LAYOUT_75_ansi",
+    "LAYOUT_splitbs": "LAYOUT_75_ansi_split_bs"
+  },
+  "community_layouts": ["75_ansi"],
   "layouts": {
-    "LAYOUT": {
+    "LAYOUT_75_ansi": {
       "layout": [
         {"matrix": [5, 0], "x": 0, "y": 0},
         {"matrix": [5, 2], "x": 1, "y": 0},
@@ -135,7 +140,7 @@
         {"matrix": [6, 9], "x": 15, "y": 5}
       ]
     },
-    "LAYOUT_splitbs": {
+    "LAYOUT_75_ansi_split_bs": {
       "layout": [
         {"matrix": [5, 0], "x": 0, "y": 0},
         {"matrix": [5, 2], "x": 1, "y": 0},
