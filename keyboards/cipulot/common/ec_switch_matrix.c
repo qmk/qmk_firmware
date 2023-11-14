@@ -173,53 +173,28 @@ void ec_noise_floor(void) {
 bool ec_matrix_scan(matrix_row_t current_matrix[]) {
     bool updated = false;
 
-    // Bottoming calibration mode: update bottoming out values and avoid keycode state change
-    // IF statement is higher in the function to avoid the overhead of the execution of normal operation mode
-    if (ec_config.bottoming_calibration) {
-        for (uint8_t amux = 0; amux < AMUX_COUNT; amux++) {
-            disable_unused_amux(amux);
-            for (int col = 0; col < amux_n_col_sizes[amux]; col++) {
-                for (int row = 0; row < MATRIX_ROWS; row++) {
-                    if (amux == 0) {
-                        sw_value[row][col] = ec_readkey_raw(0, row, col);
-                        if (ec_config.bottoming_calibration_starter[row][col]) {
-                            ec_config.bottoming_reading[row][col]             = sw_value[row][col];
-                            ec_config.bottoming_calibration_starter[row][col] = false;
-                        } else if (sw_value[row][col] > ec_config.bottoming_reading[row][col]) {
-                            ec_config.bottoming_reading[row][col] = sw_value[row][col];
-                        }
-                    } else {
-                        sw_value[row][col] = ec_readkey_raw(amux, row, col);
-                        if (ec_config.bottoming_calibration_starter[row][col + amux_n_col_sizes[amux - 1]]) {
-                            ec_config.bottoming_reading[row][col + amux_n_col_sizes[amux - 1]]             = sw_value[row][col];
-                            ec_config.bottoming_calibration_starter[row][col + amux_n_col_sizes[amux - 1]] = false;
-                        } else if (sw_value[row][col] > ec_config.bottoming_reading[row][col + amux_n_col_sizes[amux - 1]]) {
-                            ec_config.bottoming_reading[row][col + amux_n_col_sizes[amux - 1]] = sw_value[row][col];
-                        }
-                    }
-                }
-            }
-        }
-        // Return false to avoid keycode state change
-        return false;
-    }
-
-    // Normal operation mode: update key state
     for (uint8_t amux = 0; amux < AMUX_COUNT; amux++) {
         disable_unused_amux(amux);
-        for (int col = 0; col < amux_n_col_sizes[amux]; col++) {
-            for (int row = 0; row < MATRIX_ROWS; row++) {
-                if (amux == 0) {
-                    sw_value[row][col] = ec_readkey_raw(0, row, col);
-                    updated |= ec_update_key(&current_matrix[row], row, col, sw_value[row][col]);
+        for (uint8_t col = 0; col < amux_n_col_sizes[amux]; col++) {
+            for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+                uint8_t adjusted_col        = amux == 0 ? col : col + amux_n_col_sizes[amux - 1];
+                sw_value[row][adjusted_col] = ec_readkey_raw(amux, row, col);
+
+                if (ec_config.bottoming_calibration) {
+                    if (ec_config.bottoming_calibration_starter[row][adjusted_col]) {
+                        ec_config.bottoming_reading[row][adjusted_col]             = sw_value[row][adjusted_col];
+                        ec_config.bottoming_calibration_starter[row][adjusted_col] = false;
+                    } else if (sw_value[row][adjusted_col] > ec_config.bottoming_reading[row][adjusted_col]) {
+                        ec_config.bottoming_reading[row][adjusted_col] = sw_value[row][adjusted_col];
+                    }
                 } else {
-                    sw_value[row][col + amux_n_col_sizes[amux - 1]] = ec_readkey_raw(amux, row, col);
-                    updated |= ec_update_key(&current_matrix[row], row, col + amux_n_col_sizes[amux - 1], sw_value[row][col + amux_n_col_sizes[amux - 1]]);
+                    updated |= ec_update_key(&current_matrix[row], row, adjusted_col, sw_value[row][adjusted_col]);
                 }
             }
         }
     }
-    return updated;
+
+    return ec_config.bottoming_calibration ? false : updated;
 }
 
 // Read the capacitive sensor value
