@@ -1,0 +1,38 @@
+// Copyright 2023 Zach DeCook
+// SPDX-License-Identifier: GPL-3.0-only
+
+#define RP2040_FLASH_GENERIC_03H
+
+#define MIDI_ADVANCED
+
+#define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_RGB
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
+#define RGB_MATRIX_LED_COUNT 140
+#define ENABLE_RGB_MATRIX_SOLID_COLOR
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+#define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
+#define ENABLE_RGB_MATRIX_BREATHING
+
+#define AUDIO_PIN GP23
+// From the data sheet, pin 23 is PWM3 B
+#define AUDIO_PWM_DRIVER PWMD3
+#define AUDIO_PWM_CHANNEL RP2040_PWM_CHANNEL_B
+#define AUDIO_INIT_DELAY
+#define NO_MUSIC_MODE
+#define AUDIO_ENABLE_TONE_MULTIPLEXING
+#define AUDIO_TONE_MULTIPLEXING_RATE_DEFAULT 50
+
+// From the data sheet, pins 16/17 can use I2C0 DA/CL
+#define I2C_DRIVER I2CD0
+// (The name of these defines is confusing...)
+#define I2C1_SDA_PIN GP16
+#define I2C1_SCL_PIN GP17
+#define OLED_BRIGHTNESS 55
+#define OLED_IC OLED_IC_SH1106
+#define OLED_DISPLAY_128X64
+// Slow down oled updates (to speed up encoder updates???)
+// #define OLED_UPDATE_INTERVAL 50
+// #define OLED_COLUMN_OFFSET 2 // for eliminating glitching spot?
+
+#define ENCODER_DIRECTION_FLIP
+#define ENCODER_DEFAULT_POS 0x3
