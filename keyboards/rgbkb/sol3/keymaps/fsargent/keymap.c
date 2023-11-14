@@ -22,16 +22,16 @@
  * ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤
  * │Shift │   Z  │   X  │   C  │   V  │   B  │   {  │  │   }  │   N  │   M  │   ,	 │   .  │   /  │Enter │
  * ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤
- * │ Ctrl │  Win │  Alt │  RGB │ ADJ  │      │ DEL  │  │ Enter│      │  FN  │ Left │ Down │ Up   │Right │
+ * │ Ctrl │  Win │  Alt │  RGB │ ADJ  │	  │ DEL  │  │ Enter│	  │  FN  │ Left │ Down │ Up   │Right │
  * └──────┴──────┴──────┴──────┴──────┤ Space├──────┤  ├──────┤ Space├──────┴──────┴──────┴──────┴──────┘
- *                                    │      │ DEL  │  │ Enter│      │
- *                                    └──────┴──────┘  └──────┴──────┘
- * ┌──────┬──────┬──────┬──────┬──────┬──────┐                ┌──────┬──────┬──────┬──────┬──────┬──────┐
- * │Vol Dn│Vol Up│Vol Dn│Vol Up│Vol Dn│Vol Up│                │Vol Dn│Vol Up│Vol Dn│Vol Up│Vol Dn│Vol Up│
- * └──────┴──────┴──────┴──────┴──────┴──────┘                └──────┴──────┴──────┴──────┴──────┴──────┘
- * ┌──────┬──────┬──────┬──────┬──────┐                              ┌──────┬──────┬──────┬──────┬──────┐
- * │Vol Dn│Vol Up│ Prev │ Play │ Next │                              │Vol Dn│Vol Up│ Prev │ Play │ Next │
- * └──────┴──────┴──────┴──────┴──────┘                              └──────┴──────┴──────┴──────┴──────┘
+ *									│	  │ DEL  │  │ Enter│	  │
+ *									└──────┴──────┘  └──────┴──────┘
+ * ┌──────┬──────┬──────┬──────┬──────┬──────┐				┌──────┬──────┬──────┬──────┬──────┬──────┐
+ * │Vol Dn│Vol Up│Vol Dn│Vol Up│Vol Dn│Vol Up│				│Vol Dn│Vol Up│Vol Dn│Vol Up│Vol Dn│Vol Up│
+ * └──────┴──────┴──────┴──────┴──────┴──────┘				└──────┴──────┴──────┴──────┴──────┴──────┘
+ * ┌──────┬──────┬──────┬──────┬──────┐							  ┌──────┬──────┬──────┬──────┬──────┐
+ * │Vol Dn│Vol Up│ Prev │ Play │ Next │							  │Vol Dn│Vol Up│ Prev │ Play │ Next │
+ * └──────┴──────┴──────┴──────┴──────┘							  └──────┴──────┴──────┴──────┴──────┘
  */
 
 enum sol_layers {
@@ -75,7 +75,7 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 		default:
 			// Do not select the hold action when another key is pressed.
 			return false;
-    }
+	}
 }
 
 
@@ -84,27 +84,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	/* Mac
 	* ┌──────┬──────┬──────┬──────┬──────┬──────┬──────┐  ┌──────┬──────┬──────┬──────┬──────┬──────┬──────┐
-	* │ GESC │   1  │   2  │   3  │   4  │   5  │ ESC  │  │      │   6  │   7  │   8  │   9  │   0  │   -  │
+	* │ GESC │   1  │   2  │   3  │   4  │   5  │ ESC  │  │	  │   6  │   7  │   8  │   9  │   0  │   -  │
 	* ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  ├ OLED ┼──────┼──────┼──────┼──────┼──────┼──────┤
-	* │ Tab  │   Q  │   W  │   E  │   R  │   T  │   {  │  │      │   Y  │   U  │   I  │   O  │   P  │   \  │
+	* │ Tab  │   Q  │   W  │   E  │   R  │   T  │   {  │  │	  │   Y  │   U  │   I  │   O  │   P  │   \  │
 	* ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤
 	* |MEHESC│   A  │   S  │   D  │   F  │   G  │   (  │  │VOLUP │   H  │   J  │   K  │   L  │   ;  │   '  │
 	* ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤
 	* │Shift │   Z  │   X  │  C   │   V  │   B  │   [  │  │VOLDN │   N  │   M  │   ,  │   .  │   /  │Shift │
 	* ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤
-	* │ Ctrl │  Alt │  Win │  SYM │ NAV  │      │2Sym  │  │2Ctrl │      │  _   │   =  │RGUI  │RALT  │RCTRL │
+	* │ Ctrl │  Alt │  Win │  SYM │ NAV  │	  │2Sym  │  │2Ctrl │	  │  _   │   =  │RGUI  │RALT  │RCTRL │
 	* └──────┴──────┴──────┴──────┴──────┤1BSpc ├──────┤  ├──────┤ 3Spc ├──────┴──────┴──────┴──────┴──────┘
-	*                                    │      │3Ctrl │  │1Enter│      │
-	*                                    └──────┴──────┘  └──────┴──────┘
+	*									│	  │3Ctrl │  │1Enter│	  │
+	*									└──────┴──────┘  └──────┴──────┘
 	*/
 
 	[_MAC] = LAYOUT(
+
 	LT(_MEH,KC_GRV),	KC_1,	KC_2,	KC_3,	KC_4,	KC_5,	KC_ESC,			KC_NO,	KC_6,	KC_7,	KC_8,	KC_9,	KC_0,	KC_MINUS,
 	KC_TAB,			KC_Q,	KC_W,	KC_E,	KC_R,	KC_T,	TO(_MAC),			KC_NO,	KC_Y,	KC_U,	KC_I,	KC_O,	KC_P,	KC_BSLS,
-	MEHESC,			KC_A,	KC_S,	KC_D,	KC_F,	KC_G,	TO(_WIN),			KC_F11,	KC_H,	MT(MOD_LSFT, KC_J),	MT(MOD_LGUI, KC_K),	MT(MOD_LALT, KC_L),	MT(MOD_LCTL, KC_SCLN),	KC_QUOT,
+	MEHESC,			KC_A,	KC_S,	KC_D,	KC_F,	KC_G,	TO(_WIN),			KC_F11,	KC_H,	MT(MOD_LSFT, KC_J),	MT(MOD_LCTL, KC_K),	MT(MOD_LALT, KC_L),	MT(MOD_LGUI, KC_SCLN),	KC_QUOT,
 	KC_LSFT,			KC_Z,	KC_X,	KC_C,	KC_V,	KC_B,	TO(_GAME),		KC_F12,	KC_N,	KC_M,	KC_COMM,	KC_DOT,	KC_SLSH,	KC_RSFT,
 	KC_LCTL,			LBRC,	RBRC,	MO(_SYM),		MO(_NAV),
-	CMD_T(KC_BSPC),	MT(MOD_LCTL, KC_DEL),	MT(MOD_LALT, KC_ENT),
+	CMD_T(KC_BSPC),	MT(MOD_LCTL, KC_DEL),	MT(MOD_LALT, KC_TAB),
 																			KC_ENT,	KC_MPLY,	KC_SPC,
 																			LT(_SYM, KC_MINUS),	LT(_NAV, KC_EQL),	KC_RGUI,	KC_RALT,	KC_RCTL,
 
@@ -114,24 +115,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	/* Win
 	* ┌──────┬──────┬──────┬──────┬──────┬──────┬──────┐  ┌──────┬──────┬──────┬──────┬──────┬──────┬──────┐
-	* │ GESC │   1  │   2  │   3  │   4  │   5  │   -  │  │      │   6  │   7  │   8  │   9  │   0  │   -  │
+	* │ GESC │   1  │   2  │   3  │   4  │   5  │   -  │  │	  │   6  │   7  │   8  │   9  │   0  │   -  │
 	* ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  │ OLED │──────┼──────┼──────┼──────┼──────┼──────┤
-	* │ Tab  │   Q  │   W  │   E  │   R  │   T  │   {  │  │      │   Y  │   U  │   I  │   O  │   P  │   \  │
+	* │ Tab  │   Q  │   W  │   E  │   R  │   T  │   {  │  │	  │   Y  │   U  │   I  │   O  │   P  │   \  │
 	* ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤
 	* |MEHESC│   A  │   S  │   D  │   F  │   G  │   (  │  │VOLUP │   H  │   J  │   K  │   L  │   ;  │   '  │
 	* ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤
 	* │Shift │   Z  │   X  │   C  │   V  │   B  │   [  │  │VOLDN │   N  │   M  │   ,  │   .  │   /  │Shift │
 	* ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤
-	* │ Ctrl │  Alt │  Win │  SYM │ NAV  │ CTLR │2 GUI │  │2Ctrl │      │  _   │   =  │RGUI  │RALT  │RCTRL │
+	* │ Ctrl │  Alt │  Win │  SYM │ NAV  │ CTLR │2 GUI │  │2Ctrl │	  │  _   │   =  │RGUI  │RALT  │RCTRL │
 	* └──────┴──────┴──────┴──────┴──────┤1BSpc ├──────┤  │──────│3Spc  ├──────┴──────┴──────┴──────┴──────┘
-	*                                    │      │3 ALT │  │1Enter│      │
-	*                                    └──────┴──────┘  └──────┴──────┘
+	*									│	  │3 ALT │  │1Enter│	  │
+	*									└──────┴──────┘  └──────┴──────┘
 	*/
 
 	[_WIN] = LAYOUT(
 	LT(_MEH,KC_GRV),_______,	_______,	_______,	_______,	_______,	_______,		_______,	_______,	_______,	_______,	_______,	_______,	_______,
 	_______,	_______,	_______,	_______,	_______,	_______,	_______,			_______,	_______,	_______,	_______,	_______,	_______,	_______,
-	MEHESC,	_______,	_______,	_______,	_______,	_______,	_______,			_______,	_______,	_______,	_______,	_______,	_______,	_______,
+	MEHESC,	MT(MOD_LGUI, KC_A),	MT(MOD_LALT, KC_S), MT(MOD_LCTL, KC_D),	MT(MOD_LSFT, KC_F),	_______,	_______,			_______,	_______,	_______,	_______,	_______,	_______,	_______,
 	_______,	_______,	_______,	_______,	_______,	_______,	_______,			_______,	_______,	_______,	_______,	_______,	_______,	_______,
 
 	_______,	_______,	_______,	_______,	MO(_WINNAV),
@@ -157,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_GAME] = LAYOUT(
 	KC_GRV,	_______,	_______,	_______,	_______,	_______,	_______,					_______,	_______,	_______,	_______,	_______,	_______,	KC_BSPC,
 	_______,	_______,	_______,	_______,	_______,	_______,	_______,					_______,	_______,	_______,	_______,	_______,	_______,	_______,
-	KC_ESC,	_______,	_______,	_______,	_______,	_______,	_______,					_______,	_______,	_______,	_______,	_______,	_______,	_______,
+	KC_ESC,	KC_A,	KC_S,	KC_D,	KC_F,	KC_G,	_______,					_______,	_______,	_______,	_______,	_______,	_______,	_______,
 	_______,	_______,	_______,	_______,	_______,	_______,	_______,					_______,	_______,	_______,	_______,	_______,	_______,	_______,
 
 	_______,	_______,	_______,	_______,	MO(_WINNAV),
@@ -195,7 +196,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	),
 
-    [_MEH]=LAYOUT(
+	[_MEH]=LAYOUT(
 	_______,	MEH(KC_1),	MEH(KC_2),	MEH(KC_3),	MEH(KC_4),	MEH(KC_5),	TO(_MAC),			_______,	MEH(KC_6),	MEH(KC_7),	MEH(KC_8),	MEH(KC_9),	MEH(KC_0),	MEH(KC_MINUS),
 	_______,	MEH(KC_Q),	MEH(KC_W),	MEH(KC_E),	MEH(KC_R),	MEH(KC_T),	TO(_WIN),			_______,	MEH(KC_Y),	MEH(KC_U),	MEH(KC_I),	MEH(KC_O),	MEH(KC_P),	MEH(KC_BSLS),
 	_______,	MEH(KC_A),	MEH(KC_S),	MEH(KC_D),	MEH(KC_F),	MEH(KC_G),	TO(_GAME),		KC_VOLU,	MEH(KC_H),	MEH(KC_J),	MEH(KC_K),	MEH(KC_L),	MEH(KC_SCLN),	MEH(KC_QUOT),
@@ -273,14 +274,15 @@ void render_layer_status(void) {
 }
 
 
-enum combo_events { RST, TOGWIN, TOGGAME, MUTE, SEL_WORD, SEL_LINE, WINTGSYM, TGSYM, RBU, RBL, CTRLALTDEL, CTRLC, CTRLR, CUT, CPY, PST, CAL, DELWD, QIN, QNM, EML,WRK, QP, WINDELWD, COMBO_LENGTH };
+enum combo_events { RST, TOGWIN, TOGGAME, MUTE, SEL_WORD, SEL_LINE, WINTGSYM, TGSYM, RBU, RBL, CTRLALTDEL, CTRLC, CTRLR, CUT, CPY, PST, CAL, DELWD, QIN, QNM, EML,WRK, QP, WINDELWD, OUTER_THUMB, COMBO_LENGTH };
 uint16_t COMBO_LEN = COMBO_LENGTH;  // remove the COMBO_COUNT define and use this instead!
 
-const uint16_t PROGMEM asdf_combo[]       = {KC_A, KC_S, KC_D, KC_F, COMBO_END};
-const uint16_t PROGMEM zxcv_combo[]       = {KC_Z, KC_X, KC_C, KC_V, COMBO_END};
-const uint16_t PROGMEM uiop_combo[]       = {KC_U, KC_I, KC_O, KC_P, COMBO_END};
-const uint16_t PROGMEM jklsemi_combo[]    = {KC_J, KC_K, KC_L, KC_SCLN, COMBO_END};
-// const uint16_t PROGMEM thumbs_combo[]     = {MT(MOD_LALT, KC_SPC), MT(MOD_LCTL, KC_ENT), COMBO_END};
+const uint16_t PROGMEM outer_left_thumb_combo[] = {MT(MOD_LCTL, KC_DEL),	MT(MOD_LALT, KC_TAB), COMBO_END};
+const uint16_t PROGMEM asdf_combo[]	   = {KC_A, KC_S, KC_D, KC_F, COMBO_END};
+const uint16_t PROGMEM zxcv_combo[]	   = {KC_Z, KC_X, KC_C, KC_V, COMBO_END};
+const uint16_t PROGMEM uiop_combo[]	   = {KC_U, KC_I, KC_O, KC_P, COMBO_END};
+const uint16_t PROGMEM jklsemi_combo[]	= {KC_J, KC_K, KC_L, KC_SCLN, COMBO_END};
+// const uint16_t PROGMEM thumbs_combo[]	 = {MT(MOD_LALT, KC_SPC), MT(MOD_LCTL, KC_ENT), COMBO_END};
 // const uint16_t PROGMEM win_thumbs_combo[] = {MT(MOD_LCTL, KC_SPC), MT(MOD_LALT, KC_ENT), COMBO_END};
 const uint16_t PROGMEM mute_combo[] = {KC_VOLU,KC_VOLD, COMBO_END};
 
@@ -288,7 +290,7 @@ const uint16_t PROGMEM zx_combo[] = {KC_Z, KC_X, COMBO_END};
 const uint16_t PROGMEM xc_combo[] = {KC_X, KC_C, COMBO_END};
 const uint16_t PROGMEM cv_combo[] = {KC_C, KC_V, COMBO_END};
 const uint16_t PROGMEM qr_combo[] = {KC_Q, KC_R, COMBO_END};
-const uint16_t PROGMEM df_combo[] = {KC_D, KC_F, COMBO_END};
+const uint16_t PROGMEM df_combo[] = {MT(MOD_LGUI, KC_D),	MT(MOD_LSFT, KC_F), COMBO_END};
 const uint16_t PROGMEM gravminus_combo[] = {LT(_MEH,KC_GRV), KC_MINUS, COMBO_END};
 
 const uint16_t PROGMEM xcv_combo[] = {KC_X, KC_C, KC_V, COMBO_END};
@@ -306,53 +308,58 @@ const uint16_t PROGMEM togwin_combo[] = {KC_9, KC_2, COMBO_END};
 const uint16_t PROGMEM toggame_combo[] = {KC_0, KC_1, COMBO_END};
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
+	switch (keycode) {
 	   case MT(MOD_LALT, KC_BSLS):
 		  return TAPPING_TERM + 500;
 	   default:
 		  return TAPPING_TERM;
-    }
+	}
 }
 
 combo_t key_combos[] = {
 
 
-    // 2 key combos
-    [CUT]      = COMBO_ACTION(zx_combo),
-    [CPY]      = COMBO_ACTION(xc_combo),
-    [PST]      = COMBO_ACTION(cv_combo),
-    [CTRLR]    = COMBO_ACTION(qr_combo),
-    [DELWD]    = COMBO_ACTION(df_combo),
-    // [TGSYM]    = COMBO_ACTION(thumbs_combo),
-    // [WINTGSYM] = COMBO_ACTION(win_thumbs_combo),
-    [RST]      = COMBO_ACTION(gravminus_combo),
-    [MUTE] = COMBO_ACTION(mute_combo),
+	// 2 key combos
+	[CUT]	  = COMBO_ACTION(zx_combo),
+	[CPY]	  = COMBO_ACTION(xc_combo),
+	[PST]	  = COMBO_ACTION(cv_combo),
+	[CTRLR]	= COMBO_ACTION(qr_combo),
+	[DELWD]	= COMBO_ACTION(df_combo),
+	// [TGSYM]	= COMBO_ACTION(thumbs_combo),
+	// [WINTGSYM] = COMBO_ACTION(win_thumbs_combo),
+	[RST]	  = COMBO_ACTION(gravminus_combo),
+	[MUTE] = COMBO_ACTION(mute_combo),
 
-    [TOGGAME]  = COMBO_ACTION(toggame_combo),
-    [TOGWIN]   = COMBO_ACTION(togwin_combo),
+	[TOGGAME]  = COMBO_ACTION(toggame_combo),
+	[TOGWIN]   = COMBO_ACTION(togwin_combo),
+		[OUTER_THUMB] = COMBO_ACTION(outer_left_thumb_combo),
 
-    // 3 key combos
-    [SEL_WORD] = COMBO_ACTION(xcv_combo),
+	// 3 key combos
+	[SEL_WORD] = COMBO_ACTION(xcv_combo),
 
-    // 4 key combos
-    //     [CMD_ENTER]  = COMBO_ACTION(asdf_combo),
-    [SEL_LINE]   = COMBO_ACTION(zxcv_combo),
-    [CTRLALTDEL] = COMBO_ACTION(jklsemi_combo),
+	// 4 key combos
+	//	 [CMD_ENTER]  = COMBO_ACTION(asdf_combo),
+	[SEL_LINE]   = COMBO_ACTION(zxcv_combo),
+	[CTRLALTDEL] = COMBO_ACTION(jklsemi_combo),
 
-    // Misc
-    [CAL]   = COMBO_ACTION(cal_combo),
+	// Misc
+	[CAL]   = COMBO_ACTION(cal_combo),
 	[RBU]   = COMBO_ACTION(rbu_combo),
 	[RBL]   = COMBO_ACTION(rbl_combo),
-    [EML]   = COMBO_ACTION(eml_combo),
-    [WRK]   = COMBO_ACTION(wrk_combo),
-    [QP] 	  = COMBO_ACTION(phone_combo),
-    [QIN]   = COMBO_ACTION(qin_combo),
-    [QNM]	  = COMBO_ACTION(qnm_combo)};
+	[EML]   = COMBO_ACTION(eml_combo),
+	[WRK]   = COMBO_ACTION(wrk_combo),
+	[QP] 	  = COMBO_ACTION(phone_combo),
+	[QIN]   = COMBO_ACTION(qin_combo),
+	[QNM]	  = COMBO_ACTION(qnm_combo)};
 /* COMBO_ACTION(x) is same as COMBO(x, KC_NO) */
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
-    if (layer_state_is(0)) {
+	if (layer_state_is(0)) {
 	   switch (combo_index) {
+			case OUTER_THUMB:
+				if (pressed) {
+					tap_code(KC_ENT);
+				}
 		  case DELWD:
 			 if (pressed) {
 				tap_code16(A(KC_BSPC));
@@ -383,8 +390,8 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 				SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_LEFT) SS_DOWN(X_LSFT) SS_TAP(X_RIGHT) SS_UP(X_LSFT) SS_UP(X_LALT));
 			 }
 	   }
-    }
-    if (layer_state_is(1)) {
+	}
+	if (layer_state_is(1)) {
 	   switch (combo_index) {
 		  case DELWD:
 			 if (pressed) {
@@ -421,8 +428,8 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 				SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_LEFT) SS_DOWN(X_LSFT) SS_TAP(X_RIGHT) SS_UP(X_LSFT) SS_UP(X_LCTL));
 			 }
 	   }
-    }
-    switch (combo_index) {
+	}
+	switch (combo_index) {
 	case MUTE:
 		if (pressed) {
 			tap_code(KC_MUTE);
@@ -482,7 +489,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 			 tap_code16(C(A(KC_DEL)));
 		  }
 		  break;
-    }
+	}
 }
 
 
@@ -490,67 +497,67 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 os_variant_t os_type;
 
 uint32_t startup_exec(uint32_t trigger_time, void *cb_arg) {
-    /* do something */
+	/* do something */
 
-    if (is_keyboard_master()) {
-        os_type = detected_host_os();
-        if (os_type) {
-          //   bool is_mac                  = (os_type == OS_MACOS) || (os_type == OS_IOS);
-          //   keymap_config.swap_lctl_lgui = keymap_config.swap_rctl_rgui = is_mac;
-#    ifdef UNICODE_COMMON_ENABLE
-            uint8_t mode = is_mac ? UNICODE_MODE_MACOS : UNICODE_MODE_WINCOMPOSE;
-            if (mode != get_unicode_input_mode()) {
-                set_unicode_input_mode(mode);
-            }
-#    endif
-            switch (os_type) {
-                case OS_UNSURE:
-                    xprintf("unknown OS Detected\n");
-                    break;
-                case OS_LINUX:
-                    xprintf("Linux Detected\n");
-                    break;
-                case OS_WINDOWS:
-                    xprintf("Windows Detected\n");
+	if (is_keyboard_master()) {
+		os_type = detected_host_os();
+		if (os_type) {
+		  //   bool is_mac				  = (os_type == OS_MACOS) || (os_type == OS_IOS);
+		  //   keymap_config.swap_lctl_lgui = keymap_config.swap_rctl_rgui = is_mac;
+#	ifdef UNICODE_COMMON_ENABLE
+			uint8_t mode = is_mac ? UNICODE_MODE_MACOS : UNICODE_MODE_WINCOMPOSE;
+			if (mode != get_unicode_input_mode()) {
+				set_unicode_input_mode(mode);
+			}
+#	endif
+			switch (os_type) {
+				case OS_UNSURE:
+					xprintf("unknown OS Detected\n");
+					break;
+				case OS_LINUX:
+					xprintf("Linux Detected\n");
+					break;
+				case OS_WINDOWS:
+					xprintf("Windows Detected\n");
 				layer_move(_WIN);
-                    break;
-#    if 0
-                case OS_WINDOWS_UNSURE:
-                    xprintf("Windows? Detected\n");
-                    break;
-#    endif
-                case OS_MACOS:
-                    xprintf("MacOS Detected\n");
+					break;
+#	if 0
+				case OS_WINDOWS_UNSURE:
+					xprintf("Windows? Detected\n");
+					break;
+#	endif
+				case OS_MACOS:
+					xprintf("MacOS Detected\n");
 				layer_move(_MAC);
-                    break;
-                case OS_IOS:
-                    xprintf("iOS Detected\n");
+					break;
+				case OS_IOS:
+					xprintf("iOS Detected\n");
 				layer_move(_MAC);
-                    break;
-#    if 0
-                case OS_PS5:
-                    xprintf("PlayStation 5 Detected\n");
-                    break;
-                case OS_HANDHELD:
-                    xprintf("Nintend Switch/Quest 2 Detected\n");
-                    break;
-#    endif
-            }
-        }
-    }
+					break;
+#	if 0
+				case OS_PS5:
+					xprintf("PlayStation 5 Detected\n");
+					break;
+				case OS_HANDHELD:
+					xprintf("Nintend Switch/Quest 2 Detected\n");
+					break;
+#	endif
+			}
+		}
+	}
 
-    return os_type ? 0 : 500;
+	return os_type ? 0 : 500;
 }
 
 
 
 __attribute__((weak)) void keyboard_post_init_keymap(void) {}
-void                       keyboard_post_init_user(void) {
+void					   keyboard_post_init_user(void) {
 
 #ifdef OS_DETECTION_ENABLE
-    defer_exec(100, startup_exec, NULL);
+	defer_exec(100, startup_exec, NULL);
 #endif
 
-    keyboard_post_init_keymap();
+	keyboard_post_init_keymap();
 }
 
