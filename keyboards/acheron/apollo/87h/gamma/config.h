@@ -30,7 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IS31FL3741_DRIVER_COUNT 1
 #define DRIVER_1_LED_TOTAL 87
 #define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
-#define ISSI_DRIVER_TOTAL RGB_MATRIX_LED_COUNT
 
 #define RGB_MATRIX_DEFAULT_VAL 80
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS

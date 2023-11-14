@@ -12,6 +12,13 @@
         "suspend_wakeup_delay": 1000
     },
     "diode_direction": "ROW2COL",
+    "eeprom": {
+        "driver": "wear_leveling",
+        "wear_leveling": {
+            "driver": "spi_flash",
+            "backing_size": 4096
+        }
+    },
     "features": {
         "bootmagic": true,
         "command": false,
@@ -33,7 +40,7 @@
         ]
     },
     "rgb_matrix": {
-        "driver": "ckled2001",
+        "driver": "snled27351",
         "max_brightness": 180,
         "animations": {
             "solid_color": true,

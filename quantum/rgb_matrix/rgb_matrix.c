@@ -383,8 +383,7 @@ void rgb_matrix_task(void) {
         case RENDERING:
             rgb_task_render(effect);
             if (effect) {
-                // Only run the basic indicators in the last render iteration (default there are 5 iterations)
-                if (rgb_effect_params.iter == RGB_MATRIX_LED_PROCESS_MAX_ITERATIONS) {
+                if (rgb_task_state == FLUSHING) { // ensure we only draw basic indicators once rendering is finished
                     rgb_matrix_indicators();
                 }
                 rgb_matrix_indicators_advanced(&rgb_effect_params);
@@ -409,6 +408,36 @@ __attribute__((weak)) bool rgb_matrix_indicators_kb(void) {
 
 __attribute__((weak)) bool rgb_matrix_indicators_user(void) {
     return true;
+}
+
+struct rgb_matrix_limits_t rgb_matrix_get_limits(uint8_t iter) {
+    struct rgb_matrix_limits_t limits = {0};
+#if defined(RGB_MATRIX_LED_PROCESS_LIMIT) && RGB_MATRIX_LED_PROCESS_LIMIT > 0 && RGB_MATRIX_LED_PROCESS_LIMIT < RGB_MATRIX_LED_COUNT
+#    if defined(RGB_MATRIX_SPLIT)
+    limits.led_min_index = RGB_MATRIX_LED_PROCESS_LIMIT * (iter);
+    limits.led_max_index = limits.led_min_index + RGB_MATRIX_LED_PROCESS_LIMIT;
+    if (limits.led_max_index > RGB_MATRIX_LED_COUNT) limits.led_max_index = RGB_MATRIX_LED_COUNT;
+    uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;
+    if (is_keyboard_left() && (limits.led_max_index > k_rgb_matrix_split[0])) limits.led_max_index = k_rgb_matrix_split[0];
+    if (!(is_keyboard_left()) && (limits.led_min_index < k_rgb_matrix_split[0])) limits.led_min_index = k_rgb_matrix_split[0];
+#    else
+    limits.led_min_index = RGB_MATRIX_LED_PROCESS_LIMIT * (iter);
+    limits.led_max_index = limits.led_min_index + RGB_MATRIX_LED_PROCESS_LIMIT;
+    if (limits.led_max_index > RGB_MATRIX_LED_COUNT) limits.led_max_index = RGB_MATRIX_LED_COUNT;
+#    endif
+#else
+#    if defined(RGB_MATRIX_SPLIT)
+    limits.led_min_index                = 0;
+    limits.led_max_index                = RGB_MATRIX_LED_COUNT;
+    const uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;
+    if (is_keyboard_left() && (limits.led_max_index > k_rgb_matrix_split[0])) limits.led_max_index = k_rgb_matrix_split[0];
+    if (!(is_keyboard_left()) && (limits.led_min_index < k_rgb_matrix_split[0])) limits.led_min_index = k_rgb_matrix_split[0];
+#    else
+    limits.led_min_index = 0;
+    limits.led_max_index = RGB_MATRIX_LED_COUNT;
+#    endif
+#endif
+    return limits;
 }
 
 void rgb_matrix_indicators_advanced(effect_params_t *params) {

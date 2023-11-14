@@ -126,6 +126,15 @@ static inline void aw20216s_auto_lowpower(pin_t cs_pin) {
     aw20216s_write_register(cs_pin, AW20216S_PAGE_FUNCTION, AW20216S_REG_MIXFUNCTION, AW20216S_MIXCR_DEFAULT | AW20216S_LPEN);
 }
 
+void aw20216s_init_drivers(void) {
+    spi_init();
+
+    aw20216s_init(AW20216S_CS_PIN_1, AW20216S_EN_PIN_1);
+#if defined(AW20216S_CS_PIN_2)
+    aw20216s_init(AW20216S_CS_PIN_2, AW20216S_EN_PIN_2);
+#endif
+}
+
 void aw20216s_init(pin_t cs_pin, pin_t en_pin) {
     setPinOutput(en_pin);
     writePinHigh(en_pin);
@@ -155,7 +164,7 @@ void aw20216s_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void aw20216s_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
-    for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+    for (uint8_t i = 0; i < AW20216S_LED_COUNT; i++) {
         aw20216s_set_color(i, red, green, blue);
     }
 }
@@ -165,4 +174,11 @@ void aw20216s_update_pwm_buffers(pin_t cs_pin, uint8_t index) {
         aw20216s_write(cs_pin, AW20216S_PAGE_PWM, 0, g_pwm_buffer[index], AW20216S_PWM_REGISTER_COUNT);
     }
     g_pwm_buffer_update_required[index] = false;
+}
+
+void aw20216s_flush(void) {
+    aw20216s_update_pwm_buffers(AW20216S_CS_PIN_1, 0);
+#if defined(AW20216S_CS_PIN_2)
+    aw20216s_update_pwm_buffers(AW20216S_CS_PIN_2, 1);
+#endif
 }
