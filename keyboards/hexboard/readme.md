@@ -5,8 +5,10 @@
 *The HexBoard is a MIDI controller which can double as a 120% keyboard*
 
 * Keyboard Maintainer: [Zach DeCook](https://github.com/earboxer)
-* Hardware Supported: HexBoard Dev Unit (1.0), HexBoard Production Unit (1.1)
-* Hardware Availability: https://shapingthesilence.com/tech/hexboard-midi-controller/
+* Hardware Supported: Dev Unit with RP2040 Processor, HexBoard Production Unit (1.1)
+* Hardware Not Supported: Dev Unit with Teensy Processor
+* Hardware Availability:
+	* HexBoard Production Unit (1.1) https://shapingthesilence.com/tech/hexboard-midi-controller/ Since 2023.
 
 The ["Arduino" firmware](https://sr.ht/~earboxer/HexBoard/) remains the official firmware for the HexBoard, but QMK can be used as an alternative which offers keyboard functionality.
 
