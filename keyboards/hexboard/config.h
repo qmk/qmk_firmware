@@ -5,7 +5,7 @@
 
 #define MIDI_ADVANCED
 
-#define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_RGB
+#define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_GRB
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
 #define RGB_MATRIX_LED_COUNT 140
 #define ENABLE_RGB_MATRIX_SOLID_COLOR
@@ -29,7 +29,10 @@
 #define I2C1_SCL_PIN GP17
 #define OLED_BRIGHTNESS 55
 #define OLED_IC OLED_IC_SH1106
-#define OLED_DISPLAY_128X64
+#define OLED_DISPLAY_128X128
+// Slow down oled updates (to speed up encoder updates???)
+// #define OLED_UPDATE_INTERVAL 50
+// #define OLED_COLUMN_OFFSET 2 // for eliminating glitching spot?
 
 #define ENCODER_DIRECTION_FLIP
 #define ENCODER_DEFAULT_POS 0x3

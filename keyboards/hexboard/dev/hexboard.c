@@ -69,3 +69,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 			return true;
 	}
 }
+
+#ifdef OLED_ENABLE
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    return OLED_ROTATION_180;
+}
+#endif
