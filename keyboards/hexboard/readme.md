@@ -8,6 +8,8 @@
 * Hardware Supported: HexBoard Dev Unit (1.0), HexBoard Production Unit (1.1)
 * Hardware Availability: https://shapingthesilence.com/tech/hexboard-midi-controller/
 
+The ["Arduino" firmware](https://sr.ht/~earboxer/HexBoard/) remains the official firmware for the HexBoard, but QMK can be used as an alternative which offers keyboard functionality.
+
 Make example for this keyboard (after setting up your build environment):
 
 ```sh
