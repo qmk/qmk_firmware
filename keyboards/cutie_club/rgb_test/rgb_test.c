@@ -20,16 +20,18 @@ led_config_t g_led_config = { {
   1, 1, 1, 1, 1, 1, 1, 1, 1, 1
 } };
 
-t_rgb_indicator_matcher g_rgb_indicator_matchers[NUMBER_OF_DYNAMIC_INDICATOR_MATCHERS] = {
-    {
-        .led_index = 0,
-        .led_state = {
-            .caps_lock = true,
-        },
-        .color = {
-            .h = 85,
-            .s = 255,
-            .v = 255
-        }
-    }
-};
+#define RGB_INDICATOR_MATCHERS_COUNT 1
+#define RGB_INDICATOR_MATCHERS { \
+  {                              \
+      .led_index = 0,            \
+      .led_state = {             \
+          .caps_lock = true,     \
+      },                         \
+      .color = {                 \
+          .h = 85,               \
+          .s = 255,              \
+          .v = 255               \
+      }                          \
+  }                              \
+}
+
