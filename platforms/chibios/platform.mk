@@ -476,6 +476,11 @@ HEX     = $(OBJCOPY) -O $(FORMAT)
 EEP     =
 BIN     = $(OBJCOPY) -O binary
 
+# disable warning about RWX triggered by ChibiOS linker scripts
+ifeq ("$(shell echo "int main(){}" | $(CC) -shared -Wl,--no-warn-rwx-segments -x c - -o /dev/null 2>&1)", "")
+	SHARED_LDFLAGS += -Wl,--no-warn-rwx-segments
+endif
+
 ##############################################################################
 # Make targets
 #
