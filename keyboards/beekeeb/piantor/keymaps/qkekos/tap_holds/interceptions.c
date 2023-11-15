@@ -10,7 +10,7 @@ bool proceed_custom_tap(uint16_t keycode, keyrecord_t *record) {
     return false;
 }
 
-bool in_process_record(uint16_t keycode, keyrecord_t *record, bool *return_value) {
+bool intr_process_record(uint16_t keycode, keyrecord_t *record, bool *return_value) {
     *return_value = false;
 
     switch (keycode) {

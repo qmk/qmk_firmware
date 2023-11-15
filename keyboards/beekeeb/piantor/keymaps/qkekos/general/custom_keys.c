@@ -6,7 +6,7 @@ uint32_t send_clear_enter_defer(uint32_t trigger_time, void *cb_arg) {
     return 0;
 }
 
-bool ck_process_record(uint16_t keycode, keyrecord_t *record, bool *return_value) {
+bool cusk_process_record(uint16_t keycode, keyrecord_t *record, bool *return_value) {
     *return_value = false;
 
     switch (keycode) {

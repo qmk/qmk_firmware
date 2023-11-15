@@ -169,10 +169,10 @@ int handle_override(int keycode) {
     return keycode;
 }
 
-bool process_lang_independant_key(uint16_t keycode, keyrecord_t *record, bool *return_value, bool ignore_layer) {
+bool lind_process_record(uint16_t keycode, keyrecord_t *record, bool *return_value) {
     if (
         (
-            (is_alpha_layer_on() && !ignore_layer) &&
+            is_alpha_layer_on() &&
             record->event.type != COMBO_EVENT &&
             record->event.pressed
         ) || current_lang == ENG

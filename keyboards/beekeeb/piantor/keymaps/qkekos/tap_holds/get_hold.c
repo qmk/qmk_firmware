@@ -55,18 +55,14 @@ struct HoldKey hold_keys[] = {
 };
 
 bool get_hold_on_next_key(uint16_t keycode, uint16_t next_key) {
-    uprintf("get_hold_on_next_key - %d %d\n", keycode, next_key);
-
     for (int i = 0; hold_keys[i].key != KC_NO; i++)
         if (
             (hold_keys[i].lang == ANY || hold_keys[i].lang == current_lang) &&
             hold_keys[i].key == keycode
         )
             for (int j = 0; hold_keys[i].hold_keys[j] != KC_NO; j++)
-                if (hold_keys[i].hold_keys[j] == next_key) {
-                    uprintf("get_hold_on_next_key returned true\n");
+                if (hold_keys[i].hold_keys[j] == next_key)
                     return true;
-                }
 
     return false;
 }

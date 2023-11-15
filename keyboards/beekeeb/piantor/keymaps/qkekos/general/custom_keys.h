@@ -16,4 +16,4 @@ enum blender_keycode {
     US_CWRD
 };
 
-bool ck_process_record(uint16_t keycode, keyrecord_t *record, bool *return_value);
+bool cusk_process_record(uint16_t keycode, keyrecord_t *record, bool *return_value);

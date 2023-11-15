@@ -33,7 +33,7 @@ uint32_t defer_process_rep_key(uint32_t trigger_time, void *cb_arg) {
     return 0;
 }
 
-bool mg_process_record(uint16_t keycode, keyrecord_t *record, bool *return_value) {
+bool strd_process_record(uint16_t keycode, keyrecord_t *record, bool *return_value) {
     *return_value = false;
 
     if (record->event.pressed) {

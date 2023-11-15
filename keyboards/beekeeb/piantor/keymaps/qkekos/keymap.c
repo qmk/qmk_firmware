@@ -3,13 +3,14 @@
 #include "g/keymap_combo.h"
 
 bool (*process_records[])(uint16_t, keyrecord_t*, bool*) = {
-    mg_process_record,
+    strd_process_record,
     sw_process_record,
     os_process_record,
+    lind_process_record,
     mlt_process_record,
-    ck_process_record,
-    in_process_record,
-    ld_process_record,
+    cusk_process_record,
+    intr_process_record,
+    led_process_record,
     td_process_record,
     NULL
 };
@@ -125,7 +126,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MEDIA] = LAYOUT_split_3x6_3(
         KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_VLUP, /**/ KC_NO,     KC_NO,     KC_MS_U,   KC_NO,     US_LGTG,   TG_GAME,
         KC_NO,     KC_NO,     KC_LALT,   KC_LCTL,   KC_LSFT,   KC_VLDW, /**/ KC_NO,     KC_MS_L,   KC_MS_D,   KC_MS_R,   KC_NO,     KC_SCRL,
-        HK_SALL,   HK_UNDO,   HK_CUT,    HK_COPY,   HK_PSTE,   KC_MPLY, /**/ KC_ESC,    KC_NO,     KC_VLUP,   KC_VLDW,   QK_BOOT,   KC_NO,
+        HK_SALL,   HK_UNDO,   HK_CUT,    HK_COPY,   HK_PSTE,   KC_MPLY, /**/ KC_ESC,    KC_NO,     KC_VLUP,   KC_VLDW,   QK_BOOT,   EE_CLR,
                                          KC_NO,     KC_NO,     KC_NO,   /**/ KC_BTN3,   KC_BTN1,   KC_BTN2
     ),
 // -----------------------------------------------------------------------------------------------------------------------------------------
