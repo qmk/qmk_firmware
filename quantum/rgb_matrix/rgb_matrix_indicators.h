@@ -4,26 +4,37 @@
 #include <stdbool.h>
 #include "color.h"
 
-typedef struct {
+#ifndef RGB_INDICATOR_MATCHERS_COUNT
+    #define RGB_INDICATOR_MATCHERS_COUNT 0
+#endif
+
+#ifndef RGB_INDICATOR_MATCHERS_COUNT_MAX
+    #define RGB_INDICATOR_MATCHERS_COUNT_MAX RGB_INDICATOR_MATCHERS_COUNT
+#endif
+
+#if RGB_INDICATOR_MATCHERS_COUNT > RGB_INDICATOR_MATCHERS_COUNT_MAX
+    #error Number of indicator matchers, exceeds the number of dynamic indicator matchers
+#endif
+
+#if !defined(RGB_INDICATOR_MATCHERS) && (RGB_INDICATOR_MATCHERS_COUNT == 0)
+    #define RGB_INDICATOR_MATCHERS {}
+#elif !defined(RGB_INDICATOR_MATCHERS)
+    #error No RGB indicator matchers have been defined, please define RGB_INDICATOR_MATCHERS
+#endif
+
+
+typedef struct PACKED {
     int led_index;
     led_t led_state;
     HSV color;
     bool override_brightness_limit;
 } t_rgb_indicator_matcher;
 
-#ifndef INDICATOR_MATCHERS_COUNT
-    #define INDICATOR_MATCHERS_COUNT 0
-#endif
-
-#ifndef INDICATOR_MATCHERS_COUNT_MAX
-    #define INDICATOR_MATCHERS_COUNT_MAX INDICATOR_MATCHERS_COUNT
-#endif
-
-#if INDICATOR_MATCHERS_COUNT > INDICATOR_MATCHERS_COUNT_MAX
-    #error Number of indicator matchers, exceeds the number of dynamic indicator matchers
-#endif
-
-extern t_rgb_indicator_matcher g_rgb_indicator_matchers[INDICATOR_MATCHERS_COUNT_MAX];
+typedef struct PACKED {
+    bool initialised;
+    uint8_t matcher_count;
+    t_rgb_indicator_matcher matchers[RGB_INDICATOR_MATCHERS_COUNT_MAX]
+} t_rgb_matrix_indicator_config;
 
 void rgb_matrix_indicators_init(void);
 

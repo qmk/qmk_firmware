@@ -2,14 +2,11 @@
 #include "rgb_matrix.h"
 #include "host.h"
 
-#if INDICATOR_MATCHERS_COUNT_MAX == 0
-__attribute__((weak))
-t_rgb_indicator_matcher g_rgb_indicator_matchers[INDICATOR_MATCHERS_COUNT_MAX] = {}
-#endif
+t_rgb_indicator_matcher default_matchers[RGB_INDICATOR_MATCHERS_COUNT] = RGB_INDICATOR_MATCHERS;
 
-static uint8_t indicator_matchers_count = INDICATOR_MATCHERS_COUNT;
+static t_rgb_matrix_indicator_config rgb_matrix_indicators_config;
 
-EECONFIG_DEBOUNCE_HELPER(rgb_matrix_indicators, EECONFIG_RGB_MATRIX, rgb_matrix_indicators_config);
+EECONFIG_DEBOUNCE_HELPER(rgb_matrix_indicators, EECONFIG_RGB_MATRIX_INDICATORS, rgb_matrix_indicators_config);
 
 void rgb_matrix_indicators_init(void) {
     if (!eeconfig_is_enabled()) {
@@ -19,16 +16,15 @@ void rgb_matrix_indicators_init(void) {
 
     eeconfig_init_rgb_matrix_indicators();
     if (!rgb_matrix_indicators_config.initialised) {
-        dprintf("rgb_matrix_init_drivers rgb_matrix_config.mode = 0. Write default values to EEPROM.\n");
-        eeconfig_update_rgb_matrix_default();
+        dprintf("rgb_matrix_indicators have not been initialised. Writing default values to EEPROM.\n");
+        eeconfig_update_rgb_matrix_indicators_default();
     }
-    eeconfig_debug_rgb_matrix(); // display current eeprom values
 }
 
 void rgb_matrix_indicators(void) {
     if (!rgb_matrix_indicators_kb()) return;
     led_t led_state = host_keyboard_led_state();
-    for (size_t i = 0; i < indicator_matchers_count; i++) {
+    for (size_t i = 0; i < rgb_matrix_indicators_config.matcher_count; i++) {
         t_rgb_indicator_matcher matcher = g_rgb_indicator_matchers[i];
         if (!(matcher.led_index >= 0 && matcher.led_index < RGB_MATRIX_LED_COUNT)) {
             dprintf("LED %d is out of range of the rgb matrix configuration\n", matcher.led_index);
@@ -73,4 +69,11 @@ __attribute__((weak)) bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, ui
 
 __attribute__((weak)) bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     return true;
+}
+
+static void eeconfig_update_rgb_matrix_indicators_default(void) {
+    dprintf("resetting rgb_matrix_indicators");
+    rgb_matrix_indicators_config.initialised = true;
+    rgb_matrix_indicators_config.matcher_count = RGB_INDICATOR_MATCHERS_COUNT;
+    memcpy(rgb_matrix_indicators_config.matchers, default_matchers, RGB_INDICATOR_MATCHERS_COUNT);
 }
