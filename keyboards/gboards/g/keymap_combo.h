@@ -71,6 +71,8 @@ combo_t key_combos[] = {
 #define SUBS A_ACTI
 #define TOGG A_TOGG
 void process_combo_event(uint16_t combo_index, bool pressed) {
+    process_combo_event_user(combo_index, pressed);
+
     switch (combo_index) {
 #include "combos.def"
     }
