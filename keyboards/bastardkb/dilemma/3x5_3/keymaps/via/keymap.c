@@ -156,64 +156,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #    endif // DILEMMA_AUTO_SNIPING_ON_LAYER
 #endif     // POINTING_DEVICE_ENABLE
 
-#ifdef RGB_MATRIX_ENABLE
-#define rgb_min(a,b) (((a)<(b))?(a):(b))
-// Forward-declare this helper function since it is defined in rgb_matrix.c.
-void rgb_matrix_update_pwm_buffers(void);
-
-// Layer state indicator
-bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    if (host_keyboard_led_state().caps_lock) {
-        for (int i = led_min; i <= led_max; i++) {
-            if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
-                rgb_matrix_set_color(i, rgb_min(rgb_matrix_get_val() + 76, 255), 0x00, 0x00);
-            }
-        }
-    }
-
-    uint8_t layer = get_highest_layer(layer_state);
-    if (layer > 0) {
-        HSV hsv = rgb_matrix_get_hsv();
-        switch (get_highest_layer(layer_state)) {
-            case 1:
-                hsv = (HSV){HSV_BLUE};
-                break;
-            case 2:
-                hsv = (HSV){HSV_AZURE};
-                break;
-            case 3:
-                hsv = (HSV){HSV_ORANGE};
-                break;
-            case 4:
-                hsv = (HSV){HSV_GREEN};
-                break;
-            case 5:
-                hsv = (HSV){HSV_TEAL};
-                break;
-            case 6:
-                hsv = (HSV){HSV_PURPLE};
-                break;
-            case 7:
-            default:
-                hsv = (HSV){HSV_RED};
-                break;
-        };
-
-        if (hsv.v > rgb_matrix_get_val()) {
-            hsv.v = rgb_min(rgb_matrix_get_val() + 22, 255);
-        }
-        RGB rgb = hsv_to_rgb(hsv);
-
-        for (uint8_t i = led_min; i < led_max; i++) {
-            if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
-                rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
-            }
-        }
-    }
-    return false;
-};
-#endif // RGB_MATRIX_ENABLE
-
 #ifdef ENCODER_MAP_ENABLE
 // clang-format off
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
@@ -227,8 +169,11 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 // clang-format on
 #endif // ENCODER_MAP_ENABL
 
-void shutdown_user(void) {
 #ifdef RGB_MATRIX_ENABLE
+// Forward-declare this helper function since it is defined in rgb_matrix.c.
+void rgb_matrix_update_pwm_buffers(void);
+
+void shutdown_user(void) {
     rgb_matrix_set_color_all(rgb_matrix_get_val(), 0x00, 0x00);
     rgb_matrix_update_pwm_buffers();
 #endif // RGB_MATRIX_ENABLE
