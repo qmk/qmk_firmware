@@ -728,6 +728,7 @@ def _check_matrix(info_data):
             col_count = len(info_data['matrix_pins']['cols'])
             row_count = len(info_data['matrix_pins']['rows'])
         elif 'cols' not in info_data['matrix_pins'] and 'rows' not in info_data['matrix_pins']:
+            # This case caters for custom matrix implementations where normal rows/cols are specified
             return
 
         if col_count != actual_col_count and col_count != (actual_col_count / 2):
