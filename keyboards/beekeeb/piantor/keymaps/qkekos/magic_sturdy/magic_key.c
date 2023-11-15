@@ -69,6 +69,10 @@ void process_magic_key(uint16_t keycode, uint8_t mods) {
         double_magic_case(KC_L,
             magic_case(HR_I, "st");
         );
+
+        double_magic_case(MHR_D,
+            magic_case(LHR_A, "y");
+        );
     }
 
     switch (keycode) {
