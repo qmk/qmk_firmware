@@ -12,7 +12,7 @@ bool caps_word_press_user(uint16_t keycode) {
         case KC_1 ... KC_0:
         case KC_BSPC:
         case KC_DEL:
-        case KC_UNDS:
+        case TD_UNDS:
             return true;
 
         case KC_DOT:
