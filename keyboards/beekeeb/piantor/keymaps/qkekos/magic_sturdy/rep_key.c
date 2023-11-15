@@ -10,6 +10,10 @@ void process_rep_key(uint16_t keycode, uint8_t mods) {
         double_magic_case(KC_F,
             magic_case(LHR_R, "om");
         );
+
+        double_magic_case(KC_L,
+            magic_case(LHR_A, "st");
+        );
     }
 
     switch (keycode) {
@@ -19,8 +23,8 @@ void process_rep_key(uint16_t keycode, uint8_t mods) {
         magic_case(KC_Q, "ui");
         magic_case(KC_F, "or");
         magic_case(KC_J, "oin");
-        magic_case(TH_NUM, "for");
         magic_case(KC_W, "ould");
+        magic_case(TH_NUM, "for");
         magic_case(KC_B, "ecause");
         default: tap_code16(keycode);
     }
