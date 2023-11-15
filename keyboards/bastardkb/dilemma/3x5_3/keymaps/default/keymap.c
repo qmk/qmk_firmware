@@ -24,8 +24,8 @@ enum dilemma_keymap_layers {
     LAYER_NUM,
 };
 
-#define NAV TRI_LAYER_LOWER_LAYER
-#define SYM TRI_LAYER_UPPER_LAYER
+#define NAV QK_TRI_LAYER_LOWER
+#define SYM QK_TRI_LAYER_UPPER
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
