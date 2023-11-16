@@ -1,7 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "debug.h"
-#include "action_layer.h"
-#include "keymap_steno.h"
 
 #define BASE 0 // default layer
 #define SYMB 1 // symbols

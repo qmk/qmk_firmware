@@ -1,7 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "narze.h"
 #include "keymap_colemak.h"
-#include "keymap_steno.h"
 
 
 #ifdef RGBLIGHT_ENABLE

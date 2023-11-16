@@ -57,8 +57,8 @@ static void oled_render_keylog(void) {
     oled_write_char(key_name, false);
 }
 
-__attribute__((weak)) const char * get_layer_name_user(int layer) {
-    return "Unknown";
+__attribute__((weak)) const char * get_layer_name_user(uint8_t layer) {
+    return get_u8_str(layer, ' ');
 }
 
 static void oled_render_layer(void) {

@@ -98,11 +98,7 @@ def keyboard_folder(keyboard):
         if keyboard == last_keyboard:
             break
 
-    rules_mk_file = Path(base_path, keyboard, 'rules.mk')
-
-    if rules_mk_file.exists():
-        rules_mk = parse_rules_mk_file(rules_mk_file)
-        keyboard = rules_mk.get('DEFAULT_FOLDER', keyboard)
+    keyboard = resolve_keyboard(keyboard)
 
     if not qmk.path.is_keyboard(keyboard):
         raise ValueError(f'Invalid keyboard: {keyboard}')
