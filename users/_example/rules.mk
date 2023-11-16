@@ -1,1 +1,0 @@
-SRC += _example.c
