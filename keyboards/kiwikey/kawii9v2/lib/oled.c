@@ -2,10 +2,23 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
  
 #include QMK_KEYBOARD_H
-#include "anim_mario.c"
 #include "oled_custom_api.c"
 
 #ifdef OLED_ENABLE
+
+#define LOGO_WIDTH  24
+#define LOGO_HEIGHT 24
+static const char PROGMEM qmk_logo[LOGO_HEIGHT/8][LOGO_WIDTH] = {
+    { 0x81,0x82,0x83,0x84 },
+    { 0xa1,0xa2,0xa3,0xa4 },
+    { 0xc1,0xc2,0xc3,0xc4 }
+};
+static void render_qmk_logo(uint8_t col, uint8_t row) {
+    for (uint8_t i = 0; i < LOGO_HEIGHT/8; i++) {
+        oled_set_cursor(col, row++);
+        oled_write_P(qmk_logo[i], false);
+    }
+}
 
 static uint32_t key_timer = 0;
 static uint8_t rgb_val = 0;
@@ -25,9 +38,9 @@ static char sub_ui_mode = 0;
 #define KEY_SPACING         3
 
 // Configuration for WPM Graph
-#define GRAPH_ZERO_X           20  // This is zero origin
+#define GRAPH_ZERO_X           25  // This is zero origin
 #define GRAPH_ZERO_Y           63  // of the WPM graph
-#define GRAPH_WIDTH            105
+#define GRAPH_WIDTH            100
 #define GRAPH_HEIGHT           28
 #define GRAPH_REFRESH_INTERVAL 100 // ms
 #define GRAPH_LINE_THICKNESS   1
@@ -186,7 +199,6 @@ void render_stats(void) {
     }
 }
 
-
 void keyboard_post_init_kb(void) {
     render_ui_frame();
     keyboard_post_init_user();
@@ -200,7 +212,7 @@ bool oled_task_kb(void) {
     switch (sub_ui_mode) {
         case 0:
             render_wpm_graph();
-            render_anim();
+            render_qmk_logo(0, 5);
             break;
         case 1:
             render_ui_rgbcontrol();
@@ -209,9 +221,6 @@ bool oled_task_kb(void) {
     if ((sub_ui_mode != 0) && (timer_elapsed32(key_timer) > SUB_UI_TIMEOUT)) { // If timeout, back to default UI
         sub_ui_mode = 0;
         ui_clear();
-    }
-    if (timer_elapsed32(key_timer) > ANIM_FRAME_DURATION) {
-        anim_state = 0;
     }
     if (timer_elapsed32(key_timer) > OLED_TIMEOUT) {
         oled_off();
@@ -235,7 +244,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             break;
     }
     render_matrix();
-    anim_state = (anim_state + 1) % ANIM_STATES;
     key_timer = timer_read32();
     return true;
 }
