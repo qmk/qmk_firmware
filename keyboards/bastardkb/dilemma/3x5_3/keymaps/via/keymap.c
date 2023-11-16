@@ -167,15 +167,4 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [LAYER_SYMBOLS]    = {ENCODER_CCW_CW(RGB_RMOD, RGB_MOD), ENCODER_CCW_CW(KC_LEFT, KC_RGHT)},
 };
 // clang-format on
-#endif // ENCODER_MAP_ENABL
-
-#ifdef RGB_MATRIX_ENABLE
-// Forward-declare this helper function since it is defined in rgb_matrix.c.
-void rgb_matrix_update_pwm_buffers(void);
-
-void shutdown_user(void) {
-    rgb_matrix_set_color_all(rgb_matrix_get_val(), 0x00, 0x00);
-    rgb_matrix_update_pwm_buffers();
-#endif // RGB_MATRIX_ENABLE
-}
-
+#endif // ENCODER_MAP_ENABLE
