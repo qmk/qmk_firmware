@@ -5,8 +5,6 @@
     "bootloader": "stm32-dfu",
     "diode_direction": "ROW2COL",
     "features": {
-        "audio": false,
-        "backlight": false,
         "bootmagic": true,
         "command": false,
         "console": false,
@@ -14,8 +12,7 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgb_matrix": true,
-        "rgblight": false
+        "rgb_matrix": true
     },
     "processor": "STM32L432",
     "rgb_matrix": {

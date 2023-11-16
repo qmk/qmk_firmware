@@ -5,16 +5,13 @@
     "bootloader": "stm32-dfu",
     "diode_direction": "ROW2COL",
     "features": {
-        "audio": false,
-        "backlight": false,
         "bootmagic": true,
         "command": false,
         "console": false,
         "dip_switch": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "rgblight": false
+        "nkro": true
     },
     "layout_aliases": {
         "LAYOUT_ansi_84": "LAYOUT_75_ansi"
