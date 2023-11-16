@@ -17,5 +17,6 @@ AUDIO_DRIVER = pwm_hardware
 MUSIC_ENABLE = no
 
 ENCODER_ENABLE = yes
+ENCODER_MAP_ENABLE = yes
 
 #CONSOLE_ENABLE = yes

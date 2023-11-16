@@ -6,7 +6,18 @@
 // Define the keycode, `QK_USER` avoids collisions with existing keycodes
 enum keycodes {
   KC_CYCLE_LAYERS = QK_USER,
+  KC_ENCODER_CCW,
+  KC_ENCODER_CW,
 };
+
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [0] =   {ENCODER_CCW_CW(KC_ENCODER_CCW, KC_ENCODER_CW),},
+    [1] =   {ENCODER_CCW_CW(KC_ENCODER_CCW, KC_ENCODER_CW),},
+    [2] =   {ENCODER_CCW_CW(KC_ENCODER_CCW, KC_ENCODER_CW),},
+    [3] =   {ENCODER_CCW_CW(KC_ENCODER_CCW, KC_ENCODER_CW),},
+};
+#endif
 
 // 1st layer on the cycle
 #define LAYER_CYCLE_START 0
@@ -159,7 +170,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     }
     return false;
 }
-
+uint16_t held_keycode = 0;
 // Add the behaviour of this new keycode
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -183,9 +194,63 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       layer_move(next_layer);
       return false;
-
+    // Track the option buttons so they can modify the behavior of the encoder.
+    case MI_BNDU:
+    case MI_BNDD:
+    case MI_MOD:
+    case MI_VL2:
+    case MI_VL5:
+    case MI_VL10:
+      if(record->event.pressed) { held_keycode = keycode; }
+      else { held_keycode = 0; }
+      // process normally
+      return true;
+    case KC_ENCODER_CCW:
+    case KC_ENCODER_CW:
+      switch (held_keycode) {
+        case MI_MOD:
+          if (keycode == KC_ENCODER_CW ? midi_config.modulation_interval != 255 : midi_config.modulation_interval != 0) {
+            midi_config.modulation_interval += (keycode == KC_ENCODER_CW ? 1 : -1);
+          }
+          break;
+        case MI_VL2:
+        case MI_VL5:
+        case MI_VL10:
+          if (keycode == KC_ENCODER_CW ? midi_config.velocity != 127 : midi_config.velocity != 0) {
+            midi_config.velocity += (keycode == KC_ENCODER_CW ? 1 : -1);
+          }
+          break;
+        default:
+          break;
+      }
+      // done processing.
+      return false;
     // Process other keycodes normally
     default:
       return true;
   }
 }
+
+#ifdef OLED_ENABLE
+bool oled_task_user(void) {
+    // Host Keyboard Layer Status
+    oled_write_P(PSTR(" Layer: "), false);
+    switch (get_highest_layer(layer_state)) {
+        case 0:
+            oled_write_P(PSTR("Default\n"), false);
+            break;
+        case 1:
+            oled_write_P(PSTR("symbols\n"), false);
+            break;
+        case 2:
+            oled_write_P(PSTR("numbers\n"), false);
+            break;
+        default:
+            // Or use the write_ln shortcut over adding '\n' to the end of your string
+            oled_write_ln_P(PSTR("Undefined"), false);
+    }
+    oled_write_P(PSTR("Velocity: "), held_keycode >= MI_VL2 && held_keycode < MI_VL10);
+    oled_write_ln(get_u8_str(midi_config.velocity, ' '), false);
+    return false;
+}
+#endif
