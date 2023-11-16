@@ -28,7 +28,7 @@ void rgb_matrix_indicators_init(void) {
 
     eeconfig_init_rgb_matrix_indicators();
     if (!rgb_matrix_indicators_config.initialised) {
-        dprintf("rgb_matrix_indicators have not been initialised. Writing default values to EEPROM.\n");
+        dprintf("Writing default values to rgb_matrix_indicators EEPROM.\n");
         eeconfig_update_rgb_matrix_indicators_default();
     }
 }
@@ -81,4 +81,51 @@ __attribute__((weak)) bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, ui
 
 __attribute__((weak)) bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     return true;
+}
+
+int add_rgb_matcher(t_rgb_indicator_matcher matcher) {
+    if (rgb_matrix_indicators_config.matcher_count >= RGB_INDICATOR_MATCHERS_COUNT_MAX) return -2;
+
+    uint8_t new_index = rgb_matrix_indicators_config.matcher_count;
+
+    rgb_matrix_indicators_config.matchers[new_index] = matcher;
+    rgb_matrix_indicators_config.matcher_count++;
+
+    eeconfig_flush_rgb_matrix_indicators(true);
+    return new_index;
+}
+
+int remove_rgb_matcher(uint8_t index) {
+    if (index >= rgb_matrix_indicators_config.matcher_count) return -1;
+
+    uint8_t right_matchers_count = (rgb_matrix_indicators_config.matcher_count - 1) - index;
+
+    memcpy(
+        rgb_matrix_indicators_config.matchers + index, 
+        rgb_matrix_indicators_config.matchers + index + 1, 
+        sizeof(t_rgb_indicator_matcher) * right_matchers_count
+    );
+    rgb_matrix_indicators_config.matcher_count--;
+
+    eeconfig_flush_rgb_matrix_indicators(true);
+    return 0;
+}
+
+int save_rgb_matcher(uint8_t index, t_rgb_indicator_matcher matcher) {
+    if (index >= rgb_matrix_indicators_config.matcher_count) return -1;
+    
+    rgb_matrix_indicators_config.matchers[index] = matcher;
+
+    eeconfig_flush_rgb_matrix_indicators(true);
+    return 0;
+}
+
+int get_rgb_matcher(uint8_t index, t_rgb_indicator_matcher* matcher) {
+    if (index >= rgb_matrix_indicators_config.matcher_count) return -1;
+    *matcher = rgb_matrix_indicators_config.matchers[index];
+    return 0;
+}
+
+uint8_t number_of_rgb_matchers(void) {
+    return rgb_matrix_indicators_config.matcher_count;
 }
