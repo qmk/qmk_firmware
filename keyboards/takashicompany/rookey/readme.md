@@ -12,7 +12,7 @@ Despite its small size, it can be used as a 9-key macro pad, and a rotary encode
 
 It can be used not only as a first unit, but also as a long-lasting unit.
 
---
+---
 
 Rookeyは名前の通り、DIYキーボードの"Rookie"のために作られた一作です。
 
