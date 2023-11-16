@@ -8,6 +8,24 @@
     "pid": "0x1000",
     "device_version": "0.0.1"
   },
+  "rgblight": {
+    "saturation_steps": 8,
+    "brightness_steps": 8,
+    "led_count": 20,
+    "sleep": true,
+    "animations": {
+      "breathing": true,
+      "rainbow_mood": true,
+      "rainbow_swirl": true,
+      "snake": true,
+      "knight": true,
+      "christmas": true,
+      "static_gradient": true,
+      "rgb_test": true,
+      "alternating": true,
+      "twinkle": true
+    }
+  },
   "ws2812": {
     "pin": "B2"
   },
@@ -17,6 +35,7 @@
   },
   "diode_direction": "COL2ROW",
   "backlight": {
+    "driver": "timer",
     "pin": "D4",
     "on_state": 0
   },

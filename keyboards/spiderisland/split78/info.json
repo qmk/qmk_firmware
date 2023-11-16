@@ -15,6 +15,9 @@
     "ws2812": {
         "driver": "i2c"
     },
+    "build": {
+        "debounce_type": "sym_eager_pr"
+    },
     "processor": "atmega32a",
     "bootloader": "bootloadhid",
     "debounce": 50,

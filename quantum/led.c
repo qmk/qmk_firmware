@@ -153,14 +153,14 @@ __attribute__((weak)) void led_set(uint8_t usb_led) {
 /** \brief Trigger behaviour on transition to suspend
  */
 void led_suspend(void) {
-    uint8_t leds_off = 0;
+    led_t leds_off = {0};
 #ifdef BACKLIGHT_CAPS_LOCK
     if (is_backlight_enabled()) {
         // Don't try to turn off Caps Lock indicator as it is backlight and backlight is already off
-        leds_off |= (1 << USB_LED_CAPS_LOCK);
+        leds_off.caps_lock = true;
     }
 #endif
-    led_set(leds_off);
+    led_set(leds_off.raw);
 }
 
 /** \brief Trigger behaviour on transition from suspend

@@ -3,38 +3,11 @@
 
 #pragma once
 
-// Encoder mappings (used for VIA).
-#define ENCODERS_CW_KEY  { { 22, 0 }, { 18, 0 }, { 20, 0 } }
-#define ENCODERS_CCW_KEY { { 23, 0 }, { 19, 0 }, { 21, 0 } }
-
 // clang-format on
-
-// RGB LED parameters.
-// This PCB uses a single chain of WS2812-compatible addressable RGB LEDs for
-// per-key backlight and underglow.
-#define RGBLED_NUM 27
-
-// RGB Lighting configuration.  This mode is used by the vendor firmware, and
-// can be chosen if the full RGB Matrix support is not desired for some reason.
-#ifdef RGBLIGHT_ENABLE
-#    define RGBLIGHT_HUE_STEP 8
-#    define RGBLIGHT_SAT_STEP 8
-#    define RGBLIGHT_VAL_STEP 8
-#    define RGBLIGHT_SLEEP
-#    define RGBLIGHT_EFFECT_BREATHING
-#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#    define RGBLIGHT_EFFECT_SNAKE
-#    define RGBLIGHT_EFFECT_KNIGHT
-#    define RGBLIGHT_EFFECT_CHRISTMAS
-#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#    define RGBLIGHT_EFFECT_RGB_TEST
-#    define RGBLIGHT_EFFECT_ALTERNATING
-#endif
 
 // RGB Matrix configuration.
 #ifdef RGB_MATRIX_ENABLE
-#    define RGB_MATRIX_LED_COUNT RGBLED_NUM
+#    define RGB_MATRIX_LED_COUNT 27
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
 
 #    define RGB_MATRIX_CENTER \

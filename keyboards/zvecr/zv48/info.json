@@ -10,7 +10,8 @@
     },
     "matrix_pins": {
         "cols": ["B15", "B10", "B0", "A5", "A4", "A3"],
-        "rows": ["A10", "A15", "B3", "B4"]
+        "rows": ["A10", "A15", "B3", "B4"],
+        "io_delay": 5
     },
     "diode_direction": "COL2ROW",
     "encoder": {
@@ -23,7 +24,21 @@
         "driver": "pwm"
     },
     "rgblight": {
-        "max_brightness": 120
+        "led_count": 48,
+        "max_brightness": 120,
+        "split_count": [24, 24],
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "split": {
         "soft_serial_pin": "B6",

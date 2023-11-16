@@ -42,8 +42,14 @@
         "pin": "A7",
         "driver": "spi"
     },
+    "layout_aliases": {
+        "LAYOUT_65_iso_tsangan_split_bs": "LAYOUT_iso_split_bs",
+        "LAYOUT_65_ansi_tsangan": "LAYOUT_ansi",
+        "LAYOUT_65_ansi_blocker_tsangan": "LAYOUT_ansi_blocker_tsangan",
+        "LAYOUT_65_ansi_tsangan_split_bs": "LAYOUT_all"
+    },
     "layouts": {
-        "LAYOUT_65_iso_tsangan_split_bs": {
+        "LAYOUT_iso_split_bs": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -120,7 +126,7 @@
                 {"matrix": [4, 14], "x": 15, "y": 4}
             ]
         },
-        "LAYOUT_65_ansi_tsangan_split_bs": {
+        "LAYOUT_all": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -197,7 +203,7 @@
                 {"matrix": [4, 14], "x": 15, "y": 4}
             ]
         },
-        "LAYOUT_65_ansi_tsangan": {
+        "LAYOUT_ansi": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -273,7 +279,7 @@
             ]
         },
         
-        "LAYOUT_65_ansi_blocker_tsangan": {
+        "LAYOUT_ansi_blocker_tsangan": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},

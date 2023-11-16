@@ -7,6 +7,38 @@
         "pid": "0x6063",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B3", "pin_b": "B1"}
+        ]
+    },
+    "rgblight": {
+        "led_count": 10,
+        "sleep": true,
+        "led_map": [8, 9, 0, 1, 2, 6, 7, 3, 4, 5],
+        "split_count": [5, 5],
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "split": {
+        "encoder": {
+            "right": {
+                "rotary": [
+                    {"pin_a": "B4", "pin_b": "B5"}
+                ]
+            }
+        }
+    },
     "ws2812": {
         "pin": "B2"
     },
