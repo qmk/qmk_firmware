@@ -38,6 +38,9 @@ void matrix_init_kb(void) {
 	// put your keyboard start-up code here
 	// runs once when the firmware starts up
 
+	led_matrix_set_value(0, 0);
+	led_matrix_set_value(1, 0);
+	led_matrix_set_value(2, 0);
 	led_matrix_set_value(3, 255);
 	led_matrix_set_value(4, 255);
 	led_matrix_set_value(5, 255);
@@ -46,12 +49,12 @@ void matrix_init_kb(void) {
 	matrix_init_user();
 }
 
-bool led_update_kb(led_t led_state) {
-	bool res = led_update_user(led_state);
+bool led_matrix_indicators_kb(void) {
+	bool res = led_update_user(host_keyboard_led_state());
 	if (res) {
-		led_matrix_set_value(0, led_state.caps_lock * 255);
-		led_matrix_set_value(1, led_state.num_lock * 255);
-		led_matrix_set_value(2, led_state.scroll_lock * 255);
+		led_matrix_set_value(0, host_keyboard_led_state().caps_lock * 255);
+		led_matrix_set_value(1, host_keyboard_led_state().num_lock * 255);
+		led_matrix_set_value(2, host_keyboard_led_state().scroll_lock * 255);
 	}
 	return res;
 }
@@ -67,8 +70,8 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 			break;
 		case 2:
 			led_matrix_set_value(3, 0);
-			led_matrix_set_value(4, 255;
-			led_matrix_set_value(5, 0;
+			led_matrix_set_value(4, 255);
+			led_matrix_set_value(5, 0);
 			led_matrix_set_value(6, 0);
 			led_matrix_set_value(7, 0);
 			break;
