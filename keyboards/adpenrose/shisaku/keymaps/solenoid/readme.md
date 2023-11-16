@@ -1,1 +1,0 @@
-# Solenoid keymap for Shisaku
