@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-const char* get_layer_name_user(int layer) {
+const char* get_layer_name_user(uint8_t layer) {
     switch (layer) {
         case L_Numpad:
             return "Numpad";
