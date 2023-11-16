@@ -19,19 +19,3 @@ led_config_t g_led_config = { {
   1,                         1,
   1, 1, 1, 1, 1, 1, 1, 1, 1, 1
 } };
-
-#define RGB_INDICATOR_MATCHERS_COUNT 1
-#define RGB_INDICATOR_MATCHERS { \
-  {                              \
-      .led_index = 0,            \
-      .led_state = {             \
-          .caps_lock = true,     \
-      },                         \
-      .color = {                 \
-          .h = 85,               \
-          .s = 255,              \
-          .v = 255               \
-      }                          \
-  }                              \
-}
-
