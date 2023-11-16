@@ -25,7 +25,6 @@
 
 /* External spi flash */
 #define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN B14
-#define WEAR_LEVELING_BACKING_SIZE (8 * 1024)
 
 /* SPI Config for LED Driver */
 #define SPI_DRIVER SPIDQ
