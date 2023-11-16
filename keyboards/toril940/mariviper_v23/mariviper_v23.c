@@ -32,20 +32,13 @@ const is31_led PROGMEM g_is31_leds[LED_MATRIX_LED_COUNT] = {
 { 0, C6_1 },
 { 0, C7_1 },
 { 0, C8_1 }
-}
+};
 
 void matrix_init_kb(void) {
 	// put your keyboard start-up code here
 	// runs once when the firmware starts up
 
-	led_matrix_set_value(0, 0);
-	led_matrix_set_value(1, 0);
-	led_matrix_set_value(2, 0);
-	led_matrix_set_value(3, 255);
-	led_matrix_set_value(4, 255);
-	led_matrix_set_value(5, 255);
-	led_matrix_set_value(6, 255);
-	led_matrix_set_value(7, 255);
+	led_matrix_enable();
 	matrix_init_user();
 }
 
