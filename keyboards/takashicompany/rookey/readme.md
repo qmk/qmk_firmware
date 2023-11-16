@@ -1,12 +1,30 @@
-# takashicompany/rookey
+# Rookey
 
-![takashicompany/rookey](imgur.com image replace me!)
+![takashicompany/rookey](https://i.imgur.com/kLQDeZZh.jpg)
 
 *A short description of the keyboard/project*
 
+Rookey, as the name implies, is a DIY keyboard "Rookie" creation.
+
+With its small number of parts and simple structure, it can be easily completed even by first-time assemblers.
+
+Despite its small size, it can be used as a 9-key macro pad, and a rotary encoder can also be attached.
+
+It can be used not only as a first unit, but also as a long-lasting unit.
+
+--
+
+Rookeyは名前の通り、DIYキーボードの"Rookie"のために作られた一作です。
+
+部品数が少なく、構造がシンプルなため初めて組み立てる人でも容易に完成させることができます。
+
+小さいながらも9キーのマクロパッドとして使用ができる上に、ロータリーエンコーダの取り付けも可能です。
+
+初めての一台としてはもちろん、永く使い続ける一台としても愛用することができます。
+
 * Keyboard Maintainer: [takashicompany](https://github.com/takashicompany)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: Rookey PCB, Pro Micro
+* Hardware Availability: https://github.com/takashicompany/rookey
 
 Make example for this keyboard (after setting up your build environment):
 
