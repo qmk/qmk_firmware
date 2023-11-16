@@ -3,6 +3,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "color.h"
+#include "led.h"
+#include "rgb_matrix_types.h"
 
 #ifndef RGB_INDICATOR_MATCHERS_COUNT
     #define RGB_INDICATOR_MATCHERS_COUNT 0
@@ -22,7 +24,6 @@
     #error No RGB indicator matchers have been defined, please define RGB_INDICATOR_MATCHERS
 #endif
 
-
 typedef struct PACKED {
     int led_index;
     led_t led_state;
@@ -33,7 +34,7 @@ typedef struct PACKED {
 typedef struct PACKED {
     bool initialised;
     uint8_t matcher_count;
-    t_rgb_indicator_matcher matchers[RGB_INDICATOR_MATCHERS_COUNT_MAX]
+    t_rgb_indicator_matcher matchers[RGB_INDICATOR_MATCHERS_COUNT_MAX];
 } t_rgb_matrix_indicator_config;
 
 void rgb_matrix_indicators_init(void);

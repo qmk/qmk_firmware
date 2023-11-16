@@ -4,6 +4,7 @@
 #include "eeprom.h"
 #include "eeconfig.h"
 #include "action_layer.h"
+#include "rgb_matrix_indicators.h"
 
 #if defined(EEPROM_DRIVER)
 #    include "eeprom_driver.h"

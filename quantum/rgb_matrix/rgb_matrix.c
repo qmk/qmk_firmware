@@ -428,7 +428,6 @@ void rgb_matrix_task(void) {
             rgb_task_render(effect);
             if (should_render_effect) {
                 // Only run the basic indicators in the last render iteration (default there are 5 iterations)
-                uprintf("should_render: %d, iter: %d\n", should_render_effect, rgb_effect_params.iter);
                 if (rgb_task_state == FLUSHING) rgb_matrix_indicators();
                 rgb_matrix_indicators_advanced(&rgb_effect_params);
             }
@@ -469,6 +468,7 @@ void rgb_matrix_init(void) {
         eeconfig_update_rgb_matrix_default();
     }
     eeconfig_debug_rgb_matrix(); // display current eeprom values
+    rgb_matrix_indicators_init();
 }
 
 void rgb_matrix_set_suspend_state(bool state) {
