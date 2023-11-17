@@ -16,8 +16,8 @@
 
 #pragma once
 
-/* Set up split communications */
-#define SERIAL_USART_DRIVER SD3
+/* Defines for the split keyboard setup */
+#define SERIAL_USART_DRIVER SD3         // USART 3
 #define SOFT_SERIAL_PIN B10             // The GPIO pin that is used split communication.
 #define USART3_REMAP                    // Remap USART TX and RX pins for half duplex
 #define SERIAL_USART_TX_PAL_MODE 7      // Pin alternate function 7 = USART3_TX for PB10
@@ -26,23 +26,21 @@
 #    define SERIAL_USART_TX_PIN SOFT_SERIAL_PIN
 #endif
 
-//#define SELECT_SOFT_SERIAL_SPEED {0}  // Experimental, will make connection faster but may need testing.
+#define SELECT_SOFT_SERIAL_SPEED 0    // Experimental, will make connection faster but may need testing.
 
-/* Set up various split configurations */
-#define USB_VBUS_PIN C15                // The side that manages to establish a USB connection will be master. Disabled because default on ARM targets.
+#define USB_VBUS_PIN C15                // Only the master side will have VBUS present at power-up. used to determine master/slave
+#define SPLIT_HAND_PIN B9               // The MCUs probe a pin to determine if they are left or right side. high = left, low = right
 
-#define SPLIT_HAND_PIN B9               // The MCUs will probe a pin to determine if they are left or right side. high = left, low = right
+#define SPLIT_LAYER_STATE_ENABLE
 
-// Not yet available in `info.json`
+/* Defines for the RGB matrix*/
 #ifdef RGB_MATRIX_ENABLE
 #   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 128
+#   define INDICATOR_MAX_BRIGHTNESS 255
 #   define RGB_MATRIX_LED_COUNT 53
 #   define RGB_MATRIX_SPLIT { 27, 26 }
-#   define SPLIT_TRANSPORT_MIRROR
-#   define NOP_FUDGE 0.4
-
 #   define RGBLIGHT_SLEEP
-
+#   define NOP_FUDGE 0.4                // Chip/pin specific configs from this lone onward
 #   define WS2812_EXTERNAL_PULLUP
 #   define WS2812_PWM_DRIVER PWMD3
 #   define WS2812_PWM_CHANNEL 4
@@ -51,3 +49,5 @@
 #   define WS2812_DMA_CHANNEL 2
 #   define WS2812_DMAMUX_ID STM32_DMAMUX1_TIM3_UP
 #endif
+
+#define USBCPD_TIMESPAN 100

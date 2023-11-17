@@ -36,9 +36,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-#if defined(ENCODER_MAP_ENABLE)
+#ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] = { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [1] = { ENCODER_CCW_CW(KC_BRID, KC_BRIU),           ENCODER_CCW_CW(KC_MPRV, KC_MNXT) },
 };
+#endif
+
+#ifdef RGB_MATRIX_ENABLE
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    if (host_keyboard_led_state().caps_lock) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(0, INDICATOR_MAX_BRIGHTNESS, INDICATOR_MAX_BRIGHTNESS, INDICATOR_MAX_BRIGHTNESS);
+    } else {
+        RGB_MATRIX_INDICATOR_SET_COLOR(0, 0, 0, 0);
+    }
+    return false;
+}
 #endif
