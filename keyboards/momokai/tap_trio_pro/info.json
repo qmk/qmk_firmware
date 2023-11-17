@@ -7,7 +7,7 @@
         "bootmagic": true,
         "command": false,
         "console": true,
-        "debug": false,
+        "debug": true,
         "extrakey": true,
         "mousekey": true,
         "rgb_matrix": true,
@@ -24,7 +24,7 @@
     "matrix_pins": {
         "direct":[
         ["NO_PIN", "GP0", "NO_PIN" ],
-        ["NO_PIN", "GP27", "GP26" ],
+        ["GP28", "GP27", "GP26" ],
         ["GP10", "GP9", "GP8" ]
         ]
     },

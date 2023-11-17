@@ -61,14 +61,14 @@ key_t         keys[MATRIX_ROWS][MATRIX_COLS]        = {0};
 //setup only rows 0 and 2, leave row 1 untouched
 __attribute__((weak)) void matrix_init_pins(void) {
     for (int row = 0; row < MATRIX_ROWS; row++) {
-        if (row != 1){
+        // if (row != 1){
             for (int col = 0; col < MATRIX_COLS; col++) {
                 pin_t pin = direct_pins[row][col];
                 if (pin != NO_PIN) {
                     setPinInputHigh(pin);
                 }
             }
-        }
+        // }
     }
 }
 
