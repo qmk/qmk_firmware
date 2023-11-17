@@ -17,7 +17,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_NO  , MO(_ADJUST) ,KC_LGUI,KC_LALT,       KC_SPC ,		KC_MUTE,            KC_ENT ,		KC_BSPC , MO(_RAISE) , KC_INS , KC_DEL
 ),
     [_ADJUST] = LAYOUT_ortho_5x14(
-        RGB_TOG , RGB_HUI  ,RGB_HUD   ,RGB_SAI   , RGB_SAD  , RGB_VAI  , RGB_VAD  ,                       RGB_M_P  , RGB_M_B   , RGB_M_R    , RGB_M_SW    , RGB_M_K   , RGB_M_X   , RGB_M_G ,
+        RGB_TOG , RGB_HUD  ,RGB_HUI   ,RGB_SAD   , RGB_SAI  , RGB_VAD  , RGB_VAI  ,                       RGB_M_P  , RGB_M_B   , RGB_M_R    , RGB_M_SW    , RGB_M_K   , RGB_M_TW   , RGB_M_G ,
         KC_TRNS , KC_TRNS, KC_TRNS   ,KC_TRNS   , KC_TRNS  , KC_TRNS  , KC_TRNS  ,              KC_TRNS  , KC_TRNS , KC_BTN1    , KC_MS_U    , KC_BTN2   , KC_TRNS   ,KC_TRNS,
         KC_TRNS, KC_TRNS  ,KC_TRNS   ,KC_TRNS   , KC_TRNS  , KC_TRNS  , KC_TRNS  ,              KC_TRNS  , KC_TRNS , KC_MS_L    , KC_MS_D , KC_MS_R , KC_SCLN,KC_QUOT ,
         KC_TRNS, KC_TRNS  ,KC_TRNS   ,KC_TRNS   , KC_TRNS  , KC_TRNS  , KC_TRNS ,               KC_TRNS  , KC_TRNS , KC_TRNS    , KC_TRNS , KC_TRNS , KC_NUBS, KC_TRNS,
@@ -40,35 +40,36 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 };
 #endif
 
-const uint8_t RGBLED_RAINBOW_MOOD_INTERVALS[] PROGMEM = {50, 20, 10};
-
 // MO(_ADJUST)
 const rgblight_segment_t PROGMEM backlight_layer_adjust[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 4, HSV_CYAN}
+    {0, 4, HSV_GOLD}
 );
 // MO(_RAISE)
 const rgblight_segment_t PROGMEM backlight_layer_raise[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 4, HSV_PURPLE}
+    {0, 4, HSV_CYAN}
+);
+const rgblight_segment_t PROGMEM backlight_layer_qwerty[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 4, HSV_BLACK}
 );
 
 const rgblight_segment_t* const PROGMEM set_backlight_mode[] = RGBLIGHT_LAYERS_LIST(
     backlight_layer_adjust,
-    backlight_layer_raise
+    backlight_layer_raise,
+    backlight_layer_qwerty
 );
 
 layer_state_t default_layer_state_set_user(layer_state_t state) {
-    rgblight_sethsv_noeeprom(HSV_GREEN);
-
 return state;
 }
+
 layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(0, layer_state_cmp(state, _ADJUST));
     rgblight_set_layer_state(1, layer_state_cmp(state, _RAISE));
+    rgblight_set_layer_state(2, layer_state_cmp(state, _QWERTY));
     return state;
 }
-
 void keyboard_post_init_user(void) {
-    rgblight_enable_noeeprom();
-    rgblight_sethsv(HSV_GREEN);
+    rgblight_set_effect_range(4, 17);
+    rgblight_sethsv_range(HSV_BLACK, 0, 4);
     rgblight_layers = set_backlight_mode;
 }
