@@ -11,7 +11,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_V
     ),
     [1] = LAYOUT(
-        LT(1, KC_TRNS), KC_TRNS, KC_TRNS, KC_TRNS,
+        _______, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS
     )
