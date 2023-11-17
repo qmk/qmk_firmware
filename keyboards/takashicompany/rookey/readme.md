@@ -2,8 +2,6 @@
 
 ![takashicompany/rookey](https://i.imgur.com/kLQDeZZh.jpg)
 
-*A short description of the keyboard/project*
-
 Rookey, as the name implies, is a DIY keyboard "Rookie" creation.
 
 With its small number of parts and simple structure, it can be easily completed even by first-time assemblers.
