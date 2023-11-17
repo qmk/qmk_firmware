@@ -29,7 +29,7 @@ def under_qmk_firmware(path=Path(os.environ['ORIG_CWD'])):
 
 
 def under_qmk_userspace(path=Path(os.environ['ORIG_CWD'])):
-    """Returns a Path object representing the relative path under $QMK_USERSPACE, qmk root, or None.
+    """Returns a Path object representing the relative path under $QMK_USERSPACE, or None.
     """
     try:
         if HAS_QMK_USERSPACE:
@@ -37,6 +37,29 @@ def under_qmk_userspace(path=Path(os.environ['ORIG_CWD'])):
     except ValueError:
         pass
     return None
+
+
+def is_under_qmk_firmware(path=Path(os.environ['ORIG_CWD'])):
+    """Returns a boolean if the input path is a child under qmk_firmware.
+    """
+    if path is None:
+        return False
+    try:
+        return Path(os.path.commonpath([Path(path), QMK_FIRMWARE])) == QMK_FIRMWARE
+    except ValueError:
+        return False
+
+
+def is_under_qmk_userspace(path=Path(os.environ['ORIG_CWD'])):
+    """Returns a boolean if the input path is a child under $QMK_USERSPACE.
+    """
+    if path is None:
+        return False
+    try:
+        if HAS_QMK_USERSPACE:
+            return Path(os.path.commonpath([Path(path), QMK_USERSPACE])) == QMK_USERSPACE
+    except ValueError:
+        return False
 
 
 def keyboard(keyboard_name):

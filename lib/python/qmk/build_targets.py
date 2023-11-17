@@ -12,6 +12,7 @@ from qmk.keyboard import keyboard_folder
 from qmk.info import keymap_json
 from qmk.cli.generate.compilation_database import write_compilation_database
 from qmk.keymap import locate_keymap
+from qmk.path import is_under_qmk_firmware, is_under_qmk_userspace
 
 
 class BuildTarget:
@@ -148,17 +149,19 @@ class KeyboardKeymapBuildTarget(BuildTarget):
         for key, value in env_vars.items():
             compile_args.append(f'{key}={value}')
 
-        # Need to override the keymap path just in case a userspace directory
-        # has their keymap located at a historical aliased path
+        # Need to override the keymap path if the keymap is a userspace directory.
+        # This also ensures keyboard aliases as per `keyboard_aliases.hjson` still work if the userspace has the keymap
+        # in an equivalent historical location.
         keymap_location = locate_keymap(self.keyboard, self.keymap)
-        keymap_directory = keymap_location.parent
-        compile_args.extend([
-            f'MAIN_KEYMAP_PATH_1={keymap_directory}',
-            f'MAIN_KEYMAP_PATH_2={keymap_directory}',
-            f'MAIN_KEYMAP_PATH_3={keymap_directory}',
-            f'MAIN_KEYMAP_PATH_4={keymap_directory}',
-            f'MAIN_KEYMAP_PATH_5={keymap_directory}',
-        ])
+        if is_under_qmk_userspace(keymap_location) and not is_under_qmk_firmware(keymap_location):
+            keymap_directory = keymap_location.parent
+            compile_args.extend([
+                f'MAIN_KEYMAP_PATH_1={keymap_directory}',
+                f'MAIN_KEYMAP_PATH_2={keymap_directory}',
+                f'MAIN_KEYMAP_PATH_3={keymap_directory}',
+                f'MAIN_KEYMAP_PATH_4={keymap_directory}',
+                f'MAIN_KEYMAP_PATH_5={keymap_directory}',
+            ])
 
         return compile_args
 

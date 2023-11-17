@@ -116,7 +116,14 @@ class UserspaceDefs:
     def add_target(self, keyboard=None, keymap=None, json_path=None, do_print=True):
         if json_path is not None:
             # Assume we're adding a json filename/path
-            self.build_targets.append(Path(json_path))
+            json_path = Path(json_path)
+            if json_path not in self.build_targets:
+                self.build_targets.append(json_path)
+                if do_print:
+                    cli.log.info(f'Added {json_path} to userspace build targets.')
+            else:
+                cli.log.info(f'{json_path} is already a userspace build target.')
+
         elif keyboard is not None and keymap is not None:
             # Both keyboard/keymap specified
             e = {"keyboard": keyboard, "keymap": keymap}
@@ -130,7 +137,15 @@ class UserspaceDefs:
 
     def remove_target(self, keyboard=None, keymap=None, json_path=None, do_print=True):
         if json_path is not None:
-            self.build_targets.remove(Path(json_path))
+            # Assume we're removing a json filename/path
+            json_path = Path(json_path)
+            if json_path in self.build_targets:
+                self.build_targets.remove(json_path)
+                if do_print:
+                    cli.log.info(f'Removed {json_path} from userspace build targets.')
+            else:
+                cli.log.info(f'{json_path} is not a userspace build target.')
+
         elif keyboard is not None and keymap is not None:
             # Both keyboard/keymap specified
             e = {"keyboard": keyboard, "keymap": keymap}
