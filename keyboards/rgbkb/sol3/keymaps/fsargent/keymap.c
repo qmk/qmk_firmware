@@ -132,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_WIN] = LAYOUT(
 	LT(_MEH,KC_GRV),_______,	_______,	_______,	_______,	_______,	_______,		_______,	_______,	_______,	_______,	_______,	_______,	_______,
 	_______,	_______,	_______,	_______,	_______,	_______,	_______,			_______,	_______,	_______,	_______,	_______,	_______,	_______,
-	MEHESC,	MT(MOD_LGUI, KC_A),	MT(MOD_LALT, KC_S), MT(MOD_LCTL, KC_D),	MT(MOD_LSFT, KC_F),	_______,	_______,			_______,	_______,	_______,	_______,	_______,	_______,	_______,
+	MEHESC,	_______,	_______,	_______,	_______,	_______,	_______,			_______,	_______,	_______,	_______,	_______,	_______,	_______,
 	_______,	_______,	_______,	_______,	_______,	_______,	_______,			_______,	_______,	_______,	_______,	_______,	_______,	_______,
 
 	_______,	_______,	_______,	_______,	MO(_WINNAV),
@@ -290,7 +290,7 @@ const uint16_t PROGMEM zx_combo[] = {KC_Z, KC_X, COMBO_END};
 const uint16_t PROGMEM xc_combo[] = {KC_X, KC_C, COMBO_END};
 const uint16_t PROGMEM cv_combo[] = {KC_C, KC_V, COMBO_END};
 const uint16_t PROGMEM qr_combo[] = {KC_Q, KC_R, COMBO_END};
-const uint16_t PROGMEM df_combo[] = {MT(MOD_LGUI, KC_D),	MT(MOD_LSFT, KC_F), COMBO_END};
+const uint16_t PROGMEM df_combo[] = {KC_D, KC_F, COMBO_END};
 const uint16_t PROGMEM gravminus_combo[] = {LT(_MEH,KC_GRV), KC_MINUS, COMBO_END};
 
 const uint16_t PROGMEM xcv_combo[] = {KC_X, KC_C, KC_V, COMBO_END};
@@ -348,9 +348,9 @@ combo_t key_combos[] = {
 	[RBL]   = COMBO_ACTION(rbl_combo),
 	[EML]   = COMBO_ACTION(eml_combo),
 	[WRK]   = COMBO_ACTION(wrk_combo),
-	[QP] 	  = COMBO_ACTION(phone_combo),
+	[QP]    = COMBO_ACTION(phone_combo),
 	[QIN]   = COMBO_ACTION(qin_combo),
-	[QNM]	  = COMBO_ACTION(qnm_combo)};
+	[QNM]   = COMBO_ACTION(qnm_combo)};
 /* COMBO_ACTION(x) is same as COMBO(x, KC_NO) */
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
