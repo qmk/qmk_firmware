@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *
 * Button 1 (stop) is Held to activate Layer 3 only while held, User then selects the keymap to change to
 */
-  	LAYOUT_ortho_2x3(
+  	LAYOUT(
 		LT(3, KC_MSTP), KC_VOLU, KC_MPLY, KC_MPRV, KC_VOLD, KC_MNXT),
 
 /*
@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *	|_____| |_____| |_____|
 *
 */
-	LAYOUT_ortho_2x3(
+	LAYOUT(
 		LT(3, KC_ESC), C(KC_Z), C(S(KC_Z)), C(KC_X), C(KC_C), C(KC_V)),
 
 /*
@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *	|_____| |_____| |_____|
 *
 */
-	LAYOUT_ortho_2x3(
+	LAYOUT(
 		LT(3, KC_1), KC_2, KC_3, KC_4, M_TGLHF, M_TGG),
 
 /*
@@ -88,45 +88,45 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * Layers 0,1,2 have Button 1 held to activate this layer. Then press the specific layer to switch to it.
 *
 */
-	LAYOUT_ortho_2x3(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, QK_BOOT, TO(0), TO(1), TO(2)),
 
 // More Layers that can be used, but are not by default
 
-	LAYOUT_ortho_2x3(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	LAYOUT_ortho_2x3(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	LAYOUT_ortho_2x3(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	LAYOUT_ortho_2x3(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	LAYOUT_ortho_2x3(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	LAYOUT_ortho_2x3(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	LAYOUT_ortho_2x3(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	LAYOUT_ortho_2x3(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	LAYOUT_ortho_2x3(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	LAYOUT_ortho_2x3(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	LAYOUT_ortho_2x3(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	LAYOUT_ortho_2x3(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS)
 
 };

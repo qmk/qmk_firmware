@@ -84,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         │ VwStard│ VwUnrd │  VwAll │
         └────────┴────────┴────────┘
      */
-    [_REEDER] = LAYOUT_ortho_3x3(
+    [_REEDER] = LAYOUT(
         KC_H, KC_S, KC_R,
         CMD_TAB, KC_M, DTP_AVC,
         G(KC_1), G(KC_2), DTP_ADJ
@@ -102,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         │  Left  │  Spce  │  Rght  │
         └────────┴────────┴────────┘
      */
-    [_MEDIA] = LAYOUT_ortho_3x3(
+    [_MEDIA] = LAYOUT(
         KC_MUTE, MC_PLYR, KC_MPLY,
         KC_J, KC_K, DTP_AVC,
         KC_LEFT, KC_SPC, DTP_ADJ
@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         │  Left  │  Down  │  Rght  │
         └────────┴────────┴────────┘
      */
-    [_NAVI] = LAYOUT_ortho_3x3(
+    [_NAVI] = LAYOUT(
         REO_TAB, CMD_TAB, CLS_TAB,
         KC_PGDN, KC_UP, DTP_AVC,
         KC_LEFT, KC_DOWN, DTP_ADJ
@@ -138,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         │    7   │    8   │    9   │
         └────────┴────────┴────────┘
      */
-    [_KARABINER] = LAYOUT_ortho_3x3(
+    [_KARABINER] = LAYOUT(
         KC_P1, KC_P2, KC_P3,
         KC_P4, KC_P5, DTP_AVC,
         KC_P7, KC_P8, DTP_ADJ
@@ -156,7 +156,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         │  Left  │  Down  │  Rght  │
         └────────┴────────┴────────┘
      */
-    [LR_NAV] = LAYOUT_ortho_3x3(
+    [LR_NAV] = LAYOUT(
         TG_REVW, KC_J,    TG_EDIT,
         KC_HOME, KC_UP,   DTP_AVC,
         KC_LEFT, KC_DOWN, DTP_ADJ
@@ -174,7 +174,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         │  Left  │  Blue  │  Rght  │
         └────────┴────────┴────────┘
      */
-    [LR_REVIEW] = LAYOUT_ortho_3x3(
+    [LR_REVIEW] = LAYOUT(
         TG_LNAV, KC_7,    TG_EDIT,
         KC_0,    KC_8,    DTP_AVC,
         KC_LEFT, KC_6,    DTP_ADJ
@@ -192,7 +192,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         │  Left  │  Redo  │  Rght  │
         └────────┴────────┴────────┘
      */
-    [LR_EDIT] = LAYOUT_ortho_3x3(
+    [LR_EDIT] = LAYOUT(
         TG_REVW, KC_BSLS, TG_LNAV,
         KC_X,    MC_UNDO, DTP_AVC,
         KC_LEFT, MC_REDO, DTP_ADJ
@@ -210,7 +210,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         │ LyrTgl │ NxtThm │  XXXX  │
         └────────┴────────┴────────┘
      */
-    [_LIGHT] = LAYOUT_ortho_3x3(
+    [_LIGHT] = LAYOUT(
         RGB_TOG, RGB_VAI, TG_LGHT,
         RGB_RMOD,RGB_VAD, RGB_MOD,
         RGB_LYR, RGB_THM, XXXXXXX
@@ -228,7 +228,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         │ LR Rvw │ LR Nav │ LR Edt │
         └────────┴────────┴────────┘
      */
-    [_ADJUST] = LAYOUT_ortho_3x3(
+    [_ADJUST] = LAYOUT(
         QM_MAKE, DF_REDR, TG_LGHT,
         DF_MEDA, DF_NAVI, DF_KBNR,
         TG_REVW, TG_LNAV, TG_EDIT

@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         | Hold: Layer 2     | Up   | RGB Mode           |
         | Left              | Down | Right              |
      */
-    [_AUDACITY] = LAYOUT_ortho_3x3(
+    [_AUDACITY] = LAYOUT(
     //,-------+-------+-------.
        KC_LITE,KC_SAVE,KC_ZNRM,
     //|-------+-------+-------|
@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         | Held: Layer 2  | Home | RGB Mode   |
         | Media Previous | End  | Media Next |
      */
-    [_LIGHTS] = LAYOUT_ortho_3x3(
+    [_LIGHTS] = LAYOUT(
     //,-------+-------+-------.
          KC_  ,KC_BL_S,KC_STOP,
     //|-------+-------+-------|

@@ -36,22 +36,22 @@ enum bdn9_layers {
 // clang-format off
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_MEDIA] = LAYOUT_ortho_3x3(
+    [_MEDIA] = LAYOUT(
         TO(_XCODE), RGB_SPD,    RGB_SPI,
         RGB_MOD,    KC_MPLY,    KC_MSTP,
         RGB_RMOD,   KC_MNXT,    KC_MPRV
     ),
-    [_XCODE] = LAYOUT_ortho_3x3(
+    [_XCODE] = LAYOUT(
         TG(_XCODE), KC_NO,      KC_NO,
         KC_XCRUN,   KC_XCPAUSE, KC_XCSTOP,
         KC_F6,      KC_F7,      KC_F8
     ),
-    [_CUST1] = LAYOUT_ortho_3x3(
+    [_CUST1] = LAYOUT(
         TG(_CUST1), _______,    _______,
         _______,    _______,    _______,
         _______,    _______,    _______
     ),
-    [_CUST2] = LAYOUT_ortho_3x3(
+    [_CUST2] = LAYOUT(
         TG(_CUST2), _______,    _______,
         _______,    _______,    _______,
         _______,    _______,    _______

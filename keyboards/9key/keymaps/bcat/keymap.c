@@ -25,12 +25,12 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // clang-format off
-    [LAYER_DEFAULT] = LAYOUT_ortho_3x3(
+    [LAYER_DEFAULT] = LAYOUT(
         KC_MPLY,  KC_VOLU,  KY_RHAND,
         KY_LOCK,  KC_VOLD,  KY_MICU,
         LY_FN1,   KC_MUTE,  KY_MICM
     ),
-    [LAYER_FUNCTION_1] = LAYOUT_ortho_3x3(
+    [LAYER_FUNCTION_1] = LAYOUT(
         EE_CLR,   _______,  QK_BOOT,
         _______,  _______,  _______,
         _______,  _______,  _______

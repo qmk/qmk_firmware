@@ -22,7 +22,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         | Left               | Down | Right              |
         | Media Previous     | MO(1)| Media Next         |
      */
-    [0] = LAYOUT_ortho_3x3(
+    [0] = LAYOUT(
         KC_MUTE, KC_UP,   KC_MPLY,
         KC_LEFT, KC_DOWN, KC_RIGHT,
         KC_MPRV, MO(1),   KC_MNXT
@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         |                    | End  |                    |
         |      CTRL_END      |      |    CTRL_HOME       |
      */
-    [1] = LAYOUT_ortho_3x3(
+    [1] = LAYOUT(
         QK_BOOT,      KC_HOME, KC_STOP,
         _______,      KC_END,  _______,
         LCTL(KC_END), _______, LCTL(KC_HOME)

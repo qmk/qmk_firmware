@@ -54,11 +54,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [0] = LAYOUT_ortho_3x3(GIT_STASH, GIT_STASH_POP, GIT_COMMIT,
+  [0] = LAYOUT(GIT_STASH, GIT_STASH_POP, GIT_COMMIT,
                LCTL(KC_F4), LT(1, KC_SPACE), LCTL(KC_F6),
                COPY_PASTE, LCTL(KC_F2), LCTL(KC_F3)),
 
-  [1] = LAYOUT_ortho_3x3(RGB_RMOD, RGB_TOG, RGB_MOD,
+  [1] = LAYOUT(RGB_RMOD, RGB_TOG, RGB_MOD,
                RGB_HUI, KC_TRNS, RGB_SAI,
                RGB_HUD, RGB_M_P, RGB_SAD),
 

@@ -85,7 +85,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_SMITE] = LAYOUT_ortho_3x3(
+    [_SMITE] = LAYOUT(
         S_7, S_8, S_9,
         S_4, S_5, S_6,
         S_1, S_2, S_3

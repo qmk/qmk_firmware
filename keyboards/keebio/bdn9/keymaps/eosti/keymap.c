@@ -94,7 +94,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #define EX_ARR LCTL(LSFT(KC_ENTER))
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_BASE] = LAYOUT_ortho_3x3(
+    [_BASE] = LAYOUT(
     // ┌────────┬────────┬────────┐
          KC_MUTE, KC_UP,  TD(LAY),
     // ├────────┼────────┼────────┤
@@ -103,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_MRWD, KC_MPLY, KC_MFFD
     // └────────┴────────┴────────┘
         ),
-    [_MACRO] = LAYOUT_ortho_3x3(
+    [_MACRO] = LAYOUT(
     // ┌────────┬────────┬────────┐
         _______,  KC_SPC, TG(_MACRO),
     // ├────────┼────────┼────────┤
@@ -112,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
           KC_NO,  KC_NO,   EX_ARR
     // └────────┴────────┴────────┘
         ),
-    [_MOD] = LAYOUT_ortho_3x3(
+    [_MOD] = LAYOUT(
     // ┌────────┬────────┬────────┐
         _______,  BL_STEP,TG(_MOD),
     // ├────────┼────────┼────────┤
@@ -134,7 +134,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return true;
 }
 
-// Tapdance! Hold to use as a modifier to the _MOD LAYOUT_ortho_3x3, tap to change it between _BASE and _MACRO
+// Tapdance! Hold to use as a modifier to the _MOD LAYOUT, tap to change it between _BASE and _MACRO
 
 // determine the tapdance state to return
 int cur_dance (tap_dance_state_t *state) {

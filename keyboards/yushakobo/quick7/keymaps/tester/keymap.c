@@ -38,7 +38,7 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
-    [_BASE] = LAYOUT_ortho_3x3(
+    [_BASE] = LAYOUT(
         KEY_00, KEY_01, KEY_02,
         KEY_10, KEY_11, KEY_12,
         KEY_20, KEY_21, KEY_22

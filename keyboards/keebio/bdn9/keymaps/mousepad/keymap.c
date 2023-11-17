@@ -25,12 +25,12 @@ enum custom_keycodes {             // Make sure have the awesome keycode ready
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT_ortho_3x3(
+    [0] = LAYOUT(
         KC_MS_BTN1, KC_MS_BTN2, KC_MS_BTN3,
         KC_WH_U, ALT_TAB, KC_WH_L,
         KC_WH_D, TT(1), KC_WH_R
     ),
-    [1] = LAYOUT_ortho_3x3(
+    [1] = LAYOUT(
         QK_BOOT, KC_ACL0, KC_ACL1,
         KC_VOLU, KC_ACL2, KC_BRIU,
         KC_VOLD, TO(1),  KC_BRID

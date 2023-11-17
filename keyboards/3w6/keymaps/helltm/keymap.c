@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *                                     |         '--.._/                             \_..--'  |      |
     *                                    NUM                                                    NAV    SYM
     */
-    [_ALPHA_QWERTY] = LAYOUT_split_3x5_3(
+    [_ALPHA_QWERTY] = LAYOUT(
         KC_Q,         KC_W   , KC_E   , KC_R   , KC_T   ,                                    KC_Y   , KC_U   , KC_I   , KC_O   , KC_P           ,
         KC_A,         KC_S   , KC_D   , KC_F   , KC_G   ,                                    KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN        ,
         LSFT_T(KC_Z), KC_X   , KC_C   , KC_V   , KC_B   ,                                    KC_N   , KC_M   , KC_COMM, KC_DOT , RSFT_T(KC_SLSH),
@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *                  '-----':_____|/ ENT /           \ SPC \|_____:'-----'
     *                               '--.._/             \_..--'
     */
-    [_SYM] = LAYOUT_split_3x5_3(
+    [_SYM] = LAYOUT(
         KC_EXLM,         KC_AT  , KC_HASH, KC_DLR , KC_PERC,                                KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN        ,
         KC_GRV ,         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, KC_QUOT        ,
         LSFT_T(KC_TILD), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                KC_MINS, KC_EQL , XXXXXXX, KC_PIPE, RSFT_T(KC_BSLS),
@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *                  '-----':_____|/ ENT /           \ SPC \|_____:'-----'
     *                               '--.._/             \_..--'
     */
-    [_NAV] = LAYOUT_split_3x5_3(
+    [_NAV] = LAYOUT(
         KC_ESC         , KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX,                                XXXXXXX, KC_PGDN, KC_UP  , KC_PGUP, KC_BSPC,
         KC_TAB         , KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX,                                KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_QUOT,
         LSFT_T(KC_CAPS), XXXXXXX, KC_MSTP, XXXXXXX, XXXXXXX,                                XXXXXXX, XXXXXXX, XXXXXXX, KC_END , RSFT_T(KC_DEL) ,
@@ -122,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *                  '-----':_____|/ ENT /           \ SPC \|_____:'-----'
     *                               '--.._/             \_..--'
     */
-    [_NUM] = LAYOUT_split_3x5_3(
+    [_NUM] = LAYOUT(
         KC_1   , KC_2       , KC_3      , KC_4   , KC_5         ,                                KC_6   , KC_7   , KC_8   , KC_9   , KC_0   ,
         KC_F1  , KC_F2      , KC_F3     , KC_F4  , KC_F5        ,                                KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 ,
         KC_LSFT, LCA(KC_DEL), SWIN(KC_S), XXXXXXX, KC_THUMB_SWAP,                                XXXXXXX, XXXXXXX, XXXXXXX, KC_F11 , RSFT_T(KC_F12) ,

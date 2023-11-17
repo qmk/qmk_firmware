@@ -22,7 +22,7 @@
 // Exact keymap is irrelevant as we're using rows/cols
 // but we need _something_ set so we're using no-ops
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT_ortho_5x5(
+    [0] = LAYOUT(
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,

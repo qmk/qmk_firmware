@@ -53,13 +53,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_LAYER0] = LAYOUT_ortho_2x3(
+    [_LAYER0] = LAYOUT(
         MUTE, DEAFEN, TO(_LAYER1),
         GIT_ADD, GIT_COMMIT, GIT_PUSH),
-    [_LAYER1] = LAYOUT_ortho_2x3(
+    [_LAYER1] = LAYOUT(
         KC_VOLD, KC_VOLU, TO(_LAYER2),
         KC_MRWD, KC_MPLY, KC_MNXT),
-    [_LAYER2] = LAYOUT_ortho_2x3(
+    [_LAYER2] = LAYOUT(
         KC_ESC, KC_UP, TO(_LAYER0),
         KC_Z, KC_X, KC_SPACE)};
 

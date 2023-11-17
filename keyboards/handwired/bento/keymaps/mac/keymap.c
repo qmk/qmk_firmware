@@ -25,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* 0: Base Layer
     * Media Prev / Hold L1 | Media Next | Mute
     * Move Space Left | Mission Control | Move Space Right */
-    [_BASE] = LAYOUT_ortho_2x3(
+    [_BASE] = LAYOUT(
             LT(_CODE, KC_MPRV), KC_MNXT, KC_MUTE,
             C(KC_LEFT), C(KC_UP), C(KC_RIGHT)
     ),

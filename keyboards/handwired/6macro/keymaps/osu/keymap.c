@@ -24,7 +24,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * |   C   |   Z   |   X   |
   * `-------+-------+-------'
   */
-  [0] = LAYOUT_ortho_2x3(
+  [0] = LAYOUT(
     KC_ESC, KC_GRAVE, LT(1, KC_SPC),
     KC_C, KC_Z, KC_X
   ),
@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * |RGBHUE+|RGBBRI+|Spec FN|   Hold along with previous to access special funtions (QK_BOOT)
   * `-------+-------+-------'
   */
-  [1] = LAYOUT_ortho_2x3(
+  [1] = LAYOUT(
     RGB_TOG, RGB_MOD, KC_TRNS,
     RGB_HUI, RGB_VAI, MO(2)
   ),
@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * |RGBHUE-|RGBBRI-|       |
   * `-------+-------+-------'
   */
-  [2] = LAYOUT_ortho_2x3(
+  [2] = LAYOUT(
     QK_BOOT, RGB_RMOD, KC_NO,
     RGB_HUD, RGB_VAD, KC_TRNS
   )

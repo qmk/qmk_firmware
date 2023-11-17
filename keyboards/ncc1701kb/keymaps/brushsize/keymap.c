@@ -11,7 +11,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | CALC  | MAIL  | PC/FN |
  * `-----------------------'
  */
-[0] = LAYOUT_ortho_3x3(
+[0] = LAYOUT(
   KC_MPRV,       KC_MUTE,      KC_MNXT,
   KC_MSTP,       KC_MPLY,      KC_MSEL,
   KC_CALC,       KC_MAIL,      LT(1, KC_MYCM)
@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | BL ON | BL OFF|       |
  * `-----------------------'
  */
-[1] = LAYOUT_ortho_3x3(
+[1] = LAYOUT(
   BL_TOGG,  KC_TRNS, BL_BRTG,
   BL_UP,  BL_DOWN,  BL_STEP,
   BL_ON,   BL_OFF,  KC_TRNS

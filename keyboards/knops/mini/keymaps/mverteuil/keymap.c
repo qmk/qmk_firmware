@@ -84,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *  |_____| |_____| |_____|
      *
      */
-    [_MEDIA] = LAYOUT_ortho_2x3(
+    [_MEDIA] = LAYOUT(
         LT_MSTP, KC_VOLU, KC_MPLY,
         KC_MPRV, KC_VOLD, KC_MNXT
     ),
@@ -102,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *
      */
 
-    [_COPYPASTA] = LAYOUT_ortho_2x3(
+    [_COPYPASTA] = LAYOUT(
         LT_ESC,  C(KC_Z), C(S(KC_Z)),
         C(KC_X), C(KC_C), C(KC_V)
     ),
@@ -119,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *  |_1/3_| |_1/2_| |Displ|
      *
      */
-    [_SPECTACLES] = LAYOUT_ortho_2x3(
+    [_SPECTACLES] = LAYOUT(
         LT_NXTH,TOPHALF,MAXIMIZ,
         PRVTHRD,BTMHALF,NXTDSPL
     ),
@@ -139,7 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *  Then press the specific layer to switch to it.
      *
      */
-    [_LAYER_SELECT] = LAYOUT_ortho_2x3(
+    [_LAYER_SELECT] = LAYOUT(
         _______, _______, QK_BOOT,
         TO(_MEDIA),TO(_COPYPASTA),TO(_SPECTACLES)
     )
