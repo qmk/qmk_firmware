@@ -1,8 +1,8 @@
 // Copyright 2023 KiwiKey
 // SPDX-License-Identifier: GPL-2.0-or-later
  
-#include QMK_KEYBOARD_H
-#include "oled_custom_api.c"
+#include "quantum.h"
+#include "oled_custom_api.h"
 
 #ifdef OLED_ENABLE
 
