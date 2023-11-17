@@ -10,6 +10,14 @@ void keyboard_pre_init_kb(void) {
     PWR->CR3 |= PWR_CR3_UCPD_DBDIS;
 }
 
+void keyboard_post_init_user(void) {
+  // Customise these values to desired behaviour
+  debug_enable=true;
+  //debug_matrix=true;
+  //debug_keyboard=true;
+  //debug_mouse=true;
+}
+
 void keyboard_post_init_kb(void) {
     // If the keyboard is master
     if (is_keyboard_master()) {
@@ -61,22 +69,22 @@ void housekeeping_task_kb(void) {
 
             if (out1 == 1) {
                 host_current = 0;
-                dprintf("Host negotiated current: 500 mA");
-            } else if (out1 == 0 && out2 == 1) {
+                printf("Host negotiated current: 500 mA\n");
+            } else if (out2 == 1) {
                 host_current = 1;
-                dprintf("Host negotiated current: 1500 mA");
-            } else if (out1 == 0 && out2 == 0) {
+                printf("Host negotiated current: 1500 mA\n");
+            } else {
                 host_current = 2;
-                dprintf("Host negotiated current: 3000 mA");
+                printf("Host negotiated current: 3000 mA\n");
             };
-            dprintf("Host current variable: %d", host_current);
-        
+            printf("Host current variable: %d\n", host_current);
         } else {
+            printf("Im slave, you shouldn't see this\n");
             // On peripheral side - If A13 is low: USB client negotiated 5V successfully -> enable power routing
             // Check if A15 is not already high to avoid wasting time
             if(!readPin(A13) && !readPin(A15)) {
                 writePinHigh(A15);
-                dprintf("USB downstream device detected");
+                printf("USB downstream device detected\n");
             };
         };
         usbcpd_timer = timer_read32();
