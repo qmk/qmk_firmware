@@ -172,7 +172,7 @@ def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str
                 cli.log.warning(f'Unrecognized filter expression: {filter_expr}')
                 continue
 
-            targets = [KeyboardKeymapBuildTarget(keyboard=e[0], keymap=e[1], json=e[2]) for e in valid_keymaps]
+        targets = [KeyboardKeymapBuildTarget(keyboard=e[0], keymap=e[1], json=e[2]) for e in valid_keymaps]
 
     return targets
 
