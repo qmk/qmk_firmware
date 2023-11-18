@@ -10,7 +10,6 @@
         "pin": "GP25"
     },
     "ws2812": {
-        "pin": "GP22",
-        "driver": "vendor"
+        "pin": "GP25"
     }
 }
