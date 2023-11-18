@@ -1,0 +1,24 @@
+{
+    "manufacturer": "Shaping The Silence",
+    "keyboard_name": "HexBoard",
+    "maintainer": "earboxer",
+    "board": "GENERIC_RP_RP2040",
+    "bootloader": "rp2040",
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "GP20", "pin_b": "GP21"}
+        ]
+    },
+    "features": {},
+    "matrix_size": {
+        "cols": 10,
+        "rows": 14
+    },
+    "processor": "RP2040",
+    "url": "https://shapingthesilence.com",
+    "ws2812": {
+        "driver": "vendor",
+        "pin": "GP22"
+    }
+}
