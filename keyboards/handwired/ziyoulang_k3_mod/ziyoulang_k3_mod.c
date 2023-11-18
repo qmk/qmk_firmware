@@ -13,8 +13,7 @@ void keyboard_post_init_kb(void) {
 }
 
 static uint16_t last_keycode = KC_NO;
-static uint16_t last_col = 0;
-static uint16_t last_row = 0;
+static keypos_t last_key = {0, 0};
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) {
@@ -27,8 +26,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         if (last_keycode != keycode) {
             last_keycode = keycode;
-            last_col = record->event.key.col;
-            last_row = record->event.key.row;
+            last_key = record->event.key;
         }
     }
     return true;
@@ -110,9 +108,9 @@ bool oled_task_kb(void) {
       oled_write_ln_P(get_u16_str(last_keycode, ' '), false);
     }
     oled_write_P(PSTR("col: "), false);
-    oled_write_P(get_u16_str(last_col, ' '), false);
+    oled_write_P(get_u8_str(last_key.col, ' '), false);
     oled_write_P(PSTR(",row: "), false);
-    oled_write_P(get_u16_str(last_row, ' '), false);
+    oled_write_P(get_u8_str(last_key.row, ' '), false);
 
     return false;
 }
