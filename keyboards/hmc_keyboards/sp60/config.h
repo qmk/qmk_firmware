@@ -12,8 +12,7 @@
 #define PRODUCT                         Duck_Blackbird_for XL
 #define DESCRIPTION                     Duck_Blackbird_for XL
 #define SERIAL_NUMBER                   00000000/* <序列号> */
-#define BLE_KEYBOARD_NAME               "XL80"
-/* #define BLE_KEYBOARD_NAME            "43 980 RGB" */
+#define BLE_KEYBOARD_NAME               "sp60"
 
 
 
