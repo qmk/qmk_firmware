@@ -6,4 +6,5 @@
 
 // The dev unit used a smaller display
 #define OLED_DISPLAY_128X64
-
+// Needs to be shifted over
+#define OLED_COLUMN_OFFSET 2
