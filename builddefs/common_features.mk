@@ -891,10 +891,9 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
     endif
 
     ifeq ($(strip $(BLUETOOTH_DRIVER)), bluefruit_le_uart)
-        OPT_DEFS += -DBLUETOOTH_BLUEFRUIT_LE_UART -DHAL_USE_SERIAL=TRUE
+        UART_DRIVER_REQUIRED = yes
         SRC += $(DRIVER_PATH)/bluetooth/bluetooth.c
         SRC += $(DRIVER_PATH)/bluetooth/bluefruit_le_uart.c
-        QUANTUM_LIB_SRC += uart.c
     endif
 
     ifeq ($(strip $(BLUETOOTH_DRIVER)), rn42)
