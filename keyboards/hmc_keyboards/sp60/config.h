@@ -9,10 +9,10 @@
 #define PRODUCT_ID                      0x0220  /* <cjl> */
 #define DEVICE_VER                      0x0001
 #define MANUFACTURER                    HMC
-#define PRODUCT                         Enter80_for HMC
-#define DESCRIPTION                     Enter80_for HMC
+#define PRODUCT                         Duck_Blackbird_for XL
+#define DESCRIPTION                     Duck_Blackbird_for XL
 #define SERIAL_NUMBER                   00000000/* <序列号> */
-#define BLE_KEYBOARD_NAME               "Enter80"
+#define BLE_KEYBOARD_NAME               "XL80"
 /* #define BLE_KEYBOARD_NAME            "43 980 RGB" */
 
 
@@ -53,7 +53,9 @@
 #define UNUSED_PINS
 
         /**<   二极管方向  */
-#define DIODE_DIRECTION COL2ROW
+// #define DIODE_DIRECTION COL2ROW
+// 二极管反向
+#define DIODE_DIRECTION ROW2COL
 
         /**<   去抖延时  */
 #define DEBOUNCING_DELAY 5
@@ -84,8 +86,8 @@
 #define PREVENT_STUCK_MODIFIERS
 
 #define RGB_DI_PIN           LINE_WS2812
-#define RGBLED_TOTAL         2    //RGB灯的总数
-#define RGBLED_KEY_LED       1       //轴灯的数量
+#define RGBLED_TOTAL         4    //RGB灯的总数
+#define RGBLED_KEY_LED       2       //轴灯的数量
 #define DRIVER_LED_TOTAL     RGBLED_TOTAL
 #define RGB_BOTTOM_LED_NUM   (RGBLED_TOTAL-RGBLED_KEY_LED)
 #define RGBLED_NUM           (RGB_BOTTOM_LED_NUM)
