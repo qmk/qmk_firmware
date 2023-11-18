@@ -1,4 +1,4 @@
-// Copyright 2023 jonylee@hfd (@jonylee1897)
+// Copyright 2023 jonylee@hfd (@jonylee1987)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "quantum.h"
@@ -114,8 +114,6 @@ const ckled2001_led PROGMEM g_ckled2001_leds[RGB_MATRIX_LED_COUNT] = {
 };
 #endif
 // clang-format on
-#define LED_MAC_OS_PIN B13
-#define LED_WIN_LOCK_PIN B14
 
 void matrix_init_kb(void){
     // set our LED pings as output
