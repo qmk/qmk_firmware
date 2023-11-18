@@ -13,6 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "eeprom_tools.h"
 #include "ec_switch_matrix.h"
 #include "action.h"
 #include "print.h"
@@ -60,7 +61,7 @@ void via_config_set_value(uint8_t *data) {
                 uprintf("# Actuation Mode: Rapid Trigger #\n");
                 uprintf("#################################\n");
             }
-            eeconfig_update_kb_datablock(&eeprom_ec_config);
+            EEPROM_KB_PARTIAL_UPDATE(eeprom_ec_config, actuation_mode);
             break;
         }
         case id_mode_0_actuation_threshold: {
