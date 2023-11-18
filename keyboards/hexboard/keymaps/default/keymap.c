@@ -202,7 +202,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case MI_VL5:
     case MI_VL10:
       if(record->event.pressed) { held_keycode = keycode; }
-      else { held_keycode = 0; }
+      else if (held_keycode == keycode){ held_keycode = 0; }
       // process normally
       return true;
     case KC_ENCODER_CCW:
@@ -234,26 +234,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef OLED_ENABLE
 bool oled_task_user(void) {
     // Host Keyboard Layer Status
-    oled_write_P(PSTR("Layer: "), false);
+    oled_write_P(PSTR("Layer:"), false);
     switch (get_highest_layer(layer_state)) {
         case 0:
-            oled_write_P(PSTR("Harmonic Table\n"), false);
+            // skip the space because this fill the OLED width
+            oled_write_ln_P(PSTR("Harmonic Table"), false);
             break;
         case 1:
-            oled_write_P(PSTR("Wicki-Hayden\n"), false);
+            oled_write_ln_P(PSTR(" Wicki-Hayden"), false);
             break;
         case 2:
-            oled_write_P(PSTR("Gerhard\n"), false);
+            oled_write_ln_P(PSTR(" Gerhard"), false);
             break;
         case 3:
-            oled_write_P(PSTR("'Full'\n"), false);
+            oled_write_ln_P(PSTR(" 'Full'"), false);
             break;
         default:
             // Or use the write_ln shortcut over adding '\n' to the end of your string
             oled_write_ln_P(PSTR("Undefined"), false);
     }
-    oled_write_P(PSTR("Velocity: "), held_keycode >= MI_VL2 && held_keycode < MI_VL10);
+    oled_write_P(PSTR("Velocity: "), held_keycode >= MI_VL0 && held_keycode <= MI_VL10);
     oled_write_ln(get_u8_str(midi_config.velocity, ' '), false);
+    oled_write_P(PSTR("Octave: "), held_keycode >= MI_OCN2 && held_keycode <= MI_OCTU);
+    oled_write_ln(get_u8_str(midi_config.octave, ' '), false);
+    oled_write_P(PSTR("Transposition: "), held_keycode >= MI_TRN6 && held_keycode <= MI_TRSU);
+    oled_write_ln(get_u8_str(midi_config.transpose, ' '), false);
+    oled_write_P(PSTR("Mod Int: "), held_keycode >= MI_MOD && held_keycode <= MI_MODU);
+    oled_write_ln(get_u8_str(midi_config.modulation_interval, ' '), false);
     return false;
 }
 #endif
