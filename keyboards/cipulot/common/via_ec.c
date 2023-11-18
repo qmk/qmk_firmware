@@ -121,11 +121,14 @@ void via_config_set_value(uint8_t *data) {
             }
         }
         case id_show_calibration_data: {
-            // Show calibration data once if the user toggle the switch
             if (value_data[0] == 0) {
                 ec_show_calibration_data();
                 break;
             }
+        }
+        default: {
+            // Unhandled value.
+            break;
         }
     }
 }
@@ -229,6 +232,7 @@ void ec_rescale_values(uint8_t item) {
             break;
 
         default:
+            // Unhandled item.
             break;
     }
 }
