@@ -1,4 +1,4 @@
-// Copyright 2023 jonylee@hfd (@jonylee1987)
+// Copyright 2023 jonylee@hfd (@jonylee1986)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "quantum.h"
