@@ -15,6 +15,7 @@
  */
 
 #include "bluefruit_le.h"
+#include "bluefruit_le_uart.h"
 
 #include <stdio.h>
 #include <stdlib.h>
