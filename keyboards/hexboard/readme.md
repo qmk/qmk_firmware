@@ -1,6 +1,6 @@
 # HexBoard
 
-![HexBoard](https://shapingthesilence.com/wp-content/uploads/2023/05/IMG_7850-scaled-e1683770617108.jpeg)
+![HexBoard](https://zachdecook.com/HexBoard/qmk.jpg)
 
 *The HexBoard is a MIDI controller which can double as a 120% keyboard*
 
@@ -16,9 +16,9 @@ Make example for this keyboard (after setting up your build environment):
 
 ```sh
 # make the default keymap (similar to the official firmware)
-make hexboard:default
+make hexboard/1_1:default
 # make the 'keyboard' keymap (part keyboard, part music device)
-make hexboard:keyboard
+make hexboard/1_1:keyboard
 # make the 'keyboard' keymap for the dev unit
 make hexboard/dev:keyboard
 ```
