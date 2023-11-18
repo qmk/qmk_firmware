@@ -2,8 +2,6 @@
 
 The ZOS65S is a sodlerable PCB for the ZOS 65 keyboard.
 
-*A short description of the keyboard/project*
-
 * Keyboard Maintainer: [Zenn](https://github.com/ZOSKB)
 * Hardware Supported: Proprietary PCB using ATMEGA32U4 controller
 * Hardware Availability: This will be made available at the ZOS Keyboards website when sales go live (https://www.zoskb.com)
