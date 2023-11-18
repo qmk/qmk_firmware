@@ -1,4 +1,4 @@
-SRC += matrix.c
+SRC += 1_1/matrix.c
 CUSTOM_MATRIX = lite
 
 MIDI_ENABLE = yes

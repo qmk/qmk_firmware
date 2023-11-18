@@ -4,9 +4,8 @@
 #define RP2040_FLASH_GENERIC_03H
 
 #define MIDI_ADVANCED
-#ifndef WS2812_BYTE_ORDER
-#    define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_GRB
-#endif
+
+// WS2812_BYTE_ORDER defined by revision
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
 #define RGB_MATRIX_LED_COUNT 140
 #define ENABLE_RGB_MATRIX_SOLID_COLOR
@@ -30,7 +29,8 @@
 #define I2C1_SCL_PIN GP17
 #define OLED_BRIGHTNESS 55
 #define OLED_IC OLED_IC_SH1106
-#define OLED_DISPLAY_128X128
+// OLED_DISPLAY_ defined by revision
+
 // Slow down oled updates (to speed up encoder updates???)
 // #define OLED_UPDATE_INTERVAL 50
 // #define OLED_COLUMN_OFFSET 2 // for eliminating glitching spot?
