@@ -50,6 +50,7 @@
         "pin": "B4"
     },
     "community_layouts": ["65_ansi_blocker", "65_ansi_blocker_split_bs", "65_ansi_blocker_tsangan", "65_ansi_blocker_tsangan_split_bs", "65_iso_blocker", "65_iso_blocker_split_bs", "65_iso_blocker_tsangan", "65_iso_blocker_tsangan_split_bs"],
+    "layout_aliases": {"LAYOUT": "LAYOUT_all"},
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
             "layout": [
