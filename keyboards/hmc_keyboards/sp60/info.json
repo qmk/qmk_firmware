@@ -14,8 +14,8 @@
         "rows": ["A0", "A1", "A2", "A3", "A4", "A5"]
     },
     "diode_direction": "COL2ROW",
-    "processor": "STM32F103",
-    "bootloader": "stm32-dfu",
+    "processor": "Satmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [
