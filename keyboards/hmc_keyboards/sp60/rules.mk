@@ -1,6 +1,6 @@
 # MCU name
-MCU = STM32F103
-BOARD = LG_Keyboard
+MCU = atmega32u4
+BOARD = HMC_Keyboard
 
 # Build Options
 #   comment out to disable the options.
