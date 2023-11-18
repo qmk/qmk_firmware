@@ -21,7 +21,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 			// Allow the normal handler to handle it as well.
 			return true;
 #endif
-		default:
-			return true;
 	}
+	return process_record_user(keycode, record);
 }

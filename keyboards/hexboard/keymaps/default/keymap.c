@@ -176,7 +176,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case KC_CYCLE_LAYERS:
       // Our logic will happen on presses, nothing is done on releases
-      if (!record->event.pressed) { 
+      if (!record->event.pressed) {
         // We've already handled the keycode (doing nothing), let QMK know so no further code is run unnecessarily
         return false;
       }
@@ -234,16 +234,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef OLED_ENABLE
 bool oled_task_user(void) {
     // Host Keyboard Layer Status
-    oled_write_P(PSTR(" Layer: "), false);
+    oled_write_P(PSTR("Layer: "), false);
     switch (get_highest_layer(layer_state)) {
         case 0:
-            oled_write_P(PSTR("Default\n"), false);
+            oled_write_P(PSTR("Harmonic Table\n"), false);
             break;
         case 1:
-            oled_write_P(PSTR("symbols\n"), false);
+            oled_write_P(PSTR("Wicki-Hayden\n"), false);
             break;
         case 2:
-            oled_write_P(PSTR("numbers\n"), false);
+            oled_write_P(PSTR("Gerhard\n"), false);
+            break;
+        case 3:
+            oled_write_P(PSTR("'Full'\n"), false);
             break;
         default:
             // Or use the write_ln shortcut over adding '\n' to the end of your string
