@@ -2,7 +2,7 @@
 
 ![HexBoard](https://zachdecook.com/HexBoard/qmk.jpg)
 
-*The HexBoard is a MIDI controller which can double as a 120% keyboard*
+*The HexBoard is a 140-key hexagonal MIDI controller which can double as a 120% keyboard*
 
 * Keyboard Maintainer: [Zach DeCook](https://github.com/earboxer)
 * Hardware Supported: Dev Unit with RP2040 Processor, HexBoard Production Unit (1.1)
@@ -15,8 +15,10 @@ The ["Arduino" firmware](https://sr.ht/~earboxer/HexBoard/) remains the official
 Make example for this keyboard (after setting up your build environment):
 
 ```sh
-# make the default keymap (similar to the official firmware)
+# make the default keymap (demo of basic QMK features)
 make hexboard/1_1:default
+# make the midi keymap (similar to the official firmware)
+make hexboard/1_1:midi
 # make the 'keyboard' keymap (part keyboard, part music device)
 make hexboard/1_1:keyboard
 # make the 'keyboard' keymap for the dev unit
