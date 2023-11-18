@@ -1,4 +1,13 @@
-[
+{
+    "name": "sp60",
+    "vendorId": "0x0903",
+    "productId": "0x0220",
+    "lighting": {
+      "extends": "qmk_rgblight"
+    },
+    "matrix": { "rows": 6, "cols": 17 },
+    "layouts": {
+      "keymap": [
   [
     {
       "c": "#777777"
@@ -199,3 +208,5 @@
     "5,16"
   ]
 ]
+    }
+  }

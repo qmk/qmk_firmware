@@ -10,9 +10,12 @@
 #define DEVICE_VER                      0x0001
 #define MANUFACTURER                    HMC
 #define PRODUCT                         Duck_Blackbird_for XL
-#define DESCRIPTION                     Duck_Blackbird_for XL
 #define SERIAL_NUMBER                   00000000/* <序列号> */
 #define BLE_KEYBOARD_NAME               "sp60"
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9d9e58021e (修改已知问题)
 
 
 
@@ -49,7 +52,7 @@
                         LINE_COL15,     \
                         LINE_COL16      \
                         }
-#define UNUSED_PINS
+
 
         /**<   二极管方向  */
 // #define DIODE_DIRECTION COL2ROW
@@ -57,12 +60,12 @@
 #define DIODE_DIRECTION ROW2COL
 
         /**<   去抖延时  */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
         /**<   宏数量  */
 #define DYNAMIC_KEYMAP_MACRO_COUNT 15
         /**<   Flash模拟eeprom  */
-#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR  5120-1
+#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR  5120
 
         /**<   VIA 按键层数量  */
 #define DYNAMIC_KEYMAP_LAYER_COUNT 8
@@ -82,17 +85,16 @@
 )
 
 /* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS
 
-#define RGB_DI_PIN           LINE_WS2812
+#define RWS2812_DI_PIN           LINE_WS2812
 #define RGBLED_TOTAL         4    //RGB灯的总数
 #define RGBLED_KEY_LED       2       //轴灯的数量
 #define DRIVER_LED_TOTAL     RGBLED_TOTAL
 #define RGB_BOTTOM_LED_NUM   (RGBLED_TOTAL-RGBLED_KEY_LED)
-#define RGBLED_NUM           (RGB_BOTTOM_LED_NUM)
+#define RGBLED_NUM           (0)
 
 
-#define RGBLIGHT_ANIMATIONS
+
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
