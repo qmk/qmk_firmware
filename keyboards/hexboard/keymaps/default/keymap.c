@@ -5,9 +5,9 @@
 
 // Define the keycode, `QK_USER` avoids collisions with existing keycodes
 enum keycodes {
-  KC_CYCLE_LAYERS = QK_USER,
-  KC_ENCODER_CCW,
-  KC_ENCODER_CW,
+    KC_CYCLE_LAYERS = QK_USER,
+    KC_ENCODER_CCW,
+    KC_ENCODER_CW,
 };
 
 #if defined(ENCODER_MAP_ENABLE)
@@ -22,7 +22,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 // 1st layer on the cycle
 #define LAYER_CYCLE_START 0
 // Last layer on the cycle
-#define LAYER_CYCLE_END   3
+#define LAYER_CYCLE_END 3
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Hexboard Harmonic table layout (landscape)
@@ -133,7 +133,6 @@ MI_BNDD, MI_Gb1, MI_F1, MI_E1, MI_Eb1, MI_D1, MI_Db1, MI_C1, MI_B, MI_Bb,
     ),
 };
 
-
 void rgb_matrix_set_hsv(uint8_t i, uint8_t h, uint8_t s, uint8_t v) {
     HSV hsv = {h, s, v};
     RGB rgb = hsv_to_rgb(hsv);
@@ -173,62 +172,65 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 uint16_t held_keycode = 0;
 // Add the behaviour of this new keycode
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case KC_CYCLE_LAYERS:
-      // Our logic will happen on presses, nothing is done on releases
-      if (!record->event.pressed) {
-        // We've already handled the keycode (doing nothing), let QMK know so no further code is run unnecessarily
-        return false;
-      }
+    switch (keycode) {
+        case KC_CYCLE_LAYERS:
+            // Our logic will happen on presses, nothing is done on releases
+            if (!record->event.pressed) {
+                // We've already handled the keycode (doing nothing), let QMK know so no further code is run unnecessarily
+                return false;
+            }
 
-      uint8_t current_layer = get_highest_layer(layer_state);
+            uint8_t current_layer = get_highest_layer(layer_state);
 
-      // Check if we are within the range, if not quit
-      if (current_layer > LAYER_CYCLE_END || current_layer < LAYER_CYCLE_START) {
-        return false;
-      }
+            // Check if we are within the range, if not quit
+            if (current_layer > LAYER_CYCLE_END || current_layer < LAYER_CYCLE_START) {
+                return false;
+            }
 
-      uint8_t next_layer = current_layer + 1;
-      if (next_layer > LAYER_CYCLE_END) {
-          next_layer = LAYER_CYCLE_START;
-      }
-      layer_move(next_layer);
-      return false;
-    // Track the option buttons so they can modify the behavior of the encoder.
-    case MI_BNDU:
-    case MI_BNDD:
-    case MI_MOD:
-    case MI_VL2:
-    case MI_VL5:
-    case MI_VL10:
-      if(record->event.pressed) { held_keycode = keycode; }
-      else if (held_keycode == keycode){ held_keycode = 0; }
-      // process normally
-      return true;
-    case KC_ENCODER_CCW:
-    case KC_ENCODER_CW:
-      switch (held_keycode) {
+            uint8_t next_layer = current_layer + 1;
+            if (next_layer > LAYER_CYCLE_END) {
+                next_layer = LAYER_CYCLE_START;
+            }
+            layer_move(next_layer);
+            return false;
+        // Track the option buttons so they can modify the behavior of the encoder.
+        case MI_BNDU:
+        case MI_BNDD:
         case MI_MOD:
-          if (keycode == KC_ENCODER_CW ? midi_config.modulation_interval != 255 : midi_config.modulation_interval != 0) {
-            midi_config.modulation_interval += (keycode == KC_ENCODER_CW ? 1 : -1);
-          }
-          break;
         case MI_VL2:
         case MI_VL5:
         case MI_VL10:
-          if (keycode == KC_ENCODER_CW ? midi_config.velocity != 127 : midi_config.velocity != 0) {
-            midi_config.velocity += (keycode == KC_ENCODER_CW ? 1 : -1);
-          }
-          break;
+            if (record->event.pressed) {
+                held_keycode = keycode;
+            } else if (held_keycode == keycode) {
+                held_keycode = 0;
+            }
+            // process normally
+            return true;
+        case KC_ENCODER_CCW:
+        case KC_ENCODER_CW:
+            switch (held_keycode) {
+                case MI_MOD:
+                    if (keycode == KC_ENCODER_CW ? midi_config.modulation_interval != 255 : midi_config.modulation_interval != 0) {
+                        midi_config.modulation_interval += (keycode == KC_ENCODER_CW ? 1 : -1);
+                    }
+                    break;
+                case MI_VL2:
+                case MI_VL5:
+                case MI_VL10:
+                    if (keycode == KC_ENCODER_CW ? midi_config.velocity != 127 : midi_config.velocity != 0) {
+                        midi_config.velocity += (keycode == KC_ENCODER_CW ? 1 : -1);
+                    }
+                    break;
+                default:
+                    break;
+            }
+            // done processing.
+            return false;
+        // Process other keycodes normally
         default:
-          break;
-      }
-      // done processing.
-      return false;
-    // Process other keycodes normally
-    default:
-      return true;
-  }
+            return true;
+    }
 }
 
 #ifdef OLED_ENABLE
