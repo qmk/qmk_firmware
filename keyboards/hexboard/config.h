@@ -33,9 +33,5 @@
 #define OLED_IC OLED_IC_SH1106
 // OLED_DISPLAY_ defined by revision
 
-// Slow down oled updates (to speed up encoder updates???)
-// #define OLED_UPDATE_INTERVAL 50
-// #define OLED_COLUMN_OFFSET 2 // for eliminating glitching spot?
-
 #define ENCODER_DIRECTION_FLIP
 #define ENCODER_DEFAULT_POS 0x3
