@@ -1,4 +1,4 @@
-SRC += dev/matrix.c
+SRC += matrix.c
 CUSTOM_MATRIX = lite
 
 MIDI_ENABLE = yes
