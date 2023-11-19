@@ -14,28 +14,64 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <stdint.h>
-#include <stdbool.h>
+#include "atomic_util.h"
 #include "wait.h"
-#include "quantum.h"
+#include "matrix.h"
 #include "i2c_master.h"
 
-static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
-static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
+#define PORT_EXPANDER_ADDRESS 0x20
 
-static void unselect_rows(void) {
-    for(uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        setPinInputHigh(row_pins[x]);
+static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
+static const pin_t col_pins[MATRIX_COLS]   = MATRIX_COL_PINS;
+
+static inline void setPinOutput_writeLow(pin_t pin) {
+    ATOMIC_BLOCK_FORCEON {
+        setPinOutput(pin);
+        writePinLow(pin);
     }
 }
 
-static void select_row(uint8_t row) {
-    setPinOutput(row_pins[row]);
-    writePinLow(row_pins[row]);
+static inline void setPinOutput_writeHigh(pin_t pin) {
+    ATOMIC_BLOCK_FORCEON {
+        setPinOutput(pin);
+        writePinHigh(pin);
+    }
+}
+
+static inline void setPinInputHigh_atomic(pin_t pin) {
+    ATOMIC_BLOCK_FORCEON {
+        setPinInputHigh(pin);
+    }
+}
+
+static inline uint8_t readMatrixPin(pin_t pin) {
+    if (pin != NO_PIN) {
+        return (readPin(pin) == 0) ? 0 : 1;
+    } else {
+        return 1;
+    }
+}
+
+static bool select_row(uint8_t row) {
+    pin_t pin = row_pins[row];
+    if (pin != NO_PIN) {
+        setPinOutput_writeLow(pin);
+        return true;
+    }
+    return false;
 }
 
 static void unselect_row(uint8_t row) {
-    setPinInputHigh(row_pins[row]);
+    pin_t pin = row_pins[row];
+    if (pin != NO_PIN) {
+        setPinInputHigh_atomic(pin);
+    }
+}
+
+static void unselect_rows(void) {
+    for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
+        unselect_row(x);
+    }
 }
 
 static void init_pins(void) {
@@ -47,8 +83,8 @@ static void init_pins(void) {
     i2c_writeReg((PORT_EXPANDER_ADDRESS << 1), 0x06, &send_data, 1, 20);
 
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-        if ( x < 6 ) {
-            setPinInputHigh(col_pins[x]);
+        if (col_pins[x] != NO_PIN) {
+            setPinInputHigh_atomic(col_pins[x]);
         }
     }
 }
@@ -63,7 +99,7 @@ void matrix_init_custom(void) {
     wait_ms(50);
 }
 
-static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
+static bool matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
     // Store last value of row prior to reading
     matrix_row_t last_row_value = current_matrix[current_row];
 
@@ -72,12 +108,13 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
     // Select row and wait for row selecton to stabilize
     select_row(current_row);
-    wait_us(30);
+    matrix_output_select_delay();
 
     uint8_t port_expander_buffer;
     i2c_readReg((PORT_EXPANDER_ADDRESS << 1), 0x09, &port_expander_buffer, 1, 20);
 
     // For each col...
+    // matrix_row_t row_shifter = MATRIX_ROW_SHIFTER;
     for(uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
         uint8_t pin_state;
         // Select the col pin to read (active low)
@@ -107,7 +144,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
                 pin_state = port_expander_buffer & (1 << 7);
                 break;
             default :
-                pin_state = readPin(col_pins[col_index]);
+                pin_state = readMatrixPin(col_pins[col_index]);
         }
 
         // Populate the matrix row with the state of the col pin
@@ -125,7 +162,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
 
     // Set row, read cols
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
-        matrix_has_changed |= read_cols_on_row(current_matrix, current_row);
+        matrix_has_changed |= matrix_read_cols_on_row(current_matrix, current_row);
     }
 
     return matrix_has_changed;
