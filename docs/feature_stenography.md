@@ -8,46 +8,107 @@ The [Open Steno Project](https://www.openstenoproject.org/) has built an open-so
 
 Plover can work with any standard QWERTY keyboard, although it is more efficient if the keyboard supports NKRO (n-key rollover) to allow Plover to see all the pressed keys at once. An example keymap for Plover can be found in `planck/keymaps/default`. Switching to the `PLOVER` layer adjusts the position of the keyboard to support the number bar.
 
-To use Plover with QMK just enable NKRO and optionally adjust your layout if you have anything other than a standard layout. You may also want to purchase some steno-friendly keycaps to make it easier to hit multiple keys.
+To enable NKRO, add `NKRO_ENABLE = yes` in your `rules.mk` and make sure to press `NK_ON` to turn it on because `NKRO_ENABLE = yes` merely adds the possibility of switching to NKRO mode but it doesn't automatically switch to it. If you want to automatically switch, add `#define FORCE_NKRO` in your `config.h`.
+
+You may also need to adjust your layout, either in QMK or in Plover, if you have anything other than a standard layout. You may also want to purchase some steno-friendly keycaps to make it easier to hit multiple keys.
 
 ## Plover with Steno Protocol :id=plover-with-steno-protocol
 
-Plover also understands the language of several steno machines. QMK can speak a couple of these languages, TX Bolt and GeminiPR. An example layout can be found in `planck/keymaps/steno`.
+Plover also understands the language of several steno machines. QMK can speak a couple of these languages: TX Bolt and GeminiPR. An example layout can be found in `planck/keymaps/steno`.
 
-When QMK speaks to Plover over a steno protocol Plover will not use the keyboard as input. This means that you can switch back and forth between a standard keyboard and your steno keyboard, or even switch layers from Plover to standard and back without needing to activate/deactivate Plover.
+When QMK speaks to Plover over a steno protocol, Plover will not use the keyboard as input. This means that you can switch back and forth between a standard keyboard and your steno keyboard, or even switch layers from Plover to standard and back without needing to activate/deactivate Plover.
 
-In this mode Plover expects to speak with a steno machine over a serial port so QMK will present itself to the operating system as a virtual serial port in addition to a keyboard. By default QMK will speak the TX Bolt protocol but can be switched to GeminiPR; the last protocol used is stored in non-volatile memory so QMK will use the same protocol on restart.
+In this mode, Plover expects to speak with a steno machine over a serial port so QMK will present itself to the operating system as a virtual serial port in addition to a keyboard.
 
-> Note: Due to hardware limitations you may not be able to run both a virtual serial port and mouse emulation at the same time.
+> Note: Due to hardware limitations, you might not be able to run both a virtual serial port and mouse emulation at the same time.
+
+!> Serial stenography protocols are not supported on [V-USB keyboards](compatible_microcontrollers#atmel-avr).
+
+To enable stenography protocols, add the following lines to your `rules.mk`:
+```mk
+STENO_ENABLE = yes
+```
 
 ### TX Bolt :id=tx-bolt
 
-TX Bolt communicates the status of 24 keys over a very simple protocol in variable-sized (1-5 byte) packets.
+TX Bolt communicates the status of 24 keys over a simple protocol in variable-sized (1&ndash;4 bytes) packets.
+
+To select TX Bolt, add the following lines to your `rules.mk`:
+```mk
+STENO_ENABLE = yes
+STENO_PROTOCOL = txbolt
+```
+
+Each byte of the packet represents a different group of steno keys. Determining the group of a certain byte of the packet is done by checking the first two bits, the remaining bits are set if the corresponding steno key was pressed for the stroke. The last set of keys (as indicated by leading `11`) needs to keep track of less keys than there are bits so one of the bits is constantly 0.
+
+The start of a new packet can be detected by comparing the group “ID” (the two MSBs) of the current byte to that of the previously received byte. If the group “ID” of the current byte is smaller or equal to that of the previous byte, it means that the current byte is the beginning of a new packet.
+
+The format of TX Bolt packets is shown below.
+```
+00HWPKTS 01UE*OAR 10GLBPRF 110#ZDST
+```
+
+Examples of steno strokes and the associated packet:
+- `EUBG`    = `01110000 10101000`
+- `WAZ`     = `00010000 01000010 11001000`
+- `PHAPBGS` = `00101000 01000010 10101100 11000010`
 
 ### GeminiPR :id=geminipr
 
-GeminiPR encodes 42 keys into a 6-byte packet. While TX Bolt contains everything that is necessary for standard stenography, GeminiPR opens up many more options, including supporting non-English theories.
+GeminiPR encodes 42 keys into a 6-byte packet. While TX Bolt contains everything that is necessary for standard stenography, GeminiPR opens up many more options, including differentiating between top and bottom `S-`, and supporting non-English theories.
+
+To select GeminiPR, add the following lines to your `rules.mk`:
+```mk
+STENO_ENABLE = yes
+STENO_PROTOCOL = geminipr
+```
+
+All packets in the GeminiPR protocol consist of exactly six bytes, used as bit-arrays for different groups of keys. The beginning of a packet is indicated by setting the most significant bit (MSB) to 1 while setting the MSB of the remaining five bytes to 0.
+
+The format of GeminiPR packets is shown below.
+```
+1 Fn  #1  #2 #3 #4 #5   #6
+0 S1- S2- T- K- P- W-   H-
+0 R-  A-  O- *1 *2 res1 res2
+0 pwr *3  *4 -E -U -F   -R
+0 -P  -B  -L -G -T -S   -D
+0 #7  #8  #9 #A #B #C   -Z
+```
+
+Examples of steno strokes and the associated packet:
+- `EUBG`    = `10000000 00000000 00000000 00001100 00101000 00000000`
+- `WAZ`     = `10000000 00000010 00100000 00000000 00000000 00000001`
+- `PHAPBGS` = `10000000 00000101 00100000 00000000 01101010 00000000`
+
+### Switching protocols on the fly :id=switching-protocols-on-the-fly
+
+If you wish to switch the serial protocol used to transfer the steno chords without having to recompile your keyboard firmware every time, you can press the `QK_STENO_BOLT` and `QK_STENO_GEMINI` keycodes in order to switch protocols on the fly.
+
+To enable these special keycodes, add the following lines to your `rules.mk`:
+```mk
+STENO_ENABLE = yes
+STENO_PROTOCOL = all
+```
+
+If you want to switch protocols programatically, as part of a custom macro for example, don't use `tap_code(QK_STENO_*)`, as `tap_code` only supports [basic keycodes](keycodes_basic). Instead, you should use `steno_set_mode(STENO_MODE_*)`, whose valid arguments are `STENO_MODE_BOLT` and `STENO_MODE_GEMINI`.
+
+The default protocol is Gemini PR but the last protocol used is stored in non-volatile memory so QMK will remember your choice between reboots of your keyboard &mdash; assuming that your keyboard features (emulated) EEPROM.
+
+Naturally, this option takes the most amount of firmware space as it needs to compile the code for all the available stenography protocols. In most cases, compiling a single stenography protocol is sufficient.
+
+The default value for `STENO_PROTOCOL` is `all`.
 
 ## Configuring QMK for Steno :id=configuring-qmk-for-steno
 
-Firstly, enable steno in your keymap's Makefile. You may also need disable mousekeys, extra keys, or another USB endpoint to prevent conflicts. The builtin USB stack for some processors only supports a certain number of USB endpoints and the virtual serial port needed for steno fills 3 of them.
+After enabling stenography and optionally selecting a protocol, you may also need disable mouse keys, extra keys, or another USB endpoint to prevent conflicts. The builtin USB stack for some processors only supports a certain number of USB endpoints and the virtual serial port needed for steno fills 3 of them.
 
-```make
-STENO_ENABLE = yes
-MOUSEKEY_ENABLE = no
-```
+!> If you had *explicitly* set `VIRSTER_ENABLE = no`, none of the serial stenography protocols (GeminiPR, TX Bolt) will work properly. You are expected to either set it to `yes`, remove the line from your `rules.mk` or send the steno chords yourself in an alternative way using the [provided interceptable hooks](#interfacing-with-the-code).
 
-In your keymap create a new layer for Plover. You will need to include `keymap_steno.h`. See `planck/keymaps/steno/keymap.c` for an example. Remember to create a key to switch to the layer as well as a key for exiting the layer. If you would like to switch modes on the fly you can use the keycodes `QK_STENO_BOLT` and `QK_STENO_GEMINI`. If you only want to use one of the protocols you may set it up in your initialization function:
+In your keymap, create a new layer for Plover, that you can fill in with the [steno keycodes](#keycode-reference) (you will need to include `keymap_steno.h`, see `planck/keymaps/steno/keymap.c` for an example). Remember to create a key to switch to the layer as well as a key for exiting the layer.
 
-```c
-void eeconfig_init_user() {
-    steno_set_mode(STENO_MODE_GEMINI); // or STENO_MODE_BOLT
-}
-```
+Once you have your keyboard flashed, launch Plover. Click the 'Configure...' button. In the 'Machine' tab, select the Stenotype Machine that corresponds to your desired protocol. Click the 'Configure...' button on this tab and enter the serial port or click 'Scan'. Baud rate is fine at 9600 (although you should be able to set as high as 115200 with no issues). Use the default settings for everything else (Data Bits: 8, Stop Bits: 1, Parity: N, no flow control).
 
-Once you have your keyboard flashed launch Plover. Click the 'Configure...' button. In the 'Machine' tab select the Stenotype Machine that corresponds to your desired protocol. Click the 'Configure...' button on this tab and enter the serial port or click 'Scan'. Baud rate is fine at 9600 (although you should be able to set as high as 115200 with no issues). Use the default settings for everything else (Data Bits: 8, Stop Bits: 1, Parity: N, no flow control).
-
-On the display tab click 'Open stroke display'. With Plover disabled you should be able to hit keys on your keyboard and see them show up in the stroke display window. Use this to make sure you have set up your keymap correctly. You are now ready to steno!
+To test your keymap, you can chord keys on your keyboard and either look at the output of the 'paper tape' (Tools > Paper Tape) or that of the 'layout display' (Tools > Layout Display). If your strokes correctly show up, you are now ready to steno!
 
 ## Learning Stenography :id=learning-stenography
 
@@ -60,7 +121,7 @@ On the display tab click 'Open stroke display'. With Plover disabled you should 
 The steno code has three interceptable hooks. If you define these functions, they will be called at certain points in processing; if they return true, processing continues, otherwise it's assumed you handled things.
 
 ```c
-bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[6]);
+bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[MAX_STROKE_SIZE]);
 ```
 
 This function is called when a chord is about to be sent. Mode will be one of `STENO_MODE_BOLT` or `STENO_MODE_GEMINI`. This represents the actual chord that would be sent via whichever protocol. You can modify the chord provided to alter what gets sent. Remember to return true if you want the regular sending process to happen.
@@ -72,15 +133,23 @@ bool process_steno_user(uint16_t keycode, keyrecord_t *record) { return true; }
 This function is called when a keypress has come in, before it is processed. The keycode should be one of `QK_STENO_BOLT`, `QK_STENO_GEMINI`, or one of the `STN_*` key values.
 
 ```c
-bool postprocess_steno_user(uint16_t keycode, keyrecord_t *record, steno_mode_t mode, uint8_t chord[6], int8_t pressed);
+bool post_process_steno_user(uint16_t keycode, keyrecord_t *record, steno_mode_t mode, uint8_t chord[MAX_STROKE_SIZE], int8_t n_pressed_keys);
 ```
 
-This function is called after a key has been processed, but before any decision about whether or not to send a chord. If `IS_PRESSED(record->event)` is false, and `pressed` is 0 or 1, the chord will be sent shortly, but has not yet been sent. This is where to put hooks for things like, say, live displays of steno chords or keys.
+This function is called after a key has been processed, but before any decision about whether or not to send a chord. This is where to put hooks for things like, say, live displays of steno chords or keys.
 
+If `record->event.pressed` is false, and `n_pressed_keys` is 0 or 1, the chord will be sent shortly, but has not yet been sent. This relieves you of the need of keeping track of where a packet ends and another begins.
+
+The `chord` argument contains the packet of the current chord as specified by the protocol in use. This is *NOT* simply a list of chorded steno keys of the form `[STN_E, STN_U, STN_BR, STN_GR]`. Refer to the appropriate protocol section of this document to learn more about the format of the packets in your steno protocol/mode of choice.
+
+The `n_pressed_keys` argument is the number of physical keys actually being held down.
+This is not always equal to the number of bits set to 1 (aka the [Hamming weight](https://en.wikipedia.org/wiki/Hamming_weight)) in `chord` because it is possible to simultaneously press down four keys, then release three of those four keys and then press yet another key while the fourth finger is still holding down its key.
+At the end of this scenario given as an example, `chord` would have five bits set to 1 but
+`n_pressed_keys` would be set to 2 because there are only two keys currently being pressed down.
 
 ## Keycode Reference :id=keycode-reference
 
-As defined in `keymap_steno.h`.
+You must include `keymap_steno.h` to your `keymap.c` with `#include "keymap_steno.h"` before you can use these keycodes
 
 > Note: TX Bolt does not support the full set of keys. The TX Bolt implementation in QMK will map the GeminiPR keys to the nearest TX Bolt key so that one key map will work for both.
 
@@ -124,10 +193,10 @@ As defined in `keymap_steno.h`.
 |`STN_SR`|`STN_SR`| `-S`|
 |`STN_DR`|`STN_DR`| `-D`|
 |`STN_ZR`|`STN_ZR`| `-Z`|
-|`STN_FN`|| (GeminiPR only)|
-|`STN_RES1`||(GeminiPR only)|
-|`STN_RES2`||(GeminiPR only)|
-|`STN_PWR`||(GeminiPR only)|
+|`STN_FN`|| (Function)|
+|`STN_RES1`||(Reset 1)|
+|`STN_RES2`||(Reset 2)|
+|`STN_PWR`||(Power)|
 
 If you do not want to hit two keys with one finger combined keycodes can be used. These are also defined in `keymap_steno.h`, and causes both keys to be reported as pressed or released. To use these keycodes define `STENO_COMBINEDMAP` in your `config.h` file.
 

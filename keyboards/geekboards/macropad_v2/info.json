@@ -1,50 +1,44 @@
 {
-  "keyboard_name": "macropad_v2",
+  "keyboard_name": "Macropad v2",
+  "manufacturer": "GeebBoards",
   "url": "https://geekboards.ru/",
   "maintainer": "ruddy17",
+  "usb": {
+    "vid": "0x0483",
+    "pid": "0xA372",
+    "device_version": "0.0.2"
+  },
+  "qmk": {
+    "tap_keycode_delay": 10
+  },
+  "ws2812": {
+    "pin": "A7",
+    "driver": "pwm"
+  },
+  "rgb_matrix": {
+    "driver": "ws2812"
+  },
+  "processor": "STM32F072",
+  "bootloader": "stm32-dfu",
+  "matrix_pins": {
+    "direct": [
+      ["B13", "B15", "B3", "B5"],
+      ["B12", "B14", "A13", "B7"]
+    ]
+  },
+  "debounce": 3,
   "layouts": {
-    "LAYOUT": {
+    "LAYOUT_ortho_2x4": {
       "layout": [
-        {
-          "label": "K0",
-          "x": 0,
-          "y": 0
-        },
-        {
-          "label": "K1",
-          "x": 1,
-          "y": 0
-        },
-        {
-          "label": "K2",
-          "x": 2,
-          "y": 0
-        },
-        {
-          "label": "K3",
-          "x": 3,
-          "y": 0
-        },
-        {
-          "label": "K4",
-          "x": 0,
-          "y": 1
-        },
-        {
-          "label": "K5",
-          "x": 1,
-          "y": 1
-        },
-        {
-          "label": "K6",
-          "x": 2,
-          "y": 1
-        },
-        {
-          "label": "K7",
-          "x": 3,
-          "y": 1
-        }
+        {"x": 0, "y": 0, "matrix": [0, 0]},
+        {"x": 1, "y": 0, "matrix": [0, 1]},
+        {"x": 2, "y": 0, "matrix": [0, 2]},
+        {"x": 3, "y": 0, "matrix": [0, 3]},
+
+        {"x": 0, "y": 1, "matrix": [1, 0]},
+        {"x": 1, "y": 1, "matrix": [1, 1]},
+        {"x": 2, "y": 1, "matrix": [1, 2]},
+        {"x": 3, "y": 1, "matrix": [1, 3]}
       ]
     }
   }

@@ -14,10 +14,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "rev3.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     {0, CS3_SW5, CS2_SW5, CS1_SW5}, /* D9-K31-00 */
     {0, CS6_SW5, CS5_SW5, CS4_SW5}, /* D46-K00-01 */
     {0, CS6_SW9, CS5_SW9, CS4_SW9}, /* D59-K01-02 */
@@ -78,7 +78,7 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     {0, CS21_SW8, CS20_SW8, CS19_SW8}, /* D109-K3B-56 */
     {0, CS24_SW2, CS23_SW2, CS22_SW2}, /* D105-K3D-57 */
     {0, CS24_SW8, CS23_SW8, CS22_SW8}, /* D103-K3E-58 */
-    
+
     {0, CS3_SW1, CS2_SW1, CS1_SW1}, /* D163-K40-59 */
     {0, CS6_SW1, CS5_SW1, CS4_SW1}, /* D147-K42-60 */
     {0, CS9_SW1, CS8_SW1, CS7_SW1}, /* D137-K44-61 */
@@ -94,73 +94,33 @@ led_config_t g_led_config = {
         { 1,           2,         3,          4,           5,           6,         7,          8,          9,          10,        11,           12,           13,          14,         15},
         {17,          18,        19,         20,          21,          22,        23,         24,         25,          26,        27,           28,           29,          30,      NO_LED},
         {32,          33,        34,         35,          36,          37,        38,         39,         40,          41,        42,           43,       NO_LED,          44,      NO_LED},
-        {45,        NO_LED,      46,         47,          48,          49,        50,         51,         52,          53,        54,           55,           56,          57,          58},
-        {59,        NO_LED,      60,     NO_LED,          61,      NO_LED,        62,     NO_LED,         63,      NO_LED,        64,       NO_LED,       NO_LED,      NO_LED,          65},
+        {45,           0,        46,         47,          48,          49,        50,         51,         52,          53,        54,           55,           56,          57,          58},
+        {59,          16,        60,         31,          61,      NO_LED,        62,     NO_LED,         63,      NO_LED,        64,       NO_LED,       NO_LED,      NO_LED,          65},
     }, {
         //LED Index to Physical Positon
         {0,0},      { 17,  0},  { 34, 0 },  { 51, 0 },  { 69, 0},   { 86, 0},   {100, 0},   {103, 0},   { 120, 0},  { 138, 0},  { 155, 0},  { 172, 0},  { 189, 0},    {207,  0},   {215,  0},   {224, 0},
         {0,16},     { 17, 16},  { 34,16 },  { 51,16 },  { 69,16},   { 86,16},   {103,16},               { 120,16},  { 138,16},  { 155,16},  { 172,16},  { 189,16},    {207, 16},   {215, 16},   {224,16},
         {0,32},     { 17, 32},  { 34,32 },  { 51,32 },  { 69,32},   { 86,32},   {103,32},   { 120,32},  { 138,32},  { 155,32},  { 172,32},  { 189,32},  {207, 32},    {224,32},
-                    { 17, 48},  { 34,48 },  { 51,48 },  { 69,48},   { 86,48},   {103,48},   { 120,48},  { 138,48},  { 155,48},  { 172,48},  { 189,48},  {207, 48},    {215, 48},   {224,48},   
-                    { 17, 64},              { 51,64 },              { 86,64},   { 103,64},              { 138,64},              { 172,64},              {224, 64},      
+                    { 17, 48},  { 34,48 },  { 51,48 },  { 69,48},   { 86,48},   {103,48},   { 120,48},  { 138,48},  { 155,48},  { 172,48},  { 189,48},  {207, 48},    {215, 48},   {224,48},
+                    { 17, 64},              { 51,64 },              { 86,64},   { 103,64},              { 138,64},              { 172,64},              {224, 64},
     }, {
         1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,            1,           1,           1,
-        1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,            1,           1,           1,  
-        1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,                         1,           1,  
-        1,                      1,          1,          1,          1,          1,          1,          1,          1,          1,          1,            1,           1,           1,  
-        1,                      1,                      1,                      1,                      1,                      1,          1,            1, 
-    } 
+        1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,            1,           1,           1,
+        1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,                         1,           1,
+        1,                      1,          1,          1,          1,          1,          1,          1,          1,          1,          1,            1,           1,           1,
+        1,                      1,                      1,                      1,                      1,                      1,          1,            1,
+    }
 };
 
-__attribute__((weak)) void rgb_matrix_indicators_user(void) {
-        if (host_keyboard_led_state().caps_lock) {
-            rgb_matrix_set_color(32, 255, 255, 255);
-        }
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
+    if (host_keyboard_led_state().caps_lock) {
+        rgb_matrix_set_color(32, 255, 255, 255);
+    }
+    return true;
 }
 
 
 #endif
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    switch(keycode) {
-    #ifdef RGBLIGHT_ENABLE
-        #ifdef RGB_MATRIX_ENABLE
-        case KC_F13: // toggle rgb matrix
-            rgb_matrix_toggle();
-            return false;
-        case KC_F14:
-            rgb_matrix_step();
-            return false;
-        case KC_F15:
-            rgb_matrix_increase_speed();
-            return false;
-        case KC_F16:
-            rgb_matrix_decrease_speed();
-            return false;
-        case KC_F17:
-            rgb_matrix_increase_hue();
-            return false;
-        case KC_F18:
-            rgb_matrix_decrease_hue();
-            return false;
-        case KC_F19:
-            rgb_matrix_increase_sat();
-            return false;
-        case KC_F20:
-            rgb_matrix_decrease_sat();
-            return false;
-        case KC_F21:
-            rgb_matrix_increase_val();
-            return false;
-        case KC_F22:
-            rgb_matrix_decrease_val();
-            return false;
-        #endif
-    #endif
-        default:
-        break;
-    }
-  }
-  return true;
-}

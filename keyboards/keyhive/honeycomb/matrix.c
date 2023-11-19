@@ -46,20 +46,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # define ROW_SHIFTER  ((uint32_t)1)
 #endif
 
+#define UART_MATRIX_RESPONSE_TIMEOUT 10000
+
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
 //extern int8_t encoderValue;
 int8_t encoderValue = 0;
-
-__attribute__ ((weak))
-void matrix_init_quantum(void) {
-    matrix_init_kb();
-}
-
-__attribute__ ((weak))
-void matrix_scan_quantum(void) {
-    matrix_scan_kb();
-}
 
 __attribute__ ((weak))
 void matrix_init_kb(void) {
@@ -91,7 +83,7 @@ uint8_t matrix_cols(void) {
 
 void matrix_init(void) {
 
-    matrix_init_quantum();
+    matrix_init_kb();
     uart_init(1000000);
 }
 
@@ -112,12 +104,16 @@ uint8_t matrix_scan(void)
         // harm to leave it in here
         while(!uart_available()){
             timeout++;
-            if (timeout > 10000){
-                xprintf("\r\nTime out in keyboard.");
+            if (timeout > UART_MATRIX_RESPONSE_TIMEOUT) {
                 break;
             }
         }
-        uart_data[i] = uart_read();
+
+        if (timeout < UART_MATRIX_RESPONSE_TIMEOUT) {
+            uart_data[i] = uart_read();
+        } else {
+            uart_data[i] = 0x00;
+        }
     }
 
     // Check for the end packet, it's our checksum.
@@ -162,7 +158,7 @@ uint8_t matrix_scan(void)
         xprintf("\r\nRequested packet, data 3 was %d",uart_data[3]);
     }
 
-    matrix_scan_quantum();
+    matrix_scan_kb();
     return 1;
 }
 

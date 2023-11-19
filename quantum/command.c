@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "wait.h"
 #include "keycode.h"
 #include "host.h"
-#include "keymap.h"
 #include "print.h"
 #include "debug.h"
 #include "util.h"
@@ -161,7 +160,7 @@ static void command_common_help(void) {
 }
 
 static void print_version(void) {
-    print(/* clang-format off */
+    xprintf("%s", /* clang-format off */
         "\n\t- Version -\n"
         "VID: " STR(VENDOR_ID) "(" STR(MANUFACTURER) ") "
         "PID: " STR(PRODUCT_ID) "(" STR(PRODUCT) ") "
@@ -282,6 +281,7 @@ static void print_eeconfig(void) {
         ".swap_grave_esc: %u\n"
         ".swap_backslash_backspace: %u\n"
         ".nkro: %u\n"
+        ".swap_escape_capslock: %u\n"
 
         , kc.raw
         , kc.swap_control_capslock
@@ -294,6 +294,7 @@ static void print_eeconfig(void) {
         , kc.swap_grave_esc
         , kc.swap_backslash_backspace
         , kc.nkro
+        , kc.swap_escape_capslock
     ); /* clang-format on */
 
 #    ifdef BACKLIGHT_ENABLE

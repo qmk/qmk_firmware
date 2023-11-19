@@ -1,4 +1,5 @@
 // Copyright 2021 Paul Cotter (@gr1mr3aver)
+// Copyright 2023 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include <wait.h>
@@ -17,7 +18,7 @@ tft_panel_dc_reset_painter_device_t gc9a01_drivers[GC9A01_NUM_DEVICES] = {0};
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Initialization
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-bool qp_gc9a01_init(painter_device_t device, painter_rotation_t rotation) {
+__attribute__((weak)) bool qp_gc9a01_init(painter_device_t device, painter_rotation_t rotation) {
     // A lot of these "unknown" opcodes are sourced from other OSS projects and are seemingly required for this display to function.
     // clang-format off
     const uint8_t gc9a01_init_sequence[] = {
@@ -93,7 +94,7 @@ bool qp_gc9a01_init(painter_device_t device, painter_rotation_t rotation) {
 // Driver vtable
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-const struct tft_panel_dc_reset_painter_driver_vtable_t gc9a01_driver_vtable = {
+const tft_panel_dc_reset_painter_driver_vtable_t gc9a01_driver_vtable = {
     .base =
         {
             .init            = qp_gc9a01_init,
@@ -102,12 +103,12 @@ const struct tft_panel_dc_reset_painter_driver_vtable_t gc9a01_driver_vtable = {
             .flush           = qp_tft_panel_flush,
             .pixdata         = qp_tft_panel_pixdata,
             .viewport        = qp_tft_panel_viewport,
-            .palette_convert = qp_tft_panel_palette_convert,
-            .append_pixels   = qp_tft_panel_append_pixels,
+            .palette_convert = qp_tft_panel_palette_convert_rgb565_swapped,
+            .append_pixels   = qp_tft_panel_append_pixels_rgb565,
+            .append_pixdata  = qp_tft_panel_append_pixdata,
         },
-    .rgb888_to_native16bit = qp_rgb888_to_rgb565_swapped,
-    .num_window_bytes      = 2,
-    .swap_window_coords    = false,
+    .num_window_bytes   = 2,
+    .swap_window_coords = false,
     .opcodes =
         {
             .display_on         = GC9A01_CMD_DISPLAY_ON,
@@ -124,8 +125,8 @@ painter_device_t qp_gc9a01_make_spi_device(uint16_t panel_width, uint16_t panel_
     for (uint32_t i = 0; i < GC9A01_NUM_DEVICES; ++i) {
         tft_panel_dc_reset_painter_device_t *driver = &gc9a01_drivers[i];
         if (!driver->base.driver_vtable) {
-            driver->base.driver_vtable         = (const struct painter_driver_vtable_t *)&gc9a01_driver_vtable;
-            driver->base.comms_vtable          = (const struct painter_comms_vtable_t *)&spi_comms_with_dc_vtable;
+            driver->base.driver_vtable         = (const painter_driver_vtable_t *)&gc9a01_driver_vtable;
+            driver->base.comms_vtable          = (const painter_comms_vtable_t *)&spi_comms_with_dc_vtable;
             driver->base.native_bits_per_pixel = 16; // RGB565
             driver->base.panel_width           = panel_width;
             driver->base.panel_height          = panel_height;
@@ -141,6 +142,12 @@ painter_device_t qp_gc9a01_make_spi_device(uint16_t panel_width, uint16_t panel_
             driver->spi_dc_reset_config.spi_config.mode            = spi_mode;
             driver->spi_dc_reset_config.dc_pin                     = dc_pin;
             driver->spi_dc_reset_config.reset_pin                  = reset_pin;
+
+            if (!qp_internal_register_device((painter_device_t)driver)) {
+                memset(driver, 0, sizeof(tft_panel_dc_reset_painter_device_t));
+                return NULL;
+            }
+
             return (painter_device_t)driver;
         }
     }

@@ -5,7 +5,7 @@ ps2avr(GB) boards use an ATmega32A microcontroller and a different bootloader. I
 General flashing sequence:
 
 1. Enter the bootloader using any of the following methods:
-    * Tap the `RESET` keycode (may not work on all devices)
+    * Tap the `QK_BOOT` keycode (may not work on all devices)
     * Hold the salt key while plugging the keyboard in (usually documented within keyboard readme) 
 2. Wait for the OS to detect the device
 3. Flash a .hex file

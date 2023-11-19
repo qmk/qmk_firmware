@@ -15,8 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <avr/sfr_defs.h>
 #include <avr/timer_avr.h>
 #include <avr/wdt.h>
-#include "smk65.h"
-#include "keymap.h"
+#include "revb.h"
 #include "debug.h"
 #include "issi.h"
 #include "TWIlib.h"
@@ -74,14 +73,14 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record)
     if (click_toggle && record->event.pressed){
         click(click_hz, click_time);
     }
-    if (keycode == RESET) {
+    if (keycode == QK_BOOT) {
         reset_keyboard_kb();
     } else {
     }
     return process_record_user(keycode, record);
 }
 
-void reset_keyboard_kb(){
+void reset_keyboard_kb(void){
 #ifdef WATCHDOG_ENABLE
     MCUSR = 0;
     wdt_disable();

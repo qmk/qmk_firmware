@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LCTL_T(KC_GRV),   KC_A,   KC_S,   KC_D,          KC_F,    KC_G,    KC_H,   KC_J,   KC_K,    KC_L,   KC_SCLN, LT(_NM, KC_QUOT),
     KC_LSFT,          KC_Z,   KC_X,   KC_C,          KC_V,    KC_B,    KC_N,   KC_M,   KC_COMM, KC_DOT, KC_SLSH, KC_RSFT,
                       MO(_MC), LCTL(KC_LSFT), KC_LBRC, KC_RBRC, KC_LEFT,KC_DOWN, KC_UP,  KC_RGHT,
-			                              MO(_NM),  KC_ENTER,                KC_RGUI,KC_RCTRL,
+			                              MO(_NM),  KC_ENTER,                KC_RGUI,KC_RCTL,
                                               KC_HOME,                 KC_PGUP,
                              KC_SPC, KC_BSPC, KC_END,                  KC_PGDN,KC_DEL, KC_ENTER
     ),
@@ -102,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 [_NM] = LAYOUT(
     KC_F1,   _______, _______,  _______, _______, _______,  _______, _______, _______, _______,  KC_F11,  KC_F12,
-    _______, _______, _______, _______, _______, _______,   KC_SLCK, KC_NLCK, KC_PEQL, KC_PSLS, KC_PAST, _______,
+    _______, _______, _______, _______, _______, _______,   KC_SCRL, KC_NUM,  KC_PEQL, KC_PSLS, KC_PAST, _______,
     _______, _______, KC_BTN1, KC_MS_U, KC_BTN2, KC_INS,    KC_CAPS, KC_P7,   KC_P8,   KC_P9,   KC_PMNS, _______,
     _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______,   _______, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, _______,
     _______, _______, _______, _______, _______, _______,   KC_PDOT, KC_P1,   KC_P2,   KC_P3,   KC_PENT, _______,
@@ -138,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_MC] = LAYOUT(
     VRSN,    _______, _______, _______, _______, _______,   EMAIL1,  _______, _______, PWD3,    PWD2,    PWD1,
     _______, _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______, MC2,
-    _______, _______, _______, _______, RESET,   _______,   _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, QK_BOOT, _______,   _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______,   _______, _______, MC1,     _______, _______, _______,
              _______, _______, _______, _______,                     _______, _______, _______, _______,

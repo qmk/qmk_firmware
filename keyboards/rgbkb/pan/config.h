@@ -16,28 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-#define VENDOR_ID       0x5247  // "RG" - RGBKB
-#define PRODUCT_ID      0x8C9C  // Pan
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    RGBKB
-#define PRODUCT         Pan
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 13
-
-#define ENCODER_RESOLUTION 4
-#define RGBLED_NUM 64
-#define RGBLIGHT_ANIMATIONS
-#define DRIVER_LED_TOTAL RGBLED_NUM
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
-#define RGBLIGHT_LIMIT_VAL 120
-#define USB_MAX_POWER_CONSUMPTION 500
+#define RGB_MATRIX_LED_COUNT 64
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
@@ -87,6 +66,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENABLE_RGB_MATRIX_MULTISPLASH
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5

@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, XXXXXXX, XXXXXXX
     ),
     [_PANIC] = LAYOUT(
-        RESET  , BASE   , XXXXXXX,
+        QK_BOOT, BASE   , XXXXXXX,
         _______, XXXXXXX, _______,
         KC_F2  , KC_F5  , KC_F9
     ),
@@ -64,7 +64,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     flight_mode = false;
     rcs_mode = false;
 
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
     case _PANIC:
         panic_mode = true; // For use in encoder evaluation
         rgblight_sethsv_noeeprom(HSV_RED);

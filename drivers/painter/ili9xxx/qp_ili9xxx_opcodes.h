@@ -19,8 +19,8 @@
 #define ILI9XXX_CMD_SLEEP_OFF 0x11          // Exist sleep mode
 #define ILI9XXX_CMD_PARTIAL_ON 0x12         // Enter partial mode
 #define ILI9XXX_CMD_PARTIAL_OFF 0x13        // Exit partial mode
-#define ILI9XXX_CMD_INVERT_ON 0x20          // Enter inverted mode
-#define ILI9XXX_CMD_INVERT_OFF 0x21         // Exit inverted mode
+#define ILI9XXX_CMD_INVERT_OFF 0x20         // Exit inverted mode
+#define ILI9XXX_CMD_INVERT_ON 0x21          // Enter inverted mode
 #define ILI9XXX_SET_GAMMA 0x26              // Set gamma params
 #define ILI9XXX_CMD_DISPLAY_OFF 0x28        // Disable display
 #define ILI9XXX_CMD_DISPLAY_ON 0x29         // Enable display
@@ -85,6 +85,7 @@
 #define ILI9XXX_SET_NGAMMA 0xE1             // Set negative gamma
 #define ILI9XXX_SET_DGAMMA_CTL_1 0xE2       // Set digital gamma ctl 1
 #define ILI9XXX_SET_DGAMMA_CTL_2 0xE3       // Set digital gamma ctl 2
+#define ILI9XXX_SET_IMAGE_FUNCTION 0xE9     // Set image function
 #define ILI9XXX_ENABLE_3_GAMMA 0xF2         // Enable 3 gamma
 #define ILI9XXX_SET_IF_CTL 0xF6             // Set interface control
 #define ILI9XXX_SET_PUMP_RATIO_CTL 0xF7     // Set pump ratio control

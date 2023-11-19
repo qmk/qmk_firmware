@@ -1,4 +1,4 @@
-/* Copyright 2020 Boardsource
+/* Copyright 2022 Boardsource
  *           2022 QMK / James Young (@noroadsleft)
  *
  * This program is free software: you can redistribute it and/or modify

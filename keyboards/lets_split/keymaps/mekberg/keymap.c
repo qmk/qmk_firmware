@@ -36,7 +36,7 @@ enum layer_names {
 #define SPECIAL MO(_SPECIAL)
 
 // Modifiers
-#define SFTENT KC_SFTENT        // Enter => Shift when held
+#define SFTENT SC_SENT          // Enter => Shift when held
 #define CTLTAB LCTL_T(KC_TAB)   // Tab => Ctrl when held
 
 // ISO keycodes with Swedish layout names
@@ -219,8 +219,8 @@ SPECIAL
    `-----------------------------------------------------´   `-----------------------------------------------------'
 */
 [_SPECIAL] = LAYOUT_ortho_4x12(
-    RESET,   _______, TO_WIN,  KC_VOLU, _______, _______,     KC_INS,  KC_HOME, KC_UP,   KC_END,  KC_PGUP, KC_DEL,
-    EEP_RST, _______, MY_PREV, KC_VOLD, MY_NEXT, _______,     _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______,
+    QK_BOOT, _______, TO_WIN,  KC_VOLU, _______, _______,     KC_INS,  KC_HOME, KC_UP,   KC_END,  KC_PGUP, KC_DEL,
+    EE_CLR,  _______, MY_PREV, KC_VOLD, MY_NEXT, _______,     _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______,
     _______, _______, _______, KC_MUTE, _______, _______,     MY_LOCK, TO_MAC,  _______, _______, _______, _______,
     _______, _______, _______, _______, _______, MY_PLAY,     _______, _______, _______, _______, _______, KC_SLEP
 )

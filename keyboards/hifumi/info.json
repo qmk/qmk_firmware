@@ -1,10 +1,50 @@
 {
   "keyboard_name": "hifumi",
+  "manufacturer": "riconken",
   "url": "https://github.com/zk-phi/1x2x3-keyboard",
   "maintainer": "riconken",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x3060",
+    "device_version": "0.0.1"
+  },
+  "matrix_pins": {
+    "cols": ["F4", "F5", "F6"],
+    "rows": ["D4", "C6"]
+  },
+  "diode_direction": "COL2ROW",
+  "rgblight": {
+    "hue_steps": 5,
+    "led_count": 6,
+    "animations": {
+      "breathing": true,
+      "rainbow_mood": true,
+      "rainbow_swirl": true,
+      "snake": true,
+      "knight": true,
+      "christmas": true,
+      "static_gradient": true,
+      "rgb_test": true,
+      "alternating": true,
+      "twinkle": true
+    }
+  },
+  "ws2812": {
+    "pin": "D3"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
   "layouts": {
     "LAYOUT": {
-        "layout": [{"label":"F5", "x":0, "y":0}, {"label":"Up", "x":1, "y":0}, {"label":"PrSc", "x":2, "y":0}, {"label":"Left", "x":0, "y":1}, {"label":"Down", "x":1, "y":1}, {"label":"Right", "x":2, "y":1}]
+        "layout": [
+            {"matrix": [0, 0], "x": 0, "y": 0},
+            {"matrix": [0, 1], "x": 1, "y": 0},
+            {"matrix": [0, 2], "x": 2, "y": 0},
+
+            {"matrix": [1, 0], "x": 0, "y": 1},
+            {"matrix": [1, 1], "x": 1, "y": 1},
+            {"matrix": [1, 2], "x": 2, "y": 1}
+        ]
     }
   }
 }

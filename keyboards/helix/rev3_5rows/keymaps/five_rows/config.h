@@ -6,8 +6,6 @@
 #undef TAPPING_TERM
 #define TAPPING_TERM 300
 #define PERMISSIVE_HOLD
-/* when TAPPING_TERM >= 500 same effect PERMISSIVE_HOLD.
-   see tmk_core/common/action_tapping.c */
 
 #undef OLED_UPDATE_INTERVAL
 #ifdef DEBUG_MATRIX_SCAN_RATE

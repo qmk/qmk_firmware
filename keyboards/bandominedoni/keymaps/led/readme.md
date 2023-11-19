@@ -1,1 +1,1 @@
-# The default keymap for bandominedoni
+# The keymap with led for bandominedoni

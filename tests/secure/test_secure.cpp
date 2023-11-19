@@ -27,28 +27,13 @@ class Secure : public TestFixture {
     void SetUp() override {
         secure_lock();
     }
-    // Convenience function to tap `key`.
-    void TapKey(KeymapKey key) {
-        key.press();
-        run_one_scan_loop();
-        key.release();
-        run_one_scan_loop();
-    }
-
-    // Taps in order each key in `keys`.
-    template <typename... Ts>
-    void TapKeys(Ts... keys) {
-        for (KeymapKey key : {keys...}) {
-            TapKey(key);
-        }
-    }
 };
 
 TEST_F(Secure, test_lock) {
     TestDriver driver;
 
-    // Allow any number of empty reports.
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(0);
+    // Don't allow empty reports.
+    EXPECT_NO_REPORT(driver);
 
     EXPECT_FALSE(secure_is_unlocked());
     secure_unlock();
@@ -58,14 +43,14 @@ TEST_F(Secure, test_lock) {
     secure_lock();
     EXPECT_FALSE(secure_is_unlocked());
 
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(Secure, test_unlock_timeout) {
     TestDriver driver;
 
-    // Allow any number of empty reports.
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(0);
+    // Don't allow empty reports.
+    EXPECT_NO_REPORT(driver);
 
     EXPECT_FALSE(secure_is_unlocked());
     secure_unlock();
@@ -73,7 +58,7 @@ TEST_F(Secure, test_unlock_timeout) {
     idle_for(SECURE_IDLE_TIMEOUT + 1);
     EXPECT_FALSE(secure_is_unlocked());
 
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(Secure, test_unlock_request) {
@@ -86,16 +71,16 @@ TEST_F(Secure, test_unlock_request) {
 
     set_keymap({key_mo, key_a, key_b, key_c, key_d});
 
-    // Allow any number of empty reports.
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(0);
+    // Don't allow empty reports.
+    EXPECT_NO_REPORT(driver);
 
     EXPECT_TRUE(secure_is_locked());
     secure_request_unlock();
     EXPECT_TRUE(secure_is_unlocking());
-    TapKeys(key_a, key_b, key_c, key_d);
+    tap_keys(key_a, key_b, key_c, key_d);
     EXPECT_TRUE(secure_is_unlocked());
 
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(Secure, test_unlock_request_fail) {
@@ -109,28 +94,28 @@ TEST_F(Secure, test_unlock_request_fail) {
     set_keymap({key_e, key_a, key_b, key_c, key_d});
 
     // Allow any number of empty reports.
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(AnyNumber());
+    EXPECT_EMPTY_REPORT(driver).Times(AnyNumber());
     { // Expect the following reports in this order.
         InSequence s;
-        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_A)));
-        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_B)));
-        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_C)));
-        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_D)));
+        EXPECT_REPORT(driver, (KC_A));
+        EXPECT_REPORT(driver, (KC_B));
+        EXPECT_REPORT(driver, (KC_C));
+        EXPECT_REPORT(driver, (KC_D));
     }
     EXPECT_TRUE(secure_is_locked());
     secure_request_unlock();
     EXPECT_TRUE(secure_is_unlocking());
-    TapKeys(key_e, key_a, key_b, key_c, key_d);
+    tap_keys(key_e, key_a, key_b, key_c, key_d);
     EXPECT_FALSE(secure_is_unlocked());
 
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(Secure, test_unlock_request_timeout) {
     TestDriver driver;
 
-    // Allow any number of empty reports.
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(0);
+    // Don't allow empty reports.
+    EXPECT_NO_REPORT(driver);
 
     EXPECT_FALSE(secure_is_unlocked());
     secure_request_unlock();
@@ -139,7 +124,7 @@ TEST_F(Secure, test_unlock_request_timeout) {
     EXPECT_FALSE(secure_is_unlocking());
     EXPECT_FALSE(secure_is_unlocked());
 
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(Secure, test_unlock_request_fail_mid) {
@@ -153,20 +138,20 @@ TEST_F(Secure, test_unlock_request_fail_mid) {
     set_keymap({key_e, key_a, key_b, key_c, key_d});
 
     // Allow any number of empty reports.
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(AnyNumber());
+    EXPECT_EMPTY_REPORT(driver).Times(AnyNumber());
     { // Expect the following reports in this order.
         InSequence s;
-        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_C)));
-        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_D)));
+        EXPECT_REPORT(driver, (KC_C));
+        EXPECT_REPORT(driver, (KC_D));
     }
     EXPECT_FALSE(secure_is_unlocked());
     secure_request_unlock();
     EXPECT_TRUE(secure_is_unlocking());
-    TapKeys(key_a, key_b, key_e, key_c, key_d);
+    tap_keys(key_a, key_b, key_e, key_c, key_d);
     EXPECT_FALSE(secure_is_unlocking());
     EXPECT_FALSE(secure_is_unlocked());
 
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(Secure, test_unlock_request_fail_out_of_order) {
@@ -180,21 +165,21 @@ TEST_F(Secure, test_unlock_request_fail_out_of_order) {
     set_keymap({key_e, key_a, key_b, key_c, key_d});
 
     // Allow any number of empty reports.
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(AnyNumber());
+    EXPECT_EMPTY_REPORT(driver).Times(AnyNumber());
     { // Expect the following reports in this order.
         InSequence s;
-        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_B)));
-        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_C)));
+        EXPECT_REPORT(driver, (KC_B));
+        EXPECT_REPORT(driver, (KC_C));
     }
     EXPECT_FALSE(secure_is_unlocked());
     secure_request_unlock();
     EXPECT_TRUE(secure_is_unlocking());
-    TapKeys(key_a, key_d, key_b, key_c);
+    tap_keys(key_a, key_d, key_b, key_c);
     EXPECT_TRUE(secure_is_locked());
     EXPECT_FALSE(secure_is_unlocking());
     EXPECT_FALSE(secure_is_unlocked());
 
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(Secure, test_unlock_request_on_layer) {
@@ -207,8 +192,8 @@ TEST_F(Secure, test_unlock_request_on_layer) {
 
     set_keymap({key_mo, key_a, key_b, key_c, key_d});
 
-    // Allow any number of empty reports.
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(0);
+    // Don't allow empty reports.
+    EXPECT_NO_REPORT(driver);
 
     EXPECT_TRUE(secure_is_locked());
     key_mo.press();
@@ -217,11 +202,11 @@ TEST_F(Secure, test_unlock_request_on_layer) {
     key_mo.release();
     run_one_scan_loop();
     EXPECT_TRUE(secure_is_unlocking());
-    TapKeys(key_a, key_b, key_c, key_d);
+    tap_keys(key_a, key_b, key_c, key_d);
     EXPECT_TRUE(secure_is_unlocked());
     EXPECT_FALSE(layer_state_is(1));
 
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(Secure, test_unlock_request_mid_stroke) {
@@ -234,9 +219,8 @@ TEST_F(Secure, test_unlock_request_mid_stroke) {
 
     set_keymap({key_e, key_a, key_b, key_c, key_d});
 
-    // Allow any number of empty reports.
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_E)));
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+    EXPECT_REPORT(driver, (KC_E));
+    EXPECT_EMPTY_REPORT(driver);
     EXPECT_TRUE(secure_is_locked());
     key_e.press();
     run_one_scan_loop();
@@ -244,10 +228,10 @@ TEST_F(Secure, test_unlock_request_mid_stroke) {
     key_e.release();
     run_one_scan_loop();
     EXPECT_TRUE(secure_is_unlocking());
-    TapKeys(key_a, key_b, key_c, key_d);
+    tap_keys(key_a, key_b, key_c, key_d);
     EXPECT_TRUE(secure_is_unlocked());
 
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(Secure, test_unlock_request_mods) {
@@ -260,9 +244,8 @@ TEST_F(Secure, test_unlock_request_mods) {
 
     set_keymap({key_lsft, key_a, key_b, key_c, key_d});
 
-    // Allow any number of empty reports.
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(key_lsft.report_code)));
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+    EXPECT_REPORT(driver, (key_lsft.report_code));
+    EXPECT_EMPTY_REPORT(driver);
     EXPECT_TRUE(secure_is_locked());
     key_lsft.press();
     run_one_scan_loop();
@@ -270,8 +253,8 @@ TEST_F(Secure, test_unlock_request_mods) {
     key_lsft.release();
     run_one_scan_loop();
     EXPECT_TRUE(secure_is_unlocking());
-    TapKeys(key_a, key_b, key_c, key_d);
+    tap_keys(key_a, key_b, key_c, key_d);
     EXPECT_TRUE(secure_is_unlocked());
 
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }

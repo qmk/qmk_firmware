@@ -25,28 +25,16 @@
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES         // reacts to keypresses
 // #define RGB_MATRIX_KEYRELEASES        // reacts to keyreleases (instead of keypresses)
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_REACTIVE // Sets the default mode, if none has been set
-#define RGB_MATRIX_STARTUP_HUE 12
-#define RGB_MATRIX_STARTUP_SPD (UINT8_MAX / 2 + 32)
-#define RGB_MATRIX_STARTUP_VAL 96
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_REACTIVE // Sets the default mode, if none has been set
+#define RGB_MATRIX_DEFAULT_HUE 12
+#define RGB_MATRIX_DEFAULT_SPD (UINT8_MAX / 2 + 32)
+#define RGB_MATRIX_DEFAULT_VAL 96
 // #define RGBLIGHT_HUE_STEP 12        // Units to step when in/decreasing hue
 // #define RGBLIGHT_SAT_STEP 25        // Units to step when in/decreasing saturation
 // #define RGBLIGHT_VAL_STEP 12        // Units to step when in/decreasing value (brightness)
-// #define RGB_DISABLE_AFTER_TIMEOUT 0   // number of ticks to wait until disabling effects
 // #define RGB_DISABLE_WHEN_USB_SUSPENDED false // turn off effects when suspended
-// #define RGB_MATRIX_LED_PROCESS_LIMIT (DRIVER_LED_TOTAL + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
+// #define RGB_MATRIX_LED_PROCESS_LIMIT (RGB_MATRIX_LED_COUNT + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 // #define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
-// #define RGBLIGHT_ANIMATIONS             // Run RGB animations
-// #define RGBLIGHT_ANIMATIONS             // Enable all additional animation modes.
-// #define RGBLIGHT_EFFECT_ALTERNATING     // Enable alternating animation mode.
-// #define RGBLIGHT_EFFECT_BREATHING       // Enable breathing animation mode.
-// #define RGBLIGHT_EFFECT_CHRISTMAS       // Enable christmas animation mode.
-// #define RGBLIGHT_EFFECT_KNIGHT          // Enable knight animation mode.
-// #define RGBLIGHT_EFFECT_RAINBOW_MOOD    // Enable rainbow mood animation mode.
-// #define RGBLIGHT_EFFECT_RAINBOW_SWIRL   // Enable rainbow swirl animation mode.
-// #define RGBLIGHT_EFFECT_RGB_TEST        // Enable RGB test animation mode.
-// #define RGBLIGHT_EFFECT_SNAKE           // Enable snake animation mode.
-// #define RGBLIGHT_EFFECT_STATIC_GRADIENT // Enable static gradient mode.
 
 // #define RGBLIGHT_EFFECT_BREATHE_CENTER              // If defined, used to calculate the curve for the breathing animation. Valid values are 1.0 to 2.7
 // #define RGBLIGHT_EFFECT_BREATHE_MAX 255             // The maximum brightness for the breathing mode. Valid values are 1 to 255

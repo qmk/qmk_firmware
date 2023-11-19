@@ -14,6 +14,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "process_rgb.h"
+#include "action_util.h"
+
+#ifdef RGB_MATRIX_ENABLE
+#    include "rgb_matrix.h"
+#endif
+#ifdef RGBLIGHT_ENABLE
+#    include "rgblight.h"
+#endif
 
 typedef void (*rgb_func_pointer)(void);
 
@@ -52,7 +60,11 @@ static void __attribute__((noinline, unused)) handleKeycodeRGBMode(const uint8_t
  */
 bool process_rgb(const uint16_t keycode, const keyrecord_t *record) {
     // need to trigger on key-up for edge-case issue
+#ifndef RGB_TRIGGER_ON_KEYDOWN
     if (!record->event.pressed) {
+#else
+    if (record->event.pressed) {
+#endif
 #if (defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)) || (defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES))
         uint8_t shifted = get_mods() & MOD_MASK_SHIFT;
 #endif

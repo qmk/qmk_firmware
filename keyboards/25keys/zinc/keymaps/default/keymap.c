@@ -146,7 +146,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
     [_ADJUST] =  LAYOUT_ortho_4x12(
       _______, QK_BOOT,   RGBRST,  _______, _______, _______,                   _______, QWERTY,  COLEMAK, DVORAK,  _______, KC_INS,
-      _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, AG_NORM,                   AG_SWAP, KC_MINS, KC_EQL,  KC_PSCR, KC_SLCK, KC_PAUS,
+      _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, AG_NORM,                   AG_SWAP, KC_MINS, KC_EQL,  KC_PSCR, KC_SCRL, KC_PAUS,
       RGB_RMOD,RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, _______,                   _______, _______, _______, _______, KC_PGUP, _______,
       _______, _______, _______, EISU,    EISU,    EISU,                      KANA,    KANA,    KANA,    KC_HOME, KC_PGDN, KC_END
       )
@@ -271,24 +271,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case EISU:
       if (record->event.pressed) {
         if(keymap_config.swap_lalt_lgui==false){
-          register_code(KC_LANG2);
+          register_code(KC_LNG2);
         }else{
           SEND_STRING(SS_LALT("`"));
         }
       } else {
-        unregister_code(KC_LANG2);
+        unregister_code(KC_LNG2);
       }
       return false;
       break;
     case KANA:
       if (record->event.pressed) {
         if(keymap_config.swap_lalt_lgui==false){
-          register_code(KC_LANG1);
+          register_code(KC_LNG1);
         }else{
          SEND_STRING(SS_LALT("`"));
         }
       } else {
-        unregister_code(KC_LANG1);
+        unregister_code(KC_LNG1);
       }
       return false;
       break;

@@ -8,7 +8,7 @@ CONSOLE_ENABLE     = no
 COMMAND_ENABLE     = no
 BACKLIGHT_ENABLE   = no
 
-ifeq ($(strip $(LAYOUT_HAS_RGB)), yes)
+ifeq ($(strip $(LAYOUTS_HAS_RGB)), yes)
     RGBLIGHT_ENABLE            = yes
 endif
 
@@ -20,7 +20,7 @@ ifeq ($(strip $(KEYBOARD)), planck/rev6)
     AUDIO_ENABLE                = yes
     EEPROM_DRIVER               = i2c
     ENCODER_MAP_ENABLE          = yes
-    AUTOCORRECTION_ENABLE       = yes
+    AUTOCORRECT_ENABLE          = yes
     CAPS_WORD_ENABLE            = yes
 endif
 ifeq ($(strip $(KEYBOARD)), planck/light)
@@ -39,6 +39,13 @@ ifeq ($(strip $(KEYBOARD)), planck/ez)
     CONSOLE_ENABLE              = yes
     COMMAND_ENABLE              = yes
     AUDIO_ENABLE                = yes
-    AUTOCORRECTION_ENABLE       = yes
+    AUTOCORRECT_ENABLE          = yes
     CAPS_WORD_ENABLE            = yes
+endif
+
+ifeq ($(strip $(MCU)), atmega32u4)
+    BOOTLOADER = qmk-hid
+    BOOTLOADER_SIZE = 512
+    LTO_ENABLE = yes
+    CUSTOM_UNICODE_ENABLE = no
 endif

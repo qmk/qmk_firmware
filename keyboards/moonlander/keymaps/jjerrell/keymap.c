@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  __________________QWERTY_L1__________________, KC_SLSH,
         KC_LALT, __________________QWERTY_L2__________________, KC_BSLS,
         KC_LSFT, __________________QWERTY_L3__________________,
-        KC_LGUI, MACRO_1, MACRO_2, MACRO_3, MACRO_4,   KC_LOCK,
+        KC_LGUI, MACRO_1, MACRO_2, MACRO_3, MACRO_4,   QK_LOCK,
                                     KC_SPC, KC_BTN2, MO(_LOWER)
     ),
     [_GAME_LOWER] = LAYOUT_moonlander_gamepad(
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  __________________QWERTY_L1__________________, KC_SLSH,
         KC_LALT, __________________QWERTY_L2__________________, KC_BSLS,
         KC_LSFT, __________________QWERTY_L3__________________,
-        KC_LGUI, MACRO_5, MACRO_6, MACRO_7, MACRO_8,   KC_LOCK,
+        KC_LGUI, MACRO_5, MACRO_6, MACRO_7, MACRO_8,   QK_LOCK,
                                     KC_SPC, KC_BTN2, MO(_LOWER)
     )
 };

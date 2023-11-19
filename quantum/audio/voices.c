@@ -16,7 +16,9 @@
  */
 #include "voices.h"
 #include "audio.h"
+#include "timer.h"
 #include <stdlib.h>
+#include <math.h>
 
 uint8_t note_timbre      = TIMBRE_DEFAULT;
 bool    glissando        = false;
@@ -36,11 +38,11 @@ void set_voice(voice_type v) {
     voice = v;
 }
 
-void voice_iterate() {
+void voice_iterate(void) {
     voice = (voice + 1) % number_of_voices;
 }
 
-void voice_deiterate() {
+void voice_deiterate(void) {
     voice = (voice - 1 + number_of_voices) % number_of_voices;
 }
 

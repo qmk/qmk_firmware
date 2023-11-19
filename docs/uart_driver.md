@@ -1,10 +1,10 @@
-# UART Driver
+# UART Driver :id=uart-driver
 
 The UART drivers used in QMK have a set of common functions to allow portability between MCUs.
 
 Currently, this driver does not support enabling hardware flow control (the `RTS` and `CTS` pins) if available, but may do so in future.
 
-## AVR Configuration
+## AVR Configuration :id=avr-configuration
 
 No special setup is required - just connect the `RX` and `TX` pins of your UART device to the opposite pins on the MCU:
 
@@ -16,7 +16,7 @@ No special setup is required - just connect the `RX` and `TX` pins of your UART 
 |ATmega32A    |`D1`|`D0`|*n/a*|*n/a*|
 |ATmega328/P  |`D1`|`D0`|*n/a*|*n/a*|
 
-## ChibiOS/ARM Configuration
+## ChibiOS/ARM Configuration :id=arm-configuration
 
 You'll need to determine which pins can be used for UART -- as an example, STM32 parts generally have multiple UART peripherals, labeled USART1, USART2, USART3 etc.
 
@@ -47,45 +47,45 @@ Configuration-wise, you'll need to set up the peripheral as per your MCU's datas
 |`#define SD1_RTS_PIN`     |The pin to use for RTS                                         |`A12`        |
 |`#define SD1_RTS_PAL_MODE`|The alternate function mode for RTS                            |`7`          |
 
-## Functions
+## API :id=api
 
-### `void uart_init(uint32_t baud)`
+### `void uart_init(uint32_t baud)` :id=api-uart-init
 
 Initialize the UART driver. This function must be called only once, before any of the below functions can be called.
 
-#### Arguments
+#### Arguments :id=api-uart-init-arguments
 
  - `uint32_t baud`  
    The baud rate to transmit and receive at. This may depend on the device you are communicating with. Common values are 1200, 2400, 4800, 9600, 19200, 38400, 57600, and 115200.
 
 ---
 
-### `void uart_write(uint8_t data)`
+### `void uart_write(uint8_t data)` :id=api-uart-write
 
 Transmit a single byte.
 
-#### Arguments
+#### Arguments :id=api-uart-write-arguments
 
  - `uint8_t data`  
    The byte to write.
 
 ---
 
-### `uint8_t uart_read(void)`
+### `uint8_t uart_read(void)` :id=api-uart-read
 
 Receive a single byte.
 
-#### Return Value
+#### Return Value :id=api-uart-read-return
 
 The byte read from the receive buffer. This function will block if the buffer is empty (ie. no data to read).
 
 ---
 
-### `void uart_transmit(const uint8_t *data, uint16_t length)`
+### `void uart_transmit(const uint8_t *data, uint16_t length)` :id=api-uart-transmit
 
 Transmit multiple bytes.
 
-#### Arguments
+#### Arguments :id=api-uart-transmit-arguments
 
  - `const uint8_t *data`  
    A pointer to the data to write from.
@@ -94,11 +94,11 @@ Transmit multiple bytes.
 
 ---
 
-### `void uart_receive(char *data, uint16_t length)`
+### `void uart_receive(char *data, uint16_t length)` :id=api-uart-receive
 
 Receive multiple bytes.
 
-#### Arguments
+#### Arguments :id=api-uart-receive-arguments
 
  - `uint8_t *data`  
    A pointer to the buffer to read into.
@@ -107,10 +107,10 @@ Receive multiple bytes.
 
 ---
 
-### `bool uart_available(void)`
+### `bool uart_available(void)` :id=api-uart-available
 
 Return whether the receive buffer contains data. Call this function to determine if `uart_read()` will return data immediately.
 
-#### Return Value
+#### Return Value :id=api-uart-available-return
 
 `true` if the receive buffer length is non-zero.

@@ -353,7 +353,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  } else {
      layer_off(_RISE);
      if (last_mod == 9 && timer_elapsed(tap_timer) < TAPPING_TERM) {
-         tap_code16(KC_BSPACE);
+         tap_code16(KC_BACKSPACE);
          last_mod = 10;
      }
  }

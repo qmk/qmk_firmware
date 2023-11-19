@@ -48,19 +48,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
 
-  [_LOWER] = LAYOUT_wrapper(\
+  [_LOWER] = LAYOUT_wrapper(
     KC_TILD, _________________LOWER_L1__________________,                                                               _________________LOWER_R1__________________, KC_BSPC,
     KC_F11,  _________________LOWER_L2__________________,          _______, _______,         _______, _______,          _________________LOWER_R2__________________, KC_PIPE,
     KC_F12,  _________________LOWER_L3__________________, _______, _______, _______,         _______, _______, _______, _________________LOWER_R3__________________, _______
   ),
 
-  [_RAISE] = LAYOUT_wrapper(\
+  [_RAISE] = LAYOUT_wrapper(
     KC_GRV,  _________________RAISE_L1__________________,                                                               _________________RAISE_R1__________________, KC_BSPC,
     _______, _________________RAISE_L2__________________,          _______, _______,         _______, _______,          _________________RAISE_R2__________________, KC_BSLS,
     _______, _________________RAISE_L3__________________, _______, _______, _______,         _______, _______, _______, _________________RAISE_R3__________________, _______
   ),
 
-  [_ADJUST] = LAYOUT_wrapper(\
+  [_ADJUST] = LAYOUT_wrapper(
     QK_MAKE, _________________ADJUST_L1_________________,                                                               _________________ADJUST_R1_________________, QK_BOOT,
     VRSN,    _________________ADJUST_L2_________________,          _______, _______,         _______, KC_NUKE,          _________________ADJUST_R2_________________, EE_CLR,
     TG_MODS, _________________ADJUST_L3_________________, _______, _______, _______,         _______, _______, _______, _________________ADJUST_R3_________________, KC_MPLY
@@ -68,13 +68,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 // clang-format on
-
-void matrix_init_keymap(void) {
-#ifndef CONVERT_TO_PROTON_C
-    setPinOutput(D5);
-    writePinHigh(D5);
-
-    setPinOutput(B0);
-    writePinHigh(B0);
-#endif
-}

@@ -17,9 +17,7 @@
 #include "drashna.h"
 
 enum more_custom_keycodes {
-    KC_SWAP_NUM = NEW_SAFE_RANGE,
-    PM_SCROLL,
-    PM_PRECISION,
+    KC_SWAP_NUM = USER_SAFE_RANGE,
 };
 
 // define layer change stuff for underglow indicator
@@ -44,9 +42,9 @@ bool skip_leds = false;
   LAYOUT_ergodox_pretty_wrapper( \
       KC_ESC,  ________________NUMBER_LEFT________________, UC_FLIP,                 UC_TABL, ________________NUMBER_RIGHT_______________, KC_MINS, \
       LALT_T(KC_TAB), K01, K02, K03,      K04,     K05,     TG_DBLO,         TG_DBLO, K06,     K07,     K08,     K09,     K0A,     KC_BSLS, \
-      KC_C1R3, K11,    K12,     K13,      K14,     K15,                                       K16,     K17,     K18,     K19,     K1A, RALT_T(K1B), \
-      KC_MLSF, CTL_T(K21), K22, K23,      K24,     K25,     TG_GAME,       TG_GAME, K26,     K27,     K28,     K29, RCTL_T(K2A), KC_MRSF, \
-      KC_GRV,  OS_MEH, OS_HYPR, KC_LBRC, KC_RBRC,                                            KC_BTN1, KC_BTN3, KC_BTN2,   PM_SCROLL, PM_PRECISION,  \
+      KC_C1R3, K11,    K12,     K13,      K14,     K15,                                        K16,     K17,     K18,     K19,     K1A, RALT_T(K1B), \
+      KC_MLSF, CTL_T(K21), K22, K23,      K24,     K25,     TG_GAME,         TG_GAME, K26,     K27,     K28,     K29, RCTL_T(K2A), KC_MRSF, \
+      KC_GRV,  OS_MEH, OS_HYPR, KC_LBRC, KC_RBRC,                                              KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT, KC_NO,  \
                                                   OS_LALT, OS_LGUI,                 OS_RGUI, CTL_T(KC_ESCAPE),                                      \
                                                            KC_APP,                  KC_MENU,                                                        \
                               KC_SPC, LT(_LOWER, KC_BSPC), OS_LWR,                  OS_RSE, LT(_RAISE, KC_DEL), KC_ENT                              \
@@ -160,14 +158,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_GRV,  _________________RAISE_L1__________________, _______,                 _______, _________________RAISE_R1__________________, KC_BSLS,
              _______, _________________RAISE_L2__________________,                                   _________________RAISE_R2__________________, KC_QUOT,
              _______, _________________RAISE_L3__________________, _______,                 _______, _________________RAISE_R3__________________, KC_PSCR,
-             _______, _______, _______, _______, _______,                                                     KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_SLCK,
+             _______, _______, _______, _______, _______,                                                     KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_SCRL,
                                                           _______, _______,                 _______, _______,
                                                                    _______,                 _______,
                                                  _______, _______, _______,                 _______, _______, _______
             ),
 
   [_ADJUST] = LAYOUT_ergodox_pretty_wrapper(
-             QK_MAKE, _______, _______, _______, _______, _______, UC_MOD,                  KC_NUKE, _________________ADJUST_R1_________________, QK_BOOT,
+             QK_MAKE, _______, _______, _______, _______, _______, UC_NEXT,                 KC_NUKE, _________________ADJUST_R1_________________, QK_BOOT,
              VRSN,    _________________ADJUST_L1_________________, _______,                 _______, _________________ADJUST_R1_________________, EE_CLR,
              _______, _________________ADJUST_L2_________________,                                   _________________ADJUST_R2_________________, RGB_IDL,
              KEYLOCK, _________________ADJUST_L3_________________, _______,                 _______, _________________ADJUST_R3_________________, TG_MODS,
@@ -179,36 +177,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 // clang-format on
-
-#ifdef PIMORONI_TRACKBALL_ENABLE
-void run_trackball_cleanup(void) {
-    // if (trackball_is_scrolling()) {
-    //     trackball_set_rgbw(RGB_CYAN, 0x00);
-    // } else if (trackball_get_precision() != 1.0) {
-    //     trackball_set_rgbw(RGB_GREEN, 0x00);
-    // } else {
-    // trackball_set_rgbw(RGB_MAGENTA, 0x00);
-    // }
-}
-
-void keyboard_post_init_keymap(void) {
-    // trackball_set_precision(1.5);
-    // trackball_set_rgbw(RGB_MAGENTA, 0x00);
-}
-// void shutdown_keymap(void) { trackball_set_rgbw(RGB_RED, 0x00); }
-
-static bool mouse_button_one, trackball_button_one;
-
-void trackball_register_button(bool pressed, enum mouse_buttons button) {
-    report_mouse_t currentReport = pointing_device_get_report();
-    if (pressed) {
-        currentReport.buttons |= button;
-    } else {
-        currentReport.buttons &= ~button;
-    }
-    pointing_device_set_report(currentReport);
-}
-#endif
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -235,43 +203,18 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         case KC_SWAP_NUM:
             if (record->event.pressed) {
                 userspace_config.swapped_numbers ^= 1;
-                eeconfig_update_user(userspace_config.raw);
+                eeconfig_update_user_config(&userspace_config.raw);
             }
             break;
-#ifdef PIMORONI_TRACKBALL_ENABLE
-        case PM_SCROLL:
-            // trackball_set_scrolling(record->event.pressed);
-            run_trackball_cleanup();
-            break;
-        case PM_PRECISION:
-            // if (record->event.pressed) {
-            //     trackball_set_precision(1.5);
-            // } else {
-            //     trackball_set_precision(1);
-            // }
-            // run_trackball_cleanup();
-            break;
-#    if !defined(MOUSEKEY_ENABLE)
-        case KC_MS_BTN1:
-            mouse_button_one = record->event.pressed;
-            trackball_register_button(mouse_button_one | trackball_button_one, MOUSE_BTN1);
-            break;
-        case KC_MS_BTN2:
-            trackball_register_button(record->event.pressed, MOUSE_BTN2);
-            break;
-        case KC_MS_BTN3:
-            trackball_register_button(record->event.pressed, MOUSE_BTN3);
-            break;
-#    endif
-#endif
     }
     return true;
 }
 
-void matrix_scan_keymap(void) {  // runs frequently to update info
-    uint8_t modifiers     = get_mods();
-    uint8_t led_usb_state = host_keyboard_leds();
-    uint8_t one_shot      = get_oneshot_mods();
+void housekeeping_task_keymap(void) {  // runs frequently to update info
+#ifdef KEYBOARD_ergodox_ez
+    uint8_t modifiers = get_mods();
+    led_t   led_state = host_keyboard_led_state();
+    uint8_t one_shot  = get_oneshot_mods();
 
     if (!skip_leds) {
         ergodox_board_led_off();
@@ -282,7 +225,7 @@ void matrix_scan_keymap(void) {  // runs frequently to update info
         // Since we're not using the LEDs here for layer indication anymore,
         // then lets use them for modifier indicators.  Shame we don't have 4...
         // Also, no "else", since we want to know each, independently.
-        if ((modifiers | one_shot) & MOD_MASK_SHIFT || led_usb_state & (1 << USB_LED_CAPS_LOCK)) {
+        if ((modifiers | one_shot) & MOD_MASK_SHIFT || led_state.caps_lock) {
             ergodox_right_led_2_on();
             ergodox_right_led_2_set(50);
         }
@@ -295,6 +238,7 @@ void matrix_scan_keymap(void) {  // runs frequently to update info
             ergodox_right_led_3_set(10);
         }
     }
+#endif
 }
 
 bool indicator_is_this_led_used_keyboard(uint8_t index) {

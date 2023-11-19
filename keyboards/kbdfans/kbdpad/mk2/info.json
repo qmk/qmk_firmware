@@ -1,35 +1,114 @@
 {
-    "keyboard_name": "kbdpad_mk2", 
-    "url": "https://kb.ai03.me/projects/kbdpad-mkii.html", 
-    "maintainer": "ai03", 
+    "keyboard_name": "KBDPAD-MKII",
+    "manufacturer": "KBDfans",
+    "url": "https://kb.ai03.me/projects/kbdpad-mkii.html",
+    "maintainer": "ai03",
+    "usb": {
+        "vid": "0xA103",
+        "pid": "0x0006",
+        "device_version": "0.0.1"
+    },
+    "matrix_pins": {
+        "cols": ["C4", "C5", "B3", "B2"],
+        "rows": ["D3", "D1", "D2", "C6", "C7", "B6"]
+    },
+    "diode_direction": "COL2ROW",
+    "backlight": {
+        "pin": "B7",
+        "levels": 5,
+        "breathing": true
+    },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 16,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "B5"
+    },
+    "indicators": {
+        "num_lock": "B4",
+        "on_state": 0
+    },
+    "processor": "atmega32u2",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["ortho_6x4"],
     "layouts": {
+        "LAYOUT_numpad_6x4": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+
+                {"matrix": [1, 0], "x": 0, "y": 1.25},
+                {"matrix": [1, 1], "x": 1, "y": 1.25},
+                {"matrix": [1, 2], "x": 2, "y": 1.25},
+                {"matrix": [1, 3], "x": 3, "y": 1.25, "h": 2},
+
+                {"matrix": [2, 0], "x": 0, "y": 2.25},
+                {"matrix": [2, 1], "x": 1, "y": 2.25},
+                {"matrix": [2, 2], "x": 2, "y": 2.25},
+
+                {"matrix": [3, 0], "x": 0, "y": 3.25},
+                {"matrix": [3, 1], "x": 1, "y": 3.25},
+                {"matrix": [3, 2], "x": 2, "y": 3.25},
+                {"matrix": [3, 3], "x": 3, "y": 3.25, "h": 2},
+
+                {"matrix": [4, 0], "x": 0, "y": 4.25},
+                {"matrix": [4, 1], "x": 1, "y": 4.25},
+                {"matrix": [4, 2], "x": 2, "y": 4.25},
+
+                {"matrix": [5, 0], "x": 0, "y": 5.25, "w": 2},
+                {"matrix": [5, 2], "x": 2, "y": 5.25},
+                {"matrix": [5, 3], "x": 3, "y": 5.25}
+            ]
+        },
         "LAYOUT_ortho_6x4": {
             "layout": [
-				{"x":0, "y":0},
-				{"x":1, "y":0},
-				{"x":2, "y":0},
-				{"x":3, "y":0},
-				{"x":0, "y":1.25},
-				{"x":1, "y":1.25},
-				{"x":2, "y":1.25},
-				{"x":3, "y":1.25},
-				{"x":0, "y":2.25},
-				{"x":1, "y":2.25},
-				{"x":2, "y":2.25},
-				{"x":3, "y":2.25},
-				{"x":0, "y":3.25},
-				{"x":1, "y":3.25},
-				{"x":2, "y":3.25},
-				{"x":3, "y":3.25},
-				{"x":0, "y":4.25},
-				{"x":1, "y":4.25},
-				{"x":2, "y":4.25},
-				{"x":3, "y":4.25},
-				{"x":0, "y":5.25},
-				{"x":1, "y":5.25},
-				{"x":2, "y":5.25},
-				{"x":3, "y":5.25}
-			]
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+
+                {"matrix": [1, 0], "x": 0, "y": 1.25},
+                {"matrix": [1, 1], "x": 1, "y": 1.25},
+                {"matrix": [1, 2], "x": 2, "y": 1.25},
+                {"matrix": [1, 3], "x": 3, "y": 1.25},
+
+                {"matrix": [2, 0], "x": 0, "y": 2.25},
+                {"matrix": [2, 1], "x": 1, "y": 2.25},
+                {"matrix": [2, 2], "x": 2, "y": 2.25},
+                {"matrix": [2, 3], "x": 3, "y": 2.25},
+
+                {"matrix": [3, 0], "x": 0, "y": 3.25},
+                {"matrix": [3, 1], "x": 1, "y": 3.25},
+                {"matrix": [3, 2], "x": 2, "y": 3.25},
+                {"matrix": [3, 3], "x": 3, "y": 3.25},
+
+                {"matrix": [4, 0], "x": 0, "y": 4.25},
+                {"matrix": [4, 1], "x": 1, "y": 4.25},
+                {"matrix": [4, 2], "x": 2, "y": 4.25},
+                {"matrix": [4, 3], "x": 3, "y": 4.25},
+
+                {"matrix": [5, 0], "x": 0, "y": 5.25},
+                {"matrix": [5, 1], "x": 1, "y": 5.25},
+                {"matrix": [5, 2], "x": 2, "y": 5.25},
+                {"matrix": [5, 3], "x": 3, "y": 5.25}
+            ]
         }
     }
 }

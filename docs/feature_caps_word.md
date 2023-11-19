@@ -4,11 +4,14 @@ It is often useful to type a single word in all capitals, for instance
 abbreviations like "QMK", or in code, identifiers like `KC_SPC`. "Caps Word" is
 a modern alternative to Caps Lock:
 
-* Letters are capitalized while active, and Caps Word automatically disables
+* While active, letters are capitalized and `-` becomes `_`. The `_` makes it easier
+  to type constant names (eg 'PROGRAM\_CONSTANTS').
+
+* Caps Word automatically disables
   itself at the end of the word. That is, it stops by default once a space or
-  any key other than `a`--`z`, `0`--`9`, `-`, `_`, delete, or backspace is
-  pressed. Caps Word also disables itself if the keyboard is idle for 5 seconds.
-  This is configurable, see below.
+  any key other than `KC_A`--`KC_Z`, `KC_0`--`KC_9`, `KC_MINS`, `KC_UNDS`,
+  `KC_DELETE`, or `KC_BACKSPACE` is pressed. Caps Word also disables itself if
+  the keyboard is idle for 5 seconds. This is configurable, see below.
 
 * To avoid requiring a dedicated key for Caps Word, there is an option
   (`BOTH_SHIFTS_TURNS_ON_CAPS_WORD`) to activate Caps Word by simultaneously
@@ -16,7 +19,17 @@ a modern alternative to Caps Lock:
 
 * The implementation does not use the Caps Lock (`KC_CAPS`) keycode. Caps Word
   works even if you're remapping Caps Lock at the OS level to Ctrl or something
-  else, as Emacs and Vim users often do.
+  else, as Emacs and Vim users often do. As a consequence, Caps Word does not
+  follow the typical Caps Lock behaviour and may thus act in potentially
+  unexpected ways, especially when using an *OS* keyboard layout other than US
+  or UK. For example, Dvorak's <kbd>, <</kbd> key (`DV_COMM` aka `KC_W`) will
+  get shifted because Caps Word interprets that keycode as the letter 'W' by
+  default, the Spanish <kbd>Ñ</kbd> key (`ES_NTIL` aka `KC_SCLN`) will not get
+  capitalized because Caps Word interprets it as the semicolon ';' punctuation
+  character, and the US hyphen key (`KC_MINS`), while unaffected by Caps Lock,
+  is shifted by Caps Word. However, this is not really a problem because you can
+  [configure which keys should Caps Word
+  shift](#configure-which-keys-are-word-breaking).
 
 
 ## How do I enable Caps Word :id=how-do-i-enable-caps-word
@@ -29,8 +42,8 @@ CAPS_WORD_ENABLE = yes
 
 Next, use one the following methods to activate Caps Word:
 
-* **Activate by pressing a key**: Use the `CAPS_WORD` keycode (short
-  alias `CAPSWRD`) in your keymap.
+* **Activate by pressing a key**: Use the `QK_CAPS_WORD_TOGGLE` keycode (short
+  alias `CW_TOGG`) in your keymap.
 
 * **Activate by pressing Left Shift + Right Shift**: Add `#define
   BOTH_SHIFTS_TURNS_ON_CAPS_WORD` to config.h. You may also need to disable or
@@ -60,7 +73,7 @@ time, since both use the Left Shift + Right Shift key combination."**
 
 Many keyboards enable the [Command feature](feature_command.md), which by
 default is also activated using the Left Shift + Right Shift key combination. To
-fix this conflict, please disable Command by adding in rules.mk: 
+fix this conflict, please disable Command by adding in rules.mk:
 
 ```make
 COMMAND_ENABLE = no
@@ -77,11 +90,31 @@ by defining `IS_COMMAND()` in config.h:
 
 ## Customizing Caps Word :id=customizing-caps-word
 
+### Invert on shift :id=invert-on-shift
+
+By default, Caps Word turns off when Shift keys are pressed, considering them as
+word-breaking. Alternatively with the `CAPS_WORD_INVERT_ON_SHIFT` option,
+pressing the Shift key continues Caps Word and inverts the shift state. This
+is convenient for uncapitalizing one or a few letters within a word, for
+example with Caps Word on, typing "D, B, Shift+A, Shift+A, S" produces "DBaaS",
+or typing "P, D, F, Shift+S" produces "PDFs".
+
+Enable it by adding in config.h
+
+```c
+#define CAPS_WORD_INVERT_ON_SHIFT
+```
+
+This option works with regular Shift keys `KC_LSFT` and `KC_RSFT`, mod-tap Shift
+keys, and one-shot Shift keys. Note that while Caps Word is on, one-shot Shift
+keys behave like regular Shift keys, and have effect only while they are held.
+
+
 ### Idle timeout :id=idle-timeout
 
 Caps Word turns off automatically if no keys are pressed for
 `CAPS_WORD_IDLE_TIMEOUT` milliseconds. The default is 5000 (5 seconds).
-Configure the timeout duration in config.h, for instance 
+Configure the timeout duration in config.h, for instance
 
 ```c
 #define CAPS_WORD_IDLE_TIMEOUT 3000  // 3 seconds.

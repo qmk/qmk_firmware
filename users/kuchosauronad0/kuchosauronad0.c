@@ -19,9 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 userspace_config_t userspace_config;
 #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
-#  define KUCHOSAURONAD0_UNICODE_MODE UC_WINC
+#  define KUCHOSAURONAD0_UNICODE_MODE UNICODE_MODE_WINCOMPOSE
 #else
-#  define KUCHOSAURONAD0_UNICODE_MODE 2 // set to 2 for UC_WIN, set to 4 for UC_WINC
+#  define KUCHOSAURONAD0_UNICODE_MODE 2 // set to 2 for UNICODE_MODE_WINDOWS, set to 4 for UNICODE_MODE_WINCOMPOSE
 #endif
 
 
@@ -69,7 +69,7 @@ void shutdown_user (void) {
   #ifdef RGBLIGHT_ENABLE
     rgblight_enable_noeeprom();
     rgblight_mode_noeeprom(1);
-    rgblight_setrgb_teal();
+    rgblight_setrgb(RGB_TEAL);
   #endif // RGBLIGHT_ENABLE
   #ifdef RGB_MATRIX_ENABLE
     // uint16_t timer_start = timer_read();
@@ -117,7 +117,7 @@ void matrix_scan_user(void){
 }
 
 __attribute__ ((weak))
-uint32_t layer_state_set_keymap (uint32_t state) {
+layer_state_t layer_state_set_keymap (layer_state_t state) {
   return state;
 }
 
@@ -133,12 +133,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 
 __attribute__ ((weak))
-uint32_t default_layer_state_set_keymap (uint32_t state) {
+layer_state_t default_layer_state_set_keymap (layer_state_t state) {
   return state;
 }
 
 // Runs state check and changes underglow color and animation
-uint32_t default_layer_state_set_user(uint32_t state) {
+layer_state_t default_layer_state_set_user(layer_state_t state) {
   state = default_layer_state_set_keymap(state);
 #if 0
 #ifdef RGBLIGHT_ENABLE
