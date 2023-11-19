@@ -9,3 +9,4 @@
 
 #define COMBO_TERM 100
 #define COMBO_MUST_PRESS_IN_ORDER
+// #define COMBO_ONLY_FROM_LAYER 5

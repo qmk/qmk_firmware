@@ -16,7 +16,7 @@
 #include QMK_KEYBOARD_H
 #include "os_detection.h"
 #include "twpair_on_jis.h"
-#include "print.h"
+// #include "print.h"
 
 // 薙刀式
 #include "naginata.h"

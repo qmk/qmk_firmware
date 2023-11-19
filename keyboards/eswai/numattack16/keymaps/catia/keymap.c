@@ -11,28 +11,17 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /*
-     * ┌───┬───┬───┬───┐
-     * │ 7 │ 8 │ 9 │ / │
-     * ├───┼───┼───┼───┤
-     * │ 4 │ 5 │ 6 │ * │
-     * ├───┼───┼───┼───┤
-     * │ 1 │ 2 │ 3 │ - │
-     * ├───┼───┼───┼───┤
-     * │ 0 │ . │Ent│ + │
-     * └───┴───┴───┴───┘
-     */
     [0] = LAYOUT_ortho_4x4(
-        KC_PMNS,   KC_P7,   KC_P8,   KC_P9,  
-        KC_PPLS,   KC_P4,   KC_P5,   KC_P6,  
-        KC_P0,     KC_P1,   KC_P2,   KC_P3,  
-        KC_PDOT,   KC_PEQL, KC_PENT, TG(1)
-    ),
-    [1] = LAYOUT_ortho_4x4(
         KC_F21,   KC_F22,   KC_F23,   KC_F24,  
         KC_F17,   KC_F18,   KC_F19,   KC_F20,  
         KC_F13,   KC_F14,   KC_F15,   KC_F16,  
-        CATPAN,   CATZOM,   CATROT,   TG(1)
+        KC_LSFT,  CATPAN,   CATZOM,   CATROT
+    ),
+    [1] = LAYOUT_ortho_4x4(
+        KC_PMNS,   KC_P7,   KC_P8,   KC_P9,  
+        KC_PPLS,   KC_P4,   KC_P5,   KC_P6,  
+        KC_P0,     KC_P1,   KC_P2,   KC_P3,  
+        KC_PDOT,   KC_PEQL, KC_PENT, KC_SPC
     ),
     [2] = LAYOUT_ortho_4x4(
         KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,  
