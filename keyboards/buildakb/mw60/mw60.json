@@ -1,7 +1,8 @@
 {
-  "name": "mw60s",
+  "name": "mw60",
   "vendorId": "0x4A56",
   "productId": "0x0008",
+  "lighting": "none",
   "matrix": {
     "rows": 5,
     "cols": 14

@@ -1,20 +1,20 @@
-# Potato65 Solderable Keyboard
+# MW60 PCB
 
-![Potato65 Solderable](https://i.imgur.com/ysAGZCmh.jpg)
+![MW60 PCB](https://i.imgur.com/5E48mAP.jpg)
 
-A solderable gasket mount stacked acrylic 65% keyboard
+A simple standard 60% PCB available in hotswap and solderable variants
 
 -   Keyboard Maintainer: [Maelkk](https://github.com/Aeonstrife)
--   Hardware Supported: Potato65 Keyboard
--   Hardware Availability: Private Group-Buy
+-   Hardware Supported: Multiple 60% Keyboards
+-   Hardware Availability: NA
 
 Make example for this keyboard (after setting up your build environment):
 
-    make buildakb/potato65s:default
+    make buildakb/mw60:default
 
 Flashing example for this keyboard:
 
-    make buildakb/potato65s:default:flash
+    make buildakb/mw60:default:flash
 
 To reset into bootloader mode:
 
