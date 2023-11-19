@@ -16,6 +16,8 @@
 
 #pragma once
 
+#include "keystroke.h"
+
 uint8_t naginata_type(bool);
 void naginata_clear(void);
 
@@ -36,14 +38,9 @@ bool process_naginata(uint16_t, keyrecord_t *);
 // void set_naginata(uint8_t);
 void set_naginata(uint8_t, uint16_t *, uint16_t *);
 
-typedef struct {
-  uint16_t keycode;
-  uint16_t pressTime;
-  uint16_t releaseTime;
-} Keystroke;
-
 uint8_t evaluate(void);
 uint32_t scoring(Keystroke[], uint8_t);
+uint8_t check_eager_input(void);
 
 bool check_henshu(void);
 bool exec_henshu(uint32_t);

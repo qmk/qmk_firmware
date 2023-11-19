@@ -42,15 +42,15 @@ x 5キーの組み合わせへの拡張
 
 #include QMK_KEYBOARD_H
 #include "naginata.h"
-
+#include "set.h"
+#include "nglist.h"
 #include <string.h>
 
-static uint8_t ng_chrcount = 0; // 文字キー入力のカウンタ
+// static uint8_t ng_chrcount = 0; // 文字キー入力のカウンタ
 static bool is_naginata = false; // 薙刀式がオンかオフか
 static uint8_t naginata_layer = 0; // NG_*を配置しているレイヤー番号
 static uint16_t ngon_keys[2]; // 薙刀式をオンにするキー(通常HJ)
 static uint16_t ngoff_keys[2]; // 薙刀式をオフにするキー(通常FG)
-static uint8_t keycnt = 0UL; //　押しているキーの数
 static uint32_t keycomb = 0UL; // 同時押しの状態を示す。32bitの各ビットがキーに対応する。
 static bool is_henshu = false; // 編集モードかどうか
 static bool henshu_done = false; // 編集モードを実行したか、編集モード空打ちだったか
@@ -141,7 +141,8 @@ const uint32_t ng_key[] = {
 #define NDOUJI 3 // 組み合わせにある同時押しするキーの数、薙刀式なら3
 
 // 文字入力バッファ
-static Keystroke nginput[NKEYS]; // 入力バッファ
+static Set ngpressd; // 押しているキー
+static NGList nginput; // 未変換のキー
 static Keystroke ngingroup[NKEYS][NDOUJI]; // 入力バッファを同時押しの組み合わせでグループ化
 
 static uint8_t doujiSize[NKEYS] = {0}; // ngingroupの配列のサイズ
@@ -167,6 +168,8 @@ const PROGMEM int8_t COMBI[NCOMBI][NKEYS][NDOUJI] = {
   {{ 0,  1,  2}, {-1, -1, -1}, {-1, -1, -1}}, // 012
   {{ 0,  1, -1}, { 0,  2, -1}, {-1, -1, -1}}, // 01  02 : 0が連続シフト
   {{ 0,  1, -1}, { 1,  2, -1}, {-1, -1, -1}}, // 01  12 : 1が連続シフト
+  // fvjm space以外でも連続シフトしている
+
   // // 1 key
   // {{ 0, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}}, // 0
   // // 2 keys
@@ -423,6 +426,9 @@ void set_naginata(uint8_t layer, uint16_t *onk, uint16_t *offk) {
     eeconfig_update_user(naginata_config.raw);
   }
   ng_set_unicode_mode(naginata_config.os);
+
+  initializeSet(&ngpressd);
+  initializeList(&nginput);
 }
 
 // 薙刀式をオン
@@ -649,11 +655,11 @@ bool enable_naginata(uint16_t keycode, keyrecord_t *record) {
 
 // バッファをクリアする
 void naginata_clear(void) {
-  ng_chrcount = 0;
   n_modifier = 0;
   nkeypress = 0;
   fghj_buf = 0;
-  keycnt = 0;
+  initializeSet(&ngpressd);
+  initializeList(&nginput);
 }
 
 // 編集モードの判定
@@ -747,40 +753,40 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
       case NG_SHFT ... NG_SHFT2:
       case NG_Q ... NG_SLSH:
-        keycnt++;
+        addToSet(&ngpressd, keycode);
 
-        if (keycnt > NKEYS || ng_chrcount >= NKEYS) {
+        // 4文字目の入力
+        if (ngpressd.size > NKEYS || nginput.size >= NKEYS) {
           int ntyped = naginata_type(true);
 
-          // 押しているキーは残す
-          // シフト系のキー以外を残すと2度変換してしまう
-          uint8_t tch = 0;
-          for (uint8_t i = 0; i < ntyped; i++) {
-            if (nginput[i].releaseTime == 0 && 
-               (nginput[i].keycode == NG_SHFT || 
-                nginput[i].keycode == NG_SHFT2 ||
-                nginput[i].keycode == NG_F ||
-                nginput[i].keycode == NG_V ||
-                nginput[i].keycode == NG_J ||
-                nginput[i].keycode == NG_M )) {
-              nginput[tch] = nginput[i];
-              if (ntyped < ng_chrcount) { // 仕切り直す
-                nginput[tch].pressTime = nginput[ntyped].pressTime;
-              } else {
-                nginput[tch].pressTime = record->event.time;
-              }
-              tch++;
-              break; // キャリーオーバーするのも１キーだけ
-            }
+          for (int i = 0; i < ntyped; i++) {
+            removeFromListAt(&nginput, 0);
           }
-          for (uint8_t i = ntyped; i < ng_chrcount; i++) {
-            nginput[tch] = nginput[i];
-            tch++;
+          // 連続シフト
+          // 組み合わせがないかもしれないのに連続シフトしている
+          if (includeSet(&ngpressd, NG_SHFT) >= 0 && includeList(&nginput, NG_SHFT) < 0) {
+            Keystroke ks = (Keystroke){.keycode = NG_SHFT, .pressTime = record->event.time, .releaseTime = 0};
+            addToListAt(&nginput, &ks, 0);
+          } else if (includeSet(&ngpressd, NG_SHFT2) >= 0 && includeList(&nginput, NG_SHFT2) < 0) {
+            Keystroke ks = (Keystroke){.keycode = NG_SHFT2, .pressTime = record->event.time, .releaseTime = 0};
+            addToListAt(&nginput, &ks, 0);
+          } else if (includeSet(&ngpressd, NG_F) >= 0 && includeList(&nginput, NG_F) < 0) {
+            Keystroke ks = (Keystroke){.keycode = NG_F, .pressTime = record->event.time, .releaseTime = 0};
+            addToListAt(&nginput, &ks, 0);
+          } else if (includeSet(&ngpressd, NG_V) >= 0 && includeList(&nginput, NG_V) < 0) {
+            Keystroke ks = (Keystroke){.keycode = NG_V, .pressTime = record->event.time, .releaseTime = 0};
+            addToListAt(&nginput, &ks, 0);
+          } else if (includeSet(&ngpressd, NG_J) >= 0 && includeList(&nginput, NG_J) < 0) {
+            Keystroke ks = (Keystroke){.keycode = NG_J, .pressTime = record->event.time, .releaseTime = 0};
+            addToListAt(&nginput, &ks, 0);
+          } else if (includeSet(&ngpressd, NG_M) >= 0 && includeList(&nginput, NG_M) < 0) {
+            Keystroke ks = (Keystroke){.keycode = NG_M, .pressTime = record->event.time, .releaseTime = 0};
+            addToListAt(&nginput, &ks, 0);
           }
-          ng_chrcount = tch;
+
           keycomb = 0UL;
-          for (uint8_t i = 0; i < ng_chrcount; i++) {
-            keycomb |= ng_key[nginput[i].keycode - NG_Q];
+          for (uint8_t i = 0; i < nginput.size; i++) {
+            keycomb |= ng_key[nginput.elements[i].keycode - NG_Q];
           }
         }
 
@@ -792,11 +798,41 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
 
         is_henshu = check_henshu();
         
-        nginput[ng_chrcount] = (Keystroke){.keycode = keycode, .pressTime = record->event.time, .releaseTime = 0}; // キー入力をバッファに貯める
-        ng_chrcount++;
+        Keystroke ks = (Keystroke){.keycode = keycode, .pressTime = record->event.time, .releaseTime = 0};
+        addToList(&nginput, &ks);
 
+        /*
+        press時の早期確定
+        1キー押す、絞り込めないので何もしない
+        2キー目
+          0 1の場合(3キーの可能性)
+            0 1 2 なら、0 1は確定していい
+            0 12  なら、0は確定していい
+          01なら確定できない
+            01 2
+            01 02
+            01 12
+            012
+        3キー目
+          確定していいが、シフトを残すかどうかを別途検討しないといけない
+        */
+        // check_eager_input() == 1でも確定していいはずなんだけど、プレス時は押している時間が0なので、0 1 2で変換される。
+        // if (nginput.size > 1 && check_eager_input() < 1) {
+        //   int ntyped = naginata_type(true);
+        //   for (int i = 0; i < ntyped; i++) {
+        //     removeFromListAt(&nginput, 0);
+        //   }
+
+        //   // 連続シフト
+
+        //   keycomb = 0UL;
+        //   for (uint8_t i = 0; i < nginput.size; i++) {
+        //     keycomb |= ng_key[nginput.elements[i].keycode - NG_Q];
+        //   }
+        // }
+  
         #if defined(CONSOLE_ENABLE) && defined(LOG_PROCESS_NAGINATA)
-        uprintf("<process_naginata return=false, keycnt=%u\n", keycnt);
+        uprintf("<process_naginata return=false, ngpressd.size=%u\n", ngpressd.size);
         #endif
         return false;
         break;
@@ -804,32 +840,30 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
   } else { // key release
     switch (keycode) {
       case NG_Q ... NG_SHFT2:  
-        if (keycnt > 0)
-          keycnt--;
-        
+        removeFromSet(&ngpressd, keycode);        
         keycomb &= ~ng_key[keycode - NG_Q]; // キーの重ね合わせ
         is_henshu = check_henshu();
 
-        for (uint8_t i = 0; i < ng_chrcount; i++) { //　連続シフト　もも
-          if (keycode == nginput[i].keycode && nginput[i].releaseTime == 0) {
-            nginput[i].releaseTime = record->event.time;
+        for (uint8_t i = 0; i < nginput.size; i++) { //　連続シフト　もも
+          if (keycode == nginput.elements[i].keycode && nginput.elements[i].releaseTime == 0) {
+            nginput.elements[i].releaseTime = record->event.time;
             break;
           }
         }
         // 全部キーを離したら
-        if (keycnt == 0 && ng_chrcount > 0) {
+        if (ngpressd.size == 0 && nginput.size > 0) {
           if (henshu_done) { // 編集モードを実行した後のDF等は変換しない
             henshu_done = false;
-            ng_chrcount = 0;
-            keycomb = 0;
+            initializeList(&nginput);
+            keycomb = 0UL;
             return false;
           }
           naginata_type(false);
-          ng_chrcount = 0;
-          keycomb = 0;
+          initializeList(&nginput);
+          keycomb = 0UL;
         }
         #if defined(CONSOLE_ENABLE) && defined(LOG_PROCESS_NAGINATA)
-        uprintf("<process_naginata return=false, keycnt=%u\n", keycnt);
+        uprintf("<process_naginata return=false, ngpressd.size=%u\n", ngpressd.size);
         #endif
         return false;
         break;
@@ -848,12 +882,12 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
 // 戻り値 変換処理したキーの数
 uint8_t naginata_type(bool partial) {
   #if defined(CONSOLE_ENABLE) && defined(LOG_NAGINATA_TYPE)
-  uprintf(">naginata_type ng_chrcount=%u\n", ng_chrcount);
-  for (uint8_t i = 0; i < ng_chrcount; i++)
-    uprintf(" naginata_type key=%lu, pressTime=%lu, releaseTime=%lu\n",  nginput[i].keycode,  nginput[i].pressTime,  nginput[i].releaseTime);
+  uprintf(">naginata_type nginput.sze=%u\n", nginput.sze);
+  for (uint8_t i = 0; i < nginput.size; i++)
+    uprintf(" naginata_type key=%lu, pressTime=%lu, releaseTime=%lu\n",  nginput.elements[i].keycode,  nginput.elements[i].pressTime,  nginput.elements[i].releaseTime);
   #endif
 
-  if (ng_chrcount == 1 && nginput[0].keycode == NG_SHFT2) {
+  if (nginput.size == 1 && nginput.elements[0].keycode == NG_SHFT2) {
     tap_code(KC_ENT);
     return 1;
   }
@@ -911,7 +945,7 @@ uint8_t naginata_type(bool partial) {
   if (partial) {
     return doujiSize[0];
   } else {
-    return ng_chrcount;
+    return nginput.size;
   }
 
   #if defined(CONSOLE_ENABLE) && defined(LOG_NAGINATA_TYPE)
@@ -919,11 +953,33 @@ uint8_t naginata_type(bool partial) {
   #endif
 }
 
+// 早期確定できるかどうか判定する
+// 同時押しがありえるかどうか
+uint8_t check_eager_input() {
+  naginata_keymap bngmap; // PROGMEM buffer
+  uint8_t noc = 0;
+
+  // バッファ内のキーを組み合わせる
+  uint32_t keycomb_buf = 0UL;
+  for (uint8_t k = 0; k < nginput.size; k++) {
+    keycomb_buf |= ng_key[nginput.elements[k].keycode - NG_Q];
+  }
+  // 辞書に存在するかチェック
+  for (uint16_t k = 0; k < sizeof ngmap / sizeof bngmap; k++) {
+    memcpy_P(&bngmap, &ngmap[k], sizeof(bngmap));
+    if (keycomb_buf == (bngmap.key & keycomb_buf)) {
+      noc++;
+    }
+  }
+
+  return noc;
+}
+
 // #define LOG_EVALUATE
 // ngingroupを作って中で一番評価値が高い組み合わせngingroupに入れる
 uint8_t evaluate() {
   #if defined(CONSOLE_ENABLE) && defined(LOG_EVALUATE)
-  uprintf(">evaluate ng_chrcount=%u\n", ng_chrcount);
+  uprintf(">evaluate nginput.size=%u\n", nginput.size);
   #endif
 
   Keystroke tmpgroup[NKEYS][NDOUJI]; // 入力バッファを同時押しの組み合わせでグループ化
@@ -936,7 +992,7 @@ uint8_t evaluate() {
   bool isExist = false;
   uint8_t keySize = 0;
 
-  for (uint8_t i = COMBINDEX[ng_chrcount - 1]; i < COMBINDEX[ng_chrcount]; i++) { // 組み合わせごとに
+  for (uint8_t i = COMBINDEX[nginput.size - 1]; i < COMBINDEX[nginput.size]; i++) { // 組み合わせごとに
     #if defined(CONSOLE_ENABLE) && defined(LOG_EVALUATE)
     uprintf(" evaluate COMBI[%u]\n", i);
     #endif
@@ -963,7 +1019,7 @@ uint8_t evaluate() {
         if (bcombi == -1) {
           break;
         } else {
-          tmpgroup[j][k] = nginput[bcombi];
+          tmpgroup[j][k] = nginput.elements[bcombi];
           tdouji++;
         }
       }
