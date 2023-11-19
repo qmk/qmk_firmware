@@ -112,4 +112,4 @@ compile_commands.json
 # VIA(L) files that don't belong in QMK repo
 via*.json
 /keyboards/**/keymaps/vial/*
-.vil
+*.vil

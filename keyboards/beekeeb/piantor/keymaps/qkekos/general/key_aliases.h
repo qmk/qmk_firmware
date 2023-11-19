@@ -105,8 +105,8 @@
 #define HHR_D LCTL_T(KC_D)
 #define HHR_F LSFT_T(KC_F)
 
-#define HHR_J LSFT_T(KC_K)
-#define HHR_K LCTL_T(KC_L)
+#define HHR_J LSFT_T(KC_J)
+#define HHR_K LCTL_T(KC_K)
 #define HHR_L LALT_T(KC_L)
 
 // GAME
