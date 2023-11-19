@@ -1,9 +1,9 @@
 # Event Horizon
 
-This is a standard 65% layout PCB. It supports VIA.
+This is a 65% with XT column on the left layout PCB. It supports VIA.
 
 * Keyboard Maintainer: [Yiancar](http://yiancar-designs.com/) and on [GitHub](https://github.com/yiancar)
-* Hardware Supported: A 60% keyboard with STM32F072CB
+* Hardware Supported: The trio of PCBs for the Event Horizon Keyboard using an STM32F072CB
 * Hardware Availability: https://protozoa.studio 
 
 ## Instructions
