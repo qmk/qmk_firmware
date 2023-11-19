@@ -3,8 +3,8 @@
     "manufacturer": "HMC",
     "url": "",
     "usb": {
-        "vid": "0x0903",
-        "pid": "0x0220",
+        "vid": "0x0716",
+        "pid": "0x0711",
         "device_version": "0.0.1"
     },
     "processor": "STM32F103",
