@@ -26,10 +26,10 @@
 #endif
 
 typedef struct PACKED {
-    int   led_index;                 // 4
-    led_t led_state;                 // 8
-    HSV   color;                     // 8*3
-    bool  override_brightness_limit; //
+    int   led_index;
+    led_t led_state;
+    HSV   color;
+    bool  override_brightness_limit;
 } t_rgb_indicator_matcher;
 
 typedef struct PACKED {
