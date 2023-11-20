@@ -175,3 +175,8 @@ void ps2_mouse_set_resolution(ps2_mouse_resolution_t resolution);
 void ps2_mouse_set_sample_rate(ps2_mouse_sample_rate_t sample_rate);
 
 void ps2_mouse_moved_user(report_mouse_t *mouse_report);
+
+void           ps2_mouse_pointing_device_init(void);
+report_mouse_t ps2_mouse_pointing_device_get_report(report_mouse_t mouse_report);
+uint16_t       ps2_mouse_pointing_device_get_cpi(void);
+void           ps2_mouse_pointing_device_set_cpi(uint16_t cpi);

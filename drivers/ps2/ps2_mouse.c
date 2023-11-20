@@ -311,3 +311,94 @@ static inline void ps2_mouse_scroll_button_task(report_mouse_t *mouse_report) {
 
     RELEASE_SCROLL_BUTTONS;
 }
+
+void ps2_mouse_pointing_device_init(void) {
+    ps2_mouse_init();
+}
+
+report_mouse_t ps2_mouse_pointing_device_get_report(report_mouse_t mouse_report) {
+    static uint8_t buttons_prev = 0;
+
+    /* receives packet from mouse */
+#ifdef PS2_MOUSE_USE_REMOTE_MODE
+    uint8_t rcv;
+    rcv = ps2_host_send(PS2_MOUSE_READ_DATA);
+    if (rcv == PS2_ACK) {
+        mouse_report.buttons = ps2_host_recv_response();
+        mouse_report.x       = ps2_host_recv_response();
+        mouse_report.y       = ps2_host_recv_response();
+#    ifdef PS2_MOUSE_ENABLE_SCROLLING
+        mouse_report.v = -(ps2_host_recv_response() & PS2_MOUSE_SCROLL_MASK);
+#    endif
+    } else {
+        if (debug_mouse) print("ps2_mouse: fail to get mouse packet\n");
+    }
+#else
+    if (pbuf_has_data()) {
+        mouse_report.buttons = ps2_host_recv_response();
+        mouse_report.x       = ps2_host_recv_response();
+        mouse_report.y       = ps2_host_recv_response();
+#    ifdef PS2_MOUSE_ENABLE_SCROLLING
+        mouse_report.v       = -(ps2_host_recv_response() & PS2_MOUSE_SCROLL_MASK);
+#    endif
+    }
+#endif
+
+    /* if mouse moves or buttons state changes */
+    if (mouse_report.x || mouse_report.y || mouse_report.v || ((mouse_report.buttons ^ buttons_prev) & PS2_MOUSE_BTN_MASK)) {
+#ifdef PS2_MOUSE_DEBUG_RAW
+        // Used to debug raw ps2 bytes from mouse
+        ps2_mouse_print_report(&mouse_report);
+#endif
+        buttons_prev = mouse_report.buttons;
+        ps2_mouse_convert_report_to_hid(&mouse_report);
+#if PS2_MOUSE_SCROLL_BTN_MASK
+        ps2_mouse_scroll_button_task(&mouse_report);
+#endif
+        if (mouse_report.x || mouse_report.y || mouse_report.v) {
+            ps2_mouse_moved_user(&mouse_report);
+        }
+#ifdef PS2_MOUSE_DEBUG_HID
+        // Used to debug the bytes sent to the host
+        ps2_mouse_print_report(&mouse_report);
+#endif
+    }
+
+    return mouse_report;
+}
+
+/* Note: PS/2 mouse uses counts/mm */
+uint16_t  ps2_mouse_pointing_device_get_cpi(void) {
+    uint8_t rcv, cpm;
+    rcv = ps2_host_send(PS2_MOUSE_STATUS_REQUEST);
+    if (rcv == PS2_ACK) {
+        rcv = ps2_host_recv_response();
+        cpm = ps2_host_recv_response();
+        rcv = ps2_host_recv_response();
+
+        return (1 << cpm);
+    }
+
+    return 0;
+}
+
+/* Note: PS/2 mouse uses counts/mm */
+void ps2_mouse_pointing_device_set_cpi(uint16_t cpi) {
+    switch (cpi) {
+        case 1:
+            ps2_mouse_set_resolution(PS2_MOUSE_1_COUNT_MM);
+            break;
+        case 2:
+            ps2_mouse_set_resolution(PS2_MOUSE_2_COUNT_MM);
+            break;
+        case 4:
+            ps2_mouse_set_resolution(PS2_MOUSE_4_COUNT_MM);
+            break;
+        case 8:
+            ps2_mouse_set_resolution(PS2_MOUSE_8_COUNT_MM);
+            break;
+        default:
+            if (debug_mouse) xprintf("ps2_mouse: invalid cpi: %u\n", cpi);
+            break;
+    }
+}
