@@ -13,6 +13,9 @@
         "nkro": true,
         "rgblight": true
     },
+    "bootmagic": {
+        "matrix": [0, 1]
+    },
     "matrix_pins": {
         "cols": [
     "GP14", "GP29", "GP28", "GP27", "GP26", "GP15", "GP7", "GP6", "GP5", "GP4", "GP3", "GP8"
