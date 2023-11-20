@@ -37,13 +37,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [LSYM] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            XXXXXXX, XXXXXXX, KC_QUES, KC_LPRN, KC_RPRN, KC_PERC,                      KC_EXLM, MY_PIPE, KC_UNDS,   MY_AT, XXXXXXX, XXXXXXX,
+            XXXXXXX, XXXXXXX,CTL_QUES, KC_LPRN, KC_RPRN, KC_PERC,                      KC_EXLM, MY_PIPE, KC_UNDS,  CTL_AT, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
               KC_NO, MY_TILD,  KC_GRV, KC_LBRC, KC_RBRC, KC_ASTR,                      KC_NUHS, MY_DQUO, KC_QUOT, KC_SCLN, KC_COLN, KC_NUBS,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,  KC_EQL,  MY_GBP, KC_LCBR, KC_RCBR, KC_SLSH,                      KC_AMPR,   KC_LT,   KC_GT,  KC_DLR, KC_CIRC, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                               _______,TO(LCMK), CTL_SPC,     _______,  _______, _______
+                                               _______,TO(LCMK),  KC_SPC,     _______,  _______, _______
                                             //`--------------------------'  `--------------------------'
     ),
     [LNUM] = LAYOUT_split_3x6_3(
@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX, KC_BSPC,  KC_SPC, KC_COMM,  KC_DOT, KC_SLSH,                       KC_EQL,    KC_1,    KC_2,    KC_3, KC_SLSH, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              _______, _______,  _______,     KC_0,TO(LCMK), _______
+                                               _______, _______,  KC_SPC,     KC_0, KC_NO, _______
                                             //`--------------------------'  `--------------------------'
     ),
     [LFUN] = LAYOUT_split_3x6_3(
@@ -124,51 +124,84 @@ void matrix_scan_user(void) {
  ******************************************************************************/
 enum combo_keys {
     // left hand only
-    WF_ESC,
-    CD_TAB,
-    ZX_Q,           // trial on zx for q - skeletyl
+    CMK_ESC,        // wf
 
-    RESET_COMBO,    // put the board into bootloader mode
+    CMK_TAB,        // cd
+    NUM_TAB,
 
-    // right hand only
-    UY_DEL,
-    HCOM_ENT,
-    JY_CTLBSP,
-    DOTSLSH_COMPOSE,  // trial compose on right lower ring/pinkie for skeletyl
+    // uy on all layers for delete
+    CMK_DEL,   // uy
+    SYM_DEL,
+    NUM_DEL,
+    FUN_DEL,
+    // h, on all layers for enter
+    CMK_ENT,
+    SYM_ENT,
+    NUM_ENT,
+    FUN_ENT,
 
     // both hands, not using pl / fu any more due to typing mishits
     WY_LFUN,
     SS_LMSE,
+
+    // put the board into bootloader mode  (needs mouse layer)
+    RESET_COMBO,
+
+    // for skeletyl have alternates for upper row pinkie
+    ZX_Q,
+    DOTSLSH_COMPOSE,
 
     COMBO_LENGTH
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM combo_esc[] = {CTL_W, KC_F, COMBO_END};
+
 const uint16_t PROGMEM combo_tab[] = {KC_C, KC_D, COMBO_END};
-const uint16_t PROGMEM combo_reset[] = {KC_ESC, KC_TAB, COMBO_END};
+const uint16_t PROGMEM combo_ntab[] = {KC_COMM, KC_DOT, COMBO_END};
+
 const uint16_t PROGMEM combo_del[] = {KC_U, CTL_Y, COMBO_END};
+const uint16_t PROGMEM combo_sdel[] = {KC_UNDS, MY_AT, COMBO_END};
+const uint16_t PROGMEM combo_ndel[] = {KC_8, KC_9, COMBO_END};
+const uint16_t PROGMEM combo_fdel[] = {KC_F8, KC_F9, COMBO_END};
+
 const uint16_t PROGMEM combo_ent[] = {KC_H, KC_COMM, COMBO_END};
-const uint16_t PROGMEM combo_bspc[] = {KC_J, CTL_Y, COMBO_END};
-const uint16_t PROGMEM combo_q[] = {SFT_Z, KC_X, COMBO_END};
-const uint16_t PROGMEM combo_compose[] = {KC_DOT, SFT_SLS, COMBO_END};
+const uint16_t PROGMEM combo_sent[] = {KC_LT, KC_GT, COMBO_END};
+const uint16_t PROGMEM combo_fent[] = {KC_F1, KC_F2, COMBO_END};
+const uint16_t PROGMEM combo_nent[] = {KC_1, KC_2, COMBO_END};
+
 const uint16_t PROGMEM combo_function[] = {CTL_W, CTL_Y, COMBO_END};
 const uint16_t PROGMEM combo_mouse[] = {SFT_Z, SFT_SLS, COMBO_END};
 
-combo_t key_combos[] = {
-    [WF_ESC] = COMBO(combo_esc, KC_ESC),
-    [CD_TAB] = COMBO(combo_tab, KC_TAB),
-    [ZX_Q] = COMBO(combo_q, KC_Q),
+const uint16_t PROGMEM combo_q[] = {SFT_Z, KC_X, COMBO_END};
+const uint16_t PROGMEM combo_compose[] = {KC_DOT, SFT_SLS, COMBO_END};
 
-    [UY_DEL] = COMBO(combo_del, KC_DEL),
-    [HCOM_ENT] = COMBO(combo_ent, KC_ENT),
-    [JY_CTLBSP] = COMBO(combo_bspc, LCTL(KC_BSPC)),
-    [DOTSLSH_COMPOSE] = COMBO(combo_compose, MY_COMP),
+const uint16_t PROGMEM combo_reset[] = {KC_ESC, KC_TAB, COMBO_END};
+
+combo_t key_combos[] = {
+    [CMK_ESC] = COMBO(combo_esc, KC_ESC),
+
+    [CMK_TAB] = COMBO(combo_tab, KC_TAB),
+    [NUM_TAB] = COMBO(combo_ntab, KC_TAB),
+
+    [CMK_DEL] = COMBO(combo_del, KC_DEL),
+    [SYM_DEL] = COMBO(combo_sdel, KC_DEL),
+    [NUM_DEL] = COMBO(combo_ndel, KC_DEL),
+    [FUN_DEL] = COMBO(combo_fdel, KC_DEL),
+
+    [CMK_ENT] = COMBO(combo_ent, KC_ENT),
+    [SYM_ENT] = COMBO(combo_sent, KC_ENT),
+    [NUM_ENT] = COMBO(combo_nent, KC_ENT),
+    [FUN_ENT] = COMBO(combo_fent, KC_ENT),
+
     [WY_LFUN] = COMBO(combo_function, TO(LFUN)),
 #ifdef MOUSEKEY_ENABLE
     [SS_LMSE] = COMBO(combo_mouse, TO(LMSE)),
     [RESET_COMBO] = COMBO(combo_reset, QK_BOOTLOADER),
 #endif
+
+    [ZX_Q] = COMBO(combo_q, KC_Q),
+    [DOTSLSH_COMPOSE] = COMBO(combo_compose, MY_COMP),
 };
 
 /******************************************************************************
