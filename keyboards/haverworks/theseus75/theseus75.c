@@ -28,7 +28,7 @@ void keyboard_post_init_kb(void) {
         // Enable inputs used for current negotiation
         setPinInputHigh(F0);    // OUT1
         setPinInputHigh(F1);    // OUT2
-        
+
 
         // Not needed in this mode (always high-Z with pull-up on PCB if port controller is sink)
         setPinInputHigh(A13);   // ID

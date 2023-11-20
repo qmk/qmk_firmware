@@ -32,11 +32,13 @@
 #define SPLIT_HAND_PIN B9               // The MCUs probe a pin to determine if they are left or right side. high = left, low = right
 
 #define SPLIT_LAYER_STATE_ENABLE
+#define SPLIT_LED_STATE_ENABLE          // Required to sync LED indicator state info to the slave half (see https://docs.qmk.fm/#/feature_led_indicators)
 
-/* Defines for the RGB matrix*/
+/* Defines for the RGB matrix */
 #ifdef RGB_MATRIX_ENABLE
 #   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 128
 #   define INDICATOR_MAX_BRIGHTNESS 255
+#   define CAPS_LOCK_LED_INDEX 0        // LED1 on PCB
 #   define RGB_MATRIX_LED_COUNT 53
 #   define RGB_MATRIX_SPLIT { 27, 26 }
 #   define RGBLIGHT_SLEEP
