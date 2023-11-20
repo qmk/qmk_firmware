@@ -1,7 +1,7 @@
 Vinta
 =========
 
-[Vinta](https://i.imgur.com/huX3lff.jpg)
+![Vinta](https://i.imgur.com/huX3lffh.jpg)
 
 
 This is an ARM-powered 65% keyboard PCB with USB Mini B connector and breakout for optional RGB underglow.
