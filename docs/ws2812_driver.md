@@ -170,7 +170,7 @@ To configure it, add this to your rules.mk:
 WS2812_DRIVER = vendor
 ```
 
-Configure the hardware via your config.h:
+You may optionally switch the PIO peripheral used with the following define in config.h:
 ```c
 #define WS2812_PIO_USE_PIO1 // Force the usage of PIO1 peripheral, by default the WS2812 implementation uses the PIO0 peripheral
 ```
