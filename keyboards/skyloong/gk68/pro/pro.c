@@ -26,9 +26,9 @@ const aw_led PROGMEM g_aw_leds[RGB_MATRIX_LED_COUNT] = {
     {0, CS1_SW10,  CS2_SW10,  CS3_SW10},
     {0, CS1_SW11,  CS2_SW11,  CS3_SW11},
     {0, CS1_SW12,  CS2_SW12,  CS3_SW12},
-    {0, CS16_SW1,  CS17_SW1,  CS18_SW1},
-    {0, CS16_SW2,  CS17_SW2,  CS18_SW2},
-    {0, CS16_SW3,  CS17_SW3,  CS18_SW3},
+    {0, CS18_SW1,  CS17_SW1,  CS16_SW1},
+    {0, CS18_SW2,  CS17_SW2,  CS16_SW2},
+    {0, CS18_SW3,  CS17_SW3,  CS16_SW3},
 
     {0, CS4_SW1,   CS5_SW1,   CS6_SW1},
     {0, CS4_SW2,   CS5_SW2,   CS6_SW2},
@@ -42,9 +42,9 @@ const aw_led PROGMEM g_aw_leds[RGB_MATRIX_LED_COUNT] = {
     {0, CS4_SW10,  CS5_SW10,  CS6_SW10},
     {0, CS4_SW11,  CS5_SW11,  CS6_SW11},
     {0, CS4_SW12,  CS5_SW12,  CS6_SW12},
-    {0, CS16_SW4,  CS17_SW4,  CS18_SW4},
-    {0, CS16_SW5,  CS17_SW5,  CS18_SW5},
-    {0, CS16_SW6,  CS17_SW6,  CS18_SW6},
+    {0, CS18_SW4,  CS17_SW4,  CS16_SW4},
+    {0, CS18_SW5,  CS17_SW5,  CS16_SW5},
+    {0, CS18_SW6,  CS17_SW6,  CS16_SW6},
 
     {0, CS7_SW1,   CS8_SW1,   CS9_SW1},
     {0, CS7_SW2,   CS8_SW2,   CS9_SW2},
@@ -58,8 +58,8 @@ const aw_led PROGMEM g_aw_leds[RGB_MATRIX_LED_COUNT] = {
     {0, CS7_SW10,  CS8_SW10,  CS9_SW10},
     {0, CS7_SW11,  CS8_SW11,  CS9_SW11},
     {0, CS7_SW12,  CS8_SW12,  CS9_SW12},
-    {0, CS16_SW7,  CS17_SW7,  CS18_SW7},
-    {0, CS16_SW8,  CS17_SW8,  CS18_SW8},
+    {0, CS18_SW7,  CS17_SW7,  CS16_SW7},
+    {0, CS18_SW8,  CS17_SW8,  CS16_SW8},
 
     {0, CS10_SW1,  CS11_SW1,  CS12_SW1},
     {0, CS10_SW2,  CS11_SW2,  CS12_SW2},
@@ -73,8 +73,8 @@ const aw_led PROGMEM g_aw_leds[RGB_MATRIX_LED_COUNT] = {
     {0, CS10_SW10, CS11_SW10, CS12_SW10},
     {0, CS10_SW11, CS11_SW11, CS12_SW11},
     {0, CS10_SW12, CS11_SW12, CS12_SW12},
-    {0, CS16_SW9,  CS17_SW9,  CS18_SW9},
-    {0, CS16_SW10,  CS17_SW10,  CS18_SW10},
+    {0, CS18_SW9,  CS17_SW9,  CS16_SW9},
+    {0, CS18_SW10,  CS17_SW10,  CS16_SW10},
 
     {0, CS13_SW1,  CS14_SW1,  CS15_SW1},
     {0, CS13_SW2,  CS14_SW2,  CS15_SW2},
@@ -86,8 +86,8 @@ const aw_led PROGMEM g_aw_leds[RGB_MATRIX_LED_COUNT] = {
     {0, CS13_SW10, CS14_SW10, CS15_SW10},
     {0, CS13_SW11, CS14_SW11, CS15_SW11},
     {0, CS13_SW12, CS14_SW12, CS15_SW12},
-    {0, CS16_SW11,  CS17_SW11,  CS18_SW11},
-    {0, CS16_SW12,  CS17_SW12,  CS18_SW12}
+    {0, CS18_SW11,  CS17_SW11,  CS16_SW11},
+    {0, CS18_SW12,  CS17_SW12,  CS16_SW12}
 };
 
 bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
