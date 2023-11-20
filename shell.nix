@@ -27,7 +27,8 @@ in
 , poetry2nix ? pkgs.callPackage (import sources.poetry2nix) { }
 , avr ? true
 , arm ? true
-, teensy ? true }:
+, teensy ? true
+, bootloadhid ? avr }:
 with pkgs;
 let
   avrlibc = pkgsCross.avr.libcCross;
@@ -64,6 +65,25 @@ let
       });
     });
   };
+
+  bootloadHID = stdenv.mkDerivation rec {
+    pname = "bootloadhid";
+    version = "2012-12-08";
+
+    nativeBuildInputs = [ libusb-compat-0_1 ];
+    buildInputs = [ libusb1 ];
+
+    src = fetchzip {
+      url = "https://www.obdev.at/downloads/vusb/bootloadHID.2012-12-08.tar.gz";
+      hash = "sha256-Zh7rZ2Lhxfrus452VX6QaMTXcG26EUWrhiGhH30S8Vs=";
+    };
+    sourceRoot = "${src.name}/commandline";
+
+    installPhase = ''
+      mkdir -p "$out/bin"
+      cp bootloadHID "$out/bin/"
+    '';
+  };
 in
 mkShell {
   name = "qmk-firmware";
@@ -76,7 +96,8 @@ mkShell {
       avrdude
     ]
     ++ lib.optional arm [ gcc-arm-embedded ]
-    ++ lib.optional teensy [ teensy-loader-cli ];
+    ++ lib.optional teensy [ teensy-loader-cli ]
+    ++ lib.optional bootloadhid [ bootloadHID ];
 
   AVR_CFLAGS = lib.optional avr avr_incflags;
   AVR_ASFLAGS = lib.optional avr avr_incflags;
