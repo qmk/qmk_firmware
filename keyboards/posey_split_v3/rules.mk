@@ -1,6 +1,6 @@
 # Debounce Configuration
 # DEBOUNCE_TYPE = custom # asym, instant, then defer
-SRC += debounce.c
+SRC += "\\wsl.localhost\QMK\home\qmk\qmk_firmware\quantum\asym_instant_defer_pk.c"
 
 # RGB Configuration
 WS2812_DRIVER = vendor

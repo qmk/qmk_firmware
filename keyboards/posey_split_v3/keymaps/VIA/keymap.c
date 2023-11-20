@@ -61,6 +61,10 @@ enum custom_keycodes {
 #ifdef QUICK_GAME_TYPE_ENABLED
    #include "quick_game_type.c"
 #endif
+#ifndef QUICK_GAME_TYPE_ENABLED
+   #define TTC KC_ENTER
+   #define CTT KC_ENTER
+#endif
 
 #ifdef DIABLO_PLAYERS_CHANGE_ENABLED
    #include "diablo_player_change.c"
@@ -85,13 +89,13 @@ enum custom_keycodes {
 #define PL_C OSL(_PLAYERS)
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-   #ifdef QUICK_GAME_TYPE_ENABLED
+   #ifdef DIABLO_PLAYERS_CHANGE_ENABLED
    if (!process_diablo_player_change(keycode, record)) {
       return false;
    }
    #endif
 
-   #ifdef DIABLO_PLAYERS_CHANGE_ENABLED
+   #ifdef QUICK_GAME_TYPE_ENABLED
    if (!process_quick_game_type(keycode, record)) {
       return false;
    }

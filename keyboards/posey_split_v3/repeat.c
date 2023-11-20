@@ -4,7 +4,9 @@ static uint16_t key_timer = 0;
 static bool key_pressed = false;
 static bool key_repeating = false;
 static uint16_t key_repeat = 0;
+#ifndef REPEAT_ALL_KEYS_ENABLED
 static uint16_t keys_to_repeat[] = { FAST_REPEAT_KEYS };
+#endif
 static uint16_t layers_to_check[] = { FAST_REPEAT_LAYERS };
 
 bool check_large_layer(void){
@@ -13,7 +15,7 @@ bool check_large_layer(void){
             return true;
         }
     }
-    return false
+    return false;
 }
 
 #ifndef REPEAT_ALL_KEYS_ENABLED
@@ -49,17 +51,20 @@ bool process_repeat_key(uint16_t keycode, keyrecord_t *record) {
         switch (keycode) {
             case KC_A ... KC_F24:
                 if (record->event.pressed){
+                            if (keycode!=key_repeat) {
+                                key_repeating = false;
+                            }
                             register_code(keycode);
                             unregister_code(keycode);
                             key_repeat = keycode;
                             key_pressed = true;
                             key_timer = timer_read();
-                        } else {
-                            key_pressed = false;
-                            key_repeating = false;
-                        }
+                } else if (keycode==key_repeat) {
+                    key_pressed = false;
+                    key_repeating = false;
+                }
 
-                        return false;
+                return false;
         }
         #endif
     } else if (key_pressed) {
