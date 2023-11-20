@@ -30,6 +30,28 @@ BOX_DRAWING_CHARACTERS = {
         "h": "_",
     },
 }
+ENC_DRAWING_CHARACTERS = {
+    "unicode": {
+        "tl": "╭",
+        "tr": "╮",
+        "bl": "╰",
+        "br": "╯",
+        "vl": "▲",
+        "vr": "▼",
+        "v": "│",
+        "h": "─",
+    },
+    "ascii": {
+        "tl": " ",
+        "tr": " ",
+        "bl": "\\",
+        "br": "/",
+        "v": "|",
+        "vl": "/",
+        "vr": "\\",
+        "h": "_",
+    },
+}
 
 
 class AllKeyboards:
@@ -213,7 +235,9 @@ def render_layout(layout_data, render_ascii, key_labels=None):
         else:
             label = key.get('label', '')
 
-        if x >= 0.25 and w == 1.25 and h == 2:
+        if 'encoder' in key:
+            render_encoder(textpad, x, y, w, h, label, style)
+        elif x >= 0.25 and w == 1.25 and h == 2:
             render_key_isoenter(textpad, x, y, w, h, label, style)
         elif w == 1.5 and h == 2:
             render_key_baenter(textpad, x, y, w, h, label, style)
@@ -331,3 +355,32 @@ def render_key_baenter(textpad, x, y, w, h, label, style):
     textpad[y + 3][x - 3:x + w] = crn_line
     textpad[y + 4][x - 3:x + w] = lab_line
     textpad[y + 5][x - 3:x + w] = bot_line
+
+
+def render_encoder(textpad, x, y, w, h, label, style):
+    box_chars = ENC_DRAWING_CHARACTERS[style]
+    x = ceil(x * 4)
+    y = ceil(y * 3)
+    w = ceil(w * 4)
+    h = ceil(h * 3)
+
+    label_len = w - 2
+    label_leftover = label_len - len(label)
+
+    if len(label) > label_len:
+        label = label[:label_len]
+
+    label_blank = ' ' * label_len
+    label_border = box_chars['h'] * label_len
+    label_middle = label + ' ' * label_leftover
+
+    top_line = array('u', box_chars['tl'] + label_border + box_chars['tr'])
+    lab_line = array('u', box_chars['vl'] + label_middle + box_chars['vr'])
+    mid_line = array('u', box_chars['v'] + label_blank + box_chars['v'])
+    bot_line = array('u', box_chars['bl'] + label_border + box_chars['br'])
+
+    textpad[y][x:x + w] = top_line
+    textpad[y + 1][x:x + w] = lab_line
+    for i in range(h - 3):
+        textpad[y + i + 2][x:x + w] = mid_line
+    textpad[y + h - 1][x:x + w] = bot_line
