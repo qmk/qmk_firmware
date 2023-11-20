@@ -21,26 +21,6 @@
 #include "i2c_master.h"
 #include "wait.h"
 
-#define IS31FL3731_REG_CONFIG 0x00
-#define IS31FL3731_REG_CONFIG_PICTUREMODE 0x00
-#define IS31FL3731_REG_CONFIG_AUTOPLAYMODE 0x08
-#define IS31FL3731_REG_CONFIG_AUDIOPLAYMODE 0x18
-
-#define IS31FL3731_CONF_PICTUREMODE 0x00
-#define IS31FL3731_CONF_AUTOFRAMEMODE 0x04
-#define IS31FL3731_CONF_AUDIOMODE 0x08
-
-#define IS31FL3731_REG_PICTUREFRAME 0x01
-
-// Not defined in the datasheet -- See AN for IC
-#define IS31FL3731_REG_GHOST_IMAGE_PREVENTION 0xC2 // Set bit 4 to enable de-ghosting
-
-#define IS31FL3731_REG_SHUTDOWN 0x0A
-#define IS31FL3731_REG_AUDIOSYNC 0x06
-
-#define IS31FL3731_COMMANDREGISTER 0xFD
-#define IS31FL3731_BANK_FUNCTIONREG 0x0B // helpfully called 'page nine'
-
 #define IS31FL3731_PWM_REGISTER_COUNT 144
 #define IS31FL3731_LED_CONTROL_REGISTER_COUNT 18
 
@@ -141,26 +121,26 @@ void is31fl3731_init(uint8_t addr) {
     // then disable software shutdown.
 
     // select "function register" bank
-    is31fl3731_write_register(addr, IS31FL3731_COMMANDREGISTER, IS31FL3731_BANK_FUNCTIONREG);
+    is31fl3731_write_register(addr, IS31FL3731_REG_COMMAND, IS31FL3731_COMMAND_FUNCTION);
 
     // enable software shutdown
-    is31fl3731_write_register(addr, IS31FL3731_REG_SHUTDOWN, 0x00);
+    is31fl3731_write_register(addr, IS31FL3731_FUNCTION_REG_SHUTDOWN, 0x00);
 #ifdef IS31FL3731_DEGHOST // set to enable de-ghosting of the array
-    is31fl3731_write_register(addr, IS31FL3731_REG_GHOST_IMAGE_PREVENTION, 0x10);
+    is31fl3731_write_register(addr, IS31FL3731_FUNCTION_REG_GHOST_IMAGE_PREVENTION, IS31FL3731_GHOST_IMAGE_PREVENTION_GEN);
 #endif
 
     // this delay was copied from other drivers, might not be needed
     wait_ms(10);
 
     // picture mode
-    is31fl3731_write_register(addr, IS31FL3731_REG_CONFIG, IS31FL3731_REG_CONFIG_PICTUREMODE);
+    is31fl3731_write_register(addr, IS31FL3731_FUNCTION_REG_CONFIG, IS31FL3731_CONFIG_MODE_PICTURE);
     // display frame 0
-    is31fl3731_write_register(addr, IS31FL3731_REG_PICTUREFRAME, 0x00);
+    is31fl3731_write_register(addr, IS31FL3731_FUNCTION_REG_PICTURE_DISPLAY, 0x00);
     // audio sync off
-    is31fl3731_write_register(addr, IS31FL3731_REG_AUDIOSYNC, 0x00);
+    is31fl3731_write_register(addr, IS31FL3731_FUNCTION_REG_AUDIO_SYNC, 0x00);
 
     // select bank 0
-    is31fl3731_write_register(addr, IS31FL3731_COMMANDREGISTER, 0);
+    is31fl3731_write_register(addr, IS31FL3731_REG_COMMAND, IS31FL3731_COMMAND_FRAME_1);
 
     // turn off all LEDs in the LED control register
     for (int i = 0; i < IS31FL3731_LED_CONTROL_REGISTER_COUNT; i++) {
@@ -178,15 +158,15 @@ void is31fl3731_init(uint8_t addr) {
     }
 
     // select "function register" bank
-    is31fl3731_write_register(addr, IS31FL3731_COMMANDREGISTER, IS31FL3731_BANK_FUNCTIONREG);
+    is31fl3731_write_register(addr, IS31FL3731_REG_COMMAND, IS31FL3731_COMMAND_FUNCTION);
 
     // disable software shutdown
-    is31fl3731_write_register(addr, IS31FL3731_REG_SHUTDOWN, 0x01);
+    is31fl3731_write_register(addr, IS31FL3731_FUNCTION_REG_SHUTDOWN, 0x01);
 
     // select bank 0 and leave it selected.
     // most usage after initialization is just writing PWM buffers in bank 0
     // as there's not much point in double-buffering
-    is31fl3731_write_register(addr, IS31FL3731_COMMANDREGISTER, 0);
+    is31fl3731_write_register(addr, IS31FL3731_REG_COMMAND, IS31FL3731_COMMAND_FRAME_1);
 }
 
 void is31fl3731_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
