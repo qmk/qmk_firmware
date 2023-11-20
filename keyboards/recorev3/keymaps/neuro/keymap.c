@@ -73,7 +73,7 @@ enum custom_keycodes {
    #ifndef REPEAT_TERM
       #define REPEAT_TERM 5
    #endif
-   #include "repeat.c"
+   #include "hardware_repeat.c"
 #endif
 
 #ifdef QUICK_GAME_TYPE_ENABLED

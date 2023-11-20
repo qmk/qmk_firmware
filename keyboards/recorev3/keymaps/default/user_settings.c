@@ -9,28 +9,7 @@
 #define _DIABLO 8
 #define _PLAYERS 9
 
-// Custom Macros
-#define QUICK_GAME_TYPE_ENABLED
-#define TEMP_TYPE_LAYER _TEMPRTY
-#define DIABLO_PLAYERS_CHANGE_ENABLED
-#define REPEAT_ENABLED
-#define REPEAT_DELAY 150
-#define REPEAT_TERM 5
-#define FAST_REPEAT_KEYS    KC_P, \
-                            KC_EQL, \
-                            KC_RBRC, \
-                            KC_BSLS, \
-                            KC_BSPC, \
-                            KC_LBRC, \
-                            KC_P, \
-                            KC_SCLN, \
-                            KC_SLSH, \
-                            KC_QUOT, \
-                            KC_COMM
-#define FAST_REPEAT_KEY_COUNT 11
 
-#define FAST_REPEAT_LAYERS _THECORE
-#define FAST_REPEAT_LAYER_COUNT 1
 
 enum custom_keycodes {
    QWERTY = SAFE_RANGE,

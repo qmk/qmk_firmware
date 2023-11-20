@@ -1,6 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "keymap_german.h"
-
 
 //Layers
 #define _QWERTY 0
@@ -12,123 +10,15 @@
 #define _RECORE 5
 #define _DIABLO 6
 #define _PLAYERS 7
+//Layer Colors
+#define C_QWERTY HSV_YELLOW
+#define C_RECORE HSV_CYAN
+#define C_DIABLO HSV_RED
+#define C_TEMPRTY HSV_GREEN
+#define C_SYMB HSV_PINK
+#define C_NAV HSV_GREEN
 
-// Custom Macros
-#define QUICK_GAME_TYPE_ENABLED
-#define TEMP_TYPE_LAYER _TEMPRTY
-#define DIABLO_PLAYERS_CHANGE_ENABLED
-#define REPEAT_ENABLED
-#define REPEAT_ALL_KEYS_ENABLED
-#define REPEAT_DELAY 150
-#define REPEAT_TERM 4
-#define FAST_REPEAT_KEYS    KC_P, \
-                            KC_EQL, \
-                            KC_RBRC, \
-                            KC_BSLS, \
-                            KC_BSPC, \
-                            KC_LBRC, \
-                            KC_SCLN, \
-                            KC_SLSH, \
-                            KC_QUOT, \
-                            KC_COMM, \
-                            KC_F, \
-                            KC_EQL, \
-                            KC_LBRC, \
-                            KC_BSLS, \
-                            KC_BSPC, \
-                            KC_G, \
-                            KC_V, \
-                            KC_SLSH, \
-                            KC_B, \
-                            KC_PGUP, \
-                            KC_C, \
-                            KC_PAST, \
-                            KC_X, \
-                            KC_T
-#define FAST_REPEAT_KEY_COUNT 24
-
-#define FAST_REPEAT_LAYERS _RECORE
-#define FAST_REPEAT_LAYER_COUNT 1
-
-enum custom_keycodes {
-   QWERTY = SAFE_RANGE,
-   SYMB,
-   NAV,
-   ADJUST,
-   RECORE,
-   DIABLO,
-   //quick type
-   CTT,
-   TTC,
-   //players
-   PL_C,
-   PL_1,
-   PL_2,
-   PL_3,
-   PL_4,
-   PL_5,
-   PL_6,
-   PL_7,
-   PL_8
-};
-
-#ifdef REPEAT_ENABLED
-   #ifndef REPEAT_DELAY
-      #define REPEAT_DELAY 100
-   #endif
-   #ifndef REPEAT_TERM
-      #define REPEAT_TERM 5
-   #endif
-   #include "repeat.c"
-#endif
-
-#ifdef QUICK_GAME_TYPE_ENABLED
-   #include "quick_game_type.c"
-#endif
-
-#ifdef DIABLO_PLAYERS_CHANGE_ENABLED
-   #include "diablo_player_change.c"
-#endif
-
-// Shortcut to make keymap more readable
-#define SYM_L   MO(_SYMB)
-
-#define KC_ALAS LALT_T(KC_PAST)
-#define KC_CTPL LCTL_T(KC_BSLS)
-
-#define KC_NAGR LT(_NAV, KC_GRV)
-#define SYM_NAV LT(_NAV, KC_MINS)
-
-#define KC_ADEN LT(_ADJUST, KC_END)
-#define KC_ADPU LT(_ADJUST, KC_PGUP)
-
-// Layer Switch Shortcuts
-#define SYM_REC TO(_RECORE)
-#define SYM_Q TO(_QWERTY)
-#define SYM_DIA TO(_DIABLO)
-#define PL_C OSL(_PLAYERS)
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-   #ifdef DIABLO_PLAYERS_CHANGE_ENABLED
-   if (!process_diablo_player_change(keycode, record)) {
-      return false;
-   }
-   #endif
-
-   #ifdef QUICK_GAME_TYPE_ENABLED
-   if (!process_quick_game_type(keycode, record)) {
-      return false;
-   }
-   #endif
-
-   #ifdef REPEAT_ENABLED
-   if (!process_repeat_key(keycode, record)) {
-      return false;
-   }
-   #endif
-
-   return true;
-};
+#include "user_settings.c"
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -175,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //┌────────┬────────┬────────┬────────┬────────┬────────┬── L1 ──┬── X1 ──┐┌── X1 ──┬── L1 ──┬────────┬────────┬────────┬────────┬────────┬────────┐
    KC_TRNS ,KC_NO   ,KC_NO   ,KC_UP   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   , KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_UP   ,KC_NO   ,KC_NO   ,QK_BOOT ,
 //├────────┼────────┼────────┼────────┼────────┼────────┼── X2 ──┼── X3 ──┤├── X3 ──┼── X2 ──┼────────┼────────┼────────┼────────┼────────┼────────┤
-   KC_TRNS ,KC_NO   ,KC_NO   ,KC_UP   ,DE_LABK ,KC_NO   ,KC_NO   ,KC_NO   , KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_UP   ,KC_NO   ,KC_NO   ,KC_NO   ,
+   KC_TRNS ,KC_NO   ,KC_NO   ,KC_UP   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   , KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_UP   ,KC_NO   ,KC_NO   ,KC_NO   ,
 //├────────┼────────┼────────┼────────┼────────┼────────┴────────┴────────┤├────────┼────────┼────────┼────────┼────────┼────────┴────────┴────────┤
    KC_TRNS ,KC_LEFT ,KC_LEFT ,KC_DOWN ,KC_RIGHT,KC_RIGHT,                                     KC_LEFT ,KC_LEFT ,KC_DOWN ,KC_RIGHT,KC_RIGHT,KC_NO   ,
 //├────────┼────────┼────────┼────────┼────────┼────────┬────────┬────────┤├────────┬────────┬────────┼────────┼────────┼────────┼────────┼────────┤
@@ -222,7 +112,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┘└────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
    PL_C    ,KC_PMNS ,KC_PLUS ,KC_DOT  ,KC_ALAS ,KC_LSFT ,KC_LCTL ,                   CTT     ,KC_SPC  ,KC_RALT ,KC_LEFT ,KC_DOWN ,KC_UP   ,KC_RGHT 
 //└────────┴────────┴── T1 ──┴── T2 ──┴── T3 ──┴── T4 ──┴── T5 ──┘                  └── T5 ──┴── T4 ──┴── T3 ──┴── T2 ──┴── T1 ──┴────────┴────────┘
-    ),
+    )
+   #ifdef DIABLO_PLAYERS_CHANGE_ENABLED
+   ,
     [_PLAYERS] = LAYOUT_recore(
 //┌────────┬────────┬────────┬────────┬────────┬────────┬── L1 ──┬── X1 ──┐┌── X1 ──┬── L1 ──┬────────┬────────┬────────┬────────┬────────┬────────┐
    PL_8    ,PL_1    ,PL_2    ,PL_3    ,PL_4    ,PL_5    ,PL_6    ,PL_7    , KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,
@@ -236,33 +128,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    XXXXXXX ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,                   KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS 
 //└────────┴────────┴── T1 ──┴── T2 ──┴── T3 ──┴── T4 ──┴── T5 ──┘                  └── T5 ──┴── T4 ──┴── T3 ──┴── T2 ──┴── T1 ──┴────────┴────────┘
     )
+   #endif
 };
 
 // Light adjustments
 #ifdef RGBLIGHT_ENABLE
-
-void keyboard_post_init_user(void) {
-  rgblight_enable(); // Enables RGB
-  rgblight_sethsv(HSV_YELLOW);
-  rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
-}
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-   uint8_t layer = biton32(state);
-   switch (layer) {
-      case _QWERTY:
-         rgblight_sethsv(HSV_YELLOW);
-         break;
-      case _RECORE:
-         rgblight_sethsv(HSV_CYAN);
-         break;
-      case _DIABLO:
-         rgblight_sethsv(HSV_RED);
-         break;
-      case _TEMPRTY:         
-         rgblight_sethsv(HSV_GREEN);
-         break;
-   }
-   return state;
-}
+#include "color_user_layer_settings.c"
 #endif
