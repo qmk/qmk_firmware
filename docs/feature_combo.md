@@ -345,17 +345,15 @@ is not set, all other layers will reference themselves.
         }
         return layer;  // important if default is not in case.
     }
-
     ```
-    
-    The equivalent definition using the combo macros is this: 
+
+The equivalent definition using the combo macros is this:
 
     ```c
     COMBO_REF_LAYER(_DVORAK, _QWERTY)
     COMBO_REF_LAYER(_NAV, _NAV)
     DEFAULT_REF_LAYER(_MY_COMBO_LAYER).
     ```
-    
 
 ## User callbacks
 

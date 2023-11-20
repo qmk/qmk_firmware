@@ -144,8 +144,8 @@ Replace `username.json` with the JSON file name that was downloaded from [QMK Co
 If you have completed all steps correctly, the folder `qmk_keymap/` will contain the following files:
 ```
 |-- .github
-|   `-- workflows
-|       `-- build.yml
+|   -- workflows
+|       -- build.yml
 |-- rules.mk
 |-- config.h
 |-- source.c
