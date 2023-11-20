@@ -21,6 +21,7 @@ void process_magic_key(uint16_t keycode, uint8_t mods) {
         double_magic_case(KC_M,
             magic_case(KC_P, "l");
             magic_case(KC_O, "st");
+            magic_case(KC_U, "sic");
         );
 
         double_magic_case(KC_W,
