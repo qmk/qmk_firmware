@@ -8,7 +8,7 @@
 * The space bar position switch can be interchanged with encoder module.
 
 
-The following is the QMK Firmware for the Destop 68% keylayout -  designed in Dongguan Jizhi Electronic Technology Co., Ltd
+The following is the QMK Firmware for the Destop 68 key layout -  designed in Dongguan Jizhi Electronic Technology Co., Ltd
 
 * Keyboard Maintainer: [NaturalZh](https://github.com/NaturalZh)
 * Hardware Supported: DestopPCB for Skyloong keylayout 68%, STM32F103C8T6
