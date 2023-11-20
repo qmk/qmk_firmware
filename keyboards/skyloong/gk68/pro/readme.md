@@ -1,6 +1,6 @@
 # GK68 PRO
 
-![GK68 PRO](https://i.imgur.com/DTetyVLh.jpg)
+![GK68 PRO](https://i.imgur.com/YAFEoq7h.jpg)
 
 ## The PCB features:
 * QMK & VIA compatibility
