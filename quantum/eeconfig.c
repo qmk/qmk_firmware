@@ -6,7 +6,7 @@
 #include "action_layer.h"
 
 #ifdef RGB_MATRIX_ENABLE
-#   include "rgb_matrix_indicators.h"
+#    include "rgb_matrix_indicators.h"
 #endif
 
 #if defined(EEPROM_DRIVER)

@@ -342,7 +342,7 @@ static void rgb_task_render(uint8_t effect) {
     bool rendering = false;
 
     rgb_effect_params.init = (effect != rgb_last_effect) || (rgb_matrix_config.enable != rgb_last_enable);
-    if(rgb_effect_params.init) rgb_matrix_set_color_all(0, 0, 0);
+    if (rgb_effect_params.init) rgb_matrix_set_color_all(0, 0, 0);
 
     if (rgb_effect_params.flags != rgb_matrix_config.flags) {
         rgb_effect_params.flags = rgb_matrix_config.flags;
@@ -417,8 +417,8 @@ void rgb_matrix_task(void) {
                              (rgb_anykey_timer > (uint32_t)RGB_MATRIX_TIMEOUT) ||
 #endif // RGB_MATRIX_TIMEOUT > 0
                              false;
-    bool should_render_effect = !suspend_backlight && rgb_matrix_config.enable;
-    uint8_t effect = should_render_effect ? rgb_matrix_config.mode : RGB_MATRIX_NONE;
+    bool    should_render_effect = !suspend_backlight && rgb_matrix_config.enable;
+    uint8_t effect               = should_render_effect ? rgb_matrix_config.mode : RGB_MATRIX_NONE;
 
     switch (rgb_task_state) {
         case STARTING:

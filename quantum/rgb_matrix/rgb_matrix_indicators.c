@@ -14,7 +14,7 @@ static t_rgb_matrix_indicator_config rgb_matrix_indicators_config;
 EECONFIG_DEBOUNCE_HELPER(rgb_matrix_indicators, EECONFIG_RGB_MATRIX_INDICATORS, rgb_matrix_indicators_config);
 
 static void eeconfig_update_rgb_matrix_indicators_default(void) {
-    rgb_matrix_indicators_config.initialised = true;
+    rgb_matrix_indicators_config.initialised   = true;
     rgb_matrix_indicators_config.matcher_count = RGB_INDICATOR_MATCHERS_COUNT;
     memcpy(rgb_matrix_indicators_config.matchers, default_matchers, RGB_INDICATOR_MATCHERS_COUNT * sizeof(t_rgb_indicator_matcher));
     eeconfig_flush_rgb_matrix_indicators(true);
@@ -42,16 +42,11 @@ void rgb_matrix_indicators(void) {
             dprintf("LED %d is out of range of the rgb matrix configuration\n", matcher.led_index);
         } else if (!(g_led_config.flags[matcher.led_index] & LED_FLAG_INDICATOR)) {
             dprintf("LED %d is not configured as an indicator but has indicator config provided\n", matcher.led_index);
-        } else if((matcher.led_state.raw & led_state.raw) == matcher.led_state.raw) {
+        } else if ((matcher.led_state.raw & led_state.raw) == matcher.led_state.raw) {
             uint8_t clamped_v = matcher.color.v;
-            if(!matcher.override_brightness_limit && matcher.color.v > rgb_matrix_config.hsv.v)
-                clamped_v = rgb_matrix_config.hsv.v;
-            HSV color_hsv = {
-                .h = matcher.color.h,
-                .s = matcher.color.s,
-                .v = clamped_v
-            };
-            RGB color = rgb_matrix_hsv_to_rgb(color_hsv);
+            if (!matcher.override_brightness_limit && matcher.color.v > rgb_matrix_config.hsv.v) clamped_v = rgb_matrix_config.hsv.v;
+            HSV color_hsv = {.h = matcher.color.h, .s = matcher.color.s, .v = clamped_v};
+            RGB color     = rgb_matrix_hsv_to_rgb(color_hsv);
             rgb_matrix_set_color(matcher.led_index, color.r, color.g, color.b);
         }
     }
@@ -100,11 +95,7 @@ int remove_rgb_matcher(uint8_t index) {
 
     uint8_t right_matchers_count = (rgb_matrix_indicators_config.matcher_count - 1) - index;
 
-    memcpy(
-        rgb_matrix_indicators_config.matchers + index, 
-        rgb_matrix_indicators_config.matchers + index + 1, 
-        sizeof(t_rgb_indicator_matcher) * right_matchers_count
-    );
+    memcpy(rgb_matrix_indicators_config.matchers + index, rgb_matrix_indicators_config.matchers + index + 1, sizeof(t_rgb_indicator_matcher) * right_matchers_count);
     rgb_matrix_indicators_config.matcher_count--;
 
     eeconfig_flush_rgb_matrix_indicators(true);
@@ -113,14 +104,14 @@ int remove_rgb_matcher(uint8_t index) {
 
 int save_rgb_matcher(uint8_t index, t_rgb_indicator_matcher matcher) {
     if (index >= rgb_matrix_indicators_config.matcher_count) return -1;
-    
+
     rgb_matrix_indicators_config.matchers[index] = matcher;
 
     eeconfig_flush_rgb_matrix_indicators(true);
     return 0;
 }
 
-int get_rgb_matcher(uint8_t index, t_rgb_indicator_matcher* matcher) {
+int get_rgb_matcher(uint8_t index, t_rgb_indicator_matcher *matcher) {
     if (index >= rgb_matrix_indicators_config.matcher_count) return -1;
     *matcher = rgb_matrix_indicators_config.matchers[index];
     return 0;

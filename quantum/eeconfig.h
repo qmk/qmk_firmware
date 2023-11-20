@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 
 #ifdef RGB_MATRIX_ENABLE
-#   include "rgb_matrix_indicators.h"
+#    include "rgb_matrix_indicators.h"
 #endif
 
 #ifndef EECONFIG_MAGIC_NUMBER
@@ -52,8 +52,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EECONFIG_RGBLIGHT_EXTENDED (uint8_t *)36
 
 #ifdef RGB_MATRIX_ENABLE
-    #define EECONFIG_RGB_MATRIX_INDICATORS (uint16_t *) (37)
-    #define EECONFIG_RGB_MATRIX_INDICATORS_SIZE (sizeof(t_rgb_matrix_indicator_config))
+#    define EECONFIG_RGB_MATRIX_INDICATORS (uint16_t *)(37)
+#    define EECONFIG_RGB_MATRIX_INDICATORS_SIZE (sizeof(t_rgb_matrix_indicator_config))
 #endif
 
 // Size of EEPROM being used for core data storage

@@ -7,33 +7,34 @@
 #include "rgb_matrix_types.h"
 
 #ifndef RGB_INDICATOR_MATCHERS_COUNT
-    #define RGB_INDICATOR_MATCHERS_COUNT 0
+#    define RGB_INDICATOR_MATCHERS_COUNT 0
 #endif
 
 #ifndef RGB_INDICATOR_MATCHERS_COUNT_MAX
-    #define RGB_INDICATOR_MATCHERS_COUNT_MAX RGB_INDICATOR_MATCHERS_COUNT
+#    define RGB_INDICATOR_MATCHERS_COUNT_MAX RGB_INDICATOR_MATCHERS_COUNT
 #endif
 
 #if RGB_INDICATOR_MATCHERS_COUNT > RGB_INDICATOR_MATCHERS_COUNT_MAX
-    #error Number of indicator matchers, exceeds the number of dynamic indicator matchers
+#    error Number of indicator matchers, exceeds the number of dynamic indicator matchers
 #endif
 
 #if !defined(RGB_INDICATOR_MATCHERS) && (RGB_INDICATOR_MATCHERS_COUNT == 0)
-    #define RGB_INDICATOR_MATCHERS {}
+#    define RGB_INDICATOR_MATCHERS \
+        {}
 #elif !defined(RGB_INDICATOR_MATCHERS)
-    #error No RGB indicator matchers have been defined, please define RGB_INDICATOR_MATCHERS
+#    error No RGB indicator matchers have been defined, please define RGB_INDICATOR_MATCHERS
 #endif
 
 typedef struct PACKED {
-    int led_index;
-    led_t led_state;
-    HSV color;
-    bool override_brightness_limit;
+    int   led_index;                 // 4
+    led_t led_state;                 // 8
+    HSV   color;                     // 8*3
+    bool  override_brightness_limit; //
 } t_rgb_indicator_matcher;
 
 typedef struct PACKED {
-    bool initialised;
-    uint8_t matcher_count;
+    bool                    initialised;
+    uint8_t                 matcher_count;
     t_rgb_indicator_matcher matchers[RGB_INDICATOR_MATCHERS_COUNT_MAX];
 } t_rgb_matrix_indicator_config;
 
@@ -56,6 +57,6 @@ int remove_rgb_matcher(uint8_t index);
 // Save over existing rgb matcher, returns 0 on success or -1 if matcher does not exist
 int save_rgb_matcher(uint8_t index, t_rgb_indicator_matcher matcher);
 // Fetch current rgb matcher, populates provided matcher pointer, returns 0 on success or -1 if matcher does not exist
-int get_rgb_matcher(uint8_t index, t_rgb_indicator_matcher* matcher);
+int get_rgb_matcher(uint8_t index, t_rgb_indicator_matcher *matcher);
 // Get number of rgb matchers
 uint8_t number_of_rgb_matchers(void);
