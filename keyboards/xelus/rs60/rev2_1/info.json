@@ -9,7 +9,8 @@
     },
     "diode_direction": "COL2ROW",
     "indicators": {
-        "caps_lock": "A1"
+        "caps_lock": "A1",
+        "on_state": 0
     },
     "processor": "STM32L412",
     "bootloader": "stm32-dfu",

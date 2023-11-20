@@ -15,7 +15,7 @@
     "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
-            {"pin_a": "C3", "pin_b": "C2"}
+            {"pin_a": "C3", "pin_b": "C2", "resolution": 2}
         ]
     },
     "processor": "atmega32a",
@@ -247,9 +247,7 @@
 
                 {"matrix": [0, 13], "x": 14, "y": 0},
 
-                {"matrix": [6, 0], "x": 15.25, "y": 0},
-                {"matrix": [0, 14], "x": 16.25, "y": 0},
-                {"matrix": [6, 1], "x": 17.25, "y": 0},
+                {"matrix": [0, 14], "x": 15.5, "y": 0},
 
                 {"matrix": [1, 0], "x": 0, "y": 1.25},
                 {"matrix": [1, 1], "x": 1, "y": 1.25},

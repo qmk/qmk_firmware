@@ -17,23 +17,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-enum layers {
-    WIN_BASE = 0,
-    WIN_FN,
-    MAC_BASE,
-    MAC_FN
+enum layers { WIN_BASE = 0, WIN_FN, MAC_BASE, MAC_FN };
+
+enum custom_keycodes {
+    CMDQ_TOG = QK_KB_2 // TECH DEBT: Starts at QK_KB_2 to maintain ordering with VIA definitions. See #19884. Revert to QK_KB_0 when VIA catches up with QMK.
 };
 
-#define KC_TASK LGUI(KC_TAB)
-#define KC_FLXP LGUI(KC_E)
-#define TO_WINB TO(WIN_BASE)
-#define TO_MACB TO(MAC_BASE)
-#define MO_WINF MO(WIN_FN)
-#define MO_MACF MO(MAC_FN)
+#define KC_TASK LWIN(KC_TAB) // Open Task Manager
+#define KC_FLXP LWIN(KC_E)   // Open File Explorer
+#define DF_WINB DF(WIN_BASE) // Switch to WIN_BASE layer
+#define MO_WINF MO(WIN_FN)   // Toggle to WIN_FN layer
+#define DF_MACB DF(MAC_BASE) // Switch to MAX_BASE layer
+#define MO_MACF MO(MAC_FN)   // Toggle to MAC_FN layer
 
 // clang-format off
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
+// The GMMK Pro default layout is:
+//
 //      ESC      F1       F2       F3       F4       F5       F6       F7       F8       F9       F10      F11      F12	     Del          Rotary(Play/Pause)
 //      ~        1        2        3        4        5        6        7        8        9        0         -       (=)	     BackSpc           Home
 //      Tab      Q        W        E        R        T        Y        U        I        O        P        [        ]        \                 PgUp
@@ -55,236 +56,379 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Press Fn+N to toggle between 6KRO and NKRO. This setting is persisted to the EEPROM and thus persists between restarts.
     //
     // RGB and function keys are inspired by the Keychron Q1 layouts instead of using the default keys.
-    //
-    // KC_PAUS/KC_BRMU and KC_SCRL/KC_BRMD are aliases for the same keys, but their names reflect better the function in each layout.
+    // To clean the EEPROM, hold the ESC key while connecting the keyboard.
+
     [WIN_BASE] = LAYOUT(
-        KC_ESC,  KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,           KC_MUTE,
-        KC_GRV,  KC_1,     KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,          KC_HOME,
-        KC_TAB,  KC_Q,     KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,          KC_PGUP,
-        KC_CAPS, KC_A,     KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,           KC_PGDN,
+        KC_ESC,  KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR,          KC_MUTE,
+        KC_GRV,  KC_1,     KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,          KC_INS,
+        KC_TAB,  KC_Q,     KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,          KC_DEL,
+        KC_CAPS, KC_A,     KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,           KC_HOME,
         KC_LSFT,           KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT, KC_UP,   KC_END,
-        KC_LCTL, KC_LGUI,  KC_LALT,                            KC_SPC,                             KC_RALT, MO_WINF, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
+        KC_LCTL, KC_LWIN,  KC_LALT,                            KC_SPC,                             KC_RALT, MO_WINF, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
     [WIN_FN] = LAYOUT(
-        _______, KC_BRID,  KC_BRIU, KC_TASK, KC_FLXP, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX, KC_INS,           XXXXXXX,
-        XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          KC_PSCR,
-        RGB_TOG, RGB_MOD,  RGB_VAI, RGB_HUI, RGB_SAI, RGB_SPI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,          KC_PAUS,
-        TO_MACB, RGB_RMOD, RGB_VAD, RGB_HUD, RGB_SAD, RGB_SPD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,          KC_SCRL,
-        _______,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, NK_TOGG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX,
-        _______, _______,  _______,                            XXXXXXX,                            _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX
+        EE_CLR,  KC_BRID,  KC_BRIU, KC_TASK, KC_FLXP, RGB_VAD, RGB_VAI, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX,          XXXXXXX,
+        XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          KC_PAUS,
+        RGB_TOG, RGB_MOD,  RGB_HUI, RGB_SAI, RGB_SPI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,          KC_SCRL,
+        DF_MACB, RGB_RMOD, RGB_HUD, RGB_SAD, RGB_SPD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,          KC_PGUP,
+        XXXXXXX,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, NK_TOGG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, KC_PGDN,
+        XXXXXXX, XXXXXXX,  XXXXXXX,                            XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     ),
 
     [MAC_BASE] = LAYOUT(
-        KC_ESC,  KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,           KC_MUTE,
-        KC_GRV,  KC_1,     KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,          KC_HOME,
-        KC_TAB,  KC_Q,     KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,          KC_PGUP,
-        KC_CAPS, KC_A,     KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,           KC_PGDN,
+        KC_ESC,  KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR,          KC_MUTE,
+        KC_GRV,  KC_1,     KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,          KC_INS,
+        KC_TAB,  KC_Q,     KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,          KC_DEL,
+        KC_CAPS, KC_A,     KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,           KC_HOME,
         KC_LSFT,           KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT, KC_UP,   KC_END,
-        KC_LCTL, KC_LALT,  KC_LGUI,                            KC_SPC,                             KC_RALT, MO_MACF, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
+        KC_LCTL, KC_LOPT,  KC_LCMD,                            KC_SPC,                             KC_RCMD, MO_MACF, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
     [MAC_FN] = LAYOUT(
-        _______, KC_BRID,  KC_BRIU, KC_MCTL, KC_LPAD, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX, KC_INS,           XXXXXXX,
-        XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          KC_PSCR,
-        RGB_TOG, RGB_MOD,  RGB_VAI, RGB_HUI, RGB_SAI, RGB_SPI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,          KC_BRMU,
-        TO_WINB, RGB_RMOD, RGB_VAD, RGB_HUD, RGB_SAD, RGB_SPD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,          KC_BRMD,
-        _______,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, NK_TOGG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX,
-        _______, _______,  _______,                            XXXXXXX,                            _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX
+        EE_CLR,  KC_BRID,  KC_BRIU, KC_MCTL, KC_LPAD, RGB_VAD, RGB_VAI, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX,          XXXXXXX,
+        XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          KC_BRMU,
+        RGB_TOG, RGB_MOD,  RGB_HUI, RGB_SAI, RGB_SPI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,          KC_BRMD,
+        DF_WINB, RGB_RMOD, RGB_HUD, RGB_SAD, RGB_SPD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,          KC_PGUP,
+        XXXXXXX,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, NK_TOGG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, KC_PGDN,
+        XXXXXXX, XXXXXXX,  CMDQ_TOG,                           XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     )
 };
 // clang-format on
 
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [WIN_BASE] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+    [WIN_FN]   = {ENCODER_CCW_CW(XXXXXXX, XXXXXXX)},
+    [MAC_BASE] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+    [MAC_FN]   = {ENCODER_CCW_CW(XXXXXXX, XXXXXXX)},
+};
+#endif
+
+/* To record user preferences */
+typedef union {
+    uint32_t raw; // set to 32-bit of size
+    struct {
+        bool rgb_enabled : 1;         // Artificial RGB ON/OFF flag (1 bit)
+        bool cmd_q_delay_enabled : 1; // Toggle CMD+Q delay (1 bit)
+    };
+} user_config_t;
+user_config_t user_config;
+
+/* Delayed keypresses variables and functions */
+static fast_timer_t delayed_press_delay        = 0;
+static uint16_t     delayed_press_keycode      = KC_NO;
+static fast_timer_t delayed_press_start_time   = 0;
+static uint16_t     delayed_press_sent_keycode = KC_NO;
+static void         start_delayed_press(fast_timer_t delay, uint16_t keycode);
+static void         mark_delayed_press_sent(void);
+static void         mark_delayed_release_sent(void);
+static void         cancel_delayed_press(void);
+
+#define IS_ANY_DELAYED_PRESS_PENDING() (delayed_press_start_time > 0 && delayed_press_keycode != KC_NO)
+#define IS_DELAYED_PRESS_PENDING(keycode) (delayed_press_start_time > 0 && delayed_press_keycode == (keycode))
+#define IS_DELAYED_PRESS_SENT(keycode) (delayed_press_sent_keycode != KC_NO && delayed_press_sent_keycode == (keycode))
+
+/* CMD+Q delay */
+#ifndef CMD_Q_DELAY
+#    define CMD_Q_DELAY 1000
+#endif
+#if CMD_Q_DELAY <= 0 || CMD_Q_DELAY >= UINT16_MAX / 2
+#    error "CMD_Q_DELAY must be a positive integer smaller than UINT16_MAX / 2"
+#endif
+
 #ifdef RGB_MATRIX_ENABLE
 
-/* Renaming those to make the purpose on this keymap clearer */
-#define LED_FLAG_CAPS LED_FLAG_NONE
-#define LED_FLAG_EFFECTS LED_FLAG_INDICATOR
+#    define CAPS_LOCK_COLOR RGB_RED
+#    define WIN_BASE_COLOR RGB_BLUE
+#    define WIN_FN_COLOR RGB_BLUE
+#    define MAC_BASE_COLOR RGB_WHITE
+#    define MAC_FN_COLOR RGB_WHITE
+#    define UNKNOWN_LAYER_COLOR RGB_PINK
 
-static void set_rgb_caps_leds(void);
+/* The maximum effects duration */
+#    ifndef EFFECTS_DURATION
+#        define EFFECTS_DURATION 2000
+#    endif
+#    if EFFECTS_DURATION <= 0 || EFFECTS_DURATION >= UINT16_MAX / 2
+#        error "EFFECTS_DURATION must be a positive integer smaller than UINT16_MAX / 2"
+#    endif
+/* The interval for the flashing effect */
+#    ifndef FLASHING_EFFECT_INTERVAL
+#        define FLASHING_EFFECT_INTERVAL 250
+#    endif
+#    if FLASHING_EFFECT_INTERVAL <= 0 || FLASHING_EFFECT_INTERVAL >= UINT16_MAX / 2
+#        error "FLASHING_EFFECT_INTERVAL must be a positive integer smaller than UINT16_MAX / 2"
+#    endif
 
-static uint16_t effect_started_time = 0;
-static uint8_t r_effect = 0x0, g_effect = 0x0, b_effect = 0x0;
-static void start_effects(void);
+static void set_rgb_layer_winfn(void);
+static void set_rgb_layer_macfn(void);
 
-/* The interval time in ms */
-#ifndef EFFECTS_TIME
-    #define EFFECTS_TIME 2000
-#endif
-#ifndef EFFECTS_INTERVAL
-    #define EFFECTS_INTERVAL 250
-#endif
-#if EFFECTS_TIME <= 0 || EFFECTS_TIME >= 32767
-    #error "EFFECTS_TIME must be a positive integer smaller than 32767"
-#endif
-#if EFFECTS_INTERVAL <= 0 || EFFECTS_INTERVAL >= 32767
-    #error "EFFECTS_INTERVAL must be a positive integer smaller than 32767"
-#endif
-#define effect_red() r_effect = 0xFF, g_effect = 0x0, b_effect = 0x0
-#define effect_green() r_effect = 0x0, g_effect = 0xFF, b_effect = 0x0
-#define effect_blue() r_effect = 0x0, g_effect = 0x0, b_effect = 0xFF
-#define effect_white() r_effect = 0xFF, g_effect = 0xFF, b_effect = 0xFF
+/* Effects functions */
+static float flashing_effect(fast_timer_t delta_time);
+static float static_effect(fast_timer_t delta_time);
+static float increasing_effect(fast_timer_t delta_time);
 
-static uint8_t previous_effect_layer = 255;
+/* Effect variables and functions */
+static fast_timer_t effect_started_time = 0;
+static fast_timer_t effect_max_duration = EFFECTS_DURATION;
+static uint8_t      effect_r = 0x0, effect_g = 0x0, effect_b = 0x0;
+static float (*effect_multiplier)(fast_timer_t) = static_effect;
+static void start_effects(fast_timer_t max_duration, uint8_t r_color, uint8_t g_color, uint8_t b_color, float (*multiplier)(fast_timer_t));
+static void stop_effects(void);
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-    uint8_t current_layer = get_highest_layer(state);
-    switch (current_layer) {
-        case WIN_BASE:
-            if (previous_effect_layer != current_layer) {
-                previous_effect_layer = current_layer;
-                effect_blue();
-                start_effects();
-            }
-            break;
-        case MAC_BASE:
-            if (previous_effect_layer != current_layer) {
-                previous_effect_layer = current_layer;
-                effect_white();
-                start_effects();
-            }
-            break;
-    }
-    return state;
-}
-
-bool led_update_user(led_t led_state) {
-    if (led_state.caps_lock) {
-        if (!rgb_matrix_is_enabled()) {
-            /* Turn ON the RGB Matrix for CAPS LOCK */
-            rgb_matrix_set_flags(LED_FLAG_CAPS);
-            rgb_matrix_enable();
-        }
-    } else if (rgb_matrix_get_flags() == LED_FLAG_CAPS) {
-        /* RGB Matrix was only ON because of CAPS LOCK. Turn it OFF. */
-        rgb_matrix_set_flags(LED_FLAG_ALL);
-        rgb_matrix_disable();
-    }
-    return true;
-}
+/* Delayed keypresses variables with RGB variant */
+static void start_delayed_press_with_effects(fast_timer_t delay, uint16_t keycode, uint8_t r_color, uint8_t g_color, uint8_t b_color);
 
 #endif // RGB_MATRIX_ENABLE
 
+void eeconfig_init_user(void) { // EEPROM is getting reset!
+    user_config.raw                 = 0;
+    user_config.rgb_enabled         = true; // We want this enabled by default
+    user_config.cmd_q_delay_enabled = true; // We want this enabled by default
+    eeconfig_update_user(user_config.raw);  // Write default value to EEPROM now
+}
+
+void keyboard_post_init_user(void) {
+#ifdef RGB_MATRIX_ENABLE
+    // Enable the RGB matrix, if not enabled
+    if (!rgb_matrix_is_enabled()) {
+        rgb_matrix_enable();
+    }
+    // Set the flags to ALL, if not already set
+    if (rgb_matrix_get_flags() != LED_FLAG_ALL) {
+        rgb_matrix_set_flags(LED_FLAG_ALL);
+    }
+#endif
+
+    // Read the user config from EEPROM
+    user_config.raw = eeconfig_read_user();
+}
+
+void matrix_scan_user(void) {
+    if (IS_ANY_DELAYED_PRESS_PENDING()) {
+        if (timer_elapsed_fast(delayed_press_start_time) > delayed_press_delay) {
+            register_code(delayed_press_keycode);
+            mark_delayed_press_sent();
+        }
+    }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (IS_DELAYED_PRESS_SENT(keycode)) {
+        if (!record->event.pressed) {
+            /* Send key-up event and clear the keycode and stop processing */
+            unregister_code(keycode);
+            mark_delayed_release_sent();
+            return false;
+        }
+    } else if (IS_DELAYED_PRESS_PENDING(keycode)) {
+        if (!record->event.pressed) {
+            /* Cancel the pending press and stop processing */
+            cancel_delayed_press();
+            return false;
+        }
+    } else if (IS_ANY_DELAYED_PRESS_PENDING()) {
+        /* Cancel the pending press and resume processing */
+        cancel_delayed_press();
+    }
     switch (keycode) {
-    #ifdef RGB_MATRIX_ENABLE
-    #ifdef NKRO_ENABLE
-        case NK_TOGG:
+        case QK_DEF_LAYER ... QK_DEF_LAYER_MAX:
             if (record->event.pressed) {
-                if (keymap_config.nkro) {
-                    /* Turning NKRO OFF */
-                    effect_red();
+                /* Set the default layout on the EEPROM, let the default layer change callback handle the rest */
+                set_single_persistent_default_layer(QK_DEF_LAYER_GET_LAYER(keycode));
+            }
+            return false;
+        case CMDQ_TOG:
+            if (record->event.pressed) {
+#ifdef RGB_MATRIX_ENABLE
+                if (user_config.cmd_q_delay_enabled) {
+                    /* Turning delay OFF */
+                    start_effects(EFFECTS_DURATION, RGB_RED, flashing_effect);
                 } else {
-                    /* Turning NKRO ON */
-                    effect_green();
+                    /* Turning delay ON */
+                    start_effects(EFFECTS_DURATION, RGB_GREEN, flashing_effect);
                 }
-                start_effects();
+#endif
+                user_config.cmd_q_delay_enabled = !user_config.cmd_q_delay_enabled;
+                eeconfig_update_user(user_config.raw);
             }
-            break;
-    #endif // NKRO_ENABLE
-        case RGB_MOD:
-        case RGB_RMOD:
-        case RGB_HUI:
-        case RGB_HUD:
-        case RGB_SAI:
-        case RGB_SAD:
-        case RGB_VAI:
-        case RGB_VAD:
-        case RGB_SPI:
-        case RGB_SPD:
-            if (record->event.pressed) {
-                if (rgb_matrix_get_flags() != LED_FLAG_ALL) {
-                    /* Ignore changes to RGB settings while only it's supposed to be OFF */
-                    return false;  // Skip all further processing of this key
-                }
-            }
-            break;
-        case RGB_TOG:
-            if (record->event.pressed) {
-                if (rgb_matrix_is_enabled()) {
-                    switch (rgb_matrix_get_flags()) {
-                        case LED_FLAG_EFFECTS:
-                        case LED_FLAG_CAPS:
-                            /* Turned ON because of EFFECTS or CAPS, is actually OFF */
-                            /* Change to LED_FLAG_ALL to signal it's really ON */
-                            rgb_matrix_set_flags(LED_FLAG_ALL);
-                            /* Will be re-enabled by the processing of the toggle */
-                            rgb_matrix_disable_noeeprom();
-                            break;
-                        case LED_FLAG_ALL:
-                            /* Is actually ON */
-                            if (effect_started_time > 0) {
-                                /* Signal EFFECTS */
-                                rgb_matrix_set_flags(LED_FLAG_EFFECTS);
-                                /* Will be re-enabled by the processing of the toggle */
-                                rgb_matrix_disable_noeeprom();
-                            } else
-                            if (host_keyboard_led_state().caps_lock) {
-                                /* Signal CAPS */
-                                rgb_matrix_set_flags(LED_FLAG_CAPS);
-                                /* Will be re-enabled by the processing of the toggle */
-                                rgb_matrix_disable_noeeprom();
-                            }
-                            break;
+            return false;
+        case KC_Q:
+            if (user_config.cmd_q_delay_enabled) {
+                if (layer_state_is(MAC_BASE)) {
+                    uint8_t mods = get_mods();
+                    if (mods == MOD_BIT(KC_LCMD) || mods == MOD_BIT(KC_RCMD)) {
+                        if (record->event.pressed) {
+#ifdef RGB_MATRIX_ENABLE
+                            start_delayed_press_with_effects(CMD_Q_DELAY, KC_Q, RGB_ORANGE);
+#else
+                            start_delayed_press(CMD_Q_DELAY, KC_Q);
+#endif
+                        }
+                        return false;
                     }
                 }
             }
             break;
-    #endif // RGB_MATRIX_ENABLE
+#ifdef RGB_MATRIX_ENABLE
+#    ifdef NKRO_ENABLE
+        case NK_TOGG:
+            if (record->event.pressed) {
+                if (keymap_config.nkro) {
+                    /* Turning NKRO OFF */
+                    start_effects(EFFECTS_DURATION, RGB_RED, flashing_effect);
+                } else {
+                    /* Turning NKRO ON */
+                    start_effects(EFFECTS_DURATION, RGB_GREEN, flashing_effect);
+                }
+            }
+            break;
+#    endif // NKRO_ENABLE
+        case RGB_TOG:
+            if (record->event.pressed) {
+                user_config.rgb_enabled = !user_config.rgb_enabled;
+                eeconfig_update_user(user_config.raw);
+            }
+            return false;
+        case RGB_MODE_FORWARD ... RGB_MODE_TWINKLE:
+            if (!user_config.rgb_enabled) {
+                /* Ignore changes to RGB settings while only it's supposed to be OFF */
+                return false; // Skip all further processing of this key
+            }
+            break;
+#endif // RGB_MATRIX_ENABLE
     }
     return true;
 }
 
-#ifdef RGB_MATRIX_ENABLE
-bool rgb_matrix_indicators_user(void) {
-    if (effect_started_time > 0) {
-        /* Render blinking EFFECTS */
-        const uint16_t deltaTime = sync_timer_elapsed(effect_started_time);
-        if (deltaTime <= EFFECTS_TIME) {
-            const uint8_t led_state = ((deltaTime / EFFECTS_INTERVAL) + 1) & 0x01;
-            const uint8_t val_r = led_state * r_effect;
-            const uint8_t val_g = led_state * g_effect;
-            const uint8_t val_b = led_state * b_effect;
-            rgb_matrix_set_color_all(val_r, val_g, val_b);
-            if (host_keyboard_led_state().caps_lock) {
-                set_rgb_caps_leds();
-            }
-            return false;
-        } else {
-            /* EFFECTS duration is finished */
-            effect_started_time = 0;
-            if (rgb_matrix_get_flags() == LED_FLAG_EFFECTS) {
-                /* It was turned ON because of EFFECTS */
-                if (host_keyboard_led_state().caps_lock) {
-                    /* CAPS is still ON. Demote to CAPS */
-                    rgb_matrix_set_flags(LED_FLAG_CAPS);
-                } else {
-                    /* There is nothing else keeping RGB enabled. Reset flags and turn if off. */
-                    rgb_matrix_set_flags(LED_FLAG_ALL);
-                    rgb_matrix_disable_noeeprom();
-                }
-            }
-        }
-    }
-    if (rgb_matrix_get_flags() == LED_FLAG_CAPS) {
-        rgb_matrix_set_color_all(0x0, 0x0, 0x0);
-    }
-    if (host_keyboard_led_state().caps_lock) {
-        set_rgb_caps_leds();
-    }
-    return false;
+static void start_delayed_press(fast_timer_t delay, uint16_t keycode) {
+    delayed_press_delay        = delay;
+    delayed_press_keycode      = keycode;
+    delayed_press_start_time   = timer_read_fast();
+    delayed_press_sent_keycode = KC_NO;
 }
 
-static void start_effects(void) {
-    effect_started_time = sync_timer_read();
-    if (!rgb_matrix_is_enabled()) {
-        /* Turn it ON, signal the cause (EFFECTS) */
-        rgb_matrix_set_flags(LED_FLAG_EFFECTS);
-        rgb_matrix_enable_noeeprom();
-    } else if (rgb_matrix_get_flags() == LED_FLAG_CAPS) {
-        /* It's already ON, promote the cause from CAPS to EFFECTS */
-        rgb_matrix_set_flags(LED_FLAG_EFFECTS);
+static void mark_delayed_press_sent(void) {
+    delayed_press_sent_keycode = delayed_press_keycode;
+    cancel_delayed_press();
+}
+
+static void mark_delayed_release_sent(void) {
+    delayed_press_sent_keycode = KC_NO;
+}
+
+static void cancel_delayed_press(void) {
+    delayed_press_delay      = 0;
+    delayed_press_keycode    = KC_NO;
+    delayed_press_start_time = 0;
+#ifdef RGB_MATRIX_ENABLE
+    stop_effects();
+#endif
+}
+
+#ifdef RGB_MATRIX_ENABLE
+
+static void start_delayed_press_with_effects(fast_timer_t delay, uint16_t keycode, uint8_t r_color, uint8_t g_color, uint8_t b_color) {
+    start_delayed_press(delay, keycode);
+    start_effects(delay, r_color, g_color, b_color, increasing_effect);
+}
+
+/*
+Effects when switching layers
+*/
+
+static uint8_t previous_layer = UINT8_MAX;
+
+layer_state_t default_layer_state_set_user(layer_state_t state) {
+    uint8_t current_layer = get_highest_layer(state);
+    if (previous_layer != current_layer) {
+        // For some reason, setting the default layer alone doesn't change it fully
+        layer_move(current_layer);
+        switch (current_layer) {
+            case WIN_BASE:
+                start_effects(EFFECTS_DURATION, WIN_BASE_COLOR, flashing_effect);
+                break;
+            case MAC_BASE:
+                start_effects(EFFECTS_DURATION, MAC_BASE_COLOR, flashing_effect);
+                break;
+            default:
+                // This should not ever happen, but let's display something if it does!
+                start_effects(EFFECTS_DURATION, UNKNOWN_LAYER_COLOR, static_effect);
+                break;
+        }
+        previous_layer = current_layer;
     }
+    return state;
+}
+
+static void start_effects(fast_timer_t max_duration, uint8_t r_color, uint8_t g_color, uint8_t b_color, float (*multiplier)(fast_timer_t)) {
+    effect_r            = r_color;
+    effect_g            = g_color;
+    effect_b            = b_color;
+    effect_multiplier   = multiplier;
+    effect_max_duration = max_duration;
+    effect_started_time = timer_read_fast();
+}
+
+static void stop_effects(void) {
+    effect_r            = 0x0;
+    effect_g            = 0x0;
+    effect_b            = 0x0;
+    effect_multiplier   = static_effect;
+    effect_max_duration = EFFECTS_DURATION;
+    effect_started_time = 0;
+}
+
+static float flashing_effect(fast_timer_t delta_time) {
+    return ((delta_time / FLASHING_EFFECT_INTERVAL) + 1) & 0x01;
+}
+
+static float static_effect(fast_timer_t delta_time) {
+    return 1.0;
+}
+
+static float increasing_effect(fast_timer_t delta_time) {
+    return ((float)delta_time) / effect_max_duration;
+}
+
+bool rgb_matrix_indicators_user(void) {
+    if (effect_started_time > 0) {
+        fast_timer_t delta_time = timer_elapsed_fast(effect_started_time);
+        if (delta_time <= effect_max_duration) {
+            /* Render effect */
+            float   multiplier = effect_multiplier(delta_time);
+            uint8_t val_r      = multiplier * effect_r;
+            uint8_t val_g      = multiplier * effect_g;
+            uint8_t val_b      = multiplier * effect_b;
+            rgb_matrix_set_color_all(val_r, val_g, val_b);
+            return false;
+        } else {
+            /* Effect duration is finished */
+            stop_effects();
+        }
+    }
+    if (host_keyboard_led_state().caps_lock) {
+        rgb_matrix_set_color_all(CAPS_LOCK_COLOR);
+    } else if (!user_config.rgb_enabled) {
+        rgb_matrix_set_color_all(RGB_OFF);
+    }
+    switch (get_highest_layer(layer_state)) {
+        case WIN_BASE:
+        case MAC_BASE:
+            break;
+        case WIN_FN:
+            set_rgb_layer_winfn();
+            return false;
+        case MAC_FN:
+            set_rgb_layer_macfn();
+            return false;
+        default:
+            // This should never happen, but if it does, let's display something!
+            rgb_matrix_set_color_all(UNKNOWN_LAYER_COLOR);
+            return false;
+    }
+    return true;
 }
 
 // RGB led number layout, function of the key
@@ -298,38 +442,69 @@ static void start_effects(void) {
 //  87, led 07                                                                                                                                                                      88, led 18
 //  91, led 08                                                                                                                                                                      92, led 19
 
-static void set_rgb_caps_leds(void) {
-    rgb_matrix_set_color(0, 0xFF, 0x0, 0x0); // ESC
-    rgb_matrix_set_color(6, 0xFF, 0x0, 0x0); // F1
-    rgb_matrix_set_color(12, 0xFF, 0x0, 0x0); // F2
-    rgb_matrix_set_color(18, 0xFF, 0x0, 0x0); // F3
-    rgb_matrix_set_color(23, 0xFF, 0x0, 0x0); // F4
-    rgb_matrix_set_color(28, 0xFF, 0x0, 0x0); // F5
-    rgb_matrix_set_color(34, 0xFF, 0x0, 0x0); // F6
-    rgb_matrix_set_color(39, 0xFF, 0x0, 0x0); // F7
-    rgb_matrix_set_color(44, 0xFF, 0x0, 0x0); // F8
-    rgb_matrix_set_color(50, 0xFF, 0x0, 0x0); // F9
-    rgb_matrix_set_color(56, 0xFF, 0x0, 0x0); // F10
-    rgb_matrix_set_color(61, 0xFF, 0x0, 0x0); // F11
-    rgb_matrix_set_color(66, 0xFF, 0x0, 0x0); // F12
-    rgb_matrix_set_color(69, 0xFF, 0x0, 0x0); // Prt
-    rgb_matrix_set_color(67, 0xFF, 0x0, 0x0); // Left side LED 1
-    rgb_matrix_set_color(68, 0xFF, 0x0, 0x0); // Right side LED 1
-    rgb_matrix_set_color(70, 0xFF, 0x0, 0x0); // Left side LED 2
-    rgb_matrix_set_color(71, 0xFF, 0x0, 0x0); // Right side LED 2
-    rgb_matrix_set_color(73, 0xFF, 0x0, 0x0); // Left side LED 3
-    rgb_matrix_set_color(74, 0xFF, 0x0, 0x0); // Right side LED 3
-    rgb_matrix_set_color(76, 0xFF, 0x0, 0x0); // Left side LED 4
-    rgb_matrix_set_color(77, 0xFF, 0x0, 0x0); // Right side LED 4
-    rgb_matrix_set_color(80, 0xFF, 0x0, 0x0); // Left side LED 5
-    rgb_matrix_set_color(81, 0xFF, 0x0, 0x0); // Right side LED 5
-    rgb_matrix_set_color(83, 0xFF, 0x0, 0x0); // Left side LED 6
-    rgb_matrix_set_color(84, 0xFF, 0x0, 0x0); // Right side LED 6
-    rgb_matrix_set_color(87, 0xFF, 0x0, 0x0); // Left side LED 7
-    rgb_matrix_set_color(88, 0xFF, 0x0, 0x0); // Right side LED 7
-    rgb_matrix_set_color(91, 0xFF, 0x0, 0x0); // Left side LED 8
-    rgb_matrix_set_color(92, 0xFF, 0x0, 0x0); // Right side LED 8
-    rgb_matrix_set_color(3, 0xFF, 0x0, 0x0); // CAPS LED
+static void set_rgb_layer_winfn(void) {
+    rgb_matrix_set_color(0, WIN_FN_COLOR);
+    rgb_matrix_set_color(6, WIN_FN_COLOR);
+    rgb_matrix_set_color(12, WIN_FN_COLOR);
+    rgb_matrix_set_color(18, WIN_FN_COLOR);
+    rgb_matrix_set_color(23, WIN_FN_COLOR);
+    rgb_matrix_set_color(28, WIN_FN_COLOR);
+    rgb_matrix_set_color(34, WIN_FN_COLOR);
+    rgb_matrix_set_color(39, WIN_FN_COLOR);
+    rgb_matrix_set_color(44, WIN_FN_COLOR);
+    rgb_matrix_set_color(50, WIN_FN_COLOR);
+    rgb_matrix_set_color(56, WIN_FN_COLOR);
+    rgb_matrix_set_color(61, WIN_FN_COLOR);
+    rgb_matrix_set_color(66, WIN_FN_COLOR);
+    rgb_matrix_set_color(2, WIN_FN_COLOR);
+    rgb_matrix_set_color(3, WIN_FN_COLOR);
+    rgb_matrix_set_color(8, WIN_FN_COLOR);
+    rgb_matrix_set_color(9, WIN_FN_COLOR);
+    rgb_matrix_set_color(14, WIN_FN_COLOR);
+    rgb_matrix_set_color(15, WIN_FN_COLOR);
+    rgb_matrix_set_color(20, WIN_FN_COLOR);
+    rgb_matrix_set_color(21, WIN_FN_COLOR);
+    rgb_matrix_set_color(25, WIN_FN_COLOR);
+    rgb_matrix_set_color(26, WIN_FN_COLOR);
+    rgb_matrix_set_color(38, WIN_FN_COLOR);
+    rgb_matrix_set_color(93, WIN_FN_COLOR);
+    rgb_matrix_set_color(72, WIN_FN_COLOR);
+    rgb_matrix_set_color(75, WIN_FN_COLOR);
+    rgb_matrix_set_color(86, WIN_FN_COLOR);
+    rgb_matrix_set_color(82, WIN_FN_COLOR);
+}
+
+static void set_rgb_layer_macfn(void) {
+    rgb_matrix_set_color(0, MAC_FN_COLOR);
+    rgb_matrix_set_color(6, MAC_FN_COLOR);
+    rgb_matrix_set_color(12, MAC_FN_COLOR);
+    rgb_matrix_set_color(18, MAC_FN_COLOR);
+    rgb_matrix_set_color(23, MAC_FN_COLOR);
+    rgb_matrix_set_color(28, MAC_FN_COLOR);
+    rgb_matrix_set_color(34, MAC_FN_COLOR);
+    rgb_matrix_set_color(39, MAC_FN_COLOR);
+    rgb_matrix_set_color(44, MAC_FN_COLOR);
+    rgb_matrix_set_color(50, MAC_FN_COLOR);
+    rgb_matrix_set_color(56, MAC_FN_COLOR);
+    rgb_matrix_set_color(61, MAC_FN_COLOR);
+    rgb_matrix_set_color(66, MAC_FN_COLOR);
+    rgb_matrix_set_color(2, MAC_FN_COLOR);
+    rgb_matrix_set_color(3, MAC_FN_COLOR);
+    rgb_matrix_set_color(8, MAC_FN_COLOR);
+    rgb_matrix_set_color(9, MAC_FN_COLOR);
+    rgb_matrix_set_color(14, MAC_FN_COLOR);
+    rgb_matrix_set_color(15, MAC_FN_COLOR);
+    rgb_matrix_set_color(20, MAC_FN_COLOR);
+    rgb_matrix_set_color(21, MAC_FN_COLOR);
+    rgb_matrix_set_color(25, MAC_FN_COLOR);
+    rgb_matrix_set_color(26, MAC_FN_COLOR);
+    rgb_matrix_set_color(38, MAC_FN_COLOR);
+    rgb_matrix_set_color(93, MAC_FN_COLOR);
+    rgb_matrix_set_color(72, MAC_FN_COLOR);
+    rgb_matrix_set_color(75, MAC_FN_COLOR);
+    rgb_matrix_set_color(86, MAC_FN_COLOR);
+    rgb_matrix_set_color(82, MAC_FN_COLOR);
+    rgb_matrix_set_color(17, MAC_FN_COLOR);
 }
 
 #endif // RGB_MATRIX_ENABLE
