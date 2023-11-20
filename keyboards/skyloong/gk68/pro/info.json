@@ -143,7 +143,7 @@
         "vid": "0x1EA7",
         "max_power": 380
     },
-    "community_layouts": ["68_ansi"],
+    "community_layouts": ["65_ansi"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -223,7 +223,7 @@
                 {"label":"Right","matrix": [4, 14], "x": 15, "y": 4}
             ]
         },
-        "LAYOUT_68_ansi": {
+        "LAYOUT_65_ansi": {
             "layout": [
                 {"label":"ESC","matrix": [0, 0], "x": 0, "y": 0, "w": 1},
                 {"label":"1","matrix": [0, 1], "x": 1, "y": 0},
@@ -299,7 +299,7 @@
                 {"label":"Right","matrix": [4, 14], "x": 15, "y": 4}
             ]
         },
-        "LAYOUT_68_ansi_split_space": {
+        "LAYOUT_65_ansi_split_space": {
             "layout": [
                 {"label":"ESC","matrix": [0, 0], "x": 0, "y": 0, "w": 1},
                 {"label":"1","matrix": [0, 1], "x": 1, "y": 0},
