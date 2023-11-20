@@ -3,7 +3,6 @@
 
 #pragma once
 
-
 #define DRIVER_COUNT 1
 #define DRIVER_1_EN B5
 #define DRIVER_1_CS B12
@@ -14,6 +13,4 @@
 #define SDB B5
 
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
-#define RGB_MATRIX_KEYPRESSES
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 
