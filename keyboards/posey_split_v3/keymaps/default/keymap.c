@@ -55,7 +55,7 @@ enum custom_keycodes {
    #ifndef REPEAT_TERM
       #define REPEAT_TERM 5
    #endif
-   #include "repeat.c"
+   #include "hardware_repeat.c"
 #endif
 
 #ifdef QUICK_GAME_TYPE_ENABLED
@@ -163,7 +163,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS,
      //├─────────────────┼────────┼────────┼────────┼────────┼────────┼───────┤ ├────────┼────────┼────────┼────────┼────────┼────────┴────────────────┤
         KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
-     //├────────────┬────┴────────┼────────┴────────┼────────┼────────┼───────┤ ├────────┴────────┴────────┴────────┴────────┴─────────────────────────┤
+     //├────────────┬────┴────────┼────────┴────────┼────────┼────────┼───────┤ ├────────┴────────git┴────────┴────────┴────────┴─────────────────────────┤
         KC_TRNS,    KC_TRNS,          KC_TRNS,                 KC_TRNS,                   KC_TRNS,          KC_TRNS, KC_TRNS,  KC_TRNS,     KC_TRNS
      //└────────────┴─────────────┴─────────────────┴─────────────────────────┘ └──────────────────────────┴────────┴────────┴───────────┴─────────────┘
     ),

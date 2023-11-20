@@ -55,11 +55,15 @@ enum custom_keycodes {
    #ifndef REPEAT_TERM
       #define REPEAT_TERM 5
    #endif
-   #include "repeat.c"
+   #include "hardware_repeat.c"
 #endif
 
 #ifdef QUICK_GAME_TYPE_ENABLED
    #include "quick_game_type.c"
+#endif
+#ifndef QUICK_GAME_TYPE_ENABLED
+   #define TTC KC_ENTER
+   #define CTT KC_ENTER
 #endif
 
 #ifdef DIABLO_PLAYERS_CHANGE_ENABLED
