@@ -48,6 +48,14 @@ bool strd_process_record(uint16_t keycode, keyrecord_t *record, bool *return_val
     }
 
     switch (keycode) {
+        case TH_NAV:
+            if (record->tap.count && record->event.pressed) {
+                    process_rep_key(get_last_keycode(), get_last_mods());
+                    return true;
+                }
+
+            return false;
+
         case US_REP:
             if (record->event.pressed)
                 defer_exec(COMBO_TERM * 2, defer_process_rep_key, NULL);
