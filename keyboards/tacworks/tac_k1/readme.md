@@ -1,7 +1,7 @@
 
 # TAC-K1
 
-![tack-k1](https://i.imgur.com/3YGvrSZ.jpg)
+![tack-k1](https://i.imgur.com/3YGvrSZh.jpg)
 
 * Keyboard Maintainer: [JoyLee](https://github.com/itarze)
 * Hardware Supported: TAC-K1 PCB
