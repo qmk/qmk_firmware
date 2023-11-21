@@ -170,7 +170,7 @@ void is31fl3731_init(uint8_t addr) {
     // select page 0 and leave it selected.
     // most usage after initialization is just writing PWM buffers in page 0
     // as there's not much point in double-buffering
-    is31fl3731_select_page(IS31FL3731_COMMAND_FRAME_1);
+    is31fl3731_select_page(addr, IS31FL3731_COMMAND_FRAME_1);
 }
 
 void is31fl3731_set_value(int index, uint8_t value) {
