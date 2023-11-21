@@ -50,7 +50,7 @@
         "pin": "F6"
     },
     "layout_aliases": {
-        "LAYOUT_60_ansi_tsangan_split_bs_rshift": "LAYOUT_tsangan_hhkb"
+        "LAYOUT_60_ansi_tsangan_split_bs_rshift": "LAYOUT_60_tsangan_hhkb"
     },
     "community_layouts": [
         "60_ansi",
