@@ -95,7 +95,7 @@ int remove_rgb_matcher(uint8_t index) {
 
     uint8_t right_matchers_count = (rgb_matrix_indicators_config.matcher_count - 1) - index;
 
-    memcpy(rgb_matrix_indicators_config.matchers + index, rgb_matrix_indicators_config.matchers + index + 1, sizeof(t_rgb_indicator_matcher) * right_matchers_count);
+    memset(rgb_matrix_indicators_config.matchers + index, rgb_matrix_indicators_config.matchers + index + 1, sizeof(t_rgb_indicator_matcher) * right_matchers_count);
     rgb_matrix_indicators_config.matcher_count--;
 
     eeconfig_flush_rgb_matrix_indicators(true);
