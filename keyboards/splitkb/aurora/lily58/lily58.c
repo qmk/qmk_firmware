@@ -212,14 +212,14 @@ void render_layer_state(void) {
         0x20, 0x9d, 0x9e, 0x9f, 0x20,
         0x20, 0xbd, 0xbe, 0xbf, 0x20,
         0x20, 0xdd, 0xde, 0xdf, 0x20, 0};
-    if(layer_state_is(_LOWER)) {
+    if(layer_state_is(_ADJUST)) {
+        oled_write_P(adjust_layer, false);
+    } else if(layer_state_is(_LOWER)) {
         oled_write_P(lower_layer, false);
     } else if(layer_state_is(_RAISE)) {
         oled_write_P(raise_layer, false);
-    } else if(layer_state_is(_DEFAULT)) {
-        oled_write_P(default_layer, false);
     } else {
-        oled_write_P(adjust_layer, false);
+        oled_write_P(default_layer, false);
     }
 }
 
