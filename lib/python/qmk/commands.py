@@ -53,7 +53,7 @@ def parse_configurator_json(configurator_file):
         exit(1)
 
     keyboard = user_keymap['keyboard']
-    aliases = aliases = keyboard_alias_definitions()
+    aliases = keyboard_alias_definitions()
 
     while keyboard in aliases:
         last_keyboard = keyboard
