@@ -64,7 +64,7 @@
 uint8_t g_twi_transfer_buffer[20];
 
 // These buffers match the IS31FL3733 PWM registers.
-// The control buffers match the PG0 LED On/Off registers.
+// The control buffers match the page 0 LED On/Off registers.
 // Storing them like this is optimal for I2C transfers to the registers.
 // We could optimize this and take out the unused registers from these
 // buffers and the transfers in is31fl3733_write_pwm_buffer() but it's
@@ -100,7 +100,7 @@ void is31fl3733_select_page(index, uint8_t addr, uint8_t page) {
 }
 
 bool is31fl3733_write_pwm_buffer(uint8_t index, uint8_t addr, uint8_t *pwm_buffer) {
-    // Assumes PG1 is already selected.
+    // Assumes page 1 is already selected.
     // If any of the transactions fails function returns false.
     // Transmit PWM registers in 12 transfers of 16 bytes.
     // g_twi_transfer_buffer[] is 20 bytes
@@ -240,7 +240,7 @@ void is31fl3733_update_pwm_buffers(uint8_t addr, uint8_t index) {
     if (g_pwm_buffer_update_required[index]) {
         is31fl3733_select_page(index, addr, IS31FL3733_COMMAND_PWM);
 
-        // If any of the transactions fail we risk writing dirty PG0,
+        // If any of the transactions fail we risk writing dirty page 0,
         // refresh page 0 just in case.
         if (!is31fl3733_write_pwm_buffer(index, addr, g_pwm_buffer[index])) {
             g_led_control_registers_update_required[index] = true;
