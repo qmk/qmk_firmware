@@ -112,26 +112,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Light adjustments
 #ifdef RGBLIGHT_ENABLE
-
-void keyboard_post_init_user(void) {
-  rgblight_enable_noeeprom(); // Enables RGB, without saving settings
-  rgblight_sethsv_noeeprom(HSV_WHITE);
-  rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-}
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-   uint8_t layer = biton32(state);
-   switch (layer) {
-      case _QWERTY:
-         rgblight_sethsv(HSV_WHITE);
-         break;
-      case _SC2:
-         rgblight_sethsv(HSV_YELLOW);
-         break;
-      case _TEMPRTY:         
-         rgblight_sethsv(HSV_RED);
-         break;
-   }
-   return state;
-}
+#include "color_user_layer_settings.c"
 #endif

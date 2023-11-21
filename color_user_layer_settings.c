@@ -23,6 +23,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
          rgblight_sethsv(C_DIABLO);
          break;
       #endif
+      #ifdef C_PLAYERS
+      case _PLAYERS:
+         rgblight_sethsv(C_PLAYERS);
+         break;
+      #endif
       #ifdef C_TEMPRTY
       case _TEMPRTY:         
          rgblight_sethsv(C_TEMPRTY);

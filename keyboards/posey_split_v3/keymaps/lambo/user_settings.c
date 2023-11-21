@@ -1,13 +1,5 @@
 #include "keymap_german.h"
 
-//Layers
-#define _QWERTY 0
-#define _SYMB 4
-#define _NAV 3
-// //Custom Layers
-#define _TEMPRTY 1
-#define _SC2 6
-
 // Custom Macros
 #define TEMP_TYPE_LAYER _TEMPRTY
 #define REPEAT_ENABLED
@@ -66,4 +58,4 @@ enum custom_keycodes {
 #define SYM_DIA TO(_DIABLO)
 #define PL_C OSL(_PLAYERS)
 
-#include custom_user_scripting
+#include "custom_user_scripting.c"

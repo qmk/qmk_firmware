@@ -11,6 +11,17 @@
 #define _DIABLO 8
 #define _PLAYERS 9
 
+//Colors
+#define C_QWERTY HSV_CYAN
+#define C_SYMB HSV_ORANGE
+#define C_NAV HSV_BLUE
+#define C_TEMPRTY HSV_GREEN
+#define C_SC2 HSV_PURPLE
+#define C_DIABLO HSV_RED
+#define C_PLAYERS HSV_ORANGE
+
+#define LAYER_LIGHT_MODE RGBLIGHT_MODE_BREATHING
+
 #include "user_settings.c"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -138,29 +149,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Light adjustments
 #ifdef RGBLIGHT_ENABLE
-
-void keyboard_post_init_user(void) {
-  rgblight_enable_noeeprom(); // Enables RGB, without saving settings
-  rgblight_sethsv_noeeprom(HSV_CYAN);
-  rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING);
-}
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-   uint8_t layer = biton32(state);
-   switch (layer) {
-      case _QWERTY:
-         rgblight_sethsv(HSV_CYAN);
-         break;
-      case _SC2:
-         rgblight_sethsv(HSV_YELLOW);
-         break;
-      case _DIABLO:
-         rgblight_sethsv(HSV_ORANGE);
-         break;
-      case _TEMPRTY:         
-         rgblight_sethsv(HSV_GREEN);
-         break;
-   }
-   return state;
-}
+#include "color_user_layer_settings.c"
 #endif

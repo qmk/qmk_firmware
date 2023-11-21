@@ -65,7 +65,7 @@ bool process_repeat_key(uint16_t keycode, keyrecord_t *record) {
                     }
                     register_code(keycode);
                     unregister_code(keycode);
-                    #ifdef BOOSTED_REPEAT ENABLED
+                    #ifdef BOOSTED_REPEAT_ENABLED
                     boosted = check_if_boosted_key(keycode);
                     #endif
                     key_repeat = keycode;
