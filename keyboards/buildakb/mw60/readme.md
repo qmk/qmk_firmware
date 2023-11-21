@@ -5,7 +5,7 @@
 A simple standard 60% PCB available in hotswap and solderable variants
 
 -   Keyboard Maintainer: [Maelkk](https://github.com/Aeonstrife)
--   Hardware Supported: Multiple 60% Keyboards
+-   Hardware Supported: MW60 PCB
 -   Hardware Availability: NA
 
 Make example for this keyboard (after setting up your build environment):
