@@ -97,9 +97,12 @@ void eeconfig_init_user(void) {
     indicator_config_write();
 }
 
-void keyboard_post_init_user(void) {
+void housekeeping_task_user(void) {
     // Register the split transaction callback:
     transaction_register_rpc(RPC_ID_INDICATOR_CONFIG, indicator_config_slave_handler);
+}
+
+void keyboard_post_init_user(void) {
     // Read values from memory:
     indicator_config_read();
     printf("config enabled: %d\n", indicator_config.caps.enabled);
