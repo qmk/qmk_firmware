@@ -264,7 +264,7 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
     static uint16_t   x = 0, y = 0, last_scale = 0;
 
 #        if defined(CIRQUE_PINNACLE_TAP_ENABLE)
-    mouse_report.buttons        = pointing_device_handle_buttons(mouse_report.buttons, false, POINTING_DEVICE_BUTTON1);
+    mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, false, POINTING_DEVICE_BUTTON1);
 #        endif
 #        ifdef POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
     cursor_glide_t glide_report = {0};
@@ -496,14 +496,14 @@ const pointing_device_driver_t pointing_device_driver = {
 
 static bool spacemouse_present = false;
 
-__attribute__((weak)) void spacemouse_module_handle_axises(spacemouse_data_t *spacemouse_data, report_mouse_t* mouse_report) {
-#ifdef SPACEMOUSE_USE_TILT_AXIS
+__attribute__((weak)) void spacemouse_module_handle_axises(spacemouse_data_t* spacemouse_data, report_mouse_t* mouse_report) {
+#    ifdef SPACEMOUSE_USE_TILT_AXIS
     mouse_report->x = CONSTRAIN_HID_XY(spacemouse_data->tilt_x);
     mouse_report->y = CONSTRAIN_HID_XY(spacemouse_data->tilt_y);
-#else
+#    else
     mouse_report->x = CONSTRAIN_HID_XY(spacemouse_data->x);
     mouse_report->y = CONSTRAIN_HID_XY(spacemouse_data->y);
-#endif
+#    endif
 }
 
 static report_mouse_t spacemouse_get_report(report_mouse_t mouse_report) {
