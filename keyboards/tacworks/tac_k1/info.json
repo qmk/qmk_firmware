@@ -8,13 +8,9 @@
         "bootmagic": true,
         "command": false,
         "console": false,
-        "encoder": false,
         "extrakey": true,
-        "haptic": false,
         "mousekey": true,
-        "nkro": true,
-        "rgb_matrix": false,
-        "rgblight": false
+        "nkro": true
     },
     "indicators": {
         "caps_lock": "A5",
