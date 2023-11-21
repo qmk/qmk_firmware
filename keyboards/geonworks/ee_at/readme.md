@@ -1,9 +1,9 @@
-# W1-AT
+# EE-AT
 
-This is a standard weird layout PCB, best build with a 10U spacebar. It supports VIA.
+This is a standard weird layout PCB, now with Hotswap. It supports VIA.
 
 * Keyboard Maintainer: [Yiancar](http://yiancar-designs.com/) and on [GitHub](https://github.com/yiancar)
-* Hardware Supported: A TKL keyboard with STM32F072CB
+* Hardware Supported: A keyboard with STM32F072CB
 * Hardware Availability: https://geon.works/ 
 
 ## Instructions
@@ -12,7 +12,7 @@ This is a standard weird layout PCB, best build with a 10U spacebar. It supports
 
 Make example for this keyboard (after setting up your build environment):
 
-    make w1_at:default
+    make geonworks/ee_at:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
@@ -29,4 +29,4 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 - Unplug
 - Hold Escape
 - Plug In
-- Flash using QMK Toolbox or CLI (`make w1_at:<keymap>:flash`)
+- Flash using QMK Toolbox or CLI (`make geonworks/ee_at:<keymap>:flash`)
