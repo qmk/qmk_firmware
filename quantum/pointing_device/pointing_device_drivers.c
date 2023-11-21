@@ -492,6 +492,41 @@ const pointing_device_driver_t pointing_device_driver = {
 };
 // clang-format on
 
+#elif defined(POINTING_DEVICE_DRIVER_spacemouse_module)
+
+static bool spacemouse_present = false;
+
+__attribute__((weak)) void spacemouse_module_handle_axises(spacemouse_data_t *spacemouse_data, report_mouse_t* mouse_report) {
+    mouse_report->x = CONSTRAIN_HID_XY(spacemouse_data->x);
+    mouse_report->y = CONSTRAIN_HID_XY(spacemouse_data->y);
+//    mouse_report->h = CONSTRAIN_HID(spacemouse_data->b);
+//    mouse_report->v = CONSTRAIN_HID(spacemouse_data->c);
+}
+
+static report_mouse_t spacemouse_get_report(report_mouse_t mouse_report) {
+    if (spacemouse_present) {
+        spacemouse_data_t data = spacemouse_get_data();
+
+        if (data.x || data.y || data.z || data.a || data.b || data.c) {
+            pd_dprintf("Raw ] X: %d, Y: %d, Z: %d, A: %d, B: %d, C: %d\n", data.x, data.y, data.z, data.a, data.b, data.c);
+        }
+        spacemouse_module_handle_axises(&data, &mouse_report);
+    }
+    return mouse_report;
+}
+
+static void init(void) {
+    spacemouse_present = spacemouse_init();
+}
+
+// clang-format off
+const pointing_device_driver_t pointing_device_driver = {
+    .init       = init,
+    .get_report = spacemouse_get_report,
+    .set_cpi    = NULL,
+    .get_cpi    = NULL
+};
+// clang-format on
 #else
 __attribute__((weak)) void           pointing_device_driver_init(void) {}
 __attribute__((weak)) report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
