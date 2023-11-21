@@ -499,16 +499,14 @@ static bool spacemouse_present = false;
 __attribute__((weak)) void spacemouse_module_handle_axises(spacemouse_data_t *spacemouse_data, report_mouse_t* mouse_report) {
     mouse_report->x = CONSTRAIN_HID_XY(spacemouse_data->x);
     mouse_report->y = CONSTRAIN_HID_XY(spacemouse_data->y);
-//    mouse_report->h = CONSTRAIN_HID(spacemouse_data->b);
-//    mouse_report->v = CONSTRAIN_HID(spacemouse_data->c);
 }
 
 static report_mouse_t spacemouse_get_report(report_mouse_t mouse_report) {
     if (spacemouse_present) {
         spacemouse_data_t data = spacemouse_get_data();
 
-        if (data.x || data.y || data.z || data.a || data.b || data.c) {
-            pd_dprintf("Raw ] X: %d, Y: %d, Z: %d, A: %d, B: %d, C: %d\n", data.x, data.y, data.z, data.a, data.b, data.c);
+        if (data.x || data.y || data.z || data.twist || data.tilt_x || data.tilt_y) {
+            pd_dprintf("Raw ] X: %d, Y: %d, Z: %d, twist: %d, tilt X: %d, tilt Y: %d\n", data.x, data.y, data.z, data.twist, data.tilt_x, data.tilt_y);
         }
         spacemouse_module_handle_axises(&data, &mouse_report);
     }
