@@ -5,31 +5,7 @@
 #include "pointing_device_internal.h"
 #include "uart.h"
 
-// REQUEST_DATA (the important part)
-// Function: requests position data from the 3D-Sensor Command: 172 (0xAC)
-// Returns: 16 bytes data
-// Structure: B1 B2 ... B16
-// Byte 1: start-byte 0x96 (150 decimal); every data set starts with this byte Byte 2: high byte of X value
-// Byte 3: low byte of X value
-// Byte 4: high byte of Y value
-// Byte 5: low byte of Y value
-// Byte 6: high byte of Z value
-// Byte 7: low byte of Z value
-// Byte 8: high byte of A value (X rotation) Byte 9: low byte of A value (X rotation) Byte 10: high byte of B value (Y rotation) Byte 11: low byte of B value (Y rotation) Byte 12: high byte of C value (Z rotation) Byte 13: low byte of C value (Z rotation) Byte 14: high byte of Checksum
-// Byte 15: low byte of Checksum
-// Byte 16: end-byte 0x8D; every response ends with this byte
-//
-// X, Y, Z, A, B, C values and the Checksum are transmitted as unsigned 14-Bit values. This is due to the fact, that the MSB of payload data is always cleared (logic 0).
-// Calculating a value:
-// high byte (X) low byte (X)
-// 14-bit value (unsigned)
-// Xvalue = (high byte (X) * 128 + low byte (X)) - 8192
-// Transmitted Checksum:
-// Checksumtrans = (high byte (Checksumtrans) * 128 + low byte (Checksumtrans))
-// Calculating the Checksum:
-// Checksumcalc = (Byte1 + Byte2 + ... + Byte13) & 0x3FFF.
-// By masking the Checksum with 0x3FFF (logic AND operation), the value is reduced to a 14-Bit value.
-// The value range for X, Y, Z, A, B, C values is -350 up to +350.
+// datasheet available at https://3dconnexion.com/cn/wp-content/uploads/2020/02/HW-Spec-3DX-700039_Rev001_serial.pdf
 
 #define SPACEMOUSE_INPUT_OFFSET (8192)
 
