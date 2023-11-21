@@ -96,22 +96,32 @@ uint8_t        keyboard_protocol  = 1;
 static report_keyboard_t keyboard_report_sent;
 
 static void send_report_fragment(uint8_t endpoint, void *data, size_t size) {
-    switch (endpoint) {
-        case 1:
-            if (usbInterruptIsReady()) {
-                usbSetInterrupt(data, size);
-            }
-            break;
-        case USB_CFG_EP3_NUMBER:
-            if (usbInterruptIsReady3()) {
-                usbSetInterrupt3(data, size);
-            }
-            break;
-        case USB_CFG_EP4_NUMBER:
-            if (usbInterruptIsReady4()) {
-                usbSetInterrupt4(data, size);
-            }
-            break;
+    for (uint8_t retries = 5; retries > 0; retries--) {
+        switch (endpoint) {
+            case 1:
+                if (usbInterruptIsReady()) {
+                    usbSetInterrupt(data, size);
+                    return;
+                }
+                break;
+            case USB_CFG_EP3_NUMBER:
+                if (usbInterruptIsReady3()) {
+                    usbSetInterrupt3(data, size);
+                    return;
+                }
+                break;
+            case USB_CFG_EP4_NUMBER:
+                if (usbInterruptIsReady4()) {
+                    usbSetInterrupt4(data, size);
+                    return;
+                }
+                break;
+            default:
+                return;
+        }
+
+        usbPoll();
+        wait_ms(5);
     }
 }
 
