@@ -8,6 +8,16 @@
 #define _TEMPRTY 1
 #define _SC2 6
 
+//Colors
+#define C_QWERTY HSV_PINK
+#define C_SYMB HSV_BLUE
+#define C_NAV HSV_GREEN
+// //Custom Layers
+#define C_TEMPRTY HSV_GREEN
+#define C_SC2 HSV_RED
+
+#define LAYER_LIGHT_MODE RGBLIGHT_MODE_BREATHING
+
 // Custom Macros
 // #define QUICK_GAME_TYPE_ENABLED
 #define TEMP_TYPE_LAYER _TEMPRTY
@@ -187,26 +197,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Light adjustments
 #ifdef RGBLIGHT_ENABLE
-
-void keyboard_post_init_user(void) {
-  rgblight_enable_noeeprom(); // Enables RGB, without saving settings
-  rgblight_sethsv_noeeprom(HSV_PINK);
-  rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING);
-}
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-   uint8_t layer = biton32(state);
-   switch (layer) {
-      case _QWERTY:
-         rgblight_sethsv(HSV_PINK);
-         break;
-      case _SC2:
-         rgblight_sethsv(HSV_RED);
-         break;
-      case _TEMPRTY:         
-         rgblight_sethsv(HSV_GREEN);
-         break;
-   }
-   return state;
-}
+#include "color_user_layer_settings.c"
 #endif
