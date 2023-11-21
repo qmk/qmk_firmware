@@ -21,6 +21,9 @@
   },
   "processor": "atmega32u2",
   "bootloader": "atmel-dfu",
+  "layout_aliases": {
+    "LAYOUT_iso": "LAYOUT_60_iso_tsangan"
+  },
   "community_layouts": [
     "60_ansi",
     "60_ansi_split_bs_rshift",
