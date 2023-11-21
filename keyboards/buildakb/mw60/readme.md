@@ -6,7 +6,7 @@ A simple standard 60% PCB available in hotswap and solderable variants
 
 -   Keyboard Maintainer: [Maelkk](https://github.com/Aeonstrife)
 -   Hardware Supported: MW60 PCB
--   Hardware Availability: [MW60 PCB](https://sandkeys.me/product/petals-60-addon-pcbs/)
+-   Hardware Availability: [sandkeys.me](https://sandkeys.me/product/petals-60-addon-pcbs/)
 
 Make example for this keyboard (after setting up your build environment):
 
