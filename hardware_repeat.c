@@ -1,5 +1,12 @@
 #include QMK_KEYBOARD_H
 
+#ifndef REPEAT_DELAY
+    #define REPEAT_DELAY 150
+#endif
+#ifndef REPEAT_TERM
+    #define REPEAT_TERM 6
+#endif
+
 static uint16_t key_timer = 0;
 static bool key_pressed = false;
 static bool key_repeating = false;
@@ -10,6 +17,9 @@ static uint16_t key_repeat = 0;
 static uint16_t keys_to_repeat[] = { FAST_REPEAT_KEYS };
 #endif
 #ifdef BOOSTED_REPEAT_ENABLED
+    #ifndef BOOSTED_REPEAT_DELAY
+    #define BOOSTED_REPEAT_DELAY REPEAT_DELAY
+    #endif
 static uint16_t keys_to_boost[] = { BOOSTED_REPEAT_KEYS };
 #endif
 static uint16_t layers_to_check[] = { FAST_REPEAT_LAYERS };
