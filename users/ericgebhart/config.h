@@ -75,7 +75,7 @@
 #define TAP_CODE_DELAY 5  // for send string with delay
 #define ADAPTIVE_TERM (TAPPING_TERM/2) // rolling threshold
 
-#define MODS_ARE TRNS
+#define MODS_ARE HRM_SCAG
 #define DEFAULT_MODS MODS_ARE
 
 // Choose a thumb cluster.

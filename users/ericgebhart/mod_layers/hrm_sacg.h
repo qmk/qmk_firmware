@@ -28,7 +28,8 @@
   , ROW0L_5_hrm_sacg(K02, K03, K04, K05, K06)
 
 // 5 into 6, derivitive of the first two.
-#define ROW0L_5_6_hrm_sacg(K01, K02, K03, K04, K05) ROW0L_6_hrm_sacg(LEFT_0, K01, K02, K03, K04, K05)
+#define ROW0L_5_6_hrm_sacg(K01, K02, K03, K04, K05) \
+  ROW0L_6_hrm_sacg(LEFT_0, K01, K02, K03, K04, K05)
 
 // RIGHT.
 #define ROW0R_5_hrm_sacg(K01, K02, K03, K04, K05)       \

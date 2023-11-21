@@ -48,9 +48,9 @@ COMB(TSCTL,      TS_LCTL,       CB_1L2, CB_1R4)
 // left: index, middle, ring  - sft, escape, backspace
 // left: middle - right: ring - tab
 COMB(OSSFT,      OS_LSFT,        CB_2L4, CB_2R2)
-COMB(OSGUI,      OS_LGUI,        CB_2L4, CB_2R3)
+// COMB(OSGUI,      OS_LGUI,        CB_2L4, CB_2R3)
 COMB(CENTER,     KC_ENTER,       CB_2L4, CB_2R4)
-COMB(CESC,       KC_ESC,         CB_2L3, CB_2R2)
+// COMB(CESC,       KC_ESC,         CB_2L3, CB_2R2)
 COMB(CBKSP,      KC_BSPC,        CB_2L2, CB_2R2)
 COMB(CTAB,       KC_TAB,         CB_2L3, CB_2R4)
 

@@ -514,11 +514,12 @@ Set *MODS_ARE* to one of the following, or copy *mod_layers/trns_mods.h*  and ma
   - =HRS_NAV=
   - =HRM_GACS=
   - =HRM_SCAG=
+  - =HRM_SACG=
   - =HRM_GASC=
   - =MIRYOKU_HRM_GASC=
 
 #+begin_src C :tangle config.h
-#define MODS_ARE TRNS
+#define MODS_ARE HRM_SCAG
 #define DEFAULT_MODS MODS_ARE
 #+end_src
 
