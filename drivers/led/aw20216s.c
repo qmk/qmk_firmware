@@ -19,38 +19,15 @@
 #include "wait.h"
 #include "spi_master.h"
 
-/* The AW20216S appears to be somewhat similar to the IS31FL743, although quite
- * a few things are different, such as the command byte format and page ordering.
- * The LED addresses start from 0x00 instead of 0x01.
- */
-#define AW20216S_ID 0b1010 << 4
-
-#define AW20216S_PAGE_FUNCTION 0x00 << 1   // PG0, Function registers
-#define AW20216S_PAGE_PWM 0x01 << 1        // PG1, LED PWM control
-#define AW20216S_PAGE_SCALING 0x02 << 1    // PG2, LED current scaling control
-#define AW20216S_PAGE_PATCHOICE 0x03 << 1  // PG3, Pattern choice?
-#define AW20216S_PAGE_PWMSCALING 0x04 << 1 // PG4, LED PWM + Scaling control?
-
-#define AW20216S_WRITE 0
-#define AW20216S_READ 1
-
-#define AW20216S_REG_CONFIGURATION 0x00 // PG0
-#define AW20216S_REG_GLOBALCURRENT 0x01 // PG0
-#define AW20216S_REG_RESET 0x2F         // PG0
-#define AW20216S_REG_MIXFUNCTION 0x46   // PG0
-
-// Default value of AW20216S_REG_CONFIGURATION
-// D7:D4 = 1011, SWSEL (SW1~SW12 active)
-// D3 = 0?, reserved (apparently this should be 1 but it doesn't seem to matter)
-// D2:D1 = 00, OSDE (open/short detection enable)
-// D0 = 0, CHIPEN (write 1 to enable LEDs when hardware enable pulled high)
-#define AW20216S_CONFIG_DEFAULT 0b10110000
-#define AW20216S_MIXCR_DEFAULT 0b00000000
-#define AW20216S_RESET_CMD 0xAE
-#define AW20216S_CHIPEN 1
-#define AW20216S_LPEN (0x01 << 1)
-
 #define AW20216S_PWM_REGISTER_COUNT 216
+
+#ifndef AW20216S_CONFIGURATION
+#    define AW20216S_CONFIGURATION (AW20216S_CONFIGURATION_SWSEL_1_12 | AW20216S_CONFIGURATION_CHIPEN)
+#endif
+
+#ifndef AW20216S_MIX_FUNCTION
+#    define AW20216S_MIX_FUNCTION (AW20216S_MIX_FUNCTION_LPEN)
+#endif
 
 #ifndef AW20216S_SCALING_MAX
 #    define AW20216S_SCALING_MAX 150
@@ -102,7 +79,7 @@ static inline bool aw20216s_write_register(pin_t cs_pin, uint8_t page, uint8_t r
 }
 
 void aw20216s_soft_reset(pin_t cs_pin) {
-    aw20216s_write_register(cs_pin, AW20216S_PAGE_FUNCTION, AW20216S_REG_RESET, AW20216S_RESET_CMD);
+    aw20216s_write_register(cs_pin, AW20216S_PAGE_FUNCTION, AW20216S_FUNCTION_REG_RESET, AW20216S_RESET_MAGIC);
 }
 
 static void aw20216s_init_scaling(pin_t cs_pin) {
@@ -114,16 +91,16 @@ static void aw20216s_init_scaling(pin_t cs_pin) {
 
 static inline void aw20216s_init_current_limit(pin_t cs_pin) {
     // Push config
-    aw20216s_write_register(cs_pin, AW20216S_PAGE_FUNCTION, AW20216S_REG_GLOBALCURRENT, AW20216S_GLOBAL_CURRENT_MAX);
+    aw20216s_write_register(cs_pin, AW20216S_PAGE_FUNCTION, AW20216S_FUNCTION_REG_GLOBAL_CURRENT, AW20216S_GLOBAL_CURRENT_MAX);
 }
 
 static inline void aw20216s_soft_enable(pin_t cs_pin) {
     // Push config
-    aw20216s_write_register(cs_pin, AW20216S_PAGE_FUNCTION, AW20216S_REG_CONFIGURATION, AW20216S_CONFIG_DEFAULT | AW20216S_CHIPEN);
+    aw20216s_write_register(cs_pin, AW20216S_PAGE_FUNCTION, AW20216S_FUNCTION_REG_CONFIGURATION, AW20216S_CONFIGURATION);
 }
 
 static inline void aw20216s_auto_lowpower(pin_t cs_pin) {
-    aw20216s_write_register(cs_pin, AW20216S_PAGE_FUNCTION, AW20216S_REG_MIXFUNCTION, AW20216S_MIXCR_DEFAULT | AW20216S_LPEN);
+    aw20216s_write_register(cs_pin, AW20216S_PAGE_FUNCTION, AW20216S_FUNCTION_REG_MIX_FUNCTION, AW20216S_MIX_FUNCTION);
 }
 
 void aw20216s_init_drivers(void) {
