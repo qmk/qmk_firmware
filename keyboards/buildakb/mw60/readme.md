@@ -1,6 +1,6 @@
 # MW60 PCB
 
-![MW60 PCB](https://i.imgur.com/5E48mAP.jpg)
+![MW60 PCB](https://i.imgur.com/5E48mAPh.jpg)
 
 A simple standard 60% PCB available in hotswap and solderable variants
 
