@@ -1,6 +1,5 @@
 
 #include QMK_KEYBOARD_H
-#include "keymap_steno.h"
 #include "version.h"
 
 extern keymap_config_t keymap_config;
