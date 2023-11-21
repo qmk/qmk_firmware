@@ -7,7 +7,28 @@
 
 // datasheet available at https://3dconnexion.com/cn/wp-content/uploads/2020/02/HW-Spec-3DX-700039_Rev001_serial.pdf
 
+// Datasheet UART settings specify:
+// - 38400 baud
+// - 8 data bits
+// - 1 stop bit
+// - no parity
+// - 100/s data rate
+
+#define SPACEMOUSE_BAUD_RATE 38400
+
+#define SPACEMOUSE_AXIS_COUNT 6
 #define SPACEMOUSE_INPUT_OFFSET (8192)
+
+#define SPACEMOUSE_LENGTH_DATA (2 * SPACEMOUSE_AXIS_COUNT)
+
+enum spacemouse_commands {
+    SPACEMOUSE_CMD_REQUEST_DATA      = 0xAC,
+    SPACEMOUSE_CMD_SET_ZERO_POSITION = 0xAD,
+    SPACEMOUSE_CMD_AUTO_DATA_ON      = 0xAE,
+    SPACEMOUSE_CMD_AUTO_DATA_OFF     = 0xAF,
+    SPACEMOUSE_CMD_END               = 0x8D,
+    SPACEMOUSE_DATA_REQUEST_START    = 0x96,
+};
 
 bool spacemouse_send_command(uint8_t cmd) {
     uart_write(cmd);
