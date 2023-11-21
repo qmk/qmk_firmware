@@ -264,7 +264,7 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
     static uint16_t   x = 0, y = 0, last_scale = 0;
 
 #        if defined(CIRQUE_PINNACLE_TAP_ENABLE)
-    mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, false, POINTING_DEVICE_BUTTON1);
+    mouse_report.buttons        = pointing_device_handle_buttons(mouse_report.buttons, false, POINTING_DEVICE_BUTTON1);
 #        endif
 #        ifdef POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
     cursor_glide_t glide_report = {0};
