@@ -497,8 +497,13 @@ const pointing_device_driver_t pointing_device_driver = {
 static bool spacemouse_present = false;
 
 __attribute__((weak)) void spacemouse_module_handle_axises(spacemouse_data_t *spacemouse_data, report_mouse_t* mouse_report) {
+#ifdef SPACEMOUSE_USE_TILT_AXIS
+    mouse_report->x = CONSTRAIN_HID_XY(spacemouse_data->tilt_x);
+    mouse_report->y = CONSTRAIN_HID_XY(spacemouse_data->tilt_y);
+#else
     mouse_report->x = CONSTRAIN_HID_XY(spacemouse_data->x);
     mouse_report->y = CONSTRAIN_HID_XY(spacemouse_data->y);
+#endif
 }
 
 static report_mouse_t spacemouse_get_report(report_mouse_t mouse_report) {

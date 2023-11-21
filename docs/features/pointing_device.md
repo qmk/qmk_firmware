@@ -378,7 +378,12 @@ POINTING_DEVICE_DRIVER = spacemouse_module
 
 The SpaceMouse Module is a UART driven sensor, with 6 axises of motion.  
 
-While there isn't a whole lot to configure here, only the X and Y movement is enabled by default.  The Z axis and the twist and turn axises are not supported out of box.  These can be handled with a custom function: 
+| Setting (`config.h`)         | Description                                                                                 | Default       |
+| ---------------------------- | ------------------------------------------------------------------------------------------- | ------------- |
+| `SPACEMOUSE_USE_TILT_AXIS`   | Uses the tilt axises for movement rather than the shift axises.                             | _not_defined_ |
+
+
+By default, not all of the axises are utilized.  If you would like to use more of them, you can do so by using this custom function, which translates the data from the SpaceMouse Module to the pointing device report.
 
 ```c
 void spacemouse_module_handle_axises(spacemouse_data_t *spacemouse_data, report_mouse_t* mouse_report) {
@@ -386,6 +391,8 @@ void spacemouse_module_handle_axises(spacemouse_data_t *spacemouse_data, report_
     mouse_report->y = CONSTRAIN_HID_XY(spacemouse_data->y);
     mouse_report->h = CONSTRAIN_HID(spacemouse_data->b);
     mouse_report->v = CONSTRAIN_HID(spacemouse_data->c);
+    
+    mouse_report->buttons = pointing_device_handle_buttons(mouse_report->buttons, (space_mouse_data->z < -10), KC_BTN1);
 }
 ```
 
