@@ -88,9 +88,9 @@ bool spacemouse_init(void) {
 
 spacemouse_data_t spacemouse_get_data(void) {
     spacemouse_data_t data           = {0};
-    uint8_t            retry_attempts = 0, index = 0, payload[SPACEMOUSE_LENGTH_DATA + SPACEMOUSE_LENGTH_CHECKSUM] = {0};
-    uint16_t           checksum = 0, checksum_received = 0;
-    bool               has_started = false;
+    uint8_t           retry_attempts = 0, index = 0, payload[SPACEMOUSE_LENGTH_DATA + SPACEMOUSE_LENGTH_CHECKSUM] = {0};
+    uint16_t          checksum = 0, checksum_received = 0;
+    bool              has_started = false;
     uart_write(SPACEMOUSE_CMD_REQUEST_DATA);
     while (retry_attempts <= 15) {
         uint8_t buf = uart_read();
@@ -123,12 +123,12 @@ spacemouse_data_t spacemouse_get_data(void) {
 
     if (has_started) {
         if (checksum_received == checksum) {
-            data.x = (int16_t)((payload[0] << 7) + payload[1]) - SPACEMOUSE_INPUT_OFFSET;
-            data.z = (int16_t)((payload[2] << 7) + payload[3]) - SPACEMOUSE_INPUT_OFFSET;
-            data.y = (int16_t)((payload[4] << 7) + payload[5]) - SPACEMOUSE_INPUT_OFFSET;
-            data.a = (int16_t)((payload[6] << 7) + payload[7]) - SPACEMOUSE_INPUT_OFFSET;
-            data.b = (int16_t)((payload[8] << 7) + payload[9]) - SPACEMOUSE_INPUT_OFFSET;
-            data.c = (int16_t)((payload[10] << 7) + payload[11]) - SPACEMOUSE_INPUT_OFFSET;
+            data.x      = (int16_t)((payload[0] << 7) + payload[1]) - SPACEMOUSE_INPUT_OFFSET;
+            data.z      = (int16_t)((payload[2] << 7) + payload[3]) - SPACEMOUSE_INPUT_OFFSET;
+            data.y      = (int16_t)((payload[4] << 7) + payload[5]) - SPACEMOUSE_INPUT_OFFSET;
+            data.tilt_y = (int16_t)((payload[6] << 7) + payload[7]) - SPACEMOUSE_INPUT_OFFSET;
+            data.twist  = (int16_t)((payload[8] << 7) + payload[9]) - SPACEMOUSE_INPUT_OFFSET;
+            data.tilt_x = (int16_t)((payload[10] << 7) + payload[11]) - SPACEMOUSE_INPUT_OFFSET;
         } else {
             pd_dprintf("Space Mouse Checksum error: 0x%04x != 0x%04x \n", checksum_received, checksum);
         }
