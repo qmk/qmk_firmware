@@ -10,7 +10,7 @@ void keyboard_pre_init_kb(void) {
     PWR->CR3 |= PWR_CR3_UCPD_DBDIS;
 }
 
-void keyboard_post_init_user(void) {
+void keyboard_pre_init_user(void) {
   // Customise these values to desired behaviour
   debug_enable=true;
   //debug_matrix=true;
