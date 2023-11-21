@@ -13,9 +13,7 @@
 // - no parity
 // - 100/s data rate
 
-#ifndef SPACEMOUSE_BAUD_RATE
-#    define SPACEMOUSE_BAUD_RATE 38400
-#endif
+#define SPACEMOUSE_BAUD_RATE 38400
 
 #define SPACEMOUSE_AXIS_COUNT 6
 
