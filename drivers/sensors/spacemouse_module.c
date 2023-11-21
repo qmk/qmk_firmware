@@ -7,19 +7,18 @@
 
 // datasheet available at https://3dconnexion.com/cn/wp-content/uploads/2020/02/HW-Spec-3DX-700039_Rev001_serial.pdf
 
-// Datasheet UART settings specify:
-// - 38400 baud
-// - 8 data bits
-// - 1 stop bit
-// - no parity
-// - 100/s data rate
+/* Datasheet UART settings specify:
+ * baud rate: 38400
+ * data bits: 8
+ * parity:    none
+ * stop bits: 1
+ * data rate: max 100/s
+ */
 
 #define SPACEMOUSE_BAUD_RATE 38400
-
 #define SPACEMOUSE_AXIS_COUNT 6
-#define SPACEMOUSE_INPUT_OFFSET (8192)
-
 #define SPACEMOUSE_LENGTH_DATA (2 * SPACEMOUSE_AXIS_COUNT)
+#define SPACEMOUSE_INPUT_OFFSET (8192)
 
 enum spacemouse_commands {
     SPACEMOUSE_CMD_REQUEST_DATA      = 0xAC,
@@ -49,9 +48,8 @@ bool spacemouse_cmd_set_zero_position(void) {
 
 /**
  * @brief Starts automatic transmission of data, at 30ms invervals
- * Automatic data transmission happens at 30 ms intervals, but device can be polled at 100/s or 10ms intervals
- * Since 10ms is what pointing device polling defaults to, we don't need need the stream command, but
- * it is here for completeness, in case somebody wants to implement it elsewhere.
+ * Automatic data transmission happens at 30 ms intervals, we don't need need the stream command,
+ * but it is here for completeness, in case somebody wants to implement it elsewhere.
  *
  * @return true command ran successfully
  * @return false command failed
