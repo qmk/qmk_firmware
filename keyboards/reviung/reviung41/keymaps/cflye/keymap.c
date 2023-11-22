@@ -15,7 +15,6 @@
  */
 
 #include "cflye.h"
-#include "features/achordion.h"
 
 #define LAYOUT_reviung41_wrapper(...) LAYOUT(__VA_ARGS__)
 
@@ -51,7 +50,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _________________COLEMAK_L3_________________, _________________COLEMAK_R3_________________,
         _________________THUMB_LEFT________________,  _________________THUMB_RIGHT_______________
     ),
-
     [_SYM] = LAYOUT_base_wrapper(
         ___________________SYM_L1___________________, ___________________SYM_R1___________________,
         ___________________SYM_L2___________________, ___________________SYM_R2___________________,
@@ -89,26 +87,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         __________________MOUSE_L4__________________, __________________MOUSE_R4__________________
     ),
 };
-
-bool achordion_chord(uint16_t tap_hold_keycode,
-                     keyrecord_t* tap_hold_record,
-                     uint16_t other_keycode,
-                     keyrecord_t* other_record) {
-  uprintf("achordion_chord: kc: 0x%04X, col: %2u, row: %2u, kc: 0x%04X, col: %2u, row: %2u, res %2u\n", other_keycode, other_record->event.key.col, other_record->event.key.row, tap_hold_keycode, tap_hold_record->event.key.col, tap_hold_record->event.key.row, tap_hold_record->event.key.row % (MATRIX_ROWS / 2) >= 4);
-
-  // Exceptionally consider the following chords as holds, even though they
-  // are on the same hand in Dvorak.
-  switch (tap_hold_keycode) {
-    case HOME_S:  // S + D and S + W.
-      if (other_keycode == KC_D || other_keycode == KC_W || other_keycode == KC_P) { return true; }
-      break;
-  }
-  
-  // Thumb keys
-  if (other_record->event.key.row == 6 || tap_hold_record->event.key.row == 6 ) { return true; }
-  // Otherwise, follow the opposite hands rule.
-  return achordion_opposite_hands(tap_hold_record, other_record);
-}
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, _NUM, _MEDIA, _MOUSE);

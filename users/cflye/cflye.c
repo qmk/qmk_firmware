@@ -1,5 +1,4 @@
 #include "cflye.h"
-#include "features/achordion.h"
 #include "print.h"
 
 const uint32_t unicode_map[] PROGMEM = {
@@ -18,7 +17,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (!process_achordion(keycode, record)) { return false; }
 
   #ifdef CONSOLE_ENABLE
     char A[32];
@@ -78,10 +76,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 __attribute__((weak)) void matrix_scan_keymap(void) {}
-
-// No global matrix scan code, so just run keymap's matix
-// scan function
-void matrix_scan_user(void) { achordion_task(); }
 
 void fn_boot(tap_dance_state_t *state, void *user_data) {
   if (state->count == 2) {

@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "cflye.h"
-#include "features/achordion.h"
 #include <stdio.h>
 
 
@@ -93,35 +92,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         __________________MOUSE_L4__________________, __________________MOUSE_R4__________________
     ),
 };
-
-bool achordion_chord(uint16_t tap_hold_keycode,
-                     keyrecord_t* tap_hold_record,
-                     uint16_t other_keycode,
-                     keyrecord_t* other_record) {
-  uprintf("achordion_chord: %2u kc: 0x%04X, col: %2u, row: %2u, kc: 0x%04X, col: %2u, row: %2u, res %2u\n", MATRIX_ROWS, other_keycode, other_record->event.key.col, other_record->event.key.row, tap_hold_keycode, tap_hold_record->event.key.col, tap_hold_record->event.key.row, tap_hold_record->event.key.row % (MATRIX_ROWS / 2) >= 4);
-    return true;
-    // TODO: left right does not seem to function, it believes (e+a) is same hand
-  // Exceptionally consider the following chords as holds, even though they
-  // are on the same hand in Dvorak.
-  switch (tap_hold_keycode) {
-    case HOME_S:  // S + D and S + W.
-      if (other_keycode == KC_D || other_keycode == KC_W || other_keycode == KC_P) { return true; }
-      break;
-  }
-  
-  // Thumb keys
-  if (other_record->event.key.row % (MATRIX_ROWS / 2) >= 3|| tap_hold_record->event.key.row % (MATRIX_ROWS / 2) >= 3 ) { return true; }
-
-  // Otherwise, follow the opposite hands rule.
-  return achordion_opposite_hands(tap_hold_record, other_record);
-}
-
-// TODO: This makes fun not work on a single button
-//  
-//layer_state_t layer_state_set_user(layer_state_t state) {
-//    state = update_tri_layer_state(state, _NAV, _SYM, _FUN);
-//    return state;
-//}
 
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
