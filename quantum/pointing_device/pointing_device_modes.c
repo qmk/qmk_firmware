@@ -556,18 +556,18 @@ static report_mouse_t process_pointing_mode(pointing_mode_t pointing_mode, repor
 
         // caret mode (uses arrow keys to move cursor)
         case PM_CARET:
-            pointing_tap_codes(KC_DOWN, KC_UP, KC_LEFT, KC_RIGHT);
+            pointing_tap_codes(KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT);
             break;
 
         // history scroll mode (will scroll through undo/redo history)
         case PM_HISTORY:
-            pointing_tap_codes(KC_NO, KC_NO, C(KC_Z), C(KC_Y));
+            pointing_tap_codes(C(KC_Z), KC_NO, KC_NO, C(KC_Y));
             break;
 
 #    ifdef EXTRAKEY_ENABLE
         // volume scroll mode (adjusts audio volume)
         case PM_VOLUME:
-            pointing_tap_codes(KC_VOLD, KC_VOLU, KC_NO, KC_NO);
+            pointing_tap_codes(KC_NO, KC_VOLD, KC_VOLU, KC_NO);
             break;
 #    endif
 
