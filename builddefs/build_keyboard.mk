@@ -390,6 +390,11 @@ ifeq ("$(USER_NAME)","")
 endif
 USER_PATH := users/$(USER_NAME)
 
+# If we have userspace, then add it to the lookup VPATH
+ifneq ($(wildcard $(QMK_USERSPACE)),)
+    VPATH += $(QMK_USERSPACE)
+endif
+
 # If the equivalent users directory exists in userspace, use that in preference to anything currently in the main repo
 ifneq ($(wildcard $(QMK_USERSPACE)/$(USER_PATH)),)
     USER_PATH := $(QMK_USERSPACE)/$(USER_PATH)
