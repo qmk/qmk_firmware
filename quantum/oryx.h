@@ -23,6 +23,7 @@ Once the host has paired, it can freely use the commands define in the Oryx_Comm
 
 #define ORYX_PROTOCOL_VERSION = 0x01
 #define ORYX_STOP_BIT -2
+#define ORYX_PAIRING_MAX_INDEX 3
 #define PAIRING_BLINK_STEPS 512
 #define PAIRING_BLINK_END PAIRING_BLINK_STEPS * 60
 #define PAIRING_SEQUENCE_SIZE 3

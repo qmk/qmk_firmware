@@ -18,10 +18,10 @@ void oryx_error(uint8_t code) {
 void get_pairing_code(keypos_t positions[], int size) {
     const char *version = FIRMWARE_VERSION;
 
-    // Initialize all positions to {0, 0}
+    // Initialize all positions to {1, 1}
     for (int i = 0; i < size; ++i) {
-        positions[i].col = 0;
-        positions[i].row = 0;
+        positions[i].col = 1;
+        positions[i].row = 1;
     }
 
     // Find the position of '/'
@@ -30,8 +30,8 @@ void get_pairing_code(keypos_t positions[], int size) {
     max_index = (max_index / 2 < size) ? max_index / 2 : size;
 
     for (int i = 0; i < max_index; ++i) {
-        positions[i].col = version[i * 2] % 4;
-        positions[i].row = version[i * 2 + 1] % 4;
+        positions[i].col = version[i * 2] % ORYX_PAIRING_MAX_INDEX + 1;
+        positions[i].row = version[i * 2 + 1] % ORYX_PAIRING_MAX_INDEX + 1;
     }
 }
 
