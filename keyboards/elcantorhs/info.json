@@ -12,7 +12,7 @@
         "nkro": true
     },
     "development_board": "blackpill_f401",
-    "url": "https://github.com/diepala/cantor",
+    "url": "https://github.com/azhizhinov/ELCANTORHS",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0001",
