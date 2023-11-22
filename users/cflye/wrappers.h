@@ -82,7 +82,7 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define __________________MEDIA_L3__________________    _______,           _______,           _______,           _______,           _______
 #define __________________MEDIA_L4__________________    _______,           _______,           _______,           _______,           _______
 
-#define __________________MEDIA_R1__________________    RGB_TOG,           RGB_MOD,           RGB_HUI,           RGB_SAI,           RGB_VAI
+#define __________________MEDIA_R1__________________    RGB_TOG,           RGB_MOD,           RGB_VAI,           RGB_SAI,           RGB_HUI                      
 #define __________________MEDIA_R2__________________    U_NU,              KC_MPRV,           KC_VOLD,           KC_VOLU,           KC_MNXT
 #define __________________MEDIA_R3__________________    OU_AUTO,           KC_MPLY,           KC_MSTP,           KC_MUTE,              U_NU
 #define __________________MEDIA_R4__________________    _______,           _______,           _______,           _______,           _______

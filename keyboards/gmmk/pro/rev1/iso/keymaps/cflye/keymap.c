@@ -156,9 +156,9 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_GAMING]  = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
     [_NUM]     = { ENCODER_CCW_CW(RGB_VAD, RGB_VAI)},
     [_SYM]     = { ENCODER_CCW_CW(RGB_RMOD,RGB_MOD)},
-    [_FUN]     = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS)},
+    [_FUN]     = { ENCODER_CCW_CW(RGB_SAD, RGB_SAI)},
     [_MEDIA]   = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS)},
-    [_NAV]     = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS)},
+    [_NAV]     = { ENCODER_CCW_CW(RGB_HUD, RGB_HUI)},
     [_MOUSE]   = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS)}
 };  
 #endif
