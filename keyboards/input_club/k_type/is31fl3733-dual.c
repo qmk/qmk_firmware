@@ -94,7 +94,7 @@ bool is31fl3733_write_register(uint8_t index, uint8_t addr, uint8_t reg, uint8_t
     return true;
 }
 
-void is31fl3733_select_page(index, uint8_t addr, uint8_t page) {
+void is31fl3733_select_page(uint8_t index, uint8_t addr, uint8_t page) {
     is31fl3733_write_register(index, addr, IS31FL3733_REG_COMMAND_WRITE_LOCK, IS31FL3733_COMMAND_WRITE_LOCK_MAGIC);
     is31fl3733_write_register(index, addr, IS31FL3733_REG_COMMAND, page);
 }
