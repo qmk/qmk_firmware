@@ -1,6 +1,6 @@
 {
     "manufacturer": "skyloong",
-    "keyboard_name": "gk68 pro",
+    "keyboard_name": "qmk68 pro",
     "maintainer": "NaturalZh",
     "bootloader": "stm32duino",
 
@@ -122,7 +122,7 @@
             {"matrix": [4, 2], "x": 39, "y": 64, "flags": 4},
             {"matrix": [4, 4], "x": 72, "y": 64, "flags": 4},
             {"matrix": [4, 5], "x": 95, "y": 64, "flags": 4},
-            {"matrix": [4, 6], "x": 118, "y": 64, "flags": 4},
+            {"matrix": [4, 7], "x": 118, "y": 64, "flags": 4},
             {"matrix": [4, 8], "x": 149, "y": 64, "flags": 4},
             {"matrix": [4, 9], "x": 164, "y": 64, "flags": 4},
             {"matrix": [4, 10], "x": 179, "y": 64, "flags": 4},
@@ -214,7 +214,7 @@
                 {"label":"Alt_L","matrix": [4, 2], "x": 2.5, "y": 4, "w": 1.25},
                 {"label":"Space/M1","matrix": [4, 4], "x": 3.75, "y": 4.5, "w": 3.125, "h": 0.5},
                 {"label":"Space","matrix": [4, 5], "x": 3.75, "y": 4, "h": 0.5, "w":6.25},
-                {"label":"Space/M3","matrix": [4, 6], "x": 6.875, "y": 4.5, "h": 0.5, "w":3.125},
+                {"label":"Space/M3","matrix": [4, 7], "x": 6.875, "y": 4.5, "h": 0.5, "w":3.125},
                 {"label":"Alt_R","matrix": [4, 8], "x": 10, "y": 4},
                 {"label":"Fn","matrix": [4, 9], "x": 11, "y": 4},
                 {"label":"Menu","matrix": [4, 10], "x": 12, "y": 4},
