@@ -32,10 +32,20 @@ def userspace_add(cli):
             userspace.add_target(keyboard=s[0], keymap=s[1])
 
     else:
-        if not is_keymap_target(cli.args.keyboard, cli.args.keymap):
-            cli.log.error('Invalid keymap argument.')
-            return False
+        failed = False
+        try:
+            if not is_keymap_target(cli.args.keyboard, cli.args.keymap):
+                failed = True
+        except KeyError:
+            failed = True
 
-        userspace.add_target(keyboard=cli.args.keyboard, keymap=cli.args.keymap)
+        if failed:
+            from qmk.cli.new.keymap import new_keymap
+            cli.config.new_keymap.keyboard = cli.args.keyboard
+            cli.config.new_keymap.keymap = cli.args.keymap
+            if new_keymap(cli) is not False:
+                userspace.add_target(keyboard=cli.args.keyboard, keymap=cli.args.keymap)
+        else:
+            userspace.add_target(keyboard=cli.args.keyboard, keymap=cli.args.keymap)
 
     return userspace.save()
