@@ -1,5 +1,5 @@
-// Copyright 2022 Diego Palacios (@diepala)
-// SPDX-License-Identifier: GPL-2.0
+// Copyright 2023 azhizhinov (@azhizhinov)
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
 
