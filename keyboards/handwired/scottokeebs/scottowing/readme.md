@@ -5,7 +5,7 @@
 A low-profile 34/40-key split monoblock ergonomic column-staggered ortholinear keyboard that uses 18x17mm spaced Choc switches.
 
 *   Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
-*   Hardware Supported: RP2040 ero
+*   Hardware Supported: Waveshare RP2040-Zero
 *   Hardware Availability: [ScottoKeebs](https://scottokeebs.com), [Amazon](https://amazon.com), [AliExpress](https://aliexpress.com)
 
 # Compiling
