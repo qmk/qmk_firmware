@@ -122,7 +122,7 @@ def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str
     """
     if len(filters) == 0:
         cli.log.info('Preparing target list...')
-        targets = list(parallel_map(_construct_build_target_kb_km, target_list))
+        targets = list(set(parallel_map(_construct_build_target_kb_km, target_list)))
     else:
         cli.log.info('Parsing data for all matching keyboard/keymap combinations...')
         valid_keymaps = [(e[0], e[1], dotty(e[2])) for e in parallel_map(_load_keymap_info, target_list)]
@@ -183,7 +183,7 @@ def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str
 
         cli.log.info('Preparing target list...')
         valid_keymaps = [(e[0], e[1], e[2].to_dict() if isinstance(e[2], Dotty) else e[2]) for e in valid_keymaps]  # need to convert dotty_dict back to dict because it doesn't survive parallelisation
-        targets = list(parallel_map(_construct_build_target_kb_km_json, list(valid_keymaps)))
+        targets = list(set(parallel_map(_construct_build_target_kb_km_json, list(valid_keymaps))))
 
     return targets
 
