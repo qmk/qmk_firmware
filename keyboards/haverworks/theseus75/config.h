@@ -33,9 +33,6 @@
 
 #define SPLIT_LAYER_STATE_ENABLE
 #define SPLIT_LED_STATE_ENABLE          // Required to sync LED indicator state info to the slave half (see https://docs.qmk.fm/#/feature_led_indicators)
-#define SPLIT_TRANSACTION_IDS_USER RPC_ID_INDICATOR_CONFIG
-
-#define EECONFIG_USER_DATA_SIZE 4
 
 /* Defines for the RGB matrix */
 #ifdef RGB_MATRIX_ENABLE

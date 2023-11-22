@@ -2,27 +2,27 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "quantum.h"
+#include "transactions.h"
 #include <stdio.h>
 #include "print.h"
 
-/* Disable the PD peripheral in pre-init because its pins are being used in the matrix */
 void keyboard_pre_init_kb(void) {
+    // Disable the PD peripheral in pre-init because its pins are being used in the matrix:
     PWR->CR3 |= PWR_CR3_UCPD_DBDIS;
-}
-
-void keyboard_pre_init_user(void) {
-  // Customise these values to desired behaviour
-  debug_enable=true;
-  //debug_matrix=true;
-  //debug_keyboard=true;
-  //debug_mouse=true;
+    // Call the corresponding _user() function (see https://docs.qmk.fm/#/custom_quantum_functions)
+    keyboard_pre_init_user();
+    // Customise these values to desired behaviour:
+    debug_enable=true;
+    //debug_matrix=true;
+    //debug_keyboard=true;
+    //debug_mouse=true;
 }
 
 void keyboard_post_init_kb(void) {
     // If the keyboard is master
     if (is_keyboard_master()) {
         // Turn on power to the split half and to underglow LEDs
-        setPinOutput(A15);      //PSW
+        setPinOutput(A15);      // PSW
         writePinHigh(A15);
 
         // Enable inputs used for current negotiation
@@ -55,10 +55,15 @@ void keyboard_post_init_kb(void) {
         setPinOutput(C13);      // BUS_B
         writePinHigh(C13);
     }
+    // Call the corresponding _user() function (see https://docs.qmk.fm/#/custom_quantum_functions)
+    keyboard_post_init_user();
 }
 
 // Todo: Insert timer based delay to avoid spamming pin reads/writes, only set on pin change
 void housekeeping_task_kb(void) {
+    // Call the corresponding _user() function (see https://docs.qmk.fm/#/custom_quantum_functions)
+    housekeeping_task_user();
+
     static uint32_t usbcpd_timer = 0;
     if (timer_elapsed32(usbcpd_timer) > USBCPD_TIMESPAN) {
         // On master side: check F0 and F1 to determine current negotiated with host

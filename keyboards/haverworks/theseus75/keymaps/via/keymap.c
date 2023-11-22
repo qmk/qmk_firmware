@@ -1,4 +1,4 @@
-/* Copyright 2023 Moritz Plattner
+/* Copyright 2023 Moritz Plattner, Alex Havermale <alex@haver.works>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,6 @@
  */
 
 #include QMK_KEYBOARD_H
-
 #include "transactions.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -45,6 +44,9 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 };
 #endif
 
+/**
+ * A struct containing config data for a single LED indicator.
+ */
 typedef struct _indicator_t {
     uint8_t h;
     uint8_t s;
@@ -52,60 +54,53 @@ typedef struct _indicator_t {
     bool    enabled;
 } indicator_t;
 
+/**
+ * A struct containing config data for all LED indicators.
+ */
 typedef struct _indicator_config_t {
     indicator_t caps;
 } indicator_config_t;
 
 indicator_config_t indicator_config;
 
-void indicator_config_write(void) {
+void indicator_config_write_to_eeprom(void) {
 #   ifdef EECONFIG_USER_DATA_SIZE
     eeconfig_update_user_datablock(&indicator_config);
+    dprintf("Indicator config written to EEPROM\n");
     // #else // if using uint32 union + struct instead of datablock:
     // eeconfig_update_user(indicator_config.raw);
 #   endif
-    printf("Data written to EEPROM\n");
 }
 
-void indicator_config_read(void) {
+void indicator_config_read_from_eeprom(void) {
 #   ifdef EECONFIG_USER_DATA_SIZE
     eeconfig_read_user_datablock(&indicator_config);
+    dprintf("Indicator config read from EEPROM\n");
     // #else // if using uint32 union + struct instead of datablock:
     // indicator_config.raw = eeconfig_read_user();
 #   endif
-    printf("Data read from EEPROM\n");
 }
 
 void indicator_config_slave_handler(uint8_t m2s_size, const void* m2s_buffer, uint8_t s2m_size, void* s2m_buffer) {
-    printf("Slave handler called\n");
     if (m2s_size == sizeof(indicator_config_t)) {
-        // Copy the buffer data to the indicator config:
         memcpy(&indicator_config, m2s_buffer, sizeof(indicator_config_t));
-        // And update the EEPROM:
-        indicator_config_write();
+        indicator_config_write_to_eeprom();
     } else {
-        printf("Unexpected response in slave handler\n");
+        dprintf("Unexpected response in slave handler\n"); // TODO: add split debug logging
     }
 }
 
 void eeconfig_init_user(void) {
-    // Set default values and write them to user space in EEPROM:
     indicator_config.caps.h       = 0;
     indicator_config.caps.s       = 0;
     indicator_config.caps.v       = INDICATOR_MAX_BRIGHTNESS;
     indicator_config.caps.enabled = true;
-    indicator_config_write();
-}
-
-void housekeeping_task_user(void) {
-    // Register the split transaction callback:
-    transaction_register_rpc(RPC_ID_INDICATOR_CONFIG, indicator_config_slave_handler);
+    indicator_config_write_to_eeprom();
 }
 
 void keyboard_post_init_user(void) {
-    // Read values from memory:
-    indicator_config_read();
-    printf("config enabled: %d\n", indicator_config.caps.enabled);
+    transaction_register_rpc(RPC_ID_INDICATOR_CONFIG, indicator_config_slave_handler);
+    indicator_config_read_from_eeprom();
 }
 
 #ifdef RGB_MATRIX_ENABLE
@@ -178,10 +173,9 @@ void indicator_config_get_value(uint8_t *data) {
 }
 
 void indicator_config_save(void) {
-    indicator_config_write();
-    // Send data to slave half so that it can be set in its EEPROM as well:
+    indicator_config_write_to_eeprom();
+    // Send data to slave so that it can be written to its EEPROM as well:
     transaction_rpc_send(RPC_ID_INDICATOR_CONFIG, sizeof(indicator_config_t), &indicator_config);
-    printf("Config saved\n");
 }
 
 void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
