@@ -34,7 +34,7 @@ class BuildTarget:
     def __eq__(self, __value: object) -> bool:
         if not isinstance(__value, BuildTarget):
             return False
-        return (self.keyboard, self.keymap) == (__value.keyboard, __value.keymap)
+        return self.__repr__() == __value.__repr__()
 
     def __ne__(self, __value: object) -> bool:
         return not self.__eq__(__value)
