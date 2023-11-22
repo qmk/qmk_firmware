@@ -1,4 +1,4 @@
-# cantor
+# El Cantor HS
 
 ![El Cantor HS](https://)
 
