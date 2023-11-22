@@ -39,6 +39,9 @@
     },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
+    "layout_aliases": {
+        "LAYOUT_default": "LAYOUT_all"
+    },
     "community_layouts": [
         "65_ansi_blocker",
         "65_ansi_blocker_split_bs",
@@ -50,7 +53,7 @@
         "65_iso_blocker_tsangan_split_bs"
     ],
     "layouts": {
-        "LAYOUT_default": {
+        "LAYOUT_all": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
