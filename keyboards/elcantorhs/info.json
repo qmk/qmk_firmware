@@ -1,7 +1,7 @@
 {
-    "manufacturer": "Diego Palacios",
-    "keyboard_name": "cantor",
-    "maintainer": "diepala",
+    "manufacturer": "azhizhinov",
+    "keyboard_name": "elcantorhs",
+    "maintainer": "azhizhinov",
     "bootloader": "stm32-dfu",
     "features": {
         "bootmagic": true,
