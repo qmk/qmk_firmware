@@ -6,7 +6,7 @@ import fnmatch
 import logging
 import re
 from typing import List, Tuple
-from dotty_dict import dotty
+from dotty_dict import dotty, Dotty
 from milc import cli
 
 from qmk.util import parallel_map
@@ -107,13 +107,22 @@ def expand_keymap_targets(targets: List[Tuple[str, str]]) -> List[Tuple[str, str
     return list(sorted(set(overall_targets)))
 
 
+def _construct_build_target_kb_km(e):
+    return KeyboardKeymapBuildTarget(keyboard=e[0], keymap=e[1])
+
+
+def _construct_build_target_kb_km_json(e):
+    return KeyboardKeymapBuildTarget(keyboard=e[0], keymap=e[1], json=e[2])
+
+
 def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str] = []) -> List[BuildTarget]:
     """Filter a list of (keyboard, keymap) tuples based on the supplied filters.
 
     Optionally includes the values of the queried info.json keys.
     """
     if len(filters) == 0:
-        targets = [KeyboardKeymapBuildTarget(keyboard=kb, keymap=km) for kb, km in target_list]
+        cli.log.info('Preparing target list...')
+        targets = list(parallel_map(_construct_build_target_kb_km, target_list))
     else:
         cli.log.info('Parsing data for all matching keyboard/keymap combinations...')
         valid_keymaps = [(e[0], e[1], dotty(e[2])) for e in parallel_map(_load_keymap_info, target_list)]
@@ -172,7 +181,9 @@ def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str
                 cli.log.warning(f'Unrecognized filter expression: {filter_expr}')
                 continue
 
-        targets = [KeyboardKeymapBuildTarget(keyboard=e[0], keymap=e[1], json=e[2]) for e in valid_keymaps]
+        cli.log.info('Preparing target list...')
+        valid_keymaps = [(e[0], e[1], e[2].to_dict() if isinstance(e[2], Dotty) else e[2]) for e in valid_keymaps]  # need to convert dotty_dict back to dict because it doesn't survive parallelisation
+        targets = list(parallel_map(_construct_build_target_kb_km_json, list(valid_keymaps)))
 
     return targets
 
