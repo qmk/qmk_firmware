@@ -900,12 +900,6 @@ void rgblight_wakeup(void) {
 
 #endif
 
-__attribute__((weak)) void rgblight_call_driver(rgb_led_t *start_led, uint8_t num_leds) {
-    ws2812_setleds(start_led, num_leds);
-}
-
-#ifndef RGBLIGHT_CUSTOM
-
 void rgblight_set(void) {
     rgb_led_t *start_led;
     uint8_t    num_leds = rgblight_ranges.clipping_num_leds;
@@ -948,9 +942,8 @@ void rgblight_set(void) {
         convert_rgb_to_rgbw(&start_led[i]);
     }
 #    endif
-    rgblight_call_driver(start_led, num_leds);
+    rgblight_driver.setleds(start_led, num_leds);
 }
-#endif
 
 #ifdef RGBLIGHT_SPLIT
 /* for split keyboard master side */

@@ -25,7 +25,8 @@
         "pin": "B0"
     },
     "rgblight": {
-        "led_count": 5
+        "led_count": 5,
+        "driver": "custom"
     },
     "url": "",
     "usb": {

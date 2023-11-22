@@ -21,6 +21,7 @@
     },
     "processor": "atmega32u4",
     "rgblight": {
+        "driver": "custom",
         "animations": {
             "alternating": false,
             "breathing": true,

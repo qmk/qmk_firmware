@@ -160,6 +160,7 @@ enum RGBLIGHT_EFFECT_MODE {
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "rgblight_drivers.h"
 #include "progmem.h"
 #include "eeconfig.h"
 #include "ws2812.h"

@@ -30,6 +30,7 @@
         "pin": "F1"
     },
     "rgblight": {
+        "driver": "custom",
         "max_brightness": 120,
         "sleep": true,
         "animations": {

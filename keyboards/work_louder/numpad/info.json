@@ -50,6 +50,7 @@
         ]
     },
     "rgblight": {
+        "driver": "custom",
         "animations": {
             "breathing": true,
             "knight": true,

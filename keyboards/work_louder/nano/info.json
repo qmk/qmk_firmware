@@ -27,6 +27,7 @@
     },
     "rgblight": {
         "led_count": 6,
+        "driver": "custom",
         "max_brightness": 120,
         "sleep": true,
         "animations": {
