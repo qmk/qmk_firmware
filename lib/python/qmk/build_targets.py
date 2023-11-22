@@ -31,6 +31,17 @@ class BuildTarget:
     def __repr__(self):
         return f'BuildTarget(keyboard={self.keyboard}, keymap={self.keymap})'
 
+    def __eq__(self, __value: object) -> bool:
+        if not isinstance(__value, BuildTarget):
+            return False
+        return self.__repr__() == __value.__repr__()
+
+    def __ne__(self, __value: object) -> bool:
+        return not self.__eq__(__value)
+
+    def __hash__(self) -> int:
+        return self.__repr__().__hash__()
+
     def configure(self, parallel: int = None, clean: bool = None, compiledb: bool = None) -> None:
         if parallel is not None:
             self._parallel = parallel
