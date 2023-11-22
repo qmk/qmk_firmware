@@ -574,7 +574,7 @@
                 {"label": "0", "matrix": [0, 10], "x": 10, "y": 0},
                 {"label": "-", "matrix": [0, 11], "x": 11, "y": 0},
                 {"label": "=", "matrix": [0, 12], "x": 12, "y": 0},
-                {"label": "Backspace", "matrix": [0, 14], "x": 13, "y": 0, "w": 2},
+                {"label": "Backspace", "matrix": [0, 13], "x": 13, "y": 0, "w": 2},
 
                 {"label": "Tab", "matrix": [1, 0], "x": 0, "y": 1, "w": 1.5},
                 {"label": "Q", "matrix": [1, 2], "x": 1.5, "y": 1},
@@ -918,7 +918,7 @@
                 {"label": "0", "matrix": [0, 10], "x": 10, "y": 0},
                 {"label": "-", "matrix": [0, 11], "x": 11, "y": 0},
                 {"label": "=", "matrix": [0, 12], "x": 12, "y": 0},
-                {"label": "Backspace", "matrix": [0, 14], "x": 13, "y": 0, "w": 2},
+                {"label": "Backspace", "matrix": [0, 13], "x": 13, "y": 0, "w": 2},
 
                 {"label": "Tab", "matrix": [1, 0], "x": 0, "y": 1, "w": 1.5},
                 {"label": "Q", "matrix": [1, 2], "x": 1.5, "y": 1},
@@ -1058,7 +1058,7 @@
                 {"label": "0", "matrix": [0, 10], "x": 10, "y": 0},
                 {"label": "-", "matrix": [0, 11], "x": 11, "y": 0},
                 {"label": "=", "matrix": [0, 12], "x": 12, "y": 0},
-                {"label": "Backspace", "matrix": [0, 14], "x": 13, "y": 0, "w": 2},
+                {"label": "Backspace", "matrix": [0, 13], "x": 13, "y": 0, "w": 2},
 
                 {"label": "Tab", "matrix": [1, 0], "x": 0, "y": 1, "w": 1.5},
                 {"label": "Q", "matrix": [1, 2], "x": 1.5, "y": 1},
@@ -1266,7 +1266,7 @@
                 {"label": "0", "matrix": [0, 10], "x": 10, "y": 0},
                 {"label": "-", "matrix": [0, 11], "x": 11, "y": 0},
                 {"label": "=", "matrix": [0, 12], "x": 12, "y": 0},
-                {"label": "Backspace", "matrix": [0, 14], "x": 13, "y": 0, "w": 2},
+                {"label": "Backspace", "matrix": [0, 13], "x": 13, "y": 0, "w": 2},
 
                 {"label": "Tab", "matrix": [1, 0], "x": 0, "y": 1, "w": 1.5},
                 {"label": "Q", "matrix": [1, 2], "x": 1.5, "y": 1},
