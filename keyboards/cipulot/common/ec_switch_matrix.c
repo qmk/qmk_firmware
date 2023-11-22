@@ -21,6 +21,10 @@
 #include "print.h"
 #include "wait.h"
 
+#if defined(__AVR__)
+#    error "AVR platforms not supported due to a variety of reasons. Among them there are limited memory, limited number of pins and ADC not being able to give satisfactory results."
+#endif
+
 #define OPEN_DRAIN_SUPPORT defined(PAL_MODE_OUTPUT_OPENDRAIN)
 
 eeprom_ec_config_t eeprom_ec_config;
