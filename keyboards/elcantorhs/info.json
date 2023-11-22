@@ -1,6 +1,6 @@
 {
     "manufacturer": "azhizhinov",
-    "keyboard_name": "elcantorhs",
+    "keyboard_name": "EL-CANTOR-HS",
     "maintainer": "azhizhinov",
     "bootloader": "stm32-dfu",
     "features": {
@@ -16,8 +16,8 @@
     "url": "https://github.com/diepala/cantor",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0000",
-        "vid": "0xFEED"
+        "pid": "0x0001",
+        "vid": "0x415A"
     },
     "matrix_pins": {
         "direct": [
