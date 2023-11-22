@@ -6,7 +6,7 @@ The El Cantor HS keyboard is a 43 key diodeless split keyboard with support for 
 
 * Keyboard Maintainer: [azhizhinov](https://github.com/azhizhinov)
 * Hardware Supported: Blackpill STM32F401
-* Hardware Availability: https://github.com/diepala/cantor
+* Hardware Availability: https://github.com/azhizhinov/ELCANTORHS
 
 Make example for this keyboard (after setting up your build environment):
 
