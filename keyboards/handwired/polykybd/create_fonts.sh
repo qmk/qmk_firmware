@@ -39,7 +39,7 @@ fontconvert -f~/repos/Noto_Sans_Symbols_2/NotoSansSymbols2-Regular.ttf "-s20" -r
 fontconvert -f~/repos/Noto_Sans_Symbols_2/NotoSansSymbols2-Regular.ttf "-s20" -r50 -v _ClipPaste_ -n0x11000 0x1F5CA 0x1F5CA > "base/fonts/generated/4NotoSansSymbols2_Regular_Paste_20pt.h"
 fontconvert -f~/repos/Noto_Sans_Symbols_2/NotoSansSymbols2-Regular.ttf "-s20" -r50 -v _Volume_ -n0x11000 0x1F568 0x1F56A > "base/fonts/generated/5NotoSansSymbols2_Regular_Volume_20pt.h"
 fontconvert -f~/repos/Noto_Sans_Symbols_2/NotoSansSymbols2-Regular.ttf "-s20" -r50 -v _Calc_ -n0x11000 0x1F5A9 0x1F5AB > "base/fonts/generated/5NotoSansSymbols2_Regular_Calc_20pt.h"
-fontconvert -f~/repos/Noto_Sans_Symbols_2/NotoSansSymbols2-Regular.ttf "-s20" -r50 -v _HW_ -n0x11000 0x1F5B3 0x1F5B6 > "base/fonts/generated/5NotoSansSymbols2_Regular_Hardware_20pt.h"
+fontconvert -f~/repos/Noto_Sans_Symbols_2/NotoSansSymbols2-Regular.ttf "-s20" -r50 -v _HW_ -n0x11000 0x1F5B3 0x1F5BC > "base/fonts/generated/5NotoSansSymbols2_Regular_Hardware_20pt.h"
 fontconvert -f~/repos/Noto_Sans_Symbols_2/NotoSansSymbols2-Regular.ttf "-s18" -r50 -v _Window_ -n0x11000 0x1F5D5 0x1F5DB > "base/fonts/generated/5NotoSansSymbols2_Regular_Window_18pt.h"
 
 

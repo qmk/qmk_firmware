@@ -31,7 +31,8 @@
 //1 min
 #define FADE_OUT_TIME 60000
 //20 min
-#define TURN_OFF_TIME 1200000
+//#define TURN_OFF_TIME 1200000
+#define TURN_OFF_TIME   8000000
 
 /*[[[cog
 import cog
@@ -56,7 +57,7 @@ static enum lang_layer g_lang_init = LANG_EN;
 enum kb_layers { _L0 = 0x00, _BL=_L0, _L1 = 0x01, _COLEMAK_DH = 0x02, _FL0 = 0x03, _FL1 = 0x04, _NL = 0x05, _UL = 0x06, _LS = 0x07, _ADDLANG1 = 0x08};
 
 enum my_keycodes {
-    KC_LANG = SAFE_RANGE, KC_DECC, KC_INCC, KC_TOGBASE, KC_BASE, KC_L0, KC_L1, KC_CMK_DH, KC_STAGGER,
+    KC_LANG = SAFE_RANGE, KC_DECC, KC_INCC, KC_TOGBASE, KC_BASE, KC_L0, KC_L1, KC_CMK_DH, KC_STAGGER, KC_DEADKEY,
     /*[[[cog
       for lang in languages:
           cog.out(f"KC_{lang}, ")
@@ -118,13 +119,22 @@ typedef union _poly_eeconf{
     poly_eeconf_t conf;
 } poly_eeconf;
 
-enum flags { STATUS_DISP_ON = 1, USE_STAGGER = 2, DISP_IDLE = 4};
+enum flags { STATUS_DISP_ON = 1, USE_STAGGER = 2, DISP_IDLE = 4, DEAD_KEY_ON_WAKEUP = 8};
 typedef struct _poly_sync_t {
     uint8_t lang;
     uint8_t contrast;
     uint8_t flags;
     layer_state_t default_ls;
 } poly_sync_t;
+
+/*
+typedef struct _poly_error_chk{
+    poly_sync_t a;
+    uint16_t sum_a;
+    poly_sync_t b;
+    uint16_t sum_b;
+} poly_error_chk;
+*/
 
 typedef struct _poly_state_t {
     led_t led_state;
@@ -137,16 +147,48 @@ poly_state_t g_state;
 poly_sync_t g_local;
 
 static int32_t last_update = 0;
-static bool g_first_sync = false;
 
 void oled_draw_kybd(void);
 void oled_draw_poly(void);
 bool display_wakeup(keyrecord_t* record);
 void update_displays(enum refresh_mode mode);
-bool set_displays(uint8_t old_contrast, uint8_t contrast, bool idle);
+void set_displays(uint8_t contrast, bool idle);
 void set_selected_displays(int8_t old_value, int8_t new_value);
 void toggle_stagger(bool new_state);
 //static int8_t old_contrast = 0;
+
+uint16_t fletcher16( uint8_t *data, int count )
+{
+   uint16_t sum1 = 0;
+   uint16_t sum2 = 0;
+   int index;
+
+   for ( index = 0; index < count; ++index )
+   {
+      sum1 = (sum1 + data[index]) % 255;
+      sum2 = (sum2 + sum1) % 255;
+   }
+
+   return (sum2 << 8) | sum1;
+}
+
+void save_user_eeconf(void) {
+    poly_eeconf ee;
+    ee.conf.lang = g_local.lang;
+    ee.conf.brightness = ~g_local.contrast;
+    ee.conf.unused = 0;
+    eeconfig_update_user(ee.raw);
+}
+
+poly_eeconf load_user_eeconf(void) {
+    poly_eeconf ee;
+    ee.raw = eeconfig_read_user();
+    ee.conf.brightness = ~ee.conf.brightness;
+    if(ee.conf.brightness>FULL_BRIGHT) {
+        ee.conf.brightness = FULL_BRIGHT;
+    }
+    return ee;
+}
 
 void inc_brightness(void) {
     if (g_local.contrast < FULL_BRIGHT) {
@@ -156,11 +198,7 @@ void inc_brightness(void) {
         g_local.contrast = FULL_BRIGHT;
     }
 
-    poly_eeconf ee;
-    ee.conf.lang = g_local.lang;
-    ee.conf.brightness = g_local.contrast;
-    ee.conf.unused = 0;
-    eeconfig_update_user(ee.raw);
+    save_user_eeconf();
 }
 
 void dec_brightness(void) {
@@ -170,11 +208,7 @@ void dec_brightness(void) {
         g_local.contrast = MIN_BRIGHT;
     }
 
-    poly_eeconf ee;
-    ee.conf.lang = g_local.lang;
-    ee.conf.brightness = g_local.contrast;
-    ee.conf.unused = 0;
-    eeconfig_update_user(ee.raw);
+    save_user_eeconf();
 }
 
 void select_all_displays(void) {
@@ -191,7 +225,6 @@ void clear_all_displays(void) {
 
 void early_hardware_init_post(void) {
     spi_hw_setup();
-
 }
 
 void update_performed(void) {
@@ -213,9 +246,25 @@ void request_disp_refresh(void) {
     // g_refresh = START_FIRST_HALF;
 }
 
+/*static bool wait_for_data = false;
 void user_sync_poly_data_handler(uint8_t in_len, const void* in_data, uint8_t out_len, void* out_data) {
-    if (in_len != 0 && in_data != NULL) {
-        memcpy(&g_local, (poly_sync_t*)in_data, sizeof(poly_sync_t));
+    if (in_len == sizeof(poly_error_chk) && in_data != NULL) {
+        poly_error_chk* data = (poly_error_chk*)in_data;
+        if(data->sum_a == fletcher16((uint8_t *)&data->a, sizeof(poly_sync_t))) {
+            wait_for_data = true;
+            memcpy(&g_local, &data->a, sizeof(poly_sync_t));
+            wait_for_data = false;
+        } else if(data->sum_b == fletcher16((uint8_t *)&data->b, sizeof(poly_sync_t))) {
+            wait_for_data = true;
+            memcpy(&g_local, &data->b, sizeof(poly_sync_t));
+            wait_for_data = false;
+        }
+    }
+}*/
+
+void user_sync_poly_data_handler(uint8_t in_len, const void* in_data, uint8_t out_len, void* out_data) {
+    if (in_len == sizeof(poly_sync_t) && in_data != NULL) {
+        memcpy(&g_local, in_data, sizeof(poly_sync_t));
     }
 }
 
@@ -225,26 +274,35 @@ void sync_and_refresh_displays(void) {
     bool retry = false;
     if (is_usb_host_side()) {
         //master syncs data
-        if ( !g_first_sync || memcmp(&g_local, &g_state.s, sizeof(poly_sync_t))!=0 ) {
+        if ( memcmp(&g_local, &g_state.s, sizeof(poly_sync_t))!=0 ) {
             retry = true;
-            if (transaction_rpc_send(USER_SYNC_POLY_DATA, sizeof(g_local), &g_local)) {
+            /*
+            poly_error_chk data;
+            memcpy(&(data.a), (poly_sync_t*)&g_local, sizeof(poly_sync_t));
+            memcpy(&(data.b), (poly_sync_t*)&g_local, sizeof(poly_sync_t));
+            data.sum_a = data.sum_b = fletcher16((uint8_t *)&g_local, sizeof(poly_sync_t));
+            */
+            if (transaction_rpc_send(USER_SYNC_POLY_DATA, sizeof(poly_sync_t), &g_local)) {
                 retry = false;
-                g_first_sync = true;
             }
         }
     }
+    //while(wait_for_data) {}
     if(!retry) {
-        oled_on_off((g_local.flags&STATUS_DISP_ON)!=0);
-
-        if (g_state.s.contrast != g_local.contrast || g_state.s.flags!=g_local.flags) {
-            set_displays(g_state.s.contrast, g_local.contrast, (g_local.flags&DISP_IDLE)!=0);
-            // if (!is_usb_host_side()) {
-            //     request_disp_refresh();
-            // }
+        const bool idle_changed = (g_local.flags&DISP_IDLE)!=(g_state.s.flags&DISP_IDLE);
+        if(idle_changed) {
+            if((g_local.flags&DISP_IDLE)==0) {
+                oled_set_brightness(OLED_BRIGHTNESS);
+            } else {
+                oled_set_brightness(0);
+            }
         }
+        /*if((g_state.s.flags&STATUS_DISP_ON) != (g_local.flags&STATUS_DISP_ON)) {
+            oled_on_off((g_local.flags&STATUS_DISP_ON)!=0);
+        }*/
 
-        led_t led_state = host_keyboard_led_state();
-        uint8_t mod_state = get_mods();
+        const led_t led_state = host_keyboard_led_state();
+        const uint8_t mod_state = get_mods();
 
         if (led_state.raw != g_state.led_state.raw ||
             mod_state != g_state.mod_state ||
@@ -252,8 +310,8 @@ void sync_and_refresh_displays(void) {
             g_state.s.lang != g_local.lang ||
             g_state.s.default_ls != g_local.default_ls) {
 
-            g_state.led_state = host_keyboard_led_state();
-            g_state.mod_state = get_mods();
+            g_state.led_state = led_state;
+            g_state.mod_state = mod_state;
             g_state.layer_state = layer_state;
 
             request_disp_refresh();
@@ -267,6 +325,8 @@ void sync_and_refresh_displays(void) {
         else if (g_refresh == START_SECOND_HALF || g_refresh == ALL_AT_ONCE) {
             update_displays(g_refresh);
             g_refresh = DONE_ALL;
+        } else if (g_state.s.contrast != g_local.contrast || idle_changed) {
+            set_displays(g_local.contrast, (g_local.flags&DISP_IDLE)!=0);
         }
 
         if((g_local.flags&USE_STAGGER)!=(g_state.s.flags&USE_STAGGER)) {
@@ -286,7 +346,7 @@ void housekeeping_task_user(void) {
         g_local.flags |= STATUS_DISP_ON;
 
         if(elapsed_time_since_update > FADE_OUT_TIME && g_local.contrast >= MIN_BRIGHT && (g_local.flags & DISP_IDLE)==0) {
-            poly_eeconf ee; ee.raw = eeconfig_read_user();
+            poly_eeconf ee = load_user_eeconf();
             int32_t time_after = elapsed_time_since_update - FADE_OUT_TIME;
             int16_t brightness = ((FADE_TRANSITION_TIME - time_after) * ee.conf.brightness) / FADE_TRANSITION_TIME;
 
@@ -386,7 +446,7 @@ uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     _______,    _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
         TO(_NL),    _______,    _______,    _______,    _______,    _______,    _______,    _______,
-        _______,    _______,    _______,                KC_HOME,    KC_PGUP,    KC_PGDN,    KC_END
+        KC_RALT,    KC_RWIN,    KC_RCTL,                KC_HOME,    KC_PGUP,    KC_PGDN,    KC_END
         ),
     [_FL1] = LAYOUT_left_right_stacked(
         OSL(_UL),   KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,
@@ -399,7 +459,7 @@ uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     _______,    _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    KC_CAPS,
         TO(_NL),    _______,    _______,    _______,    _______,    _______,    _______,    _______,
-        _______,    _______,    _______,                KC_HOME,    KC_PGUP,    KC_PGDN,    KC_END
+        KC_RALT,    KC_RWIN,    KC_RCTL,                KC_HOME,    KC_PGUP,    KC_PGDN,    KC_END
         ),
      //Num Layer
     [_NL] = LAYOUT_left_right_stacked(
@@ -419,14 +479,14 @@ uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_UL] = LAYOUT_left_right_stacked(
         KC_NO,      KC_F13,     KC_F14,     KC_F15,     KC_F16,     KC_F17,     KC_F18,
         KC_MYCM,    KC_CALC,    KC_PSCR,    KC_SCRL,    KC_BRK,     KC_NO,      KC_NO,
-        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,     _______,
-        KC_NO,      RGB_RMOD,   RGB_TOG,    RGB_MOD,    RGB_M_P,    RGB_M_B,    KC_NO,     QK_DEBUG_TOGGLE,
+        KC_LCTL,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_DEADKEY,_______,
+        KC_LSFT,    RGB_RMOD,   RGB_TOG,    RGB_MOD,    RGB_M_P,    RGB_M_B,    EE_CLR,    QK_DEBUG_TOGGLE,
         KC_BASE,    KC_INCC,    KC_NO,      KC_DECC,                QK_RBT,     QK_MAKE,   QK_BOOT,
 
                     KC_F19,     KC_F20,     KC_F21,     KC_F22,     KC_F23,     KC_F24,    KC_NO,
                     KC_MPRV,    KC_MPLY,    KC_MSTP,    KC_MNXT,    KC_MUTE,    KC_VOLD,   KC_VOLU,
-        _______,    KC_NO,      KC_NO,      KC_NO,      KC_STAGGER, KC_NO,      KC_NO,     KC_NO,
-        RGB_VAI,    RGB_SPI,    KC_NO,      KC_L0,      KC_L1,      KC_CMK_DH,  KC_TOGBASE,KC_NO,
+        _______,    KC_NO,      KC_NO,      KC_NO,      KC_STAGGER, KC_NO,      KC_NO,     KC_RCTL,
+        RGB_VAI,    RGB_SPI,    KC_NO,      KC_L0,      KC_L1,      KC_CMK_DH,  KC_TOGBASE,KC_RSFT,
         RGB_VAD,    RGB_SPD,    KC_NO,      RGB_HUI,    RGB_HUD,    RGB_SAI,    RGB_SAD
         ),
     //Language Selection Layer
@@ -504,12 +564,13 @@ led_config_t g_led_config = { {// Key Matrix to LED Index
 
 const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     switch (keycode) {
+    case KC_DEADKEY: return (g_local.flags&DEAD_KEY_ON_WAKEUP)==0 ? u"WakeX\r\v" ICON_SWITCH_OFF : u"WakeX\r\v" ICON_SWITCH_ON;
     case KC_STAGGER: return (g_local.flags&USE_STAGGER)==0 ? u"Stgr\r\v" ICON_SWITCH_OFF : u"Stgr\r\v" ICON_SWITCH_ON;
     case QK_UNICODE_MODE_MACOS: return u"Mac";
     case QK_UNICODE_MODE_LINUX: return u"Lnx";
     case QK_UNICODE_MODE_WINDOWS: return u"Win";
     case QK_UNICODE_MODE_BSD: return u"BSD";
-    case QK_UNICODE_MODE_WINCOMPOSE: return u"WCmp";
+    case QK_UNICODE_MODE_WINCOMPOSE: return u"WinC";
     case QK_UNICODE_MODE_EMACS: return u"Emcs";
     case QK_LEAD:
         return u"Lead";
@@ -621,7 +682,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case KC_AUDIO_VOL_UP:
         return u"  " PRIVATE_VOL_UP;
     case KC_PRINT_SCREEN:
-        return u"  " PRIVATE_SCREEN;
+        return u"  " PRIVATE_IMAGE;
     case KC_SCROLL_LOCK:
         return u"ScLk";
     case KC_PAUSE:
@@ -691,9 +752,8 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case KC_RIGHT_CTRL:
         return TECHNICAL_COMMAND;
     case KC_LEFT_ALT:
-        return TECHNICAL_OPTION;
     case KC_RIGHT_ALT:
-        return u"AltGr";
+        return TECHNICAL_OPTION;
     case KC_LWIN:
     case KC_RWIN:
         return  DINGBAT_BLACK_DIA_X;
@@ -722,6 +782,8 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         return u"SwpH";
     case QK_MAKE:
         return u"Make";
+    case EE_CLR:
+        return u"ClrEE";
     case QK_REBOOT:
         return u"Rst";
         /*[[[cog
@@ -785,8 +847,9 @@ const uint16_t* keycode_to_disp_overlay(uint16_t keycode, led_t state) {
         }
     } else if((get_mods() & MOD_MASK_GUI) != 0) {
         switch(keycode) {
-            case KC_D:      return u"    " PRIVATE_SCREEN;
+            case KC_D:      return u"    " PRIVATE_PC;
             case KC_L:      return u"    " PRIVATE_LOCK;
+            case KC_P:      return u"    " PRIVATE_SCREEN;
             case KC_UP:     return u"     " PRIVATE_MAXIMIZE;
             case KC_DOWN:   return u"     " PRIVATE_WINDOW;
             default: break;
@@ -801,6 +864,8 @@ void update_displays(enum refresh_mode mode) {
     /*if (layer > _LS) {
         layer = g_local.default_ls;
     }*/
+
+    //set_displays(g_local.contrast, false);
 
     led_t state = host_keyboard_led_state();
     bool capital_case = ((get_mods() & MOD_MASK_SHIFT) != 0) || state.caps_lock;
@@ -833,20 +898,22 @@ void update_displays(enum refresh_mode mode) {
             else {
                 if (disp_idx != 255) {
                     keycode = keymaps[layer][r + offset][c];
+                    kdisp_enable(true);//(g_local.flags&STATUS_DISP_ON) != 0);
+                    kdisp_set_contrast(g_local.contrast-1);
                     if(keycode!=KC_TRNS) {
                         const uint16_t* text = keycode_to_disp_text(keycode, state);
                         kdisp_set_buffer(0x00);
                         if(text==NULL){
                             if((keycode&QK_UNICODEMAP_PAIR)!=0){
                                 uint16_t chr = capital_case ? QK_UNICODEMAP_PAIR_GET_SHIFTED_INDEX(keycode) : QK_UNICODEMAP_PAIR_GET_UNSHIFTED_INDEX(keycode);
-                                kdisp_write_gfx_char(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 22, unicode_map[chr]);
+                                kdisp_write_gfx_char(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 23, unicode_map[chr]);
                             }
                         } else {
-                            kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 22, text);
+                            kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 23, text);
                         }
                         text = keycode_to_disp_overlay(keycode, state);
                         if(text!=NULL) {
-                            kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 22, text);
+                            kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 23, text);
                         }
                         kdisp_send_buffer();
                     }
@@ -869,7 +936,9 @@ uint8_t to_brightness(uint8_t b) {
         case 20: case 30: return 4;
         case 19: case 31: return 3;
         case 18: case 32: return 2;
-        case 16: case 17: case 33: case 34: return 1;
+        case 1: case 7: return 1;
+        case 2: case 6: return 3;
+        case 3: case 4: case 5: return 5;
         default: return 0;
     }
 }
@@ -891,7 +960,7 @@ void kdisp_idle(uint8_t contrast) {
                 skip++;
             } else {
                 if (disp_idx != 255) {
-                    uint8_t idle_brightness = to_brightness((contrast+c+r+keycode%(10+r+c)+offset)%50);
+                    uint8_t idle_brightness = to_brightness((contrast+(c%3+r)*keycode+offset+r)%50);
                     if(idle_brightness==0) {
                         kdisp_enable(false);
                     } else {
@@ -1051,6 +1120,14 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
 
     if (!record->event.pressed) {
         switch (keycode) {
+        case KC_DEADKEY:
+            if((g_local.flags&DEAD_KEY_ON_WAKEUP)==0) {
+                g_local.flags |= DEAD_KEY_ON_WAKEUP;
+            } else {
+                g_local.flags &= ~((uint8_t)DEAD_KEY_ON_WAKEUP);
+            }
+            request_disp_refresh();
+            break;
         case KC_STAGGER:
             if((g_local.flags&USE_STAGGER)==0) {
                 g_local.flags |= USE_STAGGER;
@@ -1173,28 +1250,26 @@ void show_splash_screen(void) {
 }
 
 void oled_on_off(bool on) {
-    if (!on && is_oled_on()) {
+    if (!on) {//} && is_oled_on()) {
         oled_off();
-    } else if (on && !is_oled_on()) {
+    } else { //} if (on && !is_oled_on()) {
         oled_on();
+        uprintf("oled_on %s", is_usb_host_side() ? "Host" : "Bridge");
     }
 }
 
-bool set_displays(uint8_t old_contrast, uint8_t contrast, bool idle) {
+void set_displays(uint8_t contrast, bool idle) {
     if(idle) {
         kdisp_idle(contrast);
     } else {
         select_all_displays();
         if(contrast==DISP_OFF) {
             kdisp_enable(false);
-            return false;
         } else {
             kdisp_enable(true);
             kdisp_set_contrast(contrast - 1);
         }
     }
-
-    return old_contrast == DISP_OFF;
 }
 
 
@@ -1203,10 +1278,10 @@ bool set_displays(uint8_t old_contrast, uint8_t contrast, bool idle) {
 bool display_wakeup(keyrecord_t* record) {
     bool accept_keypress = true;
     if ((g_local.contrast==DISP_OFF || (g_local.flags & DISP_IDLE)!=0) && record->event.pressed) {
-        if(g_local.contrast==DISP_OFF) {
+        if(g_local.contrast==DISP_OFF && (g_local.flags&DEAD_KEY_ON_WAKEUP)!=0) {
             accept_keypress = timer_elapsed32(last_update) <= TURN_OFF_TIME;
         }
-        poly_eeconf ee; ee.raw = eeconfig_read_user();
+        poly_eeconf ee = load_user_eeconf();
         g_local.contrast = ee.conf.brightness;
         g_local.flags &= ~((uint8_t)DISP_IDLE);
         g_local.flags |= STATUS_DISP_ON;
@@ -1235,6 +1310,7 @@ void keyboard_post_init_user(void) {
     com = is_keyboard_master() ? USB_HOST : BRIDGE;
     side = is_keyboard_left() ? LEFT_SIDE : RIGHT_SIDE;
 
+    //encoder pins
     setPinInputHigh(GP25);
     setPinInputHigh(GP29);
 
@@ -1243,6 +1319,13 @@ void keyboard_post_init_user(void) {
 
     wait_ms(500);
     transaction_register_rpc(USER_SYNC_POLY_DATA, user_sync_poly_data_handler);
+/*
+    int8_t retries = 5;
+    while(!transaction_rpc_send(USER_SYNC_POLY_DATA, sizeof(g_local), &g_local) && retries>0) {
+        retries--;
+        wait_ms(1000);
+        dprintf("Connecting...");
+    }*/
 }
 
 void keyboard_pre_init_user(void) {
@@ -1257,14 +1340,14 @@ void keyboard_pre_init_user(void) {
     kdisp_scroll_modehv(true, 3, 1);
     kdisp_scroll(false);
 
-    poly_eeconf ee; ee.raw = eeconfig_read_user();
+    poly_eeconf ee = load_user_eeconf();
 
     g_local.lang = ee.conf.lang;
     g_local.default_ls = 0;
     g_local.contrast = ee.conf.brightness;
     g_local.flags = STATUS_DISP_ON;
 
-    set_displays(0, g_local.contrast, false);
+    set_displays(g_local.contrast, false);
     show_splash_screen();
 
     setPinInputHigh(I2C1_SDA_PIN);
@@ -1273,7 +1356,7 @@ void keyboard_pre_init_user(void) {
 void eeconfig_init_user(void) {
     poly_eeconf ee;
     ee.conf.lang = g_lang_init;
-    ee.conf.brightness = FULL_BRIGHT;
+    ee.conf.brightness = ~FULL_BRIGHT;
     ee.conf.unused = 0;
     eeconfig_update_user(ee.raw);
 }
@@ -1317,6 +1400,13 @@ void hex_to_u16_string(char* buffer, uint8_t buffer_len, uint8_t value) {
 }
 
 void oled_status_screen(void) {
+    if( (g_local.flags&STATUS_DISP_ON) == 0) {
+        oled_off();
+        rgb_matrix_disable_noeeprom();
+        return;
+    } else if( (g_local.flags&STATUS_DISP_ON) != 0) {
+        oled_on();
+    }
     uint16_t buffer[32];
 
     kdisp_set_buffer(0);
@@ -1374,6 +1464,11 @@ void oled_status_screen(void) {
         num_to_u16_string((char*) buffer, sizeof(buffer), rgb_matrix_get_speed());
         kdisp_write_gfx_text(smallFont, 1, 80, 58, buffer);
     }
+
+    // kdisp_write_gfx_text(smallFont, 1,  0, 58, (g_local.flags & STATUS_DISP_ON) == 0 ? u"d" : u"D");
+    // kdisp_write_gfx_text(smallFont, 1, 15, 58, (g_local.flags & USE_STAGGER) == 0 ? u"s" : u"S");
+    // kdisp_write_gfx_text(smallFont, 1, 30, 58, (g_local.flags & DISP_IDLE) == 0 ? u"i" : u"I");
+    // kdisp_write_gfx_text(smallFont, 1, 45, 58, (g_local.flags & DEAD_KEY_ON_WAKEUP) == 0 ? u"w" : u"W");
 
     kdisp_write_gfx_text(smallFont, 1, 0, 58, u"WPM");
     num_to_u16_string((char*) buffer, sizeof(buffer), get_current_wpm());
