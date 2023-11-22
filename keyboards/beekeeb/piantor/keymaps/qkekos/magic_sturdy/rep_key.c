@@ -2,18 +2,10 @@
 #include "../__init__.h"
 
 void process_rep_key(uint16_t keycode, uint8_t mods) {
-    switch (prev_last_key) {
-        double_magic_case(LHR_A,
-            magic_case(KC_B, "out");
-        );
-
-        double_magic_case(KC_F,
-            magic_case(LHR_R, "om");
-        );
-
-        double_magic_case(KC_L,
-            magic_case(LHR_A, "st");
-        );
+    switch (last_queue_key) {
+        double_magic_case(LHR_A, KC_B, "out");
+        double_magic_case(KC_F, LHR_R, "om");
+        double_magic_case(KC_L, LHR_A, "st");
     }
 
     switch (keycode) {

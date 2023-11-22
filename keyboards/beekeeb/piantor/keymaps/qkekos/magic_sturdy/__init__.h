@@ -14,13 +14,27 @@
 #define remember_magic_case(trigger, supplement, key_to_remember) \
     case trigger: \
         SEND_STRING(supplement); \
-        prev_last_key = keycode; \
-        set_last_keycode(key_to_remember); \
+        remember_last_key(keycode, key_to_remember); \
         return
 
-#define double_magic_case(trigger, body) \
+#define double_magic_switch(trigger, body) \
     case trigger: \
         switch (keycode) { \
+            body \
+        } \
+        break
+
+#define double_magic_case(trigger, prev_key, supplement) \
+    case trigger: \
+        if (keycode == prev_key) { \
+            SEND_STRING(supplement); \
+            return; \
+        } \
+        break
+
+#define triple_magic_switch(trigger, body) \
+    case trigger: \
+        switch (last_queue_key) { \
             body \
         } \
         break

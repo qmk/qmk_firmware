@@ -17,67 +17,41 @@ void process_magic_key(uint16_t keycode, uint8_t mods) {
         keycode = TH_NUM;
     }
 
-    switch (prev_last_key) {
-        double_magic_case(KC_M,
-            magic_case(KC_P, "l");
-            magic_case(KC_O, "st");
-            magic_case(KC_U, "sic");
-        );
+    switch (penultimate_queue_key) {
+        triple_magic_switch(TH_NUM,
+            double_magic_switch(KC_M,
+                magic_case(KC_O, "st");
+                magic_case(KC_U, "sic");
+            );
 
-        double_magic_case(KC_W,
-            magic_case(LHR_E, "b");
+            double_magic_case(KC_U, LHR_S, "e");
+            double_magic_case(HR_I, MHR_N, "form");
         );
+    }
 
-        double_magic_case(LHR_A,
+    switch (last_queue_key) {
+        double_magic_switch(LHR_E,
             magic_case(KC_C, "k");
-        );
-
-        double_magic_case(KC_O,
-            magic_case(KC_C, "k");
-        );
-
-        double_magic_case(LHR_E,
             magic_case(KC_X, "ample");
-            magic_case(KC_C, "k");
         );
 
-        double_magic_case(KC_U,
-            magic_case(LHR_S, "e");
-            magic_case(KC_C, "k");
+        double_magic_switch(KC_M,
+            magic_case(KC_P, "l");
+            magic_case(LHR_A, "o");
         );
 
-        double_magic_case(HR_I,
-            magic_case(MHR_N, "form");
-            magic_case(KC_C, "k");
-        );
-
-        double_magic_case(KC_V,
-            magic_case(HR_I, "ew");
-        );
-
-        double_magic_case(LHR_S,
-            magic_case(KC_O, "me");
-        );
-
-        double_magic_case(KC_P,
-            magic_case(LHR_E, "ople");
-        );
-
-        double_magic_case(KC_C,
-            magic_case(KC_Y, "c");
-        );
-
-        double_magic_case(KC_L,
-            magic_case(HR_I, "st");
-        );
-
-        double_magic_case(MHR_D,
-            magic_case(LHR_A, "y");
-        );
-
-        double_magic_case(KC_B,
-            magic_case(LHR_E, "en");
-        );
+        double_magic_case(HR_I, KC_C, "k");
+        double_magic_case(KC_U, KC_C, "k");
+        double_magic_case(KC_O, KC_C, "k");
+        double_magic_case(KC_C, KC_Y, "c");
+        double_magic_case(KC_W, LHR_E, "b");
+        double_magic_case(LHR_A, KC_C, "k");
+        double_magic_case(KC_V, HR_I, "ew");
+        double_magic_case(KC_L, HR_I, "st");
+        double_magic_case(LHR_S, KC_O, "me");
+        double_magic_case(MHR_D, LHR_A, "y");
+        double_magic_case(KC_B, LHR_E, "en");
+        double_magic_case(KC_P, LHR_E, "ople");
     }
 
     switch (keycode) {

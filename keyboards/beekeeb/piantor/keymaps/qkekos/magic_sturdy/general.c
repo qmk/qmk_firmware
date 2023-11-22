@@ -1,10 +1,22 @@
 
 #include "../__init__.h"
 
-int prev_last_key = KC_NO;
 int rep_key_count = 0;
 int alt_rep_key_count = 0;
 int last_key_pressed_time = 0;
+int prev_keys_queue[PREV_KEYS_QUEUE_SIZE] = {KC_NO};
+
+void enqueue(int keycode) {
+    for (int i = 0; i < PREV_KEYS_QUEUE_SIZE - 1; i += 1)
+        prev_keys_queue[i] = prev_keys_queue[i + 1];
+
+    prev_keys_queue[PREV_KEYS_QUEUE_SIZE - 1] = keycode;
+}
+
+void remember_last_key(int prev_keycode, int key_to_remember) {
+    enqueue(prev_keycode);
+    set_last_keycode(key_to_remember);
+}
 
 bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* remembered_mods) {
     switch (keycode) {
@@ -19,7 +31,7 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* reme
             break;
     }
 
-    prev_last_key = get_last_keycode();
+    enqueue(get_last_keycode());
     return true;
 }
 
