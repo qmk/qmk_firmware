@@ -16,12 +16,7 @@
 
 #pragma once
 
-
 #define RGB_TRIGGER_ON_KEYDOWN
-
-/* DIP switch */
-#define DIP_SWITCH_PINS \
-    { A9 }
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
