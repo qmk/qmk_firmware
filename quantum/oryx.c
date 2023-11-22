@@ -1,14 +1,11 @@
 #include <string.h>
 #include "oryx.h"
-#include "eeprom.h"
 #ifdef KEYBOARD_voyager
 #    include "voyager.h"
 #endif
 
 rawhid_state_t rawhid_state = {.pairing = false, .paired = false};
 
-keypos_t keyboard_pairing_sequence[PAIRING_SEQUENCE_SIZE];
-keypos_t host_pairing_sequence[PAIRING_SEQUENCE_SIZE];
 uint8_t  pairing_input_index = 0;
 
 void oryx_error(uint8_t code) {
@@ -18,10 +15,117 @@ void oryx_error(uint8_t code) {
     raw_hid_send(event, RAW_EPSIZE);
 }
 
+void get_pairing_code(keypos_t positions[], int size) {
+    const char *version = FIRMWARE_VERSION;
+
+    // Initialize all positions to {0, 0}
+    for (int i = 0; i < size; ++i) {
+        positions[i].col = 0;
+        positions[i].row = 0;
+    }
+
+    // Find the position of '/'
+    const char *slash_pos = strchr(version, '/');
+    int max_index = (slash_pos != NULL) ? (slash_pos - version) : strlen(version);
+    max_index = (max_index / 2 < size) ? max_index / 2 : size;
+
+    for (int i = 0; i < max_index; ++i) {
+        positions[i].col = version[i * 2] % 4;
+        positions[i].row = version[i * 2 + 1] % 4;
+    }
+}
+
+void pairing_init_handler(void) {
+    uint8_t event[RAW_EPSIZE];
+    uint8_t event_index  = 0;
+
+    keypos_t positions[PAIRING_SEQUENCE_SIZE];
+    get_pairing_code(positions, PAIRING_SEQUENCE_SIZE);
+
+    event[event_index++] = ORYX_EVT_PAIRING_INPUT;
+    for (uint8_t i = 0; i < PAIRING_SEQUENCE_SIZE; i++) {
+        event[event_index++] = positions[i].col;
+        event[event_index++] = positions[i].row;
+    }
+    event[event_index++] = ORYX_STOP_BIT;
+
+    rawhid_state.pairing = true;
+    raw_hid_send(event, RAW_EPSIZE);
+}
+
+void pairing_key_input_event(void) {
+    uint8_t event[RAW_EPSIZE];
+    event[0] = ORYX_EVT_PAIRING_KEY_INPUT;
+    raw_hid_send(event, sizeof(event));
+}
+
+void oryx_layer_event(void) {
+    uint8_t layer;
+    uint8_t event[RAW_EPSIZE];
+    layer    = get_highest_layer(layer_state);
+    event[0] = ORYX_EVT_LAYER;
+    event[1] = layer;
+    event[2] = ORYX_STOP_BIT;
+    raw_hid_send(event, sizeof(event));
+}
+
+void pairing_failed_event(void) {
+    uint8_t event[RAW_EPSIZE];
+    event[0] = ORYX_EVT_PAIRING_FAILED;
+    event[1] = ORYX_STOP_BIT;
+    raw_hid_send(event, sizeof(event));
+}
+
+void pairing_success_event(void) {
+    uint8_t event[RAW_EPSIZE];
+    event[0] = ORYX_EVT_PAIRING_SUCCESS;
+    event[1] = ORYX_STOP_BIT;
+    raw_hid_send(event, sizeof(event));
+}
+
+bool pairing_key_input_handler(keypos_t pos) {
+    keypos_t positions[PAIRING_SEQUENCE_SIZE];
+    get_pairing_code(positions, PAIRING_SEQUENCE_SIZE);
+    keypos_t key = positions[pairing_input_index];
+
+    if (pos.col != key.col || pos.row != key.row) {
+        rawhid_state.pairing = false;
+        pairing_input_index  = 0;
+        pairing_failed_event();
+        return false;
+    } else {
+        pairing_input_index++;
+        pairing_key_input_event();
+        return true;
+    }
+}
+
+void pairing_validate_handler(uint8_t *param) {
+    bool valid = true;
+    uint8_t cmd_index = 0;
+    keypos_t positions[PAIRING_SEQUENCE_SIZE];
+    get_pairing_code(positions, PAIRING_SEQUENCE_SIZE);
+    for (uint8_t i = 0; i < PAIRING_SEQUENCE_SIZE; i++) {
+        keypos_t pos;
+        pos.col                  = param[cmd_index++];
+        pos.row                  = param[cmd_index++];
+        if (pos.col != positions[i].col || pos.row != positions[i].row) {
+            rawhid_state.pairing = false;
+            pairing_failed_event();
+            break;
+        }
+    }
+    if (valid) {
+        rawhid_state.pairing = false;
+        rawhid_state.paired  = true;
+        pairing_input_index  = 0;
+        pairing_success_event();
+    }
+}
+
 void raw_hid_receive(uint8_t *data, uint8_t length) {
     uint8_t  command   = data[0];
     uint8_t *param     = &data[1];
-    uint8_t  cmd_index = 0;
 
     switch (command) {
         case ORYX_CMD_GET_FW_VERSION: {
@@ -41,17 +145,10 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 
         case ORYX_CMD_PAIRING_INIT:
             pairing_init_handler();
-            store_pairing_sequence(&keyboard_pairing_sequence[0]);
             break;
 
         case ORYX_CMD_PAIRING_VALIDATE:
-            for (uint8_t i = 0; i < PAIRING_SEQUENCE_SIZE; i++) {
-                keypos_t pos;
-                pos.col                  = param[cmd_index++];
-                pos.row                  = param[cmd_index++];
-                host_pairing_sequence[i] = pos;
-            }
-            pairing_validate_eeprom_handler();
+            pairing_validate_handler(param);
             break;
 
         case ORYX_SET_LAYER:
@@ -67,10 +164,8 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                 rgb_matrix_reload_from_eeprom();
                 rawhid_state.rgb_control = false;
             } else {
-#    ifdef RGB_MATRIX_CUSTOM_KB
                 rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_oryx_webhid_effect);
                 rawhid_state.rgb_control = true;
-#    endif
             }
             uint8_t event[RAW_EPSIZE];
             event[0] = ORYX_EVT_RGB_CONTROL;
@@ -154,137 +249,6 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
     }
 }
 
-void pairing_validate_eeprom_handler(void) {
-    bool    match = false;
-    uint8_t event[RAW_EPSIZE];
-    uint8_t stored_sequences[sizeof(uint16_t) * PAIRING_SEQUENCE_SIZE * PAIRING_SEQUENCE_NUM_STORED];
-
-    eeprom_read_block(&stored_sequences, (uint8_t *)EECONFIG_SIZE, PAIRING_STORAGE_SIZE);
-    match = true;
-
-    if (match == true) {
-        event[0]            = ORYX_EVT_PAIRING_SUCCESS;
-        rawhid_state.paired = true;
-
-    } else {
-        event[0]            = ORYX_EVT_PAIRING_FAILED;
-        rawhid_state.paired = false;
-    }
-    event[1]             = ORYX_STOP_BIT;
-    rawhid_state.pairing = false;
-    raw_hid_send(event, sizeof(event));
-}
-
-bool store_pairing_sequence(keypos_t *pairing_sequence) {
-    uint8_t stored_sequences[sizeof(uint16_t) * PAIRING_SEQUENCE_SIZE * PAIRING_SEQUENCE_NUM_STORED];
-
-    eeprom_read_block(&stored_sequences, (uint8_t *)EECONFIG_SIZE, PAIRING_STORAGE_SIZE);
-
-    uint8_t shiftLen = sizeof(&pairing_sequence);
-
-    for (int8_t i = PAIRING_STORAGE_SIZE; i >= 0; i--) {
-        if (i > shiftLen) {
-            stored_sequences[i] = stored_sequences[i - 1];
-        } else {
-            stored_sequences[i] = 0;
-        }
-    }
-    eeprom_update_block(stored_sequences, (uint8_t *)EECONFIG_SIZE, PAIRING_STORAGE_SIZE);
-    return true;
-}
-
-void pairing_init_handler(void) {
-    create_pairing_code();
-    uint8_t event[RAW_EPSIZE];
-    uint8_t event_index  = 0;
-    event[event_index++] = ORYX_EVT_PAIRING_INPUT;
-    for (uint8_t i = 0; i < PAIRING_SEQUENCE_SIZE; i++) {
-        event[event_index++] = keyboard_pairing_sequence[i].col;
-        event[event_index++] = keyboard_pairing_sequence[i].row;
-    }
-    event[event_index++] = ORYX_STOP_BIT;
-    rawhid_state.pairing = true;
-    raw_hid_send(event, RAW_EPSIZE);
-}
-
-bool compare_sequences(keypos_t a[PAIRING_SEQUENCE_SIZE], keypos_t b[PAIRING_SEQUENCE_SIZE]) {
-    bool valid = true;
-    for (uint8_t i = 0; i < PAIRING_SEQUENCE_SIZE; i++) {
-        if (a[i].row != b[i].row) {
-            valid = false;
-            break;
-        }
-        if (a[i].col != b[i].col) {
-            valid = false;
-            break;
-        }
-    }
-    return valid;
-}
-
-void pairing_validate_handler() {
-    uint8_t event[RAW_EPSIZE];
-    bool    valid = compare_sequences(keyboard_pairing_sequence, host_pairing_sequence);
-
-    if (valid == true) {
-        event[0]            = ORYX_EVT_PAIRING_SUCCESS;
-        rawhid_state.paired = true;
-
-    } else {
-        event[0]            = ORYX_EVT_PAIRING_FAILED;
-        rawhid_state.paired = false;
-    }
-
-    event[1]             = ORYX_STOP_BIT;
-    rawhid_state.pairing = false;
-    raw_hid_send(event, sizeof(event));
-}
-
-keypos_t get_random_keypos(void) {
-    uint8_t  col = rand() % MATRIX_COLS;
-    uint8_t  row = rand() % MATRIX_ROWS;
-    keypos_t pos = {.col = col, .row = row};
-
-    uint16_t keycode = keymap_key_to_keycode(0, pos);
-    if (keycode >= KC_A && keycode <= KC_SLASH) {
-        return pos;
-    } else {
-        return get_random_keypos();
-    }
-}
-
-keypos_t *pairing_sequence(void) {
-    // The pairing sequence is derived from Oryx's layout id declared
-    // in the generated source config file with the FIRMWARE_VERSION define.
-    keypos_t *sequence = (keypos_t *)&host_pairing_sequence[0];
-    for (uint8_t i = 0; i < PAIRING_SEQUENCE_SIZE; i++) {
-    }
-
-    return sequence;
-}
-
-void create_pairing_code(void) {
-    for (uint8_t i = 0; i < PAIRING_SEQUENCE_SIZE; i++) {
-        keypos_t pos                 = get_random_keypos();
-        keyboard_pairing_sequence[i] = pos;
-    }
-}
-
-void pairing_key_input_event(void) {
-    uint8_t event[RAW_EPSIZE];
-    event[0] = ORYX_EVT_PAIRING_KEY_INPUT;
-    raw_hid_send(event, sizeof(event));
-}
-
-void oryx_layer_event(void) {
-    uint8_t layer;
-    uint8_t event[RAW_EPSIZE];
-    layer    = get_highest_layer(layer_state);
-    event[0] = ORYX_EVT_LAYER;
-    event[1] = layer;
-    event[2] = ORYX_STOP_BIT;
-    raw_hid_send(event, sizeof(event));
-}
 
 bool process_record_oryx(uint16_t keycode, keyrecord_t *record) {
     // In pairing mode, key events are absorbed, and the host pairing sequence is filled.
@@ -294,14 +258,14 @@ bool process_record_oryx(uint16_t keycode, keyrecord_t *record) {
         // The host pairing sequence is filled on key up only
         if (!record->event.pressed) {
             if (pairing_input_index < PAIRING_SEQUENCE_SIZE) {
-                host_pairing_sequence[pairing_input_index++] = record->event.key;
-                pairing_key_input_event();
+                pairing_key_input_handler(record->event.key);
             }
             wait_ms(1000);
             if (pairing_input_index == PAIRING_SEQUENCE_SIZE) {
                 rawhid_state.pairing = false;
+                rawhid_state.paired  = true;
                 pairing_input_index  = 0;
-                pairing_validate_handler();
+                pairing_success_event();
             }
         }
         return false;
