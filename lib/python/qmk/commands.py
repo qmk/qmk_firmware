@@ -10,6 +10,7 @@ import jsonschema
 
 from qmk.constants import QMK_USERSPACE, HAS_QMK_USERSPACE
 from qmk.json_schema import json_load, validate
+from qmk.keyboard import keyboard_alias_definitions
 
 
 def find_make():
@@ -54,7 +55,7 @@ def parse_configurator_json(configurator_file):
         exit(1)
 
     keyboard = user_keymap['keyboard']
-    aliases = json_load(Path('data/mappings/keyboard_aliases.hjson'))
+    aliases = keyboard_alias_definitions()
 
     while keyboard in aliases:
         last_keyboard = keyboard
