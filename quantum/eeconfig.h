@@ -20,8 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include <stdbool.h>
 
+#ifdef RGB_MATRIX_ENABLE
+#    include "rgb_matrix_indicators.h"
+#endif
+
 #ifndef EECONFIG_MAGIC_NUMBER
-#    define EECONFIG_MAGIC_NUMBER (uint16_t)0xFEE6 // When changing, decrement this value to avoid future re-init issues
+#    define EECONFIG_MAGIC_NUMBER (uint16_t)0xFEE5 // When changing, decrement this value to avoid future re-init issues
 #endif
 #define EECONFIG_MAGIC_NUMBER_OFF (uint16_t)0xFFFF
 
@@ -47,8 +51,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EECONFIG_HAPTIC (uint32_t *)32
 #define EECONFIG_RGBLIGHT_EXTENDED (uint8_t *)36
 
+#ifdef RGB_MATRIX_ENABLE
+#    define EECONFIG_RGB_MATRIX_INDICATORS (uint16_t *)(37)
+#    define EECONFIG_RGB_MATRIX_INDICATORS_SIZE (sizeof(t_rgb_matrix_indicator_config))
+#endif
+
 // Size of EEPROM being used for core data storage
-#define EECONFIG_BASE_SIZE 37
+#define EECONFIG_BASE_SIZE (37 + EECONFIG_RGB_MATRIX_INDICATORS_SIZE)
 
 // Size of EEPROM dedicated to keyboard- and user-specific data
 #ifndef EECONFIG_KB_DATA_SIZE

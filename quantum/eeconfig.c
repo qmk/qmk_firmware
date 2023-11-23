@@ -5,6 +5,10 @@
 #include "eeconfig.h"
 #include "action_layer.h"
 
+#ifdef RGB_MATRIX_ENABLE
+#    include "rgb_matrix_indicators.h"
+#endif
+
 #if defined(EEPROM_DRIVER)
 #    include "eeprom_driver.h"
 #endif
@@ -63,6 +67,13 @@ void eeconfig_init_quantum(void) {
     uint64_t dummy = 0;
     eeprom_update_block(&dummy, EECONFIG_RGB_MATRIX, sizeof(uint64_t));
     eeprom_update_dword(EECONFIG_HAPTIC, 0);
+
+#ifdef RGB_MATRIX_ENABLE
+    t_rgb_matrix_indicator_config dummy_indicator_config;
+    memset(&dummy_indicator_config, 0, EECONFIG_RGB_MATRIX_INDICATORS_SIZE);
+    eeprom_update_block(&dummy_indicator_config, EECONFIG_RGB_MATRIX_INDICATORS, EECONFIG_RGB_MATRIX_INDICATORS_SIZE);
+#endif
+
 #if defined(HAPTIC_ENABLE)
     haptic_reset();
 #endif

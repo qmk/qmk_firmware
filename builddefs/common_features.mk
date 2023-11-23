@@ -432,6 +432,7 @@ endif
     POST_CONFIG_H += $(QUANTUM_DIR)/rgb_matrix/post_config.h
     SRC += $(QUANTUM_DIR)/color.c
     SRC += $(QUANTUM_DIR)/rgb_matrix/rgb_matrix.c
+    SRC += $(QUANTUM_DIR)/rgb_matrix/rgb_matrix_indicators.c
     SRC += $(QUANTUM_DIR)/rgb_matrix/rgb_matrix_drivers.c
     SRC += $(LIB_PATH)/lib8tion/lib8tion.c
     CIE1931_CURVE := yes

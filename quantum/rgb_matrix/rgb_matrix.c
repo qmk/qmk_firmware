@@ -17,6 +17,7 @@
  */
 
 #include "rgb_matrix.h"
+#include "rgb_matrix_indicators.h"
 #include "progmem.h"
 #include "eeprom.h"
 #include "eeconfig.h"
@@ -287,10 +288,6 @@ void rgb_matrix_test(void) {
 }
 
 static bool rgb_matrix_none(effect_params_t *params) {
-    if (!params->init) {
-        return false;
-    }
-
     rgb_matrix_set_color_all(0, 0, 0);
     return false;
 }
@@ -342,8 +339,11 @@ static void rgb_task_start(void) {
 }
 
 static void rgb_task_render(uint8_t effect) {
-    bool rendering         = false;
+    bool rendering = false;
+
     rgb_effect_params.init = (effect != rgb_last_effect) || (rgb_matrix_config.enable != rgb_last_enable);
+    if (rgb_effect_params.init) rgb_matrix_set_color_all(0, 0, 0);
+
     if (rgb_effect_params.flags != rgb_matrix_config.flags) {
         rgb_effect_params.flags = rgb_matrix_config.flags;
         rgb_matrix_set_color_all(0, 0, 0);
@@ -382,22 +382,16 @@ static void rgb_task_render(uint8_t effect) {
             // ---------------------------------------------
 
         // Factory default magic value
-        case UINT8_MAX: {
+        case UINT8_MAX:
             rgb_matrix_test();
-            rgb_task_state = FLUSHING;
-        }
-            return;
+            rendering = false;
+            break;
     }
 
-    rgb_effect_params.iter++;
-
-    // next task
-    if (!rendering) {
+    if ((!rendering) || (rgb_effect_params.iter >= RGB_MATRIX_LED_PROCESS_MAX_ITERATIONS)) {
         rgb_task_state = FLUSHING;
-        if (!rgb_effect_params.init && effect == RGB_MATRIX_NONE) {
-            // We only need to flush once if we are RGB_MATRIX_NONE
-            rgb_task_state = SYNCING;
-        }
+    } else {
+        rgb_effect_params.iter++;
     }
 }
 
@@ -423,8 +417,8 @@ void rgb_matrix_task(void) {
                              (rgb_anykey_timer > (uint32_t)RGB_MATRIX_TIMEOUT) ||
 #endif // RGB_MATRIX_TIMEOUT > 0
                              false;
-
-    uint8_t effect = suspend_backlight || !rgb_matrix_config.enable ? 0 : rgb_matrix_config.mode;
+    bool    should_render_effect = !suspend_backlight && rgb_matrix_config.enable;
+    uint8_t effect               = should_render_effect ? rgb_matrix_config.mode : RGB_MATRIX_NONE;
 
     switch (rgb_task_state) {
         case STARTING:
@@ -432,11 +426,9 @@ void rgb_matrix_task(void) {
             break;
         case RENDERING:
             rgb_task_render(effect);
-            if (effect) {
+            if (should_render_effect) {
                 // Only run the basic indicators in the last render iteration (default there are 5 iterations)
-                if (rgb_effect_params.iter == RGB_MATRIX_LED_PROCESS_MAX_ITERATIONS) {
-                    rgb_matrix_indicators();
-                }
+                if (rgb_task_state == FLUSHING) rgb_matrix_indicators();
                 rgb_matrix_indicators_advanced(&rgb_effect_params);
             }
             break;
@@ -447,36 +439,6 @@ void rgb_matrix_task(void) {
             rgb_task_sync();
             break;
     }
-}
-
-void rgb_matrix_indicators(void) {
-    rgb_matrix_indicators_kb();
-}
-
-__attribute__((weak)) bool rgb_matrix_indicators_kb(void) {
-    return rgb_matrix_indicators_user();
-}
-
-__attribute__((weak)) bool rgb_matrix_indicators_user(void) {
-    return true;
-}
-
-void rgb_matrix_indicators_advanced(effect_params_t *params) {
-    /* special handling is needed for "params->iter", since it's already been incremented.
-     * Could move the invocations to rgb_task_render, but then it's missing a few checks
-     * and not sure which would be better. Otherwise, this should be called from
-     * rgb_task_render, right before the iter++ line.
-     */
-    RGB_MATRIX_USE_LIMITS_ITER(min, max, params->iter - 1);
-    rgb_matrix_indicators_advanced_kb(min, max);
-}
-
-__attribute__((weak)) bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
-    return rgb_matrix_indicators_advanced_user(led_min, led_max);
-}
-
-__attribute__((weak)) bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    return true;
 }
 
 void rgb_matrix_init(void) {
@@ -506,6 +468,7 @@ void rgb_matrix_init(void) {
         eeconfig_update_rgb_matrix_default();
     }
     eeconfig_debug_rgb_matrix(); // display current eeprom values
+    rgb_matrix_indicators_init();
 }
 
 void rgb_matrix_set_suspend_state(bool state) {
@@ -563,8 +526,8 @@ void rgb_matrix_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
     if (!rgb_matrix_config.enable) {
         return;
     }
-    if (mode < 1) {
-        rgb_matrix_config.mode = 1;
+    if (mode < 0) {
+        rgb_matrix_config.mode = 0;
     } else if (mode >= RGB_MATRIX_EFFECT_MAX) {
         rgb_matrix_config.mode = RGB_MATRIX_EFFECT_MAX - 1;
     } else {
@@ -598,7 +561,7 @@ void rgb_matrix_step(void) {
 
 void rgb_matrix_step_reverse_helper(bool write_to_eeprom) {
     uint8_t mode = rgb_matrix_config.mode - 1;
-    rgb_matrix_mode_eeprom_helper((mode < 1) ? RGB_MATRIX_EFFECT_MAX - 1 : mode, write_to_eeprom);
+    rgb_matrix_mode_eeprom_helper((mode < 0) ? RGB_MATRIX_EFFECT_MAX - 1 : mode, write_to_eeprom);
 }
 void rgb_matrix_step_reverse_noeeprom(void) {
     rgb_matrix_step_reverse_helper(false);
