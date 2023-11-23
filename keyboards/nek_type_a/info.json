@@ -8,6 +8,9 @@
         "pid": "0x0000",
         "device_version": "0.0.1"
     },
+    "bluetooth": {
+        "driver": "bluefruit_le"
+    },
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "layouts": {

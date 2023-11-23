@@ -1,5 +1,7 @@
-#include "quantum.h"
 #include "ws2812.h"
+#include "gpio.h"
+#include "util.h"
+#include "chibios_config.h"
 
 /* Adapted from https://github.com/gamazeps/ws2812b-chibios-SPIDMA/ */
 

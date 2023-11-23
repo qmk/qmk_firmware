@@ -12,6 +12,4 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
 HAPTIC_ENABLE = yes
-HAPTIC_DRIVER += SOLENOID
-
-OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
+HAPTIC_DRIVER = solenoid

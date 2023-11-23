@@ -15,7 +15,7 @@
     },
     "indicators": {
         "caps_lock": "GP17",
-        "on_state": 1
+        "on_state": 0
     },
     "rgblight": {
         "led_count": 2,
@@ -50,6 +50,9 @@
         "device_version": "1.0.0",
         "pid": "0x0765",
         "vid": "0x414C"
+    },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_65_ansi_blocker_tsangan"
     },
     "layouts": {
         "LAYOUT_65_ansi_blocker_tsangan": {
