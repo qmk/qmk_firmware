@@ -25,7 +25,7 @@
 #define VIAL_UNLOCK_COMBO_COLS { 0,1 }
 
 
-#define RGB_DI_PIN D0
+#define WS2812_DI_PIN D0
 #define RGBLED_NUM 6
 #define RGBLIGHT_LAYERS
 
