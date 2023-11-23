@@ -20,10 +20,6 @@
 //#define NO_ACTION_ONESHOT
 //Vial 
 
-#define VIAL_KEYBOARD_UID {0xFD, 0XC4, 0xE0, 0x12, 0x93, 0x1C, 0x2B, 0x9A}
-#define VIAL_UNLOCK_COMBO_ROWS { 0,0 }
-#define VIAL_UNLOCK_COMBO_COLS { 0,1 }
-
 
 #define WS2812_DI_PIN D0
 #define RGBLED_NUM 6
