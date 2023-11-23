@@ -2,6 +2,11 @@
 #pragma once
 #include "../__init__.h"
 
+bool is_shift_held_core(int mods);
+bool is_ctrl_held_core(int mods);
+bool is_gui_held_core(int mods);
+bool is_alt_held_core(int mods);
+
 bool is_shift_held(void);
 bool is_ctrl_held(void);
 bool is_gui_held(void);
