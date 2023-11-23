@@ -26,15 +26,11 @@ void process_magic_key(uint16_t keycode, uint8_t mods) {
 
             double_magic_case(KC_U, LHR_S, "e");
             double_magic_case(HR_I, MHR_N, "form");
+            double_magic_case(LHR_E, KC_X, "ample");
         );
     }
 
     switch (last_queue_key) {
-        double_magic_switch(LHR_E,
-            magic_case(KC_C, "k");
-            magic_case(KC_X, "ample");
-        );
-
         double_magic_switch(KC_M,
             magic_case(KC_P, "l");
             magic_case(LHR_A, "o");
@@ -48,10 +44,12 @@ void process_magic_key(uint16_t keycode, uint8_t mods) {
         double_magic_case(LHR_A, KC_C, "k");
         double_magic_case(KC_V, HR_I, "ew");
         double_magic_case(KC_L, HR_I, "st");
+        double_magic_case(LHR_E, KC_C, "k");
         double_magic_case(LHR_S, KC_O, "me");
         double_magic_case(MHR_D, LHR_A, "y");
         double_magic_case(KC_B, LHR_E, "en");
         double_magic_case(KC_P, LHR_E, "ople");
+        double_magic_case(TH_NUM, LHR_E, ".g.");
     }
 
     switch (keycode) {
@@ -63,13 +61,13 @@ void process_magic_key(uint16_t keycode, uint8_t mods) {
         magic_case(KC_G, "y");
         magic_case(KC_O, "a");
         magic_case(KC_U, "e");
+        magic_case(KC_X, "t");
         magic_case(LHR_S, "k");
         magic_case(LHR_R, "l");
         magic_case(MHR_D, "y");
         magic_case(LHR_E, "u");
         magic_case(HR_I, "on");
         magic_case(KC_V, "er");
-        magic_case(KC_X, "es");
         magic_case(KC_Q, "ue");
         magic_case(KC_M, "ent");
         magic_case(KC_J, "ust");

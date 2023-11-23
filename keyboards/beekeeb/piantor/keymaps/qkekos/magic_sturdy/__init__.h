@@ -38,3 +38,11 @@
             body \
         } \
         break
+
+#define triple_magic_case(trigger, penultimate_key, prev_key, supplement) \
+    case trigger: \
+        if (penultimate_key == last_queue_key && keycode == prev_key) { \
+            SEND_STRING(supplement); \
+            return; \
+        } \
+        break
