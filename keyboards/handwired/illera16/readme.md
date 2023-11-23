@@ -1,6 +1,6 @@
 # handwired/illera16
 
-![Macropad illera16](https://i.imgur.com/kpkae3Y.jpg)
+![Imgur](https://imgur.com/kpkae3Y)
 
 *hand wired 4x4 macro pad*
 
