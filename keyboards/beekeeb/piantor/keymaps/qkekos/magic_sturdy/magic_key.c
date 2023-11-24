@@ -28,6 +28,8 @@ void process_magic_key(uint16_t keycode, uint8_t mods) {
             double_magic_case(HR_I, MHR_N, "form");
             double_magic_case(LHR_E, KC_X, "ample");
         );
+
+        triple_magic_case(LHR_S, KC_Y, LHR_S, "tem");
     }
 
     switch (last_queue_key) {
