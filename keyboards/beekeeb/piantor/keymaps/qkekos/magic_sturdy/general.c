@@ -35,16 +35,6 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* reme
     return true;
 }
 
-uint32_t defer_process_magic_key(uint32_t trigger_time, void *cb_arg) {
-    process_magic_key(get_last_keycode(), get_last_mods());
-    return 0;
-}
-
-uint32_t defer_process_rep_key(uint32_t trigger_time, void *cb_arg) {
-    process_rep_key(get_last_keycode(), get_last_mods());
-    return 0;
-}
-
 bool strd_process_record(uint16_t keycode, keyrecord_t *record, bool *return_value) {
     *return_value = false;
 
@@ -62,7 +52,7 @@ bool strd_process_record(uint16_t keycode, keyrecord_t *record, bool *return_val
     switch (keycode) {
         case US_REP:
             if (record->event.pressed)
-                defer_exec(COMBO_TERM * 2, defer_process_rep_key, NULL);
+                process_rep_key(get_last_keycode(), get_last_mods());
 
             return true;
 
