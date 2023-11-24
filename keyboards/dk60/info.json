@@ -15,12 +15,8 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
-    "layout_aliases": {
-        "LAYOUT": "LAYOUT_60_hhkb"
-    },
-    "community_layouts": ["60_hhkb"],
     "layouts": {
-        "LAYOUT_60_hhkb": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -79,8 +75,8 @@
                 {"matrix": [3, 9], "x": 10.25, "y": 3},
                 {"matrix": [3, 10], "x": 11.25, "y": 3},
                 {"matrix": [3, 11], "x": 12.25, "y": 3, "w": 1.75},
+
                 {"matrix": [3, 12], "x": 14, "y": 3},
-                
                 {"matrix": [4, 1], "x": 1.5, "y": 4},
                 {"matrix": [4, 2], "x": 2.5, "y": 4, "w": 1.25},
                 {"matrix": [4, 5], "x": 3.75, "y": 4, "w": 7},
