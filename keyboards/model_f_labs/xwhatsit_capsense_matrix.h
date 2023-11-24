@@ -42,28 +42,28 @@
 #define TRACKING_REPS 16
 
 #ifndef NO_PRINT
-#define NRTIMES 64
-#define TESTATONCE 8
-#define REPS_V2 15
+#    define NRTIMES 64
+#    define TESTATONCE 8
+#    define REPS_V2 15
 #endif
 
 #ifndef MATRIX_MANIPULATE_H
-#define MATRIX_MANIPULATE_H
+#    define MATRIX_MANIPULATE_H
 
-#include "quantum.h"
+#    include "quantum.h"
 
 // Contains stuff used to manipulate the matrix using the util.
 // These are defined in capsense_matrix.c. This file is not called matrix.h to avoid conflict with qmk-native matrix.h
 
-extern bool keyboard_scan_enabled;
-void matrix_scan_raw(matrix_row_t current_matrix[]);
-extern uint16_t cal_thresholds[CAPSENSE_CAL_BINS];
+extern bool         keyboard_scan_enabled;
+void                matrix_scan_raw(matrix_row_t current_matrix[]);
+extern uint16_t     cal_thresholds[CAPSENSE_CAL_BINS];
 extern matrix_row_t assigned_to_threshold[CAPSENSE_CAL_BINS][MATRIX_CAPSENSE_ROWS];
-uint16_t measure_middle_keymap_coords(uint8_t col, uint8_t row, uint8_t time, uint8_t reps);
-void shift_data(uint32_t data, int data_idle, int shcp_idle, int stcp_idle);
-void dac_write_threshold(uint16_t value);
-uint8_t test_single(uint8_t col, uint16_t time, uint8_t *interference_ptr);
-void shift_select_col_no_strobe(uint8_t col);
-void shift_select_nothing(void);
+uint16_t            measure_middle_keymap_coords(uint8_t col, uint8_t row, uint8_t time, uint8_t reps);
+void                shift_data(uint32_t data, int data_idle, int shcp_idle, int stcp_idle);
+void                dac_write_threshold(uint16_t value);
+uint8_t             test_single(uint8_t col, uint16_t time, uint8_t *interference_ptr);
+void                shift_select_col_no_strobe(uint8_t col);
+void                shift_select_nothing(void);
 
 #endif

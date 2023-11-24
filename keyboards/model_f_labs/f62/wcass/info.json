@@ -14,7 +14,7 @@
         "command": true,
         "console": false,
         "extrakey": true,
-	"haptic": true,
+        "haptic": true,	
         "nkro": true,
         "raw": true,
         "rgblight": false
