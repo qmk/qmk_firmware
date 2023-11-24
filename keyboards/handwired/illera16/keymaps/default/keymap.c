@@ -8,8 +8,8 @@
 layer_state_t layer_state_set_user(layer_state_t state);
 
 void keyboard_post_init_user(void) {
-    rgblight_enable();  // Habilita el control del LED RGB
-    rgblight_sethsv(HSV_BLUE); // Establece el color azul como predeterminado al inicio
+    rgblight_enable_noeeprom();  // Habilita el control del LED RGB
+    rgblight_sethsv_noeeprom(HSV_BLUE); // Establece el color azul como predeterminado al inicio
     layer_state_set_user(layer_state);
 }
 
@@ -17,19 +17,19 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     uint8_t layer = biton32(state);
     switch (layer) {    
         case _CAPA1:
-            rgblight_sethsv(HSV_GREEN);
+            rgblight_sethsv_noeeprom(HSV_GREEN);
             break;
 
         case _CAPA2:
-            rgblight_sethsv(HSV_RED);
+            rgblight_sethsv_noeeprom(HSV_RED);
             break;
 
         case _CAPA3:
-            rgblight_sethsv(HSV_PINK);
+            rgblight_sethsv_noeeprom(HSV_PINK);
             break;
 
         default:
-            rgblight_sethsv(HSV_BLUE); // Establece el color azul si no está en una capa específica
+            rgblight_sethsv_noeeprom(HSV_BLUE); // Establece el color azul si no está en una capa específica
             break;
     }
     
