@@ -10,9 +10,7 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "RGBLIGHT_ENABLE": true,
-        "ENCODER_ENABLE": true
+        "nkro": true
     },
     "matrix_pins": {
         "cols": ["D4", "C6", "D7", "E6"],
@@ -46,13 +44,5 @@
                 { "matrix": [3, 3], "x": 3, "y": 3 }
             ]
         }
-    },
-    "ws2812_di_pin": "D0",
-    "RGBLED_NUM": 6,
-    "rgblight_layers": true,
-    "debounce": 5,
-    "encoders_pad_a": ["B5", "B4"],
-    "encoders_pad_b": ["B6", "B2"],
-    "encoder_resolution": 2,
-    "midi_basic": ""
+    }
 }
