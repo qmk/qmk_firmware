@@ -5,7 +5,7 @@
  A 60% keyboard by Graystudio. PCB designed and manufactured by DEMO Studio.
 
  * Keyboard Maintainer: [edwardslau](https://github.com/edwardslau)
- * Hardware Support: bd60
+ * Hardware Support: BD60 PCB
 
  Make example for this keyboard (after setting up your build environment):
 
