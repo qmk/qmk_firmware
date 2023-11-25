@@ -36,14 +36,15 @@ const pin_t amux_sel_pins[]                            = AMUX_SEL_PINS;
 const pin_t amux_en_pins[]                             = AMUX_EN_PINS;
 const pin_t amux_n_col_sizes[]                         = AMUX_COL_CHANNELS_SIZES;
 const pin_t amux_n_col_channels[][AMUX_MAX_COLS_COUNT] = {AMUX_COL_CHANNELS};
-#define AMUX_SEL_PINS_COUNT (sizeof(amux_sel_pins) / sizeof(amux_sel_pins[0]))
+
+#define AMUX_SEL_PINS_COUNT ARRAY_SIZE(amux_sel_pins)
 #define EXPECTED_AMUX_SEL_PINS_COUNT ceil(log2(AMUX_MAX_COLS_COUNT)
 // Checks for the correctness of the configuration
-_Static_assert((sizeof(amux_en_pins) / sizeof(amux_en_pins[0])) == AMUX_COUNT, "AMUX_EN_PINS doesn't have the minimum number of bits required to enable all the multiplexers available");
+_Static_assert(ARRAY_SIZE(amux_en_pins) == AMUX_COUNT, "AMUX_EN_PINS doesn't have the minimum number of bits required to enable all the multiplexers available");
 // Check that number of select pins is enough to select all the channels
 _Static_assert(AMUX_SEL_PINS_COUNT == EXPECTED_AMUX_SEL_PINS_COUNT), "AMUX_SEL_PINS doesn't have the minimum number of bits required address all the channels");
 // Check that number of elements in AMUX_COL_CHANNELS_SIZES is enough to specify the number of channels for all the multiplexers available
-_Static_assert((sizeof(amux_n_col_sizes) / sizeof(amux_n_col_sizes[0])) == AMUX_COUNT, "AMUX_COL_CHANNELS_SIZES doesn't have the minimum number of elements required to specify the number of channels for all the multiplexers available");
+_Static_assert(ARRAY_SIZE(amux_n_col_sizes) == AMUX_COUNT, "AMUX_COL_CHANNELS_SIZES doesn't have the minimum number of elements required to specify the number of channels for all the multiplexers available");
 
 // static ec_config_t config;
 static uint16_t sw_value[MATRIX_ROWS][MATRIX_COLS];
