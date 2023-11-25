@@ -1,6 +1,6 @@
 # Cover65
 
-![Cover65](https://i.imgur.com/m1EFfOU.png)
+![Cover65](https://i.imgur.com/m1EFfOUh.png)
 
 Support STM32F103 keyboard.
 
