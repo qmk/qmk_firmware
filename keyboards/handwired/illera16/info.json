@@ -42,6 +42,6 @@
     "encoders_pad_b": ["B6", "B2"],
     "encoder_resolution": 2,
     "midi_basic": "",
-    "RGBLIGHT_ENABLE": true,
-    "ENCODER_ENABLE": true
+    "RGBLIGHT_ENABLE": yes,
+    "ENCODER_ENABLE": yes
 }
