@@ -21,7 +21,7 @@
 #include "matrix.h"
 #include "eeconfig.h"
 
-typedef struct {
+typedef struct PACKED {
     uint8_t  actuation_mode;                              // 0: normal board-wide APC, 1: Rapid trigger from specific board-wide actuation point, 2: Rapid trigger from resting point
     uint16_t mode_0_actuation_threshold;                  // threshold for key press in mode 0
     uint16_t mode_0_release_threshold;                    // threshold for key release in mode 0
