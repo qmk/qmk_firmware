@@ -10,7 +10,9 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "RGBLIGHT_ENABLE": true,
+        "ENCODER_ENABLE": true
     },
     "matrix_pins": {
         "cols": ["D4", "C6", "D7", "E6"],
@@ -41,7 +43,5 @@
     "encoders_pad_a": ["B5", "B4"],
     "encoders_pad_b": ["B6", "B2"],
     "encoder_resolution": 2,
-    "midi_basic": "",
-    "RGBLIGHT_ENABLE": true,
-    "ENCODER_ENABLE": true
+    "midi_basic": ""
 }
