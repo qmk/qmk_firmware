@@ -1,4 +1,4 @@
-# Gray Studio bd60
+# Gray Studio BD60
 
 ![BD60](https://i.imgur.com/BTneFkMh.jpeg)
 
