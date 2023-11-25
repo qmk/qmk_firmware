@@ -35,7 +35,7 @@
         }
     },
     "ws2812_di_pin": "D0",
-    "rgbled_num": 6,
+    "RGBLED_NUM": 6,
     "rgblight_layers": true,
     "debounce": 5,
     "encoders_pad_a": ["B5", "B4"],
