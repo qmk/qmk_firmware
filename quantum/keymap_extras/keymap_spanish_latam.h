@@ -1,6 +1,28 @@
 // Copyright 2023 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+/*******************************************************************************
+  88888888888 888      d8b                .d888 d8b 888               d8b
+      888     888      Y8P               d88P"  Y8P 888               Y8P
+      888     888                        888        888
+      888     88888b.  888 .d8888b       888888 888 888  .d88b.       888 .d8888b
+      888     888 "88b 888 88K           888    888 888 d8P  Y8b      888 88K
+      888     888  888 888 "Y8888b.      888    888 888 88888888      888 "Y8888b.
+      888     888  888 888      X88      888    888 888 Y8b.          888      X88
+      888     888  888 888  88888P'      888    888 888  "Y8888       888  88888P'
+                                                        888                 888
+                                                        888                 888
+                                                        888                 888
+     .d88b.   .d88b.  88888b.   .d88b.  888d888 8888b.  888888 .d88b.   .d88888
+    d88P"88b d8P  Y8b 888 "88b d8P  Y8b 888P"      "88b 888   d8P  Y8b d88" 888
+    888  888 88888888 888  888 88888888 888    .d888888 888   88888888 888  888
+    Y88b 888 Y8b.     888  888 Y8b.     888    888  888 Y88b. Y8b.     Y88b 888
+     "Y88888  "Y8888  888  888  "Y8888  888    "Y888888  "Y888 "Y8888   "Y88888
+         888
+    Y8b d88P
+     "Y88P"
+*******************************************************************************/
+
 #pragma once
 #include "keycodes.h"
 // clang-format off
@@ -29,7 +51,7 @@
 #define LA_I    KC_I    // I
 #define LA_O    KC_O    // O
 #define LA_P    KC_P    // P
-#define LA_ACUT  KC_LBRC // ´ (dead)
+#define LA_ACUT KC_LBRC // ´ (dead)
 #define LA_PLUS KC_RBRC // +
 #define LA_A    KC_A    // A
 #define LA_S    KC_S    // S
@@ -54,7 +76,7 @@
 #define LA_COMM KC_COMM // ,
 #define LA_DOT  KC_DOT  // .
 #define LA_MINS KC_SLSH // -
-#define LA_MORD S(LA_PIPE) // |
+#define LA_MORD S(LA_PIPE) // °
 #define LA_EXLM S(LA_1)    // !
 #define LA_DQUO S(LA_2)    // "
 #define LA_NUMB S(LA_3)    // #
@@ -67,7 +89,7 @@
 #define LA_EQL  S(LA_0)    // =
 #define LA_QUES S(LA_QUOT) // ?
 #define LA_IEXL S(LA_IQUE) // ¡
-#define LA_DIAE S(LA_ACUT)  // ¨ (dead)
+#define LA_DIAE S(LA_ACUT) // ¨ (dead)
 #define LA_ASTR S(LA_PLUS) // *
 #define LA_LBRC S(LA_LCBR) // [
 #define LA_RBRC S(LA_RCBR) // ]
@@ -75,11 +97,10 @@
 #define LA_SCLN S(LA_COMM) // ;
 #define LA_COLN S(LA_DOT)  // :
 #define LA_UNDS S(LA_MINS) // _
-#define LA_AT ALGR(LA_Q) // @
-#define LA_EUR ALGR(LA_E) // €
-#define LA_NOT ALGR(LA_PIPE) // ¬
-#define LA_BSLS ALGR(LA_PIPE) // (backslash)
+#define LA_NOT  ALGR(LA_PIPE) // ¬
+#define LA_BSLS ALGR(LA_QUOT) // (backslash)
+#define LQ_AT   ALGR(LA_Q)    // @
+#define LA_EUR  ALGR(LA_E)    // #
 #define LA_TILD ALGR(LA_PLUS) // ~
 #define LA_CIRC ALGR(LA_LCBR) // ^
-#define LA_GRAV ALGR(LA_RCBR) // `
 
