@@ -1,7 +1,5 @@
 # Enables Audio control and System control Keycodes
 EXTRAKEY_ENABLE = yes
-# Enables Mousekeys
-MOUSEKEY_ENABLE = yes
 # Encoder Support
 ENCODER_ENABLE = yes
 # Use Enocoder Mapping

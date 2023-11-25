@@ -12,6 +12,13 @@
         "pin": "GP0",
         "driver": "vendor"
     },
+    "mouse_key": {
+        "enabled": true,
+        "delay": 10,
+        "interval": 16,
+        "max_speed": 2,
+        "time_to_max": 40
+    }
     "rgb_matrix": {
         "driver": "ws2812",
         "max_brightness": 128,

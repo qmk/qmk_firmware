@@ -13,16 +13,10 @@
 #define TAPPING_TERM 210
 
 /* Allows for the setting of constant mouse speed levels. */
-/* Delay between pressing a movement key and cursor movement */
-#define MOUSEKEY_DELAY 10
-/* Time between cursor movements in milliseconds */
-#define MOUSEKEY_INTERVAL 16
+/* Not all mouse wheel config settings are currently supported in .json config.*/
+/* https://github.com/qmk/qmk_firmware/blob/master/docs/reference_info_json.md */
 /* Step size */
 #define MOUSEKEY_MOVE_DELTA 8
-/* Maximum cursor speed at which acceleration stops */
-#define MOUSEKEY_MAX_SPEED 2
-/* Time until maximum cursor speed is reached */
-#define MOUSEKEY_TIME_TO_MAX 40
 /* Maximum number of scroll steps per scroll action */
 #define MOUSEKEY_WHEEL_MAX_SPEED 42
 /* Time until maximum scroll speed is reached */
