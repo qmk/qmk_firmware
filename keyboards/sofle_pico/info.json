@@ -3,6 +3,7 @@
     "keyboard_name": "sofle_pico",
     "url": "https://github.com/JellyTitan/sofle_pico",
     "maintainer": "Ryan Neff <github@JellyTitan.com>",
+    "tags": ["ortho", "split", "rgb", "encoder", "OLED"],
     "usb": {
         "vid": "0x4413",
         "pid": "0x4A13",
@@ -18,7 +19,10 @@
         "interval": 16,
         "max_speed": 2,
         "time_to_max": 40
-    }
+    },
+    "tapping": {
+        "term": 210
+    },
     "rgb_matrix": {
         "driver": "ws2812",
         "max_brightness": 128,

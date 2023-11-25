@@ -17,8 +17,6 @@
 // Prevents thumper on mods like shift/Ctrl/Alt
 #define NO_HAPTIC_MOD
 #define SOLENOID_PIN GP21
-/* Set tapdance speed */
-#define TAPPING_TERM 210
 
 /* Allows for the setting of constant mouse speed levels. */
 /* Not all mouse wheel config settings are currently supported in .json config.*/

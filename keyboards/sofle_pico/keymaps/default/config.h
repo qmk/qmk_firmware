@@ -9,9 +9,6 @@
 #    define ENCODER_MAP_KEY_DELAY 10
 #endif
 
-/* Set tapdance speed */
-#define TAPPING_TERM 210
-
 /* Allows for the setting of constant mouse speed levels. */
 /* Not all mouse wheel config settings are currently supported in .json config.*/
 /* https://github.com/qmk/qmk_firmware/blob/master/docs/reference_info_json.md */
