@@ -38,9 +38,13 @@ void process_magic_key(uint16_t keycode, uint8_t mods) {
             magic_case(LHR_A, "o");
         );
 
+        double_magic_switch(KC_O,
+            magic_case(KC_C, "k");
+            magic_case(LHR_T, "her");
+        );
+
         double_magic_case(HR_I, KC_C, "k");
         double_magic_case(KC_U, KC_C, "k");
-        double_magic_case(KC_O, KC_C, "k");
         double_magic_case(KC_C, KC_Y, "c");
         double_magic_case(KC_W, LHR_E, "b");
         double_magic_case(LHR_A, KC_C, "k");
