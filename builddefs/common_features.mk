@@ -49,7 +49,7 @@ ifeq ($(strip $(CONSOLE_ENABLE)), yes)
 else
     SENDCHAR_DRIVER ?= none
 endif
-VALID_SENDCHAR_DRIVER_TYPES := console uart custom
+VALID_SENDCHAR_DRIVER_TYPES := console uart rtt custom
 ifneq ($(strip $(SENDCHAR_DRIVER)),none)
     ifeq ($(filter $(SENDCHAR_DRIVER),$(VALID_SENDCHAR_DRIVER_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid SENDCHAR_DRIVER,SENDCHAR_DRIVER="$(SENDCHAR_DRIVER)" is not a valid logging driver type)
@@ -62,6 +62,10 @@ ifneq ($(strip $(SENDCHAR_DRIVER)),none)
 
         ifeq ($(strip $(SENDCHAR_DRIVER)), uart)
             UART_DRIVER_REQUIRED = yes
+        endif
+
+        ifeq ($(strip $(SENDCHAR_DRIVER)), rtt)
+            SEGGER_RTT_DRIVER_REQUIRED = yes
         endif
     endif
 else
@@ -978,6 +982,12 @@ ifeq ($(strip $(I2C_DRIVER_REQUIRED)), yes)
     OPT_DEFS += -DHAL_USE_I2C=TRUE
     QUANTUM_LIB_SRC += i2c_master.c
 endif
+
+ifeq ($(strip $(SEGGER_RTT_DRIVER_REQUIRED)), yes)
+    OPT_DEFS += -DSEGGER_RTT_ENABLE
+    include $(QUANTUM_PATH)/logging/rtt.mk
+endif
+
 
 ifeq ($(strip $(SPI_DRIVER_REQUIRED)), yes)
     OPT_DEFS += -DHAL_USE_SPI=TRUE

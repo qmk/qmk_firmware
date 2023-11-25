@@ -1,0 +1,6 @@
+VPATH += $(LIB_PATH)/RTT
+
+SRC += SEGGER_RTT.c
+SRC += SEGGER_RTT_printf.c
+SRC += SEGGER_RTT_ASM_ARMv7M.S
+ 
