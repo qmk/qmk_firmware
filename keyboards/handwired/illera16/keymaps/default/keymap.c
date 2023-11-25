@@ -3,7 +3,6 @@
 
 #include QMK_KEYBOARD_H
 
-
 #define _BASE 0 
 #define _CAPA1 1
 #define _CAPA2 2
