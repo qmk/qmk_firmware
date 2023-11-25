@@ -78,8 +78,8 @@
         ]
     },
     "matrix_pins": {
-        "cols": ["GP9", "GP10", "GP11", "GP12", "GP13"],
-        "rows": ["GP1", "GP2", "GP3", "GP4", "GP5", "GP8"]
+        "rows": ["GP9", "GP10", "GP11", "GP12", "GP13"],
+        "cols": ["GP1", "GP2", "GP3", "GP4", "GP5", "GP8"]
     },
     "diode_direction": "COL2ROW",
     "encoder": {
