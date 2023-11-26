@@ -218,7 +218,7 @@ void cirque_pinnacle_cursor_smoothing(bool enable) {
 
 // Check sensor is connected
 bool cirque_pinnacle_connected(void) {
-    uint8_t  zidle = 0;
+    uint8_t zidle = 0;
     RAP_ReadBytes(HOSTREG__ZIDLE, &zidle, 1);
     return zidle == HOSTREG__ZIDLE_DEFVAL;
 }
@@ -285,7 +285,6 @@ void cirque_pinnacle_init(void) {
 #ifndef CIRQUE_PINNACLE_SKIP_SENSOR_CHECK
     touchpad_init = cirque_pinnacle_connected();
 #endif
-
 }
 
 pinnacle_data_t cirque_pinnacle_read_data(void) {
