@@ -22,23 +22,7 @@
 #include "i2c_master.h"
 #include "wait.h"
 
-#define IS31FL3741_COMMANDREGISTER 0xFD
-#define IS31FL3741_COMMANDREGISTER_WRITELOCK 0xFE
-#define IS31FL3741_INTERRUPTMASKREGISTER 0xF0
-#define IS31FL3741_INTERRUPTSTATUSREGISTER 0xF1
-#define IS31FL3741_IDREGISTER 0xFC
-
-#define IS31FL3741_PAGE_PWM0 0x00      // PG0
-#define IS31FL3741_PAGE_PWM1 0x01      // PG1
-#define IS31FL3741_PAGE_SCALING_0 0x02 // PG2
-#define IS31FL3741_PAGE_SCALING_1 0x03 // PG3
-#define IS31FL3741_PAGE_FUNCTION 0x04  // PG4
-
-#define IS31FL3741_REG_CONFIGURATION 0x00 // PG4
-#define IS31FL3741_REG_GLOBALCURRENT 0x01 // PG4
-#define IS31FL3741_REG_PULLDOWNUP 0x02    // PG4
-#define IS31FL3741_REG_PWM_FREQUENCY 0x36 // PG4
-#define IS31FL3741_REG_RESET 0x3F         // PG4
+#define IS31FL3741_PWM_REGISTER_COUNT 351
 
 #ifndef IS31FL3741_I2C_TIMEOUT
 #    define IS31FL3741_I2C_TIMEOUT 100
@@ -56,19 +40,17 @@
 #    define IS31FL3741_PWM_FREQUENCY IS31FL3741_PWM_FREQUENCY_29K_HZ
 #endif
 
-#ifndef IS31FL3741_SWPULLUP
-#    define IS31FL3741_SWPULLUP IS31FL3741_PUR_32KR
+#ifndef IS31FL3741_SW_PULLUP
+#    define IS31FL3741_SW_PULLUP IS31FL3741_PUR_32K_OHM
 #endif
 
-#ifndef IS31FL3741_CSPULLUP
-#    define IS31FL3741_CSPULLUP IS31FL3741_PUR_32KR
+#ifndef IS31FL3741_CS_PULLDOWN
+#    define IS31FL3741_CS_PULLDOWN IS31FL3741_PDR_32K_OHM
 #endif
 
-#ifndef IS31FL3741_GLOBALCURRENT
-#    define IS31FL3741_GLOBALCURRENT 0xFF
+#ifndef IS31FL3741_GLOBAL_CURRENT
+#    define IS31FL3741_GLOBAL_CURRENT 0xFF
 #endif
-
-#define IS31FL3741_MAX_LEDS 351
 
 // Transfer buffer for TWITransmitData()
 uint8_t g_twi_transfer_buffer[20] = {0xFF};
@@ -79,11 +61,11 @@ uint8_t g_twi_transfer_buffer[20] = {0xFF};
 // We could optimize this and take out the unused registers from these
 // buffers and the transfers in is31fl3741_write_pwm_buffer() but it's
 // probably not worth the extra complexity.
-uint8_t g_pwm_buffer[IS31FL3741_DRIVER_COUNT][IS31FL3741_MAX_LEDS];
+uint8_t g_pwm_buffer[IS31FL3741_DRIVER_COUNT][IS31FL3741_PWM_REGISTER_COUNT];
 bool    g_pwm_buffer_update_required[IS31FL3741_DRIVER_COUNT]        = {false};
 bool    g_scaling_registers_update_required[IS31FL3741_DRIVER_COUNT] = {false};
 
-uint8_t g_scaling_registers[IS31FL3741_DRIVER_COUNT][IS31FL3741_MAX_LEDS];
+uint8_t g_scaling_registers[IS31FL3741_DRIVER_COUNT][IS31FL3741_PWM_REGISTER_COUNT];
 
 void is31fl3741_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
     g_twi_transfer_buffer[0] = reg;
@@ -104,8 +86,8 @@ bool is31fl3741_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     for (int i = 0; i < 342; i += 18) {
         if (i == 180) {
             // unlock the command register and select PG1
-            is31fl3741_write_register(addr, IS31FL3741_COMMANDREGISTER_WRITELOCK, 0xC5);
-            is31fl3741_write_register(addr, IS31FL3741_COMMANDREGISTER, IS31FL3741_PAGE_PWM1);
+            is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND_WRITE_LOCK, IS31FL3741_COMMAND_WRITE_LOCK_MAGIC);
+            is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND, IS31FL3741_COMMAND_PWM_1);
         }
 
         g_twi_transfer_buffer[0] = i % 180;
@@ -143,6 +125,36 @@ bool is31fl3741_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     return true;
 }
 
+void is31fl3741_init_drivers(void) {
+    i2c_init();
+
+    is31fl3741_init(IS31FL3741_I2C_ADDRESS_1);
+#if defined(IS31FL3741_I2C_ADDRESS_2)
+    is31fl3741_init(IS31FL3741_I2C_ADDRESS_2);
+#    if defined(IS31FL3741_I2C_ADDRESS_3)
+    is31fl3741_init(IS31FL3741_I2C_ADDRESS_3);
+#        if defined(IS31FL3741_I2C_ADDRESS_4)
+    is31fl3741_init(IS31FL3741_I2C_ADDRESS_4);
+#        endif
+#    endif
+#endif
+
+    for (int i = 0; i < IS31FL3741_LED_COUNT; i++) {
+        is31fl3741_set_led_control_register(i, true);
+    }
+
+    is31fl3741_update_led_control_registers(IS31FL3741_I2C_ADDRESS_1, 0);
+#if defined(IS31FL3741_I2C_ADDRESS_2)
+    is31fl3741_update_led_control_registers(IS31FL3741_I2C_ADDRESS_2, 1);
+#    if defined(IS31FL3741_I2C_ADDRESS_3)
+    is31fl3741_update_led_control_registers(IS31FL3741_I2C_ADDRESS_3, 2);
+#        if defined(IS31FL3741_I2C_ADDRESS_4)
+    is31fl3741_update_led_control_registers(IS31FL3741_I2C_ADDRESS_4, 3);
+#        endif
+#    endif
+#endif
+}
+
 void is31fl3741_init(uint8_t addr) {
     // In order to avoid the LEDs being driven with garbage data
     // in the LED driver's PWM registers, shutdown is enabled last.
@@ -151,20 +163,20 @@ void is31fl3741_init(uint8_t addr) {
     // Unlock the command register.
 
     // Unlock the command register.
-    is31fl3741_write_register(addr, IS31FL3741_COMMANDREGISTER_WRITELOCK, 0xC5);
+    is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND_WRITE_LOCK, IS31FL3741_COMMAND_WRITE_LOCK_MAGIC);
 
     // Select PG4
-    is31fl3741_write_register(addr, IS31FL3741_COMMANDREGISTER, IS31FL3741_PAGE_FUNCTION);
+    is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND, IS31FL3741_COMMAND_FUNCTION);
 
     // Set to Normal operation
-    is31fl3741_write_register(addr, IS31FL3741_REG_CONFIGURATION, IS31FL3741_CONFIGURATION);
+    is31fl3741_write_register(addr, IS31FL3741_FUNCTION_REG_CONFIGURATION, IS31FL3741_CONFIGURATION);
 
     // Set Golbal Current Control Register
-    is31fl3741_write_register(addr, IS31FL3741_REG_GLOBALCURRENT, IS31FL3741_GLOBALCURRENT);
+    is31fl3741_write_register(addr, IS31FL3741_FUNCTION_REG_GLOBAL_CURRENT, IS31FL3741_GLOBAL_CURRENT);
     // Set Pull up & Down for SWx CSy
-    is31fl3741_write_register(addr, IS31FL3741_REG_PULLDOWNUP, ((IS31FL3741_CSPULLUP << 4) | IS31FL3741_SWPULLUP));
+    is31fl3741_write_register(addr, IS31FL3741_FUNCTION_REG_PULLDOWNUP, ((IS31FL3741_CS_PULLDOWN << 4) | IS31FL3741_SW_PULLUP));
     // Set PWM frequency
-    is31fl3741_write_register(addr, IS31FL3741_REG_PWM_FREQUENCY, (IS31FL3741_PWM_FREQUENCY & 0b1111));
+    is31fl3741_write_register(addr, IS31FL3741_FUNCTION_REG_PWM_FREQUENCY, (IS31FL3741_PWM_FREQUENCY & 0b1111));
 
     // is31fl3741_update_led_scaling_registers(addr, 0xFF, 0xFF, 0xFF);
 
@@ -174,7 +186,7 @@ void is31fl3741_init(uint8_t addr) {
 
 void is31fl3741_set_value(int index, uint8_t value) {
     is31fl3741_led_t led;
-    if (index >= 0 && index < LED_MATRIX_LED_COUNT) {
+    if (index >= 0 && index < IS31FL3741_LED_COUNT) {
         memcpy_P(&led, (&g_is31fl3741_leds[index]), sizeof(led));
 
         if (g_pwm_buffer[led.driver][led.v] == value) {
@@ -186,7 +198,7 @@ void is31fl3741_set_value(int index, uint8_t value) {
 }
 
 void is31fl3741_set_value_all(uint8_t value) {
-    for (int i = 0; i < LED_MATRIX_LED_COUNT; i++) {
+    for (int i = 0; i < IS31FL3741_LED_COUNT; i++) {
         is31fl3741_set_value(i, value);
     }
 }
@@ -207,8 +219,8 @@ void is31fl3741_set_led_control_register(uint8_t index, bool value) {
 void is31fl3741_update_pwm_buffers(uint8_t addr, uint8_t index) {
     if (g_pwm_buffer_update_required[index]) {
         // unlock the command register and select PG2
-        is31fl3741_write_register(addr, IS31FL3741_COMMANDREGISTER_WRITELOCK, 0xC5);
-        is31fl3741_write_register(addr, IS31FL3741_COMMANDREGISTER, IS31FL3741_PAGE_PWM0);
+        is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND_WRITE_LOCK, IS31FL3741_COMMAND_WRITE_LOCK_MAGIC);
+        is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND, IS31FL3741_COMMAND_PWM_0);
 
         is31fl3741_write_pwm_buffer(addr, g_pwm_buffer[index]);
     }
@@ -225,8 +237,8 @@ void is31fl3741_set_pwm_buffer(const is31fl3741_led_t *pled, uint8_t value) {
 void is31fl3741_update_led_control_registers(uint8_t addr, uint8_t index) {
     if (g_scaling_registers_update_required[index]) {
         // unlock the command register and select PG2
-        is31fl3741_write_register(addr, IS31FL3741_COMMANDREGISTER_WRITELOCK, 0xC5);
-        is31fl3741_write_register(addr, IS31FL3741_COMMANDREGISTER, IS31FL3741_PAGE_SCALING_0);
+        is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND_WRITE_LOCK, IS31FL3741_COMMAND_WRITE_LOCK_MAGIC);
+        is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND, IS31FL3741_COMMAND_SCALING_0);
 
         // CS1_SW1 to CS30_SW6 are on PG2
         for (int i = CS1_SW1; i <= CS30_SW6; ++i) {
@@ -234,8 +246,8 @@ void is31fl3741_update_led_control_registers(uint8_t addr, uint8_t index) {
         }
 
         // unlock the command register and select PG3
-        is31fl3741_write_register(addr, IS31FL3741_COMMANDREGISTER_WRITELOCK, 0xC5);
-        is31fl3741_write_register(addr, IS31FL3741_COMMANDREGISTER, IS31FL3741_PAGE_SCALING_1);
+        is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND_WRITE_LOCK, IS31FL3741_COMMAND_WRITE_LOCK_MAGIC);
+        is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND, IS31FL3741_COMMAND_SCALING_1);
 
         // CS1_SW7 to CS39_SW9 are on PG3
         for (int i = CS1_SW7; i <= CS39_SW9; ++i) {
@@ -250,4 +262,17 @@ void is31fl3741_set_scaling_registers(const is31fl3741_led_t *pled, uint8_t valu
     g_scaling_registers[pled->driver][pled->v] = value;
 
     g_scaling_registers_update_required[pled->driver] = true;
+}
+
+void is31fl3741_flush(void) {
+    is31fl3741_update_pwm_buffers(IS31FL3741_I2C_ADDRESS_1, 0);
+#if defined(IS31FL3741_I2C_ADDRESS_2)
+    is31fl3741_update_pwm_buffers(IS31FL3741_I2C_ADDRESS_2, 1);
+#    if defined(IS31FL3741_I2C_ADDRESS_3)
+    is31fl3741_update_pwm_buffers(IS31FL3741_I2C_ADDRESS_3, 2);
+#        if defined(IS31FL3741_I2C_ADDRESS_4)
+    is31fl3741_update_pwm_buffers(IS31FL3741_I2C_ADDRESS_4, 3);
+#        endif
+#    endif
+#endif
 }

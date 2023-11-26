@@ -19,14 +19,27 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "progmem.h"
+#include "util.h"
+
+#define IS31FL3218_REG_SHUTDOWN 0x00
+#define IS31FL3218_REG_PWM 0x01
+#define IS31FL3218_REG_LED_CONTROL_1 0x13
+#define IS31FL3218_REG_LED_CONTROL_2 0x14
+#define IS31FL3218_REG_LED_CONTROL_3 0x15
+#define IS31FL3218_REG_UPDATE 0x16
+#define IS31FL3218_REG_RESET 0x17
 
 #define IS31FL3218_I2C_ADDRESS 0x54
 
+#if defined(LED_MATRIX_IS31FL3218)
+#    define IS31FL3218_LED_COUNT LED_MATRIX_LED_COUNT
+#endif
+
 typedef struct is31fl3218_led_t {
     uint8_t v;
-} __attribute__((packed)) is31fl3218_led_t;
+} PACKED is31fl3218_led_t;
 
-extern const is31fl3218_led_t PROGMEM g_is31fl3218_leds[LED_MATRIX_LED_COUNT];
+extern const is31fl3218_led_t PROGMEM g_is31fl3218_leds[IS31FL3218_LED_COUNT];
 
 void is31fl3218_init(void);
 

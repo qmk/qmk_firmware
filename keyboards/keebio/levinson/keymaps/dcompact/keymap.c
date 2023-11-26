@@ -1,7 +1,5 @@
 #include QMK_KEYBOARD_H
 
-#include "keymap_steno.h"
-
 // Custom Keycodes and Combinations Used
 #define DEL_SHF SFT_T(KC_DEL)
 #define QUAKE LCTL(KC_GRV)

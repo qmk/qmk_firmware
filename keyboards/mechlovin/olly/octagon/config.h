@@ -18,11 +18,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #ifdef LED_MATRIX_ENABLE
-#define LED_DRIVER_ADDR_1 IS31FL3731_I2C_ADDRESS_SDA
+#define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_SDA
 #define I2C_DRIVER I2CD2
 #define I2C1_SCL_PIN B10
 #define I2C1_SDA_PIN B11
-#define IS31FL3731_DRIVER_COUNT 1
 #define LED_MATRIX_LED_COUNT 94
 #define LED_MATRIX_KEYPRESSES // reacts to keypresses
 #define LED_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)

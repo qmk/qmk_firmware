@@ -7,9 +7,11 @@
         "rgb_matrix": true
     },
     "split": {
-        "transport": {
-            "sync_matrix_state": true
+      "transport": {
+        "sync" :{
+          "matrix_state": true
         }
+      }
     },
     "rgblight": {
       "led_count": 58,

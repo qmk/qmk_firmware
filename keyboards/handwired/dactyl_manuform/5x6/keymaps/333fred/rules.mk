@@ -1,2 +1,0 @@
-KEY_LOCK_ENABLE = yes
-LTO_ENABLE = yes
