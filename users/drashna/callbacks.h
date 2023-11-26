@@ -7,7 +7,7 @@
 
 void          keyboard_post_init_keymap(void);
 void          matrix_init_secret(void);
-void          shutdown_keymap(void);
+bool          shutdown_keymap(bool jump_to_bootloader);
 void          suspend_power_down_keymap(void);
 void          suspend_wakeup_init_keymap(void);
 void          matrix_scan_keymap(void);

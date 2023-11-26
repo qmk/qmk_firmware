@@ -25,7 +25,6 @@
 #define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN C12
 
 /* I2C Config for LED Driver */
-#define SNLED27351_DRIVER_COUNT 1
 #define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_GND
 
 /* WB32 MCU has no default definition */

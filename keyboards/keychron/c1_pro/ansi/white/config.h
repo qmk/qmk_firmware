@@ -20,7 +20,6 @@
 // #define MATRIX_UNSELECT_DRIVE_HIGH
 
 /* LED Matrix Driver Configuration */
-#define SNLED27351_DRIVER_COUNT 1
 #define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_GND
 
 /* LED Matrix Configuration */

@@ -55,16 +55,3 @@ void suspend_wakeup_init_user(void) {
     wait_ms(10);
 #endif
 }
-
-__attribute__((weak)) void startup_keymap(void) {}
-
-void startup_user(void) {
-#ifdef RGBLIGHT_ENABLE
-    matrix_init_rgb();
-#endif  // RGBLIGHT_ENABLE
-    startup_keymap();
-}
-
-__attribute__((weak)) void shutdown_keymap(void) {}
-
-void shutdown_user(void) { shutdown_keymap(); }

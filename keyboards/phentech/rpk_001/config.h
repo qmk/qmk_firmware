@@ -6,7 +6,6 @@
 /* RGB Config */
 #define DRIVER_1_CS B6
 #define DRIVER_1_EN B7
-#define DRIVER_COUNT 1
 #define RGB_MATRIX_LED_COUNT 67
 
 /* SPI Config */
