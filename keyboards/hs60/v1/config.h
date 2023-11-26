@@ -44,7 +44,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
 #define IS31FL3731_I2C_ADDRESS_2 IS31FL3731_I2C_ADDRESS_SCL
 
-#define IS31FL3731_DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 30
 
 #ifdef  HS60_ANSI

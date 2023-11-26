@@ -12,4 +12,6 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 CUSTOM_MATRIX = lite
 
-SRC += analog.c ec_switch_matrix.c matrix.c
+ANALOG_DRIVER_REQUIRED = yes
+
+SRC += ec_switch_matrix.c matrix.c

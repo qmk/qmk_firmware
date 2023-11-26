@@ -54,6 +54,9 @@
     "build": {
         "debounce_type": "sym_eager_pk"
     },
+    "dip_switch": {
+        "pins": ["A0"]
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "B0", "pin_b": "A2", "resolution": 4},
