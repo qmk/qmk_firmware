@@ -1,8 +1,5 @@
 #include QMK_KEYBOARD_H
-#include "debug.h"
-#include "action_layer.h"
 #include "version.h"
-#include "keymap_steno.h"
 #ifndef MIDI_ENABLE
 #error "Midi is not enabled"
 #endif

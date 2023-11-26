@@ -37,6 +37,9 @@
         "io_delay": 5
     },
     "diode_direction": "COL2ROW",
+    "dip_switch": {
+        "pins": ["A14", "B13"]
+    },
     "eeprom": {
         "wear_leveling": {
             "backing_size": 4096
@@ -50,6 +53,11 @@
         ]
     },
     "split": {
+        "dip_switch": {
+            "right": {
+                "pins": ["A14", "B0"]
+            }
+        },
         "soft_serial_pin": "A9",
         "encoder": {
             "right": {

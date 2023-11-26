@@ -16,12 +16,7 @@
 
 #pragma once
 
-
 #define RGB_TRIGGER_ON_KEYDOWN
-
-/* DIP switch */
-#define DIP_SWITCH_PINS \
-    { A9 }
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -38,7 +33,6 @@
 #define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN C12
 
 /* I2C Config for LED Driver */
-#define SNLED27351_DRIVER_COUNT 2
 #define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_GND
 #define SNLED27351_I2C_ADDRESS_2 SNLED27351_I2C_ADDRESS_VDDIO
 #define I2C1_SDA_PIN B7

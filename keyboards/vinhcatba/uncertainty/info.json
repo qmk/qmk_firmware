@@ -4,6 +4,9 @@
     "maintainer": "vinhcatba",
     "development_board": "blackpill_f401",
     "diode_direction": "COL2ROW",
+    "eeprom": {
+        "driver": "i2c"
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "A13", "pin_b": "A14"}
