@@ -174,6 +174,7 @@ void via_config_get_value(uint8_t *data) {
     }
 }
 
+// Handle the commands sent and received by the keyboard with VIA
 void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
     // data = [ command_id, channel_id, value_id, value_data ]
     uint8_t *command_id        = &(data[0]);
@@ -209,6 +210,7 @@ void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
 // Rescale the values received by VIA to fit the new range
 void ec_rescale_values(uint8_t item) {
     switch (item) {
+        // Rescale the APC mode actuation thresholds
         case 0:
             for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
                 for (uint8_t col = 0; col < MATRIX_COLS; col++) {
@@ -216,6 +218,7 @@ void ec_rescale_values(uint8_t item) {
                 }
             }
             break;
+        // Rescale the APC mode release thresholds
         case 1:
             for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
                 for (uint8_t col = 0; col < MATRIX_COLS; col++) {
@@ -223,6 +226,7 @@ void ec_rescale_values(uint8_t item) {
                 }
             }
             break;
+        // Rescale the Rapid Trigger mode initial deadzone offsets
         case 2:
             for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
                 for (uint8_t col = 0; col < MATRIX_COLS; col++) {
@@ -238,12 +242,15 @@ void ec_rescale_values(uint8_t item) {
 }
 
 void ec_save_threshold_data(uint8_t option) {
+    // Save APC mode thresholds and rescale them for runtime usage
     if (option == 0) {
         eeprom_ec_config.mode_0_actuation_threshold = ec_config.mode_0_actuation_threshold;
         eeprom_ec_config.mode_0_release_threshold   = ec_config.mode_0_release_threshold;
         ec_rescale_values(0);
         ec_rescale_values(1);
-    } else if (option == 1) {
+    }
+    // Save Rapid Trigger mode thresholds and rescale them for runtime usage
+    else if (option == 1) {
         eeprom_ec_config.mode_1_initial_deadzone_offset = ec_config.mode_1_initial_deadzone_offset;
         eeprom_ec_config.mode_1_actuation_sensitivity   = ec_config.mode_1_actuation_sensitivity;
         eeprom_ec_config.mode_1_release_sensitivity     = ec_config.mode_1_release_sensitivity;
@@ -270,38 +277,33 @@ void ec_save_bottoming_reading(void) {
             }
         }
     }
-    // Rescale the values to fit the new range
+    // Rescale the values to fit the new range for runtime usage
     ec_rescale_values(0);
     ec_rescale_values(1);
     ec_rescale_values(2);
     eeconfig_update_kb_datablock(&eeprom_ec_config);
 }
 
+// Show the calibration data
 void ec_show_calibration_data(void) {
     uprintf("\n###############\n");
     uprintf("# Noise Floor #\n");
     uprintf("###############\n");
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-            uprintf("%4d", ec_config.noise_floor[row][col]);
-            if (col < (MATRIX_COLS - 1)) {
-                print(",");
-            }
+        for (uint8_t col = 0; col < MATRIX_COLS - 1; col++) {
+            uprintf("%4d,", ec_config.noise_floor[row][col]);
         }
-        print("\n");
+        uprintf("%4d\n", ec_config.noise_floor[row][MATRIX_COLS - 1]);
     }
 
     uprintf("\n######################\n");
     uprintf("# Bottoming Readings #\n");
     uprintf("######################\n");
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-            uprintf("%4d", eeprom_ec_config.bottoming_reading[row][col]);
-            if (col < (MATRIX_COLS - 1)) {
-                print(",");
-            }
+        for (uint8_t col = 0; col < MATRIX_COLS - 1; col++) {
+            uprintf("%4d,", eeprom_ec_config.bottoming_reading[row][col]);
         }
-        print("\n");
+        uprintf("%4d\n", eeprom_ec_config.bottoming_reading[row][MATRIX_COLS - 1]);
     }
 
     uprintf("\n######################################\n");
@@ -309,13 +311,10 @@ void ec_show_calibration_data(void) {
     uprintf("######################################\n");
     uprintf("Original APC Mode Actuation Point: %4d\n", ec_config.mode_0_actuation_threshold);
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-            uprintf("%4d", ec_config.rescaled_mode_0_actuation_threshold[row][col]);
-            if (col < (MATRIX_COLS - 1)) {
-                print(",");
-            }
+        for (uint8_t col = 0; col < MATRIX_COLS - 1; col++) {
+            uprintf("%4d,", ec_config.rescaled_mode_0_actuation_threshold[row][col]);
         }
-        print("\n");
+        uprintf("%4d\n", ec_config.rescaled_mode_0_actuation_threshold[row][MATRIX_COLS - 1]);
     }
 
     uprintf("\n######################################\n");
@@ -323,13 +322,10 @@ void ec_show_calibration_data(void) {
     uprintf("######################################\n");
     uprintf("Original APC Mode Release Point: %4d\n", ec_config.mode_0_release_threshold);
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-            uprintf("%4d", ec_config.rescaled_mode_0_release_threshold[row][col]);
-            if (col < (MATRIX_COLS - 1)) {
-                print(",");
-            }
+        for (uint8_t col = 0; col < MATRIX_COLS - 1; col++) {
+            uprintf("%4d,", ec_config.rescaled_mode_0_release_threshold[row][col]);
         }
-        print("\n");
+        uprintf("%4d\n", ec_config.rescaled_mode_0_release_threshold[row][MATRIX_COLS - 1]);
     }
 
     uprintf("\n#######################################################\n");
@@ -337,13 +333,10 @@ void ec_show_calibration_data(void) {
     uprintf("#######################################################\n");
     uprintf("Original Rapid Trigger Mode Initial Deadzone Offset: %4d\n", ec_config.mode_1_initial_deadzone_offset);
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-            uprintf("%4d", ec_config.rescaled_mode_1_initial_deadzone_offset[row][col]);
-            if (col < (MATRIX_COLS - 1)) {
-                print(",");
-            }
+        for (uint8_t col = 0; col < MATRIX_COLS - 1; col++) {
+            uprintf("%4d,", ec_config.rescaled_mode_1_initial_deadzone_offset[row][col]);
         }
-        print("\n");
+        uprintf("%4d\n", ec_config.rescaled_mode_1_initial_deadzone_offset[row][MATRIX_COLS - 1]);
     }
     print("\n");
 }

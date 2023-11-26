@@ -20,7 +20,7 @@
 extern matrix_row_t raw_matrix[MATRIX_ROWS]; // raw values
 extern matrix_row_t matrix[MATRIX_ROWS];     // debounced values
 
-// custom matrix init function
+// Custom matrix init function
 void matrix_init_custom(void) {
     // Initialize EC
     ec_init();
@@ -29,7 +29,7 @@ void matrix_init_custom(void) {
     ec_noise_floor();
 }
 
-// custom matrix scan function
+// Custom matrix scan function
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     bool updated = ec_matrix_scan(current_matrix);
 

@@ -142,24 +142,21 @@ int ec_init(void) {
 
 // Get the noise floor
 void ec_noise_floor(void) {
-    // Initialize the noise floor to 0
+    // Initialize the noise floor
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         for (uint8_t col = 0; col < MATRIX_COLS; col++) {
             ec_config.noise_floor[row][col] = 0;
         }
     }
 
-    // Get the noise floor
+    // Sample the noise floor
     for (uint8_t i = 0; i < DEFAULT_NOISE_FLOOR_SAMPLING_COUNT; i++) {
         for (uint8_t amux = 0; amux < AMUX_COUNT; amux++) {
             disable_unused_amux(amux);
-            for (int col = 0; col < amux_n_col_sizes[amux]; col++) {
-                for (int row = 0; row < MATRIX_ROWS; row++) {
-                    if (amux == 0) {
-                        ec_config.noise_floor[row][col] += ec_readkey_raw(0, row, col);
-                    } else {
-                        ec_config.noise_floor[row][col + amux_n_col_sizes[amux - 1]] += ec_readkey_raw(amux, row, col);
-                    }
+            for (uint8_t col = 0; col < amux_n_col_sizes[amux]; col++) {
+                uint8_t adjusted_col = amux == 0 ? col : col + amux_n_col_sizes[amux - 1];
+                for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+                    ec_config.noise_floor[row][adjusted_col] += ec_readkey_raw(amux, row, col);
                 }
             }
         }
@@ -243,38 +240,43 @@ bool ec_update_key(matrix_row_t* current_row, uint8_t row, uint8_t col, uint16_t
             return true;
         }
     }
-    // Rapid trigger starting from the initial deadzone
+    // Rapid Trigger
     else if (ec_config.actuation_mode == 1) {
+        // Is key in active zone?
         if (sw_value > ec_config.rescaled_mode_1_initial_deadzone_offset[row][col]) {
-            // In DA zone?
+            // Is key pressed while in active zone?
             if (current_state) {
-                // Key is pressed
-                // Is key still moving down?
+                // Is the key still moving down?
                 if (sw_value > ec_config.extremum[row][col]) {
                     ec_config.extremum[row][col] = sw_value;
                     uprintf("Key pressed: %d, %d, %d\n", row, col, sw_value);
-                } else if (sw_value < ec_config.extremum[row][col] - DEFAULT_MODE_1_RELEASE_SENSITIVITY) {
-                    // Has key moved up enough to be released?
+                }
+                // Has key moved up enough to be released?
+                else if (sw_value < ec_config.extremum[row][col] - DEFAULT_MODE_1_RELEASE_SENSITIVITY) {
                     ec_config.extremum[row][col] = sw_value;
                     *current_row &= ~(1 << col);
                     uprintf("Key released: %d, %d, %d\n", row, col, sw_value);
                     return true;
                 }
-            } else {
-                // Key is not pressed
+            }
+            // Key is not pressed while in active zone
+            else {
                 // Is the key still moving up?
                 if (sw_value < ec_config.extremum[row][col]) {
                     ec_config.extremum[row][col] = sw_value;
-                } else if (sw_value > ec_config.extremum[row][col] + DEFAULT_MODE_1_ACTUATION_SENSITIVITY) {
-                    // Has key moved down enough to be pressed?
+                }
+                // Has key moved down enough to be pressed?
+                else if (sw_value > ec_config.extremum[row][col] + DEFAULT_MODE_1_ACTUATION_SENSITIVITY) {
                     ec_config.extremum[row][col] = sw_value;
                     *current_row |= (1 << col);
                     uprintf("Key pressed: %d, %d, %d\n", row, col, sw_value);
                     return true;
                 }
             }
-        } else {
-            // Out of DA zone
+        }
+        // Key is not in active zone
+        else {
+            // Check to avoid key being stuck in pressed state near the active zone threshold
             if (sw_value < ec_config.extremum[row][col]) {
                 ec_config.extremum[row][col] = sw_value;
                 *current_row &= ~(1 << col);
@@ -285,16 +287,13 @@ bool ec_update_key(matrix_row_t* current_row, uint8_t row, uint8_t col, uint16_t
     return false;
 }
 
-// Debug print key values
+// Print the matrix values
 void ec_print_matrix(void) {
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-            uprintf("%4d", sw_value[row][col]);
-            if (col < (MATRIX_COLS - 1)) {
-                print(",");
-            }
+        for (uint8_t col = 0; col < MATRIX_COLS - 1; col++) {
+            uprintf("%4d,", sw_value[row][col]);
         }
-        print("\n");
+        uprintf("%4d\n", sw_value[row][MATRIX_COLS - 1]);
     }
     print("\n");
 }
