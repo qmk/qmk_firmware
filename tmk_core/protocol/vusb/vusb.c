@@ -230,10 +230,6 @@ static void send_keyboard(report_keyboard_t *report) {
     keyboard_report_sent = *report;
 }
 
-static void send_nkro(report_nkro_t *report) {
-    // TODO: Implement NKRO
-}
-
 #ifndef KEYBOARD_SHARED_EP
 #    define MOUSE_IN_EPNUM 3
 #    define SHARED_IN_EPNUM 3
@@ -241,6 +237,12 @@ static void send_nkro(report_nkro_t *report) {
 #    define MOUSE_IN_EPNUM 1
 #    define SHARED_IN_EPNUM 1
 #endif
+
+static void send_nkro(report_nkro_t *report) {
+#ifdef NKRO_ENABLE
+    send_report(3, report, sizeof(report_nkro_t));
+#endif
+}
 
 static void send_mouse(report_mouse_t *report) {
 #ifdef MOUSE_ENABLE
@@ -431,6 +433,45 @@ const PROGMEM uchar keyboard_hid_report[] = {
 #if defined(SHARED_EP_ENABLE) && !defined(SHARED_REPORT_STARTED)
 const PROGMEM uchar shared_hid_report[] = {
 #    define SHARED_REPORT_STARTED
+#endif
+
+#ifdef NKRO_ENABLE
+    // NKRO report descriptor
+    0x05, 0x01,           // Usage Page (Generic Desktop)
+    0x09, 0x06,           // Usage (Keyboard)
+    0xA1, 0x01,           // Collection (Application)
+    0x85, REPORT_ID_NKRO, //   Report ID
+    // Modifiers (8 bits)
+    0x05, 0x07, //   Usage Page (Keyboard/Keypad)
+    0x19, 0xE0, //   Usage Minimum (Keyboard Left Control)
+    0x29, 0xE7, //   Usage Maximum (Keyboard Right GUI)
+    0x15, 0x00, //   Logical Minimum (0)
+    0x25, 0x01, //   Logical Maximum (1)
+    0x95, 0x08, //   Report Count (8)
+    0x75, 0x01, //   Report Size (1)
+    0x81, 0x02, //   Input (Data, Variable, Absolute)
+    // Keycodes
+    0x05, 0x07,                     //   Usage Page (Keyboard/Keypad)
+    0x19, 0x00,                     //   Usage Minimum (0)
+    0x29, NKRO_REPORT_BITS * 8 - 1, //   Usage Maximum
+    0x15, 0x00,                     //   Logical Minimum (0)
+    0x25, 0x01,                     //   Logical Maximum (1)
+    0x95, NKRO_REPORT_BITS * 8,     //   Report Count
+    0x75, 0x01,                     //   Report Size (1)
+    0x81, 0x02,                     //   Input (Data, Variable, Absolute)
+
+    // Status LEDs (5 bits)
+    0x05, 0x08, //   Usage Page (LED)
+    0x19, 0x01, //   Usage Minimum (Num Lock)
+    0x29, 0x05, //   Usage Maximum (Kana)
+    0x95, 0x05, //   Report Count (5)
+    0x75, 0x01, //   Report Size (1)
+    0x91, 0x02, //   Output (Data, Variable, Absolute)
+    // LED padding (3 bits)
+    0x95, 0x01, //   Report Count (1)
+    0x75, 0x03, //   Report Size (3)
+    0x91, 0x03, //   Output (Constant)
+    0xC0,       // End Collection
 #endif
 
 #ifdef MOUSE_ENABLE
