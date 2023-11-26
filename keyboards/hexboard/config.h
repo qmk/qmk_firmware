@@ -33,5 +33,4 @@
 #define OLED_IC OLED_IC_SH1106
 // OLED_DISPLAY_ defined by revision
 
-#define ENCODER_DIRECTION_FLIP
 #define ENCODER_DEFAULT_POS 0x3

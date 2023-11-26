@@ -11,7 +11,7 @@
     "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
-            {"pin_a": "GP20", "pin_b": "GP21"}
+            {"pin_a": "GP21", "pin_b": "GP20"}
         ]
     },
     "features": {
