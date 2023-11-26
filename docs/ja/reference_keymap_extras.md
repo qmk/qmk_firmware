@@ -61,7 +61,6 @@ HID Keyboard/Keypad usage ページでは 256 未満の usage が定義されて
 | Slovenian                   | `keymap_slovenian.h`             |
 | Spanish                     | `keymap_spanish.h`               |
 | Spanish (Dvorak)            | `keymap_spanish_dvorak.h`        |
-| Spanish (Latam)             | `keymap_spanish_latam.h`         |
 | Swedish                     | `keymap_swedish.h`               |
 | Turkish (F)                 | `keymap_turkish_f.h`             |
 | Turkish (Q)                 | `keymap_turkish_q.h`             |

@@ -19,7 +19,7 @@
 #pragma once
 
 #include "send_string.h"
-#include "keymap_spanish_latam.h"
+#include "keymap_spanish_latin_america.h"
 
 // clang-format off
 
