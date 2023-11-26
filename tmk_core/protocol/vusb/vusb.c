@@ -89,40 +89,51 @@ static uint8_t keyboard_led_state = 0;
 uint8_t        keyboard_idle      = 0;
 uint8_t        keyboard_protocol  = 1;
 
-/* Keyboard report send buffer */
-#define KBUF_SIZE 16
-static report_keyboard_t kbuf[KBUF_SIZE];
-static uint8_t           kbuf_head = 0;
-static uint8_t           kbuf_tail = 0;
-
 static report_keyboard_t keyboard_report_sent;
 
-#define VUSB_TRANSFER_KEYBOARD_MAX_TRIES 10
-
-/* transfer keyboard report from buffer */
-void vusb_transfer_keyboard(void) {
-    for (int i = 0; i < VUSB_TRANSFER_KEYBOARD_MAX_TRIES; i++) {
-        if (usbInterruptIsReady()) {
-            if (kbuf_head != kbuf_tail) {
-#ifndef KEYBOARD_SHARED_EP
-                usbSetInterrupt((void *)&kbuf[kbuf_tail], sizeof(report_keyboard_t));
-#else
-                // Ugly hack! :(
-                usbSetInterrupt((void *)&kbuf[kbuf_tail], sizeof(report_keyboard_t) - 1);
-                while (!usbInterruptIsReady()) {
-                    usbPoll();
+static void send_report_fragment(uint8_t endpoint, void *data, size_t size) {
+    for (uint8_t retries = 5; retries > 0; retries--) {
+        switch (endpoint) {
+            case 1:
+                if (usbInterruptIsReady()) {
+                    usbSetInterrupt(data, size);
+                    return;
                 }
-                usbSetInterrupt((void *)(&(kbuf[kbuf_tail].keys[5])), 1);
-#endif
-                kbuf_tail = (kbuf_tail + 1) % KBUF_SIZE;
-                if (debug_keyboard) {
-                    dprintf("V-USB: kbuf[%d->%d](%02X)\n", kbuf_tail, kbuf_head, (kbuf_head < kbuf_tail) ? (KBUF_SIZE - kbuf_tail + kbuf_head) : (kbuf_head - kbuf_tail));
+                break;
+            case USB_CFG_EP3_NUMBER:
+                if (usbInterruptIsReady3()) {
+                    usbSetInterrupt3(data, size);
+                    return;
                 }
-            }
-            break;
+                break;
+            case USB_CFG_EP4_NUMBER:
+                if (usbInterruptIsReady4()) {
+                    usbSetInterrupt4(data, size);
+                    return;
+                }
+                break;
+            default:
+                return;
         }
+
         usbPoll();
-        wait_ms(1);
+        wait_ms(5);
+    }
+}
+
+static void send_report(uint8_t endpoint, void *report, size_t size) {
+    uint8_t *temp = (uint8_t *)report;
+
+    // Send as many full packets as possible
+    for (uint8_t i = 0; i < size / 8; i++) {
+        send_report_fragment(endpoint, temp, 8);
+        temp += 8;
+    }
+
+    // Send any data left over
+    uint8_t remainder = size % 8;
+    if (remainder) {
+        send_report_fragment(endpoint, temp, remainder);
     }
 }
 
@@ -141,18 +152,7 @@ void raw_hid_send(uint8_t *data, uint8_t length) {
         return;
     }
 
-    uint8_t *temp = data;
-    for (uint8_t i = 0; i < 4; i++) {
-        while (!usbInterruptIsReady4()) {
-            usbPoll();
-        }
-        usbSetInterrupt4(temp, 8);
-        temp += 8;
-    }
-    while (!usbInterruptIsReady4()) {
-        usbPoll();
-    }
-    usbSetInterrupt4(0, 0);
+    send_report(4, data, 32);
 }
 
 __attribute__((weak)) void raw_hid_receive(uint8_t *data, uint8_t length) {
@@ -181,19 +181,6 @@ int8_t sendchar(uint8_t c) {
     return 0;
 }
 
-static inline bool usbSendData3(char *data, uint8_t len) {
-    uint8_t retries = 5;
-    while (!usbInterruptIsReady3()) {
-        if (!(retries--)) {
-            return false;
-        }
-        usbPoll();
-    }
-
-    usbSetInterrupt3((unsigned char *)data, len);
-    return true;
-}
-
 void console_task(void) {
     if (!usbConfiguration) {
         return;
@@ -210,16 +197,7 @@ void console_task(void) {
         send_buf[send_buf_count++] = rbuf_dequeue();
     }
 
-    char *temp = send_buf;
-    for (uint8_t i = 0; i < 4; i++) {
-        if (!usbSendData3(temp, 8)) {
-            break;
-        }
-        temp += 8;
-    }
-
-    usbSendData3(0, 0);
-    usbPoll();
+    send_report(3, send_buf, CONSOLE_BUFFER_SIZE);
 }
 #endif
 
@@ -243,17 +221,12 @@ static uint8_t keyboard_leds(void) {
 }
 
 static void send_keyboard(report_keyboard_t *report) {
-    uint8_t next = (kbuf_head + 1) % KBUF_SIZE;
-    if (next != kbuf_tail) {
-        kbuf[kbuf_head] = *report;
-        kbuf_head       = next;
+    if (!keyboard_protocol) {
+        send_report(1, &report->mods, 8);
     } else {
-        dprint("kbuf: full\n");
+        send_report(1, report, sizeof(report_keyboard_t));
     }
 
-    // NOTE: send key strokes of Macro
-    usbPoll();
-    vusb_transfer_keyboard();
     keyboard_report_sent = *report;
 }
 
@@ -262,50 +235,40 @@ static void send_nkro(report_nkro_t *report) {
 }
 
 #ifndef KEYBOARD_SHARED_EP
-#    define usbInterruptIsReadyShared usbInterruptIsReady3
-#    define usbSetInterruptShared usbSetInterrupt3
+#    define MOUSE_IN_EPNUM 3
+#    define SHARED_IN_EPNUM 3
 #else
-#    define usbInterruptIsReadyShared usbInterruptIsReady
-#    define usbSetInterruptShared usbSetInterrupt
+#    define MOUSE_IN_EPNUM 1
+#    define SHARED_IN_EPNUM 1
 #endif
 
 static void send_mouse(report_mouse_t *report) {
 #ifdef MOUSE_ENABLE
-    if (usbInterruptIsReadyShared()) {
-        usbSetInterruptShared((void *)report, sizeof(report_mouse_t));
-    }
+    send_report(MOUSE_IN_EPNUM, report, sizeof(report_mouse_t));
 #endif
 }
 
 static void send_extra(report_extra_t *report) {
 #ifdef EXTRAKEY_ENABLE
-    if (usbInterruptIsReadyShared()) {
-        usbSetInterruptShared((void *)report, sizeof(report_extra_t));
-    }
+    send_report(SHARED_IN_EPNUM, report, sizeof(report_extra_t));
 #endif
 }
 
 void send_joystick(report_joystick_t *report) {
 #ifdef JOYSTICK_ENABLE
-    if (usbInterruptIsReadyShared()) {
-        usbSetInterruptShared((void *)report, sizeof(report_joystick_t));
-    }
+    send_report(SHARED_IN_EPNUM, report, sizeof(report_joystick_t));
 #endif
 }
 
 void send_digitizer(report_digitizer_t *report) {
 #ifdef DIGITIZER_ENABLE
-    if (usbInterruptIsReadyShared()) {
-        usbSetInterruptShared((void *)report, sizeof(report_digitizer_t));
-    }
+    send_report(SHARED_IN_EPNUM, report, sizeof(report_digitizer_t));
 #endif
 }
 
 void send_programmable_button(report_programmable_button_t *report) {
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
-    if (usbInterruptIsReadyShared()) {
-        usbSetInterruptShared((void *)report, sizeof(report_programmable_button_t));
-    }
+    send_report(SHARED_IN_EPNUM, report, sizeof(report_programmable_button_t));
 #endif
 }
 
