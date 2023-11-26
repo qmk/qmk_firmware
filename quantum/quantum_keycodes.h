@@ -136,7 +136,6 @@
 #define LOPT_T(kc) LALT_T(kc)
 #define ROPT_T(kc) RALT_T(kc)
 #define ALGR_T(kc) RALT_T(kc)
-#define ALT_T(kc) LALT_T(kc)
 #define OPT_T(kc) LOPT_T(kc)
 
 #define LGUI_T(kc) MT(MOD_LGUI, kc)

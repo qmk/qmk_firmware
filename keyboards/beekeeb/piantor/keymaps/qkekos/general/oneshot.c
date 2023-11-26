@@ -23,7 +23,7 @@ void oneshot_mods_changed_user(uint8_t mods) {
         toggle_right_pin();
         is_oneshot_ctrl_pressed = true;
 
-        set_oneshot_layer(HOTKEY, ONESHOT_START);
+        set_oneshot_layer(QWERTY, ONESHOT_START);
         uprintf("ctrl pressed\n");
     } else if (is_oneshot_ctrl_pressed && (current_oneshot_key != OSM(MOD_LSFT) || mods == 0)) {
         toggle_right_pin();

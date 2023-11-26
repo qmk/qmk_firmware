@@ -5,7 +5,6 @@
 enum layers {
     STURDY,
     QWERTY,
-    HOTKEY,
     GAME,
     NUM,
     FUNCTION,

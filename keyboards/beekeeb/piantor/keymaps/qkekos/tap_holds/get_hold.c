@@ -29,26 +29,26 @@ int shift_eng_hold_keys[] = {
 
 struct HoldKey hold_keys[] = {
     // QWERTY
-    {MHR_F, ANY, shift_hold_keys},
-    {MHR_J, ANY, shift_hold_keys},
+    {SMT_F, ANY, shift_hold_keys},
+    {SMT_J, ANY, shift_hold_keys},
 
-    {LHR_D, ANY, ctrl_hold_keys},
-    {LHR_K, ANY, ctrl_hold_keys},
+    {CMT_D, ANY, ctrl_hold_keys},
+    {CMT_K, ANY, ctrl_hold_keys},
 
-    {HR_SCLN, ANY, media_hold_keys},
+    {LT_SCLN, ANY, media_hold_keys},
 
     // STURDY
-    {MHR_D, ANY, shift_hold_keys},
-    {MHR_N, ANY, shift_hold_keys},
+    {SMT_D, ANY, shift_hold_keys},
+    {SMT_N, ANY, shift_hold_keys},
 
-    {LHR_R, ANY, ctrl_hold_keys},
-    {LHR_E, ANY, ctrl_hold_keys},
+    {CLT_R, ANY, ctrl_hold_keys},
+    {CLT_A, ANY, ctrl_hold_keys},
 
-    {HR_I, ANY, media_hold_keys},
+    {LT_I, ANY, media_hold_keys},
 
     // ENG ONLY
-    {MHR_D, ENG, shift_eng_hold_keys},
-    {MHR_N, ENG, shift_eng_hold_keys},
+    {SMT_D, ENG, shift_eng_hold_keys},
+    {SMT_N, ENG, shift_eng_hold_keys},
 
     // TERMINATOR
     {KC_NO, ANY, NULL},

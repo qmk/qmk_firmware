@@ -14,31 +14,16 @@ bool mlt_process_record(uint16_t keycode, keyrecord_t *record, bool *return_valu
     *return_value = true;
 
     switch (keycode) {
-        case LHR_T:  // STURDY
-        case LHR_E:  // STURDY
-        case LHR_L:  // QWERTY
+        case GLT_S:
+            return proceed_mlt(KC_LGUI, record);
+
+        case ALT_T:
+        case ALT_E:
             return proceed_mlt(KC_LALT, record);
 
-        case LHR_D:  // QWERTYi/
-        case LHR_K:  // QWERTY
-        case LHR_R:  // STURDY
+        case CLT_R:
+        case CLT_A:
             return proceed_mlt(KC_LCTL, record);
-
-        case LHR_S:
-            return proceed_mlt(
-                is_layer_on(QWERTY)
-                    ? KC_LALT  // QWERTY
-                    : KC_LGUI, // STURDY
-                record
-            );
-
-        case LHR_A:
-            return proceed_mlt(
-                is_layer_on(QWERTY)
-                    ? KC_LGUI  // QWERTY
-                    : KC_LCTL, // STURDY
-                record
-            );
     }
 
     return false;

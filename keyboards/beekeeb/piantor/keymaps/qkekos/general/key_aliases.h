@@ -80,34 +80,26 @@
 #define TH_FUNC LT(FUNCTION, KC_DEL)
 
 // STURDY
-#define LHR_S LT(HOTKEY, KC_S)
-#define LHR_T LT(HOTKEY, KC_T)
-#define LHR_R LT(HOTKEY, KC_R)
-#define MHR_D LSFT_T(KC_D)
+#define GLT_S LT(QWERTY, KC_S)
+#define ALT_T LT(QWERTY, KC_T)
+#define CLT_R LT(QWERTY, KC_R)
+#define SMT_D LSFT_T(KC_D)
 
-#define MHR_N LSFT_T(KC_N)
-#define LHR_E LT(HOTKEY, KC_E)
-#define LHR_A LT(HOTKEY, KC_A)
-#define HR_I LT(MEDIA, KC_I)
+#define SMT_N LSFT_T(KC_N)
+#define CLT_A LT(QWERTY, KC_A)
+#define ALT_E LT(QWERTY, KC_E)
+#define LT_I LT(MEDIA, KC_I)
 
 // QWERTY
-#define LHR_D LT(HOTKEY, KC_D)
-#define MHR_F LSFT_T(KC_F)
+#define GMT_A LGUI_T(KC_A)
+#define AMT_S LALT_T(KC_S)
+#define CMT_D LCTL_T(KC_D)
+#define SMT_F LSFT_T(KC_F)
 
-#define MHR_J LSFT_T(KC_J)
-#define LHR_K LT(HOTKEY, KC_K)
-#define LHR_L LT(HOTKEY, KC_L)
-#define HR_SCLN LT(MEDIA, KC_SCLN)
-
-// HOTKEY
-#define HHR_A LGUI_T(KC_A)
-#define HHR_S LALT_T(KC_S)
-#define HHR_D LCTL_T(KC_D)
-#define HHR_F LSFT_T(KC_F)
-
-#define HHR_J LSFT_T(KC_J)
-#define HHR_K LCTL_T(KC_K)
-#define HHR_L LALT_T(KC_L)
+#define SMT_J LSFT_T(KC_J)
+#define CMT_K LCTL_T(KC_K)
+#define AMT_L LALT_T(KC_L)
+#define LT_SCLN LT(MEDIA, KC_SCLN)
 
 // GAME
 #define HR_F5 LT(MEDIA, KC_F5)

@@ -87,7 +87,6 @@ bool cusk_process_record(uint16_t keycode, keyrecord_t *record, bool *return_val
 
             layer_on(STURDY);
             layer_off(QWERTY);
-            layer_off(HOTKEY);
 
             *return_value = true;
             return true;

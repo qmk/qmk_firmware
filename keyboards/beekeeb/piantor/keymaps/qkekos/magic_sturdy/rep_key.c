@@ -3,14 +3,14 @@
 
 void process_rep_key(uint16_t keycode, uint8_t mods) {
     switch (last_queue_key) {
-        double_magic_case(LHR_A, KC_B, "out");
-        double_magic_case(KC_F, LHR_R, "om");
-        double_magic_case(KC_L, LHR_A, "st");
+        double_magic_case(CLT_A, KC_B, "out");
+        double_magic_case(KC_F, CLT_R, "om");
+        double_magic_case(KC_L, CLT_A, "st");
     }
 
     switch (keycode) {
         magic_case(KC_X, "es");
-        magic_case(HR_I, "ng");
+        magic_case(LT_I, "ng");
         magic_case(KC_Y, "ou");
         magic_case(KC_Q, "ui");
         magic_case(KC_J, "oin");

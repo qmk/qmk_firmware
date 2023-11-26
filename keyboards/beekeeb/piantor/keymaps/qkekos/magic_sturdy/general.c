@@ -26,7 +26,7 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* reme
         case US_AREP:
             return false;
 
-        case MHR_N:
+        case SMT_N:
             if (record->tap.count == 2) return false;
             break;
     }
@@ -62,7 +62,7 @@ bool strd_process_record(uint16_t keycode, keyrecord_t *record, bool *return_val
 
             return true;
 
-        case MHR_N:
+        case SMT_N:
             if (record->tap.count == 2) {
                 if (record->event.pressed)
                     process_magic_key(get_last_keycode(), get_last_mods());
