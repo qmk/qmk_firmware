@@ -62,11 +62,14 @@ void keyboard_post_init_user(void){
   keyboard_post_init_keymap();
 }
 
-__attribute__ ((weak))
-void shutdown_keymap(void) {}
-
-void shutdown_user (void) {
-  #ifdef RGBLIGHT_ENABLE
+__attribute__((weak)) bool shutdown_keymap(bool jump_to_bootloader) {
+    return true;
+}
+bool shutdown_user(bool jump_to_bootloader) {
+    if (!shutdown_keymap(jump_to_bootloader)) {
+        return false;
+    }
+ #ifdef RGBLIGHT_ENABLE
     rgblight_enable_noeeprom();
     rgblight_mode_noeeprom(1);
     rgblight_setrgb(RGB_TEAL);
@@ -76,7 +79,7 @@ void shutdown_user (void) {
     // rgb_matrix_set_color_all( 0xFF, 0x00, 0x00 );
     // while(timer_elapsed(timer_start) < 250) { wait_ms(1); }
   #endif //RGB_MATRIX_ENABLE
-  shutdown_keymap();
+  return true;
 }
 
 __attribute__ ((weak))
