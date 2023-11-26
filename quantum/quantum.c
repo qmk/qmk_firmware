@@ -172,7 +172,7 @@ __attribute__((weak)) void post_process_record_kb(uint16_t keycode, keyrecord_t 
 
 __attribute__((weak)) void post_process_record_user(uint16_t keycode, keyrecord_t *record) {}
 
-void shutdown_quantum(void) {
+void shutdown_quantum(bool jump_to_bootloader) {
     clear_keyboard();
 #if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
     process_midi_all_notes_off();
@@ -183,12 +183,12 @@ void shutdown_quantum(void) {
 #    endif
     uint16_t timer_start = timer_read();
     PLAY_SONG(goodbye_song);
-    shutdown_user();
+    shutdown_kb(jump_to_bootloader);
     while (timer_elapsed(timer_start) < 250)
         wait_ms(1);
     stop_all_notes();
 #else
-    shutdown_user();
+    shutdown_kb(jump_to_bootloader);
     wait_ms(250);
 #endif
 #ifdef HAPTIC_ENABLE
@@ -197,12 +197,12 @@ void shutdown_quantum(void) {
 }
 
 void reset_keyboard(void) {
-    shutdown_quantum();
+    shutdown_quantum(true);
     bootloader_jump();
 }
 
 void soft_reset_keyboard(void) {
-    shutdown_quantum();
+    shutdown_quantum(false);
     mcu_reset();
 }
 
@@ -491,9 +491,16 @@ void set_single_persistent_default_layer(uint8_t default_layer) {
 // Override these functions in your keymap file to play different tunes on
 // different events such as startup and bootloader jump
 
-__attribute__((weak)) void startup_user(void) {}
+__attribute__((weak)) bool shutdown_user(bool jump_to_bootloader) {
+    return true;
+}
 
-__attribute__((weak)) void shutdown_user(void) {}
+__attribute__((weak)) bool shutdown_kb(bool jump_to_bootloader) {
+    if (!shutdown_user(jump_to_bootloader)) {
+        return false;
+    }
+    return true;
+}
 
 void suspend_power_down_quantum(void) {
     suspend_power_down_kb();
