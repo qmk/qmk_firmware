@@ -45,9 +45,3 @@
 
 /* Encoder Configuration*/
 #define ENCODER_DEFAULT_POS 0x3
-
-// RGB Matrix Animation modes. Explicitly enabled
-// For full list of effects, see:
-// https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#define RGB_MATRIX_KEYPRESSES
