@@ -3,7 +3,7 @@
 ![shadow80](https://imgur.com/XLjjdMzh.jpg)
 An 80%/TenKeyLess sized keyboard with 74 RGB.
 Before enabling the maximum brightness of RGB lights, please confirm whether the USB device power supply supports it.
-This PCB about two versions ： hotswap and  solder.
+This PCB has two versions: hotswap and solder.
 
 * Keyboard Maintainer: [PixelSpace](https://github.com/PixelSpaceStudio)
 * Hardware Supported: shadow80
