@@ -5,8 +5,8 @@
     "maintainer": "Ryan Neff <github@JellyTitan.com>",
     "tags": ["ortho", "split", "rgb", "encoder", "OLED"],
     "usb": {
-        "vid": "0x4413",
-        "pid": "0x4A13",
+        "vid": "0x4A54",
+        "pid": "0x5350",
         "device_version": "3.5.1"
     },
     "ws2812": {
