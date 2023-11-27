@@ -37,7 +37,9 @@ def compile(cli):
         from .mass_compile import mass_compile
         cli.args.builds = []
         cli.args.filter = []
-        cli.args.no_temp = False
+        cli.config.mass_compile.keymap = cli.config.compile.keymap
+        cli.config.mass_compile.parallel = cli.config.compile.parallel
+        cli.config.mass_compile.no_temp = False
         return mass_compile(cli)
 
     # Build the environment vars
