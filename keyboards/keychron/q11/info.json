@@ -7,6 +7,11 @@
         "matrix": [0, 1]
     },
     "diode_direction": "ROW2COL",
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "B0", "pin_b": "B1"}
