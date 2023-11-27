@@ -44,7 +44,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* LED matrix driver */
 #define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
-#define IS31FL3731_DRIVER_COUNT 1
 #define LED_MATRIX_LED_COUNT 76
 #define LED_MATRIX_SPLIT { 38, 38 }
 #define LED_DISABLE_WHEN_USB_SUSPENDED
