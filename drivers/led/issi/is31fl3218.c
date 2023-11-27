@@ -17,13 +17,6 @@
 #include <string.h>
 #include "i2c_master.h"
 
-// These are the register addresses
-#define IS31FL3218_REG_SHUTDOWN 0x00
-#define IS31FL3218_REG_PWM 0x01
-#define IS31FL3218_REG_CONTROL 0x13
-#define IS31FL3218_REG_UPDATE 0x16
-#define IS31FL3218_REG_RESET 0x17
-
 #define IS31FL3218_PWM_REGISTER_COUNT 18
 #define IS31FL3218_LED_CONTROL_REGISTER_COUNT 3
 
@@ -86,7 +79,7 @@ void is31fl3218_init(void) {
 
     // turn off all LEDs in the LED control register
     for (uint8_t i = 0; i < IS31FL3218_LED_CONTROL_REGISTER_COUNT; i++) {
-        is31fl3218_write_register(IS31FL3218_REG_CONTROL + i, 0x00);
+        is31fl3218_write_register(IS31FL3218_REG_LED_CONTROL_1 + i, 0x00);
     }
 
     // Load PWM registers and LED Control register data
@@ -162,7 +155,7 @@ void is31fl3218_update_pwm_buffers(void) {
 void is31fl3218_update_led_control_registers(void) {
     if (g_led_control_registers_update_required) {
         for (int i = 0; i < IS31FL3218_LED_CONTROL_REGISTER_COUNT; i++) {
-            is31fl3218_write_register(IS31FL3218_REG_CONTROL + i, g_led_control_registers[i]);
+            is31fl3218_write_register(IS31FL3218_REG_LED_CONTROL_1 + i, g_led_control_registers[i]);
         }
 
         g_led_control_registers_update_required = false;
