@@ -10,12 +10,12 @@
         "pid": "0x0011",
         "device_version": "0.0.1"
     },
-    “特征”： {
-        “bootmagic”：正确，
-        “鼠标键”：正确，
-        “额外键”：正确，
-        “nkro”：正确，
-        “rgblight”：真
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "rgblight": true
     },
     "rgblight": {
         "led_count": 74,
