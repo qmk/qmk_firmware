@@ -1,3 +1,6 @@
+// Copyright 2023 contact@vwolf.be
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include "eeconfig.h"
 #include "quantum.h"
 
