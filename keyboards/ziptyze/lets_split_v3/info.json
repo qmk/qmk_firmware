@@ -9,10 +9,8 @@
         "bootmagic": true,
         "command": false,
         "console": false,
-        "encoder": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": false,
         "rgb_matrix": true
     },
     "dynamic_keymap": {
@@ -22,6 +20,9 @@
         "device_version": "1.0.0",
         "pid": "0x6900",
         "vid": "0x6F75"
+    },
+    "split": {
+        "enabled": true
     },
     "matrix_pins": {
         "direct": [
@@ -293,6 +294,6 @@
             { "flags": 2, "x": 149, "y": 1 },
             { "flags": 2, "x": 159, "y": 1 },
             { "flags": 2, "x": 169, "y": 1 }
-          ]
+        ]
     }
 }

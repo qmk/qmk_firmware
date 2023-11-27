@@ -24,6 +24,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define SPLIT_TRANSPORT_MIRROR
 #define RGB_MATRIX_LED_COUNT 126
-#define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
