@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 └───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┘
                 For macOS - GUI (cmd) and Alt (opt) swapped
     */
-    [_QWERTY] = LAYOUT_split4x6_r1(
+    [_QWERTY] = LAYOUT(
         KC_GRAVE, KC_1, KC_2,    KC_3,    KC_4,    KC_5,                                KC_6,               KC_7,    KC_8,    KC_9,   KC_0,         KC_MINUS,
         KC_TAB,   KC_Q, KC_W,    KC_E,    KC_R,    KC_T,                                KC_Y,               KC_U,    KC_I,    KC_O,   KC_P,         KC_ENTER,
         KC_ESC,   KC_A, KC_S,    KC_D,    KC_F,    KC_G,                                KC_H,               KC_J,    KC_K,    KC_L,   KC_SEMICOLON, KC_QUOTE,
@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 └───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┘
                 For macOS - GUI (cmd) and Alt (opt) swapped
     */
-    [_COLEMAK_DH] = LAYOUT_split4x6_r1(
+    [_COLEMAK_DH] = LAYOUT(
         KC_GRAVE, KC_1, KC_2,    KC_3,    KC_4,    KC_5,                                KC_6,               KC_7,    KC_8,    KC_9,   KC_0,         KC_MINUS,
         KC_TAB,   KC_Q, KC_W,    KC_F,    KC_P,    KC_B,                                KC_J,               KC_L,    KC_U,    KC_Y,   KC_SEMICOLON, KC_ENTER,
         KC_ESC,   KC_A, KC_R,    KC_S,    KC_T,    KC_G,                                KC_M,               KC_N,    KC_E,    KC_I,   KC_O,         KC_QUOTE,
@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 │___│___│___│___│___│       │___│___│___│___│___│
                 └───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┘
     */
-    [_SYMB] = LAYOUT_split4x6_r1(
+    [_SYMB] = LAYOUT(
         KC_F1,    KC_F2,    KC_F3,   KC_F4,      KC_F5,    KC_F6,                           KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,
         KC_TAB,   KC_EXLM,  KC_AT,   KC_HASH,    KC_DLR,   KC_PERC,                         KC_PAST,  KC_P7,    KC_P8,    KC_P9,    KC_PPLS,  KC_ENTER,
         KC_BSLS,  KC_UNDS,  KC_LBRC, KC_LCBR,    KC_LPRN,  KC_CIRC,                         KC_PEQL,  KC_P4,    KC_P5,    KC_P6,    KC_P0,    KC_NUM,
@@ -93,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       │___│___│___│___│___│       │___│___│___│___│___│
                       └───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┘
     */
-    [_EXT] = LAYOUT_split4x6_r1(
+    [_EXT] = LAYOUT(
         KC_F1,     KC_F2,      KC_F3,      KC_F4,      KC_F5,       KC_F6,                       KC_F7,       KC_F8,    KC_F9,   KC_F10,  KC_F11,   KC_F12,
         S(KC_TAB), KC_PGUP,    KC_END,     KC_UP,      KC_HOME,     _______,                     KC_BRIU,     KC_F7,    KC_F8,   KC_F9,   KC_F10,   _______,
         KC_CAPS,   KC_PGDN,    KC_LEFT,    KC_DOWN,    KC_RIGHT,    _______,                     KC_BRID,     KC_F4,    KC_F5,   KC_F6,   KC_F11,   _______,
@@ -116,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        │___│___│___│___│___│     │___│___│___│___│___│
                        └───┴───┴───┴───┴───┘     └───┴───┴───┴───┴───┘
     */
-    [_ADJUST] = LAYOUT_split4x6_r1(
+    [_ADJUST] = LAYOUT(
         KC_NO,     KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,                       KC_NO,       KC_NO,         KC_NO,           KC_NO,   KC_NO,    KC_NO,
         RGB_SPI,   RGB_HUI,    RGB_SAI,    RGB_VAI,    RGB_MOD,    KC_NO,                       KC_NO,       EE_CLR,        QK_RBT,          DB_TOGG, QK_BOOT,  KC_NO,
         RGB_SPD,   RGB_HUD,    RGB_SAD,    RGB_VAD,    RGB_RMOD,   RGB_TOG,                     KC_NO,       DF(_QWERTY),   DF(_COLEMAK_DH), KC_NO,   KC_NO,    KC_NO,

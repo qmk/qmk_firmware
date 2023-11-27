@@ -68,7 +68,7 @@
                     │ ← │ → │Esc│Spc│Bsp│       │Ent│Tab│Del│ ↓ │ ↑ │
                     └───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┘
         */
-        [_QWERTY] = LAYOUT_split4x6_r1(
+        [_QWERTY] = LAYOUT(
             KC_EQL,       KC_1,         KC_2,         KC_3,    KC_4,          TD5ENT,                                          KC_6,   KC_7,         KC_8,     KC_9,         KC_0,            KC_MINS, 
             KC_TAB,       KC_Q,         KC_W,         KC_E,    KC_R,          KC_T,                                            KC_Y,   KC_U,         KC_I,     KC_O,         KC_P,            KC_BSLS, 
             LT(1,KC_DEL), LT(2,KC_A),   LCTL_T(KC_S), KC_D,    LGUI_T(KC_F),  KC_G,                                            KC_H,   RGUI_T(KC_J), KC_K,     RCTL_T(KC_L), LT(2,KC_SCLN),   LT(1,KC_QUOT), 
@@ -92,7 +92,7 @@
                     └───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┘
         */
 
-        [_LOWER] = LAYOUT_split4x6_r1(
+        [_LOWER] = LAYOUT(
             QK_BOOT, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                   KC_F6,   KC_F7, KC_F8, KC_F9, KC_F10,  KC_F11, 
             KC_TRNS, KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_PIPE,                                 DT_PRNT, KC_7,  KC_8,  KC_9,  KC_ASTR, KC_F12, 
             KC_TRNS, KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_GRV,                                  DT_UP,   KC_4,  KC_5,  KC_6,  KC_PPLS, KC_TRNS, 
@@ -115,7 +115,7 @@
                         │___│___│___│___│QMK│       │QMK│___│___│___│___│
                         └───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┘
         */ 
-        [_RAISE] = LAYOUT_split4x6_r1(
+        [_RAISE] = LAYOUT(
             RGB_TOG, KC_ACL0, KC_ACL1, KC_ACL2, KC_TRNS, KC_TRNS,                                      KC_TRNS, KC_TRNS, RGB_MOD, RGB_RMOD, RGB_HUI, RGB_HUD, 
             HF_TOGG, KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS,                                      KC_TRNS, KC_BTN1, KC_UP,   KC_BTN2,  RGB_SAI, RGB_SAD, 
             HF_DWLU, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS,                                      KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT,  RGB_VAI, RGB_VAD, 
