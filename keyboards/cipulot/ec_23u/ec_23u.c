@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "ec_switch_matrix.h"
+#include "keyboards/cipulot/common/ec_switch_matrix.h"
 
 void eeconfig_init_kb(void) {
     // Default values
