@@ -255,8 +255,8 @@ void     post_process_record_user(uint16_t keycode, keyrecord_t *record);
 void reset_keyboard(void);
 void soft_reset_keyboard(void);
 
-void startup_user(void);
-void shutdown_user(void);
+bool shutdown_kb(bool jump_to_bootloader);
+bool shutdown_user(bool jump_to_bootloader);
 
 void register_code16(uint16_t code);
 void unregister_code16(uint16_t code);

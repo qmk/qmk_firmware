@@ -70,6 +70,11 @@ class AllKeyboards:
 base_path = os.path.join(os.getcwd(), "keyboards") + os.path.sep
 
 
+@lru_cache(maxsize=1)
+def keyboard_alias_definitions():
+    return json_load(Path('data/mappings/keyboard_aliases.hjson'))
+
+
 def is_all_keyboards(keyboard):
     """Returns True if the keyboard is an AllKeyboards object.
     """
@@ -112,7 +117,7 @@ def keyboard_folder(keyboard):
 
     This checks aliases and DEFAULT_FOLDER to resolve the actual path for a keyboard.
     """
-    aliases = json_load(Path('data/mappings/keyboard_aliases.hjson'))
+    aliases = keyboard_alias_definitions()
 
     while keyboard in aliases:
         last_keyboard = keyboard
