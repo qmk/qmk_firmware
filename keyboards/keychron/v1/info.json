@@ -4,6 +4,11 @@
     "maintainer": "lalalademaxiya1",
     "bootloader": "stm32-dfu",
     "diode_direction": "ROW2COL",
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
     "features": {
         "bootmagic": true,
         "command": false,
