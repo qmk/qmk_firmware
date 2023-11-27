@@ -101,7 +101,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case RGB_THEME_FORWARD:
             if (record->event.pressed) {
-                uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
+                uint8_t shifted = get_mods() & (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT));
                 if(shifted) {
                     rgb_theme_step_reverse();
                 } else {
@@ -112,7 +112,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case RGB_THEME_REVERSE:
             if (record->event.pressed) {
-                uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
+                uint8_t shifted = get_mods() & (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT));
                 if(shifted) {
                     rgb_theme_step();
                 } else {
@@ -141,14 +141,14 @@ void matrix_scan_cmd_tab(void) {
  *
  * Sends 'qmk compile -kb keyboard -km keymap' command to compile firmware
  * Uses 'qmk flash' and resets keyboard, if flash_bootloader set to true
- * Sends CTPC and/or FORCE_LAYOUT parameters if built with those options
+ * Sends CONVERT_TO and/or FORCE_LAYOUT parameters if built with those options
  */
 void send_make_command(bool flash_bootloader) {
 #ifdef FORCE_LAYOUT // Add layout string if built with FORCE_LAYOUT
     SEND_STRING("FORCE_LAYOUT=" FORCE_LAYOUT " ");
 #endif
-#ifdef CONVERT_TO_PROTON_C // Add CTPC if built with CONVERT_TO_PROTON_C
-    SEND_STRING("CTPC=yes ");
+#ifdef CONVERT_TO_PROTON_C // Add CONVERT_TO if built with converter
+    SEND_STRING("CONVERT_TO=proton_c ");
 #endif
     SEND_STRING("qmk ");
     if (flash_bootloader) {

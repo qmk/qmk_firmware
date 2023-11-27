@@ -143,7 +143,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   HYPR_0,  _______, WINK,    _______, _______,  TOUNGE,  _______, _______, CRY,     FLIP,    _______, _______,
   HYPR_1,  ABOVE,   SHRUG,   _______, FROWN,    _______, HEART,   JOY,     _______, LLAP,    _______, _______,
   HYPR_2,  _______, _______, _______, CONFUSED, _______, _______, GRIN,    SHIT,    _______, _______, _______,
-  _______, _______, _______, _______, KC_SLCK,  KC_SLEP, KC_SLEP, KC_PAUS, FNGLEFT, THMBDN,  THMBUP,  FNGRIGHT
+  _______, _______, _______, _______, KC_SCRL,  KC_SLEP, KC_SLEP, KC_PAUS, FNGLEFT, THMBDN,  THMBUP,  FNGRIGHT
 ),
 
 
@@ -213,9 +213,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid(
-  _______, RESET,   DEBUG,   _______, _______, _______, _______, TERM_ON, TERM_OFF,_______, _______, KC_DEL ,
-  _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  PLOVER,  _______,
-  _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______,
+  _______, QK_BOOT, DB_TOGG, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL ,
+  _______, _______, MU_NEXT, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  PLOVER,  _______,
+  _______, AU_PREV, AU_NEXT, MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______,
   BACKLIT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 )
 
@@ -231,7 +231,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   bool has_layer_changed = true;
 
   void matrix_scan_user(void) {
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
     static uint8_t old_layer = 0;
 
     if (old_layer != layer) {

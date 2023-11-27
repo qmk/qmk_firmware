@@ -36,10 +36,6 @@ The special layer has Reset and EEP Reset keys on the left half, along with medi
 
 This option is used because otherwise modtap functions would fail to trigger. This increases reliability for me.
 
-### USE_SERIAL
-
-N/A
-
 ### EE_HANDS
 
 Prepared for EEPROM settings and different keymaps depending on USB port connected, but default master side remains left regardless.

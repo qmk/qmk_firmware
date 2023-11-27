@@ -16,7 +16,7 @@
 
 #include "tapdance.h"
 
-int cur_dance (qk_tap_dance_state_t *state) {
+int cur_dance (tap_dance_state_t *state) {
   if (state->count == 1) {
     //If count = 1, and it has been interrupted - it doesn't matter if it is pressed or not: Send SINGLE_TAP
     if (state->interrupted) {
@@ -45,7 +45,7 @@ int cur_dance (qk_tap_dance_state_t *state) {
   else return SPECIAL;
 }
 
-int hold_cur_dance (qk_tap_dance_state_t *state) {
+int hold_cur_dance (tap_dance_state_t *state) {
   if (state->count == 1) {
     if (state->interrupted) {
       if (!state->pressed) return SINGLE_TAP;

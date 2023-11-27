@@ -30,20 +30,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB              ,KC_Q                ,KC_W                ,KC_E                ,KC_R                ,KC_T                ,TD(PASTE_DANCE) ,
     KC_DELETE           ,KC_A                ,LT(3,KC_S)          ,LT(2,KC_D)          ,LT(4,KC_F)          ,KC_G                ,
     KC_GRAVE            ,KC_Z                ,KC_X                ,KC_C                ,KC_V                ,KC_B                ,TD(COPY_CUT) ,
-    KC_BSLASH           ,OSM(MOD_LCTL)       ,OSM(MOD_LALT)       ,KC_LEFT             ,KC_RIGHT            ,
+    KC_BSLS             ,OSM(MOD_LCTL)       ,OSM(MOD_LALT)       ,KC_LEFT             ,KC_RIGHT            ,
     OSM_SF_CMD          ,KC_PLUS             ,
     KC_INSERT           ,
-    OSM(MOD_LSFT)       ,LT(2,KC_BSPACE)     ,OSM(MOD_LGUI)              ,
+    OSM(MOD_LSFT)       ,LT(2,KC_BSPC)     ,OSM(MOD_LGUI)              ,
 
 
     TO(1)               ,KC_6                ,KC_7                ,KC_8                ,KC_9                ,LT(3,KC_0)          ,KC_DQUO             ,
     KC_UNDS             ,KC_Y                ,KC_U                ,KC_I                ,KC_O                ,KC_P                ,RSFT_T(KC_MINUS)            ,
     HYPR_H              ,ALT_J               ,CTL_K               ,LT(6,KC_L)          ,TD_CLN              ,CMD_QUOT            ,
     ALT_TAB             ,KC_N                ,MEH_T(KC_M)         ,KC_COMMA            ,KC_DOT              ,KC_SLASH            ,LT(4,KC_KP_ASTERISK),
-    LT(4,KC_ENTER)      ,KC_DOWN             ,KC_LBRACKET         ,KC_RBRACKET         ,OSL(2)              ,
+    LT(4,KC_ENTER)      ,KC_DOWN             ,KC_LBRC             ,KC_RBRC             ,OSL(2)              ,
     KC_AUDIO_MUTE       ,KC_ESCAPE           ,
     KC_END              ,
-    KC_COLN             ,KC_LEAD             ,LT(4,KC_SPACE)
+    KC_COLN             ,QK_LEAD             ,LT(4,KC_SPACE)
     ),
 
   [1] = LAYOUT_ergodox(
@@ -68,26 +68,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRANSPARENT,KC_F1         ,KC_F2         ,KC_F3         ,KC_F4         ,KC_F5         ,KC_TRANSPARENT,
     KC_TRANSPARENT,KC_EXLM       ,KC_AT         ,KC_LCBR       ,KC_RCBR       ,KC_PIPE       ,KC_CALCULATOR ,
     KC_TRANSPARENT,KC_HASH       ,KC_DLR        ,KC_TRANSPARENT,KC_RPRN       ,KC_GRAVE      ,
-    KC_TRANSPARENT,KC_PERC       ,KC_CIRC       ,KC_LBRACKET   ,KC_RBRACKET   ,KC_TILD       ,KC_TRANSPARENT,
+    KC_TRANSPARENT,KC_PERC       ,KC_CIRC       ,KC_LBRC       ,KC_RBRC       ,KC_TILD       ,KC_TRANSPARENT,
     KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,
     KC_TRANSPARENT,KC_TRANSPARENT,
                                   RGB_HUI       ,
     KC_TRANSPARENT,KC_TRANSPARENT,RGB_HUD       ,
-    KC_DELETE     ,KC_A          ,KC_B          ,KC_C          ,KC_D          ,KC_E          ,KC_BSPACE     ,
+    KC_DELETE     ,KC_A          ,KC_B          ,KC_C          ,KC_D          ,KC_E          ,KC_BSPC     ,
     KC_ENTER      ,KC_F          ,KC_7          ,KC_8          ,KC_9          ,KC_PERC       ,KC_TRANSPARENT,
                    KC_HASH       ,KC_4          ,KC_5          ,KC_6          ,KC_PLUS       ,KC_KP_ASTERISK,
-    KC_KP_ENTER   ,KC_COLON      ,KC_1          ,KC_2          ,KC_3          ,KC_SLASH      ,KC_BSLASH     ,
+    KC_KP_ENTER   ,KC_COLON      ,KC_1          ,KC_2          ,KC_3          ,KC_SLASH      ,KC_BSLS       ,
                                   KC_0          ,KC_COMMA      ,KC_DOT        ,KC_EQUAL      ,KC_TRANSPARENT,
     RGB_TOG       ,RGB_SLD       ,
     RGB_VAI       ,
-    RGB_VAD       ,KC_BSPACE     ,KC_SPACE
+    RGB_VAD       ,KC_BSPC     ,KC_SPACE
   ),
 
   [3] = LAYOUT_ergodox(
     KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,
     KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_LABK            ,KC_RABK            ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,
     KC_TRANSPARENT     ,KC_AT              ,KC_TRANSPARENT     ,KC_EQL             ,F_ARROW            ,KC_GRAVE           ,
-    KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_LBRACKET        ,KC_RBRACKET        ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,
+    KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_LBRC            ,KC_RBRC            ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,
     KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,IARROW             ,ARROW               ,
     KC_TRANSPARENT     ,KC_TRANSPARENT     ,
     KC_TRANSPARENT     ,
@@ -96,9 +96,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,
     LALT(LSFT(KC_UP))  ,KC_HASH            ,KC_LCBR            ,KC_RCBR            ,KC_KP_ASTERISK     ,KC_PERC            ,KC_DLR             ,
                         KC_AMPR            ,KC_LPRN            ,KC_RPRN            ,CLN_EQ             ,KC_KP_PLUS         ,KC_PIPE            ,
-    LALT(LSFT(KC_DOWN)),KC_EXLM            ,KC_TILD            ,KC_CIRC            ,ARROW              ,KC_BSLASH          ,KC_BSLASH          ,
+    LALT(LSFT(KC_DOWN)),KC_EXLM            ,KC_TILD            ,KC_CIRC            ,ARROW              ,KC_BSLS            ,KC_BSLS            ,
     KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,
-    RESET              ,KC_TRANSPARENT     ,
+    QK_BOOT              ,KC_TRANSPARENT     ,
     KC_TRANSPARENT     ,
     KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_SPACE
 ),
@@ -107,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRANSPARENT     ,KC_F1              ,KC_F2              ,KC_F3              ,KC_F4              ,KC_F5              ,KC_TRANSPARENT     ,
     KC_TRANSPARENT     ,LCTL(KC_Q)         ,LCTL(KC_DOWN)      ,LGUI(KC_DOWN)      ,WIN_LEFT_HALF      ,WIN_RIGHT_HALF     ,LALT(LSFT(KC_UP))  ,
     LCTL(LSFT(KC_P))   ,LCTL(KC_A)         ,SAVE               ,LCTL(KC_D)         ,KC_TRANSPARENT     ,RGUI(KC_R)         ,
-    LCTL(LSFT(KC_F))   ,UNDO               ,CUT                ,KC_PSCREEN         ,KC_TRANSPARENT     ,LGUI(KC_RIGHT)     ,LALT(LSFT(KC_DOWN)),
+    LCTL(LSFT(KC_F))   ,UNDO               ,CUT                ,KC_PSCR            ,KC_TRANSPARENT     ,LGUI(KC_RIGHT)     ,LALT(LSFT(KC_DOWN)),
     KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,
     KC_TRANSPARENT     ,KC_TRANSPARENT     ,
     KC_TRANSPARENT     ,
@@ -117,10 +117,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LALT(KC_UP)        ,LSFT(KC_HOME)      ,LSFT(KC_LEFT)      ,KC_UP              ,LSFT(KC_RIGHT)     ,LSFT(KC_END)       ,KC_F13             ,
                         KC_HOME            ,KC_LEFT            ,KC_DOWN            ,KC_RIGHT           ,KC_END             ,KC_F12             ,
     LALT(KC_DOWN)      ,LSFT(KC_INSERT)    ,LCTL(LSFT(KC_J))   ,LSFT(KC_UP)        ,KC_PGUP            ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,
-    KC_TRANSPARENT                                             ,LSFT(KC_DOWN)      ,KC_PGDOWN          ,WIN_TO_LEFT        ,WIN_TO_RIGHT     ,
+    KC_TRANSPARENT                                             ,LSFT(KC_DOWN)      ,KC_PGDN            ,WIN_TO_LEFT        ,WIN_TO_RIGHT     ,
     KC_TRANSPARENT     ,KC_SYSTEM_SLEEP    ,
     KC_TRANSPARENT     ,
-    KC_TRANSPARENT     ,KC_BSPACE          ,KC_TRANSPARENT
+    KC_TRANSPARENT     ,KC_BSPC          ,KC_TRANSPARENT
   ),
 
   [5] = LAYOUT_ergodox(
@@ -155,7 +155,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRANSPARENT      ,KC_TRANSPARENT      ,KC_TRANSPARENT      ,KC_TRANSPARENT      ,KC_TRANSPARENT      ,KC_TRANSPARENT      ,KC_TRANSPARENT      ,
     KC_PGUP             ,LCTL(LGUI(KC_RIGHT)),KC_MS_WH_UP         ,KC_TRANSPARENT      ,KC_TRANSPARENT      ,KC_TRANSPARENT      ,KC_TRANSPARENT      ,
     LGUI(RCTL(KC_LEFT)) ,KC_MS_WH_DOWN       ,LCTL(KC_C)          ,KC_TRANSPARENT      ,KC_MEDIA_STOP       ,KC_MEDIA_PLAY_PAUSE ,
-    KC_PGDOWN           ,LCTL(LSFT(KC_N))    ,LCTL(LSFT(KC_J))    ,KC_MEDIA_PREV_TRACK ,KC_MEDIA_NEXT_TRACK ,KC_TRANSPARENT      ,KC_TRANSPARENT      ,
+    KC_PGDN             ,LCTL(LSFT(KC_N))    ,LCTL(LSFT(KC_J))    ,KC_MEDIA_PREV_TRACK ,KC_MEDIA_NEXT_TRACK ,KC_TRANSPARENT      ,KC_TRANSPARENT      ,
     KC_AUDIO_VOL_UP     ,KC_AUDIO_VOL_DOWN   ,KC_AUDIO_MUTE       ,KC_TRANSPARENT      ,KC_TRANSPARENT      ,
     KC_TRANSPARENT      ,KC_TRANSPARENT      ,
     KC_TRANSPARENT      ,
@@ -190,10 +190,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,
     KC_TRANSPARENT,KC_TRANSPARENT,
     KC_TRANSPARENT,
-    KC_SPACE      ,KC_LSHIFT     ,KC_TRANSPARENT,
+    KC_SPACE      ,KC_LSFT       ,KC_TRANSPARENT,
 
     TO(0)         ,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,
-    KC_PGDOWN     ,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,
+    KC_PGDN       ,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,
     KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,
     KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,
     KC_ENTER      ,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,

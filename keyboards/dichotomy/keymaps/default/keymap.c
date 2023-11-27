@@ -109,7 +109,7 @@ report_mouse_t currentReport = {};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	//uint8_t layer;
-	//layer = biton32(layer_state);  // get the current layer  //Or don't, I didn't use it.
+	//layer = get_highest_layer(layer_state);  // get the current layer  //Or don't, I didn't use it.
 	bool returnVal = true; //this is to determine if more key processing is needed.
 
 	 //custom layer handling for tri_layer,
@@ -146,7 +146,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				shiftLED = false;
 				if (timer_elapsed(shift_timer) < CUSTOM_TOGGLE_TIME && shift_singular_key) {
 					//this was basically a toggle, so activate/deactivate caps lock.
-					SEND_STRING(SS_TAP(X_CAPSLOCK));
+					SEND_STRING(SS_TAP(X_CAPS_LOCK));
 					capsLED = !capsLED;
 				}
 				layer_off(_SF);
@@ -216,7 +216,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				} else {
 					if (special_key_pressed[CK_BSPE-SAFE_RANGE]){
 						//key was not activated, return macro activating proper, pre-long-tap key
-						SEND_STRING(SS_TAP(X_BSLASH));
+						SEND_STRING(SS_TAP(X_BACKSLASH));
 						special_key_pressed[CK_BSPE-SAFE_RANGE] = 0;
 					} else {
 						//the short key was already sent, because another key was pressed.
@@ -416,7 +416,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 								SEND_STRING(SS_TAP(X_1));
 							break;
 							case CK_BSPE:
-								SEND_STRING(SS_TAP(X_BSLASH));
+								SEND_STRING(SS_TAP(X_BACKSLASH));
 							break;
 							case CK_QE:
 								SEND_STRING(SS_TAP(X_QUOTE));
@@ -437,7 +437,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 
 void matrix_scan_user(void) {
-	//uint8_t layer = biton32(layer_state);
+	//uint8_t layer = get_highest_layer(layer_state);
 	for (uint8_t i = 0; i<LONGPRESS_COUNT; i++){
 		if ((timer_elapsed(special_timers[i]) >= CUSTOM_LONGPRESS) && (!special_key_states[i]) && special_key_pressed[i]){
 			switch (i + SAFE_RANGE){

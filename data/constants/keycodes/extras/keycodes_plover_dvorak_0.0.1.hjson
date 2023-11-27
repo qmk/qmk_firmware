@@ -1,0 +1,73 @@
+{
+    "aliases": {
+        "DV_1": {
+            "key": "PD_NUM"
+        }
+        "DV_Q": {
+            "key": "PD_LS"
+        }
+        "DV_W": {
+            "key": "PD_LT"
+        }
+        "DV_E": {
+            "key": "PD_LP"
+        }
+        "DV_R": {
+            "key": "PD_LH"
+        }
+        "DV_S": {
+            "key": "PD_LK"
+        }
+        "DV_D": {
+            "key": "PD_LW"
+        }
+        "DV_F": {
+            "key": "PD_LR"
+        }
+        "DV_Y": {
+            "key": "PD_STAR"
+        }
+        "DV_U": {
+            "key": "PD_RF"
+        }
+        "DV_I": {
+            "key": "PD_RP"
+        }
+        "DV_O": {
+            "key": "PD_RL"
+        }
+        "DV_P": {
+            "key": "PD_RT"
+        }
+        "DV_LBRC": {
+            "key": "PD_RD"
+        }
+        "DV_J": {
+            "key": "PD_RR"
+        }
+        "DV_K": {
+            "key": "PD_RB"
+        }
+        "DV_L": {
+            "key": "PD_RG"
+        }
+        "DV_SCLN": {
+            "key": "PD_RS"
+        }
+        "DV_QUOT": {
+            "key": "PD_RZ"
+        }
+        "DV_C": {
+            "key": "PD_A"
+        }
+        "DV_V": {
+            "key": "PD_O"
+        }
+        "DV_N": {
+            "key": "PD_E"
+        }
+        "DV_M": {
+            "key": "PD_U"
+        }
+    }
+}

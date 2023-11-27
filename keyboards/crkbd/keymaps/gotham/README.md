@@ -10,7 +10,6 @@ My take on the 40% layout with programming in mind. Do read about the layers, it
 
 ## Custom OLED
 This keymap includes custom OLED font and code. The font contains some logos and status indidcators for some of the features I use (RGB and Audio). Enable OLED in rukes.mk to check it out. Feel free to reuse the font or parts of it.
-__KNOWN BUG:__ When the computer sleeps, one of the OLEDs is always on (they don't turn off on their own, and the timeout doesn't work). I haven't been able to figure out what's going on there and am open to suggestions/PRs.
 
 ## Flashing
 Flash using `make crkbd:gotham:avrdude` for Pro Micro and `make crkbd:gotham:dfu` for Elite-C.

@@ -1,0 +1,93 @@
+{
+    "keyboard_name": "MurphPad",
+    "manufacturer": "MechWild",
+    "url": "mechwild.com",
+    "maintainer": "Kyle McCreery",
+    "usb": {
+        "vid": "0x6D77",
+        "pid": "0x1705",
+        "device_version": "3.0.1"
+    },
+    "matrix_pins": {
+        "cols": ["B5", "D7", "C6", "D4", "B6"],
+        "rows": ["F5", "B2", "B3", "B1", "F7", "F6"]
+    },
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "E6", "pin_b": "B4"},
+            {"pin_a": "D2", "pin_b": "D3"}
+        ]
+    },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
+    "bootmagic": {
+        "matrix": [0, 1]
+    },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 8,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "F4"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [0, 4], "x": 4, "y": 0},
+
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [1, 3], "x": 3, "y": 1},
+                {"matrix": [1, 4], "x": 4, "y": 1},
+
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+                {"matrix": [2, 3], "x": 3, "y": 2},
+                {"matrix": [2, 4], "x": 4, "y": 2},
+
+                {"matrix": [3, 0], "x": 0, "y": 3},
+                {"matrix": [3, 1], "x": 1, "y": 3},
+                {"matrix": [3, 2], "x": 2, "y": 3},
+                {"matrix": [3, 3], "x": 3, "y": 3},
+                {"matrix": [3, 4], "x": 4, "y": 3},
+
+                {"matrix": [4, 0], "x": 0, "y": 4},
+                {"matrix": [4, 1], "x": 1, "y": 4},
+                {"matrix": [4, 2], "x": 2, "y": 4},
+                {"matrix": [4, 3], "x": 3, "y": 4},
+                {"matrix": [4, 4], "x": 4, "y": 4},
+
+                {"matrix": [5, 0], "x": 0, "y": 5},
+                {"matrix": [5, 1], "x": 1, "y": 5},
+                {"matrix": [5, 2], "x": 2, "y": 5},
+                {"matrix": [5, 3], "x": 3, "y": 5},
+                {"matrix": [5, 4], "x": 4, "y": 5},
+
+                {"matrix": [0, 0], "x": 1, "y": 6},
+                {"matrix": [1, 0], "x": 2, "y": 6},
+                {"matrix": [2, 0], "x": 3, "y": 6}
+            ]
+        }
+    }
+}

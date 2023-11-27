@@ -346,7 +346,7 @@ typedef struct {
     char     buf[CDC_INBUF_SIZE];
 } inbuf_t;
 
-#else  // VIRTSER_ENABLE
+#else // VIRTSER_ENABLE
 
 // keep these to accommodate calls if remaining
 #    define CDC_PRINTBUF_SIZE 1
@@ -362,7 +362,7 @@ typedef struct {
 
 extern inbuf_t inbuf;
 
-#endif  // VIRTSER_ENABLE
+#endif // VIRTSER_ENABLE
 
 uint32_t CDC_print(char* printbuf);
 int      CDC_printf(const char* _Format, ...);
@@ -373,4 +373,4 @@ void     CDC_init(void);
 }
 #endif
 
-#endif  // _UDI_CDC_H_
+#endif // _UDI_CDC_H_

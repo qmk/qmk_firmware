@@ -1,19 +1,19 @@
- /* 
+ /*
  Copyright 2020 Garret Gartner
-  
- This program is free software: you can redistribute it and/or modify 
- it under the terms of the GNU General Public License as published by 
- the Free Software Foundation, either version 2 of the License, or 
- (at your option) any later version. 
-  
- This program is distributed in the hope that it will be useful, 
- but WITHOUT ANY WARRANTY; without even the implied warranty of 
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
- GNU General Public License for more details. 
-  
- You should have received a copy of the GNU General Public License 
- along with this program.  If not, see <http://www.gnu.org/licenses/>. 
- */ 
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 2 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #include QMK_KEYBOARD_H
 
@@ -32,7 +32,7 @@ enum avenue_tapcodes {
   TD_DBQT,
 };
 
-void dance_rst_reset (qk_tap_dance_state_t *state, void *user_data) { // *Line_Note.001
+void dance_rst_reset (tap_dance_state_t *state, void *user_data) { // *Line_Note.001
   if (state->count >= 2) {
     reset_keyboard();
     reset_tap_dance(state);
@@ -40,7 +40,7 @@ void dance_rst_reset (qk_tap_dance_state_t *state, void *user_data) { // *Line_N
 }
 
 //Tap Dance Functions:
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
  [TD_RST] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, NULL, dance_rst_reset), // References "dance_rst_reset" (*Line_Note.001)
  [TD_DBQT] = ACTION_TAP_DANCE_DOUBLE (KC_QUOTE, KC_DQT)
 };
@@ -159,7 +159,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 //  KEYMAP TEMPLATE:
-//  
+//
 //  /* <_LAYER>:
 //  *
 //  * ┌────┐ ┌────┐                                       ┌────┬────┬────┐
@@ -185,18 +185,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 // Per-Key Tapping Term Definitions:
-uint16_t get_tapping_term(uint16_t keycode) {
-  switch (keycode) {
-    case TD(TD_DBQT):
-      return 235;
-    default:
-      return TAPPING_TERM;
-  }
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case TD(TD_DBQT):
+            return 235;
+        default:
+            return TAPPING_TERM;
+    }
 }
 
-
 // Encoder Customization: (*Order-of-Keycode Specific)
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (clockwise) {
             tap_code(KC_VOLU);
@@ -204,6 +203,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_VOLD);
         }
     }
+    return true;
 }
 
 

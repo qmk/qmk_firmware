@@ -1,0 +1,4 @@
+STENO_ENABLE = yes
+MIDI_ENABLE = yes
+MIDI_ADVANCED = yes
+MUSIC_MODE = yes

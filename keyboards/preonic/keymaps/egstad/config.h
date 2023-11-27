@@ -1,6 +1,5 @@
 #pragma once
 #define TAPPING_TERM 200
-#define IGNORE_MOD_TAP_INTERRUPT
 
 
 
@@ -35,22 +34,22 @@
 // #define NO_AUTO_SHIFT_ALPHA
 
 // Lower the Auto Shift timeout variable (down)
-// KC_ASDN	  
+// AS_DOWN
 
 // Raise the Auto Shift timeout variable (up)
-// KC_ASUP	  
+// AS_UP
 
 // Report your current Auto Shift timeout value
-// KC_ASRP	  
+// AS_RPT
 
 // Turns on the Auto Shift Function
-// KC_ASON	  
+// AS_ON
 
 // Turns off the Auto Shift Function
-// KC_ASOFF	 
+// AS_OFF
 
 // Toggles the state of the Auto Shift feature
-// KC_ASTG	  
+// AS_TOGG
 
 
 #ifdef AUDIO_ENABLE
@@ -68,9 +67,6 @@
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

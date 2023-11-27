@@ -14,9 +14,6 @@
  * MIDI options
  */
 
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
-
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on
 */
@@ -38,3 +35,6 @@
 
 // Reduce power consumption for iOS compatibility
 #define USB_MAX_POWER_CONSUMPTION 100
+
+// Short tap threshold
+#define TAPPING_TERM 250

@@ -17,11 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 #define FORCE_NKRO
 
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR
-#define RGB_MATRIX_STARTUP_VAL 100
-#define RGB_BACKLIGHT_COLOR_1 RGB_BLUE
-#define RGB_BACKLIGHT_COLOR_2 RGB_BLUE
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR
+#define RGB_MATRIX_DEFAULT_VAL 100
+#define HSV_BACKLIGHT_COLOR HSV_BLUE
+#define HSV_GAME_COLOR      170, 255, 192 // darker blue
+#define HSV_CONTROL_COLOR   0,   255, 192 // darker red

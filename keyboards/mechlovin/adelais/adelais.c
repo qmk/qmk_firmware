@@ -14,31 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "adelais.h"
+#include "quantum.h"
 
-void matrix_init_kb(void) {
-    // put your keyboard start-up code here
-    // runs once when the firmware starts up
-
-    matrix_init_user();
-    led_init_ports();
+#ifdef RGBLIGHT_ENABLE
+void keyboard_post_init_kb(void) {
+  // Call the post init code.
+  rgblight_sethsv_at(255, 255, 255, 0);	
+    keyboard_post_init_user();
 }
-
-void led_init_ports(void) {
-    setPinOutput(B2);
-    writePinLow(B2);
-    setPinOutput(C15);
-    writePinLow(C15);
-    setPinOutput(B9);
-    writePinLow(B9);
-}
-
-bool led_update_kb(led_t led_state) {
-    if(led_update_user(led_state)) {
-        writePin(B2, led_state.caps_lock);
-        writePin(B9, led_state.scroll_lock);
-        writePin(C15, led_state.num_lock);
-    }
-
-    return true;
-}
+#endif

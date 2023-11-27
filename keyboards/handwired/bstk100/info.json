@@ -1,0 +1,55 @@
+{
+    "keyboard_name": "bstk100",
+    "manufacturer": "FREE WING",
+    "url": "http://www.neko.ne.jp/~freewing/",
+    "maintainer": "FREE WING",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0xB100",
+        "device_version": "0.0.1"
+    },
+    "matrix_pins": {
+        "cols": ["B5", "B4", "E6", "D7", "C6"],
+        "rows": ["B6", "B2", "B3", "B1", "F7"]
+    },
+    "diode_direction": "COL2ROW",
+    "indicators": {
+        "caps_lock": "D5",
+        "num_lock": "D4",
+        "scroll_lock": "B0",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+
+                {"matrix": [3, 4], "x": 0, "y": 1},
+                {"matrix": [0, 3], "x": 1, "y": 1},
+                {"matrix": [0, 2], "x": 2, "y": 1},
+                {"matrix": [1, 3], "x": 3, "y": 1},
+
+                {"matrix": [1, 0], "x": 0, "y": 2},
+                {"matrix": [1, 1], "x": 1, "y": 2},
+                {"matrix": [1, 2], "x": 2, "y": 2},
+                {"matrix": [0, 1], "x": 3, "y": 2},
+
+                {"matrix": [2, 0], "x": 0, "y": 3},
+                {"matrix": [2, 1], "x": 1, "y": 3},
+                {"matrix": [2, 2], "x": 2, "y": 3},
+                {"matrix": [2, 3], "x": 3, "y": 3},
+
+                {"matrix": [3, 0], "x": 0, "y": 4},
+                {"matrix": [3, 1], "x": 1, "y": 4},
+                {"matrix": [3, 2], "x": 2, "y": 4},
+                {"matrix": [3, 3], "x": 3, "y": 4, "h": 2},
+
+                {"matrix": [4, 0], "x": 0, "y": 5},
+                {"matrix": [4, 1], "x": 1, "y": 5},
+                {"matrix": [4, 3], "x": 2, "y": 5}
+            ]
+        }
+    }
+}

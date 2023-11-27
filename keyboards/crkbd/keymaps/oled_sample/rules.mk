@@ -4,4 +4,4 @@
 #   the appropriate keymap folder that will get included automatically
 #
 RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
-OLED_DRIVER_ENABLE = yes
+OLED_ENABLE = yes

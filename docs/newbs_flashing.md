@@ -15,7 +15,7 @@ Different keyboards have different ways to enter this special mode. If your PCB 
 * Press the physical `RESET` button, usually located on the underside of the PCB
 * Locate header pins on the PCB labeled `RESET` and `GND`, and short them together while plugging your PCB in
 
-If you've attempted all of the above to no avail, and the main chip on the board says `STM32` on it, this may be a bit more complicated. Generally your best bet is to ask on [Discord](https://discord.gg/Uq7gcHh) for assistance. It's likely some photos of the board will be asked for -- if you can get them ready beforehand it'll help move things along!
+If you've attempted all of the above to no avail, and the main chip on the board says `STM32` or `RP2-B1` on it, this may be a bit more complicated. Generally your best bet is to ask on [Discord](https://discord.gg/Uq7gcHh) for assistance. It's likely some photos of the board will be asked for -- if you can get them ready beforehand it'll help move things along!
 
 Otherwise, you should see a message in yellow, similar to this in QMK Toolbox:
 
@@ -31,23 +31,29 @@ The simplest way to flash your keyboard will be with the [QMK Toolbox](https://g
 
 However, the Toolbox is currently only available for Windows and macOS. If you're using Linux (or just wish to flash the firmware from the command line), skip to the [Flash your Keyboard from the Command Line](#flash-your-keyboard-from-the-command-line) section.
 
+?> QMK Toolbox is not necessary for flashing [RP2040 devices](https://docs.qmk.fm/#/flashing?id=raspberry-pi-rp2040-uf2).
+
 ### Load the File into QMK Toolbox
 
 Begin by opening the QMK Toolbox application. You'll want to locate the firmware file in Finder or Explorer. Your keyboard firmware may be in one of two formats- `.hex` or `.bin`. QMK tries to copy the appropriate one for your keyboard into the root `qmk_firmware` directory.
 
 If you are on Windows or macOS, there are commands you can use to easily open the current folder in Explorer or Finder.
 
-#### Windows
+<!-- tabs:start -->
+
+#### ** Windows **
 
 ```
 start .
 ```
 
-#### macOS
+#### ** macOS **
 
 ```
 open .
 ```
+
+<!-- tabs:end -->
 
 The firmware file always follows this naming format:
 
@@ -61,7 +67,7 @@ For example, the `planck/rev5` with a `default` keymap will have this filename:
 planck_rev5_default.hex
 ```
 
-Once you have located your firmware file drag it into the "Local file" box in QMK Toolbox, or click "Open" and navigate to where your firmware file is stored.
+Once you have located your firmware file, drag it into the "Local file" box in QMK Toolbox, or click "Open" and navigate to where your firmware file is stored.
 
 ### Flash Your Keyboard
 
@@ -92,7 +98,7 @@ This has been made pretty simple compared to what it used to be. When you are re
 
     qmk flash
 
-If you have not configured your keyboard/keymap name in the CLI, or you have multiple keyboards, you can specify the keyboard and keymap:
+If you did not configure your keyboard/keymap name in the CLI according to the [Configure your build environment](newbs_getting_started.md) section, or you have multiple keyboards, you can specify the keyboard and keymap:
 
     qmk flash -kb <my_keyboard> -km <my_keymap>
 
@@ -104,8 +110,13 @@ However, this does rely on the bootloader being set by the keyboard. If this inf
 
 In this case, you'll have to fall back on specifying the bootloader. See the [Flashing Firmware](flashing.md) Guide for more details.
 
+!> If your bootloader is not detected by `qmk flash`, try running `qmk doctor` for suggestions on how to fix common problems.
+
 ## Test It Out!
 
-Congrats! Your custom firmware has been programmed to your keyboard!
+Congrats! Your custom firmware has been programmed to your keyboard and you're ready to test it out!
 
-Give it a try and make sure everything works the way you want it to. We've written [Testing and Debugging](newbs_testing_debugging.md) to round out this guide, so head over there to learn about validating your firmware and how to troubleshoot your custom functionality.
+With a little bit of luck everything will work perfectly, but if not there are steps that will help you figure out what's wrong.
+Testing your keyboard is usually pretty straightforward. Press every single key and make sure it sends the keys you expect. You can use [QMK Configurator](https://config.qmk.fm/#/test/)'s test mode to check your keyboard, even if it doesn't run QMK.
+
+Still not working? Browse the FAQ topics for more information, or [chat with us on Discord](https://discord.gg/Uq7gcHh).

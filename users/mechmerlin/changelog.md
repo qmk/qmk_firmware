@@ -1,9 +1,22 @@
 # Changelog
 All notable changes to my userspace will be documented in this file.
 
+## [0.4.1] - 2021-10-30
+
+### Added
+- `RGB_DISABLE_WHEN_USB_SUSPENDED` added in `config.h`. Couple of my boards now have per key RGB and have been staying on when my computer sleeps. 
+## [0.4.0] - 2021-10-05
+
+### Added
+- Introduced new keycode KV_VER to output the version of QMK. Thanks to drashna for this. 
+
+### Changed
+- Updated keymaps to use underscores instead of KC_TRNS as it was getting hard to read for my tired eyes. 
+- Updated readmes on my preferred layouts.
+
 ## [0.3.0] - 2020-02-02
 ### Changed
-- Added the `_CL` layer to all the boards for access to `EEP_RST` and `RESET` keycodes. This was done primarily to avoid triggering `RESET` accidentally. 
+- Added the `_CL` layer to all the boards for access to `EE_CLR` and `RESET` keycodes. This was done primarily to avoid triggering `RESET` accidentally. 
 - Added a placeholder text macro under the custom keycode `KC_MAC`. Currently set to "meow", but will change as needed in the future. 
 
 ## [0.2.2] - 2019-04-22

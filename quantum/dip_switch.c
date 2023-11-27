@@ -16,10 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "dip_switch.h"
+#include <string.h> // for memcpy
 
-// for memcpy
-#include <string.h>
+#include "dip_switch.h"
+#include "gpio.h"
+#include "util.h"
+
+#ifdef SPLIT_KEYBOARD
+#    include "split_common/split_util.h"
+#endif
 
 #if !defined(DIP_SWITCH_PINS) && !defined(DIP_SWITCH_MATRIX_GRID)
 #    error "Either DIP_SWITCH_PINS or DIP_SWITCH_MATRIX_GRID must be defined."
@@ -30,7 +35,7 @@
 #endif
 
 #ifdef DIP_SWITCH_PINS
-#    define NUMBER_OF_DIP_SWITCHES (sizeof(dip_switch_pad) / sizeof(pin_t))
+#    define NUMBER_OF_DIP_SWITCHES (ARRAY_SIZE(dip_switch_pad))
 static pin_t dip_switch_pad[] = DIP_SWITCH_PINS;
 #endif
 
@@ -40,7 +45,7 @@ typedef struct matrix_index_t {
     uint8_t col;
 } matrix_index_t;
 
-#    define NUMBER_OF_DIP_SWITCHES (sizeof(dip_switch_pad) / sizeof(matrix_index_t))
+#    define NUMBER_OF_DIP_SWITCHES (ARRAY_SIZE(dip_switch_pad))
 static matrix_index_t dip_switch_pad[] = DIP_SWITCH_MATRIX_GRID;
 extern bool           peek_matrix(uint8_t row_index, uint8_t col_index, bool read_raw);
 static uint16_t       scan_count;
@@ -49,16 +54,32 @@ static uint16_t       scan_count;
 static bool dip_switch_state[NUMBER_OF_DIP_SWITCHES]      = {0};
 static bool last_dip_switch_state[NUMBER_OF_DIP_SWITCHES] = {0};
 
-__attribute__((weak)) void dip_switch_update_user(uint8_t index, bool active) {}
+__attribute__((weak)) bool dip_switch_update_user(uint8_t index, bool active) {
+    return true;
+}
 
-__attribute__((weak)) void dip_switch_update_kb(uint8_t index, bool active) { dip_switch_update_user(index, active); }
+__attribute__((weak)) bool dip_switch_update_kb(uint8_t index, bool active) {
+    return dip_switch_update_user(index, active);
+}
 
-__attribute__((weak)) void dip_switch_update_mask_user(uint32_t state) {}
+__attribute__((weak)) bool dip_switch_update_mask_user(uint32_t state) {
+    return true;
+}
 
-__attribute__((weak)) void dip_switch_update_mask_kb(uint32_t state) { dip_switch_update_mask_user(state); }
+__attribute__((weak)) bool dip_switch_update_mask_kb(uint32_t state) {
+    return dip_switch_update_mask_user(state);
+}
 
 void dip_switch_init(void) {
 #ifdef DIP_SWITCH_PINS
+#    if defined(SPLIT_KEYBOARD) && defined(DIP_SWITCH_PINS_RIGHT)
+    if (!isLeftHand) {
+        const pin_t dip_switch_pad_right[] = DIP_SWITCH_PINS_RIGHT;
+        for (uint8_t i = 0; i < NUMBER_OF_DIP_SWITCHES; i++) {
+            dip_switch_pad[i] = dip_switch_pad_right[i];
+        }
+    }
+#    endif
     for (uint8_t i = 0; i < NUMBER_OF_DIP_SWITCHES; i++) {
         setPinInputHigh(dip_switch_pad[i]);
     }

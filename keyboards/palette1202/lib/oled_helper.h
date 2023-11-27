@@ -1,7 +1,7 @@
 #pragma once
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 void render_row(int row, const char* status);
 
-#endif /* #ifdef OLED_DRIVER_ENABLE */
-  
+#endif /* #ifdef OLED_ENABLE */
+

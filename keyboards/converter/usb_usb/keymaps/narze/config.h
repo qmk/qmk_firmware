@@ -4,9 +4,6 @@
  * MIDI options
  */
 
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
-
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on
 */
@@ -27,9 +24,7 @@
 #define TAPPING_TERM 100
 
 #define COMBO_TERM 20
-#define COMBO_COUNT 1
 
-#define IGNORE_MOD_TAP_INTERRUPT
 #define PERMISSIVE_HOLD
 
 #define SUPER_DUPER_SOUND S__NOTE(_B1)

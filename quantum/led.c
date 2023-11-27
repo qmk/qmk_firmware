@@ -13,21 +13,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "quantum.h"
+#include "led.h"
+#include "host.h"
+#include "timer.h"
+#include "debug.h"
+#include "gpio.h"
 
-#ifdef BACKLIGHT_ENABLE
-#    include "backlight.h"
+#ifdef BACKLIGHT_CAPS_LOCK
+#    ifdef BACKLIGHT_ENABLE
+#        include "backlight.h"
 extern backlight_config_t backlight_config;
-#else
-// Cannot use BACKLIGHT_CAPS_LOCK without backlight being enabled
-#    undef BACKLIGHT_CAPS_LOCK
+#    else
+#        pragma message "Cannot use BACKLIGHT_CAPS_LOCK without backlight being enabled"
+#        undef BACKLIGHT_CAPS_LOCK
+#    endif
 #endif
 
 #ifndef LED_PIN_ON_STATE
 #    define LED_PIN_ON_STATE 1
 #endif
 
-#if defined(BACKLIGHT_CAPS_LOCK)
+#ifdef BACKLIGHT_CAPS_LOCK
 /** \brief Caps Lock indicator using backlight (for keyboards without dedicated LED)
  */
 static void handle_backlight_caps_lock(led_t led_state) {
@@ -49,23 +55,27 @@ static void handle_backlight_caps_lock(led_t led_state) {
 }
 #endif
 
+static uint32_t last_led_modification_time = 0;
+uint32_t        last_led_activity_time(void) {
+    return last_led_modification_time;
+}
+uint32_t last_led_activity_elapsed(void) {
+    return timer_elapsed32(last_led_modification_time);
+}
+
 /** \brief Lock LED set callback - keymap/user level
  *
  * \deprecated Use led_update_user() instead.
  */
 __attribute__((weak)) void led_set_user(uint8_t usb_led) {}
 
-/** \brief Lock LED set callback - keyboard level
- *
- * \deprecated Use led_update_kb() instead.
- */
-__attribute__((weak)) void led_set_kb(uint8_t usb_led) { led_set_user(usb_led); }
-
 /** \brief Lock LED update callback - keymap/user level
  *
  * \return True if led_update_kb() should run its own code, false otherwise.
  */
-__attribute__((weak)) bool led_update_user(led_t led_state) { return true; }
+__attribute__((weak)) bool led_update_user(led_t led_state) {
+    return true;
+}
 
 /** \brief Lock LED update callback - keyboard level
  *
@@ -74,30 +84,34 @@ __attribute__((weak)) bool led_update_user(led_t led_state) { return true; }
 __attribute__((weak)) bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if (res) {
-#if defined(LED_NUM_LOCK_PIN) || defined(LED_CAPS_LOCK_PIN) || defined(LED_SCROLL_LOCK_PIN) || defined(LED_COMPOSE_PIN) || defined(LED_KANA_PIN)
-#    if LED_PIN_ON_STATE == 0
-        // invert the whole thing to avoid having to conditionally !led_state.x later
-        led_state.raw = ~led_state.raw;
-#    endif
-
-#    ifdef LED_NUM_LOCK_PIN
-        writePin(LED_NUM_LOCK_PIN, led_state.num_lock);
-#    endif
-#    ifdef LED_CAPS_LOCK_PIN
-        writePin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
-#    endif
-#    ifdef LED_SCROLL_LOCK_PIN
-        writePin(LED_SCROLL_LOCK_PIN, led_state.scroll_lock);
-#    endif
-#    ifdef LED_COMPOSE_PIN
-        writePin(LED_COMPOSE_PIN, led_state.compose);
-#    endif
-#    ifdef LED_KANA_PIN
-        writePin(LED_KANA_PIN, led_state.kana);
-#    endif
-#endif
+        led_update_ports(led_state);
     }
     return res;
+}
+
+/** \brief Write LED state to hardware
+ */
+__attribute__((weak)) void led_update_ports(led_t led_state) {
+#if LED_PIN_ON_STATE == 0
+    // invert the whole thing to avoid having to conditionally !led_state.x later
+    led_state.raw = ~led_state.raw;
+#endif
+
+#ifdef LED_NUM_LOCK_PIN
+    writePin(LED_NUM_LOCK_PIN, led_state.num_lock);
+#endif
+#ifdef LED_CAPS_LOCK_PIN
+    writePin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
+#endif
+#ifdef LED_SCROLL_LOCK_PIN
+    writePin(LED_SCROLL_LOCK_PIN, led_state.scroll_lock);
+#endif
+#ifdef LED_COMPOSE_PIN
+    writePin(LED_COMPOSE_PIN, led_state.compose);
+#endif
+#ifdef LED_KANA_PIN
+    writePin(LED_KANA_PIN, led_state.kana);
+#endif
 }
 
 /** \brief Initialise any LED related hardware and/or state
@@ -132,6 +146,47 @@ __attribute__((weak)) void led_set(uint8_t usb_led) {
     handle_backlight_caps_lock((led_t)usb_led);
 #endif
 
-    led_set_kb(usb_led);
+    led_set_user(usb_led);
     led_update_kb((led_t)usb_led);
+}
+
+/** \brief Trigger behaviour on transition to suspend
+ */
+void led_suspend(void) {
+    led_t leds_off = {0};
+#ifdef BACKLIGHT_CAPS_LOCK
+    if (is_backlight_enabled()) {
+        // Don't try to turn off Caps Lock indicator as it is backlight and backlight is already off
+        leds_off.caps_lock = true;
+    }
+#endif
+    led_set(leds_off.raw);
+}
+
+/** \brief Trigger behaviour on transition from suspend
+ */
+void led_wakeup(void) {
+    led_set(host_keyboard_leds());
+}
+
+/** \brief set host led state
+ *
+ * Only sets state if change detected
+ */
+void led_task(void) {
+    static uint8_t last_led_status = 0;
+
+    // update LED
+    uint8_t led_status = host_keyboard_leds();
+    if (last_led_status != led_status) {
+        last_led_status            = led_status;
+        last_led_modification_time = timer_read32();
+
+        if (debug_keyboard) {
+            debug("led_task: ");
+            debug_hex8(led_status);
+            debug("\n");
+        }
+        led_set(led_status);
+    }
 }

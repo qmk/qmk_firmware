@@ -16,12 +16,6 @@ enum layers {
 #define KM_DRIGHT LGUI(LCTL(KC_RIGHT))
 #define TSKMGR LCTL(LSFT(KC_ESC))
 
-#define tap_mod_macro(record, mod, macro) ( ((record)->event.pressed) ? \
-     ( ((record)->tap.count <= 0 || (record)->tap.interrupted) ? MACRO(D(mod), END) : MACRO_NONE ) : \
-     ( ((record)->tap.count > 0 && !((record)->tap.interrupted)) ? (macro) : MACRO(U(mod), END) ) )
-
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [ALPH] = LAYOUT(
     KC_Q,    KC_W,     KC_E,     KC_R,           KC_T,                                               KC_Y,              KC_U,     KC_I,     KC_O,     KC_P,
@@ -51,24 +45,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,                        KC_F6,    KC_F7,     KC_F8,     KC_F9,   KC_F10,
     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,                      TSKMGR,   KC_TRNS,   KC_TRNS,   KC_F11,  KC_F12,
     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,                      KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS, KC_TRNS,
-    RESET,    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS, KC_TRNS
+    QK_BOOT,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS, KC_TRNS
   )
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-  [1] = ACTION_MACRO_TAP(1),
-  [2] = ACTION_MACRO_TAP(2)
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  switch(id) {
-    case 1:
-      return tap_mod_macro(record, LGUI, MACRO( D(LSFT), T(9), U(LSFT), END));
-      break;
-    case 2:
-      return tap_mod_macro(record, LALT, MACRO( D(LSFT), T(0), U(LSFT), END));
-      break;
-
-  }
-  return MACRO_NONE;
 };

@@ -1,0 +1,59 @@
+name: Lint Format
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches:
+    - master
+    - develop
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    container: ghcr.io/qmk/qmk_cli
+
+    steps:
+    - name: Disable safe.directory check
+      run : git config --global --add safe.directory '*'
+
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Disable automatic eol conversion
+      run: |
+        echo "* -text" > .git/info/attributes
+
+    - name: Install dependencies
+      run: |
+        pip3 install -r requirements-dev.txt
+
+    - name: Run qmk formatters
+      shell: 'bash {0}'
+      run: |
+        qmk format-c -a
+        qmk format-python -a
+        qmk format-text -a
+        git diff
+
+    - uses: rlespinasse/github-slug-action@v3.x
+
+    - name: Become QMK Bot
+      run: |
+        git config user.name 'QMK Bot'
+        git config user.email 'hello@qmk.fm'
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v5
+      if: ${{ github.repository == 'qmk/qmk_firmware'}}
+      with:
+        token: ${{ secrets.QMK_BOT_TOKEN }}
+        delete-branch: true
+        branch: bugfix/format_${{ env.GITHUB_REF_SLUG }}
+        author: QMK Bot <hello@qmk.fm>
+        committer: QMK Bot <hello@qmk.fm>
+        commit-message: Format code according to conventions
+        title: '[CI] Format code according to conventions'

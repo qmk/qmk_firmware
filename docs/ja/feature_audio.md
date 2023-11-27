@@ -23,7 +23,7 @@ Timer 3:
 
 ```
 STARTUP_SONG // キーボードの起動時に再生 (audio.c)
-GOODBYE_SONG // RESET キーを押すと再生 (quantum.c)
+GOODBYE_SONG // QK_BOOT キーを押すと再生 (quantum.c)
 AG_NORM_SONG // AG_NORM キーを押すと再生 (quantum.c)
 AG_SWAP_SONG // AG_SWAP キーを押すと再生 (quantum.c)
 CG_NORM_SONG // CG_NORM キーを押すと再生 (quantum.c)
@@ -219,12 +219,6 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_ortho_4x12(
     AU_ON,
     AU_OFF,
     AU_TOG,
-
-    #ifdef FAUXCLICKY_ENABLE
-        FC_ON,
-        FC_OFF,
-        FC_TOG,
-    #endif
 
     // Music mode on/off/toggle
     MU_ON,

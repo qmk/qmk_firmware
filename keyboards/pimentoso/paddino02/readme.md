@@ -1,5 +1,7 @@
 # Paddino02
 
+![Paddino02](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/keyboards/pimentoso/paddino02/img6_640.jpg)
+
 10-keys DIY mechanical macropad/gamepad. Features staggered columns, 2 thumb keys, symmetric PCB (you can build right-handed and left-handed versions with the same PCB). 
 
 Project page on GitHub, with build steps and 3d-printable files:
