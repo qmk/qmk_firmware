@@ -1,5 +1,5 @@
 {
-    "keyboard_name": "GK87 PTIR ANSI",
+    "keyboard_name": "QMK87 PTIR ANSI",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x6087"
