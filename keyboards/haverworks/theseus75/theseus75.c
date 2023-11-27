@@ -44,7 +44,7 @@ void keyboard_post_init_kb(void) {
         setPinOutput(F0);       // OUT1
         setPinOutput(F1);       // OUT2
 
-        // For now: 500 mA only
+        // Test: 1.5A forced output
         writePinLow(F0);       // OUT1
         writePinHigh(F1);       // OUT2
 
