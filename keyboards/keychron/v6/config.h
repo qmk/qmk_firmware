@@ -42,6 +42,4 @@
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 
 /* Encoder Configuration */
-#ifdef ENCODER_ENABLE
-    #define ENCODER_DEFAULT_POS 0x3
-#endif
+#define ENCODER_DEFAULT_POS 0x3
