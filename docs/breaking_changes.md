@@ -24,7 +24,7 @@ The next Breaking Change is scheduled for November 26, 2023.
 * 2023 Nov 26 - `develop` is tagged with a new release version. Each push to `master` is subsequently merged to `develop` by GitHub actions.
 * 2024 Jan 28 - `develop` closed to new PRs.
 * 2024 Jan 28 - Call for testers.
-* 2024 Deb 4 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
+* 2024 Feb 4 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
 * 2024 Feb 18 - `develop` is locked, only critical bugfix PRs merged.
 * 2024 Feb 22 - `master` is locked, no PRs merged.
 * 2024 Feb 25 - Merge `develop` to `master`.
