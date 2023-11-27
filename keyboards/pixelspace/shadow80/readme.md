@@ -1,7 +1,7 @@
 # Shadow80
 
 ![shadow80](https://imgur.com/XLjjdMzh.jpg)
-A 80% layout keyboard with 74 RGB.
+An 80%/TenKeyLess sized keyboard with 74 RGB.
 Before enabling the maximum brightness of RGB lights, please confirm whether the USB device power supply supports it.
 This PCB about two versions ： hotswap and  solder.
 
@@ -39,6 +39,6 @@ Enter the bootloader in 2 ways:
  *              │50   │51 │52   │56                         │5B   │5C │5D   │ │5E │5F │5G │
  *              └─────┴───┴─────┴───────────────────────────┴─────┴───┴─────┘ └───┴───┴───┘
  *              ┌────┬────┬────┬────────────────────────┬────┬────┬────┬────┐ 
- *              │50  │51  │52  │56                      │5A  │5B  │5C  │ 5D |  6.25u Space
+ *              │50  │51  │52  │56                      │5A  │5B  │5C  │ 5D |  6.25u Spacebar
  *              └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  **/
