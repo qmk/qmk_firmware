@@ -6,7 +6,7 @@ import fnmatch
 import logging
 import re
 from typing import Callable, List, Optional, Tuple
-from dotty_dict import dotty
+from dotty_dict import dotty, Dotty
 from milc import cli
 
 from qmk.util import parallel_map
@@ -197,54 +197,58 @@ def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str
     """
     if len(filters) == 0:
         cli.log.info('Preparing target list...')
-        return list(set(parallel_map(_construct_build_target_kb_km, target_list)))
+        targets = list(set(parallel_map(_construct_build_target_kb_km, target_list)))
+    else:
+        cli.log.info('Parsing data for all matching keyboard/keymap combinations...')
+        valid_keymaps = [(e[0], e[1], dotty(e[2])) for e in parallel_map(_load_keymap_info, target_list)]
 
-    cli.log.info('Parsing data for all matching keyboard/keymap combinations...')
-    valid_keymaps = [(e[0], e[1], dotty(e[2])) for e in parallel_map(_load_keymap_info, target_list)]
+        function_re = re.compile(r'^(?P<function>[a-zA-Z]+)\((?P<key>[a-zA-Z0-9_\.]+)(,\s*(?P<value>[^#]+))?\)$')
+        equals_re = re.compile(r'^(?P<key>[a-zA-Z0-9_\.]+)\s*=\s*(?P<value>[^#]+)$')
 
-    function_re = re.compile(r'^(?P<function>[a-zA-Z]+)\((?P<key>[a-zA-Z0-9_\.]+)(,\s*(?P<value>[^#]+))?\)$')
-    equals_re = re.compile(r'^(?P<key>[a-zA-Z0-9_\.]+)\s*=\s*(?P<value>[^#]+)$')
+        for filter_expr in filters:
+            function_match = function_re.match(filter_expr)
+            equals_match = equals_re.match(filter_expr)
 
-    for filter_expr in filters:
-        function_match = function_re.match(filter_expr)
-        equals_match = equals_re.match(filter_expr)
+            if function_match is not None:
+                func_name = function_match.group('function').lower()
+                key = function_match.group('key')
+                value = function_match.group('value')
 
-        if function_match is not None:
-            func_name = function_match.group('function').lower()
-            key = function_match.group('key')
-            value = function_match.group('value')
+                filter_class = _get_filter_class(func_name, key, value)
+                if filter_class is None:
+                    cli.log.warning(f'Unrecognized filter expression: {function_match.group(0)}')
+                    continue
+                valid_keymaps = filter(filter_class.apply, valid_keymaps)
 
-            filter_class = _get_filter_class(func_name, key, value)
-            if filter_class is None:
-                cli.log.warning(f'Unrecognized filter expression: {function_match.group(0)}')
+                value_str = (f", {{fg_cyan}}{value}{{fg_reset}})" if value is not None else "")
+                cli.log.info(f'Filtering on condition: {{fg_green}}{func_name}{{fg_reset}}({{fg_cyan}}{key}{{fg_reset}}{value_str}...')
+
+            elif equals_match is not None:
+                key = equals_match.group('key')
+                value = equals_match.group('value')
+                cli.log.info(f'Filtering on condition: {{fg_cyan}}{key}{{fg_reset}} == {{fg_cyan}}{value}{{fg_reset}}...')
+
+                def _make_filter(k, v):
+                    expr = fnmatch.translate(v)
+                    rule = re.compile(f'^{expr}$', re.IGNORECASE)
+
+                    def f(e):
+                        lhs = e[2].get(k)
+                        lhs = str(False if lhs is None else lhs)
+                        return rule.search(lhs) is not None
+
+                    return f
+
+                valid_keymaps = filter(_make_filter(key, value), valid_keymaps)
+            else:
+                cli.log.warning(f'Unrecognized filter expression: {filter_expr}')
                 continue
-            valid_keymaps = filter(filter_class.apply, valid_keymaps)
 
-            value_str = (f", {{fg_cyan}}{value}{{fg_reset}})" if value is not None else "")
-            cli.log.info(f'Filtering on condition: {{fg_green}}{func_name}{{fg_reset}}({{fg_cyan}}{key}{{fg_reset}}{value_str}...')
+        cli.log.info('Preparing target list...')
+        valid_keymaps = [(e[0], e[1], e[2].to_dict() if isinstance(e[2], Dotty) else e[2]) for e in valid_keymaps]  # need to convert dotty_dict back to dict because it doesn't survive parallelisation
+        targets = list(set(parallel_map(_construct_build_target_kb_km_json, list(valid_keymaps))))
 
-        elif equals_match is not None:
-            key = equals_match.group('key')
-            value = equals_match.group('value')
-            cli.log.info(f'Filtering on condition: {{fg_cyan}}{key}{{fg_reset}} == {{fg_cyan}}{value}{{fg_reset}}...')
-
-            def _make_filter(k: str, v: TargetInfo):
-                expr = fnmatch.translate(v)
-                rule = re.compile(f'^{expr}$', re.IGNORECASE)
-
-                def f(e):
-                    lhs = e[2].get(k)
-                    lhs = str(False if lhs is None else lhs)
-                    return rule.search(lhs) is not None
-
-                return f
-
-            valid_keymaps = filter(_make_filter(key, value), valid_keymaps)
-
-        else:
-            cli.log.warning(f'Unrecognized filter expression: {filter_expr}')
-
-    return [KeyboardKeymapBuildTarget(keyboard=kb, keymap=km, json=json) for (kb, km, json) in valid_keymaps]
+    return targets
 
 
 def search_keymap_targets(targets: List[Tuple[str, str]] = [('all', 'default')], filters: List[str] = []) -> List[BuildTarget]:
