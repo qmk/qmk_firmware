@@ -10,14 +10,26 @@
     },
     "rgblight": {
         "led_count": 156,
-        "split_count": [78, 78]
+        "split_count": [78, 78],
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "ws2812": {
         "pin": "B5",
         "driver": "pwm"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
     },
     "matrix_pins": {
         "cols": ["A6", "A7", "B0", "B2", "B1", "B9", "B3", "B4"],
@@ -25,6 +37,14 @@
         "io_delay": 5
     },
     "diode_direction": "COL2ROW",
+    "dip_switch": {
+        "pins": ["A14", "B13"]
+    },
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "A1", "pin_b": "A2"},
@@ -33,6 +53,11 @@
         ]
     },
     "split": {
+        "dip_switch": {
+            "right": {
+                "pins": ["A14", "B0"]
+            }
+        },
         "soft_serial_pin": "A9",
         "encoder": {
             "right": {
@@ -47,6 +72,13 @@
             "right": {
                 "cols": ["B9", "B8", "B4", "A6", "A3", "B10", "B12", "B11"],
                 "rows": ["B15", "B14", "A8", "A13", "A7", null]
+            }
+        },
+        "transport": {
+            "sync": {
+                "indicators": true,
+                "layer_state": true,
+                "matrix_state": true
             }
         }
     },

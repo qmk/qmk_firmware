@@ -26,7 +26,12 @@
         "saturation_steps": 8,
         "brightness_steps": 8,
         "led_count": 10,
-        "sleep": true
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true
+        }
     },
     "ws2812": {
         "pin": "D5"

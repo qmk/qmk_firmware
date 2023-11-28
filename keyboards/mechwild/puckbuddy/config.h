@@ -7,9 +7,6 @@
 /* Define custom font */
 #define OLED_FONT_H "keyboards/mechwild/puckbuddy/glcdfont.c"
 
-/* allows the "key" button on the blackpill to toggle caps lock for user testing before soldering */
-#define DIP_SWITCH_PINS { A0 }
-
 /* set the tapping term for glidepoint pad to register a tap click */
 //#define CIRQUE_PINNACLE_TAPPING_TERM 0 // This is set to 0 to disable it
 
@@ -23,17 +20,6 @@
 #define SPI_MISO_PAL_MODE 5
 #define CIRQUE_PINNACLE_SPI_DIVISOR 8
 #define CIRQUE_PINNACLE_SPI_CS_PIN A4
-
-/* RGB settings, uncomment this define to enable RGB */
-#    define RGBLIGHT_EFFECT_BREATHING
-#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#    define RGBLIGHT_EFFECT_SNAKE
-#    define RGBLIGHT_EFFECT_KNIGHT
-#    define RGBLIGHT_EFFECT_CHRISTMAS
-#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#    define RGBLIGHT_EFFECT_RGB_TEST
-#    define RGBLIGHT_EFFECT_ALTERNATING
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

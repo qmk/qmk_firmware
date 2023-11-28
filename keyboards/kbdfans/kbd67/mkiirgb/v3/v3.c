@@ -18,7 +18,7 @@
 
 #ifdef RGB_MATRIX_ENABLE
 
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3741_led_t PROGMEM g_is31fl3741_leds[RGB_MATRIX_LED_COUNT] = {
     {0, CS21_SW1, CS20_SW1, CS19_SW1},
     {0, CS21_SW2, CS20_SW2, CS19_SW2},
     {0, CS21_SW3, CS20_SW3, CS19_SW3},
@@ -125,16 +125,12 @@ led_config_t g_led_config = { {
 
 #if defined(RGB_MATRIX_ENABLE) && defined(CAPS_LOCK_LED_INDEX)
 
-#ifdef RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#if !defined(CAPS_LOCK_MAX_BRIGHTNESS)
     #define CAPS_LOCK_MAX_BRIGHTNESS RGB_MATRIX_MAXIMUM_BRIGHTNESS
-#else
-    #define CAPS_LOCK_MAX_BRIGHTNESS 0xFF
 #endif
 
-#ifdef RGB_MATRIX_VAL_STEP
+#if !defined(CAPS_LOCK_VAL_STEP)
     #define CAPS_LOCK_VAL_STEP RGB_MATRIX_VAL_STEP
-#else
-    #define CAPS_LOCK_VAL_STEP 8
 #endif
 
 bool rgb_matrix_indicators_kb(void) {

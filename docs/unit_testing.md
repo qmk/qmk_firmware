@@ -36,7 +36,9 @@ Note how there's several different tests, each mocking out a separate part. Also
 
 ## Running the Tests
 
-To run all the tests in the codebase, type `make test:all`. You can also run test matching a substring by typing `make test:matchingsubstring` Note that the tests are always compiled with the native compiler of your platform, so they are also run like any other program on your computer.
+To run all the tests in the codebase, type `make test:all`. You can also run test matching a substring by typing `make test:matchingsubstring`. `matchingsubstring` can contain colons to be more specific; `make test:tap_hold_configurations` will run the `tap_hold_configurations` tests for all features while `make test:retro_shift:tap_hold_configurations` will run the `tap_hold_configurations` tests for only the Retro Shift feature.
+
+Note that the tests are always compiled with the native compiler of your platform, so they are also run like any other program on your computer.
 
 ## Debugging the Tests
 

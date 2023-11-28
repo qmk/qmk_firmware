@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #    include "ergodox_ez.h"
 
-void rgblight_call_driver(LED_TYPE *led, uint8_t led_num) {
+void rgblight_call_driver(rgb_led_t *led, uint8_t led_num) {
     i2c_init();
     i2c_start(0x84, ERGODOX_EZ_I2C_TIMEOUT);
     int i = 0;
