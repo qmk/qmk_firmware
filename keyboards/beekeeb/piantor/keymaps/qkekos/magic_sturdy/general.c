@@ -13,12 +13,24 @@ void enqueue(int keycode) {
     prev_keys_queue[PREV_KEYS_QUEUE_SIZE - 1] = keycode;
 }
 
+void dequeue(void) {
+    set_last_keycode(prev_keys_queue[PREV_KEYS_QUEUE_SIZE - 1]);
+
+     for (int i = PREV_KEYS_QUEUE_SIZE - 1; i > 0; i -= 1)
+        prev_keys_queue[i] = prev_keys_queue[i - 1];
+
+    prev_keys_queue[0] = KC_NO;
+}
+
 void remember_last_key(int prev_keycode, int key_to_remember) {
     enqueue(prev_keycode);
     set_last_keycode(key_to_remember);
 }
 
 bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* remembered_mods) {
+    if (keycode == TH_NAV)
+        dequeue();
+
     switch (keycode) {
         case TH_NAV:
         case KC_BSPC:
