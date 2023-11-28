@@ -284,7 +284,7 @@ void suspend_wakeup_init_user(void) {
 * Keymap: `void suspend_power_down_kb(void)` and `void suspend_wakeup_init_user(void)`
 
 
-# Keyboard Shutdown/Reboot Code
+# Keyboard Shutdown/Reboot Code :id=keyboard-shutdown-reboot-code
 
 This function gets called whenever the firmware is reset, whether it's a soft reset or reset to the bootloader.  This is the spot to use for any sort of cleanup, as this happens right before the actual reset.  And it can be useful for turning off different systems (such as RGB, onboard screens, etc).
 
