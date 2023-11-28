@@ -34,7 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 
 #ifdef RGB_MATRIX_ENABLE
-//#include "gpio.h"
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
@@ -103,10 +102,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define I2C2_SCL_PAL_MODE PAL_MODE_ALTERNATIVE_2
 #    define I2C2_SDA_PAL_MODE PAL_MODE_ALTERNATIVE_2
 
-#    define DRIVER_ADDR_1 0b1010000
-#    define DRIVER_ADDR_2 0b1010000
-#    define DRIVER_COUNT 2
+#    define IS31FL3733_I2C_ADDRESS_1 IS31FL3733_I2C_ADDRESS_GND_GND
+#    define IS31FL3733_I2C_ADDRESS_2 IS31FL3733_I2C_ADDRESS_GND_GND
+#    define IS31FL3733_DRIVER_COUNT 2
+#    define IS31FL3733_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 #    define DRIVER_1_LED_TOTAL 64
 #    define DRIVER_2_LED_TOTAL 55
-#    define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+#    define RGB_MATRIX_LED_COUNT IS31FL3733_LED_COUNT
 #endif
