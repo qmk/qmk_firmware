@@ -4,7 +4,7 @@
           "via": true
       }
   },
-  "keyboard": "binepad/bn009r2",
+  "keyboard": "binepad/bn009/r2",
   "version": 1,
   "author": "binepad",
   "notes": "This file is a keymap.json file for binepad/bn009r2",

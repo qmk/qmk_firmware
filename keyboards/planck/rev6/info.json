@@ -8,18 +8,24 @@
     "pid": "0xA4F9",
     "device_version": "0.0.6"
   },
+  "rgblight": {
+    "led_count": 9
+  },
   "ws2812": {
     "pin": "A1",
     "driver": "pwm"
   },
   "rgb_matrix": {
-    "driver": "WS2812"
+    "driver": "ws2812"
   },
   "matrix_pins": {
     "cols": ["B11", "B10", "B2", "B1", "A7", "B0"],
     "rows": ["A10", "A9", "A8", "B15", "C13", "C14", "C15", "A2"]
   },
   "diode_direction": "COL2ROW",
+  "dip_switch": {
+    "pins": ["B14", "A15", "A0", "B9"]
+  },
   "encoder": {
     "rotary": [
       {"pin_a": "B12", "pin_b": "B13"}

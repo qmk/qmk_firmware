@@ -12,6 +12,5 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes        # Rotary encoder
 OLED_ENABLE = yes           # Enable oled
-OLED_DRIVER = SSD1306       # Oled type
 
 LTO_ENABLE = yes            # Link time optimization

@@ -2,13 +2,11 @@
 
 #include <stdbool.h>
 #include <stdint.h>
-#include <stdlib.h>
 
 #include "matrix.h"
 
 extern volatile bool isLeftHand;
 
-void matrix_master_OLED_init(void);
 void split_pre_init(void);
 void split_post_init(void);
 

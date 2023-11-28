@@ -17,13 +17,14 @@
 #pragma once
 
 #ifdef RGB_MATRIX_ENABLE
-    #define RGB_MATRIX_TIMEOUT 1200000     // 20 minutes (20 * 60 * 1000ms)
-    #define RGB_DISABLE_WHEN_USB_SUSPENDED
+#    define RGB_MATRIX_TIMEOUT 1200000 // 20 minutes (20 * 60 * 1000ms)
+#    define RGB_DISABLE_WHEN_USB_SUSPENDED
 #endif
 
-// Setting DEBOUNCE to 8 to be a little conservative due to issues with Glorious' proprietary hot-swap sockets
+// A debounce of 8 represents a minimum key press time of just under 1 refresh at 120Hz
+// Slightly higher than the default because we are using sym_eager_pk
 #ifdef DEBOUNCE
-    #undef DEBOUNCE
+#    undef DEBOUNCE
 #endif
 #define DEBOUNCE 8
 
