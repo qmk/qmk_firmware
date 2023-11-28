@@ -9,6 +9,14 @@
         "pid": "0x5350",
         "device_version": "3.5.1"
     },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
     "ws2812": {
         "pin": "GP0",
         "driver": "vendor"
