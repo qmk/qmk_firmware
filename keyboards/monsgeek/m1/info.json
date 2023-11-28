@@ -26,13 +26,23 @@
         "rows": ["B15", "C6", "C7", "C8", "C9", "A8"]
     },
     "diode_direction": "ROW2COL",
+    "dynamic_keymap": {
+        "layer_count": 6
+    },
+    "eeprom": {
+        "driver": "wear_leveling",
+        "wear_leveling": {
+            "driver": "spi_flash",
+            "backing_size": 8192
+        }
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "B14", "pin_b": "B13"}
         ]
     },
     "rgb_matrix": {
-        "driver": "is31fl3733",
+        "driver": "snled27351",
         "max_brightness": 200,
         "val_steps": 20,
         "animations": {
