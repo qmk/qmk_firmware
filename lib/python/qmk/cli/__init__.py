@@ -31,6 +31,7 @@ safe_commands = [
 ]
 
 subcommands = [
+    'qmk.cli.ci.validate_aliases',
     'qmk.cli.bux',
     'qmk.cli.c2json',
     'qmk.cli.cd',
@@ -68,6 +69,7 @@ subcommands = [
     'qmk.cli.import.keymap',
     'qmk.cli.info',
     'qmk.cli.json2c',
+    'qmk.cli.license_check',
     'qmk.cli.lint',
     'qmk.cli.kle2json',
     'qmk.cli.list.keyboards',
@@ -79,6 +81,11 @@ subcommands = [
     'qmk.cli.new.keymap',
     'qmk.cli.painter',
     'qmk.cli.pytest',
+    'qmk.cli.userspace.add',
+    'qmk.cli.userspace.compile',
+    'qmk.cli.userspace.doctor',
+    'qmk.cli.userspace.list',
+    'qmk.cli.userspace.remove',
     'qmk.cli.via2json',
 ]
 

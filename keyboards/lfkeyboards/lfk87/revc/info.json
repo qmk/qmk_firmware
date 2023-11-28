@@ -6,22 +6,6 @@
         "rows": ["F2", "D7", "D6", "D5", "D4", "D3", "F3"]
     },
     "diode_direction": "COL2ROW",
-    "rgblight": {
-        "hue_steps": 10,
-        "led_count": 24,
-        "animations": {
-            "breathing": true,
-            "rainbow_mood": true,
-            "rainbow_swirl": true,
-            "snake": true,
-            "knight": true,
-            "christmas": true,
-            "static_gradient": true,
-            "rgb_test": true,
-            "alternating": true,
-            "twinkle": true
-        }
-    },
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

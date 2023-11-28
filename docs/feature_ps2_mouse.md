@@ -155,6 +155,29 @@ In your keyboard config.h:
 #endif
 ```
 
+### RP2040 PIO Version :id=rp2040-pio-version
+
+The `PIO` subsystem is a Raspberry Pi RP2040 specific implementation, using the integrated PIO peripheral and is therefore only available on this MCU.
+
+There are strict requirements for pin ordering but any pair of GPIO pins can be used. The GPIO used for clock must be directly after data, see the included info.json snippet for an example of correct order.
+
+You may optionally switch the PIO peripheral used with the following define in config.h:
+```c
+#define PS2_PIO_USE_PIO1 // Force the usage of PIO1 peripheral, by default the PS2 implementation uses the PIO0 peripheral
+```
+
+Example info.json content:
+
+```json
+    "ps2": {
+        "clock_pin": "GP1",
+        "data_pin": "GP0",
+        "driver": "vendor",
+        "enabled": true,
+        "mouse_enabled": true
+    }
+```
+
 ## Additional Settings :id=additional-settings
 
 ### PS/2 Mouse Features :id=ps2-mouse-features

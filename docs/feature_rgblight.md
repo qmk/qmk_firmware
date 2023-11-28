@@ -102,6 +102,7 @@ Your RGB lighting can be configured by placing these `#define`s in your `config.
 |`RGBLIGHT_DEFAULT_SAT`     |`UINT8_MAX` (255)           |The default saturation to use upon clearing the EEPROM                                                                     |
 |`RGBLIGHT_DEFAULT_VAL`     |`RGBLIGHT_LIMIT_VAL`        |The default value (brightness) to use upon clearing the EEPROM                                                             |
 |`RGBLIGHT_DEFAULT_SPD`     |`0`                         |The default speed to use upon clearing the EEPROM                                                                          |
+|`RGBLIGHT_DEFAULT_ON`      |`true`                      |Enable RGB lighting upon clearing the EEPROM                                                                               |
 
 ## Effects and Animations
 
@@ -370,9 +371,9 @@ If you need to change your RGB lighting in code, for example in a macro to chang
 
 Example:
 ```c
-sethsv(HSV_WHITE, (LED_TYPE *)&led[0]); // led 0
-sethsv(HSV_RED,   (LED_TYPE *)&led[1]); // led 1
-sethsv(HSV_GREEN, (LED_TYPE *)&led[2]); // led 2
+sethsv(HSV_WHITE, (rgb_led_t *)&led[0]); // led 0
+sethsv(HSV_RED,   (rgb_led_t *)&led[1]); // led 1
+sethsv(HSV_GREEN, (rgb_led_t *)&led[2]); // led 2
 rgblight_set(); // Utility functions do not call rgblight_set() automatically, so they need to be called explicitly.
 ```
 
@@ -524,7 +525,6 @@ By defining `RGBLIGHT_LED_MAP` as in the example below, you can specify the LED 
 ```
 <img src="https://user-images.githubusercontent.com/2170248/55743725-08ad7a80-5a6e-11e9-83ed-126a2b0209fc.JPG" alt="simple mapped" width="50%"/>
 
-```
 ## Clipping Range
 
 Using the `rgblight_set_clipping_range()` function, you can prepare more buffers than the actual number of LEDs, and output some of the buffers to the LEDs. This is useful if you want the split keyboard to treat left and right LEDs as logically contiguous.
@@ -544,11 +544,41 @@ In addition to setting the Clipping Range, you can use `RGBLIGHT_LED_MAP` togeth
 #define RGBLED_NUM 8
 #define RGBLIGHT_LED_MAP { 7, 6, 5, 4, 3, 2, 1, 0 }
 
-// some soruce
-  rgblight_set_clipping_range(3, 4);
+// some source
+rgblight_set_clipping_range(3, 4);
 ```
 <img src="https://user-images.githubusercontent.com/2170248/55743747-119e4c00-5a6e-11e9-91e5-013203ffae8a.JPG" alt="clip mapped" width="70%"/>
 
 ## Hardware Modification
 
 If your keyboard lacks onboard underglow LEDs, you may often be able to solder on an RGB LED strip yourself. You will need to find an unused pin to wire to the data pin of your LED strip. Some keyboards may break out unused pins from the MCU to make soldering easier. The other two pins, VCC and GND, must also be connected to the appropriate power pins.
+
+## Velocikey
+
+Velocikey is a feature that lets you control the speed of lighting effects (like the Rainbow Swirl effect) with the speed of your typing. The faster you type, the faster the lights will go!
+
+### Usage
+For Velocikey to take effect, there are two steps. First, when compiling your keyboard, you'll need to set `VELOCIKEY_ENABLE=yes` in `rules.mk`, e.g.:
+
+```
+MOUSEKEY_ENABLE = no
+STENO_ENABLE = no
+EXTRAKEY_ENABLE = yes
+VELOCIKEY_ENABLE = yes
+```
+
+Then, while using your keyboard, you need to also turn it on with the `VK_TOGG` keycode, which toggles the feature on and off.
+
+The following light effects will all be controlled by Velocikey when it is enabled:
+ - RGB Breathing
+ - RGB Rainbow Mood
+ - RGB Rainbow Swirl
+ - RGB Snake
+ - RGB Knight
+
+Support for LED breathing effects is planned but not available yet.
+
+ As long as Velocikey is enabled, it will control the speed regardless of any other speed setting that your RGB lights are currently on.
+
+ ### Configuration
+ Velocikey doesn't currently support any configuration via keyboard settings. If you want to adjust something like the speed increase or decay rate, you would need to edit `velocikey.c` and adjust the values there to achieve the kinds of speeds that you like.
