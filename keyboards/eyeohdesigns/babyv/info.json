@@ -34,6 +34,48 @@
             "twinkle": true
         }
     },
+    "rgb_matrix": {
+        "driver": "ws2812",
+        "animations": {
+            "gradient_up_down": true,
+            "gradient_left_right": true,
+            "breathing": true,
+            "band_sat": true,
+            "band_val": true,
+            "band_spiral_sat": true,
+            "band_spiral_val": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "cycle_out_in": true,
+            "cycle_pinwheel": true,
+            "raindrops": true,
+            "jellybean_raindrops": true,
+            "hue_breathing": true,
+            "hue_pendulum": true,
+            "hue_wave": true,
+            "pixel_rain": true,
+            "pixel_flow": true
+        },
+        "layout": [
+            {"x": 123, "y": 74, "flags": 2},
+            {"x": 188, "y": 67, "flags": 2},
+            {"x": 206, "y": 62, "flags": 2},
+            {"x": 206, "y": 0, "flags": 2},
+            {"x": 175, "y": 0, "flags": 2},
+            {"x": 141, "y": 0, "flags": 2},
+            {"x": 83, "y": 0, "flags": 2},
+            {"x": 65, "y": 0, "flags": 2},
+            {"x": 18, "y": 0, "flags": 2},
+            {"x": 18, "y": 62, "flags": 2},
+            {"x": 40, "y": 67, "flags": 2},
+            {"x": 99, "y": 74, "flags": 2}
+        ],
+        "sat_steps": 8,
+        "val_steps": 8,
+        "led_count": 12,
+        "center_point": [112, 38]
+    },
     "ws2812": {
         "pin": "B7"
     },

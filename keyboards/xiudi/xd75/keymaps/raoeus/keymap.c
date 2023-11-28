@@ -16,7 +16,6 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "keymap_steno.h"
 
 void matrix_init_user(void) {
     steno_set_mode(STENO_MODE_GEMINI);

@@ -38,6 +38,12 @@
                     {"pin_a": "F4", "pin_b": "F5"}
                 ]
             }
+        },
+        "transport": {
+            "sync": {
+                "layer_state": true,
+                "wpm": true
+            }
         }
     },
     "layouts": {
