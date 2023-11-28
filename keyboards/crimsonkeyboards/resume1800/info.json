@@ -20,8 +20,12 @@
     },
     "processor": "atmega32a",
     "bootloader": "usbasploader",
+    "layout_aliases": {
+        "LAYOUT_resume1800_ansi_all": "LAYOUT_ansi_all",
+        "LAYOUT_resume1800_iso_all": "LAYOUT_iso_all"
+    },
     "layouts": {
-        "LAYOUT_resume1800_ansi_all": {
+        "LAYOUT_ansi_all": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -138,7 +142,7 @@
                 {"matrix": [5, 19], "x": 19, "y": 5}
             ]
         },
-        "LAYOUT_resume1800_iso_all": {
+        "LAYOUT_iso_all": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},

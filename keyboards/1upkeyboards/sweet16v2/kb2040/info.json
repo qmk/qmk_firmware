@@ -33,6 +33,9 @@
         "rows": ["GP26", "GP1", "GP18", "GP5"]
     },
     "diode_direction": "COL2ROW",
+    "dynamic_keymap": {
+        "layer_count": 10
+    },
     "encoder": {
         "enabled": true,
         "rotary": [

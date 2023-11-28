@@ -17,20 +17,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define WS2812_SPI SPID1 // default: SPID1
+#define WS2812_SPI_DRIVER SPID1 // default: SPID1
 #define WS2812_SPI_MOSI_PAL_MODE 5 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 5
 
 #ifdef RGB_MATRIX_ENABLE
 //rgb matrix setting
-// This is a 7-bit address, that gets left-shifted and bit 0
-// set to 0 for write, 1 for read (as per I2C protocol)
-// The address will vary depending on your wiring:
-// 0b1110100 AD <-> GND
-// 0b1110111 AD <-> VCC
-// 0b1110101 AD <-> SCL
-// 0b1110110 AD <-> SDA
-#define DRIVER_ADDR_1 0b0110010
-#define DRIVER_COUNT 1
+#define IS31FL3741_I2C_ADDRESS_1 IS31FL3741_I2C_ADDRESS_SDA
 #define RGB_MATRIX_LED_COUNT 66
 
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses

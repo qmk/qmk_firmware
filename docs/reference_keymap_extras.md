@@ -87,6 +87,5 @@ There are also a few which are not quite language-specific, but useful if you ar
 |Norman             |`keymap_norman.h`           |`sendstring_norman.h`           |
 |Plover             |`keymap_plover.h`           |                                |
 |Plover (Dvorak)    |`keymap_plover_dvorak.h`    |                                |
-|Steno              |`keymap_steno.h`            |                                |
 |Workman            |`keymap_workman.h`          |`sendstring_workman.h`          |
 |Workman (ZXCVM)    |`keymap_workman_zxcvm.h`    |`sendstring_workman_zxcvm.h`    |
