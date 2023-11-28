@@ -21,6 +21,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-// FLED config takes up 1 byte, stored color count takes 1, stored colors take up to 8
-#define VIA_EEPROM_CUSTOM_CONFIG_SIZE 10

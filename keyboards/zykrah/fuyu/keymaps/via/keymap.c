@@ -73,15 +73,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Code for Caps Locks indicator
 #if defined(RGB_MATRIX_ENABLE) && defined(CAPS_LOCK_LED_INDEX)
 
-#define CAPS_LOCK_MAX_BRIGHTNESS 0xFF
-#ifdef RGB_MATRIX_MAXIMUM_BRIGHTNESS
-    #undef CAPS_LOCK_MAX_BRIGHTNESS
+#if !defined(CAPS_LOCK_MAX_BRIGHTNESS)
     #define CAPS_LOCK_MAX_BRIGHTNESS RGB_MATRIX_MAXIMUM_BRIGHTNESS
 #endif
 
-#define CAPS_LOCK_VAL_STEP 8
-#ifdef RGB_MATRIX_VAL_STEP
-    #undef CAPS_LOCK_VAL_STEP
+#if !defined(CAPS_LOCK_VAL_STEP)
     #define CAPS_LOCK_VAL_STEP RGB_MATRIX_VAL_STEP
 #endif
 
@@ -106,7 +102,7 @@ bool rgb_matrix_indicators_user(void) {
 #if defined(RGB_MATRIX_ENABLE)
 
 #define INDICATOR_RGB_DIVISOR 4
-extern LED_TYPE rgb_matrix_ws2812_array[DRIVER_LED_TOTAL];
+extern rgb_led_t rgb_matrix_ws2812_array[DRIVER_LED_TOTAL];
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     for (uint8_t i = led_min; i < led_max; i++) {
         if (g_led_config.flags[i] & LED_FLAG_INDICATOR) {

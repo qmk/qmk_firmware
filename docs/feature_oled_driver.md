@@ -167,6 +167,28 @@ bool oled_task_user(void) {
 #endif
 ```
 
+Render a message before booting into bootloader mode.
+```c
+void oled_render_boot(bool bootloader) {
+    oled_clear();
+    for (int i = 0; i < 16; i++) {
+        oled_set_cursor(0, i);
+        if (bootloader) {
+            oled_write_P(PSTR("Awaiting New Firmware "), false);
+        } else {
+            oled_write_P(PSTR("Rebooting "), false);
+        }
+    }
+
+    oled_render_dirty(true);
+}
+
+bool shutdown_user(bool jump_to_bootloader) {
+    oled_render_boot(jump_to_bootloader);
+}
+
+```
+
 ## Basic Configuration
 
 These configuration options should be placed in `config.h`. Example:
@@ -276,7 +298,7 @@ Rotation on SH1106 and SH1107 is noticeably less efficient than on SSD1306, beca
 ## OLED API
 
 ```c
-// OLED rotation enum values are flags
+// OLED Rotation enum values are flags
 typedef enum {
     OLED_ROTATION_0   = 0,
     OLED_ROTATION_90  = 1,
@@ -284,7 +306,7 @@ typedef enum {
     OLED_ROTATION_270 = 3, // OLED_ROTATION_90 | OLED_ROTATION_180
 } oled_rotation_t;
 
-// Initialize the OLED display, rotating the rendered output based on the define passed in.
+// Initialize the oled display, rotating the rendered output based on the define passed in.
 // Returns true if the OLED was initialized successfully
 bool oled_init(oled_rotation_t rotation);
 
@@ -302,8 +324,12 @@ bool oled_send_data(const uint8_t *data, uint16_t size);
 // Clears the display buffer, resets cursor position to 0, and sets the buffer to dirty for rendering
 void oled_clear(void);
 
-// Renders the dirty chunks of the buffer to OLED display
-void oled_render(void);
+// Alias to oled_render_dirty to avoid a change in api.
+#define oled_render() oled_render_dirty(false)
+
+// Renders all dirty blocks to the display at one time or a subset depending on the value of
+// all.
+void oled_render_dirty(bool all);
 
 // Moves cursor to character position indicated by column and line, wraps if out of bounds
 // Max column denoted by 'oled_max_chars()' and max lines by 'oled_max_lines()' functions
@@ -334,8 +360,6 @@ void oled_write_ln(const char *data, bool invert);
 
 // Pans the buffer to the right (or left by passing true) by moving contents of the buffer
 // Useful for moving the screen in preparation for new drawing
-// oled_scroll_left or oled_scroll_right should be preferred for all cases of moving a static
-// image such as a logo or to avoid burn-in as it's much, much less cpu intensive
 void oled_pan(bool left);
 
 // Returns a pointer to the requested start index in the buffer plus remaining
@@ -352,6 +376,7 @@ void oled_write_raw_byte(const char data, uint16_t index);
 // Coordinates start at top-left and go right and down for positive x and y
 void oled_write_pixel(uint8_t x, uint8_t y, bool on);
 
+#if defined(__AVR__)
 // Writes a PROGMEM string to the buffer at current cursor position
 // Advances the cursor while writing, inverts the pixels if true
 // Remapped to call 'void oled_write(const char *data, bool invert);' on ARM
@@ -365,6 +390,11 @@ void oled_write_ln_P(const char *data, bool invert);
 
 // Writes a PROGMEM string to the buffer at current cursor position
 void oled_write_raw_P(const char *data, uint16_t size);
+#else
+#    define oled_write_P(data, invert) oled_write(data, invert)
+#    define oled_write_ln_P(data, invert) oled_write_ln(data, invert)
+#    define oled_write_raw_P(data, size) oled_write_raw(data, size)
+#endif // defined(__AVR__)
 
 // Can be used to manually turn on the screen if it is off
 // Returns true if the screen was on or turns on
