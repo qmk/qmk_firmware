@@ -11,5 +11,4 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
-SRC += analog.c
-
+ANALOG_DRIVER_REQUIRED = yes
