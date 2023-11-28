@@ -35,6 +35,7 @@ void process_magic_key(uint16_t keycode, uint8_t mods) {
         );
 
         triple_magic_case(GLT_S, KC_Y, GLT_S, "tem");
+        triple_magic_case(KC_O,  KC_B, KC_V,  "iously");
     }
 
     switch (last_queue_key) {
