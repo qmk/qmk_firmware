@@ -33,8 +33,11 @@
         },
         "led_count": 20,
         "max_brightness": 120,
-        "pin": "B9",
-        "sleep": true
+        "sleep": true,
+        "driver": "ws2812"
+    },
+    "ws2812": {
+        "pin": "B9"
     },
     "url": "",
     "usb": {
