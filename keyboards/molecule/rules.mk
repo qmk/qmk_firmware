@@ -15,4 +15,4 @@ AUDIO_ENABLE = no           # Audio output
 POINTING_DEVICE_ENABLE = yes
 POINTING_DEVICE_DRIVER = custom
 SRC += adns.c
-QUANTUM_LIB_SRC += spi_master.c
+SPI_DRIVER_REQUIRED = yes
