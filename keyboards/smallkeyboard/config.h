@@ -17,23 +17,6 @@
 
 #pragma once
 
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-#define MATRIX_ROW_PINS {C7, C6 }
-#define MATRIX_COL_PINS {F7, F6, F5}
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION ROW2COL
-
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #    define RGB_MATRIX_KEYPRESSES
@@ -83,15 +66,7 @@
 // #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 // #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
-// This is a 7-bit address, that gets left-shifted and bit 0
-// set to 0 for write, 1 for read (as per I2C protocol)
-// The address will vary depending on your wiring:
-// 0b1110100 AD <-> GND
-// 0b1110111 AD <-> VCC
-// 0b1110101 AD <-> SCL
-// 0b1110110 AD <-> SDA
-#define DRIVER_ADDR_1 0b1110100
+#define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
 
-#define DRIVER_COUNT 1
 #define RGB_MATRIX_LED_COUNT 6
 #endif

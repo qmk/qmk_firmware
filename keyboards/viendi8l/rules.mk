@@ -9,12 +9,6 @@ COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = no            # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
-WS2812_DRIVER = pwm
 AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes
 LTO_ENABLE = no
-
-EEPROM_DRIVER = i2c
-
-# Enter lower-power sleep mode when on the ChibiOS idle thread
-OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE -DDEBUG_EEPROM_OUTPUT=TRUE

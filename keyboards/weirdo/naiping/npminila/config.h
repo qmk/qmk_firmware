@@ -15,17 +15,6 @@
   */ 
 #pragma once
 
-#define MATRIX_ROW_PINS { E6, B7, F7, F4, F5 }
-#define MATRIX_COL_PINS { F6, B0, F1, C7, C6, B6, B5, B4, D7, D6, D4, D5, D3, D2 }
-#define DIODE_DIRECTION ROW2COL
-
-#define RGB_DI_PIN D1
-#define RGBLED_NUM 82
-//#define RGBLIGHT_DISABLE_KEYCODES
-
-
-
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 

@@ -15,7 +15,11 @@
  */
 #pragma once
 
+// Need to disable GCC's "maybe-uninitialized" warning for this file, as it causes issues when running `KEEP_INTERMEDIATES=yes`.
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
 #include <util/delay.h>
+#pragma GCC diagnostic pop
 
 // http://ww1.microchip.com/downloads/en/devicedoc/atmel-0856-avr-instruction-set-manual.pdf
 // page 22: Table 4-2. Arithmetic and Logic Instructions

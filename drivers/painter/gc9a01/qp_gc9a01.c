@@ -1,7 +1,7 @@
 // Copyright 2021 Paul Cotter (@gr1mr3aver)
+// Copyright 2023 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include <wait.h>
 #include "qp_internal.h"
 #include "qp_comms.h"
 #include "qp_gc9a01.h"
@@ -93,7 +93,7 @@ __attribute__((weak)) bool qp_gc9a01_init(painter_device_t device, painter_rotat
 // Driver vtable
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-const struct tft_panel_dc_reset_painter_driver_vtable_t gc9a01_driver_vtable = {
+const tft_panel_dc_reset_painter_driver_vtable_t gc9a01_driver_vtable = {
     .base =
         {
             .init            = qp_gc9a01_init,
@@ -124,8 +124,8 @@ painter_device_t qp_gc9a01_make_spi_device(uint16_t panel_width, uint16_t panel_
     for (uint32_t i = 0; i < GC9A01_NUM_DEVICES; ++i) {
         tft_panel_dc_reset_painter_device_t *driver = &gc9a01_drivers[i];
         if (!driver->base.driver_vtable) {
-            driver->base.driver_vtable         = (const struct painter_driver_vtable_t *)&gc9a01_driver_vtable;
-            driver->base.comms_vtable          = (const struct painter_comms_vtable_t *)&spi_comms_with_dc_vtable;
+            driver->base.driver_vtable         = (const painter_driver_vtable_t *)&gc9a01_driver_vtable;
+            driver->base.comms_vtable          = (const painter_comms_vtable_t *)&spi_comms_with_dc_vtable;
             driver->base.native_bits_per_pixel = 16; // RGB565
             driver->base.panel_width           = panel_width;
             driver->base.panel_height          = panel_height;
@@ -134,13 +134,20 @@ painter_device_t qp_gc9a01_make_spi_device(uint16_t panel_width, uint16_t panel_
             driver->base.offset_y              = 0;
 
             // SPI and other pin configuration
-            driver->base.comms_config                              = &driver->spi_dc_reset_config;
-            driver->spi_dc_reset_config.spi_config.chip_select_pin = chip_select_pin;
-            driver->spi_dc_reset_config.spi_config.divisor         = spi_divisor;
-            driver->spi_dc_reset_config.spi_config.lsb_first       = false;
-            driver->spi_dc_reset_config.spi_config.mode            = spi_mode;
-            driver->spi_dc_reset_config.dc_pin                     = dc_pin;
-            driver->spi_dc_reset_config.reset_pin                  = reset_pin;
+            driver->base.comms_config                                   = &driver->spi_dc_reset_config;
+            driver->spi_dc_reset_config.spi_config.chip_select_pin      = chip_select_pin;
+            driver->spi_dc_reset_config.spi_config.divisor              = spi_divisor;
+            driver->spi_dc_reset_config.spi_config.lsb_first            = false;
+            driver->spi_dc_reset_config.spi_config.mode                 = spi_mode;
+            driver->spi_dc_reset_config.dc_pin                          = dc_pin;
+            driver->spi_dc_reset_config.reset_pin                       = reset_pin;
+            driver->spi_dc_reset_config.command_params_uses_command_pin = false;
+
+            if (!qp_internal_register_device((painter_device_t)driver)) {
+                memset(driver, 0, sizeof(tft_panel_dc_reset_painter_device_t));
+                return NULL;
+            }
+
             return (painter_device_t)driver;
         }
     }

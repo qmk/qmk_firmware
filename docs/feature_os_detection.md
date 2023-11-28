@@ -36,10 +36,15 @@ This time is quite short, probably hundreds of milliseconds, but this data may b
 
 If OS is guessed incorrectly, you may want to collect data about USB setup packets to refine the detection logic.
 
-To do so in your `rules.mk` add:
+To do so in your `config.h` add:
+
+```c
+#define OS_DETECTION_DEBUG_ENABLE
+```
+
+And in your `rules.mk` add:
 
 ```make
-OS_DETECTION_DEBUG_ENABLE = yes
 CONSOLE_ENABLE = yes
 ```
 

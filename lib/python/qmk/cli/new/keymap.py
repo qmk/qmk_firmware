@@ -5,10 +5,12 @@ import shutil
 from milc import cli
 from milc.questions import question
 
-from qmk.path import is_keyboard, keymap
+from qmk.constants import HAS_QMK_USERSPACE, QMK_USERSPACE
+from qmk.path import is_keyboard, keymaps, keymap
 from qmk.git import git_get_username
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.keyboard import keyboard_completer, keyboard_folder
+from qmk.userspace import UserspaceDefs
 
 
 def prompt_keyboard():
@@ -50,9 +52,9 @@ def new_keymap(cli):
         return False
 
     # generate keymap paths
-    km_path = keymap(kb_name)
-    keymap_path_default = km_path / 'default'
-    keymap_path_new = km_path / user_name
+    keymaps_dirs = keymaps(kb_name)
+    keymap_path_default = keymap(kb_name, 'default')
+    keymap_path_new = keymaps_dirs[0] / user_name
 
     if not keymap_path_default.exists():
         cli.log.error(f'Default keymap {{fg_cyan}}{keymap_path_default}{{fg_reset}} does not exist!')
@@ -68,3 +70,9 @@ def new_keymap(cli):
     # end message to user
     cli.log.info(f'{{fg_green}}Created a new keymap called {{fg_cyan}}{user_name}{{fg_green}} in: {{fg_cyan}}{keymap_path_new}.{{fg_reset}}')
     cli.log.info(f"Compile a firmware with your new keymap by typing: {{fg_yellow}}qmk compile -kb {kb_name} -km {user_name}{{fg_reset}}.")
+
+    # Add to userspace compile if we have userspace available
+    if HAS_QMK_USERSPACE:
+        userspace = UserspaceDefs(QMK_USERSPACE / 'qmk.json')
+        userspace.add_target(keyboard=kb_name, keymap=user_name, do_print=False)
+        return userspace.save()

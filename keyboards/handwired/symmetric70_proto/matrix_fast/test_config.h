@@ -1,3 +1,5 @@
+#pragma once
+
 // list of OUTPUT(row) ports
 #define MATRIX_OUT_PORTS (Port_D, MCU_GPIO, D0), (Port_C, MCU_GPIO, C0), (Port_E, MCU_GPIO, E0), (Port_B, MCU_GPIO, B0)
 // list of OUTPUT(row) pins

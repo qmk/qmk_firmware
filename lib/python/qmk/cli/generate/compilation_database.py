@@ -12,9 +12,11 @@ from typing import Dict, Iterator, List, Union
 
 from milc import cli, MILC
 
-from qmk.commands import create_make_command
+from qmk.commands import find_make
 from qmk.constants import QMK_FIRMWARE
 from qmk.decorators import automagic_keyboard, automagic_keymap
+from qmk.keyboard import keyboard_completer, keyboard_folder
+from qmk.keymap import keymap_completer
 
 
 @lru_cache(maxsize=10)
@@ -74,8 +76,46 @@ def parse_make_n(f: Iterator[str]) -> List[Dict[str, str]]:
     return records
 
 
-@cli.argument('-kb', '--keyboard', help='The keyboard to build a firmware for. Ignored when a configurator export is supplied.')
-@cli.argument('-km', '--keymap', help='The keymap to build a firmware for. Ignored when a configurator export is supplied.')
+def write_compilation_database(keyboard: str = None, keymap: str = None, output_path: Path = QMK_FIRMWARE / 'compile_commands.json', skip_clean: bool = False, command: List[str] = None, **env_vars) -> bool:
+    # Generate the make command for a specific keyboard/keymap.
+    if not command:
+        from qmk.build_targets import KeyboardKeymapBuildTarget  # Lazy load due to circular references
+        target = KeyboardKeymapBuildTarget(keyboard, keymap)
+        command = target.compile_command(dry_run=True, **env_vars)
+
+    if not command:
+        cli.log.error('You must supply both `--keyboard` and `--keymap`, or be in a directory for a keyboard or keymap.')
+        cli.echo('usage: qmk generate-compilation-database [-kb KEYBOARD] [-km KEYMAP]')
+        return False
+
+    # remove any environment variable overrides which could trip us up
+    env = os.environ.copy()
+    env.pop("MAKEFLAGS", None)
+
+    # re-use same executable as the main make invocation (might be gmake)
+    if not skip_clean:
+        clean_command = [find_make(), "clean"]
+        cli.log.info('Making clean with {fg_cyan}%s', ' '.join(clean_command))
+        cli.run(clean_command, capture_output=False, check=True, env=env)
+
+    cli.log.info('Gathering build instructions from {fg_cyan}%s', ' '.join(command))
+
+    result = cli.run(command, capture_output=True, check=True, env=env)
+    db = parse_make_n(result.stdout.splitlines())
+    if not db:
+        cli.log.error("Failed to parse output from make output:\n%s", result.stdout)
+        return False
+
+    cli.log.info("Found %s compile commands", len(db))
+
+    cli.log.info(f"Writing build database to {output_path}")
+    output_path.write_text(json.dumps(db, indent=4))
+
+    return True
+
+
+@cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='The keyboard\'s name')
+@cli.argument('-km', '--keymap', completer=keymap_completer, help='The keymap\'s name')
 @cli.subcommand('Create a compilation database.')
 @automagic_keyboard
 @automagic_keymap
@@ -88,47 +128,14 @@ def generate_compilation_database(cli: MILC) -> Union[bool, int]:
 
         https://clang.llvm.org/docs/JSONCompilationDatabase.html
     """
-    command = None
     # check both config domains: the magic decorator fills in `generate_compilation_database` but the user is
     # more likely to have set `compile` in their config file.
     current_keyboard = cli.config.generate_compilation_database.keyboard or cli.config.user.keyboard
     current_keymap = cli.config.generate_compilation_database.keymap or cli.config.user.keymap
 
-    if current_keyboard and current_keymap:
-        # Generate the make command for a specific keyboard/keymap.
-        command = create_make_command(current_keyboard, current_keymap, dry_run=True)
-    elif not current_keyboard:
+    if not current_keyboard:
         cli.log.error('Could not determine keyboard!')
     elif not current_keymap:
         cli.log.error('Could not determine keymap!')
 
-    if not command:
-        cli.log.error('You must supply both `--keyboard` and `--keymap`, or be in a directory for a keyboard or keymap.')
-        cli.echo('usage: qmk compiledb [-kb KEYBOARD] [-km KEYMAP]')
-        return False
-
-    # remove any environment variable overrides which could trip us up
-    env = os.environ.copy()
-    env.pop("MAKEFLAGS", None)
-
-    # re-use same executable as the main make invocation (might be gmake)
-    clean_command = [command[0], 'clean']
-    cli.log.info('Making clean with {fg_cyan}%s', ' '.join(clean_command))
-    cli.run(clean_command, capture_output=False, check=True, env=env)
-
-    cli.log.info('Gathering build instructions from {fg_cyan}%s', ' '.join(command))
-
-    result = cli.run(command, capture_output=True, check=True, env=env)
-    db = parse_make_n(result.stdout.splitlines())
-    if not db:
-        cli.log.error("Failed to parse output from make output:\n%s", result.stdout)
-        return False
-
-    cli.log.info("Found %s compile commands", len(db))
-
-    dbpath = QMK_FIRMWARE / 'compile_commands.json'
-
-    cli.log.info(f"Writing build database to {dbpath}")
-    dbpath.write_text(json.dumps(db, indent=4))
-
-    return True
+    return write_compilation_database(current_keyboard, current_keymap, QMK_FIRMWARE / 'compile_commands.json')

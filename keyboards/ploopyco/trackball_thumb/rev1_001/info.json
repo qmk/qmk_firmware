@@ -4,17 +4,20 @@
     },
     "diode_direction": "COL2ROW",
     "matrix_pins": {
-        "direct": [ [ "D5", "B6", "D4", "D2", "E6", "D7" ] ]
+        "direct": [
+            ["D5", "B6", "D4", "D2", "E6", "D7"]
+        ]
     },
     "rgblight": {
         "led_count": 3,
-        "pin": "B5",
         "max_brightness": 40,
         "animations": {
             "breathing": true,
             "rainbow_mood": true,
             "rainbow_swirl": true
         }
+    },
+    "ws2812": {
+        "pin": "B5"
     }
-
 }

@@ -9,6 +9,7 @@
       "device_version": "10.0.1"
     },
     "backlight": {
+      "driver": "timer",
       "pins": ["F4", "F5"],
       "levels": 6,
       "breathing": true
@@ -30,12 +31,12 @@
     "layouts": {
         "LAYOUT_ortho_2x3": {
           "layout": [
-                {"x":0, "y":0, "matrix": [0, 0]},
-                {"x":1, "y":0, "matrix": [0, 1]},
-                {"x":2, "y":0, "matrix": [0, 2]},
-                {"x":0, "y":1, "matrix": [1, 0]},
-                {"x":1, "y":1, "matrix": [1, 1]},
-                {"x":2, "y":1, "matrix": [1, 2]}
+                {"x": 0, "y": 0, "matrix": [0, 0]},
+                {"x": 1, "y": 0, "matrix": [0, 1]},
+                {"x": 2, "y": 0, "matrix": [0, 2]},
+                {"x": 0, "y": 1, "matrix": [1, 0]},
+                {"x": 1, "y": 1, "matrix": [1, 1]},
+                {"x": 2, "y": 1, "matrix": [1, 2]}
           ]
         }
     }

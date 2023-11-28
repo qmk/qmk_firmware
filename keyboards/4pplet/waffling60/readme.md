@@ -12,8 +12,8 @@ Make example for this keyboard (after setting up your build environment):
     make 4pplet/waffling60/rev_a:default
     make 4pplet/waffling60/rev_b:default
     make 4pplet/waffling60/rev_c:default
-    
     make 4pplet/waffling60/rev_d:default
+    make 4pplet/waffling60/rev_e:default
     make 4pplet/waffling60/rev_d_ansi:default
     make 4pplet/waffling60/rev_d_iso:default
 

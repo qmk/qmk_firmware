@@ -38,7 +38,6 @@
     * [キーマップの概要](ja/keymap.md)
     * 開発環境
       * [Docker のガイド](ja/getting_started_docker.md)
-      * [Vagrant のガイド](ja/getting_started_vagrant.md)
     * 書き込み
       * [書き込み](ja/flashing.md)
       * [ATmega32A の書き込み (ps2avrgb)](ja/flashing_bootloadhid.md)
@@ -69,6 +68,7 @@
     * [モッドタップ](ja/mod_tap.md)
     * [マクロ](ja/feature_macros.md)
     * [マウスキー](ja/feature_mouse_keys.md)
+    * [Repeat Key](ja/feature_repeat_key.md)
     * [Space Cadet Shift](ja/feature_space_cadet.md)
     * [US ANSI シフトキー](ja/keycodes_us_ansi_shifted.md)
 
@@ -112,7 +112,6 @@
     * [分割キーボード](ja/feature_split_keyboard.md)
     * [速記](ja/feature_stenography.md)
     * [感熱式プリンタ](ja/feature_thermal_printer.md)
-    * [Velocikey](ja/feature_velocikey.md)
 
 * QMK の開発
   * [PR チェックリスト](ja/pr_checklist.md)

@@ -28,6 +28,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if defined(POINTING_DEVICE_DRIVER_adns5050)
 #    include "drivers/sensors/adns5050.h"
 #    define POINTING_DEVICE_MOTION_PIN_ACTIVE_LOW
+#elif defined(POINTING_DEVICE_DRIVER_pmw3320)
+#    include "drivers/sensors/pmw3320.h"
+#    define POINTING_DEVICE_MOTION_PIN_ACTIVE_LOW
 #elif defined(POINTING_DEVICE_DRIVER_adns9800)
 #    include "spi_master.h"
 #    include "drivers/sensors/adns9800.h"
@@ -36,6 +39,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "analog.h"
 #    include "drivers/sensors/analog_joystick.h"
 #    define POINTING_DEVICE_MOTION_PIN_ACTIVE_LOW
+#elif defined(POINTING_DEVICE_DRIVER_azoteq_iqs5xx)
+#    include "i2c_master.h"
+#    include "drivers/sensors/azoteq_iqs5xx.h"
 #elif defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_i2c) || defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_spi)
 #    include "drivers/sensors/cirque_pinnacle.h"
 #    include "drivers/sensors/cirque_pinnacle_gestures.h"
@@ -97,8 +103,8 @@ typedef int16_t clamp_range_t;
 #endif
 
 void           pointing_device_init(void);
-void           pointing_device_task(void);
-void           pointing_device_send(void);
+bool           pointing_device_task(void);
+bool           pointing_device_send(void);
 report_mouse_t pointing_device_get_report(void);
 void           pointing_device_set_report(report_mouse_t mouse_report);
 uint16_t       pointing_device_get_cpi(void);

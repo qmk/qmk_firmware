@@ -17,10 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define MATRIX_COL_PINS { B9, B8, B7, B6, B5, B4, B3, B11, A15, A10, A9, B14, B13, B12 }
-#define MATRIX_ROW_PINS { B10, B1, B0, A7, A6 }
-#define DIODE_DIRECTION COL2ROW
-
 #define BACKLIGHT_PWM_DRIVER PWMD1
 #define BACKLIGHT_PWM_CHANNEL 1
 
@@ -29,26 +25,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#define RGBLIGHT_EFFECT_SNAKE
-#define RGBLIGHT_EFFECT_KNIGHT
-#define RGBLIGHT_EFFECT_CHRISTMAS
-#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#define RGBLIGHT_EFFECT_RGB_TEST
-#define RGBLIGHT_EFFECT_ALTERNATING
-#define RGBLIGHT_EFFECT_TWINKLE
-#define RGB_DI_PIN B15
-#define RGBLED_NUM 9
-#define WS2812_SPI SPID2
+#define WS2812_SPI_DRIVER SPID2
 #define WS2812_SPI_MOSI_PAL_MODE 5
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
  */
-
-#define FORCE_NKRO
 
 /* disable debug print */
 //#define NO_DEBUG

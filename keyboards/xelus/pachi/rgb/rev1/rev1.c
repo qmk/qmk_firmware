@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "rev1.h"
+#include "quantum.h"
 
 // tested and working
 void matrix_io_delay(void) { __asm__ volatile("nop\nnop\nnop\n"); }
@@ -22,7 +22,7 @@ void matrix_io_delay(void) { __asm__ volatile("nop\nnop\nnop\n"); }
 #ifdef RGB_MATRIX_ENABLE
 #include "i2c_master.h"
 #include "drivers/led/issi/is31fl3741.h"
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3741_led_t PROGMEM g_is31fl3741_leds[IS31FL3741_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -188,8 +188,8 @@ led_config_t g_led_config = { {
 
 static void init(void) {
     i2c_init();
-    IS31FL3741_init(DRIVER_ADDR_1);
-    for (int index = 0; index < ISSI_DRIVER_TOTAL; index++) {
+    is31fl3741_init(IS31FL3741_I2C_ADDRESS_1);
+    for (int index = 0; index < IS31FL3741_LED_COUNT; index++) {
         bool enabled = !(   ( index == -1+0+13) || //A13
                             ( index == -1+13+3) || //B3
                             ( index == -1+13+13) || //B13
@@ -221,19 +221,15 @@ static void init(void) {
                             ( index == -1+104+12) || //I12
                             ( index == -1+104+13) //I13
                         );
-        IS31FL3741_set_led_control_register(index, enabled, enabled, enabled);
+        is31fl3741_set_led_control_register(index, enabled, enabled, enabled);
     }
-    IS31FL3741_update_led_control_registers(DRIVER_ADDR_1, 0);
-}
-
-static void flush(void) {
-    IS31FL3741_update_pwm_buffers(DRIVER_ADDR_1, 0);
+    is31fl3741_update_led_control_registers(IS31FL3741_I2C_ADDRESS_1, 0);
 }
 
 const rgb_matrix_driver_t rgb_matrix_driver = {
     .init = init,
-    .flush = flush,
-    .set_color = IS31FL3741_set_color,
-    .set_color_all = IS31FL3741_set_color_all
+    .flush = is31fl3741_flush,
+    .set_color = is31fl3741_set_color,
+    .set_color_all = is31fl3741_set_color_all
 };
 #endif

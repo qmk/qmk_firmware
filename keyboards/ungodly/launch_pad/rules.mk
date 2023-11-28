@@ -12,13 +12,11 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 MIDI_ENABLE = yes
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
 ENCODER_ENABLE = yes
 RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = WS2812
 SPACE_CADET_ENABLE = no
 MAGIC_ENABLE = no
 GRAVE_ESC_ENABLE = no
 LTO_ENABLE = yes
 
-SRC += analog.c
+ANALOG_DRIVER_REQUIRED = yes

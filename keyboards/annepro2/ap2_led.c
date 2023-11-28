@@ -60,8 +60,6 @@ void ap2_led_enable(void) { proto_tx(CMD_LED_ON, NULL, 0, 3); }
 
 void ap2_led_set_profile(uint8_t prof) { proto_tx(CMD_LED_SET_PROFILE, &prof, sizeof(prof), 3); }
 
-void ap2_led_get_status(void) { proto_tx(CMD_LED_GET_STATUS, NULL, 0, 3); }
-
 void ap2_led_next_profile(void) { proto_tx(CMD_LED_NEXT_PROFILE, NULL, 0, 3); }
 
 void ap2_led_next_intensity(void) { proto_tx(CMD_LED_NEXT_INTENSITY, NULL, 0, 3); }

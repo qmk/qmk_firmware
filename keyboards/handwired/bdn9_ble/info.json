@@ -8,7 +8,11 @@
     "pid": "0x1134",
     "device_version": "1.0.0"
   },
+  "bluetooth": {
+    "driver": "bluefruit_le"
+  },
   "backlight": {
+    "driver": "timer",
     "pin": "F6",
     "levels": 5
   },
@@ -24,15 +28,15 @@
   "layouts": {
     "LAYOUT": {
       "layout": [
-        {"x":0, "y":0, "matrix": [0, 0]},
-        {"x":1, "y":0, "matrix": [0, 1]},
-        {"x":2, "y":0, "matrix": [0, 2]},
-        {"x":0, "y":1, "matrix": [1, 0]},
-        {"x":1, "y":1, "matrix": [1, 1]},
-        {"x":2, "y":1, "matrix": [1, 2]},
-        {"x":0, "y":2, "matrix": [2, 0]},
-        {"x":1, "y":2, "matrix": [2, 1]},
-        {"x":2, "y":2, "matrix": [2, 2]}
+        {"x": 0, "y": 0, "matrix": [0, 0]},
+        {"x": 1, "y": 0, "matrix": [0, 1]},
+        {"x": 2, "y": 0, "matrix": [0, 2]},
+        {"x": 0, "y": 1, "matrix": [1, 0]},
+        {"x": 1, "y": 1, "matrix": [1, 1]},
+        {"x": 2, "y": 1, "matrix": [1, 2]},
+        {"x": 0, "y": 2, "matrix": [2, 0]},
+        {"x": 1, "y": 2, "matrix": [2, 1]},
+        {"x": 2, "y": 2, "matrix": [2, 2]}
       ]
     }
   }
