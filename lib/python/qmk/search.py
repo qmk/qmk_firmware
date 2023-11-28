@@ -64,20 +64,14 @@ class Length(FilterFunction):
 
     def apply(self, target_info: TargetInfo) -> bool:
         _kb, _km, info = target_info
-        return (
-            self.key in info
-            and len(info[self.key]) == int(self.value)
-        )
+        return (self.key in info and len(info[self.key]) == int(self.value))
 
 class Contains(FilterFunction):
     func_name = "contains"
 
     def apply(self, target_info: TargetInfo) -> bool:
         _kb, _km, info = target_info
-        return (
-            self.key in info
-            and self.value in info[self.key]
-        )
+        return (self.key in info and self.value in info[self.key])
 
 
 def _get_filter_class(func_name: str, key: str, value: str) -> Optional[FilterFunction]:
@@ -94,10 +88,7 @@ def _get_filter_class(func_name: str, key: str, value: str) -> Optional[FilterFu
 
 def filter_help() -> str:
     names = [f"'{f.func_name}'" for f in FilterFunction.__subclasses__()]
-    return (
-        ", ".join(names[:-1])
-        + f" and {names[-1]}"
-    )
+    return (", ".join(names[:-1]) + f" and {names[-1]}")
 
 def _set_log_level(level):
     cli.acquire_lock()
@@ -229,11 +220,7 @@ def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str
                 continue
             valid_keymaps = filter(filter_class.apply, valid_keymaps)
 
-            value_str = (
-                f", {{fg_cyan}}{value}{{fg_reset}})"
-                if value is not None
-                else ""
-            )
+            value_str = (f", {{fg_cyan}}{value}{{fg_reset}})" if value is not None else "")
             cli.log.info(f'Filtering on condition: {{fg_green}}{func_name}{{fg_reset}}({{fg_cyan}}{key}{{fg_reset}}{value_str}...')
 
         elif equals_match is not None:
@@ -257,11 +244,7 @@ def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str
         else:
             cli.log.warning(f'Unrecognized filter expression: {filter_expr}')
 
-    # return filtered targets
-    return [
-        KeyboardKeymapBuildTarget(keyboard=kb, keymap=km, json=json)
-        for (kb, km, json) in valid_keymaps
-    ]
+    return [KeyboardKeymapBuildTarget(keyboard=kb, keymap=km, json=json) for (kb, km, json) in valid_keymaps]
 
 
 def search_keymap_targets(targets: List[Tuple[str, str]] = [('all', 'default')], filters: List[str] = []) -> List[BuildTarget]:
