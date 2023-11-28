@@ -4,8 +4,16 @@ from os import environ
 from datetime import date
 from pathlib import Path
 
+from qmk.userspace import detect_qmk_userspace
+
 # The root of the qmk_firmware tree.
 QMK_FIRMWARE = Path.cwd()
+
+# The detected userspace tree
+QMK_USERSPACE = detect_qmk_userspace()
+
+# Whether or not we have a separate userspace directory
+HAS_QMK_USERSPACE = True if QMK_USERSPACE is not None else False
 
 # Upstream repo url
 QMK_FIRMWARE_UPSTREAM = 'qmk/qmk_firmware'
@@ -14,7 +22,7 @@ QMK_FIRMWARE_UPSTREAM = 'qmk/qmk_firmware'
 MAX_KEYBOARD_SUBFOLDERS = 5
 
 # Supported processor types
-CHIBIOS_PROCESSORS = 'cortex-m0', 'cortex-m0plus', 'cortex-m3', 'cortex-m4', 'MKL26Z64', 'MK20DX128', 'MK20DX256', 'MK64FX512', 'MK66FX1M0', 'RP2040', 'STM32F042', 'STM32F072', 'STM32F103', 'STM32F303', 'STM32F401', 'STM32F405', 'STM32F407', 'STM32F411', 'STM32F446', 'STM32G431', 'STM32G474', 'STM32L412', 'STM32L422', 'STM32L432', 'STM32L433', 'STM32L442', 'STM32L443', 'GD32VF103', 'WB32F3G71', 'WB32FQ95'
+CHIBIOS_PROCESSORS = 'cortex-m0', 'cortex-m0plus', 'cortex-m3', 'cortex-m4', 'MKL26Z64', 'MK20DX128', 'MK20DX256', 'MK64FX512', 'MK66FX1M0', 'RP2040', 'STM32F042', 'STM32F072', 'STM32F103', 'STM32F303', 'STM32F401', 'STM32F405', 'STM32F407', 'STM32F411', 'STM32F446', 'STM32G431', 'STM32G474', 'STM32H723', 'STM32H733', 'STM32L412', 'STM32L422', 'STM32L432', 'STM32L433', 'STM32L442', 'STM32L443', 'GD32VF103', 'WB32F3G71', 'WB32FQ95'
 LUFA_PROCESSORS = 'at90usb162', 'atmega16u2', 'atmega32u2', 'atmega16u4', 'atmega32u4', 'at90usb646', 'at90usb647', 'at90usb1286', 'at90usb1287', None
 VUSB_PROCESSORS = 'atmega32a', 'atmega328p', 'atmega328', 'attiny85'
 
@@ -36,6 +44,8 @@ MCU2BOOTLOADER = {
     "STM32F446": "stm32-dfu",
     "STM32G431": "stm32-dfu",
     "STM32G474": "stm32-dfu",
+    "STM32H723": "stm32-dfu",
+    "STM32H733": "stm32-dfu",
     "STM32L412": "stm32-dfu",
     "STM32L422": "stm32-dfu",
     "STM32L432": "stm32-dfu",
@@ -82,6 +92,7 @@ BOOTLOADER_VIDS_PIDS = {
     },
     'apm32-dfu': {("314b", "0106")},
     'gd32v-dfu': {("28e9", "0189")},
+    'wb32-dfu': {("342d", "dfa0")},
     'bootloadhid': {("16c0", "05df")},
     'usbasploader': {("16c0", "05dc")},
     'usbtinyisp': {("1782", "0c9f")},
@@ -123,7 +134,7 @@ ROW_LETTERS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnop'
 
 # Constants that should match their counterparts in make
 BUILD_DIR = environ.get('BUILD_DIR', '.build')
-KEYBOARD_OUTPUT_PREFIX = f'{BUILD_DIR}/obj_'
+INTERMEDIATE_OUTPUT_PREFIX = f'{BUILD_DIR}/obj_'
 
 # Headers for generated files
 GPL2_HEADER_C_LIKE = f'''\
@@ -186,3 +197,126 @@ GENERATED_HEADER_SH_LIKE = '''\
 #
 ################################################################################
 '''
+
+LICENSE_TEXTS = [
+    (
+        'GPL-2.0-or-later', [
+            """\
+        This program is free software; you can redistribute it and/or
+        modify it under the terms of the GNU General Public License
+        as published by the Free Software Foundation; either version 2
+        of the License, or (at your option) any later version.
+        """, """\
+        This program is free software; you can redistribute it and/or
+        modify it under the terms of the GNU General Public License
+        as published by the Free Software Foundation; either version 2
+        of the License, or any later version.
+        """
+        ]
+    ),
+    ('GPL-2.0-only', ["""\
+        This program is free software; you can redistribute it and/or
+        modify it under the terms of the GNU General Public License as
+        published by the Free Software Foundation; version 2.
+        """]),
+    (
+        'GPL-3.0-or-later', [
+            """\
+        This program is free software: you can redistribute it and/or
+        modify it under the terms of the GNU General Public License as
+        published by the Free Software Foundation, either version 3 of
+        the License, or (at your option) any later version.
+        """, """\
+        This program is free software: you can redistribute it and/or
+        modify it under the terms of the GNU General Public License as
+        published by the Free Software Foundation, either version 3 of
+        the License, or any later version.
+        """
+        ]
+    ),
+    ('GPL-3.0-only', ["""\
+        This program is free software: you can redistribute it and/or
+        modify it under the terms of the GNU General Public License as
+        published by the Free Software Foundation, version 3.
+        """]),
+    (
+        'LGPL-2.1-or-later', [
+            """\
+        This program is free software; you can redistribute it and/or
+        modify it under the terms of the GNU Lesser General Public License
+        as published by the Free Software Foundation; either version 2.1
+        of the License, or (at your option) any later version.
+        """, """\
+        This program is free software; you can redistribute it and/or
+        modify it under the terms of the GNU Lesser General Public License
+        as published by the Free Software Foundation; either version 2.1
+        of the License, or any later version.
+        """, """\
+        This library is free software; you can redistribute it and/or
+        modify it under the terms of the GNU Lesser General Public License
+        as published by the Free Software Foundation; either version 2.1
+        of the License, or (at your option) any later version.
+        """, """\
+        This library is free software; you can redistribute it and/or
+        modify it under the terms of the GNU Lesser General Public License
+        as published by the Free Software Foundation; either version 2.1
+        of the License, or any later version.
+        """
+        ]
+    ),
+    (
+        'LGPL-2.1-only', [
+            """\
+        This program is free software; you can redistribute it and/or
+        modify it under the terms of the GNU Lesser General Public License as
+        published by the Free Software Foundation; version 2.1.
+        """, """\
+        This library is free software; you can redistribute it and/or
+        modify it under the terms of the GNU Lesser General Public License as
+        published by the Free Software Foundation; version 2.1.
+        """
+        ]
+    ),
+    (
+        'LGPL-3.0-or-later', [
+            """\
+        This program is free software; you can redistribute it and/or
+        modify it under the terms of the GNU Lesser General Public License
+        as published by the Free Software Foundation; either version 3
+        of the License, or (at your option) any later version.
+        """, """\
+        This program is free software; you can redistribute it and/or
+        modify it under the terms of the GNU Lesser General Public License
+        as published by the Free Software Foundation; either version 3
+        of the License, or any later version.
+        """, """\
+        This library is free software; you can redistribute it and/or
+        modify it under the terms of the GNU Lesser General Public License
+        as published by the Free Software Foundation; either version 3
+        of the License, or (at your option) any later version.
+        """, """\
+        This library is free software; you can redistribute it and/or
+        modify it under the terms of the GNU Lesser General Public License
+        as published by the Free Software Foundation; either version 3
+        of the License, or any later version.
+        """
+        ]
+    ),
+    (
+        'LGPL-3.0-only', [
+            """\
+        This program is free software; you can redistribute it and/or
+        modify it under the terms of the GNU Lesser General Public License as
+        published by the Free Software Foundation; version 3.
+        """, """\
+        This library is free software; you can redistribute it and/or
+        modify it under the terms of the GNU Lesser General Public License as
+        published by the Free Software Foundation; version 3.
+        """
+        ]
+    ),
+    ('Apache-2.0', ["""\
+        Licensed under the Apache License, Version 2.0 (the "License");
+        you may not use this file except in compliance with the License.
+        """]),
+]

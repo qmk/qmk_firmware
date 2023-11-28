@@ -39,8 +39,16 @@
             "twinkle": true
         }
     },
+    "layout_aliases": {
+        "LAYOUT_all_split": "LAYOUT_ortho_5x4",
+        "LAYOUT_2u_plus_2u_enter_2u_zero": "LAYOUT_numpad_5x4"
+    },
+    "community_layouts": [
+        "ortho_5x4",
+        "numpad_5x4"
+    ],
     "layouts": {
-        "LAYOUT_all_split": {
+        "LAYOUT_ortho_5x4": {
             "layout": [
                 {"label": "K00", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "K01", "matrix": [0, 1], "x": 1, "y": 0},
@@ -84,7 +92,7 @@
                 {"label": "K40", "matrix": [4, 0], "x": 0, "y": 4},
                 {"label": "K41", "matrix": [4, 1], "x": 1, "y": 4},
                 {"label": "K42", "matrix": [4, 2], "x": 2, "y": 4},
-                {"label": "K43", "matrix": [4, 3], "h": 2, "x": 3, "y": 3}
+                {"label": "K43", "matrix": [4, 3], "x": 3, "y": 3, "h": 2}
             ]
         },
         "LAYOUT_2u_plus_2u_enter": {
@@ -99,14 +107,14 @@
                 {"label": "K20", "matrix": [2, 0], "x": 0, "y": 2},
                 {"label": "K21", "matrix": [2, 1], "x": 1, "y": 2},
                 {"label": "K22", "matrix": [2, 2], "x": 2, "y": 2},
-                {"label": "K23", "matrix": [2, 3], "h": 2, "x": 3, "y": 1},
+                {"label": "K23", "matrix": [2, 3], "x": 3, "y": 1, "h": 2},
                 {"label": "K30", "matrix": [3, 0], "x": 0, "y": 3},
                 {"label": "K31", "matrix": [3, 1], "x": 1, "y": 3},
                 {"label": "K32", "matrix": [3, 2], "x": 2, "y": 3},
                 {"label": "K40", "matrix": [4, 0], "x": 0, "y": 4},
                 {"label": "K41", "matrix": [4, 1], "x": 1, "y": 4},
                 {"label": "K42", "matrix": [4, 2], "x": 2, "y": 4},
-                {"label": "K43", "matrix": [4, 3], "h": 2, "x": 3, "y": 3}
+                {"label": "K43", "matrix": [4, 3], "x": 3, "y": 3, "h": 2}
             ]
         },
         "LAYOUT_2u_enter_2u_zero": {
@@ -126,12 +134,12 @@
                 {"label": "K30", "matrix": [3, 0], "x": 0, "y": 3},
                 {"label": "K31", "matrix": [3, 1], "x": 1, "y": 3},
                 {"label": "K32", "matrix": [3, 2], "x": 2, "y": 3},
-                {"label": "K41", "matrix": [4, 1], "h": 2, "x": 0, "y": 4},
+                {"label": "K41", "matrix": [4, 1], "x": 0, "y": 4, "w": 2},
                 {"label": "K42", "matrix": [4, 2], "x": 2, "y": 4},
-                {"label": "K43", "matrix": [4, 3], "h": 2, "x": 3, "y": 3}
+                {"label": "K43", "matrix": [4, 3], "x": 3, "y": 3, "h": 2}
             ]
         },
-        "LAYOUT_2u_plus_2u_enter_2u_zero": {
+        "LAYOUT_numpad_5x4": {
             "layout": [
                 {"label": "K00", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "K01", "matrix": [0, 1], "x": 1, "y": 0},
@@ -143,13 +151,13 @@
                 {"label": "K20", "matrix": [2, 0], "x": 0, "y": 2},
                 {"label": "K21", "matrix": [2, 1], "x": 1, "y": 2},
                 {"label": "K22", "matrix": [2, 2], "x": 2, "y": 2},
-                {"label": "K23", "matrix": [2, 3], "h": 2, "x": 3, "y": 1},
+                {"label": "K23", "matrix": [2, 3], "x": 3, "y": 1, "h": 2},
                 {"label": "K30", "matrix": [3, 0], "x": 0, "y": 3},
                 {"label": "K31", "matrix": [3, 1], "x": 1, "y": 3},
                 {"label": "K32", "matrix": [3, 2], "x": 2, "y": 3},
-                {"label": "K41", "matrix": [4, 1], "h": 2, "x": 0, "y": 4},
+                {"label": "K41", "matrix": [4, 1], "x": 0, "y": 4, "w": 2},
                 {"label": "K42", "matrix": [4, 2], "x": 2, "y": 4},
-                {"label": "K43", "matrix": [4, 3], "h": 2, "x": 3, "y": 3}
+                {"label": "K43", "matrix": [4, 3], "x": 3, "y": 3, "h": 2}
             ]
         },
         "LAYOUT_mirrored_2u_enter": {
@@ -169,7 +177,7 @@
                 {"label": "K31", "matrix": [3, 1], "x": 1, "y": 3},
                 {"label": "K32", "matrix": [3, 2], "x": 2, "y": 3},
                 {"label": "K33", "matrix": [3, 3], "x": 3, "y": 3},
-                {"label": "K40", "matrix": [4, 0], "h": 2, "x": 0, "y": 3},
+                {"label": "K40", "matrix": [4, 0], "x": 0, "y": 3, "h": 2},
                 {"label": "K41", "matrix": [4, 1], "x": 1, "y": 4},
                 {"label": "K42", "matrix": [4, 2], "x": 2, "y": 4},
                 {"label": "K43", "matrix": [4, 3], "x": 3, "y": 4}
@@ -184,14 +192,14 @@
                 {"label": "K11", "matrix": [1, 1], "x": 1, "y": 1},
                 {"label": "K12", "matrix": [1, 2], "x": 2, "y": 1},
                 {"label": "K13", "matrix": [1, 3], "x": 3, "y": 1},
-                {"label": "K20", "matrix": [2, 0], "h": 2, "x": 0, "y": 1},
+                {"label": "K20", "matrix": [2, 0], "x": 0, "y": 1, "h": 2},
                 {"label": "K21", "matrix": [2, 1], "x": 1, "y": 2},
                 {"label": "K22", "matrix": [2, 2], "x": 2, "y": 2},
                 {"label": "K23", "matrix": [2, 3], "x": 3, "y": 2},
                 {"label": "K31", "matrix": [3, 1], "x": 1, "y": 3},
                 {"label": "K32", "matrix": [3, 2], "x": 2, "y": 3},
                 {"label": "K33", "matrix": [3, 3], "x": 3, "y": 3},
-                {"label": "K40", "matrix": [4, 0], "h": 2, "x": 0, "y": 3},
+                {"label": "K40", "matrix": [4, 0], "x": 0, "y": 3, "h": 2},
                 {"label": "K41", "matrix": [4, 1], "x": 1, "y": 4},
                 {"label": "K42", "matrix": [4, 2], "x": 2, "y": 4},
                 {"label": "K43", "matrix": [4, 3], "x": 3, "y": 4}
@@ -214,9 +222,9 @@
                 {"label": "K31", "matrix": [3, 1], "x": 1, "y": 3},
                 {"label": "K32", "matrix": [3, 2], "x": 2, "y": 3},
                 {"label": "K33", "matrix": [3, 3], "x": 3, "y": 3},
-                {"label": "K40", "matrix": [4, 0], "h": 2, "x": 0, "y": 3},
+                {"label": "K40", "matrix": [4, 0], "x": 0, "y": 3, "h": 2},
                 {"label": "K41", "matrix": [4, 1], "x": 1, "y": 4},
-                {"label": "K42", "matrix": [4, 2], "w": 2, "x": 2, "y": 4}
+                {"label": "K42", "matrix": [4, 2], "x": 2, "y": 4, "w": 2}
             ]
         },
         "LAYOUT_mirrored_2u_plus_2u_enter_2u_zero": {
@@ -228,16 +236,16 @@
                 {"label": "K11", "matrix": [1, 1], "x": 1, "y": 1},
                 {"label": "K12", "matrix": [1, 2], "x": 2, "y": 1},
                 {"label": "K13", "matrix": [1, 3], "x": 3, "y": 1},
-                {"label": "K20", "matrix": [2, 0], "h": 2, "x": 0, "y": 1},
+                {"label": "K20", "matrix": [2, 0], "x": 0, "y": 1, "h": 2},
                 {"label": "K21", "matrix": [2, 1], "x": 1, "y": 2},
                 {"label": "K22", "matrix": [2, 2], "x": 2, "y": 2},
                 {"label": "K23", "matrix": [2, 3], "x": 3, "y": 2},
                 {"label": "K31", "matrix": [3, 1], "x": 1, "y": 3},
                 {"label": "K32", "matrix": [3, 2], "x": 2, "y": 3},
                 {"label": "K33", "matrix": [3, 3], "x": 3, "y": 3},
-                {"label": "K40", "matrix": [4, 0], "h": 2, "x": 0, "y": 3},
+                {"label": "K40", "matrix": [4, 0], "x": 0, "y": 3, "h": 2},
                 {"label": "K41", "matrix": [4, 1], "x": 1, "y": 4},
-                {"label": "K42", "matrix": [4, 2], "w": 2, "x": 2, "y": 4}
+                {"label": "K42", "matrix": [4, 2], "x": 2, "y": 4, "w": 2}
             ]
         }
     }

@@ -9,7 +9,7 @@ COMMAND_ENABLE = no        # Commands for debug and configuration
 NKRO_ENABLE = no            # Enable N-Key Rollover
 
 CUSTOM_MATRIX = yes
-QUANTUM_LIB_SRC += i2c_master.c
+I2C_DRIVER_REQUIRED = yes
 SRC += leds.c \
 	   matrix.c
 

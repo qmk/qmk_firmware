@@ -22,12 +22,30 @@
         "pin": "B15"
     },
     "rgblight": {
-        "max_brightness": 200
+        "led_count": 16,
+        "max_brightness": 200,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
+    "layout_aliases": {
+        "LAYOUT_evolv_ansi": "LAYOUT_ansi",
+        "LAYOUT_iso_ansi": "LAYOUT_iso"
+    },
     "layouts": {
-        "LAYOUT_evolv_ansi": {
+        "LAYOUT_ansi": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
 
@@ -136,7 +154,7 @@
                 {"matrix": [5, 14], "x": 15, "y": 5.5}
             ]
         },
-        "LAYOUT_evolv_iso": {
+        "LAYOUT_iso": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
 

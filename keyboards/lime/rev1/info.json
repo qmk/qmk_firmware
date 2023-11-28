@@ -26,7 +26,18 @@
                     {"pin_a": "F4", "pin_b": "F5", "resolution": 2}
                 ]
             }
+        },
+        "transport": {
+            "sync": {
+                "wpm": true
+            }
         }
+    },
+    "tapping": {
+        "term": 100
+    },
+    "qmk": {
+        "tap_keycode_delay": 10
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",

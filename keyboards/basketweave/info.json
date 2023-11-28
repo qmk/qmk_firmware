@@ -19,6 +19,9 @@
             {"pin_a": "D7", "pin_b": "C0"}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "processor": "atmega32a",
     "bootloader": "usbasploader",
     "layouts": {

@@ -8,6 +8,21 @@
         "pid": "0x6074",
         "device_version": "0.0.2"
     },
+    "rgblight": {
+        "led_count": 16,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
     "ws2812": {
         "pin": "D3"
     },

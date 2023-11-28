@@ -13,8 +13,7 @@ AUDIO_ENABLE = yes         # Audio output
 
 ENCODER_ENABLE = yes       # ENables the use of one or more encoders
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306      # Enables the use of OLED displays
 HAPTIC_ENABLE = yes        # Supported but not included by defaut
-HAPTIC_DRIVER = DRV2605L
+HAPTIC_DRIVER = drv2605l
 
 LTO_ENABLE = yes
