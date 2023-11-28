@@ -4,25 +4,17 @@ You can compile a keymap already in the repo or using a QMK Configurator export.
 A bootloader must be specified.
 """
 from argcomplete.completers import FilesCompleter
+from pathlib import Path
 
 from milc import cli
 
 import qmk.path
 from qmk.decorators import automagic_keyboard, automagic_keymap
-from qmk.commands import compile_configurator_json, create_make_command, parse_configurator_json, build_environment
+from qmk.commands import build_environment
 from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.keymap import keymap_completer, locate_keymap
 from qmk.flashers import flasher
-
-
-def _is_keymap_target(keyboard, keymap):
-    if keymap == 'all':
-        return True
-
-    if locate_keymap(keyboard, keymap):
-        return True
-
-    return False
+from qmk.build_targets import KeyboardKeymapBuildTarget, JsonKeymapBuildTarget
 
 
 def _list_bootloaders():
@@ -89,7 +81,7 @@ def flash(cli):
 
     If bootloader is omitted the make system will use the configured bootloader for that keyboard.
     """
-    if cli.args.filename and cli.args.filename.suffix in ['.bin', '.hex', '.uf2']:
+    if cli.args.filename and isinstance(cli.args.filename, Path) and cli.args.filename.suffix in ['.bin', '.hex', '.uf2']:
         return _flash_binary(cli.args.filename, cli.args.mcu)
 
     if cli.args.bootloaders:
@@ -98,34 +90,27 @@ def flash(cli):
     # Build the environment vars
     envs = build_environment(cli.args.env)
 
-    # Determine the compile command
-    commands = []
+    # Handler for the build target
+    target = None
 
     if cli.args.filename:
-        # If a configurator JSON was provided generate a keymap and compile it
-        user_keymap = parse_configurator_json(cli.args.filename)
-        commands = [compile_configurator_json(user_keymap, cli.args.bootloader, parallel=cli.config.flash.parallel, clean=cli.args.clean, **envs)]
+        # if we were given a filename, assume we have a json build target
+        target = JsonKeymapBuildTarget(cli.args.filename)
 
     elif cli.config.flash.keyboard and cli.config.flash.keymap:
-        # Generate the make command for a specific keyboard/keymap.
-        if not _is_keymap_target(cli.config.flash.keyboard, cli.config.flash.keymap):
+        # if we got a keyboard and keymap, attempt to find it
+        if not locate_keymap(cli.config.flash.keyboard, cli.config.flash.keymap):
             cli.log.error('Invalid keymap argument.')
             cli.print_help()
             return False
 
-        if cli.args.clean:
-            commands.append(create_make_command(cli.config.flash.keyboard, cli.config.flash.keymap, 'clean', **envs))
-        commands.append(create_make_command(cli.config.flash.keyboard, cli.config.flash.keymap, cli.args.bootloader, parallel=cli.config.flash.parallel, **envs))
+        # If we got here, then we have a valid keyboard and keymap for a build target
+        target = KeyboardKeymapBuildTarget(cli.config.flash.keyboard, cli.config.flash.keymap)
 
-    if not commands:
+    if not target:
         cli.log.error('You must supply a configurator export, both `--keyboard` and `--keymap`, or be in a directory for a keyboard or keymap.')
         cli.print_help()
         return False
 
-    cli.log.info('Compiling keymap with {fg_cyan}%s', ' '.join(commands[-1]))
-    if not cli.args.dry_run:
-        cli.echo('\n')
-        for command in commands:
-            ret = cli.run(command, capture_output=False)
-            if ret.returncode:
-                return ret.returncode
+    target.configure(parallel=cli.config.flash.parallel, clean=cli.args.clean)
+    target.compile(cli.args.bootloader, dry_run=cli.args.dry_run, **envs)

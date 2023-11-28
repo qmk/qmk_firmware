@@ -50,8 +50,8 @@ void keyboard_post_init_user(void) {
     rgblight_mode_noeeprom(RGBLIGHT_EFFECT_BREATHING + 2);
 
     // Init the first two LEDs to a static color
-    setrgb(0, 0, 0, (LED_TYPE *)&led[0]);
-    setrgb(0, 0, 0, (LED_TYPE *)&led[1]);
+    setrgb(0, 0, 0, (rgb_led_t *)&led[0]);
+    setrgb(0, 0, 0, (rgb_led_t *)&led[1]);
     rgblight_set();
   #endif //RGBLIGHT_ENABLE
 }
@@ -75,8 +75,8 @@ layer_state_t layer_state_set_user(layer_state_t state){
       led1r = 255;
     }
 
-    setrgb(led0r, led0g, led0b, (LED_TYPE *)&led[0]);
-    setrgb(led1r, led1g, led1b, (LED_TYPE *)&led[1]);
+    setrgb(led0r, led0g, led0b, (rgb_led_t *)&led[0]);
+    setrgb(led1r, led1g, led1b, (rgb_led_t *)&led[1]);
     rgblight_set();
   #endif //RGBLIGHT_ENABLE
   return state;

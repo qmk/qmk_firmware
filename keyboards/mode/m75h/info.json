@@ -13,6 +13,11 @@
         "rows": ["C5", "B0", "B14", "B15", "A8", "C9", "A15"]
     },
     "diode_direction": "COL2ROW",
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
     "processor": "STM32F401",
     "bootloader": "stm32-dfu",
     "layout_aliases": {

@@ -192,8 +192,8 @@ void keyboard_post_init_user (void) {
     rgblight_mode_noeeprom (RGBLIGHT_EFFECT_BREATHING + 2);
 
     // Init the first and last LEDs to a static color.
-    setrgb (0, 0, 0, (LED_TYPE *)&led[0]); // Led[0] is led 0
-    setrgb (0, 0, 0, (LED_TYPE *)&led[2]); // 2nd led
+    setrgb (0, 0, 0, (rgb_led_t *)&led[0]); // Led[0] is led 0
+    setrgb (0, 0, 0, (rgb_led_t *)&led[2]); // 2nd led
 
 // The logic seems to be to establish the effect first, and then toggle it on/off.
 #     ifdef STARTUP_MID_LED_OFF
@@ -301,8 +301,8 @@ void isolate_rgblight_set (void) {
         led2r = 0; 
         led2g = 0; 
         led2b = 0; 
-        setrgb(led0r, led0g, led0b, (LED_TYPE *)&led[0]); // Led 0
-        setrgb(led2r, led2g, led2b, (LED_TYPE *)&led[2]); // Led 2
+        setrgb(led0r, led0g, led0b, (rgb_led_t *)&led[0]); // Led 0
+        setrgb(led2r, led2g, led2b, (rgb_led_t *)&led[2]); // Led 2
     }
     rgblight_set ();
 # endif
@@ -326,8 +326,8 @@ void indicate_fun_stay (void) {
         led0g = 50;  //   
         led2r = 255; // red
     }
-    setrgb(led0r, led0g, led0b, (LED_TYPE *)&led[0]); // Led 0
-    setrgb(led2r, led2g, led2b, (LED_TYPE *)&led[2]); // Led 2
+    setrgb(led0r, led0g, led0b, (rgb_led_t *)&led[0]); // Led 0
+    setrgb(led2r, led2g, led2b, (rgb_led_t *)&led[2]); // Led 2
     isolate_rgblight_set ();
 
 # endif //RGBLIGHT_ENABLE
@@ -369,8 +369,8 @@ void indicate_base (void) {
         led2g = 255; 
         led2b = 255; 
     }
-    setrgb(led0r, led0g, led0b, (LED_TYPE *)&led[0]); // Led 0
-    setrgb(led2r, led2g, led2b, (LED_TYPE *)&led[2]); // Led 2
+    setrgb(led0r, led0g, led0b, (rgb_led_t *)&led[0]); // Led 0
+    setrgb(led2r, led2g, led2b, (rgb_led_t *)&led[2]); // Led 2
     isolate_rgblight_set ();
 
 # endif //RGBLIGHT_ENABLE
@@ -535,8 +535,8 @@ void set_led_colors_ (layer_state_t state) {
     //---
 
     // pushes the configuration
-    setrgb (led0r, led0g, led0b, (LED_TYPE *)&led[0]); // Led 0
-    setrgb (led2r, led2g, led2b, (LED_TYPE *)&led[2]); // Led 2
+    setrgb (led0r, led0g, led0b, (rgb_led_t *)&led[0]); // Led 0
+    setrgb (led2r, led2g, led2b, (rgb_led_t *)&led[2]); // Led 2
 
     isolate_rgblight_set (); // Activates the led color change, after on/off check.
 
