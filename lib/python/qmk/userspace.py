@@ -15,7 +15,7 @@ def qmk_userspace_paths():
     test_dirs = []
 
     # If we're already in a directory with a qmk.json and a keyboards or layouts directory, interpret it as userspace
-    if 'ORIG_CWD' in environ:
+    if environ.get('ORIG_CWD') is not None:
         current_dir = Path(environ['ORIG_CWD'])
         while len(current_dir.parts) > 1:
             if (current_dir / 'qmk.json').is_file():
@@ -24,7 +24,7 @@ def qmk_userspace_paths():
 
     # If we have a QMK_USERSPACE environment variable, use that
     if environ.get('QMK_USERSPACE') is not None:
-        current_dir = Path(environ.get('QMK_USERSPACE'))
+        current_dir = Path(environ['QMK_USERSPACE'])
         if current_dir.is_dir():
             test_dirs.append(current_dir)
 
