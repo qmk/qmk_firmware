@@ -18,11 +18,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
+#    include "is31fl3733-dual.h"
 
-#include "is31fl3733-dual.h"
-
-
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT] = {
     { 0, B_1,  A_1,  C_1  },
     { 0, B_2,  A_2,  C_2  },
     { 0, B_3,  A_3,  C_3  },
@@ -202,15 +200,12 @@ led_config_t g_led_config = {
         2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,
     }
 };
-#endif
-
 
 void keyboard_pre_init_kb(void) {
-#ifdef RGB_MATRIX_ENABLE
     // Turn on LED controller
     setPinOutput(B16);
     writePinHigh(B16);
-#endif
+
     keyboard_pre_init_user();
 }
 
@@ -218,17 +213,13 @@ void matrix_init_kb(void) {
     // put your keyboard start-up code here
     // runs once when the firmware starts up
 
-#ifdef RGB_MATRIX_ENABLE
     /*
      * Since K20x is stuck with a 32 byte EEPROM (see tmk_core/common/chibios/eeprom_teensy.c),
      * and neither led_matrix_eeconfig.speed or .flags fit in this boundary, just force their values to default on boot.
      */
-#    if !defined(RGB_MATRIX_DEFAULT_SPD)
-#        define RGB_MATRIX_DEFAULT_SPD UINT8_MAX / 2
-#    endif
     rgb_matrix_set_speed(RGB_MATRIX_DEFAULT_SPD),
     rgb_matrix_set_flags(LED_FLAG_ALL);
-#endif
 
     matrix_init_user();
 }
+#endif
