@@ -37,7 +37,6 @@ class FilterFunction:
 
     func_name: str
     apply: Callable[[TargetInfo], bool]
-    help: str
 
     def __init__(self, key, value):
         self.key = key
@@ -81,16 +80,14 @@ class Contains(FilterFunction):
         )
 
 
-def _get_filter(func_name: str, key: str, value: str) -> Optional[FilterFunction]:
-    """Initialize a filter subclass based on regex findings,
-    returning its filtering method.
-
-    Or None if no there's no filter with the name provided.
+def _get_filter_class(func_name: str, key: str, value: str) -> Optional[FilterFunction]:
+    """Initialize a filter subclass based on regex findings and return it.
+    None if no there's no filter with the name queried.
     """
 
     for subclass in FilterFunction.__subclasses__():
         if func_name == subclass.func_name:
-            return subclass(key, value).apply
+            return subclass(key, value)
 
     return None
 
@@ -194,16 +191,25 @@ def expand_keymap_targets(targets: List[Tuple[str, str]]) -> List[Tuple[str, str
     return list(sorted(set(overall_targets)))
 
 
+def _construct_build_target_kb_km(e):
+    return KeyboardKeymapBuildTarget(keyboard=e[0], keymap=e[1])
+
+
+def _construct_build_target_kb_km_json(e):
+    return KeyboardKeymapBuildTarget(keyboard=e[0], keymap=e[1], json=e[2])
+
+
 def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str] = []) -> List[BuildTarget]:
     """Filter a list of (keyboard, keymap) tuples based on the supplied filters.
 
     Optionally includes the values of the queried info.json keys.
     """
     if len(filters) == 0:
-        return [KeyboardKeymapBuildTarget(keyboard=kb, keymap=km) for kb, km in target_list]
+        cli.log.info('Preparing target list...')
+        return list(set(parallel_map(_construct_build_target_kb_km, target_list)))
 
     cli.log.info('Parsing data for all matching keyboard/keymap combinations...')
-    valid_keymaps: List[TargetInfo] = [(e[0], e[1], dotty(e[2])) for e in parallel_map(_load_keymap_info, target_list)]
+    valid_keymaps = [(e[0], e[1], dotty(e[2])) for e in parallel_map(_load_keymap_info, target_list)]
 
     function_re = re.compile(r'^(?P<function>[a-zA-Z]+)\((?P<key>[a-zA-Z0-9_\.]+)(,\s*(?P<value>[^#]+))?\)$')
     equals_re = re.compile(r'^(?P<key>[a-zA-Z0-9_\.]+)\s*=\s*(?P<value>[^#]+)$')
@@ -217,11 +223,11 @@ def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str
             key = function_match.group('key')
             value = function_match.group('value')
 
-            filter_ = _get_filter(func_name, key, value)
-            if filter_ is None:
+            filter_class = _get_filter_class(func_name, key, value)
+            if filter_class is None:
                 cli.log.warning(f'Unrecognized filter expression: {function_match.group(0)}')
                 continue
-            valid_keymaps = filter(filter_.apply, valid_keymaps)
+            valid_keymaps = filter(filter_class.apply, valid_keymaps)
 
             value_str = (
                 f", {{fg_cyan}}{value}{{fg_reset}})"
