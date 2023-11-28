@@ -88,7 +88,7 @@ def _get_filter_class(func_name: str, key: str, value: str) -> Optional[FilterFu
 
 def filter_help() -> str:
     names = [f"'{f.func_name}'" for f in FilterFunction.__subclasses__()]
-    return (", ".join(names[:-1]) + f" and {names[-1]}")
+    return ", ".join(names[:-1]) + f" and {names[-1]}"
 
 def _set_log_level(level):
     cli.acquire_lock()
@@ -220,7 +220,7 @@ def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str
                     continue
                 valid_keymaps = filter(filter_class.apply, valid_keymaps)
 
-                value_str = (f", {{fg_cyan}}{value}{{fg_reset}})" if value is not None else "")
+                value_str = f", {{fg_cyan}}{value}{{fg_reset}})" if value is not None else ""
                 cli.log.info(f'Filtering on condition: {{fg_green}}{func_name}{{fg_reset}}({{fg_cyan}}{key}{{fg_reset}}{value_str}...')
 
             elif equals_match is not None:
