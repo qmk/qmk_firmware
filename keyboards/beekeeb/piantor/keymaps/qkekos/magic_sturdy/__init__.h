@@ -24,9 +24,9 @@
         } \
         break
 
-#define double_magic_case(trigger, prev_key, supplement) \
+#define double_magic_case(trigger, p_key, supplement) \
     case trigger: \
-        if (keycode == prev_key) { \
+        if (keycode == p_key) { \
             SEND_STRING(supplement); \
             return; \
         } \
@@ -39,9 +39,17 @@
         } \
         break
 
-#define triple_magic_case(trigger, penultimate_key, prev_key, supplement) \
+#define triple_magic_case(trigger, pp_key, p_key, supplement) \
     case trigger: \
-        if (penultimate_key == last_queue_key && keycode == prev_key) { \
+        if (queue(-1) == pp_key && keycode == p_key) { \
+            SEND_STRING(supplement); \
+            return; \
+        } \
+        break
+
+#define quadruple_magic_case(trigger, ppp_key, pp_key, p_key, supplement) \
+    case trigger: \
+        if (queue(-2) == ppp_key && queue(-1) == pp_key && keycode == p_key) { \
             SEND_STRING(supplement); \
             return; \
         } \

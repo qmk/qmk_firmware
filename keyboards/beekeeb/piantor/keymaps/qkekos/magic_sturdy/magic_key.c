@@ -17,7 +17,11 @@ void process_magic_key(uint16_t keycode, uint8_t mods) {
         keycode = TH_NUM;
     }
 
-    switch (penultimate_queue_key) {
+    switch (queue(-3)) {
+        quadruple_magic_case(KC_O, KC_L, LT_I, KC_C, "y");
+    }
+
+    switch (queue(-2)) {
         triple_magic_switch(TH_NUM,
             double_magic_switch(KC_M,
                 magic_case(KC_O, "st");

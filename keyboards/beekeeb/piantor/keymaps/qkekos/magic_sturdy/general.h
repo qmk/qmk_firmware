@@ -17,4 +17,4 @@ extern int alt_rep_key_count;
 extern int last_key_pressed_time;
 
 #define last_queue_key prev_keys_queue[PREV_KEYS_QUEUE_SIZE - 1]
-#define penultimate_queue_key prev_keys_queue[PREV_KEYS_QUEUE_SIZE - 2]
+#define queue(i) prev_keys_queue[PREV_KEYS_QUEUE_SIZE + i]
