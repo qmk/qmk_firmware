@@ -112,7 +112,6 @@
                 ]
             }
         },
-        "main": "matrix_grid",
         "matrix_pins": {
             "right": {
                 "cols": ["D7", "E6", "B4", "B5", "D4", "C6"],

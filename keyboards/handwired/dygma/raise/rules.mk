@@ -19,7 +19,7 @@ CUSTOM_MATRIX = lite
 # alternate usb endpoints.
 RAW_ENABLE = yes
 
-QUANTUM_LIB_SRC += i2c_master.c
+I2C_DRIVER_REQUIRED = yes
 SRC += matrix.c
 
 DEFAULT_FOLDER = handwired/dygma/raise/ansi

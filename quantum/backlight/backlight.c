@@ -22,8 +22,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 backlight_config_t backlight_config;
 
+#ifndef BACKLIGHT_DEFAULT_ON
+#    define BACKLIGHT_DEFAULT_ON true
+#endif
+
 #ifndef BACKLIGHT_DEFAULT_LEVEL
 #    define BACKLIGHT_DEFAULT_LEVEL BACKLIGHT_LEVELS
+#endif
+
+#ifndef BACKLIGHT_DEFAULT_BREATHING
+#    define BACKLIGHT_DEFAULT_BREATHING false
+#else
+#    undef BACKLIGHT_DEFAULT_BREATHING
+#    define BACKLIGHT_DEFAULT_BREATHING true
 #endif
 
 #ifdef BACKLIGHT_BREATHING
@@ -172,13 +183,9 @@ void eeconfig_update_backlight_current(void) {
 }
 
 void eeconfig_update_backlight_default(void) {
-    backlight_config.enable = 1;
-#ifdef BACKLIGHT_DEFAULT_BREATHING
-    backlight_config.breathing = 1;
-#else
-    backlight_config.breathing = 0;
-#endif
-    backlight_config.level = BACKLIGHT_DEFAULT_LEVEL;
+    backlight_config.enable    = BACKLIGHT_DEFAULT_ON;
+    backlight_config.breathing = BACKLIGHT_DEFAULT_BREATHING;
+    backlight_config.level     = BACKLIGHT_DEFAULT_LEVEL;
     eeconfig_update_backlight(backlight_config.raw);
 }
 

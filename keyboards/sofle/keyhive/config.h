@@ -21,7 +21,3 @@
 // OLED settings
 #define OLED_TIMEOUT    80000
 #define OLED_BRIGHTNESS 90
-
-#define SPLIT_WPM_ENABLE
-#define SPLIT_OLED_ENABLE
-#define SPLIT_TRANSPORT_MIRROR

@@ -21,7 +21,7 @@
 #    include "is31fl3733.h"
 #    include "ws2812.h"
 
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT] = {
     { 0, B_1, A_1, C_1 },
     { 0, B_2, A_2, C_2 },
     { 0, B_3, A_3, C_3 },
@@ -144,34 +144,34 @@ bool rgb_matrix_indicators_kb(void) {
 // ==========================================================================
 
 #    if WS2812_LED_TOTAL > 0
-LED_TYPE rgb_matrix_ws2812_array[WS2812_LED_TOTAL];
+rgb_led_t rgb_matrix_ws2812_array[WS2812_LED_TOTAL];
 #    endif
 
 static void rgb_matrix_driver_init(void) {
     i2c_init();
-    is31fl3733_init(DRIVER_ADDR_1, 0);
-    for (uint8_t index = 0; index < ISSI_LED_TOTAL; index++) {
+    is31fl3733_init(IS31FL3733_I2C_ADDRESS_1, IS31FL3733_SYNC_NONE);
+    for (uint8_t index = 0; index < IS31FL3733_LED_COUNT; index++) {
         bool enabled = true;
         is31fl3733_set_led_control_register(index, enabled, enabled, enabled);
     }
-    is31fl3733_update_led_control_registers(DRIVER_ADDR_1, 0);
+    is31fl3733_update_led_control_registers(IS31FL3733_I2C_ADDRESS_1, 0);
 }
 
 static void rgb_matrix_driver_flush(void) {
-    is31fl3733_update_pwm_buffers(DRIVER_ADDR_1, 0);
+    is31fl3733_update_pwm_buffers(IS31FL3733_I2C_ADDRESS_1, 0);
 #    if WS2812_LED_TOTAL > 0
     ws2812_setleds(rgb_matrix_ws2812_array, WS2812_LED_TOTAL);
 #    endif
 }
 
 static void rgb_matrix_driver_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
-    if (index < ISSI_LED_TOTAL) {
+    if (index < IS31FL3733_LED_COUNT) {
         is31fl3733_set_color(index, red, green, blue);
     } else {
 #    if WS2812_LED_TOTAL > 0
-        rgb_matrix_ws2812_array[index - ISSI_LED_TOTAL].r = red;
-        rgb_matrix_ws2812_array[index - ISSI_LED_TOTAL].g = green;
-        rgb_matrix_ws2812_array[index - ISSI_LED_TOTAL].b = blue;
+        rgb_matrix_ws2812_array[index - IS31FL3733_LED_COUNT].r = red;
+        rgb_matrix_ws2812_array[index - IS31FL3733_LED_COUNT].g = green;
+        rgb_matrix_ws2812_array[index - IS31FL3733_LED_COUNT].b = blue;
 #    endif
     }
 }

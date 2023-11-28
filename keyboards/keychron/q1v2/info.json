@@ -30,7 +30,7 @@
     },
     "diode_direction": "ROW2COL",
     "rgb_matrix": {
-        "driver": "ckled2001",
+        "driver": "snled27351",
         "animations": {
             "band_spiral_val": true,
             "breathing": true,
