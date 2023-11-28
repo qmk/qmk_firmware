@@ -5,7 +5,7 @@ import functools
 import fnmatch
 import logging
 import re
-from typing import List, Tuple
+from typing import Callable, List, Optional, Tuple
 from dotty_dict import dotty
 from milc import cli
 
@@ -15,6 +15,92 @@ from qmk.keyboard import list_keyboards, keyboard_folder
 from qmk.keymap import list_keymaps, locate_keymap
 from qmk.build_targets import KeyboardKeymapBuildTarget, BuildTarget
 
+TargetInfo = Tuple[str, str, dict]
+
+
+# by using a class for filters, we dont need to worry about capturing values
+# see details <https://github.com/qmk/qmk_firmware/pull/21090>
+class FilterFunction:
+    """Base class for filters.
+    It provides:
+        - __init__: capture key and value
+
+    Each subclass should provide:
+        - func_name: how it will be specified on CLI
+            >>> qmk find -f <func_name>...
+        - apply: function that actually applies the filter
+            ie: return whether the input kb/km satisfies the condition
+    """
+
+    key: str
+    value: Optional[str]
+
+    func_name: str
+    apply: Callable[[TargetInfo], bool]
+    help: str
+
+    def __init__(self, key, value):
+        self.key = key
+        self.value = value
+
+
+class Exists(FilterFunction):
+    func_name = "exists"
+
+    def apply(self, target_info: TargetInfo) -> bool:
+        _kb, _km, info = target_info
+        return self.key in info
+
+
+class Absent(FilterFunction):
+    func_name = "absent"
+
+    def apply(self, target_info: TargetInfo) -> bool:
+        _kb, _km, info = target_info
+        return self.key not in info
+
+
+class Length(FilterFunction):
+    func_name = "length"
+
+    def apply(self, target_info: TargetInfo) -> bool:
+        _kb, _km, info = target_info
+        return (
+            self.key in info
+            and len(info[self.key]) == int(self.value)
+        )
+
+class Contains(FilterFunction):
+    func_name = "contains"
+
+    def apply(self, target_info: TargetInfo) -> bool:
+        _kb, _km, info = target_info
+        return (
+            self.key in info
+            and self.value in info[self.key]
+        )
+
+
+def _get_filter(func_name: str, key: str, value: str) -> Optional[FilterFunction]:
+    """Initialize a filter subclass based on regex findings,
+    returning its filtering method.
+
+    Or None if no there's no filter with the name provided.
+    """
+
+    for subclass in FilterFunction.__subclasses__():
+        if func_name == subclass.func_name:
+            return subclass(key, value).apply
+
+    return None
+
+
+def filter_help() -> str:
+    names = [f"'{f.func_name}'" for f in FilterFunction.__subclasses__()]
+    return (
+        ", ".join(names[:-1])
+        + f" and {names[-1]}"
+    )
 
 def _set_log_level(level):
     cli.acquire_lock()
@@ -48,11 +134,12 @@ def _keymap_exists(keyboard, keymap):
         return keyboard if locate_keymap(keyboard, keymap) is not None else None
 
 
-def _load_keymap_info(kb_km):
+def _load_keymap_info(target: Tuple[str, str]) -> TargetInfo:
     """Returns a tuple of (keyboard, keymap, info.json) for the given keyboard/keymap combination.
     """
+    kb, km = target
     with ignore_logging():
-        return (kb_km[0], kb_km[1], keymap_json(kb_km[0], kb_km[1]))
+        return (kb, km, keymap_json(kb, km))
 
 
 def expand_make_targets(targets: List[str]) -> List[Tuple[str, str]]:
@@ -113,68 +200,62 @@ def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str
     Optionally includes the values of the queried info.json keys.
     """
     if len(filters) == 0:
-        targets = [KeyboardKeymapBuildTarget(keyboard=kb, keymap=km) for kb, km in target_list]
-    else:
-        cli.log.info('Parsing data for all matching keyboard/keymap combinations...')
-        valid_keymaps = [(e[0], e[1], dotty(e[2])) for e in parallel_map(_load_keymap_info, target_list)]
+        return [KeyboardKeymapBuildTarget(keyboard=kb, keymap=km) for kb, km in target_list]
 
-        function_re = re.compile(r'^(?P<function>[a-zA-Z]+)\((?P<key>[a-zA-Z0-9_\.]+)(,\s*(?P<value>[^#]+))?\)$')
-        equals_re = re.compile(r'^(?P<key>[a-zA-Z0-9_\.]+)\s*=\s*(?P<value>[^#]+)$')
+    cli.log.info('Parsing data for all matching keyboard/keymap combinations...')
+    valid_keymaps: List[TargetInfo] = [(e[0], e[1], dotty(e[2])) for e in parallel_map(_load_keymap_info, target_list)]
 
-        for filter_expr in filters:
-            function_match = function_re.match(filter_expr)
-            equals_match = equals_re.match(filter_expr)
+    function_re = re.compile(r'^(?P<function>[a-zA-Z]+)\((?P<key>[a-zA-Z0-9_\.]+)(,\s*(?P<value>[^#]+))?\)$')
+    equals_re = re.compile(r'^(?P<key>[a-zA-Z0-9_\.]+)\s*=\s*(?P<value>[^#]+)$')
 
-            if function_match is not None:
-                func_name = function_match.group('function').lower()
-                key = function_match.group('key')
-                value = function_match.group('value')
+    for filter_expr in filters:
+        function_match = function_re.match(filter_expr)
+        equals_match = equals_re.match(filter_expr)
 
-                if value is not None:
-                    if func_name == 'length':
-                        valid_keymaps = filter(lambda e, key=key, value=value: key in e[2] and len(e[2].get(key)) == int(value), valid_keymaps)
-                    elif func_name == 'contains':
-                        valid_keymaps = filter(lambda e, key=key, value=value: key in e[2] and value in e[2].get(key), valid_keymaps)
-                    else:
-                        cli.log.warning(f'Unrecognized filter expression: {function_match.group(0)}')
-                        continue
+        if function_match is not None:
+            func_name = function_match.group('function').lower()
+            key = function_match.group('key')
+            value = function_match.group('value')
 
-                    cli.log.info(f'Filtering on condition: {{fg_green}}{func_name}{{fg_reset}}({{fg_cyan}}{key}{{fg_reset}}, {{fg_cyan}}{value}{{fg_reset}})...')
-                else:
-                    if func_name == 'exists':
-                        valid_keymaps = filter(lambda e, key=key: key in e[2], valid_keymaps)
-                    elif func_name == 'absent':
-                        valid_keymaps = filter(lambda e, key=key: key not in e[2], valid_keymaps)
-                    else:
-                        cli.log.warning(f'Unrecognized filter expression: {function_match.group(0)}')
-                        continue
-
-                    cli.log.info(f'Filtering on condition: {{fg_green}}{func_name}{{fg_reset}}({{fg_cyan}}{key}{{fg_reset}})...')
-
-            elif equals_match is not None:
-                key = equals_match.group('key')
-                value = equals_match.group('value')
-                cli.log.info(f'Filtering on condition: {{fg_cyan}}{key}{{fg_reset}} == {{fg_cyan}}{value}{{fg_reset}}...')
-
-                def _make_filter(k, v):
-                    expr = fnmatch.translate(v)
-                    rule = re.compile(f'^{expr}$', re.IGNORECASE)
-
-                    def f(e):
-                        lhs = e[2].get(k)
-                        lhs = str(False if lhs is None else lhs)
-                        return rule.search(lhs) is not None
-
-                    return f
-
-                valid_keymaps = filter(_make_filter(key, value), valid_keymaps)
-            else:
-                cli.log.warning(f'Unrecognized filter expression: {filter_expr}')
+            filter_ = _get_filter(func_name, key, value)
+            if filter_ is None:
+                cli.log.warning(f'Unrecognized filter expression: {function_match.group(0)}')
                 continue
+            valid_keymaps = filter(filter_.apply, valid_keymaps)
 
-        targets = [KeyboardKeymapBuildTarget(keyboard=e[0], keymap=e[1], json=e[2]) for e in valid_keymaps]
+            value_str = (
+                f", {{fg_cyan}}{value}{{fg_reset}})"
+                if value is not None
+                else ""
+            )
+            cli.log.info(f'Filtering on condition: {{fg_green}}{func_name}{{fg_reset}}({{fg_cyan}}{key}{{fg_reset}}{value_str}...')
 
-    return targets
+        elif equals_match is not None:
+            key = equals_match.group('key')
+            value = equals_match.group('value')
+            cli.log.info(f'Filtering on condition: {{fg_cyan}}{key}{{fg_reset}} == {{fg_cyan}}{value}{{fg_reset}}...')
+
+            def _make_filter(k: str, v: TargetInfo):
+                expr = fnmatch.translate(v)
+                rule = re.compile(f'^{expr}$', re.IGNORECASE)
+
+                def f(e):
+                    lhs = e[2].get(k)
+                    lhs = str(False if lhs is None else lhs)
+                    return rule.search(lhs) is not None
+
+                return f
+
+            valid_keymaps = filter(_make_filter(key, value), valid_keymaps)
+
+        else:
+            cli.log.warning(f'Unrecognized filter expression: {filter_expr}')
+
+    # return filtered targets
+    return [
+        KeyboardKeymapBuildTarget(keyboard=kb, keymap=km, json=json)
+        for (kb, km, json) in valid_keymaps
+    ]
 
 
 def search_keymap_targets(targets: List[Tuple[str, str]] = [('all', 'default')], filters: List[str] = []) -> List[BuildTarget]:
