@@ -39,5 +39,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGB_MATRIX_LED_FLUSH_LIMIT    26
 #    define RGB_MATRIX_STARTUP_VAL        128
 #    define DRIVER_ADDR_1                 0b0110000
-#    define DRIVER_COUNT                  1
 #    define RGB_MATRIX_LED_COUNT          101 
