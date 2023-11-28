@@ -24,6 +24,9 @@
         "device_version": "1.0.0"
     },
     "diode_direction": "ROW2COL",
+    "eeprom": {
+        "driver": "spi"
+    },
     "processor": "STM32F411",
     "bootloader": "stm32-dfu",
     "rgblight": {
