@@ -172,7 +172,7 @@ void clueboard_set_midi_led(uint8_t base_oct, uint8_t val)
   uint8_t sat = 255;
 
   for (uint8_t i = 0; i < RGBLED_NUM; i++) {
-    sethsv(oct_hues[base_oct], sat, val, (LED_TYPE *)&led[i]);
+    sethsv(oct_hues[base_oct], sat, val, (rgb_led_t *)&led[i]);
   }
 
   uint8_t next_oct = base_oct < MAX_OCT ? base_oct + 1 : base_oct;
@@ -183,11 +183,11 @@ void clueboard_set_midi_led(uint8_t base_oct, uint8_t val)
 
 
   for (uint8_t i = 0; i < 3; i++) {
-    sethsv(next_hue, next_sat, next_val, (LED_TYPE *)&led[i]);
+    sethsv(next_hue, next_sat, next_val, (rgb_led_t *)&led[i]);
   }
 
   for (uint8_t i = 11; i < 14; i++) {
-    sethsv(next_hue, next_sat, next_val, (LED_TYPE *)&led[i]);
+    sethsv(next_hue, next_sat, next_val, (rgb_led_t *)&led[i]);
   }
 
   rgblight_set();

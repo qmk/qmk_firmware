@@ -17,13 +17,6 @@
 #pragma once
 
 //rgb matrix setting
-// This is a 7-bit address, that gets left-shifted and bit 0
-// set to 0 for write, 1 for read (as per I2C protocol)
-// The address will vary depending on your wiring:
-// 0b0110000 AD <-> GND
-// 0b0110011 AD <-> VCC
-// 0b0110001 AD <-> SCL
-// 0b0110010 AD <-> SDA
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define RGB_MATRIX_KEYPRESSES
 #undef ENABLE_RGB_MATRIX_SPLASH
@@ -80,7 +73,6 @@
 //#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_ALL
 //#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-#define DRIVER_ADDR_1 0b0110010
-#define DRIVER_COUNT 1
+#define IS31FL3741_I2C_ADDRESS_1 IS31FL3741_I2C_ADDRESS_SDA
 #define RGB_MATRIX_LED_COUNT 91
 #define DRIVER_INDICATOR_LED_TOTAL 0
