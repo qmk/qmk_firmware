@@ -13,6 +13,9 @@
     "rows": ["A7", "A6", "A5", "A4"]
   },
   "diode_direction": "COL2ROW",
+  "dip_switch": {
+    "pins": ["D0", "D1", "D4", "D6"]
+  },
   "encoder": {
     "rotary": [
       {"pin_a": "B4", "pin_b": "B3"},
