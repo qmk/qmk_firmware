@@ -20,6 +20,9 @@
         "rows": ["B11", "B10", "A3", "A1", "A2"]
     },
     "diode_direction": "COL2ROW",
+    "eeprom": {
+        "driver": "i2c"
+    },
     "processor": "STM32L422",
     "bootloader": "stm32-dfu",
     "community_layouts": ["alice", "alice_split_bs"],

@@ -282,26 +282,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
 #endif
-
-#ifdef AUDIO_ENABLE
-  float tone_startup[][2]    = SONG(STARTUP_SOUND);
-  float tone_goodbye[][2]    = SONG(GOODBYE_SOUND);
-
-  float tone_ly_normal[][2]  = SONG(QWERTY_SOUND);
-  float tone_ly_spacial[][2] = SONG(DVORAK_SOUND);
-
-  float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
-#endif
-
-void startup_user(void) {
-#ifdef AUDIO_ENABLE
-  PLAY_SONG(tone_startup);
-#endif
-}
-
-void shutdown_user(void) {
-#ifdef AUDIO_ENABLE
-  PLAY_SONG(tone_goodbye);
-  stop_all_notes();
-#endif
-}
