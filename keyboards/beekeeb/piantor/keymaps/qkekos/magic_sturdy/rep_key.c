@@ -2,6 +2,10 @@
 #include "../__init__.h"
 
 void process_rep_key(uint16_t keycode, uint8_t mods) {
+    if (timer_elapsed(last_key_pressed_time) > MAGIC_KEY_TIMEOUT) {
+        keycode = TH_NUM;
+    }
+
     switch (last_queue_key) {
         double_magic_case(CLT_A, KC_B, "out");
         double_magic_case(KC_F, CLT_R, "om");
