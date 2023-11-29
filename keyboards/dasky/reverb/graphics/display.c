@@ -5,6 +5,7 @@
 #include "graphics/splash.qgf.h"
 #include "graphics/reverb.qgf.h"
 #include "graphics/robotomono20.qff.h"
+#include "qp_surface.h"
 #include <stdio.h>
 #include <math.h>
 
@@ -27,7 +28,7 @@ void display_init_kb(void) {
     if (!display_init_user()) {
         return;
     }
-    reverb_surface = qp_rgb565_make_surface(240, 240, reverb_surface_fb);
+    reverb_surface = qp_make_rgb565_surface(240, 240, reverb_surface_fb);
     qp_init(reverb_surface, QP_ROTATION_0);
     painter_image_handle_t splash_image;
     splash_image = qp_load_image_mem(gfx_splash);
@@ -121,7 +122,7 @@ void display_task_kb(void) {
         }
     }
 
-    qp_rgb565_surface_draw(reverb_surface, reverb_display, 0, 0);
+    qp_surface_draw(reverb_surface, reverb_display, 0, 0, rgb_redraw);
 }
 
 __attribute__((weak)) bool display_task_user(void) {
