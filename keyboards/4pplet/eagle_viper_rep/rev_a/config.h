@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PWM_CHANNEL   4
 
 /* Underglow */
-#define WS2812_SPI  SPID1
+#define WS2812_SPI_DRIVER SPID1
 #define WS2812_SPI_MOSI_PAL_MODE 0
 #define WS2812_SPI_SCK_PIN A5
 #define WS2812_SPI_SCK_PAL_MODE 0
@@ -41,6 +41,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LAYER_3         A8
 #define LAYER_4         A9
 #define LAYER_5         B9
-
-/* Added extra layer for use of layer leds */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 5
