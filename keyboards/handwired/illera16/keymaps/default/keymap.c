@@ -3,10 +3,12 @@
 
 #include QMK_KEYBOARD_H
 
-#define _BASE 0 
-#define _CAPA1 1
-#define _CAPA2 2
-#define _CAPA3 3
+enum layers {
+    _BASE, 
+    _CAPA1,
+    _CAPA2,
+    _CAPA3,
+};
 
 layer_state_t layer_state_set_user(layer_state_t state);
 
