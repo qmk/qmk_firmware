@@ -19,9 +19,9 @@
 
 #include "color.h"
 
-#if defined(RGBLED_NUM)
-#    define APA102_LED_COUNT RGBLED_NUM
-#elif defined(RGB_MATRIX_LED_COUNT)
+#if defined(RGBLIGHT_APA102)
+#    define APA102_LED_COUNT RGBLIGHT_LED_COUNT
+#elif defined(RGB_MATRIX_APA102)
 #    define APA102_LED_COUNT RGB_MATRIX_LED_COUNT
 #endif
 
