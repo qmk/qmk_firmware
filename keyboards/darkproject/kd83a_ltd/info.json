@@ -2,7 +2,7 @@
     "keyboard_name": "KD83a LTD",
     "manufacturer": "Dark Project",
     "url": "https://darkproject.ru",
-    "maintainer": "Gsky",
+    "maintainer": "SHVD3x",
     "usb": {
         "vid": "0x342D",
         "pid": "0xE392",
@@ -140,7 +140,7 @@
         }
     },
     "rgb_matrix": {
-        "driver": "AW20216",
+        "driver": "aw20216s",
         "animations": {
             "alphas_mods": true,
             "gradient_up_down": true,
