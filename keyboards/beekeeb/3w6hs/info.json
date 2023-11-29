@@ -5,7 +5,11 @@
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0003",
-        "vid": "0xBEEB"
+        "vid": "0xBEEB",
+        "no_startup_check": true
+    },
+    "matrix_pins": {
+        "custom_lite": true
     },
     "processor": "RP2040",
     "bootloader": "rp2040",
