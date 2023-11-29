@@ -279,6 +279,6 @@
             { "x": 0, "y": 18, "flags": 2 }, //  83, Encoder UP
             { "x": 0, "y": 28, "flags": 2 }, //  84, Encoder DOWN
         ],
-        "center_point": [ 102, 30 ]
+        "center_point": [ 102, 33 ]
     }
 }
