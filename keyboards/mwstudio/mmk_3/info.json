@@ -3,8 +3,8 @@
     "maintainer": "TW59420",
     "keyboard_name": "3Key",
     "usb": {
-        "pid": "0x4287",
-        "vid": "0x4249",
+        "pid": "0x3001",
+        "vid": "0x7BA1",
         "device_version": "1.0.0"
     },
     "diode_direction": "ROW2COL",
