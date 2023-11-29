@@ -1,5 +1,4 @@
-/* Copyright 2022 GSKY <gskyGit@gsky.com.tw>
- * Copyright 2023 SHVD3x
+/* Copyright 2023 SHVD3x
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,16 +18,16 @@
 
 #ifdef RGB_MATRIX_ENABLE
 
-const aw_led g_aw_leds[RGB_MATRIX_LED_COUNT] = {
-/* Each AW20216 channel is controlled by a register at some offset between 0x00
+const aw20216s_led_t g_aw20216s_leds[RGB_MATRIX_LED_COUNT] = {
+/* Each AW20216S channel is controlled by a register at some offset between 0x00
  * and 0xD7 inclusive.
- * See drivers/awinic/aw20216.h for the mapping between register offsets and
+ * See drivers/led/aw20216s.h for the mapping between register offsets and
  * driver pin locations.
- *     driver
- *     |  R location
- *     |  |          G location
- *     |  |          |          B location
- *     |  |          |          | */
+ *   driver
+ *   |  R location
+ *   |  |          G location
+ *   |  |          |          B location
+ *   |  |          |          | */
     //{0, CS1_SW1,   CS2_SW1,   CS3_SW1},   //   0, Esc
     
     {0, CS1_SW1,   CS2_SW1,   CS3_SW1},   //   0, Esc
