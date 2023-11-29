@@ -4,7 +4,7 @@
 
 75% 83 keys keyboard. Equipped with the WestBerry WB32FQ95 ARM Cortex-M3 microcontroller
 
-* Keyboard Maintainers: [GSKY](https://github.com/gksygithub), [SHVD3x](https://github.com/SHVD3x)
+* Keyboard Maintainer: [SHVD3x](https://github.com/SHVD3x)
 * Hardware Supported: Dark Project KD83a LTD
 * Hardware Availability: [Dark Project](https://darkproject.ru)
 
