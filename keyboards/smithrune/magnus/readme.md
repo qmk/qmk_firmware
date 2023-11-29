@@ -1,4 +1,4 @@
-# Smith and Rune Magnus QMK folder
+# Smith and Rune Magnus
 
 ![magnus](https://imgur.com/bemM7ZZh.jpg)
 
