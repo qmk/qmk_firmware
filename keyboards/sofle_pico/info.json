@@ -2,6 +2,7 @@
     "manufacturer": "Ryan Neff",
     "keyboard_name": "sofle_pico",
     "url": "https://github.com/JellyTitan/sofle_pico",
+    "bootloader_instructions": "Hold the BOOT button while plugging in the usb cable",
     "maintainer": "Ryan Neff <github@JellyTitan.com>",
     "tags": ["ortho", "split", "rgb", "encoder", "OLED"],
     "usb": {
@@ -10,12 +11,19 @@
         "device_version": "3.5.1"
     },
     "features": {
-        "bootmagic": true,
+        "bootmagic": false,
         "command": false,
+        "dynamic_tapping_term": true,
+        "encoder": true,
+        "encoder_map": true,
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "tap_dance": true,
+        "nkro": true,
+        "rgb_matrix": true,
+        "oled": true,
+        "wpm": true
     },
     "ws2812": {
         "pin": "GP0",
