@@ -96,7 +96,7 @@
         }
     },
     "rgb_matrix": {
-        "driver": "ckled2001",
+        "driver": "snled27351",
         "animations": {
             "breathing": true,
             "band_spiral_val": true,

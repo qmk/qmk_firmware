@@ -143,6 +143,9 @@
     "daisy": {
         "target": "ktec/daisy"
     },
+    "dp3000": {
+        "target": "dp3000/rev1"
+    },
     "drakon": {
         "target": "jagdpietr/drakon"
     },
@@ -176,6 +179,9 @@
     "dztech/volcano660": {
         "target": "ilumkb/volcano660"
     },
+    "dztech/og60": {
+        "target": "dztech/tofu60"
+    },
     "eek": {
         "target": "eek/silk_down"
     },
@@ -208,6 +214,9 @@
     },
     "handwired/dactyl_manuform/6x6_kinesis": {
         "target": "handwired/dactyl_kinesis"
+    },
+    "handwired/dactyl_manuform/dmote/62key": {
+        "target": "handwired/dmote"
     },
     "handwired/ferris": {
         "target": "ferris/0_1"
@@ -400,6 +409,9 @@
     },
     "maartenwut/wonderland": {
         "target": "evyd13/wonderland"
+    },
+    "matchstickworks/southpad": {
+        "target": "matchstickworks/southpad/rev2/"
     },
     "matrix/m12og": {
         "target": "matrix/m12og/rev1"
@@ -894,6 +906,18 @@
     "kelowna/rgb64": {
         "target": "weirdo/kelowna/rgb64"
     },
+    "keychron/q0": {
+        "target": "keychron/q0/base"
+    },
+    "keychron/q1": {
+        "target": "keychron/q1v1/ansi"
+    }
+    "keychron/q4": {
+        "target": "keychron/q4/ansi/v1"
+    }
+    "kprepublic/bm40hsrgb": {
+        "target": "kprepublic/bm40hsrgb/rev1"
+    },
     "kprepublic/bm65hsrgb_iso": {
         "target": "kprepublic/bm65hsrgb_iso/rev1"
     },
@@ -1194,6 +1218,12 @@
     "setta21": {
         "target": "salicylic_acid3/setta21"
     },
+    "soda/mango": {
+        "target": "magic_force/mf17"
+    },
+    "soda/pocket": {
+        "target": "magic_force/mf34"
+    },
     "space_space/rev1": {
         "target": "qpockets/space_space/rev1"
     },
@@ -1217,6 +1247,9 @@
     },
     "stella": {
         "target": "hnahkb/stella"
+    },
+    "studiokestra/line_tkl": {
+        "target": "studiokestra/line_friends_tkl"
     },
     "suihankey/alpha": {
         "target": "kakunpc/suihankey/alpha"
@@ -1322,5 +1355,9 @@
     },
     "zinc/reva": {
         "target": "25keys/zinc/reva"
+    },
+    // Moved during 2023 Q4 cycle
+    "ymdk/melody96": {
+        "target": "ymdk/melody96/soldered"
     }
 }

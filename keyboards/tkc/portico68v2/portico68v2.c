@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3741_led_t g_is31fl3741_leds[RGB_MATRIX_LED_COUNT] = {
     {0, CS18_SW1, CS17_SW1, CS16_SW1}, /* RGB1 */
     {0, CS18_SW2, CS17_SW2, CS16_SW2}, /* RGB2 */
     {0, CS18_SW3, CS17_SW3, CS16_SW3}, /* RGB3 */
