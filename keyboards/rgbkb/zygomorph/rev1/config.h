@@ -22,9 +22,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EE_HANDS
 
 #ifndef RGBLIGHT_SPLIT_ENABLE
-    #define RGBLED_NUM 30
+    #define RGBLIGHT_LED_COUNT 30
 #else
-    #define RGBLED_NUM 60
+    #define RGBLIGHT_LED_COUNT 60
 #endif
 
 #define RGB_MATRIX_LED_COUNT 60

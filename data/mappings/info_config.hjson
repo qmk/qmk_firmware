@@ -142,12 +142,12 @@
     "RGB_MATRIX_DEFAULT_SPD": {"info_key": "rgb_matrix.default.speed", "value_type": "int"},
 
     // RGBLight
-    "RGBLED_NUM": {"info_key": "rgblight.led_count", "value_type": "int"},
     "RGBLED_SPLIT": {"info_key": "rgblight.split_count", "value_type": "array.int"},
     "RGBLIGHT_HUE_STEP": {"info_key": "rgblight.hue_steps", "value_type": "int"},
     "RGBLIGHT_LAYER_BLINK": {"info_key": "rgblight.layers.blink", "value_type": "bool"},
     "RGBLIGHT_LAYERS": {"info_key": "rgblight.layers.enabled", "value_type": "bool"},
     "RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF": {"info_key": "rgblight.layers.override_rgb", "value_type": "bool"},
+    "RGBLIGHT_LED_COUNT": {"info_key": "rgblight.led_count", "value_type": "int"},
     "RGBLIGHT_LED_MAP": {"info_key": "rgblight.led_map", "value_type": "array.int"},
     "RGBLIGHT_LIMIT_VAL": {"info_key": "rgblight.max_brightness", "value_type": "int"},
     "RGBLIGHT_MAX_LAYERS": {"info_key": "rgblight.layers.max", "value_type": "int"},

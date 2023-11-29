@@ -36,7 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_EFFECT_BREATHE_CENTER 2     // 1 to 2.7
     #define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
 /*== customize snake effect ==*/
-    #define RGBLIGHT_EFFECT_SNAKE_LENGTH RGBLED_NUM
+    #define RGBLIGHT_EFFECT_SNAKE_LENGTH RGBLIGHT_LED_COUNT
 /*== customize knight effect ==*/
     #define RGBLIGHT_EFFECT_KNIGHT_LENGTH 6
   #endif

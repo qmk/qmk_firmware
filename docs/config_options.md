@@ -223,7 +223,7 @@ If you define these options you will enable the associated feature, which may in
   * Adds ability to [blink](feature_rgblight.md?id=lighting-layer-blink) a lighting layer for a specified number of milliseconds (e.g. to acknowledge an action).
 * `#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF`
   * If defined, then [lighting layers](feature_rgblight?id=overriding-rgb-lighting-onoff-status) will be shown even if RGB Light is off.
-* `#define RGBLED_NUM 12`
+* `#define RGBLIGHT_LED_COUNT 12`
   * number of LEDs
 * `#define RGBLIGHT_SPLIT`
   * Needed if both halves of the board have RGB LEDs wired directly to the RGB output pin on the controllers instead of passing the output of the left half to the input of the right half

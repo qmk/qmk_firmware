@@ -21,8 +21,8 @@
 #define QUICK_TAP_TERM 0
 #define TAPPING_TERM 180
 
-#ifdef RGBLED_NUM
-  #undef RGBLED_NUM
+#ifdef RGBLIGHT_LED_COUNT
+  #undef RGBLIGHT_LED_COUNT
 #endif
 
 #define RGB_MATRIX_LED_COUNT 48

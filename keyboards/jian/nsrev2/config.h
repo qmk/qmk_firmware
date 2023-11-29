@@ -22,14 +22,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_TIMER
 
 #ifndef IOS_DEVICE_ENABLE
-#if RGBLED_NUM <= 6
+#if RGBLIGHT_LED_COUNT <= 6
 #define RGBLIGHT_LIMIT_VAL 255
 #else
 #define RGBLIGHT_LIMIT_VAL 130
 #endif
 #define RGBLIGHT_VAL_STEP 8
 #else
-#if RGBLED_NUM <= 6
+#if RGBLIGHT_LED_COUNT <= 6
 #define RGBLIGHT_LIMIT_VAL 90
 #else
 #define RGBLIGHT_LIMIT_VAL 45

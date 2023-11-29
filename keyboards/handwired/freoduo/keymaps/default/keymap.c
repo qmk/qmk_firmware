@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 7, 0},
     {7, 24, HSV_RED},
-    {24, RGBLED_NUM, 0}
+    {24, RGBLIGHT_LED_COUNT, 0}
 );
 // Light all LEDs in green when keyboard layer 1 is active
 const rgblight_segment_t PROGMEM layer_lower[] = RGBLIGHT_LAYER_SEGMENTS(
