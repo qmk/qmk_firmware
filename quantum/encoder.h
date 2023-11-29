@@ -64,7 +64,7 @@ void encoder_update_raw(uint8_t* slave_state);
 #            define NUM_ENCODERS_RIGHT 0
 #        endif
 #    endif // SPLIT_KEYBOARD
-#endif // CUSTOM_ENCODER
+#endif     // CUSTOM_ENCODER
 
 #define NUM_ENCODERS_MAX_PER_SIDE MAX(NUM_ENCODERS_LEFT, NUM_ENCODERS_RIGHT)
 
