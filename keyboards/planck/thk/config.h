@@ -18,8 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define DIP_SWITCH_PINS { D0, D1, D4, D6 }
-
 // THK uses D5 for audio
 #undef AUDIO_PIN
 #define AUDIO_PIN D5
