@@ -37,7 +37,8 @@
         "driver": "ws2812"
     },
     "ws2812": {
-        "pin": "B9"
+        "pin": "B9",
+        "driver": "pwm"
     },
     "url": "",
     "usb": {
