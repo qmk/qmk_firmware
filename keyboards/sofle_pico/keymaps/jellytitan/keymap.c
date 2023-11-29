@@ -325,9 +325,16 @@
     bool oled_task_user(void) {
         static bool finished_logo = false;
         if ((timer_elapsed(startup_timer) < OLED_LOGO_TIMEOUT) && !finished_logo) {
+            // Display the logo for 5 seconds on boot.
             render_logo();
         } else {
-            finished_logo = true;
+            // Display the current keyboard state.
+            if (!finished_logo) {
+                // Clears the OLED.
+                oled_clear();
+            } else {
+                finished_logo = true;
+            }
             if (is_keyboard_master()) {
                 render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
             } else {
