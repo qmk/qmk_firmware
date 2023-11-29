@@ -2,6 +2,7 @@
     "manufacturer": "beekeeb",
     "keyboard_name": "3w6hs",
     "maintainer": "beekeeb",
+    "diode_direction": "COL2ROW",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0003",
