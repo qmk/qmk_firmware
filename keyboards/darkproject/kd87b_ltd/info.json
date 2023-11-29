@@ -275,6 +275,6 @@
             { "matrix": [7, 3], "x": 195, "y": 66, "flags": 4 }, //  85, Down
             { "matrix": [0, 5], "x": 207, "y": 66, "flags": 4 } //  86, Right
         ],
-        "center_point": [ 103, 33 ]
+        "center_point": [ 103, 36 ]
     }
 }
