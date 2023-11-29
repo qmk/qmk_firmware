@@ -5,9 +5,6 @@
     "bootloader": "wb32-dfu",
     "diode_direction": "ROW2COL",
     "eeprom": {
-        "driver": "wear_leveling"
-    },
-    "eeprom": {
         "driver": "wear_leveling",
         "wear_leveling": {
             "driver": "spi_flash",
