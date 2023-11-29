@@ -27,6 +27,10 @@
             "static_gradient": true,
             "twinkle": true
         },
+        "layers": {
+            "enabled": true,
+            "override_rgb": false
+        },
         "brightness_steps": 10,
         "led_count": 3,
         "saturation_steps": 8
