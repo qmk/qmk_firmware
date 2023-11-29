@@ -19,6 +19,12 @@
 
 #include "color.h"
 
+#if defined(RGBLED_NUM)
+#    define APA102_LED_COUNT RGBLED_NUM
+#elif defined(RGB_MATRIX_LED_COUNT)
+#    define APA102_LED_COUNT RGB_MATRIX_LED_COUNT
+#endif
+
 #ifndef APA102_DEFAULT_BRIGHTNESS
 #    define APA102_DEFAULT_BRIGHTNESS 31
 #endif
