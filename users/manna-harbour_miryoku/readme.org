@@ -691,6 +691,18 @@ make redox_w:manna-harbour_miryoku:flash
 #+END_SRC
 
 
+**** salicylic_acid3/naked48
+
+An alternative mapping with extended thumb position is also provided.  To select this mapping, append ~MIRYOKU_MAPPING=EXTENDED_THUMBS~ to the ~make~ command line when building.
+
+Example build command lines:
+
+#+BEGIN_SRC sh :tangle no
+make salicylic_acid3/naked48:manna-harbour_miryoku:flash # default
+make salicylic_acid3/naked48:manna-harbour_miryoku:flash MIRYOKU_MAPPING=EXTENDED_THUMBS # extended thumbs
+#+END_SRC
+
+
 **** satt/vision
 
 To build for this keyboard,
