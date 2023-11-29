@@ -2,7 +2,6 @@
     "manufacturer": "victor_illera",
     "keyboard_name": "illera16",
     "maintainer": "villeramassana",
-    "bootloader": "caterina",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
