@@ -1,5 +1,4 @@
-/* Copyright 2022 GSKY <gskyGit@gsky.com.tw>
- * Copyright 2023 SHVD3x
+/* Copyright 2023 SHVD3x
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
