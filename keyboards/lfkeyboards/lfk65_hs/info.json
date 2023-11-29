@@ -13,28 +13,6 @@
     "rows": ["B0", "B3", "B2", "B1", "F5"]
   },
   "diode_direction": "COL2ROW",
-  "backlight": {
-    "levels": 8
-  },
-  "rgblight": {
-    "hue_steps": 10,
-    "led_count": 20,
-    "animations": {
-      "breathing": true,
-      "rainbow_mood": true,
-      "rainbow_swirl": true,
-      "snake": true,
-      "knight": true,
-      "christmas": true,
-      "static_gradient": true,
-      "rgb_test": true,
-      "alternating": true,
-      "twinkle": true
-    }
-  },
-  "ws2812": {
-    "pin": "C7"
-  },
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
   "layouts": {

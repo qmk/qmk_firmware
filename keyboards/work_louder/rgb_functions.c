@@ -24,7 +24,7 @@
 
 #include "ws2812_bitbang.c"
 
-void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds) {
+void rgblight_call_driver(rgb_led_t *start_led, uint8_t num_leds) {
     ws2812_setleds(start_led, num_leds);
 }
 #endif
