@@ -1,6 +1,6 @@
 # El Cantor HS
 
-![El Cantor HS](https://thumb.cloud.mail.ru/weblink/thumb/xw1/VtFZ/jwSN7r6BB)
+![El Cantor HS](https://imagestack.de/i/905c30a38469.png)
 
 The El Cantor HS keyboard is a 44 key diodeless split keyboard with support for hotswap sockets, designed with simplicity in mind. Based on the popular [Cantor](https://github.com/diepala/cantor) keyboard, this keyboard features a stronger, Corne like, column stagger whilst aiming to simplify assembly and improve cost efficiency.
 
