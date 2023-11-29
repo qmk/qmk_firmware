@@ -26,7 +26,6 @@
 #define I2C1_SCL_PIN GP1
 // We need to slow down the I2C clock because the default of 400.000
 // fails to communicate with Zetta ZD24C02A EEPROM on a Myriad card.
-// This somehow results in a clock of 127kHz, but that's okay
 #define I2C1_CLOCK_SPEED 100000
 
 // SPI1, both for onboard matrix data and SPI to Myriad module
@@ -60,7 +59,5 @@
 #define NUM_ENCODERS_RIGHT 4
 
 // OLED display
-#ifdef OLED_ENABLE
-#    define OLED_DISPLAY_128X64
-#    define SPLIT_OLED_ENABLE
-#endif
+#define OLED_DISPLAY_128X64
+#define SPLIT_OLED_ENABLE

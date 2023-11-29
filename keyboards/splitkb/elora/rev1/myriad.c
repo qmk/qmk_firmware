@@ -37,8 +37,6 @@ typedef struct __attribute__((__packed__)) {
 } identity_record_t;
 
 static bool myriad_reader(uint8_t *data, uint16_t length) {
-    i2c_init();
-
     const uint8_t eeprom_address = 0x50; // 1010 000 - NOT shifted for R/W bit
     const uint16_t i2c_timeout = 100; // in milliseconds
 
@@ -194,6 +192,7 @@ myriad_card_t detect_myriad(void) {
     static myriad_card_t card = UNINITIALIZED;
 
     if (card == UNINITIALIZED) {
+        i2c_init();
         card = _detect_myriad();
     }
 
