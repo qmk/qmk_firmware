@@ -15,8 +15,6 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "mousekey.h"
-
 
 enum plaid_layers {
   _QWERTY,

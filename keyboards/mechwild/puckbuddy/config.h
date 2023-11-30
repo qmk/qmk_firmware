@@ -7,9 +7,6 @@
 /* Define custom font */
 #define OLED_FONT_H "keyboards/mechwild/puckbuddy/glcdfont.c"
 
-/* allows the "key" button on the blackpill to toggle caps lock for user testing before soldering */
-#define DIP_SWITCH_PINS { A0 }
-
 /* set the tapping term for glidepoint pad to register a tap click */
 //#define CIRQUE_PINNACLE_TAPPING_TERM 0 // This is set to 0 to disable it
 
