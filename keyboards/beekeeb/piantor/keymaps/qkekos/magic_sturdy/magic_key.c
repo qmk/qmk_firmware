@@ -18,7 +18,11 @@ void process_magic_key(uint16_t keycode, uint8_t mods) {
     }
 
     switch (queue(-3)) {
-        quadruple_magic_case(KC_O, KC_L, LT_I, KC_C, "y");
+        quadruple_magic_case(KC_O,   KC_L,  LT_I,  KC_C, "y");
+        quadruple_magic_case(KC_U,   CLT_R, CLT_A, KC_C, "y");
+        quadruple_magic_case(CLT_R,  KC_M,  CLT_A, KC_C, "y");
+        quadruple_magic_case(TH_NUM, CLT_R, ALT_E, KC_C, "y");
+        quadruple_magic_case(KC_C,   KC_R,  CLT_A, KC_C, "y");
     }
 
     switch (queue(-2)) {
@@ -34,8 +38,10 @@ void process_magic_key(uint16_t keycode, uint8_t mods) {
             double_magic_case(ALT_E, KC_X,  "ample");
         );
 
-        triple_magic_case(GLT_S, KC_Y, GLT_S, "tem");
-        triple_magic_case(KC_O,  KC_B, KC_V,  "iously");
+        triple_magic_case(KC_V,  CLT_A, KC_C,  "y");
+        triple_magic_case(KC_G,  CLT_A, KC_C,  "y");
+        triple_magic_case(GLT_S, KC_Y,  GLT_S, "tem");
+        triple_magic_case(KC_O,  KC_B,  KC_V,  "iously");
     }
 
     switch (last_queue_key) {
