@@ -18,12 +18,12 @@ void ws2812_init(void) {
 }
 
 // Setleds for standard RGB
-void ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
+void ws2812_setleds(rgb_led_t *ledarray, uint16_t leds) {
     static bool s_init = false;
     if (!s_init) {
         ws2812_init();
         s_init = true;
     }
 
-    i2c_transmit(WS2812_I2C_ADDRESS, (uint8_t *)ledarray, sizeof(LED_TYPE) * leds, WS2812_I2C_TIMEOUT);
+    i2c_transmit(WS2812_I2C_ADDRESS, (uint8_t *)ledarray, sizeof(rgb_led_t) * leds, WS2812_I2C_TIMEOUT);
 }

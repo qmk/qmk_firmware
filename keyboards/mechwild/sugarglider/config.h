@@ -3,8 +3,6 @@
 
 #pragma once
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 5
-
 /* Matrix COL and ROW definitions */
 #define MATRIX_ROWS 9
 #define MATRIX_COLS 6
@@ -15,9 +13,6 @@
 
 /* Define custom font */
 #define OLED_FONT_H "keyboards/mechwild/sugarglider/glcdfont.c"
-
-/* allows the "key" button on the blackpill to toggle caps lock for user testing before soldering */
-#define DIP_SWITCH_PINS { A0 }
 
 #define CIRQUE_PINNACLE_TAP_ENABLE
 #define POINTING_DEVICE_GESTURES_SCROLL_ENABLE

@@ -25,7 +25,3 @@ RGB_MATRIX_ENABLE = yes
 
 # Encoder enabled
 ENCODER_ENABLE = yes
-
-# Wear-levelling driver
-EEPROM_DRIVER = wear_leveling
-WEAR_LEVELING_DRIVER = embedded_flash
