@@ -29,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ============================= MACROS ============================ */
 
 static inline void ps2_mouse_convert_report_to_hid(report_mouse_t *mouse_report);
-static inline void ps2_mouse_clear_report(report_mouse_t *mouse_report);
 static inline void ps2_mouse_enable_scrolling(void);
 
 /* ============================= IMPLEMENTATION ============================ */
@@ -177,14 +176,6 @@ static inline void ps2_mouse_convert_report_to_hid(report_mouse_t *mouse_report)
 
     // invert coordinate of y to conform to USB HID mouse
     mouse_report->y = -mouse_report->y;
-}
-
-static inline void ps2_mouse_clear_report(report_mouse_t *mouse_report) {
-    mouse_report->x       = 0;
-    mouse_report->y       = 0;
-    mouse_report->v       = 0;
-    mouse_report->h       = 0;
-    mouse_report->buttons = 0;
 }
 
 static inline void ps2_mouse_enable_scrolling(void) {
