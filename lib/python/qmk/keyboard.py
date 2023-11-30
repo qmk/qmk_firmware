@@ -78,13 +78,17 @@ def keyboard_alias_definitions():
 def is_all_keyboards(keyboard):
     """Returns True if the keyboard is an AllKeyboards object.
     """
+    if isinstance(keyboard, str):
+        return (keyboard == 'all')
     return isinstance(keyboard, AllKeyboards)
 
 
 def find_keyboard_from_dir():
     """Returns a keyboard name based on the user's current directory.
     """
-    relative_cwd = qmk.path.under_qmk_firmware()
+    relative_cwd = qmk.path.under_qmk_userspace()
+    if not relative_cwd:
+        relative_cwd = qmk.path.under_qmk_firmware()
 
     if relative_cwd and len(relative_cwd.parts) > 1 and relative_cwd.parts[0] == 'keyboards':
         # Attempt to extract the keyboard name from the current directory
@@ -131,6 +135,22 @@ def keyboard_folder(keyboard):
         raise ValueError(f'Invalid keyboard: {keyboard}')
 
     return keyboard
+
+
+def keyboard_aliases(keyboard):
+    """Returns the list of aliases for the supplied keyboard.
+
+    Includes the keyboard itself.
+    """
+    aliases = json_load(Path('data/mappings/keyboard_aliases.hjson'))
+
+    if keyboard in aliases:
+        keyboard = aliases[keyboard].get('target', keyboard)
+
+    keyboards = set(filter(lambda k: aliases[k].get('target', '') == keyboard, aliases.keys()))
+    keyboards.add(keyboard)
+    keyboards = list(sorted(keyboards))
+    return keyboards
 
 
 def keyboard_folder_or_all(keyboard):
