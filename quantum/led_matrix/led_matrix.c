@@ -74,9 +74,6 @@ static uint8_t         led_last_enable   = UINT8_MAX;
 static uint8_t         led_last_effect   = UINT8_MAX;
 static effect_params_t led_effect_params = {0, LED_FLAG_ALL, false};
 static led_task_states led_task_state    = SYNCING;
-#if LED_MATRIX_TIMEOUT > 0
-static uint32_t led_anykey_timer;
-#endif // LED_MATRIX_TIMEOUT > 0
 
 // double buffers
 static uint32_t led_timer_buffer;
@@ -156,9 +153,6 @@ void process_led_matrix(uint8_t row, uint8_t col, bool pressed) {
 #ifndef LED_MATRIX_SPLIT
     if (!is_keyboard_master()) return;
 #endif
-#if LED_MATRIX_TIMEOUT > 0
-    led_anykey_timer = 0;
-#endif // LED_MATRIX_TIMEOUT > 0
 
 #ifdef LED_MATRIX_KEYREACTIVE_ENABLED
     uint8_t led[LED_HITS_TO_REMEMBER];
@@ -208,21 +202,10 @@ static bool led_matrix_none(effect_params_t *params) {
 }
 
 static void led_task_timers(void) {
-#if defined(LED_MATRIX_KEYREACTIVE_ENABLED) || LED_MATRIX_TIMEOUT > 0
+#if defined(LED_MATRIX_KEYREACTIVE_ENABLED)
     uint32_t deltaTime = sync_timer_elapsed32(led_timer_buffer);
-#endif // defined(LED_MATRIX_KEYREACTIVE_ENABLED) || LED_MATRIX_TIMEOUT > 0
+#endif // defined(LED_MATRIX_KEYREACTIVE_ENABLED)
     led_timer_buffer = sync_timer_read32();
-
-    // Update double buffer timers
-#if LED_MATRIX_TIMEOUT > 0
-    if (led_anykey_timer < UINT32_MAX) {
-        if (UINT32_MAX - deltaTime < led_anykey_timer) {
-            led_anykey_timer = UINT32_MAX;
-        } else {
-            led_anykey_timer += deltaTime;
-        }
-    }
-#endif // LED_MATRIX_TIMEOUT > 0
 
     // Update double buffer last hit timers
 #ifdef LED_MATRIX_KEYREACTIVE_ENABLED
@@ -329,7 +312,7 @@ void led_matrix_task(void) {
     // while suspended and just do a software shutdown. This is a cheap hack for now.
     bool suspend_backlight = suspend_state ||
 #if LED_MATRIX_TIMEOUT > 0
-                             (led_anykey_timer > (uint32_t)LED_MATRIX_TIMEOUT) ||
+                             (last_input_activity_elapsed() > (uint32_t)LED_MATRIX_TIMEOUT) ||
 #endif // LED_MATRIX_TIMEOUT > 0
                              false;
 
