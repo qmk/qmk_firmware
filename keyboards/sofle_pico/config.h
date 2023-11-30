@@ -10,13 +10,6 @@
 #define SERIAL_USART_RX_PIN GP17  // USART RX pin
 #define SERIAL_USART_PIN_SWAP  // Swap TX and RX pins if keyboard is master halve. (Only available on some MCUs)
 
-/* RGB Stuff */
-#ifdef RGB_MATRIX_ENABLE
-#    define RGB_MATRIX_LED_COUNT 58
-#    define RGB_MATRIX_SPLIT \
-        { 29, 29 } // 29 LEDs on each side
-#endif
-
 // I2C for OLEDs        
 #define I2C_DRIVER I2CD1
 #define I2C1_SDA_PIN GP6
