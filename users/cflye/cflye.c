@@ -119,27 +119,16 @@ tap_dance_action_t tap_dance_actions[] = {
 #ifdef TAPPING_TERM_PER_KEY
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        // qwerty - shft
-        case HOME_F:
-        case HOME_J:
-          return TAPPING_TERM - 80;
-
-        // qwerty - win
-        case HOME_SCLN:
-          return TAPPING_TERM + 180;
 
         // colemak - shift
-        case HOME_T:
-        case HOME_N:
+        case HOME_COL_D:
+        case HOME_COL_H:
           return TAPPING_TERM - 80;
 
         // colemak - wln
-        case HOME_O:
-        case HOME_A:
+        case HOME_COL_Z:
+        case HOME_COL_SLASH:
           return TAPPING_TERM + 180;
-
-        case HOME_S:
-          return TAPPING_TERM - 80;
 
         default:
           return TAPPING_TERM;

@@ -58,6 +58,30 @@ enum unicode_names {
 #define HOME_I LALT_T(KC_I)
 #define HOME_O RGUI_T(KC_O)
 
+// Left-hand home row mods (row 1)
+#define HOME_COL_Q LGUI_T(KC_Q)
+#define HOME_COL_W LALT_T(KC_W)
+#define HOME_COL_F LCTL_T(KC_F)
+#define HOME_COL_P LSFT_T(KC_P)
+
+// Right-hand home row mods (row 1)
+#define HOME_COL_L RSFT_T(KC_L)
+#define HOME_COL_U RCTL_T(KC_U)
+#define HOME_COL_Y LALT_T(KC_Y)
+#define HOME_COL_SCLN RGUI_T(KC_SCLN)
+
+// Left-hand home row mods (row 3)
+#define HOME_COL_Z LGUI_T(KC_Z)
+#define HOME_COL_X LALT_T(KC_X)
+#define HOME_COL_C LCTL_T(KC_C)
+#define HOME_COL_D LSFT_T(KC_D)
+
+// Right-hand home row mods (row 3)
+#define HOME_COL_H RSFT_T(KC_H)
+#define HOME_COL_COMM RCTL_T(KC_COMM)
+#define HOME_COL_DOT LALT_T(KC_DOT)
+#define HOME_COL_SLASH RGUI_T(KC_SLASH)
+
 // QWERTY
 // Left-hand home row mods
 //#define HOME_A LGUI_T(KC_A)
