@@ -1,9 +1,9 @@
 {
-    "keyboard_name": "Tenkeyless No F-Row ANSI Layout With Tsangan Bottom Row",
+    "keyboard_name": "Tenkeyless No F-Row ISO Layout With Tsangan Bottom Row",
     "url": "",
     "maintainer": "qmk",
     "layouts": {
-        "LAYOUT_tkl_nofrow_ansi_tsangan": {
+        "LAYOUT_tkl_nofrow_iso_tsangan": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},
