@@ -90,9 +90,9 @@
             "typing_heatmap": true
         },
         "default": {
-            "animation": "rainbow_pinwheels",
+            "animation": "typing_heatmap",
             "on": true,
-            "speed": 64
+            "speed": 14
         },
         "layout": [
             { "flags": 4, "matrix": [0, 5], "x": 95, "y":  7 },
