@@ -237,8 +237,8 @@
                 {"label": "Alt", "matrix": [4, 2], "x": 4, "y": 4.3},
                 {"label": "Del", "matrix": [4, 3], "x": 5.1, "y": 4.5, "h": 1.5},
                 {"label": "Spc", "matrix": [4, 4], "x": 6.1, "y": 4.5, "h": 1.5},
-                {"label": "Shift", "matrix": [9, 3], "x": 7.9, "y": 4.5, "h": 1.5},
-                {"label": "Bspc", "matrix": [9, 4], "x": 8.9, "y": 4.5, "h": 1.5},
+                {"label": "Shift", "matrix": [9, 4], "x": 7.9, "y": 4.5, "h": 1.5},
+                {"label": "Bspc", "matrix": [9, 3], "x": 8.9, "y": 4.5, "h": 1.5},
                 {"label": "Alt", "matrix": [9, 2], "x": 10, "y": 4.3},
                 {"label": "Win", "matrix": [9, 1], "x": 11, "y": 4},
                 {"label": "Ctrl", "matrix": [9, 0], "x": 12, "y": 4.3}

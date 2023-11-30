@@ -73,7 +73,7 @@
             KC_TAB,       KC_Q,         KC_W,         KC_E,    KC_R,          KC_T,                                            KC_Y,   KC_U,         KC_I,     KC_O,         KC_P,            KC_BSLS, 
             LT(1,KC_DEL), LT(2,KC_A),   LCTL_T(KC_S), KC_D,    LGUI_T(KC_F),  KC_G,                                            KC_H,   RGUI_T(KC_J), KC_K,     RCTL_T(KC_L), LT(2,KC_SCLN),   LT(1,KC_QUOT), 
             KC_LSFT,      LALT_T(KC_Z), KC_X,         KC_C,    KC_V,          KC_B,            KC_MINIM,     KC_MAXIM,         KC_N,   KC_M,         KC_COMM,  KC_DOT,       RALT_T(KC_SLSH), KC_RSFT, 
-                                                    KC_LEFT, KC_RGHT,       QK_GESC, KC_SPC,   KC_BSPC,      KC_ENT,   KC_TAB, KC_DEL, KC_UP,        KC_DOWN
+                                                    KC_LEFT, KC_RGHT,       QK_GESC, KC_SPC,   KC_BSPC,      KC_TAB,   KC_ENT, KC_DEL, KC_UP,        KC_DOWN
         ),
 
         /*
