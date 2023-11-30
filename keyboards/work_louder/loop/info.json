@@ -9,7 +9,7 @@
         "max_power": 100
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
     },
     "matrix_pins": {
         "cols": ["B3", "B2", "B1", "D6", "D7", "B4", "B5", "B6", "C6", "C7", "F7", "F6"],
@@ -30,7 +30,18 @@
         "pin": "F1"
     },
     "rgblight": {
-        "max_brightness": 120
+        "max_brightness": 120,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

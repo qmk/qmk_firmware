@@ -22,7 +22,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action_layer.h"
 #include "action.h"
 #include "debug.h"
-#include "quantum.h"
+#include "keycode_config.h"
+#include "quantum_keycodes.h"
+
+#ifdef ENCODER_MAP_ENABLE
+#    include "encoder.h"
+#endif
 
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
@@ -54,19 +59,19 @@ action_t action_for_keycode(uint16_t keycode) {
     (void)mod;
 
     switch (keycode) {
-        case KC_A ... KC_EXSEL:
-        case KC_LEFT_CTRL ... KC_RIGHT_GUI:
+        case BASIC_KEYCODE_RANGE:
+        case MODIFIER_KEYCODE_RANGE:
             action.code = ACTION_KEY(keycode);
             break;
 #ifdef EXTRAKEY_ENABLE
-        case KC_SYSTEM_POWER ... KC_SYSTEM_WAKE:
+        case SYSTEM_KEYCODE_RANGE:
             action.code = ACTION_USAGE_SYSTEM(KEYCODE2SYSTEM(keycode));
             break;
-        case KC_AUDIO_MUTE ... KC_LAUNCHPAD:
+        case CONSUMER_KEYCODE_RANGE:
             action.code = ACTION_USAGE_CONSUMER(KEYCODE2CONSUMER(keycode));
             break;
 #endif
-        case KC_MS_UP ... KC_MS_ACCEL2:
+        case MOUSE_KEYCODE_RANGE:
             action.code = ACTION_MOUSEKEY(keycode);
             break;
         case KC_TRANSPARENT:

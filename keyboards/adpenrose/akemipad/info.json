@@ -11,7 +11,7 @@
         "pin": "F4"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
     },
     "matrix_pins": {
         "cols": ["D3", "D2", "F5", "F6", "B2"],
@@ -22,6 +22,9 @@
         "rotary": [
             {"pin_a": "B1", "pin_b": "B3"}
         ]
+    },
+    "qmk": {
+        "tap_keycode_delay": 10
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",

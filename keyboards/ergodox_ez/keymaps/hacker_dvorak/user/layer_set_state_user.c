@@ -4,7 +4,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
     switch (layer) {
         case DVORAK:
-            rgblight_sethsv_noeeprom(GREEN);
+            rgblight_sethsv_noeeprom(HSV_GREEN);
             rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
 
             if (PLOVER_MODE) {

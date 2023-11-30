@@ -25,14 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { F5, F6, F7, D7, B5, F5, F6, F7, D7, B5 }
 #define MATRIX_COL_PINS { B4, E6, C6, B6, B2 }
 
-   #define RGBLED_NUM 10
-   #define RGBLIGHT_SPLIT
-   #define RGBLED_SPLIT { 5, 5 }
-   #define RGBLIGHT_HUE_STEP 8
-   #define RGBLIGHT_SAT_STEP 8
-   #define RGBLIGHT_VAL_STEP 8
-   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

@@ -23,7 +23,7 @@
         "rows": ["B1", "B2", "B3", "D3", "D1", "D0"]
     },
     "rgb_matrix": {
-        "driver": "WS2812",
+        "driver": "ws2812",
         "layout": [
             {"flags": 1, "matrix": [3, 13], "x": 190, "y": 40},
             {"flags": 4, "matrix": [3, 11], "x": 167, "y": 40},

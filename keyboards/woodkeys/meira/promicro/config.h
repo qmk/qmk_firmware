@@ -33,8 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { B1, B3, B2, B6, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN }
 #define MATRIX_COL_PINS_SCANNED { B1, B3, B2, B6 }
 
-#define LED_EN_PIN D2
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

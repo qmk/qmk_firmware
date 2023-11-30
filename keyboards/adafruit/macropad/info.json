@@ -14,7 +14,7 @@
         ]
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
     },
     "bootmagic": {
         "matrix": [1, 2]

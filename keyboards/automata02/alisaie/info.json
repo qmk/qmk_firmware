@@ -36,6 +36,7 @@
                 {"label": "-", "matrix": [0, 11], "x": 12.5, "y": 0},
                 {"label": "=", "matrix": [0, 12], "x": 13.5, "y": 0},
                 {"label": "\\", "matrix": [0, 13], "x": 14.5, "y": 0},
+                {"label": "`", "matrix": [4, 11], "x": 15.5, "y": 0},
 
                 {"label": "Tab", "matrix": [1, 0], "x": 0, "y": 1, "w": 1.5},
                 {"label": "Q", "matrix": [1, 1], "x": 1.5, "y": 1},
@@ -87,7 +88,6 @@
                 {"label": "Space", "matrix": [4, 3], "x": 4.75, "y": 4, "w": 2.75},
                 {"label": "Space", "matrix": [4, 8], "x": 7.75, "y": 4, "w": 2.25},
                 {"label": "GUI", "matrix": [4, 9], "x": 10, "y": 4, "w": 1.5},
-                {"label": "`", "matrix": [4, 11], "x": 15.5, "y": 0},
                 {"label": "Alt", "matrix": [4, 12], "x": 14, "y": 4},
                 {"label": "Ctrl", "matrix": [4, 13], "x": 15, "y": 4, "w": 1.5}
             ]

@@ -74,7 +74,7 @@ def convert_from_uf2(buf):
             assert False, "Non-word padding size at " + ptr
         while padding > 0:
             padding -= 4
-            outp += b"\x00\x00\x00\x00"
+            outp.append(b"\x00\x00\x00\x00")
         if familyid == 0x0 or ((hd[2] & 0x2000) and familyid == hd[7]):
             outp.append(block[32 : 32 + datalen])
         curraddr = newaddr + datalen
@@ -218,18 +218,17 @@ def get_drives():
             if len(words) >= 3 and words[1] == "2" and words[2] == "FAT":
                 drives.append(words[0])
     else:
-        rootpath = "/media"
+        searchpaths = ["/media"]
         if sys.platform == "darwin":
-            rootpath = "/Volumes"
+            searchpaths = ["/Volumes"]
         elif sys.platform == "linux":
-            tmp = rootpath + "/" + os.environ["USER"]
-            if os.path.isdir(tmp):
-                rootpath = tmp
-            tmp = "/run" + rootpath + "/" + os.environ["USER"]
-            if os.path.isdir(tmp):
-                rootpath = tmp
-        for d in os.listdir(rootpath):
-            drives.append(os.path.join(rootpath, d))
+            searchpaths += ["/media/" + os.environ["USER"], '/run/media/' + os.environ["USER"]]
+
+        for rootpath in searchpaths:
+            if os.path.isdir(rootpath):
+                for d in os.listdir(rootpath):
+                    if os.path.isdir(rootpath):
+                        drives.append(os.path.join(rootpath, d))
 
 
     def has_info(d):

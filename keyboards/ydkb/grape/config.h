@@ -24,10 +24,6 @@
 
 #define SN74X138_ADDRESS_PINS { D2, D1, D0 }
 
-#ifdef RGBLIGHT_ENABLE
-#define RGBLED_NUM 4
-#endif
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

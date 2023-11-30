@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include "keyboard.h"
 #include "action.h"
+#include "bitwise.h"
 
 #ifdef DYNAMIC_KEYMAP_ENABLE
 #    ifndef DYNAMIC_KEYMAP_LAYER_COUNT
