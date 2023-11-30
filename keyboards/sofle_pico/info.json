@@ -14,7 +14,7 @@
         "lto": false
     },
     "features": {
-        "bootmagic": false,
+        "bootmagic": true,
         "command": false,
         "dynamic_tapping_term": true,
         "encoder": true,
