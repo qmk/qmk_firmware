@@ -5,5 +5,8 @@
     },
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
-    "bootloader": "caterina"
+    "bootloader": "caterina",
+    "bluetooth": {
+        "driver": "bluefruit_le"
+    }
 }

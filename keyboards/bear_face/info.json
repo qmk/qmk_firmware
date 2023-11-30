@@ -15,6 +15,7 @@
     },
     "diode_direction": "COL2ROW",
     "backlight": {
+        "driver": "timer",
         "pin": "F7"
     },
     "processor": "atmega32u4",

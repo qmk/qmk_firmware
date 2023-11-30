@@ -13,7 +13,10 @@
         "driver": "spi"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812",
+        "hue_steps": 10,
+        "sat_steps": 10,
+        "val_steps": 10
     },
     "matrix_pins": {
         "cols": ["A6", "A7", "A8", "A9", "A10", "B0", "B1", "B2", "B6", "B7", "C13", "C14", "C15"],
@@ -23,6 +26,9 @@
     "processor": "STM32F303",
     "bootloader": "stm32-dfu",
     "board": "QMK_PROTON_C",
+    "tapping": {
+        "toggle": 2
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_ortho_4x13"
     },

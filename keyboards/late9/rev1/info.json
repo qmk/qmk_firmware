@@ -8,6 +8,12 @@
         "pid": "0x3777",
         "device_version": "0.1.0"
     },
+    "tapping": {
+        "term": 400
+    },
+    "build": {
+        "debounce_type": "sym_eager_pk"
+    },
     "matrix_pins": {
         "cols": ["B5", "C6", "D4"],
         "rows": ["B4", "E6", "D7", "B3", "B2", "B6"]

@@ -15,6 +15,8 @@
  */
 #pragma once
 
-#include "quantum.h"
+#include <stdint.h>
+#include <stdbool.h>
+#include "action.h"
 
 bool process_rgb(const uint16_t keycode, const keyrecord_t *record);

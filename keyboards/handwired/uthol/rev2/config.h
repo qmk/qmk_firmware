@@ -18,5 +18,4 @@
 #pragma once
 
 //RGB Stuff
-#define RGBLED_NUM 39
 #define RGBLIGHT_DEFAULT_HUE 201

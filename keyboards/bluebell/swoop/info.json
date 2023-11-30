@@ -12,7 +12,17 @@
     "pin": "D3"
   },
   "rgblight": {
-    "max_brightness": 150
+    "hue_steps": 10,
+    "led_count": 36,
+    "max_brightness": 150,
+    "sleep": true,
+    "split_count": [18, 18],
+    "animations": {
+      "breathing": true,
+      "rainbow_mood": true,
+      "rainbow_swirl": true,
+      "static_gradient": true
+    }
   },
   "matrix_pins": {
     "cols": ["B1", "F7", "F6", "F5", "F4"],

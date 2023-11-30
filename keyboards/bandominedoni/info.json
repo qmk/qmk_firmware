@@ -9,7 +9,7 @@
         "device_version": "0.0.1"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
     },
     "matrix_pins": {
         "cols": ["D1", "E6", "F7", "B1", "B3", "B2", "D0"],
@@ -25,6 +25,9 @@
                 ]
             }
         }
+    },
+    "qmk": {
+        "tap_keycode_delay": 10
     },
     "ws2812": {
         "pin": "D3"

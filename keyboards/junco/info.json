@@ -8,12 +8,33 @@
         "pid": "0x4A13",
         "device_version": "1.0.0"
     },
+    "matrix_pins": {
+        "cols": ["GP2", "GP3", "GP4", "GP5", "GP6", "GP7"],
+        "rows": ["GP8", "GP9", "GP10", "GP11", "GP12"]
+    },
+    "diode_direction": "COL2ROW",
     "ws2812": {
         "pin": "GP15",
         "driver": "vendor"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "GP16", "pin_b": "GP17"},
+            {"pin_a": "GP14", "pin_b": "GP13"}
+        ]
+    },
+    "split": {
+        "encoder": {
+            "right": {
+                "rotary": [
+                    {"pin_a": "GP14", "pin_b": "GP13"},
+                    {"pin_a": "GP16", "pin_b": "GP17"}
+                ]
+            }
+        }
     },
     "processor": "RP2040",
     "bootloader": "rp2040",

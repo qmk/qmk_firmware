@@ -98,7 +98,12 @@
         "rows": ["B7", "B3", "B2", "B1", "D6"]
     },
     "rgblight": {
-        "led_count": 8
+        "led_count": 8,
+        "animations": {
+            "rainbow_swirl": true,
+            "snake": true,
+            "christmas": true
+        }
     },
     "ws2812": {
         "pin": "F0"

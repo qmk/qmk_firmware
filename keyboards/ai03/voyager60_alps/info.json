@@ -8,6 +8,12 @@
         "pid": "0x060A",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 14,
+        "sleep": true
+    },
     "ws2812": {
         "pin": "D2"
     },

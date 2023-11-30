@@ -3,10 +3,8 @@
 
 #include <ch.h>
 
-#include "quantum.h"
 #include "serial.h"
 #include "serial_protocol.h"
-#include "printf.h"
 #include "synchronization_util.h"
 
 static inline bool initiate_transaction(uint8_t transaction_id);
