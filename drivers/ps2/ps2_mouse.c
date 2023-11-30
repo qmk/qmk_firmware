@@ -62,13 +62,7 @@ void ps2_mouse_init(void) {
 #ifdef PS2_MOUSE_USE_2_1_SCALING
     ps2_mouse_set_scaling_2_1();
 #endif
-
-    ps2_mouse_init_user();
 }
-
-__attribute__((weak)) void ps2_mouse_init_user(void) {}
-
-__attribute__((weak)) void ps2_mouse_moved_user(report_mouse_t *mouse_report) {}
 
 report_mouse_t ps2_mouse_get_report(report_mouse_t mouse_report) {
     /* receives packet from mouse */

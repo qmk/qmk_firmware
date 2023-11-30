@@ -147,8 +147,6 @@ typedef enum ps2_mouse_sample_rate_e {
 
 void ps2_mouse_init(void);
 
-void ps2_mouse_init_user(void);
-
 void ps2_mouse_task(void);
 
 void ps2_mouse_disable_data_reporting(void);
@@ -166,8 +164,6 @@ void ps2_mouse_set_scaling_1_1(void);
 void ps2_mouse_set_resolution(ps2_mouse_resolution_t resolution);
 
 void ps2_mouse_set_sample_rate(ps2_mouse_sample_rate_t sample_rate);
-
-void ps2_mouse_moved_user(report_mouse_t *mouse_report);
 
 report_mouse_t ps2_mouse_get_report(report_mouse_t mouse_report);
 
