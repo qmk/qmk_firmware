@@ -64,8 +64,4 @@
 #    define RGB_MATRIX_KEYPRESSES  // Enables key press effects
 #    define ENABLE_RGB_MATRIX_MULTISPLASH
 
-// Normal effects
-#    define ENABLE_RGB_MATRIX_CYCLE_SPIRAL
-#    define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
-#    define ENABLE_RGB_MATRIX_PIXEL_RAIN
 #endif
