@@ -182,13 +182,8 @@ static inline void ps2_mouse_convert_report_to_hid(report_mouse_t *mouse_report)
     // remove sign and overflow flags
     mouse_report->buttons &= PS2_MOUSE_BTN_MASK;
 
-#ifdef PS2_MOUSE_INVERT_X
-    mouse_report->x = -mouse_report->x;
-#endif
-#ifndef PS2_MOUSE_INVERT_Y // NOTE if not!
     // invert coordinate of y to conform to USB HID mouse
     mouse_report->y = -mouse_report->y;
-#endif
 
 #ifdef PS2_MOUSE_ROTATE
     mouse_xy_report_t x = mouse_report->x;
