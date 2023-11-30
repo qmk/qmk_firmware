@@ -14,36 +14,25 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "encoder.h"
 
-enum layers {
-	_BASE,
-	_FN
-};
+#include "quantum.h"
 
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_kb(index, clockwise)) { return false; }
-	if(index == 0) {
-		if (clockwise) {
-			tap_code(KC_VOLD);
-		} else {
-			tap_code(KC_VOLU);
-			}
-		}
-	return true;
+#ifdef OLED_ENABLE
+bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
+
+    // Layer Status
+    oled_write_P(PSTR("Layer:"), false);
+    oled_write_ln(get_u8_str(get_highest_layer(layer_state), ' '), false);
+
+    // Host Keyboard LED Status
+    led_t led_state = host_keyboard_led_state();
+    oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
+    oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
+    oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
+
+    return true;
 }
-
-void process_layer_state(void) {
-  oled_write_P(PSTR("Layer: "), false);
-
-  switch (get_highest_layer(layer_state)) {
-    case _BASE:
-      oled_write_P(PSTR("Default\n"), false);
-      break;
-    case _FN:
-      oled_write_P(PSTR("Function\n"), false);
-      break;
-    default:
-      oled_write_P(PSTR("huh\n"), false);
-  }
-}
+#endif
