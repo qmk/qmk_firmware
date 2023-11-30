@@ -19,7 +19,6 @@
 
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
 #    define IS31FL3733_I2C_ADDRESS_1 IS31FL3733_I2C_ADDRESS_GND_GND
-#    define IS31FL3733_DRIVER_COUNT 1
 #    define DRIVER_1_LED_TOTAL 63
 #    define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
 

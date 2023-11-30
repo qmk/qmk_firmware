@@ -143,6 +143,9 @@
     "daisy": {
         "target": "ktec/daisy"
     },
+    "dp3000": {
+        "target": "dp3000/rev1"
+    },
     "drakon": {
         "target": "jagdpietr/drakon"
     },

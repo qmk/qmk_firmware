@@ -55,6 +55,29 @@ def _get_key_left_position(key):
     return key['x'] - 0.25 if key.get('h', 1) == 2 and key.get('w', 1) == 1.25 else key['x']
 
 
+def _find_invalid_encoder_index(info_data):
+    """Perform additional validation of encoders
+    """
+    enc_count = len(info_data.get('encoder', {}).get('rotary', []))
+    enc_count += len(info_data.get('split', {}).get('encoder', {}).get('right', {}).get('rotary', []))
+
+    ret = []
+    layouts = info_data.get('layouts', {})
+    for layout_name, layout_data in layouts.items():
+        found = set()
+        for key in layout_data['layout']:
+            if 'encoder' in key:
+                if enc_count == 0:
+                    ret.append((layout_name, key['encoder'], 'non-configured'))
+                elif key['encoder'] >= enc_count:
+                    ret.append((layout_name, key['encoder'], 'out of bounds'))
+                elif key['encoder'] in found:
+                    ret.append((layout_name, key['encoder'], 'duplicate'))
+                found.add(key['encoder'])
+
+    return ret
+
+
 def _additional_validation(keyboard, info_data):
     """Non schema checks
     """
@@ -104,6 +127,11 @@ def _additional_validation(keyboard, info_data):
         if len(decl["key"]) > 7:
             if not decl.get("aliases", []):
                 _log_error(info_data, f'Keycode {decl["key"]} has no short form alias')
+
+    # encoder IDs in layouts must be in range and not duplicated
+    found = _find_invalid_encoder_index(info_data)
+    for layout_name, encoder_index, reason in found:
+        _log_error(info_data, f'Layout "{layout_name}" contains {reason} encoder index {encoder_index}.')
 
 
 def _validate(keyboard, info_data):

@@ -36,6 +36,16 @@
 #    include "is31fl3746.h"
 #endif
 
+#if defined DRIVER_ADDR_4
+#    define DRIVER_COUNT 4
+#elif defined DRIVER_ADDR_3
+#    define DRIVER_COUNT 3
+#elif defined DRIVER_ADDR_2
+#    define DRIVER_COUNT 2
+#elif defined DRIVER_ADDR_1
+#    define DRIVER_COUNT 1
+#endif
+
 #ifdef RGB_MATRIX_ENABLE
 typedef struct is31_led {
     uint8_t driver : 2;

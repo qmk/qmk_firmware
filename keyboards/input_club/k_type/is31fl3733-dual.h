@@ -22,6 +22,25 @@
 #include <stdbool.h>
 #include "progmem.h"
 
+#define IS31FL3733_REG_INTERRUPT_MASK 0xF0
+#define IS31FL3733_REG_INTERRUPT_STATUS 0xF1
+
+#define IS31FL3733_REG_COMMAND 0xFD
+
+#define IS31FL3733_COMMAND_LED_CONTROL 0x00
+#define IS31FL3733_COMMAND_PWM 0x01
+#define IS31FL3733_COMMAND_AUTO_BREATH 0x02
+#define IS31FL3733_COMMAND_FUNCTION 0x03
+
+#define IS31FL3733_FUNCTION_REG_CONFIGURATION 0x00
+#define IS31FL3733_FUNCTION_REG_GLOBAL_CURRENT 0x01
+#define IS31FL3733_FUNCTION_REG_SW_PULLUP 0x0F
+#define IS31FL3733_FUNCTION_REG_CS_PULLDOWN 0x10
+#define IS31FL3733_FUNCTION_REG_RESET 0x11
+
+#define IS31FL3733_REG_COMMAND_WRITE_LOCK 0xFE
+#define IS31FL3733_COMMAND_WRITE_LOCK_MAGIC 0xC5
+
 #define IS31FL3733_I2C_ADDRESS_GND_GND 0x50
 #define IS31FL3733_I2C_ADDRESS_GND_SCL 0x51
 #define IS31FL3733_I2C_ADDRESS_GND_SDA 0x52
@@ -67,19 +86,29 @@ void is31fl3733_update_led_control_registers(uint8_t addr, uint8_t index);
 
 void is31fl3733_flush(void);
 
-#define IS31FL3733_PUR_0R 0x00   // No PUR resistor
-#define IS31FL3733_PUR_05KR 0x02 // 0.5k Ohm resistor in t_NOL
-#define IS31FL3733_PUR_3KR 0x03  // 3.0k Ohm resistor on all the time
-#define IS31FL3733_PUR_4KR 0x04  // 4.0k Ohm resistor on all the time
-#define IS31FL3733_PUR_8KR 0x05  // 8.0k Ohm resistor on all the time
-#define IS31FL3733_PUR_16KR 0x06 // 16k Ohm resistor on all the time
-#define IS31FL3733_PUR_32KR 0x07 // 32k Ohm resistor in t_NOL
+#define IS31FL3733_PDR_0_OHM 0b000   // No pull-down resistor
+#define IS31FL3733_PDR_0K5_OHM 0b001 // 0.5 kOhm resistor
+#define IS31FL3733_PDR_1K_OHM 0b010  // 1 kOhm resistor
+#define IS31FL3733_PDR_2K_OHM 0b011  // 2 kOhm resistor
+#define IS31FL3733_PDR_4K_OHM 0b100  // 4 kOhm resistor
+#define IS31FL3733_PDR_8K_OHM 0b101  // 8 kOhm resistor
+#define IS31FL3733_PDR_16K_OHM 0b110 // 16 kOhm resistor
+#define IS31FL3733_PDR_32K_OHM 0b111 // 32 kOhm resistor
 
-#define IS31FL3733_PWM_FREQUENCY_8K4_HZ 0x00
-#define IS31FL3733_PWM_FREQUENCY_4K2_HZ 0x01
-#define IS31FL3733_PWM_FREQUENCY_26K7_HZ 0x02
-#define IS31FL3733_PWM_FREQUENCY_2K1_HZ 0x03
-#define IS31FL3733_PWM_FREQUENCY_1K05_HZ 0x04
+#define IS31FL3733_PUR_0_OHM 0b000   // No pull-up resistor
+#define IS31FL3733_PUR_0K5_OHM 0b001 // 0.5 kOhm resistor
+#define IS31FL3733_PUR_1K_OHM 0b010  // 1 kOhm resistor
+#define IS31FL3733_PUR_2K_OHM 0b011  // 2 kOhm resistor
+#define IS31FL3733_PUR_4K_OHM 0b100  // 4 kOhm resistor
+#define IS31FL3733_PUR_8K_OHM 0b101  // 8 kOhm resistor
+#define IS31FL3733_PUR_16K_OHM 0b110 // 16 kOhm resistor
+#define IS31FL3733_PUR_32K_OHM 0b111 // 32 kOhm resistor
+
+#define IS31FL3733_PWM_FREQUENCY_8K4_HZ 0b000
+#define IS31FL3733_PWM_FREQUENCY_4K2_HZ 0b001
+#define IS31FL3733_PWM_FREQUENCY_26K7_HZ 0b010
+#define IS31FL3733_PWM_FREQUENCY_2K1_HZ 0b011
+#define IS31FL3733_PWM_FREQUENCY_1K05_HZ 0b100
 
 #define IS31FL3733_SYNC_NONE 0b00
 #define IS31FL3733_SYNC_MASTER 0b01

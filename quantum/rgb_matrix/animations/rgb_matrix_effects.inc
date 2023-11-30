@@ -39,3 +39,7 @@
 #include "solid_reactive_nexus.h"
 #include "splash_anim.h"
 #include "solid_splash_anim.h"
+#include "starlight_anim.h"
+#include "starlight_dual_sat_anim.h"
+#include "starlight_dual_hue_anim.h"
+#include "riverflow_anim.h"

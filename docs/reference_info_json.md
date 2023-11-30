@@ -324,6 +324,8 @@ The ISO enter key is represented by a 1.25u×2uh key. Renderers which utilize in
                 * `w`
                     * The width of the key, in key units.
                     * Default: `1` (1u)
+                * `encoder`
+                    * The index of an encoder this key should be linked to
                 * Example: `{"label": "Shift", "matrix": [4, 0], "x": 0, "y": 4.25, "w": 2.25}`
 
 ## Leader Key :id=leader-key

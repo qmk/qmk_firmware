@@ -31,8 +31,6 @@
 #define AW20216S_EN_PIN_1 C13
 #define AW20216S_EN_PIN_2 C13
 
-#define AW20216S_DRIVER_COUNT 2
-
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 
 // RGB Matrix Animation modes. Explicitly enabled

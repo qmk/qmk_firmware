@@ -348,6 +348,7 @@
                             "additionalProperties": false,
                             "required": ["x", "y"],
                             "properties": {
+                                "encoder": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                                 "label": {
                                     "type": "string",
                                     "pattern": "^[^\\n]*$"

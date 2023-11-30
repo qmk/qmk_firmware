@@ -120,7 +120,7 @@ ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
     MOUSE_ENABLE := yes
 endif
 
-VALID_POINTING_DEVICE_DRIVER_TYPES := adns5050 adns9800 analog_joystick cirque_pinnacle_i2c cirque_pinnacle_spi paw3204 pmw3320 pmw3360 pmw3389 pimoroni_trackball custom
+VALID_POINTING_DEVICE_DRIVER_TYPES := adns5050 adns9800 analog_joystick azoteq_iqs5xx cirque_pinnacle_i2c cirque_pinnacle_spi paw3204 pmw3320 pmw3360 pmw3389 pimoroni_trackball custom
 ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
     ifeq ($(filter $(POINTING_DEVICE_DRIVER),$(VALID_POINTING_DEVICE_DRIVER_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid POINTING_DEVICE_DRIVER,POINTING_DEVICE_DRIVER="$(POINTING_DEVICE_DRIVER)" is not a valid pointing device type)
@@ -139,8 +139,9 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
         ifeq ($(strip $(POINTING_DEVICE_DRIVER)), adns9800)
             SPI_DRIVER_REQUIRED = yes
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), analog_joystick)
-            OPT_DEFS += -DSTM32_ADC -DHAL_USE_ADC=TRUE
-            LIB_SRC += analog.c
+            ANALOG_DRIVER_REQUIRED = yes
+        else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), azoteq_iqs5xx)
+            I2C_DRIVER_REQUIRED = yes
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), cirque_pinnacle_i2c)
             I2C_DRIVER_REQUIRED = yes
             SRC += drivers/sensors/cirque_pinnacle.c
@@ -840,8 +841,8 @@ ifeq ($(strip $(JOYSTICK_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/joystick.c
 
     ifeq ($(strip $(JOYSTICK_DRIVER)), analog)
+        ANALOG_DRIVER_REQUIRED = yes
         OPT_DEFS += -DANALOG_JOYSTICK_ENABLE
-        SRC += analog.c
     endif
     ifeq ($(strip $(JOYSTICK_DRIVER)), digital)
         OPT_DEFS += -DDIGITAL_JOYSTICK_ENABLE
@@ -886,9 +887,9 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
 
     ifeq ($(strip $(BLUETOOTH_DRIVER)), bluefruit_le)
         SPI_DRIVER_REQUIRED = yes
+        ANALOG_DRIVER_REQUIRED = yes
         SRC += $(DRIVER_PATH)/bluetooth/bluetooth.c
         SRC += $(DRIVER_PATH)/bluetooth/bluefruit_le.cpp
-        QUANTUM_LIB_SRC += analog.c
     endif
 
     ifeq ($(strip $(BLUETOOTH_DRIVER)), rn42)
@@ -933,6 +934,11 @@ endif
 ifeq ($(strip $(APA102_DRIVER_REQUIRED)), yes)
     COMMON_VPATH += $(DRIVER_PATH)/led
     SRC += apa102.c
+endif
+
+ifeq ($(strip $(ANALOG_DRIVER_REQUIRED)), yes)
+    OPT_DEFS += -DHAL_USE_ADC=TRUE
+    QUANTUM_LIB_SRC += analog.c
 endif
 
 ifeq ($(strip $(I2C_DRIVER_REQUIRED)), yes)

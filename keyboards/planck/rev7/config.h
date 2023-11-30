@@ -17,9 +17,6 @@
 
 #pragma once
 
-#define DIP_SWITCH_PINS \
-    { B14, A15, A0, B9 }
-
 #define MUSIC_MAP
 #undef AUDIO_VOICES
 #undef AUDIO_PIN

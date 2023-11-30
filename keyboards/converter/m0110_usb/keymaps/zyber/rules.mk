@@ -1,3 +1,0 @@
-F_CPU = 16000000
-BOOTLOADER = atmel-dfu
-CONSOLE_ENABLE = no
