@@ -28,6 +28,9 @@
         }
     },
     "rgblight": {
+        "default": {
+            "animation": "rainbow_swirl"
+        },
         "animations": {
             "alternating": true,
             "breathing": true,
@@ -40,8 +43,6 @@
             "static_gradient": true,
             "twinkle": true
         },
-        "brightness_steps": 8,
-        "hue_steps": 8,
         "led_count": 32,
         "max_brightness": 200,
         "saturation_steps": 8
