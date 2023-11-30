@@ -121,13 +121,13 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
 
         // colemak - shift
-        case HOME_COL_D:
-        case HOME_COL_H:
+        case HOME_COL_P:
+        case HOME_COL_L:
           return TAPPING_TERM - 80;
 
         // colemak - wln
-        case HOME_COL_Z:
-        case HOME_COL_SLASH:
+        case HOME_COL_Q:
+        case HOME_COL_SCLN:
           return TAPPING_TERM + 180;
 
         default:

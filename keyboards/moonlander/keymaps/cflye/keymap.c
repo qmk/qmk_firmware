@@ -69,8 +69,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_base_wrapper(
         _________________COLEMAK_L1_________________, _________________COLEMAK_R1_________________,
-        _______________COLEMAK_L2_NO_HOME___________, _______________COLEMAK_R2_NO_HOME___________,
-        _________________COLEMAK_L3_HOME____________, _________________COLEMAK_R3_HOME____________,
+        _________________COLEMAK_L2_________________, _________________COLEMAK_R2_________________,
+        _________________COLEMAK_L3_________________, _________________COLEMAK_R3_________________,
         _________________THUMB_LEFT________________,  _________________THUMB_RIGHT_______________
     ),
     [_ALT] = LAYOUT_base_wrapper(
