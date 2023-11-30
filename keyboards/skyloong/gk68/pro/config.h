@@ -6,7 +6,6 @@
 #define DRIVER_COUNT 1
 #define DRIVER_1_EN B5
 #define DRIVER_1_CS B12
-#define RGB_MATRIX_LED_COUNT 70
 #define CAPS_LOCK_INDEX 30
 #define WIN_MOD_INDEX 17
 #define MAC_MOD_INDEX 18
