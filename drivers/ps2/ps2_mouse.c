@@ -22,18 +22,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "gpio.h"
 #include "host.h"
 #include "timer.h"
-#include "print.h"
 #include "report.h"
-#include "debug.h"
 #include "ps2.h"
+#include "pointing_device_internal.h"
 
 /* ============================= MACROS ============================ */
 
-static inline void ps2_mouse_print_report(report_mouse_t *mouse_report);
 static inline void ps2_mouse_convert_report_to_hid(report_mouse_t *mouse_report);
 static inline void ps2_mouse_clear_report(report_mouse_t *mouse_report);
 static inline void ps2_mouse_enable_scrolling(void);
-static inline void ps2_mouse_scroll_button_task(report_mouse_t *mouse_report);
 
 /* ============================= IMPLEMENTATION ============================ */
 
@@ -65,6 +62,8 @@ void ps2_mouse_init(void) {
 }
 
 report_mouse_t ps2_mouse_get_report(report_mouse_t mouse_report) {
+    bool has_report = false;
+
     /* receives packet from mouse */
 #ifdef PS2_MOUSE_USE_REMOTE_MODE
     uint8_t rcv;
@@ -76,8 +75,9 @@ report_mouse_t ps2_mouse_get_report(report_mouse_t mouse_report) {
 #    ifdef PS2_MOUSE_ENABLE_SCROLLING
         mouse_report.v = -(ps2_host_recv_response() & PS2_MOUSE_SCROLL_MASK);
 #    endif
+        has_report = true;
     } else {
-        if (debug_mouse) print("ps2_mouse: fail to get mouse packet\n");
+        pd_dprintf("ps2_mouse: fail to get mouse packet\n");
     }
 #else
     /* Streaming mode */
@@ -88,18 +88,17 @@ report_mouse_t ps2_mouse_get_report(report_mouse_t mouse_report) {
 #    ifdef PS2_MOUSE_ENABLE_SCROLLING
         mouse_report.v       = -(ps2_host_recv_response() & PS2_MOUSE_SCROLL_MASK);
 #    endif
+        has_report = true;
     }
 #endif
 
-#ifdef PS2_MOUSE_DEBUG_RAW
-    // Used to debug raw ps2 bytes from mouse
-    ps2_mouse_print_report(&mouse_report);
-#endif
-    ps2_mouse_convert_report_to_hid(&mouse_report);
-#ifdef PS2_MOUSE_DEBUG_HID
-    // Used to debug the bytes sent to the host
-    ps2_mouse_print_report(&mouse_report);
-#endif
+    if (has_report) {
+        pd_dprintf("ps2_mouse: raw x=%x y=%x v=%x h=%x buttons=%x\n", mouse_report.x, mouse_report.y, mouse_report.v, mouse_report.h, mouse_report.buttons);
+
+        ps2_mouse_convert_report_to_hid(&mouse_report);
+
+        pd_dprintf("ps2_mouse: hid x=%x y=%x v=%x h=%x buttons=%x\n", mouse_report.x, mouse_report.y, mouse_report.v, mouse_report.h, mouse_report.buttons);
+    }
 
     return mouse_report;
 }
@@ -188,21 +187,6 @@ static inline void ps2_mouse_clear_report(report_mouse_t *mouse_report) {
     mouse_report->buttons = 0;
 }
 
-static inline void ps2_mouse_print_report(report_mouse_t *mouse_report) {
-    if (!debug_mouse) return;
-    print("ps2_mouse: [");
-    print_hex8(mouse_report->buttons);
-    print("|");
-    print_hex8((uint8_t)mouse_report->x);
-    print(" ");
-    print_hex8((uint8_t)mouse_report->y);
-    print(" ");
-    print_hex8((uint8_t)mouse_report->v);
-    print(" ");
-    print_hex8((uint8_t)mouse_report->h);
-    print("]\n");
-}
-
 static inline void ps2_mouse_enable_scrolling(void) {
     PS2_MOUSE_SEND(PS2_MOUSE_SET_SAMPLE_RATE, "Initiaing scroll wheel enable: Set sample rate");
     PS2_MOUSE_SEND(200, "200");
@@ -245,7 +229,7 @@ void ps2_mouse_set_cpi(uint16_t cpi) {
             ps2_mouse_set_resolution(PS2_MOUSE_8_COUNT_MM);
             break;
         default:
-            if (debug_mouse) xprintf("ps2_mouse: invalid cpi: %u\n", cpi);
+            pd_dprintf("ps2_mouse: invalid cpi: %u\n", cpi);
             break;
     }
 }

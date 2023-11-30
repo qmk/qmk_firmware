@@ -25,10 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PS2_MOUSE_SEND(command, message)                                                \
     do {                                                                                \
         __attribute__((unused)) uint8_t rcv = ps2_host_send(command);                   \
-        if (debug_mouse) {                                                              \
-            print((message));                                                           \
-            xprintf(" command: %X, result: %X, error: %X \n", command, rcv, ps2_error); \
-        }                                                                               \
+        pd_dprintf("%s command: %X, result: %X, error: %X \n", message, command, rcv, ps2_error); \
     } while (0)
 
 #define PS2_MOUSE_SEND_SAFE(command, message)          \
@@ -57,10 +54,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PS2_MOUSE_RECEIVE(message)                                      \
     do {                                                                \
         __attribute__((unused)) uint8_t rcv = ps2_host_recv_response(); \
-        if (debug_mouse) {                                              \
-            print((message));                                           \
-            xprintf(" result: %X, error: %X \n", rcv, ps2_error);       \
-        }                                                               \
+        pd_dprintf("%s result: %X, error: %X \n", message, rcv, ps2_error);       \
     } while (0)
 
 __attribute__((unused)) static enum ps2_mouse_mode_e {
