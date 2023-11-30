@@ -495,10 +495,10 @@ const pointing_device_driver_t pointing_device_driver = {
 #elif defined(POINTING_DEVICE_DRIVER_ps2_mouse)
 // clang-format off
 const pointing_device_driver_t pointing_device_driver = {
-    .init         = ps2_mouse_pointing_device_init,
-    .get_report   = ps2_mouse_pointing_device_get_report,
-    .set_cpi      = ps2_mouse_pointing_device_set_cpi,
-    .get_cpi      = ps2_mouse_pointing_device_get_cpi,
+    .init         = ps2_mouse_init,
+    .get_report   = ps2_mouse_get_report,
+    .set_cpi      = ps2_mouse_set_cpi,
+    .get_cpi      = ps2_mouse_get_cpi,
 };
 // clang-format on
 

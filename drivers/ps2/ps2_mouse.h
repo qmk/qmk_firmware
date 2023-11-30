@@ -1,5 +1,6 @@
 /*
 Copyright 2011 Jun Wako <wakojun@gmail.com>
+Copyright 2023 Johannes H. Jensen <joh@pseudoberries.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -176,7 +177,8 @@ void ps2_mouse_set_sample_rate(ps2_mouse_sample_rate_t sample_rate);
 
 void ps2_mouse_moved_user(report_mouse_t *mouse_report);
 
-void           ps2_mouse_pointing_device_init(void);
-report_mouse_t ps2_mouse_pointing_device_get_report(report_mouse_t mouse_report);
-uint16_t       ps2_mouse_pointing_device_get_cpi(void);
-void           ps2_mouse_pointing_device_set_cpi(uint16_t cpi);
+report_mouse_t ps2_mouse_get_report(report_mouse_t mouse_report);
+
+uint16_t ps2_mouse_get_cpi(void);
+
+void ps2_mouse_set_cpi(uint16_t cpi);

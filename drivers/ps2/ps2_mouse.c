@@ -1,5 +1,6 @@
 /*
 Copyright 2011,2013 Jun Wako <wakojun@gmail.com>
+Copyright 2023 Johannes H. Jensen <joh@pseudoberries.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -27,8 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "ps2.h"
 
 /* ============================= MACROS ============================ */
-
-static report_mouse_t mouse_report = {};
 
 static inline void ps2_mouse_print_report(report_mouse_t *mouse_report);
 static inline void ps2_mouse_convert_report_to_hid(report_mouse_t *mouse_report);
@@ -71,10 +70,7 @@ __attribute__((weak)) void ps2_mouse_init_user(void) {}
 
 __attribute__((weak)) void ps2_mouse_moved_user(report_mouse_t *mouse_report) {}
 
-void ps2_mouse_task(void) {
-    static uint8_t buttons_prev = 0;
-    extern int     tp_buttons;
-
+report_mouse_t ps2_mouse_get_report(report_mouse_t mouse_report) {
     /* receives packet from mouse */
 #ifdef PS2_MOUSE_USE_REMOTE_MODE
     uint8_t rcv;
@@ -90,6 +86,7 @@ void ps2_mouse_task(void) {
         if (debug_mouse) print("ps2_mouse: fail to get mouse packet\n");
     }
 #else
+    /* Streaming mode */
     if (pbuf_has_data()) {
         mouse_report.buttons = ps2_host_recv_response();
         mouse_report.x       = ps2_host_recv_response();
@@ -97,35 +94,22 @@ void ps2_mouse_task(void) {
 #    ifdef PS2_MOUSE_ENABLE_SCROLLING
         mouse_report.v       = -(ps2_host_recv_response() & PS2_MOUSE_SCROLL_MASK);
 #    endif
-    } else {
-        if (debug_mouse) print("ps2_mouse: fail to get mouse packet\n");
     }
 #endif
 
-    mouse_report.buttons |= tp_buttons;
-    /* if mouse moves or buttons state changes */
-    if (mouse_report.x || mouse_report.y || mouse_report.v || ((mouse_report.buttons ^ buttons_prev) & PS2_MOUSE_BTN_MASK)) {
 #ifdef PS2_MOUSE_DEBUG_RAW
-        // Used to debug raw ps2 bytes from mouse
-        ps2_mouse_print_report(&mouse_report);
+    // Used to debug raw ps2 bytes from mouse
+    ps2_mouse_print_report(&mouse_report);
 #endif
-        buttons_prev = mouse_report.buttons;
-        ps2_mouse_convert_report_to_hid(&mouse_report);
-#if PS2_MOUSE_SCROLL_BTN_MASK
-        ps2_mouse_scroll_button_task(&mouse_report);
-#endif
-        if (mouse_report.x || mouse_report.y || mouse_report.v) {
-            ps2_mouse_moved_user(&mouse_report);
-        }
+    ps2_mouse_convert_report_to_hid(&mouse_report);
 #ifdef PS2_MOUSE_DEBUG_HID
-        // Used to debug the bytes sent to the host
-        ps2_mouse_print_report(&mouse_report);
+    // Used to debug the bytes sent to the host
+    ps2_mouse_print_report(&mouse_report);
 #endif
-        host_mouse_send(&mouse_report);
-    }
 
-    ps2_mouse_clear_report(&mouse_report);
+    return mouse_report;
 }
+
 
 void ps2_mouse_disable_data_reporting(void) {
     PS2_MOUSE_SEND(PS2_MOUSE_DISABLE_DATA_REPORTING, "ps2 mouse disable data reporting");
@@ -312,63 +296,8 @@ static inline void ps2_mouse_scroll_button_task(report_mouse_t *mouse_report) {
     RELEASE_SCROLL_BUTTONS;
 }
 
-void ps2_mouse_pointing_device_init(void) {
-    ps2_mouse_init();
-}
-
-report_mouse_t ps2_mouse_pointing_device_get_report(report_mouse_t mouse_report) {
-    static uint8_t buttons_prev = 0;
-
-    /* receives packet from mouse */
-#ifdef PS2_MOUSE_USE_REMOTE_MODE
-    uint8_t rcv;
-    rcv = ps2_host_send(PS2_MOUSE_READ_DATA);
-    if (rcv == PS2_ACK) {
-        mouse_report.buttons = ps2_host_recv_response();
-        mouse_report.x       = ps2_host_recv_response();
-        mouse_report.y       = ps2_host_recv_response();
-#    ifdef PS2_MOUSE_ENABLE_SCROLLING
-        mouse_report.v = -(ps2_host_recv_response() & PS2_MOUSE_SCROLL_MASK);
-#    endif
-    } else {
-        if (debug_mouse) print("ps2_mouse: fail to get mouse packet\n");
-    }
-#else
-    if (pbuf_has_data()) {
-        mouse_report.buttons = ps2_host_recv_response();
-        mouse_report.x       = ps2_host_recv_response();
-        mouse_report.y       = ps2_host_recv_response();
-#    ifdef PS2_MOUSE_ENABLE_SCROLLING
-        mouse_report.v       = -(ps2_host_recv_response() & PS2_MOUSE_SCROLL_MASK);
-#    endif
-    }
-#endif
-
-    /* if mouse moves or buttons state changes */
-    if (mouse_report.x || mouse_report.y || mouse_report.v || ((mouse_report.buttons ^ buttons_prev) & PS2_MOUSE_BTN_MASK)) {
-#ifdef PS2_MOUSE_DEBUG_RAW
-        // Used to debug raw ps2 bytes from mouse
-        ps2_mouse_print_report(&mouse_report);
-#endif
-        buttons_prev = mouse_report.buttons;
-        ps2_mouse_convert_report_to_hid(&mouse_report);
-#if PS2_MOUSE_SCROLL_BTN_MASK
-        ps2_mouse_scroll_button_task(&mouse_report);
-#endif
-        if (mouse_report.x || mouse_report.y || mouse_report.v) {
-            ps2_mouse_moved_user(&mouse_report);
-        }
-#ifdef PS2_MOUSE_DEBUG_HID
-        // Used to debug the bytes sent to the host
-        ps2_mouse_print_report(&mouse_report);
-#endif
-    }
-
-    return mouse_report;
-}
-
 /* Note: PS/2 mouse uses counts/mm */
-uint16_t  ps2_mouse_pointing_device_get_cpi(void) {
+uint16_t ps2_mouse_get_cpi(void) {
     uint8_t rcv, cpm;
     rcv = ps2_host_send(PS2_MOUSE_STATUS_REQUEST);
     if (rcv == PS2_ACK) {
@@ -383,7 +312,7 @@ uint16_t  ps2_mouse_pointing_device_get_cpi(void) {
 }
 
 /* Note: PS/2 mouse uses counts/mm */
-void ps2_mouse_pointing_device_set_cpi(uint16_t cpi) {
+void ps2_mouse_set_cpi(uint16_t cpi) {
     switch (cpi) {
         case 1:
             ps2_mouse_set_resolution(PS2_MOUSE_1_COUNT_MM);
