@@ -38,6 +38,11 @@ $(info QMK Firmware $(QMK_VERSION))
 endif
 endif
 
+# Try to determine userspace from qmk config, if set.
+ifeq ($(QMK_USERSPACE),)
+    QMK_USERSPACE = $(shell qmk config -ro user.overlay_dir | cut -d= -f2 | sed -e 's@^None$$@@g')
+endif
+
 # Determine which qmk cli to use
 QMK_BIN := qmk
 
@@ -191,9 +196,20 @@ define PARSE_KEYBOARD
     KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_4)/keymaps/*/.)))
     KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_5)/keymaps/*/.)))
 
+    ifneq ($(QMK_USERSPACE),)
+        KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(QMK_USERSPACE)/keyboards/$$(KEYBOARD_FOLDER_PATH_1)/keymaps/*/.)))
+        KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(QMK_USERSPACE)/keyboards/$$(KEYBOARD_FOLDER_PATH_2)/keymaps/*/.)))
+        KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(QMK_USERSPACE)/keyboards/$$(KEYBOARD_FOLDER_PATH_3)/keymaps/*/.)))
+        KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(QMK_USERSPACE)/keyboards/$$(KEYBOARD_FOLDER_PATH_4)/keymaps/*/.)))
+        KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(QMK_USERSPACE)/keyboards/$$(KEYBOARD_FOLDER_PATH_5)/keymaps/*/.)))
+    endif
+
     KEYBOARD_LAYOUTS := $(shell $(QMK_BIN) list-layouts --keyboard $1)
     LAYOUT_KEYMAPS :=
     $$(foreach LAYOUT,$$(KEYBOARD_LAYOUTS),$$(eval LAYOUT_KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/layouts/*/$$(LAYOUT)/*/.)))))
+    ifneq ($(QMK_USERSPACE),)
+        $$(foreach LAYOUT,$$(KEYBOARD_LAYOUTS),$$(eval LAYOUT_KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(QMK_USERSPACE)/layouts/$$(LAYOUT)/*/.)))))
+    endif
 
     KEYMAPS := $$(sort $$(KEYMAPS) $$(LAYOUT_KEYMAPS))
 
@@ -431,8 +447,18 @@ clean:
 	rm -rf $(BUILD_DIR)
 	echo 'done.'
 
-.PHONY: distclean
-distclean: clean
+.PHONY: distclean distclean_qmk
+distclean: distclean_qmk
+distclean_qmk: clean
 	echo -n 'Deleting *.bin, *.hex, and *.uf2 ... '
 	rm -f *.bin *.hex *.uf2
 	echo 'done.'
+
+ifneq ($(QMK_USERSPACE),)
+.PHONY: distclean_userspace
+distclean: distclean_userspace
+distclean_userspace: clean
+	echo -n 'Deleting userspace *.bin, *.hex, and *.uf2 ... '
+	rm -f $(QMK_USERSPACE)/*.bin $(QMK_USERSPACE)/*.hex $(QMK_USERSPACE)/*.uf2
+	echo 'done.'
+endif
