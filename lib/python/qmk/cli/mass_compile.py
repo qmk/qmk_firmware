@@ -72,7 +72,7 @@ all: {keyboard_safe}_{keymap_name}_binary
                     # yapf: enable
                 f.write('\n')
 
-        cli.run([make_cmd, *get_make_parallel_args(parallel), '-f', makefile.as_posix(), 'all'], capture_output=False, stdin=DEVNULL)
+        cli.run([find_make(), *get_make_parallel_args(parallel), '-f', makefile.as_posix(), 'all'], capture_output=False, stdin=DEVNULL)
 
         # Check for failures
         failures = [f for f in builddir.glob(f'failed.log.{os.getpid()}.*')]
