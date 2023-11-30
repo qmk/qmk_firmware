@@ -39,3 +39,6 @@
 
 /* Enable NUM_LOCK_LED_INDEX */
 // #define NUM_LOCK_LED_INDEX 37
+
+/* Enable SCROLL_LOCK_LED_INDEX */
+// #define SCROLL_LOCK_LED_INDEX 14
