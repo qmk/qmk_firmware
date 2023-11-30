@@ -163,6 +163,10 @@ void suspend_wakeup_init_kb(void) {
     writePinHigh(SDB);
     suspend_wakeup_init_user();
 }
+bool shutdown_kb(bool jump_to_bootloader) {
+    writePinLow(SDB);
+    return shutdown_user(jump_to_bootloader);
+}
 #endif
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
