@@ -184,21 +184,6 @@ static inline void ps2_mouse_convert_report_to_hid(report_mouse_t *mouse_report)
 
     // invert coordinate of y to conform to USB HID mouse
     mouse_report->y = -mouse_report->y;
-
-#ifdef PS2_MOUSE_ROTATE
-    mouse_xy_report_t x = mouse_report->x;
-    mouse_xy_report_t y = mouse_report->y;
-#    if PS2_MOUSE_ROTATE == 90
-    mouse_report->x = y;
-    mouse_report->y = -x;
-#    elif PS2_MOUSE_ROTATE == 180
-    mouse_report->x = -x;
-    mouse_report->y = -y;
-#    elif PS2_MOUSE_ROTATE == 270
-    mouse_report->x = -y;
-    mouse_report->y = x;
-#    endif
-#endif
 }
 
 static inline void ps2_mouse_clear_report(report_mouse_t *mouse_report) {
