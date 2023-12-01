@@ -25,9 +25,6 @@
 #define NO_PIN_NUM 10
 #define CLR_REG_VAL 0x3FF
 
-/* RGB Matrix Configuration */
-#define RGB_MATRIX_LED_COUNT 108
-
 /* Enable caps-lock LED*/
 #define CAPS_LOCK_LED_INDEX 61
 

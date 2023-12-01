@@ -24,9 +24,6 @@
 #define NO_PIN_START 11
 #define NO_PIN_OFFSET 1
 
-/* RGB Matrix Configuration */
-#define RGB_MATRIX_LED_COUNT 108
-
 /* Enable caps-lock LED*/
 #define CAPS_LOCK_LED_INDEX 61
 
