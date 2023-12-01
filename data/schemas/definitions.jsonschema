@@ -177,5 +177,23 @@
         "type": "integer",
         "minimum": 0,
         "maximum": 1
+    },
+    "keyboard_keymap_tuple": {
+        "type": "array",
+        "prefixItems": [
+            { "$ref": "#/keyboard" },
+            { "$ref": "#/filename" }
+        ],
+        "unevaluatedItems": false
+    },
+    "json_file_path": {
+        "type": "string",
+        "pattern": "^[0-9a-z_/\\-]+\\.json$"
+    },
+    "build_target": {
+        "oneOf": [
+            { "$ref": "#/keyboard_keymap_tuple" },
+            { "$ref": "#/json_file_path" }
+        ]
     }
 }
