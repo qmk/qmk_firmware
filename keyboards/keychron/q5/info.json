@@ -5,7 +5,9 @@
     "bootloader": "stm32-dfu",
     "diode_direction": "ROW2COL",
     "eeprom": {
-        "backing_size": 4096
+        "wear_leveling": {
+            "backing_size": 4096
+        }
     },
     "features": {
         "bootmagic": true,
