@@ -8,7 +8,7 @@ An Alice replacement keyboard PCB.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make xelus/valor/rev3:default:flash
+    make xelus/valor/rev3:default
 
 Flashing example for this keyboard:
 
