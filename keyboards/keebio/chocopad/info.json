@@ -1,27 +1,10 @@
 {
-  "keyboard_name": "Chocopad",
   "manufacturer": "Keebio",
-  "url": "",
-  "maintainer": "qmk",
+  "url": "https://keeb.io",
+  "maintainer": "nooges",
   "usb": {
-    "vid": "0xCB10",
-    "pid": "0x1144",
-    "device_version": "1.0.0"
+    "vid": "0xCB10"
   },
-  "matrix_pins": {
-    "cols": ["D2", "D4", "F6", "F5"],
-    "rows": ["D7", "E6", "B3", "B2"]
-  },
-  "diode_direction": "COL2ROW",
-  "backlight": {
-    "pin": "B5",
-    "levels": 6
-  },
-  "ws2812": {
-    "pin": "D3"
-  },
-  "processor": "atmega32u4",
-  "bootloader": "caterina",
   "community_layouts": ["ortho_4x4"],
   "layouts": {
     "LAYOUT_ortho_4x4": {

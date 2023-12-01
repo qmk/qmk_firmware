@@ -19,6 +19,9 @@
       {"pin_a": "C7", "pin_b": "F7", "resolution": 3}
     ]
   },
+  "rgblight": {
+    "led_count": 4
+  },
   "ws2812": {
     "pin": "F0"
   },

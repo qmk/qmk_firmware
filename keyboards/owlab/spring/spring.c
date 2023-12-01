@@ -108,7 +108,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
 
         case KC_CAPS:
-            if(IS_LED_ON(host_keyboard_leds(), USB_LED_CAPS_LOCK)){ 
+            if(host_keyboard_led_state().caps_lock){ 
                 caps_mode_index = CAPS_MODE_LOWER;
             } else{
                 caps_mode_index = CAPS_MODE_UPPER;

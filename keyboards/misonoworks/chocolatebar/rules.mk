@@ -12,4 +12,3 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = no
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306

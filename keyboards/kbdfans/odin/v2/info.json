@@ -22,7 +22,19 @@
         "pin": "B15"
     },
     "rgblight": {
-        "max_brightness": 180
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 4,
+        "max_brightness": 180,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "christmas": true,
+            "static_gradient": true
+        }
     },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",

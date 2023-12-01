@@ -8,6 +8,9 @@
         "pid": "0xB170",
         "device_version": "0.0.1"
     },
+    "bluetooth": {
+        "driver": "bluefruit_le"
+    },
     "matrix_pins": {
         "cols": ["F7", "F6", "F5", "F4", "F1", "F0", "D2", "D3", "B7", "D6", "C7"],
         "rows": ["B6", "B5", "D7", "C6", "D0", "D1"]

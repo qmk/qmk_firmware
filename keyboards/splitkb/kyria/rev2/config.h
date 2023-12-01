@@ -47,10 +47,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define SOFT_SERIAL_PIN D2
 #endif
 
-#define RGBLED_SPLIT \
-    { 10, 10 }
-#define RGBLED_NUM 20
-
 #ifdef OLED_ENABLE
 #    define OLED_DISPLAY_128X64
 #    define SPLIT_OLED_ENABLE
@@ -59,7 +55,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* RGB matrix support */
 #ifdef RGB_MATRIX_ENABLE
 #    define SPLIT_TRANSPORT_MIRROR
-#    define RGB_MATRIX_LED_COUNT RGBLED_NUM // Number of LEDs
+#    define RGB_MATRIX_LED_COUNT 20 // Number of LEDs
 #    define RGB_MATRIX_SPLIT { 10, 10 }
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 170
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED
