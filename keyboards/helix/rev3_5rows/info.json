@@ -10,6 +10,9 @@
   },
   "rgb_matrix": {
     "driver": "ws2812",
+    "sat_steps": 8,
+    "val_steps": 8,
+    "speed_steps": 10
     "layout": [
         {"matrix": [0, 5], "x": 80, "y": 0, "flags": 4},
         {"matrix": [0, 4], "x": 64, "y": 0, "flags": 4},
