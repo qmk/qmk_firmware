@@ -11,10 +11,6 @@
 #define MOUSEKEY_MAX_SPEED      7
 #define MOUSEKEY_WHEEL_DELAY    0
 
-#define TAPPING_TOGGLE  1
-
-#define TAPPING_TERM    200
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
@@ -33,8 +29,6 @@
 
 /* fix space cadet rollover issue */
 #define DISABLE_SPACE_CADET_ROLLOVER
-
-#define USB_MAX_POWER_CONSUMPTION 500
 
 /*
  * Feature disable options

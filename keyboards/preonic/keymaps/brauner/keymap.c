@@ -56,17 +56,14 @@ enum combos {
     COMBO_LBRC_RBRC, /* [|] */
     COMBO_LCBR_RCBR, /* {|} */
     COMBO_LT_GT,     /* <|> */
-    COMBO_MAX,
 };
-
-uint16_t COMBO_LEN = COMBO_MAX;
 
 const uint16_t PROGMEM combo_lprn_rprn[] = {KC_LPRN, KC_RPRN, COMBO_END};
 const uint16_t PROGMEM combo_lbrc_rbrc[] = {KC_LBRC, KC_RBRC, COMBO_END};
 const uint16_t PROGMEM combo_lcbr_rcbr[] = {KC_LCBR, KC_RCBR, COMBO_END};
 const uint16_t PROGMEM combo_lt_gt[]     = {KC_LT, KC_GT, COMBO_END};
 
-combo_t key_combos[COMBO_MAX] = {
+combo_t key_combos[] = {
     [COMBO_LPRN_RPRN] = COMBO_ACTION(combo_lprn_rprn),
     [COMBO_LBRC_RBRC] = COMBO_ACTION(combo_lbrc_rbrc),
     [COMBO_LCBR_RCBR] = COMBO_ACTION(combo_lcbr_rcbr),

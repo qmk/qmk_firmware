@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "HB85", 
+    "keyboard_name": "HB85",
     "manufacturer": "Gray Studio",
-    "url": "", 
-    "maintainer": "qmk", 
+    "url": "",
+    "maintainer": "qmk",
     "usb": {
         "vid": "0x4753",
         "pid": "0x2000",
@@ -15,6 +15,21 @@
     "diode_direction": "COL2ROW",
     "backlight": {
         "pin": "D4"
+    },
+    "rgblight": {
+        "led_count": 5,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "ws2812": {
         "driver": "i2c"

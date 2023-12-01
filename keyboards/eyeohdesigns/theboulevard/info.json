@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "the boulevard", 
+    "keyboard_name": "the boulevard",
     "manufacturer": "eye oh designs",
-    "url": "", 
-    "maintainer": "eye oh designs", 
+    "url": "",
+    "maintainer": "eye oh designs",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x0000",
@@ -17,6 +17,15 @@
         "rotary": [
             {"pin_a": "F5", "pin_b": "F4", "resolution": 2}
         ]
+    },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 2,
+        "sleep": true,
+        "animations": {
+            "breathing": true
+        }
     },
     "ws2812": {
         "pin": "F6"

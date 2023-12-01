@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "mulletpad", 
+    "keyboard_name": "mulletpad",
     "manufacturer": "coseyfannitutti",
-    "url": "https://github.com/coseyfannitutti/mulletpad", 
-    "maintainer": "coseyfannitutti", 
+    "url": "https://github.com/coseyfannitutti/mulletpad",
+    "maintainer": "coseyfannitutti",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x6666",

@@ -1,9 +1,9 @@
 {
     "keyboard_name": "kt3700",
-	"manufacturer": "keyten",
-    "url": "", 
+    "manufacturer": "keyten",
+    "url": "",
     "maintainer": "key10iq",
-	"usb": {
+    "usb": {
         "vid": "0xEB69",
         "pid": "0x3700",
         "device_version": "0.0.1"
@@ -14,13 +14,13 @@
     },
     "diode_direction": "COL2ROW",
     "indicators": {
-    	"num_lock": "B6"
+        "num_lock": "B6"
     },
     "processor": "STM32F401",
     "bootloader": "stm32-dfu",
-	"layout_aliases": {
-		"LAYOUT_all": "LAYOUT_ortho_6x4"
-	},
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT_ortho_6x4"
+    },
     "community_layouts": ["numpad_6x4", "ortho_6x4"],
     "layouts": {
         "LAYOUT_numpad_6x4": {

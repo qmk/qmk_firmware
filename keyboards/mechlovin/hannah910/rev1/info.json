@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Hannah910", 
+    "keyboard_name": "Hannah910",
     "manufacturer": "Mechlovin",
-    "url": "", 
-    "maintainer": "Mechlovin'", 
+    "url": "",
+    "maintainer": "Mechlovin'",
     "usb": {
         "vid": "0x4D4C",
         "pid": "0x9101",
@@ -16,6 +16,21 @@
     "backlight": {
         "pin": "B7",
         "breathing": true
+    },
+    "rgblight": {
+        "led_count": 9,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "ws2812": {
         "pin": "E2"

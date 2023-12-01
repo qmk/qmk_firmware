@@ -16,6 +16,7 @@ enum {
                      + (ST7735_NUM_DEVICES)  // ST7735
                      + (GC9A01_NUM_DEVICES)  // GC9A01
                      + (SSD1351_NUM_DEVICES) // SSD1351
+                     + (SH1106_NUM_DEVICES)  // SH1106
 };
 
 static painter_device_t qp_devices[QP_NUM_DEVICES] = {NULL};
@@ -88,9 +89,16 @@ void qp_internal_task(void) {
 #endif
 
     // Flush (render) dirty regions to corresponding displays
+#if !defined(QUANTUM_PAINTER_DEBUG_ENABLE_FLUSH_TASK_OUTPUT)
+    bool old_debug_state = debug_enable;
+    debug_enable         = false;
+#endif // defined(QUANTUM_PAINTER_DEBUG_ENABLE_FLUSH_TASK_OUTPUT)
     for (uint8_t i = 0; i < QP_NUM_DEVICES; i++) {
         if (qp_devices[i] != NULL) {
             qp_flush(qp_devices[i]);
         }
     }
+#if !defined(QUANTUM_PAINTER_DEBUG_ENABLE_FLUSH_TASK_OUTPUT)
+    debug_enable = old_debug_state;
+#endif // defined(QUANTUM_PAINTER_DEBUG_ENABLE_FLUSH_TASK_OUTPUT)
 }

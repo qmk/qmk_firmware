@@ -19,6 +19,12 @@
 
 #include "color.h"
 
+#if defined(RGBLED_NUM)
+#    define APA102_LED_COUNT RGBLED_NUM
+#elif defined(RGB_MATRIX_LED_COUNT)
+#    define APA102_LED_COUNT RGB_MATRIX_LED_COUNT
+#endif
+
 #ifndef APA102_DEFAULT_BRIGHTNESS
 #    define APA102_DEFAULT_BRIGHTNESS 31
 #endif
@@ -37,5 +43,5 @@ extern uint8_t apa102_led_brightness;
  *         - Set the data-out pin as output
  *         - Send out the LED data
  */
-void apa102_setleds(LED_TYPE *start_led, uint16_t num_leds);
+void apa102_setleds(rgb_led_t *start_led, uint16_t num_leds);
 void apa102_set_brightness(uint8_t brightness);

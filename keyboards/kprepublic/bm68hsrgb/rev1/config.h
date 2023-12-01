@@ -19,9 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // The number of LEDs connected
 #define RGB_MATRIX_LED_COUNT 74
-#    define RGBLED_NUM 74
 #    define RGB_MATRIX_KEYPRESSES // reacts to keypresses
-#    define RGBLIGHT_LIMIT_VAL 180 // Limit to vendor-recommended value
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180 // Limit to vendor-recommended value
 // RGB Matrix Animation modes. Explicitly enabled

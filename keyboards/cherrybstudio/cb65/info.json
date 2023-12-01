@@ -18,6 +18,23 @@
         "scroll_lock": "F4",
         "on_state": 0
     },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 24,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
     "ws2812": {
         "pin": "F0"
     },
@@ -113,7 +130,6 @@
                 {"label": "\u2192", "matrix": [8, 5], "x": 15, "y": 4}
             ]
         },
-
         "LAYOUT_65_ansi_blocker": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -190,7 +206,6 @@
                 {"label": "\u2192", "matrix": [8, 5], "x": 15, "y": 4}
             ]
         },
-
         "LAYOUT_65_ansi_blocker_split_bs": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -268,7 +283,6 @@
                 {"label": "\u2192", "matrix": [8, 5], "x": 15, "y": 4}
             ]
         },
-
         "LAYOUT_65_ansi_blocker_tsangan": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -344,7 +358,6 @@
                 {"label": "\u2192", "matrix": [8, 5], "x": 15, "y": 4}
             ]
         },
-
         "LAYOUT_65_ansi_blocker_tsangan_split_bs": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -421,7 +434,6 @@
                 {"label": "\u2192", "matrix": [8, 5], "x": 15, "y": 4}
             ]
         },
-
         "LAYOUT_65_iso_blocker": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -499,7 +511,6 @@
                 {"label": "\u2192", "matrix": [8, 5], "x": 15, "y": 4}
             ]
         },
-
         "LAYOUT_65_iso_blocker_split_bs": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -578,7 +589,6 @@
                 {"label": "\u2192", "matrix": [8, 5], "x": 15, "y": 4}
             ]
         },
-
         "LAYOUT_65_iso_blocker_tsangan": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -655,7 +665,6 @@
                 {"label": "\u2192", "matrix": [8, 5], "x": 15, "y": 4}
             ]
         },
-
         "LAYOUT_65_iso_blocker_tsangan_split_bs": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},

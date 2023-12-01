@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Genesis Rev1", 
+    "keyboard_name": "Genesis Rev1",
     "manufacturer": "customMK",
-    "url": "https://www.customMK.com", 
-    "maintainer": "customMK", 
+    "url": "https://www.customMK.com",
+    "maintainer": "customMK",
     "usb": {
         "vid": "0xF35B",
         "pid": "0xFAB0",
@@ -10,6 +10,24 @@
     },
     "ws2812": {
         "pin": "E6"
+    },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 13,
+        "max_brightness": 128,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "matrix_pins": {
         "cols": ["F4", "F5", "D7", "B4"],
@@ -21,6 +39,9 @@
             {"pin_a": "F6", "pin_b": "F7", "resolution": 2},
             {"pin_a": "D2", "pin_b": "D1", "resolution": 2}
         ]
+    },
+    "qmk": {
+        "tap_keycode_delay": 10
     },
     "processor": "atmega32u4",
     "bootloader": "qmk-dfu",
@@ -78,6 +99,5 @@
                 {"matrix": [4, 3], "x": 2, "y": 4}
             ]
         }
-        
     }
 }

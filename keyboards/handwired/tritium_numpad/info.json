@@ -21,6 +21,9 @@
     "num_lock": "D5",
     "on_state": 0
   },
+  "rgblight": {
+    "led_count": 4
+  },
   "ws2812": {
     "pin": "D2"
   },
@@ -58,7 +61,7 @@
         {"matrix": [4, 3], "x": 3, "y": 4, "h": 2}
       ]
     },
-	"LAYOUT_nontra_6x4": {
+    "LAYOUT_nontra_6x4": {
       "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0},
         {"matrix": [0, 1], "x": 1, "y": 0},

@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // an enumeration of the chips this driver supports
 #define OLED_IC_SSD1306 0
 #define OLED_IC_SH1106 1
+#define OLED_IC_SH1107 2
 
 #if defined(OLED_DISPLAY_CUSTOM)
 // Expected user to implement the necessary defines
@@ -68,6 +69,152 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // If OLED_BLOCK_TYPE is uint8_t, these tables would look like:
 // #define OLED_SOURCE_MAP { 0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 }
 // #define OLED_TARGET_MAP { 56, 120, 48, 112, 40, 104, 32, 96, 24, 88, 16, 80, 8, 72, 0, 64 }
+
+#elif defined(OLED_DISPLAY_64X32)
+#    ifndef OLED_DISPLAY_WIDTH
+#        define OLED_DISPLAY_WIDTH 64
+#    endif
+#    ifndef OLED_DISPLAY_HEIGHT
+#        define OLED_DISPLAY_HEIGHT 32
+#    endif
+#    ifndef OLED_COLUMN_OFFSET
+#        define OLED_COLUMN_OFFSET 32
+#    endif
+#    ifndef OLED_MATRIX_SIZE
+#        define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH)
+#    endif
+#    ifndef OLED_BLOCK_TYPE
+#        define OLED_BLOCK_TYPE uint8_t
+#    endif
+#    ifndef OLED_BLOCK_COUNT
+#        define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8) // 8 (compile time mathed)
+#    endif
+#    ifndef OLED_BLOCK_SIZE
+#        define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT) // 32 (compile time mathed)
+#    endif
+#    ifndef OLED_COM_PINS
+#        define OLED_COM_PINS COM_PINS_ALT
+#    endif
+
+#    ifndef OLED_SOURCE_MAP
+#        define OLED_SOURCE_MAP \
+            { 0, 8, 16, 24 }
+#    endif
+#    ifndef OLED_TARGET_MAP
+#        define OLED_TARGET_MAP \
+            { 24, 16, 8, 0 }
+#    endif
+
+#elif defined(OLED_DISPLAY_64X48)
+#    ifndef OLED_DISPLAY_WIDTH
+#        define OLED_DISPLAY_WIDTH 64
+#    endif
+#    ifndef OLED_DISPLAY_HEIGHT
+#        define OLED_DISPLAY_HEIGHT 48
+#    endif
+#    ifndef OLED_COLUMN_OFFSET
+#        define OLED_COLUMN_OFFSET 32
+#    endif
+#    ifndef OLED_MATRIX_SIZE
+#        define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH)
+#    endif
+#    ifndef OLED_BLOCK_TYPE
+#        define OLED_BLOCK_TYPE uint32_t
+#    endif
+#    ifndef OLED_BLOCK_COUNT
+#        define OLED_BLOCK_COUNT 24
+#    endif
+#    ifndef OLED_BLOCK_SIZE
+#        define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT)
+#    endif
+#    ifndef OLED_COM_PINS
+#        define OLED_COM_PINS COM_PINS_ALT
+#    endif
+
+#    ifndef OLED_SOURCE_MAP
+#        define OLED_SOURCE_MAP \
+            { 0, 8 }
+#    endif
+#    ifndef OLED_TARGET_MAP
+#        define OLED_TARGET_MAP \
+            { 8, 0 }
+#    endif
+
+#elif defined(OLED_DISPLAY_64X128)
+#    ifndef OLED_DISPLAY_WIDTH
+#        define OLED_DISPLAY_WIDTH 64
+#    endif
+#    ifndef OLED_DISPLAY_HEIGHT
+#        define OLED_DISPLAY_HEIGHT 128
+#    endif
+#    ifndef OLED_IC
+#        define OLED_IC OLED_IC_SH1107
+#    endif
+#    ifndef OLED_COM_PIN_OFFSET
+#        define OLED_COM_PIN_OFFSET 32
+#    endif
+#    ifndef OLED_MATRIX_SIZE
+#        define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH)
+#    endif
+#    ifndef OLED_BLOCK_TYPE
+#        define OLED_BLOCK_TYPE uint16_t
+#    endif
+#    ifndef OLED_BLOCK_COUNT
+#        define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8)
+#    endif
+#    ifndef OLED_BLOCK_SIZE
+#        define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT)
+#    endif
+#    ifndef OLED_COM_PINS
+#        define OLED_COM_PINS COM_PINS_ALT
+#    endif
+
+#    ifndef OLED_SOURCE_MAP
+#        define OLED_SOURCE_MAP \
+            { 0, 8, 16, 24, 32, 40, 48, 56 }
+#    endif
+#    ifndef OLED_TARGET_MAP
+#        define OLED_TARGET_MAP \
+            { 56, 48, 40, 32, 24, 16, 8, 0 }
+#    endif
+
+#elif defined(OLED_DISPLAY_128X128)
+// Quad height 128x128
+#    ifndef OLED_DISPLAY_WIDTH
+#        define OLED_DISPLAY_WIDTH 128
+#    endif
+#    ifndef OLED_DISPLAY_HEIGHT
+#        define OLED_DISPLAY_HEIGHT 128
+#    endif
+#    ifndef OLED_IC
+#        define OLED_IC OLED_IC_SH1107
+#    endif
+#    ifndef OLED_MATRIX_SIZE
+#        define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH) // 2048 (compile time mathed)
+#    endif
+#    ifndef OLED_BLOCK_TYPE
+#        define OLED_BLOCK_TYPE uint32_t
+#    endif
+#    ifndef OLED_BLOCK_COUNT
+#        define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8) // 32 (compile time mathed)
+#    endif
+#    ifndef OLED_BLOCK_SIZE
+#        define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT) // 64 (compile time mathed)
+#    endif
+#    ifndef OLED_COM_PINS
+#        define OLED_COM_PINS COM_PINS_ALT
+#    endif
+
+// For 90 degree rotation, we map our internal matrix to oled matrix using fixed arrays
+// The OLED writes to it's memory horizontally, starting top left, but our memory starts bottom left in this mode
+#    ifndef OLED_SOURCE_MAP
+#        define OLED_SOURCE_MAP \
+            { 0, 8, 16, 24, 32, 40, 48, 56 }
+#    endif
+#    ifndef OLED_TARGET_MAP
+#        define OLED_TARGET_MAP \
+            { 56, 48, 40, 32, 24, 16, 8, 0 }
+#    endif
 #else // defined(OLED_DISPLAY_128X64)
 // Default 128x32
 #    ifndef OLED_DISPLAY_WIDTH
@@ -191,6 +338,12 @@ typedef enum {
 // Returns true if the OLED was initialized successfully
 bool oled_init(oled_rotation_t rotation);
 
+// Send commands and data to screen
+bool oled_send_cmd(const uint8_t *data, uint16_t size);
+bool oled_send_cmd_P(const uint8_t *data, uint16_t size);
+bool oled_send_data(const uint8_t *data, uint16_t size);
+void oled_driver_init(void);
+
 // Called at the start of oled_init, weak function overridable by the user
 // rotation - the value passed into oled_init
 // Return new oled_rotation_t if you want to override default rotation
@@ -200,20 +353,24 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation);
 // Clears the display buffer, resets cursor position to 0, and sets the buffer to dirty for rendering
 void oled_clear(void);
 
-// Renders the dirty chunks of the buffer to oled display
-void oled_render(void);
+// Alias to oled_render_dirty to avoid a change in api.
+#define oled_render() oled_render_dirty(false)
+
+// Renders all dirty blocks to the display at one time or a subset depending on the value of
+// all.
+void oled_render_dirty(bool all);
 
 // Moves cursor to character position indicated by column and line, wraps if out of bounds
 // Max column denoted by 'oled_max_chars()' and max lines by 'oled_max_lines()' functions
 void oled_set_cursor(uint8_t col, uint8_t line);
 
 // Advances the cursor to the next page, writing ' ' if true
-// Wraps to the begining when out of bounds
+// Wraps to the beginning when out of bounds
 void oled_advance_page(bool clearPageRemainder);
 
 // Moves the cursor forward 1 character length
 // Advance page if there is not enough room for the next character
-// Wraps to the begining when out of bounds
+// Wraps to the beginning when out of bounds
 void oled_advance_char(void);
 
 // Writes a single character to the buffer at current cursor position
@@ -280,10 +437,10 @@ bool oled_off(void);
 // not
 bool is_oled_on(void);
 
-// Sets the brightness of the display
+// Sets the brightness level of the display
 uint8_t oled_set_brightness(uint8_t level);
 
-// Gets the current brightness of the display
+// Gets the current brightness level of the display
 uint8_t oled_get_brightness(void);
 
 // Basically it's oled_render, but with timeout management and oled_task_user calling!
@@ -301,16 +458,16 @@ void oled_scroll_set_area(uint8_t start_line, uint8_t end_line);
 // Sets scroll speed, 0-7, fastest to slowest. Default is three.
 // Does not take effect until scrolling is either started or restarted
 // the ssd1306 supports 8 speeds with the delay
-// listed below betwen each frame of the scrolling effect
+// listed below between each frame of the scrolling effect
 // 0=2, 1=3, 2=4, 3=5, 4=25, 5=64, 6=128, 7=256
 void oled_scroll_set_speed(uint8_t speed);
 
-// Scrolls the entire display right
+// Begin scrolling the entire display right
 // Returns true if the screen was scrolling or starts scrolling
 // NOTE: display contents cannot be changed while scrolling
 bool oled_scroll_right(void);
 
-// Scrolls the entire display left
+// Begin scrolling the entire display left
 // Returns true if the screen was scrolling or starts scrolling
 // NOTE: display contents cannot be changed while scrolling
 bool oled_scroll_left(void);

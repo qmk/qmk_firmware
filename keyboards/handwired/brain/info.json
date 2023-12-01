@@ -19,6 +19,11 @@
     "ws2812": {
         "pin": "D3"
     },
+    "rgblight": {
+        "led_count": 28,
+        "split": true,
+        "max_brightness": 120
+    },
     "split": {
         "soft_serial_pin": "D0",
         "bootmagic": {

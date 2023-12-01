@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VERSION "v1.1: ClayM"
 #define VERBOSE
 
-#define FORCE_NKRO
 #define NO_ACTION_ONESHOT
 
 /* key matrix size */
@@ -38,9 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_TIME_TO_MAX    60
 #define MOUSEKEY_MAX_SPEED      7
 #define MOUSEKEY_WHEEL_DELAY 0
-#define TAPPING_TOGGLE  2
-
-#define TAPPING_TERM    200
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -52,5 +48,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     get_mods() == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)) || \
     get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)) \
 )
-
-#define USB_MAX_POWER_CONSUMPTION 500

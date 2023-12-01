@@ -19,6 +19,23 @@
         "scroll_lock": "F7",
         "on_state": 0
     },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 20,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
     "ws2812": {
         "pin": "E6"
     },
@@ -156,7 +173,6 @@
                 {"label": "Enter", "matrix": [9, 8], "x": 18.5, "y": 6}
             ]
         },
-
         "LAYOUT_1800_f13_ansi_split_numenter": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -285,7 +301,6 @@
                 {"label": "Enter", "matrix": [9, 8], "x": 18.5, "y": 6}
             ]
         },
-
         "LAYOUT_1800_f13_ansi_split_bs_numenter": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -415,7 +430,6 @@
                 {"label": "Enter", "matrix": [9, 8], "x": 18.5, "y": 6}
             ]
         },
-
         "LAYOUT_1800_f13_ansi_wkl_split_numenter": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -541,7 +555,6 @@
                 {"label": "Enter", "matrix": [9, 8], "x": 18.5, "y": 6}
             ]
         },
-
         "LAYOUT_1800_f13_ansi_wkl_split_bs_numenter": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -668,7 +681,6 @@
                 {"label": "Enter", "matrix": [9, 8], "x": 18.5, "y": 6}
             ]
         },
-
         "LAYOUT_1800_f13_iso_split_numenter": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -798,7 +810,6 @@
                 {"label": "Enter", "matrix": [9, 8], "x": 18.5, "y": 6}
             ]
         },
-
         "LAYOUT_1800_f13_iso_split_bs_numenter": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -929,7 +940,6 @@
                 {"label": "Enter", "matrix": [9, 8], "x": 18.5, "y": 6}
             ]
         },
-
         "LAYOUT_1800_f13_iso_wkl_split_numenter": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -1056,7 +1066,6 @@
                 {"label": "Enter", "matrix": [9, 8], "x": 18.5, "y": 6}
             ]
         },
-
         "LAYOUT_1800_f13_iso_wkl_split_bs_numenter": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},

@@ -20,5 +20,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #define COMBO_TERM 100
-#define COMBO_COUNT 38
 #define PERMISSIVE_HOLD

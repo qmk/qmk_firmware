@@ -17,9 +17,6 @@
 
 #pragma once
 
-/* Forcing to use NKRO instead 6KRO */
-#define FORCE_NKRO
-
 /* Use the custom font */
 #define OLED_FONT_H "./lib/glcdfont.c"
 
@@ -27,7 +24,6 @@
     /* RGB Matrix config */
     #define RGB_MATRIX_LED_COUNT 16
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
-    #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
     #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_UP_DOWN
     #define RGB_MATRIX_KEYPRESSES
 

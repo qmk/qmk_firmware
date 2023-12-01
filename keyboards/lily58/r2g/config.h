@@ -19,8 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-//#define SERIAL_USE_MULTI_TRANSACTION
-
 
 #ifdef RGB_MATRIX_ENABLE
 #   define RGB_MATRIX_LED_COUNT 74
@@ -48,8 +46,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #   define SPLIT_TRANSPORT_MIRROR
 #endif
-
-#ifdef RGBLIGHT_ENABLE
-#   define RGBLIGHT_LIMIT_VAL 120
-#endif
-

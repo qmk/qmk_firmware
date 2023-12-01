@@ -17,6 +17,23 @@
         "caps_lock": "B2",
         "on_state": 0
     },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 4,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
     "ws2812": {
         "pin": "E2"
     },
@@ -103,7 +120,6 @@
                 {"label": "Ctrl", "matrix": [4, 14], "x": 14, "y": 5}
             ]
         },
-
         "LAYOUT_ansi": {
             "layout": [
                 {"label": "Volume Up", "matrix": [4, 4], "x": 1.5, "y": 0},
@@ -176,7 +192,6 @@
                 {"label": "Ctrl", "matrix": [4, 14], "x": 13.75, "y": 5, "w": 1.25}
             ]
         },
-
         "LAYOUT_ansi_split_bs_rshift": {
             "layout": [
                 {"label": "Volume Up", "matrix": [4, 4], "x": 1.5, "y": 0},

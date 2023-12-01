@@ -83,7 +83,6 @@
                 {"matrix": [7, 5], "x": 12.5, "y": 4}
             ]
         },
-
         "LAYOUT_ergo_2x2u": {
             "layout": [
                 {"matrix": [7, 6], "x": 12.5, "y": 0},
@@ -143,7 +142,6 @@
                 {"matrix": [7, 5], "x": 12.5, "y": 4}
             ]
         },
-
         "LAYOUT_ortho_7u": {
             "layout": [
                 {"matrix": [7, 6], "x": 12.5, "y": 0},

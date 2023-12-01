@@ -48,6 +48,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                 }
 #endif
 
-#define COMBO_COUNT 1
-
 #define TAPPING_TERM 220

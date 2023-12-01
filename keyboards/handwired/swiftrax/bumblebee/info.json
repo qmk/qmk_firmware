@@ -1,12 +1,15 @@
 {
-    "keyboard_name": "BumbleBee", 
+    "keyboard_name": "BumbleBee",
     "manufacturer": "Swiftrax",
-    "url": "https://www.github.com/swiftrax", 
-    "maintainer": "swiftrax", 
+    "url": "https://www.github.com/swiftrax",
+    "maintainer": "swiftrax",
     "usb": {
         "vid": "0x04D8",
         "pid": "0xE881",
         "device_version": "0.0.1"
+    },
+    "rgblight": {
+        "led_count": 3
     },
     "ws2812": {
         "pin": "E6"

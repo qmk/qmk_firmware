@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "ergoarrows", 
+    "keyboard_name": "ergoarrows",
     "manufacturer": "Salicylic_Acid",
-    "url": "https://salicylic-acid3.hatenablog.com/", 
-    "maintainer": "Salicylic_acid3", 
+    "url": "https://salicylic-acid3.hatenablog.com/",
+    "maintainer": "Salicylic_acid3",
     "usb": {
         "vid": "0x04D8",
         "pid": "0xEA54",
@@ -15,6 +15,23 @@
     "diode_direction": "COL2ROW",
     "split": {
         "soft_serial_pin": "D0"
+    },
+    "rgblight": {
+        "hue_steps": 10,
+        "led_count": 86,
+        "split_count": [43, 43],
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "ws2812": {
         "pin": "D3"
@@ -114,5 +131,4 @@
             ]
         }
     }
-
 }

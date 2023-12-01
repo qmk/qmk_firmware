@@ -91,7 +91,7 @@ painter_image_handle_t qp_load_image_mem(const void *buffer) {
 
 bool qp_close_image(painter_image_handle_t image) {
     qgf_image_handle_t *qgf_image = (qgf_image_handle_t *)image;
-    if (!qgf_image->validate_ok) {
+    if (!qgf_image || !qgf_image->validate_ok) {
         qp_dprintf("qp_close_image: fail (invalid image)\n");
         return false;
     }
@@ -116,6 +116,7 @@ typedef struct qgf_frame_info_t {
     painter_compression_t compression_scheme;
     uint8_t               bpp;
     bool                  has_palette;
+    bool                  is_panel_native;
     bool                  is_delta;
     uint16_t              left;
     uint16_t              top;
@@ -144,7 +145,7 @@ static bool qp_drawimage_prepare_frame_for_stream_read(painter_device_t device, 
     }
 
     // Parse out the frame info
-    if (!qgf_parse_frame_descriptor(&frame_descriptor, &info->bpp, &info->has_palette, &info->is_delta, &info->compression_scheme, &info->delay)) {
+    if (!qgf_parse_frame_descriptor(&frame_descriptor, &info->bpp, &info->has_palette, &info->is_panel_native, &info->is_delta, &info->compression_scheme, &info->delay)) {
         return false;
     }
 
@@ -211,13 +212,13 @@ static bool qp_drawimage_prepare_frame_for_stream_read(painter_device_t device, 
 static bool qp_drawimage_recolor_impl(painter_device_t device, uint16_t x, uint16_t y, painter_image_handle_t image, int frame_number, qgf_frame_info_t *frame_info, qp_pixel_t fg_hsv888, qp_pixel_t bg_hsv888) {
     qp_dprintf("qp_drawimage_recolor: entry\n");
     painter_driver_t *driver = (painter_driver_t *)device;
-    if (!driver->validate_ok) {
+    if (!driver || !driver->validate_ok) {
         qp_dprintf("qp_drawimage_recolor: fail (validation_ok == false)\n");
         return false;
     }
 
     qgf_image_handle_t *qgf_image = (qgf_image_handle_t *)image;
-    if (!qgf_image->validate_ok) {
+    if (!qgf_image || !qgf_image->validate_ok) {
         qp_dprintf("qp_drawimage_recolor: fail (invalid image)\n");
         return false;
     }
@@ -237,8 +238,8 @@ static bool qp_drawimage_recolor_impl(painter_device_t device, uint16_t x, uint1
     if (frame_info->is_delta) {
         l = x + frame_info->left;
         t = y + frame_info->top;
-        r = x + frame_info->right - 1;
-        b = y + frame_info->bottom - 1;
+        r = x + frame_info->right;
+        b = y + frame_info->bottom;
     } else {
         l = x;
         t = y;

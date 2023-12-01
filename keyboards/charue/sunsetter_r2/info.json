@@ -8,6 +8,21 @@
         "pid": "0x5335",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "led_count": 10,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
     "ws2812": {
         "pin": "E6"
     },
@@ -116,7 +131,6 @@
                 {"label": "\u2192", "matrix": [4, 15], "x": 17.25, "y": 4}
             ]
         },
-
         "LAYOUT_ansi": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0, "y": 0},
@@ -207,7 +221,6 @@
                 {"label": "\u2192", "matrix": [4, 15], "x": 17.25, "y": 4}
             ]
         },
-
         "LAYOUT_ansi_split_bs": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0, "y": 0},
@@ -299,7 +312,6 @@
                 {"label": "\u2192", "matrix": [4, 15], "x": 17.25, "y": 4}
             ]
         },
-
         "LAYOUT_iso": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0, "y": 0},
@@ -393,7 +405,6 @@
                 {"label": "\u2192", "matrix": [4, 15], "x": 17.25, "y": 4}
             ]
         },
-
         "LAYOUT_iso_split_bs": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0, "y": 0},

@@ -8,6 +8,21 @@
         "pid": "0x7C98",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bluetooth": true,
+        "bootmagic": false,
+        "command": false,
+        "console": false,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false,
+        "oled": true,
+        "rgblight": true
+    },
+    "build": {
+        "lto": true
+    },
     "matrix_pins": {
         "cols": ["D6", "D7", "B5", "B6"],
         "rows": ["F0", "F6", "F5", "F4", "F1"]
@@ -21,10 +36,26 @@
     "ws2812": {
         "pin": "B7"
     },
+    "rgblight": {
+        "brightness_steps": 25,
+        "led_count": 4,
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "static_gradient": true
+        }
+    },
+    "bluetooth": {
+        "driver": "bluefruit_le"
+    },
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "layouts": {
-        "LAYOUT_pad": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0, "w": 0.8, "h": 0.8},
 

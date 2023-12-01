@@ -6,7 +6,8 @@
     "usb": {
         "vid": "0x9954",
         "pid": "0x9970",
-        "device_version": "0.0.1"
+        "device_version": "0.0.1",
+        "force_nkro": true
     },
     "processor": "STM32F103",
     "bootloader": "stm32duino",
@@ -19,9 +20,27 @@
         "caps_lock": "C13",
         "on_state": 0
     },
+    "rgblight": {
+        "led_count": 9,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "B15"
+    },
     "layouts": {
         "LAYOUT": {
-            "layout":[
+            "layout": [
                 {"label": "K00 (B10,B9)", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "K01 (B10,B8)", "matrix": [0, 1], "x": 1, "y": 0},
                 {"label": "K02 (B10,B7)", "matrix": [0, 2], "x": 2, "y": 0},

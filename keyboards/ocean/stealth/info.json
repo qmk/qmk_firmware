@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Stealth", 
+    "keyboard_name": "Stealth",
     "manufacturer": "Ocean",
-    "url": "", 
-    "maintainer": "Ocean", 
+    "url": "",
+    "maintainer": "Ocean",
     "usb": {
         "vid": "0x9624",
         "pid": "0x0010",

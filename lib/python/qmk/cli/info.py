@@ -38,6 +38,10 @@ def _strip_api_content(info_json):
     if 'matrix_pins' in info_json:
         info_json.pop('matrix_size', None)
 
+    for feature in ['rgb_matrix', 'led_matrix']:
+        if info_json.get(feature, {}).get("layout", None):
+            info_json[feature].pop('led_count', None)
+
     return info_json
 
 
@@ -104,7 +108,6 @@ def print_friendly_output(kb_info_json):
         cli.echo('{fg_blue}Maintainer{fg_reset}: QMK Community')
     else:
         cli.echo('{fg_blue}Maintainer{fg_reset}: %s', kb_info_json['maintainer'])
-    cli.echo('{fg_blue}Keyboard Folder{fg_reset}: %s', kb_info_json.get('keyboard_folder', 'Unknown'))
     cli.echo('{fg_blue}Layouts{fg_reset}: %s', ', '.join(sorted(kb_info_json['layouts'].keys())))
     cli.echo('{fg_blue}Processor{fg_reset}: %s', kb_info_json.get('processor', 'Unknown'))
     cli.echo('{fg_blue}Bootloader{fg_reset}: %s', kb_info_json.get('bootloader', 'Unknown'))
@@ -200,7 +203,7 @@ def info(cli):
 
     # Output in the requested format
     if cli.args.format == 'json':
-        print(json.dumps(kb_info_json, cls=InfoJSONEncoder))
+        print(json.dumps(kb_info_json, cls=InfoJSONEncoder, sort_keys=True))
         return True
     elif cli.args.format == 'text':
         print_dotted_output(kb_info_json)

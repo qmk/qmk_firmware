@@ -1,12 +1,16 @@
 {
     "usb": {
-        "device_version": "0.2.0"
+        "device_version": "0.2.0",
+        "force_nkro": true
     },
     "matrix_pins": {
         "cols": ["B13", "A7", "A6", "A5", "A4", "A3", "A2", "B7", "B6", "B5", "B4", "B3", "A15", "A14"],
         "rows": ["B15", "B14", "B12", "B1", "B0"]
     },
     "diode_direction": "COL2ROW",
+    "eeprom": {
+        "driver": "i2c"
+    },
     "indicators": {
         "caps_lock": "A1"
     },

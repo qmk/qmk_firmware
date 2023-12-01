@@ -1,12 +1,13 @@
 {
-    "keyboard_name": "Omnikey-(ish)", 
-    "manufacturer": "Henrik O. Sørensen",
-    "url": "https://github.com/henrikosorensen/keyboard_pcbs/tree/master/omnikeyish_pcb", 
-    "maintainer": "qmk", 
+    "keyboard_name": "Omnikey-(ish)",
+    "manufacturer": "Henrik O. S\u00f8rensen",
+    "url": "https://github.com/henrikosorensen/keyboard_pcbs/tree/master/omnikeyish_pcb",
+    "maintainer": "qmk",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x0666",
-        "device_version": "13.3.7"
+        "device_version": "13.3.7",
+        "force_nkro": true
     },
     "indicators": {
         "caps_lock": "E1",

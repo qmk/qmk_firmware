@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Frog Mini FM-H", 
+    "keyboard_name": "Frog Mini FM-H",
     "manufacturer": "GeonWorks",
-    "url": "https://geon.works", 
-    "maintainer": "gondolindrim", 
+    "url": "https://geon.works",
+    "maintainer": "gondolindrim",
     "usb": {
         "vid": "0x6777",
         "pid": "0x2D28",
@@ -13,6 +13,9 @@
         "rows": ["A3", "A2", "A1", "B8", "A7", "C0"]
     },
     "diode_direction": "COL2ROW",
+    "eeprom": {
+        "driver": "i2c"
+    },
     "processor": "STM32F401",
     "bootloader": "stm32-dfu",
     "layout_aliases": {

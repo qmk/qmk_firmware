@@ -16,13 +16,9 @@
 
 #pragma once
 
-/* Forcing to use NKRO instead 6KRO */
-#define FORCE_NKRO
-
 #ifdef RGB_MATRIX_ENABLE
     #define RGB_MATRIX_LED_COUNT 3
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
-    #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
     #define RGB_MATRIX_KEYPRESSES
 
     /* RGB Matrix effect */

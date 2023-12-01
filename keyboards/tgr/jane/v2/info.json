@@ -1,8 +1,8 @@
 {
-  "keyboard_name": "Jane v2", 
+  "keyboard_name": "Jane v2",
   "manufacturer": "TGR",
-  "url": "", 
-  "maintainer": "qmk", 
+  "url": "",
+  "maintainer": "qmk",
   "usb": {
     "vid": "0x5447",
     "pid": "0x4A4E",

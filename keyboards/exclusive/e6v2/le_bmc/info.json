@@ -1,7 +1,7 @@
 {
     "keyboard_name": "E6-V2 LE BMC",
     "manufacturer": "Exclusive / E-Team",
-    "maintainer": "qmk", 
+    "maintainer": "qmk",
     "usb": {
         "vid": "0x4558",
         "pid": "0xE62D",
@@ -14,6 +14,21 @@
     "diode_direction": "COL2ROW",
     "backlight": {
         "pin": "D4"
+    },
+    "rgblight": {
+        "led_count": 6,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "ws2812": {
         "driver": "i2c"

@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Southpaw75", 
+    "keyboard_name": "Southpaw75",
     "manufacturer": "kelvinhall05",
-    "url": "https://github.com/kelvinhall05/southpaw75", 
-    "maintainer": "kelvinhall05", 
+    "url": "https://github.com/kelvinhall05/southpaw75",
+    "maintainer": "kelvinhall05",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x350C",

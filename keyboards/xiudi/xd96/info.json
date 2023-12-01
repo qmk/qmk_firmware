@@ -12,6 +12,22 @@
     "pin": "B5",
     "levels": 10
   },
+  "rgblight": {
+    "led_count": 16,
+    "max_brightness": 50,
+    "animations": {
+      "breathing": true,
+      "rainbow_mood": true,
+      "rainbow_swirl": true,
+      "snake": true,
+      "knight": true,
+      "christmas": true,
+      "static_gradient": true,
+      "rgb_test": true,
+      "alternating": true,
+      "twinkle": true
+    }
+  },
   "indicators": {
     "caps_lock": "B6",
     "num_lock": "C6",
@@ -22,7 +38,7 @@
   },
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
-  "layouts": {  
+  "layouts": {
     "LAYOUT_96_ansi": {
       "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0},

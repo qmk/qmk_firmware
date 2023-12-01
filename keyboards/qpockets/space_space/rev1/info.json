@@ -4,9 +4,9 @@
   "url": "",
   "maintainer": "qpockets",
   "usb": {
-  	"vid": "0x7170",
-  	"pid": "0x7373",
-  	"device_version": "30.0.0"
+    "vid": "0x7170",
+    "pid": "0x7373",
+    "device_version": "30.0.0"
   },
   "matrix_pins": {
     "cols": ["D4", "B4", "B5", "B6", "C6", "F7", "F6", "F0", "B0", "E6", "B1"],
@@ -14,10 +14,10 @@
   },
   "diode_direction": "COL2ROW",
   "encoder": {
-  	"rotary": [
-  		{"pin_a": "B3", "pin_b": "B2", "resolution": 3},
-  		{"pin_a": "D6", "pin_b": "D7"}
-  	]
+    "rotary": [
+      {"pin_a": "B3", "pin_b": "B2", "resolution": 3},
+      {"pin_a": "D6", "pin_b": "D7"}
+    ]
   },
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",

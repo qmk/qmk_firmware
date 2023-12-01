@@ -1,6 +1,7 @@
 {
     "usb": {
-        "device_version": "0.0.3"
+        "device_version": "0.0.3",
+        "force_nkro": true
     },
     "matrix_pins": {
         "cols": ["F0", "F1", "F4", "F5", "F6", "D5", "D3", "D2", "D1", "D0", "D4"],

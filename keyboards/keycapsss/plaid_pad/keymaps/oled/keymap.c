@@ -72,7 +72,7 @@ const uint16_t PROGMEM zeroDot_combo[] = {KC_P0, KC_PDOT, COMBO_END};
 const uint16_t PROGMEM leftDown_combo[] = {KC_LEFT, KC_DOWN, COMBO_END};
 const uint16_t PROGMEM prevPlay_combo[] = {KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
   [COMBO1] = COMBO_ACTION(zeroDot_combo),
   [COMBO2] = COMBO_ACTION(leftDown_combo),
   [COMBO3] = COMBO_ACTION(prevPlay_combo),
@@ -125,8 +125,7 @@ bool oled_task_user(void) {
 
 #endif
 
-#ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise) {
+#ifdef ENCODER_MAP_ENABLE
 /*
     ,-----------------------,
     |  E1 |  E2 |  E3 |  E4 |
@@ -138,93 +137,16 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     |     |     |     |  E1 |
     `-----------------------'
  */
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+#ifdef KEYBOARD_keycapsss_plaid_pad_rev1
+  [_NUMPAD]     = { ENCODER_CCW_CW(KC_F18,       KC_F17),    ENCODER_CCW_CW(KC_F20,  KC_F19)  },
+  [_NAVIGATION] = { ENCODER_CCW_CW(C(S(KC_TAB)), C(KC_TAB)), ENCODER_CCW_CW(KC_PGUP, KC_PGDN) },
+  [_MEDIA]      = { ENCODER_CCW_CW(KC_F18,       KC_F17),    ENCODER_CCW_CW(KC_F20,  KC_F19)  }
+#else
+  [_NUMPAD]     = { ENCODER_CCW_CW(KC_F18,       KC_F17),    ENCODER_CCW_CW(KC_F20,  KC_F19),  ENCODER_CCW_CW(KC_F22,  KC_F21),  ENCODER_CCW_CW(KC_F24,  KC_F23)  },
+  [_NAVIGATION] = { ENCODER_CCW_CW(C(S(KC_TAB)), C(KC_TAB)), ENCODER_CCW_CW(KC_PGUP, KC_PGDN), ENCODER_CCW_CW(KC_WH_U, KC_WH_D), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+  [_MEDIA]      = { ENCODER_CCW_CW(KC_F18,       KC_F17),    ENCODER_CCW_CW(KC_F20,  KC_F19),  ENCODER_CCW_CW(KC_BRID, KC_BRIU), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) }
+#endif
+};
 
-  // First encoder (E1)
-  if (index == 0) {
-    switch (get_highest_layer(layer_state)) {
-      case _NAVIGATION:
-        // Browser tab switching
-        if (clockwise) {
-          tap_code16(LCTL(KC_TAB));
-        } else {
-          tap_code16(LCTL(LSFT(KC_TAB)));
-        }
-        break;
-      default:
-        if (clockwise) {
-          tap_code(KC_F17);
-        } else {
-          tap_code(KC_F18);
-        }
-        break;
-    }
-  // Second encoder (E2)
-  } else if (index == 1) {
-    switch (get_highest_layer(layer_state)) {
-      case _NAVIGATION:
-        // Page Down/Up
-        if (clockwise) {
-          tap_code16(KC_PGDN);
-        } else {
-          tap_code16(KC_PGUP);
-        }
-        break;
-      default:
-        if (clockwise) {
-          tap_code(KC_F19);
-        } else {
-          tap_code(KC_F20);
-        }
-        break;
-    }
-  // Third encoder (E3)
-  } else if (index == 2) {
-    switch (get_highest_layer(layer_state)) {
-      case _NAVIGATION:
-        // Mouse wheel up/down
-        if (clockwise) {
-          tap_code(KC_MS_WH_DOWN);
-        } else {
-          tap_code(KC_MS_WH_UP);
-        }
-        break;
-      case _MEDIA:
-        // BRIGHTNESS Up/Down
-        if (clockwise) {
-          tap_code16(KC_BRIGHTNESS_UP);
-        } else {
-          tap_code16(KC_BRIGHTNESS_DOWN);
-        }
-        break;
-      default:
-        if (clockwise) {
-          tap_code(KC_F21);
-        } else {
-          tap_code(KC_F22);
-        }
-        break;
-    }
-  // Forth encoder (E4)
-  } else if (index == 3) {
-    switch (get_highest_layer(layer_state)) {
-      case _NAVIGATION:
-      case _MEDIA:
-        // Volume Up/Down
-        if (clockwise) {
-          tap_code16(KC_AUDIO_VOL_UP);
-        } else {
-          tap_code16(KC_AUDIO_VOL_DOWN);
-        }
-        break;
-      default:
-        if (clockwise) {
-          tap_code(KC_F23);
-        } else {
-          tap_code(KC_F24);
-        }
-        break;
-    }
-  }
-    return true;
-}
 #endif

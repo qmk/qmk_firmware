@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Z60 Solder", 
+    "keyboard_name": "Z60 Solder",
     "manufacturer": "Quarkeys Stuidio",
-    "url": "www.quarkeys.com", 
-    "maintainer": "TommyZ", 
+    "url": "www.quarkeys.com",
+    "maintainer": "TommyZ",
     "usb": {
         "vid": "0x8490",
         "pid": "0x3C01",
@@ -14,6 +14,24 @@
     },
     "ws2812": {
         "pin": "D6"
+    },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 77,
+        "max_brightness": 180,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true
+        }
     },
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",

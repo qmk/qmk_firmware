@@ -19,9 +19,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 // The number of LEDs connected
 #define RGB_MATRIX_LED_COUNT 68
-// Limit the Brithness of the LEDs
-#define RGBLIGHT_LIMIT_VAL 96
-#define RGB_VAL_STEP 12
 
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_DISABLE_WHEN_USB_SUSPENDED

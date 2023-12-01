@@ -17,8 +17,28 @@
         "pin": "B7",
         "levels": 12
     },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 8,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
     "ws2812": {
         "pin": "B1"
+    },
+    "bluetooth": {
+        "driver": "custom"
     },
     "processor": "atmega32u4",
     "bootloader": "qmk-dfu",
@@ -98,7 +118,6 @@
                 {"label": "Ctrl", "matrix": [4, 13], "x": 14, "y": 4}
             ]
         },
-
         "LAYOUT_60_ansi_split_bs_rshift": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -170,7 +189,6 @@
                 {"label": "Ctrl", "matrix": [4, 13], "x": 13.75, "y": 4, "w": 1.25}
             ]
         },
-
         "LAYOUT_60_ansi_arrow": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -242,7 +260,6 @@
                 {"label": "\u2192", "matrix": [4, 13], "x": 14, "y": 4}
             ]
         },
-
         "LAYOUT_60_tsangan_hhkb": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -313,7 +330,6 @@
                 {"label": "Ctrl", "matrix": [4, 13], "x": 13.5, "y": 4, "w": 1.5}
             ]
         },
-
         "LAYOUT_60_iso_split_bs_rshift": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -386,7 +402,6 @@
                 {"label": "Ctrl", "matrix": [4, 13], "x": 13.75, "y": 4, "w": 1.25}
             ]
         },
-
         "LAYOUT_60_iso_arrow": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -459,7 +474,6 @@
                 {"label": "\u2192", "matrix": [4, 13], "x": 14, "y": 4}
             ]
         },
-
         "LAYOUT_60_tsangan_hhkb_iso": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},

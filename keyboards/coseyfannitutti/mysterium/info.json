@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "MYSTERIUM", 
+    "keyboard_name": "MYSTERIUM",
     "manufacturer": "coseyfannitutti",
-    "url": "https://github.com/coseyfannitutti/mysterium", 
-    "maintainer": "coseyfannitutti", 
+    "url": "https://github.com/coseyfannitutti/mysterium",
+    "maintainer": "coseyfannitutti",
     "usb": {
         "vid": "0x6B62",
         "pid": "0x8769",

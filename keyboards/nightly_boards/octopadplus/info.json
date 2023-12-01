@@ -1,13 +1,13 @@
 {
-    "keyboard_name": "Octopad+"	,
+    "keyboard_name": "Octopad+",
     "manufacturer": "DeskDaily",
     "url": "",
     "maintainer": "DeskDaily",
     "usb": {
-    	"vid": "0xD812",
-    	"pid": "0x0014",
-    	"device_version": "0.0.1"
-	},
+        "vid": "0xD812",
+        "pid": "0x0014",
+        "device_version": "0.0.1"
+    },
     "matrix_pins": {
         "cols": ["E6", "F5", "C7", "D7", "F4", "D2"],
         "rows": ["F6", "D3"]
@@ -19,11 +19,14 @@
             {"pin_a": "D1", "pin_b": "D0", "resolution": 5}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
-	    "rgblight": {
+        "rgblight": {
         "animations": {
-			"alternating": true,
+            "alternating": true,
             "breathing": true,
             "christmas": true,
             "knight": true,

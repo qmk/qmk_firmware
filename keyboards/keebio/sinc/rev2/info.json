@@ -18,7 +18,10 @@
         "enabled": true,
         "soft_serial_pin": "D0",
         "transport": {
-            "protocol": "serial"
+            "protocol": "serial",
+            "sync" :{
+                "indicators": true
+            }
         },
         "encoder": {
             "right": {
@@ -28,7 +31,7 @@
             }
         },
         "matrix_pins": {
-            "right":{
+            "right": {
                 "cols": ["F1", "F0", "F4", "F5", "F6", "D5", "C7", "D3", "B7"],
                 "rows": ["B3", "B2", "B6", "B4", "D7", "B0"]
             }
@@ -44,11 +47,12 @@
             {"pin_a": "F5", "pin_b": "F6"}
         ]
     },
-    "backlight":{
+    "backlight": {
         "pin": "B5"
     },
     "rgblight": {
-        "led_count" : 16,
+        "led_count": 16,
+        "led_map": [1, 2, 3, 12, 13, 14, 15, 0, 7, 6, 5, 4, 11, 10, 9, 8],
         "split_count": [8, 8],
         "animations": {
             "alternating": true,

@@ -1,7 +1,7 @@
 {
-    "keyboard_name": "Wearhaus66", 
+    "keyboard_name": "Wearhaus66",
     "manufacturer": "Mechlovin Studio",
-    "url": "", 
+    "url": "",
     "maintainer": "mechlovin",
     "usb": {
         "vid": "0x4D4C",
@@ -15,6 +15,23 @@
     "diode_direction": "COL2ROW",
     "indicators": {
         "caps_lock": "C14"
+    },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 24,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true
+        }
     },
     "ws2812": {
         "pin": "B15",

@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "ID87", 
+    "keyboard_name": "ID87",
     "manufacturer": "IDOBAO",
-    "url": "https://www.idobao.net/products/idobao-id87-80-hot-swappable-mechanical-keyboard-kit", 
-    "maintainer": "qmk", 
+    "url": "https://www.idobao.net/products/idobao-id87-80-hot-swappable-mechanical-keyboard-kit",
+    "maintainer": "qmk",
     "usb": {
         "vid": "0x6964",
         "pid": "0x0087",
@@ -18,6 +18,23 @@
     },
     "indicators": {
         "caps_lock": "C7"
+    },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 22,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "ws2812": {
         "pin": "E2"

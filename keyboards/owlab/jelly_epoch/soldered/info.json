@@ -6,13 +6,30 @@
     "usb": {
         "vid": "0x4F53",
         "pid": "0x4A53",
-        "device_version": "0.0.1"
+        "device_version": "0.0.1",
+        "force_nkro": true
     },
     "matrix_pins": {
         "cols": ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A10", "B11", "B8", "B9", "C13"],
         "rows": ["B0", "B1", "B2", "B3", "A15", "B10"]
     },
     "diode_direction": "COL2ROW",
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 10,
+        "led_count": 24,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
     "ws2812": {
         "pin": "B15"
     },

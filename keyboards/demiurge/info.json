@@ -16,6 +16,22 @@
     "ws2812": {
         "pin": "F1"
     },
+    "rgblight": {
+        "led_count": 21,
+        "max_brightness": 153,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layout_aliases": {
@@ -105,7 +121,6 @@
                 {"label": "Ctrl", "matrix": [4, 16], "x": 16, "y": 4, "w": 1.5}
             ]
         },
-
         "LAYOUT_60_xt_tsangan_hhkb": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0, "y": 0},

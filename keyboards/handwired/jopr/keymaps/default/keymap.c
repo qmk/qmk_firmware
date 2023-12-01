@@ -22,23 +22,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-void led_set_user(uint8_t usb_led) {
+bool led_update_user(led_t led_state) {
 
-    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+    if (led_state.caps_lock) {
         writePinHigh(F1);
 	} else {
         writePinLow(F1);
     }
 
-    if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
+    if (led_state.scroll_lock) {
         writePinHigh(F0);
 	} else {
         writePinLow(F0);
     }
     
-    if (!(IS_LED_ON(usb_led, USB_LED_NUM_LOCK))) {
+    if (!led_state.num_lock) {
         tap_code(KC_NUM_LOCK);
     }
+    return false;
 }
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static bool sysreq_led = false;

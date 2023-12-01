@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "ROTR", 
+    "keyboard_name": "ROTR",
     "manufacturer": "ROTR",
-    "url": "https://geekhack.org/index.php?topic=107104.0", 
-    "maintainer": "qmk", 
+    "url": "https://geekhack.org/index.php?topic=107104.0",
+    "maintainer": "qmk",
     "usb": {
         "vid": "0x726F",
         "pid": "0x0001",

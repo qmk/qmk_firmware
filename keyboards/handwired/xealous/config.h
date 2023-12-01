@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MASTER_LEFT
 
 //#define DEBUG_MATRIX_SCAN_RATE //Use this to determine scan-rate.
-#define FORCE_NKRO
 
 #ifdef AUDIO_ENABLE
   #define AUDIO_PIN C6

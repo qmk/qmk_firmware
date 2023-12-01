@@ -9,7 +9,7 @@
         "device_version": "0.0.1"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
     },
     "matrix_pins": {
         "cols": ["D4", "C6", "D7", "E6"],
@@ -28,7 +28,6 @@
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "layouts": {
-
         "LAYOUT": {
             "layout": [
                 {"matrix": [4, 0], "x": 0, "y": 0, "w": 0.8, "h": 0.8},

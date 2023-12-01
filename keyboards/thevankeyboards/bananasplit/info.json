@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "BananaSplit 60", 
+    "keyboard_name": "BananaSplit 60",
     "manufacturer": "TheVan Keyboards",
-    "url": "", 
-    "maintainer": "qmk", 
+    "url": "",
+    "maintainer": "qmk",
     "usb": {
         "vid": "0xFEAE",
         "pid": "0x8870",
@@ -15,6 +15,9 @@
     "diode_direction": "ROW2COL",
     "backlight": {
         "pin": "B7"
+    },
+    "tapping": {
+        "term": 175
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

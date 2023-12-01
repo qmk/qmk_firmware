@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "KeebsPCB", 
+    "keyboard_name": "KeebsPCB",
     "manufacturer": "AcheronProject",
-    "url": "http://gondolindrim.github.io/AcheronDocs/keebs/intro.html", 
-    "maintainer": "Gondolindrim", 
+    "url": "http://gondolindrim.github.io/AcheronDocs/keebs/intro.html",
+    "maintainer": "Gondolindrim",
     "usb": {
         "vid": "0x4150",
         "pid": "0x4B45",

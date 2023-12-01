@@ -1,7 +1,7 @@
 {
-    "keyboard_name": "Hailey", 
+    "keyboard_name": "Hailey",
     "manufacturer": "Nightingale Studios",
-    "maintainer": "zvecr", 
+    "maintainer": "zvecr",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x4879",

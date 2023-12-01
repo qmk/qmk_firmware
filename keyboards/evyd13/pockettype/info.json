@@ -1,8 +1,8 @@
 {
-  "keyboard_name": "PocketType", 
+  "keyboard_name": "PocketType",
   "manufacturer": "Evyd13",
-  "url": "https://mechboards.co.uk/shop/kits/pockettype/", 
-  "maintainer": "evyd13", 
+  "url": "https://mechboards.co.uk/shop/kits/pockettype/",
+  "maintainer": "evyd13",
   "usb": {
     "vid": "0x4705",
     "pid": "0xFA7D",

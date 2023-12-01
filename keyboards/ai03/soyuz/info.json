@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Soyuz", 
+    "keyboard_name": "Soyuz",
     "manufacturer": "ai03 Design Studio",
-    "url": "https://github.com/ai03-2725/soyuz", 
-    "maintainer": "ai03", 
+    "url": "https://github.com/ai03-2725/soyuz",
+    "maintainer": "ai03",
     "usb": {
         "vid": "0xA103",
         "pid": "0x0018",

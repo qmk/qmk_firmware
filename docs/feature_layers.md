@@ -64,7 +64,7 @@ There are a number of functions (and variables) related to how you can use or ma
 | `layer_move(layer)`                          | Turns specified layer on, and all other layers off.                                                     |
 | `layer_on(layer)`                            | Turns specified layer on, leaves all other layers in existing state.                                    |
 | `layer_off(layer)`                           | Turns specified layer off, leaves all other layers in existing state.                                   |
-| `layer_invert(layer)`                        | Interverts/toggles the state of the specified layer                                                     |
+| `layer_invert(layer)`                        | Inverts/toggles the state of the specified layer                                                        |
 | `layer_or(layer_mask)`                       | Turns on layers based on matching bits between specifed layer and existing layer state.                 |
 | `layer_and(layer_mask)`                      | Turns on layers based on matching enabled bits between specifed layer and existing layer state.         |
 | `layer_xor(layer_mask)`                      | Turns on layers based on non-matching bits between specifed layer and existing layer state.             |
@@ -155,7 +155,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       uint8_t current_layer = get_highest_layer(layer_state);
 
       // Check if we are within the range, if not quit
-      if (curent_layer > LAYER_CYCLE_END || current_layer < LAYER_CYCLE_START) {
+      if (current_layer > LAYER_CYCLE_END || current_layer < LAYER_CYCLE_START) {
         return false;
       }
 

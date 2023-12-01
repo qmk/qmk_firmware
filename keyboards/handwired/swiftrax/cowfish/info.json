@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "CowFish", 
+    "keyboard_name": "CowFish",
     "manufacturer": "Swiftrax",
-    "url": "", 
-    "maintainer": "swiftrax", 
+    "url": "",
+    "maintainer": "swiftrax",
     "usb": {
         "vid": "0x04D8",
         "pid": "0xEB53",

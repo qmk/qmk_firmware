@@ -195,8 +195,8 @@ bool rgb_matrix_indicators_user(void) {
     rgb_matrix_set_color(104, 0, 0, 0);
 
     uint8_t red = host_keyboard_led_state().caps_lock ? 255 : 0;
-    uint8_t green = host_keyboard_led_state().scroll_lock ? 255 : 0;
-    uint8_t blue = keymap_config.no_gui ? 255 : 0;
+    uint8_t blue = host_keyboard_led_state().scroll_lock ? 255 : 0;
+    uint8_t green = keymap_config.no_gui ? 255 : 0;
 
 
     if ((rgb_matrix_get_flags() & LED_FLAG_KEYLIGHT)) {

@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "II", 
+    "keyboard_name": "II",
     "manufacturer": "Eagle",
-    "url": "", 
-    "maintainer": "Spaceman", 
+    "url": "",
+    "maintainer": "Spaceman",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x9789",

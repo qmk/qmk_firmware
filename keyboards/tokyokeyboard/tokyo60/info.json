@@ -6,7 +6,8 @@
     "usb": {
         "vid": "0x5436",
         "pid": "0x6060",
-        "device_version": "0.0.1"
+        "device_version": "0.0.1",
+        "max_power": 100
     },
     "matrix_pins": {
         "cols": ["F0", "F1", "E6", "C7", "C6", "B6", "D4", "B1", "B2", "B5", "B4", "D7", "D6", "B3"],
@@ -16,6 +17,24 @@
     "backlight": {
         "pin": "B7",
         "levels": 6
+    },
+    "rgblight": {
+        "hue_steps": 12,
+        "saturation_steps": 12,
+        "brightness_steps": 12,
+        "led_count": 10,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "ws2812": {
         "pin": "F7"

@@ -6,10 +6,11 @@
     "usb": {
         "vid": "0x574C",
         "pid": "0xE6F0",
-        "device_version": "0.0.1"
+        "device_version": "0.0.1",
+        "max_power": 100
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
     },
     "matrix_pins": {
         "cols": ["B5", "B6", "C6"],
@@ -23,6 +24,21 @@
     },
     "ws2812": {
         "pin": "F6"
+    },
+    "rgblight": {
+        "led_count": 6,
+        "max_brightness": 120,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
     },
     "bootmagic": {
         "matrix": [0, 2]

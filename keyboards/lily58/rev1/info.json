@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Lily58", 
+    "keyboard_name": "Lily58",
     "manufacturer": "liliums",
-    "url": "", 
-    "maintainer": "liliums", 
+    "url": "",
+    "maintainer": "liliums",
     "usb": {
         "vid": "0x04D8",
         "pid": "0xEB2D",
@@ -19,6 +19,9 @@
     "split": {
         "enabled": true,
         "soft_serial_pin": "D2"
+    },
+    "rgblight": {
+        "led_count": 12
     },
     "ws2812": {
         "pin": "D3"

@@ -131,7 +131,7 @@ uint8_t matrix_scan(void)
                 case 0x00:
                     break;
                 case 0xF0:
-                    state = F0;
+                    state = F0_BREAK;
                     debug(" ");
                     break;
                 default:    // normal key make

@@ -1,12 +1,27 @@
 {
-    "keyboard_name": "WestMErgo", 
+    "keyboard_name": "WestMErgo",
     "manufacturer": "WestM",
-    "url": "https://github.com/WestMProducts", 
-    "maintainer": "WestM", 
+    "url": "https://github.com/WestMProducts",
+    "maintainer": "WestM",
     "usb": {
         "vid": "0x574D",
         "pid": "0x0201",
         "device_version": "0.0.1"
+    },
+    "rgblight": {
+        "led_count": 16,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "ws2812": {
         "pin": "A8"
@@ -18,6 +33,7 @@
     "diode_direction": "COL2ROW",
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
+    "community_layouts": ["alice"],
     "layouts": {
         "LAYOUT_alice": {
             "layout": [

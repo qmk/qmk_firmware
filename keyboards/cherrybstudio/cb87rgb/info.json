@@ -12,7 +12,7 @@
         "pin": "E6"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
     },
     "matrix_pins": {
         "cols": ["D5", "D4", "D6", "D7", "B4", "B5", "F5", "C6", "C7", "F7"],
@@ -142,7 +142,6 @@
                 {"label": "\u2192", "matrix": [9, 0], "x": 17.25, "y": 5.5}
             ]
         },
-
         "LAYOUT_tkl_f13_ansi": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -249,7 +248,6 @@
                 {"label": "\u2192", "matrix": [9, 0], "x": 17.25, "y": 5.5}
             ]
         },
-
         "LAYOUT_tkl_f13_ansi_split_bs_rshift": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -358,7 +356,6 @@
                 {"label": "\u2192", "matrix": [9, 0], "x": 17.25, "y": 5.5}
             ]
         },
-
         "LAYOUT_tkl_f13_ansi_tsangan": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -464,7 +461,6 @@
                 {"label": "\u2192", "matrix": [9, 0], "x": 17.25, "y": 5.5}
             ]
         },
-
         "LAYOUT_tkl_f13_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -572,7 +568,6 @@
                 {"label": "\u2192", "matrix": [9, 0], "x": 17.25, "y": 5.5}
             ]
         },
-
         "LAYOUT_tkl_f13_iso": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -680,7 +675,6 @@
                 {"label": "\u2192", "matrix": [9, 0], "x": 17.25, "y": 5.5}
             ]
         },
-
         "LAYOUT_tkl_f13_iso_split_bs_rshift": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -790,7 +784,6 @@
                 {"label": "\u2192", "matrix": [9, 0], "x": 17.25, "y": 5.5}
             ]
         },
-
         "LAYOUT_tkl_f13_iso_tsangan": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -897,7 +890,6 @@
                 {"label": "\u2192", "matrix": [9, 0], "x": 17.25, "y": 5.5}
             ]
         },
-
         "LAYOUT_tkl_f13_iso_tsangan_split_bs_rshift": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},

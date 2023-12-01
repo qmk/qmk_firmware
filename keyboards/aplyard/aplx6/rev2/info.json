@@ -13,6 +13,9 @@
             {"pin_a": "F5", "pin_b": "F4"}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 50
+    },
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "layouts": {
