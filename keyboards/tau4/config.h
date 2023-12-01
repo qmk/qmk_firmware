@@ -17,15 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-// Buggy, currently disabled
-/* #define EXTERNAL_EEPROM_I2C_BASE_ADDRESS 0b10100000
-#define EXTERNAL_EEPROM_I2C_ADDRESS(loc) (EXTERNAL_EEPROM_I2C_BASE_ADDRESS | ((((loc) >> 8) & 0x07) << 1))
-#define EXTERNAL_EEPROM_BYTE_COUNT 2048
-#define EXTERNAL_EEPROM_PAGE_SIZE 16
-#define EXTERNAL_EEPROM_ADDRESS_SIZE 1
-#define EXTERNAL_EEPROM_WRITE_TIME 5 */
-
 #define RGBLIGHT_LAYERS_RETAIN_VAL
 
 #define OLED_DISPLAY_WIDTH 128

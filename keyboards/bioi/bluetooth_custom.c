@@ -86,13 +86,12 @@ void bluetooth_send_keyboard(report_keyboard_t *report)
 
     send_str(PSTR("AT+BLEKEYBOARDCODE="));
 
-    for (uint8_t i = 0; i < KEYBOARD_EPSIZE; i++)
-    {
-        send_bytes(report->raw[i]);
-        if (i < (KEYBOARD_EPSIZE - 1))
-        {
-            send_str(PSTR("-"));
-        }
+    send_bytes(report->mods);
+    send_str(PSTR("-"));
+    send_bytes(0);
+    for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
+        send_str(PSTR("-"));
+        send_bytes(report->keys[i]);
     }
 
     send_str(PSTR("\r\n"));

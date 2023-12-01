@@ -20,7 +20,7 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define RGB_MATRIX_LED_COUNT 6
+#define IS31FL3218_LED_COUNT 6
 
 #define RGB_BACKLIGHT_ENABLED 1
 

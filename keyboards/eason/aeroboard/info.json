@@ -34,7 +34,8 @@
     },
     "diode_direction": "COL2ROW",
     "processor": "STM32F103",
-    "bootloader": "stm32duino",
+    "bootloader": "uf2boot",
+    "board": "STM32_F103_STM32DUINO"
     "layouts": {
         "LAYOUT_7u_space": {
             "layout": [
