@@ -1,4 +1,4 @@
-/* Copyright 2021 Jay Greco
+/* Copyright 2023 Gondolindrim
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,23 +14,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "quantum.h"
+#define CAPS_COLOR_R 0xFF
+#define CAPS_COLOR_G 0xFF
+#define CAPS_COLOR_B 0xFF
 
-/* space savers */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 3
-#define NO_ACTION_TAPPING
-#define NO_ACTION_ONESHOT
-#define TAPPING_FORCE_HOLD
+void keyboard_post_init_kb(void) {
+    rgblight_set_effect_range(0,29);
+    keyboard_post_init_user();
+}
 
-#define OLED_BRIGHTNESS 128
-#define OLED_TIMEOUT 30000
-
-// Selectively undefine to save space
-// VIA support won't fit otherwise
-#ifdef RGBLIGHT_ENABLE
-#undef RGBLIGHT_EFFECT_TWINKLE
-#undef RGBLIGHT_EFFECT_RGB_TEST
-#endif //RGB LIGHT_ENABLE
-
-// Split Options
-#define SPLIT_TRANSPORT_MIRROR
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) led_state.caps_lock ? rgblight_setrgb_at(CAPS_COLOR_R, CAPS_COLOR_G, CAPS_COLOR_B, 30) : rgblight_setrgb_at(0, 0, 0, 30);
+    return res;
+}

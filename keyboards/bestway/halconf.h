@@ -1,4 +1,4 @@
-/* Copyright 2021 Jay Greco
+/* Copyright 2022 LXF-YZP(yuezp)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,21 +16,6 @@
 
 #pragma once
 
-/* space savers */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 3
-#define NO_ACTION_TAPPING
-#define NO_ACTION_ONESHOT
-#define TAPPING_FORCE_HOLD
+#define HAL_USE_PWM    TRUE
 
-#define OLED_BRIGHTNESS 128
-#define OLED_TIMEOUT 30000
-
-// Selectively undefine to save space
-// VIA support won't fit otherwise
-#ifdef RGBLIGHT_ENABLE
-#undef RGBLIGHT_EFFECT_TWINKLE
-#undef RGBLIGHT_EFFECT_RGB_TEST
-#endif //RGB LIGHT_ENABLE
-
-// Split Options
-#define SPLIT_TRANSPORT_MIRROR
+#include_next <halconf.h>

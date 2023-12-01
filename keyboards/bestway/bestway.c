@@ -1,4 +1,4 @@
-/* Copyright 2021 Jay Greco
+/* Copyright 2022 LXF-YZP(yuezp)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,23 +14,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "quantum.h"
 
-/* space savers */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 3
-#define NO_ACTION_TAPPING
-#define NO_ACTION_ONESHOT
-#define TAPPING_FORCE_HOLD
-
-#define OLED_BRIGHTNESS 128
-#define OLED_TIMEOUT 30000
-
-// Selectively undefine to save space
-// VIA support won't fit otherwise
 #ifdef RGBLIGHT_ENABLE
-#undef RGBLIGHT_EFFECT_TWINKLE
-#undef RGBLIGHT_EFFECT_RGB_TEST
-#endif //RGB LIGHT_ENABLE
 
-// Split Options
-#define SPLIT_TRANSPORT_MIRROR
+const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 1, HSV_RED}
+);
+
+const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    my_capslock_layer
+);
+
+bool led_update_kb(led_t led_state) {
+    if (!led_update_user(led_state)) { return false; }
+    rgblight_set_layer_state(0, led_state.caps_lock);
+    return true;
+}
+
+void keyboard_post_init_kb(void) {
+    rgblight_layers = my_rgb_layers;
+    keyboard_post_init_user();
+}
+
+#endif
+void board_init(void) {
+    AFIO->MAPR |= AFIO_MAPR_TIM2_REMAP_PARTIALREMAP2;
+}

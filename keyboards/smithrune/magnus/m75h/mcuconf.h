@@ -1,4 +1,4 @@
-/* Copyright 2021 Jay Greco
+/* Copyright 2023 Gondolindrim
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,21 +16,13 @@
 
 #pragma once
 
-/* space savers */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 3
-#define NO_ACTION_TAPPING
-#define NO_ACTION_ONESHOT
-#define TAPPING_FORCE_HOLD
+#include_next <mcuconf.h>
 
-#define OLED_BRIGHTNESS 128
-#define OLED_TIMEOUT 30000
+#undef STM32_PWM_USE_ADVANCED
+#define STM32_PWM_USE_ADVANCED TRUE
 
-// Selectively undefine to save space
-// VIA support won't fit otherwise
-#ifdef RGBLIGHT_ENABLE
-#undef RGBLIGHT_EFFECT_TWINKLE
-#undef RGBLIGHT_EFFECT_RGB_TEST
-#endif //RGB LIGHT_ENABLE
+#undef STM32_PWM_USE_TIM3
+#define STM32_PWM_USE_TIM3 TRUE
 
-// Split Options
-#define SPLIT_TRANSPORT_MIRROR
+#undef STM32_PWM_USE_TIM1
+#define STM32_PWM_USE_TIM1 TRUE
