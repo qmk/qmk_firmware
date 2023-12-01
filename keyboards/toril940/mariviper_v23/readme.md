@@ -6,7 +6,7 @@ This project was a revival of the Duck Viper v2/3, where we don't have very many
 especially Alps support as well. This PCB has both Alps and MX support as well as universal layout support! It also
 features a 3u/1u/3u split spacebar variant for fun :)
 
-* Keyboard Maintainer: [Maria Vasudevan](https://github.com/toril940)
+* Keyboard Maintainer: [Maria V](https://github.com/toril940)
 * Hardware Supported: MariViper v2/3 PCBs
 * Hardware Availability: Running through Maria on request.
 
