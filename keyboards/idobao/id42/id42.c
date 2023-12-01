@@ -1,7 +1,7 @@
 // Copyright 2022 Vino Rodrigues (@vinorodrigues)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "id42.h"
+#include "quantum.h"
 
 #define __ NO_LED
 
@@ -20,7 +20,7 @@
  */
 led_config_t g_led_config = { {
     // Key Matrix to LED Index
-    // WS2812 LED strings are addressed from 0 (1st) to DRIVER_LED_TOTAL-1 (last)
+    // WS2812 LED strings are addressed from 0 (1st) to RGB_MATRIX_LED_COUNT-1 (last)
     { 41, 40, 39, 38, 37, 36, 35, 34, 33, 32, 31, 30 },
     { 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, __, 19 },
     { 18, 17, 16, 15, 14, 13, 12, 11, 10, __, 9,  8  },

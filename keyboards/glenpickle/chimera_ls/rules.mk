@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = caterina
-
 # Build Options
 #   change yes to no to disable
 #
@@ -20,9 +14,7 @@ CUSTOM_MATRIX = lite
 
 # project specific files
 SRC += matrix.c
-QUANTUM_LIB_SRC += uart.c
-
-LAYOUTS = ortho_4x12
+UART_DRIVER_REQUIRED = yes
 
 # Disable unsupported hardware
 RGBLIGHT_SUPPORTED = no

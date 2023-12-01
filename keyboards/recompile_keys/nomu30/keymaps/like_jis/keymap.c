@@ -53,9 +53,9 @@ enum custom_keycodes {
 // #define KC_CODO  TD(TD_CODO)
 // #define KC_SLRO  TD(TD_SLRO)
 
-// qk_tap_dance_action_t tap_dance_actions[] = {
+// tap_dance_action_t tap_dance_actions[] = {
 //   [TD_CODO] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_DOT),
-//   [TD_SLRO] = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_RO),
+//   [TD_SLRO] = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, JP_BSLS),
 // };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LOWER] = LAYOUT(
   //,-----------------------------------------------------------------------------------------------------------------------.
-                   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,  KC_MINS,   KC_EQL,  KC_JYEN,  KC_LBRC,  KC_RBRC,  _______,
+                   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,  KC_MINS,   KC_EQL,   JP_YEN,  KC_LBRC,  KC_RBRC,  _______,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
        _______,    KC_F6,    KC_F7,    KC_F8,    KC_F9,   KC_F10,  XXXXXXX,  XXXXXXX,  KC_SCLN,  KC_QUOT,  KC_BSSF,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
        _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_LEFT,  KC_DOWN,    KC_UP,  KC_RGHT,  KC_LSFT,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       _______,  KC_LALT,  KC_LGUI,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_SLSH,    KC_RO,  _______
+       _______,  KC_LALT,  KC_LGUI,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_SLSH,  JP_BSLS,  _______
   //`---------+---------+---------+---------+---------+---------+---------+---------+---------'
   ),
 
@@ -119,12 +119,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KANJI:
       if (record->event.pressed) {
         if (keymap_config.swap_lalt_lgui == false) {
-          register_code(KC_LANG2);
+          register_code(KC_LNG2);
         } else {
           SEND_STRING(SS_LALT("`"));
         }
       } else {
-        unregister_code(KC_LANG2);
+        unregister_code(KC_LNG2);
       }
       break;
     #ifdef RGBLIGHT_ENABLE

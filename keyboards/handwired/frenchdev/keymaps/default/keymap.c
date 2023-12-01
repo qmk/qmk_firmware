@@ -128,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *
   */
 [_MEDIA] = LAYOUT(
-           QK_BOOT,   KC_SLCK, KC_PAUS, KC_MUTE, KC_VOLD, KC_VOLU,                                     KC_MUTE, KC_VOLD, KC_VOLU, KC_PSCR, KC_CALC, KC_NLCK,
+           QK_BOOT,   KC_SCRL, KC_PAUS, KC_MUTE, KC_VOLD, KC_VOLU,                                     KC_MUTE, KC_VOLD, KC_VOLU, KC_PSCR, KC_CALC, KC_NUM,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_MSTP, KC_MPRV, KC_MNXT, KC_MPLY,                                     KC_MPLY, KC_MPRV, KC_MNXT, KC_MSTP, KC_TRNS, KC_PMNS, KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_WH_U, KC_TRNS, KC_BTN4, KC_BTN5,                                     KC_BTN4, KC_BTN5, KC_KP_7, KC_KP_8, KC_KP_9, KC_PPLS, KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_WH_D, KC_BTN3, KC_BTN2, KC_BTN1,                                     KC_BTN1, KC_BTN2, KC_KP_4, KC_KP_5, KC_KP_6, KC_PAST, KC_TRNS,
@@ -176,33 +176,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void hold_shift(void) {
   shift_count = shift_count + 1;
-  register_code(KC_LSHIFT);
+  register_code(KC_LSFT);
 }
 
 void release_shift(void) {
   shift_count = shift_count - 1;
   if(shift_count <= 0){
-    unregister_code(KC_LSHIFT);
+    unregister_code(KC_LSFT);
     shift_count = 0;
   }
 }
 
 void press_space(void) {
-  if(shift_count > 0) unregister_code (KC_LSHIFT);
+  if(shift_count > 0) unregister_code (KC_LSFT);
   tap_code(KC_SPACE);
-  if(shift_count > 0) register_code (KC_LSHIFT);
+  if(shift_count > 0) register_code (KC_LSFT);
 }
 
 void press_enter(void) {
-  if(shift_count > 0) unregister_code (KC_LSHIFT);
+  if(shift_count > 0) unregister_code (KC_LSFT);
   tap_code (KC_ENT);
-  if(shift_count > 0) register_code (KC_LSHIFT);
+  if(shift_count > 0) register_code (KC_LSFT);
 }
 
 void press_underscore(void) {
-  if(shift_count > 0) unregister_code (KC_LSHIFT);
+  if(shift_count > 0) unregister_code (KC_LSFT);
   tap_code ((unsigned char) BP_UNDS);
-  if(shift_count > 0) register_code (KC_LSHIFT);
+  if(shift_count > 0) register_code (KC_LSFT);
 }
 
 // Bleah globals need to be initialized.
@@ -235,13 +235,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case M_LP: //left pedal
       if (record->event.pressed) {
         layer_on(1);
-        register_code (KC_SLCK);
+        register_code (KC_SCRL);
         key_timer_left_pedal = timer_read(); // if the key is being pressed, we start the timer.
       } else {
         if (timer_elapsed(key_timer_left_pedal) < KEY_DELAY) {
            tap_code (KC_BTN2);
         }
-        unregister_code (KC_SLCK);
+        unregister_code (KC_SCRL);
         layer_off(1);
       }
       break;
@@ -351,11 +351,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void led_set_user(uint8_t usb_led) {
-  if (usb_led & (1<<USB_LED_CAPS_LOCK)){
+bool led_update_user(led_t led_state) {
+  if (led_state.caps_lock){
     frenchdev_led_3_on();
   } else {
     frenchdev_led_3_off();
   }
-  return ;
+  return false;
 }

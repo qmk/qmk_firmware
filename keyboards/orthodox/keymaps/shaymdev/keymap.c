@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-enum orthodox_layers 
+enum orthodox_layers
 {
 	_DVORAK,
 	_QWERTY,
@@ -30,14 +30,14 @@ enum orthodox_layers
 	_ADJUST,
 };
 
-enum combos //match combo_count in config.h
+enum combos
 {
 	EU_ENT,
 };
 
 const uint16_t PROGMEM eu_combo[]     = {KC_E, KC_U, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
 	[EU_ENT]                = COMBO_ACTION(eu_combo),
 };
 
@@ -66,39 +66,39 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 [_DVORAK] = LAYOUT(
-  KC_ESC,  KC_QUOT, KC_COMM, KC_DOT, KC_P,    KC_Y,                                                                            KC_F,    KC_G,   KC_C,  KC_R,   KC_L,    KC_SLSH, 
-  KC_TAB, GUI_T(KC_A), ALT_T(KC_O), KC_E, KC_U,  KC_I, KC_ENT,             KC_LALT,         KC_DEL,                 KC_LGUI,   KC_D,    KC_H,   KC_T,  KC_N,   KC_S,    KC_MINS, 
-  KC_EQL,  KC_SCLN, KC_Q,    KC_J,   KC_K,    KC_X,    TT(LOWER), KC_LSFT, KC_LCTL,         KC_BSPC, ALT_T(KC_SPC), TT(RAISE), KC_B,    KC_M,   KC_W,  KC_V,   KC_Z,    KC_BSLS 
+  KC_ESC,  KC_QUOT, KC_COMM, KC_DOT, KC_P,    KC_Y,                                                                            KC_F,    KC_G,   KC_C,  KC_R,   KC_L,    KC_SLSH,
+  KC_TAB, GUI_T(KC_A), ALT_T(KC_O), KC_E, KC_U,  KC_I, KC_ENT,             KC_LALT,         KC_DEL,                 KC_LGUI,   KC_D,    KC_H,   KC_T,  KC_N,   KC_S,    KC_MINS,
+  KC_EQL,  KC_SCLN, KC_Q,    KC_J,   KC_K,    KC_X,    TT(LOWER), KC_LSFT, KC_LCTL,         KC_BSPC, ALT_T(KC_SPC), TT(RAISE), KC_B,    KC_M,   KC_W,  KC_V,   KC_Z,    KC_BSLS
 ),
 
-[_QWERTY] = LAYOUT( 
-  KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                                                    KC_Y,  KC_U,  KC_I,    KC_O,    KC_P,    KC_BSPC, 
-  KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    _______,          _______,          _______,           _______, KC_H,  KC_J,  KC_K,    KC_L,    KC_SCLN, KC_QUOT, 
-  KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    _______, _______, _______,          _______, _______,  _______, KC_N,  KC_M,  KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT 
+[_QWERTY] = LAYOUT(
+  KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                                                    KC_Y,  KC_U,  KC_I,    KC_O,    KC_P,    KC_BSPC,
+  KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    _______,          _______,          _______,           _______, KC_H,  KC_J,  KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+  KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    _______, _______, _______,          _______, _______,  _______, KC_N,  KC_M,  KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT
 ),
 
-[_LOWER] = LAYOUT( 
-  _______, KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_AMPR,                                                                _______, KC_P7, KC_P8, KC_P9, KC_PMNS, _______, 
-  _______, KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_ASTR, _______,          _______,          _______,          _______, _______, KC_P4, KC_P5, KC_P6, KC_PPLS, _______, 
-  _______, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_GRV,	_______, _______, _______,          _______, _______, KC_KP_0, _______, KC_P1, KC_P2, KC_P3, KC_PENT, _______ 
+[_LOWER] = LAYOUT(
+  _______, KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_AMPR,                                                                _______, KC_P7, KC_P8, KC_P9, KC_PMNS, _______,
+  _______, KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_ASTR, _______,          _______,          _______,          _______, _______, KC_P4, KC_P5, KC_P6, KC_PPLS, _______,
+  _______, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_GRV,	_______, _______, _______,          _______, _______, KC_KP_0, _______, KC_P1, KC_P2, KC_P3, KC_PENT, _______
 ),
 
-[_RAISE] = LAYOUT( 
+[_RAISE] = LAYOUT(
   _______, KC_PSCR, KC_HOME, KC_UP,   KC_END,  KC_PGUP,                                                                KC_VOLU, KC_F7, KC_F8,  KC_F9,  KC_F10,  XXXXXXX,
   KC_CAPS, KC_INS,  KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,  _______,          _______,         _______,          _______, KC_VOLD, KC_F4, KC_F5,  KC_F6,  KC_F11,  XXXXXXX,
-  _______, KC_NLCK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______, _______, _______,         _______, _______, _______, KC_MUTE, KC_F1, KC_F2,  KC_F3,  KC_F12,  XXXXXXX
+  _______, KC_NUM,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______, _______, _______,         _______, _______, _______, KC_MUTE, KC_F1, KC_F2,  KC_F3,  KC_F12,  XXXXXXX
 ),
 
-[_ADJUST] =  LAYOUT( 
-    TO_DV, QK_BOOT, _______, _______, _______, _______,                                                                _______, _______, _______, _______, _______, KC_SLEP,  
-  RGB_TOG, RGB_MOD, VLK_TOG,  AU_ON,   AU_OFF,  AG_NORM, _______,          _______,          _______,          _______, AG_SWAP,  QWERTY,  DVORAK, _______, _______, _______, 
-  RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______,          _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY  
+[_ADJUST] =  LAYOUT(
+    TO_DV, QK_BOOT, _______, _______, _______, _______,                                                                _______, _______, _______, _______, _______, KC_SLEP,
+  RGB_TOG, RGB_MOD, VK_TOGG,  AU_ON,   AU_OFF,  AG_NORM, _______,          _______,          _______,          _______, AG_SWAP,  QWERTY,  DVORAK, _______, _______, _______,
+  RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______,          _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
 )
 
 
 };
 
-const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPACE, KC_DELETE);
+const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DELETE);
 
 // This globally defines all key overrides to be used
 const key_override_t **key_overrides = (const key_override_t *[]){

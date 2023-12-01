@@ -85,7 +85,7 @@ uint8_t remap[16] = {
 void refresh_leds(void) {
     for (uint8_t index = 0; index < 16; ++index) {
         uint8_t tile = tiles[index];
-        setrgb(r[tile], g[tile], b[tile], (LED_TYPE *)&led[remap[index]]);
+        setrgb(r[tile], g[tile], b[tile], (rgb_led_t *)&led[remap[index]]);
     }
     rgblight_set();
 }

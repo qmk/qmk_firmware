@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   KC_LCBR,
         ALL_T(KC_CAPS), KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        LT(MDIA,KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   KC_LALT,
-        KC_LCTRL,       KC_LBRC,      KC_RBRC,        KC_GRV, KC_QUOT,
+        KC_LCTL,        KC_LBRC,      KC_RBRC,        KC_GRV, KC_QUOT,
                                                      KC_PSCR, KC_LGUI,
                                                               KC_INS,
                                                KC_SPC,KC_BSPC,KC_DEL,
@@ -181,7 +181,7 @@ void matrix_scan_user(void) {
      }
   }
 
-  if(keyboard_report->mods & MOD_BIT(KC_LCTRL))
+  if(keyboard_report->mods & MOD_BIT(KC_LCTL))
   {
       ergodox_right_led_3_set (LED_BRIGHTNESS_HI);
       ergodox_right_led_3_on ();
@@ -194,11 +194,12 @@ void matrix_scan_user(void) {
   }
 };
 
-void led_set_user(uint8_t usb_led){
- if (usb_led & (1 << USB_LED_CAPS_LOCK))
+bool led_update_user(led_t led_state){
+ if (led_state.caps_lock)
    {
       capsOn = true;
    }else {
       capsOn = false;
    }
+   return false;
 }

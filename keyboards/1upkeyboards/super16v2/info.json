@@ -8,9 +8,48 @@
       "pid": "0x5517",
       "device_version": "0.0.1"
     },
+    "ws2812": {
+      "pin": "B5"
+    },
+    "rgb_matrix": {
+      "driver": "ws2812"
+    },
+    "matrix_pins": {
+      "cols": ["D5", "D6", "C2", "D0"],
+      "rows": ["D1", "D2", "D3", "D4"]
+    },
+    "diode_direction": "COL2ROW",
+    "encoder": {
+      "rotary": [
+        {"pin_a": "B1", "pin_b": "B2"},
+        {"pin_a": "B3", "pin_b": "B4"}
+      ]
+    },
+    "processor": "atmega32u2",
+    "bootloader": "atmel-dfu",
     "layouts": {
       "LAYOUT_ortho_4x4": {
-        "layout": [{"x":0, "y":0}, {"x":1, "y":0}, {"x":2, "y":0}, {"x":3, "y":0}, {"x":0, "y":1}, {"x":1, "y":1}, {"x":2, "y":1}, {"x":3, "y":1}, {"x":0, "y":2}, {"x":1, "y":2}, {"x":2, "y":2}, {"x":3, "y":2}, {"x":0, "y":3}, {"x":1, "y":3}, {"x":2, "y":3}, {"x":3, "y":3}]
+        "layout": [
+          {"matrix": [0, 0], "x": 0, "y": 0},
+          {"matrix": [0, 1], "x": 1, "y": 0},
+          {"matrix": [0, 2], "x": 2, "y": 0},
+          {"matrix": [0, 3], "x": 3, "y": 0},
+
+          {"matrix": [1, 0], "x": 0, "y": 1},
+          {"matrix": [1, 1], "x": 1, "y": 1},
+          {"matrix": [1, 2], "x": 2, "y": 1},
+          {"matrix": [1, 3], "x": 3, "y": 1},
+
+          {"matrix": [2, 0], "x": 0, "y": 2},
+          {"matrix": [2, 1], "x": 1, "y": 2},
+          {"matrix": [2, 2], "x": 2, "y": 2},
+          {"matrix": [2, 3], "x": 3, "y": 2},
+
+          {"matrix": [3, 0], "x": 0, "y": 3},
+          {"matrix": [3, 1], "x": 1, "y": 3},
+          {"matrix": [3, 2], "x": 2, "y": 3},
+          {"matrix": [3, 3], "x": 3, "y": 3}
+        ]
       }
     }
   }

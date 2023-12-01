@@ -56,6 +56,12 @@
 #    define WS2812_TRST_US 280
 #endif
 
+#if defined(RGBLED_NUM)
+#    define WS2812_LED_COUNT RGBLED_NUM
+#elif defined(RGB_MATRIX_LED_COUNT)
+#    define WS2812_LED_COUNT RGB_MATRIX_LED_COUNT
+#endif
+
 /* User Interface
  *
  * Input:
@@ -67,4 +73,4 @@
  *         - Send out the LED data
  *         - Wait 50us to reset the LEDs
  */
-void ws2812_setleds(LED_TYPE *ledarray, uint16_t number_of_leds);
+void ws2812_setleds(rgb_led_t *ledarray, uint16_t number_of_leds);

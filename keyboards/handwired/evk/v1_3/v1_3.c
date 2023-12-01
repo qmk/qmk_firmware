@@ -12,7 +12,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "v1_3.h"
+#include "quantum.h"
 
 // Optional override functions below.
 // You can leave any or all of these undefined.

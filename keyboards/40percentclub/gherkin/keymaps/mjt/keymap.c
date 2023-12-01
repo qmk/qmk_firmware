@@ -59,22 +59,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [_ADJUST] = LAYOUT_ortho_3x10(
     QK_BOOT,  _______,  _______,  _______,  _______,  QWERTY,   NUMBERS,  SYMBOLS,  PLOVER,    SONGS,
-    MUV_DE,   MUV_IN,   MU_ON,    MU_OFF,   _______,  _______,  _______,  _______,  MACSLEEP,  _______,
+    AU_PREV,  AU_NEXT,  MU_ON,    MU_OFF,   _______,  _______,  _______,  _______,  MACSLEEP,  _______,
     BACKLIT,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______
   )
 };
 
 #ifdef AUDIO_ENABLE
 
-float tone_startup[][2]    = SONG(STARTUP_SOUND);
 float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
 float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
 float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
 float tone_plover[][2]     = SONG(PLOVER_SOUND);
 float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
-float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 
-float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
 #endif
 
 void persistant_default_layer_set(uint16_t default_layer) {
@@ -141,11 +138,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case MACSLEEP:
       if (record->event.pressed) {
-          // ACTION_MODS_KEY(MOD_LCTL | MOD_LSFT, KC_POWER);
+          // ACTION_MODS_KEY(MOD_LCTL | MOD_LSFT, KC_PWR);
           register_code(KC_RSFT);
           register_code(KC_RCTL);
-          register_code(KC_POWER);
-          unregister_code(KC_POWER);
+          register_code(KC_PWR);
+          unregister_code(KC_PWR);
           unregister_code(KC_RCTL);
           unregister_code(KC_RSFT);
       }
@@ -166,44 +163,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void matrix_init_user(void) {
-    #ifdef AUDIO_ENABLE
-        startup_user();
-    #endif
-}
-
-#ifdef AUDIO_ENABLE
-
-void startup_user()
-{
-    _delay_ms(20); // gets rid of tick
-    PLAY_SONG(tone_startup);
-}
-
-void shutdown_user()
-{
-    PLAY_SONG(tone_goodbye);
-    _delay_ms(150);
-    stop_all_notes();
-}
-
-void music_on_user(void)
-{
-    music_scale_user();
-}
-
-void music_scale_user(void)
-{
-    PLAY_SONG(music_scale);
-}
-
-#endif
-
 void matrix_scan_user(void) {
 }
 
 //Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   //Tap once for Esc, twice for Caps Lock
   [TD_Z_LCTL]  = ACTION_TAP_DANCE_DOUBLE(KC_Z, KC_LCTL),
   [TD_X_LGUI]  = ACTION_TAP_DANCE_DOUBLE(KC_X, KC_LGUI),
@@ -211,40 +175,3 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_A_TAB]  = ACTION_TAP_DANCE_DOUBLE(KC_A, KC_TAB),
   [TD_Q_ESC]  = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC)
 };
-
-// don't know what this is doing...
-/*
-void led_set_user(uint8_t usb_led) {
-
-  if (usb_led & (1 << USB_LED_NUM_LOCK)) {
-    DDRD |= (1 << 5); PORTD &= ~(1 << 5);
-  } else {
-    DDRD &= ~(1 << 5); PORTD &= ~(1 << 5);
-  }
-
-  if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-    DDRB |= (1 << 0); PORTB &= ~(1 << 0);
-  } else {
-    DDRB &= ~(1 << 0); PORTB &= ~(1 << 0);
-  }
-
-  if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
-
-  } else {
-
-  }
-
-  if (usb_led & (1 << USB_LED_COMPOSE)) {
-
-  } else {
-
-  }
-
-  if (usb_led & (1 << USB_LED_KANA)) {
-
-  } else {
-
-  }
-
-}
-*/

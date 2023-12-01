@@ -55,10 +55,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_FN] = LAYOUT_planck_grid(
-  KC_EXLM, KC_AT,       KC_HASH,     KC_DLR,   KC_PERC,   KC_CIRC, KC_AMPR,   KC_ASTR, KC_F12,  KC_F7,  KC_F8,  KC_F9,
-  KC_TAB,  KC_LBRACKET, KC_RBRACKET, KC_MINUS, KC_DELETE, KC_QUOT, KC_LPRN,   KC_RPRN, KC_F11,  KC_F4,  KC_F5,  KC_F6,
-  KC_MENU, _______,     _______,     KC_EQUAL, KC_BSLS,   KC_SLSH, XXXXXXX,   XXXXXXX, KC_PGUP, KC_F1,  KC_F2,  KC_F3,
-  _______, KC_LGUI,     KC_GRAVE,    _______,  _______,   _______, KC_SCOLON, KC_HOME, KC_PGDN, KC_END, KC_F10, _______
+  KC_EXLM, KC_AT,   KC_HASH,  KC_DLR,   KC_PERC,   KC_CIRC, KC_AMPR,   KC_ASTR, KC_F12,  KC_F7,  KC_F8,  KC_F9,
+  KC_TAB,  KC_LBRC, KC_RBRC,  KC_MINUS, KC_DELETE, KC_QUOT, KC_LPRN,   KC_RPRN, KC_F11,  KC_F4,  KC_F5,  KC_F6,
+  KC_MENU, _______, _______,  KC_EQUAL, KC_BSLS,   KC_SLSH, XXXXXXX,   XXXXXXX, KC_PGUP, KC_F1,  KC_F2,  KC_F3,
+  _______, KC_LGUI, KC_GRAVE, _______,  _______,   _______, KC_SCLN,   KC_HOME, KC_PGDN, KC_END, KC_F10, _______
 ),
 
 /* Qwerty
@@ -132,24 +132,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_ADJ] = LAYOUT_planck_grid(
   _______, _______, _______, _______, _______, _______, _______, _______, KC_INS,  KC_PSCR, KC_PAUSE, QK_BOOT,
-  _______, _______, _______, _______, _______, _______, _______, KC_CLCK, MUV_IN,  AU_TOG,  MI_OFF,   _______,
-  _______, _______, _______, _______, _______, _______, _______, KC_SLCK, MUV_DE,  MU_TOG,  MI_ON,    _______,
-  _______, _______, _______, _______, _______, _______, _______, KC_NLCK, WORKMAN, QWERTY,  PLOVER,   _______
+  _______, _______, _______, _______, _______, _______, _______, KC_CAPS, AU_NEXT, AU_TOGG, MI_OFF,   _______,
+  _______, _______, _______, _______, _______, _______, _______, KC_SCRL, AU_PREV, MU_TOGG, MI_ON,    _______,
+  _______, _______, _______, _______, _______, _______, _______, KC_NUM,  WORKMAN, QWERTY,  PLOVER,   _______
 )
 
 };
 
 #ifdef AUDIO_ENABLE
-
-float tone_startup[][2]    = SONG(STARTUP_SOUND);
-float tone_goodbye[][2]    = SONG(GOODBYE_SOUND);
-
 float tone_workman[][2]    = SONG(QWERTY_SOUND);
 float tone_qwerty[][2]     = SONG(COLEMAK_SOUND);
 float tone_plover[][2]     = SONG(PLOVER_SOUND);
-
-float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
-
 #endif
 
 
@@ -196,36 +189,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
-
-void matrix_init_user(void) {
-    #ifdef AUDIO_ENABLE
-        startup_user();
-    #endif
-}
-
-#ifdef AUDIO_ENABLE
-
-void startup_user()
-{
-    _delay_ms(20); // gets rid of tick
-    PLAY_SONG(tone_startup);
-}
-
-void shutdown_user()
-{
-    PLAY_SONG(tone_goodbye);
-    _delay_ms(150);
-    stop_all_notes();
-}
-
-void music_on_user(void)
-{
-    music_scale_user();
-}
-
-void music_scale_user(void)
-{
-    PLAY_SONG(music_scale);
-}
-
-#endif

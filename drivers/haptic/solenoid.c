@@ -20,11 +20,11 @@
 #include "haptic.h"
 #include "gpio.h"
 #include "usb_device_state.h"
+#include "util.h"
 #include <stdlib.h>
 
-uint8_t      solenoid_dwell  = SOLENOID_DEFAULT_DWELL;
 static pin_t solenoid_pads[] = SOLENOID_PINS;
-#define NUMBER_OF_SOLENOIDS (sizeof(solenoid_pads) / sizeof(pin_t))
+#define NUMBER_OF_SOLENOIDS ARRAY_SIZE(solenoid_pads)
 bool     solenoid_on[NUMBER_OF_SOLENOIDS]      = {false};
 bool     solenoid_buzzing[NUMBER_OF_SOLENOIDS] = {false};
 uint16_t solenoid_start[NUMBER_OF_SOLENOIDS]   = {0};
@@ -52,7 +52,7 @@ void solenoid_set_buzz(uint8_t buzz) {
 }
 
 void solenoid_set_dwell(uint8_t dwell) {
-    solenoid_dwell = dwell;
+    haptic_set_dwell(dwell);
 }
 
 /**
@@ -118,7 +118,7 @@ void solenoid_check(void) {
         elapsed[i] = timer_elapsed(solenoid_start[i]);
 
         // Check if it's time to finish this solenoid click cycle
-        if (elapsed[i] > solenoid_dwell) {
+        if (elapsed[i] > haptic_config.dwell) {
             solenoid_stop(i);
             continue;
         }
@@ -147,7 +147,7 @@ void solenoid_check(void) {
 void solenoid_setup(void) {
 #ifdef SOLENOID_PINS_ACTIVE_STATE
     bool    state_temp[] = SOLENOID_PINS_ACTIVE_STATE;
-    uint8_t bound_check  = (sizeof(state_temp) / sizeof(bool));
+    uint8_t bound_check  = ARRAY_SIZE(state_temp);
 #endif
 
     for (uint8_t i = 0; i < NUMBER_OF_SOLENOIDS; i++) {

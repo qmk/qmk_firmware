@@ -133,7 +133,17 @@ groups in the below fallback switch.
 ### NO_AUTO_SHIFT_SPECIAL (simple define)
 
 Do not Auto Shift special keys, which include -\_, =+, [{, ]}, ;:, '", ,<, .>,
-and /?
+/?, and the KC_TAB.
+
+### NO_AUTO_SHIFT_TAB (simple define)
+
+Do not Auto Shift KC_TAB but leave Auto Shift enabled for the other special
+characters.
+
+### NO_AUTO_SHIFT_SYMBOLS (simple define)
+
+Do not Auto Shift symbol keys, which include -\_, =+, [{, ]}, ;:, '", ,<, .>,
+and /?.
 
 ### NO_AUTO_SHIFT_NUMERIC (simple define)
 
@@ -143,9 +153,13 @@ Do not Auto Shift numeric keys, zero through nine.
 
 Do not Auto Shift alpha characters, which include A through Z.
 
+### AUTO_SHIFT_ENTER (simple define)
+
+Auto Shift the enter key.
+
 ### Auto Shift Per Key
 
-There are functions that allows you to determine which keys shold be autoshifted, much like the tap-hold keys.
+There are functions that allows you to determine which keys should be autoshifted, much like the tap-hold keys.
 
 The first of these, used to simply add a key to Auto Shift, is `get_custom_auto_shifted_key`:
 
@@ -166,15 +180,21 @@ For more granular control, there is `get_auto_shifted_key`. The default function
 bool get_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
 #    ifndef NO_AUTO_SHIFT_ALPHA
-        case KC_A ... KC_Z:
+        case AUTO_SHIFT_ALPHA:
 #    endif
 #    ifndef NO_AUTO_SHIFT_NUMERIC
-        case KC_1 ... KC_0:
+        case AUTO_SHIFT_NUMERIC:
 #    endif
 #    ifndef NO_AUTO_SHIFT_SPECIAL
+#        ifndef NO_AUTO_SHIFT_TAB
         case KC_TAB:
-        case KC_MINUS ... KC_SLASH:
-        case KC_NONUS_BACKSLASH:
+#        endif
+#        ifndef NO_AUTO_SHIFT_SYMBOLS
+        case AUTO_SHIFT_SYMBOLS:
+#        endif
+#    endif
+#    ifdef AUTO_SHIFT_ENTER
+        case KC_ENT:
 #    endif
             return true;
     }
@@ -191,6 +211,25 @@ Enables keyrepeat.
 ### AUTO_SHIFT_NO_AUTO_REPEAT (simple define)
 
 Disables automatically keyrepeating when `AUTO_SHIFT_TIMEOUT` is exceeded.
+
+
+### AUTO_SHIFT_ALPHA (predefined key group)
+
+A predefined group of keys representing A through Z.
+
+### AUTO_SHIFT_NUMERIC (predefined key group)
+
+A predefined group of keys representing 0 through 9. Note, these are defined as
+1 through 0 since that is the order they normally appear in.
+
+### AUTO_SHIFT_SYMBOLS (predefined key group)
+
+A predefined group of keys representing symbolic characters which include -\_, =+, [{, ]}, ;:, '", ,<, .>,
+and /?.
+
+### AUTO_SHIFT_SPECIAL (predefined key group)
+
+A predefined group of keys that combines AUTO_SHIFT_SYMBOLS and KC_TAB.
 
 ## Custom Shifted Values
 
@@ -271,9 +310,15 @@ generating taps on release. For example:
 #define RETRO_SHIFT 500
 ```
 
+Without a value set, holds of any length without an interrupting key will produce the shifted value.
+
 This value (if set) must be greater than one's `TAPPING_TERM`, as the key press
 must be designated as a 'hold' by `process_tapping` before we send the modifier.
+[Per-key tapping terms](tap_hold.md#tapping-term) can be used as a workaround.
 There is no such limitation in regards to `AUTO_SHIFT_TIMEOUT` for normal keys.
+
+**Note:** Tap Holds must be added to Auto Shift, see [here.](feature_auto_shift.md#auto-shift-per-key)
+`IS_RETRO` may be helpful if one wants all Tap Holds retro shifted.
 
 ### Retro Shift and Tap Hold Configurations
 
@@ -281,16 +326,7 @@ Tap Hold Configurations work a little differently when using Retro Shift.
 Referencing `TAPPING_TERM` makes little sense, as holding longer would result in
 shifting one of the keys.
 
-`IGNORE_MOD_TAP_INTERRUPT` changes *only* rolling from a mod tap (releasing it
-first), sending both keys instead of the modifier on the second. Its effects on
-nested presses are ignored.
-
-As nested taps were changed to act as though `PERMISSIVE_HOLD` is set unless only
-`IGNORE_MOD_TAP_INTERRUPT` is (outside of Retro Shift), and Retro Shift ignores
-`IGNORE_MOD_TAP_INTERRUPT`, `PERMISSIVE_HOLD` has no effect on Mod Taps.
-
-Nested taps will *always* act as though the `TAPPING_TERM` was exceeded for both
-Mod and Layer Tap keys.
+`RETRO_SHIFT` enables [`PERMISSIVE_HOLD`-like behaviour](tap_hold.md#permissive-hold) (even if not explicitly enabled) on all mod-taps for which `RETRO_SHIFT` applies.
 
 ## Using Auto Shift Setup
 
@@ -300,14 +336,14 @@ This will enable you to define three keys temporarily to increase, decrease and 
 
 Map three keys temporarily in your keymap:
 
-| Key Name | Description                                         |
-|----------|-----------------------------------------------------|
-| KC_ASDN  | Lower the Auto Shift timeout variable (down)        |
-| KC_ASUP  | Raise the Auto Shift timeout variable (up)          |
-| KC_ASRP  | Report your current Auto Shift timeout value        |
-| KC_ASON  | Turns on the Auto Shift Function                    |
-| KC_ASOFF | Turns off the Auto Shift Function                   |
-| KC_ASTG  | Toggles the state of the Auto Shift feature         |
+|Keycode               |Aliases  |Description                                 |
+|----------------------|---------|--------------------------------------------|
+|`QK_AUTO_SHIFT_DOWN`  |`AS_DOWN`|Lower the Auto Shift timeout variable (down)|
+|`QK_AUTO_SHIFT_UP`    |`AS_UP`  |Raise the Auto Shift timeout variable (up)  |
+|`QK_AUTO_SHIFT_REPORT`|`AS_RPT` |Report your current Auto Shift timeout value|
+|`QK_AUTO_SHIFT_ON`    |`AS_ON`  |Turns on the Auto Shift Function            |
+|`QK_AUTO_SHIFT_OFF`   |`AS_OFF` |Turns off the Auto Shift Function           |
+|`QK_AUTO_SHIFT_TOGGLE`|`AS_TOGG`|Toggles the state of the Auto Shift feature |
 
 Compile and upload your new firmware.
 
@@ -318,18 +354,18 @@ completely normal and with no intention of shifted keys.
 
 1. Type multiple sentences of alphabetical letters.
 2. Observe any upper case letters.
-3. If there are none, press the key you have mapped to `KC_ASDN` to decrease
+3. If there are none, press the key you have mapped to `AS_DOWN` to decrease
    time Auto Shift timeout value and go back to step 1.
 4. If there are some upper case letters, decide if you need to work on tapping
    those keys with less down time, or if you need to increase the timeout.
 5. If you decide to increase the timeout, press the key you have mapped to
-   `KC_ASUP` and go back to step 1.
+   `AS_UP` and go back to step 1.
 6. Once you are happy with your results, press the key you have mapped to
-   `KC_ASRP`. The keyboard will type by itself the value of your
+   `AS_RPT`. The keyboard will type by itself the value of your
    `AUTO_SHIFT_TIMEOUT`.
 7. Update `AUTO_SHIFT_TIMEOUT` in your `config.h` with the value reported.
 8. Add `AUTO_SHIFT_NO_SETUP` to your `config.h`.
-9. Remove the key bindings `KC_ASDN`, `KC_ASUP` and `KC_ASRP`.
+9. Remove the key bindings `AS_DOWN`, `AS_UP` and `AS_RPT`.
 10. Compile and upload your new firmware.
 
 #### An Example Run
@@ -337,17 +373,17 @@ completely normal and with no intention of shifted keys.
     hello world. my name is john doe. i am a computer programmer playing with
     keyboards right now.
 
-    [PRESS KC_ASDN quite a few times]
+    [PRESS AS_DOWN quite a few times]
 
     heLLo woRLd. mY nAMe is JOHn dOE. i AM A compUTeR proGRaMMER PlAYiNG witH
     KEYboArDS RiGHT NOw.
 
-    [PRESS KC_ASUP a few times]
+    [PRESS AS_UP a few times]
 
     hello world. my name is john Doe. i am a computer programmer playing with
     keyboarDs right now.
 
-    [PRESS KC_ASRP]
+    [PRESS AS_RPT]
 
     115
 

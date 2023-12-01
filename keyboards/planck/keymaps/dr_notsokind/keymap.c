@@ -50,7 +50,7 @@ enum planck_keycodes {
 
 // Tap Dance Definitions
 #ifdef TAP_DANCE_ENABLE
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [0]  = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS)
 };
 #endif
@@ -90,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_NUMPAD] = LAYOUT_planck_grid(
     QWERTY,  XXXXXXX,   KC_UP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PSLS,  KC_P7,  KC_P8,   KC_P9,   KC_PMNS,
     _______, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX, XXXXXXX, KC_PAST,  KC_P4,  KC_P5,   KC_P6,   KC_PPLS,
-    _______, KC_NLCK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC,  KC_P1,  KC_P2,   KC_P3,   KC_PENT,
+    _______, KC_NUM,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC,  KC_P1,  KC_P2,   KC_P3,   KC_PENT,
     _______, _______, _______, _______, _______, _______, _______, _______,  KC_P0,  KC_PDOT, KC_PCMM, KC_PEQL
 ),
 
@@ -127,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GRV , KC_1,    KC_2,      KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_DEL,
     KC_DEL , KC_F11,  KC_F12,   KC_F13,  KC_F14, KC_F15, _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
     KC_LSFT, KC_F16,  KC_F17,   KC_F18,  KC_F19, KC_F20, _______, KC_NUHS, KC_NUBS, XXXXXXX, KC_PGUP, KC_ENT,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_END 
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_END
 ),
 
 /* LOWER
@@ -145,7 +145,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL ,
     KC_DEL , KC_F1,   KC_F2,   KC_F3,    KC_F4, KC_F5,   _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
     KC_LSFT, KC_F6,   KC_F7,   KC_F8,    KC_F9, KC_F10,  _______, S(KC_NUHS), S(KC_NUBS), XXXXXXX, KC_PGUP, KC_ENT ,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_END 
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_END
 ),
 
 /* MEDIA AND COMMANDS
@@ -161,9 +161,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_MEDIA] = LAYOUT_planck_grid(
 	XXXXXXX, XXXXXXX, KC_WHOM, XXXXXXX, XXXXXXX, XXXXXXX, KC_AGAIN, XXXXXXX, KC_INS,   XXXXXXX, KC_PSCR, XXXXXXX,
-	XXXXXXX, XXXXXXX, KC_WSCH, XXXXXXX, KC_FIND, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,  XXXXXXX, DYN_MACRO_PLAY1, DYN_MACRO_PLAY2,
-	KC_LSFT, XXXXXXX, XXXXXXX, KC_CALC, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, ZOOM_OUT, ZOOM_IN, KC_MPRV, DYN_REC_STOP,
-	ONESHOT, XXXXXXX, XXXXXXX, _______, KC_VOLD, KC_MUTE, KC_MUTE,  KC_VOLU, ZOOM_NML, KC_MSTP, KC_MNXT, KC_MPLY 
+	XXXXXXX, XXXXXXX, KC_WSCH, XXXXXXX, KC_FIND, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,  XXXXXXX, DM_PLY1, DM_PLY2,
+	KC_LSFT, XXXXXXX, XXXXXXX, KC_CALC, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, ZOOM_OUT, ZOOM_IN, KC_MPRV, DM_RSTP,
+	ONESHOT, XXXXXXX, XXXXXXX, _______, KC_VOLD, KC_MUTE, KC_MUTE,  KC_VOLU, ZOOM_NML, KC_MSTP, KC_MNXT, KC_MPLY
 ),
 
 /* ONESHOT
@@ -179,7 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ONESHOT] = LAYOUT_planck_grid(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DYN_REC_START1, DYN_REC_START2,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DM_REC1, DM_REC2,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
@@ -198,21 +198,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_FUNCTN] = LAYOUT_planck_grid(
 	KC_SLEP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PWR,
 	KC_WAKE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-	XXXXXXX, XXXXXXX, XXXXXXX, AU_OFF,  MU_OFF,  QWERTY,  NUMPAD,  MU_ON,   AU_ON,   XXXXXXX, MUV_IN,  KC_SYSREQ,
-	QK_BOOT, XXXXXXX, LOCK,    XXXXXXX, _______, XXXXXXX, XXXXXXX, _______, XXXXXXX, AG_NORM, MUV_DE,  AG_SWAP
+	XXXXXXX, XXXXXXX, XXXXXXX, AU_OFF,  MU_OFF,  QWERTY,  NUMPAD,  MU_ON,   AU_ON,   XXXXXXX, AU_NEXT, KC_SYRQ,
+	QK_BOOT, XXXXXXX, LOCK,    XXXXXXX, _______, XXXXXXX, XXXXXXX, _______, XXXXXXX, AG_NORM, AU_PREV, AG_SWAP
 )
 
 };
 
 #ifdef AUDIO_ENABLE
-float tone_startup[][2] = SONG(STARTUP_SOUND);
 float tone_qwerty[][2] = SONG(QWERTY_SOUND);
 float tone_numpad[][2] = SONG(NUM_LOCK_ON_SOUND);
 float tone_oneshot[][2] = SONG(TERMINAL_SOUND);
 float tone_dyn_macro_rec[][2] = SONG(SONIC_RING);
 float tone_dyn_macro_stop[][2] = SONG(COIN_SOUND);
-float music_scale[][2] = SONG(MUSIC_SCALE_SOUND);
-float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
 #endif
 
 void press_key(uint16_t key) {
@@ -221,16 +218,16 @@ void press_key(uint16_t key) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // uint16_t macro_kc = (keycode == ONESHOT ? DYN_REC_STOP : keycode);
+    // uint16_t macro_kc = (keycode == ONESHOT ? DM_RSTP : keycode);
     if (!process_record_dynamic_macro(keycode, record)) {
         switch(keycode) {
-          case DYN_REC_START1:
-          case DYN_REC_START2:
+          case QK_DYNAMIC_MACRO_RECORD_START_1:
+          case QK_DYNAMIC_MACRO_RECORD_START_2:
 #ifdef AUDIO_ENABLE
               PLAY_SONG(tone_dyn_macro_rec);
 #endif
               break;
-          case DYN_REC_STOP:
+          case QK_DYNAMIC_MACRO_RECORD_STOP:
 #ifdef AUDIO_ENABLE
               PLAY_SONG(tone_dyn_macro_stop);
 #endif
@@ -303,36 +300,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
-
-void matrix_init_user(void) {
-#ifdef AUDIO_ENABLE
-    startup_user();
-#endif
-}
-
-#ifdef AUDIO_ENABLE
-
-void startup_user()
-{
-    _delay_ms(20); // gets rid of tick
-    PLAY_SONG(tone_startup);
-}
-
-void shutdown_user()
-{
-    PLAY_SONG(tone_goodbye);
-    _delay_ms(150);
-    stop_all_notes();
-}
-
-void music_on_user(void)
-{
-    music_scale_user();
-}
-
-void music_scale_user(void)
-{
-    PLAY_SONG(music_scale);
-}
-
-#endif

@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include "lighting.h"
 
 #ifdef RGBLIGHT_ENABLE
 // Following line allows macro to read current RGB settings
@@ -290,7 +289,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
             break;
 #endif
-            //    case BL_INC:
+            //    case BL_UP:
             //    		meira_inc_backlight_level();
             //    	      return false;
             //    		break;

@@ -14,109 +14,113 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "DRV2605L.h"
-#include "print.h"
-#include <stdlib.h>
-#include <stdio.h>
+
+#include "drv2605l.h"
+#include "i2c_master.h"
 #include <math.h>
 
-uint8_t DRV2605L_transfer_buffer[2];
-uint8_t DRV2605L_read_register;
+uint8_t drv2605l_write_buffer[2];
+uint8_t drv2605l_read_buffer;
 
-void DRV_write(uint8_t drv_register, uint8_t settings) {
-    DRV2605L_transfer_buffer[0] = drv_register;
-    DRV2605L_transfer_buffer[1] = settings;
-    i2c_transmit(DRV2605L_BASE_ADDRESS << 1, DRV2605L_transfer_buffer, 2, 100);
+void drv2605l_write(uint8_t reg_addr, uint8_t data) {
+    drv2605l_write_buffer[0] = reg_addr;
+    drv2605l_write_buffer[1] = data;
+    i2c_transmit(DRV2605L_I2C_ADDRESS << 1, drv2605l_write_buffer, 2, 100);
 }
 
-uint8_t DRV_read(uint8_t regaddress) {
-    i2c_readReg(DRV2605L_BASE_ADDRESS << 1, regaddress, &DRV2605L_read_register, 1, 100);
+uint8_t drv2605l_read(uint8_t reg_addr) {
+    i2c_readReg(DRV2605L_I2C_ADDRESS << 1, reg_addr, &drv2605l_read_buffer, 1, 100);
 
-    return DRV2605L_read_register;
+    return drv2605l_read_buffer;
 }
 
-void DRV_init(void) {
+void drv2605l_init(void) {
     i2c_init();
     /* 0x07 sets DRV2605 into calibration mode */
-    DRV_write(DRV_MODE, 0x07);
+    drv2605l_write(DRV2605L_REG_MODE, 0x07);
 
-    //  DRV_write(DRV_FEEDBACK_CTRL,0xB6);
+    //  drv2605l_write(DRV2605L_REG_FEEDBACK_CTRL,0xB6);
 
-#if FB_ERM_LRA == 0
+#if DRV2605L_FB_ERM_LRA == 0
     /* ERM settings */
-    DRV_write(DRV_RATED_VOLT, (RATED_VOLTAGE / 21.33) * 1000);
-#    if ERM_OPEN_LOOP == 0
-    DRV_write(DRV_OVERDRIVE_CLAMP_VOLT, (((V_PEAK * (DRIVE_TIME + BLANKING_TIME + IDISS_TIME)) / 0.02133) / (DRIVE_TIME - 0.0003)));
-#    elif ERM_OPEN_LOOP == 1
-    DRV_write(DRV_OVERDRIVE_CLAMP_VOLT, (V_PEAK / 0.02196));
+    drv2605l_write(DRV2605L_REG_RATED_VOLTAGE, (DRV2605L_RATED_VOLTAGE / 21.33) * 1000);
+#    if DRV2605L_ERM_OPEN_LOOP == 0
+    drv2605l_write(DRV2605L_REG_OVERDRIVE_CLAMP_VOLTAGE, (((DRV2605L_V_PEAK * (DRV2605L_DRIVE_TIME + DRV2605L_BLANKING_TIME + DRV2605L_IDISS_TIME)) / 0.02133) / (DRV2605L_DRIVE_TIME - 0.0003)));
+#    elif DRV2605L_ERM_OPEN_LOOP == 1
+    drv2605l_write(DRV2605L_REG_OVERDRIVE_CLAMP_VOLTAGE, (DRV2605L_V_PEAK / 0.02196));
 #    endif
-#elif FB_ERM_LRA == 1
-    DRV_write(DRV_RATED_VOLT, ((V_RMS * sqrt(1 - ((4 * ((150 + (SAMPLE_TIME * 50)) * 0.000001)) + 0.0003) * F_LRA) / 0.02071)));
-#    if LRA_OPEN_LOOP == 0
-    DRV_write(DRV_OVERDRIVE_CLAMP_VOLT, ((V_PEAK / sqrt(1 - (F_LRA * 0.0008)) / 0.02133)));
-#    elif LRA_OPEN_LOOP == 1
-    DRV_write(DRV_OVERDRIVE_CLAMP_VOLT, (V_PEAK / 0.02196));
+#elif DRV2605L_FB_ERM_LRA == 1
+    drv2605l_write(DRV2605L_REG_RATED_VOLTAGE, ((DRV2605L_V_RMS * sqrt(1 - ((4 * ((150 + (DRV2605L_SAMPLE_TIME * 50)) * 0.000001)) + 0.0003) * DRV2605L_F_LRA) / 0.02071)));
+#    if DRV2605L_LRA_OPEN_LOOP == 0
+    drv2605l_write(DRV2605L_REG_OVERDRIVE_CLAMP_VOLTAGE, ((DRV2605L_V_PEAK / sqrt(1 - (DRV2605L_F_LRA * 0.0008)) / 0.02133)));
+#    elif DRV2605L_LRA_OPEN_LOOP == 1
+    drv2605l_write(DRV2605L_REG_OVERDRIVE_CLAMP_VOLTAGE, (DRV2605L_V_PEAK / 0.02196));
 #    endif
 #endif
 
-    DRVREG_FBR FB_SET;
-    FB_SET.Bits.ERM_LRA      = FB_ERM_LRA;
-    FB_SET.Bits.BRAKE_FACTOR = FB_BRAKEFACTOR;
-    FB_SET.Bits.LOOP_GAIN    = FB_LOOPGAIN;
-    FB_SET.Bits.BEMF_GAIN    = 0; /* auto-calibration populates this field*/
-    DRV_write(DRV_FEEDBACK_CTRL, (uint8_t)FB_SET.Byte);
-    DRVREG_CTRL1 C1_SET;
-    C1_SET.Bits.C1_DRIVE_TIME    = DRIVE_TIME;
-    C1_SET.Bits.C1_AC_COUPLE     = AC_COUPLE;
-    C1_SET.Bits.C1_STARTUP_BOOST = STARTUP_BOOST;
-    DRV_write(DRV_CTRL_1, (uint8_t)C1_SET.Byte);
-    DRVREG_CTRL2 C2_SET;
-    C2_SET.Bits.C2_BIDIR_INPUT   = BIDIR_INPUT;
-    C2_SET.Bits.C2_BRAKE_STAB    = BRAKE_STAB;
-    C2_SET.Bits.C2_SAMPLE_TIME   = SAMPLE_TIME;
-    C2_SET.Bits.C2_BLANKING_TIME = BLANKING_TIME;
-    C2_SET.Bits.C2_IDISS_TIME    = IDISS_TIME;
-    DRV_write(DRV_CTRL_2, (uint8_t)C2_SET.Byte);
-    DRVREG_CTRL3 C3_SET;
-    C3_SET.Bits.C3_LRA_OPEN_LOOP   = LRA_OPEN_LOOP;
-    C3_SET.Bits.C3_N_PWM_ANALOG    = N_PWM_ANALOG;
-    C3_SET.Bits.C3_LRA_DRIVE_MODE  = LRA_DRIVE_MODE;
-    C3_SET.Bits.C3_DATA_FORMAT_RTO = DATA_FORMAT_RTO;
-    C3_SET.Bits.C3_SUPPLY_COMP_DIS = SUPPLY_COMP_DIS;
-    C3_SET.Bits.C3_ERM_OPEN_LOOP   = ERM_OPEN_LOOP;
-    C3_SET.Bits.C3_NG_THRESH       = NG_THRESH;
-    DRV_write(DRV_CTRL_3, (uint8_t)C3_SET.Byte);
-    DRVREG_CTRL4 C4_SET;
-    C4_SET.Bits.C4_ZC_DET_TIME   = ZC_DET_TIME;
-    C4_SET.Bits.C4_AUTO_CAL_TIME = AUTO_CAL_TIME;
-    DRV_write(DRV_CTRL_4, (uint8_t)C4_SET.Byte);
-    DRV_write(DRV_LIB_SELECTION, LIB_SELECTION);
+    drv2605l_reg_feedback_ctrl_t reg_feedback_ctrl;
+    reg_feedback_ctrl.bits.ERM_LRA      = DRV2605L_FB_ERM_LRA;
+    reg_feedback_ctrl.bits.BRAKE_FACTOR = DRV2605L_FB_BRAKEFACTOR;
+    reg_feedback_ctrl.bits.LOOP_GAIN    = DRV2605L_FB_LOOPGAIN;
+    reg_feedback_ctrl.bits.BEMF_GAIN    = 0; /* auto-calibration populates this field*/
+    drv2605l_write(DRV2605L_REG_FEEDBACK_CTRL, (uint8_t)reg_feedback_ctrl.raw);
 
-    DRV_write(DRV_GO, 0x01);
+    drv2605l_reg_ctrl1_t reg_ctrl1;
+    reg_ctrl1.bits.C1_DRIVE_TIME    = DRV2605L_DRIVE_TIME;
+    reg_ctrl1.bits.C1_AC_COUPLE     = DRV2605L_AC_COUPLE;
+    reg_ctrl1.bits.C1_STARTUP_BOOST = DRV2605L_STARTUP_BOOST;
+    drv2605l_write(DRV2605L_REG_CTRL1, (uint8_t)reg_ctrl1.raw);
+
+    drv2605l_reg_ctrl2_t reg_ctrl2;
+    reg_ctrl2.bits.C2_BIDIR_INPUT   = DRV2605L_BIDIR_INPUT;
+    reg_ctrl2.bits.C2_BRAKE_STAB    = DRV2605L_BRAKE_STAB;
+    reg_ctrl2.bits.C2_SAMPLE_TIME   = DRV2605L_SAMPLE_TIME;
+    reg_ctrl2.bits.C2_BLANKING_TIME = DRV2605L_BLANKING_TIME;
+    reg_ctrl2.bits.C2_IDISS_TIME    = DRV2605L_IDISS_TIME;
+    drv2605l_write(DRV2605L_REG_CTRL2, (uint8_t)reg_ctrl2.raw);
+
+    drv2605l_reg_ctrl3_t reg_ctrl3;
+    reg_ctrl3.bits.C3_LRA_OPEN_LOOP   = DRV2605L_LRA_OPEN_LOOP;
+    reg_ctrl3.bits.C3_N_PWM_ANALOG    = DRV2605L_N_PWM_ANALOG;
+    reg_ctrl3.bits.C3_LRA_DRIVE_MODE  = DRV2605L_LRA_DRIVE_MODE;
+    reg_ctrl3.bits.C3_DATA_FORMAT_RTO = DRV2605L_DATA_FORMAT_RTO;
+    reg_ctrl3.bits.C3_SUPPLY_COMP_DIS = DRV2605L_SUPPLY_COMP_DIS;
+    reg_ctrl3.bits.C3_ERM_OPEN_LOOP   = DRV2605L_ERM_OPEN_LOOP;
+    reg_ctrl3.bits.C3_NG_THRESH       = DRV2605L_NG_THRESH;
+    drv2605l_write(DRV2605L_REG_CTRL3, (uint8_t)reg_ctrl3.raw);
+
+    drv2605l_reg_ctrl4_t reg_ctrl4;
+    reg_ctrl4.bits.C4_ZC_DET_TIME   = DRV2605L_ZC_DET_TIME;
+    reg_ctrl4.bits.C4_AUTO_CAL_TIME = DRV2605L_AUTO_CAL_TIME;
+    drv2605l_write(DRV2605L_REG_CTRL4, (uint8_t)reg_ctrl4.raw);
+
+    drv2605l_write(DRV2605L_REG_LIBRARY_SELECTION, DRV2605L_LIBRARY);
+
+    drv2605l_write(DRV2605L_REG_GO, 0x01);
 
     /* 0x00 sets DRV2605 out of standby and to use internal trigger
      * 0x01 sets DRV2605 out of standby and to use external trigger */
-    DRV_write(DRV_MODE, 0x00);
+    drv2605l_write(DRV2605L_REG_MODE, 0x00);
 
     // Play greeting sequence
-    DRV_write(DRV_GO, 0x00);
-    DRV_write(DRV_WAVEFORM_SEQ_1, DRV_GREETING);
-    DRV_write(DRV_GO, 0x01);
+    drv2605l_write(DRV2605L_REG_GO, 0x00);
+    drv2605l_write(DRV2605L_REG_WAVEFORM_SEQUENCER_1, DRV2605L_GREETING);
+    drv2605l_write(DRV2605L_REG_GO, 0x01);
 }
 
-void DRV_rtp_init(void) {
-    DRV_write(DRV_GO, 0x00);
-    DRV_write(DRV_RTP_INPUT, 20); // 20 is the lowest value I've found where haptics can still be felt.
-    DRV_write(DRV_MODE, 0x05);
-    DRV_write(DRV_GO, 0x01);
+void drv2605l_rtp_init(void) {
+    drv2605l_write(DRV2605L_REG_GO, 0x00);
+    drv2605l_write(DRV2605L_REG_RTP_INPUT, 20); // 20 is the lowest value I've found where haptics can still be felt.
+    drv2605l_write(DRV2605L_REG_MODE, 0x05);
+    drv2605l_write(DRV2605L_REG_GO, 0x01);
 }
 
-void DRV_amplitude(uint8_t amplitude) {
-    DRV_write(DRV_RTP_INPUT, amplitude);
+void drv2605l_amplitude(uint8_t amplitude) {
+    drv2605l_write(DRV2605L_REG_RTP_INPUT, amplitude);
 }
 
-void DRV_pulse(uint8_t sequence) {
-    DRV_write(DRV_GO, 0x00);
-    DRV_write(DRV_WAVEFORM_SEQ_1, sequence);
-    DRV_write(DRV_GO, 0x01);
+void drv2605l_pulse(uint8_t sequence) {
+    drv2605l_write(DRV2605L_REG_GO, 0x00);
+    drv2605l_write(DRV2605L_REG_WAVEFORM_SEQUENCER_1, sequence);
+    drv2605l_write(DRV2605L_REG_GO, 0x01);
 }

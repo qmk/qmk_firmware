@@ -6,16 +6,6 @@ enum keymap_layout {
     SETTINGS
 };
 
-// Colors of the layer indicator LED
-// This list needs to define layer 0xFFFFFFFF, it is the end of the list, and the unknown layer
-const Layer_Info layer_info[] = {
-    // Layer      Mask          Red     Green   Blue
-    { 0x00000000, 0xFFFFFFFF, { 0x0000, 0x0FFF, 0x0000 } }, // base layer - green
-    { 0x00000002, 0xFFFFFFFE, { 0x0000, 0x0000, 0x0FFF } }, // function layer - blue
-    { 0x00000004, 0xFFFFFFFC, { 0x0FFF, 0x0000, 0x0FFF } }, // settings layer - magenta
-    { 0xFFFFFFFF, 0xFFFFFFFF, { 0x0FFF, 0x0FFF, 0x0FFF } }  // unknown layer - REQUIRED - white
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Keymap VANILLA: (Base Layer) Default Layer
      * ,---------.  ,------------------------------------------------------------.  ,---------.
@@ -31,7 +21,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `---------'  `------------------------------------------------------'    `-------------'
      */
     [VANILLA] = LAYOUT_split_bs(
-        KC_F1,   KC_F2,   KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,   KC_BSLS, KC_GRV,           KC_INS,  KC_PGUP,
+        KC_F1,   KC_F2,   QK_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,   KC_BSLS, KC_GRV,           KC_INS,  KC_PGUP,
         KC_F3,   KC_F4,   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC,  KC_BSPC,                   KC_DEL,  KC_PGDN,
         KC_F5,   KC_F6,   KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,           KC_ENT,
         KC_F7,   KC_F8,   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,                    KC_RSFT,                   KC_UP,
@@ -73,10 +63,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `---------'  `--------------------------------------------------------'  `--------------'
      */
     [SETTINGS] = LAYOUT_split_bs(
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, BL_DEC,  BL_INC,  XXXXXXX, XXXXXXX,          RGB_TOG, RGB_VAI,
-        XXXXXXX, XXXXXXX, MU_MOD,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, BL_TOGG,                   RGB_MOD, RGB_VAD,
-        XXXXXXX, XXXXXXX, AU_TOG,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          QK_BOOT,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MU_TOG,  XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX,                   RGB_HUI,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, BL_DOWN, BL_UP,   XXXXXXX, XXXXXXX,          RGB_TOG, RGB_VAI,
+        XXXXXXX, XXXXXXX, MU_NEXT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, BL_TOGG,                   RGB_MOD, RGB_VAD,
+        XXXXXXX, XXXXXXX, AU_TOGG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          QK_BOOT,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MU_TOGG, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX,                   RGB_HUI,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                            XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX,                   RGB_SAD, RGB_HUD, RGB_SAI
     )
 };

@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MINS, KC_GRV,  KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
   KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_LBRC, KC_UP,   KC_RBRC, KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH,
   LCTL_T(KC_CAPS), KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_LEFT, KC_DOWN, KC_RGHT, KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_ENT,
-  KC_LSPO, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_PGDN,  KC_UP,  KC_PGUP, KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSPC,
+  SC_LSPO, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_PGDN,  KC_UP,  KC_PGUP, KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    SC_RSPC,
   KC_LCTL, KC_DEL,  KC_LALT, KC_LGUI, MO(_FN1),KC_SPC,  KC_LEFT, KC_DOWN, KC_RGHT, KC_SPC,  MO(_FN2),KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT
  ),
 
@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MINS, KC_GRV,  KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC, KC_BSLS, KC_RBRC, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_ENT,
   KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_HOME, KC_DEL,  KC_PGUP, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-  KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_END,  KC_UP,   KC_PGDN, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
+  SC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_END,  KC_UP,   KC_PGDN, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SC_RSPC,
   KC_LCTL, KC_DEL,  KC_LALT, KC_LGUI, MO(_FN1),KC_SPC,  KC_LEFT, KC_DOWN, KC_RGHT, KC_SPC,  MO(_FN2),KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT
  ),
  
@@ -126,16 +126,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void matrix_init_user(void) {
-  if (!(host_keyboard_leds() & (1<<USB_LED_NUM_LOCK))) {
-    register_code(KC_NUMLOCK);
-    unregister_code(KC_NUMLOCK);
+  if (!host_keyboard_led_state().num_lock) {
+    register_code(KC_NUM_LOCK);
+    unregister_code(KC_NUM_LOCK);
   }
 }
 
-void led_set_user(uint8_t usb_led) {
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+bool led_update_user(led_t led_state) {
+    if (led_state.caps_lock) {
         rgblight_mode(18);
     } else {
         rgblight_mode(14);
     }
+    return false;
 }

@@ -32,13 +32,14 @@ In rules.mk:
 
 ```make
 PS2_MOUSE_ENABLE = yes
-PS2_USE_BUSYWAIT = yes
+PS2_ENABLE = yes
+PS2_DRIVER = busywait
 ```
 
 In your keyboard config.h:
 
 ```c
-#ifdef PS2_USE_BUSYWAIT
+#ifdef PS2_DRIVER_BUSYWAIT
 #   define PS2_CLOCK_PIN   D1
 #   define PS2_DATA_PIN    D2
 #endif
@@ -52,13 +53,14 @@ In rules.mk:
 
 ```make
 PS2_MOUSE_ENABLE = yes
-PS2_USE_INT = yes
+PS2_ENABLE = yes
+PS2_DRIVER = interrupt
 ```
 
 In your keyboard config.h:
 
 ```c
-#ifdef PS2_USE_INT
+#ifdef PS2_DRIVER_INTERRUPT
 #define PS2_CLOCK_PIN   D2
 #define PS2_DATA_PIN    D5
 
@@ -84,7 +86,8 @@ In rules.mk:
 
 ```
 PS2_MOUSE_ENABLE = yes
-PS2_USE_INT = yes
+PS2_ENABLE = yes
+PS2_DRIVER = interrupt
 ```
 
 In your keyboard config.h:
@@ -108,13 +111,14 @@ In rules.mk:
 
 ```make
 PS2_MOUSE_ENABLE = yes
-PS2_USE_USART = yes
+PS2_ENABLE = yes
+PS2_DRIVER = usart
 ```
 
 In your keyboard config.h:
 
 ```c
-#ifdef PS2_USE_USART
+#ifdef PS2_DRIVER_USART
 #define PS2_CLOCK_PIN   D5
 #define PS2_DATA_PIN    D2
 
@@ -149,6 +153,29 @@ In your keyboard config.h:
 #define PS2_USART_ERROR         (UCSR1A & ((1<<FE1) | (1<<DOR1) | (1<<UPE1)))
 #define PS2_USART_RX_VECT       USART1_RX_vect
 #endif
+```
+
+### RP2040 PIO Version :id=rp2040-pio-version
+
+The `PIO` subsystem is a Raspberry Pi RP2040 specific implementation, using the integrated PIO peripheral and is therefore only available on this MCU.
+
+There are strict requirements for pin ordering but any pair of GPIO pins can be used. The GPIO used for clock must be directly after data, see the included info.json snippet for an example of correct order.
+
+You may optionally switch the PIO peripheral used with the following define in config.h:
+```c
+#define PS2_PIO_USE_PIO1 // Force the usage of PIO1 peripheral, by default the PS2 implementation uses the PIO0 peripheral
+```
+
+Example info.json content:
+
+```json
+    "ps2": {
+        "clock_pin": "GP1",
+        "data_pin": "GP0",
+        "driver": "vendor",
+        "enabled": true,
+        "mouse_enabled": true
+    }
 ```
 
 ## Additional Settings :id=additional-settings

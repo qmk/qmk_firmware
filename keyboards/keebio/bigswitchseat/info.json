@@ -8,9 +8,18 @@
         "pid": "0x1011",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["F0"],
+        "rows": ["E6"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
-            "layout": [{"x": 0, "y": 0, "w": 4, "h": 4}]
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0, "w": 4, "h": 4}
+            ]
         }
     }
 }

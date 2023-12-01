@@ -190,13 +190,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     rgb_matrix_set_color(46, 0, 0, 0);
     rgb_matrix_set_color(104, 0, 0, 0);
 
     uint8_t red = host_keyboard_led_state().caps_lock ? 255 : 0;
-    uint8_t green = host_keyboard_led_state().scroll_lock ? 255 : 0;
-    uint8_t blue = keymap_config.no_gui ? 255 : 0;
+    uint8_t blue = host_keyboard_led_state().scroll_lock ? 255 : 0;
+    uint8_t green = keymap_config.no_gui ? 255 : 0;
 
 
     if ((rgb_matrix_get_flags() & LED_FLAG_KEYLIGHT)) {
@@ -212,10 +212,11 @@ void rgb_matrix_indicators_user(void) {
         }
         rgb_matrix_set_color(104, red, green, blue);
     }
+    return false;
 }
 
 #ifdef ENCODER_MAP_ENABLE
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [_FN]   = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
     [_FN1]  = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },

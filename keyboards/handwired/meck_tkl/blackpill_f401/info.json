@@ -1,0 +1,14 @@
+{
+    "matrix_pins": {
+        "cols": ["B4", "B5", "B6", "B7", "B8", "B9", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "B0", "B1", "A0", "B10"],
+        "rows": ["B15", "A8", "A9", "B14", "A15", "B3"]
+    },
+    "diode_direction": "COL2ROW",
+    "indicators": {
+        "caps_lock": "C13",
+        "on_state": 0
+    },
+    "processor": "STM32F401",
+    "bootloader": "stm32-dfu",
+    "board": "BLACKPILL_STM32_F401"
+}

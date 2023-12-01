@@ -193,34 +193,38 @@ These keycodes are not part of the Keyboard/Keypad usage page. The `SYSTEM_` key
 
 ?> Some of these keycodes may behave differently depending on the OS. For example, on macOS, the keycodes `KC_MEDIA_FAST_FORWARD`, `KC_MEDIA_REWIND`, `KC_MEDIA_NEXT_TRACK` and `KC_MEDIA_PREV_TRACK` skip within the current track when held, but skip the entire track when tapped.
 
-|Key                    |Aliases  |Description        |
-|-----------------------|---------|-------------------|
-|`KC_SYSTEM_POWER`      |`KC_PWR` |System Power Down  |
-|`KC_SYSTEM_SLEEP`      |`KC_SLEP`|System Sleep       |
-|`KC_SYSTEM_WAKE`       |`KC_WAKE`|System Wake        |
-|`KC_AUDIO_MUTE`        |`KC_MUTE`|Mute               |
-|`KC_AUDIO_VOL_UP`      |`KC_VOLU`|Volume Up          |
-|`KC_AUDIO_VOL_DOWN`    |`KC_VOLD`|Volume Down        |
-|`KC_MEDIA_NEXT_TRACK`  |`KC_MNXT`|Next Track         |
-|`KC_MEDIA_PREV_TRACK`  |`KC_MPRV`|Previous Track     |
-|`KC_MEDIA_STOP`        |`KC_MSTP`|Stop Track         |
-|`KC_MEDIA_PLAY_PAUSE`  |`KC_MPLY`|Play/Pause Track   |
-|`KC_MEDIA_SELECT`      |`KC_MSEL`|Launch Media Player|
-|`KC_MEDIA_EJECT`       |`KC_EJCT`|Eject              |
-|`KC_MAIL`              |         |Launch Mail        |
-|`KC_CALCULATOR`        |`KC_CALC`|Launch Calculator  |
-|`KC_MY_COMPUTER`       |`KC_MYCM`|Launch My Computer |
-|`KC_WWW_SEARCH`        |`KC_WSCH`|Browser Search     |
-|`KC_WWW_HOME`          |`KC_WHOM`|Browser Home       |
-|`KC_WWW_BACK`          |`KC_WBAK`|Browser Back       |
-|`KC_WWW_FORWARD`       |`KC_WFWD`|Browser Forward    |
-|`KC_WWW_STOP`          |`KC_WSTP`|Browser Stop       |
-|`KC_WWW_REFRESH`       |`KC_WREF`|Browser Refresh    |
-|`KC_WWW_FAVORITES`     |`KC_WFAV`|Browser Favorites  |
-|`KC_MEDIA_FAST_FORWARD`|`KC_MFFD`|Next Track         |
-|`KC_MEDIA_REWIND`      |`KC_MRWD`|Previous Track     |
-|`KC_BRIGHTNESS_UP`     |`KC_BRIU`|Brightness Up      |
-|`KC_BRIGHTNESS_DOWN`   |`KC_BRID`|Brightness Down    |
+|Key                    |Aliases  |Description         |
+|-----------------------|---------|--------------------|
+|`KC_SYSTEM_POWER`      |`KC_PWR` |System Power Down   |
+|`KC_SYSTEM_SLEEP`      |`KC_SLEP`|System Sleep        |
+|`KC_SYSTEM_WAKE`       |`KC_WAKE`|System Wake         |
+|`KC_AUDIO_MUTE`        |`KC_MUTE`|Mute                |
+|`KC_AUDIO_VOL_UP`      |`KC_VOLU`|Volume Up           |
+|`KC_AUDIO_VOL_DOWN`    |`KC_VOLD`|Volume Down         |
+|`KC_MEDIA_NEXT_TRACK`  |`KC_MNXT`|Next Track          |
+|`KC_MEDIA_PREV_TRACK`  |`KC_MPRV`|Previous Track      |
+|`KC_MEDIA_STOP`        |`KC_MSTP`|Stop Track          |
+|`KC_MEDIA_PLAY_PAUSE`  |`KC_MPLY`|Play/Pause Track    |
+|`KC_MEDIA_SELECT`      |`KC_MSEL`|Launch Media Player |
+|`KC_MEDIA_EJECT`       |`KC_EJCT`|Eject               |
+|`KC_MAIL`              |         |Launch Mail         |
+|`KC_CALCULATOR`        |`KC_CALC`|Launch Calculator   |
+|`KC_MY_COMPUTER`       |`KC_MYCM`|Launch My Computer  |
+|`KC_WWW_SEARCH`        |`KC_WSCH`|Browser Search      |
+|`KC_WWW_HOME`          |`KC_WHOM`|Browser Home        |
+|`KC_WWW_BACK`          |`KC_WBAK`|Browser Back        |
+|`KC_WWW_FORWARD`       |`KC_WFWD`|Browser Forward     |
+|`KC_WWW_STOP`          |`KC_WSTP`|Browser Stop        |
+|`KC_WWW_REFRESH`       |`KC_WREF`|Browser Refresh     |
+|`KC_WWW_FAVORITES`     |`KC_WFAV`|Browser Favorites   |
+|`KC_MEDIA_FAST_FORWARD`|`KC_MFFD`|Next Track          |
+|`KC_MEDIA_REWIND`      |`KC_MRWD`|Previous Track      |
+|`KC_BRIGHTNESS_UP`     |`KC_BRIU`|Brightness Up       |
+|`KC_BRIGHTNESS_DOWN`   |`KC_BRID`|Brightness Down     |
+|`KC_CONTROL_PANEL`     |`KC_CPNL`|Open Control Panel  |
+|`KC_ASSISTANT`         |`KC_ASST`|Launch Assistant    |
+|`KC_MISSION_CONTROL`   |`KC_MCTL`|Open Mission Control|
+|`KC_LAUNCHPAD`         |`KC_LPAD`|Open Launchpad      |
 
 ## Number Pad
 

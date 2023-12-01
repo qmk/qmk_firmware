@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -17,7 +11,6 @@ BACKLIGHT_ENABLE = no          # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no           # Enable keyboard RGB underglow
 AUDIO_ENABLE = no              # Audio output
 RGB_MATRIX_ENABLE = no
-RGB_MATRIX_DRIVER = IS31FL3731
 CIE1931_CURVE = yes
 
 # project specific files
@@ -26,6 +19,4 @@ SRC += keyboards/wilba_tech/wt_main.c \
        quantum/color.c \
        drivers/led/issi/is31fl3731.c
 
-QUANTUM_LIB_SRC += i2c_master.c
-
-LAYOUTS = 65_ansi_blocker
+I2C_DRIVER_REQUIRED = yes

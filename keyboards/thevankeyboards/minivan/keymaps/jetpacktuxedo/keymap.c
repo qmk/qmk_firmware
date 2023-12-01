@@ -4,7 +4,7 @@ extern keymap_config_t keymap_config;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_arrow_command( /* Qwerty */
-    KC_GESC,       KC_Q,    KC_W,    KC_E,  KC_R, KC_T,    KC_Y,   KC_U,  KC_I,    KC_O,    KC_P,    KC_BSPC,
+    QK_GESC,       KC_Q,    KC_W,    KC_E,  KC_R, KC_T,    KC_Y,   KC_U,  KC_I,    KC_O,    KC_P,    KC_BSPC,
     LT(2, KC_TAB), KC_A,    KC_S,    KC_D,  KC_F, KC_G,    KC_H,   KC_J,  KC_K,    KC_L,    KC_SCLN, LT(2, KC_ENT),
     KC_LSFT,       KC_Z,    KC_X,    KC_C,  KC_V, KC_B,    KC_N,   KC_M,  KC_COMM, KC_DOT,  KC_UP,   MT(MOD_RSFT, KC_SLSH),
     KC_LCTL,       KC_LGUI, KC_LALT, MO(3), LT(1, KC_SPC), LT(1, KC_SPC), MO(4),   KC_LEFT, KC_DOWN, KC_RIGHT
@@ -50,8 +50,8 @@ void keyboard_post_init_user(void) {
     rgblight_mode_noeeprom(RGBLIGHT_EFFECT_BREATHING + 2);
 
     // Init the first two LEDs to a static color
-    setrgb(0, 0, 0, (LED_TYPE *)&led[0]);
-    setrgb(0, 0, 0, (LED_TYPE *)&led[1]);
+    setrgb(0, 0, 0, (rgb_led_t *)&led[0]);
+    setrgb(0, 0, 0, (rgb_led_t *)&led[1]);
     rgblight_set();
   #endif //RGBLIGHT_ENABLE
 }
@@ -75,8 +75,8 @@ layer_state_t layer_state_set_user(layer_state_t state){
       led1r = 255;
     }
 
-    setrgb(led0r, led0g, led0b, (LED_TYPE *)&led[0]);
-    setrgb(led1r, led1g, led1b, (LED_TYPE *)&led[1]);
+    setrgb(led0r, led0g, led0b, (rgb_led_t *)&led[0]);
+    setrgb(led1r, led1g, led1b, (rgb_led_t *)&led[1]);
     rgblight_set();
   #endif //RGBLIGHT_ENABLE
   return state;

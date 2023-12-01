@@ -27,7 +27,7 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_DL] = LAYOUT_iso (
-      KC_ESC,  KC_1,    KC_2,  KC_3,  KC_4,  KC_5,  KC_6,  KC_7,  KC_8,  KC_9,    KC_0,   DE_SS,   DE_ACUT, KC_BSPC, _______,     KC_NLCK, KC_PSCR,KC_PSLS,KC_PAST,
+      KC_ESC,  KC_1,    KC_2,  KC_3,  KC_4,  KC_5,  KC_6,  KC_7,  KC_8,  KC_9,    KC_0,   DE_SS,   DE_ACUT, KC_BSPC, _______,     KC_NUM,  KC_PSCR,KC_PSLS,KC_PAST,
       KC_TAB,  KC_Q,    KC_W,  KC_E,  KC_R,  KC_T,  DE_Z,  KC_U,  KC_I,  KC_O,    KC_P,   DE_UDIA, DE_PLUS,                       KC_P7,   KC_P8,  KC_P9,  KC_PMNS,
       SPECIAL, KC_A,    KC_S,  KC_D,  KC_F,  KC_G,  KC_H,  KC_J,  KC_K,  KC_L,    DE_ODIA,DE_ADIA, DE_HASH, KC_ENT,               KC_P4,   KC_P5,  KC_P6,  KC_PPLS,
       KC_LSFT, DE_LABK, DE_Y,  KC_X,  KC_C,  KC_V,  KC_B,  KC_N,  KC_M,  KC_COMM, KC_DOT, DE_MINS, KC_RSFT,        KC_UP,         KC_P1,   KC_P2,  KC_P3,  KC_PENT,
@@ -51,23 +51,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-
-
-void matrix_init_user(void) {
-  //user initialization
-}
-
-void matrix_scan_user(void) {
-  //user matrix
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
-
-void led_set_user(uint8_t usb_led) {
+bool led_update_user(led_t led_state) {
   // Insert custom handling for CAPS_LOCK, NUM_LOCK, SCROLL_LOCK here
-      if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
+      if (led_state.num_lock) {
         writePinHigh(F4);
         writePinHigh(F1);
         writePinHigh(F5);
@@ -76,4 +62,5 @@ void led_set_user(uint8_t usb_led) {
         writePinLow(F1);
         writePinLow(F5);
     }
+    return false;
 }

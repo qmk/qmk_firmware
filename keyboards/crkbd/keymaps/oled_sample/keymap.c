@@ -34,8 +34,8 @@ enum crkbd_layers {
 #define RAISE MO(_RAISE)
 #define LOWER MO(_LOWER)
 #define CTLTB CTL_T(KC_TAB)
-#define GUIEI GUI_T(KC_LANG2)
-#define ALTKN ALT_T(KC_LANG1)
+#define GUIEI GUI_T(KC_LNG2)
+#define ALTKN ALT_T(KC_LNG1)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_split_3x6_3(
@@ -147,12 +147,12 @@ void render_layer_state(void) {
     oled_write_P(PSTR("Raise"), layer_state_is(_RAISE));
 }
 
-void render_keylock_status(uint8_t led_usb_state) {
+void render_keylock_status(led_t led_state) {
     oled_write_P(PSTR("Lock:"), false);
     oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR("N"), led_usb_state & (1 << USB_LED_NUM_LOCK));
-    oled_write_P(PSTR("C"), led_usb_state & (1 << USB_LED_CAPS_LOCK));
-    oled_write_ln_P(PSTR("S"), led_usb_state & (1 << USB_LED_SCROLL_LOCK));
+    oled_write_P(PSTR("N"), led_state.num_lock);
+    oled_write_P(PSTR("C"), led_state.caps_lock);
+    oled_write_ln_P(PSTR("S"), led_state.scroll_lock);
 }
 
 void render_mod_status(uint8_t modifiers) {
@@ -183,7 +183,7 @@ void render_bootmagic_status(void) {
 void render_status_main(void) {
     /* Show Keyboard Layout  */
     render_default_layer_state();
-    render_keylock_status(host_keyboard_leds());
+    render_keylock_status(host_keyboard_led_state());
     render_mod_status(get_mods());
     render_bootmagic_status();
 

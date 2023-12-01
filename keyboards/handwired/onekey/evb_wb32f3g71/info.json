@@ -5,5 +5,15 @@
     "matrix_pins": {
         "cols": ["B12"],
         "rows": ["B13"]
+    },
+    "backlight": {
+        "pin": "B8"
+    },
+    "ws2812": {
+        "pin": "A0"
+    },
+    "apa102": {
+        "data_pin": "A0",
+        "clock_pin": "B8"
     }
 }

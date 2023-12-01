@@ -62,18 +62,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 * `-----------------------'
 	 */
 	[_QWERTY_LAYER] = LAYOUT_gamepad_6x4(
-			KC_T,    KC_G,    KC_B,    KC_LALT,  \
-			KC_R,    KC_F,    KC_V,    MO(_QWERTY_LOWER_LAYER),\
-			KC_E,    KC_D,    KC_C,              \
-			KC_W,    KC_S,    KC_X,    KC_SPACE, \
-			KC_Q,    KC_A,    KC_Z,    MO(_RAISE_LAYER),\
-			KC_GESC, KC_TAB,  KC_LSFT, KC_LCTRL),
+			KC_T,    KC_G,    KC_B,    KC_LALT,
+			KC_R,    KC_F,    KC_V,    MO(_QWERTY_LOWER_LAYER),
+			KC_E,    KC_D,    KC_C,
+			KC_W,    KC_S,    KC_X,    KC_SPACE,
+			KC_Q,    KC_A,    KC_Z,    MO(_RAISE_LAYER),
+			QK_GESC, KC_TAB,  KC_LSFT, KC_LCTL),
 	[_QWERTY_LOWER_LAYER] = LAYOUT_gamepad_6x4(
-			KC_P,    KC_SCLN, KC_SLSH, KC_LALT,  \
-			KC_O,    KC_L,    KC_DOT,  _______,  \
-			KC_I,    KC_K,    KC_COMM,           \
-			KC_U,    KC_J,    KC_M,    KC_ENTER, \
-			KC_Y,    KC_H,    KC_N,    _______,  \
+			KC_P,    KC_SCLN, KC_SLSH, KC_LALT,
+			KC_O,    KC_L,    KC_DOT,  _______,
+			KC_I,    KC_K,    KC_COMM,
+			KC_U,    KC_J,    KC_M,    KC_ENTER,
+			KC_Y,    KC_H,    KC_N,    _______,
 			_______, _______,  _______, _______),
 
 
@@ -109,18 +109,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 * `-----------------------'
 	 */
 	[_QWERTZ_LAYER] = LAYOUT_gamepad_6x4(
-			KC_T,    KC_G,    KC_B,    KC_LALT,  \
-			KC_R,    KC_F,    KC_V,    MO(_QWERTZ_LOWER_LAYER),\
-			KC_E,    KC_D,    KC_C,              \
-			KC_W,    KC_S,    KC_X,    KC_SPACE, \
-			KC_Q,    KC_A,    KC_Y,    MO(_RAISE_LAYER),\
-			KC_GESC, KC_TAB,  KC_LSFT, KC_LCTRL),
+			KC_T,    KC_G,    KC_B,    KC_LALT,
+			KC_R,    KC_F,    KC_V,    MO(_QWERTZ_LOWER_LAYER),
+			KC_E,    KC_D,    KC_C,
+			KC_W,    KC_S,    KC_X,    KC_SPACE,
+			KC_Q,    KC_A,    KC_Y,    MO(_RAISE_LAYER),
+			QK_GESC, KC_TAB,  KC_LSFT, KC_LCTL),
 	[_QWERTZ_LOWER_LAYER] = LAYOUT_gamepad_6x4(
-			KC_P,    KC_SCLN, KC_SLSH, KC_LALT,  \
-			KC_O,    KC_L,    KC_DOT,  _______,  \
-			KC_I,    KC_K,    KC_COMM,           \
-			KC_U,    KC_J,    KC_M,    KC_ENTER, \
-			KC_Z,    KC_H,    KC_N,    _______,  \
+			KC_P,    KC_SCLN, KC_SLSH, KC_LALT,
+			KC_O,    KC_L,    KC_DOT,  _______,
+			KC_I,    KC_K,    KC_COMM,
+			KC_U,    KC_J,    KC_M,    KC_ENTER,
+			KC_Z,    KC_H,    KC_N,    _______,
 			_______, _______, _______, _______),
 
 
@@ -156,18 +156,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 * `-----------------------'
 	 */
 	[_COLEMA_LAYER] = LAYOUT_gamepad_6x4(
-			KC_T,    KC_D,     KC_B,    KC_LALT,  \
-			KC_R,    KC_T,     KC_V,    MO(_COLEMA_LOWER_LAYER),\
-			KC_E,    KC_S,     KC_C,              \
-			KC_W,    KC_R,     KC_X,    KC_SPACE, \
-			KC_Q,    KC_A,     KC_Z,    MO(_RAISE_LAYER),\
-			KC_GESC, KC_TAB,   KC_LSFT, KC_LCTRL),
+			KC_T,    KC_D,     KC_B,    KC_LALT,
+			KC_R,    KC_T,     KC_V,    MO(_COLEMA_LOWER_LAYER),
+			KC_E,    KC_S,     KC_C,
+			KC_W,    KC_R,     KC_X,    KC_SPACE,
+			KC_Q,    KC_A,     KC_Z,    MO(_RAISE_LAYER),
+			QK_GESC, KC_TAB,   KC_LSFT, KC_LCTL),
 	[_COLEMA_LOWER_LAYER] = LAYOUT_gamepad_6x4(
-			KC_SCLN, KC_O,     KC_SLSH, _______,  \
-			KC_Y,    KC_I,     KC_DOT,  _______,  \
-			KC_U,    KC_E,     KC_COMM,           \
-			KC_L,    KC_N,     KC_M,    KC_ENTER, \
-			KC_J,    KC_H,     KC_K,    _______,  \
+			KC_SCLN, KC_O,     KC_SLSH, _______,
+			KC_Y,    KC_I,     KC_DOT,  _______,
+			KC_U,    KC_E,     KC_COMM,
+			KC_L,    KC_N,     KC_M,    KC_ENTER,
+			KC_J,    KC_H,     KC_K,    _______,
 			KC_F,    KC_G,     _______, _______),
 
 
@@ -203,18 +203,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 * `-----------------------'
 	 */
 	[_DVORAK_LAYER] = LAYOUT_gamepad_6x4(
-			KC_Y,    KC_I,    KC_X,    KC_LALT,   \
-			KC_P,    KC_U,    KC_K,    MO(_DVORAK_LOWER_LAYER),\
-			KC_DOT,  KC_E,    KC_J,               \
-			KC_COMM, KC_O,    KC_A,    KC_SPACE,  \
-			KC_QUOT, KC_A,    KC_SCLN, MO(_RAISE_LAYER),\
-			KC_GESC, KC_TAB,  KC_LSFT, KC_LCTRL),
+			KC_Y,    KC_I,    KC_X,    KC_LALT,
+			KC_P,    KC_U,    KC_K,    MO(_DVORAK_LOWER_LAYER),
+			KC_DOT,  KC_E,    KC_J,
+			KC_COMM, KC_O,    KC_A,    KC_SPACE,
+			KC_QUOT, KC_A,    KC_SCLN, MO(_RAISE_LAYER),
+			QK_GESC, KC_TAB,  KC_LSFT, KC_LCTL),
 	[_DVORAK_LOWER_LAYER] = LAYOUT_gamepad_6x4(
-			KC_L,    KC_S,    KC_Z,    KC_LALT, \
-			KC_R,    KC_N,    KC_V,    _______, \
-			KC_C,    KC_T,    KC_W,             \
-			KC_G,    KC_H,    KC_M,    KC_ENTER,\
-			KC_F,    KC_D,    KC_B,    _______, \
+			KC_L,    KC_S,    KC_Z,    KC_LALT,
+			KC_R,    KC_N,    KC_V,    _______,
+			KC_C,    KC_T,    KC_W,
+			KC_G,    KC_H,    KC_M,    KC_ENTER,
+			KC_F,    KC_D,    KC_B,    _______,
 			_______, _______, _______, _______),
 
 
@@ -235,11 +235,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 * `-----------------------'
 	 */
 	[_RAISE_LAYER] = LAYOUT_gamepad_6x4(
-			KC_5,    KC_0,   KC_BSPC,  _______, \
-			KC_4,    KC_9,   KC_RIGHT, _______, \
-			KC_3,    KC_8,   KC_UP,             \
-			KC_2,    KC_7,   KC_DOWN,  _______, \
-			KC_1,    KC_6,   KC_LEFT,  _______, \
+			KC_5,    KC_0,   KC_BSPC,  _______,
+			KC_4,    KC_9,   KC_RIGHT, _______,
+			KC_3,    KC_8,   KC_UP,
+			KC_2,    KC_7,   KC_DOWN,  _______,
+			KC_1,    KC_6,   KC_LEFT,  _______,
 			_______, _______, _______, _______),
 
 
@@ -261,11 +261,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 * `----------------------------------------'
 	 */
 	[_ALTER_LAYER] = LAYOUT_gamepad_6x4(
-			RGB_VAD, BL_TOGG,  QWERTZ,  KC_LGUI, \
-			RGB_VAI, BL_OFF,   QWERTY,  _______, \
-			RGB_SAD, BL_ON,    COLEMAK,          \
-			RGB_SAI, RGB_TOG,  DVORAK,  _______, \
-			RGB_HUD, RGB_MOD,  KC_VOLD, _______, \
+			RGB_VAD, BL_TOGG,  QWERTZ,  KC_LGUI,
+			RGB_VAI, BL_OFF,   QWERTY,  _______,
+			RGB_SAD, BL_ON,    COLEMAK,
+			RGB_SAI, RGB_TOG,  DVORAK,  _______,
+			RGB_HUD, RGB_MOD,  KC_VOLD, _______,
 			RGB_HUI, RGB_RMOD, KC_VOLU, QK_BOOT),
 };
 

@@ -48,7 +48,7 @@ enum {
 };
 
 //Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   //Tap once for Esc, twice for Caps Lock
   [TD_LOCK_SLEEP]  = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_L), KC_SLEP),
   [TD_ABK] = ACTION_TAP_DANCE_DOUBLE(KC_LABK,KC_RABK),
@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_GRV ,  KC_1  ,  KC_2  ,  KC_3  ,  KC_4  ,  KC_5  ,________  ,________,________,  KC_6  ,  KC_7  ,  KC_8  ,  KC_9  ,  KC_0  ,KC_MINUS,
          KC_TAB ,  KC_Q  ,  KC_W  ,  KC_E  ,  KC_R  ,  KC_T  ,________  ,________,________,  KC_Y  ,  KC_U  ,  KC_I  ,  KC_O  ,  KC_P  ,KC_BSDEL, //Custom shift Codes. Backspace ^ Delete
 LT(_LYMD,KC_ESC),  KC_A  ,  KC_S  ,  KC_D  ,  KC_F  ,  KC_G  ,________  ,________,________,  KC_H  ,  KC_J  ,  KC_K  ,  KC_L  ,KC_SCLN ,KC_QUOT,
-         KC_LSPO,  KC_Z  ,  KC_X  ,  KC_C  ,  KC_V  ,  KC_B  ,________  ,________,________,  KC_N  ,  KC_M  ,KC_CPIPE,KC_DOTQ ,KC_FBSLH,KC_RSPC, // Custom Shift Codes. ,^| .^?  /^|
+         SC_LSPO,  KC_Z  ,  KC_X  ,  KC_C  ,  KC_V  ,  KC_B  ,________  ,________,________,  KC_N  ,  KC_M  ,KC_CPIPE,KC_DOTQ ,KC_FBSLH,SC_RSPC, // Custom Shift Codes. ,^| .^?  /^|
       KC_MEH ,KC_LCTL ,KC_LGUI ,KC_LALT ,MO(_LYNUM), KC_SPC ,________  ,________,________, KC_ENT ,MO(_LYNAV),TD(TD_CBR) ,TD(TD_BRC),TD(TD_ABK),TD(TD_LOCK_SLEEP)
 
  ),
@@ -79,7 +79,7 @@ LT(_LYMD,KC_ESC),  KC_A  ,  KC_S  ,  KC_D  ,  KC_F  ,  KC_G  ,________  ,_______
          KC_GRV ,  KC_1  ,  KC_2  ,  KC_3  ,  KC_4  ,  KC_5  ,________  ,________,________,  KC_6  ,  KC_7  ,  KC_8  ,  KC_9  ,  KC_0  ,KC_MINUS,
          KC_TAB ,  KC_Q  ,  KC_W  ,  KC_F  ,  KC_P  ,  KC_G  ,________  ,________,________,  KC_J  ,  KC_L  ,  KC_U  ,  KC_Y  ,KC_SCLN ,KC_BSDEL, //Custom shift Codes. Backspace ^ Delete
 LT(_LYMD,KC_ESC),  KC_A  ,  KC_R  ,  KC_S  ,  KC_T  ,  KC_D  ,________  ,________,________,  KC_H  ,  KC_N  ,  KC_E  ,  KC_I  ,  KC_O  ,KC_QUOT,
-         KC_LSPO,  KC_Z  ,  KC_X  ,  KC_C  ,  KC_V  ,  KC_B  ,________  ,________,________,  KC_K  ,  KC_M  ,KC_CPIPE,KC_DOTQ ,KC_FBSLH,KC_RSPC, // Custom Shift Codes. ,^| .^?  /^|
+         SC_LSPO,  KC_Z  ,  KC_X  ,  KC_C  ,  KC_V  ,  KC_B  ,________  ,________,________,  KC_K  ,  KC_M  ,KC_CPIPE,KC_DOTQ ,KC_FBSLH,SC_RSPC, // Custom Shift Codes. ,^| .^?  /^|
      KC_MEH ,KC_LCTL ,KC_LGUI ,KC_LALT ,MO(_LYNUM), KC_SPC ,________  ,________,________, KC_ENT ,MO(_LYNAV),TD(TD_CBR) ,TD(TD_BRC),TD(TD_ABK),TD(TD_LOCK_SLEEP)
 
  ),
@@ -126,7 +126,7 @@ LT(_LYMD,KC_ESC),  KC_A  ,  KC_R  ,  KC_S  ,  KC_T  ,  KC_D  ,________  ,_______
  LAYOUT_ortho_5x15(
    ________,________,________,________,________,________,___XX___,___XX___,___XX___,___XX___,___XX___,___XX___,___XX___,___XX___,___XX___,
    KC_LYDEF,________,________,________,________,________,___XX___,___XX___,___XX___,___XX___,KC_HOME ,KC_UP   ,KC_PGUP ,KC_PSCR ,________,
-   ________,________,________,________,________,________,___XX___,___XX___,___XX___,___XX___,KC_LEFT ,KC_F5   ,KC_RIGHT,KC_SLCK ,___XX___,
+   ________,________,________,________,________,________,___XX___,___XX___,___XX___,___XX___,KC_LEFT ,KC_F5   ,KC_RIGHT,KC_SCRL ,___XX___,
    ________,________,________,________,________,________,___XX___,___XX___,___XX___,___XX___,KC_END  ,KC_DOWN ,KC_PGDN ,KC_PAUS ,___XX___,
    ________,________,________,________,________,________,________,________,________,________,________,KC_INS  ,KC_DEL  ,___XX___,___XX___
  ),
@@ -155,21 +155,21 @@ LT(_LYMD,KC_ESC),  KC_A  ,  KC_R  ,  KC_S  ,  KC_T  ,  KC_D  ,________  ,_______
      ________,________,________,________,________,________,___XX___,___XX___,___XX___,___XX___,___XX___,___XX___,___XX___,___XX___,___XX___,
      KC_LYDEF,________,________,________,________,________,___XX___,___XX___,___XX___,RGB_HUD ,RGB_HUI ,RGB_SAD ,RGB_SAI ,RGB_VAD ,RGB_VAI,
      ________,________,________,________,________,________,___XX___,___XX___,___XX___,RGB_TOG ,RGB_RMOD,RGB_MOD ,___XX___,___XX___,___XX___,
-     ________,________,________,________,________,________,___XX___,___XX___,___XX___,BL_TOGG ,BL_DEC  ,BL_INC  ,BL_BRTG ,___XX___,___XX___,
+     ________,________,________,________,________,________,___XX___,___XX___,___XX___,BL_TOGG ,BL_DOWN ,BL_UP   ,BL_BRTG ,___XX___,___XX___,
      ________,________,________,________,________,________,________,________,________,________,___XX___,___XX___,___XX___,___XX___,___XX___
   )
 };
 
 //Define layer colors
 #define rgblight_setrgb_user_base()  rgblight_sethsv(325,255,255)
-#define rgblight_setrgb_user_LYFK()  rgblight_sethsv_red()
-#define rgblight_setrgb_user_LYMED() rgblight_sethsv_blue()
-#define rgblight_setrgb_user_LYNUM() rgblight_sethsv_purple()
-#define rgblight_setrgb_user_LYNAV() rgblight_sethsv_cyan()
-#define rgblight_setrgb_user_LYMOS() rgblight_sethsv_orange()
-#define rgblight_setrgb_user_LYSYS() rgblight_sethsv_green()
-#define rgblight_setrgb_user_LYLT()  rgblight_sethsv_yellow()
-#define rgblight_setrgb_user_LYMD()  rgblight_sethsv_white()
+#define rgblight_setrgb_user_LYFK()  rgblight_sethsv(HSV_RED)
+#define rgblight_setrgb_user_LYMED() rgblight_sethsv(HSV_BLUE)
+#define rgblight_setrgb_user_LYNUM() rgblight_sethsv(HSV_PURPLE)
+#define rgblight_setrgb_user_LYNAV() rgblight_sethsv(HSV_CYAN)
+#define rgblight_setrgb_user_LYMOS() rgblight_sethsv(HSV_ORANGE)
+#define rgblight_setrgb_user_LYSYS() rgblight_sethsv(HSV_GREEN)
+#define rgblight_setrgb_user_LYLT()  rgblight_sethsv(HSV_YELLOW)
+#define rgblight_setrgb_user_LYMD()  rgblight_sethsv(HSV_WHITE)
 
 //initialize rgb
 void matrix_init_user(void) {
@@ -239,10 +239,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         if (keyboard_report->mods & shift) {
           if (keyboard_report->mods & MOD_BIT(KC_LSFT)) {
-            unregister_code(KC_LSHIFT);
+            unregister_code(KC_LEFT_SHIFT);
           }
           else {
-            unregister_code(KC_RSHIFT);
+            unregister_code(KC_RIGHT_SHIFT);
           }
           register_code(KC_DEL);
         }
@@ -260,19 +260,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         if (keyboard_report->mods & shift) {
             if (keyboard_report->mods & MOD_BIT(KC_LSFT)) {
-              unregister_code(KC_LSHIFT);
+              unregister_code(KC_LEFT_SHIFT);
             }
             else {
-              unregister_code(KC_RSHIFT);
+              unregister_code(KC_RIGHT_SHIFT);
             }
-          register_code(KC_BSLASH);
+          register_code(KC_BACKSLASH);
         }
         else {
           register_code(KC_SLSH);
         }
       }
       else {
-        unregister_code(KC_BSLASH);
+        unregister_code(KC_BACKSLASH);
         unregister_code (KC_SLSH);
       }
       return false;

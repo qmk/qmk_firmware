@@ -1,5 +1,6 @@
 // Copyright 2021 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
+#pragma once
 
 #include "color.h"
 #include "qp_internal.h"
@@ -12,8 +13,8 @@
 // Common TFT panel implementation using D/C, and RST pins.
 
 // Driver vtable with extras
-struct tft_panel_dc_reset_painter_driver_vtable_t {
-    struct painter_driver_vtable_t base; // must be first, so it can be cast to/from the painter_driver_vtable_t* type
+typedef struct tft_panel_dc_reset_painter_driver_vtable_t {
+    painter_driver_vtable_t base; // must be first, so it can be cast to/from the painter_driver_vtable_t* type
 
     // Number of bytes for transmitting x/y coordinates
     uint8_t num_window_bytes;
@@ -29,16 +30,16 @@ struct tft_panel_dc_reset_painter_driver_vtable_t {
         uint8_t set_row_address;
         uint8_t enable_writes;
     } opcodes;
-};
+} tft_panel_dc_reset_painter_driver_vtable_t;
 
 // Device definition
 typedef struct tft_panel_dc_reset_painter_device_t {
-    struct painter_driver_t base; // must be first, so it can be cast to/from the painter_device_t* type
+    painter_driver_t base; // must be first, so it can be cast to/from the painter_device_t* type
 
     union {
 #ifdef QUANTUM_PAINTER_SPI_ENABLE
         // SPI-based configurables
-        struct qp_comms_spi_dc_reset_config_t spi_dc_reset_config;
+        qp_comms_spi_dc_reset_config_t spi_dc_reset_config;
 #endif // QUANTUM_PAINTER_SPI_ENABLE
 
         // TODO: I2C/parallel etc.
@@ -59,3 +60,5 @@ bool qp_tft_panel_palette_convert_rgb888(painter_device_t device, int16_t palett
 
 bool qp_tft_panel_append_pixels_rgb565(painter_device_t device, uint8_t *target_buffer, qp_pixel_t *palette, uint32_t pixel_offset, uint32_t pixel_count, uint8_t *palette_indices);
 bool qp_tft_panel_append_pixels_rgb888(painter_device_t device, uint8_t *target_buffer, qp_pixel_t *palette, uint32_t pixel_offset, uint32_t pixel_count, uint8_t *palette_indices);
+
+bool qp_tft_panel_append_pixdata(painter_device_t device, uint8_t *target_buffer, uint32_t pixdata_offset, uint8_t pixdata_byte);
