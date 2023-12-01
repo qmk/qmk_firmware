@@ -148,11 +148,7 @@ static backing_store_int_t backing_store_safe_read_from_location(backing_store_i
     backing_store_int_t value;
     is_issuing_read    = true;
     ecc_error_occurred = false;
-    if (flash_erased_is_one) {
-        value = ~(*loc);
-    } else {
-        value = (*loc);
-    }
+    value = flash_erased_is_one ? ~(*loc) : (*loc);
     is_issuing_read = false;
     return value;
 }
