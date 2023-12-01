@@ -17,6 +17,9 @@
         "rows": ["B14", "B13", "B12", "B2", "A8", "B15"]
     },
     "diode_direction": "COL2ROW",
+    "eeprom": {
+        "driver": "i2c"
+    },
     "processor": "STM32L422",
     "bootloader": "stm32-dfu",
     "layout_aliases": {

@@ -13,6 +13,11 @@
         "rows": ["B8", "B7", "B6", "B5", "B4", "B3", "A15", "A14"]
     },
     "diode_direction": "ROW2COL",
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
     "processor": "STM32F303",
     "bootloader": "stm32-dfu",
     "board": "QMK_PROTON_C",
