@@ -37,10 +37,13 @@ LAYOUT_crkbd_wrapper( \
 
 #define LAYOUT_base_wrapper(...) LAYOUT_crkbd_base(__VA_ARGS__)
 
-#undef _________________THUMB_LEFT________________
-#undef _________________THUMB_RIGHT_______________
-#define _________________THUMB_LEFT________________     KC_NO,             KC_NO,           MO(_MOUSE),  LT(_MEDIA,KC_ESC),   LT(_NAV,KC_SPC)
-#define _________________THUMB_RIGHT_______________     LT(_SYM,KC_ENT),   LT(_NUM,KC_TAB), MO(_FUN),    KC_NO,               KC_NO
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    state = update_tri_layer_state(state, _NUM, _MEDIA, _MOUSE);
+    state = update_tri_layer_state(state, _NAV, _SYM, _FUN);
+    return state;
+}
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_base_wrapper(
@@ -92,6 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         __________________MOUSE_L4__________________, __________________MOUSE_R4__________________
     ),
 };
+
 
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
