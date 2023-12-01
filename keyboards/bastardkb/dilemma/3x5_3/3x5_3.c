@@ -38,15 +38,13 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 #endif // ENCODER_ENABLE
 
 #ifdef RGB_MATRIX_ENABLE
-#define rgb_min(a,b) (((a)<(b))?(a):(b))
-
 // Layer state indicator
 bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) { return false; }
     if (host_keyboard_led_state().caps_lock) {
         for (int i = led_min; i <= led_max; i++) {
             if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
-                rgb_matrix_set_color(i, rgb_min(rgb_matrix_get_val() + 76, 255), 0x00, 0x00);
+                rgb_matrix_set_color(i, MIN(rgb_matrix_get_val() + 76, 255), 0x00, 0x00);
             }
         }
     }
@@ -80,7 +78,7 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
         };
 
         if (hsv.v > rgb_matrix_get_val()) {
-            hsv.v = rgb_min(rgb_matrix_get_val() + 22, 255);
+            hsv.v = MIN(rgb_matrix_get_val() + 22, 255);
         }
         RGB rgb = hsv_to_rgb(hsv);
 
