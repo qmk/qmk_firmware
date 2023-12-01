@@ -72,7 +72,7 @@ all: {keyboard_safe}_{keymap_name}_binary
                     # yapf: enable
                 f.write('\n')
 
-        cli.run([make_cmd, *get_make_parallel_args(parallel), '-f', makefile.as_posix(), 'all'], capture_output=False, stdin=DEVNULL)
+        cli.run([find_make(), *get_make_parallel_args(parallel), '-f', makefile.as_posix(), 'all'], capture_output=False, stdin=DEVNULL)
 
         # Check for failures
         failures = [f for f in builddir.glob(f'failed.log.{os.getpid()}.*')]
@@ -108,4 +108,4 @@ def mass_compile(cli):
     else:
         targets = search_keymap_targets([('all', cli.config.mass_compile.keymap)], cli.args.filter)
 
-    return mass_compile_targets(targets, cli.args.clean, cli.args.dry_run, cli.config.mass_compile.no_temp, cli.config.mass_compile.parallel, **build_environment(cli.args.env))
+    return mass_compile_targets(targets, cli.args.clean, cli.args.dry_run, cli.args.no_temp, cli.config.mass_compile.parallel, **build_environment(cli.args.env))

@@ -488,10 +488,10 @@ The maximum number of surfaces can be configured by changing the following in yo
 To transfer the contents of the surface to another display of the same pixel format, the following API can be invoked:
 
 ```c
-bool qp_surface_draw(painter_device_t surface, painter_device_t display, uint16_t x, uint16_t y);
+bool qp_surface_draw(painter_device_t surface, painter_device_t display, uint16_t x, uint16_t y, bool entire_surface);
 ```
 
-The `surface` is the surface to copy out from. The `display` is the target display to draw into. `x` and `y` are the target location to draw the surface pixel data. Under normal circumstances, the location should be consistent, as the dirty region is calculated with respect to the `x` and `y` coordinates -- changing those will result in partial, overlapping draws.
+The `surface` is the surface to copy out from. The `display` is the target display to draw into. `x` and `y` are the target location to draw the surface pixel data. Under normal circumstances, the location should be consistent, as the dirty region is calculated with respect to the `x` and `y` coordinates -- changing those will result in partial, overlapping draws. `entire_surface` whether the entire surface should be drawn, instead of just the dirty region.
 
 !> The surface and display panel must have the same native pixel format.
 
