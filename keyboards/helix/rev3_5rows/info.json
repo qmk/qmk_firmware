@@ -35,7 +35,7 @@
         {"matrix": [3, 3], "x": 48, "y": 48, "flags": 4},
         {"matrix": [3, 4], "x": 64, "y": 48, "flags": 4},
         {"matrix": [3, 5], "x": 80, "y": 48, "flags": 4},
-        {"matrix": [3, 6], "x": 966, "y": 48, "flags": 4},
+        {"matrix": [3, 6], "x": 96, "y": 48, "flags": 4},
         {"matrix": [4, 6], "x": 96, "y": 64, "flags": 4},
         {"matrix": [4, 5], "x": 80, "y": 64, "flags": 4},
         {"matrix": [4, 4], "x": 64, "y": 64, "flags": 4},
