@@ -132,7 +132,9 @@ bool backing_store_write(uint32_t address, backing_store_int_t value) {
     uint32_t offset = (base_offset + address);
     bs_dprintf("Write ");
     wl_dump(offset, &value, sizeof(value));
-    if (flash_erased_is_one) value = ~value;
+    if (flash_erased_is_one) {
+        value = ~value;
+    }
     return flashProgram(flash, offset, sizeof(value), (const uint8_t *)&value) == FLASH_NO_ERROR;
 }
 
