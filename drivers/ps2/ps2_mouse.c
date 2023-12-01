@@ -61,45 +61,43 @@ void ps2_mouse_init(void) {
 }
 
 report_mouse_t ps2_mouse_get_report(report_mouse_t mouse_report) {
-    bool has_report = false;
+    report_mouse_t new_report = {};
 
     /* receives packet from mouse */
 #ifdef PS2_MOUSE_USE_REMOTE_MODE
     uint8_t rcv;
     rcv = ps2_host_send(PS2_MOUSE_READ_DATA);
     if (rcv == PS2_ACK) {
-        mouse_report.buttons = ps2_host_recv_response();
-        mouse_report.x       = ps2_host_recv_response();
-        mouse_report.y       = ps2_host_recv_response();
+        new_report.buttons = ps2_host_recv_response();
+        new_report.x       = ps2_host_recv_response();
+        new_report.y       = ps2_host_recv_response();
 #    ifdef PS2_MOUSE_ENABLE_SCROLLING
-        mouse_report.v = -(ps2_host_recv_response() & PS2_MOUSE_SCROLL_MASK);
+        new_report.v = -(ps2_host_recv_response() & PS2_MOUSE_SCROLL_MASK);
 #    endif
-        has_report = true;
     } else {
         pd_dprintf("ps2_mouse: fail to get mouse packet\n");
     }
 #else
     /* Streaming mode */
     if (pbuf_has_data()) {
-        mouse_report.buttons = ps2_host_recv_response();
-        mouse_report.x       = ps2_host_recv_response();
-        mouse_report.y       = ps2_host_recv_response();
+        new_report.buttons = ps2_host_recv_response();
+        new_report.x       = ps2_host_recv_response();
+        new_report.y       = ps2_host_recv_response();
 #    ifdef PS2_MOUSE_ENABLE_SCROLLING
-        mouse_report.v       = -(ps2_host_recv_response() & PS2_MOUSE_SCROLL_MASK);
+        new_report.v       = -(ps2_host_recv_response() & PS2_MOUSE_SCROLL_MASK);
 #    endif
-        has_report = true;
     }
 #endif
 
-    if (has_report) {
-        pd_dprintf("ps2_mouse: raw x=%x y=%x v=%x h=%x buttons=%x\n", mouse_report.x, mouse_report.y, mouse_report.v, mouse_report.h, mouse_report.buttons);
+    ps2_mouse_convert_report_to_hid(&new_report);
 
-        ps2_mouse_convert_report_to_hid(&mouse_report);
+    if (has_mouse_report_changed(&new_report, &mouse_report)) {
+        pd_dprintf("ps2_mouse: raw x=%x y=%x v=%x h=%x buttons=%x\n", new_report.x, new_report.y, new_report.v, new_report.h, new_report.buttons);
 
-        pd_dprintf("ps2_mouse: hid x=%x y=%x v=%x h=%x buttons=%x\n", mouse_report.x, mouse_report.y, mouse_report.v, mouse_report.h, mouse_report.buttons);
+        pd_dprintf("ps2_mouse: hid x=%x y=%x v=%x h=%x buttons=%x\n", new_report.x, new_report.y, new_report.v, new_report.h, new_report.buttons);
     }
 
-    return mouse_report;
+    return new_report;
 }
 
 
