@@ -13,8 +13,6 @@
         "rows": ["B4" , "C11", "A8" , "C9" , "B10", "C5" , "B5" , "B6"]
     },
     "features": {
-        "audio": false,
-        "backlight": false,
         "bootmagic": true,
         "command": false,
         "console": false,
