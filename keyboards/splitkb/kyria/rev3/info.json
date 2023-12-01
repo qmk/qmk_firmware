@@ -98,7 +98,6 @@
             "matrix": [4, 6]
         },
         "soft_serial_pin": "D2",
-        "main": "matrix_grid",
         "matrix_pins": {
             "right": {
                 "rows": ["F6", "F7", "B1", "B3"],

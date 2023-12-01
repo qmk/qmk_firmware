@@ -14,7 +14,6 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "keymap_steno.h"
 #include "g/keymap_combo.h"
 
 
