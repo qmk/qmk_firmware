@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include "debug.h"
 #include "report.h"
+#include "pointing_device_internal.h"
 
 #define PS2_MOUSE_SEND(command, message)                                                \
     do {                                                                                \
@@ -69,23 +70,38 @@ __attribute__((unused)) static enum ps2_mouse_mode_e {
  *    0|[Yovflw][Xovflw][Ysign ][Xsign ][ 1    ][Middle][Right ][Left  ]
  *    1|[                    X movement(0-255)                         ]
  *    2|[                    Y movement(0-255)                         ]
+ *
+ * if PS2_MOUSE_ENABLE_SCROLLING:
+ *    3|[                    Z movement(0-255)                         ]
  */
-#define PS2_MOUSE_BTN_MASK 0x07
-#define PS2_MOUSE_BTN_LEFT 0
-#define PS2_MOUSE_BTN_RIGHT 1
-#define PS2_MOUSE_BTN_MIDDLE 2
-#define PS2_MOUSE_X_SIGN 4
-#define PS2_MOUSE_Y_SIGN 5
-#define PS2_MOUSE_X_OVFLW 6
-#define PS2_MOUSE_Y_OVFLW 7
+typedef struct __attribute__((packed)) {
+    union {
+        struct {
+            bool left_button : 1;
+            bool right_button : 1;
+            bool middle_button : 1;
+            bool always_one : 1;
+            bool x_sign : 1;
+            bool y_sign : 1;
+            bool x_overflow : 1;
+            bool y_overflow : 1;
+        } b;
+        uint8_t w;
+    } head;
+    uint8_t x;
+    uint8_t y;
+#ifdef PS2_MOUSE_ENABLE_SCROLLING
+    uint8_t z;
+#endif
+} ps2_mouse_report_t;
 
-/* divide virtical and horizontal mouse move by this to convert to scroll move */
-#ifndef PS2_MOUSE_SCROLL_DIVISOR_V
-#    define PS2_MOUSE_SCROLL_DIVISOR_V 2
+#ifdef PS2_MOUSE_ENABLE_SCROLLING
+_Static_assert(sizeof(ps2_mouse_report_t) == 4, "ps2_mouse_report_t must be 4 bytes in size");
+#else
+_Static_assert(sizeof(ps2_mouse_report_t) == 3, "ps2_mouse_report_t must be 3 bytes in size");
 #endif
-#ifndef PS2_MOUSE_SCROLL_DIVISOR_H
-#    define PS2_MOUSE_SCROLL_DIVISOR_H 2
-#endif
+_Static_assert(sizeof((ps2_mouse_report_t){0}.head) == 1, "ps2_mouse_report_t.head must be 1 byte in size");
+
 /* multiply reported mouse values by these */
 #ifndef PS2_MOUSE_X_MULTIPLIER
 #    define PS2_MOUSE_X_MULTIPLIER 1

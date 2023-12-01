@@ -24,11 +24,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "timer.h"
 #include "report.h"
 #include "ps2.h"
+#include "pointing_device.h"
 #include "pointing_device_internal.h"
 
 /* ============================= MACROS ============================ */
 
-static inline void ps2_mouse_convert_report_to_hid(report_mouse_t *mouse_report);
+static inline void ps2_mouse_convert_report_to_hid(ps2_mouse_report_t *ps2_report, report_mouse_t *mouse_report);
 static inline void ps2_mouse_enable_scrolling(void);
 
 /* ============================= IMPLEMENTATION ============================ */
@@ -62,17 +63,18 @@ void ps2_mouse_init(void) {
 
 report_mouse_t ps2_mouse_get_report(report_mouse_t mouse_report) {
     report_mouse_t new_report = {};
+    ps2_mouse_report_t ps2_report = {};
 
     /* receives packet from mouse */
 #ifdef PS2_MOUSE_USE_REMOTE_MODE
     uint8_t rcv;
     rcv = ps2_host_send(PS2_MOUSE_READ_DATA);
     if (rcv == PS2_ACK) {
-        new_report.buttons = ps2_host_recv_response();
-        new_report.x       = ps2_host_recv_response();
-        new_report.y       = ps2_host_recv_response();
+        ps2_report.head.w = ps2_host_recv_response();
+        ps2_report.x = ps2_host_recv_response();
+        ps2_report.y = ps2_host_recv_response();
 #    ifdef PS2_MOUSE_ENABLE_SCROLLING
-        new_report.v = -(ps2_host_recv_response() & PS2_MOUSE_SCROLL_MASK);
+        ps2_report.z = ps2_host_recv_response();
 #    endif
     } else {
         pd_dprintf("ps2_mouse: fail to get mouse packet\n");
@@ -80,21 +82,31 @@ report_mouse_t ps2_mouse_get_report(report_mouse_t mouse_report) {
 #else
     /* Streaming mode */
     if (pbuf_has_data()) {
-        new_report.buttons = ps2_host_recv_response();
-        new_report.x       = ps2_host_recv_response();
-        new_report.y       = ps2_host_recv_response();
+        ps2_report.head.w = ps2_host_recv_response();
+        ps2_report.x = ps2_host_recv_response();
+        ps2_report.y = ps2_host_recv_response();
 #    ifdef PS2_MOUSE_ENABLE_SCROLLING
-        new_report.v       = -(ps2_host_recv_response() & PS2_MOUSE_SCROLL_MASK);
+        ps2_report.z = ps2_host_recv_response();
 #    endif
     }
 #endif
 
-    ps2_mouse_convert_report_to_hid(&new_report);
+    ps2_mouse_convert_report_to_hid(&ps2_report, &new_report);
 
     if (has_mouse_report_changed(&new_report, &mouse_report)) {
-        pd_dprintf("ps2_mouse: raw x=%x y=%x v=%x h=%x buttons=%x\n", new_report.x, new_report.y, new_report.v, new_report.h, new_report.buttons);
+        pd_dprintf("ps2_mouse: raw x=%02x y=%02x head=0x%02x [left=%u right=%u middle=%u one=%u x_sign=%u y_sign=%u x_ovf=%u y_ovf=%u]\n",
+                   ps2_report.x, ps2_report.y,
+                   ps2_report.head.w,
+                   ps2_report.head.b.left_button,
+                   ps2_report.head.b.right_button,
+                   ps2_report.head.b.middle_button,
+                   ps2_report.head.b.always_one,
+                   ps2_report.head.b.x_sign,
+                   ps2_report.head.b.y_sign,
+                   ps2_report.head.b.x_overflow,
+                   ps2_report.head.b.y_overflow);
 
-        pd_dprintf("ps2_mouse: hid x=%x y=%x v=%x h=%x buttons=%x\n", new_report.x, new_report.y, new_report.v, new_report.h, new_report.buttons);
+        pd_dprintf("ps2_mouse: hid x=%d y=%d v=%d h=%d buttons=%x\n", new_report.x, new_report.y, new_report.v, new_report.h, new_report.buttons);
     }
 
     return new_report;
@@ -137,43 +149,52 @@ void ps2_mouse_set_sample_rate(ps2_mouse_sample_rate_t sample_rate) {
 
 /* ============================= HELPERS ============================ */
 
-#define X_IS_NEG (mouse_report->buttons & (1 << PS2_MOUSE_X_SIGN))
-#define Y_IS_NEG (mouse_report->buttons & (1 << PS2_MOUSE_Y_SIGN))
-#define X_IS_OVF (mouse_report->buttons & (1 << PS2_MOUSE_X_OVFLW))
-#define Y_IS_OVF (mouse_report->buttons & (1 << PS2_MOUSE_Y_OVFLW))
-static inline void ps2_mouse_convert_report_to_hid(report_mouse_t *mouse_report) {
-#ifndef MOUSE_EXTENDED_REPORT
-    // PS/2 mouse data is '9-bit integer'(-256 to 255) which is comprised of sign-bit and 8-bit value.
-    // bit: 8    7 ... 0
-    //      sign \8-bit/
-    //
-    // Meanwhile USB HID mouse indicates 8bit data(-127 to 127), note that -128 is not used.
-    //
-    // This converts PS/2 data into HID value. Use only -127-127 out of PS/2 9-bit.
-    mouse_report->x *= PS2_MOUSE_X_MULTIPLIER;
-    mouse_report->y *= PS2_MOUSE_Y_MULTIPLIER;
-    mouse_report->x = X_IS_NEG ? ((!X_IS_OVF && -127 <= mouse_report->x && mouse_report->x <= -1) ? mouse_report->x : -127) : ((!X_IS_OVF && 0 <= mouse_report->x && mouse_report->x <= 127) ? mouse_report->x : 127);
-    mouse_report->y = Y_IS_NEG ? ((!Y_IS_OVF && -127 <= mouse_report->y && mouse_report->y <= -1) ? mouse_report->y : -127) : ((!Y_IS_OVF && 0 <= mouse_report->y && mouse_report->y <= 127) ? mouse_report->y : 127);
-#else
-    // Sign extend if negative, otherwise leave positive 8-bits as-is
-    mouse_report->x = X_IS_NEG ? (mouse_report->x | ~0xFF) : mouse_report->x;
-    mouse_report->y = Y_IS_NEG ? (mouse_report->y | ~0xFF) : mouse_report->y;
-    mouse_report->x *= PS2_MOUSE_X_MULTIPLIER;
-    mouse_report->y *= PS2_MOUSE_Y_MULTIPLIER;
-#endif
-    mouse_report->v *= PS2_MOUSE_V_MULTIPLIER;
+#define min(a,b) ((a)<(b)?(a):(b))
+#define max(a,b) ((a)>(b)?(a):(b))
 
-#ifdef PS2_MOUSE_INVERT_BUTTONS
-    // swap left & right buttons
-    bool needs_left       = mouse_report->buttons & (1 << PS2_MOUSE_BTN_RIGHT);
-    bool needs_right      = mouse_report->buttons & (1 << PS2_MOUSE_BTN_LEFT);
-    mouse_report->buttons = (mouse_report->buttons & ~((1 << PS2_MOUSE_BTN_LEFT) | (1 << PS2_MOUSE_BTN_RIGHT))) | (needs_left << PS2_MOUSE_BTN_LEFT) | (needs_right << PS2_MOUSE_BTN_RIGHT);
-#endif
-    // remove sign and overflow flags
-    mouse_report->buttons &= PS2_MOUSE_BTN_MASK;
+static inline void ps2_mouse_convert_report_to_hid(ps2_mouse_report_t *ps2_report, report_mouse_t *mouse_report)
+{
+    bool x_sign = ps2_report->head.b.x_sign;
+    bool y_sign = ps2_report->head.b.y_sign;
+    bool left_button = ps2_report->head.b.left_button;
+    bool right_button = ps2_report->head.b.right_button;
+    bool middle_button = ps2_report->head.b.middle_button;
+
+    // PS/2 mouse data is '9-bit integer'(-256 to 255), comprised of sign-bit and 8-bit value.
+    // Sign extend if negative, otherwise leave positive 8-bits as-is
+    int16_t x = x_sign ? (ps2_report->x | ~0xFF) : ps2_report->x;
+    int16_t y = y_sign ? (ps2_report->y | ~0xFF) : ps2_report->y;
+
+    x *= PS2_MOUSE_X_MULTIPLIER;
+    y *= PS2_MOUSE_Y_MULTIPLIER;
+
+    // Constrain xy values to valid range
+    mouse_report->x = min(max(XY_REPORT_MIN, x), XY_REPORT_MAX);
+    mouse_report->y = min(max(XY_REPORT_MIN, y), XY_REPORT_MAX);
 
     // invert coordinate of y to conform to USB HID mouse
     mouse_report->y = -mouse_report->y;
+
+#ifdef PS2_MOUSE_ENABLE_SCROLLING
+    mouse_report->v = -(ps2_report->z & PS2_MOUSE_SCROLL_MASK);
+    mouse_report->v *= PS2_MOUSE_V_MULTIPLIER;
+#endif
+
+#ifdef PS2_MOUSE_INVERT_BUTTONS
+    // swap left & right buttons
+    if (left_button)
+        mouse_report->buttons |= MOUSE_BTN2;
+    if (right_button)
+        mouse_report->buttons |= MOUSE_BTN1;
+#else
+    if (left_button)
+        mouse_report->buttons |= MOUSE_BTN1;
+    if (right_button)
+        mouse_report->buttons |= MOUSE_BTN2;
+#endif
+
+    if (middle_button)
+        mouse_report->buttons |= MOUSE_BTN3;
 }
 
 static inline void ps2_mouse_enable_scrolling(void) {
