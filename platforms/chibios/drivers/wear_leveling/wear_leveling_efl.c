@@ -56,7 +56,7 @@ bool backing_store_init(void) {
     uint32_t                  flash_size = detect_flash_size();
 
     // Check if the hardware erase is logic 1
-    if (desc->attributes & FLASH_ATTR_ERASED_IS_ONE) flash_erased_is_one = true;
+    flash_erased_is_one = (desc->attributes & FLASH_ATTR_ERASED_IS_ONE) ? true : false;
 
 #if defined(WEAR_LEVELING_EFL_FIRST_SECTOR)
 
