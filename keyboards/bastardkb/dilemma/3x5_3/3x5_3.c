@@ -92,12 +92,4 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     }
     return false;
 };
-
-// Forward-declare this helper function since it is defined in rgb_matrix.c.
-void rgb_matrix_update_pwm_buffers(void);
-
-__attribute__((weak)) void shutdown_user(void) {
-    rgb_matrix_set_color_all(rgb_matrix_get_val(), 0x00, 0x00);
-    rgb_matrix_update_pwm_buffers();
-}
 #endif // RGB_MATRIX_ENABLE
