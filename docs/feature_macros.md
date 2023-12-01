@@ -69,7 +69,7 @@ The current list of available languages is:
 | **italian_osx_iso** | **jis** | **latvian** | **lithuanian_azerty** |
 | **lithuanian_qwerty** | **norman** | **norwegian** | **portuguese** |
 | **portuguese_osx_iso** | **romanian** | **serbian_latin** | **slovak** |
-| **slovenian** | **spanish_dvorak** | **spanish_latam** | **spanish** |
+| **slovenian** | **spanish_dvorak** | **spanish_latin_america** | **spanish** |
 | **swedish** | **turkish_f** | **turkish_q** | **uk** |
 | **us_international** | **workman** | **workman_zxcvm** |
 

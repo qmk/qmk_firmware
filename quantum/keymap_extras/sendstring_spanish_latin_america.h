@@ -94,27 +94,27 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     //       !        "        #        $        %        &        '
-    KC_SPC,  LA_1,    LA_2,    LA_3,    LA_4,    LA_5,    LA_6,    LA_QUOT,
+    KC_SPC,  ES_1,    ES_2,    ES_3,    ES_4,    ES_5,    ES_6,    ES_QUOT,
     // (     )        *        +        ,        -        .        /
-    LA_8,    LA_9,    LA_PLUS, LA_PLUS, LA_COMM, LA_MINS, LA_DOT,  LA_7,
+    ES_8,    ES_9,    ES_PLUS, ES_PLUS, ES_COMM, ES_MINS, ES_DOT,  ES_7,
     // 0     1        2        3        4        5        6        7
-    LA_0,    LA_1,    LA_2,    LA_3,    LA_4,    LA_5,    LA_6,    LA_7,
+    ES_0,    ES_1,    ES_2,    ES_3,    ES_4,    ES_5,    ES_6,    ES_7,
     // 8     9        :        ;        <        =        >        ?
-    LA_8,    LA_9,    LA_DOT,  LA_COMM, LA_LABK, LA_0,    LA_LABK, LA_QUOT,
+    ES_8,    ES_9,    ES_DOT,  ES_COMM, ES_LABK, ES_0,    ES_LABK, ES_QUOT,
     // @     A        B        C        D        E        F        G
-    LA_Q,    LA_A,    LA_B,    LA_C,    LA_D,    LA_E,    LA_F,    LA_G,
+    ES_Q,    ES_A,    ES_B,    ES_C,    ES_D,    ES_E,    ES_F,    ES_G,
     // H     I        J        K        L        M        N        O
-    LA_H,    LA_I,    LA_J,    LA_K,    LA_L,    LA_M,    LA_N,    LA_O,
+    ES_H,    ES_I,    ES_J,    ES_K,    ES_L,    ES_M,    ES_N,    ES_O,
     // P     Q        R        S        T        U        V        W
-    LA_P,    LA_Q,    LA_R,    LA_S,    LA_T,    LA_U,    LA_V,    LA_W,
+    ES_P,    ES_Q,    ES_R,    ES_S,    ES_T,    ES_U,    ES_V,    ES_W,
     // X     Y        Z        [        \        ]        ^        _
-    LA_X,    LA_Y,    LA_Z,    LA_LCBR, LA_QUOT, LA_RCBR, LA_LCBR, LA_MINS,
+    ES_X,    ES_Y,    ES_Z,    ES_LCBR, ES_QUOT, ES_RCBR, ES_LCBR, ES_MINS,
     // `     a        b        c        d        e        f        g
-    LA_RCBR, LA_A,    LA_B,    LA_C,    LA_D,    LA_E,    LA_F,    LA_G,
+    ES_RCBR, ES_A,    ES_B,    ES_C,    ES_D,    ES_E,    ES_F,    ES_G,
     // h     i        j        k        l        m        n        o
-    LA_H,    LA_I,    LA_J,    LA_K,    LA_L,    LA_M,    LA_N,    LA_O,
+    ES_H,    ES_I,    ES_J,    ES_K,    ES_L,    ES_M,    ES_N,    ES_O,
     // p     q        r        s        t        u        v        w
-    LA_P,    LA_Q,    LA_R,    LA_S,    LA_T,    LA_U,    LA_V,    LA_W,
+    ES_P,    ES_Q,    ES_R,    ES_S,    ES_T,    ES_U,    ES_V,    ES_W,
     // x     y        z        {        |        }        ~        DEL
-    LA_X,    LA_Y,    LA_Z,    LA_LCBR, LA_PIPE, LA_RCBR, LA_PLUS, KC_DEL
+    ES_X,    ES_Y,    ES_Z,    ES_LCBR, ES_PIPE, ES_RCBR, ES_PLUS, KC_DEL
 };

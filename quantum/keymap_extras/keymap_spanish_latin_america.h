@@ -99,7 +99,7 @@
 #define ES_UNDS S(ES_MINS) // _
 #define ES_NOT  ALGR(ES_PIPE) // ¬
 #define ES_BSLS ALGR(ES_QUOT) // (backslash)
-#define LQ_AT   ALGR(ES_Q)    // @
+#define ES_AT   ALGR(ES_Q)    // @
 #define ES_TILD ALGR(ES_PLUS) // ~
 #define ES_CIRC ALGR(ES_LCBR) // ^
 
