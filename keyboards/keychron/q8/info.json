@@ -8,7 +8,9 @@
         "layer_count": 5
     },
     "eeprom": {
-        "backing_size": 4096
+        "wear_levling": {
+            "backing_size": 4096
+        }  
     },
     "features": {
         "bootmagic": true,
