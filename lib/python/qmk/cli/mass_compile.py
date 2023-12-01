@@ -108,4 +108,4 @@ def mass_compile(cli):
     else:
         targets = search_keymap_targets([('all', cli.config.mass_compile.keymap)], cli.args.filter)
 
-    return mass_compile_targets(targets, cli.args.clean, cli.args.dry_run, cli.config.mass_compile.no_temp, cli.config.mass_compile.parallel, **build_environment(cli.args.env))
+    return mass_compile_targets(targets, cli.args.clean, cli.args.dry_run, cli.args.no_temp, cli.config.mass_compile.parallel, **build_environment(cli.args.env))
