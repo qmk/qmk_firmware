@@ -141,6 +141,7 @@
         "LAYOUT": {
             "layout": [
                 {"label": "ESC", "matrix": [0, 0], "x": 0, "y": 0},
+                {"label": "F1", "matrix": [4, 1], "x": 1, "y": 0},
                 {"label": "F2", "matrix": [0, 2], "x": 2, "y": 0},
                 {"label": "F3", "matrix": [0, 3], "x": 3, "y": 0},
                 {"label": "F4", "matrix": [0, 4], "x": 4, "y": 0},
@@ -151,6 +152,7 @@
                 {"label": "F9", "matrix": [0, 9], "x": 9, "y": 0},
                 {"label": "F10", "matrix": [0, 10], "x": 10, "y": 0},
                 {"label": "F11", "matrix": [0, 11], "x": 11, "y": 0},
+                {"label": "F12", "matrix": [3, 12], "x": 12, "y": 0},
                 {"label": "PSCR", "matrix": [0, 12], "x": 13, "y": 0},
                 {"label": "PAUS", "matrix": [0, 13], "x": 14, "y": 0},
                 {"label": "DEL", "matrix": [0, 14], "x": 15, "y": 0},
@@ -196,11 +198,9 @@
                 {"label": "L", "matrix": [3, 9], "x": 9.75, "y": 3.25},
                 {"label": "SCLN", "matrix": [3, 10], "x": 10.75, "y": 3.25},
                 {"label": "QUOT", "matrix": [3, 11], "x": 11.75, "y": 3.25},
-                {"label": "F12", "matrix": [3, 12], "x": 12, "y": 0},
                 {"label": "ENT", "matrix": [3, 13], "x": 12.75, "y": 3.25, "w": 2.25},
                 {"label": "PGUP", "matrix": [3, 14], "x": 15, "y": 3.25},
                 {"label": "LSFT", "matrix": [4, 0], "x": 0, "y": 4.25, "w": 1.25},
-                {"label": "F1", "matrix": [4, 1], "x": 1, "y": 0},
                 {"label": "Z", "matrix": [4, 2], "x": 2.25, "y": 4.25},
                 {"label": "X", "matrix": [4, 3], "x": 3.25, "y": 4.25},
                 {"label": "C", "matrix": [4, 4], "x": 4.25, "y": 4.25},
