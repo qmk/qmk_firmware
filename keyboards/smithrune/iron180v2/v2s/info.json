@@ -17,13 +17,13 @@
         "bootmagic": true,
         "command": false,
         "console": false,
-        "encoder": false,
         "extrakey": true,
-        "lto": true,
         "mousekey": true,
-        "nkro": true,
-        "rgblight": false
-    },  
+        "nkro": true
+    },
+    "build": {
+        "lto": true
+    },
     "diode_direction": "COL2ROW",
     "backlight": {
         "pin": "C8",
