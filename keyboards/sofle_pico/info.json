@@ -44,7 +44,7 @@
     },
     "rgb_matrix": {
         "driver": "ws2812",
-        "max_brightness": 128,
+        "max_brightness": 255,
         "split_count": [29, 29],
         "animations": {
             "band_pinwheel_sat": true,
