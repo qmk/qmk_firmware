@@ -1,12 +1,12 @@
 {
-    "usb": {
-        "vid": "0x4653",
-        "device_version": "0.0.1"
-    },
     "keyboard_name": "Corne",
     "manufacturer": "foostan",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x4653",
+        "device_version": "0.0.1"
+    },
     "rgb_matrix": {
         "driver": "ws2812"
     },
@@ -28,5 +28,5 @@
     "diode_direction": "COL2ROW",
     "split": {
         "enabled": true
-    },
+    }
 }
