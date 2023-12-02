@@ -7,6 +7,7 @@
 void keyboard_post_init_kb(void) {
     // Start them OFF
     rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_my_off_effect);
+    keyboard_post_init_user();
 }
 #endif
 
