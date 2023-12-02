@@ -17,6 +17,7 @@
     "features": {
         "audio": true,
         "bootmagic": true,
+        "encoder": true,
         "extrakey": true,
         "midi": true,
         "mousekey": true,
