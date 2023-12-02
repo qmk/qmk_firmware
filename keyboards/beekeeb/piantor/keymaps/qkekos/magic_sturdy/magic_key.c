@@ -55,10 +55,14 @@ void process_magic_key(uint16_t keycode, uint8_t mods) {
             magic_case(ALT_T, "her");
         );
 
+        double_magic_switch(KC_W,
+            magic_case(ALT_E, "b");
+            magic_case(CLT_A, "y");
+        );
+
         double_magic_case(LT_I,   KC_C,  "k");
         double_magic_case(KC_U,   KC_C,  "k");
         double_magic_case(KC_C,   KC_Y,  "c");
-        double_magic_case(KC_W,   ALT_E, "b");
         double_magic_case(CLT_A,  KC_C,  "k");
         double_magic_case(ALT_E,  KC_C,  "k");
         double_magic_case(SMT_D,  CLT_A, "y");
