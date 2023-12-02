@@ -19,6 +19,8 @@
 /* OLED SPI Defines */
 #define OLED_DISPLAY_128X64
 #define OLED_IC OLED_IC_SH1106
+#define OLED_WIDTH 128
+#define OLED_HEIGHT 64
 
 /* OLED SPI Pins */
 #define OLED_DC_PIN GP24
@@ -27,6 +29,9 @@
 
 /* Shift OLED columns by 2 pixels */
 #define OLED_COLUMN_OFFSET 2
+
+/* SPI Mode*/
+#define OLED_SPI_MODE 3
 
 /* Divisor for OLED */
 #define OLED_SPI_DIVISOR 4

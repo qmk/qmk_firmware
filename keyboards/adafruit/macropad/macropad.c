@@ -49,12 +49,6 @@ void keyboard_pre_init_kb(void) {
     keyboard_pre_init_user();
 }
 
-void keyboard_post_init_kb(void) {
-    // set pin based on active status
-    writePin(SPEAKER_SHUTDOWN, audio_is_on());
-    keyboard_post_init_user();
-}
-
 void audio_on_user(void) {
     writePinHigh(SPEAKER_SHUTDOWN);
 }
@@ -65,3 +59,29 @@ void audio_off_user(void) {
     writePinLow(SPEAKER_SHUTDOWN);
 }
 #endif
+
+#ifdef QUANTUM_PAINTER_ENABLE
+painter_device_t oled_display;
+#endif
+
+void keyboard_post_init_kb(void) {
+#ifdef QUANTUM_PAINTER_ENABLE
+    // Init. oled display
+    oled_display = qp_sh1106_make_spi_device(OLED_WIDTH + OLED_COLUMN_OFFSET, OLED_HEIGHT, OLED_CS_PIN, OLED_DC_PIN, OLED_RST_PIN, OLED_SPI_DIVISOR, OLED_SPI_MODE);
+    qp_init(oled_display, 0);
+
+    // Apply Offset
+    qp_set_viewport_offsets(oled_display, OLED_COLUMN_OFFSET, 0);
+
+    // Turn on the LCD and clear the display
+    qp_power(oled_display, true);
+    qp_rect(oled_display, 0, 0, OLED_WIDTH, OLED_HEIGHT, HSV_BLACK, true);
+#endif
+
+#ifdef AUDIO_ENABLE
+    // set pin based on active status
+    writePin(SPEAKER_SHUTDOWN, audio_is_on());
+#endif
+
+    keyboard_post_init_user();
+}
