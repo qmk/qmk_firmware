@@ -44,6 +44,7 @@ Enter the bootloader in 3 ways:
 You can use up to 19 additional switches (e.g. footpedals) by connecting them to the vacant positions of the matrix.
 - With `LAYOUT_all` keyboard layout there will be two additonal group of keys below the main block.
 - 8 switches (first row of additional keys in `LAYOUT_all`) can be attached to the 16 pin connector on the PCB. Corresponding matrix positions:
+
 | Row    | Column |
 | -------| ------ |
 | 0      |   6    |
@@ -55,6 +56,7 @@ You can use up to 19 additional switches (e.g. footpedals) by connecting them to
 | 13 (D) |   6    |
 | 14 (E) |   6    |
 - Another 11 switches (second row of additional keys in `LAYOUT_all`) must be soldered directly to the matrix. Corresponding matrix positions:
+
 | Row    | Column |
 | -------| ------ |
 | 0      |   4    |
