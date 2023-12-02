@@ -25,3 +25,16 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     }
     return process_record_user(keycode, record);
 }
+
+#ifdef OLED_ENABLE
+bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
+    oled_write_P(PSTR("HexBoard running QMK\n"), false);
+    oled_write_P(PSTR("\n"), false);
+    oled_write_P(PSTR("FW is GPLv3-licensed\n"), false);
+    oled_write_P(PSTR("https://qmk.fm/\n"), false);
+    return false;
+}
+#endif

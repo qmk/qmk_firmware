@@ -53,10 +53,3 @@ _______,            KC_A   ,KC_S   ,KC_D   ,KC_F   ,KC_G   ,KC_H   ,KC_J   ,KC_K
           SFT_T(KC_SPC),KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,KC_B   ,KC_N   ,KC_M   ,RCTL_T(KC_COMM)
     ),
 };
-
-#ifdef OLED_ENABLE
-bool oled_task_user(void) {
-    oled_write_P(PSTR("Hello OLED!"), false);
-    return false;
-}
-#endif
