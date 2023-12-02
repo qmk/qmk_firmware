@@ -1,3 +1,1 @@
-
-RGBLIGHT_ENABLE  = yes
-WS2812_DRIVER = pwm
+# This file intentionally left blank
