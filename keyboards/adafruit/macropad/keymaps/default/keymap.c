@@ -45,10 +45,20 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 #include "gfx/qmk_logo.qgf.h"
 
 extern painter_device_t oled_display;
-static painter_image_handle_t qmk_logo_anim;
+static painter_image_handle_t qmk_logo_handle;
+static deferred_token qmk_logo_anim;
 
 void keyboard_post_init_user() {
-  qmk_logo_anim = qp_load_image_mem(qmk_logo);
-  qp_animate(oled_display, 0, 0, qmk_logo_anim);
+  qmk_logo_handle = qp_load_image_mem(qmk_logo);
+  qmk_logo_anim = qp_animate(oled_display, 0, 0, qmk_logo_handle);
+}
+
+void housekeeping_task_user(void) {
+  static uint32_t anim_timeout = 0;
+  static bool stopped = false;
+  if (!stopped && timer_elapsed32(anim_timeout) > 2000) {   //Stop animation after 2 seconds.
+    stopped = true;
+    qp_stop_animation(qmk_logo_anim);
+  }
 }
 #endif
