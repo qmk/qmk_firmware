@@ -19,20 +19,20 @@ def qmk_userspace_paths():
         current_dir = Path(environ['ORIG_CWD'])
         while len(current_dir.parts) > 1:
             if (current_dir / 'qmk.json').is_file():
-                test_dirs[Path(current_dir)] = True
+                test_dirs[current_dir] = True
             current_dir = current_dir.parent
 
     # If we have a QMK_USERSPACE environment variable, use that
     if environ.get('QMK_USERSPACE') is not None:
         current_dir = Path(environ['QMK_USERSPACE'])
         if current_dir.is_dir():
-            test_dirs[Path(current_dir)] = True
+            test_dirs[current_dir] = True
 
     # If someone has configured a directory, use that
     if cli.config.user.overlay_dir is not None:
         current_dir = Path(cli.config.user.overlay_dir)
         if current_dir.is_dir():
-            test_dirs[Path(current_dir)] = True
+            test_dirs[current_dir] = True
 
     return list(test_dirs.keys())
 
