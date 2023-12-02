@@ -103,14 +103,14 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define __________________MOUSE_L4__________________    _______,           _______,           _______,           _______,           _______
 
 #define __________________MOUSE_R1__________________    ________________CLIPBOARD_R________________
-#define __________________MOUSE_R2__________________    U_NU,              KC_MS_L,           KC_MS_D,           KC_MS_U,           KC_MS_R
-#define __________________MOUSE_R3__________________    U_NU,              KC_WH_L,           KC_WH_D,           KC_WH_U,           KC_WH_R
+#define __________________MOUSE_R2__________________    KC_BTN2,           KC_MS_L,           KC_MS_D,           KC_MS_U,           KC_MS_R
+#define __________________MOUSE_R3__________________    KC_BTN1,           KC_WH_L,           KC_WH_D,           KC_WH_U,           KC_WH_R
 #define __________________MOUSE_R4__________________    KC_BTN1,           KC_BTN2,           KC_BTN3,           U_NP,              U_NP
 
 #define ________________NUMBER_LEFT________________     KC_1,              KC_2,              KC_3,              KC_4,              KC_5
 #define ________________NUMBER_RIGHT_______________     KC_6,              KC_7,              KC_8,              KC_9,              KC_0
 
-#define _________________THUMB_LEFT________________     KC_NO,             KC_NO,             KC_LALT,   LT(_MEDIA,KC_ESC), LT(_NAV,KC_SPC)
+#define _________________THUMB_LEFT________________     KC_NO,             KC_NO,             KC_LALT,           LT(_MEDIA,KC_ESC), LT(_NAV,KC_SPC)
 #define _________________THUMB_RIGHT_______________     LT(_SYM,KC_ENT),   LT(_NUM,KC_TAB),   LGUI_T(KC_TAB),    KC_NO,             KC_NO
 
 
