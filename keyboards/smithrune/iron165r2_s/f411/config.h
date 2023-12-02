@@ -1,5 +1,5 @@
 /*
-Copyright 2020 Gondolindrim
+Copyright 2023 Gondolindrim <gondolindrim@acheronproject.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,6 +17,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+#define BACKLIGHT_PIN           A6
 #define BACKLIGHT_PWM_DRIVER    PWMD3
 #define BACKLIGHT_PWM_CHANNEL   1
-#define BACKLIGHT_PAL_MODE      1
+#define BACKLIGHT_PAL_MODE      2
+
+#define BACKLIGHT_LEVELS 20
+#define BACKLIGHT_BREATHING
+#define BREATHING_PERIOD 5
+#define BACKLIGHT_ON_STATE 1
+
+#define WS2812_PWM_COMPLEMENTARY_OUTPUT
+#define WS2812_PWM_DRIVER PWMD1
+#define WS2812_PWM_CHANNEL 3
+#define WS2812_PWM_PAL_MODE 1
+#define WS2812_DMA_STREAM STM32_DMA2_STREAM5
+#define WS2812_DMA_CHANNEL 6

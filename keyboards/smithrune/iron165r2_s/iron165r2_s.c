@@ -1,4 +1,4 @@
-/* Copyright 2022 QMK
+/* Copyright 2020 Gondolindrim
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,11 +14,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "quantum.h"
 
-#define HAL_USE_PWM TRUE
-#define HAL_USE_PAL TRUE
+void keyboard_post_init_user(void) {
+#if defined (LINE_RGBS)
+    rgblight_set_effect_range(0,16);
+#elif defined (RUNE_RGBS)
+    rgblight_set_effect_range(0,5);
+#elif defined (LUKE_RGBS)
+    rgblight_setrgb_at(0,0,0,21);
+    rgblight_set_effect_range(0,2);
+#endif
+}
 
-#define HAL_USE_SPI TRUE
-
-#include_next <halconf.h>
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) writePin(LED_CAPS_LOCK_PIN, !led_state.caps_lock);
+    return res;
+}

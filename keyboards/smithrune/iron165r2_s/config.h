@@ -1,5 +1,5 @@
 /*
-Copyright 2022 Gondolindrim
+Copyright 2023 Gondolindrim <gondolindrim@acheronproject.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,6 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
+
+#define LED_CAPS_LOCK_PIN A4
 
 #define LOCKING_SUPPORT_ENABLE
 #define LOCKING_RESYNC_ENABLE
@@ -40,4 +42,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //                               D18, D19, D20, D21, D22, D23, D24, D25, D26, D27, D28, D29, D60, D61, D62, D63, D64, D65, D66, D67, D68, D69}
 #endif
 
-#define RGBLIGHT_DEFAULT_VAL 0
+#define RGBLIGHT_DEFAULT_MODE 0
