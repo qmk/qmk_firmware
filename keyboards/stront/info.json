@@ -61,7 +61,13 @@
         "rows": ["GP28", "GP27", "GP26", "GP15"]
     },
     "split": {
-        "enabled": true
+        "enabled": true,
+        "transport": {
+            "sync": {
+                "indicators": true,
+                "modifiers": true
+            }
+        }
     },
     "encoder": {
         "rotary": [

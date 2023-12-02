@@ -52,7 +52,14 @@
         "tap_keycode_delay": 5
     },
     "split": {
-        "soft_serial_pin": "A9"
+        "soft_serial_pin": "A9",
+        "transport": {
+            "sync": {
+                "indicators": true,
+                "layer_state": true,
+                "matrix_state": true
+            }
+        }
     },
     "processor": "STM32F303",
     "bootloader": "stm32-dfu",

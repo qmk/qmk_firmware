@@ -12,11 +12,11 @@
 // Internal driver validation
 
 static bool validate_driver_vtable(painter_driver_t *driver) {
-    return (driver->driver_vtable && driver->driver_vtable->init && driver->driver_vtable->power && driver->driver_vtable->clear && driver->driver_vtable->viewport && driver->driver_vtable->pixdata && driver->driver_vtable->palette_convert && driver->driver_vtable->append_pixels && driver->driver_vtable->append_pixdata) ? true : false;
+    return (driver && driver->driver_vtable && driver->driver_vtable->init && driver->driver_vtable->power && driver->driver_vtable->clear && driver->driver_vtable->viewport && driver->driver_vtable->pixdata && driver->driver_vtable->palette_convert && driver->driver_vtable->append_pixels && driver->driver_vtable->append_pixdata) ? true : false;
 }
 
 static bool validate_comms_vtable(painter_driver_t *driver) {
-    return (driver->comms_vtable && driver->comms_vtable->comms_init && driver->comms_vtable->comms_start && driver->comms_vtable->comms_stop && driver->comms_vtable->comms_send) ? true : false;
+    return (driver && driver->comms_vtable && driver->comms_vtable->comms_init && driver->comms_vtable->comms_start && driver->comms_vtable->comms_stop && driver->comms_vtable->comms_send) ? true : false;
 }
 
 static bool validate_driver_integrity(painter_driver_t *driver) {
@@ -148,10 +148,11 @@ uint16_t qp_get_width(painter_device_t device) {
         case QP_ROTATION_0:
         case QP_ROTATION_180:
             width = driver->panel_width;
-
+            break;
         case QP_ROTATION_90:
         case QP_ROTATION_270:
             width = driver->panel_height;
+            break;
     }
 
     qp_dprintf("qp_get_width: ok\n");
@@ -173,10 +174,11 @@ uint16_t qp_get_height(painter_device_t device) {
         case QP_ROTATION_0:
         case QP_ROTATION_180:
             height = driver->panel_height;
-
+            break;
         case QP_ROTATION_90:
         case QP_ROTATION_270:
             height = driver->panel_width;
+            break;
     }
 
     qp_dprintf("qp_get_height: ok\n");
