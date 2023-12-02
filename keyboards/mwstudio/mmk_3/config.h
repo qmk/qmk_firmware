@@ -16,11 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-#define FORCE_NKRO 
-#define RGBLIGHT_LAYERS
-
 #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL + 5
 
 #define WS2812_PWM_DRIVER PWMD4               // default: PWMD2
