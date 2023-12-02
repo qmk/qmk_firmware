@@ -1,7 +1,5 @@
 #pragma once
 
-#define BACKLIGHT_PWM_MAP {8, 16, 40, 55, 70, 128, 200, 255}
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
