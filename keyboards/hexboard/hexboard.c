@@ -1,10 +1,10 @@
 // Copyright 2022-2023 Zach DeCook
 // SPDX-License-Identifier: GPL-3.0-only
 
-#include "hexboard.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
-void keyboard_post_init_user(void) {
+void keyboard_post_init_kb(void) {
     // Start them OFF
     rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_my_off_effect);
 }

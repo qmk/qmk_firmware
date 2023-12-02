@@ -1,7 +1,7 @@
 // Copyright 2022-2023 Zach DeCook
 // SPDX-License-Identifier: GPL-3.0-only
 
-#include "hexboard.h"
+#include "quantum.h"
 
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {

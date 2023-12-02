@@ -4,7 +4,7 @@ RGB_MATRIX_EFFECT(my_off_effect)
 
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-// e.g: A simple effect, self-contained within a single method
+// A simple effect for LEDs to start off, without affecting the global hsv brightness
 static bool my_off_effect(effect_params_t* params) {
   RGB_MATRIX_USE_LIMITS(led_min, led_max);
   for (uint8_t i = led_min; i < led_max; i++) {
