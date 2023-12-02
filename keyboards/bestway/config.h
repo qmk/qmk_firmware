@@ -1,6 +1,4 @@
-/*
- * Copyright 2021 Quentin LEBASTARD <qlebastard@gmail.com>
- * Copyright 2022 Charly Delay <charly@codesink.dev> (@0xcharly)
+/* Copyright 2022 LXF-YZP(yuezp)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,12 +16,7 @@
 
 #pragma once
 
-/* RGB matrix support. */
-#ifdef RGB_MATRIX_ENABLE
-#    define SPLIT_TRANSPORT_MIRROR
-#    define RGB_MATRIX_LED_COUNT 42
-#    define RGB_MATRIX_SPLIT { 21, 21 }
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 50
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED
-#    define RGB_MATRIX_KEYPRESSES
-#endif
+#define WS2812_PWM_DRIVER PWMD2
+#define WS2812_PWM_CHANNEL 4
+#define WS2812_DMA_STREAM STM32_DMA1_STREAM2
+#define WS2812_DMA_CHANNEL 2
