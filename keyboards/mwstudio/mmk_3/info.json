@@ -10,12 +10,10 @@
     "diode_direction": "ROW2COL",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
-        "mousekey": false,
+        "mousekey": true,
         "nkro": true,
-        "encoder": false
+        "rgblight": true
     },
     "matrix_pins": {
         "cols": ["A3", "A4", "A5" ],
