@@ -16,28 +16,35 @@
 
 #include QMK_KEYBOARD_H
 
-const rgblight_segment_t PROGMEM my_layer0_layer[] = RGBLIGHT_LAYER_SEGMENTS( {3, 2, HSV_WHITE} );
-const rgblight_segment_t PROGMEM my_layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS( {3, 2, HSV_BLUE} );
-const rgblight_segment_t PROGMEM my_layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS( {3, 2, HSV_PURPLE} );
-const rgblight_segment_t PROGMEM my_layer3_layer[] = RGBLIGHT_LAYER_SEGMENTS( {3, 2, HSV_RED} );
+const rgblight_segment_t PROGMEM my_layer0_dfu[] = RGBLIGHT_LAYER_SEGMENTS( {3, 2, HSV_WHITE} );
+const rgblight_segment_t PROGMEM my_layer1_val[] = RGBLIGHT_LAYER_SEGMENTS( {3, 2, HSV_BLUE} );
+const rgblight_segment_t PROGMEM my_layer2_sat[] = RGBLIGHT_LAYER_SEGMENTS( {3, 2, HSV_PURPLE} );
+const rgblight_segment_t PROGMEM my_layer3_hue[] = RGBLIGHT_LAYER_SEGMENTS( {3, 2, HSV_RED} );
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-	[0] = LAYOUT_3key(
-		KC_LCTL, KC_C, KC_V
+	[0] = LAYOUT(
+		LT(3, KC_LCTL), LT(1, KC_C), LT(2, KC_V)
     ),
 
-	[1] = LAYOUT_3key(
-		KC_TRNS, KC_TRNS, KC_TRNS
+	[1] = LAYOUT(
+		RGB_VAD, KC_TRNS, RGB_VAI
+    ),
+
+	[2] = LAYOUT(
+		RGB_SAD, RGB_SAI, KC_TRNS
+    ),
+
+	[3] = LAYOUT(
+		KC_TRNS, RGB_HUD, RGB_HUI
     )
 };
 
-//Now define the array of layers. Later layers take precedence
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-    my_layer0_layer,
-    my_layer1_layer,
-    my_layer2_layer,
-    my_layer3_layer 
+    my_layer0_dfu,
+    my_layer1_val,
+    my_layer2_sat,
+    my_layer3_hue 
 );
 
 void keyboard_post_init_user(void) {
