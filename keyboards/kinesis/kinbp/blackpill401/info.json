@@ -1,0 +1,20 @@
+{ 
+    "keyboard_name": "KinBP STM32F401",
+	"development_board": "blackpill_f401",
+    "usb": {
+		"shared_endpoint": {
+            "keyboard": true   
+        } 
+    },
+	"matrix_pins": {
+        "cols": ["A0", "A1", "A2", "A3", "A4", "A5", "A6"],
+        "rows": ["A7", "B0", "B1", "B10", "B9", "B8", "B7", "B14", "B13", "B12", "C14", "C15", "B15", "B6", "B5"],
+    },
+    "indicators": {
+        "caps_lock": "A15",
+        "num_lock": "B4",
+        "scroll_lock": "B3",
+		"compose": "C13",
+        "on_state": 0
+    }
+}
