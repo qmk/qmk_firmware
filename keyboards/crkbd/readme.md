@@ -1,15 +1,14 @@
 # Corne Keyboard (CRKBD)
 
-Also known (incorrectly) as the `HeliDox`. 
-
 ![Crkbd](https://user-images.githubusercontent.com/736191/40575636-6fba63a4-6123-11e8-9ca0-3f990f1f9f4c.jpg)
 
 ![Crkbd](https://user-images.githubusercontent.com/736191/40887871-0eead5dc-678a-11e8-9518-e3ad9e5d2bac.png)
 
 A split keyboard with 3x6 vertically staggered keys and 3 thumb keys.
+Also, it has the option that use extension keys and rotary encoders.
 
 Keyboard Maintainer: [foostan](https://github.com/foostan/) [@foostan](https://twitter.com/foostan)  
-Hardware Supported: Crkbd PCB, Pro Micro  
+Hardware Supported: Corne PCB
 Hardware Availability: [PCB & Case Data](https://github.com/foostan/crkbd)
 
 Make example for this keyboard (after setting up your build environment):
@@ -22,7 +21,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Bootloader
 
-The Corne PCBs have a reset button next to the TRRS jack to enter in to the bootloader.
+The Corne PCBs have a reset and boot buttons next to the TRRS jack to enter in to the bootloader.
 
 Additionally, if you hold down the "Q" or "P" buttons when plugging in that half of the keyboard (per the default QWERTY layout), this will jump to the bootloader and reset the EEPROM (persistent storage).  This would normally be the very top corner-most position, but due to the breakaway column, it's left at Q and P for compatibility. 
 
