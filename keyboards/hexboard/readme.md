@@ -1,6 +1,6 @@
 # HexBoard
 
-![HexBoard](https://zachdecook.com/HexBoard/qmk.jpg)
+![HexBoard](https://i.imgur.com/8vtaXb7h.jpg)
 
 *The HexBoard is a 140-key hexagonal MIDI controller which can double as a 120% keyboard*
 
