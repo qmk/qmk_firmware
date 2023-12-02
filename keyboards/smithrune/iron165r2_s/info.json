@@ -50,6 +50,7 @@
                 {"label":"=+",        "matrix":[ 0,12], "x":12,    "y":0          }, 
                 {"label":"Backspace", "matrix":[ 0,13], "x":13,    "y":0          }, 
                 {"label":"Backspace", "matrix":[ 0,14], "x":14,    "y":0          }, 
+                {"label":"Del",       "matrix":[ 4,14], "x":15,    "y":0          } 
                 {"label":"Tab",       "matrix":[ 1, 0], "x":0,     "y":1, "w":1.5 }, 
                 {"label":"Q",         "matrix":[ 1, 1], "x":1.5,   "y":1          }, 
                 {"label":"W",         "matrix":[ 1, 2], "x":2.5,   "y":1          }, 
@@ -104,7 +105,6 @@
                 {"label":"Left",      "matrix":[ 4,11], "x":13,    "y":4          }, 
                 {"label":"Down",      "matrix":[ 4,12], "x":14,    "y":4          }, 
                 {"label":"Right",     "matrix":[ 4,13], "x":15,    "y":4          },
-                {"label":"Del",       "matrix":[ 4,14], "x":15,    "y":0          } 
                 ]
         }
     }
