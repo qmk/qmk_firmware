@@ -17,11 +17,7 @@
 #include QMK_KEYBOARD_H
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-	[0] = LAYOUT_3key(
+	[0] = LAYOUT(
 		KC_LCTL, KC_C, KC_V
-    ),
-
-	[1] = LAYOUT_3key(
-		KC_TRNS, KC_TRNS, KC_TRNS
     )
 };
