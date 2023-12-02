@@ -1,5 +1,4 @@
-/*
-Copyright 2022 Gondolindrim
+/* Copyright 2023 Gondolindrim
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,14 +14,14 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include "quantum.h"
 
-#define BACKLIGHT_PWM_DRIVER    PWMD3
-#define BACKLIGHT_PWM_CHANNEL   1
-
-#define WS2812_PWM_COMPLEMENTARY_OUTPUT
-#define WS2812_PWM_DRIVER PWMD1
-#define WS2812_PWM_CHANNEL 3
-#define WS2812_PWM_PAL_MODE 1
-#define WS2812_DMA_STREAM STM32_DMA2_STREAM5
-#define WS2812_DMA_CHANNEL 6
+void keyboard_post_init_kb(void) {
+#if defined (LINE_RGBS)
+    rgblight_set_effect_range(0,15);
+#elif defined (RUNE_RGBS)
+    rgblight_set_effect_range(0,5);
+#elif defined (LUKE_RGBS)
+    rgblight_set_effect_range(0,2);
+#endif
+}

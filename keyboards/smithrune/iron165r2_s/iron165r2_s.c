@@ -1,4 +1,4 @@
-/* Copyright 2020 QMK
+/* Copyright 2023 Gondolindrim
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,11 +14,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "quantum.h"
 
-#define HAL_USE_PWM TRUE
-#define HAL_USE_PAL TRUE
-
-#define HAL_USE_I2C TRUE
-
-#include_next <halconf.h>
+void keyboard_post_init_kb(void) {
+#if defined (LINE_RGBS)
+    rgblight_set_effect_range(0,16);
+#elif defined (RUNE_RGBS)
+    rgblight_set_effect_range(0,5);
+#elif defined (LUKE_RGBS)
+    rgblight_set_effect_range(0,2);
+#endif
+}

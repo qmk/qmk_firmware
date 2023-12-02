@@ -1,4 +1,4 @@
-/* Copyright 2020 QMK
+/* Copyright 2023 Gondolindrim
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,11 @@
 
 #include_next <mcuconf.h>
 
+#undef STM32_PWM_USE_ADVANCED
+#define STM32_PWM_USE_ADVANCED TRUE
+
 #undef STM32_PWM_USE_TIM3
 #define STM32_PWM_USE_TIM3 TRUE
 
-#undef STM32_SPI_USE_SPI2
-#define STM32_SPI_USE_SPI2 TRUE
+#undef STM32_PWM_USE_TIM1
+#define STM32_PWM_USE_TIM1 TRUE

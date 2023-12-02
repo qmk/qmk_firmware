@@ -1,0 +1,7 @@
+{
+    "processor": "STM32F411",
+    "bootloader": "stm32-dfu"
+    "ws2812": {
+        "driver": "pwm"
+    }
+}

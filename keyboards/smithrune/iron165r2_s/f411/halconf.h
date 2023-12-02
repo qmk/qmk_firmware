@@ -1,5 +1,4 @@
-/* Copyright 2022 QMK
- *
+/* Copyright 2023 Gondolindrim <gondolindrim@acheronproject.com>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
@@ -18,7 +17,5 @@
 
 #define HAL_USE_PWM TRUE
 #define HAL_USE_PAL TRUE
-
-#define HAL_USE_SPI TRUE
 
 #include_next <halconf.h>
