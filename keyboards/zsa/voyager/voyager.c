@@ -56,14 +56,6 @@ void voyager_led_task(void) {
         wait_ms(155);
     }
 #endif
-#if !defined(VOYAGER_USER_LEDS)
-    else {
-        static layer_state_t state = 0;
-        if (state != layer_state) {
-            state = layer_state_set_kb(layer_state);
-        }
-    }
-#endif
 }
 
 static THD_WORKING_AREA(waLEDThread, 128);
