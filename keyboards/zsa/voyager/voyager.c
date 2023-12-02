@@ -171,6 +171,11 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     {1, C8_13,  C7_13,  C9_13},
 };
 // clang-format on
+
+void keyboard_post_init_kb(void) {
+    rgb_matrix_enable_noeeprom();
+    keyboard_post_init_user();
+}
 #endif
 
 #ifdef SWAP_HANDS_ENABLE
@@ -193,11 +198,6 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     {{6,5}, {5,5}, {4,5}, {3,5}, {2,5}, {1,5},{0,5}},
 };
 // clang-format on
-
-void keyboard_post_init_kb(void) {
-    rgb_matrix_enable_noeeprom();
-    keyboard_post_init_user();
-}
 #endif
 
 #ifdef CAPS_LOCK_STATUS
