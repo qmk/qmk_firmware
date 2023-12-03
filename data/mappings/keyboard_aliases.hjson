@@ -290,6 +290,12 @@
     "idobo": {
         "target": "idobao/id75/v1"
     },
+    "smithrune/iron165r2/f411":{
+        "target": "smithrune/iron165r2_s/f411"
+    },
+    "smithrune/iron165r2/f072":{
+        "target": "smithrune/iron165r2_s/f072"
+    },
     "jacky_studio/piggy60": {
         "target": "jacky_studio/piggy60/rev1"
     },
