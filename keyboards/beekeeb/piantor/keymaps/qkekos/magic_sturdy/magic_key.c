@@ -30,6 +30,7 @@ void process_magic_key(void) {
 
             double_magic_case(CLT_A, KC_L,  "r");
             double_magic_case(KC_U,  GLT_S, "e");
+            double_magic_case(ALT_T, LT_I,  "me");
             double_magic_case(LT_I,  SMT_N, "form");
             double_magic_case(ALT_E, KC_X,  "ample");
         );
