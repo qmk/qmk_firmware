@@ -78,7 +78,7 @@ static uint16_t auto_pointer_layer_timer = 0;
        KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, \
        KC_A,    LALT_T(KC_R),    LSFT_T(KC_S),    LCTL_T(KC_T),    KC_G,    KC_M,    RCTL_T(KC_N),    RSFT_T(KC_E),    LALT_T(KC_I), LGUI_T(KC_O), \
        LGUI_T(KC_Z),    KC_X,    KC_C,    KC_D,    KC_V,    KC_K,    KC_H, KC_COMM,  KC_DOT, _L_PTR(KC_SLSH), \
-                      KC_BSPC, ALT_SPC, SYM, NAV, KC_ENT
+                      KC_BSPC, SYM, ALT_SPC, KC_ENT, NAV
 
 /** Convenience row shorthands. */
 #define _______________DEAD_HALF_ROW_______________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
