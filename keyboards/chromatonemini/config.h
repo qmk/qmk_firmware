@@ -27,8 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //  for all fingers used at once.
 #   define LED_HITS_TO_REMEMBER 10
 
-#   define RGB_MATRIX_DEFAULT_SPD 127
-
 // the above brighness setting has no effect on rgb_matrix_set_color().
 // Use darker colors instead.
 /*              RGB darker COLORS             */

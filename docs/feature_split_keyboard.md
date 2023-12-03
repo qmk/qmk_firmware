@@ -205,7 +205,7 @@ This sets the pin to be used for serial communication. If you're not using seria
 However, if you are using serial and I<sup>2</sup>C on the board, you will need to set this, and to something other than D0 and D1 (as these are used for I<sup>2</sup>C communication).
 
 ```c
-#define SELECT_SOFT_SERIAL_SPEED {#}`
+#define SELECT_SOFT_SERIAL_SPEED {#}
 ```
 
 If you're having issues with serial communication, you can change this value, as it controls the communication speed for serial.  The default is 1, and the possible values are:
