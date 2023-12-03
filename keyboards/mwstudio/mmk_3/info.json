@@ -23,11 +23,11 @@
     "bootloader": "stm32duino",
     "url": "",
     "ws2812": {
-        "driver": "pwm"
+        "driver": "pwm",
+        "pin": "B8"
     },
     "rgblight": {
         "led_count": 5,
-        "pin": "B8",
         "hue_steps": 10,
         "saturation_steps": 17,
         "brightness_steps": 17,
