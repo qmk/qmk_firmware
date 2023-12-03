@@ -16,10 +16,6 @@
 
 #pragma once
 
-/* Handedness by Pin */
-/* pull-up: left side,   pull-down: right side */
-#define SPLIT_HAND_PIN GP28
-
 #define USB_VBUS_PIN GP24
 
 /* ws2812 RGB LED */

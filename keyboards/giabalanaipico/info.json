@@ -206,6 +206,9 @@
                 ]
             }
         },
+        "handedness": {
+                "pin": "GP28"
+        },
         "main": "right",
         "soft_serial_pin": "GP0",
         "transport": {
