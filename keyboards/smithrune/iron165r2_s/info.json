@@ -17,10 +17,12 @@
         "console": false,
         "encoder": false,
         "extrakey": true,
-        "lto": true,
         "mousekey": false,
         "nkro": true,
         "rgblight": true
+    },
+    "build": {
+        "lto": true
     },
     "indicators": {
         "caps_lock": "A4"
