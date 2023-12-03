@@ -29,12 +29,22 @@
         "matrix": [0, 1]
     },
     "diode_direction": "ROW2COL",
+    "matrix_size": {
+        "cols": 7,
+        "rows": 12
+    },
     "mousekey": {
         "delay": 0,
         "interval": 20,
         "max_speed": 7,
         "time_to_max": 60,
         "wheel_delay": 400
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     },
     "rgb_matrix": {
         "driver": "is31fl3731",
