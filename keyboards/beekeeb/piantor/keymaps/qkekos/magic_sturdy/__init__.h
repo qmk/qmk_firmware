@@ -14,19 +14,19 @@
 #define remember_magic_case(trigger, supplement, key_to_remember) \
     case trigger: \
         SEND_STRING(supplement); \
-        remember_last_key(keycode, key_to_remember); \
+        enqueue(key_to_remember); \
         return
 
 #define double_magic_switch(trigger, body) \
     case trigger: \
-        switch (keycode) { \
+        switch (queue(-1)) { \
             body \
         } \
         break
 
 #define double_magic_case(trigger, p_key, supplement) \
     case trigger: \
-        if (keycode == p_key) { \
+        if (queue(-1) == p_key) { \
             SEND_STRING(supplement); \
             return; \
         } \
@@ -34,14 +34,14 @@
 
 #define triple_magic_switch(trigger, body) \
     case trigger: \
-        switch (last_queue_key) { \
+        switch (queue(-2)) { \
             body \
         } \
         break
 
 #define triple_magic_case(trigger, pp_key, p_key, supplement) \
     case trigger: \
-        if (queue(-1) == pp_key && keycode == p_key) { \
+        if (queue(-2) == pp_key && queue(-1) == p_key) { \
             SEND_STRING(supplement); \
             return; \
         } \
@@ -49,7 +49,7 @@
 
 #define quadruple_magic_case(trigger, ppp_key, pp_key, p_key, supplement) \
     case trigger: \
-        if (queue(-2) == ppp_key && queue(-1) == pp_key && keycode == p_key) { \
+        if (queue(-3) == ppp_key && queue(-2) == pp_key && queue(-1) == p_key) { \
             SEND_STRING(supplement); \
             return; \
         } \

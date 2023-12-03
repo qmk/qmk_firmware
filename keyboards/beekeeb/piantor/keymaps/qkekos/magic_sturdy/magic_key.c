@@ -1,9 +1,9 @@
 
 #include "../__init__.h"
 
-void process_magic_key(uint16_t keycode, uint8_t mods) {
+void process_magic_key(void) {
     if (alt_rep_key_count >= 2) {
-        switch (keycode) {
+        switch (queue(-1)) {
             case KC_Q:
                 break;
 
@@ -13,11 +13,7 @@ void process_magic_key(uint16_t keycode, uint8_t mods) {
         }
     }
 
-    if (timer_elapsed(last_key_pressed_time) > MAGIC_KEY_TIMEOUT) {
-        keycode = TH_NUM;
-    }
-
-    switch (queue(-3)) {
+    switch (queue(-4)) {
         quadruple_magic_case(KC_O,   KC_L,  LT_I,  KC_C, "y");
         quadruple_magic_case(KC_U,   CLT_R, CLT_A, KC_C, "y");
         quadruple_magic_case(CLT_R,  KC_M,  CLT_A, KC_C, "y");
@@ -25,7 +21,7 @@ void process_magic_key(uint16_t keycode, uint8_t mods) {
         quadruple_magic_case(KC_C,   KC_R,  CLT_A, KC_C, "y");
     }
 
-    switch (queue(-2)) {
+    switch (queue(-3)) {
         triple_magic_switch(TH_NUM,
             double_magic_switch(KC_M,
                 magic_case(KC_O, "st");
@@ -44,7 +40,7 @@ void process_magic_key(uint16_t keycode, uint8_t mods) {
         triple_magic_case(KC_O,  KC_B,  KC_V,  "iously");
     }
 
-    switch (last_queue_key) {
+    switch (queue(-2)) {
         double_magic_switch(KC_M,
             magic_case(KC_P,  "l");
             magic_case(CLT_A, "o");
@@ -74,7 +70,7 @@ void process_magic_key(uint16_t keycode, uint8_t mods) {
         double_magic_case(KC_P,   ALT_E, "ople");
     }
 
-    switch (keycode) {
+    switch (queue(-1)) {
         magic_case(KC_L,   "k");
         magic_case(KC_C,   "y");
         magic_case(KC_P,   "y");
