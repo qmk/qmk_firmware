@@ -22,8 +22,11 @@
         "vid": "0x1209",
         "pid": "0x7337"
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_ortho_3x4"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ortho_3x4": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},

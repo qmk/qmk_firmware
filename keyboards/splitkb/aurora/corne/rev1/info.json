@@ -83,7 +83,6 @@
             "matrix": [4, 5]
         },
         "soft_serial_pin": "D2",
-        "main": "pin",
         "matrix_pins": {
             "right": {
                 "rows": ["B1", "B3", "B2", "B6"],

@@ -126,23 +126,27 @@
         "pid": "0x4321",
         "vid": "0x7654"
     },
+    "layout_aliases": {
+        "LAYOUT_75_ansi": "LAYOUT"
+    },
     "layouts": {
-        "LAYOUT_75_ansi": {
+        "LAYOUT": {
             "layout": [
                 {"label": "ESC", "matrix": [0, 0], "x": 0, "y": 0},
-                {"label": "F1", "matrix": [0, 2], "x": 2, "y": 0},
-                {"label": "F2", "matrix": [0, 3], "x": 3, "y": 0},
-                {"label": "F3", "matrix": [0, 4], "x": 4, "y": 0},
-                {"label": "F4", "matrix": [0, 5], "x": 5, "y": 0},
-                {"label": "F5", "matrix": [0, 6], "x": 6.5, "y": 0},
-                {"label": "F6", "matrix": [0, 7], "x": 7.5, "y": 0},
-                {"label": "F7", "matrix": [0, 8], "x": 8.5, "y": 0},
-                {"label": "F8", "matrix": [0, 9], "x": 9.5, "y": 0},
-                {"label": "F9", "matrix": [0, 10], "x": 11, "y": 0},
-                {"label": "F10", "matrix": [0, 11], "x": 12, "y": 0},
-                {"label": "F11", "matrix": [0, 12], "x": 13, "y": 0},
-                {"label": "F12", "matrix": [0, 13], "x": 14, "y": 0},
-                {"label": "END", "matrix": [0, 15], "x": 16.5, "y": 0},
+                {"label": "F1", "matrix": [0, 2], "x": 1.5, "y": 0},
+                {"label": "F2", "matrix": [0, 3], "x": 2.5, "y": 0},
+                {"label": "F3", "matrix": [0, 4], "x": 3.5, "y": 0},
+                {"label": "F4", "matrix": [0, 5], "x": 4.5, "y": 0},
+                {"label": "F5", "matrix": [0, 6], "x": 6, "y": 0},
+                {"label": "F6", "matrix": [0, 7], "x": 7, "y": 0},
+                {"label": "F7", "matrix": [0, 8], "x": 8, "y": 0},
+                {"label": "F8", "matrix": [0, 9], "x": 9, "y": 0},
+                {"label": "F9", "matrix": [0, 10], "x": 10.5, "y": 0},
+                {"label": "F10", "matrix": [0, 11], "x": 11.5, "y": 0},
+                {"label": "F11", "matrix": [0, 12], "x": 12.5, "y": 0},
+                {"label": "F12", "matrix": [0, 13], "x": 13.5, "y": 0},
+                {"label": "END", "matrix": [0, 15], "x": 15, "y": 0},
+
                 {"label": "GRV", "matrix": [1, 0], "x": 0, "y": 1.25},
                 {"label": "1", "matrix": [1, 1], "x": 1, "y": 1.25},
                 {"label": "2", "matrix": [1, 2], "x": 2, "y": 1.25},
@@ -157,7 +161,8 @@
                 {"label": "MINS", "matrix": [1, 11], "x": 11, "y": 1.25},
                 {"label": "EQL", "matrix": [1, 12], "x": 12, "y": 1.25},
                 {"label": "BSPC", "matrix": [1, 13], "x": 13, "y": 1.25, "w": 2},
-                {"label": "HOME", "matrix": [1, 14], "x": 16.5, "y": 1.25},
+                {"label": "HOME", "matrix": [1, 14], "x": 15, "y": 1.25},
+
                 {"label": "TAB", "matrix": [2, 0], "x": 0, "y": 2.25, "w": 1.5},
                 {"label": "Q", "matrix": [2, 1], "x": 1.5, "y": 2.25},
                 {"label": "W", "matrix": [2, 2], "x": 2.5, "y": 2.25},
@@ -172,7 +177,8 @@
                 {"label": "LBRC", "matrix": [2, 11], "x": 11.5, "y": 2.25},
                 {"label": "RBRC", "matrix": [2, 12], "x": 12.5, "y": 2.25},
                 {"label": "BSLS", "matrix": [2, 13], "x": 13.5, "y": 2.25, "w": 1.5},
-                {"label": "DEL", "matrix": [2, 14], "x": 16.5, "y": 2.25},
+                {"label": "DEL", "matrix": [2, 14], "x": 15, "y": 2.25},
+
                 {"label": "CAPS", "matrix": [3, 0], "x": 0, "y": 3.25, "w": 1.75},
                 {"label": "A", "matrix": [3, 1], "x": 1.75, "y": 3.25},
                 {"label": "S", "matrix": [3, 2], "x": 2.75, "y": 3.25},
@@ -185,8 +191,9 @@
                 {"label": "L", "matrix": [3, 9], "x": 9.75, "y": 3.25},
                 {"label": "SCLN", "matrix": [3, 10], "x": 10.75, "y": 3.25},
                 {"label": "QUOT", "matrix": [3, 11], "x": 11.75, "y": 3.25},
-                {"label": "ENT", "matrix": [3, 13], "x": 13.75, "y": 3.25, "w": 1.25},
-                {"label": "PGUP", "matrix": [3, 14], "x": 16.5, "y": 3.25},
+                {"label": "ENT", "matrix": [3, 13], "x": 12.75, "y": 3.25, "w": 2.25},
+                {"label": "PGUP", "matrix": [3, 14], "x": 15, "y": 3.25},
+
                 {"label": "LSFT", "matrix": [4, 0], "x": 0, "y": 4.25, "w": 2.25},
                 {"label": "Z", "matrix": [4, 2], "x": 2.25, "y": 4.25},
                 {"label": "X", "matrix": [4, 3], "x": 3.25, "y": 4.25},
@@ -199,18 +206,19 @@
                 {"label": "DOT", "matrix": [4, 10], "x": 10.25, "y": 4.25},
                 {"label": "SLSH", "matrix": [4, 11], "x": 11.25, "y": 4.25},
                 {"label": "RSFT", "matrix": [4, 12], "x": 12.25, "y": 4.25, "w": 1.75},
-                {"label": "UP", "matrix": [4, 13], "x": 15.25, "y": 4.25},
-                {"label": "PGDN", "matrix": [4, 14], "x": 16.5, "y": 4.25},
+                {"label": "UP", "matrix": [4, 13], "x": 14, "y": 4.25},
+                {"label": "PGDN", "matrix": [4, 14], "x": 15, "y": 4.25},
+
                 {"label": "LCTL", "matrix": [5, 0], "x": 0, "y": 5.25, "w": 1.25},
                 {"label": "LGUI", "matrix": [5, 1], "x": 1.25, "y": 5.25, "w": 1.25},
                 {"label": "LALT", "matrix": [5, 2], "x": 2.5, "y": 5.25, "w": 1.25},
                 {"label": "SPC", "matrix": [5, 6], "x": 3.75, "y": 5.25, "w": 6.25},
-                {"label": "RALT", "matrix": [5, 9], "x": 10, "y": 5.25, "w": 1.25},
-                {"label": "MO(1)", "matrix": [5, 10], "x": 11.25, "y": 5.25, "w": 1.25},
-                {"label": "RCTL", "matrix": [5, 11], "x": 13, "y": 5.25, "w": 1.25},
-                {"label": "LEFT", "matrix": [5, 12], "x": 14.25, "y": 5.25},
-                {"label": "DOWN", "matrix": [5, 13], "x": 15.25, "y": 5.25},
-                {"label": "RGHT", "matrix": [5, 14], "x": 16.5, "y": 5.25}
+                {"label": "RALT", "matrix": [5, 9], "x": 10, "y": 5.25},
+                {"label": "MO(1)", "matrix": [5, 10], "x": 11, "y": 5.25},
+                {"label": "RCTL", "matrix": [5, 11], "x": 12, "y": 5.25},
+                {"label": "LEFT", "matrix": [5, 12], "x": 13, "y": 5.25},
+                {"label": "DOWN", "matrix": [5, 13], "x": 14, "y": 5.25},
+                {"label": "RGHT", "matrix": [5, 14], "x": 15, "y": 5.25}
             ]
         }
     }
