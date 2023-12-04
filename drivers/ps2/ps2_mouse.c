@@ -93,6 +93,7 @@ report_mouse_t ps2_mouse_get_report(report_mouse_t mouse_report) {
 
     ps2_mouse_convert_report_to_hid(&ps2_report, &new_report);
 
+#ifdef POINTING_DEVICE_DEBUG
     if (has_mouse_report_changed(&new_report, &mouse_report)) {
         pd_dprintf("ps2_mouse: raw x=%02x y=%02x head=0x%02x [left=%u right=%u middle=%u one=%u x_sign=%u y_sign=%u x_ovf=%u y_ovf=%u]\n",
                    ps2_report.x, ps2_report.y,
@@ -108,6 +109,7 @@ report_mouse_t ps2_mouse_get_report(report_mouse_t mouse_report) {
 
         pd_dprintf("ps2_mouse: hid x=%d y=%d v=%d h=%d buttons=%x\n", new_report.x, new_report.y, new_report.v, new_report.h, new_report.buttons);
     }
+#endif
 
     return new_report;
 }
