@@ -12,11 +12,11 @@
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-#    define DRIVER_1_CS B12
-#    define DRIVER_2_CS B11
+#    define AW20216S_CS_PIN_1 B12
+#    define AW20216S_CS_PIN_2 B11
 // Hardware enable lines may be connected to the same pin
-#    define DRIVER_1_EN B5
-#    define DRIVER_2_EN B5
+#    define AW20216S_EN_PIN_1 B5
+#    define AW20216S_EN_PIN_2 B5
 
 #    define CAPS_LOCK_INDEX 50
 #    define WIN_MOD_INDEX 22
