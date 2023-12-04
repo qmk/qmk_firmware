@@ -13,15 +13,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- #include "quantum.h"
+#include "quantum.h"
 
 void led_init_ports(void) {
     // Set our LED pins as open drain outputs
-    palSetLineMode(LED_CAPS_LOCK_PIN, PAL_MODE_OUTPUT_OPENDRAIN);
-    palSetLineMode(LED_NUM_LOCK_PIN, PAL_MODE_OUTPUT_OPENDRAIN);
-    palSetLineMode(LED_SCROLL_LOCK_PIN, PAL_MODE_OUTPUT_OPENDRAIN);
-    palSetLineMode(LED_KANA_PIN, PAL_MODE_OUTPUT_OPENDRAIN);
-    palSetLineMode(A14, PAL_MODE_OUTPUT_OPENDRAIN);
+    setPinOutputOpenDrain(LED_CAPS_LOCK_PIN);
+    setPinOutputOpenDrain(LED_NUM_LOCK_PIN);
+    setPinOutputOpenDrain(LED_SCROLL_LOCK_PIN);
+    setPinOutputOpenDrain(LED_KANA_PIN);
+    setPinOutputOpenDrain(A14);
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
