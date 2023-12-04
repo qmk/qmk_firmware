@@ -166,6 +166,35 @@ void sall_td(tap_dance_state_t *state, void *user_data) {
     else tap_code16(C(KC_A));
 }
 
+void md_td(tap_dance_state_t *state, void *user_data) {
+    sequence_td(
+        {
+            send_lang_independant_string("[](<>)");
+
+            execute_without_mods(
+                for (int i = 0; i < 5; i += 1)
+                    tap_code16(KC_LEFT);
+            );
+        },
+
+        {
+            send_lang_independant_string("[]()");
+
+            execute_without_mods(
+                for (int i = 0; i < 3; i += 1)
+                    tap_code16(KC_LEFT);
+            );
+        },
+
+        ,
+
+        {
+            send_lang_independant_string("<>");
+            tap_code16(KC_LEFT);
+        }
+    );
+}
+
 void quote_line(const char *string) {
     tap_code16(KC_HOME);
     send_lang_independant_string(string);

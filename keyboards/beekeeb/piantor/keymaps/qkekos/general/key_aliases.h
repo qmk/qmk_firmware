@@ -70,6 +70,7 @@
 #define TD_ARR  TD(TDI_ARR)
 #define TD_ECLP TD(TDI_ECLP)
 #define TD_SALL TD(TDI_SALL)
+#define TD_MD   TD(TDI_MD)
 
 // THUMB
 #define TH_LNAV LT(NAV_LEFT, KC_BSPC)

@@ -21,4 +21,5 @@ enum tap_dances {
     TDI_ARR,
     TDI_ECLP,
     TDI_SALL,
+    TDI_MD,
 };

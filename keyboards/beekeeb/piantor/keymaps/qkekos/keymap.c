@@ -235,6 +235,7 @@ int combo_actions_keys[][2] = {
     {CM_AREP_OU_ARR, TD_ARR},
     {CM_H_CM_DT_DTS, TD_ECLP},
     {CM_BSPC_ENT_TAP_DTS, TD_ECLP},
+    {CM_H_DT_MD, TD_MD},
     {-1, KC_NO},
 };
 

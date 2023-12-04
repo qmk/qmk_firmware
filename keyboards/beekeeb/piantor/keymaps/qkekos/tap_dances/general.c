@@ -15,6 +15,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TDI_ARR]  = SEQ_TD(arr_td),
     [TDI_ECLP] = SEQ_TD(eclp_td),
     [TDI_SALL] = SEQ_TD(sall_td),
+    [TDI_MD] = SEQ_TD(md_td),
 };
 
 void lock_td(enum td_actions action) {

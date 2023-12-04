@@ -12,6 +12,7 @@ void coln_td(tap_dance_state_t *state, void *user_data);
 void arr_td(tap_dance_state_t *state, void *user_data);
 void eclp_td(tap_dance_state_t *state, void *user_data);
 void sall_td(tap_dance_state_t *state, void *user_data);
+void md_td(tap_dance_state_t *state, void *user_data);
 
 void quote_line(const char *string);
 void select_line(void);
@@ -73,4 +74,15 @@ void delete_line(void);
         } else { \
             { s; } \
         } \
+    }
+
+#define sequence_td(s_cs, s_s, s_c, s) \
+    if (is_shift_held() && is_ctrl_held()) { \
+        { s_cs; } \
+    } else if (is_shift_held()) { \
+        { s_s; } \
+    } else if (is_ctrl_held()) { \
+        { s_c; } \
+    } else { \
+        { s; } \
     }
