@@ -102,7 +102,7 @@
 // Add dummy conversions as extra channels (this would work only on chips that
 // have multiple channel index fields instead of a channel mask, but all chips
 // that need that workaround are like that).
-#define ADC_REAL_NUM_CHANNELS (ADC_DUMMY_CONVERSIONS_AT_START + ADC_NUM_CHANNELS)
+#define ADC_TOTAL_CHANNELS (ADC_DUMMY_CONVERSIONS_AT_START + ADC_NUM_CHANNELS)
 
 #ifndef ADC_BUFFER_DEPTH
 #    define ADC_BUFFER_DEPTH 1
