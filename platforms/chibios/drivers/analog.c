@@ -137,7 +137,7 @@ static bool adcInitialized[ADC_COUNT] = {};
 // TODO: add back TR handling???
 static ADCConversionGroup adcConversionGroup = {
     .circular     = FALSE,
-    .num_channels = (uint16_t)(ADC_REAL_NUM_CHANNELS),
+    .num_channels = (uint16_t)(ADC_TOTAL_CHANNELS),
 #if defined(USE_ADCV1)
     .cfgr1 = ADC_CFGR1_CONT | ADC_RESOLUTION,
     .smpr  = ADC_SAMPLING_RATE,
