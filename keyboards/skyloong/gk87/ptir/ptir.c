@@ -190,6 +190,11 @@ void suspend_wakeup_init_kb() {
     suspend_wakeup_init_user();
 }
 
+bool shutdown_kb(bool jump_to_bootloader) {
+    writePinLow(SDB);
+    return shutdown_user(jump_to_bootloader);
+}
+
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) {
         return false;

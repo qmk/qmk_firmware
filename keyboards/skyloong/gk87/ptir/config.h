@@ -18,11 +18,6 @@
 #    define DRIVER_1_EN B5
 #    define DRIVER_2_EN B5
 
-#    define DRIVER_COUNT 2
-#    define DRIVER_1_LED_TOTAL 47
-#    define DRIVER_2_LED_TOTAL 44
-#    define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
-
 #    define CAPS_LOCK_INDEX 50
 #    define WIN_MOD_INDEX 22
 #    define MAC_MOD_INDEX 23
