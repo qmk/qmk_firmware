@@ -1,6 +1,6 @@
 # Argyle
 
-![argyle](https://i.imgur.com/6x7ZYhx.png)
+![argyle](https://i.imgur.com/6x7ZYhxh.png)
 
 A 60 percent through hole keyboard with RGB and windows
 
