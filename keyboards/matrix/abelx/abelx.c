@@ -66,7 +66,7 @@ const aw9523b_led g_aw9523b_leds[AW9523B_RGB_NUM] = {
     {AW9523B_P07_PWM, AW9523B_P06_PWM, AW9523B_P05_PWM},
 };
 
-void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds)
+void rgblight_call_driver(rgb_led_t *start_led, uint8_t num_leds)
 {
     uint8_t num = num_leds < AW9523B_RGB_NUM ? num_leds : AW9523B_RGB_NUM;
 
@@ -92,13 +92,8 @@ bool led_update_kb(led_t led_state) {
 }
 
 #define REBOOT_MAGIC 0x41544B42
-void shutdown_user(void)
-{
-    // set the magic number for resetting to the bootloader
-    *(uint32_t *)(&(RTCD1.rtc->BKP0R)) = REBOOT_MAGIC;
-}
 
 void bootloader_jump(void) {
-    shutdown_user();
+    *(uint32_t *)(&(RTCD1.rtc->BKP0R)) = REBOOT_MAGIC;
     NVIC_SystemReset();
 }

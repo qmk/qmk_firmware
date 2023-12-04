@@ -27,7 +27,16 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D2"
+        "soft_serial_pin": "D2",
+        "transport": {
+            "sync": {
+                "indicators": true,
+                "layer_state": true,
+                "matrix_state": true,
+                "modifiers": true,
+                "oled": true
+            }
+        }
     },
     "ws2812": {
         "pin": "D3"
