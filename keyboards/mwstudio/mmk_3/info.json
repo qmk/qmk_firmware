@@ -1,36 +1,22 @@
 {
     "manufacturer": "MWStudio",
+    "keyboard_name": "MMK_3",
     "maintainer": "TW59420",
-    "keyboard_name": "3Key",
-    "usb": {
-        "pid": "0x3001",
-        "vid": "0x7BA1",
-        "device_version": "1.0.0"
-    },
+    "bootloader": "stm32duino",
     "diode_direction": "ROW2COL",
     "features": {
         "bootmagic": true,
         "extrakey": true,
-        "mousekey": true,
+        "mousekey": false,
         "nkro": true,
         "rgblight": true
     },
     "matrix_pins": {
-        "cols": ["A3", "A4", "A5" ],
-        "rows": ["A6" ]
+        "cols": ["A3", "A4", "A5"],
+        "rows": ["A6"]
     },
     "processor": "STM32F103",
-    "bootloader": "stm32duino",
-    "url": "",
-    "ws2812": {
-        "driver": "pwm",
-        "pin": "B8"
-    },
     "rgblight": {
-        "led_count": 5,
-        "hue_steps": 10,
-        "saturation_steps": 17,
-        "brightness_steps": 17,
         "animations": {
             "alternating": true,
             "breathing": true,
@@ -38,16 +24,29 @@
             "knight": true,
             "rainbow_mood": true,
             "rainbow_swirl": true,
-            "rgb_test": true,
             "snake": true,
             "static_gradient": true,
             "twinkle": true
-        }
+        },
+        "brightness_steps": 17,
+        "hue_steps": 10,
+        "led_count": 5,
+        "saturation_steps": 17
     },
+    "url": "",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x3001",
+        "vid": "0x7BA1"
+    },
+    "ws2812": {
+        "driver": "pwm",
+        "pin": "B8"
     "layouts": {
+    },
         "LAYOUT": {
             "layout": [
-				{ "matrix": [0, 0], "x": 0, "y": 0 },
+                { "matrix": [0, 0], "x": 0, "y": 0 },
                 { "matrix": [0, 1], "x": 1, "y": 0 },
                 { "matrix": [0, 2], "x": 2, "y": 0 }
             ]
