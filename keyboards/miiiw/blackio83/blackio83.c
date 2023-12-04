@@ -97,34 +97,37 @@ void keyboard_post_init_kb(void) {
     loop10hz_token = defer_exec(LOOP_10HZ_PERIOD, loop_10Hz, NULL);
 }
 
-__attribute__((weak)) void shutdown_user(void) {
+bool shutdown_kb(bool jump_to_bootloader) {
+    if (shutdown_user(jump_to_bootloader)) {
 #ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_set_suspend_state(true);
-#endif  // RGB_MATRIX_ENABLE
-    wait_ms(10);
+        rgb_matrix_set_suspend_state(true);
+#endif // RGB_MATRIX_ENABLE
+        wait_ms(10);
+    }
     ws2812_poweroff();
+    return true;
 }
 
 #ifdef DIP_SWITCH_ENABLE
 bool dip_switch_update_mask_kb(uint32_t state) {
     if (!dip_switch_update_mask_user(state)) { return false; }
-    
+
     if(state & 0x01) {
         led_suspend();
         usbDisconnectBus(&USB_DRIVER);
         usbStop(&USB_DRIVER);
-        shutdown_user();
+        shutdown_user(true);
         setPinInputHigh(POWER_SWITCH_PIN);
         palEnableLineEvent(POWER_SWITCH_PIN, PAL_EVENT_MODE_RISING_EDGE);
         POWER_EnterSleep();
     }
-    
+
     return true;
 }
 #endif
 
 uint32_t loop_10Hz(uint32_t trigger_time, void *cb_arg) {
-    
+
     if(last_input_activity_elapsed() > 1000) {
         static uint32_t pmu_timer = 0;
         if(timer_elapsed32(pmu_timer) > 3000) {
@@ -144,7 +147,7 @@ uint32_t loop_10Hz(uint32_t trigger_time, void *cb_arg) {
 
     extern matrix_row_t matrix[MATRIX_ROWS];
     static uint32_t restore_tick = 0;
-    if(matrix[0] == 0x4000 && matrix[1] == 0 && 
+    if(matrix[0] == 0x4000 && matrix[1] == 0 &&
        matrix[2] == 0 && matrix[3] == 0 && matrix[4] == 0 && matrix[5] == 0x201) {
         if(restore_tick++ > 50) {
             restore_tick = 0;

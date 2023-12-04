@@ -15,5 +15,5 @@ RGBLIGHT_ENABLE         = no
 
 # project specific files
 SRC =  matrix.c     \
-	   i2c_master.c \
        left.c
+I2C_DRIVER_REQUIRED = yes
