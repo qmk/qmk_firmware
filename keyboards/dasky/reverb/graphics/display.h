@@ -4,9 +4,11 @@
 #pragma once
 
 #include "qp.h"
+#include "qp_surface.h"
 
-painter_device_t       reverb_display;
-painter_font_handle_t  roboto_font;
+extern painter_device_t      reverb_surface;
+extern painter_device_t      reverb_display;
+extern painter_font_handle_t roboto_font;
 
 void display_key_counter(void);
 void display_init_kb(void);

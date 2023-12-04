@@ -5,7 +5,6 @@
 #include "graphics/splash.qgf.h"
 #include "graphics/reverb.qgf.h"
 #include "graphics/robotomono20.qff.h"
-#include "qp_surface.h"
 #include <stdio.h>
 #include <math.h>
 
@@ -13,8 +12,11 @@ static painter_image_handle_t reverb_logo;
 static deferred_token         display_task_token;
 static uint32_t               key_pressed_count = 0;
 
-static painter_device_t reverb_surface;
-static uint16_t         reverb_surface_fb[240 * 240];
+static uint8_t reverb_surface_fb[SURFACE_REQUIRED_BUFFER_BYTE_SIZE(240, 240, 16)];
+
+painter_device_t      reverb_surface;
+painter_device_t      reverb_display;
+painter_font_handle_t roboto_font;
 
 uint32_t display_task_callback(uint32_t trigger_time, void *cb_arg) {
     display_task_kb();
@@ -24,12 +26,12 @@ uint32_t display_task_callback(uint32_t trigger_time, void *cb_arg) {
 void display_init_kb(void) {
     reverb_display = qp_gc9a01_make_spi_device(240, 240, DISPLAY_CS, DISPLAY_DC, DISPLAY_RST, 2, 0); // always init display
     qp_init(reverb_display, QP_ROTATION_0);
-    roboto_font = qp_load_font_mem(font_robotomono20);
+    roboto_font    = qp_load_font_mem(font_robotomono20);
+    reverb_surface = qp_make_rgb565_surface(240, 240, reverb_surface_fb);
+    qp_init(reverb_surface, QP_ROTATION_0);
     if (!display_init_user()) {
         return;
     }
-    reverb_surface = qp_make_rgb565_surface(240, 240, reverb_surface_fb);
-    qp_init(reverb_surface, QP_ROTATION_0);
     painter_image_handle_t splash_image;
     splash_image = qp_load_image_mem(gfx_splash);
     reverb_logo  = qp_load_image_mem(gfx_reverb);
