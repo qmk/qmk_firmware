@@ -10,10 +10,8 @@
     },
     "features": {
         "extrakey": true,
-        "rgblight": true
-    },
-    "mouse_key": {
-        "enabled": true
+        "rgblight": true,
+        "mousekey": true
     },
     "matrix_pins": {
         "custom": true,
