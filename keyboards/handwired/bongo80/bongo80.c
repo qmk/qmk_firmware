@@ -59,7 +59,7 @@ uint32_t time = 0;
 static void render_wpm(void) {
 
     // Writes the WPM to the screen, and caps if enabled
-oled_set_cursor(0, 7);
+    oled_set_cursor(0, 7);
     oled_write_P(PSTR("WPM:"), false);
     oled_write(get_u8_str(curr_wpm, ' '), false);
 
