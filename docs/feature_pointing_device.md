@@ -177,12 +177,13 @@ This supports the Cirque Pinnacle 1CA027 Touch Controller, which is used in the 
 
 #### Common settings
 
-| Setting                          | Description                                                | Default                                     |
-| -------------------------------- | ---------------------------------------------------------- | ------------------------------------------- |
-| `CIRQUE_PINNACLE_DIAMETER_MM`    | (Optional) Diameter of the trackpad sensor in millimeters. | `40`                                        |
-| `CIRQUE_PINNACLE_ATTENUATION`    | (Optional) Sets the attenuation of the sensor data.        | `EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_4X` |
-| `CIRQUE_PINNACLE_CURVED_OVERLAY` | (Optional) Applies settings tuned for curved overlay.      | _not defined_                               |
-| `CIRQUE_PINNACLE_POSITION_MODE`  | (Optional) Mode of operation.                              | _not defined_                               |
+| Setting                              | Description                                                | Default                                     |
+| ------------------------------------ | ---------------------------------------------------------- | ------------------------------------------- |
+| `CIRQUE_PINNACLE_DIAMETER_MM`        | (Optional) Diameter of the trackpad sensor in millimeters. | `40`                                        |
+| `CIRQUE_PINNACLE_ATTENUATION`        | (Optional) Sets the attenuation of the sensor data.        | `EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_4X` |
+| `CIRQUE_PINNACLE_CURVED_OVERLAY`     | (Optional) Applies settings tuned for curved overlay.      | _not defined_                               |
+| `CIRQUE_PINNACLE_POSITION_MODE`      | (Optional) Mode of operation.                              | _not defined_                               |
+| `CIRQUE_PINNACLE_SKIP_SENSOR_CHECK`  | (Optional) Skips sensor presence check                     | _not defined_                               |
 
 **`CIRQUE_PINNACLE_ATTENUATION`** is a measure of how much data is suppressed in regards to sensitivity. The higher the attenuation, the less sensitive the touchpad will be.
 
