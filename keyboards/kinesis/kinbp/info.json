@@ -17,7 +17,7 @@
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x4B4E",
-        "vid": "0xFEED"
+        "vid": "0x515A"
     },
     "layouts": {
         "LAYOUT": {
