@@ -54,6 +54,16 @@
     "ws2812": {
         "pin": "B15"
     },
+    "community_layouts": [
+        "65_ansi_blocker",
+        "65_ansi_blocker_split_bs",
+        "65_ansi_blocker_tsangan",
+        "65_ansi_blocker_tsangan_split_bs",
+        "65_iso_blocker",
+        "65_iso_blocker_split_bs",
+        "65_iso_blocker_tsangan",
+        "65_iso_blocker_tsangan_split_bs"
+    ],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
