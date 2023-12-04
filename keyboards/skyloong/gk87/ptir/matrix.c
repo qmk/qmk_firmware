@@ -5,7 +5,6 @@
 
 #include "quantum.h"
 #include "debounce.h"
-#include "spi_master.h"
 
 #define ALL_KEY_COL_PULL A15
 #define ReadDelayTime 120
