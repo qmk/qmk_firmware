@@ -59,8 +59,12 @@ void is31fl3731_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
 #endif
 }
 
+void is31fl3731_select_page(uint8_t addr, uint8_t page) {
+    is31fl3731_write_register(addr, IS31FL3731_REG_COMMAND, page);
+}
+
 void is31fl3731_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
-    // assumes bank is already selected
+    // assumes page 0 is already selected
 
     // transmit PWM registers in 9 transfers of 16 bytes
     // g_twi_transfer_buffer[] is 20 bytes
@@ -120,8 +124,7 @@ void is31fl3731_init(uint8_t addr) {
     // then set up the mode and other settings, clear the PWM registers,
     // then disable software shutdown.
 
-    // select "function register" bank
-    is31fl3731_write_register(addr, IS31FL3731_REG_COMMAND, IS31FL3731_COMMAND_FUNCTION);
+    is31fl3731_select_page(addr, IS31FL3731_COMMAND_FUNCTION);
 
     // enable software shutdown
     is31fl3731_write_register(addr, IS31FL3731_FUNCTION_REG_SHUTDOWN, 0x00);
@@ -139,8 +142,7 @@ void is31fl3731_init(uint8_t addr) {
     // audio sync off
     is31fl3731_write_register(addr, IS31FL3731_FUNCTION_REG_AUDIO_SYNC, 0x00);
 
-    // select bank 0
-    is31fl3731_write_register(addr, IS31FL3731_REG_COMMAND, IS31FL3731_COMMAND_FRAME_1);
+    is31fl3731_select_page(addr, IS31FL3731_COMMAND_FRAME_1);
 
     // turn off all LEDs in the LED control register
     for (int i = 0; i < IS31FL3731_LED_CONTROL_REGISTER_COUNT; i++) {
@@ -157,16 +159,15 @@ void is31fl3731_init(uint8_t addr) {
         is31fl3731_write_register(addr, i, 0x00);
     }
 
-    // select "function register" bank
-    is31fl3731_write_register(addr, IS31FL3731_REG_COMMAND, IS31FL3731_COMMAND_FUNCTION);
+    is31fl3731_select_page(addr, IS31FL3731_COMMAND_FUNCTION);
 
     // disable software shutdown
     is31fl3731_write_register(addr, IS31FL3731_FUNCTION_REG_SHUTDOWN, 0x01);
 
-    // select bank 0 and leave it selected.
-    // most usage after initialization is just writing PWM buffers in bank 0
+    // select page 0 and leave it selected.
+    // most usage after initialization is just writing PWM buffers in page 0
     // as there's not much point in double-buffering
-    is31fl3731_write_register(addr, IS31FL3731_REG_COMMAND, IS31FL3731_COMMAND_FRAME_1);
+    is31fl3731_select_page(addr, IS31FL3731_COMMAND_FRAME_1);
 }
 
 void is31fl3731_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
