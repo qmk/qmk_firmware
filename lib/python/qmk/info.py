@@ -743,6 +743,9 @@ def _check_matrix(info_data):
         elif 'cols' in info_data['matrix_pins'] and 'rows' in info_data['matrix_pins']:
             col_count = len(info_data['matrix_pins']['cols'])
             row_count = len(info_data['matrix_pins']['rows'])
+        elif 'cols' not in info_data['matrix_pins'] and 'rows' not in info_data['matrix_pins']:
+            # This case caters for custom matrix implementations where normal rows/cols are specified
+            return
 
         if col_count != actual_col_count and col_count != (actual_col_count / 2):
             # FIXME: once we can we should detect if split is enabled to do the actual_col_count/2 check.
