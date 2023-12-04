@@ -1,6 +1,6 @@
 # Mode Tempo M60H
 
-![Mode Tempo M60H](https://modedesigns.com/products/tempo)
+![Mode Tempo M60H](https://i.imgur.com/6Wo7ySh.png)
 
 The following is the QMK Firmware for the Mode Tempo M60H PCB.
 
