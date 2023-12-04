@@ -129,7 +129,7 @@
 #endif
 
 static ADCConfig   adcCfg = {};
-static adcsample_t sampleBuffer[ADC_REAL_NUM_CHANNELS * ADC_BUFFER_DEPTH];
+static adcsample_t sampleBuffer[ADC_TOTAL_CHANNELS * ADC_BUFFER_DEPTH];
 
 // Initialize to max number of ADCs, set to empty object to initialize all to false.
 static bool adcInitialized[ADC_COUNT] = {};
