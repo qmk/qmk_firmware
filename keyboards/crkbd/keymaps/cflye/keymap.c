@@ -30,8 +30,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ) \
 LAYOUT_crkbd_wrapper( \
   KC_DEL,  K00, K01, K02, K03, K04,           K05, K06, K07, K08, K09, KC_BSPC, \
-  KC_LSFT, K10, K11, K12, K13, K14,           K15, K16, K17, K18, K19, KC_RSFT, \
-  KC_LCTL, K20, K21, K22, K23, K24,           K25, K26, K27, K28, K29, KC_RCTL, \
+  KC_LCTL, K10, K11, K12, K13, K14,           K15, K16, K17, K18, K19, KC_RCTL, \
+  KC_LSFT, K20, K21, K22, K23, K24,           K25, K26, K27, K28, K29, KC_RSFT, \
                         K32, K33, K34,     K35, K36, K37 \
   ) \
 
