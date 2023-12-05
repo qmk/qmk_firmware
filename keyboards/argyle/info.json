@@ -41,7 +41,21 @@
     "ws2812": {
         "pin": "C2"
     },
-    "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift", "60_ansi_tsangan", "60_tsangan_hhkb", "60_ansi_wkl", "60_ansi_wkl_split_bs_rshift", "60_hhkb", "60_iso", "60_iso_split_bs_rshift", "60_iso_tsangan", "60_iso_tsangan_split_bs_rshift", "60_iso_wkl", "60_iso_wkl_split_bs_rshift"],
+    "community_layouts": [
+        "60_ansi", 
+        "60_ansi_split_bs_rshift", 
+        "60_ansi_tsangan", 
+        "60_tsangan_hhkb", 
+        "60_ansi_wkl", 
+        "60_ansi_wkl_split_bs_rshift", 
+        "60_hhkb", 
+        "60_iso", 
+        "60_iso_split_bs_rshift", 
+        "60_iso_tsangan", 
+        "60_iso_tsangan_split_bs_rshift", 
+        "60_iso_wkl", 
+        "60_iso_wkl_split_bs_rshift"
+    ],
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [
