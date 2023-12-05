@@ -21,8 +21,7 @@
         "rgb_matrix": true
     },
     "ws2812": {
-        "pin": "GP26",
-        "driver": "vendor"
+        "pin": "GP26"
     },
     "diode_direction": "COL2ROW",
     "matrix_pins": {

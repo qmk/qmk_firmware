@@ -10,7 +10,6 @@
         "rows": ["GP12", "GP13", "GP16", "GP17"]
     },
     "ws2812": {
-        "driver": "vendor",
         "pin": "GP21"
     },
     "rgb_matrix": {

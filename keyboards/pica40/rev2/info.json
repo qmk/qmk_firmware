@@ -31,8 +31,7 @@
         }
     },
     "ws2812": {
-        "pin": "GP12",
-        "driver": "vendor"
+        "pin": "GP12"
     },
     "split": {
         "enabled": true,

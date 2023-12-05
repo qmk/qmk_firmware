@@ -15,8 +15,7 @@
         "soft_serial_pin": "GP1"
     },
     "ws2812": {
-        "pin": "GP0",
-        "driver": "vendor"
+        "pin": "GP0"
     },
     "processor": "RP2040",
     "bootloader": "rp2040"

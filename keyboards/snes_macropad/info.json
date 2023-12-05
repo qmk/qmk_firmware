@@ -15,8 +15,7 @@
         "oled": true
     },
     "ws2812": {
-        "pin": "GP5",
-        "driver": "vendor"
+        "pin": "GP5"
     },
     "processor": "RP2040",
     "matrix_size": {

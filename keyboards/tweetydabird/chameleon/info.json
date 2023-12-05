@@ -45,7 +45,6 @@
         "vid": "0xFEED"
     },
     "ws2812": {
-        "driver": "vendor",
         "pin": "GP20"
     },
     "community_layouts": ["ortho_5x12", "ortho_4x12", "planck_mit"],

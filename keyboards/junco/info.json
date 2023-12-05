@@ -14,8 +14,7 @@
     },
     "diode_direction": "COL2ROW",
     "ws2812": {
-        "pin": "GP15",
-        "driver": "vendor"
+        "pin": "GP15"
     },
     "rgb_matrix": {
         "driver": "ws2812"

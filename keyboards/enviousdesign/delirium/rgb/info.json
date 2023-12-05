@@ -138,7 +138,6 @@
         "vid": "0xE739"
     },
     "ws2812": {
-        "driver": "vendor",
         "pin": "GP0"
     },
     "community_layouts": ["tkl_iso"],

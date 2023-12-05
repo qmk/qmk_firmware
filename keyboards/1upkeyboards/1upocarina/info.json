@@ -37,7 +37,6 @@
         ]
     },
     "ws2812": {
-        "driver": "vendor",
         "pin": "GP24"
     },
     "rgb_matrix": {

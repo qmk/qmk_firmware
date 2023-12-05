@@ -34,8 +34,7 @@
         ]
     },
     "ws2812": {
-        "pin": "GP16",
-        "driver": "vendor"
+        "pin": "GP16"
     },
     "layouts": {
         "LAYOUT": {

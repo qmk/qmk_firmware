@@ -30,8 +30,7 @@
         "driver": "ws2812"
     },
     "ws2812": {
-        "pin": "GP2",
-        "driver": "vendor"
+        "pin": "GP2"
     },
     "url": "https://github.com/zykrah/fuyu",
     "layouts": {

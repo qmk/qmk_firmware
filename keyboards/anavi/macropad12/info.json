@@ -37,8 +37,7 @@
         }
     },
     "ws2812": {
-        "pin": "GP3",
-        "driver": "vendor"
+        "pin": "GP3"
     },
     "backlight": {
         "pin": "GP26"

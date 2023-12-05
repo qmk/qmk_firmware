@@ -37,8 +37,7 @@
         }
     },
     "ws2812": {
-        "pin": "GP25",
-        "driver": "vendor"
+        "pin": "GP25"
     },
     "matrix_pins": {
         "cols": ["GP28", "GP5", "GP4", "GP3", "GP2", "GP1", "GP0", "GP14", "GP13", "GP12", "GP11", "GP10", "GP9", "GP8", "GP7"],

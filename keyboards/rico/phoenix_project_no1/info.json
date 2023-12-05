@@ -41,7 +41,6 @@
         "vid": "0x21C0"
     },
     "ws2812": {
-        "driver": "vendor",
         "pin": "GP28"
     },
     "layout_aliases": {

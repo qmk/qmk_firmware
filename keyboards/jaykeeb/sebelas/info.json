@@ -22,8 +22,7 @@
         "on_state": 0
     },
     "ws2812": {
-        "pin": "GP3",
-        "driver": "vendor"
+        "pin": "GP3"
     },
     "rgblight": {
         "led_count": 1,

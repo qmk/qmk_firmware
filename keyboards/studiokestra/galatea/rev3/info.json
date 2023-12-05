@@ -25,7 +25,6 @@
         "vid": "0x7C10"
     },
     "ws2812": {
-        "driver": "vendor",
         "pin": "GP15"
     },
     "rgblight": {

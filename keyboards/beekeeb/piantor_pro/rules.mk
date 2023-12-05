@@ -1,1 +1,2 @@
-SERIAL_DRIVER = vendor
+# This file is intentionally left blank
+

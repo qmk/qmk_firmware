@@ -36,8 +36,7 @@
         "pin": "GP22"
     },
     "ws2812": {
-        "pin": "GP7",
-        "driver": "vendor"
+        "pin": "GP7"
     },
     "rgblight": {
         "led_count": 20,

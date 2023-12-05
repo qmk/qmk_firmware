@@ -152,7 +152,6 @@
         "vid": "0x4552"
     },
     "ws2812": {
-        "driver": "vendor",
         "pin": "GP0"
     },
     "layouts": {

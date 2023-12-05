@@ -4,8 +4,7 @@
     "pid": "0xC101"
   },
   "ws2812": {
-    "pin": "GP17",
-    "driver": "vendor"
+    "pin": "GP17"
   },
   "features": {
     "rgb_matrix": true

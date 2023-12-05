@@ -24,8 +24,7 @@
         ]
     },
     "ws2812": {
-        "pin": "GP0",
-        "driver": "vendor"
+        "pin": "GP0"
     },
     "split": {
         "enabled": true,

@@ -57,8 +57,7 @@
         ]
     },
     "ws2812": {
-        "pin": "GP19",
-        "driver": "vendor"
+        "pin": "GP19"
     },
     "layouts": {
         "LAYOUT": {

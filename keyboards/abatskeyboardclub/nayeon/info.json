@@ -21,8 +21,7 @@
         "device_version": "2.0.0"
     },
     "ws2812": {
-        "pin": "GP19",
-        "driver": "vendor"
+        "pin": "GP19"
     },
     "rgb_matrix": {
         "driver": "ws2812"

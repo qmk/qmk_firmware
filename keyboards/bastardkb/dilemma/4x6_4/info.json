@@ -37,8 +37,7 @@
         "tri_layer": true
     },
     "ws2812": {
-        "pin": "GP10",
-        "driver": "vendor"
+        "pin": "GP10"
     },
     "rgb_matrix": {
         "driver": "ws2812",

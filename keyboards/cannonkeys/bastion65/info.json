@@ -46,7 +46,6 @@
         "vid": "0xCA04"
     },
     "ws2812": {
-        "driver": "vendor",
         "pin": "GP7"
     },
     "layout_aliases": {

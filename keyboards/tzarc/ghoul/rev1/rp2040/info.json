@@ -9,7 +9,6 @@
     ]
   },
   "ws2812": {
-    "pin": "GP13",
-    "driver": "vendor"
+    "pin": "GP13"
   }
 }

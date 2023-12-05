@@ -43,8 +43,7 @@
         }
     },
     "ws2812": {
-        "pin": "GP2",
-        "driver": "vendor"
+        "pin": "GP2"
     },
     "community_layouts": ["65_ansi"],
     "layouts": {

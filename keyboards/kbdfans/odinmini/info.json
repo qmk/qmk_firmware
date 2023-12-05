@@ -44,8 +44,7 @@
         "sleep": true
     },
     "ws2812": {
-        "pin": "GP12",
-        "driver": "vendor"
+        "pin": "GP12"
     },
     "usb": {
         "device_version": "0.0.1",
@@ -112,7 +111,7 @@
                 {"label": "5", "matrix": [2, 15], "x": 17.5, "y": 2},
                 {"label": "6", "matrix": [2, 16], "x": 18.5, "y": 2},
                 {"label": "Shift", "matrix": [3, 0], "w": 1.25, "x": 0, "y": 3},
-                {"matrix": [4, 3], "w": 2.25, "x": 1.25, "y": 3},                
+                {"matrix": [4, 3], "w": 2.25, "x": 1.25, "y": 3},
                 {"label": "Z", "matrix": [3, 1], "x": 2.25, "y": 3},
                 {"label": "X", "matrix": [3, 2], "x": 3.25, "y": 3},
                 {"label": "C", "matrix": [3, 3], "x": 4.25, "y": 3},

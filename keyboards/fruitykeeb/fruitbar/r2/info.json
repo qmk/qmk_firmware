@@ -44,7 +44,6 @@
         "pid": "0x6662"
     },
     "ws2812": {
-        "driver": "vendor",
         "pin": "GP28"
     },
     "layouts": {

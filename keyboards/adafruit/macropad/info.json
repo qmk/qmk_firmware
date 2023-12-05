@@ -20,8 +20,7 @@
         "matrix": [1, 2]
     },
     "ws2812": {
-        "pin": "GP19",
-        "driver": "vendor"
+        "pin": "GP19"
     },
     "processor": "RP2040",
     "bootloader": "rp2040",

@@ -16,8 +16,7 @@
         "nkro": true
     },
     "ws2812": {
-        "pin": "GP0",
-        "driver": "vendor"
+        "pin": "GP0"
     },
     "rgblight": {
         "led_count": 34,

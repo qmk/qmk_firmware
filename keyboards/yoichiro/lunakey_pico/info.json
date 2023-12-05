@@ -51,8 +51,7 @@
         "enabled": true
     },
     "ws2812": {
-        "pin": "GP6",
-        "driver": "vendor"
+        "pin": "GP6"
     },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_split_3x6_4"

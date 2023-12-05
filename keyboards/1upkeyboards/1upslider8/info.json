@@ -41,8 +41,7 @@
         "matrix": [0, 1]
     },
     "ws2812": {
-        "pin": "GP26",
-        "driver": "vendor"
+        "pin": "GP26"
     },
     "rgb_matrix": {
         "animations": {

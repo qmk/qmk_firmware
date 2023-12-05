@@ -33,8 +33,7 @@
         "driver": "ws2812"
     },
     "ws2812": {
-        "pin": "GP10",
-        "driver": "vendor"
+        "pin": "GP10"
     },
     "layouts": {
         "LAYOUT": {

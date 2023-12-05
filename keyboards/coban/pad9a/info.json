@@ -56,7 +56,6 @@
         "vid": "0xCB3A"
     },
     "ws2812": {
-        "driver": "vendor",
         "pin": "GP12"
     },
     "layouts": {

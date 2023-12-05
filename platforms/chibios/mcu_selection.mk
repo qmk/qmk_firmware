@@ -174,6 +174,11 @@ ifneq ($(findstring RP2040, $(MCU)),)
   # Default UF2 Bootloader settings
   UF2_FAMILY ?= RP2040
   FIRMWARE_FORMAT ?= uf2
+
+  # Default to vendor drivers
+  PS2_DRIVER ?= vendor
+  SERIAL_DRIVER ?= vendor
+  WS2812_DRIVER ?= vendor
 endif
 
 ifneq ($(findstring STM32F042, $(MCU)),)

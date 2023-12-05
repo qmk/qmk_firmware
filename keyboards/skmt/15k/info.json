@@ -67,7 +67,6 @@
         ]
     },
     "ws2812": {
-        "pin": "GP1",
-        "driver": "vendor"
+        "pin": "GP1"
     }
 }

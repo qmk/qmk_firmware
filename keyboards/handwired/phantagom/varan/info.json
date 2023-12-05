@@ -14,7 +14,6 @@
         "rgblight": true
     },
     "ws2812": {
-        "driver": "vendor",
         "pin": "GP28"
     },
     "rgblight": {

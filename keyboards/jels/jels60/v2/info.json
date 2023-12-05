@@ -14,8 +14,7 @@
         "rows": ["GP26", "GP27", "GP3", "GP4", "GP5"]
     },
     "ws2812": {
-        "pin": "GP29",
-        "driver": "vendor"
+        "pin": "GP29"
     },
     "rgblight": {
         "led_count": 22,

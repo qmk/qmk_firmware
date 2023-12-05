@@ -15,7 +15,6 @@
         ]
     },
     "ws2812": {
-        "driver": "vendor",
         "pin": "GP9"
     },
     "matrix_pins": {

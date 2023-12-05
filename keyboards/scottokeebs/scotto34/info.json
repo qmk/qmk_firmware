@@ -25,8 +25,7 @@
         "vid": "0x534B"
     },
     "ws2812": {
-        "pin": "GP23",
-        "driver": "vendor"
+        "pin": "GP23"
     },
     "rgblight": {
         "led_count": 1

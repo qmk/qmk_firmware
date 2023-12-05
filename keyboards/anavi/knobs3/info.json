@@ -39,8 +39,7 @@
         }
     },
     "ws2812": {
-        "pin": "GP12",
-        "driver": "vendor"
+        "pin": "GP12"
     },
     "encoder": {
     "enabled": true,

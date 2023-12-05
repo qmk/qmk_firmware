@@ -27,8 +27,7 @@
         "rgblight": false
     },
     "ws2812": {
-        "pin": "GP19",
-        "driver": "vendor"
+        "pin": "GP19"
     },
     "matrix_pins": {
         "cols": ["GP3", "GP4", "GP5", "GP20", "GP18", "GP13", "GP17", "GP16", "GP15", "GP12", "GP11", "GP14", "GP10", "GP9"],
