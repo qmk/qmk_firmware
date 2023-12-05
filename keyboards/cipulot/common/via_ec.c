@@ -25,6 +25,7 @@ void ec_rescale_values(uint8_t item);
 void ec_save_threshold_data(uint8_t option);
 void ec_save_bottoming_reading(void);
 void ec_show_calibration_data(void);
+void ec_clear_bottoming_calibration_data(void);
 
 // Declaring enums for VIA config menu
 enum via_enums {
@@ -38,7 +39,8 @@ enum via_enums {
     id_mode_1_release_sensitivity = 7,
     id_bottoming_calibration = 8,
     id_noise_floor_calibration = 9,
-    id_show_calibration_data = 10
+    id_show_calibration_data = 10,
+    id_clear_bottoming_calibration_data = 11,
     // clang-format on
 };
 
@@ -124,6 +126,11 @@ void via_config_set_value(uint8_t *data) {
             if (value_data[0] == 0) {
                 ec_show_calibration_data();
                 break;
+            }
+        }
+        case id_clear_bottoming_calibration_data: {
+            if (value_data[0] == 0) {
+                ec_clear_bottoming_calibration_data();
             }
         }
         default: {
@@ -266,11 +273,11 @@ void ec_save_threshold_data(uint8_t option) {
 void ec_save_bottoming_reading(void) {
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-            // If the bottom reading doesn't go over the noise floor by 50, it is likely that:
+            // If the bottom reading doesn't go over the noise floor by 100, it is likely that:
             // 1. The key is not actually in the matrix
             // 2. The key is on an alternative layout, therefore not being pressed
             // 3. The key in in the current layout but not being pressed
-            if (ec_config.bottoming_reading[row][col] < (ec_config.noise_floor[row][col] + 50)) {
+            if (ec_config.bottoming_reading[row][col] < (ec_config.noise_floor[row][col] + 100)) {
                 eeprom_ec_config.bottoming_reading[row][col] = 1023;
             } else {
                 eeprom_ec_config.bottoming_reading[row][col] = ec_config.bottoming_reading[row][col];
@@ -339,6 +346,19 @@ void ec_show_calibration_data(void) {
         uprintf("%4d\n", ec_config.rescaled_mode_1_initial_deadzone_offset[row][MATRIX_COLS - 1]);
     }
     print("\n");
+}
+
+// Clear the calibration data
+void ec_clear_bottoming_calibration_data(void) {
+    // Clear the EEPROM data
+    eeconfig_init_kb();
+
+    // Reset the runtime values to the EEPROM values
+    keyboard_post_init_kb();
+
+    uprintf("######################################\n");
+    uprintf("# Bottoming calibration data cleared #\n");
+    uprintf("######################################\n");
 }
 
 #endif // VIA_ENABLE
