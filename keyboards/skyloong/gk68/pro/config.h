@@ -3,9 +3,8 @@
 
 #pragma once
 
-#define DRIVER_COUNT 1
-#define DRIVER_1_EN B5
-#define DRIVER_1_CS B12
+#define AW20216S_EN_PIN_1 B5
+#define AW20216S_CS_PIN_1 B12
 #define CAPS_LOCK_INDEX 30
 #define WIN_MOD_INDEX 17
 #define MAC_MOD_INDEX 18
