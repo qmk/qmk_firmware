@@ -1,12 +1,13 @@
 # kepler
 
-![kepler](imgur.com image replace me!)
+![kepler](https://imgur.com/a/ZCKGSqf)
 
 *A short description of the keyboard/project*
 
 * Keyboard Maintainer: [spacehangover](https://github.com/spacehangover)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: RP2040 Handwired
+* Hardware Availability: https://www.amazon.com/dp/B08ZSKMJJD/ref=sspa_dk_detail_6?psc=1&pd_rd_i=B08ZSKMJJD&pd_rd_w=K8K1X&content-id=amzn1.sym.08ba9b95-1385-44b0-b652-c46acdff309c&pf_rd_p=08ba9b95-1385-44b0-b652-c46acdff309c&pf_rd_r=3W158XFKMFJTGARYNNT6&pd_rd_wg=ADHNt&pd_rd_r=7e2afce9-17d9-46a7-b196-5be2ab375f40&s=pc&sp_csd=d2lkZ2V0TmFtZT1zcF9kZXRhaWxfdGhlbWF0aWM&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUEyQTU4SElNN0VVNVdXJmVuY3J5cHRlZElkPUEwNTA3MTMwMlZDSDVMVEQwQ0ZPTSZlbmNyeXB0ZWRBZElkPUEwMDgzMTI4MUE4UkxCWEpCTVk5ViZ3aWRnZXROYW1lPXNwX2RldGFpbF90aGVtYXRpYyZhY3Rpb249Y2xpY2tSZWRpcmVjdCZkb05vdExvZ0NsaWNrPXRydWU=
+
 
 Make example for this keyboard (after setting up your build environment):
 
