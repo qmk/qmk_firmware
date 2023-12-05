@@ -29,6 +29,9 @@
         "pid": "0x0056",
         "vid": "0x7463"
     },
+    "dynamic_keymap": {
+        "layer_count": 32
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
