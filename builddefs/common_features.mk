@@ -313,6 +313,7 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
         OPT_DEFS += -DRGBLIGHT_$(strip $(shell echo $(RGBLIGHT_DRIVER) | tr '[:lower:]' '[:upper:]'))
         SRC += $(QUANTUM_DIR)/color.c
         SRC += $(QUANTUM_DIR)/rgblight/rgblight.c
+        SRC += $(QUANTUM_DIR)/rgblight/rgblight_drivers.c
         CIE1931_CURVE := yes
         RGB_KEYCODES_ENABLE := yes
     endif

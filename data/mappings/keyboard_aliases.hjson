@@ -1299,6 +1299,9 @@
     "vn66": {
         "target": "hnahkb/vn66"
     },
+    "w1_at": {
+        "target": "geonworks/w1_at"
+    },
     "wallaby": {
         "target": "kkatano/wallaby"
     },
