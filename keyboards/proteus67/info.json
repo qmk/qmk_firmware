@@ -47,7 +47,7 @@
     },
     "ws2812": {
         "pin": "GP0",
-	"driver": "vendor"
+        "driver": "vendor"
     },
     "layouts": {
         "LAYOUT_ortho_5x14": {
