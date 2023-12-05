@@ -41,8 +41,9 @@
     },
     "ws2812": {
         "driver": "pwm"
-    "layouts": {
+        "pin": "B8",
     },
+    "layouts": {
         "LAYOUT": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0 },
