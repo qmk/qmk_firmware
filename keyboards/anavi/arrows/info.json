@@ -7,7 +7,7 @@
     "bootloader": "rp2040",
     "matrix_pins": {
         "direct": [
-	    ["GP4", "GP0", "GP27", "GP28", "GP29"]
+            ["GP4", "GP0", "GP27", "GP28", "GP29"]
         ]
     },
     "features": {
