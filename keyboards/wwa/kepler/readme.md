@@ -3,6 +3,7 @@
 ![kepler](https://imgur.com/a/ZCKGSqf)
 
 *A short description of the keyboard/project*
+Second model of the Argentinian based keyboard manufacturer WWA
 
 * Keyboard Maintainer: [spacehangover](https://github.com/spacehangover)
 * Hardware Supported: RP2040 Handwired
