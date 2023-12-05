@@ -11,9 +11,6 @@ This PCB has two versions: hotswap and solder.
 
 Make example for this keyboard (after setting up your build environment):
 
-
-
-
     make shadow80:default
        
 Flashing example for this keyboard:
