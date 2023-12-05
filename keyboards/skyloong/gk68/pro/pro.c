@@ -7,7 +7,7 @@ _Bool L_WIN = 0;
 _Bool L_MAC = 0;
 
 #if defined(RGB_MATRIX_ENABLE)  /*&& defined(CAPS_LOCK_INDEX)*/
-const aw_led PROGMEM g_aw_leds[RGB_MATRIX_LED_COUNT] = {
+const aw20216s_led_t PROGMEM g_aw20216s_leds[AW20216S_LED_COUNT] = {
 /* Refer to aw20216 manual for these locations
  *   driver
  *   |  R location
