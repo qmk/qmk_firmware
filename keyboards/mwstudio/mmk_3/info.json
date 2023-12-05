@@ -28,6 +28,7 @@
             "static_gradient": true,
             "twinkle": true
         },
+        "pin": "B8",
         "brightness_steps": 17,
         "hue_steps": 10,
         "led_count": 5,
@@ -40,8 +41,7 @@
         "vid": "0x7BA1"
     },
     "ws2812": {
-        "driver": "pwm",
-        "pin": "B8"
+        "driver": "pwm"
     "layouts": {
     },
         "LAYOUT": {
