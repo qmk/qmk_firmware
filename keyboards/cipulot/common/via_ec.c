@@ -40,7 +40,7 @@ enum via_enums {
     id_bottoming_calibration = 8,
     id_noise_floor_calibration = 9,
     id_show_calibration_data = 10,
-    id_clear_bottoming_calibration_data = 11,
+    id_clear_bottoming_calibration_data = 11
     // clang-format on
 };
 
