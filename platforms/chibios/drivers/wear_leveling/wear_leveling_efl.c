@@ -17,6 +17,9 @@ static flash_sector_t first_sector = UINT16_MAX;
 static flash_sector_t sector_count = UINT16_MAX;
 static BaseFlash *    flash;
 
+static volatile bool is_issuing_read    = false;
+static volatile bool ecc_error_occurred = false;
+
 // "Automatic" detection of the flash size -- ideally ChibiOS would have this already, but alas, it doesn't.
 static inline uint32_t detect_flash_size(void) {
 #if defined(WEAR_LEVELING_EFL_FLASH_SIZE)
@@ -131,11 +134,38 @@ bool backing_store_lock(void) {
     return true;
 }
 
+static backing_store_int_t backing_store_safe_read_from_location(backing_store_int_t *loc) {
+    backing_store_int_t value;
+    is_issuing_read    = true;
+    ecc_error_occurred = false;
+    value              = ~(*loc);
+    is_issuing_read    = false;
+    return value;
+}
+
 bool backing_store_read(uint32_t address, backing_store_int_t *value) {
     uint32_t             offset = (base_offset + address);
     backing_store_int_t *loc    = (backing_store_int_t *)flashGetOffsetAddress(flash, offset);
-    *value                      = ~(*loc);
+    backing_store_int_t  tmp    = backing_store_safe_read_from_location(loc);
+
+    if (ecc_error_occurred) {
+        bs_dprintf("Failed to read from backing store, ECC error detected\n");
+        ecc_error_occurred = false;
+        *value             = 0;
+        return false;
+    }
+
+    *value = tmp;
+
     bs_dprintf("Read  ");
     wl_dump(offset, value, sizeof(backing_store_int_t));
     return true;
+}
+
+bool backing_store_allow_ecc_errors(void) {
+    return is_issuing_read;
+}
+
+void backing_store_signal_ecc_error(void) {
+    ecc_error_occurred = true;
 }

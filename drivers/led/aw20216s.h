@@ -20,11 +20,9 @@
 #include <stdbool.h>
 #include "progmem.h"
 #include "gpio.h"
+#include "util.h"
 
 // ======== DEPRECATED DEFINES - DO NOT USE ========
-#ifdef DRIVER_COUNT
-#    define AW20216S_DRIVER_COUNT DRIVER_COUNT
-#endif
 #ifdef AW_SCALING_MAX
 #    define AW20216S_SCALING_MAX AW_SCALING_MAX
 #endif
@@ -54,15 +52,48 @@
 #define g_aw_leds g_aw20216s_leds
 // ========
 
+#define AW20216S_ID (0b1010 << 4)
+#define AW20216S_WRITE 0
+#define AW20216S_READ 1
+
+#define AW20216S_PAGE_FUNCTION (0x00 << 1)
+#define AW20216S_PAGE_PWM (0x01 << 1)
+#define AW20216S_PAGE_SCALING (0x02 << 1)
+#define AW20216S_PAGE_PATTERN_CHOICE (0x03 << 1)
+#define AW20216S_PAGE_PWM_SCALING (0x04 << 1)
+
+#define AW20216S_FUNCTION_REG_CONFIGURATION 0x00
+#define AW20216S_CONFIGURATION_SWSEL_1_12 (0b1011 << 4)
+#define AW20216S_CONFIGURATION_CHIPEN (0b1 << 0)
+
+#define AW20216S_FUNCTION_REG_GLOBAL_CURRENT 0x01
+
+#define AW20216S_FUNCTION_REG_RESET 0x2F
+#define AW20216S_RESET_MAGIC 0xAE
+
+#define AW20216S_FUNCTION_REG_MIX_FUNCTION 0x46
+#define AW20216S_MIX_FUNCTION_LPEN (0b1 << 1)
+
+#if defined(RGB_MATRIX_AW20216S)
+#    define AW20216S_LED_COUNT RGB_MATRIX_LED_COUNT
+#endif
+
+#if defined(AW20216S_CS_PIN_2)
+#    define AW20216S_DRIVER_COUNT 2
+#elif defined(AW20216S_CS_PIN_1)
+#    define AW20216S_DRIVER_COUNT 1
+#endif
+
 typedef struct aw20216s_led_t {
     uint8_t driver : 2;
     uint8_t r;
     uint8_t g;
     uint8_t b;
-} aw20216s_led_t;
+} PACKED aw20216s_led_t;
 
-extern const aw20216s_led_t PROGMEM g_aw20216s_leds[RGB_MATRIX_LED_COUNT];
+extern const aw20216s_led_t PROGMEM g_aw20216s_leds[AW20216S_LED_COUNT];
 
+void aw20216s_init_drivers(void);
 void aw20216s_init(pin_t cs_pin, pin_t en_pin);
 void aw20216s_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
 void aw20216s_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
