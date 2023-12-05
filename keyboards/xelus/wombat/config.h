@@ -34,13 +34,6 @@
 #define EXTERNAL_EEPROM_PAGE_SIZE            256
 #define EXTERNAL_EEPROM_ADDRESS_SIZE         3
 
-// Dynamic EEPROM
-
-// Force NKRO
-#define FORCE_NKRO
-
-#define DEBUG_EEPROM_OUTPUT
-
 // wear levelling
 #define WEAR_LEVELING_LOGICAL_SIZE 32768
 #define WEAR_LEVELING_BACKING_SIZE 65536

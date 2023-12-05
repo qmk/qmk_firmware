@@ -3,65 +3,51 @@
     "keyboard_name": "Wombat",
     "maintainer": "Xelus22",
     "bootloader": "stm32-dfu",
-    "bootmagic": {
-        "enabled": true
-    },
-    "debounce": 5,
     "diode_direction": "COL2ROW",
-    "dynamic_keymap": {
-        "eeprom_max_addr": 32767
-    },
     "eeprom": {
         "driver": "wear_leveling"
     },
     "encoder": {
-        "enabled": true,
         "rotary": [
-            {"pin_a": "B11", "pin_b": "B12", "resolution": 4},
-            {"pin_a": "B13", "pin_b": "B14", "resolution": 4},
-            {"pin_a": "B15", "pin_b": "D8", "resolution": 4},
-            {"pin_a": "D9", "pin_b": "D10", "resolution": 4},
-            {"pin_a": "D11", "pin_b": "D12", "resolution": 4},
-            {"pin_a": "D13", "pin_b": "D14", "resolution": 4},
-            {"pin_a": "D15", "pin_b": "C6", "resolution": 4},
-            {"pin_a": "C7", "pin_b": "C8", "resolution": 4},
-            {"pin_a": "C9", "pin_b": "A8", "resolution": 4},
-            {"pin_a": "A9", "pin_b": "A10", "resolution": 4},
-            {"pin_a": "B7", "pin_b": "B8", "resolution": 4},
-            {"pin_a": "B9", "pin_b": "E0", "resolution": 4},
-            {"pin_a": "E1", "pin_b": "E2", "resolution": 4},
-            {"pin_a": "E3", "pin_b": "E4", "resolution": 4},
-            {"pin_a": "E5", "pin_b": "E6", "resolution": 4},
-            {"pin_a": "C13", "pin_b": "C14", "resolution": 4},
-            {"pin_a": "C15", "pin_b": "H0", "resolution": 4},
-            {"pin_a": "H1", "pin_b": "C0", "resolution": 4},
-            {"pin_a": "C1", "pin_b": "C2", "resolution": 4},
-            {"pin_a": "C3", "pin_b": "A0", "resolution": 4}
+            {"pin_a": "B11", "pin_b": "B12", "resolution":2},
+            {"pin_a": "B13", "pin_b": "B14", "resolution":2},
+            {"pin_a": "B15", "pin_b": "D8", "resolution":2},
+            {"pin_a": "D9", "pin_b": "D10", "resolution":2},
+            {"pin_a": "D11", "pin_b": "D12", "resolution":2},
+            {"pin_a": "D13", "pin_b": "D14", "resolution":2},
+            {"pin_a": "D15", "pin_b": "C6", "resolution":2},
+            {"pin_a": "C7", "pin_b": "C8", "resolution":2},
+            {"pin_a": "C9", "pin_b": "A8", "resolution":2},
+            {"pin_a": "A9", "pin_b": "A10", "resolution":2},
+            {"pin_a": "B7", "pin_b": "B8", "resolution":2},
+            {"pin_a": "B9", "pin_b": "E0", "resolution":2},
+            {"pin_a": "E1", "pin_b": "E2", "resolution":2},
+            {"pin_a": "E3", "pin_b": "E4", "resolution":2},
+            {"pin_a": "E5", "pin_b": "E6", "resolution":2},
+            {"pin_a": "C13", "pin_b": "C14", "resolution":2},
+            {"pin_a": "C15", "pin_b": "H0", "resolution":2},
+            {"pin_a": "H1", "pin_b": "C0", "resolution":2},
+            {"pin_a": "C1", "pin_b": "C2", "resolution":2},
+            {"pin_a": "C3", "pin_b": "A0", "resolution":2}
         ]
     },
     "features": {
-        "audio": false,
         "bootmagic": true,
-        "command": true,
-        "console": true,
+        "command": false,
+        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "rgblight": false
+        "nkro": true
     },
     "matrix_pins": {
         "cols": ["C11", "C12", "D0", "D1", "B10", "E15", "E14", "E13", "E12", "E11", "A13", "A1", "C5", "C4"],
         "rows": ["B6", "B5", "B3", "B4", "D6", "D7", "D4", "D5", "D2", "D3", "A15", "C10", "A3", "A2", "B1", "B0", "B2", "E7"]
     },
-    "mouse_key": {
-        "enabled": true
-    },
     "processor": "STM32L433",
     "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/xelus/wombat",
     "usb": {
         "device_version": "0.0.1",
-        "force_nkro": false,
         "pid": "0x574F",
         "vid": "0x5845"
     },
