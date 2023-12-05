@@ -22,7 +22,11 @@
         "pid": "0x6004",
         "vid": "0xEB69"
     },
-    "community_layouts": ["60_ansi_wkl_split_bs_rshift", "60_hhkb", "60_tsangan_hhkb"],
+    "community_layouts": [
+        "60_ansi_wkl_split_bs_rshift", 
+        "60_hhkb", 
+        "60_tsangan_hhkb"
+    ],
     "layouts": {
         "LAYOUT_60_ansi_wkl_split_bs_rshift": {
             "layout": [
