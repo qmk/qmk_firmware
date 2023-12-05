@@ -15,7 +15,7 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-	"rgblight": true
+        "rgblight": true
     },
     "matrix_pins": {
         "cols": ["GP2", "GP3", "GP4", "GP5", "GP6", "GP7", "GP8", "GP23", "GP20", "GP22", "GP26", "GP27", "GP28", "GP29"],
