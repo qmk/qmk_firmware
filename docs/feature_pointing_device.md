@@ -800,9 +800,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 #### Set different target layer when a particular layer is active:
 
-The below code will change the auto mouse layer target to `_MOUSE_LAYER_2` when `_DEFAULT_LAYER_2` is highest default layer state.   
-*NOTE: that `auto_mouse_layer_off` is used here instead of `remove_auto_mouse_layer` as `default_layer_state_set_*` stack is separate from the `layer_state_set_*` stack* if something similar was to be done in `layer_state_set_user `state = remove_auto_mouse_layer(state, false)` should be used instead    
-*ADDITIONAL NOTE: `AUTO_MOUSE_TARGET_LAYER` is checked if already set to avoid deactivating the target layer unless needed*   
+The below code will change the auto mouse layer target to `_MOUSE_LAYER_2` when `_DEFAULT_LAYER_2` is highest default layer state.
+
+*NOTE: that `auto_mouse_layer_off` is used here instead of `remove_auto_mouse_layer` as `default_layer_state_set_*` stack is separate from the `layer_state_set_*` stack*, if something similar was to be done in `layer_state_set_user`, `state = remove_auto_mouse_layer(state, false)` should be used instead.
+
+*ADDITIONAL NOTE: `AUTO_MOUSE_TARGET_LAYER` is checked if already set to avoid deactivating the target layer unless needed*.
 
 ```c
 // in keymap.c

@@ -217,8 +217,8 @@ if int(milc_version[0]) < 2 and int(milc_version[1]) < 4:
 # Make sure we can run binaries in the same directory as our Python interpreter
 python_dir = os.path.dirname(sys.executable)
 
-if python_dir not in os.environ['PATH'].split(':'):
-    os.environ['PATH'] = ":".join((python_dir, os.environ['PATH']))
+if python_dir not in os.environ['PATH'].split(os.pathsep):
+    os.environ['PATH'] = os.pathsep.join((python_dir, os.environ['PATH']))
 
 # Check to make sure we have all our dependencies
 msg_install = f'\nPlease run `{sys.executable} -m pip install -r %s` to install required python dependencies.'
