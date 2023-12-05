@@ -52,8 +52,6 @@ enum my_keycodes{
 
 #ifdef AUDIO_ENABLE
 #include "audio.h"
-float tone_startup[][2]         = SONG(STARTUP_SOUND);
-float tone_goodbye[][2]         = SONG(GOODBYE_SOUND);
 float tone_colemak[][2]         = SONG(COLEMAK_SOUND);
 float tone_swcole[][2]          = SONG(QWERTY_SOUND);
 float tone_capslock_on[][2]     = SONG(CAPS_LOCK_ON_SOUND);
@@ -413,33 +411,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 };
-
-void matrix_init_user(void){        // Run once at startup
-    #ifdef AUDIO_ENABLE
-        _delay_ms(50); // gets rid of tick
-        PLAY_SONG(tone_startup);
-    #endif
-}
-
-#ifdef AUDIO_ENABLE
-void play_goodbye_tone(void){
-  PLAY_SONG(tone_goodbye);
-  _delay_ms(150);
-}
-
-void shutdown_user(void){
-    PLAY_SONG(tone_goodbye);
-    _delay_ms(150);
-    stop_all_notes();
-}
-
-void music_on_user(void){           // Run when the music layer is turned on
-    PLAY_SONG(tone_startup);
-}
-
-void music_off_user(void){          // Run when music is turned off
-	PLAY_SONG(tone_goodbye);
-}
-#endif
 
 #endif

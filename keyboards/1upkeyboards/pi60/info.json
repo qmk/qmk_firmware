@@ -11,6 +11,9 @@
         "vid": "0x6F75"
     },
     "diode_direction": "COL2ROW",
+    "dynamic_keymap": {
+        "layer_count": 10
+    },
     "features": {
         "audio": false,
         "backlight": false,
