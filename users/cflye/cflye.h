@@ -61,12 +61,12 @@ enum unicode_names {
 // Left-hand home row mods (row 1)
 #define HOME_COL_Q LGUI_T(KC_Q)
 #define HOME_COL_W LALT_T(KC_W)
-#define HOME_COL_F LCTL_T(KC_F)
+#define HOME_COL_F LALT_T(KC_F)
 #define HOME_COL_P LSFT_T(KC_P)
 
 // Right-hand home row mods (row 1)
 #define HOME_COL_L RSFT_T(KC_L)
-#define HOME_COL_U RCTL_T(KC_U)
+#define HOME_COL_U LALT_T(KC_U)
 #define HOME_COL_Y LALT_T(KC_Y)
 #define HOME_COL_SCLN RGUI_T(KC_SCLN)
 

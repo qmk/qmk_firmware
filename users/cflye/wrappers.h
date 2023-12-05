@@ -17,11 +17,11 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define ________________CLIPBOARD_L________________     U_UND,             U_CUT,             U_CPY,             U_PST,             U_RDO
 #define ________________CLIPBOARD_R________________     U_RDO,             U_PST,             U_CPY,             U_CUT,             U_UND
 
-#define _________________COLEMAK_L1_________________    KC_Q,              KC_W,              KC_F,              KC_P,              KC_B
+#define _________________COLEMAK_L1_________________    KC_Q,              KC_W,              HOME_COL_F,        KC_P,              KC_B
 #define _________________COLEMAK_L2_________________    KC_A,              KC_R,              KC_S,              KC_T,              KC_G
 #define _________________COLEMAK_L3_________________    KC_Z,              KC_X,              KC_C,              KC_D,              KC_V
 
-#define _________________COLEMAK_R1_________________    KC_J,              KC_L,              KC_U,              KC_Y,              KC_SCLN
+#define _________________COLEMAK_R1_________________    KC_J,              KC_L,              HOME_COL_U,        KC_Y,              KC_SCLN
 #define _________________COLEMAK_R2_________________    KC_M,              KC_N,              KC_E,              KC_I,              KC_O
 #define _________________COLEMAK_R3_________________    KC_K,              KC_H,              KC_COMM,           KC_DOT,            KC_SLASH
 
@@ -110,7 +110,7 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define ________________NUMBER_LEFT________________     KC_1,              KC_2,              KC_3,              KC_4,              KC_5
 #define ________________NUMBER_RIGHT_______________     KC_6,              KC_7,              KC_8,              KC_9,              KC_0
 
-#define _________________THUMB_LEFT________________     KC_NO,             KC_NO,             KC_LALT,           LT(_MEDIA,KC_ESC), LT(_NAV,KC_SPC)
+#define _________________THUMB_LEFT________________     KC_NO,             KC_NO,             KC_NO,             LT(_MEDIA,KC_ESC), LT(_NAV,KC_SPC)
 #define _________________THUMB_RIGHT_______________     LT(_SYM,KC_ENT),   LT(_NUM,KC_TAB),   LGUI_T(KC_TAB),    KC_NO,             KC_NO
 
 
