@@ -1,0 +1,93 @@
+{
+    "manufacturer": "binepad",
+    "keyboard_name": "BNK9",
+    "url": "https://www.binepad.com/product-page/bnk9",
+    "maintainer": "binepad",
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "diode_direction": "COL2ROW",
+    "usb": {
+        "vid": "0x4249",
+        "pid": "0x4E39",
+        "device_version": "1.0.0"
+    },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "encoder": true,
+        "rgb_matrix": true,
+        "sleep_led": false
+    },
+    "ws2812": {
+        "driver": "vendor",
+        "pin": "GP11"
+    },
+    "matrix_pins": {
+        "cols": ["GP1", "GP2", "GP3"],
+        "rows": ["GP12", "GP4", "GP5", "GP6"]
+    },
+    "encoder": {
+        "rotary": [
+            {
+                "pin_a": "GP13",
+                "pin_b": "GP14"
+            }
+        ]
+    },
+    "rgb_matrix": {
+        "driver": "ws2812",
+        "animations": {
+            "solid_color": true,
+            "breathing": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "cycle_pinwheel": true,
+            "jellybean_raindrops": true,
+            "solid_reactive_simple": true,
+            "solid_reactive": true,
+            "splash": true,
+            "solid_splash": true,
+            "starlight": true,
+            "starlight_dual_hue": true,
+            "starlight_dual_sat": true,
+            "riverflow": true
+        },
+        "layout": [
+            {"flags": 4, "matrix": [1, 0], "x": 80, "y": 0},
+            {"flags": 4, "matrix": [1, 1], "x": 112, "y": 0},
+            {"flags": 4, "matrix": [1, 2], "x": 144, "y": 0},
+
+            {"flags": 4, "matrix": [2, 2], "x": 144, "y": 32},
+            {"flags": 4, "matrix": [2, 1], "x": 112, "y": 32},
+            {"flags": 4, "matrix": [2, 0], "x": 80, "y": 32},
+
+            {"flags": 4, "matrix": [3, 0], "x": 80, "y": 64},
+            {"flags": 4, "matrix": [3, 1], "x": 112, "y": 64},
+            {"flags": 4, "matrix": [3, 2], "x": 144, "y": 64}
+        ]
+    }
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                { "matrix": [0, 0], "label": "Encoder", "x": 0, "y": 0, "w": 3, "h": 3 },
+
+                { "matrix": [1, 0], "label": "F1", "x": 3.25, "y": 0 },
+                { "matrix": [1, 1], "label": "F2", "x": 4.25, "y": 0 },
+                { "matrix": [1, 2], "label": "F3", "x": 5.25, "y": 0 },
+
+                { "matrix": [2, 0], "label": "F4", "x": 3.25, "y": 1 },
+                { "matrix": [2, 1], "label": "F5", "x": 4.25, "y": 1 },
+                { "matrix": [2, 2], "label": "F6", "x": 5.25, "y": 1 },
+
+                { "matrix": [3, 0], "label": "F7", "x": 3.25, "y": 2 },
+                { "matrix": [3, 1], "label": "F8", "x": 4.25, "y": 2 },
+                { "matrix": [3, 2], "label": "F9", "x": 5.25, "y": 2 }
+            ]
+        }
+    }
+}
