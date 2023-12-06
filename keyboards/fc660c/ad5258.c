@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // AD5258 I2C digital potentiometer
 // http://www.analog.com/media/en/technical-documentation/data-sheets/AD5258.pdf
 //
-#define AD5258_I2C_ADDRESS 0x18
+#define AD5258_I2C_ADDRESS 0x30
 #define AD5258_INST_RDAC   0x00
 #define AD5258_INST_EEPROM 0x20
 
