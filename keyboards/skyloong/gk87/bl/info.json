@@ -1,0 +1,43 @@
+{
+    "manufacturer": "skyloong",
+    "maintainer": "NaturalZh",
+    "bootloader": "stm32duino",
+    "build": {
+        "debounce_type": "asym_eager_defer_pk"
+    },
+    "diode_direction": "ROW2COL",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A15", "pin_b": "B3", "resolution": 2},
+            {"pin_a": "B4", "pin_b": "B5", "resolution": 2},
+            {"pin_a": "B6", "pin_b": "B7", "resolution": 2}
+        ]
+    },
+    "features": {
+        "bootmagic": true,
+        "command": true,
+        "console": false,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "backlight": true
+    },
+    "matrix_pins": {
+        "cols": ["A0", "A1", "A2", "A3", "A4", "A5", "B0", "B1", "B10", "B11", "B12", "A7", "A6", "B9", "A14", "A13"],
+        "rows": ["A10", "A9", "A8", "B15", "B14", "B13"]
+    },
+    "processor": "STM32F103",
+    "backlight": {
+        "pin": "B8",
+        "levels": 20,
+        "breathing": true,
+        "breathing_period": 10,
+        "on_state": 1
+    },
+    "url": "https://github.com/JZ-Skyloong",
+    "usb": {
+        "max_power": 380,
+        "vid": "0x1EA7"
+    }
+}
