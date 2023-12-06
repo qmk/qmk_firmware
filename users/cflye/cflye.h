@@ -10,7 +10,7 @@
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 
-enum layers { _BASE, _ALT, _GAMING, _SYM, _NUM, _NAV,  _MEDIA, _FUN, _MOUSE  };
+enum layers { _BASE, _GAMING, _ALT, _SYM, _NUM, _NAV,  _MEDIA, _FUN, _MOUSE  };
 
 enum custom_keycodes {
     VRSN = SAFE_RANGE,

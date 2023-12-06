@@ -35,13 +35,13 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define _________________QWERTY_R2_NO_HOME__________    KC_H,              KC_J,              KC_K,              KC_L,              KC_SCLN
 #define _________________QWERTY_R3__________________    KC_N,              KC_M,              KC_COMM,           KC_DOT,            KC_SLASH
 
-#define _________________GAMING_L1__________________    KC_Q,              KC_W,              KC_E,              KC_R,              KC_T
-#define _________________GAMING_L2__________________    KC_A,              KC_S,              KC_D,              KC_F,              KC_G
-#define _________________GAMING_L3__________________    KC_Z,              KC_X,              KC_C,              KC_V,              KC_B
+#define _________________GAMING_L1__________________    KC_Q,              KC_W,              KC_F,              KC_P,              KC_B
+#define _________________GAMING_L2__________________    KC_A,              KC_R,              KC_S,              KC_T,              KC_G
+#define _________________GAMING_L3__________________    KC_Z,              KC_X,              KC_C,              KC_D,              KC_V
 
-#define _________________GAMING_R1__________________    KC_Y,              KC_U,              KC_I,              KC_O,              KC_P
-#define _________________GAMING_R2__________________    KC_H,              KC_J,              KC_K,              KC_L,              KC_SCLN
-#define _________________GAMING_R3__________________    KC_N,              KC_M,              KC_COMM,           KC_DOT,            KC_SLASH 
+#define _________________GAMING_R1__________________    KC_J,              KC_L,              KC_U,              KC_Y,              KC_SCLN
+#define _________________GAMING_R2__________________    KC_M,              KC_N,              KC_E,              KC_I,              KC_O
+#define _________________GAMING_R3__________________    KC_K,              KC_H,              KC_COMM,           KC_DOT,            KC_SLASH 
 
 #define ___________________SYM_L1___________________    KC_QUOT,           KC_LABK,           KC_RABK,           KC_DQUO,           KC_GRV
 #define ___________________SYM_L2___________________    KC_EXLM,           KC_MINS,           KC_PLUS,           KC_EQL,            KC_HASH
@@ -110,7 +110,7 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define ________________NUMBER_LEFT________________     KC_1,              KC_2,              KC_3,              KC_4,              KC_5
 #define ________________NUMBER_RIGHT_______________     KC_6,              KC_7,              KC_8,              KC_9,              KC_0
 
-#define _________________THUMB_LEFT________________     KC_NO,             KC_NO,             KC_NO,             LT(_MEDIA,KC_ESC), LT(_NAV,KC_SPC)
+#define _________________THUMB_LEFT________________     KC_NO,             KC_NO,             KC_LGUI,           LT(_MEDIA,KC_ESC), LT(_NAV,KC_SPC)
 #define _________________THUMB_RIGHT_______________     LT(_SYM,KC_ENT),   LT(_NUM,KC_TAB),   LGUI_T(KC_TAB),    KC_NO,             KC_NO
 
 
