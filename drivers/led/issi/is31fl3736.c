@@ -47,8 +47,7 @@
 #    define IS31FL3736_GLOBAL_CURRENT 0xFF
 #endif
 
-// Transfer buffer for TWITransmitData()
-uint8_t g_twi_transfer_buffer[20];
+uint8_t i2c_transfer_buffer[20];
 
 // These buffers match the IS31FL3736 PWM registers.
 // The control buffers match the page 0 LED On/Off registers.
@@ -63,15 +62,15 @@ uint8_t g_led_control_registers[IS31FL3736_DRIVER_COUNT][IS31FL3736_LED_CONTROL_
 bool    g_led_control_registers_update_required[IS31FL3736_DRIVER_COUNT]                        = {false};
 
 void is31fl3736_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
-    g_twi_transfer_buffer[0] = reg;
-    g_twi_transfer_buffer[1] = data;
+    i2c_transfer_buffer[0] = reg;
+    i2c_transfer_buffer[1] = data;
 
 #if IS31FL3736_I2C_PERSISTENCE > 0
     for (uint8_t i = 0; i < IS31FL3736_I2C_PERSISTENCE; i++) {
-        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 2, IS31FL3736_I2C_TIMEOUT) == 0) break;
+        if (i2c_transmit(addr << 1, i2c_transfer_buffer, 2, IS31FL3736_I2C_TIMEOUT) == 0) break;
     }
 #else
-    i2c_transmit(addr << 1, g_twi_transfer_buffer, 2, IS31FL3736_I2C_TIMEOUT);
+    i2c_transmit(addr << 1, i2c_transfer_buffer, 2, IS31FL3736_I2C_TIMEOUT);
 #endif
 }
 
@@ -84,22 +83,22 @@ void is31fl3736_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     // assumes page 1 is already selected
 
     // transmit PWM registers in 12 transfers of 16 bytes
-    // g_twi_transfer_buffer[] is 20 bytes
+    // i2c_transfer_buffer[] is 20 bytes
 
     // iterate over the pwm_buffer contents at 16 byte intervals
     for (int i = 0; i < IS31FL3736_PWM_REGISTER_COUNT; i += 16) {
-        g_twi_transfer_buffer[0] = i;
+        i2c_transfer_buffer[0] = i;
         // copy the data from i to i+15
         // device will auto-increment register for data after the first byte
         // thus this sets registers 0x00-0x0F, 0x10-0x1F, etc. in one transfer
-        memcpy(g_twi_transfer_buffer + 1, pwm_buffer + i, 16);
+        memcpy(i2c_transfer_buffer + 1, pwm_buffer + i, 16);
 
 #if IS31FL3736_I2C_PERSISTENCE > 0
         for (uint8_t i = 0; i < IS31FL3736_I2C_PERSISTENCE; i++) {
-            if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 17, IS31FL3736_I2C_TIMEOUT) == 0) break;
+            if (i2c_transmit(addr << 1, i2c_transfer_buffer, 17, IS31FL3736_I2C_TIMEOUT) == 0) break;
         }
 #else
-        i2c_transmit(addr << 1, g_twi_transfer_buffer, 17, IS31FL3736_I2C_TIMEOUT);
+        i2c_transmit(addr << 1, i2c_transfer_buffer, 17, IS31FL3736_I2C_TIMEOUT);
 #endif
     }
 }
