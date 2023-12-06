@@ -19,6 +19,9 @@
         "pin": "D3"
     },
     "development_board": "promicro",
+    "layout_aliases": {
+        "LAYOUT_6x6": "LAYOUT"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

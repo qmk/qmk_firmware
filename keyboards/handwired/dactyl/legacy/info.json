@@ -10,6 +10,9 @@
         "toggle": 1
     },
     "diode_direction": "ROW2COL",
+    "layouts_aliases": {
+        "LAYOUT_dactyl": "LAYOUT"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
