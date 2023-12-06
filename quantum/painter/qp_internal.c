@@ -17,6 +17,7 @@ enum {
                      + (GC9A01_NUM_DEVICES)  // GC9A01
                      + (SSD1351_NUM_DEVICES) // SSD1351
                      + (SH1106_NUM_DEVICES)  // SH1106
+                     + (LS0XX_NUM_DEVICES)   // LS0XX
 };
 
 static painter_device_t qp_devices[QP_NUM_DEVICES] = {NULL};
