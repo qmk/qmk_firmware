@@ -67,7 +67,7 @@
                 { "matrix": [4, 2], "label":"Z", "x":2.5, "y":5.6 },
                 { "matrix": [4, 3], "label":"S", "x":3.5, "y":4.5 },
                 { "matrix": [4, 5], "label":"V", "x":5, "y":5.75, "w":1.5 },
-                { "matrix": [4, 6], "label":"Space", "x":6.5, "y":6.85, "w":1.75 }
+                { "matrix": [4, 6], "label":"Space", "x":6.5, "y":6.85, "w":1.75 },
 
                 { "matrix": [5, 1], "label":"L Ctrl Duck", "x":0.25, "y":6.75, "w":1.5 },
                 { "matrix": [5, 3], "label":"X", "x":3.5, "y":5.6 },
