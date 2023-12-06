@@ -21,7 +21,7 @@
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0001",
-        "vid": "0x25D5"
+        "vid": "0x5918"
     },
     "community_layouts": ["65_ansi_blocker", "65_ansi_blocker_split_bs"],
     "layout_aliases": {
