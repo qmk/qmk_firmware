@@ -49,6 +49,7 @@
     "rgb_matrix": {
         "driver": "is31fl3731",
         "max_brightness": 175,
+        "sleep": true,
         "animations": {
             "solid_color": true,
             "alphas_mods": true,
@@ -149,9 +150,6 @@
             {"matrix": [11, 5], "x": 128, "y": 58, "flags": 1},
             {"matrix": [11, 6], "x": 138, "y": 53, "flags": 1}
         ]
-    },
-    "tapping": {
-        "toggle": 1
     },
     "layout_aliases": {
         "LAYOUT_voyager": "LAYOUT"
