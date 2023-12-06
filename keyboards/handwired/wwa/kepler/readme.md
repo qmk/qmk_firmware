@@ -2,7 +2,6 @@
 
 ![kepler](https://i.imgur.com/UD1J92Eh.jpeg)
 
-*A short description of the keyboard/project*
 Second model of the Argentinian based keyboard manufacturer WWA
 
 * Keyboard Maintainer: [spacehangover](https://github.com/spacehangover)
