@@ -6,6 +6,7 @@ import json
 
 from milc import cli
 
+import qmk.path
 from qmk.datetime import current_datetime
 from qmk.info import info_json
 from qmk.json_schema import json_load
@@ -126,9 +127,10 @@ def generate_api(cli):
 
         # Populate the list of JSON keymaps
         for keymap in list_keymaps(keyboard_name, c=False, fullpath=True):
+            keymap_rel = qmk.path.under_qmk_firmware(keymap)
             kb_json['keymaps'][keymap.name] = {
                 # TODO: deprecate 'url' as consumer needs to know its potentially hjson
-                'url': f'https://raw.githubusercontent.com/qmk/qmk_firmware/master/{keymap}/keymap.json',
+                'url': f'https://raw.githubusercontent.com/qmk/qmk_firmware/master/{keymap_rel}/keymap.json',
 
                 # Instead consumer should grab from API and not repo directly
                 'path': (keymap / 'keymap.json').as_posix(),
