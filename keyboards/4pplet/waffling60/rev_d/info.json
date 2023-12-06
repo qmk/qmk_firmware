@@ -8,6 +8,11 @@
         "pid": "0x000E",
         "device_version": "0.0.4"
     },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 1
+    },
     "ws2812": {
         "pin": "A8"
     },

@@ -25,7 +25,6 @@ enum dz60rgb_keycodes {
 #define _V_V_V_ KC_TRNS
 #define LT_CAPS LT(_NAV, KC_CAPS)
 #define LT_DEL  LT(_RGB, KC_DEL)
-extern bool autoshift_enabled;
 #define MT_SLSH RSFT_T(KC_SLSH)
 #define MT_APP  RALT_T(KC_APP)
 #define LM_LALT LM(_FNM, MOD_LALT)
@@ -92,12 +91,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool rgb_matrix_indicators_user(void) {
-	uint8_t this_led = host_keyboard_leds();
+	led_t led_state = host_keyboard_led_state();
 
 	if (!g_suspend_state && rgb_matrix_config.enable) {
 		switch (get_highest_layer(layer_state)) {
 		case _NAV:
-			if (this_led & (1 << USB_LED_NUM_LOCK)) {
+			if (led_state.num_lock) {
 				rgb_matrix_set_color(13, 0xFF, 0x00, 0x00);
 				rgb_matrix_set_color(19, 0xFF, 0xFF, 0x00);
 			} else {
@@ -204,17 +203,11 @@ bool rgb_matrix_indicators_user(void) {
 			rgb_matrix_set_color(41, 0xFF, 0x00, 0x40); // ctrl+delete
 			rgb_matrix_set_color(43, 0xFF, 0x00, 0x40); // ctrl+slash
 
-			if (this_led & (1 << !autoshift_enabled)) {
-				rgb_matrix_set_color(0, 0xFF, 0x00, 0x00); // AS_TOGG
-			} else {
-				rgb_matrix_set_color(0, 0xFF, 0xFF, 0x00);
-			}
-
 			break;
 		}
 	}
 
-	if (this_led & (1 << USB_LED_CAPS_LOCK)) {
+	if (led_state.caps_lock) {
 		rgb_matrix_set_color(40, 0xFF, 0xFF, 0xFF);
 	}
     return false;

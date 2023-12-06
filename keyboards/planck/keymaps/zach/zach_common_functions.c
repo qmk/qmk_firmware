@@ -52,8 +52,6 @@ enum my_keycodes{
 
 #ifdef AUDIO_ENABLE
 #include "audio.h"
-float tone_startup[][2]         = SONG(STARTUP_SOUND);
-float tone_goodbye[][2]         = SONG(GOODBYE_SOUND);
 float tone_colemak[][2]         = SONG(COLEMAK_SOUND);
 float tone_swcole[][2]          = SONG(QWERTY_SOUND);
 float tone_capslock_on[][2]     = SONG(CAPS_LOCK_ON_SOUND);
@@ -141,31 +139,31 @@ tap_dance_action_t tap_dance_actions[] = {
 
 //#ifdef UNICODE_ENABLE
 // Unicode shortcuts
-#define IBANG   X(0x203D)
-#define RAROW   X(0x2192)
-#define LAROW   X(0x2190)
-#define DEGREE  X(0x00B0)
-#define OMEGA   X(0x03A9)
-#define WOMEGA  X(0x03C9)
-#define MICRO   X(0x00B5)
-#define PLUMIN  X(0x00B1)
-#define SUPA2   X(0x00B2)
-#define ROMAN1  X(0x2160)
-#define ROMAN2  X(0x2161)
-#define ROMAN3  X(0x2162)
-#define ROMAN4  X(0x2163)
-#define ROMAN5  X(0x2164)
-#define ROMAN6  X(0x2165)
-#define ROMAN7  X(0x2166)
-#define roman1  X(0x2170)
-#define roman2  X(0x2171)
-#define roman3  X(0x2172)
-#define roman4  X(0x2173)
-#define roman5  X(0x2174)
-#define roman6  X(0x2175)
-#define roman7  X(0x2176)
+#define IBANG   UM(0x203D)
+#define RAROW   UM(0x2192)
+#define LAROW   UM(0x2190)
+#define DEGREE  UM(0x00B0)
+#define OMEGA   UM(0x03A9)
+#define WOMEGA  UM(0x03C9)
+#define MICRO   UM(0x00B5)
+#define PLUMIN  UM(0x00B1)
+#define SUPA2   UM(0x00B2)
+#define ROMAN1  UM(0x2160)
+#define ROMAN2  UM(0x2161)
+#define ROMAN3  UM(0x2162)
+#define ROMAN4  UM(0x2163)
+#define ROMAN5  UM(0x2164)
+#define ROMAN6  UM(0x2165)
+#define ROMAN7  UM(0x2166)
+#define roman1  UM(0x2170)
+#define roman2  UM(0x2171)
+#define roman3  UM(0x2172)
+#define roman4  UM(0x2173)
+#define roman5  UM(0x2174)
+#define roman6  UM(0x2175)
+#define roman7  UM(0x2176)
 
-#ifdef UNICODEMAP_ENABLE        // For Unicode characters larger than 0x8000. Send with X(<unicode>)
+#ifdef UNICODEMAP_ENABLE
 enum Ext_Unicode{
     PENGUIN = 0,
     BOAR,
@@ -182,12 +180,12 @@ const uint32_t unicode_map[] PROGMEM = {
     [CHICK]     = 0x1F425,
     [TUMBLER]   = 0x1F943
 };
-#define PENGY   X(PENGUIN)
-#define BOARY   X(BOAR)
-#define MNKY    X(MONKEY)
-#define DRGN    X(DRAGON)
-#define DUCK    X(CHICK)
-#define TMBL    X(TUMBLER)
+#define PENGY   UM(PENGUIN)
+#define BOARY   UM(BOAR)
+#define MNKY    UM(MONKEY)
+#define DRGN    UM(DRAGON)
+#define DUCK    UM(CHICK)
+#define TMBL    UM(TUMBLER)
 #endif
 
 //#endif
@@ -413,33 +411,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 };
-
-void matrix_init_user(void){        // Run once at startup
-    #ifdef AUDIO_ENABLE
-        _delay_ms(50); // gets rid of tick
-        PLAY_SONG(tone_startup);
-    #endif
-}
-
-#ifdef AUDIO_ENABLE
-void play_goodbye_tone(void){
-  PLAY_SONG(tone_goodbye);
-  _delay_ms(150);
-}
-
-void shutdown_user(void){
-    PLAY_SONG(tone_goodbye);
-    _delay_ms(150);
-    stop_all_notes();
-}
-
-void music_on_user(void){           // Run when the music layer is turned on
-    PLAY_SONG(tone_startup);
-}
-
-void music_off_user(void){          // Run when music is turned off
-	PLAY_SONG(tone_goodbye);
-}
-#endif
 
 #endif

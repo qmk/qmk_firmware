@@ -67,24 +67,6 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   return OLED_ROTATION_180;
 }
 bool oled_task_user(void) {
-  // Host Keyboard Layer Status
-  /*oled_write_P(PSTR("Lyr: "), false);
-  switch (get_highest_layer(layer_state)) {
-    case 0:
-      oled_write_P(PSTR("Alpha\n"), false);
-      break;
-    case 1:
-      oled_write_P(PSTR("FN\n"), false);
-      break;
-    default:
-      // Or use the write_ln shortcut over adding '\n' to the end of your string
-      oled_write_ln_P(PSTR("Undefined"), false);
-  }
-
-  uint8_t led_usb_state = host_keyboard_leds();
-  oled_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR("CAPLCK ") : PSTR("       "), false);
-  */
-
   static const char PROGMEM qmk_logo[] = {
     0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
     0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,

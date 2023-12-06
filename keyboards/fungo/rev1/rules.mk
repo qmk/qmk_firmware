@@ -14,6 +14,4 @@ KEY_LOCK_ENABLE = yes       # kc_lock use
 
 
 OLED_ENABLE = no
-OLED_DRIVER = SSD1306      # OLED display
 SPLIT_KEYBOARD = yes       # split type
-

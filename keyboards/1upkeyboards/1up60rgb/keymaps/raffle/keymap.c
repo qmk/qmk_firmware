@@ -71,42 +71,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _raise, _rgb, _adjust);
 }
 
-
-// scan matrix
-void matrix_scan_user(void) {
-}
-
 // support for standard mod state keys (caps lock, scroll lock, etc.)
-void led_set_user(uint8_t usb_led) {
-
-  if (usb_led & (1 << USB_LED_NUM_LOCK)) {
-
-  } else {
-
-  }
-
-  if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
+bool led_update_user(led_t led_state) {
+  if (led_state.caps_lock) {
     DDRB |= (1 << 2); PORTB &= ~(1 << 2);
   } else {
     DDRB &= ~(1 << 2); PORTB &= ~(1 << 2);
   }
-
-  if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
-
-  } else {
-
-  }
-
-  if (usb_led & (1 << USB_LED_COMPOSE)) {
-
-  } else {
-
-  }
-
-  if (usb_led & (1 << USB_LED_KANA)) {
-
-  } else {
-
-  }
-
+  return false;
 }

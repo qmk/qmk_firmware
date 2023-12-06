@@ -24,6 +24,19 @@
         "pid": "0x6F21",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 8,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "twinkle": true
+        }
+    },
     "ws2812": {
       "pin": "B4"
     },

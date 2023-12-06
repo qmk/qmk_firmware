@@ -2,9 +2,13 @@
     background-color: #555;
 }
 
-.markdown-section p.tip,
 .markdown-section tr:nth-child(2n) {
- background-color:#444;
+    background-color:#444;
+}
+
+.markdown-section p.tip {
+    background-color:#555;
+    color:#FFF;
 }
 
 .markdown-section tr {
@@ -16,7 +20,7 @@
 }
 
 .markdown-section p.tip code {
-    background-color: #555;
+    background-color: #333;
     color: #fff;
 }
 

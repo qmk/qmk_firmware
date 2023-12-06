@@ -22,8 +22,3 @@
 // They are set as output and pulled high, by default
 #define UNUSABLE_PINS \
     { D1, D3, B4, B7, D6, C7, F6, F5, F3, F7 }
-
-#define RGBLED_NUM 3
-#define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#define RGBLIGHT_EFFECT_RAINBOW_SWIRL

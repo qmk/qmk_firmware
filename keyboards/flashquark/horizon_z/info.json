@@ -20,7 +20,7 @@
     },
     "processor": "atmega32u4",
     "rgb_matrix": {
-        "driver": "IS31FL3733",
+        "driver": "is31fl3733",
         "layout": [
             { "flags": 1, "matrix": [0, 0], "x": 0, "y": 0 },
             { "flags": 4, "matrix": [0, 1], "x": 16, "y": 0 },

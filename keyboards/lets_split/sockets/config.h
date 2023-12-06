@@ -18,8 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define RGBLED_NUM 12    // Number of LEDs
-
 /* Audio settings */
 #ifdef AUDIO_ENABLE
     #define AUDIO_PIN C6 // Define this to enable the buzzer

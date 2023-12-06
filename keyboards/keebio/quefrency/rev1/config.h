@@ -25,19 +25,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* ws2812 RGB LED */
-#define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#define RGBLIGHT_EFFECT_SNAKE
-#define RGBLIGHT_EFFECT_KNIGHT
-#define RGBLIGHT_EFFECT_CHRISTMAS
-#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#define RGBLIGHT_EFFECT_RGB_TEST
-#define RGBLIGHT_EFFECT_ALTERNATING
-#define RGBLIGHT_EFFECT_TWINKLE
-#define RGBLED_NUM 16    // Number of LEDs
-#define RGBLED_SPLIT { 8, 8 }
-
 // Set 65% column (option 1) and Macro (option 2) on by default
 #define VIA_EEPROM_LAYOUT_OPTIONS_DEFAULT 0x60

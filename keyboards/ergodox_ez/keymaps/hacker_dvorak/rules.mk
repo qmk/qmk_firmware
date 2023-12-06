@@ -31,7 +31,6 @@ SWAP_HANDS_ENABLE = no  # Allow swapping hands of keyboard.
 # POINTING_DEVICE_ENABLE = no
 
 # AUTO_SHIFT_ENABLE    = no
-# AUTO_SHIFT_MODIFIERS = no
 
 # This don't need argument?
 # CUSTOM_MATRIX    # Custom matrix file for the ErgoDox EZ

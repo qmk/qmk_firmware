@@ -63,7 +63,6 @@ ifeq ($(strip $(LED_ANIMATIONS)), yes)
 endif
 
 ifeq ($(strip $(OLED_ENABLE)), yes)
-    OLED_DRIVER = SSD1306
     ifeq ($(strip $(LOCAL_GLCDFONT)), yes)
        OPT_DEFS += -DOLED_FONT_H=\<helixfont.h\>
     else
