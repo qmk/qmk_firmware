@@ -42,6 +42,9 @@
 #ifdef LED_MATRIX_IS31FL3741
 #    include "is31fl3741-simple.h"
 #endif
+#ifdef LED_MATRIX_IS31FL3742A
+#    include "is31fl3742a-simple.h"
+#endif
 #if defined(IS31FLCOMMON)
 #    include "is31flcommon.h"
 #endif
