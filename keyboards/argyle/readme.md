@@ -19,5 +19,5 @@ Flashing example for this keyboard:
 Bootloader:
 use usbasploader HSGW's my repository.
 https://github.com/hsgw/USBaspLoader/tree/plaid
-
+To put the board in bootloader, either press and hold escape as you plug in, or press the button under the spacebar as you plug in.
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
