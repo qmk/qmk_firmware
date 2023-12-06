@@ -10,6 +10,7 @@
         "no_startup_check": true
     },
     "matrix_pins": {
+        "custom": true,
         "custom_lite": true
     },
     "processor": "RP2040",
