@@ -28,7 +28,7 @@ enum {
 	RSHIFT,
 	LSHIFT,
 	TD_S,
-	SLASH	
+	SLASH
 };
 
 int cur_dance (tap_dance_state_t *state);
@@ -116,10 +116,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    		TD(LSHIFT), KC_QUOT, KC_Q, KC_J, KC_K, KC_X, KC_B, KC_M, KC_W, KC_V, KC_Z, TD(RSHIFT),
     	TD(X_AT_FUN), KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, ALT_TAB, KC_SPACE, KC_ENTER, MT(MOD_LCTL | MOD_LSFT, KC_LGUI), KC_PGUP, KC_PGDN, LT(_LOWER, KC_PLUS)
    	),
-	
+
 	[_UPPER] = LAYOUT_planck_grid(
 		KC_GRAVE, KC_AMPR, KC_PERC, KC_NO, KC_NO, KC_EQL, KC_ASTR, KC_NO, KC_NO, KC_EXLM, KC_HASH, KC_TRNS,
-		KC_PLUS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_BSLS, 
+		KC_PLUS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_BSLS,
 		KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
 		KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS
 	),
@@ -156,7 +156,7 @@ int cur_dance (tap_dance_state_t *state) {
 		if (state->interrupted || !state->pressed)return TRIPLE_TAP;
 		else return TRIPLE_HOLD;
 	}
-	else return 8; // magic number that i dont believe works. 
+	else return 8; // magic number that i dont believe works.
 }
 
 // instance of tap for the 'X' dance.
@@ -251,4 +251,7 @@ tap_dance_action_t tap_dance_actions[] = {
 
 };
 
-void shutdown_user(void) { clear_keyboard(); }
+bool shutdown_user(bool jump_to_bootloader) {
+    clear_keyboard();
+    return true;
+}
