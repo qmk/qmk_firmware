@@ -37,8 +37,7 @@
         { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF }
 #endif
 
-// Transfer buffer for TWITransmitData()
-uint8_t g_twi_transfer_buffer[65];
+uint8_t i2c_transfer_buffer[65];
 
 // These buffers match the SNLED27351 PWM registers.
 // The control buffers match the PG0 LED On/Off registers.
@@ -54,17 +53,17 @@ bool    g_led_control_registers_update_required[SNLED27351_DRIVER_COUNT]        
 
 bool snled27351_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
     // If the transaction fails function returns false.
-    g_twi_transfer_buffer[0] = reg;
-    g_twi_transfer_buffer[1] = data;
+    i2c_transfer_buffer[0] = reg;
+    i2c_transfer_buffer[1] = data;
 
 #if SNLED27351_I2C_PERSISTENCE > 0
     for (uint8_t i = 0; i < SNLED27351_I2C_PERSISTENCE; i++) {
-        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 2, SNLED27351_I2C_TIMEOUT) != 0) {
+        if (i2c_transmit(addr << 1, i2c_transfer_buffer, 2, SNLED27351_I2C_TIMEOUT) != 0) {
             return false;
         }
     }
 #else
-    if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 2, SNLED27351_I2C_TIMEOUT) != 0) {
+    if (i2c_transmit(addr << 1, i2c_transfer_buffer, 2, SNLED27351_I2C_TIMEOUT) != 0) {
         return false;
     }
 #endif
@@ -82,22 +81,22 @@ bool snled27351_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
 
     // Iterate over the pwm_buffer contents at 64 byte intervals.
     for (uint8_t i = 0; i < SNLED27351_PWM_REGISTER_COUNT; i += 64) {
-        g_twi_transfer_buffer[0] = i;
+        i2c_transfer_buffer[0] = i;
         // Copy the data from i to i+63.
         // Device will auto-increment register for data after the first byte
         // Thus this sets registers 0x00-0x0F, 0x10-0x1F, etc. in one transfer.
         for (uint8_t j = 0; j < 64; j++) {
-            g_twi_transfer_buffer[1 + j] = pwm_buffer[i + j];
+            i2c_transfer_buffer[1 + j] = pwm_buffer[i + j];
         }
 
 #if SNLED27351_I2C_PERSISTENCE > 0
         for (uint8_t i = 0; i < SNLED27351_I2C_PERSISTENCE; i++) {
-            if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 65, SNLED27351_I2C_TIMEOUT) != 0) {
+            if (i2c_transmit(addr << 1, i2c_transfer_buffer, 65, SNLED27351_I2C_TIMEOUT) != 0) {
                 return false;
             }
         }
 #else
-        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 65, SNLED27351_I2C_TIMEOUT) != 0) {
+        if (i2c_transmit(addr << 1, i2c_transfer_buffer, 65, SNLED27351_I2C_TIMEOUT) != 0) {
             return false;
         }
 #endif
