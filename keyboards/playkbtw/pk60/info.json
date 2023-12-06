@@ -43,6 +43,9 @@
   },
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
+  "layout_aliases": {
+    "LAYOUT_60_iso": "LAYOUT_60_iso_split_bs_rshift"
+  },
   "community_layouts": ["60_ansi_split_bs_rshift", "60_iso_split_bs_rshift"],
   "layouts": {
     "LAYOUT_60_ansi_split_bs_rshift": {
