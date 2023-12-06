@@ -33,7 +33,7 @@
         "layer_count": 6
     },
     "rgb_matrix": {
-        "driver": "ckled2001",
+        "driver": "snled27351",
         "max_brightness": 200,
         "val_steps": 20,
         "animations": {
