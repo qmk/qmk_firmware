@@ -21,7 +21,6 @@ You can use between 1 and 4 IS31FL3731 IC's. Do not specify `LED_DRIVER_ADDR_<N>
 |----------|-------------|---------|
 | `IS31FL3731_I2C_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
 | `IS31FL3731_I2C_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
-| `IS31FL3731_DRIVER_COUNT` | (Required) How many LED driver IC's are present | |
 | `LED_MATRIX_LED_COUNT` | (Required) How many LED lights are present across all drivers | |
 | `IS31FL3731_I2C_ADDRESS_1` | (Required) Address for the first LED driver | |
 | `IS31FL3731_I2C_ADDRESS_2` | (Optional) Address for the second LED driver | |
@@ -43,7 +42,6 @@ Here is an example using 2 drivers.
 #define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
 #define IS31FL3731_I2C_ADDRESS_2 IS31FL3731_I2C_ADDRESS_SDA
 
-#define IS31FL3731_DRIVER_COUNT 2
 #define LED_DRIVER_1_LED_TOTAL 25
 #define LED_DRIVER_2_LED_TOTAL 24
 #define LED_MATRIX_LED_COUNT (LED_DRIVER_1_LED_TOTAL + LED_DRIVER_2_LED_TOTAL)
@@ -96,7 +94,6 @@ Configure the hardware via your `config.h`:
 |----------|-------------|---------|
 | `ISSI_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
 | `ISSI_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
-| `DRIVER_COUNT` | (Required) How many LED driver IC's are present | |
 | `LED_MATRIX_LED_COUNT` | (Required) How many LED lights are present across all drivers | |
 | `DRIVER_ADDR_1` | (Optional) Address for the first LED driver | |
 | `DRIVER_ADDR_<N>` | (Required) Address for the additional LED drivers | |
@@ -129,7 +126,6 @@ Here is an example using 2 drivers.
 ```c
 #define DRIVER_ADDR_2 0b0100001
 
-#define DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 66
 #define DRIVER_2_LED_TOTAL 42
 #define LED_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)

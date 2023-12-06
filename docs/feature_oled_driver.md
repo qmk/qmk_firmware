@@ -183,22 +183,8 @@ void oled_render_boot(bool bootloader) {
     oled_render_dirty(true);
 }
 
-bool reboot = false;
-
-bool uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-  
-        // Display a special message prior to rebooting...
-        if (keycode == QK_BOOT) {
-           reboot = true;
-        }
-    }
-
-    return true;
-}
-
-void shutdown_user(void) {
-    oled_render_boot(reboot);
+bool shutdown_user(bool jump_to_bootloader) {
+    oled_render_boot(jump_to_bootloader);
 }
 
 ```
@@ -227,7 +213,7 @@ These configuration options should be placed in `config.h`. Example:
 |`OLED_SCROLL_TIMEOUT_RIGHT`|*Not defined*                  |Scroll timeout direction is right when defined, left when undefined.                                                 |
 |`OLED_TIMEOUT`             |`60000`                        |Turns off the OLED screen after 60000ms of screen update inactivity. Helps reduce OLED Burn-in. Set to 0 to disable. |
 |`OLED_UPDATE_INTERVAL`     |`0` (`50` for split keyboards) |Set the time interval for updating the OLED display in ms. This will improve the matrix scan rate.                   |
-|`OLED_UPDATE_PROCESS_LIMIT'|`1`                            |Set the number of dirty blocks to render per loop. Increasing may degrade performance.                               |
+|`OLED_UPDATE_PROCESS_LIMIT`|`1`                            |Set the number of dirty blocks to render per loop. Increasing may degrade performance.                               |
 
 ### I2C Configuration
 |Define                     |Default          |Description                                                                                                               |

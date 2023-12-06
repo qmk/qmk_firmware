@@ -21,8 +21,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGBLIGHT_ENABLE
 
 #    include "ergodox_ez.h"
+#    include "ws2812.h"
 
-void rgblight_call_driver(rgb_led_t *led, uint8_t led_num) {
+void setleds_custom(rgb_led_t *led, uint16_t led_num) {
     i2c_init();
     i2c_start(0x84, ERGODOX_EZ_I2C_TIMEOUT);
     int i = 0;
@@ -51,5 +52,8 @@ void rgblight_call_driver(rgb_led_t *led, uint8_t led_num) {
     ws2812_setleds(led, led_num);
 }
 
+const rgblight_driver_t rgblight_driver = {
+    .setleds = setleds_custom,
+};
 
 #endif  // RGBLIGHT_ENABLE

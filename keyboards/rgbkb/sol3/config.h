@@ -43,10 +43,6 @@
 /* Split Transport Features */
 #define SPLIT_TRANSACTION_IDS_KB TOUCH_ENCODER_SYNC, RGB_MENU_SYNC
 
-/* LED Turbo DIP Switch */
-#define DIP_SWITCH_PINS { A14, B13 }
-#define DIP_SWITCH_PINS_RIGHT { A14, B0 }
-
 #define RGB_MATRIX_LED_COUNT 156
 #define RGB_MATRIX_SPLIT { 78, 78 }
 #define RGB_MATRIX_CENTER { 81, 28 }

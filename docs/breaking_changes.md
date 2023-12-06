@@ -10,9 +10,9 @@ Practically, this means QMK merges the `develop` branch into the `master` branch
 
 ## What has been included in past Breaking Changes?
 
+* [2023 Nov 26](ChangeLog/20231126.md)
 * [2023 Aug 27](ChangeLog/20230827.md)
 * [2023 May 28](ChangeLog/20230528.md)
-* [2023 Feb 26](ChangeLog/20230226.md)
 * [Older Breaking Changes](breaking_changes_history.md)
 
 ## When is the next Breaking Change?
@@ -21,14 +21,14 @@ The next Breaking Change is scheduled for November 26, 2023.
 
 ### Important Dates
 
-* 2023 Aug 27 - `develop` is tagged with a new release version. Each push to `master` is subsequently merged to `develop` by GitHub actions.
-* 2023 Oct 29 - `develop` closed to new PRs.
-* 2023 Oct 29 - Call for testers.
-* 2023 Nov 5 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
-* 2023 Nov 19 - `develop` is locked, only critical bugfix PRs merged.
-* 2023 Nov 23 - `master` is locked, no PRs merged.
-* 2023 Nov 26 - Merge `develop` to `master`.
-* 2023 Nov 26 - `master` is unlocked. PRs can be merged again.
+* 2023 Nov 26 - `develop` is tagged with a new release version. Each push to `master` is subsequently merged to `develop` by GitHub actions.
+* 2024 Jan 28 - `develop` closed to new PRs.
+* 2024 Jan 28 - Call for testers.
+* 2024 Feb 4 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
+* 2024 Feb 18 - `develop` is locked, only critical bugfix PRs merged.
+* 2024 Feb 22 - `master` is locked, no PRs merged.
+* 2024 Feb 25 - Merge `develop` to `master`.
+* 2024 Feb 25 - `master` is unlocked. PRs can be merged again.
 
 ## What changes will be included?
 
@@ -48,7 +48,7 @@ Criteria for acceptance:
 
 Strongly suggested:
 
-* The PR has a ChangeLog file describing the changes under `<qmk_firmware>/docs/Changelog/20231126`.
+* The PR has a ChangeLog file describing the changes under `<qmk_firmware>/docs/Changelog/20240225`.
     * This should be in Markdown format, with a name in the format `PR12345.md`, substituting the digits for your PRs ID.
     * One strong recommendation that the ChangeLog document matches the PR description on GitHub, so as to ensure traceability.
 

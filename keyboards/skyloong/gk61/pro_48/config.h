@@ -3,8 +3,6 @@
 
 #pragma once
 
-
-#define DRIVER_COUNT 1
 #define RGB_MATRIX_LED_COUNT 64
 #define CAPS_LOCK_INDEX 28
 #define WIN_MOD_INDEX 16

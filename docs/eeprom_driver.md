@@ -66,6 +66,14 @@ Currently QMK supports 25xx-series chips over SPI. As such, requires a working s
 `#define EXTERNAL_EEPROM_PAGE_SIZE`            | `32`          | Page size of the EEPROM in bytes, as specified in the datasheet
 `#define EXTERNAL_EEPROM_ADDRESS_SIZE`         | `2`           | The number of bytes to transmit for the memory location within the EEPROM
 
+Default values and extended descriptions can be found in `drivers/eeprom/eeprom_spi.h`.
+
+Alternatively, there are pre-defined hardware configurations for available chips/modules:
+
+Module           | Equivalent `#define`            | Source
+-----------------|---------------------------------|------------------------------------------
+MB85RS64V FRAM   | `define EEPROM_SPI_MB85RS64V`   | <https://www.adafruit.com/product/1897>
+
 !> There's no way to determine if there is an SPI EEPROM actually responding. Generally, this will result in reads of nothing but zero.
 
 ## Transient Driver configuration :id=transient-eeprom-driver-configuration
