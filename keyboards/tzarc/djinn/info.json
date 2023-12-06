@@ -45,7 +45,6 @@
   },
   "split": {
     "enabled": true,
-    "main": "pin",
     "encoder": {
       "right": {
         "rotary": [

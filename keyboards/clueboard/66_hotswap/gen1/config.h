@@ -37,7 +37,6 @@
 #define I2C1_SCL_PIN B8
 #define I2C1_SDA_PIN B9
 
-#define IS31FL3731_DRIVER_COUNT 1
 #define LED_MATRIX_LED_COUNT 71
 
 // LED Matrix Animation modes. Explicitly enabled
