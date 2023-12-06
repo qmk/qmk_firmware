@@ -26,6 +26,7 @@ void keyboard_post_init_kb(void) {
      setPinOutput(LED_IND6);
      setPinOutput(LED_IND7);
      setPinOutput(LED_IND8);
+     keyboard_post_init_user();
 }
 
 void led_update_ports(led_t led_state) {
