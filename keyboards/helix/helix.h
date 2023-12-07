@@ -1,4 +1,4 @@
-/* Copyright 2018 MakotoKurauchi
+/* Copyright 2020 yushakobo
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,12 +13,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #pragma once
 
 #include "quantum.h"
 
-// Each keymap.c should use is_keyboard_master() instead of 'is_master', 'has_usb()'.
-// But keep 'is_master' for a while for backwards compatibility
-//  for the old keymap.c.
-extern uint8_t is_master; // 'is_master' will be obsolete, it is recommended to use 'is_keyboard_master ()' instead.
-#define has_usb() is_keyboard_master()
+enum custom_keycodes {
+    EISU = QK_KB_0,
+    KANA,
+    ADJUST,
+    RGBRST
+};
+
+bool is_mac_mode(void);
+void set_mac_mode(bool macmode);

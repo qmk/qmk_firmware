@@ -4,9 +4,13 @@ A compact split ortholinear keyboard.
 
 * Keyboard Maintainer: [yushakobo](https://github.com/yushakobo)
 * Hardware Supported: Helix rev3 PCBs, Pro Micro
-* Hardware Availability: (Under preparation)
+* Hardware Availability: [yushakobo store](https://shop.yushakobo.jp)
 
 Make example for this keyboard (after setting up your build environment):
+
+    make helix/rev3_4rows:default:flash
+
+Flashing example for this keyboard:
 
     make helix/rev3_4rows:default:flash
 
