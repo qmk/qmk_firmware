@@ -46,7 +46,6 @@ _Static_assert(AMUX_SEL_PINS_COUNT == EXPECTED_AMUX_SEL_PINS_COUNT), "AMUX_SEL_P
 // Check that number of elements in AMUX_COL_CHANNELS_SIZES is enough to specify the number of channels for all the multiplexers available
 _Static_assert(ARRAY_SIZE(amux_n_col_sizes) == AMUX_COUNT, "AMUX_COL_CHANNELS_SIZES doesn't have the minimum number of elements required to specify the number of channels for all the multiplexers available");
 
-// static ec_config_t config;
 static uint16_t sw_value[MATRIX_ROWS][MATRIX_COLS];
 
 static adc_mux adcMux;
