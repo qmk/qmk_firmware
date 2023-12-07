@@ -90,48 +90,6 @@
  `-------------------------------------------------------------------------------------------------'
 ```
 
-## Customize
-
-see `qmk_firmware/keyboards/helix/pico/keymaps/default/rules.mk`
-
-```
-# Helix Spacific Build Options
-# you can uncomment and edit follows 4 Variables
-#  jp: 以下の4つの変数を必要に応じて編集し、コメントアウトをはずします。
-# LED_BACK_ENABLE = no        # LED backlight (Enable WS2812 RGB underlight.)
-# LED_UNDERGLOW_ENABLE = no   # LED underglow (Enable WS2812 RGB underlight.)
-# LED_ANIMATIONS = yes        # LED animations
-# IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)
-```
-## Compile
-
-go to qmk top directory.
-```
-$ cd qmk_firmware
-```
-
-build
-```
-$ make helix/pico:default
-$ make helix/pico/back:default               # with backlight
-$ make HELIX=no-ani helix/pico/back:default  # with backlight without animation
-$ make helix/pico/under:default              # with underglow
-```
-
-build (experimental use of split_common with backlight)
-```
-$ make helix/pico/sc:default
-```
-
-flash to keyboard
-```
-$ make helix/pico:default:flash
-$ make helix/pico/back:default:flash               # with backlight
-$ make HELIX=no_ani helix/pico/back:default:flash  # with backlight without animation
-$ make helix/pico/under:default:flash              # with underglow
-
-```
-
 ## Link
 * more detail wrote in Japanese [helix/Doc/firmware_jp.md](https://github.com/MakotoKurauchi/helix/blob/master/Doc/firmware_jp.md)
 * [Helix top](https://github.com/MakotoKurauchi/helix)

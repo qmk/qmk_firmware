@@ -1,3 +1,6 @@
+// Copyright 2023 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 #include "keymap_japanese.h"
 #include <stdio.h>
@@ -21,14 +24,6 @@ enum layer_number {
   _RAISE,
   _RAI_E,
   _ADJUST,
-};
-
-enum custom_keycodes {
-  RGBRST = SAFE_RANGE,
-  #ifdef KANA_ENABLE
-  EISU,
-  KANA,
-  #endif
 };
 
 // Layer Mode aliases
@@ -263,41 +258,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
         break;
     #endif
-    #ifdef KANA_ENABLE
-      case EISU:
-        if (record->event.pressed) {
-          if (keymap_config.swap_lalt_lgui==false) {
-            register_code(KC_LNG2);
-          } else {
-            SEND_STRING(SS_LALT("`"));
-          }
-        } else {
-          unregister_code(KC_LNG2);
-        }
-        break;
-      case KANA:
-        if (record->event.pressed) {
-          if(keymap_config.swap_lalt_lgui==false){
-            register_code(KC_LNG1);
-          }else{
-            SEND_STRING(SS_LALT("`"));
-          }
-        } else {
-          unregister_code(KC_LNG1);
-        }
-        break;
-    #endif
-    #ifdef RGBLIGHT_ENABLE
-      case RGBRST:
-          if (record->event.pressed) {
-            eeconfig_update_rgblight_default();
-            rgblight_enable();
-            RGB_current_mode = rgblight_get_mode();
-          }
-        break;
-    #endif
-    default:
-      return true;
   }
 
   return false;
