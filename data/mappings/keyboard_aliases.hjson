@@ -185,6 +185,9 @@
     "eek": {
         "target": "eek/silk_down"
     },
+    "era/klein": {
+        "target": "era/sirind/klein_sd"
+	},
     "ergodone": {
         "target": "ktec/ergodone"
     },
