@@ -29,11 +29,18 @@
     },
     "processor": "STM32F103",
     "backlight": {
+        "driver": "pwm",
         "pin": "B8",
         "levels": 20,
+        "max_brightness": 255,
         "breathing": true,
         "breathing_period": 10,
-        "on_state": 1
+        "on_state": 1,
+        "default": {
+            //"on": true,
+            "breathing": true,
+            "brightness":15
+        }
     },
     "url": "https://github.com/JZ-Skyloong",
     "usb": {

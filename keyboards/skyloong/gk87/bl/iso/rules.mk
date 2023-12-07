@@ -1,1 +1,1 @@
-BACKLIGHT_DRIVER = pwm
+# File intentionally blank
