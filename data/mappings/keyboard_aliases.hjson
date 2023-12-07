@@ -927,6 +927,9 @@
     "lefty": {
         "target": "smoll/lefty/rev2"
     },
+    "lefty/rev1": {
+        "target": "smoll/lefty/rev1"
+    },
     "lck75": {
         "target": "lyso1/lck75"
     },
