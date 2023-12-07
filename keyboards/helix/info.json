@@ -1,0 +1,37 @@
+{
+    "manufacturer": "Yushakobo",
+    "maintainer": "MakotoKurauchi",
+    "development_board": "promicro",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "rgblight": true
+    },
+    "build": {
+        "lto": true
+    },
+    "split": {
+        "enabled": true,
+        "soft_serial_pin": "D2"
+    },
+    "rgblight": {
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "static_gradient": true
+        },
+        "sleep": true
+    },
+    "url": "https://github.com/MakotoKurauchi/helix",
+    "usb": {
+        "vid": "0x3265"
+    },
+    "ws2812": {
+        "pin": "D3"
+    }
+}
