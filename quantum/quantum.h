@@ -261,6 +261,18 @@ void unregister_code16(uint16_t code);
 void tap_code16(uint16_t code);
 void tap_code16_delay(uint16_t code, uint16_t delay);
 
+/** \brief Trigger a keydown of a keycode.
+ *
+ * Supports the full range of quantum keycodes.
+ */
+void register_keycode(uint16_t keycode);
+
+/** \brief Trigger a keyup of a keycode.
+ *
+ * Supports the full range of quantum keycodes.
+ */
+void unregister_keycode(uint16_t keycode);
+
 /** \brief Tap a keycode with a delay.
  *
  * Supports the full range of quantum keycodes.

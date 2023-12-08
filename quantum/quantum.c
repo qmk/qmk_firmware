@@ -146,22 +146,28 @@ __attribute__((weak)) void tap_code16(uint16_t code) {
     tap_code16_delay(code, code == KC_CAPS_LOCK ? TAP_HOLD_CAPS_DELAY : TAP_CODE_DELAY);
 }
 
-__attribute__((weak)) void tap_keycode_delay(uint16_t keycode, uint16_t delay) {
-    keyrecord_t record = {.keycode = keycode, .event = {.type = TAP_EVENT}};
+void register_keycode(uint16_t keycode) {
+    keyrecord_t record = {.keycode = keycode, .event = {.type = TAP_EVENT, .pressed = true, .time = timer_read()}};
 
-    record.event.pressed = true;
-    record.event.time    = timer_read();
-    process_record(&record);
-
-    wait_ms(delay);
-
-    record.event.pressed = false;
-    record.event.time    = timer_read();
     process_record(&record);
 }
 
+void unregister_keycode(uint16_t keycode) {
+    keyrecord_t record = {.keycode = keycode, .event = {.type = TAP_EVENT, .pressed = false, .time = timer_read()}};
+
+    process_record(&record);
+}
+
+__attribute__((weak)) void tap_keycode_delay(uint16_t keycode, uint16_t delay) {
+    register_keycode(keycode);
+    for (uint16_t i = delay; i > 0; i--) {
+        wait_ms(1);
+    }
+    unregister_keycode(keycode);
+}
+
 __attribute__((weak)) void tap_keycode(uint16_t keycode) {
-    tap_keycode_delay(keycode, TAP_CODE_DELAY);
+    tap_keycode_delay(keycode, keycode == KC_CAPS_LOCK ? TAP_HOLD_CAPS_DELAY : TAP_CODE_DELAY);
 }
 
 __attribute__((weak)) bool pre_process_record_kb(uint16_t keycode, keyrecord_t *record) {
