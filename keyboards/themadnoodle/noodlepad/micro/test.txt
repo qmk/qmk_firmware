@@ -1,0 +1,20 @@
+    
+    "encoder": {
+        "enabled": true,
+        "rotary": [
+            { "pin_a": "GP3", "pin_b": "GP4", "resolution": 4 }
+        ]
+    
+    }
+
+    "ws2812": {
+        "driver" : "vendor",
+        "pin": "GP29"
+
+    },
+
+    "rgblight": {
+        "led_count": 4,
+        "driver" : "ws2812"
+
+    }
