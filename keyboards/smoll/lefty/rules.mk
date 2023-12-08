@@ -14,4 +14,4 @@ LTO_ENABLE = yes
 
 OLED_ENABLE = yes
 
-DEFAULT_FOLDER = lefty/rev2
+DEFAULT_FOLDER = smoll/lefty/rev2

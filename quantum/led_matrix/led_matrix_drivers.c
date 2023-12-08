@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "led_matrix.h"
+#include "led_matrix_drivers.h"
 
 /* Each driver needs to define a struct:
  *

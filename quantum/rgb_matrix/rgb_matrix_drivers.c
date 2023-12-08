@@ -14,7 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "rgb_matrix.h"
+#include "rgb_matrix_drivers.h"
+
+#include <stdbool.h>
+#include "keyboard.h"
+#include "color.h"
 #include "util.h"
 
 /* Each driver needs to define the struct
