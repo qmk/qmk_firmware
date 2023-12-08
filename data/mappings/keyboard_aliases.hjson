@@ -951,6 +951,12 @@
     "launchpad/rev1": {
         "target": "maple_computing/launchpad/rev1"
     },
+    "lefty": {
+        "target": "smoll/lefty/rev2"
+    },
+    "lefty/rev1": {
+        "target": "smoll/lefty/rev1"
+    },
     "lck75": {
         "target": "lyso1/lck75"
     },
@@ -1103,6 +1109,9 @@
     },
     "pursuit40": {
         "target": "checkerboards/pursuit40"
+    },
+    "pw88": {
+        "target": "smoll/pw88"
     },
     "qaz": {
         "target": "tominabox1/qaz"
