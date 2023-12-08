@@ -285,7 +285,7 @@ void process_record(keyrecord_t *record) {
 }
 
 void process_record_handler(keyrecord_t *record) {
-#if defined(COMBO_ENABLE) || defined(REPEAT_KEY_ENABLE)
+#ifdef KEYRECORD_HAS_KEYCODE
     action_t action;
     if (record->keycode) {
         action = action_for_keycode(record->keycode);
@@ -1116,7 +1116,7 @@ bool is_tap_record(keyrecord_t *record) {
         return false;
     }
 
-#if defined(COMBO_ENABLE) || defined(REPEAT_KEY_ENABLE)
+#ifdef KEYRECORD_HAS_KEYCODE
     action_t action;
     if (record->keycode) {
         action = action_for_keycode(record->keycode);
@@ -1219,4 +1219,38 @@ void debug_action(action_t action) {
             break;
     }
     ac_dprintf("[%X:%02X]", action.kind.param >> 8, action.kind.param & 0xff);
+}
+
+/* Convert record into usable keycode via the contained event. */
+uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache) {
+#ifdef KEYRECORD_HAS_KEYCODE
+    if (record->keycode) {
+        return record->keycode;
+    }
+#endif
+    return get_event_keycode(record->event, update_layer_cache);
+}
+
+/* Convert event into usable keycode. Checks the layer cache to ensure that it
+ * retains the correct keycode after a layer change, if the key is still pressed.
+ * "update_layer_cache" is to ensure that it only updates the layer cache when
+ * appropriate, otherwise, it will update it and cause layer tap (and other keys)
+ * from triggering properly.
+ */
+uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache) {
+#if !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)
+    /* TODO: Use store_or_get_action() or a similar function. */
+    if (!disable_action_cache) {
+        uint8_t layer;
+
+        if (event.pressed && update_layer_cache) {
+            layer = layer_switch_get_layer(event.key);
+            update_source_layers_cache(event.key, layer);
+        } else {
+            layer = read_source_layers_cache(event.key);
+        }
+        return keymap_key_to_keycode(layer, event.key);
+    } else
+#endif
+        return keymap_key_to_keycode(layer_switch_get_layer(event.key), event.key);
 }

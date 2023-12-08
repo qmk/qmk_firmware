@@ -35,6 +35,10 @@ extern "C" {
 #    define TAP_HOLD_CAPS_DELAY 80
 #endif
 
+#if defined(COMBO_ENABLE) || defined(REPEAT_KEY_ENABLE)
+#    define KEYRECORD_HAS_KEYCODE
+#endif
+
 /* tapping count and state */
 typedef struct {
     bool    interrupted : 1;
@@ -50,7 +54,7 @@ typedef struct {
 #ifndef NO_ACTION_TAPPING
     tap_t tap;
 #endif
-#if defined(COMBO_ENABLE) || defined(REPEAT_KEY_ENABLE)
+#ifdef KEYRECORD_HAS_KEYCODE
     uint16_t keycode;
 #endif
 } keyrecord_t;
@@ -61,6 +65,9 @@ void action_exec(keyevent_t event);
 /* action for key */
 action_t action_for_key(uint8_t layer, keypos_t key);
 action_t action_for_keycode(uint16_t keycode);
+
+uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache);
+uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache);
 
 /* keyboard-specific key event (pre)processing */
 bool process_record_quantum(keyrecord_t *record);
