@@ -128,12 +128,15 @@ def generate_api(cli):
         # Populate the list of JSON keymaps
         for keymap in list_keymaps(keyboard_name, c=False, fullpath=True):
             keymap_rel = qmk.path.under_qmk_firmware(keymap)
+            if keymap_rel is None:
+                cli.log.debug('Skipping keymap %s (not in qmk_firmware)', keymap)
+                continue
             kb_json['keymaps'][keymap.name] = {
                 # TODO: deprecate 'url' as consumer needs to know its potentially hjson
                 'url': f'https://raw.githubusercontent.com/qmk/qmk_firmware/master/{keymap_rel}/keymap.json',
 
                 # Instead consumer should grab from API and not repo directly
-                'path': (keymap / 'keymap.json').as_posix(),
+                'path': (keymap_rel / 'keymap.json').as_posix(),
             }
 
         keyboard_dir.mkdir(parents=True, exist_ok=True)
