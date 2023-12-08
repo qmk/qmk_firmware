@@ -47,7 +47,7 @@ typedef struct {
 /* Key event container for recording */
 typedef struct {
     keyevent_t event;
-    uint16_t keycode;
+    uint16_t   keycode;
 #ifndef NO_ACTION_TAPPING
     tap_t tap;
 #endif
