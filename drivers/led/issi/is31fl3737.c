@@ -49,11 +49,10 @@
 #    define IS31FL3737_GLOBAL_CURRENT 0xFF
 #endif
 
-// Transfer buffer for TWITransmitData()
-uint8_t g_twi_transfer_buffer[20];
+uint8_t i2c_transfer_buffer[20];
 
 // These buffers match the IS31FL3737 PWM registers.
-// The control buffers match the PG0 LED On/Off registers.
+// The control buffers match the page 0 LED On/Off registers.
 // Storing them like this is optimal for I2C transfers to the registers.
 // We could optimize this and take out the unused registers from these
 // buffers and the transfers in is31fl3737_write_pwm_buffer() but it's
@@ -66,38 +65,43 @@ uint8_t g_led_control_registers[IS31FL3737_DRIVER_COUNT][IS31FL3737_LED_CONTROL_
 bool    g_led_control_registers_update_required[IS31FL3737_DRIVER_COUNT]                        = {false};
 
 void is31fl3737_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
-    g_twi_transfer_buffer[0] = reg;
-    g_twi_transfer_buffer[1] = data;
+    i2c_transfer_buffer[0] = reg;
+    i2c_transfer_buffer[1] = data;
 
 #if IS31FL3737_I2C_PERSISTENCE > 0
     for (uint8_t i = 0; i < IS31FL3737_I2C_PERSISTENCE; i++) {
-        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 2, IS31FL3737_I2C_TIMEOUT) == 0) break;
+        if (i2c_transmit(addr << 1, i2c_transfer_buffer, 2, IS31FL3737_I2C_TIMEOUT) == 0) break;
     }
 #else
-    i2c_transmit(addr << 1, g_twi_transfer_buffer, 2, IS31FL3737_I2C_TIMEOUT);
+    i2c_transmit(addr << 1, i2c_transfer_buffer, 2, IS31FL3737_I2C_TIMEOUT);
 #endif
 }
 
+void is31fl3737_select_page(uint8_t addr, uint8_t page) {
+    is31fl3737_write_register(addr, IS31FL3737_REG_COMMAND_WRITE_LOCK, IS31FL3737_COMMAND_WRITE_LOCK_MAGIC);
+    is31fl3737_write_register(addr, IS31FL3737_REG_COMMAND, page);
+}
+
 void is31fl3737_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
-    // assumes PG1 is already selected
+    // assumes page 1 is already selected
 
     // transmit PWM registers in 12 transfers of 16 bytes
-    // g_twi_transfer_buffer[] is 20 bytes
+    // i2c_transfer_buffer[] is 20 bytes
 
     // iterate over the pwm_buffer contents at 16 byte intervals
     for (int i = 0; i < IS31FL3737_PWM_REGISTER_COUNT; i += 16) {
-        g_twi_transfer_buffer[0] = i;
+        i2c_transfer_buffer[0] = i;
         // copy the data from i to i+15
         // device will auto-increment register for data after the first byte
         // thus this sets registers 0x00-0x0F, 0x10-0x1F, etc. in one transfer
-        memcpy(g_twi_transfer_buffer + 1, pwm_buffer + i, 16);
+        memcpy(i2c_transfer_buffer + 1, pwm_buffer + i, 16);
 
 #if IS31FL3737_I2C_PERSISTENCE > 0
         for (uint8_t i = 0; i < IS31FL3737_I2C_PERSISTENCE; i++) {
-            if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 17, IS31FL3737_I2C_TIMEOUT) == 0) break;
+            if (i2c_transmit(addr << 1, i2c_transfer_buffer, 17, IS31FL3737_I2C_TIMEOUT) == 0) break;
         }
 #else
-        i2c_transmit(addr << 1, g_twi_transfer_buffer, 17, IS31FL3737_I2C_TIMEOUT);
+        i2c_transmit(addr << 1, i2c_transfer_buffer, 17, IS31FL3737_I2C_TIMEOUT);
 #endif
     }
 }
@@ -138,32 +142,23 @@ void is31fl3737_init(uint8_t addr) {
     // Set up the mode and other settings, clear the PWM registers,
     // then disable software shutdown.
 
-    // Unlock the command register.
-    is31fl3737_write_register(addr, IS31FL3737_REG_COMMAND_WRITE_LOCK, IS31FL3737_COMMAND_WRITE_LOCK_MAGIC);
+    is31fl3737_select_page(addr, IS31FL3737_COMMAND_LED_CONTROL);
 
-    // Select PG0
-    is31fl3737_write_register(addr, IS31FL3737_REG_COMMAND, IS31FL3737_COMMAND_LED_CONTROL);
     // Turn off all LEDs.
     for (int i = 0; i < IS31FL3737_LED_CONTROL_REGISTER_COUNT; i++) {
         is31fl3737_write_register(addr, i, 0x00);
     }
 
-    // Unlock the command register.
-    is31fl3737_write_register(addr, IS31FL3737_REG_COMMAND_WRITE_LOCK, IS31FL3737_COMMAND_WRITE_LOCK_MAGIC);
+    is31fl3737_select_page(addr, IS31FL3737_COMMAND_PWM);
 
-    // Select PG1
-    is31fl3737_write_register(addr, IS31FL3737_REG_COMMAND, IS31FL3737_COMMAND_PWM);
     // Set PWM on all LEDs to 0
     // No need to setup Breath registers to PWM as that is the default.
     for (int i = 0; i < IS31FL3737_PWM_REGISTER_COUNT; i++) {
         is31fl3737_write_register(addr, i, 0x00);
     }
 
-    // Unlock the command register.
-    is31fl3737_write_register(addr, IS31FL3737_REG_COMMAND_WRITE_LOCK, IS31FL3737_COMMAND_WRITE_LOCK_MAGIC);
+    is31fl3737_select_page(addr, IS31FL3737_COMMAND_FUNCTION);
 
-    // Select PG3
-    is31fl3737_write_register(addr, IS31FL3737_REG_COMMAND, IS31FL3737_COMMAND_FUNCTION);
     // Set de-ghost pull-up resistors (SWx)
     is31fl3737_write_register(addr, IS31FL3737_FUNCTION_REG_SW_PULLUP, IS31FL3737_SW_PULLUP);
     // Set de-ghost pull-down resistors (CSx)
@@ -230,9 +225,7 @@ void is31fl3737_set_led_control_register(uint8_t index, bool red, bool green, bo
 
 void is31fl3737_update_pwm_buffers(uint8_t addr, uint8_t index) {
     if (g_pwm_buffer_update_required[index]) {
-        // Firstly we need to unlock the command register and select PG1
-        is31fl3737_write_register(addr, IS31FL3737_REG_COMMAND_WRITE_LOCK, IS31FL3737_COMMAND_WRITE_LOCK_MAGIC);
-        is31fl3737_write_register(addr, IS31FL3737_REG_COMMAND, IS31FL3737_COMMAND_PWM);
+        is31fl3737_select_page(addr, IS31FL3737_COMMAND_PWM);
 
         is31fl3737_write_pwm_buffer(addr, g_pwm_buffer[index]);
         g_pwm_buffer_update_required[index] = false;
@@ -241,9 +234,8 @@ void is31fl3737_update_pwm_buffers(uint8_t addr, uint8_t index) {
 
 void is31fl3737_update_led_control_registers(uint8_t addr, uint8_t index) {
     if (g_led_control_registers_update_required[index]) {
-        // Firstly we need to unlock the command register and select PG0
-        is31fl3737_write_register(addr, IS31FL3737_REG_COMMAND_WRITE_LOCK, IS31FL3737_COMMAND_WRITE_LOCK_MAGIC);
-        is31fl3737_write_register(addr, IS31FL3737_REG_COMMAND, IS31FL3737_COMMAND_LED_CONTROL);
+        is31fl3737_select_page(addr, IS31FL3737_COMMAND_LED_CONTROL);
+
         for (int i = 0; i < IS31FL3737_LED_CONTROL_REGISTER_COUNT; i++) {
             is31fl3737_write_register(addr, i, g_led_control_registers[index][i]);
         }

@@ -31,8 +31,7 @@
 #    define ISSI_PERSISTENCE 0
 #endif
 
-// Transfer buffer for TWITransmitData()
-uint8_t g_twi_transfer_buffer[20];
+uint8_t i2c_transfer_buffer[20];
 
 // These buffers match the PWM & scaling registers.
 // Storing them like this is optimal for I2C transfers to the registers.
@@ -45,15 +44,15 @@ bool    g_scaling_buffer_update_required[DRIVER_COUNT] = {false};
 // For writing of single register entry
 void IS31FL_write_single_register(uint8_t addr, uint8_t reg, uint8_t data) {
     // Set register address and register data ready to write
-    g_twi_transfer_buffer[0] = reg;
-    g_twi_transfer_buffer[1] = data;
+    i2c_transfer_buffer[0] = reg;
+    i2c_transfer_buffer[1] = data;
 
 #if ISSI_PERSISTENCE > 0
     for (uint8_t i = 0; i < ISSI_PERSISTENCE; i++) {
-        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 2, ISSI_TIMEOUT) == 0) break;
+        if (i2c_transmit(addr << 1, i2c_transfer_buffer, 2, ISSI_TIMEOUT) == 0) break;
     }
 #else
-    i2c_transmit(addr << 1, g_twi_transfer_buffer, 2, ISSI_TIMEOUT);
+    i2c_transmit(addr << 1, i2c_transfer_buffer, 2, ISSI_TIMEOUT);
 #endif
 }
 
@@ -64,18 +63,18 @@ bool IS31FL_write_multi_registers(uint8_t addr, uint8_t *source_buffer, uint8_t 
     // Split the buffer into chunks to transfer
     for (int i = 0; i < buffer_size; i += transfer_size) {
         // Set the first entry of transfer buffer to the first register we want to write
-        g_twi_transfer_buffer[0] = i + start_reg_addr;
+        i2c_transfer_buffer[0] = i + start_reg_addr;
         // Copy the section of our source buffer into the transfer buffer after first register address
-        memcpy(g_twi_transfer_buffer + 1, source_buffer + i, transfer_size);
+        memcpy(i2c_transfer_buffer + 1, source_buffer + i, transfer_size);
 
 #if ISSI_PERSISTENCE > 0
         for (uint8_t i = 0; i < ISSI_PERSISTENCE; i++) {
-            if (i2c_transmit(addr << 1, g_twi_transfer_buffer, transfer_size + 1, ISSI_TIMEOUT) != 0) {
+            if (i2c_transmit(addr << 1, i2c_transfer_buffer, transfer_size + 1, ISSI_TIMEOUT) != 0) {
                 return false;
             }
         }
 #else
-        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, transfer_size + 1, ISSI_TIMEOUT) != 0) {
+        if (i2c_transmit(addr << 1, i2c_transfer_buffer, transfer_size + 1, ISSI_TIMEOUT) != 0) {
             return false;
         }
 #endif
