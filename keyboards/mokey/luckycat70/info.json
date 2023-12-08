@@ -16,10 +16,7 @@
         "console": false,
         "command": false,
         "nkro": false,
-        "backlight": false,
-        "rgblight": false,
-        "rgb_matrix": true,
-        "audio": false
+        "rgb_matrix": true
     },
     "matrix_pins": {
         "cols": ["A3", "A2", "A5", "A6", "A7", "B0", "B1", "B10", "B11", "B12", "B13", "B14", "B15", "A8", "A9", "A10", "A15"],
@@ -28,9 +25,24 @@
     "ws2812": {
         "pin": "A4"
     },
+    "rgblight": {
+        "led_count": 78,
+        "max_brightness": 255,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
     "processor": "STM32F103",
     "bootloader": "stm32duino",
-    "board": "STM32_F103_STM32DUINO",
     "rgb_matrix": {
         "driver": "WS2812",
         "layout": [
