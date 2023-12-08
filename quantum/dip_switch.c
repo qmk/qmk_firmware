@@ -131,15 +131,15 @@ void dip_switch_read(bool forced) {
         dip_switch_mask |= dip_switch_state[i] << i;
         if (last_dip_switch_state[i] != dip_switch_state[i] || forced) {
             has_dip_state_changed = true;
-#ifdef DIP_SWITCH_MAP_ENABLE
-            dip_switch_exec_mapping(i, dip_switch_state[i]);
-#else
+#ifndef DIP_SWITCH_MAP_ENABLE
             dip_switch_update_kb(i, dip_switch_state[i]);
+#else
+            dip_switch_exec_mapping(i, dip_switch_state[i]);
 #endif
         }
     }
     if (has_dip_state_changed) {
-#ifdef DIP_SWITCH_MAP_ENABLE
+#ifndef DIP_SWITCH_MAP_ENABLE
         dip_switch_update_mask_kb(dip_switch_mask);
 #endif
         memcpy(last_dip_switch_state, dip_switch_state, sizeof(dip_switch_state));
