@@ -32,7 +32,7 @@ typedef struct {
     uint8_t row;
 } keypos_t;
 
-typedef enum keyevent_type_t { TICK_EVENT = 0, KEY_EVENT = 1, ENCODER_CW_EVENT = 2, ENCODER_CCW_EVENT = 3, COMBO_EVENT = 4 } keyevent_type_t;
+typedef enum keyevent_type_t { TICK_EVENT = 0, KEY_EVENT = 1, ENCODER_CW_EVENT = 2, ENCODER_CCW_EVENT = 3, COMBO_EVENT = 4, TAP_EVENT = 5 } keyevent_type_t;
 
 /* key event */
 typedef struct {

@@ -146,6 +146,24 @@ __attribute__((weak)) void tap_code16(uint16_t code) {
     tap_code16_delay(code, code == KC_CAPS_LOCK ? TAP_HOLD_CAPS_DELAY : TAP_CODE_DELAY);
 }
 
+__attribute__((weak)) void tap_keycode_delay(uint16_t keycode, uint16_t delay) {
+    keyrecord_t record = {.keycode = keycode, .event = {.type = TAP_EVENT}};
+
+    record.event.pressed = true;
+    record.event.time    = timer_read();
+    process_record(&record);
+
+    wait_ms(delay);
+
+    record.event.pressed = false;
+    record.event.time    = timer_read();
+    process_record(&record);
+}
+
+__attribute__((weak)) void tap_keycode(uint16_t keycode) {
+    tap_keycode_delay(keycode, TAP_CODE_DELAY);
+}
+
 __attribute__((weak)) bool pre_process_record_kb(uint16_t keycode, keyrecord_t *record) {
     return pre_process_record_user(keycode, record);
 }
@@ -204,40 +222,6 @@ void reset_keyboard(void) {
 void soft_reset_keyboard(void) {
     shutdown_quantum(false);
     mcu_reset();
-}
-
-/* Convert record into usable keycode via the contained event. */
-uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache) {
-#if defined(COMBO_ENABLE) || defined(REPEAT_KEY_ENABLE)
-    if (record->keycode) {
-        return record->keycode;
-    }
-#endif
-    return get_event_keycode(record->event, update_layer_cache);
-}
-
-/* Convert event into usable keycode. Checks the layer cache to ensure that it
- * retains the correct keycode after a layer change, if the key is still pressed.
- * "update_layer_cache" is to ensure that it only updates the layer cache when
- * appropriate, otherwise, it will update it and cause layer tap (and other keys)
- * from triggering properly.
- */
-uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache) {
-#if !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)
-    /* TODO: Use store_or_get_action() or a similar function. */
-    if (!disable_action_cache) {
-        uint8_t layer;
-
-        if (event.pressed && update_layer_cache) {
-            layer = layer_switch_get_layer(event.key);
-            update_source_layers_cache(event.key, layer);
-        } else {
-            layer = read_source_layers_cache(event.key);
-        }
-        return keymap_key_to_keycode(layer, event.key);
-    } else
-#endif
-        return keymap_key_to_keycode(layer_switch_get_layer(event.key), event.key);
 }
 
 /* Get keycode, and then process pre tapping functionality */

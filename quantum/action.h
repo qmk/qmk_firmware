@@ -47,11 +47,9 @@ typedef struct {
 /* Key event container for recording */
 typedef struct {
     keyevent_t event;
+    uint16_t keycode;
 #ifndef NO_ACTION_TAPPING
     tap_t tap;
-#endif
-#if defined(COMBO_ENABLE) || defined(REPEAT_KEY_ENABLE)
-    uint16_t keycode;
 #endif
 } keyrecord_t;
 
@@ -61,6 +59,9 @@ void action_exec(keyevent_t event);
 /* action for key */
 action_t action_for_key(uint8_t layer, keypos_t key);
 action_t action_for_keycode(uint16_t keycode);
+
+uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache);
+uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache);
 
 /* keyboard-specific key event (pre)processing */
 bool process_record_quantum(keyrecord_t *record);

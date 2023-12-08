@@ -241,16 +241,14 @@ void set_single_persistent_default_layer(uint8_t default_layer);
 #define IS_LAYER_ON_STATE(state, layer) layer_state_cmp(state, layer)
 #define IS_LAYER_OFF_STATE(state, layer) !layer_state_cmp(state, layer)
 
-uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache);
-uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache);
-bool     pre_process_record_quantum(keyrecord_t *record);
-bool     pre_process_record_kb(uint16_t keycode, keyrecord_t *record);
-bool     pre_process_record_user(uint16_t keycode, keyrecord_t *record);
-bool     process_action_kb(keyrecord_t *record);
-bool     process_record_kb(uint16_t keycode, keyrecord_t *record);
-bool     process_record_user(uint16_t keycode, keyrecord_t *record);
-void     post_process_record_kb(uint16_t keycode, keyrecord_t *record);
-void     post_process_record_user(uint16_t keycode, keyrecord_t *record);
+bool pre_process_record_quantum(keyrecord_t *record);
+bool pre_process_record_kb(uint16_t keycode, keyrecord_t *record);
+bool pre_process_record_user(uint16_t keycode, keyrecord_t *record);
+bool process_action_kb(keyrecord_t *record);
+bool process_record_kb(uint16_t keycode, keyrecord_t *record);
+bool process_record_user(uint16_t keycode, keyrecord_t *record);
+void post_process_record_kb(uint16_t keycode, keyrecord_t *record);
+void post_process_record_user(uint16_t keycode, keyrecord_t *record);
 
 void reset_keyboard(void);
 void soft_reset_keyboard(void);
@@ -262,6 +260,18 @@ void register_code16(uint16_t code);
 void unregister_code16(uint16_t code);
 void tap_code16(uint16_t code);
 void tap_code16_delay(uint16_t code, uint16_t delay);
+
+/** \brief Tap a keycode with a delay.
+ *
+ * Supports the full range of quantum keycodes.
+ */
+void tap_keycode_delay(uint16_t keycode, uint16_t delay);
+
+/** \brief Tap a keycode with the default delay.
+ *
+ * Supports the full range of quantum keycodes.
+ */
+void tap_keycode(uint16_t keycode);
 
 const char *get_numeric_str(char *buf, size_t buf_len, uint32_t curr_num, char curr_pad);
 const char *get_u8_str(uint8_t curr_num, char curr_pad);
