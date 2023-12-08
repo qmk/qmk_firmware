@@ -1,9 +1,9 @@
-# mokey12x2
+# luckycat70
 
 STM32F103C8T6 keyboard.
 
 * Keyboard Maintainer: [rhmokey](https://github.com/rhmokey)
-* Hardware Supported: [rhmokey](https://github.com/rhmokey)
+* Hardware Supported: STM32F103C8T6
 
 Make example for this keyboard (after setting up your build environment):
 
