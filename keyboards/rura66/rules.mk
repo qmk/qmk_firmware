@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = caterina
-
 # Build Options
 #   change yes to no to disable
 #
@@ -19,6 +13,5 @@ AUDIO_ENABLE = no           # Audio output
 OLED_ENABLE = yes
 SPLIT_KEYBOARD = yes
 LTO_ENABLE = yes
-RGB_MATRIX_DRIVER = WS2812
 
 DEFAULT_FOLDER = rura66/rev1

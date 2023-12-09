@@ -32,7 +32,7 @@ const uint16_t PROGMEM kz_combo[] = {KC_K, KC_Z, COMBO_END};
 const uint16_t PROGMEM dm_combo[] = {KC_D, KC_M, COMBO_END};
 const uint16_t PROGMEM bx_combo[] = {KC_B, KC_X, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
   [TOP_L] = COMBO(fk_combo, KC_ESC),
   [TOP_R] = COMBO(zl_combo, KC_AT),
   [MID_L] = COMBO(hd_combo, KC_TAB),

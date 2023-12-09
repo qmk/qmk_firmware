@@ -15,7 +15,6 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "keymap_steno.h"
 
 // Custom Keycodes and Combinations Used
 #define DEL_SHF SFT_T(KC_DEL)
@@ -357,6 +356,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void matrix_init_user() {
+void matrix_init_user(void) {
   steno_set_mode(STENO_MODE_GEMINI);
 }

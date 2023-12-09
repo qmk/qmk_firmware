@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "keymap_steno.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   LAYOUT_ortho_3x10(
@@ -8,6 +7,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     STN_NUM, STN_NUM, STN_A,   STN_O,   STN_NUM, STN_E,   STN_U,   STN_NUM, STN_NUM, STN_NUM),
 };
 
-void matrix_init_user() {
+void matrix_init_user(void) {
   steno_set_mode(STENO_MODE_GEMINI); // or STENO_MODE_BOLT
 }

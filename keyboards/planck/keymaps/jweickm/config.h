@@ -57,8 +57,7 @@
 #define TAPPING_TERM 160 // 200 ms is the default value
 #define TAPPING_TERM_PER_KEY
 //#define PERMISSIVE_HOLD
-#define IGNORE_MOD_TAP_INTERRUPT
-#define TAPPING_FORCE_HOLD_PER_KEY
+#define QUICK_TAP_TERM_PER_KEY
 
 // settings for LEADER key
 #define LEADER_PER_KEY_TIMING

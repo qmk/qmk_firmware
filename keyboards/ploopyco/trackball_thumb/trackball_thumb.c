@@ -188,6 +188,19 @@ void keyboard_pre_init_kb(void) {
     setPinInput(OPT_ENC1);
     setPinInput(OPT_ENC2);
 
+    /* Ground all output pins connected to ground. This provides additional
+     * pathways to ground. If you're messing with this, know this: driving ANY
+     * of these pins high will cause a short. On the MCU. Ka-blooey.
+     */
+#ifdef UNUSABLE_PINS
+    const pin_t unused_pins[] = UNUSABLE_PINS;
+
+    for (uint8_t i = 0; i < (sizeof(unused_pins) / sizeof(pin_t)); i++) {
+        setPinOutput(unused_pins[i]);
+        writePinLow(unused_pins[i]);
+    }
+#endif
+
     // This is the debug LED.
 #if defined(DEBUG_LED_PIN)
     setPinOutput(DEBUG_LED_PIN);

@@ -2,7 +2,7 @@
 
 WT60-H2 is a keyboard PCB supporting 60% layout and on-board USB-C. [More info at wilba.tech](https://wilba.tech/)
 
-* Keyboard Maintainer: [Wilba6582](https://github.com/Wilba6582)
+* Keyboard Maintainer: [Wilba](https://github.com/Wilba)
 * Hardware Supported: wilba.tech WT60-H2
 * Hardware Availability: [wilba.tech](https://wilba.tech/)
 

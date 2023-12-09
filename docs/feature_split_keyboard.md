@@ -79,6 +79,16 @@ If you're using a custom transport (communication method), then you will also ne
 SPLIT_TRANSPORT = custom
 ```
 
+### Layout Macro
+
+Configuring your layout in a split keyboard works slightly differently to a non-split keyboard. Take for example the following layout. The top left numbers refer to the matrix row and column, and the bottom right are the order of the keys in the layout:
+
+![Physical layout](https://i.imgur.com/QeY6kMQ.png)
+
+Since the matrix scanning procedure operates on entire rows, it first populates the left half's rows, then the right half's. Thus, the matrix as QMK views it has double the rows instead of double the columns:
+
+![Matrix](https://i.imgur.com/4wjJzBU.png)
+
 ### Setting Handedness
 
 By default, the firmware does not know which side is which; it needs some help to determine that. There are several ways to do this, listed in order of precedence.
@@ -195,7 +205,7 @@ This sets the pin to be used for serial communication. If you're not using seria
 However, if you are using serial and I<sup>2</sup>C on the board, you will need to set this, and to something other than D0 and D1 (as these are used for I<sup>2</sup>C communication).
 
 ```c
-#define SELECT_SOFT_SERIAL_SPEED {#}`
+#define SELECT_SOFT_SERIAL_SPEED {#}
 ```
 
 If you're having issues with serial communication, you can change this value, as it controls the communication speed for serial.  The default is 1, and the possible values are:
@@ -283,6 +293,18 @@ This enables transmitting the current ST7565 on/off status to the slave side of 
 This enables transmitting the pointing device status to the master side of the split keyboard. The purpose of this feature is to enable use pointing devices on the slave side. 
 
 !> There is additional required configuration for `SPLIT_POINTING_ENABLE` outlined in the [pointing device documentation](feature_pointing_device.md?id=split-keyboard-configuration).
+
+```c
+#define SPLIT_HAPTIC_ENABLE
+```
+
+This enables the triggering of haptic feedback on the slave side of the split keyboard. This will send information to the slave side such as the mode, dwell, and whether buzz is enabled.
+
+```c
+#define SPLIT_ACTIVITY_ENABLE
+```
+
+This synchronizes the activity timestamps between sides of the split keyboard, allowing for activity timeouts to occur.
 
 ### Custom data sync between sides :id=custom-data-sync
 

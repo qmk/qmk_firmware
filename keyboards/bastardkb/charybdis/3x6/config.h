@@ -18,15 +18,6 @@
 
 #pragma once
 
-/* Key matrix configuration. */
-#define MATRIX_ROWS 8 // Rows are doubled-up.
-#define MATRIX_COLS 6
-
-#define DIODE_DIRECTION ROW2COL
-
-/* Set 0 if debouncing isn't needed. */
-#define DEBOUNCE 5
-
 /* Trackball angle adjustment. */
 #define ROTATIONAL_TRANSFORM_ANGLE -25
 

@@ -43,7 +43,7 @@
  *
  * See docs.qmk.fm/using-qmk/software-features/tap_hold#tapping-force-hold
  */
-#define TAPPING_FORCE_HOLD
+#define QUICK_TAP_TERM 0
 
 /*
  * Tap-or-Hold decision modes.
@@ -66,20 +66,6 @@
  * See docs.qmk.fm/using-qmk/software-features/tap_hold#permissive-hold
  */
 #define PERMISSIVE_HOLD
-
-/**
- * Prevent normal rollover on alphas from accidentally triggering mods.
- *
- * Ignores key presses that interrupt a mod-tap.  Must-have for Home Row mod.
- *
- * Without `IGNORE_MOD_TAP_INTERRUPT`, within `TAPPING_TERM`:
- *   Mod(a)🠗 e🠗 Mod(a)🠕 e🠕 ➞ Mod+e
- * With `IGNORE_MOD_TAP_INTERRUPT`, within `TAPPING_TERM`:
- *   Mod(a)🠗 e🠗 Mod(a)🠕 e🠕 ➞ ae
- *
- * See docs.qmk.fm/using-qmk/software-features/tap_hold#ignore-mod-tap-interrupt
- */
-#define IGNORE_MOD_TAP_INTERRUPT
 
 /** Charybdis-specific features. */
 

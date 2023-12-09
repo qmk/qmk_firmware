@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../../config.h"
 
 // only change
-#undef RGB_DI_PIN 
-#define RGB_DI_PIN B2
+#undef WS2812_DI_PIN 
+#define WS2812_DI_PIN B2
 
 #endif

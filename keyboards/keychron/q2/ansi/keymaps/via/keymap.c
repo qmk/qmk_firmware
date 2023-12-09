@@ -24,13 +24,6 @@ enum layers{
     _FN3
 };
 
-enum custom_keycodes {
-    KC_MISSION_CONTROL = USER00,
-    KC_LAUNCHPAD,
-    KC_TASK,
-    KC_FLXP
-};
-
 #define KC_TASK LGUI(KC_TAB)
 #define KC_FLXP LGUI(KC_E)
 

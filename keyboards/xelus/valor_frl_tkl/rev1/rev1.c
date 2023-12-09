@@ -16,7 +16,7 @@
 
 // Nothing to see here, move along... ;-)
 
-#include "rev1.h"
+#include "quantum.h"
 
 void board_init(void) {
   SYSCFG->CFGR1 |= SYSCFG_CFGR1_I2C1_DMA_RMP;

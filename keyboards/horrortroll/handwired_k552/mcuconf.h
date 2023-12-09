@@ -1,4 +1,4 @@
-/* Copyright 2021 HorrorTroll <https://github.com/HorrorTroll>
+/* Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,3 +25,9 @@
 
 #undef STM32_I2C_USE_I2C2
 #define STM32_I2C_USE_I2C2 TRUE
+
+#undef STM32_SPI_USE_SPI1
+#define STM32_SPI_USE_SPI1 TRUE
+
+#undef STM32_SPI_USE_SPI2
+#define STM32_SPI_USE_SPI2 FALSE

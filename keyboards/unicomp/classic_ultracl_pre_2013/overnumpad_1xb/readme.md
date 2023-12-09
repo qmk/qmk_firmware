@@ -3,7 +3,7 @@
 ![unicomp/classic_ultracl_pre_2013/overnumpad_1xb](https://www.pckeyboard.com/mm5/graphics/00000001/UB4ZPHA_800x343.jpg)
 
 Will support the following Unicomp Classic and Ultra Classic keyboards:
-  * 104-key ANSI and 105-key ISO keyboards with post-2013 bottom row are supported.
+  * 104-key ANSI and 105-key ISO keyboards with pre-2013 bottom row are supported.
 
 * Keyboard Maintainer: [Purdea Andrei](https://github.com/purdeaandrei)
 * Hardware Supported: OverNumpad controller v1.Xb

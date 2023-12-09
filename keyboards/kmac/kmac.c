@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "kmac.h"
+#include "quantum.h"
 
 #define F_ROW_MASK 0b01
 #define WASD_MASK 0b10

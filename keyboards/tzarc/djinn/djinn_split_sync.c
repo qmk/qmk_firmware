@@ -1,4 +1,4 @@
-// Copyright 2018-2022 Nick Brassel (@tzarc)
+// Copyright 2018-2023 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include <string.h>
 #include "quantum.h"
@@ -13,9 +13,6 @@ void kb_state_update(void) {
     if (is_keyboard_master()) {
         // Modify allowed current limits
         usbpd_update();
-
-        // Turn off the LCD if there's been no matrix activity
-        kb_state.lcd_power = (last_input_activity_elapsed() < LCD_ACTIVITY_TIMEOUT) ? 1 : 0;
     }
 }
 

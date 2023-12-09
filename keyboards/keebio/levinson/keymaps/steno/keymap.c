@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "keymap_steno.h"
 
 extern keymap_config_t keymap_config;
 
@@ -91,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
 };
 
 
-void matrix_init_user() {
+void matrix_init_user(void) {
   steno_set_mode(STENO_MODE_GEMINI); // or STENO_MODE_BOLT
 }
 

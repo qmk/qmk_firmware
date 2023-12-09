@@ -4,7 +4,7 @@
 #include "jpe230.h"
 #include "ocean_dream.h"
 
-void render_slave_oled() {
+void render_slave_oled(void) {
     render_stars();
 }
 

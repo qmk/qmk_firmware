@@ -13,9 +13,9 @@ typedef enum {
 } td_state_t;
 
 static td_state_t td_state = NONE_NONE;
-int cur_dance (qk_tap_dance_state_t *state);
-void altlp_finished (qk_tap_dance_state_t *state, void *user_data);
-void altlp_reset (qk_tap_dance_state_t *state, void *user_data);
+int cur_dance (tap_dance_state_t *state);
+void altlp_finished (tap_dance_state_t *state, void *user_data);
+void altlp_reset (tap_dance_state_t *state, void *user_data);
 
 // Four differend underglow states for 2 language layouts x 2 states of colemak layer
 enum layer_states {
@@ -49,7 +49,7 @@ int speed = 300;
 
 void set_colors(int r, int g, int b) {
   for(int i = 0; i<6; i++) {
-    sethsv(r, g, b, (LED_TYPE *)&led[i]);
+    sethsv(r, g, b, (rgb_led_t *)&led[i]);
   }
   rgblight_set();
 }
@@ -65,7 +65,7 @@ void update_led_state_c(void) {
   }
 }
 
-int cur_dance (qk_tap_dance_state_t *state) {
+int cur_dance (tap_dance_state_t *state) {
   if (state->count == 1) {
     if (state->interrupted && state->pressed) { return SINGLE_HOLD; }
     else if (!state->pressed) { return SINGLE_TAP; }
@@ -76,7 +76,7 @@ int cur_dance (qk_tap_dance_state_t *state) {
 }
 
 // Tapdance code stolen long time ago from one of the forum answers i found related to my problem, sadly can't provide link for the credits
-void lesc_finished (qk_tap_dance_state_t *state, void *user_data) {
+void lesc_finished (tap_dance_state_t *state, void *user_data) {
   td_state = cur_dance(state);
   switch (td_state) {
     case SINGLE_TAP:
@@ -94,7 +94,7 @@ void lesc_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void lesc_reset (qk_tap_dance_state_t *state, void *user_data) {
+void lesc_reset (tap_dance_state_t *state, void *user_data) {
   switch (td_state) {
     case SINGLE_TAP:
       unregister_code16(KC_ESC);
@@ -115,7 +115,7 @@ void lesc_reset (qk_tap_dance_state_t *state, void *user_data) {
   update_led_state_c();
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [LESC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lesc_finished, lesc_reset)
 };
 
@@ -201,8 +201,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void matrix_init_user(void) { }
-
 // Rainbow globals
 int t = 0;
 int rc = 0;
@@ -215,7 +213,7 @@ void matrix_scan_user(void) {
     if (rc == 0) {
       rc = speed;
       for(int i = 0; i<6; i++) {
-        sethsv(42*((t+i)%6), 255, 255, (LED_TYPE *)&led[i]);
+        sethsv(42*((t+i)%6), 255, 255, (rgb_led_t *)&led[i]);
       }
       rgblight_set();
       t++; t = t % 6;
@@ -226,9 +224,9 @@ void matrix_scan_user(void) {
       col = (col + 1) % 36;
       for (int i = 0; i<6; i++) {
         if (i==t)
-          sethsv(42*(((col-1)/6)%6), 255, 255, (LED_TYPE *)&led[(right ? t : 5-t)]);
+          sethsv(42*(((col-1)/6)%6), 255, 255, (rgb_led_t *)&led[(right ? t : 5-t)]);
         else
-          sethsv(0, 0, 0, (LED_TYPE *)&led[right ? i : 5-i]);
+          sethsv(0, 0, 0, (rgb_led_t *)&led[right ? i : 5-i]);
       }
       rgblight_set();
       t++; t = t % 6;
@@ -237,5 +235,3 @@ void matrix_scan_user(void) {
   }
   rc--;
 }
-
-void led_set_user(uint8_t usb_led) { }

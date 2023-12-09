@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,   KC_NO,     KC_NO),
 };
 
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_MACRO]  = { ENCODER_CCW_CW(KC_BRID,       KC_BRIU),      ENCODER_CCW_CW(C(KC_MINS), C(KC_EQL)), ENCODER_CCW_CW(KC_VOLD,    KC_VOLU) },
     [_NUMPAD] = { ENCODER_CCW_CW(KC_BRID,       KC_BRIU),      ENCODER_CCW_CW(C(KC_MINS), C(KC_EQL)), ENCODER_CCW_CW(KC_VOLD,    KC_VOLU) },
     [_CURSOR] = { ENCODER_CCW_CW(KC_BRID,       KC_BRIU),      ENCODER_CCW_CW(C(KC_MINS), C(KC_EQL)), ENCODER_CCW_CW(KC_VOLD,    KC_VOLU) },
@@ -147,11 +147,12 @@ void keyboard_post_init_user(void) {
     do_rgb_layers(layer_state, LAYER_BASE, LAYER_BASE_END);
 }
 
-void shutdown_user() {
+bool shutdown_user(bool jump_to_bootloader) {
     clear_rgb_layers();
     rgblight_enable();
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
     rgblight_sethsv_noeeprom(HSV_RED);
+    return false;
 }
 
 void spidey_glow(void) {
@@ -218,4 +219,3 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
     }
 }
-

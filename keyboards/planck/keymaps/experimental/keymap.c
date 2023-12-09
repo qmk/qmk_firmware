@@ -1,6 +1,5 @@
 
 #include QMK_KEYBOARD_H
-#include "keymap_steno.h"
 #include "version.h"
 
 extern keymap_config_t keymap_config;
@@ -177,16 +176,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef AUDIO_ENABLE
-
-float tone_startup[][2]    = SONG(STARTUP_SOUND);
 float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
 float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
 float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
 float tone_plover[][2]     = SONG(PLOVER_SOUND);
 float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
-float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
-
-float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
 #endif
 
 
@@ -340,71 +334,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 };
 
-void matrix_init_user(void) {
-  #ifdef AUDIO_ENABLE
-        startup_user();
-  #endif
-}
-
-#ifdef AUDIO_ENABLE
-void startup_user()
-{
-    _delay_ms(20); // gets rid of tick
-    PLAY_SONG(tone_startup);
-}
-
-void shutdown_user()
-{
-    PLAY_SONG(tone_goodbye);
-    _delay_ms(150);
-    stop_all_notes();
-}
-
-void music_on_user(void)
-{
-    music_scale_user();
-}
-
-void music_scale_user(void)
-{
-    PLAY_SONG(music_scale);
-}
-
-#endif
-
-LEADER_EXTERNS();
-
-void matrix_scan_user(void) {
-  LEADER_DICTIONARY() {
-    leading = false;
-    leader_end();
-
-    SEQ_ONE_KEY (KC_R) {
-      tap_random_base64();
-      tap_random_base64();
-      tap_random_base64();
-      tap_random_base64();
-      tap_random_base64();
-      tap_random_base64();
-      tap_random_base64();
-      tap_random_base64();
-      tap_random_base64();
-    }
-    SEQ_ONE_KEY (KC_V) {
-      SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-    }
-    SEQ_ONE_KEY(KC_F) {
-      SEND_STRING("if yes\n\tpeanut butter\nelse\n\trice snacks");
-    }
-    SEQ_TWO_KEYS(KC_A, KC_S) {
-      register_code(KC_H);
-      unregister_code(KC_H);
-    }
-    SEQ_THREE_KEYS(KC_A, KC_S, KC_D) {
-      register_code(KC_LGUI);
-      register_code(KC_S);
-      unregister_code(KC_S);
-      unregister_code(KC_LGUI);
-    }
+void leader_end_user(void) {
+  if (leader_sequence_one_key(KC_R)) {
+    tap_random_base64();
+    tap_random_base64();
+    tap_random_base64();
+    tap_random_base64();
+    tap_random_base64();
+    tap_random_base64();
+    tap_random_base64();
+    tap_random_base64();
+    tap_random_base64();
+  }
+  if (leader_sequence_one_key(KC_V)) {
+    SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+  }
+  if (leader_sequence_one_key(KC_F)) {
+    SEND_STRING("if yes\n\tpeanut butter\nelse\n\trice snacks");
+  }
+  if (leader_sequence_two_keys(KC_A, KC_S)) {
+    register_code(KC_H);
+    unregister_code(KC_H);
+  }
+  if (leader_sequence_three_keys(KC_A, KC_S, KC_D)) {
+    register_code(KC_LGUI);
+    register_code(KC_S);
+    unregister_code(KC_S);
+    unregister_code(KC_LGUI);
   }
 }

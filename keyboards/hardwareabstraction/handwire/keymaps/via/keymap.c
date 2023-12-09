@@ -4,7 +4,7 @@
 #include QMK_KEYBOARD_H
 
 enum custom_keycodes{
-    KC_HPTON = USER00,
+    KC_HPTON = QK_KB_0,
     KC_HPTOFF,
     KC_HPTTOG,
     KC_HPTRST,

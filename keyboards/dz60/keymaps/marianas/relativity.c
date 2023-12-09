@@ -24,7 +24,7 @@ bool tempOff = false;
 
 
 
-void initStringData()
+void initStringData(void)
 {
   if (macroTaps == 0)
   {
@@ -382,7 +382,7 @@ bool processSmartMacroTap(uint16_t kc)
 
 
 bool shifted = false;
-bool isShifted()
+bool isShifted(void)
 {
   return shifted;
 }
