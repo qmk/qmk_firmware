@@ -14,9 +14,9 @@ ifeq ($(strip $(OLED_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(THUMBSTICK_ENABLE)), yes)
+    ANALOG_DRIVER_REQUIRED = yes
     POINTING_DEVICE_ENABLE = yes
     POINTING_DEVICE_DRIVER = custom
     OPT_DEFS += -DTHUMBSTICK_ENABLE
-	SRC += analog.c
 	SRC += thumbstick.c
 endif

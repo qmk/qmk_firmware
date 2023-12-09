@@ -40,7 +40,7 @@
             "static_gradient": true,
             "twinkle": true
         },
-        "led_count": 6,
+        "led_count": 6
     },
     "ws2812": {
         "pin": "D3"

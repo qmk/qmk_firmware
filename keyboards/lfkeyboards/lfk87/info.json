@@ -8,15 +8,5 @@
     "pid": "0x6060",
     "device_version": "0.0.1"
   },
-  "backlight": {
-    "driver": "custom",
-    "levels": 10
-  },
-  "rgblight": {
-    "driver": "custom"
-  },
-  "ws2812": {
-    "pin": "F4"
-  },
   "community_layouts": ["tkl_ansi", "tkl_iso"]
 }
