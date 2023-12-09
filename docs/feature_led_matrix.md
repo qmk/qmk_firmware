@@ -1,8 +1,8 @@
 # LED Matrix Lighting :id=led-matrix-lighting
 
-This feature allows you to use LED matrices driven by external drivers. It hooks into the backlight system so you can use the same keycodes as backlighting to control it.
+This feature allows you to use non-RGB LED matrices driven by external drivers. *External* here means *not within the microcontroller,* and includes LEDs with embedded drivers. LED Matrix Lighting hooks into the backlight system so you can use the same keycodes as backlighting to control it.
 
-If you want to use RGB LED's you should use the [RGB Matrix Subsystem](feature_rgb_matrix.md) instead.
+If you want to use RGB LEDs you should use the [RGB Matrix Subsystem](feature_rgb_matrix.md) instead.
 
 ## Driver configuration :id=driver-configuration
 ---

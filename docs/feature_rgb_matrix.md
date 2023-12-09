@@ -1,8 +1,9 @@
 # RGB Matrix Lighting :id=rgb-matrix-lighting
 
-This feature allows you to use RGB LED matrices driven by external drivers. It hooks into the RGBLIGHT system so you can use the same keycodes as RGBLIGHT to control it.
+This feature allows you to use RGB LED matrices driven by external drivers. *External* here means *not within the microcontroller,* and includes LEDs with embedded drivers. RGB Matrix Lighting is commonly used for per-key backlighting. It hooks into the RGBLIGHT system so you can use the same keycodes as RGBLIGHT to control it. 
 
-If you want to use single color LED's you should use the [LED Matrix Subsystem](feature_led_matrix.md) instead.
+If you want to use single color LEDs you should use the [LED Matrix Subsystem](feature_led_matrix.md) instead.
+
 
 ## Driver configuration :id=driver-configuration
 ---
