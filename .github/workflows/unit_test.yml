@@ -1,5 +1,8 @@
 name: Unit Tests
 
+permissions:
+  contents: read
+
 on:
   push:
     branches:
@@ -20,10 +23,10 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    container: qmkfm/qmk_cli
+    container: ghcr.io/qmk/qmk_cli
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         submodules: recursive
     - name: Install dependencies

@@ -1,16 +1,29 @@
 {
-    "keyboard_name": "Click Pad V1", 
+    "keyboard_name": "Click Pad V1",
     "manufacturer": "Copenhagen Click",
-    "url": "http://copenhagenclick.com/ClickPad-V1/", 
-    "maintainer": "mini-ninja-64", 
+    "url": "http://copenhagenclick.com/ClickPad-V1/",
+    "maintainer": "mini-ninja-64",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x27DB",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["F5"],
+        "rows": ["F7"]
+    },
+    "diode_direction": "COL2ROW",
+    "backlight": {
+        "pin": "B5",
+        "breathing": true
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
-            "layout": [{"x":0, "y":0}]
+            "layout": [
+                {"label": "k00", "matrix": [0, 0], "x": 0, "y": 0}
+            ]
         }
     }
 }

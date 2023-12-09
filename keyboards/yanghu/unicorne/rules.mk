@@ -12,12 +12,9 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = yes          # Audio output
 ENCODER_ENABLE = yes
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
 
-WS2812_DRIVER = pwm
 AUDIO_DRIVER = pwm_hardware
 
 RGB_MATRIX_ENABLE = no # Do not enable with RGBLIGHT
-RGB_MATRIX_DRIVER = WS2812
 
 DEFAULT_FOLDER = yanghu/unicorne/f411

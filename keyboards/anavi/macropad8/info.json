@@ -4,13 +4,55 @@
   "url": "",
   "maintainer": "leon-anavi",
   "usb": {
-        "vid": "0xCEEB",
-        "pid": "0x0001",
-        "device_version": "0.0.1"
-    },
+      "vid": "0xCEEB",
+      "pid": "0x0001",
+      "device_version": "0.0.1"
+  },
+  "backlight": {
+    "driver": "timer",
+    "pin": "D7",
+    "breathing": true
+  },
+  "rgblight": {
+    "hue_steps": 10,
+    "led_count": 4,
+    "sleep": true,
+    "animations": {
+      "breathing": true,
+      "rainbow_mood": true,
+      "rainbow_swirl": true,
+      "snake": true,
+      "knight": true,
+      "christmas": true,
+      "static_gradient": true,
+      "rgb_test": true,
+      "alternating": true,
+      "twinkle": true
+    }
+  },
+  "ws2812": {
+    "pin": "F4"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
+  "matrix_pins": {
+    "direct": [
+      ["D4", "F6", "B5", "E6"],
+      ["F5", "F7", "B4", "C6"]
+    ]
+  },
   "layouts": {
     "LAYOUT_ortho_2x4": {
-      "layout": [{"x":0, "y":0}, {"x":1, "y":0}, {"x":2, "y":0}, {"x":3, "y":0}, {"x":0, "y":1}, {"x":1, "y":1}, {"x":2, "y":1}, {"x":3, "y":1}]
+      "layout": [
+        {"x": 0, "y": 0, "matrix": [0, 0]},
+        {"x": 1, "y": 0, "matrix": [0, 1]},
+        {"x": 2, "y": 0, "matrix": [0, 2]},
+        {"x": 3, "y": 0, "matrix": [0, 3]},
+        {"x": 0, "y": 1, "matrix": [1, 0]},
+        {"x": 1, "y": 1, "matrix": [1, 1]},
+        {"x": 2, "y": 1, "matrix": [1, 2]},
+        {"x": 3, "y": 1, "matrix": [1, 3]}
+      ]
     }
   }
 }

@@ -13,11 +13,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "synthesis60.h"
+#include "quantum.h"
 
 #ifdef OLED_ENABLE
 bool oled_task_kb(void) {
-    if (!oled_task_kb()) { return false; }
+    if (!oled_task_user()) { return false; }
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Synthesis60\nLayer: "), false);
     // Host Keyboard LED Status

@@ -40,11 +40,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                |      |    |      |
  *                                `------'    `------'
  */
-[_DVORAK] = LAYOUT ( \
-  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,       KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    \
-  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,       KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    \
-  CTLSCLN, ALTQ,    GUIJ,    KC_K,    KC_X,       KC_B,    KC_M,    GUIW,    ALTV,    RCTLZED, \
-                    LOWER,   KC_BSPC, KC_LSFT,    KC_ENT,  KC_SPC,  RAISE                      \
+[_DVORAK] = LAYOUT (
+  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,       KC_F,    KC_G,    KC_C,    KC_R,    KC_L,
+  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,       KC_D,    KC_H,    KC_T,    KC_N,    KC_S,
+  CTLSCLN, ALTQ,    GUIJ,    KC_K,    KC_X,       KC_B,    KC_M,    GUIW,    ALTV,    RCTLZED,
+                    LOWER,   KC_BSPC, KC_LSFT,    KC_ENT,  KC_SPC,  RAISE
 ),
 
 /* Qwerty
@@ -62,11 +62,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                |      |    |      |
  *                                `------'    `------'
  */
-[_QWERTY] = LAYOUT ( \
-  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    \
-  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,       KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, \
-  LCTLZED, ALTX,    GUIC,    KC_V,    KC_B,       KC_N,    KC_M,    GUICOMM, ALTDOT,  CTLSLSH, \
-                    LOWER,   KC_BSPC, KC_LSFT,    KC_ENT,  KC_SPC,  RAISE                      \
+[_QWERTY] = LAYOUT (
+  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
+  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,       KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,
+  LCTLZED, ALTX,    GUIC,    KC_V,    KC_B,       KC_N,    KC_M,    GUICOMM, ALTDOT,  CTLSLSH,
+                    LOWER,   KC_BSPC, KC_LSFT,    KC_ENT,  KC_SPC,  RAISE
 ),
 
 /* Colemak
@@ -84,11 +84,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                |      |    |      |
  *                                `------'    `------'
  */
-[_COLEMAK] = LAYOUT ( \
-  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,       KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, \
-  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,       KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    \
-  LCTLZED, ALTX,    GUIC,    KC_V,    KC_B,       KC_K,    KC_M,    GUICOMM, ALTDOT,  CTLSLSH, \
-                    LOWER,   KC_BSPC, KC_LSFT,    KC_ENT,  KC_SPC,  RAISE                      \
+[_COLEMAK] = LAYOUT (
+  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,       KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,
+  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,       KC_H,    KC_N,    KC_E,    KC_I,    KC_O,
+  LCTLZED, ALTX,    GUIC,    KC_V,    KC_B,       KC_K,    KC_M,    GUICOMM, ALTDOT,  CTLSLSH,
+                    LOWER,   KC_BSPC, KC_LSFT,    KC_ENT,  KC_SPC,  RAISE
 ),
 
 /* Lower
@@ -106,11 +106,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                |      |    |      |
  *                                `------'    `------'
  */
-[_LOWER] = LAYOUT ( \
-  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, \
-  KC_CAPS, _______, KC_UP,   _______, KC_HOME,    KC_PGUP, KC_PLUS, KC_LCBR, KC_RCBR, KC_UNDS, \
-  KC_TILD, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,     KC_PGDN, KC_MUTE, KC_VOLD, KC_VOLU, KC_SLSH, \
-                    _______, KC_DEL,  KC_ESC,     KC_TAB,  KC_PIPE, _______                    \
+[_LOWER] = LAYOUT (
+  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,
+  KC_CAPS, _______, KC_UP,   _______, KC_HOME,    KC_PGUP, KC_PLUS, KC_LCBR, KC_RCBR, KC_UNDS,
+  KC_TILD, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,     KC_PGDN, KC_MUTE, KC_VOLD, KC_VOLU, KC_SLSH,
+                    _______, KC_DEL,  KC_ESC,     KC_TAB,  KC_PIPE, _______
 ),
 
 /* Raise
@@ -128,11 +128,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                |      |    |      |
  *                                `------'    `------'
  */
-[_RAISE] = LAYOUT ( \
-  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,       KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    \
-  KC_CAPS, _______, KC_UP,   _______, KC_HOME,    KC_PGUP, KC_EQL,  KC_LBRC, KC_RBRC, KC_MINS, \
-  KC_GRV,  KC_LEFT, KC_DOWN, KC_RGHT, KC_END,     KC_PGDN, KC_MPRV, KC_MPLY, KC_MNXT, KC_QUES, \
-                    _______, KC_DEL,  KC_ESC,     KC_TAB,  KC_BSLS, _______                    \
+[_RAISE] = LAYOUT (
+  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,       KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
+  KC_CAPS, _______, KC_UP,   _______, KC_HOME,    KC_PGUP, KC_EQL,  KC_LBRC, KC_RBRC, KC_MINS,
+  KC_GRV,  KC_LEFT, KC_DOWN, KC_RGHT, KC_END,     KC_PGDN, KC_MPRV, KC_MPLY, KC_MNXT, KC_QUES,
+                    _______, KC_DEL,  KC_ESC,     KC_TAB,  KC_BSLS, _______
 ),
 
 /* Adjust (Lower + Raise)
@@ -142,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------|           |------+------+------+------+------|
  * |  F11 |      |      |      |      |           |      | PrSc | ScLk | Paus | F12  |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |      |QWERTY|COLEMK|DVORAK|      |           |RESET |      |      |      |      |
+ * |      |QWERTY|COLEMK|DVORAK|      |           |QK_BOOT |      |      |      |      |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,------,-------------.
  *                  |      |      |      |    |      |      |      |
@@ -150,11 +150,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                |      |    |      |
  *                                `------'    `------'
  */
-[_ADJUST] =  LAYOUT ( \
-  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,      KC_F6,   KC_F7,   KC_UP,   KC_F9,   KC_F10,  \
-  KC_F11,  RESET,   _______, _______, _______,    _______, KC_PSCR, KC_SLCK, KC_PAUS, KC_F12,  \
-  _______, QWERTY,  COLEMAK, DVORAK,  _______,    RESET,   _______, _______, _______, _______, \
-                    _______, _______, _______,    _______, _______, _______                    \
+[_ADJUST] =  LAYOUT (
+  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,      KC_F6,   KC_F7,   KC_UP,   KC_F9,   KC_F10,
+  KC_F11,  QK_BOOT, _______, _______, _______,    _______, KC_PSCR, KC_SCRL, KC_PAUS, KC_F12,
+  _______, QWERTY,  COLEMAK, DVORAK,  _______,    QK_BOOT, _______, _______, _______, _______,
+                    _______, _______, _______,    _______, _______, _______
   )
 };
 // clang-format on

@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,
         _______, KC_VOLD, KC_VOLU, KC_MUTE, _______, _______, _______, KC_F11,  KC_F12,  _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        RESET,   _______, _______, _______, _______,     _______,      _______, _______, _______, _______, _______
+        QK_BOOT, _______, _______, _______, _______,     _______,      _______, _______, _______, _______, _______
     ),
 
     /* Layer 2 (r_ Indicates RGB Controls)
@@ -56,48 +56,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______,     _______,      _______, _______, _______, _______, _______
     )
 };
-
-
-void matrix_init_user(void) {
-}
-
-void matrix_scan_user(void) {
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    return true;
-}
-
-void led_set_user(uint8_t usb_led) {
-
-    if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-
-    } else {
-
-    }
-
-    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-
-    } else {
-
-    }
-
-    if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
-
-    } else {
-
-    }
-
-    if (IS_LED_ON(usb_led, USB_LED_COMPOSE)) {
-
-    } else {
-
-    }
-
-    if (IS_LED_ON(usb_led, USB_LED_KANA)) {
-
-    } else {
-
-    }
-
-}

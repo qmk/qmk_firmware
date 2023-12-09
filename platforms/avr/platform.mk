@@ -12,8 +12,7 @@ HEX = $(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature
 EEP = $(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 --no-change-warnings -O $(FORMAT)
 BIN =
 
-# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=105523
-ifneq ($(findstring 12.,$(shell avr-gcc --version 2>/dev/null)),)
+ifeq ("$(shell echo "int main(){}" | $(CC) --param=min-pagesize=0 -x c - -o /dev/null 2>&1)", "")
 COMPILEFLAGS += --param=min-pagesize=0
 endif
 
@@ -24,6 +23,7 @@ COMPILEFLAGS += -fdata-sections
 COMPILEFLAGS += -fpack-struct
 COMPILEFLAGS += -fshort-enums
 COMPILEFLAGS += -mcall-prologues
+COMPILEFLAGS += -fno-builtin-printf
 
 # Linker relaxation is only possible if
 # link time optimizations are not enabled.
@@ -38,7 +38,7 @@ CFLAGS += -fno-inline-small-functions
 CFLAGS += -fno-strict-aliasing
 
 CXXFLAGS += $(COMPILEFLAGS)
-CXXFLAGS += -fno-exceptions -std=c++11
+CXXFLAGS += -fno-exceptions $(CXXSTANDARD)
 
 LDFLAGS += -Wl,--gc-sections
 
@@ -108,6 +108,29 @@ DEBUG_PORT = 4242
 DEBUG_HOST = localhost
 
 #============================================================================
+
+SIZE_MARGIN = 1024
+
+check-size:
+	$(eval MAX_SIZE=$(shell n=`$(CC) -E -mmcu=$(MCU) -D__ASSEMBLER__ $(CFLAGS) $(OPT_DEFS) platforms/avr/bootloader_size.c 2> /dev/null | $(SED) -ne 's/\r//;/^#/n;/^AVR_SIZE:/,$${s/^AVR_SIZE: //;p;}'` && echo $$(($$n)) || echo 0))
+	$(eval CURRENT_SIZE=$(shell if [ -f $(BUILD_DIR)/$(TARGET).hex ]; then $(SIZE) --target=$(FORMAT) $(BUILD_DIR)/$(TARGET).hex | $(AWK) 'NR==2 {print $$4}'; else printf 0; fi))
+	$(eval FREE_SIZE=$(shell expr $(MAX_SIZE) - $(CURRENT_SIZE)))
+	$(eval OVER_SIZE=$(shell expr $(CURRENT_SIZE) - $(MAX_SIZE)))
+	$(eval PERCENT_SIZE=$(shell expr $(CURRENT_SIZE) \* 100 / $(MAX_SIZE)))
+	if [ $(MAX_SIZE) -gt 0 ] && [ $(CURRENT_SIZE) -gt 0 ]; then \
+		$(SILENT) || printf "$(MSG_CHECK_FILESIZE)" | $(AWK_CMD); \
+		if [ $(CURRENT_SIZE) -gt $(MAX_SIZE) ]; then \
+			$(REMOVE) $(TARGET).$(FIRMWARE_FORMAT); \
+			$(REMOVE) $(BUILD_DIR)/$(TARGET).{hex,bin,uf2}; \
+		    printf "\n * $(MSG_FILE_TOO_BIG)"; $(PRINT_ERROR_PLAIN); \
+		else \
+		    if [ $(FREE_SIZE) -lt $(SIZE_MARGIN) ]; then \
+			$(PRINT_WARNING_PLAIN); printf " * $(MSG_FILE_NEAR_LIMIT)"; \
+		    else \
+			$(PRINT_OK); $(SILENT) || printf " * $(MSG_FILE_JUST_RIGHT)"; \
+		    fi ; \
+		fi ; \
+	fi
 
 # Convert hex to bin.
 bin: $(BUILD_DIR)/$(TARGET).hex

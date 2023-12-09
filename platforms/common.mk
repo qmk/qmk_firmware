@@ -1,7 +1,9 @@
 PLATFORM_COMMON_DIR = $(PLATFORM_PATH)/$(PLATFORM_KEY)
 
-TMK_COMMON_SRC +=	\
+SRC +=	\
 	$(PLATFORM_PATH)/suspend.c \
+	$(PLATFORM_PATH)/synchronization_util.c \
+	$(PLATFORM_PATH)/timer.c \
 	$(PLATFORM_COMMON_DIR)/hardware_id.c \
 	$(PLATFORM_COMMON_DIR)/platform.c \
 	$(PLATFORM_COMMON_DIR)/suspend.c \

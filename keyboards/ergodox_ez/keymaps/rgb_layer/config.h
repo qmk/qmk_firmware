@@ -2,14 +2,9 @@
 #define KEYMAP_CONFIG_H
 
 
-    #define RGBLIGHT_SLEEP
+#define RGBLIGHT_SLEEP
 
 
-#ifndef QMK_KEYS_PER_SCAN
-#define QMK_KEYS_PER_SCAN 4
-#endif // !QMK_KEYS_PER_SCAN
-
-#define IGNORE_MOD_TAP_INTERRUPT
 #undef PERMISSIVE_HOLD
 
 

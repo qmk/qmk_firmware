@@ -23,12 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "host_driver.h"
 #include "led.h"
 
-#define IS_LED_ON(leds, led_name) ((leds) & (1 << (led_name)))
-#define IS_LED_OFF(leds, led_name) (~(leds) & (1 << (led_name)))
-
-#define IS_HOST_LED_ON(led_name) IS_LED_ON(host_keyboard_leds(), led_name)
-#define IS_HOST_LED_OFF(led_name) IS_LED_OFF(host_keyboard_leds(), led_name)
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -44,14 +38,14 @@ host_driver_t *host_get_driver(void);
 uint8_t host_keyboard_leds(void);
 led_t   host_keyboard_led_state(void);
 void    host_keyboard_send(report_keyboard_t *report);
+void    host_nkro_send(report_nkro_t *report);
 void    host_mouse_send(report_mouse_t *report);
-void    host_system_send(uint16_t data);
-void    host_consumer_send(uint16_t data);
+void    host_system_send(uint16_t usage);
+void    host_consumer_send(uint16_t usage);
 void    host_programmable_button_send(uint32_t data);
 
-uint16_t host_last_system_report(void);
-uint16_t host_last_consumer_report(void);
-uint32_t host_last_programmable_button_report(void);
+uint16_t host_last_system_usage(void);
+uint16_t host_last_consumer_usage(void);
 
 #ifdef __cplusplus
 }

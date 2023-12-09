@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [QWERTY] = LAYOUT(
       KC_ESC,  KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_PIPE,
       KC_LSFT, KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                                         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-      KC_LCTL, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_CCCV,   XXXXXXX, KC_DEL, KC_LEAD,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_MINS,
+      KC_LCTL, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_CCCV,   XXXXXXX, KC_DEL, QK_LEAD,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_MINS,
               KC_LGUI, KC_LALT, MO(LOWER), MT(MOD_LSFT, KC_SPC), MT(MOD_LALT, KC_ENT), KC_BSPC, LT(NAV, KC_SPC), MO(RAISE), KC_TAB, KC_RALT
     ),
 /*
@@ -105,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [NAV] = LAYOUT(
-      _______, _______, _______, _______, _______, _______,                                     KC_PGUP, KC_HOME, KC_UP,   KC_END,  _______, KC_SLCK,
+      _______, _______, _______, _______, _______, _______,                                     KC_PGUP, KC_HOME, KC_UP,   KC_END,  _______, KC_SCRL,
       _______, _______, _______, _______, _______, _______,                                     KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_CAPS,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
@@ -173,65 +173,59 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+void leader_end_user(void) {
+    if (leader_sequence_one_key(KC_C)) { // Inline Code
+        SEND_STRING("`` " SS_TAP(X_LEFT) SS_TAP(X_LEFT));
+    }
+    if (leader_sequence_one_key(KC_P)) { // Invoke Password Manager
+        SEND_STRING(SS_LCTL(SS_LALT("\\")));
+    }
+    if (leader_sequence_one_key(KC_S)) { // Windows screenshot
+        SEND_STRING(SS_LGUI("\nS"));
+    }
+    if (leader_sequence_two_keys(KC_F, KC_P)) { // Fusion Projection prefix
+        SEND_STRING("[Projection] ");
+    }
+    if (leader_sequence_two_keys(KC_B, KC_B)) { // Basecone invoice description
+        SEND_STRING("[Leveranciersnaam] [Factuurnummer]");
+    }
+    if (leader_sequence_two_keys(KC_E, KC_S)) { // Support email splitkb
+        SEND_STRING("support@splitkb.com");
+    }
+    if (leader_sequence_two_keys(KC_E, KC_T)) { // Email splitkb
+        SEND_STRING("thomas@splitkb.com");
+    }
+    if (leader_sequence_two_keys(KC_E, KC_P)) { // Email personal
+        SEND_STRING("mail@thomasbaart.nl");
+    }
+    if (leader_sequence_two_keys(KC_S, KC_D)) { // Splitkb documentation
+        SEND_STRING("https://docs.splitkb.com/");
+    }
+    if (leader_sequence_two_keys(KC_S, KC_V)) { // Splitkb VAT number
+        SEND_STRING("NL210593349B01");
+    }
+    if (leader_sequence_two_keys(KC_B, KC_C)) { // Discord bongocat
+        SEND_STRING(":bongocat:\n");
+    }
+    if (leader_sequence_two_keys(KC_C, KC_B)) { // Discord code block
+        SEND_STRING("```c" SS_LSFT("\n\n") "``` " SS_TAP(X_UP));
+    }
+    if (leader_sequence_two_keys(KC_Y, KC_S)) { // Greeting
+        SEND_STRING("Yours sincerely,\n\nThomas Baart");
+    }
+    if (leader_sequence_three_keys(KC_M, KC_V, KC_G)) { // Greeting
+        SEND_STRING("Met vriendelijke groet,\n\nThomas Baart");
+    }
+}
 
 bool is_alt_tab_active = false;
 uint16_t alt_tab_timer = 0;
-
-LEADER_EXTERNS();
 
 void matrix_scan_user(void) {
     if (is_alt_tab_active) {
         if (timer_elapsed(alt_tab_timer) > 1000) {
             unregister_code(KC_LALT);
             is_alt_tab_active = false;
-        }
-    }
-
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
-
-        SEQ_ONE_KEY(KC_C) { // Inline Code
-            SEND_STRING("`` " SS_TAP(X_LEFT) SS_TAP(X_LEFT));
-        }
-        SEQ_ONE_KEY(KC_P) { // Invoke Password Manager
-            SEND_STRING(SS_LCTRL(SS_LALT("\\")));
-        }
-        SEQ_ONE_KEY(KC_S) { // Windows screenshot
-            SEND_STRING(SS_LGUI("\nS"));
-        }
-        SEQ_TWO_KEYS(KC_F, KC_P) { // Fusion Projection prefix
-            SEND_STRING("[Projection] ");
-        }
-        SEQ_TWO_KEYS(KC_B, KC_B) { // Basecone invoice description
-            SEND_STRING("[Leveranciersnaam] [Factuurnummer]");
-        }
-        SEQ_TWO_KEYS(KC_E, KC_S) { // Support email splitkb
-            SEND_STRING("support@splitkb.com");
-        }
-        SEQ_TWO_KEYS(KC_E, KC_T) { // Email splitkb
-            SEND_STRING("thomas@splitkb.com");
-        }
-        SEQ_TWO_KEYS(KC_E, KC_P) { // Email personal
-            SEND_STRING("mail@thomasbaart.nl");
-        }
-        SEQ_TWO_KEYS(KC_S, KC_D) { // Splitkb documentation
-            SEND_STRING("https://docs.splitkb.com/");
-        }
-        SEQ_TWO_KEYS(KC_S, KC_V) { // Splitkb VAT number
-            SEND_STRING("NL210593349B01");
-        }
-        SEQ_TWO_KEYS(KC_B, KC_C) { // Discord bongocat
-            SEND_STRING(":bongocat:\n");
-        }
-        SEQ_TWO_KEYS(KC_C, KC_B) { // Discord code block
-            SEND_STRING("```c" SS_LSFT("\n\n") "``` " SS_TAP(X_UP));
-        }
-        SEQ_TWO_KEYS(KC_Y, KC_S) { // Greeting
-            SEND_STRING("Yours sincerely,\n\nThomas Baart");
-        }
-        SEQ_THREE_KEYS(KC_M, KC_V, KC_G) { // Greeting
-            SEND_STRING("Met vriendelijke groet,\n\nThomas Baart");
         }
     }
 }
@@ -292,10 +286,10 @@ static void render_status(void) {
     }
 
     // Host Keyboard LED Status
-    uint8_t led_usb_state = host_keyboard_leds();
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK)    ? PSTR("NUMLCK ") : PSTR("       "), false);
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK)   ? PSTR("CAPLCK ") : PSTR("       "), false);
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK ") : PSTR("       "), false);
+    led_t led_state = host_keyboard_led_state();
+    oled_write_P(led_state.num_lock    ? PSTR("NUMLCK ") : PSTR("       "), false);
+    oled_write_P(led_state.caps_lock   ? PSTR("CAPLCK ") : PSTR("       "), false);
+    oled_write_P(led_state.scroll_lock ? PSTR("SCRLCK ") : PSTR("       "), false);
 }
 
 bool oled_task_user(void) {
@@ -311,7 +305,7 @@ bool oled_task_user(void) {
 #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
-        switch (biton32(layer_state)) {
+        switch (get_highest_layer(layer_state)) {
             case QWERTY:
                 // History scrubbing. For Adobe products, hold shift while moving
                 // backward to go forward instead.
@@ -336,7 +330,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 break;
         }
     } else if (index == 1) {
-        switch (biton32(layer_state)) {
+        switch (get_highest_layer(layer_state)) {
             case QWERTY:
                 // Scrolling with PageUp and PgDn.
                 if (clockwise) {

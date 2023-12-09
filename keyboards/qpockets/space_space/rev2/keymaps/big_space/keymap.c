@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 #include QMK_KEYBOARD_H
 
 enum layers{
@@ -52,14 +52,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_TRNS, KC_6,    KC_7,    KC_8,    KC_9,     KC_0,
     KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_TRNS, KC_CIRC, KC_AMPR, KC_ASTR, KC_EQUAL, KC_MINS,
     KC_PIPE, KC_BSLS, KC_LPRN, KC_LBRC, KC_SCLN, KC_TRNS, KC_COLN, KC_RBRC, KC_RPRN, KC_PLUS,  KC_UNDS,
-                    KC_TRNS,      KC_TRNS,      KC_TRNS 
+                    KC_TRNS,      KC_TRNS,      KC_TRNS
   ),
 
   [_NAV] = LAYOUT_big_space(
-    KC_HOME, KC_UP,   KC_END,   KC_PGUP, KC_TRNS, RESET,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSPC,
+    KC_HOME, KC_UP,   KC_END,   KC_PGUP, KC_TRNS, QK_BOOT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSPC,
     KC_LEFT, KC_DOWN, KC_RIGHT, KC_PGDN, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TAB,
     KC_MPRV, KC_MPLY, KC_MNXT,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLD, KC_VOLU, KC_ENT,
-                    KC_TRNS,   KC_TRNS,   KC_TRNS 
+                    KC_TRNS,   KC_TRNS,   KC_TRNS
   ),
 };
 
@@ -71,7 +71,7 @@ const uint16_t PROGMEM combo_tab[] = {KC_S, KC_D, COMBO_END};
 const uint16_t PROGMEM combo_esc[] = {KC_T, KC_Y, COMBO_END};
 const uint16_t PROGMEM combo_del[] = {KC_Q, KC_W, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
   [COMBO_BSPC] = COMBO(combo_bspc,KC_BSPC),
   [COMBO_ENT] = COMBO(combo_ent,KC_ENT),
   [COMBO_TAB] = COMBO(combo_tab,KC_TAB),

@@ -118,31 +118,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid(
-  _______ , RESET,   _______, _______, _______, _______, _______, _______, _______, KC_PAUS, KC_PSCR, KC_DEL ,
-  _______ , _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  _______, MACSLEEP,  PLOVER, _______,
-  _______ , MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______,
+  _______, QK_BOOT, _______, _______, _______, _______, _______, _______, _______, KC_PAUS, KC_PSCR, KC_DEL ,
+  _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  _______, MACSLEEP,PLOVER,  _______,
+  _______, AU_PREV, AU_NEXT, MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______,
   BACKLIT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 [_DYN] = LAYOUT_planck_grid(
-  _______ , _______, _______, _______, _______, _______, _______, _______, _______, DYN_REC_START1, DYN_REC_START2, _______ ,
+  _______ , _______, _______, _______, _______, _______, _______, _______, _______, DM_REC1, DM_REC2, _______ ,
   _______ , _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______ , _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-  _______ , _______, _______, _______, _______, _______, _______, _______, _______, DYN_MACRO_PLAY1, DYN_MACRO_PLAY2, _______
+  _______ , _______, _______, _______, _______, _______, _______, _______, _______, DM_PLY1, DM_PLY2, _______
 )
 
 };
 
 #ifdef AUDIO_ENABLE
-
-float tone_startup[][2]    = SONG(STARTUP_SOUND);
 float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
 float tone_dyn_macro_rec[][2]     = SONG(DVORAK_SOUND);
 float tone_dyn_macro_play[][2]    = SONG(COLEMAK_SOUND);
 float tone_plover[][2]     = SONG(PLOVER_SOUND);
 float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
-float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
-
-float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
 #endif
 
 void persistant_default_layer_set(uint16_t default_layer) {
@@ -151,7 +146,7 @@ void persistant_default_layer_set(uint16_t default_layer) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  uint16_t macro_kc = (keycode == MO(_DYN) ? DYN_REC_STOP : keycode);
+  uint16_t macro_kc = (keycode == MO(_DYN) ? DM_RSTP : keycode);
   if (!process_record_dynamic_macro(macro_kc, record)) {
     return false;
   }
@@ -226,11 +221,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case MACSLEEP:
       if (record->event.pressed) {
-          // ACTION_MODS_KEY(MOD_LCTL | MOD_LSFT, KC_POWER);
+          // ACTION_MODS_KEY(MOD_LCTL | MOD_LSFT, KC_PWR);
           register_code(KC_RSFT);
           register_code(KC_RCTL);
-          register_code(KC_POWER);
-          unregister_code(KC_POWER);
+          register_code(KC_PWR);
+          unregister_code(KC_PWR);
           unregister_code(KC_RCTL);
           unregister_code(KC_RSFT);
       }
@@ -239,36 +234,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
-
-void matrix_init_user(void) {
-    #ifdef AUDIO_ENABLE
-        startup_user();
-    #endif
-}
-
-#ifdef AUDIO_ENABLE
-
-void startup_user()
-{
-    _delay_ms(20); // gets rid of tick
-    PLAY_SONG(tone_startup);
-}
-
-void shutdown_user()
-{
-    PLAY_SONG(tone_goodbye);
-    _delay_ms(150);
-    stop_all_notes();
-}
-
-void music_on_user(void)
-{
-    music_scale_user();
-}
-
-void music_scale_user(void)
-{
-    PLAY_SONG(music_scale);
-}
-
-#endif

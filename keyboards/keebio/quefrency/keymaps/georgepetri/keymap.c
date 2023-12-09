@@ -64,7 +64,7 @@ void keyboard_post_init_user(void) {
 }
 
 void update_led(void) {
-    switch (biton32(layer_state)) {
+    switch (get_highest_layer(layer_state)) {
       case _BASE:
       rgblight_sethsv_noeeprom(HSV_BLUE);
       break;
@@ -75,7 +75,7 @@ void update_led(void) {
       rgblight_sethsv_noeeprom(HSV_MAGENTA);
       break;
     }
-  if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
+  if (host_keyboard_led_state().caps_lock) {
     rgblight_sethsv_range(HSV_WHITE,0,4);
     rgblight_sethsv_range(HSV_WHITE,12,16);
   }

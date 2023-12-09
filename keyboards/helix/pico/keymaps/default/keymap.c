@@ -157,8 +157,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-------------------------------------------------------------------------------------------------'
    */
   [_ADJUST] =  LAYOUT(
-      _______, QK_BOOT,   RGBRST, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-      _______, AU_ON,   AU_OFF,  MU_TOG,  MU_MOD,  AG_NORM,                   AG_SWAP, QWERTY,  COLEMAK, DVORAK,  _______, _______,
+      _______, QK_BOOT,   RGBRST, _______, _______, _______,                  _______, _______, _______, _______, _______, _______,
+      _______, AU_ON,   AU_OFF,  MU_TOGG, MU_NEXT, AG_NORM,                   AG_SWAP, QWERTY,  COLEMAK, DVORAK,  _______, _______,
       _______, CK_TOGG, CK_RST,  CK_UP,   CK_DOWN, _______,                   _______, _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD
       )
@@ -173,7 +173,6 @@ float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
 float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
 float tone_plover[][2]     = SONG(PLOVER_SOUND);
 float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
-float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 #endif
 
 // define variables for reactive RGB
@@ -294,24 +293,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case EISU:
       if (record->event.pressed) {
         if(keymap_config.swap_lalt_lgui==false){
-          register_code(KC_LANG2);
+          register_code(KC_LNG2);
         }else{
           SEND_STRING(SS_LALT("`"));
         }
       } else {
-        unregister_code(KC_LANG2);
+        unregister_code(KC_LNG2);
       }
       return false;
       break;
     case KANA:
       if (record->event.pressed) {
         if(keymap_config.swap_lalt_lgui==false){
-          register_code(KC_LANG1);
+          register_code(KC_LNG1);
         }else{
           SEND_STRING(SS_LALT("`"));
         }
       } else {
-        unregister_code(KC_LANG1);
+        unregister_code(KC_LNG1);
       }
       return false;
       break;
@@ -329,36 +328,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_init_user(void) {
-    #ifdef AUDIO_ENABLE
-        startup_user();
-    #endif
     #ifdef RGBLIGHT_ENABLE
       RGB_current_mode = rgblight_config.mode;
     #endif
 }
-
-
-#ifdef AUDIO_ENABLE
-
-void startup_user()
-{
-    _delay_ms(50); // gets rid of tick
-}
-
-void shutdown_user()
-{
-    _delay_ms(150);
-    stop_all_notes();
-}
-
-void music_on_user(void)
-{
-    music_scale_user();
-}
-
-void music_scale_user(void)
-{
-    PLAY_SONG(music_scale);
-}
-
-#endif

@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = qmk-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -20,5 +14,3 @@ AUDIO_ENABLE = no           # Audio output
 CUSTOM_MATRIX = lite
 VPATH += drivers/gpio
 SRC += matrix.c sn74x138.c
-
-LAYOUTS = fullsize_ansi fullsize_iso tkl_ansi tkl_iso

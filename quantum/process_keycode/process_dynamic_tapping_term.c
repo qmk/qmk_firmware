@@ -14,34 +14,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
 #include "process_dynamic_tapping_term.h"
+#include "quantum.h"
+#include "keycodes.h"
+#include "send_string.h"
 
 #ifndef DYNAMIC_TAPPING_TERM_INCREMENT
 #    define DYNAMIC_TAPPING_TERM_INCREMENT 5
 #endif
 
 static void tapping_term_report(void) {
+#ifdef SEND_STRING_ENABLE
     const char *tapping_term_str = get_u16_str(g_tapping_term, ' ');
     // Skip padding spaces
     while (*tapping_term_str == ' ') {
         tapping_term_str++;
     }
     send_string(tapping_term_str);
+#endif
 }
 
 bool process_dynamic_tapping_term(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
-            case DT_PRNT:
+            case QK_DYNAMIC_TAPPING_TERM_PRINT:
                 tapping_term_report();
                 return false;
 
-            case DT_UP:
+            case QK_DYNAMIC_TAPPING_TERM_UP:
                 g_tapping_term += DYNAMIC_TAPPING_TERM_INCREMENT;
                 return false;
 
-            case DT_DOWN:
+            case QK_DYNAMIC_TAPPING_TERM_DOWN:
                 g_tapping_term -= DYNAMIC_TAPPING_TERM_INCREMENT;
                 return false;
         }

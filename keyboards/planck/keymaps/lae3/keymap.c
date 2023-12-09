@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------------------------------'
      */
     [_NUMPAD] = LAYOUT_planck_grid(
-        _______, _______, _______, _______, _______, _______, KC_NLCK, KC_P7,   KC_P8,   KC_P9,   KC_PSLS, _______,
+        _______, _______, _______, _______, _______, _______, KC_NUM,  KC_P7,   KC_P8,   KC_P9,   KC_PSLS, _______,
         _______, _______, _______, _______, _______, _______, KC_PENT, KC_P4,   KC_P5,   KC_P6,   KC_PAST, _______,
         _______, _______, _______, _______, _______, _______, _______, KC_P1,   KC_P2,   KC_P3,   KC_PMNS, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, KC_P0,   KC_PDOT, KC_PPLS, _______
@@ -160,7 +160,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------------------------------'
      */
     [_ADJUST] = LAYOUT_planck_grid(
-        RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        QK_BOOT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, BL_STEP, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, QWERTY,  ARROW,   NUMPAD,  _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
@@ -168,17 +168,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-#ifdef AUDIO_ENABLE
-
-float tone_startup[][2]    = SONG(STARTUP_SOUND);
-float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
-
-float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
-
-#endif
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record)
-{
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LOWER:
             if (record->event.pressed) {
@@ -217,37 +207,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     }
     return true;
 }
-
-void matrix_init_user(void)
-{
-#ifdef AUDIO_ENABLE
-    startup_user();
-#endif
-}
-
-#ifdef AUDIO_ENABLE
-
-void startup_user()
-{
-    _delay_ms(100); // gets rid of tick
-    PLAY_SONG(tone_startup);
-}
-
-void shutdown_user()
-{
-    PLAY_SONG(tone_goodbye);
-    _delay_ms(150);
-    stop_all_notes();
-}
-
-void music_on_user(void)
-{
-    music_scale_user();
-}
-
-void music_scale_user(void)
-{
-    PLAY_SONG(music_scale);
-}
-
-#endif

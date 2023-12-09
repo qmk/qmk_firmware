@@ -17,40 +17,6 @@
 
 #include "quantum.h"
 
-/* This a shortcut to help you visually see your layout.
- * The first section contains all of the arguements; the second converts the arguments into a two-dimensional array.
- */
-
-/* Each code is three letters
- * l or r - left or right hand
- * p, r, m, i, t - pinky, ring finger, middle finger, index finger, thumb
- * fingers: n, s, e, w, c - north, south, east, west, and center (manual calls this "well" but we already have "west")
- * thumb:   p, n, c, l, u, k - pad, nail, center, lock (harder center), up, knuckle
- */
-#define LAYOUT( \
-     lpn,             lrn,             lmn,             lin,                rin,             rmn,             rrn,             rpn,      \
-lpw, lpc, lpe,   lrw, lrc, lre,   lmw, lmc, lme,   liw, lic, lie,      riw, ric, rie,   rmw, rmc, rme,   rrw, rrc, rre,   rpw, rpc, rpe, \
-     lps,             lrs,             lms,             lis,                ris,             rms,             rrs,             rps,      \
-                                                       ltp,    ltn,  rtn,    rtp, \
-                                                           ltc,          rtc, \
-                                                           ltl,          rtl, \
-                                                       ltu,    ltk,  rtk,    rtu) \
-{ \
-  {riw, rin, lpw, lpn},\
-  {ric, rie, lpc, lpe},\
-  {ris, rms, lps, lrs},\
-  {rmw, rmn, lrw, lrn},\
-  {rmc, rme, lrc, lre},\
-  {rrw, rrn, lmw, lmn},\
-  {rrc, rre, lmc, lme},\
-  {rrs, rps, lms, lis},\
-  {rpw, rpn, liw, lin},\
-  {rpc, rpe, lic, lie},\
-  {rtk, rtn, ltk, ltn},\
-  {rtc, rtl, ltc, ltl},\
-  {rtp, rtu, ltp, ltu},\
-}
-
 /* Mode LEDs are active-low on Port B on the Teensy. */
 #define LED_MODE_PORT PORTB
 #define LED_TENKEY    (1<<3)

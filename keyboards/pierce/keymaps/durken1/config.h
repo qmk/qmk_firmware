@@ -19,22 +19,15 @@
 // default but important
 #define TAPPING_TERM 220
 
-// Prevent normal rollover on alphas from accidentally triggering mods.
-#define IGNORE_MOD_TAP_INTERRUPT
-
 // Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
-#define TAPPING_FORCE_HOLD
+#define QUICK_TAP_TERM 0
 
 #define PERMISSIVE_HOLD
 
-// Recommended for heavy chording.
-#define QMK_KEYS_PER_SCAN 4
-
 // Combo settings
-#define COMBO_COUNT 3
 #define COMBO_TERM 35
 
-#ifdef PS2_USE_USART
+#ifdef PS2_DRIVER_USART
 #define PS2_CLOCK_PIN   D5
 #define PS2_DATA_PIN    D2
 
@@ -74,4 +67,3 @@
 #ifdef AUTO_BUTTONS
   #define AUTO_BUTTONS_TIMEOUT 750
 #endif
-

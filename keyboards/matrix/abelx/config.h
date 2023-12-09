@@ -78,10 +78,8 @@
 #define COL15_MASK 0x04
 #define COL16_MASK 0x02
 
-#define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW
-#define DEBOUNCE    5
 
 // i2c setting
 #define USE_I2CV1
@@ -89,12 +87,6 @@
 #define I2C1_SDA 9
 #define I2C1_CLOCK_SPEED 400000
 #define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
-
-
-// rgb light setting
-#define RGBLED_NUM 9
-#define RGB_DI_PIN B4
-#define RGBLIGHT_ANIMATIONS
 
 #define AW9523B_RGB_NUM 4
 

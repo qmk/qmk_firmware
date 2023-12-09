@@ -64,11 +64,7 @@ TEST_F(KeyPress, CorrectKeysAreReportedWhenTwoKeysArePressed) {
 
     key_b.press();
     key_c.press();
-    // Note that QMK only processes one key at a time
-    // See issue #1476 for more information
     EXPECT_REPORT(driver, (key_b.report_code));
-    keyboard_task();
-
     EXPECT_REPORT(driver, (key_b.report_code, key_c.report_code));
     keyboard_task();
 
@@ -76,8 +72,6 @@ TEST_F(KeyPress, CorrectKeysAreReportedWhenTwoKeysArePressed) {
     key_c.release();
     // Note that the first key released is the first one in the matrix order
     EXPECT_REPORT(driver, (key_c.report_code));
-    keyboard_task();
-
     EXPECT_EMPTY_REPORT(driver);
     keyboard_task();
 }
@@ -92,10 +86,7 @@ TEST_F(KeyPress, LeftShiftIsReportedCorrectly) {
     key_lsft.press();
     key_a.press();
 
-    // Unfortunately modifiers are also processed in the wrong order
-    // See issue #1476 for more information
     EXPECT_REPORT(driver, (key_a.report_code));
-    keyboard_task();
     EXPECT_REPORT(driver, (key_a.report_code, key_lsft.report_code));
     keyboard_task();
 
@@ -118,11 +109,7 @@ TEST_F(KeyPress, PressLeftShiftAndControl) {
     key_lsft.press();
     key_lctrl.press();
 
-    // Unfortunately modifiers are also processed in the wrong order
-    // See issue #1476 for more information
     EXPECT_REPORT(driver, (key_lsft.report_code));
-    keyboard_task();
-
     EXPECT_REPORT(driver, (key_lsft.report_code, key_lctrl.report_code));
     keyboard_task();
 
@@ -130,8 +117,6 @@ TEST_F(KeyPress, PressLeftShiftAndControl) {
     key_lctrl.release();
 
     EXPECT_REPORT(driver, (key_lctrl.report_code));
-    keyboard_task();
-
     EXPECT_EMPTY_REPORT(driver);
     keyboard_task();
 }
@@ -145,20 +130,13 @@ TEST_F(KeyPress, LeftAndRightShiftCanBePressedAtTheSameTime) {
 
     key_lsft.press();
     key_rsft.press();
-    // Unfortunately modifiers are also processed in the wrong order
-    // See issue #1476 for more information
     EXPECT_REPORT(driver, (key_lsft.report_code));
-    keyboard_task();
-
     EXPECT_REPORT(driver, (key_lsft.report_code, key_rsft.report_code));
     keyboard_task();
 
     key_lsft.release();
     key_rsft.release();
-
     EXPECT_REPORT(driver, (key_rsft.report_code));
-    keyboard_task();
-
     EXPECT_EMPTY_REPORT(driver);
     keyboard_task();
 }
@@ -197,23 +175,23 @@ TEST_F(KeyPress, PressPlusEqualReleaseBeforePress) {
     EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
     EXPECT_REPORT(driver, (KC_LEFT_SHIFT, KC_EQUAL));
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     key_plus.release();
     EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
     EXPECT_EMPTY_REPORT(driver);
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     key_eql.press();
     EXPECT_REPORT(driver, (key_eql.report_code));
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     key_eql.release();
     EXPECT_EMPTY_REPORT(driver);
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(KeyPress, PressPlusEqualDontReleaseBeforePress) {
@@ -228,24 +206,24 @@ TEST_F(KeyPress, PressPlusEqualDontReleaseBeforePress) {
     EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
     EXPECT_REPORT(driver, (KC_LEFT_SHIFT, KC_EQUAL));
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     key_eql.press();
     EXPECT_EMPTY_REPORT(driver);
     EXPECT_REPORT(driver, (KC_EQUAL));
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     key_plus.release();
     // BUG: Should really still return KC_EQUAL, but this is fine too
     EXPECT_EMPTY_REPORT(driver);
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     key_eql.release();
     EXPECT_NO_REPORT(driver);
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(KeyPress, PressEqualPlusReleaseBeforePress) {
@@ -259,24 +237,24 @@ TEST_F(KeyPress, PressEqualPlusReleaseBeforePress) {
     key_eql.press();
     EXPECT_REPORT(driver, (KC_EQUAL));
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     key_eql.release();
     EXPECT_EMPTY_REPORT(driver);
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     key_plus.press();
     EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
     EXPECT_REPORT(driver, (KC_LEFT_SHIFT, KC_EQUAL));
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     key_plus.release();
     EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
     EXPECT_EMPTY_REPORT(driver);
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(KeyPress, PressEqualPlusDontReleaseBeforePress) {
@@ -290,7 +268,7 @@ TEST_F(KeyPress, PressEqualPlusDontReleaseBeforePress) {
     key_eql.press();
     EXPECT_REPORT(driver, (KC_EQUAL));
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     key_plus.press();
     // BUG: The sequence is a bit strange, but it works, the end result is that
@@ -299,16 +277,16 @@ TEST_F(KeyPress, PressEqualPlusDontReleaseBeforePress) {
     EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
     EXPECT_REPORT(driver, (KC_LEFT_SHIFT, KC_EQUAL));
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     key_eql.release();
     // I guess it's fine to still report shift here
     EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     key_plus.release();
     EXPECT_EMPTY_REPORT(driver);
     run_one_scan_loop();
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }

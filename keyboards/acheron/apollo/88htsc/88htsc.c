@@ -15,12 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "88htsc.h"
-
-void board_init(void) {
-    setPinInput(B9);
-    setPinInput(B10);
-}
+#include "quantum.h"
 
 led_config_t g_led_config = { {
 	{ 16       , 15         , 14         , 13         , 12         , 11         , 10         , 9          , 8          , 7          , 6          , 5          , 4          , 3          , 2          , 1          , 0         },

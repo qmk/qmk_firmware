@@ -12,6 +12,7 @@
 #include "test_logger.hpp"
 #include "test_matrix.h"
 #include "test_keymap_key.hpp"
+#include "timer.h"
 
 extern "C" {
 #include "action.h"
@@ -21,7 +22,6 @@ extern "C" {
 #include "debug.h"
 #include "eeconfig.h"
 #include "keyboard.h"
-#include "keymap.h"
 
 void set_time(uint32_t t);
 void advance_time(uint32_t ms);
@@ -41,7 +41,7 @@ extern "C" uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t position) {
 }
 
 void TestFixture::SetUpTestCase() {
-    test_logger.info() << "TestFixture setup-up start." << std::endl;
+    test_logger.info() << "test fixture setup-up start." << std::endl;
 
     // The following is enough to bootstrap the values set in main
     eeconfig_init_quantum();
@@ -50,17 +50,19 @@ void TestFixture::SetUpTestCase() {
     TestDriver driver;
     keyboard_init();
 
-    test_logger.info() << "TestFixture setup-up end." << std::endl;
+    test_logger.info() << "test fixture setup-up end." << std::endl;
 }
 
 void TestFixture::TearDownTestCase() {}
 
 TestFixture::TestFixture() {
     m_this = this;
+    timer_clear();
+    test_logger.info() << "tapping term is " << +GET_TAPPING_TERM(KC_TRANSPARENT, &(keyrecord_t){}) << "ms" << std::endl;
 }
 
 TestFixture::~TestFixture() {
-    test_logger.info() << "TestFixture clean-up start." << std::endl;
+    test_logger.info() << "test fixture clean-up start." << std::endl;
     TestDriver driver;
 
     /* Reset keyboard state. */
@@ -79,23 +81,21 @@ TestFixture::~TestFixture() {
 #endif
 
     idle_for(TAPPING_TERM * 10);
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 
     /* Verify that the matrix really is cleared */
     EXPECT_NO_REPORT(driver);
     idle_for(TAPPING_TERM * 10);
-    testing::Mock::VerifyAndClearExpectations(&driver);
-
+    VERIFY_AND_CLEAR(driver);
     m_this = nullptr;
 
-    test_logger.info() << "TestFixture clean-up end." << std::endl;
-
+    test_logger.info() << "test fixture clean-up end." << std::endl;
     print_test_log();
 }
 
 void TestFixture::add_key(KeymapKey key) {
     if (this->find_key(key.layer, key.position)) {
-        FAIL() << "Key is already mapped for layer " << +key.layer << " and (column,row) (" << +key.position.col << "," << +key.position.row << ")";
+        FAIL() << "key is already mapped for layer " << +key.layer << " and (column,row) (" << +key.position.col << "," << +key.position.row << ")";
     }
 
     this->keymap.push_back(key);
@@ -106,6 +106,22 @@ void TestFixture::tap_key(KeymapKey key, unsigned delay_ms) {
     idle_for(delay_ms);
     key.release();
     run_one_scan_loop();
+}
+
+void TestFixture::tap_combo(const std::vector<KeymapKey>& chord_keys, unsigned delay_ms) {
+    for (KeymapKey key : chord_keys) { // Press each key.
+        key.press();
+        run_one_scan_loop();
+    }
+
+    if (delay_ms > 1) {
+        idle_for(delay_ms - 1);
+    }
+
+    for (KeymapKey key : chord_keys) { // Release each key.
+        key.release();
+        run_one_scan_loop();
+    }
 }
 
 void TestFixture::set_keymap(std::initializer_list<KeymapKey> keys) {
@@ -133,7 +149,7 @@ void TestFixture::get_keycode(const layer_t layer, const keypos_t position, uint
         /* See if this is done in hardware as well, because this is 100% out of bounds reads on all QMK keebs out there. */
         auto msg = [&]() {
             std::stringstream msg;
-            msg << "Keycode for position (" << +position.col << "," << +position.row << ") requested! This is out of bounds." << std::endl;
+            msg << "keycode for position (" << +position.col << "," << +position.row << ") requested! This is out of bounds." << std::endl;
             return msg.str();
         }();
 
@@ -148,17 +164,18 @@ void TestFixture::get_keycode(const layer_t layer, const keypos_t position, uint
         return;
     }
 
-    FAIL() << "No key is mapped for layer " << +layer << " and (column,row) " << +position.col << "," << +position.row << ")";
+    FAIL() << "no key is mapped for layer " << +layer << " and (column,row) " << +position.col << "," << +position.row << ")";
 }
 
 void TestFixture::run_one_scan_loop() {
-    keyboard_task();
-    advance_time(1);
+    this->idle_for(1);
 }
 
 void TestFixture::idle_for(unsigned time) {
+    test_logger.trace() << +time << " keyboard task " << (time > 1 ? "loops" : "loop") << std::endl;
     for (unsigned i = 0; i < time; i++) {
-        run_one_scan_loop();
+        keyboard_task();
+        advance_time(1);
     }
 }
 
@@ -166,12 +183,13 @@ void TestFixture::print_test_log() const {
     const ::testing::TestInfo* const test_info = ::testing::UnitTest::GetInstance()->current_test_info();
     if (HasFailure()) {
         std::cerr << test_info->test_case_name() << "." << test_info->name() << " failed!" << std::endl;
+        test_logger.print_header();
         test_logger.print_log();
     }
     test_logger.reset();
 }
 
 void TestFixture::expect_layer_state(layer_t layer_state) const {
-    test_logger.trace() << "Layer state: (" << +layer_state << ") Highest layer bit: (" << +get_highest_layer(layer_state) << ")" << std::endl;
+    test_logger.trace() << "layer state: (" << +layer_state << ") highest layer bit: (" << +get_highest_layer(layer_state) << ")" << std::endl;
     EXPECT_TRUE(layer_state_is(layer_state));
 }

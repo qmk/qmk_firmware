@@ -1,5 +1,5 @@
 /*
-Copyright 2020 Cole Smith <cole@boadsource.xyz>
+Copyright 2022 Cole Smith <cole@boadsource.xyz>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

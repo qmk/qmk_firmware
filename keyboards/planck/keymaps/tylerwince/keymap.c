@@ -19,7 +19,7 @@ enum {
   TD_SEMI_COLON,
 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_SEMI_COLON] = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_COLN),
 };
 
@@ -40,9 +40,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              * `-----------------------------------------------------------------------------------'
              */
           KC_TAB,            KC_QUOTE,          KC_COMMA, KC_DOT,  KC_P,  KC_Y,             KC_F,  KC_G,  KC_C,    KC_R,    KC_L,    KC_SLASH,
-          LCTL_T(KC_ESCAPE), KC_A,              KC_O,     KC_E,    KC_U,  KC_I,             KC_D,  KC_H,  KC_T,    KC_N,    KC_S,    KC_BSPACE,
+          LCTL_T(KC_ESCAPE), KC_A,              KC_O,     KC_E,    KC_U,  KC_I,             KC_D,  KC_H,  KC_T,    KC_N,    KC_S,    KC_BSPC,
           _______,           TD(TD_SEMI_COLON), KC_Q,     KC_J,    KC_K,  KC_X,             KC_B,  KC_M,  KC_W,    KC_V,    KC_Z,    KC_ENTER,
-          _______,           KC_LCTRL,          KC_LALT,  KC_LGUI, LOWER, LSFT_T(KC_SPACE), KC_NO, RAISE, _______, _______, _______, _______
+          _______,           KC_LCTL,           KC_LALT,  KC_LGUI, LOWER, LSFT_T(KC_SPACE), KC_NO, RAISE, _______, _______, _______, _______
           ),
 
   [_LOWER] = LAYOUT_planck_grid(
@@ -57,10 +57,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              * |      | Ctrl | Alt  | GUI  |LOWER | Shift/Space | RAISE|      |   [  |   ]  |      |
              * `-----------------------------------------------------------------------------------'
              */
-          KC_GRAVE, KC_1,     KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,        KC_0,        KC_BSLASH,
-          KC_TILD,  KC_EXLM,  KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN,     KC_RPRN,     KC_PIPE,
-          _______,  _______,  _______, _______, _______, _______, _______, KC_UNDS, KC_PLUS, KC_LCBR,     KC_RCBR,     KC_DELETE,
-          _______,  KC_LCTRL, KC_LALT, KC_LGUI, _______, _______, KC_NO,   _______, _______, KC_LBRACKET, KC_RBRACKET, _______
+          KC_GRAVE, KC_1,     KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,        KC_0,    KC_BSLS,
+          KC_TILD,  KC_EXLM,  KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN,     KC_RPRN, KC_PIPE,
+          _______,  _______,  _______, _______, _______, _______, _______, KC_UNDS, KC_PLUS, KC_LCBR,     KC_RCBR, KC_DELETE,
+          _______,  KC_LCTL,  KC_LALT, KC_LGUI, _______, _______, KC_NO,   _______, _______, KC_LBRC,     KC_RBRC, _______
           ),
 
   [_RAISE] = LAYOUT_planck_grid(
@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
           KC_F1,          KC_F2,           KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, _______,  _______,  _______, KC_RIGHT, _______,
           KC_F7,          KC_F8,           KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_LEFT,  _______,  _______, _______,  KC_DELETE,
           _______,        _______,         _______, KC_DOWN, KC_UP,   _______, _______, KC_MINUS, KC_EQUAL, _______, _______,  _______,
-          LALT(KC_SPACE), LGUI(KC_BSLASH), _______, _______, _______, _______, KC_NO,   _______,  _______,  _______, _______,  _______
+          LALT(KC_SPACE), LGUI(KC_BSLS),   _______, _______, _______, _______, KC_NO,   _______,  _______,  _______, _______,  _______
           ),
 
   [_ADJUST] = LAYOUT_planck_grid(
@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              * `-----------------------------------------------------------------------------------'
              */
 
-          RESET,   _______, _______, _______,          _______,          LALT(LCTL(KC_7)), LALT(LCTL(KC_8)), _______,          _______,           _______, LALT(LCTL(KC_L)), _______,
+          QK_BOOT, _______, _______, _______,          _______,          LALT(LCTL(KC_7)), LALT(LCTL(KC_8)), _______,          _______,           _______, LALT(LCTL(KC_L)), _______,
           _______, _______, _______, _______,          _______,          LALT(LCTL(KC_U)), LALT(LCTL(KC_I)), LALT(LCTL(KC_H)), _______,           _______, _______,          _______,
           _______, _______, _______, LALT(LCTL(KC_J)), LALT(LCTL(KC_K)), _______,          _______,          _______,          _______,           _______, _______,          LALT(LCTL(KC_ENTER)),
           TO(0),   TO(4),   _______, _______,          _______,          _______,          KC_NO,            _______,          KC_AUDIO_VOL_DOWN, KC_F14,  KC_F15,           KC_AUDIO_VOL_UP
@@ -115,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              */
 
           KC_TAB,            KC_Q,    KC_W,    KC_E,    KC_R,  KC_T,             KC_Y,  KC_U,  KC_I,     KC_O,    KC_P,      KC_QUOTE,
-          LCTL_T(KC_ESCAPE), KC_A,    KC_S,    KC_D,    KC_F,  KC_G,             KC_H,  KC_J,  KC_K,     KC_L,    KC_SCOLON, KC_BSPACE,
+          LCTL_T(KC_ESCAPE), KC_A,    KC_S,    KC_D,    KC_F,  KC_G,             KC_H,  KC_J,  KC_K,     KC_L,    KC_SCLN, KC_BSPC,
           _______,           KC_Z,    KC_X,    KC_C,    KC_V,  KC_B,             KC_N,  KC_M,  KC_COMMA, KC_DOT,  KC_SLASH,  KC_ENTER,
           _______,           KC_LCTL, KC_LALT, KC_LGUI, LOWER, LSFT_T(KC_SPACE), KC_NO, RAISE, _______,  _______, _______,   _______
           ),
@@ -130,7 +130,7 @@ void keyboard_post_init_user(void) {
   rgb_matrix_enable();
 }
 
-const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
+const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
     [0] = { {32,255,234}, {32,255,234}, {12,225,241}, {12,225,241}, {0,204,255}, {0,204,255}, {169,120,255}, {169,120,255}, {169,120,255}, {146,224,255}, {146,224,255}, {146,224,255},
             {32,255,234}, {32,255,234}, {12,225,241}, {12,225,241}, {0,204,255}, {0,204,255}, {169,120,255}, {169,120,255}, {169,120,255}, {146,224,255}, {146,224,255}, {146,224,255},
             {32,255,234}, {32,255,234}, {12,225,241}, {12,225,241}, {0,204,255}, {0,204,255}, {169,120,255}, {169,120,255}, {169,120,255}, {146,224,255}, {146,224,255}, {146,224,255},
@@ -151,7 +151,7 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
 };
 
 void set_layer_color(int layer) {
-  for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+  for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
     HSV hsv = {
       .h = pgm_read_byte(&ledmap[layer][i][0]),
       .s = pgm_read_byte(&ledmap[layer][i][1]),
@@ -166,9 +166,9 @@ void set_layer_color(int layer) {
   }
 }
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
   if (g_suspend_state || disable_layer_color) { return; }
-  switch (biton32(layer_state)) {
+  switch (get_highest_layer(layer_state)) {
     case 0:
       set_layer_color(0);
       break;
@@ -182,6 +182,7 @@ void rgb_matrix_indicators_user(void) {
       set_layer_color(4);
       break;
   }
+    return false;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -276,7 +277,7 @@ bool music_mask_user(uint16_t keycode) {
 layer_state_t layer_state_set_user(layer_state_t state) {
     palClearPad(GPIOB, 8);
     palClearPad(GPIOB, 9);
-    uint8_t layer = biton32(state);
+    uint8_t layer = get_highest_layer(state);
     switch (layer) {
         case _LOWER:
             palSetPad(GPIOB, 9);

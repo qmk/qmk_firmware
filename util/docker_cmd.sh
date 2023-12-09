@@ -15,14 +15,14 @@ for arg; do
 	fi
 done
 
-# Allow $RUNTIME to be overriden by the user as an environment variable
-# Else check if either docker or podman exit and set them as runtime
+# Allow $RUNTIME to be overridden by the user as an environment variable
+# Else check if either podman or docker exit and set them as runtime
 # if none are found error out
 if [ -z "$RUNTIME" ]; then
-	if command -v docker >/dev/null 2>&1; then
-		RUNTIME="docker"
-	elif command -v podman >/dev/null 2>&1; then
+	if command -v podman >/dev/null 2>&1; then
 		RUNTIME="podman"
+	elif command -v docker >/dev/null 2>&1; then
+		RUNTIME="docker"
 	else
 		errcho "Error: no compatible container runtime found."
 		errcho "Either podman or docker are required."
@@ -55,5 +55,5 @@ fi
 	$uid_arg \
 	-w /qmk_firmware \
 	-v "$dir":/qmk_firmware \
-	qmkfm/qmk_cli \
+	ghcr.io/qmk/qmk_cli \
 	"$@"

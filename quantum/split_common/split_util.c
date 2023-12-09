@@ -16,12 +16,12 @@
 #include "split_util.h"
 #include "matrix.h"
 #include "keyboard.h"
-#include "config.h"
 #include "timer.h"
 #include "transport.h"
-#include "quantum.h"
 #include "wait.h"
+#include "debug.h"
 #include "usb_util.h"
+#include "bootloader.h"
 
 #ifdef EE_HANDS
 #    include "eeconfig.h"
@@ -56,9 +56,15 @@ static uint8_t connection_errors = 0;
 
 volatile bool isLeftHand = true;
 
+static struct {
+    bool master;
+    bool left;
+} split_config;
+
 #if defined(SPLIT_USB_DETECT)
+_Static_assert((SPLIT_USB_TIMEOUT / SPLIT_USB_TIMEOUT_POLL) <= UINT16_MAX, "Please lower SPLIT_USB_TIMEOUT and/or increase SPLIT_USB_TIMEOUT_POLL.");
 static bool usbIsActive(void) {
-    for (uint8_t i = 0; i < (SPLIT_USB_TIMEOUT / SPLIT_USB_TIMEOUT_POLL); i++) {
+    for (uint16_t i = 0; i < (SPLIT_USB_TIMEOUT / SPLIT_USB_TIMEOUT_POLL); i++) {
         // This will return true if a USB connection has been established
         if (usb_connected_state()) {
             return true;
@@ -72,6 +78,46 @@ static inline bool usbIsActive(void) {
     return usb_vbus_state();
 }
 #endif
+
+#if defined(SPLIT_WATCHDOG_ENABLE)
+#    if !defined(SPLIT_WATCHDOG_TIMEOUT)
+#        if defined(SPLIT_USB_TIMEOUT)
+#            define SPLIT_WATCHDOG_TIMEOUT (SPLIT_USB_TIMEOUT + 100)
+#        else
+#            define SPLIT_WATCHDOG_TIMEOUT 3000
+#        endif
+#    endif
+#    if defined(SPLIT_USB_DETECT)
+_Static_assert(SPLIT_USB_TIMEOUT < SPLIT_WATCHDOG_TIMEOUT, "SPLIT_WATCHDOG_TIMEOUT should not be below SPLIT_USB_TIMEOUT.");
+#    endif
+_Static_assert(SPLIT_MAX_CONNECTION_ERRORS > 0, "SPLIT_WATCHDOG_ENABLE requires SPLIT_MAX_CONNECTION_ERRORS be above 0 for a functioning disconnection check.");
+
+static uint32_t split_watchdog_started = 0;
+static bool     split_watchdog_done    = false;
+
+void split_watchdog_init(void) {
+    split_watchdog_started = timer_read32();
+}
+
+void split_watchdog_update(bool done) {
+    split_watchdog_done = done;
+}
+
+bool split_watchdog_check(void) {
+    if (!is_transport_connected()) {
+        split_watchdog_done = false;
+    }
+    return split_watchdog_done;
+}
+
+void split_watchdog_task(void) {
+    if (!split_watchdog_done && !is_keyboard_master()) {
+        if (timer_elapsed32(split_watchdog_started) > SPLIT_WATCHDOG_TIMEOUT) {
+            mcu_reset();
+        }
+    }
+}
+#endif // defined(SPLIT_WATCHDOG_ENABLE)
 
 #ifdef SPLIT_HAND_MATRIX_GRID
 void matrix_io_delay(void);
@@ -90,10 +136,11 @@ static uint8_t peek_matrix_intersection(pin_t out_pin, pin_t in_pin) {
 }
 #endif
 
-__attribute__((weak)) bool is_keyboard_left(void) {
+__attribute__((weak)) bool is_keyboard_left_impl(void) {
 #if defined(SPLIT_HAND_PIN)
-    // Test pin SPLIT_HAND_PIN for High/Low, if low it's right hand
     setPinInput(SPLIT_HAND_PIN);
+    wait_us(100);
+    // Test pin SPLIT_HAND_PIN for High/Low, if low it's right hand
 #    ifdef SPLIT_HAND_PIN_LOW_IS_LEFT
     return !readPin(SPLIT_HAND_PIN);
 #    else
@@ -106,37 +153,59 @@ __attribute__((weak)) bool is_keyboard_left(void) {
     return !peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID);
 #    endif
 #elif defined(EE_HANDS)
+    if (!eeconfig_is_enabled()) {
+        eeconfig_init();
+    }
+    // TODO: Remove once ARM has a way to configure EECONFIG_HANDEDNESS within the emulated eeprom via dfu-util or another tool
+#    if defined(INIT_EE_HANDS_LEFT) || defined(INIT_EE_HANDS_RIGHT)
+#        if defined(INIT_EE_HANDS_LEFT)
+#            pragma message "Faking EE_HANDS for left hand"
+    const bool should_be_left = true;
+#        else
+#            pragma message "Faking EE_HANDS for right hand"
+    const bool should_be_left = false;
+#        endif
+    bool       is_left        = eeconfig_read_handedness();
+    if (is_left != should_be_left) {
+        eeconfig_update_handedness(should_be_left);
+    }
+#    endif // defined(INIT_EE_HANDS_LEFT) || defined(INIT_EE_HANDS_RIGHT)
     return eeconfig_read_handedness();
 #elif defined(MASTER_RIGHT)
     return !is_keyboard_master();
-#endif
-
+#else
     return is_keyboard_master();
+#endif
+}
+
+__attribute__((weak)) bool is_keyboard_master_impl(void) {
+    bool is_master = usbIsActive();
+
+    // Avoid NO_USB_STARTUP_CHECK - Disable USB as the previous checks seem to enable it somehow
+    if (!is_master) {
+        usb_disconnect();
+    }
+    return is_master;
+}
+
+__attribute__((weak)) bool is_keyboard_left(void) {
+    return split_config.left;
 }
 
 __attribute__((weak)) bool is_keyboard_master(void) {
-    static enum { UNKNOWN, MASTER, SLAVE } usbstate = UNKNOWN;
-
-    // only check once, as this is called often
-    if (usbstate == UNKNOWN) {
-        usbstate = usbIsActive() ? MASTER : SLAVE;
-
-        // Avoid NO_USB_STARTUP_CHECK - Disable USB as the previous checks seem to enable it somehow
-        if (usbstate == SLAVE) {
-            usb_disconnect();
-        }
-    }
-
-    return (usbstate == MASTER);
+    return split_config.master;
 }
 
 // this code runs before the keyboard is fully initialized
 void split_pre_init(void) {
-    isLeftHand = is_keyboard_left();
+    split_config.master = is_keyboard_master_impl();
+    split_config.left   = is_keyboard_left_impl();
+
+    isLeftHand = is_keyboard_left(); // TODO: Remove isLeftHand
 
 #if defined(RGBLIGHT_ENABLE) && defined(RGBLED_SPLIT)
     uint8_t num_rgb_leds_split[2] = RGBLED_SPLIT;
-    if (isLeftHand) {
+    if (is_keyboard_left()) {
         rgblight_set_clipping_range(0, num_rgb_leds_split[0]);
     } else {
         rgblight_set_clipping_range(num_rgb_leds_split[0], num_rgb_leds_split[1]);
@@ -144,9 +213,6 @@ void split_pre_init(void) {
 #endif
 
     if (is_keyboard_master()) {
-#if defined(USE_I2C) && defined(SSD1306OLED)
-        matrix_master_OLED_init();
-#endif
         transport_master_init();
     }
 }
@@ -157,6 +223,9 @@ void split_pre_init(void) {
 void split_post_init(void) {
     if (!is_keyboard_master()) {
         transport_slave_init();
+#if defined(SPLIT_WATCHDOG_ENABLE)
+        split_watchdog_init();
+#endif
     }
 }
 

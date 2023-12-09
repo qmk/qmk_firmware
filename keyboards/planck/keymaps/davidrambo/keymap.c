@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 
 [_COLEMAK] = LAYOUT_planck_grid(
-  KC_GESC, KC_Q   , KC_W   , KC_F   , KC_P   , KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC,
+  QK_GESC, KC_Q   , KC_W   , KC_F   , KC_P   , KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC,
   NAV    , KC_A   , KC_R   , KC_S   , KC_T   , KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
   SftLck , KC_Z   , KC_X   , KC_C   , KC_V   , KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SftEnt ,
   RECT   , KC_LGUI, KC_LCTL, KC_LALT, KC_LGUI, KC_SPC,  KC_SPC,  MO(1),   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
@@ -86,12 +86,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, C_TAB  , A_LEFT,  KC_UP,   A_RGHT , KC_DEL , _______,
     _______, _______, _______, _______, _______, _______, CTLPGUP, KC_LEFT, KC_DOWN, KC_RGHT, CTLPGDN, _______,
     _______, _______, _______, _______, _______, _______, G_TAB  , A_BSPC , KC_HOME, KC_END,  G_GRV  , _______,
-    RESET  , _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    QK_BOOT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 )
 };
 
 // Shift vs capslock function. From bbaserdem's Planck keymap.
-void caps_tap (qk_tap_dance_state_t *state, void *user_data) {
+void caps_tap (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         register_code (KC_LSFT);
     } else if (state->count == 2) {
@@ -99,7 +99,7 @@ void caps_tap (qk_tap_dance_state_t *state, void *user_data) {
         register_code (KC_CAPS);
     }
 }
-void caps_tap_end (qk_tap_dance_state_t *state, void *user_data) {
+void caps_tap_end (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         unregister_code (KC_LSFT);
     } else {
@@ -108,7 +108,7 @@ void caps_tap_end (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 //Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   //Tap once for Shift, twice for Caps Lock
   [SFT_LCK] = ACTION_TAP_DANCE_FN_ADVANCED( caps_tap, NULL, caps_tap_end )
 };

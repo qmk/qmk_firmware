@@ -22,11 +22,11 @@ extern backlight_config_t backlight_config;
 
 #include "dynamic_macro.h"
 #define FN_CAPS LT(_FL, KC_CAPS)
-#define KC_DMR1 DYN_REC_START1
-#define KC_DMR2 DYN_REC_START2
-#define KC_DMP1 DYN_MACRO_PLAY1
-#define KC_DMP2 DYN_MACRO_PLAY2
-#define KC_DMRS DYN_REC_STOP
+#define KC_DMR1 DM_REC1
+#define KC_DMR2 DM_REC2
+#define KC_DMP1 DM_PLY1
+#define KC_DMP2 DM_PLY2
+#define KC_DMRS DM_RSTP
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*#### _BL: Base Layer - Standard TKL QWERTY layout.
@@ -44,13 +44,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *    |Ctrl |Win|Alt  |      Space                |RAlt |Fn |Ctrl |Lft|Dwn|Rgt|
     *    *-----------------------------------------------------------------------*
     */
-    [_BL] = LAYOUT_all( \
-        KC_ESC,           KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,           KC_PSCR, KC_SLCK, KC_PAUS, \
-        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_BSPC, KC_INS,  KC_HOME, KC_PGUP, \
-        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,          KC_DEL,  KC_END,  KC_PGDN, \
-        KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, XXXXXXX, KC_ENT,                                      \
-        KC_LSFT, XXXXXXX, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, MO(_FL),                   KC_UP,            \
-        KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RGUI, KC_RALT, MO(_FL), KC_RCTL,          KC_LEFT, KC_DOWN, KC_RGHT \
+    [_BL] = LAYOUT_all(
+        KC_ESC,           KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,           KC_PSCR, KC_SCRL, KC_PAUS,
+        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_BSPC, KC_INS,  KC_HOME, KC_PGUP,
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,          KC_DEL,  KC_END,  KC_PGDN,
+        KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, XXXXXXX, KC_ENT,
+        KC_LSFT, XXXXXXX, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, MO(_FL),                   KC_UP,
+        KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RGUI, KC_RALT, MO(_FL), KC_RCTL,          KC_LEFT, KC_DOWN, KC_RGHT
     ),
     /*#### _WL: Workman Layer.
     *    .-----------------------------------------------------------------------.
@@ -67,13 +67,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *    |     |   |     |                           |     |   |     |   |   |   |
     *    *-----------------------------------------------------------------------*
     */
-    [_WL] = LAYOUT_all( \
-        _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, \
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-        _______, KC_Q   , KC_D   , KC_R   , KC_W   , KC_B   , KC_J   , KC_F   , KC_U   , KC_P   , KC_SCLN, _______, _______, _______,          _______, _______, _______, \
-        _______, KC_A   , KC_S   , KC_H   , KC_T   , KC_G   , KC_Y   , KC_N   , KC_E   , KC_O   , KC_I   , _______, _______, _______,                                     \
-        _______, _______, KC_Z   , KC_X   , KC_M   , KC_C   , KC_V   , KC_K   , KC_L   , KC_COMM, KC_DOT , KC_SLSH, _______, _______,                   _______,          \
-        _______, _______, _______,                            _______,                            _______, _______, _______, _______,          _______, _______, _______ \
+    [_WL] = LAYOUT_all(
+        _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, KC_Q   , KC_D   , KC_R   , KC_W   , KC_B   , KC_J   , KC_F   , KC_U   , KC_P   , KC_SCLN, _______, _______, _______,          _______, _______, _______,
+        _______, KC_A   , KC_S   , KC_H   , KC_T   , KC_G   , KC_Y   , KC_N   , KC_E   , KC_O   , KC_I   , _______, _______, _______,
+        _______, _______, KC_Z   , KC_X   , KC_M   , KC_C   , KC_V   , KC_K   , KC_L   , KC_COMM, KC_DOT , KC_SLSH, _______, _______,                   _______,
+        _______, _______, _______,                            _______,                            _______, _______, _______, _______,          _______, _______, _______
     ),
     /*#### _NL: Norman Layer.
     *    .-----------------------------------------------------------------------.
@@ -90,13 +90,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *    |     |   |     |                           |     |   |     |   |   |   |
     *    *-----------------------------------------------------------------------*
     */
-    [_NL] = LAYOUT_all( \
-        _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, \
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-        _______, KC_Q   , KC_W   , KC_D   , KC_F   , KC_K   , KC_J   , KC_U   , KC_R   , KC_L   , KC_SCLN, _______, _______, _______,          _______, _______, _______, \
-        _______, KC_A   , KC_S   , KC_E   , KC_T   , KC_G   , KC_Y   , KC_N   , KC_I   , KC_O   , KC_H   , _______, _______, _______,                                     \
-        _______, _______, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_P   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, _______, _______,                   _______,          \
-        _______, _______, _______,                            _______,                            _______, _______, _______, _______,          _______, _______, _______ \
+    [_NL] = LAYOUT_all(
+        _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, KC_Q   , KC_W   , KC_D   , KC_F   , KC_K   , KC_J   , KC_U   , KC_R   , KC_L   , KC_SCLN, _______, _______, _______,          _______, _______, _______,
+        _______, KC_A   , KC_S   , KC_E   , KC_T   , KC_G   , KC_Y   , KC_N   , KC_I   , KC_O   , KC_H   , _______, _______, _______,
+        _______, _______, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_P   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, _______, _______,                   _______,
+        _______, _______, _______,                            _______,                            _______, _______, _______, _______,          _______, _______, _______
     ),
     /*#### _DL: Dvorak Layer.
     *    .-----------------------------------------------------------------------.
@@ -113,13 +113,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *    |     |   |     |                           |     |   |     |   |   |   |
     *    *-----------------------------------------------------------------------*
     */
-    [_DL] = LAYOUT_all( \
-        _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, \
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_LBRC, KC_RBRC, _______, _______, _______, _______, _______, \
-        _______, KC_QUOT, KC_COMM, KC_DOT , KC_P   , KC_Y   , KC_F   , KC_G   , KC_C   , KC_R   , KC_L   , KC_SLSH, KC_EQL , _______,          _______, _______, _______, \
-        _______, KC_A   , KC_O   , KC_E   , KC_U   , KC_I   , KC_D   , KC_H   , KC_T   , KC_N   , KC_S   , KC_MINS, _______, _______,                                     \
-        _______, _______, KC_SCLN, KC_Q   , KC_J   , KC_K   , KC_X   , KC_B   , KC_M   , KC_W   , KC_V   , KC_Z   , _______, _______,                   _______,          \
-        _______, _______, _______,                            _______,                            _______, _______, _______, _______,          _______, _______, _______ \
+    [_DL] = LAYOUT_all(
+        _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_LBRC, KC_RBRC, _______, _______, _______, _______, _______,
+        _______, KC_QUOT, KC_COMM, KC_DOT , KC_P   , KC_Y   , KC_F   , KC_G   , KC_C   , KC_R   , KC_L   , KC_SLSH, KC_EQL , _______,          _______, _______, _______,
+        _______, KC_A   , KC_O   , KC_E   , KC_U   , KC_I   , KC_D   , KC_H   , KC_T   , KC_N   , KC_S   , KC_MINS, _______, _______,
+        _______, _______, KC_SCLN, KC_Q   , KC_J   , KC_K   , KC_X   , KC_B   , KC_M   , KC_W   , KC_V   , KC_Z   , _______, _______,                   _______,
+        _______, _______, _______,                            _______,                            _______, _______, _______, _______,          _______, _______, _______
     ),
     /*#### _CL: Colmak Layer.
     *    .-----------------------------------------------------------------------.
@@ -136,13 +136,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *    |     |   |     |                           |     |   |     |   |   |   |
     *    *-----------------------------------------------------------------------*
     */
-    [_CL] = LAYOUT_all( \
-        _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, \
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-        _______, KC_Q   , KC_W   , KC_F   , KC_P   , KC_G   , KC_J   , KC_L   , KC_U   , KC_Y   , KC_SCLN, _______, _______, _______,          _______, _______, _______, \
-        _______, KC_A   , KC_R   , KC_S   , KC_T   , KC_D   , KC_H   , KC_N   , KC_E   , KC_I   , KC_O   , _______, _______, _______,                                     \
-        _______, _______, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_K   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, _______, _______,                   _______,          \
-        _______, _______, _______,                            _______,                            _______, _______, _______, _______,          _______, _______, _______ \
+    [_CL] = LAYOUT_all(
+        _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, KC_Q   , KC_W   , KC_F   , KC_P   , KC_G   , KC_J   , KC_L   , KC_U   , KC_Y   , KC_SCLN, _______, _______, _______,          _______, _______, _______,
+        _______, KC_A   , KC_R   , KC_S   , KC_T   , KC_D   , KC_H   , KC_N   , KC_E   , KC_I   , KC_O   , _______, _______, _______,
+        _______, _______, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_K   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, _______, _______,                   _______,
+        _______, _______, _______,                            _______,                            _______, _______, _______, _______,          _______, _______, _______
     ),
     /*#### _FL: Function Layer.
     *    .-----------------------------------------------------------------------.
@@ -159,13 +159,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *    |     |   |     |      SP4                  |     |Fn |     |WBk|   |WFw|
     *    *-----------------------------------------------------------------------*
     */
-    [_FL] = LAYOUT_all( \
-        XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MUTE, KC_VOLD, KC_VOLU,          XXXXXXX, XXXXXXX, XXXXXXX, \
-        KC_WEB,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-        MO(_AL), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, \
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                     \
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,                   XXXXXXX,          \
-        XXXXXXX, XXXXXXX, KC_MENU,                            KC_SP4,                             XXXXXXX, _______, XXXXXXX, XXXXXXX,          KC_WBAK, XXXXXXX, KC_WFWD \
+    [_FL] = LAYOUT_all(
+        XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MUTE, KC_VOLD, KC_VOLU,          XXXXXXX, XXXXXXX, XXXXXXX,
+        KC_WEB,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        MO(_AL), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,                   XXXXXXX,
+        XXXXXXX, XXXXXXX, KC_MENU,                            KC_SP4,                             XXXXXXX, _______, XXXXXXX, XXXXXXX,          KC_WBAK, XXXXXXX, KC_WFWD
     ),
     /*#### _AL: Adjust Layer - Keymap select, LED backlight, and Dynamic Macro settings.
     *    .-----------------------------------------------------------------------.
@@ -182,13 +182,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *    |     |   |     |                           |     |Fn |     |   |   |   |
     *    *-----------------------------------------------------------------------*
     */
-    [_AL] = LAYOUT_all( \
-        RESET,            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, \
-        QMK_REV, RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, XXXXXXX, BL_TOGG, BL_DEC,  BL_INC,  XXXXXXX, XXXXXXX, XXXXXXX, KC_DMR1, KC_DMP1, \
-        _______, DF(_BL), DF(_WL), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          KC_DMRS, KC_DMR2, KC_DMP2, \
-        XXXXXXX, XXXXXXX, XXXXXXX, DF(_DL), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                     \
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DF(_CL), XXXXXXX, DF(_BL), DF(_NL), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,                   XXXXXXX,          \
-        XXXXXXX, XXXXXXX, XXXXXXX,                            XXXXXXX,                            XXXXXXX, _______, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX \
+    [_AL] = LAYOUT_all(
+        QK_BOOT,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX,
+        QMK_REV, RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, XXXXXXX, BL_TOGG, BL_DOWN, BL_UP,   XXXXXXX, XXXXXXX, XXXXXXX, KC_DMR1, KC_DMP1,
+        _______, DF(_BL), DF(_WL), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          KC_DMRS, KC_DMR2, KC_DMP2,
+        XXXXXXX, XXXXXXX, XXXXXXX, DF(_DL), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DF(_CL), XXXXXXX, DF(_BL), DF(_NL), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,                   XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX,                            XXXXXXX,                            XXXXXXX, _______, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX
     ),
 };
 
@@ -245,7 +245,7 @@ void matrix_scan_user(void) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
         case _BL:
             custom_backlight_level(0);
             rgblight_sethsv_noeeprom(180,100,255);
@@ -278,15 +278,16 @@ void led_init_ports(void) {
   DDRE |= (1<<6); // OUT
 }
 
-void led_set_user(uint8_t usb_led) {
-  if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
+bool led_update_user(led_t led_state) {
+  if (led_state.caps_lock) {
     DDRD |= (1 << 5); PORTD &= ~(1 << 5);
   } else {
     DDRD &= ~(1 << 5); PORTD &= ~(1 << 5);
   }
-  if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
+  if (led_state.scroll_lock) {
     DDRE |= (1 << 6); PORTE &= ~(1 << 6);
   } else {
     DDRE &= ~(1 << 6); PORTE &= ~(1 << 6);
   }
+  return false;
 }

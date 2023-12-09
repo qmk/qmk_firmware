@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "4x6.h"
+#include "quantum.h"
 
 // clang-format off
 #ifdef RGB_MATRIX_ENABLE
@@ -36,6 +36,10 @@
  *                       26  27  28     53  54  XX
  *                           25  24     55  XX
  *                     ╰────────────╯ ╰────────────╯
+ *
+ * Note: the LED config simulates 58 LEDs instead of the actual 56 to prevent
+ * confusion when testing LEDs during assembly when handedness is not set
+ * correctly.  Those fake LEDs are bound to the physical bottom-left corner.
  */
 led_config_t g_led_config = { {
     /* Key Matrix to LED index. */
@@ -70,6 +74,7 @@ led_config_t g_led_config = { {
     /* index=45 */ { 160,   0 }, { 160,  12 }, { 160,  24 }, { 160,  36 },
     /* index=49 */ { 144,   0 }, { 144,  12 }, { 144,  24 }, { 144,  36 },
     /* index=53 */ { 112,  52 }, { 128,  64 }, { 112,  64 },
+    /* index=56 */ {   0,   0 }, {   0,   0 },
 }, {
     /* LED index to flag. */
     // Left split.
@@ -89,6 +94,7 @@ led_config_t g_led_config = { {
     /* index=45 */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
     /* index=49 */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
     /* index=53 */ LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, // Thumb cluster
+    /* index=55 */ LED_FLAG_MODIFIER, LED_FLAG_MODIFIER,                    // Thumb cluster fakes
 } };
 #endif
 // clang-format on

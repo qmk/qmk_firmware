@@ -1,3 +1,19 @@
 {
-    "keyboard_name": "Onekey STM32F072 Discovery"
+    "keyboard_name": "Onekey STM32F072 Discovery",
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
+    "matrix_pins": {
+        "cols": ["B4"],
+        "rows": ["B5"]
+    },
+    "backlight": {
+        "pin": "C8"
+    },
+    "ws2812": {
+        "pin": "B15"
+    },
+    "apa102": {
+        "data_pin": "B15",
+        "clock_pin": "B13"
+    }
 }

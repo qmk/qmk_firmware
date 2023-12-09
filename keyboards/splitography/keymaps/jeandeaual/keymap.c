@@ -15,7 +15,6 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "keymap_steno.h"
 
 enum keyboard_layers {
     _GEMINI = 0,
@@ -136,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //                             └──────┴──────┴──────┴──────┘
 
     [_ORANGE] = LAYOUT(
-        XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX, KC_APP,  KC_PSCR, KC_SLCK, KC_PAUS, XXXXXXX, XXXXXXX,
+        XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX, KC_APP,  KC_PSCR, KC_SCRL, KC_PAUS, XXXXXXX, XXXXXXX,
         KC_LCTL, KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX, XXXXXXX, KC_INS,  KC_HOME, KC_PGUP, XXXXXXX, XXXXXXX,
         KC_LSFT, KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX, XXXXXXX, KC_DEL,  KC_END,  KC_PGDN, KC_BSLS, KC_LGUI,
                                             _______, BLUE,    KC_TAB,  KC_LALT
@@ -155,7 +154,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //                             └──────┴──────┴──────┴──────┘
 
     [_GREEN] = LAYOUT(
-        GEMINI,  QWERTY,  DVORAK,  XXXXXXX, XXXXXXX, KC_SLCK, KC_PSLS, KC_P7,   KC_P8,   KC_P9,   KC_MINS, XXXXXXX,
+        GEMINI,  QWERTY,  DVORAK,  XXXXXXX, XXXXXXX, KC_SCRL, KC_PSLS, KC_P7,   KC_P8,   KC_P9,   KC_MINS, XXXXXXX,
         KC_LCTL, KC_HOME, KC_UP,   KC_END,  KC_PGUP, KC_CAPS, KC_PAST, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, KC_ENT ,
         KC_LSFT, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, TG_NUM,  KC_P0,   KC_P1,   KC_P2,   KC_P3,   XXXXXXX, KC_LGUI,
                                             _______, _______, XXXXXXX, KC_LALT
@@ -225,7 +224,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
         case KC_QUOT:
-            if ((base_layer != dvorak) || (biton32(layer_state) != _BLUE)) {
+            if ((base_layer != dvorak) || (get_highest_layer(layer_state) != _BLUE)) {
                 break;
             }
             if (record->event.pressed) {

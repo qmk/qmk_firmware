@@ -29,7 +29,7 @@ const uint16_t PROGMEM combo_ent[]  = {ALT_D, GUI_F,   COMBO_END};
 const uint16_t PROGMEM combo_tab[]  = {KC_C,  KC_V,    COMBO_END};
 const uint16_t PROGMEM combo_del[]  = {KC_M,  KC_COMM, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
   COMBO(combo_bspc,KC_BSPC), // 1
   COMBO(combo_ent,KC_ENT), // 2
   COMBO(combo_tab,KC_TAB), // 3

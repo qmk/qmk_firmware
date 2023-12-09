@@ -1,21 +1,29 @@
 # **COLEMAD**
 
+Compiled and tested: `July 12, 2023`
+
 ## Corne Keyboard (CRKBD) **Colemak** layout by [ACortesDev](https://github.com/ACortesDev)
 
-1. **Fast navigation**.
-2. **Fast symbols**.
-3. **Fast numbers**.  
+1. **Ergonomic navigation keys**.
+2. **Symbols where expected to be**.
+3. **Numbers (numpad)**.
    Using the Telephone/ATM numpad layout. Easier to memorize/visualize as numbers follow *left-to-right, top-to-bottom* order.
-4. **Fast capital letters**.
+4. **Easy Capital letters**.
    Added a *CAPS Lock* key because... [There is no *CAPS Lock* key in the Colemak Layout](https://colemak.com/FAQ#Where_is_the_Caps_Lock_key.3F).
 
 ---
 
 ### **Flashing**
 
-For *Pro Micro* execute: `sudo make crkbd:colemad:avrdude`
+~~For *Pro Micro* execute: `sudo make crkbd:colemad:avrdude`~~
 
-For *Elite-C* execute: `sudo make crkbd:colemad:dfu`
+~~For *Elite-C* execute: `sudo make crkbd:colemad:dfu`~~
+
+For *Pro Micro* and *Elite-C* run:
+
+```sh
+qmk flash -kb crkbd -km colemad -bl dfu
+```
 
 ---
 
@@ -87,11 +95,15 @@ Notes:
 
 ##### Macros + Settings
 
+Notes:
+
+- Function keys (from F13 to F19) to use for Linux/MacOS shortcuts.
+
 ```text
   ,-----------------------------------------------------.      ,-----------------------------------------------------.
-  |        |        |        |        |        |        |      |RGB_TOG |RGB_MOD |RGB_VAI |RGB_HUI |RGB_SAI |RGB_SPI |
+  |        |        |    F13 |    F14 |    F15 |        |      |RGB_TOG |RGB_MOD |RGB_VAI |RGB_HUI |RGB_SAI |RGB_SPI |
   |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
-  |        |        |VSCTERM |  PSCR  |CHNLANG |        |      |        |RGB_RMOD|RGB_VAD |RGB_HUD |RGB_SAD |RGB_SPD |
+  |        |    F16 |    F17 |    F18 |    F19 |        |      |        |RGB_RMOD|RGB_VAD |RGB_HUD |RGB_SAD |RGB_SPD |
   |--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------|
   |        |        |        |        |        |        |      |        |        |        |        |        |        |
   `--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------'
@@ -101,6 +113,10 @@ Notes:
                              |        |        | (RAISE)|      |(LOWER) |        |        |
                              `--------+--------+--------'      `--------+--------+--------'
 ```
+
+##### Ready to use Macro examples
+
+Checkout `keycodes.h` and `process_records.c/h` files.
 
 - Macro **VSCTERM**: Toggles the vscode terminal (Ctrl + `)
 - Macro **CHNLANG**: Changes the OS keyboard layout (Ctrl + Shift + N)

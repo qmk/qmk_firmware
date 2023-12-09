@@ -36,7 +36,7 @@ enum planck_keycodes {
 
 // Tap Dance Definitions
 #ifdef TAP_DANCE_ENABLE
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [0]  = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS)
 };
 #endif
@@ -131,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL ,
     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     KC_CAPS, KC_UNDO, KC_CUT,  KC_COPY, KC_PSTE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PGUP, KC_ENT ,
-    _______, _______, _______, KC_MUTE, _______, XXXXXXX, XXXXXXX, _______, XXXXXXX, KC_HOME, KC_PGDN, KC_END 
+    _______, _______, _______, KC_MUTE, _______, XXXXXXX, XXXXXXX, _______, XXXXXXX, KC_HOME, KC_PGDN, KC_END
 ),
 
 /* FUNCTIONS
@@ -149,17 +149,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12 ,
     KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24 ,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QWERTY,  DVORAK,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    RESET,   XXXXXXX, LOCK,    XXXXXXX, _______, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+    QK_BOOT, XXXXXXX, LOCK,    XXXXXXX, _______, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 )
 
 };
 
 #ifdef AUDIO_ENABLE
-float tone_startup[][2] = SONG(STARTUP_SOUND);
 float tone_qwerty[][2] = SONG(QWERTY_SOUND);
 float tone_dvorak[][2] = SONG(DVORAK_SOUND);
-float music_scale[][2] = SONG(MUSIC_SCALE_SOUND);
-float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
 #endif
 
 
@@ -210,36 +207,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
-
-void matrix_init_user(void) {
-#ifdef AUDIO_ENABLE
-    startup_user();
-#endif
-}
-
-#ifdef AUDIO_ENABLE
-
-void startup_user()
-{
-    _delay_ms(20); // gets rid of tick
-    PLAY_SONG(tone_startup);
-}
-
-void shutdown_user()
-{
-    PLAY_SONG(tone_goodbye);
-    _delay_ms(150);
-    stop_all_notes();
-}
-
-void music_on_user(void)
-{
-    music_scale_user();
-}
-
-void music_scale_user(void)
-{
-    PLAY_SONG(music_scale);
-}
-
-#endif

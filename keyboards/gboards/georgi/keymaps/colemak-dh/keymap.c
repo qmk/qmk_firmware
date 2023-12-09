@@ -12,8 +12,6 @@
 
 #include QMK_KEYBOARD_H
 #include "sten.h"
-#include "keymap_steno.h"
-#define IGNORE_MOD_TAP_INTERRUPT
 
 // Steno Layers
 #define FUNCT	( LSD | LK | LP | LH )
@@ -185,7 +183,7 @@ uint32_t processQwerty(bool lookup) {
 	P( SYM | RL,			SEND_STRING("]"));
 	P( SYM | RT,			SEND_STRING("?"));
 
-	P( SYM | ST3 | ST4,		SEND(KC_BSLASH));
+	P( SYM | ST3 | ST4,		SEND(KC_BACKSLASH));
 	P( SYM | RF  | RR,		SEND(KC_EQUAL));
 	P( SYM | RP  | RB,		SEND_STRING("\""));
 	P( SYM | RG  | RL,		SEND_STRING("+"));
@@ -302,5 +300,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 // Don't fuck with this, thanks.
-size_t keymapsCount  = sizeof(keymaps)/sizeof(keymaps[0]);
-size_t stenoLayerCount = sizeof(stenoLayers)/sizeof(stenoLayers[0]);
+size_t keymapsCount  = ARRAY_SIZE(keymaps);
+size_t stenoLayerCount = ARRAY_SIZE(stenoLayers);

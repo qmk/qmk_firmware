@@ -36,11 +36,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------+--------|     |--------+--------+--------+--------+--------+--------+--------|
        KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,          KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSLS,
   //|--------+--------+--------+--------+--------+--------+--------|     |--------+--------+--------+--------+--------+--------+--------|
-     KC_LCTRL,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,          KC_G,    KC_H,    KC_J,    KC_K,    KC_L, JP_MINS,  KC_ENT,
+     KC_LCTL,     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,          KC_G,    KC_H,    KC_J,    KC_K,    KC_L, JP_MINS,  KC_ENT,
   //|--------+--------+--------+--------+--------+--------+--------|     |--------+--------+--------+--------+--------+--------+--------|
       KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,          KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, JP_SLSH, JP_BSLS,
   //|--------+--------+--------+--------+--------+--------+--------|     |--------+--------+--------+--------+--------+--------+--------|
-LALT_T(KC_ZKHK),KC_LGUI,  KC_UP, KC_MHEN,LT(_LOWER,KC_ENT),KC_BSPC,KC_DEL,KC_BSPC,KC_DEL,LT(_RAISE,KC_SPC),KC_HENK,KC_UP,KC_RSFT, KC_APP,
+LALT_T(JP_ZKHK),KC_LGUI,  KC_UP, JP_MHEN,LT(_LOWER,KC_ENT),KC_BSPC,KC_DEL,KC_BSPC,KC_DEL,LT(_RAISE,KC_SPC),JP_HENK,KC_UP,KC_RSFT, KC_APP,
   //|--------+--------+--------+--------+--------+--------+--------|     |--------+--------+--------+--------+--------+--------+--------|
                KC_LEFT, KC_DOWN, KC_RGHT,                                                             KC_LEFT, KC_DOWN, KC_RGHT    
   //|--------------------------------------------------------------|     |--------------------------------------------------------------'
@@ -88,7 +88,7 @@ SFT_T(KC_F12),   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, _______,     XXXXXXX
   //|--------+--------+--------+--------+--------+-----------------|   |--------+--------+--------+--------+--------+--------+--------|
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX, RGB_VAD, RGB_VAI, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI,
   //|--------+--------+--------+--------+--------+-----------------|   |--------+--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,   RESET, XXXXXXX,     XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,   QK_BOOT, XXXXXXX,     XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+-----------------|   |--------+--------+--------+--------+--------+--------+--------|
                XXXXXXX, XXXXXXX, XXXXXXX,                                                           XXXXXXX, XXXXXXX, XXXXXXX    
   //|--------------------------------------------------------------|   |--------------------------------------------------------------'

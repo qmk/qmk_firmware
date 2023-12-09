@@ -20,6 +20,7 @@
 #pragma once
 
 #include <stdbool.h>
+#include <stdint.h>
 
 // CPI values
 // clang-format off
@@ -40,15 +41,27 @@
 
 // Definitions for the ADNS serial line.
 #ifndef ADNS5050_SCLK_PIN
-#    error "No clock pin defined -- missing ADNS5050_SCLK_PIN"
+#    ifdef POINTING_DEVICE_SCLK_PIN
+#        define ADNS5050_SCLK_PIN POINTING_DEVICE_SCLK_PIN
+#    else
+#        error "No clock pin defined -- missing POINTING_DEVICE_SCLK_PIN or ADNS5050_SCLK_PIN"
+#    endif
 #endif
 
 #ifndef ADNS5050_SDIO_PIN
-#    error "No data pin defined -- missing ADNS5050_SDIO_PIN"
+#    ifdef POINTING_DEVICE_SDIO_PIN
+#        define ADNS5050_SDIO_PIN POINTING_DEVICE_SDIO_PIN
+#    else
+#        error "No data pin defined -- missing POINTING_DEVICE_SDIO_PIN or ADNS5050_SDIO_PIN"
+#    endif
 #endif
 
 #ifndef ADNS5050_CS_PIN
-#    error "No chip select pin defined -- missing ADNS5050_CS_PIN"
+#    ifdef POINTING_DEVICE_CS_PIN
+#        define ADNS5050_CS_PIN POINTING_DEVICE_CS_PIN
+#    else
+#        error "No chip select pin defined -- missing POINTING_DEVICE_CS_PIN or ADNS5050_CS_PIN define"
+#    endif
 #endif
 
 typedef struct {

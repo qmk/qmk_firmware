@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_NAV] = LAYOUT(
-    RESET,    KC_NO,    KC_NO,    KC_NO,  KC_NO,   KC_NO,  KC_NO,    KC_NO,  KC_NO,  KC_NO,
+    QK_BOOT,  KC_NO,    KC_NO,    KC_NO,  KC_NO,   KC_NO,  KC_NO,    KC_NO,  KC_NO,  KC_NO,
     KC_LEFT,  KC_DOWN,  KC_UP,  KC_RGHT,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,
     KC_NO,  KC_NO, KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO,  KC_NO,   KC_NO,  KC_NO,
                    KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,   KC_TRNS,   KC_TRNS
@@ -63,7 +63,7 @@ const uint16_t PROGMEM combo_esc[] = {KC_N, KC_T, COMBO_END};
 const uint16_t PROGMEM combo_del[] = {KC_MINS, KC_EQL, COMBO_END};
 const uint16_t PROGMEM combo_ret[] = {KC_LGUI, KC_LALT, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
   //[COMBO_BSPC] = COMBO(combo_bspc,KC_BSPC),
   [COMBO_NUMBAK] = COMBO(combo_numbak,KC_BSPC),
   [COMBO_TAB] = COMBO(combo_tab,KC_TAB),
