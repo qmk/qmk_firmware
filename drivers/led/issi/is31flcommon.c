@@ -31,8 +31,7 @@
 #    define ISSI_PERSISTENCE 0
 #endif
 
-// Transfer buffer for TWITransmitData()
-uint8_t g_twi_transfer_buffer[20];
+uint8_t i2c_transfer_buffer[20];
 
 // These buffers match the PWM & scaling registers.
 // Storing them like this is optimal for I2C transfers to the registers.
@@ -45,15 +44,15 @@ bool    g_scaling_buffer_update_required[DRIVER_COUNT] = {false};
 // For writing of single register entry
 void IS31FL_write_single_register(uint8_t addr, uint8_t reg, uint8_t data) {
     // Set register address and register data ready to write
-    g_twi_transfer_buffer[0] = reg;
-    g_twi_transfer_buffer[1] = data;
+    i2c_transfer_buffer[0] = reg;
+    i2c_transfer_buffer[1] = data;
 
 #if ISSI_PERSISTENCE > 0
     for (uint8_t i = 0; i < ISSI_PERSISTENCE; i++) {
-        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 2, ISSI_TIMEOUT) == 0) break;
+        if (i2c_transmit(addr << 1, i2c_transfer_buffer, 2, ISSI_TIMEOUT) == 0) break;
     }
 #else
-    i2c_transmit(addr << 1, g_twi_transfer_buffer, 2, ISSI_TIMEOUT);
+    i2c_transmit(addr << 1, i2c_transfer_buffer, 2, ISSI_TIMEOUT);
 #endif
 }
 
@@ -64,18 +63,18 @@ bool IS31FL_write_multi_registers(uint8_t addr, uint8_t *source_buffer, uint8_t 
     // Split the buffer into chunks to transfer
     for (int i = 0; i < buffer_size; i += transfer_size) {
         // Set the first entry of transfer buffer to the first register we want to write
-        g_twi_transfer_buffer[0] = i + start_reg_addr;
+        i2c_transfer_buffer[0] = i + start_reg_addr;
         // Copy the section of our source buffer into the transfer buffer after first register address
-        memcpy(g_twi_transfer_buffer + 1, source_buffer + i, transfer_size);
+        memcpy(i2c_transfer_buffer + 1, source_buffer + i, transfer_size);
 
 #if ISSI_PERSISTENCE > 0
         for (uint8_t i = 0; i < ISSI_PERSISTENCE; i++) {
-            if (i2c_transmit(addr << 1, g_twi_transfer_buffer, transfer_size + 1, ISSI_TIMEOUT) != 0) {
+            if (i2c_transmit(addr << 1, i2c_transfer_buffer, transfer_size + 1, ISSI_TIMEOUT) != 0) {
                 return false;
             }
         }
 #else
-        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, transfer_size + 1, ISSI_TIMEOUT) != 0) {
+        if (i2c_transmit(addr << 1, i2c_transfer_buffer, transfer_size + 1, ISSI_TIMEOUT) != 0) {
             return false;
         }
 #endif
@@ -174,7 +173,55 @@ void IS31FL_common_update_scaling_register(uint8_t addr, uint8_t index) {
     }
 }
 
+void IS31FL_common_flush(void) {
+    IS31FL_common_update_pwm_register(DRIVER_ADDR_1, 0);
+#if defined(DRIVER_ADDR_2)
+    IS31FL_common_update_pwm_register(DRIVER_ADDR_2, 1);
+#    if defined(DRIVER_ADDR_3)
+    IS31FL_common_update_pwm_register(DRIVER_ADDR_3, 2);
+#        if defined(DRIVER_ADDR_4)
+    IS31FL_common_update_pwm_register(DRIVER_ADDR_4, 3);
+#        endif
+#    endif
+#endif
+}
+
 #ifdef RGB_MATRIX_ENABLE
+void IS31FL_RGB_init_drivers(void) {
+    i2c_init();
+
+    IS31FL_common_init(DRIVER_ADDR_1, ISSI_SSR_1);
+#    if defined(DRIVER_ADDR_2)
+    IS31FL_common_init(DRIVER_ADDR_2, ISSI_SSR_2);
+#        if defined(DRIVER_ADDR_3)
+    IS31FL_common_init(DRIVER_ADDR_3, ISSI_SSR_3);
+#            if defined(DRIVER_ADDR_4)
+    IS31FL_common_init(DRIVER_ADDR_4, ISSI_SSR_4);
+#            endif
+#        endif
+#    endif
+
+    for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+        IS31FL_RGB_set_scaling_buffer(i, true, true, true);
+    }
+
+    // This actually updates the LED drivers
+#    ifdef ISSI_MANUAL_SCALING
+    IS31FL_set_manual_scaling_buffer();
+#    endif
+
+    IS31FL_common_update_scaling_register(DRIVER_ADDR_1, 0);
+#    if defined(DRIVER_ADDR_2)
+    IS31FL_common_update_scaling_register(DRIVER_ADDR_2, 1);
+#        if defined(DRIVER_ADDR_3)
+    IS31FL_common_update_scaling_register(DRIVER_ADDR_3, 2);
+#            if defined(DRIVER_ADDR_4)
+    IS31FL_common_update_scaling_register(DRIVER_ADDR_4, 3);
+#            endif
+#        endif
+#    endif
+}
+
 // Colour is set by adjusting PWM register
 void IS31FL_RGB_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     if (index >= 0 && index < RGB_MATRIX_LED_COUNT) {
@@ -218,6 +265,41 @@ void IS31FL_RGB_set_scaling_buffer(uint8_t index, bool red, bool green, bool blu
 
 #elif defined(LED_MATRIX_ENABLE)
 // LED Matrix Specific scripts
+void IS31FL_simple_init_drivers(void) {
+    i2c_init();
+
+    IS31FL_common_init(DRIVER_ADDR_1, ISSI_SSR_1);
+#    if defined(DRIVER_ADDR_2)
+    IS31FL_common_init(DRIVER_ADDR_2, ISSI_SSR_2);
+#        if defined(DRIVER_ADDR_3)
+    IS31FL_common_init(DRIVER_ADDR_3, ISSI_SSR_3);
+#            if defined(DRIVER_ADDR_4)
+    IS31FL_common_init(DRIVER_ADDR_4, ISSI_SSR_4);
+#            endif
+#        endif
+#    endif
+
+    for (int i = 0; i < LED_MATRIX_LED_COUNT; i++) {
+        IS31FL_simple_set_scaling_buffer(i, true);
+    }
+
+// This actually updates the LED drivers
+#    ifdef ISSI_MANUAL_SCALING
+    IS31FL_set_manual_scaling_buffer();
+#    endif
+
+    IS31FL_common_update_scaling_register(DRIVER_ADDR_1, 0);
+#    if defined(DRIVER_ADDR_2)
+    IS31FL_common_update_scaling_register(DRIVER_ADDR_2, 1);
+#        if defined(DRIVER_ADDR_3)
+    IS31FL_common_update_scaling_register(DRIVER_ADDR_3, 2);
+#            if defined(DRIVER_ADDR_4)
+    IS31FL_common_update_scaling_register(DRIVER_ADDR_4, 3);
+#            endif
+#        endif
+#    endif
+}
+
 void IS31FL_simple_set_scaling_buffer(uint8_t index, bool value) {
     is31_led led;
     memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
