@@ -14,10 +14,4 @@
 #define SPLIT_POINTING_ENABLE     // Transmitting the pointing device status to the master side
 #define POINTING_DEVICE_RIGHT     // Pointing device on the right side (Required - pick one only)
 //#define EE_HANDS                  // Split handedness via eeprom
-//#define POINTING_DEVICE_LEFT    // Pointing device on the left side (Required - pick one only)
-
-#define RGBLIGHT_DEFAULT_MODE RGBLIGHT_EFFECT_BREATHING + 2
-#define RGBLIGHT_DEFAULT_HUE 152
-#define RGBLIGHT_DEFAULT_SAT 232
-#define RGBLIGHT_DEFAULT_VAR 255
-#define RGBLIGHT_DEFAULT_SPD 2
+//#define POINTING_DEVICE_LEFT    // Pointing device on the left side (Required - pick one only)≈
