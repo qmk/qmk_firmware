@@ -37,6 +37,11 @@
             "twinkle": true
         },
         "brightness_steps": 8,
+        "default": {
+            "hue": 152,
+            "sat": 232,
+            "speed": 2
+        },
         "hue_steps": 8,
         "led_count": 2,
         "max_brightness": 100,
@@ -46,7 +51,11 @@
     "split": {
         "enabled": true,
         "transport": {
-            "protocol": "serial"
+            "protocol": "serial",
+            "sync": {
+                "indicators": true,
+                "layer_state": true
+            }
         }
     },
     "url": "https://keycapsss.com",
