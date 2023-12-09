@@ -1,7 +1,7 @@
 {
     "manufacturer": "Keycapsss",
-    "keyboard_name": "3w6 RP2040",
-    "maintainer": "Keycapsss",
+    "keyboard_name": "3w6_2040",
+    "maintainer": "@ben_roe Keycapsss",
     "bootloader": "rp2040",
     "bootloader_instructions": "Press and hold the boot button while plugging in the keyboard",
     "diode_direction": "COL2ROW",
