@@ -34,13 +34,14 @@
         "levels": 20,
         "max_brightness": 255,
         "breathing": true,
-        "breathing_period": 10,
+        "breathing_period": 5,
         "on_state": 1,
+
         "default": {
-            //"on": true,
-            "breathing": true,
-            "brightness":15
+            "breathing": false,
+            "brightness": 30
         }
+
     },
     "url": "https://github.com/JZ-Skyloong",
     "usb": {

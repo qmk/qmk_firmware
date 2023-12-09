@@ -1,5 +1,5 @@
 {
-    "keyboard_name": "QMK87 PTIR ISO",
+    "keyboard_name": "QMK87 backlight ISO",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x6A88"

@@ -8,6 +8,8 @@
 #define MAC_PIN C13
 #define LED_PIN_ON_STATE 0
 
+#define BACKLIGHT_DEFAULT_ON 1
+
 #ifdef ENCODER_ENABLE
 #    define ENCODER_MAP_KEY_DELAY 20
 #endif

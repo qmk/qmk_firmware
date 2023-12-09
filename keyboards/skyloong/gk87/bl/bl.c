@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "quantum.h"
 
+_Bool DIS_BRETH = 0;
+
 void suspend_power_down_kb() {
     writePinHigh(MAC_PIN);
     suspend_power_down_user();
@@ -31,6 +33,39 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             writePinLow(MAC_PIN);
          return true; // continue all further processing of this key
 
+       case BL_TOGG:
+           if (record->event.pressed){
+               if(is_backlight_breathing()) {
+                    backlight_disable_breathing();
+                    DIS_BRETH = 1;
+
+                }else if(DIS_BRETH && !(is_backlight_enabled())){
+                    backlight_enable_breathing();
+                    DIS_BRETH = 0;
+                }
+           }
+         return true;
+
+       case BL_BRTG:
+           if (record->event.pressed){
+               if(DIS_BRETH || !(is_backlight_enabled())) {
+                 return false;
+                }
+           }
+         return true;
+
+       case BL_UP:
+           DIS_BRETH = 0;
+         return true;
+
+       case BL_DOWN:
+           if (record->event.pressed){
+               if(DIS_BRETH || !(is_backlight_enabled())) {
+                 return false;
+                }
+           }
+         return true;
+
       default:
          return true;
     }
@@ -47,7 +82,6 @@ layer_state_t default_layer_state_set_kb(layer_state_t state) {
     }
   return state;
 }
-
 
 void board_init(void) {
     // JTAG-DP Disabled and SW-DP Disabled

@@ -1,5 +1,5 @@
 {
-    "keyboard_name": "QMK87 PTIR ANSI",
+    "keyboard_name": "QMK87 backlight ANSI",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x6A87"
