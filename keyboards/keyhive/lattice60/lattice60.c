@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "lattice60.h"
+#include "quantum.h"
 
 #define LED1_PIN    C4
 #define LED2_PIN    C5

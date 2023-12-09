@@ -6,11 +6,12 @@ import json
 
 from milc import cli
 
+import qmk.path
 from qmk.datetime import current_datetime
 from qmk.info import info_json
 from qmk.json_schema import json_load
 from qmk.keymap import list_keymaps
-from qmk.keyboard import find_readme, list_keyboards
+from qmk.keyboard import find_readme, list_keyboards, keyboard_alias_definitions
 from qmk.keycodes import load_spec, list_versions, list_languages
 
 DATA_PATH = Path('data')
@@ -64,6 +65,12 @@ def _filtered_copy(src, dst):
 
         dst = dst.with_suffix('.json')
         dst.write_text(json.dumps(data, separators=(',', ':')), encoding='utf-8')
+        return dst
+
+    if dst.suffix == '.jsonschema':
+        data = json_load(src)
+
+        dst.write_text(json.dumps(data), encoding='utf-8')
         return dst
 
     return shutil.copy2(src, dst)
@@ -120,12 +127,16 @@ def generate_api(cli):
 
         # Populate the list of JSON keymaps
         for keymap in list_keymaps(keyboard_name, c=False, fullpath=True):
+            keymap_rel = qmk.path.under_qmk_firmware(keymap)
+            if keymap_rel is None:
+                cli.log.debug('Skipping keymap %s (not in qmk_firmware)', keymap)
+                continue
             kb_json['keymaps'][keymap.name] = {
                 # TODO: deprecate 'url' as consumer needs to know its potentially hjson
-                'url': f'https://raw.githubusercontent.com/qmk/qmk_firmware/master/{keymap}/keymap.json',
+                'url': f'https://raw.githubusercontent.com/qmk/qmk_firmware/master/{keymap_rel}/keymap.json',
 
                 # Instead consumer should grab from API and not repo directly
-                'path': (keymap / 'keymap.json').as_posix(),
+                'path': (keymap_rel / 'keymap.json').as_posix(),
             }
 
         keyboard_dir.mkdir(parents=True, exist_ok=True)
@@ -160,7 +171,7 @@ def generate_api(cli):
 
     # Generate data for the global files
     keyboard_list = sorted(kb_all)
-    keyboard_aliases = json_load(Path('data/mappings/keyboard_aliases.hjson'))
+    keyboard_aliases = keyboard_alias_definitions()
     keyboard_metadata = {
         'last_updated': current_datetime(),
         'keyboards': keyboard_list,

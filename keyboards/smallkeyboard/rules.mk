@@ -12,6 +12,5 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
 RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = IS31FL3731
 
 RGB_MATRIX_SUPPORTED = yes

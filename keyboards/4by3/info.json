@@ -1,6 +1,6 @@
 {
     "keyboard_name": "4by3",
-    "manufacturer": "Elias Sjögreen",
+    "manufacturer": "Elias Sj\u00f6green",
     "url": "https://github.com/eliassjogreen/4by3",
     "maintainer": "eliassjogreen",
     "usb": {
@@ -8,30 +8,71 @@
         "pid": "0x2019",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["C6", "D7", "E6", "B4"],
+        "rows": ["D1", "D0", "D4"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "caterina",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_horizontal"
+    },
     "layouts": {
         "LAYOUT_horizontal": {
             "layout": [
-                { "x": 0, "y": 0 }, { "x": 1, "y": 0 }, { "x": 2, "y": 0 }, { "x": 3, "y": 0 },
-                { "x": 0, "y": 1 }, { "x": 1, "y": 1 }, { "x": 2, "y": 1 }, { "x": 3, "y": 1 },
-                { "x": 0, "y": 2 }, { "x": 1, "y": 2 }, { "x": 2, "y": 2 }, { "x": 3, "y": 2 }
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [1, 3], "x": 3, "y": 1},
+
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+                {"matrix": [2, 3], "x": 3, "y": 2}
             ]
         },
         "LAYOUT_vertical_right": {
             "layout": [
-                { "x": 0, "y": 0 }, { "x": 1, "y": 0 }, { "x": 2, "y": 0 },
-                { "x": 0, "y": 1 }, { "x": 1, "y": 1 }, { "x": 2, "y": 1 },
-                { "x": 0, "y": 2 }, { "x": 1, "y": 2 }, { "x": 2, "y": 2 },
-                { "x": 0, "y": 3 }, { "x": 1, "y": 3 }, { "x": 2, "y": 3 }
+                {"matrix": [2, 0], "x": 0, "y": 0},
+                {"matrix": [1, 0], "x": 1, "y": 0},
+                {"matrix": [0, 0], "x": 2, "y": 0},
+
+                {"matrix": [2, 1], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [0, 1], "x": 2, "y": 1},
+
+                {"matrix": [2, 2], "x": 0, "y": 2},
+                {"matrix": [1, 2], "x": 1, "y": 2},
+                {"matrix": [0, 2], "x": 2, "y": 2},
+
+                {"matrix": [2, 3], "x": 0, "y": 3},
+                {"matrix": [1, 3], "x": 1, "y": 3},
+                {"matrix": [0, 3], "x": 2, "y": 3}
             ]
         },
         "LAYOUT_vertical_left": {
             "layout": [
-                { "x": 0, "y": 0 }, { "x": 1, "y": 0 }, { "x": 2, "y": 0 },
-                { "x": 0, "y": 1 }, { "x": 1, "y": 1 }, { "x": 2, "y": 1 },
-                { "x": 0, "y": 2 }, { "x": 1, "y": 2 }, { "x": 2, "y": 2 },
-                { "x": 0, "y": 3 }, { "x": 1, "y": 3 }, { "x": 2, "y": 3 }
+                {"matrix": [0, 3], "x": 0, "y": 0},
+                {"matrix": [1, 3], "x": 1, "y": 0},
+                {"matrix": [2, 3], "x": 2, "y": 0},
+
+                {"matrix": [0, 2], "x": 0, "y": 1},
+                {"matrix": [1, 2], "x": 1, "y": 1},
+                {"matrix": [2, 2], "x": 2, "y": 1},
+
+                {"matrix": [0, 1], "x": 0, "y": 2},
+                {"matrix": [1, 1], "x": 1, "y": 2},
+                {"matrix": [2, 1], "x": 2, "y": 2},
+
+                {"matrix": [0, 0], "x": 0, "y": 3},
+                {"matrix": [1, 0], "x": 1, "y": 3},
+                {"matrix": [2, 0], "x": 2, "y": 3}
             ]
         }
     }

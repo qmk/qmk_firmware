@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 #ifdef ENCODER_MAP_ENABLE
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_QWERTY] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [_LOWER]  = { ENCODER_CCW_CW(KC_PGDN, KC_PGUP) },
     [_RAISE]  = { ENCODER_CCW_CW(R_M_RMOD, R_M_MOD) },

@@ -4,6 +4,7 @@ permissions:
   contents: write
 
 on:
+  workflow_dispatch:
   push:
     branches:
     - master
@@ -26,12 +27,12 @@ jobs:
     if: github.repository == 'qmk/qmk_firmware'
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
     - name: Bump version and push tag
-      uses: anothrNick/github-tag-action@1.61.0
+      uses: anothrNick/github-tag-action@1.66.0
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         DEFAULT_BUMP: 'patch'

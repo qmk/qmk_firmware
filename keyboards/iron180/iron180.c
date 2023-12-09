@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "iron180.h"
+#include "quantum.h"
 
 #ifdef CAPSLOCK_BACKLIGHT
 void led_update_ports(led_t led_state) {

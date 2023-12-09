@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "rev3.h"
+#include "quantum.h"
 
 // Tested and verified working on EXT65 Rev3
 void matrix_io_delay(void) { __asm__ volatile("nop\nnop\nnop\n"); }

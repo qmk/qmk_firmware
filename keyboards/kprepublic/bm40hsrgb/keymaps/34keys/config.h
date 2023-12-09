@@ -8,9 +8,6 @@
 
 #define TAPPING_TERM 200 // time of holding key, milliseconds
 
-// Prevent normal rollover on alphas from accidentally triggering mods.
-#define IGNORE_MOD_TAP_INTERRUPT
-
 // Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
 #define QUICK_TAP_TERM 0
 
@@ -27,7 +24,6 @@
 #define MOUSEKEY_TIME_TO_MAX    64
 
 //  The firmware is too large!
-#define COMBO_COUNT 1 // number of combo
 #define COMBO_TERM 80 // timeout period for combos to 40ms.
 
 //disable broken animations

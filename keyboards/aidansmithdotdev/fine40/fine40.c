@@ -68,18 +68,3 @@ bool oled_task_kb(void) {
 	return(true);
 }
 #endif
-
-#ifdef ENCODER_ENABLE
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) {
-        return false;
-    }
-	// Volume control
-	if (clockwise) {
-		tap_code(KC_VOLU);
-	} else {
-		tap_code(KC_VOLD);
-	}
-	return false;
-}
-#endif

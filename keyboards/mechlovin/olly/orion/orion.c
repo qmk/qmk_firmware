@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "orion.h"
+#include "quantum.h"
 
 void board_init(void) {
    //JTAG-DP Disabled and SW-DP Enabled    

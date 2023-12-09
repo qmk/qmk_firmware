@@ -16,27 +16,7 @@
 
 #pragma once
 
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-
-//                         0   1   2   3   4   5   6   7   8   9   A   B   C   D
-#define MATRIX_ROW_PINS { B0, B1, B2, B3, E6 }
-#define MATRIX_COL_PINS { D0, D1, D2, D3, D5, D4, D6, D7, B4, B5, B6, C6, C7, F7 }
-
-#define DIODE_DIRECTION COL2ROW
-
-#define RGB_DI_PIN E2
 #define RGB_MATRIX_LED_COUNT 69
-#ifdef RGB_DI_PIN
-    #define RGBLED_NUM 69
     #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 140
 #define RGB_MATRIX_KEYPRESSES
@@ -82,5 +62,3 @@
 #define ENABLE_RGB_MATRIX_MULTISPLASH
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-#endif
-

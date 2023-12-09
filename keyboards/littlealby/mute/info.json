@@ -6,7 +6,14 @@
   "usb": {
     "vid": "0x4142",
     "pid": "0x4D55",
-    "device_version": "0.0.1"
+    "device_version": "0.0.1",
+    "max_power": 100
+  },
+  "rgblight": {
+    "led_count": 1
+  },
+  "ws2812": {
+    "pin": "B6"
   },
   "processor": "atmega32u4",
   "bootloader": "caterina",

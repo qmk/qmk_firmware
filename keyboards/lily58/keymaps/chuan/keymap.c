@@ -173,13 +173,6 @@ bool oled_task_user(void) {
 #endif //OLED_ENABLE
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-#ifdef SSD1306OLED
-    // set_keylog(keycode, record);
-#endif
-    // set_timelog();
-  }
-
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {

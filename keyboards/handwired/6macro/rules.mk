@@ -8,7 +8,6 @@ CONSOLE_ENABLE = no        	# Console for debug
 COMMAND_ENABLE = no        	# Commands for debug and configuration
 NKRO_ENABLE = yes           # Enable N-Key Rollover
 RGB_MATRIX_ENABLE = no     # Enable per-key coordinate based RGB effects. Do not enable with RGBlight
-RGB_MATRIX_DRIVER = WS2812
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 UNICODE_ENABLE = yes        # Unicode

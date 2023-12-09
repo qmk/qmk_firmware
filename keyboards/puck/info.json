@@ -1,30 +1,38 @@
 {
-  "keyboard_name": "Puck", 
+  "keyboard_name": "Puck",
   "manufacturer": "OkKeebs LLC",
-  "url": "", 
-  "maintainer": "john-pettigrew", 
+  "url": "",
+  "maintainer": "john-pettigrew",
   "usb": {
     "vid": "0xFEED",
     "pid": "0x6060",
     "device_version": "0.0.1"
   },
+  "matrix_pins": {
+    "cols": ["B4", "D7", "D6"],
+    "rows": ["D2", "D3", "C6", "C7"]
+  },
+  "diode_direction": "ROW2COL",
   "processor": "atmega32u4",
   "bootloader": "halfkay",
   "layouts": {
     "LAYOUT": {
       "layout": [
-        {"label":"SW1", "x":0, "y":0}, 
-        {"label":"SW2", "x":1, "y":0}, 
-        {"label":"SW3", "x":2, "y":0}, 
-        {"label":"SW4", "x":0, "y":1}, 
-        {"label":"SW5", "x":1, "y":1}, 
-        {"label":"SW6", "x":2, "y":1}, 
-        {"label":"SW7", "x":0, "y":2}, 
-        {"label":"SW8", "x":1, "y":2}, 
-        {"label":"SW9", "x":2, "y":2}, 
-        {"label":"SW10", "x":0, "y":3}, 
-        {"label":"SW11", "x":1, "y":3}, 
-        {"label":"SW12", "x":2, "y":3}
+        {"matrix": [0, 0], "x": 0, "y": 0},
+        {"matrix": [0, 1], "x": 1, "y": 0},
+        {"matrix": [0, 2], "x": 2, "y": 0},
+
+        {"matrix": [1, 0], "x": 0, "y": 1},
+        {"matrix": [1, 1], "x": 1, "y": 1},
+        {"matrix": [1, 2], "x": 2, "y": 1},
+
+        {"matrix": [2, 0], "x": 0, "y": 2},
+        {"matrix": [2, 1], "x": 1, "y": 2},
+        {"matrix": [2, 2], "x": 2, "y": 2},
+
+        {"matrix": [3, 0], "x": 0, "y": 3},
+        {"matrix": [3, 1], "x": 1, "y": 3},
+        {"matrix": [3, 2], "x": 2, "y": 3}
       ]
     }
   }

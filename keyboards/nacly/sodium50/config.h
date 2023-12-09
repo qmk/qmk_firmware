@@ -16,13 +16,6 @@
 
 #pragma once
 
-
-// wiring of each half
-#define MATRIX_ROW_PINS { F7, D4, D7, B4}
-#define MATRIX_COL_PINS { D2, C6, E6, B5, B2, B3, B1 }
-
-#define DIODE_DIRECTION COL2ROW
-
 #define SPLIT_HAND_PIN F4
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */

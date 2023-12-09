@@ -15,25 +15,13 @@
  */
 #pragma once
 
-
-/* Keyboard Matrix Assignments */
-#define MATRIX_ROW_PINS \
-    { D4, D6, D7, B4, B5 }
-#define MATRIX_COL_PINS \
-    { B0, B1, B2, B3 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 /* Midi Slider */
 #define SLIDER_PIN F6
 #define MIDI_ADVANCED
 
 /* RGB Matrix configuration */
-#define RGB_DI_PIN F7
 #ifdef RGB_MATRIX_ENABLE
-#    define RGBLED_NUM 22
-#    define RGB_MATRIX_LED_COUNT RGBLED_NUM
+#    define RGB_MATRIX_LED_COUNT 22
 #    define RGB_MATRIX_KEYPRESSES  // reacts to keypresses
 // #    define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
@@ -41,10 +29,6 @@
 // #    define RGB_MATRIX_LED_PROCESS_LIMIT (RGB_MATRIX_LED_COUNT + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 // #    define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 50  // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
-#    define RGB_MATRIX_HUE_STEP 8
-#    define RGB_MATRIX_SAT_STEP 8
-#    define RGB_MATRIX_VAL_STEP 8
-#    define RGB_MATRIX_SPD_STEP 10
 #    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_PINWHEEL  // default mode
 
 // RGB Matrix Animation modes. Explicitly enabled

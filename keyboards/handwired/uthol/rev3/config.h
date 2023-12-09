@@ -17,14 +17,6 @@
 
 #pragma once
 
-
-/* key matrix size */
-// A11 and A12 dont work. They are reserved for USB. B2 is reserved for BOOT1
-#define MATRIX_COL_PINS \
-    { B1, B10, B9, B8, B5, B4, B3, A15, B15, B14, B13, B12 }
-#define MATRIX_ROW_PINS \
-    { A4, A3, A2, A1, A0 }
-
 // OLED config
 #define OLED_DISPLAY_128X64
 #define OLED_DISPLAY_WIDTH 128
@@ -39,20 +31,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define TAPPING_TERM 500
 #define PERMISSIVE_HOLD
 
-// RGB Stuff
-#define RGB_DI_PIN B0
-#define RGBLED_NUM 39
-#define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#define RGBLIGHT_EFFECT_SNAKE
-#define RGBLIGHT_EFFECT_KNIGHT
-#define RGBLIGHT_EFFECT_CHRISTMAS
-#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#define RGBLIGHT_EFFECT_RGB_TEST
-#define RGBLIGHT_EFFECT_ALTERNATING
-#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLIGHT_DEFAULT_HUE 201

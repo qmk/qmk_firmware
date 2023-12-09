@@ -1,8 +1,8 @@
 #pragma once
 
-#undef RGB_DI_PIN
+#undef WS2812_DI_PIN
 #undef RGBLED_NUM
-#define RGB_DI_PIN D2
+#define WS2812_DI_PIN D2
 #    define RGBLIGHT_EFFECT_BREATHING
 #    define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #    define RGBLIGHT_EFFECT_RAINBOW_SWIRL

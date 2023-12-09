@@ -8,8 +8,6 @@
  * RGB Matrix stuff
  * ---------------- */
 
-#define RGB_DI_PIN E2
-
 // RGB Matrix config
 #if defined(RGB_MATRIX_ENABLE)
 

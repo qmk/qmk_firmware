@@ -8,6 +8,12 @@
     "pid": "0x0202",
     "device_version": "0.0.1"
   },
+  "rgblight": {
+    "led_count": 2
+  },
+  "ws2812": {
+    "pin": "B2"
+  },
   "matrix_pins": {
     "direct": [
       ["B0", "B1"]
@@ -16,8 +22,8 @@
   "layouts": {
     "LAYOUT": {
       "layout": [
-        {"x":0, "y":0, "matrix": [0, 0]},
-        {"x":1, "y":0, "matrix": [0, 1]}
+        {"x": 0, "y": 0, "matrix": [0, 0]},
+        {"x": 1, "y": 0, "matrix": [0, 1]}
       ]
     }
   }

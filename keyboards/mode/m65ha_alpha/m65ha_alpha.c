@@ -15,13 +15,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "m65ha_alpha.h"
+#include "quantum.h"
 
 void board_init(void) {
     setPinInput(B10);
 }
 
-#define LED_PIN_ON_STATE 1
 void led_init_ports(void) {
 
 /** If the OPENDRAIN_INDICATORS option is not defined in config.h, the indicator

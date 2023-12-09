@@ -67,9 +67,6 @@
 
 
 #include QMK_KEYBOARD_H
-#ifdef STENO_ENABLE
-#include "keymap_steno.h"
-#endif
 
 extern keymap_config_t keymap_config;
 

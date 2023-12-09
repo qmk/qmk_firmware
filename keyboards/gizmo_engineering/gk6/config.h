@@ -17,21 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/*
- * Keyboard Matrix Assignments
-*/
-#define MATRIX_ROW_PINS { B6, B4, D7, D6, D4}
-#define MATRIX_COL_PINS { B5, C6, C7, F7, F6, D5, D3, D2, F1, F4, B7, F5 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION ROW2COL
-
 // RGB Matrix
-#define DRIVER_ADDR_1 0b1110100
-#define DRIVER_ADDR_2 0b1110111
+#define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
+#define IS31FL3731_I2C_ADDRESS_2 IS31FL3731_I2C_ADDRESS_VCC
 
-#define DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 32
 #define DRIVER_2_LED_TOTAL 32
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
@@ -41,8 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
-#define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
-#define RGB_MATRIX_DEFAULT_SPD 127
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:

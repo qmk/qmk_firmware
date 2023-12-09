@@ -8,31 +8,33 @@
         "pid": "0x0002",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["A1", "A2", "B11", "B12", "B13"],
+        "rows": ["B10", "B9", "B8"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_ortho_3x5": {
-            
             "layout": [
-                {"label":"1", "x":0, "y":0},
-                {"label":"2", "x":1, "y":0},
-                {"label":"3", "x":2, "y":0},
-                {"label":"4", "x":3, "y":0},
-                {"label":"5", "x":4, "y":0},
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [0, 4], "x": 4, "y": 0},
 
-                {"label":"6", "x":0, "y":1},
-                {"label":"7", "x":1, "y":1},
-                {"label":"8", "x":2, "y":1},
-                {"label":"9", "x":3, "y":1},
-                {"label":"10", "x":4, "y":1},
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [1, 3], "x": 3, "y": 1},
+                {"matrix": [1, 4], "x": 4, "y": 1},
 
-                {"label":"11", "x":0, "y":2},
-                {"label":"12", "x":1, "y":2},
-                {"label":"13", "x":2, "y":2},
-                {"label":"14", "x":3, "y":2},
-                {"label":"15", "x":4, "y":2}
-                
-                
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+                {"matrix": [2, 3], "x": 3, "y": 2},
+                {"matrix": [2, 4], "x": 4, "y": 2}
             ]
         }
     }
