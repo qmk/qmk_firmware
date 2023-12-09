@@ -10,7 +10,7 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgblight": true,
+        "rgb_matrix": true,
         "encoder": true
     },
     "matrix_pins": {
