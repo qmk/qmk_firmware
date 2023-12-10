@@ -47,8 +47,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CAPSENSE_HARDCODED_SAMPLE_TIME 4
 
 #define CAPSENSE_CAL_ENABLED 1
-// #define CAPSENSE_CAL_ENABLED 0
-// #define CAPSENSE_CAL_DEBUG 1
 #define CAPSENSE_CAL_DEBUG 0
 #define CAPSENSE_CAL_INIT_REPS 16
 #define CAPSENSE_CAL_EACHKEY_REPS 16
@@ -76,9 +74,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // ----- xwhatsit hardware configuration (type_f) -----
 
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-
 #define CAPSENSE_DAC_SCLK   B1
 #define CAPSENSE_DAC_DIN    B2
 #define CAPSENSE_DAC_SYNC_N B0
@@ -97,17 +92,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             PORTD |= 0x0F; \
         } while (0)
 
-#if 1
 #define SETUP_UNUSED_PINS() do {} while (0)
-#else
-// TODO ENABLE THIS ONCE TESTED
-#define SETUP_UNUSED_PINS() \
-    do { \
-        PORTB |= ~(DDRB | 0x07); \
-        PORTC |= ~(DDRC | 0xf3); \
-        PORTD |= ~(DDRD | 0xff); \
-    } while (0)
-#endif
 
 #define CAPSENSE_READ_ROWS_NUMBER_OF_BYTES_PER_SAMPLE 2
 #define CAPSENSE_READ_ROWS_PIN_1 _SFR_IO_ADDR(PINC)
@@ -123,12 +108,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CAPSENSE_READ_ROWS_INPUT_CONSTRAINTS [ioreg_row_1] "I" (CAPSENSE_READ_ROWS_PIN_1), [ioreg_row_2] "I" (CAPSENSE_READ_ROWS_PIN_2)
 #define CAPSENSE_READ_ROWS_LOCAL_VARS uint8_t dest_row_1, dest_row_2
 #define CAPSENSE_READ_ROWS_EXTRACT_FROM_ARRAY do { dest_row_1 = array[p0++]; dest_row_2 = array[p0++]; } while (0)
-
-/*
-#ifndef CAPSENSE_KEYMAP_COL_TO_PHYSICAL_COL
-  #define CAPSENSE_KEYMAP_COL_TO_PHYSICAL_COL(col) (col)
-#endif
-*/
 
 #if (!defined(CAPSENSE_CONDUCTIVE_PLASTIC_IS_PUSHED_DOWN_ON_KEYPRESS)) && (!defined(CAPSENSE_CONDUCTIVE_PLASTIC_IS_PULLED_UP_ON_KEYPRESS))
   #define CAPSENSE_CONDUCTIVE_PLASTIC_IS_PUSHED_DOWN_ON_KEYPRESS

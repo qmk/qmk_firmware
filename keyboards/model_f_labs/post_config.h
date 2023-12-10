@@ -61,11 +61,3 @@
 #ifndef CAPSENSE_CAL_THRESHOLD_OFFSET
 #    error "Please define CAPSENSE_CAL_THRESHOLD_OFFSET in config.h"
 #endif
-
-// #if (!defined(CAPSENSE_CONDUCTIVE_PLASTIC_IS_PULLED_UP_ON_KEYPRESS)) && (!defined(CAPSENSE_CONDUCTIVE_PLASTIC_IS_PUSHED_DOWN_ON_KEYPRESS))
-// #    error "Please specify whether the flyplate is pushed down or pulled up on keypress!"
-// #endif
-
-#if defined(KEYBOARD_SHARED_EP) && defined(RAW_ENABLE)
-  #error "Enabling the KEYBOARD_SHARED_EP will make the util be unable to communicate with the firmware, because due to hidapi limiations, the util can't figure out which interface to talk to, so it hardcodes interface zero."
-#endif
