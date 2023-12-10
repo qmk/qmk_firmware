@@ -107,7 +107,6 @@
 #define FR_QRTR ALGR(FR_0)    // ¼
 #define FR_HALF ALGR(FR_MINS) // ½
 #define FR_TQTR ALGR(FR_EQL)  // ¾
-#define FR_EURO ALGR(FR_E)    // €
 #define FR_SECT ALGR(FR_O)    // §
 #define FR_PARA ALGR(FR_P)    // ¶
 #define FR_LBRC ALGR(FR_DCIR) // [
