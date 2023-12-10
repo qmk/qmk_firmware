@@ -107,7 +107,7 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 #    endif
 
 // LED color buffer
-rgb_led_t rgb_matrix_ws2812_array[RGB_MATRIX_LED_COUNT];
+rgb_led_t rgb_matrix_ws2812_array[WS2812_LED_COUNT];
 bool      ws2812_dirty = false;
 
 static void init(void) {
@@ -116,7 +116,7 @@ static void init(void) {
 
 static void flush(void) {
     if (ws2812_dirty) {
-        ws2812_setleds(rgb_matrix_ws2812_array, RGB_MATRIX_LED_COUNT);
+        ws2812_setleds(rgb_matrix_ws2812_array, WS2812_LED_COUNT);
         ws2812_dirty = false;
     }
 }
