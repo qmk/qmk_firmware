@@ -3,7 +3,12 @@
 
 #define COL_SHIFTER ((uint16_t)1)
 
-static bool colABpressed = false;
+#define ENC_ROW 3
+#define ENC_A_COL 3
+#define ENC_B_COL 5
+#define ENC_BUTTON_COL 1
+
+static bool colABpressed   = false;
 static bool encoderPressed = false;
 
 void clicked(void) {
@@ -22,16 +27,18 @@ void turned(bool clockwise) {
     }
 }
 
+// Dead code for now, not sure if there's edge cases that needed it
 void blank_column(matrix_row_t current_matrix[], uint8_t col) {
     uint16_t column_index_bitmask = COL_SHIFTER << col;
-    for (uint8_t row_index = 0; row_index < MATRIX_ROWS-1; row_index++) {
+    for (uint8_t row_index = 0; row_index < MATRIX_ROWS; row_index++) {
         current_matrix[row_index] &= ~column_index_bitmask;
     }
 }
 
+// Dead code for now, not sure if there's edge cases that needed it
 bool is_entire_column_held(matrix_row_t current_matrix[], uint8_t col) {
     uint16_t column_index_bitmask = COL_SHIFTER << col;
-    for (uint8_t row_index = 0; row_index < MATRIX_ROWS-1; row_index++) {
+    for (uint8_t row_index = 0; row_index < MATRIX_ROWS; row_index++) {
         if (!(current_matrix[row_index] & column_index_bitmask)) return false;
     }
     return true;
@@ -41,14 +48,15 @@ bool is_entire_column_held(matrix_row_t current_matrix[], uint8_t col) {
 // triggers entire columns... fix it in software here, assumption is that
 // you never press an entire column, sounds safe?
 void fix_encoder_action(matrix_row_t current_matrix[]) {
+    matrix_row_t encoder_row = current_matrix[ENC_ROW];
 
     // 7th column means encoder was pressed
-    if (is_entire_column_held(current_matrix, 7)) {
+    if (encoder_row & (COL_SHIFTER << ENC_BUTTON_COL)) {
         encoderPressed = true;
-        blank_column(current_matrix, 7);
-        current_matrix[3] |= COL_SHIFTER;
+        // blank_column(current_matrix, 7);
+        current_matrix[3] |= COL_SHIFTER << 1;
     } else {
-        current_matrix[3] &= ~COL_SHIFTER;
+        current_matrix[3] &= ~COL_SHIFTER << 1;
         // Only trigger click on release
         if (encoderPressed) {
             encoderPressed = false;
@@ -56,25 +64,22 @@ void fix_encoder_action(matrix_row_t current_matrix[]) {
         }
     }
 
-    // Now check rotary action:
-    bool colA = is_entire_column_held(current_matrix, 9);
-    bool colB = is_entire_column_held(current_matrix, 11);
+    // Check if the pin is pressed, as from observation when encoder is spun
+    // it doesn't result in all of the columns to turn on anymore
+    bool colA = encoder_row & (COL_SHIFTER << ENC_A_COL);
+    bool colB = encoder_row & (COL_SHIFTER << ENC_B_COL);
 
     if (colA && colB) {
         colABpressed = true;
-        blank_column(current_matrix, 9);
-        blank_column(current_matrix, 11);
     } else if (colA) {
         if (colABpressed) {
             colABpressed = false;
             turned(true);
         }
-        blank_column(current_matrix, 9);
     } else if (colB) {
         if (colABpressed) {
             colABpressed = false;
             turned(false);
         }
-        blank_column(current_matrix, 11);
     }
 }
