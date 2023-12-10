@@ -19,7 +19,6 @@
     },
     "development_board": "promicro",
     "rgblight": {
-        "enabled": true,
         "led_count": 6,
         "layers": {
             "enabled": true,
