@@ -55,7 +55,7 @@ For split keyboards using `RGB_MATRIX_SPLIT` with an LED driver, you can either 
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
