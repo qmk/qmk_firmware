@@ -900,12 +900,6 @@ void rgblight_wakeup(void) {
 
 #endif
 
-__attribute__((weak)) void rgblight_call_driver(rgb_led_t *start_led, uint8_t num_leds) {
-    ws2812_setleds(start_led, num_leds);
-}
-
-#ifndef RGBLIGHT_CUSTOM
-
 void rgblight_set(void) {
     rgb_led_t *start_led;
     uint8_t    num_leds = rgblight_ranges.clipping_num_leds;
@@ -915,42 +909,41 @@ void rgblight_set(void) {
             led[i].r = 0;
             led[i].g = 0;
             led[i].b = 0;
-#    ifdef RGBW
+#ifdef RGBW
             led[i].w = 0;
-#    endif
+#endif
         }
     }
 
-#    ifdef RGBLIGHT_LAYERS
+#ifdef RGBLIGHT_LAYERS
     if (rgblight_layers != NULL
-#        if !defined(RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF)
+#    if !defined(RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF)
         && rgblight_config.enable
-#        elif defined(RGBLIGHT_SLEEP)
+#    elif defined(RGBLIGHT_SLEEP)
         && !is_suspended
-#        endif
+#    endif
     ) {
         rgblight_layers_write();
     }
-#    endif
+#endif
 
-#    ifdef RGBLIGHT_LED_MAP
+#ifdef RGBLIGHT_LED_MAP
     rgb_led_t led0[RGBLED_NUM];
     for (uint8_t i = 0; i < RGBLED_NUM; i++) {
         led0[i] = led[pgm_read_byte(&led_map[i])];
     }
     start_led = led0 + rgblight_ranges.clipping_start_pos;
-#    else
+#else
     start_led = led + rgblight_ranges.clipping_start_pos;
-#    endif
+#endif
 
-#    ifdef RGBW
+#ifdef RGBW
     for (uint8_t i = 0; i < num_leds; i++) {
         convert_rgb_to_rgbw(&start_led[i]);
     }
-#    endif
-    rgblight_call_driver(start_led, num_leds);
-}
 #endif
+    rgblight_driver.setleds(start_led, num_leds);
+}
 
 #ifdef RGBLIGHT_SPLIT
 /* for split keyboard master side */
