@@ -252,7 +252,7 @@
                 {"matrix": [4, 17], "x": 20.75, "y": 4},
             ]
         },
-        "LAYOUT_lena_split_bs_rshift": {
+        "LAYOUT_split_bs_rshift": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1.25, "y": 0},
