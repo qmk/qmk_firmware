@@ -1,5 +1,7 @@
 # DoyuStudio DO60 PCB
 
+![Do60](https://i.imgur.com/LFVWdlwh.jpeg)
+
 60% board supporting in-switch LEDs (two-pin, single colour)
 Build-in WS2182 RGB LED for underglow lighting.
 
