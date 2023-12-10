@@ -158,7 +158,7 @@
 	    "pin": "A0"
 	},
     "layouts": {
-		"LAYOUT_lena": {
+		"LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1.25, "y": 0},
