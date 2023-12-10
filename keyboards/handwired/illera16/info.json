@@ -26,8 +26,7 @@
     },
     "rgb_matrix": {
     "enable": true,
-    "led_count": 6, // El número de LEDs en tu matriz RGB
-
+    "led_count": 6,
 },
     "ws2812": {
         "pin": "D0"
