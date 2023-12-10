@@ -157,6 +157,12 @@
 	"ws2812": {
 	    "pin": "A0"
 	},
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "layouts": {
 		"LAYOUT": {
             "layout": [
