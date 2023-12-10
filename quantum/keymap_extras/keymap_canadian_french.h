@@ -120,4 +120,3 @@
 #define FR_SHYP ALGR(FR_DOT)  // ­ (soft hyphen)
 #define FR_ACUT ALGR(FR_EACU) // ´ (dead)
 
-
