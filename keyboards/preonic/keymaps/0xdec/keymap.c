@@ -81,13 +81,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 #ifdef AUDIO_ENABLE
-
-float tone_startup[][2] = {
-  {NOTE_B5, 20},
-  {NOTE_B6, 8},
-  {NOTE_DS6, 20},
-  {NOTE_B6, 8}
-};
 float tone_colemak[][2] = SONG(COLEMAK_SOUND);
 float tone_game[][2]    = {
   {NOTE_E6, 10}   ,{NOTE_E6, 10}  ,{NOTE_REST, 10} ,{NOTE_E6, 10}   ,
@@ -95,26 +88,6 @@ float tone_game[][2]    = {
   {NOTE_G6, 10}   ,{NOTE_REST, 30},
   {NOTE_G5, 10}   ,{NOTE_REST, 30}
 };
-float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
-float music_scale[][2]  = SONG(MUSIC_SCALE_SOUND);
-
-void startup_user(void) {
-  _delay_ms(20); // gets rid of tick
-  PLAY_SONG(tone_startup);
-}
-void shutdown_user(void) {
-  PLAY_SONG(tone_goodbye);
-  _delay_ms(150);
-  stop_all_notes();
-}
-
-void music_on_user(void) {
-  music_scale_user();
-}
-void music_scale_user(void) {
-  PLAY_SONG(music_scale);
-}
-
 #endif
 
 
