@@ -28,8 +28,10 @@ LAYOUT_reviung41_wrapper(\
    KC_DEL,  K00, K01, K02, K03, K04,      K05, K06, K07, K08, K09, KC_BSPC, \
    KC_LCTL, K10, K11, K12, K13, K14,      K15, K16, K17, K18, K19, KC_RCTL, \
    KC_LSFT, K20, K21, K22, K23, K24,      K25, K26, K27, K28, K29, KC_RSFT, \
-                          K32, K33, K34, K35, K36 \
+                          K32, K33, KC_SPC, K35, K36 \
 )
+#undef _________________THUMB_LEFT________________
+#define _________________THUMB_LEFT________________     KC_NO,             KC_NO,          LT(_MEDIA,KC_ESC),  LT(_NAV,KC_ESC) ,  KC_NO
 
 #define LAYOUT_base_wrapper(...) LAYOUT_reviung41_base(__VA_ARGS__)
 
@@ -41,15 +43,15 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_base_wrapper(
-        _________________COLEMAK_L1_________________, _________________COLEMAK_R1_________________,
-        _________________COLEMAK_L2_________________, _________________COLEMAK_R2_________________,
-        _________________COLEMAK_L3_________________, _________________COLEMAK_R3_________________,
-        _________________THUMB_LEFT________________,  _________________THUMB_RIGHT_______________
-    ),
-    [_ALT] = LAYOUT_base_wrapper(
         _________________QWERTY_L1__________________, _________________QWERTY_R1__________________,
         _________________QWERTY_L2__________________, _________________QWERTY_R2__________________,
         _________________QWERTY_L3__________________, _________________QWERTY_R3__________________,
+        _________________THUMB_LEFT________________,  _________________THUMB_RIGHT_______________
+    ),
+    [_ALT] = LAYOUT_base_wrapper(
+        _________________COLEMAK_L1_________________, _________________COLEMAK_R1_________________,
+        _________________COLEMAK_L2_________________, _________________COLEMAK_R2_________________,
+        _________________COLEMAK_L3_________________, _________________COLEMAK_R3_________________,
         _________________THUMB_LEFT________________,  _________________THUMB_RIGHT_______________
     ),
     [_SYM] = LAYOUT_base_wrapper(

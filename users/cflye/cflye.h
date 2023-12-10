@@ -95,9 +95,18 @@ enum unicode_names {
 #define HOME_L LALT_T(KC_L)
 #define HOME_SCLN RGUI_T(KC_SCLN)
 
-// Left-hand home row mods sym
 
-// Right-hand home row mods sym
+// Left-hand home row mods (row 1)
+#define HOME_QWE_Q LGUI_T(KC_Q)
+#define HOME_QWE_W LALT_T(KC_W)
+#define HOME_QWE_E LALT_T(KC_E)
+#define HOME_QWE_R LALT_T(KC_R)
+
+// Right-hand home row mods (row 1)
+#define HOME_QWE_U LALT_T(KC_U)
+#define HOME_QWE_I LALT_T(KC_I)
+#define HOME_QWE_O LALT_T(KC_O)
+#define HOME_QWE_P RGUI_T(KC_P)
 
 
 #define U_RDO C(KC_Y)
