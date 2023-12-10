@@ -77,7 +77,6 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
         case MA_LPINKY:
             if (record->event.pressed) {
                 layer_on(LA_LPINKY);
-                register_mods(MOD_MASK_CTRL);
             }
             return false;
         case MA_LMOUSE:
@@ -115,15 +114,6 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
                     isCapswordStarted = true;
                     layer_on(LA_CAPSLOCK);
                     return false;
-                }
-            }
-            return true;
-        case KC_1:
-            if (record->event.pressed) {
-                if ((mod_state & MOD_BIT(KC_LALT)) == MOD_BIT(KC_LALT)) {
-                    register_mods(MOD_MASK_CTRL);
-                    tap_code16(KC_O);
-                    unregister_mods(MOD_MASK_CTRL);
                 }
             }
             return true;
@@ -355,27 +345,18 @@ bool processKeycodeIfLCapslock(uint16_t keycode, keyrecord_t* record) {
 }
 bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
-        case MA_LTHUMB:
-            if (record->event.pressed) {
-                layer_on(LA_LTHUMB);
-                layer_off(LA_LPINKY);
-            }
-            return false;
         case MA_LPINKY:
-        case MA_LCTL:
             if (!(record->event.pressed)) {
                 layer_off(LA_LPINKY);
-                unregister_mods(MOD_MASK_CTRL);
             }
             return false;
         case MA_ENT:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(KC_ENT);
+                tap_code16(KC_ENT);
             }
             return false;
         case MA_DELLINE:
             if (record->event.pressed) {
-                unregister_mods(MOD_MASK_CTRL);
                 tap_code16(KC_HOME);
                 tap_code16(KC_HOME);
                 register_code16(KC_LSFT);
@@ -383,12 +364,10 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
                 tap_code16(KC_RGHT);
                 unregister_code16(KC_LSFT);
                 tap_code16(KC_DEL);
-                register_mods(MOD_MASK_CTRL);
             }
             return false;
         case MA_JUMPTAB:
             if (!(record->event.pressed)) {
-                unregister_mods(MOD_MASK_CTRL);
                 if ((mod_state & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT)) {
                     unregister_code16(KC_LSFT);
                     tap_code16(KC_UP);
@@ -402,48 +381,47 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
                     tap_code16(KC_TAB);
                     tap_code16(KC_DOWN);
                 }
-                register_mods(MOD_MASK_CTRL);
             }
             return false;
         case MA_ESC:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(KC_ESC);
+                tap_code16(KC_ESC);
             }
             return false;
         case MA_UP:
             if (record->event.pressed) {
                 if ((mod_state & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT)) {
                     unregister_code16(KC_LSFT);
-                    tap_code16_wrap_lctl(KC_DOWN);
+                    tap_code16(KC_DOWN);
                     register_code16(KC_LSFT);
                 } else {
-                    tap_code16_wrap_lctl(KC_UP);
+                    tap_code16(KC_UP);
                 }
             }
             return false;
         case MA_BSPC:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(KC_BSPC);
+                tap_code16(KC_BSPC);
             }
             return false;
         case MA_0:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(FR_0);
+                tap_code16(FR_0);
             }
             return false;
         case MA_1:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(FR_1);
+                tap_code16(FR_1);
             }
             return false;
         case MA_2:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(FR_2);
+                tap_code16(FR_2);
             }
             return false;
         case MA_3:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(FR_3);
+                tap_code16(FR_3);
             }
             return false;
         case MA_4:
@@ -455,13 +433,13 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
                     register_mods(MOD_MASK_CTRL);
                     register_code16(KC_LSFT);
                 } else {
-                    tap_code16_wrap_lctl(FR_4);
+                    tap_code16(FR_4);
                 }
             }
             return false;
         case MA_5:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(FR_5);
+                tap_code16(FR_5);
             }
             return false;
         case MA_6:
@@ -473,7 +451,7 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
                     register_mods(MOD_MASK_CTRL);
                     register_code16(KC_LSFT);
                 } else {
-                    tap_code16_wrap_lctl(FR_6);
+                    tap_code16(FR_6);
                 }
             }
             return false;
@@ -486,13 +464,13 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
                     register_mods(MOD_MASK_CTRL);
                     register_code16(KC_LSFT);
                 } else {
-                    tap_code16_wrap_lctl(FR_7);
+                    tap_code16(FR_7);
                 }
             }
             return false;
         case MA_8:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(FR_8);
+                tap_code16(FR_8);
             }
             return false;
         case MA_9:
@@ -504,7 +482,7 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
                     register_mods(MOD_MASK_CTRL);
                     register_code16(KC_LSFT);
                 } else {
-                    tap_code16_wrap_lctl(FR_9);
+                    tap_code16(FR_9);
                 }
             }
             return false;
@@ -518,7 +496,7 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
                     register_mods(MOD_MASK_CTRL);
                     register_code16(KC_LSFT);
                 } else {
-                    tap_code16_wrap_lctl(FR_EQL);
+                    tap_code16(FR_EQL);
                 }
             }
             return false;
@@ -532,98 +510,98 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
                     register_mods(MOD_MASK_CTRL);
                     register_code16(KC_LSFT);
                 } else {
-                    tap_code16_wrap_lctl(FR_MINS);
+                    tap_code16(FR_MINS);
                 }
             }
             return false;
         case MA_ASTR:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(FR_ASTR);
+                tap_code16(FR_ASTR);
             }
             return false;
         case MA_DOT:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(FR_DOT);
+                tap_code16(FR_DOT);
             }
             return false;
         case MA_PLUS:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(FR_PLUS);
+                tap_code16(FR_PLUS);
             }
             return false;
         case MA_SLSH:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(FR_SLSH);
+                tap_code16(FR_SLSH);
             }
             return false;
         case MA_SPC:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(KC_SPC);
+                tap_code16(KC_SPC);
             }
             return false;
         case MA_DEL:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(KC_DEL);
+                tap_code16(KC_DEL);
             }
             return false;
         case MA_F1:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(KC_F1);
+                tap_code16(KC_F1);
             }
             return false;
         case MA_F2:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(KC_F2);
+                tap_code16(KC_F2);
             }
             return false;
         case MA_F3:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(KC_F3);
+                tap_code16(KC_F3);
             }
             return false;
         case MA_F4:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(KC_F4);
+                tap_code16(KC_F4);
             }
             return false;
         case MA_F5:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(KC_F5);
+                tap_code16(KC_F5);
             }
             return false;
         case MA_F6:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(KC_F6);
+                tap_code16(KC_F6);
             }
             return false;
         case MA_F7:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(KC_F7);
+                tap_code16(KC_F7);
             }
             return false;
         case MA_F8:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(KC_F8);
+                tap_code16(KC_F8);
             }
             return false;
         case MA_F9:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(KC_F9);
+                tap_code16(KC_F9);
             }
             return false;
         case MA_F10:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(KC_F10);
+                tap_code16(KC_F10);
             }
             return false;
         case MA_F11:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(KC_F11);
+                tap_code16(KC_F11);
             }
             return false;
         case MA_F12:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(KC_F12);
+                tap_code16(KC_F12);
             }
             return false;
     }
@@ -687,13 +665,6 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
                 isLThumbEWeakPristine = true;
             }
             return false;
-        case MA_LPINKY:
-            if (record->event.pressed) {
-                register_mods(MOD_MASK_CTRL);
-            } else {
-                unregister_mods(MOD_MASK_CTRL);
-            }
-            return false;
         case MA_LTHUMB1:
             if (record->event.pressed) {
                 layer_on(LA_LTHUMB1WEAK);
@@ -720,13 +691,6 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
                 isWeakLaMouseStarted = true;
             }
             return false;
-        case MA_LCTL:
-            if (record->event.pressed) {
-                register_mods(MOD_MASK_CTRL);
-            } else {
-                unregister_mods(MOD_MASK_CTRL);
-            }
-            return false;
         case KC_UP:
             if (record->event.pressed) {
                 if (isCtlTabStarted) {
@@ -734,8 +698,8 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
                     tap_code16(KC_TAB);
                     unregister_code16(KC_LSFT);
                     return false;
-                } else if (mod_state & MOD_MASK_CTRL) {
-                    tap_code16_wrap_lctl(KC_UP);
+                } else if (IS_LAYER_ON(LA_LTHUMBMS)) {
+                    tap_code16(KC_UP);
                     return false;
                 }
             }
@@ -745,8 +709,8 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
                 if (isCtlTabStarted) {
                     tap_code16(KC_TAB);
                     return false;
-                } else if (mod_state & MOD_MASK_CTRL) {
-                    tap_code16_wrap_lctl(KC_DOWN);
+                } else if (IS_LAYER_ON(LA_LTHUMBMS)) {
+                    tap_code16(KC_DOWN);
                     return false;
                 }
             }
@@ -771,25 +735,17 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
             return true;
         case MA_HOME:
             if (record->event.pressed) {
-                if (mod_state & MOD_MASK_CTRL) {
-                    tap_code16_wrap_lctl(KC_HOME);
-                } else {
-                    tap_code16(KC_HOME);
-                }
+                tap_code16(KC_HOME);
             }
             return true;
         case MA_END:
             if (record->event.pressed) {
-                if (mod_state & MOD_MASK_CTRL) {
-                    tap_code16_wrap_lctl(KC_END);
-                } else {
-                    tap_code16(KC_END);
-                }
+                tap_code16(KC_END);
             }
             return true;
         case MA_PGUP:
             if (record->event.pressed) {
-                if (mod_state & MOD_MASK_CTRL) {
+                if (IS_LAYER_ON(LA_LTHUMBMS)) {
                     tap_code16(KC_HOME);
                 } else {
                     tap_code16(KC_PGUP);
@@ -799,7 +755,7 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
             return true;
         case MA_PGDN:
             if (record->event.pressed) {
-                if (mod_state & MOD_MASK_CTRL) {
+                if (IS_LAYER_ON(LA_LTHUMBMS)) {
                     tap_code16(KC_END);
                 } else {
                     tap_code16(KC_PGDN);
@@ -1334,107 +1290,51 @@ bool processKeycodeIfLThumbDMo(uint16_t keycode, keyrecord_t* record) {
             return false;
         case MA_UPX2:
             if (record->event.pressed) {
-                if (mod_state & MOD_MASK_CTRL) {
-                    unregister_mods(MOD_MASK_CTRL);
-                    tap_code16(KC_UP);
-                    tap_code16(KC_UP);
-                    tap_code16(KC_UP);
-                    register_mods(MOD_MASK_CTRL);
-                } else {
-                    tap_code16(KC_UP);
-                    tap_code16(KC_UP);
-                    tap_code16(KC_UP);
-                }
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
             }
             return false;
         case MA_DOWNX2:
             if (record->event.pressed) {
-                if (mod_state & MOD_MASK_CTRL) {
-                    unregister_mods(MOD_MASK_CTRL);
-                    tap_code16(KC_DOWN);
-                    tap_code16(KC_DOWN);
-                    tap_code16(KC_DOWN);
-                    register_mods(MOD_MASK_CTRL);
-                } else {
-                    tap_code16(KC_DOWN);
-                    tap_code16(KC_DOWN);
-                    tap_code16(KC_DOWN);
-                }
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
             }
             return false;
         case MA_LEFTX2:
             if (record->event.pressed) {
-                if (mod_state & MOD_MASK_CTRL) {
-                    unregister_mods(MOD_MASK_CTRL);
-                    tap_code16(KC_LEFT);
-                    tap_code16(KC_LEFT);
-                    tap_code16(KC_LEFT);
-                    register_mods(MOD_MASK_CTRL);
-                } else {
-                    tap_code16(KC_LEFT);
-                    tap_code16(KC_LEFT);
-                    tap_code16(KC_LEFT);
-                }
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
             }
             return false;
         case MA_RIGHTX2:
             if (record->event.pressed) {
-                if (mod_state & MOD_MASK_CTRL) {
-                    unregister_mods(MOD_MASK_CTRL);
-                    tap_code16(KC_RIGHT);
-                    tap_code16(KC_RIGHT);
-                    tap_code16(KC_RIGHT);
-                    register_mods(MOD_MASK_CTRL);
-                } else {
-                    tap_code16(KC_RIGHT);
-                    tap_code16(KC_RIGHT);
-                    tap_code16(KC_RIGHT);
-                }
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
             }
             return false;
         case MA_DELX2:
             if (record->event.pressed) {
-                if (mod_state & MOD_MASK_CTRL) {
-                    unregister_mods(MOD_MASK_CTRL);
-                    tap_code16(KC_DEL);
-                    tap_code16(KC_DEL);
-                    tap_code16(KC_DEL);
-                    register_mods(MOD_MASK_CTRL);
-                } else {
-                    tap_code16(KC_DEL);
-                    tap_code16(KC_DEL);
-                    tap_code16(KC_DEL);
-                }
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
             }
             return false;
         case MA_ENTX2:
             if (record->event.pressed) {
-                if (mod_state & MOD_MASK_CTRL) {
-                    unregister_mods(MOD_MASK_CTRL);
-                    tap_code16(KC_ENT);
-                    tap_code16(KC_ENT);
-                    tap_code16(KC_ENT);
-                    register_mods(MOD_MASK_CTRL);
-                } else {
-                    tap_code16(KC_ENT);
-                    tap_code16(KC_ENT);
-                    tap_code16(KC_ENT);
-                }
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
             }
             return false;
         case MA_BSPCX2:
             if (record->event.pressed) {
-                if (mod_state & MOD_MASK_CTRL) {
-                    unregister_mods(MOD_MASK_CTRL);
-                    tap_code16(KC_BSPC);
-                    tap_code16(KC_BSPC);
-                    tap_code16(KC_BSPC);
-                    register_mods(MOD_MASK_CTRL);
-                } else {
-                    tap_code16(KC_BSPC);
-                    tap_code16(KC_BSPC);
-                    tap_code16(KC_BSPC);
-                }
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
             }
             return false;
     }
@@ -1458,207 +1358,102 @@ bool processKeycodeIfLThumbEMo(uint16_t keycode, keyrecord_t* record) {
             return false;
         case MA_UPX4:
             if (record->event.pressed) {
-                if (mod_state & MOD_MASK_CTRL) {
-                    unregister_mods(MOD_MASK_CTRL);
-                    tap_code16(KC_UP);
-                    tap_code16(KC_UP);
-                    tap_code16(KC_UP);
-                    tap_code16(KC_UP);
-                    tap_code16(KC_UP);
-                    tap_code16(KC_UP);
-                    tap_code16(KC_UP);
-                    tap_code16(KC_UP);
-                    tap_code16(KC_UP);
-                    tap_code16(KC_UP);
-                    register_mods(MOD_MASK_CTRL);
-                } else {
-                    tap_code16(KC_UP);
-                    tap_code16(KC_UP);
-                    tap_code16(KC_UP);
-                    tap_code16(KC_UP);
-                    tap_code16(KC_UP);
-                    tap_code16(KC_UP);
-                    tap_code16(KC_UP);
-                    tap_code16(KC_UP);
-                    tap_code16(KC_UP);
-                    tap_code16(KC_UP);
-                }
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
+                tap_code16(KC_UP);
             }
             return false;
         case MA_DOWNX4:
             if (record->event.pressed) {
-                if (mod_state & MOD_MASK_CTRL) {
-                    unregister_mods(MOD_MASK_CTRL);
-                    tap_code16(KC_DOWN);
-                    tap_code16(KC_DOWN);
-                    tap_code16(KC_DOWN);
-                    tap_code16(KC_DOWN);
-                    tap_code16(KC_DOWN);
-                    tap_code16(KC_DOWN);
-                    tap_code16(KC_DOWN);
-                    tap_code16(KC_DOWN);
-                    tap_code16(KC_DOWN);
-                    tap_code16(KC_DOWN);
-                    register_mods(MOD_MASK_CTRL);
-                } else {
-                    tap_code16(KC_DOWN);
-                    tap_code16(KC_DOWN);
-                    tap_code16(KC_DOWN);
-                    tap_code16(KC_DOWN);
-                    tap_code16(KC_DOWN);
-                    tap_code16(KC_DOWN);
-                    tap_code16(KC_DOWN);
-                    tap_code16(KC_DOWN);
-                    tap_code16(KC_DOWN);
-                    tap_code16(KC_DOWN);
-                }
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
+                tap_code16(KC_DOWN);
             }
             return false;
         case MA_LEFTX4:
             if (record->event.pressed) {
-                if (mod_state & MOD_MASK_CTRL) {
-                    unregister_mods(MOD_MASK_CTRL);
-                    tap_code16(KC_LEFT);
-                    tap_code16(KC_LEFT);
-                    tap_code16(KC_LEFT);
-                    tap_code16(KC_LEFT);
-                    tap_code16(KC_LEFT);
-                    tap_code16(KC_LEFT);
-                    tap_code16(KC_LEFT);
-                    tap_code16(KC_LEFT);
-                    tap_code16(KC_LEFT);
-                    tap_code16(KC_LEFT);
-                    register_mods(MOD_MASK_CTRL);
-                } else {
-                    tap_code16(KC_LEFT);
-                    tap_code16(KC_LEFT);
-                    tap_code16(KC_LEFT);
-                    tap_code16(KC_LEFT);
-                    tap_code16(KC_LEFT);
-                    tap_code16(KC_LEFT);
-                    tap_code16(KC_LEFT);
-                    tap_code16(KC_LEFT);
-                    tap_code16(KC_LEFT);
-                    tap_code16(KC_LEFT);
-                }
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
+                tap_code16(KC_LEFT);
             }
             return false;
         case MA_RIGHTX4:
             if (record->event.pressed) {
-                if (mod_state & MOD_MASK_CTRL) {
-                    unregister_mods(MOD_MASK_CTRL);
-                    tap_code16(KC_RIGHT);
-                    tap_code16(KC_RIGHT);
-                    tap_code16(KC_RIGHT);
-                    tap_code16(KC_RIGHT);
-                    tap_code16(KC_RIGHT);
-                    tap_code16(KC_RIGHT);
-                    tap_code16(KC_RIGHT);
-                    tap_code16(KC_RIGHT);
-                    tap_code16(KC_RIGHT);
-                    tap_code16(KC_RIGHT);
-                    register_mods(MOD_MASK_CTRL);
-                } else {
-                    tap_code16(KC_RIGHT);
-                    tap_code16(KC_RIGHT);
-                    tap_code16(KC_RIGHT);
-                    tap_code16(KC_RIGHT);
-                    tap_code16(KC_RIGHT);
-                    tap_code16(KC_RIGHT);
-                    tap_code16(KC_RIGHT);
-                    tap_code16(KC_RIGHT);
-                    tap_code16(KC_RIGHT);
-                    tap_code16(KC_RIGHT);
-                }
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
+                tap_code16(KC_RIGHT);
             }
             return false;
         case MA_DELX4:
             if (record->event.pressed) {
-                if (mod_state & MOD_MASK_CTRL) {
-                    unregister_mods(MOD_MASK_CTRL);
-                    tap_code16(KC_DEL);
-                    tap_code16(KC_DEL);
-                    tap_code16(KC_DEL);
-                    tap_code16(KC_DEL);
-                    tap_code16(KC_DEL);
-                    tap_code16(KC_DEL);
-                    tap_code16(KC_DEL);
-                    tap_code16(KC_DEL);
-                    tap_code16(KC_DEL);
-                    tap_code16(KC_DEL);
-                    register_mods(MOD_MASK_CTRL);
-                } else {
-                    tap_code16(KC_DEL);
-                    tap_code16(KC_DEL);
-                    tap_code16(KC_DEL);
-                    tap_code16(KC_DEL);
-                    tap_code16(KC_DEL);
-                    tap_code16(KC_DEL);
-                    tap_code16(KC_DEL);
-                    tap_code16(KC_DEL);
-                    tap_code16(KC_DEL);
-                    tap_code16(KC_DEL);
-                }
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
+                tap_code16(KC_DEL);
             }
             return false;
         case MA_ENTX4:
             if (record->event.pressed) {
-                if (mod_state & MOD_MASK_CTRL) {
-                    unregister_mods(MOD_MASK_CTRL);
-                    tap_code16(KC_ENT);
-                    tap_code16(KC_ENT);
-                    tap_code16(KC_ENT);
-                    tap_code16(KC_ENT);
-                    tap_code16(KC_ENT);
-                    tap_code16(KC_ENT);
-                    tap_code16(KC_ENT);
-                    tap_code16(KC_ENT);
-                    tap_code16(KC_ENT);
-                    tap_code16(KC_ENT);
-                    register_mods(MOD_MASK_CTRL);
-                } else {
-                    tap_code16(KC_ENT);
-                    tap_code16(KC_ENT);
-                    tap_code16(KC_ENT);
-                    tap_code16(KC_ENT);
-                    tap_code16(KC_ENT);
-                    tap_code16(KC_ENT);
-                    tap_code16(KC_ENT);
-                    tap_code16(KC_ENT);
-                    tap_code16(KC_ENT);
-                    tap_code16(KC_ENT);
-                }
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
+                tap_code16(KC_ENT);
             }
             return false;
         case MA_BSPCX4:
             if (record->event.pressed) {
-                if (mod_state & MOD_MASK_CTRL) {
-                    unregister_mods(MOD_MASK_CTRL);
-                    tap_code16(KC_BSPC);
-                    tap_code16(KC_BSPC);
-                    tap_code16(KC_BSPC);
-                    tap_code16(KC_BSPC);
-                    tap_code16(KC_BSPC);
-                    tap_code16(KC_BSPC);
-                    tap_code16(KC_BSPC);
-                    tap_code16(KC_BSPC);
-                    tap_code16(KC_BSPC);
-                    tap_code16(KC_BSPC);
-                    register_mods(MOD_MASK_CTRL);
-                } else {
-                    tap_code16(KC_BSPC);
-                    tap_code16(KC_BSPC);
-                    tap_code16(KC_BSPC);
-                    tap_code16(KC_BSPC);
-                    tap_code16(KC_BSPC);
-                    tap_code16(KC_BSPC);
-                    tap_code16(KC_BSPC);
-                    tap_code16(KC_BSPC);
-                    tap_code16(KC_BSPC);
-                    tap_code16(KC_BSPC);
-                }
-                return false;
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
+                tap_code16(KC_BSPC);
             }
+            return false;
     }
     return true;
 }
