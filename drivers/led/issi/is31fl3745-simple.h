@@ -60,8 +60,8 @@
 #define IS31FL3745_I2C_ADDRESS_VCC_SDA 0x2E
 #define IS31FL3745_I2C_ADDRESS_VCC_VCC 0x2F
 
-#if defined(RGB_MATRIX_IS31FL3745)
-#    define IS31FL3745_LED_COUNT RGB_MATRIX_LED_COUNT
+#if defined(LED_MATRIX_IS31FL3745)
+#    define IS31FL3745_LED_COUNT LED_MATRIX_LED_COUNT
 #endif
 
 #if defined(IS31FL3745_I2C_ADDRESS_4)
@@ -76,9 +76,7 @@
 
 typedef struct is31fl3745_led_t {
     uint8_t driver : 2;
-    uint8_t r;
-    uint8_t g;
-    uint8_t b;
+    uint8_t v;
 } PACKED is31fl3745_led_t;
 
 extern const is31fl3745_led_t PROGMEM g_is31fl3745_leds[IS31FL3745_LED_COUNT];
@@ -89,10 +87,10 @@ void is31fl3745_write_register(uint8_t addr, uint8_t reg, uint8_t data);
 void is31fl3745_select_page(uint8_t addr, uint8_t page);
 void is31fl3745_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
 
-void is31fl3745_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
-void is31fl3745_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
+void is31fl3745_set_value(int index, uint8_t value);
+void is31fl3745_set_value_all(uint8_t value);
 
-void is31fl3745_set_scaling_register(uint8_t index, uint8_t red, uint8_t green, uint8_t blue);
+void is31fl3745_set_scaling_register(uint8_t index, uint8_t value);
 
 void is31fl3745_update_pwm_buffers(uint8_t addr, uint8_t index);
 void is31fl3745_update_scaling_registers(uint8_t addr, uint8_t index);

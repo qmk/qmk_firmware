@@ -30,8 +30,6 @@
 #    include "is31fl3742.h"
 #elif defined(LED_MATRIX_IS31FL3743A) || defined(RGB_MATRIX_IS31FL3743A)
 #    include "is31fl3743.h"
-#elif defined(LED_MATRIX_IS31FL3745) || defined(RGB_MATRIX_IS31FL3745)
-#    include "is31fl3745.h"
 #elif defined(LED_MATRIX_IS31FL3746A) || defined(RGB_MATRIX_IS31FL3746A)
 #    include "is31fl3746.h"
 #endif
