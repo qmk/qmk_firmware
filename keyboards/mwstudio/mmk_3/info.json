@@ -28,10 +28,8 @@
             "static_gradient": true,
             "twinkle": true
         },
-        "brightness_steps": 17,
         "hue_steps": 10,
-        "led_count": 5,
-        "saturation_steps": 17
+        "led_count": 5
     },
     "url": "",
     "usb": {
