@@ -76,9 +76,6 @@ static uint8_t         rgb_last_enable   = UINT8_MAX;
 static uint8_t         rgb_last_effect   = UINT8_MAX;
 static effect_params_t rgb_effect_params = {0, LED_FLAG_ALL, false};
 static rgb_task_states rgb_task_state    = SYNCING;
-#if RGB_MATRIX_TIMEOUT > 0
-static uint32_t rgb_anykey_timer;
-#endif // RGB_MATRIX_TIMEOUT > 0
 
 // double buffers
 static uint32_t rgb_timer_buffer;
@@ -163,9 +160,6 @@ void process_rgb_matrix(uint8_t row, uint8_t col, bool pressed) {
 #ifndef RGB_MATRIX_SPLIT
     if (!is_keyboard_master()) return;
 #endif
-#if RGB_MATRIX_TIMEOUT > 0
-    rgb_anykey_timer = 0;
-#endif // RGB_MATRIX_TIMEOUT > 0
 
 #ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
     uint8_t led[LED_HITS_TO_REMEMBER];
@@ -246,17 +240,10 @@ static bool rgb_matrix_none(effect_params_t *params) {
 }
 
 static void rgb_task_timers(void) {
-#if defined(RGB_MATRIX_KEYREACTIVE_ENABLED) || RGB_MATRIX_TIMEOUT > 0
+#if defined(RGB_MATRIX_KEYREACTIVE_ENABLED)
     uint32_t deltaTime = sync_timer_elapsed32(rgb_timer_buffer);
-#endif // defined(RGB_MATRIX_KEYREACTIVE_ENABLED) || RGB_MATRIX_TIMEOUT > 0
+#endif // defined(RGB_MATRIX_KEYREACTIVE_ENABLED)
     rgb_timer_buffer = sync_timer_read32();
-
-    // Update double buffer timers
-#if RGB_MATRIX_TIMEOUT > 0
-    if (rgb_anykey_timer + deltaTime <= UINT32_MAX) {
-        rgb_anykey_timer += deltaTime;
-    }
-#endif // RGB_MATRIX_TIMEOUT > 0
 
     // Update double buffer last hit timers
 #ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
@@ -370,7 +357,7 @@ void rgb_matrix_task(void) {
     // while suspended and just do a software shutdown. This is a cheap hack for now.
     bool suspend_backlight = suspend_state ||
 #if RGB_MATRIX_TIMEOUT > 0
-                             (rgb_anykey_timer > (uint32_t)RGB_MATRIX_TIMEOUT) ||
+                             (last_input_activity_elapsed() > (uint32_t)RGB_MATRIX_TIMEOUT) ||
 #endif // RGB_MATRIX_TIMEOUT > 0
                              false;
 
