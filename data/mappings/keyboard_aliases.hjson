@@ -224,9 +224,6 @@
     "handwired/dactyl_manuform/5x6_5": {
         "target": "handwired/dactyl_manuform_mini/5x6"
     },
-    "handwired/dactyl_manuform/5x6_6": {
-        "target": "handwired/dactyl_manuform_carbonfet/5x6"
-    },
     "handwired/dactyl_manuform/5x6_68": {
         "target": "handwired/dactyl_manuform/5x6_ex"
     },
