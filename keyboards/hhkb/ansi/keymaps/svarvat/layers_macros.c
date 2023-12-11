@@ -1138,19 +1138,6 @@ bool processKeycodeIfLThumb1Weak(uint16_t keycode, keyrecord_t* record) {
         isLThumb1WeakPristine = false;
     }
     switch (keycode) {
-        case KC_UP:
-        case MA_HOME:
-        case MA_END:
-        case KC_RGHT:
-        case KC_DOWN:
-        case KC_LEFT:
-        case MA_PGUP:
-        case MA_PGDN:
-            if (record->event.pressed) {
-                layer_off(LA_LTHUMB1WEAK);
-                isLThumb1WeakPristine = true;
-                return true;
-            }
         case MA_LTHUMB:
         case MA_LTHUMBMS:
             if (!(record->event.pressed)) {
@@ -1194,19 +1181,6 @@ bool processKeycodeIfLThumb2Weak(uint16_t keycode, keyrecord_t* record) {
         isLThumb2WeakPristine = false;
     }
     switch (keycode) {
-        case KC_UP:
-        case MA_HOME:
-        case MA_END:
-        case KC_RGHT:
-        case KC_DOWN:
-        case KC_LEFT:
-        case MA_PGUP:
-        case MA_PGDN:
-            if (record->event.pressed) {
-                layer_off(LA_LTHUMB2WEAK);
-                isLThumb2WeakPristine = true;
-                return true;
-            }
         case MA_LTHUMB:
         case MA_LTHUMBMS:
             if (!(record->event.pressed)) {
@@ -1250,19 +1224,6 @@ bool processKeycodeIfLThumb3Weak(uint16_t keycode, keyrecord_t* record) {
         isLThumb3WeakPristine = false;
     }
     switch (keycode) {
-        case KC_UP:
-        case MA_HOME:
-        case MA_END:
-        case KC_RGHT:
-        case KC_DOWN:
-        case KC_LEFT:
-        case MA_PGUP:
-        case MA_PGDN:
-            if (record->event.pressed) {
-                layer_off(LA_LTHUMB3WEAK);
-                isLThumb3WeakPristine = true;
-                return true;
-            }
         case MA_LTHUMB:
         case MA_LTHUMBMS:
             if (!(record->event.pressed)) {
@@ -1294,191 +1255,6 @@ bool processKeycodeIfLThumb3Weak(uint16_t keycode, keyrecord_t* record) {
                 layer_off(LA_LTHUMB3WEAK);
                 isLThumb3WeakPristine = true;
                 layer_on(LA_LTHUMB2WEAK);
-            }
-            return false;
-    }
-    return true;
-}
-bool processKeycodeIfLThumbDMo(uint16_t keycode, keyrecord_t* record) {
-    if ((keycode != MA_LTHUMBD) &&
-        (keycode != MA_LTHUMB)) {
-        isLThumbDMoPristine = false;
-        isLThumbDWeakPristine = false;
-    }
-    switch (keycode) {
-        case MA_LTHUMBD:
-            if (!(record->event.pressed)) {
-                if (!isLThumbDWeakPristine && isLThumbDMoPristine) {
-                    tap_code16(RSG(KC_D));
-                }
-                layer_off(LA_LTHUMBDMO);
-                isLThumbDMoPristine = true;
-            }
-            return false;
-        case MA_UPX2:
-            if (record->event.pressed) {
-                tap_code16(KC_UP);
-                tap_code16(KC_UP);
-                tap_code16(KC_UP);
-            }
-            return false;
-        case MA_DOWNX2:
-            if (record->event.pressed) {
-                tap_code16(KC_DOWN);
-                tap_code16(KC_DOWN);
-                tap_code16(KC_DOWN);
-            }
-            return false;
-        case MA_LEFTX2:
-            if (record->event.pressed) {
-                tap_code16(KC_LEFT);
-                tap_code16(KC_LEFT);
-                tap_code16(KC_LEFT);
-            }
-            return false;
-        case MA_RIGHTX2:
-            if (record->event.pressed) {
-                tap_code16(KC_RIGHT);
-                tap_code16(KC_RIGHT);
-                tap_code16(KC_RIGHT);
-            }
-            return false;
-        case MA_DELX2:
-            if (record->event.pressed) {
-                tap_code16(KC_DEL);
-                tap_code16(KC_DEL);
-                tap_code16(KC_DEL);
-            }
-            return false;
-        case MA_ENTX2:
-            if (record->event.pressed) {
-                tap_code16(KC_ENT);
-                tap_code16(KC_ENT);
-                tap_code16(KC_ENT);
-            }
-            return false;
-        case MA_BSPCX2:
-            if (record->event.pressed) {
-                tap_code16(KC_BSPC);
-                tap_code16(KC_BSPC);
-                tap_code16(KC_BSPC);
-            }
-            return false;
-    }
-    return true;
-}
-bool processKeycodeIfLThumbEMo(uint16_t keycode, keyrecord_t* record) {
-    if ((keycode != MA_LTHUMBE) &&
-        (keycode != MA_LTHUMB)) {
-        isLThumbEMoPristine = false;
-        isLThumbEWeakPristine = false;
-    }
-    switch (keycode) {
-        case MA_LTHUMBE:
-            if (!(record->event.pressed)) {
-                if (!isLThumbEWeakPristine && isLThumbEMoPristine) {
-                    tap_code16(C(KC_F));
-                }
-                layer_off(LA_LTHUMBEMO);
-                isLThumbEMoPristine = true;
-            }
-            return false;
-        case MA_UPX4:
-            if (record->event.pressed) {
-                tap_code16(KC_UP);
-                tap_code16(KC_UP);
-                tap_code16(KC_UP);
-                tap_code16(KC_UP);
-                tap_code16(KC_UP);
-                tap_code16(KC_UP);
-                tap_code16(KC_UP);
-                tap_code16(KC_UP);
-                tap_code16(KC_UP);
-                tap_code16(KC_UP);
-            }
-            return false;
-        case MA_DOWNX4:
-            if (record->event.pressed) {
-                tap_code16(KC_DOWN);
-                tap_code16(KC_DOWN);
-                tap_code16(KC_DOWN);
-                tap_code16(KC_DOWN);
-                tap_code16(KC_DOWN);
-                tap_code16(KC_DOWN);
-                tap_code16(KC_DOWN);
-                tap_code16(KC_DOWN);
-                tap_code16(KC_DOWN);
-                tap_code16(KC_DOWN);
-            }
-            return false;
-        case MA_LEFTX4:
-            if (record->event.pressed) {
-                tap_code16(KC_LEFT);
-                tap_code16(KC_LEFT);
-                tap_code16(KC_LEFT);
-                tap_code16(KC_LEFT);
-                tap_code16(KC_LEFT);
-                tap_code16(KC_LEFT);
-                tap_code16(KC_LEFT);
-                tap_code16(KC_LEFT);
-                tap_code16(KC_LEFT);
-                tap_code16(KC_LEFT);
-            }
-            return false;
-        case MA_RIGHTX4:
-            if (record->event.pressed) {
-                tap_code16(KC_RIGHT);
-                tap_code16(KC_RIGHT);
-                tap_code16(KC_RIGHT);
-                tap_code16(KC_RIGHT);
-                tap_code16(KC_RIGHT);
-                tap_code16(KC_RIGHT);
-                tap_code16(KC_RIGHT);
-                tap_code16(KC_RIGHT);
-                tap_code16(KC_RIGHT);
-                tap_code16(KC_RIGHT);
-            }
-            return false;
-        case MA_DELX4:
-            if (record->event.pressed) {
-                tap_code16(KC_DEL);
-                tap_code16(KC_DEL);
-                tap_code16(KC_DEL);
-                tap_code16(KC_DEL);
-                tap_code16(KC_DEL);
-                tap_code16(KC_DEL);
-                tap_code16(KC_DEL);
-                tap_code16(KC_DEL);
-                tap_code16(KC_DEL);
-                tap_code16(KC_DEL);
-            }
-            return false;
-        case MA_ENTX4:
-            if (record->event.pressed) {
-                tap_code16(KC_ENT);
-                tap_code16(KC_ENT);
-                tap_code16(KC_ENT);
-                tap_code16(KC_ENT);
-                tap_code16(KC_ENT);
-                tap_code16(KC_ENT);
-                tap_code16(KC_ENT);
-                tap_code16(KC_ENT);
-                tap_code16(KC_ENT);
-                tap_code16(KC_ENT);
-            }
-            return false;
-        case MA_BSPCX4:
-            if (record->event.pressed) {
-                tap_code16(KC_BSPC);
-                tap_code16(KC_BSPC);
-                tap_code16(KC_BSPC);
-                tap_code16(KC_BSPC);
-                tap_code16(KC_BSPC);
-                tap_code16(KC_BSPC);
-                tap_code16(KC_BSPC);
-                tap_code16(KC_BSPC);
-                tap_code16(KC_BSPC);
-                tap_code16(KC_BSPC);
             }
             return false;
     }
