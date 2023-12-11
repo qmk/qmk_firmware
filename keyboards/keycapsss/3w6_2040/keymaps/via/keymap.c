@@ -3,6 +3,7 @@
 // Copyright 2023 Tom Barnes (@keyboard-magpie)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+#include QMK_KEYBOARD_H
 enum layers {
     _ALPHA_QWERTY = 0,
     _ALPHA_COLEMAK,
