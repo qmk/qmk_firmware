@@ -87,5 +87,4 @@ enum custom_keycodes {
     MA_DEL,
     MA_BSPC,
     MA_LTHUMBMS,
-//    DRAG_SCROLL,
 };

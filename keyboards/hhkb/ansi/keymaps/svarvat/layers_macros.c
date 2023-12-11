@@ -678,9 +678,6 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
                     tap_code16(KC_TAB);
                     unregister_code16(KC_LSFT);
                     return false;
-                } else if (IS_LAYER_ON(LA_LTHUMBMS)) {
-                    tap_code16(KC_UP);
-                    return false;
                 }
             }
             return true;
@@ -688,9 +685,6 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
             if (record->event.pressed) {
                 if (isCtlTabStarted) {
                     tap_code16(KC_TAB);
-                    return false;
-                } else if (IS_LAYER_ON(LA_LTHUMBMS)) {
-                    tap_code16(KC_DOWN);
                     return false;
                 }
             }
@@ -702,6 +696,11 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
                     tap_code16(KC_TAB);
                     unregister_code16(KC_LSFT);
                     return false;
+                } else if (IS_LAYER_ON(LA_LPINKY)) {
+                    register_code16(KC_LCTL);
+                    tap_code16(KC_LEFT);
+                    unregister_code16(KC_LCTL);
+                    return false;
                 }
             }
             return true;
@@ -709,6 +708,11 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
             if (record->event.pressed) {
                 if (isCtlTabStarted ) {
                     tap_code16(KC_TAB);
+                    return false;
+                } else if (IS_LAYER_ON(LA_LPINKY)) {
+                    register_code16(KC_LCTL);
+                    tap_code16(KC_RGHT);
+                    unregister_code16(KC_LCTL);
                     return false;
                 }
             }
@@ -725,8 +729,10 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
             return true;
         case MA_PGUP:
             if (record->event.pressed) {
-                if (IS_LAYER_ON(LA_LTHUMBMS)) {
+                if (IS_LAYER_ON(LA_LPINKY)) {
+                    register_code16(KC_LCTL);
                     tap_code16(KC_HOME);
+                    unregister_code16(KC_LCTL);
                 } else {
                     tap_code16(KC_PGUP);
                 }
@@ -735,8 +741,10 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
             return true;
         case MA_PGDN:
             if (record->event.pressed) {
-                if (IS_LAYER_ON(LA_LTHUMBMS)) {
+                if (IS_LAYER_ON(LA_LPINKY)) {
+                    register_code16(KC_LCTL);
                     tap_code16(KC_END);
+                    unregister_code16(KC_LCTL);
                 } else {
                     tap_code16(KC_PGDN);
                 }
