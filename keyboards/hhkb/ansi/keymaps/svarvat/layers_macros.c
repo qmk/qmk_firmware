@@ -1323,6 +1323,19 @@ bool processKeycodeIfLThumb1Weak(uint16_t keycode, keyrecord_t* record) {
         isLThumb1WeakPristine = false;
     }
     switch (keycode) {
+        case KC_UP:
+        case MA_HOME:
+        case MA_END:
+        case KC_RGHT:
+        case KC_DOWN:
+        case KC_LEFT:
+        case MA_PGUP:
+        case MA_PGDN:
+            if (record->event.pressed) {
+                layer_off(LA_LTHUMB1WEAK);
+                isLThumb1WeakPristine = true;
+                return true;
+            }
         case MA_LTHUMB:
         case MA_LTHUMBMS:
             if (!(record->event.pressed)) {
@@ -1366,6 +1379,19 @@ bool processKeycodeIfLThumb2Weak(uint16_t keycode, keyrecord_t* record) {
         isLThumb2WeakPristine = false;
     }
     switch (keycode) {
+        case KC_UP:
+        case MA_HOME:
+        case MA_END:
+        case KC_RGHT:
+        case KC_DOWN:
+        case KC_LEFT:
+        case MA_PGUP:
+        case MA_PGDN:
+            if (record->event.pressed) {
+                layer_off(LA_LTHUMB2WEAK);
+                isLThumb2WeakPristine = true;
+                return true;
+            }
         case MA_LTHUMB:
         case MA_LTHUMBMS:
             if (!(record->event.pressed)) {
@@ -1409,6 +1435,19 @@ bool processKeycodeIfLThumb3Weak(uint16_t keycode, keyrecord_t* record) {
         isLThumb3WeakPristine = false;
     }
     switch (keycode) {
+        case KC_UP:
+        case MA_HOME:
+        case MA_END:
+        case KC_RGHT:
+        case KC_DOWN:
+        case KC_LEFT:
+        case MA_PGUP:
+        case MA_PGDN:
+            if (record->event.pressed) {
+                layer_off(LA_LTHUMB3WEAK);
+                isLThumb3WeakPristine = true;
+                return true;
+            }
         case MA_LTHUMB:
         case MA_LTHUMBMS:
             if (!(record->event.pressed)) {
