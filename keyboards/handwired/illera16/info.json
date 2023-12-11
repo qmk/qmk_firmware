@@ -12,7 +12,8 @@
         "nkro": true,
         "rgblight": true,
         "rgb_matrix": false,
-        "encoder": true
+        "encoder": true,
+        "encoder_map": true
     },
     "matrix_pins": {
         "cols": ["D4", "C6", "D7", "E6"],
