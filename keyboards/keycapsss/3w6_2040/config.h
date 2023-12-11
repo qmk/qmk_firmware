@@ -4,14 +4,12 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
-#define SERIAL_USART_FULL_DUPLEX  // Enable full duplex operation mode.
-#define SERIAL_USART_TX_PIN GP0   // USART TX pin
-#define SERIAL_USART_RX_PIN GP1   // USART RX pin
-#define SERIAL_USART_PIN_SWAP     // Swap TX and RX pins if keyboard is master halve.
-#define SERIAL_USART_SPEED 921600 // Sped :)
-#define USB_VBUS_PIN GP19         // for rp2040 | When USB_VBUS_PIN is not defined, SPLIT_USB_DETECT is used.
+#define SERIAL_USART_FULL_DUPLEX
+#define SERIAL_USART_TX_PIN GP0
+#define SERIAL_USART_RX_PIN GP1
+#define SERIAL_USART_PIN_SWAP
+#define SERIAL_USART_SPEED 921600
+#define USB_VBUS_PIN GP19
 
-#define SPLIT_POINTING_ENABLE     // Transmitting the pointing device status to the master side
-#define POINTING_DEVICE_RIGHT     // Pointing device on the right side (Required - pick one only)
-//#define EE_HANDS                  // Split handedness via eeprom
-//#define POINTING_DEVICE_LEFT    // Pointing device on the left side (Required - pick one only)≈
+#define SPLIT_POINTING_ENABLE
+#define POINTING_DEVICE_RIGHT

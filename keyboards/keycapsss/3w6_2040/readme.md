@@ -6,7 +6,7 @@ A split keyboard with 3x5 vertically staggered keys and 3 thumb keys, with suppo
 
 This version is distinct from keyboards/3w6 and is exclusive to [keycapsss.com](https://keycapsss.com).
 
-* Keyboard Maintainer: [BenRoe](https://github.com/BenRoe/) [@keycapsss](https://twitter.com/keycapsss)
+* Keyboard Maintainer: [@keyboard-magpie]
 * Hardware Supported: On board rp2040 microcontrollers.
 * Hardware Availability: [keycapsss.com](https://keycapsss.com)
 
