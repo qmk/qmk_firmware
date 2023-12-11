@@ -51,7 +51,6 @@
     "split": {
         "enabled": true,
         "transport": {
-            "protocol": "serial",
             "sync": {
                 "indicators": true,
                 "layer_state": true
