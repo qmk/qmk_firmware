@@ -1,6 +1,7 @@
 bool editModeLThumbStrongStarted = false;
 bool isCtlTabStarted = false;
 bool isAltTabStarted = false;
+bool isSftTabStarted = false;
 //bool isDeadKeyCircStarted = false;
 //bool isDeadKeyTremaStarted = false;
 bool mouseLeft = false;
@@ -56,11 +57,22 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
     && (keycode != KC_J)
     && (keycode != KC_K)
     && (keycode != KC_L)
-    && (keycode != KC_1)
     && (keycode != MA_LMOUSE)
     && (keycode != KC_LSFT)) {
         isAltTabStarted = false;
         unregister_code16(KC_LALT);
+        return false;
+    }
+    if (isSftTabStarted
+    && (keycode != KC_TAB)
+    && (keycode != KC_I)
+    && (keycode != KC_J)
+    && (keycode != KC_K)
+    && (keycode != KC_L)
+    && (keycode != MA_LMOUSE)
+    && (keycode != KC_LSFT)) {
+        isSftTabStarted = false;
+        unregister_code16(KC_LSFT);
         return false;
     }
     switch (keycode) {
@@ -117,6 +129,9 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
                 if (isAltTabStarted) {
                     tap_code16(KC_UP);
                     return false;
+                } else if (isSftTabStarted) {
+                    tap_code16(KC_TAB);
+                    return false;
                 }
             }
             return true;
@@ -124,6 +139,9 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
             if (record->event.pressed) {
                 if (isAltTabStarted) {
                     tap_code16(KC_LEFT);
+                    return false;
+                } else if (isSftTabStarted) {
+                    tap_code16(KC_TAB);
                     return false;
                 }
             }
@@ -133,6 +151,11 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
                 if (isAltTabStarted) {
                     tap_code16(KC_DOWN);
                     return false;
+                } else if (isSftTabStarted) {
+                    unregister_code16(KC_LSFT);
+                    tap_code16(KC_TAB);
+                    register_code16(KC_LSFT);
+                    return false;
                 }
             }
             return true;
@@ -141,6 +164,11 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
                 if (isAltTabStarted) {
                     tap_code16(KC_RIGHT);
                     return false;
+                } else if (isSftTabStarted) {
+                    unregister_code16(KC_LSFT);
+                    tap_code16(KC_TAB);
+                    register_code16(KC_LSFT);
+                    return false;
                 }
             }
             return true;
@@ -148,6 +176,8 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
             if (record->event.pressed) {
                 if ((mod_state & MOD_BIT(KC_LALT)) == MOD_BIT(KC_LALT) && !isAltTabStarted) {
                     isAltTabStarted = true;
+                } else if ((mod_state & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT) && !isSftTabStarted) {
+                    isSftTabStarted = true;
                 }
             }
             return true;
@@ -752,13 +782,23 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
             }
             return true;
         case KC_BSPC:
-            if ((mod_state & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT)) {
-                if (record->event.pressed) {
-                    unregister_code16(KC_LSFT);
+            if (record->event.pressed) {
+                if (IS_LAYER_ON(LA_LPINKY)) {
+                    register_code16(KC_LCTL);
                     tap_code16(KC_BSPC);
-                    register_code16(KC_LSFT);
+                    unregister_code16(KC_LCTL);
+                    return false;
                 }
-                return false;
+            }
+            return true;
+        case KC_DEL:
+            if (record->event.pressed) {
+                if (IS_LAYER_ON(LA_LPINKY)) {
+                    register_code16(KC_LCTL);
+                    tap_code16(KC_DEL);
+                    unregister_code16(KC_LCTL);
+                    return false;
+                }
             }
             return true;
         case MA_TAB:
