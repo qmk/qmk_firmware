@@ -10,7 +10,8 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgb_matrix": true,
+        "rgblight": true,
+        "rgb_matrix": false,
         "encoder": true
     },
     "matrix_pins": {
@@ -24,10 +25,6 @@
             "enabled": true,
         }
     },
-    "rgb_matrix": {
-    "enable": true,
-    "led_count": 6,
-},
     "ws2812": {
         "pin": "D0"
     },
