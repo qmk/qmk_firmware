@@ -9,8 +9,6 @@ enum layers {
     _ALPHA_COLEMAK,
     _SYM,
     _NAV,
-    _NUM,
-    _CFG,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
