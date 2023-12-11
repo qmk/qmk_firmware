@@ -1,6 +1,6 @@
 # 3w6_2040
 
-<img src="https://i.imgur.com/QAL63nyh.jpg"/>
+![image](https://i.imgur.com/QAL63nyh.jpg)
 
 A split keyboard with 3x5 vertically staggered keys and 3 thumb keys, with support for pimoroni trackball modules on each half.
 
