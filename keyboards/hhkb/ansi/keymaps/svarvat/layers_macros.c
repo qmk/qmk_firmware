@@ -29,11 +29,6 @@ bool isLThumb1WeakPristine = true;
 bool isLThumb2WeakPristine = true;
 bool isLThumb3WeakPristine = true;
 
-void tap_code16_wrap_lctl(uint16_t keycode) {
-    unregister_mods(MOD_MASK_CTRL);
-    tap_code16(keycode);
-    register_mods(MOD_MASK_CTRL);
-}
 void layer_off_lmouse(void) {
 //  set_auto_mouse_enable(false);
     tap_code16(KC_SCROLL_LOCK);
@@ -427,10 +422,8 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
         case MA_4:
             if (record->event.pressed) {
                 if ((mod_state & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT)) {
-                    unregister_mods(MOD_MASK_CTRL);
                     unregister_code16(KC_LSFT);
                     tap_code16(KC_5);
-                    register_mods(MOD_MASK_CTRL);
                     register_code16(KC_LSFT);
                 } else {
                     tap_code16(FR_4);
@@ -445,10 +438,8 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
         case MA_6:
             if (record->event.pressed) {
                 if ((mod_state & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT)) {
-                    unregister_mods(MOD_MASK_CTRL);
                     unregister_code16(KC_LSFT);
                     tap_code16(KC_MINS);
-                    register_mods(MOD_MASK_CTRL);
                     register_code16(KC_LSFT);
                 } else {
                     tap_code16(FR_6);
@@ -458,10 +449,8 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
         case MA_7:
             if (record->event.pressed) {
                 if ((mod_state & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT)) {
-                    unregister_mods(MOD_MASK_CTRL);
                     unregister_code16(KC_LSFT);
                     tap_code16(KC_NUBS);
-                    register_mods(MOD_MASK_CTRL);
                     register_code16(KC_LSFT);
                 } else {
                     tap_code16(FR_7);
@@ -476,10 +465,8 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
         case MA_9:
             if (record->event.pressed) {
                 if ((mod_state & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT)) {
-                    unregister_mods(MOD_MASK_CTRL);
                     unregister_code16(KC_LSFT);
                     tap_code16(S(FR_LABK));
-                    register_mods(MOD_MASK_CTRL);
                     register_code16(KC_LSFT);
                 } else {
                     tap_code16(FR_9);
@@ -489,11 +476,9 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
         case MA_EQL:
             if (record->event.pressed) {
                 if ((mod_state & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT)) {
-                    unregister_mods(MOD_MASK_CTRL);
                     unregister_code16(KC_LSFT);
                     tap_code16(FR_EQL);
                     tap_code16(FR_RABK);
-                    register_mods(MOD_MASK_CTRL);
                     register_code16(KC_LSFT);
                 } else {
                     tap_code16(FR_EQL);
@@ -503,11 +488,9 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
         case MA_MINS:
             if (record->event.pressed) {
                 if ((mod_state & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT)) {
-                    unregister_mods(MOD_MASK_CTRL);
                     unregister_code16(KC_LSFT);
                     tap_code16(FR_MINS);
                     tap_code16(FR_RABK);
-                    register_mods(MOD_MASK_CTRL);
                     register_code16(KC_LSFT);
                 } else {
                     tap_code16(FR_MINS);
@@ -645,9 +628,6 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case MA_LTHUMB:
             if (!(record->event.pressed)) {
-                if (mod_state & MOD_MASK_CTRL) {
-                    layer_on(LA_LPINKY);
-                }
                 layer_off(LA_LTHUMB);
             }
             return false;
