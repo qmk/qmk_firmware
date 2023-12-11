@@ -21,15 +21,25 @@ You can request changes by making a fork and opening a [pull request](https://gi
 * [ErgoDox EZ](/keyboards/ergodox_ez/)
 * [Planck EZ](/keyboards/planck/ez)
 * [Moonlander Mark I](/keyboards/moonlander)
+* [Voyager](keyboards/voyager)
 
 ## Building
 
-To set up the local build enviroment to create the firmware image manually, head to the [Newbs guide from QMK](https://docs.qmk.fm/#/newbs).
+To set up the local build environment to create the firmware image manually, head to the [Newbs guide from QMK](https://docs.qmk.fm/#/newbs).
 And instead of using just `qmk setup`, you will want to run this instead:
 
 ```sh
 qmk setup zsa/qmk_firmware -b firmware23
 ```
+
+## Creating Firmware Based on a User-Configured Layout
+
+1. To create or edit a layout, use [ZSA Oryx](https://configure.zsa.io/), a user-friendly keyboard configuration tool developed by ZSA.
+2. If a layout is compiled, you should see a 'Download Source' link. If not, press 'Compile this layout,' and it should become available.
+3. After downloading the archive, extract it. Inside, you'll find a folder named `yourlayoutname_source`. Keep the files within this folder and remove the rest.
+4. Ensure that your environment is set up correctly by following the [QMK documentation on setting up your environment](https://docs.qmk.fm/#/newbs_getting_started?id=set-up-your-environment).
+5. In a QMK firmware directory, run `make keyboard:yourlayoutname`. For example, to build firmware corresponding to the 'Lit Voyager' layout, run `make voyager:lit`.
+6. Use any flashing tool to install the firmware on your keyboard.
 
 ## Maintainers
 
