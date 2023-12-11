@@ -69,8 +69,7 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
     && (keycode != KC_J)
     && (keycode != KC_K)
     && (keycode != KC_L)
-    && (keycode != MA_LMOUSE)
-    && (keycode != KC_LSFT)) {
+    && (keycode != MA_LMOUSE)) {
         isSftTabStarted = false;
         unregister_code16(KC_LSFT);
         return false;
