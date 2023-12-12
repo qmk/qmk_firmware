@@ -33,14 +33,6 @@ void matrix_init_custom(void) {
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     bool updated = ec_matrix_scan(current_matrix);
 
-    // RAW matrix values on console
-    // #ifdef CONSOLE_ENABLE
-    //  static int cnt = 0;
-    //  if (cnt++ == 350) {
-    //      cnt = 0;
-    //      ec_print_matrix();
-    //  }
-    // #endif
     return updated;
 }
 
