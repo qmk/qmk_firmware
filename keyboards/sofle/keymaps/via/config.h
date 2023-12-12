@@ -24,11 +24,11 @@ for more options. */
 #if defined(KEYBOARD_sofle_rev1)
 // Add RGB underglow and top facing lighting
 #    define WS2812_DI_PIN D3
-#    define RGBLED_NUM 72
+#    define RGBLIGHT_LED_COUNT 72
 #    define RGBLED_SPLIT \
         { 36, 36 }
 #    ifdef RGB_MATRIX_ENABLE
-#        define RGB_MATRIX_LED_COUNT RGBLED_NUM
+#        define RGB_MATRIX_LED_COUNT RGBLIGHT_LED_COUNT
 #        define RGB_MATRIX_SPLIT RGBLED_SPLIT
 #        define SPLIT_TRANSPORT_MIRROR
 #    else

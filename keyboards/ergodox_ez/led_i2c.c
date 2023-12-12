@@ -31,7 +31,7 @@ void setleds_custom(rgb_led_t *led, uint16_t led_num) {
     // prevent right-half code from trying to bitbang all 30
     // so with 30 LEDs, we count from 29 to 15 here, and the
     // other half does 0 to 14.
-    uint8_t half_led_num = RGBLED_NUM / 2;
+    uint8_t half_led_num = RGBLIGHT_LED_COUNT / 2;
     for (i = half_led_num + half_led_num - 1; i >= half_led_num; --i)
 #    elif defined(ERGODOX_LED_15_MIRROR)
     for (i = 0; i < led_num; ++i)

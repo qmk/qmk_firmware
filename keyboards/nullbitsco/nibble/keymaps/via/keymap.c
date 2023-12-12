@@ -112,7 +112,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
           rgblight_timer_disable();
           uint8_t val = rgblight_get_val();
-          rgblight_sethsv_range(255, 255, val, 0, RGBLED_NUM-1);
+          rgblight_sethsv_range(255, 255, val, 0, RGBLIGHT_LED_COUNT-1);
         }
         deafened = !deafened;
       }
