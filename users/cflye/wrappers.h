@@ -82,7 +82,7 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 
 #define __________________MEDIA_R1__________________    RGB_TOG,           RGB_MOD,           RGB_VAI,           RGB_SAI,           RGB_HUI                      
 #define __________________MEDIA_R2__________________    U_NU,              KC_MPRV,           KC_VOLD,           KC_VOLU,           KC_MNXT
-#define __________________MEDIA_R3__________________    OU_AUTO,           KC_MPLY,           KC_MSTP,           KC_MUTE,              U_NU
+#define __________________MEDIA_R3__________________    OU_AUTO,           KC_MPLY,           KC_MSTP,           KC_MUTE,           U_NU
 #define __________________MEDIA_R4__________________    _______,           _______,           _______,           _______,           _______
 
 
@@ -105,7 +105,7 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define __________________MOUSE_R1__________________    ________________CLIPBOARD_R________________
 #define __________________MOUSE_R2__________________    KC_BTN2,           KC_MS_L,           KC_MS_D,           KC_MS_U,           KC_MS_R
 #define __________________MOUSE_R3__________________    KC_BTN1,           KC_WH_L,           KC_WH_D,           KC_WH_U,           KC_WH_R
-#define __________________MOUSE_R4__________________    KC_BTN1,           KC_BTN2,           KC_BTN3,           U_NP,              U_NP
+#define __________________MOUSE_R4__________________    _______,           _______,           KC_BTN3,           U_NP,              U_NP
 
 #define ________________NUMBER_LEFT________________     KC_1,              KC_2,              KC_3,              KC_4,              KC_5
 #define ________________NUMBER_RIGHT_______________     KC_6,              KC_7,              KC_8,              KC_9,              KC_0
@@ -120,7 +120,6 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define ___________________NAV_VI_R3________________    KC_HOME,           KC_PGDN,           KC_PGUP,           KC_END,            KC_INS
 
 #define __________________MEDIA_VI_R2_______________    KC_MPRV,           KC_VOLD,           KC_VOLU,           KC_MNXT,           U_NU
-#define __________________MEDIA_VI_R3_______________    OU_AUTO,           KC_MPLY,           KC_MSTP,           KC_MUTE,           U_NU
 
-#define __________________MOUSE_VI_R2_______________    KC_MS_L,           KC_MS_D,           KC_MS_U,           KC_MS_R,           U_NU
-#define __________________MOUSE_VI_R3_______________    KC_WH_L,           KC_WH_D,           KC_WH_U,           KC_WH_R,           U_NU
+#define __________________MOUSE_VI_R2_______________    KC_MS_L,           KC_MS_D,           KC_MS_U,           KC_MS_R,           KC_BTN2
+#define __________________MOUSE_VI_R3_______________    KC_WH_L,           KC_WH_D,           KC_WH_U,           KC_WH_R,           KC_BTN1
