@@ -20,7 +20,7 @@
 #define LED_MATRIX_LED_COUNT (99) // Here are twelve leds for side lights
 
 /* Use first 7 channels of LED driver */
-#define PHASE_CHANNEL MSKPHASE_7CHANNEL
+#define SNLED27351_PHASE_CHANNEL SNLED27351_SCAN_PHASE_7_CHANNEL
 
 /* Set LED driver current */
 #define CKLED2001_CURRENT_TUNE \
