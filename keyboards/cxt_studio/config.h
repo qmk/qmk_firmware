@@ -4,7 +4,6 @@
 #pragma once
 
 #define RGB_MATRIX_LED_COUNT 12
-#define RGB_DI_PIN F7
 
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_TYPING_HEATMAP
 

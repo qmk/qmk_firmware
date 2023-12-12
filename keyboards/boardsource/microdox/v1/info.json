@@ -13,7 +13,6 @@
     "soft_serial_pin": "D2"
   },
   "rgblight": {
-    "pin": "D3",
     "sleep": true,
     "led_count": 12,
     "split_count": [6, 6],
@@ -30,5 +29,8 @@
       "static_gradient": true,
       "twinkle": true
     }
+  },
+  "ws2812": {
+    "pin": "D3"
   }
 }

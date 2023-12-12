@@ -11,7 +11,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-#include "keybee65.h"
+#include "quantum.h"
 
 led_config_t g_led_config  = {
     {

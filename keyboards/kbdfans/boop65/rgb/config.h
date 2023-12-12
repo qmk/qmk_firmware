@@ -16,13 +16,6 @@
 
 #pragma once
 
-
-#define MATRIX_ROW_PINS { F0, F1, F4, E6, C6 }
-#define MATRIX_COL_PINS { F7, F6, F5, C7, B0, B1, B2, B3, B4, D7, D6, D4, D5, D3, D2}
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 #define USB_SUSPEND_WAKEUP_DELAY 5000
 
 #ifdef RGB_MATRIX_ENABLE
@@ -33,8 +26,7 @@
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
 #    define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set
 #    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_ALL
-#    define DRIVER_ADDR_1 0b0110000
-#    define DRIVER_COUNT 1
+#    define IS31FL3741_I2C_ADDRESS_1 IS31FL3741_I2C_ADDRESS_GND
 #    define RGB_MATRIX_LED_COUNT 83
 #    define DRIVER_INDICATOR_LED_TOTAL 0
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS

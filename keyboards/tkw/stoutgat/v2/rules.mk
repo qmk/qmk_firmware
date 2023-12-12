@@ -13,7 +13,6 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 ENCODER_ENABLE = yes        # Enable rotary encoder support
 AUDIO_ENABLE = no           # Audio output
 
-WS2812_DRIVER = pwm
 OPT_DEFS += -DSTM32_DMA_REQUIRED=TRUE
 
 DEFAULT_FOLDER = tkw/stoutgat/v2/f411

@@ -15,31 +15,14 @@
  */
 #pragma once
 
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
-#define MATRIX_ROW_PINS { E6 }
-#define MATRIX_COL_PINS { D7, B6, F0, D6, B5, F1, D4, B4, F4, F5 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
 // IS31FL3731 driver
-#define DRIVER_COUNT 1
-#define RGB_MATRIX_LED_COUNT 12
+#define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
+#define IS31FL3731_LED_COUNT 12
 
 // Enable WT RGB backlight
 #define RGB_BACKLIGHT_ENABLED 1
@@ -89,8 +72,6 @@
 #define RGB_BACKLIGHT_LAYER_1_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 255 }
 #define RGB_BACKLIGHT_LAYER_2_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 255 }
 #define RGB_BACKLIGHT_LAYER_3_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 255 }
-
-#define DYNAMIC_KEYMAP_LAYER_COUNT 10
 
 // Backlight config starts after VIA's EEPROM usage,
 // dynamic keymaps start after this.

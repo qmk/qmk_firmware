@@ -15,11 +15,6 @@
  */
 #pragma once
 
-
-#define MATRIX_ROW_PINS { B5, B4, C6, B6, D7, B3 }
-#define MATRIX_COL_PINS { D4, D6, B2, B1 }
-#define DIODE_DIRECTION COL2ROW
-
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_LED_PROCESS_LIMIT 18
 #    define RGB_MATRIX_LED_FLUSH_LIMIT 16
@@ -52,7 +47,6 @@
 #    define ENABLE_RGB_MATRIX_SPLASH                  // Full gradient & value pulse away from a single key hit then fades value out
 #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH       // Hue & value pulse away from multiple key hits then fades value out
 
-#    define DRIVER_ADDR_1 0b1110111
-#    define DRIVER_COUNT 1
+#    define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_VCC
 #    define RGB_MATRIX_LED_COUNT 22
 #endif

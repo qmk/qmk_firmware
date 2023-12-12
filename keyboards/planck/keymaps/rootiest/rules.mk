@@ -1,7 +1,6 @@
 SRC += muse.c
 ENCODER_ENABLE = yes # Enables basic encoder support
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306 # Enables support for OLED displays
 # UNICODE_ENABLE = yes # Allow inputting basic unicode characters
 UNICODEMAP_ENABLE = yes # Enable use of Unicode mapping array
 # UCIS_ENABLE = yes # Another method for generating Unicode characters via maps

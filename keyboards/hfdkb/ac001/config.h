@@ -16,19 +16,7 @@
 
 #pragma once
 
-#define FORCE_NKRO
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { B15}
-#define MATRIX_COL_PINS { A5, A6, A7, C4, C5}
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION ROW2COL
-
-#define TAP_CODE_DELAY 5
-
 /* ws2812 RGB LED */
-#define RGB_DI_PIN A1
 #define RGB_MATRIX_LED_COUNT 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
@@ -44,7 +32,6 @@
 #define SPI_MOSI_PAL_MODE 5
 
 #define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN C12
-#define WEAR_LEVELING_BACKING_SIZE (8 * 1024)
 
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 

@@ -36,11 +36,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-void led_set_user(uint8_t usb_led) {
-  if (usb_led & (1 << USB_LED_NUM_LOCK)) {
+bool led_update_user(led_t led_state) {
+  if (led_state.num_lock) {
     // Illuminate the LED under the Num Lock key
     rgblight_sethsv_at(0, 0, 127, 1);
   } else {
     rgblight_sethsv_at(0, 0, 0, 1);
   }
+  return false;
 }

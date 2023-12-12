@@ -243,22 +243,22 @@ void via_custom_value_command(uint8_t *data, uint8_t length) {
 
 
 void read_host_led_state(void) {
-  uint8_t leds = host_keyboard_leds();
-  if (leds & (1 << USB_LED_NUM_LOCK))    {
+  led_t led_state = host_keyboard_led_state();
+  if (led_state.num_lock)    {
     if (led_numlock == false){
     led_numlock = true;}
     } else {
     if (led_numlock == true){
     led_numlock = false;}
     }
-  if (leds & (1 << USB_LED_CAPS_LOCK))   {
+  if (led_state.caps_lock)   {
     if (led_capslock == false){
     led_capslock = true;}
     } else {
     if (led_capslock == true){
     led_capslock = false;}
     }
-  if (leds & (1 << USB_LED_SCROLL_LOCK)) {
+  if (led_state.scroll_lock) {
     if (led_scrolllock == false){
     led_scrolllock = true;}
     } else {

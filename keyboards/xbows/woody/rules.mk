@@ -10,5 +10,4 @@ COMMAND_ENABLE = no                # Commands for debug and configuration
 NKRO_ENABLE = yes           # Enable N-Key Rollover
 AUDIO_ENABLE = no
 RGB_MATRIX_ENABLE = yes            # Use RGB matrix
-RGB_MATRIX_DRIVER = IS31FL3731
 NO_USB_STARTUP_CHECK = no          # Disable initialization only when usb is plugged in

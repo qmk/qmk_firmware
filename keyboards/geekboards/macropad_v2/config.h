@@ -16,9 +16,7 @@
 
 #pragma once
 
-#define RGBLED_NUM 42
 #define RGB_MATRIX_LED_COUNT 42
-#define RGB_DI_PIN A7
 
 // PWM RGB Underglow Defines
 #define WS2812_PWM_DRIVER PWMD3
@@ -87,5 +85,3 @@
 
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 #define WAIT_FOR_USB
-
-#define TAP_CODE_DELAY 10

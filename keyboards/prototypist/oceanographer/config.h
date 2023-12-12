@@ -7,7 +7,6 @@
 #define RGBLIGHT_LAYERS
 
 #define RGBLIGHT_MAX_LAYERS 4
-#define RGBLIGHT_LIMIT_VAL 155
 #define RGBLIGHT_DEFAULT_VAL 155
 
 // Audio Settings

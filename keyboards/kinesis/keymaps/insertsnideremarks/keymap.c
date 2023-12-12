@@ -1,3 +1,6 @@
+// Copyright 2023 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
@@ -99,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	                  |  Fn   | Number|  Bspc |                   | Enter |Number2|  Fn2  |
 	                  `-----------------------'                   `-----------------------'
 */
-[_COLEMAK] = LAYOUT_pretty(
+[_COLEMAK] = LAYOUT(
   KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR, KC_SCRL, KC_PAUS, NUMPAD,  ADJUST,
   KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                                          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
   KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                                                          KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSLS,
@@ -135,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	                  |  Fn   | Number|  Bspc |                   | Enter |Number2|  Fn2  |
 	                  `-----------------------'                   `-----------------------'
 */
-[_QWERTY] = LAYOUT_pretty(
+[_QWERTY] = LAYOUT(
   KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR, KC_SCRL, KC_PAUS, NUMPAD,  ADJUST,
   KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                                          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                                          KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
@@ -171,7 +174,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	                  |       |       |       |                   |       |       |       |
 	                  `-----------------------'                   `-----------------------'
 */
-[_NUMBERS] = LAYOUT_pretty(
+[_NUMBERS] = LAYOUT(
   _______, _______, _______, _______,  _______,  _______,  _______, _______, _______, _______, _______, _______, _______,  _______,  _______,  _______, _______, _______,
   KC_F12,  KC_F1,   KC_F2,   KC_F3,    KC_F4,    KC_F5,                                                          KC_F6,    KC_F7,    KC_F8,    KC_F9,   KC_F10,  KC_F11,
   _______, KC_6,    KC_7,    KC_8,     KC_9,     KC_0,                                                           KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN, KC_RPRN, _______,
@@ -183,7 +186,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                  _______,  _______, _______,                   _______, _______, _______
 ),
 
-[_NUMBERS2] = LAYOUT_pretty(
+[_NUMBERS2] = LAYOUT(
   _______, _______, _______, _______,  _______,  _______,  _______, _______, _______, _______, _______, _______, _______,  _______,  _______,  _______, _______, _______,
   KC_F12,  KC_F1,   KC_F2,   KC_F3,    KC_F4,    KC_F5,                                                          KC_F6,    KC_F7,    KC_F8,    KC_F9,   KC_F10,  KC_F11,
   _______, KC_6,    KC_7,    KC_8,     KC_9,     KC_0,                                                           KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN, KC_RPRN, _______,
@@ -218,7 +221,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	                  |       |       |       |                   |       |       |       |
 	                  `-----------------------'                   `-----------------------'
 */
-[_FUNCTION] = LAYOUT_pretty(
+[_FUNCTION] = LAYOUT(
   _______, _______,    _______,    _______,    _______,    _______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______, _______,
   KC_F12,  KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,                                                             KC_F6,   KC_F7,   KC_F8,   KC_F9,      KC_F10,  KC_F11,
   _______, _______,    _______,    KC_UP,      _______,    _______,                                                           _______, _______, KC_UP,   LCTL(KC_Y), _______, _______,
@@ -230,7 +233,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                            _______,     _______, _______,                   _______, _______, _______
 ),
 
-[_FUNCTION2] = LAYOUT_pretty(
+[_FUNCTION2] = LAYOUT(
   _______, _______,    _______,    _______,    _______,    _______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______, _______,
   KC_F12,  KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,                                                             KC_F6,   KC_F7,   KC_F8,   KC_F9,      KC_F10,  KC_F11,
   _______, _______,    _______,    KC_UP,      _______,    _______,                                                           _______, _______, KC_UP,   LCTL(KC_Y), _______, _______,
@@ -266,7 +269,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	                  |       |       |       |                   |       |       |       |
 	                  `-----------------------'                   `-----------------------'
 */
-[_NUMPAD] = LAYOUT_pretty(
+[_NUMPAD] = LAYOUT(
   _______, _______, _______, _______,    _______,   _______,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______, KC_NUM,  _______, _______,    _______,   _______,                                                         KC_TAB,  KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS, _______,
   _______, KC_P6,   KC_P7,   KC_P8,      KC_P9,     KC_P0,                                                           _______, KC_P7,   KC_P8,   KC_P9,   KC_PPLS, _______,
@@ -302,7 +305,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	                  |       |       |  Bspc |                   | Ent/NS|Number2|  Fn2  |
 	                  `-----------------------'                   `-----------------------'
 */
-[_COLEMAKGM] = LAYOUT_pretty(
+[_COLEMAKGM] = LAYOUT(
   KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR, KC_SCRL, KC_PAUS, NUMPAD,  ADJUST,
   KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                                          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
   KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                                                          KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSLS,
@@ -338,7 +341,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	                  |       |       |  Bspc |                   | Ent/NS|Number2|  Fn2  |
 	                  `-----------------------'                   `-----------------------'
 */
-[_QWERTYGM] = LAYOUT_pretty(
+[_QWERTYGM] = LAYOUT(
   KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR, KC_SCRL, KC_PAUS, NUMPAD,  ADJUST,
   KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                                          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                                          KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
@@ -374,7 +377,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	                  |       |       |       |                   |       |       |       |
 	                  `-----------------------'                   `-----------------------'
 */
-[_ADJUST] = LAYOUT_pretty(
+[_ADJUST] = LAYOUT(
   _______, _______, _______, _______, _______,   _______,  _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______, COLEMAK, QWERTY,  _______, COLEMAKGM, QWERTYGM,                                                        NUMPAD,  _______, _______, _______, _______, QK_BOOT,
   _______, _______, _______, _______, _______,   _______,                                                         _______, _______, _______, _______, _______, _______,
@@ -386,7 +389,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                  _______,  _______, _______,                    _______, _______, _______
 ),
 
-[_ADJUST2] = LAYOUT_pretty(
+[_ADJUST2] = LAYOUT(
   _______, _______, _______, _______, _______,   _______,  _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______, COLEMAK, QWERTY,  _______, COLEMAKGM, QWERTYGM,                                                        NUMPAD,  _______, _______, _______, _______, QK_BOOT,
   _______, _______, _______, _______, _______,   _______,                                                         _______, _______, _______, _______, _______, _______,

@@ -10,10 +10,8 @@
 #define OLED_BRIGHTNESS 128
 #define OLED_FONT_H "keyboards/1upkeyboards/pi40/lib/glcdfont.c"
 
-#define RGB_DI_PIN GP0
 #    define RGB_MATRIX_KEYPRESSES // reacts to keypresses
-#    define RGB_MATRIX_FRAMEBUFFER_EFFECTS  
-#    define RGBLIGHT_LIMIT_VAL 150
+#    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150

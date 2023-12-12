@@ -5,12 +5,15 @@
 
 enum custom_keycodes {
     // Layer Macros
-    COLEMAK = SAFE_RANGE,
+    COLEMAK = QK_USER,
     QWERTY,
     FUNCTION,
     CODE,
     ADJUST,
+#   if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     RGBRST,
+#   endif
+    VRSN,
     // Secret Macros
     M_XXX1,
     M_XXX2,

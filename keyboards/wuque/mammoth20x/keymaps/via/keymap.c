@@ -18,7 +18,7 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
-        KC_ESC,  KC_PAUS, KC_DEL,  KC_VOLD, KC_MUTE, KC_VOLU,
+        KC_ESC,  KC_PAUS, KC_DEL,  KC_MUTE,
         KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS,
         KC_P7,   KC_P8,   KC_P9,
         KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_P0,            KC_PDOT, KC_PENT
     ),
     [1] = LAYOUT(
-        _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______,
         _______, _______, _______, _______,
         _______, _______, _______,
         _______, _______, _______, _______,
@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,          _______, _______
     ),
     [2] = LAYOUT(
-        _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______,
         _______, _______, _______, _______,
         _______, _______, _______,
         _______, _______, _______, _______,
@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,          _______, _______
     ),
     [3] = LAYOUT(
-        _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______,
         _______, _______, _______, _______,
         _______, _______, _______,
         _______, _______, _______, _______,
@@ -50,3 +50,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,          _______, _______
     ),
 };
+
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [1] = { ENCODER_CCW_CW(_______, _______) },
+    [2] = { ENCODER_CCW_CW(_______, _______) },
+    [3] = { ENCODER_CCW_CW(_______, _______) },
+};
+#endif

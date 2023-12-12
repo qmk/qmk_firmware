@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include "yosino58.h"
 
 char keylog_str[24] = {};
 char keylogs_str[21] = {};

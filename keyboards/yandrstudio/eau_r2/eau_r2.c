@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "eau_r2.h"
+#include "quantum.h"
 
 void board_init(void) {
     AFIO->MAPR |= AFIO_MAPR_TIM1_REMAP_PARTIALREMAP;

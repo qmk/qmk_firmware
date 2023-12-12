@@ -17,16 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/*
- * Keyboard Matrix Assignments
- */
-#define MATRIX_ROW_PINS { B1, A0, B2, A2, A1 }
-#define MATRIX_COL_PINS { D6, D5, D1, D0, D7, C0, C1, C2, C3, C4, C5, C6, C7, A7, A6, A5, A4, A3 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

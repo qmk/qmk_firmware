@@ -19,4 +19,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#define IGNORE_MOD_TAP_INTERRUPT
