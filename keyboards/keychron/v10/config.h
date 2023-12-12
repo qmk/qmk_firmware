@@ -108,3 +108,12 @@
 
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+
+// this is important for home row mods, idk
+#define IGNORE_MOD_TAP_INTERRUPT
+
+#define MK_KINETIC_SPEED
+
+#define TAPPING_TERM 200
