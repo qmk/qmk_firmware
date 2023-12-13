@@ -1,6 +1,6 @@
 {
     "manufacturer": "1upkeyboards",
-    "keyboard_name": "1up_pi60_rgb_v2",
+    "keyboard_name": "pi60_rgb_v2",
     "maintainer": "ziptyze",
     "processor": "RP2040",
     "bootloader": "rp2040",
