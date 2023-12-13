@@ -806,10 +806,7 @@ ifeq ($(strip $(UNICODE_COMMON)), yes)
 endif
 
 ifeq ($(strip $(PS2_MOUSE_ENABLE)), yes)
-    PS2_ENABLE := yes
-    MOUSE_ENABLE := yes
-    SRC += ps2_mouse.c
-    OPT_DEFS += -DPS2_MOUSE_ENABLE
+    $(call CATASTROPHIC_ERROR,PS2_MOUSE has migrated to pointing device,Please see docs/feature_pointing_device.md for more information.)
 endif
 
 VALID_PS2_DRIVER_TYPES := busywait interrupt usart vendor

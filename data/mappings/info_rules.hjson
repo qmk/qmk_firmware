@@ -34,7 +34,6 @@
     "PLATFORM_KEY": {"info_key": "platform_key", "to_json": false},
     "PS2_DRIVER": {"info_key": "ps2.driver"},
     "PS2_ENABLE": {"info_key": "ps2.enabled", "value_type": "bool"},
-    "PS2_MOUSE_ENABLE": {"info_key": "ps2.mouse_enabled", "value_type": "bool"},
     "RGB_MATRIX_DRIVER": {"info_key": "rgb_matrix.driver"},
     "RGBLIGHT_DRIVER": {"info_key": "rgblight.driver"},
     "SECURE_ENABLE": {"info_key": "secure.enabled", "value_type": "bool"},
@@ -50,4 +49,5 @@
     "CTPC": {"info_key": "_deprecated.ctpc", "deprecated": true, "replace_with": "CONVERT_TO=proton_c"},
     "CONVERT_TO_PROTON_C": {"info_key": "_deprecated.ctpc", "deprecated": true, "replace_with": "CONVERT_TO=proton_c"},
     "VIAL_ENABLE": {"info_key": "_invalid.vial", "invalid": true}
+    "PS2_MOUSE_ENABLE": {"info_key": "_invalid.ps2.mouse_enabled", "inivalid": true},
 }

@@ -655,7 +655,6 @@
             "additionalProperties": false,
             "properties": {
                 "enabled": {"type": "boolean"},
-                "mouse_enabled": {"type": "boolean"},
                 "clock_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
                 "data_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
                 "driver": {
