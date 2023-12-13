@@ -34,5 +34,6 @@
         oled_write_P(led_state.num_lock ? PSTR("NUM") : PSTR("    "), false);
         oled_set_cursor(0, 7);
         oled_write_P(led_state.scroll_lock ? PSTR("SCRL") : PSTR("    "), false);
-    }
+    return false;
+}
 #endif
