@@ -1,4 +1,4 @@
-	/*
+/*
 Copyright 2012,2013 Jun Wako <wakojun@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
