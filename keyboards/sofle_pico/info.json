@@ -91,7 +91,6 @@
         },
         "default": {
             "animation": "typing_heatmap",
-            "on": true,
             "speed": 14
         },
         "layout": [
