@@ -1,6 +1,6 @@
 # dude09
 
-![dude09](https://i.imgur.com/sBR8L7x.jpg)
+![dude09](https://i.imgur.com/sBR8L7xh.jpg)
 
 A simple 3x3 macropad based on the VOID9 case.
 
