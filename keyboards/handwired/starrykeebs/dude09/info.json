@@ -21,6 +21,7 @@
         "pid": "0x0002",
         "vid": "0x534B"
     },
+    "community_layouts": ["ortho_3x3"],
     "layouts": {
         "LAYOUT_ortho_3x3": {
             "layout": [
