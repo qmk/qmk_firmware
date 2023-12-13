@@ -125,7 +125,8 @@
             {"matrix": [4, 13], "x": 209, "y": 64, "flags": 1},
             {"matrix": [4, 14], "x": 224, "y": 64, "flags": 1}
         ],
-        "max_brightness": 180
+        "max_brightness": 180,
+        "sleep": true
     },
     "rgblight": {
         "animations": {
