@@ -10,7 +10,7 @@ A simple 3x3 macropad based on the VOID9 case.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make handwired/starrykeebs/dude09:default  CHECK THIS
+    make handwired/starrykeebs/dude09:default
 
 Flashing example for this keyboard:
 
