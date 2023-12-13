@@ -85,14 +85,6 @@ __attribute__((unused)) static enum ps2_mouse_mode_e {
 #define PS2_MOUSE_X_OVFLW 6
 #define PS2_MOUSE_Y_OVFLW 7
 
-/* mouse button to start scrolling; set 0 to disable scroll */
-#ifndef PS2_MOUSE_SCROLL_BTN_MASK
-#    define PS2_MOUSE_SCROLL_BTN_MASK (1 << PS2_MOUSE_BTN_MIDDLE)
-#endif
-/* send button event when button is released within this value(ms); set 0 to disable  */
-#ifndef PS2_MOUSE_SCROLL_BTN_SEND
-#    define PS2_MOUSE_SCROLL_BTN_SEND 300
-#endif
 /* divide virtical and horizontal mouse move by this to convert to scroll move */
 #ifndef PS2_MOUSE_SCROLL_DIVISOR_V
 #    define PS2_MOUSE_SCROLL_DIVISOR_V 2
