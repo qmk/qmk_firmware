@@ -927,6 +927,9 @@
     "kprepublic/bm68hsrgb": {
         "target": "kprepublic/bm68hsrgb/rev1"
     },
+    "laser_ninja/pumpkin_pad": {
+        "target": "laser_ninja/pumpkinpad"
+    },
     "latin17rgb": {
         "target": "latincompass/latin17rgb"
     },
