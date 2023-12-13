@@ -9,8 +9,7 @@
         "command": false,
         "console": false,
         "extrakey": true,
-        "mousekey": true,
-        "nkro": false
+        "mousekey": true
     },
     "matrix_pins": {
         "cols": ["C6", "D7", "E6"],
