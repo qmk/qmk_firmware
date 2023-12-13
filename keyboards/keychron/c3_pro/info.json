@@ -16,6 +16,11 @@
         "mousekey": true,
         "nkro": true
     },
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
     "matrix_pins": {
         "cols": ["C6", "C7", "C8", "A14", "A15", "C10", "C11", "C13", "C14", "C15", "C0", "C1", "C2", "C3", "A0","A1", "A2"],
         "rows": ["C12", "D2", "B3", "B4", "B5", "B6"]

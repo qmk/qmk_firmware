@@ -17,7 +17,7 @@
 #pragma once
 
 #define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_GND
-#define LED_MATRIX_LED_COUNT (99) // Here are twelve leds for side lights
+//#define LED_MATRIX_LED_COUNT (99) // Here are twelve leds for side lights
 
 /* Use first 7 channels of LED driver */
 #define SNLED27351_PHASE_CHANNEL SNLED27351_SCAN_PHASE_7_CHANNEL
@@ -27,4 +27,4 @@
     { 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50 }
 
 #define LED_DISABLE_WHEN_USB_SUSPENDED
-#define LED_MATRIX_KEYPRESSES
+//#define LED_MATRIX_KEYPRESSES
