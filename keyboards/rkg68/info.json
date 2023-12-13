@@ -30,8 +30,12 @@
         "pid": "0x0049",
         "vid": "0x0049"
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_65_ansi"
+    },
+    "community_layouts": ["65_ansi"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_65_ansi": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},

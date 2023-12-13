@@ -1,8 +1,8 @@
 {
     "keyboard_name": "Z67 Hotswap",
-    "manufacturer": "Quarkeys Stuidio",
-    "url": "www.quarkeys.com",
-    "maintainer": "TommyZ",
+    "manufacturer": "Quarkeys Studio",
+    "url": "https://www.quarkeys.com/",
+    "maintainer": "tommyamoszhao",
     "usb": {
         "vid": "0x8490",
         "pid": "0x4102",
@@ -36,8 +36,12 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_65_ansi_blocker"
+    },
+    "community_layouts": ["65_ansi_blocker"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_65_ansi_blocker": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},

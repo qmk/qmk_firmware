@@ -20,7 +20,7 @@ extern rgblight_config_t rgblight_config;
 #if RGBLED_NUM < 7
 #error "MUST set the RGBLED_NUM bigger than 7"
 #endif
-LED_TYPE noah_leds[RGBLED_NUM];
+rgb_led_t noah_leds[RGBLED_NUM];
 static bool noah_led_mode = false;
 void rgblight_set(void) {
     memset(&noah_leds[0], 0, sizeof(noah_leds));
@@ -63,7 +63,7 @@ void matrix_scan_kb(void) {
 }
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location

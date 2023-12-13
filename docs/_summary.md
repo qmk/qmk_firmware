@@ -4,7 +4,7 @@
   * [Building Your First Firmware](newbs_building_firmware.md)
   * [Flashing Firmware](newbs_flashing.md)
   * [Getting Help/Support](support.md)
-  * [Building With GitHub Userspace](newbs_building_firmware_workflow.md)
+  * [External Userspace](newbs_external_userspace.md)
   * [Other Resources](newbs_learn_more_resources.md)
   * [Syllabus](syllabus.md)
 
@@ -80,6 +80,7 @@
     * [Caps Word](feature_caps_word.md)
     * [Combos](feature_combo.md)
     * [Debounce API](feature_debounce_type.md)
+    * [Digitizer](feature_digitizer.md)
     * [EEPROM](feature_eeprom.md)
     * [Key Lock](feature_key_lock.md)
     * [Key Overrides](feature_key_overrides.md)
@@ -115,7 +116,6 @@
     * [Bootmagic Lite](feature_bootmagic.md)
     * [Converters](feature_converters.md)
     * [Custom Matrix](custom_matrix.md)
-    * [Digitizer](feature_digitizer.md)
     * [DIP Switch](feature_dip_switch.md)
     * [Encoders](feature_encoders.md)
     * [Haptic Feedback](feature_haptic_feedback.md)
@@ -126,7 +126,6 @@
     * [PS/2 Mouse](feature_ps2_mouse.md)
     * [Split Keyboard](feature_split_keyboard.md)
     * [Stenography](feature_stenography.md)
-    * [Velocikey](feature_velocikey.md)
 
   * Keyboard Building
     * [Easy Maker for One Offs](easy_maker.md)
@@ -139,7 +138,7 @@
   * Breaking Changes
     * [Overview](breaking_changes.md)
     * [My Pull Request Was Flagged](breaking_changes_instructions.md)
-    * [Most Recent ChangeLog](ChangeLog/20230827.md "QMK v0.22.0 - 2023 Aug 27")
+    * [Most Recent ChangeLog](ChangeLog/20231126.md "QMK v0.23.0 - 2023 Nov 26")
     * [Past Breaking Changes](breaking_changes_history.md)
 
   * C Development
@@ -148,6 +147,7 @@
     * [Compatible Microcontrollers](compatible_microcontrollers.md)
     * [Drivers](hardware_drivers.md)
       * [ADC Driver](adc_driver.md)
+      * [APA102 Driver](apa102_driver.md)
       * [Audio Driver](audio_driver.md)
       * [I2C Driver](i2c_driver.md)
       * [SPI Driver](spi_driver.md)

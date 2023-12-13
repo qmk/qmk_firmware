@@ -13,8 +13,6 @@
 
 /* any side can be master by default, enable split sync to support it */
 #define EE_HANDS
-#define SPLIT_LED_STATE_ENABLE
-#define SPLIT_MODS_ENABLE
 #define SPLIT_POINTING_ENABLE
 
 /* SPI config for display/touchpad */
