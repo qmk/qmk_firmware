@@ -168,17 +168,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-#ifdef AUDIO_ENABLE
-
-float tone_startup[][2]    = SONG(STARTUP_SOUND);
-float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
-
-float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
-
-#endif
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record)
-{
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LOWER:
             if (record->event.pressed) {
@@ -217,37 +207,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     }
     return true;
 }
-
-void matrix_init_user(void)
-{
-#ifdef AUDIO_ENABLE
-    startup_user();
-#endif
-}
-
-#ifdef AUDIO_ENABLE
-
-void startup_user(void)
-{
-    _delay_ms(100); // gets rid of tick
-    PLAY_SONG(tone_startup);
-}
-
-void shutdown_user(void)
-{
-    PLAY_SONG(tone_goodbye);
-    _delay_ms(150);
-    stop_all_notes();
-}
-
-void music_on_user(void)
-{
-    music_scale_user();
-}
-
-void music_scale_user(void)
-{
-    PLAY_SONG(music_scale);
-}
-
-#endif

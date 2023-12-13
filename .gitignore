@@ -108,5 +108,6 @@ compile_commands.json
 .clangd/
 .cache/
 
-# VIA(L) json files that don't belong in QMK repo
+# VIA(L) files that don't belong in QMK repo
 via*.json
+/keyboards/**/keymaps/vial/*

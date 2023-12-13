@@ -24,8 +24,3 @@
 #endif
 
 #define SPLIT_USB_DETECT
-
-#ifdef WPM_ENABLE
-#    define SPLIT_WPM_ENABLE
-#endif
-
