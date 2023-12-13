@@ -12,13 +12,20 @@
         "tap_keycode_delay": 10
     },
     "rgb_matrix": {
-        "driver": "aw20216"
+        "driver": "aw20216s"
     },
     "matrix_pins": {
         "cols": ["A0", "A1", "A2", "A3", "A4", "A8", "A9", "A10"],
         "rows": ["B0", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "B10", "B11", "B12", "B13"]
     },
     "diode_direction": "COL2ROW",
+    "eeprom": {
+        "driver": "wear_leveling",
+        "wear_leveling": {
+            "driver": "spi_flash",
+            "backing_size": 2048
+        }
+    },
     "processor": "WB32F3G71",
     "bootloader": "wb32-dfu",
     "layouts": {

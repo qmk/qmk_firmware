@@ -70,9 +70,9 @@ void keyboard_post_init_user(void) {
 
 extern rgblight_config_t rgblight_config;
 extern void              rgblight_layers_write(void);
-extern void              indicator_write(LED_TYPE *start_led, uint8_t num_leds);
+extern void              indicator_write(rgb_led_t *start_led, uint8_t num_leds);
 
-void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds)
+void rgblight_call_driver(rgb_led_t *start_led, uint8_t num_leds)
 {
     ws2812_setleds(start_led, RGBLED_NUM-RGB_INDICATOR_NUM);
 

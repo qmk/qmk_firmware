@@ -26,6 +26,11 @@
                     {"pin_a": "F4", "pin_b": "F5", "resolution": 2}
                 ]
             }
+        },
+        "transport": {
+            "sync": {
+                "wpm": true
+            }
         }
     },
     "tapping": {
