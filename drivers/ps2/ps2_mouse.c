@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "pointing_device.h"
 #include "pointing_device_internal.h"
 
-/* ============================= MACROS ============================ */
+/* ============================= HELPERS ============================ */
 
 static inline void ps2_mouse_convert_report_to_hid(ps2_mouse_report_t *ps2_report, report_mouse_t *mouse_report);
 static inline void ps2_mouse_enable_scrolling(void);
@@ -149,67 +149,6 @@ void ps2_mouse_set_sample_rate(ps2_mouse_sample_rate_t sample_rate) {
     PS2_MOUSE_SET_SAFE(PS2_MOUSE_SET_SAMPLE_RATE, sample_rate, "ps2 mouse set sample rate");
 }
 
-/* ============================= HELPERS ============================ */
-
-#define min(a,b) ((a)<(b)?(a):(b))
-#define max(a,b) ((a)>(b)?(a):(b))
-
-static inline void ps2_mouse_convert_report_to_hid(ps2_mouse_report_t *ps2_report, report_mouse_t *mouse_report)
-{
-    bool x_sign = ps2_report->head.b.x_sign;
-    bool y_sign = ps2_report->head.b.y_sign;
-    bool left_button = ps2_report->head.b.left_button;
-    bool right_button = ps2_report->head.b.right_button;
-    bool middle_button = ps2_report->head.b.middle_button;
-
-    // PS/2 mouse data is '9-bit integer'(-256 to 255), comprised of sign-bit and 8-bit value.
-    // Sign extend if negative, otherwise leave positive 8-bits as-is
-    int16_t x = x_sign ? (ps2_report->x | ~0xFF) : ps2_report->x;
-    int16_t y = y_sign ? (ps2_report->y | ~0xFF) : ps2_report->y;
-
-    x *= PS2_MOUSE_X_MULTIPLIER;
-    y *= PS2_MOUSE_Y_MULTIPLIER;
-
-    // Constrain xy values to valid range
-    mouse_report->x = min(max(XY_REPORT_MIN, x), XY_REPORT_MAX);
-    mouse_report->y = min(max(XY_REPORT_MIN, y), XY_REPORT_MAX);
-
-    // invert coordinate of y to conform to USB HID mouse
-    mouse_report->y = -mouse_report->y;
-
-#ifdef PS2_MOUSE_ENABLE_SCROLLING
-    mouse_report->v = -(ps2_report->z & PS2_MOUSE_SCROLL_MASK);
-    mouse_report->v *= PS2_MOUSE_V_MULTIPLIER;
-#endif
-
-#ifdef PS2_MOUSE_INVERT_BUTTONS
-    // swap left & right buttons
-    if (left_button)
-        mouse_report->buttons |= MOUSE_BTN2;
-    if (right_button)
-        mouse_report->buttons |= MOUSE_BTN1;
-#else
-    if (left_button)
-        mouse_report->buttons |= MOUSE_BTN1;
-    if (right_button)
-        mouse_report->buttons |= MOUSE_BTN2;
-#endif
-
-    if (middle_button)
-        mouse_report->buttons |= MOUSE_BTN3;
-}
-
-static inline void ps2_mouse_enable_scrolling(void) {
-    PS2_MOUSE_SEND(PS2_MOUSE_SET_SAMPLE_RATE, "Initiaing scroll wheel enable: Set sample rate");
-    PS2_MOUSE_SEND(200, "200");
-    PS2_MOUSE_SEND(PS2_MOUSE_SET_SAMPLE_RATE, "Set sample rate");
-    PS2_MOUSE_SEND(100, "100");
-    PS2_MOUSE_SEND(PS2_MOUSE_SET_SAMPLE_RATE, "Set sample rate");
-    PS2_MOUSE_SEND(80, "80");
-    PS2_MOUSE_SEND(PS2_MOUSE_GET_DEVICE_ID, "Finished enabling scroll wheel");
-    wait_ms(20);
-}
-
 /* Note: PS/2 mouse uses counts/mm */
 uint16_t ps2_mouse_get_cpi(void) {
     uint8_t rcv, cpm;
@@ -245,3 +184,66 @@ void ps2_mouse_set_cpi(uint16_t cpi) {
             break;
     }
 }
+
+/* ============================= HELPERS ============================ */
+
+#define min(a,b) ((a)<(b)?(a):(b))
+#define max(a,b) ((a)>(b)?(a):(b))
+
+static inline void ps2_mouse_convert_report_to_hid(ps2_mouse_report_t *ps2_report, report_mouse_t *mouse_report)
+{
+    bool x_sign = ps2_report->head.b.x_sign;
+    bool y_sign = ps2_report->head.b.y_sign;
+    bool left_button = ps2_report->head.b.left_button;
+    bool right_button = ps2_report->head.b.right_button;
+    bool middle_button = ps2_report->head.b.middle_button;
+
+    // PS/2 mouse data is '9-bit integer'(-256 to 255), comprised of sign-bit and 8-bit value.
+    // Sign extend if negative, otherwise leave positive 8-bits as-is
+    int16_t x = x_sign ? (ps2_report->x | ~0xFF) : ps2_report->x;
+    int16_t y = y_sign ? (ps2_report->y | ~0xFF) : ps2_report->y;
+
+    x *= PS2_MOUSE_X_MULTIPLIER;
+    y *= PS2_MOUSE_Y_MULTIPLIER;
+
+    // Constrain xy values to valid range
+    mouse_report->x = min(max(XY_REPORT_MIN, x), XY_REPORT_MAX);
+    mouse_report->y = min(max(XY_REPORT_MIN, y), XY_REPORT_MAX);
+
+    // invert coordinate of y to conform to USB HID mouse
+    mouse_report->y = -mouse_report->y;
+
+#ifdef PS2_MOUSE_ENABLE_SCROLLING
+    // Valid z values are in the range -8 to +7
+    mouse_report->v = -(ps2_report->z & PS2_MOUSE_SCROLL_MASK);
+    mouse_report->v *= PS2_MOUSE_V_MULTIPLIER;
+#endif
+
+#ifdef PS2_MOUSE_INVERT_BUTTONS
+    // swap left & right buttons
+    if (left_button)
+        mouse_report->buttons |= MOUSE_BTN2;
+    if (right_button)
+        mouse_report->buttons |= MOUSE_BTN1;
+#else
+    if (left_button)
+        mouse_report->buttons |= MOUSE_BTN1;
+    if (right_button)
+        mouse_report->buttons |= MOUSE_BTN2;
+#endif
+
+    if (middle_button)
+        mouse_report->buttons |= MOUSE_BTN3;
+}
+
+static inline void ps2_mouse_enable_scrolling(void) {
+    PS2_MOUSE_SEND(PS2_MOUSE_SET_SAMPLE_RATE, "Initiaing scroll wheel enable: Set sample rate");
+    PS2_MOUSE_SEND(200, "200");
+    PS2_MOUSE_SEND(PS2_MOUSE_SET_SAMPLE_RATE, "Set sample rate");
+    PS2_MOUSE_SEND(100, "100");
+    PS2_MOUSE_SEND(PS2_MOUSE_SET_SAMPLE_RATE, "Set sample rate");
+    PS2_MOUSE_SEND(80, "80");
+    PS2_MOUSE_SEND(PS2_MOUSE_GET_DEVICE_ID, "Finished enabling scroll wheel");
+    wait_ms(20);
+}
+
