@@ -222,6 +222,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
        FN_MAC = 0;
       }
       return true; // continue all further processing of this key
+
+     case RGB_VAI:
+      rgb_matrix_set_flags(LED_FLAG_ALL);
+      return true;
+
     default:
       return true;
     }
