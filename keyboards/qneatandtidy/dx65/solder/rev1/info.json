@@ -12,6 +12,7 @@
     "rgb_matrix": {
         "driver": "is31fl3741",
         "max_brightness": 180,
+        "sleep": true,
         "animations": {
             "alphas_mods": true,
             "gradient_up_down": true,
