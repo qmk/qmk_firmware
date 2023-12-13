@@ -104,13 +104,16 @@ static void render_rgbled_status(bool full) {
 #    endif
 }
 
-bool oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
     if (is_keyboard_master()) {
         render_status();
     } else {
         render_logo();
         render_rgbled_status(true);
     }
-    return false;
+    return true;
 }
 #endif

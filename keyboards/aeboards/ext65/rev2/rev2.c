@@ -57,10 +57,13 @@ void render_mod_status(uint8_t modifiers) {
 }
 
 bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
     render_layer_state();
     render_keylock_status(host_keyboard_led_state());
     render_mod_status(get_mods() | get_oneshot_mods());
-    return false;
+    return true;
 }
 
 #else
