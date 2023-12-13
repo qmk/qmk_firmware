@@ -110,10 +110,10 @@ void is31fl3743a_flush(void);
 #define IS31FL3743A_PUR_0K5_OHM_CS_OFF 0b001 // 0.5 kOhm resistor in CSy off time
 #define IS31FL3743A_PUR_1K_OHM_CS_OFF 0b010  // 1 kOhm resistor in CSy off time
 #define IS31FL3743A_PUR_2K_OHM_CS_OFF 0b011  // 2 kOhm resistor in CSy off time
-#define IS31FL3743A_PUR_4K_OHM 0b100         // 1 kOhm resistor
-#define IS31FL3743A_PUR_8K_OHM 0b101         // 2 kOhm resistor
-#define IS31FL3743A_PUR_16K_OHM 0b110        // 4 kOhm resistor
-#define IS31FL3743A_PUR_32K_OHM 0b111        // 8 kOhm resistor
+#define IS31FL3743A_PUR_1K_OHM 0b100         // 1 kOhm resistor
+#define IS31FL3743A_PUR_2K_OHM 0b101         // 2 kOhm resistor
+#define IS31FL3743A_PUR_4K_OHM 0b110         // 4 kOhm resistor
+#define IS31FL3743A_PUR_8K_OHM 0b111         // 8 kOhm resistor
 
 #define IS31FL3743A_SYNC_NONE 0b00
 #define IS31FL3743A_SYNC_SLAVE 0b10
