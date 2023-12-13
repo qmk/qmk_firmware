@@ -68,13 +68,15 @@ bool oled_task_kb(void) {
 
 #else
 
-void keyboard_pre_init_user(void) {
+void keyboard_pre_init_kb(void) {
     // Call the keyboard pre init code.
     // Set our LED pins as output
     setPinOutput(B4);
     setPinOutput(B3);
     setPinOutput(A15);
     setPinOutput(A14);
+
+    keyboard_pre_init_user();
 }
 
 bool led_update_kb(led_t led_state) {
