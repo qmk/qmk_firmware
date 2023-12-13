@@ -7,9 +7,6 @@
         "levels": 5,
         "pin": "B7"
     },
-    "bootmagic": {
-        "matrix": [0, 0]
-    },
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x7421",
