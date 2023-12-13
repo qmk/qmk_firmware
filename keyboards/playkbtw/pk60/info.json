@@ -44,7 +44,7 @@
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
   "layout_aliases": {
-    "LAYOUT_60_iso": "LAYOUT_60_iso_split_bs_rshift",
+    "LAYOUT_iso": "LAYOUT_60_iso_split_bs_rshift",
     "LAYOUT_225u_arrow": "LAYOUT_60_ansi_arrow_split_bs",
     "LAYOUT_2u_arrow": "LAYOUT_64_ansi_split_bs"
   },
