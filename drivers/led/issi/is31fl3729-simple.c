@@ -59,8 +59,7 @@
 #define IS31FL3729_PWM_REGISTER_COUNT 143
 #define IS31FL3729_SCALINGS_REGISTER_COUNT 16
 
-// Transfer buffer for TWITransmitData()
-uint8_t g_twi_transfer_buffer[20];
+uint8_t i2c_transfer_buffer[20];
 
 // These buffers match the PWM & scaling registers.
 // Storing them like this is optimal for I2C transfers to the registers.
@@ -72,15 +71,15 @@ bool    g_scaling_registers_update_required[IS31FL3729_DRIVER_COUNT] = {false};
 
 void is31fl3729_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
     // Set register address and register data ready to write
-    g_twi_transfer_buffer[0] = reg;
-    g_twi_transfer_buffer[1] = data;
+    i2c_transfer_buffer[0] = reg;
+    i2c_transfer_buffer[1] = data;
 
 #if IS31FL3729_I2C_PERSISTENCE > 0
     for (uint8_t i = 0; i < IS31FL3729_I2C_PERSISTENCE; i++) {
-        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 2, IS31FL3729_I2C_TIMEOUT) == 0) break;
+        if (i2c_transmit(addr << 1, i2c_transfer_buffer, 2, IS31FL3729_I2C_TIMEOUT) == 0) break;
     }
 #else
-    i2c_transmit(addr << 1, g_twi_transfer_buffer, 2, IS31FL3729_I2C_TIMEOUT);
+    i2c_transmit(addr << 1, i2c_transfer_buffer, 2, IS31FL3729_I2C_TIMEOUT);
 #endif
 }
 
@@ -89,21 +88,21 @@ bool is31fl3729_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     // datasheet does not mention it, but it auto-increments in 15x9 mode, and
     // hence does not require us to skip any addresses
     for (int i = 0; i <= IS31FL3729_PWM_REGISTER_COUNT; i += IS31FL3729_SCALINGS_REGISTER_COUNT) {
-        g_twi_transfer_buffer[0] = i;
+        i2c_transfer_buffer[0] = i;
 
         // copy the data from i to i+IS31FL3729_SCALINGS_REGISTER_COUNT
         // device will auto-increment register for data after the first byte
         // thus this sets registers 0x01-0x10, 0x11-0x20, etc. in one transfer
-        memcpy(g_twi_transfer_buffer + 1, pwm_buffer + i, IS31FL3729_SCALINGS_REGISTER_COUNT);
+        memcpy(i2c_transfer_buffer + 1, pwm_buffer + i, IS31FL3729_SCALINGS_REGISTER_COUNT);
 
 #if IS31FL3729_I2C_PERSISTENCE > 0
         for (uint8_t i = 0; i < IS31FL3729_I2C_PERSISTENCE; i++) {
-            if (i2c_transmit(addr << 1, g_twi_transfer_buffer, IS31FL3729_SCALINGS_REGISTER_COUNT + 1, IS31FL3729_I2C_TIMEOUT) != 0) {
+            if (i2c_transmit(addr << 1, i2c_transfer_buffer, IS31FL3729_SCALINGS_REGISTER_COUNT + 1, IS31FL3729_I2C_TIMEOUT) != 0) {
                 return false;
             }
         }
 #else
-        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, IS31FL3729_SCALINGS_REGISTER_COUNT + 1, IS31FL3729_I2C_TIMEOUT) != 0) {
+        if (i2c_transmit(addr << 1, i2c_transfer_buffer, IS31FL3729_SCALINGS_REGISTER_COUNT + 1, IS31FL3729_I2C_TIMEOUT) != 0) {
             return false;
         }
 #endif

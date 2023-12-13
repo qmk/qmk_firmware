@@ -26,7 +26,6 @@ You can use between 1 and 4 IS31FL3729 IC's. Do not specify `IS31FL3729_I2C_ADDR
 | `IS31FL3729_PULLDOWNUP` | (Optional) Configuration for the Pull Up & Pull Down Register | 0x33 |
 | `IS31FL3729_SPREAD_SPECTRUM` | (Optional) Configuration for the Spread Spectrum Register | SSP_DISABLE |
 | `IS31FL3729_PWM_FREQUENCY` | (Optional) Configuration for the PWM Frequency Register | 32K_HZ |
-| `IS31FL3729_DRIVER_COUNT` | (Required) How many LED driver IC's are present | |
 | `LED_MATRIX_LED_COUNT` | (Required) How many LED lights are present across all drivers | |
 | `IS31FL3729_I2C_ADDRESS_1` | (Required) Address for the first LED driver | |
 | `IS31FL3729_I2C_ADDRESS_2` | (Optional) Address for the second LED driver | |
@@ -61,7 +60,6 @@ Here is an example using 2 drivers.
 #define IS31FL3729_I2C_ADDRESS_1 IS31FL3729_I2C_ADDRESS_GND
 #define IS31FL3729_I2C_ADDRESS_2 IS31FL3729_I2C_ADDRESS_SCL
 
-#define IS31FL3729_DRIVER_COUNT 2
 #define LED_DRIVER_1_LED_TOTAL 39
 #define LED_DRIVER_2_LED_TOTAL 28
 #define LED_MATRIX_LED_COUNT (LED_DRIVER_1_LED_TOTAL + LED_DRIVER_2_LED_TOTAL)
