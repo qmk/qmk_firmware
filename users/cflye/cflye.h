@@ -46,17 +46,7 @@ enum unicode_names {
 #define KC_OE XP(OE_L,OE_U)
 #define KC_AA XP(AA_L,AA_U)
 
-// Left-hand home row mods
-#define HOME_A LGUI_T(KC_A)
-#define HOME_R LALT_T(KC_R)
-#define HOME_S LCTL_T(KC_S)
-#define HOME_T LSFT_T(KC_T)
 
-// Right-hand home row mods
-#define HOME_N RSFT_T(KC_N)
-#define HOME_E RCTL_T(KC_E)
-#define HOME_I LALT_T(KC_I)
-#define HOME_O RGUI_T(KC_O)
 
 // Left-hand home row mods (row 1)
 #define HOME_COL_Q LGUI_T(KC_Q)
@@ -69,6 +59,18 @@ enum unicode_names {
 #define HOME_COL_U LALT_T(KC_U)
 #define HOME_COL_Y LALT_T(KC_Y)
 #define HOME_COL_SCLN RGUI_T(KC_SCLN)
+
+// Left-hand home row mods (row 2)
+#define HOME_COL_A LGUI_T(KC_A)
+#define HOME_COL_R LALT_T(KC_R)
+#define HOME_COL_S LCTL_T(KC_S)
+#define HOME_COL_T LSFT_T(KC_T)
+
+// Right-hand home row mods (row 2)
+#define HOME_COL_N RSFT_T(KC_N)
+#define HOME_COL_E RCTL_T(KC_E)
+#define HOME_COL_I LALT_T(KC_I)
+#define HOME_COL_O RGUI_T(KC_O)
 
 // Left-hand home row mods (row 3)
 #define HOME_COL_Z LGUI_T(KC_Z)
@@ -83,18 +85,6 @@ enum unicode_names {
 #define HOME_COL_SLASH RGUI_T(KC_SLASH)
 
 // QWERTY
-// Left-hand home row mods
-//#define HOME_A LGUI_T(KC_A)
-#define HOME_QS LALT_T(KC_S)
-#define HOME_D LCTL_T(KC_D)
-#define HOME_F LSFT_T(KC_F)
-
-// Right-hand home row mods
-#define HOME_J RSFT_T(KC_J)
-#define HOME_K RCTL_T(KC_K)
-#define HOME_L LALT_T(KC_L)
-#define HOME_SCLN RGUI_T(KC_SCLN)
-
 
 // Left-hand home row mods (row 1)
 #define HOME_QWE_Q LGUI_T(KC_Q)
@@ -107,6 +97,30 @@ enum unicode_names {
 #define HOME_QWE_I LALT_T(KC_I)
 #define HOME_QWE_O LALT_T(KC_O)
 #define HOME_QWE_P RGUI_T(KC_P)
+
+// Left-hand home row mods (row 2)
+#define HOME_QWE_A LGUI_T(KC_A)
+#define HOME_QWE_S LALT_T(KC_S)
+#define HOME_QWE_D LALT_T(KC_D)
+#define HOME_QWE_F LALT_T(KC_F)
+
+// Right-hand home row mods (row 2)
+#define HOME_QWE_J LALT_T(KC_J)
+#define HOME_QWE_K LALT_T(KC_K)
+#define HOME_QWE_L LALT_T(KC_L)
+#define HOME_QWE_SCLN RGUI_T(KC_SCLN)
+
+// Left-hand home row mods (row 3)
+#define HOME_QWE_Z LGUI_T(KC_Z)
+#define HOME_QWE_X LALT_T(KC_X)
+#define HOME_QWE_C LALT_T(KC_C)
+#define HOME_QWE_V LALT_T(KC_V)
+
+// Right-hand home row mods (row 3)
+#define HOME_QWE_M LALT_T(KC_M)
+#define HOME_QWE_COMM LALT_T(KC_COMM)
+#define HOME_QWE_DOT LALT_T(KC_DOT)
+#define HOME_QWE_SLASH RGUI_T(KC_SLASH)
 
 
 #define U_RDO C(KC_Y)
