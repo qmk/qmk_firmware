@@ -2,12 +2,17 @@
     "manufacturer": "ERA",
     "keyboard_name": "DIVINE 1.0.0",
     "maintainer": "eerraa",
+    "backlight": {
+        "pin": "GP0",
+        "levels": 5
+    },
     "bootloader": "rp2040",
     "build": {
         "debounce_type": "sym_defer_pk"
     },
     "diode_direction": "COL2ROW",
     "features": {
+        "backlight": true,
         "bootmagic": true,
         "command": false,
         "console": false,
@@ -18,8 +23,8 @@
     "indicators": {
         "caps_lock": "GP1",
         "num_lock": "GP2",
-        "scroll_lock": "GP3",
-        "on_state": 0
+        "on_state": 0,
+        "scroll_lock": "GP3"
     },
     "matrix_pins": {
         "cols": ["GP13", "GP12", "GP19", "GP20", "GP21", "GP22", "GP23", "GP24", "GP25", "GP26", "GP27", "GP28", "GP29", "GP18", "GP5", "GP6", "GP7"],

@@ -2,7 +2,7 @@
 VPATH += keyboards/rgbkb/common
 SRC += touch_encoder.c
 SRC += common_oled.c
-QUANTUM_LIB_SRC += i2c_master.c
+I2C_DRIVER_REQUIRED = yes
 
 # Build Options
 #   change yes to no to disable
