@@ -1,7 +1,7 @@
 {
-    "manufacturer": "Jesse Leventhal",
-    "keyboard_name": "NoodlePad v3",
-    "maintainer": "Jesse Leventhal",
+    "manufacturer": "The Mad Noodle",
+    "keyboard_name": "NoodlePad Micro",
+    "maintainer": "the-mad-noodle",
     "bootloader": "rp2040",
     "diode_direction": "ROW2COL",
     "features": {
