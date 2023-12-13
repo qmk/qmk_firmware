@@ -1,4 +1,4 @@
-// Copyright 2023 TODO (@TODO)
+// Copyright 2023 Starry Knight (@astarryknight)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
