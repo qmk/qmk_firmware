@@ -23,10 +23,14 @@ typedef struct {
     HSV     hsv;
 } rgb_matrix_state_t;
 
+_Static_assert(sizeof(rgb_matrix_state_t) == 5, "Invalid size for rgb_matrix_state_t");
+
 typedef struct {
     rgb_matrix_state_t active_rgb_matrix;
     rgb_matrix_state_t idle_rgb_matrix;
 } kb_config_t;
+
+_Static_assert(sizeof(kb_config_t) == EECONFIG_KB_DATA_SIZE, "Invalid size for kb_config_t");
 
 bool                      rgb_idle_mode      = false;
 bool                      rgb_idle_edit_mode = false;

@@ -3,4 +3,4 @@
 
 #pragma once
 
-#define EECONFIG_KB_DATA_SIZE 11
+#define EECONFIG_KB_DATA_SIZE 10
