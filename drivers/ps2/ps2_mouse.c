@@ -62,7 +62,7 @@ void ps2_mouse_init(void) {
 }
 
 report_mouse_t ps2_mouse_get_report(report_mouse_t mouse_report) {
-    report_mouse_t new_report = {};
+    report_mouse_t     new_report = {};
     ps2_mouse_report_t ps2_report = {};
 
     /* receives packet from mouse */
@@ -71,8 +71,8 @@ report_mouse_t ps2_mouse_get_report(report_mouse_t mouse_report) {
     rcv = ps2_host_send(PS2_MOUSE_READ_DATA);
     if (rcv == PS2_ACK) {
         ps2_report.head.w = ps2_host_recv_response();
-        ps2_report.x = ps2_host_recv_response();
-        ps2_report.y = ps2_host_recv_response();
+        ps2_report.x      = ps2_host_recv_response();
+        ps2_report.y      = ps2_host_recv_response();
 #    ifdef PS2_MOUSE_ENABLE_SCROLLING
         ps2_report.z = ps2_host_recv_response();
 #    endif
@@ -83,10 +83,10 @@ report_mouse_t ps2_mouse_get_report(report_mouse_t mouse_report) {
     /* Streaming mode */
     if (pbuf_has_data()) {
         ps2_report.head.w = ps2_host_recv_response();
-        ps2_report.x = ps2_host_recv_response();
-        ps2_report.y = ps2_host_recv_response();
+        ps2_report.x      = ps2_host_recv_response();
+        ps2_report.y      = ps2_host_recv_response();
 #    ifdef PS2_MOUSE_ENABLE_SCROLLING
-        ps2_report.z = ps2_host_recv_response();
+        ps2_report.z      = ps2_host_recv_response();
 #    endif
     }
 #endif
@@ -95,17 +95,7 @@ report_mouse_t ps2_mouse_get_report(report_mouse_t mouse_report) {
 
 #ifdef POINTING_DEVICE_DEBUG
     if (has_mouse_report_changed(&new_report, &mouse_report)) {
-        pd_dprintf("ps2_mouse: raw x=%02x y=%02x head=0x%02x [left=%u right=%u middle=%u one=%u x_sign=%u y_sign=%u x_ovf=%u y_ovf=%u]\n",
-                   ps2_report.x, ps2_report.y,
-                   ps2_report.head.w,
-                   ps2_report.head.b.left_button,
-                   ps2_report.head.b.right_button,
-                   ps2_report.head.b.middle_button,
-                   ps2_report.head.b.always_one,
-                   ps2_report.head.b.x_sign,
-                   ps2_report.head.b.y_sign,
-                   ps2_report.head.b.x_overflow,
-                   ps2_report.head.b.y_overflow);
+        pd_dprintf("ps2_mouse: raw x=%02x y=%02x head=0x%02x [left=%u right=%u middle=%u one=%u x_sign=%u y_sign=%u x_ovf=%u y_ovf=%u]\n", ps2_report.x, ps2_report.y, ps2_report.head.w, ps2_report.head.b.left_button, ps2_report.head.b.right_button, ps2_report.head.b.middle_button, ps2_report.head.b.always_one, ps2_report.head.b.x_sign, ps2_report.head.b.y_sign, ps2_report.head.b.x_overflow, ps2_report.head.b.y_overflow);
 
         pd_dprintf("ps2_mouse: hid x=%d y=%d v=%d h=%d buttons=%x\n", new_report.x, new_report.y, new_report.v, new_report.h, new_report.buttons);
     }
@@ -113,7 +103,6 @@ report_mouse_t ps2_mouse_get_report(report_mouse_t mouse_report) {
 
     return new_report;
 }
-
 
 void ps2_mouse_disable_data_reporting(void) {
     PS2_MOUSE_SEND(PS2_MOUSE_DISABLE_DATA_REPORTING, "ps2 mouse disable data reporting");
@@ -187,15 +176,14 @@ void ps2_mouse_set_cpi(uint16_t cpi) {
 
 /* ============================= HELPERS ============================ */
 
-#define min(a,b) ((a)<(b)?(a):(b))
-#define max(a,b) ((a)>(b)?(a):(b))
+#define min(a, b) ((a) < (b) ? (a) : (b))
+#define max(a, b) ((a) > (b) ? (a) : (b))
 
-static inline void ps2_mouse_convert_report_to_hid(ps2_mouse_report_t *ps2_report, report_mouse_t *mouse_report)
-{
-    bool x_sign = ps2_report->head.b.x_sign;
-    bool y_sign = ps2_report->head.b.y_sign;
-    bool left_button = ps2_report->head.b.left_button;
-    bool right_button = ps2_report->head.b.right_button;
+static inline void ps2_mouse_convert_report_to_hid(ps2_mouse_report_t *ps2_report, report_mouse_t *mouse_report) {
+    bool x_sign        = ps2_report->head.b.x_sign;
+    bool y_sign        = ps2_report->head.b.y_sign;
+    bool left_button   = ps2_report->head.b.left_button;
+    bool right_button  = ps2_report->head.b.right_button;
     bool middle_button = ps2_report->head.b.middle_button;
 
     // PS/2 mouse data is '9-bit integer'(-256 to 255), comprised of sign-bit and 8-bit value.
@@ -221,19 +209,14 @@ static inline void ps2_mouse_convert_report_to_hid(ps2_mouse_report_t *ps2_repor
 
 #ifdef PS2_MOUSE_INVERT_BUTTONS
     // swap left & right buttons
-    if (left_button)
-        mouse_report->buttons |= MOUSE_BTN2;
-    if (right_button)
-        mouse_report->buttons |= MOUSE_BTN1;
+    if (left_button) mouse_report->buttons |= MOUSE_BTN2;
+    if (right_button) mouse_report->buttons |= MOUSE_BTN1;
 #else
-    if (left_button)
-        mouse_report->buttons |= MOUSE_BTN1;
-    if (right_button)
-        mouse_report->buttons |= MOUSE_BTN2;
+    if (left_button) mouse_report->buttons |= MOUSE_BTN1;
+    if (right_button) mouse_report->buttons |= MOUSE_BTN2;
 #endif
 
-    if (middle_button)
-        mouse_report->buttons |= MOUSE_BTN3;
+    if (middle_button) mouse_report->buttons |= MOUSE_BTN3;
 }
 
 static inline void ps2_mouse_enable_scrolling(void) {
@@ -246,4 +229,3 @@ static inline void ps2_mouse_enable_scrolling(void) {
     PS2_MOUSE_SEND(PS2_MOUSE_GET_DEVICE_ID, "Finished enabling scroll wheel");
     wait_ms(20);
 }
-

@@ -23,9 +23,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "report.h"
 #include "pointing_device_internal.h"
 
-#define PS2_MOUSE_SEND(command, message)                                                \
-    do {                                                                                \
-        __attribute__((unused)) uint8_t rcv = ps2_host_send(command);                   \
+#define PS2_MOUSE_SEND(command, message)                                                          \
+    do {                                                                                          \
+        __attribute__((unused)) uint8_t rcv = ps2_host_send(command);                             \
         pd_dprintf("%s command: %X, result: %X, error: %X \n", message, command, rcv, ps2_error); \
     } while (0)
 
@@ -52,10 +52,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         }                                              \
     } while (0)
 
-#define PS2_MOUSE_RECEIVE(message)                                      \
-    do {                                                                \
-        __attribute__((unused)) uint8_t rcv = ps2_host_recv_response(); \
-        pd_dprintf("%s result: %X, error: %X \n", message, rcv, ps2_error);       \
+#define PS2_MOUSE_RECEIVE(message)                                          \
+    do {                                                                    \
+        __attribute__((unused)) uint8_t rcv = ps2_host_recv_response();     \
+        pd_dprintf("%s result: %X, error: %X \n", message, rcv, ps2_error); \
     } while (0)
 
 __attribute__((unused)) static enum ps2_mouse_mode_e {
