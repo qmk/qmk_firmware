@@ -1,5 +1,7 @@
 # Userspace: Sharing Code Between Keymaps
 
+!> Please note, userspace submissions to the upstream `qmk/qmk_firmware` repository are no longer being accepted. The userspace feature itself remains functional and can be configured locally.
+
 If you use more than one keyboard with a similar keymap, you might see the benefit in being able to share code between them. Create your own folder in `users/` named the same as your keymap (ideally your GitHub username, `<name>`) with the following structure:
 
 * `/users/<name>/` (added to the path automatically)

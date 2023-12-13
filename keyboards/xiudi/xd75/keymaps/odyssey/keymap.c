@@ -49,7 +49,7 @@ int speed = 300;
 
 void set_colors(int r, int g, int b) {
   for(int i = 0; i<6; i++) {
-    sethsv(r, g, b, (LED_TYPE *)&led[i]);
+    sethsv(r, g, b, (rgb_led_t *)&led[i]);
   }
   rgblight_set();
 }
@@ -213,7 +213,7 @@ void matrix_scan_user(void) {
     if (rc == 0) {
       rc = speed;
       for(int i = 0; i<6; i++) {
-        sethsv(42*((t+i)%6), 255, 255, (LED_TYPE *)&led[i]);
+        sethsv(42*((t+i)%6), 255, 255, (rgb_led_t *)&led[i]);
       }
       rgblight_set();
       t++; t = t % 6;
@@ -224,9 +224,9 @@ void matrix_scan_user(void) {
       col = (col + 1) % 36;
       for (int i = 0; i<6; i++) {
         if (i==t)
-          sethsv(42*(((col-1)/6)%6), 255, 255, (LED_TYPE *)&led[(right ? t : 5-t)]);
+          sethsv(42*(((col-1)/6)%6), 255, 255, (rgb_led_t *)&led[(right ? t : 5-t)]);
         else
-          sethsv(0, 0, 0, (LED_TYPE *)&led[right ? i : 5-i]);
+          sethsv(0, 0, 0, (rgb_led_t *)&led[right ? i : 5-i]);
       }
       rgblight_set();
       t++; t = t % 6;

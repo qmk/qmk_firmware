@@ -7,13 +7,5 @@ EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = yes           # Enable N-Key Rollover
-BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
-RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = yes          # Audio output
-SLEEP_LED_ENABLE = yes
-
-ISSI_ENABLE = yes           # If the I2C pullup resistors aren't install this must be disabled
 WATCHDOG_ENABLE = yes       # Resets keyboard if matrix_scan isn't run every 250ms
-
-# Extra source files for IS3731 lighting
-SRC = TWIlib.c issi.c lighting.c

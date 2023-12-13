@@ -1,7 +1,7 @@
 #include "ws2812.h"
 #include "rgbsps.h"
 
-cRGB led[RGBSPS_NUM];
+rgb_led_t led[RGBSPS_NUM];
 
 void rgbsps_set(uint8_t index, uint8_t r, uint8_t g, uint8_t b) {
   led[index].r = r;
