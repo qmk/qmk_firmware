@@ -31,8 +31,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(2, layer_state_cmp(state, _LAYERA));
     return state;
 }
-void keyboard_post_init_user(void) {
+
+void keyboard_post_init_kb(void) {
     rgblight_set_effect_range(4, 17);
     rgblight_sethsv_range(HSV_BLACK, 0, 4);
     rgblight_layers = set_backlight_mode;
+
+    keyboard_post_init_user();
 }
