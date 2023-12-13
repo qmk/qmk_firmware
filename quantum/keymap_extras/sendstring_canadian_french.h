@@ -94,27 +94,27 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     //       !        "        #        $        %        &        '
-    KC_SPC,  FC_1,    FC_2,    FC_HASH, FC_4,    FC_5,    FC_7,    FC_COMM,
+    KC_SPC,  FR_1,    FR_2,    FR_HASH, FR_4,    FR_5,    FR_7,    FR_COMM,
     // (     )        *        +        ,        -        .        /
-    FC_9,    FC_0,    FC_8,    FC_EQL,  FC_COMM, FC_MINS, FC_DOT,  FC_3,
+    FR_9,    FR_0,    FR_8,    FR_EQL,  FR_COMM, FR_MINS, FR_DOT,  FR_3,
     // 0     1        2        3        4        5        6        7
-    FC_0,    FC_1,    FC_2,    FC_3,    FC_4,    FC_5,    FC_6,    FC_7,
+    FR_0,    FR_1,    FR_2,    FR_3,    FR_4,    FR_5,    FR_6,    FR_7,
     // 8     9        :        ;        <        =        >        ?
-    FC_8,    FC_9,    FC_SCLN, FC_SCLN, FC_LABK, FC_EQL,  FC_LABK, FC_6,
+    FR_8,    FR_9,    FR_SCLN, FR_SCLN, FR_LABK, FR_EQL,  FR_LABK, FR_6,
     // @     A        B        C        D        E        F        G
-    FC_2,    FC_A,    FC_B,    FC_C,    FC_D,    FC_E,    FC_F,    FC_G,
+    FR_2,    FR_A,    FR_B,    FR_C,    FR_D,    FR_E,    FR_F,    FR_G,
     // H     I        J        K        L        M        N        O
-    FC_H,    FC_I,    FC_J,    FC_K,    FC_L,    FC_M,    FC_N,    FC_O,
+    FR_H,    FR_I,    FR_J,    FR_K,    FR_L,    FR_M,    FR_N,    FR_O,
     // P     Q        R        S        T        U        V        W
-    FC_P,    FC_Q,    FC_R,    FC_S,    FC_T,    FC_U,    FC_V,    FC_W,
+    FR_P,    FR_Q,    FR_R,    FR_S,    FR_T,    FR_U,    FR_V,    FR_W,
     // X     Y        Z        [        \        ]        ^        _
-    FC_X,    FC_Y,    FC_Z,    FC_DCIR, FC_HASH, FC_CEDL, FC_DCIR, FC_MINS,
+    FR_X,    FR_Y,    FR_Z,    FR_DCIR, FR_HASH, FR_CEDL, FR_DCIR, FR_MINS,
     // `     a        b        c        d        e        f        g
-    FC_DGRV, FC_A,    FC_B,    FC_C,    FC_D,    FC_E,    FC_F,    FC_G,
+    FR_DGRV, FR_A,    FR_B,    FR_C,    FR_D,    FR_E,    FR_F,    FR_G,
     // h     i        j        k        l        m        n        o
-    FC_H,    FC_I,    FC_J,    FC_K,    FC_L,    FC_M,    FC_N,    FC_O,
+    FR_H,    FR_I,    FR_J,    FR_K,    FR_L,    FR_M,    FR_N,    FR_O,
     // p     q        r        s        t        u        v        w
-    FC_P,    FC_Q,    FC_R,    FC_S,    FC_T,    FC_U,    FC_V,    FC_W,
+    FR_P,    FR_Q,    FR_R,    FR_S,    FR_T,    FR_U,    FR_V,    FR_W,
     // x     y        z        {        |        }        ~        DEL
-    FC_X,    FC_Y,    FC_Z,    FC_DGRV, FC_HASH, FC_LABK, FC_SCLN, KC_DEL
+    FR_X,    FR_Y,    FR_Z,    FR_DGRV, FR_HASH, FR_LABK, FR_SCLN, KC_DEL
 };
