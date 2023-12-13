@@ -1,6 +1,6 @@
 # dude09
 
-![dude09](https://imgur.com/sBR8L7x)
+![dude09](https://i.imgur.com/sBR8L7x.jpg)
 
 *A short description of the keyboard/project*
 
