@@ -335,6 +335,9 @@
     "kyria": {
         "target": "splitkb/kyria"
     },
+    "laser_ninja/pumpkin_pad": {
+        "target": "laser_ninja/pumpkinpad"
+    },
     "lattice60": {
         "target": "keyhive/lattice60"
     },
@@ -926,9 +929,6 @@
     },
     "kprepublic/bm68hsrgb": {
         "target": "kprepublic/bm68hsrgb/rev1"
-    },
-    "laser_ninja/pumpkin_pad": {
-        "target": "laser_ninja/pumpkinpad"
     },
     "latin17rgb": {
         "target": "latincompass/latin17rgb"
