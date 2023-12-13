@@ -2,19 +2,19 @@
 
 ![dude09](https://i.imgur.com/sBR8L7x.jpg)
 
-*A short description of the keyboard/project*
+A simple 3x3 macropad based on the VOID9 case.
 
 * Keyboard Maintainer: [astarryknight](https://github.com/astarryknight)
 * Hardware Supported: rp2040 (using the adafruit kb2040), firmware written for ATmega32U4
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Availability: Amazon (https://amazon.com) & Digikey (https://https://www.digikey.com/)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make dude09:default  CHECK THIS
+    make handwired/starrykeebs/dude09:default  CHECK THIS
 
 Flashing example for this keyboard:
 
-    make dude09:default:flash
+    make handwired/starrykeebs/dude09:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
