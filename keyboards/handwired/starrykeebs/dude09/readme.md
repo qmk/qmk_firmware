@@ -1,4 +1,4 @@
-# dude09
+# Dude09
 
 ![dude09](https://i.imgur.com/sBR8L7x.jpg)
 
