@@ -1,6 +1,6 @@
 # dude09
 
-![dude09](https://i.imgur.com/sBR8L7xh.jpg)
+![dude09](https://i.imgur.com/sBR8L7x.jpg)
 
 A simple 3x3 macropad based on the VOID9 case.
 
@@ -10,7 +10,7 @@ A simple 3x3 macropad based on the VOID9 case.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make handwired/starrykeebs/dude09:default
+    make handwired/starrykeebs/dude09:default  CHECK THIS
 
 Flashing example for this keyboard:
 
