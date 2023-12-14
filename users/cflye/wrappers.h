@@ -33,6 +33,14 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define _________________QWERTY_R2__________________    KC_H,              KC_J,              KC_K,              KC_L,              KC_SCLN
 #define _________________QWERTY_R3__________________    KC_N,              KC_M,              KC_COMM,           KC_DOT,            HOME_COL_SLASH
 
+#define _________________DVORAK_L1__________________    KC_QUOT,           KC_COMM,           KC_DOT,            KC_P,              KC_Y
+#define _________________DVORAK_L2__________________    KC_A,              KC_O,              KC_E,              KC_U,              KC_I
+#define _________________DVORAK_L3__________________    KC_SCLN,           KC_Q,              KC_J,              KC_K,              KC_X
+
+#define _________________DVORAK_R1__________________    KC_F,              KC_G,              KC_C,              KC_R,              KC_L
+#define _________________DVORAK_R2__________________    KC_D,              KC_H,              KC_T,              KC_N,              KC_S
+#define _________________DVORAK_R3__________________    KC_B,              KC_M,              KC_W,              KC_V,              KC_Z
+
 #define _________________GAMING_L1__________________    KC_Q,              KC_W,              KC_F,              KC_P,              KC_B
 #define _________________GAMING_L2__________________    KC_A,              KC_R,              KC_S,              KC_T,              KC_G
 #define _________________GAMING_L3__________________    KC_Z,              KC_X,              KC_C,              KC_D,              KC_V
