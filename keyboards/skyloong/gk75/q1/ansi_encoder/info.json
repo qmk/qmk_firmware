@@ -1,7 +1,7 @@
 {
-    "keyboard_name": "gk75 q1 ansi",
+    "keyboard_name": "GK75 Q1_ansi_1.0.3",
     "usb": {
-        "device_version": "1.0.2",
+        "device_version": "1.0.3",
         "pid": "0x6075"
     },
 

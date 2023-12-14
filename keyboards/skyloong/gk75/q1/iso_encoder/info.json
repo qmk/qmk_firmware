@@ -1,7 +1,7 @@
 {
-    "keyboard_name": "gk75 q1 iso",
+    "keyboard_name": "GK75 Q1_iso_1.0.3",
     "usb": {
-        "device_version": "1.0.2",
+        "device_version": "1.0.3",
         "pid": "0x6076"
     },
     "layouts": {

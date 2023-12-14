@@ -130,6 +130,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 }
             }
          return false;
+        case RGB_VAI:
+          rgb_matrix_set_flags(LED_FLAG_ALL);
+          return true;
 #    endif
      case TO(0):
       if (record->event.pressed) {
