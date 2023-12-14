@@ -12,6 +12,12 @@
         "cols": ["A5", "A6", "A7", "C7"],
         "rows": ["A0", "A1", "A2", "A3", "A4"]
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "diode_direction": "COL2ROW",
     "processor": "atmega32a",
     "bootloader": "usbasploader",

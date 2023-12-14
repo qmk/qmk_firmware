@@ -26,6 +26,12 @@
             "twinkle": true
         }
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "ws2812": {
         "pin": "D4"
     },

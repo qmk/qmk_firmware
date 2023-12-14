@@ -14,8 +14,12 @@
     ]
   },
   "qmk": {
-    "tap_keycode_delay": 10
-  },
+        "locking": {
+            "enabled": true,
+            "resync": true
+        },
+        "tap_keycode_delay": 10
+   },
   "rgblight": {
     "hue_steps": 10,
     "led_count": 69,

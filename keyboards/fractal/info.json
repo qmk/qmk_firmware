@@ -12,6 +12,12 @@
     "cols": ["B3", "B2", "B6", "B5", "B4", "E6", "D7", "C6", "D4", "D0", "D1", "D3"],
     "rows": ["B1", "F7", "F6", "F5", "F4"]
   },
+  "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+  },
   "diode_direction": "COL2ROW",
   "processor": "atmega32u4",
   "bootloader": "caterina",

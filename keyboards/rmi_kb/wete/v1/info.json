@@ -18,6 +18,12 @@
         "levels": 24,
         "breathing": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "rgblight": {
         "led_count": 24,
         "animations": {

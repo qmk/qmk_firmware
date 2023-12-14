@@ -18,6 +18,12 @@
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_split_bs"
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "layouts": {
         "LAYOUT_2u_bs": {
             "layout": [

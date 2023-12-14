@@ -21,6 +21,12 @@
             {"pin_a": "F6", "pin_b": "F5", "resolution": 1}
         ]
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "indicators": {
         "caps_lock": "E6",
         "on_state": 0

@@ -16,6 +16,12 @@
     "dynamic_keymap": {
         "layer_count": 5
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "backlight": {
         "pin": "A6",
         "levels": 6,
@@ -79,7 +85,7 @@
                 {"label": "=", "matrix": [0, 6], "x": 12, "y": 0},
                 {"label": "\\", "matrix": [1, 6], "x": 13, "y": 0},
                 {"label": "`", "matrix": [3, 6], "x": 14, "y": 0},
-                                            
+
                 {"label": "Tab", "matrix": [2, 0], "x": 0, "y": 1, "w": 1.5},
                 {"label": "Q", "matrix": [3, 0], "x": 1.5, "y": 1},
                 {"label": "W", "matrix": [2, 1], "x": 2.5, "y": 1},
@@ -94,7 +100,7 @@
                 {"label": "[", "matrix": [3, 5], "x": 11.5, "y": 1},
                 {"label": "]", "matrix": [2, 6], "x": 12.5, "y": 1},
                 {"label": "Backspace", "matrix": [5, 6], "x": 13.5, "y": 1, "w": 1.5},
-                                            
+
                 {"label": "Caps Lock", "matrix": [4, 0], "x": 0, "y": 2, "w": 1.75},
                 {"label": "A", "matrix": [5, 0], "x": 1.75, "y": 2},
                 {"label": "S", "matrix": [4, 1], "x": 2.75, "y": 2},
@@ -109,7 +115,7 @@
                 {"label": "'", "matrix": [5, 5], "x": 11.75, "y": 2},
                 {"label": "#", "matrix": [4, 6], "x": 12.75, "y": 2},
                 {"label": "Enter", "matrix": [7, 6], "x": 13.75, "y": 2, "w": 1.25},
-                                            
+
                 {"label": "Shift", "matrix": [6, 0], "x": 0, "y": 3, "w": 1.25},
                 {"label": "\\", "matrix": [7, 0], "x": 1.25, "y": 3},
                 {"label": "Z", "matrix": [6, 1], "x": 2.25, "y": 3},
@@ -124,7 +130,7 @@
                 {"label": "/", "matrix": [7, 5], "x": 11.25, "y": 3},
                 {"label": "Shift", "matrix": [6, 6], "x": 12.25, "y": 3, "w": 1.75},
                 {"label": "Fn", "matrix": [9, 6], "x": 14, "y": 3},
-                                            
+
                 {"label": "Ctrl", "matrix": [8, 0], "x": 0, "y": 4, "w": 1.25},
                 {"label": "GUI", "matrix": [9, 0], "x": 1.25, "y": 4, "w": 1.25},
                 {"label": "Alt", "matrix": [9, 1], "x": 2.5, "y": 4, "w": 1.25},

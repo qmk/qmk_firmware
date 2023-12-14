@@ -8,6 +8,12 @@
     "pid": "0x5457",
     "device_version": "0.0.1"
   },
+  "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+  },
   "rgblight": {
     "led_count": 15,
     "animations": {

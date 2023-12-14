@@ -21,6 +21,12 @@
     "indicators": {
         "caps_lock": "D0"
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "processor": "atmega32u4",
     "bootloader": "qmk-dfu",
     "community_layouts": ["66_ansi", "66_iso"],

@@ -18,6 +18,12 @@
         "levels": 24,
         "breathing": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "B4", "pin_b": "B5", "resolution": 1}

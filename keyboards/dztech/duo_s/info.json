@@ -8,6 +8,12 @@
     "pid": "0x1012",
     "device_version": "0.0.1"
   },
+  "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+  },
   "rgblight": {
     "hue_steps": 10,
     "saturation_steps": 10,

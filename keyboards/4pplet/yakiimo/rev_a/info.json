@@ -17,6 +17,12 @@
         "caps_lock": "A6",
         "scroll_lock": "A7"
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "processor": "STM32F411",
     "bootloader": "stm32-dfu",
     "community_layouts": [

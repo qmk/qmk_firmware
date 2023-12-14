@@ -21,6 +21,12 @@
     "split": {
       "soft_serial_pin": "D3"
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "rgblight": {
       "led_count": 34,
       "animations": {

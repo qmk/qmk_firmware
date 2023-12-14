@@ -12,6 +12,12 @@
         "cols": ["B5", "B4", "E6", "D7", "C6", "D4", "D0", "D1", "D2", "D3"],
         "rows": ["B6", "B2", "B3", "B1", "F7", "F6", "F5"]
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "diode_direction": "COL2ROW",
     "rgblight": {
         "hue_steps": 10,

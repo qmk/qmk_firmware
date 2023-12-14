@@ -4,7 +4,7 @@
     "url": "",
     "maintainer": "Gondolindrim",
     "usb": {
-        "vid": "0x4744", 
+        "vid": "0x4744",
         "pid": "0x4D45",
         "device_version": "0.0.1"
     },
@@ -20,6 +20,12 @@
         "mousekey": false,
         "nkro": true,
         "rgblight": false
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     },
     "diode_direction": "COL2ROW",
     "backlight": {

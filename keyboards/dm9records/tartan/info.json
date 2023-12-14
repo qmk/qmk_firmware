@@ -19,6 +19,12 @@
   "layout_aliases": {
     "LAYOUT_all": "LAYOUT_60_iso_split_bs_rshift"
   },
+  "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+  },
   "layouts": {
     "LAYOUT_60_ansi": {
       "layout": [

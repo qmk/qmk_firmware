@@ -8,6 +8,7 @@
         "device_version": "0.0.1",
         "force_nkro": true
     },
+
     "rgb_matrix": {
         "driver": "ws2812"
     },
@@ -16,6 +17,12 @@
         "rows": ["F1", "F7", "F6", "F5", "F4", "D5"]
     },
     "diode_direction": "COL2ROW",
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "E6", "pin_b": "B0"}

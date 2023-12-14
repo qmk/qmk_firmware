@@ -1,5 +1,11 @@
 {
     "usb": {
         "pid": "0x00FF"
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     }
 }

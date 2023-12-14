@@ -18,6 +18,12 @@
       {"pin_a": "F5", "pin_b": "F4", "resolution": 2}
     ]
   },
+  "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+  },
   "processor": "atmega32u4",
   "bootloader": "caterina",
   "community_layouts": ["ortho_4x12", "planck_mit"],

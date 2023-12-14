@@ -16,6 +16,12 @@
     "dip_switch": {
         "pins": ["A0"]
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "B1", "pin_b": "B0"},

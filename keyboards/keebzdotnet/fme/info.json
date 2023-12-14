@@ -12,6 +12,12 @@
         "cols": ["B0", "B4", "B1", "B3", "B2"],
         "rows": ["B6", "B5", "B7", "D2"]
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

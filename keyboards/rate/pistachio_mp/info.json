@@ -9,6 +9,12 @@
         "device_version": "0.0.1",
         "force_nkro": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "rgblight": {
         "hue_steps": 10,
         "led_count": 3

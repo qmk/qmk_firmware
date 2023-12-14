@@ -12,6 +12,12 @@
     "cols": ["B0", "B1", "B2", "B3", "B7", "D0", "B6", "F7", "F6", "F5", "F4", "F1"],
     "rows": ["F0", "D6", "D4", "D5"]
   },
+   "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+   },
   "diode_direction": "COL2ROW",
   "processor": "atmega32u4",
   "bootloader": "halfkay",

@@ -16,6 +16,12 @@
   "bootmagic": {
     "matrix": [0, 6]
   },
+  "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+  },
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
   "layouts": {

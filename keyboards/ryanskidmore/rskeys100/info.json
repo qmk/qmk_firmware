@@ -13,6 +13,12 @@
     "rgb_matrix": {
         "driver": "ws2812"
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "url": "",

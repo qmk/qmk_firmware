@@ -23,6 +23,12 @@
             {"pin_a": "A3", "pin_b": "A4", "resolution": 2}
         ]
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "ws2812": {
         "pin": "A10"
     },

@@ -16,6 +16,12 @@
     "split": {
         "soft_serial_pin": "D2"
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "rgblight": {
         "saturation_steps": 8,
         "led_count": 68,

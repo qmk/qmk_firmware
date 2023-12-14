@@ -18,6 +18,12 @@
     "layout_aliases": {
         "LAYOUT": "LAYOUT_tkl_f13_ansi_tsangan"
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "community_layouts": ["tkl_f13_ansi_tsangan"],
     "layouts": {
         "LAYOUT_tkl_f13_ansi_tsangan": {

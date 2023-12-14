@@ -18,6 +18,12 @@
             {"pin_a": "D2", "pin_b": "D1"}
         ]
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "rgblight": {
         "hue_steps": 32,
         "saturation_steps": 32,

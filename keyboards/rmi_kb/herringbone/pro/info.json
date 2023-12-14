@@ -18,6 +18,12 @@
             {"pin_a": "C3", "pin_b": "C2", "resolution": 2}
         ]
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "processor": "atmega32a",
     "bootloader": "usbasploader",
     "layouts": {

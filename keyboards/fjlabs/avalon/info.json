@@ -16,6 +16,12 @@
     "indicators": {
         "caps_lock": "C7"
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "rgblight": {
         "led_count": 6,
         "brightness_steps": 12,

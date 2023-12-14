@@ -8,6 +8,12 @@
         "pid": "0x000C",
         "device_version": "0.0.1"
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "rgblight": {
         "led_count": 14,
         "sleep": true,
