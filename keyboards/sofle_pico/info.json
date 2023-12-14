@@ -22,7 +22,6 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "tap_dance": true,
         "nkro": true,
         "rgb_matrix": true,
         "oled": true,
