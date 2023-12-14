@@ -1,20 +1,20 @@
-# udon13
+# udon13new
 
-![udon13](imgur.com image replace me!)
+![udon13new](imgur.com image replace me!)
 
 *A short description of the keyboard/project*
 
-* Keyboard Maintainer: [The-Mad-Noodle](https://github.com/The-Mad-Noodle)
+* Keyboard Maintainer: [The Mad Noodle](https://github.com/The-Mad-Noodle)
 * Hardware Supported: *The PCBs, controllers supported*
 * Hardware Availability: *Links to where you can find this hardware*
 
 Make example for this keyboard (after setting up your build environment):
 
-    make udon13:default
+    make udon13new:default
 
 Flashing example for this keyboard:
 
-    make udon13:default:flash
+    make udon13new:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 

@@ -35,6 +35,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { F0, F5, F4, F6 }
 #define UNUSED_PINS
 
+/* COL2ROW or ROW2COL */
+#define DIODE_DIRECTION ROW2COL
+
 /* RGB BackLight */
 #define WS2812_DI_PIN B7
 #define RGBLED_NUM 6
@@ -62,5 +65,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_DISPLAY_128X32
 #define OLED_FONT_H "drivers/oled/glcdfont.c"
 
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION ROW2COL

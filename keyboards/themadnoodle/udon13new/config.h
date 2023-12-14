@@ -1,4 +1,4 @@
-// Copyright 2023 The-Mad-Noodle (@The-Mad-Noodle)
+// Copyright 2023 The Mad Noodle (@The-Mad-Noodle)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
@@ -18,3 +18,8 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
+
+
+/* oled custom font */
+//#define OLED_FONT_END 255
+//#define OLED_FONT_H "glcdfont.c"
