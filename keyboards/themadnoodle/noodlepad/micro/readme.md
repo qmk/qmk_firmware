@@ -1,12 +1,12 @@
 # NoodlePad [Micro]
 
-![npv3](imgur.com image replace me!)
+![NoodPad[Mircro]](https://i.imgur.com/MWUMBLV.png)
 
 *A short description of the keyboard/project*
 
 * Keyboard Maintainer: [The Mad Noodle](https://github.com/The-Mad-Noodle)
 * Hardware Supported: NoodlePad [Micro]
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Availability: https://www.madnoodleprototypes.com/shop
 
 This folder is set as default in the parent rules.mk - it will build firmware compatible with the RP2040 Community Edition. See [here](https://docs.qmk.fm/#/platformdev_rp2040?id=rp2040_ce) for a list.
 
@@ -20,10 +20,11 @@ Flashing example for this keyboard:
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-## Bootloader
+## Bootloader & Flashing
 
-Enter the bootloader in 3 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+**Physical reset button**: 
+
+* Double press the button on the back, center, left of the PCB labeled "R" to enter the bootloader drive mode.
+
+* If you have a pre-compiled .uf2 file, copy it into bootloader drive (RPI-RP2), board will reset automatically once file is copied sucessfully
