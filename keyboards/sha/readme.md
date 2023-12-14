@@ -1,6 +1,6 @@
 # Sha
 
-![Sha](https://i.imgur.com/4yuQwRX.jpg)
+![Sha](https://i.imgur.com/4yuQwRXh.jpg)
 
 Sha is a 50 key ortholinear keyboard, powered by a Waveshare RP2040-Zero or Waveshare RP2040-Matrix.
 
