@@ -158,18 +158,19 @@ __attribute__((weak)) bool process_steno_user(uint16_t keycode, keyrecord_t *rec
 
 // Can be called programmatically by the user. Returns true if successful, otherwise false.
 bool send_custom_steno_chord(const uint16_t *stenochord) {
-    for(uint8_t i=0; i<42; i++){    // Upper limit of 42 is used as failsafe if user does not supply CHORD_END. 
-                                    // (There are 42 possible keycodes in Gemeni.)
-                                    // But if CHORD_END is not provided, the keyrange check below typically triggers first.
+    for (uint8_t i = 0; i < 42; i++) { 
+        /* Upper limit of 42 is used as failsafe if user does not supply CHORD_END. 
+        There are 42 possible keycodes in Gemeni.)
+        But if CHORD_END is not provided, the keyrange check below typically triggers first. */
 
         if (stenochord[i] == CHORD_END) {
             break;
-        } else if (stenochord[i] < QK_STENO || stenochord[i] > QK_STENO_MAX) {  
+        } else if (stenochord[i] < QK_STENO || stenochord[i] > QK_STENO_MAX) {
             return false; // User did not supply a steno key, or no CHORD_END was provided and element happened to not be in range.
         }
 
         // Pass the formatted keycode to one of the add_*_key_to_chord() functions
-        switch(mode) { 
+        switch (mode) { 
 #ifdef STENO_ENABLE_GEMINI
             case STENO_MODE_GEMINI:
                 add_gemini_key_to_chord(stenochord[i] - QK_STENO);
@@ -185,11 +186,11 @@ bool send_custom_steno_chord(const uint16_t *stenochord) {
             default:
                 return false;
         } // end switch
-    } // end for loop through user-supplied keycodes.
+    }     // end for loop through user-supplied keycodes.
 
     // The steno chord has been assembled in the 'chord' array.
     // Call the correct send_steno_chord_* function.
-    switch(mode) { 
+    switch (mode) { 
 #ifdef STENO_ENABLE_GEMINI
         case STENO_MODE_GEMINI:
             send_steno_chord_gemini();
