@@ -1,4 +1,5 @@
 TEST_LIST += \
+	debounce_none \
 	debounce_sym_defer_g \
 	debounce_sym_defer_pk \
 	debounce_sym_defer_pr \
