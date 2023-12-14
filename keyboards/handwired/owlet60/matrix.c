@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "util.h"
 #include "matrix.h"
+#include "debounce.h"
 #include "config.h"
 #include "timer.h"
 
@@ -65,8 +66,6 @@ static const uint8_t num_in_binary[8][3] = {
 
 static void select_col_analog(uint8_t col);
 static void mux_pin_control(const uint8_t binary[]);
-void debounce_init(uint8_t num_rows);
-void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed);
 
 
 __attribute__ ((weak))
@@ -197,7 +196,7 @@ void matrix_init(void) {
         matrix[i] = 0;
     }
 
-    debounce_init(MATRIX_ROWS);
+    debounce_init();
 
     matrix_init_kb();
 
@@ -214,7 +213,7 @@ uint8_t matrix_scan(void)
         changed |= read_cols_on_row(raw_matrix, current_row);
     }
 
-    debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
+    debounce(raw_matrix, matrix, changed);
 
     matrix_scan_kb();
     return (uint8_t)changed;
@@ -232,7 +231,7 @@ uint8_t matrix_scan(void)
   }
 #endif
 
-  debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
+  debounce(raw_matrix, matrix, changed);
 
   matrix_scan_kb();
   return (uint8_t)changed;

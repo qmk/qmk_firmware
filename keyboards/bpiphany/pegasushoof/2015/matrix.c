@@ -89,7 +89,7 @@ uint8_t matrix_scan(void)
     }
   }
 
-  debounce(matrix_debouncing, matrix, matrix_rows(), changed);
+  debounce(matrix_debouncing, matrix, changed);
   matrix_scan_kb();
 
   return (uint8_t)changed;

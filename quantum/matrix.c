@@ -22,15 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debounce.h"
 #include "atomic_util.h"
 
-#ifdef SPLIT_KEYBOARD
-#    include "split_common/split_util.h"
-#    include "split_common/transactions.h"
-
-#    define ROWS_PER_HAND (MATRIX_ROWS / 2)
-#else
-#    define ROWS_PER_HAND (MATRIX_ROWS)
-#endif
-
 #ifdef DIRECT_PINS_RIGHT
 #    define SPLIT_MUTABLE
 #else
@@ -307,7 +298,7 @@ void matrix_init(void) {
     memset(matrix, 0, sizeof(matrix));
     memset(raw_matrix, 0, sizeof(raw_matrix));
 
-    debounce_init(ROWS_PER_HAND);
+    debounce_init();
 
     matrix_init_kb();
 }
@@ -340,9 +331,9 @@ uint8_t matrix_scan(void) {
     if (changed) memcpy(raw_matrix, curr_matrix, sizeof(curr_matrix));
 
 #ifdef SPLIT_KEYBOARD
-    changed = debounce(raw_matrix, matrix + thisHand, ROWS_PER_HAND, changed) | matrix_post_scan();
+    changed = debounce(raw_matrix, matrix + thisHand, changed) | matrix_post_scan();
 #else
-    changed = debounce(raw_matrix, matrix, ROWS_PER_HAND, changed);
+    changed = debounce(raw_matrix, matrix, changed);
     matrix_scan_kb();
 #endif
     return (uint8_t)changed;
