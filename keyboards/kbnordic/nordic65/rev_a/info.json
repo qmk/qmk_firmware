@@ -1,0 +1,38 @@
+{
+    "keyboard_name": "Nordic65 Rev A",
+    "manufacturer": "KBNORDIC",
+    "url": "kbnordic.se",
+    "maintainer": "4pplet",
+    "usb": {
+        "vid": "0x4445",
+        "pid": "0x0002",
+        "device_version": "0.0.1"
+    },
+    "processor": "STM32F072",
+    "rgblight": {
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        },
+        "led_count": 17
+    },
+    "ws2812": {
+        "pin": "D3"
+    },
+    "matrix_pins": {
+        "cols": ["C4", "C5", "D2", "C6", "C7", "B7", "B6", "B5", "B4", "B3", "B2", "B1", "D1", "D4"], // uppdatera
+        "rows": ["C2", "D0", "B0", "D6", "D5"] // uppdatera
+    },
+    "diode_direction": "COL2ROW",
+    "layouts": {
+
+    }
+}
