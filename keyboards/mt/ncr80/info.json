@@ -1,0 +1,8 @@
+{
+    "keyboard_name": "NCR-80",
+    "manufacturer": "MT",
+    "maintainer": "qmk",
+    "usb": {
+        "vid": "0x4D54"
+    }
+}
