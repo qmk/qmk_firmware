@@ -3,6 +3,13 @@
         "levels": 5,
         "pin": "B6"
     },
+    "features": {
+        "backlight": true,
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
     "url": "https://www.aliexpress.com/item/1005003364462523.html",
     "usb": {
         "device_version": "0.0.1",
