@@ -1159,14 +1159,25 @@ bool processKeycodeIfLThumbEWeak(uint16_t keycode, keyrecord_t* record) {
                 }
             }
             return false;
-        case MA_SELLINE:
+        case MA_LTHUMB1:
             if (record->event.pressed) {
-                tap_code16(KC_HOME);
-                tap_code16(KC_HOME);
-                register_code16(KC_LSFT);
-                tap_code16(KC_END);
-                tap_code16(KC_RGHT);
-                unregister_code16(KC_LSFT);
+                layer_off(LA_LTHUMBEWEAK);
+                isLThumbEWeakPristine = true;
+                layer_on(LA_LTHUMB1WEAK);
+            }
+            return false;
+        case MA_LTHUMB2:
+            if (record->event.pressed) {
+                layer_off(LA_LTHUMBEWEAK);
+                isLThumbEWeakPristine = true;
+                layer_on(LA_LTHUMB2WEAK);
+            }
+            return false;
+        case MA_LTHUMB3:
+            if (record->event.pressed) {
+                layer_off(LA_LTHUMBEWEAK);
+                isLThumbEWeakPristine = true;
+                layer_on(LA_LTHUMB3WEAK);
             }
             return false;
     }
@@ -1228,6 +1239,27 @@ bool processKeycodeIfLThumbDWeak(uint16_t keycode, keyrecord_t* record) {
                 } else {
                     layer_on(LA_LTHUMBEMO);
                 }
+            }
+            return false;
+        case MA_LTHUMB1:
+            if (record->event.pressed) {
+                layer_off(LA_LTHUMBDWEAK);
+                isLThumbDWeakPristine = true;
+                layer_on(LA_LTHUMB1WEAK);
+            }
+            return false;
+        case MA_LTHUMB2:
+            if (record->event.pressed) {
+                layer_off(LA_LTHUMBDWEAK);
+                isLThumbDWeakPristine = true;
+                layer_on(LA_LTHUMB2WEAK);
+            }
+            return false;
+        case MA_LTHUMB3:
+            if (record->event.pressed) {
+                layer_off(LA_LTHUMBDWEAK);
+                isLThumbDWeakPristine = true;
+                layer_on(LA_LTHUMB3WEAK);
             }
             return false;
     }
