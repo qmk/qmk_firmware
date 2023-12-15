@@ -165,7 +165,7 @@ bool send_custom_steno_chord(const uint16_t *stenochord) {
         But if CHORD_END is not provided by user, the keyrange check below sometimes triggers first. */
         if (stenochord[i] == CHORD_END) {
             break;
-        } else if (i == MAX_LOOP-1) { // Reached the last item but still no CHORD_END
+        } else if (i == MAX_LOOP - 1) { // Reached the last item but still no CHORD_END
             steno_clear_chord();
             return false;
         } else if (stenochord[i] < QK_STENO || stenochord[i] > QK_STENO_MAX) {
