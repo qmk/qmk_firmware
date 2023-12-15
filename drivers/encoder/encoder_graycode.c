@@ -34,14 +34,42 @@
 #    define ENCODER_RESOLUTION 4
 #endif
 
-#if !defined(ENCODERS_PAD_A) || !defined(ENCODERS_PAD_B)
-#    error "No encoder pads defined by ENCODERS_PAD_A and ENCODERS_PAD_B"
+#undef ENCODER_DEFAULT_PIN_API_IMPL
+#if defined(ENCODERS_PAD_A) && defined(ENCODERS_PAD_B)
+// Inform the graycode driver that it needs to implement pin init/read functions
+#    define ENCODER_DEFAULT_PIN_API_IMPL
 #endif
 
 extern volatile bool isLeftHand;
 
+__attribute__((weak)) void    encoder_graycode_init_pin(uint8_t index, bool pad_b);
+__attribute__((weak)) uint8_t encoder_graycode_read_pin(uint8_t index, bool pad_b);
+
+#ifdef ENCODER_DEFAULT_PIN_API_IMPL
+
 static pin_t encoders_pad_a[NUM_ENCODERS_MAX_PER_SIDE] = ENCODERS_PAD_A;
 static pin_t encoders_pad_b[NUM_ENCODERS_MAX_PER_SIDE] = ENCODERS_PAD_B;
+
+__attribute__((weak)) void encoder_wait_pullup_charge(void) {
+    wait_us(100);
+}
+
+__attribute__((weak)) void encoder_graycode_init_pin(uint8_t index, bool pad_b) {
+    pin_t pin = pad_b ? encoders_pad_b[index] : encoders_pad_a[index];
+    if (pin != NO_PIN) {
+        setPinInputHigh(pin);
+    }
+}
+
+__attribute__((weak)) uint8_t encoder_graycode_read_pin(uint8_t index, bool pad_b) {
+    pin_t pin = pad_b ? encoders_pad_b[index] : encoders_pad_a[index];
+    if (pin != NO_PIN) {
+        return readPin(pin) ? 1 : 0;
+    }
+    return 0;
+}
+
+#endif // ENCODER_DEFAULT_PIN_API_IMPL
 
 #ifdef ENCODER_RESOLUTIONS
 static uint8_t encoder_resolutions[NUM_ENCODERS] = ENCODER_RESOLUTIONS;
@@ -68,25 +96,6 @@ static uint8_t thisHand, thatHand;
 static uint8_t thatCount;
 #endif
 
-__attribute__((weak)) void encoder_wait_pullup_charge(void) {
-    wait_us(100);
-}
-
-__attribute__((weak)) void encoder_graycode_init_pin(uint8_t index, bool pad_b) {
-    pin_t pin = pad_b ? encoders_pad_b[index] : encoders_pad_a[index];
-    if (pin != NO_PIN) {
-        setPinInputHigh(pin);
-    }
-}
-
-__attribute__((weak)) uint8_t encoder_graycode_read_pin(uint8_t index, bool pad_b) {
-    pin_t pin = pad_b ? encoders_pad_b[index] : encoders_pad_a[index];
-    if (pin != NO_PIN) {
-        return readPin(pin) ? 1 : 0;
-    }
-    return 0;
-}
-
 __attribute__((weak)) void encoder_graycode_post_init_kb(void) {
     extern void encoder_graycode_handle_read(uint8_t index, uint8_t pin_a_state, uint8_t pin_b_state);
     // Unused normally, but can be used for things like setting up pin-change interrupts in keyboard code.
@@ -94,6 +103,7 @@ __attribute__((weak)) void encoder_graycode_post_init_kb(void) {
 }
 
 void encoder_graycode_post_init(void) {
+#ifdef ENCODER_DEFAULT_PIN_API_IMPL
     for (uint8_t i = 0; i < thisCount; i++) {
         encoder_graycode_init_pin(i, false);
         encoder_graycode_init_pin(i, true);
@@ -102,6 +112,9 @@ void encoder_graycode_post_init(void) {
     for (uint8_t i = 0; i < thisCount; i++) {
         encoder_state[i] = (encoder_graycode_read_pin(i, false) << 0) | (encoder_graycode_read_pin(i, true) << 1);
     }
+#else
+    memset(encoder_state, 0, sizeof(encoder_state));
+#endif
 
     encoder_graycode_post_init_kb();
 }
@@ -123,8 +136,8 @@ void encoder_driver_init(void) {
     // here, but it's the simplest solution.
     memset(encoder_state, 0, sizeof(encoder_state));
     memset(encoder_pulses, 0, sizeof(encoder_pulses));
-    static const pin_t encoders_pad_a_left[] = ENCODERS_PAD_A;
-    static const pin_t encoders_pad_b_left[] = ENCODERS_PAD_B;
+    const pin_t encoders_pad_a_left[] = ENCODERS_PAD_A;
+    const pin_t encoders_pad_b_left[] = ENCODERS_PAD_B;
     for (uint8_t i = 0; i < thisCount; i++) {
         encoders_pad_a[i] = encoders_pad_a_left[i];
         encoders_pad_b[i] = encoders_pad_b_left[i];
@@ -134,8 +147,8 @@ void encoder_driver_init(void) {
 #if defined(SPLIT_KEYBOARD) && defined(ENCODERS_PAD_A_RIGHT) && defined(ENCODERS_PAD_B_RIGHT)
     // Re-initialise the pads if it's the right-hand side
     if (!isLeftHand) {
-        static const pin_t encoders_pad_a_right[] = ENCODERS_PAD_A_RIGHT;
-        static const pin_t encoders_pad_b_right[] = ENCODERS_PAD_B_RIGHT;
+        const pin_t encoders_pad_a_right[] = ENCODERS_PAD_A_RIGHT;
+        const pin_t encoders_pad_b_right[] = ENCODERS_PAD_B_RIGHT;
         for (uint8_t i = 0; i < thisCount; i++) {
             encoders_pad_a[i] = encoders_pad_a_right[i];
             encoders_pad_b[i] = encoders_pad_b_right[i];

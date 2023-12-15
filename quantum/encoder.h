@@ -36,17 +36,29 @@ bool encoder_update_user(uint8_t index, bool clockwise);
 #    ifdef SPLIT_KEYBOARD
 
 #        if defined(ENCODERS_PAD_A_RIGHT)
-#            define NUM_ENCODERS_LEFT ARRAY_SIZE(((pin_t[])ENCODERS_PAD_A))
-#            define NUM_ENCODERS_RIGHT ARRAY_SIZE(((pin_t[])ENCODERS_PAD_A_RIGHT))
+#            ifndef NUM_ENCODERS_LEFT
+#                define NUM_ENCODERS_LEFT ARRAY_SIZE(((pin_t[])ENCODERS_PAD_A))
+#            endif
+#            ifndef NUM_ENCODERS_RIGHT
+#                define NUM_ENCODERS_RIGHT ARRAY_SIZE(((pin_t[])ENCODERS_PAD_A_RIGHT))
+#            endif
 #        else
-#            define NUM_ENCODERS_LEFT ARRAY_SIZE(((pin_t[])ENCODERS_PAD_A))
-#            define NUM_ENCODERS_RIGHT NUM_ENCODERS_LEFT
+#            ifndef NUM_ENCODERS_LEFT
+#                define NUM_ENCODERS_LEFT ARRAY_SIZE(((pin_t[])ENCODERS_PAD_A))
+#            endif
+#            ifndef NUM_ENCODERS_RIGHT
+#                define NUM_ENCODERS_RIGHT NUM_ENCODERS_LEFT
+#            endif
 #        endif
-#        define NUM_ENCODERS (NUM_ENCODERS_LEFT + NUM_ENCODERS_RIGHT)
+#        ifndef NUM_ENCODERS
+#            define NUM_ENCODERS (NUM_ENCODERS_LEFT + NUM_ENCODERS_RIGHT)
+#        endif
 
 #    else // SPLIT_KEYBOARD
 
-#        define NUM_ENCODERS ARRAY_SIZE(((pin_t[])ENCODERS_PAD_A))
+#        ifndef NUM_ENCODERS
+#            define NUM_ENCODERS ARRAY_SIZE(((pin_t[])ENCODERS_PAD_A))
+#        endif
 #        define NUM_ENCODERS_LEFT NUM_ENCODERS
 #        define NUM_ENCODERS_RIGHT 0
 
