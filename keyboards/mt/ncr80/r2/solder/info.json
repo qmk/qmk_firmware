@@ -1,4 +1,11 @@
 {
+    "features": {
+        "bootmagic": true,
+        "backlight": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
     "backlight": {
         "levels": 5,
         "pin": "B6"

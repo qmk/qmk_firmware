@@ -1,4 +1,11 @@
 {
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgblight": true
+    },
     "rgblight": {
         "animations": {
             "alternating": true,
