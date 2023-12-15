@@ -1,1 +1,1 @@
-DEFAULT_FOLDER = mt/ncr80/hotswap
+DEFAULT_FOLDER = mt/ncr80/r2/hotswap
