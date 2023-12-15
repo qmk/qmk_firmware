@@ -192,7 +192,7 @@ cli.log.info('Reading from %s and writing to %s', cli.args.filename, cli.args.ou
 
 # テスト、リントおよびフォーマット
 
-nose2、flake8 および yapf を使ってコードをテスト、リントおよびフォーマットします。これらのテストを実行するために `pytest` と `pyformat` サブコマンドを使うことができます。
+nose2、flake8 および yapf を使ってコードをテスト、リントおよびフォーマットします。これらのテストを実行するために `pytest` と `format-python` サブコマンドを使うことができます。
 
 ### テストとリント
 
@@ -200,7 +200,7 @@ nose2、flake8 および yapf を使ってコードをテスト、リントお�
 
 ### フォーマット
 
-    qmk pyformat
+    qmk format-python
 
 ## フォーマットの詳細
 

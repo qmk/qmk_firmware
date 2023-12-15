@@ -17,18 +17,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef DACTYL_CONFIG_H
-#define DACTYL_CONFIG_H
+#pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x1308
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Adereth
-#define PRODUCT         Dactyl
-#define DESCRIPTION     An ortholinear, split, 3D-curved keyboard with thumb clusters.
 
 #define DIODE_DIRECTION ROW2COL
 #define MATRIX_ROWS 6
@@ -47,11 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_MAX_SPEED    7
 #define MOUSEKEY_WHEEL_DELAY  0
 
-#define TAPPING_TOGGLE  1
-
-#define TAPPING_TERM    200
-#define IGNORE_MOD_TAP_INTERRUPT // this makes it possible to do rolling combos (zx) with keys that convert to other keys on hold (z becomes ctrl when you hold it, and when this option isn't enabled, z rapidly followed by x actually sends Ctrl-x. That's bad.)
-
 /* key combination for command */
 #define IS_COMMAND() ( \
     get_mods() == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)) || \
@@ -60,10 +45,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* fix space cadet rollover issue */
 #define DISABLE_SPACE_CADET_ROLLOVER
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    15
-
-#define USB_MAX_POWER_CONSUMPTION 500
-
-#endif

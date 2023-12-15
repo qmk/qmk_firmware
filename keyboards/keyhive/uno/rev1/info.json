@@ -1,0 +1,22 @@
+{
+    "keyboard_name": "Uno rev1",
+    "usb": {
+        "device_version": "0.0.1"
+    },
+    "rgblight": {
+        "led_count": 1,
+        "animations": {
+            "rainbow_mood": true
+        }
+    },
+    "ws2812": {
+        "pin": "F6"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "matrix_pins": {
+        "direct": [
+            ["B6"]
+        ]
+    }
+}

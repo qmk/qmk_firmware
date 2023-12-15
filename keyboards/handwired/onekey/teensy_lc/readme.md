@@ -33,8 +33,6 @@ When setting matrix pins, you need to use the MCU definitions instead of what is
 | 21/A7  | D6  |       |
 | 22/A8  | C1  |       |
 | 23/A9  | C2  |       |
-| 24/A10 | E2  |       |
-| 25/A11 | E21 | *[1]* |
-| 26/A12 | E30 | *[1]* |
-
-*[1]* - Currently not configured and may require extra work to implement.
+| 24/A10 | E20 |       |
+| 25/A11 | E21 |       |
+| 26/A12 | E30 |       |

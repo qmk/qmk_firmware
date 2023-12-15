@@ -1,4 +1,5 @@
 #include "mechmerlin.h"
+#include "version.h"
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint16_t fnx_layer_timer;
@@ -15,9 +16,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
         break;
-        case KC_MAC:
+        case KC_VER:
             if (record->event.pressed) {
-                SEND_STRING("meow");
+                send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), TAP_CODE_DELAY);
             } else {
             }
         break;

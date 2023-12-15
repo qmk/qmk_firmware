@@ -1,10 +1,12 @@
 name: Update develop after master merge
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:
     - master
-
 
 jobs:
   develop_update:
@@ -13,23 +15,21 @@ jobs:
     if: github.repository == 'qmk/qmk_firmware'
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       with:
+        token: ${{ secrets.QMK_BOT_TOKEN }}
         fetch-depth: 0
+
+    - name: Disable automatic eol conversion
+      run: |
+        echo "* -text" > .git/info/attributes
 
     - name: Checkout develop
       run: |
         git fetch origin master develop
         git checkout develop
 
-    - name: Check if branch locked
-      id: check_locked
-      uses: andstor/file-existence-action@v1
-      with:
-        files: ".locked"
-
     - name: Update develop from master
-      if: steps.check_locked.outputs.files_exists == 'false'
       run: |
         git config --global user.name "QMK Bot"
         git config --global user.email "hello@qmk.fm"

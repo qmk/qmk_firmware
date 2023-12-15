@@ -52,7 +52,7 @@
 #endif
 
 #include "compiler.h"
-#undef LITTLE_ENDIAN  // redefined in samd51j18a.h
+#undef LITTLE_ENDIAN // redefined in samd51j18a.h
 #include "samd51j18a.h"
 #include <stdbool.h>
 #include <string.h>
@@ -319,7 +319,7 @@ enum status_code usb_device_endpoint_enable_callback(struct usb_module *module_i
     module_inst->device_endpoint_enabled_callback_mask[ep_num] |= _usb_endpoint_irq_bits[callback_type];
 
     if (callback_type == USB_DEVICE_ENDPOINT_CALLBACK_TRCPT) {
-        if (ep_num == 0) {  // control endpoint
+        if (ep_num == 0) { // control endpoint
             module_inst->hw->DEVICE.DeviceEndpoint[ep_num].EPINTENSET.reg = USB_DEVICE_EPINTENSET_TRCPT0 | USB_DEVICE_EPINTENSET_TRCPT1;
         } else if (ep & USB_EP_DIR_IN) {
             module_inst->hw->DEVICE.DeviceEndpoint[ep_num].EPINTENSET.reg = USB_DEVICE_EPINTENSET_TRCPT1;
@@ -329,7 +329,7 @@ enum status_code usb_device_endpoint_enable_callback(struct usb_module *module_i
     }
 
     if (callback_type == USB_DEVICE_ENDPOINT_CALLBACK_TRFAIL) {
-        if (ep_num == 0) {  // control endpoint
+        if (ep_num == 0) { // control endpoint
             module_inst->hw->DEVICE.DeviceEndpoint[ep_num].EPINTENSET.reg = USB_DEVICE_EPINTENSET_TRFAIL0 | USB_DEVICE_EPINTENSET_TRFAIL1;
         } else if (ep & USB_EP_DIR_IN) {
             module_inst->hw->DEVICE.DeviceEndpoint[ep_num].EPINTENSET.reg = USB_DEVICE_EPINTENSET_TRFAIL1;
@@ -377,7 +377,7 @@ enum status_code usb_device_endpoint_disable_callback(struct usb_module *module_
     module_inst->device_endpoint_enabled_callback_mask[ep_num] &= ~_usb_endpoint_irq_bits[callback_type];
 
     if (callback_type == USB_DEVICE_ENDPOINT_CALLBACK_TRCPT) {
-        if (ep_num == 0) {  // control endpoint
+        if (ep_num == 0) { // control endpoint
             module_inst->hw->DEVICE.DeviceEndpoint[ep_num].EPINTENCLR.reg = USB_DEVICE_EPINTENCLR_TRCPT0 | USB_DEVICE_EPINTENCLR_TRCPT1;
         } else if (ep & USB_EP_DIR_IN) {
             module_inst->hw->DEVICE.DeviceEndpoint[ep_num].EPINTENCLR.reg = USB_DEVICE_EPINTENCLR_TRCPT1;
@@ -387,7 +387,7 @@ enum status_code usb_device_endpoint_disable_callback(struct usb_module *module_
     }
 
     if (callback_type == USB_DEVICE_ENDPOINT_CALLBACK_TRFAIL) {
-        if (ep_num == 0) {  // control endpoint
+        if (ep_num == 0) { // control endpoint
             module_inst->hw->DEVICE.DeviceEndpoint[ep_num].EPINTENCLR.reg = USB_DEVICE_EPINTENCLR_TRFAIL0 | USB_DEVICE_EPINTENCLR_TRFAIL1;
         } else if (ep & USB_EP_DIR_IN) {
             module_inst->hw->DEVICE.DeviceEndpoint[ep_num].EPINTENCLR.reg = USB_DEVICE_EPINTENCLR_TRFAIL1;
@@ -903,11 +903,17 @@ void USB_0_Handler(void) {
     }
 }
 
-void USB_1_Handler(void) { _usb_device_interrupt_handler(); }
+void USB_1_Handler(void) {
+    _usb_device_interrupt_handler();
+}
 
-void USB_2_Handler(void) { _usb_device_interrupt_handler(); }
+void USB_2_Handler(void) {
+    _usb_device_interrupt_handler();
+}
 
-void USB_3_Handler(void) { _usb_device_interrupt_handler(); }
+void USB_3_Handler(void) {
+    _usb_device_interrupt_handler();
+}
 
 /**
  * \brief Get the default USB module settings
@@ -974,10 +980,10 @@ enum status_code usb_init(struct usb_module *module_inst, Usb *const hw, struct 
     pmclk->APBBMASK.bit.USB_ = 1;
 
     /* Set up the USB DP/DN pins */
-    pport->Group[0].PMUX[12].reg          = 0x77;  // PA24, PA25, function column H for USB D-, D+
+    pport->Group[0].PMUX[12].reg          = 0x77; // PA24, PA25, function column H for USB D-, D+
     pport->Group[0].PINCFG[24].bit.PMUXEN = 1;
     pport->Group[0].PINCFG[25].bit.PMUXEN = 1;
-    pport->Group[1].PMUX[11].bit.PMUXE    = 7;  // PB22, function column H for USB SOF_1KHz output
+    pport->Group[1].PMUX[11].bit.PMUXE    = 7; // PB22, function column H for USB SOF_1KHz output
     pport->Group[1].PINCFG[22].bit.PMUXEN = 1;
 
     // configure and enable DFLL for USB clock recovery mode at 48MHz
@@ -996,7 +1002,7 @@ enum status_code usb_init(struct usb_module *module_inst, Usb *const hw, struct 
     while (posc->DFLLSYNC.bit.DFLLCTRLB)
         ;
     posc->DFLLCTRLB.bit.CCDIS = 1;
-    posc->DFLLMUL.bit.MUL     = 0xbb80;  // 4800 x 1KHz
+    posc->DFLLMUL.bit.MUL     = 0xbb80; // 4800 x 1KHz
     while (posc->DFLLSYNC.bit.DFLLMUL)
         ;
     posc->DFLLCTRLA.bit.ENABLE = 1;

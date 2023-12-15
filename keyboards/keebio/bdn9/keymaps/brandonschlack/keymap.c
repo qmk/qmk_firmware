@@ -57,7 +57,7 @@ enum bdn9_dances {
     TD_DTAP_ADJT
 };
 // Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_DTAP_ADIO] = ACTION_TAP_DANCE_TRIGGER_LAYER(DOUBLE_TAP, _AUDIO),
     [TD_DTAP_LGHT] = ACTION_TAP_DANCE_TRIGGER_LAYER(DOUBLE_TAP, _LIGHT),
     [TD_DTAP_ADJT] = ACTION_TAP_DANCE_TRIGGER_LAYER(DOUBLE_TAP, _ADJUST),
@@ -253,7 +253,7 @@ const uint16_t PROGMEM encoders[][2][2] = {
     [LR_EDIT] = {{ KC_COMM, KC_DOT }, { KC_MINS, KC_EQL }},
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     uint8_t layer = get_highest_layer(layer_state);
 
     switch (layer) {
@@ -285,6 +285,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code16(pgm_read_word(&encoders[layer][index][clockwise]));
             break;
     }
+    return true;
 }
 
 /**

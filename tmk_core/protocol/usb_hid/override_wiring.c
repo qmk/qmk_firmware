@@ -2,8 +2,8 @@
  * To keep Timer0 for common/timer.c override arduino/wiring.c.
  */
 #define __DELAY_BACKWARD_COMPATIBLE__
-#include <util/delay.h>
-#include "common/timer.h"
+#include "wait.h"
+#include "platforms/timer.h"
 
 
 unsigned long millis(void)
@@ -16,11 +16,11 @@ unsigned long micros(void)
 }
 void delay(unsigned long ms)
 {
-    _delay_ms(ms);
+    wait_ms(ms);
 }
 void delayMicroseconds(unsigned int us)
 {
-    _delay_us(us);
+    wait_us(us);
 }
 void init(void)
 {

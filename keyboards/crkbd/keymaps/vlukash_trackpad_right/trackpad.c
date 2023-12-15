@@ -43,7 +43,7 @@ uint8_t readRegister(uint8_t address) {
   return data;
 }
 
-void pointing_device_task(void){
+bool pointing_device_task(void){
   uint8_t motion = readRegister(0x02);
 
   // Motion has occurred on the trackpad
@@ -73,6 +73,6 @@ void pointing_device_task(void){
     }
 
     pointing_device_set_report(currentReport);
-    pointing_device_send();
   }
+  return pointing_device_send();
 }

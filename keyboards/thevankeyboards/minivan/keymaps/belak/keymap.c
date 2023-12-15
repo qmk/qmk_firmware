@@ -22,25 +22,22 @@
 #define TD_LCTL TD(BE_TD_CTL)
 #define TD_LALT TD(BE_TD_ALT)
 
+#define ACTION_TAP_DANCE_MOD_TAP(mod) \
+    { .fn = {mod_tap_fn, NULL, mod_reset_fn}, .user_data = (void *)&((uint8_t){mod}), }
+
 enum belak_td {
     BE_TD_GUI = 0,
     BE_TD_CTL,
     BE_TD_ALT,
 };
 
-void mod_tap_fn(qk_tap_dance_state_t *state, void *user_data);
-void mod_reset_fn(qk_tap_dance_state_t *state, void *user_data);
+void mod_tap_fn(tap_dance_state_t *state, void *user_data);
+void mod_reset_fn(tap_dance_state_t *state, void *user_data);
 
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [BE_TD_GUI] = ACTION_TAP_DANCE_FN_ADVANCED(mod_tap_fn, NULL, mod_reset_fn),
-    [BE_TD_CTL] = ACTION_TAP_DANCE_FN_ADVANCED(mod_tap_fn, NULL, mod_reset_fn),
-    [BE_TD_ALT] = ACTION_TAP_DANCE_FN_ADVANCED(mod_tap_fn, NULL, mod_reset_fn),
-};
-
-uint16_t tap_dance_keys[] = {
-    [BE_TD_GUI] = KC_LGUI,
-    [BE_TD_CTL] = KC_LCTL,
-    [BE_TD_ALT] = KC_LALT,
+tap_dance_action_t tap_dance_actions[] = {
+    [BE_TD_GUI] = ACTION_TAP_DANCE_MOD_TAP(KC_LGUI),
+    [BE_TD_CTL] = ACTION_TAP_DANCE_MOD_TAP(KC_LCTL),
+    [BE_TD_ALT] = ACTION_TAP_DANCE_MOD_TAP(KC_LALT),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -71,10 +68,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 // Tap dance functions
-void mod_tap_fn(qk_tap_dance_state_t *state, void *user_data) {
+void mod_tap_fn(tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
         case 1:
-            register_mods(MOD_BIT(tap_dance_keys[state->keycode - QK_TAP_DANCE]));
+            uint8_t *mod = (uint8_t *)user_data;
+            register_mods(MOD_BIT(*mod));
             send_keyboard_report();
             break;
         case 2:
@@ -89,9 +87,10 @@ void mod_tap_fn(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void mod_reset_fn(qk_tap_dance_state_t *state, void *user_data) {
+void mod_reset_fn(tap_dance_state_t *state, void *user_data) {
+    uint8_t *mod = (uint8_t *)user_data;
     layer_off(_L1);
     layer_off(_L2);
-    unregister_mods(MOD_BIT(tap_dance_keys[state->keycode - QK_TAP_DANCE]));
+    unregister_mods(MOD_BIT(*mod));
     send_keyboard_report();
 }

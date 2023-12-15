@@ -1,0 +1,8 @@
+{
+    "matrix_pins": {
+        "cols": ["D6", "D7", "B4", "D3", "C6", "C7"],
+        "rows": ["F6", "B5", "B6", "F7"]
+    },
+    "diode_direction": "COL2ROW",
+    "bootloader": "halfkay"
+}

@@ -381,4 +381,4 @@ extern void udc_sof_notify(void);
 #ifdef __cplusplus
 }
 #endif
-#endif  // _UDD_H_
+#endif // _UDD_H_

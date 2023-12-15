@@ -13,10 +13,8 @@ enum custom_layers {
 };
 
 enum custom_keycodes {
-  BASE = SAFE_RANGE,
-  LOWER,
+  LOWER = SAFE_RANGE,
   RAISE,
-  KC_DEMOMACRO
 };
 
 // Custom macros
@@ -27,7 +25,6 @@ enum custom_keycodes {
 // Requires KC_TRNS/_______ for the trigger key in the destination layer
 #define LT_MC(kc)   LT(_MOUSECURSOR, kc)        // L-ayer T-ap M-ouse C-ursor
 #define LT_RAI(kc)  LT(_RAISE, kc)              // L-ayer T-ap to Raise
-#define DEMOMACRO   KC_DEMOMACRO                // Sample for macros
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -62,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `---------------------------'
  */
 [_LOWER] = LAYOUT(
-  KC_NLCK,
+  KC_NUM,
   KC_COLN,  KC_PSLS, KC_PAST, KC_PMNS,
   _______,  XXXXXXX, KC_EQL,  KC_PPLS,
   _______,  KC_P0,   KC_PDOT, KC_PENT
@@ -80,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `---------------------------'
  */
 [_RAISE] = LAYOUT(
-  KC_NLCK,
+  KC_NUM,
   RGB_TOG, RGB_MOD, RGB_RMOD, XXXXXXX,
   _______, RGB_HUI, RGB_SAI,  RGB_VAI,
   _______, RGB_HUD, RGB_SAD,  RGB_VAD
@@ -99,10 +96,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `---------------------------'
  */
 [_ADJUST] = LAYOUT(
-  RESET,
-  HPT_TOG, HPT_FBK,  HPT_RST, KC_BSPC,
-  _______, HPT_MODI, XXXXXXX, XXXXXXX,
-  _______, HPT_MODD, CK_TOGG, KC_DEL
+  QK_BOOT,
+  HF_TOGG, HF_FDBK, HF_RST,  KC_BSPC,
+  _______, HF_NEXT, XXXXXXX, XXXXXXX,
+  _______, HF_PREV, CK_TOGG, KC_DEL
 ),
 
 
@@ -115,14 +112,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case KC_DEMOMACRO:
-            if (record->event.pressed) {
-        // when keycode KC_DEMOMACRO is pressed
-        SEND_STRING("QMK is the best thing ever!");
-      } else {
-        // when keycode KC_DEMOMACRO is released
-      }
-      break;
     case LOWER:
       if (record->event.pressed) {
           //not sure how to have keyboard check mode and set it to a variable, so my work around
@@ -155,11 +144,4 @@ bool music_mask_user(uint16_t keycode) {
     default:
       return true;
   }
-}
-
-void matrix_init_user(void) {
-}
-
-
-void matrix_scan_user(void) {
 }

@@ -2,9 +2,9 @@
 
 A 60% PCB featuring a split spacebar.
 
-Keyboard Maintainer: QMK Community  
-Hardware Supported: BananaSplit60 PCB  
-Hardware Availability: https://thevankeyboards.com/products/gb-bananasplit-60-keyboard-kit?variant=42149104910
+* Keyboard Maintainer: QMK Community  
+* Hardware Supported: BananaSplit60 PCB  
+* Hardware Availability: [TheVan Keyboards](https://thevankeyboards.com/)
 
 Make example for this keyboard (after setting up your build environment):
 

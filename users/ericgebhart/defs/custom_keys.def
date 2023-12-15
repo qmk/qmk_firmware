@@ -1,0 +1,86 @@
+// custom key codes.
+  EPRM,
+  //VRSN,
+  CAPS_WORD_ON,
+
+  // LAYERStuff.
+  KC_NEXT_LOCALE,
+  KC_NEXT_BASE_LAYER,
+  KC_SET_BASE,
+  // Misc.
+  KC_MAKE,
+  KC_RESET,
+  KC_RGB_T,
+  RGB_IDL,
+  KC_SECRET_1,
+  KC_SECRET_2,
+  KC_SECRET_3,
+  KC_SECRET_4,
+  KC_SECRET_5,
+
+  KC_SPACETEST,
+
+  /// Need to evaluate which to keep.
+  BCK_FWD,  // Alt left and right
+  CLEAR,    // Clears all mods, does not change layers.
+  LOCKSCR,  // locks screen per is_windows value
+  PANIC,    // Clears all One-Shot keys and returns to base layer.
+  UND_RED,  // Ctrl Z and Y
+
+  // macros
+  QMKCOMP,  // qmk compile
+  QMKFLSH,  // qmk flash
+
+  // Swapper keys - just the swapper key, maybe gets reused.
+  SW_REV,  // Dead key, reverse direction for swapper
+
+// for the combo ref layers.
+  CB_0M1, CB_0M2, CB_0M3,
+  CB_1M1, CB_1M2, CB_1M3,
+  CB_2M1, CB_2M2, CB_2M3,
+  CB_3M1, CB_3M2, CB_3M3,
+  CB_4M1, CB_4M2, CB_4M3, CB_4M4, CB_4M5,
+
+  CB_1,  CB_2, CB_3, CB_4, CB_5, CB_6, CB_7, CB_8, CB_9, CB_0,
+
+  CB_1R1, CB_1R2, CB_1R3, CB_1R4, CB_1R5,
+  CB_1L1, CB_1L2, CB_1L3, CB_1L4, CB_1L5,
+  CB_2R1, CB_2R2, CB_2R3, CB_2R4, CB_2R5,
+  CB_2L1, CB_2L2, CB_2L3, CB_2L4, CB_2L5,
+  CB_3R1, CB_3R2, CB_3R3, CB_3R4, CB_3R5,
+  CB_3L1, CB_3L2, CB_3L3, CB_3L4, CB_3L5,
+  CB_4L1, CB_4L2, CB_4L3, CB_4L4, CB_4L5,
+  CB_4R1, CB_4R2, CB_4R3, CB_4R4, CB_4R5,
+
+  CB2_0M1, CB2_0M2, CB2_0M3,
+  CB2_1M1, CB2_1M2, CB2_1M3,
+  CB2_2M1, CB2_2M2, CB2_2M3,
+  CB2_3M1, CB2_3M2, CB2_3M3,
+  CB2_4M1, CB2_4M2, CB2_4M3, CB2_4M4, CB2_4M5,
+
+  CB2_1, CB2_2, CB2_3, CB2_4, CB2_5, CB2_6, CB2_7, CB2_8, CB2_9, CB2_0,
+
+  CB2_1R1, CB2_1R2, CB2_1R3, CB2_1R4, CB2_1R5,
+  CB2_1L1, CB2_1L2, CB2_1L3, CB2_1L4, CB2_1L5,
+  CB2_2R1, CB2_2R2, CB2_2R3, CB2_2R4, CB2_2R5,
+  CB2_2L1, CB2_2L2, CB2_2L3, CB2_2L4, CB2_2L5,
+  CB2_3R1, CB2_3R2, CB2_3R3, CB2_3R4, CB2_3R5,
+  CB2_3L1, CB2_3L2, CB2_3L3, CB2_3L4, CB2_3L5,
+  CB2_4L1, CB2_4L2, CB2_4L3, CB2_4L4, CB2_4L5,
+  CB2_4R1, CB2_4R2, CB2_4R3, CB2_4R4, CB2_4R5,
+
+// core 6 thumb keys for combo reference layer
+ CB_TH1, CB_TH2, CB_TH3, CB_TH4, CB_TH5, CB_TH6,
+ CB2_TH1, CB2_TH2, CB2_TH3, CB2_TH4, CB2_TH5, CB2_TH6,
+ CB_1TH1,  CB_1TH2, CB_1TH3, CB_1TH4, CB_1TH5, CB_1TH6,
+ CB2_1TH1, CB2_1TH2, CB2_1TH3, CB2_1TH4, CB2_1TH5, CB2_1TH6,
+
+ // for the extra thumb keys on the kyria
+ CB_0TH1 , CB_0TH2, CB_0TH3, CB_0TH4,
+ CB_THA, CB_THB, CB_THC, CB_THD,
+
+// edge keys for the combo reference layer
+ L0_CB, L1_CB, L2_CB, L3_CB,
+ R0_CB, R1_CB, R2_CB, R3_CB,
+ L0_CB2, L1_CB2, L2_CB2, L3_CB2,
+ R0_CB2, R1_CB2, R2_CB2, R3_CB2,

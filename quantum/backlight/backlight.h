@@ -39,10 +39,12 @@ typedef union {
     struct {
         bool    enable : 1;
         bool    breathing : 1;
-        uint8_t reserved : 1;  // Reserved for possible future backlight modes
+        uint8_t reserved : 1; // Reserved for possible future backlight modes
         uint8_t level : 5;
     };
 } backlight_config_t;
+
+_Static_assert(sizeof(backlight_config_t) == sizeof(uint8_t), "Backlight EECONFIG out of spec.");
 
 void    backlight_init(void);
 void    backlight_toggle(void);
@@ -55,7 +57,11 @@ void    backlight_decrease(void);
 void    backlight_level_noeeprom(uint8_t level);
 void    backlight_level(uint8_t level);
 uint8_t get_backlight_level(void);
+
+uint8_t eeconfig_read_backlight(void);
+void    eeconfig_update_backlight(uint8_t val);
 void    eeconfig_update_backlight_current(void);
+void    eeconfig_update_backlight_default(void);
 
 // implementation specific
 void backlight_init_ports(void);

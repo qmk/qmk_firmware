@@ -1,0 +1,66 @@
+{
+    "keyboard_name": "GergoPlex",
+    "manufacturer": "g Heavy Industries",
+    "url": "",
+    "maintainer": "germ",
+    "usb": {
+        "vid": "0x6B0A",
+        "pid": "0x0002",
+        "device_version": "0.0.1"
+    },
+    "build": {
+        "debounce_type": "sym_eager_pr"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["split_3x5_3"],
+    "layouts": {
+        "LAYOUT_split_3x5_3": {
+            "layout": [
+                {"matrix": [4, 0], "x": 0, "y": 0.25},
+                {"matrix": [3, 0], "x": 1, "y": 0.125},
+                {"matrix": [2, 0], "x": 2, "y": 0},
+                {"matrix": [1, 0], "x": 3, "y": 0.125},
+                {"matrix": [0, 0], "x": 4, "y": 0.375},
+
+                {"matrix": [5, 0], "x": 8, "y": 0.375},
+                {"matrix": [6, 0], "x": 9, "y": 0.125},
+                {"matrix": [7, 0], "x": 10, "y": 0},
+                {"matrix": [8, 0], "x": 11, "y": 0.125},
+                {"matrix": [9, 0], "x": 12, "y": 0.25},
+
+                {"matrix": [4, 1], "x": 0, "y": 1.25},
+                {"matrix": [3, 1], "x": 1, "y": 1.125},
+                {"matrix": [2, 1], "x": 2, "y": 1},
+                {"matrix": [1, 1], "x": 3, "y": 1.125},
+                {"matrix": [0, 1], "x": 4, "y": 1.375},
+
+                {"matrix": [5, 1], "x": 8, "y": 1.375},
+                {"matrix": [6, 1], "x": 9, "y": 1.125},
+                {"matrix": [7, 1], "x": 10, "y": 1},
+                {"matrix": [8, 1], "x": 11, "y": 1.125},
+                {"matrix": [9, 1], "x": 12, "y": 1.25},
+
+                {"matrix": [4, 2], "x": 0, "y": 2.25},
+                {"matrix": [3, 2], "x": 1, "y": 2.125},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+                {"matrix": [1, 2], "x": 3, "y": 2.125},
+                {"matrix": [0, 2], "x": 4, "y": 2.375},
+
+                {"matrix": [5, 2], "x": 8, "y": 2.375},
+                {"matrix": [6, 2], "x": 9, "y": 2.125},
+                {"matrix": [7, 2], "x": 10, "y": 2},
+                {"matrix": [8, 2], "x": 11, "y": 2.125},
+                {"matrix": [9, 2], "x": 12, "y": 2.25},
+
+                {"matrix": [3, 3], "x": 2, "y": 3.5},
+                {"matrix": [2, 3], "x": 3.25, "y": 3.625, "w": 1.5},
+                {"matrix": [1, 3], "x": 5, "y": 3.125, "h": 2},
+
+                {"matrix": [6, 3], "x": 7, "y": 3.125, "h": 2},
+                {"matrix": [7, 3], "x": 8.25, "y": 3.625, "w": 1.5},
+                {"matrix": [8, 3], "x": 10, "y": 3.5}
+            ]
+        }
+    }
+}

@@ -1,5 +1,3 @@
 {
-  "keyboard_name": "Clueboard 2x1800",
-  "url": "",
-  "maintainer": "skullydazed"
+    "diode_direction": "ROW2COL"
 }

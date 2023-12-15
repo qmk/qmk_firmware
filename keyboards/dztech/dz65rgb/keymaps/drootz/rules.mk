@@ -2,7 +2,7 @@ DYNAMIC_MACRO_ENABLE = yes
 LEADER_ENABLE = yes
 
 # Firmware size Optimizations
-EXTRAFLAGS += -flto
+LTO_ENABLE = yes
 MOUSEKEY_ENABLE = no
 NKRO_ENABLE = no
 SPACE_CADET_ENABLE = no

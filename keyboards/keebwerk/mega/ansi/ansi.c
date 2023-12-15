@@ -18,7 +18,7 @@
 #endif
 
 #include "ansi.h"
-#include "drivers/issi/is31fl3733.h"
+#include "drivers/led/issi/is31fl3733.h"
 
 uint8_t R = 0;
 uint8_t G = 0;
@@ -36,7 +36,7 @@ uint8_t B = 0;
 //         } else {
 //             G = 0;
 //         }
-//         IS31FL3733_set_color( 6+64-1, R, G, B );
+//         is31fl3733_set_color( 6+64-1, R, G, B );
 //     }
 //     return res;
 // }
@@ -54,6 +54,6 @@ __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
     if (IS_LAYER_ON_STATE(layer_state, 3)) {
         B = 255;
     }
-    IS31FL3733_set_color( 6+64-1, R, G, B );
+    is31fl3733_set_color( 6+64-1, R, G, B );
   return state;
 }

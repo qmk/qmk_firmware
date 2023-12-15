@@ -1,3 +1,3 @@
-OLED_DRIVER_ENABLE = yes
+OLED_ENABLE = yes
 MOUSEKEY_ENABLE    = no
 MIDI_ENABLE        = no

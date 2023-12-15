@@ -1,19 +1,23 @@
 # dumbpad
 
-![dumbpad](https://i.imgur.com/sS3fq1Z.jpg)
+![dumbpad](https://i.imgur.com/1T7ciLZl.jpg)
 
-A 4x4 macro/numpad with rotary encoder.
+dumbpad is a num/macro pad available in two major form factors - single- and dual-rotary encoder.
 
-Keyboard Maintainer: [imchipwood](https://github.com/imchipwood)
+* Single-encoder PCBs are reversible - components can be soldered to either side to allow
+the encoder to be on either the left or right side.
+* Dual-encoder PCBs come in two versions - one with the encoders in the bottom corners, the otherin the top corners
 
-PCB repository: https://github.com/imchipwood/dumbpad
+Support for dumbpad all PCB revisions can be found in this directory.
 
-Make example for this keyboard (after setting up your build environment):
-
-    make dumbpad:default
-
-Program with:
-
-    make dumbpad:default:avrdude
-
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+* Maintainer: [imchipwood](https://github.com/imchipwood)
+* PCB repository: [dumbpad on github](https://github.com/imchipwood/dumbpad)
+  * PCB revisions:
+    * v0.x - these revisions have two LEDs for layer indication
+      * ['v0x'](v0x/): Default setup for single rotary encoder v0.x PCBs
+      * ['v0x_right'](v0x_right/): Same as v0x but with rotary encoder on right side (components on bottom of PCB)
+      * ['v0x_dualencoder'](v0x_dualencoder/): Dual-encoder PCBs
+    * v1.x - these revisions have three LEDs - two for layer indication, one for numlock indication
+      * ['v1x'](v1x/): Default setup for v1.x PCBs with a single rotary encoder on the left side
+      * ['v1x_right'](v1x_right/): Same as v1x but with rotary encoder on right side (components on bottom of PCB)
+      * ['v1x_dualencoder'](v1x_dualencoder/): v1x PCB with two rotary encoders

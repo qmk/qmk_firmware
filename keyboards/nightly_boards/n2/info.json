@@ -1,12 +1,47 @@
 {
     "keyboard_name": "[n]2",
+    "manufacturer": "Neil Brian Ramirez",
     "url": "",
     "maintainer": "Neil Brian Ramirez",
-    "width": 1,
-    "height": 2,
+    "usb": {
+        "vid": "0x0717",
+        "pid": "0x0003",
+        "device_version": "0.0.1"
+    },
+    "matrix_pins": {
+        "cols": ["F0", "C6"],
+        "rows": ["F1", "C7"]
+    },
+    "diode_direction": "COL2ROW",
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 2,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "D4"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
-            "layout": [{"x":0, "y":0}, {"x":0, "y":1}]
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [1, 1], "x": 0, "y": 1}
+            ]
         }
     }
 }

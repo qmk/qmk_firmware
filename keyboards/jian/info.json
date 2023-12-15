@@ -1,67 +1,9 @@
 {
-    "keyboard_name": "jian",
+    "manufacturer": "KgOfHedgehogs",
     "url": "t.me/s/kgofhedgehogs",
     "maintainer": "KGOH",
-    "width": 17,
-    "height": 4,
-    "layouts": {
-        "LAYOUT": {
-            "layout": [
-                { "label": "Super", "x": 0,  "y": 1.5   },
-                { "label": "~",     "x": 1,  "y": 0.75  },
-                { "label": "Q",     "x": 2,  "y": 0.625 },
-                { "label": "W",     "x": 3,  "y": 0.25  },
-                { "label": "E",     "x": 4,  "y": 0     },
-                { "label": "R",     "x": 5,  "y": 0.25  },
-                { "label": "T",     "x": 6,  "y": 0.375 },
-
-                { "label": "Y",     "x": 10, "y": 0.375 },
-                { "label": "U",     "x": 11, "y": 0.25  },
-                { "label": "I",     "x": 12, "y": 0     },
-                { "label": "O",     "x": 13, "y": 0.25  },
-                { "label": "P",     "x": 14, "y": 0.625 },
-                { "label": "{[",    "x": 15, "y": 0.75  },
-                { "label": "}]",    "x": 16, "y": 1.5   },
-
-
-                { "label": "Ctrl",  "x": 1,  "y": 1.75  },
-                { "label": "A",     "x": 2,  "y": 1.625 },
-                { "label": "S",     "x": 3,  "y": 1.25  },
-                { "label": "D",     "x": 4,  "y": 1     },
-                { "label": "F",     "x": 5,  "y": 1.25  },
-                { "label": "G",     "x": 6,  "y": 1.375 },
-
-                { "label": "H",     "x": 10, "y": 1.375 },
-                { "label": "J",     "x": 11, "y": 1.25  },
-                { "label": "K",     "x": 12, "y": 1     },
-                { "label": "L",     "x": 13, "y": 1.25  },
-                { "label": ":;",    "x": 14, "y": 1.625 },
-                { "label": "\"'",   "x": 15, "y": 1.75  },
-
-
-                { "label": "Alt",   "x": 1,  "y": 2.75  },
-                { "label": "Z",     "x": 2,  "y": 2.625 },
-                { "label": "X",     "x": 3,  "y": 2.25  },
-                { "label": "C",     "x": 4,  "y": 2     },
-                { "label": "V",     "x": 5,  "y": 2.25  },
-                { "label": "B",     "x": 6,  "y": 2.375 },
-
-                { "label": "N",     "x": 10, "y": 2.375 },
-                { "label": "M",     "x": 11, "y": 2.25  },
-                { "label": "<,",    "x": 12, "y": 2     },
-                { "label": ">.",    "x": 13, "y": 2.25  },
-                { "label": "?/",    "x": 14, "y": 2.625 },
-                { "label": "|\\",   "x": 15, "y": 2.75  },
-
-
-                { "label": "Tab",   "x": 5,  "y": 3.25  },
-                { "label": "Spc",   "x": 6,  "y": 3.375 },
-                { "label": "Enter", "x": 7,  "y": 3.5   },
-
-                { "label": "Esc",   "x": 9,  "y": 3.5   },
-                { "label": "Bscp",  "x": 10, "y": 3.375 },
-                { "label": "Del",   "x": 11, "y": 3.25  }
-            ]
-        }
+    "usb": {
+        "vid": "0xC0DE",
+        "pid": "0x1337"
     }
 }

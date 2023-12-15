@@ -1,0 +1,1 @@
+SERIAL_DRIVER = bitbang

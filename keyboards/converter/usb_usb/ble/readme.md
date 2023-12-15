@@ -17,14 +17,3 @@ Part list:
 * [Pololu 5V Step-Up Voltage Regulator U3V12F5](https://www.pololu.com/product/2115)
 * [Lithium Ion Battery - 3.7v 2000mAh](https://www.adafruit.com/product/2011)
 * Some sort of switch to be able to turn it off
-
-Building and Flashing
----------------------
-
-```
-make converter-usb_usb-ble
-```
-
-```
-make converter-usb_usb-ble-avrdude
-```

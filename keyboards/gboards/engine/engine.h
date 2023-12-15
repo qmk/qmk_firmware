@@ -10,15 +10,12 @@
         crap is removed where possible
 */
 
-#include QMK_KEYBOARD_H
 #pragma once
-#include "keymap.h"
+
+#include "quantum.h"
 #include <string.h>
-#include <stdint.h>
 #include <stdio.h>
 #include "config_engine.h"
-#include <avr/pgmspace.h>
-#include "wait.h"
 
 // Maximum values for combos
 #define COMBO_END 0x00

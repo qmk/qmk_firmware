@@ -25,7 +25,7 @@ enum {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [DEF] = LAYOUT(
-  RESET  , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   ,                      KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , TG(NUM),
+  QK_BOOT  , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   ,                      KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , TG(NUM),
   KC_GRV , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , RGB_MOD,    _______, KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , KC_EQL ,
   KC_PGUP, KC_A   , KC_S   , KC_D   , KC_F   , KC_G   , KC_TAB ,    KC_ENT , KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_QUOT,
   KC_PGDN, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_ESC ,    _______, KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, KC_MINS,
@@ -103,10 +103,11 @@ static void set_numpad_colours(int on, void (*write)(int, uint8_t, uint8_t, uint
 /* the RGB matrix effects will overwrite the numpad indicator.
  * this handy mechanism allows to override the matrix effects.
  */
-void rgb_matrix_indicators_user(void) {
-  if (layer_state & (1<<NUM)) {
-    set_numpad_colours(1, &rgb_matrix_set_color);
-  }
+bool rgb_matrix_indicators_user(void) {
+    if (layer_state & (1 << NUM)) {
+        set_numpad_colours(1, &rgb_matrix_set_color);
+    }
+    return false;
 }
 #else   /* no RGB matrix support */
 

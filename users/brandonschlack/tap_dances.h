@@ -29,7 +29,7 @@ enum tap_dance_states {
     TRIPLE_HOLD = 7
 };
 
-int cur_dance (qk_tap_dance_state_t *state);
+int cur_dance (tap_dance_state_t *state);
 void process_tap_dance_keycode (bool reset, uint8_t toggle_layer);
 
 /* Tap Dance: Trigger Layer
@@ -41,12 +41,12 @@ typedef struct {
     uint8_t  trigger;
     uint8_t  layer;
     uint8_t  state;
-} qk_tap_dance_trigger_layer_t;
+} tap_dance_trigger_layer_t;
 
 #define ACTION_TAP_DANCE_TRIGGER_LAYER(trigger, layer) { \
     .fn = { NULL, td_trigger_layer_finished, td_trigger_layer_reset }, \
-    .user_data = (void *)&((qk_tap_dance_trigger_layer_t) { trigger, layer, 0 }), \
+    .user_data = (void *)&((tap_dance_trigger_layer_t) { trigger, layer, 0 }), \
 }
 
-void td_trigger_layer_finished (qk_tap_dance_state_t *state, void *user_data);
-void td_trigger_layer_reset (qk_tap_dance_state_t *state, void *user_data);
+void td_trigger_layer_finished (tap_dance_state_t *state, void *user_data);
+void td_trigger_layer_reset (tap_dance_state_t *state, void *user_data);

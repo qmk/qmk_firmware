@@ -1,0 +1,53 @@
+{
+    "keyboard_name": "BAMFK-4",
+    "manufacturer": "Keebio",
+    "url": "https://keeb.io",
+    "maintainer": "nooges",
+    "usb": {
+        "vid": "0xCB10",
+        "pid": "0x1114",
+        "device_version": "0.0.1"
+    },
+    "ws2812": {
+        "pin": "D3"
+    },
+    "rgb_matrix": {
+        "driver": "ws2812"
+    },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 32,
+        "max_brightness": 120,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "matrix_pins": {
+        "cols": ["E6", "D5", "B6", "B7"],
+        "rows": ["F0"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0, "w": 2, "h": 2},
+                {"matrix": [0, 1], "x": 2, "y": 0, "w": 2, "h": 2},
+                {"matrix": [0, 2], "x": 4, "y": 0, "w": 2, "h": 2},
+                {"matrix": [0, 3], "x": 6, "y": 0, "w": 2, "h": 2}
+            ]
+        }
+    }
+}

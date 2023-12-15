@@ -1,5 +1,10 @@
 # bcat's split 3x6 + 3 thumb keys layout
 
+(See also the
+[BlueMicro](https://github.com/jpconstantineau/BlueMicro_BLE/tree/master/firmware/keyboards/crkbd/keymaps/bcat)
+and [ZMK](https://github.com/bcat/zmk-config/blob/master/config/corne.keymap)
+versions of this keymap.)
+
 This is my favorite split ergo layout for typing, featuring the traditional
 four ortho/ergo layers (Default, Lower, Raise, Adjust). It is loosely inspired
 by the default Planck (numbers on Lower, symbols on Raise) and Crkbd (Space on
@@ -112,7 +117,7 @@ better location.
 
 ## Adjust layer
 
-![Adjust layer layout](https://i.imgur.com/fZouko5.png)
+![Adjust layer layout](https://i.imgur.com/Q4rN6cQ.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/77e7572e077b36a23eb2086017e16fee))
 

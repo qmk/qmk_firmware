@@ -29,7 +29,7 @@ bool babblePaste_readmux(uint16_t keycode) {
     // BABLM( BABL_GO_PARA_END,	 	// undefinedBABLM( BABL_PGDN ,
 
     BABLM(BABL_PGUP, SS_TAP(X_PGUP));
-    BABLM(BABL_PGDN, SS_TAP(X_PGDOWN));
+    BABLM(BABL_PGDN, SS_TAP(X_PGDN));
     BABLM(BABL_DEL_RIGHT_1C, SS_LCTL("d"));
     BABLM(BABL_DEL_LEFT_WORD, SS_LCTL("w"));  // meta-DEL instead?
     BABLM(BABL_DEL_RIGHT_WORD, SS_LALT("d"));
@@ -76,7 +76,7 @@ bool babblePaste_readmux(uint16_t keycode) {
     // This one closes the current pane.
     BABLM(BABL_UNSPLIT_FRAME_HORIZONTAL, SS_LCTL("b") "x");
     BABLM(BABL_NEXT_FRAME, SS_LCTL("b") "o");
-    BABLM(BABL_PREV_FRAME, SS_LCTL("w") SS_TAP(X_SCOLON));
+    BABLM(BABL_PREV_FRAME, SS_LCTL("w") SS_TAP(X_SEMICOLON));
 #        endif
 
     // Todo, ring bell, flash light, show user this isn't supported

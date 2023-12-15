@@ -1,7 +1,9 @@
-#ifdef OLED_DRIVER_ENABLE
-#include QMK_KEYBOARD_H
+#include "oled_helper.h"
+#include "quantum.h"
 #include <stdio.h>
 #include <string.h>
+
+#ifdef OLED_ENABLE
 
 void render_logo(void) {
 

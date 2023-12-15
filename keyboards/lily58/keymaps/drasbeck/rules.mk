@@ -1,7 +1,7 @@
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
@@ -12,7 +12,7 @@ AUDIO_ENABLE = no           # Audio output
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 SWAP_HANDS_ENABLE = no      # Enable one-hand typing
-OLED_DRIVER_ENABLE = yes    # OLED display
+OLED_ENABLE = yes
 ENCODER_ENABLE = yes        # Enable encoder
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE

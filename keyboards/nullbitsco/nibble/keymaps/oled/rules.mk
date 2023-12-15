@@ -1,1 +1,1 @@
-ENABLE_OLED_DRIVER = yes
+OLED_ENABLE = yes

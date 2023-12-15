@@ -125,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   HYPR_0,  _______, WINK,    _______, ROFL,     TOUNGE,  THANKS,  _______, CRY,     FLIP,    _______, _______ ,
   HYPR_1,  ABOVE,   SHRUG,   GRIN,    FROWN,    _______, HEART,   JOY,     _______, LLAP,    _______, _______ ,
   HYPR_2,  SING,    THINK,   CLAP,    CONFUSED, BUG,     _______, _______, SHIT,    ELIP,    _______, _______ ,
-  _______, _______, _______, _______, KC_SLCK,  KC_SLEP, KC_SLEP, KC_PAUS, FNGLEFT, THMBDN,  THMBUP,  FNGRIGHT
+  _______, _______, _______, _______, KC_SCRL,  KC_SLEP, KC_SLEP, KC_PAUS, FNGLEFT, THMBDN,  THMBUP,  FNGRIGHT
 ),
 };
 

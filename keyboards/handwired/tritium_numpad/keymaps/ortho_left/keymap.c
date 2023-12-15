@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_E,   KC_D,   KC_C,      KC_LGUI, 
     KC_W,   KC_S,   KC_X,      KC_LALT,
     KC_Q,   KC_A,   KC_Z,      KC_LCTL, 
-    KC_TAB, KC_ESC, KC_LSHIFT, MO(1)
+    KC_TAB, KC_ESC, KC_LSFT,   MO(1)
   ),
 
   /* Keymap _FL: Function Layer

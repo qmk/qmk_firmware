@@ -1,4 +1,8 @@
 {
   "manufacturer": "Clueboard",
-  "maintainer": "skullydazed"
+  "maintainer": "skullydazed",
+  "usb": {
+    "device_version": "0.0.1",
+    "vid": "0xC1ED"
+  }
 }

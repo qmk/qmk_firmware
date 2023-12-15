@@ -4,7 +4,7 @@ static tap h_mouse_gui_state = {
     .state           = 0
 };
 
-void h_mouse_gui_finished(qk_tap_dance_state_t *state, void *user_data) {
+void h_mouse_gui_finished(tap_dance_state_t *state, void *user_data) {
     h_mouse_gui_state.state = current_dance(state);
     switch (h_mouse_gui_state.state) {
         case SINGLE_TAP:
@@ -21,7 +21,7 @@ void h_mouse_gui_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void h_mouse_gui_reset(qk_tap_dance_state_t *state, void *user_data) {
+void h_mouse_gui_reset(tap_dance_state_t *state, void *user_data) {
     switch (h_mouse_gui_state.state) {
         case SINGLE_TAP:
             unregister_code(KC_H);

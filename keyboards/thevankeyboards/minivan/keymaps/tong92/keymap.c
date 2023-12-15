@@ -64,7 +64,7 @@ WINDOW_SHORTCUT,    KC_LGUI,KC_LALT,              LOWER,  RAISE,        KC_QUOT,
 KC_TAB, KC_Q,   KC_W,   KC_E, KC_R,   KC_T,   KC_Y,   KC_U, KC_I,   KC_O,   KC_P,   KC_BSPC,
 KC_LGUI,KC_A,   KC_S,   KC_D, KC_F,   KC_G,   KC_H,   KC_J, KC_K,   KC_L,   KC_SCLN,KC_ENT,
 KC_LSFT,KC_Z,   KC_X,   KC_C, KC_V,   KC_B,   KC_N,   KC_M, KC_COMM,KC_DOT, KC_SLSH,KC_RSFT,
-MAC_SHORTCUT,    KC_LALT, KC_LCTRL,              LOWER,  RAISE,        KC_QUOT,KC_LBRC,KC_RBRC,KC_RALT
+MAC_SHORTCUT,    KC_LALT, KC_LCTL,              LOWER,  RAISE,        KC_QUOT,KC_LBRC,KC_RBRC,KC_RALT
 ),
 /* LOWER
  * ,--------------------------------------------------------------------------.
@@ -114,7 +114,7 @@ XXXXXXX,_______,_______,                _______,_______,        KC_END, KC_LEFT,
 [_WINDOW_SHORTCUT] = LAYOUT_arrow(
 KC_ESC ,LALT(KC_F4)        ,LGUI(KC_UP)         ,XXXXXXX       ,XXXXXXX,S(KC_CAPS)         ,XXXXXXX          ,KC_PGUP,KC_UP  ,KC_PGDN ,KC_PSCR,KC_DEL,
 _______,LGUI(KC_LEFT)      ,LGUI(KC_DOWN)       ,LGUI(KC_RIGHT),XXXXXXX,LALT(KC_CAPS)      ,KC_CAPS          ,KC_LEFT,KC_DOWN,KC_RIGHT,XXXXXXX,XXXXXXX,
-_______,LGUI(LSFT(KC_LEFT)),LGUI(LSFT(KC_RIGHT)),XXXXXXX       ,XXXXXXX,LCTL(KC_CAPS)      ,KC_SLCK          ,KC_HOME,XXXXXXX,KC_END  ,XXXXXXX,KC_RCTL,
+_______,LGUI(LSFT(KC_LEFT)),LGUI(LSFT(KC_RIGHT)),XXXXXXX       ,XXXXXXX,LCTL(KC_CAPS)      ,KC_SCRL          ,KC_HOME,XXXXXXX,KC_END  ,XXXXXXX,KC_RCTL,
 _______,LGUI(LCTL(KC_LEFT)),LGUI(LCTL(KC_RIGHT)),                       LCTL(LALT(KC_DEL)) ,LGUI(LCTL(KC_F4)),        MOUSE  ,XXXXXXX ,XXXXXXX,BACKLIT
 ),
 /* Mac Shortcut
@@ -136,7 +136,7 @@ _______,_______,_______, _______,_______,        MOUSE  ,XXXXXXX ,XXXXXXX,BACKLI
 ),
 /* MOUSE
  * ,--------------------------------------------------------------------------.
- * |      |     |     |Mo_Up|     |     |     |M_WhL|M_WhU|M_WhR|     | RESET |
+ * |      |     |     |Mo_Up|     |     |     |M_WhL|M_WhU|M_WhR|     | QK_BOOT |
  * |------`-----`-----`-----`-----`-----`-----`-----`-----`-----`-----`-------|
  * |       |     |Mo_Le|Mo_Do|Mo_Ri|     |     |M_Bt1|M_WhD|M_Bt2|     |      |
  * |-------`-----`-----`-----`-----`-----`-----`-----`-----`-----`-----`------|
@@ -146,7 +146,7 @@ _______,_______,_______, _______,_______,        MOUSE  ,XXXXXXX ,XXXXXXX,BACKLI
  * `--------------------------------------------------------------------------'
  */
 [_MOUSE] = LAYOUT_arrow(
-XXXXXXX,XXXXXXX,XXXXXXX,KC_MS_U,XXXXXXX,XXXXXXX,XXXXXXX,KC_WH_L,KC_WH_U,KC_WH_R,XXXXXXX,RESET,
+XXXXXXX,XXXXXXX,XXXXXXX,KC_MS_U,XXXXXXX,XXXXXXX,XXXXXXX,KC_WH_L,KC_WH_U,KC_WH_R,XXXXXXX,QK_BOOT,
 XXXXXXX,XXXXXXX,KC_MS_L,KC_MS_D,KC_MS_R,XXXXXXX,XXXXXXX,KC_BTN1,KC_WH_D,KC_BTN2,XXXXXXX,XXXXXXX,
 XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_ACL0,KC_ACL1,KC_ACL2,XXXXXXX,WINDOW,
 XXXXXXX,XXXXXXX,XXXXXXX,                EXT_MOUSE,EXT_MOUSE,        XXXXXXX,XXXXXXX,XXXXXXX,MAC

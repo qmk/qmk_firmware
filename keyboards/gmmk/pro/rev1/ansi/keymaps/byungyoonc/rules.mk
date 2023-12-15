@@ -1,0 +1,2 @@
+DEBOUNCE_TYPE = sym_eager_pk
+RGB_MATRIX_CUSTOM_USER = yes

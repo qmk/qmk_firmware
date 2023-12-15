@@ -31,14 +31,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_GRV,   KC_BSLS, KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MUTE,
         KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_LBRC,  KC_PSCR, KC_RBRC, KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH,
         ESC_CTL, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_HOME,  KC_MNXT, KC_PGUP, KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS,
-        KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_END,   KC_MPLY, KC_PGDN, KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_SFTENT,
+        KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_END,   KC_MPLY, KC_PGDN, KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    SC_SENT,
         KC_LCTL, KC_LGUI, KC_LALT, _______, MO(_FN), KC_SPC,  KC_SPC,   KC_MPRV, KC_BSPC, KC_BSPC, MO(_FN), _______, KC_RALT, KC_RGUI, KC_RCTL
     ),
     [_DVORAK_NUM] = LAYOUT_ortho_5x15( /* DVORAK with center NUMPAD*/
         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_GRV,   KC_BSLS, KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MUTE,
         KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_P7,    KC_P8,   KC_P9, KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH,
         ESC_CTL, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_P4,    KC_P5,   KC_P6, KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS,
-        KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_P1,    KC_P2,   KC_P3, KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_SFTENT,
+        KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_P1,    KC_P2,   KC_P3, KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    SC_SENT,
         KC_LCTL, KC_LGUI, KC_LALT, _______, MO(_FN), KC_SPC,  KC_SPC,   KC_P0,   KC_BSPC, KC_BSPC, MO(_FN), _______, KC_RALT, KC_RGUI, KC_RCTL
     ),
 
@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_GRV,   KC_BSLS, KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MUTE,
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC,  KC_PSCR, KC_RBRC, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_SLSH,
         ESC_CTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_HOME,  KC_MNXT, KC_PGUP, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_END,   KC_MPLY, KC_PGDN, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_MINS, KC_SFTENT,
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_END,   KC_MPLY, KC_PGDN, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_MINS, SC_SENT,
         KC_LCTL, KC_LGUI, KC_LALT, _______, MO(_FN), KC_SPC,  KC_SPC,   KC_MPRV, KC_BSPC, KC_BSPC, MO(_FN), _______, KC_RALT, KC_RGUI, KC_RCTL
     ),
 
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_RIGHT, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_LEFT, _______, _______, _______, _______,
         _______, _______, _______, KC_DOWN, KC_UP,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, MO(_FN), _______, _______, KC_NLCK, KC_DEL,  KC_DEL,  MO(_FN), _______, _______, _______, _______
+        _______, _______, _______, _______, MO(_FN), _______, _______, KC_NUM,  KC_DEL,  KC_DEL,  MO(_FN), _______, _______, _______, _______
     )
 
 };
@@ -76,7 +76,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* Encoder on the LEFT */
         if (clockwise) {
             tap_code(KC_VOLU);
@@ -90,4 +90,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_VOLD);
         }
     }
+    return true;
 }

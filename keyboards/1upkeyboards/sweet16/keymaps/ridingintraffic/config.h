@@ -3,6 +3,7 @@
 /* tap dance stuff*/
 #undef TAPPING_TERM
 #define TAPPING_TERM 500
+#define PERMISSIVE_HOLD
 
 #define TAPPING_TOGGLE 2
 

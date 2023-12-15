@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "wt60_xt.h"
+#include "quantum.h"
 
 #ifdef AUDIO_ENABLE
 #include "audio.h"
@@ -26,6 +26,7 @@ float tone_numlk_on[][2]   = SONG(NUM_LOCK_ON_SOUND);
 float tone_numlk_off[][2]  = SONG(NUM_LOCK_OFF_SOUND);
 float tone_scroll_on[][2]  = SONG(SCROLL_LOCK_ON_SOUND);
 float tone_scroll_off[][2] = SONG(SCROLL_LOCK_OFF_SOUND);
+float tone_device_indication[][2] = SONG(FANTASIE_IMPROMPTU);
 
 #endif
 
@@ -65,36 +66,39 @@ bool led_update_kb(led_t led_state) {
 
     wait_ms(10); // gets rid of tick
 
-    if (!is_playing_notes())
+    if (led_state.caps_lock && !old_led_state.caps_lock)
     {
-        if (led_state.caps_lock && !old_led_state.caps_lock)
-        {
-            PLAY_SONG(tone_caps_on);
-        }
-        else if (!led_state.caps_lock && old_led_state.caps_lock)
-        {
-            PLAY_SONG(tone_caps_off);
-        }
-        else if (led_state.num_lock && !old_led_state.num_lock)
-        {
-            PLAY_SONG(tone_numlk_on);
-        }
-        else if (!led_state.num_lock && old_led_state.num_lock)
-        {
-            PLAY_SONG(tone_numlk_off);
-        }
-        else if (led_state.scroll_lock && !old_led_state.scroll_lock)
-        {
-            PLAY_SONG(tone_scroll_on);
-        }
-        else if (!led_state.scroll_lock && old_led_state.scroll_lock)
-        {
-            PLAY_SONG(tone_scroll_off);
-        }
+        PLAY_SONG(tone_caps_on);
+    }
+    else if (!led_state.caps_lock && old_led_state.caps_lock)
+    {
+        PLAY_SONG(tone_caps_off);
+    }
+    else if (led_state.num_lock && !old_led_state.num_lock)
+    {
+        PLAY_SONG(tone_numlk_on);
+    }
+    else if (!led_state.num_lock && old_led_state.num_lock)
+    {
+        PLAY_SONG(tone_numlk_off);
+    }
+    else if (led_state.scroll_lock && !old_led_state.scroll_lock)
+    {
+        PLAY_SONG(tone_scroll_on);
+    }
+    else if (!led_state.scroll_lock && old_led_state.scroll_lock)
+    {
+        PLAY_SONG(tone_scroll_off);
     }
 
     old_led_state = led_state;
 #endif // AUDIO_ENABLE
 
     return true;
+}
+
+void via_set_device_indication(uint8_t value) {
+    if ( value == 0 ) {
+        PLAY_SONG(tone_device_indication);
+    }
 }

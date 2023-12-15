@@ -1,4 +1,4 @@
-/* Copyright 2020 Jay Greco
+/* Copyright 2021 Jay Greco
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,6 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "big_led.h"
+
+void set_big_LED_rgb(uint8_t r_mode, uint8_t g_mode, uint8_t b_mode) {
+    set_big_LED_r(r_mode);
+    set_big_LED_g(g_mode);
+    set_big_LED_b(b_mode);
+}
 
 void set_big_LED_r(uint8_t mode) {
     switch(mode) {

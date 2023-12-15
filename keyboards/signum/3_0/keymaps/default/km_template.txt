@@ -1,0 +1,20 @@
+/* keymap.c is auto-generated, don't edit it directly.
+ * Further instructions are provided in readme.md */
+
+#include QMK_KEYBOARD_H
+
+enum unicode_name {
+//<enum/>
+};
+
+const uint32_t unicode_map[] PROGMEM = {
+//<uc_map/>
+};
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+
+//<keymaps/>
+};
+
+/* vi: ft=c:tw=80:sw=2:ts=2:sts=2:et
+ */

@@ -1,4 +1,4 @@
-#include "660m.h"
+#include "quantum.h"
 
 void board_init(void) {
   SYSCFG->CFGR1 |= SYSCFG_CFGR1_I2C1_DMA_RMP;

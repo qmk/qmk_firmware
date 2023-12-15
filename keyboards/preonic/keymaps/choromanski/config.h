@@ -1,7 +1,6 @@
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
-#include "config_common.h"
 
 
 #ifdef AUDIO_ENABLE
@@ -17,15 +16,12 @@
                                 }
 #endif
 
-#define MUSIC_MASK (keycode != MU_TOG)
+#define MUSIC_MASK (keycode != MU_TOGG)
 
 
 /*
  * MIDI options
  */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
 
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on

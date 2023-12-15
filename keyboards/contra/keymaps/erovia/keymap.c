@@ -22,7 +22,7 @@ enum {
   TD_SPACE_CADET_ENTER = 1
 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_SPACE_CADET_SHIFT] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_LPRN),
   [TD_SPACE_CADET_ENTER] = ACTION_TAP_DANCE_DOUBLE(KC_ENT, KC_RPRN)
 };
@@ -119,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______, _______, QWERTY,  COLEMAK, _______, _______, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_ASTG
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, AS_TOGG
 )
 
 };

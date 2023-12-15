@@ -1,0 +1,61 @@
+{
+    "keyboard_name": "Octopad",
+    "manufacturer": "Neil Brian Ramirez",
+    "url": "",
+    "maintainer": "Neil Brian Ramirez",
+    "usb": {
+        "vid": "0xD812",
+        "pid": "0x0004",
+        "device_version": "0.0.1"
+    },
+    "matrix_pins": {
+        "cols": ["F1", "F0", "D0", "D1", "B1"],
+        "rows": ["B2", "B3"]
+    },
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "C7", "pin_b": "C6"},
+            {"pin_a": "F4", "pin_b": "F5"}
+        ]
+    },
+    "rgblight": {
+        "led_count": 8,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "F7"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 4], "x": 0, "y": 0},
+
+                {"matrix": [1, 4], "x": 3.5, "y": 0},
+
+                {"matrix": [0, 0], "x": 0.25, "y": 1.25},
+                {"matrix": [0, 1], "x": 1.25, "y": 1.25},
+                {"matrix": [0, 2], "x": 2.25, "y": 1.25},
+                {"matrix": [0, 3], "x": 3.25, "y": 1.25},
+
+                {"matrix": [1, 0], "x": 0.25, "y": 2.25},
+                {"matrix": [1, 1], "x": 1.25, "y": 2.25},
+                {"matrix": [1, 2], "x": 2.25, "y": 2.25},
+                {"matrix": [1, 3], "x": 3.25, "y": 2.25}
+            ]
+        }
+    }
+}

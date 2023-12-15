@@ -1,7 +1,5 @@
-
-#include QMK_KEYBOARD_H
+#include "quantum.h"
 #include <stdio.h>
-#include "lily58.h"
 
 #define L_BASE 0
 #define L_LOWER (1 << 1)
@@ -28,7 +26,7 @@ const char *read_layer_state(void) {
     snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Adjust");
     break;
   default:
-    snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Undef-%ld", layer_state);
+    snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Undef-%u", layer_state);
   }
 
   return layer_state_str;

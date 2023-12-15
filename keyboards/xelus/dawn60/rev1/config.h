@@ -15,37 +15,9 @@
  */
 #pragma once
 
-#include "config_common.h"
-
-// USB Device descriptor parameter
-#define VENDOR_ID       0x5845 // XE
-#define PRODUCT_ID      0x0060 // Dawn60
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Xelus
-#define PRODUCT         Dawn60
-// key matrix size
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
-
-//no underglow - prototype
-//#define MATRIX_ROW_PINS { B1, B3, B7, F6, F7 }
-//#define MATRIX_COL_PINS { B0, D5, B2, F5, D2, D3, D4, D6, D7, B4, B5, B6, C6, C7 }
-//#define UNUSED_PINS
-
-//underglow
-#define MATRIX_ROW_PINS { B1, B3, F1, F6, F7 }
-#define MATRIX_COL_PINS { B0, D5, B2, F5, D3, D2, C7, C6, B6, B5, B4, D7, D6, D4 }
-#define UNUSED_PINS
-
 // IS31FL3731 driver
 #define DRIVER_COUNT 2
-#define DRIVER_LED_TOTAL 64
-
-// COL2ROW or ROW2COL
-#define DIODE_DIRECTION COL2ROW
-
-// Set 0 if debouncing isn't needed
-#define DEBOUNCE 5
+#define RGB_MATRIX_LED_COUNT 64
 
 // Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap
 #define LOCKING_SUPPORT_ENABLE
@@ -67,8 +39,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 #define RGB_BACKLIGHT_ENABLED 1
 
@@ -76,7 +46,6 @@
 #define RGB_BACKLIGHT_DAWN60
 
 //RGB Underglow defines
-#define RGB_DI_PIN F0
 #define WS2812_LED_TOTAL 20
 
 #define RGB_UNDERGLOW_ALPHA_TOP_START 0
@@ -138,6 +107,3 @@
 // Backlight config starts after VIA's EEPROM usage,
 // dynamic keymaps start after this.
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 31
-
-// VIA lighting is handled by the keyboard-level code
-#define VIA_CUSTOM_LIGHTING_ENABLE

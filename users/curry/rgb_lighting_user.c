@@ -11,9 +11,9 @@ void rgblight_sethsv_default_helper(uint8_t index) { rgblight_sethsv_at(rgblight
  * This is especially useful for One Shot Mods, since it's not always obvious if they're still lit up.
  */
 #if defined(INDICATOR_LIGHTS)
-void set_rgb_indicators(uint8_t this_mod, uint8_t this_led, uint8_t this_osm) {
+void set_rgb_indicators(uint8_t this_mod, led_t this_led, uint8_t this_osm) {
     if (userspace_config.rgb_layer_change && get_highest_layer(layer_state) == 0) {
-        if ((this_mod | this_osm) & MOD_MASK_SHIFT || this_led & (1 << USB_LED_CAPS_LOCK)) {
+        if ((this_mod | this_osm) & MOD_MASK_SHIFT || this_led.caps_lock) {
 #    ifdef SHFT_LED1
             rgblight_sethsv_at(120, 255, 255, SHFT_LED1);
 #    endif  // SHFT_LED1
@@ -79,7 +79,7 @@ void set_rgb_indicators(uint8_t this_mod, uint8_t this_led, uint8_t this_osm) {
 /* Function for the indicators */
 void matrix_scan_indicator(void) {
     if (has_initialized) {
-        set_rgb_indicators(get_mods(), host_keyboard_leds(), get_oneshot_mods());
+        set_rgb_indicators(get_mods(), host_keyboard_led_state(), get_oneshot_mods());
     }
 }
 #endif  // INDICATOR_LIGHTS
@@ -304,15 +304,21 @@ layer_state_t layer_state_set_rgb(layer_state_t state) {
             {
                 uint8_t mode = get_highest_layer(state) == _MODS ? RGBLIGHT_MODE_BREATHING : RGBLIGHT_MODE_STATIC_LIGHT;
                 switch (get_highest_layer(default_layer_state)) {
+#if defined(ENABLE_COLEMAK)
                     case _COLEMAK:
                         rgblight_set_hsv_and_mode(HSV_MAGENTA, mode);
                         break;
+#endif
+#if defined(ENABLE_DVORAK)
                     case _DVORAK:
                         rgblight_set_hsv_and_mode(HSV_SPRINGGREEN, mode);
                         break;
+#endif
+#if defined(ENABLE_WORKMAN)
                     case _WORKMAN:
                         rgblight_set_hsv_and_mode(HSV_GOLDENROD, mode);
                         break;
+#endif
                     default:
                         rgblight_set_hsv_and_mode(HSV_CYAN, mode);
                         break;

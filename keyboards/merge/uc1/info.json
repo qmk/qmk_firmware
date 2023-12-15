@@ -1,0 +1,56 @@
+{
+  "keyboard_name": "UC-1",
+  "manufacturer": "Merge",
+  "url": "https://mergedesign.store/products/uc-1",
+  "maintainer": "duoshock",
+  "usb": {
+    "vid": "0x4D65",
+    "pid": "0x5543",
+    "device_version": "0.0.1"
+  },
+  "rgblight": {
+    "hue_steps": 10,
+    "saturation_steps": 10,
+    "brightness_steps": 10,
+    "led_count": 12,
+    "sleep": true,
+    "animations": {
+      "breathing": true,
+      "rainbow_mood": true,
+      "rainbow_swirl": true,
+      "snake": true,
+      "knight": true,
+      "christmas": true,
+      "static_gradient": true,
+      "rgb_test": true,
+      "alternating": true,
+      "twinkle": true
+    }
+  },
+  "ws2812": {
+    "pin": "B5"
+  },
+  "matrix_pins": {
+    "cols": ["B3", "B4"],
+    "rows": ["B1", "B2"]
+  },
+  "diode_direction": "COL2ROW",
+  "encoder": {
+    "rotary": [
+      {"pin_a": "F5", "pin_b": "F6"}
+    ]
+  },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
+  "layouts": {
+    "LAYOUT": {
+      "layout": [
+        {"matrix": [1, 1], "x": 0, "y": 0},
+
+        {"matrix": [0, 0], "x": 1.25, "y": 0},
+        {"matrix": [0, 1], "x": 2.25, "y": 0},
+        {"matrix": [1, 0], "x": 3.25, "y": 0}
+      ]
+    }
+  }
+}

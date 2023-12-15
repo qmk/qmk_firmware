@@ -27,29 +27,34 @@ PY2 = sys.version_info.major == 2
 if PY2:
     chr = unichr
 
-
 KEYBOARD_LAYOUTS = {
     # These map positions in the parsed layout to
     # positions in the KEYMAP MATRIX
     'ergodox_ez': [
-        [ 0,  1,  2,  3,  4,  5,  6],  [38, 39, 40, 41, 42, 43, 44],
-        [ 7,  8,  9, 10, 11, 12, 13],  [45, 46, 47, 48, 49, 50, 51],
-        [14, 15, 16, 17, 18, 19    ],  [    52, 53, 54, 55, 56, 57],
-        [20, 21, 22, 23, 24, 25, 26],  [58, 59, 60, 61, 62, 63, 64],
-        [27, 28, 29, 30, 31        ],  [        65, 66, 67, 68, 69],
-        [                    32, 33],  [70, 71                    ],
-        [                        34],  [72                        ],
-        [                35, 36, 37],  [73, 74, 75                ],
+        [0, 1, 2, 3, 4, 5, 6],
+        [38, 39, 40, 41, 42, 43, 44],
+        [7, 8, 9, 10, 11, 12, 13],
+        [45, 46, 47, 48, 49, 50, 51],
+        [14, 15, 16, 17, 18, 19],
+        [52, 53, 54, 55, 56, 57],
+        [20, 21, 22, 23, 24, 25, 26],
+        [58, 59, 60, 61, 62, 63, 64],
+        [27, 28, 29, 30, 31],
+        [65, 66, 67, 68, 69],
+        [32, 33],
+        [70, 71],
+        [34],
+        [72],
+        [35, 36, 37],
+        [73, 74, 75],
     ]
 }
 
-ROW_INDENTS = {
-    'ergodox_ez': [0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 5, 0, 6, 0, 4, 0]
-}
+ROW_INDENTS = {'ergodox_ez': [0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 5, 0, 6, 0, 4, 0]}
 
 BLANK_LAYOUTS = [
-# Compact Layout
-"""
+    # Compact Layout
+    """
 .------------------------------------.------------------------------------.
 |     |    |    |    |    |    |     |     |    |    |    |    |    |     |
 !-----+----+----+----+----+----------!-----+----+----+----+----+----+-----!
@@ -70,8 +75,8 @@ BLANK_LAYOUTS = [
                   '-----------------' '-----------------'
 """,
 
-# Wide Layout
-"""
+    # Wide Layout
+    """
 .---------------------------------------------. .---------------------------------------------.
 |       |     |     |     |     |     |       | !       |     |     |     |     |     |       |
 !-------+-----+-----+-----+-----+-------------! !-------+-----+-----+-----+-----+-----+-------!
@@ -93,26 +98,22 @@ BLANK_LAYOUTS = [
 """,
 ]
 
-
 DEFAULT_CONFIG = {
-    "keymaps_includes": [
-        "keymap_common.h",
-    ],
+    "keymaps_includes": ["keymap_common.h",],
     'filler': "-+.'!:x",
     'separator': "|",
     'default_key_prefix': ["KC_"],
 }
-
 
 SECTIONS = [
     'layout_config',
     'layers',
 ]
 
-
 #       Markdown Parsing
 
-ONELINE_COMMENT_RE = re.compile(r"""
+ONELINE_COMMENT_RE = re.compile(
+    r"""
     ^                       # comment must be at the start of the line
     \s*                     # arbitrary whitespace
     //                      # start of the comment
@@ -121,22 +122,26 @@ ONELINE_COMMENT_RE = re.compile(r"""
 """, re.MULTILINE | re.VERBOSE
 )
 
-INLINE_COMMENT_RE = re.compile(r"""
+INLINE_COMMENT_RE = re.compile(
+    r"""
     ([\,\"\[\]\{\}\d])      # anythig that might end a expression
     \s+                     # comment must be preceded by whitespace
     //                      # start of the comment
     \s                      # and succeded by whitespace
     (?:[^\"\]\}\{\[]*)      # the comment (except things which might be json)
     $                       # until the end of line
-""", re.MULTILINE | re.VERBOSE)
+""", re.MULTILINE | re.VERBOSE
+)
 
-TRAILING_COMMA_RE = re.compile(r"""
+TRAILING_COMMA_RE = re.compile(
+    r"""
     ,                       # the comma
     (?:\s*)                 # arbitrary whitespace
     $                       # only works if the trailing comma is followed by newline
     (\s*)                   # arbitrary whitespace
     ([\]\}])                # end of an array or object
-""", re.MULTILINE | re.VERBOSE)
+""", re.MULTILINE | re.VERBOSE
+)
 
 
 def loads(raw_data):
@@ -178,9 +183,7 @@ def parse_config(path):
     def end_section():
         if section['start_line'] >= 0:
             if section['name'] == 'layout_config':
-                config.update(loads("\n".join(
-                    section['code_lines']
-                )))
+                config.update(loads("\n".join(section['code_lines'])))
             elif section['sub_name'].startswith('layer'):
                 layer_name = section['sub_name']
                 config['layer_lines'][layer_name] = section['code_lines']
@@ -215,6 +218,7 @@ def parse_config(path):
     assert 'layout' in config
     return config
 
+
 #       header file parsing
 
 IF0_RE = re.compile(r"""
@@ -223,7 +227,6 @@ IF0_RE = re.compile(r"""
     $.*?
     #endif
 """, re.MULTILINE | re.DOTALL | re.VERBOSE)
-
 
 COMMENT_RE = re.compile(r"""
     /\*
@@ -244,6 +247,7 @@ def regex_partial(re_str_fmt, flags):
     def partial(*args, **kwargs):
         re_str = re_str_fmt.format(*args, **kwargs)
         return re.compile(re_str, flags)
+
     return partial
 
 
@@ -256,7 +260,6 @@ KEYDEF_REP = regex_partial(r"""
     )                   # capture group end
 """, re.MULTILINE | re.DOTALL | re.VERBOSE)
 
-
 ENUM_RE = re.compile(r"""
     (
         enum
@@ -267,7 +270,6 @@ ENUM_RE = re.compile(r"""
         ;
     )                   # capture group end
 """, re.MULTILINE | re.DOTALL | re.VERBOSE)
-
 
 ENUM_KEY_REP = regex_partial(r"""
     (
@@ -309,13 +311,12 @@ def parse_valid_keys(config, out_path):
         include_path = os.path.join(dirpath, include)
         if os.path.exists(include_path):
             header_data = read_header_file(include_path)
-            valid_keycodes.update(
-                parse_keydefs(config, header_data)
-            )
+            valid_keycodes.update(parse_keydefs(config, header_data))
     return valid_keycodes
 
 
 #       Keymap Parsing
+
 
 def iter_raw_codes(layer_lines, filler, separator):
     filler_re = re.compile("[" + filler + " ]")
@@ -346,16 +347,13 @@ LAYER_CHANGE_RE = re.compile(r"""
     (DF|TG|MO)\(\d+\)
 """, re.VERBOSE)
 
-
 MACRO_RE = re.compile(r"""
     M\(\w+\)
 """, re.VERBOSE)
 
-
 UNICODE_RE = re.compile(r"""
     U[0-9A-F]{4}
 """, re.VERBOSE)
-
 
 NON_CODE = re.compile(r"""
     ^[^A-Z0-9_]$
@@ -363,11 +361,7 @@ NON_CODE = re.compile(r"""
 
 
 def parse_uni_code(raw_code):
-    macro_id = "UC_" + (
-        unicodedata.name(raw_code)
-        .replace(" ", "_")
-        .replace("-", "_")
-    )
+    macro_id = "UC_" + (unicodedata.name(raw_code).replace(" ", "_").replace("-", "_"))
     code = "M({})".format(macro_id)
     uc_hex = "{:04X}".format(ord(raw_code))
     return code, macro_id, uc_hex
@@ -407,19 +401,13 @@ def parse_code(raw_code, key_prefixes, valid_keycodes):
 
 def parse_keymap(config, key_indexes, layer_lines, valid_keycodes):
     keymap = {}
-    raw_codes = list(iter_raw_codes(
-        layer_lines, config['filler'], config['separator']
-    ))
+    raw_codes = list(iter_raw_codes(layer_lines, config['filler'], config['separator']))
     indexed_codes = iter_indexed_codes(raw_codes, key_indexes)
     key_prefixes = config['key_prefixes']
     for raw_code, key_index, row_index in indexed_codes:
-        code, macro_id, uc_hex = parse_code(
-            raw_code, key_prefixes, valid_keycodes
-        )
+        code, macro_id, uc_hex = parse_code(raw_code, key_prefixes, valid_keycodes)
         # TODO: line numbers for invalid codes
-        err_msg = "Could not parse key '{}' on row {}".format(
-            raw_code, row_index
-        )
+        err_msg = "Could not parse key '{}' on row {}".format(raw_code, row_index)
         assert code is not None, err_msg
         # print(repr(raw_code), repr(code), macro_id, uc_hex)
         if macro_id:
@@ -432,16 +420,13 @@ def parse_keymap(config, key_indexes, layer_lines, valid_keycodes):
 
 def parse_keymaps(config, valid_keycodes):
     keymaps = collections.OrderedDict()
-    key_indexes = config.get(
-        'key_indexes', KEYBOARD_LAYOUTS[config['layout']]
-    )
+    key_indexes = config.get('key_indexes', KEYBOARD_LAYOUTS[config['layout']])
     # TODO: maybe validate key_indexes
 
     for layer_name, layer_lines, in config['layer_lines'].items():
-        keymaps[layer_name] = parse_keymap(
-            config, key_indexes, layer_lines, valid_keycodes
-        )
+        keymaps[layer_name] = parse_keymap(config, key_indexes, layer_lines, valid_keycodes)
     return keymaps
+
 
 #       keymap.c output
 
@@ -453,7 +438,7 @@ void matrix_init_user(void) {
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     ergodox_board_led_off();
     ergodox_right_led_1_off();
@@ -572,7 +557,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {{
 }};
 """
 
-
 UNICODE_MACRO_TEMPLATE = """
 case {macro_id}:
     unicode_action_function(0x{hi:02x}, 0x{lo:02x});
@@ -584,14 +568,7 @@ def unicode_macro_cases(config):
     for macro_id, uc_hex in config['unicode_macros'].items():
         hi = int(uc_hex, 16) >> 8
         lo = int(uc_hex, 16) & 0xFF
-        unimacro_keys = ", ".join(
-            "T({})".format(
-                "KP_" + digit if digit.isdigit() else digit
-            ) for digit in uc_hex
-        )
-        yield UNICODE_MACRO_TEMPLATE.format(
-            macro_id=macro_id, hi=hi, lo=lo
-        )
+        yield UNICODE_MACRO_TEMPLATE.format(macro_id=macro_id, hi=hi, lo=lo)
 
 
 def iter_keymap_lines(keymap, row_indents=None):

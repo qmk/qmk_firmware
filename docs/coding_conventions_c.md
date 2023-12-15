@@ -8,8 +8,8 @@ Most of our style is pretty easy to pick up on, but right now it's not entirely 
   * Closing Brace: Lined up with the first character of the statement that opens the block
   * Else If: Place the closing brace at the beginning of the line and the next opening brace at the end of the same line.
   * Optional Braces: Always include optional braces.
-    * Good: if (condition) { return false; }
-    * Bad: if (condition) return false;
+    * Good: `if (condition) { return false; }`
+    * Bad: `if (condition) return false;`
 * We encourage use of C style comments: `/* */`
   * Think of them as a story describing the feature
   * Use them liberally to explain why particular decisions were made.
@@ -24,7 +24,7 @@ Most of our style is pretty easy to pick up on, but right now it's not entirely 
   * Readability is more important than consistency.
   * Follow the file's existing style. If the file is mixed, follow the style that makes sense for the section you are modifying.
   * When indenting, keep the hash at the start of the line and add whitespace between `#` and `if`, starting with 4 spaces after the `#`.
-  * You can follow the indention level of the surrounding C code, or preprocessor directives can have their own indentation levels. Choose the style that best communicates the intent of your code.
+  * You can follow the indentation level of the surrounding C code, or preprocessor directives can have their own indentation levels. Choose the style that best communicates the intent of your code.
 
 Here is an example for easy reference:
 
@@ -49,7 +49,7 @@ int foo(void) {
 
 [Clang-format](https://clang.llvm.org/docs/ClangFormat.html) is part of LLVM and can automatically format your code for you, because ain't nobody got time to do it manually. We supply a configuration file for it that applies most of the coding conventions listed above. It will only change whitespace and newlines, so you will still have to remember to include optional braces yourself.
 
-Use the [full LLVM installer](http://llvm.org/builds/) to get clang-format on Windows, or use `sudo apt install clang-format` on Ubuntu.
+Use the [full LLVM installer](https://llvm.org/builds/) to get clang-format on Windows, or use `sudo apt install clang-format` on Ubuntu.
 
 If you run it from the command-line, pass `-style=file` as an option and it will automatically find the .clang-format configuration file in the QMK root directory.
 

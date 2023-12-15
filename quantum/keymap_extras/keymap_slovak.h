@@ -1,39 +1,33 @@
-/* Copyright 2020
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2023 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+/*******************************************************************************
+  88888888888 888      d8b                .d888 d8b 888               d8b
+      888     888      Y8P               d88P"  Y8P 888               Y8P
+      888     888                        888        888
+      888     88888b.  888 .d8888b       888888 888 888  .d88b.       888 .d8888b
+      888     888 "88b 888 88K           888    888 888 d8P  Y8b      888 88K
+      888     888  888 888 "Y8888b.      888    888 888 88888888      888 "Y8888b.
+      888     888  888 888      X88      888    888 888 Y8b.          888      X88
+      888     888  888 888  88888P'      888    888 888  "Y8888       888  88888P'
+                                                        888                 888
+                                                        888                 888
+                                                        888                 888
+     .d88b.   .d88b.  88888b.   .d88b.  888d888 8888b.  888888 .d88b.   .d88888
+    d88P"88b d8P  Y8b 888 "88b d8P  Y8b 888P"      "88b 888   d8P  Y8b d88" 888
+    888  888 88888888 888  888 88888888 888    .d888888 888   88888888 888  888
+    Y88b 888 Y8b.     888  888 Y8b.     888    888  888 Y88b. Y8b.     Y88b 888
+     "Y88888  "Y8888  888  888  "Y8888  888    "Y888888  "Y888 "Y8888   "Y88888
+         888
+    Y8b d88P
+     "Y88P"
+*******************************************************************************/
 
 #pragma once
-
-#include "keymap.h"
-
+#include "keycodes.h"
 // clang-format off
 
-/*
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ ; │ + │ ľ │ š │ č │ ť │ ž │ ý │ á │ í │ é │ = │ ´ │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │ Q │ W │ E │ R │ T │ Z │ U │ I │ O │ P │ ú │ ä │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │ A │ S │ D │ F │ G │ H │ J │ K │ L │ ô │ § │ ň │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │ & │ Y │ X │ C │ V │ B │ N │ M │ , │ . │ - │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
+// Aliases
 #define SK_SCLN KC_GRV  // ;
 #define SK_PLUS KC_1    // +
 #define SK_LCAR KC_2    // ľ
@@ -47,7 +41,6 @@
 #define SK_EACU KC_0    // é
 #define SK_EQL  KC_MINS // =
 #define SK_ACUT KC_EQL  // ´ (dead)
-// Row 2
 #define SK_Q    KC_Q    // Q
 #define SK_W    KC_W    // W
 #define SK_E    KC_E    // E
@@ -60,7 +53,6 @@
 #define SK_P    KC_P    // P
 #define SK_UACU KC_LBRC // ú
 #define SK_ADIA KC_RBRC // ä
-// Row 3
 #define SK_A    KC_A    // A
 #define SK_S    KC_S    // S
 #define SK_D    KC_D    // D
@@ -73,7 +65,6 @@
 #define SK_OCIR KC_SCLN // ô
 #define SK_SECT KC_QUOT // §
 #define SK_NCAR KC_NUHS // ň
-// Row 4
 #define SK_AMPR KC_NUBS // &
 #define SK_Y    KC_Z    // Y
 #define SK_X    KC_X    // X
@@ -85,27 +76,12 @@
 #define SK_COMM KC_COMM // ,
 #define SK_DOT  KC_DOT  // .
 #define SK_MINS KC_SLSH // -
-
-/* Shifted symbols
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ ° │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ % │ ˇ │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │   │   │   │   │   │   │   │   │   │   │ / │ ( │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │   │   │   │   │   │   │   │   │   │ " │ ! │ ) │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │ * │   │   │   │   │   │   │   │ ? │ : │ _ │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
 #define SK_RNGA S(SK_SCLN) // ° (dead)
 #define SK_1    S(SK_PLUS) // 1
-#define SK_2    S(SK_LACU) // 2
+#define SK_2    S(SK_LCAR) // 2
 #define SK_3    S(SK_SCAR) // 3
 #define SK_4    S(SK_CCAR) // 4
-#define SK_5    S(SK_TACU) // 5
+#define SK_5    S(SK_TCAR) // 5
 #define SK_6    S(SK_ZCAR) // 6
 #define SK_7    S(SK_YACU) // 7
 #define SK_8    S(SK_AACU) // 8
@@ -113,51 +89,30 @@
 #define SK_0    S(SK_EACU) // 0
 #define SK_PERC S(SK_EQL)  // %
 #define SK_CARN S(SK_ACUT) // ˇ (dead)
-// Row 2
 #define SK_SLSH S(SK_UACU) // /
 #define SK_LPRN S(SK_ADIA) // (
-// Row 3
 #define SK_DQUO S(SK_OCIR) // "
 #define SK_EXLM S(SK_SECT) // !
 #define SK_RPRN S(SK_NCAR) // )
-// Row 4
 #define SK_ASTR S(SK_AMPR) // *
 #define SK_QUES S(SK_COMM) // ?
 #define SK_COLN S(SK_DOT)  // :
 #define SK_UNDS S(SK_MINS) // _
-
-/* AltGr symbols
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │   │ ~ │   │ ^ │ ˘ │ ° │ ˛ │ ` │ ˙ │   │ ˝ │ ¨ │ ¸ │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │ \ │ | │ € │   │   │   │   │   │   │ ' │ ÷ │ × │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │   │ đ │ Đ │ [ │ ] │   │   │ ł │ Ł │ $ │ ß │ ¤ │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │ < │ > │ # │   │ @ │ { │ } │   │   │   │   │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
 #define SK_TILD ALGR(SK_PLUS) // ~
-#define SK_CIRC ALGR(SK_LCAR) // ^ (dead)
-#define SK_BREV ALGR(SK_SCAR) // ˘ (dead)
-#define SK_RNGA ALGR(SK_CCAR) // ° (dead)
+#define SK_CIRC ALGR(SK_SCAR) // ^ (dead)
+#define SK_BREV ALGR(SK_CCAR) // ˘ (dead)
 #define SK_OGON ALGR(SK_TCAR) // ˛ (dead)
 #define SK_GRV  ALGR(SK_ZCAR) // `
 #define SK_DOTA ALGR(SK_YACU) // ˙ (dead)
 #define SK_DACU ALGR(SK_EACU) // ˝ (dead)
 #define SK_DIAE ALGR(SK_EQL)  // ¨ (dead)
 #define SK_CEDL ALGR(SK_ACUT) // ¸ (dead)
-// Row 2
 #define SK_BSLS ALGR(SK_Q)    // (backslash)
 #define SK_PIPE ALGR(SK_W)    // |
 #define SK_EURO ALGR(SK_E)    // €
 #define SK_QUOT ALGR(SK_P)    // '
 #define SK_DIV  ALGR(SK_UACU) // ÷
 #define SK_MUL  ALGR(SK_ADIA) // ×
-// Row 3
 #define SK_LDST ALGR(SK_S)    // đ
 #define SK_CDST ALGR(SK_D)    // Đ
 #define SK_LBRC ALGR(SK_F)    // [
@@ -167,10 +122,10 @@
 #define SK_DLR  ALGR(SK_OCIR) // $
 #define SK_SS   ALGR(SK_SECT) // ß
 #define SK_CURR ALGR(SK_NCAR) // ¤
-// Row 4
 #define SK_LABK ALGR(SK_AMPR) // <
 #define SK_RABK ALGR(SK_Y)    // >
 #define SK_HASH ALGR(SK_X)    // #
 #define SK_AT   ALGR(SK_V)    // @
 #define SK_LCBR ALGR(SK_B)    // {
 #define SK_RCBR ALGR(SK_N)    // }
+

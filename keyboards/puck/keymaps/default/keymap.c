@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * High Layer (Work)
   */
   [_HL] = LAYOUT(
-    KC_NUMLOCK,      KC_PAST,    KC_NO,
+    KC_NUM,          KC_PAST,    KC_NO,
     KC_PMNS,         KC_PENT,    KC_PPLS,
     KC_NO,           KC_PSLS,    KC_NO,
     KC_NO,           KC_PDOT,    KC_NO

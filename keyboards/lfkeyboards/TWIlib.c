@@ -8,7 +8,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include "TWIlib.h"
-#include "util/delay.h"
+#include <util/delay.h>
 #include "print.h"
 
 // Global transmit buffer
@@ -24,7 +24,7 @@ int RXBuffLen; // The total number of bytes to read (should be less than RXMAXBU
 
 TWIInfoStruct TWIInfo;
 
-void TWIInit()
+void TWIInit(void)
 {
 	TWIInfo.mode = Ready;
 	TWIInfo.errorCode = 0xFF;
@@ -37,7 +37,7 @@ void TWIInit()
 	TWCR = (1 << TWIE) | (1 << TWEN);
 }
 
-uint8_t isTWIReady()
+uint8_t isTWIReady(void)
 {
 	if ( (TWIInfo.mode == Ready) | (TWIInfo.mode == RepeatedStartSent) )
 	{

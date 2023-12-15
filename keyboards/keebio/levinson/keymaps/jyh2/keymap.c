@@ -31,11 +31,11 @@ enum custom_keycodes {
 
 #include "dynamic_macro.h"
 
-#define DREC_1  DYN_REC_START1
-#define DREC_2  DYN_REC_START2
-#define DPLAY_1 DYN_MACRO_PLAY1
-#define DPLAY_2 DYN_MACRO_PLAY2
-#define DSTOP   DYN_REC_STOP
+#define DREC_1  DM_REC1
+#define DREC_2  DM_REC2
+#define DPLAY_1 DM_PLY1
+#define DPLAY_2 DM_PLY2
+#define DSTOP   DM_RSTP
 
 
 // Mod Tap Definitions
@@ -133,7 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------'    `-----------------------------------------'
  */
     [_NM] = LAYOUT_ortho_4x12(
-        XXXXXXX, XXXXXXX, KC_PSCR, KC_SLCK, KC_PAUS, XXXXXXX,    XXXXXXX, KC_7   , KC_8   , KC_9   , KC_0   , TO(_NM),
+        XXXXXXX, XXXXXXX, KC_PSCR, KC_SCRL, KC_PAUS, XXXXXXX,    XXXXXXX, KC_7   , KC_8   , KC_9   , KC_0   , TO(_NM),
         XXXXXXX, XXXXXXX, KC_INS , KC_HOME, KC_PGUP, XXXXXXX,    XXXXXXX, KC_4   , KC_5   , KC_6   , KC_SLSH, XXXXXXX,
         XXXXXXX, XXXXXXX, KC_DEL , KC_END , KC_PGDN, XXXXXXX,    XXXXXXX, KC_1   , KC_2   , KC_3   , KC_ASTR, KC_EQL ,
         _______, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______,    _______, KC_0   , KC_DOT , KC_PLUS, KC_MINS, _______
@@ -151,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------'    `-----------------------------------------'
  */
     [_ADJUST] = LAYOUT_ortho_4x12(
-        RESET  , XXXXXXX,  KC_UP , XXXXXXX, XXXXXXX, DREC_1 ,    DREC_2 , RGB_M_P, RGB_M_SN,RGB_M_G, XXXXXXX, KC_DEL ,
+        QK_BOOT, XXXXXXX,  KC_UP , XXXXXXX, XXXXXXX, DREC_1 ,    DREC_2 , RGB_M_P, RGB_M_SN,RGB_M_G, XXXXXXX, KC_DEL ,
         KC_CAPS, KC_LEFT, KC_DOWN, KC_RGHT, MKITPNK, DPLAY_1,    DPLAY_2, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, _______,
         _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DSTOP  ,    DSTOP  , RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, _______,
         _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______

@@ -1,7 +1,5 @@
-
-#include QMK_KEYBOARD_H
+#include "quantum.h"
 #include <stdio.h>
-#include "crkbd.h"
 
 // in the future, should use (1U<<_LAYER_NAME) instead, but needs to be moved to keymap,c
 #define L_BASE 0
@@ -29,7 +27,11 @@ const char *read_layer_state(void) {
     snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Adjust");
     break;
   default:
+#if defined (LAYER_STATE_32BIT)
     snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Undef-%ld", layer_state);
+#else
+    snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Undef-%d", layer_state);
+#endif
   }
 
   return layer_state_str;

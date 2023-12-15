@@ -27,6 +27,6 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
   SRC += custom_rgb.c
 endif
 
-ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
+ifeq ($(strip $(OLED_ENABLE)), yes)
   SRC += custom_oled.c
 endif
