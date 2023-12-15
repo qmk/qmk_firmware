@@ -6,7 +6,7 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* LAYER 0
-     * ,--------       --------.
+     * ,--ENC2--       --ENC1--.
      * |   <<  |       |  >>   |  
      * |-------+-------+-------|
      * |  STOP |  PLAY | MEDIA |
@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
     /* LAYER 1
-     * ,--------       --------.
+     * ,--ENC2--       --ENC1--.
      * | MODE+ |       | MODE- |  
      * |-------+-------+-------|
      * |Bright-|  Tog  |Bright+|
@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
       
     /* LAYER 2 
-     * ,--------       --------.
+     * ,--ENC2--       --ENC1--.
      * |       |       |       |  
      * |-------+-------+-------|
      * |       |       |       |
@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ),
 
     /* LAYER 3 
-     * ,--------       --------.
+     * ,--ENC2--       --ENC1--.
      * |       |       |       |  
      * |-------+-------+-------|
      * | TO(1) |       | TO(2) |
@@ -75,6 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 /*Encoder Mapping*/
+//-----------------------(ENC1)---------------------------------(ENC2)-----------------
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] =  { ENCODER_CCW_CW(KC_RGHT, KC_LEFT),      ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },

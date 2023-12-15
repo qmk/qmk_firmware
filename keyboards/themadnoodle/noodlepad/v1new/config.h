@@ -6,3 +6,4 @@
 /*RGB Defaults*/
 #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL
 #define RGBLIGHT_DEFAULT_SPD 3
+/* See info.json for more RGB settings*/

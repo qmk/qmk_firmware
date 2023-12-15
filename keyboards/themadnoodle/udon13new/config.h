@@ -1,25 +1,9 @@
-// Copyright 2023 The Mad Noodle (@The-Mad-Noodle)
+// Copyright 2023 Jesse Leventhal (@The=Mad-Noodle)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
 
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-
-
-/* oled custom font */
-//#define OLED_FONT_END 255
-//#define OLED_FONT_H "glcdfont.c"
+/*RGB Defaults*/
+#define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL
+#define RGBLIGHT_DEFAULT_SPD 3
+/* See info.json for more RGB settings*/

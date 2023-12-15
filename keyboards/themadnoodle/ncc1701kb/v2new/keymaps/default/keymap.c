@@ -5,8 +5,8 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-    /* LAYER 0
-     * ,-----------------------.
+    /* LAYER 0 
+     * ,-------|ENCODER|-------.
      * |   <<  |  MUTE |  >>   |
      * |-------+-------+-------|
      * |  STOP |  PLAY | MEDIA |
@@ -22,8 +22,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ),
 
 
-    /* LAYER 1
-     * ,-----------------------.
+    /* LAYER 1 
+     * ,-------|ENCODER|-------.
      * | MODE+ |RGB TOG| MODE- |
      * |-------+-------+-------|
      * |Bright-| PLAIN |Bright+|
@@ -39,8 +39,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ),
 
       
-    /* LAYER 2 (ENCODER)
-     * ,-----------------------.
+    /* LAYER 2 
+     * ,-------|ENCODER|-------.
      * |       |       |       |
      * |-------+-------+-------|
      * |       |       |       |
@@ -56,8 +56,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ),
 
       
-    /* LAYER 3 (ENCODER)
-     * ,-----------------------.
+    /* LAYER 3 
+     * ,-------|ENCODER|-------.
      * |       |       |       |
      * |-------+-------+-------|
      * |       |       |       |
