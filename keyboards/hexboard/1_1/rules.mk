@@ -3,8 +3,4 @@ CUSTOM_MATRIX = lite
 
 RGB_MATRIX_CUSTOM_KB = yes
 
-## for both SH1106/SH1107
-OLED_DRIVER = ssd1306
-OLED_TRANSPORT = i2c
-
 AUDIO_DRIVER = pwm_hardware
