@@ -1,7 +1,5 @@
 // Copyright 2023 Zach DeCook
 // SPDX-License-Identifier: GPL-3.0-only
-#include "platforms/chibios/vendors/RP/_pin_defs.h"
-#include "gpio.h"
 #include "matrix.h"
 
 static const uint8_t columns[MATRIX_COLS] = MATRIX_COL_PINS;
