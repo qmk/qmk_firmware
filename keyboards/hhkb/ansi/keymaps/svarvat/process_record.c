@@ -19,12 +19,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         if (IS_LAYER_ON(LA_LTHUMBEWEAK)) {
             if (!processKeycodeIfLThumbEWeak(keycode, record)) {return false;}
         }
-        if (IS_LAYER_ON(LA_LTHUMBDSTRONG)) {
-            if(!processKeycodeIfLThumbDStrong(keycode, record)) {return false;}
-        }
-        if (IS_LAYER_ON(LA_LTHUMBESTRONG)) {
-            if(!processKeycodeIfLThumbEStrong(keycode, record)) {return false;}
-        }
         if (IS_LAYER_ON(LA_LTHUMB3WEAK)) {
             if (!processKeycodeIfLThumb3Weak(keycode, record)) {return false;}
         }
@@ -33,6 +27,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         }
         if (IS_LAYER_ON(LA_LTHUMB1WEAK)) {
             if (!processKeycodeIfLThumb1Weak(keycode, record)) {return false;}
+        }
+        if (IS_LAYER_ON(LA_LTHUMBDSTRONG)) {
+            if(!processKeycodeIfLThumbDStrong(keycode, record)) {return false;}
+        }
+        if (IS_LAYER_ON(LA_LTHUMBESTRONG)) {
+            if(!processKeycodeIfLThumbEStrong(keycode, record)) {return false;}
         }
         if (IS_LAYER_ON(LA_LTHUMBMS)) {
             if (!processKeycodeIfLThumbMs(keycode, record)) {return false;}
