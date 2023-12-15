@@ -2,6 +2,7 @@
     "manufacturer": "The Mad Noodle",
     "keyboard_name": "Udon13",
     "maintainer": "The-Mad-Noodle",
+    "url": "https://www.madnoodleprototypes.com/",
     "bootloader": "atmel-dfu",
     "diode_direction": "ROW2COL",
     "features": {
@@ -37,9 +38,8 @@
         "rows": ["F7", "F1", "D6", "D7"]
     },
     "processor": "atmega32u4",
-    "url": "",
     "usb": {
-        "device_version": "2.0.0",
+        "device_version": "1.0.0",
         "pid": "0x0012",
         "vid": "0x6A6C"
     },

@@ -2,6 +2,7 @@
     "manufacturer": "The Mad Noodle",
     "keyboard_name": "NoodlePad Micro",
     "maintainer": "the-mad-noodle",
+    "url": "https://www.madnoodleprototypes.com/",
     "bootloader": "rp2040",
     "diode_direction": "ROW2COL",
     "features": {
@@ -34,7 +35,6 @@
         "rows": ["GP26", "GP27", "GP28"]
     },
     "processor": "RP2040",
-    "url": "",
     "usb": {
         "device_version": "3.0.0",
         "pid": "0x0004",
