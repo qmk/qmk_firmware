@@ -150,8 +150,8 @@
     },
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0xCAFE",
-        "vid": "0x239A"
+        "pid": "0x6B01",
+        "vid": "0x575C"
     },
     "layouts": {
         "LAYOUT_landscape": {
