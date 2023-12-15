@@ -1136,7 +1136,7 @@ bool processKeycodeIfLThumbEWeak(uint16_t keycode, keyrecord_t* record) {
                     layer_on(LA_LTHUMBEMO);
                 }
                 if (isLThumbEWeakPristine) {
-                    tap_code16(C(KC_F));
+                    tap_code16(C(KC_Q));
                     isLThumbEWeakPristine = false;
                 } else {
                     isLThumbEWeakPristine = true;
