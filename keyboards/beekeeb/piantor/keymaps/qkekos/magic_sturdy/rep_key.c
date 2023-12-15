@@ -12,11 +12,11 @@ void process_rep_key(void) {
         magic_case(KC_X,   "es");
         magic_case(LT_I,   "ng");
         magic_case(KC_Y,   "ou");
-        magic_case(KC_Q,   "ui");
         magic_case(KC_J,   "oin");
         magic_case(TH_NUM, "for");
         magic_case(KC_W,   "ould");
         magic_case(KC_B,   "ecause");
+        remember_magic_case(KC_Q, "ui", LT_I);
         default: tap_code16(queue(-1));
     }
 }
