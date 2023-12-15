@@ -203,5 +203,15 @@
         "id": "0x11de784a",
         "short_name": "M0SENSE",
         "description": "M0SENSE BL702"
+    },
+    {
+        "id": "0x4b684d71",
+        "short_name": "MaixPlay-U4",
+        "description": "Sipeed MaixPlay-U4(BL618)"
+    },
+    {
+        "id": "0x9517422f",
+        "short_name": "RZA1LU",
+        "description": "Renesas RZ/A1LU (R7S7210xx)"
     }
 ]

@@ -24,69 +24,6 @@ enum BACKLIGHT_AREAS {
   BACKLIGHT_SWITCH   = 0b0001111
 };
 
-// uint8_t backlight_rgb_r = 255;
-// uint8_t backlight_rgb_g = 0;
-// uint8_t backlight_rgb_b = 0;
-// uint8_t backlight_os_state = 0;
-// uint32_t backlight_layer_state = 0;
-
-// void backlight_toggle_rgb(bool enabled)
-// {
-//   if(enabled) {
-//     uint8_t rgb[17][3] = {
-//       {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-//       {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-//       {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-//       {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-//       {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-//       {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-//       {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-//       {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-//       {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-//       {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-//       {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-//       {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-//       {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-//       {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-//       {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-//       {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-//       {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b}
-//     };
-//     backlight_set_rgb(rgb);
-//   } else {
-//     uint8_t rgb[17][3] = {
-//       {0, 0, 0},
-//       {0, 0, 0},
-//       {0, 0, 0},
-//       {0, 0, 0},
-//       {0, 0, 0},
-//       {0, 0, 0},
-//       {0, 0, 0},
-//       {0, 0, 0},
-//       {0, 0, 0},
-//       {0, 0, 0},
-//       {0, 0, 0},
-//       {0, 0, 0},
-//       {0, 0, 0},
-//       {0, 0, 0},
-//       {0, 0, 0},
-//       {0, 0, 0},
-//       {0, 0, 0}
-//     };
-//     backlight_set_rgb(rgb);
-//   }
-// }
-
-// void backlight_set_rgb(uint8_t cfg[17][3])
-// {
-//   cli();
-//   for(uint8_t i = 0; i < 17; ++i) {
-//     send_color(cfg[i][0], cfg[i][1], cfg[i][2], Device_PCBRGB);
-//   }
-//   sei();
-//   show();
-// }
-
 // Q5, Q6, Q7 is connected to B1 - alphas
 // Q8, Q9 is connected to B2 - frow
 // Q1, Q2, Q3 is connected to B3 - mods
@@ -98,26 +35,6 @@ void backlight_set(uint8_t level) {
   level & BACKLIGHT_MOD ? (PORTB |= 0b00001000) : (PORTB &= ~0b00001000);
   level & BACKLIGHT_MACRO ? (PORTE |= 0b01000000) : (PORTE &= ~0b01000000);
 }
-
-// // Port from backlight_update_state
-// bool led_update_kb(led_t led_state) {
-//   bool res = led_update_user(led_state);
-//   if(res) {
-//       bool status[7] = {
-//       backlight_os_state & (1<<USB_LED_CAPS_LOCK),
-//       backlight_os_state & (1<<USB_LED_SCROLL_LOCK),
-//       backlight_os_state & (1<<USB_LED_NUM_LOCK),
-//       backlight_layer_state & (1<<1),
-//       backlight_layer_state & (1<<2),
-//       backlight_layer_state & (1<<3),
-//       backlight_layer_state & (1<<4)
-//     };
-//     indicator_leds_set(status);
-//     backlight_os_state & (1<<USB_LED_CAPS_LOCK) ? (PORTB &= ~0b00000001) : (PORTB |= 0b00000001);
-//     backlight_os_state & (1<<USB_LED_SCROLL_LOCK) ? (PORTB &= ~0b00010000) : (PORTB |= 0b00010000);
-//   }
-//   return res;
-// }
 
 // U5 Pin 1, 2, 3 connected to top left LEDs
 

@@ -16,9 +16,6 @@
 
 #pragma once
 
-#define DRIVER_LED_TOTAL 34
-#define RGBLED_NUM 34
-
 #define WS2812_PWM_DRIVER PWMD4               // default: PWMD2
 #define WS2812_PWM_CHANNEL 3                  // default: 2
 //#define WS2812_PWM_COMPLEMENTARY_OUTPUT       // Define for a complementary timer output (TIMx_CHyN); omit for a normal timer output (TIMx_CHy).

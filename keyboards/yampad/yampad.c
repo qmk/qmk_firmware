@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "quantum.h"
+#include <stdio.h>
 
 #if defined(OLED_ENABLE)
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {

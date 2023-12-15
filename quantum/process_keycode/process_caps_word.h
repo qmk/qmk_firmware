@@ -14,8 +14,9 @@
 
 #pragma once
 
-#include "quantum.h"
-#include "caps_word.h"
+#include <stdint.h>
+#include <stdbool.h>
+#include "action.h"
 
 /**
  * @brief Process handler for Caps Word feature.

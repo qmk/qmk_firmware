@@ -3,10 +3,6 @@
 
 #pragma once
 
-/* Change the USB polling rate [default = 1000Hz (1ms)] and
- * use larger value of keys per scan for elite games */
-#define USB_POLLING_INTERVAL_MS  2  // 500Hz
-
 /* LED Matrix & Animations */
 #ifdef RGB_MATRIX_ENABLE
 
@@ -14,10 +10,6 @@
 
     #define RGB_DISABLE_WHEN_USB_SUSPENDED     // turn off effects when suspended
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180  // limits maximum brightness of LEDs to x out of 255. If not defined maximum brightness is set to 255
-
-    #define RGBLIGHT_HUE_STEP 8
-    #define RGBLIGHT_SAT_STEP 8
-    #define RGBLIGHT_VAL_STEP 8
 
     #define RGB_MATRIX_KEYPRESSES              // enable key press effects
 

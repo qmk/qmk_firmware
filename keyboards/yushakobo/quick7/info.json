@@ -14,6 +14,18 @@
             {"pin_a": "F5", "pin_b": "F6"}
         ]
     },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 13,
+        "sleep": true,
+        "animations": {
+            "rainbow_mood": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true
+        }
+    },
     "ws2812": {
         "pin": "D3"
     },

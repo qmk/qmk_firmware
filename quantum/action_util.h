@@ -26,20 +26,23 @@ extern "C" {
 #endif
 
 extern report_keyboard_t *keyboard_report;
+#ifdef NKRO_ENABLE
+extern report_nkro_t *nkro_report;
+#endif
 
 void send_keyboard_report(void);
 
 /* key */
 inline void add_key(uint8_t key) {
-    add_key_to_report(keyboard_report, key);
+    add_key_to_report(key);
 }
 
 inline void del_key(uint8_t key) {
-    del_key_from_report(keyboard_report, key);
+    del_key_from_report(key);
 }
 
 inline void clear_keys(void) {
-    clear_keys_from_report(keyboard_report);
+    clear_keys_from_report();
 }
 
 /* modifier */
@@ -100,6 +103,19 @@ void set_oneshot_swaphands(void);
 void release_oneshot_swaphands(void);
 void use_oneshot_swaphands(void);
 void clear_oneshot_swaphands(void);
+#endif
+
+#ifdef DUMMY_MOD_NEUTRALIZER_KEYCODE
+// KC_A is used as the lowerbound instead of QK_BASIC because the range QK_BASIC...KC_A includes
+// internal keycodes like KC_NO and KC_TRANSPARENT which are unsuitable for use with `tap_code(kc)`.
+#    if !(KC_A <= DUMMY_MOD_NEUTRALIZER_KEYCODE && DUMMY_MOD_NEUTRALIZER_KEYCODE <= QK_BASIC_MAX)
+#        error "DUMMY_MOD_NEUTRALIZER_KEYCODE must be a basic, unmodified, HID keycode!"
+#    endif
+void neutralize_flashing_modifiers(uint8_t active_mods);
+#endif
+#ifndef MODS_TO_NEUTRALIZE
+#    define MODS_TO_NEUTRALIZE \
+        { MOD_BIT(KC_LEFT_ALT), MOD_BIT(KC_LEFT_GUI) }
 #endif
 
 #ifdef __cplusplus

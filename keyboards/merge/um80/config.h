@@ -20,14 +20,10 @@
 #define MASTER_LEFT
 #define SPLIT_MODS_ENABLE
 
-#define RGBLIGHT_SPLIT
-#define RGBLED_NUM 100
-#define RGBLED_SPLIT { 48, 52 }
 #ifdef RGB_MATRIX_ENABLE
-#    define RGB_MATRIX_LED_COUNT RGBLED_NUM
-#    define RGB_MATRIX_SPLIT RGBLED_SPLIT
+#    define RGB_MATRIX_LED_COUNT 100
+#    define RGB_MATRIX_SPLIT { 48, 52 }
 #endif
-#define RGBLIGHT_SLEEP
 
 #define AUDIO_PIN B6
 

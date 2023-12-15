@@ -11,6 +11,9 @@
   "ws2812": {
     "pin": "B5"
   },
+  "bluetooth": {
+    "driver": "bluefruit_le"
+  },
   "processor": "atmega32u4",
   "bootloader": "caterina",
   "layouts": {
