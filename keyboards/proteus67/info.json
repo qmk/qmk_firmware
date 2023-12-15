@@ -37,7 +37,11 @@
         "brightness_steps": 5,
         "led_count": 21,
         "saturation_steps": 5,
-        "sleep": true
+        "sleep": true,
+        "layers": {
+            "enabled": true,
+            "override_rgb": false
+        }
     },
     "url": "https://github.com/gzowski",
     "usb": {
