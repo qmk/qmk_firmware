@@ -53,7 +53,7 @@ jobs:
         [ ! -f .failed ] || exit 1
 
     - name: 'Upload artifacts'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: always()
       with:
         name: artifacts-${{ github.event.inputs.branch || github.ref_name }}-${{ matrix.keymap }}
