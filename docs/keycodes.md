@@ -381,7 +381,8 @@ See also: [Layer Switching](feature_layers.md#switching-and-toggling-layers)
 
 |Key             |Description                                                                       |
 |----------------|----------------------------------------------------------------------------------|
-|`DF(layer)`     |Set the base (default) layer                                                      |
+|`DF(layer)`     |Set the base (default) layer until the keyboard loses power                       |
+|`PDF(layer)`    |Set the base (default) layer in EEPROM                                            |
 |`MO(layer)`     |Momentarily turn on `layer` when pressed (requires `KC_TRNS` on destination layer)|
 |`OSL(layer)`    |Momentarily activates `layer` until a key is pressed. See [One Shot Keys](one_shot_keys.md) for details. |
 |`LM(layer, mod)`|Momentarily turn on `layer` (like MO) with `mod` active as well.  Where `mod` is a mods_bit.  Mods can be viewed [here](mod_tap.md).  Example Implementation: `LM(LAYER_1, MOD_LALT)`|
