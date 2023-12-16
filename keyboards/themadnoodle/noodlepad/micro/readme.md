@@ -1,8 +1,8 @@
 # NoodlePad [Micro]
 
-![NoodPad[Mircro]](https://i.imgur.com/MWUMBLV.png)
+![NoodPad[Mircro]](https://static.wixstatic.com/media/59d0ff_a93e3066685e4273b4c628e702ba981d~mv2.jpg)
 
-*A short description of the keyboard/project*
+The Noodlepad [Micro] is a 6 key 2 encoder macro keypad designed using RP2040 chipset
 
 * Keyboard Maintainer: [The Mad Noodle](https://github.com/The-Mad-Noodle)
 * Hardware Supported: NoodlePad [Micro]
@@ -16,7 +16,7 @@ Compile example for this keyboard (after setting up your build environment):
 
 Flashing example for this keyboard:
 
-    qmk flash -kb themadnoodle/noodlepad/micro -km defualt
+    qmk flash -kb themadnoodle/noodlepad/micro -km default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 

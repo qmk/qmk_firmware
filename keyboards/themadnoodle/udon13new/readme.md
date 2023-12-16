@@ -1,27 +1,27 @@
-# udon13new
+# Udon:13
 
-![udon13new](imgur.com image replace me!)
+![Udon13](https://static.wixstatic.com/media/59d0ff_5c76199fc2ea4b7e87cbc4ce7c563475~mv2.jpg)
 
-*A short description of the keyboard/project*
+*The Udon:13 is a 12 hotswap key macro keypad with a push button encoder knob and 128x32 OLED display*
 
 * Keyboard Maintainer: [The Mad Noodle](https://github.com/The-Mad-Noodle)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: Udon:13 PCB
+* Hardware Availability: https://www.madnoodleprototypes.com/shop
 
-Make example for this keyboard (after setting up your build environment):
 
-    make udon13new:default
+Compile example for this keyboard (after setting up your build environment):
+
+    qmk compile -kb themadnoodle/udon13 -km default
 
 Flashing example for this keyboard:
 
-    make udon13new:default:flash
+    qmk flash -kb themadnoodle/udon13 -km default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-## Bootloader
+## Bootloader & Flashing
 
-Enter the bootloader in 3 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+**Physical reset button**: 
+
+* Press the physical button located on the top left of the back of the PCB (Labeled RST) to enter Bootloader Mode
