@@ -4,9 +4,7 @@
 
 ## The PCB features:
 * QMK & VIA compatibility
-* RGB Matrix backlight
-* Use PTIR switches instead of mechanical switches to increase the service life and reliability of switches.
-
+* LED backlight
 
 The following is the QMK Firmware for the Destop 87% keylayout -  designed by Dongguan Jizhi Electronic Technology Co., Ltd
 
