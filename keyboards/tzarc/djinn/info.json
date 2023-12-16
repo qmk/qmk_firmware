@@ -64,6 +64,7 @@
     }
   },
   "encoder": {
+    "driver": "graycode",
     "rotary": [
       {"pin_a": "C14", "pin_b": "C15", "resolution": 2}
     ]
