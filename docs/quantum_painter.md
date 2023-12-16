@@ -13,22 +13,24 @@ QUANTUM_PAINTER_DRIVERS += ......
 
 You will also likely need to select an appropriate driver in `rules.mk`, which is listed below.
 
-!> Quantum Painter is not currently integrated with system-level operations such as disabling displays after a configurable timeout, or when the keyboard goes into suspend. Users will need to handle this manually at the current time.
+!> Quantum Painter is not currently integrated with system-level operations such as when the keyboard goes into suspend. Users will need to handle this manually at the current time.
 
 The QMK CLI can be used to convert from normal images such as PNG files or animated GIFs, as well as fonts from TTF files.
 
 Supported devices:
 
-| Display Panel  | Panel Type         | Size             | Comms Transport | Driver                                      |
-|----------------|--------------------|------------------|-----------------|---------------------------------------------|
-| GC9A01         | RGB LCD (circular) | 240x240          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += gc9a01_spi`     |
-| ILI9163        | RGB LCD            | 128x128          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9163_spi`    |
-| ILI9341        | RGB LCD            | 240x320          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9341_spi`    |
-| ILI9488        | RGB LCD            | 320x480          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9488_spi`    |
-| SSD1351        | RGB OLED           | 128x128          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ssd1351_spi`    |
-| ST7735         | RGB LCD            | 132x162, 80x160  | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += st7735_spi`     |
-| ST7789         | RGB LCD            | 240x320, 240x240 | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += st7789_spi`     |
-| RGB565 Surface | Virtual            | User-defined     | None            | `QUANTUM_PAINTER_DRIVERS += rgb565_surface` |
+| Display Panel | Panel Type         | Size             | Comms Transport | Driver                                   |
+|---------------|--------------------|------------------|-----------------|------------------------------------------|
+| GC9A01        | RGB LCD (circular) | 240x240          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += gc9a01_spi`  |
+| ILI9163       | RGB LCD            | 128x128          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9163_spi` |
+| ILI9341       | RGB LCD            | 240x320          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9341_spi` |
+| ILI9488       | RGB LCD            | 320x480          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9488_spi` |
+| SSD1351       | RGB OLED           | 128x128          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ssd1351_spi` |
+| ST7735        | RGB LCD            | 132x162, 80x160  | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += st7735_spi`  |
+| ST7789        | RGB LCD            | 240x320, 240x240 | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += st7789_spi`  |
+| SH1106 (SPI)  | Monochrome OLED    | 128x64           | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += sh1106_spi`  |
+| SH1106 (I2C)  | Monochrome OLED    | 128x64           | I2C             | `QUANTUM_PAINTER_DRIVERS += sh1106_i2c`  |
+| Surface       | Virtual            | User-defined     | None            | `QUANTUM_PAINTER_DRIVERS += surface`     |
 
 ## Quantum Painter Configuration :id=quantum-painter-config
 
@@ -188,7 +190,8 @@ Writing /home/qmk/qmk_firmware/keyboards/my_keeb/generated/noto11.qff.c...
 
 <!-- tabs:start -->
 
-### ** Common: Standard TFT (SPI + D/C + RST) **
+
+### ** LCD **
 
 Most TFT display panels use a 5-pin interface -- SPI SCK, SPI MOSI, SPI CS, D/C, and RST pins.
 
@@ -302,32 +305,6 @@ The maximum number of displays can be configured by changing the following in yo
 
 Native color format rgb888 is compatible with ILI9488
 
-#### ** SSD1351 **
-
-Enabling support for the SSD1351 in Quantum Painter is done by adding the following to `rules.mk`:
-
-```make
-QUANTUM_PAINTER_ENABLE = yes
-QUANTUM_PAINTER_DRIVERS += ssd1351_spi
-```
-
-Creating a SSD1351 device in firmware can then be done with the following API:
-
-```c
-painter_device_t qp_ssd1351_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
-```
-
-The device handle returned from the `qp_ssd1351_make_spi_device` function can be used to perform all other drawing operations.
-
-The maximum number of displays can be configured by changing the following in your `config.h` (default is 1):
-
-```c
-// 3 displays:
-#define SSD1351_NUM_DEVICES 3
-```
-
-Native color format rgb565 is compatible with SSD1351
-
 #### ** ST7735 **
 
 Enabling support for the ST7735 in Quantum Painter is done by adding the following to `rules.mk`:
@@ -386,62 +363,139 @@ Native color format rgb565 is compatible with ST7789
 
 <!-- tabs:end -->
 
-### ** Common: Surfaces **
+### ** OLED **
 
-Quantum Painter has surface drivers which are able to target a buffer in RAM. In general, surfaces keep track of the "dirty" region -- the area that has been drawn to since the last flush -- so that when transferring to the display they can transfer the minimal amount of data to achieve the end result.
+OLED displays tend to use 5-pin SPI when at larger resolutions, or when using color -- SPI SCK, SPI MOSI, SPI CS, D/C, and RST pins. Smaller OLEDs may use I2C instead.
 
-!> These generally require significant amounts of RAM, so at large sizes and/or higher bit depths, they may not be usable on all MCUs.
+When using these displays, either `spi_master` or `i2c_master` must already be correctly configured for both the platform and panel you're building for.
+
+For SPI, the pin assignments for SPI CS, D/C, and RST are specified during device construction -- for I2C the panel's address is specified instead.
 
 <!-- tabs:start -->
 
-#### ** RGB565 Surface **
+#### ** SSD1351 **
 
-Enabling support for RGB565 surfaces in Quantum Painter is done by adding the following to `rules.mk`:
+Enabling support for the SSD1351 in Quantum Painter is done by adding the following to `rules.mk`:
 
 ```make
 QUANTUM_PAINTER_ENABLE = yes
-QUANTUM_PAINTER_DRIVERS += rgb565_surface
+QUANTUM_PAINTER_DRIVERS += ssd1351_spi
 ```
 
-Creating a RGB565 surface in firmware can then be done with the following API:
+Creating a SSD1351 device in firmware can then be done with the following API:
 
 ```c
-painter_device_t qp_rgb565_make_surface(uint16_t panel_width, uint16_t panel_height, void *buffer);
+painter_device_t qp_ssd1351_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
 ```
 
-The `buffer` is a user-supplied area of memory, and is assumed to be of the size `sizeof(uint16_t) * panel_width * panel_height`.
+The device handle returned from the `qp_ssd1351_make_spi_device` function can be used to perform all other drawing operations.
 
-The device handle returned from the `qp_rgb565_make_surface` function can be used to perform all other drawing operations.
+The maximum number of displays can be configured by changing the following in your `config.h` (default is 1):
+
+```c
+// 3 displays:
+#define SSD1351_NUM_DEVICES 3
+```
+
+Native color format rgb565 is compatible with SSD1351
+
+#### ** SH1106 **
+
+Enabling support for the SH1106 in Quantum Painter is done by adding the following to `rules.mk`:
+
+```make
+QUANTUM_PAINTER_ENABLE = yes
+# For SPI:
+QUANTUM_PAINTER_DRIVERS += sh1106_spi
+# For I2C:
+QUANTUM_PAINTER_DRIVERS += sh1106_i2c
+```
+
+Creating a SH1106 device in firmware can then be done with the following APIs:
+
+```c
+// SPI-based SH1106:
+painter_device_t qp_sh1106_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
+// I2C-based SH1106:
+painter_device_t qp_sh1106_make_i2c_device(uint16_t panel_width, uint16_t panel_height, uint8_t i2c_address);
+```
+
+The device handle returned from the `qp_sh1106_make_???_device` function can be used to perform all other drawing operations.
+
+The maximum number of displays of each type can be configured by changing the following in your `config.h` (default is 1):
+
+```c
+// 3 SPI displays:
+#define SH1106_NUM_SPI_DEVICES 3
+// 3 I2C displays:
+#define SH1106_NUM_I2C_DEVICES 3
+```
+
+Native color format mono2 is compatible with SH1106
+
+<!-- tabs:end -->
+
+### ** Surface **
+
+Quantum Painter has a surface driver which is able to target a buffer in RAM. In general, surfaces keep track of the "dirty" region -- the area that has been drawn to since the last flush -- so that when transferring to the display they can transfer the minimal amount of data to achieve the end result.
+
+!> These generally require significant amounts of RAM, so at large sizes and/or higher bit depths, they may not be usable on all MCUs.
+
+Enabling support for surfaces in Quantum Painter is done by adding the following to `rules.mk`:
+
+```make
+QUANTUM_PAINTER_ENABLE = yes
+QUANTUM_PAINTER_DRIVERS += surface
+```
+
+Creating a surface in firmware can then be done with the following APIs:
+
+```c
+// 16bpp RGB565 surface:
+painter_device_t qp_make_rgb565_surface(uint16_t panel_width, uint16_t panel_height, void *buffer);
+// 1bpp monochrome surface:
+painter_device_t qp_make_mono1bpp_surface(uint16_t panel_width, uint16_t panel_height, void *buffer);
+```
+
+The `buffer` is a user-supplied area of memory, which can be statically allocated using `SURFACE_REQUIRED_BUFFER_BYTE_SIZE`:
+
+```c
+// Buffer required for a 240x80 16bpp surface:
+uint8_t framebuffer[SURFACE_REQUIRED_BUFFER_BYTE_SIZE(240, 80, 16)];
+```
+
+The device handle returned from the `qp_make_?????_surface` function can be used to perform all other drawing operations.
 
 Example:
 
 ```c
 static painter_device_t my_surface;
-static uint16_t my_framebuffer[320 * 240]; // Allocate a buffer for a 320x240 RGB565 display
+static uint8_t my_framebuffer[SURFACE_REQUIRED_BUFFER_BYTE_SIZE(240, 80, 16)]; // Allocate a buffer for a 16bpp 240x80 RGB565 display
 void keyboard_post_init_kb(void) {
-    my_surface = qp_rgb565_make_surface(320, 240, my_framebuffer);
+    my_surface = qp_rgb565_make_surface(240, 80, my_framebuffer);
     qp_init(my_surface, QP_ROTATION_0);
+    keyboard_post_init_user();
 }
 ```
 
-The maximum number of RGB565 surfaces can be configured by changing the following in your `config.h` (default is 1):
+The maximum number of surfaces can be configured by changing the following in your `config.h` (default is 1):
 
 ```c
 // 3 surfaces:
-#define RGB565_SURFACE_NUM_DEVICES 3
+#define SURFACE_NUM_DEVICES 3
 ```
 
-To transfer the contents of the RGB565 surface to another display, the following API can be invoked:
+To transfer the contents of the surface to another display of the same pixel format, the following API can be invoked:
 
 ```c
-bool qp_rgb565_surface_draw(painter_device_t surface, painter_device_t display, uint16_t x, uint16_t y);
+bool qp_surface_draw(painter_device_t surface, painter_device_t display, uint16_t x, uint16_t y, bool entire_surface);
 ```
 
-The `surface` is the surface to copy out from. The `display` is the target display to draw into. `x` and `y` are the target location to draw the surface pixel data. Under normal circumstances, the location should be consistent, as the dirty region is calculated with respect to the `x` and `y` coordinates -- changing those will result in partial, overlapping draws.
+The `surface` is the surface to copy out from. The `display` is the target display to draw into. `x` and `y` are the target location to draw the surface pixel data. Under normal circumstances, the location should be consistent, as the dirty region is calculated with respect to the `x` and `y` coordinates -- changing those will result in partial, overlapping draws. `entire_surface` whether the entire surface should be drawn, instead of just the dirty region.
+
+!> The surface and display panel must have the same native pixel format.
 
 ?> Calling `qp_flush()` on the surface resets its dirty region. Copying the surface contents to the display also automatically resets the dirty region.
-
-<!-- tabs:end -->
 
 <!-- tabs:end -->
 
@@ -857,13 +911,52 @@ void keyboard_post_init_kb(void) {
 
 <!-- tabs:start -->
 
-#### ** Get Geometry **
+#### ** Gettters **
+
+These functions allow external code to retrieve the current width, height, rotation, and drawing offsets.
+
+<!-- tabs:start -->
+
+#### ** Width **
+
+```c
+uint16_t qp_get_width(painter_device_t device);
+```
+
+#### ** Height **
+
+```c
+uint16_t qp_get_height(painter_device_t device);
+```
+
+#### ** Rotation **
+
+```c
+painter_rotation_t qp_get_rotation(painter_device_t device);
+```
+
+#### ** Offset X **
+
+```c
+uint16_t qp_get_offset_x(painter_device_t device);
+```
+
+#### ** Offset Y **
+
+```c
+uint16_t qp_get_offset_y(painter_device_t device);
+```
+
+##### ** Everything **
+
+Convenience function to call all the previous ones at once.
+Note: You can pass `NULL` for the values you are not interested in.
 
 ```c
 void qp_get_geometry(painter_device_t device, uint16_t *width, uint16_t *height, painter_rotation_t *rotation, uint16_t *offset_x, uint16_t *offset_y);
 ```
 
-The `qp_get_geometry` function allows external code to retrieve the current width, height, rotation, and drawing offsets.
+<!-- tabs:end -->
 
 #### ** Set Viewport Offsets **
 

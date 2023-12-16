@@ -9,7 +9,7 @@ This driver currently supports both AVR and a limited selection of ARM devices. 
 To use this driver, add the following to your `rules.mk`:
 
 ```make
-SRC += analog.c
+ANALOG_DRIVER_REQUIRED = yes
 ```
 
 Then place this include at the top of your code:
