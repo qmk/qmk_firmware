@@ -44,7 +44,8 @@
 
         "default": {
             "breathing": false,
-            "brightness": 30
+            "brightness": 30,
+            "on": true
         }
 
     },
