@@ -48,6 +48,9 @@
         "driver": "vendor",
         "pin": "GP11"
     },
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT_60_tsangan_hhkb"
+    },
     "community_layouts": [
         "60_ansi_tsangan",
         "60_tsangan_hhkb",
