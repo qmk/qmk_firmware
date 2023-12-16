@@ -1,6 +1,6 @@
 # ergo68
 
-![ergo68](https://i.imgur.com/ucr11Mg.jpg)
+![ergo68](https://i.imgur.com/ucr11Mgh.jpg)
 
 This is 68 keys Column-staggered Split keyboard.
 
