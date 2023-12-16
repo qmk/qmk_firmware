@@ -460,12 +460,6 @@ void rgb_matrix_init(void) {
     }
 #endif // RGB_MATRIX_KEYREACTIVE_ENABLED
 
-    if (!eeconfig_is_enabled()) {
-        dprintf("rgb_matrix_init_drivers eeconfig is not enabled.\n");
-        eeconfig_init();
-        eeconfig_update_rgb_matrix_default();
-    }
-
     eeconfig_init_rgb_matrix();
     if (!rgb_matrix_config.mode) {
         dprintf("rgb_matrix_init_drivers rgb_matrix_config.mode = 0. Write default values to EEPROM.\n");

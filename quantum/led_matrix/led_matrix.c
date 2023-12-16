@@ -111,6 +111,16 @@ void eeconfig_debug_led_matrix(void) {
     dprintf("led_matrix_eeconfig.flags = %d\n", led_matrix_eeconfig.flags);
 }
 
+void led_matrix_reload_from_eeprom(void) {
+    led_matrix_disable_noeeprom();
+    /* Reset back to what we have in eeprom */
+    eeconfig_init_led_matrix();
+    eeconfig_debug_led_matrix(); // display current eeprom values
+    if (led_matrix_eeconfig.enable) {
+        led_matrix_mode_noeeprom(led_matrix_eeconfig.mode);
+    }
+}
+
 __attribute__((weak)) uint8_t led_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t *led_i) {
     return 0;
 }
@@ -414,12 +424,6 @@ void led_matrix_init(void) {
         last_hit_buffer.tick[i] = UINT16_MAX;
     }
 #endif // LED_MATRIX_KEYREACTIVE_ENABLED
-
-    if (!eeconfig_is_enabled()) {
-        dprintf("led_matrix_init_drivers eeconfig is not enabled.\n");
-        eeconfig_init();
-        eeconfig_update_led_matrix_default();
-    }
 
     eeconfig_init_led_matrix();
     if (!led_matrix_eeconfig.mode) {
