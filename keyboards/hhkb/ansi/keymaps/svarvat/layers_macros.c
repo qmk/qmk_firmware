@@ -1170,12 +1170,12 @@ bool processKeycodeIfLThumbEWeak(uint16_t keycode, keyrecord_t* record) {
                     isMouseX4Started = true;
                 } else {
                     layer_on(LA_LTHUMBEMO);
-                }
-                if (isLThumbEWeakPristine) {
-                    tap_code16(C(KC_Q));
-                    isLThumbEWeakPristine = false;
-                } else {
-                    isLThumbEWeakPristine = true;
+                    if (isLThumbEWeakPristine) {
+                        tap_code16(C(KC_Q));
+                        isLThumbEWeakPristine = false;
+                    } else {
+                        isLThumbEWeakPristine = true;
+                    }
                 }
             } else {
                 if (IS_LAYER_ON(LA_LTHUMBMS)) {
@@ -1253,12 +1253,12 @@ bool processKeycodeIfLThumbDWeak(uint16_t keycode, keyrecord_t* record) {
                     isMouseX2Started = true;
                 } else {
                     layer_on(LA_LTHUMBDMO);
-                }
-                if (isLThumbDWeakPristine) {
-                    tap_code16(RSG(KC_D));
-                    isLThumbDWeakPristine = false;
-                } else {
-                    isLThumbDWeakPristine = true;
+                    if (isLThumbDWeakPristine) {
+                        tap_code16(RSG(KC_D));
+                        isLThumbDWeakPristine = false;
+                    } else {
+                        isLThumbDWeakPristine = true;
+                    }
                 }
             } else {
                 if (IS_LAYER_ON(LA_LTHUMBMS)) {
