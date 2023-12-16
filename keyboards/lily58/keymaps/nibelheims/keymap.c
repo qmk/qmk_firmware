@@ -8,15 +8,6 @@ enum layer_number {
   _ADJUST,
 };
 
-typedef union {
-  uint32_t raw;
-  struct {
-    bool caps_lock_light_tab :1;
-    bool caps_lock_light_alphas :1;
-  };
-} user_config_t;
-user_config_t user_config;
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* QWERTY
@@ -117,10 +108,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
-void keyboard_post_init_user(void) {
-    user_config.raw = 0;
-}
-
 //SSD1306 OLED update loop, make sure to enable OLED_ENABLE=yes in rules.mk
 #ifdef OLED_ENABLE
 
@@ -159,7 +146,7 @@ bool oled_task_user(void) {
     uint8_t n = get_current_wpm();
     if (is_keyboard_master()) {
         oled_set_cursor(0,1);
-        char    wpm_counter[4];
+        char wpm_counter[4];
         wpm_counter[3] = '\0';
         wpm_counter[2] = '0' + n % 10;
         wpm_counter[1] = (n /= 10) % 10 ? '0' + (n) % 10 : (n / 10) % 10 ? '0' : ' ';
