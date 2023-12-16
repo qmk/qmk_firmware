@@ -1,17 +1,27 @@
-# Noodle Pad v1 Keypad with Encoder
+# Udon:13
 
-![NoodlePad TOP](https://static.wixstatic.com/media/59d0ff_052f27ee5ae84266821af7277c51c4ed~mv2.jpg)
-![NoodlePad RGB](https://static.wixstatic.com/media/59d0ff_c91f2adc258547a38cc5b480a8d9c510~mv2.jpg)
+![Udon13](https://static.wixstatic.com/media/59d0ff_5c76199fc2ea4b7e87cbc4ce7c563475~mv2.jpg)
 
-The Udon:13 by The Mad Noodle Prototypes is a custom 3x4 mechanical keypad with an encoder knob and full RGB Underglow and OLED Display.
+*The Udon:13 is a 12 hotswap key macro keypad with a push button encoder knob and 128x32 OLED display*
 
-* Keyboard Maintainer: [The Mad Noodle Prototypes](https://github.com/The-Mad-Noodle)
-* Hardware Supported: Udon13 PCB, ATmega32U4
-* Hardware Availability: [MadNoodlePrototypes.com](https://www.madnoodleprototypes.com/shop)
+* Keyboard Maintainer: [The Mad Noodle](https://github.com/The-Mad-Noodle)
+* Hardware Supported: Udon:13 PCB
+* Hardware Availability: https://www.madnoodleprototypes.com/shop
 
-Make example for this keyboard (after setting up your build environment):
 
-    make themadnoodle/udon13:default
+Compile example for this keyboard (after setting up your build environment):
 
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. 
-Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+    qmk compile -kb themadnoodle/udon13 -km default
+
+Flashing example for this keyboard:
+
+    qmk flash -kb themadnoodle/udon13 -km default
+
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+## Bootloader & Flashing
+
+
+**Physical reset button**: 
+
+* Press the physical button located on the top left of the back of the PCB (Labeled RST) to enter Bootloader Mode
