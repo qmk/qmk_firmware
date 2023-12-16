@@ -34,7 +34,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
              keycode,
              is_combo ? 254 : record->event.key.row,
              is_combo ? 254 : record->event.key.col,
-             get_highest_layer(layer_state),
+             highest_layer,
              record->event.pressed,
              get_mods(),
              get_oneshot_mods(),
@@ -260,21 +260,21 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
 
         case CM_LF_UP_PRTB:
         case CM_UP_RG_NXTB:
-            return !is_alpha_layer_on();
+            return !is_alpha_layer_on() && highest_layer != GAME;
 
         case CM_LF_DW_SWAP:
         case CM_DW_RG_SLXT:
-            return get_highest_layer(layer_state) == NAV;
+            return highest_layer == NAV;
 
         case CM_LF_DW_SLXT:
         case CM_DW_RG_SWAP:
-            return get_highest_layer(layer_state) == NAV_LEFT;
+            return highest_layer == NAV_LEFT;
 
         case CM_45_SWAP:
-            return get_highest_layer(layer_state) == NUM;
+            return highest_layer == NUM;
     }
 
-    if (get_highest_layer(layer_state) == GAME) {
+    if (highest_layer == GAME) {
         switch (combo_index) {
             case CM_KP_123_ALTB:
             case CM_KP_456_SWAP:
@@ -283,5 +283,5 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
         }
     }
 
-    return get_highest_layer(layer_state) != GAME;
+    return highest_layer != GAME;
 }
