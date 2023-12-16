@@ -1325,7 +1325,6 @@ bool processKeycodeIfLThumb1Weak(uint16_t keycode, keyrecord_t* record) {
             if (record->event.pressed) {
                 if (isLThumb1WeakPristine) {
                     tap_code16(C(A(KC_E)));
-                    isLThumb1WeakPristine = false;
                 } else {
                     isLThumb1WeakPristine = true;
                     layer_off_weak_layer(LA_LTHUMB1WEAK);
@@ -1342,7 +1341,6 @@ bool processKeycodeIfLThumb1Weak(uint16_t keycode, keyrecord_t* record) {
             if (record->event.pressed) {
                 if (isLThumb1WeakPristine) {
                     tap_code16(C(A(KC_D)));
-                    isLThumb1WeakPristine = false;
                 } else {
                     isLThumb1WeakPristine = true;
                     layer_off_weak_layer(LA_LTHUMB1WEAK);
@@ -1405,7 +1403,6 @@ bool processKeycodeIfLThumb2Weak(uint16_t keycode, keyrecord_t* record) {
             if (record->event.pressed) {
                 if (isLThumb2WeakPristine) {
                     tap_code16(RCS(KC_E));
-                    isLThumb2WeakPristine = false;
                 } else {
                     isLThumb2WeakPristine = true;
                     layer_off_weak_layer(LA_LTHUMB2WEAK);
@@ -1422,7 +1419,6 @@ bool processKeycodeIfLThumb2Weak(uint16_t keycode, keyrecord_t* record) {
             if (record->event.pressed) {
                 if (isLThumb2WeakPristine) {
                     tap_code16(RCS(KC_D));
-                    isLThumb2WeakPristine = false;
                 } else {
                     isLThumb2WeakPristine = true;
                     layer_off_weak_layer(LA_LTHUMB2WEAK);
@@ -1485,7 +1481,6 @@ bool processKeycodeIfLThumb3Weak(uint16_t keycode, keyrecord_t* record) {
             if (record->event.pressed) {
                 if (isLThumb3WeakPristine) {
                     tap_code16(LALT(KC_E));
-                    isLThumb3WeakPristine = false;
                 } else {
                     isLThumb3WeakPristine = true;
                     layer_off_weak_layer(LA_LTHUMB3WEAK);
@@ -1502,7 +1497,6 @@ bool processKeycodeIfLThumb3Weak(uint16_t keycode, keyrecord_t* record) {
             if (record->event.pressed) {
                 if (isLThumb3WeakPristine) {
                     tap_code16(LALT(KC_D));
-                    isLThumb3WeakPristine = false;
                 } else {
                     isLThumb3WeakPristine = true;
                     layer_off_weak_layer(LA_LTHUMB3WEAK);
