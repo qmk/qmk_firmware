@@ -23,6 +23,11 @@
         "nkro": true,
         "backlight": true
     },
+    "indicators": {
+        "caps_lock": "C15",
+        "on_state": 0,
+        "scroll_lock": "C14"
+    },
     "matrix_pins": {
         "cols": ["A0", "A1", "A2", "A3", "A4", "A5", "B0", "B1", "B10", "B11", "B12", "A7", "A6", "B9", "A14", "A13"],
         "rows": ["A10", "A9", "A8", "B15", "B14", "B13"]
