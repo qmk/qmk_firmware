@@ -17,7 +17,7 @@
 #pragma once
 
 #define SPLIT_HAND_PIN B6
-#define RGB_DI_PIN D3
+#define WS2812_DI_PIN D3
 
 #define SPLIT_TRANSPORT_MIRROR
 #define SPLIT_LAYER_STATE_ENABLE
