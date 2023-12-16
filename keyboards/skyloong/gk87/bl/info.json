@@ -1,6 +1,19 @@
 {
     "manufacturer": "skyloong",
     "maintainer": "NaturalZh",
+    "backlight": {
+        "breathing": true,
+        "breathing_period": 5,
+        "default": {
+            "breathing": false,
+            "brightness": 30
+        },
+        "driver": "pwm",
+        "levels": 20,
+        "max_brightness": 255,
+        "on_state": 1,
+        "pin": "B8"
+    },
     "bootloader": "stm32duino",
     "build": {
         "debounce_type": "asym_eager_defer_pk"
@@ -14,12 +27,12 @@
         ]
     },
     "features": {
+        "backlight": true,
         "bootmagic": true,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "backlight": true
+        "nkro": true
     },
     "indicators": {
         "caps_lock": "C15",
@@ -31,22 +44,6 @@
         "rows": ["A10", "A9", "A8", "B15", "B14", "B13"]
     },
     "processor": "STM32F103",
-    "backlight": {
-        "driver": "pwm",
-        "pin": "B8",
-        "levels": 20,
-        "max_brightness": 255,
-        "breathing": true,
-        "breathing_period": 5,
-        "on_state": 1,
-
-        "default": {
-            "breathing": false,
-            "brightness": 30,
-            "on": true
-        }
-
-    },
     "url": "https://github.com/JZ-Skyloong",
     "usb": {
         "max_power": 380,
