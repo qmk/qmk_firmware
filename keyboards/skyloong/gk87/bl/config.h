@@ -10,6 +10,4 @@
 
 #define BACKLIGHT_DEFAULT_ON 1
 
-#ifdef ENCODER_ENABLE
-#    define ENCODER_MAP_KEY_DELAY 20
-#endif
+#define ENCODER_MAP_KEY_DELAY 20
