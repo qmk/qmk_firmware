@@ -19,7 +19,7 @@
 // place overrides here
 
 #define WS2812_DI_PIN D3
-  #define RGBLED_NUM 11
+  #define RGBLIGHT_LED_COUNT 11
   #define RGBLIGHT_HUE_STEP 16
   #define RGBLIGHT_SAT_STEP 16
   #define RGBLIGHT_VAL_STEP 16

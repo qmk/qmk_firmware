@@ -615,7 +615,7 @@ void quantum_task(void) {
 #endif
 
 #ifdef DIP_SWITCH_ENABLE
-    dip_switch_read(false);
+    dip_switch_task();
 #endif
 
 #ifdef AUTO_SHIFT_ENABLE

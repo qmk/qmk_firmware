@@ -3,13 +3,13 @@
 #include "quantum.h"
 
 #ifdef OLED_ENABLE
-#define FRAMES 5
-#define ANIMATION_SIZE 512
-#define TAP_SPEED 30
+#    define FRAMES 5
+#    define ANIMATION_SIZE 512
+#    define TAP_SPEED 30
 
-uint8_t  current_frame = 0;
-uint32_t anim_timer = 0;
-uint32_t anim_sleep = 0;
+uint8_t  current_frame       = 0;
+uint32_t anim_timer          = 0;
+uint32_t anim_sleep          = 0;
 uint32_t ANIM_FRAME_DURATION = 1000;
 
 static void render_animation(void) {
@@ -191,8 +191,8 @@ static void render_animation(void) {
     }
 
     if (get_current_wpm() != 000) {
-        oled_on();  // not essential but turns on animation OLED with any alpha keypress
-        if (get_current_wpm() > TAP_SPEED){
+        oled_on(); // not essential but turns on animation OLED with any alpha keypress
+        if (get_current_wpm() > TAP_SPEED) {
             ANIM_FRAME_DURATION = 100;
         } else {
             ANIM_FRAME_DURATION = 1000;
@@ -233,16 +233,19 @@ static void render_status(void) {
 }
 
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
-        return OLED_ROTATION_270; 
+    return OLED_ROTATION_270;
 }
 
 bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
     render_animation();
     render_status();
 
     oled_write_ln_P(PSTR("WPM:"), false);
     oled_write_ln(get_u8_str(get_current_wpm(), '0'), false);
 
-    return false;
+    return true;
 }
 #endif
