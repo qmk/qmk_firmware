@@ -1,7 +1,8 @@
 {
     "keyboard_name": "Corne",
     "usb": {
-        "pid": "0x0001"
+        "pid": "0x0001",
+        "device_version": "0.0.1"
     },
     "processor": "atmega32u4",
     "features": {
