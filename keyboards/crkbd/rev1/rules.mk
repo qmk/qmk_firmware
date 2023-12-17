@@ -1,2 +1,1 @@
-RGBLIGHT_SUPPORTED = yes
-RGB_MATRIX_SUPPORTED = yes
+# This file intentionally left blank
