@@ -22,6 +22,11 @@
         "vid": "0x6F75"
     },
     "split": {
+        "transport": {
+            "sync": {
+                "matrix_state": true
+            }
+        },
         "enabled": true
     },
     "matrix_pins": {
@@ -102,6 +107,7 @@
         "driver": "ws2812",
         "split_count": [63, 63],
         "max_brightness": 200,
+        "sleep": true,
         "animations": {
             "alphas_mods": true,
             "gradient_up_down": true,
