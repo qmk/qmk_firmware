@@ -1,33 +1,15 @@
-/* Copyright 2019 Thomas Baart <thomas@splitkb.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.	If not, see <http://www.gnu.org/licenses/>.
- */
 #include QMK_KEYBOARD_H
 #include "os_detection.h"
 #include "quantum.h"
 #include "./keymap_portuguese_mac_iso.h"
 #include "gpio.h"
 
-#define PROCESSOR "RP2040"
-
 // clang-format off
 enum layers {
 	_COLEMAK_DH = 0,
 	_NUMNAV,
-    _SYM,
-	_FUNCTION,
-	_MOUSE
+  _SYM,
+	_FUNCTION
 };
 
 #define _SYM 30
@@ -46,11 +28,6 @@ enum {
 	O_A,
 	MIN_UND
 };
-// clang-format on
-#define CHARYBDIS_AUTO_SNIPING_ON_LAYER _MOUSE
-static uint16_t auto_pointer_layer_timer = 0;
-#define CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_TIMEOUT_MS 2500
-#define CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_THRESHOLD 3
 
 // Aliases for readability
 #define CTL_ESC MT(MOD_LCTL, KC_ESC)
@@ -204,26 +181,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 							KC_NO,	KC_NO,	KC_NO,		KC_NO,  TO(_COLEMAK_DH),	KC_NO
 	),
 
-/*
-	*Mouse Layer
-	*
-	*,--------------------------------------.					,---------------------------------------.
-	*|		|		|		|		|		|					|		|		|		|		|		|
-	*|------+-------+-------+---------------|					|-------+-------+-------+-------+-------|
-	*|		|		|		|		|		|					|		|		|		|		|		|
-	*|------+-------+-------+-------+-------|       	        |-------+-------+-------+-------+-------|
-	*|		|		|		|		|		|       	        |		|		|		|		|		|
-	*'----------------------+-------+-------+-------.	.-------+-------+-------+-------+---------------'
-	*				        |		|		|		|	|		|		|		|
-	*				        '-----------------------'	'-----------------------'
-	*/
-		[_MOUSE]=LAYOUT_F_3x5(
-		_______,_______,_______,USR_CPY,_______,	                _______,_______,_______,_______,_______,
-		_______,_______,_______,USR_PST,_______,	                _______,_______,_______,_______,_______,
-		_______,_______,_______,_______,_______,                    _______,_______,_______,_______,_______,
-								KC_BTN3,KC_BTN1,KC_BTN2,    KC_BTN2,KC_BTN1,KC_BTN3
-		),
-
 ///*
 //	*Layertemplate
 //	*
@@ -248,25 +205,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-    if (abs(mouse_report.x) > CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_THRESHOLD || abs(mouse_report.y) > CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_THRESHOLD) {
-        if (auto_pointer_layer_timer == 0) {
-            layer_on(CHARYBDIS_AUTO_SNIPING_ON_LAYER);
-        }
-        auto_pointer_layer_timer = timer_read();
-    }
-    return mouse_report;
-}
-
-void matrix_scan_user(void) {
-    if (auto_pointer_layer_timer != 0 && TIMER_DIFF_16(timer_read(), auto_pointer_layer_timer) >= CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_TIMEOUT_MS) {
-        auto_pointer_layer_timer = 0;
-        layer_off(CHARYBDIS_AUTO_SNIPING_ON_LAYER);
-    }
-}
-
 layer_state_t layer_state_set_user(layer_state_t state) {
-    charybdis_set_pointer_sniping_enabled(layer_state_cmp(state, CHARYBDIS_AUTO_SNIPING_ON_LAYER));
     switch (get_highest_layer(state)) {
         case _COLEMAK_DH:
             rgb_matrix_sethsv(0, 255, 100);
@@ -280,20 +219,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         case _FUNCTION:
             rgb_matrix_sethsv(85, 255, 100);
             break;
-        case _MOUSE:
-            rgb_matrix_sethsv(0, 0, 100);
-            break;
     }
     return state;
-}
-
-void keyboard_post_init_user(void) {
-    pointing_device_set_cpi(3000);
-
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_enable();
-    rgb_matrix_mode(RGB_MATRIX_DEFAULT_MODE);
-    rgb_matrix_set_speed(125);
-    rgb_matrix_sethsv(0, 255, 100);
-#endif
 }
