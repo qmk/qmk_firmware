@@ -36,6 +36,13 @@
                     {"pin_a": "GP21", "pin_b": "GP4"}
                 ]
             }
+        },
+        "transport": {
+            "sync": {
+                "indicators": true,
+                "layer_state": true,
+                "modifiers": true
+            }
         }
     },
     "url": "https://github.com/chrishoage/spleeb",

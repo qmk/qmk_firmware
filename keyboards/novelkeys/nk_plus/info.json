@@ -109,6 +109,7 @@
         "max_brightness": 120
     },
     "ws2812": {
+        "driver": "pwm",
         "pin": "B4"
     },
     "layout_aliases": {

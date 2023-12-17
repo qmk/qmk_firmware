@@ -123,10 +123,3 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 };
 // clang-format on
 #endif // ENCODER_MAP_ENABLE
-
-void shutdown_user(void) {
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_sethsv_noeeprom(HSV_RED);
-    rgb_matrix_update_pwm_buffers();
-#endif // RGB_MATRIX_ENABLE
-}
