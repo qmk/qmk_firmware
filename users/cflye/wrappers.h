@@ -19,19 +19,19 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 
 #define _________________COLEMAK_L1_________________    KC_Q,              KC_W,              HOME_COL_F,        KC_P,              KC_B
 #define _________________COLEMAK_L2_________________    KC_A,              KC_R,              KC_S,              KC_T,              KC_G
-#define _________________COLEMAK_L3_________________    KC_Z,              KC_X,              KC_C,              KC_D,              KC_V
+#define _________________COLEMAK_L3_________________    HOME_COL_Z,        KC_X,              KC_C,              KC_D,              KC_V
 
 #define _________________COLEMAK_R1_________________    KC_J,              KC_L,              HOME_COL_U,        KC_Y,              KC_SCLN
 #define _________________COLEMAK_R2_________________    KC_M,              KC_N,              KC_E,              KC_I,              KC_O
-#define _________________COLEMAK_R3_________________    KC_K,              KC_H,              KC_COMM,           KC_DOT,            KC_SLASH
+#define _________________COLEMAK_R3_________________    KC_K,              KC_H,              KC_COMM,           KC_DOT,            HOME_COL_SLASH
 
 #define _________________QWERTY_L1__________________    KC_Q,              KC_W,              HOME_QWE_E,        KC_R,              KC_T
 #define _________________QWERTY_L2__________________    KC_A,              KC_S,              KC_D,              KC_F,              KC_G
-#define _________________QWERTY_L3__________________    HOME_COL_Z,        KC_X,              KC_C,              KC_V,              KC_B
+#define _________________QWERTY_L3__________________    HOME_QWE_Z,        KC_X,              KC_C,              KC_V,              KC_B
 
 #define _________________QWERTY_R1__________________    KC_Y,              KC_U,              HOME_QWE_I,        KC_O,              KC_P
 #define _________________QWERTY_R2__________________    KC_H,              KC_J,              KC_K,              KC_L,              KC_SCLN
-#define _________________QWERTY_R3__________________    KC_N,              KC_M,              KC_COMM,           KC_DOT,            HOME_COL_SLASH
+#define _________________QWERTY_R3__________________    KC_N,              KC_M,              KC_COMM,           KC_DOT,            HOME_QWE_SLASH
 
 #define _________________DVORAK_L1__________________    KC_QUOT,           KC_COMM,           KC_DOT,            KC_P,              KC_Y
 #define _________________DVORAK_L2__________________    KC_A,              KC_O,              KC_E,              KC_U,              KC_I

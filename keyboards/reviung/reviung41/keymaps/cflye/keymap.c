@@ -28,10 +28,8 @@ LAYOUT_reviung41_wrapper(\
    KC_DEL,  K00, K01, K02, K03, K04,      K05, K06, K07, K08, K09, KC_BSPC, \
    KC_LCTL, K10, K11, K12, K13, K14,      K15, K16, K17, K18, K19, KC_RCTL, \
    KC_LSFT, K20, K21, K22, K23, K24,      K25, K26, K27, K28, K29, KC_RSFT, \
-                          K32, K33, KC_SPC, K35, K36 \
+                          K33, K34, KC_SPC, K35, K36 \
 )
-#undef _________________THUMB_LEFT________________
-#define _________________THUMB_LEFT________________     KC_NO,             KC_NO,          LT(_MEDIA,KC_ESC),  LT(_NAV,KC_ESC) ,  KC_NO
 
 #define LAYOUT_base_wrapper(...) LAYOUT_reviung41_base(__VA_ARGS__)
 
