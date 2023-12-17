@@ -106,7 +106,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!is_keyboard_master())
-    return ;  // flips the display 180 degrees if offhand
+    return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
   return rotation;
 }
 
@@ -138,7 +138,7 @@ bool oled_task_user(void) {
 }
 #endif
 
-#ifdef OLED_ENABLE
+#ifdef OLED_ENABLE1
 
 #    define KEYLOG_LEN 6
 char     keylog_str[KEYLOG_LEN] = {};
