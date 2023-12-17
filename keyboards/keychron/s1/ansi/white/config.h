@@ -27,7 +27,7 @@
     // { 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40 } // 127mA
 
 /* Disable LED lighting when PC is in suspend */
-#define LED_DISABLE_WHEN_USB_SUSPENDED
+#define LED_MATRIX_SLEEP
 
 /* Enable caps-lock LED */
 #define CAPS_LOCK_LED_INDEX 46
