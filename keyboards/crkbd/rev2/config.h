@@ -26,3 +26,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_UPDATE_INTERVAL 50
 #define I2C1_SDA_PIN GP6
 #define I2C1_SCL_PIN GP7
+
+#define SPLIT_TRANSPORT_MIRROR
+#define SPLIT_LAYER_STATE_ENABLE
+#define SPLIT_MODS_ENABLE
+
+#define NOP_FUDGE 1
+
+#define WS2812_DI_PIN GP10
