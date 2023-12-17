@@ -23,7 +23,6 @@
         ]
     },
     "split": {
-        "enabled": true,
         "matrix_pins": {
             "right": {
                 "direct": [
