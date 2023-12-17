@@ -116,7 +116,7 @@ animation_status_t animation_status = {};
 #endif
 
 #ifndef LED_ARRAY
-rgb_led_t led[RGBLED_NUM];
+rgb_led_t led[RGBLIGHT_LED_COUNT];
 #    define LED_ARRAY led
 #endif
 
@@ -126,7 +126,7 @@ rgblight_segment_t const *const *rgblight_layers = NULL;
 static bool deferred_set_layer_state = false;
 #endif
 
-rgblight_ranges_t rgblight_ranges = {0, RGBLED_NUM, 0, RGBLED_NUM, RGBLED_NUM};
+rgblight_ranges_t rgblight_ranges = {0, RGBLIGHT_LED_COUNT, 0, RGBLIGHT_LED_COUNT, RGBLIGHT_LED_COUNT};
 
 void rgblight_set_clipping_range(uint8_t start_pos, uint8_t num_leds) {
     rgblight_ranges.clipping_start_pos = start_pos;
@@ -134,8 +134,8 @@ void rgblight_set_clipping_range(uint8_t start_pos, uint8_t num_leds) {
 }
 
 void rgblight_set_effect_range(uint8_t start_pos, uint8_t num_leds) {
-    if (start_pos >= RGBLED_NUM) return;
-    if (start_pos + num_leds > RGBLED_NUM) return;
+    if (start_pos >= RGBLIGHT_LED_COUNT) return;
+    if (start_pos + num_leds > RGBLIGHT_LED_COUNT) return;
     rgblight_ranges.effect_start_pos = start_pos;
     rgblight_ranges.effect_end_pos   = start_pos + num_leds;
     rgblight_ranges.effect_num_leds  = num_leds;
@@ -664,7 +664,7 @@ void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b) {
 }
 
 void rgblight_setrgb_at(uint8_t r, uint8_t g, uint8_t b, uint8_t index) {
-    if (!rgblight_config.enable || index >= RGBLED_NUM) {
+    if (!rgblight_config.enable || index >= RGBLIGHT_LED_COUNT) {
         return;
     }
 
@@ -700,7 +700,7 @@ static uint8_t get_interval_time(const uint8_t *default_interval_address, uint8_
 #endif
 
 void rgblight_setrgb_range(uint8_t r, uint8_t g, uint8_t b, uint8_t start, uint8_t end) {
-    if (!rgblight_config.enable || start < 0 || start >= end || end > RGBLED_NUM) {
+    if (!rgblight_config.enable || start < 0 || start >= end || end > RGBLIGHT_LED_COUNT) {
         return;
     }
 
@@ -727,19 +727,19 @@ void rgblight_sethsv_range(uint8_t hue, uint8_t sat, uint8_t val, uint8_t start,
 
 #ifndef RGBLIGHT_SPLIT
 void rgblight_setrgb_master(uint8_t r, uint8_t g, uint8_t b) {
-    rgblight_setrgb_range(r, g, b, 0, (uint8_t)RGBLED_NUM / 2);
+    rgblight_setrgb_range(r, g, b, 0, (uint8_t)RGBLIGHT_LED_COUNT / 2);
 }
 
 void rgblight_setrgb_slave(uint8_t r, uint8_t g, uint8_t b) {
-    rgblight_setrgb_range(r, g, b, (uint8_t)RGBLED_NUM / 2, (uint8_t)RGBLED_NUM);
+    rgblight_setrgb_range(r, g, b, (uint8_t)RGBLIGHT_LED_COUNT / 2, (uint8_t)RGBLIGHT_LED_COUNT);
 }
 
 void rgblight_sethsv_master(uint8_t hue, uint8_t sat, uint8_t val) {
-    rgblight_sethsv_range(hue, sat, val, 0, (uint8_t)RGBLED_NUM / 2);
+    rgblight_sethsv_range(hue, sat, val, 0, (uint8_t)RGBLIGHT_LED_COUNT / 2);
 }
 
 void rgblight_sethsv_slave(uint8_t hue, uint8_t sat, uint8_t val) {
-    rgblight_sethsv_range(hue, sat, val, (uint8_t)RGBLED_NUM / 2, (uint8_t)RGBLED_NUM);
+    rgblight_sethsv_range(hue, sat, val, (uint8_t)RGBLIGHT_LED_COUNT / 2, (uint8_t)RGBLIGHT_LED_COUNT);
 }
 #endif // ifndef RGBLIGHT_SPLIT
 
@@ -789,7 +789,7 @@ static void rgblight_layers_write(void) {
                 break; // No more segments
             }
             // Write segment.count LEDs
-            rgb_led_t *const limit = &led[MIN(segment.index + segment.count, RGBLED_NUM)];
+            rgb_led_t *const limit = &led[MIN(segment.index + segment.count, RGBLIGHT_LED_COUNT)];
             for (rgb_led_t *led_ptr = &led[segment.index]; led_ptr < limit; led_ptr++) {
 #    ifdef RGBLIGHT_LAYERS_RETAIN_VAL
                 sethsv(segment.hue, segment.sat, current_val, led_ptr);
@@ -928,8 +928,8 @@ void rgblight_set(void) {
 #endif
 
 #ifdef RGBLIGHT_LED_MAP
-    rgb_led_t led0[RGBLED_NUM];
-    for (uint8_t i = 0; i < RGBLED_NUM; i++) {
+    rgb_led_t led0[RGBLIGHT_LED_COUNT];
+    for (uint8_t i = 0; i < RGBLIGHT_LED_COUNT; i++) {
         led0[i] = led[pgm_read_byte(&led_map[i])];
     }
     start_led = led0 + rgblight_ranges.clipping_start_pos;
@@ -1272,8 +1272,8 @@ void rgblight_effect_snake(animation_status_t *anim) {
 #    endif
         for (j = 0; j < RGBLIGHT_EFFECT_SNAKE_LENGTH; j++) {
             k = pos + j * increment;
-            if (k > RGBLED_NUM) {
-                k = k % (RGBLED_NUM);
+            if (k > RGBLIGHT_LED_COUNT) {
+                k = k % (RGBLIGHT_LED_COUNT);
             }
             if (k < 0) {
                 k = k + rgblight_ranges.effect_num_leds;
@@ -1458,7 +1458,7 @@ typedef struct PACKED {
     uint8_t max_life;
 } TwinkleState;
 
-static TwinkleState led_twinkle_state[RGBLED_NUM];
+static TwinkleState led_twinkle_state[RGBLIGHT_LED_COUNT];
 
 void rgblight_effect_twinkle(animation_status_t *anim) {
     const bool random_color = anim->delta / 3;
