@@ -20,3 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIP_SWITCH_MATRIX_GRID { {0,14}, {1,14}, {2,14}, {3,14} }
 
 #define GPIO_INPUT_PIN_DELAY (NUC123_HCLK / 6 / 1000000L)
+
+#define RGB_MATRIX_LED_COUNT 69
+#define DRIVER_LED_TOTAL RGB_MATRIX_LED_COUNT
+
+#define ENABLE_RGB_MATRIX_BREATHING
+#define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
+#define ENABLE_RGB_MATRIX_RAINBOW_BEACON
