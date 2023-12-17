@@ -2,4 +2,4 @@
 #   change yes to no to disable
 #
 
-DEFAULT_FOLDER = crkbd/rev2
+DEFAULT_FOLDER = crkbd/rev1
