@@ -64,6 +64,7 @@
             "typing_heatmap": true
         },
         "driver": "ws2812",
+        "sleep": true,
         "layout": [
             {"matrix": [0, 0], "x": 0, "y": 0, "flags": 1},
             {"x": 11, "y": 0, "flags": 2},
