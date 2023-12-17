@@ -23,7 +23,13 @@
         "on_state": 0
     },
     "rgblight": {
-        "led_count": 14,
+        "led_count": 14
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     },
     "ws2812": {
         "pin": "E2"

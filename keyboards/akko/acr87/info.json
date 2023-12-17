@@ -10,6 +10,12 @@
         "suspend_wakeup_delay": 400,
         "force_nkro": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "processor": "WB32FQ95",
     "bootloader": "wb32-dfu",
     "features": {
@@ -201,7 +207,7 @@
             {"flags": 2, "x":210, "y":64},
             {"flags": 2, "x":224, "y":64}
     ]
-    }, 
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

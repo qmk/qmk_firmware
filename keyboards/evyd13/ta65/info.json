@@ -18,6 +18,12 @@
             {"pin_a": "B2", "pin_b": "B1"}
         ]
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "rgblight": {
         "led_count": 8,
         "animations": {

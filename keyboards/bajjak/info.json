@@ -13,6 +13,12 @@
     "tapping": {
         "toggle": 1
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "build": {
         "debounce_type": "sym_eager_pr"
     },

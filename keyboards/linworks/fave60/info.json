@@ -22,6 +22,12 @@
              "twinkle": true
         }
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "diode_direction": "COL2ROW",
     "features": {
         "backlight": true,

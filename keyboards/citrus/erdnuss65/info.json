@@ -24,6 +24,12 @@
         "pid": "0x6374",
         "vid": "0x636C"
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "ws2812": {
         "pin": "A15"
     },

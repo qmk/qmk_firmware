@@ -19,6 +19,12 @@
             {"pin_a": "C2", "pin_b": "C3"}
         ]
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "features": {
         "bootmagic": true,
         "command": false,

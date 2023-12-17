@@ -24,6 +24,12 @@
             ["F6", "F5", "F4", null]
         ]
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -18,6 +18,12 @@
             {"pin_a": "B3", "pin_b": "A15", "resolution": 2}
         ]
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "ws2812": {
         "pin": "B15"
     },

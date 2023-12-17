@@ -10,6 +10,12 @@
         "pid": "0x0087",
         "device_version": "0.0.3"
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "rgblight": {
         "led_count": 15,
         "animations": {

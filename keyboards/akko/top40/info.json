@@ -10,6 +10,12 @@
         "suspend_wakeup_delay": 400,
         "force_nkro": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "processor": "WB32FQ95",
     "bootloader": "wb32-dfu",
     "features": {
@@ -84,7 +90,7 @@
             { "flags": 4, "matrix": [1, 9],  "x":180 , "y":24 },
             { "flags": 4, "matrix": [1, 10], "x":200 , "y":24 },
             { "flags": 4, "matrix": [1, 11], "x":218 , "y":24 },
-            
+
             { "flags": 4, "matrix": [2, 0], "x": 10, "y":39 },
             { "flags": 4, "matrix": [2, 1], "x": 20, "y":39 },
             { "flags": 4, "matrix": [2, 2], "x": 40, "y":39 },
@@ -97,7 +103,7 @@
             { "flags": 4, "matrix": [2, 9],  "x":180 , "y":39 },
             { "flags": 4, "matrix": [2, 10], "x":200 , "y":39 },
             { "flags": 4, "matrix": [2, 11], "x":218 , "y":39 },
-            
+
             { "flags": 4, "matrix": [3, 0], "x": 10, "y":54 },
             { "flags": 4, "matrix": [3, 1], "x": 20, "y":54 },
             { "flags": 4, "matrix": [3, 2], "x": 40, "y":54 },
@@ -120,7 +126,7 @@
             {"flags": 2, "x":165, "y":0},
             {"flags": 2, "x":185, "y":0},
             {"flags": 2, "x":205, "y":0},
-            {"flags": 2, "x":224, "y":0},           
+            {"flags": 2, "x":224, "y":0},
             {"flags": 2, "x":0, "y":16},
             {"flags": 2, "x":224, "y":16},
             {"flags": 2, "x":0, "y":32},
@@ -140,7 +146,7 @@
             {"flags": 2, "x":205, "y":64},
             {"flags": 2, "x":224, "y":64}
     ]
-    }, 
+    },
    "layouts": {
         "LAYOUT": {
             "layout": [

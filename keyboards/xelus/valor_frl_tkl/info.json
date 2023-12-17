@@ -6,6 +6,12 @@
         "vid": "0x5845",
         "pid": "0x4654"
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_ansi_split_bs_rshift"
     },

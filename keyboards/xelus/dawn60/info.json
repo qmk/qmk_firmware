@@ -12,5 +12,11 @@
     "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_60_all": "LAYOUT_all"
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     }
 }

@@ -8,6 +8,12 @@
         "pid": "0x4E4A",
         "device_version": "0.0.1"
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "ws2812": {
         "pin": "A10",
         "driver": "pwm"

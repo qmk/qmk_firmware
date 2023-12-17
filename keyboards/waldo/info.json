@@ -16,6 +16,12 @@
         "pin": "B7",
         "breathing": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "rgblight": {
         "saturation_steps": 8,
         "brightness_steps": 8,

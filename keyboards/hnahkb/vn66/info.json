@@ -18,6 +18,12 @@
             {"pin_a": "B0", "pin_b": "B7", "resolution": 2}
         ]
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "backlight": {
         "pin": "B6",
         "levels": 4,

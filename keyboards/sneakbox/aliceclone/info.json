@@ -18,6 +18,12 @@
       {"pin_a": "D3", "pin_b": "D2", "resolution": 1}
     ]
   },
+  "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+  },
   "bootmagic": {
     "matrix": [2, 0]
   },

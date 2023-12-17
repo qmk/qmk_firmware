@@ -18,6 +18,12 @@
         "num_lock": "A15",
         "scroll_lock": "B4"
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "ws2812": {
         "pin": "B15"
     },

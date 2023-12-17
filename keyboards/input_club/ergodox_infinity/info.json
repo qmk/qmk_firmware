@@ -13,6 +13,12 @@
         "cols": ["D1", "D4", "D5", "D6", "D7"],
         "rows": ["B2", "B3", "B18", "B19", "C0", "C9", "C10", "C11", "D0"]
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "diode_direction": "ROW2COL",
     "processor": "MK20DX256",
     "bootloader": "kiibohd",

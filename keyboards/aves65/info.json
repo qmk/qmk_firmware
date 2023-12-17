@@ -17,6 +17,12 @@
         "esc_input": "D4",
         "esc_output": "D0"
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "rgblight": {
         "led_count": 9,
         "animations": {

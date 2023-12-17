@@ -8,6 +8,12 @@
         "pid": "0x0018",
         "device_version": "0.0.3"
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "rgblight": {
         "led_count": 3,
         "animations": {

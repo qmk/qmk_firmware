@@ -15,6 +15,12 @@
     "split": {
       "soft_serial_pin": "D0"
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "rgblight": {
       "saturation_steps": 8,
       "brightness_steps": 8,

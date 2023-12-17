@@ -18,6 +18,12 @@
             {"pin_a": "D2", "pin_b": "D4"}
         ]
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "split": {
         "soft_serial_pin": "D0",
         "matrix_pins": {

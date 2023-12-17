@@ -17,6 +17,12 @@
         "esc_input": "D5",
         "esc_output": "B7"
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "community_layouts": ["65_ansi", "65_ansi_split_bs", "65_iso"],

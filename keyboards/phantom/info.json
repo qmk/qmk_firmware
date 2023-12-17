@@ -17,6 +17,12 @@
         "caps_lock": "B6",
         "scroll_lock": "B7"
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "rgblight": {
         "hue_steps": 10,
         "led_count": 20,

@@ -18,6 +18,12 @@
             {"pin_a": "B6", "pin_b": "B5"}
         ]
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "split": {
         "soft_serial_pin": "D0",
         "encoder": {

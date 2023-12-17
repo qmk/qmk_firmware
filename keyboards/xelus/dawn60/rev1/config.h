@@ -20,27 +20,6 @@
 #define IS31FL3731_I2C_ADDRESS_2 IS31FL3731_I2C_ADDRESS_SDA
 #define IS31FL3731_LED_COUNT 64
 
-// Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap
-#define LOCKING_SUPPORT_ENABLE
-// Locking resynchronize hack
-#define LOCKING_RESYNC_ENABLE
-
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-// disable debug print
-//#define NO_DEBUG
-
-// disable print
-//#define NO_PRINT
-
-// disable action features
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-
 #define RGB_BACKLIGHT_ENABLED 1
 
 // This conditionally compiles the backlight code for Dawn60 specifics
@@ -50,7 +29,7 @@
 #define WS2812_LED_TOTAL 20
 
 #define RGB_UNDERGLOW_ALPHA_TOP_START 0
-#define RGB_UNDERGLOW_ALPHA_TOP_END   6   
+#define RGB_UNDERGLOW_ALPHA_TOP_END   6
 #define RGB_UNDERGLOW_ALPHA_BOT_START 12
 #define RGB_UNDERGLOW_ALPHA_BOT_END   15
 

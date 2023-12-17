@@ -43,11 +43,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_MAX_SPEED      7
 #define MOUSEKEY_WHEEL_DELAY 0
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 /* key combination for command */
 #define IS_COMMAND() ( \
     get_mods() == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)) || \
@@ -64,34 +59,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* fix space cadet rollover issue */
 #define DISABLE_SPACE_CADET_ROLLOVER
-
-/*
- * The debounce filtering reports a key/switch change directly,
- * without any extra delay. After that the debounce logic will filter
- * all further changes, until the key/switch reports the same state for
- * the given count of scans.
- * So a perfect switch will get a short debounce period and
- * a bad key will get a much longer debounce period.
- * The result is an adaptive debouncing period for each switch.
- *
- * If you don't define it here, the matrix code will default to
- * 5, which is now closer to 10ms, but still plenty according to
- * manufacturer specs.
- */
-
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-// #define NO_DEBUG
-
-/* disable print */
-// #define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-//#define DEBUG_MATRIX_SCAN_RATE

@@ -8,6 +8,12 @@
     "pid": "0x5353",
     "device_version": "0.0.1"
   },
+  "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+  },
   "features": {
     "bootmagic": true,
     "command": false,
