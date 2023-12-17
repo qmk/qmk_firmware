@@ -1,4 +1,5 @@
 {
+    "keyboard_name": "Corne",
     "usb": {
         "pid": "0x0001",
         "device_version": "1.0.0"
