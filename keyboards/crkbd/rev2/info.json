@@ -5,13 +5,8 @@
     "processor": "RP2040",
     "bootloader": "rp2040",
     "features": {
-        "bootmagic": true,
-        "extrakey": true,
-        "lto": true,
         "mousekey": true,
-        "nkro": true,
-        "encoder": true,
-        "oled": true
+        "encoder": true
     },
     "diode_direction": "COL2ROW",
     "matrix_pins": {
