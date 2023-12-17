@@ -83,7 +83,6 @@
             "matrix": [4, 5]
         },
         "soft_serial_pin": "D2",
-        "main": "pin",
         "matrix_pins": {
             "right": {
                 "rows": ["B1", "B3", "B2", "B6"],
@@ -164,6 +163,7 @@
             {"flags": 4, "matrix": [4, 0], "x": 224, "y": 7},  // R SW06
             {"flags": 4, "matrix": [5, 0], "x": 224, "y": 24}, // R SW12
             {"flags": 4, "matrix": [6, 0], "x": 224, "y": 41}  // R SW18
-        ]
+        ],
+        "max_brightness": 128
     }
 }
