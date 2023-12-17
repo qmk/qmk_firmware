@@ -13,11 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+ 
 #pragma once
-
-#define RGB_MATRIX_LED_COUNT 84
-
-/* Enable CapsLcok LED*/
+// Enable CapsLock LED
 #define CAPS_LOCK_LED_INDEX 59
-
-#define DIP_SWITCH_PINS {B3}
