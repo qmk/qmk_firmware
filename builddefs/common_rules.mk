@@ -12,6 +12,9 @@ vpath %.hpp $(VPATH_SRC)
 vpath %.S $(VPATH_SRC)
 VPATH :=
 
+# Helper to return the distinct elements of a list
+uniq = $(if $1,$(firstword $1) $(call uniq,$(filter-out $(firstword $1),$1)))
+
 # Convert all SRC to OBJ
 define OBJ_FROM_SRC
 $(patsubst %.c,$1/%.o,$(patsubst %.cpp,$1/%.o,$(patsubst %.cc,$1/%.o,$(patsubst %.S,$1/%.o,$(patsubst %.clib,$1/%.a,$($1_SRC))))))
@@ -188,7 +191,7 @@ DFU_SUFFIX_ARGS ?=
 elf: $(BUILD_DIR)/$(TARGET).elf
 hex: $(BUILD_DIR)/$(TARGET).hex
 uf2: $(BUILD_DIR)/$(TARGET).uf2
-cpfirmware: $(FIRMWARE_FORMAT)
+cpfirmware_qmk: $(FIRMWARE_FORMAT)
 	$(SILENT) || printf "Copying $(TARGET).$(FIRMWARE_FORMAT) to qmk_firmware folder" | $(AWK_CMD)
 	$(COPY) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT) $(TARGET).$(FIRMWARE_FORMAT) && $(PRINT_OK)
 eep: $(BUILD_DIR)/$(TARGET).eep
@@ -196,6 +199,15 @@ lss: $(BUILD_DIR)/$(TARGET).lss
 sym: $(BUILD_DIR)/$(TARGET).sym
 LIBNAME=lib$(TARGET).a
 lib: $(LIBNAME)
+
+cpfirmware: cpfirmware_qmk
+
+ifneq ($(QMK_USERSPACE),)
+cpfirmware: cpfirmware_userspace
+cpfirmware_userspace: cpfirmware_qmk
+	$(SILENT) || printf "Copying $(TARGET).$(FIRMWARE_FORMAT) to userspace folder" | $(AWK_CMD)
+	$(COPY) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT) $(QMK_USERSPACE)/$(TARGET).$(FIRMWARE_FORMAT) && $(PRINT_OK)
+endif
 
 # Display size of file, modifying the output so people don't mistakenly grab the hex output
 BINARY_SIZE = $(SIZE) --target=$(FORMAT) $(BUILD_DIR)/$(TARGET).hex | $(SED) -e 's/\.build\/.*$$/$(TARGET).$(FIRMWARE_FORMAT)/g'
@@ -264,7 +276,7 @@ BEGIN = gccversion sizebefore
 # Note the obj.txt depeendency is there to force linking if a source file is deleted
 %.elf: $(OBJ) $(MASTER_OUTPUT)/cflags.txt $(MASTER_OUTPUT)/ldflags.txt $(MASTER_OUTPUT)/obj.txt | $(BEGIN)
 	@$(SILENT) || printf "$(MSG_LINKING) $@" | $(AWK_CMD)
-	$(eval CMD=MAKE=$(MAKE) $(CC) $(ALL_CFLAGS) $(filter-out %.txt,$^) --output $@ $(LDFLAGS))
+	$(eval CMD=MAKE=$(MAKE) $(CC) $(ALL_CFLAGS) $(call uniq,$(OBJ)) --output $@ $(LDFLAGS))
 	@$(BUILD_CMD)
 
 
@@ -380,33 +392,9 @@ dump_vars:
 objs-size:
 	for i in $(OBJ); do echo $$i; done | sort | xargs $(SIZE)
 
-ifeq ($(findstring avr-gcc,$(CC)),avr-gcc)
-SIZE_MARGIN = 1024
 
+# size check optionally implemented in its platform.mk
 check-size:
-	$(eval MAX_SIZE=$(shell n=`$(CC) -E -mmcu=$(MCU) -D__ASSEMBLER__ $(CFLAGS) $(OPT_DEFS) platforms/avr/bootloader_size.c 2> /dev/null | $(SED) -ne 's/\r//;/^#/n;/^AVR_SIZE:/,$${s/^AVR_SIZE: //;p;}'` && echo $$(($$n)) || echo 0))
-	$(eval CURRENT_SIZE=$(shell if [ -f $(BUILD_DIR)/$(TARGET).hex ]; then $(SIZE) --target=$(FORMAT) $(BUILD_DIR)/$(TARGET).hex | $(AWK) 'NR==2 {print $$4}'; else printf 0; fi))
-	$(eval FREE_SIZE=$(shell expr $(MAX_SIZE) - $(CURRENT_SIZE)))
-	$(eval OVER_SIZE=$(shell expr $(CURRENT_SIZE) - $(MAX_SIZE)))
-	$(eval PERCENT_SIZE=$(shell expr $(CURRENT_SIZE) \* 100 / $(MAX_SIZE)))
-	if [ $(MAX_SIZE) -gt 0 ] && [ $(CURRENT_SIZE) -gt 0 ]; then \
-		$(SILENT) || printf "$(MSG_CHECK_FILESIZE)" | $(AWK_CMD); \
-		if [ $(CURRENT_SIZE) -gt $(MAX_SIZE) ]; then \
-			$(REMOVE) $(TARGET).$(FIRMWARE_FORMAT); \
-			$(REMOVE) $(BUILD_DIR)/$(TARGET).{hex,bin,uf2}; \
-		    printf "\n * $(MSG_FILE_TOO_BIG)"; $(PRINT_ERROR_PLAIN); \
-		else \
-		    if [ $(FREE_SIZE) -lt $(SIZE_MARGIN) ]; then \
-			$(PRINT_WARNING_PLAIN); printf " * $(MSG_FILE_NEAR_LIMIT)"; \
-		    else \
-			$(PRINT_OK); $(SILENT) || printf " * $(MSG_FILE_JUST_RIGHT)"; \
-		    fi ; \
-		fi ; \
-	fi
-else
-check-size:
-	$(SILENT) || echo "$(MSG_CHECK_FILESIZE_SKIPPED)"
-endif
 
 check-md5:
 	$(MD5SUM) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT)

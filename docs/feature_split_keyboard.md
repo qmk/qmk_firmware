@@ -205,7 +205,7 @@ This sets the pin to be used for serial communication. If you're not using seria
 However, if you are using serial and I<sup>2</sup>C on the board, you will need to set this, and to something other than D0 and D1 (as these are used for I<sup>2</sup>C communication).
 
 ```c
-#define SELECT_SOFT_SERIAL_SPEED {#}`
+#define SELECT_SOFT_SERIAL_SPEED {#}
 ```
 
 If you're having issues with serial communication, you can change this value, as it controls the communication speed for serial.  The default is 1, and the possible values are:
@@ -298,7 +298,7 @@ This enables transmitting the pointing device status to the master side of the s
 #define SPLIT_HAPTIC_ENABLE
 ```
 
-This enables triggering of haptic feedback on the slave side of the split keyboard. For DRV2605L this will send the mode, but for solenoids it is expected that the desired mode is already set up on the slave.
+This enables the triggering of haptic feedback on the slave side of the split keyboard. This will send information to the slave side such as the mode, dwell, and whether buzz is enabled.
 
 ```c
 #define SPLIT_ACTIVITY_ENABLE

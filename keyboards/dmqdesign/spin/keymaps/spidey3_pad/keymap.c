@@ -147,11 +147,12 @@ void keyboard_post_init_user(void) {
     do_rgb_layers(layer_state, LAYER_BASE, LAYER_BASE_END);
 }
 
-void shutdown_user(void) {
+bool shutdown_user(bool jump_to_bootloader) {
     clear_rgb_layers();
     rgblight_enable();
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
     rgblight_sethsv_noeeprom(HSV_RED);
+    return false;
 }
 
 void spidey_glow(void) {
@@ -218,4 +219,3 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
     }
 }
-

@@ -104,7 +104,7 @@ After enabling stenography and optionally selecting a protocol, you may also nee
 
 !> If you had *explicitly* set `VIRSTER_ENABLE = no`, none of the serial stenography protocols (GeminiPR, TX Bolt) will work properly. You are expected to either set it to `yes`, remove the line from your `rules.mk` or send the steno chords yourself in an alternative way using the [provided interceptable hooks](#interfacing-with-the-code).
 
-In your keymap, create a new layer for Plover, that you can fill in with the [steno keycodes](#keycode-reference) (you will need to include `keymap_steno.h`, see `planck/keymaps/steno/keymap.c` for an example). Remember to create a key to switch to the layer as well as a key for exiting the layer.
+In your keymap, create a new layer for Plover, that you can fill in with the [steno keycodes](#keycode-reference). Remember to create a key to switch to the layer as well as a key for exiting the layer.
 
 Once you have your keyboard flashed, launch Plover. Click the 'Configure...' button. In the 'Machine' tab, select the Stenotype Machine that corresponds to your desired protocol. Click the 'Configure...' button on this tab and enter the serial port or click 'Scan'. Baud rate is fine at 9600 (although you should be able to set as high as 115200 with no issues). Use the default settings for everything else (Data Bits: 8, Stop Bits: 1, Parity: N, no flow control).
 
@@ -148,8 +148,6 @@ At the end of this scenario given as an example, `chord` would have five bits se
 `n_pressed_keys` would be set to 2 because there are only two keys currently being pressed down.
 
 ## Keycode Reference :id=keycode-reference
-
-You must include `keymap_steno.h` to your `keymap.c` with `#include "keymap_steno.h"` before you can use these keycodes
 
 > Note: TX Bolt does not support the full set of keys. The TX Bolt implementation in QMK will map the GeminiPR keys to the nearest TX Bolt key so that one key map will work for both.
 
@@ -198,7 +196,7 @@ You must include `keymap_steno.h` to your `keymap.c` with `#include "keymap_sten
 |`STN_RES2`||(Reset 2)|
 |`STN_PWR`||(Power)|
 
-If you do not want to hit two keys with one finger combined keycodes can be used. These are also defined in `keymap_steno.h`, and causes both keys to be reported as pressed or released. To use these keycodes define `STENO_COMBINEDMAP` in your `config.h` file.
+If you do not want to hit two keys with one finger combined keycodes can be used. These cause both keys to be reported as pressed or released. To use these keycodes define `STENO_COMBINEDMAP` in your `config.h` file.
 
 |Combined key   | Key1   | Key 2    |
 |---------------|--------|----------|
