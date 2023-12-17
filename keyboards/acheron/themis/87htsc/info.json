@@ -26,6 +26,9 @@
             "backing_size": 8192
         }
     },
+    "rgblight": {
+        "led_count": 1
+    },
     "ws2812": {
         "pin": "B15"
     },

@@ -17,15 +17,15 @@ extern rgblight_config_t rgblight_config;
 
 // led 0 for caps lock, led 1 for scroll lock, led 3 for num lock
 // led 4 for layer 1, led 5 for layer 2, led 6 for layer 3, led 7 for layer 4
-#if RGBLED_NUM < 7
-#error "MUST set the RGBLED_NUM bigger than 7"
+#if RGBLIGHT_LED_COUNT < 7
+#error "MUST set the RGBLIGHT_LED_COUNT bigger than 7"
 #endif
-rgb_led_t noah_leds[RGBLED_NUM];
+rgb_led_t noah_leds[RGBLIGHT_LED_COUNT];
 static bool noah_led_mode = false;
 void setleds_custom(rgb_led_t *ledarray, uint16_t num_leds) {
     memset(&noah_leds[0], 0, sizeof(noah_leds));
     if (!rgblight_config.enable) {
-        for (uint8_t i = 0; i < RGBLED_NUM; i++) {
+        for (uint8_t i = 0; i < RGBLIGHT_LED_COUNT; i++) {
             ledarray[i].r = 0;
             ledarray[i].g = 0;
             ledarray[i].b = 0;
@@ -51,7 +51,7 @@ void setleds_custom(rgb_led_t *ledarray, uint16_t num_leds) {
       memcpy(&noah_leds[0], &ledarray[0], sizeof(noah_leds));
     }
 
-  ws2812_setleds(noah_leds, RGBLED_NUM);
+  ws2812_setleds(noah_leds, RGBLIGHT_LED_COUNT);
 }
 
 const rgblight_driver_t rgblight_driver = {

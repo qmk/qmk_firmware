@@ -335,6 +335,9 @@
     "kyria": {
         "target": "splitkb/kyria"
     },
+    "laser_ninja/pumpkin_pad": {
+        "target": "laser_ninja/pumpkinpad"
+    },
     "lattice60": {
         "target": "keyhive/lattice60"
     },
