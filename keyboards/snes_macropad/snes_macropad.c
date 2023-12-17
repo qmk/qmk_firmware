@@ -84,22 +84,14 @@ static void setupForFlashing(void) {
     oled_write("                     ", false);
     oled_write("                     ", false);
 
-    // QMK is clever about only rendering a certain number of chunks per frame,
-    // but since the device will go into flash mode right after this call,
-    // we want to override this behavior and force all the chunks to be sent to
-    // the display immediately.
-    const size_t numIterations = OLED_DISPLAY_WIDTH * OLED_DISPLAY_HEIGHT / OLED_UPDATE_PROCESS_LIMIT;
-    for (size_t num = 0; num < numIterations; ++num) {
-        oled_render();
-    }
-    // todo: Replace the above hack with this, once develop branch is merged at the end of November 2023
-    // oled_render_dirty(true);
+    // Force data to be rendered
+    oled_render_dirty(true);
 
     // Set alternating backlight colors
     const uint8_t max = 20;
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
     for (size_t i = 0; i < RGBLED_NUM; ++i) {
-        LED_TYPE *led_ = (LED_TYPE *)&led[i];
+        rgb_led_t *led_ = (rgb_led_t *)&led[i];
         switch (i % 2) {
             case 0:
                 setrgb(max, 0, max, led_);
