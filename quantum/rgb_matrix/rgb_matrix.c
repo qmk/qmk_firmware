@@ -469,7 +469,7 @@ void rgb_matrix_init(void) {
 }
 
 void rgb_matrix_set_suspend_state(bool state) {
-#ifdef RGB_DISABLE_WHEN_USB_SUSPENDED
+#ifdef RGB_MATRIX_SLEEP
     if (state && !suspend_state) { // only run if turning off, and only once
         rgb_task_render(0);        // turn off all LEDs when suspending
         rgb_task_flush(0);         // and actually flash led state to LEDs
