@@ -10,10 +10,6 @@
 #define SPLIT_TRANSPORT_MIRROR
 #define SPLIT_ACTIVITY_ENABLE
 
-/* Disable RGB lighting when PC is in suspend */
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
-
-
 #ifdef SPLIT_KEYBOARD
     #define FORCED_SYNC_THROTTLE_MS 100
     #define SPLIT_HAND_PIN C13
@@ -30,13 +26,8 @@
 #define WS2812_DMA_STREAM STM32_DMA2_STREAM5
 #define WS2812_DMA_CHANNEL 6
 
-#ifdef RGBLIGHT_ENABLE
-    #define RGBLIGHT_SPLIT
-    #define RGBLIGHT_SLEEP
-
-    #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_MOOD + 2
-    #define RGBLIGHT_EFFECT_BREATHE_CENTER 1.0
-#endif
+/* Disable RGB lighting when PC is in suspend */
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
 
 #ifdef RGB_MATRIX_ENABLE
     #define RGB_MATRIX_STARTUP_VAL 60

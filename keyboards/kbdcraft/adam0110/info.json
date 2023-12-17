@@ -16,8 +16,7 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgb_matrix": true,
-        "rgblight": false
+        "rgb_matrix": true
     },
     "matrix_pins": {
         "cols": ["C10", "C11", "C12", "A15", "B6", "D2", "B3", "B4", "B5", "B7", "A0", "A1", "A2", "A3"],
@@ -121,13 +120,6 @@
         "max_brightness": 180,
         "split_count": [64, 17],
         "val_setps": 60
-    },
-    "rgblight": {
-        "led_count": 81,
-        "max_brightness": 100,
-        "sleep": false,
-        "split": false,
-        "split_count": [64, 17]
     },
     "split": {
         "enabled": true,
