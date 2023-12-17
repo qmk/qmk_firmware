@@ -1,5 +1,6 @@
 /*
 Copyright 2019 /u/KeepItUnder
+Copyright 2023 Hayley Hughes
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -25,5 +26,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DRIVER_LED_TOTAL RGB_MATRIX_LED_COUNT
 
 #define ENABLE_RGB_MATRIX_BREATHING
-#define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
 #define ENABLE_RGB_MATRIX_RAINBOW_BEACON
+#define ENABLE_RGB_MATRIX_TYPING_HEATMAP
