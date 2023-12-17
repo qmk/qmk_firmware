@@ -1,5 +1,4 @@
-# This file intentionally left blank
-
+# This file is used to override the default rules.mk file
 WS2812_DRIVER = vendor
 RGBLIGHT_ENABLE = yes 
 RGBLIGHT_DRIVER = ws2812
