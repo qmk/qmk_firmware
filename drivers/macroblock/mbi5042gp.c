@@ -1,4 +1,5 @@
 /* Copyright 2019 /u/KeepItUnder
+ * Copyright 2023 Hayley Hughes 
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -124,6 +125,7 @@
  */
 
 //#include "mbi5042gp.h"
+#include "hal.h"
 #include <string.h>
 #include "progmem.h"
 #include "rgb_matrix.h"
@@ -171,47 +173,67 @@ void MBI5042GP_init(void) {
      * which is used for row refresh/enable.
      */
 
-    /* Enable PWM module clock */
-    // CLK_EnableModuleClock(PWM01_MODULE);
-    // clks_lld_enable_module_clock(PWM01_MODULE);
-    clks_lld_enable_module_clock(PWM01_ModuleNum);
+    // Use the HCLK
+    // Note we need to 0 the bits first as the clksel register has a reset value
+    // of 0xFFFF_FFFF
+    CLK->CLKSEL1 &= ~CLK_CLKSEL1_PWM01_S_Msk;
+    CLK->CLKSEL1 |= 2 << CLK_CLKSEL1_PWM01_S_Pos;
 
-    /* Select PWM module clock source */
-    // CLK_SetModuleClock(PWM01_MODULE, CLK_CLKSEL1_PWM01_S_HCLK | CLK_CLKSEL2_PWM01_EXT_HCLK, 0);
-    // clks_lld_set_module_clock(PWM01_MODULE, CLK_CLKSEL1_PWM01_S_HCLK | CLK_CLKSEL2_PWM01_EXT_HCLK, 0);
-    clks_lld_set_module_clock(PWM01_ModuleNum, CLK_CLKSEL1_PWM01_S_HCLK, 0);
+    CLK->CLKSEL2 &= ~CLK_CLKSEL2_PWM01_S_E_Msk;
+    CLK->CLKSEL2 |= 2 << CLK_CLKSEL2_PWM01_S_E_Pos;
 
-    /* Combined method to configure PWM0 */
-    // PWM_ConfigOutputChannel(PWMA, PWM_CH0, MBI5042GP_GCLK_SPD, 50);
-    pwm_lld_config_output_channel(PWMA, PWM_CH0, MBI5042GP_GCLK_SPD, 50);
+    // Enable the PWM peripheral clock
+    CLK->APBCLK |= 1 << CLK_APBCLK_PWM01_EN_Pos;
 
-    /* Enable PWM Output path for PWMA channel 0 */
-    // PWM_EnableOutput(PWMA, 0x1);
-    (PWMA)->POE |= PWM_CH1;
+    // Set prescaler for PWM0 and PWM1 to 1
+    PWMA->PPR |= 1 << PWM_PPR_CP01_Pos;
 
-    /* Set GPIO PA.12/PWM0 to be PWM0 */
-    SYS->GPA_MFP |= SYS_GPA_MFP_PA12_PWM0;
+    // Enable PWM interrupt vector
+    // Interrupt priority value taken from chibios defaults
+    nvicEnableVector(NUC123_PWMA_NUMBER, 3);
 
-    /* PWM1 Config */
-    /* Combined method to configure PWM1 */
-    // PWM_ConfigOutputChannel(PWMA, PWM_CH1, MBI5042GP_REFRESH_SPD, 50);
-    pwm_lld_config_output_channel(PWMA, PWM_CH1, MBI5042GP_REFRESH_SPD, 50);
+    // Set clock division to 1
+    PWMA->CSR |= 1 << PWM_CSR_CSR2_Pos;
 
-    /* Set interrupt handler */
-    nvicEnableVector(PWMA_IRQn, 3);
+    // Set pin PA12 to PWM0
+    SYS->GPA_MFP |= 1 << 12;
 
-    /* Need an interrupt for PWM1 */
-    // (PWMA)->PIER = (PWMA)->PIER & ~(PWM_PIER_INT01TYPE_Msk | PWM_PIER_PWMIE1_Msk);
-    pwm_lld_enable_period_int(PWMA, PWM_CH1, PWM_PERIOD_INT_UNDERFLOW);
+    // Enable PWM0 output
+    PWMA->POE |= 1 << PWM_POE_PWM0_Pos;
 
-    /* Start PWM0 and PWM1 */
-    // PWM_Start(PWMA, (0x1u << PWM_CH0 | 0x1u << PWM_CH1));
-    pwm_lld_start(PWMA, (0x1u << PWM_CH0 | 0x1u << PWM_CH1));
+    // Enable PWM0 and PWM1 auto reload
+    PWMA->PCR |= (1 << PWM_PCR_CH0MOD_Pos | 1 << PWM_PCR_CH1MOD_Pos);
+
+    // Enable PWM1 reset interrupt
+    PWMA->PIER |= 1 << PWM_PIER_PWMIE1_Pos;
+
+    // Set PWM0 freq to 9MHz and 50% duty cycle (it's just a nice clock)
+    //
+    // freq = HCLK/[(prescale+1)*(clock divider)*(CNR+1)]
+    // 72MHz/(1 + 1)*(1)*(3+1)
+    //
+    // duty = (CMR+1)/(CNR+1)
+    // (1+1)/(3+1)
+    PWMA->CNR0 = 3;
+    PWMA->CMR0 = 1;
+    
+    // Set PWM1 freq to 1.8kHz (duty doesn't matter)
+    //
+    // freq = HCLK/[(prescale+1)*(clock divider)*(CNR+1)]
+    // 72MHz/(1 + 1)*(1)*(3+1)
+    PWMA->CNR1 = 19999;
+    PWMA->CMR1 = 1;
+
+    // Start PWM channel 0 and 1 
+    PWMA->PCR |= (1 << PWM_PCR_CH0EN_Pos | 1 << PWM_PCR_CH1EN_Pos);
 
 #elif
 #endif
 
     MBI5042GP_disable_rows();
+
+    // Enable the LED controllers
+    PD5 = PAL_LOW;
 
     MBI5042GP_set_current_gain(0b000011u);
 }
@@ -312,11 +334,11 @@ void MBI5042GP_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
         led_pos = g_mbi_leds[index];
 
         // MBI5042GP_planar_recode(led.matrix_co.row, 15 - (led.matrix_co.col), red, green, blue);
-        if (index == 27 && IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
-            MBI5042GP_planar_recode(led_pos.row, led_pos.col, 0xff, 0xff, 0xff);
-        } else {
+        /* if (index == 27 && IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) { */
+        /*     MBI5042GP_planar_recode(led_pos.row, led_pos.col, 0xff, 0xff, 0xff); */
+        /* } else { */
             MBI5042GP_planar_recode(led_pos.row, led_pos.col, red, green, blue);
-        }
+        /* } */
 
         g_pwm_buffer_update_required = true;
     }
@@ -331,9 +353,9 @@ void MBI5042GP_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
         for (int j = 0; j < 16; j++) {
             if (i == 2) {
                 if (j == 0) {
-                    if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
-                        MBI5042GP_planar_recode(i, j, 0xff, 0xff, 0xff);
-                    }
+                    /* if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) { */
+                    /*     MBI5042GP_planar_recode(i, j, 0xff, 0xff, 0xff); */
+                    /* } */
                 }
             } else {
                 MBI5042GP_planar_recode(i, j, red, green, blue);
@@ -561,12 +583,10 @@ OSAL_IRQ_HANDLER(NUC123_PWMA_HANDLER) {
     OSAL_IRQ_PROLOGUE();
 
     /* Check for PWM1 underflow IRQ */
-    // if (PWM_GetPeriodIntFlag(PWMA, PWM_CH1) == 1) {
-    //     PWM_ClearPeriodIntFlag(PWMA, PWM_CH1);
-    //     MBI5042GP_update_pwm_buffers();
-    // }
-    if (pwm_lld_get_period_int(PWMA, PWM_CH1) == 1) {
-        pwm_lld_clear_period_int(PWMA, PWM_CH1);
+    if ((PWMA->PIIR >> PWM_PIIR_PWMIF1_Pos) & 1) {
+        /* Clear interrupt flag */
+        PWMA->PIIR |= 1 << PWM_PIIR_PWMIF1_Pos;
+
         MBI5042GP_update_pwm_buffers();
     }
 
