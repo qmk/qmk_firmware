@@ -83,9 +83,9 @@ static inline void vusb_suspend(void) {
 static inline void vusb_wakeup(void) {
     suspend_wakeup_init();
 
-#    ifdef SLEEP_LED_ENABLE
+#ifdef SLEEP_LED_ENABLE
     sleep_led_disable();
-#    endif
+#endif
 }
 
 /** \brief Setup USB
@@ -123,8 +123,8 @@ void protocol_post_init(void) {
 static inline bool should_do_suspend(void) {
 #if USB_COUNT_SOF
     if (usbSofCount != 0) {
-        usbSofCount = 0;
-        sof_timer   = timer_read();
+        usbSofCount    = 0;
+        sof_timer      = timer_read();
         vusb_suspended = false;
     } else {
         // Suspend when no SOF in 3ms-10ms(7.1.7.4 Suspending of USB1.1)
