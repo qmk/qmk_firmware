@@ -353,8 +353,6 @@ void MBI5042GP_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
         for (int j = 0; j < 16; j++) {
             if (i == 2) {
                 if (j == 0) {
-                    /* if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) { */
-                    /*     MBI5042GP_planar_recode(i, j, 0xff, 0xff, 0xff); */
                     /* } */
                 }
             } else {
@@ -409,7 +407,7 @@ void MBI5042GP_update_pwm_buffers(void) {
         /* Inner Loop 16 */
         for (int j = 0; j < 16; j++) {
             /* R_SDIN/G_SDIN/B_SDIN write */
-            PB->DOUT = g_pwm_buffer[g_pwm_buffer_row][16 * (15 - i) + j];
+            PB->DOUT = g_pwm_buffer[g_pwm_buffer_row][16 * i + j];
 
             // If j is 15 set LE High
             if (j == 15) {
