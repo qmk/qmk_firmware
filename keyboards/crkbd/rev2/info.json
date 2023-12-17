@@ -8,7 +8,6 @@
         "mousekey": true,
         "encoder": true
     },
-    "diode_direction": "COL2ROW",
     "matrix_pins": {
         "direct":[
             ["GP22", "GP20", "GP23", "GP26", "GP29",  "GP0",  "GP4"],
@@ -41,6 +40,13 @@
                     {"pin_a": "GP24", "pin_b":  "GP7"},
                     {"pin_a":  "GP6", "pin_b":  "GP7"}
                 ]
+            }
+        },
+        "transport": {
+            "sync": {
+                "matrix_state": true,
+                "layer_state": true,
+                "modifiers": true
             }
         }
     },
@@ -157,7 +163,8 @@
         }
     },
     "ws2812": {
-        "driver": "vendor"
+        "driver": "vendor",
+        "pin": "GP10"
     },
     "rgblight": {
         "led_count": 46,
