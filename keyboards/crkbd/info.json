@@ -1,14 +1,10 @@
 {
     "keyboard_name": "Corne",
     "manufacturer": "foostan",
-    "url": "",
+    "url": "https://github.com/foostan/crkbd",
     "maintainer": "qmk",
     "usb": {
-        "vid": "0x4653",
-        "device_version": "0.0.1"
-    },
-    "rgb_matrix": {
-        "driver": "ws2812"
+        "vid": "0x4653"
     },
     "features": {
         "bootmagic": true,
@@ -134,5 +130,8 @@
                 {"matrix": [7, 3], "x": 10, "y": 3.7}
             ]
         }
+    },
+    "rgb_matrix": {
+        "driver": "ws2812"
     }
 }

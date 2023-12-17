@@ -1,6 +1,7 @@
 {
     "usb": {
-        "pid": "0x0002"
+        "pid": "0x0004",
+        "device_version": "4.0.0"
     },
     "processor": "RP2040",
     "bootloader": "rp2040",
