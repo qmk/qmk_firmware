@@ -11,9 +11,7 @@
         "mousekey": true,
         "nkro": true,
         "encoder": true,
-        "oled": true,
-        "rgblight": false,
-        "rgb_matrix": true
+        "oled": true
     },
     "diode_direction": "COL2ROW",
     "matrix_pins": {
