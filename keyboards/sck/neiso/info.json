@@ -1,0 +1,29 @@
+{
+    "keyboard_name": "NEISO",
+    "manufacturer": "Space City Keyboards",
+    "url": "",
+    "maintainer": "jrfhoutx",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
+    "matrix_pins": {
+        "cols": ["B3", "D2", "F5", "F7", "B4"],
+        "rows": ["F4"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 1], "x": 0.25, "y": 0, "w": 2, "h": 1.25},
+                {"matrix": [0, 2], "x": 2.75, "y": 0.25, "w": 1.25, "h": 2},
+                {"matrix": [0, 0], "x": 1.5, "y": 1.5},
+                {"matrix": [0, 3], "x": 0, "y": 1.75, "w": 1.25, "h": 2},
+                {"matrix": [0, 4], "x": 1.75, "y": 2.75, "w": 2, "h": 1.25}
+            ]
+        }
+    }
+}

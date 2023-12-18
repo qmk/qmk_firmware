@@ -1,0 +1,35 @@
+{
+  "keyboard_name": "GeekPad",
+  "manufacturer": "BTHLabs",
+  "url": "https://git.bthlabs.pl/tomekwojcik/geekpad",
+  "maintainer": "Tomek W\u00f3jcik <contact@bthlabs.pl>",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x4257",
+    "device_version": "0.0.1"
+  },
+  "matrix_pins": {
+    "cols": ["D4", "D0", "D1"],
+    "rows": ["F4", "F5", "F6"]
+  },
+  "diode_direction": "COL2ROW",
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
+  "layouts": {
+    "LAYOUT": {
+      "layout": [
+        {"matrix": [0, 0], "x": 0, "y": 0},
+        {"matrix": [0, 1], "x": 1, "y": 0},
+        {"matrix": [0, 2], "x": 2, "y": 0},
+
+        {"matrix": [1, 0], "x": 0, "y": 1},
+        {"matrix": [1, 1], "x": 1, "y": 1},
+        {"matrix": [1, 2], "x": 2, "y": 1},
+
+        {"matrix": [2, 0], "x": 0, "y": 2},
+        {"matrix": [2, 1], "x": 1, "y": 2},
+        {"matrix": [2, 2], "x": 2, "y": 2}
+      ]
+    }
+  }
+}

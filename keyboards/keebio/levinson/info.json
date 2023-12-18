@@ -1,0 +1,12 @@
+{
+  "keyboard_name": "Levinson",
+  "manufacturer": "Keebio",
+  "url": "https://keeb.io",
+  "maintainer": "Keebio",
+  "usb": {
+    "vid": "0xCB10"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
+  "community_layouts": ["ortho_4x12"]
+}

@@ -1,0 +1,70 @@
+{
+  "manufacturer": "Clueboard",
+  "keyboard_name": "Cluecard",
+  "maintainer": "skullydazed",
+  "debounce": 20,
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
+  "diode_direction": "ROW2COL",
+  "features": {
+    "audio": true,
+    "backlight": true,
+    "bluetooth": false,
+    "bootmagic": false,
+    "command": false,
+    "console": true,
+    "extrakey": true,
+    "lto": true,
+    "midi": false,
+    "mousekey": true,
+    "nkro": false,
+    "rgblight": true,
+    "unicode": false
+  },
+  "build": {
+    "lto": true
+  },
+  "matrix_pins": {
+    "cols": ["F1", "F7", "F6"],
+    "rows": ["F0", "F5", "F4", "B4"]
+  },
+  "rgblight": {
+    "brightness_steps": 17,
+    "hue_steps": 10,
+    "led_count": 4,
+    "saturation_steps": 17
+  },
+  "ws2812": {
+    "pin": "E6"
+  },
+  "usb": {
+    "device_version": "0.0.1",
+    "pid": "0x2330",
+    "vid": "0xC1ED"
+  },
+  "backlight": {
+    "driver": "custom",
+    "levels": 6
+  },
+  "layout_aliases": {
+    "LAYOUT": "LAYOUT_all"
+  },
+  "layouts": {
+    "LAYOUT_all": {
+      "layout": [
+        {"label": "ON/OFF", "matrix": [0, 0], "x": 0, "y": 0},
+        {"label": "SAT+", "matrix": [0, 1], "x": 4, "y": 0},
+        {"label": "BRIGHT+", "matrix": [0, 2], "x": 8, "y": 0},
+        {"label": "HUE-", "matrix": [1, 0], "x": 2, "y": 1},
+        {"label": "HUE+", "matrix": [1, 2], "x": 6, "y": 1},
+        {"label": "MODE", "matrix": [2, 0], "x": 0, "y": 2},
+        {"label": "SAT-", "matrix": [2, 1], "x": 4, "y": 2},
+        {"label": "BRIGHT-", "matrix": [2, 2], "x": 8, "y": 2},
+        {"label": "LAYER", "matrix": [1, 1], "x": 2, "y": 4},
+        {"h": 2, "label": "MX1", "matrix": [3, 0], "w": 2, "x": 4, "y": 6},
+        {"h": 2, "label": "MX2", "matrix": [3, 1], "w": 2, "x": 6, "y": 6},
+        {"h": 2, "label": "MX3", "matrix": [3, 2], "w": 2, "x": 8, "y": 6}
+      ]
+    }
+  }
+}

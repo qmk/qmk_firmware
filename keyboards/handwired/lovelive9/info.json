@@ -1,0 +1,56 @@
+{
+    "keyboard_name": "lovelive9",
+    "manufacturer": "numazu Keyboards",
+    "url": "https://github.com/ginjake",
+    "maintainer": "ginjake",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0007",
+        "device_version": "0.0.1",
+        "max_power": 400
+    },
+    "matrix_pins": {
+        "cols": ["B4", "B6", "B2", "D7", "B1", "F7", "F6", "F5", "F4"],
+        "rows": [null]
+    },
+    "diode_direction": "COL2ROW",
+    "backlight": {
+        "breathing_period": 2
+    },
+    "rgblight": {
+        "hue_steps": 10,
+        "led_count": 9,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "D3"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 0.5, "y": 1.25},
+                {"matrix": [0, 2], "x": 1.5, "y": 2.5},
+                {"matrix": [0, 3], "x": 2.75, "y": 3.25},
+                {"matrix": [0, 4], "x": 4, "y": 3.5},
+                {"matrix": [0, 5], "x": 5.25, "y": 3.25},
+                {"matrix": [0, 6], "x": 6.5, "y": 2.5},
+                {"matrix": [0, 7], "x": 7.5, "y": 1.25},
+                {"matrix": [0, 8], "x": 8, "y": 0}
+            ]
+        }
+    }
+}

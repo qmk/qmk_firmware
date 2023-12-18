@@ -1,0 +1,45 @@
+.sidebar li.active {
+    background-color: #555;
+}
+
+.markdown-section tr:nth-child(2n) {
+    background-color:#444;
+}
+
+.markdown-section p.tip {
+    background-color:#555;
+    color:#FFF;
+}
+
+.markdown-section tr {
+    border-top: 1px solid #555;
+}
+
+.markdown-section td, .markdown-section th {
+    border: 1px solid #555;
+}
+
+.markdown-section p.tip code {
+    background-color: #333;
+    color: #fff;
+}
+
+.page_toc code {
+    background-color: #555;
+}
+
+.markdown-section hr, .search {
+    border-bottom: 1px solid #777 !important;
+}
+
+.markdown-section p.warn > strong {
+    color: #c8c8c8;
+}
+
+:root {
+    --docsifytabs-border-color: #555;
+    --docsifytabs-tab-highlight-color: var(--theme-color,#ea6f5a);
+
+    --docsifytabs-tab-background: #444;
+    --docsifytabs-tab-background-active: #3f3f3f;
+}

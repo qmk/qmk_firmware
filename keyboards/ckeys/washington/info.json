@@ -1,0 +1,46 @@
+{
+    "keyboard_name": "Washington Macropad",
+    "manufacturer": "merlin04",
+    "url": "https://keypcb.xyz/ViewPage/Washington",
+    "maintainer": "merlin04",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x002A",
+        "device_version": "0.0.1"
+    },
+    "matrix_pins": {
+        "cols": ["F7", "B1", "B3"],
+        "rows": ["F4", "F5", "F6"]
+    },
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D4", "pin_b": "C6"}
+        ]
+    },
+    "backlight": {
+        "pin": "B6",
+        "breathing": true
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 1.5, "y": 0},
+                {"matrix": [0, 1], "x": 2.5, "y": 0},
+                {"matrix": [0, 2], "x": 3.5, "y": 0},
+
+                {"matrix": [1, 0], "x": 1.5, "y": 1},
+                {"matrix": [1, 1], "x": 2.5, "y": 1},
+                {"matrix": [1, 2], "x": 3.5, "y": 1},
+
+                {"matrix": [2, 0], "x": 0, "y": 0.75},
+
+                {"matrix": [2, 1], "x": 0.5, "y": 1.75},
+
+                {"matrix": [2, 2], "x": 1.5, "y": 2}
+            ]
+        }
+    }
+}

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: QMK Discord
+    url: https://discord.gg/Uq7gcHh
+    about: Ask questions, discuss issues and features. Chill.
+  - name: OLKB Subreddit
+    url: https://www.reddit.com/r/olkb
+    about: All things OLKB and QMK.

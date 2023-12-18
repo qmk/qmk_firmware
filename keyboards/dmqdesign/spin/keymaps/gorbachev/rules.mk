@@ -1,0 +1,3 @@
+OLED_ENABLE = yes
+MOUSEKEY_ENABLE    = no
+MIDI_ENABLE        = no

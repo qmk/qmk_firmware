@@ -1,0 +1,52 @@
+{
+    "redirects": [
+            {
+                "from": "adding_a_keyboard_to_qmk.html",
+                "to": "hardware_keyboard_guidelines.html"
+            },
+            {
+                "from": "build_environment_setup.html",
+                "to": "getting_started_build_tools.html"
+            },
+            {
+                "from": "dynamic_macros.html",
+                "to": "feature_dynamic_macros.html"
+            },
+            {
+                "from": "feature_common_shortcuts.html",
+                "to": "feature_advanced_keycodes.html"
+            },
+            {
+                "from": "glossary.html",
+                "to": "reference_glossary.html"
+            },
+            {
+                "from": "key_lock.html",
+                "to": "feature_key_lock.html"
+            },
+            {
+                "from": "make_instructions.html",
+                "to": "getting_started_make_guide.html"
+            },
+            {
+                "from": "porting_your_keyboard_to_qmk.html",
+                "to": "hardware_avr.html"
+            },
+            {
+                "from": "space_cadet_shift.html",
+                "to": "feature_space_cadet_shift.html"
+            },
+            {
+                "from": "tap_dance.html",
+                "to": "feature_tap_dance.html"
+            },
+            {
+                "from": "unicode.html",
+                "to": "feature_unicode.html"
+            },
+            {
+                "from": "python_development.html",
+                "to": "cli_development.html"
+            }
+        ]
+}

@@ -1,0 +1,11 @@
+RGBLIGHT_ENABLE = yes
+KEY_LOCK_ENABLE = yes
+
+LTO_ENABLE      = yes
+UNICODE_ENABLE  = no
+MOUSEKEY_ENABLE = no
+
+### Debugging ###
+CONSOLE_ENABLE  = no # yes
+COMMAND_ENABLE  = no
+

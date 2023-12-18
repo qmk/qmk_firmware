@@ -1,0 +1,146 @@
+# Xyverz's Atreus62 Keymap
+
+## About this keymap:
+
+This is the Atreus62 keyboard layout by Xyverz aka u/Zrevyx on r/mk. I've blatantly stolen what works for me from the Planck and Preonic layouts and modified this file to fit me. Initial credet goes to u/profet23 for the doing all the work and adding this keyboard to QMK in the first place.
+
+I've got Dvorak, Qwerty, and Colemak layouts at this time, with the possibility of adding more in the future.
+
+The bottom row is fairly Kinesis-ish since the Contour and Advantage keyboards have been my daily drivers for the last 17 years. I hope You can get some enjoyment out of this layout should you chose it!
+
+### CHANGELOG:
+
+#### 0.1
+ *  Initial commit. Based off of Profet's default keymap.
+#### 0.2
+ * Converted to a more Planck/Preonic keymap style file with persistent layers enabled. Renamed layers to reflect OLKB maps.
+ * Added a TODO list.
+#### 0.3
+ * Moved location of media & volume keys. Added Print Screen, Scroll Lock and Pause keys.
+ * Added a WOW gaming layer that changes the location of Ctrl & Alt to the thumb keys. Right thumb is Ctrl when held, Enter when tapped.
+ * Added readme.
+#### 0.4
+ * Moved location of Escape key to Caps Lock position. Moved Caps Lock to same position on Raise/Lower Layers.
+ * Put Tilde/Grave in the upper-left corner
+ * Added code to turn off the red LEDs on the Pro Micro after flashing. They were annoying me.
+### 0.5
+ * Converted keymap to LAYOUT standard.
+### 0.6
+ * Swapped ESC and GRV in all layers.
+### 0.7
+ * Brought code up to new standards (as of 27 June 2019).
+ * Updated this readme file.
+### 0.8
+ * Added MACLOCK macro.
+### 0.9
+ * Updated code to correspond to new setPinInput behaviour.
+### 0.10
+ * Re-ordered the layers (swapped Destiny & WoW layers in the list).
+ * Removed duplicated keys from RAISE and LOWER layers.
+ * Updated readme.md and fixed an aesthetic typo in keymap.c.
+### 0.11
+ * Added DEL_GUI macro.
+ * Removed WOW layer since I'm no longer supporting Blizzard in any way.
+
+### TODO:
+
+ * Enjoy this revision; figure out new things later.
+
+### Layer 0: Dvorak layer
+
+	,-----------------------------------------.              ,-----------------------------------------.
+	| Esc  |   1  |   2  |   3  |   4  |   5  |              |   6  |   7  |   8  |   9  |   0  |   \  |
+	|------+------+------+------+------+------|              |------+------+------+------+------+------|
+	| Tab  |   '  |   ,  |   .  |   P  |   Y  |              |   F  |   G  |   C  |   R  |   L  |   /  |
+	|------+------+------+------+------+------|              |------+------+------+------+------+------|
+	| Grv  |   A  |   O  |   E  |   U  |   I  |              |   D  |   H  |   T  |   N  |   S  |   -  |
+	|------+------+------+------+------+------|------.,------|------+------+------+------+------+------|
+	| Shft |   ;  |   Q  |   J  |   K  |   X  | Del/ ||Enter |   B  |   M  |   W  |   V  |   Z  | Shft |
+	|------+------+------+------+------+------| Gui  ||      |------+------+------+------+------+------|
+	| Ctrl |  Alt | Left | Rght | LOWER| BkSp |------'`------|  Spc | RAISE|  Up  | Down |  Gui | Ctrl |
+	`-----------------------------------------'              `-----------------------------------------'
+
+### Layer 1: QWERTY layer
+
+	,-----------------------------------------.              ,-----------------------------------------.
+	| Esc  |   1  |   2  |   3  |   4  |   5  |              |   6  |   7  |   8  |   9  |   0  |   -  |
+	|------+------+------+------+------+------|              |------+------+------+------+------+------|
+	| Tab  |   Q  |   W  |   E  |   R  |   T  |              |   Y  |   U  |   I  |   O  |   P  | Del  |
+	|------+------+------+------+------+------|              |------+------+------+------+------+------|
+	| Grv  |   A  |   S  |   D  |   F  |   G  |              |   D  |   H  |   T  |   N  |   S  |   '  |
+	|------+------+------+------+------+------|------.,------|------+------+------+------+------+------|
+	| Shft |   Z  |   X  |   C  |   V  |   B  | Gui  ||Enter |   N  |   M  |   ,  |   .  |   /  | Shft |
+	|------+------+------+------+------+------|      ||      |------+------+------+------+------+------|
+	| Ctrl |  Alt | Left | Rght | LOWER| BkSp |------'`------|  Spc | RAISE|  Up  | Down |  Gui | Ctrl |
+	`-----------------------------------------'              `-----------------------------------------'
+	 
+### Layer 2: Colemak layer
+
+	,-----------------------------------------.              ,-----------------------------------------.
+	| Esc  |   1  |   2  |   3  |   4  |   5  |              |   6  |   7  |   8  |   9  |   0  |   -  |
+	|------+------+------+------+------+------|              |------+------+------+------+------+------|
+	| Tab  |   Q  |   W  |   F  |   P  |   G  |              |   J  |   U  |   U  |   Y  |   ;  | Del  |
+	|------+------+------+------+------+------|              |------+------+------+------+------+------|
+	| Grv  |   A  |   R  |   S  |   T  |   D  |              |   H  |   N  |   E  |   I  |   O  |   '  |
+	|------+------+------+------+------+------|------.,------|------+------+------+------+------+------|
+	| Shft |   Z  |   X  |   C  |   V  |   B  | Gui  ||Enter |   K  |   M  |   ,  |   .  |   /  | Shft |
+	|------+------+------+------+------+------|      ||      |------+------+------+------+------+------|
+	| Ctrl |  Alt | Left | Rght | LOWER| BkSp |------'`------|  Spc | RAISE|  Up  | Down |  Gui | Ctrl |
+	`-----------------------------------------'              `-----------------------------------------'
+
+### Layer 3: Destiny layer
+
+	,-----------------------------------------.              ,-----------------------------------------.
+	| Esc  |   1  |   2  |   3  |   4  |   5  |              |   6  |   7  |   8  |   9  |   0  |   \  |
+	|------+------+------+------+------+------|              |------+------+------+------+------+------|
+	| Tab  |   '  |   ,  |   .  |   P  |   Y  |              |   F  |   G  |   C  |   R  |   L  |   /  |
+	|------+------+------+------+------+------|              |------+------+------+------+------+------|
+	| Grv  |   A  |   O  |   E  |   U  |   I  |              |   D  |   H  |   T  |   N  |   S  |   -  |
+	|------+------+------+------+------+------|------.,------|------+------+------+------+------+------|
+	| Shft |   ;  |   Q  |   J  |   K  |   X  | Del  ||Enter |   B  |   M  |   W  |   V  |   Z  | Shft |
+	|------+------+------+------+------+------|      ||      |------+------+------+------+------+------|
+	| Ctrl |  Alt | Left | Rght | LOWER| BkSp |------'`------|  Spc | RAISE|  Up  | Down |  Gui | Ctrl |
+	`-----------------------------------------'              `-----------------------------------------'
+
+### Layer 4: LOWER layer
+
+	,-----------------------------------------.              ,-----------------------------------------.
+	| F11  |  F1  |  F2  |  F3  |  F4  |  F5  |              |  F6  |  F7  |  F8  |  F9  | F10  | F12  |
+	|------+------+------+------+------+------|              |------+------+------+------+------+------|
+	|      |      |      |      |      |      |              |      |      |      |      |      |      |
+	|------+------+------+------+------+------|              |------+------+------+------+------+------|
+	| Caps |      | Mute | Vol- | Vol+ |      |              |      |      |   +  |   {  |   }  |      |
+	|------+------+------+------+------+------|------.,------|------+------+------+------+------+------|
+	|      |      | Prev | Play | Next |      |      ||      |      |      | PScr | ScLk | Pause|      |
+	|------+------+------+------+------+------|      ||      |------+------+------+------+------+------|
+	|      |      | Home | End  |      | Del  |------'`------|  Ins |      | PgUp | PgDn |      |      |
+	`-----------------------------------------'              `-----------------------------------------'
+
+
+### Layer 5: RAISE layer
+
+	,-----------------------------------------.              ,-----------------------------------------.
+	| F11  |  F1  |  F2  |  F3  |  F4  |  F5  |              |  F6  |  F7  |  F8  |  F9  | F10  | F12  |
+	|------+------+------+------+------+------|              |------+------+------+------+------+------|
+	|      |      |      |      |      |      |              |      |      |      |      |      |      |
+	|------+------+------+------+------+------|              |------+------+------+------+------+------|
+	| Caps |      | Mute | Vol- | Vol+ |      |              |      |      |   =  |   [  |   ]  |      |
+	|------+------+------+------+------+------|------.,------|------+------+------+------+------+------|
+	|      |      | Prev | Play | Next |      |      ||      |      |      | PScr | ScLk | Pause|      |
+	|------+------+------+------+------+------|      ||      |------+------+------+------+------+------|
+	|      |      | Home | End  |      | Del  |------'`------|  Ins |      | PgUp | PgDn |      |      |
+	`-----------------------------------------'              `-----------------------------------------'
+
+### Layer 6: ADJUST layer
+
+	,-----------------------------------------.              ,-----------------------------------------.
+	|      |      |      |      |      |      |              |      |      |      |      |      |      |
+	|------+------+------+------+------+------|              |------+------+------+------+------+------|
+	|      |RESET |      |      |      |      |              |      |      |      |      |      |      |
+	|------+------+------+------+------+------|              |------+------+------+------+------+------|
+	|      |      |      |      |      |      |              |      |Qwerty|Colemk|Dvorak|Destny|      |
+	|------+------+------+------+------+------|------.,------|------+------+------+------+------+------|
+	|      |      |      |      |      |      |      ||      |      |      |      |      |      |      |
+	|------+------+------+------+------+------|      ||      |------+------+------+------+------+------|
+	|      |      |      |      |      |      |------'`------|      |      |      |      |      |      |
+	`-----------------------------------------'              `-----------------------------------------'

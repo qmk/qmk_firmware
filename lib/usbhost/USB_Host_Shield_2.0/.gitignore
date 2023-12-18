@@ -1,0 +1,4 @@
+*.bak
+*.zip
+*.rar
+build/

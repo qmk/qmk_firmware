@@ -1,0 +1,15 @@
+{
+  "manufacturer": "25KEYS",
+  "url": "https://github.com/monksoffunk/zinc",
+  "maintainer": "monksoffunk",
+   "usb": {
+    "vid": "0x04D8",
+    "pid": "0xEA3B",
+    "device_version": "0.0.1"
+   },
+   "rgb_matrix": {
+     "driver": "ws2812"
+   },
+  "processor": "atmega32u4",
+  "bootloader": "caterina"
+}
