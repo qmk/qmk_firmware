@@ -2,7 +2,6 @@
 
 #include QMK_KEYBOARD_H
 #include "features/achordion.h"
-#include "features/casemodes.h"
 #include "features/compose.h"
 
 enum userspace_layers {

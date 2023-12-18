@@ -2,6 +2,7 @@
 
 # required settings for these
 COMBO_ENABLE = yes
+CAPS_WORD_ENABLE = yes
 
 # some general settings
 CONSOLE_ENABLE = no
@@ -13,5 +14,4 @@ AUDIO_ENABLE = no
 # the source files to include
 SRC += pogues.c
 SRC += features/achordion.c
-SRC += features/casemodes.c
 SRC += features/compose.c

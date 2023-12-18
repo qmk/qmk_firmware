@@ -106,6 +106,30 @@ bool achordion_eager_mod(uint8_t mod) {
   }
 }
 
+// configure the caps_word settings
+bool caps_word_press_user(uint16_t keycode) {
+    switch (keycode) {
+        // Keycodes that continue Caps Word, with shift applied.
+        case KC_A ... KC_Z:
+            add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.
+            return true;
+
+        // Keycodes that continue Caps Word, without shifting.
+        case KC_1 ... KC_0:
+        case KC_BSPC:
+        case KC_DEL:
+        case KC_UNDS:
+        case KC_MINS:
+        case KC_DOT:
+        case KC_SLSH:
+        case KC_NUBS:   // UK |
+            return true;
+
+        default:
+            return false;  // Deactivate Caps Word.
+    }
+}
+
 void toggle_dev_env(void) {
     // TODO move out and look at lighting options?
     vscode = !vscode;
@@ -124,7 +148,7 @@ uint8_t compose_mapping(uint16_t* sequence, uint8_t sequence_len) {
     // caps word
     COMPOSE_MAPPING(
         COMPOSE_INPUT(KC_C),
-        { toggle_caps_word(); }
+        { caps_word_toggle(); }
     )
 
     // quit window manager
