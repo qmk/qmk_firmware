@@ -558,7 +558,10 @@ static void render_info(void) {
 }
 
 #define SHOW_LOGO 5000
-bool oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
     static bool finished_timer = false;
     if (!finished_timer && (timer_elapsed(startup_timer) < SHOW_LOGO)) {
         render_logo();
