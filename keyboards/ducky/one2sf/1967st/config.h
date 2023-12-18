@@ -24,6 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_LED_COUNT 69
 
 #define ENABLE_RGB_MATRIX_BREATHING
-#define ENABLE_RGB_MATRIX_RAINBOW_BEACON
+#define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
 #define ENABLE_RGB_MATRIX_TYPING_HEATMAP
 >>>>>>> 41dc4aefcf (Move led driver into the keyboard)
