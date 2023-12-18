@@ -309,7 +309,7 @@ via*.json
 /keyboards/creatkeebs/
 /keyboards/crimsonkeyboards/
 /keyboards/crin/
-/keyboards/crkbd/
+# /keyboards/crkbd/
 /keyboards/crowboard/
 /keyboards/crypt_macro/
 /keyboards/custommk/
