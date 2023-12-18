@@ -60,8 +60,8 @@
     "encoder": {
         "enabled": true,
         "rotary": [
-            { "pin_a": "GP2", "pin_b": "GP1", "resolution": 4 }
-            { "pin_a": "GP3", "pin_b": "GP4", "resolution": 4 }
+            { "pin_a": "GP2", "pin_b": "GP1" }
+            { "pin_a": "GP3", "pin_b": "GP4" }
         ]
     
     }
