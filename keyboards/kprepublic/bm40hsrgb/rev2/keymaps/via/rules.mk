@@ -1,3 +1,0 @@
-VIA_ENABLE = yes
-LTO_ENABLE = yes
-RGBLIGHT_ENABLE = no

@@ -1,1 +1,0 @@
-BACKLIGHT_DRIVER ?= software

@@ -1,2 +1,0 @@
-SRC += $(PLATFORM_COMMON_DIR)/xprintf.S
-SRC += $(PLATFORM_COMMON_DIR)/printf.c
