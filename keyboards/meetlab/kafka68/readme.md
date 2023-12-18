@@ -1,6 +1,6 @@
 # kafka68 - PCB
 
-![kafka68](https://imgur.com/5w8fESLh.jpg)
+![kafka68](https://i.imgur.com/5w8fESLh.jpg)
 
 A 68 key keyboard made by Lucky, based on hhkb layout.
 
