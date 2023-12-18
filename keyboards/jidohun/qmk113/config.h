@@ -3,11 +3,6 @@
 
 #pragma once
 
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
 /* SPI Config */
 #define SPI_DRIVER SPIDQ
 #define SPI_SCK_PIN B3
