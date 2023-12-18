@@ -14,14 +14,10 @@
     "diode_direction": "ROW2COL",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
-        "mousekey": false,
+        "mousekey": true,
         "nkro": true,
-        "haptic": false,
         "rgb_matrix": true,
-        "rgblight": false,
         "encoder": true
     },
     "matrix_pins": {
