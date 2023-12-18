@@ -65,6 +65,24 @@ void layer_off_weak_layer(uint16_t layer) {
     inMemoryPreviousWeakLayer = layer;
     layer_off(layer);
 }
+bool switch_ctl_tab_off(uint16_t keycode) {
+    if (isCtlTabStarted
+    && (keycode != MA_TAB)
+    && (keycode != KC_UP)
+    && (keycode != KC_DOWN)
+    && (keycode != KC_LEFT)
+    && (keycode != KC_RIGHT)
+    && (keycode != MA_LTHUMBD)
+    && (keycode != MA_LTHUMBE)
+    && (keycode != KC_LSFT)) {
+        isCtlTabStarted = false;
+        unregister_mods(MOD_MASK_CTRL);
+        if (keycode != MA_LTHUMB) {
+            return false;
+        }
+    }
+    return true;
+}
 
 bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
     if (isAltTabStarted
@@ -654,22 +672,7 @@ bool processKeycodeIfRThumb(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
-    if (isCtlTabStarted
-    && (keycode != MA_TAB)
-    && (keycode != KC_UP)
-    && (keycode != KC_DOWN)
-    && (keycode != KC_LEFT)
-    && (keycode != KC_RIGHT)
-    && (keycode != MA_LTHUMBD)
-    && (keycode != MA_LTHUMBE)
-    && (keycode != KC_LSFT)) {
-        isCtlTabStarted = false;
-        unregister_mods(MOD_MASK_CTRL);
-        if (keycode == MA_LTHUMB) {
-            layer_off(LA_LTHUMB);
-        }
-        return false;
-    }
+    if (!switch_ctl_tab_off(keycode)) {return false;}
     switch (keycode) {
         case MA_LTHUMB:
             if (!(record->event.pressed)) {
@@ -1137,6 +1140,7 @@ bool processKeycodeIfLThumbDMo(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 bool processKeycodeIfLThumbEWeak(uint16_t keycode, keyrecord_t* record) {
+    if (!switch_ctl_tab_off(keycode)) {return false;}
     if ((keycode != MA_LTHUMB) &
         (keycode != MA_LTHUMBMS) &
         (keycode != MA_LTHUMBD) &
@@ -1220,6 +1224,7 @@ bool processKeycodeIfLThumbEWeak(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 bool processKeycodeIfLThumbDWeak(uint16_t keycode, keyrecord_t* record) {
+    if (!switch_ctl_tab_off(keycode)) {return false;}
     if ((keycode != MA_LTHUMB) &
         (keycode != MA_LTHUMBMS) &
         (keycode != MA_LTHUMBE) &
@@ -1303,6 +1308,7 @@ bool processKeycodeIfLThumbDWeak(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 bool processKeycodeIfLThumb1Weak(uint16_t keycode, keyrecord_t* record) {
+    if (!switch_ctl_tab_off(keycode)) {return false;}
     if ((keycode != MA_LTHUMB) &
         (keycode != MA_LTHUMBMS) &
         (keycode != MA_LTHUMBE) &
@@ -1381,6 +1387,7 @@ bool processKeycodeIfLThumb1Weak(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 bool processKeycodeIfLThumb2Weak(uint16_t keycode, keyrecord_t* record) {
+    if (!switch_ctl_tab_off(keycode)) {return false;}
     if ((keycode != MA_LTHUMB) &
         (keycode != MA_LTHUMBMS) &
         (keycode != MA_LTHUMBE) &
@@ -1459,6 +1466,7 @@ bool processKeycodeIfLThumb2Weak(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 bool processKeycodeIfLThumb3Weak(uint16_t keycode, keyrecord_t* record) {
+    if (!switch_ctl_tab_off(keycode)) {return false;}
     if ((keycode != MA_LTHUMB) &
         (keycode != MA_LTHUMBMS) &
         (keycode != MA_LTHUMBE) &
