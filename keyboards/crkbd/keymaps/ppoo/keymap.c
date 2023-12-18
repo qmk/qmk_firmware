@@ -103,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /*
       ,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      |   CAPS  ,   ~   ,    %   ,    &   ,        ,   MOD  ,                    |  R up  ,  MUTE  ,  VOL-  ,   VOL+ ,  PLAY ,    BSPC ,
+      |   CAPS  ,   ~   ,    %   ,    &   ,    |   ,   MOD  ,                    |  R up  ,  MUTE  ,  VOL-  ,   VOL+ ,  PLAY ,    BSPC ,
       |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       | L SHIFT ,   á   ,    ä   ,    à   ,    ¿    , R MOD,                     | R down ,        ,        ,        ,   S    ,   BOOT ,
       |--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -115,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [L_AJUSTAR] = LAYOUT_split_3x6_3(
     //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        KC_CAPS, ES_RBRC, ES_PERC, ES_AMPR, XXXXXXX, RGB_MOD,                      KC_WH_U, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY, KC_BSPC,
+        KC_CAPS, ES_RBRC, ES_PERC, ES_AMPR,  KC_GRV, RGB_MOD,                      KC_WH_U, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY, KC_BSPC,
     //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
         KC_LCTL, ES_GRV,  ES_LBRC, ES_RCBR, ES_IQUE,RGB_RMOD,                      KC_WH_D, XXXXXXX, RGB_HUI, RGB_SAI, RGB_VAI, QK_BOOT,
     //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
