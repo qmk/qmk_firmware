@@ -37,6 +37,7 @@
     "rgb_matrix": {
         "driver": "ws2812",
         "max_brightness": 170,
+        "sleep": true,
         "animations": {
             "solid_color": true,
             "alphas_mods": true,
