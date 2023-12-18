@@ -1,6 +1,10 @@
 LAYOUTS_PATH := layouts
 LAYOUTS_REPOS := $(patsubst %/,%,$(sort $(dir $(wildcard $(LAYOUTS_PATH)/*/))))
 
+ifneq ($(QMK_USERSPACE),)
+    LAYOUTS_REPOS += $(patsubst %/,%,$(QMK_USERSPACE)/$(LAYOUTS_PATH))
+endif
+
 define SEARCH_LAYOUTS_REPO
     LAYOUT_KEYMAP_PATH := $$(LAYOUTS_REPO)/$$(LAYOUT)/$$(KEYMAP)
     LAYOUT_KEYMAP_JSON := $$(LAYOUT_KEYMAP_PATH)/keymap.json
