@@ -4,11 +4,11 @@
 
 The ndk16 is a 3d printed handwired numpad with an rotary encoder and oled screen. It runs QMK on a pro micro controller.
 
-The cat oled image [source](https://github.com/codeyfrommars/Gamepad).
-
 * Keyboard Maintainer: [iskevin-zz](https://github.com/itskevin-zz)
 * Hardware Supported: ATmega32u4
 * Hardware Availability: [STL Files](https://github.com/itskevin-zz/ndk-keyboards/tree/master/ndk16)
+
+The cat oled image [source](https://github.com/codeyfrommars/Gamepad).
 
 Make example for this keyboard (after setting up your build environment):
 
