@@ -1,4 +1,4 @@
-# handwired/ndk/ndk16
+# ndk16
 
 ![ndk16](https://github.com/itskevin-zz/ndk-keyboards/assets/7293885/739dfeeb-6cf0-4c67-9100-5f9a37c662bf)
 
