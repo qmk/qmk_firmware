@@ -12,7 +12,8 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgblight": true
+        "rgblight": true,
+        "encoder": true
     },
     "rgblight": {
         "hue_steps": 10,
