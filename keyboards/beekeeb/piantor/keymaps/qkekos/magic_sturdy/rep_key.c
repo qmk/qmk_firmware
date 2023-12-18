@@ -2,10 +2,14 @@
 #include "../__init__.h"
 
 void process_rep_key(void) {
+    switch (queue(-3)) {
+        triple_magic_case(TH_NUM, CLT_A, KC_B, "out");
+    }
+
     switch (queue(-2)) {
-        double_magic_case(KC_F,  CLT_R, "om");
-        double_magic_case(KC_L,  CLT_A, "st");
-        double_magic_case(CLT_A, KC_B,  "out");
+        double_magic_case(KC_F,   CLT_R, "om");
+        double_magic_case(KC_L,   CLT_A, "st");
+        double_magic_case(TH_NUM, KC_B,  "ecause");
     }
 
     switch (queue(-1)) {
@@ -15,7 +19,6 @@ void process_rep_key(void) {
         magic_case(KC_J,   "oin");
         magic_case(TH_NUM, "for");
         magic_case(KC_W,   "ould");
-        magic_case(KC_B,   "ecause");
         remember_magic_case(KC_Q, "ui", LT_I);
         default: tap_code16(queue(-1));
     }
