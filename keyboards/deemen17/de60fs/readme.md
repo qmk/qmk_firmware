@@ -2,10 +2,10 @@
 
 ![De60fs](https://i.imgur.com/7hpYaoXh.jpg)
 
-*A short description of the keyboard/project*
+A GH60 form factor PCB for 60% keyboards. Uses a Left USB Type C connector or 5 JST SH positions for daughter board.
 
 * Keyboard Maintainer: [Deemen17](https://github.com/Deemen17)
-* Hardware Supported: RP2040, De60fs PCB
+* Hardware Supported: RP2040, De60fs PCB, De60fs Oring Edition PCB, De60 Tsangan Edition PCB
 * Hardware Availability: [Deemen17 Works](https://www.facebook.com/deemen17)
 
 Make example for this keyboard (after setting up your build environment):
