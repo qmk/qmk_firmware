@@ -63,7 +63,7 @@
     "encoder": {
         "enabled": true,
         "rotary": [
-            { "pin_a": "D0", "pin_b": "D1", "resolution": 4 }
+            { "pin_a": "D0", "pin_b": "D1" }
         ]
     
     }
