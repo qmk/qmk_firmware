@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "is31fl3218.h"
+#include "is31fl3218-simple.h"
 #include <string.h>
 #include "i2c_master.h"
 

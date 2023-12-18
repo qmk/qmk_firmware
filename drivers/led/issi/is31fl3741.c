@@ -23,6 +23,7 @@
 #include "wait.h"
 
 #define IS31FL3741_PWM_REGISTER_COUNT 351
+#define IS31FL3741_SCALING_REGISTER_COUNT 351
 
 #ifndef IS31FL3741_I2C_TIMEOUT
 #    define IS31FL3741_I2C_TIMEOUT 100
@@ -64,7 +65,7 @@ uint8_t g_pwm_buffer[IS31FL3741_DRIVER_COUNT][IS31FL3741_PWM_REGISTER_COUNT];
 bool    g_pwm_buffer_update_required[IS31FL3741_DRIVER_COUNT]        = {false};
 bool    g_scaling_registers_update_required[IS31FL3741_DRIVER_COUNT] = {false};
 
-uint8_t g_scaling_registers[IS31FL3741_DRIVER_COUNT][IS31FL3741_PWM_REGISTER_COUNT];
+uint8_t g_scaling_registers[IS31FL3741_DRIVER_COUNT][IS31FL3741_SCALING_REGISTER_COUNT];
 
 void is31fl3741_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
     i2c_transfer_buffer[0] = reg;
