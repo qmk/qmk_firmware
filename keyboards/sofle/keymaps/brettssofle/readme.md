@@ -45,5 +45,32 @@ Disconnect the first half, connect the second one and repeat the process.
     # for Elite C or DFU bootloader builds
     make sofle/keyhive:keyhive_via:dfu-split-left
     make sofle/keyhive:keyhive_via:dfu-split-right
+    
+    
+    make sofle/keyhive:brettssofle:dfu-split-left
+    make sofle/keyhive:brettssofle:avrdude-split-right
+    
+    # for RP2040 keyboard
+    qmk flash -c -kb chalice -km default -e CONVERT_TO=promicro_rp2040
+
+    make CONVERT_TO=promicro_rp2040 sofle/keyhive:brettssofle:uf2-split-left
+    make CONVERT_TO=promicro_rp2040 sofle/keyhive:brettssofle:uf2-split-right
+
+
+Troubleshooting
+I get the Error Message "ERROR: got HIDException: unable to open device".
+
+Was told to ask here, with the hint that its a permission issue and I may have to add myself to a group?
+
+Thank you in advance, appreciate any help <3
+
+SOLVED: just configure udev:
+1. sudo mkdir -p /etc/udev/rules.d/
+echo 'KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0666", TAG+="uaccess", TAG+="udev-acl"' | sudo tee /etc/udev/rules.d/92-viia.rules
+2. sudo udevadm control --reload-rules
+3. sudo udevadm trigger
+
+
+
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

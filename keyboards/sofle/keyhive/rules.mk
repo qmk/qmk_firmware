@@ -13,4 +13,6 @@ AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes
 LTO_ENABLE = yes
 SPLIT_KEYBOARD = yes
-OLED_ENABLE = yes
+OLED_ENABLE = no
+POINTING_DEVICE_ENABLE = yes
+POINTING_DEVICE_DRIVER = cirque_pinnacle_i2c
