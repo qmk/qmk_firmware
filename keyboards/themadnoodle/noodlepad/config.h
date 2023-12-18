@@ -3,6 +3,4 @@
 
 #pragma once
 
-/*RGB Defaults*/
 #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL + 5
-/* See info.json for more RGB settings*/
