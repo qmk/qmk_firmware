@@ -14,10 +14,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "dp60.h"
-
-#include "rgblight.h"
-
+#include QMK_KEYBOARD_H
+#include "ws2812.h"
 
 // caps led
 const rgblight_segment_t PROGMEM dp60_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -72,12 +70,16 @@ extern rgblight_config_t rgblight_config;
 extern void              rgblight_layers_write(void);
 extern void              indicator_write(rgb_led_t *start_led, uint8_t num_leds);
 
-void rgblight_call_driver(rgb_led_t *start_led, uint8_t num_leds)
+void setleds_custom(rgb_led_t *start_led, uint16_t num_leds)
 {
     ws2812_setleds(start_led, RGBLED_NUM-RGB_INDICATOR_NUM);
 
     indicator_write(start_led + (RGBLED_NUM - RGB_INDICATOR_NUM), RGB_INDICATOR_NUM);
 }
+
+const rgblight_driver_t rgblight_driver = {
+    .setleds = setleds_custom,
+};
 
 void led_update_ports(led_t led_state) {
     rgblight_set_layer_state(0, led_state.caps_lock);

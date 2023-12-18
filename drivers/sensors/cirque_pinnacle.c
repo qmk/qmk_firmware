@@ -216,6 +216,13 @@ void cirque_pinnacle_cursor_smoothing(bool enable) {
     RAP_Write(HOSTREG__FEEDCONFIG3, feedconfig3);
 }
 
+// Check sensor is connected
+bool cirque_pinnacle_connected(void) {
+    uint8_t zidle = 0;
+    RAP_ReadBytes(HOSTREG__ZIDLE, &zidle, 1);
+    return zidle == HOSTREG__ZIDLE_DEFVAL;
+}
+
 /*  Pinnacle-based TM040040/TM035035/TM023023 Functions  */
 void cirque_pinnacle_init(void) {
 #if defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_spi)
@@ -274,6 +281,10 @@ void cirque_pinnacle_init(void) {
     }
 
     cirque_pinnacle_enable_feed(true);
+
+#ifndef CIRQUE_PINNACLE_SKIP_SENSOR_CHECK
+    touchpad_init = cirque_pinnacle_connected();
+#endif
 }
 
 pinnacle_data_t cirque_pinnacle_read_data(void) {
