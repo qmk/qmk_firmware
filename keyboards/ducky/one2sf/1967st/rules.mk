@@ -30,3 +30,9 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 DIP_SWITCH_ENABLE = yes
 
+<<<<<<< HEAD
+=======
+RGB_MATRIX_ENABLE = yes
+
+SRC += rgb_matrix_drivers.c
+>>>>>>> 41dc4aefcf (Move led driver into the keyboard)
