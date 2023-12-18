@@ -1,5 +1,5 @@
 /* Copyright 2019 /u/KeepItUnder
- * Copyright 2023 Hayley Hughes 
+ * Copyright 2023 Hayley Hughes
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,130 +16,69 @@
  */
 
 /*
- * Macroblock's MBI5042GP is a 16-channel constant current LED driver.
- *
- * The chip has a data input interface, a set of synchronisation clocks
- * and 16 PWM output pins capapble of 16-bit PWM.
- *
- * Data interface: SDI, SDO, DCLK
- * General clock: GCLK
- * Data Latch: LE
- *
- * Commands available (differentiated by numbers of rising edge DCLKS)
- * Command is actioned on subsequent falling edge of LE:
- *
- *
- * Data Latch
- * ==========
- *
- * Take LE high. Keep high for maximum of 1 DCLK rising edges.
- *
- * Allow LE to fall - falling edge causes serial data to be
- * transferred to the buffers only.
- *
- *
- * Global Latch
- * ============
- *
- * Take LE high. Keep high for 2 or 3 DCLK rising edges.
- *
- * Allow LE to fall - falling edge causes buffer data to be
- * transferred to the comparators.
- *
- *
- * Read Configuration
- * ==================
- *
- * Take LE high. Keep high for 4 or 5 DCLK rising edges.
- *
- * Allow LE to fall - falling edge moves config data to the
- * shift registers.
- *
- *
- * Write Configuration
- * ===================
- *
- * Take LE high. Keep high for 10 or 11 DCLK rising edges.
- *
- * Allow LE to fall - falling edge transfers serial data
- * to the configuration register ONLY IF "Enable Writing
- * Configuration" is sent prior (see below)
- *
- *
- * Reset PWM Counter
- * =================
- *
- * Take LE high. Keep high for 12 or 13 DCLK rising edges.
- *
- * Allow LE to fall - falling edge resets the PWM counter
- * If bit "B" of the configuration register is "1"
- *
- *
- * Enable Writing Configuration
- * ============================
- *
- * Take LE high. Keep high for 14 or 15 DCLK rising edges.
- *
- * Allow LE to fall - falling edge enables configuration
- * writing. This should be sent immediately prior to any
- * attempt to write to configuration register.
- *
- *
- * Configuration Register
- * ======================
- *
- * 16 bits wide
- *
- * MSB            Definition       Value          Function
- * --------------------------------------------------------------------------------
- *     |       |                |  0 (Default)  | 15 x data latch + 1 global latch
- *  F  |  R/W  |  Data Loading  |               |
- *     |       |                |  1            | 16 x data latch + 1 global latch
- * ----|-------|----------------|---------------|----------------------------------
- *  E  |       |                |               |
- *  D  |  R/W  |  Reserved      |  Don't Care   | N/A
- *  C  |       |                |               |
- * ----|-------|----------------|---------------|----------------------------------
- *     |       | PWM counter    |  0 (Default)  | Disable
- *  B  |  R/W  | reset          |               |
- *     |       |                |  1            | Enable (12/13 DCLKs + LE assert)
- * ----|-------|----------------|---------------|----------------------------------
- *     |       | PWM data       |  0 (Default)  | Auto synchronization
- *  A  |  R/W  | synch mode     |               |
- *     |       |                |  1            | Manual synchronization
- * ----|-------|----------------|---------------|----------------------------------
- *  9  |       |                |               |
- *  8  |       |                |               |
- *  7  |  R/W  | Current gain   |  000000       | 6'b101011 (Default)
- *  6  |       | adjustment     |  ~            |
- *  5  |       |                |  111111       |
- *  4  |       |                |               |
- * ----|-------|----------------|---------------|----------------------------------
- *  3  |       |                |               |
- *  2  |  R/W  |  Reserved      |  Don't Care   | N/A
- *  1  |       |                |               |
- *  0  |       |                |               |
- * --------------------------------------------------------------------------------
- * LSB
- *
+ * MBIA045 datasheet available at
+ * https://pc-clinic.bg/wp-content/uploads/2021/05/mbia045-datasheet-va.00-en.pdf
  */
 
-//#include "mbi5042gp.h"
-#include "hal.h"
 #include <string.h>
+
+#include "config.h"
+#include "hal.h"
 #include "progmem.h"
 #include "rgb_matrix.h"
-#include "led_tables.h"
 
-#ifndef MBI5042GP_GCLK_SRC
-#    define MBI5042GP_GCLK_SRC PWM0
-#endif
-#ifndef MBI5042GP_DCLK
-#    define MBI5042GP_DCLK PD4
-#endif
-#ifndef MBI5042GP_LE
-#    define MBI5042GP_LE PD3
-#endif
+#define MBIA045_CFGREG_DEFAULT 0b1000010000000000u
+
+#define MBIA045_DCLK PD4
+#define MBIA045_LE PD3
+#define MBIA045_EN PD5
+
+#define MBIA045_ROW_COUNT 5
+
+typedef struct mbi_led {
+    uint8_t row;
+    uint8_t col;
+} __attribute__((packed)) mbi_led;
+
+// Map physical layout to QMK led index
+const mbi_led g_mbi_leds[RGB_MATRIX_LED_COUNT] = {
+    { 0, 0 }, { 0, 1 }, { 0, 2 }, { 0, 3 }, { 0, 4 }, { 0, 5 }, { 0, 6 }, { 0, 7 }, { 0, 8 }, { 0, 9 }, { 0, 10 }, { 0, 11 }, { 0, 12 }, { 0, 13 }, { 0, 14 },
+    { 1, 0 }, { 1, 1 }, { 1, 2 }, { 1, 3 }, { 1, 4 }, { 1, 5 }, { 1, 6 }, { 1, 7 }, { 1, 8 }, { 1, 9 }, { 1, 10 }, { 1, 11 }, { 1, 12 }, { 1, 13 }, { 1, 14 },
+    { 2, 0 }, { 2, 1 }, { 2, 2 }, { 2, 3 }, { 2, 4 }, { 2, 5 }, { 2, 6 }, { 2, 7 }, { 2, 8 }, { 2, 9 }, { 2, 10 }, { 2, 11 }, { 2, 13 }, { 2, 14 },
+    { 3, 0 }, { 3, 2 }, { 3, 3 }, { 3, 4 }, { 3, 5 }, { 3, 6 }, { 3, 7 }, { 3, 8 }, { 3, 9 }, { 3, 10 }, { 3, 11 }, { 3, 12 }, { 3, 13 },
+    { 4, 0 }, { 4, 1 }, { 4, 2 }, { 4, 3 }, { 4, 5 }, { 4, 7 }, { 4, 9 }, { 4, 10 }, { 4, 11 }, { 4, 12 }, { 4, 13 }, { 4, 14 }
+};
+
+// Lightness curve using the CIE 1931 lightness formula
+// Generated by the python script provided in http://jared.geek.nz/2013/feb/linear-led-pwm
+const uint16_t CIE1931_16_CURVE[] PROGMEM = {
+	0, 7, 14, 21, 28, 36, 43, 50, 57, 64,
+	71, 78, 85, 93, 100, 107, 114, 121, 128, 135,
+	142, 149, 157, 164, 172, 180, 189, 197, 206, 215,
+	225, 234, 244, 254, 265, 276, 287, 298, 310, 322,
+	334, 346, 359, 373, 386, 400, 414, 428, 443, 458,
+	474, 490, 506, 522, 539, 557, 574, 592, 610, 629,
+	648, 668, 688, 708, 729, 750, 771, 793, 815, 838,
+	861, 885, 909, 933, 958, 983, 1009, 1035, 1061, 1088,
+	1116, 1144, 1172, 1201, 1230, 1260, 1290, 1321, 1353, 1384,
+	1417, 1449, 1482, 1516, 1550, 1585, 1621, 1656, 1693, 1729,
+	1767, 1805, 1843, 1882, 1922, 1962, 2003, 2044, 2085, 2128,
+	2171, 2214, 2258, 2303, 2348, 2394, 2440, 2487, 2535, 2583,
+	2632, 2681, 2731, 2782, 2833, 2885, 2938, 2991, 3045, 3099,
+	3154, 3210, 3266, 3323, 3381, 3439, 3498, 3558, 3618, 3679,
+	3741, 3803, 3867, 3930, 3995, 4060, 4126, 4193, 4260, 4328,
+	4397, 4466, 4536, 4607, 4679, 4752, 4825, 4899, 4973, 5049,
+	5125, 5202, 5280, 5358, 5437, 5517, 5598, 5680, 5762, 5845,
+	5929, 6014, 6100, 6186, 6273, 6361, 6450, 6540, 6630, 6722,
+	6814, 6907, 7001, 7095, 7191, 7287, 7385, 7483, 7582, 7682,
+	7782, 7884, 7986, 8090, 8194, 8299, 8405, 8512, 8620, 8729,
+	8838, 8949, 9060, 9173, 9286, 9400, 9516, 9632, 9749, 9867,
+	9986, 10106, 10227, 10348, 10471, 10595, 10720, 10845, 10972, 11100,
+	11228, 11358, 11489, 11620, 11753, 11887, 12021, 12157, 12294, 12432,
+	12570, 12710, 12851, 12993, 13136, 13279, 13424, 13570, 13718, 13866,
+	14015, 14165, 14317, 14469, 14622, 14777, 14933, 15089, 15247, 15406,
+	15566, 15727, 15890, 16053, 16217, 16383,
+    };
 
 /** The PWM buffers the full rows of 16 PWM registers in each MBI5042 driver
  *  The buffers are arranged in serial format
@@ -148,24 +87,35 @@
  *
  *  g_pwm_buffer has the DCLK-able output for an "R" row, a "G" row, and a "B" row of PWM
  */
-uint16_t g_pwm_buffer[MBI5042GP_ROW_COUNT][16 * 16];
+uint16_t g_pwm_buffer[MBIA045_ROW_COUNT][16 * 16];
 
 bool    g_pwm_buffer_update_required = false;
 uint8_t g_pwm_buffer_row             = 0;
 
-void MBI5042GP_init(void) {
+void MBIA045_init(void);
+void MBIA045_set_current_gain(uint8_t gain);
+void MBIA045_write_config_register(uint16_t regValue);
+void MBIA045_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
+void MBIA045_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
+void MBIA045_update_pwm_buffers(void);
+void MBIA045_write_pwm_buffers(void);
+void MBIA045_planar_recode(int row, int column, uint8_t red, uint8_t green, uint8_t blue);
+void MBIA045_disable_rows(void);
+void MBIA045_disable_row(int row);
+void MBIA045_enable_row(int row);
+
+void MBIA045_init(void) {
     /* Initialise all PWM arrays to zero.
      * Perform one group transfer to turn LEDs off
      *
      * If there's a DMA requirement, set up DMA subsystems
      */
-    for (int i = 0; i < MBI5042GP_ROW_COUNT; i++) {
+    for (int i = 0; i < MBIA045_ROW_COUNT; i++) {
         for (int j = 0; j < 256; j++) {
             g_pwm_buffer[i][j] = 0;
         }
     }
 
-#if MBI5042GP_GCLK_SRC == PWM0
     /* Setup PWM0 control registers for 2MHz GCLK
      * and also 50 percentage PWM duty (makes a nice clock)
      *
@@ -216,7 +166,7 @@ void MBI5042GP_init(void) {
     // (1+1)/(3+1)
     PWMA->CNR0 = 3;
     PWMA->CMR0 = 1;
-    
+
     // Set PWM1 freq to 1.8kHz (duty doesn't matter)
     //
     // freq = HCLK/[(prescale+1)*(clock divider)*(CNR+1)]
@@ -224,18 +174,15 @@ void MBI5042GP_init(void) {
     PWMA->CNR1 = 19999;
     PWMA->CMR1 = 1;
 
-    // Start PWM channel 0 and 1 
+    // Start PWM channel 0 and 1
     PWMA->PCR |= (1 << PWM_PCR_CH0EN_Pos | 1 << PWM_PCR_CH1EN_Pos);
 
-#elif
-#endif
-
-    MBI5042GP_disable_rows();
+    MBIA045_disable_rows();
 
     // Enable the LED controllers
     PD5 = PAL_LOW;
 
-    MBI5042GP_set_current_gain(0b000011u);
+    MBIA045_set_current_gain(0b000011u);
 }
 
 /**
@@ -247,7 +194,7 @@ void MBI5042GP_init(void) {
  *
  * Use MBI5042_CURRENT_GAIN to pass from keyboard config
  */
-void MBI5042GP_set_current_gain(uint8_t gain) {
+void MBIA045_set_current_gain(uint8_t gain) {
     /** MB data transfer requires:
      *      Tell chip config register change is coming (Enable Write Configutarion)
      *      Pass config register data (Write Configuration Register)
@@ -255,9 +202,9 @@ void MBI5042GP_set_current_gain(uint8_t gain) {
     uint16_t regConfig = 0b00111111u & gain;
 
     regConfig <<= 4;
-    regConfig |= MBI5042GP_CFGREG_DEFAULT;
+    regConfig |= MBIA045_CFGREG_DEFAULT;
 
-    MBI5042GP_write_config_register(regConfig);
+    MBIA045_write_config_register(regConfig);
 }
 
 /**
@@ -267,7 +214,7 @@ void MBI5042GP_set_current_gain(uint8_t gain) {
  *
  * For the Ducky One 2 mini there are 3 drivers, so output all three configs at once
  */
-void MBI5042GP_write_config_register(uint16_t regValue) {
+void MBIA045_write_config_register(uint16_t regValue) {
     uint32_t b_mask;
     uint16_t tmp_r, tmp_g, tmp_b;
 
@@ -276,25 +223,25 @@ void MBI5042GP_write_config_register(uint16_t regValue) {
     PB->DMASK = ~(0x1u << 14 | 0x1u << 13 | 0x1u << 12);
 
     /* LE Low & DCLK Low */
-    MBI5042GP_LE   = PAL_LOW;
-    MBI5042GP_DCLK = PAL_LOW;
+    MBIA045_LE   = PAL_LOW;
+    MBIA045_DCLK = PAL_LOW;
 
     /* Do one DCLK cycle */
-    MBI5042GP_DCLK = PAL_HIGH;
-    MBI5042GP_DCLK = PAL_LOW;
+    MBIA045_DCLK = PAL_HIGH;
+    MBIA045_DCLK = PAL_LOW;
 
     /* Set LE High */
-    MBI5042GP_LE = PAL_HIGH;
+    MBIA045_LE = PAL_HIGH;
 
     /* Loop 15 - Enable Write Configuration */
     for (int i = 0; i < 15; i++) {
         /* Cycle DCLK */
-        MBI5042GP_DCLK = PAL_HIGH;
-        MBI5042GP_DCLK = PAL_LOW;
+        MBIA045_DCLK = PAL_HIGH;
+        MBIA045_DCLK = PAL_LOW;
     }
 
     /* Reset LE Low */
-    MBI5042GP_LE = PAL_LOW;
+    MBIA045_LE = PAL_LOW;
 
     /* Loop 16 - Transfer actual command data to all 3 LED drivers */
     for (int i = 0; i < 16; i++) {
@@ -304,11 +251,11 @@ void MBI5042GP_write_config_register(uint16_t regValue) {
         PB->DOUT      = bits;
 
         /* Cycle DCLK */
-        MBI5042GP_DCLK = PAL_HIGH;
-        MBI5042GP_DCLK = PAL_LOW;
+        MBIA045_DCLK = PAL_HIGH;
+        MBIA045_DCLK = PAL_LOW;
 
         if (i == 5) {
-            MBI5042GP_LE = PAL_HIGH;
+            MBIA045_LE = PAL_HIGH;
         }
 
         /* Next bit to sample */
@@ -319,44 +266,44 @@ void MBI5042GP_write_config_register(uint16_t regValue) {
     PB->DMASK = b_mask;
 
     /* Reset LE Low */
-    MBI5042GP_LE = PAL_LOW;
+    MBIA045_LE = PAL_LOW;
 }
 
-void MBI5042GP_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
+void MBIA045_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     /*
      * @brief Pick a colour! Any colour!
      */
     // led_config_t led;
     mbi_led led_pos;
 
-    if (index >= 0 && index < DRIVER_LED_TOTAL) {
+    if (index >= 0 && index < RGB_MATRIX_LED_COUNT) {
         // Convert index into row/column
         led_pos = g_mbi_leds[index];
 
-        // MBI5042GP_planar_recode(led.matrix_co.row, 15 - (led.matrix_co.col), red, green, blue);
+        // MBIA045_planar_recode(led.matrix_co.row, 15 - (led.matrix_co.col), red, green, blue);
         /* if (index == 27 && IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) { */
-        /*     MBI5042GP_planar_recode(led_pos.row, led_pos.col, 0xff, 0xff, 0xff); */
+        /*     MBIA045_planar_recode(led_pos.row, led_pos.col, 0xff, 0xff, 0xff); */
         /* } else { */
-            MBI5042GP_planar_recode(led_pos.row, led_pos.col, red, green, blue);
+            MBIA045_planar_recode(led_pos.row, led_pos.col, red, green, blue);
         /* } */
 
         g_pwm_buffer_update_required = true;
     }
 }
 
-void MBI5042GP_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
+void MBIA045_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
     /*
      * brief Set every led to the provided colour
      */
 
-    for (int i = 0; i < MBI5042GP_ROW_COUNT; i++) {
+    for (int i = 0; i < MBIA045_ROW_COUNT; i++) {
         for (int j = 0; j < 16; j++) {
             if (i == 2) {
                 if (j == 0) {
                     /* } */
                 }
             } else {
-                MBI5042GP_planar_recode(i, j, red, green, blue);
+                MBIA045_planar_recode(i, j, red, green, blue);
             }
         }
     }
@@ -364,9 +311,9 @@ void MBI5042GP_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
     g_pwm_buffer_update_required = true;
 }
 
-void MBI5042GP_update_pwm_buffers(void) {
+void MBIA045_update_pwm_buffers(void) {
     /**
-     * Pass current PWM row to MBI5042GP shift registers
+     * Pass current PWM row to MBIA045 shift registers
      *
      * LE low
      * Outer Loop 16 (one per register transfer - high to low):
@@ -400,8 +347,8 @@ void MBI5042GP_update_pwm_buffers(void) {
     PB->DMASK = ~(0x1u << 14 | 0x1u << 13 | 0x1u << 12);
 
     // LE Low & DCLK Low
-    MBI5042GP_LE   = PAL_LOW;
-    MBI5042GP_DCLK = PAL_LOW;
+    MBIA045_LE   = PAL_LOW;
+    MBIA045_DCLK = PAL_LOW;
 
     for (int i = 0; i < 16; i++) {
         /* Inner Loop 16 */
@@ -411,64 +358,64 @@ void MBI5042GP_update_pwm_buffers(void) {
 
             // If j is 15 set LE High
             if (j == 15) {
-                MBI5042GP_LE = PAL_HIGH;
+                MBIA045_LE = PAL_HIGH;
             }
 
             /* Cycle DCLK */
-            MBI5042GP_DCLK = PAL_HIGH;
-            MBI5042GP_DCLK = PAL_LOW;
+            MBIA045_DCLK = PAL_HIGH;
+            MBIA045_DCLK = PAL_LOW;
         }  // Inner Loop 16
 
         // LE Low
-        MBI5042GP_LE = PAL_LOW;
+        MBIA045_LE = PAL_LOW;
     }
 
     /* Send Global Latch */
     for (int i = 0; i < 16; i++) {
         /* Cycle DCLK */
-        MBI5042GP_DCLK = PAL_HIGH;
-        MBI5042GP_DCLK = PAL_LOW;
+        MBIA045_DCLK = PAL_HIGH;
+        MBIA045_DCLK = PAL_LOW;
 
         //  if i is 13 set LE high
         if (i == 13) {
-            MBI5042GP_LE = PAL_HIGH;
+            MBIA045_LE = PAL_HIGH;
         }
     }
 
     // Reset LE Low
-    MBI5042GP_LE = PAL_LOW;
+    MBIA045_LE = PAL_LOW;
 
     // Reset Masks
     PB->DMASK = b_mask;
 
     // Disable current row
-    MBI5042GP_disable_rows();
+    MBIA045_disable_rows();
 
     // Reset PWM count
     // 3 DCLK cycles
     for (int i = 0; i < 3; i++) {
-        MBI5042GP_DCLK = PAL_HIGH;
-        MBI5042GP_DCLK = PAL_LOW;
+        MBIA045_DCLK = PAL_HIGH;
+        MBIA045_DCLK = PAL_LOW;
     }
 
     // Set LE High
-    MBI5042GP_LE = PAL_HIGH;
+    MBIA045_LE = PAL_HIGH;
 
     // Loop 13 to generate PWM count reset
     for (int i = 0; i < 13; i++) {
-        MBI5042GP_DCLK = PAL_HIGH;
-        MBI5042GP_DCLK = PAL_LOW;
+        MBIA045_DCLK = PAL_HIGH;
+        MBIA045_DCLK = PAL_LOW;
     }
 
     // Set LE Low
-    MBI5042GP_LE = PAL_LOW;
+    MBIA045_LE = PAL_LOW;
 
     // Set new row
-    MBI5042GP_enable_row(g_pwm_buffer_row);
+    MBIA045_enable_row(g_pwm_buffer_row);
 
     // increment row count + check
     g_pwm_buffer_row++;
-    if (g_pwm_buffer_row >= MBI5042GP_ROW_COUNT) {
+    if (g_pwm_buffer_row >= MBIA045_ROW_COUNT) {
         g_pwm_buffer_row = 0;
     }
 }
@@ -477,17 +424,17 @@ void MBI5042GP_update_pwm_buffers(void) {
  * @brief Write is a zero-output routine to handle the FLUSH from the RGB LED driver calls
  * @details Since the RGB data is recoded every time a colour is changed (by the relevant
  * single or "all" set_color routines), there is no point at which a mass flush of RGB
- * information is needed. The MBI5042GP needs to be fed 16 sets of R, G, or B information
+ * information is needed. The MBIA045 needs to be fed 16 sets of R, G, or B information
  * for each row on a totally different schedule from the animations that affect the colours.
  */
-void MBI5042GP_write_pwm_buffers(void) {}
+void MBIA045_write_pwm_buffers(void) {}
 
 /**
  * @brief Bitwise reorder of RGB information.
  * @details Recode the 8-bit standard RGB to 16-bit separated values and
  * turn the 16-bit "chunky" values into 16 sequential bitwise "planes"
  */
-void MBI5042GP_planar_recode(int row, int column, uint8_t red, uint8_t green, uint8_t blue) {
+void MBIA045_planar_recode(int row, int column, uint8_t red, uint8_t green, uint8_t blue) {
     uint16_t cur_r = pgm_read_word(&CIE1931_16_CURVE[red]);
     uint16_t cur_g = pgm_read_word(&CIE1931_16_CURVE[green]);
     uint16_t cur_b = pgm_read_word(&CIE1931_16_CURVE[blue]);
@@ -510,7 +457,7 @@ void MBI5042GP_planar_recode(int row, int column, uint8_t red, uint8_t green, ui
 /**
  * @brief Disable all LED Rows
  */
-void MBI5042GP_disable_rows(void) {
+void MBIA045_disable_rows(void) {
     // Quick and dirty hardcoded row clear
     // 5 rows total
     // TODO: Create enum that can be configured for individual MCUs
@@ -534,7 +481,7 @@ void MBI5042GP_disable_rows(void) {
 /**
  * @brief Disable specific LED row
  */
-void MBI5042GP_disable_row(int row) {
+void MBIA045_disable_row(int row) {
     switch (row) {
         case 0:  // Row 0
             PC4 = PAL_LOW;
@@ -557,7 +504,7 @@ void MBI5042GP_disable_row(int row) {
 /**
  * @brief Enable specific LED row
  */
-void MBI5042GP_enable_row(int row) {
+void MBIA045_enable_row(int row) {
     switch (row) {
         case 0:  // Row 0
             PC4 = PAL_HIGH;
@@ -585,8 +532,15 @@ OSAL_IRQ_HANDLER(NUC123_PWMA_HANDLER) {
         /* Clear interrupt flag */
         PWMA->PIIR |= 1 << PWM_PIIR_PWMIF1_Pos;
 
-        MBI5042GP_update_pwm_buffers();
+        MBIA045_update_pwm_buffers();
     }
 
     OSAL_IRQ_EPILOGUE();
 }
+
+const rgb_matrix_driver_t rgb_matrix_driver = {
+    .init = MBIA045_init,
+    .flush = MBIA045_write_pwm_buffers,
+    .set_color = MBIA045_set_color,
+    .set_color_all = MBIA045_set_color_all,
+};

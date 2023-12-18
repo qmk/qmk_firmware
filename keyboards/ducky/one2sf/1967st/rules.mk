@@ -32,3 +32,4 @@ DIP_SWITCH_ENABLE = yes
 
 RGB_MATRIX_ENABLE = yes
 
+SRC += rgb_matrix_drivers.c

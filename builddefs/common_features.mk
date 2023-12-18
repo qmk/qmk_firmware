@@ -416,7 +416,7 @@ endif
 
 RGB_MATRIX_ENABLE ?= no
 
-VALID_RGB_MATRIX_TYPES := aw20216 is31fl3731 is31fl3733 is31fl3736 is31fl3737 is31fl3741 is31fl3742a is31fl3743a is31fl3745 is31fl3746a ckled2001 ws2812 MBI5042 custom
+VALID_RGB_MATRIX_TYPES := aw20216 is31fl3731 is31fl3733 is31fl3736 is31fl3737 is31fl3741 is31fl3742a is31fl3743a is31fl3745 is31fl3746a ckled2001 ws2812 custom
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
     ifeq ($(filter $(RGB_MATRIX_DRIVER),$(VALID_RGB_MATRIX_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid RGB_MATRIX_DRIVER,RGB_MATRIX_DRIVER="$(RGB_MATRIX_DRIVER)" is not a valid matrix type)
@@ -524,12 +524,6 @@ endif
         APA102_DRIVER_REQUIRED := yes
     endif
 
-    ifeq ($(strip $(RGB_MATRIX_DRIVER)), MBI5042)
-        OPT_DEFS += -DMBI5042
-        COMMON_VPATH += $(DRIVER_PATH)/macroblock
-        SRC += mbi5042gp.c
-    endif
-
     ifeq ($(strip $(RGB_MATRIX_CUSTOM_KB)), yes)
         OPT_DEFS += -DRGB_MATRIX_CUSTOM_KB
     endif
@@ -615,13 +609,8 @@ ifeq ($(strip $(APA102_DRIVER_REQUIRED)), yes)
 endif
 
 ifeq ($(strip $(CIE1931_CURVE)), yes)
-    ifeq ($(strip $(RGB_MATRIX_DRIVER)), MBI5042)
-        OPT_DEFS += -DUSE_CIE1931_16_CURVE
-	LED_TABLES := yes
-    else
-        OPT_DEFS += -DUSE_CIE1931_CURVE
-	LED_TABLES := yes
-    endif
+    OPT_DEFS += -DUSE_CIE1931_CURVE
+    LED_TABLES := yes
 endif
 
 ifeq ($(strip $(LED_TABLES)), yes)
@@ -657,7 +646,6 @@ CUSTOM_MATRIX ?= no
 
 ifneq ($(strip $(CUSTOM_MATRIX)), yes)
     ifeq ($(filter $(CUSTOM_MATRIX),$(VALID_CUSTOM_MATRIX_TYPES)),)
-
         $(call CATASTROPHIC_ERROR,Invalid CUSTOM_MATRIX,CUSTOM_MATRIX="$(CUSTOM_MATRIX)" is not a valid custom matrix type)
     endif
 
