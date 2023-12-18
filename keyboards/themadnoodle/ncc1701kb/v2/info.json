@@ -44,6 +44,7 @@
         "pid": "0x0021",
         "vid": "0x6A6C"
     },
+    "community_layouts": ["ortho_3x3"],
     "layouts": {
         "LAYOUT_ortho_3x3": {
             "layout": [
