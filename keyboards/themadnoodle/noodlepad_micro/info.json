@@ -55,7 +55,10 @@
             ]
         }
     },
-
+    "ws2812": {
+        "pin": "GP29",
+        "driver": "vendor"
+    },
     "encoder": {
         "enabled": true,
         "rotary": [
