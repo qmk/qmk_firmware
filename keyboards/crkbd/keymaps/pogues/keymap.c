@@ -37,7 +37,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [LSYM] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            XXXXXXX, XXXXXXX,CTL_QUES, KC_LPRN, KC_RPRN, KC_PERC,                      KC_EXLM, MY_PIPE, KC_UNDS,  CTL_AT, XXXXXXX, XXXXXXX,
+            XXXXXXX, XXXXXXX, KC_QUES, KC_LPRN, KC_RPRN, KC_PERC,                      KC_EXLM, MY_PIPE, KC_UNDS,   MY_AT, XXXXXXX, XXXXXXX,
+        //  XXXXXXX, XXXXXXX,CTL_QUES, KC_LPRN, KC_RPRN, KC_PERC,                      KC_EXLM, MY_PIPE, KC_UNDS,  CTL_AT, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
               KC_NO, MY_TILD,  KC_GRV, KC_LBRC, KC_RBRC, KC_ASTR,                      KC_NUHS, MY_DQUO, KC_QUOT, KC_SCLN, KC_COLN, KC_NUBS,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -102,9 +103,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         return false;
     }
     if (!process_compose(keycode, record, MY_COMP)) {
-        return false;
-    }
-    if (!process_case_modes(keycode, record)) {
         return false;
     }
 
@@ -377,6 +375,8 @@ void set_mods_lights(uint16_t keycode, bool active) {
         case KC_LCTL:
         case CTL_Y:
         case CTL_W:
+        case CTL_AT:
+        case CTL_QUES:
             rgblight_set_layer_state(RGBL_OSM_CTL, active);
             break;
         case KC_LGUI:
