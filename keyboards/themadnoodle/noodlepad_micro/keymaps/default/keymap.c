@@ -53,24 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TRNS, KC_TRNS, KC_TRNS, 
       KC_TRNS, KC_TRNS, KC_TRNS, 
       KC_TRNS, KC_TRNS, KC_TRNS
-    ),
-
-        /* LAYER 3 (ENCODER)
-     * ,--ENC2--       --ENC1--.
-     * |       |       |       |  
-     * |-------+-------+-------|
-     * |       |       |       |
-     * |-------+-------+-------|
-     * |       |       |       |
-     * `-----------------------'
-     */
-    
-    [3] = LAYOUT_ortho_3x3(
-      KC_TRNS, KC_TRNS, KC_TRNS, 
-      KC_TRNS, KC_TRNS, KC_TRNS, 
-      KC_TRNS, KC_TRNS, KC_TRNS
-      )
-
+    )
 };
 
 
