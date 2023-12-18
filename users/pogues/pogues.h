@@ -34,8 +34,6 @@ enum userspace_layers {
 
 #define CTL_W CTL_T(KC_W)
 #define CTL_Y CTL_T(KC_Y)
-#define CTL_AT CTL_T(MY_AT)
-#define CTL_QUES CTL_T(KC_QUES)
 #define SFT_Z SFT_T(KC_Z)
 #define SFT_SLS SFT_T(KC_SLSH)
 #define MOV_SPC LT(LMOV, KC_SPC)

@@ -22,6 +22,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 void set_mods_lights(uint16_t keycode, bool active);
 
+
+// allow a mod tap on ctrl/? and ctrl/@ .   Cannot use CTL_T(KC_QUES) as this is a shifted value
+#define CTL_QUES LT(0, KC_1)
+#define CTL_AT LT(0, KC_2)
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // colemak-dh
     [LCMK] = LAYOUT_split_3x6_3(
@@ -37,8 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [LSYM] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            XXXXXXX, XXXXXXX, KC_QUES, KC_LPRN, KC_RPRN, KC_PERC,                      KC_EXLM, MY_PIPE, KC_UNDS,   MY_AT, XXXXXXX, XXXXXXX,
-        //  XXXXXXX, XXXXXXX,CTL_QUES, KC_LPRN, KC_RPRN, KC_PERC,                      KC_EXLM, MY_PIPE, KC_UNDS,  CTL_AT, XXXXXXX, XXXXXXX,
+            XXXXXXX, XXXXXXX,CTL_QUES, KC_LPRN, KC_RPRN, KC_PERC,                      KC_EXLM, MY_PIPE, KC_UNDS,  CTL_AT, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
               KC_NO, MY_TILD,  KC_GRV, KC_LBRC, KC_RBRC, KC_ASTR,                      KC_NUHS, MY_DQUO, KC_QUOT, KC_SCLN, KC_COLN, KC_NUBS,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -98,6 +103,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * user specific key processing
  ******************************************************************************/
 
+// method to process a tap and hold key.  generally should use the MT(mod, tap) methods but they
+// have a limitation in that they do not work for shifted values so handle those cases here
+void process_tap_and_hold(uint16_t keycode, keyrecord_t* record, uint16_t tap_key, uint16_t hold_key) {
+    if (record->tap.count > 0) { // tapped
+        if (record->event.pressed) {
+            tap_code16(tap_key);
+        }
+    } else { // held
+        if (record->event.pressed) {
+            register_code16(hold_key);
+        } else {
+            unregister_code16(hold_key);
+        }
+        set_mods_lights(hold_key, record->event.pressed);
+    }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     if (!process_achordion(keycode, record)) {
         return false;
@@ -105,7 +127,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     if (!process_compose(keycode, record, MY_COMP)) {
         return false;
     }
-
+    switch (keycode) {
+        case CTL_QUES:
+            process_tap_and_hold(keycode, record, KC_QUES, KC_LCTL);
+            return false;
+        case CTL_AT:
+            process_tap_and_hold(keycode, record, MY_AT, KC_LCTL);
+            return false;
+    }
     // set the mods lights the same as the one shots
     set_mods_lights(keycode, record->event.pressed);
 
@@ -375,8 +404,6 @@ void set_mods_lights(uint16_t keycode, bool active) {
         case KC_LCTL:
         case CTL_Y:
         case CTL_W:
-        case CTL_AT:
-        case CTL_QUES:
             rgblight_set_layer_state(RGBL_OSM_CTL, active);
             break;
         case KC_LGUI:
