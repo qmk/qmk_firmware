@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ),
 
 /*Layer 3*/       
-    [3] = LAYOUT_ortho_3x4(
+    [3] = LAYOUT(
 		KC_NO, 
 		TO(1), TO(2), KC_NO, KC_NO, 
 		KC_NO, KC_NO, KC_NO, KC_NO, 
