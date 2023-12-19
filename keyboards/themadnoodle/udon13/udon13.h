@@ -1,5 +1,4 @@
-// Copyright 2021 JasonRen(biu)
-// Copyright 2022 Drashna Jael're (@Drashna Jael're)
+// Copyright 2023 The Mad Noodle(@the_mad_noodle)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
