@@ -1,12 +1,12 @@
 {
-    "keyboard_name": "neopad",
+    "keyboard_name": "Neopad",
     "manufacturer": "rookiebwoy",
     "url": "https://github.com/rookiebwoy/neopad)",
     "maintainer": "rookiebwoy",
     "usb": {
         "vid": "0x6961",
-        "pid": "0x0001",
-        "device_version": "0.1.0"
+        "pid": "0x3031",
+        "device_version": "1.0"
     },
     "matrix_pins": {
         "cols": ["B3", "B2", "B6"],

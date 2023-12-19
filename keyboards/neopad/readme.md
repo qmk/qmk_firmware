@@ -9,7 +9,7 @@ The Neopad in the photo above is the first prototype. See the project repository
 
 * Keyboard maintainer: [rookiebwoy](https://github.com/rookiebwoy)
 * Hardware supported: ProMicro, _Elite-C (not tested)_
-* Project repository: [Neopad on github](https://github.com/rookiebwoy/neopad)
+* Hardware Availability: Neopad is open source, check the [project repository](https://github.com/rookiebwoy/neopad)
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -19,7 +19,9 @@ Flashing example for this keyboard:
 
     make neopad/rev1:default:flash
 
-When asked by the terminal, press the dedicated `RESET` button (the one above the 2 LEDs) to enter the bootloader and let the OS detects the device.
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+## Bootloader
+
+When asked by the terminal, press the dedicated `RESET` button (the one above the 2 LEDs) to enter the bootloader and let the OS detects the device.
 
