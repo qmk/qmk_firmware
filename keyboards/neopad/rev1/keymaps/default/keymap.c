@@ -16,79 +16,76 @@
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /*
-            LAYER 0 - MUSIC
-    /-----------------------------`
-    |  TO(1)  |  stop   |   mute  |	L ENC: prev/next song
-    |---------|---------|---------|
-    |   prev  |  play   |   next  |	R ENC: vol up/down
-    \-----------------------------'
-    */
+    /* LAYER 0
+     * ,-----------------------------.
+     * |  TO(1)  |   up    |   mute  |	L ENC: brightness up/down
+     * |---------+---------+---------|
+     * |   left  |  down   |  right  |	R ENC: volume up/down
+     * `-----------------------------'
+     */
     [0] = LAYOUT(
-                TO(1),     KC_MSTP,  KC_MUTE,
-    		    KC_MPRV,   KC_MPLY,  KC_MNXT
+                TO(1),     KC_UP,    KC_MUTE,
+    		    KC_LEFT,   KC_DOWN,  KC_RIGHT
     ),
 
-    /*
-            LAYER 1 - MOVEMENT IN WINDOWS
-    /---------------------------------------`
-    |    TO(2)    | maximize | show desktop | L ENC: change desktop
-    |-------------|----------|--------------|
-    | move window | minimize | move window  | R ENC: change browser tab + change explorer window
-    \---------------------------------------'
-    */
+    /* LAYER 1
+     * ,---------------------------------------.
+     * |    TO(2)    | maximize | show desktop | L ENC: page up/down
+     * |-------------+----------+--------------|
+     * | move window | minimize | move window  | R ENC: mouse wheel up/down
+     * `---------------------------------------'
+     */
     [1] = LAYOUT(
 				TO(2),     		LGUI(KC_UP),    LGUI(KC_D),
 				LGUI(KC_LEFT),	LGUI(KC_DOWN),  LGUI(KC_RIGHT)
     ),
 
-    /*
-            LAYER 2 - SHORTCUT
-    /------------------------------`
-    |  TO(3)  |   esc   | task man | L ENC: redo/undo
-    |---------|---------|----------|
-    |   cut   |   copy  |   paste  | R ENC: mouse wheel up/down
-    \------------------------------'
-    */
+    /* LAYER 2
+     * ,------------------------------.
+     * |  TO(3)  |   esc   | sel all  | L ENC: redo/undo
+     * |---------+---------+----------|
+     * |   cut   |   copy  |   paste  | R ENC: forward/backward one word
+     * `------------------------------'
+     */
     [2] = LAYOUT(
-                TO(3),     		KC_ESC,    		LCTL(LSFT(KC_ESC)),
+                TO(3),     		KC_ESC,    		LCTL(KC_A),
     		    LCTL(KC_X),		LCTL(KC_C),     LCTL(KC_V)
     ),
 
-    /*
-            LAYER 3 - AUDACITY
-    /-----------------------------`
-    |  TO(0)  |   REC   |   canc  |	L ENC: pan right/left
-    |---------|---------|---------|
-    |   ctrl  |   play  |  pause  |	R ENC: mouse wheel up/down
-    \-----------------------------'
-    */
+    /* LAYER 3
+     * ,-----------------------------.
+     * |  TO(0)  |    W    |    E    |	L ENC: pan right/left
+     * |---------+---------+---------|
+     * |    A    |    S    |    D    |	R ENC: mouse wheel up/down
+     * `-----------------------------'
+     */
     [3] = LAYOUT(
-                TO(0),     	LSFT(KC_R),    	KC_DEL,
-    		    KC_LCTL,	KC_SPC,         KC_P
+                TO(0),   KC_W,    KC_E,
+    		    KC_A,	 KC_S,    KC_D
     ),
 
 };
 
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {											/* LEFT ENCODER */
+    /* LEFT ENCODER */
+    if (index == 0) {
         switch (get_highest_layer(layer_state)) {
             case 0:
-                // layer 0 - next song (CW) and previous (CCW)
+                // layer 0 - brightness up (CW) and down (CCW)
                 if (clockwise) {
-                    tap_code(KC_MNXT);
+                    tap_code(KC_BRIGHTNESS_UP);
                 } else {
-                    tap_code(KC_MPRV);
+                    tap_code(KC_BRIGHTNESS_DOWN);
                 }
                 break;
 
             case 1:
-                // layer 1 - change desktop right (CW) and left (CCW)
+                // layer 1 - page up (CW) and down (CCW)
                 if (clockwise) {
-                    tap_code16(LCTL(LGUI(KC_RIGHT)));
+                    tap_code(KC_PAGE_UP);
                 } else {
-                    tap_code16(LCTL(LGUI(KC_LEFT)));
+                    tap_code(KC_PAGE_DOWN);
                 }
                 break;
 
@@ -111,32 +108,34 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 break;
         }
 
-    } else if (index == 1) {									/* RIGHT ENCODER */
+    }
+    /* RIGHT ENCODER */
+    else if (index == 1) {
         switch (get_highest_layer(layer_state)) {
             case 0:
                 // layer 0 - volume up (CW) and down (CCW)
                 if (clockwise) {
-                    tap_code(KC_VOLU);
+                    tap_code(KC_AUDIO_VOL_UP);
                 } else {
-                    tap_code(KC_VOLD);
+                    tap_code(KC_AUDIO_VOL_DOWN);
                 }
                 break;
 
             case 1:
-                // layer 1 - change browser tab (CW) and change explorer window (CCW)
-                if (clockwise) {
-                    tap_code16(LCTL(KC_TAB));
-                } else {
-                    tap_code16(LALT(LSFT(KC_TAB)));
-                }
-                break;
-
-            case 2:
-                // layer 2 - wheel up (CW) and down (CCW)
+                // layer 1 - wheel up (CW) and down (CCW)
                 if (clockwise) {
                     tap_code(KC_WH_U);
                 } else {
                     tap_code(KC_WH_D);
+                }
+                break;
+
+            case 2:
+                // layer 2 - forward (CW) and backward (CCW) one word
+                if (clockwise) {
+                    tap_code16(LCTL(KC_RIGHT));
+                } else {
+                    tap_code16(LCTL(KC_LEFT));
                 }
                 break;
 
