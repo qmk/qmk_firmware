@@ -8,7 +8,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*Layer 0*/
     [0] = LAYOUT(
-  	LT(1, KC_MUTE), 
+  	 	KC_MUTE,
 		KC_MPLY, KC_MPRV, KC_MNXT, KC_MSEL, 
 		KC_UNDO, KC_CALC, KC_MAIL, KC_MYCM, 
 		KC_COPY, KC_CUT, KC_PSTE, TO(3)
