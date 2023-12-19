@@ -34,7 +34,7 @@ bool oled_task_kb(void) {
     oled_write_P(PSTR("Layer: "), false);
 
     /*
-    To chage LAYER NAMES displayed on the OLED ensure they are a total of 6 charaters, including spaces.
+    To change LAYER NAMES displayed on the OLED ensure they are a total of 6 characters, including spaces.
     Example:
     ---------------------------------------------------
     case 0:
