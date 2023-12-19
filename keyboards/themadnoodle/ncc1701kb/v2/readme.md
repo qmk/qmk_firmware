@@ -1,6 +1,6 @@
 # NCC-1701-KB v.2
 
-![NCC1701KBv2](https://imgur.com/a/VoEiNE0)
+![NCC1701KBv2](https://i.imgur.com/Zq1SjBTh.jpg)
 
 *The NCC-1701-KB v.2 is a 8 key macro keypad with a push button encoder knob*
 
