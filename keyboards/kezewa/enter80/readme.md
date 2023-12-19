@@ -6,6 +6,7 @@
 
 * Keyboard Maintainer: https://github.com/LXF-YZP
 * Hardware Supported: enter80 PCB
+* Hardware Availability: [Kezewa](https://kezewa.com/)
 
 Make example for this keyboard (after setting up your build environment):
     
