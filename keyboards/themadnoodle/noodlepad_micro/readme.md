@@ -1,6 +1,6 @@
 # NoodlePad [Micro]
 
-![NoodPad[Mircro]](https://static.wixstatic.com/media/59d0ff_a93e3066685e4273b4c628e702ba981d~mv2.jpg)
+![NoodPad[Mircro]](https://imgur.com/a/l1iZjWX)
 
 The Noodlepad [Micro] is a 6 key 2 encoder macro keypad designed using RP2040 chipset
 
