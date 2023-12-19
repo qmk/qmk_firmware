@@ -1,6 +1,6 @@
 # NoodlePad v.1
 
-![NoodPad v1](https://imgur.com/a/BRyz7jY)
+![NoodPad v1](https://i.imgur.com/dmThaHq.jpg)
 
 *The Noodlepad v.1 is a 8 key macro keypad with a push button encoder knob*
 
