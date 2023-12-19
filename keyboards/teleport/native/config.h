@@ -29,9 +29,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 /* RGB Matrix driver config */
-#define DRIVER_COUNT 2
-#define DRIVER_ADDR_1 0b1010000
-#define DRIVER_ADDR_2 0b1010011
+#define IS31FL3733_I2C_ADDRESS_1 IS31FL3733_I2C_ADDRESS_GND_GND
+#define IS31FL3733_I2C_ADDRESS_2 IS31FL3733_I2C_ADDRESS_GND_VCC
 #define DRIVER_1_LED_TOTAL 46
 #define DRIVER_2_LED_TOTAL 39
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
@@ -60,13 +59,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE      // 9 Pressed keys and nearby keys light up
 #define ENABLE_RGB_MATRIX_CUSTOM_SINGLE_COLOR_RAINDROPS // 0 Single color raindrops, random keys lighting up at randomized intensity
 #define ENABLE_RGB_MATRIX_CUSTOM_STATIC_GAME_MODE       // - Game mode sets the entire matrix (static) once, then stops LED refreshes
-
-#define INDICATOR_MAX_BRIGHTNESS 255
-#ifdef RGB_MATRIX_MAXIMUM_BRIGHTNESS
-    #undef INDICATOR_MAX_BRIGHTNESS
-    #define INDICATOR_MAX_BRIGHTNESS RGB_MATRIX_MAXIMUM_BRIGHTNESS
-#endif
-
 
 /* Define indicator LED indices, used for lighting effects  */
 #define W_LED_INDEX 33
