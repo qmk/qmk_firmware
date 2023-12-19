@@ -24,7 +24,8 @@ static void render_logo(void) { // Render Mad Noodle logo
 }
 //-----------
 
-bool oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) { return false; }
     render_logo();
     oled_set_cursor(7, 0);
     oled_write_P(PSTR("The Mad Noodle"), false);
