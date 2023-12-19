@@ -12,7 +12,7 @@ This folder is set as default in the parent rules.mk - it will build firmware co
 
 Compile example for this keyboard (after setting up your build environment):
 
-    qmk compile -kb themadnoodle/noodlepad/micro -km default
+    qmk compile -kb themadnoodle/noodlepad_micro -km default
 
 Flashing example for this keyboard:
 
