@@ -22,10 +22,6 @@
         "cols": ["C10", "C11", "C12", "A15", "B6", "D2", "B3", "B4", "B5", "B7", "A0", "A1", "A2", "A3"],
         "rows": ["C8", "C7", "C6", "B15", "B14"]
     },
-    "matrix_size": {
-        "cols": 14,
-        "rows": 10
-    },
     "processor": "STM32F401",
     "rgb_matrix": {
         "driver": "ws2812",
@@ -119,7 +115,10 @@
         ],
         "max_brightness": 180,
         "split_count": [64, 17],
-        "val_setps": 60
+        "val_setps": 60,
+        "default": {
+            "val": 60
+        }
     },
     "split": {
         "enabled": true,
@@ -131,12 +130,12 @@
         },
         "soft_serial_pin": "A9",
         "transport": {
-            "protocol": "serial",
-            "sync_matrix_state": false,
-            "watchdog": false
+            "sync": {
+                "matrix_state": true,
+                "activity": true
+            }
         },
         "usb_detect": {
-            "enabled": false,
             "polling_interval": 20,
             "timeout": 5000
         }

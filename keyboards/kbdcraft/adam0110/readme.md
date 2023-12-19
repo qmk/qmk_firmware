@@ -1,6 +1,6 @@
 # KBDCraft Adam0110b
 
-![Adam0110b](https://i.imgur.com/2XqTtGS.png)
+![Adam0110b](https://i.imgur.com/2XqTtGSh.png)
 
 A 64-key custom mechanical keyboard with a brick-built case + 17-key numpad. 
 
