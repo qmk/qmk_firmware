@@ -60,7 +60,7 @@ bool oled_task_kb(void) {
             break;
 
         default:
-            oled_write_P(PSTR("N/A "), false);
+            oled_write_P(PSTR("N/A   "), false);
     }
     oled_set_cursor(7, 2);
     oled_write_P(PSTR("Status: "), false);
