@@ -55,7 +55,7 @@ For split keyboards using `RGB_MATRIX_SPLIT` with an LED driver, you can either 
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -139,7 +139,7 @@ Currently only 4 drivers are supported, but it would be trivial to support all 8
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31fl3733_led_t PROGMEM g_is31fl3733_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -218,7 +218,7 @@ Here is an example using 2 drivers.
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31fl3736_led_t PROGMEM g_is31fl3736_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3736_led_t PROGMEM g_is31fl3736_leds[IS31FL3736_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -292,7 +292,7 @@ Here is an example using 2 drivers.
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31fl3737_led_t PROGMEM g_is31fl3737_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3737_led_t PROGMEM g_is31fl3737_leds[IS31FL3737_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -501,7 +501,7 @@ Here is an example using 2 drivers.
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const aw20216s_led_t PROGMEM g_aw20216s_leds[RGB_MATRIX_LED_COUNT] = {
+const aw20216s_led_t PROGMEM g_aw20216s_leds[AW20216S_LED_COUNT] = {
 /* Each AW20216S channel is controlled by a register at some offset between 0x00
  * and 0xD7 inclusive.
  * See drivers/led/aw20216s.h for the mapping between register offsets and

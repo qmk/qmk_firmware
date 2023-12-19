@@ -139,7 +139,7 @@ void is31fl3736_init(uint8_t addr) {
     // Set up the mode and other settings, clear the PWM registers,
     // then disable software shutdown.
 
-    is31fl3736_select_page(addr, IS31FL3736_REG_LED_CONTROL);
+    is31fl3736_select_page(addr, IS31FL3736_COMMAND_LED_CONTROL);
 
     // Turn off all LEDs.
     for (int i = 0; i < IS31FL3736_LED_CONTROL_REGISTER_COUNT; i++) {
