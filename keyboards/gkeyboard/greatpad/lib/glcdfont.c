@@ -1,3 +1,6 @@
+// Copyright 2023 gkeyboard (@gkeyboard)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 // This is the 'classic' fixed-space bitmap font for Adafruit_GFX since 1.0.
 // See gfxfont.h for newer custom bitmap font info.
 
