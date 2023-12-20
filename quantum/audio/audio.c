@@ -131,10 +131,10 @@ void audio_driver_initialize_impl(void) {
 }
 
 void audio_driver_stop_impl(void) {
+    audio_driver_stop();
 #ifdef AUDIO_SHUTDOWN_PIN
     writePin(AUDIO_SHUTDOWN_PIN, !AUDIO_SHUTDOWN_PIN_ON_STATE);
 #endif
-    audio_driver_stop();
 }
 
 void audio_driver_start_impl(void) {
