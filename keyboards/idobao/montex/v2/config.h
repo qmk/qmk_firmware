@@ -13,7 +13,7 @@
     // #define RGB_MATRIX_FRAMEBUFFER_EFFECTS  // don't use, too few key to make it look good
     #define RGB_MATRIX_KEYPRESSES
 
-    #define RGB_DISABLE_WHEN_USB_SUSPENDED    // turn off effects when suspended
+    #define RGB_MATRIX_SLEEP    // turn off effects when suspended
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180 // Limit to vendor-recommended value
 
     // RGB Matrix Animation modes. Explicitly enabled
