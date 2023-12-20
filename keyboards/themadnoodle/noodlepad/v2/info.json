@@ -2,7 +2,7 @@
     "manufacturer": "The Mad Noodle",
     "keyboard_name": "NoodlePad v2",
     "maintainer": "The-Mad-Noodle",
-    "url": "https://www.madnoodleprototypes.com/",    
+    "url": "https://www.madnoodleprototypes.com/",
     "ws2812": {
         "pin": "B7"
     },
