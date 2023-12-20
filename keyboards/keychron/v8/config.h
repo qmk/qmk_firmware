@@ -40,7 +40,7 @@
 #define MATRIX_MASKED
 
 /* Turn off effects when suspended */
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define RGB_MATRIX_SLEEP
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 5
 

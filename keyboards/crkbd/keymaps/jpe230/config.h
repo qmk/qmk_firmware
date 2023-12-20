@@ -27,7 +27,7 @@
  * Common RGB Configuration
  * ---------------------------
  */
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define RGB_MATRIX_SLEEP
 #define RGB_DISABLE_TIMEOUT CUSTOM_OLED_TIMEOUT
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 128
 #define RGB_MATRIX_DEFAULT_HUE 215
