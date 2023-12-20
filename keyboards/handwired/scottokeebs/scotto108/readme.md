@@ -1,12 +1,12 @@
 # Scotto108
 
-![Scotto108](https://i.imgur.com/zGH0GPXh.jpg)
+![Scotto108](https://i.imgur.com/ss4BEujh.jpg)
 
 A 108-key full-sized ortholinear keyboard with a 7u spacebar and 4 macro keys above the numpad.
 
--   Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
--   Hardware Supported: Raspberry Pi Pico
--   Hardware Availability: [ScottoKeebs](https://scottokeebs.com), [Amazon](https://amazon.com), [AliExpress](https://aliexpress.com)
+*   Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
+*   Hardware Supported: Raspberry Pi Pico
+*   Hardware Availability: [ScottoKeebs](https://scottokeebs.com), [Amazon](https://amazon.com), [AliExpress](https://aliexpress.com)
 
 # Compiling
 
@@ -24,6 +24,6 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader in 3 ways:
 
--   **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
--   **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
--   **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+*   **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
+*   **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+*   **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
