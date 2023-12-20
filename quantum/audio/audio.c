@@ -19,6 +19,7 @@
 #include "timer.h"
 #include "wait.h"
 #include "util.h"
+#include "gpio.h"
 
 /* audio system:
  *
@@ -117,6 +118,32 @@ void eeconfig_update_audio_current(void) {
     eeconfig_update_audio(audio_config.raw);
 }
 
+#ifndef AUDIO_SHUTDOWN_PIN_ON_STATE
+#    define AUDIO_SHUTDOWN_PIN_ON_STATE 1
+#endif
+
+void audio_driver_initialize_impl(void) {
+#ifdef AUDIO_SHUTDOWN_PIN
+    setPinOutput(AUDIO_SHUTDOWN_PIN);
+    writePin(AUDIO_SHUTDOWN_PIN, AUDIO_SHUTDOWN_PIN_ON_STATE);
+#endif
+    audio_driver_initialize();
+}
+
+void audio_driver_stop_impl(void) {
+#ifdef AUDIO_SHUTDOWN_PIN
+    writePin(AUDIO_SHUTDOWN_PIN, !AUDIO_SHUTDOWN_PIN_ON_STATE);
+#endif
+    audio_driver_stop();
+}
+
+void audio_driver_start_impl(void) {
+#ifdef AUDIO_SHUTDOWN_PIN
+    writePin(AUDIO_SHUTDOWN_PIN, AUDIO_SHUTDOWN_PIN_ON_STATE);
+#endif
+    audio_driver_start();
+}
+
 void audio_init(void) {
     if (audio_initialized) {
         return;
@@ -140,7 +167,7 @@ void audio_init(void) {
     }
 
     if (!audio_initialized) {
-        audio_driver_initialize();
+        audio_driver_initialize_impl();
         audio_initialized = true;
     }
     stop_all_notes();
@@ -197,7 +224,7 @@ void audio_stop_all(void) {
 
     active_tones = 0;
 
-    audio_driver_stop();
+    audio_driver_stop_impl();
 
     playing_melody = false;
     playing_note   = false;
@@ -245,7 +272,7 @@ void audio_stop_tone(float pitch) {
         }
 #endif
         if (active_tones == 0) {
-            audio_driver_stop();
+            audio_driver_stop_impl();
             audio_driver_stopped = true;
             playing_note         = false;
         }
@@ -296,7 +323,7 @@ void audio_play_note(float pitch, uint16_t duration) {
     voices_timer = timer_read(); // reset to zero, for the effects added by voices.c
 
     if (audio_driver_stopped) {
-        audio_driver_start();
+        audio_driver_start_impl();
         audio_driver_stopped = false;
     }
 }
