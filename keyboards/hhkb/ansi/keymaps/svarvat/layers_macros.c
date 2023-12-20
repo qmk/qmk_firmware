@@ -937,6 +937,7 @@ bool processKeycodeIfLThumbMs(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 bool processKeycodeIfLThumbEMo(uint16_t keycode, keyrecord_t* record) {
+    isLThumbEMoPristine = false;
     switch (keycode) {
         case MA_LTHUMBE:
             if (!(record->event.pressed)) {
@@ -1050,10 +1051,10 @@ bool processKeycodeIfLThumbEMo(uint16_t keycode, keyrecord_t* record) {
             }
             return false;
     }
-    isLThumbEMoPristine = false;
     return true;
 }
 bool processKeycodeIfLThumbDMo(uint16_t keycode, keyrecord_t* record) {
+    isLThumbDMoPristine = false;
     switch (keycode) {
         case MA_LTHUMBD:
             if (!(record->event.pressed)) {
@@ -1118,7 +1119,6 @@ bool processKeycodeIfLThumbDMo(uint16_t keycode, keyrecord_t* record) {
             }
             return false;
     }
-    isLThumbDMoPristine = false;
     return true;
 }
 bool processKeycodeIfLThumbEWeak(uint16_t keycode, keyrecord_t* record) {
