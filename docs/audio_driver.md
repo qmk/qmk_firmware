@@ -199,6 +199,18 @@ with all this information, the configuration would contain these lines:
 ChibiOS uses GPIOv1 for the F103, which only knows of one alternate function.
 On 'larger' STM32s, GPIOv2 or GPIOv3 are used; with them it is also necessary to configure `AUDIO_PWM_PAL_MODE` to the correct alternate function for the selected pin, timer and timer-channel.
 
+You can also use the Complementary output (`TIMx_CHyN`) for PWM on supported controllers.  To enable this functionality, you will need to make this changes:
+```c
+// config.h:
+#define AUDIO_PWM_COMPLEMENTARY_OUTPUT
+``` 
+
+```c
+// mcuconfi.h:
+#include_next <mcuconf.h>
+#undef STM32_PWM_USE_ADVANCED
+#define STM32_PWM_USE_ADVANCED TRUE
+```
 
 ### PWM software :id=pwm-software
 
