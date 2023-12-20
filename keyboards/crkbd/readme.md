@@ -11,10 +11,16 @@ Keyboard Maintainer: [foostan](https://github.com/foostan/) [@foostan](https://t
 Hardware Supported: Corne PCB
 Hardware Availability: [PCB & Case Data](https://github.com/foostan/crkbd)
 
-Make example for this keyboard (after setting up your build environment):
+Flash example for this keyboard of v1 - v3:
 
 ```sh
-make crkbd:default
+qmk flash -kb crkbd/rev1 -km default
+```
+
+Flash example for this keyboard of v4:
+
+```sh
+qmk flash -kb crkbd/rev4 -km default
 ```
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
