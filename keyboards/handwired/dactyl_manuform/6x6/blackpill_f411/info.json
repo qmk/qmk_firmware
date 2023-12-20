@@ -5,6 +5,7 @@
     },
     "diode_direction": "COL2ROW",
     "split": {
+        "enabled": true,
         "bootmagic": {
             "matrix": [7, 0]
         }
