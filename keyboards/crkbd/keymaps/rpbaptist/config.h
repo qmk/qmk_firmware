@@ -58,7 +58,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define GAMING_IDLE_TIMEOUT 10000
 #    define RGB_MATRIX_TYPING_ACTIVE RGB_MATRIX_SOLID_REACTIVE_SIMPLE
 #    define RGB_MATRIX_TYPING_PASSIVE RGB_MATRIX_CYCLE_ALL
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
+#    define RGB_MATRIX_SLEEP // turn off effects when suspended
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 135
 
 #    define RGB_MATRIX_HUE_STEP 6
