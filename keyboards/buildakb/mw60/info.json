@@ -23,7 +23,21 @@
         "pid": "0x0004",
         "vid": "0x4A56"
     },
-    "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift", "60_ansi_tsangan", "60_tsangan_hhkb", "60_ansi_wkl", "60_ansi_wkl_split_bs_rshift", "60_hhkb"],
+    "community_layouts": [
+        "60_ansi",
+        "60_ansi_split_bs_rshift",
+        "60_ansi_tsangan",
+        "60_tsangan_hhkb",
+        "60_ansi_wkl",
+        "60_ansi_wkl_split_bs_rshift",
+        "60_hhkb",
+        "60_iso",
+        "60_iso_split_bs_rshift",
+        "60_iso_tsangan",
+        "60_iso_tsangan_split_bs_rshift",
+        "60_iso_wkl",
+        "60_iso_wkl_split_bs_rshift"
+        ],
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [
