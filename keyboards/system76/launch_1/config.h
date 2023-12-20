@@ -22,7 +22,7 @@
 #    define RGB_MATRIX_KEYPRESSES                                      // Reacts to keypresses
 // #    define RGB_MATRIX_KEYRELEASES                                     // Reacts to keyreleases (instead of keypresses)
 // #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS                             // Enables framebuffer effects
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED                             // Turns off effects when suspended
+#    define RGB_MATRIX_SLEEP                             // Turns off effects when suspended
 // Limit brightness to support USB-A at 0.5 A
 // TODO: Do this dynamically based on power source
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 176                          // Limits maximum brightness of LEDs to 176 out of 255. If not defined, maximum brightness is set to 255

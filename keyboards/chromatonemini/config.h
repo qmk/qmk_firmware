@@ -51,7 +51,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //  https://docs.qmk.fm/#/feature_rgb_matrix
 //  Enable suspend mode.
-#   define RGB_DISABLE_WHEN_USB_SUSPENDED
+#   define RGB_MATRIX_SLEEP
 #endif  // RGB_MATRIX_ENABLE
 
 /* Audio */
