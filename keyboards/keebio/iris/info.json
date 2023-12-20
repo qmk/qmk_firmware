@@ -4,8 +4,5 @@
     "maintainer": "Keebio",
     "usb": {
         "vid": "0xCB10"
-    },
-    "split": {
-        "enabled": true
     }
 }

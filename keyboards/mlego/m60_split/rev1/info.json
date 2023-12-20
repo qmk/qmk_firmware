@@ -39,6 +39,7 @@
         }
     },
     "split": {
+        "enabled": true,
         "bootmagic": {
             "matrix": [5, 0]
         },
