@@ -14,7 +14,7 @@
 
     #define RGB_MATRIX_LED_COUNT 6
     #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
-    #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
+    #define RGB_MATRIX_SLEEP // turn off effects when suspended
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
     #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_BREATHING // Sets the default mode, if none has been set
     #define RGB_TRIGGER_ON_KEYDOWN      // Triggers RGB keypress events on key down. This makes RGB control feel more responsive. This may cause RGB to not function properly on some boards

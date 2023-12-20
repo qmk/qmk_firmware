@@ -37,7 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_MATRIX_LED_FLUSH_LIMIT 32
 
-#define RGB_DISABLE_WHEN_USB_SUSPENDED 
+#define RGB_MATRIX_SLEEP
 
 #define RGB_MATRIX_DEFAULT_SPD 40
 #define RGB_MATRIX_DEFAULT_VAL 220

@@ -34,7 +34,7 @@
     { 0x9D, 0x9D, 0x44, 0x9D, 0x9D, 0x44, 0x9D, 0x9D, 0x44, 0x9D, 0x9D, 0x44 }
 
 /* turn off effects when suspended */
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define RGB_MATRIX_SLEEP
 
 /* Enable caps_lock, win os and mac os indicator */
 #define CAPS_MAC_WIN_LED_INDEX 63

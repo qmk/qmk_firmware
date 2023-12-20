@@ -46,7 +46,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
 #define LED_MATRIX_LED_COUNT 76
 #define LED_MATRIX_SPLIT { 38, 38 }
-#define LED_DISABLE_WHEN_USB_SUSPENDED
+#define LED_MATRIX_SLEEP
 
 // LED Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
