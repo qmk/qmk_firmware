@@ -1,3 +1,6 @@
+// Copyright Kumao Kobo <kumaokobo@gmail.com>
+// SPDX-License-Identifier: GPL-2.0+
+
 #include QMK_KEYBOARD_H
 #include"keymap_japanese.h"
 
