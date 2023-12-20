@@ -74,12 +74,12 @@
     "LEADER_TIMEOUT": {"info_key": "leader_key.timeout", "value_type": "int"},
 
     // LED Matrix
-    "LED_DISABLE_WHEN_USB_SUSPENDED": {"info_key": "led_matrix.sleep", "value_type": "bool"},
     "LED_MATRIX_CENTER": {"info_key": "led_matrix.center_point", "value_type": "array.int"},
     "LED_MATRIX_KEYRELEASES": {"info_key": "led_matrix.react_on_keyup", "value_type": "bool"},
     "LED_MATRIX_LED_FLUSH_LIMIT": {"info_key": "led_matrix.led_flush_limit", "value_type": "int"},
     "LED_MATRIX_LED_PROCESS_LIMIT": {"info_key": "led_matrix.led_process_limit", "value_type": "int", "to_json": false},
     "LED_MATRIX_MAXIMUM_BRIGHTNESS": {"info_key": "led_matrix.max_brightness", "value_type": "int"},
+    "LED_MATRIX_SLEEP": {"info_key": "led_matrix.sleep", "value_type": "bool"},
     "LED_MATRIX_SPD_STEP": {"info_key": "led_matrix.speed_steps", "value_type": "int"},
     "LED_MATRIX_SPLIT": {"info_key": "led_matrix.split_count", "value_type": "array.int"},
     "LED_MATRIX_TIMEOUT": {"info_key": "led_matrix.timeout", "value_type": "int"},
@@ -218,7 +218,8 @@
     "DEBOUNCING_DELAY": {"info_key": "_invalid.debouncing_delay", "invalid": true, "replace_with": "DEBOUNCE"},
     "DESCRIPTION": {"info_key": "_invalid.usb_description", "invalid": true},
     "IGNORE_MOD_TAP_INTERRUPT": {"info_key": "_invalid.ignore_mod_tap_interrupt", "value_type": "bool", "invalid": true},
-    "IGNORE_MOD_TAP_INTERRUPT_PER_KEY": {"info_key": "_invalid.ignore_mod_tap_interrupt_per_key", "invalid": true}
+    "IGNORE_MOD_TAP_INTERRUPT_PER_KEY": {"info_key": "_invalid.ignore_mod_tap_interrupt_per_key", "invalid": true},
+    "LED_DISABLE_WHEN_USB_SUSPENDED": {"info_key": "_invalid.led_matrix_sleep", "invalid": true, "replace_with": "LED_MATRIX_SLEEP"},
     "NO_ACTION_FUNCTION": {"info_key": "_invalid.no_action_function", "invalid": true},
     "NO_ACTION_MACRO": {"info_key": "_invalid.no_action_macro", "invalid": true},
     "PREVENT_STUCK_MODIFIERS": {"info_key": "_invalid.prevent_stuck_mods", "invalid": true},

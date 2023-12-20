@@ -22,7 +22,7 @@
 #define LED_MATRIX_ROWS 15
 #define LED_MATRIX_COLS 7
 #define LED_MATRIX_MAXIMUM_BRIGHTNESS 20
-#define LED_DISABLE_WHEN_USB_SUSPENDED
+#define LED_MATRIX_SLEEP
 
 // LED Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
