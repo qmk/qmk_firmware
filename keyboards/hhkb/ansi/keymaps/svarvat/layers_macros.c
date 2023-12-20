@@ -52,7 +52,7 @@ void layer_off_lmouse(void) {
     mouseLeft = false;
 }
 void reverse_weak_layer(bool isLThumbMoPristine) {
-    if (isLThumbMoPristine) {
+    if (isLThumbMoPristine && (inMemoryPreviousWeakLayer != 0)) {
         layer_off(inMemoryCurrentWeakLayer);
         layer_on(inMemoryPreviousWeakLayer);
         isLThumbMoPristine = false;
