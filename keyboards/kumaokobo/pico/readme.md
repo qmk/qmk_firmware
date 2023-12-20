@@ -8,7 +8,7 @@ Pico adopted the footprint for [Kailh Mid-Height](http://www.kailh.com/en/Produc
 
 Make example for this keyboard (after setting up your build environment):
 
-    make pico/65keys:default
+    make kumaokobo/pico/65keys:default
 
 ## 65 keys
 <p align="center">
