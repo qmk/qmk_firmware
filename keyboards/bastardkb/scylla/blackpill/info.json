@@ -6,6 +6,9 @@
     "eeprom": {
         "driver": "spi"
     },
+    "split": {
+        "enabled": true
+    },
     "rgb_matrix": {
         "driver": "ws2812"
     },

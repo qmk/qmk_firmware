@@ -3,9 +3,6 @@
     "usb": {
         "pid": "0x1829"
     },
-    "split": {
-        "enabled": true
-    },
     "rgblight": {
         "led_count": 58,
         "split_count": [29, 29]
