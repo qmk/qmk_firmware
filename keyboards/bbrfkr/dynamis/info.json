@@ -13,9 +13,6 @@
         "rows": ["B6", "B4", "D6", "D5", "D1", "C6", "B5", "D7", "D4", "D0"]
     },
     "diode_direction": "COL2ROW",
-    "split": {
-        "enabled": true
-    },
     "encoder": {
         "rotary": [
             {"pin_a": "B7", "pin_b": "E6"}
