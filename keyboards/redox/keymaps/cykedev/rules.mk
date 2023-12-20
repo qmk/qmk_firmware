@@ -1,5 +1,0 @@
-EXTRAKEY_ENABLE = yes
-COMMAND_ENABLE  = yes
-MOUSEKEY_ENABLE = no
-LTO_ENABLE      = yes
-NKRO_ENABLE     = yes

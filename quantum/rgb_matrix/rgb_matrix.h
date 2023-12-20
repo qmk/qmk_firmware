@@ -21,30 +21,9 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "rgb_matrix_types.h"
+#include "rgb_matrix_drivers.h"
 #include "color.h"
 #include "keyboard.h"
-
-#if defined(RGB_MATRIX_IS31FL3218)
-#    include "is31fl3218.h"
-#elif defined(RGB_MATRIX_IS31FL3731)
-#    include "is31fl3731.h"
-#elif defined(RGB_MATRIX_IS31FL3733)
-#    include "is31fl3733.h"
-#elif defined(RGB_MATRIX_IS31FL3736)
-#    include "is31fl3736.h"
-#elif defined(RGB_MATRIX_IS31FL3737)
-#    include "is31fl3737.h"
-#elif defined(RGB_MATRIX_IS31FL3741)
-#    include "is31fl3741.h"
-#elif defined(IS31FLCOMMON)
-#    include "is31flcommon.h"
-#elif defined(RGB_MATRIX_SNLED27351)
-#    include "snled27351.h"
-#elif defined(RGB_MATRIX_AW20216S)
-#    include "aw20216s.h"
-#elif defined(RGB_MATRIX_WS2812)
-#    include "ws2812.h"
-#endif
 
 #ifndef RGB_MATRIX_TIMEOUT
 #    define RGB_MATRIX_TIMEOUT 0
@@ -272,17 +251,6 @@ void        rgb_matrix_set_flags_noeeprom(led_flags_t flags);
 #    define rgblight_decrease_speed_noeeprom rgb_matrix_decrease_speed_noeeprom
 #endif
 
-typedef struct {
-    /* Perform any initialisation required for the other driver functions to work. */
-    void (*init)(void);
-    /* Set the colour of a single LED in the buffer. */
-    void (*set_color)(int index, uint8_t r, uint8_t g, uint8_t b);
-    /* Set the colour of all LEDS on the keyboard in the buffer. */
-    void (*set_color_all)(uint8_t r, uint8_t g, uint8_t b);
-    /* Flush any buffered changes to the hardware. */
-    void (*flush)(void);
-} rgb_matrix_driver_t;
-
 static inline bool rgb_matrix_check_finished_leds(uint8_t led_idx) {
 #if defined(RGB_MATRIX_SPLIT)
     if (is_keyboard_left()) {
@@ -294,8 +262,6 @@ static inline bool rgb_matrix_check_finished_leds(uint8_t led_idx) {
     return led_idx < RGB_MATRIX_LED_COUNT;
 #endif
 }
-
-extern const rgb_matrix_driver_t rgb_matrix_driver;
 
 extern rgb_config_t rgb_matrix_config;
 

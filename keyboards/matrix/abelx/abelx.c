@@ -57,6 +57,7 @@ void housekeeping_task_kb(void) {
 
 #ifdef RGBLIGHT_ENABLE
 #include "rgblight.h"
+#include "ws2812.h"
 #include "i2c_master.h"
 
 const aw9523b_led g_aw9523b_leds[AW9523B_RGB_NUM] = {
@@ -66,7 +67,7 @@ const aw9523b_led g_aw9523b_leds[AW9523B_RGB_NUM] = {
     {AW9523B_P07_PWM, AW9523B_P06_PWM, AW9523B_P05_PWM},
 };
 
-void rgblight_call_driver(rgb_led_t *start_led, uint8_t num_leds)
+void setleds_custom(rgb_led_t *start_led, uint16_t num_leds)
 {
     uint8_t num = num_leds < AW9523B_RGB_NUM ? num_leds : AW9523B_RGB_NUM;
 
@@ -76,6 +77,10 @@ void rgblight_call_driver(rgb_led_t *start_led, uint8_t num_leds)
         aw9523b_set_color(i, start_led[i].r, start_led[i].g, start_led[i].b);
     }
 }
+
+const rgblight_driver_t rgblight_driver = {
+    .setleds = setleds_custom,
+};
 
 #endif
 

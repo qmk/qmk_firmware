@@ -143,6 +143,9 @@
     "daisy": {
         "target": "ktec/daisy"
     },
+    "dp3000": {
+        "target": "dp3000/rev1"
+    },
     "drakon": {
         "target": "jagdpietr/drakon"
     },
@@ -182,6 +185,9 @@
     "eek": {
         "target": "eek/silk_down"
     },
+    "era/klein": {
+        "target": "era/sirind/klein_sd"
+	},
     "ergodone": {
         "target": "ktec/ergodone"
     },
@@ -328,6 +334,9 @@
     },
     "kyria": {
         "target": "splitkb/kyria"
+    },
+    "laser_ninja/pumpkin_pad": {
+        "target": "laser_ninja/pumpkinpad"
     },
     "lattice60": {
         "target": "keyhive/lattice60"
@@ -948,6 +957,12 @@
     "launchpad/rev1": {
         "target": "maple_computing/launchpad/rev1"
     },
+    "lefty": {
+        "target": "smoll/lefty/rev2"
+    },
+    "lefty/rev1": {
+        "target": "smoll/lefty/rev1"
+    },
     "lck75": {
         "target": "lyso1/lck75"
     },
@@ -1100,6 +1115,9 @@
     },
     "pursuit40": {
         "target": "checkerboards/pursuit40"
+    },
+    "pw88": {
+        "target": "smoll/pw88"
     },
     "qaz": {
         "target": "tominabox1/qaz"
@@ -1298,6 +1316,9 @@
     },
     "vn66": {
         "target": "hnahkb/vn66"
+    },
+    "w1_at": {
+        "target": "geonworks/w1_at"
     },
     "wallaby": {
         "target": "kkatano/wallaby"

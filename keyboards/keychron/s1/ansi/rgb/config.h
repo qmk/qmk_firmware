@@ -28,7 +28,7 @@
     { 0xA0, 0xA0, 0x48, 0xA0, 0xA0, 0x48, 0xA0, 0xA0, 0x48, 0xA0, 0xA0, 0x48 }
 
 /* Disable RGB lighting when PC is in suspend */
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define RGB_MATRIX_SLEEP
 
 /* Enable caps-lock LED */
 #define CAPS_LOCK_LED_INDEX 46

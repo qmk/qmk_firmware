@@ -25,7 +25,7 @@ def mass_compile_targets(targets: List[BuildTarget], clean: bool, dry_run: bool,
     if dry_run:
         cli.log.info('Compilation targets:')
         for target in sorted(targets, key=lambda t: (t.keyboard, t.keymap)):
-            cli.log.info(f"{{fg_cyan}}qmk compile -kb {target[0]} -km {target[1]}{{fg_reset}}")
+            cli.log.info(f"{{fg_cyan}}qmk compile -kb {target.keyboard} -km {target.keymap}{{fg_reset}}")
     else:
         if clean:
             cli.run([make_cmd, 'clean'], capture_output=False, stdin=DEVNULL)
@@ -72,7 +72,7 @@ all: {keyboard_safe}_{keymap_name}_binary
                     # yapf: enable
                 f.write('\n')
 
-        cli.run([make_cmd, *get_make_parallel_args(parallel), '-f', makefile.as_posix(), 'all'], capture_output=False, stdin=DEVNULL)
+        cli.run([find_make(), *get_make_parallel_args(parallel), '-f', makefile.as_posix(), 'all'], capture_output=False, stdin=DEVNULL)
 
         # Check for failures
         failures = [f for f in builddir.glob(f'failed.log.{os.getpid()}.*')]
@@ -108,4 +108,4 @@ def mass_compile(cli):
     else:
         targets = search_keymap_targets([('all', cli.config.mass_compile.keymap)], cli.args.filter)
 
-    return mass_compile_targets(targets, cli.args.clean, cli.args.dry_run, cli.config.mass_compile.no_temp, cli.config.mass_compile.parallel, **build_environment(cli.args.env))
+    return mass_compile_targets(targets, cli.args.clean, cli.args.dry_run, cli.args.no_temp, cli.config.mass_compile.parallel, **build_environment(cli.args.env))
