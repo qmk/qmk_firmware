@@ -122,7 +122,6 @@
     "PS2_DATA_PIN": {"info_key": "ps2.data_pin"},
 
     // RGB Matrix
-    "RGB_DISABLE_WHEN_USB_SUSPENDED": {"info_key": "rgb_matrix.sleep", "value_type": "bool"},
     "RGB_MATRIX_CENTER": {"info_key": "rgb_matrix.center_point", "value_type": "array.int"},
     "RGB_MATRIX_HUE_STEP": {"info_key": "rgb_matrix.hue_steps", "value_type": "int"},
     "RGB_MATRIX_KEYRELEASES": {"info_key": "rgb_matrix.react_on_keyup", "value_type": "bool"},
@@ -130,6 +129,7 @@
     "RGB_MATRIX_LED_PROCESS_LIMIT": {"info_key": "rgb_matrix.led_process_limit", "value_type": "int", "to_json": false},
     "RGB_MATRIX_MAXIMUM_BRIGHTNESS": {"info_key": "rgb_matrix.max_brightness", "value_type": "int"},
     "RGB_MATRIX_SAT_STEP": {"info_key": "rgb_matrix.sat_steps", "value_type": "int"},
+    "RGB_MATRIX_SLEEP": {"info_key": "rgb_matrix.sleep", "value_type": "bool"},
     "RGB_MATRIX_SPD_STEP": {"info_key": "rgb_matrix.speed_steps", "value_type": "int"},
     "RGB_MATRIX_SPLIT": {"info_key": "rgb_matrix.split_count", "value_type": "array.int"},
     "RGB_MATRIX_TIMEOUT": {"info_key": "rgb_matrix.timeout", "value_type": "int"},
@@ -225,6 +225,7 @@
     "PREVENT_STUCK_MODIFIERS": {"info_key": "_invalid.prevent_stuck_mods", "invalid": true},
     "QMK_KEYS_PER_SCAN": {"info_key": "qmk.keys_per_scan", "value_type": "int", "deprecated": true},
     "RGB_DI_PIN": {"info_key": "rgblight.pin", "invalid": true, "replace_with": "WS2812_DI_PIN or APA102_DI_PIN"},
+    "RGB_DISABLE_WHEN_USB_SUSPENDED": {"info_key": "_invalid.rgb_matrix_sleep", "invalid": true, "replace_with": "RGB_MATRIX_SLEEP"},
     "RGBLIGHT_ANIMATIONS": {"info_key": "_invalid.rgblight.animations.all", "value_type": "bool", "invalid": true},
     "TAPPING_FORCE_HOLD": {"info_key": "tapping.force_hold", "value_type": "bool", "deprecated": true},
     "TAPPING_FORCE_HOLD_PER_KEY": {"info_key": "tapping.force_hold_per_key", "value_type": "bool", "deprecated": true},

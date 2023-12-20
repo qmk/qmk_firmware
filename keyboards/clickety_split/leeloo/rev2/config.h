@@ -18,5 +18,5 @@
 
 #    define RGB_MATRIX_LED_COUNT 74
 #    define RGB_MATRIX_SPLIT {37, 37}
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED
+#    define RGB_MATRIX_SLEEP
 #    define SPLIT_TRANSPORT_MIRROR

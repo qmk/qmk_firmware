@@ -27,7 +27,7 @@
 #define RGB_MATRIX_LED_COUNT 32
 
 #define RGB_MATRIX_DEFAULT_VAL 80
-#define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
+#define RGB_MATRIX_SLEEP  // turn off effects when suspended
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_ALL
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180
 
