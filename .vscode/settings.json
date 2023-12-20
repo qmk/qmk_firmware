@@ -30,6 +30,5 @@
     },
     "clangd.arguments": [
         "--header-insertion=never"
-    ],
-    "cmake.sourceDirectory": "C:/qmk_firmware/lib/googletest"
+    ]
 }
