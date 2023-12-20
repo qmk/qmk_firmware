@@ -55,6 +55,7 @@ void reverse_weak_layer(bool isLThumbMoPristine) {
     if (isLThumbMoPristine) {
         layer_off(inMemoryCurrentWeakLayer);
         layer_on(inMemoryPreviousWeakLayer);
+        isLThumbMoPristine = false;
     }
 }
 void layer_on_weak_layer(uint16_t layer) {
@@ -937,7 +938,6 @@ bool processKeycodeIfLThumbMs(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 bool processKeycodeIfLThumbEMo(uint16_t keycode, keyrecord_t* record) {
-    isLThumbEMoPristine = false;
     switch (keycode) {
         case MA_LTHUMBE:
             if (!(record->event.pressed)) {
@@ -1054,7 +1054,6 @@ bool processKeycodeIfLThumbEMo(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 bool processKeycodeIfLThumbDMo(uint16_t keycode, keyrecord_t* record) {
-    isLThumbDMoPristine = false;
     switch (keycode) {
         case MA_LTHUMBD:
             if (!(record->event.pressed)) {
@@ -1172,8 +1171,8 @@ bool processKeycodeIfLThumbEWeak(uint16_t keycode, keyrecord_t* record) {
         case MA_LTHUMBD:
             if (record->event.pressed) {
                 layer_off_weak_layer(LA_LTHUMBEWEAK);
-                isLThumbEWeakPristine = true;
                 layer_on_weak_layer(LA_LTHUMBDWEAK);
+                isLThumbEWeakPristine = true;
                 if (IS_LAYER_ON(LA_LTHUMBMS)) {
                     isMouseX2Started = true;
                 } else {
@@ -1257,8 +1256,8 @@ bool processKeycodeIfLThumbDWeak(uint16_t keycode, keyrecord_t* record) {
         case MA_LTHUMBE:
             if (record->event.pressed) {
                 layer_off_weak_layer(LA_LTHUMBDWEAK);
-                isLThumbDWeakPristine = true;
                 layer_on_weak_layer(LA_LTHUMBEWEAK);
+                isLThumbDWeakPristine = true;
                 if (IS_LAYER_ON(LA_LTHUMBMS)) {
                     isMouseX4Started = true;
                 } else {
@@ -1309,9 +1308,9 @@ bool processKeycodeIfLThumb1Weak(uint16_t keycode, keyrecord_t* record) {
                 if (isLThumb1WeakPristine) {
                     tap_code16(C(A(KC_E)));
                 } else {
-                    isLThumb1WeakPristine = true;
                     layer_off_weak_layer(LA_LTHUMB1WEAK);
                     layer_on_weak_layer(LA_LTHUMBEWEAK);
+                    isLThumb1WeakPristine = true;
                     if (IS_LAYER_ON(LA_LTHUMBMS)) {
                         isMouseX4Started = true;
                     } else {
