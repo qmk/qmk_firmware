@@ -191,7 +191,7 @@ DFU_SUFFIX_ARGS ?=
 elf: $(BUILD_DIR)/$(TARGET).elf
 hex: $(BUILD_DIR)/$(TARGET).hex
 uf2: $(BUILD_DIR)/$(TARGET).uf2
-cpfirmware: $(FIRMWARE_FORMAT)
+cpfirmware_qmk: $(FIRMWARE_FORMAT)
 	$(SILENT) || printf "Copying $(TARGET).$(FIRMWARE_FORMAT) to qmk_firmware folder" | $(AWK_CMD)
 	$(COPY) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT) $(TARGET).$(FIRMWARE_FORMAT) && $(PRINT_OK)
 eep: $(BUILD_DIR)/$(TARGET).eep
@@ -199,6 +199,15 @@ lss: $(BUILD_DIR)/$(TARGET).lss
 sym: $(BUILD_DIR)/$(TARGET).sym
 LIBNAME=lib$(TARGET).a
 lib: $(LIBNAME)
+
+cpfirmware: cpfirmware_qmk
+
+ifneq ($(QMK_USERSPACE),)
+cpfirmware: cpfirmware_userspace
+cpfirmware_userspace: cpfirmware_qmk
+	$(SILENT) || printf "Copying $(TARGET).$(FIRMWARE_FORMAT) to userspace folder" | $(AWK_CMD)
+	$(COPY) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT) $(QMK_USERSPACE)/$(TARGET).$(FIRMWARE_FORMAT) && $(PRINT_OK)
+endif
 
 # Display size of file, modifying the output so people don't mistakenly grab the hex output
 BINARY_SIZE = $(SIZE) --target=$(FORMAT) $(BUILD_DIR)/$(TARGET).hex | $(SED) -e 's/\.build\/.*$$/$(TARGET).$(FIRMWARE_FORMAT)/g'

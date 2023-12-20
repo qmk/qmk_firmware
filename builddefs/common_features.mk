@@ -313,6 +313,7 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
         OPT_DEFS += -DRGBLIGHT_$(strip $(shell echo $(RGBLIGHT_DRIVER) | tr '[:lower:]' '[:upper:]'))
         SRC += $(QUANTUM_DIR)/color.c
         SRC += $(QUANTUM_DIR)/rgblight/rgblight.c
+        SRC += $(QUANTUM_DIR)/rgblight/rgblight_drivers.c
         CIE1931_CURVE := yes
         RGB_KEYCODES_ENABLE := yes
     endif
@@ -904,6 +905,12 @@ ifeq ($(strip $(ENCODER_ENABLE)), yes)
     OPT_DEFS += -DENCODER_ENABLE
     ifeq ($(strip $(ENCODER_MAP_ENABLE)), yes)
         OPT_DEFS += -DENCODER_MAP_ENABLE
+    endif
+endif
+
+ifeq ($(strip $(DIP_SWITCH_ENABLE)), yes)
+    ifeq ($(strip $(DIP_SWITCH_MAP_ENABLE)), yes)
+        OPT_DEFS += -DDIP_SWITCH_MAP_ENABLE
     endif
 endif
 

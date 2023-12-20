@@ -104,6 +104,7 @@ extern const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT];
 void is31fl3731_init_drivers(void);
 void is31fl3731_init(uint8_t addr);
 void is31fl3731_write_register(uint8_t addr, uint8_t reg, uint8_t data);
+void is31fl3731_select_page(uint8_t addr, uint8_t page);
 void is31fl3731_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
 
 void is31fl3731_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
