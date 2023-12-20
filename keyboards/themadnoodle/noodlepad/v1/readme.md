@@ -2,7 +2,7 @@
 
 ![NoodPad v1](https://i.imgur.com/dmThaHq.jpg)
 
-*The Noodlepad v.1 is a 8 key macro keypad with a push button encoder knob*
+The Noodlepad v.1 is a 8 key macro keypad with a push button encoder knob.
 
 * Keyboard Maintainer: [The Mad Noodle](https://github.com/The-Mad-Noodle)
 * Hardware Supported: NoodlePad v.1 PCB
