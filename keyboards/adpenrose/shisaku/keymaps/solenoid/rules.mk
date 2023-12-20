@@ -1,4 +1,0 @@
-VIA_ENABLE = yes
-LTO_ENABLE = yes
-HAPTIC_ENABLE = yes
-HAPTIC_DRIVER = solenoid
