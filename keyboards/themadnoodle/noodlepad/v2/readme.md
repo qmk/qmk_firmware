@@ -2,7 +2,7 @@
 
 ![NoodPad v2](https://i.imgur.com/tzP0tdzh.jpg)
 
-*The Noodlepad v.2 is a 8 hotswap key macro keypad with a push button encoder knob*
+The Noodlepad v.2 is a 8 hotswap key macro keypad with a push button encoder knob.
 
 * Keyboard Maintainer: [The Mad Noodle](https://github.com/The-Mad-Noodle)
 * Hardware Supported: NoodlePad v.2 PCB
