@@ -12,6 +12,12 @@
         "cols": ["F6", "F7", "B1", "B3", "B2"],
         "rows": ["E6", "D7", "B4", "B5"]
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "diode_direction": "ROW2COL",
     "dynamic_keymap": {
         "layer_count": 7

@@ -19,6 +19,12 @@
     "tapping": {
         "term": 175
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "community_layouts": ["60_ansi", "60_iso"],

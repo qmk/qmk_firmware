@@ -16,6 +16,12 @@
   "eeprom": {
     "driver": "i2c"
   },
+  "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+  },
   "indicators": {
     "caps_lock": "A6"
   },

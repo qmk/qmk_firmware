@@ -16,6 +16,12 @@
     "indicators": {
         "caps_lock": "A8"
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "matrix_pins": {
         "cols": ["A9", "B8", "F0", "C15", "C14", "C13", "B10", "B2", "B1", "B0", "A7", "A6", "A5", "A4", "A2"],
         "rows": ["A10", "B9", "A1", "B11", "A3"]

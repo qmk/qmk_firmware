@@ -13,6 +13,12 @@
         "levels": 6,
         "breathing": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "community_layouts": ["alice", "alice_split_bs"],

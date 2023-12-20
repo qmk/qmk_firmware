@@ -20,6 +20,12 @@
             {"pin_a": "F4", "pin_b": "F1"}
         ]
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {

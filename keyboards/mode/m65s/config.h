@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 #define EEPROM_I2C_24LC128
 //#define I2C1_CLOCK_SPEED 400000
 //#define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
@@ -29,19 +24,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 
 #define OPENDRAIN_INDICATORS
-
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT

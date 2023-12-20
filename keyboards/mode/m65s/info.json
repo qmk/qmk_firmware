@@ -9,6 +9,12 @@
         "device_version": "0.0.1"
     },
     "qmk": {
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        },
         "tap_keycode_delay": 50
     },
     "matrix_pins": {

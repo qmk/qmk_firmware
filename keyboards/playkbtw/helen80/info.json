@@ -18,6 +18,12 @@
     "scroll_lock": "B2",
     "on_state": 0
   },
+  "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+  },
   "ws2812": {
     "pin": "E2"
   },

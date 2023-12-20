@@ -12,6 +12,12 @@
         "cols": ["B14", "A2", "B9", "B8", "B5", "B4", "B3", "A15", "B11", "B10", "B2", "A3", "B1", "B0", "A4", "A5"],
         "rows": ["A8", "A9", "B13", "A6", "A7"]
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "diode_direction": "COL2ROW",
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",

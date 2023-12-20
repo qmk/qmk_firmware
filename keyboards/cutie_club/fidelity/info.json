@@ -15,6 +15,12 @@
         "pid": "0x4D1B",
         "device_version": "0.0.1"
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",

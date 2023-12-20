@@ -17,6 +17,12 @@
         "caps_lock": "B11",
         "scroll_lock": "F1"
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "layouts": {

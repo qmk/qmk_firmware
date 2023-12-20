@@ -25,12 +25,19 @@
             "twinkle": true
         }
     },
+
     "ws2812": {
         "driver": "i2c"
     },
     "matrix_pins": {
         "cols": ["B0", "B1", "B2", "B3", "B4", "B5"],
         "rows": ["A0", "A1", "A2", "A3"]
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     },
     "diode_direction": "ROW2COL",
     "processor": "atmega32a",
