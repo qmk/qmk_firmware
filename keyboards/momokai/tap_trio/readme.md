@@ -1,5 +1,8 @@
 # Momokai tap trio
 
+https://www.momokai.com/pages/tap-trio
+
+![Momokai tap trio](https://i.imgur.com/xqeq75V.jpg)
 
 * Keyboard Maintainer: [peepeetee](https://github.com/peepeetee)
 * Hardware Supported: Tap Trio
