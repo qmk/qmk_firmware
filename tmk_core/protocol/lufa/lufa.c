@@ -160,7 +160,6 @@ void raw_hid_send(uint8_t *data, uint8_t length) {
     if (Endpoint_IsINReady()) {
         // Write data
         if (Endpoint_Write_Stream_LE(data, RAW_EPSIZE, NULL)) {
-            rawhid_state.pairing = false;
             rawhid_state.paired  = false;
         }
         // Finalize the stream transfer to send the last packet

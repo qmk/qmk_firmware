@@ -308,11 +308,6 @@ bool music_mask_kb(uint16_t keycode) {
 }
 #endif
 
-#ifdef ORYX_ENABLE
-static uint16_t loops = 0;
-static bool is_on = false;
-#endif
-
 #ifdef DYNAMIC_MACRO_ENABLE
 static bool is_dynamic_recording = false;
 static uint16_t dynamic_loop_timer;
@@ -330,36 +325,6 @@ void dynamic_macro_record_end_user(int8_t direction) {
 #endif
 
 void matrix_scan_kb(void) {
-#ifdef ORYX_ENABLE
-    if(rawhid_state.pairing == true) {
-        if(loops == 0) {
-          //lights off
-        }
-        if(loops % PAIRING_BLINK_STEPS == 0) {
-            if(is_on) {
-              planck_ez_left_led_on();
-              planck_ez_right_led_off();
-            }
-            else {
-              planck_ez_left_led_off();
-              planck_ez_right_led_on();
-            }
-            is_on ^= 1;
-        }
-        if(loops > PAIRING_BLINK_END * 2) {
-            rawhid_state.pairing = false;
-            loops = 0;
-            planck_ez_left_led_off();
-            planck_ez_right_led_off();
-        }
-        loops++;
-    }
-    else if(loops > 0) {
-      loops = 0;
-      planck_ez_left_led_off();
-      planck_ez_right_led_off();
-    }
-#endif
 #ifdef DYNAMIC_MACRO_ENABLE
     if (is_dynamic_recording) {
         if (timer_elapsed(dynamic_loop_timer) > 1)

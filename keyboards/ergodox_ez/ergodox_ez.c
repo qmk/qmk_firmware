@@ -389,11 +389,6 @@ void eeconfig_init_kb(void) {  // EEPROM is getting reset!
     eeconfig_init_user();
 }
 
-#ifdef ORYX_ENABLE
-static uint16_t loops = 0;
-static bool is_on = false;
-#endif
-
 #ifdef DYNAMIC_MACRO_ENABLE
 static bool is_dynamic_recording = false;
 static uint16_t dynamic_loop_timer;
@@ -411,33 +406,6 @@ void dynamic_macro_record_end_user(int8_t direction) {
 #endif
 
 void matrix_scan_kb(void) {
-#ifdef ORYX_ENABLE
-    if(rawhid_state.pairing == true) {
-        if(loops == 0) {
-            ergodox_right_led_1_off();
-            ergodox_right_led_2_off();
-            ergodox_right_led_3_off();
-        }
-        if(loops % PAIRING_BLINK_STEPS == 0) {
-            if(is_on) {
-                ergodox_right_led_2_off();
-            } else {
-                ergodox_right_led_2_on();
-            }
-            is_on ^= 1;
-        }
-        if(loops > PAIRING_BLINK_END) {
-            rawhid_state.pairing = false;
-            layer_state_set_user(layer_state);
-            loops = 0;
-        }
-        loops++;
-    } else if(loops > 0) {
-        loops = 0;
-        layer_state_set_user(layer_state);
-    }
-#endif
-
 #ifdef DYNAMIC_MACRO_ENABLE
     if (is_dynamic_recording) {
         ergodox_right_led_1_off();
