@@ -39,8 +39,8 @@
     "processor": "atmega32u4",
     "bootloader": "halfkay",
     "layout_aliases": {
-        "tkl_ansi_wkl": "tkl_ansi_tsangan",
-        "tkl_iso_wkl": "tkl_iso_tsangan"
+        "LAYOUT_tkl_ansi_wkl": "LAYOUT_tkl_ansi_tsangan",
+        "LAYOUT_tkl_iso_wkl": "LAYOUT_tkl_iso_tsangan"
     },
     "community_layouts": [
         "tkl_ansi",
