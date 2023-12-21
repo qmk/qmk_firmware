@@ -125,8 +125,16 @@
             "properties": {
                 "macro_beep": {"type": "boolean"},
                 "pins": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
-                "voices": {"type": "boolean"}
-            }
+                "voices": {"type": "boolean"},
+                "shutdown": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "on_state": {"$ref": "qmk.definitions.v1#/bit"},
+                        "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"}
+                    }
+                },
+            },
         },
         "backlight": {
             "type": "object",
