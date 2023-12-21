@@ -1,6 +1,6 @@
 # Momokai Aurora
 
-![Momokai Aurora](https://i.imgur.com/A7iHqzA.jpg)
+![Momokai Aurora](https://i.imgur.com/A7iHqzAh.jpg)
 
 https://www.momokai.com/pages/aurora
 
