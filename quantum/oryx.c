@@ -62,18 +62,10 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         }
 
         case ORYX_CMD_PAIRING_INIT:
-            if (rawhid_state.paired == true)
-                pairing_failed_event();
-            else
-                pairing_success_event();
-            break;
+            pairing_success_event();
 
         case ORYX_CMD_PAIRING_VALIDATE:
-            if (rawhid_state.paired == true)
-                pairing_failed_event();
-            else
-                pairing_success_event();
-            break;
+            pairing_success_event();
 
         case ORYX_SET_LAYER:
             if (rawhid_state.paired == true) {
