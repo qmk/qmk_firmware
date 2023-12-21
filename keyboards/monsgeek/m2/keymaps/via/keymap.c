@@ -81,3 +81,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                   _______,                           _______,          _______,           RGB_SAD, RGB_VAD,  RGB_SAI, _______, _______)
 
 };
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case DF(WIN_B):
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(WIN_B);
+            }
+            return false;
+        case DF(MAC_B):
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(MAC_B);
+                keymap_config.no_gui     = 0;
+                eeconfig_update_keymap(keymap_config.raw);
+            }
+            return false;
+        case RGB_TOG:
+            if (record->event.pressed) {
+                switch (rgb_matrix_get_flags()) {
+                    case LED_FLAG_ALL: {
+                        rgb_matrix_set_flags(LED_FLAG_NONE);
+                        rgb_matrix_set_color_all(0, 0, 0);
+                    } break;
+                    default: {
+                        rgb_matrix_set_flags(LED_FLAG_ALL);
+                    } break;
+                }
+            }
+            if (!rgb_matrix_is_enabled()) {
+                rgb_matrix_set_flags(LED_FLAG_ALL);
+                rgb_matrix_enable();
+            }
+            return false;
+        default:
+            return true;
+    }
+}
