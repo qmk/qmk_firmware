@@ -1,5 +1,7 @@
 # Momokai Aurora
 
+![Momokai Aurora](https://i.imgur.com/A7iHqzA.jpg)
+
 https://www.momokai.com/pages/aurora
 
 A 6 key keypad with a rotary encoder
