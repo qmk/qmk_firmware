@@ -12,6 +12,9 @@
         "rows": ["D11", "B4", "B5", "B6", "B7"]
     },
     "diode_direction": "COL2ROW",
+    "dip_switch": {
+        "matrix_grid": [ [0,14], [1,14], [2,14], [3,14] ]
+    },
     "layout_aliases": {
         "LAYOUT_iso": "LAYOUT_60_iso"
     },

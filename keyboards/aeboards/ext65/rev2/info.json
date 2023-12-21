@@ -38,8 +38,11 @@
         "cols": ["B14", "B6", "A0", "B1", "B0", "A7", "A6", "A5", "A4", "A3"],
         "rows": ["A10", "A9", "A8", "B7", "A2", "A1", "B12", "B11", "B10", "B2"]
     },
+    "layout_aliases": {
+        "LAYOUT_ext65": "LAYOUT"
+    },
     "layouts": {
-        "LAYOUT_ext65": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [1, 0], "x": 1, "y": 0},

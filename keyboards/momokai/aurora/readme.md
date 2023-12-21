@@ -1,5 +1,7 @@
 # Momokai Aurora
 
+https://www.momokai.com/pages/aurora
+
 A 6 key keypad with a rotary encoder
 
 * Keyboard Maintainer: [peepeetee](https://github.com/peepeetee)

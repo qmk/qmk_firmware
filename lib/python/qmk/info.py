@@ -55,6 +55,29 @@ def _get_key_left_position(key):
     return key['x'] - 0.25 if key.get('h', 1) == 2 and key.get('w', 1) == 1.25 else key['x']
 
 
+def _find_invalid_encoder_index(info_data):
+    """Perform additional validation of encoders
+    """
+    enc_count = len(info_data.get('encoder', {}).get('rotary', []))
+    enc_count += len(info_data.get('split', {}).get('encoder', {}).get('right', {}).get('rotary', []))
+
+    ret = []
+    layouts = info_data.get('layouts', {})
+    for layout_name, layout_data in layouts.items():
+        found = set()
+        for key in layout_data['layout']:
+            if 'encoder' in key:
+                if enc_count == 0:
+                    ret.append((layout_name, key['encoder'], 'non-configured'))
+                elif key['encoder'] >= enc_count:
+                    ret.append((layout_name, key['encoder'], 'out of bounds'))
+                elif key['encoder'] in found:
+                    ret.append((layout_name, key['encoder'], 'duplicate'))
+                found.add(key['encoder'])
+
+    return ret
+
+
 def _additional_validation(keyboard, info_data):
     """Non schema checks
     """
@@ -104,6 +127,11 @@ def _additional_validation(keyboard, info_data):
         if len(decl["key"]) > 7:
             if not decl.get("aliases", []):
                 _log_error(info_data, f'Keycode {decl["key"]} has no short form alias')
+
+    # encoder IDs in layouts must be in range and not duplicated
+    found = _find_invalid_encoder_index(info_data)
+    for layout_name, encoder_index, reason in found:
+        _log_error(info_data, f'Layout "{layout_name}" contains {reason} encoder index {encoder_index}.')
 
 
 def _validate(keyboard, info_data):
@@ -352,55 +380,12 @@ def _extract_secure_unlock(info_data, config_c):
         info_data['secure']['unlock_sequence'] = unlock_array
 
 
-def _extract_split_main(info_data, config_c):
-    """Populate data about the split configuration
-    """
-    # Figure out how the main half is determined
-    if config_c.get('SPLIT_HAND_PIN') is True:
-        if 'split' not in info_data:
-            info_data['split'] = {}
-
-        if 'main' in info_data['split']:
-            _log_warning(info_data, 'Split main hand is specified in both config.h (SPLIT_HAND_PIN) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
-
-        info_data['split']['main'] = 'pin'
-
-    if config_c.get('SPLIT_HAND_MATRIX_GRID'):
-        if 'split' not in info_data:
-            info_data['split'] = {}
-
-        if 'main' in info_data['split']:
-            _log_warning(info_data, 'Split main hand is specified in both config.h (SPLIT_HAND_MATRIX_GRID) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
-
-        info_data['split']['main'] = 'matrix_grid'
-        info_data['split']['matrix_grid'] = _extract_pins(config_c['SPLIT_HAND_MATRIX_GRID'])
-
-    if config_c.get('EE_HANDS') is True:
-        if 'split' not in info_data:
-            info_data['split'] = {}
-
-        if 'main' in info_data['split']:
-            _log_warning(info_data, 'Split main hand is specified in both config.h (EE_HANDS) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
-
-        info_data['split']['main'] = 'eeprom'
-
-    if config_c.get('MASTER_RIGHT') is True:
-        if 'split' not in info_data:
-            info_data['split'] = {}
-
-        if 'main' in info_data['split']:
-            _log_warning(info_data, 'Split main hand is specified in both config.h (MASTER_RIGHT) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
-
-        info_data['split']['main'] = 'right'
-
-    if config_c.get('MASTER_LEFT') is True:
-        if 'split' not in info_data:
-            info_data['split'] = {}
-
-        if 'main' in info_data['split']:
-            _log_warning(info_data, 'Split main hand is specified in both config.h (MASTER_LEFT) and info.json (split.main) (Value: %s), the config.h value wins.' % info_data['split']['main'])
-
-        info_data['split']['main'] = 'left'
+def _extract_split_handedness(info_data, config_c):
+    # Migrate
+    split = info_data.get('split', {})
+    if 'matrix_grid' in split:
+        split['handedness'] = split.get('handedness', {})
+        split['handedness']['matrix_grid'] = split.pop('matrix_grid')
 
 
 def _extract_split_transport(info_data, config_c):
@@ -427,6 +412,15 @@ def _extract_split_transport(info_data, config_c):
 
         if 'protocol' not in info_data['split']['transport']:
             info_data['split']['transport']['protocol'] = 'serial'
+
+    # Migrate
+    transport = info_data.get('split', {}).get('transport', {})
+    if 'sync_matrix_state' in transport:
+        transport['sync'] = transport.get('sync', {})
+        transport['sync']['matrix_state'] = transport.pop('sync_matrix_state')
+    if 'sync_modifiers' in transport:
+        transport['sync'] = transport.get('sync', {})
+        transport['sync']['modifiers'] = transport.pop('sync_modifiers')
 
 
 def _extract_split_right_pins(info_data, config_c):
@@ -520,6 +514,8 @@ def _config_to_json(key_type, config_value):
             return list(map(str.strip, config_value.split(',')))
 
     elif key_type == 'bool':
+        if isinstance(config_value, bool):
+            return config_value
         return config_value in true_values
 
     elif key_type == 'hex':
@@ -583,7 +579,7 @@ def _extract_config_h(info_data, config_c):
     _extract_matrix_info(info_data, config_c)
     _extract_audio(info_data, config_c)
     _extract_secure_unlock(info_data, config_c)
-    _extract_split_main(info_data, config_c)
+    _extract_split_handedness(info_data, config_c)
     _extract_split_transport(info_data, config_c)
     _extract_split_right_pins(info_data, config_c)
     _extract_encoders(info_data, config_c)
@@ -747,6 +743,9 @@ def _check_matrix(info_data):
         elif 'cols' in info_data['matrix_pins'] and 'rows' in info_data['matrix_pins']:
             col_count = len(info_data['matrix_pins']['cols'])
             row_count = len(info_data['matrix_pins']['rows'])
+        elif 'cols' not in info_data['matrix_pins'] and 'rows' not in info_data['matrix_pins']:
+            # This case caters for custom matrix implementations where normal rows/cols are specified
+            return
 
         if col_count != actual_col_count and col_count != (actual_col_count / 2):
             # FIXME: once we can we should detect if split is enabled to do the actual_col_count/2 check.
