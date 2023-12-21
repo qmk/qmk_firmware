@@ -206,7 +206,7 @@ You can also use the Complementary output (`TIMx_CHyN`) for PWM on supported con
 ``` 
 
 ```c
-// mcuconfi.h:
+// mcuconf.h:
 #include_next <mcuconf.h>
 #undef STM32_PWM_USE_ADVANCED
 #define STM32_PWM_USE_ADVANCED TRUE
