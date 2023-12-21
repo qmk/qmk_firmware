@@ -60,6 +60,11 @@ void layer_on_weak_layer(uint16_t layer) {
 }
 void layer_off_weak_layer(uint16_t layer) {
     inMemoryPreviousWeakLayer = layer;
+    isLThumbWeakPristine = true;
+    layer_off(layer);
+}
+void layer_off_mo_layer(uint16_t layer) {
+    isLThumbMoPristine = true;
     layer_off(layer);
 }
 bool switch_ctl_tab_off(uint16_t keycode) {
@@ -937,8 +942,7 @@ bool processKeycodeIfLThumbEMo(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case MA_LTHUMBE:
             if (!(record->event.pressed)) {
-                layer_off(LA_LTHUMBEMO);
-                isLThumbMoPristine = true;
+                layer_off_mo_layer(LA_LTHUMBEMO);
             }
             return false;
         case MA_UPX4:
@@ -1053,8 +1057,7 @@ bool processKeycodeIfLThumbDMo(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case MA_LTHUMBD:
             if (!(record->event.pressed)) {
-                layer_off(LA_LTHUMBDMO);
-                isLThumbMoPristine = true;
+                layer_off_mo_layer(LA_LTHUMBDMO);
             }
             return false;
         case MA_UPX2:
@@ -1123,7 +1126,7 @@ bool processKeycodeIfLThumbEWeak(uint16_t keycode, keyrecord_t* record) {
         case MA_LTHUMBMS:
             if (!(record->event.pressed)) {
                 layer_off_weak_layer(LA_LTHUMBEWEAK);
-                layer_off(LA_LTHUMBEMO);
+                layer_off_mo_layer(LA_LTHUMBEMO);
                 inMemoryPreviousWeakLayer = 0;
                 if (isWeakLaMouseStarted) {
                     layer_off_lmouse();
@@ -1132,8 +1135,6 @@ bool processKeycodeIfLThumbEWeak(uint16_t keycode, keyrecord_t* record) {
                 if (isLThumbMoPristine) {
                     layer_on(LA_LTHUMBESTRONG);
                 } else {
-                    isLThumbWeakPristine = true;
-                    isLThumbMoPristine = true;
                     layer_off(LA_LTHUMBMS);
                     layer_off(LA_LTHUMB);
                 }
@@ -1168,7 +1169,6 @@ bool processKeycodeIfLThumbEWeak(uint16_t keycode, keyrecord_t* record) {
             if (record->event.pressed) {
                 layer_off_weak_layer(LA_LTHUMBEWEAK);
                 layer_on_weak_layer(LA_LTHUMBDWEAK);
-                isLThumbWeakPristine = true;
                 if (IS_LAYER_ON(LA_LTHUMBMS)) {
                     isMouseX2Started = true;
                 } else {
@@ -1179,21 +1179,18 @@ bool processKeycodeIfLThumbEWeak(uint16_t keycode, keyrecord_t* record) {
         case MA_LTHUMB1:
             if (record->event.pressed) {
                 layer_off_weak_layer(LA_LTHUMBEWEAK);
-                isLThumbWeakPristine = true;
                 layer_on_weak_layer(LA_LTHUMB1WEAK);
             }
             return false;
         case MA_LTHUMB2:
             if (record->event.pressed) {
                 layer_off_weak_layer(LA_LTHUMBEWEAK);
-                isLThumbWeakPristine = true;
                 layer_on_weak_layer(LA_LTHUMB2WEAK);
             }
             return false;
         case MA_LTHUMB3:
             if (record->event.pressed) {
                 layer_off_weak_layer(LA_LTHUMBEWEAK);
-                isLThumbWeakPristine = true;
                 layer_on_weak_layer(LA_LTHUMB3WEAK);
             }
             return false;
@@ -1208,7 +1205,7 @@ bool processKeycodeIfLThumbDWeak(uint16_t keycode, keyrecord_t* record) {
         case MA_LTHUMBMS:
             if (!(record->event.pressed)) {
                 layer_off_weak_layer(LA_LTHUMBDWEAK);
-                layer_off(LA_LTHUMBDMO);
+                layer_off_mo_layer(LA_LTHUMBDMO);
                 inMemoryPreviousWeakLayer = 0;
                 if (isWeakLaMouseStarted) {
                     layer_off_lmouse();
@@ -1217,8 +1214,6 @@ bool processKeycodeIfLThumbDWeak(uint16_t keycode, keyrecord_t* record) {
                 if(isLThumbMoPristine) {
                     layer_on(LA_LTHUMBDSTRONG);
                 } else {
-                    isLThumbWeakPristine = true;
-                    isLThumbMoPristine = true;
                     layer_off(LA_LTHUMBMS);
                     layer_off(LA_LTHUMB);
                 }
@@ -1253,7 +1248,6 @@ bool processKeycodeIfLThumbDWeak(uint16_t keycode, keyrecord_t* record) {
             if (record->event.pressed) {
                 layer_off_weak_layer(LA_LTHUMBDWEAK);
                 layer_on_weak_layer(LA_LTHUMBEWEAK);
-                isLThumbWeakPristine = true;
                 if (IS_LAYER_ON(LA_LTHUMBMS)) {
                     isMouseX4Started = true;
                 } else {
@@ -1264,21 +1258,18 @@ bool processKeycodeIfLThumbDWeak(uint16_t keycode, keyrecord_t* record) {
         case MA_LTHUMB1:
             if (record->event.pressed) {
                 layer_off_weak_layer(LA_LTHUMBDWEAK);
-                isLThumbWeakPristine = true;
                 layer_on_weak_layer(LA_LTHUMB1WEAK);
             }
             return false;
         case MA_LTHUMB2:
             if (record->event.pressed) {
                 layer_off_weak_layer(LA_LTHUMBDWEAK);
-                isLThumbWeakPristine = true;
                 layer_on_weak_layer(LA_LTHUMB2WEAK);
             }
             return false;
         case MA_LTHUMB3:
             if (record->event.pressed) {
                 layer_off_weak_layer(LA_LTHUMBDWEAK);
-                isLThumbWeakPristine = true;
                 layer_on_weak_layer(LA_LTHUMB3WEAK);
             }
             return false;
@@ -1293,7 +1284,6 @@ bool processKeycodeIfLThumb1Weak(uint16_t keycode, keyrecord_t* record) {
         case MA_LTHUMBMS:
             if (!(record->event.pressed)) {
                 layer_off_weak_layer(LA_LTHUMB1WEAK);
-                isLThumbWeakPristine = true;
                 layer_off(LA_LTHUMB);
                 layer_off(LA_LTHUMBMS);
                 inMemoryPreviousWeakLayer = 0;
@@ -1306,7 +1296,6 @@ bool processKeycodeIfLThumb1Weak(uint16_t keycode, keyrecord_t* record) {
                 } else {
                     layer_off_weak_layer(LA_LTHUMB1WEAK);
                     layer_on_weak_layer(LA_LTHUMBEWEAK);
-                    isLThumbWeakPristine = true;
                     if (IS_LAYER_ON(LA_LTHUMBMS)) {
                         isMouseX4Started = true;
                     } else {
@@ -1322,7 +1311,6 @@ bool processKeycodeIfLThumb1Weak(uint16_t keycode, keyrecord_t* record) {
                 } else {
                     layer_off_weak_layer(LA_LTHUMB1WEAK);
                     layer_on_weak_layer(LA_LTHUMBDWEAK);
-                    isLThumbWeakPristine = true;
                     if (IS_LAYER_ON(LA_LTHUMBMS)) {
                         isMouseX2Started = true;
                     } else {
@@ -1344,14 +1332,12 @@ bool processKeycodeIfLThumb1Weak(uint16_t keycode, keyrecord_t* record) {
         case MA_LTHUMB2:
             if (record->event.pressed) {
                 layer_off_weak_layer(LA_LTHUMB1WEAK);
-                isLThumbWeakPristine = true;
                 layer_on_weak_layer(LA_LTHUMB2WEAK);
             }
             return false;
         case MA_LTHUMB3:
             if (record->event.pressed) {
                 layer_off_weak_layer(LA_LTHUMB1WEAK);
-                isLThumbWeakPristine = true;
                 layer_on_weak_layer(LA_LTHUMB3WEAK);
             }
             return false;
@@ -1366,7 +1352,6 @@ bool processKeycodeIfLThumb2Weak(uint16_t keycode, keyrecord_t* record) {
         case MA_LTHUMBMS:
             if (!(record->event.pressed)) {
                 layer_off_weak_layer(LA_LTHUMB2WEAK);
-                isLThumbWeakPristine = true;
                 layer_off(LA_LTHUMB);
                 layer_off(LA_LTHUMBMS);
                 inMemoryPreviousWeakLayer = 0;
@@ -1377,7 +1362,6 @@ bool processKeycodeIfLThumb2Weak(uint16_t keycode, keyrecord_t* record) {
                 if (isLThumbWeakPristine) {
                     tap_code16(RCS(KC_E));
                 } else {
-                    isLThumbWeakPristine = true;
                     layer_off_weak_layer(LA_LTHUMB2WEAK);
                     layer_on_weak_layer(LA_LTHUMBEWEAK);
                     if (IS_LAYER_ON(LA_LTHUMBMS)) {
@@ -1393,7 +1377,6 @@ bool processKeycodeIfLThumb2Weak(uint16_t keycode, keyrecord_t* record) {
                 if (isLThumbWeakPristine) {
                     tap_code16(RCS(KC_D));
                 } else {
-                    isLThumbWeakPristine = true;
                     layer_off_weak_layer(LA_LTHUMB2WEAK);
                     layer_on_weak_layer(LA_LTHUMBDWEAK);
                     if (IS_LAYER_ON(LA_LTHUMBMS)) {
@@ -1417,14 +1400,12 @@ bool processKeycodeIfLThumb2Weak(uint16_t keycode, keyrecord_t* record) {
         case MA_LTHUMB1:
             if (record->event.pressed) {
                 layer_off_weak_layer(LA_LTHUMB2WEAK);
-                isLThumbWeakPristine = true;
                 layer_on_weak_layer(LA_LTHUMB1WEAK);
             }
             return false;
         case MA_LTHUMB3:
             if (record->event.pressed) {
                 layer_off_weak_layer(LA_LTHUMB2WEAK);
-                isLThumbWeakPristine = true;
                 layer_on_weak_layer(LA_LTHUMB3WEAK);
             }
             return false;
@@ -1439,7 +1420,6 @@ bool processKeycodeIfLThumb3Weak(uint16_t keycode, keyrecord_t* record) {
         case MA_LTHUMBMS:
             if (!(record->event.pressed)) {
                 layer_off_weak_layer(LA_LTHUMB3WEAK);
-                isLThumbWeakPristine = true;
                 layer_off(LA_LTHUMB);
                 layer_off(LA_LTHUMBMS);
                 inMemoryPreviousWeakLayer = 0;
@@ -1450,7 +1430,6 @@ bool processKeycodeIfLThumb3Weak(uint16_t keycode, keyrecord_t* record) {
                 if (isLThumbWeakPristine) {
                     tap_code16(LALT(KC_E));
                 } else {
-                    isLThumbWeakPristine = true;
                     layer_off_weak_layer(LA_LTHUMB3WEAK);
                     layer_on_weak_layer(LA_LTHUMBEWEAK);
                     if (IS_LAYER_ON(LA_LTHUMBMS)) {
@@ -1466,7 +1445,6 @@ bool processKeycodeIfLThumb3Weak(uint16_t keycode, keyrecord_t* record) {
                 if (isLThumbWeakPristine) {
                     tap_code16(LALT(KC_D));
                 } else {
-                    isLThumbWeakPristine = true;
                     layer_off_weak_layer(LA_LTHUMB3WEAK);
                     layer_on_weak_layer(LA_LTHUMBDWEAK);
                     if (IS_LAYER_ON(LA_LTHUMBMS)) {
@@ -1490,14 +1468,12 @@ bool processKeycodeIfLThumb3Weak(uint16_t keycode, keyrecord_t* record) {
         case MA_LTHUMB1:
             if (record->event.pressed) {
                 layer_off_weak_layer(LA_LTHUMB3WEAK);
-                isLThumbWeakPristine = true;
                 layer_on_weak_layer(LA_LTHUMB1WEAK);
             }
             return false;
         case MA_LTHUMB2:
             if (record->event.pressed) {
                 layer_off_weak_layer(LA_LTHUMB3WEAK);
-                isLThumbWeakPristine = true;
                 layer_on_weak_layer(LA_LTHUMB2WEAK);
             }
             return false;
