@@ -4,7 +4,6 @@
 enum layers {
     BASE,  // default layer
     SYMB,  // symbols
-    MDIA,  // media keys
 };
 
 const uint16_t PROGMEM combo_btn1l[] = {KC_P, KC_T, COMBO_END};
@@ -54,36 +53,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,          KC_Q,               KC_W,                 KC_F,                KC_P,                  KC_B,    KC_SLASH,                  KC_UP,          KC_J,                  KC_L,                  KC_U,                      KC_Y,                 KC_BACKSLASH,           KC_BSPC,
   KC_ESC,          KC_A,               KC_R,                 KC_S,                KC_T,                  KC_G,                                               KC_M,                  KC_N,                  KC_E,                      KC_I,                 KC_O,                   KC_ENT,
   KC_LSFT,         KC_Z,               KC_X,                 KC_C,                KC_D,                  KC_V,    KC_GRAVE,                  KC_DOWN,        KC_K,                  KC_H,                  KC_COMMA,                  KC_DOT,               KC_MINUS,      KC_RSFT,
-  KC_BTN2,         LCTL(KC_B),         KC_LEFT,              KC_BTN2,             KC_BTN1,                                                                                          MO(SYMB),              KC_LGUI,                   KC_RIGHT,             TG(SYMB),               KC_TRNS,
+  KC_BTN2,         LCTL(KC_B),         KC_LEFT,              KC_BTN2,             KC_BTN1,                                                                                          MO(SYMB),              KC_LGUI,                   KC_RIGHT,             KC_DELETE,              KC_TRNS,
 
                                                          LGUI(KC_D),  LGUI(KC_E),                      KC_MPRV, KC_MNXT,
                                                                       KC_HOME,                         KC_VOLU,
-                                                 KC_LCTL, KC_LGUI,    KC_LALT,                         KC_VOLD, KC_LSFT, KC_SPC
+                                                 KC_SPC, KC_LGUI,    KC_LALT,                         KC_VOLD, KC_LALT, KC_LCTL
 ),
 
 [SYMB] = LAYOUT_ergodox_pretty(
   // left hand
-  VRSN,    KC_F1,    KC_F2,    KC_F3,   KC_F4,   KC_F5,   KC_TRNS,          KC_TRNS, KC_F6,   KC_F7,    KC_F8,    KC_F9,   KC_F10,  KC_F12,
-  KC_TRNS, KC_TRNS,  KC_QUOTE, KC_LCBR, KC_RCBR, KC_SEMICOLON,   KC_MINUS,  KC_HOME, KC_HOME,   KC_PGDN,  KC_PGUP,  KC_END,  KC_TRNS, KC_F11,
+  VRSN,    KC_F1,    KC_F2,    KC_F3,   KC_F4,   KC_F5,   KC_TRNS,          KC_TRNS, KC_F6,   KC_F7,    KC_F8,    KC_F9,   KC_F10,  KC_F11,
+  KC_TRNS, KC_TRNS,  KC_QUOTE, KC_LCBR, KC_RCBR, KC_SEMICOLON,   KC_MINUS,  KC_HOME, KC_HOME,   KC_PGDN,  KC_PGUP,  KC_END,  KC_TRNS, KC_F12,
   KC_TRNS, KC_EQL,   KC_DQT,   KC_LPRN, KC_RPRN, KC_COLON,                  KC_LEFT, KC_DOWN, KC_UP,    KC_RIGHT, KC_PLUS, KC_DEL,
   KC_TRNS, KC_PLUS,  KC_GRAVE, KC_LBRC, KC_RBRC, KC_TILD, KC_TRNS,     KC_TRNS,      KC_AMPR, KC_TRNS,    KC_TRNS,    KC_TRNS,   KC_TRNS, KC_TRNS,
   EE_CLR,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,                                     KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
                                                KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS,
                                                         KC_TRNS,     KC_TRNS,
-                                      RGB_VAD, RGB_VAI, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS
-),
-
-[MDIA] = LAYOUT_ergodox_pretty(
-  // left hand
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS,                       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MPLY,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS, KC_MPRV, KC_MNXT, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN1, KC_BTN2,                                         KC_VOLU, KC_VOLD, KC_MUTE, KC_TRNS, KC_TRNS,
-
-                                               KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS,
-                                                        KC_TRNS,     KC_TRNS,
-                                      KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_WBAK
+                                      KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS
 ),
 };
 // clang-format on
