@@ -116,15 +116,15 @@ Configures the [Audio](feature_audio.md) feature.
         * Default: `false`
     * `pins` (Required)
         * The GPIO pin(s) connected to the speaker(s).
-    * `voices`
-        * Use multiple audio voices.
-        * Default: `false`
     * `shutdown`
-        * `pin`
-            * The GPIO pin connected to speaker shutdown circuit.
         * `on_state`
             * The logical GPIO state required to turn the speaker on.
             * Default: `1` (on = high)
+        * `pin`
+            * The GPIO pin connected to speaker shutdown circuit.
+    * `voices`
+        * Use multiple audio voices.
+        * Default: `false`
 
 
 ## Backlight :id=backlight
