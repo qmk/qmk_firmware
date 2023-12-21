@@ -6,7 +6,7 @@ https://www.momokai.com/pages/tap-trio
 
 * Keyboard Maintainer: [peepeetee](https://github.com/peepeetee)
 * Hardware Supported: Tap Trio
-* Hardware Availability: [Momokai](https://www.momokai.com/)
+* Hardware Availability: [Momokai](https://www.momokai.com/pages/tap-trio)
 
 Make example for this keyboard (after setting up your build environment):
 
