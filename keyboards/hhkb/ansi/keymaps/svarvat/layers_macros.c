@@ -687,14 +687,12 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
             if (record->event.pressed) {
                 layer_on(LA_LTHUMBDMO);
                 layer_on_weak_layer(LA_LTHUMBDWEAK);
-                isLThumbWeakPristine = true;
             }
             return false;
         case MA_LTHUMBE:
             if (record->event.pressed) {
                 layer_on(LA_LTHUMBEMO);
                 layer_on_weak_layer(LA_LTHUMBEWEAK);
-                isLThumbWeakPristine = true;
             }
             return false;
         case MA_LTHUMB1:
@@ -873,14 +871,12 @@ bool processKeycodeIfLThumbMs(uint16_t keycode, keyrecord_t* record) {
             if (record->event.pressed) {
                 isMouseX2Started = true;
                 layer_on_weak_layer(LA_LTHUMBDWEAK);
-                isLThumbWeakPristine = true;
             }
             return false;
         case MA_LTHUMBE:
             if (record->event.pressed) {
                 isMouseX4Started = true;
                 layer_on_weak_layer(LA_LTHUMBEWEAK);
-                isLThumbWeakPristine = true;
             }
             return false;
         case KC_MS_BTN1:
