@@ -48,8 +48,8 @@
     "ws2812": {
         "pin": "A8"
     },
-// Update layouts
-    "community_layouts": ["60_iso_tsangan", "60_tsangan_hhkb"],
+
+ "community_layouts": ["60_iso_tsangan_split_bs_rshift", "60_iso_wkl_split_bs_rshift"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
