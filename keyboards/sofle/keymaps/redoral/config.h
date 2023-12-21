@@ -6,12 +6,13 @@
   * see https://docs.qmk.fm/#/feature_split_keyboard?id=setting-handedness
   * for more options. 
   */
-  
+
 #pragma once
 
-#define SPLIT_WPM_ENABLE
 
 #if defined(KEYBOARD_sofle_rev1)
+// Experimental 1000hz polling (might be default?)
+#    define USB_POLLING_INTERVAL_MS 1
 // Add RGB underglow and top facing lighting
 #    define WS2812_DI_PIN D3
 #    define RGBLED_NUM 72
