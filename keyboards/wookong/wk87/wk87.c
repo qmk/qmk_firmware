@@ -33,7 +33,7 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 
 #ifdef DIP_SWITCH_ENABLE
 bool dip_switch_update_kb(uint8_t index, bool active) {
-    if (!dip_switch_update_user(index, active) { 
+    if (!dip_switch_update_user(index, active)) { 
         return false;
     }
     default_layer_set(1UL << (active ? 2 : 0));
