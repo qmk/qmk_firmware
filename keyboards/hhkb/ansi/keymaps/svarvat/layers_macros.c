@@ -27,10 +27,16 @@ bool isLThumbWeakPristine = true;
 uint16_t inMemoryPreviousWeakLayer = 0;
 uint16_t inMemoryCurrentWeakLayer = 0;
 
+void layer_on_lmouse(void) {
+    layer_on(LA_MOUSE);
+    tap_code16(KC_SCROLL_LOCK);
+    isMouseX1Started = true;
+    isScrollX1Started = true;
+}
 void layer_off_lmouse(void) {
 //  set_auto_mouse_enable(false);
-    tap_code16(KC_SCROLL_LOCK);
     layer_off(LA_MOUSE);
+    tap_code16(KC_SCROLL_LOCK);
     isMouseX1Started = false;
     isScrollX1Started = false;
     isMouseX2Started = false;
@@ -46,13 +52,9 @@ void layer_off_lmouse(void) {
     mouseRight = false;
     mouseLeft = false;
 }
-void reverse_weak_layer(bool isLThumbMoPristine) {
-    if (isLThumbMoPristine && (inMemoryPreviousWeakLayer != 0)) {
-        layer_off(inMemoryCurrentWeakLayer);
-        layer_on(inMemoryPreviousWeakLayer);
-        isLThumbMoPristine = false;
-        isLThumbWeakPristine = false;
-    }
+void layer_off_mo_layer(uint16_t layer) {
+    isLThumbMoPristine = true;
+    layer_off(layer);
 }
 void layer_on_weak_layer(uint16_t layer) {
     inMemoryCurrentWeakLayer = layer;
@@ -63,9 +65,13 @@ void layer_off_weak_layer(uint16_t layer) {
     isLThumbWeakPristine = true;
     layer_off(layer);
 }
-void layer_off_mo_layer(uint16_t layer) {
-    isLThumbMoPristine = true;
-    layer_off(layer);
+void reverse_weak_layer(bool isLThumbMoPristine) {
+    if (isLThumbMoPristine && (inMemoryPreviousWeakLayer != 0)) {
+        layer_off(inMemoryCurrentWeakLayer);
+        layer_on(inMemoryPreviousWeakLayer);
+        isLThumbMoPristine = false;
+        isLThumbWeakPristine = false;
+    }
 }
 bool switch_ctl_tab_off(uint16_t keycode) {
     if (isCtlTabStarted
@@ -130,10 +136,7 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
                     reset_keyboard();
                 } else {
 //                    set_auto_mouse_enable(true);
-                    layer_on(LA_MOUSE);
-                    tap_code16(KC_SCROLL_LOCK);
-                    isMouseX1Started = true;
-                    isScrollX1Started = true;
+                    layer_on_lmouse();
                 }
             }
             return false;
@@ -713,11 +716,8 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
         case MA_LMOUSE:
             if (record->event.pressed) {
                 layer_off(LA_LTHUMB);
-                layer_on(LA_MOUSE);
-                tap_code16(KC_SCROLL_LOCK);
                 layer_on(LA_LTHUMBMS);
-                isMouseX1Started = true;
-                isScrollX1Started = true;
+                layer_on_lmouse();
                 isWeakLaMouseStarted = true;
             }
             return false;
