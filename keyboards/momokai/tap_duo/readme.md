@@ -1,9 +1,12 @@
-# Momokai tap trio
+# Momokai tap duo
 
+https://www.momokai.com/pages/tap-duo
+
+![Momokai tap duo](https://i.imgur.com/gi6Bokm.jpg)
 
 * Keyboard Maintainer: [peepeetee](https://github.com/peepeetee)
 * Hardware Supported: Tap Duo
-* Hardware Availability: [Momokai](https://www.momokai.com/)
+* Hardware Availability: [Momokai](https://www.momokai.com/pages/tap-duo)
 
 Make example for this keyboard (after setting up your build environment):
 
