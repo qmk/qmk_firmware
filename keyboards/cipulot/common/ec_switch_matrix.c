@@ -251,7 +251,7 @@ bool ec_update_key(matrix_row_t* current_row, uint8_t row, uint8_t col, uint16_t
                     uprintf("Key pressed: %d, %d, %d\n", row, col, sw_value);
                 }
                 // Has key moved up enough to be released?
-                else if (sw_value < ec_config.extremum[row][col] - DEFAULT_MODE_1_RELEASE_SENSITIVITY) {
+                else if (sw_value < ec_config.extremum[row][col] - ec_config.mode_1_release_offset) {
                     ec_config.extremum[row][col] = sw_value;
                     *current_row &= ~(1 << col);
                     uprintf("Key released: %d, %d, %d\n", row, col, sw_value);
@@ -265,7 +265,7 @@ bool ec_update_key(matrix_row_t* current_row, uint8_t row, uint8_t col, uint16_t
                     ec_config.extremum[row][col] = sw_value;
                 }
                 // Has key moved down enough to be pressed?
-                else if (sw_value > ec_config.extremum[row][col] + DEFAULT_MODE_1_ACTUATION_SENSITIVITY) {
+                else if (sw_value > ec_config.extremum[row][col] + ec_config.mode_1_actuation_offset) {
                     ec_config.extremum[row][col] = sw_value;
                     *current_row |= (1 << col);
                     uprintf("Key pressed: %d, %d, %d\n", row, col, sw_value);

@@ -35,8 +35,8 @@ enum via_enums {
     id_mode_0_release_threshold = 3,
     id_save_threshold_data = 4,
     id_mode_1_initial_deadzone_offset = 5,
-    id_mode_1_actuation_sensitivity = 6,
-    id_mode_1_release_sensitivity = 7,
+    id_mode_1_actuation_offset = 6,
+    id_mode_1_release_offset = 7,
     id_bottoming_calibration = 8,
     id_noise_floor_calibration = 9,
     id_show_calibration_data = 10,
@@ -82,14 +82,14 @@ void via_config_set_value(uint8_t *data) {
             uprintf("Rapid Trigger Mode Initial Deadzone Offset: %d\n", ec_config.mode_1_initial_deadzone_offset);
             break;
         }
-        case id_mode_1_actuation_sensitivity: {
-            ec_config.mode_1_actuation_sensitivity = value_data[0];
-            uprintf("Rapid Trigger Mode Actuation Sensitivity: %d\n", ec_config.mode_1_actuation_sensitivity);
+        case id_mode_1_actuation_offset: {
+            ec_config.mode_1_actuation_offset = value_data[0];
+            uprintf("Rapid Trigger Mode Actuation Offset: %d\n", ec_config.mode_1_actuation_offset);
             break;
         }
-        case id_mode_1_release_sensitivity: {
-            ec_config.mode_1_release_sensitivity = value_data[0];
-            uprintf("Rapid Trigger Mode Release Sensitivity: %d\n", ec_config.mode_1_release_sensitivity);
+        case id_mode_1_release_offset: {
+            ec_config.mode_1_release_offset = value_data[0];
+            uprintf("Rapid Trigger Mode Release Offset: %d\n", ec_config.mode_1_release_offset);
             break;
         }
         case id_bottoming_calibration: {
@@ -166,12 +166,12 @@ void via_config_get_value(uint8_t *data) {
             value_data[1] = eeprom_ec_config.mode_1_initial_deadzone_offset & 0xFF;
             break;
         }
-        case id_mode_1_actuation_sensitivity: {
-            value_data[0] = eeprom_ec_config.mode_1_actuation_sensitivity;
+        case id_mode_1_actuation_offset: {
+            value_data[0] = eeprom_ec_config.mode_1_actuation_offset;
             break;
         }
-        case id_mode_1_release_sensitivity: {
-            value_data[0] = eeprom_ec_config.mode_1_release_sensitivity;
+        case id_mode_1_release_offset: {
+            value_data[0] = eeprom_ec_config.mode_1_release_offset;
             break;
         }
         default: {
@@ -259,8 +259,8 @@ void ec_save_threshold_data(uint8_t option) {
     // Save Rapid Trigger mode thresholds and rescale them for runtime usage
     else if (option == 1) {
         eeprom_ec_config.mode_1_initial_deadzone_offset = ec_config.mode_1_initial_deadzone_offset;
-        eeprom_ec_config.mode_1_actuation_sensitivity   = ec_config.mode_1_actuation_sensitivity;
-        eeprom_ec_config.mode_1_release_sensitivity     = ec_config.mode_1_release_sensitivity;
+        eeprom_ec_config.mode_1_actuation_offset   = ec_config.mode_1_actuation_offset;
+        eeprom_ec_config.mode_1_release_offset     = ec_config.mode_1_release_offset;
         ec_rescale_values(2);
     }
     eeconfig_update_kb_datablock(&eeprom_ec_config);
