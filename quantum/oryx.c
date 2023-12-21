@@ -65,7 +65,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             pairing_success_event();
 
         case ORYX_CMD_PAIRING_VALIDATE:
-            pairing_success_event();
+            break; // Keeping this for backwards compatibility with older versions of Wally / Keymapp
 
         case ORYX_SET_LAYER:
             if (rawhid_state.paired == true) {
