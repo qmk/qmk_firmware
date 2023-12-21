@@ -2,7 +2,7 @@
 
 https://www.momokai.com/pages/tap-duo
 
-![Momokai tap duo](https://i.imgur.com/gi6Bokm.jpg)
+![Momokai tap duo](https://i.imgur.com/gi6Bokmh.jpg)
 
 * Keyboard Maintainer: [peepeetee](https://github.com/peepeetee)
 * Hardware Supported: Tap Duo
