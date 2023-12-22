@@ -1540,11 +1540,7 @@ bool processKeycodeIfLThumb3Weak(uint16_t keycode, keyrecord_t* record) {
 bool processKeycodeIfLThumbEStrong(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case MA_LTHUMBE:
-        case MA_LTHUMB:
-        case MA_LTHUMBMS:
-            if (!(record->event.pressed)) {
-                return false;
-            }
+            return false;
         case MA_SUPER:
             register_mods(MOD_MASK_CTRL);
             editModeLThumbStrongStarted = true;
@@ -1556,27 +1552,31 @@ bool processKeycodeIfLThumbEStrong(uint16_t keycode, keyrecord_t* record) {
             }
             layer_off(LA_LTHUMBESTRONG);
             return false;
+        case KC_LALT:
+        case KC_LSFT:
+        case MA_LPINKY:
+        case MO(LA_RTHUMB):
+            if (editModeLThumbStrongStarted) {
+                unregister_mods(MOD_MASK_CTRL);
+                editModeLThumbStrongStarted = false;
+            }
+            layer_off(LA_LTHUMBESTRONG);
+            return true;
         default:
-            if (record->event.pressed) {
-                return true;
-            } else {
+            if (!(record->event.pressed)) {
                 if (editModeLThumbStrongStarted) {
                     unregister_mods(MOD_MASK_CTRL);
                     editModeLThumbStrongStarted = false;
                 }
                 layer_off(LA_LTHUMBESTRONG);
             }
-            return false;
+            return true;
     }
 }
 bool processKeycodeIfLThumbDStrong(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case MA_LTHUMBD:
-        case MA_LTHUMB:
-        case MA_LTHUMBMS:
-            if (!(record->event.pressed)) {
-                return false;
-            }
+            return false;
         case MA_SUPER:
             register_mods(MOD_MASK_CTRL);
             editModeLThumbStrongStarted = true;
@@ -1588,17 +1588,25 @@ bool processKeycodeIfLThumbDStrong(uint16_t keycode, keyrecord_t* record) {
             }
             layer_off(LA_LTHUMBDSTRONG);
             return false;
+        case KC_LALT:
+        case KC_LSFT:
+        case MA_LPINKY:
+        case MO(LA_RTHUMB):
+            if (editModeLThumbStrongStarted) {
+                unregister_mods(MOD_MASK_CTRL);
+                editModeLThumbStrongStarted = false;
+            }
+            layer_off(LA_LTHUMBDSTRONG);
+            return true;
         default:
-            if (record->event.pressed) {
-                return true;
-            } else {
+            if (!(record->event.pressed)) {
                 if (editModeLThumbStrongStarted) {
                     unregister_mods(MOD_MASK_CTRL);
                     editModeLThumbStrongStarted = false;
                 }
                 layer_off(LA_LTHUMBDSTRONG);
             }
-            return false;
+            return true;
     }
 }
 
