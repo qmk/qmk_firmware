@@ -131,10 +131,10 @@
                     "properties": {
                         "on_state": {"$ref": "qmk.definitions.v1#/bit"},
                         "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"}
-                    },
+                    }
                 },
                 "voices": {"type": "boolean"}
-            },
+            }
         },
         "backlight": {
             "type": "object",
