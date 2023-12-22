@@ -1295,30 +1295,46 @@ bool processKeycodeIfLThumb1Weak(uint16_t keycode, keyrecord_t* record) {
             }
             return false;
         case MA_LTHUMBE:
-            if (record->event.pressed) {
-                if (isLThumbWeakPristine) {
-                    tap_code16(C(A(KC_E)));
-                } else {
-                    layer_off_weak_layer(LA_LTHUMB1WEAK);
-                    layer_on_weak_layer(LA_LTHUMBEWEAK);
-                    if (IS_LAYER_ON(LA_LTHUMBMS)) {
-                        isMouseX4Started = true;
+            if (IS_LAYER_ON(LA_LTHUMBMS)) {
+                if (record->event.pressed) {
+                    if (isLThumbWeakPristine) {
+                        tap_code16(C(A(KC_E)));
                     } else {
+                        layer_off_weak_layer(LA_LTHUMB1WEAK);
+                        layer_on_weak_layer(LA_LTHUMBEWEAK);
+                    }
+                }
+                return true;
+            } else {
+                if (record->event.pressed) {
+                    if (isLThumbWeakPristine) {
+                        tap_code16(C(A(KC_E)));
+                    } else {
+                        layer_off_weak_layer(LA_LTHUMB1WEAK);
+                        layer_on_weak_layer(LA_LTHUMBEWEAK);
                         layer_on(LA_LTHUMBEMO);
                     }
                 }
             }
             return false;
         case MA_LTHUMBD:
-            if (record->event.pressed) {
-                if (isLThumbWeakPristine) {
-                    tap_code16(C(A(KC_D)));
-                } else {
-                    layer_off_weak_layer(LA_LTHUMB1WEAK);
-                    layer_on_weak_layer(LA_LTHUMBDWEAK);
-                    if (IS_LAYER_ON(LA_LTHUMBMS)) {
-                        isMouseX2Started = true;
+            if (IS_LAYER_ON(LA_LTHUMBMS)) {
+                if (record->event.pressed) {
+                    if (isLThumbWeakPristine) {
+                        tap_code16(C(A(KC_D)));
                     } else {
+                        layer_off_weak_layer(LA_LTHUMB1WEAK);
+                        layer_on_weak_layer(LA_LTHUMBDWEAK);
+                    }
+                }
+                return true;
+            } else {
+                if (record->event.pressed) {
+                    if (isLThumbWeakPristine) {
+                        tap_code16(C(A(KC_D)));
+                    } else {
+                        layer_off_weak_layer(LA_LTHUMB1WEAK);
+                        layer_on_weak_layer(LA_LTHUMBDWEAK);
                         layer_on(LA_LTHUMBDMO);
                     }
                 }
@@ -1364,30 +1380,46 @@ bool processKeycodeIfLThumb2Weak(uint16_t keycode, keyrecord_t* record) {
             }
             return false;
         case MA_LTHUMBE:
-            if (record->event.pressed) {
-                if (isLThumbWeakPristine) {
-                    tap_code16(RCS(KC_E));
-                } else {
-                    layer_off_weak_layer(LA_LTHUMB2WEAK);
-                    layer_on_weak_layer(LA_LTHUMBEWEAK);
-                    if (IS_LAYER_ON(LA_LTHUMBMS)) {
-                        isMouseX4Started = true;
+            if (IS_LAYER_ON(LA_LTHUMBMS)) {
+                if (record->event.pressed) {
+                    if (isLThumbWeakPristine) {
+                        tap_code16(RCS(KC_E));
                     } else {
+                        layer_off_weak_layer(LA_LTHUMB2WEAK);
+                        layer_on_weak_layer(LA_LTHUMBEWEAK);
+                    }
+                }
+                return true;
+            } else {
+                if (record->event.pressed) {
+                    if (isLThumbWeakPristine) {
+                        tap_code16(RCS(KC_E));
+                    } else {
+                        layer_off_weak_layer(LA_LTHUMB2WEAK);
+                        layer_on_weak_layer(LA_LTHUMBEWEAK);
                         layer_on(LA_LTHUMBEMO);
                     }
                 }
             }
             return false;
         case MA_LTHUMBD:
-            if (record->event.pressed) {
-                if (isLThumbWeakPristine) {
-                    tap_code16(RCS(KC_D));
-                } else {
-                    layer_off_weak_layer(LA_LTHUMB2WEAK);
-                    layer_on_weak_layer(LA_LTHUMBDWEAK);
-                    if (IS_LAYER_ON(LA_LTHUMBMS)) {
-                        isMouseX2Started = true;
+            if (IS_LAYER_ON(LA_LTHUMBMS)) {
+                if (record->event.pressed) {
+                    if (isLThumbWeakPristine) {
+                        tap_code16(RCS(KC_D));
                     } else {
+                        layer_off_weak_layer(LA_LTHUMB2WEAK);
+                        layer_on_weak_layer(LA_LTHUMBDWEAK);
+                    }
+                }
+                return true;
+            } else {
+                if (record->event.pressed) {
+                    if (isLThumbWeakPristine) {
+                        tap_code16(RCS(KC_D));
+                    } else {
+                        layer_off_weak_layer(LA_LTHUMB2WEAK);
+                        layer_on_weak_layer(LA_LTHUMBDWEAK);
                         layer_on(LA_LTHUMBDMO);
                     }
                 }
@@ -1433,30 +1465,46 @@ bool processKeycodeIfLThumb3Weak(uint16_t keycode, keyrecord_t* record) {
             }
             return false;
         case MA_LTHUMBE:
-            if (record->event.pressed) {
-                if (isLThumbWeakPristine) {
-                    tap_code16(LALT(KC_E));
-                } else {
-                    layer_off_weak_layer(LA_LTHUMB3WEAK);
-                    layer_on_weak_layer(LA_LTHUMBEWEAK);
-                    if (IS_LAYER_ON(LA_LTHUMBMS)) {
-                        isMouseX4Started = true;
+            if (IS_LAYER_ON(LA_LTHUMBMS)) {
+                if (record->event.pressed) {
+                    if (isLThumbWeakPristine) {
+                        tap_code16(LALT(KC_E));
                     } else {
+                        layer_off_weak_layer(LA_LTHUMB3WEAK);
+                        layer_on_weak_layer(LA_LTHUMBEWEAK);
+                    }
+                }
+                return true;
+            } else {
+                if (record->event.pressed) {
+                    if (isLThumbWeakPristine) {
+                        tap_code16(LALT(KC_E));
+                    } else {
+                        layer_off_weak_layer(LA_LTHUMB3WEAK);
+                        layer_on_weak_layer(LA_LTHUMBEWEAK);
                         layer_on(LA_LTHUMBEMO);
                     }
                 }
             }
             return false;
         case MA_LTHUMBD:
-            if (record->event.pressed) {
-                if (isLThumbWeakPristine) {
-                    tap_code16(LALT(KC_D));
-                } else {
-                    layer_off_weak_layer(LA_LTHUMB3WEAK);
-                    layer_on_weak_layer(LA_LTHUMBDWEAK);
-                    if (IS_LAYER_ON(LA_LTHUMBMS)) {
-                        isMouseX2Started = true;
+            if (IS_LAYER_ON(LA_LTHUMBMS)) {
+                if (record->event.pressed) {
+                    if (isLThumbWeakPristine) {
+                        tap_code16(LALT(KC_D));
                     } else {
+                        layer_off_weak_layer(LA_LTHUMB3WEAK);
+                        layer_on_weak_layer(LA_LTHUMBDWEAK);
+                    }
+                }
+                return true;
+            } else {
+                if (record->event.pressed) {
+                    if (isLThumbWeakPristine) {
+                        tap_code16(LALT(KC_D));
+                    } else {
+                        layer_off_weak_layer(LA_LTHUMB3WEAK);
+                        layer_on_weak_layer(LA_LTHUMBDWEAK);
                         layer_on(LA_LTHUMBDMO);
                     }
                 }
