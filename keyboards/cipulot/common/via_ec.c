@@ -72,8 +72,7 @@ void via_config_set_value(uint8_t *data) {
             break;
         }
         case id_mode_0_release_threshold: {
-            eeprom_ec_config.mode_0_release_threshold = value_data[1] | (value_data[0] << 8);
-            ec_config.mode_0_release_threshold        = eeprom_ec_config.mode_0_release_threshold;
+            ec_config.mode_0_release_threshold = value_data[1] | (value_data[0] << 8);
             uprintf("APC Mode Release Threshold: %d\n", ec_config.mode_0_release_threshold);
             break;
         }
