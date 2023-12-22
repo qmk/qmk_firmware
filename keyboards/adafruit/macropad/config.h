@@ -49,8 +49,6 @@
 #define AUDIO_INIT_DELAY
 #define AUDIO_CLICKY
 
-#define AUDIO_SHUTDOWN_PIN GP14
-
 #ifdef RGB_MATRIX_ENABLE
 
      /* RGB Defines */
