@@ -362,6 +362,16 @@ This command is directory aware. It will automatically fill in KEYBOARD if you a
 qmk list-keymaps -kb planck/ez
 ```
 
+## `qmk migrate`
+
+This command searches for legacy code that can be converted to the new `info.json` format and adds it to the specified keyboard's `info.json`.
+
+**Usage**:
+
+```
+qmk migrate [-h] -kb KEYBOARD [-f FILTER]
+```
+
 ## `qmk new-keyboard`
 
 This command creates a new keyboard based on available templates.
@@ -478,6 +488,131 @@ $ qmk import-kbfirmware ~/Downloads/gh62.json
 Ψ To start working on things, `cd` into keyboards/gh62,
 Ψ or open the directory in your preferred text editor.
 Ψ And build with qmk compile -kb gh62 -km default.
+```
+
+---
+
+# External Userspace Commands
+
+## `qmk userspace-add`
+
+This command adds a keyboard/keymap to the External Userspace build targets.
+
+**Usage**:
+
+```
+qmk userspace-add [-h] [-km KEYMAP] [-kb KEYBOARD] [builds ...]
+
+positional arguments:
+  builds                List of builds in form <keyboard>:<keymap>, or path to a keymap JSON file.
+
+options:
+  -h, --help            show this help message and exit
+  -km KEYMAP, --keymap KEYMAP
+                        The keymap to build a firmware for. Ignored when a configurator export is supplied.
+  -kb KEYBOARD, --keyboard KEYBOARD
+                        The keyboard to build a firmware for. Ignored when a configurator export is supplied.
+```
+
+**Example**:
+
+```
+$ qmk userspace-add -kb planck/rev6 -km default
+Ψ Added planck/rev6:default to userspace build targets
+Ψ Saved userspace file to /home/you/qmk_userspace/qmk.json
+```
+
+## `qmk userspace-remove`
+
+This command removes a keyboard/keymap from the External Userspace build targets.
+
+**Usage**:
+
+```
+qmk userspace-remove [-h] [-km KEYMAP] [-kb KEYBOARD] [builds ...]
+
+positional arguments:
+  builds                List of builds in form <keyboard>:<keymap>, or path to a keymap JSON file.
+
+options:
+  -h, --help            show this help message and exit
+  -km KEYMAP, --keymap KEYMAP
+                        The keymap to build a firmware for. Ignored when a configurator export is supplied.
+  -kb KEYBOARD, --keyboard KEYBOARD
+                        The keyboard to build a firmware for. Ignored when a configurator export is supplied.
+```
+
+**Example**:
+
+```
+$ qmk userspace-remove -kb planck/rev6 -km default
+Ψ Removed planck/rev6:default from userspace build targets
+Ψ Saved userspace file to /home/you/qmk_userspace/qmk.json
+```
+
+## `qmk userspace-list`
+
+This command lists the External Userspace build targets.
+
+**Usage**:
+
+```
+qmk userspace-list [-h] [-e]
+
+options:
+  -h, --help    show this help message and exit
+  -e, --expand  Expands any use of `all` for either keyboard or keymap.
+```
+
+**Example**:
+
+```
+$ qmk userspace-list
+Ψ Current userspace build targets:
+Ψ Keyboard: planck/rev6, keymap: you
+Ψ Keyboard: clueboard/66/rev3, keymap: you
+```
+
+## `qmk userspace-compile`
+
+This command compiles all the External Userspace build targets.
+
+**Usage**:
+
+```
+qmk userspace-compile [-h] [-e ENV] [-n] [-c] [-j PARALLEL] [-t]
+
+options:
+  -h, --help            show this help message and exit
+  -e ENV, --env ENV     Set a variable to be passed to make. May be passed multiple times.
+  -n, --dry-run         Don't actually build, just show the commands to be run.
+  -c, --clean           Remove object files before compiling.
+  -j PARALLEL, --parallel PARALLEL
+                        Set the number of parallel make jobs; 0 means unlimited.
+  -t, --no-temp         Remove temporary files during build.
+```
+
+**Example**:
+
+```
+$ qmk userspace-compile
+Ψ Preparing target list...
+Build planck/rev6:you                                                  [OK]
+Build clueboard/66/rev3:you                                            [OK]
+```
+
+## `qmk userspace-doctor`
+
+This command examines your environment and alerts you to potential problems related to External Userspace.
+
+**Example**:
+
+```
+% qmk userspace-doctor
+Ψ QMK home: /home/you/qmk_userspace/qmk_firmware
+Ψ Testing userspace candidate: /home/you/qmk_userspace -- Valid `qmk.json`
+Ψ QMK userspace: /home/you/qmk_userspace
+Ψ Userspace enabled: True
 ```
 
 ---
