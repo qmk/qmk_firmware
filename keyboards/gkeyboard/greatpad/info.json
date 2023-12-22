@@ -15,6 +15,7 @@
         "command": false,
         "console": false,
         "extrakey": true,
+        "encoder": true,
         "mousekey": true,
         "nkro": true,
         "rgb_matrix": true,
