@@ -20,7 +20,7 @@
 
 #ifndef PLOOPY_DPI_OPTIONS
 #    define PLOOPY_DPI_OPTIONS \
-        { 600, 900, 1200, 1600 }
+        { 450, 900, 1200, 1600 }
 #    ifndef PLOOPY_DPI_DEFAULT
 #        define PLOOPY_DPI_DEFAULT 1
 #    endif
@@ -147,7 +147,7 @@ void keyboard_pre_init_kb(void) {
      * of these pins high will cause a short. On the MCU. Ka-blooey.
      */
     const pin_t unused_pins[] = { GP1, GP3, GP4, GP6, GP8, GP10, GP14, GP16,
-        GP18, GP20, GP22, GP24, GP25, GP26, GP27, GP28, GP29 };
+        GP18, GP21, GP22, GP24, GP25, GP26, GP27, GP28, GP29 };
 
     for (uint8_t i = 0; i < (sizeof(unused_pins) / sizeof(pin_t)); i++) {
         setPinOutput(unused_pins[i]);

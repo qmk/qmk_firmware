@@ -1,6 +1,5 @@
-/* Copyright 2023 Colin Lam (Ploopy Corporation)
- * Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
- * Copyright 2019 Sunjun Kim
+/*
+ * Copyright 2022 Charly Delay <charly@codesink.dev> (@0xcharly)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,17 +17,7 @@
 
 #pragma once
 
-#define COMBO_VARIABLE_LEN
-#define COMBO_TERM 60
-#define COMBO_SHOULD_TRIGGER
+#include_next <mcuconf.h>
 
-// #define ROTATIONAL_TRANSFORM_ANGLE 0
-#define ROTATIONAL_TRANSFORM_ANGLE -90
-#define POINTING_DEVICE_INVERT_Y
-
-/* PMW3360 Settings */
-#define PMW33XX_LIFTOFF_DISTANCE 0x00
-#define PMW33XX_CS_PIN GP5
-#define SPI_SCK_PIN GP2
-#define SPI_MISO_PIN GP0
-#define SPI_MOSI_PIN GP7
+#undef RP_SPI_USE_SPI0
+#define RP_SPI_USE_SPI0 TRUE

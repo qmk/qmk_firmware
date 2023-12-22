@@ -1,0 +1,6 @@
+COMB(DEF_MMB,       MMB,            LMB, SCR_SNI)       // _ X X
+COMB(DEF_NAV,       FWD,            RMB, SCR_SNI)       // X X _
+COMB(DEF_SCR,       BCK,            RMB, LMB)           // X _ X (reserved for DRG_TOG once we figure out how)
+COMB(DEF_RST,       QK_BOOT,        RMB, LMB, SCR_SNI)  // X X X
+
+
