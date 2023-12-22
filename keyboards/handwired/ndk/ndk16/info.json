@@ -3,19 +3,24 @@
     "keyboard_name": "ndk16",
     "maintainer": "itskevin-zz",
     "bootloader": "caterina",
+    "build": {
+        "lto": true
+    },
     "diode_direction": "COL2ROW",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "F5", "pin_b": "F4", "resolution": 4}
+        ]
+    },
     "features": {
         "bootmagic": true,
         "command": false,
         "console": false,
+        "encoder": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "encoder": true,
         "oled": true
-    },
-    "build": {
-        "lto": true
     },
     "matrix_pins": {
         "cols": ["D7", "D4", "C6", "B4", "E6"],
@@ -25,14 +30,8 @@
     "url": "",
     "usb": {
         "device_version": "1.0.0",
-        "vid": "0x444E",
-        "pid": "0x0002"
-
-    },
-    "encoder": {
-        "rotary": [
-            {"pin_a":"F5", "pin_b": "F4", "resolution": 4 }
-        ]
+        "pid": "0x0002",
+        "vid": "0x444E"
     },
     "layouts": {
         "LAYOUT_numpad_5x5": {
@@ -42,26 +41,20 @@
                 {"matrix": [0, 2], "x": 2.5, "y": 0},
                 {"matrix": [0, 3], "x": 3.5, "y": 0},
                 {"matrix": [0, 4], "x": 4.5, "y": 0},
-
                 {"matrix": [1, 1], "x": 1.5, "y": 1},
                 {"matrix": [1, 2], "x": 2.5, "y": 1},
                 {"matrix": [1, 3], "x": 3.5, "y": 1},
                 {"matrix": [1, 4], "x": 4.5, "y": 1},
-
                 {"matrix": [2, 1], "x": 1.5, "y": 2},
                 {"matrix": [2, 2], "x": 2.5, "y": 2},
                 {"matrix": [2, 3], "x": 3.5, "y": 2},
-
                 {"matrix": [3, 1], "x": 1.5, "y": 3},
                 {"matrix": [3, 2], "x": 2.5, "y": 3},
                 {"matrix": [3, 3], "x": 3.5, "y": 3},
-
                 {"matrix": [4, 0], "x": 0, "y": 4},
                 {"matrix": [4, 1], "x": 1.5, "y": 4},
                 {"matrix": [4, 3], "x": 3.5, "y": 4},
                 {"matrix": [4, 4], "x": 4.5, "y": 3}
-
-                
             ]
         }
     }
