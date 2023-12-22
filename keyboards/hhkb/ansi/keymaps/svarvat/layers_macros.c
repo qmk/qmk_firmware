@@ -232,8 +232,9 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
             clear_keyboard();
             soft_reset_keyboard();
             return false;
+        default:
+            return true;
     }
-    return true;
 }
 bool processKeycodeIfLMouse(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
@@ -311,8 +312,9 @@ bool processKeycodeIfLMouse(uint16_t keycode, keyrecord_t* record) {
                 tap_code16(KC_MS_BTN4);
             }
             return false;
+        default:
+            return true;
     }
-    return true;
 }
 bool processKeycodeIfLCapslock(uint16_t keycode, keyrecord_t* record) {
     if (isCapswordStarted &&
@@ -337,12 +339,12 @@ bool processKeycodeIfLCapslock(uint16_t keycode, keyrecord_t* record) {
                 layer_off(LA_CAPSLOCK);
             }
             return false;
-        case MA_CIRC:
+//        case MA_CIRC:
 //            if (record->event.pressed) {
 //                if (!(isDeadKeyTremaStarted) && mod_state && MOD_MASK_SHIFT) {isDeadKeyTremaStarted=true;}
 //                else if (!isDeadKeyCircStarted) {isDeadKeyCircStarted=true;}
 //            }
-            return false;
+//            return false;
 //        case MA_CAPSE:
 //            if (record->event.pressed) {
 //                if (isDeadKeyTremaStarted) {
@@ -400,10 +402,12 @@ bool processKeycodeIfLCapslock(uint16_t keycode, keyrecord_t* record) {
 //                else {tap_code16(S(KC_U));}
 //            }
 //            return false;
-    }
+//    }
 //    if (isDeadKeyCircStarted) {isDeadKeyCircStarted=false;}
 //    if (isDeadKeyTremaStarted) {isDeadKeyTremaStarted=false;}
-    return true;
+        case default:
+            return true;
+    }
 }
 bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
@@ -654,8 +658,9 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
                 tap_code16(KC_F12);
             }
             return false;
+        default:
+            return true;
     }
-    return true;
 }
 bool processKeycodeIfRThumb(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
@@ -672,8 +677,9 @@ bool processKeycodeIfRThumb(uint16_t keycode, keyrecord_t* record) {
                 tap_code16(KC_SPC);
             }
             return false;
+        default:
+            return true;
     }
-    return true;
 }
 bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
     if (!switch_ctl_tab_off(keycode)) {return false;}
@@ -832,8 +838,9 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
                 }
             }
             return false;
+        default:
+            return true;
     }
-    return true;
 }
 bool processKeycodeIfLThumbMs(uint16_t keycode, keyrecord_t* record) {
     if (!switch_ctl_tab_off(keycode)) {return false;}
@@ -887,7 +894,6 @@ bool processKeycodeIfLThumbMs(uint16_t keycode, keyrecord_t* record) {
             } else {
                 if (record->event.pressed) {
                     tap_code16(KC_AUDIO_VOL_UP);
-                    return false;
                 }
             }
             return false;
@@ -897,7 +903,6 @@ bool processKeycodeIfLThumbMs(uint16_t keycode, keyrecord_t* record) {
             } else {
                 if (record->event.pressed) {
                     tap_code16(KC_AUDIO_VOL_DOWN);
-                    return false;
                 }
             }
             return false;
@@ -1048,8 +1053,9 @@ bool processKeycodeIfLThumbEMo(uint16_t keycode, keyrecord_t* record) {
                 reverse_weak_layer(isLThumbMoPristine);
             }
             return false;
+        default:
+            return true;
     }
-    return true;
 }
 bool processKeycodeIfLThumbDMo(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
@@ -1114,8 +1120,9 @@ bool processKeycodeIfLThumbDMo(uint16_t keycode, keyrecord_t* record) {
                 reverse_weak_layer(isLThumbMoPristine);
             }
             return false;
+        default:
+            return true;
     }
-    return true;
 }
 bool processKeycodeIfLThumbEWeak(uint16_t keycode, keyrecord_t* record) {
     if (!switch_ctl_tab_off(keycode)) {return false;}
@@ -1187,9 +1194,10 @@ bool processKeycodeIfLThumbEWeak(uint16_t keycode, keyrecord_t* record) {
                 layer_on_weak_layer(LA_LTHUMB3WEAK);
             }
             return false;
+        default:
+            isLThumbWeakPristine = false;
+            return true;
     }
-    isLThumbWeakPristine = false;
-    return true;
 }
 bool processKeycodeIfLThumbDWeak(uint16_t keycode, keyrecord_t* record) {
     if (!switch_ctl_tab_off(keycode)) {return false;}
@@ -1261,9 +1269,10 @@ bool processKeycodeIfLThumbDWeak(uint16_t keycode, keyrecord_t* record) {
                 layer_on_weak_layer(LA_LTHUMB3WEAK);
             }
             return false;
+        default:
+            isLThumbWeakPristine = false;
+            return true;
     }
-    isLThumbWeakPristine = false;
-    return true;
 }
 bool processKeycodeIfLThumb1Weak(uint16_t keycode, keyrecord_t* record) {
     if (!switch_ctl_tab_off(keycode)) {return false;}
@@ -1329,9 +1338,10 @@ bool processKeycodeIfLThumb1Weak(uint16_t keycode, keyrecord_t* record) {
                 layer_on_weak_layer(LA_LTHUMB3WEAK);
             }
             return false;
+        default:
+            isLThumbWeakPristine = false;
+            return true;
     }
-    isLThumbWeakPristine = false;
-    return true;
 }
 bool processKeycodeIfLThumb2Weak(uint16_t keycode, keyrecord_t* record) {
     if (!switch_ctl_tab_off(keycode)) {return false;}
@@ -1397,9 +1407,10 @@ bool processKeycodeIfLThumb2Weak(uint16_t keycode, keyrecord_t* record) {
                 layer_on_weak_layer(LA_LTHUMB3WEAK);
             }
             return false;
+        default:
+            isLThumbWeakPristine = false;
+            return true;
     }
-    isLThumbWeakPristine = false;
-    return true;
 }
 bool processKeycodeIfLThumb3Weak(uint16_t keycode, keyrecord_t* record) {
     if (!switch_ctl_tab_off(keycode)) {return false;}
@@ -1465,9 +1476,10 @@ bool processKeycodeIfLThumb3Weak(uint16_t keycode, keyrecord_t* record) {
                 layer_on_weak_layer(LA_LTHUMB2WEAK);
             }
             return false;
+        default:
+            isLThumbWeakPristine = false;
+            return true;
     }
-    isLThumbWeakPristine = false;
-    return true;
 }
 bool processKeycodeIfLThumbEStrong(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
