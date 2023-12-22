@@ -3,10 +3,10 @@
 #define LA_CAPSLOCK 2
 #define LA_LPINKY 3 // C(G())
 #define LA_RTHUMB 4
-#define LA_LTHUMB 5
-#define LA_LTHUMBMS 6
-#define LA_LTHUMBESTRONG 7 // LAG - CAG
-#define LA_LTHUMBDSTRONG 8 // LSA - CSA
+#define LA_LTHUMBESTRONG 5 // LAG - CAG
+#define LA_LTHUMBDSTRONG 6 // LSA - CSA
+#define LA_LTHUMB 7
+#define LA_LTHUMBMS 8
 #define LA_LTHUMB1WEAK 9 // C(A)
 #define LA_LTHUMB2WEAK 10 // RCS
 #define LA_LTHUMB3WEAK 11 // LALT
