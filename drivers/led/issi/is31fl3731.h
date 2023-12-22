@@ -49,6 +49,30 @@
 #define g_is31_leds g_is31fl3731_leds
 // ========
 
+#define IS31FL3731_REG_COMMAND 0xFD
+#define IS31FL3731_COMMAND_FRAME_1 0x00
+#define IS31FL3731_COMMAND_FRAME_2 0x01
+#define IS31FL3731_COMMAND_FRAME_3 0x02
+#define IS31FL3731_COMMAND_FRAME_4 0x03
+#define IS31FL3731_COMMAND_FRAME_5 0x04
+#define IS31FL3731_COMMAND_FRAME_6 0x05
+#define IS31FL3731_COMMAND_FRAME_7 0x06
+#define IS31FL3731_COMMAND_FRAME_8 0x07
+#define IS31FL3731_COMMAND_FUNCTION 0x0B
+
+#define IS31FL3731_FUNCTION_REG_CONFIG 0x00
+#define IS31FL3731_CONFIG_MODE_PICTURE 0x00
+#define IS31FL3731_CONFIG_MODE_AUTO_PLAY 0x08
+#define IS31FL3731_CONFIG_MODE_AUDIO_PLAY 0x18
+
+#define IS31FL3731_FUNCTION_REG_PICTURE_DISPLAY 0x01
+#define IS31FL3731_FUNCTION_REG_AUDIO_SYNC 0x06
+#define IS31FL3731_FUNCTION_REG_SHUTDOWN 0x0A
+
+// Not defined in the datasheet -- See AN for IC
+#define IS31FL3731_FUNCTION_REG_GHOST_IMAGE_PREVENTION 0xC2
+#define IS31FL3731_GHOST_IMAGE_PREVENTION_GEN 0x10
+
 #define IS31FL3731_I2C_ADDRESS_GND 0x74
 #define IS31FL3731_I2C_ADDRESS_SCL 0x75
 #define IS31FL3731_I2C_ADDRESS_SDA 0x76
@@ -80,6 +104,7 @@ extern const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT];
 void is31fl3731_init_drivers(void);
 void is31fl3731_init(uint8_t addr);
 void is31fl3731_write_register(uint8_t addr, uint8_t reg, uint8_t data);
+void is31fl3731_select_page(uint8_t addr, uint8_t page);
 void is31fl3731_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
 
 void is31fl3731_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);

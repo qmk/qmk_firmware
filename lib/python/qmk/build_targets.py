@@ -10,7 +10,8 @@ from qmk.constants import QMK_FIRMWARE, INTERMEDIATE_OUTPUT_PREFIX
 from qmk.commands import find_make, get_make_parallel_args, parse_configurator_json
 from qmk.keyboard import keyboard_folder
 from qmk.info import keymap_json
-from qmk.cli.generate.compilation_database import write_compilation_database
+from qmk.keymap import locate_keymap
+from qmk.path import is_under_qmk_firmware, is_under_qmk_userspace
 
 
 class BuildTarget:
@@ -31,6 +32,17 @@ class BuildTarget:
 
     def __repr__(self):
         return f'BuildTarget(keyboard={self.keyboard}, keymap={self.keymap})'
+
+    def __eq__(self, __value: object) -> bool:
+        if not isinstance(__value, BuildTarget):
+            return False
+        return self.__repr__() == __value.__repr__()
+
+    def __ne__(self, __value: object) -> bool:
+        return not self.__eq__(__value)
+
+    def __hash__(self) -> int:
+        return self.__repr__().__hash__()
 
     def configure(self, parallel: int = None, clean: bool = None, compiledb: bool = None) -> None:
         if parallel is not None:
@@ -105,6 +117,7 @@ class BuildTarget:
     def generate_compilation_database(self, build_target: str = None, skip_clean: bool = False, **env_vars) -> None:
         self.prepare_build(build_target=build_target, **env_vars)
         command = self.compile_command(build_target=build_target, dry_run=True, **env_vars)
+        from qmk.cli.generate.compilation_database import write_compilation_database  # Lazy load due to circular references
         write_compilation_database(command=command, output_path=QMK_FIRMWARE / 'compile_commands.json', skip_clean=skip_clean, **env_vars)
 
     def compile(self, build_target: str = None, dry_run: bool = False, **env_vars) -> None:
@@ -146,6 +159,20 @@ class KeyboardKeymapBuildTarget(BuildTarget):
 
         for key, value in env_vars.items():
             compile_args.append(f'{key}={value}')
+
+        # Need to override the keymap path if the keymap is a userspace directory.
+        # This also ensures keyboard aliases as per `keyboard_aliases.hjson` still work if the userspace has the keymap
+        # in an equivalent historical location.
+        keymap_location = locate_keymap(self.keyboard, self.keymap)
+        if is_under_qmk_userspace(keymap_location) and not is_under_qmk_firmware(keymap_location):
+            keymap_directory = keymap_location.parent
+            compile_args.extend([
+                f'MAIN_KEYMAP_PATH_1={keymap_directory}',
+                f'MAIN_KEYMAP_PATH_2={keymap_directory}',
+                f'MAIN_KEYMAP_PATH_3={keymap_directory}',
+                f'MAIN_KEYMAP_PATH_4={keymap_directory}',
+                f'MAIN_KEYMAP_PATH_5={keymap_directory}',
+            ])
 
         return compile_args
 

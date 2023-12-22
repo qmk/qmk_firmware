@@ -21,6 +21,14 @@
 #include "progmem.h"
 #include "util.h"
 
+#define IS31FL3218_REG_SHUTDOWN 0x00
+#define IS31FL3218_REG_PWM 0x01
+#define IS31FL3218_REG_LED_CONTROL_1 0x13
+#define IS31FL3218_REG_LED_CONTROL_2 0x14
+#define IS31FL3218_REG_LED_CONTROL_3 0x15
+#define IS31FL3218_REG_UPDATE 0x16
+#define IS31FL3218_REG_RESET 0x17
+
 #define IS31FL3218_I2C_ADDRESS 0x54
 
 #if defined(RGB_MATRIX_IS31FL3218)
@@ -36,6 +44,8 @@ typedef struct is31fl3218_led_t {
 extern const is31fl3218_led_t PROGMEM g_is31fl3218_leds[IS31FL3218_LED_COUNT];
 
 void is31fl3218_init(void);
+
+void is31fl3218_write_register(uint8_t reg, uint8_t data);
 
 void is31fl3218_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
 

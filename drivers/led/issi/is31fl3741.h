@@ -53,7 +53,7 @@
 #    define IS31FL3741_CS_PULLDOWN ISSI_CSPULLUP
 #endif
 #ifdef ISSI_GLOBALCURRENT
-#    define IS31FL3741_GLOBALCURRENT ISSI_GLOBALCURRENT
+#    define IS31FL3741_GLOBAL_CURRENT ISSI_GLOBALCURRENT
 #endif
 
 #define is31_led is31fl3741_led_t
@@ -68,6 +68,27 @@
 #define PUR_16KR IS31FL3741_PUR_16K_OHM
 #define PUR_32KR IS31FL3741_PUR_32K_OHM
 // ========
+
+#define IS31FL3741_REG_INTERRUPT_MASK 0xF0
+#define IS31FL3741_REG_INTERRUPT_STATUS 0xF1
+#define IS31FL3741_REG_ID 0xFC
+
+#define IS31FL3741_REG_COMMAND 0xFD
+
+#define IS31FL3741_COMMAND_PWM_0 0x00
+#define IS31FL3741_COMMAND_PWM_1 0x01
+#define IS31FL3741_COMMAND_SCALING_0 0x02
+#define IS31FL3741_COMMAND_SCALING_1 0x03
+#define IS31FL3741_COMMAND_FUNCTION 0x04
+
+#define IS31FL3741_FUNCTION_REG_CONFIGURATION 0x00
+#define IS31FL3741_FUNCTION_REG_GLOBAL_CURRENT 0x01
+#define IS31FL3741_FUNCTION_REG_PULLDOWNUP 0x02
+#define IS31FL3741_FUNCTION_REG_PWM_FREQUENCY 0x36
+#define IS31FL3741_FUNCTION_REG_RESET 0x3F
+
+#define IS31FL3741_REG_COMMAND_WRITE_LOCK 0xFE
+#define IS31FL3741_COMMAND_WRITE_LOCK_MAGIC 0xC5
 
 #define IS31FL3741_I2C_ADDRESS_GND 0x30
 #define IS31FL3741_I2C_ADDRESS_SCL 0x31
@@ -100,6 +121,7 @@ extern const is31fl3741_led_t PROGMEM g_is31fl3741_leds[IS31FL3741_LED_COUNT];
 void is31fl3741_init_drivers(void);
 void is31fl3741_init(uint8_t addr);
 void is31fl3741_write_register(uint8_t addr, uint8_t reg, uint8_t data);
+void is31fl3741_select_page(uint8_t addr, uint8_t page);
 bool is31fl3741_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
 
 void is31fl3741_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);

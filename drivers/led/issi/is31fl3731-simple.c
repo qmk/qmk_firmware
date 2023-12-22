@@ -22,26 +22,6 @@
 #include "i2c_master.h"
 #include "wait.h"
 
-#define IS31FL3731_REG_CONFIG 0x00
-#define IS31FL3731_REG_CONFIG_PICTUREMODE 0x00
-#define IS31FL3731_REG_CONFIG_AUTOPLAYMODE 0x08
-#define IS31FL3731_REG_CONFIG_AUDIOPLAYMODE 0x18
-
-#define IS31FL3731_CONF_PICTUREMODE 0x00
-#define IS31FL3731_CONF_AUTOFRAMEMODE 0x04
-#define IS31FL3731_CONF_AUDIOMODE 0x08
-
-#define IS31FL3731_REG_PICTUREFRAME 0x01
-
-// Not defined in the datasheet -- See AN for IC
-#define IS31FL3731_REG_GHOST_IMAGE_PREVENTION 0xC2 // Set bit 4 to enable de-ghosting
-
-#define IS31FL3731_REG_SHUTDOWN 0x0A
-#define IS31FL3731_REG_AUDIOSYNC 0x06
-
-#define IS31FL3731_COMMANDREGISTER 0xFD
-#define IS31FL3731_BANK_FUNCTIONREG 0x0B // helpfully called 'page nine'
-
 #define IS31FL3731_PWM_REGISTER_COUNT 144
 #define IS31FL3731_LED_CONTROL_REGISTER_COUNT 18
 
@@ -53,8 +33,7 @@
 #    define IS31FL3731_I2C_PERSISTENCE 0
 #endif
 
-// Transfer buffer for TWITransmitData()
-uint8_t g_twi_transfer_buffer[20];
+uint8_t i2c_transfer_buffer[20];
 
 // These buffers match the IS31FL3731 PWM registers 0x24-0xB3.
 // Storing them like this is optimal for I2C transfers to the registers.
@@ -68,41 +47,45 @@ uint8_t g_led_control_registers[IS31FL3731_DRIVER_COUNT][IS31FL3731_LED_CONTROL_
 bool    g_led_control_registers_update_required[IS31FL3731_DRIVER_COUNT]                        = {false};
 
 void is31fl3731_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
-    g_twi_transfer_buffer[0] = reg;
-    g_twi_transfer_buffer[1] = data;
+    i2c_transfer_buffer[0] = reg;
+    i2c_transfer_buffer[1] = data;
 
 #if IS31FL3731_I2C_PERSISTENCE > 0
     for (uint8_t i = 0; i < IS31FL3731_I2C_PERSISTENCE; i++) {
-        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 2, IS31FL3731_I2C_TIMEOUT) == 0) {
+        if (i2c_transmit(addr << 1, i2c_transfer_buffer, 2, IS31FL3731_I2C_TIMEOUT) == 0) {
             break;
         }
     }
 #else
-    i2c_transmit(addr << 1, g_twi_transfer_buffer, 2, IS31FL3731_I2C_TIMEOUT);
+    i2c_transmit(addr << 1, i2c_transfer_buffer, 2, IS31FL3731_I2C_TIMEOUT);
 #endif
 }
 
+void is31fl3731_select_page(uint8_t addr, uint8_t page) {
+    is31fl3731_write_register(addr, IS31FL3731_REG_COMMAND, page);
+}
+
 void is31fl3731_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
-    // assumes bank is already selected
+    // assumes page 0 is already selected
 
     // transmit PWM registers in 9 transfers of 16 bytes
-    // g_twi_transfer_buffer[] is 20 bytes
+    // i2c_transfer_buffer[] is 20 bytes
 
     // iterate over the pwm_buffer contents at 16 byte intervals
     for (int i = 0; i < IS31FL3731_PWM_REGISTER_COUNT; i += 16) {
         // set the first register, e.g. 0x24, 0x34, 0x44, etc.
-        g_twi_transfer_buffer[0] = 0x24 + i;
+        i2c_transfer_buffer[0] = 0x24 + i;
         // copy the data from i to i+15
         // device will auto-increment register for data after the first byte
         // thus this sets registers 0x24-0x33, 0x34-0x43, etc. in one transfer
-        memcpy(g_twi_transfer_buffer + 1, pwm_buffer + i, 16);
+        memcpy(i2c_transfer_buffer + 1, pwm_buffer + i, 16);
 
 #if IS31FL3731_I2C_PERSISTENCE > 0
         for (uint8_t i = 0; i < IS31FL3731_I2C_PERSISTENCE; i++) {
-            if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 17, IS31FL3731_I2C_TIMEOUT) == 0) break;
+            if (i2c_transmit(addr << 1, i2c_transfer_buffer, 17, IS31FL3731_I2C_TIMEOUT) == 0) break;
         }
 #else
-        i2c_transmit(addr << 1, g_twi_transfer_buffer, 17, IS31FL3731_I2C_TIMEOUT);
+        i2c_transmit(addr << 1, i2c_transfer_buffer, 17, IS31FL3731_I2C_TIMEOUT);
 #endif
     }
 }
@@ -143,27 +126,25 @@ void is31fl3731_init(uint8_t addr) {
     // then set up the mode and other settings, clear the PWM registers,
     // then disable software shutdown.
 
-    // select "function register" bank
-    is31fl3731_write_register(addr, IS31FL3731_COMMANDREGISTER, IS31FL3731_BANK_FUNCTIONREG);
+    is31fl3731_select_page(addr, IS31FL3731_COMMAND_FUNCTION);
 
     // enable software shutdown
-    is31fl3731_write_register(addr, IS31FL3731_REG_SHUTDOWN, 0x00);
+    is31fl3731_write_register(addr, IS31FL3731_FUNCTION_REG_SHUTDOWN, 0x00);
 #ifdef IS31FL3731_DEGHOST // set to enable de-ghosting of the array
-    is31fl3731_write_register(addr, IS31FL3731_REG_GHOST_IMAGE_PREVENTION, 0x10);
+    is31fl3731_write_register(addr, IS31FL3731_FUNCTION_REG_GHOST_IMAGE_PREVENTION, IS31FL3731_GHOST_IMAGE_PREVENTION_GEN);
 #endif
 
     // this delay was copied from other drivers, might not be needed
     wait_ms(10);
 
     // picture mode
-    is31fl3731_write_register(addr, IS31FL3731_REG_CONFIG, IS31FL3731_REG_CONFIG_PICTUREMODE);
+    is31fl3731_write_register(addr, IS31FL3731_FUNCTION_REG_CONFIG, IS31FL3731_CONFIG_MODE_PICTURE);
     // display frame 0
-    is31fl3731_write_register(addr, IS31FL3731_REG_PICTUREFRAME, 0x00);
+    is31fl3731_write_register(addr, IS31FL3731_FUNCTION_REG_PICTURE_DISPLAY, 0x00);
     // audio sync off
-    is31fl3731_write_register(addr, IS31FL3731_REG_AUDIOSYNC, 0x00);
+    is31fl3731_write_register(addr, IS31FL3731_FUNCTION_REG_AUDIO_SYNC, 0x00);
 
-    // select bank 0
-    is31fl3731_write_register(addr, IS31FL3731_COMMANDREGISTER, 0);
+    is31fl3731_select_page(addr, IS31FL3731_COMMAND_FRAME_1);
 
     // turn off all LEDs in the LED control register
     for (int i = 0; i < IS31FL3731_LED_CONTROL_REGISTER_COUNT; i++) {
@@ -180,16 +161,15 @@ void is31fl3731_init(uint8_t addr) {
         is31fl3731_write_register(addr, i, 0x00);
     }
 
-    // select "function register" bank
-    is31fl3731_write_register(addr, IS31FL3731_COMMANDREGISTER, IS31FL3731_BANK_FUNCTIONREG);
+    is31fl3731_select_page(addr, IS31FL3731_COMMAND_FUNCTION);
 
     // disable software shutdown
-    is31fl3731_write_register(addr, IS31FL3731_REG_SHUTDOWN, 0x01);
+    is31fl3731_write_register(addr, IS31FL3731_FUNCTION_REG_SHUTDOWN, 0x01);
 
-    // select bank 0 and leave it selected.
-    // most usage after initialization is just writing PWM buffers in bank 0
+    // select page 0 and leave it selected.
+    // most usage after initialization is just writing PWM buffers in page 0
     // as there's not much point in double-buffering
-    is31fl3731_write_register(addr, IS31FL3731_COMMANDREGISTER, 0);
+    is31fl3731_select_page(addr, IS31FL3731_COMMAND_FRAME_1);
 }
 
 void is31fl3731_set_value(int index, uint8_t value) {

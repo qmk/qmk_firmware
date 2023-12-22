@@ -27,7 +27,6 @@
 #define MATRIX_MASKED // actual mask is defined by `matrix_mask` in `q11.c`
 
 /* RGB Matrix Driver Configuration */
-#define SNLED27351_DRIVER_COUNT 1
 #define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_GND
 
 /* Increase I2C speed to 1000 KHz */
@@ -51,7 +50,7 @@
 #define ENCODER_DEFAULT_POS 0x3
 
 /* Disable RGB lighting when PC is in suspend */
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define RGB_MATRIX_SLEEP
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:

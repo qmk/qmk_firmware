@@ -15,7 +15,7 @@
 #pragma once
 
 /* disable these deprecated features by default */
-#define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
+#define RGB_MATRIX_SLEEP // turn off effects when suspended
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_ALL
 #define RGB_MATRIX_KEYPRESSES
 // RGB Matrix Animation modes. Explicitly enabled
@@ -55,7 +55,6 @@
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #define IS31FL3741_I2C_ADDRESS_1 IS31FL3741_I2C_ADDRESS_GND
-#define IS31FL3741_DRIVER_COUNT 1
 #define DRIVER_1_LED_TOTAL 88
 #define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
 

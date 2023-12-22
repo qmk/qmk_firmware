@@ -19,7 +19,7 @@
 #    define RGB_MATRIX_LED_PROCESS_LIMIT 18
 #    define RGB_MATRIX_LED_FLUSH_LIMIT 16
 #    define RGB_MATRIX_KEYPRESSES
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED       // turn off effects when suspended
+#    define RGB_MATRIX_SLEEP       // turn off effects when suspended
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
 #    define RGB_MATRIX_CENTER \
         { 92, 33 }
@@ -50,7 +50,6 @@
 #    define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
 #    define IS31FL3731_I2C_ADDRESS_2 IS31FL3731_I2C_ADDRESS_SDA
 #    define IS31FL3731_I2C_ADDRESS_3 IS31FL3731_I2C_ADDRESS_SCL
-#    define IS31FL3731_DRIVER_COUNT 3
 #    define DRIVER_1_LED_TOTAL 36
 #    define DRIVER_2_LED_TOTAL 35
 #    define DRIVER_3_LED_TOTAL 15

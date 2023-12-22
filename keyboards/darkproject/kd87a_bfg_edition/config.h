@@ -21,7 +21,7 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define RGB_MATRIX_SLEEP
 
 /* External spi flash */
 #define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN B14
@@ -37,7 +37,6 @@
 #define DRIVER_1_EN C13
 #define DRIVER_2_EN C13
 
-#define DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 68
 #define DRIVER_2_LED_TOTAL 54
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)

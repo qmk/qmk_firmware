@@ -37,12 +37,10 @@
 #ifdef RGB_MATRIX_ENABLE
 #    define SPLIT_TRANSPORT_MIRROR
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED
+#    define RGB_MATRIX_SLEEP
 #    define RGB_MATRIX_KEYPRESSES
 
 // Startup values.
-#    define RGB_MATRIX_DEFAULT_HUE 0
-#    define RGB_MATRIX_DEFAULT_SAT 255
 #    define RGB_MATRIX_DEFAULT_VAL 64
 
 // Rainbow swirl as startup mode.

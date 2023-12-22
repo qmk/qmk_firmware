@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #define IS31FL3741_I2C_ADDRESS_1 IS31FL3741_I2C_ADDRESS_GND
-#define IS31FL3741_DRIVER_COUNT 1
 #define DRIVER_1_LED_TOTAL 82
 #define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
 #define DRIVER_INDICATOR_LED_TOTAL 0
@@ -26,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 175
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define RGB_MATRIX_SLEEP
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects

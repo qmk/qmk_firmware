@@ -26,7 +26,6 @@
 #define DIODE_DIRECTION ROW2COL
 
 /* RGB Matrix Driver Configuration */
-#define SNLED27351_DRIVER_COUNT 2
 #define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_VDDIO
 #define SNLED27351_I2C_ADDRESS_2 SNLED27351_I2C_ADDRESS_GND
 
@@ -47,7 +46,7 @@
 #define MATRIX_MASKED
 
 /* turn off effects when suspended */
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define RGB_MATRIX_SLEEP
 
 /* EEPROM Driver Configuration */
 #define WEAR_LEVELING_LOGICAL_SIZE 2048

@@ -20,14 +20,13 @@
 
 #define IS31FL3741_I2C_ADDRESS_1 IS31FL3741_I2C_ADDRESS_GND
 
-#define IS31FL3741_DRIVER_COUNT 1
 #define DRIVER_1_LED_TOTAL 68
 #define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
 #define DRIVER_INDICATOR_LED_TOTAL 0
 
 #ifdef RGB_MATRIX_ENABLE
 
-#define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
+#define RGB_MATRIX_SLEEP // turn off effects when suspended
 #define RGB_MATRIX_KEYPRESSES
 
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180 // Limit to vendor-recommended value

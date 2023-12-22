@@ -22,6 +22,25 @@
 #include <stdbool.h>
 #include "progmem.h"
 
+#define IS31FL3733_REG_INTERRUPT_MASK 0xF0
+#define IS31FL3733_REG_INTERRUPT_STATUS 0xF1
+
+#define IS31FL3733_REG_COMMAND 0xFD
+
+#define IS31FL3733_COMMAND_LED_CONTROL 0x00
+#define IS31FL3733_COMMAND_PWM 0x01
+#define IS31FL3733_COMMAND_AUTO_BREATH 0x02
+#define IS31FL3733_COMMAND_FUNCTION 0x03
+
+#define IS31FL3733_FUNCTION_REG_CONFIGURATION 0x00
+#define IS31FL3733_FUNCTION_REG_GLOBAL_CURRENT 0x01
+#define IS31FL3733_FUNCTION_REG_SW_PULLUP 0x0F
+#define IS31FL3733_FUNCTION_REG_CS_PULLDOWN 0x10
+#define IS31FL3733_FUNCTION_REG_RESET 0x11
+
+#define IS31FL3733_REG_COMMAND_WRITE_LOCK 0xFE
+#define IS31FL3733_COMMAND_WRITE_LOCK_MAGIC 0xC5
+
 #define IS31FL3733_I2C_ADDRESS_GND_GND 0x50
 #define IS31FL3733_I2C_ADDRESS_GND_SCL 0x51
 #define IS31FL3733_I2C_ADDRESS_GND_SDA 0x52
@@ -51,6 +70,7 @@ extern const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT];
 void is31fl3733_init_drivers(void);
 void is31fl3733_init(uint8_t bus, uint8_t addr, uint8_t sync);
 bool is31fl3733_write_register(uint8_t index, uint8_t addr, uint8_t reg, uint8_t data);
+void is31fl3733_select_page(uint8_t index, uint8_t addr, uint8_t page);
 bool is31fl3733_write_pwm_buffer(uint8_t index, uint8_t addr, uint8_t *pwm_buffer);
 
 void is31fl3733_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);

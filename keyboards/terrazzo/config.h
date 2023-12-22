@@ -18,12 +18,11 @@
 #ifdef LED_MATRIX_ENABLE
 
 #define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
-#define IS31FL3731_DRIVER_COUNT 1
 #define LED_MATRIX_LED_COUNT 105
 #define LED_MATRIX_ROWS 15
 #define LED_MATRIX_COLS 7
 #define LED_MATRIX_MAXIMUM_BRIGHTNESS 20
-#define LED_DISABLE_WHEN_USB_SUSPENDED
+#define LED_MATRIX_SLEEP
 
 // LED Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:

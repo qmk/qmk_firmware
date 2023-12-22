@@ -13,16 +13,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "is31fl3218.h"
+#include "is31fl3218-simple.h"
 #include <string.h>
 #include "i2c_master.h"
-
-// These are the register addresses
-#define IS31FL3218_REG_SHUTDOWN 0x00
-#define IS31FL3218_REG_PWM 0x01
-#define IS31FL3218_REG_CONTROL 0x13
-#define IS31FL3218_REG_UPDATE 0x16
-#define IS31FL3218_REG_RESET 0x17
 
 #define IS31FL3218_PWM_REGISTER_COUNT 18
 #define IS31FL3218_LED_CONTROL_REGISTER_COUNT 3
@@ -35,8 +28,7 @@
 #    define IS31FL3218_I2C_PERSISTENCE 0
 #endif
 
-// Reusable buffer for transfers
-uint8_t g_twi_transfer_buffer[20];
+uint8_t i2c_transfer_buffer[20];
 
 // IS31FL3218 has 18 PWM outputs and a fixed I2C address, so no chaining.
 uint8_t g_pwm_buffer[IS31FL3218_PWM_REGISTER_COUNT];
@@ -46,27 +38,27 @@ uint8_t g_led_control_registers[IS31FL3218_LED_CONTROL_REGISTER_COUNT] = {0};
 bool    g_led_control_registers_update_required                        = false;
 
 void is31fl3218_write_register(uint8_t reg, uint8_t data) {
-    g_twi_transfer_buffer[0] = reg;
-    g_twi_transfer_buffer[1] = data;
+    i2c_transfer_buffer[0] = reg;
+    i2c_transfer_buffer[1] = data;
 #if IS31FL3218_I2C_PERSISTENCE > 0
     for (uint8_t i = 0; i < IS31FL3218_I2C_PERSISTENCE; i++) {
-        if (i2c_transmit(IS31FL3218_I2C_ADDRESS << 1, g_twi_transfer_buffer, 2, IS31FL3218_I2C_TIMEOUT) == 0) break;
+        if (i2c_transmit(IS31FL3218_I2C_ADDRESS << 1, i2c_transfer_buffer, 2, IS31FL3218_I2C_TIMEOUT) == 0) break;
     }
 #else
-    i2c_transmit(IS31FL3218_I2C_ADDRESS << 1, g_twi_transfer_buffer, 2, IS31FL3218_I2C_TIMEOUT);
+    i2c_transmit(IS31FL3218_I2C_ADDRESS << 1, i2c_transfer_buffer, 2, IS31FL3218_I2C_TIMEOUT);
 #endif
 }
 
 void is31fl3218_write_pwm_buffer(uint8_t *pwm_buffer) {
-    g_twi_transfer_buffer[0] = IS31FL3218_REG_PWM;
-    memcpy(g_twi_transfer_buffer + 1, pwm_buffer, 18);
+    i2c_transfer_buffer[0] = IS31FL3218_REG_PWM;
+    memcpy(i2c_transfer_buffer + 1, pwm_buffer, 18);
 
 #if IS31FL3218_I2C_PERSISTENCE > 0
     for (uint8_t i = 0; i < IS31FL3218_I2C_PERSISTENCE; i++) {
-        i2c_transmit(IS31FL3218_I2C_ADDRESS << 1, g_twi_transfer_buffer, 19, IS31FL3218_I2C_TIMEOUT);
+        i2c_transmit(IS31FL3218_I2C_ADDRESS << 1, i2c_transfer_buffer, 19, IS31FL3218_I2C_TIMEOUT);
     }
 #else
-    i2c_transmit(IS31FL3218_I2C_ADDRESS << 1, g_twi_transfer_buffer, 19, IS31FL3218_I2C_TIMEOUT);
+    i2c_transmit(IS31FL3218_I2C_ADDRESS << 1, i2c_transfer_buffer, 19, IS31FL3218_I2C_TIMEOUT);
 #endif
 }
 
@@ -86,7 +78,7 @@ void is31fl3218_init(void) {
 
     // turn off all LEDs in the LED control register
     for (uint8_t i = 0; i < IS31FL3218_LED_CONTROL_REGISTER_COUNT; i++) {
-        is31fl3218_write_register(IS31FL3218_REG_CONTROL + i, 0x00);
+        is31fl3218_write_register(IS31FL3218_REG_LED_CONTROL_1 + i, 0x00);
     }
 
     // Load PWM registers and LED Control register data
@@ -146,7 +138,7 @@ void is31fl3218_update_pwm_buffers(void) {
 void is31fl3218_update_led_control_registers(void) {
     if (g_led_control_registers_update_required) {
         for (int i = 0; i < IS31FL3218_LED_CONTROL_REGISTER_COUNT; i++) {
-            is31fl3218_write_register(IS31FL3218_REG_CONTROL + i, g_led_control_registers[i]);
+            is31fl3218_write_register(IS31FL3218_REG_LED_CONTROL_1 + i, g_led_control_registers[i]);
         }
 
         g_led_control_registers_update_required = false;

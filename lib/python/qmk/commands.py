@@ -8,7 +8,9 @@ from pathlib import Path
 from milc import cli
 import jsonschema
 
+from qmk.constants import QMK_USERSPACE, HAS_QMK_USERSPACE
 from qmk.json_schema import json_load, validate
+from qmk.keyboard import keyboard_alias_definitions
 
 
 def find_make():
@@ -53,7 +55,7 @@ def parse_configurator_json(configurator_file):
         exit(1)
 
     keyboard = user_keymap['keyboard']
-    aliases = json_load(Path('data/mappings/keyboard_aliases.hjson'))
+    aliases = keyboard_alias_definitions()
 
     while keyboard in aliases:
         last_keyboard = keyboard
@@ -75,6 +77,10 @@ def build_environment(args):
             envs[key] = value
         else:
             cli.log.warning('Invalid environment variable: %s', env)
+
+    if HAS_QMK_USERSPACE:
+        envs['QMK_USERSPACE'] = Path(QMK_USERSPACE).resolve()
+
     return envs
 
 

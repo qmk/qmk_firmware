@@ -17,7 +17,6 @@
 #pragma once
 
 /* RGB Matrix Driver Configuration */
-#define SNLED27351_DRIVER_COUNT 2
 #define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_VDDIO
 #define SNLED27351_I2C_ADDRESS_2 SNLED27351_I2C_ADDRESS_GND
 
@@ -37,7 +36,7 @@
 #define WIN_LED_INDEX 19
 
 /* turn off effects when suspended */
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define RGB_MATRIX_SLEEP
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:

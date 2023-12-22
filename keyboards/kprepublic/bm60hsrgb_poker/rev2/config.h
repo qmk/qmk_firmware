@@ -17,7 +17,7 @@
 
 #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_MOOD
 
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
+#    define RGB_MATRIX_SLEEP // turn off effects when suspended
 #    define RGB_MATRIX_KEYPRESSES
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS
 #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
@@ -77,7 +77,6 @@
 // are compiled unconditionally).
 
 // Configure the IS31FL3733 driver for per-key RGB LEDs
-#define IS31FL3733_DRIVER_COUNT 1
 #define IS31FL3733_I2C_ADDRESS_1 IS31FL3733_I2C_ADDRESS_GND_GND
 #define DRIVER_1_LED_TOTAL 61
 

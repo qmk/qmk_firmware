@@ -20,7 +20,7 @@
 
 
 #ifdef RGB_MATRIX_ENABLE
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
+#    define RGB_MATRIX_SLEEP // turn off effects when suspended
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 // RGB Matrix Animation modes. Explicitly enabled
@@ -73,6 +73,5 @@
 // #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
 #    define IS31FL3733_I2C_ADDRESS_1 IS31FL3733_I2C_ADDRESS_GND_GND
-#    define IS31FL3733_DRIVER_COUNT 1
 #    define RGB_MATRIX_LED_COUNT 62
 #endif

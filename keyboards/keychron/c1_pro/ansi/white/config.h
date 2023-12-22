@@ -20,19 +20,18 @@
 // #define MATRIX_UNSELECT_DRIVE_HIGH
 
 /* LED Matrix Driver Configuration */
-#define SNLED27351_DRIVER_COUNT 1
 #define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_GND
 
 /* LED Matrix Configuration */
 #define LED_MATRIX_LED_COUNT 90
 
-#define SNLED27351_PHASE_CHANNEL SNLED27351_MSKPHASE_9CHANNEL
+#define SNLED27351_PHASE_CHANNEL SNLED27351_SCAN_PHASE_9_CHANNEL
 /* Set led driver current */
 #define SNLED27351_CURRENT_TUNE \
     { 0x9D, 0x9D, 0x44, 0x9D, 0x9D, 0x44, 0x9D, 0x9D, 0x44, 0x9D, 0x9D, 0x44 }
 
 /* turn off effects when suspended */
-#define LED_DISABLE_WHEN_USB_SUSPENDED
+#define LED_MATRIX_SLEEP
 
 /* Enbale caps_lcok, win os and mac os indicator */
 #define CAPS_LOCK_LED_INDEX 63

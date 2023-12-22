@@ -29,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 /* RGB Matrix driver config */
-#define IS31FL3733_DRIVER_COUNT 2
 #define IS31FL3733_I2C_ADDRESS_1 IS31FL3733_I2C_ADDRESS_GND_GND
 #define IS31FL3733_I2C_ADDRESS_2 IS31FL3733_I2C_ADDRESS_GND_VCC
 #define DRIVER_1_LED_TOTAL 46
@@ -38,7 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_MATRIX_LED_FLUSH_LIMIT 32
 
-#define RGB_DISABLE_WHEN_USB_SUSPENDED 
+#define RGB_MATRIX_SLEEP
 
 #define RGB_MATRIX_DEFAULT_SPD 40
 #define RGB_MATRIX_DEFAULT_VAL 220

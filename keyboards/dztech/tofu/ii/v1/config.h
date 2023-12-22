@@ -24,7 +24,7 @@
 
 #ifdef RGB_MATRIX_ENABLE
 #define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
+#    define RGB_MATRIX_SLEEP  // turn off effects when suspended
 #    define USB_SUSPEND_WAKEUP_DELAY 5000
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_LED_PROCESS_LIMIT 4
@@ -81,7 +81,6 @@
 #    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_ALL
 #    define IS31FL3737_I2C_ADDRESS_1 IS31FL3737_I2C_ADDRESS_GND
 #    define IS31FL3737_I2C_ADDRESS_2 IS31FL3737_I2C_ADDRESS_VCC
-#    define IS31FL3737_DRIVER_COUNT 2
 #    define DRIVER_1_LED_TOTAL 46
 #    define DRIVER_2_LED_TOTAL 20
 #    define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)

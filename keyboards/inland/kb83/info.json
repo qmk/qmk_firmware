@@ -18,6 +18,9 @@
         "rows": ["B15", "C6", "C7", "C8", "C9", "A8"]
     },
     "diode_direction": "ROW2COL",
+    "dip_switch": {
+        "pins": ["A9"]
+    },
     "eeprom": {
         "driver": "wear_leveling",
         "wear_leveling": {
