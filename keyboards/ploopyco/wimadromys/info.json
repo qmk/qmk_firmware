@@ -1,5 +1,5 @@
 {
-    "keyboard_name": "Ploopy Adept Trackball",
+    "keyboard_name": "Ploopy Wimadromys Trackball",
     "url": "www.ploopy.co",
     "maintainer": "ploopyco",
     "manufacturer": "Ploopy Corporation",
@@ -8,7 +8,8 @@
     "usb": {
         "vid": "0x5043",
         "pid": "0x5C47",
-        "max_power": 100
+        "max_power": 100,
+        "device_version": "1.0.0"
     },
     "features": {
         "bootmagic": true,
@@ -16,6 +17,13 @@
         "mousekey": true,
         "nkro": true,
         "pointing_device": true,
+    },
+
+    "diode_direction": "COL2ROW",
+    "matrix_pins": {
+        "direct": [
+            ["GP15", "GP20", "GP23"]
+        ]
     },
     "layouts": {
         "LAYOUT": {
@@ -26,7 +34,8 @@
             ]
         }
     },
+
     "dynamic_keymap": {
         "layer_count": 8
-    },
+    }
 }

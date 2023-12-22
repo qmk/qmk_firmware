@@ -17,6 +17,23 @@
  */
 #include QMK_KEYBOARD_H
 
+enum layers {
+   _DEF,
+};
+
+#define LMB KC_BTN1
+#define RMB KC_BTN2
+#define MMB KC_BTN3
+#define BCK KC_BTN4
+#define FWD KC_BTN5
+#define DRAGSCR DRAG_SCROLL
+
+enum custom_keycodes {
+    DRAGTOG = SAFE_RANGE,
+};
+
+#include "gboards/g/keymap_combo.h"
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT( KC_BTN4, KC_BTN5, DRAG_SCROLL, KC_BTN2, KC_BTN1, KC_BTN3 )
+    [_DEF] = LAYOUT(RMB,   DRAGSCR, LMB)
 };
