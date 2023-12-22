@@ -38,7 +38,7 @@
         }
     },
     "ws2812": {
-        "driver": "spi",
+        "driver": "bitbang",
         "pin": "GP28"
     },
     "url": "",
