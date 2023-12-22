@@ -1530,18 +1530,20 @@ bool processKeycodeIfLThumb3Weak(uint16_t keycode, keyrecord_t* record) {
 bool processKeycodeIfLThumbEStrong(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case MA_LTHUMBE:
-            return false;
-        case KC_SPC:
+        case MA_LTHUMB:
+        case MA_LTHUMBMS:
+            if (!(record->event.pressed)) {
+                return false;
+            }
+        case MA_SUPER:
             register_mods(MOD_MASK_CTRL);
             editModeLThumbStrongStarted = true;
             return false;
         case MA_NONE:
-            if (!(record->event.pressed)) {
-                if (editModeLThumbStrongStarted) {
-                    unregister_mods(MOD_MASK_CTRL);
-                }
-                layer_off(LA_LTHUMBESTRONG);
+            if (editModeLThumbStrongStarted) {
+                unregister_mods(MOD_MASK_CTRL);
             }
+            layer_off(LA_LTHUMBESTRONG);
             return false;
         default:
             if (!(record->event.pressed)) {
@@ -1556,18 +1558,20 @@ bool processKeycodeIfLThumbEStrong(uint16_t keycode, keyrecord_t* record) {
 bool processKeycodeIfLThumbDStrong(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case MA_LTHUMBD:
-            return false;
-        case KC_SPC:
+        case MA_LTHUMB:
+        case MA_LTHUMBMS:
+            if (!(record->event.pressed)) {
+                return false;
+            }
+        case MA_SUPER:
             register_mods(MOD_MASK_CTRL);
             editModeLThumbStrongStarted = true;
             return false;
         case MA_NONE:
-            if (!(record->event.pressed)) {
-                if (editModeLThumbStrongStarted) {
-                    unregister_mods(MOD_MASK_CTRL);
-                }
-                layer_off(LA_LTHUMBDSTRONG);
+            if (editModeLThumbStrongStarted) {
+                unregister_mods(MOD_MASK_CTRL);
             }
+            layer_off(LA_LTHUMBDSTRONG);
             return false;
         default:
             if (!(record->event.pressed)) {
