@@ -15,7 +15,7 @@
         "console": false,
         "extrakey": true,
         "key_lock": true,
-        "mousekey": false,
+        "mousekey": true,
         "nkro": true,
         "rgblight": true
     },
