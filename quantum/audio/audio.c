@@ -125,7 +125,7 @@ void eeconfig_update_audio_current(void) {
 void audio_driver_initialize_impl(void) {
 #ifdef AUDIO_SHUTDOWN_PIN
     setPinOutput(AUDIO_SHUTDOWN_PIN);
-    writePin(AUDIO_SHUTDOWN_PIN, AUDIO_SHUTDOWN_PIN_ON_STATE);
+    writePin(AUDIO_SHUTDOWN_PIN, !AUDIO_SHUTDOWN_PIN_ON_STATE);
 #endif
     audio_driver_initialize();
 }
