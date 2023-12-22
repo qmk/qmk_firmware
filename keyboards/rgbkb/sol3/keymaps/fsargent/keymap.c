@@ -162,10 +162,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	),
 
 	[_NAV] = LAYOUT(
-	C(KC_GRV),	KC_1,		KC_2,		KC_3,		KC_4,		KC_5,		TO(_MAC),					_______,	KC_6,		KC_7,		KC_8,		KC_9,		KC_0,		KC_DEL,
+	C(KC_GRV),	KC_F1,			KC_F2,		KC_F3,		KC_F4,		KC_F5,	_______,					_______,	KC_F6,		KC_F7,		KC_F8,		KC_F9,		KC_F10,KC_DEL,
 	C(KC_TAB),	A(KC_BSPC),	A(KC_LEFT),	KC_UP,		A(KC_RGHT),	A(KC_DEL),	KC_RCBR,					_______,	KC_WH_U,	KC_WH_U,	KC_MS_U,	KC_WH_L,	KC_PGUP,	_______,
-	KC_MEH,		G(KC_LEFT),	KC_LEFT,	KC_DOWN,	KC_RGHT,	G(KC_RGHT),	KC_RPRN,					KC_F11,		KC_WH_L,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_WH_R,	_______,
-	KC_LSFT,	KC_HOME,	G(KC_DOWN),	KC_DEL,		G(KC_UP),	KC_END,		KC_RBRC,					KC_F12,		KC_WH_D,	KC_WH_D,	KC_NO,		KC_NO,		KC_PGDN,	_______,
+	KC_MEH,			G(KC_LEFT),	KC_LEFT,	KC_DOWN,	KC_RGHT,	G(KC_RGHT),	KC_RPRN,					KC_F11,		KC_WH_L,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_WH_R,	_______,
+	KC_LSFT,		KC_HOME,		G(KC_DOWN),	KC_DEL,		G(KC_UP),	KC_END,		KC_RBRC,					KC_F12,		KC_WH_D,	KC_WH_D,	KC_NO,		KC_NO,		KC_PGDN,	_______,
 	_______,	_______,	_______,	_______,	_______,		_______,		_______,	_______,	KC_BTN2,	KC_MPLY,	KC_BTN1,	KC_APP,		_______,	_______,	_______,	_______,
 
 	_______,	_______,	_______,	_______,	_______,	_______,														KC_F13,	KC_F14,	_______,	_______,	_______,	_______,
@@ -188,7 +188,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	),
 
 	[_SYM] = LAYOUT(
-	KC_GRV,		KC_F1,		KC_F2,		KC_F3,		KC_F4,		KC_F5,		TO(_WIN),					_______,	KC_F6,		KC_F7,		KC_F8,		KC_F9,		KC_F10,		RESET,
+	KC_GRV,		KC_F1,		KC_F2,		KC_F3,		KC_F4,		KC_F5,		TO(_MAC),					_______,	KC_F6,		KC_F7,		KC_F8,		KC_F9,		KC_F10,		RESET,
 	_______,	KC_PAST,	KC_P7,		KC_P8,		KC_P9,		KC_MINUS,	KC_NO,						KC_NO,		RGB_MOD,	RGB_VAI,	RGB_HUI,	RGB_SAI,	RGB_SPI,	KC_NO,
 	_______,	KC_KP_0,	KC_P4,		KC_P5,		KC_P6,		KC_PPLS,	MENU_BTN,					RGB_MOD,	RGB_RMOD,	RGB_VAD,	RGB_HUD,	RGB_SAD,	RGB_SPD,	KC_NO,
 	_______,	KC_PSLS,	KC_P1,		KC_P2,		KC_P3,		KC_EQL,		MENU_DN,					RGB_RMOD,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,
@@ -291,7 +291,7 @@ void render_layer_status(void) {
 }
 
 
-enum combo_events { RST, TOGWIN, TOGGAME, MUTE, SEL_WORD, SEL_LINE, WINTGSYM, TGSYM, RBU, RBL, CTRLALTDEL, CTRLC, CTRLR, CUT, CPY, PST, CAL, DELWD, QIN, QNM, EML,WRK, QP, WINDELWD, THUMBS, COMBO_LENGTH };
+enum combo_events { RST, TOGWIN, TOGGAME, MUTE, SEL_WORD, SEL_LINE, WINTGSYM, TGSYM, RBU, RBL, CTRLALTDEL, CTRLC, CTRLR, CUT, CPY, PST, CAL, DELWD, QIN, QNM, EML,WRK, QP, WINDELWD, THUMBS, OUTER_THUMB, COMBO_LENGTH };
 uint16_t COMBO_LEN = COMBO_LENGTH;  // remove the COMBO_COUNT define and use this instead!
 
 const uint16_t PROGMEM asdf_combo[]       = {KC_A, KC_S, KC_D, KC_F, COMBO_END};
