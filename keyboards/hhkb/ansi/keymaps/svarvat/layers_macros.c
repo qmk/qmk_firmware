@@ -1546,8 +1546,11 @@ bool processKeycodeIfLThumbEStrong(uint16_t keycode, keyrecord_t* record) {
             editModeLThumbStrongStarted = true;
             return false;
         default:
-            if (editModeLThumbStrongStarted) {unregister_mods(MOD_MASK_CTRL);}
-            layer_off(LA_LTHUMBESTRONG);
+            if (!(record->event.pressed)) {
+                if (editModeLThumbStrongStarted) {unregister_mods(MOD_MASK_CTRL);}
+                layer_off(LA_LTHUMBESTRONG);
+                return false;
+            }
             return true;
     }
 }
@@ -1560,8 +1563,11 @@ bool processKeycodeIfLThumbDStrong(uint16_t keycode, keyrecord_t* record) {
             editModeLThumbStrongStarted = true;
             return false;
         default:
-            if (editModeLThumbStrongStarted) {unregister_mods(MOD_MASK_CTRL);}
-            layer_off(LA_LTHUMBDSTRONG);
+            if (!(record->event.pressed)) {
+                if (editModeLThumbStrongStarted) {unregister_mods(MOD_MASK_CTRL);}
+                layer_off(LA_LTHUMBDSTRONG);
+                return false;
+            }
             return true;
     }
 }
