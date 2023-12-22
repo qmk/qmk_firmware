@@ -1535,46 +1535,19 @@ bool processKeycodeIfLThumbEStrong(uint16_t keycode, keyrecord_t* record) {
             register_mods(MOD_MASK_CTRL);
             editModeLThumbStrongStarted = true;
             return false;
-        default:
+        case MA_NONE:
             if (!(record->event.pressed)) {
                 if (editModeLThumbStrongStarted) {
                     unregister_mods(MOD_MASK_CTRL);
                 }
                 layer_off(LA_LTHUMBESTRONG);
             }
-            return true;
-
-        case MA_LTHUMBE:
             return false;
-        case KC_SPC:
-            register_mods(MOD_MASK_CTRL);
-            editModeLThumbStrongStarted = true;
-            return false;
-        case MA_NONE:
-            if (editModeLThumbStrongStarted) {unregister_code16(KC_RCTL);}
-            if (IS_LAYER_ON(LA_LTHUMBMS)) {layer_off(LA_LTHUMBMS);}
-            else {layer_off(LA_LTHUMB);}
-            layer_off(LA_LTHUMBDSTRONG);
-            return false;
-        case MA_LTHUMB:
-        case MA_LTHUMBMS:
-            if (editModeLThumbStrongStarted) {unregister_mods(MOD_MASK_CTRL);}
-            layer_off(LA_LTHUMBESTRONG);
-            return false;
-        case KC_LALT:
-        case KC_LSFT:
-        case MA_LPINKY:
-        case MO(LA_RTHUMB):
-            if (editModeLThumbStrongStarted) {unregister_mods(MOD_MASK_CTRL);}
-            if (IS_LAYER_ON(LA_LTHUMBMS)) {layer_off(LA_LTHUMBMS);}
-            else {layer_off(LA_LTHUMB);}
-            layer_off(LA_LTHUMBESTRONG);
-            return true;
         default:
             if (!(record->event.pressed)) {
-                if (editModeLThumbStrongStarted) {unregister_mods(MOD_MASK_CTRL);}
-                if (IS_LAYER_ON(LA_LTHUMBMS)) {layer_off(LA_LTHUMBMS);}
-                else {layer_off(LA_LTHUMB);}
+                if (editModeLThumbStrongStarted) {
+                    unregister_mods(MOD_MASK_CTRL);
+                }
                 layer_off(LA_LTHUMBESTRONG);
             }
             return true;
@@ -1587,6 +1560,14 @@ bool processKeycodeIfLThumbDStrong(uint16_t keycode, keyrecord_t* record) {
         case KC_SPC:
             register_mods(MOD_MASK_CTRL);
             editModeLThumbStrongStarted = true;
+            return false;
+        case MA_NONE:
+            if (!(record->event.pressed)) {
+                if (editModeLThumbStrongStarted) {
+                    unregister_mods(MOD_MASK_CTRL);
+                }
+                layer_off(LA_LTHUMBDSTRONG);
+            }
             return false;
         default:
             if (!(record->event.pressed)) {
