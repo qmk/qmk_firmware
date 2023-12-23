@@ -18,6 +18,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EE_HANDS // need to flash eeprom with eeprom-lefthand.eep for left, etc
 
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_BAND_VAL
-#define DRIVER_ADDR_1 0b1010000
-#define DRIVER_COUNT 1
+#define IS31FL3733_I2C_ADDRESS_1 IS31FL3733_I2C_ADDRESS_GND_GND
 #define RGB_MATRIX_LED_COUNT 82
