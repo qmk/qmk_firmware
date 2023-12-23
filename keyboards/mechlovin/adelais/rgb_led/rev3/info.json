@@ -4,7 +4,7 @@
         "pid": "0xAEC3"
     },
     "rgb_matrix": {
-        "driver": "IS31FL3741"
+        "driver": "is31fl3741"
     },
     "matrix_pins": {
         "cols": ["B10", "B11", "B2", "B1", "B0", "A6", "A5", "A10", "A9", "A15", "B3", "B4", "B5", "B8", "B9"],
@@ -16,12 +16,32 @@
             {"pin_a": "B12", "pin_b": "B13"}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "processor": "STM32F103",
     "bootloader": "stm32duino",
     "indicators": {
         "caps_lock": "C14",
         "num_lock": "A0",
         "scroll_lock": "C15"
+    },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 23,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "ws2812": {
         "pin": "A7",

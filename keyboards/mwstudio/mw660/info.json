@@ -12,6 +12,9 @@
         "nkro": true,
         "rgblight": true
     },
+    "rgblight": {
+        "led_count": 34
+    },
     "ws2812": {
         "pin": "B8"
     },

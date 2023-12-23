@@ -9,6 +9,18 @@
         "device_version": "0.0.1",
         "force_nkro": true
     },
+    "rgblight": {
+        "led_count": 12,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
+    },
     "ws2812": {
         "pin": "B1"
     },

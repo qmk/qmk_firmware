@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    ifdef USE_MASSDROP_CONFIGURATOR
 
 #        include "md_rgb_matrix.h"
+#        include "util.h"
 
 // Teal <-> Salmon
 led_setup_t leds_teal_salmon[] = {

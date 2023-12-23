@@ -94,27 +94,27 @@ static void render_status(void) {
 
     // Host Keyboard LED Status
     oled_set_cursor(0, 1);
-    static uint8_t persistent_led_state = 0;
-    uint8_t        led_usb_state        = host_keyboard_leds();
+    static led_t persistent_led_state = {0};
+    led_t led_state = host_keyboard_led_state();
 
     // Only update if the LED state has changed
     // Otherwise, the OLED will not turn off if an LED is on.
-    if (persistent_led_state != led_usb_state) {
-        persistent_led_state = led_usb_state;
+    if (persistent_led_state.raw != led_state.raw) {
+        persistent_led_state = led_state;
 
         oled_write_ln_P(PSTR("            "), false);
 
-        if (IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK)) {
+        if (led_state.caps_lock) {
             oled_set_cursor(0, 1);
             oled_write_P(PSTR("CAPS"), false);
         }
 
-        if (IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK)) {
+        if (led_state.num_lock) {
             oled_set_cursor(5, 1);
             oled_write_P(PSTR("NUM"), true);
         }
 
-        if (IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK)) {
+        if (led_state.scroll_lock) {
             oled_set_cursor(9, 1);
             oled_write_P(PSTR("SCR"), false);
         }

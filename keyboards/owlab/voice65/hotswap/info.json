@@ -10,7 +10,7 @@
         "force_nkro": true
     },
     "rgb_matrix": {
-        "driver": "IS31FL3741"
+        "driver": "is31fl3741"
     },
     "matrix_pins": {
         "cols": ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A10", "A15", "B8", "B9", "B12", "B13"],
@@ -22,11 +22,28 @@
             {"pin_a": "B4", "pin_b": "B5"}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "ws2812": {
         "pin": "B15"
     },
     "rgblight": {
-        "max_brightness": 180
+        "saturation_steps": 8,
+        "brightness_steps": 10,
+        "led_count": 20,
+        "max_brightness": 180,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "processor": "STM32F303",
     "bootloader": "stm32-dfu",

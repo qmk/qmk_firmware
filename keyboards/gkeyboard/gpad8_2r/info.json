@@ -25,6 +25,9 @@
         "rows": ["GP4", "GP5", "GP6"]
     },
     "diode_direction": "COL2ROW",
+    "dynamic_keymap": {
+        "layer_count": 8
+    },
     "encoder": {
         "enabled": true,
         "rotary": [
@@ -33,7 +36,7 @@
         ]
     },
     "rgb_matrix": {
-        "driver": "WS2812",
+        "driver": "ws2812",
         "layout": [
             {"flags": 4, "matrix": [1, 0], "x": 28, "y": 12},
             {"flags": 4, "matrix": [1, 1], "x": 84, "y": 12},

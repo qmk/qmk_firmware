@@ -17,6 +17,8 @@
     "pin": "D3"
   },
   "rgblight": {
+    "hue_steps": 10,
+    "led_count": 6,
     "max_brightness": 200
   },
   "processor": "atmega32u4",

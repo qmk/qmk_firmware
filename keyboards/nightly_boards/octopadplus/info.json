@@ -19,6 +19,9 @@
             {"pin_a": "D1", "pin_b": "D0", "resolution": 5}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
         "rgblight": {

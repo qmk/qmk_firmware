@@ -12,7 +12,22 @@
         "pin": "E2"
     },
     "rgblight": {
-        "max_brightness": 180
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 53,
+        "max_brightness": 180,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true
+        }
     },
     "matrix_pins": {
         "cols": ["C6", "D2", "D1", "D0", "D7", "D6", "D4", "D5", "D3", "B7", "B3", "B2"],

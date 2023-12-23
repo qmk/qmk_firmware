@@ -127,13 +127,13 @@ void render_layer_state(void){
 }
 
 // Keylock State
-void render_keylock_status(uint8_t led_usb_state) {
+void render_keylock_status(led_t led_state) {
 	oled_write_P(PSTR(" "), false);
-	oled_write_P(led_usb_state & (1<<USB_LED_NUM_LOCK) ? PSTR("-NUML") : PSTR("-----"), false);
+	oled_write_P(led_state.num_lock ? PSTR("-NUML") : PSTR("-----"), false);
 	oled_write_P(PSTR(" "), false);
-	oled_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR("-CAPS") : PSTR("-----"), false);
+	oled_write_P(led_state.caps_lock ? PSTR("-CAPS") : PSTR("-----"), false);
 	oled_write_P(PSTR(" "), false);
-	oled_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR("-SCRL") : PSTR("-----"), false);
+	oled_write_P(led_state.scroll_lock ? PSTR("-SCRL") : PSTR("-----"), false);
 	oled_write_P(PSTR(" "), false);
 }
 
@@ -213,7 +213,7 @@ if (is_keyboard_master()) {
 	oled_write_P(oled_layer_line_end, false);
 	oled_write_P(oled_layer_keylog_bottom, false);
 	oled_write_P(oled_line_start, false);
-	render_keylock_status(host_keyboard_leds());
+	render_keylock_status(host_keyboard_led_state());
 	oled_write_P(oled_layer_line_end, false);
 	oled_write_P(oled_mods_bottom, false);
 	oled_write_P(oled_line_start, false);
