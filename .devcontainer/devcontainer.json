@@ -3,7 +3,6 @@
 {
 	"name": "Ubuntu",
 	"image": "mcr.microsoft.com/devcontainers/base:jammy",
-	
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": ".devcontainer/postcreate.sh",
 	"customizations": {
@@ -17,5 +16,8 @@
 				"eamodio.gitlens"
 			]
 		}
-	}
+	},
+	"mounts": [
+		"type=bind,source=/dev/bus/usb,target=/dev/bus/usb"
+	]
 }
