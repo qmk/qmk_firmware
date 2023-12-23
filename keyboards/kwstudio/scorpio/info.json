@@ -1,29 +1,25 @@
 {
-    "keyboard_name": "Scorpio",
     "manufacturer": "kwstudio",
+    "keyboard_name": "Scorpio",
     "maintainer": "kwstudio",
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
         "rgblight": true
     },
     "indicators": {
-        "caps_lock": "GP29"
+        "caps_lock": "GP24"
     },
     "matrix_pins": {
-        "cols": ["GP4", "GP5", "GP9", "GP10", "GP11", "GP12", "GP13", "GP14", "GP15", "GP16", "GP17", "GP18", "GP19", "GP20", "GP26", "GP27"],
-        "rows": ["GP25", "GP24", "GP23", "GP22", "GP21", "GP20"]
+        "cols": ["GP23", "GP22", "GP21", "GP20", "GP19", "GP18", "GP17", "GP7", "GP6", "GP5", "GP13", "GP12", "GP11", "GP10", "GP9", "GP8"],
+        "rows": ["GP1", "GP0", "GP16", "GP15", "GP14"]
     },
     "processor": "RP2040",
     "rgblight": {
-        "led_count": 9,
-        "sleep": true,
         "animations": {
             "alternating": true,
             "breathing": true,
@@ -35,11 +31,9 @@
             "snake": true,
             "static_gradient": true,
             "twinkle": true
-        }
-    },
-    "ws2812": {
-        "driver": "bitbang",
-        "pin": "GP28"
+        },
+        "led_count": 9,
+        "sleep": true
     },
     "url": "",
     "usb": {
@@ -47,9 +41,11 @@
         "pid": "0x0002",
         "vid": "0x4B53"
     },
-    "layout_aliases": {
-        "LAYOUT": "LAYOUT_65_ansi_blocker_tsangan_wkl_split_bs"
+    "ws2812": {
+        "driver": "vendor",
+        "pin": "GP4"
     },
+    "community_layouts": ["65_ansi_blocker_tsangan_wkl", "65_ansi_blocker_tsangan_wkl_split_bs"],
     "layouts": {
         "LAYOUT_65_ansi_blocker_tsangan_wkl": {
             "layout": [
@@ -111,8 +107,8 @@
                 {"matrix": [3, 9], "x": 10.25, "y": 3},
                 {"matrix": [3, 10], "x": 11.25, "y": 3},
                 {"matrix": [3, 11], "x": 12.25, "y": 3, "w": 1.75},
-                {"matrix": [3, 14], "x": 14.0, "y": 3},
-                {"matrix": [3, 15], "x": 15.0, "y": 3},
+                {"matrix": [3, 14], "x": 14, "y": 3},
+                {"matrix": [3, 15], "x": 15, "y": 3},
 
                 {"matrix": [4, 0], "x": 0, "y": 4, "w": 1.5},
                 {"matrix": [4, 2], "x": 2.25, "y": 4, "w": 1.5},
@@ -184,8 +180,8 @@
                 {"matrix": [3, 9], "x": 10.25, "y": 3},
                 {"matrix": [3, 10], "x": 11.25, "y": 3},
                 {"matrix": [3, 11], "x": 12.25, "y": 3, "w": 1.75},
-                {"matrix": [3, 14], "x": 14.0, "y": 3},
-                {"matrix": [3, 15], "x": 15.0, "y": 3},
+                {"matrix": [3, 14], "x": 14, "y": 3},
+                {"matrix": [3, 15], "x": 15, "y": 3},
 
                 {"matrix": [4, 0], "x": 0, "y": 4, "w": 1.5},
                 {"matrix": [4, 2], "x": 2.25, "y": 4, "w": 1.5},

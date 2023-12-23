@@ -1,6 +1,6 @@
 # Scorpio
 
-![Scorpio](https://i.imgur.com/ikAlEQM.jpeg)
+![Scorpio](https://i.imgur.com/ikAlEQMh.jpeg)
 
 * Keyboard Maintainer: [khchen](https://github.com/khchen2004)
 * Hardware Supported: Scorpio PCB
