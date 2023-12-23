@@ -975,6 +975,12 @@
     "keychron/q4": {
         "target": "keychron/q4/ansi/v1"
     }
+    "kmac": {
+        "target": "kbdmania/kmac"
+    }
+    "kmac_pad": {
+        "target": "kbdmania/kmac_pad"
+    }
     "kprepublic/bm40hsrgb": {
         "target": "kprepublic/bm40hsrgb/rev1"
     },

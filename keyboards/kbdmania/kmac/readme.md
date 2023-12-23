@@ -4,11 +4,11 @@ A Korean custom keyboard designed by Byungho Kim and the KBDMania community.
 
 Keyboard Maintainer: [Mathias Andersson](https://github.com/wraul)  
 Hardware Supported: KMAC & KMAC 2  
-Hardware Availability: http://www.kbdmania.net/xe/news/5232321
+Hardware Availability: [KBDMania](http://www.kbdmania.net/xe/news/5232321)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make kmac:default
+    make kbdmania/kmac:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
