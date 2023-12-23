@@ -1,6 +1,6 @@
 # Moonlander
 
-![Moonlander](https://zsa.io/static/gallery-white-case-7a2ef555f8f7f4ce1b9030477b16e517.png)
+![Moonlander](https://i.imgur.com/st2PCgph.png)
 
 A next-gen split, ergonomic keyboard with an active left side, USB type C, integrated wrist rest, and a thumb cluster that can move.
 
@@ -11,11 +11,11 @@ A next-gen split, ergonomic keyboard with an active left side, USB type C, integ
 
 Make example for this keyboard (after setting up your build environment):
 
-    make moonlander:default
+    make zsa/moonlander:default
 
 Flashing example for this keyboard:
 
-    make moonlander:default:flash
+    make zsa/moonlander:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
