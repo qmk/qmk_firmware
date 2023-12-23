@@ -45,7 +45,9 @@
         "driver": "vendor",
         "pin": "GP4"
     },
-    "community_layouts": ["65_ansi_blocker_tsangan_wkl", "65_ansi_blocker_tsangan_wkl_split_bs"],
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_65_ansi_blocker_tsangan_wkl_split_bs"
+    },
     "layouts": {
         "LAYOUT_65_ansi_blocker_tsangan_wkl": {
             "layout": [
