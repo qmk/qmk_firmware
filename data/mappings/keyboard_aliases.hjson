@@ -807,6 +807,12 @@
     "eggman": {
         "target": "qpockets/eggman"
     },
+    "enter67": {
+        "target": "kezewa/enter67"
+    },
+    "enter80": {
+        "target": "kezewa/enter80"
+    },
     "ergo42": {
         "target": "biacco42/ergo42"
     },
