@@ -975,8 +975,20 @@
     "ls_60": {
         "target": "weirdo/ls_60"
     },
+    "lpad": {
+        "target": "laneware/lpad"
+    },
+    "lw67": {
+        "target": "laneware/lw67"
+    },
+    "lw75": {
+        "target": "laneware/lw75"
+    },
     "m3n3van": {
         "target": "matthewdias/m3n3van"
+    },
+    "macro1": {
+        "target": "laneware/macro1"
     },
     "massdrop/thekey": {
         "target": "drop/thekey/v1"
@@ -1124,6 +1136,9 @@
     },
     "rabbit_capture_plan": {
         "target": "kakunpc/rabbit_capture_plan"
+    },
+    "raindrop": {
+        "target": "laneware/raindrop"
     },
     "ramonimbao/aelith": {
         "target": "rmi_kb/aelith"
