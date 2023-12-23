@@ -464,6 +464,9 @@
     "montsinger/rebound": {
         "target": "montsinger/rebound/rev1"
     },
+    "moonlander": {
+        "target": "zsa/moonlander"
+    },
     "mschwingen/modelm": {
         "target": "ibm/model_m/mschwingen"
     },
