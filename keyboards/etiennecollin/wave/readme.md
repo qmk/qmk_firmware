@@ -20,13 +20,13 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Recommended Keymap
 
-For an everyday keyboard, it is recommended to use the `feature` keymap, as the default keymap is extremely barebone. Here is a make example:
+For an everyday keyboard, it is recommended to use the `standard` keymap, as the default keymap is extremely barebone. Here is a make example:
 
-    make etiennecollin/wave:feature
+    make etiennecollin/wave:standard
 
 Flashing example:
 
-    make etiennecollin/wave:feature:flash
+    make etiennecollin/wave:standard:flash
 
 ## Bootloader
 
