@@ -17,11 +17,10 @@
 #pragma once
 
 /* LED Matrix Driver Configuration */
-#define DRIVER_COUNT 1
-#define DRIVER_ADDR_1 0b1110100
+#define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_GND
 
 /* Set LED driver current */
-#define CKLED2001_CURRENT_TUNE \
+#define SNLED27351_CURRENT_TUNE \
     { 0xA0, 0xA0, 0xA0, 0xA0, 0xA0, 0xA0, 0xA0, 0xA0, 0xA0, 0xA0, 0xA0, 0xA0 }
 
 /* LED Matrix Configuration */
@@ -34,7 +33,7 @@
 #define WIN_LED_INDEX 19
 
 /* turn off effects when suspended */
-#define LED_DISABLE_WHEN_USB_SUSPENDED
+#define LED_MATRIX_SLEEP
 
 // LED Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:

@@ -18,5 +18,5 @@
 
 #define RGB_MATRIX_LED_COUNT 67
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
-// #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
+// #define RGB_MATRIX_SLEEP // turn off effects when suspended
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255

@@ -67,6 +67,7 @@ These headers are located in [`quantum/keymap_extras/`](https://github.com/qmk/q
 |Slovenian                        |`keymap_slovenian.h`             |`sendstring_slovenian.h`            |
 |Spanish                          |`keymap_spanish.h`               |`sendstring_spanish.h`              |
 |Spanish (Dvorak)                 |`keymap_spanish_dvorak.h`        |`sendstring_spanish_dvorak.h`       |
+|Spanish (Latin America)          |`keymap_spanish_latin_america.h` |`sendstring_spanish_latin_america.h`|
 |Swedish                          |`keymap_swedish.h`               |`sendstring_swedish.h`              |
 |Swedish (macOS, ANSI)            |`keymap_swedish_mac_ansi.h`      |                                    |
 |Swedish (macOS, ISO)             |`keymap_swedish_mac_iso.h`       |                                    |
@@ -87,6 +88,5 @@ There are also a few which are not quite language-specific, but useful if you ar
 |Norman             |`keymap_norman.h`           |`sendstring_norman.h`           |
 |Plover             |`keymap_plover.h`           |                                |
 |Plover (Dvorak)    |`keymap_plover_dvorak.h`    |                                |
-|Steno              |`keymap_steno.h`            |                                |
 |Workman            |`keymap_workman.h`          |`sendstring_workman.h`          |
 |Workman (ZXCVM)    |`keymap_workman_zxcvm.h`    |`sendstring_workman_zxcvm.h`    |

@@ -23,14 +23,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGB_MATRIX_ENABLE
 #    define USE_I2CV2
 #    define RGB_MATRIX_DISABLE_KEYCODES
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
+#    define RGB_MATRIX_SLEEP  // turn off effects when suspended
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_LED_PROCESS_LIMIT  4
 #    define RGB_MATRIX_LED_FLUSH_LIMIT    26
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
 #    define RGB_MATRIX_DEFAULT_VAL        128
-#    define DRIVER_ADDR_1                 0b0110000
-#    define DRIVER_COUNT                  1
+#    define IS31FL3741_I2C_ADDRESS_1                 IS31FL3741_I2C_ADDRESS_GND
 #    define RGB_MATRIX_LED_COUNT              71
 
 // RGB Matrix Animation modes. Explicitly enabled

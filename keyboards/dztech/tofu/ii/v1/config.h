@@ -24,7 +24,7 @@
 
 #ifdef RGB_MATRIX_ENABLE
 #define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
+#    define RGB_MATRIX_SLEEP  // turn off effects when suspended
 #    define USB_SUSPEND_WAKEUP_DELAY 5000
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_LED_PROCESS_LIMIT 4
@@ -79,9 +79,8 @@
 #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
 #    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_ALL
-#    define DRIVER_ADDR_1 0b1010000
-#    define DRIVER_ADDR_2 0b1011111
-#    define DRIVER_COUNT 2
+#    define IS31FL3737_I2C_ADDRESS_1 IS31FL3737_I2C_ADDRESS_GND
+#    define IS31FL3737_I2C_ADDRESS_2 IS31FL3737_I2C_ADDRESS_VCC
 #    define DRIVER_1_LED_TOTAL 46
 #    define DRIVER_2_LED_TOTAL 20
 #    define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)

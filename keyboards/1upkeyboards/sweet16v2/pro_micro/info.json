@@ -31,6 +31,9 @@
         "rows": ["D1", "B5", "B4", "E6"]
     },
     "diode_direction": "COL2ROW",
+    "dynamic_keymap": {
+        "layer_count": 10
+    },
     "encoder": {
         "enabled": true,
         "rotary": [

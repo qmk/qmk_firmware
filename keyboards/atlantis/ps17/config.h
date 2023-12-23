@@ -11,7 +11,7 @@
 /* RGB matrix */
 #define RGB_MATRIX_LED_COUNT 28
 #define RGB_MATRIX_KEYPRESSES
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define RGB_MATRIX_SLEEP
 
 #ifdef RGB_MATRIX_ENABLE
 	// RGB Matrix Animation modes. Explicitly enabled

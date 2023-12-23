@@ -26,9 +26,8 @@
     { NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, A2, A3, A4, A5, A6, A7, B0, B1 }
 
 /* RGB Matrix Driver Configuration */
-#define DRIVER_COUNT 2
-#define DRIVER_ADDR_1 0b1110111
-#define DRIVER_ADDR_2 0b1110100
+#define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_VDDIO
+#define SNLED27351_I2C_ADDRESS_2 SNLED27351_I2C_ADDRESS_GND
 
 /* Increase I2C speed to 1000 KHz */
 #define I2C1_TIMINGR_PRESC 0U
@@ -37,9 +36,8 @@
 #define I2C1_TIMINGR_SCLH 15U
 #define I2C1_TIMINGR_SCLL 30U
 
-/* Scan phase of led driver set as MSKPHASE_9CHANNEL(defined as 0x03 in CKLED2001.h) */
-#define PHASE_CHANNEL MSKPHASE_9CHANNEL
-#define CKLED2001_CURRENT_TUNE \
+#define SNLED27351_PHASE_CHANNEL SNLED27351_SCAN_PHASE_9_CHANNEL
+#define SNLED27351_CURRENT_TUNE \
     { 0xB8, 0xB8, 0x58, 0xB8, 0xB8, 0x58, 0xB8, 0xB8, 0x58, 0xB8, 0xB8, 0x58 }
 
 /* Disable DIP switch in matrix data */
@@ -49,7 +47,7 @@
 #define DIP_SWITCH_MATRIX_GRID  { {4,4} }
 
 /* Turn off effects when suspended */
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define RGB_MATRIX_SLEEP
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 5
 

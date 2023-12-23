@@ -1,18 +1,11 @@
 #pragma once
 
-//rgb matrix setting// This is a 7-bit address, that gets left-shifted and bit 0
-// set to 0 for write, 1 for read (as per I2C protocol)
-// The address will vary depending on your wiring:
-// 0b1110100 AD <-> GND
-// 0b1110111 AD <-> VCC
-// 0b1110101 AD <-> SCL
-// 0b1110110 AD <-> SDA
-#define DRIVER_ADDR_1 0b1110110
-#define DRIVER_COUNT 1
+//rgb matrix setting
+#define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_SDA
 #define RGB_MATRIX_LED_COUNT 25
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
-// #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
+// #define RGB_MATRIX_SLEEP // turn off effects when suspended
 #define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_PINWHEEL // Sets the default mode, if none has been set

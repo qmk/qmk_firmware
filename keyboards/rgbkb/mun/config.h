@@ -41,9 +41,6 @@
 #endif
 
 /* Split Transport Features */
-#define SPLIT_TRANSPORT_MIRROR
-#define SPLIT_LAYER_STATE_ENABLE
-#define SPLIT_LED_STATE_ENABLE
 #define SPLIT_TRANSACTION_IDS_KB TOUCH_ENCODER_SYNC, RGB_MENU_SYNC
 
 #define RGB_MATRIX_LED_COUNT 98
@@ -53,7 +50,7 @@
 #define RGB_MATRIX_LED_PROCESS_LIMIT 10
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define RGB_MATRIX_SLEEP
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
@@ -119,6 +116,3 @@
 
 #define TOUCH_UPDATE_INTERVAL 33
 #define OLED_UPDATE_INTERVAL 33
-
-#define WEAR_LEVELING_BACKING_SIZE 4096
-#define WEAR_LEVELING_LOGICAL_SIZE 2048

@@ -27,7 +27,7 @@ You can define up to 32 macros in a `keymap.json` file, as used by [Configurator
         ],
         [
             {"action":"tap", "keycodes": ["F1"]},
-            {"action":"delay", "duration": "1000"},
+            {"action":"delay", "duration": 1000},
             {"action":"tap", "keycodes": ["PGDN"]}
         ]
     ],
@@ -69,9 +69,9 @@ The current list of available languages is:
 | **italian_osx_iso** | **jis** | **latvian** | **lithuanian_azerty** |
 | **lithuanian_qwerty** | **norman** | **norwegian** | **portuguese** |
 | **portuguese_osx_iso** | **romanian** | **serbian_latin** | **slovak** |
-| **slovenian** | **spanish_dvorak** | **spanish** | **swedish** |
-| **turkish_f** | **turkish_q** | **uk** | **us_international** |
-| **workman** | **workman_zxcvm** |
+| **slovenian** | **spanish_dvorak** | **spanish_latin_america** | **spanish** |
+| **swedish** | **turkish_f** | **turkish_q** | **uk** |
+| **us_international** | **workman** | **workman_zxcvm** |
 
 ### Macro Basics
 

@@ -17,7 +17,7 @@
 #pragma once
 
 #ifdef RGB_MATRIX_ENABLE
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
+#    define RGB_MATRIX_SLEEP // turn off effects when suspended
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
  // RGB Matrix Animation modes. Explicitly enabled
@@ -69,17 +69,9 @@
 // #    define ENABLE_RGB_MATRIX_SOLID_SPLASH
 // #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
- // This is a 7-bit address, that gets left-shifted and bit 0
- // set to 0 for write, 1 for read (as per I2C protocol)
- // The address will vary depending on your wiring:
- // 0b1110100 AD <-> GND
- // 0b1110111 AD <-> VCC
- // 0b1110101 AD <-> SCL
- // 0b1110110 AD <-> SDA
-#    define DRIVER_ADDR_1 0b1110100
-#    define DRIVER_ADDR_2 0b1110110
+#    define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
+#    define IS31FL3731_I2C_ADDRESS_2 IS31FL3731_I2C_ADDRESS_SDA
 
-#    define DRIVER_COUNT 2
 #    define DRIVER_1_LED_TOTAL 25
 #    define DRIVER_2_LED_TOTAL 24
 #    define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)

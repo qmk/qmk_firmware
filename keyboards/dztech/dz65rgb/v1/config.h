@@ -18,7 +18,7 @@
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_LED_PROCESS_LIMIT 4
 #    define RGB_MATRIX_LED_FLUSH_LIMIT 26
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
+#    define RGB_MATRIX_SLEEP // turn off effects when suspended
 #    define RGB_MATRIX_KEYPRESSES
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
@@ -70,9 +70,8 @@
 // #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
 #    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_ALL
-#    define DRIVER_ADDR_1 0b1110100
-#    define DRIVER_ADDR_2 0b1110111
-#    define DRIVER_COUNT 2
+#    define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
+#    define IS31FL3731_I2C_ADDRESS_2 IS31FL3731_I2C_ADDRESS_VCC
 #    define DRIVER_1_LED_TOTAL 35
 #    define DRIVER_2_LED_TOTAL 33
 #    define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)

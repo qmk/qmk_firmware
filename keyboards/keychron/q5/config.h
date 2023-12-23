@@ -30,11 +30,10 @@
 #define DIODE_DIRECTION ROW2COL
 
 /* RGB Matrix Driver Configuration */
-#define DRIVER_COUNT 2
-#define DRIVER_ADDR_1 0b1110111
-#define DRIVER_ADDR_2 0b1110100
+#define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_VDDIO
+#define SNLED27351_I2C_ADDRESS_2 SNLED27351_I2C_ADDRESS_GND
 
-#define CKLED2001_CURRENT_TUNE \
+#define SNLED27351_CURRENT_TUNE \
     { 0xB6, 0xB6, 0x56, 0xB6, 0xB6, 0x56, 0xB6, 0xB6, 0x56, 0xB6, 0xB6, 0x56 }
 
 /* DIP switch */
@@ -44,7 +43,7 @@
 #define MATRIX_MASKED
 
 /* turn off effects when suspended */
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define RGB_MATRIX_SLEEP
 
 /* EEPROM Driver Configuration */
 #define WEAR_LEVELING_LOGICAL_SIZE 2048

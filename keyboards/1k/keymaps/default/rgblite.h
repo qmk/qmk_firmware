@@ -7,8 +7,8 @@
 #include "color.h"
 
 static inline void rgblite_setrgb(RGB rgb) {
-    LED_TYPE leds[RGBLED_NUM] = {{.r = rgb.r, .g = rgb.g, .b = rgb.b}};
-    ws2812_setleds(leds, RGBLED_NUM);
+    rgb_led_t leds[RGBLIGHT_LED_COUNT] = {{.r = rgb.r, .g = rgb.g, .b = rgb.b}};
+    ws2812_setleds(leds, RGBLIGHT_LED_COUNT);
 }
 
 static void rgblite_increase_hue(void) {
