@@ -25,7 +25,7 @@ def mass_compile_targets(targets: List[BuildTarget], clean: bool, dry_run: bool,
     if dry_run:
         cli.log.info('Compilation targets:')
         for target in sorted(targets, key=lambda t: (t.keyboard, t.keymap)):
-            cli.log.info(f"{{fg_cyan}}qmk compile -kb {target[0]} -km {target[1]}{{fg_reset}}")
+            cli.log.info(f"{{fg_cyan}}qmk compile -kb {target.keyboard} -km {target.keymap}{{fg_reset}}")
     else:
         if clean:
             cli.run([make_cmd, 'clean'], capture_output=False, stdin=DEVNULL)
