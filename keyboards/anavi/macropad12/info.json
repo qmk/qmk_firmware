@@ -43,8 +43,11 @@
     "backlight": {
         "pin": "GP26"
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_ortho_4x3"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ortho_4x3": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
