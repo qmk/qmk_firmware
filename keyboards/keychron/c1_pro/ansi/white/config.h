@@ -31,7 +31,7 @@
     { 0x9D, 0x9D, 0x44, 0x9D, 0x9D, 0x44, 0x9D, 0x9D, 0x44, 0x9D, 0x9D, 0x44 }
 
 /* turn off effects when suspended */
-#define LED_DISABLE_WHEN_USB_SUSPENDED
+#define LED_MATRIX_SLEEP
 
 /* Enbale caps_lcok, win os and mac os indicator */
 #define CAPS_LOCK_LED_INDEX 63
