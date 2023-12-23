@@ -330,7 +330,34 @@
         "target": "keycapsss/plaid_pad/rev1"
     },
     "kudox": {
-        "target": "kudox/rev1"
+        "target": "kumaokobo/kudox/rev1"
+    },
+    "kudox/columner": {
+        "target": "kumaokobo/kudox/columner"
+    },
+    "kudox/rev1": {
+        "target": "kumaokobo/kudox/rev1"
+    },
+    "kudox/rev2": {
+        "target": "kumaokobo/kudox/rev2"
+    },
+    "kudox/rev3": {
+        "target": "kumaokobo/kudox/rev3"
+    },
+    "kudox_full": {
+        "target": "kumaokobo/kudox_full/rev1"
+    },
+    "kudox_full/rev1": {
+        "target": "kumaokobo/kudox_full/rev1"
+    },
+    "kudox_game": {
+        "target": "kumaokobo/kudox_game/rev1"
+    },
+    "kudox_game/rev1": {
+        "target": "kumaokobo/kudox_game/rev1"
+    },
+    "kudox_game/rev2": {
+        "target": "kumaokobo/kudox_game/rev2"
     },
     "kyria": {
         "target": "splitkb/kyria"
@@ -493,6 +520,15 @@
     },
     "peiorisboards/ixora": {
         "target": "coarse/ixora"
+    },
+    "pico": {
+        "target": "kumaokobo/pico/65keys"
+    },
+    "pico/65keys": {
+        "target": "kumaokobo/pico/65keys"
+    },
+    "pico/70keys": {
+        "target": "kumaokobo/pico/70keys"
     },
     "plaid": {
         "target": "dm9records/plaid"
