@@ -129,6 +129,7 @@ void eeconfig_update_audio_default(void) {
     audio_config.valid         = true;
     audio_config.enable        = AUDIO_DEFAULT_ON;
     audio_config.clicky_enable = AUDIO_DEFAULT_CLICKY_ON;
+    eeconfig_update_audio(audio_config.raw);
 }
 
 void audio_init(void) {
