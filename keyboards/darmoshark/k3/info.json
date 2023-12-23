@@ -22,7 +22,11 @@
         "rgb_matrix": true
     },
     "eeprom": {
-        "driver": "wear_leveling"
+        "driver": "wear_leveling",
+        "wear_leveling": {
+            "driver": "spi_flash",
+            "backing_size": 4096
+        }
     },
     "matrix_pins": {
         "rows": ["B13", "A1", "A2", "A3", "A4", "B7"],
