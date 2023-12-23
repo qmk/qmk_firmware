@@ -11,8 +11,8 @@ Make example for this keyboard (after setting up your build environment):
     qmk compile -kb orthograph -km default
 
 Flashing example for this keyboard:
-
-    I used QMK Toolbox. Do not forget to flash EEPROM with handedness on both sides!
+    qmk flash -kb orthograph -km default
+    Then, flash EEPROM with handedness (left / right) on both sides.
 
 The reset button is on the underside of each half of the keyboard.
 
