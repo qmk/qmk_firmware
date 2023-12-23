@@ -41,6 +41,10 @@
     },
     "rgb_matrix": {
         "driver": "ws2812",
+        "default":{
+          "val": 80
+        },
+        "sleep": true.
         "center_point": [24, 32],
         "max_brightness": 140,
         "animations": {
