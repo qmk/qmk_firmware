@@ -1074,6 +1074,9 @@
     "melody96": {
         "target": "ymdk/melody96"
     },
+    "miniaxe": {
+        "target": "kagizaraya/miniaxe"
+    },
     "minidox/rev1": {
         "target": "maple_computing/minidox/rev1"
     },
