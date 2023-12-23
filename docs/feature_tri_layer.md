@@ -40,7 +40,7 @@ Eg, if you wanted to set the "Adjust" layer to be layer 5, you'd add this to you
 | `set_tri_layer_lower_layer(layer)`           | Changes the "lower" layer*.                     |
 | `set_tri_layer_upper_layer(layer)`           | Changes the "upper" layer*.                     |
 | `set_tri_layer_adjust_layer(layer)`          | Changes the "adjust" layer*.                    |
-| `set_tri_layer_layers(lower, upper, adjust)` | Stes the "lower", "upper" and "adjust" layers*. |
+| `set_tri_layer_layers(lower, upper, adjust)` | Sets the "lower", "upper" and "adjust" layers*. |
 | `get_tri_layer_lower_layer()`                | Gets the current "lower" layer.                 |
 | `get_tri_layer_upper_layer()`                | Gets the current "upper" layer.                 |
 | `get_tri_layer_adjust_layer()`               | Gets the current "adjust" layer.                |

@@ -1,0 +1,78 @@
+{
+    "keyboard_name": "KB12-01",
+    "manufacturer": "DOIO",
+    "url": "",
+    "maintainer": "DOIO2022",
+    "usb": {
+        "vid": "0xD010",
+        "pid": "0x1201",
+        "device_version": "0.0.1"
+    },
+    "rgb_matrix": {
+        "driver": "ws2812"
+        "layout": [
+            {"matrix": [0, 0], "x": 0, "y": 0, "flags": 4},
+            {"matrix": [0, 1], "x": 75, "y": 0, "flags": 4},
+            {"matrix": [0, 2], "x": 150, "y": 0, "flags": 4},
+            {"matrix": [0, 3], "x": 224, "y": 0, "flags": 4},
+            {"matrix": [1, 0], "x": 0, "y": 32, "flags": 4},
+            {"matrix": [1, 1], "x": 75, "y": 32, "flags": 4},
+            {"matrix": [1, 2], "x": 150, "y": 32, "flags": 4},
+            {"matrix": [1, 3], "x": 224, "y": 32, "flags": 4},
+            {"matrix": [2, 0], "x": 0, "y": 64, "flags": 4},
+            {"matrix": [2, 1], "x": 75, "y": 64, "flags": 4},
+            {"matrix": [2, 2], "x": 150, "y": 64, "flags": 4},
+            {"matrix": [2, 3], "x": 224, "y": 64, "flags": 4}
+        ],
+        "max_brightness": 200
+    },
+    "matrix_pins": {
+        "cols": ["B14", "B13", "B12", "B0", "A7"],
+        "rows": ["B3", "B4", "B9"]
+    },
+    "diode_direction": "COL2ROW",
+    "dynamic_keymap": {
+        "layer_count": 6
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B5", "pin_b": "B6"}
+        ]
+    },
+    "ws2812": {
+        "pin": "A10"
+    },
+    "processor": "STM32F103",
+    "bootloader": "stm32duino",
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgb_matrix": true,
+        "encoder": true
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                { "matrix": [0, 4], "x": 0, "y": 0 },
+                { "matrix": [0, 0], "x": 3.25, "y": 0 },
+                { "matrix": [0, 1], "x": 4.25, "y": 0 },
+                { "matrix": [0, 2], "x": 5.25, "y": 0 },
+                { "matrix": [0, 3], "x": 6.25, "y": 0 },
+
+                { "matrix": [1, 0], "x": 7.75, "y": 0 },
+                { "matrix": [1, 1], "x": 8.75, "y": 0 },
+                { "matrix": [1, 2], "x": 9.75, "y": 0 },
+                { "matrix": [1, 3], "x": 10.75, "y": 0 },
+
+                { "matrix": [2, 0], "x": 12.25, "y": 0 },
+                { "matrix": [2, 1], "x": 13.25, "y": 0 },
+                { "matrix": [2, 2], "x": 14.25, "y": 0 },
+                { "matrix": [2, 3], "x": 15.25, "y": 0 }
+            ]
+        }
+    }
+}
