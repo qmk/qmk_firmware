@@ -44,7 +44,7 @@
         "default":{
           "val": 80
         },
-        "sleep": true.
+        "sleep": true,
         "center_point": [24, 32],
         "max_brightness": 140,
         "animations": {
