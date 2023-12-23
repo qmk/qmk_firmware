@@ -1383,6 +1383,12 @@
     "yurei": {
         "target": "kkatano/yurei"
     },
+    "z12": {
+        "target": "zigotica/z12"
+    },
+    "z34": {
+        "target": "zigotica/z34"
+    },
     "zinc": {
         "target": "25keys/zinc"
     },
