@@ -479,6 +479,15 @@
     "minim": {
         "target": "matthewdias/minim"
     },
+    "mnk1800s": {
+        "target": "monokei/mnk1800s"
+    },
+    "mnk50": {
+        "target": "monokei/mnk50"
+    },
+    "mnk75": {
+        "target": "monokei/mnk75"
+    },
     "model01": {
         "target": "keyboardio/model01"
     },
