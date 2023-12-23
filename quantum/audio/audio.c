@@ -17,6 +17,7 @@
 #include "audio.h"
 #include "eeconfig.h"
 #include "timer.h"
+#include "debug.h"
 #include "wait.h"
 #include "util.h"
 

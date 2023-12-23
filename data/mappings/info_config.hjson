@@ -17,6 +17,8 @@
     "APA102_DI_PIN": {"info_key": "apa102.data_pin"},
 
     // Audio
+    "AUDIO_DEFAULT_ON": {"info_key": "audio.default.on", "value_type": "bool"},
+    "AUDIO_DEFAULT_CLICKY_ON": {"info_key": "audio.default.clicky", "value_type": "bool"},
     "AUDIO_VOICES": {"info_key": "audio.voices", "value_type": "bool"},
     "SENDSTRING_BELL": {"info_key": "audio.macro_beep", "value_type": "bool"},
 
