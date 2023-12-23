@@ -1,0 +1,21 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
+{
+	"name": "Ubuntu",
+	"image": "mcr.microsoft.com/devcontainers/base:jammy",
+	
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": ".devcontainer/postcreate.sh",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-vscode.cpptools-extension-pack",
+				"ms-python.python",
+				"twxs.cmake",
+				"ms-vscode.cmake-tools",
+				"ms-vscode.makefile-tools",
+				"eamodio.gitlens"
+			]
+		}
+	}
+}
