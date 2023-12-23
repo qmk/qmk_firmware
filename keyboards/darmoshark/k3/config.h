@@ -2,17 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
-
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* RGB Matrix */
-#define RGB_MATRIX_LED_COUNT 44
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
-#define RGB_MATRIX_DEFAULT_VAL 80
-
 /* SPI Config for spi flash*/
 #define SPI_DRIVER SPIDQ
 #define SPI_SCK_PIN B3
