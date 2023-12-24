@@ -42,20 +42,26 @@ backlight_config_t backlight_config;
 static uint8_t breathing_period = BREATHING_PERIOD;
 #endif
 
+static void backlight_check_config(void) {
+    /* Add some out of bound checks for backlight config */
+
+    if (backlight_config.level > BACKLIGHT_LEVELS) {
+        backlight_config.level = BACKLIGHT_LEVELS;
+    }
+}
+
 /** \brief Backlight initialization
  *
  * FIXME: needs doc
  */
 void backlight_init(void) {
-    /* check signature */
-    if (!eeconfig_is_enabled()) {
-        eeconfig_init();
+    backlight_config.raw = eeconfig_read_backlight();
+    if (!backlight_config.valid) {
+        dprintf("backlight_init backlight_config.valid = 0. Write default values to EEPROM.\n");
         eeconfig_update_backlight_default();
     }
-    backlight_config.raw = eeconfig_read_backlight();
-    if (backlight_config.level > BACKLIGHT_LEVELS) {
-        backlight_config.level = BACKLIGHT_LEVELS;
-    }
+    backlight_check_config();
+
     backlight_set(backlight_config.enable ? backlight_config.level : 0);
 }
 
@@ -183,6 +189,7 @@ void eeconfig_update_backlight_current(void) {
 }
 
 void eeconfig_update_backlight_default(void) {
+    backlight_config.valid     = true;
     backlight_config.enable    = BACKLIGHT_DEFAULT_ON;
     backlight_config.breathing = BACKLIGHT_DEFAULT_BREATHING;
     backlight_config.level     = BACKLIGHT_DEFAULT_LEVEL;

@@ -33,7 +33,7 @@
 #define WIN_LED_INDEX 19
 
 /* turn off effects when suspended */
-#define LED_DISABLE_WHEN_USB_SUSPENDED
+#define LED_MATRIX_SLEEP
 
 // LED Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:

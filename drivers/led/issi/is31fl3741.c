@@ -23,6 +23,7 @@
 #include "wait.h"
 
 #define IS31FL3741_PWM_REGISTER_COUNT 351
+#define IS31FL3741_SCALING_REGISTER_COUNT 351
 
 #ifndef IS31FL3741_I2C_TIMEOUT
 #    define IS31FL3741_I2C_TIMEOUT 100
@@ -52,11 +53,10 @@
 #    define IS31FL3741_GLOBAL_CURRENT 0xFF
 #endif
 
-// Transfer buffer for TWITransmitData()
-uint8_t g_twi_transfer_buffer[20] = {0xFF};
+uint8_t i2c_transfer_buffer[20] = {0xFF};
 
 // These buffers match the IS31FL3741 and IS31FL3741A PWM registers.
-// The scaling buffers match the PG2 and PG3 LED On/Off registers.
+// The scaling buffers match the page 2 and 3 LED On/Off registers.
 // Storing them like this is optimal for I2C transfers to the registers.
 // We could optimize this and take out the unused registers from these
 // buffers and the transfers in is31fl3741_write_pwm_buffer() but it's
@@ -65,59 +65,62 @@ uint8_t g_pwm_buffer[IS31FL3741_DRIVER_COUNT][IS31FL3741_PWM_REGISTER_COUNT];
 bool    g_pwm_buffer_update_required[IS31FL3741_DRIVER_COUNT]        = {false};
 bool    g_scaling_registers_update_required[IS31FL3741_DRIVER_COUNT] = {false};
 
-uint8_t g_scaling_registers[IS31FL3741_DRIVER_COUNT][IS31FL3741_PWM_REGISTER_COUNT];
+uint8_t g_scaling_registers[IS31FL3741_DRIVER_COUNT][IS31FL3741_SCALING_REGISTER_COUNT];
 
 void is31fl3741_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
-    g_twi_transfer_buffer[0] = reg;
-    g_twi_transfer_buffer[1] = data;
+    i2c_transfer_buffer[0] = reg;
+    i2c_transfer_buffer[1] = data;
 
 #if IS31FL3741_I2C_PERSISTENCE > 0
     for (uint8_t i = 0; i < IS31FL3741_I2C_PERSISTENCE; i++) {
-        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 2, IS31FL3741_I2C_TIMEOUT) == 0) break;
+        if (i2c_transmit(addr << 1, i2c_transfer_buffer, 2, IS31FL3741_I2C_TIMEOUT) == 0) break;
     }
 #else
-    i2c_transmit(addr << 1, g_twi_transfer_buffer, 2, IS31FL3741_I2C_TIMEOUT);
+    i2c_transmit(addr << 1, i2c_transfer_buffer, 2, IS31FL3741_I2C_TIMEOUT);
 #endif
 }
 
+void is31fl3741_select_page(uint8_t addr, uint8_t page) {
+    is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND_WRITE_LOCK, IS31FL3741_COMMAND_WRITE_LOCK_MAGIC);
+    is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND, page);
+}
+
 bool is31fl3741_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
-    // Assume PG0 is already selected
+    // Assume page 0 is already selected
 
     for (int i = 0; i < 342; i += 18) {
         if (i == 180) {
-            // unlock the command register and select PG1
-            is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND_WRITE_LOCK, IS31FL3741_COMMAND_WRITE_LOCK_MAGIC);
-            is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND, IS31FL3741_COMMAND_PWM_1);
+            is31fl3741_select_page(addr, IS31FL3741_COMMAND_PWM_1);
         }
 
-        g_twi_transfer_buffer[0] = i % 180;
-        memcpy(g_twi_transfer_buffer + 1, pwm_buffer + i, 18);
+        i2c_transfer_buffer[0] = i % 180;
+        memcpy(i2c_transfer_buffer + 1, pwm_buffer + i, 18);
 
 #if IS31FL3741_I2C_PERSISTENCE > 0
         for (uint8_t i = 0; i < IS31FL3741_I2C_PERSISTENCE; i++) {
-            if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 19, IS31FL3741_I2C_TIMEOUT) != 0) {
+            if (i2c_transmit(addr << 1, i2c_transfer_buffer, 19, IS31FL3741_I2C_TIMEOUT) != 0) {
                 return false;
             }
         }
 #else
-        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 19, IS31FL3741_I2C_TIMEOUT) != 0) {
+        if (i2c_transmit(addr << 1, i2c_transfer_buffer, 19, IS31FL3741_I2C_TIMEOUT) != 0) {
             return false;
         }
 #endif
     }
 
     // transfer the left cause the total number is 351
-    g_twi_transfer_buffer[0] = 162;
-    memcpy(g_twi_transfer_buffer + 1, pwm_buffer + 342, 9);
+    i2c_transfer_buffer[0] = 162;
+    memcpy(i2c_transfer_buffer + 1, pwm_buffer + 342, 9);
 
 #if IS31FL3741_I2C_PERSISTENCE > 0
     for (uint8_t i = 0; i < IS31FL3741_I2C_PERSISTENCE; i++) {
-        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 10, IS31FL3741_I2C_TIMEOUT) != 0) {
+        if (i2c_transmit(addr << 1, i2c_transfer_buffer, 10, IS31FL3741_I2C_TIMEOUT) != 0) {
             return false;
         }
     }
 #else
-    if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 10, IS31FL3741_I2C_TIMEOUT) != 0) {
+    if (i2c_transmit(addr << 1, i2c_transfer_buffer, 10, IS31FL3741_I2C_TIMEOUT) != 0) {
         return false;
     }
 #endif
@@ -162,11 +165,7 @@ void is31fl3741_init(uint8_t addr) {
     // then disable software shutdown.
     // Unlock the command register.
 
-    // Unlock the command register.
-    is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND_WRITE_LOCK, IS31FL3741_COMMAND_WRITE_LOCK_MAGIC);
-
-    // Select PG4
-    is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND, IS31FL3741_COMMAND_FUNCTION);
+    is31fl3741_select_page(addr, IS31FL3741_COMMAND_FUNCTION);
 
     // Set to Normal operation
     is31fl3741_write_register(addr, IS31FL3741_FUNCTION_REG_CONFIGURATION, IS31FL3741_CONFIGURATION);
@@ -232,9 +231,7 @@ void is31fl3741_set_led_control_register(uint8_t index, bool red, bool green, bo
 
 void is31fl3741_update_pwm_buffers(uint8_t addr, uint8_t index) {
     if (g_pwm_buffer_update_required[index]) {
-        // unlock the command register and select PG2
-        is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND_WRITE_LOCK, IS31FL3741_COMMAND_WRITE_LOCK_MAGIC);
-        is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND, IS31FL3741_COMMAND_PWM_0);
+        is31fl3741_select_page(addr, IS31FL3741_COMMAND_PWM_0);
 
         is31fl3741_write_pwm_buffer(addr, g_pwm_buffer[index]);
     }
@@ -252,20 +249,16 @@ void is31fl3741_set_pwm_buffer(const is31fl3741_led_t *pled, uint8_t red, uint8_
 
 void is31fl3741_update_led_control_registers(uint8_t addr, uint8_t index) {
     if (g_scaling_registers_update_required[index]) {
-        // unlock the command register and select PG2
-        is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND_WRITE_LOCK, IS31FL3741_COMMAND_WRITE_LOCK_MAGIC);
-        is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND, IS31FL3741_COMMAND_SCALING_0);
+        is31fl3741_select_page(addr, IS31FL3741_COMMAND_SCALING_0);
 
-        // CS1_SW1 to CS30_SW6 are on PG2
+        // CS1_SW1 to CS30_SW6 are on page 2
         for (int i = CS1_SW1; i <= CS30_SW6; ++i) {
             is31fl3741_write_register(addr, i, g_scaling_registers[index][i]);
         }
 
-        // unlock the command register and select PG3
-        is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND_WRITE_LOCK, IS31FL3741_COMMAND_WRITE_LOCK_MAGIC);
-        is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND, IS31FL3741_COMMAND_SCALING_1);
+        is31fl3741_select_page(addr, IS31FL3741_COMMAND_SCALING_1);
 
-        // CS1_SW7 to CS39_SW9 are on PG3
+        // CS1_SW7 to CS39_SW9 are on page 3
         for (int i = CS1_SW7; i <= CS39_SW9; ++i) {
             is31fl3741_write_register(addr, i - CS1_SW7, g_scaling_registers[index][i]);
         }

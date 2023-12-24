@@ -18,7 +18,7 @@
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_TIMEOUT 1200000 // 20 minutes (20 * 60 * 1000ms)
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED
+#    define RGB_MATRIX_SLEEP
 #endif
 
 // A debounce of 8 represents a minimum key press time of just under 1 refresh at 120Hz

@@ -4,7 +4,7 @@
 #define LOCKING_RESYNC_ENABLE
 
 #ifdef RGB_MATRIX_ENABLE
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define RGB_MATRIX_SLEEP
 #define RGB_MATRIX_KEYPRESSES
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
