@@ -710,70 +710,94 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
     return true;
 
   if (record->event.pressed) {
-    pressed_keys |= ng_key[keycode - NG_Q]; // キーの重ね合わせ
+    #if defined(CONSOLE_ENABLE)
+        uprintf(">process_naginata pressed=%u nginput.size=%u\n", keycode, nginput.size);
+    #endif
+    if (keycode >= NG_Q && keycode <= NG_SHFT2) {
 
-    if (keycode == NG_SHFT || keycode == NG_SHFT2) {
-      NGList a;
-      initializeList(&a);
-      addToList(&a, keycode);
-      addToListArray(&nginput, &a);
-    } else if (nginput.size > 0) {
-      NGList a;
-      copyList(&(nginput.elements[nginput.size - 1]), &a);
-      NGList b;
-      copyList(&a, &b);
-      addToList(&b, keycode);
+      pressed_keys |= ng_key[keycode - NG_Q]; // キーの重ね合わせ
 
-      if (a.elements[a.size - 1] != keycode && number_of_candidates(&b, false) > 0) {
-        removeFromListArrayAt(&nginput, nginput.size - 1);
-        addToListArray(&nginput, &b);
+      if (keycode == NG_SHFT || keycode == NG_SHFT2) {
+        NGList a;
+        initializeList(&a);
+        addToList(&a, keycode);
+        addToListArray(&nginput, &a);
       } else {
-        // 連続シフト
-        uint16_t rs[4][2] = {{NG_D, NG_F}, {NG_C, NG_V}, {NG_J, NG_K}, {NG_M, NG_COMM}};
-        NGList df;
-        bool f = false;
-        for (int i = 0; i < 4; i++) {
-          initializeList(&df);
-          addToList(&df, rs[i][0]);
-          addToList(&df, rs[i][1]);
-          addToList(&df, keycode);
-          uint32_t brs = 0UL;
-          for (int j = 0; j < 2; j++) {
-            brs |=  ng_key[rs[i][j] - NG_Q];
+        NGList a;
+        copyList(&(nginput.elements[nginput.size - 1]), &a);
+        NGList b;
+        copyList(&a, &b);
+        addToList(&b, keycode);
+
+        // 前のキーとの同時押しの可能性があるなら前に足す
+        // 同じキー連打を除外
+        if (nginput.size > 0 && a.elements[a.size - 1] != keycode && number_of_candidates(&b, false) > 0) {
+          removeFromListArrayAt(&nginput, nginput.size - 1);
+          addToListArray(&nginput, &b);
+        // 前のキーと同時押しはない
+        } else {
+          // 連続シフト
+          uint16_t rs[4][2] = {{NG_D, NG_F}, {NG_C, NG_V}, {NG_J, NG_K}, {NG_M, NG_COMM}};
+          NGList df;
+          bool f = false;
+
+          if (nginput.size > 0) {
+            for (int i = 0; i < 4; i++) {
+              initializeList(&df);
+              addToList(&df, rs[i][0]);
+              addToList(&df, rs[i][1]);
+              addToList(&df, keycode);
+              uint32_t brs = 0UL;
+              for (int j = 0; j < 2; j++) {
+                brs |=  ng_key[rs[i][j] - NG_Q];
+              }
+              if (keycode != rs[i][0] && keycode != rs[i][1] && ((brs & pressed_keys) == brs) && number_of_candidates(&df, false) >  0) {
+                addToListArray(&nginput, &df);
+                f = true;
+                break;
+              }
+            }
           }
-          if (keycode != rs[i][0] && keycode != rs[i][1] && ((brs & pressed_keys) == brs) && number_of_candidates(&df, false)) {
-            addToListArray(&nginput, &df);
-            f = true;
+
+          // 連続シフトではない
+          if (!f) { 
+            NGList e;
+            initializeList(&e);
+            addToList(&e, keycode);
+            addToListArray(&nginput, &e);
           }
         }
 
-        if (!f) { // 連続シフトではない
-          NGList e;
-          initializeList(&e);
-          addToList(&e, keycode);
-          addToListArray(&nginput, &e);
+        if (nginput.size > 1 && number_of_candidates(&(nginput.elements[0]), false) == 1) {
+          ng_type(&(nginput.elements[0]));
+          removeFromListArrayAt(&nginput, 0);
         }
       }
-
-      if (nginput.size > 1 && number_of_candidates(&(nginput.elements[0]), false) == 1) {
-        ng_type(&(nginput.elements[0]));
-        removeFromListArrayAt(&nginput, 0);
-      }
+      #if defined(CONSOLE_ENABLE)
+        uprintf("<process_naginata pressed=%u nginput.size=%u\n", keycode, nginput.size);
+      #endif
+      return false;
     }
-
-    return false;
 
   } else { // key release
-    pressed_keys &= ~ng_key[keycode - NG_Q]; // キーの重ね合わせ
+    #if defined(CONSOLE_ENABLE)
+        uprintf(">process_naginata released=%u nginput.size=%u\n", keycode, nginput.size);
+    #endif
+    if (keycode >= NG_Q && keycode <= NG_SHFT2) {
+      pressed_keys &= ~ng_key[keycode - NG_Q]; // キーの重ね合わせ
 
-    if (pressed_keys == 0UL) {
-      while (nginput.size > 0) {
-        ng_type(&(nginput.elements[0]));
-        removeFromListArrayAt(&nginput, 0);
+      if (pressed_keys == 0UL) {
+        while (nginput.size > 0) {
+          ng_type(&(nginput.elements[0]));
+          removeFromListArrayAt(&nginput, 0);
+        }
       }
-    }
 
-    return false;
+      #if defined(CONSOLE_ENABLE)
+          uprintf("<process_naginata released=%u nginput.size=%u\n", keycode, nginput.size);
+      #endif
+      return false;
+    }
   }
 
   return true;
@@ -781,6 +805,9 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
 
 // キー入力を文字に変換して出力する
 void ng_type(NGList *keys) {
+  #if defined(CONSOLE_ENABLE)
+    uprintf(">ng_type size=%u\n", keys->size);
+  #endif
   if (keys->size == 0) return;
 
   naginata_keymap bngdickana;
@@ -791,21 +818,24 @@ void ng_type(NGList *keys) {
 
   bool ftype = false;
   uint32_t keyset = 0UL;
-  for (int i = 1; i < keys->size; i++) {
+  for (int i = 0; i < keys->size; i++) {
     keyset |= ng_key[keys->elements[i] - NG_Q];
   }
   for (int i = 0; i < sizeof ngdickana / sizeof bngdickana; i++) {
-    if ((bngdickana.shift || bngdickana.douji) == keyset) {
+    memcpy_P(&bngdickana, &ngdickana[i], sizeof(bngdickana));
+    if ((bngdickana.shift | bngdickana.douji) == keyset) {
       send_string(bngdickana.kana);
       ftype = true;
       break;
     }
   }
+  // JIみたいにJIを含む同時押しはたくさんあるが、JIのみの同時押しがないとき
+  // 最後の１キーを別に分けて変換する
   if (!ftype) {
     NGList a, b;
     initializeList(&a);
     initializeList(&b);
-    for (int i = 0; i < keys->size -1; i++) {
+    for (int i = 0; i < keys->size - 1; i++) {
       addToList(&a, keys->elements[i]);
     }
     addToList(&b, keys->elements[keys->size - 1]);
@@ -813,14 +843,20 @@ void ng_type(NGList *keys) {
     ng_type(&b);
   }
 
+  #if defined(CONSOLE_ENABLE)
+    uprintf("<ng_type\n");
+  #endif
 }
 
 int number_of_candidates(NGList *keys, bool strict) {
+  #if defined(CONSOLE_ENABLE)
+    uprintf(">number_of_candidates\n");
+  #endif
   if (keys->size == 0) return 0;
 
   naginata_keymap bngdickana; // PROGMEM buffer
   naginata_henshumap bngdichenshu;
-  uint8_t noc = 0;
+  int noc = 0;
 
   if (strict) { // 完全一致
     if (keys->size == 1 && (compareList0(keys, NG_SHFT) || compareList0(keys, NG_SHFT2))) {
@@ -894,6 +930,7 @@ int number_of_candidates(NGList *keys, bool strict) {
         keyset |= ng_key[keys->elements[i] - NG_Q];
       }
       for (int i = 0; i < sizeof ngdickana / sizeof bngdickana; i++) {
+        memcpy_P(&bngdickana, &ngdickana[i], sizeof(bngdickana));
         if (bngdickana.shift == B_SHFT && ((bngdickana.douji & keyset) == keyset)) {
           noc++;
         }
@@ -901,6 +938,7 @@ int number_of_candidates(NGList *keys, bool strict) {
     } else {
       if (keys->size == 3 && compareList01(keys, NG_D, NG_F)) {
         for (int i = 0; i < sizeof ngdichenshu / sizeof bngdichenshu; i++) {
+          memcpy_P(&bngdichenshu, &ngdichenshu[i], sizeof(bngdichenshu));
           if (bngdichenshu.shift == (B_D|B_F) && bngdichenshu.douji == ng_key[keys->elements[2] - NG_Q]) {
             noc = 1;
             break;
@@ -908,6 +946,7 @@ int number_of_candidates(NGList *keys, bool strict) {
         }
       } else if (keys->size == 3 && compareList01(keys, NG_C, NG_V)) {
         for (int i = 0; i < sizeof ngdichenshu / sizeof bngdichenshu; i++) {
+          memcpy_P(&bngdichenshu, &ngdichenshu[i], sizeof(bngdichenshu));
           if (bngdichenshu.shift == (B_C|B_V) && bngdichenshu.douji == ng_key[keys->elements[2] - NG_Q]) {
             noc = 1;
             break;
@@ -915,6 +954,7 @@ int number_of_candidates(NGList *keys, bool strict) {
         }
       } else if (keys->size == 3 && compareList01(keys, NG_J, NG_K)) {
         for (int i = 0; i < sizeof ngdichenshu / sizeof bngdichenshu; i++) {
+          memcpy_P(&bngdichenshu, &ngdichenshu[i], sizeof(bngdichenshu));
           if (bngdichenshu.shift == (B_J|B_K) && bngdichenshu.douji == ng_key[keys->elements[2] - NG_Q]) {
             noc = 1;
             break;
@@ -922,6 +962,7 @@ int number_of_candidates(NGList *keys, bool strict) {
         }
       } else if (keys->size == 3 && compareList01(keys, NG_M, NG_COMM)) {
         for (int i = 0; i < sizeof ngdichenshu / sizeof bngdichenshu; i++) {
+          memcpy_P(&bngdichenshu, &ngdichenshu[i], sizeof(bngdichenshu));
           if (bngdichenshu.shift == (B_M|B_COMM) && bngdichenshu.douji == ng_key[keys->elements[2] - NG_Q]) {
             noc = 1;
             break;
@@ -933,6 +974,7 @@ int number_of_candidates(NGList *keys, bool strict) {
           keyset |= ng_key[keys->elements[i] - NG_Q];
         }
         for (int i = 0; i < sizeof ngdickana / sizeof bngdickana; i++) {
+          memcpy_P(&bngdickana, &ngdickana[i], sizeof(bngdickana));
           if (bngdickana.shift == 0UL && ((bngdickana.douji & keyset) == keyset)) {
             noc++;
           }
@@ -940,6 +982,10 @@ int number_of_candidates(NGList *keys, bool strict) {
       }
     }
   }
+
+  #if defined(CONSOLE_ENABLE)
+    uprintf("<number_of_candidates noc=%u\n", noc);
+  #endif
 
   return noc;
 }
@@ -982,6 +1028,10 @@ void ngh_JKQ() { // ^{End}
 void ngh_JKW() { // 『』{改行}{↑}
   ng_send_unicode_string_P(PSTR("『』"));
   ng_up(1);
+}
+
+void ngh_JKE() { // ディ
+  send_string("dhi");
 }
 
 void ngh_JKR() { // ^s
