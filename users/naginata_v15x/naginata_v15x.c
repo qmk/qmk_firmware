@@ -166,8 +166,8 @@ const PROGMEM int8_t COMBI[NCOMBI][NKEYS][NDOUJI] = {
   {{ 0,  1, -1}, { 2, -1, -1}, {-1, -1, -1}}, // 01  2
   {{ 0, -1, -1}, { 1,  2, -1}, {-1, -1, -1}}, // 0   12
   {{ 0,  1,  2}, {-1, -1, -1}, {-1, -1, -1}}, // 012
-  {{ 0,  1, -1}, { 0,  2, -1}, {-1, -1, -1}}, // 01  02 : 0が連続シフト
-  {{ 0,  1, -1}, { 1,  2, -1}, {-1, -1, -1}}, // 01  12 : 1が連続シフト
+  {{ 0,  1, -1}, { 0,  2, -1}, {-1, -1, -1}}, // 01  02 : 0が連続シフト (0に当てはまるのはfvjm space)
+  {{ 0,  1, -1}, { 1,  2, -1}, {-1, -1, -1}}, // 01  12 : 1が連続シフト spaceはこれなしで
   // fvjm space以外でも連続シフトしている
 
   // // 1 key
@@ -764,9 +764,25 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
           }
           // 連続シフト
           // 組み合わせがないかもしれないのに連続シフトしている
-          if (includeSet(&ngpressd, NG_SHFT) >= 0 && includeList(&nginput, NG_SHFT) < 0) {
-            Keystroke ks = (Keystroke){.keycode = NG_SHFT, .pressTime = record->event.time, .releaseTime = 0};
-            addToListAt(&nginput, &ks, 0);
+          // バッファ内のキーを組み合わせる
+          uint32_t keycomb_buf = 0UL;
+          for (uint8_t k = 0; k < nginput.size; k++) {
+            keycomb_buf |= ng_key[nginput.elements[k].keycode - NG_Q];
+          }
+          keycomb_buf ||= ng_key[keycode - NG_Q];
+          if (includeSet(&ngpressd, NG_SHFT) >= 0 && includeList(&nginput, NG_SHFT) < 0) {            
+            bool isExist = false;
+            for (uint16_t k = 0; k < sizeof ngmap / sizeof bngmap; k++) {
+              memcpy_P(&bngmap, &ngmap[k], sizeof(bngmap));
+              if (keycomb_buf == (bngmap.key & keycomb_buf)) {
+                isExist = true;
+                break;
+              }
+            }
+            if (isExist) {
+              Keystroke ks = (Keystroke){.keycode = NG_SHFT, .pressTime = record->event.time, .releaseTime = 0};
+              addToListAt(&nginput, &ks, 0);
+            }
           } else if (includeSet(&ngpressd, NG_SHFT2) >= 0 && includeList(&nginput, NG_SHFT2) < 0) {
             Keystroke ks = (Keystroke){.keycode = NG_SHFT2, .pressTime = record->event.time, .releaseTime = 0};
             addToListAt(&nginput, &ks, 0);
