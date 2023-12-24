@@ -1,4 +1,4 @@
-# Matrix Diagram for YMDK Ym60mq
+# Matrix Diagram for YMDK Yd60mq
 
 ```
 ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐    ┌───────┐
