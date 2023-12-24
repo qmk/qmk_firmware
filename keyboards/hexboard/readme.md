@@ -13,9 +13,12 @@
 The ["Arduino" firmware](https://sr.ht/~earboxer/HexBoard/) remains the official firmware for the HexBoard, but QMK can be used as an alternative which offers keyboard functionality.
 
 Make example for this keyboard (after setting up your build environment):
+
     make hexboard/1_1:default
     make hexboard/dev:default
+
 Flashing example for this keyboard:
+
     make hexboard/1_1:default:flash
     make hexboard/dev:default:flash
 
