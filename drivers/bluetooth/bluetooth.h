@@ -22,9 +22,9 @@
 #include "report.h"
 
 #if defined(BLUETOOTH_BLUEFRUIT_LE)
-#     include "bluefruit_le.h"
+#    include "bluefruit_le.h"
 #elif defined(BLUETOOTH_RN42)
-#     include "rn42.h"
+#    include "rn42.h"
 #endif
 
 typedef enum send_output_t {

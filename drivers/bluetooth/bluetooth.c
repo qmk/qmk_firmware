@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 #include <stdbool.h>
 #include <stddef.h>
 #include "bluetooth.h"
@@ -69,7 +68,7 @@ __attribute__((weak)) void set_send_output_kb(send_output_t send_output) {
     set_send_output_user(send_output);
 }
 
-__attribute__((weak)) void set_send_output_user(send_output_t send_output) {}  // do nothing
+__attribute__((weak)) void set_send_output_user(send_output_t send_output) {} // do nothing
 
 send_output_t get_send_output(void) {
     if (desired_send_output == SEND_OUTPUT_AUTO) {
