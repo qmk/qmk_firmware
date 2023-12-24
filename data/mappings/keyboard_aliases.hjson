@@ -882,6 +882,9 @@
     "felix": {
         "target": "unikeyboard/felix"
     },
+    "flygone60/rev3": {
+        "target": "shandoncodes/flygone60/rev3"
+    },
     "four_banger": {
         "target": "bpiphany/four_banger"
     },
@@ -1080,6 +1083,15 @@
     "minidox/rev1": {
         "target": "maple_computing/minidox/rev1"
     },
+    "mino/hotswap": {
+        "target": "shandoncodes/mino/hotswap"
+    },
+    "mino_plus/hotswap": {
+        "target": "shandoncodes/mino_plus/hotswap"
+    },
+    "mino_plus/soldered": {
+        "target": "shandoncodes/mino_plus/soldered"
+    },
     "mio": {
         "target": "recompile_keys/mio"
     },
@@ -1268,6 +1280,9 @@
     },
     "reviung61": {
         "target": "reviung/reviung61"
+    },
+    "riot_pad": {
+        "target": "shandoncodes/riot_pad"
     },
     "runner3680/3x6": {
         "target": "omkbd/runner3680/3x6"
