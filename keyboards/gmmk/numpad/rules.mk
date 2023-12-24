@@ -16,10 +16,8 @@ MIDI_ENABLE = yes
 
 RGB_MATRIX_ENABLE = yes
 
-EEPROM_DRIVER = wear_leveling
-WEAR_LEVELING_DRIVER = spi_flash
-
 LTO_ENABLE = yes
 
-SRC += 	analog.c \
-		matrix.c
+ANALOG_DRIVER_REQUIRED = yes
+
+SRC += matrix.c
