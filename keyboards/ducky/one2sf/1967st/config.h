@@ -22,8 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define GPIO_INPUT_PIN_DELAY (NUC123_HCLK / 6 / 1000000L)
 
-#define RGB_MATRIX_LED_COUNT 69
-
 #define ENABLE_RGB_MATRIX_BREATHING
 #define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
 #define ENABLE_RGB_MATRIX_TYPING_HEATMAP

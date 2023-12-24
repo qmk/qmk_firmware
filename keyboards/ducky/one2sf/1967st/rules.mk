@@ -29,7 +29,3 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 DIP_SWITCH_ENABLE = yes
-
-RGB_MATRIX_ENABLE = yes
-
-SRC += rgb_matrix_drivers.c
