@@ -13,11 +13,11 @@ The Neopad in the photo above is the first prototype. See the project repository
 
 Make example for this keyboard (after setting up your build environment):
 
-    make neopad/rev1:default
+    make rookiebwoy/neopad/rev1:default
 
 Flashing example for this keyboard:
 
-    make neopad/rev1:default:flash
+    make rookiebwoy/neopad/rev1:default:flash
 
 When asked by the terminal, press the dedicated `RESET` button (the one above the 2 LEDs) to enter the bootloader and let the OS detects the device.
 
