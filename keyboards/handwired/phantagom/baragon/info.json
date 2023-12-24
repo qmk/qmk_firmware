@@ -15,6 +15,7 @@
         "encoder": true
     },
     "ws2812": {
+        "driver": "vendor",
         "pin": "GP15"
     },
     "rgblight": {

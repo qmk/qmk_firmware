@@ -13,6 +13,9 @@
         "rows": ["A2", "A1", "B8", "A10", "C15", "A15", "B7", "B6", "C14", "C13"]
     },
     "diode_direction": "COL2ROW",
+    "dynamic_keymap": {
+        "layer_count": 5
+    },
     "backlight": {
         "pin": "A6",
         "levels": 6,
