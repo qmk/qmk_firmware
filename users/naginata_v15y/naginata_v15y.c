@@ -815,6 +815,7 @@ void ng_type(NGList *keys) {
   if (keys->size == 0) return;
 
   naginata_keymap bngdickana;
+  naginata_henshumap bngdichenshu;
 
   if (keys->size == 1 && keys->elements[0] == NG_SHFT2) {
     tap_code16(KC_ENT);
@@ -829,6 +830,14 @@ void ng_type(NGList *keys) {
     memcpy_P(&bngdickana, &ngdickana[i], sizeof(bngdickana));
     if ((bngdickana.shift | bngdickana.douji) == keyset) {
       send_string(bngdickana.kana);
+      ftype = true;
+      break;
+    }
+  }
+  for (int i = 0; i < sizeof ngdichenshu / sizeof bngdichenshu; i++) {
+    memcpy_P(&bngdichenshu, &ngdichenshu[i], sizeof(bngdichenshu));
+    if ((bngdichenshu.shift | bngdichenshu.douji) == keyset) {
+      bngdichenshu.func();
       ftype = true;
       break;
     }
