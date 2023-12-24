@@ -71,11 +71,6 @@ void apa102_setleds(rgb_led_t *start_led, uint16_t num_leds) {
     apa102_end_frame(num_leds);
 }
 
-// Overwrite the default rgblight_call_driver to use apa102 driver
-void rgblight_call_driver(rgb_led_t *start_led, uint8_t num_leds) {
-    apa102_setleds(start_led, num_leds);
-}
-
 void static apa102_init(void) {
     setPinOutput(APA102_DI_PIN);
     setPinOutput(APA102_CI_PIN);

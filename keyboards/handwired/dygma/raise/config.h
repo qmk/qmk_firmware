@@ -34,7 +34,7 @@
 // At 100ms (10 fps), the matrix scan rate is ~355 scans per second under full load, and typing
 // accuracy is reasonably good.
 #define RGB_MATRIX_LED_FLUSH_LIMIT 100
-#define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
+#define RGB_MATRIX_SLEEP // turn off effects when suspended
 
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
