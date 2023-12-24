@@ -34,9 +34,6 @@
         "default": {
             "val": 0
         },
-        "layers": {
-            "enabled": true
-        },
         "led_count": 25,
         "max_brightness": 24,
         "sleep": true
