@@ -15,9 +15,4 @@
 #define WS2812_DMA_STREAM STM32_DMA2_STREAM5
 #define WS2812_DMA_CHANNEL 6
 
-#ifdef RGB_MATRIX_ENABLE
-    #define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
-    #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
-#endif
-
-
+#define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
