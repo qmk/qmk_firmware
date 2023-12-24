@@ -24,6 +24,12 @@
         "cols": ["C0", "C1", "C2", "C3", "A5", "B1", "B10", "B11", "B12", "B13", "B14", "B15", "C6", "C7", "C8", "C9"],
         "rows": ["A0", "A1", "A2", "A3", "A4", "C13"]
     },
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096,
+            "driver": "spi_flash"
+        }
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "A10", "pin_b": "A9"}
