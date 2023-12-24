@@ -12,3 +12,4 @@ AUDIO_ENABLE = no           # Audio output
 
 ENCODER_ENABLE = yes
 KEY_LOCK_ENABLE = yes
+ENCODER_MAP_ENABLE = yes

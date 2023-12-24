@@ -67,87 +67,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    /* LEFT ENCODER */
-    if (index == 0) {
-        switch (get_highest_layer(layer_state)) {
-            case 0:
-                // layer 0 - brightness up (CW) and down (CCW)
-                if (clockwise) {
-                    tap_code(KC_BRIGHTNESS_UP);
-                } else {
-                    tap_code(KC_BRIGHTNESS_DOWN);
-                }
-                break;
-
-            case 1:
-                // layer 1 - page up (CW) and down (CCW)
-                if (clockwise) {
-                    tap_code(KC_PAGE_UP);
-                } else {
-                    tap_code(KC_PAGE_DOWN);
-                }
-                break;
-
-            case 2:
-                // layer 2 - redo (CW) and undo (CCW)
-                if (clockwise) {
-                    tap_code16(LCTL(KC_Y));
-                } else {
-                    tap_code16(LCTL(KC_Z));
-                }
-                break;
-
-	    case 3:
-                // layer 3 - pan right (CW) and left (CCW)
-                if (clockwise) {
-                    tap_code(KC_WH_R);
-                } else {
-                    tap_code(KC_WH_L);
-                }
-                break;
-        }
-
-    }
-    /* RIGHT ENCODER */
-    else if (index == 1) {
-        switch (get_highest_layer(layer_state)) {
-            case 0:
-                // layer 0 - volume up (CW) and down (CCW)
-                if (clockwise) {
-                    tap_code(KC_AUDIO_VOL_UP);
-                } else {
-                    tap_code(KC_AUDIO_VOL_DOWN);
-                }
-                break;
-
-            case 1:
-                // layer 1 - wheel up (CW) and down (CCW)
-                if (clockwise) {
-                    tap_code(KC_WH_U);
-                } else {
-                    tap_code(KC_WH_D);
-                }
-                break;
-
-            case 2:
-                // layer 2 - forward (CW) and backward (CCW) one word
-                if (clockwise) {
-                    tap_code16(LCTL(KC_RIGHT));
-                } else {
-                    tap_code16(LCTL(KC_LEFT));
-                }
-                break;
-
-            case 3:
-                // layer 3 - wheel up (CW) and down (CCW)
-                if (clockwise) {
-                    tap_code(KC_WH_U);
-                } else {
-                    tap_code(KC_WH_D);
-                }
-                break;
-        }
-    }
-    return true;
-}
+#if defined(ENCODER_MAP_ENABLE)
+// { LEFT ENCODER, RIGHT ENCODER }
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [0] = { ENCODER_CCW_CW(KC_BRIGHTNESS_DOWN, KC_BRIGHTNESS_UP),   ENCODER_CCW_CW(KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP)  },
+    [1] = { ENCODER_CCW_CW(KC_PAGE_DOWN, KC_PAGE_UP),               ENCODER_CCW_CW(KC_WH_D, KC_WH_U)                    },
+    [2] = { ENCODER_CCW_CW(LCTL(KC_Z), LCTL(KC_Y)),                 ENCODER_CCW_CW(LCTL(KC_LEFT), LCTL(KC_RIGHT))       },
+    [3] = { ENCODER_CCW_CW(KC_WH_L, KC_WH_R),                       ENCODER_CCW_CW(KC_WH_D, KC_WH_U)                    },
+};
+#endif
