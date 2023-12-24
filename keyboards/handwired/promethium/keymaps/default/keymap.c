@@ -47,7 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 } while (0)
 #endif
 #endif
-#include "outputselect.h"
+#include "bluetooth.h"
 #include "led.h"
 #define COUNT(x) ARRAY_SIZE((x))
 
@@ -1251,13 +1251,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void set_output_user(uint8_t output) {
+void set_send_output_user(send_output_t output) {
 #ifdef BLUETOOTH_BLUEFRUIT_LE
-  switch(output) {
-    case OUTPUT_USB:
+  switch (output) {
+    case SEND_OUTPUT_USB:
       led_set_output_usb();
       break;
-    case OUTPUT_BLUETOOTH:
+    case SEND_OUTPUT_BLUETOOTH:
       led_set_output_ble();
       break;
     default:
@@ -1277,11 +1277,11 @@ void matrix_init_user(void) {
 
   // auto detect output on init
 #ifdef BLUETOOTH_BLUEFRUIT_LE
-  uint8_t output = auto_detect_output();
-  if (output == OUTPUT_USB) {
-    set_output(OUTPUT_USB);
+  send_output_t output = get_send_output();
+  if (output == SEND_OUTPUT_USB) {
+    set_send_output(SEND_OUTPUT_USB);
   } else {
-    set_output(OUTPUT_BLUETOOTH);
+    set_send_output(SEND_OUTPUT_BLUETOOTH);
   }
 #endif
 }

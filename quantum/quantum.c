@@ -21,7 +21,7 @@
 #endif
 
 #ifdef BLUETOOTH_ENABLE
-#    include "outputselect.h"
+#    include "bluetooth.h"
 #endif
 
 #ifdef GRAVE_ESC_ENABLE
@@ -426,13 +426,13 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
 #ifdef BLUETOOTH_ENABLE
             case QK_OUTPUT_AUTO:
-                set_output(OUTPUT_AUTO);
+                set_send_output(SEND_OUTPUT_AUTO);
                 return false;
             case QK_OUTPUT_USB:
-                set_output(OUTPUT_USB);
+                set_send_output(SEND_OUTPUT_USB);
                 return false;
             case QK_OUTPUT_BLUETOOTH:
-                set_output(OUTPUT_BLUETOOTH);
+                set_send_output(SEND_OUTPUT_BLUETOOTH);
                 return false;
 #endif
 #ifndef NO_ACTION_ONESHOT

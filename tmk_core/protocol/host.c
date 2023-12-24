@@ -32,7 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef BLUETOOTH_ENABLE
 #    include "bluetooth.h"
-#    include "outputselect.h"
 #endif
 
 #ifdef NKRO_ENABLE
@@ -73,11 +72,13 @@ led_t host_keyboard_led_state(void) {
 
 /* send report */
 void host_keyboard_send(report_keyboard_t *report) {
+
 #ifdef BLUETOOTH_ENABLE
-    if (where_to_send() == OUTPUT_BLUETOOTH) {
-        bluetooth_send_keyboard(report);
-        return;
-    }
+    send_output_t where_to_send = get_send_output();
+    if ((where_to_send == SEND_OUTPUT_BLUETOOTH) || (where_to_send == SEND_OUTPUT_BOTH)) {
+        bluetooth_driver.send_keyboard(report);
+        if (where_to_send == SEND_OUTPUT_BLUETOOTH) return;  // only BT, jump out
+    } else if ((where_to_send == SEND_OUTPUT_NONE)) return;
 #endif
 
     if (!driver) return;
@@ -98,6 +99,15 @@ void host_keyboard_send(report_keyboard_t *report) {
 void host_nkro_send(report_nkro_t *report) {
     if (!driver) return;
     report->report_id = REPORT_ID_NKRO;
+
+#if defined(BLUETOOTH_ENABLE) && defined(NKRO_ENABLE)
+    send_output_t where_to_send = get_send_output();
+    if ((where_to_send == SEND_OUTPUT_BLUETOOTH) || (where_to_send == SEND_OUTPUT_BOTH)) {
+        bluetooth_driver.send_nkro(report);
+        if (where_to_send == SEND_OUTPUT_BLUETOOTH) return;  // only BT, jump out
+    } else if (where_to_send == SEND_OUTPUT_NONE) return;
+#endif
+
     (*driver->send_nkro)(report);
 
     if (debug_keyboard) {
@@ -110,11 +120,13 @@ void host_nkro_send(report_nkro_t *report) {
 }
 
 void host_mouse_send(report_mouse_t *report) {
+
 #ifdef BLUETOOTH_ENABLE
-    if (where_to_send() == OUTPUT_BLUETOOTH) {
-        bluetooth_send_mouse(report);
-        return;
-    }
+    send_output_t where_to_send = get_send_output();
+    if ((where_to_send == SEND_OUTPUT_BLUETOOTH) || (where_to_send == SEND_OUTPUT_BOTH)) {
+        bluetooth_driver.send_mouse(report);
+        if (where_to_send == SEND_OUTPUT_BLUETOOTH) return;  // only BT, jump out
+    } else if (where_to_send == SEND_OUTPUT_NONE) return;
 #endif
 
     if (!driver) return;
@@ -133,6 +145,14 @@ void host_system_send(uint16_t usage) {
     if (usage == last_system_usage) return;
     last_system_usage = usage;
 
+#ifdef BLUETOOTH_ENABLE
+    send_output_t where_to_send = get_send_output();
+    if ((where_to_send == SEND_OUTPUT_BLUETOOTH) || (where_to_send == SEND_OUTPUT_BOTH)) {
+        bluetooth_driver.send_system(usage);
+        if (where_to_send == SEND_OUTPUT_BLUETOOTH) return;  // only BT, jump out
+    } else if (where_to_send == SEND_OUTPUT_NONE) return;
+#endif
+
     if (!driver) return;
 
     report_extra_t report = {
@@ -147,10 +167,11 @@ void host_consumer_send(uint16_t usage) {
     last_consumer_usage = usage;
 
 #ifdef BLUETOOTH_ENABLE
-    if (where_to_send() == OUTPUT_BLUETOOTH) {
-        bluetooth_send_consumer(usage);
-        return;
-    }
+    send_output_t where_to_send = get_send_output();
+    if ((where_to_send == SEND_OUTPUT_BLUETOOTH) || (where_to_send == SEND_OUTPUT_BOTH)) {
+        bluetooth_driver.send_consumer(usage);
+        if (where_to_send == SEND_OUTPUT_BLUETOOTH) return;  // only BT, jump out
+    } else if (where_to_send == SEND_OUTPUT_NONE) return;
 #endif
 
     if (!driver) return;
