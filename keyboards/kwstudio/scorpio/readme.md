@@ -1,24 +1,18 @@
-# Radialex
+# Scorpio
 
-![Radialex](https://github.com/takashicompany/radialex/blob/master/images/qmk.jpg?raw=true)
+![Scorpio](https://i.imgur.com/ikAlEQMh.jpeg)
 
-40% larger keyboard.  
-The radial key layout allows you to place your hand in a natural position and move your fingers the shortest distance to type.  
-Your iconic keys and keycaps can be placed in the center of the keyboard.  
-It is possible to make it shine with LED backlighting.  
-The keyswitches can also be replaced with MX sockets.  
-
-* Keyboard Maintainer: [takashicompany](https://github.com/takashicompany)
-* Hardware Supported: PCB, Pro Micro
-* Hardware Availability: https://github.com/takashicompany/radialex
+* Keyboard Maintainer: [khchen](https://github.com/khchen2004)
+* Hardware Supported: Scorpio PCB
+* Hardware Availability: Private GB
 
 Make example for this keyboard (after setting up your build environment):
 
-    make takashicompany/radialex:default
+    make kwstudio/scorpio:default
 
 Flashing example for this keyboard:
 
-    make takashicompany/radialex:default:flash
+    make kwstudio/scorpio:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
