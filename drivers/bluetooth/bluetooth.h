@@ -27,6 +27,8 @@
 #    include "rn42.h"
 #endif
 
+// clang-format off
+
 typedef enum send_output_t {
     SEND_OUTPUT_AUTO,
     SEND_OUTPUT_NONE,
@@ -34,6 +36,8 @@ typedef enum send_output_t {
     SEND_OUTPUT_BLUETOOTH,
     SEND_OUTPUT_BOTH
 } send_output_t;
+
+// clang-format on
 
 #ifndef SEND_OUTPUT_DEFAULT
 #    define SEND_OUTPUT_DEFAULT SEND_OUTPUT_AUTO
