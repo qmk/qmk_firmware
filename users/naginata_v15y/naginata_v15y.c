@@ -737,19 +737,23 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
         // 前のキーと同時押しはない
         } else {
           // 連続シフト
-          uint16_t rs[4][2] = {{NG_D, NG_F}, {NG_C, NG_V}, {NG_J, NG_K}, {NG_M, NG_COMM}};
+          uint16_t rs[10][2] = {{NG_D, NG_F}, {NG_C, NG_V}, {NG_J, NG_K}, {NG_M, NG_COMM}, {NG_SHFT, 0}, {NG_SHFT2, 0}, {NG_F, 0}, {NG_V, 0}, {NG_J, 0}, {NG_M, 0}};
           NGList df;
           bool f = false;
 
           if (nginput.size > 0) {
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < 10; i++) {
               initializeList(&df);
               addToList(&df, rs[i][0]);
-              addToList(&df, rs[i][1]);
+              if (rs[i][1] > 0) {
+                addToList(&df, rs[i][1]);
+              }
               addToList(&df, keycode);
               uint32_t brs = 0UL;
               for (int j = 0; j < 2; j++) {
-                brs |=  ng_key[rs[i][j] - NG_Q];
+                if (rs[i][j] > 0) {
+                  brs |=  ng_key[rs[i][j] - NG_Q];
+                }
               }
               if (keycode != rs[i][0] && keycode != rs[i][1] && ((brs & pressed_keys) == brs) && number_of_candidates(&df, false) >  0) {
                 addToListArray(&nginput, &df);
