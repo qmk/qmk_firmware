@@ -8,34 +8,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*Layer 0*/
     [0] = LAYOUT(
-  	KC_MUTE, 
-		KC_MPLY, KC_MPRV, KC_MNXT, KC_MSEL, 
-		KC_UNDO, KC_CALC, KC_MAIL, KC_MYCM, 
-		KC_COPY, KC_CUT, KC_PSTE, TO(3)
+    KC_MUTE, 
+        KC_MPLY, KC_MPRV, KC_MNXT, KC_MSEL, 
+        KC_UNDO, KC_CALC, KC_MAIL, KC_MYCM, 
+        KC_COPY, KC_CUT, KC_PSTE, TO(3)
         ),
 
 /*Layer 1*/
     [1] = LAYOUT(
-		RGB_TOG, 
-		RGB_SAD, RGB_SAI, RGB_HUD, RGB_HUI, 
-		RGB_MOD, RGB_RMOD, RGB_M_P, RGB_M_B, 
-		RGB_M_SW, RGB_SPD, RGB_SPI, TO(0)
+        RGB_TOG, 
+        RGB_SAD, RGB_SAI, RGB_HUD, RGB_HUI, 
+        RGB_MOD, RGB_RMOD, RGB_M_P, RGB_M_B, 
+        RGB_M_SW, RGB_SPD, RGB_SPI, TO(0)
         ),
 
 /*Layer 2*/ 
     [2] = LAYOUT(
-		KC_NO, 
-		KC_NO, KC_NO, KC_NO, KC_NO, 
-		KC_NO, KC_NO, KC_NO, KC_NO, 
-		KC_NO, KC_NO, KC_NO, TO(0)
+        KC_NO, 
+        KC_NO, KC_NO, KC_NO, KC_NO, 
+        KC_NO, KC_NO, KC_NO, KC_NO, 
+        KC_NO, KC_NO, KC_NO, TO(0)
         ),
 
 /*Layer 3*/       
     [3] = LAYOUT(
-		KC_NO, 
-		TO(1), TO(2), KC_NO, KC_NO, 
-		KC_NO, KC_NO, KC_NO, KC_NO, 
-		KC_NO, KC_NO, KC_NO, TO(0)
+        KC_NO, 
+        TO(1), TO(2), KC_NO, KC_NO, 
+        KC_NO, KC_NO, KC_NO, KC_NO, 
+        KC_NO, KC_NO, KC_NO, TO(0)
         ),
 
 };
