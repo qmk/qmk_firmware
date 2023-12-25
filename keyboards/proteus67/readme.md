@@ -2,7 +2,7 @@
 
 ![proteus67](https://i.imgur.com/mYhl7Jah.png)
 
-*67 key ortholinear layout with rotary encoder*
+67 key ortholinear layout with rotary encoder.
 
 * Keyboard Maintainer: [James Gzowski](https://github.com/gzowski)
 * Hardware Supported: Elite-Pi or equivilent RP2040 controller with additional I/O along bottom.
