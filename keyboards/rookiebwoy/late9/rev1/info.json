@@ -4,8 +4,8 @@
     "url": "https://github.com/rookiebwoy/late-9)",
     "maintainer": "rookiebwoy",
     "usb": {
-        "vid": "0xFEED",
-        "pid": "0x3777",
+        "vid": "0x6961",
+        "pid": "0x3032",
         "device_version": "0.1.0"
     },
     "tapping": {
