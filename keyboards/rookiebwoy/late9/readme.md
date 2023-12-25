@@ -13,11 +13,11 @@ See the project repository for gerbers.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make late9/rev1:default
+    make rookiebwoy/late9/rev1:default
 
 Flashing example for this keyboard:
 
-    make late9/rev1:default:flash
+    make rookiebwoy/late9/rev1:default:flash
 
 
 When asked by the terminal, short with a metal wire the pins on the backside of the board highlighted as `RST` (one is the `RESET` and the other one is `GROUND`) to enter the bootloader and let the OS detects the device.
