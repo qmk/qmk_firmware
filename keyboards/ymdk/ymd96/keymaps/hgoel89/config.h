@@ -1,8 +1,6 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+// Copyright 2018 Harshit Goel (@harshitgoel96)
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "../../config.h"
+#pragma once
 
 #define TAPPING_TERM 300
-
-#endif
