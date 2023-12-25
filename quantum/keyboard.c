@@ -710,7 +710,7 @@ void keyboard_task(void) {
 #endif
 
 #ifdef BLUETOOTH_ENABLE
-    if (NULL != (*bluetooth_driver.task)) bluetooth_driver.task();
+    if (NULL != bluetooth_driver.task) bluetooth_driver.task();
 #endif
 
 #ifdef HAPTIC_ENABLE

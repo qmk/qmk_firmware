@@ -26,7 +26,7 @@ __attribute__((weak)) void bluetooth_init(void) {
 }
 
 __attribute__((weak)) void bluetooth_task(void) {
-    if (NULL != (*bluetooth_driver.task)) {
+    if (NULL != bluetooth_driver.task) {
         bluetooth_driver.task();
     }
 }
@@ -37,7 +37,7 @@ __attribute__((weak)) void bluetooth_send_keyboard(report_keyboard_t *report) {
 
 #ifdef NKRO_ENABLE
 __attribute__((weak)) void bluetooth_send_nkro(report_keyboard_t *report) {
-    if (NULL != (*bluetooth_driver.send_nkro)) {
+    if (NULL != bluetooth_driver.send_nkro) {
         bluetooth_driver.send_nkro(report);
     }
 }
@@ -52,7 +52,7 @@ __attribute__((weak)) void bluetooth_send_consumer(uint16_t usage) {
 }
 
 __attribute__((weak)) void bluetooth_send_system(uint16_t usage) {
-    if (NULL != (*bluetooth_driver.send_system)) {
+    if (NULL != bluetooth_driver.send_system) {
         bluetooth_driver.send_system(usage);
     }
 }
