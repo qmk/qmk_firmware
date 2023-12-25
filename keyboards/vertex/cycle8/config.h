@@ -4,4 +4,3 @@
 #pragma once
 
 #define WS2812_SPI_DRIVER SPID2
-#define WS2812_SPI_MOSI_PAL_MODE 5
