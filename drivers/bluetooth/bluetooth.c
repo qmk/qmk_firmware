@@ -22,7 +22,7 @@
 
 /* Each driver needs to define the struct
  *    const rgb_matrix_driver_t rgb_matrix_driver;
- * All members (except `task`, `.detect_output` and `system`) must be provided.
+ * All members (except `task`, `is_connected` and `send_system`) must be provided.
  * Keyboard custom drivers can define this in their own files, it should only
  * be here if shared between boards.
  */
