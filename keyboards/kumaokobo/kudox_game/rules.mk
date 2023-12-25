@@ -11,4 +11,4 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 
-DEFAULT_FOLDER = kudox_game/rev2
+DEFAULT_FOLDER = kumaokobo/kudox_game/rev2
