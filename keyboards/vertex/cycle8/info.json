@@ -53,7 +53,7 @@
         "tkl_iso",
         "tkl_ansi_split_bs",
         "tkl_ansi_split_rshift",
-        "tkl_ansi_split_bs_split_rshift"
+        "tkl_ansi_split_bs_rshift"
     ],
     "layouts":{
         "LAYOUT_all": {
@@ -517,7 +517,7 @@
                 {"matrix": [5, 15], "x": 17.25, "y": 5.5}
            ]
         },
-        "LAYOUT_tkl_ansi_split_bs_split_rshift": {
+        "LAYOUT_tkl_ansi_split_bs_rshift": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 2, "y": 0},
