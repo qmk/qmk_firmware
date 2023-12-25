@@ -993,6 +993,9 @@
     "kprepublic/bm68hsrgb": {
         "target": "kprepublic/bm68hsrgb/rev1"
     },
+    "late9/rev1": {
+        "target": "rookiebwoy/late9/rev1"
+    },
     "latin17rgb": {
         "target": "latincompass/latin17rgb"
     },
@@ -1145,6 +1148,9 @@
     },
     "nebula68b": {
         "target": "spaceholdings/nebula68b"
+    },
+    "neopad/rev1": {
+        "target": "rookiebwoy/neopad/rev1"
     },
     "niu_mini": {
         "target": "kbdfans/niu_mini"
