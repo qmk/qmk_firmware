@@ -1,1 +1,1 @@
-DEFAULT_FOLDER = neopad/rev1
+DEFAULT_FOLDER = rookiebwoy/neopad/rev1
