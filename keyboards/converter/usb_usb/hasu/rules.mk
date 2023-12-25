@@ -1,2 +1,1 @@
-# Processor frequency
-F_CPU = 16000000
+# This file intentionally left blank
