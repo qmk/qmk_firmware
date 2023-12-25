@@ -49,11 +49,11 @@
     "processor": "STM32F103",
     "bootloader": "uf2boot",
     "community_layouts": [
-        "LAYOUT_tkl_ansi",
-        "LAYOUT_tkl_iso",
-        "LAYOUT_tkl_ansi_split_bs",
-        "LAYOUT_tkl_ansi_split_rshift",
-        "LAYOUT_tkl_ansi_split_bs_rshift"
+        "tkl_ansi",
+        "tkl_iso",
+        "tkl_ansi_split_bs",
+        "tkl_ansi_split_rshift",
+        "tkl_ansi_split_bs_rshift"
     ],
     "layouts":{
         "LAYOUT_all": {
