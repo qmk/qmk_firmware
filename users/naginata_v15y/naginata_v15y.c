@@ -318,8 +318,8 @@ const PROGMEM naginata_henshumap ngdichenshu[] = {
   {.shift = 0UL        , .shift = B_Y     , .func = ng_Y}, //
   {.shift = B_SHFT     , .shift = B_T     , .func = ng_ST}, //
   {.shift = B_SHFT     , .shift = B_Y     , .func = ng_SY}, //
-  // {.shift = 0UL        , .shift = B_H|B_J , .func = ng_kanaon}, //　かなオン
-  // {.shift = 0UL        , .shift = B_F|B_G , .func = ng_kanaoff}, //　かなオフ
+  {.shift = 0UL        , .shift = B_H|B_J , .func = naginata_on}, //　かなオン
+  {.shift = 0UL        , .shift = B_F|B_G , .func = naginata_off}, //　かなオフ
 
   // 編集モード
   {.shift = B_D|B_F    , .douji = B_Y     , .func = ngh_DFY}, // {Home}
@@ -738,28 +738,26 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
         } else {
           // 連続シフト
           uint16_t rs[10][2] = {{NG_D, NG_F}, {NG_C, NG_V}, {NG_J, NG_K}, {NG_M, NG_COMM}, {NG_SHFT, 0}, {NG_SHFT2, 0}, {NG_F, 0}, {NG_V, 0}, {NG_J, 0}, {NG_M, 0}};
-          NGList df;
           bool f = false;
 
-          if (nginput.size > 0) {
-            for (int i = 0; i < 10; i++) {
-              initializeList(&df);
-              addToList(&df, rs[i][0]);
-              if (rs[i][1] > 0) {
-                addToList(&df, rs[i][1]);
-              }
-              addToList(&df, keycode);
-              uint32_t brs = 0UL;
-              for (int j = 0; j < 2; j++) {
-                if (rs[i][j] > 0) {
-                  brs |=  ng_key[rs[i][j] - NG_Q];
-                }
-              }
-              if (keycode != rs[i][0] && keycode != rs[i][1] && ((brs & pressed_keys) == brs) && number_of_candidates(&df, false) >  0) {
-                addToListArray(&nginput, &df);
-                f = true;
-                break;
-              }
+          for (int i = 0; i < 10; i++) {
+            NGList rskc;
+            initializeList(&rskc);
+            addToList(&rskc, rs[i][0]);
+            if (rs[i][1] > 0) {
+              addToList(&rskc, rs[i][1]);
+            }
+            uint32_t brs = 0UL;
+            for (int j = 0; j < rskc.size; j++) {
+              brs |=  ng_key[rskc.elements[j] - NG_Q];
+            }
+            int c = includeList(&rskc, keycode);
+
+            addToList(&rskc, keycode);
+            if (c <  0 && ((brs & pressed_keys) == brs) && number_of_candidates(&rskc, true) >  0) {
+              addToListArray(&nginput, &rskc);
+              f = true;
+              break;
             }
           }
 
@@ -772,7 +770,7 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
           }
         }
 
-        if (nginput.size > 1 && number_of_candidates(&(nginput.elements[0]), false) == 1) {
+        if (nginput.size > 1 || number_of_candidates(&(nginput.elements[0]), false) == 1) {
           ng_type(&(nginput.elements[0]));
           removeFromListArrayAt(&nginput, 0);
         }
@@ -819,6 +817,7 @@ void ng_type(NGList *keys) {
 
   if (keys->size == 1 && keys->elements[0] == NG_SHFT2) {
     tap_code16(KC_ENT);
+    return;
   }
 
   bool ftype = false;
