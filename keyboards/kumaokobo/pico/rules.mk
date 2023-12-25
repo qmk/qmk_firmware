@@ -13,4 +13,4 @@ RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
 
 SPLIT_KEYBOARD = yes
 
-DEFAULT_FOLDER = pico/65keys
+DEFAULT_FOLDER = kumaokobo/pico/65keys

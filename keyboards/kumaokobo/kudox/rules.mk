@@ -13,4 +13,4 @@ RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
 
 SPLIT_KEYBOARD = yes
 
-DEFAULT_FOLDER = kudox/rev3
+DEFAULT_FOLDER = kumaokobo/kudox/rev3
