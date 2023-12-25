@@ -15,4 +15,4 @@ LTO_ENABLE = yes
 
 SPLIT_KEYBOARD = yes
 
-DEFAULT_FOLDER = kudox_full/rev1
+DEFAULT_FOLDER = kumaokobo/kudox_full/rev1
