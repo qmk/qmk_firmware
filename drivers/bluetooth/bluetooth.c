@@ -76,7 +76,7 @@ send_output_t get_send_output(void) {
         if (usb_connected_state()) {
             return SEND_OUTPUT_USB;
         }
-        if ((NULL != (*bluetooth_driver.is_connected)) && (bluetooth_driver.is_connected())) {
+        if ((NULL != bluetooth_driver.is_connected) && (bluetooth_driver.is_connected())) {
             return SEND_OUTPUT_BLUETOOTH;
         } else {
             return SEND_OUTPUT_NONE;

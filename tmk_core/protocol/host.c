@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <stdint.h>
+#include <stddef.h>
 #include "keyboard.h"
 #include "keycode.h"
 #include "host.h"
@@ -149,7 +150,7 @@ void host_system_send(uint16_t usage) {
 #ifdef BLUETOOTH_ENABLE
     send_output_t where_to_send = get_send_output();
     if ((where_to_send == SEND_OUTPUT_BLUETOOTH) || (where_to_send == SEND_OUTPUT_BOTH)) {
-        if (NULL != (*bluetooth_driver.send_system)) {
+        if (NULL != bluetooth_driver.send_system) {
             bluetooth_driver.send_system(usage);
             if (where_to_send == SEND_OUTPUT_BLUETOOTH) return; // only BT, jump out
         } else if (where_to_send == SEND_OUTPUT_BLUETOOTH)
