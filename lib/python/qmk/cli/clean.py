@@ -2,7 +2,7 @@
 """
 from subprocess import DEVNULL
 
-from qmk.commands import create_make_target
+from qmk.commands import find_make
 from milc import cli
 
 
@@ -11,4 +11,4 @@ from milc import cli
 def clean(cli):
     """Runs `make clean` (or `make distclean` if --all is passed)
     """
-    cli.run(create_make_target('distclean' if cli.args.all else 'clean'), capture_output=False, stdin=DEVNULL)
+    cli.run([find_make(), 'distclean' if cli.args.all else 'clean'], capture_output=False, stdin=DEVNULL)
