@@ -19,7 +19,7 @@
         "rgblight": true
     },
     "rgblight": {
-        "led_count": 20,
+        "led_count": 7,
         "animations": {
             "breathing": true,
             "rainbow_mood": true,
