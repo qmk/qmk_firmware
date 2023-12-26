@@ -1,6 +1,6 @@
 # cycle8
 
-A customizable hotswap 80% keyboard.
+* A customizable soldering 80% keyboard.
 
 * Keyboard Maintainer: [EASON](https://github.com/EasonQian1)
 * Hardware Supported: cycle8
