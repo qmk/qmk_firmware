@@ -104,7 +104,7 @@
                 {"label": "2@", "matrix": [0, 1], "x": 1, "y": 0},
                 {"label": "3#", "matrix": [0, 2], "x": 2, "y": 0},
                 {"label": "4$", "matrix": [0, 3], "x": 3, "y": 0},
-                {"label": "Encoder", "matrix": [0, 4], "x": 4.75, "y": 0}
+                {"label": "Encoder", "matrix": [0, 4], "x": 1.5, "y": 1}
             ]
         }
     }
