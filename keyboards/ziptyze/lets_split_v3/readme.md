@@ -1,6 +1,6 @@
 # Let's Split v3
 
-![Let's Split v3](https://i.imgur.com/ksZ64dK.jpg)
+![Let's Split v3](https://i.imgur.com/ksZ64dKh.jpg)
 
 Version 3 of the Let's Split keyboard, originally designed by Wootapatoot. This version features identical PCBs for both halves powered by an RP2040 controller. Each half features full hot swap capability as well as in-switch addressable LEDs and 39 1mm underglow LEDs.
 
