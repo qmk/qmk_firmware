@@ -19,12 +19,19 @@
         "mousekey": true,
         "rgb_matrix": true,
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "matrix_pins": {
         "cols": ["GP25", "GP1", "GP15", "GP4", "GP5", "GP14", "GP6", "GP7", "GP8", "GP13", "GP12", "GP9", "GP11", "GP10"],
         "rows": ["GP29", "GP27", "GP26", "GP17", "GP16"]
     },
     "rgb_matrix": {
         "max_brightness": 125,
+        "sleep": true,
         "animations": {
             "alphas_mods": true,
             "band_pinwheel_sat": true,
