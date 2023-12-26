@@ -1,5 +1,7 @@
 # YMD96
 
+![YMD96](https://i.imgur.com/RyPf1E0h.png)
+
 A 96-keyboard which supports both ANSI and ISO along with many different layout combinations, and RGB underglow.
 
 * Keyboard maintainer: [Andrew](https://github.com/sparkyman215)
