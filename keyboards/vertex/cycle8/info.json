@@ -50,7 +50,7 @@
     "bootloader": "uf2boot",
     "community_layouts": [
         "tkl_ansi",
-        "tkl_iso_split_bs_rshift"，
+        "tkl_iso_split_bs_rshift",
         "tkl_iso"
     ],
     "layouts":{
