@@ -231,6 +231,10 @@ Also see the `POINTING_DEVICE_TASK_THROTTLE_MS`, which defaults to 10ms when usi
 | `CIRQUE_PINNACLE_TAP_ENABLE`                   | (Optional) Enable tap to click. This currently only works on the master side.  | _not defined_        |
 | `CIRQUE_PINNACLE_TAPPING_TERM`                 | (Optional) Length of time that a touch can be to be considered a tap.          | `TAPPING_TERM`/`200` |
 | `CIRQUE_PINNACLE_TOUCH_DEBOUNCE`               | (Optional) Length of time that a touch can be to be considered a tap.          | `TAPPING_TERM`/`200` |
+| ---------------------------------------------- | ------------------------------------------------------------------------------ | -------------------- |
+| `CIRQUE_PINNACLE_DPAD_MODE_ENABLE`             | (Optional) Enable dpad mode. Divides the trackpad into four virtual keys, that act like a direction-pad found on game-controllers.  | _not defined_        |
+| `CIRQUE_PINNACLE_DPAD_KEYMAP_ROW`              | Row in the keymap the virtual dpad buttons should emit key-events for; column 0=UP, 1=Left, 2=Right, 3=Down | |
+
 
 `POINTING_DEVICE_GESTURES_SCROLL_ENABLE` in this mode enables circular scroll. Touch originating in outer ring can trigger scroll by moving along the perimeter. Near side triggers vertical scroll and far side triggers horizontal scroll.
 
