@@ -116,6 +116,7 @@
         "max_brightness": 180,
         "split_count": [64, 17],
         "val_setps": 60,
+        "sleep": true,
         "default": {
             "val": 60
         }
