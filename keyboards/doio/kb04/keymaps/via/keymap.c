@@ -18,9 +18,7 @@
 
 enum layer_names {
     _LAY0,
-    _LAY1,
-    _LAY2,
-    _LAY3
+    _LAY1
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -39,20 +37,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_LAY1] = LAYOUT(
         KC_TRNS,     RGB_HUD,    RGB_TOG,    RGB_MOD,     KC_TRNS
-    ),
-    [_LAY2] = LAYOUT(
-        KC_TRNS,     KC_TRNS,    KC_TRNS,    KC_TRNS,     KC_TRNS
-    ),
-    [_LAY3] = LAYOUT(
-        KC_TRNS,     KC_TRNS,    KC_TRNS,    KC_TRNS,     KC_TRNS
-    ),
+    )
 };
 
 #ifdef ENCODER_MAP_ENABLE
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_LAY0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [_LAY1] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
-    [_LAY2] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
-    [_LAY3] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
+    [_LAY1] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) }
 };
 #endif

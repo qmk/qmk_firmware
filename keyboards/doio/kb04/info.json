@@ -3,6 +3,9 @@
     "keyboard_name": "KB04-01",
     "maintainer": "filmstarr",
     "bootloader": "stm32duino",
+    "build": {
+        "lto": true
+    },
     "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
@@ -15,7 +18,6 @@
         "console": false,
         "encoder": true,
         "extrakey": true,
-        "lto": true,
         "mousekey": true,
         "nkro": false,
         "rgb_matrix": true
@@ -72,9 +74,6 @@
             "solid_splash": true,
             "solid_multisplash": true
         },
-        "default": {
-            "animation": "cycle_left_right"
-        },
         "driver": "ws2812",
         "layout": [
             {"matrix": [0, 0], "x": 0, "y": 0, "flags": 1},
@@ -87,8 +86,7 @@
             {"matrix": [0, 7], "x": 112, "y": 64, "flags": 1}
         ],
         "max_brightness": 200,
-        "sleep": true,
-        "speed_steps": 30
+        "sleep": true
     },
     "url": "https://www.keebmonkey.com/products/megalodon-macro-pad-with-a-knob",
     "usb": {
