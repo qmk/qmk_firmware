@@ -1,6 +1,6 @@
 # doio/kb04
 
-![doio/kb04](https://cdn.shopify.com/s/files/1/0463/5980/6101/products/4_f40396cc-ea72-47a5-887f-bbeeb4023b11_1100x.png?v=1654787686)
+![doio/kb04](https://i.imgur.com/lqABZw4h.png)
 
 A macropad that have 4-key keyboard made by DOIO, which controlled by an APM32F103CBT6 chipset. The keyboard features per-key RGB and 1 encoder.
 
