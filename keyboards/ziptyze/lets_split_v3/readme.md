@@ -4,9 +4,9 @@
 
 Version 3 of the Let's Split keyboard, originally designed by Wootapatoot. This version features identical PCBs for both halves powered by an RP2040 controller. Each half features full hot swap capability as well as in-switch addressable LEDs and 39 1mm underglow LEDs.
 
-Keyboard Maintainer: [ziptyze](https://github.com/ziptyze)  
-Hardware Supported: Let's Split v3 PCB
-Hardware Availability: [1upkeyboards](https://1upkeyboards.com/shop/keyboard-kits/diy-40-kits/lets-split-v3/#choose-your-kit)  
+* Keyboard Maintainer: [ziptyze](https://github.com/ziptyze)
+* Hardware Supported: Let's Split v3 PCB
+* Hardware Availability: [1upkeyboards](https://1upkeyboards.com/shop/keyboard-kits/diy-40-kits/lets-split-v3/#choose-your-kit)
 
 Make example for this keyboard (after setting up your build environment):
 
