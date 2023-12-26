@@ -327,7 +327,7 @@
                 {"matrix": [5, 15], "x": 15, "y": 5}
             ]
         },
-        "LAYOUT_75_ansi_2mod": {
+        "LAYOUT_75_ansi_wkl": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -418,7 +418,7 @@
                 {"matrix": [5, 15], "x": 15, "y": 5}
             ]
         },
-        "LAYOUT_75_ansi_2mod_split_bs": {
+        "LAYOUT_75_ansi_wkl_split_bs": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -699,7 +699,7 @@
                 {"matrix": [5, 15], "x": 15, "y": 5}
             ]
         },
-        "LAYOUT_75_iso_2mod": {
+        "LAYOUT_75_iso_wkl": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -791,7 +791,7 @@
                 {"matrix": [5, 15], "x": 15, "y": 5}
             ]
         },
-        "LAYOUT_75_iso_2mod_split_bs": {
+        "LAYOUT_75_iso_wkl_split_bs": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
