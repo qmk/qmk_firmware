@@ -1,12 +1,12 @@
 # cycle8
 
-* A customizable soldering 80% keyboard.
+![Cycle8](https://github.com/Vertex-kb/qmk_firmware/assets/102476474/d93cc50a-b54c-48f7-ad62-f7676e5f2c8c)
+
+A customizable soldered TKL/80% keyboard.
 
 * Keyboard Maintainer: [EASON](https://github.com/EasonQian1)
-* Hardware Supported: cycle8
+* Hardware Supported: Cycle8 PCB
 * Hardware Availability: [EASON](https://github.com/EasonQian1)
-* ![576bc3b588d4469da2e6599c539751c](https://github.com/Vertex-kb/qmk_firmware/assets/102476474/d93cc50a-b54c-48f7-ad62-f7676e5f2c8c)
-
 
 Make example for this keyboard (after setting up your build environment):
 
