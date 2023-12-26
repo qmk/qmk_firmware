@@ -332,7 +332,7 @@
            ]
         },
         "LAYOUT_tkl_iso_split_bs_rshift": {
-            "layout":  [
+            "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 2, "y": 0},
                 {"matrix": [0, 2], "x": 3, "y": 0},
