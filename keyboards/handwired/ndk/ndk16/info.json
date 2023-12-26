@@ -2,7 +2,7 @@
     "manufacturer": "ndk",
     "keyboard_name": "ndk16",
     "maintainer": "itskevin-zz",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "build": {
         "lto": true
     },
