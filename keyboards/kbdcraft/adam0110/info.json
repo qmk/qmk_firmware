@@ -24,6 +24,56 @@
     },
     "processor": "STM32F401",
     "rgb_matrix": {
+        "animations": {
+            "alphas_mods": true,
+            "band_pinwheel_sat": true,
+            "band_pinwheel_val": true,
+            "band_sat": true,
+            "band_spiral_sat": true,
+            "band_spiral_val": true,
+            "band_val": true,
+            "breathing": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_out_in": true,
+            "cycle_out_in_dual": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "cycle_up_down": true,
+            "digital_rain": true,
+            "dual_beacon": true,
+            "gradient_left_right": true,
+            "gradient_up_down": true,
+            "hue_breathing": true,
+            "hue_pendulum": true,
+            "hue_wave": true,
+            "jellybean_raindrops": true,
+            "multisplash": true,
+            "pixel_flow": true,
+            "pixel_fractal": true,
+            "pixel_rain": true,
+            "rainbow_beacon": true,
+            "rainbow_moving_chevron": true,
+            "rainbow_pinwheels": true,
+            "raindrops": true,
+            "solid_color": true,
+            "solid_multisplash": true,
+            "solid_reactive": true,
+            "solid_reactive_cross": true,
+            "solid_reactive_multicross": true,
+            "solid_reactive_multinexus": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_nexus": true,
+            "solid_reactive_simple": true,
+            "solid_reactive_wide": true,
+            "solid_splash": true,
+            "splash": true,
+            "typing_heatmap": true
+        },
+        "default": {
+            "animation": "cycle_left_right",
+            "val": 60
+        },
         "driver": "ws2812",
         "layout": [
             {"matrix": [0, 0], "x": 110, "y": 40, "flags": 4},
@@ -114,12 +164,9 @@
             {"matrix": [7, 3], "x": 190, "y": 50, "flags": 4}
         ],
         "max_brightness": 180,
-        "split_count": [64, 17],
-        "val_setps": 60,
         "sleep": true,
-        "default": {
-            "val": 60
-        }
+        "split_count": [64, 17],
+        "val_setps": 60
     },
     "split": {
         "enabled": true,
@@ -132,8 +179,8 @@
         "soft_serial_pin": "A9",
         "transport": {
             "sync": {
-                "matrix_state": true,
-                "activity": true
+                "activity": true,
+                "matrix_state": true
             }
         },
         "usb_detect": {
