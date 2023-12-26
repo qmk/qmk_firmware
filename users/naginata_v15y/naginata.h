@@ -40,6 +40,8 @@ bool process_naginata(uint16_t, keyrecord_t *);
 // void set_naginata(uint8_t);
 void set_naginata(uint8_t, uint16_t *, uint16_t *);
 
+void nofunc(void);
+
 void ng_cut(void);
 void ng_copy(void);
 void ng_paste(void);
