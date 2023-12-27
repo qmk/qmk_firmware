@@ -16,8 +16,6 @@
 
 #include "quantum.h"
 
-char wpm_str[10];
-
 #ifdef RGB_MATRIX_ENABLE
 bool rgb_matrix_indicators_kb(void) {
     if (!rgb_matrix_indicators_user()) {
