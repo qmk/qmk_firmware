@@ -6,13 +6,13 @@ Macro3 is a low-profile macro pad with dual encoder support designed by [@davidp
 
 ## Keyboard Info
 
-* Keyboard Maintainer: [filterpaper](https://github.com/filterpaper), [davidphilipbarr](https://github.com/davidphilipbarr)
-* Hardware Supported: [Macro3](https://github.com/davidphilipbarr/Macropads/tree/main/macro3)
-* Hardware Availability: order PCBs with gerber file from the repository
+* Keyboard Maintainer: [filterpaper](https://github.com/filterpaper)
+* Hardware Supported: Macro3
+* Hardware Availability: [Open-source](https://github.com/davidphilipbarr/Macropads/tree/main/macro3)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make macro3:default
+    make handwired/macro3:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
