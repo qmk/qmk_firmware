@@ -43,64 +43,51 @@ bool led_matrix_indicators_kb(void) {
 	bool res = led_update_user(led_state);
 	if (res)
 	{
-		led_matrix_set_value(0, led_state.caps_lock ? 255 : 0);
-		led_matrix_set_value(1, led_state.num_lock ? 255 : 0);
-		led_matrix_set_value(2, led_state.scroll_lock ? 255 : 0);
+		led_matrix_set_value(0, led_state.caps_lock ? 0xFF : 0);
+		led_matrix_set_value(1, led_state.num_lock ? 0xFF : 0);
+		led_matrix_set_value(2, led_state.scroll_lock ? 0xFF : 0);
 	}
 	return res;
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
-	// if on layer 0, turn on L1 LED, otherwise off.
-	if (get_highest_layer(state) == 0)
+	state = layer_state_set_user(state);
+	for (uint8_t i = 3; i <= 7; ++i)
+	{
+		led_matrix_set_value(i, 0);
+	}
+	// may want to add `| default_layer_state`
+	unsigned highest = get_highest_layer_state(state);
+	if (highest == 0)
+	{
+		for (uint8_t i = 3; i <= 7; ++i)
+		{
+			led_matrix_set_value(i, 0xFF);
+		}
+	}
+	else if (highest <= 5)
+	{
+		led_matrix_set_value(highest + 2, 0xFF);
+	}
+	else if (highest <= 9)
 	{
 		led_matrix_set_value(3, 0xFF);
+		led_matrix_set_value(highest - 2, 0xFF);
 	}
-	else
+	else if (highest <= 12)
 	{
-		led_matrix_set_value(3, 0x00);
-	}
-	// if on layer 1, turn on L2 LED, otherwise off.
-	if (get_highest_layer(state) == 1)
-	{
+		led_matrix_set_value(3, 0xFF);
 		led_matrix_set_value(4, 0xFF);
+		led_matrix_set_value(highest - 5, 0xFF);
 	}
-	else
+	else if (highest <= 14)
 	{
-		led_matrix_set_value(4, 0x00);
-	}
-
-	// if on layer 2, turn on L3 LED, otherwise off.
-	if (get_highest_layer(state) == 2)
-	{
+		led_matrix_set_value(3, 0xFF);
+		led_matrix_set_value(4, 0xFF);
 		led_matrix_set_value(5, 0xFF);
+		led_matrix_set_value(highest - 7, 0xFF);
 	}
-	else
-	{
-		led_matrix_set_value(5, 0x00);
-	}
-
-	// if on layer 3, turn on L4 LED, otherwise off.
-	if (get_highest_layer(state) == 3)
-	{
-		led_matrix_set_value(6, 0xFF);
-	}
-	else
-	{
-		led_matrix_set_value(6, 0x00);
-	}
-
-	// if on layer 4, turn on L5 LED, otherwise off.
-	if (get_highest_layer(state) == 3)
-	{
-		led_matrix_set_value(7, 0xFF);
-	}
-	else
-	{
-		led_matrix_set_value(7, 0x00);
-	}
-
-	return layer_state_set_user(state);
+	return state;
 }
 
 void suspend_power_down_kb(void) {
