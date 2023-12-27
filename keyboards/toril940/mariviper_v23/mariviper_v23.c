@@ -19,7 +19,7 @@
 // You can leave any or all of these undefined.
 // These are only required if you want to perform custom actions.
 
-const is31_led PROGMEM g_is31_leds[LED_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *    driver
  *    |  LED address
