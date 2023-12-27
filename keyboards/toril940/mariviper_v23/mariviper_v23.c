@@ -57,35 +57,10 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 		led_matrix_set_value(i, 0);
 	}
 	// may want to add `| default_layer_state`
-	unsigned highest = get_highest_layer_state(state);
-	if (highest == 0)
-	{
-		for (uint8_t i = 3; i <= 7; ++i)
-		{
-			led_matrix_set_value(i, 0xFF);
-		}
-	}
-	else if (highest <= 5)
-	{
-		led_matrix_set_value(highest + 2, 0xFF);
-	}
-	else if (highest <= 9)
-	{
-		led_matrix_set_value(3, 0xFF);
-		led_matrix_set_value(highest - 2, 0xFF);
-	}
-	else if (highest <= 12)
-	{
-		led_matrix_set_value(3, 0xFF);
-		led_matrix_set_value(4, 0xFF);
-		led_matrix_set_value(highest - 5, 0xFF);
-	}
-	else if (highest <= 14)
-	{
-		led_matrix_set_value(3, 0xFF);
-		led_matrix_set_value(4, 0xFF);
-		led_matrix_set_value(5, 0xFF);
-		led_matrix_set_value(highest - 7, 0xFF);
+	unsigned highest = get_highest_layer(state);
+#define GET_BIT(value, bit) (value & (1 << bit))
+	for (uint8_t i = 0; i <= 4; ++i) {
+		led_matrix_set_value(3 + i, GET_BIT(highest, i) * 0xFF);
 	}
 	return state;
 }
