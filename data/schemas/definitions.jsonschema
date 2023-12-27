@@ -3,9 +3,24 @@
     "$id": "qmk.definitions.v1",
     "title": "Common definitions used across QMK's jsonschemas.",
     "type": "object",
+    "bcd_version": {
+        "type": "string",
+        "pattern": "^[0-9]{1,2}\\.[0-9]\\.[0-9]$"
+    },
+    "bit": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 1
+    },
     "boolean_array": {
         "type": "object",
         "additionalProperties": {"type": "boolean"}
+    },
+    "build_target": {
+        "oneOf": [
+            {"$ref": "#/keyboard_keymap_tuple"},
+            {"$ref": "#/json_file_path"}
+        ]
     },
     "filename": {
         "type": "string",
@@ -20,18 +35,56 @@
         "type": "string",
         "pattern": "^0x[0-9A-F]{4}$"
     },
-    "bcd_version": {
+    "json_file_path": {
         "type": "string",
-        "pattern": "^[0-9]{1,2}\\.[0-9]\\.[0-9]$"
+        "pattern": "^[0-9a-z_/\\-]+\\.json$"
     },
-    "text_identifier": {
-        "type": "string",
-        "minLength": 1,
-        "maxLength": 250
+    "key_unit": {
+        "type": "number"
     },
-    "snake_case": {
+    "keyboard": {
         "type": "string",
-        "pattern": "^[a-z][a-z0-9_]*$"
+        "pattern": "^[0-9a-z][0-9a-z_/]*$"
+    },
+    "keyboard_keymap_tuple": {
+        "type": "array",
+        "prefixItems": [
+            {"$ref": "#/keyboard"},
+            {"$ref": "#/filename"}
+        ],
+        "unevaluatedItems": false
+    },
+    "keycode": {
+        "type": "string",
+        "minLength": 2,
+        "maxLength": 50,
+        "pattern": "^[A-Z][A-Zs_0-9]*$"
+    },
+    "keycode_decl": {
+        "type": "object",
+        "required": [
+            "key"
+        ],
+        "properties": {
+            "key": {"$ref": "#/keycode"},
+            "label": {"$ref": "#/text_identifier"},
+            "aliases": {
+                "type": "array",
+                "minItems": 1,
+                "items": {"$ref": "#/keycode_short"}
+            }
+        }
+    },
+    "keycode_decl_array": {
+        "type": "array",
+        "minItems": 1,
+        "items": {"$ref": "#/keycode_decl"}
+    },
+    "keycode_short": {
+        "type": "string",
+        "minLength": 2,
+        "maxLength": 7,
+        "pattern": "^[A-Z][A-Zs_0-9]*$"
     },
     "layout_macro": {
         "oneOf": [
@@ -68,49 +121,6 @@
             }
         ]
     },
-    "key_unit": {
-        "type": "number"
-    },
-    "keyboard": {
-        "type": "string",
-        "pattern": "^[0-9a-z][0-9a-z_/]*$"
-    },
-    "keycode": {
-        "type": "string",
-        "minLength": 2,
-        "maxLength": 50,
-        "pattern": "^[A-Z][A-Zs_0-9]*$"
-    },
-    "keycode_short": {
-        "type": "string",
-        "minLength": 2,
-        "maxLength": 7,
-        "pattern": "^[A-Z][A-Zs_0-9]*$"
-    },
-    "keycode_decl": {
-        "type": "object",
-        "required": [
-            "key"
-        ],
-        "properties": {
-            "key": {"$ref": "#/keycode"},
-            "label": {"$ref": "#/text_identifier"},
-            "aliases": {
-                "type": "array",
-                "minItems": 1,
-                "items": {"$ref": "#/keycode_short"}
-            }
-        }
-    },
-    "keycode_decl_array": {
-        "type": "array",
-        "minItems": 1
-        "items": {"$ref": "#/keycode_decl"}
-    },
-    "mcu_pin_array": {
-        "type": "array",
-        "items": {"$ref": "#/mcu_pin"}
-    },
     "mcu_pin": {
         "oneOf": [
             {
@@ -129,13 +139,13 @@
                 "type": "string",
                 "pattern": "^GP\\d{1,2}$"
             },
-            {
-                "type": "integer"
-            },
-            {
-                "type": "null"
-            }
+            {"type": "integer"},
+            {"type": "null"}
         ]
+    },
+    "mcu_pin_array": {
+        "type": "array",
+        "items": {"$ref": "#/mcu_pin"}
     },
     "signed_decimal": {
         "type": "number"
@@ -148,17 +158,22 @@
         "minimum": -127,
         "maximum": 127
     },
+    "snake_case": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_]*$"
+    },
     "string_array": {
         "type": "array",
-        "items": {
-            "type": "string"
-        }
+        "items": {"type": "string"}
     },
     "string_object": {
         "type": "object",
-        "additionalProperties": {
-            "type": "string"
-        }
+        "additionalProperties": {"type": "string"}
+    },
+    "text_identifier": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 250
     },
     "unsigned_decimal": {
         "type": "number",
@@ -172,28 +187,5 @@
         "type": "integer",
         "minimum": 0,
         "maximum": 255
-    },
-    "bit": {
-        "type": "integer",
-        "minimum": 0,
-        "maximum": 1
-    },
-    "keyboard_keymap_tuple": {
-        "type": "array",
-        "prefixItems": [
-            { "$ref": "#/keyboard" },
-            { "$ref": "#/filename" }
-        ],
-        "unevaluatedItems": false
-    },
-    "json_file_path": {
-        "type": "string",
-        "pattern": "^[0-9a-z_/\\-]+\\.json$"
-    },
-    "build_target": {
-        "oneOf": [
-            { "$ref": "#/keyboard_keymap_tuple" },
-            { "$ref": "#/json_file_path" }
-        ]
     }
 }
