@@ -329,6 +329,12 @@
     "keycapsss/plaid_pad": {
         "target": "keycapsss/plaid_pad/rev1"
     },
+    "kira75": {
+        "target": "kira/kira75"
+    },
+    "kira80": {
+        "target": "kira/kira80"
+    },
     "kudox": {
         "target": "kumaokobo/kudox/rev1"
     },

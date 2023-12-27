@@ -11,11 +11,11 @@ Custom TKL keyboard designed and made by Thesiscamper and EVE
 
 Make example for this keyboard (after setting up your build environment):
 
-    make kira80:default
+    make kira/kira80:default
 
 Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
 
-    make kira80:default:flash
+    make kira/kira80:default:flash
 
 **Reset Key:** Hold down the key located at `K102`, commonly programmed as 'Pause' while plugging in the keyboard.
 
