@@ -1,7 +1,7 @@
 # MariOrion v2.5
 
-![mariorion_v25_1](https://i.imgur.com/PFb6AGo.jpg)
-![mariorion_v25_2](https://i.imgur.com/Fgdm2fx.jpg)
+![mariorion_v25_1](https://i.imgur.com/PFb6AGoh.jpg)
+![mariorion_v25_2](https://i.imgur.com/Fgdm2fxh.jpg)
 
 This project was a revival of the Duck Orion v2.5, where we don't have very many PCBs with modern features, and
 especially Alps support as well. This PCB has both Alps and MX support as well as universal layout support! It also
