@@ -185,6 +185,9 @@
     "eek": {
         "target": "eek/silk_down"
     },
+    "epoch80": {
+        "target": "kbdfans/epoch80"
+    },
     "era/klein": {
         "target": "era/sirind/klein_sd"
 	},
@@ -310,6 +313,9 @@
     },
     "jj50": {
         "target": "kprepublic/jj50"
+    },
+    "jm60": {
+        "target": "kbdfans/jm60"
     },
     "jones": {
         "target": "jones/v03_1"

@@ -1,3 +1,6 @@
+// Copyright QMK
+// SPDX-License-Identifier: GPL-2.0+
+
 #include QMK_KEYBOARD_H
 
 enum layer_names {
