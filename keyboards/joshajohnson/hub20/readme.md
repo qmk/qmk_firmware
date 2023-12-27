@@ -1,20 +1,20 @@
-# Hub16
+# Hub20
 
-Hub16 is a 16 Key Macro Pad with an inbuilt USB 2.0 hub and dual rotary encoders.
+Hub20 is a 20 key macro pad with an inbuilt USB 2.0 hub and dual rotary encoders. It can be configured to be a left / right hand numberpad, along with a 4x5 1u layout.
 
-For more information regarding the keyboard, please visit the [Hub16 Website](https://www.joshajohnson.com/hub16-keyboard/) or [GitHub Repo](https://github.com/joshajohnson/Hub16).
+For more information regarding the keyboard, please visit the [Hub20 Website](https://www.joshajohnson.com/hub20) or [GitHub Repo](https://github.com/joshajohnson/Hub20).
 
 * Keyboard Maintainer: [Josh Johnson](https://github.com/joshajohnson)
-* Hardware Supported: Hub16 PCB (atmega32u4)
-* Hardware Availability: [Josh Johnson](https://www.joshajohnson.com/hub16-keyboard/)
+* Hardware Supported: Hub20 PCB (STM32F072)
+* Hardware Availability: [Josh Johnson](https://www.joshajohnson.com/hub20)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make hub16:default
+    make joshajohnson/hub20:default
 
 Flashing example for this keyboard:
 
-    make hub16:default:flash
+    make joshajohnson/hub20:default:flash
 
 To reset the board into bootloader mode, do one of the following:
 
