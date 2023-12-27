@@ -27,9 +27,6 @@
         "enabled": true
     },
     "processor": "atmega32u2",
-    "tapping": {
-        "hold_on_other_key_press": false
-    },
     "split": {
         "soft_serial_pin": "D0"
     },

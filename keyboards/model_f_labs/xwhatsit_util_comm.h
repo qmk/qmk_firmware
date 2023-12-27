@@ -20,9 +20,6 @@
 #    define RAW_EPSIZE 32
 #endif
 
-#ifndef UTIL_COMM_H
-#    define UTIL_COMM_H
-
 #    define UTIL_COMM_VERSION_MAJOR 2
 #    define UTIL_COMM_VERSION_MID 0
 #    define UTIL_COMM_VERSION_MINOR 5
@@ -48,8 +45,6 @@ enum command {
 };
 
 enum response { UTIL_COMM_RESPONSE_OK = 0x22, UTIL_COMM_RESPONSE_ERROR };
-
-#endif
 
 #if defined(CONTROLLER_IS_XWHATSIT_BEAMSPRING_REV_4)
 #    define GET_KEYBOARD_DETAILS_5 1
