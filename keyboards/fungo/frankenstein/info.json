@@ -26,6 +26,10 @@
   },
   "features": {
   },
+  "caps_word": {
+    "both_shifts_turn_on": true,
+    "idle_timeout": 500
+  },
   "qmk": {
     "tap_keycode_delay": 50
   },
