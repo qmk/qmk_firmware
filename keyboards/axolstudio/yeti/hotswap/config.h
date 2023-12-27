@@ -60,7 +60,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define ENABLE_RGB_MATRIX_MULTISPLASH
 #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #    define RGB_MATRIX_LED_FLUSH_LIMIT 16       // 16 is equivalent to limiting to 60fps
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED      // turn off effects when suspended
+#    define RGB_MATRIX_SLEEP      // turn off effects when suspended
 #    define IS31FL3733_I2C_ADDRESS_1 IS31FL3733_I2C_ADDRESS_GND_GND
 #    define RGB_MATRIX_LED_COUNT 64
 #endif

@@ -61,6 +61,28 @@ __attribute__((weak)) bool dip_switch_update_mask_kb(uint32_t state) {
     return dip_switch_update_mask_user(state);
 }
 
+#ifdef DIP_SWITCH_MAP_ENABLE
+#    include "keymap_introspection.h"
+#    include "action.h"
+
+#    ifndef DIP_SWITCH_MAP_KEY_DELAY
+#        define DIP_SWITCH_MAP_KEY_DELAY TAP_CODE_DELAY
+#    endif
+
+static void dip_switch_exec_mapping(uint8_t index, bool on) {
+    // The delays below cater for Windows and its wonderful requirements.
+    action_exec(on ? MAKE_DIPSWITCH_ON_EVENT(index, true) : MAKE_DIPSWITCH_OFF_EVENT(index, true));
+#    if DIP_SWITCH_MAP_KEY_DELAY > 0
+    wait_ms(DIP_SWITCH_MAP_KEY_DELAY);
+#    endif // DIP_SWITCH_MAP_KEY_DELAY > 0
+
+    action_exec(on ? MAKE_DIPSWITCH_ON_EVENT(index, false) : MAKE_DIPSWITCH_OFF_EVENT(index, false));
+#    if DIP_SWITCH_MAP_KEY_DELAY > 0
+    wait_ms(DIP_SWITCH_MAP_KEY_DELAY);
+#    endif // DIP_SWITCH_MAP_KEY_DELAY > 0
+}
+#endif // DIP_SWITCH_MAP_ENABLE
+
 void dip_switch_init(void) {
 #ifdef DIP_SWITCH_PINS
 #    if defined(SPLIT_KEYBOARD) && defined(DIP_SWITCH_PINS_RIGHT)
@@ -109,11 +131,17 @@ void dip_switch_read(bool forced) {
         dip_switch_mask |= dip_switch_state[i] << i;
         if (last_dip_switch_state[i] != dip_switch_state[i] || forced) {
             has_dip_state_changed = true;
+#ifndef DIP_SWITCH_MAP_ENABLE
             dip_switch_update_kb(i, dip_switch_state[i]);
+#else
+            dip_switch_exec_mapping(i, dip_switch_state[i]);
+#endif
         }
     }
     if (has_dip_state_changed) {
+#ifndef DIP_SWITCH_MAP_ENABLE
         dip_switch_update_mask_kb(dip_switch_mask);
+#endif
         memcpy(last_dip_switch_state, dip_switch_state, sizeof(dip_switch_state));
     }
 }

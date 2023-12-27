@@ -33,6 +33,7 @@
         "tkl_iso_tsangan",
         "tkl_iso_tsangan_split_bs_rshift"
     ],
+
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -1262,6 +1263,7 @@
 
                 {"matrix": [4, 0], "x": 0, "y": 4.25, "w": 1.25},
                 {"matrix": [3, 13], "x": 1.25, "y": 4.25},
+
                 {"matrix": [4, 1], "x": 2.25, "y": 4.25},
                 {"matrix": [4, 2], "x": 3.25, "y": 4.25},
                 {"matrix": [4, 3], "x": 4.25, "y": 4.25},

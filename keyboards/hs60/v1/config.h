@@ -38,7 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //This is experimental do not enable yet
 //#define RGB_MATRIX_KEYPRESSES // reacts to keypresses (will slow down matrix scan by a lot)
 
-// #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
+// #define RGB_MATRIX_SLEEP // turn off effects when suspended
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 215
 
 #define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND

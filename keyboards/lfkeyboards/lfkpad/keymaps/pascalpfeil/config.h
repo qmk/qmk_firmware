@@ -22,6 +22,6 @@
 /* Force NKRO on boot up */
 #define FORCE_NKRO
 
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define RGB_MATRIX_SLEEP
 
 #define RGB_MATRIX_TIMEOUT 900000
