@@ -32,7 +32,7 @@
   "features": {
   },
   "caps_word": {
-    "both_shifts_turn_on": true,
+    "both_shifts_turns_on": true,
     "idle_timeout": 500
   },
   "qmk": {
