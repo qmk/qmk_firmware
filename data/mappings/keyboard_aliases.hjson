@@ -287,6 +287,12 @@
     "honeycomb": {
         "target": "keyhive/honeycomb"
     },
+    "hub16": {
+        "target": "joshajohnson/hub16"
+    },
+    "hub20": {
+        "target": "joshajohnson/hub20"
+    },
     "idb_60": {
         "target": "idb/idb_60"
     },
