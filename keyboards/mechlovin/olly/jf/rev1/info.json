@@ -8,8 +8,13 @@
         "backlight": true
     },
     "matrix_pins": {
-        "custom_lite": true,
-        "rows": ["D5", "D6", "A5", "A4", "A3", "A6"]
+        "cols": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+        "rows": ["D5", "D6", "A5", "A4", "A3", "A6"],
+        "custom_lite": true
+    },
+    "matrix_size": {
+        "cols": 19,
+        "rows": 6
     },
     "backlight": {
         "pin": "D4",

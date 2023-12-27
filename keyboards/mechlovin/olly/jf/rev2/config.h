@@ -39,8 +39,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C1_CLOCK_SPEED 400000
 #define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
 
-#define WS2812_SPI SPID1 // default: SPID1
-#define WS2812_SPI_MOSI_PAL_MODE 0 // MOSI pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 5
-
 #define WEAR_LEVELING_BACKING_SIZE 4096
 #define WEAR_LEVELING_LOGICAL_SIZE 2048
