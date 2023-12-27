@@ -1,6 +1,6 @@
 # cycle8
 
-![Cycle8](https://github.com/Vertex-kb/qmk_firmware/assets/102476474/d93cc50a-b54c-48f7-ad62-f7676e5f2c8c)
+![Cycle8](https://i.imgur.com/gCExrei.png)
 
 A customizable soldered TKL/80% keyboard.
 
