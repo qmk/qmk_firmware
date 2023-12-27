@@ -16,13 +16,13 @@ stated (prod me if you're confused, @mawiaa on Discord)!
 
 Make example for this keyboard (after setting up your build environment):
 
-    make mariorion_v25/prod:default
-    make mariorion_v25/proto:default
+    make toril940/mariorion_v25/prod:default
+    make toril940/mariorion_v25/proto:default
 
 Flashing example for this keyboard:
 
-    make mariorion_v25/prod:default:flash
-    make mariorion_v25/proto:default:flash
+    make toril940/mariorion_v25/prod:default:flash
+    make toril940/mariorion_v25/proto:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
