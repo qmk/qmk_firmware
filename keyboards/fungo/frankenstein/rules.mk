@@ -2,7 +2,7 @@
 #   change yes to no to disable
 #
 MCU = atmega32u4
-BOOTLOADER = atmel-dfu   # controller Elite-C. low size
+BOOTLOADER = atmel-dfu   # controller Elite-C
 
 
 BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
@@ -18,7 +18,6 @@ KEY_LOCK_ENABLE = yes       # kc_lock use
 
 
 OLED_ENABLE = no
-SPLIT_KEYBOARD = yes       # split type
 ENCODER_ENABLE = yes        # encoder
 ENCODER_MAP_ENABLE = yes    # ENCODER MAP
 
