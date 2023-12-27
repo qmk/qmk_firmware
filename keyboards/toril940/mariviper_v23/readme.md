@@ -12,11 +12,11 @@ features a 3u/1u/3u split spacebar variant for fun :)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make mariviper_v23:default
+    make toril940/mariviper_v23:default
 
 Flashing example for this keyboard:
 
-    make mariviper_v23:default:flash
+    make toril940/mariviper_v23:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
