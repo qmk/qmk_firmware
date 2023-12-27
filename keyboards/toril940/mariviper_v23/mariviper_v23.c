@@ -39,76 +39,64 @@ void matrix_init_kb(void) {
 }
 
 bool led_matrix_indicators_kb(void) {
-	/*bool res = led_update_user(host_keyboard_led_state());
-	if (res) {
-		led_matrix_set_value(0, host_keyboard_led_state().caps_lock * 255);
-		led_matrix_set_value(1, host_keyboard_led_state().num_lock * 255);
-		led_matrix_set_value(2, host_keyboard_led_state().scroll_lock * 255);
-	}
-	return res;*/
-	if (!led_matrix_indicators_user())
+	led_t led_state = host_keyboard_led_state();
+	bool res = led_update_user(led_state);
+	if (res)
 	{
-		return false;
+		led_matrix_set_value(0, led_state.caps_lock ? 255 : 0);
+		led_matrix_set_value(1, led_state.num_lock ? 255 : 0);
+		led_matrix_set_value(2, led_state.scroll_lock ? 255 : 0);
 	}
-	if (host_keyboard_led_state().caps_lock)
-	{
-		led_matrix_set_value(0, 0xFF);
-	}
-	else
-	{
-		led_matrix_set_value(0, 0x00);
-	}
-	if (host_keyboard_led_state().num_lock)
-	{
-		led_matrix_set_value(1, 0xFF);
-	}
-	else
-	{
-		led_matrix_set_value(1, 0x00);
-	}
-	if (host_keyboard_led_state().scroll_lock)
-	{
-		led_matrix_set_value(2, 0xFF);
-	}
-	else
-	{
-		led_matrix_set_value(2, 0x00);
-	}
-	return true;
+	return res;
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
 	// if on layer 0, turn on L1 LED, otherwise off.
-	if (get_highest_layer(state) == 0) {
+	if (get_highest_layer(state) == 0)
+	{
 		led_matrix_set_value(3, 0xFF);
-	} else {
+	}
+	else
+	{
 		led_matrix_set_value(3, 0x00);
 	}
 	// if on layer 1, turn on L2 LED, otherwise off.
-	if (get_highest_layer(state) == 1) {
+	if (get_highest_layer(state) == 1)
+	{
 		led_matrix_set_value(4, 0xFF);
-	} else {
+	}
+	else
+	{
 		led_matrix_set_value(4, 0x00);
 	}
 
 	// if on layer 2, turn on L3 LED, otherwise off.
-	if (get_highest_layer(state) == 2) {
+	if (get_highest_layer(state) == 2)
+	{
 		led_matrix_set_value(5, 0xFF);
-	} else {
+	}
+	else
+	{
 		led_matrix_set_value(5, 0x00);
 	}
 
 	// if on layer 3, turn on L4 LED, otherwise off.
-	if (get_highest_layer(state) == 3) {
+	if (get_highest_layer(state) == 3)
+	{
 		led_matrix_set_value(6, 0xFF);
-	} else {
+	}
+	else
+	{
 		led_matrix_set_value(6, 0x00);
 	}
 
 	// if on layer 4, turn on L5 LED, otherwise off.
-	if (get_highest_layer(state) == 3) {
+	if (get_highest_layer(state) == 3)
+	{
 		led_matrix_set_value(7, 0xFF);
-	} else {
+	}
+	else
+	{
 		led_matrix_set_value(7, 0x00);
 	}
 
