@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NRF_TEST_PIN                        B5
 #define NRF_WAKEUP_PIN                      B8
 #define DRIVER_LED_CS_PIN                   C6
-
 #define DRIVER_SIDE_PIN                     C8
 #define DRIVER_SIDE_CS_PIN                  C9
 
@@ -40,5 +39,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define EECONFIG_USER_DATA_SIZE             8
 
-#define RGB_MATRIX_DEFAULT_MODE             RGB_MATRIX_CYCLE_LEFT_RIGHT
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
+

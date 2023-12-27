@@ -31,6 +31,7 @@
       "max_brightness": 128,
       "val_steps": 26,
       "speed_steps": 52,
+      "sleep": true,
       "animations": {
           "gradient_up_down": true,
           "gradient_left_right": true,
@@ -169,8 +170,9 @@
     "ws2812": {
         "pin": "A7"
     },
+    "community_layouts": ["75_ansi"],
     "layouts": {
-        "LAYOUT_ansi_84": {
+        "LAYOUT_75_ansi": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "F1", "matrix": [0, 1], "x": 1, "y": 0},
@@ -266,3 +268,4 @@
         }
     }
 }
+

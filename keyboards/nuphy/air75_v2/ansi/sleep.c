@@ -15,6 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "user_kb.h"
 #include "ansi.h"
 #include "hal_usb.h"
 #include "usb_main.h"

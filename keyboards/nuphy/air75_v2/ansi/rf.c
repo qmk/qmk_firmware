@@ -15,8 +15,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "ansi.h"
+#include "user_kb.h"
 #include "uart.h" // qmk uart.h
+#include "ansi.h"
 
 USART_MGR_STRUCT Usart_Mgr;
 #define RX_SBYTE    Usart_Mgr.RXDBuf[0]
