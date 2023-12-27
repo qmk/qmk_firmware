@@ -20,10 +20,6 @@
 /* select keyboard  master board  - I2C or Serial communication master    */
 #define MASTER_RIGHT
 
-//caps word, left shift + right shift => capslock
-#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
-#define CAPS_WORD_IDLE_TIMEOUT 500   //default 5000msec
-
 #define POINTING_DEVICE_RIGHT
 #define SPLIT_POINTING_ENABLE
 #define POINTING_DEVICE_ROTATION_90
