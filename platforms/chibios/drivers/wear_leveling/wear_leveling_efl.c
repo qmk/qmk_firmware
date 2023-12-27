@@ -14,9 +14,9 @@ static flash_sector_t first_sector = WEAR_LEVELING_EFL_FIRST_SECTOR;
 static flash_sector_t first_sector = UINT16_MAX;
 #endif // defined(WEAR_LEVELING_EFL_FIRST_SECTOR)
 
-#if !defined(WEAR_LEVELING_PROTECTED_SECTOR_COUNT)
-#    define WEAR_LEVELING_PROTECTED_SECTOR_COUNT 0
-#endif // WEAR_LEVELING_PROTECTED_SECTOR_COUNT
+#if !defined(WEAR_LEVELING_EFL_OMIT_LAST_SECTOR_COUNT)
+#    define WEAR_LEVELING_EFL_OMIT_LAST_SECTOR_COUNT 0
+#endif // WEAR_LEVELING_EFL_OMIT_LAST_SECTOR_COUNT
 
 static flash_sector_t sector_count = UINT16_MAX;
 static BaseFlash *    flash;
@@ -61,7 +61,7 @@ bool backing_store_init(void) {
 #if defined(WEAR_LEVELING_EFL_FIRST_SECTOR)
 
     // Work out how many sectors we want to use, working forwards from the first sector specified
-    flash_sector_t last_sector = desc->sectors_count - WEAR_LEVELING_PROTECTED_SECTOR_COUNT;
+    flash_sector_t last_sector = desc->sectors_count - WEAR_LEVELING_EFL_OMIT_LAST_SECTOR_COUNT;
     for (flash_sector_t i = 0; i < last_sector - first_sector; ++i) {
         counter += flashGetSectorSize(flash, first_sector + i);
         if (counter >= (WEAR_LEVELING_BACKING_SIZE)) {
@@ -78,7 +78,7 @@ bool backing_store_init(void) {
 #else // defined(WEAR_LEVELING_EFL_FIRST_SECTOR)
 
     // Work out how many sectors we want to use, working backwards from the end of the flash
-    flash_sector_t last_sector = desc->sectors_count - WEAR_LEVELING_PROTECTED_SECTOR_COUNT;
+    flash_sector_t last_sector = desc->sectors_count - WEAR_LEVELING_EFL_OMIT_LAST_SECTOR_COUNT;
     for (flash_sector_t i = 0; i < last_sector; ++i) {
         first_sector = last_sector - i - 1;
         if (flashGetSectorOffset(flash, first_sector) >= flash_size) {
