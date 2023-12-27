@@ -45,7 +45,7 @@ void keyboard_post_init_kb(void) {
         setPinOutput(F1);       // OUT2
 
         // Test: 1.5A forced output
-        writePinLow(F0);       // OUT1
+        writePinLow(F0);        // OUT1
         writePinHigh(F1);       // OUT2
 
         // Use ID pin to check if client is detected (if low: USB source port powered)
@@ -90,7 +90,10 @@ void housekeeping_task_kb(void) {
             if(!readPin(A13) && !readPin(A15)) {
                 writePinHigh(A15);
                 printf("USB downstream device detected\n");
-            };
+            } else if(readPin(A13) && readPin(A15)) {
+                writePinLow(A15);
+                printf("USB downstream device disconnected\n");
+            }
         };
         usbcpd_timer = timer_read32();
     };
