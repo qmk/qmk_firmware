@@ -24,6 +24,11 @@
       }
     }
   },
+  "encoder": {
+    "rotary": [
+      { "pin_a": "D1", "pin_b": "D0" }
+    ]
+  },
   "features": {
   },
   "caps_word": {
