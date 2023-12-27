@@ -1,0 +1,57 @@
+////START marker QTY combos
+COMB(QTY_START,     KC_NO,          KC_NO, KC_NO)
+
+//Basic combos:
+COMB(QTY_ESC,       KC_ESC,         KC_W,    KC_E,    KC_R) //WER Escape
+COMB(QTYrESC,       KC_ESC,         KC_O,    KC_I,    KC_U) //UIO Escape
+COMB(QTY_TAB,       KC_TAB,         KC_S,    KC_D,    FFF_NUM) //SDF Tab
+COMB(QTYrTAB,       KC_TAB,         JJJ_NUM, KC_K,    KC_L) //JKL Tab
+COMB(QTY_ENT,       KC_ENT,         KC_X,    KC_C,    KC_V)   //XCV Enter
+COMB(QTYrENT,       KC_ENT,         KC_M,    KC_COMM, KC_DOT) //M,. Enter
+COMB(QTY_BSP,       KC_BSPC,        FFF_NUM, KC_G)
+COMB(QTYrBSP,       KC_BSPC,        JJJ_NUM, KC_H)
+COMB(QTY_DEL,       KC_DEL,         KC_V,    KC_B)
+COMB(QTYrDEL,       KC_DEL,         KC_M,    KC_N)
+
+COMB(QTY_CWTG,      CW_TOGG,        KC_C,    KC_Z)
+COMB(QTY_CAPS,      KC_CAPS,        KC_Q,    KC_E)
+
+//Layer toggles:
+COMB(QTY_CAD,       CADTOGG,        KC_A,    KC_G)
+COMB(QTYrCAD,       CADTOGG,        KC_H,    DH_QUOT)
+COMB(NUM_CAD,       CADTOGG,        KC_PLUS, KC_MINS)
+COMB(QTY_QTYe,      QTYTOGG,        KC_Z,    KC_B)
+
+COMB(QTY_RNUM,      RNUMTOG,        KC_A,    FFF_NUM)
+COMB(QTYrRNUM,      RNUMTOG,        DH_QUOT, JJJ_NUM)
+COMB(NUMrRNUM,      RNUMTOG,        KC_4,    KC_MINS)
+
+//Navigation
+COMB(QTY_HOME,      KC_HOME,        KC_W,    KC_S)
+COMB(QTYrHOME,      KC_HOME,        JJJ_NUM, KC_U)
+COMB(QTY_UP,        KC_UP,          KC_D,    KC_E)
+COMB(QTYrUP,        KC_UP,          KC_K,    KC_I)
+COMB(QTY_END,       KC_END,         FFF_NUM, KC_R)
+COMB(QTYrEND,       KC_END,         KC_L,    KC_O)
+COMB(QTY_LEFT,      KC_LEFT,        KC_S,    KC_X)
+COMB(QTYrLEFT,      KC_LEFT,        JJJ_NUM, KC_M)
+COMB(QTY_DOWN,      KC_DOWN,        KC_D,    KC_C)
+COMB(QTYrDOWN,      KC_DOWN,        KC_K,    KC_COMM)
+COMB(QTY_RGHT,      KC_RGHT,        FFF_NUM, KC_V)
+COMB(QTYrRGHT,      KC_RGHT,        KC_L,    KC_DOT)
+
+//Mouse buttons
+COMB(QTY_BTN2,      KC_BTN2,        KC_W,    KC_R)
+COMB(QTY_BTN1,      KC_BTN1,        KC_S,    FFF_NUM)
+COMB(QTY_BTN3,      KC_BTN3,        KC_X,    KC_V)
+COMB(QTY_BTN4,      KC_BTN4,        KC_W,    FFF_NUM)
+COMB(QTY_BTN5,      KC_BTN5,        KC_S,    KC_V)
+COMB(QTY_mF5,       KC_F5,          KC_W,    KC_V)
+
+//RESET
+COMB(QTY_CKB,       CLEARKB,        KC_Q,    KC_T)    //QT Clear keyboard
+COMB(QTYrCKB,       CLEARKB,        KC_Y,    KC_P)    //YP Clear keyboard
+COMB(QTY_RST,       QK_BOOT,        KC_R, KC_S, KC_E, KC_T) //RSET Reset (boot mode)
+
+////FINAL marker QTY combos
+COMB(QTY_FINAL,     KC_NO,          KC_NO, KC_NO)

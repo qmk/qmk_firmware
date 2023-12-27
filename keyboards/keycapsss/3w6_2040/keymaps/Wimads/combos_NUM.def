@@ -1,0 +1,72 @@
+////START marker NUM combos
+COMB(NUM_START,     KC_NO,          KC_NO, KC_NO)
+
+//basic combos:
+COMB(NUM_ENT,       KC_PENT,        KC_LT,   KC_GT,   KC_RBRC) //<>] Numpad enter
+COMB(NUMrENT,       KC_PENT,        KC_1,    KC_2,    KC_3)    //123 Numpad enter
+COMB(NUM_TAB,       KC_TAB,         KC_4,    KC_5,    KC_6)    //456 TAB, useful for locked numpad layer
+COMB(NUM_ESC,       KC_ESC,         KC_7,    KC_8,    KC_9)    //789 ESC, useful for locked numpad layer
+
+//Navigation:
+COMB(NUM_HOME,      KC_HOME,        KC_7,    KC_4)
+COMB(NUM_UP,        KC_UP,          KC_8,    KC_5)
+COMB(NUM_END,       KC_END,         KC_9,    KC_6)
+COMB(NUM_LEFT,      KC_LEFT,        KC_4,    KC_1)
+COMB(NUM_DOWN,      KC_DOWN,        KC_5,    KC_2)
+COMB(NUM_RGHT,      KC_RGHT,        KC_6,    KC_3)
+
+//Numpad combos:
+COMB(NUM_BSP,       KC_BSPC,        KC_RPRN, KC_GRV)
+COMB(NUMrBSP,       KC_BSPC,        KC_PLUS, KC_4)
+COMB(NUM_DEL,       KC_DEL,         KC_RBRC, KC_HASH)
+COMB(NUMrDEL,       KC_DEL,         KC_ASTR, KC_1)
+
+COMB(NUM_DOTCOMM,   DOTCOMM,        KC_2,    KC_3)   //23  DOTCOMM (23 is inner thumb)
+COMB(NUMrEQL,       KC_EQL,         KC_1,    KC_2)   //12  = (12 is outer thumb)
+COMB(NUM_0,         KC_0,           KC_1,    KC_3)   //13  0 (13 is center thumb)
+COMB(NUM_EQL,       KC_EQL,         KC_GT,   KC_RBRC)//>]  = (useful for <= =>)
+COMB(NUM_MINS,      KC_MINS,        KC_LT,   KC_GT)  //<>  - (useful for <- ->)
+COMB(NUM_UNDS,      KC_UNDS,        KC_LT,   KC_RBRC)//<]  _ (13 is center thumb)
+
+COMB(NUM_COM,       KC_COMMA,       KC_LPRN, KC_GT)  //(>  Comma
+COMB(NUM_DOT,       KC_DOT,         KC_LT,   KC_RBRC)//<)  Dot
+COMB(NUMrCOM,       KC_COMMA,       KC_6,    KC_2)   //62  Comma
+COMB(NUMrDOT,       KC_DOT,         KC_5,    KC_3)   //53  Dot
+
+COMB(NUM_CKB,       CLEARKB,        KC_AT,   DH_TILD) //@~ Clear keyboard
+COMB(NUMrCKB,       CLEARKB,        DH_CIRC, KC_PERC) //^% Clear keyboard
+
+//Fn keys:
+COMB(NUM_F1,        KC_F1,          KC_LALT, KC_LT)
+COMB(NUM_F2,        KC_F2,          KC_LALT, KC_GT)
+COMB(NUM_F3,        KC_F3,          KC_LALT, KC_RBRC)
+COMB(NUM_F4,        KC_F4,          KC_LALT, KC_LPRN)
+COMB(NUM_F5,        KC_F5,          KC_LALT, KC_RPRN)
+COMB(NUM_F6,        KC_F6,          KC_LALT, KC_RCBR)
+COMB(NUM_F7,        KC_F7,          KC_LALT, KC_DLR)
+COMB(NUM_F8,        KC_F8,          KC_LALT, KC_AMPR)
+COMB(NUM_F9,        KC_F9,          KC_LALT, KC_PIPE)
+COMB(NUM_F10,       KC_F10,         KC_LALT, KC_LT,   KC_RBRC)
+COMB(NUM_F11,       KC_F11,         KC_LALT, KC_LT,   KC_GT)
+COMB(NUM_F12,       KC_F12,         KC_LALT, KC_GT,   KC_RBRC)
+
+COMB(NUMrF1,        KC_F1,          DOTCOMM, KC_1)
+COMB(NUMrF2,        KC_F2,          DOTCOMM, KC_2)
+COMB(NUMrF3,        KC_F3,          DOTCOMM, KC_3)
+COMB(NUMrF4,        KC_F4,          DOTCOMM, KC_4)
+COMB(NUMrF5,        KC_F5,          DOTCOMM, KC_5)
+COMB(NUMrF6,        KC_F6,          DOTCOMM, KC_6)
+COMB(NUMrF7,        KC_F7,          DOTCOMM, KC_7)
+COMB(NUMrF8,        KC_F8,          DOTCOMM, KC_8)
+COMB(NUMrF9,        KC_F9,          DOTCOMM, KC_9)
+COMB(NUMrF10,       KC_F10,         DOTCOMM, KC_1,   KC_3)
+COMB(NUMrF11,       KC_F11,         DOTCOMM, KC_1,   KC_2)
+COMB(NUMrF12,       KC_F12,         DOTCOMM, KC_2,   KC_3)
+
+//modifiers:
+COMB(NUM_SC,        CMOD_SC,        UND_SFT, KC_LCTL)
+COMB(NUM_SA,        CMOD_SA,        UND_SFT, KC_LALT)
+COMB(NUM_MEH,       KC_MEH,         UND_SFT, KC_LCTL, KC_LALT)
+
+////FINAL marker NUM combos
+COMB(NUM_FINAL,     KC_NO,          KC_NO, KC_NO)
