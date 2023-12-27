@@ -1,11 +1,11 @@
 # kafkasplit - PCB
 
-![kafka68](https://i.imgur.com/fqxZGeHh.jpg)
+![kafkasplit](https://i.imgur.com/fqxZGeHh.jpg)
 
 A 44-key split keyboard with rgb
 
 * Keyboard Maintainer: https://github.com/LXF-YZP
-* Hardware Supported: Lucky PCB
+* Hardware Supported: https://github.com/LXF-YZP/KafkaSplit
 
 Make example for this keyboard (after setting up your build environment):
     

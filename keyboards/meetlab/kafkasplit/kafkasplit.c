@@ -15,7 +15,7 @@
  */
 
 #include "quantum.h"
-#include <stdio.h>
+
 char wpm_str[10];
 
 #ifdef RGB_MATRIX_ENABLE
