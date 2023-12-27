@@ -24,15 +24,11 @@ const is31_led PROGMEM g_is31_leds[LED_MATRIX_LED_COUNT] = {
  *    driver
  *    |  LED address
  *    |  | */
-{ 0, C1_1 },
-{ 0, C2_1 },
-{ 0, C3_1 },
-{ 0, C4_1 },
-{ 0, C5_1 },
-{ 0, C6_1 },
-{ 0, C7_1 },
-{ 0, C8_1 }
+	{ 0, C1_1 }, { 0, C2_1 }, { 0, C3_1 }, // Lock Indicator
+	{ 0, C4_1 }, { 0, C5_1 }, { 0, C6_1 }, { 0, C7_1 }, { 0, C8_1 } // Layer Indicator
 };
+
+
 
 void matrix_init_kb(void) {
 	// put your keyboard start-up code here
@@ -43,86 +39,88 @@ void matrix_init_kb(void) {
 }
 
 bool led_matrix_indicators_kb(void) {
-	bool res = led_update_user(host_keyboard_led_state());
+	/*bool res = led_update_user(host_keyboard_led_state());
 	if (res) {
 		led_matrix_set_value(0, host_keyboard_led_state().caps_lock * 255);
 		led_matrix_set_value(1, host_keyboard_led_state().num_lock * 255);
 		led_matrix_set_value(2, host_keyboard_led_state().scroll_lock * 255);
 	}
-	return res;
+	return res;*/
+	if (!led_matrix_indicators_user())
+	{
+		return false;
+	}
+	if (host_keyboard_led_state().caps_lock)
+	{
+		led_matrix_set_value(0, 0xFF);
+	}
+	else
+	{
+		led_matrix_set_value(0, 0x00);
+	}
+	if (host_keyboard_led_state().num_lock)
+	{
+		led_matrix_set_value(1, 0xFF);
+	}
+	else
+	{
+		led_matrix_set_value(1, 0x00);
+	}
+	if (host_keyboard_led_state().scroll_lock)
+	{
+		led_matrix_set_value(2, 0xFF);
+	}
+	else
+	{
+		led_matrix_set_value(2, 0x00);
+	}
+	return true;
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
-	switch (get_highest_layer(state)) {
-		case 1:
-			led_matrix_set_value(3, 255);
-			led_matrix_set_value(4, 0);
-			led_matrix_set_value(5, 0);
-			led_matrix_set_value(6, 0);
-			led_matrix_set_value(7, 0);
-			break;
-		case 2:
-			led_matrix_set_value(3, 0);
-			led_matrix_set_value(4, 255);
-			led_matrix_set_value(5, 0);
-			led_matrix_set_value(6, 0);
-			led_matrix_set_value(7, 0);
-			break;
-		case 3:
-			led_matrix_set_value(3, 0);
-			led_matrix_set_value(4, 0);
-			led_matrix_set_value(5, 255);
-			led_matrix_set_value(6, 0);
-			led_matrix_set_value(7, 0);
-			break;
-		case 4:
-			led_matrix_set_value(3, 0);
-			led_matrix_set_value(4, 0);
-			led_matrix_set_value(5, 0);
-			led_matrix_set_value(6, 255);
-			led_matrix_set_value(7, 0);
-			break;
-		case 5:
-			led_matrix_set_value(3, 0);
-			led_matrix_set_value(4, 0);
-			led_matrix_set_value(5, 0);
-			led_matrix_set_value(6, 0);
-			led_matrix_set_value(7, 255);
-			break;
-		default:
-			led_matrix_set_value(3, 255);
-			led_matrix_set_value(4, 255);
-			led_matrix_set_value(5, 255);
-			led_matrix_set_value(6, 255);
-			led_matrix_set_value(7, 255);
-			break;
+	// if on layer 0, turn on L1 LED, otherwise off.
+	if (get_highest_layer(state) == 0) {
+		led_matrix_set_value(3, 0xFF);
+	} else {
+		led_matrix_set_value(3, 0x00);
 	}
+	// if on layer 1, turn on L2 LED, otherwise off.
+	if (get_highest_layer(state) == 1) {
+		led_matrix_set_value(4, 0xFF);
+	} else {
+		led_matrix_set_value(4, 0x00);
+	}
+
+	// if on layer 2, turn on L3 LED, otherwise off.
+	if (get_highest_layer(state) == 2) {
+		led_matrix_set_value(5, 0xFF);
+	} else {
+		led_matrix_set_value(5, 0x00);
+	}
+
+	// if on layer 3, turn on L4 LED, otherwise off.
+	if (get_highest_layer(state) == 3) {
+		led_matrix_set_value(6, 0xFF);
+	} else {
+		led_matrix_set_value(6, 0x00);
+	}
+
+	// if on layer 4, turn on L5 LED, otherwise off.
+	if (get_highest_layer(state) == 3) {
+		led_matrix_set_value(7, 0xFF);
+	} else {
+		led_matrix_set_value(7, 0x00);
+	}
+
 	return layer_state_set_user(state);
 }
 
 void suspend_power_down_kb(void) {
-	led_matrix_set_value(0, 0);
-	led_matrix_set_value(1, 0);
-	led_matrix_set_value(2, 0);
-	led_matrix_set_value(3, 0);
-	led_matrix_set_value(4, 0);
-	led_matrix_set_value(5, 0);
-	led_matrix_set_value(6, 0);
-	led_matrix_set_value(7, 0);
-
-
+	led_matrix_disable();
 	suspend_power_down_user();
 }
 
 void suspend_wakeup_init_kb(void) {
-	led_matrix_set_value(0, 255);
-	led_matrix_set_value(1, 255);
-	led_matrix_set_value(2, 255);
-	led_matrix_set_value(3, 255);
-	led_matrix_set_value(4, 255);
-	led_matrix_set_value(5, 255);
-	led_matrix_set_value(6, 255);
-	led_matrix_set_value(7, 255);
-
+	led_matrix_enable();
 	suspend_wakeup_init_user();
 }
