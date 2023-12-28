@@ -28,7 +28,7 @@
     "pid": "0x2391",
     "vid": "0xC1ED"
   },
-  "community_layouts": [],
+  "community_layouts": ["66_ansi"],
   "layout_aliases": {
     "LAYOUT": "LAYOUT_all"
   },
