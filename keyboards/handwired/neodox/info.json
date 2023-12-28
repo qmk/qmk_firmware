@@ -37,9 +37,6 @@
         "max_brightness": 150,
         "sleep": true,
         "split": true,
-        "layers": {
-            "enabled": true
-        },
         "animations": {
             "alternating": true,
             "breathing": true,
