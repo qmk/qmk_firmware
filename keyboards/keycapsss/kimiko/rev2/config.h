@@ -19,10 +19,8 @@
 /* SK6812 RGB LED are used for lightning*/
 
 // Limit the power draw
-#define RGBLIGHT_LIMIT_VAL 80
 
 // Not yet available in `info.json`
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 80
 #define SPLIT_TRANSPORT_MIRROR
 
 
