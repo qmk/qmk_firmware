@@ -23,7 +23,6 @@
 
 // Not yet available in `info.json`
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 80
-#define RGB_MATRIX_LED_COUNT 62
 #define SPLIT_TRANSPORT_MIRROR
 
 
