@@ -39,7 +39,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Split hand configration */
 #define SPLIT_HAND_MATRIX_GRID D7,B2
-#define SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
 
 #ifdef RGB_MATRIX_ENABLE
   #define RGB_MATRIX_LED_COUNT 50
