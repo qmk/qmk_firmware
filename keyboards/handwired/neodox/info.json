@@ -60,10 +60,6 @@
             "watchdog": true
         }
     },
-    "tapping": {
-        "term": 200,
-        "term_per_key": true
-    },
     "url": "https://gitlab.com/neodox/neodox",
     "usb": {
         "device_version": "1.0.0",
