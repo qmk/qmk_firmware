@@ -13,6 +13,7 @@
   | Lemon40            | ATMEGA32U4 | 40% Alice | 0x7516    | 0x6000     | Solder, RGB Underglow, OLED 128x32 |
   | Caticorn (Solder)  | RP2040     | TKL       | 0x7516    | 0x6001     | Solder                             |
   | Caticorn (Hotswap) | RP2040     | TKL       | 0x7516    | 0x6002     | Hotswap                            |
+  | Cat x(             | RP2040     | TKL       | 0x7516    | 0x6003     | Solder                             |
 
 ## Keyboard Rewrited by me:
   | Keyboard name                                                                               | MCU           | Layout       | Vendor ID | Product ID | Features                                     |
