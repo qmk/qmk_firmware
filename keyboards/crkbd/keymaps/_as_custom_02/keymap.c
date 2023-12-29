@@ -19,8 +19,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include "config.h" 
 
+enum layers {
+    _QWERTY,
+    _NUMP,
+    _LOWER,
+    _FUNC,
+    _RGB,
+};
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[0] = LAYOUT_split_3x6_3(
+uint8_t mod_state;
+
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[_QWERTY] = LAYOUT_split_3x6_3(
     //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_TAB  ,KC_Q    ,KC_W    ,KC_E    ,KC_R    ,KC_T			             ,KC_Y    ,KC_U    ,KC_I    ,KC_O    ,KC_P    ,KC_BSPC ,
     //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -31,9 +41,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[0] = LAYOUT_split
                                            KC_LGUI ,MO(1)   ,KC_SPC     ,KC_ENT  ,MO(2)   ,MO(3)
                                         //`--------------------------'  `--------------------------'
 
-        ),
+        ),  
 
-    [1] = LAYOUT_split_3x6_3(
+    [_NUMP] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
            KC_TAB  ,XXXXXXX ,KC_UP   ,XXXXXXX ,XXXXXXX ,KC_NO	                     ,KC_P7   ,KC_P8   ,KC_P9   ,XXXXXXX ,XXXXXXX ,KC_BSPC ,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -45,19 +55,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[0] = LAYOUT_split
                                             //`--------------------------'  `--------------------------'
         ),
 
-    [2] = LAYOUT_split_3x6_3(
+    [_LOWER] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
            KC_TAB  ,KC_EXLM ,KC_AT   ,KC_HASH ,KC_DLR  ,KC_PERC		                 ,KC_CIRC ,KC_AMPR ,KC_ASTR ,KC_LPRN ,KC_RPRN ,KC_BSPC ,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
            KC_LSFT ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,KC_NO			             ,XXXXXXX ,XXXXXXX ,XXXXXXX ,KC_LBRC ,KC_RBRC ,XXXXXXX ,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-           KC_LCTL ,XXXXXXX ,KC_PSLS ,XXXXXXX ,KC_HASH ,KC_UNDS   		             ,KC_PMNS ,KC_PLUS ,KC_PEQL ,KC_LT   ,KC_GT   ,XXXXXXX ,
+           KC_LCTL ,XXXXXXX ,KC_PSLS ,XXXXXXX ,KC_HASH ,KC_UNDS   		             ,KC_PMNS ,KC_PLUS ,KC_EQL  ,KC_LT   ,KC_GT   ,XXXXXXX ,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                                KC_LGUI ,XXXXXXX   ,KC_SPC     ,KC_ENT  ,_______ ,XXXXXXX
                                             //`--------------------------'  `--------------------------'
         ),
 
-    [3] = LAYOUT_split_3x6_3(
+    [_FUNC] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
            XXXXXXX ,KC_F1   ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5                        ,KC_F6   ,KC_F7   ,KC_F8   ,KC_F9   ,KC_F10  ,XXXXXXX ,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -69,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[0] = LAYOUT_split
                                             //`--------------------------'  `--------------------------'
         ),
 
-    [4] = LAYOUT_split_3x6_3(
+    [_RGB] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
            QK_BOOT ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX                      ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -102,9 +112,10 @@ uint8_t current_frame = 0;
 int   current_wpm = 0;
 led_t led_usb_state;
 
-bool isSneaking = false;
+bool isBarking  = false;
 bool isJumping  = false;
 bool showedJump = true;
+bool isSneaking = false;
 
 /* logic */
 static void render_luna(int LUNA_X, int LUNA_Y) {
