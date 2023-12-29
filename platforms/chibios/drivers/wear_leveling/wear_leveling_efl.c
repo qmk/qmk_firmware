@@ -60,7 +60,7 @@ bool backing_store_init(void) {
 
     if (WEAR_LEVELING_EFL_OMIT_LAST_SECTOR_COUNT >= desc->sectors_count) {
         // Last sector defined is greater than available number of sectors. Can't do anything here. Fault.
-        chSysHalt("Last sector intended to be used with wear_leveling is greater than available flash size");
+        chSysHalt("Last sector intended to be used with wear_leveling is beyond available flash descriptor range");
     }
 
 #if defined(WEAR_LEVELING_EFL_FIRST_SECTOR)
