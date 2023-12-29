@@ -21,6 +21,15 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "progmem.h"
+#include "util.h"
+
+#define IS31FL3729_REG_SCALING 0x90
+#define IS31FL3729_REG_CONFIGURATION 0xA0
+#define IS31FL3729_REG_GLOBALCURRENT 0xA1
+#define IS31FL3729_REG_PULLDOWNUP 0xB0
+#define IS31FL3729_REG_SPREAD_SPECTRUM 0xB1
+#define IS31FL3729_REG_PWM_FREQUENCY 0xB2
+#define IS31FL3729_REG_RESET 0xCF
 
 #define IS31FL3729_I2C_ADDRESS_GND 0x34
 #define IS31FL3729_I2C_ADDRESS_SCL 0x35
@@ -46,7 +55,7 @@ typedef struct is31fl3729_led_t {
     uint8_t r;
     uint8_t g;
     uint8_t b;
-} __attribute__((packed)) is31fl3729_led_t;
+} PACKED is31fl3729_led_t;
 
 extern const is31fl3729_led_t PROGMEM g_is31fl3729_leds[IS31FL3729_LED_COUNT];
 
@@ -58,14 +67,14 @@ bool is31fl3729_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
 void is31fl3729_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
 void is31fl3729_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
 
-void is31fl3729_set_led_control_register(uint8_t index, bool red, bool green, bool blue);
+void is31fl3729_set_scaling_register(uint8_t index, uint8_t red, uint8_t green, uint8_t blue);
 
 // This should not be called from an interrupt
 // (eg. from a timer interrupt).
 // Call this while idle (in between matrix scans).
 // If the buffer is dirty, it will update the driver with the buffer.
 void is31fl3729_update_pwm_buffers(uint8_t addr, uint8_t index);
-void is31fl3729_update_led_control_registers(uint8_t addr, uint8_t index);
+void is31fl3729_update_scaling_registers(uint8_t addr, uint8_t index);
 
 void is31fl3729_flush(void);
 

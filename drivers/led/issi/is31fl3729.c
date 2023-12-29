@@ -21,15 +21,6 @@
 #include "i2c_master.h"
 #include "wait.h"
 
-// Registers
-#define IS31FL3729_REG_SCALING 0x90
-#define IS31FL3729_REG_CONFIGURATION 0xA0
-#define IS31FL3729_REG_GLOBALCURRENT 0xA1
-#define IS31FL3729_REG_PULLDOWNUP 0xB0
-#define IS31FL3729_REG_SPREAD_SPECTRUM 0xB1
-#define IS31FL3729_REG_PWM_FREQUENCY 0xB2
-#define IS31FL3729_REG_RESET 0xCF
-
 // Set defaults for Timeout and Persistence
 #ifndef IS31FL3729_I2C_TIMEOUT
 #    define IS31FL3729_I2C_TIMEOUT 100
@@ -57,7 +48,7 @@
 
 // Set buffer sizes
 #define IS31FL3729_PWM_REGISTER_COUNT 143
-#define IS31FL3729_SCALINGS_REGISTER_COUNT 16
+#define IS31FL3729_SCALING_REGISTER_COUNT 16
 
 uint8_t i2c_transfer_buffer[20];
 
@@ -66,7 +57,7 @@ uint8_t i2c_transfer_buffer[20];
 uint8_t g_pwm_buffer[IS31FL3729_DRIVER_COUNT][IS31FL3729_PWM_REGISTER_COUNT];
 bool    g_pwm_buffer_update_required[IS31FL3729_DRIVER_COUNT] = {false};
 
-uint8_t g_scaling_registers[IS31FL3729_DRIVER_COUNT][IS31FL3729_SCALINGS_REGISTER_COUNT];
+uint8_t g_scaling_registers[IS31FL3729_DRIVER_COUNT][IS31FL3729_SCALING_REGISTER_COUNT];
 bool    g_scaling_registers_update_required[IS31FL3729_DRIVER_COUNT] = {false};
 
 void is31fl3729_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
@@ -84,25 +75,25 @@ void is31fl3729_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
 }
 
 bool is31fl3729_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
-    // iterate over the pwm_buffer contents at IS31FL3729_SCALINGS_REGISTER_COUNT byte intervals
+    // iterate over the pwm_buffer contents at IS31FL3729_SCALING_REGISTER_COUNT byte intervals
     // datasheet does not mention it, but it auto-increments in 15x9 mode, and
     // hence does not require us to skip any addresses
-    for (int i = 0; i <= IS31FL3729_PWM_REGISTER_COUNT; i += IS31FL3729_SCALINGS_REGISTER_COUNT) {
+    for (int i = 0; i <= IS31FL3729_PWM_REGISTER_COUNT; i += IS31FL3729_SCALING_REGISTER_COUNT) {
         i2c_transfer_buffer[0] = i;
 
-        // copy the data from i to i+IS31FL3729_SCALINGS_REGISTER_COUNT
+        // copy the data from i to i+IS31FL3729_SCALING_REGISTER_COUNT
         // device will auto-increment register for data after the first byte
         // thus this sets registers 0x01-0x10, 0x11-0x20, etc. in one transfer
-        memcpy(i2c_transfer_buffer + 1, pwm_buffer + i, IS31FL3729_SCALINGS_REGISTER_COUNT);
+        memcpy(i2c_transfer_buffer + 1, pwm_buffer + i, IS31FL3729_SCALING_REGISTER_COUNT);
 
 #if IS31FL3729_I2C_PERSISTENCE > 0
         for (uint8_t i = 0; i < IS31FL3729_I2C_PERSISTENCE; i++) {
-            if (i2c_transmit(addr << 1, i2c_transfer_buffer, IS31FL3729_SCALINGS_REGISTER_COUNT + 1, IS31FL3729_I2C_TIMEOUT) != 0) {
+            if (i2c_transmit(addr << 1, i2c_transfer_buffer, IS31FL3729_SCALING_REGISTER_COUNT + 1, IS31FL3729_I2C_TIMEOUT) != 0) {
                 return false;
             }
         }
 #else
-        if (i2c_transmit(addr << 1, i2c_transfer_buffer, IS31FL3729_SCALINGS_REGISTER_COUNT + 1, IS31FL3729_I2C_TIMEOUT) != 0) {
+        if (i2c_transmit(addr << 1, i2c_transfer_buffer, IS31FL3729_SCALING_REGISTER_COUNT + 1, IS31FL3729_I2C_TIMEOUT) != 0) {
             return false;
         }
 #endif
@@ -126,16 +117,16 @@ void is31fl3729_init_drivers(void) {
 #endif
 
     for (int i = 0; i < IS31FL3729_LED_COUNT; i++) {
-        is31fl3729_set_led_control_register(i, true, true, true);
+        is31fl3729_set_scaling_register(i, 0xFF, 0xFF, 0xFF);
     }
 
-    is31fl3729_update_led_control_registers(IS31FL3729_I2C_ADDRESS_1, 0);
+    is31fl3729_update_scaling_registers(IS31FL3729_I2C_ADDRESS_1, 0);
 #if defined(IS31FL3729_I2C_ADDRESS_2)
-    is31fl3729_update_led_control_registers(IS31FL3729_I2C_ADDRESS_2, 1);
+    is31fl3729_update_scaling_registers(IS31FL3729_I2C_ADDRESS_2, 1);
 #    if defined(IS31FL3729_I2C_ADDRESS_3)
-    is31fl3729_update_led_control_registers(IS31FL3729_I2C_ADDRESS_3, 2);
+    is31fl3729_update_scaling_registers(IS31FL3729_I2C_ADDRESS_3, 2);
 #        if defined(IS31FL3729_I2C_ADDRESS_4)
-    is31fl3729_update_led_control_registers(IS31FL3729_I2C_ADDRESS_4, 3);
+    is31fl3729_update_scaling_registers(IS31FL3729_I2C_ADDRESS_4, 3);
 #        endif
 #    endif
 #endif
@@ -188,7 +179,7 @@ void is31fl3729_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
     }
 }
 
-void is31fl3729_set_led_control_register(uint8_t index, bool red, bool green, bool blue) {
+void is31fl3729_set_scaling_register(uint8_t index, uint8_t red, uint8_t green, uint8_t blue) {
     is31fl3729_led_t led;
     memcpy_P(&led, (&g_is31fl3729_leds[index]), sizeof(led));
 
@@ -199,17 +190,9 @@ void is31fl3729_set_led_control_register(uint8_t index, bool red, bool green, bo
     int cs_green = (led.g & 0x0F) - 1;
     int cs_blue  = (led.b & 0x0F) - 1;
 
-    if (red) {
-        g_scaling_registers[led.driver][cs_red] = 0xFF;
-    }
-
-    if (green) {
-        g_scaling_registers[led.driver][cs_green] = 0xFF;
-    }
-
-    if (blue) {
-        g_scaling_registers[led.driver][cs_blue] = 0xFF;
-    }
+    g_scaling_registers[led.driver][cs_red]   = red;
+    g_scaling_registers[led.driver][cs_green] = green;
+    g_scaling_registers[led.driver][cs_blue]  = blue;
 
     g_scaling_registers_update_required[led.driver] = true;
 }
@@ -222,9 +205,9 @@ void is31fl3729_update_pwm_buffers(uint8_t addr, uint8_t index) {
     g_pwm_buffer_update_required[index] = false;
 }
 
-void is31fl3729_update_led_control_registers(uint8_t addr, uint8_t index) {
+void is31fl3729_update_scaling_registers(uint8_t addr, uint8_t index) {
     if (g_scaling_registers_update_required[index]) {
-        for (int i = 0; i < IS31FL3729_SCALINGS_REGISTER_COUNT; i++) {
+        for (int i = 0; i < IS31FL3729_SCALING_REGISTER_COUNT; i++) {
             is31fl3729_write_register(addr, IS31FL3729_REG_SCALING + i, g_scaling_registers[index][i]);
         }
 
