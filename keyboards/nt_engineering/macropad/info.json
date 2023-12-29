@@ -40,7 +40,6 @@
         "driver": "vendor"
     },
     "encoder": {
-        "enabled": true,
         "rotary": [
             {"pin_a": "GP2", "pin_b": "GP4", "resolution": 2}
         ]
