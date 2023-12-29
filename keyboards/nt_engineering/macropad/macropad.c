@@ -3,7 +3,7 @@
 
 #include "quantum.h"
 #include "timer.h"
-#define DEBOUNCE_MS 50 // debounce delay for rotary encoder switch
+#define DEBOUNCE_MS 20 // debounce delay for rotary encoder switch
 
 static uint32_t switch_timer;
 bool            layer_switched = false;
