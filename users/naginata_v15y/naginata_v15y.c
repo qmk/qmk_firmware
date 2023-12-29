@@ -732,40 +732,41 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
           addToList(&e, keycode);
           addToListArray(&nginput, &e);
         }
+      }
+      
+      // 連続シフト
+      uint16_t rs[10][2] = {{NG_D, NG_F}, {NG_C, NG_V}, {NG_J, NG_K}, {NG_M, NG_COMM}, {NG_SHFT, 0}, {NG_SHFT2, 0}, {NG_F, 0}, {NG_V, 0}, {NG_J, 0}, {NG_M, 0}};
 
-        // 連続シフト
-        uint16_t rs[10][2] = {{NG_D, NG_F}, {NG_C, NG_V}, {NG_J, NG_K}, {NG_M, NG_COMM}, {NG_SHFT, 0}, {NG_SHFT2, 0}, {NG_F, 0}, {NG_V, 0}, {NG_J, 0}, {NG_M, 0}};
-
-        for (int i = 0; i < 10; i++) {
-          NGList rskc;
-          initializeList(&rskc);
-          addToList(&rskc, rs[i][0]);
-          if (rs[i][1] > 0) {
-            addToList(&rskc, rs[i][1]);
-          }
-          int c = includeList(&rskc, keycode);
-
-          for (int j = 0; j < nginput.elements[nginput.size - 1].size; j++) {
-            addToList(&rskc, nginput.elements[nginput.size - 1].elements[j]);
-          }
-          uint32_t brs = 0UL;
-          for (int j = 0; j < rskc.size; j++) {
-            brs |=  ng_key[rskc.elements[j] - NG_Q];
-          }
-
-          addToList(&rskc, keycode);
-          // じょじょ よを先に押すと連続シフトしない x
-          if (c <  0 && ((brs & pressed_keys) == brs) && number_of_candidates(&rskc, true) >  0) {
-            nginput.elements[nginput.size - 1] = rskc;
-            break;
-          }
+      for (int i = 0; i < 10; i++) {
+        NGList rskc;
+        initializeList(&rskc);
+        addToList(&rskc, rs[i][0]);
+        if (rs[i][1] > 0) {
+          addToList(&rskc, rs[i][1]);
         }
 
-        if (nginput.size > 1 || number_of_candidates(&(nginput.elements[0]), false) == 1) {
-          ng_type(&(nginput.elements[0]));
-          removeFromListArrayAt(&nginput, 0);
+        int c = includeList(&rskc, keycode);
+        uint32_t brs = 0UL;
+        for (int j = 0; j < rskc.size; j++) {
+          brs |=  ng_key[rskc.elements[j] - NG_Q];
+        }
+
+        NGList l = nginput.elements[nginput.size - 1];
+        for (int j = 0; j < l.size; j++) {
+          addToList(&rskc, l.elements[j]);
+        }
+
+        if (c <  0 && ((brs & pressed_keys) == brs) && number_of_candidates(&rskc, true) >  0) {
+          nginput.elements[nginput.size - 1] = rskc;
+          break;
         }
       }
+
+      if (nginput.size > 1 || number_of_candidates(&(nginput.elements[0]), false) == 1) {
+        ng_type(&(nginput.elements[0]));
+        removeFromListArrayAt(&nginput, 0);
+      }
+
       #if defined(CONSOLE_ENABLE)
         uprintf("<process_naginata pressed=%u nginput.size=%u\n", keycode, nginput.size);
       #endif
