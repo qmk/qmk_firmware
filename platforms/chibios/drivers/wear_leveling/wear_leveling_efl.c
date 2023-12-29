@@ -58,6 +58,11 @@ bool backing_store_init(void) {
     // Check if the hardware erase is logic 1
     flash_erased_is_one = (desc->attributes & FLASH_ATTR_ERASED_IS_ONE) ? true : false;
 
+    if (WEAR_LEVELING_EFL_OMIT_LAST_SECTOR_COUNT >= desc->sectors_count) {
+        // Last sector defined is greater than available number of sectors. Can't do anything here. Fault.
+        chSysHalt("Last sector intended to be used with wear_leveling is greater than available flash size");
+    }
+
 #if defined(WEAR_LEVELING_EFL_FIRST_SECTOR)
 
     // Work out how many sectors we want to use, working forwards from the first sector specified
