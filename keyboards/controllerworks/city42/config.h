@@ -17,7 +17,6 @@
 
 #pragma once
 
-#define WS2812_PIO_USE_PIO1
 #define RGB_MATRIX_LED_COUNT 42
 
 #define SPI_SCK_PIN GP18
