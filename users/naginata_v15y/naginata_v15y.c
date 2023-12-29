@@ -26,7 +26,6 @@
 // static uint8_t ng_chrcount = 0; // 文字キー入力のカウンタ
 static bool is_naginata = false; // 薙刀式がオンかオフか
 static uint8_t naginata_layer = 0; // NG_*を配置しているレイヤー番号
-static uint32_t keycomb = 0UL; // 同時押しの状態を示す。32bitの各ビットがキーに対応する。
 static uint16_t ngon_keys[2]; // 薙刀式をオンにするキー(通常HJ)
 static uint16_t ngoff_keys[2]; // 薙刀式をオフにするキー(通常FG)
 static NGListArray nginput;
@@ -404,7 +403,6 @@ void set_naginata(uint8_t layer, uint16_t *onk, uint16_t *offk) {
 // 薙刀式をオン
 void naginata_on(void) {
   is_naginata = true;
-  keycomb = 0UL;
   naginata_clear();
   layer_on(naginata_layer);
 
@@ -415,7 +413,6 @@ void naginata_on(void) {
 // 薙刀式をオフ
 void naginata_off(void) {
   is_naginata = false;
-  keycomb = 0UL;
   naginata_clear();
   layer_off(naginata_layer);
 
@@ -628,13 +625,14 @@ bool enable_naginata(uint16_t keycode, keyrecord_t *record) {
 // バッファをクリアする
 void naginata_clear(void) {
   // for (int i = 0; i < NGBUFFER; i++) {
-  //   ninputs[i] = 0;
+  //   nginput[i] = 0;
   // }
   // ng_chrcount = 0;
   initializeListArray(&nginput);
   n_modifier = 0;
   nkeypress = 0;
   fghj_buf = 0;
+  pressed_keys = 0;
 }
 
 // 薙刀式の入力処理
@@ -728,37 +726,38 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
           addToListArray(&nginput, &b);
         // 前のキーと同時押しはない
         } else {
-          // 連続シフト
-          uint16_t rs[10][2] = {{NG_D, NG_F}, {NG_C, NG_V}, {NG_J, NG_K}, {NG_M, NG_COMM}, {NG_SHFT, 0}, {NG_SHFT2, 0}, {NG_F, 0}, {NG_V, 0}, {NG_J, 0}, {NG_M, 0}};
-          bool f = false;
+          // 連続シフトではない
+          NGList e;
+          initializeList(&e);
+          addToList(&e, keycode);
+          addToListArray(&nginput, &e);
+        }
 
-          for (int i = 0; i < 10; i++) {
-            NGList rskc;
-            initializeList(&rskc);
-            addToList(&rskc, rs[i][0]);
-            if (rs[i][1] > 0) {
-              addToList(&rskc, rs[i][1]);
-            }
-            uint32_t brs = 0UL;
-            for (int j = 0; j < rskc.size; j++) {
-              brs |=  ng_key[rskc.elements[j] - NG_Q];
-            }
-            int c = includeList(&rskc, keycode);
+        // 連続シフト
+        uint16_t rs[10][2] = {{NG_D, NG_F}, {NG_C, NG_V}, {NG_J, NG_K}, {NG_M, NG_COMM}, {NG_SHFT, 0}, {NG_SHFT2, 0}, {NG_F, 0}, {NG_V, 0}, {NG_J, 0}, {NG_M, 0}};
 
-            addToList(&rskc, keycode);
-            if (c <  0 && ((brs & pressed_keys) == brs) && number_of_candidates(&rskc, true) >  0) {
-              addToListArray(&nginput, &rskc);
-              f = true;
-              break;
-            }
+        for (int i = 0; i < 10; i++) {
+          NGList rskc;
+          initializeList(&rskc);
+          addToList(&rskc, rs[i][0]);
+          if (rs[i][1] > 0) {
+            addToList(&rskc, rs[i][1]);
+          }
+          int c = includeList(&rskc, keycode);
+
+          for (int j = 0; j < nginput.elements[nginput.size - 1].size; j++) {
+            addToList(&rskc, nginput.elements[nginput.size - 1].elements[j]);
+          }
+          uint32_t brs = 0UL;
+          for (int j = 0; j < rskc.size; j++) {
+            brs |=  ng_key[rskc.elements[j] - NG_Q];
           }
 
-          // 連続シフトではない
-          if (!f) { 
-            NGList e;
-            initializeList(&e);
-            addToList(&e, keycode);
-            addToListArray(&nginput, &e);
+          addToList(&rskc, keycode);
+          // じょじょ よを先に押すと連続シフトしない x
+          if (c <  0 && ((brs & pressed_keys) == brs) && number_of_candidates(&rskc, true) >  0) {
+            nginput.elements[nginput.size - 1] = rskc;
+            break;
           }
         }
 
@@ -868,6 +867,7 @@ int number_of_candidates(NGList *keys, bool strict) {
         memcpy_P(&bngdickana, &ngdickana[i], sizeof(bngdickana));
         if (bngdickana.shift == B_SHFT && bngdickana.douji == keyset) {
           noc++;
+          if (noc > 1) break;
         }
       }
     } else {
@@ -912,6 +912,7 @@ int number_of_candidates(NGList *keys, bool strict) {
           memcpy_P(&bngdickana, &ngdickana[i], sizeof(bngdickana));
           if (bngdickana.shift == 0UL && bngdickana.douji == keyset) {
             noc++;
+            if (noc > 1) break;
           }
         }
       }
@@ -931,6 +932,7 @@ int number_of_candidates(NGList *keys, bool strict) {
         memcpy_P(&bngdickana, &ngdickana[i], sizeof(bngdickana));
         if (bngdickana.shift == B_SHFT && ((bngdickana.douji & keyset) == keyset)) {
           noc++;
+          if (noc > 1) break;
         }
       }
     } else {
@@ -975,6 +977,7 @@ int number_of_candidates(NGList *keys, bool strict) {
           memcpy_P(&bngdickana, &ngdickana[i], sizeof(bngdickana));
           if (bngdickana.shift == 0UL && ((bngdickana.douji & keyset) == keyset)) {
             noc++;
+            if (noc > 1) break;
           }
         }
       }
