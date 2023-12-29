@@ -2,6 +2,11 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "quantum.h"
+#include "timer.h"
+#define DEBOUNCE_MS 50 // debounce delay for rotary encoder switch
+
+static uint32_t switch_timer;
+bool            layer_switched = false;
 
 void keyboard_pre_init_kb(void) {
     // turn on the LED backlight
@@ -32,53 +37,31 @@ void keyboard_post_init_kb(void) {
     keyboard_post_init_user();
 }
 
-#include "timer.h"
-
-#define DEBOUNCE_MS 200 // Set your debounce delay here, 20ms is common
-static uint32_t switch_timer;
-bool            layer_switched     = false;
-bool            in_extended_layers = false;
-
+// Handles layer switching and RGB LED
 void matrix_scan_user(void) {
     bool switch_pressed = !readPin(GP26);
     if (switch_pressed) {
-        if (!in_extended_layers) {
-            if (timer_elapsed32(switch_timer) > DEBOUNCE_MS) {
-                if (!layer_switched) {
-                    layer_move(1); // Move to Layer 1
-                    rgblight_sethsv(4, 255, 64);
-                    layer_switched = true;
-                } else {
-                    layer_move(0); // Move back to Layer 0
-                    rgblight_sethsv(40, 255, 64);
-                    layer_switched = false;
-                }
+        if (timer_elapsed32(switch_timer) > DEBOUNCE_MS) {
+            if (!layer_switched) {
+                layer_move(1); // Move to Layer 1
+                rgblight_sethsv(4, 255, 64);
+                layer_switched = true;
+            } else {
+                layer_move(0); // Move back to Layer 0
+                rgblight_sethsv(40, 255, 64);
+                layer_switched = false;
             }
             switch_timer = timer_read32();
-        }
-    } else {
-        // When switch is released, return to important layers if in extended layers
-        if (in_extended_layers) {
-            in_extended_layers = false;
-            layer_move(layer_switched ? 1 : 0);
         }
     }
 }
 
+// Handles rotary encoder
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (!readPin(GP26)) { // if switch is pressed
-        in_extended_layers = true;
-        if (clockwise) {
-            layer_move(2); // switch to layer 2 on clockwise rotation
-        } else {
-            layer_move(3); // switch to layer 3 on counter-clockwise rotation
-        }
+    if (clockwise) {
+        tap_code(KC_VOLU);
     } else {
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
+        tap_code(KC_VOLD);
     }
     return true;
 }
