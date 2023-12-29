@@ -40,6 +40,10 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "layout_aliases": {
+        "LAYOUT_ortho": "LAYOUT_ortho_4x12"
+    },
+    "community_layouts": ["ortho_4x12"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -90,7 +94,7 @@
                 {"matrix": [3, 10], "x": 10.75, "y": 3, "w": 1.25}
             ]
         },
-        "LAYOUT_ortho": {
+        "LAYOUT_ortho_4x12": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
