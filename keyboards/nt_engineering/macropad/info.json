@@ -16,7 +16,8 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgblight": true
+        "rgblight": true,
+        "encoder": true
     },
     "rgblight": {
         "led_count": 1,
