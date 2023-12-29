@@ -69,7 +69,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //  https://docs.qmk.fm/#/feature_rgb_matrix
 //  Enable suspend mode.
-// #    define RGB_DISABLE_WHEN_USB_SUSPENDED true
+// #    define RGB_MATRIX_SLEEP
 
 #   define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
 // #define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT

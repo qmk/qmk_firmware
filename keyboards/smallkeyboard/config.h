@@ -18,7 +18,7 @@
 #pragma once
 
 #ifdef RGB_MATRIX_ENABLE
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
+#    define RGB_MATRIX_SLEEP // turn off effects when suspended
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS

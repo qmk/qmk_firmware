@@ -17,7 +17,7 @@
 #pragma once
 
 #ifdef RGB_MATRIX_ENABLE
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED
+#    define RGB_MATRIX_SLEEP
 #    define CAPS_LOCK_INDICATOR_COLOR RGB_RED
 #    define FN_LAYER_COLOR RGB_ORANGE
 #endif
