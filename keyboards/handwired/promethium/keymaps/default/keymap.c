@@ -1251,7 +1251,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void set_send_output_user(send_output_t output) {
+send_output_t set_send_output_user(send_output_t output) {
 #ifdef BLUETOOTH_BLUEFRUIT_LE
   switch (output) {
     case SEND_OUTPUT_USB:
@@ -1264,6 +1264,7 @@ void set_send_output_user(send_output_t output) {
       led_set_output_none();
   }
 #endif
+  return output;
 }
 
 void matrix_init_user(void) {
