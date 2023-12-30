@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "jetfire.h"
+#include "quantum.h"
 #include "indicator_leds.h"
 
 enum BACKLIGHT_AREAS {
@@ -76,7 +76,7 @@ void backlight_set(uint8_t level)
   backlight_toggle_rgb(level & BACKLIGHT_RGB);
 }
 
-void backlight_update_state()
+void backlight_update_state(void)
 {
   cli();
   send_color(backlight_state_led & (1<<STATE_LED_SCROLL_LOCK) ? 255 : 0,

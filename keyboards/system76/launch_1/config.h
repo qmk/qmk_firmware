@@ -17,32 +17,7 @@
 
 #pragma once
 
-#include "config_common.h"
-
-// Key matrix size
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 14
-
-/*
- * Key matrix pins
- * ROWS: AVR pins used for rows, top to bottom
- * COLS: AVR pins used for columns, left to right
- */
-#define MATRIX_ROW_PINS { F0, F1, F4, F5, F6, F7 }
-#define MATRIX_COL_PINS { D7, C7, C6, B6, B5, B4, D6, D4, E6, D5, D3, D2, B7, B0 }
-
-/*
- * Diode Direction
- * COL2ROW = COL => Anode (+), ROW => Cathode (-)
- * ROW2COL = ROW => Anode (+), COL => Cathode (-)
- */
-#define DIODE_DIRECTION COL2ROW
-
-// Set 0 if debouncing isn't needed
-#define DEBOUNCE 5
-
 #ifdef RGB_MATRIX_ENABLE
-#    define RGB_DI_PIN E2
 #    define RGB_MATRIX_LED_COUNT 84
 #    define RGB_MATRIX_KEYPRESSES                                      // Reacts to keypresses
 // #    define RGB_MATRIX_KEYRELEASES                                     // Reacts to keyreleases (instead of keypresses)

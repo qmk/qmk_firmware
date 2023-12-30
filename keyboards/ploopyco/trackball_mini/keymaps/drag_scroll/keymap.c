@@ -21,7 +21,7 @@
 bool is_drag_scroll = false;
 
 enum custom_keycodes {
-    DRAG_SCROLL = PLOOPY_SAFE_RANGE,
+    DRAG_SCROLL = SAFE_RANGE,
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

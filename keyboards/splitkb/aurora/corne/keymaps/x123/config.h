@@ -21,5 +21,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define TAPPING_TOGGLE 1
 #define TAPPING_TERM 280
-#define IGNORE_MOD_TAP_INTERRUPT
 #define UNICODE_SELECTED_MODES UNICODE_MODE_WINCOMPOSE, UNICODE_MODE_MACOS, UNICODE_MODE_LINUX

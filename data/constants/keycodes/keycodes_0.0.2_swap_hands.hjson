@@ -1,0 +1,53 @@
+{
+    "keycodes": {
+        "0x56F0": {
+            "group": "swap_hands",
+            "key": "QK_SWAP_HANDS_TOGGLE",
+            "aliases": [
+                "SH_TOGG"
+            ]
+        },
+        "0x56F1": {
+            "group": "swap_hands",
+            "key": "QK_SWAP_HANDS_TAP_TOGGLE",
+            "aliases": [
+                "SH_TT"
+            ]
+        },
+        "0x56F2": {
+            "group": "swap_hands",
+            "key": "QK_SWAP_HANDS_MOMENTARY_ON",
+            "aliases": [
+                "SH_MON"
+            ]
+        },
+        "0x56F3": {
+            "group": "swap_hands",
+            "key": "QK_SWAP_HANDS_MOMENTARY_OFF",
+            "aliases": [
+                "SH_MOFF"
+            ]
+        },
+        "0x56F4": {
+            "group": "swap_hands",
+            "key": "QK_SWAP_HANDS_OFF",
+            "aliases": [
+                "SH_OFF"
+            ]
+        },
+        "0x56F5": {
+            "group": "swap_hands",
+            "key": "QK_SWAP_HANDS_ON",
+            "aliases": [
+                "SH_ON"
+            ]
+        },
+        "0x56F6": {
+            "group": "swap_hands",
+            "key": "QK_SWAP_HANDS_ONE_SHOT",
+            "aliases": [
+                "SH_OS"
+            ]
+        }
+    }
+}

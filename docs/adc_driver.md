@@ -9,7 +9,7 @@ This driver currently supports both AVR and a limited selection of ARM devices. 
 To use this driver, add the following to your `rules.mk`:
 
 ```make
-SRC += analog.c
+ANALOG_DRIVER_REQUIRED = yes
 ```
 
 Then place this include at the top of your code:
@@ -42,6 +42,8 @@ Then place this include at the top of your code:
 <sup>\* The ATmega328/P possesses two extra ADC channels; however, they are not present on the DIP pinout, and are not shared with GPIO pins. You can use `adc_read()` directly to gain access to these.</sup>
 
 ### ARM
+
+#### STM32
 
 Note that some of these pins are doubled-up on ADCs with the same channel. This is because the pins can be used for either ADC.
 
@@ -120,6 +122,21 @@ Also note that the F0 and F3 use different numbering schemes. The F0 has a singl
 <sup>¹ As of ChibiOS 20.3.4, the ADC driver for STM32F1xx devices supports only ADC1, therefore any configurations involving ADC2 or ADC3 cannot actually be used. In particular, pins `F6`…`F10`, which are present at least on some STM32F103x[C-G] devices, cannot be used as ADC inputs because of this driver limitation.</sup>
 
 <sup>² Not all STM32F4xx devices have ADC2 and/or ADC3, therefore some configurations shown in this table may be unavailable; in particular, pins `F4`…`F10` cannot be used as ADC inputs on devices which do not have ADC3. Check the device datasheet to confirm which pin functions are supported.</sup>
+
+#### RP2040
+
+RP2040 has only a single ADC (`ADCD1` in ChibiOS); in the QMK API the index for that ADC is 0.
+
+|Channel|Pin                |
+|-------|-------------------|
+|0      |`GP26`             |
+|1      |`GP27`             |
+|2      |`GP28`             |
+|3      |`GP29`             |
+|4      |Temperature sensor*|
+
+
+<sup>* The temperature sensor is disabled by default and needs to be enabled by the RP2040-specific function: `adcRPEnableTS(&ADCD1)`.  The ADC must be initialized before calling that function; an easy way to ensure that is to perform a dummy conversion.</sup>
 
 ## Functions
 

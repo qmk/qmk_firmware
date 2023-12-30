@@ -92,37 +92,47 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-LEADER_EXTERNS();
-
-void matrix_scan_user(void) {
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
-
-        // Cancel task CTRL+C
-        SEQ_ONE_KEY(KC_C) { tap_code16(C(KC_C)); }
-        // copy
-        SEQ_ONE_KEY(KC_Y) { tap_code16(G(KC_C)); }
-        // cut
-        SEQ_ONE_KEY(KC_X) { tap_code16(G(KC_X)); }
-        // paste
-        SEQ_ONE_KEY(KC_P) { tap_code16(G(KC_V)); }
-        // undo
-        SEQ_ONE_KEY(KC_U) { tap_code16(G(KC_Z)); }
-        // redo
-        SEQ_ONE_KEY(KC_R) { tap_code16(S(G(KC_Z))); }
-        // delete line
-        SEQ_TWO_KEYS(KC_D, KC_D) {
-            register_code(KC_LGUI);
-
-            tap_code(KC_RIGHT);
-
-            tap_code(KC_BACKSPACE);
-
-            unregister_code(KC_LGUI);
-        }
-        // go to the beginning of the string
-        SEQ_ONE_KEY(KC_H) { tap_code16(G(KC_LEFT)); }
-        // go to the end of the string
-        SEQ_ONE_KEY(KC_L) { tap_code16(G(KC_RIGHT)); }
+void leader_end_user(void) {
+    // Cancel task CTRL+C
+    if (leader_sequence_one_key(KC_C)) {
+        tap_code16(C(KC_C));
     }
+    // copy
+    if (leader_sequence_one_key(KC_Y)) {
+        tap_code16(G(KC_C));
+    }
+    // cut
+    if (leader_sequence_one_key(KC_X)) {
+        tap_code16(G(KC_X));
+    }
+    // paste
+    if (leader_sequence_one_key(KC_P)) {
+        tap_code16(G(KC_V));
+    }
+    // undo
+    if (leader_sequence_one_key(KC_U)) {
+        tap_code16(G(KC_Z));
+    }
+    // redo
+    if (leader_sequence_one_key(KC_R)) {
+        tap_code16(S(G(KC_Z)));
+    }
+    // delete line
+    if (leader_sequence_two_keys(KC_D, KC_D)) {
+        register_code(KC_LGUI);
+
+        tap_code(KC_RIGHT);
+
+        tap_code(KC_BACKSPACE);
+
+        unregister_code(KC_LGUI);
+    }
+    // go to the beginning of the string
+    if (leader_sequence_one_key(KC_H)) {
+        tap_code16(G(KC_LEFT));
+    }
+    // go to the end of the string
+    if (leader_sequence_one_key(KC_L)) {
+        tap_code16(G(KC_RIGHT));
+    }
+}

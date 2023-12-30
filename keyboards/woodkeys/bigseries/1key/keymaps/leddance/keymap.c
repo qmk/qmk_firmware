@@ -34,7 +34,7 @@ enum {
   TD_TOGGLE = 0
 };
 
-void dance_toggle (qk_tap_dance_state_t *state, void *user_data) {
+void dance_toggle (tap_dance_state_t *state, void *user_data) {
   if (state->count >= 2) {
     println("Double tapped, switching layers");
     if (layer_state_is(LED)) {
@@ -59,7 +59,7 @@ void dance_toggle (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 //Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_TOGGLE]  = ACTION_TAP_DANCE_FN(dance_toggle)
 // Other declarations would go here, separated by commas, if you have them
 };

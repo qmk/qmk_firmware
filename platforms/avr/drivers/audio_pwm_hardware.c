@@ -15,13 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if defined(__AVR__)
-#    include <avr/pgmspace.h>
-#    include <avr/interrupt.h>
-#    include <avr/io.h>
-#endif
-
 #include "audio.h"
+#include "gpio.h"
+#include <avr/interrupt.h>
 
 extern bool    playing_note;
 extern bool    playing_melody;
@@ -217,7 +213,7 @@ void channel_2_stop(void) {
 }
 #endif
 
-void audio_driver_initialize() {
+void audio_driver_initialize(void) {
 #ifdef AUDIO1_PIN_SET
     channel_1_stop();
     setPinOutput(AUDIO1_PIN);
@@ -258,7 +254,7 @@ void audio_driver_initialize() {
 #endif
 }
 
-void audio_driver_stop() {
+void audio_driver_stop(void) {
 #ifdef AUDIO1_PIN_SET
     channel_1_stop();
 #endif

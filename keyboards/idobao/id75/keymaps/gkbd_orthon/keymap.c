@@ -47,7 +47,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		}
 	}
 
-	if (!IS_MOD(keycode) && record->event.pressed) {
+	if (!IS_MODIFIER_KEYCODE(keycode) && record->event.pressed) {
 		if(keycode == KC_E || keycode == KC_A || keycode == KC_O || keycode == KC_I || keycode == KC_U) {
 			predecessor_key = KC_O;
 			vowel_proximity = timer_read();

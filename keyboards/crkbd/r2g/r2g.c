@@ -16,7 +16,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "r2g.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
 
@@ -88,98 +88,7 @@ led_config_t g_led_config = { {
 #endif
 
 #ifdef OLED_ENABLE
-
-oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
-  if (!is_keyboard_master()) {
-    return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
-  }
-  return rotation;
-}
-
-enum Layers{
-    L_BASE, L_LOWER, L_RAISE, L_ADJUST
-};
-
-void oled_render_layer_state_r2g(void) {
-    oled_write_P(PSTR("Layer: "), false);
-    switch (get_highest_layer(layer_state)) {
-        case L_BASE:
-            oled_write_ln_P(PSTR("Default"), false);
-            break;
-        case L_LOWER:
-            oled_write_ln_P(PSTR("Lower"), false);
-            break;
-        case L_RAISE:
-            oled_write_ln_P(PSTR("Raise"), false);
-            break;
-        case L_ADJUST:
-            oled_write_ln_P(PSTR("Adjust"), false);
-            break;
-    }
-}
-
-//char keylog_str_r2g[24] = {};
-
-const char code_to_name_r2g[60] = {
-    ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
-    'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
-    'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
-    'R', 'E', 'B', 'T', '_', '-', '=', '[', ']', '\\',
-    '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '};
-
-char key_name_r2g = ' ';
-uint16_t last_keycode_r2g;
-uint8_t last_row_r2g;
-uint8_t last_col_r2g;
-
-void set_keylog_r2g(uint16_t keycode, keyrecord_t *record) {
-    key_name_r2g = ' ';
-    last_keycode_r2g = keycode;
-    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) ||
-        (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) { last_keycode_r2g = keycode & 0xFF; }
-    if (keycode < 60) {
-      key_name_r2g = code_to_name_r2g[keycode];
-    }
-    last_row_r2g = record->event.key.row;
-    last_col_r2g = record->event.key.col;
-}
-
-const char *depad_str(const char *depad_str, char depad_char) {
-    while (*depad_str == depad_char) ++depad_str;
-    return depad_str;
-}
-
-void oled_render_keylog_r2g(void) {
-    //oled_write(keylog_str_r2g, false);
-    const char *last_row_r2g_str = get_u8_str(last_row_r2g, ' ');
-    oled_write(depad_str(last_row_r2g_str, ' '), false);
-    oled_write_P(PSTR("x"), false);
-    const char *last_col_r2g_str = get_u8_str(last_col_r2g, ' ');
-    oled_write(depad_str(last_col_r2g_str, ' '), false);
-    oled_write_P(PSTR(", k"), false);
-    const char *last_keycode_r2g_str = get_u16_str(last_keycode_r2g, ' ');
-    oled_write(depad_str(last_keycode_r2g_str, ' '), false);
-    oled_write_P(PSTR(":"), false);
-    oled_write_char(key_name_r2g, false);
-}
-
-void render_bootmagic_status_r2g(bool status) {
-    /* Show Ctrl-Gui Swap options */
-    static const char PROGMEM logo[][2][3] = {
-        {{0x97, 0x98, 0}, {0xb7, 0xb8, 0}},
-        {{0x95, 0x96, 0}, {0xb5, 0xb6, 0}},
-    };
-    if (status) {
-        oled_write_ln_P(logo[0][0], false);
-        oled_write_ln_P(logo[0][1], false);
-    } else {
-        oled_write_ln_P(logo[1][0], false);
-        oled_write_ln_P(logo[1][1], false);
-    }
-}
-
-void oled_render_logo_r2g(void) {
+void oled_render_logo(void) {
     static const char PROGMEM mb_logo[] = {
 0x00, 0x00, 0x00, 0x00, 0x00, 0xfe, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
@@ -218,23 +127,4 @@ void oled_render_logo_r2g(void) {
     //oled_set_cursor(oled_max_chars()/2,oled_max_lines()/2);
     //oled_write_P(PSTR("R2G"), false);
 }
-
-bool oled_task_kb(void) {
-    if (!oled_task_user()) { return false; }
-    if (is_keyboard_master()) {
-        oled_render_layer_state_r2g();
-        oled_render_keylog_r2g();
-    } else {
-        oled_render_logo_r2g();
-    }
-    return false;
-}
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    set_keylog_r2g(keycode, record);
-  }
-  return process_record_user(keycode, record);
-}
-#endif // OLED_ENABLE
-
+#endif

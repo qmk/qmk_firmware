@@ -1,5 +1,12 @@
 {
     "usb": {
         "device_version": "0.0.1"
-    }
+    },
+    "matrix_pins": {
+        "cols": ["B7", "C6", "C7"],
+        "rows": ["B6"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu"
 }

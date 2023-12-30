@@ -17,39 +17,12 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* Key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 17
-
-/* Key matrix pins */
-#define MATRIX_ROW_PINS { A1, A2, A10, A9, A8, C9 }
-#define MATRIX_COL_PINS { B5, B4,  B6, C0, C1, C2, C3, B7, B3, D2, C12, C11, C10, A15, C15, C13, A3 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
-/* Bootmagic reset */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-
-/* LED Indicator */
-#define LED_CAPS_LOCK_PIN C14
-#define LED_SCROLL_LOCK_PIN A0
-
 #ifdef RGB_MATRIX_ENABLE
     #define RGB_MATRIX_LED_COUNT 91
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
     #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
     #define RGB_MATRIX_KEYPRESSES
     #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-
-    /* RGB Matrix config */
-    #define RGB_DI_PIN A4
 
     /* RGB Matrix effect */
     #define ENABLE_RGB_MATRIX_ALPHAS_MODS
