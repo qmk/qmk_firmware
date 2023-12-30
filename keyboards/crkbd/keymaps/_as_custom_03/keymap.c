@@ -25,7 +25,7 @@ enum custom_layers {
 };
 
 
-uint8_t mod_state;
+// uint8_t mod_state;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT_split_3x6_3(
@@ -87,7 +87,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                                KC_LGUI ,_______ ,KC_SPC     ,KC_ENT  ,_______ ,KC_NO
                                             //`--------------------------'  `--------------------------'
-        )};
+        )
+};
 
 // Luna
 /* KEYBOARD PET START */
@@ -254,15 +255,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // return false;
 
         case 21025:         /*_NUMP  21025*/
-            print("_NUMP \n "); 
-
-
-                 #ifdef RGB_MATRIX_ENABLE
-                    if (record->event.pressed) {
-                        rgb_matrix_enable();
-                    }
+            print("_NUMP \n ");
+            if (record->event.pressed) {
+                layer_on(_NUMP);
+                #ifdef RGB_MATRIX_ENABLE
+                    rgb_matrix_enable();
+                    rgb_matrix_set_color(4, 0, 25, 255);
                 #endif
-      break;
+            } else {
+                layer_off(_NUMP);
+                #ifdef RGB_MATRIX_ENABLE
+                    rgb_matrix_disable();
+                #endif
+            }
+            return false;
+
+            break;
     
         case 21026:         /*_LOWER  21026*/
             if (record->event.pressed) {
@@ -276,12 +284,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case 21027:         /*_FUNC  21027*/
             break;
-        case 21027:         /*_RGB  21028*/
+        case 21028:         /*_RGB  21028*/
             break;
 
     }
     return true;
 };
+
 /* KEYBOARD PET STATUS END */
 
 // /* 32 * 32 logo */
