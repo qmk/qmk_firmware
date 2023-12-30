@@ -15,7 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/** DEPRECATED: Provided for backward compatibility */
+
 #pragma once
+
+#pragma message "`bluetooth.h` is deprecated"
 
 #include <stdint.h>
 #include "report.h"
