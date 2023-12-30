@@ -1168,36 +1168,19 @@ bool processKeycodeIfLThumbEWeak(uint16_t keycode, keyrecord_t* record) {
             }
             return false;
         case MA_LTHUMBD:
-            if (IS_LAYER_ON(LA_LTHUMBMS)) {
-                if (record->event.pressed) {
-                    layer_off_weak_layer(LA_LTHUMBEWEAK);
-                    layer_on_weak_layer(LA_LTHUMBDWEAK);
-                    return true;
-                }
-            } else {
-                if (record->event.pressed) {
-                    layer_off_weak_layer(LA_LTHUMBEWEAK);
-                    layer_on_weak_layer(LA_LTHUMBDWEAK);
-                    layer_on(LA_LTHUMBDMO);
-                }
-            }
-            return false;
         case MA_LTHUMB1:
-            if (record->event.pressed) {
-                layer_off_weak_layer(LA_LTHUMBEWEAK);
-                layer_on_weak_layer(LA_LTHUMB1WEAK);
-            }
-            return false;
         case MA_LTHUMB2:
-            if (record->event.pressed) {
-                layer_off_weak_layer(LA_LTHUMBEWEAK);
-                layer_on_weak_layer(LA_LTHUMB2WEAK);
-            }
-            return false;
         case MA_LTHUMB3:
             if (record->event.pressed) {
                 layer_off_weak_layer(LA_LTHUMBEWEAK);
-                layer_on_weak_layer(LA_LTHUMB3WEAK);
+            }
+            return true;
+        case MA_LMOUSE:
+            if (record->event.pressed) {
+                layer_off(LA_LTHUMB);
+                layer_on(LA_LTHUMBMS);
+                layer_on_lmouse();
+                isWeakLaMouseStarted = true;
             }
             return false;
         default:
@@ -1245,38 +1228,13 @@ bool processKeycodeIfLThumbDWeak(uint16_t keycode, keyrecord_t* record) {
             }
             return false;
         case MA_LTHUMBE:
-            if (IS_LAYER_ON(LA_LTHUMBMS)) {
-                if (record->event.pressed) {
-                    layer_off_weak_layer(LA_LTHUMBDWEAK);
-                    layer_on_weak_layer(LA_LTHUMBEWEAK);
-                    return true;
-                }
-            } else {
-                if (record->event.pressed) {
-                    layer_off_weak_layer(LA_LTHUMBDWEAK);
-                    layer_on_weak_layer(LA_LTHUMBEWEAK);
-                    layer_on(LA_LTHUMBEMO);
-                }
-            }
-            return false;
         case MA_LTHUMB1:
-            if (record->event.pressed) {
-                layer_off_weak_layer(LA_LTHUMBDWEAK);
-                layer_on_weak_layer(LA_LTHUMB1WEAK);
-            }
-            return false;
         case MA_LTHUMB2:
-            if (record->event.pressed) {
-                layer_off_weak_layer(LA_LTHUMBDWEAK);
-                layer_on_weak_layer(LA_LTHUMB2WEAK);
-            }
-            return false;
         case MA_LTHUMB3:
             if (record->event.pressed) {
                 layer_off_weak_layer(LA_LTHUMBDWEAK);
-                layer_on_weak_layer(LA_LTHUMB3WEAK);
             }
-            return false;
+            return true;
         default:
             isLThumbWeakPristine = false;
             return true;
@@ -1295,51 +1253,23 @@ bool processKeycodeIfLThumb1Weak(uint16_t keycode, keyrecord_t* record) {
             }
             return false;
         case MA_LTHUMBE:
-            if (IS_LAYER_ON(LA_LTHUMBMS)) {
-                if (record->event.pressed) {
-                    if (isLThumbWeakPristine) {
-                        tap_code16(C(A(KC_E)));
-                    } else {
-                        layer_off_weak_layer(LA_LTHUMB1WEAK);
-                        layer_on_weak_layer(LA_LTHUMBEWEAK);
-                    }
-                }
-                return true;
-            } else {
-                if (record->event.pressed) {
-                    if (isLThumbWeakPristine) {
-                        tap_code16(C(A(KC_E)));
-                    } else {
-                        layer_off_weak_layer(LA_LTHUMB1WEAK);
-                        layer_on_weak_layer(LA_LTHUMBEWEAK);
-                        layer_on(LA_LTHUMBEMO);
-                    }
+            if (record->event.pressed) {
+                if (isLThumbWeakPristine) {
+                    tap_code16(C(A(KC_E)));
+                } else {
+                    layer_off_weak_layer(LA_LTHUMB1WEAK);
                 }
             }
-            return false;
+            return true;
         case MA_LTHUMBD:
-            if (IS_LAYER_ON(LA_LTHUMBMS)) {
-                if (record->event.pressed) {
-                    if (isLThumbWeakPristine) {
-                        tap_code16(C(A(KC_D)));
-                    } else {
-                        layer_off_weak_layer(LA_LTHUMB1WEAK);
-                        layer_on_weak_layer(LA_LTHUMBDWEAK);
-                    }
-                }
-                return true;
-            } else {
-                if (record->event.pressed) {
-                    if (isLThumbWeakPristine) {
-                        tap_code16(C(A(KC_D)));
-                    } else {
-                        layer_off_weak_layer(LA_LTHUMB1WEAK);
-                        layer_on_weak_layer(LA_LTHUMBDWEAK);
-                        layer_on(LA_LTHUMBDMO);
-                    }
+            if (record->event.pressed) {
+                if (isLThumbWeakPristine) {
+                    tap_code16(C(A(KC_D)));
+                } else {
+                    layer_off_weak_layer(LA_LTHUMB1WEAK);
                 }
             }
-            return false;
+            return true;
         case MA_LTHUMB1:
             if (record->event.pressed) {
                 if (isLThumbWeakPristine) {
@@ -1351,17 +1281,11 @@ bool processKeycodeIfLThumb1Weak(uint16_t keycode, keyrecord_t* record) {
             }
             return false;
         case MA_LTHUMB2:
-            if (record->event.pressed) {
-                layer_off_weak_layer(LA_LTHUMB1WEAK);
-                layer_on_weak_layer(LA_LTHUMB2WEAK);
-            }
-            return false;
         case MA_LTHUMB3:
             if (record->event.pressed) {
                 layer_off_weak_layer(LA_LTHUMB1WEAK);
-                layer_on_weak_layer(LA_LTHUMB3WEAK);
             }
-            return false;
+            return true;
         default:
             isLThumbWeakPristine = false;
             return true;
@@ -1380,51 +1304,23 @@ bool processKeycodeIfLThumb2Weak(uint16_t keycode, keyrecord_t* record) {
             }
             return false;
         case MA_LTHUMBE:
-            if (IS_LAYER_ON(LA_LTHUMBMS)) {
-                if (record->event.pressed) {
-                    if (isLThumbWeakPristine) {
-                        tap_code16(RCS(KC_E));
-                    } else {
-                        layer_off_weak_layer(LA_LTHUMB2WEAK);
-                        layer_on_weak_layer(LA_LTHUMBEWEAK);
-                    }
-                }
-                return true;
-            } else {
-                if (record->event.pressed) {
-                    if (isLThumbWeakPristine) {
-                        tap_code16(RCS(KC_E));
-                    } else {
-                        layer_off_weak_layer(LA_LTHUMB2WEAK);
-                        layer_on_weak_layer(LA_LTHUMBEWEAK);
-                        layer_on(LA_LTHUMBEMO);
-                    }
+            if (record->event.pressed) {
+                if (isLThumbWeakPristine) {
+                    tap_code16(RCS(KC_E));
+                } else {
+                    layer_off_weak_layer(LA_LTHUMB2WEAK);
                 }
             }
-            return false;
+            return true;
         case MA_LTHUMBD:
-            if (IS_LAYER_ON(LA_LTHUMBMS)) {
-                if (record->event.pressed) {
-                    if (isLThumbWeakPristine) {
-                        tap_code16(RCS(KC_D));
-                    } else {
-                        layer_off_weak_layer(LA_LTHUMB2WEAK);
-                        layer_on_weak_layer(LA_LTHUMBDWEAK);
-                    }
-                }
-                return true;
-            } else {
-                if (record->event.pressed) {
-                    if (isLThumbWeakPristine) {
-                        tap_code16(RCS(KC_D));
-                    } else {
-                        layer_off_weak_layer(LA_LTHUMB2WEAK);
-                        layer_on_weak_layer(LA_LTHUMBDWEAK);
-                        layer_on(LA_LTHUMBDMO);
-                    }
+            if (record->event.pressed) {
+                if (isLThumbWeakPristine) {
+                    tap_code16(RCS(KC_D));
+                } else {
+                    layer_off_weak_layer(LA_LTHUMB2WEAK);
                 }
             }
-            return false;
+            return true;
         case MA_LTHUMB2:
             if (record->event.pressed) {
                 if (isLThumbWeakPristine) {
@@ -1436,17 +1332,11 @@ bool processKeycodeIfLThumb2Weak(uint16_t keycode, keyrecord_t* record) {
             }
             return false;
         case MA_LTHUMB1:
-            if (record->event.pressed) {
-                layer_off_weak_layer(LA_LTHUMB2WEAK);
-                layer_on_weak_layer(LA_LTHUMB1WEAK);
-            }
-            return false;
         case MA_LTHUMB3:
             if (record->event.pressed) {
                 layer_off_weak_layer(LA_LTHUMB2WEAK);
-                layer_on_weak_layer(LA_LTHUMB3WEAK);
             }
-            return false;
+            return true;
         default:
             isLThumbWeakPristine = false;
             return true;
@@ -1465,51 +1355,23 @@ bool processKeycodeIfLThumb3Weak(uint16_t keycode, keyrecord_t* record) {
             }
             return false;
         case MA_LTHUMBE:
-            if (IS_LAYER_ON(LA_LTHUMBMS)) {
-                if (record->event.pressed) {
-                    if (isLThumbWeakPristine) {
-                        tap_code16(LALT(KC_E));
-                    } else {
-                        layer_off_weak_layer(LA_LTHUMB3WEAK);
-                        layer_on_weak_layer(LA_LTHUMBEWEAK);
-                    }
-                }
-                return true;
-            } else {
-                if (record->event.pressed) {
-                    if (isLThumbWeakPristine) {
-                        tap_code16(LALT(KC_E));
-                    } else {
-                        layer_off_weak_layer(LA_LTHUMB3WEAK);
-                        layer_on_weak_layer(LA_LTHUMBEWEAK);
-                        layer_on(LA_LTHUMBEMO);
-                    }
+            if (record->event.pressed) {
+                if (isLThumbWeakPristine) {
+                    tap_code16(LALT(KC_E));
+                } else {
+                    layer_off_weak_layer(LA_LTHUMB3WEAK);
                 }
             }
-            return false;
+            return true;
         case MA_LTHUMBD:
-            if (IS_LAYER_ON(LA_LTHUMBMS)) {
-                if (record->event.pressed) {
-                    if (isLThumbWeakPristine) {
-                        tap_code16(LALT(KC_D));
-                    } else {
-                        layer_off_weak_layer(LA_LTHUMB3WEAK);
-                        layer_on_weak_layer(LA_LTHUMBDWEAK);
-                    }
-                }
-                return true;
-            } else {
-                if (record->event.pressed) {
-                    if (isLThumbWeakPristine) {
-                        tap_code16(LALT(KC_D));
-                    } else {
-                        layer_off_weak_layer(LA_LTHUMB3WEAK);
-                        layer_on_weak_layer(LA_LTHUMBDWEAK);
-                        layer_on(LA_LTHUMBDMO);
-                    }
+            if (record->event.pressed) {
+                if (isLThumbWeakPristine) {
+                    tap_code16(LALT(KC_D));
+                } else {
+                    layer_off_weak_layer(LA_LTHUMB3WEAK);
                 }
             }
-            return false;
+            return true;
         case MA_LTHUMB3:
             if (record->event.pressed) {
                 if (isLThumbWeakPristine) {
@@ -1521,17 +1383,11 @@ bool processKeycodeIfLThumb3Weak(uint16_t keycode, keyrecord_t* record) {
             }
             return false;
         case MA_LTHUMB1:
-            if (record->event.pressed) {
-                layer_off_weak_layer(LA_LTHUMB3WEAK);
-                layer_on_weak_layer(LA_LTHUMB1WEAK);
-            }
-            return false;
         case MA_LTHUMB2:
             if (record->event.pressed) {
                 layer_off_weak_layer(LA_LTHUMB3WEAK);
-                layer_on_weak_layer(LA_LTHUMB2WEAK);
             }
-            return false;
+            return true;
         default:
             isLThumbWeakPristine = false;
             return true;
