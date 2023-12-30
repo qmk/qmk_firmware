@@ -33,15 +33,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [0] = LAYOUT_numpad_5x5(
         KC_MUTE, KC_NUM, KC_PSLS, KC_PAST,  KC_PMNS,
-        KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
-        KC_P4,   KC_P5,   KC_P6,
+        KC_P7,   KC_P8,   KC_P9,   
+        KC_P4,   KC_P5,   KC_P6,  KC_PPLS,
         KC_P1,   KC_P2,   KC_P3, 
         TO(1),   KC_P0,   KC_PDOT,  KC_PENT
     ),
     [1] = LAYOUT_numpad_5x5(
         _______,   _______,   _______,   _______,   _______,
-        _______,   _______,   _______,   _______,
-        _______,   C(KC_A),   _______,
+        _______,   _______,   _______,   
+        _______,   C(KC_A),   _______,   _______,
         C(KC_X),   C(KC_C),   C(KC_V), 
         TO(2),   C(KC_Z),   _______,   _______
     ),
@@ -54,8 +54,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [3] = LAYOUT_numpad_5x5(
         _______,   _______,   _______,   _______,   _______,
+        _______,   _______,   _______,   
         _______,   _______,   _______,   _______,
-        _______,   _______,   _______,
         C(KC_GRV),   C(S(KC_K)),   C(KC_SLSH), 
         TO(0),   _______,   _______,   _______
     )
