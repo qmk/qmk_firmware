@@ -454,7 +454,7 @@ void keyboard_init(void) {
     pointing_device_init();
 #endif
 #ifdef BLUETOOTH_ENABLE
-    bluetooth_init();
+    bluetooth_driver.init();
 #endif
 #ifdef HAPTIC_ENABLE
     haptic_init();
@@ -710,7 +710,7 @@ void keyboard_task(void) {
 #endif
 
 #ifdef BLUETOOTH_ENABLE
-    bluetooth_task();
+    if (NULL != bluetooth_driver.task) bluetooth_driver.task();
 #endif
 
 #ifdef HAPTIC_ENABLE

@@ -884,18 +884,16 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
     OPT_DEFS += -DBLUETOOTH_$(strip $(shell echo $(BLUETOOTH_DRIVER) | tr '[:lower:]' '[:upper:]'))
     NO_USB_STARTUP_CHECK := yes
     COMMON_VPATH += $(DRIVER_PATH)/bluetooth
-    SRC += outputselect.c
+    SRC += $(DRIVER_PATH)/bluetooth/bluetooth.c
 
     ifeq ($(strip $(BLUETOOTH_DRIVER)), bluefruit_le)
         SPI_DRIVER_REQUIRED = yes
         ANALOG_DRIVER_REQUIRED = yes
-        SRC += $(DRIVER_PATH)/bluetooth/bluetooth.c
-        SRC += $(DRIVER_PATH)/bluetooth/bluefruit_le.cpp
+        SRC += $(DRIVER_PATH)/bluetooth/bluefruit_le_spi.cpp
     endif
 
     ifeq ($(strip $(BLUETOOTH_DRIVER)), rn42)
         UART_DRIVER_REQUIRED = yes
-        SRC += $(DRIVER_PATH)/bluetooth/bluetooth.c
         SRC += $(DRIVER_PATH)/bluetooth/rn42.c
     endif
 endif
