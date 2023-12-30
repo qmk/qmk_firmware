@@ -47,16 +47,20 @@
 /* ws2812 RGB LED */
 #define WS2812_DI_PIN D3
 
+/*
+ * Use the number of LEDs for the values. For example, if there are no LEDs
+ * installed for the indicator, set HAS_RGB_INDICATOR to 0.
+ */
+#define RGB_INDICATOR 1
+#define RGB_DROP 6
+#define RGB_PER_KEY 29
+#define RGBLED_NUM RGB_INDICATOR + RGB_DROP + RGB_PER_KEY    // Number of LEDs per half
 
 #ifdef RGB_MATRIX_ENABLE
-#define RGBLED_NUM 35    // Number of LEDs
-#define RGBLED_NUM 35    // Number of LEDs
 #define RGB_MATRIX_LED_COUNT RGBLED_NUM
 #endif
 
 #ifdef RGBLIGHT_ENABLE
-    #undef RGBLED_NUM
-
 	//#define RGBLIGHT_EFFECT_BREATHING
 	#define RGBLIGHT_EFFECT_RAINBOW_MOOD
 	//#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -68,11 +72,8 @@
 	//#define RGBLIGHT_EFFECT_ALTERNATING
 	//#define RGBLIGHT_EFFECT_TWINKLE
 
-    #define RGBLED_NUM 70
-	//#define RGBLED_SPLIT
-	#define RGBLED_SPLIT { 35, 35 } // haven't figured out how to use this yet
+    #define RGBLED_SPLIT { RGBLED_NUM, RGBLED_NUM } // haven't figured out how to use this yet
 
-	//#define RGBLED_NUM 30
     #define RGBLIGHT_LIMIT_VAL 120
     #define RGBLIGHT_HUE_STEP 10
     #define RGBLIGHT_SAT_STEP 17

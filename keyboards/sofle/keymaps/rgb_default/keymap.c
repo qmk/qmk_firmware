@@ -25,42 +25,41 @@
 #define HSV_OVERRIDE(hsv, Override) HSV_OVERRIDE_HELP(hsv,Override)
 
 // Light combinations
-#define SET_INDICATORS(hsv) \
-	{0, 1, HSV_OVERRIDE_HELP(hsv, INDICATOR_BRIGHTNESS)}, \
-    {35+0, 1, hsv}
-#define SET_UNDERGLOW(hsv) \
-	{1, 6, hsv}, \
-    {35+1, 6,hsv}
-#define SET_NUMPAD(hsv)     \
-	{35+15, 5, hsv},\
-	  {35+22, 3, hsv},\
-	  {35+27, 3, hsv}
-#define SET_NUMROW(hsv) \
-	{10, 2, hsv}, \
-		{20, 2, hsv}, \
-		{30, 2, hsv}, \
-	  {35+ 10, 2, hsv}, \
-	  {35+ 20, 2, hsv}, \
-	  {35+ 30, 2, hsv}
-#define SET_INNER_COL(hsv)	\
-	{33, 4, hsv}, \
-	  {35+ 33, 4, hsv}
-
-#define SET_OUTER_COL(hsv) \
-	{7, 4, hsv}, \
-	  {35+ 7, 4, hsv}
-#define SET_THUMB_CLUSTER(hsv) 	\
-	{25, 2, hsv}, \
-	  {35+ 25, 2, hsv}
-#define SET_LAYER_ID(hsv) 	\
-	{0, 1, HSV_OVERRIDE_HELP(hsv, INDICATOR_BRIGHTNESS)}, \
-    {35+0, 1, HSV_OVERRIDE_HELP(hsv, INDICATOR_BRIGHTNESS)}, \
-		{1, 6, hsv}, \
-    {35+1, 6, hsv}, \
-		{7, 4, hsv}, \
-	  {35+ 7, 4, hsv}, \
-		{25, 2, hsv}, \
-	  {35+ 25, 2, hsv}
+#define SET_INDICATORS(...) \
+    {0, RGB_INDICATOR, HSV_OVERRIDE_HELP(__VA_ARGS__, INDICATOR_BRIGHTNESS)}, \
+    {RGBLED_NUM, RGB_INDICATOR, __VA_ARGS__}
+#define SET_UNDERGLOW(...) \
+    {RGB_INDICATOR, RGB_DROP, __VA_ARGS__}, \
+    {RGBLED_NUM + RGB_INDICATOR, RGB_DROP, __VA_ARGS__}
+#define SET_NUMPAD(...) \
+    {RGBLED_NUM + RGB_INDICATOR + RGB_DROP + 11, 4, __VA_ARGS__}, \
+    {RGBLED_NUM + RGB_INDICATOR + RGB_DROP + 15, 4, __VA_ARGS__}, \
+    {RGBLED_NUM + RGB_INDICATOR + RGB_DROP + 21, 4, __VA_ARGS__}
+#define SET_NUMROW(...) \
+    {RGB_INDICATOR + RGB_DROP + 4, 2, __VA_ARGS__}, \
+    {RGB_INDICATOR + RGB_DROP + 14, 2, __VA_ARGS__}, \
+    {RGB_INDICATOR + RGB_DROP + 24, 2, __VA_ARGS__}, \
+    {RGBLED_NUM + RGB_INDICATOR + RGB_DROP + 4, 2, __VA_ARGS__}, \
+    {RGBLED_NUM + RGB_INDICATOR + RGB_DROP + 14, 2, __VA_ARGS__}, \
+    {RGBLED_NUM + RGB_INDICATOR + RGB_DROP + 24, 2, __VA_ARGS__}
+#define SET_INNER_COL(...) \
+    {RGB_INDICATOR + RGB_DROP + 25, 4, __VA_ARGS__}, \
+    {RGBLED_NUM + RGB_INDICATOR + RGB_DROP + 25, 4, __VA_ARGS__}
+#define SET_OUTER_COL(...) \
+    {RGB_INDICATOR + RGB_DROP + 1, 4, __VA_ARGS__}, \
+    {RGBLED_NUM + RGB_INDICATOR + RGB_DROP + 1, 4, __VA_ARGS__}
+#define SET_THUMB_CLUSTER(...) \
+    {RGB_INDICATOR + RGB_DROP, 1, __VA_ARGS__}, \
+    {RGB_INDICATOR + RGB_DROP + 9, 2, __VA_ARGS__}, \
+    {RGB_INDICATOR + RGB_DROP + 19, 2, __VA_ARGS__}, \
+    {RGBLED_NUM + RGB_INDICATOR + RGB_DROP, 2, __VA_ARGS__}, \
+    {RGBLED_NUM + RGB_INDICATOR + RGB_DROP + 9, 2, __VA_ARGS__}, \
+    {RGBLED_NUM + RGB_INDICATOR + RGB_DROP + 19, 2, __VA_ARGS__}
+#define SET_LAYER_ID(hsv) \
+    SET_INDICATORS(hsv), \
+    SET_UNDERGLOW(hsv), \
+    SET_OUTER_COL(hsv), \
+    SET_THUMB_CLUSTER(hsv)
 
 
 enum sofle_layers {
@@ -350,10 +349,7 @@ const rgblight_segment_t PROGMEM layer_numpad_lights[] = RGBLIGHT_LAYER_SEGMENTS
 	SET_INDICATORS(HSV_ORANGE),
     SET_UNDERGLOW(HSV_ORANGE),
 	SET_NUMPAD(HSV_BLUE),
-    {7, 4, HSV_ORANGE},
-    {25, 2, HSV_ORANGE},
-    {35+6, 4, HSV_ORANGE},
-    {35+25, 2, HSV_ORANGE}
+    SET_OUTER_COL(HSV_ORANGE)
     );
 // _SWITCHER   // light up top row
 const rgblight_segment_t PROGMEM layer_switcher_lights[] = RGBLIGHT_LAYER_SEGMENTS(
