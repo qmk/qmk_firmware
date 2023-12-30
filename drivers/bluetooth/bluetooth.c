@@ -57,18 +57,24 @@ const bluetooth_driver_t bluetooth_driver = {
 
 #endif
 
+#ifndef SEND_OUTPUT_DEFAULT
+#    define SEND_OUTPUT_DEFAULT SEND_OUTPUT_AUTO
+#endif
+
 send_output_t desired_send_output = SEND_OUTPUT_DEFAULT;
 
-void set_send_output(send_output_t send_output) {
-    set_send_output_kb(send_output);
-    desired_send_output = send_output;
+send_output_t set_send_output(send_output_t send_output) {
+    desired_send_output = set_send_output_kb(send_output);
+    return desired_send_output;
 }
 
-__attribute__((weak)) void set_send_output_kb(send_output_t send_output) {
-    set_send_output_user(send_output);
+__attribute__((weak)) send_output_t set_send_output_kb(send_output_t send_output) {
+    return set_send_output_user(send_output);
 }
 
-__attribute__((weak)) void set_send_output_user(send_output_t send_output) {} // do nothing
+__attribute__((weak)) send_output_t set_send_output_user(send_output_t send_output) {
+    return send_output;
+}
 
 send_output_t get_send_output(void) {
     if (desired_send_output == SEND_OUTPUT_AUTO) {

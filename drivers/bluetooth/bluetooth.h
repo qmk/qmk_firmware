@@ -39,32 +39,37 @@ typedef enum send_output_t {
 
 // clang-format on
 
-#ifndef SEND_OUTPUT_DEFAULT
-#    define SEND_OUTPUT_DEFAULT SEND_OUTPUT_AUTO
-#endif
-
 typedef struct {
     /* Initialize the Bluetooth system. */
     void (*init)(void);
-    /* Perform housekeeping tasks. */
+
+    /* Perform housekeeping tasks. (Optional) */
     void (*task)(void);
-    /* Detects if BT is connected, also used by `SEND_OUTPUT_AUTO` */
+
+    /* Detects if BT is connected, also used by `SEND_OUTPUT_AUTO`. (Optional) */
     bool (*is_connected)(void);
+
     /* Send a keyboard report. */
     void (*send_keyboard)(report_keyboard_t *report);
+
+#ifdef NKRO_ENABLE
     /* Send a NKRO report. (Optional & dependant on `NKRO_ENABLE` ) */
     void (*send_nkro)(report_keyboard_t *report);
+#endif
+
     /* Send a mouse report. */
     void (*send_mouse)(report_mouse_t *report);
+
     /* Send a consumer usage. */
     void (*send_consumer)(uint16_t usage);
-    /* Send a system usage (Optional) */
+
+    /* Send a system usage. (Optional) */
     void (*send_system)(uint16_t usage);
 } bluetooth_driver_t;
 
-void          set_send_output(send_output_t send_output);
-void          set_send_output_kb(send_output_t send_output);
-void          set_send_output_user(send_output_t send_output);
+send_output_t set_send_output(send_output_t send_output);
+send_output_t set_send_output_kb(send_output_t send_output);
+send_output_t set_send_output_user(send_output_t send_output);
 send_output_t get_send_output(void);
 
 extern const bluetooth_driver_t bluetooth_driver;

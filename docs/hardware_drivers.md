@@ -33,3 +33,7 @@ Support for up to a single driver with room for expansion. Each driver can contr
 ## 24xx series external I2C EEPROM
 
 Support for an external I2C-based EEPROM instead of using the on-chip EEPROM. For more information on how to setup the driver see the [EEPROM Driver](eeprom_driver.md) page.
+
+## BlueFruit LE SPI
+
+Support for Bluetooth is provided by the inclusion of the BlueFruit LE SPI module driver.  For more information on how to setup the driver see the [Bluetooth](feature_bluetooth.md) page.
