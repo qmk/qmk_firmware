@@ -439,7 +439,7 @@ Use these to enable or disable building certain features. The more you have enab
 * `UNICODE_ENABLE`
   * Unicode
 * `BLUETOOTH_ENABLE`
-  * Enable Bluetooth driver.  Also requires `BLUETOOTH_DRIVER`.  Set to onr of `bluefruit_le`, `rn42` or `custom`.
+  * Enable Bluetooth driver.  Also requires `BLUETOOTH_DRIVER`.  Set to one of `bluefruit_le`, `rn42` or `custom`.
 * `SPLIT_KEYBOARD`
   * Enables split keyboard support (dual MCU like the let's split and bakingpy's boards) and includes all necessary files located at quantum/split_common
 * `CUSTOM_MATRIX`

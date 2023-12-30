@@ -21,10 +21,11 @@
 #include "usb_util.h"
 
 /* Each driver needs to define the struct
- *    const rgb_matrix_driver_t rgb_matrix_driver;
- * All members (except `task`, `is_connected` and `send_system`) must be provided.
+ *    const bluetooth_driver_t bluetooth_driver;
+ * Members `init`, `send_keyboard`, `send_mouse` and `send_consumer` must be provided.
+ * Members `task`, `is_connected` and `send_system` are optional and may be set to `NULL`.
  * Keyboard custom drivers can define this in their own files, it should only
- * be here if shared between boards.
+ * be here if shared between boards on a QMK core driver.
  */
 
 #if defined(BLUETOOTH_BLUEFRUIT_LE)

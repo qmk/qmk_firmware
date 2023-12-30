@@ -9,7 +9,7 @@ Currently on the following modules are supported:
 | Board                                                              | Module based on     |  Bluetooth Protocol         | Connection Type | rules.mk                        |Bluetooth Chip  |
 |--------------------------------------------------------------------|---------------------|-----------------------------|-----------------|---------------------------------|----------------|
 |[Sparkfun BlueSMiRF Silver](https://www.sparkfun.com/products/12577)|Roving Networks RN-42|Bluetooth 2.1 *"Classic"*    |UART             |`BLUETOOTH_DRIVER = rn42`        |RN42<sup>1</sup>|
-|[Bluefruit LE SPI Friend](https://www.adafruit.com/product/2633)    |Raytac MDBT40-256RV3 |Bluettoth 4.1 BLE<sup>2</sup>|SPI              |`BLUETOOTH_DRIVER = bluefruit_le`|nRF51822        |
+|[Bluefruit LE SPI Friend](https://www.adafruit.com/product/2633)    |Raytac MDBT40-256RV3 |Bluetooth 4.1 BLE<sup>2</sup>|SPI              |`BLUETOOTH_DRIVER = bluefruit_le`|nRF51822        |
 
 > <sup>1</sup> RN42 based are modules mostly retired or EOL as the BT2.1 spec is deprecated and withdrawn as of July 2020.
 >
@@ -35,10 +35,10 @@ BLUETOOTH_ENABLE = yes
 BLUETOOTH_DRIVER = bluefruit_le
 ```
 
-> ** This module does no support [N-Key Rollover (NKRO)](reference_glossary.md#n-key-rollover-nkro);
+> ** This module does not support [N-Key Rollover (NKRO)](reference_glossary.md#n-key-rollover-nkro);
 
-The Adafruit Bluefruit SPI Friend is a module based on the MDBT30 module, using a Nordic nRF51822 chip, and is flashed with Adafruit's custom firmware that using AT Command sets.
-Data is transmitted via Adafruit's [SDEP](https://learn.adafruit.com/introducing-the-adafruit-bluefruit-spi-breakout/sdep-spi-data-transport) data packets.
+The Adafruit Bluefruit SPI Friend is a module based on the MDBT30 module with embedded Nordic nRF51822 chip, and is flashed with Adafruit's custom firmware.  
+This firmware uses AT Command sets over Adafruit's [SDEP](https://learn.adafruit.com/introducing-the-adafruit-bluefruit-spi-breakout/sdep-spi-data-transport) data transfer protocol.
 
 #### SPI Configuration
 
@@ -91,7 +91,7 @@ You can change the initial state with the following define in the `config.h` fil
 #define SEND_OUTPUT_DEFAULT SEND_OUTPUT_AUTO
 ```
 
-Vendor and keymap code can also use the keyboard-level and user-level (to either perform ancillary functions on the setting, or overrode the setting) by creating the following functions in the `kb_name.c` or the `keymap.c` files:
+Vendor and keymap code can also use the keyboard-level and user-level (to either perform ancillary functions on the setting, or override the setting) by creating the following functions in the `kb_name.c` or the `keymap.c` files:
 
 ```c
 send_output_t set_send_output_kb(send_output_t send_output);   // kb-level function usually in the `kb_name.c file`.  Should also call `set_send_output_user`.
@@ -102,7 +102,7 @@ send_output_t set_send_output_user(send_output_t send_output); // user-level fun
 
 ### Custom Bluetooth Driver
 
-You can create your own Bluetooth driver (or for that matter any alternate output interface) with the `bluetooth_driver` variable, and the `bluetooth_driver_t` struct.
+You can create your own Bluetooth driver (or for that matter, any alternate output interface) with the `bluetooth_driver` variable, and the `bluetooth_driver_t` struct.
 
 Then, to enable a custom Bluetooth driver add this to your `rules.mk` file:
 
@@ -113,7 +113,7 @@ BLUETOOTH_DRIVER = custom
 
 #### Example
 
-You create your own Bluetooth driver by creating compliant functions and referencing these with within the `bluetooth_driver` variable.
+You can create your own Bluetooth driver by creating compliant functions and referencing these with within the `bluetooth_driver` variable.
 
 In your `kb_name.c` file, create that variable as such:
 
@@ -129,7 +129,9 @@ const bluetooth_driver_t bluetooth_driver = {
 };
 ```
 
-> *Optional* items can be set to `NULL`.
+> * Members `init`, `send_keyboard`, `send_mouse` and `send_consumer` must be provided.
+> * Members `task`, `is_connected` and `send_system` are optional and may be set to `NULL`.
+
 
 Then code for the following functions:
 
