@@ -119,9 +119,9 @@ Japanese JIS keyboard specific keys like `無変換(Muhenkan)`, `変換(Henkan)`
 
 https://pqrs.org/osx/karabiner/seil.html
 
-## RN-42 Bluetooth Doesn't Work with Karabiner
+## RN-42 Bluetooth Doesn't Work with Karabiner on OSX
 
-Karabiner - Keymapping tool on Mac OSX - ignores inputs from RN-42 module by default. You have to enable this option to make Karabiner working with your keyboard.
+Karabiner - Keymapping tool on Mac OSX - ignores inputs from RN-42 module by default. You have to enable this option to make Karabiner work with your keyboard.
 https://github.com/tekezo/Karabiner/issues/403#issuecomment-102559237
 
 See these for the detail of this problem.
