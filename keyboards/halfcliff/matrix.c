@@ -206,7 +206,7 @@ void matrix_init(void) {
 
     debounce_init(ROWS_PER_HAND);
 
-    matrix_init_quantum();
+    matrix_init_kb();
 
     split_post_init();
 }
@@ -240,7 +240,7 @@ bool matrix_post_scan(void) {
             }
         }
 
-        matrix_scan_quantum();
+        matrix_scan_kb();
     } else {
         transport_slave(matrix + thatHand, matrix + thisHand);
 

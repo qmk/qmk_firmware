@@ -92,17 +92,6 @@ static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 #endif
 
 __attribute__ ((weak))
-void matrix_init_quantum(void) {
-    expander_init();
-    matrix_init_kb();
-}
-
-__attribute__ ((weak))
-void matrix_scan_quantum(void) {
-    matrix_scan_kb();
-}
-
-__attribute__ ((weak))
 void matrix_init_kb(void) {
     matrix_init_user();
 }
@@ -146,7 +135,7 @@ void matrix_init(void) {
         matrix_debouncing[i] = 0;
     }
 
-    matrix_init_quantum();
+    matrix_init_kb();
     set_output(OUTPUT_AUTO);
 }
 
@@ -198,7 +187,7 @@ uint8_t matrix_scan(void)
         }
 #   endif
 
-    matrix_scan_quantum();
+    matrix_scan_kb();
     return 1;
 }
 

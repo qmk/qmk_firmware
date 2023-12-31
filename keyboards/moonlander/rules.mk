@@ -1,9 +1,3 @@
-# MCU name
-MCU = STM32F303
-
-# Bootloader selection
-BOOTLOADER = stm32-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -20,11 +14,9 @@ AUDIO_DRIVER = dac_additive
 CUSTOM_MATRIX = lite
 SWAP_HANDS_ENABLE = yes
 RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = IS31FL3731
-EEPROM_DRIVER = i2c
 
 #project specific files
 SRC += matrix.c
-QUANTUM_LIB_SRC += i2c_master.c
+I2C_DRIVER_REQUIRED = yes
 
 MOUSE_SHARED_EP = no

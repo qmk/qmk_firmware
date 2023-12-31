@@ -7,24 +7,90 @@
     "pid": "0x0000",
     "device_version": "0.0.1"
   },
+  "rgblight": {
+    "saturation_steps": 8,
+    "brightness_steps": 8,
+    "led_count": 13,
+    "sleep": true,
+    "animations": {
+      "breathing": true,
+      "rainbow_mood": true,
+      "rainbow_swirl": true,
+      "snake": true,
+      "knight": true,
+      "christmas": true,
+      "static_gradient": true,
+      "rgb_test": true,
+      "alternating": true,
+      "twinkle": true
+    }
+  },
+  "ws2812": {
+    "pin": "B0"
+  },
+  "matrix_pins": {
+    "cols": ["C7", "D5", "D1", "D0"],
+    "rows": ["F5", "F0", "B5", "D6", "D4"]
+  },
+  "diode_direction": "COL2ROW",
+  "backlight": {
+    "pin": "B7"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "url": "https://sentraq.com/collections/kits/products/number-pad-rgb-kit",
   "layouts": {
     "LAYOUT_numpad_5x4": {
       "layout": [
-        {"x":0, "y":0}, {"x":1, "y":0}, {"x":2, "y":0}, {"x":3, "y":0},
-        {"x":0, "y":1}, {"x":1, "y":1}, {"x":2, "y":1},
-        {"x":0, "y":2}, {"x":1, "y":2}, {"x":2, "y":2}, {"x":3, "y":1, "h":2},
-        {"x":0, "y":3}, {"x":1, "y":3}, {"x":2, "y":3},
-        {"x":0, "y":4, "w":2}, {"x":2, "y":4}, {"x":3, "y":3, "h":2}
+        {"matrix": [0, 0], "x": 0, "y": 0},
+        {"matrix": [0, 1], "x": 1, "y": 0},
+        {"matrix": [0, 2], "x": 2, "y": 0},
+        {"matrix": [0, 3], "x": 3, "y": 0},
+
+        {"matrix": [1, 0], "x": 0, "y": 1},
+        {"matrix": [1, 1], "x": 1, "y": 1},
+        {"matrix": [1, 2], "x": 2, "y": 1},
+
+        {"matrix": [2, 0], "x": 0, "y": 2},
+        {"matrix": [2, 1], "x": 1, "y": 2},
+        {"matrix": [2, 2], "x": 2, "y": 2},
+        {"matrix": [2, 3], "x": 3, "y": 1, "h": 2},
+
+        {"matrix": [3, 0], "x": 0, "y": 3},
+        {"matrix": [3, 1], "x": 1, "y": 3},
+        {"matrix": [3, 2], "x": 2, "y": 3},
+
+        {"matrix": [4, 0], "x": 0, "y": 4, "w": 2},
+        {"matrix": [4, 2], "x": 2, "y": 4},
+        {"matrix": [4, 3], "x": 3, "y": 3, "h": 2}
       ]
     },
     "LAYOUT_ortho_5x4": {
       "layout": [
-        {"x":0, "y":0}, {"x":1, "y":0}, {"x":2, "y":0}, {"x":3, "y":0},
-        {"x":0, "y":1}, {"x":1, "y":1}, {"x":2, "y":1}, {"x":3, "y":1},
-        {"x":0, "y":2}, {"x":1, "y":2}, {"x":2, "y":2}, {"x":3, "y":2},
-        {"x":0, "y":3}, {"x":1, "y":3}, {"x":2, "y":3}, {"x":3, "y":3},
-        {"x":0, "y":4}, {"x":1, "y":4}, {"x":2, "y":4}, {"x":3, "y":4}
+        {"matrix": [0, 0], "x": 0, "y": 0},
+        {"matrix": [0, 1], "x": 1, "y": 0},
+        {"matrix": [0, 2], "x": 2, "y": 0},
+        {"matrix": [0, 3], "x": 3, "y": 0},
+
+        {"matrix": [1, 0], "x": 0, "y": 1},
+        {"matrix": [1, 1], "x": 1, "y": 1},
+        {"matrix": [1, 2], "x": 2, "y": 1},
+        {"matrix": [1, 3], "x": 3, "y": 1},
+
+        {"matrix": [2, 0], "x": 0, "y": 2},
+        {"matrix": [2, 1], "x": 1, "y": 2},
+        {"matrix": [2, 2], "x": 2, "y": 2},
+        {"matrix": [2, 3], "x": 3, "y": 2},
+
+        {"matrix": [3, 0], "x": 0, "y": 3},
+        {"matrix": [3, 1], "x": 1, "y": 3},
+        {"matrix": [3, 2], "x": 2, "y": 3},
+        {"matrix": [3, 3], "x": 3, "y": 3},
+
+        {"matrix": [4, 0], "x": 0, "y": 4},
+        {"matrix": [4, 1], "x": 1, "y": 4},
+        {"matrix": [4, 2], "x": 2, "y": 4},
+        {"matrix": [4, 3], "x": 3, "y": 4}
       ]
     }
   }

@@ -17,12 +17,6 @@
 
 #pragma once
 
-/* Key matrix configuration. */
-#define MATRIX_ROW_PINS \
-    { F7, C6, D4, B5 }
-#define MATRIX_COL_PINS \
-    { F5, B6, D7, E6, B4 }
-
 /* Handedness. */
 #define MASTER_RIGHT
 
@@ -32,11 +26,7 @@
 // #define SPLIT_HAND_PIN A0
 // #define SPLIT_HAND_PIN_LOW_IS_LEFT  // High -> right, Low -> left.
 
-/* serial.c configuration (for split keyboard). */
-#define SOFT_SERIAL_PIN D2
-
 /* RGB settings. */
-#define RGB_DI_PIN D3
 #define WS2812_PWM_DRIVER PWMD2
 #define WS2812_PWM_CHANNEL 4
 #define WS2812_PWM_PAL_MODE 1

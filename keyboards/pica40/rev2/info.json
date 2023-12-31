@@ -24,12 +24,15 @@
     },
     "rgblight": {
         "led_count": 1,
-        "pin": "GP12",
         "split": true,
         "layers": {
             "enabled": true,
             "max": 3
         }
+    },
+    "ws2812": {
+        "pin": "GP12",
+        "driver": "vendor"
     },
     "split": {
         "enabled": true,
@@ -40,7 +43,9 @@
         }
     },
     "encoder": {
-        "rotary": [{ "pin_a": "GP7", "pin_b": "GP7" }]
+        "rotary": [
+            {"pin_a": "GP7", "pin_b": "GP7", "resolution": 4}
+        ]
     },
     "usb": {
         "device_version": "1.0.0",

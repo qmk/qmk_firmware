@@ -4,7 +4,6 @@
 
 #pragma once
 
-#include "config_common.h"
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
@@ -24,7 +23,6 @@
 #define RGB_MATRIX_SPLIT \
     { 43, 43 }
 
-#define RGB_DI_PIN D3
 #define RGB_MATRIX_LED_COUNT 86
 
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
@@ -32,11 +30,6 @@
 #define RGB_MATRIX_CENTER \
     { 112, 32 }
 
-#define SPLIT_TRANSPORT_MIRROR
-#define SPLIT_MODS_ENABLE
-#define SPLIT_LAYER_STATE_ENABLE
-#define SPLIT_LED_STATE_ENABLE
-#define SPLIT_OLED_ENABLE
 #define SPLIT_TRANSACTION_IDS_KB KEYBOARD_CURRENT_ALPA_SYNC
 
 #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN

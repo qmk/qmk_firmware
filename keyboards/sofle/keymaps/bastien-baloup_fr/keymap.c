@@ -166,7 +166,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #if defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
 // This section is like the keymap matrix, but for rotary encoders
 // My left encoder is currently not working, so I'm using Layers instead
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(KC_VOLU, KC_VOLD)},
     [1] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(KC_VOLU, KC_VOLD)},
     [2] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(KC_MNXT, KC_MPRV)},

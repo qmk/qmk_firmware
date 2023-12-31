@@ -15,8 +15,5 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 CUSTOM_MATRIX = yes # Custom matrix file
 UNICODE_ENABLE   = yes # Unicode
 
-# Enter lower-power sleep mode when on the ChibiOS idle thread
-OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
-
 SRC += matrix.c
-QUANTUM_LIB_SRC += i2c_master.c
+I2C_DRIVER_REQUIRED = yes

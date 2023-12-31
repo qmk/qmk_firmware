@@ -1,6 +1,8 @@
 // Copyright 2022 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+#pragma once
+
 #include "quantum.h"
 
 extern void work_louder_micro_led_1_on(void);
