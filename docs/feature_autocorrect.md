@@ -84,6 +84,14 @@ The `qmk generate-autocorrect-data` commands can make an effort to check for ent
 
 ?> Unfortunately, this is limited to just english words, at this point.
 
+### Using multiple dictionaries
+
+Including an additional dictionary under the file `autocorrect_data_alt.h` allows for on the fly switching between two sets of autocorrection rules,
+useful for bilingual users or for running context-specific rulesets.
+`QK_AUTOCORRECT_BANK_TOGGLE` can then be used to toggle the active dictionary and persist the selection to eeprom.
+
+To use this feature, `autocorrect_data_alt.h` should be generated using the flag `-a`, which constructs an alternate dictionary with appropriately named constants
+
 ## Overriding Autocorrect
 
 Occasionally you might actually want to type a typo (for instance, while editing autocorrect_dict.txt) without being autocorrected. There are a couple of ways to do this:
@@ -98,11 +106,12 @@ Additionally, you can use the `AC_TOGG` keycode to toggle the on/off status for 
 
 ### Keycodes :id=keycodes
 
-|Keycode                |Aliases  |Description                                   |
-|-----------------------|---------|----------------------------------------------|
-|`QK_AUTOCORRECT_ON`    |`AC_ON`  |Turns on the Autocorrect feature.             |
-|`QK_AUTOCORRECT_OFF`   |`AC_OFF` |Turns off the Autocorrect feature.            |
-|`QK_AUTOCORRECT_TOGGLE`|`AC_TOGG`|Toggles the status of the Autocorrect feature.|
+|Keycode                     |Aliases  |Description                                                                           |
+|----------------------------|---------|--------------------------------------------------------------------------------------|
+|`QK_AUTOCORRECT_ON`         |`AC_ON`  |Turns on the Autocorrect feature.                                                     |
+|`QK_AUTOCORRECT_OFF`        |`AC_OFF` |Turns off the Autocorrect feature.                                                    |
+|`QK_AUTOCORRECT_TOGGLE`     |`AC_TOGG`|Toggles the status of the Autocorrect feature.                                        |
+|`QK_AUTOCORRECT_BANK_TOGGLE`|`AC_BANK`|Toggles the dictionary in use by the Autocorrect feature (if an alternate is present).|
 
 ## User Callback Functions
 
@@ -245,12 +254,14 @@ bool apply_autocorrect(uint8_t backspaces, const char *str, char *typo, char *co
 
 Additional user callback functions to manipulate Autocorrect:
 
-| Function                   | Description                                  |
-|----------------------------|----------------------------------------------|
-| `autocorrect_enable()`     | Turns Autocorrect on.                        |
-| `autocorrect_disable()`    | Turns Autocorrect off.                       |
-| `autocorrect_toggle()`     | Toggles Autocorrect.                         |
-| `autocorrect_is_enabled()` | Returns true if Autocorrect is currently on. |
+| Function                   | Description                                                                      |
+|----------------------------|----------------------------------------------------------------------------------|
+| `autocorrect_enable()`     | Turns Autocorrect on.                                                            |
+| `autocorrect_disable()`    | Turns Autocorrect off.                                                           |
+| `autocorrect_toggle()`     | Toggles Autocorrect.                                                             |
+| `autocorrect_is_enabled()` | Returns true if Autocorrect is currently on.                                     |
+| `autocorrect_bank_toggle()`| Toggles and initializes Autocorrect dictionary (if multiple present)             |
+| `autocorrect_init_bank()`  | Initializes current dictionary according so selected bank  (if multiple present) |
 
 
 ## Appendix: Trie binary data format :id=appendix
