@@ -12,7 +12,8 @@ from pygments.token import Token
 from pygments import lex
 
 import qmk.path
-from qmk.keyboard import find_keyboard_from_dir, keyboard_folder
+from qmk.constants import QMK_FIRMWARE, QMK_USERSPACE, HAS_QMK_USERSPACE
+from qmk.keyboard import find_keyboard_from_dir, keyboard_folder, keyboard_aliases
 from qmk.errors import CppError
 from qmk.info import info_json
 
@@ -191,33 +192,41 @@ def _strip_any(keycode):
     return keycode
 
 
-def find_keymap_from_dir():
-    """Returns `(keymap_name, source)` for the directory we're currently in.
-
+def find_keymap_from_dir(*args):
+    """Returns `(keymap_name, source)` for the directory provided (or cwd if not specified).
     """
-    relative_cwd = qmk.path.under_qmk_firmware()
+    def _impl_find_keymap_from_dir(relative_path):
+        if relative_path and len(relative_path.parts) > 1:
+            # If we're in `qmk_firmware/keyboards` and `keymaps` is in our path, try to find the keyboard name.
+            if relative_path.parts[0] == 'keyboards' and 'keymaps' in relative_path.parts:
+                current_path = Path('/'.join(relative_path.parts[1:]))  # Strip 'keyboards' from the front
 
-    if relative_cwd and len(relative_cwd.parts) > 1:
-        # If we're in `qmk_firmware/keyboards` and `keymaps` is in our path, try to find the keyboard name.
-        if relative_cwd.parts[0] == 'keyboards' and 'keymaps' in relative_cwd.parts:
-            current_path = Path('/'.join(relative_cwd.parts[1:]))  # Strip 'keyboards' from the front
+                if 'keymaps' in current_path.parts and current_path.name != 'keymaps':
+                    while current_path.parent.name != 'keymaps':
+                        current_path = current_path.parent
 
-            if 'keymaps' in current_path.parts and current_path.name != 'keymaps':
-                while current_path.parent.name != 'keymaps':
-                    current_path = current_path.parent
+                    return current_path.name, 'keymap_directory'
 
-                return current_path.name, 'keymap_directory'
+            # If we're in `qmk_firmware/layouts` guess the name from the community keymap they're in
+            elif relative_path.parts[0] == 'layouts' and is_keymap_dir(relative_path):
+                return relative_path.name, 'layouts_directory'
 
-        # If we're in `qmk_firmware/layouts` guess the name from the community keymap they're in
-        elif relative_cwd.parts[0] == 'layouts' and is_keymap_dir(relative_cwd):
-            return relative_cwd.name, 'layouts_directory'
+            # If we're in `qmk_firmware/users` guess the name from the userspace they're in
+            elif relative_path.parts[0] == 'users':
+                # Guess the keymap name based on which userspace they're in
+                return relative_path.parts[1], 'users_directory'
+        return None, None
 
-        # If we're in `qmk_firmware/users` guess the name from the userspace they're in
-        elif relative_cwd.parts[0] == 'users':
-            # Guess the keymap name based on which userspace they're in
-            return relative_cwd.parts[1], 'users_directory'
+    if HAS_QMK_USERSPACE:
+        name, source = _impl_find_keymap_from_dir(qmk.path.under_qmk_userspace(*args))
+        if name and source:
+            return name, source
 
-    return None, None
+    name, source = _impl_find_keymap_from_dir(qmk.path.under_qmk_firmware(*args))
+    if name and source:
+        return name, source
+
+    return (None, None)
 
 
 def keymap_completer(prefix, action, parser, parsed_args):
@@ -418,29 +427,45 @@ def locate_keymap(keyboard, keymap):
         raise KeyError('Invalid keyboard: ' + repr(keyboard))
 
     # Check the keyboard folder first, last match wins
-    checked_dirs = ''
     keymap_path = ''
 
-    for dir in keyboard_folder(keyboard).split('/'):
-        if checked_dirs:
-            checked_dirs = '/'.join((checked_dirs, dir))
-        else:
-            checked_dirs = dir
+    search_dirs = [QMK_FIRMWARE]
+    keyboard_dirs = [keyboard_folder(keyboard)]
+    if HAS_QMK_USERSPACE:
+        # When we've got userspace, check there _last_ as we want them to override anything in the main repo.
+        search_dirs.append(QMK_USERSPACE)
+        # We also want to search for any aliases as QMK's folder structure may have changed, with an alias, but the user
+        # hasn't updated their keymap location yet.
+        keyboard_dirs.extend(keyboard_aliases(keyboard))
+        keyboard_dirs = list(set(keyboard_dirs))
 
-        keymap_dir = Path('keyboards') / checked_dirs / 'keymaps'
+    for search_dir in search_dirs:
+        for keyboard_dir in keyboard_dirs:
+            checked_dirs = ''
+            for dir in keyboard_dir.split('/'):
+                if checked_dirs:
+                    checked_dirs = '/'.join((checked_dirs, dir))
+                else:
+                    checked_dirs = dir
 
-        if (keymap_dir / keymap / 'keymap.c').exists():
-            keymap_path = keymap_dir / keymap / 'keymap.c'
-        if (keymap_dir / keymap / 'keymap.json').exists():
-            keymap_path = keymap_dir / keymap / 'keymap.json'
+                keymap_dir = Path(search_dir) / Path('keyboards') / checked_dirs / 'keymaps'
 
-    if keymap_path:
-        return keymap_path
+                if (keymap_dir / keymap / 'keymap.c').exists():
+                    keymap_path = keymap_dir / keymap / 'keymap.c'
+                if (keymap_dir / keymap / 'keymap.json').exists():
+                    keymap_path = keymap_dir / keymap / 'keymap.json'
+
+        if keymap_path:
+            return keymap_path
 
     # Check community layouts as a fallback
     info = info_json(keyboard)
 
-    for community_parent in Path('layouts').glob('*/'):
+    community_parents = list(Path('layouts').glob('*/'))
+    if HAS_QMK_USERSPACE and (Path(QMK_USERSPACE) / "layouts").exists():
+        community_parents.append(Path(QMK_USERSPACE) / "layouts")
+
+    for community_parent in community_parents:
         for layout in info.get("community_layouts", []):
             community_layout = community_parent / layout / keymap
             if community_layout.exists():
@@ -448,6 +473,16 @@ def locate_keymap(keyboard, keymap):
                     return community_layout / 'keymap.json'
                 if (community_layout / 'keymap.c').exists():
                     return community_layout / 'keymap.c'
+
+
+def is_keymap_target(keyboard, keymap):
+    if keymap == 'all':
+        return True
+
+    if locate_keymap(keyboard, keymap):
+        return True
+
+    return False
 
 
 def list_keymaps(keyboard, c=True, json=True, additional_files=None, fullpath=False):
@@ -474,26 +509,30 @@ def list_keymaps(keyboard, c=True, json=True, additional_files=None, fullpath=Fa
     """
     names = set()
 
-    keyboards_dir = Path('keyboards')
-    kb_path = keyboards_dir / keyboard
-
     # walk up the directory tree until keyboards_dir
     # and collect all directories' name with keymap.c file in it
-    while kb_path != keyboards_dir:
-        keymaps_dir = kb_path / "keymaps"
+    for search_dir in [QMK_FIRMWARE, QMK_USERSPACE] if HAS_QMK_USERSPACE else [QMK_FIRMWARE]:
+        keyboards_dir = search_dir / Path('keyboards')
+        kb_path = keyboards_dir / keyboard
 
-        if keymaps_dir.is_dir():
-            for keymap in keymaps_dir.iterdir():
-                if is_keymap_dir(keymap, c, json, additional_files):
-                    keymap = keymap if fullpath else keymap.name
-                    names.add(keymap)
+        while kb_path != keyboards_dir:
+            keymaps_dir = kb_path / "keymaps"
+            if keymaps_dir.is_dir():
+                for keymap in keymaps_dir.iterdir():
+                    if is_keymap_dir(keymap, c, json, additional_files):
+                        keymap = keymap if fullpath else keymap.name
+                        names.add(keymap)
 
-        kb_path = kb_path.parent
+            kb_path = kb_path.parent
 
     # Check community layouts as a fallback
     info = info_json(keyboard)
 
-    for community_parent in Path('layouts').glob('*/'):
+    community_parents = list(Path('layouts').glob('*/'))
+    if HAS_QMK_USERSPACE and (Path(QMK_USERSPACE) / "layouts").exists():
+        community_parents.append(Path(QMK_USERSPACE) / "layouts")
+
+    for community_parent in community_parents:
         for layout in info.get("community_layouts", []):
             cl_path = community_parent / layout
             if cl_path.is_dir():
@@ -657,7 +696,7 @@ def parse_keymap_c(keymap_file, use_cpp=True):
     Returns:
         a dictionary containing the parsed keymap
     """
-    if keymap_file == '-':
+    if not isinstance(keymap_file, (Path, str)) or keymap_file == '-':
         if use_cpp:
             keymap_file = _c_preprocess(None, sys.stdin)
         else:

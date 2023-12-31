@@ -35,7 +35,6 @@
 #   define LED_HITS_TO_REMEMBER 10
 
 #   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 50
-#   define RGB_MATRIX_DEFAULT_SPD 127
 // the above brighness setting has no effect on rgb_matrix_set_color().
 // Use darker colors instead.
 /*              RGB darker COLORS             */
@@ -137,5 +136,3 @@
 // Initial velocity value (avoid using 127 since it is used as a special number in some sound sources.)
 #   define MIDI_INITIAL_VELOCITY 117
 #endif  //  MIDI_ENABLE
-
-#define TAP_CODE_DELAY 10

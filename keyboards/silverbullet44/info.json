@@ -12,10 +12,24 @@
         "pin": "D3"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812",
+        "sat_steps": 8,
+        "val_steps": 8,
+        "speed_steps": 8
     },
     "rgblight": {
-        "max_brightness": 150
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 52,
+        "max_brightness": 150,
+        "led_map": [0, 1, 2, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 3, 4, 5, 6, 26, 27, 28, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 29, 30, 31, 32],
+        "split_count": [26, 26],
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true
+        }
     },
     "matrix_pins": {
         "cols": ["B3", "B1", "F7", "F6", "F5", "F4"],

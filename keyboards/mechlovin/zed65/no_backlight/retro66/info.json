@@ -19,6 +19,9 @@
             {"pin_a": "B6", "pin_b": "B9"}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "indicators": {
         "caps_lock": "C14"
     },

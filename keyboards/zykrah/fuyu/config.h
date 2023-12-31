@@ -14,8 +14,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 6
-
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 500U
 
@@ -26,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* The number of LEDs connected (7 Snowflake, 34 Underglow) */
 #define DRIVER_LED_TOTAL 41
-#define RGBLED_NUM 41
 #define RGB_MATRIX_LED_COUNT 41
 
 /* Caps locks LED index default is 0 (LED1 on PCB) */

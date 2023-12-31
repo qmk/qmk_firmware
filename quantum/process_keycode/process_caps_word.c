@@ -13,6 +13,14 @@
 // limitations under the License.
 
 #include "process_caps_word.h"
+#include "process_auto_shift.h"
+#include "caps_word.h"
+#include "keycodes.h"
+#include "quantum_keycodes.h"
+#include "modifiers.h"
+#include "timer.h"
+#include "action_tapping.h"
+#include "action_util.h"
 
 #ifdef CAPS_WORD_INVERT_ON_SHIFT
 static uint8_t held_mods = 0;

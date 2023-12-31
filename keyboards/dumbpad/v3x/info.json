@@ -6,7 +6,8 @@
         "device_version": "0.1.0"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812",
+        "timeout": 300000
     },
     "matrix_pins": {
         "cols": ["C6", "D7", "E6", "B4", "B5"],

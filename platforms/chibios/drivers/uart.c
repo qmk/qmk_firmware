@@ -16,8 +16,6 @@
 
 #include "uart.h"
 
-#include "quantum.h"
-
 #if defined(MCU_KINETIS)
 static SerialConfig serialConfig = {SERIAL_DEFAULT_BITRATE};
 #elif defined(WB32F3G71xx) || defined(WB32FQ95xx)
