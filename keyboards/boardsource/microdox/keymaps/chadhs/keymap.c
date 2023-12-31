@@ -13,6 +13,25 @@ enum layers {
     _GAME_FUN,
 };
 
+enum custom_keycodes {
+    VIM_CTLU = SAFE_RANGE,
+    VIM_CTLD,
+    NO_IDLE,
+};
+
+/* tap dance keys */
+enum {
+    TD_KVM_1 = 0,
+    TD_KVM_2,
+    TD_KVM_3,
+    TD_KVM_4,
+};
+
+#define TD_KVM1 TD(TD_KVM_1)
+#define TD_KVM2 TD(TD_KVM_2)
+#define TD_KVM3 TD(TD_KVM_3)
+#define TD_KVM4 TD(TD_KVM_4)
+
 /* thumb mods */
 #define NUM_BSPC LT(_NUM_SYM,KC_BSPC)
 #define FUN_SPC LT(_FUN_NAV,KC_SPC)
@@ -31,12 +50,6 @@ enum layers {
 #define HOME_E OPT_T(KC_E)
 #define HOME_I CTL_T(KC_I)
 #define HOME_O SFT_T(KC_O)
-#define HOME_DWN CMD_T(KC_DOWN)
-#define HOME_UP OPT_T(KC_UP)
-#define HOME_RGT CTL_T(KC_RGHT)
-#define HOME_J CMD_T(KC_J)
-#define HOME_K OPT_T(KC_K)
-#define HOME_L CTL_T(KC_L)
 #define HOME_QT SFT_T(KC_QUOT)
 
 /* misc mods */
@@ -48,125 +61,217 @@ enum layers {
 /* enables combos.def support: imported after defines so they can be referenced */
 #include "g/keymap_combo.h"
 
-/* layer definitions */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[_COLEMAK_DH] = LAYOUT_split_3x5_3(
+    [_COLEMAK_DH] = LAYOUT_split_3x5_3(
 /*
-  .------.------.------.------.------.            .------.------.------.------.------.
-  | Q    | W    | F    | P    | B    |            | J    | L    | U    | Y    | ; :  |
-  |      |      |      |      |      |            |      |      |      |      |      |
-  |------+------+------+------+------|            |------+------+------+------+------|
-  | A    | R    | S    | T    | G    |            | M    | N    | E    | I    | O    |
-  | SFT  | CTL  | OPT  | CMD  |      |            |      | RCMD | OPT  | CTL  | SFT  |
-  |------+------+------+------+------|            |------+------+------+------+------|
-  | Z    | X    | C    | D    | V    |            | K    | H    | , <  | . >  | / ?  |
-  | SFT  |      |      |      |      |            |      |      |      |      | SFT  |
-  '------'------'------'------'------'            '------'------'------'------'------'
-                   .------.------.------.      .------.------.------.
-                   |      | TAB  | BSPC |      | SPC  | ENT  |      |
-                   |      | CMD  | LNUM |      | LFUN | CMD  |      |
-                   '------'------'------'      '------'------'------'
+    .------.------.------.------.------.            .------.------.------.------.------.
+    | Q    | W    | F    | P    | B    |            | J    | L    | U    | Y    | ; :  |
+    |      |      |      |      |      |            |      |      |      |      |      |
+    |------+------+------+------+------|            |------+------+------+------+------|
+    | A    | R    | S    | T    | G    |            | M    | N    | E    | I    | O    |
+    | SFT  | CTL  | OPT  | CMD  |      |            |      | RCMD | OPT  | CTL  | SFT  |
+    |------+------+------+------+------|            |------+------+------+------+------|
+    | Z    | X    | C    | D    | V    |            | K    | H    | , <  | . >  | / ?  |
+    | SFT  |      |      |      |      |            |      |      |      |      | SFT  |
+    '------'------'------'------'------'            '------'------'------'------'------'
+                     .------.------.------.      .------.------.------.
+                     |      | TAB  | BSPC |      | SPC  | ENT  |      |
+                     |      | CMD  | LNUM |      | LFUN | CMD  |      |
+                     '------'------'------'      '------'------'------'
 */
-  KC_Q,   KC_W,   KC_F,    KC_P,    KC_B,         KC_J,    KC_L,    KC_U,    KC_Y,   KC_SCLN,
-  HOME_A, HOME_R, HOME_S,  HOME_T,  KC_G,         KC_M,    HOME_N,  HOME_E,  HOME_I, HOME_O,
-  SFT_Z,  KC_X,   KC_C,    KC_D,    KC_V,         KC_K,    KC_H,    KC_COMM, KC_DOT, SFT_SLSH,
-                  XXXXXXX, CMD_TAB, NUM_BSPC,     FUN_SPC, CMD_ENT, XXXXXXX
+    KC_Q,   KC_W,   KC_F,    KC_P,    KC_B,         KC_J,    KC_L,    KC_U,    KC_Y,   KC_SCLN,
+    HOME_A, HOME_R, HOME_S,  HOME_T,  KC_G,         KC_M,    HOME_N,  HOME_E,  HOME_I, HOME_O,
+    SFT_Z,  KC_X,   KC_C,    KC_D,    KC_V,         KC_K,    KC_H,    KC_COMM, KC_DOT, SFT_SLSH,
+                    XXXXXXX, CMD_TAB, NUM_BSPC,     FUN_SPC, CMD_ENT, XXXXXXX
 ),
 
-[_NUM_SYM] = LAYOUT_split_3x5_3(
+    [_NUM_SYM] = LAYOUT_split_3x5_3(
 /*
-  .------.------.------.------.------.            .------.------.------.------.------.
-  | 1 !  | 2 @  | 3 #  | 4 $  | 5 %  |            | 6 ^  | 7 &  | 8 *  | 9 (  | 0 )  |
-  |      |      |      |      |      |            |      |      |      |      |      |
-  |------+------+------+------+------|            |------+------+------+------+------|
-  | ` ~  |      |      |      |      |            | H    | J    | K    | L    | ' "  |
-  | SFT  | RCTL | OPT  | CMD  |      |            |      | CMD  | OPT  | CTL  | SFT  |
-  |------+------+------+------+------|            |------+------+------+------+------|
-  |      |      |      |      |      |            | - _  | = +  | [ {  | ] }  | \ |  |
-  | SFT  |      |      |      |      |            |      |      |      |      | SFT  |
-  '------'------'------'------'------'            '------'------'------'------'------'
-                   .------.------.------.      .------.------.------.
-                   |      | ↓↓↓  | ↓↓↓  |      | ↓↓↓  | ↓↓↓  |      |
-                   |      |      |      |      |      |      |      |
-                   '------'------'------'      '------'------'------'
+    commonly used symbols:
+    - javascript: ( ) { } ; = > / [ ] + _ |
+    - clojure:    ( ) [ ] : ; / { } - > = _ +
+    - misc/nav:   $ % ~ | ^
+
+    .------.------.------.------.------.            .------.------.------.------.------.
+    | 1 !  | 2 @  | 3 #  | 4 $  | 5 %  |            | 6 ^  | 7 &  | 8 *  | 9 (  | 0 )  |
+    |      |      |      |      |      |            |      |      |      |      |      |
+    |------+------+------+------+------|            |------+------+------+------+------|
+    | `    | {    | }    | $    | %    |            | +    | -    | (    | )    | ' "  |
+    | SFT  |      |      |      |      |            |      |      |      |      | SFT  |
+    |------+------+------+------+------|            |------+------+------+------+------|
+    |      | <    | >    | ~    | |    |            | &    | =    | [    | ]    | \ |  |
+    | SFT  |      |      |      |      |            |      |      |      |      | SFT  |
+    '------'------'------'------'------'            '------'------'------'------'------'
+                     .------.------.------.      .------.------.------.
+                     |      | ↓↓↓  | ↓↓↓  |      | ↓↓↓  | ↓↓↓  |      |
+                     |      |      |      |      |      |      |      |
+                     '------'------'------'      '------'------'------'
 */
-  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
-  HOME_BT, KC_RCTL, KC_LOPT, KC_LCMD, XXXXXXX,        KC_H,    HOME_J,  HOME_K,  HOME_L,  HOME_QT,
-  KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, SFT_BSLS,
-                    XXXXXXX, KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS, XXXXXXX
+    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
+    HOME_BT, KC_LCBR, KC_RCBR, KC_DLR,  KC_PERC,      KC_PLUS, KC_MINS, KC_LPRN, KC_RPRN, HOME_QT,
+    KC_LSFT, KC_LABK, KC_RABK, KC_TILD, KC_PIPE,      KC_AMPR, KC_EQL,  KC_LBRC, KC_RBRC, SFT_BSLS,
+                      XXXXXXX, _______, _______,      _______, _______, XXXXXXX
 ),
 
-[_FUN_NAV] = LAYOUT_split_3x5_3(
+    [_FUN_NAV] = LAYOUT_split_3x5_3(
 /*
-  .------.------.------.------.------.            .------.------.------.------.------.
-  | F1   | F2   | F3   | F4   | F5   |            | F6   | F7   | F8   | F9   | F10  |
-  |      |      |      |      |      |            |      | Prev | Play | Next | Mute |
-  |------+------+------+------+------|            |------+------+------+------+------|
-  |      |      |      |      |      |            | ←    | ↓    | ↑    | →    |      |
-  | SFT  | CTL  | OPT  | CMD  |      |            |      | CMD  | OPT  | CTL  | SFT  |
-  |------+------+------+------+------|            |------+------+------+------+------|
-  | RGB  |      |      |      |      |            | F11  | F12  | PGDN | PGUP | GAME |
-  | TOG  |      |      |      |      |            | VolD | VolU |      |      | TOG  |
-  '------'------'------'------'------'            '------'------'------'------'------'
-                   .------.------.------.      .------.------.------.
-                   |      | ↓↓↓  | ESC  |      | ↓↓↓  | ↓↓↓  |      |
-                   |      |      |      |      |      |      |      |
-                   '------'------'------'      '------'------'------'
+    .------.------.------.------.------.            .------.------.------.------.------.
+    | F1   | F2   | F3   | F4   | F5   |            | Prev | Next | Play | VolD | VolU |
+    |      |      |      |      |      |            |      |      |      |      |      |
+    |------+------+------+------+------|            |------+------+------+------+------|
+    | KVM4 | KVM3 | KVM2 | KVM1 | F6   |            | ←    | ↓    | ↑    | →    | ↓↓↓  |
+    |      |      |      |      |      |            |      |      |      |      |      |
+    |------+------+------+------+------|            |------+------+------+------+------|
+    | IDLE |      |      |      |      |            | ^    | VIDN | VIUP | RBG  | GAME |
+    |      |      |      |      |      |            |      |      |      | TOG  | TOG  |
+    '------'------'------'------'------'            '------'------'------'------'------'
+                     .------.------.------.      .------.------.------.
+                     |      | ↓↓↓  | ESC  |      | ↓↓↓  | ↓↓↓  |      |
+                     |      |      |      |      |      |      |      |
+                     '------'------'------'      '------'------'------'
 */
-  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_MPRV,  KC_MPLY, KC_MNXT,  KC_MUTE,
-  KC_LSFT, KC_LCTL, KC_LOPT, KC_LCMD, XXXXXXX,      KC_LEFT, HOME_DWN, HOME_UP, HOME_RGT, KC_RSFT,
-  RGB_TOG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      KC_VOLD, KC_VOLU,  KC_PGDN, KC_PGUP,  GAME_TOG,
-                    XXXXXXX, KC_TRNS, KC_ESC,       KC_TRNS, KC_TRNS,  XXXXXXX
+    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,      KC_MPRV, KC_MNXT,  KC_MPLY,  KC_VOLD,  KC_VOLU,
+    TD_KVM4, TD_KVM3, TD_KVM2, TD_KVM1, KC_F6,      KC_LEFT, KC_DOWN,  KC_UP,    KC_RIGHT, _______,
+    NO_IDLE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_CIRC, VIM_CTLD, VIM_CTLU, RGB_TOG,  GAME_TOG,
+                      XXXXXXX, _______, KC_ESC,       _______, _______,  XXXXXXX
 ),
 
-[_GAME] = LAYOUT_split_3x5_3(
+    [_GAME] = LAYOUT_split_3x5_3(
 /*
-  .------.------.------.------.------.            .------.------.------.------.------.
-  | TAB  | Q    | W    | E    | R    |            | Y    | U    | I    | O    | P    |
-  |      |      |      |      |      |            |      |      |      |      |      |
-  |------+------+------+------+------|            |------+------+------+------+------|
-  | ESC  | A    | S    | D    | F    |            | H    | J    | K    | L    | ; :  |
-  |      |      |      |      |      |            |      |      |      |      |      |
-  |------+------+------+------+------|            |------+------+------+------+------|
-  |      | Z    | X    | C    | V    |            | N    | M    | , <  | . >  | GAME |
-  | SFT  |      |      |      |      |            |      |      |      |      | TOG  |
-  '------'------'------'------'------'            '------'------'------'------'------'
-                   .------.------.------.      .------.------.------.
-                   |      |      | SPC  |      | SPC  | ENT  |      |
-                   |      | CTL  |      |      | GFUN | OPT  |      |
-                   '------'------'------'      '------'------'------'
+    .------.------.------.------.------.            .------.------.------.------.------.
+    | TAB  | Q    | W    | E    | R    |            | Y    | U    | I    | O    | P    |
+    |      |      |      |      |      |            |      |      |      |      |      |
+    |------+------+------+------+------|            |------+------+------+------+------|
+    | ESC  | A    | S    | D    | F    |            | H    | J    | K    | L    | ; :  |
+    |      |      |      |      |      |            |      |      |      |      |      |
+    |------+------+------+------+------|            |------+------+------+------+------|
+    |      | Z    | X    | C    | V    |            | N    | M    | , <  | . >  | GAME |
+    | SFT  |      |      |      |      |            |      |      |      |      | TOG  |
+    '------'------'------'------'------'            '------'------'------'------'------'
+                     .------.------.------.      .------.------.------.
+                     |      |      | SPC  |      | SPC  | ENT  |      |
+                     |      | CTL  |      |      | GFUN | OPT  |      |
+                     '------'------'------'      '------'------'------'
 */
-  KC_TAB,  KC_Q, KC_W,    KC_E,    KC_R,        KC_Y,     KC_U,     KC_I,    KC_O,    KC_P,
-  KC_ESC,  KC_A, KC_S,    KC_D,    KC_F,        KC_H,     KC_J,     KC_K,    KC_L,    KC_SCLN,
-  KC_LSFT, KC_Z, KC_X,    KC_C,    KC_V,        KC_N,     KC_M,     KC_COMM, KC_DOT,  GAME_TOG,
-                 XXXXXXX, KC_LCTL, KC_SPC,      GFUN_SPC, GOPT_ENT, XXXXXXX
+    KC_TAB,  KC_Q, KC_W,    KC_E,    KC_R,        KC_Y,     KC_U,     KC_I,    KC_O,    KC_P,
+    KC_ESC,  KC_A, KC_S,    KC_D,    KC_F,        KC_H,     KC_J,     KC_K,    KC_L,    KC_SCLN,
+    KC_LSFT, KC_Z, KC_X,    KC_C,    KC_V,        KC_N,     KC_M,     KC_COMM, KC_DOT,  GAME_TOG,
+                   XXXXXXX, KC_LCTL, KC_SPC,      GFUN_SPC, GOPT_ENT, XXXXXXX
 ),
 
-[_GAME_FUN] = LAYOUT_split_3x5_3(
+    [_GAME_FUN] = LAYOUT_split_3x5_3(
 /*
-  .------.------.------.------.------.            .------.------.------.------.------.
-  | ↓↓↓  |      |      |      | T    |            |      | F7   | F8   | F9   | F10  |
-  |      |      |      |      |      |            |      | Prev | Play | Next | Mute |
-  |------+------+------+------+------|            |------+------+------+------+------|
-  | ↓↓↓  |      |      |      | G    |            |      | \ |  | [ {  | ] }  |      |
-  |      |      |      |      |      |            |      |      |      |      |      |
-  |------+------+------+------+------|            |------+------+------+------+------|
-  | ↓↓↓  |      |      |      | B    |            | F11  | F12  |      |      | ↓↓↓  |
-  |      |      |      |      |      |            | VolD | VolU |      |      |      |
-  '------'------'------'------'------'            '------'------'------'------'------'
-                   .------.------.------.      .------.------.------.
-                   |      | ↓↓↓  | ↓↓↓  |      | ↓↓↓  | ↓↓↓  |      |
-                   |      |      |      |      |      |      |      |
-                   '------'------'------'      '------'------'------'
+    .------.------.------.------.------.            .------.------.------.------.------.
+    | F1   | F2   | F3   | F4   | F5   |            | Prev | Next | Play | VolD | VolU |
+    |      |      |      |      |      |            |      |      |      |      |      |
+    |------+------+------+------+------|            |------+------+------+------+------|
+    | ↓↓↓  |      |      |      | F6   |            |      | \ |  | [ {  | ] }  | ↓↓↓  |
+    |      |      |      |      |      |            |      |      |      |      |      |
+    |------+------+------+------+------|            |------+------+------+------+------|
+    | IDLE |      |      |      |      |            |      |      |      |      | ↓↓↓  |
+    |      |      |      |      |      |            |      |      |      |      |      |
+    '------'------'------'------'------'            '------'------'------'------'------'
+                     .------.------.------.      .------.------.------.
+                     |      | ↓↓↓  | ↓↓↓  |      | ↓↓↓  | ↓↓↓  |      |
+                     |      |      |      |      |      |      |      |
+                     '------'------'------'      '------'------'------'
 */
-  KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, KC_T,         XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE,
-  KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, KC_G,         XXXXXXX, KC_BSLS, KC_LBRC, KC_RBRC, XXXXXXX,
-  KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, KC_B,         KC_VOLD, KC_VOLU, XXXXXXX, XXXXXXX, KC_TRNS,
-                     XXXXXXX, KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS, XXXXXXX
+    KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,        KC_MPRV, KC_MNXT, KC_MPLY, KC_VOLD, KC_VOLU,
+    _______, XXXXXXX,  XXXXXXX, XXXXXXX, KC_F6,        XXXXXXX, KC_BSLS, KC_LBRC, KC_RBRC, _______,
+    NO_IDLE, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+                       XXXXXXX, _______, _______,      _______, _______, XXXXXXX
 )
 
 };
 
+
+/* anti-idle config */
+/* https://www.reddit.com/r/olkb/comments/fo6lo8/timed_key_press_using_qmk/ */
+static uint32_t idle_key_timer = 0;
+static bool idle_key_trigger = false;
+
+/* macro configuration */
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case VIM_CTLU:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTL("u"));
+            }
+            break;
+        case VIM_CTLD:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTL("d"));
+            }
+            break;
+        /* anti-idle key */
+        case NO_IDLE:
+            if (record->event.pressed) {
+                idle_key_trigger ^= true;
+                if (idle_key_trigger) {
+                    rgblight_set_layer_state(5, true); // toggle rgb_anti_idle_layer on
+                } else {
+                    rgblight_set_layer_state(5, false); // toggle rgb_anti_idle_layer off
+                }
+            }
+            break;
+    }
+    return true;
+};
+
+void matrix_scan_user(void) {
+    /* anti-idle key execution */
+    if (timer_elapsed32(idle_key_timer) > 30000) { // 30000 = 30 seconds
+        idle_key_timer = timer_read32();  // resets timer
+        if (idle_key_trigger) {
+            tap_code(KC_Z);
+        }
+    }
+}
+
+/* tap dance configuration */
+void dance_kvm_1 (qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        SEND_STRING(SS_TAP(X_A));
+        reset_tap_dance (state);
+    } else if (state->count >= 2) {
+        SEND_STRING(SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_1));
+        reset_tap_dance (state);
+    }
+}
+void dance_kvm_2 (qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        SEND_STRING(SS_TAP(X_R));
+        reset_tap_dance (state);
+    } else if (state->count >= 2) {
+        SEND_STRING(SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_2));
+        reset_tap_dance (state);
+    }
+}
+void dance_kvm_3 (qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        SEND_STRING(SS_TAP(X_S));
+        reset_tap_dance (state);
+    } else if (state->count >= 2) {
+        SEND_STRING(SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_3));
+        reset_tap_dance (state);
+    }
+}
+void dance_kvm_4 (qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        SEND_STRING(SS_TAP(X_T));
+        reset_tap_dance (state);
+    } else if (state->count >= 2) {
+        SEND_STRING(SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_4));
+        reset_tap_dance (state);
+    }
+}
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [TD_KVM_1] = ACTION_TAP_DANCE_FN(dance_kvm_1),
+    [TD_KVM_2] = ACTION_TAP_DANCE_FN(dance_kvm_2),
+    [TD_KVM_3] = ACTION_TAP_DANCE_FN(dance_kvm_3),
+    [TD_KVM_4] = ACTION_TAP_DANCE_FN(dance_kvm_4),
+};
 
 /* per key configuration */
 
@@ -201,20 +306,13 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-// https://beta.docs.qmk.fm/using-qmk/software-features/tap_hold
+// TODO: address breaking changes when pulling latest master
+// https://github.com/qmk/qmk_firmware/blob/master/docs/ChangeLog/20230226.md
 bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case NUM_BSPC:
         case FUN_SPC:
         case CMD_ENT:
-        case HOME_J:
-        case HOME_K:
-        case HOME_L:
-        case KC_H:
-        case HOME_DWN:
-        case HOME_UP:
-        case HOME_RGT:
-        case KC_LEFT:
             return false;
         default:
             return true;
@@ -293,6 +391,10 @@ const rgblight_segment_t PROGMEM rgb_gaming2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 12, HSV_BLUE}
 );
 
+const rgblight_segment_t PROGMEM rgb_anti_idle_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 12, HSV_ORANGE}
+);
+
 // array of layers
 const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     rgb_capslock_layer,  // not used, see comment on duplicated layer below
@@ -300,7 +402,8 @@ const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     rgb_gaming_layer,    // overrides other layers
     rgb_gaming2_layer,   // overrides other layers
     // there seems to be a bug activating layer 0, so adding caps as layer 5 as well
-    rgb_capslock_layer
+    rgb_capslock_layer,
+    rgb_anti_idle_layer
 );
 
 void keyboard_post_init_user(void) {

@@ -44,5 +44,3 @@
 
 // fix unresponsiveness after wake
 #define USB_SUSPEND_WAKEUP_DELAY 500
-#define SPLIT_WATCHDOG_ENABLE
-#define SPLIT_USB_DETECT // default; setting explicitly

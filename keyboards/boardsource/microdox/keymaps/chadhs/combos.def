@@ -4,11 +4,17 @@ combos.def: This file defines chords that when pressed emulate a single key pres
      name           result            chord keys
 */
 //// main layer
-COMB(capsWord,       CW_TOGG,         HOME_T, HOME_N)
+COMB(capsWord,       CW_TOGG,         KC_G, KC_M)
 COMB(altEscape,      KC_ESC,          KC_Q, KC_W)
 COMB(altBackspace,   KC_BSPC,         KC_Y, KC_SCLN)
 COMB(altDelete,      KC_DEL,          CMD_TAB, HOME_T)
 COMB(quickQuote,     KC_QUOT,         NUM_BSPC, HOME_O)
+COMB(quickVimNavJ,   KC_J,            NUM_BSPC, HOME_N)
+COMB(quickVimNavK,   KC_K,            NUM_BSPC, HOME_E)
+COMB(quickVimNavH,   KC_H,            NUM_BSPC, KC_M)
+COMB(quickVimNavL,   KC_L,            NUM_BSPC, HOME_I)
+//// function/nav layer
+COMB(altMute,        KC_MUTE,         KC_VOLD, KC_VOLU)
 //// gaming layer
 COMB(gameT,          KC_T,            KC_E, KC_R)
 COMB(gameG,          KC_G,            KC_D, KC_F)
