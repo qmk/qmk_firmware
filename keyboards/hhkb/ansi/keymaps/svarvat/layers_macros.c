@@ -1147,7 +1147,11 @@ bool processKeycodeIfLThumbEWeak(uint16_t keycode, keyrecord_t* record) {
         case MA_LTHUMBE:
             if (IS_LAYER_ON(LA_LTHUMBMS)) {
                 if (record->event.pressed) {
-                    if (isLThumbWeakPristine && !isMouseX1Started) {
+                    if (isLThumbWeakPristine
+                    && !mouseDown
+                    && !mouseUp
+                    && !mouseRight
+                    && !mouseLeft) {
                         tap_code16(C(KC_Q));
                         isLThumbWeakPristine = false;
                     } else {
@@ -1207,7 +1211,11 @@ bool processKeycodeIfLThumbDWeak(uint16_t keycode, keyrecord_t* record) {
         case MA_LTHUMBD:
             if (IS_LAYER_ON(LA_LTHUMBMS)) {
                 if (record->event.pressed) {
-                    if (isLThumbWeakPristine && !isMouseX1Started) {
+                    if (isLThumbWeakPristine
+                    && !mouseDown
+                    && !mouseUp
+                    && !mouseRight
+                    && !mouseLeft) {
                         tap_code16(RSG(KC_D));
                         isLThumbWeakPristine = false;
                     } else {
