@@ -17,17 +17,17 @@
     "debounce": 3,
     "layout_aliases": {
         "LAYOUT_60_ansi_7u_spc": "LAYOUT_60_ansi_tsangan",
-        "LAYOUT_60_iso_7u_spc_split_bs_rshift": "LAYOUT_60_iso_tsangan_split_bs_rshift",
         "LAYOUT_60_ansi_arrow_6u_spc": "LAYOUT_60_ansi_arrow",
-        "LAYOUT_64_ansi_6u_spc": "LAYOUT_64_ansi",
-        "LAYOUT_60_iso_arrow_6u_spc": "LAYOUT_60_iso_arrow",
-        "LAYOUT_64_iso_6u_spc": "LAYOUT_64_iso",
         "LAYOUT_60_ansi_arrow_6u_spc_split_bs": "LAYOUT_60_ansi_arrow_split_bs",
-        "LAYOUT_64_ansi_6u_spc_split_bs": "LAYOUT_64_ansi_split_bs",
-        "LAYOUT_60_iso_arrow_6u_spc_split_bs": "LAYOUT_60_iso_arrow_split_bs",
-        "LAYOUT_64_iso_6u_spc_split_bs": "LAYOUT_64_iso_split_bs",
         "LAYOUT_60_iso_1u_lshift_split_bs_rshift": "LAYOUT_60_iso_split_bs_rshift",
-        "LAYOUT_60_iso_1u_lshift_7u_spc_split_bs_rshift": "LAYOUT_60_iso_tsangan_split_bs_rshift"
+        "LAYOUT_60_iso_1u_lshift_7u_spc_split_bs_rshift": "LAYOUT_60_iso_tsangan_split_bs_rshift",
+        "LAYOUT_60_iso_7u_spc_split_bs_rshift": "LAYOUT_60_iso_tsangan_split_bs_rshift",
+        "LAYOUT_60_iso_arrow_6u_spc": "LAYOUT_60_iso_arrow",
+        "LAYOUT_60_iso_arrow_6u_spc_split_bs": "LAYOUT_60_iso_arrow_split_bs",
+        "LAYOUT_64_ansi_6u_spc": "LAYOUT_64_ansi",
+        "LAYOUT_64_ansi_6u_spc_split_bs": "LAYOUT_64_ansi_split_bs",
+        "LAYOUT_64_iso_6u_spc": "LAYOUT_64_iso",
+        "LAYOUT_64_iso_6u_spc_split_bs": "LAYOUT_64_iso_split_bs"
     },
     "community_layouts": [
         "60_ansi",
