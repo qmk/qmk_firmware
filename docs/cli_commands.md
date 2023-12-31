@@ -362,6 +362,16 @@ This command is directory aware. It will automatically fill in KEYBOARD if you a
 qmk list-keymaps -kb planck/ez
 ```
 
+## `qmk migrate`
+
+This command searches for legacy code that can be converted to the new `info.json` format and adds it to the specified keyboard's `info.json`.
+
+**Usage**:
+
+```
+qmk migrate [-h] -kb KEYBOARD [-f FILTER]
+```
+
 ## `qmk new-keyboard`
 
 This command creates a new keyboard based on available templates.
