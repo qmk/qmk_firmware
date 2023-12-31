@@ -3,6 +3,10 @@
 
 void process_magic_key(void) {
     if (alt_rep_key_count >= 2) {
+        switch (queue(-3)) {
+            triple_magic_case(TH_NUM, CLT_A, KC_L, "eady");
+        }
+
         switch (queue(-1)) {
             case KC_Q:
                 break;
