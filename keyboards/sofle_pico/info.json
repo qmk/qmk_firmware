@@ -8,7 +8,7 @@
     "usb": {
         "vid": "0x4A54",
         "pid": "0x5350",
-        "device_version": "3.5.1"
+        "device_version": "3.5.2"
     },
     "build": {
         "lto": false
@@ -43,7 +43,7 @@
     },
     "rgb_matrix": {
         "driver": "ws2812",
-        "max_brightness": 255,
+        "max_brightness": 127,
         "split_count": [29, 29],
         "animations": {
             "band_pinwheel_sat": true,
@@ -89,8 +89,8 @@
             "typing_heatmap": true
         },
         "default": {
-            "animation": "typing_heatmap",
-            "speed": 14
+            "animation": "cycle_out_in",
+            "speed": 16
         },
         "layout": [
             { "flags": 4, "matrix": [0, 5], "x": 95, "y":  7 },
