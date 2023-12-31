@@ -8,4 +8,4 @@ OLED_ENABLE     = no
 LTO_ENABLE      = yes
 CONVERT_TO      = elite_pi
 # VIA_ENABLE		= yes # Enable VIA configurator. Does not support TAPPPING
-DYNAMIC_TAPPING_TERM_ENABLE = yes
+SRC += oneshot.c
