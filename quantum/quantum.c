@@ -556,7 +556,7 @@ __attribute__((weak)) void suspend_wakeup_init_quantum(void) {
     backlight_init();
 #endif
 
-#ifdef MULTI_BANK
+#ifdef AUTOCORRECT_MULTI_BANK
     // refresh autocorrect bank
     autocorrect_init_bank();
 #endif

@@ -19,7 +19,7 @@
 #    include "autocorrect_data_default.h"
 #endif
 
-#ifdef MULTI_BANK
+#ifdef AUTOCORRECT_MULTI_BANK
 #    include "autocorrect_data_alt.h"
 #    pragma message "Autocorrect is using multibank."
 #    define AML ((AUTOCORRECT_MAX_LENGTH > AUTOCORRECT_MAX_LENGTH_ALT) ? AUTOCORRECT_MAX_LENGTH : AUTOCORRECT_MAX_LENGTH_ALT)
@@ -81,7 +81,7 @@ void autocorrect_toggle(void) {
  * @brief Toggles autocorrect's bank and save state to eeprom
  *
  */
-#ifdef MULTI_BANK
+#ifdef AUTOCORRECT_MULTI_BANK
 void autocorrect_bank_toggle(void) {
     keymap_config.autocorrect_bank = !keymap_config.autocorrect_bank;
     autocorrect_init_bank();
@@ -252,6 +252,10 @@ bool process_autocorrect(uint16_t keycode, keyrecord_t *record) {
             autocorrect_disable();
         } else if (keycode == QK_AUTOCORRECT_TOGGLE) {
             autocorrect_toggle();
+#ifdef AUTOCORRECT_MULTI_BANK
+        } else if (keycode == QK_AUTOCORRECT_BANK_TOGGLE) {
+            autocorrect_bank_toggle();
+#endif
         } else {
             return true;
         }
@@ -310,7 +314,7 @@ bool process_autocorrect(uint16_t keycode, keyrecord_t *record) {
 
 
     // Rotate oldest character if buffer is full.
-#ifdef MULTI_BANK
+#ifdef AUTOCORRECT_MULTI_BANK
     if (typo_buffer_size >= bank_max_length) {
         memmove(typo_buffer, typo_buffer + 1, bank_max_length - 1);
         typo_buffer_size = bank_max_length - 1;
@@ -325,7 +329,7 @@ bool process_autocorrect(uint16_t keycode, keyrecord_t *record) {
     // Append `keycode` to buffer.
     typo_buffer[typo_buffer_size++] = keycode;
     // Return if buffer is smaller than the shortest word.
-#ifdef MULTI_BANK
+#ifdef AUTOCORRECT_MULTI_BANK
     if (typo_buffer_size < bank_min_length) {
 #else
     if (typo_buffer_size < AUTOCORRECT_MIN_LENGTH) {
@@ -355,7 +359,7 @@ bool process_autocorrect(uint16_t keycode, keyrecord_t *record) {
 
         // Stop if `state` becomes an invalid index. This should not normally
         // happen, it is a safeguard in case of a bug, data corruption, etc.
-#ifdef MULTI_BANK
+#ifdef AUTOCORRECT_MULTI_BANK
         if (state >= bank_size) {
 #else
         if (state >= DICTIONARY_SIZE) {
