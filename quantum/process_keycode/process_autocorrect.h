@@ -10,6 +10,11 @@
 #include <stdbool.h>
 #include "action.h"
 
+
+#if __has_include("autocorrect_data_alt.h")
+#define MULTI_BANK
+#endif
+
 bool process_autocorrect(uint16_t keycode, keyrecord_t *record);
 bool process_autocorrect_user(uint16_t *keycode, keyrecord_t *record, uint8_t *typo_buffer_size, uint8_t *mods);
 bool process_autocorrect_default_handler(uint16_t *keycode, keyrecord_t *record, uint8_t *typo_buffer_size, uint8_t *mods);
@@ -19,3 +24,9 @@ bool autocorrect_is_enabled(void);
 void autocorrect_enable(void);
 void autocorrect_disable(void);
 void autocorrect_toggle(void);
+
+#ifdef MULTI_BANK
+void autocorrect_bank_toggle(void);
+void autocorrect_init_bank(void);
+#endif
+
