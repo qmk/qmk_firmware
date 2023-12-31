@@ -38,9 +38,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_DEL, MG(KC_A),  MA(KC_O),    MS(KC_E), MC(KC_U), KC_I,                   KC_D,    MC(KC_H),    MS(KC_T),    MA(KC_N), MG(KC_S), KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-   KC_TILD, KC_SEMICOLON,  KC_Q,  KC_J,    KC_K,  KC_X,                           KC_B,    KC_M,    KC_W,    KC_V,     KC_Z, KC_SLASH,
+   KC_TILD, KC_SEMICOLON,  KC_Q,  KC_J,    KC_K,  KC_X,                           KC_B,    KC_M,    KC_W,    KC_V,     KC_Z, KC_BSLS,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_GRV,   MO(1),  KC_SPC,    KC_ENT,   MO(2), KC_BSLS
+                                          KC_EQL,   MO(1),  KC_SPC,    KC_ENT,   MO(2), KC_SLASH
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -48,9 +48,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_TAB,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_ESC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       KC_DEL , MG(KC_DQUO), MA(KC_LBRC), MS(KC_LCBR), MC(KC_LPRN), S(KC_EQL),               KC_EQL, MC(KC_RPRN), MS(KC_RCBR), MA(KC_RBRC), MG(KC_QUOTE),  KC_BSPC,
+       KC_DEL , MG(KC_GRV), MA(KC_LBRC), MS(KC_LCBR), MC(KC_LPRN), S(KC_EQL),    KC_MINUS, MC(KC_RPRN), MS(KC_RCBR), MA(KC_RBRC), MG(KC_QUOTE),  KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_MINUS, KC_EXLM,  KC_AT,  KC_HASH, KC_DLR,  KC_PERC,                     KC_CIRC, KC_AMPR, KC_ASTR, KC_UNDS, KC_QUES,  KC_PLUS,
+      KC_TILD, KC_EXLM,  KC_AT,  KC_HASH, KC_DLR,  KC_PERC,                     KC_CIRC, KC_AMPR, KC_ASTR, KC_UNDS, KC_QUES,  KC_BSLS,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           XXXXXXX, _______,  KC_SPC,     KC_ENT,   MO(3), KC_PIPE
                                       //`--------------------------'  `--------------------------'
@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_MUTE, KC_MPRV, XXXXXXX, XXXXXXX, KC_MNXT, XXXXXXX,                     KC_MS_ACCEL2, XXXXXXX, KC_MPLY, KC_MSTP, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_TILD, MO(3),  KC_SPC,     KC_ENT, _______, XXXXXXX
+                                          KC_EQL, MO(3),  KC_SPC,     KC_ENT, _______, XXXXXXX
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -85,12 +85,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record){
     switch (keycode){
-        case MG(KC_DQUO):
-            if (record->tap.count && record->event.pressed) {
-                tap_code16(KC_DQUO);
-                return false;
-            }
-            break;
         case MA(KC_LBRC):
             if (record->tap.count && record->event.pressed) {
                 tap_code16(KC_LBRC);
