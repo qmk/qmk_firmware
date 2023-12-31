@@ -264,9 +264,9 @@ def generate_autocorrect_data(cli):
     current_keyboard = cli.args.keyboard or cli.config.user.keyboard or cli.config.generate_autocorrect_data.keyboard
     current_keymap = cli.args.keymap or cli.config.user.keymap or cli.config.generate_autocorrect_data.keymap
 
-    file_name      = 'autocorrect_data_alt.h' if cli.args.alternate else 'autocorrect_data.h'
-    defines_suffix = '_ALT' if cli.args.alternate else '' 
-    static_suffix  = '_alt' if cli.args.alternate else '' 
+    file_name = 'autocorrect_data_alt.h' if cli.args.alternate else 'autocorrect_data.h'
+    defines_suffix = '_ALT' if cli.args.alternate else ''
+    static_suffix = '_alt' if cli.args.alternate else ''
 
     if current_keyboard and current_keymap:
         cli.args.output = locate_keymap(current_keyboard, current_keymap).parent / file_name

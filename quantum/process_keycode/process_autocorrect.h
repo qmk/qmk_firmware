@@ -10,9 +10,8 @@
 #include <stdbool.h>
 #include "action.h"
 
-
 #if __has_include("autocorrect_data_alt.h")
-#define AUTOCORRECT_MULTI_BANK
+#    define AUTOCORRECT_MULTI_BANK
 #endif
 
 bool process_autocorrect(uint16_t keycode, keyrecord_t *record);
@@ -29,4 +28,3 @@ void autocorrect_toggle(void);
 void autocorrect_bank_toggle(void);
 void autocorrect_init_bank(void);
 #endif
-

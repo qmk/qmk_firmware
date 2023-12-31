@@ -312,8 +312,7 @@ bool process_autocorrect(uint16_t keycode, keyrecord_t *record) {
             return true;
     }
 
-
-    // Rotate oldest character if buffer is full.
+        // Rotate oldest character if buffer is full.
 #ifdef AUTOCORRECT_MULTI_BANK
     if (typo_buffer_size >= bank_max_length) {
         memmove(typo_buffer, typo_buffer + 1, bank_max_length - 1);
@@ -371,7 +370,7 @@ bool process_autocorrect(uint16_t keycode, keyrecord_t *record) {
 
         if (code & 128) { // A typo was found! Apply autocorrect.
             const uint8_t backspaces = (code & 63) + !record->event.pressed;
-            const char *  changes    = (const char *)(AUTOCORRECT_DATA + state + 1);
+            const char   *changes    = (const char *)(AUTOCORRECT_DATA + state + 1);
 
             /* Gather info about the typo'd word
              *
