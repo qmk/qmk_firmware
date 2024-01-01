@@ -948,6 +948,21 @@ bool processKeycodeIfLThumbMs(uint16_t keycode, keyrecord_t* record) {
                 isMouseX4Started = false;
             }
             return false;
+        case MA_LTHUMB1:
+            if (record->event.pressed) {
+                layer_on_weak_layer(LA_LTHUMB1WEAK);
+            }
+            return false;
+        case MA_LTHUMB2:
+            if (record->event.pressed) {
+                layer_on_weak_layer(LA_LTHUMB2WEAK);
+            }
+            return false;
+        case MA_LTHUMB3:
+            if (record->event.pressed) {
+                layer_on_weak_layer(LA_LTHUMB3WEAK);
+            }
+            return false;
         case KC_MS_BTN1:
             if (isWeakLaMouseStarted) {
                 return true;
@@ -964,27 +979,6 @@ bool processKeycodeIfLThumbMs(uint16_t keycode, keyrecord_t* record) {
                 if (record->event.pressed) {
                     tap_code16(KC_AUDIO_VOL_DOWN);
                 }
-            }
-            return false;
-        case MA_LTHUMB1:
-            if (record->event.pressed) {
-                if (isWeakLaMouseStarted) {
-                    register_code16(KC_MS_BTN3);
-                } else {
-                    layer_on_weak_layer(LA_LTHUMB1WEAK);
-                }
-            } else if (isWeakLaMouseStarted) {
-                unregister_code16(KC_MS_BTN3);
-            }
-            return false;
-        case MA_LTHUMB2:
-            if (record->event.pressed) {
-                layer_on_weak_layer(LA_LTHUMB2WEAK);
-            }
-            return false;
-        case MA_LTHUMB3:
-            if (record->event.pressed) {
-                layer_on_weak_layer(LA_LTHUMB3WEAK);
             }
             return false;
         case MA_TAB:
