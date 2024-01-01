@@ -7,7 +7,7 @@ _Bool L_WIN = 0;
 _Bool L_MAC = 0;
 
 #if defined(RGB_MATRIX_ENABLE)  /*&& defined(CAPS_LOCK_INDEX)*/
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3743a_led_t PROGMEM g_is31fl3743a_leds[IS31FL3743A_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
