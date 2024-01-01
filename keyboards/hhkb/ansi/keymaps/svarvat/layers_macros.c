@@ -83,8 +83,10 @@ bool switch_ctl_tab_off(uint16_t keycode) {
     && (keycode != KC_LSFT)) {
         isCtlTabStarted = false;
         unregister_mods(MOD_MASK_CTRL);
-        if ((keycode != MA_LTHUMB)
-        && (keycode != MA_LTHUMBMS)) {
+        if ((keycode == KC_ENT)
+        || (keycode == MA_ENT)
+        || (keycode == MA_ENTX2)
+        || (keycode == MA_ENTX4)) {
             return false;
         }
     }
@@ -102,11 +104,15 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
     && (keycode != S(KC_J))
     && (keycode != S(KC_K))
     && (keycode != S(KC_L))
-    && (keycode != MA_LMOUSE)
     && (keycode != KC_LSFT)) {
         isAltTabStarted = false;
         unregister_code16(KC_LALT);
-        return false;
+        if ((keycode == KC_ENT)
+        || (keycode == MA_ENT)
+        || (keycode == MA_ENTX2)
+        || (keycode == MA_ENTX4)) {
+            return false;
+        }
     }
     if (isSftTabStarted
     && (keycode != KC_TAB)
@@ -117,11 +123,15 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
     && (keycode != S(KC_I))
     && (keycode != S(KC_J))
     && (keycode != S(KC_K))
-    && (keycode != S(KC_L))
-    && (keycode != MA_LMOUSE)) {
+    && (keycode != S(KC_L))) {
         isSftTabStarted = false;
         unregister_code16(KC_LSFT);
-        return false;
+        if ((keycode == KC_ENT)
+        || (keycode == MA_ENT)
+        || (keycode == MA_ENTX2)
+        || (keycode == MA_ENTX4)) {
+            return false;
+        }
     }
     switch (keycode) {
         case MA_LTHUMB:
