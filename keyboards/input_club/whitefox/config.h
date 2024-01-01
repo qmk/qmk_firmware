@@ -22,8 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* LED matrix driver */
 #define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
-#define LED_MATRIX_LED_COUNT 71
-#define LED_MATRIX_SLEEP
 
 /* i2c (for LED matrix) */
 #define I2C1_CLOCK_SPEED 400000
