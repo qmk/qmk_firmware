@@ -49,7 +49,7 @@
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255
 #define RGB_MATRIX_LED_FLUSH_LIMIT 33
 #define RGB_MATRIX_LED_PROCESS_LIMIT 10
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define RGB_MATRIX_SLEEP
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:

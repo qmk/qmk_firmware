@@ -14,7 +14,7 @@
 #define I2C1_CLOCK_SPEED 400000
 
 #define RGB_MATRIX_LED_COUNT 92
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define RGB_MATRIX_SLEEP
 
 /* SPI Config for spi flash*/
 #define SPI_DRIVER SPIDQ

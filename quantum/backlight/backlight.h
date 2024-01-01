@@ -39,7 +39,7 @@ typedef union {
     struct {
         bool    enable : 1;
         bool    breathing : 1;
-        uint8_t reserved : 1; // Reserved for possible future backlight modes
+        bool    valid : 1;
         uint8_t level : 5;
     };
 } backlight_config_t;

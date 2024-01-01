@@ -59,7 +59,7 @@
 
 //  https://docs.qmk.fm/#/feature_rgb_matrix
 //  Enable suspend mode.
-#   define RGB_DISABLE_WHEN_USB_SUSPENDED true
+#   define RGB_MATRIX_SLEEP
 
 #   ifdef CONSOLE_ENABLE
 #       define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
