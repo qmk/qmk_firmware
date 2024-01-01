@@ -1235,14 +1235,6 @@ bool processKeycodeIfLThumbEWeak(uint16_t keycode, keyrecord_t* record) {
                 layer_off_weak_layer(LA_LTHUMBEWEAK);
             }
             return true;
-        case MA_LMOUSE:
-            if (record->event.pressed) {
-                layer_off(LA_LTHUMB);
-                layer_on(LA_LTHUMBMS);
-                layer_on_lmouse();
-                isWeakLaMouseStarted = true;
-            }
-            return false;
         default:
             isLThumbWeakPristine = false;
             return true;
