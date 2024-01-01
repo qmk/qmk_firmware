@@ -25,11 +25,6 @@
 #include "progmem.h"
 #include "util.h"
 
-// Which variant header file to use
-#if defined(LED_MATRIX_IS31FL3746A) || defined(RGB_MATRIX_IS31FL3746A)
-#    include "is31fl3746.h"
-#endif
-
 #if defined DRIVER_ADDR_4
 #    define DRIVER_COUNT 4
 #elif defined DRIVER_ADDR_3
