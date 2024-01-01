@@ -20,103 +20,105 @@
 
 #pragma once
 
-// This is a 7-bit address, that gets left-shifted and bit 0
-// set to 0 for write, 1 for read (as per I2C protocol)
-// The address will vary depending on your wiring:
-// 00 <-> GND
-// 01 <-> SCL
-// 10 <-> SDA
-// 11 <-> VCC
-// ADDR1 represents A1:A0 of the 7-bit address.
-// ADDR2 represents A3:A2 of the 7-bit address.
-// The result is: 0b010(ADDR2)(ADDR1)
-#ifndef DRIVER_ADDR_1
-#    define DRIVER_ADDR_1 0b0100000
+#include <stdint.h>
+#include <stdbool.h>
+#include "progmem.h"
+#include "util.h"
+
+#define IS31FL3743A_REG_ID 0xFC
+
+#define IS31FL3743A_REG_COMMAND 0xFD
+
+#define IS31FL3743A_COMMAND_PWM 0x00
+#define IS31FL3743A_COMMAND_SCALING 0x01
+#define IS31FL3743A_COMMAND_FUNCTION 0x02
+
+#define IS31FL3743A_FUNCTION_REG_CONFIGURATION 0x00
+#define IS31FL3743A_FUNCTION_REG_GLOBAL_CURRENT 0x01
+#define IS31FL3743A_FUNCTION_REG_PULLDOWNUP 0x02
+#define IS31FL3743A_FUNCTION_REG_TEMPERATURE 0x24
+#define IS31FL3743A_FUNCTION_REG_SPREAD_SPECTRUM 0x25
+#define IS31FL3743A_FUNCTION_REG_RESET 0x2F
+
+#define IS31FL3743A_REG_COMMAND_WRITE_LOCK 0xFE
+#define IS31FL3743A_COMMAND_WRITE_LOCK_MAGIC 0xC5
+
+#define IS31FL3743A_I2C_ADDRESS_GND_GND 0x20
+#define IS31FL3743A_I2C_ADDRESS_GND_SCL 0x21
+#define IS31FL3743A_I2C_ADDRESS_GND_SDA 0x22
+#define IS31FL3743A_I2C_ADDRESS_GND_VCC 0x23
+#define IS31FL3743A_I2C_ADDRESS_SCL_GND 0x24
+#define IS31FL3743A_I2C_ADDRESS_SCL_SCL 0x25
+#define IS31FL3743A_I2C_ADDRESS_SCL_SDA 0x26
+#define IS31FL3743A_I2C_ADDRESS_SCL_VCC 0x27
+#define IS31FL3743A_I2C_ADDRESS_SDA_GND 0x28
+#define IS31FL3743A_I2C_ADDRESS_SDA_SCL 0x29
+#define IS31FL3743A_I2C_ADDRESS_SDA_SDA 0x2A
+#define IS31FL3743A_I2C_ADDRESS_SDA_VCC 0x2B
+#define IS31FL3743A_I2C_ADDRESS_VCC_GND 0x2C
+#define IS31FL3743A_I2C_ADDRESS_VCC_SCL 0x2D
+#define IS31FL3743A_I2C_ADDRESS_VCC_SDA 0x2E
+#define IS31FL3743A_I2C_ADDRESS_VCC_VCC 0x2F
+
+#if defined(LED_MATRIX_IS31FL3743A)
+#    define IS31FL3743A_LED_COUNT LED_MATRIX_LED_COUNT
 #endif
 
-// Set defaults for Spread Spectrum Register
-#ifndef ISSI_SSR_1
-#    ifndef DRIVER_ADDR_2
-#        define ISSI_SSR_1 0x00
-#    else
-#        define ISSI_SSR_1 0xC0
-#    endif
-#endif
-#ifndef ISSI_SSR_2
-#    define ISSI_SSR_2 0x80
-#endif
-#ifndef ISSI_SSR_3
-#    define ISSI_SSR_3 0x80
-#endif
-#ifndef ISSI_SSR_4
-#    define ISSI_SSR_4 0x80
+#if defined(IS31FL3743A_I2C_ADDRESS_4)
+#    define IS31FL3743A_DRIVER_COUNT 4
+#elif defined(IS31FL3743A_I2C_ADDRESS_3)
+#    define IS31FL3743A_DRIVER_COUNT 3
+#elif defined(IS31FL3743A_I2C_ADDRESS_2)
+#    define IS31FL3743A_DRIVER_COUNT 2
+#elif defined(IS31FL3743A_I2C_ADDRESS_1)
+#    define IS31FL3743A_DRIVER_COUNT 1
 #endif
 
-// Command Registers
-#define ISSI_COMMANDREGISTER_WRITELOCK 0xFE
-#define ISSI_COMMANDREGISTER 0xFD
-#define ISSI_IDREGISTER 0xFC
-#define ISSI_REGISTER_UNLOCK 0xC5
+typedef struct is31fl3743a_led_t {
+    uint8_t driver : 2;
+    uint8_t v;
+} PACKED is31fl3743a_led_t;
 
-// Response Registers
-#define ISSI_PAGE_PWM 0x00
-#define ISSI_PAGE_SCALING 0x01
-#define ISSI_PAGE_FUNCTION 0x02
+extern const is31fl3743a_led_t PROGMEM g_is31fl3743a_leds[IS31FL3743A_LED_COUNT];
 
-// Registers under Function Register
-#define ISSI_REG_CONFIGURATION 0x00
-#define ISSI_REG_GLOBALCURRENT 0x01
-#define ISSI_REG_PULLDOWNUP 0x02
-#define ISSI_REG_TEMP 0x24
-#define ISSI_REG_SSR 0x25
-#define ISSI_REG_RESET 0x2F
+void is31fl3743a_init_drivers(void);
+void is31fl3743a_init(uint8_t addr, uint8_t sync);
+void is31fl3743a_write_register(uint8_t addr, uint8_t reg, uint8_t data);
+void is31fl3743a_select_page(uint8_t addr, uint8_t page);
+void is31fl3743a_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
 
-// Set defaults for Function Registers
-#ifndef ISSI_CONFIGURATION
-#    define ISSI_CONFIGURATION 0x01
-#endif
-#ifndef ISSI_GLOBALCURRENT
-#    define ISSI_GLOBALCURRENT 0xFF
-#endif
-#ifndef ISSI_PULLDOWNUP
-#    define ISSI_PULLDOWNUP 0x33
-#endif
-#ifndef ISSI_TEMP
-#    define ISSI_TEMP 0x00
-#endif
+void is31fl3743a_set_value(int index, uint8_t value);
+void is31fl3743a_set_value_all(uint8_t value);
 
-// Set defaults for Scaling registers
-#ifndef ISSI_SCAL_RED
-#    define ISSI_SCAL_RED 0xFF
-#endif
-#ifndef ISSI_SCAL_BLUE
-#    define ISSI_SCAL_BLUE 0xFF
-#endif
-#ifndef ISSI_SCAL_GREEN
-#    define ISSI_SCAL_GREEN 0xFF
-#endif
-#define ISSI_SCAL_RED_OFF 0x00
-#define ISSI_SCAL_GREEN_OFF 0x00
-#define ISSI_SCAL_BLUE_OFF 0x00
+void is31fl3743a_set_scaling_register(uint8_t index, uint8_t value);
 
-#ifndef ISSI_SCAL_LED
-#    define ISSI_SCAL_LED 0xFF
-#endif
-#define ISSI_SCAL_LED_OFF 0x00
+void is31fl3743a_update_pwm_buffers(uint8_t addr, uint8_t index);
+void is31fl3743a_update_scaling_registers(uint8_t addr, uint8_t index);
 
-// Set buffer sizes
-#define ISSI_MAX_LEDS 198
-#define ISSI_SCALING_SIZE 198
-#define ISSI_PWM_TRF_SIZE 18
-#define ISSI_SCALING_TRF_SIZE 18
+void is31fl3743a_flush(void);
 
-// Location of 1st bit for PWM and Scaling registers
-#define ISSI_PWM_REG_1ST 0x01
-#define ISSI_SCL_REG_1ST 0x01
+#define IS31FL3743A_PDR_0_OHM 0b000          // No pull-down resistor
+#define IS31FL3743A_PDR_0K5_OHM_SW_OFF 0b001 // 0.5 kOhm resistor in SWx off time
+#define IS31FL3743A_PDR_1K_OHM_SW_OFF 0b010  // 1 kOhm resistor in SWx off time
+#define IS31FL3743A_PDR_2K_OHM_SW_OFF 0b011  // 2 kOhm resistor in SWx off time
+#define IS31FL3743A_PDR_1K_OHM 0b100         // 1 kOhm resistor
+#define IS31FL3743A_PDR_2K_OHM 0b101         // 2 kOhm resistor
+#define IS31FL3743A_PDR_4K_OHM 0b110         // 4 kOhm resistor
+#define IS31FL3743A_PDR_8K_OHM 0b111         // 8 kOhm resistor
 
-// Map CS SW locations to order in PWM / Scaling buffers
-// This matches the ORDER in the Datasheet Register not the POSITION
-// It will always count from 0x00 to (ISSI_MAX_LEDS - 1)
+#define IS31FL3743A_PUR_0_OHM 0b000          // No pull-up resistor
+#define IS31FL3743A_PUR_0K5_OHM_CS_OFF 0b001 // 0.5 kOhm resistor in CSy off time
+#define IS31FL3743A_PUR_1K_OHM_CS_OFF 0b010  // 1 kOhm resistor in CSy off time
+#define IS31FL3743A_PUR_2K_OHM_CS_OFF 0b011  // 2 kOhm resistor in CSy off time
+#define IS31FL3743A_PUR_1K_OHM 0b100         // 1 kOhm resistor
+#define IS31FL3743A_PUR_2K_OHM 0b101         // 2 kOhm resistor
+#define IS31FL3743A_PUR_4K_OHM 0b110         // 4 kOhm resistor
+#define IS31FL3743A_PUR_8K_OHM 0b111         // 8 kOhm resistor
+
+#define IS31FL3743A_SYNC_NONE 0b00
+#define IS31FL3743A_SYNC_SLAVE 0b10
+#define IS31FL3743A_SYNC_MASTER 0b11
+
 #define CS1_SW1 0x00
 #define CS2_SW1 0x01
 #define CS3_SW1 0x02
