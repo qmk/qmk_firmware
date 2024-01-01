@@ -34,8 +34,8 @@
     "processor": "STM32F103",
     "bootloader": "stm32duino",
     "layout_aliases": {
-        "LAYOUT_ansi": "LAYOUT_tkl_nofrow_ansi",
-        "LAYOUT_iso": "LAYOUT_tkl_nofrow_iso"
+        "LAYOUT_ansi": "LAYOUT_tkl_nofrow_ansi_split_rshift",
+        "LAYOUT_iso": "LAYOUT_tkl_nofrow_iso_split_rshift"
     },
     "community_layouts": ["tkl_nofrow_ansi", "tkl_nofrow_iso"],
     "layouts": {
