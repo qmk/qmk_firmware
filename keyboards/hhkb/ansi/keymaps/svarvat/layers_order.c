@@ -1,6 +1,6 @@
 #define LA_BASE 0
-#define LA_MOUSE 1 // Mouse x2
-#define LA_CAPSLOCK 2
+#define LA_CAPSLOCK 1
+#define LA_MOUSE 2 // Mouse x2
 #define LA_LPINKY 3 // C(G())
 #define LA_RTHUMB 4
 #define LA_LTHUMBESTRONG 5 // LAG - CAG

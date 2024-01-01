@@ -236,86 +236,6 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
             return true;
     }
 }
-bool processKeycodeIfLMouse(uint16_t keycode, keyrecord_t* record) {
-    switch (keycode) {
-        case MA_LMOUSE:
-            if (record->event.pressed) {
-                layer_off_lmouse();
-            }
-            return false;
-        case MA_LTHUMBMS:
-            if (record->event.pressed) {
-                layer_on(LA_LTHUMBMS);
-            } else {
-                layer_off(LA_LTHUMBMS);
-            }
-            return false;
-        case MA_MS_BTN1_TAP:
-            if (record->event.pressed) {
-                tap_code16(KC_MS_BTN1);
-            }
-            return false;
-        case MA_MS_BTN2_TAP:
-            if (record->event.pressed) {
-                tap_code16(KC_MS_BTN2);
-            }
-            return false;
-        case MA_MS_WH_DOWN:
-            if (record->event.pressed) {
-                scrollDown = true;
-            } else {
-                scrollDown = false;
-            }
-            return false;
-        case MA_MS_WH_UP:
-            if (record->event.pressed) {
-                scrollUp = true;
-            } else {
-                scrollUp = false;
-            }
-            return false;
-        case MA_DOWN:
-            if (record->event.pressed) {
-                mouseDown = true;
-            } else {
-                mouseDown = false;
-            }
-            return false;
-        case MA_UP:
-            if (record->event.pressed) {
-                mouseUp = true;
-            } else {
-                mouseUp = false;
-            }
-            return false;
-        case MA_LEFT:
-            if (record->event.pressed) {
-                mouseLeft = true;
-            } else {
-                mouseLeft = false;
-            }
-            return false;
-        case MA_RIGHT:
-            if (record->event.pressed) {
-                mouseRight = true;
-            } else {
-                mouseRight = false;
-            }
-            return false;
-        case MA_END:
-            if (record->event.pressed) {
-                tap_code16(KC_MS_BTN5);
-            }
-            return false;
-        case MA_HOME:
-            if (record->event.pressed) {
-                tap_code16(KC_MS_BTN4);
-            }
-            return false;
-        default:
-            return true;
-    }
-}
 bool processKeycodeIfLCapslock(uint16_t keycode, keyrecord_t* record) {
     if (isCapswordStarted &&
     (keycode == KC_SPC
@@ -405,6 +325,86 @@ bool processKeycodeIfLCapslock(uint16_t keycode, keyrecord_t* record) {
 //    }
 //    if (isDeadKeyCircStarted) {isDeadKeyCircStarted=false;}
 //    if (isDeadKeyTremaStarted) {isDeadKeyTremaStarted=false;}
+        default:
+            return true;
+    }
+}
+bool processKeycodeIfLMouse(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
+        case MA_LMOUSE:
+            if (record->event.pressed) {
+                layer_off_lmouse();
+            }
+            return false;
+        case MA_LTHUMBMS:
+            if (record->event.pressed) {
+                layer_on(LA_LTHUMBMS);
+            } else {
+                layer_off(LA_LTHUMBMS);
+            }
+            return false;
+        case MA_MS_BTN1_TAP:
+            if (record->event.pressed) {
+                tap_code16(KC_MS_BTN1);
+            }
+            return false;
+        case MA_MS_BTN2_TAP:
+            if (record->event.pressed) {
+                tap_code16(KC_MS_BTN2);
+            }
+            return false;
+        case MA_MS_WH_DOWN:
+            if (record->event.pressed) {
+                scrollDown = true;
+            } else {
+                scrollDown = false;
+            }
+            return false;
+        case MA_MS_WH_UP:
+            if (record->event.pressed) {
+                scrollUp = true;
+            } else {
+                scrollUp = false;
+            }
+            return false;
+        case MA_DOWN:
+            if (record->event.pressed) {
+                mouseDown = true;
+            } else {
+                mouseDown = false;
+            }
+            return false;
+        case MA_UP:
+            if (record->event.pressed) {
+                mouseUp = true;
+            } else {
+                mouseUp = false;
+            }
+            return false;
+        case MA_LEFT:
+            if (record->event.pressed) {
+                mouseLeft = true;
+            } else {
+                mouseLeft = false;
+            }
+            return false;
+        case MA_RIGHT:
+            if (record->event.pressed) {
+                mouseRight = true;
+            } else {
+                mouseRight = false;
+            }
+            return false;
+        case MA_END:
+            if (record->event.pressed) {
+                tap_code16(KC_MS_BTN5);
+            }
+            return false;
+        case MA_HOME:
+            if (record->event.pressed) {
+                tap_code16(KC_MS_BTN4);
+            }
+            return false;
         default:
             return true;
     }
@@ -1216,7 +1216,7 @@ bool processKeycodeIfLThumbDWeak(uint16_t keycode, keyrecord_t* record) {
                     && !mouseUp
                     && !mouseRight
                     && !mouseLeft) {
-                        tap_code16(RSG(KC_D));
+                        tap_code16(G(KC_UP));
                         isLThumbWeakPristine = false;
                     } else {
                         isLThumbWeakPristine = true;
@@ -1227,7 +1227,7 @@ bool processKeycodeIfLThumbDWeak(uint16_t keycode, keyrecord_t* record) {
                 if (record->event.pressed) {
                     layer_on(LA_LTHUMBDMO);
                     if (isLThumbWeakPristine) {
-                        tap_code16(RSG(KC_D));
+                        tap_code16(G(KC_UP));
                         isLThumbWeakPristine = false;
                     } else {
                         isLThumbWeakPristine = true;
