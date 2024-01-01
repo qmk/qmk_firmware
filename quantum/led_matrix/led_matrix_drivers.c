@@ -73,6 +73,30 @@ const led_matrix_driver_t led_matrix_driver = {
     .set_value_all = is31fl3741_set_value_all,
 };
 
+#elif defined(LED_MATRIX_IS31FL3742A)
+const led_matrix_driver_t led_matrix_driver = {
+    .init          = is31fl3742a_init_drivers,
+    .flush         = is31fl3742a_flush,
+    .set_value     = is31fl3742a_set_value,
+    .set_value_all = is31fl3742a_set_value_all,
+};
+
+#elif defined(LED_MATRIX_IS31FL3743A)
+const led_matrix_driver_t led_matrix_driver = {
+    .init          = is31fl3743a_init_drivers,
+    .flush         = is31fl3743a_flush,
+    .set_value     = is31fl3743a_set_value,
+    .set_value_all = is31fl3743a_set_value_all,
+};
+
+#elif defined(LED_MATRIX_IS31FL3745)
+const led_matrix_driver_t led_matrix_driver = {
+    .init          = is31fl3745_init_drivers,
+    .flush         = is31fl3745_flush,
+    .set_value     = is31fl3745_set_value,
+    .set_value_all = is31fl3745_set_value_all,
+};
+
 #elif defined(LED_MATRIX_IS31FL3746A)
 const led_matrix_driver_t led_matrix_driver = {
     .init          = is31fl3746a_init_drivers,

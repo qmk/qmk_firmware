@@ -136,6 +136,8 @@ bool led_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max);
 
 void led_matrix_init(void);
 
+void led_matrix_reload_from_eeprom(void);
+
 void        led_matrix_set_suspend_state(bool state);
 bool        led_matrix_get_suspend_state(void);
 void        led_matrix_toggle(void);
