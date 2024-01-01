@@ -700,7 +700,7 @@
                 {"matrix": [4, 16], "x": 17.5, "y": 4}
             ]
         },
-        "LAYOUT_tkl_nofrow_iso_tsangan_bs_rshift": {
+        "LAYOUT_tkl_nofrow_iso_tsangan_split_bs_rshift": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
