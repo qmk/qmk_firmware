@@ -78,6 +78,10 @@ bool switch_ctl_tab_off(uint16_t keycode) {
     && (keycode != KC_DOWN)
     && (keycode != KC_LEFT)
     && (keycode != KC_RIGHT)
+    && (keycode != MA_UP)
+    && (keycode != MA_DOWN)
+    && (keycode != MA_LEFT)
+    && (keycode != MA_RIGHT)
     && (keycode != MA_LTHUMBD)
     && (keycode != MA_LTHUMBE)
     && (keycode != KC_LSFT)) {
@@ -435,28 +439,56 @@ bool processKeycodeIfLMouse(uint16_t keycode, keyrecord_t* record) {
             return false;
         case MA_DOWN:
             if (record->event.pressed) {
-                mouseDown = true;
+                if (isAltTabStarted) {
+                    tap_code16(KC_DOWN);
+                } else if (isSftTabStarted) {
+                    unregister_code16(KC_LSFT);
+                    tap_code16(KC_TAB);
+                    register_code16(KC_LSFT);
+                } else {
+                    mouseDown = true;
+                }
             } else {
                 mouseDown = false;
             }
             return false;
         case MA_UP:
             if (record->event.pressed) {
-                mouseUp = true;
+                if (isAltTabStarted) {
+                    tap_code16(KC_UP);
+                } else if (isSftTabStarted) {
+                    tap_code16(KC_TAB);
+                } else {
+                    mouseUp = true;
+                }
             } else {
                 mouseUp = false;
             }
             return false;
         case MA_LEFT:
             if (record->event.pressed) {
-                mouseLeft = true;
+                if (isAltTabStarted) {
+                    tap_code16(KC_LEFT);
+                } else if (isSftTabStarted) {
+                    tap_code16(KC_TAB);
+                } else {
+                    mouseLeft = true;
+                }
             } else {
                 mouseLeft = false;
             }
             return false;
         case MA_RIGHT:
             if (record->event.pressed) {
-                mouseRight = true;
+                if (isAltTabStarted) {
+                    tap_code16(KC_RIGHT);
+                } else if (isSftTabStarted) {
+                    unregister_code16(KC_LSFT);
+                    tap_code16(KC_TAB);
+                    register_code16(KC_LSFT);
+                } else {
+                    mouseRight = true;
+                }
             } else {
                 mouseRight = false;
             }
@@ -1002,6 +1034,42 @@ bool processKeycodeIfLThumbMs(uint16_t keycode, keyrecord_t* record) {
                 }
             }
             return false;
+        case MA_UP:
+            if (record->event.pressed) {
+                if (isCtlTabStarted) {
+                    register_code16(KC_LSFT);
+                    tap_code16(KC_TAB);
+                    unregister_code16(KC_LSFT);
+                    return false;
+                }
+            }
+            return true;
+        case MA_DOWN:
+            if (record->event.pressed) {
+                if (isCtlTabStarted) {
+                    tap_code16(KC_TAB);
+                    return false;
+                }
+            }
+            return true;
+        case MA_LEFT:
+            if (record->event.pressed) {
+                if (isCtlTabStarted) {
+                    register_code16(KC_LSFT);
+                    tap_code16(KC_TAB);
+                    unregister_code16(KC_LSFT);
+                    return false;
+                }
+            }
+            return true;
+        case MA_RIGHT:
+            if (record->event.pressed) {
+                if (isCtlTabStarted ) {
+                    tap_code16(KC_TAB);
+                    return false;
+                }
+            }
+            return true;
     }
     return true;
 }
