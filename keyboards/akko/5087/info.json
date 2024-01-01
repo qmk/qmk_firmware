@@ -40,7 +40,7 @@
         "caps_lock": "A15"
     }, 
     "rgb_matrix": {
-        "driver": "ckled2001",
+        "driver": "snled27351",
         "max_brightness": 180,
         "animations": {
             "breathing": true,
