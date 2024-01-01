@@ -1,20 +1,16 @@
 {
-    "manufacturer": "Model F Labs",
-    "keyboard_name": "Reproduction IBM F62 Keyboard",
-    "maintainer": "Purdea Andrei",
     "bootloader": "atmel-dfu",
-    "bootmagic": {
-        "enabled": false,
-    },
     "build": {
         "lto": true
     },
     "features": {
         "backlight": false,
+        "bootmagic": false,
         "command": true,
         "console": false,
         "extrakey": true,
         "haptic": true,	
+        "mousekey": true,
         "nkro": true,
         "raw": true,
         "rgblight": false
@@ -23,14 +19,7 @@
         "caps_lock": "B5",
         "num_lock": "B4"
     },
-    "mouse_key": {
-        "enabled": true
-    },
     "processor": "atmega32u2",
-    "split": {
-        "soft_serial_pin": "D0"
-    },
-    "url": "https://www.modelfkeyboards.com/",
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x6262",
