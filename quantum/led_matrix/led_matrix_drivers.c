@@ -73,6 +73,14 @@ const led_matrix_driver_t led_matrix_driver = {
     .set_value_all = is31fl3741_set_value_all,
 };
 
+#elif defined(LED_MATRIX_IS31FL3742A)
+const led_matrix_driver_t led_matrix_driver = {
+    .init          = is31fl3742a_init_drivers,
+    .flush         = is31fl3742a_flush,
+    .set_value     = is31fl3742a_set_value,
+    .set_value_all = is31fl3742a_set_value_all,
+};
+
 #elif defined(IS31FLCOMMON)
 const led_matrix_driver_t led_matrix_driver = {
     .init          = IS31FL_simple_init_drivers,
