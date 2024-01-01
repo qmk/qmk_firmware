@@ -13,7 +13,7 @@
 #define RGB_MATRIX_LED_COUNT 27
 #define RGB_MATRIX_CENTER { 60, 77 }
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 175
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define RGB_MATRIX_SLEEP
 #ifdef RGB_MATRIX_ENABLE
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:

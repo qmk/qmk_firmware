@@ -111,6 +111,16 @@ void eeconfig_debug_led_matrix(void) {
     dprintf("led_matrix_eeconfig.flags = %d\n", led_matrix_eeconfig.flags);
 }
 
+void led_matrix_reload_from_eeprom(void) {
+    led_matrix_disable_noeeprom();
+    /* Reset back to what we have in eeprom */
+    eeconfig_init_led_matrix();
+    eeconfig_debug_led_matrix(); // display current eeprom values
+    if (led_matrix_eeconfig.enable) {
+        led_matrix_mode_noeeprom(led_matrix_eeconfig.mode);
+    }
+}
+
 __attribute__((weak)) uint8_t led_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t *led_i) {
     return 0;
 }
@@ -415,12 +425,6 @@ void led_matrix_init(void) {
     }
 #endif // LED_MATRIX_KEYREACTIVE_ENABLED
 
-    if (!eeconfig_is_enabled()) {
-        dprintf("led_matrix_init_drivers eeconfig is not enabled.\n");
-        eeconfig_init();
-        eeconfig_update_led_matrix_default();
-    }
-
     eeconfig_init_led_matrix();
     if (!led_matrix_eeconfig.mode) {
         dprintf("led_matrix_init_drivers led_matrix_eeconfig.mode = 0. Write default values to EEPROM.\n");
@@ -430,7 +434,7 @@ void led_matrix_init(void) {
 }
 
 void led_matrix_set_suspend_state(bool state) {
-#ifdef LED_DISABLE_WHEN_USB_SUSPENDED
+#ifdef LED_MATRIX_SLEEP
     if (state && !suspend_state && is_keyboard_master()) { // only run if turning off, and only once
         led_task_render(0);                                // turn off all LEDs when suspending
         led_task_flush(0);                                 // and actually flash led state to LEDs

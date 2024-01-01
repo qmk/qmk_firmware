@@ -13,7 +13,7 @@
 #    define RGB_MATRIX_CENTER \
         { 35, 35 }
 
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED
+#    define RGB_MATRIX_SLEEP
 
 // This option is required for the TYPING_HEATMAP and DIGITAL_RAIN effects,
 // both of which are disabled below, so the common support for those effects is
