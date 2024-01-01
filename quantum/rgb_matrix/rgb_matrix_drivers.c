@@ -108,14 +108,6 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .set_color_all = is31fl3746a_set_color_all,
 };
 
-#elif defined(IS31FLCOMMON)
-const rgb_matrix_driver_t rgb_matrix_driver = {
-    .init          = IS31FL_RGB_init_drivers,
-    .flush         = IS31FL_common_flush,
-    .set_color     = IS31FL_RGB_set_color,
-    .set_color_all = IS31FL_RGB_set_color_all,
-};
-
 #elif defined(RGB_MATRIX_SNLED27351)
 const rgb_matrix_driver_t rgb_matrix_driver = {
     .init          = snled27351_init_drivers,
