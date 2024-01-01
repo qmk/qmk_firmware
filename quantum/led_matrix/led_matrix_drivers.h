@@ -17,6 +17,8 @@
 #    include "is31fl3737-simple.h"
 #elif defined(LED_MATRIX_IS31FL3741)
 #    include "is31fl3741-simple.h"
+#elif defined(LED_MATRIX_IS31FL3742A)
+#    include "is31fl3742a-simple.h"
 #elif defined(IS31FLCOMMON)
 #    include "is31flcommon.h"
 #elif defined(LED_MATRIX_SNLED27351)

@@ -76,6 +76,14 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .set_color_all = is31fl3741_set_color_all,
 };
 
+#elif defined(RGB_MATRIX_IS31FL3742A)
+const rgb_matrix_driver_t rgb_matrix_driver = {
+    .init          = is31fl3742a_init_drivers,
+    .flush         = is31fl3742a_flush,
+    .set_color     = is31fl3742a_set_color,
+    .set_color_all = is31fl3742a_set_color_all,
+};
+
 #elif defined(IS31FLCOMMON)
 const rgb_matrix_driver_t rgb_matrix_driver = {
     .init          = IS31FL_RGB_init_drivers,
