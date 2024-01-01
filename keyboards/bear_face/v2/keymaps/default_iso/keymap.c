@@ -1,5 +1,5 @@
 /*
-Copyright 2020 chemicalwill <https://github.com/chemicalwill>
+Copyright 2023 chemicalwill <https://github.com/will-hedges>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -64,8 +64,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_FN1] = LAYOUT_84_iso(
         _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, KC_PSCR, KC_SCRL, KC_PAUS, _______, _______, KC_INS,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_CALC, BASE_QWER,
-        _______, _______, _______, _______, QK_BOOT,   _______, _______, _______, _______, QK_BOOT,   _______, _______, _______, 		  BASE_COLE,
-        _______, _______, QK_BOOT,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, BASE_DVOR,
+        _______, _______, _______, _______, QK_BOOT, _______, _______, _______, _______, QK_BOOT, _______, _______, _______, 		  BASE_COLE,
+        _______, _______, QK_BOOT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, BASE_DVOR,
         _______, KC_APP,  _______, _______, _______, _______, _______, _______, _______, _______, KC_APP,  _______, _______, _______, _______,
         _______, _______, _______,                   _______,                            _______, _______, _______, _______, _______, _______
     ),

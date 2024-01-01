@@ -1,6 +1,6 @@
 {
     "usb": {
-        "device_version": "2.1.0"
+        "device_version": "3.0.0"
     },
     "layouts": {
         "LAYOUT_83_ansi": {

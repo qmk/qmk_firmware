@@ -15,25 +15,20 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include "quantum.h"
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
+void keyboard_pre_init_kb(void) {
+    //Sets LED pin as output
+    setPinOutput(F7);
 
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
+    keyboard_pre_init_user();
+}
 
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
+bool led_update_kb(led_t led_state) {
+    // Caps Lock LED indicator toggling code here
+    bool res = led_update_user(led_state);
+    if(res) {
+        writePin(F7, !led_state.caps_lock);
+    }
+    return res;
+}
