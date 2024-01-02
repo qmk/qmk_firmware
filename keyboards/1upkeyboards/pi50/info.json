@@ -85,7 +85,8 @@
             "multisplash": true,
             "solid_splash": true,
             "solid_multisplash": true
-        }
+        },
+        "sleep": true
     },
     "ws2812": {
         "pin": "GP0",
