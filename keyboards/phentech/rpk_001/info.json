@@ -42,7 +42,7 @@
         "on_state": 0
     },
     "rgb_matrix": {
-        "driver": "aw20216",
+        "driver": "aw20216s",
         "animations": {
             "solid_color": true,
             "alphas_mods": true,
