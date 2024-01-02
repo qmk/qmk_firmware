@@ -32,6 +32,8 @@
 #    define I2C_DRIVER I2CD2
 #endif
 
+#define RGB_MATRIX_LED_COUNT 36
+
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
