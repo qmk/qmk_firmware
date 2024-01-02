@@ -57,3 +57,7 @@
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES
+
+// Needed as the master side could enter slave state during poweron
+// of host, due to missing VUSB detection.
+#define SPLIT_WATCHDOG_ENABLE
