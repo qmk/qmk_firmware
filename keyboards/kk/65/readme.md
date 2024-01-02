@@ -1,6 +1,6 @@
 # KK65
 
-![KK65](imgur.com image replace me!)
+![KK65](https://i.imgur.com/vGBCw5Q.jpg)
 
 The KK65 is a hot-swappable 68-key keyboard designed and manufactured in the USA.
 
