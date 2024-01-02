@@ -34,7 +34,6 @@
             "B1"
         ]
     },
-    "pin_compatible": "promicro",
     "rgblight": {
         "animations": {
             "alternating": true,
