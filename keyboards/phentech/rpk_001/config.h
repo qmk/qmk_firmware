@@ -4,8 +4,8 @@
 #pragma once
 
 /* RGB Config */
-#define DRIVER_1_CS B6
-#define DRIVER_1_EN B7
+#define AW20216S_CS_PIN_1 B6
+#define AW20216S_EN_PIN_1 B7
 #define RGB_MATRIX_LED_COUNT 67
 
 /* SPI Config */
