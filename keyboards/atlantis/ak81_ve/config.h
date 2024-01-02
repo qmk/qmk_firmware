@@ -21,3 +21,5 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+#define RGB_MATRIX_LED_COUNT 96
