@@ -17,12 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#ifdef RGB_MATRIX_ENABLE
-#    define SPLIT_TRANSPORT_MIRROR
-#    define RGB_MATRIX_LED_COUNT 54
-#    define RGB_MATRIX_SPLIT { 27, 27 }
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 170
-#endif
+#define SPLIT_TRANSPORT_MIRROR
 
 #ifndef OLED_FONT_H
 #   define OLED_FONT_H "keyboards/elephant42/lib/glcdfont.c"
