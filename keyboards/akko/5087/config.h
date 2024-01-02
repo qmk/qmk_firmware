@@ -16,7 +16,6 @@
 
 #pragma once
 
-
 /* LED Indicators */
 #define LED_MAC_OS_PIN C10
 #define LED_WIN_LOCK_PIN C11
@@ -41,11 +40,3 @@
 #define DRIVER_ADDR_2 0b1110111
 #define I2C1_OPMODE OPMODE_I2C
 #define I2C1_CLOCK_SPEED 400000 /* 400000 */
-
-#define RGB_MATRIX_LED_COUNT   87
-
-#define RGB_TRIGGER_ON_KEYDOWN
-#define RGB_MATRIX_SLEEP // turn off effects when suspended
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#define RGB_MATRIX_KEYPRESSES
-
