@@ -17,8 +17,6 @@
 
 #pragma once
 
-#define RGB_MATRIX_LED_COUNT 42
-
 #define SPI_SCK_PIN GP18
 #define SPI_MOSI_PIN GP19
 #define SPI_MISO_PIN GP16
