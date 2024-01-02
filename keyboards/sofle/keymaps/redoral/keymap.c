@@ -1,11 +1,10 @@
- /* Copyright 2023 Red Oral
-  * Based on the via keymap and modified it to my own keymap and OLED display preference
-  * TotK logo byte array from https://www.reddit.com/r/MechanicalKeyboards/comments/15v1o4b/made_a_totk_pic_for_my_oled/
-  */
+/* Copyright 2023 Red Oral
+ * Based on the via keymap and modified it to my own keymap and OLED display preference
+ * Displays layer and capslock information on main oled, Witcher signs on the offhand oled
+ */
 
 #include QMK_KEYBOARD_H
 #include "oled.c"
-
 
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
@@ -55,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            |      |      |      |      |/       /         \      \ |      |      |      |     |
  *            `----------------------------------'           '------''---------------------------'
  */
- 
+
 [1] = LAYOUT(
   KC_TRNS, KC_F1,   KC_F2,    KC_F3,    KC_F4,   KC_F5,                       KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,
   KC_TRNS, KC_HOME, KC_UP,    KC_END,   KC_TRNS, KC_TRNS,                     KC_INS,   KC_DEL,   KC_MS_U,  KC_LBRC,  KC_RBRC,  KC_F12,
