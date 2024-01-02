@@ -18,8 +18,10 @@
         "bootmagic": {
             "matrix": [4, 0]
         },
-        "sync": {
-            "matrix_state": true
+        "transport":{
+            "sync": {
+                "matrix_state": true
+            }
         }
     },
     "encoder": {
