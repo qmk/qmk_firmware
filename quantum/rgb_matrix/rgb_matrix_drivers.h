@@ -27,8 +27,6 @@
 #    include "is31fl3745.h"
 #elif defined(RGB_MATRIX_IS31FL3746A)
 #    include "is31fl3746a.h"
-#elif defined(IS31FLCOMMON)
-#    include "is31flcommon.h"
 #elif defined(RGB_MATRIX_SNLED27351)
 #    include "snled27351.h"
 #elif defined(RGB_MATRIX_WS2812)
