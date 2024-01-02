@@ -29,6 +29,7 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
+        "command": true,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,
