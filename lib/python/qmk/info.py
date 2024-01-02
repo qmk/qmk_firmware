@@ -684,12 +684,10 @@ def _extract_led_config(info_data, keyboard):
     rows = info_data['matrix_size']['rows']
 
     # Determine what feature owns g_led_config
-    features = info_data.get("features", {})
     feature = None
-    if features.get("rgb_matrix", False):
-        feature = "rgb_matrix"
-    elif features.get("led_matrix", False):
-        feature = "led_matrix"
+    for feat in ["rgb_matrix", "led_matrix"]:
+        if info_data.get("features", {}).get(feat, False) or feat in info_data:
+            feature = feat
 
     if feature:
         # Process
