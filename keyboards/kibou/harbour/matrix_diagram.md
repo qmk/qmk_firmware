@@ -8,9 +8,13 @@ Backspace,[^3] but no switch matrix data is currently available.
 
 \- @noroadsleft, 23 June, 2023
 
+PCB image shows tracing for 2u Backspace.[^4] 
+
+\- @dunk2k, 03 January 2024
+
 ```
                                                     ┌───────┐
-                                       2u Backspace │??     │
+                                       2u Backspace │0E     │
                                                     └───────┘
 ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
 │00 │01 │02 │03 │04 │05 │06 │07 │08 │09 │0A │0B │0C │0D │0E │0F │
@@ -34,3 +38,4 @@ Backspace,[^3] but no switch matrix data is currently available.
 [^1]: [Geekhack Interest Check, Original Post](https://geekhack.org/index.php?topic=111146.msg3012509#msg3012509)
 [^2]: [Reddit Interest Check](https://www.reddit.com/r/MechanicalKeyboards/comments/lgyv5p/ic_harbour_%E6%B8%AF%E5%8F%A3_a_65_gasket_mounted_board_designed/gmudnjb/)
 [^3]: [Geekhack Interest Check, reply #102](https://geekhack.org/index.php?topic=111146.msg3022822#msg3022822)
+[^4]: [Kibou Store, Harbour Add-ons](https://kibou.store/collections/in-stock-products/products/instock-harbour-addons)
