@@ -56,3 +56,6 @@
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED
 
 #endif
+
+// Allows for more than the default 4 layers in VIA.
+#define DYNAMIC_KEYMAP_LAYER_COUNT 5
