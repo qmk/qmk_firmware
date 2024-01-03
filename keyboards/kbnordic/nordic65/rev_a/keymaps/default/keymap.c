@@ -1,4 +1,3 @@
-
 /*
 Copyright 2023 Stefan Sundin "4pplet" <4pplet@protonmail.com>
 
