@@ -13,7 +13,7 @@
 //   Experimental 1000hz polling (might be default?)
 #    define USB_POLLING_INTERVAL_MS 1
 //   Cold boot fix
-#    define SPLIT_USB_TIMEOUT 2000
+#    define SPLIT_USB_TIMEOUT 10000
 #    define SPLIT_USB_TIMEOUT_POLL 10
 //   Add RGB underglow and top facing lighting
 #    define WS2812_DI_PIN D3
