@@ -249,8 +249,8 @@ const uint16_t PROGMEM arrow_combo[]     = {LCTL_T(KC_T), KC_G, COMBO_END};
 const uint16_t PROGMEM arroweql_combo[]  = {KC_P, KC_B, COMBO_END};
 const uint16_t PROGMEM back_to_colemak[] = {KC_ENT, KC_SPC, COMBO_END};
 const uint16_t PROGMEM eql_combo[]       = {KC_L, KC_U, COMBO_END};
-const uint16_t PROGMEM minus_combo[]     = {RCTL_T(KC_N), KC_H, COMBO_END};
-const uint16_t PROGMEM plus_combo[]      = {KC_F, KC_P, COMBO_END};
+const uint16_t PROGMEM plus_combo[]      = {KC_C, KC_D, COMBO_END};
+const uint16_t PROGMEM minus_combo[]     = {KC_F, KC_P, COMBO_END};
 const uint16_t PROGMEM delword_combo[]   = {KC_H, KC_DOT, COMBO_END};
 combo_t                key_combos[]      = {
     COMBO(backspace_combo, KC_BSPC), COMBO(esc_combo, KC_ESC), COMBO(tab_combo, KC_TAB), COMBO(del_combo, KC_DEL), COMBO(ae_combo, RALT(KC_Q)), COMBO(oe_combo, RALT(KC_P)), COMBO(a_combo, RALT(KC_W)), COMBO(lbrc_combo, KC_LBRC), COMBO(rbrc_combo, KC_RBRC), COMBO(lprn_combo, KC_LPRN), COMBO(lcbr_combo, KC_LCBR), COMBO(rprn_combo, KC_RPRN), COMBO(rcbr_combo, KC_RCBR), COMBO(under_combo, KC_UNDS), COMBO(arrow_combo, ARROW), COMBO(arroweql_combo, ARROW_EQL), COMBO(back_to_colemak, COLEMAK), COMBO(eql_combo, KC_EQL), COMBO(minus_combo, KC_MINS), COMBO(plus_combo, KC_PPLS), COMBO(delword_combo, LCTL(KC_BSPC)),
