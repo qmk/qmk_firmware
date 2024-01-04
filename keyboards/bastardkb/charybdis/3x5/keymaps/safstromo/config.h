@@ -4,7 +4,8 @@
 #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
 /* Disable unused features. */
 #define NO_ACTION_ONESHOT
-
+#define TAPPING_TERM 200
+#define TAPPING_TERM_PER_KEY
 /* Charybdis-specific features. */
 
 #ifdef POINTING_DEVICE_ENABLE

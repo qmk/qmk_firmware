@@ -30,7 +30,6 @@ enum custom_keycodes {
 #define ALT_SQT RALT(KC_QUOT)
 #define ALT_SPC LALT_T(KC_SPC)
 
-
 // Automatically enable sniping-mode on the pointer layer.
 #define CHARYBDIS_AUTO_SNIPING_ON_LAYER LAYER_POINTER
 
@@ -47,9 +46,9 @@ static uint16_t auto_pointer_layer_timer = 0;
 #endif     // CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 
 #define SPC_NAV LT(LAYER_NAVIGATION, KC_SPC)
-#define TAB_FUN LT(LAYER_FUNCTION, KC_TAB)
-#define ENT_SYM LT(LAYER_SYMBOLS, KC_ENT)
-#define BSP_NUM LT(LAYER_ADJUST, KC_BSPC)
+#define TAB_SYM LT(LAYER_SYMBOLS, KC_TAB)
+#define ENT_NAV LT(LAYER_NAVIGATION, KC_ENT)
+#define BSP_NAV LT(LAYER_NAVIGATION, KC_BSPC)
 #define _L_PTR(KC) LT(LAYER_POINTER, KC)
 
 #ifndef POINTING_DEVICE_ENABLE
@@ -66,19 +65,19 @@ static uint16_t auto_pointer_layer_timer = 0;
 * ,----------------------------------.                              ,----------------------------------.
 * |   Q  |   W  |   F  |   P  |   B  |                              |   J  |   L  |   U  |   Y  | ;  : |
 * |------+------+------+------+------|                              |------+------+------+------+------|
-* |   A  |alt(R)|sft(S)|ctl(T)|   G  |                              |   M  |ctl(N)|sft(E)|alt(I)|GUI(O)|
+* |GUI(A)|alt(R)|sft(S)|ctl(T)|   G  |                              |   M  |ctl(N)|sft(E)|alt(I)|GUI(O)|
 * |------+------+------+------+------|                              |------+------+------+------+------|
-* |GUI(Z)|   X  |   C  |   D  |  V   |                              |   K  |   H  | ,  < | . >  | /  ? |
+* |   Z  |   X  |   C  |   D  |  V   |                              |   K  |   H  | ,  < | . >  | /  ? |
 * `--------------------+------+------|                              |------+------+------+------+------'
-*               | BSPC |  Sym |Space |                              | Enter|  Nav |
+*               |      |  Sym |Space |                              | Enter|  Nav |
 *               `------`-------------'                              `-------------'
 */
 
 #define LAYOUT_LAYER_BASE                                                                     \
        KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, \
-       KC_A,    LALT_T(KC_R),    LSFT_T(KC_S),    LCTL_T(KC_T),    KC_G,    KC_M,    RCTL_T(KC_N),    RSFT_T(KC_E),    LALT_T(KC_I), LGUI_T(KC_O), \
-       LGUI_T(KC_Z),    KC_X,    KC_C,    KC_D,    KC_V,    KC_K,    KC_H, KC_COMM,  KC_DOT, KC_SLSH, \
-                      KC_BSPC, SYM, ALT_SPC, KC_ENT, NAV
+       LGUI_T(KC_A),    LALT_T(KC_R),    LSFT_T(KC_S),    LCTL_T(KC_T),    KC_G,    KC_M,    RCTL_T(KC_N),    RSFT_T(KC_E),    LALT_T(KC_I), LGUI_T(KC_O), \
+       KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_K,    KC_H, KC_COMM,  KC_DOT, KC_SLSH, \
+                      _______, TAB_SYM, SPC_NAV, ENT_NAV, BSP_NAV
 
 /** Convenience row shorthands. */
 #define _______________DEAD_HALF_ROW_______________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
@@ -118,9 +117,9 @@ static uint16_t auto_pointer_layer_timer = 0;
      * ,----------------------------------.                              ,----------------------------------.
      * |   1  |   2  |  3   |  4   |  5   |                              |   6  |   7  |   8  |   9  |  0   |
      * |------+------+------+------+------|                              |------+------+------+------+------|
-     * |  GUI |  Alt | Shift| CTRL |      |                              | PgUp |  ←   |   ↓  |  ↑   |  →   |
+     * | PSCR |      |      |      | Home |                              |  End |  ←   |   ↓  |  ↑   |  →   |
      * |------+------+------+------+------|                              |------+------+------+------+------|
-     * |      | CUT  | COPY | UNDO | PASTE|                              | PgDn | Home |  End |Insert|Delete|
+     * | PSCR | CUT  | COPY | UNDO | PASTE|                              |      | Home | PgDn | PgUp |      |
      * `--------------------+------+------|                              |------+------+------+------+------'
      *               | BSPC |Space |Fkeys |                              | Enter|      |
      *               `------`-------------'                              `-------------'
@@ -128,8 +127,8 @@ static uint16_t auto_pointer_layer_timer = 0;
 
 #define LAYOUT_LAYER_NAVIGATION                                                               \
        KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0, \
-    KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, _______, KC_PGUP, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, \
-    _______,     CUT,    COPY,    UNDO,   PASTE, KC_PGDN, KC_HOME,  KC_END,  KC_INS,  KC_DEL, \
+    KC_PSCR, _______, _______, _______, KC_HOME, KC_END, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, \
+    KC_PSCR,     CUT,    COPY,    UNDO,   PASTE, KC_PGDN, KC_HOME,  KC_PGDN,  KC_PGUP, _______, \
                       KC_TRNS, FKEYS, KC_TRNS, KC_TRNS ,KC_TRNS
 
 /*
@@ -155,21 +154,21 @@ static uint16_t auto_pointer_layer_timer = 0;
      * Sym Layer: Symbols
      *
      * ,----------------------------------.                                ,-----------------------------------.
+     * |        |      |   "  |   \  |      |                              |      |      |  '   |      |       |
+     * |--------+------+------+------+------|                              |------+------+------+------+-------|
      * |   !    |   @  |   #  |   $  |   %  |                              |   ^  |   [  |   ]  |   &  |   *   |
      * |--------+------+------+------+------|                              |------+------+------+------+-------|
-     * |GUI(tab)|  alt |   "  |   '  |   |  |                              |   _  |   {  |   }  |   =  |Backspc|
-     * |--------+------+------+------+------|                              |------+------+------+------+-------|
-     * |   ESC  |   ~  |   `  |   |  |   \  |                              |   -  |   (  |   )  |   +  | Delete|
+     * |   ESC  |   ~  |   `  |   |  |   \  |                              |   -  |   -  |   =  |   +  |       |
      * `----------------------+------+------|                              |------+------+------+------+-------'
-     *                  |     |      |  GUI |                              | Enter| Fkeys|
+     *                  |     |      |      |                              | Enter| Fkeys|
      *                  `-------------------'                              `-------------'
      */
 
 #define LAYOUT_LAYER_SYMBOLS                                                                  \
+    _______, _______, SFT_QT, KC_BSLS, _______, _______, _______, ALT_SQT, _______, _______, \
      KC_EXLM,   KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_AMPR, KC_ASTR, \
-    LGUI_T(KC_TAB), KC_LALT, SFT_QT, ALT_SQT, KC_PIPE, KC_UNDS, KC_LCBR, KC_RCBR, KC_EQL, LALT_T(KC_BSPC), \
-    KC_ESC, KC_TILD, KC_GRV, KC_PIPE, KC_BSLS, KC_MINS, KC_LPRN, KC_RPRN, KC_PPLS, KC_DEL, \
-                      _______, _______, KC_LGUI, KC_TRNS, FKEYS
+    _______, KC_TILD, KC_GRV, KC_PIPE, _______, KC_MINS, KC_MINS, KC_EQL, KC_PPLS, _______, \
+                      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, FKEYS
 
 /**
  * \brief Add Home Row mod to a layout.
@@ -211,9 +210,9 @@ static uint16_t auto_pointer_layer_timer = 0;
     ...)                                                               \
              L00,         L01,         L02,         L03,         L04,  \
              R05,         R06,         R07,         R08,         R09,  \
-     _L_PTR(L10),         L11,         L12,         L13,         L14,  \
+             L10,         L11,         L12,         L13,         L14,  \
              R15,         R16,         R17,         R18,         R19,  \
-             L20,        L21,         L22,         L23,         L24,  \
+      _L_PTR(L20),        L21,         L22,         L23,         L24,  \
              R25,         R26,         R27,         R28,  _L_PTR(R29), \
       __VA_ARGS__
 #define POINTER_MOD(...) _POINTER_MOD(__VA_ARGS__)
@@ -231,29 +230,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // clang-format on
 
-//combos
-const uint16_t PROGMEM backspace_combo[] = {RCTL_T(KC_N), RSFT_T(KC_E), COMBO_END};
+// combos
+const uint16_t PROGMEM backspace_combo[] = {KC_H, KC_COMM, COMBO_END};
 const uint16_t PROGMEM esc_combo[]       = {KC_Q, KC_W, COMBO_END};
 const uint16_t PROGMEM tab_combo[]       = {LALT_T(KC_R), LSFT_T(KC_S), COMBO_END};
-const uint16_t PROGMEM del_combo[]       = {KC_DOT, _L_PTR(KC_SLS, COMBO_END};
+const uint16_t PROGMEM del_combo[]       = {KC_Y, KC_SCLN, COMBO_END};
 const uint16_t PROGMEM a_combo[]         = {KC_U, KC_Y, COMBO_END};
 const uint16_t PROGMEM ae_combo[]        = {RSFT_T(KC_E), LALT_T(KC_I), COMBO_END};
 const uint16_t PROGMEM oe_combo[]        = {KC_COMM, KC_DOT, COMBO_END};
-const uint16_t PROGMEM lprn_combo[]      = {KC_F, KC_P, COMBO_END};
-const uint16_t PROGMEM lcbr_combo[]      = {KC_C, KC_D, COMBO_END};
-const uint16_t PROGMEM lbrc_combo[]      = {LCTL_T(KC_T), KC_P, COMBO_END};
-const uint16_t PROGMEM rbrc_combo[]      = {RCTL_T(KC_N), KC_L, COMBO_END};
-const uint16_t PROGMEM rprn_combo[]      = {KC_L, KC_U, COMBO_END};
-const uint16_t PROGMEM rcbr_combo[]      = {KC_H, KC_COMM, COMBO_END};
+const uint16_t PROGMEM lprn_combo[]      = {KC_F, LSFT_T(KC_S), COMBO_END};
+const uint16_t PROGMEM lcbr_combo[]      = {KC_P, LCTL_T(KC_T), COMBO_END};
+const uint16_t PROGMEM lbrc_combo[]      = {KC_W, LALT_T(KC_R), COMBO_END};
+const uint16_t PROGMEM rbrc_combo[]      = {KC_Y, LALT_T(KC_I), COMBO_END};
+const uint16_t PROGMEM rprn_combo[]      = {KC_U, RSFT_T(KC_E), COMBO_END};
+const uint16_t PROGMEM rcbr_combo[]      = {KC_L, RCTL_T(KC_N), COMBO_END};
 const uint16_t PROGMEM under_combo[]     = {KC_M, KC_K, COMBO_END};
 const uint16_t PROGMEM arrow_combo[]     = {LCTL_T(KC_T), KC_G, COMBO_END};
 const uint16_t PROGMEM arroweql_combo[]  = {KC_P, KC_B, COMBO_END};
 const uint16_t PROGMEM back_to_colemak[] = {KC_ENT, KC_SPC, COMBO_END};
+const uint16_t PROGMEM eql_combo[]       = {KC_L, KC_U, COMBO_END};
+const uint16_t PROGMEM minus_combo[]     = {RCTL_T(KC_N), KC_H, COMBO_END};
+const uint16_t PROGMEM plus_combo[]      = {KC_F, KC_P, COMBO_END};
+const uint16_t PROGMEM delword_combo[]   = {KC_H, KC_DOT, COMBO_END};
 combo_t                key_combos[]      = {
-    COMBO(backspace_combo, KC_BSPC), COMBO(esc_combo, KC_ESC), COMBO(tab_combo, KC_TAB), COMBO(del_combo, KC_DEL), COMBO(ae_combo, RALT(KC_Q)), COMBO(oe_combo, RALT(KC_P)), COMBO(a_combo, RALT(KC_W)), COMBO(lbrc_combo, KC_LBRC),COMBO(rbrc_combo, KC_RBRC),COMBO(lprn_combo, KC_LPRN), COMBO(lcbr_combo, KC_LCBR), COMBO(rprn_combo, KC_RPRN), COMBO(rcbr_combo, KC_RCBR), COMBO(under_combo, KC_UNDS), COMBO(arrow_combo, ARROW), COMBO(arroweql_combo, ARROW_EQL), COMBO(back_to_colemak, COLEMAK),
+    COMBO(backspace_combo, KC_BSPC), COMBO(esc_combo, KC_ESC), COMBO(tab_combo, KC_TAB), COMBO(del_combo, KC_DEL), COMBO(ae_combo, RALT(KC_Q)), COMBO(oe_combo, RALT(KC_P)), COMBO(a_combo, RALT(KC_W)), COMBO(lbrc_combo, KC_LBRC), COMBO(rbrc_combo, KC_RBRC), COMBO(lprn_combo, KC_LPRN), COMBO(lcbr_combo, KC_LCBR), COMBO(rprn_combo, KC_RPRN), COMBO(rcbr_combo, KC_RCBR), COMBO(under_combo, KC_UNDS), COMBO(arrow_combo, ARROW), COMBO(arroweql_combo, ARROW_EQL), COMBO(back_to_colemak, COLEMAK), COMBO(eql_combo, KC_EQL), COMBO(minus_combo, KC_MINS), COMBO(plus_combo, KC_PPLS), COMBO(delword_combo, LCTL(KC_BSPC)),
 };
 
-//Macros
+// Macros
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case ARROW:
@@ -270,6 +273,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 };
+// Tapping speed
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LGUI_T(KC_O):
+            return TAPPING_TERM + 250;
+        case LGUI_T(KC_A):
+            return TAPPING_TERM + 250;
+        default:
+            return TAPPING_TERM;
+    }
+}
 
 #ifdef POINTING_DEVICE_ENABLE
 #    ifdef CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
