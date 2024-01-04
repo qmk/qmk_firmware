@@ -19,24 +19,14 @@
 #    include "autocorrect_data_default.h"
 #endif
 
-#ifdef AUTOCORRECT_MULTI_BANK
-#    include "autocorrect_data_alt.h"
-#    pragma message "Autocorrect is using multibank."
-#    define AML ((AUTOCORRECT_MAX_LENGTH > AUTOCORRECT_MAX_LENGTH_ALT) ? AUTOCORRECT_MAX_LENGTH : AUTOCORRECT_MAX_LENGTH_ALT)
-#    define AUTOCORRECT_DATA bank_data
+// dict-specific variables
+static const uint8_t *current_dict_data;
+static uint16_t current_dict_min_length;
+static uint16_t current_dict_max_length;
+static uint16_t current_dict_size;
 
-static const uint8_t *bank_data       = autocorrect_data;
-static uint16_t       bank_min_length = AUTOCORRECT_MIN_LENGTH;
-static uint16_t       bank_max_length = AUTOCORRECT_MAX_LENGTH;
-static uint16_t       bank_size       = DICTIONARY_SIZE;
-
-#else
-#    define AUTOCORRECT_DATA autocorrect_data
-#    define AML AUTOCORRECT_MAX_LENGTH
-#endif
-
-static uint8_t typo_buffer[AML] = {KC_SPC};
-static uint8_t typo_buffer_size = 1;
+static uint8_t typo_buffer[TYPO_BUFFER_SIZE] = {KC_SPC};
+static uint8_t typo_buffer_size              = 1;
 
 /**
  * @brief function for querying the enabled state of autocorrect
@@ -78,31 +68,34 @@ void autocorrect_toggle(void) {
 }
 
 /**
- * @brief Toggles autocorrect's bank and save state to eeprom
+ * @brief Cycles autocorrect's selected dict and save state to eeprom
  *
  */
-#ifdef AUTOCORRECT_MULTI_BANK
-void autocorrect_bank_toggle(void) {
-    keymap_config.autocorrect_bank = !keymap_config.autocorrect_bank;
-    autocorrect_init_bank();
+void autocorrect_dict_cycle(bool forward) {
+    if (forward) {
+        keymap_config.autocorrect_curr_dict = (keymap_config.autocorrect_curr_dict + 1) % N_DICTS;
+    } else {
+        keymap_config.autocorrect_curr_dict = MIN(keymap_config.autocorrect_curr_dict - 1, (uint8_t)(N_DICTS - 1));
+    }
     eeconfig_update_keymap(keymap_config.raw);
+    autocorrect_init_dict();
 }
 
-void autocorrect_init_bank(void) {
+/**
+ * @brief Configure variables according to the selected dictionary
+ *
+ */
+void autocorrect_init_dict(void) {
     typo_buffer_size = 0;
-    if (keymap_config.autocorrect_bank) {
-        bank_data       = autocorrect_data_alt;
-        bank_min_length = AUTOCORRECT_MIN_LENGTH_ALT;
-        bank_max_length = AUTOCORRECT_MAX_LENGTH_ALT;
-        bank_size       = DICTIONARY_SIZE_ALT;
-    } else {
-        bank_data       = autocorrect_data;
-        bank_min_length = AUTOCORRECT_MIN_LENGTH;
-        bank_max_length = AUTOCORRECT_MAX_LENGTH;
-        bank_size       = DICTIONARY_SIZE;
-    }
+
+    uint8_t  dict_index = keymap_config.autocorrect_curr_dict;
+    uint16_t offset     = pgm_read_word(&autocorrect_offsets[dict_index]);
+
+    current_dict_data       = &(autocorrect_data[offset]);
+    current_dict_min_length = pgm_read_word(&autocorrect_min_lengths[dict_index]);
+    current_dict_max_length = pgm_read_word(&autocorrect_max_lengths[dict_index]);
+    current_dict_size       = pgm_read_word(&autocorrect_sizes[dict_index]);
 }
-#endif
 
 /**
  * @brief handler for user to override whether autocorrect should process this keypress
@@ -245,17 +238,15 @@ bool process_autocorrect(uint16_t keycode, keyrecord_t *record) {
     mods |= get_oneshot_mods();
 #endif
 
-    if ((keycode >= QK_AUTOCORRECT_ON && keycode <= QK_AUTOCORRECT_TOGGLE) && record->event.pressed) {
+    if ((keycode >= QK_AUTOCORRECT_ON && keycode <= QK_AUTOCORRECT_DICT_CYCLE) && record->event.pressed) {
         if (keycode == QK_AUTOCORRECT_ON) {
             autocorrect_enable();
         } else if (keycode == QK_AUTOCORRECT_OFF) {
             autocorrect_disable();
         } else if (keycode == QK_AUTOCORRECT_TOGGLE) {
             autocorrect_toggle();
-#ifdef AUTOCORRECT_MULTI_BANK
-        } else if (keycode == QK_AUTOCORRECT_BANK_TOGGLE) {
-            autocorrect_bank_toggle();
-#endif
+        } else if (keycode == QK_AUTOCORRECT_DICT_CYCLE) {
+            autocorrect_dict_cycle(!(mods & MOD_MASK_SHIFT));
         } else {
             return true;
         }
@@ -312,72 +303,57 @@ bool process_autocorrect(uint16_t keycode, keyrecord_t *record) {
             return true;
     }
 
-        // Rotate oldest character if buffer is full.
-#ifdef AUTOCORRECT_MULTI_BANK
-    if (typo_buffer_size >= bank_max_length) {
-        memmove(typo_buffer, typo_buffer + 1, bank_max_length - 1);
-        typo_buffer_size = bank_max_length - 1;
+    // Rotate oldest character if buffer is full.
+    if (typo_buffer_size >= current_dict_max_length) {
+        memmove(typo_buffer, typo_buffer + 1, current_dict_max_length - 1);
+        typo_buffer_size = current_dict_max_length - 1;
     }
-#else
-    if (typo_buffer_size >= AUTOCORRECT_MAX_LENGTH) {
-        memmove(typo_buffer, typo_buffer + 1, AUTOCORRECT_MAX_LENGTH - 1);
-        typo_buffer_size = AUTOCORRECT_MAX_LENGTH - 1;
-    }
-#endif
 
     // Append `keycode` to buffer.
     typo_buffer[typo_buffer_size++] = keycode;
     // Return if buffer is smaller than the shortest word.
-#ifdef AUTOCORRECT_MULTI_BANK
-    if (typo_buffer_size < bank_min_length) {
-#else
-    if (typo_buffer_size < AUTOCORRECT_MIN_LENGTH) {
-#endif
+    if (typo_buffer_size < current_dict_min_length) {
         return true;
     }
 
-    // Check for typo in buffer using a trie stored in `AUTOCORRECT_DATA`.
+    // Check for typo in buffer using a trie stored in `current_dict_data`.
     uint16_t state = 0;
-    uint8_t  code  = pgm_read_byte(AUTOCORRECT_DATA + state);
+    uint8_t  code  = pgm_read_byte(current_dict_data + state);
     for (int8_t i = typo_buffer_size - 1; i >= 0; --i) {
         uint8_t const key_i = typo_buffer[i];
 
         if (code & 64) { // Check for match in node with multiple children.
             code &= 63;
-            for (; code != key_i; code = pgm_read_byte(AUTOCORRECT_DATA + (state += 3))) {
+            for (; code != key_i; code = pgm_read_byte(current_dict_data + (state += 3))) {
                 if (!code) return true;
             }
             // Follow link to child node.
-            state = (pgm_read_byte(AUTOCORRECT_DATA + state + 1) | pgm_read_byte(AUTOCORRECT_DATA + state + 2) << 8);
+            state = (pgm_read_byte(current_dict_data + state + 1) | pgm_read_byte(current_dict_data + state + 2) << 8);
             // Check for match in node with single child.
         } else if (code != key_i) {
             return true;
-        } else if (!(code = pgm_read_byte(AUTOCORRECT_DATA + (++state)))) {
+        } else if (!(code = pgm_read_byte(current_dict_data + (++state)))) {
             ++state;
         }
 
         // Stop if `state` becomes an invalid index. This should not normally
         // happen, it is a safeguard in case of a bug, data corruption, etc.
-#ifdef AUTOCORRECT_MULTI_BANK
-        if (state >= bank_size) {
-#else
-        if (state >= DICTIONARY_SIZE) {
-#endif
+        if (state >= current_dict_size) {
             return true;
         }
 
-        code = pgm_read_byte(AUTOCORRECT_DATA + state);
+        code = pgm_read_byte(current_dict_data + state);
 
         if (code & 128) { // A typo was found! Apply autocorrect.
             const uint8_t backspaces = (code & 63) + !record->event.pressed;
-            const char   *changes    = (const char *)(AUTOCORRECT_DATA + state + 1);
+            const char *  changes    = (const char *)(current_dict_data + state + 1);
 
             /* Gather info about the typo'd word
              *
              * Since buffer may contain several words, delimited by spaces, we
              * iterate from the end to find the start and length of the typo
              */
-            char typo[AML + 1] = {0}; // extra char for null terminator
+            char typo[TYPO_BUFFER_SIZE + 1] = {0}; // extra char for null terminator
 
             uint8_t typo_len   = 0;
             uint8_t typo_start = 0;
@@ -410,7 +386,7 @@ bool process_autocorrect(uint16_t keycode, keyrecord_t *record) {
              *
              * B) When correcting 'typo' -- Need extra offset for terminator
              */
-            char correct[AML + 10] = {0}; // let's hope this is big enough
+            char correct[TYPO_BUFFER_SIZE + 10] = {0}; // let's hope this is big enough
 
             uint8_t offset = space_last ? backspaces : backspaces + 1;
             strcpy(correct, typo);

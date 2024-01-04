@@ -29,6 +29,7 @@ For full documentation, see QMK Docs
 
 import sys
 import textwrap
+from pathlib import Path
 from typing import Any, Dict, Iterator, List, Tuple
 
 from milc import cli
@@ -249,46 +250,88 @@ def to_hex(b: int) -> str:
     return f'0x{b:02X}'
 
 
-@cli.argument('filename', type=normpath, help='The autocorrection database file')
+class AutocorrectDict:
+    """Class to generate autocorrect data from a file."""
+    def __init__(self, path: Path):
+        self.path = path
+        self.autocorrections = parse_file(self.path)
+
+        self.trie = make_trie(self.autocorrections)
+        self.data = serialize_trie(self.autocorrections, self.trie)
+        assert all(0 <= b <= 255 for b in self.data)
+
+        self.min_typo = min(self.autocorrections, key=typo_len)[0]
+        self.max_typo = max(self.autocorrections, key=typo_len)[0]
+
+
+@cli.argument('filenames', type=normpath, help='The autocorrection database file(s)', nargs='+')
 @cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='The keyboard to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.argument('-km', '--keymap', completer=keymap_completer, help='The keymap to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.argument('-o', '--output', arg_only=True, type=normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
-@cli.argument('-a', '--alternate', arg_only=True, action='store_true', help="Create an alternate dictionary file")
 @cli.subcommand('Generate the autocorrection data file from a dictionary file.')
 def generate_autocorrect_data(cli):
-    autocorrections = parse_file(cli.args.filename)
-    trie = make_trie(autocorrections)
-    data = serialize_trie(autocorrections, trie)
+    if len(cli.args.filenames) > 8:
+        cli.log.error("Current EEPROM settings can only index up to 8 dicts")
+        sys.exit(1)
+
+    autocorrect_dicts = [AutocorrectDict(path) for path in cli.args.filenames]
 
     current_keyboard = cli.args.keyboard or cli.config.user.keyboard or cli.config.generate_autocorrect_data.keyboard
     current_keymap = cli.args.keymap or cli.config.user.keymap or cli.config.generate_autocorrect_data.keymap
 
-    file_name = 'autocorrect_data_alt.h' if cli.args.alternate else 'autocorrect_data.h'
-    defines_suffix = '_ALT' if cli.args.alternate else ''
-    static_suffix = '_alt' if cli.args.alternate else ''
-
     if current_keyboard and current_keymap:
-        cli.args.output = locate_keymap(current_keyboard, current_keymap).parent / file_name
-
-    assert all(0 <= b <= 255 for b in data)
-
-    min_typo = min(autocorrections, key=typo_len)[0]
-    max_typo = max(autocorrections, key=typo_len)[0]
+        cli.args.output = locate_keymap(current_keyboard, current_keymap).parent / 'autocorrect_data.h'
 
     # Build the autocorrect_data.h file.
     autocorrect_data_h_lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '#pragma once', '']
 
-    autocorrect_data_h_lines.append(f'// Autocorrection dictionary ({len(autocorrections)} entries):')
-    for typo, correction in autocorrections:
-        autocorrect_data_h_lines.append(f'//   {typo:<{len(max_typo)}} -> {correction}')
+    n_entries = sum(len(dict_.autocorrections) for dict_ in autocorrect_dicts)
+    autocorrect_data_h_lines.append(f'// Autocorrection dictionary ({n_entries} entries):')
+
+    # collect all information, and write the corrections as comments
+    data = []
+    maxs = []
+    mins = []
+    sizes = []
+    for dict_ in autocorrect_dicts:
+        autocorrect_data_h_lines.append(f'// From {dict_.path}')
+        for typo, correction in dict_.autocorrections:
+            autocorrect_data_h_lines.append(f'//   {typo:<{len(dict_.max_typo)}} -> {correction}')
+        autocorrect_data_h_lines.append('// ' + '-' * 15)
+
+        data.extend(dict_.data)
+        maxs.append(len(dict_.max_typo))
+        mins.append(len(dict_.min_typo))
+        sizes.append(len(dict_.data))
+
+    assert(sum(sizes) == len(data))
+
+    offsets = [0]
+    for size in sizes[:-1]:
+        offsets.append(offsets[-1] + size)
+
+    def list_to_str(x: list) -> str:
+        """Helper to stringify the lists"""
+        return ', '.join(map(str, x))
+
+    offsets_str = list_to_str(offsets)
+    maxs_str = list_to_str(maxs)
+    mins_str = list_to_str(mins)
+    sizes_str = list_to_str(sizes)
 
     autocorrect_data_h_lines.append('')
-    autocorrect_data_h_lines.append(f'#define AUTOCORRECT_MIN_LENGTH{defines_suffix} {len(min_typo)} // "{min_typo}"')
-    autocorrect_data_h_lines.append(f'#define AUTOCORRECT_MAX_LENGTH{defines_suffix} {len(max_typo)} // "{max_typo}"')
-    autocorrect_data_h_lines.append(f'#define DICTIONARY_SIZE{defines_suffix} {len(data)}')
+    autocorrect_data_h_lines.append(f'#define N_DICTS {len(autocorrect_dicts)}')
     autocorrect_data_h_lines.append('')
-    autocorrect_data_h_lines.append(f'static const uint8_t autocorrect_data{static_suffix}[DICTIONARY_SIZE{defines_suffix}] PROGMEM = {{')
+    autocorrect_data_h_lines.append(f'static const uint16_t autocorrect_offsets[N_DICTS] PROGMEM     = {{{offsets_str}}};')
+    autocorrect_data_h_lines.append(f'static const uint16_t autocorrect_min_lengths[N_DICTS] PROGMEM = {{{mins_str}}};')
+    autocorrect_data_h_lines.append(f'static const uint16_t autocorrect_max_lengths[N_DICTS] PROGMEM = {{{maxs_str}}};')
+    autocorrect_data_h_lines.append(f'static const uint16_t autocorrect_sizes[N_DICTS] PROGMEM       = {{{sizes_str}}};')
+    autocorrect_data_h_lines.append('')
+    autocorrect_data_h_lines.append(f'#define DICTIONARY_SIZE {sum(sizes)}')
+    autocorrect_data_h_lines.append(f'#define TYPO_BUFFER_SIZE {max(maxs)}')
+    autocorrect_data_h_lines.append('')
+    autocorrect_data_h_lines.append('static const uint8_t autocorrect_data[DICTIONARY_SIZE] PROGMEM = {')
     autocorrect_data_h_lines.append(textwrap.fill('    %s' % (', '.join(map(to_hex, data))), width=100, subsequent_indent='    '))
     autocorrect_data_h_lines.append('};')
 

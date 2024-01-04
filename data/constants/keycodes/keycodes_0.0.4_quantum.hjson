@@ -2,9 +2,9 @@
     "keycodes": {
        "0x7C7B": {
             "group": "quantum",
-            "key": "QK_AUTOCORRECT_BANK_TOGGLE",
+            "key": "QK_AUTOCORRECT_DICT_CYCLE",
             "aliases": [
-                "AC_BANK"
+                "AC_DICT"
             ]
         }
     }

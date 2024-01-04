@@ -270,12 +270,12 @@ See also: [Auto Shift](feature_auto_shift.md)
 
 See also: [Autocorrect](feature_autocorrect.md)
 
-|Keycode                     |Aliases  |Description                                                                           |
-|----------------------------|---------|--------------------------------------------------------------------------------------|
-|`QK_AUTOCORRECT_ON`         |`AC_ON`  |Turns on the Autocorrect feature.                                                     |
-|`QK_AUTOCORRECT_OFF`        |`AC_OFF` |Turns off the Autocorrect feature.                                                    |
-|`QK_AUTOCORRECT_TOGGLE`     |`AC_TOGG`|Toggles the status of the Autocorrect feature.                                        |
-|`QK_AUTOCORRECT_BANK_TOGGLE`|`AC_BANK`|Toggles the dictionary in use by the Autocorrect feature (if an alternate is present).|
+|Keycode                     |Aliases  |Description                                                      |
+|----------------------------|---------|-----------------------------------------------------------------|
+|`QK_AUTOCORRECT_ON`         |`AC_ON`  |Turns on the Autocorrect feature.                                |
+|`QK_AUTOCORRECT_OFF`        |`AC_OFF` |Turns off the Autocorrect feature.                               |
+|`QK_AUTOCORRECT_TOGGLE`     |`AC_TOGG`|Toggles the status of the Autocorrect feature.                   |
+|`QK_AUTOCORRECT_DICT_CYCLE` |`AC_DICT`|Cycle through dictionaries, reverse direction when Shift is held.|
 
 
 ## Backlighting :id=backlighting
