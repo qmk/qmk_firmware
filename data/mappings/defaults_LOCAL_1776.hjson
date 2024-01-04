@@ -1,0 +1,84 @@
+{
+    "development_board": {
+        "bit_c_pro": {
+            "board": "QMK_PM2040",
+            "bootloader": "rp2040",
+            "processor": "RP2040"
+        },
+        "blackpill_f401": {
+            "board": "BLACKPILL_STM32_F401",
+            "bootloader": "stm32-dfu",
+            "processor": "STM32F401"
+        },
+        "blackpill_f411": {
+            "board": "BLACKPILL_STM32_F411",
+            "bootloader": "stm32-dfu",
+            "processor": "STM32F411"
+        },
+        "blok": {
+            "board": "QMK_BLOK",
+            "bootloader": "rp2040",
+            "processor": "RP2040"
+        },
+        "bluepill": {
+            "board": "STM32_F103_STM32DUINO",
+            "bootloader": "stm32duino",
+            "processor": "STM32F103"
+        },
+        "bonsai_c4": {
+            "board": "BONSAI_C4",
+            "bootloader": "stm32-dfu",
+            "processor": "STM32F411"
+        },
+        "elite_c": {
+            "bootloader": "atmel-dfu",
+            "pin_compatible": "promicro",
+            "processor": "atmega32u4"
+        },
+        "elite_pi": {
+            "board": "QMK_PM2040",
+            "bootloader": "rp2040",
+            "processor": "RP2040"
+        },
+        "helios": {
+            "board": "QMK_PM2040",
+            "bootloader": "rp2040",
+            "processor": "RP2040"
+        },
+        "kb2040": {
+            "board": "QMK_PM2040",
+            "bootloader": "rp2040",
+            "processor": "RP2040"
+        },
+        "liatris": {
+            "board": "QMK_PM2040",
+            "bootloader": "rp2040",
+            "processor": "RP2040"
+        },
+        "michi": {
+            "board": "QMK_PM2040",
+            "bootloader": "rp2040",
+            "processor": "RP2040"
+        },
+        "promicro": {
+            "bootloader": "caterina",
+            "pin_compatible": "promicro",
+            "processor": "atmega32u4"
+        },
+        "promicro_rp2040": {
+            "board": "QMK_PM2040",
+            "bootloader": "rp2040",
+            "processor": "RP2040"
+        },
+        "proton_c": {
+            "board": "QMK_PROTON_C",
+            "bootloader": "stm32-dfu",
+            "processor": "STM32F303"
+        },
+        "stemcell": {
+            "board": "STEMCELL",
+            "bootloader": "tinyuf2",
+            "processor": "STM32F411"
+        }
+    }
+}

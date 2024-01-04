@@ -174,3 +174,55 @@ You could even support three encoders using only three pins (one per encoder) ho
 #define ENCODERS_PAD_B { B2, B3, B3 }
 ```
 Here rotating Encoder 0 `B1 B2` and Encoder 1 `B1 B3` could be interpreted as rotating Encoder 2 `B2 B3` or `B3 B2` depending on the timing. This may still be a useful configuration depending on your use case
+
+## Custom encoders
+
+Not everyone has encoders wired directly to the MCU. If yours are wired to external hardware (such as an I/O multiplexer), you can supplement the default encoder logic with your own.
+
+Add a new file to your keyboard directory:
+```
+keyboards/<keyboard>/encoder.c
+```
+
+And to configure compilation for the new file, add this to your `rules.mk`:
+```make
+CUSTOM_ENCODER = yes
+SRC += encoder.c
+```
+
+Implement the following functions in the `encoder.c` file in your keyboard folder:
+
+```c
+void encoder_init_pads(uint8_t count, bool pads[]) {
+    // TODO: initialize hardware here
+    // EXAMPLE:
+    //   expanderSetInputHigh(ENCODER_PAD_1A);
+    //   expanderSetInputHigh(ENCODER_PAD_1B);
+    //   expanderSetInputHigh(ENCODER_PAD_2A);
+    //   expanderSetInputHigh(ENCODER_PAD_2B);
+    //   // make sure we start with a known value
+    //   encoder_read_pads(pads);
+}
+
+void encoder_read_pads(uint8_t count, bool pads[]) {
+    // TODO: add encoder reading routine here
+    // EXAMPLE:
+    //   pads[0] = expanderReadPin(ENCODER_PAD_1A);
+    //   pads[1] = expanderReadPin(ENCODER_PAD_1B);
+    //   pads[2] = expanderReadPin(ENCODER_PAD_2A);
+    //   pads[3] = expanderReadPin(ENCODER_PAD_2B);
+}
+```
+
+Finally, let QMK know how many encoders you want to use by adding this to your `config.h`:
+
+```c
+#define NUM_ENCODERS 2 // or any other number
+```
+
+Or for a split keyboard:
+
+```c
+#define NUM_ENCODERS_LEFT 2
+#define NUM_ENCODERS_RIGHT 2
+```

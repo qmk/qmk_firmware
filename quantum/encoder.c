@@ -37,14 +37,15 @@
 #    define ENCODER_RESOLUTION 4
 #endif
 
-#if !defined(ENCODERS_PAD_A) || !defined(ENCODERS_PAD_B)
-#    error "No encoder pads defined by ENCODERS_PAD_A and ENCODERS_PAD_B"
-#endif
-
-extern volatile bool isLeftHand;
-
+#ifndef CUSTOM_ENCODER
+#    if !defined(ENCODERS_PAD_A) || !defined(ENCODERS_PAD_B)
+#        error "No encoder pads defined by ENCODERS_PAD_A and ENCODERS_PAD_B"
+#    endif
 static pin_t encoders_pad_a[NUM_ENCODERS_MAX_PER_SIDE] = ENCODERS_PAD_A;
 static pin_t encoders_pad_b[NUM_ENCODERS_MAX_PER_SIDE] = ENCODERS_PAD_B;
+#endif // CUSTOM_ENCODER
+
+extern volatile bool isLeftHand;
 
 #ifdef ENCODER_RESOLUTIONS
 static uint8_t encoder_resolutions[NUM_ENCODERS] = ENCODER_RESOLUTIONS;
@@ -111,6 +112,39 @@ __attribute__((weak)) bool should_process_encoder(void) {
     return is_keyboard_master();
 }
 
+void encoder_init_pads(uint8_t count, bool pads[]);
+void encoder_read_pads(uint8_t count, bool pads[]);
+
+#ifndef CUSTOM_ENCODER
+void encoder_init_pads(uint8_t count, bool pads[]) {
+#    if defined(SPLIT_KEYBOARD) && defined(ENCODERS_PAD_A_RIGHT) && defined(ENCODERS_PAD_B_RIGHT)
+    if (!isLeftHand) {
+        const pin_t encoders_pad_a_right[] = ENCODERS_PAD_A_RIGHT;
+        const pin_t encoders_pad_b_right[] = ENCODERS_PAD_B_RIGHT;
+        for (uint8_t i = 0; i < count; i++) {
+            encoders_pad_a[i] = encoders_pad_a_right[i];
+            encoders_pad_b[i] = encoders_pad_b_right[i];
+        }
+    }
+#    endif // defined(SPLIT_KEYBOARD) && defined(ENCODERS_PAD_A_RIGHT) && defined(ENCODERS_PAD_B_RIGHT)
+
+    for (int i = 0; i < count; i++) {
+        setPinInputHigh(encoders_pad_a[i]);
+        setPinInputHigh(encoders_pad_b[i]);
+    }
+    encoder_wait_pullup_charge();
+
+    encoder_read_pads(count, pads);
+}
+
+void encoder_read_pads(uint8_t count, bool pads[]) {
+    for (int i = 0; i < count; i++) {
+        pads[2 * i + 0] = readPin(encoders_pad_a[i]);
+        pads[2 * i + 1] = readPin(encoders_pad_b[i]);
+    }
+}
+#endif // CUSTOM_ENCODER
+
 void encoder_init(void) {
 #ifdef SPLIT_KEYBOARD
     thisHand  = isLeftHand ? 0 : NUM_ENCODERS_LEFT;
@@ -137,18 +171,6 @@ void encoder_init(void) {
     }
 #endif
 
-#if defined(SPLIT_KEYBOARD) && defined(ENCODERS_PAD_A_RIGHT) && defined(ENCODERS_PAD_B_RIGHT)
-    // Re-initialise the pads if it's the right-hand side
-    if (!isLeftHand) {
-        static const pin_t encoders_pad_a_right[] = ENCODERS_PAD_A_RIGHT;
-        static const pin_t encoders_pad_b_right[] = ENCODERS_PAD_B_RIGHT;
-        for (uint8_t i = 0; i < thisCount; i++) {
-            encoders_pad_a[i] = encoders_pad_a_right[i];
-            encoders_pad_b[i] = encoders_pad_b_right[i];
-        }
-    }
-#endif // defined(SPLIT_KEYBOARD) && defined(ENCODERS_PAD_A_RIGHT) && defined(ENCODERS_PAD_B_RIGHT)
-
     // Encoder resolutions is handled purely master-side, so concatenate the two arrays
 #if defined(SPLIT_KEYBOARD) && defined(ENCODER_RESOLUTIONS)
 #    if defined(ENCODER_RESOLUTIONS_RIGHT)
@@ -161,13 +183,10 @@ void encoder_init(void) {
     }
 #endif // defined(SPLIT_KEYBOARD) && defined(ENCODER_RESOLUTIONS)
 
-    for (uint8_t i = 0; i < thisCount; i++) {
-        setPinInputHigh(encoders_pad_a[i]);
-        setPinInputHigh(encoders_pad_b[i]);
-    }
-    encoder_wait_pullup_charge();
-    for (uint8_t i = 0; i < thisCount; i++) {
-        encoder_state[i] = (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
+    bool pads[NUM_ENCODERS_MAX_PER_SIDE * 2];
+    encoder_init_pads(thisCount, pads);
+    for (int i = 0; i < thisCount; i++) {
+        encoder_state[i] = (pads[2 * i + 0] << 0) | (pads[2 * i + 1] << 1);
     }
 }
 
@@ -246,8 +265,10 @@ static bool encoder_update(uint8_t index, uint8_t state) {
 
 bool encoder_read(void) {
     bool changed = false;
+    bool pads[NUM_ENCODERS_MAX_PER_SIDE * 2];
+    encoder_read_pads(thisCount, pads);
     for (uint8_t i = 0; i < thisCount; i++) {
-        uint8_t new_status = (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
+        uint8_t new_status = (pads[2 * i + 0] << 0) | (pads[2 * i + 1] << 1);
         if ((encoder_state[i] & 0x3) != new_status) {
             encoder_state[i] <<= 2;
             encoder_state[i] |= new_status;
