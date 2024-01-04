@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "j01.h"
+#include "quantum.h"
 
 // Optional override functions below.
 // You can leave any or all of these undefined.
@@ -27,20 +27,6 @@ void matrix_init_kb(void) {
 
     matrix_init_user();
     setPinOutput(E6);
-}
-
-void matrix_scan_kb(void) {
-    // put your looping keyboard code here
-    // runs every cycle (a lot)
-
-    matrix_scan_user();
-}
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    // put your per-action keyboard code here
-    // runs for every action, just before processing by the firmware
-
-    return process_record_user(keycode, record);
 }
 
 bool led_update_kb(led_t led_state) {

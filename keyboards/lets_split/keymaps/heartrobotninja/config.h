@@ -23,10 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "../../config.h"
 
-/* Use I2C or Serial, not both */
-
-#define USE_SERIAL
-
 /* Select hand configuration */
 
 // #define MASTER_LEFT
@@ -44,15 +40,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #undef TAPPING_TOGGLE
 #define TAPPING_TOGGLE 2
-
-#ifdef SUBPROJECT_rev1
-#include "../../rev1/config.h"
-#endif
-#ifdef SUBPROJECT_rev2
-#include "../../rev2/config.h"
-#endif
-#ifdef SUBPROJECT_rev2fliphalf
-#include "../../rev2fliphalf/config.h"
-#endif
 
 #endif

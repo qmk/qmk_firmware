@@ -41,19 +41,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MINS,  KC_1,    KC_2,   KC_3,      KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,  _______,
         KC_EQL, _______, _______, _______,   _______, _______, _______, KC_LBRC, KC_RBRC, KC_SCLN, KC_QUOT,          _______,
         _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-        KC_LGUI, KC_LALT,                             _______,                   _______, _______, _______,          _______         
-    ), 
+        KC_LGUI, KC_LALT,                             _______,                   _______, _______, _______,          _______
+    ),
 
     [_LAYER2] = LAYOUT_default(
         KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,
         _______, _______, _______, _______, _______, _______, RGB_M_B, RGB_M_P, RGB_M_K, RGB_M_G, RGB_M_R,          RGB_HUI,
-        _______, _______, _______, _______, _______, RESET,   _______, _______, _______, _______, _______,          RGB_HUD,
-        _______, RGB_TOG,                            XXXXXXX,                   RESET, _______,  _______,          _______
+        _______, _______, _______, _______, _______, QK_BOOT,   _______, _______, _______, _______, _______,          RGB_HUD,
+        _______, RGB_TOG,                            XXXXXXX,                   QK_BOOT, _______,  _______,          _______
    ),
 };
 
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (clockwise) {
             tap_code(KC_VOLU);
@@ -61,15 +61,15 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_VOLD);
         }
     }
+    return true;
 }
 
 #ifdef COMBO_ENABLE
 const uint16_t PROGMEM combo_slsh[] = {MT(MOD_RSFT, KC_DOT), KC_COMM, COMBO_END};
 
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
   [COMBO_SLSH] = COMBO(combo_slsh,KC_SLSH),
 
 };
 #endif
-        

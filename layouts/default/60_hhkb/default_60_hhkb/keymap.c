@@ -1,17 +1,20 @@
+// Copyright 2023 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
      * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
-     * │Esc│ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ - │ = │ \ │ ` │
+     * │Esc│ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ - │ = │ \ │ ` │
      * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┤
-     * │ Tab │ Q │ W │ E │ R │ T │ Y │ U │ I │ O │ P │ [ │ ] │ Bspc│
+     * │ Tab │ Q │ W │ E │ R │ T │ Y │ U │ I │ O │ P │ [ │ ] │ Bspc│
      * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
-     * │ Ctrl │ A │ S │ D │ F │ G │ H │ J │ K │ L │ ; │ ' │  Enter │
+     * │ Ctrl │ A │ S │ D │ F │ G │ H │ J │ K │ L │ ; │ ' │  Enter │
      * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┤
-     * │ Shift  │ Z │ X │ C │ V │ B │ N │ M │ , │ . │ / │ Shift│MO1│
+     * │ Shift  │ Z │ X │ C │ V │ B │ N │ M │ , │ . │ / │ Shift│MO1│
      * └─────┬──┴┬──┴──┬┴───┴───┴───┴───┴───┴───┴──┬┴───┴┬───┬─┴───┘
-     *       │Alt│ GUI │                           │ GUI │Alt│
+     *       │Alt│ GUI │                           │ GUI │Alt│
      *       └───┴─────┴───────────────────────────┴─────┴───┘
      */
     [0] = LAYOUT_60_hhkb(
@@ -24,20 +27,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /*
      * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
-     * │Pwr│F1 │F2 │F3 │F4 │F5 │F6 │F7 │F8 │F9 │F10│F11│F12│Ins│Del│
+     * │Pwr│F1 │F2 │F3 │F4 │F5 │F6 │F7 │F8 │F9 │F10│F11│F12│Ins│Del│
      * ├───┴─┬─┴───┴───┴───┴───┴───┴───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴───┘
-     * │Caps │ Q │ W │ E │ R │ T │ Y │ U │PSc│Scr│Pse│ ↑ │ ] │ Bspc│
+     * │Caps │ Q │ W │ E │ R │ T │ Y │ U │PSc│Scr│Pse│ ↑ │ ] │ Bspc│
      * └─────┘┌───┬───┬───┐──┴┬──┴┌───┬──┴┬──┴┬──┴┬──┴┬──┴┬────────┐
-     * │ Ctrl │Vl-│Vl+│Mut│ F │ G │ * │ / │Hom│PgU│ ← │ → │  Enter │
+     * │ Ctrl │Vl-│Vl+│Mut│ F │ G │ * │ / │Hom│PgU│ ← │ → │  Enter │
      * ├──────└───┴───┴───┘─┬─┴─┬─└─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────────┘
-     * │ Shift  │ Z │ X │ C │ V │ B │ + │ - │End│PgD│ ↓ │ Shift│MO1│
+     * │ Shift  │ Z │ X │ C │ V │ B │ + │ - │End│PgD│ ↓ │ Shift│MO1│
      * └─────┬──┴┬──┴──┬┴───┴───┴───└───┴───┴───┴───┴───┘┬───┬─┴───┘
-     *       │Alt│ GUI │                           │ GUI │Alt│
+     *       │Alt│ GUI │                           │ GUI │Alt│
      *       └───┴─────┴───────────────────────────┴─────┴───┘
      */
     [1] = LAYOUT_60_hhkb(
         KC_PWR,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_INS,  KC_DEL,
-        KC_CAPS, _______, _______, _______, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, KC_UP,   _______, _______,
+        KC_CAPS, _______, _______, _______, _______, _______, _______, _______, KC_PSCR, KC_SCRL, KC_PAUS, KC_UP,   _______, _______,
         _______, KC_VOLD, KC_VOLU, KC_MUTE, _______, _______, KC_PAST, KC_PSLS, KC_HOME, KC_PGUP, KC_LEFT, KC_RGHT,          KC_PENT,
         _______,          _______, _______, _______, _______, _______, KC_PPLS, KC_PMNS, KC_END,  KC_PGDN, KC_DOWN, _______, _______,
                           _______, _______,                   _______,                            _______, _______

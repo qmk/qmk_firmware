@@ -19,7 +19,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [0] = LAYOUT_ortho_6x4(
   KC_MUTE, KC_F13 , KC_F14 , KC_F15 ,
-  KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
+  KC_NUM , KC_PSLS, KC_PAST, KC_PMNS,
   KC_P7  , KC_P8  , KC_P9  , KC_PPLS,
   KC_P4  , KC_P5  , KC_P6  , KC_PPLS,
   KC_P1  , KC_P2  , KC_P3  , KC_PENT,
@@ -42,10 +42,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (clockwise) {
         tap_code(KC_VOLU);
     } else {
         tap_code(KC_VOLD);
     }
+    return true;
 }

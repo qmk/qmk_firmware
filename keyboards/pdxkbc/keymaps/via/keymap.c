@@ -16,8 +16,8 @@
 #include QMK_KEYBOARD_H
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
-      MACRO00, MACRO01,
-      MACRO02, MACRO03,
+      MC_0,     MC_1,
+      MC_2,     MC_3,
       KC_VOLU,  KC_VOLD
     ),
 

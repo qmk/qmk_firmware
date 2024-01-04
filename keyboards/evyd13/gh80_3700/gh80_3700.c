@@ -13,15 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "gh80_3700.h"
-
-void matrix_init_kb(void) {
-  // put your keyboard start-up code here
-  // runs once when the firmware starts up
-
-  matrix_init_user();
-  led_init_ports();
-}
+#include "quantum.h"
 
 void led_init_ports(void) {
   setPinOutput(E6);

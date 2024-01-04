@@ -1,5 +1,5 @@
+#include "ergodox_stm32.h"
 #include "i2c_master.h"
-#include QMK_KEYBOARD_H
 
 extern inline void ergodox_board_led_1_on(void);
 extern inline void ergodox_board_led_2_on(void);
@@ -14,6 +14,11 @@ uint8_t i2c_initializied = 0;
 
 void board_init(void) {
     AFIO->MAPR |= AFIO_MAPR_SWJ_CFG_JTAGDISABLE;
+}
+
+void bootloader_jump(void) {
+    // This board doesn't use the "standard" stm32duino bootloader, and is resident in memory at the base location. All we can do here is reset.
+    NVIC_SystemReset();
 }
 
 void matrix_init_kb(void)

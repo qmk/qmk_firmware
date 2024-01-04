@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_LGUI,     KC_LALT,                             KC_SPC,                                 XXXXXXX,     MO(1),        KC_LEFT, KC_DOWN, KC_RGHT
     ),
     [1] = LAYOUT(
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET,   _______, _______, _______, KC_PSCR, _______,          _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT,   _______, _______, _______, KC_PSCR, _______,          _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_HOME,
         _______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,      KC_END,
         KC_CAPS,       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MPLY,
@@ -37,15 +37,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef ENCODER_ENABLE
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index != 0)
-        return;
+        return false;
 
     tap_code(clockwise ? KC_VOLU : KC_VOLD);
+    return true;
 }
 #endif
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 static void render_amigopunk_logo(void) {
     static const char PROGMEM amigopunk_logo[] = {
@@ -84,8 +85,9 @@ static void render_amigopunk_logo(void) {
     };
     oled_write_raw_P(amigopunk_logo, sizeof(amigopunk_logo));
 }
-void oled_task_user(void) {
+bool oled_task_user(void) {
     render_amigopunk_logo();
     /* oled_write_P(PSTR("Amigo Punk\n"), false); */
+    return false;
 }
 #endif

@@ -1,39 +1,33 @@
-/* Copyright 2020
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2024 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+/*******************************************************************************
+  88888888888 888      d8b                .d888 d8b 888               d8b
+      888     888      Y8P               d88P"  Y8P 888               Y8P
+      888     888                        888        888
+      888     88888b.  888 .d8888b       888888 888 888  .d88b.       888 .d8888b
+      888     888 "88b 888 88K           888    888 888 d8P  Y8b      888 88K
+      888     888  888 888 "Y8888b.      888    888 888 88888888      888 "Y8888b.
+      888     888  888 888      X88      888    888 888 Y8b.          888      X88
+      888     888  888 888  88888P'      888    888 888  "Y8888       888  88888P'
+                                                        888                 888
+                                                        888                 888
+                                                        888                 888
+     .d88b.   .d88b.  88888b.   .d88b.  888d888 8888b.  888888 .d88b.   .d88888
+    d88P"88b d8P  Y8b 888 "88b d8P  Y8b 888P"      "88b 888   d8P  Y8b d88" 888
+    888  888 88888888 888  888 88888888 888    .d888888 888   88888888 888  888
+    Y88b 888 Y8b.     888  888 Y8b.     888    888  888 Y88b. Y8b.     Y88b 888
+     "Y88888  "Y8888  888  888  "Y8888  888    "Y888888  "Y888 "Y8888   "Y88888
+         888
+    Y8b d88P
+     "Y88P"
+*******************************************************************************/
 
 #pragma once
-
-#include "keymap.h"
-
+#include "keycodes.h"
 // clang-format off
 
-/*
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ ` │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ - │ = │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │ ; │ ς │ Ε │ Ρ │ Τ │ Υ │ Θ │ Ι │ Ο │ Π │ [ │ ] │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │ Α │ Σ │ Δ │ Φ │ Γ │ Η │ Ξ │ Κ │ Λ │ ΄ │ ' │ \ │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │   │ Ζ │ Χ │ Ψ │ Ω │ Β │ Ν │ Μ │ , │ . │ / │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
+// Aliases
 #define GR_GRV  KC_GRV  // `
 #define GR_1    KC_1    // 1
 #define GR_2    KC_2    // 2
@@ -47,7 +41,6 @@
 #define GR_0    KC_0    // 0
 #define GR_MINS KC_MINS // -
 #define GR_EQL  KC_EQL  // =
-// Row 2
 #define GR_SCLN KC_Q    // ;
 #define GR_FSIG KC_W    // ς
 #define GR_EPSL KC_E    // Ε
@@ -60,7 +53,6 @@
 #define GR_PI   KC_P    // Π
 #define GR_LBRC KC_LBRC // [
 #define GR_RBRC KC_RBRC // ]
-// Row 3
 #define GR_ALPH KC_A    // Α
 #define GR_SIGM KC_S    // Σ
 #define GR_DELT KC_D    // Δ
@@ -73,7 +65,6 @@
 #define GR_TONS KC_SCLN // ΄ (dead)
 #define GR_QUOT KC_QUOT // '
 #define GR_BSLS KC_NUHS // (backslash)
-// Row 4
 #define GR_ZETA KC_Z    // Ζ
 #define GR_CHI  KC_X    // Χ
 #define GR_PSI  KC_C    // Ψ
@@ -84,21 +75,6 @@
 #define GR_COMM KC_COMM // ,
 #define GR_DOT  KC_DOT  // .
 #define GR_SLSH KC_SLSH // /
-
-/* Shifted symbols
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ ~ │ ! │ @ │ # │ $ │ % │ ^ │ & │ * │ ( │ ) │ _ │ + │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │ : │ ΅ │   │   │   │   │   │   │   │   │ { │ } │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │   │   │   │   │   │   │   │   │   │ ¨ │ " │ | │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │   │   │   │   │   │   │   │   │ < │ > │ ? │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
 #define GR_TILD S(GR_GRV)  // ~
 #define GR_EXLM S(GR_1)    // !
 #define GR_AT   S(GR_2)    // @
@@ -112,34 +88,16 @@
 #define GR_RPRN S(GR_0)    // )
 #define GR_UNDS S(GR_MINS) // _
 #define GR_PLUS S(GR_EQL)  // +
-// Row 2
 #define GR_COLN S(GR_SCLN) // :
 #define GR_DIAT S(GR_FSIG) // ΅ (dead)
 #define GR_LCBR S(GR_LBRC) // {
 #define GR_RCBR S(GR_RBRC) // }
-// Row 3
 #define GR_DIAE S(GR_TONS) // ¨ (dead)
 #define GR_DQUO S(GR_QUOT) // "
 #define GR_PIPE S(GR_BSLS) // |
-// Row 4
 #define GR_LABK S(GR_COMM) // <
 #define GR_RABK S(GR_DOT)  // >
 #define GR_QUES S(GR_SLSH) // ?
-
-/* AltGr symbols
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │   │   │ ² │ ³ │ £ │ § │ ¶ │   │ ¤ │ ¦ │ ° │ ± │ ½ │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │   │   │ € │ ® │   │ ¥ │   │   │   │   │ « │ » │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │   │   │   │   │   │   │   │   │   │   │   │ ¬ │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │   │   │   │ © │   │   │   │   │   │   │   │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
 #define GR_SUP2 ALGR(GR_2)    // ²
 #define GR_SUP3 ALGR(GR_3)    // ³
 #define GR_PND  ALGR(GR_4)    // £
@@ -150,13 +108,11 @@
 #define GR_DEG  ALGR(GR_0)    // °
 #define GR_PLMN ALGR(GR_MINS) // ±
 #define GR_HALF ALGR(GR_EQL)  // ½
-// Row 2
 #define GR_EURO ALGR(GR_EPSL) // €
 #define GR_REGD ALGR(GR_RHO)  // ®
 #define GR_YEN  ALGR(GR_UPSL) // ¥
 #define GR_LDAQ ALGR(GR_LBRC) // «
 #define GR_RDAQ ALGR(GR_RBRC) // »
-// Row 3
 #define GR_NOT  ALGR(GR_BSLS) // ¬
-// Row 4
 #define GR_COPY ALGR(GR_PSI)  // ©
+

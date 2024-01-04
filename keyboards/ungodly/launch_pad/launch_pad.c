@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "launch_pad.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
@@ -42,20 +42,3 @@ led_config_t g_led_config = { {
     2, 2
 } };
 #endif
-
-void eeconfig_init_kb(void) {
-#ifdef RGBLIGHT_ENABLE
-    rgblight_enable();             // Enable RGB by default
-    rgblight_sethsv(0, 255, 255);  // Set default HSV - red hue, full saturation, full brightness
-#    ifdef RGBLIGHT_ANIMATIONS
-    rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL + 2);  // set to RGB_RAINBOW_SWIRL by default
-#    endif
-#endif
-
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_enable();  // Enable RGB by default
-#endif
-
-    eeconfig_update_kb(0);
-    eeconfig_init_user();
-}

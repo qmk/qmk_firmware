@@ -3,9 +3,8 @@
   "recommendations": [
     "EditorConfig.EditorConfig",
     "xaver.clang-format",
-    "ms-vscode.cpptools",
+    "llvm-vs-code-extensions.vscode-clangd",
     "bierner.github-markdown-preview",
-    "donjayamanne.git-extension-pack",
-    "CoenraadS.bracket-pair-colorizer-2"
+    "donjayamanne.git-extension-pack"
   ]
 }

@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "./unicode_macros.h"
 #include "./unicode_weurope.h"
+#include "./unicode_hebrew.h"
 
 // Definition of ƒ (Dutch currency symbol).
 // Best changed in user_config.h, if you like a Euro symbol instead.
@@ -89,7 +90,7 @@ void unicode_hex2output (long unsigned int unshifted, long unsigned int shifted)
             bitmove *= 0x10; // next digit
         }
     
-        SEND_STRING ( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "f" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) ); // lead-in for Unicode on Linux, 'descramble' mode
+        SEND_STRING ( SS_DOWN(X_LCTL) SS_DOWN(X_LSFT) "f" SS_UP(X_LSFT) SS_UP(X_LCTL) ); // lead-in for Unicode on Linux, 'descramble' mode
         send_string (output + index); // pointer to argument with formatted string
         SEND_STRING ( " " ); // Ends the Unicode numerical input mode
     }
@@ -106,7 +107,7 @@ void unicode_hex2output_single (long unsigned int either) {
 
 
 // Required by QMK Unicode
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
 
 };
 
@@ -174,109 +175,150 @@ enum custom_keycodes {
 
 // The _ACC layer, additional Unicode.
 # ifndef REMOVE_ACC // This cuts out the whole _ACC layer.
-    XP_ACC_AA ,
-    XP_ACC_AB ,
-    XP_ACC_AC ,
-    XP_ACC_AD ,
-    XP_ACC_AE ,
-    XP_ACC_AF ,
-    XP_ACC_AG ,
-    XP_ACC_AH ,
-    XP_ACC_AI ,
-    XP_ACC_AJ ,
-    XP_ACC_BA ,
-    XP_ACC_BB ,
-    XP_ACC_BC ,
-    XP_ACC_BD ,
-    XP_ACC_BE ,
-    XP_ACC_BF ,
-    XP_ACC_BG ,
-    XP_ACC_BH ,
-    XP_ACC_BI ,
-    XP_ACC_BJ ,
-    XP_ACC_BK ,
-    XP_ACC_CA ,
-    XP_ACC_CB ,
-    XP_ACC_CC ,
-    XP_ACC_CD ,
-    XP_ACC_CE ,
-    XP_ACC_CF ,
-    XP_ACC_CG ,
-    XP_ACC_CH ,
-    XP_ACC_CI ,
-    XP_ACC_CJ ,
+    XP_ACC_AA,
+    XP_ACC_AB,
+    XP_ACC_AC,
+    XP_ACC_AD,
+    XP_ACC_AE,
+    XP_ACC_AF,
+    XP_ACC_AG,
+    XP_ACC_AH,
+    XP_ACC_AI,
+    XP_ACC_AJ,
+    XP_ACC_BA,
+    XP_ACC_BB,
+    XP_ACC_BC,
+    XP_ACC_BD,
+    XP_ACC_BE,
+    XP_ACC_BF,
+    XP_ACC_BG,
+    XP_ACC_BH,
+    XP_ACC_BI,
+    XP_ACC_BJ,
+    XP_ACC_BK,
+    XP_ACC_CA,
+    XP_ACC_CB,
+    XP_ACC_CC,
+    XP_ACC_CD,
+    XP_ACC_CE,
+    XP_ACC_CF,
+    XP_ACC_CG,
+    XP_ACC_CH,
+    XP_ACC_CI,
+    XP_ACC_CJ,
 # endif // REMOVE_ACC 
 
 # ifndef REMOVE_DRA // This cuts out the whole _DRA layer
 // The _DRA layer, additional Unicode.
-    XP_DRA_AA ,
-    XP_DRA_AB ,
-    XP_DRA_AC ,
-    XP_DRA_AD ,
-    XP_DRA_AE ,
-    XP_DRA_AF ,
-    XP_DRA_AG ,
-    XP_DRA_AH ,
-    XP_DRA_AI ,
-    XP_DRA_AJ ,
-    XP_DRA_BA ,
-    XP_DRA_BB ,
-    XP_DRA_BC ,
-    XP_DRA_BD ,
-    XP_DRA_BE ,
-    XP_DRA_BF ,
-    XP_DRA_BG ,
-    XP_DRA_BH ,
-    XP_DRA_BI ,
-    XP_DRA_BJ ,// XP_DRA_BK , // no 'BK' key definition on this layer
-    XP_DRA_CA ,
-    XP_DRA_CB ,
-    XP_DRA_CC ,
-    XP_DRA_CD ,
-    XP_DRA_CE ,
-    XP_DRA_CF ,
+    XP_DRA_AA,
+    XP_DRA_AB,
+    XP_DRA_AC,
+    XP_DRA_AD,
+    XP_DRA_AE,
+    XP_DRA_AF,
+    XP_DRA_AG,
+    XP_DRA_AH,
+    XP_DRA_AI,
+    XP_DRA_AJ,
+    XP_DRA_BA,
+    XP_DRA_BB,
+    XP_DRA_BC,
+    XP_DRA_BD,
+    XP_DRA_BE,
+    XP_DRA_BF,
+    XP_DRA_BG,
+    XP_DRA_BH,
+    XP_DRA_BI,
+    XP_DRA_BJ,// XP_DRA_BK , // no 'BK' key definition on this layer
+    XP_DRA_CA,
+    XP_DRA_CB,
+    XP_DRA_CC,
+    XP_DRA_CD,
+    XP_DRA_CE,
+    XP_DRA_CF,
 # endif // REMOVE_DRA
-    XP_DRA_CG , // Needed for ☑ on Unicode tester key in _RAR
+    XP_DRA_CG, // Needed for ☑ on Unicode tester key in _RAR
 # ifndef REMOVE_DRA // This cuts out the whole _DRA layer
-    XP_DRA_CH ,
-    XP_DRA_CI ,
-    XP_DRA_CJ ,
+    XP_DRA_CH,
+    XP_DRA_CI,
+    XP_DRA_CJ,
 # endif // REMOVE_DRA
 
 // The _BON layer, additional Unicode.
 # ifndef REMOVE_BON // Removes this layer entirely, if set.
-    XP_BON_AA ,
-    XP_BON_AB ,
-    XP_BON_AC ,
-    XP_BON_AD ,
-    XP_BON_AE ,
-    XP_BON_AF ,
-    XP_BON_AG ,
-    XP_BON_AH ,
-    XP_BON_AI ,
-    XP_BON_AJ ,
-    XP_BON_BA ,
-    XP_BON_BB ,
-    XP_BON_BC ,
-    XP_BON_BD ,
-    XP_BON_BE ,
-    XP_BON_BF ,
-    XP_BON_BG ,
-    XP_BON_BH ,
-    XP_BON_BI ,
-    XP_BON_BJ ,
-    XP_BON_BK ,
-    XP_BON_CA ,
-    XP_BON_CB ,
-    XP_BON_CC ,
-    XP_BON_CD ,
-    XP_BON_CE ,
-    XP_BON_CF ,
-    XP_BON_CG ,
-    XP_BON_CH ,
-    XP_BON_CI ,
-    XP_BON_CJ ,
+    XP_BON_AA,
+    XP_BON_AB,
+    XP_BON_AC,
+    XP_BON_AD,
+    XP_BON_AE,
+    XP_BON_AF,
+    XP_BON_AG,
+    XP_BON_AH,
+    XP_BON_AI,
+    XP_BON_AJ,
+    XP_BON_BA,
+    XP_BON_BB,
+    XP_BON_BC,
+    XP_BON_BD,
+    XP_BON_BE,
+    XP_BON_BF,
+    XP_BON_BG,
+    XP_BON_BH,
+    XP_BON_BI,
+    XP_BON_BJ,
+    XP_BON_BK,
+    XP_BON_CA,
+    XP_BON_CB,
+    XP_BON_CC,
+    XP_BON_CD,
+    XP_BON_CE,
+    XP_BON_CF,
+    XP_BON_CG,
+    XP_BON_CH,
+    XP_BON_CI,
+    XP_BON_CJ,
 # endif // REMOVE_BON 
+
+// Hebrew
+# if defined(BASE_HEBREW__DEF_BASE) || defined(BASE_HEBREW__ALT_BASE)
+    XP_HEB_AA,
+    XP_HEB_AB,
+    XP_HEB_AC,
+    XP_HEB_AD,
+    XP_HEB_AE,
+    XP_HEB_AF,
+    XP_HEB_AG,
+    XP_HEB_AH,
+    XP_HEB_AI,
+    XP_HEB_AJ,
+    XP_HEB_BA,
+    XP_HEB_BB,
+    XP_HEB_BC,
+    XP_HEB_BD,
+    XP_HEB_BE,
+    XP_HEB_BF,
+    XP_HEB_BG,
+    XP_HEB_BH,
+    XP_HEB_BI,
+    XP_HEB_BJ,
+#     if defined(HEBREW_ISRAEL)
+    XP_HEB_BK,  // 
+#     endif
+    XP_HEB_CA,
+    XP_HEB_CB,
+    XP_HEB_CC,
+    XP_HEB_CD,
+    XP_HEB_CE,
+    XP_HEB_CF,
+    XP_HEB_CG,
+#     if defined(HEBREW_ISRAEL) || defined(HEBREW_DVORAK)
+    XP_HEB_CH,
+    XP_HEB_CI,
+    XP_HEB_CJ,
+#     endif
+    XP_HEB_MQF, // ־
+# endif //BASE_HEBREW__*
+
 };
 
 // Pre-existing function, called for every key up and down.
@@ -610,7 +652,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Shift detection system.
                                                   // Disused because it turned out 'one shot' like Unicode input. Shift detection copied from.
                                                   // https://github.com/kyleterry/qmk_firmware/blob/master/quantum/quantum.c
-                                                  //uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
+                                                  //uint8_t shifted = get_mods() & (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT));
 
         // Crude but self contained in this source file shift detection.
         // ... right shift
@@ -1244,12 +1286,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case LEDS_ON: // Toggles left/right leds on or off
             if (record->event.pressed) { // key down
+
+# ifdef RGBLIGHT_ENABLE
                 if (leds_on == FALSE) { 
                     leds_on = TRUE;
                 }else{
                     leds_on = FALSE;
                 }
+                set_led_colors_ (state_recall); // Update leds
             }
+# endif
+
             break;
 
 # ifdef LEDS_OFF_BASE_DEF  // This messes with led effect on/off, so we need to track the state of this setting now.
@@ -1652,11 +1699,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case XP_DRA_AA: // because '", the opening „“ at the ‛open’ of the keyboard (left/up)
             if (record->event.pressed) { // key down
 
-#     ifdef FULL_DRA_4THROW
                 unicode_hex2output (CS_DQUHR, CS_DQUL);// “ „
-#     else
-                unicode_hex2output_single (CS_DQUHR);// “
-#     endif
 
             }
             break;
@@ -1664,11 +1707,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case XP_DRA_AB: // because to the right of opening “, ≤ on <
             if (record->event.pressed) { // key down
 
-#    ifdef FULL_DRA_4THROW
                 unicode_hex2output (CS_DQUH, CS_ELTHAN);// ” ≤
-#    else
-                unicode_hex2output_single (CS_DQUH);// ”
-#    endif
 
             }
             break;
@@ -1676,11 +1715,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case XP_DRA_AC: // because this is where the £ is on an English keyboard, on 'any' money symbols ¤; ≥ on >
             if (record->event.pressed) { // key down
 
-#     ifdef FULL_DRA_4THROW
                 unicode_hex2output (CS_POUND, CS_EGTHAN);// £ ≥
-#     else
-                unicode_hex2output_single (CS_POUND);// £
-#     endif
 
             }
             break;
@@ -1690,6 +1725,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #     ifdef FULL_DRA_4THROW
                 unicode_hex2output (CS_NONE, CS_CENT);// ∅ ¢
+#     else
+                unicode_hex2output_single (CS_NONE);// ∅ ¢
 #     endif
 
             }
@@ -1710,11 +1747,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case XP_DRA_AF: // Because left of 🙂, on top of ★
             if (record->event.pressed) { // key down
 
-#     ifdef FULL_DRA_4THROW
                 unicode_hex2output (CS_FLEUR, CS_HEART);// ❦ ♥
-#     else
-                unicode_hex2output_single (CS_HEART);// ♥
-#     endif
 
             }
             break;
@@ -1722,9 +1755,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case XP_DRA_AG: // because 😊 ⍨ 
             if (record->event.pressed) { // key down
 
-#     ifdef FULL_DRA_4THROW
                 unicode_hex2output (CS_SMIL, CS_SAD_);// 🙂 🙁
-#     endif
 
             }
             break;
@@ -1732,9 +1763,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case XP_DRA_AH: // because «no reason», next to 😊 (emoticons)
             if (record->event.pressed) { // key down
 
-#     ifdef FULL_DRA_4THROW
                 unicode_hex2output (CS_THUP, CS_THDN);// 👍 👎
-#     endif
 
             }
             break;
@@ -1993,7 +2022,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 # endif // REMOVE_DRA
 
 
-        /* _BON layer definitions. Due to running out of X(…), XP(…) space.*/
+        /* _BON layer definitions. */
 
    // ------------------------- row 4
 # ifndef REMOVE_BON // Removes this layer entirely, if set.
@@ -2343,6 +2372,299 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
 
 # endif // REMOVE_BON 
+
+// Hebrew
+# if defined(BASE_HEBREW__DEF_BASE) || defined(BASE_HEBREW__ALT_BASE)
+// The layout follows a standard hebrew keyboard, with the exception
+// of ק, which is displaced by “.>” copied from the Dvorak layout.
+
+        // HEBREW_DVORAK
+        // These letters on the upper left follow Dvorak layout.
+        // The reason is space on the device: these are not macros.
+        // Also: typing compatibility between Dvorak and Hebrew
+        // for these similar/same symbols: ,<.>. Idealy these symbols
+        // should be the hebrew variation, if space allows it.
+
+# if defined(HEBREW_ISRAEL)
+
+        case XP_HEB_AA: //
+            if (record->event.pressed) { // key down
+                // These shifts-up seem to work on GNU/Debian/Linux, otherwise it prints ':'
+                if (shift_ison) send_string ( SS_UP(X_RSFT) SS_UP(X_LSFT) ";" ); // moved here from <esc> on standard hebrew
+                else send_string  ("/");//
+            } break;
+
+        case XP_HEB_AB: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_GERSH);// ׳
+            }
+            break;
+        
+        case XP_HEB_AC: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_QOF);// ק
+            }
+            break;
+
+# elif defined(HEBREW_QWERTY)
+
+        case XP_HEB_AA: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_TAV);// ת
+            }
+            break;
+
+        case XP_HEB_AB: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_TSDIS);// ץ 
+            }
+            break;
+
+        case XP_HEB_AC: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_QOF);// ק
+            }
+            break;
+
+# endif // #HEBREW_*
+
+        case XP_HEB_AD: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_RESH);// ר
+            }
+            break;
+
+        case XP_HEB_AE: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_ALEF);// א
+    
+            }
+            break;
+
+        case XP_HEB_AF: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_TET);// ט
+            }
+            break;
+
+        case XP_HEB_AG: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_VAV);// ו
+            }
+            break;
+
+        case XP_HEB_AH: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_NUNS);// ן
+            }
+            break;
+
+        case XP_HEB_AI: 
+            if (record->event.pressed) { // key down
+
+# if   defined(HEBREW_ISRAEL)
+                        // The logic is that it mirrors '", “„, ”≤, ‛’ in Dvorak Base and other layers.
+                        // Therefore the little and ring fingers are used. Mirroring ━─ and ┄┅ on DRA_
+                        // layer, the outside on the keyboard is “big/fat”, the inside is “small/thin”,
+                        // like something protected in a shell. Hence: ……׳״
+                unicode_hex2output_single (HB_MEMS);// ם // ׳ is located elsewhere
+# elif defined(HEBREW_QWERTY) || defined(HEBREW_DVORAK)
+                unicode_hex2output (HB_MEMS, HB_GERSH);// ם׳
+# endif
+
+            }
+            break;
+
+        case XP_HEB_AJ: //
+            if (record->event.pressed) { // key down
+
+# if   defined(HEBREW_ISRAEL)
+                unicode_hex2output_single (HB_PE);// פ // ״ is located elsewhere
+# elif defined(HEBREW_QWERTY) || defined(HEBREW_DVORAK)
+                unicode_hex2output (HB_PE, HB_GRSHM);// פ״
+# endif
+
+            }
+            break;
+
+   // ------------------------- row 3
+        case XP_HEB_BA: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_SHIN);// ש
+            }
+            break;
+
+        case XP_HEB_BB: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_DALET);// ד
+            }
+            break;
+
+        case XP_HEB_BC: //Right-left-mark to the first free strong homerow finger on the left (middle)
+            if (record->event.pressed) { // key down
+                unicode_hex2output (HB_GIMEL, HB_RLM);// ג {RLM}
+            }
+            break;
+
+        case XP_HEB_BD: // The logic is that כ is the same key as 4 on another layer, which connects
+                        // with $, and other currencies in the same region (ƒ£). 
+            if (record->event.pressed) { // key down
+                unicode_hex2output (HB_KAF, HB_SHEKL);// כ₪
+            }
+            break;
+
+        case XP_HEB_BE: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_AYIN);// ע
+            }
+            break;
+
+        case XP_HEB_BF: // 
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_YOD);// י
+            }
+            break;
+
+        case XP_HEB_BG: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_GET);// ח
+            }
+            break;
+
+        case XP_HEB_BH: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output (HB_LAMED, HB_LRM);// ל {LRM}
+            }
+            break;
+
+        case XP_HEB_BI: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_KAFS);// ך
+            }
+            break;
+
+        case XP_HEB_BJ: //
+            if (record->event.pressed) { // key down
+
+# if   defined(HEBREW_ISRAEL) || defined(HEBREW_QWERTY)
+                if (shift_ison) send_string (":"); // : (the hebrew eqquivalent is apparently almost never used, and this saves space)
+                else unicode_hex2output_single (HB_PES);// ף
+# elif defined(HEBREW_DVORAK)
+                unicode_hex2output_single (HB_PES);// ף
+# endif 
+
+            }
+            break;
+
+# if defined(HEBREW_ISRAEL)
+        case XP_HEB_BK: // 
+            if (record->event.pressed) { // key down
+                if (shift_ison) unicode_hex2output_single (HB_GRSHM);// ״
+                else send_string (","); // comma
+            }
+            break;
+# endif
+
+        case XP_HEB_MQF: // ־ Maqaf
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_MAQAF);// ־ 
+            }
+            break;
+
+   // ------------------------- row 2
+        case XP_HEB_CA: //
+            if (record->event.pressed) { // key down
+// Hebrew harmonization + ':'
+# if   defined(HEBREW_ISRAEL) || defined(HEBREW_QWERTY)
+                unicode_hex2output_single (HB_ZAYIN);// ז
+# elif defined(HEBREW_DVORAK)
+                if (shift_ison) send_string (":"); //
+                else unicode_hex2output_single (HB_ZAYIN);// ז
+# endif
+            }
+            break;
+
+        case XP_HEB_CB: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_SAMEG);// ס
+            }
+            break;
+
+        case XP_HEB_CC: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_BET);// ב
+            }
+            break;
+
+        case XP_HEB_CD: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_HE);// ה
+            }
+            break;
+
+        case XP_HEB_CE: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_NUN);// נ
+            }
+            break;
+
+        case XP_HEB_CF: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_MEM);// מ
+            }
+            break;
+
+        case XP_HEB_CG: //
+            if (record->event.pressed) { // key down
+                unicode_hex2output_single (HB_TSADI);// צ 
+            }
+            break;
+
+#     if defined(HEBREW_ISRAEL) || defined(HEBREW_DVORAK)
+        case XP_HEB_CH: //
+            if (record->event.pressed) { // key down
+
+#         if defined(HEBREW_ISRAEL)
+                if (shift_ison) send_string ("<"); // 
+                else unicode_hex2output_single (HB_TAV);// ת
+#         else // HEBREW_DVORAK
+                unicode_hex2output_single (HB_TAV);// ת
+#         endif 
+
+            }
+            break;
+
+        case XP_HEB_CI: //
+            if (record->event.pressed) { // key down
+
+#         if defined(HEBREW_ISRAEL)
+                if (shift_ison) send_string (">"); // 
+                else unicode_hex2output_single (HB_TSDIS);// ץ
+#         else // HEBREW_DVORAK
+                unicode_hex2output_single (HB_TSDIS);// ץ
+#         endif 
+
+            }
+            break;
+
+        case XP_HEB_CJ: // anomaly
+            if (record->event.pressed) { // key down
+
+#         if defined(HEBREW_ISRAEL)
+                if (shift_ison) send_string ("?"); // 
+                else send_string ("."); // 
+#         else // HEBREW_DVORAK
+                unicode_hex2output_single (HB_QOF);// ק
+#         endif 
+
+            }
+            break;
+#     endif // HEBREW_*
+
+    // HB_D_VAV,
+    // HB_VAVYD,
+    // HB_D_YOD,
+# endif // Hebrew Base layer
     }
 
     return true;

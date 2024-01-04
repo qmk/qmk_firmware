@@ -1,9 +1,9 @@
-#include "rev2.h"
+#include "quantum.h"
 
 #ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))
 // swap-hands action needs a matrix to define the swap
-const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
+const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     /* Left hand, matrix positions */
     {{0,5}, {1,5}, {2,5}, {3,5}, {4,5}, {5,5}},
     {{0,6}, {1,6}, {2,6}, {3,6}, {4,6}, {5,6}},
@@ -27,7 +27,7 @@ void eeconfig_init_kb(void) {
 #ifdef RGBLIGHT_ENABLE
     rgblight_enable(); // Enable RGB by default
     rgblight_sethsv(0, 255, 255);  // Set default HSV - red hue, full saturation, full brightness
-#ifdef RGBLIGHT_ANIMATIONS
+#ifdef RGBLIGHT_EFFECT_RAINBOW_SWIRL
     rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL + 2); // set to RGB_RAINBOW_SWIRL by default
 #endif
 #endif

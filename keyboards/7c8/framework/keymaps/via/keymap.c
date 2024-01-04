@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, EEP_RST, DEBUG,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, EE_CLR,  DB_TOGG,
     C(KC_Z), C(KC_Y)
 ),
 
@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     uint8_t layer = get_highest_layer(layer_state);
     if (index == 0) {
         if (clockwise) {
@@ -87,4 +87,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code16(dynamic_keymap_get_keycode(layer, 10, 0));
         }
     }
+    return true;
 }

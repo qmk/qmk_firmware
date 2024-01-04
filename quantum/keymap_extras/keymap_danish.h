@@ -1,39 +1,33 @@
-/* Copyright 2019
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2024 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+/*******************************************************************************
+  88888888888 888      d8b                .d888 d8b 888               d8b
+      888     888      Y8P               d88P"  Y8P 888               Y8P
+      888     888                        888        888
+      888     88888b.  888 .d8888b       888888 888 888  .d88b.       888 .d8888b
+      888     888 "88b 888 88K           888    888 888 d8P  Y8b      888 88K
+      888     888  888 888 "Y8888b.      888    888 888 88888888      888 "Y8888b.
+      888     888  888 888      X88      888    888 888 Y8b.          888      X88
+      888     888  888 888  88888P'      888    888 888  "Y8888       888  88888P'
+                                                        888                 888
+                                                        888                 888
+                                                        888                 888
+     .d88b.   .d88b.  88888b.   .d88b.  888d888 8888b.  888888 .d88b.   .d88888
+    d88P"88b d8P  Y8b 888 "88b d8P  Y8b 888P"      "88b 888   d8P  Y8b d88" 888
+    888  888 88888888 888  888 88888888 888    .d888888 888   88888888 888  888
+    Y88b 888 Y8b.     888  888 Y8b.     888    888  888 Y88b. Y8b.     Y88b 888
+     "Y88888  "Y8888  888  888  "Y8888  888    "Y888888  "Y888 "Y8888   "Y88888
+         888
+    Y8b d88P
+     "Y88P"
+*******************************************************************************/
 
 #pragma once
-
-#include "keymap.h"
-
+#include "keycodes.h"
 // clang-format off
 
-/*
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ ½ │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ + │ ´ │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │ Q │ W │ E │ R │ T │ Y │ U │ I │ O │ P │ Å │ ¨ │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │ A │ S │ D │ F │ G │ H │ J │ K │ L │ Æ │ Ø │ ' │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │ < │ Z │ X │ C │ V │ B │ N │ M │ , │ . │ - │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
+// Aliases
 #define DK_HALF KC_GRV  // ½
 #define DK_1    KC_1    // 1
 #define DK_2    KC_2    // 2
@@ -47,7 +41,6 @@
 #define DK_0    KC_0    // 0
 #define DK_PLUS KC_MINS // +
 #define DK_ACUT KC_EQL  // ´ (dead)
-// Row 2
 #define DK_Q    KC_Q    // Q
 #define DK_W    KC_W    // W
 #define DK_E    KC_E    // E
@@ -60,7 +53,6 @@
 #define DK_P    KC_P    // P
 #define DK_ARNG KC_LBRC // Å
 #define DK_DIAE KC_RBRC // ¨ (dead)
-// Row 3
 #define DK_A    KC_A    // A
 #define DK_S    KC_S    // S
 #define DK_D    KC_D    // D
@@ -73,7 +65,6 @@
 #define DK_AE   KC_SCLN // Æ
 #define DK_OSTR KC_QUOT // Ø
 #define DK_QUOT KC_NUHS // '
-// Row 4
 #define DK_LABK KC_NUBS // <
 #define DK_Z    KC_Z    // Z
 #define DK_X    KC_X    // X
@@ -85,21 +76,6 @@
 #define DK_COMM KC_COMM // ,
 #define DK_DOT  KC_DOT  // .
 #define DK_MINS KC_SLSH // -
-
-/* Shifted symbols
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ § │ ! │ " │ # │ ¤ │ % │ & │ / │ ( │ ) │ = │ ? │ ` │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │   │   │   │   │   │   │   │   │   │   │   │ ^ │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │   │   │   │   │   │   │   │   │   │   │   │ * │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │ > │   │   │   │   │   │   │   │ ; │ : │ _ │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
 #define DK_SECT S(DK_HALF) // §
 #define DK_EXLM S(DK_1)    // !
 #define DK_DQUO S(DK_2)    // "
@@ -113,30 +89,12 @@
 #define DK_EQL  S(DK_0)    // =
 #define DK_QUES S(DK_PLUS) // ?
 #define DK_GRV  S(DK_ACUT) // ` (dead)
-// Row 2
 #define DK_CIRC S(DK_DIAE) // ^ (dead)
-// Row 3
 #define DK_ASTR S(DK_QUOT) // *
-// Row 4
 #define DK_RABK S(DK_LABK) // >
 #define DK_SCLN S(DK_COMM) // ;
 #define DK_COLN S(DK_DOT)  // :
 #define DK_UNDS S(DK_MINS) // _
-
-/* AltGr symbols
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │   │   │ @ │ £ │ $ │ € │   │ { │ [ │ ] │ } │   │ | │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │   │   │   │   │   │   │   │   │   │   │   │ ~ │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │   │   │   │   │   │   │   │   │   │   │   │   │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │ \ │   │   │   │   │   │   │ µ │   │   │   │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
 #define DK_AT   ALGR(DK_2)    // @
 #define DK_PND  ALGR(DK_3)    // £
 #define DK_DLR  ALGR(DK_4)    // $
@@ -146,8 +104,7 @@
 #define DK_RBRC ALGR(DK_9)    // ]
 #define DK_RCBR ALGR(DK_0)    // }
 #define DK_PIPE ALGR(DK_ACUT) // |
-// Row 2
 #define DK_TILD ALGR(DK_DIAE) // ~ (dead)
-// Row 4
 #define DK_BSLS ALGR(DK_LABK) // (backslash)
 #define DK_MICR ALGR(DK_M)    // µ
+

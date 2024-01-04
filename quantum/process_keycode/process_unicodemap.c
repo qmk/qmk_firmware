@@ -15,34 +15,12 @@
  */
 
 #include "process_unicodemap.h"
-
-__attribute__((weak)) uint16_t unicodemap_index(uint16_t keycode) {
-    if (keycode >= QK_UNICODEMAP_PAIR) {
-        // Keycode is a pair: extract index based on Shift / Caps Lock state
-        uint16_t index = keycode - QK_UNICODEMAP_PAIR;
-
-        uint8_t mods = get_mods() | get_weak_mods();
-#ifndef NO_ACTION_ONESHOT
-        mods |= get_oneshot_mods();
-#endif
-
-        bool shift = mods & MOD_MASK_SHIFT;
-        bool caps  = host_keyboard_led_state().caps_lock;
-        if (shift ^ caps) {
-            index >>= 7;
-        }
-
-        return index & 0x7F;
-    } else {
-        // Keycode is a regular index
-        return keycode - QK_UNICODEMAP;
-    }
-}
+#include "unicodemap.h"
+#include "keycodes.h"
 
 bool process_unicodemap(uint16_t keycode, keyrecord_t *record) {
     if (keycode >= QK_UNICODEMAP && keycode <= QK_UNICODEMAP_PAIR_MAX && record->event.pressed) {
-        uint32_t code_point = pgm_read_dword(unicode_map + unicodemap_index(keycode));
-        register_unicode(code_point);
+        register_unicodemap(unicodemap_index(keycode));
     }
     return true;
 }

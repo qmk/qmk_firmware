@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) { /* First encoder */
     if (clockwise) {
       tap_code(KC_MS_WH_UP);
@@ -25,12 +25,13 @@ void encoder_update_user(uint8_t index, bool clockwise) {
       tap_code(KC_MS_WH_DOWN);
     }
   }
+    return true;
 }
 
 //
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { //button closest to usb is first
   [0] = LAYOUT_ortho_1x5(
-     KC_ESC, KC_TAB, KC_LSHIFT, KC_LCTRL, TG(1)
+     KC_ESC, KC_TAB, KC_LSFT, KC_LCTL, TG(1)
    ),
 
   [1] = LAYOUT_ortho_1x5(

@@ -18,47 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0BEE
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Duckle29
-#define PRODUCT         Lets Split Sockets
-
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 6
-
-// wiring of each half
-#define MATRIX_ROW_PINS { B1, B5, E6, B4 }
-#define MATRIX_COL_PINS { F4, F7, D7, B3, B2, B6}
-// #define MATRIX_COL_PINS { B6, B2, B3, D7, F7, F4} //uncomment this line and comment line above if you need to reverse left-to-right key order
-
-#define DIODE_DIRECTION COL2ROW
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
-// #define BACKLIGHT_LEVELS 3
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
-/* serial.c configuration for split keyboard */
-#define SOFT_SERIAL_PIN D0
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
-/* ws2812 RGB LED */
-#define RGB_DI_PIN D4
-
-#define RGBLED_NUM 12    // Number of LEDs
-
 /* Audio settings */
 #ifdef AUDIO_ENABLE
     #define AUDIO_PIN C6 // Define this to enable the buzzer

@@ -17,36 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEDE //0xFEED
-#define PRODUCT_ID      0x6942 //0x6465
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    xSteins
-#define PRODUCT         ERGOCHEAP
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
-#define MATRIX_COL_PINS { A8, A9, B14, B12, B13, B15, B3, B11, A4, A5, A6, A7, B0, B1, B10 }
-#define MATRIX_ROW_PINS { B5, B6, B7, B9, B8 }
-
-#define DIODE_DIRECTION COL2ROW
-
-/* key led setting */
-//#define BACKLIGHT_PIN A8
-//#define BACKLIGHT_PWM_DRIVER PWMD1
-//#define BACKLIGHT_PWM_CHANNEL 1
-//#define BACKLIGHT_LEVELS 6
-//#define BACKLIGHT_BREATHING
-//#define BREATHING_PERIOD 6
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE   5
-#define TAPPING_TERM 500
+#define PERMISSIVE_HOLD
 
 /*
  * Feature disable options
@@ -63,5 +34,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

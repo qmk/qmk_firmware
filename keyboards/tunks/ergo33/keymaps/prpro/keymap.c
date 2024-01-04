@@ -43,7 +43,7 @@ enum {
 };
 
 /* Tap Dance definitions */
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_1] = ACTION_TAP_DANCE_DOUBLE(LCTL(KC_1), LCTL(LSFT(KC_1))),
     [TD_2] = ACTION_TAP_DANCE_DOUBLE(LCTL(KC_2), LCTL(LSFT(KC_2))),
     [TD_3] = ACTION_TAP_DANCE_DOUBLE(LCTL(KC_3), LCTL(LSFT(KC_3))),
@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef ENCODER_ENABLE
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (clockwise) {
             tap_code(KC_MS_WH_DOWN);
@@ -99,6 +99,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_MS_WH_UP);
         }
     }
+    return true;
 }
 #endif
 

@@ -35,21 +35,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "raw_hid.h"
 #endif
 
+#ifdef JOYSTICK_ENABLE
+#    include "joystick.h"
+#endif
+
 #if defined(CONSOLE_ENABLE)
 #    define RBUF_SIZE 128
 #    include "ring_buffer.h"
 #endif
 
-#define NEXT_INTERFACE __COUNTER__
+#ifdef OS_DETECTION_ENABLE
+#    include "os_detection.h"
+#endif
 
 /*
  * Interface indexes
  */
 enum usb_interfaces {
 #ifndef KEYBOARD_SHARED_EP
-    KEYBOARD_INTERFACE = NEXT_INTERFACE,
+    KEYBOARD_INTERFACE,
 #else
-    SHARED_INTERFACE = NEXT_INTERFACE,
+    SHARED_INTERFACE,
 #    define KEYBOARD_INTERFACE SHARED_INTERFACE
 #endif
 
@@ -57,67 +63,77 @@ enum usb_interfaces {
 // interface number, to support Linux/OSX platforms and chrome.hid
 // If Raw HID is enabled, let it be always 1.
 #ifdef RAW_ENABLE
-    RAW_INTERFACE = NEXT_INTERFACE,
+    RAW_INTERFACE,
 #endif
 
 #if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
-    SHARED_INTERFACE = NEXT_INTERFACE,
+    SHARED_INTERFACE,
 #endif
 
 #ifdef CONSOLE_ENABLE
-    CONSOLE_INTERFACE = NEXT_INTERFACE,
+    CONSOLE_INTERFACE,
 #endif
 
-    TOTAL_INTERFACES = NEXT_INTERFACE
+    TOTAL_INTERFACES
 };
 
 #define MAX_INTERFACES 3
 
-#if (NEXT_INTERFACE - 1) > MAX_INTERFACES
-#    error There are not enough available interfaces to support all functions. Please disable one or more of the following: Mouse Keys, Extra Keys, Raw HID, Console
-#endif
+_Static_assert(TOTAL_INTERFACES <= MAX_INTERFACES, "There are not enough available interfaces to support all functions. Please disable one or more of the following: Mouse Keys, Extra Keys, Raw HID, Console.");
 
 #if (defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)) && CONSOLE_ENABLE
 #    error Mouse/Extra Keys share an endpoint with Console. Please disable one of the two.
 #endif
 
 static uint8_t keyboard_led_state = 0;
-static uint8_t vusb_idle_rate     = 0;
-
-/* Keyboard report send buffer */
-#define KBUF_SIZE 16
-static report_keyboard_t kbuf[KBUF_SIZE];
-static uint8_t           kbuf_head = 0;
-static uint8_t           kbuf_tail = 0;
+uint8_t        keyboard_idle      = 0;
+uint8_t        keyboard_protocol  = 1;
 
 static report_keyboard_t keyboard_report_sent;
 
-#define VUSB_TRANSFER_KEYBOARD_MAX_TRIES 10
-
-/* transfer keyboard report from buffer */
-void vusb_transfer_keyboard(void) {
-    for (int i = 0; i < VUSB_TRANSFER_KEYBOARD_MAX_TRIES; i++) {
-        if (usbInterruptIsReady()) {
-            if (kbuf_head != kbuf_tail) {
-#ifndef KEYBOARD_SHARED_EP
-                usbSetInterrupt((void *)&kbuf[kbuf_tail], sizeof(report_keyboard_t));
-#else
-                // Ugly hack! :(
-                usbSetInterrupt((void *)&kbuf[kbuf_tail], sizeof(report_keyboard_t) - 1);
-                while (!usbInterruptIsReady()) {
-                    usbPoll();
+static void send_report_fragment(uint8_t endpoint, void *data, size_t size) {
+    for (uint8_t retries = 5; retries > 0; retries--) {
+        switch (endpoint) {
+            case 1:
+                if (usbInterruptIsReady()) {
+                    usbSetInterrupt(data, size);
+                    return;
                 }
-                usbSetInterrupt((void *)(&(kbuf[kbuf_tail].keys[5])), 1);
-#endif
-                kbuf_tail = (kbuf_tail + 1) % KBUF_SIZE;
-                if (debug_keyboard) {
-                    dprintf("V-USB: kbuf[%d->%d](%02X)\n", kbuf_tail, kbuf_head, (kbuf_head < kbuf_tail) ? (KBUF_SIZE - kbuf_tail + kbuf_head) : (kbuf_head - kbuf_tail));
+                break;
+            case USB_CFG_EP3_NUMBER:
+                if (usbInterruptIsReady3()) {
+                    usbSetInterrupt3(data, size);
+                    return;
                 }
-            }
-            break;
+                break;
+            case USB_CFG_EP4_NUMBER:
+                if (usbInterruptIsReady4()) {
+                    usbSetInterrupt4(data, size);
+                    return;
+                }
+                break;
+            default:
+                return;
         }
+
         usbPoll();
-        wait_ms(1);
+        wait_ms(5);
+    }
+}
+
+static void send_report(uint8_t endpoint, void *report, size_t size) {
+    uint8_t *temp = (uint8_t *)report;
+
+    // Send as many full packets as possible
+    for (uint8_t i = 0; i < size / 8; i++) {
+        send_report_fragment(endpoint, temp, 8);
+        temp += 8;
+    }
+
+    // Send any data left over
+    uint8_t remainder = size % 8;
+    if (remainder) {
+        send_report_fragment(endpoint, temp, remainder);
     }
 }
 
@@ -136,18 +152,7 @@ void raw_hid_send(uint8_t *data, uint8_t length) {
         return;
     }
 
-    uint8_t *temp = data;
-    for (uint8_t i = 0; i < 4; i++) {
-        while (!usbInterruptIsReady4()) {
-            usbPoll();
-        }
-        usbSetInterrupt4(temp, 8);
-        temp += 8;
-    }
-    while (!usbInterruptIsReady4()) {
-        usbPoll();
-    }
-    usbSetInterrupt4(0, 0);
+    send_report(4, data, 32);
 }
 
 __attribute__((weak)) void raw_hid_receive(uint8_t *data, uint8_t length) {
@@ -176,19 +181,6 @@ int8_t sendchar(uint8_t c) {
     return 0;
 }
 
-static inline bool usbSendData3(char *data, uint8_t len) {
-    uint8_t retries = 5;
-    while (!usbInterruptIsReady3()) {
-        if (!(retries--)) {
-            return false;
-        }
-        usbPoll();
-    }
-
-    usbSetInterrupt3((unsigned char *)data, len);
-    return true;
-}
-
 void console_task(void) {
     if (!usbConfiguration) {
         return;
@@ -205,16 +197,7 @@ void console_task(void) {
         send_buf[send_buf_count++] = rbuf_dequeue();
     }
 
-    char *temp = send_buf;
-    for (uint8_t i = 0; i < 4; i++) {
-        if (!usbSendData3(temp, 8)) {
-            break;
-        }
-        temp += 8;
-    }
-
-    usbSendData3(0, 0);
-    usbPoll();
+    send_report(3, send_buf, CONSOLE_BUFFER_SIZE);
 }
 #endif
 
@@ -223,71 +206,71 @@ void console_task(void) {
  *------------------------------------------------------------------*/
 static uint8_t keyboard_leds(void);
 static void    send_keyboard(report_keyboard_t *report);
+static void    send_nkro(report_nkro_t *report);
 static void    send_mouse(report_mouse_t *report);
-static void    send_system(uint16_t data);
-static void    send_consumer(uint16_t data);
+static void    send_extra(report_extra_t *report);
 
-static host_driver_t driver = {keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer};
+static host_driver_t driver = {keyboard_leds, send_keyboard, send_nkro, send_mouse, send_extra};
 
-host_driver_t *vusb_driver(void) { return &driver; }
+host_driver_t *vusb_driver(void) {
+    return &driver;
+}
 
-static uint8_t keyboard_leds(void) { return keyboard_led_state; }
+static uint8_t keyboard_leds(void) {
+    return keyboard_led_state;
+}
 
 static void send_keyboard(report_keyboard_t *report) {
-    uint8_t next = (kbuf_head + 1) % KBUF_SIZE;
-    if (next != kbuf_tail) {
-        kbuf[kbuf_head] = *report;
-        kbuf_head       = next;
+    if (!keyboard_protocol) {
+        send_report(1, &report->mods, 8);
     } else {
-        dprint("kbuf: full\n");
+        send_report(1, report, sizeof(report_keyboard_t));
     }
 
-    // NOTE: send key strokes of Macro
-    usbPoll();
-    vusb_transfer_keyboard();
     keyboard_report_sent = *report;
 }
 
 #ifndef KEYBOARD_SHARED_EP
-#    define usbInterruptIsReadyShared usbInterruptIsReady3
-#    define usbSetInterruptShared usbSetInterrupt3
+#    define MOUSE_IN_EPNUM 3
+#    define SHARED_IN_EPNUM 3
 #else
-#    define usbInterruptIsReadyShared usbInterruptIsReady
-#    define usbSetInterruptShared usbSetInterrupt
+#    define MOUSE_IN_EPNUM 1
+#    define SHARED_IN_EPNUM 1
 #endif
+
+static void send_nkro(report_nkro_t *report) {
+#ifdef NKRO_ENABLE
+    send_report(3, report, sizeof(report_nkro_t));
+#endif
+}
 
 static void send_mouse(report_mouse_t *report) {
 #ifdef MOUSE_ENABLE
-    if (usbInterruptIsReadyShared()) {
-        usbSetInterruptShared((void *)report, sizeof(report_mouse_t));
-    }
+    send_report(MOUSE_IN_EPNUM, report, sizeof(report_mouse_t));
 #endif
 }
 
+static void send_extra(report_extra_t *report) {
 #ifdef EXTRAKEY_ENABLE
-static void send_extra(uint8_t report_id, uint16_t data) {
-    static uint8_t  last_id   = 0;
-    static uint16_t last_data = 0;
-    if ((report_id == last_id) && (data == last_data)) return;
-    last_id   = report_id;
-    last_data = data;
-
-    report_extra_t report = {.report_id = report_id, .usage = data};
-    if (usbInterruptIsReadyShared()) {
-        usbSetInterruptShared((void *)&report, sizeof(report_extra_t));
-    }
-}
-#endif
-
-static void send_system(uint16_t data) {
-#ifdef EXTRAKEY_ENABLE
-    send_extra(REPORT_ID_SYSTEM, data);
+    send_report(SHARED_IN_EPNUM, report, sizeof(report_extra_t));
 #endif
 }
 
-static void send_consumer(uint16_t data) {
-#ifdef EXTRAKEY_ENABLE
-    send_extra(REPORT_ID_CONSUMER, data);
+void send_joystick(report_joystick_t *report) {
+#ifdef JOYSTICK_ENABLE
+    send_report(SHARED_IN_EPNUM, report, sizeof(report_joystick_t));
+#endif
+}
+
+void send_digitizer(report_digitizer_t *report) {
+#ifdef DIGITIZER_ENABLE
+    send_report(SHARED_IN_EPNUM, report, sizeof(report_digitizer_t));
+#endif
+}
+
+void send_programmable_button(report_programmable_button_t *report) {
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+    send_report(SHARED_IN_EPNUM, report, sizeof(report_programmable_button_t));
 #endif
 }
 
@@ -303,30 +286,44 @@ usbMsgLen_t usbFunctionSetup(uchar data[8]) {
     usbRequest_t *rq = (void *)data;
 
     if ((rq->bmRequestType & USBRQ_TYPE_MASK) == USBRQ_TYPE_CLASS) { /* class request type */
-        if (rq->bRequest == USBRQ_HID_GET_REPORT) {
-            dprint("GET_REPORT:");
-            if (rq->wIndex.word == KEYBOARD_INTERFACE) {
-                usbMsgPtr = (usbMsgPtr_t)&keyboard_report_sent;
-                return sizeof(keyboard_report_sent);
-            }
-        } else if (rq->bRequest == USBRQ_HID_GET_IDLE) {
-            dprint("GET_IDLE:");
-            usbMsgPtr = (usbMsgPtr_t)&vusb_idle_rate;
-            return 1;
-        } else if (rq->bRequest == USBRQ_HID_SET_IDLE) {
-            vusb_idle_rate = rq->wValue.bytes[1];
-            dprintf("SET_IDLE: %02X", vusb_idle_rate);
-        } else if (rq->bRequest == USBRQ_HID_SET_REPORT) {
-            dprint("SET_REPORT:");
-            // Report Type: 0x02(Out)/ReportID: 0x00(none) && Interface: 0(keyboard)
-            if (rq->wValue.word == 0x0200 && rq->wIndex.word == KEYBOARD_INTERFACE) {
-                dprint("SET_LED:");
-                last_req.kind = SET_LED;
-                last_req.len  = rq->wLength.word;
-            }
-            return USB_NO_MSG;  // to get data in usbFunctionWrite
-        } else {
-            dprint("UNKNOWN:");
+        switch (rq->bRequest) {
+            case USBRQ_HID_GET_REPORT:
+                dprint("GET_REPORT:");
+                if (rq->wIndex.word == KEYBOARD_INTERFACE) {
+                    usbMsgPtr = (usbMsgPtr_t)&keyboard_report_sent;
+                    return sizeof(keyboard_report_sent);
+                }
+                break;
+            case USBRQ_HID_GET_IDLE:
+                dprint("GET_IDLE:");
+                usbMsgPtr = (usbMsgPtr_t)&keyboard_idle;
+                return 1;
+            case USBRQ_HID_GET_PROTOCOL:
+                dprint("GET_PROTOCOL:");
+                usbMsgPtr = (usbMsgPtr_t)&keyboard_protocol;
+                return 1;
+            case USBRQ_HID_SET_REPORT:
+                dprint("SET_REPORT:");
+                // Report Type: 0x02(Out)/ReportID: 0x00(none) && Interface: 0(keyboard)
+                if (rq->wValue.word == 0x0200 && rq->wIndex.word == KEYBOARD_INTERFACE) {
+                    dprint("SET_LED:");
+                    last_req.kind = SET_LED;
+                    last_req.len  = rq->wLength.word;
+                }
+                return USB_NO_MSG; // to get data in usbFunctionWrite
+            case USBRQ_HID_SET_IDLE:
+                keyboard_idle = (rq->wValue.word & 0xFF00) >> 8;
+                dprintf("SET_IDLE: %02X", keyboard_idle);
+                break;
+            case USBRQ_HID_SET_PROTOCOL:
+                if (rq->wIndex.word == KEYBOARD_INTERFACE) {
+                    keyboard_protocol = rq->wValue.word & 0xFF;
+                    dprintf("SET_PROTOCOL: %02X", keyboard_protocol);
+                }
+                break;
+            default:
+                dprint("UNKNOWN:");
+                break;
         }
     } else {
         dprint("VENDOR:");
@@ -386,47 +383,49 @@ const PROGMEM uchar shared_hid_report[] = {
 #else
 const PROGMEM uchar keyboard_hid_report[] = {
 #endif
-    0x05, 0x01,  // Usage Page (Generic Desktop)
-    0x09, 0x06,  // Usage (Keyboard)
-    0xA1, 0x01,  // Collection (Application)
+    0x05, 0x01, // Usage Page (Generic Desktop)
+    0x09, 0x06, // Usage (Keyboard)
+    0xA1, 0x01, // Collection (Application)
 #ifdef KEYBOARD_SHARED_EP
-    0x85, REPORT_ID_KEYBOARD,  // Report ID
+    0x85, REPORT_ID_KEYBOARD, // Report ID
 #endif
     // Modifiers (8 bits)
-    0x05, 0x07,  //   Usage Page (Keyboard/Keypad)
-    0x19, 0xE0,  //   Usage Minimum (Keyboard Left Control)
-    0x29, 0xE7,  //   Usage Maximum (Keyboard Right GUI)
-    0x15, 0x00,  //   Logical Minimum (0)
-    0x25, 0x01,  //   Logical Maximum (1)
-    0x95, 0x08,  //   Report Count (8)
-    0x75, 0x01,  //   Report Size (1)
-    0x81, 0x02,  //   Input (Data, Variable, Absolute)
+    0x05, 0x07, //   Usage Page (Keyboard/Keypad)
+    0x19, 0xE0, //   Usage Minimum (Keyboard Left Control)
+    0x29, 0xE7, //   Usage Maximum (Keyboard Right GUI)
+    0x15, 0x00, //   Logical Minimum (0)
+    0x25, 0x01, //   Logical Maximum (1)
+    0x95, 0x08, //   Report Count (8)
+    0x75, 0x01, //   Report Size (1)
+    0x81, 0x02, //   Input (Data, Variable, Absolute)
     // Reserved (1 byte)
-    0x95, 0x01,  //   Report Count (1)
-    0x75, 0x08,  //   Report Size (8)
-    0x81, 0x03,  //   Input (Constant)
+    0x95, 0x01, //   Report Count (1)
+    0x75, 0x08, //   Report Size (8)
+    0x81, 0x03, //   Input (Constant)
     // Keycodes (6 bytes)
-    0x05, 0x07,        //   Usage Page (Keyboard/Keypad)
-    0x19, 0x00,        //   Usage Minimum (0)
-    0x29, 0xFF,        //   Usage Maximum (255)
-    0x15, 0x00,        //   Logical Minimum (0)
-    0x26, 0xFF, 0x00,  //   Logical Maximum (255)
-    0x95, 0x06,        //   Report Count (6)
-    0x75, 0x08,        //   Report Size (8)
-    0x81, 0x00,        //   Input (Data, Array, Absolute)
+    0x05, 0x07,       //   Usage Page (Keyboard/Keypad)
+    0x19, 0x00,       //   Usage Minimum (0)
+    0x29, 0xFF,       //   Usage Maximum (255)
+    0x15, 0x00,       //   Logical Minimum (0)
+    0x26, 0xFF, 0x00, //   Logical Maximum (255)
+    0x95, 0x06,       //   Report Count (6)
+    0x75, 0x08,       //   Report Size (8)
+    0x81, 0x00,       //   Input (Data, Array, Absolute)
 
     // Status LEDs (5 bits)
-    0x05, 0x08,  //   Usage Page (LED)
-    0x19, 0x01,  //   Usage Minimum (Num Lock)
-    0x29, 0x05,  //   Usage Maximum (Kana)
-    0x95, 0x05,  //   Report Count (5)
-    0x75, 0x01,  //   Report Size (1)
-    0x91, 0x02,  //   Output (Data, Variable, Absolute)
+    0x05, 0x08, //   Usage Page (LED)
+    0x19, 0x01, //   Usage Minimum (Num Lock)
+    0x29, 0x05, //   Usage Maximum (Kana)
+    0x15, 0x00, //   Logical Minimum (0)
+    0x25, 0x01, //   Logical Maximum (1)
+    0x95, 0x05, //   Report Count (5)
+    0x75, 0x01, //   Report Size (1)
+    0x91, 0x02, //   Output (Data, Variable, Absolute)
     // LED padding (3 bits)
-    0x95, 0x01,  //   Report Count (1)
-    0x75, 0x03,  //   Report Size (3)
-    0x91, 0x03,  //   Output (Constant)
-    0xC0,        // End Collection
+    0x95, 0x01, //   Report Count (1)
+    0x75, 0x03, //   Report Size (3)
+    0x91, 0x03, //   Output (Constant)
+    0xC0,       // End Collection
 #ifndef KEYBOARD_SHARED_EP
 };
 #endif
@@ -436,128 +435,296 @@ const PROGMEM uchar shared_hid_report[] = {
 #    define SHARED_REPORT_STARTED
 #endif
 
+#ifdef NKRO_ENABLE
+    // NKRO report descriptor
+    0x05, 0x01,           // Usage Page (Generic Desktop)
+    0x09, 0x06,           // Usage (Keyboard)
+    0xA1, 0x01,           // Collection (Application)
+    0x85, REPORT_ID_NKRO, //   Report ID
+    // Modifiers (8 bits)
+    0x05, 0x07, //   Usage Page (Keyboard/Keypad)
+    0x19, 0xE0, //   Usage Minimum (Keyboard Left Control)
+    0x29, 0xE7, //   Usage Maximum (Keyboard Right GUI)
+    0x15, 0x00, //   Logical Minimum (0)
+    0x25, 0x01, //   Logical Maximum (1)
+    0x95, 0x08, //   Report Count (8)
+    0x75, 0x01, //   Report Size (1)
+    0x81, 0x02, //   Input (Data, Variable, Absolute)
+    // Keycodes
+    0x05, 0x07,                     //   Usage Page (Keyboard/Keypad)
+    0x19, 0x00,                     //   Usage Minimum (0)
+    0x29, NKRO_REPORT_BITS * 8 - 1, //   Usage Maximum
+    0x15, 0x00,                     //   Logical Minimum (0)
+    0x25, 0x01,                     //   Logical Maximum (1)
+    0x95, NKRO_REPORT_BITS * 8,     //   Report Count
+    0x75, 0x01,                     //   Report Size (1)
+    0x81, 0x02,                     //   Input (Data, Variable, Absolute)
+
+    // Status LEDs (5 bits)
+    0x05, 0x08, //   Usage Page (LED)
+    0x19, 0x01, //   Usage Minimum (Num Lock)
+    0x29, 0x05, //   Usage Maximum (Kana)
+    0x95, 0x05, //   Report Count (5)
+    0x75, 0x01, //   Report Size (1)
+    0x91, 0x02, //   Output (Data, Variable, Absolute)
+    // LED padding (3 bits)
+    0x95, 0x01, //   Report Count (1)
+    0x75, 0x03, //   Report Size (3)
+    0x91, 0x03, //   Output (Constant)
+    0xC0,       // End Collection
+#endif
+
 #ifdef MOUSE_ENABLE
     // Mouse report descriptor
-    0x05, 0x01,             // Usage Page (Generic Desktop)
-    0x09, 0x02,             // Usage (Mouse)
-    0xA1, 0x01,             // Collection (Application)
-    0x85, REPORT_ID_MOUSE,  //   Report ID
-    0x09, 0x01,             //   Usage (Pointer)
-    0xA1, 0x00,             //   Collection (Physical)
+    0x05, 0x01,            // Usage Page (Generic Desktop)
+    0x09, 0x02,            // Usage (Mouse)
+    0xA1, 0x01,            // Collection (Application)
+    0x85, REPORT_ID_MOUSE, //   Report ID
+    0x09, 0x01,            //   Usage (Pointer)
+    0xA1, 0x00,            //   Collection (Physical)
     // Buttons (8 bits)
-    0x05, 0x09,  //     Usage Page (Button)
-    0x19, 0x01,  //     Usage Minimum (Button 1)
-    0x29, 0x08,  //     Usage Maximum (Button 8)
-    0x15, 0x00,  //     Logical Minimum (0)
-    0x25, 0x01,  //     Logical Maximum (1)
-    0x95, 0x08,  //     Report Count (8)
-    0x75, 0x01,  //     Report Size (1)
-    0x81, 0x02,  //     Input (Data, Variable, Absolute)
+    0x05, 0x09, //     Usage Page (Button)
+    0x19, 0x01, //     Usage Minimum (Button 1)
+    0x29, 0x08, //     Usage Maximum (Button 8)
+    0x15, 0x00, //     Logical Minimum (0)
+    0x25, 0x01, //     Logical Maximum (1)
+    0x95, 0x08, //     Report Count (8)
+    0x75, 0x01, //     Report Size (1)
+    0x81, 0x02, //     Input (Data, Variable, Absolute)
 
-    // X/Y position (2 bytes)
-    0x05, 0x01,  //     Usage Page (Generic Desktop)
-    0x09, 0x30,  //     Usage (X)
-    0x09, 0x31,  //     Usage (Y)
-    0x15, 0x81,  //     Logical Minimum (-127)
-    0x25, 0x7F,  //     Logical Maximum (127)
-    0x95, 0x02,  //     Report Count (2)
-    0x75, 0x08,  //     Report Size (8)
-    0x81, 0x06,  //     Input (Data, Variable, Relative)
+#    ifdef MOUSE_EXTENDED_REPORT
+    // Boot protocol XY ignored in Report protocol
+    0x95, 0x02, //     Report Count (2)
+    0x75, 0x08, //     Report Size (8)
+    0x81, 0x03, //     Input (Constant)
+#    endif
+
+    // X/Y position (2 or 4 bytes)
+    0x05, 0x01, //     Usage Page (Generic Desktop)
+    0x09, 0x30, //     Usage (X)
+    0x09, 0x31, //     Usage (Y)
+#    ifndef MOUSE_EXTENDED_REPORT
+    0x15, 0x81, //     Logical Minimum (-127)
+    0x25, 0x7F, //     Logical Maximum (127)
+    0x95, 0x02, //     Report Count (2)
+    0x75, 0x08, //     Report Size (8)
+#    else
+    0x16, 0x01, 0x80, // Logical Minimum (-32767)
+    0x26, 0xFF, 0x7F, // Logical Maximum (32767)
+    0x95, 0x02,       // Report Count (2)
+    0x75, 0x10,       // Report Size (16)
+#    endif
+    0x81, 0x06, //     Input (Data, Variable, Relative)
 
     // Vertical wheel (1 byte)
-    0x09, 0x38,  //     Usage (Wheel)
-    0x15, 0x81,  //     Logical Minimum (-127)
-    0x25, 0x7F,  //     Logical Maximum (127)
-    0x95, 0x01,  //     Report Count (1)
-    0x75, 0x08,  //     Report Size (8)
-    0x81, 0x06,  //     Input (Data, Variable, Relative)
+    0x09, 0x38, //     Usage (Wheel)
+    0x15, 0x81, //     Logical Minimum (-127)
+    0x25, 0x7F, //     Logical Maximum (127)
+    0x95, 0x01, //     Report Count (1)
+    0x75, 0x08, //     Report Size (8)
+    0x81, 0x06, //     Input (Data, Variable, Relative)
     // Horizontal wheel (1 byte)
-    0x05, 0x0C,        //     Usage Page (Consumer)
-    0x0A, 0x38, 0x02,  //     Usage (AC Pan)
-    0x15, 0x81,        //     Logical Minimum (-127)
-    0x25, 0x7F,        //     Logical Maximum (127)
-    0x95, 0x01,        //     Report Count (1)
-    0x75, 0x08,        //     Report Size (8)
-    0x81, 0x06,        //     Input (Data, Variable, Relative)
-    0xC0,              //   End Collection
-    0xC0,              // End Collection
+    0x05, 0x0C,       //     Usage Page (Consumer)
+    0x0A, 0x38, 0x02, //     Usage (AC Pan)
+    0x15, 0x81,       //     Logical Minimum (-127)
+    0x25, 0x7F,       //     Logical Maximum (127)
+    0x95, 0x01,       //     Report Count (1)
+    0x75, 0x08,       //     Report Size (8)
+    0x81, 0x06,       //     Input (Data, Variable, Relative)
+    0xC0,             //   End Collection
+    0xC0,             // End Collection
 #endif
 
 #ifdef EXTRAKEY_ENABLE
     // Extrakeys report descriptor
-    0x05, 0x01,              // Usage Page (Generic Desktop)
-    0x09, 0x80,              // Usage (System Control)
-    0xA1, 0x01,              // Collection (Application)
-    0x85, REPORT_ID_SYSTEM,  //   Report ID
-    0x19, 0x01,              //   Usage Minimum (Pointer)
-    0x2A, 0xB7, 0x00,        //   Usage Maximum (System Display LCD Autoscale)
-    0x15, 0x01,              //   Logical Minimum
-    0x26, 0xB7, 0x00,        //   Logical Maximum
-    0x95, 0x01,              //   Report Count (1)
-    0x75, 0x10,              //   Report Size (16)
-    0x81, 0x00,              //   Input (Data, Array, Absolute)
-    0xC0,                    // End Collection
+    0x05, 0x01,             // Usage Page (Generic Desktop)
+    0x09, 0x80,             // Usage (System Control)
+    0xA1, 0x01,             // Collection (Application)
+    0x85, REPORT_ID_SYSTEM, //   Report ID
+    0x19, 0x01,             //   Usage Minimum (Pointer)
+    0x2A, 0xB7, 0x00,       //   Usage Maximum (System Display LCD Autoscale)
+    0x15, 0x01,             //   Logical Minimum
+    0x26, 0xB7, 0x00,       //   Logical Maximum
+    0x95, 0x01,             //   Report Count (1)
+    0x75, 0x10,             //   Report Size (16)
+    0x81, 0x00,             //   Input (Data, Array, Absolute)
+    0xC0,                   // End Collection
 
-    0x05, 0x0C,                // Usage Page (Consumer)
-    0x09, 0x01,                // Usage (Consumer Control)
-    0xA1, 0x01,                // Collection (Application)
-    0x85, REPORT_ID_CONSUMER,  //   Report ID
-    0x19, 0x01,                //   Usage Minimum (Consumer Control)
-    0x2A, 0xA0, 0x02,          //   Usage Maximum (AC Desktop Show All Applications)
-    0x15, 0x01,                //   Logical Minimum
-    0x26, 0xA0, 0x02,          //   Logical Maximum
-    0x95, 0x01,                //   Report Count (1)
-    0x75, 0x10,                //   Report Size (16)
-    0x81, 0x00,                //   Input (Data, Array, Absolute)
-    0xC0                       // End Collection
+    0x05, 0x0C,               // Usage Page (Consumer)
+    0x09, 0x01,               // Usage (Consumer Control)
+    0xA1, 0x01,               // Collection (Application)
+    0x85, REPORT_ID_CONSUMER, //   Report ID
+    0x19, 0x01,               //   Usage Minimum (Consumer Control)
+    0x2A, 0xA0, 0x02,         //   Usage Maximum (AC Desktop Show All Applications)
+    0x15, 0x01,               //   Logical Minimum
+    0x26, 0xA0, 0x02,         //   Logical Maximum
+    0x95, 0x01,               //   Report Count (1)
+    0x75, 0x10,               //   Report Size (16)
+    0x81, 0x00,               //   Input (Data, Array, Absolute)
+    0xC0,                     // End Collection
 #endif
+
+#ifdef JOYSTICK_ENABLE
+    // Joystick report descriptor
+    0x05, 0x01,               // Usage Page (Generic Desktop)
+    0x09, 0x04,               // Usage (Joystick)
+    0xA1, 0x01,               // Collection (Application)
+    0x85, REPORT_ID_JOYSTICK, //   Report ID
+    0xA1, 0x00,               //   Collection (Physical)
+#    if JOYSTICK_AXIS_COUNT > 0
+    0x05, 0x01, //     Usage Page (Generic Desktop)
+    0x09, 0x30, //     Usage (X)
+#        if JOYSTICK_AXIS_COUNT > 1
+    0x09, 0x31, //     Usage (Y)
+#        endif
+#        if JOYSTICK_AXIS_COUNT > 2
+    0x09, 0x32, //     Usage (Z)
+#        endif
+#        if JOYSTICK_AXIS_COUNT > 3
+    0x09, 0x33, //     Usage (Rx)
+#        endif
+#        if JOYSTICK_AXIS_COUNT > 4
+    0x09, 0x34, //     Usage (Ry)
+#        endif
+#        if JOYSTICK_AXIS_COUNT > 5
+    0x09, 0x35, //     Usage (Rz)
+#        endif
+#        if JOYSTICK_AXIS_RESOLUTION == 8
+    0x15, -JOYSTICK_MAX_VALUE, //     Logical Minimum
+    0x25, JOYSTICK_MAX_VALUE,  //     Logical Maximum
+    0x95, JOYSTICK_AXIS_COUNT, //     Report Count
+    0x75, 0x08,                //     Report Size (8)
+#        else
+    0x16, HID_VALUE_16(-JOYSTICK_MAX_VALUE), //     Logical Minimum
+    0x26, HID_VALUE_16(JOYSTICK_MAX_VALUE),  //     Logical Maximum
+    0x95, JOYSTICK_AXIS_COUNT,               //     Report Count
+    0x75, 0x10,                              //     Report Size (16)
+#        endif
+    0x81, 0x02, //     Input (Data, Variable, Absolute)
+#    endif
+
+#    if JOYSTICK_BUTTON_COUNT > 0
+    0x05, 0x09,                  //     Usage Page (Button)
+    0x19, 0x01,                  //     Usage Minimum (Button 1)
+    0x29, JOYSTICK_BUTTON_COUNT, //     Usage Maximum
+    0x15, 0x00,                  //     Logical Minimum (0)
+    0x25, 0x01,                  //     Logical Maximum (1)
+    0x95, JOYSTICK_BUTTON_COUNT, //     Report Count
+    0x75, 0x01,                  //     Report Size (1)
+    0x81, 0x02,                  //     Input (Data, Variable, Absolute)
+
+#        if (JOYSTICK_BUTTON_COUNT % 8) != 0
+    0x95, 8 - (JOYSTICK_BUTTON_COUNT % 8), //     Report Count
+    0x75, 0x01,                            //     Report Size (1)
+    0x81, 0x03,                            //     Input (Constant)
+#        endif
+#    endif
+    0xC0, //   End Collection
+    0xC0, // End Collection
+#endif
+
+#ifdef DIGITIZER_ENABLE
+    // Digitizer report descriptor
+    0x05, 0x0D,                // Usage Page (Digitizers)
+    0x09, 0x01,                // Usage (Digitizer)
+    0xA1, 0x01,                // Collection (Application)
+    0x85, REPORT_ID_DIGITIZER, //   Report ID
+    0x09, 0x20,                //   Usage (Stylus)
+    0xA1, 0x00,                //   Collection (Physical)
+    // In Range, Tip Switch & Barrel Switch (3 bits)
+    0x09, 0x32, //     Usage (In Range)
+    0x09, 0x42, //     Usage (Tip Switch)
+    0x09, 0x44, //     Usage (Barrel Switch)
+    0x15, 0x00, //     Logical Minimum
+    0x25, 0x01, //     Logical Maximum
+    0x95, 0x03, //     Report Count (3)
+    0x75, 0x01, //     Report Size (1)
+    0x81, 0x02, //     Input (Data, Variable, Absolute)
+    // Padding (5 bits)
+    0x95, 0x05, //     Report Count (5)
+    0x81, 0x03, //     Input (Constant)
+
+    // X/Y Position (4 bytes)
+    0x05, 0x01,       //     Usage Page (Generic Desktop)
+    0x09, 0x30,       //     Usage (X)
+    0x09, 0x31,       //     Usage (Y)
+    0x26, 0xFF, 0x7F, //     Logical Maximum (32767)
+    0x95, 0x02,       //     Report Count (2)
+    0x75, 0x10,       //     Report Size (16)
+    0x65, 0x33,       //     Unit (Inch, English Linear)
+    0x55, 0x0E,       //     Unit Exponent (-2)
+    0x81, 0x02,       //     Input (Data, Variable, Absolute)
+    0xC0,             //   End Collection
+    0xC0,             // End Collection
+#endif
+
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+    // Programmable buttons report descriptor
+    0x05, 0x0C,                          // Usage Page (Consumer)
+    0x09, 0x01,                          // Usage (Consumer Control)
+    0xA1, 0x01,                          // Collection (Application)
+    0x85, REPORT_ID_PROGRAMMABLE_BUTTON, //   Report ID
+    0x09, 0x03,                          //   Usage (Programmable Buttons)
+    0xA1, 0x04,                          //   Collection (Named Array)
+    0x05, 0x09,                          //     Usage Page (Button)
+    0x19, 0x01,                          //     Usage Minimum (Button 1)
+    0x29, 0x20,                          //     Usage Maximum (Button 32)
+    0x15, 0x00,                          //     Logical Minimum (0)
+    0x25, 0x01,                          //     Logical Maximum (1)
+    0x95, 0x20,                          //     Report Count (32)
+    0x75, 0x01,                          //     Report Size (1)
+    0x81, 0x02,                          //     Input (Data, Variable, Absolute)
+    0xC0,                                //   End Collection
+    0xC0,                                // End Collection
+#endif
+
 #ifdef SHARED_EP_ENABLE
 };
 #endif
 
 #ifdef RAW_ENABLE
 const PROGMEM uchar raw_hid_report[] = {
-    0x06, RAW_USAGE_PAGE_LO, RAW_USAGE_PAGE_HI,  // Usage Page (Vendor Defined)
-    0x09, RAW_USAGE_ID,                          // Usage (Vendor Defined)
-    0xA1, 0x01,                                  // Collection (Application)
+    0x06, HID_VALUE_16(RAW_USAGE_PAGE), // Usage Page (Vendor Defined)
+    0x09, RAW_USAGE_ID,                 // Usage (Vendor Defined)
+    0xA1, 0x01,                         // Collection (Application)
     // Data to host
-    0x09, 0x62,             //   Usage (Vendor Defined)
-    0x15, 0x00,             //   Logical Minimum (0)
-    0x26, 0xFF, 0x00,       //   Logical Maximum (255)
-    0x95, RAW_BUFFER_SIZE,  //   Report Count
-    0x75, 0x08,             //   Report Size (8)
-    0x81, 0x02,             //   Input (Data, Variable, Absolute)
+    0x09, 0x62,            //   Usage (Vendor Defined)
+    0x15, 0x00,            //   Logical Minimum (0)
+    0x26, 0xFF, 0x00,      //   Logical Maximum (255)
+    0x95, RAW_BUFFER_SIZE, //   Report Count
+    0x75, 0x08,            //   Report Size (8)
+    0x81, 0x02,            //   Input (Data, Variable, Absolute)
     // Data from host
-    0x09, 0x63,             //   Usage (Vendor Defined)
-    0x15, 0x00,             //   Logical Minimum (0)
-    0x26, 0xFF, 0x00,       //   Logical Maximum (255)
-    0x95, RAW_BUFFER_SIZE,  //   Report Count
-    0x75, 0x08,             //   Report Size (8)
-    0x91, 0x02,             //   Output (Data, Variable, Absolute)
-    0xC0                    // End Collection
+    0x09, 0x63,            //   Usage (Vendor Defined)
+    0x15, 0x00,            //   Logical Minimum (0)
+    0x26, 0xFF, 0x00,      //   Logical Maximum (255)
+    0x95, RAW_BUFFER_SIZE, //   Report Count
+    0x75, 0x08,            //   Report Size (8)
+    0x91, 0x02,            //   Output (Data, Variable, Absolute)
+    0xC0                   // End Collection
 };
 #endif
 
 #if defined(CONSOLE_ENABLE)
 const PROGMEM uchar console_hid_report[] = {
-    0x06, 0x31, 0xFF,  // Usage Page (Vendor Defined - PJRC Teensy compatible)
-    0x09, 0x74,        // Usage (Vendor Defined - PJRC Teensy compatible)
-    0xA1, 0x01,        // Collection (Application)
+    0x06, 0x31, 0xFF, // Usage Page (Vendor Defined - PJRC Teensy compatible)
+    0x09, 0x74,       // Usage (Vendor Defined - PJRC Teensy compatible)
+    0xA1, 0x01,       // Collection (Application)
     // Data to host
-    0x09, 0x75,                 //   Usage (Vendor Defined)
-    0x15, 0x00,                 //   Logical Minimum (0x00)
-    0x26, 0xFF, 0x00,           //   Logical Maximum (0x00FF)
-    0x95, CONSOLE_BUFFER_SIZE,  //   Report Count
-    0x75, 0x08,                 //   Report Size (8)
-    0x81, 0x02,                 //   Input (Data, Variable, Absolute)
+    0x09, 0x75,                //   Usage (Vendor Defined)
+    0x15, 0x00,                //   Logical Minimum (0x00)
+    0x26, 0xFF, 0x00,          //   Logical Maximum (0x00FF)
+    0x95, CONSOLE_BUFFER_SIZE, //   Report Count
+    0x75, 0x08,                //   Report Size (8)
+    0x81, 0x02,                //   Input (Data, Variable, Absolute)
     // Data from host
-    0x09, 0x76,                 //   Usage (Vendor Defined)
-    0x15, 0x00,                 //   Logical Minimum (0x00)
-    0x26, 0xFF, 0x00,           //   Logical Maximum (0x00FF)
-    0x95, CONSOLE_BUFFER_SIZE,  //   Report Count
-    0x75, 0x08,                 //   Report Size (8)
-    0x91, 0x02,                 //   Output (Data)
-    0xC0                        // End Collection
+    0x09, 0x76,                //   Usage (Vendor Defined)
+    0x15, 0x00,                //   Logical Minimum (0x00)
+    0x26, 0xFF, 0x00,          //   Logical Maximum (0x00FF)
+    0x95, CONSOLE_BUFFER_SIZE, //   Report Count
+    0x75, 0x08,                //   Report Size (8)
+    0x91, 0x02,                //   Output (Data)
+    0xC0                       // End Collection
 };
 #endif
 
@@ -565,7 +732,6 @@ const PROGMEM uchar console_hid_report[] = {
 #    define USB_MAX_POWER_CONSUMPTION 500
 #endif
 
-// TODO: change this to 10ms to match LUFA
 #ifndef USB_POLLING_INTERVAL_MS
 #    define USB_POLLING_INTERVAL_MS 1
 #endif
@@ -573,7 +739,7 @@ const PROGMEM uchar console_hid_report[] = {
 // clang-format off
 const PROGMEM usbStringDescriptor_t usbStringDescriptorZero = {
     .header = {
-        .bLength         = USB_STRING_LEN(1),
+        .bLength         = 4,
         .bDescriptorType = USBDESCR_STRING
     },
     .bString             = {0x0409} // US English
@@ -581,27 +747,27 @@ const PROGMEM usbStringDescriptor_t usbStringDescriptorZero = {
 
 const PROGMEM usbStringDescriptor_t usbStringDescriptorManufacturer = {
     .header = {
-        .bLength         = USB_STRING_LEN(sizeof(STR(MANUFACTURER)) - 1),
+        .bLength         = sizeof(USBSTR(MANUFACTURER)),
         .bDescriptorType = USBDESCR_STRING
     },
-    .bString             = LSTR(MANUFACTURER)
+    .bString             = USBSTR(MANUFACTURER)
 };
 
 const PROGMEM usbStringDescriptor_t usbStringDescriptorProduct = {
     .header = {
-        .bLength         = USB_STRING_LEN(sizeof(STR(PRODUCT)) - 1),
+        .bLength         = sizeof(USBSTR(PRODUCT)),
         .bDescriptorType = USBDESCR_STRING
     },
-    .bString             = LSTR(PRODUCT)
+    .bString             = USBSTR(PRODUCT)
 };
 
 #if defined(SERIAL_NUMBER)
 const PROGMEM usbStringDescriptor_t usbStringDescriptorSerial = {
     .header = {
-        .bLength         = USB_STRING_LEN(sizeof(STR(SERIAL_NUMBER)) - 1),
+        .bLength         = sizeof(USBSTR(SERIAL_NUMBER)),
         .bDescriptorType = USBDESCR_STRING
     },
-    .bString             = LSTR(SERIAL_NUMBER)
+    .bString             = USBSTR(SERIAL_NUMBER)
 };
 #endif
 
@@ -858,24 +1024,27 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
                     usbMsgPtr = (usbMsgPtr_t)&usbStringDescriptorZero;
                     len       = usbStringDescriptorZero.header.bLength;
                     break;
-                case 1:  // iManufacturer
+                case 1: // iManufacturer
                     usbMsgPtr = (usbMsgPtr_t)&usbStringDescriptorManufacturer;
                     len       = usbStringDescriptorManufacturer.header.bLength;
                     break;
-                case 2:  // iProduct
+                case 2: // iProduct
                     usbMsgPtr = (usbMsgPtr_t)&usbStringDescriptorProduct;
                     len       = usbStringDescriptorProduct.header.bLength;
                     break;
 #if defined(SERIAL_NUMBER)
-                case 3:  // iSerialNumber
+                case 3: // iSerialNumber
                     usbMsgPtr = (usbMsgPtr_t)&usbStringDescriptorSerial;
                     len       = usbStringDescriptorSerial.header.bLength;
                     break;
 #endif
             }
+#ifdef OS_DETECTION_ENABLE
+            process_wlength(rq->wLength.word);
+#endif
             break;
         case USBDESCR_HID:
-            switch (rq->wValue.bytes[0]) {
+            switch (rq->wIndex.word) {
 #ifndef KEYBOARD_SHARED_EP
                 case KEYBOARD_INTERFACE:
                     usbMsgPtr = (usbMsgPtr_t)&usbConfigurationDescriptor.keyboardHID;

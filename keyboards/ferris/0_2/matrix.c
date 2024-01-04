@@ -23,9 +23,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * to repeating that information all over the place.
  */
 
-#include QMK_KEYBOARD_H
+#include "matrix.h"
+#include "debug.h"
+#include "wait.h"
 #include "i2c_master.h"
-#include <print.h>
 
 extern i2c_status_t mcp23017_status;
 #define MCP23017_I2C_TIMEOUT 1000
@@ -58,11 +59,6 @@ extern i2c_status_t mcp23017_status;
 
 bool         i2c_initialized = 0;
 i2c_status_t mcp23017_status = I2C_ADDR;
-
-#define I2C2_SCL_BANK GPIOB
-#define I2C2_SCL 10
-#define I2C2_SDA_BANK GPIOB
-#define I2C2_SDA 11
 
 uint8_t init_mcp23017(void) {
     print("init mcp23017\n");

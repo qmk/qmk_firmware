@@ -1,4 +1,4 @@
-    
+
 /* Copyright 2019
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,16 +14,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "yampad.h"
+#include "quantum.h"
+#include <stdio.h>
 
-#if defined(OLED_DRIVER_ENABLE)
-__attribute__((weak))
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    return OLED_ROTATION_270;  // flips the display 270 degrees
+#if defined(OLED_ENABLE)
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
+    return OLED_ROTATION_270;
 }
 
-__attribute__((weak)) 
-void oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
   // Host Keyboard Layer Status
   oled_write_P(PSTR("Layer"), false);
   switch (get_highest_layer(layer_state)) {
@@ -60,5 +62,7 @@ void oled_task_user(void) {
       (uint8_t)(rgblight_get_sat() / RGBLIGHT_SAT_STEP),
       (uint8_t)(rgblight_get_val() / RGBLIGHT_VAL_STEP));
   oled_write(led_buf, false);
+
+  return false;
 }
 #endif

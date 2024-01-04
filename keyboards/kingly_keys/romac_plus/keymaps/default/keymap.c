@@ -27,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_1, KC_2, KC_3,
 		MO(1), KC_0, KC_DOT
 	),
-  
+
 	[FN] = LAYOUT(
 		KC_TRNS, KC_HOME, KC_PGUP,
 		KC_TRNS, KC_END, KC_PGDN,
@@ -36,12 +36,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	)
 };
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;  // flips the display 180 degrees if offhand
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
   // Host Keyboard Layer Status
   oled_write_P(PSTR("Let's\nbuild\nsome-\nthing\nto-\nget-\nher!"), false);
   switch (get_highest_layer(layer_state)) {
@@ -57,9 +57,11 @@ void oled_task_user(void) {
   }
 
   // Host Keyboard LED Status
-  uint8_t led_usb_state = host_keyboard_leds();
-  oled_write_P(IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK) ? PSTR("NLCK ") : PSTR("     "), false);
-  oled_write_P(IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK) ? PSTR("CAPS ") : PSTR("       "), false);
-  oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR("SCRLK") : PSTR("       "), false);
+  led_t led_state = host_keyboard_led_state();
+  oled_write_P(led_state.num_lock ? PSTR("NLCK ") : PSTR("     "), false);
+  oled_write_P(led_state.caps_lock ? PSTR("CAPS ") : PSTR("       "), false);
+  oled_write_P(led_state.scroll_lock ? PSTR("SCRLK") : PSTR("       "), false);
+
+    return false;
 }
 #endif

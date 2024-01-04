@@ -21,8 +21,6 @@ SWAP_HANDS_ENABLE = no  # Allow swapping hands of keyboard.
 # SLEEP_LED_ENABLE  = no  # Turn off leds when computer is sleeping.
 # KEY_LOCK_ENABLE   = no  # (+1730b)
 # CONSOLE_ENABLE    = no  # Console for debug(+400b)
-# BOOTMAGIC_ENABLE  = no  # Virtual DIP switch configuration(+1000b)
-# API_SYSEX_ENABLE  = no
 # MIDI_ENABLE       = no
 # BLUETOOTH_ENABLE  = no
 # AUDIO_ENABLE      = no
@@ -33,7 +31,6 @@ SWAP_HANDS_ENABLE = no  # Allow swapping hands of keyboard.
 # POINTING_DEVICE_ENABLE = no
 
 # AUTO_SHIFT_ENABLE    = no
-# AUTO_SHIFT_MODIFIERS = no
 
 # This don't need argument?
 # CUSTOM_MATRIX    # Custom matrix file for the ErgoDox EZ

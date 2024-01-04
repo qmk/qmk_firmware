@@ -72,7 +72,7 @@ const uint16_t PROGMEM zeroDot_combo[] = {KC_P0, KC_PDOT, COMBO_END};
 const uint16_t PROGMEM leftDown_combo[] = {KC_LEFT, KC_DOWN, COMBO_END};
 const uint16_t PROGMEM prevPlay_combo[] = {KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
   [COMBO1] = COMBO_ACTION(zeroDot_combo),
   [COMBO2] = COMBO_ACTION(leftDown_combo),
   [COMBO3] = COMBO_ACTION(prevPlay_combo),
@@ -98,7 +98,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
   }
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 void render_space(void) {
   oled_write_P(PSTR("     "), false);
@@ -117,15 +117,16 @@ void oled_render_layer_state(void) {
 }
 
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
   oled_write_ln_P(PSTR("Plaid-Pad ///////////"), false);
   oled_render_layer_state();
+    return false;
 }
 
 #endif
 
 #ifdef ENCODER_ENABLE
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
 /*
     ,-----------------------,
     |  E1 |  E2 |  E3 |  E4 |
@@ -163,7 +164,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
       case _NAVIGATION:
         // Page Down/Up
         if (clockwise) {
-          tap_code16(KC_PGDOWN);
+          tap_code16(KC_PGDN);
         } else {
           tap_code16(KC_PGUP);
         }
@@ -224,5 +225,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         break;
     }
   }
+    return true;
 }
 #endif

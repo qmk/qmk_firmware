@@ -13,9 +13,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- #include "nature.h"
+ #include "quantum.h"
  #ifdef RGB_MATRIX_ENABLE
- const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+ const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
 
 	{0, C1_3, C2_3, C3_3},   // L01
 	{0, C1_4, C2_4, C3_4},   // L02
@@ -55,6 +55,7 @@
 	{0, C9_4, C8_4, C7_4},   // L33
 	{0, C9_5, C8_5, C7_5},   // L34
 	{0, C9_6, C8_6, C7_6},   // L35
+	{2, C6_8, C5_8, C4_8},   // L44
 	{1, C9_1, C8_1, C7_1},   // L36
 	{1, C9_2, C8_2, C7_2},   // L37
 	{1, C9_3, C8_3, C7_3},   // L38
@@ -63,7 +64,6 @@
 	{1, C9_6, C8_6, C7_6},   // L41
 	{2, C6_6, C5_6, C4_6},   // L42
 	{2, C6_7, C5_7, C4_7},   // L43
-	{2, C6_8, C5_8, C4_8},   // L44
 
 
 	{0, C1_11, C2_11, C3_11},   // L45
@@ -136,20 +136,14 @@
  } };
 
 
-void suspend_power_down_kb(void) {
-    rgb_matrix_set_suspend_state(true);
-    suspend_power_down_user();
-}
-
-void suspend_wakeup_init_kb(void) {
-    rgb_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
-}
-
- __attribute__ ((weak)) void rgb_matrix_indicators_user(void) {
-    if (host_keyboard_led_state().caps_lock) {
-        rgb_matrix_set_color(45, 0xFF, 0x00, 0x00);
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
     }
+    if (host_keyboard_led_state().caps_lock) {
+        rgb_matrix_set_color(45, 0xFF, 0xFF, 0xFF);
+    }
+    return true;
 }
 
 #endif

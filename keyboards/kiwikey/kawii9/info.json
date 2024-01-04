@@ -1,21 +1,54 @@
 {
     "keyboard_name": "Kawii9",
+    "manufacturer": "KiwiKey",
     "url": "http://kiwikey.vn/kawii9/",
     "maintainer": "KiwiKey",
-    "width": 3,
-    "height": 3,
+    "usb": {
+        "vid": "0x4B57",
+        "pid": "0x0303",
+        "device_version": "0.0.2"
+    },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 4,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "D3"
+    },
+    "matrix_pins": {
+        "cols": ["F4", "F5", "F6"],
+        "rows": ["B6", "B5", "B4"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_ortho_3x3": {
             "layout": [
-                {"label":"k00", "x":0, "y":0},
-                {"label":"k01", "x":1, "y":0},
-                {"label":"k02", "x":2, "y":0},
-                {"label":"k10", "x":0, "y":1},
-                {"label":"k11", "x":1, "y":1},
-                {"label":"k12", "x":2, "y":1},
-                {"label":"k20", "x":0, "y":2},
-                {"label":"k21", "x":1, "y":2},
-                {"label":"k22", "x":2, "y":2}
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2}
             ]
         }
     }

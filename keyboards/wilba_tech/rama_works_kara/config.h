@@ -15,33 +15,10 @@
  */
 #pragma once
 
-#include "config_common.h"
-
-// USB Device descriptor parameter
-#define VENDOR_ID       0x5241 // "RA"
-#define PRODUCT_ID      0x4B52 // "KR"
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    RAMA WORKS
-#define PRODUCT         RAMA WORKS KARA
-
-// key matrix size
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
-
-// M60-A PCB default pin-out
-#define MATRIX_ROW_PINS { F0, F1, F4, F6, F7 }
-#define MATRIX_COL_PINS { F5, D5, B1, B2, B3, D3, D2, C7, C6, B6, B5, B4, D7, D6 }
-#define UNUSED_PINS
-
 // IS31FL3731 driver
-#define DRIVER_COUNT 2
-#define DRIVER_LED_TOTAL 72
-
-// COL2ROW or ROW2COL
-#define DIODE_DIRECTION COL2ROW
-
-// Set 0 if debouncing isn't needed
-#define DEBOUNCE 5
+#define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
+#define IS31FL3731_I2C_ADDRESS_2 IS31FL3731_I2C_ADDRESS_SDA
+#define IS31FL3731_LED_COUNT 72
 
 // Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap
 #define LOCKING_SUPPORT_ENABLE
@@ -63,8 +40,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 #define RGB_BACKLIGHT_ENABLED 1
 
@@ -118,6 +93,3 @@
 // Backlight config starts after VIA's EEPROM usage,
 // dynamic keymaps start after this.
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 31
-
-// VIA lighting is handled by the keyboard-level code
-#define VIA_CUSTOM_LIGHTING_ENABLE

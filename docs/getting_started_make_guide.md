@@ -14,7 +14,7 @@ The full syntax of the `make` command is `<keyboard_folder>:<keymap>:<target>`, 
 The `<target>` means the following
 * If no target is given, then it's the same as `all` below
 * `all` compiles as many keyboard/revision/keymap combinations as specified. For example, `make planck/rev4:default` will generate a single .hex, while `make planck/rev4:all` will generate a hex for every keymap available to the planck.
-* `flash`, `dfu`, `teensy`, `avrdude`, `dfu-util`, or `bootloadHID` compile and upload the firmware to the keyboard. If the compilation fails, then nothing will be uploaded. The programmer to use depends on the keyboard. For most keyboards it's `dfu`, but for ChibiOS keyboards you should use `dfu-util`, and `teensy` for standard Teensys. To find out which command you should use for your keyboard, check the keyboard specific readme. 
+* `flash`, `dfu`, `teensy`, `avrdude`, `dfu-util`, or `bootloadhid` compile and upload the firmware to the keyboard. If the compilation fails, then nothing will be uploaded. The programmer to use depends on the keyboard. For most keyboards it's `dfu`, but for ChibiOS keyboards you should use `dfu-util`, and `teensy` for standard Teensys. To find out which command you should use for your keyboard, check the keyboard specific readme. 
   Visit the [Flashing Firmware](flashing.md) guide for more details of the available bootloaders.
   * **Note**: some operating systems need privileged access for these commands to work. This means that you may need to setup [`udev rules`](faq_build.md#linux-udev-rules) to access these without root access, or to run the command with root access (`sudo make planck/rev4:default:flash`).
 * `clean`, cleans the build output folders to make sure that everything is built from scratch. Run this before normal compilation if you have some unexplainable problems.
@@ -55,7 +55,7 @@ Set these variables to `no` to disable them, and `yes` to enable them.
 
 `BOOTMAGIC_ENABLE`
 
-This allows you to hold a key and the salt key (space by default) and have access to a various EEPROM settings that persist over power loss. It's advised you keep this disabled, as the settings are often changed by accident, and produce confusing results that makes it difficult to debug. It's one of the more common problems encountered in help sessions.
+This allows you to hold a key (usually Escape by default) to reset the EEPROM settings that persist over power loss and ready your keyboard to accept new firmware.
 
 `MOUSEKEY_ENABLE`
 
@@ -109,7 +109,7 @@ This allows you to send Unicode characters using `UC(<code point>)` in your keym
 
 `UNICODEMAP_ENABLE`
 
-This allows you to send Unicode characters using `X(<map index>)` in your keymap. You will need to maintain a mapping table in your keymap file. All possible code points (up to `0x10FFFF`) are supported.
+This allows you to send Unicode characters using `UM(<map index>)` in your keymap. You will need to maintain a mapping table in your keymap file. All possible code points (up to `0x10FFFF`) are supported.
 
 `UCIS_ENABLE`
 
@@ -124,10 +124,6 @@ This allows you output audio on the C6 pin (needs abstracting). See the [audio p
 `VARIABLE_TRACE`
 
 Use this to debug changes to variable values, see the [tracing variables](unit_testing.md#tracing-variables) section of the Unit Testing page for more information.
-
-`API_SYSEX_ENABLE`
-
-This enables using the Quantum SYSEX API to send strings (somewhere?)
 
 `KEY_LOCK_ENABLE`
 
@@ -148,6 +144,10 @@ Lets you replace the default matrix scanning routine with your own code. For fur
 `DEBOUNCE_TYPE`
 
 Lets you replace the default key debouncing routine with an alternative one. If `custom` you will need to provide your own implementation.
+
+`DEFERRED_EXEC_ENABLE`
+
+Enables deferred executor support -- timed delays before callbacks are invoked. See [deferred execution](custom_quantum_functions.md#deferred-execution) for more information.
 
 ## Customizing Makefile Options on a Per-Keymap Basis
 

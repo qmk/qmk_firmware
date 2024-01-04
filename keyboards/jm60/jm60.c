@@ -15,8 +15,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "jm60.h"
+#include "quantum.h"
 
 void board_init(void) {
 	AFIO->MAPR |= AFIO_MAPR_SWJ_CFG_JTAGDISABLE;
+}
+
+void bootloader_jump(void) {
+    // This board doesn't use the "standard" stm32duino bootloader. There's no information on how to jump to the custom bootloader, so all we can do here is reset.
+    NVIC_SystemReset();
 }

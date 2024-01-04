@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include "keymap_jp.h"
+#include "keymap_japanese.h"
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_number {
@@ -43,16 +43,25 @@ enum {
 
 // Declare the functions to be used with your tap dance key(s)
 // Function associated with all tap dances
-uint8_t cur_dance(qk_tap_dance_state_t *state);
+uint8_t cur_dance(tap_dance_state_t *state);
 // Functions associated with individual tap dances
-void ql_finished(qk_tap_dance_state_t *state, void *user_data);
-void ql_reset(qk_tap_dance_state_t *state, void *user_data);
+void ql_finished(tap_dance_state_t *state, void *user_data);
+void ql_reset(tap_dance_state_t *state, void *user_data);
 
 // Tap Dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_LSFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
-    [TD_ESC_NUM] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, ql_finished, ql_reset, 275),
+    [TD_ESC_NUM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ql_finished, ql_reset),
 };
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case TD(TD_ESC_NUM):
+            return 275;
+        default:
+            return TAPPING_TERM;
+    }
+}
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
@@ -81,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,     KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,               JP_AT,  JP_LBRC,
         KC_LCTL,    KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   JP_SCLN, KC_ENT,    JP_COLN,JP_RBRC,
         S_CAP,          KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   JP_COMM,JP_DOT, C_SLSH, S_BSLS, KC_UP,  LOWER,
-        KC_MUTE,KC_LALT,KC_LGUI,KC_LANG2,       SP_SFT,         SP_RAI,        KC_LANG1,KC_RGUI,KC_RALT,KC_LEFT,KC_DOWN,KC_RGHT
+        KC_MUTE,KC_LALT,KC_LGUI,KC_LNG2,       SP_SFT,         SP_RAI,        KC_LNG1,KC_RGUI,KC_RALT,KC_LEFT,KC_DOWN,KC_RGHT
     ),
     [_WIN] = LAYOUT_jp(
         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
@@ -120,8 +129,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_ADJUST] = LAYOUT_jp(
         _______,RGB_HUI,RGB_SAI,RGB_VAI,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
-        _______,    _______,WIN,    _______,RESET,  _______,RGB_HUI,RGB_SAI,RGB_VAI,_______,RGB_RMOD,           _______,_______,
-        _______,    AU_TOG, CK_TOGG,MU_TOG, MU_MOD, _______,RGB_HUD,RGB_SAD,RGB_VAD,RGB_TOG,RGB_MOD,_______,    _______,_______,
+        _______,    _______,WIN,    _______,QK_BOOT,_______,RGB_HUI,RGB_SAI,RGB_VAI,_______,RGB_RMOD,           _______,_______,
+        _______,    AU_TOGG,CK_TOGG,MU_TOGG,MU_NEXT,_______,RGB_HUD,RGB_SAD,RGB_VAD,RGB_TOG,RGB_MOD,_______,    _______,_______,
         _______,        CK_RST, CK_DOWN,CK_UP  ,_______,_______,NUM,     MAC,   _______,_______,_______,_______,_______,_______,
         _______,_______,_______,_______,        _______,        _______,        _______,_______,_______,_______,_______,_______
     )
@@ -237,7 +246,7 @@ bool led_update_user(led_t led_state) {
 
 //------------------------------------------------------------------------------
 // Rotary Encoder
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder, Right side */
         if (clockwise) {
             tap_code(KC_VOLD);
@@ -246,7 +255,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
     }
     if (index == 1) { /* Second encoder, Left side */
-        switch(biton32(layer_state)) {
+        switch(get_highest_layer(layer_state)) {
             case _LOWER:
                 if (clockwise) {
                     rgblight_decrease_hue();
@@ -277,6 +286,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 break;
         }
     }
+    return true;
 }
 
 
@@ -290,7 +300,7 @@ typedef struct {
 } tap;
 
 // Determine the current tap dance state
-uint8_t cur_dance(qk_tap_dance_state_t *state) {
+uint8_t cur_dance(tap_dance_state_t *state) {
     if (state->count == 1) {
         if (!state->pressed) {
             return SINGLE_TAP;
@@ -321,9 +331,9 @@ static tap ql_tap_state = {
 };
 
 // Functions that control what our tap dance key does
-void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
+void ql_finished(tap_dance_state_t *state, void *user_data) {
     ql_tap_state.state = cur_dance(state);
-    switch(state->keycode) {
+    switch(TAP_DANCE_KEYCODE(state)) {
         case TD(TD_ESC_NUM): // ESC key action
             switch (ql_tap_state.state) {
                 case SINGLE_TAP:
@@ -351,8 +361,8 @@ void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void ql_reset(qk_tap_dance_state_t *state, void *user_data) {
-    switch(state->keycode) {
+void ql_reset(tap_dance_state_t *state, void *user_data) {
+    switch(TAP_DANCE_KEYCODE(state)) {
         case TD(TD_ESC_NUM):
             // If the key was held down and now is released then switch off the layer
             if (ql_tap_state.state == TAP_HOLD) {

@@ -2,69 +2,70 @@
 * text=auto
 
 # sources
-*.c text
-*.cc text
-*.cxx text
-*.cpp text
-*.c++ text
-*.hpp text
-*.h text
-*.h++ text
-*.hh text
-*.bat    text
-*.coffee text
-*.css    text
-*.htm    text
-*.html   text
-*.inc    text
-*.ini    text
-*.js     text
-*.jsx    text
-*.json   text
-*.less   text
-*.php    text
-*.pl     text
-*.py     text
-*.rb     text
-*.sass   text
-*.scm    text
-*.scss   text
-*.sh     text
-*.sql    text
-*.styl   text
-*.ts     text
-*.xml    text
-*.xhtml  text
+*.c      text eol=lf
+*.cc     text eol=lf
+*.cxx    text eol=lf
+*.cpp    text eol=lf
+*.c++    text eol=lf
+*.hpp    text eol=lf
+*.h      text eol=lf
+*.h++    text eol=lf
+*.hh     text eol=lf
+*.bat    text eol=crlf
+*.cmd    text eol=crlf
+*.coffee text eol=lf
+*.css    text eol=lf
+*.htm    text eol=lf
+*.html   text eol=lf
+*.inc    text eol=lf
+*.ini    text eol=crlf
+*.js     text eol=lf
+*.jsx    text eol=lf
+*.json   text eol=lf
+*.less   text eol=lf
+*.php    text eol=lf
+*.pl     text eol=lf
+*.py     text eol=lf
+*.rb     text eol=lf
+*.sass   text eol=lf
+*.scm    text eol=lf
+*.scss   text eol=lf
+*.sh     text eol=lf
+*.sql    text eol=lf
+*.styl   text eol=lf
+*.ts     text eol=lf
+*.xml    text eol=lf
+*.xhtml  text eol=lf
 
 # make files (need to always use lf for compatibility with Windows 10 bash)
 Makefile eol=lf
-*.mk eol=lf
+*.mk     eol=lf
 
 # make files (need to always use lf for compatibility with Windows 10 bash)
 *.sh eol=lf
 
 # documentation
-*.markdown   text
-*.md         text
-*.mdwn       text
-*.mdown      text
-*.mkd        text
-*.mkdn       text
-*.mdtxt      text
-*.mdtext     text
-*.txt        text
-AUTHORS      text
-CHANGELOG    text
-CHANGES      text
-CONTRIBUTING text
-COPYING      text
-INSTALL      text
-license      text
-LICENSE      text
-NEWS         text
-readme       text
-*README*     text
-TODO         text
+*.markdown   text eol=lf
+*.md         text eol=lf
+*.mdwn       text eol=lf
+*.mdown      text eol=lf
+*.mkd        text eol=lf
+*.mkdn       text eol=lf
+*.mdtxt      text eol=lf
+*.mdtext     text eol=lf
+*.txt        text eol=lf
+AUTHORS      text eol=lf
+CHANGELOG    text eol=lf
+CHANGES      text eol=lf
+CONTRIBUTING text eol=lf
+COPYING      text eol=lf
+INSTALL      text eol=lf
+license      text eol=lf
+LICENSE      text eol=lf
+NEWS         text eol=lf
+readme       text eol=lf
+*README*     text eol=lf
+TODO         text eol=lf
 
 GRAPHICS
 *.ai   binary
@@ -82,7 +83,7 @@ GRAPHICS
 *.png  binary
 *.psb  binary
 *.psd  binary
-*.svg  text
+*.svg  text eol=lf
 *.svgz binary
 *.tif  binary
 *.tiff binary

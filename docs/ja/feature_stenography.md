@@ -1,8 +1,8 @@
 # QMK での速記 :id=stenography-in-qmk
 
 <!---
-  original document: 0.10.33:docs/feature_stenography.md
-  git diff 0.10.33 HEAD -- docs/feature_stenography.md | cat
+  original document: 0.13.15:docs/feature_stenography.md
+  git diff 0.13.15 HEAD -- docs/feature_stenography.md | cat
 -->
 
 [速記](https://en.wikipedia.org/wiki/Stenotype)は裁判所のレポート、字幕および耳が不自由な人のためのリアルタイムの文字起こしで最もよく使われる記述方法です。速記では単語はスペル、音声およびショートカット(短い)ストロークが混在する音節ごとに音節化されます。プロの速記者は、標準的なタイピングで通常見られる負担を掛けずに、はるかに少ないエラー(99.9%より高い精度)で、200-300 WPM に到達できます。
@@ -45,8 +45,8 @@ MOUSEKEY_ENABLE = no
 キーマップで Plover 用の新しいレイヤーを作成します。`keymap_steno.h` をインクルードする必要があります。例については `planck/keymaps/steno/keymap.c` を見てください。レイヤーに切り替えるためのキーとレイヤーから抜けるためのキーを作成することを忘れないでください。その場でモードを切り替えたい場合は、キーコード `QK_STENO_BOLT` および `QK_STENO_GEMINI` を使うことができます。プロトコルのうちの1つのみを使う場合は、初期化関数の中でそれをセットアップすることができます:
 
 ```c
-void matrix_init_user() {
-  steno_set_mode(STENO_MODE_GEMINI); // あるいは STENO_MODE_BOLT
+void eeconfig_init_user() {
+    steno_set_mode(STENO_MODE_GEMINI); // あるいは STENO_MODE_BOLT
 }
 ```
 
@@ -77,10 +77,10 @@ bool process_steno_user(uint16_t keycode, keyrecord_t *record) { return true; }
 この関数はキーが押されるとキーが処理される前に呼び出されます。キーコードは `QK_STENO_BOLT`、`QK_STENO_GEMINI` あるいは `STN_*` キー値のいずれかでなければなりません。
 
 ```c
-bool postprocess_steno_user(uint16_t keycode, keyrecord_t *record, steno_mode_t mode, uint8_t chord[6], int8_t pressed);
+bool post_process_steno_user(uint16_t keycode, keyrecord_t *record, steno_mode_t mode, uint8_t chord[6], int8_t pressed);
 ```
 
-この関数はキーが処理された後、ただしコードを送信するかどうかを決める前に呼び出されます。`IS_PRESSED(record->event)` が false で、`pressed` が 0 または 1 の場合は、コードはまもなく送信されますが、まだ送信されてはいません。ここが速記コードあるいはキーのライブ表示などのフックを配置する場所です。
+この関数はキーが処理された後、ただしコードを送信するかどうかを決める前に呼び出されます。`record->event.pressed` が false で、`pressed` が 0 または 1 の場合は、コードはまもなく送信されますが、まだ送信されてはいません。ここが速記コードあるいはキーのライブ表示などのフックを配置する場所です。
 
 
 ## キーコードリファレンス :id=keycode-reference

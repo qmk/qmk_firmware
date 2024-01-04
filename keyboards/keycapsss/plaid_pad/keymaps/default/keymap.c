@@ -34,16 +34,17 @@ void keyboard_post_init_user(void) {
 
 
 // Rev3 and above only
-#ifdef OLED_DRIVER_ENABLE
-void oled_task_user(void) {
+#ifdef OLED_ENABLE
+bool oled_task_user(void) {
   oled_write_ln_P(PSTR("Plaid-Pad ///////////"), false);
+    return false;
 }
 #endif
 
 
 #ifdef ENCODER_ENABLE
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
 /*
 Rev1.1                      Rev1
 ,-----------------------,   ,-----------------------,
@@ -86,6 +87,7 @@ Rev1.1                      Rev1
       tap_code(KC_F24);
     }
   }
+    return true;
 }
 
 #endif

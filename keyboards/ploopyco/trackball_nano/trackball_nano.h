@@ -20,21 +20,6 @@
 #pragma once
 
 #include "quantum.h"
-#include "adns5050.h"
-#include "analog.h"
-#include "opt_encoder.h"
-#include "pointing_device.h"
-
-// Sensor defs
-#define OPT_ENC1 F0
-#define OPT_ENC2 F4
-#define OPT_ENC1_MUX 0
-#define OPT_ENC2_MUX 4
-
-void process_mouse(report_mouse_t* mouse_report);
-void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y);
-
-#define LAYOUT(k00) {{ KC_NO }}
 
 typedef union {
   uint32_t raw;
@@ -46,6 +31,7 @@ typedef union {
 extern keyboard_config_t keyboard_config;
 
 enum ploopy_keycodes {
-    DPI_CONFIG = SAFE_RANGE,
-    PLOOPY_SAFE_RANGE,
+    DPI_CONFIG = QK_KB_0,
 };
+
+void cycle_dpi(void);

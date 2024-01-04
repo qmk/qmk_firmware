@@ -1,0 +1,4 @@
+# Do not enable RGB_MATRIX_ENABLE together with RGBLIGHT_ENABLE
+RGB_MATRIX_ENABLE = yes
+
+LTO_ENABLE = yes

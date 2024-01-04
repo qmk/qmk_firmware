@@ -47,21 +47,21 @@ enum {
   PSLPAS
 };
 
-void dance_LAYER_finished(qk_tap_dance_state_t *state, void *user_data) {
+void dance_LAYER_finished(tap_dance_state_t *state, void *user_data) {
   if (state->count == 2) {
      layer_on(_ADJUST2);
      set_oneshot_layer(_ADJUST2, ONESHOT_START);
   }
 }
-void dance_LAYER_reset(qk_tap_dance_state_t *state, void *user_data) {
+void dance_LAYER_reset(tap_dance_state_t *state, void *user_data) {
   if (state->count == 2) {
      layer_off(_ADJUST2);
      clear_oneshot_layer_state(ONESHOT_PRESSED);
   }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
-[ADJ]    = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_LAYER_finished, dance_LAYER_reset),  //  Double-tap to activate Adjust layer via oneshot layer 
+tap_dance_action_t tap_dance_actions[] = {
+[ADJ]    = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_LAYER_finished, dance_LAYER_reset),  //  Double-tap to activate Adjust layer via oneshot layer
 [LBCB]   = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_LCBR),  // Left bracket on a single-tap, left brace on a double-tap
 [RBCB]   = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, KC_RCBR),  // Right bracket on a single-tap, right brace on a double-tap
 [EQPL]   = ACTION_TAP_DANCE_DOUBLE(KC_EQL, KC_PLUS),   // Plus sign on a single-tap, equal sign on a double-tap
@@ -77,7 +77,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Colemak
    (Default layer; keys separated by /: tap for first, hold for second; uses Space Cadet Shifts)
-  ,-----------------------------------------------------------------------.          ,-----------------------------------------------------------------------. 
+  ,-----------------------------------------------------------------------.          ,-----------------------------------------------------------------------.
   |  ESC  |   F1  |   F2  |   F3  |   F4  |   F5  |       |       |       |          | Adjust|       |  F12  |   F6  |   F7  |   F8  |   F9  |  F10  |  F11  |
   |-------+-------+-------+-------+-------+-------+-------+-------+-------|          |-------+-------+-------+-------+-------+-------+-------+-------+-------|
   |   =   |   1   |   2   |   3   |   4   |   5   |       |       |       |          | Numpad|       |       |   6   |   7   |   8   |   9   |   0   |   -   |
@@ -91,18 +91,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   |  Ins  |   `   |   [   |   ]   |App/Alt| Spc/Fn| Ent/NS|  Bspc |  End  |          |       | Enter |Del/NS2|Bsp/Fn2|  RGUI |  Left |  Down |   Up  | Right |
   `-----------------------------------------------------------------------'          `-----------------------------------------------------------------------'
 */
-[_COLEMAK] = LAYOUT( \
+[_COLEMAK] = LAYOUT(
   KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______, _______, _______,     ADJUST,  _______, KC_F12,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-  KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______, _______, _______,     NUMPAD,  _______, _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,  
-  KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    _______, _______, KC_HOME,     KC_PAUS, _______, _______, KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSLS,    
-  CTLESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    _______, _______, KC_PGUP,     KC_SLCK, _______, _______, KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,  
-  KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    CTLESC,  ALTAPP,  KC_PGDN,     KC_PSCR, KC_RALT, KC_RCTL, KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,   
-  KC_INS,  KC_GRV,  KC_LBRC, KC_RBRC, ALTAPP,  SPCFN,   ENTNS,   KC_BSPC, KC_END,      _______, KC_ENT,  DELNS,   BSPCFN,  KC_RGUI, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT 
+  KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______, _______, _______,     NUMPAD,  _______, _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
+  KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    _______, _______, KC_HOME,     KC_PAUS, _______, _______, KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSLS,
+  CTLESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    _______, _______, KC_PGUP,     KC_SCRL, _______, _______, KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
+  SC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    CTLESC,  ALTAPP,  KC_PGDN,     KC_PSCR, KC_RALT, KC_RCTL, KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SC_RSPC,
+  KC_INS,  KC_GRV,  KC_LBRC, KC_RBRC, ALTAPP,  SPCFN,   ENTNS,   KC_BSPC, KC_END,      _______, KC_ENT,  DELNS,   BSPCFN,  KC_RGUI, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* QWERTY
    (Keys separated by /: tap for first, hold for second; uses Space Cadet Shifts)
-  ,-----------------------------------------------------------------------.          ,-----------------------------------------------------------------------. 
+  ,-----------------------------------------------------------------------.          ,-----------------------------------------------------------------------.
   |  ESC  |   F1  |   F2  |   F3  |   F4  |   F5  |       |       |       |          | Adjust|       |  F12  |   F6  |   F7  |   F8  |   F9  |  F10  |  F11  |
   |-------+-------+-------+-------+-------+-------+-------+-------+-------|          |-------+-------+-------+-------+-------+-------+-------+-------+-------|
   |   =   |   1   |   2   |   3   |   4   |   5   |       |       |       |          | Numpad|       |       |   6   |   7   |   8   |   9   |   0   |   -   |
@@ -116,18 +116,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   |  Ins  |   `   |   [   |   ]   |App/Alt| Spc/Fn| Ent/NS|  Bspc |  End  |          |       | Enter |Del/NS2|Bsp/Fn2|  RGUI |  Left |  Down |   Up  | Right |
   `-----------------------------------------------------------------------'          `-----------------------------------------------------------------------'
 */
-[_QWERTY] = LAYOUT( \
+[_QWERTY] = LAYOUT(
   KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,       ADJUST,  _______, KC_F12,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-  KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,        NUMPAD,  _______, _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,  
-  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_HOME,     KC_PAUS, _______, _______, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,    
-  CTLESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_PGUP,     KC_SLCK, _______, _______, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,  
-  KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    CTLESC,  ALTAPP,  KC_PGDN,     KC_PSCR, KC_RALT, KC_RCTL, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,   
-  KC_INS,  KC_GRV,  KC_LBRC, KC_RBRC, ALTAPP,  SPCFN,   ENTNS,   KC_BSPC, KC_END,      _______, KC_ENT,  DELNS,   BSPCFN,  KC_RGUI, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT 
+  KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,        NUMPAD,  _______, _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
+  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_HOME,     KC_PAUS, _______, _______, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
+  CTLESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_PGUP,     KC_SCRL, _______, _______, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+  SC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    CTLESC,  ALTAPP,  KC_PGDN,     KC_PSCR, KC_RALT, KC_RCTL, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SC_RSPC,
+  KC_INS,  KC_GRV,  KC_LBRC, KC_RBRC, ALTAPP,  SPCFN,   ENTNS,   KC_BSPC, KC_END,      _______, KC_ENT,  DELNS,   BSPCFN,  KC_RGUI, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* Numbers/Symbols layer
    (Multiple characters: single-tap for first, double-tap for second)
-  ,-----------------------------------------------------------------------.          ,-----------------------------------------------------------------------. 
+  ,-----------------------------------------------------------------------.          ,-----------------------------------------------------------------------.
   |       |       |       |       |       |       |       |       |       |          |       |       |       |       |       |       |       |       |       |
   |-------+-------+-------+-------+-------+-------+-------+-------+-------|          |-------+-------+-------+-------+-------+-------+-------+-------+-------|
   |  F12  |   F1  |   F2  |   F3  |   F4  |   F5  |       |       |       |          |       |       |       |   F6  |   F7  |   F8  |   F9  |  F10  |  F12  |
@@ -141,7 +141,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   |   (   |   )   |  [ {  |  ] }  |       |       |       |       |       |          |       |       |       |       |       |       |       |       |       |
   `-----------------------------------------------------------------------'          `-----------------------------------------------------------------------'
 */
-[_NUMBERS] = LAYOUT( \
+[_NUMBERS] = LAYOUT(
   _______, _______, _______,  _______,  _______,  _______,  _______, _______, _______,     _______, _______,  _______,  _______,  _______,  _______,  _______, _______, _______,
   KC_F12,  KC_F1,   KC_F2,    KC_F3,    KC_F4,    KC_F5,    _______, _______, _______,     _______, _______,  _______,  KC_F6,    KC_F7,    KC_F8,    KC_F9,   KC_F10,  KC_F11,
   _______, KC_6,    KC_7,     KC_8,     KC_9,     KC_0,     _______, _______, _______,     _______, _______,  _______,  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN, KC_RPRN, _______,
@@ -150,7 +150,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LPRN, KC_RPRN, TD(LBCB), TD(RBCB), _______,  _______,  _______, _______, _______,     _______, _______,  _______,  _______,  _______,  _______,  _______, _______, _______
 ),
 
-[_NUMBERS2] = LAYOUT( \
+[_NUMBERS2] = LAYOUT(
   _______, _______, _______,  _______,  _______,  _______,  _______, _______, _______,     _______, _______,  _______,  _______,  _______,  _______,  _______, _______, _______,
   KC_F12,  KC_F1,   KC_F2,    KC_F3,    KC_F4,    KC_F5,    _______, _______, _______,     _______, _______,  _______,  KC_F6,    KC_F7,    KC_F8,    KC_F9,   KC_F10,  KC_F11,
   _______, KC_6,    KC_7,     KC_8,     KC_9,     KC_0,     _______, _______, _______,     _______, _______,  _______,  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN, KC_RPRN, _______,
@@ -160,7 +160,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 /* Function layer
-  ,-----------------------------------------------------------------------.          ,-----------------------------------------------------------------------. 
+  ,-----------------------------------------------------------------------.          ,-----------------------------------------------------------------------.
   |       |       |       |       |       |       |       |       |       |          |       |       |       |       |       |       |       |       |       |
   |-------+-------+-------+-------+-------+-------+-------+-------+-------|          |-------+-------+-------+-------+-------+-------+-------+-------+-------|
   |  F12  |   F1  |   F2  |   F3  |   F4  |   F5  |       |       |       |          |       |       |       |   F6  |   F7  |   F8  |   F9  |  F10  |  F12  |
@@ -194,7 +194,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Numpad layer
    (Left side duplicates layout from the Numbers layer, just with numpad output; right side layout close to PC numpad layout)
-  ,-----------------------------------------------------------------------.          ,-----------------------------------------------------------------------. 
+  ,-----------------------------------------------------------------------.          ,-----------------------------------------------------------------------.
   |       |       |       |       |       |       |       |       |       |          |       |       |       |       |       |       |       |       |       |
   |-------+-------+-------+-------+-------+-------+-------+-------+-------|          |-------+-------+-------+-------+-------+-------+-------+-------+-------|
   |       | NumLk |       |       |       |       |       |       |       |          |       |       |  Tab  | NumLk |  KP / |  KP * |  KP - |       |       |
@@ -208,9 +208,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   |   (   |   )   |  [ {  |  ] }  |       |       |       |       |       |          |       |       |       |       |  KP 0 |  KP . | KP Ent|       |       |
   `-----------------------------------------------------------------------'          `-----------------------------------------------------------------------'
 */
-[_NUMPAD] = LAYOUT( \
+[_NUMPAD] = LAYOUT(
   _______, _______, _______,  _______,   _______,   _______,   _______, _______, _______,     _______, _______,  _______,  _______, _______, _______, _______, _______, _______,
-  _______, KC_NLCK, _______,  _______,   _______,   _______,   _______, _______, _______,     _______, _______,  _______,  KC_TAB,  KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, _______,
+  _______, KC_NUM,  _______,  _______,   _______,   _______,   _______, _______, _______,     _______, _______,  _______,  KC_TAB,  KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS, _______,
   _______, KC_P6,   KC_P7,   KC_P8,      KC_P9,     KC_P0,     _______, _______, _______,     _______, _______,  _______,  _______, KC_P7,   KC_P8,   KC_P9,   KC_PPLS, _______,
   _______, KC_P1,   KC_P2,   KC_P3,      KC_P4,     KC_P5,     _______, _______, _______,     _______, _______,  _______,  _______, KC_P4,   KC_P5,   KC_P6,   KC_EQL,  _______,
   _______, _______, KC_PDOT, TD(PSLPAS), TD(PMNUN), TD(PPLEQ), _______, _______, _______,     _______, _______,  _______,  _______, KC_P1,   KC_P2,   KC_P3,   KC_PENT, _______,
@@ -219,7 +219,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Colemak gaming/vanilla
    (Limited access to Function or Numbers layers; mainly used for gaming; Ent/NS + Del/NS2 on right side to access Adjust layer)
-  ,-----------------------------------------------------------------------.          ,-----------------------------------------------------------------------. 
+  ,-----------------------------------------------------------------------.          ,-----------------------------------------------------------------------.
   |  ESC  |   F1  |   F2  |   F3  |   F4  |   F5  |   F6  |   F7  |   F8  |          | Adjust|       |  F12  |   F6  |   F7  |   F8  |   F9  |  F10  |  F11  |
   |-------+-------+-------+-------+-------+-------+-------+-------+-------|          |-------+-------+-------+-------+-------+-------+-------+-------+-------|
   |   =   |   1   |   2   |   3   |   4   |   5   |   6   |   7   |   8   |          | Numpad|       |       |   6   |   7   |   8   |   9   |   0   |   -   |
@@ -233,18 +233,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   |  Ins  |   `   |   [   |   ]   |  LAlt | Space | Enter |  Bspc |  End  |          |       | Ent/NS|Del/NS2|Bsp/Fn2|  RGUI |  Left |  Down |   Up  | Right |
   `-----------------------------------------------------------------------'          `-----------------------------------------------------------------------'
 */
-[_COLEMAKGM] = LAYOUT( \
+[_COLEMAKGM] = LAYOUT(
   KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,       ADJUST,  _______, KC_F12,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-  KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,        NUMPAD,  _______, _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,  
-  KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_HOME,     KC_PAUS, _______, _______, KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSLS,    
-  KC_LCTL, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_PGUP,     KC_SLCK, _______, _______, KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,  
-  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_ESC,  KC_LALT, KC_PGDN,     KC_PSCR, KC_RALT, KC_RCTL, KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,   
-  KC_INS,  KC_GRV,  KC_LBRC, KC_RBRC, KC_LALT, KC_SPC,  KC_ENT,  KC_BSPC, KC_END,      _______, ENTNS,   DELNS,   BSPCFN,  KC_RGUI, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT 
+  KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,        NUMPAD,  _______, _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
+  KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_HOME,     KC_PAUS, _______, _______, KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSLS,
+  KC_LCTL, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_PGUP,     KC_SCRL, _______, _______, KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
+  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_ESC,  KC_LALT, KC_PGDN,     KC_PSCR, KC_RALT, KC_RCTL, KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+  KC_INS,  KC_GRV,  KC_LBRC, KC_RBRC, KC_LALT, KC_SPC,  KC_ENT,  KC_BSPC, KC_END,      _______, ENTNS,   DELNS,   BSPCFN,  KC_RGUI, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* QWERTY gaming/vanilla
    (Limited access to Function or Numbers layers; mainly used for gaming; Ent/NS + Del/NS2 on right side to access Adjust layer)
-  ,-----------------------------------------------------------------------.          ,-----------------------------------------------------------------------. 
+  ,-----------------------------------------------------------------------.          ,-----------------------------------------------------------------------.
   |  ESC  |   F1  |   F2  |   F3  |   F4  |   F5  |   F6  |   F7  |   F8  |          | Adjust|       |  F12  |   F6  |   F7  |   F8  |   F9  |  F10  |  F11  |
   |-------+-------+-------+-------+-------+-------+-------+-------+-------|          |-------+-------+-------+-------+-------+-------+-------+-------+-------|
   |   =   |   1   |   2   |   3   |   4   |   5   |   6   |   7   |   8   |          | Numpad|       |       |   6   |   7   |   8   |   9   |   0   |   -   |
@@ -258,21 +258,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   |  Ins  |   `   |   [   |   ]   |  LAlt | Space | Enter |  Bspc |  End  |          |       | Ent/NS|Del/NS2|Bsp/Fn2|  RGUI |  Left |  Down |   Up  | Right |
   `-----------------------------------------------------------------------'          `-----------------------------------------------------------------------'
 */
-[_QWERTYGM] = LAYOUT( \
+[_QWERTYGM] = LAYOUT(
   KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,       ADJUST,  _______, KC_F12,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-  KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,        NUMPAD,  _______, _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,  
-  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_HOME,     KC_PAUS, _______, _______, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,    
-  KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_PGUP,     KC_SLCK, _______, _______, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,  
-  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_ESC,  KC_LALT, KC_PGDN,     KC_PSCR, KC_RALT, KC_RCTL, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,   
-  KC_INS,  KC_GRV,  KC_LBRC, KC_RBRC, KC_LALT, KC_SPC,  KC_ENT,  KC_BSPC, KC_END,      _______, ENTNS,   DELNS,   BSPCFN,  KC_RGUI, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT 
+  KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,        NUMPAD,  _______, _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
+  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_HOME,     KC_PAUS, _______, _______, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
+  KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_PGUP,     KC_SCRL, _______, _______, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_ESC,  KC_LALT, KC_PGDN,     KC_PSCR, KC_RALT, KC_RCTL, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+  KC_INS,  KC_GRV,  KC_LBRC, KC_RBRC, KC_LALT, KC_SPC,  KC_ENT,  KC_BSPC, KC_END,      _______, ENTNS,   DELNS,   BSPCFN,  KC_RGUI, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* Adjust layer
    (Enter/Number + Delete/Number2 under non-gaming/vanilla layers or press & hold Adjust key on function row; Numpad is a toggle)
-  ,-----------------------------------------------------------------------.          ,-----------------------------------------------------------------------. 
+  ,-----------------------------------------------------------------------.          ,-----------------------------------------------------------------------.
   |       |       |       |       |       |       |       |       |       |          |       |       |       |       |       |       |       |       |       |
   |-------+-------+-------+-------+-------+-------+-------+-------+-------|          |-------+-------+-------+-------+-------+-------+-------+-------+-------|
-  |       |Colemak| Qwerty|       |ColmkGM|  QWGM |       |       |       |          |       |       |       | Numpad|       |       |       |       | RESET |
+  |       |Colemak| Qwerty|       |ColmkGM|  QWGM |       |       |       |          |       |       |       | Numpad|       |       |       |       | QK_BOOT |
   |-------+-------+-------+-------+-------+-------+-------+-------+-------|          |-------+-------+-------+-------+-------+-------+-------+-------+-------|
   |       |       |       |       |       |       |       |       |       |          |       |       |       |       |       |       |       |       |       |
   |-------+-------+-------+-------+-------+-------+-------+-------+-------|          |-------+-------+-------+-------+-------+-------+-------+-------+-------|
@@ -285,7 +285,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 [_ADJUST] = LAYOUT(
   _______, _______, _______, _______, _______,   _______,  _______, _______, _______,     _______, _______, _______, _______, _______, _______, _______, _______, _______,
-  _______, COLEMAK, QWERTY,  _______, COLEMAKGM, QWERTYGM, _______, _______, _______,     _______, _______, _______, NUMPAD,  _______, _______, _______, _______, RESET,
+  _______, COLEMAK, QWERTY,  _______, COLEMAKGM, QWERTYGM, _______, _______, _______,     _______, _______, _______, NUMPAD,  _______, _______, _______, _______, QK_BOOT,
   _______, _______, _______, _______, _______,   _______,  _______, _______, _______,     _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______,   _______,  _______, _______, _______,     _______, _______, _______, _______, NKROTG,  _______, _______, _______, _______,
   _______, _______, _______, _______, _______,   _______,  _______, _______, _______,     _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -294,7 +294,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_ADJUST2] = LAYOUT(
   _______, _______, _______, _______, _______,   _______,  _______, _______, _______,     _______, _______, _______, _______, _______, _______, _______, _______, _______,
-  _______, COLEMAK, QWERTY,  _______, COLEMAKGM, QWERTYGM, _______, _______, _______,     _______, _______, _______, NUMPAD,  _______, _______, _______, _______, RESET,
+  _______, COLEMAK, QWERTY,  _______, COLEMAKGM, QWERTYGM, _______, _______, _______,     _______, _______, _______, NUMPAD,  _______, _______, _______, _______, QK_BOOT,
   _______, _______, _______, _______, _______,   _______,  _______, _______, _______,     _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______,   _______,  _______, _______, _______,     _______, _______, _______, _______, NKROTG,  _______, _______, _______, _______,
   _______, _______, _______, _______, _______,   _______,  _______, _______, _______,     _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -304,7 +304,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _NUMBERS, _NUMBERS2, _ADJUST);
 }
 

@@ -22,10 +22,10 @@ QMK は HID 仕様で定義された5つの LED の読み取りメソッドを�
 
 LED の状態を `uint8_t` として提供する2つの非推奨の関数があります:
 
-* `uint8_t led_set_kb(uint8_t usb_led)` と `_user(uint8_t usb_led)`
+* `uint8_t led_set_user(uint8_t usb_led)`
 * `uint8_t host_keyboard_leds()`
 
-## 設定オプション
+## 設定オプション :id=configuration-options
 
 インジケータを設定するには、`config.h` で以下の `#define` をします:
 

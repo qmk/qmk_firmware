@@ -1,5 +1,6 @@
-/* 
+/*
  * Copyright 2021 Quentin LEBASTARD <qlebastard@gmail.com>
+ * Copyright 2022 Charly Delay <charly@codesink.dev> (@0xcharly)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,24 +17,13 @@
  */
 
 #pragma once
-#include "config_common.h"
-#define VENDOR_ID 0xA8F8
-#define PRODUCT_ID 0x1829
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Bastard Keyboards
-#define PRODUCT Scylla
 
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 6
-#define DIODE_DIRECTION ROW2COL
-#define MATRIX_ROW_PINS { D7, B5, F7, F6, B6 }
-#define MATRIX_COL_PINS { B4, E6, C6, B1, B3, B2 }
-
-#define RGB_DI_PIN D2
-#define RGBLED_NUM 58
-#define RGBLED_SPLIT { 29, 29 }
-#define RGBLIGHT_LIMIT_VAL 120
-#define RGBLIGHT_ANIMATIONS
-#define DEBOUNCE 5
-#define SOFT_SERIAL_PIN D0
-#define MASTER_RIGHT
+/* RGB matrix support. */
+#ifdef RGB_MATRIX_ENABLE
+#    define SPLIT_TRANSPORT_MIRROR
+#    define RGB_MATRIX_LED_COUNT 58
+#    define RGB_MATRIX_SPLIT { 29, 29 }
+#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 50
+#    define RGB_DISABLE_WHEN_USB_SUSPENDED
+#    define RGB_MATRIX_KEYPRESSES
+#endif
