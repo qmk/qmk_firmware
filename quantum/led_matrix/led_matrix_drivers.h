@@ -6,27 +6,27 @@
 #include <stdint.h>
 
 #if defined(LED_MATRIX_IS31FL3218)
-#    include "is31fl3218-simple.h"
+#    include "is31fl3218-mono.h"
 #elif defined(LED_MATRIX_IS31FL3731)
-#    include "is31fl3731-simple.h"
+#    include "is31fl3731-mono.h"
 #elif defined(LED_MATRIX_IS31FL3733)
-#    include "is31fl3733-simple.h"
+#    include "is31fl3733-mono.h"
 #elif defined(LED_MATRIX_IS31FL3736)
-#    include "is31fl3736-simple.h"
+#    include "is31fl3736-mono.h"
 #elif defined(LED_MATRIX_IS31FL3737)
-#    include "is31fl3737-simple.h"
+#    include "is31fl3737-mono.h"
 #elif defined(LED_MATRIX_IS31FL3741)
-#    include "is31fl3741-simple.h"
+#    include "is31fl3741-mono.h"
 #elif defined(LED_MATRIX_IS31FL3742A)
-#    include "is31fl3742a-simple.h"
+#    include "is31fl3742a-mono.h"
 #elif defined(LED_MATRIX_IS31FL3743A)
-#    include "is31fl3743a-simple.h"
+#    include "is31fl3743a-mono.h"
 #elif defined(LED_MATRIX_IS31FL3745)
-#    include "is31fl3745-simple.h"
+#    include "is31fl3745-mono.h"
 #elif defined(LED_MATRIX_IS31FL3746A)
-#    include "is31fl3746a-simple.h"
+#    include "is31fl3746a-mono.h"
 #elif defined(LED_MATRIX_SNLED27351)
-#    include "snled27351-simple.h"
+#    include "snled27351-mono.h"
 #endif
 
 typedef struct {

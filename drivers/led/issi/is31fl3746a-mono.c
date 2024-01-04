@@ -1,4 +1,4 @@
-#include "is31fl3746a-simple.h"
+#include "is31fl3746a-mono.h"
 #include <string.h>
 #include "i2c_master.h"
 #include "wait.h"
