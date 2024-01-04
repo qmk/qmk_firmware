@@ -11,6 +11,12 @@
   "processor": "atmega32u4",
   "bootloader": "caterina",
   "debounce": 0,
+  "tapping": {
+    "toggle": 1
+  },
+  "bluetooth": {
+    "driver": "bluefruit_le"
+  },
   "layouts": {
     "LAYOUT_pterodactyl": {
       "layout": [

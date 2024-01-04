@@ -20,7 +20,16 @@
     "pin": "D3"
   },
   "rgblight": {
-    "max_brightness": 180
+    "saturation_steps": 8,
+    "brightness_steps": 8,
+    "max_brightness": 180,
+    "sleep": true,
+    "animations": {
+      "rainbow_mood": true,
+      "rainbow_swirl": true,
+      "knight": true,
+      "static_gradient": true
+    }
   },
   "processor": "atmega32u4",
   "bootloader": "caterina",

@@ -16,6 +16,9 @@
     "bootmagic": {
         "matrix": [1, 0]
     },
+    "tapping": {
+        "term": 400
+    },
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "layouts": {

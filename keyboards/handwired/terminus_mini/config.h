@@ -17,12 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-//define tapping-toggle count
-#define TAPPING_TOGGLE 1
-
-//define maximum duration of hold required to register a tap vs hold default is 200
-#define TAPPING_TERM 150 //reduce time required to register a held key
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

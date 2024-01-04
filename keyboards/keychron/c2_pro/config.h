@@ -41,4 +41,4 @@
 #define HC595_SHCP A1
 #define HC595_DS C15
 #define SHIFT_COL_START 11
-#define SHIFT_COL_END 19
+#define SHIFT_COL_END 18

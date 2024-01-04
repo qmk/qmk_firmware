@@ -17,6 +17,9 @@
   "bootloader": "stm32-dfu",
   "debounce": 0,
   "community_layouts": ["65_ansi_blocker"],
+  "layout_aliases": {
+    "LAYOUT_67_ansi": "LAYOUT_65_ansi_blocker"
+  },
   "layouts": {
     "LAYOUT_69_ansi": {
       "layout": [

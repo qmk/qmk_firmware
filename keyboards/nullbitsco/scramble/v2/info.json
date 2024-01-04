@@ -4,6 +4,9 @@
             {"pin_a": "GP24", "pin_b": "GP25"}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "processor": "RP2040",
     "bootloader": "rp2040",
     "matrix_pins": {

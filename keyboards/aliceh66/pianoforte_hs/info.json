@@ -15,8 +15,12 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "layout_aliases": {
+        "LAYOUT_tkl_ansi": "LAYOUT_tkl_f13_ansi"
+    },
+    "community_layouts": ["tkl_f13_ansi"],
     "layouts": {
-        "LAYOUT_tkl_ansi": {
+        "LAYOUT_tkl_f13_ansi": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
 
@@ -111,7 +115,7 @@
                 {"matrix": [10, 0], "x": 0, "y": 5.25, "w": 1.25},
                 {"matrix": [11, 0], "x": 1.25, "y": 5.25, "w": 1.25},
                 {"matrix": [10, 1], "x": 2.5, "y": 5.25, "w": 1.25},
-                {"matrix": [11, 2], "x": 4, "y": 5.25, "w": 6.25},
+                {"matrix": [11, 2], "x": 3.75, "y": 5.25, "w": 6.25},
                 {"matrix": [10, 4], "x": 10, "y": 5.25, "w": 1.25},
                 {"matrix": [11, 5], "x": 11.25, "y": 5.25, "w": 1.25},
                 {"matrix": [10, 6], "x": 12.5, "y": 5.25, "w": 1.25},

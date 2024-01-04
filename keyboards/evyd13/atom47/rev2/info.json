@@ -18,6 +18,9 @@
         "levels": 4,
         "breathing": true
     },
+    "rgblight": {
+        "led_count": 1
+    },
     "ws2812": {
         "pin": "D0"
     },

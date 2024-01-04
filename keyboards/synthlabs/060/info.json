@@ -30,7 +30,7 @@
     "force_nkro": true
   },
   "rgb_matrix": {
-    "driver": "WS2812",
+    "driver": "ws2812",
     "layout": [
         {"flags": 1, "matrix": [0, 0], "x": 0, "y": 0},
         {"flags": 4, "matrix": [0, 1], "x": 16, "y": 0},
