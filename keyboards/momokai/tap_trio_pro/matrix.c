@@ -49,10 +49,10 @@ static inline uint8_t readMatrixPin(pin_t pin) {
 //2k/matrix.c row 15
 pin_t         matrix_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
 
-// key_t         keys[MATRIX_ROWS][MATRIX_COLS]        = {0};
+// hall_effect_key_t         keys[MATRIX_ROWS][MATRIX_COLS]        = {0};
 //analog key data, defined in analogkeys.h
 
-key_t         keys[MATRIX_ROWS][MATRIX_COLS]        = {0};
+hall_effect_key_t         keys[MATRIX_ROWS][MATRIX_COLS]        = {0};
 
 
 
@@ -164,7 +164,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         if (current_row == 1) {
             //use ADC for row 1
             for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
-            key_t *key = &keys[current_row][current_col];
+            hall_effect_key_t *key = &keys[current_row][current_col];
             key->value = lut[analogReadPin(matrix_pins[current_row][current_col]) + key->offset];
             key->value = MIN((key->value << 8) / lut[1100 + key->offset], 255);
 

@@ -17,7 +17,7 @@ void         get_sensor_offsets(void) {
     // }
 }
 
-void update_extremum(key_t *key) {
+void update_extremum(hall_effect_key_t *key) {
     key->extremum = key->value;
 }
 
@@ -29,7 +29,7 @@ void deregister_key(matrix_row_t *current_row, uint8_t current_col) {
     *current_row &= ~(1 << current_col);
 }
 
-void matrix_read_cols_static_actuation(matrix_row_t *current_row, uint8_t current_col, key_t *key) {
+void matrix_read_cols_static_actuation(matrix_row_t *current_row, uint8_t current_col, hall_effect_key_t *key) {
     if (*current_row & (1 << current_col)) {
         if (key->value < MAX(g_config.actuation_point - g_config.release_hysteresis, 0)) {
             deregister_key(current_row, current_col);
@@ -47,7 +47,7 @@ assuming your sensor value decreases when the key is pressed,
 if the key is pressed, the extremum is the lowest value reached,
 if the key is not pressed, the extremum is the highest value reached. */
 
-void matrix_read_cols_dynamic_actuation(matrix_row_t *current_row, uint8_t current_col, key_t *key) {
+void matrix_read_cols_dynamic_actuation(matrix_row_t *current_row, uint8_t current_col, hall_effect_key_t *key) {
     if (key->dynamic_actuation_bool) {
         if (*current_row & (1 << current_col)) {
             /* Key is pressed
@@ -82,7 +82,7 @@ void matrix_read_cols_dynamic_actuation(matrix_row_t *current_row, uint8_t curre
     }
 }
 
-void matrix_read_cols_continuous_dynamic_actuation(matrix_row_t *current_row, uint8_t current_col, key_t *key) {
+void matrix_read_cols_continuous_dynamic_actuation(matrix_row_t *current_row, uint8_t current_col, hall_effect_key_t *key) {
     if (key->dynamic_actuation_bool) {
         if (*current_row & (1 << current_col)) {
             /* Key is pressed
