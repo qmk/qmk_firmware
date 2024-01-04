@@ -272,15 +272,12 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
 
         case CM_45_SWAP:
             return highest_layer == NUM;
-    }
 
-    if (highest_layer == GAME) {
-        switch (combo_index) {
-            case CM_KP_123_ALTB:
-            case CM_KP_456_SWAP:
-            case CM_KP_3_F5_MUTE:
-                return true;
-        }
+        case CM_CTRL_B_ALT:
+        case CM_KP_123_ALTB:
+        case CM_KP_456_SWAP:
+        case CM_KP_3_F5_MUTE:
+            return highest_layer == GAME;
     }
 
     return highest_layer != GAME;
