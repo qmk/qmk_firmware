@@ -88,6 +88,11 @@ void autocorrect_dict_cycle(bool forward) {
 void autocorrect_init_dict(void) {
     typo_buffer_size = 0;
 
+    // make sure we dont access arbitrary addresses if eeprom has invalid state
+    if (keymap_config.autocorrect_curr_dict >= N_DICTS) {
+        keymap_config.autocorrect_curr_dict = 0;
+    }
+
     uint8_t  dict_index = keymap_config.autocorrect_curr_dict;
     uint16_t offset     = pgm_read_word(&autocorrect_offsets[dict_index]);
 
