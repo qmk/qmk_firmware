@@ -33,7 +33,7 @@
 #error VIA_EEPROM_CUSTOM_CONFIG_SIZE was not defined to store backlight_config struct
 #endif
 
-#include "drivers/led/issi/is31fl3736-simple.h"
+#include "drivers/led/issi/is31fl3736-mono.h"
 
 #define BACKLIGHT_EFFECT_MAX 3
 
