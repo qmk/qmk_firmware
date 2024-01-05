@@ -11,7 +11,7 @@ RGB_MATRIX_EFFECT(bnk9_per_key_effect)
 #include "eeprom.h"
 #include "eeconfig.h"
 #include "via.h"
-#include "bkn9.h"
+#include "bnk9.h"
 
 // Per-key color effect
 

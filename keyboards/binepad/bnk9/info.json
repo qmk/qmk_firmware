@@ -3,8 +3,10 @@
     "keyboard_name": "BNK9",
     "url": "https://www.binepad.com/product-page/bnk9",
     "maintainer": "binepad",
+    "board": "GENERIC_RP_RP2040",
     "processor": "RP2040",
     "bootloader": "rp2040",
+    "bootloader_instructions": "Hold down the key at (0x0) in the matrix (the 'knob' / rotary encoder) and plug in the keyboard.",
     "diode_direction": "COL2ROW",
     "usb": {
         "vid": "0x4249",
@@ -19,6 +21,7 @@
         "mousekey": true,
         "nkro": true,
         "encoder": true,
+        "encoder_map": true,
         "rgb_matrix": true,
         "sleep_led": false
     },
@@ -74,19 +77,19 @@
     "layouts": {
         "LAYOUT": {
             "layout": [
-                { "matrix": [0, 0], "label": "Encoder", "x": 0, "y": 0, "w": 3, "h": 3 },
+                { "matrix": [0, 0], "label": "Knob", "x": 0, "y": 0, "w": 3, "h": 3 },
 
-                { "matrix": [1, 0], "label": "F1", "x": 3.25, "y": 0 },
-                { "matrix": [1, 1], "label": "F2", "x": 4.25, "y": 0 },
-                { "matrix": [1, 2], "label": "F3", "x": 5.25, "y": 0 },
+                { "matrix": [1, 0], "label": "1", "x": 3.25, "y": 0 },
+                { "matrix": [1, 1], "label": "2", "x": 4.25, "y": 0 },
+                { "matrix": [1, 2], "label": "3", "x": 5.25, "y": 0 },
 
-                { "matrix": [2, 0], "label": "F4", "x": 3.25, "y": 1 },
-                { "matrix": [2, 1], "label": "F5", "x": 4.25, "y": 1 },
-                { "matrix": [2, 2], "label": "F6", "x": 5.25, "y": 1 },
+                { "matrix": [2, 0], "label": "4", "x": 3.25, "y": 1 },
+                { "matrix": [2, 1], "label": "5", "x": 4.25, "y": 1 },
+                { "matrix": [2, 2], "label": "6", "x": 5.25, "y": 1 },
 
-                { "matrix": [3, 0], "label": "F7", "x": 3.25, "y": 2 },
-                { "matrix": [3, 1], "label": "F8", "x": 4.25, "y": 2 },
-                { "matrix": [3, 2], "label": "F9", "x": 5.25, "y": 2 }
+                { "matrix": [3, 0], "label": "7", "x": 3.25, "y": 2 },
+                { "matrix": [3, 1], "label": "8", "x": 4.25, "y": 2 },
+                { "matrix": [3, 2], "label": "9", "x": 5.25, "y": 2 }
             ]
         }
     }

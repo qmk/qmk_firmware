@@ -9,7 +9,7 @@
 #include "progmem.h"
 #include "quantum/color.h"
 #include "eeprom.h"
-#include "bkn9.h"
+#include "bnk9.h"
 
 #ifndef EEPROM_USER_CONFIG_ADDRESS
     #error EEPROM_USER_CONFIG_ADDRESS not defined
