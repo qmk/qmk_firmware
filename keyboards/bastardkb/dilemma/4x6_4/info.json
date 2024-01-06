@@ -17,6 +17,11 @@
         "soft_serial_pin": "GP1",
         "bootmagic": {
             "matrix": [5, 0]
+        },
+        "transport":{
+            "sync": {
+                "matrix_state": true
+            }
         }
     },
     "encoder": {
@@ -90,6 +95,10 @@
             "multisplash": true,
             "solid_splash": true,
             "solid_multisplash": true
+        },
+        "default": {
+            "speed": 32,
+            "val": 128
         },
         "layout": [
             {"x": 81, "y": 4, "flags": 2},
@@ -199,7 +208,8 @@
             {"matrix": [9, 2], "x": 156, "y": 53, "flags": 4},
             {"matrix": [9, 1], "x": 143, "y": 57, "flags": 4},
             {"matrix": [9, 3], "x": 132, "y": 64, "flags": 4}
-        ]
+        ],
+        "sleep": true
     },
     "layouts": {
         "LAYOUT": {

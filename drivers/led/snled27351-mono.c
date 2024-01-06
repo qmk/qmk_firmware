@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "snled27351-simple.h"
+#include "snled27351-mono.h"
 #include "i2c_master.h"
 
 #define SNLED27351_PWM_REGISTER_COUNT 192

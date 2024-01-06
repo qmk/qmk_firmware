@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "is31fl3737-simple.h"
+#include "is31fl3737-mono.h"
 #include <string.h>
 #include "i2c_master.h"
 #include "wait.h"

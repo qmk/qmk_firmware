@@ -513,7 +513,7 @@ def _config_to_json(key_type, config_value):
         else:
             return list(map(str.strip, config_value.split(',')))
 
-    elif key_type == 'bool':
+    elif key_type in ['bool', 'flag']:
         if isinstance(config_value, bool):
             return config_value
         return config_value in true_values
@@ -684,26 +684,26 @@ def _extract_led_config(info_data, keyboard):
     rows = info_data['matrix_size']['rows']
 
     # Determine what feature owns g_led_config
-    features = info_data.get("features", {})
     feature = None
-    if features.get("rgb_matrix", False):
-        feature = "rgb_matrix"
-    elif features.get("led_matrix", False):
-        feature = "led_matrix"
+    for feat in ['rgb_matrix', 'led_matrix']:
+        if info_data.get('features', {}).get(feat, False) or feat in info_data:
+            feature = feat
 
     if feature:
-        # Process
-        for file in find_keyboard_c(keyboard):
-            try:
-                ret = find_led_config(file, cols, rows)
-                if ret:
-                    info_data[feature] = info_data.get(feature, {})
-                    info_data[feature]["layout"] = ret
-            except Exception as e:
-                _log_warning(info_data, f'led_config: {file.name}: {e}')
+        # Only attempt search if dd led config is missing
+        if 'layout' not in info_data.get(feature, {}):
+            # Process
+            for file in find_keyboard_c(keyboard):
+                try:
+                    ret = find_led_config(file, cols, rows)
+                    if ret:
+                        info_data[feature] = info_data.get(feature, {})
+                        info_data[feature]['layout'] = ret
+                except Exception as e:
+                    _log_warning(info_data, f'led_config: {file.name}: {e}')
 
-        if info_data[feature].get("layout", None) and not info_data[feature].get("led_count", None):
-            info_data[feature]["led_count"] = len(info_data[feature]["layout"])
+        if info_data[feature].get('layout', None) and not info_data[feature].get('led_count', None):
+            info_data[feature]['led_count'] = len(info_data[feature]['layout'])
 
     return info_data
 
