@@ -22,6 +22,7 @@
     "diode_direction": "COL2ROW",
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
+    "community_layouts": ["60_ansi_arrow"],
     "layouts": {
         "LAYOUT_60_ansi_arrow": {
             "layout": [
