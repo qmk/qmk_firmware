@@ -40,6 +40,7 @@
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "debounce": 3,
+    "community_layouts": ["60_ansi_arrow"],
     "layouts": {
         "LAYOUT_60_ansi_arrow": {
             "layout": [
