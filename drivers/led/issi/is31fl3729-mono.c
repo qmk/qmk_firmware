@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "is31fl3729-simple.h"
+#include "is31fl3729-mono.h"
 #include <string.h>
 #include "i2c_master.h"
 #include "wait.h"
@@ -194,9 +194,9 @@ void is31fl3729_set_scaling_register(uint8_t index, uint8_t value) {
 void is31fl3729_update_pwm_buffers(uint8_t addr, uint8_t index) {
     if (g_pwm_buffer_update_required[index]) {
         is31fl3729_write_pwm_buffer(addr, g_pwm_buffer[index]);
-    }
 
-    g_pwm_buffer_update_required[index] = false;
+        g_pwm_buffer_update_required[index] = false;
+    }
 }
 
 void is31fl3729_update_scaling_registers(uint8_t addr, uint8_t index) {

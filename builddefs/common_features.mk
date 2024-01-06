@@ -368,7 +368,7 @@ ifeq ($(strip $(LED_MATRIX_ENABLE)), yes)
     ifeq ($(strip $(LED_MATRIX_DRIVER)), is31fl3729)
         I2C_DRIVER_REQUIRED = yes
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
-        SRC += is31fl3729-simple.c
+        SRC += is31fl3729-mono.c
     endif
 
     ifeq ($(strip $(LED_MATRIX_DRIVER)), is31fl3731)

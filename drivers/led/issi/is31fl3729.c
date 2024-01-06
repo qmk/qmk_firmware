@@ -200,9 +200,9 @@ void is31fl3729_set_scaling_register(uint8_t index, uint8_t red, uint8_t green, 
 void is31fl3729_update_pwm_buffers(uint8_t addr, uint8_t index) {
     if (g_pwm_buffer_update_required[index]) {
         is31fl3729_write_pwm_buffer(addr, g_pwm_buffer[index]);
-    }
 
-    g_pwm_buffer_update_required[index] = false;
+        g_pwm_buffer_update_required[index] = false;
+    }
 }
 
 void is31fl3729_update_scaling_registers(uint8_t addr, uint8_t index) {
