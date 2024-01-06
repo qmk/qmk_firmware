@@ -93,6 +93,7 @@
             {"flags": 4, "matrix": [4, 13], "x": 215, "y": 54}
         ]
     },
+    "community_layouts": ["60_ansi"],
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [
