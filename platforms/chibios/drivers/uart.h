@@ -24,83 +24,83 @@
 #include "gpio.h"
 #include "chibios_config.h"
 
-#ifndef SERIAL_DRIVER
-#    define SERIAL_DRIVER SD1
+#ifndef UART_DRIVER
+#    define UART_DRIVER SD1
 #endif
 
-#ifndef SD1_TX_PIN
-#    define SD1_TX_PIN A9
+#ifndef UART_TX_PIN
+#    define UART_TX_PIN A9
 #endif
 
-#ifndef SD1_RX_PIN
-#    define SD1_RX_PIN A10
+#ifndef UART_RX_PIN
+#    define UART_RX_PIN A10
 #endif
 
-#ifndef SD1_CTS_PIN
-#    define SD1_CTS_PIN A11
+#ifndef UART_CTS_PIN
+#    define UART_CTS_PIN A11
 #endif
 
-#ifndef SD1_RTS_PIN
-#    define SD1_RTS_PIN A12
+#ifndef UART_RTS_PIN
+#    define UART_RTS_PIN A12
 #endif
 
 #ifdef USE_GPIOV1
-#    ifndef SD1_TX_PAL_MODE
-#        define SD1_TX_PAL_MODE PAL_MODE_ALTERNATE_PUSHPULL
+#    ifndef UART_TX_PAL_MODE
+#        define UART_TX_PAL_MODE PAL_MODE_ALTERNATE_PUSHPULL
 #    endif
-#    ifndef SD1_RX_PAL_MODE
-#        define SD1_RX_PAL_MODE PAL_MODE_INPUT
+#    ifndef UART_RX_PAL_MODE
+#        define UART_RX_PAL_MODE PAL_MODE_INPUT
 #    endif
-#    ifndef SD1_CTS_PAL_MODE
-#        define SD1_CTS_PAL_MODE PAL_MODE_INPUT
+#    ifndef UART_CTS_PAL_MODE
+#        define UART_CTS_PAL_MODE PAL_MODE_INPUT
 #    endif
-#    ifndef SD1_RTS_PAL_MODE
-#        define SD1_RTS_PAL_MODE PAL_MODE_ALTERNATE_PUSHPULL
+#    ifndef UART_RTS_PAL_MODE
+#        define UART_RTS_PAL_MODE PAL_MODE_ALTERNATE_PUSHPULL
 #    endif
 #else
-#    ifndef SD1_TX_PAL_MODE
-#        define SD1_TX_PAL_MODE 7
+#    ifndef UART_TX_PAL_MODE
+#        define UART_TX_PAL_MODE 7
 #    endif
 
-#    ifndef SD1_RX_PAL_MODE
-#        define SD1_RX_PAL_MODE 7
+#    ifndef UART_RX_PAL_MODE
+#        define UART_RX_PAL_MODE 7
 #    endif
 
-#    ifndef SD1_CTS_PAL_MODE
-#        define SD1_CTS_PAL_MODE 7
+#    ifndef UART_CTS_PAL_MODE
+#        define UART_CTS_PAL_MODE 7
 #    endif
 
-#    ifndef SD1_RTS_PAL_MODE
-#        define SD1_RTS_PAL_MODE 7
+#    ifndef UART_RTS_PAL_MODE
+#        define UART_RTS_PAL_MODE 7
 #    endif
 #endif
 
-#ifndef SD1_CR1
-#    define SD1_CR1 0
+#ifndef UART_CR1
+#    define UART_CR1 0
 #endif
 
-#ifndef SD1_CR2
-#    define SD1_CR2 0
+#ifndef UART_CR2
+#    define UART_CR2 0
 #endif
 
-#ifndef SD1_CR3
-#    define SD1_CR3 0
+#ifndef UART_CR3
+#    define UART_CR3 0
 #endif
 
-#ifndef SD1_WRDLEN
-#    define SD1_WRDLEN 3
+#ifndef UART_WRDLEN
+#    define UART_WRDLEN 3
 #endif
 
-#ifndef SD1_STPBIT
-#    define SD1_STPBIT 0
+#ifndef UART_STPBIT
+#    define UART_STPBIT 0
 #endif
 
-#ifndef SD1_PARITY
-#    define SD1_PARITY 0
+#ifndef UART_PARITY
+#    define UART_PARITY 0
 #endif
 
-#ifndef SD1_ATFLCT
-#    define SD1_ATFLCT 0
+#ifndef UART_ATFLCT
+#    define UART_ATFLCT 0
 #endif
 
 void uart_init(uint32_t baud);
