@@ -12,6 +12,10 @@
     "tap_keycode_delay": 10
   },
   "ws2812": {
+    "pin": "A7",
+    "driver": "pwm"
+  },
+  "rgb_matrix": {
     "animations": {
       "gradient_up_down": true,
       "gradient_left_right": true,
@@ -46,10 +50,6 @@
       "speed": 30,
       "val": 192
     },
-    "pin": "A7",
-    "driver": "pwm"
-  },
-  "rgb_matrix": {
     "driver": "ws2812",
     "sleep": true
   },
