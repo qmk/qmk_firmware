@@ -1,6 +1,6 @@
 # cycle8
 
-![Cycle8](https://i.imgur.com/gCExreih.png)
+![Cycle8](https://i.imgur.com/gCExrei.png)
 
 A customizable soldered TKL/80% keyboard.
 
