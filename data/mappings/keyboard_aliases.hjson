@@ -287,6 +287,12 @@
     "honeycomb": {
         "target": "keyhive/honeycomb"
     },
+    "hub16": {
+        "target": "joshajohnson/hub16"
+    },
+    "hub20": {
+        "target": "joshajohnson/hub20"
+    },
     "idb_60": {
         "target": "idb/idb_60"
     },
@@ -328,6 +334,12 @@
     },
     "keycapsss/plaid_pad": {
         "target": "keycapsss/plaid_pad/rev1"
+    },
+    "kira75": {
+        "target": "kira/kira75"
+    },
+    "kira80": {
+        "target": "kira/kira80"
     },
     "kudox": {
         "target": "kumaokobo/kudox/rev1"
