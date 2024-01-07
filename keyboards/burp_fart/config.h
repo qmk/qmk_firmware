@@ -5,13 +5,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x0000
-#define DEVICE_VER   0x0001
-#define MANUFACTURER namsnath
-#define PRODUCT      Burp Fart
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 5
@@ -29,8 +22,6 @@
     { B2, B6, F0, F1, C7 }, \
     { B3, B1, F7, F4, NO_PIN } \
 }
-
-#define UNUSED_PINS { D3 }
 
 // //left encoder
 #define ENCODERS_PAD_A { F6 }
@@ -101,10 +92,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0
