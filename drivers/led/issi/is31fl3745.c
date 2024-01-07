@@ -200,9 +200,9 @@ void is31fl3745_set_scaling_register(uint8_t index, uint8_t red, uint8_t green, 
     is31fl3745_led_t led;
     memcpy_P(&led, (&g_is31fl3745_leds[index]), sizeof(led));
 
-    g_scaling_registers[led.driver][led.r] = red;
-    g_scaling_registers[led.driver][led.g] = green;
-    g_scaling_registers[led.driver][led.b] = blue;
+    g_scaling_registers[led.driver][led.r]          = red;
+    g_scaling_registers[led.driver][led.g]          = green;
+    g_scaling_registers[led.driver][led.b]          = blue;
     g_scaling_registers_update_required[led.driver] = true;
 }
 

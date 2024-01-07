@@ -190,7 +190,7 @@ void is31fl3746a_set_scaling_register(uint8_t index, uint8_t value) {
     is31fl3746a_led_t led;
     memcpy_P(&led, (&g_is31fl3746a_leds[index]), sizeof(led));
 
-    g_scaling_registers[led.driver][led.v] = value;
+    g_scaling_registers[led.driver][led.v]          = value;
     g_scaling_registers_update_required[led.driver] = true;
 }
 
