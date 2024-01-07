@@ -25,6 +25,12 @@
         "pid": "0x6262",
         "vid": "0x1209"
     },
+     "community_layouts": [
+        "60_ansi_tsangan",
+        "60_tsangan_hhkb",
+        "60_iso_tsangan",
+        "60_iso_tsangan_split_bs_rshift"
+    ],   
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -95,7 +101,7 @@
                 {"label": "Ctrl", "matrix": [3, 8], "x": 13.5, "y": 4, "w": 1.5}
             ]
         },
-        "LAYOUT_ansi_regular_shift_regular_backspace": {
+        "LAYOUT_60_ansi_tsangan": {
             "layout": [
                 {"label": "Esc", "matrix": [4, 0], "x": 0, "y": 0},
                 {"label": "!", "matrix": [6, 0], "x": 1, "y": 0},
@@ -159,7 +165,7 @@
                 {"label": "Fn", "matrix": [3, 8], "x": 13.5, "y": 4, "w": 1.5}
             ]
         },
-        "LAYOUT_ansi_regular_shift_split_backspace": {
+        "LAYOUT_60_ansi_tsangan_split_bs": {
             "layout": [
                 {"label": "Esc", "matrix": [4, 0], "x": 0, "y": 0},
                 {"label": "!", "matrix": [6, 0], "x": 1, "y": 0},
@@ -224,7 +230,7 @@
                 {"label": "Fn", "matrix": [3, 8], "x": 13.5, "y": 4, "w": 1.5}
             ]
         },
-        "LAYOUT_ansi_split_shift_regular_backspace": {
+        "LAYOUT_60_ansi_tsangan_split_rshift": {
             "layout": [
                 {"label": "Esc", "matrix": [4, 0], "x": 0, "y": 0},
                 {"label": "!", "matrix": [6, 0], "x": 1, "y": 0},
@@ -289,7 +295,7 @@
                 {"label": "Ctrl", "matrix": [3, 8], "x": 13.5, "y": 4, "w": 1.5}
             ]
         },
-        "LAYOUT_ansi_split_shift_split_backspace": {
+        "LAYOUT_60_tsangan_hhkb": {
             "layout": [
                 {"label": "Esc", "matrix": [4, 0], "x": 0, "y": 0},
                 {"label": "!", "matrix": [6, 0], "x": 1, "y": 0},
@@ -355,7 +361,7 @@
                 {"label": "Ctrl", "matrix": [3, 8], "x": 13.5, "y": 4, "w": 1.5}
             ]
         },
-        "LAYOUT_iso_regular_shift_regular_backspace": {
+        "LAYOUT_60_iso_tsangan": {
             "layout": [
                 {"label": "Esc", "matrix": [4, 0], "x": 0, "y": 0},
                 {"label": "!", "matrix": [6, 0], "x": 1, "y": 0},
@@ -420,7 +426,7 @@
                 {"label": "Fn", "matrix": [3, 8], "x": 13.5, "y": 4, "w": 1.5}
             ]
         },
-        "LAYOUT_iso_regular_shift_split_backspace": {
+        "LAYOUT_60_iso_tsangan_split_bs": {
             "layout": [
                 {"label": "Esc", "matrix": [4, 0], "x": 0, "y": 0},
                 {"label": "!", "matrix": [6, 0], "x": 1, "y": 0},
@@ -486,7 +492,7 @@
                 {"label": "Fn", "matrix": [3, 8], "x": 13.5, "y": 4, "w": 1.5}
             ]
         },
-        "LAYOUT_iso_split_shift_regular_backspace": {
+        "LAYOUT_60_iso_tsangan_split_rshift": {
             "layout": [
                 {"label": "Esc", "matrix": [4, 0], "x": 0, "y": 0},
                 {"label": "!", "matrix": [6, 0], "x": 1, "y": 0},
@@ -552,7 +558,7 @@
                 {"label": "Ctrl", "matrix": [3, 8], "x": 13.5, "y": 4, "w": 1.5}
             ]
         },
-        "LAYOUT_iso_split_shift_split_backspace": {
+        "LAYOUT_60_iso_tsangan_split_bs_rshift": {
             "layout": [
                 {"label": "Esc", "matrix": [4, 0], "x": 0, "y": 0},
                 {"label": "!", "matrix": [6, 0], "x": 1, "y": 0},
