@@ -1,4 +1,5 @@
-/* Copyright 2022 Leo Deng (@myst729)
+/* 
+ * Copyright 2023 deddia permana (@depermana12)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,14 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #pragma once
 
-#ifdef RGB_MATRIX_ENABLE
-#define RGB_MATRIX_LED_COUNT 31
-#define RGB_MATRIX_KEYPRESSES
-#define ENABLE_RGB_MATRIX_BREATHING
-#define ENABLE_RGB_MATRIX_CYCLE_ALL
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
-#define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-#endif
+#define RGB_MATRIX_SOLID_REACTIVE_GRADIENT_MODE
