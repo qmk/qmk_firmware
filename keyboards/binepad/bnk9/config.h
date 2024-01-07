@@ -14,11 +14,6 @@
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180  // Not too bright so that the LED's don't burn out
 
     // Timing for SK6812
-    #undef WS2812_TIMING
-    #undef WS2812_T0H
-    #undef WS2812_T0L
-    #undef WS2812_T1H
-    #undef WS2812_T1L
     #define WS2812_TIMING 1250
     #define WS2812_T0H    350
     #define WS2812_T0L	  (WS2812_TIMING - WS2812_T0H)
