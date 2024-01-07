@@ -35,7 +35,7 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
-    "layouts_aliases": {
+    "layout_aliases": {
         "LAYOUT_60_ansi_split_bs_shift": "LAYOUT_60_ansi_split_bs_rshift",
         "LAYOUT_60_wkl_split_bs": "LAYOUT_60_tsangan_hhkb"
     },
