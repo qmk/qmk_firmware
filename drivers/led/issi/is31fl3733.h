@@ -40,13 +40,13 @@
 #ifdef DRIVER_SYNC_1
 #    define IS31FL3733_SYNC_1 DRIVER_SYNC_1
 #endif
-#ifdef DRIVER_ADDR_2
+#ifdef DRIVER_SYNC_2
 #    define IS31FL3733_SYNC_2 DRIVER_SYNC_2
 #endif
-#ifdef DRIVER_ADDR_3
+#ifdef DRIVER_SYNC_3
 #    define IS31FL3733_SYNC_3 DRIVER_SYNC_3
 #endif
-#ifdef DRIVER_ADDR_4
+#ifdef DRIVER_SYNC_4
 #    define IS31FL3733_SYNC_4 DRIVER_SYNC_4
 #endif
 #ifdef ISSI_TIMEOUT
