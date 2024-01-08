@@ -14,7 +14,7 @@ ps2pdf monorail2-keymap-richdawe.ps monorail2-keymap-richdawe.pdf
 #include QMK_KEYBOARD_H
 
 #define LT1_SPC LT(1, KC_SPC)
-#define LT2_BSP LT(2, KC_BSPC)
+#define LT2_SPC LT(2, KC_SPC)
 #define LT3_ESC LT(3, KC_ESC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -30,34 +30,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |--------------------------------------------------------------------------+
    * | Shift  |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  | Up  |Sh/En|
    * |--------------------------------------------------------------------------+
-   * | Ctrl | Gui | Alt  |  Bspace / L2  |  Space / L1 |  /   |Left |Down |Right|
+   * | Ctrl | Gui | Alt  |   Space / L2  |  Space / L1 |  /   |Left |Down |Right|
    * `--------------------------------------------------------------------------'
    */
   LT3_ESC, KC_GRV,  KC_LBRC,    KC_RBRC,    KC_MINS, KC_EQL, \
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
   KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,   SC_SENT, \
-  KC_LCTL, KC_LGUI, KC_LALT, KC_LALT,     LT2_BSP,          LT1_SPC,      KC_SLSH, KC_LEFT, KC_DOWN, KC_RGHT
+  KC_LCTL, KC_LGUI, KC_LALT, KC_LALT,     LT2_SPC,          LT1_SPC,      KC_SLSH, KC_LEFT, KC_DOWN, KC_RGHT
 ),
 [1] = LAYOUT( \
 /* Numbers and symbols layer
    *    ,-----+-----+-----+-----+-----+-----.
    *    |     |     |     |     |     |     |
    * ,--+-----+-----+-----+-----+-----+-----------------------------------------.
-   * |  :  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |    .   |
+   * |  :  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |Bspace  |
    * |--------------------------------------------------------------------------+
-   * |      |  !  |  @  |  #  |  $  |  %  |  ^  |  &  |  *  |  (  |  )  |   \   |
+   * |  .   |  !  |  @  |  #  |  $  |  %  |  ^  |  &  |  *  |  (  |  )  |   \   |
    * |--------------------------------------------------------------------------+
    * |        |     |     |     |     |     |     |     |     |     |PgUp |     |
    * |--------------------------------------------------------------------------+
-   * |      |     |      |               |             |      |Home |PgDn | End |
+   * |      |     |      |      -        |             |      |Home |PgDn | End |
    * `--------------------------------------------------------------------------'
    */
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-  KC_COLN, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DOT,  \
-  XXXXXXX, S(KC_1), S(KC_2), S(KC_3), S(KC_4), S(KC_5), S(KC_6), S(KC_7), S(KC_8), S(KC_9), S(KC_0), KC_BSLS, \
+  KC_COLN, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
+  KC_DOT,  S(KC_1), S(KC_2), S(KC_3), S(KC_4), S(KC_5), S(KC_6), S(KC_7), S(KC_8), S(KC_9), S(KC_0), KC_BSLS, \
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PGUP, _______, \
-  _______, _______, _______, _______,      _______,          _______,     XXXXXXX, KC_HOME, KC_PGDN, KC_END
+  _______, _______, _______, _______,      KC_MINS,          _______,     XXXXXXX, KC_HOME, KC_PGDN, KC_END
 ),
 [2] = LAYOUT( \
 /* F-keys and media
@@ -66,18 +66,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,--+-----+-----+-----+-----+-----+-----------------------------------------.
    * | F12 |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 |  F7 |  F8 |  F9 | F10 |  F11   |
    * |--------------------------------------------------------------------------+
-   * |      |     |     |     |     |     |     |     |     |     |     |       |
+   * |      |     |     |     |     |     |Left |Down | Up  |Right|     |       |
    * |--------------------------------------------------------------------------+
    * |        |     |     |     |     |     |     |     |     |Mute |VolUp|     |
    * |--------------------------------------------------------------------------+
-   * |      |     |      |               | Play/Pause  |      |Prev |VolDn|Next |
+   * |      |     |      |               |     -       |P/Paus|Prev |VolDn|Next |
    * `--------------------------------------------------------------------------'
    */
   XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, \
   KC_F12,  KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  \
-  XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, XXXXXXX, \
   _______, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MUTE, KC_VOLU, _______, \
-  _______, _______, _______,  _______,      _______,          KC_MPLY,     XXXXXXX, KC_MPRV, KC_VOLD, KC_MNXT
+  _______, _______, _______,  _______,      _______,          KC_MINS,     KC_MPLY, KC_MPRV, KC_VOLD, KC_MNXT
 ),
 [3] = LAYOUT( \
 /* RGB and boot
