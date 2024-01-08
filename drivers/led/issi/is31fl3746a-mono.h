@@ -66,6 +66,16 @@
 #    define IS31FL3746A_LED_COUNT LED_MATRIX_LED_COUNT
 #endif
 
+#if defined(IS31FL3746A_I2C_ADDRESS_4)
+#    define IS31FL3746A_DRIVER_COUNT 4
+#elif defined(IS31FL3746A_I2C_ADDRESS_3)
+#    define IS31FL3746A_DRIVER_COUNT 3
+#elif defined(IS31FL3746A_I2C_ADDRESS_2)
+#    define IS31FL3746A_DRIVER_COUNT 2
+#elif defined(IS31FL3746A_I2C_ADDRESS_1)
+#    define IS31FL3746A_DRIVER_COUNT 1
+#endif
+
 typedef struct is31fl3746a_led_t {
     uint8_t driver : 2;
     uint8_t v;
@@ -74,7 +84,7 @@ typedef struct is31fl3746a_led_t {
 extern const is31fl3746a_led_t PROGMEM g_is31fl3746a_leds[IS31FL3746A_LED_COUNT];
 
 void is31fl3746a_init_drivers(void);
-void is31fl3746a_init(uint8_t addr, uint8_t sync);
+void is31fl3746a_init(uint8_t addr);
 void is31fl3746a_write_register(uint8_t addr, uint8_t reg, uint8_t data);
 void is31fl3746a_select_page(uint8_t addr, uint8_t page);
 void is31fl3746a_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
