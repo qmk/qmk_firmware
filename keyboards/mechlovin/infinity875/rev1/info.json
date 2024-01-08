@@ -8,10 +8,6 @@
         "rows": ["D5", "D2", "D4", "D3", "D0", "D1"],
         "custom_lite": true
     },
-    "matrix_size": {
-        "cols": 17,
-        "rows": 6
-    },
     "indicators": {
         "caps_lock": "D6",
         "scroll_lock": "B4"
