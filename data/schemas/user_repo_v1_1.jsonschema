@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema#",
-    "$id": "qmk.user_repo.v1",
+    "$id": "qmk.user_repo.v1_1",
     "title": "User Repository Information",
     "type": "object",
     "required": [
@@ -10,12 +10,12 @@
     "properties": {
         "userspace_version": {
             "type": "string",
-            "enum": ["1.0"]
+            "enum": ["1.1"]
         },
         "build_targets": {
             "type": "array",
             "items": {
-                "$ref": "qmk.definitions.v1#/build_target_v1"
+                "$ref": "qmk.definitions.v1#/build_target_v1_1"
             }
         }
     }
