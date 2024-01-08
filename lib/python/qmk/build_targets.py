@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 import json
 import shutil
-from typing import List, Union
+from typing import List, Tuple, Union
 from pathlib import Path
 from dotty_dict import dotty, Dotty
 from milc import cli
@@ -25,6 +25,7 @@ class BuildTarget:
         self._target = f'{self._keyboard_safe}_{self.keymap}'
         self._intermediate_output = Path(f'{INTERMEDIATE_OUTPUT_PREFIX}{self._target}')
         self._generated_files_path = self._intermediate_output / 'src'
+        self._extra_args = []
         self._json = json.to_dict() if isinstance(json, Dotty) else json
 
     def __str__(self):
@@ -51,6 +52,11 @@ class BuildTarget:
             self._clean = clean
         if compiledb is not None:
             self._compiledb = compiledb
+
+    def extra_args(self, ex_args: List[Tuple[str, str]]):
+        self._extra_args = []
+        for k, v in ex_args:
+            self._extra_args.append((k, v))
 
     @property
     def keyboard(self) -> str:
@@ -105,6 +111,9 @@ class BuildTarget:
             'SILENT=false',
             'QMK_BIN="qmk"',
         ])
+
+        for e in self._extra_args:
+            compile_args.append(f'{e[0]}={e[1]}')
 
         return compile_args
 
