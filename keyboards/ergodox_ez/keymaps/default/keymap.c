@@ -15,7 +15,10 @@ const uint16_t PROGMEM combo_tab[] = {KC_W, KC_F, COMBO_END};
 const uint16_t PROGMEM combo_enter[] = {KC_L, KC_U, COMBO_END};
 const uint16_t PROGMEM combo_esc[] = {KC_F, KC_P, COMBO_END};
 const uint16_t PROGMEM combo_rctl[] = {KC_H, KC_COMMA, COMBO_END};
-const uint16_t PROGMEM combo_tmux[] = {KC_U, KC_Y, COMBO_END};
+const uint16_t PROGMEM combo_semi[] = {KC_F, KC_P, COMBO_END};
+const uint16_t PROGMEM combo_colon[] = {KC_C, KC_D, COMBO_END};
+const uint16_t PROGMEM combo_backtick[] = {KC_W, KC_F, COMBO_END};
+const uint16_t PROGMEM combo_dqt[] = {KC_X, KC_C, COMBO_END};
 
 bool is_alt_tab_active = false;
 uint16_t alt_tab_timer = 0;
@@ -33,7 +36,10 @@ combo_t key_combos[] = {
     COMBO(combo_enter, KC_ENTER),
     COMBO(combo_esc, KC_ESC),
     COMBO(combo_rctl, OSM(MOD_LCTL)),
-    COMBO(combo_tmux, LCTL(KC_B)),
+    COMBO(combo_semi, KC_SEMICOLON),
+    COMBO(combo_colon, KC_COLON),
+    COMBO(combo_backtick, KC_GRAVE),
+    COMBO(combo_dqt, KC_DQT),
 };
 
 enum custom_keycodes {
@@ -43,29 +49,27 @@ enum custom_keycodes {
   BUFFER_PREV,
   BUFFER_NEXT,
   ALT_TAB,
-  ALT_TAB2
 };
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = LAYOUT_ergodox_pretty(
-  ALT_TAB,         KC_1,               KC_2,                 KC_3,                KC_4,                  KC_5,    KC_BRID,                   KC_BRIU,        KC_6,                  KC_7,                  KC_8,                      KC_9,                 KC_0,                   ALT_TAB2,
+  ALT_TAB,         KC_1,               KC_2,                 KC_3,                KC_4,                  KC_5,    KC_EQL,                   LCTL(KC_H),     KC_6,                  KC_7,                  KC_8,                      KC_9,                 KC_0,                   KC_DELETE,
   KC_TAB,          KC_Q,               KC_W,                 KC_F,                KC_P,                  KC_B,    KC_SLASH,                  KC_UP,          KC_J,                  KC_L,                  KC_U,                      KC_Y,                 KC_BACKSLASH,           KC_BSPC,
   KC_ESC,          KC_A,               KC_R,                 KC_S,                KC_T,                  KC_G,                                               KC_M,                  KC_N,                  KC_E,                      KC_I,                 KC_O,                   KC_ENT,
-  KC_LSFT,         KC_Z,               KC_X,                 KC_C,                KC_D,                  KC_V,    KC_GRAVE,                  KC_DOWN,        KC_K,                  KC_H,                  KC_COMMA,                  KC_DOT,               KC_MINUS,      KC_RSFT,
-  KC_BTN2,         LCTL(KC_B),         KC_LEFT,              KC_BTN2,             KC_BTN1,                                                                                          MO(SYMB),              KC_LGUI,                   KC_RIGHT,             KC_DELETE,              KC_TRNS,
-
-                                                         LGUI(KC_D),  LGUI(KC_E),                      KC_MPRV, KC_MNXT,
-                                                                      KC_HOME,                         KC_VOLU,
-                                                 KC_SPC, KC_LGUI,    KC_LALT,                         KC_VOLD, KC_LALT, KC_LCTL
+  KC_LSFT,         KC_Z,               KC_X,                 KC_C,                KC_D,                  KC_V,    KC_GRAVE,                  KC_DOWN,        KC_K,                  KC_H,                  KC_COMMA,                  KC_DOT,               KC_MINUS,               KC_RSFT,
+  KC_LGUI,         KC_LCBR,            KC_RCBR,              KC_BTN2,             MO(SYMB),                                                                                         KC_BTN1,               KC_BTN2,                   KC_RIGHT,             KC_RCBR,                KC_LALT,
+                                                             LCTL(KC_C),          LCTL(KC_V),                                                KC_MPRV,        LCTL(KC_S),
+                                                                                  KC_HOME,                                                   KC_VOLU,
+                                                     KC_SPC, KC_LALT,             LALT(KC_X),                                                LCTL(KC_B),     LCTL(KC_B),            KC_LCTL
 ),
 
 [SYMB] = LAYOUT_ergodox_pretty(
-  // left hand
-  VRSN,    KC_F1,    KC_F2,    KC_F3,   KC_F4,   KC_F5,   KC_TRNS,          KC_TRNS, KC_F6,   KC_F7,    KC_F8,    KC_F9,   KC_F10,  KC_F11,
-  KC_TRNS, KC_TRNS,  KC_QUOTE, KC_LCBR, KC_RCBR, KC_SEMICOLON,   KC_MINUS,  KC_HOME, KC_HOME,   KC_PGDN,  KC_PGUP,  KC_END,  KC_TRNS, KC_F12,
-  KC_TRNS, KC_EQL,   KC_DQT,   KC_LPRN, KC_RPRN, KC_COLON,                  KC_LEFT, KC_DOWN, KC_UP,    KC_RIGHT, KC_PLUS, KC_DEL,
-  KC_TRNS, KC_PLUS,  KC_GRAVE, KC_LBRC, KC_RBRC, KC_TILD, KC_TRNS,     KC_TRNS,      KC_AMPR, KC_TRNS,    KC_TRNS,    KC_TRNS,   KC_TRNS, KC_TRNS,
+  // left hand`
+  VRSN,    KC_F1,    KC_F2,    KC_F3,   KC_F4,    KC_F5,   KC_TRNS,          KC_TRNS, KC_F6,   KC_F7,    KC_F8,    KC_F9,   KC_F10,  KC_F11,
+  KC_TRNS, KC_TRNS,  KC_PGUP,  KC_UP,   KC_PGDN,  KC_TRNS, KC_MINUS,         KC_HOME, KC_HOME,   KC_PGDN,  KC_PGUP,  KC_END,  KC_TRNS, KC_F12,
+  KC_TRNS, KC_EQL,   KC_LEFT,  KC_DOWN, KC_RIGHT, KC_TRNS,                  KC_LEFT, KC_DOWN, KC_UP,    KC_RIGHT, KC_PLUS, KC_DEL,
+  KC_TRNS, KC_PLUS,  KC_TRNS,  KC_LBRC, KC_RBRC,  KC_TILD, KC_TRNS,     KC_TRNS,      KC_AMPR, KC_TRNS,    KC_TRNS,    KC_TRNS,   KC_TRNS, KC_TRNS,
   EE_CLR,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,                                     KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
                                                KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS,
                                                         KC_TRNS,     KC_TRNS,
@@ -86,18 +90,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         register_code(KC_TAB);
       } else {
         unregister_code(KC_TAB);
-      }
-      break;
-  case ALT_TAB2:
-      if (record->event.pressed) {
-        if (!is_alt_tab_active2) {
-          is_alt_tab_active2 = true;
-          register_code(KC_LGUI);
-        }
-        alt_tab_timer2 = timer_read();
-        register_code(KC_GRAVE);
-      } else {
-        unregister_code(KC_GRAVE);
       }
       break;
   }
