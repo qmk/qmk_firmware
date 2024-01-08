@@ -144,7 +144,7 @@ typedef struct
 void    dev_sts_sync(void);
 void    rf_uart_init(void);
 void    rf_device_init(void);
-void    uart_send_report_func(void);
+void    uart_send_report_repeat(void);
 void    uart_receive_pro(void);
 void    uart_send_report(uint8_t report_type, uint8_t *report_buf, uint8_t report_size);
 void    side_speed_contol(uint8_t dir);

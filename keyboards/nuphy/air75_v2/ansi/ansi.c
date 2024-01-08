@@ -28,6 +28,7 @@ extern bool f_bat_hold;
 extern uint16_t  no_act_time;
 extern uint8_t   rf_sw_temp;
 extern uint16_t  rf_sw_press_delay;
+extern uint16_t  rf_linking_time;
 extern user_config_t user_config;
 extern DEV_INFO_STRUCT dev_info;
 
@@ -35,6 +36,8 @@ extern DEV_INFO_STRUCT dev_info;
 /* qmk process record */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     no_act_time = 0;
+    rf_linking_time = 0;
+
     switch (keycode) {
         case RF_DFU:
             if (record->event.pressed) {
@@ -231,6 +234,8 @@ bool rgb_matrix_indicators_user(void)
     if(f_bat_num_show) {
         num_led_show();
     }
+
+    // fix power-on brightness is abnormal
     rgb_matrix_set_color(RGB_MATRIX_LED_COUNT-1, 0, 0, 0);
     return true;
 }
@@ -253,7 +258,7 @@ void housekeeping_task_user(void) {
 
     uart_receive_pro();
 
-    uart_send_report_func();
+    uart_send_report_repeat();
 
     dev_sts_sync();
 

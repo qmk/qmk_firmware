@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "user_kb.h"
 #include "ansi.h"
 #include "usb_main.h"
+#include "rf_driver.h"
 
 user_config_t user_config;
 DEV_INFO_STRUCT dev_info = {
@@ -173,18 +174,20 @@ void long_press_key(void) {
  * @brief  Release all keys, clear keyboard report.
  */
 void break_all_key(void) {
-    uint8_t report_buf[16];
+    uint8_t report_buf[NKRO_REPORT_BITS + 1];
     bool    nkro_temp = keymap_config.nkro;
 
     clear_weak_mods();
     clear_mods();
     clear_keyboard();
 
+    // break nkro key
     keymap_config.nkro = 1;
-    memset(keyboard_report, 0, sizeof(report_keyboard_t));
-    host_keyboard_send(keyboard_report);
+    memset(nkro_report, 0, sizeof(report_nkro_t));
+    host_nkro_send(nkro_report);
     wait_ms(10);
 
+    // break byte key
     keymap_config.nkro = 0;
     memset(keyboard_report, 0, sizeof(report_keyboard_t));
     host_keyboard_send(keyboard_report);
@@ -193,7 +196,7 @@ void break_all_key(void) {
     keymap_config.nkro = nkro_temp;
 
     if (dev_info.link_mode != LINK_USB) {
-        memset(report_buf, 0, 16);
+        memset(report_buf, 0, NKRO_REPORT_BITS + 1);
         uart_send_report(CMD_RPT_BIT_KB, report_buf, 16);
         wait_ms(10);
         uart_send_report(CMD_RPT_BYTE_KB, report_buf, 8);
@@ -224,8 +227,7 @@ void switch_dev_link(uint8_t mode) {
         rf_link_show_time = 0;
     } else {
         host_mode = HOST_RF_TYPE;
-
-        host_set_driver(0);
+        host_set_driver(&rf_host_driver);
     }
 }
 
@@ -298,7 +300,7 @@ void dial_sw_scan(void) {
         f_first           = false;
 
         if (dev_info.link_mode != LINK_USB) {
-            host_set_driver(0);
+            host_set_driver(&rf_host_driver);
         }
     }
 }
@@ -378,6 +380,7 @@ void timer_pro(void) {
         m_host_driver  = host_get_driver();
     }
 
+    // step 10ms
     if (timer_elapsed32(interval_timer) < 10)
         return;
     else

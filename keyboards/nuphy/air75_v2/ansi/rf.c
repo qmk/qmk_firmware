@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "user_kb.h"
 #include "uart.h" // qmk uart.h
 #include "ansi.h"
+#include "rf_driver.h"
 
 USART_MGR_STRUCT Usart_Mgr;
 #define RX_SBYTE    Usart_Mgr.RXDBuf[0]
@@ -39,7 +40,6 @@ uint8_t  uart_bit_report_buf[32] = {0};
 uint8_t  func_tab[32]            = {0};
 uint8_t  bitkb_report_buf[32]    = {0};
 uint8_t  bytekb_report_buf[8]    = {0};
-uint8_t  mouse_report_buf[5]     = {0};
 uint16_t conkb_report            = 0;
 uint16_t syskb_report            = 0;
 uint8_t  sync_lost               = 0;
@@ -64,42 +64,12 @@ void           uart_receive_pro(void);
 void           break_all_key(void);
 uint16_t       host_last_consumer_usage(void);
 
-/**
- * @brief  Uart send consumer keys report.
- * @note Call in host.c
- */
-void uart_send_consumer_report(void) {
-    no_act_time  = 0;
-    conkb_report = host_last_consumer_usage();
-    uart_send_report(CMD_RPT_CONSUME, (uint8_t *)(&conkb_report), 2);
-}
 
-/**
- * @brief  Uart send mouse keys report.
- * @note Call in host.c
- */
-void uart_send_mouse_report(void) {
-    report_mouse_t mouse_report = mousekey_get_report();
-
-    no_act_time = 0;
-    memcpy(mouse_report_buf, &mouse_report.buttons, 5);
-    uart_send_report(CMD_RPT_MS, mouse_report_buf, 5);
-}
-
-/**
- * @brief  Uart send system keys report.
- * @note Call in host.c
- */
-void uart_send_system_report(void) {
-    no_act_time  = 0;
-    syskb_report = host_last_system_usage();
-    uart_send_report(CMD_RPT_SYS, (uint8_t *)(&syskb_report), 2);
-}
 
 /**
  * @brief Uart auto nkey send
  */
-bool f_f_bit_kb_act = 0;
+bool f_bit_kb_act = 0;
 static void uart_auto_nkey_send(uint8_t *pre_bit_report, uint8_t *now_bit_report, uint8_t size)
 {
     uint8_t i, j, byte_index;
@@ -125,8 +95,6 @@ static void uart_auto_nkey_send(uint8_t *pre_bit_report, uint8_t *now_bit_report
                             break;
                         }
                     }
-
-
                     if (byte_index >= 8) {
                         uart_bit_report_buf[i] |= offset_mask;
                         f_bit_send = 1;
@@ -137,7 +105,6 @@ static void uart_auto_nkey_send(uint8_t *pre_bit_report, uint8_t *now_bit_report
                             bytekb_report_buf[byte_index] = 0;
                             f_byte_send                   = 1;
                             break;
-                            ;
                         }
                     }
                     if (byte_index >= 8) {
@@ -152,7 +119,7 @@ static void uart_auto_nkey_send(uint8_t *pre_bit_report, uint8_t *now_bit_report
     }
 
     if (f_bit_send) {
-        f_f_bit_kb_act = 1;
+        f_bit_kb_act = 1;
         uart_send_report(CMD_RPT_BIT_KB, uart_bit_report_buf, 16);
     }
 
@@ -164,41 +131,75 @@ static void uart_auto_nkey_send(uint8_t *pre_bit_report, uint8_t *now_bit_report
 
 /**
  * @brief  Uart send keys report.
- * @note Call in host.c
  */
-void uart_send_report_func(void)
+void uart_send_report_repeat(void)
 {
     static uint32_t interval_timer = 0;
 
     if (dev_info.link_mode == LINK_USB) return;
     keyboard_protocol          = 1;
 
-    if(keymap_config.nkro)
-    nkro_report->mods = get_mods() | get_weak_mods();
-
-    if ((dev_info.sys_sw_state == SYS_SW_MAC) && (memcmp(bytekb_report_buf, &keyboard_report->mods, 8))) {
-        no_act_time             = 0;
-        keyboard_report->reserved = 0;
-        memcpy(bytekb_report_buf, &keyboard_report->mods, 8);
-        uart_send_report(CMD_RPT_BYTE_KB, bytekb_report_buf, 8);
-    }
-    else if ((dev_info.sys_sw_state == SYS_SW_WIN) && (memcmp(bitkb_report_buf, &nkro_report->mods, NKRO_REPORT_BITS+1))) {
-        no_act_time = 0;
-        uart_auto_nkey_send(bitkb_report_buf, &nkro_report->mods, NKRO_REPORT_BITS+1);
-        memcpy(&bitkb_report_buf[0], &nkro_report->mods, NKRO_REPORT_BITS+1);
-    }
-    else if (timer_elapsed32(interval_timer) > 100) {
+    if (timer_elapsed32(interval_timer) > 50) {
         interval_timer = timer_read32();
         if (no_act_time <= 200) {
             uart_send_report(CMD_RPT_BYTE_KB, bytekb_report_buf, 8);
+            wait_us(200);
 
-            if(f_f_bit_kb_act)
+            if(f_bit_kb_act)
             uart_send_report(CMD_RPT_BIT_KB, uart_bit_report_buf, 16);
         }
         else {
-            f_f_bit_kb_act = 0;
+            f_bit_kb_act = 0;
         }
     }
+}
+
+/**
+ * @brief  Uart send consumer keys report.
+ * @note Call in rf_driver.c
+ */
+void uart_send_consumer_report(report_extra_t *report) {
+    no_act_time = 0;
+    uart_send_report(CMD_RPT_CONSUME, (uint8_t *)(&report->usage), 2);
+}
+
+/**
+ * @brief  Uart send mouse keys report.
+ * @note Call in rf_driver.c
+ */
+void uart_send_mouse_report(report_mouse_t *report) {
+    no_act_time = 0;
+    uart_send_report(CMD_RPT_MS, &report->buttons, 5);
+}
+
+/**
+ * @brief  Uart send system keys report.
+ * @note Call in rf_driver.c
+ */
+void uart_send_system_report(report_extra_t *report) {
+    no_act_time = 0;
+    uart_send_report(CMD_RPT_SYS, (uint8_t *)(&report->usage), 2);
+}
+
+/**
+ * @brief  Uart send byte keys report.
+ * @note Call in rf_driver.c
+ */
+void uart_send_report_keyboard(report_keyboard_t *report) {
+    no_act_time      = 0;
+    report->reserved = 0;
+    uart_send_report(CMD_RPT_BYTE_KB, &report->mods, 8);
+    memcpy(bytekb_report_buf, &report->mods, 8);
+}
+
+/**
+ * @brief  Uart send bit keys report.
+ * @note Call in rf_driver.c
+ */
+void uart_send_report_nkro(report_nkro_t *report) {
+    no_act_time = 0;
+    uart_auto_nkey_send(bitkb_report_buf, &nkro_report->mods, NKRO_REPORT_BITS + 1);
+    memcpy(&bitkb_report_buf[0], &nkro_report->mods, NKRO_REPORT_BITS + 1);
 }
 
 /**
@@ -468,7 +469,7 @@ void dev_sts_sync(void) {
         if (host_mode != HOST_RF_TYPE) {
             host_mode = HOST_RF_TYPE;
             break_all_key();
-            host_set_driver(0);
+            host_set_driver(&rf_host_driver);
         }
 
         if (dev_info.rf_state != RF_CONNECT) {
