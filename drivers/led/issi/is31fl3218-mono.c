@@ -13,6 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include "is31fl3218-mono.h"
 #include <string.h>
 #include "i2c_master.h"
@@ -93,14 +94,17 @@ void is31fl3218_init(void) {
 
 void is31fl3218_set_value(int index, uint8_t value) {
     is31fl3218_led_t led;
+
     if (index >= 0 && index < IS31FL3218_LED_COUNT) {
         memcpy_P(&led, (&g_is31fl3218_leds[index]), sizeof(led));
+
+        if (g_pwm_buffer[led.v - IS31FL3218_REG_PWM] == value) {
+            return;
+        }
+
+        g_pwm_buffer[led.v - IS31FL3218_REG_PWM] = value;
+        g_pwm_buffer_update_required             = true;
     }
-    if (g_pwm_buffer[led.v - IS31FL3218_REG_PWM] == value) {
-        return;
-    }
-    g_pwm_buffer[led.v - IS31FL3218_REG_PWM] = value;
-    g_pwm_buffer_update_required             = true;
 }
 
 void is31fl3218_set_value_all(uint8_t value) {

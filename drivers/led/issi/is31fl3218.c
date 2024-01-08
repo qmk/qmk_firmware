@@ -13,6 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include "is31fl3218.h"
 #include <string.h>
 #include "i2c_master.h"
@@ -93,16 +94,19 @@ void is31fl3218_init(void) {
 
 void is31fl3218_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     is31fl3218_led_t led;
+
     if (index >= 0 && index < IS31FL3218_LED_COUNT) {
         memcpy_P(&led, (&g_is31fl3218_leds[index]), sizeof(led));
+
+        if (g_pwm_buffer[led.r - IS31FL3218_REG_PWM] == red && g_pwm_buffer[led.g - IS31FL3218_REG_PWM] == green && g_pwm_buffer[led.b - IS31FL3218_REG_PWM] == blue) {
+            return;
+        }
+
+        g_pwm_buffer[led.r - IS31FL3218_REG_PWM] = red;
+        g_pwm_buffer[led.g - IS31FL3218_REG_PWM] = green;
+        g_pwm_buffer[led.b - IS31FL3218_REG_PWM] = blue;
+        g_pwm_buffer_update_required             = true;
     }
-    if (g_pwm_buffer[led.r - IS31FL3218_REG_PWM] == red && g_pwm_buffer[led.g - IS31FL3218_REG_PWM] == green && g_pwm_buffer[led.b - IS31FL3218_REG_PWM] == blue) {
-        return;
-    }
-    g_pwm_buffer[led.r - IS31FL3218_REG_PWM] = red;
-    g_pwm_buffer[led.g - IS31FL3218_REG_PWM] = green;
-    g_pwm_buffer[led.b - IS31FL3218_REG_PWM] = blue;
-    g_pwm_buffer_update_required             = true;
 }
 
 void is31fl3218_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
