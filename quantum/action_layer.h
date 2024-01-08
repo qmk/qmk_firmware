@@ -24,20 +24,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef DYNAMIC_KEYMAP_ENABLE
 #    ifndef DYNAMIC_KEYMAP_LAYER_COUNT
-#        define DYNAMIC_KEYMAP_LAYER_COUNT 4
+#        define DYNAMIC_KEYMAP_LAYER_COUNT 8
 #    endif
 #    define MAX_LAYER DYNAMIC_KEYMAP_LAYER_COUNT
-#    if DYNAMIC_KEYMAP_LAYER_COUNT <= 8
-#        ifndef LAYER_STATE_8BIT
-#            define LAYER_STATE_8BIT
-#        endif
-#    elif DYNAMIC_KEYMAP_LAYER_COUNT <= 16
+#    if DYNAMIC_KEYMAP_LAYER_COUNT <= 32
 #        ifndef LAYER_STATE_16BIT
 #            define LAYER_STATE_16BIT
 #        endif
-#    else
+#    elif DYNAMIC_KEYMAP_LAYER_COUNT <= 64
 #        ifndef LAYER_STATE_32BIT
 #            define LAYER_STATE_32BIT
+#        endif
+#    else
+#        ifndef LAYER_STATE_64BIT
+#            define LAYER_STATE_64BIT
 #        endif
 #    endif
 #endif
@@ -48,21 +48,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #if defined(LAYER_STATE_8BIT)
 typedef uint8_t layer_state_t;
-#    define MAX_LAYER_BITS 3
+#    define MAX_LAYER_BITS 8
 #    ifndef MAX_LAYER
 #        define MAX_LAYER 8
 #    endif
 #    define get_highest_layer(state) biton(state)
 #elif defined(LAYER_STATE_16BIT)
 typedef uint16_t layer_state_t;
-#    define MAX_LAYER_BITS 4
+#    define MAX_LAYER_BITS 8
 #    ifndef MAX_LAYER
 #        define MAX_LAYER 16
 #    endif
 #    define get_highest_layer(state) biton16(state)
 #elif defined(LAYER_STATE_32BIT)
 typedef uint32_t layer_state_t;
-#    define MAX_LAYER_BITS 5
+#    define MAX_LAYER_BITS 8
 #    ifndef MAX_LAYER
 #        define MAX_LAYER 32
 #    endif

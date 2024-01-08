@@ -42,20 +42,29 @@ oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     return rotation;
 }
 
+uint16_t _QWERTY;
+uint16_t _SIMBOLS;
+uint16_t _NAVIGATE;
+uint16_t _ADJUST;
+uint16_t _DVORAK;
+
 static void oled_render_layer_state(void) {
     oled_write_P(PSTR("Layer: "), false);
     switch (get_highest_layer(layer_state)) {
         case 0:
-            oled_write_ln_P(PSTR("Default"), false);
+            oled_write_ln_P(PSTR("QWERTY"), false);
             break;
         case 1:
-            oled_write_ln_P(PSTR("Lower"), false);
+            oled_write_ln_P(PSTR("SIMBOLS"), false);
             break;
         case 2:
-            oled_write_ln_P(PSTR("Raise"), false);
+            oled_write_ln_P(PSTR("NAVIGATE"), false);
             break;
         case 3:
-            oled_write_ln_P(PSTR("Adjust"), false);
+            oled_write_ln_P(PSTR("ADJUST"), false);
+            break;
+        case 4:
+            oled_write_ln_P(PSTR("DVORAK"), false);
             break;
         default:
             oled_write_ln_P(PSTR("Undef"), false);
