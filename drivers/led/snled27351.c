@@ -84,7 +84,7 @@ void snled27351_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
 
 #if SNLED27351_I2C_PERSISTENCE > 0
         for (uint8_t i = 0; i < SNLED27351_I2C_PERSISTENCE; i++) {
-            if (i2c_transmit(addr << 1, i2c_transfer_buffer, 65, SNLED27351_I2C_TIMEOUT) == 0);
+            if (i2c_transmit(addr << 1, i2c_transfer_buffer, 65, SNLED27351_I2C_TIMEOUT) == 0) break;
         }
 #else
         i2c_transmit(addr << 1, i2c_transfer_buffer, 65, SNLED27351_I2C_TIMEOUT);
