@@ -1,3 +1,23 @@
+/* Copyright 2017 Jason Williams
+ * Copyright 2018 Jack Humbert
+ * Copyright 2018 Yiancar
+ * Copyright 2020 MelGeek
+ * Copyright 2021 MasterSpoon
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "is31fl3746a-mono.h"
 #include <string.h>
 #include "i2c_master.h"
@@ -147,12 +167,14 @@ void is31fl3746a_init(uint8_t addr) {
 
 void is31fl3746a_set_color(int index, uint8_t value) {
     is31fl3746a_led_t led;
+
     if (index >= 0 && index < IS31FL3746A_LED_COUNT) {
         memcpy_P(&led, (&g_is31fl3746a_leds[index]), sizeof(led));
 
         if (g_pwm_buffer[led.driver][led.v] == value) {
             return;
         }
+
         g_pwm_buffer_update_required[led.driver] = true;
         g_pwm_buffer[led.driver][led.v]          = value;
     }
@@ -168,8 +190,7 @@ void is31fl3746a_set_scaling_register(uint8_t index, uint8_t value) {
     is31fl3746a_led_t led;
     memcpy_P(&led, (&g_is31fl3746a_leds[index]), sizeof(led));
 
-    g_scaling_registers[led.driver][led.v] = value;
-
+    g_scaling_registers[led.driver][led.v]          = value;
     g_scaling_registers_update_required[led.driver] = true;
 }
 
@@ -178,9 +199,9 @@ void is31fl3746a_update_pwm_buffers(uint8_t addr, uint8_t index) {
         is31fl3746a_select_page(addr, IS31FL3746A_COMMAND_PWM);
 
         is31fl3746a_write_pwm_buffer(addr, g_pwm_buffer[index]);
-    }
 
-    g_pwm_buffer_update_required[index] = false;
+        g_pwm_buffer_update_required[index] = false;
+    }
 }
 
 void is31fl3746a_update_scaling_registers(uint8_t addr, uint8_t index) {
@@ -190,6 +211,7 @@ void is31fl3746a_update_scaling_registers(uint8_t addr, uint8_t index) {
         for (int i = 0; i < IS31FL3746A_SCALING_REGISTER_COUNT; i++) {
             is31fl3746a_write_register(addr, i + 1, g_scaling_registers[index][i]);
         }
+
         g_scaling_registers_update_required[index] = false;
     }
 }
