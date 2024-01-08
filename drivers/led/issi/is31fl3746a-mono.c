@@ -165,7 +165,7 @@ void is31fl3746a_init(uint8_t addr) {
     wait_ms(10);
 }
 
-void is31fl3746a_set_color(int index, uint8_t value) {
+void is31fl3746a_set_value(int index, uint8_t value) {
     is31fl3746a_led_t led;
 
     if (index >= 0 && index < IS31FL3746A_LED_COUNT) {
