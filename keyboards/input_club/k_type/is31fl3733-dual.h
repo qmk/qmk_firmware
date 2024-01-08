@@ -58,6 +58,20 @@
 #define IS31FL3733_I2C_ADDRESS_VCC_SDA 0x5E
 #define IS31FL3733_I2C_ADDRESS_VCC_VCC 0x5F
 
+#if !defined(IS31FL3733_LED_COUNT)
+#    define IS31FL3733_LED_COUNT RGB_MATRIX_LED_COUNT
+#endif
+
+#if defined(IS31FL3733_I2C_ADDRESS_4)
+#    define IS31FL3733_DRIVER_COUNT 4
+#elif defined(IS31FL3733_I2C_ADDRESS_3)
+#    define IS31FL3733_DRIVER_COUNT 3
+#elif defined(IS31FL3733_I2C_ADDRESS_2)
+#    define IS31FL3733_DRIVER_COUNT 2
+#elif defined(IS31FL3733_I2C_ADDRESS_1)
+#    define IS31FL3733_DRIVER_COUNT 1
+#endif
+
 typedef struct is31fl3733_led_t {
     uint8_t driver : 2;
     uint8_t r;
