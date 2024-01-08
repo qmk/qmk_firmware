@@ -14,7 +14,7 @@ ps2pdf monorail2-keymap-richdawe.ps monorail2-keymap-richdawe.pdf
 #include QMK_KEYBOARD_H
 
 #define LT1_SPC LT(1, KC_SPC)
-#define LT2_SPC LT(2, KC_SPC)
+#define LT2_CAPS LT(2, KC_CAPS)
 #define LT3_ESC LT(3, KC_ESC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -22,22 +22,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = LAYOUT( \
   /* Base layer
    *    ,-----+-----+-----+-----+-----+-----.
-   *    |Es/L3|  ~  |  [  |  ]  |  -  |  =  |
+   *    |Es/L3|  `  |  [  |  ]  |  -  |  =  |
    * ,--+-----+-----+-----+-----+-----+-----------------------------------------.
    * | Tab |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  |Bspace  |
    * |--------------------------------------------------------------------------+
-   * | Caps |  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |   '   |
+   * |Cps/L2|  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |   '   |
    * |--------------------------------------------------------------------------+
    * | Shift  |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  | Up  |Sh/En|
    * |--------------------------------------------------------------------------+
-   * | Ctrl | Gui | Alt  |   Space / L2  |  Space / L1 |  /   |Left |Down |Right|
+   * | Ctrl | Gui | Alt  |   Space / L1  |  Space / L1 |  /   |Left |Down |Right|
    * `--------------------------------------------------------------------------'
    */
   LT3_ESC, KC_GRV,  KC_LBRC,    KC_RBRC,    KC_MINS, KC_EQL, \
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
-  KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
+  LT2_CAPS,KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,   SC_SENT, \
-  KC_LCTL, KC_LGUI, KC_LALT, KC_LALT,     LT2_SPC,          LT1_SPC,      KC_SLSH, KC_LEFT, KC_DOWN, KC_RGHT
+  KC_LCTL, KC_LGUI, KC_LALT, KC_LALT,     LT1_SPC,          LT1_SPC,      KC_SLSH, KC_LEFT, KC_DOWN, KC_RGHT
 ),
 [1] = LAYOUT( \
 /* Numbers and symbols layer
@@ -48,16 +48,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |--------------------------------------------------------------------------+
    * |  .   |  !  |  @  |  #  |  $  |  %  |  ^  |  &  |  *  |  (  |  )  |   \   |
    * |--------------------------------------------------------------------------+
-   * |        |     |     |     |     |     |     |     |     |     |PgUp |     |
+   * |        |     |     |     |  ~  |  |  |  +  |  -  |     |     |PgUp |     |
    * |--------------------------------------------------------------------------+
-   * |      |     |      |      -        |             |      |Home |PgDn | End |
+   * |      |     |      |               |             |      |Home |PgDn | End |
    * `--------------------------------------------------------------------------'
    */
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
   KC_COLN, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
   KC_DOT,  S(KC_1), S(KC_2), S(KC_3), S(KC_4), S(KC_5), S(KC_6), S(KC_7), S(KC_8), S(KC_9), S(KC_0), KC_BSLS, \
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PGUP, _______, \
-  _______, _______, _______, _______,      KC_MINS,          _______,     XXXXXXX, KC_HOME, KC_PGDN, KC_END
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_TILD,  KC_PIPE, KC_PLUS, KC_MINS, XXXXXXX, XXXXXXX, KC_PGUP, _______, \
+  _______, _______, _______, _______,      _______,          _______,     XXXXXXX, KC_HOME, KC_PGDN, KC_END
 ),
 [2] = LAYOUT( \
 /* F-keys and media
