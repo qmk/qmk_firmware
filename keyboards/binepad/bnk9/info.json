@@ -43,6 +43,9 @@
     },
     "rgb_matrix": {
         "driver": "ws2812",
+        "led_process_limit": 9,
+        "max_brightness": 180,
+        "sleep": true,
         "animations": {
             "solid_color": true,
             "breathing": true,
