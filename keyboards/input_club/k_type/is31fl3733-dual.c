@@ -125,6 +125,7 @@ bool is31fl3733_write_pwm_buffer(uint8_t index, uint8_t addr, uint8_t *pwm_buffe
 
 void is31fl3733_init_drivers(void) {
     i2c_init(&I2CD1, I2C1_SCL_PIN, I2C1_SDA_PIN);
+
     is31fl3733_init(0, IS31FL3733_I2C_ADDRESS_1, IS31FL3733_SYNC_1);
 #    ifdef USE_I2C2
     i2c_init(&I2CD2, I2C2_SCL_PIN, I2C2_SDA_PIN);
@@ -180,12 +181,14 @@ void is31fl3733_init(uint8_t bus, uint8_t addr, uint8_t sync) {
 
 void is31fl3733_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     is31fl3733_led_t led;
+
     if (index >= 0 && index < IS31FL3733_LED_COUNT) {
         memcpy_P(&led, (&g_is31fl3733_leds[index]), sizeof(led));
 
         if (g_pwm_buffer[led.driver][led.r] == red && g_pwm_buffer[led.driver][led.g] == green && g_pwm_buffer[led.driver][led.b] == blue) {
             return;
         }
+
         g_pwm_buffer[led.driver][led.r]          = red;
         g_pwm_buffer[led.driver][led.g]          = green;
         g_pwm_buffer[led.driver][led.b]          = blue;
@@ -249,8 +252,9 @@ void is31fl3733_update_led_control_registers(uint8_t addr, uint8_t index) {
         for (int i = 0; i < IS31FL3733_LED_CONTROL_REGISTER_COUNT; i++) {
             is31fl3733_write_register(index, addr, i, g_led_control_registers[index][i]);
         }
+
+        g_led_control_registers_update_required[index] = false;
     }
-    g_led_control_registers_update_required[index] = false;
 }
 
 void is31fl3733_flush(void) {
