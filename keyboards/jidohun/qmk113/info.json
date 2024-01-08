@@ -14,19 +14,21 @@
     "diode_direction": "ROW2COL",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
-        "mousekey": false,
+        "mousekey": true,
         "nkro": true,
-        "haptic": false,
         "rgb_matrix": true,
-        "rgblight": false,
         "encoder": true
     },
     "matrix_pins": {
         "cols": ["C0", "C1", "C2", "C3", "A5", "B1", "B10", "B11", "B12", "B13", "B14", "B15", "C6", "C7", "C8", "C9"],
         "rows": ["A0", "A1", "A2", "A3", "A4", "C13"]
+    },
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096,
+            "driver": "spi_flash"
+        }
     },
     "encoder": {
         "rotary": [
@@ -280,3 +282,4 @@
         }
     }
 }
+
