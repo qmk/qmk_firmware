@@ -16,11 +16,9 @@
 
 #pragma once
 
-#ifdef OLED_DRIVER_ENABLE
-  #define OLED_DISPLAY_128X64
-  #define OLED_TIMEOUT 15000
-  #define OLED_FONT_H "keyboards/splitkb/kyria/keymaps/semd/glcdfont.c"
-#endif
+#define OLED_DISPLAY_128X64
+#define OLED_TIMEOUT 15000
+#define OLED_FONT_H "keyboards/splitkb/kyria/keymaps/semd/glcdfont.c"
 
 #ifdef RGBLIGHT_ENABLE
   // #define RGBLIGHT_EFFECT_ALTERNATING
