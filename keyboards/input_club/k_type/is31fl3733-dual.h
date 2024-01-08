@@ -21,6 +21,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "progmem.h"
+#include "util.h"
 
 #define IS31FL3733_REG_INTERRUPT_MASK 0xF0
 #define IS31FL3733_REG_INTERRUPT_STATUS 0xF1
@@ -77,7 +78,7 @@ typedef struct is31fl3733_led_t {
     uint8_t r;
     uint8_t g;
     uint8_t b;
-} __attribute__((packed)) is31fl3733_led_t;
+} PACKED is31fl3733_led_t;
 
 extern const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT];
 
