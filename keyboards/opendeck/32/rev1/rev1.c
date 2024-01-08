@@ -100,11 +100,15 @@ void keyboard_pre_init_kb(void) {
     // We don't use this feature of the IS31FL3731 but it is electrically connected
     // Make sure not to drive it
     setPinInput(RGB_IRQ_N_PIN);
+
+    keyboard_pre_init_user();
 }
 
-void keyboard_post_init_user(void) {
+void keyboard_post_init_kb(void) {
     // RGB enabled by default, no way to turn off. No need to expend EEPROM write cycles here.
     rgb_matrix_enable_noeeprom();
+
+    keyboard_post_init_user();
 }
 #endif
 

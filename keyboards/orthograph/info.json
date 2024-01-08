@@ -39,6 +39,9 @@
         }
     },
     "rgb_matrix": {
+        "default": {
+            "animation": "band_val"
+        },
         "driver": "is31fl3733",
         "split_count": [36,  46],
         "layout": [
