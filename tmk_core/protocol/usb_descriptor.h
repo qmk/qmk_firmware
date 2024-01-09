@@ -97,7 +97,6 @@ typedef struct {
     USB_Descriptor_Interface_t Console_Interface;
     USB_HID_Descriptor_HID_t   Console_HID;
     USB_Descriptor_Endpoint_t  Console_INEndpoint;
-    USB_Descriptor_Endpoint_t  Console_OUTEndpoint;
 #endif
 
 #ifdef MIDI_ENABLE
@@ -232,19 +231,6 @@ enum usb_endpoints {
 
 #ifdef CONSOLE_ENABLE
     CONSOLE_IN_EPNUM = NEXT_EPNUM,
-
-#    ifdef PROTOCOL_CHIBIOS
-// ChibiOS has enough memory and descriptor to actually enable the endpoint
-// It could use the same endpoint numbers, as that's supported by ChibiOS
-// But the QMK code currently assumes that the endpoint numbers are different
-#        ifdef USB_ENDPOINTS_ARE_REORDERABLE
-#            define CONSOLE_OUT_EPNUM CONSOLE_IN_EPNUM
-#        else
-    CONSOLE_OUT_EPNUM = NEXT_EPNUM,
-#        endif
-#    else
-#        define CONSOLE_OUT_EPNUM CONSOLE_IN_EPNUM
-#    endif
 #endif
 
 #ifdef MIDI_ENABLE

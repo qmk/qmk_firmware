@@ -17,6 +17,10 @@
         "pin": "A10"
     },
     "rgb_matrix": {
+        "default": {
+            "animation": "solid_reactive_simple",
+            "hue": 221
+        },
         "driver": "ws2812",
         "layout": [
             {"matrix": [0, 2], "x": 224, "y": 0, "flags": 4},
