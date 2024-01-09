@@ -21,31 +21,3 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-#ifdef RGB_MATRIX_ENABLE
-#define RGB_MATRIX_LED_COUNT 51
-#define RGB_MATRIX_KEYPRESSES // reacts to keypresses
-#define RGB_MATRIX_SLEEP // turn off effects when suspended
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 125 // limits maximum brightness of LEDs to 125 out of 255. Higher may cause the controller to crash.
-
-// RGB Matrix Animation modes. Explicitly enabled
-// For full list of effects, see:
-// https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
-#define ENABLE_RGB_MATRIX_ALPHAS_MODS
-#define ENABLE_RGB_MATRIX_BREATHING
-#define ENABLE_RGB_MATRIX_BAND_SAT
-#define ENABLE_RGB_MATRIX_BAND_VAL
-#define ENABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
-#define ENABLE_RGB_MATRIX_BAND_PINWHEEL_VAL
-#define ENABLE_RGB_MATRIX_BAND_SPIRAL_SAT
-#define ENABLE_RGB_MATRIX_BAND_SPIRAL_VAL
-#define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
-#define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
-#define ENABLE_RGB_MATRIX_CYCLE_OUT_IN
-#define ENABLE_RGB_MATRIX_CYCLE_PINWHEEL
-#define ENABLE_RGB_MATRIX_CYCLE_SPIRAL
-#define ENABLE_RGB_MATRIX_DUAL_BEACON
-#define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
-#define ENABLE_RGB_MATRIX_HUE_WAVE
-#define ENABLE_RGB_MATRIX_PIXEL_FLOW
-#endif

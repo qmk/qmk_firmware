@@ -19,7 +19,17 @@
         "lto": true
     },
     "rgb_matrix": {
-        "driver": "ws2812"
+        "animations": {
+            "gradient_up_down": true,
+            "gradient_left_right": true,
+            "cycle_left_right": true,
+            "cycle_out_in_dual": true
+        },
+        "center_point": [112, 32],
+        "driver": "ws2812",
+        "max_brightness": 150,
+        "sleep": true,
+        "split_count": [43, 43]
     },
     "matrix_pins": {
         "cols": ["F7", "F6", "F5", "F4", "F1", "F0", "E6"],
