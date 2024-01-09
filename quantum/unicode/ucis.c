@@ -10,7 +10,9 @@ bool    active                       = false;
 char    input[UCIS_MAX_INPUT_LENGTH] = {0};
 
 void ucis_start(void) {
-    if (active) ucis_finish(); // Finish action if any!
+    if (active) {
+        ucis_finish(); /* Finish action if any! */
+    }
 
     count  = 0;
     active = true;
