@@ -25,16 +25,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Select hand configuration */
 
 #define MASTER_LEFT
+#define CMD_ESC LCMD_T(KC_ESC)
+
 #define SFT_ESC SFT_T(KC_ESC)
 #define SFT_BSPC SFT_T(KC_BSPC)
+#define SFT_Z SFT_T(KC_Z)
+#define SFT_A SFT_T(KC_A)
+#define SFT_SLSH SFT_T(KC_SLSH)
+#define SFT_QUOT SFT_T(KC_QUOT)
+
 #define CTL_SPC CTL_T(KC_SPC)
 #define CTL_ENT CTL_T(KC_ENT)
+#define CTL_A CTL_T(KC_A)
+#define CTL_Q CTL_T(KC_Q)
+#define CTL_QUOT CTL_T(KC_QUOT)
 
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
 //#define QUICK_TAP_TERM 0
-#define TAPPING_TERM 200
+// #define TAPPING_TERM 160
+#define PERMISSIVE_HOLD
 
 #ifdef RGBLIGHT_ENABLE
     #define RGBLIGHT_EFFECT_BREATHING
