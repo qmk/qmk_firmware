@@ -21,12 +21,11 @@ You can use between 1 and 4 IS31FL3731 IC's. Do not specify `LED_DRIVER_ADDR_<N>
 |----------|-------------|---------|
 | `IS31FL3731_I2C_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
 | `IS31FL3731_I2C_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
-| `IS31FL3731_DRIVER_COUNT` | (Required) How many LED driver IC's are present | |
 | `LED_MATRIX_LED_COUNT` | (Required) How many LED lights are present across all drivers | |
-| `LED_DRIVER_ADDR_1` | (Required) Address for the first LED driver | |
-| `LED_DRIVER_ADDR_2` | (Optional) Address for the second LED driver | |
-| `LED_DRIVER_ADDR_3` | (Optional) Address for the third LED driver | |
-| `LED_DRIVER_ADDR_4` | (Optional) Address for the fourth LED driver | |
+| `IS31FL3731_I2C_ADDRESS_1` | (Required) Address for the first LED driver | |
+| `IS31FL3731_I2C_ADDRESS_2` | (Optional) Address for the second LED driver | |
+| `IS31FL3731_I2C_ADDRESS_3` | (Optional) Address for the third LED driver | |
+| `IS31FL3731_I2C_ADDRESS_4` | (Optional) Address for the fourth LED driver | |
 
 Here is an example using 2 drivers.
 
@@ -40,10 +39,9 @@ Here is an example using 2 drivers.
 // 11 AD <-> VCC
 // ADDR represents A1:A0 of the 7-bit address.
 // The result is: 0b11101(ADDR)
-#define LED_DRIVER_ADDR_1 IS31FL3731_I2C_ADDRESS_GND
-#define LED_DRIVER_ADDR_2 IS31FL3731_I2C_ADDRESS_SDA
+#define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
+#define IS31FL3731_I2C_ADDRESS_2 IS31FL3731_I2C_ADDRESS_SDA
 
-#define IS31FL3731_DRIVER_COUNT 2
 #define LED_DRIVER_1_LED_TOTAL 25
 #define LED_DRIVER_2_LED_TOTAL 24
 #define LED_MATRIX_LED_COUNT (LED_DRIVER_1_LED_TOTAL + LED_DRIVER_2_LED_TOTAL)
@@ -51,12 +49,12 @@ Here is an example using 2 drivers.
 
 !> Note the parentheses, this is so when `LED_MATRIX_LED_COUNT` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (LED_DRIVER_1_LED_TOTAL + LED_DRIVER_2_LED_TOTAL)` will give very different results than `rand() % LED_DRIVER_1_LED_TOTAL + LED_DRIVER_2_LED_TOTAL`.
 
-For split keyboards using `LED_MATRIX_SPLIT` with an LED driver, you can either have the same driver address or different driver addresses. If using different addresses, use `DRIVER_ADDR_1` for one and `DRIVER_ADDR_2` for the other one. Then, in `g_is31_leds`, fill out the correct driver index (0 or 1). If using one address, use `DRIVER_ADDR_1` for both, and use index 0 for `g_is31_leds`.
+For split keyboards using `LED_MATRIX_SPLIT` with an LED driver, you can either have the same driver address or different driver addresses. If using different addresses, use `IS31FL3731_I2C_ADDRESS_1` for one and `IS31FL3731_I2C_ADDRESS_2` for the other one. Then, in `g_is31fl3731_leds`, fill out the correct driver index (0 or 1). If using one address, use `IS31FL3731_I2C_ADDRESS_1` for both, and use index 0 for `g_is31fl3731_leds`.
 
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31_led PROGMEM g_is31_leds[LED_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *    driver
  *    |  LED address
@@ -67,7 +65,7 @@ const is31_led PROGMEM g_is31_leds[LED_MATRIX_LED_COUNT] = {
 }
 ```
 
-Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/led/issi/is31fl3731-simple.h`. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3` ).
+Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/led/issi/is31fl3731-mono.h`. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3` ).
 
 ---
 ### IS31FLCOMMON :id=is31flcommon
@@ -96,7 +94,6 @@ Configure the hardware via your `config.h`:
 |----------|-------------|---------|
 | `ISSI_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
 | `ISSI_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
-| `DRIVER_COUNT` | (Required) How many LED driver IC's are present | |
 | `LED_MATRIX_LED_COUNT` | (Required) How many LED lights are present across all drivers | |
 | `DRIVER_ADDR_1` | (Optional) Address for the first LED driver | |
 | `DRIVER_ADDR_<N>` | (Required) Address for the additional LED drivers | |
@@ -129,7 +126,6 @@ Here is an example using 2 drivers.
 ```c
 #define DRIVER_ADDR_2 0b0100001
 
-#define DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 66
 #define DRIVER_2_LED_TOTAL 42
 #define LED_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
@@ -361,10 +357,11 @@ For inspiration and examples, check out the built-in effects under `quantum/led_
 ```c
 #define LED_MATRIX_KEYRELEASES // reactive effects respond to keyreleases (instead of keypresses)
 #define LED_MATRIX_TIMEOUT 0 // number of milliseconds to wait until led automatically turns off
-#define LED_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
+#define LED_MATRIX_SLEEP // turn off effects when suspended
 #define LED_MATRIX_LED_PROCESS_LIMIT (LED_MATRIX_LED_COUNT + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 #define LED_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
 #define LED_MATRIX_MAXIMUM_BRIGHTNESS 255 // limits maximum brightness of LEDs
+#define LED_MATRIX_DEFAULT_ON true // Sets the default enabled state, if none has been set
 #define LED_MATRIX_DEFAULT_MODE LED_MATRIX_SOLID // Sets the default mode, if none has been set
 #define LED_MATRIX_DEFAULT_VAL LED_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set
 #define LED_MATRIX_DEFAULT_SPD 127 // Sets the default animation speed, if none has been set

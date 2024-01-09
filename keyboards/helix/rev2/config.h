@@ -21,9 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define QUICK_TAP_TERM 0
 
-#define SPLIT_LAYER_STATE_ENABLE
-#define SPLIT_LED_STATE_ENABLE
-
 /* Select hand configuration */
 #define MASTER_LEFT
 // #define MASTER_RIGHT
@@ -34,20 +31,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Helix keyboard RGB LED support
 //    see ./rules.mk: LED_BACK_ENABLE or LED_UNDERGLOW_ENABLE set yes
 #ifdef RGBLED_BACK
-  #define RGBLED_NUM 32
+  #define RGBLIGHT_LED_COUNT 32
 #else
-  #define RGBLED_NUM 6
+  #define RGBLIGHT_LED_COUNT 6
 #endif
 
 #ifndef IOS_DEVICE_ENABLE
-  #if RGBLED_NUM <= 6
+  #if RGBLIGHT_LED_COUNT <= 6
     #define RGBLIGHT_LIMIT_VAL 255
   #else
     #define RGBLIGHT_LIMIT_VAL 120
   #endif
   #define RGBLIGHT_VAL_STEP 17
 #else
-  #if RGBLED_NUM <= 6
+  #if RGBLIGHT_LED_COUNT <= 6
     #define RGBLIGHT_LIMIT_VAL 90
   #else
     #define RGBLIGHT_LIMIT_VAL 35

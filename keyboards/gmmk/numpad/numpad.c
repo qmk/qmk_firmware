@@ -19,7 +19,7 @@
 
 #ifdef RGB_MATRIX_ENABLE
 
-const aw20216s_led_t g_aw20216s_leds[RGB_MATRIX_LED_COUNT] = {
+const aw20216s_led_t PROGMEM g_aw20216s_leds[AW20216S_LED_COUNT] = {
 /* Refer to AW20216S manual for these locations
  *   driver
  *   |     R location
@@ -107,12 +107,12 @@ led_config_t g_led_config = {{
 	2, 2, 2, 2, 2, 2, 2
 } };
 
-#    ifdef AW20216S_DRIVER_1_PW_EN
+#    ifdef AW20216S_PW_EN_PIN_1
 
 void keyboard_pre_init_user(void) {
     wait_ms(2000);
-    setPinOutput(AW20216S_DRIVER_1_PW_EN);
-    writePinHigh(AW20216S_DRIVER_1_PW_EN);
+    setPinOutput(AW20216S_PW_EN_PIN_1);
+    writePinHigh(AW20216S_PW_EN_PIN_1);
 }
 #    endif
 

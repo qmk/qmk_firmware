@@ -34,7 +34,7 @@
         }
     },
     "rgb_matrix": {
-        "driver": "is31fl3733",
+        "driver": "snled27351",
         "max_brightness": 200,
         "animations": {
             "breathing": true,
@@ -105,7 +105,8 @@
             { "flags": 4, "matrix": [3, 9],   "x": 183, "y": 64},
             { "flags": 4, "matrix": [3, 10],  "x": 204, "y": 64},
             { "flags": 4, "matrix": [3, 11],  "x": 224, "y": 64}
-        ]
+        ],
+        "sleep": true
     },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_planck_mit"

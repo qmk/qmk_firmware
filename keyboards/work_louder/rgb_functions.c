@@ -24,9 +24,9 @@
 
 #include "ws2812_bitbang.c"
 
-void rgblight_call_driver(rgb_led_t *start_led, uint8_t num_leds) {
-    ws2812_setleds(start_led, num_leds);
-}
+const rgblight_driver_t rgblight_driver = {
+    .setleds = ws2812_setleds,
+};
 #endif
 
 #ifdef RGB_MATRIX_ENABLE

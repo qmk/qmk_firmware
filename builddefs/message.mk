@@ -103,6 +103,10 @@ MSG_BOOTLOADER_NOT_FOUND = $(ERROR_COLOR)ERROR:$(NO_COLOR) $(MSG_BOOTLOADER_NOT_
 BOOTLOADER_RETRY_TIME ?= 0.5
 MSG_BOOTLOADER_NOT_FOUND_QUICK_RETRY = $(MSG_BOOTLOADER_NOT_FOUND_BASE) Trying again every $(BOOTLOADER_RETRY_TIME)s (Ctrl+C to cancel)
 
+define WARNING_MESSAGE
+    $(shell printf "\n %-99s $(WARN_STRING)\n" "$1" >&2)
+endef
+
 define CATASTROPHIC_ERROR
     $(shell printf "\n * %-99s $(ERROR_STRING)\n" "$2" >&2)
     $(error $1)

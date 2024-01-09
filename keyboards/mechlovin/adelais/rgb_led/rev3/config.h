@@ -17,13 +17,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define WS2812_SPI SPID1 // default: SPID1
+#define WS2812_SPI_DRIVER SPID1 // default: SPID1
 #define WS2812_SPI_MOSI_PAL_MODE 5 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 5
 
 #ifdef RGB_MATRIX_ENABLE
 //rgb matrix setting
-#define DRIVER_ADDR_1 IS31FL3741_I2C_ADDRESS_SDA
-#define IS31FL3741_DRIVER_COUNT 1
+#define IS31FL3741_I2C_ADDRESS_1 IS31FL3741_I2C_ADDRESS_SDA
 #define RGB_MATRIX_LED_COUNT 66
 
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
@@ -31,7 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
-#define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
+#define RGB_MATRIX_SLEEP // turn off effects when suspended
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_PINWHEEL // Sets the default mode, if none has been set
 
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS

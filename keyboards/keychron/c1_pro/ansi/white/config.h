@@ -20,28 +20,12 @@
 // #define MATRIX_UNSELECT_DRIVE_HIGH
 
 /* LED Matrix Driver Configuration */
-#define CKLED2001_DRIVER_COUNT 1
-#define DRIVER_ADDR_1 CKLED2001_I2C_ADDRESS_GND
-
-/* LED Matrix Configuration */
-#define LED_MATRIX_LED_COUNT 90
-
-#define CKLED2001_PHASE_CHANNEL CKLED2001_MSKPHASE_9CHANNEL
-/* Set led driver current */
-#define CKLED2001_CURRENT_TUNE \
+#define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_GND
+#define SNLED27351_PHASE_CHANNEL SNLED27351_SCAN_PHASE_9_CHANNEL
+#define SNLED27351_CURRENT_TUNE \
     { 0x9D, 0x9D, 0x44, 0x9D, 0x9D, 0x44, 0x9D, 0x9D, 0x44, 0x9D, 0x9D, 0x44 }
-
-/* turn off effects when suspended */
-#define LED_DISABLE_WHEN_USB_SUSPENDED
 
 /* Enbale caps_lcok, win os and mac os indicator */
 #define CAPS_LOCK_LED_INDEX 63
 #define MAC_LOCK_LED_INDEX 64
 #define WIN_LOCK_LED_INDEX 65
-
-// LED Matrix Animation modes. Explicitly enabled
-// For full list of effects, see:
-// https://docs.qmk.fm/#/feature_led_matrix?id=led-matrix-effects
-// #if defined(LED_MATRIX_KEYPRESSES) || defined(LED_MATRIX_KEYRELEASES)
-#define LED_MATRIX_KEYPRESSES
-#define LED_MATRIX_KEYRELEASES

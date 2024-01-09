@@ -22,12 +22,11 @@ You can use between 1 and 4 IS31FL3731 IC's. Do not specify `DRIVER_ADDR_<N>` de
 | `IS31FL3731_I2C_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
 | `IS31FL3731_I2C_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
 | `IS31FL3731_DEGHOST` | (Optional) Set this define to enable de-ghosting by halving Vcc during blanking time | |
-| `IS31FL3731_DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
 | `RGB_MATRIX_LED_COUNT` | (Required) How many RGB lights are present across all drivers | |
-| `DRIVER_ADDR_1` | (Required) Address for the first RGB driver | |
-| `DRIVER_ADDR_2` | (Optional) Address for the second RGB driver | |
-| `DRIVER_ADDR_3` | (Optional) Address for the third RGB driver | |
-| `DRIVER_ADDR_4` | (Optional) Address for the fourth RGB driver | |
+| `IS31FL3731_I2C_ADDRESS_1` | (Required) Address for the first RGB driver | |
+| `IS31FL3731_I2C_ADDRESS_2` | (Optional) Address for the second RGB driver | |
+| `IS31FL3731_I2C_ADDRESS_3` | (Optional) Address for the third RGB driver | |
+| `IS31FL3731_I2C_ADDRESS_4` | (Optional) Address for the fourth RGB driver | |
 
 Here is an example using 2 drivers.
 
@@ -41,10 +40,9 @@ Here is an example using 2 drivers.
 // 11 AD <-> VCC
 // ADDR represents A1:A0 of the 7-bit address.
 // The result is: 0b11101(ADDR)
-#define DRIVER_ADDR_1 IS31FL3731_I2C_ADDRESS_GND
-#define DRIVER_ADDR_2 IS31FL3731_I2C_ADDRESS_SDA
+#define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
+#define IS31FL3731_I2C_ADDRESS_2 IS31FL3731_I2C_ADDRESS_SDA
 
-#define IS31FL3731_DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 25
 #define DRIVER_2_LED_TOTAL 24
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
@@ -52,12 +50,12 @@ Here is an example using 2 drivers.
 
 !> Note the parentheses, this is so when `RGB_MATRIX_LED_COUNT` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
 
-For split keyboards using `RGB_MATRIX_SPLIT` with an LED driver, you can either have the same driver address or different driver addresses. If using different addresses, use `DRIVER_ADDR_1` for one and `DRIVER_ADDR_2` for the other one. Then, in `g_is31_leds`, fill out the correct driver index (0 or 1). If using one address, use `DRIVER_ADDR_1` for both, and use index 0 for `g_is31_leds`.
+For split keyboards using `RGB_MATRIX_SPLIT` with an LED driver, you can either have the same driver address or different driver addresses. If using different addresses, use `IS31FL3731_I2C_ADDRESS_1` for one and `IS31FL3731_I2C_ADDRESS_2` for the other one. Then, in `g_is31fl3731_leds`, fill out the correct driver index (0 or 1). If using one address, use `IS31FL3731_I2C_ADDRESS_1` for both, and use index 0 for `g_is31fl3731_leds`.
 
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -91,16 +89,15 @@ You can use between 1 and 4 IS31FL3733 IC's. Do not specify `DRIVER_ADDR_<N>` de
 | `IS31FL3733_GLOBALCURRENT` | (Optional) Configuration for the Global Current Register | 0xFF |
 | `IS31FL3733_SWPULLUP` | (Optional) Set the value of the SWx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
 | `IS31FL3733_CSPULLUP` | (Optional) Set the value of the CSx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
-| `IS31FL3733_DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
 | `RGB_MATRIX_LED_COUNT` | (Required) How many RGB lights are present across all drivers | |
-| `DRIVER_ADDR_1` | (Required) Address for the first RGB driver | |
-| `DRIVER_ADDR_2` | (Optional) Address for the second RGB driver | |
-| `DRIVER_ADDR_3` | (Optional) Address for the third RGB driver | |
-| `DRIVER_ADDR_4` | (Optional) Address for the fourth RGB driver | |
-| `DRIVER_SYNC_1` | (Optional) Sync configuration for the first RGB driver | 0 |
-| `DRIVER_SYNC_2` | (Optional) Sync configuration for the second RGB driver | 0 |
-| `DRIVER_SYNC_3` | (Optional) Sync configuration for the third RGB driver | 0 |
-| `DRIVER_SYNC_4` | (Optional) Sync configuration for the fourth RGB driver | 0 |
+| `IS31FL3733_I2C_ADDRESS_1` | (Required) Address for the first RGB driver | |
+| `IS31FL3733_I2C_ADDRESS_2` | (Optional) Address for the second RGB driver | |
+| `IS31FL3733_I2C_ADDRESS_3` | (Optional) Address for the third RGB driver | |
+| `IS31FL3733_I2C_ADDRESS_4` | (Optional) Address for the fourth RGB driver | |
+| `IS31FL3733_SYNC_1` | (Optional) Sync configuration for the first RGB driver | 0 |
+| `IS31FL3733_SYNC_2` | (Optional) Sync configuration for the second RGB driver | 0 |
+| `IS31FL3733_SYNC_3` | (Optional) Sync configuration for the third RGB driver | 0 |
+| `IS31FL3733_SYNC_4` | (Optional) Sync configuration for the fourth RGB driver | 0 |
 
 The IS31FL3733 IC's have on-chip resistors that can be enabled to allow for de-ghosting of the RGB matrix. By default these resistors are not enabled (`IS31FL3733_SWPULLUP`/`IS31FL3733_CSPULLUP` are given the value of `IS31FL3733_PUR_0R`), the values that can be set to enable de-ghosting are as follows:
 
@@ -127,10 +124,9 @@ Here is an example using 2 drivers.
 // ADDR1 represents A1:A0 of the 7-bit address.
 // ADDR2 represents A3:A2 of the 7-bit address.
 // The result is: 0b101(ADDR2)(ADDR1)
-#define DRIVER_ADDR_1 IS31FL3733_I2C_ADDRESS_GND_GND
-#define DRIVER_ADDR_2 IS31FL3733_I2C_ADDRESS_GND_VCC
+#define IS31FL3733_I2C_ADDRESS_1 IS31FL3733_I2C_ADDRESS_GND_GND
+#define IS31FL3733_I2C_ADDRESS_2 IS31FL3733_I2C_ADDRESS_GND_VCC
 
-#define IS31FL3733_DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 58
 #define DRIVER_2_LED_TOTAL 10
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
@@ -143,7 +139,7 @@ Currently only 4 drivers are supported, but it would be trivial to support all 8
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -178,12 +174,11 @@ Configure the hardware via your `config.h`:
 | `IS31FL3736_GLOBALCURRENT` | (Optional) Configuration for the Global Current Register | 0xFF |
 | `IS31FL3736_SWPULLUP` | (Optional) Set the value of the SWx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
 | `IS31FL3736_CSPULLUP` | (Optional) Set the value of the CSx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
-| `IS31FL3736_DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
 | `RGB_MATRIX_LED_COUNT` | (Required) How many RGB lights are present across all drivers | |
-| `DRIVER_ADDR_1` | (Required) Address for the first RGB driver | |
-| `DRIVER_ADDR_2` | (Optional) Address for the second RGB driver | |
-| `DRIVER_ADDR_3` | (Optional) Address for the third RGB driver | |
-| `DRIVER_ADDR_4` | (Optional) Address for the fourth RGB driver | |
+| `IS31FL3736_I2C_ADDRESS_1` | (Required) Address for the first RGB driver | |
+| `IS31FL3736_I2C_ADDRESS_2` | (Optional) Address for the second RGB driver | |
+| `IS31FL3736_I2C_ADDRESS_3` | (Optional) Address for the third RGB driver | |
+| `IS31FL3736_I2C_ADDRESS_4` | (Optional) Address for the fourth RGB driver | |
 
 The IS31FL3736 IC's have on-chip resistors that can be enabled to allow for de-ghosting of the RGB matrix. By default these resistors are not enabled (`IS31FL3736_SWPULLUP`/`IS31FL3736_CSPULLUP` are given the value of `IS31FL3736_PUR_0R`), the values that can be set to enable de-ghosting are as follows:
 
@@ -211,10 +206,9 @@ Here is an example using 2 drivers.
 // ADDR1 represents A1:A0 of the 7-bit address.
 // ADDR2 represents A3:A2 of the 7-bit address.
 // The result is: 0b101(ADDR2)(ADDR1)
-#define DRIVER_ADDR_1 IS31FL3736_I2C_ADDRESS_GND_GND
-#define DRIVER_ADDR_2 IS31FL3736_I2C_ADDRESS_GND_SCL
+#define IS31FL3736_I2C_ADDRESS_1 IS31FL3736_I2C_ADDRESS_GND_GND
+#define IS31FL3736_I2C_ADDRESS_2 IS31FL3736_I2C_ADDRESS_GND_SCL
 
-#define IS31FL3736_DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 30
 #define DRIVER_2_LED_TOTAL 32
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
@@ -224,7 +218,7 @@ Here is an example using 2 drivers.
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3736_led_t PROGMEM g_is31fl3736_leds[IS31FL3736_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -255,12 +249,11 @@ Configure the hardware via your `config.h`:
 | `IS31FL3737_GLOBALCURRENT` | (Optional) Configuration for the Global Current Register | 0xFF |
 | `IS31FL3737_SWPULLUP` | (Optional) Set the value of the SWx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
 | `IS31FL3737_CSPULLUP` | (Optional) Set the value of the CSx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
-| `IS31FL3737_DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
 | `RGB_MATRIX_LED_COUNT` | (Required) How many RGB lights are present across all drivers | |
-| `DRIVER_ADDR_1` | (Required) Address for the first RGB driver | |
-| `DRIVER_ADDR_2` | (Optional) Address for the second RGB driver | |
-| `DRIVER_ADDR_3` | (Optional) Address for the third RGB driver | |
-| `DRIVER_ADDR_4` | (Optional) Address for the fourth RGB driver | |
+| `IS31FL3737_I2C_ADDRESS_1` | (Required) Address for the first RGB driver | |
+| `IS31FL3737_I2C_ADDRESS_2` | (Optional) Address for the second RGB driver | |
+| `IS31FL3737_I2C_ADDRESS_3` | (Optional) Address for the third RGB driver | |
+| `IS31FL3737_I2C_ADDRESS_4` | (Optional) Address for the fourth RGB driver | |
 
 The IS31FL3737 IC's have on-chip resistors that can be enabled to allow for de-ghosting of the RGB matrix. By default these resistors are not enabled (`IS31FL3737_SWPULLUP`/`IS31FL3737_CSPULLUP` are given the value of `IS31FL3737_PUR_0R`), the values that can be set to enable de-ghosting are as follows:
 
@@ -287,10 +280,9 @@ Here is an example using 2 drivers.
 // 1111 ADDR <-> VCC
 // ADDR represents A3:A0 of the 7-bit address.
 // The result is: 0b101(ADDR)
-#define DRIVER_ADDR_1 IS31FL3737_I2C_ADDRESS_GND
-#define DRIVER_ADDR_2 IS31FL3737_I2C_ADDRESS_SCL
+#define IS31FL3737_I2C_ADDRESS_1 IS31FL3737_I2C_ADDRESS_GND
+#define IS31FL3737_I2C_ADDRESS_2 IS31FL3737_I2C_ADDRESS_SCL
 
-#define IS31FL3737_DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 30
 #define DRIVER_2_LED_TOTAL 36
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
@@ -300,7 +292,7 @@ Here is an example using 2 drivers.
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3737_led_t PROGMEM g_is31fl3737_leds[IS31FL3737_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -341,7 +333,6 @@ Configure the hardware via your `config.h`:
 |----------|-------------|---------|
 | `ISSI_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
 | `ISSI_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
-| `DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
 | `RGB_MATRIX_LED_COUNT` | (Required) How many RGB lights are present across all drivers | |
 | `DRIVER_ADDR_1` | (Optional) Address for the first RGB driver | |
 | `DRIVER_ADDR_<N>` | (Required) Address for the additional RGB drivers | |
@@ -376,7 +367,6 @@ Here is an example using 2 drivers.
 ```c
 #define DRIVER_ADDR_2 0b0100001
 
-#define DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 66
 #define DRIVER_2_LED_TOTAL 42
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
@@ -480,13 +470,12 @@ You can use up to 2 AW20216S IC's. Do not specify `DRIVER_<N>_xxx` defines for I
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `AW20216S_DRIVER_1_CS` | (Required) MCU pin connected to first RGB driver chip select line  | B13 |
-| `AW20216S_DRIVER_2_CS` | (Optional) MCU pin connected to second RGB driver chip select line  | |
-| `AW20216S_DRIVER_1_EN` | (Required) MCU pin connected to first RGB driver hardware enable line  | C13 |
-| `AW20216S_DRIVER_2_EN` | (Optional) MCU pin connected to second RGB driver hardware enable line  | |
+| `AW20216S_CS_PIN_1` | (Required) MCU pin connected to first RGB driver chip select line  | B13 |
+| `AW20216S_CS_PIN_2` | (Optional) MCU pin connected to second RGB driver chip select line  | |
+| `AW20216S_EN_PIN_1` | (Required) MCU pin connected to first RGB driver hardware enable line  | C13 |
+| `AW20216S_EN_PIN_2` | (Optional) MCU pin connected to second RGB driver hardware enable line  | |
 | `DRIVER_1_LED_TOTAL` | (Required) How many RGB lights are connected to first RGB driver  | |
 | `DRIVER_2_LED_TOTAL` | (Optional) How many RGB lights are connected to second RGB driver  | |
-| `AW20216S_DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
 | `RGB_MATRIX_LED_COUNT` | (Required) How many RGB lights are present across all drivers | |
 | `AW20216S_SCALING_MAX` | (Optional) LED current scaling value (0-255, higher values mean LED is brighter at full PWM) | 150 |
 | `AW20216S_GLOBAL_CURRENT_MAX` | (Optional) Driver global current limit (0-255, higher values means the driver may consume more power) | 150 |
@@ -496,13 +485,12 @@ You can use up to 2 AW20216S IC's. Do not specify `DRIVER_<N>_xxx` defines for I
 Here is an example using 2 drivers.
 
 ```c
-#define AW20216S_DRIVER_1_CS B13
-#define AW20216S_DRIVER_2_CS B14
+#define AW20216S_CS_PIN_1 B13
+#define AW20216S_CS_PIN_2 B14
 // Hardware enable lines may be connected to the same pin
-#define AW20216S_DRIVER_1_EN C13
-#define AW20216S_DRIVER_2_EN C13
+#define AW20216S_EN_PIN_1 C13
+#define AW20216S_EN_PIN_2 C13
 
-#define AW20216S_DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 66
 #define DRIVER_2_LED_TOTAL 32
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
@@ -513,7 +501,7 @@ Here is an example using 2 drivers.
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const aw20216s_led_t PROGMEM g_aw20216s_leds[RGB_MATRIX_LED_COUNT] = {
+const aw20216s_led_t PROGMEM g_aw20216s_leds[AW20216S_LED_COUNT] = {
 /* Each AW20216S channel is controlled by a register at some offset between 0x00
  * and 0xD7 inclusive.
  * See drivers/led/aw20216s.h for the mapping between register offsets and
@@ -645,6 +633,7 @@ enum rgb_matrix_effects {
     RGB_MATRIX_DUAL_BEACON,         // Full gradient spinning around center of keyboard
     RGB_MATRIX_RAINBOW_BEACON,      // Full tighter gradient spinning around center of keyboard
     RGB_MATRIX_RAINBOW_PINWHEELS,   // Full dual gradients spinning two halfs of keyboard
+    RGB_MATRIX_FLOWER_BLOOMING,     // Full tighter gradient of first half scrolling left to right and second half scrolling right to left
     RGB_MATRIX_RAINDROPS,           // Randomly changes a single key's hue
     RGB_MATRIX_JELLYBEAN_RAINDROPS, // Randomly changes a single key's hue and saturation
     RGB_MATRIX_HUE_BREATHING,       // Hue shifts up a slight ammount at the same time, then shifts back
@@ -667,6 +656,10 @@ enum rgb_matrix_effects {
     RGB_MATRIX_MULTISPLASH,         // Full gradient & value pulse away from multiple key hits then fades value out
     RGB_MATRIX_SOLID_SPLASH,        // Hue & value pulse away from a single key hit then fades value out
     RGB_MATRIX_SOLID_MULTISPLASH,   // Hue & value pulse away from multiple key hits then fades value out
+    RGB_MATRIX_STARLIGHT,           // LEDs turn on and off at random at varying brightness, maintaining user set color
+    RGB_MATRIX_STARLIGHT_DUAL_HUE,  // LEDs turn on and off at random at varying brightness, modifies user set hue by +- 30
+    RGB_MATRIX_STARLIGHT_DUAL_SAT,  // LEDs turn on and off at random at varying brightness, modifies user set saturation by +- 30
+    RGB_MATRIX_RIVERFLOW,           // Modification to breathing animation, offset's animation depending on key location to simulate a river flowing
     RGB_MATRIX_EFFECT_MAX
 };
 ```
@@ -697,6 +690,7 @@ You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `confi
 |`#define ENABLE_RGB_MATRIX_DUAL_BEACON`               |Enables `RGB_MATRIX_DUAL_BEACON`              |
 |`#define ENABLE_RGB_MATRIX_RAINBOW_BEACON`            |Enables `RGB_MATRIX_RAINBOW_BEACON`           |
 |`#define ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS`         |Enables `RGB_MATRIX_RAINBOW_PINWHEELS`        |
+|`#define ENABLE_RGB_MATRIX_FLOWER_BLOOMING`           |Enables `RGB_MATRIX_FLOWER_BLOOMING`          |
 |`#define ENABLE_RGB_MATRIX_RAINDROPS`                 |Enables `RGB_MATRIX_RAINDROPS`                |
 |`#define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS`       |Enables `RGB_MATRIX_JELLYBEAN_RAINDROPS`      |
 |`#define ENABLE_RGB_MATRIX_HUE_BREATHING`             |Enables `RGB_MATRIX_HUE_BREATHING`            |
@@ -705,6 +699,10 @@ You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `confi
 |`#define ENABLE_RGB_MATRIX_PIXEL_FRACTAL`             |Enables `RGB_MATRIX_PIXEL_FRACTAL`            |
 |`#define ENABLE_RGB_MATRIX_PIXEL_FLOW`                |Enables `RGB_MATRIX_PIXEL_FLOW`               |
 |`#define ENABLE_RGB_MATRIX_PIXEL_RAIN`                |Enables `RGB_MATRIX_PIXEL_RAIN`               |
+|`#define ENABLE_RGB_MATRIX_STARLIGHT`                 |Enables `RGB_MATRIX_STARLIGHT`                |
+|`#define ENABLE_RGB_MATRIX_STARLIGHT_DUAL_HUE`        |Enables `RGB_MATRIX_STARLIGHT_DUAL_HUE`       |
+|`#define ENABLE_RGB_MATRIX_STARLIGHT_DUAL_SAT`        |Enables `RGB_MATRIX_STARLIGHT_DUAL_SAT`       |
+|`#define ENABLE_RGB_MATRIX_RIVERFLOW`                 |Enables `RGB_MATRIX_RIVERFLOW`                |
 
 |Framebuffer Defines                                   |Description                                   |
 |------------------------------------------------------|----------------------------------------------|
@@ -871,13 +869,14 @@ These are defined in [`color.h`](https://github.com/qmk/qmk_firmware/blob/master
 ```c
 #define RGB_MATRIX_KEYRELEASES // reactive effects respond to keyreleases (instead of keypresses)
 #define RGB_MATRIX_TIMEOUT 0 // number of milliseconds to wait until rgb automatically turns off
-#define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
+#define RGB_MATRIX_SLEEP // turn off effects when suspended
 #define RGB_MATRIX_LED_PROCESS_LIMIT (RGB_MATRIX_LED_COUNT + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 #define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT // Sets the default mode, if none has been set
 #define RGB_MATRIX_DEFAULT_HUE 0 // Sets the default hue value, if none has been set
 #define RGB_MATRIX_DEFAULT_SAT 255 // Sets the default saturation value, if none has been set
+#define RGB_MATRIX_DEFAULT_ON true // Sets the default enabled state, if none has been set
 #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set
 #define RGB_MATRIX_DEFAULT_SPD 127 // Sets the default animation speed, if none has been set
 #define RGB_MATRIX_DISABLE_KEYCODES // disables control of rgb matrix by keycodes (must use code functions to control the feature)

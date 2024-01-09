@@ -8,11 +8,21 @@
         "pid": "0x3536",
         "device_version": "0.0.3"
     },
+    "features": {
+        "bootmagic": true,
+        "console": false,
+        "command": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
     "ws2812": {
         "pin": "D3"
     },
     "rgb_matrix": {
-        "driver": "ws2812"
+        "center_point": [133, 54],
+        "driver": "ws2812",
+        "split_count": [18, 18]
     },
     "matrix_pins": {
         "cols": ["C6", "D7", "E6", "B4", "B5"],

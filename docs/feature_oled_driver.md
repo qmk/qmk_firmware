@@ -10,6 +10,7 @@ Tested combinations:
 |SSD1306  |128x32 |AVR     |Primary support         |
 |SSD1306  |128x64 |AVR     |Verified working        |
 |SSD1306  |128x32 |Arm     |                        |
+|SSD1306  |128x64 |Arm     |Verified working        |
 |SH1106   |128x64 |AVR     |No scrolling            |
 |SH1107   |64x128 |AVR     |No scrolling            |
 |SH1107   |64x128 |Arm     |No scrolling            |
@@ -182,22 +183,8 @@ void oled_render_boot(bool bootloader) {
     oled_render_dirty(true);
 }
 
-bool reboot = false;
-
-bool uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-  
-        // Display a special message prior to rebooting...
-        if (keycode == QK_BOOT) {
-           reboot = true;
-        }
-    }
-
-    return true;
-}
-
-void shutdown_user(void) {
-    oled_render_boot(reboot);
+bool shutdown_user(bool jump_to_bootloader) {
+    oled_render_boot(jump_to_bootloader);
 }
 
 ```
@@ -226,7 +213,7 @@ These configuration options should be placed in `config.h`. Example:
 |`OLED_SCROLL_TIMEOUT_RIGHT`|*Not defined*                  |Scroll timeout direction is right when defined, left when undefined.                                                 |
 |`OLED_TIMEOUT`             |`60000`                        |Turns off the OLED screen after 60000ms of screen update inactivity. Helps reduce OLED Burn-in. Set to 0 to disable. |
 |`OLED_UPDATE_INTERVAL`     |`0` (`50` for split keyboards) |Set the time interval for updating the OLED display in ms. This will improve the matrix scan rate.                   |
-|`OLED_UPDATE_PROCESS_LIMIT'|`1`                            |Set the number of dirty blocks to render per loop. Increasing may degrade performance.                               |
+|`OLED_UPDATE_PROCESS_LIMIT`|`1`                            |Set the number of dirty blocks to render per loop. Increasing may degrade performance.                               |
 
 ### I2C Configuration
 |Define                     |Default          |Description                                                                                                               |
@@ -442,7 +429,7 @@ void oled_scroll_set_area(uint8_t start_line, uint8_t end_line);
 // Sets scroll speed, 0-7, fastest to slowest. Default is three.
 // Does not take effect until scrolling is either started or restarted
 // the ssd1306 supports 8 speeds with the delay
-// listed below betwen each frame of the scrolling effect
+// listed below between each frame of the scrolling effect
 // 0=2, 1=3, 2=4, 3=5, 4=25, 5=64, 6=128, 7=256
 void oled_scroll_set_speed(uint8_t speed);
 

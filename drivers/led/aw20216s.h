@@ -20,11 +20,9 @@
 #include <stdbool.h>
 #include "progmem.h"
 #include "gpio.h"
+#include "util.h"
 
 // ======== DEPRECATED DEFINES - DO NOT USE ========
-#ifdef DRIVER_COUNT
-#    define AW20216S_DRIVER_COUNT DRIVER_COUNT
-#endif
 #ifdef AW_SCALING_MAX
 #    define AW20216S_SCALING_MAX AW_SCALING_MAX
 #endif
@@ -38,35 +36,70 @@
 #    define AW20216S_SPI_DIVISOR AW_SPI_DIVISOR
 #endif
 #ifdef DRIVER_1_CS
-#    define AW20216S_DRIVER_1_CS DRIVER_1_CS
+#    define AW20216S_CS_PIN_1 DRIVER_1_CS
 #endif
 #ifdef DRIVER_2_CS
-#    define AW20216S_DRIVER_2_CS DRIVER_2_CS
+#    define AW20216S_CS_PIN_2 DRIVER_2_CS
 #endif
 #ifdef DRIVER_1_EN
-#    define AW20216S_DRIVER_1_EN DRIVER_1_EN
+#    define AW20216S_EN_PIN_1 DRIVER_1_EN
 #endif
 #ifdef DRIVER_2_EN
-#    define AW20216S_DRIVER_2_EN DRIVER_2_EN
+#    define AW20216S_EN_PIN_2 DRIVER_2_EN
 #endif
 
 #define aw_led aw20216s_led_t
 #define g_aw_leds g_aw20216s_leds
 // ========
 
+#define AW20216S_ID (0b1010 << 4)
+#define AW20216S_WRITE 0
+#define AW20216S_READ 1
+
+#define AW20216S_PAGE_FUNCTION (0x00 << 1)
+#define AW20216S_PAGE_PWM (0x01 << 1)
+#define AW20216S_PAGE_SCALING (0x02 << 1)
+#define AW20216S_PAGE_PATTERN_CHOICE (0x03 << 1)
+#define AW20216S_PAGE_PWM_SCALING (0x04 << 1)
+
+#define AW20216S_FUNCTION_REG_CONFIGURATION 0x00
+#define AW20216S_CONFIGURATION_SWSEL_1_12 (0b1011 << 4)
+#define AW20216S_CONFIGURATION_CHIPEN (0b1 << 0)
+
+#define AW20216S_FUNCTION_REG_GLOBAL_CURRENT 0x01
+
+#define AW20216S_FUNCTION_REG_RESET 0x2F
+#define AW20216S_RESET_MAGIC 0xAE
+
+#define AW20216S_FUNCTION_REG_MIX_FUNCTION 0x46
+#define AW20216S_MIX_FUNCTION_LPEN (0b1 << 1)
+
+#if defined(RGB_MATRIX_AW20216S)
+#    define AW20216S_LED_COUNT RGB_MATRIX_LED_COUNT
+#endif
+
+#if defined(AW20216S_CS_PIN_2)
+#    define AW20216S_DRIVER_COUNT 2
+#elif defined(AW20216S_CS_PIN_1)
+#    define AW20216S_DRIVER_COUNT 1
+#endif
+
 typedef struct aw20216s_led_t {
     uint8_t driver : 2;
     uint8_t r;
     uint8_t g;
     uint8_t b;
-} aw20216s_led_t;
+} PACKED aw20216s_led_t;
 
-extern const aw20216s_led_t PROGMEM g_aw20216s_leds[RGB_MATRIX_LED_COUNT];
+extern const aw20216s_led_t PROGMEM g_aw20216s_leds[AW20216S_LED_COUNT];
 
+void aw20216s_init_drivers(void);
 void aw20216s_init(pin_t cs_pin, pin_t en_pin);
 void aw20216s_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
 void aw20216s_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
 void aw20216s_update_pwm_buffers(pin_t cs_pin, uint8_t index);
+
+void aw20216s_flush(void);
 
 #define CS1_SW1 0x00
 #define CS2_SW1 0x01
@@ -86,6 +119,7 @@ void aw20216s_update_pwm_buffers(pin_t cs_pin, uint8_t index);
 #define CS16_SW1 0x0F
 #define CS17_SW1 0x10
 #define CS18_SW1 0x11
+
 #define CS1_SW2 0x12
 #define CS2_SW2 0x13
 #define CS3_SW2 0x14
@@ -104,6 +138,7 @@ void aw20216s_update_pwm_buffers(pin_t cs_pin, uint8_t index);
 #define CS16_SW2 0x21
 #define CS17_SW2 0x22
 #define CS18_SW2 0x23
+
 #define CS1_SW3 0x24
 #define CS2_SW3 0x25
 #define CS3_SW3 0x26
@@ -122,6 +157,7 @@ void aw20216s_update_pwm_buffers(pin_t cs_pin, uint8_t index);
 #define CS16_SW3 0x33
 #define CS17_SW3 0x34
 #define CS18_SW3 0x35
+
 #define CS1_SW4 0x36
 #define CS2_SW4 0x37
 #define CS3_SW4 0x38
@@ -140,6 +176,7 @@ void aw20216s_update_pwm_buffers(pin_t cs_pin, uint8_t index);
 #define CS16_SW4 0x45
 #define CS17_SW4 0x46
 #define CS18_SW4 0x47
+
 #define CS1_SW5 0x48
 #define CS2_SW5 0x49
 #define CS3_SW5 0x4A
@@ -158,6 +195,7 @@ void aw20216s_update_pwm_buffers(pin_t cs_pin, uint8_t index);
 #define CS16_SW5 0x57
 #define CS17_SW5 0x58
 #define CS18_SW5 0x59
+
 #define CS1_SW6 0x5A
 #define CS2_SW6 0x5B
 #define CS3_SW6 0x5C
@@ -176,6 +214,7 @@ void aw20216s_update_pwm_buffers(pin_t cs_pin, uint8_t index);
 #define CS16_SW6 0x69
 #define CS17_SW6 0x6A
 #define CS18_SW6 0x6B
+
 #define CS1_SW7 0x6C
 #define CS2_SW7 0x6D
 #define CS3_SW7 0x6E
@@ -194,6 +233,7 @@ void aw20216s_update_pwm_buffers(pin_t cs_pin, uint8_t index);
 #define CS16_SW7 0x7B
 #define CS17_SW7 0x7C
 #define CS18_SW7 0x7D
+
 #define CS1_SW8 0x7E
 #define CS2_SW8 0x7F
 #define CS3_SW8 0x80
@@ -212,6 +252,7 @@ void aw20216s_update_pwm_buffers(pin_t cs_pin, uint8_t index);
 #define CS16_SW8 0x8D
 #define CS17_SW8 0x8E
 #define CS18_SW8 0x8F
+
 #define CS1_SW9 0x90
 #define CS2_SW9 0x91
 #define CS3_SW9 0x92
@@ -230,6 +271,7 @@ void aw20216s_update_pwm_buffers(pin_t cs_pin, uint8_t index);
 #define CS16_SW9 0x9F
 #define CS17_SW9 0xA0
 #define CS18_SW9 0xA1
+
 #define CS1_SW10 0xA2
 #define CS2_SW10 0xA3
 #define CS3_SW10 0xA4
@@ -248,6 +290,7 @@ void aw20216s_update_pwm_buffers(pin_t cs_pin, uint8_t index);
 #define CS16_SW10 0xB1
 #define CS17_SW10 0xB2
 #define CS18_SW10 0xB3
+
 #define CS1_SW11 0xB4
 #define CS2_SW11 0xB5
 #define CS3_SW11 0xB6
@@ -266,6 +309,7 @@ void aw20216s_update_pwm_buffers(pin_t cs_pin, uint8_t index);
 #define CS16_SW11 0xC3
 #define CS17_SW11 0xC4
 #define CS18_SW11 0xC5
+
 #define CS1_SW12 0xC6
 #define CS2_SW12 0xC7
 #define CS3_SW12 0xC8

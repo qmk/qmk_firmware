@@ -20,9 +20,8 @@
 #define DIODE_DIRECTION ROW2COL
 
 /* RGB Matrix Driver Configuration */
-#define CKLED2001_DRIVER_COUNT 2
-#define DRIVER_ADDR_1 CKLED2001_I2C_ADDRESS_VDDIO
-#define DRIVER_ADDR_2 CKLED2001_I2C_ADDRESS_GND
+#define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_VDDIO
+#define SNLED27351_I2C_ADDRESS_2 SNLED27351_I2C_ADDRESS_GND
 
 /* Increase I2C speed to 1000 KHz */
 #define I2C1_TIMINGR_PRESC 0U
@@ -32,7 +31,7 @@
 #define I2C1_TIMINGR_SCLL 51U
 
 /* Limit the maximum brigtness current of colour white to 500mA */
-#define CKLED2001_CURRENT_TUNE { 0xA8, 0xA8, 0x48, 0xA8, 0xA8, 0x48, 0xA8, 0xA8, 0x48, 0xA8, 0xA8, 0x48 }
+#define SNLED27351_CURRENT_TUNE { 0xA8, 0xA8, 0x48, 0xA8, 0xA8, 0x48, 0xA8, 0xA8, 0x48, 0xA8, 0xA8, 0x48 }
 
 /* DIP switch */
 #define DIP_SWITCH_MATRIX_GRID  { {5, 4} }
@@ -42,7 +41,7 @@
 #define MATRIX_MASKED
 
 /* turn off effects when suspended */
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define RGB_MATRIX_SLEEP
 
 /* EEPROM Driver Configuration */
 #define WEAR_LEVELING_LOGICAL_SIZE 2048

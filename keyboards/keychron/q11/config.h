@@ -27,8 +27,7 @@
 #define MATRIX_MASKED // actual mask is defined by `matrix_mask` in `q11.c`
 
 /* RGB Matrix Driver Configuration */
-#define CKLED2001_DRIVER_COUNT 1
-#define DRIVER_ADDR_1 CKLED2001_I2C_ADDRESS_GND
+#define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_GND
 
 /* Increase I2C speed to 1000 KHz */
 #define I2C1_TIMINGR_PRESC 0U
@@ -37,7 +36,7 @@
 #define I2C1_TIMINGR_SCLH 15U
 #define I2C1_TIMINGR_SCLL 51U
 
-#define CKLED2001_CURRENT_TUNE \
+#define SNLED27351_CURRENT_TUNE \
     { 0x80, 0xFF, 0xFF, 0x80, 0xFF, 0xFF, 0x80, 0xFF, 0xFF, 0x80, 0xFF, 0xFF } // 300mA
 
 /* EEPROM Driver Configuration */
@@ -51,10 +50,14 @@
 #define ENCODER_DEFAULT_POS 0x3
 
 /* Disable RGB lighting when PC is in suspend */
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define RGB_MATRIX_SLEEP
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES
+
+// Needed as the master side could enter slave state during poweron
+// of host, due to missing VUSB detection.
+#define SPLIT_WATCHDOG_ENABLE
