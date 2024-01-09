@@ -501,6 +501,9 @@ def _config_to_json(key_type, config_value):
     """Convert config value using spec
     """
     if key_type.startswith('array'):
+        if key_type.count('.') > 1:
+            raise Exception(f"Conversion of {key_type} not possible")
+
         if '.' in key_type:
             key_type, array_type = key_type.split('.', 1)
         else:
