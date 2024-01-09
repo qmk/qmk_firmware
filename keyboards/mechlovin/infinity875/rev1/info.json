@@ -4,6 +4,7 @@
         "device_version": "0.0.1"
     },
     "matrix_pins": {
+        "custom": true,
         "custom_lite": true
     },
     "indicators": {
