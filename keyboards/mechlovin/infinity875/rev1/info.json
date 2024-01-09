@@ -4,8 +4,6 @@
         "device_version": "0.0.1"
     },
     "matrix_pins": {
-        "cols": [ null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
-        "rows": ["D5", "D2", "D4", "D3", "D0", "D1"],
         "custom_lite": true
     },
     "indicators": {
