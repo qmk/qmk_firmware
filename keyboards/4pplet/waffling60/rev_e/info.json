@@ -307,8 +307,7 @@
                 {"label": "~", "matrix": [1, 13], "x": 12.75, "y": 2},
                 {"label": "Enter", "matrix": [2, 13], "x": 13.75, "y": 1, "w": 1.25, "h": 2},
 
-                {"label": "Shift", "matrix": [3, 0], "x": 0, "y": 3, "w": 1.25},
-                {"label": "|", "matrix": [3, 1], "x": 1.25, "y": 3},
+                {"label": "Shift", "matrix": [3, 0], "x": 0, "y": 3, "w": 2.25},
                 {"label": "Z", "matrix": [3, 2], "x": 2.25, "y": 3},
                 {"label": "X", "matrix": [3, 3], "x": 3.25, "y": 3},
                 {"label": "C", "matrix": [3, 4], "x": 4.25, "y": 3},
