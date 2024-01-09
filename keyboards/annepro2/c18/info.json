@@ -1,7 +1,7 @@
 {
     "keyboard_name": "Anne Pro 2 C18 (QMK)",
     "usb": {
-        "pid": "0xAC18"
+        "pid": "0x8009"
     },
     "eeprom": {
         "driver": "wear_leveling",

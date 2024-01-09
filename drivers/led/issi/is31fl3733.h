@@ -40,13 +40,13 @@
 #ifdef DRIVER_SYNC_1
 #    define IS31FL3733_SYNC_1 DRIVER_SYNC_1
 #endif
-#ifdef DRIVER_ADDR_2
+#ifdef DRIVER_SYNC_2
 #    define IS31FL3733_SYNC_2 DRIVER_SYNC_2
 #endif
-#ifdef DRIVER_ADDR_3
+#ifdef DRIVER_SYNC_3
 #    define IS31FL3733_SYNC_3 DRIVER_SYNC_3
 #endif
-#ifdef DRIVER_ADDR_4
+#ifdef DRIVER_SYNC_4
 #    define IS31FL3733_SYNC_4 DRIVER_SYNC_4
 #endif
 #ifdef ISSI_TIMEOUT
@@ -141,7 +141,7 @@ extern const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT];
 
 void is31fl3733_init_drivers(void);
 void is31fl3733_init(uint8_t addr, uint8_t sync);
-bool is31fl3733_write_register(uint8_t addr, uint8_t reg, uint8_t data);
+void is31fl3733_write_register(uint8_t addr, uint8_t reg, uint8_t data);
 void is31fl3733_select_page(uint8_t addr, uint8_t page);
 bool is31fl3733_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
 
