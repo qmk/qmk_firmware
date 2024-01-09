@@ -120,7 +120,7 @@ void is31fl3741_update_pwm_buffers(uint8_t addr, uint8_t index);
 void is31fl3741_update_led_control_registers(uint8_t addr, uint8_t index);
 void is31fl3741_set_scaling_registers(const is31fl3741_led_t *pled, uint8_t value);
 
-void is31fl3741_set_pwm_buffer(const is31fl3741_led *pled, uint8_t value);
+void is31fl3741_set_pwm_buffer(const is31fl3741_led_t *pled, uint8_t value);
 
 void is31fl3741_flush(void);
 
