@@ -14,9 +14,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* Use 3 dynamic keymap layers */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 3
-
 /* i2C Config */
 #define I2C_DRIVER I2CD1
 #define I2C1_SCL_PIN        B6
@@ -37,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_MATRIX_LED_FLUSH_LIMIT 32
 
-#define RGB_DISABLE_WHEN_USB_SUSPENDED 
+#define RGB_MATRIX_SLEEP
 
 #define RGB_MATRIX_DEFAULT_SPD 40
 #define RGB_MATRIX_DEFAULT_VAL 220

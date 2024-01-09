@@ -74,7 +74,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
-// #    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
+// #    define RGB_MATRIX_SLEEP // turn off effects when suspended
 // does not work for some reason, might revisit
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
