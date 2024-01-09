@@ -728,6 +728,7 @@ There are a few ways to control the auto mouse feature with both `config.h` opti
 | `AUTO_MOUSE_TIME`                   | (Optional) Time layer remains active after activation                 | _ideally_ (250-1000) |     _ms_    |                   `650 ms` |
 | `AUTO_MOUSE_DELAY`                  | (Optional) Lockout time after non-mouse key is pressed                | _ideally_ (100-1000) |     _ms_    | `TAPPING_TERM` or `200 ms` |
 | `AUTO_MOUSE_DEBOUNCE`               | (Optional) Time delay from last activation to next update             | _ideally_ (10 - 100) |     _ms_    |                    `25 ms` |
+| `AUTO_MOUSE_THRESHOLD`              | (Optional) Amount of mouse movement required to switch layers         | 0 -                  |   _units_   |                 `10 units` |
 
 ### Adding mouse keys
 

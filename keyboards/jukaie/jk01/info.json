@@ -174,7 +174,8 @@
             { "flags": 4, "matrix": [0, 5], "x": 150, "y": 50 },
             { "flags": 4, "matrix": [11, 0], "x": 0, "y": 1 },
             { "flags": 4, "matrix": [11, 1], "x": 0, "y": 2 }
-        ]
+        ],
+        "sleep": true
     },
     "url": "",
     "usb": {
