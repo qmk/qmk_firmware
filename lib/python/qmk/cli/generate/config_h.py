@@ -85,6 +85,27 @@ def generate_matrix_masked(kb_info_json, config_h_lines):
         config_h_lines.append(generate_define('MATRIX_MASKED'))
 
 
+def generate_estimated_dimensions(kb_info_json, config_h_lines):
+    """Try and guess physical keyboard dimensions from the declared layouts
+    """
+    if 'layouts' in kb_info_json:
+        width = 0
+        height = 0
+        for layout_data in kb_info_json['layouts'].values():
+            for key in layout_data['layout']:
+                x = key.get('x', 0)
+                y = key.get('y', 0)
+                w = key.get('w', 1)
+                h = key.get('h', 1)
+
+                width = max(width, x + w)
+                height = max(height, y + h)
+
+        # sizes are in micrometers - assume 1u = 19.05mm
+        config_h_lines.append(generate_define('ESTIMATED_KEYBOARD_WIDTH', width * 19050))
+        config_h_lines.append(generate_define('ESTIMATED_KEYBOARD_HEIGHT', height * 19050))
+
+
 def generate_config_items(kb_info_json, config_h_lines):
     """Iterate through the info_config map to generate basic config values.
     """
@@ -203,6 +224,8 @@ def generate_config_h(cli):
     generate_matrix_size(kb_info_json, config_h_lines)
 
     generate_matrix_masked(kb_info_json, config_h_lines)
+
+    generate_estimated_dimensions(kb_info_json, config_h_lines)
 
     if 'matrix_pins' in kb_info_json:
         config_h_lines.append(matrix_pins(kb_info_json['matrix_pins']))

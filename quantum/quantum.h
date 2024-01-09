@@ -233,6 +233,10 @@ extern layer_state_t layer_state;
 #    include "process_repeat_key.h"
 #endif
 
+#ifdef LAMPARRAY_ENABLE
+#    include "lamparray.h"
+#endif
+
 void set_single_persistent_default_layer(uint8_t default_layer);
 
 #define IS_LAYER_ON(layer) layer_state_is(layer)

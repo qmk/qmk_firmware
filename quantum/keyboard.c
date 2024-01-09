@@ -135,6 +135,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef WPM_ENABLE
 #    include "wpm.h"
 #endif
+#ifdef LAMPARRAY_ENABLE
+#    include "lamparray.h"
+#endif
 
 static uint32_t last_input_modification_time = 0;
 uint32_t        last_input_activity_time(void) {
@@ -407,6 +410,9 @@ void keyboard_init(void) {
 #ifdef SPLIT_KEYBOARD
     split_pre_init();
 #endif
+#ifdef LAMPARRAY_ENABLE
+    lamparray_init();
+#endif
 #ifdef ENCODER_ENABLE
     encoder_init();
 #endif
@@ -628,6 +634,10 @@ void quantum_task(void) {
 
 #ifdef SECURE_ENABLE
     secure_task();
+#endif
+
+#ifdef LAMPARRAY_ENABLE
+    lamparray_task();
 #endif
 }
 

@@ -84,6 +84,7 @@
     * [EEPROM](feature_eeprom.md)
     * [Key Lock](feature_key_lock.md)
     * [Key Overrides](feature_key_overrides.md)
+    * [LampArray](feature_lamparray.md)
     * [Layers](feature_layers.md)
     * [One Shot Keys](one_shot_keys.md)
     * [OS Detection](feature_os_detection.md)

@@ -51,6 +51,10 @@
 extern keymap_config_t keymap_config;
 #endif
 
+#ifdef LAMPARRAY_ENABLE
+#    include "lamparray.h"
+#endif
+
 /* ---------------------------------------------------------
  *       Global interface variables and declarations
  * ---------------------------------------------------------
@@ -212,6 +216,24 @@ static const USBEndpointConfig digitizer_ep_config = {
     DIGITIZER_EPSIZE,       /* IN maximum packet size */
     0,                      /* OUT maximum packet size */
     &digitizer_ep_state,    /* IN Endpoint state */
+    NULL,                   /* OUT endpoint state */
+    usb_lld_endpoint_fields /* USB driver specific endpoint fields */
+};
+#endif
+
+#ifdef LAMPARRAY_ENABLE
+/* LampArray endpoint state structure */
+static USBInEndpointState lamparray_ep_state;
+
+/* LampArray endpoint initialization structure (IN) - see USBEndpointConfig comment at top of file */
+static const USBEndpointConfig lamparray_ep_config = {
+    USB_EP_MODE_TYPE_INTR,  /* Interrupt EP */
+    NULL,                   /* SETUP packet notification callback */
+    dummy_usb_cb,           /* IN notification callback */
+    NULL,                   /* OUT notification callback */
+    LAMPARRAY_EPSIZE,       /* IN maximum packet size */
+    0,                      /* OUT maximum packet size */
+    &lamparray_ep_state,    /* IN Endpoint state */
     NULL,                   /* OUT endpoint state */
     usb_lld_endpoint_fields /* USB driver specific endpoint fields */
 };
@@ -510,6 +532,9 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
 #if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
             usbInitEndpointI(usbp, DIGITIZER_IN_EPNUM, &digitizer_ep_config);
 #endif
+#ifdef LAMPARRAY_ENABLE
+            usbInitEndpointI(usbp, LAMPARRAY_IN_EPNUM, &lamparray_ep_config);
+#endif
             for (int i = 0; i < NUM_USB_DRIVERS; i++) {
 #ifdef USB_ENDPOINTS_ARE_REORDERABLE
                 usbInitEndpointI(usbp, drivers.array[i].config.bulk_in, &drivers.array[i].inout_ep_config);
@@ -586,6 +611,19 @@ static void set_led_transfer_cb(USBDriver *usbp) {
     }
 }
 
+#ifdef LAMPARRAY_ENABLE
+static universal_lamparray_response_t universal_lamparray_report_buf;
+
+static void set_lamparray_transfer_cb(USBDriver *usbp) {
+    // handle directly to avoid sync issues with get 
+    if (universal_lamparray_report_buf.report_id == LAMPARRAY_REPORT_ID_ATTRIBUTES_REQUEST) {
+        lamparray_set_attributes_response(universal_lamparray_report_buf.lamp_id);
+    } else {
+        lamparray_queue_request(&universal_lamparray_report_buf);
+    }
+}
+#endif
+
 static bool usb_requests_hook_cb(USBDriver *usbp) {
     usb_control_request_t *setup = (usb_control_request_t *)usbp->setup;
 
@@ -623,6 +661,24 @@ static bool usb_requests_hook_cb(USBDriver *usbp) {
                                 }
 #    endif
 #endif /* SHARED_EP_ENABLE */
+
+#ifdef LAMPARRAY_ENABLE
+                            case LAMPARRAY_INTERFACE:
+                                switch (setup->wValue.lbyte) {
+                                    case LAMPARRAY_REPORT_ID_ATTRIBUTES:
+                                        static lamparray_attributes_report_t ret = {.report_id = LAMPARRAY_REPORT_ID_ATTRIBUTES};
+                                        lamparray_get_attributes(&ret.attributes);
+
+                                        usbSetupTransfer(usbp, (uint8_t *)&ret, sizeof(ret), NULL);
+                                        return TRUE;
+                                    case LAMPARRAY_REPORT_ID_ATTRIBUTES_RESPONSE:
+                                        static lamparray_attributes_response_report_t res = {.report_id = LAMPARRAY_REPORT_ID_ATTRIBUTES_RESPONSE};
+                                        lamparray_get_attributes_response(&res.attributes_response);
+
+                                        usbSetupTransfer(usbp, (uint8_t *)&res, sizeof(res), NULL);
+                                        return TRUE;
+                                }
+#endif
                             default:
                                 universal_report_blank.report_id = setup->wValue.lbyte;
                                 usbSetupTransfer(usbp, (uint8_t *)&universal_report_blank, setup->wLength, NULL);
@@ -653,6 +709,18 @@ static bool usb_requests_hook_cb(USBDriver *usbp) {
 #endif
                                 usbSetupTransfer(usbp, set_report_buf, sizeof(set_report_buf), set_led_transfer_cb);
                                 return true;
+#ifdef LAMPARRAY_ENABLE
+                            case LAMPARRAY_INTERFACE:
+                                switch (setup->wValue.lbyte) {
+                                    case LAMPARRAY_REPORT_ID_ATTRIBUTES_REQUEST:
+                                    case LAMPARRAY_REPORT_ID_RANGE_UPDATE:
+                                    case LAMPARRAY_REPORT_ID_MULTI_UPDATE:
+                                    case LAMPARRAY_REPORT_ID_CONTROL:
+                                        usbSetupTransfer(usbp, (uint8_t *)&universal_lamparray_report_buf, sizeof(universal_lamparray_report_buf), set_lamparray_transfer_cb);
+                                        return true;
+                                }
+                                break;
+#endif
                         }
                         break;
 
