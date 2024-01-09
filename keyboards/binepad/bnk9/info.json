@@ -21,8 +21,7 @@
         "mousekey": true,
         "nkro": true,
         "encoder": true,
-        "rgb_matrix": true,
-        "sleep_led": false
+        "rgb_matrix": true
     },
     "ws2812": {
         "driver": "vendor",
