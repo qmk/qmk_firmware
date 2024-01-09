@@ -21,6 +21,3 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* EEPROM for via */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 3

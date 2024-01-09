@@ -18,6 +18,9 @@
         "pin": "D6",
         "levels": 6
     },
+    "dynamic_keymap": {
+        "layer_count": 3
+    },
     "indicators": {
         "caps_lock": "B7",
         "num_lock": "C6"

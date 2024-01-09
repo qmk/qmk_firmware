@@ -4,7 +4,45 @@
         "device_version": "1.0.0"
     },
     "rgb_matrix": {
-        "driver": "is31fl3731"
+        "animations": {
+            "alphas_mods": true,
+            "gradient_left_right": true,
+            "breathing": true,
+            "band_val": true,
+            "band_pinwheel_val": true,
+            "band_spiral_val": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "rainbow_moving_chevron": true,
+            "cycle_out_in": true,
+            "cycle_out_in_dual": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "dual_beacon": true,
+            "rainbow_beacon": true,
+            "rainbow_pinwheels": true,
+            "raindrops": true,
+            "jellybean_raindrops": true,
+            "hue_breathing": true,
+            "hue_pendulum": true,
+            "hue_wave": true,
+            "pixel_rain": true,
+            "pixel_flow": true,
+            "pixel_fractal": true,
+            "typing_heatmap": true,
+            "solid_reactive_simple": true,
+            "solid_reactive": true,
+            "solid_splash": true
+        },
+        "default": {
+            "animation": "cycle_all"
+        },
+        "driver": "is31fl3731",
+        "led_process_limit": 4,
+        "led_flush_limit": 26,
+        "max_brightness": 200,
+        "sleep": true
     },
     "matrix_pins": {
         "cols": ["A6", "A7", "B0", "B13", "B15", "A8", "A15", "B3", "B4", "B5", "B8", "B9", "C13", "C14", "C15"],

@@ -20,13 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#ifdef RGB_MATRIX_ENABLE
-#define RGB_MATRIX_LED_COUNT 15
-#define RGB_MATRIX_KEYPRESSES
-#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-#define RGB_MATRIX_DEFAULT_HUE 221
-#endif
-
 #define I2C1_SCL_PIN B8
 #define I2C1_SDA_PIN B9
 
