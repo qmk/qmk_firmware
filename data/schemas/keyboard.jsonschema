@@ -133,7 +133,7 @@
                 },
                 "macro_beep": {"type": "boolean"},
                 "pins": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
-                "shutdown": {
+                "enable_pin": {
                     "type": "object",
                     "additionalProperties": false,
                     "properties": {

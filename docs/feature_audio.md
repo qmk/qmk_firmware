@@ -178,8 +178,8 @@ The available keycodes for audio are:
 |`AUDIO_PIN_ALT_AS_NEGATIVE`      | *Not defined*        |Enables support for one speaker connected to two pins.                         |
 |`AUDIO_INIT_DELAY`               | *Not defined*        |Enables delay during startup song to accomidate for USB startup issues.        |
 |`AUDIO_ENABLE_TONE_MULTIPLEXING` | *Not defined*        |Enables time splicing/multiplexing to create multiple tones simutaneously.     |
-|`AUDIO_SHUTDOWN_PIN`             | *Not defined*        |Enables pin control to shut power off to speaker (such as with PAM8302 amp)    |
-|`AUDIO_SHUTDOWN_PIN_ON_STATE`    | `1`                  |The state of the audio shutdown pin when audio is "on" - `1` for high, `0` for low |
+|`AUDIO_ENABLE_PIN`               | *Not defined*        |Enables pin control to shut power off to speaker (such as with PAM8302 amp)    |
+|`AUDIO_ENABLE_PIN_ON_STATE`      | `1`                  |The state of the audio ennable pin when audio is "on" - `1` for high, `0` for low |
 |`STARTUP_SONG`                   | `STARTUP_SOUND`      |Plays when the keyboard starts up (audio.c)                                    |
 |`GOODBYE_SONG`                   | `GOODBYE_SOUND`      |Plays when you press the QK_BOOT key (quantum.c)                               |
 |`AG_NORM_SONG`                   | `AG_NORM_SOUND`      |Plays when you press AG_NORM (process_magic.c)                                 |

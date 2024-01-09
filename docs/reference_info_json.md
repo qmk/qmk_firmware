@@ -123,7 +123,7 @@ Configures the [Audio](feature_audio.md) feature.
         * Default: `false`
     * `pins` (Required)
         * The GPIO pin(s) connected to the speaker(s).
-    * `shutdown`
+    * `enable_pin`
         * `on_state`
             * The logical GPIO state required to turn the speaker on.
             * Default: `1` (on = high)

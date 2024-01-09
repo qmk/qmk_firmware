@@ -9,7 +9,7 @@
         "device_version": "0.0.1"
     },
     "audio": {
-        "shutdown": {
+        "enable_pin": {
             "pin": "GP14"
         }
     },

@@ -122,30 +122,30 @@ static bool    audio_initialized    = false;
 static bool    audio_driver_stopped = true;
 audio_config_t audio_config;
 
-#ifndef AUDIO_SHUTDOWN_PIN_ON_STATE
-#    define AUDIO_SHUTDOWN_PIN_ON_STATE 1
+#ifndef AUDIO_ENABLE_PIN_ON_STATE
+#    define AUDIO_ENABLE_PIN_ON_STATE 1
 #endif
 
-void audio_driver_initialize_impl(void) {
-#ifdef AUDIO_SHUTDOWN_PIN
-    setPinOutput(AUDIO_SHUTDOWN_PIN);
-    writePin(AUDIO_SHUTDOWN_PIN, !AUDIO_SHUTDOWN_PIN_ON_STATE);
+void audio_driver_initialize(void) {
+#ifdef AUDIO_ENABLE_PIN
+    setPinOutput(AUDIO_ENABLE_PIN);
+    writePin(AUDIO_ENABLE_PIN, !AUDIO_ENABLE_PIN_ON_STATE);
 #endif
-    audio_driver_initialize();
+    audio_driver_initialize_impl();
 }
 
-void audio_driver_stop_impl(void) {
-    audio_driver_stop();
-#ifdef AUDIO_SHUTDOWN_PIN
-    writePin(AUDIO_SHUTDOWN_PIN, !AUDIO_SHUTDOWN_PIN_ON_STATE);
+void audio_driver_stop(void) {
+    audio_driver_stop_impl();
+#ifdef AUDIO_ENABLE_PIN
+    writePin(AUDIO_ENABLE_PIN, !AUDIO_ENABLE_PIN_ON_STATE);
 #endif
 }
 
-void audio_driver_start_impl(void) {
-#ifdef AUDIO_SHUTDOWN_PIN
-    writePin(AUDIO_SHUTDOWN_PIN, AUDIO_SHUTDOWN_PIN_ON_STATE);
+void audio_driver_start(void) {
+#ifdef AUDIO_ENABLE_PIN
+    writePin(AUDIO_ENABLE_PIN, AUDIO_ENABLE_PIN_ON_STATE);
 #endif
-    audio_driver_start();
+    audio_driver_start_impl();
 }
 
 void eeconfig_update_audio_current(void) {
@@ -174,7 +174,7 @@ void audio_init(void) {
         tones[i] = (musical_tone_t){.time_started = 0, .pitch = -1.0f, .duration = 0};
     }
 
-    audio_driver_initialize_impl();
+    audio_driver_initialize();
     audio_initialized = true;
 
     stop_all_notes();
@@ -231,7 +231,7 @@ void audio_stop_all(void) {
 
     active_tones = 0;
 
-    audio_driver_stop_impl();
+    audio_driver_stop();
 
     playing_melody = false;
     playing_note   = false;
@@ -279,7 +279,7 @@ void audio_stop_tone(float pitch) {
         }
 #endif
         if (active_tones == 0) {
-            audio_driver_stop_impl();
+            audio_driver_stop();
             audio_driver_stopped = true;
             playing_note         = false;
         }
@@ -330,7 +330,7 @@ void audio_play_note(float pitch, uint16_t duration) {
     voices_timer = timer_read(); // reset to zero, for the effects added by voices.c
 
     if (audio_driver_stopped) {
-        audio_driver_start_impl();
+        audio_driver_start();
         audio_driver_stopped = false;
     }
 }
