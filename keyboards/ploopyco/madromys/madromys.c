@@ -119,9 +119,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     }
 
     if (keycode == DRAG_SCROLL) {
-#ifndef PLOOPY_DRAGSCROLL_MOMENTARY
-        if (record->event.pressed)
-#endif
+        if(PLOOPY_DRAGSCROLL_MOMENTARY) {
+            if (record->event.pressed)
+                }
         {
             is_drag_scroll ^= 1;
         }
