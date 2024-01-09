@@ -20,7 +20,6 @@
         "extrakey": true,
         "mousekey": false,
         "nkro": false,
-        "rgblight": false,
         "rgb_matrix": true
     },
     "rgb_matrix": {
