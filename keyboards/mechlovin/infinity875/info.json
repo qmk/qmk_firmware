@@ -6,7 +6,6 @@
     "usb": {
         "vid": "0x4D4C"
     },
-    "diode_direction": "ROW2COL",
     "layouts": {
         "LAYOUT_all": {
             "layout": [
