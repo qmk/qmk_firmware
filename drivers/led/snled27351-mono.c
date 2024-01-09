@@ -51,23 +51,17 @@ bool    g_pwm_buffer_update_required[SNLED27351_DRIVER_COUNT] = {false};
 uint8_t g_led_control_registers[SNLED27351_DRIVER_COUNT][SNLED27351_LED_CONTROL_REGISTER_COUNT] = {0};
 bool    g_led_control_registers_update_required[SNLED27351_DRIVER_COUNT]                        = {false};
 
-bool snled27351_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
-    // If the transaction fails function returns false.
+void snled27351_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
     i2c_transfer_buffer[0] = reg;
     i2c_transfer_buffer[1] = data;
 
 #if SNLED27351_I2C_PERSISTENCE > 0
     for (uint8_t i = 0; i < SNLED27351_I2C_PERSISTENCE; i++) {
-        if (i2c_transmit(addr << 1, i2c_transfer_buffer, 2, SNLED27351_I2C_TIMEOUT) != 0) {
-            return false;
-        }
+        if (i2c_transmit(addr << 1, i2c_transfer_buffer, 2, SNLED27351_I2C_TIMEOUT) == 0) break;
     }
 #else
-    if (i2c_transmit(addr << 1, i2c_transfer_buffer, 2, SNLED27351_I2C_TIMEOUT) != 0) {
-        return false;
-    }
+    i2c_transmit(addr << 1, i2c_transfer_buffer, 2, SNLED27351_I2C_TIMEOUT);
 #endif
-    return true;
 }
 
 void snled27351_select_page(uint8_t addr, uint8_t page) {
@@ -172,7 +166,6 @@ void snled27351_init(uint8_t addr) {
 
     snled27351_select_page(addr, SNLED27351_COMMAND_LED_CONTROL);
 
-    // Enable LEDs ON/OFF
     for (int i = 0; i < SNLED27351_LED_CONTROL_ON_OFF_LENGTH; i++) {
         snled27351_write_register(addr, i, 0xFF);
     }
@@ -191,6 +184,7 @@ void snled27351_set_value(int index, uint8_t value) {
         if (g_pwm_buffer[led.driver][led.v] == value) {
             return;
         }
+
         g_pwm_buffer[led.driver][led.v]          = value;
         g_pwm_buffer_update_required[led.driver] = true;
     }
@@ -225,9 +219,10 @@ void snled27351_update_pwm_buffers(uint8_t addr, uint8_t index) {
         // If any of the transactions fail we risk writing dirty PG0,
         // refresh page 0 just in case.
         if (!snled27351_write_pwm_buffer(addr, g_pwm_buffer[index])) {
-            g_led_control_registers_update_required[index] = true;
+            g_pwm_buffer_update_required[index] = true;
         }
     }
+
     g_pwm_buffer_update_required[index] = false;
 }
 
@@ -238,8 +233,9 @@ void snled27351_update_led_control_registers(uint8_t addr, uint8_t index) {
         for (int i = 0; i < SNLED27351_LED_CONTROL_REGISTER_COUNT; i++) {
             snled27351_write_register(addr, i, g_led_control_registers[index][i]);
         }
+
+        g_led_control_registers_update_required[index] = false;
     }
-    g_led_control_registers_update_required[index] = false;
 }
 
 void snled27351_flush(void) {
