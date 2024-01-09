@@ -41,7 +41,7 @@
 #    define IS31FL3737_SW_PULLUP IS31FL3737_PUR_0_OHM
 #endif
 
-#ifndef IS31FL3737_CS_PULLDONW
+#ifndef IS31FL3737_CS_PULLDOWN
 #    define IS31FL3737_CS_PULLDOWN IS31FL3737_PDR_0_OHM
 #endif
 
@@ -174,12 +174,14 @@ void is31fl3737_init(uint8_t addr) {
 
 void is31fl3737_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     is31fl3737_led_t led;
+
     if (index >= 0 && index < IS31FL3737_LED_COUNT) {
         memcpy_P(&led, (&g_is31fl3737_leds[index]), sizeof(led));
 
         if (g_pwm_buffer[led.driver][led.r] == red && g_pwm_buffer[led.driver][led.g] == green && g_pwm_buffer[led.driver][led.b] == blue) {
             return;
         }
+
         g_pwm_buffer[led.driver][led.r]          = red;
         g_pwm_buffer[led.driver][led.g]          = green;
         g_pwm_buffer[led.driver][led.b]          = blue;
@@ -228,6 +230,7 @@ void is31fl3737_update_pwm_buffers(uint8_t addr, uint8_t index) {
         is31fl3737_select_page(addr, IS31FL3737_COMMAND_PWM);
 
         is31fl3737_write_pwm_buffer(addr, g_pwm_buffer[index]);
+
         g_pwm_buffer_update_required[index] = false;
     }
 }
@@ -239,6 +242,7 @@ void is31fl3737_update_led_control_registers(uint8_t addr, uint8_t index) {
         for (int i = 0; i < IS31FL3737_LED_CONTROL_REGISTER_COUNT; i++) {
             is31fl3737_write_register(addr, i, g_led_control_registers[index][i]);
         }
+
         g_led_control_registers_update_required[index] = false;
     }
 }

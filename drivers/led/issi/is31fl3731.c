@@ -171,6 +171,7 @@ void is31fl3731_init(uint8_t addr) {
 
 void is31fl3731_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     is31fl3731_led_t led;
+
     if (index >= 0 && index < IS31FL3731_LED_COUNT) {
         memcpy_P(&led, (&g_is31fl3731_leds[index]), sizeof(led));
 
@@ -178,6 +179,7 @@ void is31fl3731_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
         if (g_pwm_buffer[led.driver][led.r - 0x24] == red && g_pwm_buffer[led.driver][led.g - 0x24] == green && g_pwm_buffer[led.driver][led.b - 0x24] == blue) {
             return;
         }
+
         g_pwm_buffer[led.driver][led.r - 0x24]   = red;
         g_pwm_buffer[led.driver][led.g - 0x24]   = green;
         g_pwm_buffer[led.driver][led.b - 0x24]   = blue;
@@ -224,8 +226,9 @@ void is31fl3731_set_led_control_register(uint8_t index, bool red, bool green, bo
 void is31fl3731_update_pwm_buffers(uint8_t addr, uint8_t index) {
     if (g_pwm_buffer_update_required[index]) {
         is31fl3731_write_pwm_buffer(addr, g_pwm_buffer[index]);
+
+        g_pwm_buffer_update_required[index] = false;
     }
-    g_pwm_buffer_update_required[index] = false;
 }
 
 void is31fl3731_update_led_control_registers(uint8_t addr, uint8_t index) {
@@ -233,8 +236,9 @@ void is31fl3731_update_led_control_registers(uint8_t addr, uint8_t index) {
         for (int i = 0; i < IS31FL3731_LED_CONTROL_REGISTER_COUNT; i++) {
             is31fl3731_write_register(addr, i, g_led_control_registers[index][i]);
         }
+
+        g_led_control_registers_update_required[index] = false;
     }
-    g_led_control_registers_update_required[index] = false;
 }
 
 void is31fl3731_flush(void) {
