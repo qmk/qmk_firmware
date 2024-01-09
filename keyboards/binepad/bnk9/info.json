@@ -21,7 +21,6 @@
         "mousekey": true,
         "nkro": true,
         "encoder": true,
-        "encoder_map": true,
         "rgb_matrix": true,
         "sleep_led": false
     },
@@ -43,9 +42,6 @@
     },
     "rgb_matrix": {
         "driver": "ws2812",
-        "led_process_limit": 9,
-        "max_brightness": 180,
-        "sleep": true,
         "animations": {
             "solid_color": true,
             "breathing": true,
@@ -75,7 +71,10 @@
             {"flags": 4, "matrix": [3, 0], "x": 80, "y": 64},
             {"flags": 4, "matrix": [3, 1], "x": 112, "y": 64},
             {"flags": 4, "matrix": [3, 2], "x": 144, "y": 64}
-        ]
+        ],
+        "led_process_limit": 9,
+        "max_brightness": 180,
+        "sleep": true
     }
     "layouts": {
         "LAYOUT": {
