@@ -30,13 +30,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* RGB matrix */
 #define I2C1_CLOCK_SPEED 400000  
-#define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2  
-#    define RGB_MATRIX_DISABLE_KEYCODES 
-#    define RGB_MATRIX_SLEEP  // turn off effects when suspended
-#    define RGB_MATRIX_KEYPRESSES           // reacts to keypresses
-#    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#    define RGB_MATRIX_LED_PROCESS_LIMIT  4
-#    define RGB_MATRIX_LED_FLUSH_LIMIT    26
-#    define RGB_MATRIX_STARTUP_VAL        128
-#    define IS31FL3741_I2C_ADDRESS_1      IS31FL3741_I2C_ADDRESS_GND
-#    define RGB_MATRIX_LED_COUNT          101 
+#define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
+
+#define IS31FL3741_I2C_ADDRESS_1 IS31FL3741_I2C_ADDRESS_GND
+
+#define RGB_MATRIX_DISABLE_KEYCODES 
