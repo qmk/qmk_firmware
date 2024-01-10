@@ -13,14 +13,10 @@
     },
     "features": {
         "bootmagic": true,
-        "lto":       true,
         "mousekey":  false,
         "extrakey":  false,
         "console":   false,
-        "backlight": false,
         "rgblight":  true,
-        "audio":     false,
-        "encoder":   false,
         "nkro":      true
     },
     "build": {
