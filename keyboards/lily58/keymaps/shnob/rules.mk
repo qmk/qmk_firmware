@@ -13,7 +13,8 @@ SPLIT_TRANSPORT = yes       # From https://github.com/kata0510/Lily58/issues/10#
 ENCODER_ENABLE = yes
 MOUSEKEY_ENABLE = yes
 KEY_LOCK_ENABLE = yes
-# Enable if the file size is too large LTO_ENABLE = yes
+# Enable if the file size is too large
+LTO_ENABLE = yes
 
 # If you want to change the display of OLED, you need to change here
 SRC +=  ./lib/rgb_state_reader.c \
