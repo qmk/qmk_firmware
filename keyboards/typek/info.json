@@ -23,6 +23,9 @@
         "encoder":   false,
         "nkro":      true
     },
+    "build": {
+        "lto": true
+    },
     "ws2812":{
         "pin": "B15"
     },
