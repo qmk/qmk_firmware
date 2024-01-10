@@ -85,7 +85,7 @@ void is31fl3741_select_page(uint8_t addr, uint8_t page) {
     is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND, page);
 }
 
-bool is31fl3741_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
+void is31fl3741_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     // Assume page 0 is already selected
 
     for (int i = 0; i < 342; i += 18) {
@@ -98,14 +98,10 @@ bool is31fl3741_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
 
 #if IS31FL3741_I2C_PERSISTENCE > 0
         for (uint8_t i = 0; i < IS31FL3741_I2C_PERSISTENCE; i++) {
-            if (i2c_transmit(addr << 1, i2c_transfer_buffer, 19, IS31FL3741_I2C_TIMEOUT) != 0) {
-                return false;
-            }
+            if (i2c_transmit(addr << 1, i2c_transfer_buffer, 19, IS31FL3741_I2C_TIMEOUT) == 0) break;
         }
 #else
-        if (i2c_transmit(addr << 1, i2c_transfer_buffer, 19, IS31FL3741_I2C_TIMEOUT) != 0) {
-            return false;
-        }
+        i2c_transmit(addr << 1, i2c_transfer_buffer, 19, IS31FL3741_I2C_TIMEOUT);
 #endif
     }
 
@@ -115,17 +111,11 @@ bool is31fl3741_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
 
 #if IS31FL3741_I2C_PERSISTENCE > 0
     for (uint8_t i = 0; i < IS31FL3741_I2C_PERSISTENCE; i++) {
-        if (i2c_transmit(addr << 1, i2c_transfer_buffer, 10, IS31FL3741_I2C_TIMEOUT) != 0) {
-            return false;
-        }
+        if (i2c_transmit(addr << 1, i2c_transfer_buffer, 10, IS31FL3741_I2C_TIMEOUT) == 0) break;
     }
 #else
-    if (i2c_transmit(addr << 1, i2c_transfer_buffer, 10, IS31FL3741_I2C_TIMEOUT) != 0) {
-        return false;
-    }
+    i2c_transmit(addr << 1, i2c_transfer_buffer, 10, IS31FL3741_I2C_TIMEOUT);
 #endif
-
-    return true;
 }
 
 void is31fl3741_init_drivers(void) {

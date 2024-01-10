@@ -122,7 +122,7 @@ void is31fl3741_init_drivers(void);
 void is31fl3741_init(uint8_t addr);
 void is31fl3741_write_register(uint8_t addr, uint8_t reg, uint8_t data);
 void is31fl3741_select_page(uint8_t addr, uint8_t page);
-bool is31fl3741_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
+void is31fl3741_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
 
 void is31fl3741_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
 void is31fl3741_set_color_all(uint8_t red, uint8_t green, uint8_t blue);

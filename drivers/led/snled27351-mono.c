@@ -68,9 +68,8 @@ void snled27351_select_page(uint8_t addr, uint8_t page) {
     snled27351_write_register(addr, SNLED27351_REG_COMMAND, page);
 }
 
-bool snled27351_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
+void snled27351_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     // Assumes PG1 is already selected.
-    // If any of the transactions fails function returns false.
     // Transmit PWM registers in 12 transfers of 16 bytes.
     // i2c_transfer_buffer[] is 20 bytes
 
@@ -86,17 +85,12 @@ bool snled27351_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
 
 #if SNLED27351_I2C_PERSISTENCE > 0
         for (uint8_t i = 0; i < SNLED27351_I2C_PERSISTENCE; i++) {
-            if (i2c_transmit(addr << 1, i2c_transfer_buffer, 17, SNLED27351_I2C_TIMEOUT) != 0) {
-                return false;
-            }
+            if (i2c_transmit(addr << 1, i2c_transfer_buffer, 17, SNLED27351_I2C_TIMEOUT) == 0) break;
         }
 #else
-        if (i2c_transmit(addr << 1, i2c_transfer_buffer, 17, SNLED27351_I2C_TIMEOUT) != 0) {
-            return false;
-        }
+        i2c_transmit(addr << 1, i2c_transfer_buffer, 17, SNLED27351_I2C_TIMEOUT);
 #endif
     }
-    return true;
 }
 
 void snled27351_init_drivers(void) {
@@ -216,14 +210,10 @@ void snled27351_update_pwm_buffers(uint8_t addr, uint8_t index) {
     if (g_pwm_buffer_update_required[index]) {
         snled27351_select_page(addr, SNLED27351_COMMAND_PWM);
 
-        // If any of the transactions fail we risk writing dirty PG0,
-        // refresh page 0 just in case.
-        if (!snled27351_write_pwm_buffer(addr, g_pwm_buffer[index])) {
-            g_pwm_buffer_update_required[index] = true;
-        }
-    }
+        snled27351_write_pwm_buffer(addr, g_pwm_buffer[index]);
 
-    g_pwm_buffer_update_required[index] = false;
+        g_pwm_buffer_update_required[index] = false;
+    }
 }
 
 void snled27351_update_led_control_registers(uint8_t addr, uint8_t index) {
