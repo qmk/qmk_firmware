@@ -89,4 +89,16 @@ const led_matrix_driver_t led_matrix_driver = {
     .set_value_all = snled27351_set_value_all,
 };
 
+#elif defined(LED_MATRIX_SNLED27351_SPI)
+const led_matrix_driver_t led_matrix_driver = {
+    .init          = snled27351_init_drivers,
+    .flush         = snled27351_flush,
+    .set_value     = snled27351_set_value,
+    .set_value_all = snled27351_set_value_all,
+#ifdef LED_MATRIX_SHUTDOWN_ENABLE
+    .shutdown      = snled27351_shutdown,
+    .exit_shutdown = snled27351_exit_shutdown,
+#endif
+};
+
 #endif

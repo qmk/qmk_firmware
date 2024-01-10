@@ -27,6 +27,7 @@ bool encoder_read(void);
 
 bool encoder_update_kb(uint8_t index, bool clockwise);
 bool encoder_update_user(uint8_t index, bool clockwise);
+void encoder_inerrupt_read(uint8_t index);
 
 #ifdef SPLIT_KEYBOARD
 

@@ -1,0 +1,55 @@
+{
+    "keyboard_name": "Keychron Q4 Pro",
+    "manufacturer": "Keychron",
+    "url": "https://github.com/Keychron",
+    "maintainer": "lalalademaxiya1",
+    "processor": "STM32L432",
+    "bootloader": "stm32-dfu",
+    "usb": {
+       "vid": "0x3434"
+    },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "dip_switch": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgb_matrix": true,
+        "raw": true
+    },
+    "rgb_matrix": {
+        "driver": "snled27351",
+        "animations": {
+            "breathing": true,
+            "band_spiral_val": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "rainbow_moving_chevron": true,
+            "cycle_out_in": true,
+            "cycle_out_in_dual": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "dual_beacon": true,
+            "rainbow_beacon": true,
+            "jellybean_raindrops": true,
+            "pixel_rain": true,
+            "typing_heatmap": true,
+            "digital_rain": true,
+            "solid_reactive_simple": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_multinexus": true,
+            "splash": true,
+            "solid_splash": true
+        }
+    },
+    "matrix_pins": {
+        "cols": [null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+        "rows": ["B4", "B3", "A15", "A14", "A13"],
+        "custom": true,
+        "custom_lite": true
+    },
+    "diode_direction": "ROW2COL"
+}

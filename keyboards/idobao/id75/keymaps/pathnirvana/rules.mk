@@ -1,3 +1,0 @@
-BACKLIGHT_ENABLE = yes
-DEBOUNCE_TYPE = sym_eager_pk
-MOUSEKEY_ENABLE = yes

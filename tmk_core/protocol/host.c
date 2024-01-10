@@ -135,10 +135,10 @@ void host_system_send(uint16_t usage) {
 
     if (!driver) return;
 
-    report_extra_t report = {
-        .report_id = REPORT_ID_SYSTEM,
-        .usage     = usage,
-    };
+    static report_extra_t report;
+    report.report_id = REPORT_ID_SYSTEM;
+    report.usage     = usage;
+
     (*driver->send_extra)(&report);
 }
 
@@ -155,10 +155,10 @@ void host_consumer_send(uint16_t usage) {
 
     if (!driver) return;
 
-    report_extra_t report = {
-        .report_id = REPORT_ID_CONSUMER,
-        .usage     = usage,
-    };
+    static report_extra_t report;
+    report.report_id = REPORT_ID_CONSUMER;
+    report.usage     = usage;
+
     (*driver->send_extra)(&report);
 }
 

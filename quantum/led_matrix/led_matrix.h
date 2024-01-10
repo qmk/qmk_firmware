@@ -48,6 +48,9 @@
 #ifdef LED_MATRIX_SNLED27351
 #    include "snled27351-simple.h"
 #endif
+#ifdef LED_MATRIX_SNLED27351_SPI
+#    include "snled27351-simple-spi.h"
+#endif
 
 #ifndef LED_MATRIX_TIMEOUT
 #    define LED_MATRIX_TIMEOUT 0
@@ -108,6 +111,8 @@ struct led_matrix_limits_t led_matrix_get_limits(uint8_t iter);
 #define LED_MATRIX_TEST_LED_FLAGS() \
     if (!HAS_ANY_FLAGS(g_led_config.flags[i], params->flags)) continue
 
+#define LED_MATRIX_TIMEOUT_INFINITE (UINT32_MAX)
+
 enum led_matrix_effects {
     LED_MATRIX_NONE = 0,
 
@@ -146,6 +151,9 @@ void led_matrix_set_value_all(uint8_t value);
 void process_led_matrix(uint8_t row, uint8_t col, bool pressed);
 
 void led_matrix_task(void);
+
+void led_matrix_none_indicators_kb(void);
+void led_matrix_none_indicators_user(void);
 
 // This runs after another backlight effect and replaces
 // values already set
@@ -193,6 +201,21 @@ led_flags_t led_matrix_get_flags(void);
 void        led_matrix_set_flags(led_flags_t flags);
 void        led_matrix_set_flags_noeeprom(led_flags_t flags);
 
+#ifdef LED_MATRIX_TIMEOUT
+#    if LED_MATRIX_TIMEOUT > 0
+void led_matrix_disable_timeout_set(uint32_t timeout);
+void led_matrix_disable_time_reset(void);
+bool led_matrix_timeouted(void);
+#    endif
+#endif
+
+#ifdef LED_MATRIX_DRIVER_SHUTDOWN_ENABLE
+void led_matrix_driver_shutdown(void);
+void led_matrix_driver_exit_shutdown(void);
+bool led_matrix_is_driver_shutdown(void);
+bool led_matrix_driver_allow_shutdown(void);
+#endif
+
 typedef struct {
     /* Perform any initialisation required for the other driver functions to work. */
     void (*init)(void);
@@ -203,6 +226,12 @@ typedef struct {
     void (*set_value_all)(uint8_t value);
     /* Flush any buffered changes to the hardware. */
     void (*flush)(void);
+#ifdef LED_MATRIX_DRIVER_SHUTDOWN_ENABLE
+    /* Shutdown the driver. */
+    void (*shutdown)(void);
+    /* Exit from shutdown state. */
+    void (*exit_shutdown)(void);
+#endif
 } led_matrix_driver_t;
 
 static inline bool led_matrix_check_finished_leds(uint8_t led_idx) {

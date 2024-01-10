@@ -1,0 +1,364 @@
+{
+  "name": "Keychron Q8 Pro ISO Knob",
+  "vendorId": "0x3434",
+  "productId": "0x0681",
+  "keycodes": ["qmk_lighting"],
+  "menus": [
+    {
+      "label": "Lighting",
+      "content": [
+        {
+          "label": "Backlight",
+          "content": [
+            {
+              "label": "Brightness",
+              "type": "range",
+              "options": [0, 255],
+              "content": ["id_qmk_rgb_matrix_brightness", 3, 1]
+            },
+            {
+              "label": "Effect",
+              "type": "dropdown",
+              "content": ["id_qmk_rgb_matrix_effect", 3, 2],
+              "options": [
+                ["None", 0],
+                ["Solid Color", 1],
+                ["Breathing", 2],
+                ["Band Spiral Val", 3],
+                ["Cycle All", 4],
+                ["Cycle Left Right", 5],
+                ["Cycle Up Down", 6],
+                ["Rainbow Moving Chevron", 7],
+                ["Cycle Out In", 8],
+                ["Cycle Out In Dual", 9],
+                ["Cycle Pinwheel", 10],
+                ["Cycle Spiral", 11],
+                ["Dual Beacon", 12],
+                ["Rainbow Beacon", 13],
+                ["Jellybean Raindrops", 14],
+                ["Pixel Rain", 15],
+                ["Typing Heatmap", 16],
+                ["Digital Rain", 17],
+                ["Reactive Simple", 18],
+                ["Reactive Multiwide", 19],
+                ["Reactive Multinexus", 20],
+                ["Splash", 21],
+                ["Solid Splash", 22]
+              ]
+            },
+            {
+              "showIf": "{id_qmk_rgb_matrix_effect} > 1",
+              "label": "Effect Speed",
+              "type": "range",
+              "options": [0, 255],
+              "content": ["id_qmk_rgb_matrix_effect_speed", 3, 3]
+            },
+            {
+              "showIf": "{id_qmk_rgb_matrix_effect} != 0 && ( {id_qmk_rgb_matrix_effect} < 4 || {id_qmk_rgb_matrix_effect} == 18 || ({id_qmk_rgb_matrix_effect} > 17 && {id_qmk_rgb_matrix_effect} != 21) ) ",
+              "label": "Color",
+              "type": "color",
+              "content": ["id_qmk_rgb_matrix_color", 3, 4]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "customKeycodes": [
+    {"name": "Left Option", "title": "Left Option", "shortName": "LOpt"},
+    {"name": "Right Option", "title": "Right Option", "shortName": "ROpt"},
+    {"name": "Left Cmd", "title": "Left Command", "shortName": "LCmd"},
+    {"name": "Right Cmd", "title": "Right Command", "shortName": "RCmd"},
+    {"name": "Task View", "title": "Task View in Windows", "shortName": "Task"},
+    {"name": "File Explorer", "title": "File Explorer in Windows", "shortName": "File"},
+    {"name": "Screen shot", "title": "Screenshot in macOS", "shortName": "SShot"},
+    {"name": "Cortana", "title": "Cortana in Windows", "shortName": "Cortana"},
+    {"name": "Siri", "title": "Siri in macOS", "shortName": "Siri"},
+    {"name": "Bluetooth Host 1", "title": "Bluetooth Host 1", "shortName": "BTH1"},
+    {"name": "Bluetooth Host 2", "title": "Bluetooth Host 2", "shortName": "BTH2"},
+    {"name": "Bluetooth Host 3", "title": "Bluetooth Host 3", "shortName": "BTH3"},
+    {"name": "Battery Level", "title": "Show battery level", "shortName": "Batt"}
+  ],
+  "matrix": {"rows": 5, "cols": 15},
+  "layouts": {
+    "keymap": [
+      [
+        {
+          "x": 2.75
+        },
+        "0,2",
+        {
+          "x": 8.85
+        },
+        "0,11",
+        {
+          "x": 3.5,
+          "c": "#aaaaaa"
+        },
+        "0,14\n\n\n\n\n\n\n\n\ne0"
+      ],
+      [
+        {
+          "y": -0.85,
+          "x": 0.75,
+          "c": "#777777"
+        },
+        "0,0\nESC",
+        {
+          "c": "#cccccc"
+        },
+        "0,1"
+      ],
+      [
+        {
+          "y": -0.85,
+          "x": 13.6
+        },
+        "0,12",
+        {
+          "c": "#aaaaaa",
+          "w": 2
+        },
+        "0,13"
+      ],
+      [
+        {
+          "x": 0.5,
+          "w": 1.5
+        },
+        "1,0",
+        {
+          "c": "#cccccc"
+        },
+        "1,1",
+        {
+          "x": 10.5
+        },
+        "1,11"
+      ],
+      [
+        {
+          "y": -1,
+          "x": 14.5
+        },
+        "1,12",
+        {
+          "x": 0.25,
+          "c": "#777777",
+          "w": 1.25,
+          "h": 2,
+          "w2": 1.5,
+          "h2": 1,
+          "x2": -0.25
+        },
+        "1,13"
+      ],
+      [
+        {
+          "y": -0.9,
+          "x": 17.3,
+          "c": "#aaaaaa"
+        },
+        "1,14"
+      ],
+      [
+        {
+          "y": -0.1,
+          "x": 0.25,
+          "w": 1.75
+        },
+        "2,0",
+        {
+          "c": "#cccccc"
+        },
+        "2,1",
+        {
+          "x": 9.75
+        },
+        "2,11",
+        "2,12",
+        {
+          "c": "#aaaaaa"
+        },
+        "2,13"
+      ],
+      [
+        {
+          "y": -0.9,
+          "x": 17.5
+        },
+        "2,14"
+      ],
+      [
+        {
+          "y": -0.1,
+          "w": 1.25
+        },
+        "3,0",
+        "3,1",
+        {
+          "c": "#cccccc"
+        },
+        "3,2",
+        {
+          "x": 10.15
+        },
+        "3,12",
+        {
+          "c": "#aaaaaa",
+          "w": 1.75
+        },
+        "3,13"
+      ],
+      [
+        {
+          "y": -0.75,
+          "x": 16.4,
+          "c": "#777777"
+        },
+        "3,14"
+      ],
+      [
+        {
+          "y": -0.25,
+          "c": "#aaaaaa",
+          "w": 1.25
+        },
+        "4,0",
+        {
+          "w": 1.25
+        },
+        "4,1"
+      ],
+      [
+        {
+          "y": -0.75,
+          "x": 15.4,
+          "c": "#777777"
+        },
+        "4,12",
+        "4,13",
+        "4,14"
+      ],
+      [
+        {
+          "r": 6,
+          "y": -5.7,
+          "x": 3.85,
+          "c": "#cccccc"
+        },
+        "0,3",
+        "0,4",
+        {
+          "c": "#aaaaaa"
+        },
+        "0,5",
+        "0,6"
+      ],
+      [
+        {
+          "x": 3.35,
+          "c": "#cccccc"
+        },
+        "1,2",
+        "1,3",
+        "1,4",
+        "1,5"
+      ],
+      [
+        {
+          "x": 3.55
+        },
+        "2,2",
+        "2,3",
+        "2,4",
+        "2,5"
+      ],
+      [
+        {
+          "x": 3.9
+        },
+        "3,3",
+        "3,4",
+        "3,5",
+        "3,6"
+      ],
+      [
+        {
+          "x": 4,
+          "c": "#aaaaaa",
+          "w": 1.25
+        },
+        "4,2",
+        {
+          "c": "#cccccc",
+          "w": 2.25
+        },
+        "4,3",
+        {
+          "c": "#aaaaaa"
+        },
+        "4,6"
+      ],
+      [
+        {
+          "r": -6,
+          "y": -3.2,
+          "x": 8.35
+        },
+        "0,7",
+        "0,8",
+        {
+          "c": "#cccccc"
+        },
+        "0,9",
+        "0,10"
+      ],
+      [
+        {
+          "x": 7.9
+        },
+        "1,6",
+        "1,7",
+        "1,8",
+        "1,9",
+        "1,10"
+      ],
+      [
+        {
+          "x": 8.25
+        },
+        "2,7",
+        "2,8",
+        "2,9",
+        "2,10"
+      ],
+      [
+        {
+          "x": 7.8
+        },
+        "3,7",
+        "3,8",
+        "3,9",
+        "3,10",
+        "3,11"
+      ],
+      [
+        {
+          "x": 7.8,
+          "c": "#aaaaaa"
+        },
+        "4,7",
+        {
+          "c": "#cccccc",
+          "w": 2.75
+        },
+        "4,8",
+        {
+          "c": "#aaaaaa"
+        },
+        "4,9"
+      ]
+    ]
+  }
+}
