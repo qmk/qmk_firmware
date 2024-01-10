@@ -32,3 +32,6 @@
 
 /* PMW33XX Settings */
 #define PMW33XX_CS_PIN B0
+
+#define ENCODER_BUTTON_COL 1
+#define ENCODER_BUTTON_ROW 0

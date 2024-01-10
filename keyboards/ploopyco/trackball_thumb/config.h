@@ -31,3 +31,11 @@
 
 /* PMW3360 Settings */
 #define POINTING_DEVICE_CS_PIN B0
+
+#define ENCODER_BUTTON_COL 1
+#define ENCODER_BUTTON_ROW 0
+
+#    define ENCODER_LOW_THRES_A 20
+#    define ENCODER_HIGH_THRES_A 75
+#    define ENCODER_LOW_THRES_B 20
+#    define ENCODER_HIGH_THRES_B 90

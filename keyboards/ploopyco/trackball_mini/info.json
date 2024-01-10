@@ -12,8 +12,20 @@
     "bootmagic": {
         "matrix": [0, 3]
     },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false,
+        "pointing_device": true
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "F0", "pin_b": "F4"}
+        ]
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

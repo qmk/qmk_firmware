@@ -9,11 +9,24 @@
         "device_version": "0.0.1",
         "max_power": 100
     },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false,
+        "pointing_device": true,
+        "rgblight": false
+    },
     "bootmagic": {
         "matrix": [0, 3]
     },
     "ws2812": {
         "pin": "B5"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "F0", "pin_b": "F4"}
+        ]
     },
     "rgblight": {
         "led_count": 4,

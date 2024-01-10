@@ -3,8 +3,7 @@ F_CPU = 8000000
 
 POINTING_DEVICE_DRIVER = pmw3360
 
-ANALOG_DRIVER_REQUIRED = yes
-
-SRC += opt_encoder.c
+ENCODER_ENABLE := no
+OPT_DEFS += -DENCODER_ENABLE
 
 DEFAULT_FOLDER = ploopyco/trackball_thumb/rev1_001

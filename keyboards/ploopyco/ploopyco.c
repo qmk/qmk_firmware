@@ -16,23 +16,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "mouse.h"
+#include "ploopyco.h"
+#include "analog.h"
+#include "opt_encoder.h"
 
-#ifndef OPT_DEBOUNCE
-#    define OPT_DEBOUNCE 5  // (ms) 			Time between scroll events
+// for legacy support
+#if defined(OPT_DEBOUNCE) && !defined(PLOOPY_SCROLL_DEBOUNCE)
+#    define PLOOPY_SCROLL_DEBOUNCE OPT_DEBOUNCE
 #endif
-#ifndef SCROLL_BUTT_DEBOUNCE
-#    define SCROLL_BUTT_DEBOUNCE 100  // (ms) 			Time between scroll events
+#if defined(SCROLL_BUTT_DEBOUNCE) && !defined(PLOOPY_SCROLL_BUTTON_DEBOUNCE)
+#    define PLOOPY_SCROLL_BUTTON_DEBOUNCE SCROLL_BUTT_DEBOUNCE
 #endif
-#ifndef OPT_THRES
-#    define OPT_THRES 150  // (0-1024) 	Threshold for actication
+
+#ifndef PLOOPY_SCROLL_DEBOUNCE
+#    define PLOOPY_SCROLL_DEBOUNCE 5
 #endif
-#ifndef OPT_SCALE
-#    define OPT_SCALE 1  // Multiplier for wheel
+#ifndef PLOOPY_SCROLL_BUTTON_DEBOUNCE
+#    define PLOOPY_SCROLL_BUTTON_DEBOUNCE 100
 #endif
+
 #ifndef PLOOPY_DPI_OPTIONS
 #    define PLOOPY_DPI_OPTIONS \
-        { 1200, 1600, 2400 }
+        { 600, 900, 1200, 1600, 2400 }
 #    ifndef PLOOPY_DPI_DEFAULT
 #        define PLOOPY_DPI_DEFAULT 1
 #    endif
@@ -40,91 +45,115 @@
 #ifndef PLOOPY_DPI_DEFAULT
 #    define PLOOPY_DPI_DEFAULT 0
 #endif
-#ifndef PLOOPY_DRAGSCROLL_DPI
-#    define PLOOPY_DRAGSCROLL_DPI 100  // Fixed-DPI Drag Scroll
+#ifndef PLOOPY_DRAGSCROLL_DIVISOR_H
+#    define PLOOPY_DRAGSCROLL_DIVISOR_H 8.0
 #endif
-#ifndef PLOOPY_DRAGSCROLL_MULTIPLIER
-#    define PLOOPY_DRAGSCROLL_MULTIPLIER 0.75  // Variable-DPI Drag Scroll
+#ifndef PLOOPY_DRAGSCROLL_DIVISOR_V
+#    define PLOOPY_DRAGSCROLL_DIVISOR_V 8.0
+#endif
+#ifndef ENCODER_BUTTON_ROW
+#    define ENCODER_BUTTON_ROW 0
+#endif
+#ifndef ENCODER_BUTTON_COL
+#    define ENCODER_BUTTON_COL 0
 #endif
 
 keyboard_config_t keyboard_config;
 uint16_t          dpi_array[] = PLOOPY_DPI_OPTIONS;
 #define DPI_OPTION_SIZE ARRAY_SIZE(dpi_array)
 
-// TODO: Implement libinput profiles
-// https://wayland.freedesktop.org/libinput/doc/latest/pointer-acceleration.html
-// Compile time accel selection
-// Valid options are ACC_NONE, ACC_LINEAR, ACC_CUSTOM, ACC_QUADRATIC
-
 // Trackball State
-bool     is_scroll_clicked = false;
-bool     BurstState        = false;  // init burst state for Trackball module
-uint16_t MotionStart       = 0;      // Timer for accel, 0 is resting state
-uint16_t lastScroll        = 0;      // Previous confirmed wheel event
-uint16_t lastMidClick      = 0;      // Stops scrollwheel from being read if it was pressed
-uint8_t  OptLowPin         = OPT_ENC1;
-bool     debug_encoder     = false;
-bool     is_drag_scroll    = false;
+bool  is_scroll_clicked    = false;
+bool  is_drag_scroll       = false;
+float scroll_accumulated_h = 0;
+float scroll_accumulated_v = 0;
 
-__attribute__((weak)) bool encoder_update_user(uint8_t index, bool clockwise) { return true; }
+#ifdef ENCODER_ENABLE
+uint16_t lastScroll        = 0; // Previous confirmed wheel event
+uint16_t lastMidClick      = 0; // Stops scrollwheel from being read if it was pressed
+pin_t    encoder_pins_a[1] = ENCODERS_PAD_A;
+pin_t    encoder_pins_b[1] = ENCODERS_PAD_B;
+bool     debug_encoder     = false;
+#endif
+
+#ifdef ENCODER_ENABLE
+__attribute__((weak)) bool encoder_update_user(uint8_t index, bool clockwise) {
+    return true;
+}
 
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) {
         return false;
     }
-#ifdef MOUSEKEY_ENABLE
+#    ifdef MOUSEKEY_ENABLE
     tap_code(clockwise ? KC_WH_U : KC_WH_D);
-#else
+#    else
     report_mouse_t mouse_report = pointing_device_get_report();
-    mouse_report.v = clockwise ? 1 : -1;
+    mouse_report.v              = clockwise ? 1 : -1;
     pointing_device_set_report(mouse_report);
     pointing_device_send();
-#endif
+#    endif
     return true;
 }
 
-void process_wheel(void) {
-    // Lovingly ripped from the Ploopy Source
+bool encoder_read(void) {
+    uint16_t p1 = analogReadPin(encoder_pins_a[0]);
+    uint16_t p2 = analogReadPin(encoder_pins_b[0]);
+    if (debug_encoder) dprintf("OPT1: %d, OPT2: %d\n", p1, p2);
+
+    int8_t dir = opt_encoder_handler(p1, p2);
 
     // If the mouse wheel was just released, do not scroll.
-    if (timer_elapsed(lastMidClick) < SCROLL_BUTT_DEBOUNCE) {
-        return;
+    if (timer_elapsed(lastMidClick) < PLOOPY_SCROLL_BUTTON_DEBOUNCE) {
+        return false;
     }
 
     // Limit the number of scrolls per unit time.
-    if (timer_elapsed(lastScroll) < OPT_DEBOUNCE) {
-        return;
+    if (timer_elapsed(lastScroll) < PLOOPY_SCROLL_DEBOUNCE) {
+        return false;
     }
 
     // Don't scroll if the middle button is depressed.
     if (is_scroll_clicked) {
-#ifndef IGNORE_SCROLL_CLICK
-        return;
-#endif
+#    ifndef PLOOPY_IGNORE_SCROLL_CLICK
+        return false;
+#    endif
     }
 
-    lastScroll  = timer_read();
-    uint16_t p1 = adc_read(OPT_ENC1_MUX);
-    uint16_t p2 = adc_read(OPT_ENC2_MUX);
-    if (debug_encoder) dprintf("OPT1: %d, OPT2: %d\n", p1, p2);
-
-    int dir = opt_encoder_handler(p1, p2);
-
-    if (dir == 0) return;
+    if (dir == 0) return false;
     encoder_update_kb(0, dir > 0);
+    lastScroll = timer_read();
+    return true;
 }
+#endif
+
+#ifdef ENCODER_ENABLE
+void encoder_init(void) {
+    opt_encoder_init();
+}
+#endif
 
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
-    process_wheel();
-
     if (is_drag_scroll) {
-        mouse_report.h = mouse_report.x;
+        scroll_accumulated_h += (float)mouse_report.x / PLOOPY_DRAGSCROLL_DIVISOR_H;
+        scroll_accumulated_v += (float)mouse_report.y / PLOOPY_DRAGSCROLL_DIVISOR_V;
+
+        // Assign integer parts of accumulated scroll values to the mouse report
+        mouse_report.h = (int8_t)scroll_accumulated_h;
 #ifdef PLOOPY_DRAGSCROLL_INVERT
-        // Invert vertical scroll direction
-        mouse_report.v = -mouse_report.y;
+        mouse_report.v = -(int8_t)scroll_accumulated_v;
 #else
-        mouse_report.v = mouse_report.y;
+        mouse_report.v = -(int8_t)scroll_accumulated_v;
 #endif
+
+        // Update accumulated scroll values by subtracting the integer parts
+        scroll_accumulated_h -= (int8_t)scroll_accumulated_h;
+        scroll_accumulated_v -= (int8_t)scroll_accumulated_v;
+
+        // Clear the X and Y values of the mouse report
+        mouse_report.x = 0;
+        mouse_report.y = 0;
+
         mouse_report.x = 0;
         mouse_report.y = 0;
     }
@@ -138,10 +167,12 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     }
 
     // Update Timer to prevent accidental scrolls
-    if ((record->event.key.col == 1) && (record->event.key.row == 0)) {
+#ifdef ENCODER_ENABLE
+    if ((record->event.key.col == ENCODER_BUTTON_COL) && (record->event.key.row == ENCODER_BUTTON_ROW)) {
         lastMidClick      = timer_read();
         is_scroll_clicked = record->event.pressed;
     }
+#endif
 
     if (!process_record_user(keycode, record)) {
         return false;
@@ -155,15 +186,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 
     if (keycode == DRAG_SCROLL) {
 #ifndef PLOOPY_DRAGSCROLL_MOMENTARY
-        if (record->event.pressed)
-#endif
-        {
+        is_drag_scroll = record->event.pressed;
+#else
+        if (record->event.pressed) {
             is_drag_scroll ^= 1;
         }
-#ifdef PLOOPY_DRAGSCROLL_FIXED
-        pointing_device_set_cpi(is_drag_scroll ? PLOOPY_DRAGSCROLL_DPI : dpi_array[keyboard_config.dpi_config]);
-#else
-        pointing_device_set_cpi(is_drag_scroll ? (dpi_array[keyboard_config.dpi_config] * PLOOPY_DRAGSCROLL_MULTIPLIER) : dpi_array[keyboard_config.dpi_config]);
 #endif
     }
 
@@ -172,13 +199,10 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 
 // Hardware Setup
 void keyboard_pre_init_kb(void) {
-    // debug_enable  = true;
-    // debug_matrix  = true;
-    // debug_mouse   = true;
-    // debug_encoder = true;
-
-    setPinInput(OPT_ENC1);
-    setPinInput(OPT_ENC2);
+#ifdef ENCODER_ENABLE
+    setPinInput(encoder_pins_a[0]);
+    setPinInput(encoder_pins_b[0]);
+#endif
 
     /* Ground all output pins connected to ground. This provides additional
      * pathways to ground. If you're messing with this, know this: driving ANY
@@ -203,23 +227,15 @@ void keyboard_pre_init_kb(void) {
 }
 
 void pointing_device_init_kb(void) {
+    keyboard_config.raw = eeconfig_read_kb();
+    if (keyboard_config.dpi_config > DPI_OPTION_SIZE) {
+        eeconfig_init_kb();
+    }
     pointing_device_set_cpi(dpi_array[keyboard_config.dpi_config]);
-    // initialize the scroll wheel's optical encoder
-    opt_encoder_init();
 }
 
 void eeconfig_init_kb(void) {
     keyboard_config.dpi_config = PLOOPY_DPI_DEFAULT;
     eeconfig_update_kb(keyboard_config.raw);
     eeconfig_init_user();
-}
-
-void matrix_init_kb(void) {
-    // is safe to just read DPI setting since matrix init
-    // comes before pointing device init.
-    keyboard_config.raw = eeconfig_read_kb();
-    if (keyboard_config.dpi_config > DPI_OPTION_SIZE) {
-        eeconfig_init_kb();
-    }
-    matrix_init_user();
 }
