@@ -23,7 +23,8 @@
         "lto": true
     },
     "ws2812":{
-        "pin": "B15"
+        "pin": "B15",
+        "driver": "pwm"
     },
     "rgblight": {
         "led_count": 69,
