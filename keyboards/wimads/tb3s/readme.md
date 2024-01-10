@@ -1,0 +1,7 @@
+## Firmware
+The QMK firmware files included in this repository were based on Ploopy Madromys and Bastardkb Charybdis firmware; all credits for firmware development go to them, I merely cobbled together from both what I needed. Ploopy Madromys was used as a template for the hardware configuration (since its also based on rp2040 and pmw3360). Bastardkb Charybdis firmware was used to implement the same trackball funcitonalities (dragscroll, sniping, etc); so you can use all the same keycodes and configurations for trackball as in Charybdis.
+* If you're not familiar with QMK, you might want to read up on that before attempting to build this. Google is your friend.
+* The firmware files in this repository will NOT be maintained, since I am no developer, and not a company - this was merely a hobby project - I have included these files only as a starting point for your own work.
+* As such, there will be NO support from my end. If you need help with QMK, there's plenty of channels (reddit, discord, whatever you fancy).
+* You'll have to copy these files into your own QMK fork to get started (there is and will not be a PR to merge this into QMK mainline). Or you could fork my personal QMK_firmware branch, but no guarantees it is in working state on the moment you happen to fork it.
+* The firmware files included in this repository were working on QMK mainline on 10 januari 2024, but there is no guarantee it will remain functional after future QMK updates.
