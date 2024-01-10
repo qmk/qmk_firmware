@@ -46,7 +46,7 @@ bool    g_led_control_registers_update_required[IS31FL3731_DRIVER_COUNT]        
 void is31fl3731_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
 #if IS31FL3731_I2C_PERSISTENCE > 0
     for (uint8_t i = 0; i < IS31FL3731_I2C_PERSISTENCE; i++) {
-        if (i2c_writeReg(addr << 1, reg, &data, 1, IS31FL3731_I2C_TIMEOUT) == 0) break;
+        if (i2c_writeReg(addr << 1, reg, &data, 1, IS31FL3731_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
     }
 #else
     i2c_writeReg(addr << 1, reg, &data, 1, IS31FL3731_I2C_TIMEOUT);
@@ -65,7 +65,7 @@ void is31fl3731_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     for (uint8_t i = 0; i < IS31FL3731_PWM_REGISTER_COUNT; i += 16) {
 #if IS31FL3731_I2C_PERSISTENCE > 0
         for (uint8_t j = 0; j < IS31FL3731_I2C_PERSISTENCE; j++) {
-            if (i2c_writeReg(addr << 1, 0x24 + i, pwm_buffer + i, 16, IS31FL3731_I2C_TIMEOUT) == 0) break;
+            if (i2c_writeReg(addr << 1, 0x24 + i, pwm_buffer + i, 16, IS31FL3731_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
         }
 #else
         i2c_writeReg(addr << 1, 0x24 + i, pwm_buffer + i, 16, IS31FL3731_I2C_TIMEOUT);
