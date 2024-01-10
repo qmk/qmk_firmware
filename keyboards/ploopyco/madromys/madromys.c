@@ -120,11 +120,12 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 
     if (keycode == DRAG_SCROLL) {
     #if PLOOPY_DRAGSCROLL_MOMENTARY
-            if (record->event.pressed)        
+            if (record->event.pressed)       
+    #endif
             {
                 is_drag_scroll ^= 1;
             }
-    #endif
+    
     #if PLOOPY_DRAGSCROLL_FIXED
             pointing_device_set_cpi(is_drag_scroll ? PLOOPY_DRAGSCROLL_DPI : dpi_array[keyboard_config.dpi_config]);
     #else
