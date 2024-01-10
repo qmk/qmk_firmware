@@ -94,9 +94,8 @@ void is31fl3733_select_page(uint8_t addr, uint8_t page) {
     is31fl3733_write_register(addr, IS31FL3733_REG_COMMAND, page);
 }
 
-bool is31fl3733_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
+void is31fl3733_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     // Assumes page 1 is already selected.
-    // If any of the transactions fails function returns false.
     // Transmit PWM registers in 12 transfers of 16 bytes.
     // i2c_transfer_buffer[] is 20 bytes
 
@@ -110,17 +109,12 @@ bool is31fl3733_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
 
 #if IS31FL3733_I2C_PERSISTENCE > 0
         for (uint8_t i = 0; i < IS31FL3733_I2C_PERSISTENCE; i++) {
-            if (i2c_transmit(addr << 1, i2c_transfer_buffer, 17, IS31FL3733_I2C_TIMEOUT) != 0) {
-                return false;
-            }
+            if (i2c_transmit(addr << 1, i2c_transfer_buffer, 17, IS31FL3733_I2C_TIMEOUT) == 0) break;
         }
 #else
-        if (i2c_transmit(addr << 1, i2c_transfer_buffer, 17, IS31FL3733_I2C_TIMEOUT) != 0) {
-            return false;
-        }
+        i2c_transmit(addr << 1, i2c_transfer_buffer, 17, IS31FL3733_I2C_TIMEOUT);
 #endif
     }
-    return true;
 }
 
 void is31fl3733_init_drivers(void) {
@@ -247,11 +241,7 @@ void is31fl3733_update_pwm_buffers(uint8_t addr, uint8_t index) {
     if (g_pwm_buffer_update_required[index]) {
         is31fl3733_select_page(addr, IS31FL3733_COMMAND_PWM);
 
-        // If any of the transactions fail we risk writing dirty page 0,
-        // refresh page 0 just in case.
-        if (!is31fl3733_write_pwm_buffer(addr, g_pwm_buffer[index])) {
-            g_led_control_registers_update_required[index] = true;
-        }
+        is31fl3733_write_pwm_buffer(addr, g_pwm_buffer[index]);
 
         g_pwm_buffer_update_required[index] = false;
     }

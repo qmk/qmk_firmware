@@ -118,7 +118,7 @@ void is31fl3733_init_drivers(void);
 void is31fl3733_init(uint8_t addr, uint8_t sync);
 void is31fl3733_write_register(uint8_t addr, uint8_t reg, uint8_t data);
 void is31fl3733_select_page(uint8_t addr, uint8_t page);
-bool is31fl3733_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
+void is31fl3733_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
 
 void is31fl3733_set_value(int index, uint8_t value);
 void is31fl3733_set_value_all(uint8_t value);
