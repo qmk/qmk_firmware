@@ -79,9 +79,9 @@ void is31fl3742a_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     // Transmit PWM registers in 6 transfers of 30 bytes.
 
     // Iterate over the pwm_buffer contents at 30 byte intervals.
-    for (int i = 0; i < IS31FL3742A_PWM_REGISTER_COUNT; i += 30) {
+    for (uint8_t i = 0; i < IS31FL3742A_PWM_REGISTER_COUNT; i += 30) {
 #if IS31FL3742A_I2C_PERSISTENCE > 0
-        for (uint8_t i = 0; i < IS31FL3742A_I2C_PERSISTENCE; i++) {
+        for (uint8_t j = 0; j < IS31FL3742A_I2C_PERSISTENCE; j++) {
             if (i2c_writeReg(addr << 1, i + 1, pwm_buffer + i, 30, IS31FL3742A_I2C_TIMEOUT) != 0) break;
         }
 #else

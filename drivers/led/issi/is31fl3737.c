@@ -81,9 +81,9 @@ void is31fl3737_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     // Transmit PWM registers in 12 transfers of 16 bytes.
 
     // Iterate over the pwm_buffer contents at 16 byte intervals.
-    for (int i = 0; i < IS31FL3737_PWM_REGISTER_COUNT; i += 16) {
+    for (uint8_t i = 0; i < IS31FL3737_PWM_REGISTER_COUNT; i += 16) {
 #if IS31FL3737_I2C_PERSISTENCE > 0
-        for (uint8_t i = 0; i < IS31FL3737_I2C_PERSISTENCE; i++) {
+        for (uint8_t j = 0; j < IS31FL3737_I2C_PERSISTENCE; j++) {
             if (i2c_writeReg(addr << 1, i, pwm_buffer + i, 16, IS31FL3737_I2C_TIMEOUT) == 0) break;
         }
 #else

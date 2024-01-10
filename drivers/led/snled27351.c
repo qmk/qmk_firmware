@@ -70,7 +70,7 @@ void snled27351_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     // Iterate over the pwm_buffer contents at 16 byte intervals.
     for (uint8_t i = 0; i < SNLED27351_PWM_REGISTER_COUNT; i += 16) {
 #if SNLED27351_I2C_PERSISTENCE > 0
-        for (uint8_t i = 0; i < SNLED27351_I2C_PERSISTENCE; i++) {
+        for (uint8_t j = 0; j < SNLED27351_I2C_PERSISTENCE; j++) {
             if (i2c_writeReg(addr << 1, i, pwm_buffer + i, 16, SNLED27351_I2C_TIMEOUT) == 0) break;
         }
 #else

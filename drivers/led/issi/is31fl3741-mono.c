@@ -82,7 +82,7 @@ void is31fl3741_select_page(uint8_t addr, uint8_t page) {
 void is31fl3741_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     // Assume page 0 is already selected
 
-    for (int i = 0; i < 342; i += 18) {
+    for (uint16_t i = 0; i < 342; i += 18) {
         if (i == 180) {
             is31fl3741_select_page(addr, IS31FL3741_COMMAND_PWM_1);
         }
