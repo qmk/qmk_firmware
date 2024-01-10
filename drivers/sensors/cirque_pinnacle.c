@@ -332,7 +332,7 @@ pinnacle_data_t cirque_pinnacle_read_data(void) {
 #endif
 
 #ifdef CIRQUE_PINNACLE_REACHABLE_CALIBRATION
-    static uint16_t xMin = 0xffff, yMin = 0xffff, yMax = 0, xMax = 0;
+    static uint16_t xMin = UINT16_MAX, yMin = UINT16_MAX, yMax = 0, xMax = 0;
     if (result.xValue < xMin) xMin = result.xValue;
     if (result.xValue > xMax) xMax = result.xValue;
     if (result.yValue < yMin) yMin = result.yValue;
