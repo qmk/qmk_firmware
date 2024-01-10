@@ -39,7 +39,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     static bool drag_toggle = false; //dragscroll was activated via toggle or not
     static bool sniping = false;
     switch(keycode) {
-        case SCR_SNI: //LCTL(DRGSCRL)
+        case SCR_SNI: //dragscroll / drag_toggle / sniping - all in one key!
             if (record->event.pressed && record->tap.count) { //on tap
                 //toggle dragscroll on/off
                 dragscroll = !dragscroll; //invert dragscroll state
