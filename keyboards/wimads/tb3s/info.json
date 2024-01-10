@@ -1,0 +1,40 @@
+{
+    "keyboard_name": "Wimads TB3S",
+    "maintainer": "Wimads",
+    "manufacturer": "Wimads",
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "usb": {
+        "vid": "0x5043",
+        "pid": "0x5C47",
+        "max_power": 100,
+        "device_version": "1.0.0"
+    },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "pointing_device": true,
+    },
+
+    "diode_direction": "COL2ROW",
+    "matrix_pins": {
+        "direct": [
+            ["GP15", "GP20", "GP23"]
+        ]
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "label":"Left", "x":0, "y":0, "h":2},
+                {"matrix": [0, 1], "label":"Bottom Right", "x":2, "y":0, "h":1.25},
+                {"matrix": [0, 2], "label":"Top Right", "x":3, "y":0, "h":1.25}
+            ]
+        }
+    },
+
+    "dynamic_keymap": {
+        "layer_count": 8
+    }
+}
