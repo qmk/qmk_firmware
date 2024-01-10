@@ -18,7 +18,6 @@
  */
 
 #include "is31fl3741-mono.h"
-#include <string.h>
 #include "i2c_master.h"
 #include "wait.h"
 
@@ -53,8 +52,6 @@
 #    define IS31FL3741_GLOBAL_CURRENT 0xFF
 #endif
 
-uint8_t i2c_transfer_buffer[20] = {0xFF};
-
 // These buffers match the IS31FL3741 and IS31FL3741A PWM registers.
 // The scaling buffers match the page 2 and 3 LED On/Off registers.
 // Storing them like this is optimal for I2C transfers to the registers.
@@ -68,15 +65,12 @@ bool    g_scaling_registers_update_required[IS31FL3741_DRIVER_COUNT] = {false};
 uint8_t g_scaling_registers[IS31FL3741_DRIVER_COUNT][IS31FL3741_SCALING_REGISTER_COUNT];
 
 void is31fl3741_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
-    i2c_transfer_buffer[0] = reg;
-    i2c_transfer_buffer[1] = data;
-
 #if IS31FL3741_I2C_PERSISTENCE > 0
     for (uint8_t i = 0; i < IS31FL3741_I2C_PERSISTENCE; i++) {
-        if (i2c_transmit(addr << 1, i2c_transfer_buffer, 2, IS31FL3741_I2C_TIMEOUT) == 0) break;
+        if (i2c_writeReg(addr << 1, reg, &data, 1, IS31FL3741_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
     }
 #else
-    i2c_transmit(addr << 1, i2c_transfer_buffer, 2, IS31FL3741_I2C_TIMEOUT);
+    i2c_writeReg(addr << 1, reg, &data, 1, IS31FL3741_I2C_TIMEOUT);
 #endif
 }
 
@@ -88,33 +82,27 @@ void is31fl3741_select_page(uint8_t addr, uint8_t page) {
 void is31fl3741_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     // Assume page 0 is already selected
 
-    for (int i = 0; i < 342; i += 18) {
+    for (uint16_t i = 0; i < 342; i += 18) {
         if (i == 180) {
             is31fl3741_select_page(addr, IS31FL3741_COMMAND_PWM_1);
         }
 
-        i2c_transfer_buffer[0] = i % 180;
-        memcpy(i2c_transfer_buffer + 1, pwm_buffer + i, 18);
-
 #if IS31FL3741_I2C_PERSISTENCE > 0
-        for (uint8_t i = 0; i < IS31FL3741_I2C_PERSISTENCE; i++) {
-            if (i2c_transmit(addr << 1, i2c_transfer_buffer, 19, IS31FL3741_I2C_TIMEOUT) == 0) break;
+        for (uint8_t j = 0; j < IS31FL3741_I2C_PERSISTENCE; j++) {
+            if (i2c_writeReg(addr << 1, i % 180, pwm_buffer + i, 18, IS31FL3741_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
         }
 #else
-        i2c_transmit(addr << 1, i2c_transfer_buffer, 19, IS31FL3741_I2C_TIMEOUT);
+        i2c_writeReg(addr << 1, i % 180, pwm_buffer + i, 18, IS31FL3741_I2C_TIMEOUT);
 #endif
     }
 
     // transfer the left cause the total number is 351
-    i2c_transfer_buffer[0] = 162;
-    memcpy(i2c_transfer_buffer + 1, pwm_buffer + 342, 9);
-
 #if IS31FL3741_I2C_PERSISTENCE > 0
     for (uint8_t i = 0; i < IS31FL3741_I2C_PERSISTENCE; i++) {
-        if (i2c_transmit(addr << 1, i2c_transfer_buffer, 10, IS31FL3741_I2C_TIMEOUT) != 0) break;
+        if (i2c_writeReg(addr << 1, 162, pwm_buffer + 342, 9, IS31FL3741_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
     }
 #else
-    i2c_transmit(addr << 1, i2c_transfer_buffer, 10, IS31FL3741_I2C_TIMEOUT);
+    i2c_writeReg(addr << 1, 162, pwm_buffer + 342, 9, IS31FL3741_I2C_TIMEOUT);
 #endif
 }
 
