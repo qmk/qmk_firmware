@@ -37,8 +37,6 @@
         { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF }
 #endif
 
-uint8_t i2c_transfer_buffer[20];
-
 // These buffers match the SNLED27351 PWM registers.
 // The control buffers match the PG0 LED On/Off registers.
 // Storing them like this is optimal for I2C transfers to the registers.
@@ -52,15 +50,12 @@ uint8_t g_led_control_registers[SNLED27351_DRIVER_COUNT][SNLED27351_LED_CONTROL_
 bool    g_led_control_registers_update_required[SNLED27351_DRIVER_COUNT]                        = {false};
 
 void snled27351_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
-    i2c_transfer_buffer[0] = reg;
-    i2c_transfer_buffer[1] = data;
-
 #if SNLED27351_I2C_PERSISTENCE > 0
     for (uint8_t i = 0; i < SNLED27351_I2C_PERSISTENCE; i++) {
-        if (i2c_transmit(addr << 1, i2c_transfer_buffer, 2, SNLED27351_I2C_TIMEOUT) == 0) break;
+        if (i2c_writeReg(addr << 1, reg, &data, 1, SNLED27351_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
     }
 #else
-    i2c_transmit(addr << 1, i2c_transfer_buffer, 2, SNLED27351_I2C_TIMEOUT);
+    i2c_writeReg(addr << 1, reg, &data, 1, SNLED27351_I2C_TIMEOUT);
 #endif
 }
 
@@ -71,24 +66,15 @@ void snled27351_select_page(uint8_t addr, uint8_t page) {
 void snled27351_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     // Assumes PG1 is already selected.
     // Transmit PWM registers in 12 transfers of 16 bytes.
-    // i2c_transfer_buffer[] is 20 bytes
 
     // Iterate over the pwm_buffer contents at 16 byte intervals.
-    for (int i = 0; i < SNLED27351_PWM_REGISTER_COUNT; i += 16) {
-        i2c_transfer_buffer[0] = i;
-        // Copy the data from i to i+15.
-        // Device will auto-increment register for data after the first byte
-        // Thus this sets registers 0x00-0x0F, 0x10-0x1F, etc. in one transfer.
-        for (int j = 0; j < 16; j++) {
-            i2c_transfer_buffer[1 + j] = pwm_buffer[i + j];
-        }
-
+    for (uint8_t i = 0; i < SNLED27351_PWM_REGISTER_COUNT; i += 16) {
 #if SNLED27351_I2C_PERSISTENCE > 0
-        for (uint8_t i = 0; i < SNLED27351_I2C_PERSISTENCE; i++) {
-            if (i2c_transmit(addr << 1, i2c_transfer_buffer, 17, SNLED27351_I2C_TIMEOUT) == 0) break;
+        for (uint8_t j = 0; j < SNLED27351_I2C_PERSISTENCE; j++) {
+            if (i2c_writeReg(addr << 1, i, pwm_buffer + i, 16, SNLED27351_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
         }
 #else
-        i2c_transmit(addr << 1, i2c_transfer_buffer, 17, SNLED27351_I2C_TIMEOUT);
+        i2c_writeReg(addr << 1, i, pwm_buffer + i, 16, SNLED27351_I2C_TIMEOUT);
 #endif
     }
 }

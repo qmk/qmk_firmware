@@ -18,7 +18,6 @@
  */
 
 #include "is31fl3731-mono.h"
-#include <string.h>
 #include "i2c_master.h"
 #include "wait.h"
 
@@ -33,8 +32,6 @@
 #    define IS31FL3731_I2C_PERSISTENCE 0
 #endif
 
-uint8_t i2c_transfer_buffer[20];
-
 // These buffers match the IS31FL3731 PWM registers 0x24-0xB3.
 // Storing them like this is optimal for I2C transfers to the registers.
 // We could optimize this and take out the unused registers from these
@@ -47,15 +44,12 @@ uint8_t g_led_control_registers[IS31FL3731_DRIVER_COUNT][IS31FL3731_LED_CONTROL_
 bool    g_led_control_registers_update_required[IS31FL3731_DRIVER_COUNT]                        = {false};
 
 void is31fl3731_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
-    i2c_transfer_buffer[0] = reg;
-    i2c_transfer_buffer[1] = data;
-
 #if IS31FL3731_I2C_PERSISTENCE > 0
     for (uint8_t i = 0; i < IS31FL3731_I2C_PERSISTENCE; i++) {
-        if (i2c_transmit(addr << 1, i2c_transfer_buffer, 2, IS31FL3731_I2C_TIMEOUT) == 0) break;
+        if (i2c_writeReg(addr << 1, reg, &data, 1, IS31FL3731_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
     }
 #else
-    i2c_transmit(addr << 1, i2c_transfer_buffer, 2, IS31FL3731_I2C_TIMEOUT);
+    i2c_writeReg(addr << 1, reg, &data, 1, IS31FL3731_I2C_TIMEOUT);
 #endif
 }
 
@@ -64,26 +58,17 @@ void is31fl3731_select_page(uint8_t addr, uint8_t page) {
 }
 
 void is31fl3731_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
-    // assumes page 0 is already selected
+    // Assumes page 0 is already selected.
+    // Transmit PWM registers in 9 transfers of 16 bytes.
 
-    // transmit PWM registers in 9 transfers of 16 bytes
-    // i2c_transfer_buffer[] is 20 bytes
-
-    // iterate over the pwm_buffer contents at 16 byte intervals
-    for (int i = 0; i < IS31FL3731_PWM_REGISTER_COUNT; i += 16) {
-        // set the first register, e.g. 0x24, 0x34, 0x44, etc.
-        i2c_transfer_buffer[0] = 0x24 + i;
-        // copy the data from i to i+15
-        // device will auto-increment register for data after the first byte
-        // thus this sets registers 0x24-0x33, 0x34-0x43, etc. in one transfer
-        memcpy(i2c_transfer_buffer + 1, pwm_buffer + i, 16);
-
+    // Iterate over the pwm_buffer contents at 16 byte intervals.
+    for (uint8_t i = 0; i < IS31FL3731_PWM_REGISTER_COUNT; i += 16) {
 #if IS31FL3731_I2C_PERSISTENCE > 0
-        for (uint8_t i = 0; i < IS31FL3731_I2C_PERSISTENCE; i++) {
-            if (i2c_transmit(addr << 1, i2c_transfer_buffer, 17, IS31FL3731_I2C_TIMEOUT) == 0) break;
+        for (uint8_t j = 0; j < IS31FL3731_I2C_PERSISTENCE; j++) {
+            if (i2c_writeReg(addr << 1, 0x24 + i, pwm_buffer + i, 16, IS31FL3731_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
         }
 #else
-        i2c_transmit(addr << 1, i2c_transfer_buffer, 17, IS31FL3731_I2C_TIMEOUT);
+        i2c_writeReg(addr << 1, 0x24 + i, pwm_buffer + i, 16, IS31FL3731_I2C_TIMEOUT);
 #endif
     }
 }
