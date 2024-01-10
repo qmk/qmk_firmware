@@ -27,7 +27,19 @@
         "pin": "B15"
     },
     "rgblight": {
-        "led_count": 69
+        "led_count": 69,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     }, 
     "url": "https://www.gok.design/type-k",
     "maintainer": "Gondolindrim", 
