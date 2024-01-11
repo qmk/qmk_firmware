@@ -32,6 +32,8 @@ class BuildTarget:
         return f'{self.keyboard}:{self.keymap}'
 
     def __repr__(self):
+        if len(self._extra_args) > 0:
+            return f'BuildTarget(keyboard={self.keyboard}, keymap={self.keymap}, extra_args={self._extra_args})'
         return f'BuildTarget(keyboard={self.keyboard}, keymap={self.keymap})'
 
     def __eq__(self, __value: object) -> bool:
@@ -160,6 +162,8 @@ class KeyboardKeymapBuildTarget(BuildTarget):
         super().__init__(keyboard=keyboard, keymap=keymap, json=json)
 
     def __repr__(self):
+        if len(self._extra_args) > 0:
+            return f'KeyboardKeymapTarget(keyboard={self.keyboard}, keymap={self.keymap}, extra_args={self._extra_args})'
         return f'KeyboardKeymapTarget(keyboard={self.keyboard}, keymap={self.keymap})'
 
     def _load_json(self):
@@ -209,6 +213,8 @@ class JsonKeymapBuildTarget(BuildTarget):
         self._keymap_json = self._generated_files_path / 'keymap.json'
 
     def __repr__(self):
+        if len(self._extra_args) > 0:
+            return f'JsonKeymapTarget(keyboard={self.keyboard}, keymap={self.keymap}, path={self.json_path}, extra_args={self._extra_args})'
         return f'JsonKeymapTarget(keyboard={self.keyboard}, keymap={self.keymap}, path={self.json_path})'
 
     def _load_json(self):
