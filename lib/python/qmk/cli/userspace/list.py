@@ -31,7 +31,7 @@ def userspace_list(cli):
                 if len(this_build_targets) > 0:
                     if 'env' in e:
                         for t in this_build_targets:
-                            t.extra_args = e['env']
+                            t.extra_args = [(k, v) for k, v in e['env'].items()]
                     build_targets.extend(this_build_targets)
     else:
         build_targets = userspace.build_targets
