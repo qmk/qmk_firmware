@@ -17,6 +17,5 @@
 
 #include_next <mcuconf.h>
 
-/* enable TIM3, used for backlight PWM */
 #undef STM32_PWM_USE_TIM3
 #define STM32_PWM_USE_TIM3                  TRUE
