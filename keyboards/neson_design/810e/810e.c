@@ -15,7 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "810e.h"
+#include "quantum.h"
+#include "rgblight.h"
 #include "i2c_master.h"
 #include "is31fl3729.h"
 
@@ -364,8 +365,18 @@ void housekeeping_task_kb(void)
     housekeeping_task_user();
 }
 
-void rgblight_call_driver(rgb_led_t *start_led, uint8_t num_leds)
-{
+void rgblight_set(void) {
+    rgb_led_t *start_led = led + rgblight_ranges.clipping_start_pos;
+
+    extern rgblight_config_t rgblight_config;
+    if (!rgblight_config.enable) {
+        for (uint8_t i = rgblight_ranges.effect_start_pos; i < rgblight_ranges.effect_end_pos; i++) {
+            led[i].r = 0;
+            led[i].g = 0;
+            led[i].b = 0;
+        }
+    }
+
     for (uint8_t i = IS31FL3729_LED_BEGIN; i < IS31FL3729_LED_BEGIN+IS31FL3729_LED_TOTAL; i++) {
         IS31FL3729_set_color(i, start_led[i].r, start_led[i].g, start_led[i].b);
     }
