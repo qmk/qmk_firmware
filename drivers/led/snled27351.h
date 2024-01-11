@@ -171,7 +171,6 @@ void snled27351_init_drivers(void);
 void snled27351_init(uint8_t addr);
 void snled27351_select_page(uint8_t addr, uint8_t page);
 void snled27351_write_register(uint8_t addr, uint8_t reg, uint8_t data);
-void snled27351_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
 
 void snled27351_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
 void snled27351_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
