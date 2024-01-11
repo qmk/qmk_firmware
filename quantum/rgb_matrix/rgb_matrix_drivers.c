@@ -86,6 +86,10 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .flush         = snled27351_flush,
     .set_color     = snled27351_set_color,
     .set_color_all = snled27351_set_color_all,
+#        if defined(RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE)
+    .shutdown = snled27351_shutdown,
+    .exit_shutdown = snled27351_exit_shutdown
+#        endif
 };
 #elif defined(RGB_MATRIX_SNLED27351_SPI)
 const rgb_matrix_driver_t rgb_matrix_driver = {

@@ -19,7 +19,7 @@
 #ifdef LED_MATRIX_ENABLE
 /* LED Matrix Driver Configuration */
 #    define DRIVER_COUNT 1
-#    define DRIVER_ADDR_1 0b1110100
+#    define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_GND
 
 /* LED Matrix Configuration */
 #    define LED_MATRIX_LED_COUNT 109

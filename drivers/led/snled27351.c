@@ -16,6 +16,7 @@
 
 #include "snled27351.h"
 #include "i2c_master.h"
+#include "gpio.h"
 
 #define SNLED27351_PWM_REGISTER_COUNT 192
 #define SNLED27351_LED_CONTROL_REGISTER_COUNT 24
@@ -262,6 +263,24 @@ void snled27351_flush(void) {
 #        endif
 #    endif
 #endif
+}
+
+void snled27351_shutdown(void) {
+#    if defined(LED_DRIVER_SHUTDOWN_PIN)
+    writePinLow(LED_DRIVER_SHUTDOWN_PIN);
+#    else
+    for (uint8_t i = 0; i < SNLED27351_DRIVER_COUNT; i++)
+        snled27351_sw_shutdown(i);
+#    endif
+}
+
+void snled27351_exit_shutdown(void) {
+#    if defined(LED_DRIVER_SHUTDOWN_PIN)
+    writePinHigh(LED_DRIVER_SHUTDOWN_PIN);
+#    else
+    for (uint8_t i = 0; i < SNLED27351_DRIVER_COUNT; i++)
+        snled27351_sw_return_normal(i);
+#    endif
 }
 
 void snled27351_sw_return_normal(uint8_t addr) {
