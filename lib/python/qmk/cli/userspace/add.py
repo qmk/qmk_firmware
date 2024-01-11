@@ -20,9 +20,7 @@ def userspace_add(cli):
         cli.log.error('Could not determine QMK userspace location. Please run `qmk doctor` or `qmk userspace-doctor` to diagnose.')
         return False
 
-    build_env = None
-    if len(cli.args.env) > 0:
-        build_env = parse_env_vars(cli.args.env)
+    build_env = None if len(cli.args.env) == 0 else parse_env_vars(cli.args.env)
 
     userspace = UserspaceDefs(QMK_USERSPACE / 'qmk.json')
 
