@@ -166,9 +166,9 @@ def keyboard_folder_or_all(keyboard):
 
 
 def _find_name(path):
-    """Determine the keyboard name by stripping off the base_path and rules.mk.
+    """Determine the keyboard name by stripping off the base_path and filename.
     """
-    return path.replace(base_path, "").replace(os.path.sep + "rules.mk", "")
+    return path.replace(base_path, "").rsplit(os.path.sep, 1)[0]
 
 
 def keyboard_completer(prefix, action, parser, parsed_args):
@@ -181,8 +181,10 @@ def list_keyboards(resolve_defaults=True):
     """Returns a list of all keyboards - optionally processing any DEFAULT_FOLDER.
     """
     # We avoid pathlib here because this is performance critical code.
-    kb_wildcard = os.path.join(base_path, "**", "rules.mk")
-    paths = [path for path in glob(kb_wildcard, recursive=True) if os.path.sep + 'keymaps' + os.path.sep not in path]
+    paths = []
+    for marker in ['rules.mk', 'keyboard.json']:
+        kb_wildcard = os.path.join(base_path, "**", marker)
+        paths += [path for path in glob(kb_wildcard, recursive=True) if os.path.sep + 'keymaps' + os.path.sep not in path]
 
     found = map(_find_name, paths)
     if resolve_defaults:
