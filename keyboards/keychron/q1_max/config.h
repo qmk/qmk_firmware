@@ -38,14 +38,20 @@
 #    define BAT_CHARGING_PIN B13
 #    define BAT_CHARGING_LEVEL 0
 
-#    define BAT_LOW_LED_PIN B12
-#    define BAT_LOW_LED_PIN_ON_STATE 1
-
 #    define BT_HOST_DEVICES_COUNT 3
 
-#    if defined(RGB_MATRIX_ENABLE)
+#    if defined(RGB_MATRIX_ENABLE) || defined(LED_MATRIX_ENABLE)
 
 #        define LED_DRIVER_SHUTDOWN_PIN B7
+
+#        define BT_HOST_LED_MATRIX_LIST \
+            { 15, 16, 17 }
+
+#        define P2P4G_HOST_LED_MATRIX_LIST \
+            { 18 }
+
+#        define BAT_LEVEL_LED_LIST \
+            { 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 }
 
 /* Backlit disable timeout when keyboard is disconnected(unit: second) */
 #        define DISCONNECTED_BACKLIGHT_DISABLE_TIMEOUT 40
@@ -76,5 +82,4 @@
 #define FN_KEY_2 MO(3)
 #define FN_BL_TRIG_KEY KC_END
 
-#define P2P4G_CELAR_MASK 0
 #define MATRIX_IO_DELAY 10
