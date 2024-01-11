@@ -139,7 +139,7 @@ void is31fl3218_set_led_control_register(uint8_t index, bool red, bool green, bo
 
 void is31fl3218_update_pwm_buffers(void) {
     if (g_pwm_buffer_update_required) {
-        is31fl3218_write_pwm_buffer(g_pwm_buffer);
+        is31fl3218_write_pwm_buffer();
         // Load PWM registers and LED Control register data
         is31fl3218_write_register(IS31FL3218_REG_UPDATE, 0x01);
 
