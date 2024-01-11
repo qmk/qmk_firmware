@@ -19,7 +19,7 @@ Flashing example for this keyboard:
 qmk flash -kb grabshell -km default
 ```
 
-### Release(Beta):
+### Release v1.3.6:
 Grabshell does not have an external physical reset button.　The DFU state in the bootloader can be accessed in 2 ways:
 
 * **Bootmagic reset**: hold down the key at (0,0), commonly programmed as *Esc* in the matrix (usually the top left key or Escape) and plug in the keyboard
