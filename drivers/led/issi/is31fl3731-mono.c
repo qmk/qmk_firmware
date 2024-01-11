@@ -68,7 +68,7 @@ void is31fl3731_write_pwm_buffer(uint8_t addr, uint8_t index) {
             if (i2c_writeReg(addr << 1, 0x24 + i, g_pwm_buffer[index] + i, 16, IS31FL3731_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
         }
 #else
-        i2c_writeReg(addr << 1, 0x24 + i, pwm_buffer + i, 16, IS31FL3731_I2C_TIMEOUT);
+        i2c_writeReg(addr << 1, 0x24 + i, g_pwm_buffer[index] + i, 16, IS31FL3731_I2C_TIMEOUT);
 #endif
     }
 }
