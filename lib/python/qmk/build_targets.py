@@ -53,11 +53,6 @@ class BuildTarget:
         if compiledb is not None:
             self._compiledb = compiledb
 
-    def extra_args(self, ex_args: List[Tuple[str, str]]):
-        self._extra_args = []
-        for k, v in ex_args:
-            self._extra_args.append((k, v))
-
     @property
     def keyboard(self) -> str:
         return self._keyboard
@@ -77,6 +72,16 @@ class BuildTarget:
     @property
     def dotty(self) -> Dotty:
         return dotty(self.json)
+
+    @property
+    def extra_args(self) -> List[Tuple[str, str]]:
+        return self._extra_args
+
+    @extra_args.setter
+    def extra_args(self, ex_args: List[Tuple[str, str]]):
+        self._extra_args = []
+        for e in ex_args:
+            self._extra_args.append((e[0], e[1]))
 
     def _common_make_args(self, dry_run: bool = False, build_target: str = None):
         compile_args = [

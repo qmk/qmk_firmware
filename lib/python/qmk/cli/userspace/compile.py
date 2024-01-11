@@ -25,17 +25,15 @@ def userspace_compile(cli):
     userspace = UserspaceDefs(QMK_USERSPACE / 'qmk.json')
 
     build_targets = []
-    keyboard_keymap_targets = []
     for e in userspace.build_targets:
         if isinstance(e, Path):
             build_targets.append(JsonKeymapBuildTarget(e))
         elif isinstance(e, dict):
-            if 'env' in e:
-                keyboard_keymap_targets.append((e['keyboard'], e['keymap'], e['env']))
-            else:
-                keyboard_keymap_targets.append((e['keyboard'], e['keymap']))
-
-    if len(keyboard_keymap_targets) > 0:
-        build_targets.extend(search_keymap_targets(keyboard_keymap_targets))
+            this_build_targets = search_keymap_targets([(e['keyboard'], e['keymap'])])
+            if len(this_build_targets) > 0:
+                if 'env' in e:
+                    for t in this_build_targets:
+                        t.extra_args = [(k, v) for k, v in e['env'].items()]
+                build_targets.extend(this_build_targets)
 
     mass_compile_targets(list(set(build_targets)), cli.args.clean, cli.args.dry_run, cli.config.userspace_compile.no_temp, cli.config.userspace_compile.parallel, **build_environment(cli.args.env))

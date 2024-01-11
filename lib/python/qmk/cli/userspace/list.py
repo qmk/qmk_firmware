@@ -27,7 +27,12 @@ def userspace_list(cli):
             if isinstance(e, Path):
                 build_targets.append(e)
             elif isinstance(e, dict) or isinstance(e, Dotty):
-                build_targets.extend(search_keymap_targets([(e['keyboard'], e['keymap'])]))
+                this_build_targets = search_keymap_targets([(e['keyboard'], e['keymap'])])
+                if len(this_build_targets) > 0:
+                    if 'env' in e:
+                        for t in this_build_targets:
+                            t.extra_args = e['env']
+                    build_targets.extend(this_build_targets)
     else:
         build_targets = userspace.build_targets
 
@@ -40,12 +45,19 @@ def userspace_list(cli):
             # keyboard/keymap dict from userspace
             keyboard = e['keyboard']
             keymap = e['keymap']
+            extra_args = [(k, v) for k, v in e['env'].items()] if 'env' in e else []
         elif isinstance(e, BuildTarget):
             # BuildTarget from search_keymap_targets()
             keyboard = e.keyboard
             keymap = e.keymap
+            extra_args = e.extra_args
+
+        extra_args_str = ''
+        if len(extra_args) > 0:
+            extra_args_str = ', '.join([f'{{fg_cyan}}{a[0]}={a[1]}{{fg_reset}}' for a in extra_args])
+            extra_args_str = f' ({{fg_cyan}}{extra_args_str}{{fg_reset}})'
 
         if is_all_keyboards(keyboard) or is_keymap_target(keyboard_folder(keyboard), keymap):
-            cli.log.info(f'Keyboard: {{fg_cyan}}{keyboard}{{fg_reset}}, keymap: {{fg_cyan}}{keymap}{{fg_reset}}')
+            cli.log.info(f'Keyboard: {{fg_cyan}}{keyboard}{{fg_reset}}, keymap: {{fg_cyan}}{keymap}{{fg_reset}}{extra_args_str}')
         else:
-            cli.log.warn(f'Keyboard: {{fg_cyan}}{keyboard}{{fg_reset}}, keymap: {{fg_cyan}}{keymap}{{fg_reset}} -- not found!')
+            cli.log.warn(f'Keyboard: {{fg_cyan}}{keyboard}{{fg_reset}}, keymap: {{fg_cyan}}{keymap}{{fg_reset}}{extra_args_str} -- not found!')
