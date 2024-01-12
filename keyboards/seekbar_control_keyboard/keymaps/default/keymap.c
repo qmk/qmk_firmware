@@ -9,6 +9,11 @@ enum {
     TD_BACK_PREV,
 };
 
+enum layer {
+    LAY_BASIC = 0,
+    LAY_FN,
+};
+
 // tap danceの定義
 tap_dance_action_t tap_dance_actions[] = {
     [TD_FORWARD_NEXT]  = ACTION_TAP_DANCE_DOUBLE(KC_MEDIA_FAST_FORWARD, KC_MEDIA_NEXT_TRACK),
@@ -23,9 +28,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │ D │ E │ F │
      * └───┴───┴───┘
      */
-    [0] = LAYOUT_ortho_3x2(
+    [LAY_BASIC] = LAYOUT_ortho_3x2(
         TD(TD_BACK_PREV),   KC_MEDIA_PLAY_PAUSE,   TD(TD_FORWARD_NEXT),
-        KC_NO,   KC_NO,   KC_SYSTEM_SLEEP
+        KC_NO,   MO(LAY_FN),   KC_SYSTEM_SLEEP
+    ),
+    [LAY_FN] = LAYOUT_ortho_3x2(
+        KC_NO,   KC_NO,   KC_NO,
+        KC_NO,   KC_NO,   KC_NO
     )
 };
 
