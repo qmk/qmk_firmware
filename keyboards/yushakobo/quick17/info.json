@@ -10,7 +10,9 @@
     },
     "rgb_matrix": {
         "driver": "ws2812",
+        "max_brightness": 150,
         "sat_steps": 8,
+        "sleep": true,
         "val_steps": 8,
         "speed_steps": 10
     },

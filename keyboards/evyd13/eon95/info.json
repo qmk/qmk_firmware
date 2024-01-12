@@ -13,6 +13,9 @@
         "rows": ["D1", "D0", "D3", "D2", "D6", "D4", "D7", "B4", "B5", "B6", "C6", "C7"]
     },
     "diode_direction": "COL2ROW",
+    "dynamic_keymap": {
+        "layer_count": 3
+    },
     "indicators": {
         "caps_lock": "D5",
         "num_lock": "B7",

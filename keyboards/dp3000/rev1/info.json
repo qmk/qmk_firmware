@@ -51,7 +51,9 @@
         "max_brightness": 180,
         "sat_steps": 8,
         "speed_steps": 10,
-        "val_steps": 8
+        "val_steps": 8,
+        "react_on_keyup": true,
+        "sleep": true
     },
     "ws2812": {
         "pin": "B5"
