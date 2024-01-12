@@ -8,6 +8,9 @@
  *  These options are also useful to firmware size reduction.
  */
 
+/* tap dance */
+#define TAPPING_TERM 175
+
 /* disable debug print */
 //#define NO_DEBUG
 
