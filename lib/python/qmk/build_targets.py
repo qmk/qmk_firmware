@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 import json
 import shutil
-from typing import List, Tuple, Union
+from typing import Dict, List, Tuple, Union
 from pathlib import Path
 from dotty_dict import dotty, Dotty
 from milc import cli
@@ -25,14 +25,14 @@ class BuildTarget:
         self._target = f'{self._keyboard_safe}_{self.keymap}'
         self._intermediate_output = Path(f'{INTERMEDIATE_OUTPUT_PREFIX}{self._target}')
         self._generated_files_path = self._intermediate_output / 'src'
-        self._extra_args = []
+        self._extra_args = {}
         self._json = json.to_dict() if isinstance(json, Dotty) else json
 
     def __str__(self):
         return f'{self.keyboard}:{self.keymap}'
 
     def __repr__(self):
-        if len(self._extra_args) > 0:
+        if len(self._extra_args.items()) > 0:
             return f'BuildTarget(keyboard={self.keyboard}, keymap={self.keymap}, extra_args={self._extra_args})'
         return f'BuildTarget(keyboard={self.keyboard}, keymap={self.keymap})'
 
@@ -76,14 +76,12 @@ class BuildTarget:
         return dotty(self.json)
 
     @property
-    def extra_args(self) -> List[Tuple[str, str]]:
-        return self._extra_args
+    def extra_args(self) -> Dict[str, str]:
+        return {k: v for k, v in self._extra_args.items()}
 
     @extra_args.setter
-    def extra_args(self, ex_args: List[Tuple[str, str]]):
-        self._extra_args = []
-        for e in ex_args:
-            self._extra_args.append((e[0], e[1]))
+    def extra_args(self, ex_args: Dict[str, str]):
+        self._extra_args = {k: v for k, v in ex_args.items()}
 
     def _common_make_args(self, dry_run: bool = False, build_target: str = None):
         compile_args = [
@@ -119,8 +117,8 @@ class BuildTarget:
             'QMK_BIN="qmk"',
         ])
 
-        for e in self._extra_args:
-            compile_args.append(f'{e[0]}={e[1]}')
+        for k, v in self._extra_args.items():
+            compile_args.append(f'{k}={v}')
 
         return compile_args
 
@@ -162,7 +160,7 @@ class KeyboardKeymapBuildTarget(BuildTarget):
         super().__init__(keyboard=keyboard, keymap=keymap, json=json)
 
     def __repr__(self):
-        if len(self._extra_args) > 0:
+        if len(self._extra_args.items()) > 0:
             return f'KeyboardKeymapTarget(keyboard={self.keyboard}, keymap={self.keymap}, extra_args={self._extra_args})'
         return f'KeyboardKeymapTarget(keyboard={self.keyboard}, keymap={self.keymap})'
 
@@ -213,7 +211,7 @@ class JsonKeymapBuildTarget(BuildTarget):
         self._keymap_json = self._generated_files_path / 'keymap.json'
 
     def __repr__(self):
-        if len(self._extra_args) > 0:
+        if len(self._extra_args.items()) > 0:
             return f'JsonKeymapTarget(keyboard={self.keyboard}, keymap={self.keymap}, path={self.json_path}, extra_args={self._extra_args})'
         return f'JsonKeymapTarget(keyboard={self.keyboard}, keymap={self.keymap}, path={self.json_path})'
 

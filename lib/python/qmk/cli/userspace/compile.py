@@ -33,7 +33,7 @@ def userspace_compile(cli):
             if len(this_build_targets) > 0:
                 if 'env' in e:
                     for t in this_build_targets:
-                        t.extra_args = [(k, v) for k, v in e['env'].items()]
+                        t.extra_args = e['env']
                 build_targets.extend(this_build_targets)
 
     mass_compile_targets(list(set(build_targets)), cli.args.clean, cli.args.dry_run, cli.config.userspace_compile.no_temp, cli.config.userspace_compile.parallel, **build_environment(cli.args.env))

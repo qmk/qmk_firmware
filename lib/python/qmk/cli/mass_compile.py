@@ -40,7 +40,7 @@ def mass_compile_targets(targets: List[BuildTarget], clean: bool, dry_run: bool,
                 command = target.compile_command(**env)
                 command[0] = '+@$(MAKE)'  # Override the make so that we can use jobserver to handle parallelism
                 keyboard_safe = keyboard_name.replace('/', '_')
-                extra_args = '_'.join([f"{k}_{v}" for k, v in target.extra_args])
+                extra_args = '_'.join([f"{k}_{v}" for k, v in target.extra_args.items()])
                 build_log = f"{QMK_FIRMWARE}/.build/build.log.{os.getpid()}.{keyboard_safe}.{keymap_name}"
                 failed_log = f"{QMK_FIRMWARE}/.build/failed.log.{os.getpid()}.{keyboard_safe}.{keymap_name}"
                 if len(extra_args) > 0:
