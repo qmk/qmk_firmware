@@ -3,7 +3,7 @@
 ![Grabshell](https://i.imgur.com/qCp6ZMK.jpeg)
 ![Grabshell](https://i.imgur.com/nFFXDRv.jpeg)
 
-* Keyboard Maintainer: [Grabshell](https://github.com/grabshell)
+* Keyboard Maintainer: [Grabshell](https://github.com/mikubravo)
 * Hardware Supported: Grabshell
 * Hardware Availability: [Grabshell](https://grabshell.site/)
 
