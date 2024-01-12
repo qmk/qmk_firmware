@@ -13,6 +13,9 @@ from qmk.commands import find_make, get_make_parallel_args, build_environment
 from qmk.search import search_keymap_targets, search_make_targets
 from qmk.build_targets import BuildTarget, JsonKeymapBuildTarget
 
+# These must be kept in the order in which they're applied to $(TARGET) in the makefiles in order to ensure consistency.
+TARGET_FILENAME_MODIFIERS = ['FORCE_LAYOUT', 'CONVERT_TO']
+
 
 def mass_compile_targets(targets: List[BuildTarget], clean: bool, dry_run: bool, no_temp: bool, parallel: int, **env):
     if len(targets) == 0:
@@ -35,11 +38,21 @@ def mass_compile_targets(targets: List[BuildTarget], clean: bool, dry_run: bool,
             for target in sorted(targets, key=lambda t: (t.keyboard, t.keymap)):
                 keyboard_name = target.keyboard
                 keymap_name = target.keymap
+
+                keyboard_safe = keyboard_name.replace('/', '_')
+
+                # Work out the intended filename
+                target_filename = f"{keyboard_safe}_{keymap_name}"
+                for modifier in TARGET_FILENAME_MODIFIERS:
+                    if modifier in target.extra_args:
+                        target_filename += f"_{target.extra_args[modifier]}"
+                    elif modifier in env:
+                        target_filename += f"_{env[modifier]}"
+
                 target.configure(parallel=1)  # We ignore parallelism on a per-build basis as we defer to the parent make invocation
                 target.prepare_build(**env)  # If we've got json targets, allow them to write out any extra info to .build before we kick off `make`
                 command = target.compile_command(**env)
                 command[0] = '+@$(MAKE)'  # Override the make so that we can use jobserver to handle parallelism
-                keyboard_safe = keyboard_name.replace('/', '_')
                 extra_args = '_'.join([f"{k}_{v}" for k, v in target.extra_args.items()])
                 build_log = f"{QMK_FIRMWARE}/.build/build.log.{os.getpid()}.{keyboard_safe}.{keymap_name}"
                 failed_log = f"{QMK_FIRMWARE}/.build/failed.log.{os.getpid()}.{keyboard_safe}.{keymap_name}"
@@ -49,9 +62,9 @@ def mass_compile_targets(targets: List[BuildTarget], clean: bool, dry_run: bool,
                 # yapf: disable
                 f.write(
                     f"""\
-.PHONY: {keyboard_safe}_{keymap_name}_{extra_args}_binary
-all: {keyboard_safe}_{keymap_name}_{extra_args}_binary
-{keyboard_safe}_{keymap_name}_{extra_args}_binary:
+.PHONY: {target_filename}_binary
+all: {target_filename}_binary
+{target_filename}_binary:
 	@rm -f "{build_log}" || true
 	@echo "Compiling QMK Firmware for target: '{keyboard_name}:{keymap_name}'..." >>"{build_log}"
 	{' '.join(command)} \\
@@ -69,9 +82,9 @@ all: {keyboard_safe}_{keymap_name}_{extra_args}_binary
                     # yapf: disable
                     f.write(
                         f"""\
-	@rm -rf "{QMK_FIRMWARE}/.build/{keyboard_safe}_{keymap_name}.elf" 2>/dev/null || true
-	@rm -rf "{QMK_FIRMWARE}/.build/{keyboard_safe}_{keymap_name}.map" 2>/dev/null || true
-	@rm -rf "{QMK_FIRMWARE}/.build/obj_{keyboard_safe}_{keymap_name}" || true
+	@rm -rf "{QMK_FIRMWARE}/.build/{target_filename}.elf" 2>/dev/null || true
+	@rm -rf "{QMK_FIRMWARE}/.build/{target_filename}.map" 2>/dev/null || true
+	@rm -rf "{QMK_FIRMWARE}/.build/obj_{target_filename}" || true
 """# noqa
                     )
                     # yapf: enable
