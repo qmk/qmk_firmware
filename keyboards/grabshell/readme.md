@@ -29,6 +29,7 @@ Grabshell does not have an external physical reset button.　The DFU state in th
 * **Keycode in layout**: press the key mapped with VIA to `QK_BOOT` if it is available
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
 Grabshell firmwares are verified to compile with QMK 0.23.1.
 
 ### Pointing Device Mode
