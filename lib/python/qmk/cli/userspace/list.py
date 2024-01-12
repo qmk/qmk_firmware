@@ -45,7 +45,7 @@ def userspace_list(cli):
             # keyboard/keymap dict from userspace
             keyboard = e['keyboard']
             keymap = e['keymap']
-            extra_args = [(k, v) for k, v in e['env'].items()] if 'env' in e else []
+            extra_args = e['env'] if 'env' in e else {}
         elif isinstance(e, BuildTarget):
             # BuildTarget from search_keymap_targets()
             keyboard = e.keyboard
@@ -54,7 +54,7 @@ def userspace_list(cli):
 
         extra_args_str = ''
         if len(extra_args) > 0:
-            extra_args_str = ', '.join([f'{{fg_cyan}}{a[0]}={a[1]}{{fg_reset}}' for a in extra_args])
+            extra_args_str = ', '.join([f'{{fg_cyan}}{k}={v}{{fg_reset}}' for k, v in extra_args.items()])
             extra_args_str = f' ({{fg_cyan}}{extra_args_str}{{fg_reset}})'
 
         if is_all_keyboards(keyboard) or is_keymap_target(keyboard_folder(keyboard), keymap):
