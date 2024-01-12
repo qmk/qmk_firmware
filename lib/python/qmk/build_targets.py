@@ -13,6 +13,9 @@ from qmk.info import keymap_json
 from qmk.keymap import locate_keymap
 from qmk.path import is_under_qmk_firmware, is_under_qmk_userspace
 
+# These must be kept in the order in which they're applied to $(TARGET) in the makefiles in order to ensure consistency.
+TARGET_FILENAME_MODIFIERS = ['FORCE_LAYOUT', 'CONVERT_TO']
+
 
 class BuildTarget:
     def __init__(self, keyboard: str, keymap: str, json: Union[dict, Dotty] = None):
@@ -22,9 +25,6 @@ class BuildTarget:
         self._parallel = 1
         self._clean = False
         self._compiledb = False
-        self._target = f'{self._keyboard_safe}_{self.keymap}'
-        self._intermediate_output = Path(f'{INTERMEDIATE_OUTPUT_PREFIX}{self._target}')
-        self._generated_files_path = self._intermediate_output / 'src'
         self._extra_args = {}
         self._json = json.to_dict() if isinstance(json, Dotty) else json
 
@@ -83,7 +83,20 @@ class BuildTarget:
     def extra_args(self, ex_args: Dict[str, str]):
         self._extra_args = {k: v for k, v in ex_args.items()}
 
-    def _common_make_args(self, dry_run: bool = False, build_target: str = None):
+    def target_name(self, **env_vars) -> str:
+        # Work out the intended target name
+        target = f'{self._keyboard_safe}_{self.keymap}'
+        for modifier in TARGET_FILENAME_MODIFIERS:
+            if modifier in self._extra_args:
+                target += f"_{self._extra_args[modifier]}"
+            elif modifier in env_vars:
+                target += f"_{env_vars[modifier]}"
+        return target
+
+    def _intermediate_output(self, **env_vars) -> Path:
+        return Path(f'{INTERMEDIATE_OUTPUT_PREFIX}{self.target_name(**env_vars)}')
+
+    def _common_make_args(self, dry_run: bool = False, build_target: str = None, **env_vars):
         compile_args = [
             find_make(),
             *get_make_parallel_args(self._parallel),
@@ -105,12 +118,14 @@ class BuildTarget:
         if build_target:
             compile_args.append(build_target)
 
+        intermediate_output = self._intermediate_output(**env_vars)
+
         compile_args.extend([
             f'KEYBOARD={self.keyboard}',
             f'KEYMAP={self.keymap}',
             f'KEYBOARD_FILESAFE={self._keyboard_safe}',
-            f'TARGET={self._target}',
-            f'INTERMEDIATE_OUTPUT={self._intermediate_output}',
+            f'TARGET={self._keyboard_safe}_{self.keymap}',  # don't use self.target_name() here, it's rebuilt on the makefile side
+            f'INTERMEDIATE_OUTPUT={intermediate_output}',
             f'VERBOSE={verbose}',
             f'COLOR={color}',
             'SILENT=false',
@@ -171,7 +186,7 @@ class KeyboardKeymapBuildTarget(BuildTarget):
         pass
 
     def compile_command(self, build_target: str = None, dry_run: bool = False, **env_vars) -> List[str]:
-        compile_args = self._common_make_args(dry_run=dry_run, build_target=build_target)
+        compile_args = self._common_make_args(dry_run=dry_run, build_target=build_target, env_vars=env_vars)
 
         for key, value in env_vars.items():
             compile_args.append(f'{key}={value}')
@@ -208,8 +223,6 @@ class JsonKeymapBuildTarget(BuildTarget):
 
         super().__init__(keyboard=json['keyboard'], keymap=json['keymap'], json=json)
 
-        self._keymap_json = self._generated_files_path / 'keymap.json'
-
     def __repr__(self):
         if len(self._extra_args.items()) > 0:
             return f'JsonKeymapTarget(keyboard={self.keyboard}, keymap={self.keymap}, path={self.json_path}, extra_args={self._extra_args})'
@@ -219,35 +232,42 @@ class JsonKeymapBuildTarget(BuildTarget):
         pass  # Already loaded in constructor
 
     def prepare_build(self, build_target: str = None, dry_run: bool = False, **env_vars) -> None:
+        intermediate_output = self._intermediate_output(**env_vars)
+        generated_files_path = intermediate_output / 'src'
+        keymap_json = generated_files_path / 'keymap.json'
+
         if self._clean:
-            if self._intermediate_output.exists():
-                shutil.rmtree(self._intermediate_output)
+            if intermediate_output.exists():
+                shutil.rmtree(intermediate_output)
 
         # begin with making the deepest folder in the tree
-        self._generated_files_path.mkdir(exist_ok=True, parents=True)
+        generated_files_path.mkdir(exist_ok=True, parents=True)
 
         # Compare minified to ensure consistent comparison
         new_content = json.dumps(self.json, separators=(',', ':'))
-        if self._keymap_json.exists():
-            old_content = json.dumps(json.loads(self._keymap_json.read_text(encoding='utf-8')), separators=(',', ':'))
+        if keymap_json.exists():
+            old_content = json.dumps(json.loads(keymap_json.read_text(encoding='utf-8')), separators=(',', ':'))
             if old_content == new_content:
                 new_content = None
 
         # Write the keymap.json file if different so timestamps are only updated
         # if the content changes -- running `make` won't treat it as modified.
         if new_content:
-            self._keymap_json.write_text(new_content, encoding='utf-8')
+            keymap_json.write_text(new_content, encoding='utf-8')
 
     def compile_command(self, build_target: str = None, dry_run: bool = False, **env_vars) -> List[str]:
-        compile_args = self._common_make_args(dry_run=dry_run, build_target=build_target)
+        compile_args = self._common_make_args(dry_run=dry_run, build_target=build_target, env_vars=env_vars)
+        intermediate_output = self._intermediate_output(**env_vars)
+        generated_files_path = intermediate_output / 'src'
+        keymap_json = generated_files_path / 'keymap.json'
         compile_args.extend([
-            f'MAIN_KEYMAP_PATH_1={self._intermediate_output}',
-            f'MAIN_KEYMAP_PATH_2={self._intermediate_output}',
-            f'MAIN_KEYMAP_PATH_3={self._intermediate_output}',
-            f'MAIN_KEYMAP_PATH_4={self._intermediate_output}',
-            f'MAIN_KEYMAP_PATH_5={self._intermediate_output}',
-            f'KEYMAP_JSON={self._keymap_json}',
-            f'KEYMAP_PATH={self._generated_files_path}',
+            f'MAIN_KEYMAP_PATH_1={intermediate_output}',
+            f'MAIN_KEYMAP_PATH_2={intermediate_output}',
+            f'MAIN_KEYMAP_PATH_3={intermediate_output}',
+            f'MAIN_KEYMAP_PATH_4={intermediate_output}',
+            f'MAIN_KEYMAP_PATH_5={intermediate_output}',
+            f'KEYMAP_JSON={keymap_json}',
+            f'KEYMAP_PATH={generated_files_path}',
         ])
 
         for key, value in env_vars.items():
