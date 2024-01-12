@@ -9,7 +9,9 @@
         "device_version": "0.0.1"
     },
     "rgb_matrix": {
-        "driver": "ws2812"
+        "driver": "ws2812",
+        "max_brightness": 50,
+        "sleep": true
     },
     "matrix_pins": {
         "cols": ["D1", "E6", "F7", "B1", "B3", "B2", "D0"],

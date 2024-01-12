@@ -21,8 +21,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define RGB_MATRIX_SLEEP
-
 /* External spi flash */
 #define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN B14
 
@@ -34,5 +32,3 @@
 
 #define AW20216S_CS_PIN_1 A15
 #define AW20216S_EN_PIN_1 C13
-
-#define RGB_MATRIX_LED_COUNT 71
