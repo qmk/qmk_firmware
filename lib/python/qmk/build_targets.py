@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 import json
 import shutil
-from typing import Dict, List, Tuple, Union
+from typing import Dict, List, Union
 from pathlib import Path
 from dotty_dict import dotty, Dotty
 from milc import cli
