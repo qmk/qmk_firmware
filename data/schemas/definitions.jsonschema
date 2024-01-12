@@ -66,7 +66,7 @@
         "prefixItems": [
             {"$ref": "#/keyboard"},
             {"$ref": "#/filename"},
-            {"$ref": "#/env_array"}
+            {"$ref": "#/kvp_object"}
         ],
         "minItems": 3,
         "maxItems": 3,
@@ -103,6 +103,10 @@
         "minLength": 2,
         "maxLength": 7,
         "pattern": "^[A-Z][A-Zs_0-9]*$"
+    },
+    "kvp_object": {
+        "type": "object",
+        "additionalProperties": {"type": "string"}
     },
     "layout_macro": {
         "oneOf": [

@@ -106,11 +106,7 @@ class UserspaceDefs:
             if isinstance(e, dict):
                 entry = [e['keyboard'], e['keymap']]
                 if 'env' in e:
-                    env_array = []
-                    for k, v in e['env'].items():
-                        env_array.append([k, v])
-                    if len(env_array) > 0:
-                        entry.append(env_array)
+                    entry.append(e['env'])
                 target_json['build_targets'].append(entry)
             elif isinstance(e, Path):
                 target_json['build_targets'].append(str(e.relative_to(self.path.parent)))
@@ -197,8 +193,7 @@ class UserspaceDefs:
     def __load_v1_1_target(self, e):
         # v1.1 adds support for a third item in the build target tuple; kvp's for environment
         if isinstance(e, list) and len(e) == 3:
-            build_env = {k: v for k, v in e[2]}
-            self.add_target(keyboard=e[0], keymap=e[1], build_env=build_env, do_print=False)
+            self.add_target(keyboard=e[0], keymap=e[1], build_env=e[2], do_print=False)
         else:
             self.__load_v1_target(e)
 
