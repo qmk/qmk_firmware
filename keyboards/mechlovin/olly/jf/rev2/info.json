@@ -1,6 +1,5 @@
 {
     "keyboard_name": "Olly JF Rev2",
-
     "bootloader": "stm32duino",
     "features": {
         "command": true,
