@@ -1,4 +1,4 @@
-// Copyright 2019 Matthew Adereth
+// Copyright 2017 Matthew Adereth
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
