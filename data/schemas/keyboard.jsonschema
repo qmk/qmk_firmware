@@ -752,6 +752,7 @@
                     "type": "string",
                     "enum": ["busywait", "interrupt", "usart", "vendor"]
                 }
+                "no_mouse_reset": {"type": "boolean"},
             }
         },
         "split": {

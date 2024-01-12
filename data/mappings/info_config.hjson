@@ -129,6 +129,7 @@
     // PS/2
     "PS2_CLOCK_PIN": {"info_key": "ps2.clock_pin"},
     "PS2_DATA_PIN": {"info_key": "ps2.data_pin"},
+    "PS2_MOUSE_DISABLE_RESET": {"info_key": "ps2.no_mouse_reset", "value_type": "bool"},
 
     // RGB Matrix
     "RGB_MATRIX_CENTER": {"info_key": "rgb_matrix.center_point", "value_type": "array.int"},

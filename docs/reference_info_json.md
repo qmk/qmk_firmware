@@ -514,6 +514,9 @@ Configures the [PS/2](features/ps2_mouse) feature.
     * `mouse_enabled`
         * Enable the PS/2 mouse handling.
         * Default: `false`
+    * `no_mouse_reset`
+        * Disable sending "Reset" command in PS/2 mouse init sequence.
+        * Default: `false`
 
 ## QMK LUFA Bootloader {#qmk-lufa-bootloader}
 
