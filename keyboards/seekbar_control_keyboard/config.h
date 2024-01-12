@@ -9,7 +9,11 @@
  */
 
 /* tap dance */
-#define TAPPING_TERM 175
+#define TAPPING_TERM 275
+
+/* encoders */
+#define ENCODERS_PAD_A { F7 }
+#define ENCODERS_PAD_B { B1 }
 
 /* disable debug print */
 //#define NO_DEBUG
