@@ -7,19 +7,21 @@ TKL H87/88c compatible PCB with support for the most common layouts.
 * Keyboard Maintainer: [Studio Kestra](https://github.com/studiokestra/)
 * Hardware Supported: Most H87C compatible keyboards
 * Hardware Availability: https://RNDKBD.com; https://geon.works/
-* Rev1 firmware is used for Galatea PCBs with no RGB underglow.
-* Rev2 firmware is used for Galatea PCBs with RGB underglow.
-* Rev3 firmware is used for Galatea PCBs with RP2040 chip w/ RGB underglow.
+    * Rev1: no RGB underglow.
+    * Rev2: with RGB underglow.
+    * Rev3: with RP2040 controller and RGB underglow.
 
 Make example for this keyboard (after setting up your build environment):
 
     make studiokestra/galatea/rev1:default
     make studiokestra/galatea/rev2:default
+    make studiokestra/galatea/rev3:default
 
 Flashing example for this keyboard:
 
     make studiokestra/galatea/rev1:default:flash
     make studiokestra/galatea/rev2:default:flash
+    make studiokestra/galatea/rev3:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
