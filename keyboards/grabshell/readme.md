@@ -1,7 +1,7 @@
 # Grabshell
 
-![Grabshell](https://imgur.com/qCp6ZMK)
-![Grabshell](https://imgur.com/nFFXDRv)
+![Grabshell](https://i.imgur.com/qCp6ZMK.jpeg)
+![Grabshell](https://i.imgur.com/nFFXDRv.jpeg)
 
 * Keyboard Maintainer: [Grabshell](https://github.com/grabshell)
 * Hardware Supported: Grabshell
