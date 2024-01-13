@@ -4,5 +4,6 @@
         "rows": ["A5", "A4", "A3", "A2"]
     },
     "diode_direction": "COL2ROW",
-    "development_board": "bluepill"
+    "processor": "STM32F103",
+    "bootloader": "stm32duino"
 }
