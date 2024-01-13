@@ -47,14 +47,14 @@ enum custom_keycodes {
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = LAYOUT_ergodox_pretty(
-  ALT_TAB,         KC_1,               KC_2,                 KC_3,                KC_4,                  KC_5,    KC_BACKSLASH,              LCTL(KC_H),     KC_6,                  KC_7,                  KC_8,                      KC_9,                 KC_0,                   KC_DELETE,
-  KC_TAB,          KC_Q,               KC_W,                 KC_F,                KC_P,                  KC_B,    KC_SLASH,                  KC_DQT,         KC_J,                  KC_L,                  KC_U,                      KC_Y,                 KC_BSPC,                KC_BSPC,
+  ALT_TAB,         KC_1,               KC_2,                 KC_3,                KC_4,                  KC_5,    KC_BACKSLASH,              LCTL(KC_H),     KC_6,                  KC_7,                  KC_8,                      KC_9,                 KC_0,                   LALT(KC_X),
+  KC_TAB,          KC_Q,               KC_W,                 KC_F,                KC_P,                  KC_B,    KC_LBRC,                   KC_RBRC,        KC_J,                  KC_L,                  KC_U,                      KC_Y,                 KC_TRNS,                KC_TRNS,
   KC_ESC,          KC_A,               KC_R,                 KC_S,                KC_T,                  KC_G,                                               KC_M,                  KC_N,                  KC_E,                      KC_I,                 KC_O,                   KC_ENT,
-  KC_LSFT,         KC_Z,               KC_X,                 KC_C,                KC_D,                  KC_V,    KC_GRAVE,                  KC_COLON,       KC_K,                  KC_H,                  KC_COMMA,                  KC_DOT,               KC_MINUS,               KC_RSFT,
-  KC_TRNS,         KC_LBRC,            KC_LCBR,              KC_SEMICOLON,        MO(SYMB),                                                                                         KC_LGUI,               KC_LGUI,                   KC_RCBR,              KC_RBRC,                KC_TRNS,
-                                                             KC_LT,               KC_GT,                                                    KC_VOLU,         KC_GT,
+  KC_LSFT,         KC_Z,               KC_X,                 KC_C,                KC_D,                  KC_V,    KC_QUOT,                   KC_SEMICOLON,   KC_K,                  KC_H,                  KC_COMMA,                  KC_DOT,               KC_MINUS,               KC_RSFT,
+  KC_TRNS,         KC_TRNS,            KC_DELETE,            KC_BSPC,             MO(SYMB),                                                                                         KC_LGUI,               KC_TRNS,                   KC_TRNS,              KC_TRNS,                KC_TRNS,
+                                                             KC_LT,               KC_GT,                                                    KC_VOLU,         KC_TRNS,
                                                                                   KC_TRNS,                                                  KC_VOLD,
-                                                     KC_SPC, KC_ENT,             LALT(KC_X),                                                KC_QUOT,         KC_LALT,               KC_LCTL
+                                                     KC_SPC, KC_ENT,              KC_SLASH,                                                 KC_GRAVE,        KC_LALT,               KC_LCTL
 ),
 
 [SYMB] = LAYOUT_ergodox_pretty(
