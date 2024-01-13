@@ -145,7 +145,7 @@ void matrix_init(void) {
     }
 
     // Unless hardware debouncing - Init the configured debounce routine
-    debounce_init(MATRIX_ROWS);
+    //debounce_init(MATRIX_ROWS);
 
     // This *must* be called for correct keyboard behavior
     matrix_init_kb();
