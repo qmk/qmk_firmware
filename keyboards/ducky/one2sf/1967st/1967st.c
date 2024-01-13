@@ -25,8 +25,6 @@
 #ifdef RGB_MATRIX_ENABLE
 
 #    include <string.h>
-
-#    include "config.h"
 #    include "hal.h"
 #    include "progmem.h"
 #    include "rgb_matrix.h"
