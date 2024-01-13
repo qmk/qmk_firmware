@@ -33,8 +33,8 @@
     LAYOUT_moonlander_wrapper( \
         KC_ESC,  ________________NUMBER_LEFT________________, XXX,         XXX, ________________NUMBER_RIGHT_______________,     XXX,\
         KC_DEL,  K00,     K01,     K02,     K03,     K04,     XXX,         KC_AA,   K05,     K06,     K07,     K08,     K09,     KC_BSPC,\
-        KC_LCTL, K10,     K11,     K12,     K13,     K14,     KC_AE,       KC_OE,   K15,     K16,     K17,     K18,     K19,     KC_RCTL  ,\
-        KC_LSFT, K20,     K21,     K22,     K23,     K24,                           K25,     K26,     K27,     K28,     K29,     KC_RSFT ,\
+        KC_LSFT, K10,     K11,     K12,     K13,     K14,     KC_AE,       KC_OE,   K15,     K16,     K17,     K18,     K19,     KC_RSFT  ,\
+        KC_LCTL, K20,     K21,     K22,     K23,     K24,                           K25,     K26,     K27,     K28,     K29,     KC_RCTL ,\
         XXX,     XXX,     XXX,     K32,     K33,              XXX,         XXX,              K36,     K37,     XXX,     XXX,     XXX,\
                                             K34,     XXX,     XXX,         XXX,     XXX,     K35\
     )

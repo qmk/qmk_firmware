@@ -26,12 +26,15 @@
 ) \
 LAYOUT_reviung41_wrapper(\
    KC_DEL,  K00, K01, K02, K03, K04,      K05, K06, K07, K08, K09, KC_BSPC, \
-   KC_LCTL, K10, K11, K12, K13, K14,      K15, K16, K17, K18, K19, KC_RCTL, \
-   KC_LSFT, K20, K21, K22, K23, K24,      K25, K26, K27, K28, K29, KC_RSFT, \
-                          K33, K34, KC_SPC, K35, K36 \
+   KC_LSFT, K10, K11, K12, K13, K14,      K15, K16, K17, K18, K19, KC_RSFT, \
+   KC_LCTL, K20, K21, K22, K23, K24,      K25, K26, K27, K28, K29, KC_RCTL, \
+                          K32, K33, KC_SPC, K35, K36 \
 )
 
 #define LAYOUT_base_wrapper(...) LAYOUT_reviung41_base(__VA_ARGS__)
+
+#undef _________________THUMB_LEFT________________
+#define _________________THUMB_LEFT________________     KC_NO,             KC_NO,          LT(_MEDIA,KC_ESC),  LT(_NAV,KC_ESC) ,  KC_NO
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, _NUM, _MEDIA, _MOUSE);
