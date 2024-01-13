@@ -1,4 +1,5 @@
 # Matrix Diagram for Play Keyboard Pk60
+
 ```
 ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐    ┌───────┐
 │00 │01 │02 │03 │04 │05 │06 │07 │08 │09 │0A │0B │0C │0D │0E │    │0E     │ 2u Backspace
@@ -38,3 +39,4 @@
 │40    │41  │42  │43  │47         │48  │49  │4A │4B │4C │4D │ Minila
 └──────┴────┴────┴────┴───────────┴────┴────┴───┴───┴───┴───┘
 ```
+*Note: Diagram doesn't show all available bottom/5th row options i.e. is incomplete*
