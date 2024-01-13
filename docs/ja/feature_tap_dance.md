@@ -64,13 +64,13 @@
 
 ## 実装例 :id=examples
 
-### シンプルな実装例 :id=simple-example
+### シンプルな実装例: 単一タップで `ESC` 、ダブルタップで `CAPS_LOCK` を送信 :id=simple-example
 
 ここに1つの定義のための簡単な例があります。
 
 1. `rules.mk` に `TAP_DANCE_ENABLE = yes` を追加します。
-2. `config.h` ファイル（`qmk_firmware/keyboards/planck/config.h` からあなたのキーマップディレクトリにコピーできます）に `#define TAPPING_TERM 200` を追加します。
-3. `keymap.c` ファイルに変数とタップダンスの定義を定義し、それからキーマップに追加します。
+2. `config.h` ファイルに `#define TAPPING_TERM 200` を追加します。
+3. `keymap.c` ファイルに変数と定義を定義し、それからキーマップに追加します。
 
 ```c
 // タップダンスの宣言
@@ -79,8 +79,8 @@ enum {
 };
 
 // タップダンスの定義
-qk_tap_dance_action_t tap_dance_actions[] = {
-    // 1回タップすると Escape キー、2回タップすると Caps Lock。
+tap_dance_action_t tap_dance_actions[] = {
+    // 1回タップすると Escape キー、2回タップすると Caps Lock キー
     [TD_ESC_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS),
 };
 
