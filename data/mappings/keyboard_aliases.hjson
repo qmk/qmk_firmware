@@ -596,6 +596,9 @@
     "ramonimbao/mona": {
         "target": "rmi_kb/mona/v1"
     },
+    "redox_w": {
+        "target": "redox/wireless"
+    },
     "rgbkb/pan": {
         "target": "rgbkb/pan/rev1/32a"
     },

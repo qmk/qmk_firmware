@@ -11,7 +11,9 @@
 **Redox**: the **R**educed **E**rgo**dox** project. More information and building instruction [here](https://github.com/mattdibi/redox-keyboard).
 
 - Keyboard Maintainer: [Mattia Dal Ben](https://github.com/mattdibi)  
-- Hardware Supported: Redox PCB rev1.0 w/ Pro Micro or Proton C
+- Hardware Supported: 
+    - Redox PCB rev1.0 
+    - Pro Micro or Proton C micro controllers
 - Hardware Availability: [Falbatech](https://falba.tech/product-category/keyboard-parts/redox-parts/)
 
 Make example for this keyboard (after setting up [qmk](https://docs.qmk.fm/#/getting_started_build_tools)):
