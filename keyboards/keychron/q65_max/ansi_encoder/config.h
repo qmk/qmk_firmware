@@ -1,4 +1,4 @@
-/* Copyright 2023 @ Keychron (https://www.keychron.com)
+/* Copyright 2021 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,14 +19,14 @@
 #ifdef RGB_MATRIX_ENABLE
 /* RGB Matrix driver configuration */
 #    define DRIVER_COUNT 2
-#    define RGB_MATRIX_LED_COUNT 81
+#    define RGB_MATRIX_LED_COUNT 72
 
 #    define SPI_SCK_PIN A5
 #    define SPI_MISO_PIN A6
 #    define SPI_MOSI_PIN A7
 
 #    define DRIVER_CS_PINS \
-        { B8, B9 }
+        { B9, B8 }
 #    define SNLED23751_SPI_DIVISOR 16
 #    define SPI_DRIVER SPID1
 
@@ -35,7 +35,7 @@
 
 /* Set LED driver current */
 #    define SNLED27351_CURRENT_TUNE \
-        { 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C }
+        { 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40 }
 
 /* Set to infinit, which is use in USB mode by default */
 #    define RGB_MATRIX_TIMEOUT RGB_MATRIX_TIMEOUT_INFINITE
@@ -46,8 +46,9 @@
 #    define RGB_MATRIX_BRIGHTNESS_TURN_OFF_VAL 32
 
 /* Indications */
-#    define CAPS_LOCK_INDEX 44
-#    define LOW_BAT_IND_INDEX { 74 }
+#    define CAPS_LOCK_INDEX 32
+#    define LOW_BAT_IND_INDEX \
+        { 65 }
 
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
