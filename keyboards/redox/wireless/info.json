@@ -8,8 +8,15 @@
     "pid": "0x5257",
     "device_version": "0.0.1"
   },
-  "processor": "atmega32u4",
-  "bootloader": "caterina",
+  "features":{
+    "bootmagic": true,
+    "command": true,
+    "console": true,
+    "mousekey": true,
+    "extrakey": true,
+    "nkro": true
+  },
+  "development_board": "promicro",
   "layouts": {
     "LAYOUT": {
       "layout": [
