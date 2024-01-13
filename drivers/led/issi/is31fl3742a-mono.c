@@ -82,10 +82,10 @@ void is31fl3742a_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     for (uint8_t i = 0; i < IS31FL3742A_PWM_REGISTER_COUNT; i += 30) {
 #if IS31FL3742A_I2C_PERSISTENCE > 0
         for (uint8_t j = 0; j < IS31FL3742A_I2C_PERSISTENCE; j++) {
-            if (i2c_writeReg(addr << 1, i + 1, pwm_buffer + i, 30, IS31FL3742A_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
+            if (i2c_writeReg(addr << 1, i, pwm_buffer + i, 30, IS31FL3742A_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
         }
 #else
-        i2c_writeReg(addr << 1, i + 1, pwm_buffer + i, 30, IS31FL3742A_I2C_TIMEOUT);
+        i2c_writeReg(addr << 1, i, pwm_buffer + i, 30, IS31FL3742A_I2C_TIMEOUT);
 #endif
     }
 }
@@ -129,13 +129,13 @@ void is31fl3742a_init(uint8_t addr) {
     is31fl3742a_select_page(addr, IS31FL3742A_COMMAND_SCALING);
 
     // Turn off all LEDs.
-    for (int i = 0; i < IS31FL3742A_SCALING_REGISTER_COUNT; i++) {
+    for (uint8_t i = 0; i < IS31FL3742A_SCALING_REGISTER_COUNT; i++) {
         is31fl3742a_write_register(addr, i, 0x00);
     }
 
     is31fl3742a_select_page(addr, IS31FL3742A_COMMAND_PWM);
 
-    for (int i = 0; i < IS31FL3742A_PWM_REGISTER_COUNT; i++) {
+    for (uint8_t i = 0; i < IS31FL3742A_PWM_REGISTER_COUNT; i++) {
         is31fl3742a_write_register(addr, i, 0x00);
     }
 
@@ -193,7 +193,7 @@ void is31fl3742a_update_scaling_registers(uint8_t addr, uint8_t index) {
     if (g_scaling_registers_update_required[index]) {
         is31fl3742a_select_page(addr, IS31FL3742A_COMMAND_SCALING);
 
-        for (int i = 0; i < IS31FL3742A_SCALING_REGISTER_COUNT; i++) {
+        for (uint8_t i = 0; i < IS31FL3742A_SCALING_REGISTER_COUNT; i++) {
             is31fl3742a_write_register(addr, i, g_scaling_registers[index][i]);
         }
 
