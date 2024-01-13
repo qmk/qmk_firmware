@@ -18,6 +18,12 @@
         "rows": ["B3", "F1", "F5", "F6", "F7"]
     },
     "processor": "atmega32u4",
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x0041",
