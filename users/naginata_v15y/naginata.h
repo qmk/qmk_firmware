@@ -21,7 +21,6 @@
 void ng_type(NGList *);
 void naginata_clear(void);
 int number_of_candidates(NGList *, bool);
-int count_bit(uint32_t);
 
 bool process_modifier(uint16_t, keyrecord_t *);
 
