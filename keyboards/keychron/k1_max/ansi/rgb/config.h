@@ -19,9 +19,7 @@
 #ifdef RGB_MATRIX_ENABLE
 /* RGB Matrix driver configuration */
 #    define DRIVER_COUNT 2
-#    define DRIVER_1_LED_COUNT 46
-#    define DRIVER_2_LED_COUNT 38
-#    define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_COUNT + DRIVER_2_LED_COUNT)
+#    define RGB_MATRIX_LED_COUNT 87
 
 #    define SPI_SCK_PIN A5
 #    define SPI_MISO_PIN A6
@@ -33,7 +31,7 @@
 #    define SPI_DRIVER SPID1
 
 /* Scan phase of led driver set as MSKPHASE_9CHANNEL(defined as 0x03 in snled27351.h) */
-#    define PHASE_CHANNEL MSKPHASE_9CHANNEL
+#    define PHASE_CHANNEL MSKPHASE_12CHANNEL
 
 /* Set LED driver current */
 #    define SNLED27351_CURRENT_TUNE \
@@ -48,10 +46,8 @@
 #    define RGB_MATRIX_BRIGHTNESS_TURN_OFF_VAL 48
 
 /* Indications */
-#    define DIM_CAPS_LOCK
-#    define CAPS_LOCK_INDEX 46
 #    define LOW_BAT_IND_INDEX \
-        { 77 }
+        { 79 }
 
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS

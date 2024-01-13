@@ -1,7 +1,7 @@
 {
     "usb": {
-    	"pid": "0x0A35",
-    	"device_version": "1.0.0"
+        "pid": "0x0A13",
+        "device_version": "1.0.0"
     },
     "features": {
         "led_matrix": true
@@ -23,7 +23,7 @@
             "solid_reactive_multinexus": true,
             "solid_splash": true,
             "wave_left_right": true,
-            "wave_up_down": true,
+            "wave_up_down": true
         }
     }
 }
