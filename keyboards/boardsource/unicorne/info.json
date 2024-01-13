@@ -54,6 +54,9 @@
             "gradient_left_right": true,
             "gradient_up_down": true
         },
+        "default": {
+            "animation": "alphas_mods"
+        },
         "max_brightness": 150,
         "split_count": [27, 27],
         "driver": "ws2812",
@@ -112,7 +115,8 @@
             {"matrix": [4, 0], "x": 0, "y": 7, "flags": 1},
             {"matrix": [5, 0], "x": 0, "y": 24, "flags": 1},
             {"matrix": [6, 0], "x": 0, "y": 41, "flags": 1}
-        ]
+        ],
+        "sleep": true
     },
     "community_layouts": ["split_3x6_3"],
     "layouts": {

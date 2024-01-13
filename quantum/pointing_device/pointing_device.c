@@ -251,14 +251,15 @@ __attribute__((weak)) bool pointing_device_task(void) {
 #    else
     if (readPin(POINTING_DEVICE_MOTION_PIN))
 #    endif
+    {
 #endif
 
 #if defined(SPLIT_POINTING_ENABLE)
 #    if defined(POINTING_DEVICE_COMBINED)
         static uint8_t old_buttons = 0;
-    local_mouse_report.buttons = old_buttons;
-    local_mouse_report         = pointing_device_driver.get_report(local_mouse_report);
-    old_buttons                = local_mouse_report.buttons;
+        local_mouse_report.buttons = old_buttons;
+        local_mouse_report         = pointing_device_driver.get_report(local_mouse_report);
+        old_buttons                = local_mouse_report.buttons;
 #    elif defined(POINTING_DEVICE_LEFT) || defined(POINTING_DEVICE_RIGHT)
         local_mouse_report = POINTING_DEVICE_THIS_SIDE ? pointing_device_driver.get_report(local_mouse_report) : shared_mouse_report;
 #    else
@@ -267,6 +268,10 @@ __attribute__((weak)) bool pointing_device_task(void) {
 #else
     local_mouse_report = pointing_device_driver.get_report(local_mouse_report);
 #endif // defined(SPLIT_POINTING_ENABLE)
+
+#ifdef POINTING_DEVICE_MOTION_PIN
+    }
+#endif
 
     // allow kb to intercept and modify report
 #if defined(SPLIT_POINTING_ENABLE) && defined(POINTING_DEVICE_COMBINED)

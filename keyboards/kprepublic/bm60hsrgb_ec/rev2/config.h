@@ -17,7 +17,7 @@
 
 #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_MOOD
 
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
+#    define RGB_MATRIX_SLEEP // turn off effects when suspended
 #    define IS31FL3733_I2C_ADDRESS_1 IS31FL3733_I2C_ADDRESS_GND_GND
 #    define DRIVER_1_LED_TOTAL 63
 #    define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
