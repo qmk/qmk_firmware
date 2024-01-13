@@ -9,7 +9,7 @@
     "device_version": "1.0.0"
   },
   "features":{
-    "bootmgaic": true,
+    "bootmagic": true,
     "command": true,
     "console": false,
     "mousekey": true,
