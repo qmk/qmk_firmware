@@ -65,12 +65,3 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 	return state;
 }
 
-void suspend_power_down_kb(void) {
-	led_matrix_disable();
-	suspend_power_down_user();
-}
-
-void suspend_wakeup_init_kb(void) {
-	led_matrix_enable();
-	suspend_wakeup_init_user();
-}
