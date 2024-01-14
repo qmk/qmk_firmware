@@ -1,96 +1,88 @@
 {
     "manufacturer": "binepad",
     "keyboard_name": "BNK9",
-    "url": "https://www.binepad.com/product-page/bnk9",
     "maintainer": "binepad",
     "board": "GENERIC_RP_RP2040",
-    "processor": "RP2040",
     "bootloader": "rp2040",
     "bootloader_instructions": "Hold down the key at (0x0) in the matrix (the 'knob' / rotary encoder) and plug in the keyboard.",
     "diode_direction": "COL2ROW",
-    "usb": {
-        "vid": "0x4249",
-        "pid": "0x4E39",
-        "device_version": "1.0.0"
+    "encoder": {
+        "rotary": [
+            {"pin_a": "GP13", "pin_b": "GP14"}
+        ]
     },
     "features": {
         "bootmagic": true,
         "command": false,
         "console": false,
+        "encoder": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "encoder": true,
         "rgb_matrix": true
-    },
-    "ws2812": {
-        "driver": "vendor",
-        "pin": "GP11"
     },
     "matrix_pins": {
         "cols": ["GP1", "GP2", "GP3"],
         "rows": ["GP12", "GP4", "GP5", "GP6"]
     },
-    "encoder": {
-        "rotary": [
-            {
-                "pin_a": "GP13",
-                "pin_b": "GP14"
-            }
-        ]
-    },
+    "processor": "RP2040",
     "rgb_matrix": {
-        "driver": "ws2812",
         "animations": {
-            "solid_color": true,
             "breathing": true,
             "cycle_all": true,
             "cycle_left_right": true,
-            "cycle_up_down": true,
             "cycle_pinwheel": true,
+            "cycle_up_down": true,
             "jellybean_raindrops": true,
-            "solid_reactive_simple": true,
+            "riverflow": true,
+            "solid_color": true,
             "solid_reactive": true,
-            "splash": true,
+            "solid_reactive_simple": true,
             "solid_splash": true,
+            "splash": true,
             "starlight": true,
             "starlight_dual_hue": true,
-            "starlight_dual_sat": true,
-            "riverflow": true
+            "starlight_dual_sat": true
         },
+        "driver": "ws2812",
         "layout": [
-            {"flags": 4, "matrix": [1, 0], "x": 80, "y": 0},
-            {"flags": 4, "matrix": [1, 1], "x": 112, "y": 0},
-            {"flags": 4, "matrix": [1, 2], "x": 144, "y": 0},
-
-            {"flags": 4, "matrix": [2, 2], "x": 144, "y": 32},
-            {"flags": 4, "matrix": [2, 1], "x": 112, "y": 32},
-            {"flags": 4, "matrix": [2, 0], "x": 80, "y": 32},
-
-            {"flags": 4, "matrix": [3, 0], "x": 80, "y": 64},
-            {"flags": 4, "matrix": [3, 1], "x": 112, "y": 64},
-            {"flags": 4, "matrix": [3, 2], "x": 144, "y": 64}
+            {"matrix": [1, 0], "x": 80, "y": 0, "flags": 4},
+            {"matrix": [1, 1], "x": 112, "y": 0, "flags": 4},
+            {"matrix": [1, 2], "x": 144, "y": 0, "flags": 4},
+            {"matrix": [2, 2], "x": 144, "y": 32, "flags": 4},
+            {"matrix": [2, 1], "x": 112, "y": 32, "flags": 4},
+            {"matrix": [2, 0], "x": 80, "y": 32, "flags": 4},
+            {"matrix": [3, 0], "x": 80, "y": 64, "flags": 4},
+            {"matrix": [3, 1], "x": 112, "y": 64, "flags": 4},
+            {"matrix": [3, 2], "x": 144, "y": 64, "flags": 4}
         ],
         "led_process_limit": 9,
         "max_brightness": 180,
         "sleep": true
-    }
+    },
+    "url": "https://www.binepad.com/product-page/bnk9",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x4E39",
+        "vid": "0x4249"
+    },
+    "ws2812": {
+        "driver": "vendor",
+        "pin": "GP11"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
-                { "matrix": [0, 0], "label": "Knob", "x": 0, "y": 0, "w": 3, "h": 3 },
-
-                { "matrix": [1, 0], "label": "1", "x": 3.25, "y": 0 },
-                { "matrix": [1, 1], "label": "2", "x": 4.25, "y": 0 },
-                { "matrix": [1, 2], "label": "3", "x": 5.25, "y": 0 },
-
-                { "matrix": [2, 0], "label": "4", "x": 3.25, "y": 1 },
-                { "matrix": [2, 1], "label": "5", "x": 4.25, "y": 1 },
-                { "matrix": [2, 2], "label": "6", "x": 5.25, "y": 1 },
-
-                { "matrix": [3, 0], "label": "7", "x": 3.25, "y": 2 },
-                { "matrix": [3, 1], "label": "8", "x": 4.25, "y": 2 },
-                { "matrix": [3, 2], "label": "9", "x": 5.25, "y": 2 }
+                {"label": "Knob", "matrix": [0, 0], "x": 0, "y": 0, "w": 3, "h": 3},
+                {"label": "1", "matrix": [1, 0], "x": 3.25, "y": 0},
+                {"label": "2", "matrix": [1, 1], "x": 4.25, "y": 0},
+                {"label": "3", "matrix": [1, 2], "x": 5.25, "y": 0},
+                {"label": "4", "matrix": [2, 0], "x": 3.25, "y": 1},
+                {"label": "5", "matrix": [2, 1], "x": 4.25, "y": 1},
+                {"label": "6", "matrix": [2, 2], "x": 5.25, "y": 1},
+                {"label": "7", "matrix": [3, 0], "x": 3.25, "y": 2},
+                {"label": "8", "matrix": [3, 1], "x": 4.25, "y": 2},
+                {"label": "9", "matrix": [3, 2], "x": 5.25, "y": 2}
             ]
         }
     }
