@@ -206,7 +206,7 @@ void snled27351_update_led_control_registers(uint8_t addr, uint8_t index) {
     if (g_led_control_registers_update_required[index]) {
         snled27351_select_page(addr, SNLED27351_COMMAND_LED_CONTROL);
 
-        for (int i = 0; i < SNLED27351_LED_CONTROL_REGISTER_COUNT; i++) {
+        for (uint8_t i = 0; i < SNLED27351_LED_CONTROL_REGISTER_COUNT; i++) {
             snled27351_write_register(addr, i, g_led_control_registers[index][i]);
         }
 

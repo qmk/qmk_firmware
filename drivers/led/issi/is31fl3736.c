@@ -128,7 +128,7 @@ void is31fl3736_init(uint8_t addr) {
     is31fl3736_select_page(addr, IS31FL3736_COMMAND_LED_CONTROL);
 
     // Turn off all LEDs.
-    for (int i = 0; i < IS31FL3736_LED_CONTROL_REGISTER_COUNT; i++) {
+    for (uint8_t i = 0; i < IS31FL3736_LED_CONTROL_REGISTER_COUNT; i++) {
         is31fl3736_write_register(addr, i, 0x00);
     }
 
@@ -136,7 +136,7 @@ void is31fl3736_init(uint8_t addr) {
 
     // Set PWM on all LEDs to 0
     // No need to setup Breath registers to PWM as that is the default.
-    for (int i = 0; i < IS31FL3736_PWM_REGISTER_COUNT; i++) {
+    for (uint8_t i = 0; i < IS31FL3736_PWM_REGISTER_COUNT; i++) {
         is31fl3736_write_register(addr, i, 0x00);
     }
 
@@ -229,7 +229,7 @@ void is31fl3736_update_led_control_registers(uint8_t addr, uint8_t index) {
     if (g_led_control_registers_update_required[index]) {
         is31fl3736_select_page(addr, IS31FL3736_COMMAND_LED_CONTROL);
 
-        for (int i = 0; i < IS31FL3736_LED_CONTROL_REGISTER_COUNT; i++) {
+        for (uint8_t i = 0; i < IS31FL3736_LED_CONTROL_REGISTER_COUNT; i++) {
             is31fl3736_write_register(addr, i, g_led_control_registers[index][i]);
         }
 

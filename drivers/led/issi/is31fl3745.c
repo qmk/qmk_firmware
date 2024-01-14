@@ -138,13 +138,13 @@ void is31fl3745_init(uint8_t addr, uint8_t sync) {
     is31fl3745_select_page(addr, IS31FL3745_COMMAND_SCALING);
 
     // Turn off all LEDs.
-    for (int i = 0; i < IS31FL3745_SCALING_REGISTER_COUNT; i++) {
+    for (uint8_t i = 0; i < IS31FL3745_SCALING_REGISTER_COUNT; i++) {
         is31fl3745_write_register(addr, i + 1, 0x00);
     }
 
     is31fl3745_select_page(addr, IS31FL3745_COMMAND_PWM);
 
-    for (int i = 0; i < IS31FL3745_PWM_REGISTER_COUNT; i++) {
+    for (uint8_t i = 0; i < IS31FL3745_PWM_REGISTER_COUNT; i++) {
         is31fl3745_write_register(addr, i + 1, 0x00);
     }
 
@@ -206,7 +206,7 @@ void is31fl3745_update_scaling_registers(uint8_t addr, uint8_t index) {
     if (g_scaling_registers_update_required[index]) {
         is31fl3745_select_page(addr, IS31FL3745_COMMAND_SCALING);
 
-        for (int i = 0; i < IS31FL3745_SCALING_REGISTER_COUNT; i++) {
+        for (uint8_t i = 0; i < IS31FL3745_SCALING_REGISTER_COUNT; i++) {
             is31fl3745_write_register(addr, i + 1, g_scaling_registers[index][i]);
         }
 
