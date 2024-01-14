@@ -81,9 +81,10 @@
             {"matrix": [0, 2], "x": 149, "y": 0, "flags": 1},
             {"matrix": [0, 3], "x": 224, "y": 0, "flags": 1},
             {"matrix": [0, 4], "x": 112, "y": 64, "flags": 1},
-            {"matrix": [0, 5], "x": 112, "y": 64, "flags": 1},
-            {"matrix": [0, 6], "x": 112, "y": 64, "flags": 1},
-            {"matrix": [0, 7], "x": 112, "y": 64, "flags": 1}
+            
+            {"x": 112, "y": 64, "flags": 1},
+            {"x": 112, "y": 64, "flags": 1},
+            {"x": 112, "y": 64, "flags": 1}
         ],
         "max_brightness": 200,
         "sleep": true
