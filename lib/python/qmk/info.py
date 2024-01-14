@@ -686,10 +686,8 @@ def _extract_led_config(info_data, keyboard):
     cols = info_data['matrix_size']['cols']
     rows = info_data['matrix_size']['rows']
 
-    feature = None
-    for feat in ['rgb_matrix', 'led_matrix']:
-        if info_data.get('features', {}).get(feat, False) or feat in info_data:
-            feature = feat
+    for feature in ['rgb_matrix', 'led_matrix']:
+        if info_data.get('features', {}).get(feature, False) or feature in info_data:
 
             # Only attempt search if dd led config is missing
             if 'layout' not in info_data.get(feature, {}):
