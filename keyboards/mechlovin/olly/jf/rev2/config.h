@@ -1,5 +1,5 @@
 /*
-Copyright 2021 mechlovin
+Copyright 2023 Mechlovin'
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,22 +17,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+#define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_SDA
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 19
+#define I2C_DRIVER I2CD2
+#define I2C1_SCL_PIN B10
+#define I2C1_SDA_PIN B11
+#define LED_MATRIX_LED_COUNT 114
 
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-#define MATRIX_ROW_PINS { D5, D6, A5, A4, A3, A6}
+#define I2C1_CLOCK_SPEED 400000
+#define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
 
-/* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION ROW2COL
+#define WEAR_LEVELING_BACKING_SIZE 4096
+#define WEAR_LEVELING_LOGICAL_SIZE 2048
