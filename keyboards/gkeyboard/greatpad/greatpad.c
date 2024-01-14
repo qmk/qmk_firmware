@@ -20,7 +20,7 @@
 uint16_t startup_timer;
 
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
-	return OLED_ROTATION_180;
+    return OLED_ROTATION_180;
 }
 
 static void render_logo(void) {
