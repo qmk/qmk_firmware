@@ -7,3 +7,5 @@ RGBLIGHT_ENABLE = no # Enable WS2812 RGB underlight.
 OLED_ENABLE     = no
 LTO_ENABLE      = yes
 CONVERT_TO      = elite_pi
+# VIA_ENABLE		= yes # Enable VIA configurator. Does not support TAPPPING
+SRC += oneshot.c
