@@ -22,5 +22,5 @@ typedef struct {
     uint8_t extremum;
     int16_t offset;
     bool    dynamic_actuation_bool;
-} hall_effect_key_t;
-extern hall_effect_key_t keys[MATRIX_ROWS][MATRIX_COLS];
+} analog_key_t;
+extern analog_key_t keys[MATRIX_ROWS][MATRIX_COLS];

@@ -1,15 +1,18 @@
 /* Copyright 2023 RephlexZero (@RephlexZero) peepeetee (@peepeetee)
 SPDX-License-Identifier: GPL-2.0-or-later */
 #include <stdint.h>
+#include <stdio.h>
 #include <stdbool.h>
 #include "tap_trio_pro.h"
 #include "quantum.h"
 #include "analog.h"
 #include "eeprom.h"
 #include "scanfunctions.h"
+#include "print.h"
+
 
 analog_config g_config = {
-    .mode = static_actuation,
+    .mode = dynamic_actuation,
     .actuation_point = 32,
     .press_sensitivity = 32,
     .release_sensitivity = 32,
@@ -17,53 +20,42 @@ analog_config g_config = {
     .release_hysteresis = 5
 };
 
+#ifdef BOOTMAGIC_ENABLE
 extern pin_t matrix_pins[MATRIX_ROWS][MATRIX_COLS];
-
-// void         bootmagic_lite(void) {
-//     if (BOOTMAGIC_LITE_ROW == 1) {
-//         if (analogReadPin(matrix_pins[BOOTMAGIC_LITE_ROW][BOOTMAGIC_LITE_COLUMN]) < 1350) {
-//             bootloader_jump();
-//         }
-//     }
-//     else {
-//     // default implementation
-
-//     // We need multiple scans because debouncing can't be turned off.
-//     matrix_scan();
-// #if defined(DEBOUNCE) && DEBOUNCE > 0
-//     wait_ms(DEBOUNCE * 2);
-// #else
-//     wait_ms(30);
-// #endif
-//     matrix_scan();
-
-//     // If the configured key (commonly Esc) is held down on power up,
-//     // reset the EEPROM valid state and jump to bootloader.
-//     // This isn't very generalized, but we need something that doesn't
-//     // rely on user's keymaps in firmware or EEPROM.
-//     uint8_t row = BOOTMAGIC_LITE_ROW;
-//     uint8_t col = BOOTMAGIC_LITE_COLUMN;
-
-// #if defined(SPLIT_KEYBOARD) && defined(BOOTMAGIC_LITE_ROW_RIGHT) && defined(BOOTMAGIC_LITE_COLUMN_RIGHT)
-//     if (!is_keyboard_left()) {
-//         row = BOOTMAGIC_LITE_ROW_RIGHT;
-//         col = BOOTMAGIC_LITE_COLUMN_RIGHT;
-//     }
-// #endif
-
-//     if (matrix_get_row(row) & (1 << col)) {
-//         bootmagic_lite_reset_eeprom();
-
-//         // Jump to bootloader.
-//         bootloader_jump();
-//     }
-//     }
-// }
-
-uint32_t idle_recalibrate_callback(uint32_t trigger_time, void *cb_arg) {
-    get_sensor_offsets();
-    return 10000;
+void         bootmagic_lite(void) {
+    if (analogReadPin(matrix_pins[BOOTMAGIC_LITE_ROW][BOOTMAGIC_LITE_COLUMN]) < 1350) {
+        bootloader_jump();
+    }
 }
+#endif
+
+#ifdef DEFERRED_EXEC_ENABLE
+
+#    ifdef DEBUG_ENABLE
+deferred_token debug_token;
+bool           debug_print(void) {
+    char buffer[MATRIX_ROWS * MATRIX_COLS * 5 + MATRIX_ROWS * 2];
+    buffer[0] = '\0';
+
+    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+        for (uint8_t col = 0; col < MATRIX_COLS; col++) {
+            analog_key_t *key = &keys[row][col];
+            char   temp[6];
+            snprintf(temp, sizeof(temp), "%5u", key->value);
+            strcat(buffer, temp);
+        }
+        strcat(buffer, "\n");
+    }
+
+    uprintf("Analog values:\n%s", buffer);
+    return true;
+}
+
+uint32_t debug_print_callback(uint32_t trigger_time, void *cb_arg) {
+    debug_print();
+    return 25;
+}
+#    endif
 
 deferred_token idle_recalibrate_token;
 bool           process_record_kb(uint16_t keycode, keyrecord_t *record) {
@@ -71,24 +63,9 @@ bool           process_record_kb(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-#ifdef DEBUG_ENABLE
-static uint8_t i = 0;
-void           housekeeping_task_kb(void) {
-    if (i == 0) {
-        char formattedString[200]; // Adjust the buffer size as needed
-
-        snprintf(formattedString, sizeof(formattedString), "Mode: %d Actuation Point: %d Press/Release Sensitivity: %d/%d\n", g_config.mode, g_config.actuation_point, g_config.press_sensitivity, g_config.release_sensitivity);
-
-        for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-            for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-                snprintf(formattedString + strlen(formattedString), sizeof(formattedString) - strlen(formattedString), "%d/%d/%d ", keys[row][col].value, keys[row][col].extremum, analogReadPin(matrix_pins[row][col]));
-            }
-            strcat(formattedString, "\n\n");
-        }
-
-        uprintf("%s", formattedString);
-    }
-    i++;
+uint32_t idle_recalibrate_callback(uint32_t trigger_time, void *cb_arg) {
+    get_sensor_offsets();
+    return 10000;
 }
 #endif
 
@@ -100,14 +77,19 @@ void values_save(void) {
     eeconfig_update_kb_datablock(&g_config);
 }
 
-// void          eeconfig_init_kb() {
-//     values_save();
-// }
+void eeconfig_init_kb() {
+    values_save();
+}
 
-// void keyboard_post_init_kb(void) {
-//     idle_recalibrate_token = defer_exec(300000, idle_recalibrate_callback, NULL);
-//     values_load();
-// }
+void keyboard_post_init_kb(void) {
+#ifdef DEFERRED_EXEC_ENABLE
+#    ifdef DEBUG_ENABLE
+    debug_token = defer_exec(1000, debug_print_callback, NULL);
+#    endif
+    idle_recalibrate_token = defer_exec(300000, idle_recalibrate_callback, NULL);
+#endif
+    values_load();
+}
 
 #ifdef VIA_ENABLE
 void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
