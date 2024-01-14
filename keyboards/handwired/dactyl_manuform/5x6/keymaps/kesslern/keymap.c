@@ -59,8 +59,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TILD, DV_QUOT, DV_COMM, DV_DOT , DV_P   , DV_Y   ,          DV_F   , DV_G   , DV_C   , DV_R   , DV_L   , DV_SLSH,
     KC_TAB , DV_A   , DV_O   , NAV_E  , SH_DV_U, SYM_I  ,          SYM_D  , SH_DV_H, DV_T   , DV_N   , DV_S   , DV_MINS,
     KC_LSFT, DV_SCLN, DV_Q   , DV_J   , DV_K   , DV_X   ,          DV_B   , DV_M   , DV_W   , DV_V   , DV_Z   , KC_RSFT,
-                                        KC_F13 , KC_F14 ,          KC_F13 , KC_F14 ,
-                                        CT_BSPC, ALT_DEL,          SFT_ENT,  CT_SPC ,
+                                        XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX,
+                                        CT_BSPC, ALT_DEL,          SFT_ENT, CT_SPC ,
                                         KC_DOWN, WIN_UP ,          WINRGHT, KC_LEFT,
                                         MO_UTIL, XXXXXXX,          XXXXXXX, MO_UTIL
   ),
@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_NAV] = LAYOUT_5x6(
 //  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______,
-    _______, _______, KC_MRWD, KC_MPLY, KC_MFFD, _______,          KC_PGUP, KC_HOME, KC_UP  , KC_END , _______, _______,
+    _______, _______, _______, _______, _______, _______,          KC_PGUP, KC_HOME, KC_UP  , KC_END , _______, _______,
     _______, _______, _______, _______, _______, _______,          KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
     _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______,
                                         _______, _______,          _______, _______,
@@ -93,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_UTIL] = LAYOUT_5x6(
 //  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     QK_BOOT, _______, _______, _______, _______, L_FLASH,          R_FLASH, _______, _______, _______, _______, QK_BOOT,
-    _______, _______, KC_MRWD, KC_MPLY, KC_MFFD, KC_VOLU,          _______, _______, _______, _______, _______, _______,
+    _______, _______, KC_MNXT, KC_MPLY, KC_MNXT, KC_VOLU,          _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, KC_VOLD,          _______, _______, _______, _______, _______, _______,
                                         _______, _______,          _______, _______,
