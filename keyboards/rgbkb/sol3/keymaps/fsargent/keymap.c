@@ -70,9 +70,9 @@ enum sol_keycodes {
 
 
 #define LTHUMB0		CMD_T(KC_BSPC)
-#define LTHUMB0WIN		CTL_T(KC_BSPC)
-#define LTHUMB1		MT(MOD_LCTL, KC_ENT)
-#define LTHUMB2		MT(MOD_LALT, KC_SPC)
+#define LTHUMB0WIN	CTL_T(KC_BSPC)
+#define LTHUMB1		MT(MOD_LALT, KC_ENT)
+#define LTHUMB2		MT(MOD_LCTRL, KC_TAB)
 #define RTHUMB0		KC_SPC
 #define RTHUMB2		KC_ENT
 #define RTHUMB1		KC_MPLY
