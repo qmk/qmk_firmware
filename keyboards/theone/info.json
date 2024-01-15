@@ -3,6 +3,9 @@
     "keyboard_name": "Theone",
     "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",
+    "dynamic_keymap": {
+        "layer_count": 8
+    },
     "features": {
         "bootmagic": true,
         "command": false,
