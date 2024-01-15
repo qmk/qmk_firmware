@@ -8,6 +8,4 @@
 #define RGB_MATRIX_LED_COUNT       89
 
 
-#define RGB_MATRIX_DEFAULT_MODE       RGB_MATRIX_CYCLE_LEFT_RIGHT  // Sets the default mode, if none has been set
-#define RGB_DISABLE_WHEN_USB_SUSPENDED                             // turn off effects when suspended
 
