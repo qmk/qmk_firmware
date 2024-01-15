@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 8  //  This is 4 by default.
 
 #define EECONFIG_USER_DATA_SIZE    8  // This is the size of the EEPROM for the custom VIA-specific data
 
