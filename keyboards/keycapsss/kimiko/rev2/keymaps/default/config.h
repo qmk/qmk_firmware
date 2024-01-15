@@ -20,7 +20,6 @@
 
 #define MASTER_RIGHT
 
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 
 #define ENABLE_RGB_MATRIX_NONE
 #define ENABLE_RGB_MATRIX_SOLID_COLOR // Static single hue, no speed support
