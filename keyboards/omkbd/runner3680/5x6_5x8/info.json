@@ -9,7 +9,8 @@
         "device_version": "0.0.5"
     },
     "rgb_matrix": {
-        "driver": "ws2812"
+        "driver": "ws2812",
+        "split_count": [30, 40]
     },
     "matrix_pins": {
         "cols": ["F4", "F5", "F6", "F7", "B1", "B3", "B2", "B6"],

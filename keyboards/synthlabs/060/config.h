@@ -6,7 +6,7 @@
 /* Backlighting */
 #define RGB_MATRIX_LED_COUNT 63
 #define RGB_MATRIX_KEYPRESSES
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define RGB_MATRIX_SLEEP
 
 // RGB Matrix Animation modes
 // For full list of effects, see:

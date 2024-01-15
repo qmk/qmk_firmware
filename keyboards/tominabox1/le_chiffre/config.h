@@ -24,4 +24,4 @@
  * WS2812 Underglow Matrix options
  */
 #define RGB_MATRIX_LED_COUNT 11
-#define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
+#define RGB_MATRIX_SLEEP // turn off effects when suspended
