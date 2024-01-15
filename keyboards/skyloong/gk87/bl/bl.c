@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "quantum.h"
 
-_Bool DIS_BRETH = 0;
+_bool DIS_BRETH = 0;
 
 void suspend_power_down_kb() {
     writePinHigh(MAC_PIN);
@@ -23,11 +23,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
     switch (keycode) {
-       case TO(0):
+       case DF(0):
             set_single_persistent_default_layer(0); // Save default layer 0 to eeprom
          return true; // continue all further processing of this key
 
-       case TO(1):
+       case DF(1):
             set_single_persistent_default_layer(1);  //Save default layer 1 to eeprom
          return true; // continue all further processing of this key
 
