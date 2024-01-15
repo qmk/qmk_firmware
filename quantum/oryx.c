@@ -6,7 +6,7 @@
 
 rawhid_state_t rawhid_state = {.paired = false, .rgb_control = false};
 
-uint8_t  pairing_input_index = 0;
+uint8_t pairing_input_index = 0;
 
 void oryx_error(uint8_t code) {
     uint8_t event[RAW_EPSIZE];
@@ -26,7 +26,7 @@ void oryx_layer_event(void) {
 }
 
 void pairing_failed_event(void) {
-    rawhid_state.paired  = false;
+    rawhid_state.paired = false;
     uint8_t event[RAW_EPSIZE];
     event[0] = ORYX_EVT_PAIRING_FAILED;
     event[1] = ORYX_STOP_BIT;
@@ -34,7 +34,7 @@ void pairing_failed_event(void) {
 }
 
 void pairing_success_event(void) {
-    rawhid_state.paired  = true;
+    rawhid_state.paired = true;
     uint8_t event[RAW_EPSIZE];
     event[0] = ORYX_EVT_PAIRING_SUCCESS;
     event[1] = ORYX_STOP_BIT;
@@ -42,8 +42,8 @@ void pairing_success_event(void) {
 }
 
 void raw_hid_receive(uint8_t *data, uint8_t length) {
-    uint8_t  command   = data[0];
-    uint8_t *param     = &data[1];
+    uint8_t  command = data[0];
+    uint8_t *param   = &data[1];
 
     switch (command) {
         case ORYX_CMD_GET_FW_VERSION: {
@@ -165,7 +165,6 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
     }
 }
 
-
 bool process_record_oryx(uint16_t keycode, keyrecord_t *record) {
     // While paired, the keyboard sends keystrokes positions to the host
     if (rawhid_state.paired == true) {
@@ -181,9 +180,7 @@ bool process_record_oryx(uint16_t keycode, keyrecord_t *record) {
 
 void layer_state_set_oryx(layer_state_t state) {
     if (rawhid_state.paired) {
-#ifdef PROTOCOL_LUFA
         wait_ms(50);
-#endif
         uint8_t event[RAW_EPSIZE];
         event[0] = ORYX_EVT_LAYER;
         event[1] = get_highest_layer(state);
