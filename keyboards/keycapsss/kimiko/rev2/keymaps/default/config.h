@@ -19,11 +19,6 @@
 #pragma once
 
 #define MASTER_RIGHT
-
-
-#define ENABLE_RGB_MATRIX_NONE
-#define ENABLE_RGB_MATRIX_SOLID_COLOR // Static single hue, no speed support
-
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS    // Static dual hue, speed is hue for secondary hue
 #define ENABLE_RGB_MATRIX_RAINBOW_BEACON // Full tighter gradient spinning around center of keyboard
 
