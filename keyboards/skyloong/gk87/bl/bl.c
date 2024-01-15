@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "quantum.h"
 
-_bool DIS_BRETH = 0;
+bool DIS_BRETH = 0;
 
 void suspend_power_down_kb() {
     writePinHigh(MAC_PIN);
