@@ -20,8 +20,6 @@
 
 #undef STM32_I2C_USE_I2C1
 #define STM32_I2C_USE_I2C1  TRUE
-#define I2C1_SCL_PIN B8
-#define I2C1_SDA_PIN B9
 
 #undef STM32_PLLM_VALUE
 #define STM32_PLLM_VALUE    16
