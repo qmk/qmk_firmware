@@ -29,7 +29,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
        case TO(1):
             set_single_persistent_default_layer(1);  //Save default layer 1 to eeprom
-            writePinLow(MAC_PIN);
          return true; // continue all further processing of this key
 
        case BL_TOGG:
