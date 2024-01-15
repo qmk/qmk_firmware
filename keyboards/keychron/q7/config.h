@@ -36,6 +36,3 @@
 
 /* Disable DIP switch in matrix data */
 #define MATRIX_MASKED
-
-/* turn off effects when suspended */
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
