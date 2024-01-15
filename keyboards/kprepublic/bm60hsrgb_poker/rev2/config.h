@@ -17,7 +17,7 @@
 
 #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_MOOD
 
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
+#    define RGB_MATRIX_SLEEP // turn off effects when suspended
 #    define RGB_MATRIX_KEYPRESSES
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS
 #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN

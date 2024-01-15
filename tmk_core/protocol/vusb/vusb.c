@@ -717,13 +717,6 @@ const PROGMEM uchar console_hid_report[] = {
     0x95, CONSOLE_BUFFER_SIZE, //   Report Count
     0x75, 0x08,                //   Report Size (8)
     0x81, 0x02,                //   Input (Data, Variable, Absolute)
-    // Data from host
-    0x09, 0x76,                //   Usage (Vendor Defined)
-    0x15, 0x00,                //   Logical Minimum (0x00)
-    0x26, 0xFF, 0x00,          //   Logical Maximum (0x00FF)
-    0x95, CONSOLE_BUFFER_SIZE, //   Report Count
-    0x75, 0x08,                //   Report Size (8)
-    0x91, 0x02,                //   Output (Data)
     0xC0                       // End Collection
 };
 #endif
@@ -991,16 +984,6 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         .wMaxPacketSize      = CONSOLE_EPSIZE,
         .bInterval           = 0x01
     },
-    .consoleOUTEndpoint = {
-        .header = {
-            .bLength         = sizeof(usbEndpointDescriptor_t),
-            .bDescriptorType = USBDESCR_ENDPOINT
-        },
-        .bEndpointAddress    = (USBRQ_DIR_HOST_TO_DEVICE | USB_CFG_EP3_NUMBER),
-        .bmAttributes        = 0x03,
-        .wMaxPacketSize      = CONSOLE_EPSIZE,
-        .bInterval           = 0x01
-    }
 #    endif
 };
 
