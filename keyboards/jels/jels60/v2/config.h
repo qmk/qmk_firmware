@@ -16,7 +16,6 @@
 
 #pragma once
 
-#define WS2812_PIO_USE_PIO1
 #define RGBLIGHT_DEFAULT_VAL 0
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */

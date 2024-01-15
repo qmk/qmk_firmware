@@ -43,6 +43,6 @@
 #define RGB_MATRIX_LED_COUNT   87
 
 #define RGB_TRIGGER_ON_KEYDOWN
-#define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
+#define RGB_MATRIX_SLEEP // turn off effects when suspended
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES

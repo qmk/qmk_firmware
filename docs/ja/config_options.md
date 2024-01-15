@@ -248,7 +248,7 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
   * high/low ピンを使って左右を決定します。low = 右手、high = 左手。`B7` を使っているピンに置き換えます。これはオプションで、`SPLIT_HAND_PIN` が未定義のままである場合、EE_HANDS メソッドまたは標準の Let's Splitが使っている MASTER_LEFT / MASTER_RIGHT 定義をまだ使うことができます。
 
 * `#define SPLIT_HAND_MATRIX_GRID <out_pin>,<in_pin>`
-  * 左右はキーマトリックスのキースイッチが存在しない交点を使って決定されます。通常、この交点が短絡している(ローレベル)のときに左側と見なされます。もし `#define SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT` が定義されている場合は、ローレベルの時に右側と決定されます。
+  * 左右はキーマトリックスのキースイッチが存在しない交点を使って決定されます。通常、この交点が短絡している(ローレベル)のときに右側と見なされます。もし `#define SPLIT_HAND_MATRIX_GRID_LOW_IS_LEFT` が定義されている場合は、ローレベルの時に左側と決定されます。
 
 * `#define EE_HANDS` (`SPLIT_HAND_PIN` と `SPLIT_HAND_MATRIX_GRID` が定義されていない場合のみ動作します)
   * `eeprom-lefthand.eep`/`eeprom-righthand.eep` がそれぞれの半分に書き込まれた後で、EEPROM 内に格納されている左右の設定の値を読み込みます。

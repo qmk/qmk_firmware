@@ -19,18 +19,20 @@ The QMK CLI can be used to convert from normal images such as PNG files or anima
 
 Supported devices:
 
-| Display Panel | Panel Type         | Size             | Comms Transport | Driver                                   |
-|---------------|--------------------|------------------|-----------------|------------------------------------------|
-| GC9A01        | RGB LCD (circular) | 240x240          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += gc9a01_spi`  |
-| ILI9163       | RGB LCD            | 128x128          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9163_spi` |
-| ILI9341       | RGB LCD            | 240x320          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9341_spi` |
-| ILI9488       | RGB LCD            | 320x480          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9488_spi` |
-| SSD1351       | RGB OLED           | 128x128          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ssd1351_spi` |
-| ST7735        | RGB LCD            | 132x162, 80x160  | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += st7735_spi`  |
-| ST7789        | RGB LCD            | 240x320, 240x240 | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += st7789_spi`  |
-| SH1106 (SPI)  | Monochrome OLED    | 128x64           | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += sh1106_spi`  |
-| SH1106 (I2C)  | Monochrome OLED    | 128x64           | I2C             | `QUANTUM_PAINTER_DRIVERS += sh1106_i2c`  |
-| Surface       | Virtual            | User-defined     | None            | `QUANTUM_PAINTER_DRIVERS += surface`     |
+| Display Panel  | Panel Type         | Size             | Comms Transport | Driver                                   |
+|----------------|--------------------|------------------|-----------------|------------------------------------------|
+| GC9A01         | RGB LCD (circular) | 240x240          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += gc9a01_spi`  |
+| ILI9163        | RGB LCD            | 128x128          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9163_spi` |
+| ILI9341        | RGB LCD            | 240x320          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9341_spi` |
+| ILI9488        | RGB LCD            | 320x480          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9488_spi` |
+| SSD1351        | RGB OLED           | 128x128          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ssd1351_spi` |
+| ST7735         | RGB LCD            | 132x162, 80x160  | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += st7735_spi`  |
+| ST7789         | RGB LCD            | 240x320, 240x240 | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += st7789_spi`  |
+| SH1106 (SPI)   | Monochrome OLED    | 128x64           | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += sh1106_spi`  |
+| SH1106 (I2C)   | Monochrome OLED    | 128x64           | I2C             | `QUANTUM_PAINTER_DRIVERS += sh1106_i2c`  |
+| SSD1306 (SPI)  | Monochrome OLED    | 128x64           | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += sh1106_spi`  |
+| SSD1306 (I2C)  | Monochrome OLED    | 128x32           | I2C             | `QUANTUM_PAINTER_DRIVERS += sh1106_i2c`  |
+| Surface        | Virtual            | User-defined     | None            | `QUANTUM_PAINTER_DRIVERS += surface`     |
 
 ## Quantum Painter Configuration :id=quantum-painter-config
 
@@ -432,6 +434,10 @@ The maximum number of displays of each type can be configured by changing the fo
 ```
 
 Native color format mono2 is compatible with SH1106
+
+#### ** SSD1306 **
+
+SSD1306 and SH1106 are almost entirely identical, to the point of being indisinguishable by Quantum Painter. Enable SH1106 support in Quantum Painter and create SH1106 devices in firmware to perform drawing operations on SSD1306 displays.
 
 <!-- tabs:end -->
 
