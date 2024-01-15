@@ -72,14 +72,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 }
 
 layer_state_t default_layer_state_set_kb(layer_state_t state) {
-    switch (get_highest_layer(state)) {
-    case 0:
-        writePinHigh(MAC_PIN);
-        break;
-    case 1:
-        writePinLow(MAC_PIN);
-        break;
-    }
+    writePin(MAC_PIN, !layer_state_cmp(state, 1));
   return state;
 }
 
