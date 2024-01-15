@@ -1,5 +1,5 @@
 // Copyright 2023 Noah Kiser
-// Copyright 2023 Richard Dawe
+// Copyright 2023, 2024 Richard Dawe
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 // Based on the default layout for the Vial for Monorail.
@@ -14,7 +14,7 @@ ps2pdf monorail2-keymap-richdawe.ps monorail2-keymap-richdawe.pdf
 #include QMK_KEYBOARD_H
 
 #define LT1_SPC LT(1, KC_SPC)
-#define LT2_CAPS LT(2, KC_CAPS)
+#define LT2_ESC LT(2, KC_ESC)
 #define LT3_ESC LT(3, KC_ESC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,--+-----+-----+-----+-----+-----+-----------------------------------------.
    * | Tab |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  |Bspace  |
    * |--------------------------------------------------------------------------+
-   * |Cps/L2|  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |   '   |
+   * |Esc/L2|  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |   '   |
    * |--------------------------------------------------------------------------+
    * | Shift  |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  | Up  |Sh/En|
    * |--------------------------------------------------------------------------+
@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   LT3_ESC, KC_GRV,  KC_LBRC,    KC_RBRC,    KC_MINS, KC_EQL, \
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
-  LT2_CAPS,KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
+  LT2_ESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,   SC_SENT, \
   KC_LCTL, KC_LGUI, KC_LALT, KC_LALT,     LT1_SPC,          LT1_SPC,      KC_SLSH, KC_LEFT, KC_DOWN, KC_RGHT
 ),
@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,--+-----+-----+-----+-----+-----+-----------------------------------------.
    * |     |     |     |     |     |     |     |     |     |     |     |        |
    * |--------------------------------------------------------------------------+
-   * |      |     |     |     |     |     |     |     |     |     |     |       |
+   * | Caps |     |     |     |     |     |     |     |     |     |     |       |
    * |--------------------------------------------------------------------------+
    * | RGBTog |RMod |RRMod| Hui | Hud | Sai | Sad | Vai | Vad | Spi | Spd |     |
    * |--------------------------------------------------------------------------+
@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
   RGB_TOG, RGB_MOD, RGB_RMOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, RGB_SPI, RGB_SPD, XXXXXXX, \
   QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX,          XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 ),
