@@ -1,7 +1,6 @@
 # QMK Firmware for 大橘子外设 (Large Orange Peripheral)'s 60% Org60 PCB
 
-![Top View of a pair of XD60 Keyboards (same layout as Org60)](https://i.imgur.com/3Jq2743h.jpg)
-
+![Org60](https://i.imgur.com/wTm2Ydih.jpg)
 
 ## Quantum MK Firmware
 For the full Quantum feature list, see [the parent readme.md](/readme.md).
