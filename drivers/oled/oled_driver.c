@@ -253,7 +253,7 @@ __attribute__((weak)) bool oled_send_data(const uint8_t *data, uint16_t size) {
     spi_stop();
     return true;
 #elif defined(OLED_TRANSPORT_I2C)
-    i2c_status_t status = i2c_writeReg((OLED_DISPLAY_ADDRESS << 1), I2C_DATA, data, size, OLED_I2C_TIMEOUT);
+    i2c_status_t status = i2c_write_register((OLED_DISPLAY_ADDRESS << 1), I2C_DATA, data, size, OLED_I2C_TIMEOUT);
     return (status == I2C_STATUS_SUCCESS);
 #endif
 }
