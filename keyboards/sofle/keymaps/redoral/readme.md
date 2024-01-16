@@ -4,7 +4,7 @@ Based on the `via` keymap and modified it to my own keymap and OLED display pref
 
 ![Real life image of the OLEDs with this firmware](./screenshots/header.webp?raw=true "Header")
 
-### Features:
+## Features
 
 -   Qwerty base, custom MO(1) layer tailored to my own preference
 -   All transparent MO(2) and MO(3) layers (to start from scratch)
@@ -13,7 +13,6 @@ Based on the `via` keymap and modified it to my own keymap and OLED display pref
 -   Mouse keys support, MO(1) layer by default has mouse key bindings on offhand board
 -   1000 hz definition on `config.h` because I am not sure if that is default?
 -   VIA support
-
 
 ### Notes
 
