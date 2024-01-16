@@ -115,7 +115,7 @@
         }
     },
     "rgb_matrix": {
-        "animmations": {
+        "animations": {
             "alphas_mods": true,
             "gradient_up_down": true,
             "gradient_left_right": true,
