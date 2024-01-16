@@ -18,6 +18,9 @@
             {"pin_a": "B7", "pin_b": "B0"}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "backlight": {
         "pin": "B5",
         "levels": 5,
@@ -30,7 +33,23 @@
         "pin": "D5"
     },
     "rgblight": {
-        "max_brightness": 200
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 11,
+        "max_brightness": 200,
+        "led_map": [4, 3, 2, 1, 0, 10, 9, 8, 7, 6, 5],
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

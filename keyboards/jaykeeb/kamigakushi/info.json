@@ -51,6 +51,9 @@
         "pid": "0x0765",
         "vid": "0x414C"
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_65_ansi_blocker_tsangan"
+    },
     "layouts": {
         "LAYOUT_65_ansi_blocker_tsangan": {
             "layout": [

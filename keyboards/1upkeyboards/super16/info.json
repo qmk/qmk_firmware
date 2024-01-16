@@ -11,8 +11,26 @@
   "ws2812": {
     "pin": "D3"
   },
+  "rgblight": {
+    "saturation_steps": 8,
+    "brightness_steps": 8,
+    "led_count": 16,
+    "sleep": true,
+    "animations": {
+      "breathing": true,
+      "rainbow_mood": true,
+      "rainbow_swirl": true,
+      "snake": true,
+      "knight": true,
+      "christmas": true,
+      "static_gradient": true,
+      "rgb_test": true,
+      "alternating": true,
+      "twinkle": true
+    }
+  },
   "rgb_matrix": {
-    "driver": "WS2812"
+    "driver": "ws2812"
   },
   "matrix_pins": {
     "cols": ["D4", "C6", "F6", "F7"],

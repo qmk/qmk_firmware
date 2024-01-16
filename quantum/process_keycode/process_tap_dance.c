@@ -13,7 +13,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+#include "process_tap_dance.h"
 #include "quantum.h"
+#include "action_layer.h"
+#include "action_tapping.h"
+#include "action_util.h"
+#include "timer.h"
+#include "wait.h"
 
 static uint16_t active_td;
 static uint16_t last_tap_time;
@@ -88,6 +95,10 @@ static inline void process_tap_dance_action_on_each_tap(tap_dance_action_t *acti
     _process_tap_dance_action_fn(&action->state, action->user_data, action->fn.on_each_tap);
 }
 
+static inline void process_tap_dance_action_on_each_release(tap_dance_action_t *action) {
+    _process_tap_dance_action_fn(&action->state, action->user_data, action->fn.on_each_release);
+}
+
 static inline void process_tap_dance_action_on_reset(tap_dance_action_t *action) {
     _process_tap_dance_action_fn(&action->state, action->user_data, action->fn.on_reset);
     del_weak_mods(action->state.weak_mods);
@@ -151,8 +162,12 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
                 process_tap_dance_action_on_each_tap(action);
                 active_td = action->state.finished ? 0 : keycode;
             } else {
+                process_tap_dance_action_on_each_release(action);
                 if (action->state.finished) {
                     process_tap_dance_action_on_reset(action);
+                    if (active_td == keycode) {
+                        active_td = 0;
+                    }
                 }
             }
 

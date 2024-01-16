@@ -8,7 +8,11 @@
     "pid": "0x1134",
     "device_version": "1.0.0"
   },
+  "bluetooth": {
+    "driver": "bluefruit_le"
+  },
   "backlight": {
+    "driver": "timer",
     "pin": "F6",
     "levels": 5
   },
