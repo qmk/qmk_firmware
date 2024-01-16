@@ -223,13 +223,8 @@ __attribute__((weak)) bool oled_send_cmd_P(const uint8_t *data, uint16_t size) {
     spi_stop();
     return (status >= 0);
 #    elif defined(OLED_TRANSPORT_I2C)
-    i2c_status_t status = i2c_start((OLED_DISPLAY_ADDRESS << 1) | I2C_WRITE, OLED_I2C_TIMEOUT);
 
-    for (uint16_t i = 0; i < size && status >= 0; i++) {
-        status = i2c_write(pgm_read_byte((const char *)data++), OLED_I2C_TIMEOUT);
-    }
-
-    i2c_stop();
+    i2c_status_t status = i2c_transmit_P((OLED_DISPLAY_ADDRESS << 1), data, size, OLED_I2C_TIMEOUT);
 
     return (status == I2C_STATUS_SUCCESS);
 #    endif

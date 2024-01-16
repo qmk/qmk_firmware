@@ -19,7 +19,6 @@ void RAP_ReadBytes(uint8_t address, uint8_t* data, uint8_t count) {
             pd_dprintf("error cirque_pinnacle i2c_read_register\n");
             touchpad_init = false;
         }
-        i2c_stop();
     }
 }
 
@@ -32,6 +31,5 @@ void RAP_Write(uint8_t address, uint8_t data) {
             pd_dprintf("error cirque_pinnacle i2c_write_register\n");
             touchpad_init = false;
         }
-        i2c_stop();
     }
 }

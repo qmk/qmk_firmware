@@ -124,10 +124,9 @@ static void board_slave_init(void) {
         if (board_is_master(board)) {
             continue;
         }
-        if (i2c_start(EXPANDER_ADDR(board->i2c_address), BOARD_I2C_TIMEOUT) != I2C_STATUS_SUCCESS) {
+        if (i2c_ping_address(EXPANDER_ADDR(board->i2c_address), BOARD_I2C_TIMEOUT) != I2C_STATUS_SUCCESS) {
             continue;
         }
-        i2c_stop();
         if (board_slave_config(board)) {
             board->initialized = true;
         }

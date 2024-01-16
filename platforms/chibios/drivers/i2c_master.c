@@ -1,5 +1,6 @@
 /* Copyright 2018 Jack Humbert
  * Copyright 2018 Yiancar
+ * Copyright 2023 customMK
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -125,7 +126,7 @@ static i2c_status_t i2c_epilogue(const msg_t status) {
     // From ChibiOS HAL: "After a timeout the driver must be stopped and
     // restarted because the bus is in an uncertain state." We also issue that
     // hard stop in case of any error.
-    i2c_stop();
+    i2cStop(&I2C_DRIVER);
 
     return status == MSG_TIMEOUT ? I2C_STATUS_TIMEOUT : I2C_STATUS_ERROR;
 }
@@ -148,12 +149,6 @@ __attribute__((weak)) void i2c_init(void) {
         palSetLineMode(I2C1_SDA_PIN, PAL_MODE_ALTERNATE(I2C1_SDA_PAL_MODE) | PAL_OUTPUT_TYPE_OPENDRAIN);
 #endif
     }
-}
-
-i2c_status_t i2c_start(uint8_t address) {
-    i2c_address = address;
-    i2cStart(&I2C_DRIVER, &i2cconfig);
-    return I2C_STATUS_SUCCESS;
 }
 
 i2c_status_t i2c_transmit(uint8_t address, const uint8_t* data, uint16_t length, uint16_t timeout) {
@@ -214,6 +209,10 @@ i2c_status_t i2c_read_register16(uint8_t devaddr, uint16_t regaddr, uint8_t* dat
     return i2c_epilogue(status);
 }
 
-void i2c_stop(void) {
-    i2cStop(&I2C_DRIVER);
+__attribute__((weak)) i2c_status_t i2c_ping_address(uint8_t address, uint16_t timeout) {
+    // ChibiOS does not provide low level enough control to check for an ack.
+    // Best effort instead tries reading register 0 which will either succeed or timeout.
+    // This approach may produce false negative results for I2C devices that do not respond to a register 0 read request.
+    uint8_t data = 0;
+    return i2c_readReg(address, 0, &data, sizeof(data), timeout);
 }
