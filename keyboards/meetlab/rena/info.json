@@ -2,7 +2,8 @@
   "manufacturer": "meet_lab",
   "keyboard_name": "Rena",
   "maintainer": "yuezp",
-  "development_board": "bluepill",
+  "processor": "STM32F103",
+  "bootloader": "stm32duino",
   "diode_direction": "COL2ROW",
   "features": {
       "bootmagic": true,
