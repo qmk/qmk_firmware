@@ -21,6 +21,13 @@
 
 #include <stdint.h>
 
+// ### DEPRECATED - DO NOT USE ###
+#define i2c_writeReg(devaddr, regaddr, data, length, timeout) i2c_write_register(devaddr, regaddr, data, length, timeout)
+#define i2c_writeReg16(devaddr, regaddr, data, length, timeout) i2c_write_register16(devaddr, regaddr, data, length, timeout)
+#define i2c_readReg(devaddr, regaddr, data, length, timeout) i2c_read_register(devaddr, regaddr, data, length, timeout)
+#define i2c_readReg16(devaddr, regaddr, data, length, timeout) i2c_read_register16(devaddr, regaddr, data, length, timeout)
+// ###############################
+
 #define I2C_READ 0x01
 #define I2C_WRITE 0x00
 
@@ -40,8 +47,8 @@ int16_t      i2c_read_ack(uint16_t timeout);
 int16_t      i2c_read_nack(uint16_t timeout);
 i2c_status_t i2c_transmit(uint8_t address, const uint8_t* data, uint16_t length, uint16_t timeout);
 i2c_status_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout);
-i2c_status_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout);
-i2c_status_t i2c_writeReg16(uint8_t devaddr, uint16_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout);
-i2c_status_t i2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout);
-i2c_status_t i2c_readReg16(uint8_t devaddr, uint16_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout);
+i2c_status_t i2c_write_register(uint8_t devaddr, uint8_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout);
+i2c_status_t i2c_write_register16(uint8_t devaddr, uint16_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout);
+i2c_status_t i2c_read_register(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout);
+i2c_status_t i2c_read_register16(uint8_t devaddr, uint16_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout);
 void         i2c_stop(void);
