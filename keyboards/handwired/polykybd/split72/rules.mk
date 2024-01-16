@@ -28,11 +28,11 @@ SPLIT_KEYBOARD = yes
 
 #OLED setup
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
+OLED_DRIVER = ssd1306
 
 #RGB matrix lighting
 RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = WS2812
+RGB_MATRIX_DRIVER = ws2812
 
 #source files
 QUANTUM_LIB_SRC += spi_master.c

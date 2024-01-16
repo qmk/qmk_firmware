@@ -57,7 +57,9 @@
 #define SR_DATA_PIN GP26
 #define SR_LATCH_PIN GP28
 
+//only for v3 and later
 //#define USB_VBUS_PIN GP24
+
 
 // KEY_DISPLAYS_VBAT_PIN
 //#define KEY_DISPLAYS_VBAT_PIN NO_PIN
@@ -76,7 +78,7 @@
 
 
 // Setup Cirque
-#define CIRQUE_PINNACLE_DIAMETER_MM 23
+#define CIRQUE_PINNACLE_DIAMETER_MM 35
 #define CIRQUE_PINNACLE_TAP_ENABLE true
 
 // Enable use of pointing device on slave split.

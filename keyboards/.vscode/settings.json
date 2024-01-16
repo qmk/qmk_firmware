@@ -2,6 +2,11 @@
     "files.associations": {
         "*.c": "c",
         "*.h": "c",
-        "*.inc": "c"
+        "*.inc": "c",
+        "cstdio": "c",
+        "array": "c",
+        "string": "c",
+        "string_view": "c",
+        "ranges": "c"
     }
 }

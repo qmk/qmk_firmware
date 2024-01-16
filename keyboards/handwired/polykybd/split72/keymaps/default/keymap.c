@@ -12,6 +12,8 @@
 #include "base/fonts/gfx_used_fonts.h"
 
 #include "quantum/quantum_keycodes.h"
+#include "quantum/keymap_extras/keymap_german.h"
+
 #include "raw_hid.h"
 #include "oled_driver.h"
 #include "version.h"
@@ -31,8 +33,8 @@
 //1 min
 #define FADE_OUT_TIME 60000
 //20 min
-//#define TURN_OFF_TIME 1200000
-#define TURN_OFF_TIME   8000000
+#define TURN_OFF_TIME 1200000
+//#define TURN_OFF_TIME   8000000
 
 /*[[[cog
 import cog
@@ -54,10 +56,29 @@ while lang_key:
 static enum lang_layer g_lang_init = LANG_EN;
 //[[[end]]]
 
-enum kb_layers { _L0 = 0x00, _BL=_L0, _L1 = 0x01, _COLEMAK_DH = 0x02, _FL0 = 0x03, _FL1 = 0x04, _NL = 0x05, _UL = 0x06, _LS = 0x07, _ADDLANG1 = 0x08};
+enum kb_layers {
+    _BL = 0x00,
+    _L0 = _BL,
+    _L1,
+    _L2,
+    _L3,
+    _FL0,
+    _FL1,
+    _NL,
+    _UL,
+    _LS,
+    _ADDLANG1 };
 
 enum my_keycodes {
-    KC_LANG = SAFE_RANGE, KC_DECC, KC_INCC, KC_TOGBASE, KC_BASE, KC_L0, KC_L1, KC_CMK_DH, KC_STAGGER, KC_DEADKEY,
+    KC_LANG = SAFE_RANGE,
+    KC_DARK,
+    KC_BRI,
+    KC_BASE,
+    KC_L0,
+    KC_L1,
+    KC_L2,
+    KC_L3,
+    KC_DEADKEY,
     /*[[[cog
       for lang in languages:
           cog.out(f"KC_{lang}, ")
@@ -119,7 +140,7 @@ typedef union _poly_eeconf{
     poly_eeconf_t conf;
 } poly_eeconf;
 
-enum flags { STATUS_DISP_ON = 1, USE_STAGGER = 2, DISP_IDLE = 4, DEAD_KEY_ON_WAKEUP = 8};
+enum flags { STATUS_DISP_ON = 1, RGB_MATRIX_ON = 2, DISP_IDLE = 4, DEAD_KEY_ON_WAKEUP = 8};
 typedef struct _poly_sync_t {
     uint8_t lang;
     uint8_t contrast;
@@ -148,8 +169,6 @@ poly_sync_t g_local;
 
 static int32_t last_update = 0;
 
-void oled_draw_kybd(void);
-void oled_draw_poly(void);
 bool display_wakeup(keyrecord_t* record);
 void update_displays(enum refresh_mode mode);
 void set_displays(uint8_t contrast, bool idle);
@@ -329,9 +348,9 @@ void sync_and_refresh_displays(void) {
             set_displays(g_local.contrast, (g_local.flags&DISP_IDLE)!=0);
         }
 
-        if((g_local.flags&USE_STAGGER)!=(g_state.s.flags&USE_STAGGER)) {
-            toggle_stagger((g_local.flags&USE_STAGGER)==0);
-        }
+        // if((g_local.flags&USE_STAGGER)!=(g_state.s.flags&USE_STAGGER)) {
+        //     toggle_stagger((g_local.flags&USE_STAGGER)==0);
+        // }
         g_state.s = g_local;
     }
 }
@@ -395,6 +414,22 @@ const uint32_t unicode_map[] PROGMEM = {
 
 uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //Base Layers
+/*
+                                                              ┌────────────────┐
+                                                              │     QWERTY     │
+                                                              └────────────────┘
+   ┌────────┬───────┬───────┬───────┬───────┬───────┬───────┐                    ┌───────┬───────┬───────┬───────┬───────┬───────┬────────┐
+   │  Esc   │   1   │   2   │   3   │   4   │   5   │  Nubs │ ╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮ │   6   │   7   │   8   │   9   │   0   │   -   │ BckSp  │
+   ├────────┼───────┼───────┼───────┼───────┼───────┼───────┤ │╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯│ ├───────┼───────┼───────┼───────┼───────┼───────┼────────┤
+   │  TAB   │   q   │   w   │   e   │   r   │   t   │   `   ├─╯                ╰─┤  Hypr │   y   │   u   │   i   │   o   │   p   │   \    │
+   ├────────┼───────┼───────┼───────┼───────┼───────┼───────┤                    ├───────┼───────┼───────┼───────┼───────┼───────┼────────┤
+   │  FN    │   a   │   s   │   d   │   f   │   g   │   '   │  (MB1)             │  Intl │   h   │   j   │   k   │   l   │   =   │  Ret   │
+   ├────────┼───────┼───────┼───────┼───────┼───────┼───────┼────────╮  ╭────────┼───────┼───────┼───────┼───────┼───────┼───────┼────────┤
+   │ Shift  │   z   │   x   │   c   │   v   │   b   │  Nuhs │  Num!  │  │   [    │   ]   │   n   │   m   │   ,   │   ;   │  Up   │ Shift  │
+   └┬───────┼───────┼───────┼───────┼──────┬┴───────┼───────┼────────┤  ├────────┼───────┼───────┴┬──────┼───────┼───────┼───────┼───────┬┘
+    │ Ctrl  │  Os   │  Alt  │  Intl │      │  Space │  Del  │   Ret  │  │  Lang  │   /   │ Space  │      │   .   │  Left │  Down │ Right │
+    └───────┴───────┴───────┴───────┘      └────────┴───────┴────────╯  └────────┴───────┴────────┘      └───────┴───────┴───────┴───────┘
+*/
     [_L0] = LAYOUT_left_right_stacked(
         KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_NUBS,
         KC_TAB,     KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       KC_GRAVE,
@@ -402,12 +437,30 @@ uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT,    KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       KC_NUHS,    MO(_NL),
         KC_LCTL,    KC_LWIN,    KC_LALT,    KC_APP,                 KC_SPACE,   KC_DEL,     KC_ENTER,
 
-                    KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,   KC_EQUAL,
-                    KC_HYPR,    KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       KC_LBRC,
-        KC_NO,      MO(_ADDLANG1),KC_H,     KC_J,       KC_K,       KC_L,       KC_SCLN,    KC_RBRC,
-        KC_LANG,    KC_BSLS,    KC_N,       KC_M,       KC_COMMA,   KC_DOT,     KC_SLASH,   KC_RSFT,
-        KC_ENTER,   KC_BSPC,    KC_SPC,                 KC_LEFT,    KC_UP,      KC_DOWN,    KC_RIGHT
+                    KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,   KC_BSPC,
+                    KC_HYPR,    KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       KC_BSLS,
+        KC_NO,      MO(_ADDLANG1),KC_H,     KC_J,       KC_K,       KC_L,       KC_EQUAL,   KC_ENTER,
+        KC_LBRC,    KC_RBRC,    KC_N,       KC_M,       KC_COMMA,   KC_SCLN,    KC_UP,      KC_RSFT,
+        KC_LANG,    KC_SLASH,    KC_SPC,                KC_DOT,     KC_LEFT,    KC_DOWN,    KC_RIGHT
         ),
+
+/*
+                                                              ┌────────────────┐
+                                                              │     QWERTY*    │
+                                                              └────────────────┘
+   ┌────────┬───────┬───────┬───────┬───────┬───────┬───────┐                    ┌───────┬───────┬───────┬───────┬───────┬───────┬────────┐
+   │  Esc   │   1   │   2   │   3   │   4   │   5   │   6   │ ╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮ │   7   │   8   │   9   │   0   │   -   │   =   │  Hypr  │
+   ├────────┼───────┼───────┼───────┼───────┼───────┼───────┤ │╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯│ ├───────┼───────┼───────┼───────┼───────┼───────┼────────┤
+   │  TAB   │   q   │   w   │   e   │   r   │   t   │   `   ├─╯                ╰─┤   y   │   u   │   i   │   o   │   p   │   [   │  Nubs  │
+   ├────────┼───────┼───────┼───────┼───────┼───────┼───────┤                    ├───────┼───────┼───────┼───────┼───────┼───────┼────────┤
+   │  FN    │   a   │   s   │   d   │   f   │   g   │   '   │  (MB1)             │   h   │   j   │   k   │   l   │   ;   │   ]   │    \   │
+   ├────────┼───────┼───────┼───────┼───────┼───────┼───────┼────────╮  ╭────────┼───────┼───────┼───────┼───────┼───────┼───────┼────────┤
+   │ Shift  │ Nuhs  │   z   │   x   │   c   │   v   │   b   │  Num!  │  │  Lang  │  Ctx  │   n   │   m   │   ,   │   .   │   /   │ Shift  │
+   └┬───────┼───────┼───────┼───────┼──────┬┴───────┼───────┼────────┤  ├────────┼───────┼───────┴┬──────┼───────┼───────┼───────┼───────┬┘
+    │ Ctrl  │  Os   │  Alt  │  Intl │      │  Space │  Del  │   Ret  │  │  Ret   │ BckSp │ Space  │      │ Left  │   Up  │  Down │ Right │
+    └───────┴───────┴───────┴───────┘      └────────┴───────┴────────╯  └────────┴───────┴────────┘      └───────┴───────┴───────┴───────┘
+*/
+
     [_L1] = LAYOUT_left_right_stacked(
         KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_6,
         KC_TAB,     KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       KC_GRAVE,
@@ -421,11 +474,27 @@ uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LANG,    KC_APP,     KC_N,       KC_M,       KC_COMMA,   KC_DOT,     KC_SLASH,   KC_RSFT,
         KC_ENTER,   KC_BSPC,    KC_SPC,                 KC_LEFT,    KC_UP,      KC_DOWN,    KC_RIGHT
         ),
-    [_COLEMAK_DH] = LAYOUT_left_right_stacked(
+/*
+                                                              ┌────────────────┐
+                                                              │   Colemak DH   │
+                                                              └────────────────┘
+   ┌────────┬───────┬───────┬───────┬───────┬───────┬───────┐                    ┌───────┬───────┬───────┬───────┬───────┬───────┬────────┐
+   │  Esc   │   1   │   2   │   3   │   4   │   5   │  Nub  │ ╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮ │   6   │   7   │   8   │   9   │   0   │   -   │   =    │
+   ├────────┼───────┼───────┼───────┼───────┼───────┼───────┤ │╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯│ ├───────┼───────┼───────┼───────┼───────┼───────┼────────┤
+   │  TAB   │   q   │   w   │   f   │   p   │   b   │   `   ├─╯                ╰─┤   j   │   l   │   u   │   y   │   ;   │   [   │  Intl  │
+   ├────────┼───────┼───────┼───────┼───────┼───────┼───────┤                    ├───────┼───────┼───────┼───────┼───────┼───────┼────────┤
+   │  FN    │   a   │   r   │   s   │   t   │   g   │   '   │  (MB1)             │   m   │   n   │   e   │   i   │   o   │   ]   │    \   │
+   ├────────┼───────┼───────┼───────┼───────┼───────┼───────┼────────╮  ╭────────┼───────┼───────┼───────┼───────┼───────┼───────┼────────┤
+   │ Shift  │   z   │   x   │   c   │   d   │   v   │  Nuhs |  Num!  │  │  Lang  │  Hypr │   k   │   h   │   ,   │   .   │   /   │ Shift  │
+   └┬───────┼───────┼───────┼───────┼──────┬┴───────┼───────┼────────┤  ├────────┼───────┼───────┴┬──────┼───────┼───────┼───────┼───────┬┘
+    │ Ctrl  │  Os   │  Alt  │  Ctx  │      │  Space │  Del  │   Ret  │  │  Ret   │ BckSp │ Space  │      │ Left  │   Up  │  Down │ Right │
+    └───────┴───────┴───────┴───────┘      └────────┴───────┴────────╯  └────────┴───────┴────────┘      └───────┴───────┴───────┴───────┘
+*/
+    [_L2] = LAYOUT_left_right_stacked(
         KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_NUBS,
         KC_TAB,     KC_Q,       KC_W,       KC_F,       KC_P,       KC_B,       KC_GRAVE,
         MO(_FL1),   KC_A,       KC_R,       KC_S,       KC_T,       KC_G,       KC_QUOTE,   KC_MS_BTN1,
-        KC_LSFT,    KC_NUHS,    KC_Z,       KC_X,       KC_C,       KC_D,       KC_V,       MO(_NL),
+        KC_LSFT,    KC_Z,       KC_X,       KC_C,       KC_D,       KC_V,       KC_NUHS,    MO(_NL),
         KC_LCTL,    KC_LWIN,    KC_LALT,    KC_APP,                 KC_SPACE,   KC_DEL,     KC_ENTER,
 
                     KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,   KC_EQUAL,
@@ -434,37 +503,66 @@ uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LANG,    KC_HYPR,    KC_K,       KC_H,       KC_COMMA,   KC_DOT,     KC_SLASH,   KC_RSFT,
         KC_ENTER,   KC_BSPC,    KC_SPC,                 KC_LEFT,    KC_UP,      KC_DOWN,    KC_RIGHT
         ),
+        /*
+                                                              ┌────────────────┐
+                                                              │       Neo      │
+                                                              └────────────────┘
+   ┌────────┬───────┬───────┬───────┬───────┬───────┬───────┐                    ┌───────┬───────┬───────┬───────┬───────┬───────┬────────┐
+   │  Esc   │   1   │   2   │   3   │   4   │   5   │   <   │ ╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮ │   6   │   7   │   8   │   9   │   0   │   -   │   `    │
+   ├────────┼───────┼───────┼───────┼───────┼───────┼───────┤ │╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯│ ├───────┼───────┼───────┼───────┼───────┼───────┼────────┤
+   │  TAB   │   x   │   v   │   l   │   c   │   w   │   ^   ├─╯                ╰─┤   k   │   h   │   g   │   f   │   q   │   ß   │   ´    │
+   ├────────┼───────┼───────┼───────┼───────┼───────┼───────┤                    ├───────┼───────┼───────┼───────┼───────┼───────┼────────┤
+   │  FN    │   u   │   i   │   a   │   e   │   o   │   '   │  (MB1)             │   s   │   n   │   r   │   t   │   d   │   y   │   \    │
+   ├────────┼───────┼───────┼───────┼───────┼───────┼───────┼────────╮  ╭────────┼───────┼───────┼───────┼───────┼───────┼───────┼────────┤
+   │ Shift  │   #   │   ü   │   ö   │   ä   │   p   │   z   │  Num!  │  │  Lang  │   +   │   b   │   m   │   ,   │   .   │   j   │ Shift  │
+   └┬───────┼───────┼───────┼───────┼──────┬┴───────┼───────┼────────┤  ├────────┼───────┼───────┴┬──────┼───────┼───────┼───────┼───────┬┘
+    │ Ctrl  │  Os   │  Alt  │  Ctx  │      │  Space │  Del  │   Ret  │  │  Ret   │ BckSp │ Space  │      │ Left  │   Up  │  Down │ Right │
+    └───────┴───────┴───────┴───────┘      └────────┴───────┴────────╯  └────────┴───────┴────────┘      └───────┴───────┴───────┴───────┘
+*/
+    [_L3] = LAYOUT_left_right_stacked(
+        KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       DE_LABK,
+        KC_TAB,     KC_X,       KC_V,       KC_L,       KC_C,       KC_W,       DE_CIRC,
+        MO(_FL0),   KC_U,       KC_I,       KC_A,       KC_E,       KC_O,       KC_QUOTE,   KC_MS_BTN1,
+        KC_LSFT,    DE_HASH,    DE_UDIA,    DE_ODIA,    DE_ADIA,    KC_P,       DE_Z,       MO(_NL),
+        KC_LCTL,    KC_LWIN,    KC_LALT,    KC_APP,                 KC_SPACE,   KC_DEL,     KC_ENTER,
+
+                    KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       DE_MINS,    DE_GRV,
+                    KC_K,       KC_H,       KC_G,       KC_F,       KC_Q,       DE_SS,      DE_ACUT,
+        KC_NO,      KC_S,       KC_N,       KC_R,       KC_T,       KC_D,       DE_Y,       KC_BSLS,
+        KC_LANG,    DE_PLUS,    KC_B,       KC_M,       KC_COMMA,   KC_DOT,     KC_J,       KC_RSFT,
+        KC_ENTER,   KC_BSPC,    KC_SPC,                 KC_LEFT,    KC_UP,      KC_DOWN,    KC_RIGHT
+        ),
     //Function Layer (Fn)
     [_FL0] = LAYOUT_left_right_stacked(
         OSL(_UL),   KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,     TO(_UL),
-        KC_MS_BTN1, _______,    _______,    _______,    _______,    _______,    _______,
+        _______,    _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
         KC_CAPS,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
-        _______,    _______,    _______,    KC_MS_BTN2,             _______,    _______,    _______,
+        _______,    _______,    _______,    KC_BTN2,                _______,    _______,    _______,
 
                     KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,      KC_F11,     KC_F12,
-                    _______,    _______,    _______,    _______,    _______,    _______,    _______,
-        _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
+                    KC_BTN3,    KC_BTN2,    _______,    _______,    _______,    _______,    _______,
+        _______,    KC_BTN1,    _______,    _______,    _______,    _______,    _______,    _______,
         TO(_NL),    _______,    _______,    _______,    _______,    _______,    _______,    _______,
         KC_RALT,    KC_RWIN,    KC_RCTL,                KC_HOME,    KC_PGUP,    KC_PGDN,    KC_END
         ),
     [_FL1] = LAYOUT_left_right_stacked(
         OSL(_UL),   KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,
-        KC_MS_BTN1, _______,    _______,    _______,    _______,    _______,    _______,
+        _______,    _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
-        _______,    _______,    _______,    KC_MS_BTN2,             _______,    _______,    _______,
+        _______,    _______,    _______,    KC_BTN2,             _______,    _______,    _______,
 
                     KC_F7,      KC_F8,      KC_F9,      KC_F10,      KC_F11,     KC_F12,    TO(_UL),
-                    _______,    _______,    _______,    _______,    _______,    _______,    _______,
-        _______,    _______,    _______,    _______,    _______,    _______,    _______,    KC_CAPS,
+                    KC_BTN3,    KC_BTN2,    _______,    _______,    _______,    _______,    _______,
+        _______,    KC_BTN1,    _______,    _______,    _______,    _______,    _______,    KC_CAPS,
         TO(_NL),    _______,    _______,    _______,    _______,    _______,    _______,    _______,
         KC_RALT,    KC_RWIN,    KC_RCTL,                KC_HOME,    KC_PGUP,    KC_PGDN,    KC_END
         ),
      //Num Layer
     [_NL] = LAYOUT_left_right_stacked(
         KC_NO,      KC_NUM,     KC_PSLS,    KC_PAST,    KC_PMNS,    KC_NO,      KC_NO,
-        KC_MS_BTN1, KC_KP_7,    KC_KP_8,    KC_KP_9,    KC_PPLS,    KC_INS,     KC_NO,
+        KC_BTN1,    KC_KP_7,    KC_KP_8,    KC_KP_9,    KC_PPLS,    KC_INS,     KC_NO,
         KC_NO,      KC_KP_4,    KC_KP_5,    KC_KP_6,    KC_PPLS,    KC_DEL,     KC_NO,     _______,
         KC_NO,      KC_KP_1,    KC_KP_2,    KC_KP_3,    KC_PENT,    KC_NO,      KC_NO,     _______,
         KC_BASE,    KC_KP_0,    KC_PDOT,    KC_PENT,                KC_MS_BTN2, KC_NO,     KC_NO,
@@ -481,12 +579,12 @@ uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MYCM,    KC_CALC,    KC_PSCR,    KC_SCRL,    KC_BRK,     KC_NO,      KC_NO,
         KC_LCTL,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_DEADKEY,_______,
         KC_LSFT,    RGB_RMOD,   RGB_TOG,    RGB_MOD,    RGB_M_P,    RGB_M_B,    EE_CLR,    QK_DEBUG_TOGGLE,
-        KC_BASE,    KC_INCC,    KC_NO,      KC_DECC,                QK_RBT,     QK_MAKE,   QK_BOOT,
+        KC_BASE,    KC_BRI,     KC_NO,      KC_DARK,                QK_RBT,     QK_MAKE,   QK_BOOT,
 
                     KC_F19,     KC_F20,     KC_F21,     KC_F22,     KC_F23,     KC_F24,    KC_NO,
                     KC_MPRV,    KC_MPLY,    KC_MSTP,    KC_MNXT,    KC_MUTE,    KC_VOLD,   KC_VOLU,
-        _______,    KC_NO,      KC_NO,      KC_NO,      KC_STAGGER, KC_NO,      KC_NO,     KC_RCTL,
-        RGB_VAI,    RGB_SPI,    KC_NO,      KC_L0,      KC_L1,      KC_CMK_DH,  KC_TOGBASE,KC_RSFT,
+        _______,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,     KC_RCTL,
+        RGB_VAI,    RGB_SPI,    KC_NO,      KC_L0,      KC_L1,      KC_L2,      KC_L3,     KC_RSFT,
         RGB_VAD,    RGB_SPD,    KC_NO,      RGB_HUI,    RGB_HUD,    RGB_SAI,    RGB_SAD
         ),
     //Language Selection Layer
@@ -565,7 +663,6 @@ led_config_t g_led_config = { {// Key Matrix to LED Index
 const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     switch (keycode) {
     case KC_DEADKEY: return (g_local.flags&DEAD_KEY_ON_WAKEUP)==0 ? u"WakeX\r\v" ICON_SWITCH_OFF : u"WakeX\r\v" ICON_SWITCH_ON;
-    case KC_STAGGER: return (g_local.flags&USE_STAGGER)==0 ? u"Stgr\r\v" ICON_SWITCH_OFF : u"Stgr\r\v" ICON_SWITCH_ON;
     case QK_UNICODE_MODE_MACOS: return u"Mac";
     case QK_UNICODE_MODE_LINUX: return u"Lnx";
     case QK_UNICODE_MODE_WINDOWS: return u"Win";
@@ -661,11 +758,11 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         return u">>>";
     case KC_MS_ACCEL2:
         return u">>>>";
-    case KC_MS_BTN1:
+    case KC_BTN1:
         return u"  " ICON_LMB;
-    case KC_MS_BTN2:
+    case KC_BTN2:
         return u"  " ICON_RMB;
-    case KC_MS_BTN3:
+    case KC_BTN3:
         return u"  " ICON_MMB;
     case KC_MS_UP:
         return u"  " ICON_UP;
@@ -710,14 +807,14 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         return u"Nm!\r\v\t" ICON_LAYER;
     case KC_BASE:
         return u"Base\r\v\t" ICON_LAYER;
-    case KC_TOGBASE:
-        return u"TgBL\r\v\t" ICON_LAYER;
     case KC_L0:
-        return g_local.default_ls==_L0 ? u"QTY" ICON_LAYER u"\r\v" ICON_SWITCH_ON : u"QTY" ICON_LAYER u"\r\v" ICON_SWITCH_OFF;
+        return g_local.default_ls==_L0 ? u"Qwty\r\v" ICON_SWITCH_ON : u"Qwty\r\v" ICON_SWITCH_OFF;
     case KC_L1:
-        return g_local.default_ls==_L1 ? u"Myko" ICON_LAYER u"\r\v" ICON_SWITCH_ON : u"Myko" ICON_LAYER u"\r\v" ICON_SWITCH_OFF;
-    case KC_CMK_DH:
-        return g_local.default_ls==_COLEMAK_DH ? u"CkDH" ICON_LAYER u"\r\v" ICON_SWITCH_ON : u"CkDH" ICON_LAYER u"\r\v" ICON_SWITCH_OFF;
+        return g_local.default_ls==_L1 ? u"Qwty*\r\v" ICON_SWITCH_ON : u"Qwty*\r\v" ICON_SWITCH_OFF;
+    case KC_L2:
+        return g_local.default_ls==_L2 ? u"Colmk\r\v" ICON_SWITCH_ON : u"Colmk\r\v" ICON_SWITCH_OFF;
+    case KC_L3:
+        return g_local.default_ls==_L3 ? u"Neo\r\v" ICON_SWITCH_ON : u"Neo\r\v" ICON_SWITCH_OFF;
     case OSL(_UL):
         return u"Util*\r\v\t" ICON_LAYER;
     case TO(_UL):
@@ -772,9 +869,9 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         return u" " ICON_SHIFT;
     case KC_NO:
         return u"";
-    case KC_DECC:
+    case KC_DARK:
         return u"Dsp-";
-    case KC_INCC:
+    case KC_BRI:
         return u"Dsp+";
     case KC_LANG:
         return PRIVATE_WORLD;
@@ -1046,72 +1143,72 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         KC_ENTER,   KC_BSPC,    KC_SPC,                 KC_LEFT,    KC_UP,      KC_DOWN,    KC_RIGHT
         ),
 */
-void shiftl_row(const uint8_t row, const uint8_t from, const uint8_t to) {
-    uint16_t swap = keymaps[g_local.default_ls][row][from];
+// void shiftl_row(const uint8_t row, const uint8_t from, const uint8_t to) {
+//     uint16_t swap = keymaps[g_local.default_ls][row][from];
 
-    for(uint8_t current = from; current<to; current++) {
-        keymaps[g_local.default_ls][row][current] = keymaps[g_local.default_ls][row][current+1];
-    }
-    keymaps[g_local.default_ls][row][to] = swap;
-}
+//     for(uint8_t current = from; current<to; current++) {
+//         keymaps[g_local.default_ls][row][current] = keymaps[g_local.default_ls][row][current+1];
+//     }
+//     keymaps[g_local.default_ls][row][to] = swap;
+// }
 
-void shiftr_row(const uint8_t row, const uint8_t from, const uint8_t to) {
-    uint16_t swap = keymaps[g_local.default_ls][row][to];
+// void shiftr_row(const uint8_t row, const uint8_t from, const uint8_t to) {
+//     uint16_t swap = keymaps[g_local.default_ls][row][to];
 
-    for(uint8_t current = to; current>from; current--) {
-        keymaps[g_local.default_ls][row][current] = keymaps[g_local.default_ls][row][current-1];
-    }
-    keymaps[g_local.default_ls][row][from] = swap;
-}
+//     for(uint8_t current = to; current>from; current--) {
+//         keymaps[g_local.default_ls][row][current] = keymaps[g_local.default_ls][row][current-1];
+//     }
+//     keymaps[g_local.default_ls][row][from] = swap;
+// }
 
-void swap_keys(const uint8_t r1, const uint8_t c1, const uint8_t r2, const uint8_t c2) {
-    uint16_t swap = keymaps[g_local.default_ls][r1][c1];
-    keymaps[g_local.default_ls][r1][c1] = keymaps[g_local.default_ls][r2][c2];
-    keymaps[g_local.default_ls][r2][c2] = swap;
-}
+// void swap_keys(const uint8_t r1, const uint8_t c1, const uint8_t r2, const uint8_t c2) {
+//     uint16_t swap = keymaps[g_local.default_ls][r1][c1];
+//     keymaps[g_local.default_ls][r1][c1] = keymaps[g_local.default_ls][r2][c2];
+//     keymaps[g_local.default_ls][r2][c2] = swap;
+// }
 
-void shiftl_3keys(const uint8_t r1, const uint8_t c1, const uint8_t r2, const uint8_t c2, const uint8_t r3, const uint8_t c3) {
-    uint16_t swap = keymaps[g_local.default_ls][r1][c1];
-    keymaps[g_local.default_ls][r1][c1] = keymaps[g_local.default_ls][r2][c2];
-    keymaps[g_local.default_ls][r2][c2] = keymaps[g_local.default_ls][r3][c3];
-    keymaps[g_local.default_ls][r3][c3] = swap;
-}
+// void shiftl_3keys(const uint8_t r1, const uint8_t c1, const uint8_t r2, const uint8_t c2, const uint8_t r3, const uint8_t c3) {
+//     uint16_t swap = keymaps[g_local.default_ls][r1][c1];
+//     keymaps[g_local.default_ls][r1][c1] = keymaps[g_local.default_ls][r2][c2];
+//     keymaps[g_local.default_ls][r2][c2] = keymaps[g_local.default_ls][r3][c3];
+//     keymaps[g_local.default_ls][r3][c3] = swap;
+// }
 
-void shiftr_3keys(const uint8_t r1, const uint8_t c1, const uint8_t r2, const uint8_t c2, const uint8_t r3, const uint8_t c3) {
-    uint16_t swap = keymaps[g_local.default_ls][r3][c3];
-    keymaps[g_local.default_ls][r3][c3] = keymaps[g_local.default_ls][r2][c2];
-    keymaps[g_local.default_ls][r2][c2] = keymaps[g_local.default_ls][r1][c1];
-    keymaps[g_local.default_ls][r1][c1] = swap;
-}
+// void shiftr_3keys(const uint8_t r1, const uint8_t c1, const uint8_t r2, const uint8_t c2, const uint8_t r3, const uint8_t c3) {
+//     uint16_t swap = keymaps[g_local.default_ls][r3][c3];
+//     keymaps[g_local.default_ls][r3][c3] = keymaps[g_local.default_ls][r2][c2];
+//     keymaps[g_local.default_ls][r2][c2] = keymaps[g_local.default_ls][r1][c1];
+//     keymaps[g_local.default_ls][r1][c1] = swap;
+// }
 
-void toggle_stagger(bool new_state) {
-    bool current_state = (g_local.flags&USE_STAGGER) != 0;
-    if(current_state!=new_state) {
-        if(new_state) {
-            shiftr_row(3,1,6);
+// void toggle_stagger(bool new_state) {
+//     bool current_state = (g_local.flags&USE_STAGGER) != 0;
+//     if(current_state!=new_state) {
+//         if(new_state) {
+//             shiftr_row(3,1,6);
 
-            keymaps[g_local.default_ls][0][2] = MO(_FL1);
+//             keymaps[g_local.default_ls][0][2] = MO(_FL1);
 
-            shiftl_row(6,1,7);
-            shiftl_row(7,1,7);
-            shiftl_row(5,1,7);
+//             shiftl_row(6,1,7);
+//             shiftl_row(7,1,7);
+//             shiftl_row(5,1,7);
 
-            shiftl_3keys(7,7, 8,1, 4,3);
-            shiftl_3keys(7,5, 7,6, 0,6);
-        } else {
-            shiftl_row(3,1,6);
+//             shiftl_3keys(7,7, 8,1, 4,3);
+//             shiftl_3keys(7,5, 7,6, 0,6);
+//         } else {
+//             shiftl_row(3,1,6);
 
-            keymaps[g_local.default_ls][0][2] = MO(_FL0);
+//             keymaps[g_local.default_ls][0][2] = MO(_FL0);
 
-            shiftr_3keys(7,7, 8,1, 4,3);
-            shiftr_3keys(7,5, 7,6, 0,6);
+//             shiftr_3keys(7,7, 8,1, 4,3);
+//             shiftr_3keys(7,5, 7,6, 0,6);
 
-            shiftr_row(6,1,7);
-            shiftr_row(7,1,7);
-            shiftr_row(5,1,7);
-        }
-    }
-}
+//             shiftr_row(6,1,7);
+//             shiftr_row(7,1,7);
+//             shiftr_row(5,1,7);
+//         }
+//     }
+// }
 
 void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
     if (keycode == KC_CAPS_LOCK) {
@@ -1128,14 +1225,6 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
             }
             request_disp_refresh();
             break;
-        case KC_STAGGER:
-            if((g_local.flags&USE_STAGGER)==0) {
-                g_local.flags |= USE_STAGGER;
-            } else {
-                g_local.flags &= ~((uint8_t)USE_STAGGER);
-            }
-            request_disp_refresh();
-            break;
         case KC_L0:
             g_local.default_ls = _L0;
             persistent_default_layer_set(g_local.default_ls);
@@ -1146,16 +1235,17 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
             persistent_default_layer_set(g_local.default_ls);
             request_disp_refresh();
             break;
-        case KC_CMK_DH:
-            g_local.default_ls = _COLEMAK_DH;
+        case KC_L2:
+            g_local.default_ls = _L2;
             persistent_default_layer_set(g_local.default_ls);
             request_disp_refresh();
             break;
-        case KC_TOGBASE:
-            g_local.default_ls = (g_local.default_ls==_L0) ? _L1 : (g_local.default_ls==_L1) ? _COLEMAK_DH : _L0;
+            case KC_L3:
+            g_local.default_ls = _L3;
             persistent_default_layer_set(g_local.default_ls);
             request_disp_refresh();
             break;
+
         case KC_BASE:
             layer_clear();
             layer_on(g_local.default_ls);
@@ -1164,10 +1254,10 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
         case KC_LEFT_SHIFT:
             request_disp_refresh();
             break;
-        case KC_DECC:
+        case KC_DARK:
             dec_brightness();
             break;
-        case KC_INCC:
+        case KC_BRI:
             inc_brightness();
             break;
             /*[[[cog
@@ -1402,7 +1492,7 @@ void hex_to_u16_string(char* buffer, uint8_t buffer_len, uint8_t value) {
 void oled_status_screen(void) {
     if( (g_local.flags&STATUS_DISP_ON) == 0) {
         oled_off();
-        rgb_matrix_disable_noeeprom();
+        //rgb_matrix_disable_noeeprom();
         return;
     } else if( (g_local.flags&STATUS_DISP_ON) != 0) {
         oled_on();
@@ -1567,6 +1657,14 @@ void suspend_power_down_kb(void) {
     g_local.flags &= ~((uint8_t)STATUS_DISP_ON);
     g_local.flags &= ~((uint8_t)DISP_IDLE);
     g_local.contrast = DISP_OFF;
+
+    if(rgb_matrix_is_enabled()) {
+         g_local.flags |= RGB_MATRIX_ON;
+    }else{
+         g_local.flags &= ~((uint8_t)RGB_MATRIX_ON);
+    }
+
+    sync_and_refresh_displays();
     sync_and_refresh_displays();
 }
 
@@ -1575,6 +1673,14 @@ void suspend_wakeup_init_kb(void) {
     g_local.flags |= STATUS_DISP_ON;
     g_local.flags &= ~((uint8_t)DISP_IDLE);
     g_local.contrast = FULL_BRIGHT;
+
+    if((g_local.flags&RGB_MATRIX_ON)==0) {
+        rgb_matrix_disable_noeeprom();
+    } else {
+        rgb_matrix_enable_noeeprom();
+    }
+
+    sync_and_refresh_displays();
     sync_and_refresh_displays();
 }
 
@@ -1586,229 +1692,4 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
     if(data[0] == 'P') {
         raw_hid_send(response, length);
     }
-}
-
-
-void oled_draw_kybd(void) {
-    static const char kybd_bitmap [] PROGMEM =
-    {
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x80, 0xC0, 0xE0, 0x80, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0xC0, 0xE0, 0xC0, 0xC0, 0xC0, 0x80, 0x80, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x3E, 0xFE,
-    0xFC, 0x7C, 0x3C, 0x1C, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x80, 0x80, 0x80, 0xC0, 0xC0, 0xE0, 0xE0,
-    0xE0, 0x70, 0x70, 0x70, 0x38, 0xF8, 0xF8, 0xFC, 0xFC, 0xF8,
-    0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x30, 0x3C, 0x3C, 0x0E, 0x06, 0x06, 0x02, 0x02,
-    0x06, 0x04, 0x0E, 0x0C, 0x80, 0x80, 0x80, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3E, 0x3E, 0x3E, 0x3F,
-    0x3F, 0x3F, 0x7F, 0x7F, 0x78, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xC0, 0xF0, 0xFC, 0x3F,
-    0x1F, 0x3F, 0x3F, 0x39, 0x39, 0x3F, 0xFF, 0xFF, 0xFF, 0xFE,
-    0xFE, 0xFE, 0xFC, 0x7C, 0x78, 0xF8, 0xF0, 0xF0, 0xF0, 0xF0,
-    0xF8, 0xF8, 0xF8, 0xFC, 0xFC, 0xFC, 0xFE, 0xFE, 0xFF, 0xFF,
-    0xF3, 0xFB, 0x7B, 0x01, 0x01, 0x8D, 0x9F, 0x3E, 0x3E, 0x0E,
-    0x80, 0xE0, 0xE3, 0xE7, 0xE7, 0xEF, 0xFF, 0xFF, 0xFF, 0xFF,
-    0xF8, 0xE0, 0xE0, 0xE0, 0xE0, 0xE0, 0xE0, 0xE0, 0xE0, 0xE0,
-    0xE0, 0xE0, 0xE0, 0xE0, 0xE0, 0xE0, 0xE0, 0xF0, 0xF0, 0xF0,
-    0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0x70, 0xF0,
-    0xF0, 0xF0, 0x02, 0x06, 0x06, 0x04, 0x0C, 0x0C, 0x0C, 0x0C,
-    0x0C, 0x0F, 0x07, 0x03, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80,
-    0x80, 0x80, 0xC0, 0xC0, 0xC0, 0xC0, 0xE0, 0xE0, 0xE0, 0xF0,
-    0xF0, 0xF0, 0xFC, 0xFF, 0xFF, 0x3F, 0x03, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x30, 0x3F, 0x1F, 0x0F, 0x07, 0x03, 0x01, 0x00,
-    0x80, 0x80, 0xC0, 0xE0, 0xF0, 0xF8, 0xF8, 0xFC, 0x7E, 0x7F,
-    0x7F, 0x7F, 0x7F, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFE,
-    0xFC, 0xFE, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x7F, 0x07,
-    0x07, 0x07, 0x0F, 0x0F, 0x8F, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-    0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x9F, 0x9F, 0xFF, 0xFF,
-    0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-    0x7F, 0xFF, 0xFF, 0xFF, 0xFF, 0xFE, 0xFF, 0xFF, 0xFF, 0x83,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x03, 0x0F,
-    0xBF, 0xFF, 0xFF, 0xFF, 0xFB, 0xFB, 0xF7, 0xF7, 0xFF, 0xFF,
-    0xFF, 0x3F, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0xC0,
-    0xE0, 0xE0, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x7F,
-    0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xF8, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0xFF, 0xFF, 0xFF, 0x3F, 0x0F, 0x03, 0x01, 0x01,
-    0x81, 0xE1, 0xF1, 0xFD, 0x7F, 0x07, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x87, 0x87, 0x07, 0x07, 0x07, 0x07, 0x07, 0x0F,
-    0x3F, 0xFF, 0xFF, 0xFF, 0xFF, 0x7F, 0x3F, 0x1F, 0x1F, 0x1F,
-    0x1F, 0x1F, 0x1F, 0x3F, 0x3F, 0x7F, 0x07, 0x00, 0x00, 0x00,
-    0x00, 0x80, 0xF8, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x7F,
-    0x7F, 0x3F, 0x3F, 0x1F, 0x1F, 0x0E, 0x0E, 0x06, 0x06, 0x02,
-    0x00, 0x00, 0x80, 0x80, 0xC0, 0xC0, 0xE0, 0xE0, 0xF0, 0xF0,
-    0xF8, 0xB8, 0xBC, 0xBC, 0xBE, 0xBE, 0xBF, 0xBF, 0x9F, 0x9F,
-    0x1F, 0x9F, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xE3, 0xE0,
-    0xE0, 0xE0, 0xE0, 0xE0, 0xF0, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-    0xFF, 0xF0, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x83, 0x3F,
-    0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xF8, 0x00, 0x00, 0x00, 0x00,
-    0x03, 0x03, 0x00, 0x80, 0xE0, 0xF0, 0xFC, 0xFE, 0xFF, 0xFF,
-    0x7F, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x38, 0x7E, 0x7F,
-    0x7F, 0x3F, 0x0F, 0x00, 0x00, 0x00, 0x00, 0x80, 0xF0, 0xFF,
-    0x3F, 0x03, 0x00, 0x00, 0x00, 0x00, 0xE0, 0xF8, 0xFC, 0xFC,
-    0xFC, 0x78, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0xF8, 0xFF,
-    0xFF, 0xFF, 0xFB, 0xF1, 0xE1, 0xC0, 0x80, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x03, 0x03,
-    0x03, 0x03, 0x07, 0x07, 0x07, 0x07, 0x07, 0x0F, 0x0F, 0x0F,
-    0x0F, 0xFF, 0xFF, 0x8F, 0x07, 0x77, 0xF7, 0x87, 0x87, 0xF7,
-    0xF7, 0x87, 0x87, 0xF7, 0x77, 0x07, 0xCF, 0xFF, 0xFF, 0xDF,
-    0xDF, 0xEF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x83, 0x83,
-    0x87, 0x87, 0x83, 0x83, 0x80, 0x80, 0xC0, 0xE0, 0xF0, 0xFC,
-    0xFE, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xF8, 0xF8,
-    0xF8, 0xF8, 0xF8, 0xFE, 0xFC, 0xF8, 0xF0, 0xF0, 0xF0, 0xF0,
-    0xF0, 0xF0, 0xF8, 0xFC, 0xFE, 0xFF, 0xFF, 0x7F, 0x7C, 0xF0,
-    0xE0, 0xC0, 0xC0, 0xC0, 0xC1, 0xC3, 0xC3, 0xE3, 0x81, 0x80,
-    0x80, 0x80, 0x80, 0x80, 0xF8, 0xFF, 0x7F, 0x6F, 0x67, 0x63,
-    0x61, 0x63, 0x73, 0x73, 0x77, 0x37, 0x36, 0x3C, 0x38, 0x30,
-    0x20, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x80, 0x80, 0xC1, 0xC7, 0x7E, 0x78, 0xF0, 0xF0, 0x18, 0x18,
-    0x0C, 0x0C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x38, 0x3F, 0x3F,
-    0x3F, 0x3F, 0x3F, 0x3A, 0x38, 0x3D, 0x3D, 0x3D, 0x3D, 0x3B,
-    0x3B, 0x3F, 0x3E, 0xBF, 0x3F, 0x3F, 0x1F, 0x1F, 0x1F, 0x1F,
-    0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x3F, 0x7F,
-    0x7F, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-    0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-    0xFF, 0xFF, 0x7F, 0x7F, 0x3F, 0x3F, 0x1F, 0x3F, 0x3F, 0x7F,
-    0x7F, 0xFF, 0xFF, 0xFF, 0xF8, 0xF3, 0x00, 0xE0, 0xCF, 0xDF,
-    0x9F, 0xFF, 0xFF, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x80, 0x80, 0x00, 0x00, 0x00, 0x00,
-    0xF0, 0xF0, 0xF8, 0xF8, 0xF0, 0xF0, 0xFC, 0xFC, 0xFC, 0xFC,
-    0xFC, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x07, 0x04, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0xFC, 0x03, 0x08, 0x18, 0x3C, 0x7E, 0xFE, 0x07, 0x10, 0x38,
-    0x78, 0xFC, 0xFC, 0x1E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x01, 0x03, 0x03, 0x07, 0x0F, 0x1F, 0x1F, 0x3F, 0x77, 0x30,
-    0x3F, 0x1F, 0x1F, 0x0F, 0x07, 0x07, 0x03, 0x01, 0x01, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x01, 0x01, 0x03, 0x02, 0x07, 0x07, 0x0F, 0x0F, 0x0F,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x07, 0x0E, 0x0C,
-    0x06, 0x03, 0x03, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01,
-    0x01, 0x03, 0x03, 0x0F, 0x0F, 0x0F, 0x03, 0x01, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00
-    };
-
-
-
-    oled_write_raw_P(kybd_bitmap, sizeof(kybd_bitmap));
-}
-
-void oled_draw_poly(void) {
-    static const char poly_bitmap [] PROGMEM =
-    {
-    0x00, 0x00, 0x00, 0x00, 0xE0, 0xE0, 0xC0, 0xC0, 0x00, 0x00,
-    0xC0, 0x9E, 0x9E, 0x9E, 0x1C, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0x01, 0x01, 0x01, 0x1F,
-    0xFE, 0xE0, 0x80, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0xFE, 0xFE, 0x7E, 0x4C, 0x6C, 0x68, 0x28, 0x78,
-    0xF0, 0xF0, 0xE0, 0xE0, 0xC0, 0xC0, 0x80, 0x80, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x80, 0x80, 0xC0, 0xE0, 0xE0, 0xF0, 0xF0, 0xF8, 0xF8,
-    0xFC, 0xC4, 0xCE, 0xFC, 0xFC, 0xF8, 0xF0, 0xE0, 0xC0, 0x80,
-    0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02,
-    0x7E, 0x3E, 0x80, 0x40, 0x30, 0x18, 0x46, 0x22, 0x60, 0xC0,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x80, 0x01, 0x01, 0x01, 0x03, 0x01, 0x00, 0xF8, 0xF3, 0xF3,
-    0xF7, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x06, 0x3F, 0x3B, 0x02, 0x03, 0x03, 0x01, 0x01, 0x01,
-    0x0F, 0x0F, 0x00, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0xFC,
-    0xFF, 0xFF, 0xFE, 0xF0, 0xFF, 0xFF, 0x9F, 0x70, 0xF3, 0xFF,
-    0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x7F, 0x7F, 0xFE,
-    0xFE, 0xFC, 0xFC, 0xFC, 0xFC, 0xFE, 0xFE, 0xFF, 0xFF, 0xFF,
-    0xFF, 0xFF, 0xFF, 0x7F, 0x7F, 0x7F, 0x6F, 0x71, 0xFC, 0xFF,
-    0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-    0xFE, 0xFC, 0xFC, 0xFC, 0xFC, 0xFC, 0xF8, 0xF8, 0xF8, 0xF8,
-    0xF8, 0xF8, 0xF8, 0xF8, 0x78, 0x70, 0xB0, 0xB0, 0xB6, 0x73,
-    0x71, 0xF0, 0xF0, 0xE4, 0xE6, 0xE7, 0xE5, 0xE5, 0x20, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0F, 0x0F,
-    0x0F, 0x0F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x06,
-    0x0E, 0x1E, 0x3E, 0x7E, 0xFE, 0xFF, 0xEF, 0xEF, 0xDF, 0xDF,
-    0xDF, 0xBF, 0xBF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x7F,
-    0x7F, 0x7F, 0x7F, 0x7F, 0x7F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F,
-    0x3F, 0x3F, 0x7F, 0xFF, 0xFF, 0xF8, 0xE3, 0xCF, 0xBF, 0xFF,
-    0xFF, 0xFF, 0xFF, 0xF8, 0xF0, 0xE0, 0xE0, 0xF0, 0xFD, 0xFF,
-    0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFE,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xDF,
-    0x9F, 0x1F, 0x1F, 0x0F, 0x0F, 0x0F, 0x1F, 0xFF, 0xFF, 0xFF,
-    0xFF, 0xFF, 0x1F, 0x03, 0x03, 0x03, 0x03, 0x83, 0xF9, 0xFF,
-    0xFF, 0xF0, 0xEB, 0xFB, 0xDB, 0xCD, 0xCD, 0xE6, 0xEF, 0x70,
-    0x3F, 0x0F, 0x87, 0x63, 0x61, 0x60, 0xD8, 0x98, 0x98, 0xB0,
-    0x30, 0xF0, 0x60, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x80, 0x80,
-    0xC0, 0xC0, 0xC0, 0xE1, 0xE3, 0xF7, 0xFF, 0xFF, 0xFF, 0xFF,
-    0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0xF0, 0xF0, 0xF8, 0xF8, 0xF8, 0xF0, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x03, 0xFF, 0xFF, 0xFF, 0x7F, 0x1F, 0x0F, 0x07,
-    0x07, 0x03, 0x83, 0xC1, 0xC1, 0xC1, 0xC1, 0x81, 0x01, 0x01,
-    0x03, 0x03, 0x07, 0x0F, 0x7F, 0xFF, 0xFF, 0xFF, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x0F, 0xFF, 0xFF, 0xFF, 0xFF, 0xFC,
-    0xF0, 0xC0, 0x00, 0x00, 0x00, 0x00, 0x07, 0x3F, 0x7F, 0x03,
-    0x00, 0x00, 0x00, 0x80, 0xF8, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-    0xFF, 0x7F, 0x7F, 0x7F, 0x73, 0x71, 0x70, 0x70, 0x60, 0x60,
-    0x67, 0x64, 0x64, 0x48, 0xC8, 0xC8, 0xC7, 0x83, 0x82, 0x81,
-    0x80, 0x00, 0x00, 0x00, 0x18, 0x18, 0x38, 0x3C, 0x7C, 0x7E,
-    0x7E, 0xFE, 0xFF, 0xC7, 0xC3, 0xC3, 0xE7, 0xFF, 0xEF, 0xEF,
-    0xEF, 0xEF, 0xEF, 0xEF, 0xEF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-    0xFF, 0xF0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x83,
-    0x83, 0xC1, 0xC1, 0xC0, 0xC0, 0xE0, 0xE0, 0xF0, 0xF0, 0xFC,
-    0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x3F, 0xFF, 0xFF, 0xFF, 0x7F, 0x7F, 0x04, 0x00, 0x00, 0x00,
-    0x00, 0x80, 0xF0, 0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-    0xFF, 0xFC, 0xF0, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80,
-    0xF8, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFE, 0xFE, 0x3F,
-    0x3F, 0x1F, 0x1F, 0x1F, 0x1F, 0x0F, 0x0F, 0x0F, 0x07, 0x07,
-    0x07, 0x07, 0x03, 0x03, 0x03, 0x01, 0x01, 0x01, 0x01, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x80, 0x80,
-    0x00, 0x01, 0x01, 0x01, 0x03, 0x03, 0x87, 0xE7, 0xFF, 0xFF,
-    0xFF, 0xFF, 0x7F, 0xBF, 0xDF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF,
-    0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x7F, 0x7F, 0xFF, 0x1F,
-    0xFF, 0xFF, 0xFE, 0xFC, 0xF8, 0xF0, 0xF0, 0xF0, 0xE0, 0xE0,
-    0xE0, 0xF0, 0xF0, 0xF0, 0xF8, 0xF8, 0xFC, 0xFC, 0xFF, 0xBF,
-    0x7F, 0xFF, 0xFF, 0xFF, 0xFF, 0xFE, 0xFE, 0xFE, 0xFE, 0xFE,
-    0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFB, 0x83, 0xC3, 0xC3, 0xC3,
-    0xC1, 0xC0, 0xC0, 0xE0, 0xF0, 0xF8, 0xFC, 0xFF, 0x0F, 0x41,
-    0x7E, 0xB9, 0xD5, 0xCD, 0xAD, 0x73, 0xFB, 0xFB, 0x76, 0x0C,
-    0xB8, 0xF0, 0xE0, 0xC0, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x18, 0x38, 0xB3, 0xB7, 0xCE, 0x70, 0x7F, 0xB3, 0x58, 0x4C,
-    0xCE, 0xC0, 0xD8, 0x1E, 0x3F, 0x3F, 0x3F, 0x3B, 0x38, 0x3E,
-    0x3F, 0x7F, 0x7F, 0x7F, 0x7F, 0x7F, 0x7F, 0x7F, 0xFC, 0xFC,
-    0xFC, 0xFE, 0xFE, 0xFE, 0xFE, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-    0xFF, 0xFF, 0x9F, 0x0F, 0x6E, 0x0E, 0xC0, 0xE4, 0xE6, 0xE6,
-    0xEF, 0x0D, 0xF8, 0xF3, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-    0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFC,
-    0x79, 0x7F, 0x0F, 0x0F, 0x1F, 0x0F, 0x0F, 0x0F, 0xFF, 0xFF,
-    0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x7F, 0x7F, 0x7F, 0x7F,
-    0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x1F, 0x1F, 0x1F, 0x1E, 0x9C,
-    0x8E, 0x0E, 0x0E, 0x0C, 0x0C, 0x06, 0x07, 0x07, 0x07, 0x07,
-    0x03, 0x03, 0x03, 0x03, 0x80, 0x80, 0x40, 0x20, 0x10, 0x18,
-    0x0C, 0x84, 0xCC, 0x78, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03,
-    0x03, 0x01, 0x00, 0x1E, 0x0F, 0x00, 0x03, 0x0E, 0x0C, 0x00,
-    0x00, 0x00, 0x00, 0x40, 0xF0, 0x98, 0x88, 0x64, 0x84, 0xA4,
-    0xBA, 0xB2, 0x82, 0x7A, 0x42, 0x24, 0x1C, 0x08, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x61, 0x39, 0x3F, 0x3F,
-    0x3F, 0x3E, 0x3E, 0x3E, 0x3F, 0x3C, 0x3C, 0x3C, 0x3C, 0x1E,
-    0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F,
-    0x1F, 0x0F, 0x0F, 0x0F, 0x0F, 0x0F, 0x0F, 0x0F, 0x1E, 0x1C,
-    0x18, 0x30, 0x38, 0x38, 0x7C, 0x7C, 0x7C, 0x3F, 0x1F, 0x0F,
-    0x07, 0x03, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0xC4, 0xC7, 0x8F, 0x0F, 0x8A,
-    0x86, 0xCE, 0x7C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x1F, 0x69, 0xA4, 0x14, 0x1C, 0x1C, 0x36, 0x63, 0x81,
-    0x00, 0x00, 0x00, 0x00
-    };
-
-    oled_write_raw_P(poly_bitmap, sizeof(poly_bitmap));
 }

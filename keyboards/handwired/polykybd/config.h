@@ -33,7 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_LED_PROCESS_LIMIT 16  // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 #define RGB_MATRIX_LED_FLUSH_LIMIT 16                            // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 48
-#define RGB_MATRIX_TIMEOUT 66000
+//#define RGB_MATRIX_TIMEOUT 66000
 #define RGB_DISABLE_WHEN_USB_SUSPENDED true
 
 #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
