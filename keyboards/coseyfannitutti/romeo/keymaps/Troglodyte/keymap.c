@@ -1,7 +1,7 @@
 /* ROMEO40 layout by RichardStyxx
  * 2023 black metal season
  * ctrl alt delete combo fix
- * v5
+ * v6
  * reshuffle arrow keys and hungarian ISO
  */
 
