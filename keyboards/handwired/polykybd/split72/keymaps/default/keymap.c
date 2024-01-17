@@ -62,22 +62,30 @@ enum kb_layers {
     _L1,
     _L2,
     _L3,
+    _L4,
     _FL0,
     _FL1,
     _NL,
     _UL,
-    _LS,
+    _SL,
+    _LL,
     _ADDLANG1 };
 
 enum my_keycodes {
     KC_LANG = SAFE_RANGE,
-    KC_DARK,
-    KC_BRI,
+    KC_DMIN,
+    KC_DMAX,
+    KC_DDIM,
+    KC_DBRI,
+    KC_DHLF,
+    KC_D1Q,
+    KC_D3Q,
     KC_BASE,
     KC_L0,
     KC_L1,
     KC_L2,
     KC_L3,
+    KC_L4,
     KC_DEADKEY,
     /*[[[cog
       for lang in languages:
@@ -446,7 +454,7 @@ uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*
                                                               ┌────────────────┐
-                                                              │     QWERTY*    │
+                                                              │     QWERTY!    │
                                                               └────────────────┘
    ┌────────┬───────┬───────┬───────┬───────┬───────┬───────┐                    ┌───────┬───────┬───────┬───────┬───────┬───────┬────────┐
    │  Esc   │   1   │   2   │   3   │   4   │   5   │   6   │ ╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮ │   7   │   8   │   9   │   0   │   -   │   =   │  Hypr  │
@@ -532,6 +540,35 @@ uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LANG,    DE_PLUS,    KC_B,       KC_M,       KC_COMMA,   KC_DOT,     KC_J,       KC_RSFT,
         KC_ENTER,   KC_BSPC,    KC_SPC,                 KC_LEFT,    KC_UP,      KC_DOWN,    KC_RIGHT
         ),
+        /*
+                                                              ┌────────────────┐
+                                                              │    Workman     │
+                                                              └────────────────┘
+   ┌────────┬───────┬───────┬───────┬───────┬───────┬───────┐                    ┌───────┬───────┬───────┬───────┬───────┬───────┬────────┐
+   │  Esc   │   1   │   2   │   3   │   4   │   5   │   `   │ ╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮ │   6   │   7   │   8   │   9   │   0   │   -   │   =    │
+   ├────────┼───────┼───────┼───────┼───────┼───────┼───────┤ │╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯│ ├───────┼───────┼───────┼───────┼───────┼───────┼────────┤
+   │  TAB   │   q   │   d   │   r   │   w   │   b   │  Hypr ├─╯                ╰─┤   j   │   f   │   u   │   p   │   ;   │   [   │   ]    │
+   ├────────┼───────┼───────┼───────┼───────┼───────┼───────┤                    ├───────┼───────┼───────┼───────┼───────┼───────┼────────┤
+   │  FN    │   a   │   s   │   h   │   t   │   g   │  Meh  │  (MB1)             │   y   │   n   │   e   │   o   │   i   │   '   │   \    │
+   ├────────┼───────┼───────┼───────┼───────┼───────┼───────┼────────╮  ╭────────┼───────┼───────┼───────┼───────┼───────┼───────┼────────┤
+   │ Shift  │   z   │   x   │   m   │   c   │   v   │  Intl │  Num!  │  │  Lang  │   k   │   b   │   l   │   ,   │   .   │   /   │ Shift  │
+   └┬───────┼───────┼───────┼───────┼──────┬┴───────┼───────┼────────┤  ├────────┼───────┼───────┴┬──────┼───────┼───────┼───────┼───────┬┘
+    │ Ctrl  │  Os   │  Alt  │  Ctx  │      │  Space │  Del  │   Ret  │  │  Ret   │ BckSp │ Space  │      │ Left  │   Up  │  Down │ Right │
+    └───────┴───────┴───────┴───────┘      └────────┴───────┴────────╯  └────────┴───────┴────────┘      └───────┴───────┴───────┴───────┘
+*/
+    [_L4] = LAYOUT_left_right_stacked(
+        KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_GRAVE,
+        KC_TAB,     KC_Q,       KC_D,       KC_R,       KC_W,       KC_B,       KC_HYPR,
+        MO(_FL1),   KC_A,       KC_S,       KC_H,       KC_T,       KC_G,       KC_MEH,     KC_MS_BTN1,
+        KC_LSFT,    KC_Z,       KC_X,       KC_M,       KC_C,       KC_V,       MO(_ADDLANG1), MO(_NL),
+        KC_LCTL,    KC_LWIN,    KC_LALT,    KC_APP,                 KC_SPACE,   KC_DEL,     KC_ENTER,
+
+                    KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,   KC_EQUAL,
+                    KC_J,       KC_F,       KC_U,       KC_P,       KC_SCLN,    KC_LBRC,    KC_RBRC,
+        KC_NO,      KC_Y,       KC_N,       KC_E,       KC_O,       KC_I,       KC_QUOTE,   KC_BSLS,
+        KC_LANG,    KC_K,       KC_B,       KC_L,       KC_COMMA,   KC_DOT,     KC_SLASH,   KC_RSFT,
+        KC_ENTER,   KC_BSPC,    KC_SPC,                 KC_LEFT,    KC_UP,      KC_DOWN,    KC_RIGHT
+        ),
     //Function Layer (Fn)
     [_FL0] = LAYOUT_left_right_stacked(
         OSL(_UL),   KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,     TO(_UL),
@@ -540,8 +577,8 @@ uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_CAPS,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,    KC_BTN2,                _______,    _______,    _______,
 
-                    KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,      KC_F11,     KC_F12,
-                    KC_BTN3,    KC_BTN2,    _______,    _______,    _______,    _______,    _______,
+                    KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,      KC_F11,    KC_F12,
+                    KC_BTN3,    KC_BTN2,    _______,    _______,    _______,    _______,    TO(_SL),
         _______,    KC_BTN1,    _______,    _______,    _______,    _______,    _______,    _______,
         TO(_NL),    _______,    _______,    _______,    _______,    _______,    _______,    _______,
         KC_RALT,    KC_RWIN,    KC_RCTL,                KC_HOME,    KC_PGUP,    KC_PGDN,    KC_END
@@ -551,10 +588,10 @@ uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,    _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
-        _______,    _______,    _______,    KC_BTN2,             _______,    _______,    _______,
+        _______,    _______,    _______,    _______,             _______,    _______,    _______,
 
                     KC_F7,      KC_F8,      KC_F9,      KC_F10,      KC_F11,     KC_F12,    TO(_UL),
-                    KC_BTN3,    KC_BTN2,    _______,    _______,    _______,    _______,    _______,
+                    KC_BTN3,    KC_BTN2,    _______,    _______,    _______,    _______,    TO(_SL),
         _______,    KC_BTN1,    _______,    _______,    _______,    _______,    _______,    KC_CAPS,
         TO(_NL),    _______,    _______,    _______,    _______,    _______,    _______,    _______,
         KC_RALT,    KC_RWIN,    KC_RCTL,                KC_HOME,    KC_PGUP,    KC_PGDN,    KC_END
@@ -577,18 +614,33 @@ uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_UL] = LAYOUT_left_right_stacked(
         KC_NO,      KC_F13,     KC_F14,     KC_F15,     KC_F16,     KC_F17,     KC_F18,
         KC_MYCM,    KC_CALC,    KC_PSCR,    KC_SCRL,    KC_BRK,     KC_NO,      KC_NO,
-        KC_LCTL,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_DEADKEY,_______,
-        KC_LSFT,    RGB_RMOD,   RGB_TOG,    RGB_MOD,    RGB_M_P,    RGB_M_B,    EE_CLR,    QK_DEBUG_TOGGLE,
-        KC_BASE,    KC_BRI,     KC_NO,      KC_DARK,                QK_RBT,     QK_MAKE,   QK_BOOT,
+        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      _______,
+        KC_LSFT,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+        KC_BASE,    KC_NO,      KC_NO,      KC_NO,                  KC_NO,      KC_NO,      KC_NO,
 
-                    KC_F19,     KC_F20,     KC_F21,     KC_F22,     KC_F23,     KC_F24,    KC_NO,
-                    KC_MPRV,    KC_MPLY,    KC_MSTP,    KC_MNXT,    KC_MUTE,    KC_VOLD,   KC_VOLU,
-        _______,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,     KC_RCTL,
-        RGB_VAI,    RGB_SPI,    KC_NO,      KC_L0,      KC_L1,      KC_L2,      KC_L3,     KC_RSFT,
-        RGB_VAD,    RGB_SPD,    KC_NO,      RGB_HUI,    RGB_HUD,    RGB_SAI,    RGB_SAD
+                    KC_F19,     KC_F20,     KC_F21,     KC_F22,     KC_F23,     KC_F24,     KC_NO,
+                    KC_NO,      KC_MPRV,    KC_MPLY,    KC_MSTP,    KC_MNXT,    KC_NO,      TO(_SL),
+        _______,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+        KC_NO,      KC_NO,      KC_MUTE,    KC_VOLD,    KC_VOLU,    KC_NO,      KC_NO,      KC_RSFT,
+        KC_NO,      KC_NO,      KC_NO,                  KC_NO,      KC_NO,      KC_NO,      KC_BASE
+        ),
+    //Settings Layer
+    [_SL] = LAYOUT_left_right_stacked(
+        KC_DDIM,    KC_DMIN,    KC_D1Q,     KC_DHLF,    KC_D3Q,     KC_DMAX,    KC_DBRI,
+        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+        KC_NO,      KC_L0,      KC_L1,      KC_L2,      KC_L3,      KC_L4,      KC_NO,      _______,
+        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      QK_RBT,
+        KC_BASE,    KC_NO,      KC_NO,      KC_NO,                  KC_NO,      QK_MAKE,    QK_BOOT,
+
+
+                    RGB_RMOD,   RGB_M_SW,   RGB_M_R,    RGB_TOG,    RGB_M_P,    RGB_M_B,    RGB_MOD,
+                    KC_NO,      RGB_SPD,    RGB_SPI,    KC_NO,      RGB_HUD,    RGB_HUI,    KC_NO,
+        _______,    KC_NO,      RGB_VAD,    RGB_VAI,    KC_NO,      RGB_SAD,    RGB_SAI,    KC_NO,
+        EE_CLR,     KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+        DB_TOGG,    KC_DEADKEY, KC_NO,                  KC_NO,      KC_NO,      KC_NO,      KC_BASE
         ),
     //Language Selection Layer
-    [_LS] = LAYOUT_left_right_stacked(
+    [_LL] = LAYOUT_left_right_stacked(
                         KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
                         KC_NO,      KC_LANG_PT, KC_LANG_ES, KC_LANG_AR, KC_LANG_GR, KC_NO,      KC_NO,
         QK_UNICODE_MODE_WINCOMPOSE, KC_LANG_FR, KC_LANG_DE, KC_LANG_JA, KC_LANG_TR, KC_NO,      KC_NO,      KC_MS_BTN1,
@@ -672,9 +724,9 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case QK_LEAD:
         return u"Lead";
     case KC_HYPR:
-        return u"Hypr";
+        return u" " PRIVATE_HYPER;
     case KC_MEH:
-        return u"Meh";
+        return u" " PRIVATE_MEH;
     case KC_EXEC:
         return u"Exec";
     case KC_NUM_LOCK:
@@ -719,11 +771,11 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case QK_DEBUG_TOGGLE:
         return debug_enable==0? u"Dbg\r\v" ICON_SWITCH_OFF : u"Dbg\r\v" ICON_SWITCH_ON;
     case RGB_RMOD:
-        return u"RGB\v" ICON_LEFT;
+        return u" " ICON_LEFT PRIVATE_LIGHT;
     case RGB_TOG:
-        return rgb_matrix_is_enabled()? u"RGB\r\v" ICON_SWITCH_ON : u"RGB\r\v" ICON_SWITCH_OFF;
+        return u"  I/O";
     case RGB_MOD:
-        return u"RGB\v" ICON_RIGHT;
+        return PRIVATE_LIGHT ICON_RIGHT;
     case RGB_HUI:
         return u"Hue+";
     case RGB_HUD:
@@ -741,9 +793,13 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case RGB_SPD:
         return u"Spd-";
     case RGB_MODE_PLAIN:
-        return u"Plain";
+        return u"Plan";
     case RGB_MODE_BREATHE:
         return u"Brth";
+    case RGB_MODE_SWIRL:
+        return u"Swrl";
+    case RGB_MODE_RAINBOW:
+        return u"Rnbw";
     case KC_MEDIA_NEXT_TRACK:
         return ICON_RIGHT ICON_RIGHT;
     case KC_MEDIA_PLAY_PAUSE:
@@ -798,6 +854,8 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         return TECHNICAL_ERASERIGHT;
     case KC_MYCM:
         return u"  " PRIVATE_PC;
+    case TO(_SL):
+        return PRIVATE_SETTINGS u"\v" ICON_LAYER;
     case MO(_FL0):
     case MO(_FL1):
         return u"Fn\r\v\t" ICON_LAYER;
@@ -810,11 +868,13 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case KC_L0:
         return g_local.default_ls==_L0 ? u"Qwty\r\v" ICON_SWITCH_ON : u"Qwty\r\v" ICON_SWITCH_OFF;
     case KC_L1:
-        return g_local.default_ls==_L1 ? u"Qwty*\r\v" ICON_SWITCH_ON : u"Qwty*\r\v" ICON_SWITCH_OFF;
+        return g_local.default_ls==_L1 ? u"Qwty!\r\v" ICON_SWITCH_ON : u"Qwty!\r\v" ICON_SWITCH_OFF;
     case KC_L2:
-        return g_local.default_ls==_L2 ? u"Colmk\r\v" ICON_SWITCH_ON : u"Colmk\r\v" ICON_SWITCH_OFF;
+        return g_local.default_ls==_L2 ? u"Clmk\r\v" ICON_SWITCH_ON : u"Clmk\r\v" ICON_SWITCH_OFF;
     case KC_L3:
         return g_local.default_ls==_L3 ? u"Neo\r\v" ICON_SWITCH_ON : u"Neo\r\v" ICON_SWITCH_OFF;
+    case KC_L4:
+        return g_local.default_ls==_L4 ? u"Wkm\r\v" ICON_SWITCH_ON : u"Wkm\r\v" ICON_SWITCH_OFF;
     case OSL(_UL):
         return u"Util*\r\v\t" ICON_LAYER;
     case TO(_UL):
@@ -869,10 +929,20 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         return u" " ICON_SHIFT;
     case KC_NO:
         return u"";
-    case KC_DARK:
-        return u"Dsp-";
-    case KC_BRI:
-        return u"Dsp+";
+    case KC_DDIM:
+        return u"  " ICON_LEFT;
+    case KC_DBRI:
+        return u"  " ICON_RIGHT;
+    case KC_D1Q:
+        return u"  " PRIVATE_DISP_DARKER;
+    case KC_D3Q:
+        return u"  " PRIVATE_DISP_BRIGHTER;
+    case KC_DHLF:
+        return u"  " PRIVATE_DISP_HALF;
+    case KC_DMIN:
+        return u"  " PRIVATE_DISP_DARK;
+    case KC_DMAX:
+        return u"  " PRIVATE_DISP_BRIGHT;
     case KC_LANG:
         return PRIVATE_WORLD;
     case SH_TOGG:
@@ -882,7 +952,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case EE_CLR:
         return u"ClrEE";
     case QK_REBOOT:
-        return u"Rst";
+        return u"Boot";
         /*[[[cog
             for lang in languages:
                 short = lang.split("_")[1]
@@ -904,6 +974,8 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         return u"Han/Y";
     case KC_APP:
         return u" Ctx";
+    case DE_GRV: //for Neo Layout
+        return u"`";
     default:
     {
         bool shift = ((get_mods() & MOD_MASK_SHIFT) != 0);
@@ -923,7 +995,7 @@ const uint16_t* keycode_to_disp_overlay(uint16_t keycode, led_t state) {
         case KC_F2: return u"      " PRIVATE_NOTE;
         case KC_F5: return u"     " ARROWS_CIRCLE;
         case QK_DEBUG_TOGGLE: return debug_enable==0 ? u"\v" ICON_SWITCH_OFF : u"\v" ICON_SWITCH_ON;
-        case RGB_TOG: return rgb_matrix_is_enabled() ? u"\v" ICON_SWITCH_ON : u"\v" ICON_SWITCH_OFF;
+        //case RGB_TOG: return rgb_matrix_is_enabled() ? u"\v" ICON_SWITCH_ON : u"\v" ICON_SWITCH_OFF;
         default: break;
     }
 
@@ -958,7 +1030,7 @@ const uint16_t* keycode_to_disp_overlay(uint16_t keycode, led_t state) {
 
 void update_displays(enum refresh_mode mode) {
     uint8_t layer = get_highest_layer(layer_state);
-    /*if (layer > _LS) {
+    /*if (layer > _LL) {
         layer = g_local.default_ls;
     }*/
 
@@ -1240,12 +1312,16 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
             persistent_default_layer_set(g_local.default_ls);
             request_disp_refresh();
             break;
-            case KC_L3:
+        case KC_L3:
             g_local.default_ls = _L3;
             persistent_default_layer_set(g_local.default_ls);
             request_disp_refresh();
             break;
-
+        case KC_L4:
+            g_local.default_ls = _L4;
+            persistent_default_layer_set(g_local.default_ls);
+            request_disp_refresh();
+            break;
         case KC_BASE:
             layer_clear();
             layer_on(g_local.default_ls);
@@ -1254,31 +1330,51 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
         case KC_LEFT_SHIFT:
             request_disp_refresh();
             break;
-        case KC_DARK:
+        case KC_D1Q:
+            g_local.contrast = FULL_BRIGHT/4;
+            save_user_eeconf();
+            break;
+        case KC_D3Q:
+            g_local.contrast = (FULL_BRIGHT/4)*3;
+            save_user_eeconf();
+            break;
+        case KC_DHLF:
+            g_local.contrast = FULL_BRIGHT/2;
+            save_user_eeconf();
+            break;
+        case KC_DMAX:
+            g_local.contrast = FULL_BRIGHT;
+            save_user_eeconf();
+            break;
+        case KC_DMIN:
+            g_local.contrast = 2;
+            save_user_eeconf();
+            break;
+        case KC_DDIM:
             dec_brightness();
             break;
-        case KC_BRI:
+        case KC_DBRI:
             inc_brightness();
             break;
             /*[[[cog
             for lang in languages:
-                cog.outl(f'case KC_{lang}: g_local.lang = {lang}; layer_off(_LS); break;')
+                cog.outl(f'case KC_{lang}: g_local.lang = {lang}; layer_off(_LL); break;')
             ]]]*/
-            case KC_LANG_EN: g_local.lang = LANG_EN; layer_off(_LS); break;
-            case KC_LANG_DE: g_local.lang = LANG_DE; layer_off(_LS); break;
-            case KC_LANG_FR: g_local.lang = LANG_FR; layer_off(_LS); break;
-            case KC_LANG_ES: g_local.lang = LANG_ES; layer_off(_LS); break;
-            case KC_LANG_PT: g_local.lang = LANG_PT; layer_off(_LS); break;
-            case KC_LANG_IT: g_local.lang = LANG_IT; layer_off(_LS); break;
-            case KC_LANG_TR: g_local.lang = LANG_TR; layer_off(_LS); break;
-            case KC_LANG_KO: g_local.lang = LANG_KO; layer_off(_LS); break;
-            case KC_LANG_JA: g_local.lang = LANG_JA; layer_off(_LS); break;
-            case KC_LANG_AR: g_local.lang = LANG_AR; layer_off(_LS); break;
-            case KC_LANG_GR: g_local.lang = LANG_GR; layer_off(_LS); break;
+            case KC_LANG_EN: g_local.lang = LANG_EN; layer_off(_LL); break;
+            case KC_LANG_DE: g_local.lang = LANG_DE; layer_off(_LL); break;
+            case KC_LANG_FR: g_local.lang = LANG_FR; layer_off(_LL); break;
+            case KC_LANG_ES: g_local.lang = LANG_ES; layer_off(_LL); break;
+            case KC_LANG_PT: g_local.lang = LANG_PT; layer_off(_LL); break;
+            case KC_LANG_IT: g_local.lang = LANG_IT; layer_off(_LL); break;
+            case KC_LANG_TR: g_local.lang = LANG_TR; layer_off(_LL); break;
+            case KC_LANG_KO: g_local.lang = LANG_KO; layer_off(_LL); break;
+            case KC_LANG_JA: g_local.lang = LANG_JA; layer_off(_LL); break;
+            case KC_LANG_AR: g_local.lang = LANG_AR; layer_off(_LL); break;
+            case KC_LANG_GR: g_local.lang = LANG_GR; layer_off(_LL); break;
             //[[[end]]]
         case KC_F1:case KC_F2:case KC_F3:case KC_F4:case KC_F5:case KC_F6:
         case KC_F7:case KC_F8:case KC_F9:case KC_F10:case KC_F11:case KC_F12:
-            layer_off(_LS);
+            layer_off(_LL);
             break;
         default:
             break;
@@ -1292,15 +1388,20 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
             request_disp_refresh();
             break;
         case KC_LANG:
-            if (IS_LAYER_ON(_LS)) {
+            if (IS_LAYER_ON(_LL)) {
                 g_local.lang = (g_local.lang + 1) % NUM_LANG;
-                layer_off(_LS);
+                layer_off(_LL);
             }
             else {
-                layer_on(_LS);
+                layer_on(_LL);
             }
             break;
         case RGB_TOG:
+            if(!rgb_matrix_is_enabled()) {
+                g_local.flags |= RGB_MATRIX_ON;
+            }else{
+                g_local.flags &= ~((uint8_t)RGB_MATRIX_ON);
+            }
         case RGB_MOD:
         case RGB_RMOD:
             request_disp_refresh();
@@ -1504,7 +1605,7 @@ void oled_status_screen(void) {
     const GFXfont* displayFont[] = { &NotoSans_Regular11pt7b };
     const GFXfont* smallFont[] = { &NotoSans_Medium8pt7b };
     kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 0, 14, ICON_LAYER);
-    num_to_u16_string((char*) buffer, sizeof(buffer), get_highest_layer(layer_state));
+    hex_to_u16_string((char*) buffer, sizeof(buffer), get_highest_layer(layer_state));
     kdisp_write_gfx_text(displayFont, 1, 20, 14, buffer);
     if(side==UNDECIDED) {
         kdisp_write_gfx_text(displayFont, 1, 50, 14, u"Uknw");
@@ -1519,17 +1620,18 @@ void oled_status_screen(void) {
     } else {
         kdisp_write_gfx_text(smallFont, 1, 112, 56, is_usb_host_side() ? u"H" : u"B");
     }
-    kdisp_write_gfx_text(smallFont, 1, 0, 30, u"RGB");
 
 
-    if(!rgb_matrix_is_enabled()) {
-        kdisp_write_gfx_text(smallFont, 1, 34, 30, u"Off");
-    } else {
-        num_to_u16_string((char*) buffer, sizeof(buffer), rgb_matrix_get_mode());
-        kdisp_write_gfx_text(smallFont, 1, 34, 30, buffer);
-        kdisp_write_gfx_text(smallFont, 1, 58, 30, get_led_matrix_text(rgb_matrix_get_mode()));
 
-        if(is_left_side()) {
+    if(is_right_side()) {
+        kdisp_write_gfx_text(smallFont, 1, 0, 30, u"RGB");
+
+        if(!rgb_matrix_is_enabled()) {
+            kdisp_write_gfx_text(smallFont, 1, 34, 30, u"Off");
+        } else {
+            num_to_u16_string((char*) buffer, sizeof(buffer), rgb_matrix_get_mode());
+            kdisp_write_gfx_text(smallFont, 1, 34, 30, buffer);
+            kdisp_write_gfx_text(smallFont, 1, 58, 30, get_led_matrix_text(rgb_matrix_get_mode()));
             kdisp_write_gfx_text(smallFont, 1, 0, 44, u"HSV");
             hex_to_u16_string((char*) buffer, sizeof(buffer), rgb_matrix_get_hue());
             kdisp_write_gfx_text(smallFont, 1, 38, 44, buffer);
@@ -1537,32 +1639,34 @@ void oled_status_screen(void) {
             kdisp_write_gfx_text(smallFont, 1, 60, 44, buffer);
             hex_to_u16_string((char*) buffer, sizeof(buffer), rgb_matrix_get_val());
             kdisp_write_gfx_text(smallFont, 1, 82, 44, buffer);
-        } else {
-            kdisp_write_gfx_text(smallFont, 1, 0, 44, u"Dsp*");
-            num_to_u16_string((char*) buffer, sizeof(buffer), g_local.contrast);
-            kdisp_write_gfx_text(smallFont, 1, 42, 44, buffer);
-            uint8_t i=0;
-            for(;i<(g_local.contrast/5);++i) {
-                buffer[i] = 'l';
-            }
-            buffer[i] = 0;
-            buffer[i+1] = 0;
-            kdisp_write_gfx_text(smallFont, 1, 64, 44, buffer);
+            kdisp_write_gfx_text(smallFont, 1, 0, 58, u"Speed");
+            num_to_u16_string((char*) buffer, sizeof(buffer), rgb_matrix_get_speed());
+            kdisp_write_gfx_text(smallFont, 1, 58, 58, buffer);
         }
+    } else {
+        switch(g_local.default_ls) {
+            case 0: kdisp_write_gfx_text(smallFont, 1, 0, 30, u"Qwerty"); break;
+            case 1: kdisp_write_gfx_text(smallFont, 1, 0, 30, u"Qwerty Stag!"); break;
+            case 2: kdisp_write_gfx_text(smallFont, 1, 0, 30, u"Colemak DH"); break;
+            case 3: kdisp_write_gfx_text(smallFont, 1, 0, 30, u"Neo"); break;
+            case 4: kdisp_write_gfx_text(smallFont, 1, 0, 30, u"Workman"); break;
+            default: kdisp_write_gfx_text(smallFont, 1, 0, 30, u"Unknown"); break;
+        }
+        kdisp_write_gfx_text(smallFont, 1, 0, 44, u"Dsp*");
+        num_to_u16_string((char*) buffer, sizeof(buffer), g_local.contrast);
+        kdisp_write_gfx_text(smallFont, 1, 42, 44, buffer);
+        uint8_t i=0;
+        for(;i<(g_local.contrast/5);++i) {
+            buffer[i] = 'l';
+        }
+        buffer[i] = 0;
+        buffer[i+1] = 0;
+        kdisp_write_gfx_text(smallFont, 1, 64, 44, buffer);
 
-        kdisp_write_gfx_text(smallFont, 1, 68, 58, u"S");
-        num_to_u16_string((char*) buffer, sizeof(buffer), rgb_matrix_get_speed());
-        kdisp_write_gfx_text(smallFont, 1, 80, 58, buffer);
+        kdisp_write_gfx_text(smallFont, 1, 0, 58, u"WPM");
+        num_to_u16_string((char*) buffer, sizeof(buffer), get_current_wpm());
+        kdisp_write_gfx_text(smallFont, 1, 44, 58, buffer);
     }
-
-    // kdisp_write_gfx_text(smallFont, 1,  0, 58, (g_local.flags & STATUS_DISP_ON) == 0 ? u"d" : u"D");
-    // kdisp_write_gfx_text(smallFont, 1, 15, 58, (g_local.flags & USE_STAGGER) == 0 ? u"s" : u"S");
-    // kdisp_write_gfx_text(smallFont, 1, 30, 58, (g_local.flags & DISP_IDLE) == 0 ? u"i" : u"I");
-    // kdisp_write_gfx_text(smallFont, 1, 45, 58, (g_local.flags & DEAD_KEY_ON_WAKEUP) == 0 ? u"w" : u"W");
-
-    kdisp_write_gfx_text(smallFont, 1, 0, 58, u"WPM");
-    num_to_u16_string((char*) buffer, sizeof(buffer), get_current_wpm());
-    kdisp_write_gfx_text(smallFont, 1, 44, 58, buffer);
 
     oled_clear();
     oled_write_raw((char *)get_scratch_buffer(), get_scratch_buffer_size());
@@ -1665,7 +1769,7 @@ void suspend_power_down_kb(void) {
     }
 
     sync_and_refresh_displays();
-    sync_and_refresh_displays();
+    //sync_and_refresh_displays();
 }
 
 void suspend_wakeup_init_kb(void) {
@@ -1679,9 +1783,9 @@ void suspend_wakeup_init_kb(void) {
     } else {
         rgb_matrix_enable_noeeprom();
     }
-
-    sync_and_refresh_displays();
-    sync_and_refresh_displays();
+    if(is_usb_host_side()) {
+        sync_and_refresh_displays();
+    }
 }
 
 void raw_hid_receive(uint8_t *data, uint8_t length) {

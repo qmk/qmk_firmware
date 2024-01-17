@@ -1,16 +1,20 @@
 #! /bin/bash
 
-echo "Enter Latin/Greek font size (eg. 14):"
-read size_lat
+#echo "Enter Latin/Greek font size (eg. 14):"
+#read size_lat
+size_lat=14
 
-echo "Enter Korean font size (eg. 19):"
-read size_kr
+#echo "Enter Korean font size (eg. 19):"
+#read size_kr
+size_kr=19
 
-echo "Enter Japanese font size (eg. 15):"
-read size_jp
+#echo "Enter Japanese font size (eg. 15):"
+#read size_jp
+size_jp=15
 
-echo "Enter Arabic font size (eg. 16):"
-read size_ar
+#echo "Enter Arabic font size (eg. 16):"
+#read size_ar
+size_ar=16
 
 fontconvert -f~/repos/noto-sans/NotoSans-Regular.ttf "-s${size_lat}" -v _Base_ 0x20 0x7e > "base/fonts/generated/0NotoSans_Regular_Base_${size_lat}pt.h"
 fontconvert -f~/repos/noto-sans/NotoSans-Regular.ttf "-s${size_lat}" -v _SupAndExtA_  0xa1 0x16d > "base/fonts/generated/1NotoSans_Regular_SupAndExtA_${size_lat}pt.h"
@@ -26,6 +30,12 @@ fontconvert -f~/repos/noto-sans-kr/NotoSansKR-Regular.otf "-s${size_kr}" -v _Con
 fontconvert -f~/repos/noto-sans-arabic/static/NotoSansArabic/NotoSansArabic-Regular.ttf "-s${size_ar}" -r40 -v _Isolated_ 0x60c 0x669 > "base/fonts/generated/NotoSansAR_Regular_Isolated_${size_ar}pt.h"
 fontconvert -f~/repos/noto-sans-arabic/static/NotoSansArabic/NotoSansArabic-Regular.ttf "-s${size_ar}" -r40 -v _FormsB_ 0xfef5 0xfef5 0xfefb 0xfefb > "base/fonts/generated/NotoSansAR_Regular_FormsB_${size_ar}pt.h"
 fontconvert -f~/repos/Noto_Emoji/static/NotoEmoji-Medium.ttf "-s20" -r50 -v _World_ -n0x11000 0x1F310 0x1F310 > "base/fonts/generated/3NotoEmoji_Medium_World_20pt.h"
+fontconvert -f~/repos/Noto_Emoji/static/NotoEmoji-Medium.ttf "-s20" -r50 -v _Meh_ -n0x11000 0x1F410 0x1F410 > "base/fonts/generated/3NotoEmoji_Medium_Meh_20pt.h"
+fontconvert -f~/repos/Noto_Emoji/static/NotoEmoji-Medium.ttf "-s20" -r50 -v _Settings_ -n0x11000 0x1F527 0x1F527 > "base/fonts/generated/3NotoEmoji_Medium_Settings_20pt.h"
+fontconvert -f~/repos/Noto_Emoji/static/NotoEmoji-Medium.ttf "-s18" -r48 -v _Hyper_ -n0x11000 0x1F4AB 0x1F4AB > "base/fonts/generated/3NotoEmoji_Medium_Hyper_18pt.h"
+fontconvert -f~/repos/Noto_Emoji/static/NotoEmoji-Medium.ttf "-s20" -r50 -v _Light_ -n0x11000 0x1F4A1 0x1F4A1 > "base/fonts/generated/6NotoEmoji_Medium_Light_20pt.h"
+fontconvert -f~/repos/Noto_Emoji/static/NotoEmoji-Medium.ttf "-s16" -r45 -v _Brightness_ -n0x11000 0x1F311 0x1F318 > "base/fonts/generated/5NotoEmoji_Medium_Brightness_16pt.h"
+fontconvert -f~/repos/Noto_Emoji/static/NotoEmoji-Medium.ttf "-s20" -r50 -v _AI_ -n0x11000 0x1F300 0x1F300 > "base/fonts/generated/6NotoEmoji_Medium_AI_20pt.h"
 fontconvert -f~/repos/Noto_Emoji/static/NotoEmoji-Medium.ttf "-s14" -r50 -v _FileOpen_ -n0x11000 0x1F4C2 0x1F4C2 > "base/fonts/generated/4NotoEmoji_Medium_FileOpen_14pt.h"
 fontconvert -f~/repos/Noto_Emoji/static/NotoEmoji-Medium.ttf "-s18" -r50 -v _Lock_ -n0x11000 0x1F512 0x1F512 > "base/fonts/generated/5NotoEmoji_Medium_Lock_20pt.h"
 fontconvert -f~/repos/Noto_Emoji/static/NotoEmoji-Medium.ttf "-s18" -r50 -v _ClipCpy_ -n0x11000 0x1F4CB 0x1F4CB > "base/fonts/generated/4NotoEmoji_Medium_Copy_18pt.h"
