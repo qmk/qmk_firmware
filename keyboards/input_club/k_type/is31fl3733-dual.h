@@ -22,15 +22,52 @@
 #include <stdbool.h>
 #include "progmem.h"
 
-typedef struct is31_led {
+#define IS31FL3733_REG_INTERRUPT_MASK 0xF0
+#define IS31FL3733_REG_INTERRUPT_STATUS 0xF1
+
+#define IS31FL3733_REG_COMMAND 0xFD
+
+#define IS31FL3733_COMMAND_LED_CONTROL 0x00
+#define IS31FL3733_COMMAND_PWM 0x01
+#define IS31FL3733_COMMAND_AUTO_BREATH 0x02
+#define IS31FL3733_COMMAND_FUNCTION 0x03
+
+#define IS31FL3733_FUNCTION_REG_CONFIGURATION 0x00
+#define IS31FL3733_FUNCTION_REG_GLOBAL_CURRENT 0x01
+#define IS31FL3733_FUNCTION_REG_SW_PULLUP 0x0F
+#define IS31FL3733_FUNCTION_REG_CS_PULLDOWN 0x10
+#define IS31FL3733_FUNCTION_REG_RESET 0x11
+
+#define IS31FL3733_REG_COMMAND_WRITE_LOCK 0xFE
+#define IS31FL3733_COMMAND_WRITE_LOCK_MAGIC 0xC5
+
+#define IS31FL3733_I2C_ADDRESS_GND_GND 0x50
+#define IS31FL3733_I2C_ADDRESS_GND_SCL 0x51
+#define IS31FL3733_I2C_ADDRESS_GND_SDA 0x52
+#define IS31FL3733_I2C_ADDRESS_GND_VCC 0x53
+#define IS31FL3733_I2C_ADDRESS_SCL_GND 0x54
+#define IS31FL3733_I2C_ADDRESS_SCL_SCL 0x55
+#define IS31FL3733_I2C_ADDRESS_SCL_SDA 0x56
+#define IS31FL3733_I2C_ADDRESS_SCL_VCC 0x57
+#define IS31FL3733_I2C_ADDRESS_SDA_GND 0x58
+#define IS31FL3733_I2C_ADDRESS_SDA_SCL 0x59
+#define IS31FL3733_I2C_ADDRESS_SDA_SDA 0x5A
+#define IS31FL3733_I2C_ADDRESS_SDA_VCC 0x5B
+#define IS31FL3733_I2C_ADDRESS_VCC_GND 0x5C
+#define IS31FL3733_I2C_ADDRESS_VCC_SCL 0x5D
+#define IS31FL3733_I2C_ADDRESS_VCC_SDA 0x5E
+#define IS31FL3733_I2C_ADDRESS_VCC_VCC 0x5F
+
+typedef struct is31fl3733_led_t {
     uint8_t driver : 2;
     uint8_t r;
     uint8_t g;
     uint8_t b;
-} __attribute__((packed)) is31_led;
+} __attribute__((packed)) is31fl3733_led_t;
 
-extern const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT];
+extern const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT];
 
+void is31fl3733_init_drivers(void);
 void is31fl3733_init(uint8_t bus, uint8_t addr, uint8_t sync);
 bool is31fl3733_write_register(uint8_t index, uint8_t addr, uint8_t reg, uint8_t data);
 bool is31fl3733_write_pwm_buffer(uint8_t index, uint8_t addr, uint8_t *pwm_buffer);
@@ -46,6 +83,36 @@ void is31fl3733_set_led_control_register(uint8_t index, bool red, bool green, bo
 // If the buffer is dirty, it will update the driver with the buffer.
 void is31fl3733_update_pwm_buffers(uint8_t addr, uint8_t index); // index is the driver index
 void is31fl3733_update_led_control_registers(uint8_t addr, uint8_t index);
+
+void is31fl3733_flush(void);
+
+#define IS31FL3733_PDR_0_OHM 0b000   // No pull-down resistor
+#define IS31FL3733_PDR_0K5_OHM 0b001 // 0.5 kOhm resistor
+#define IS31FL3733_PDR_1K_OHM 0b010  // 1 kOhm resistor
+#define IS31FL3733_PDR_2K_OHM 0b011  // 2 kOhm resistor
+#define IS31FL3733_PDR_4K_OHM 0b100  // 4 kOhm resistor
+#define IS31FL3733_PDR_8K_OHM 0b101  // 8 kOhm resistor
+#define IS31FL3733_PDR_16K_OHM 0b110 // 16 kOhm resistor
+#define IS31FL3733_PDR_32K_OHM 0b111 // 32 kOhm resistor
+
+#define IS31FL3733_PUR_0_OHM 0b000   // No pull-up resistor
+#define IS31FL3733_PUR_0K5_OHM 0b001 // 0.5 kOhm resistor
+#define IS31FL3733_PUR_1K_OHM 0b010  // 1 kOhm resistor
+#define IS31FL3733_PUR_2K_OHM 0b011  // 2 kOhm resistor
+#define IS31FL3733_PUR_4K_OHM 0b100  // 4 kOhm resistor
+#define IS31FL3733_PUR_8K_OHM 0b101  // 8 kOhm resistor
+#define IS31FL3733_PUR_16K_OHM 0b110 // 16 kOhm resistor
+#define IS31FL3733_PUR_32K_OHM 0b111 // 32 kOhm resistor
+
+#define IS31FL3733_PWM_FREQUENCY_8K4_HZ 0b000
+#define IS31FL3733_PWM_FREQUENCY_4K2_HZ 0b001
+#define IS31FL3733_PWM_FREQUENCY_26K7_HZ 0b010
+#define IS31FL3733_PWM_FREQUENCY_2K1_HZ 0b011
+#define IS31FL3733_PWM_FREQUENCY_1K05_HZ 0b100
+
+#define IS31FL3733_SYNC_NONE 0b00
+#define IS31FL3733_SYNC_MASTER 0b01
+#define IS31FL3733_SYNC_SLAVE 0b10
 
 #define A_1 0x00
 #define A_2 0x01
