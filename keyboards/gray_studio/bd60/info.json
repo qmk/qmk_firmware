@@ -29,6 +29,9 @@
         "rows": ["B13", "B12", "A2", "A0", "A1"]
     },
 "rgblight": {
+        "default": {
+            "animation": "rainbow_mood"
+        },
         "led_count": 1,
         "sleep": true,
         "max_brightness": 150,
