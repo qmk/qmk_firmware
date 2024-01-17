@@ -496,8 +496,8 @@ static combo_key_action_t process_single_combo(combo_t *combo, uint16_t keycode,
 #ifdef COMBO_PROCESS_KEY_REPRESS
     } else if (record->event.pressed) {
         if (COMBO_ACTIVE(combo)) {
-            KEY_STATE_DOWN(combo->state, key_index);
             if (process_combo_key_repress(combo_index, combo, key_index, keycode)) {
+                KEY_STATE_DOWN(combo->state, key_index);
                 return COMBO_KEY_REPRESSED;
             }
         }
