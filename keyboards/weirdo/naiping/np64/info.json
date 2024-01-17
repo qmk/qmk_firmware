@@ -8,6 +8,9 @@
         "pid": "0x7064",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "led_count": 80
+    },
     "ws2812": {
         "pin": "B1"
     },

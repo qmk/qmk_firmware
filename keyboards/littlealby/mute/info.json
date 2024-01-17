@@ -9,6 +9,9 @@
     "device_version": "0.0.1",
     "max_power": 100
   },
+  "rgblight": {
+    "led_count": 1
+  },
   "ws2812": {
     "pin": "B6"
   },

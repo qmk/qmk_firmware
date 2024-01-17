@@ -12,7 +12,10 @@
         "pin": "C2"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812",
+        "sat_steps": 8,
+        "val_steps": 8,
+        "speed_steps": 10
     },
     "matrix_pins": {
         "cols": ["B6", "B5", "B4", "B3", "B0", "D6", "D5", "D4", "D3", "D2", "D1", "D0"],
@@ -21,6 +24,9 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u2",
     "bootloader": "atmel-dfu",
+    "tapping": {
+        "toggle": 2
+    },
     "layouts": {
         "LAYOUT_ortho_4x12": {
             "layout": [

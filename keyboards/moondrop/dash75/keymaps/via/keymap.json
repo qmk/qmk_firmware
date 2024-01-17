@@ -1,7 +1,7 @@
 {
     "version": 1,
     "notes": "This file is a keymap.json file for moondrop/dash75",
-    "keyboard": "moondrop/dash75",
+    "keyboard": "moondrop/dash75/r1",
     "keymap": "via",
     "layout": "LAYOUT",
     "author": "vinorodrigues",

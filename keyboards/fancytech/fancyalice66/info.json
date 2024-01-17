@@ -66,7 +66,7 @@
             "solid_splash": true,
             "splash": true
         },
-        "driver": "WS2812",
+        "driver": "ws2812",
         "layout": [
             {"flags": 1, "matrix": [0, 0], "x": 0, "y": 0},
             {"flags": 4, "matrix": [0, 1], "x": 15, "y": 0},
@@ -164,6 +164,9 @@
         "force_nkro": true,
         "pid": "0x3663",
         "vid": "0xECED"
+    },
+    "ws2812": {
+        "pin": "B0"
     },
     "layouts": {
         "LAYOUT": {

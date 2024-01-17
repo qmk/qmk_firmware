@@ -14,6 +14,7 @@
     },
     "diode_direction": "COL2ROW",
     "backlight": {
+        "driver": "timer",
         "pin": "C7",
         "levels": 5,
         "breathing": true

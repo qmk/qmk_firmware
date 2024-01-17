@@ -11,6 +11,9 @@
         "vid": "0x6F75"
     },
     "diode_direction": "COL2ROW",
+    "dynamic_keymap": {
+        "layer_count": 10
+    },
     "features": {
         "audio": false,
         "backlight": false,
@@ -32,7 +35,7 @@
         "rows": ["GP4", "GP3", "GP2", "GP1", "GP0", "GP21"]
     },
     "rgb_matrix": {
-        "driver": "WS2812",
+        "driver": "ws2812",
         "layout": [
             {"flags": 2, "x": 98, "y": 51},
             {"flags": 2, "x": 68, "y": 51},

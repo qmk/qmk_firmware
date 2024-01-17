@@ -3,7 +3,7 @@
 
 #pragma once
 
-#define BACKLIGHT_CUSTOM_RESOLUTION 0x400
+#define BACKLIGHT_RESOLUTION 0x400
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
