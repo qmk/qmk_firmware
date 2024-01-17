@@ -47,8 +47,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_MATRIX_LED_COUNT  RGBLIGHT_LED_COUNT
 
-#define RGB_MATRIX_CENTER { 112, 37 }
-
 // Encoder support
 #ifndef EXTRA_ENCODERS_ENABLE
 #define ENCODERS_PAD_A { D2 }
