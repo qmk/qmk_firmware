@@ -19,6 +19,10 @@
         "rows": ["B4", "E6", "D7", "B3", "B2", "B6"]
     },
     "diode_direction": "ROW2COL",
+    "features": {
+      "bootmagic": true,
+      "nkro": true
+    },
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "layouts": {
