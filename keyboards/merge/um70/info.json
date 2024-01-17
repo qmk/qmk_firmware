@@ -24,6 +24,10 @@
     "ws2812": {
         "pin": "D3"
     },
+    "rgb_matrix": {
+        "driver": "ws2812",
+        "split_count": [39, 44]
+    },
     "rgblight": {
         "led_count": 83,
         "max_brightness": 150,

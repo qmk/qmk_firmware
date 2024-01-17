@@ -120,7 +120,7 @@ bool pointing_device_task(void) {
     static uint16_t debounce_timer;
     uint8_t         state[5] = {};
     if (timer_elapsed(i2c_timeout_timer) > I2C_WAITCHECK) {
-        if (i2c_readReg(TRACKBALL_WRITE, 0x04, state, 5, I2C_TIMEOUT) == I2C_STATUS_SUCCESS) {
+        if (i2c_read_register(TRACKBALL_WRITE, 0x04, state, 5, I2C_TIMEOUT) == I2C_STATUS_SUCCESS) {
             if (!state[4] && !debounce) {
                 if (scrolling) {
 #ifdef PIMORONI_TRACKBALL_INVERT_X
