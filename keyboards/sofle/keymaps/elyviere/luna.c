@@ -230,6 +230,9 @@
 			case _PROGRAMMER_DVORAK:
 				oled_write_P(PSTR("P Dvk"), false);
 				break;
+			case _GAMING:
+				oled_write_P(PSTR("Game"), false);
+				break;
 			default:
 				oled_write_P(PSTR("Undef"), false);
 		}
@@ -257,6 +260,8 @@ static void print_status_narrow(void) {
     switch (get_highest_layer(layer_state)) {
         case _COLEMAK:
         case _QWERTY:
+		case _PROGRAMMER_DVORAK:
+		case _GAMING:
             oled_write_P(PSTR("Base "), false);
             break;
         case _RAISE:

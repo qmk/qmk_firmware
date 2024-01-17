@@ -8,6 +8,7 @@ enum sofle_layers {
     _QWERTY,
 	_COLEMAK,
     _PROGRAMMER_DVORAK,
+    _GAMING,
     _LOWER,
     _RAISE,
     _ADJUST
@@ -17,11 +18,14 @@ enum custom_keycodes {
     KC_QWERTY = SAFE_RANGE,
     KC_COLEMAK,
 	KC_P_DVORAK,
+	KC_GAMING,
     KC_PRVWD,
     KC_NXTWD,
     KC_LSTRT,
     KC_LEND,
-    KC_DLINE
+    KC_DLINE,
+	HLDSHIF,
+	HLDCTRL
 };
 
 // A key replaced with '-------' represents a key identical to the base layer,
@@ -98,11 +102,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_PROGRAMMER_DVORAK] = LAYOUT(
-   SE_DLR, SE_AMPR, SE_ARNG, SE_LCBR, SE_RCBR, SE_LPRN,                       SE_EQL, SE_ASTR, SE_RPRN, SE_PLUS, SE_DIAE, SE_EXLM,
+   SE_DLR, SE_AMPR, SE_LBRC, SE_LCBR, SE_RCBR, SE_LPRN,                       SE_EQL, SE_ASTR, SE_RPRN, SE_PLUS, SE_RBRC, SE_EXLM,
    KC_ESC, SE_SCLN, SE_COMM,  SE_DOT,    SE_P,    SE_Y,                         SE_F,    SE_G,    SE_C,    SE_R,    SE_L, KC_BSPC,
    KC_TAB,    SE_A,    SE_O,    SE_E,    SE_U,    SE_I,                         SE_D,    SE_H,    SE_T,    SE_N,    SE_S, SE_MINS,
   KC_LSFT, SE_QUOT,    SE_Q,    SE_J,    SE_K,    SE_X, KC_MUTE,    KC_MPLY,    SE_B,    SE_M,    SE_W,    SE_V,    SE_Z, KC_RSFT,
                      KC_F13, KC_LALT, KC_LCTL,  KC_ENT, L_LOWER,    L_RAISE,  KC_SPC, KC_RCTL, KC_RALT, KC_RGUI
+),
+
+/* GAMING
+ * ,-----------------------------------------.                    ,-----------------------------------------.
+ * |      |      |   1  |   2  |   3  |   4  |                    |      |      |      |      |      |      |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * | Esc  |      |   Q  |   W  |   E  |   R  |-<--->-.    ,-<--->-|      |      |  Up  |   I  |      | Bspc |
+ * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
+ * | Tab  |      |   A  |   S  |   D  |   F  |-------|    |-------|      | Left | Down | Right|      |      |
+ * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
+ * |LShift|      |   Z  |   X  |   C  |   V  |-------|    |-------|      |      |      |      |      |HoldSh|
+ * `-----------------------------------------/       /    \       \-----------------------------------------'
+ *           | RGUI | LAlt | LCtrl| / Enter / LOWER /      \ RAISE \ Space \ | Hold | RAlt | RGUI |
+ *           |      |      |      |/       /       /        \       \       \| Ctrl |      |      |
+ *           `------'------'------'-------'-------'          `-------'-------'------'------'------'
+ */
+[_GAMING] = LAYOUT(
+  XXXXXXX, XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  _______, XXXXXXX,     SE_Q,     SE_W,     SE_E,    SE_R,                       XXXXXXX, XXXXXXX,   KC_UP,    SE_I, XXXXXXX, KC_BSPC,
+  _______, XXXXXXX,     SE_A,     SE_S,     SE_D,    SE_F,                       XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,
+  _______, XXXXXXX,     SE_Z,     SE_X,     SE_C,    SE_V, KC_MUTE,     KC_MPLY, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, HLDSHIF,
+                     _______,  _______,  _______, _______, _______,     _______, _______, HLDCTRL, _______, _______
 ),
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -151,7 +177,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,------------------------------------------.                    ,-----------------------------------------.
  * |       |      |      |      |      |      |                    |      |      |      | Wake | Sleep| Power|
  * |-------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |QK_BOOT|      |QWERTY|COLMAK|DVORAK|      |-<--->-.    ,-<--->-|      |      |      |      |      | C+A+D|
+ * |QK_BOOT|      |QWERTY|COLMAK|DVORAK|GAMING|-<--->-.    ,-<--->-|      |      |      |      |      | C+A+D|
  * |-------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
  * |       |      |MACWIN|      |ScrTog|      |-------|    |-------|      | VOLDO| MUTE | VOLUP|      |      |
  * |-------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
@@ -162,10 +188,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            `------------------------------------'          `-------'----------------------------'
  */
   [_ADJUST] = LAYOUT(
-  XXXXXXX, XXXXXXX, XXXXXXX ,  XXXXXXX ,    XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, KC_WAKE, KC_SLEP,  KC_PWR,
-  QK_BOOT, XXXXXXX,KC_QWERTY,KC_COLEMAK,KC_P_DVORAK, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_CAD,
-  XXXXXXX, XXXXXXX,  CG_TOGG,   XXXXXXX,    KC_STOG, XXXXXXX,                     XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX ,  XXXXXXX ,    XXXXXXX,  XXXXXXX,                    XXXXXXX, XXXXXXX, XXXXXXX, KC_WAKE, KC_SLEP,  KC_PWR,
+  QK_BOOT, XXXXXXX,KC_QWERTY,KC_COLEMAK,KC_P_DVORAK,KC_GAMING,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_CAD,
+  XXXXXXX, XXXXXXX,  CG_TOGG,   XXXXXXX,    KC_STOG,  XXXXXXX,                    XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX,    XXXXXXX,  XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
                      _______,   _______,    _______, _______, _______,   _______, _______, _______, _______, _______
   )
 };
@@ -279,6 +305,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		case KC_P_DVORAK:
 			if (record->event.pressed) {
 				set_single_persistent_default_layer(_PROGRAMMER_DVORAK);
+			}
+			return false;
+		case KC_GAMING:
+			if (record->event.pressed) {
+				set_single_persistent_default_layer(_GAMING);
 			}
 			return false;
 		case KC_PRVWD:
@@ -444,6 +475,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			}
 			return true;
 #endif
+		case HLDSHIF:
+			if (record->event.pressed) {
+				static bool shift_held = true;
+				shift_held = !shift_held;
+				if (shift_held) {
+					register_mods(mod_config(MOD_LSFT));
+				} else {
+					unregister_mods(mod_config(MOD_LSFT));
+				}
+			}
+			return false;
+		case HLDCTRL:
+			if (record->event.pressed) {
+				static bool ctrl_held = true;
+				ctrl_held = !ctrl_held;
+				if (ctrl_held) {
+					register_mods(mod_config(MOD_LCTL));
+				} else {
+					unregister_mods(mod_config(MOD_LCTL));
+				}
+			}
+			return false;
 	}
 
 	return true;
