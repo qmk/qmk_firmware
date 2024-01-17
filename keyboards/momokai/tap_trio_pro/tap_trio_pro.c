@@ -34,20 +34,22 @@ void         bootmagic_lite(void) {
 #    ifdef DEBUG_ENABLE
 deferred_token debug_token;
 bool           debug_print(void) {
-    char buffer[MATRIX_ROWS * MATRIX_COLS * 5 + MATRIX_ROWS * 2];
+    uint8_t hall_effect_rows = 1;
+    char buffer[hall_effect_rows * MATRIX_COLS * 5 + MATRIX_ROWS * 2];
     buffer[0] = '\0';
 
-    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+    // for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+        uint8_t row = 1;
         for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-            analog_key_t *key = &keys[row][col];
+            hybrid_key_t *key = &keys[row][col];
             char   temp[6];
             snprintf(temp, sizeof(temp), "%5u", key->value);
             strcat(buffer, temp);
         }
-        strcat(buffer, "\n");
-    }
+         strcat(buffer, "\n");
+    // }
 
-    uprintf("Analog values:\n%s", buffer);
+    uprintf("%s", buffer);
     return true;
 }
 
