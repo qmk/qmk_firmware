@@ -138,23 +138,6 @@ void i2c_init(void) {
 
 ---
 
-### `i2c_status_t i2c_start(uint8_t address, uint16_t timeout)` :id=api-i2c-start
-
-Start an I2C transaction.
-
-#### Arguments :id=api-i2c-start-arguments
-
- - `uint8_t address`  
-   The 7-bit I2C address of the device (ie. without the read/write bit - this will be set automatically).
- - `uint16_t timeout`  
-   The time in milliseconds to wait for a response from the target device.
-
-#### Return Value :id=api-i2c-start-return
-
-`I2C_STATUS_TIMEOUT` if the timeout period elapses, `I2C_STATUS_ERROR` if some other error occurs, otherwise `I2C_STATUS_SUCCESS`.
-
----
-
 ### `i2c_status_t i2c_transmit(uint8_t address, uint8_t *data, uint16_t length, uint16_t timeout)` :id=api-i2c-transmit
 
 Send multiple bytes to the selected I2C device.
@@ -285,6 +268,21 @@ Reads from a register with a 16-bit address (big endian) on the I2C device.
 
 ---
 
-### `i2c_status_t i2c_stop(void)` :id=api-i2c-stop
+### `i2c_status_t i2c_ping_address(uint8_t address, uint16_t timeout)` :id=api-i2c-ping-address
 
-Stop the current I2C transaction.
+Pings the I2C bus for a specific address. 
+
+On ChibiOS a "best effort" attempt is made by reading a single byte from register 0 at the requested address. This should generally work except for I2C devices that do not not respond to a register 0 read request, which will result in a false negative result (unsucessful response to ping attempt).
+
+This function is weakly defined, meaning it can be overridden if necessary for your particular use case:
+
+#### Arguments
+
+ - `uint8_t address`  
+   The 7-bit I2C address of the device (ie. without the read/write bit - this will be set automatically).
+ - `uint16_t timeout`  
+   The time in milliseconds to wait for a response from the target device.
+
+#### Return Value
+
+`I2C_STATUS_TIMEOUT` if the timeout period elapses, `I2C_STATUS_ERROR` if some other error occurs, otherwise `I2C_STATUS_SUCCESS`.

@@ -14,7 +14,6 @@ void ds1307_set_time(uint8_t h, uint8_t m, uint8_t s) {
 void ds1307_get_time(uint8_t *h, uint8_t *m, uint8_t *s) {
     uint8_t data[3];
     i2c_read_register(DS1307_ADDR, 0, data, 3, 100);
-    i2c_stop();
     *s = (data[0] & 0b1111) + ((data[0] & 0b1110000) >> 4) * 10;
     *m = (data[1] & 0b1111) + ((data[1] & 0b1110000) >> 4) * 10;
     *h = (data[2] & 0b1111) + ((data[2] & 0b0110000) >> 4) * 10;
