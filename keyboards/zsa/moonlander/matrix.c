@@ -144,7 +144,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
             // read col
 
             mcp23018_tx[0] = 0x13;  // GPIOB
-            if (MSG_OK != i2c_readReg(MCP23018_DEFAULT_ADDRESS << 1, mcp23018_tx[0], &mcp23018_rx[0], 1, MOONLANDER_I2C_TIMEOUT)) {
+            if (MSG_OK != i2c_read_register(MCP23018_DEFAULT_ADDRESS << 1, mcp23018_tx[0], &mcp23018_rx[0], 1, MOONLANDER_I2C_TIMEOUT)) {
                 dprintf("error vert\n");
                 mcp23018_initd = false;
             }

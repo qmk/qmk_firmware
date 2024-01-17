@@ -354,7 +354,7 @@ i2c_status_t ptn5110_init(struct PTN5110* self) {
 
 // Read PTN5110 CC_STATUS.
 // Returns zero on success or a negative number on error.
-i2c_status_t ptn5110_get_cc_status(struct PTN5110* self, uint8_t* cc) { return i2c_readReg(self->addr << 1, 0x1D, cc, 1, I2C_TIMEOUT); }
+i2c_status_t ptn5110_get_cc_status(struct PTN5110* self, uint8_t* cc) { return i2c_read_register(self->addr << 1, 0x1D, cc, 1, I2C_TIMEOUT); }
 
 // Set PTN5110 SSMUX orientation.
 // Returns zero on success or a negative number on error.
@@ -362,7 +362,7 @@ i2c_status_t ptn5110_set_ssmux(struct PTN5110* self, bool orientation) { return 
 
 // Write PTN5110 COMMAND.
 // Returns zero on success or negative number on error.
-i2c_status_t ptn5110_command(struct PTN5110* self, uint8_t command) { return i2c_writeReg(self->addr << 1, 0x23, &command, 1, I2C_TIMEOUT); }
+i2c_status_t ptn5110_command(struct PTN5110* self, uint8_t command) { return i2c_write_register(self->addr << 1, 0x23, &command, 1, I2C_TIMEOUT); }
 
 // Set orientation of PTN5110 operating as a sink, call this once.
 // Returns zero on success or a negative number on error.

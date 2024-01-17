@@ -170,7 +170,7 @@ i2c_status_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16
     return i2c_epilogue(status);
 }
 
-i2c_status_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout) {
+i2c_status_t i2c_write_register(uint8_t devaddr, uint8_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout) {
     i2c_address = devaddr;
     i2cStart(&I2C_DRIVER, &i2cconfig);
 
@@ -184,7 +184,7 @@ i2c_status_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, const uint8_t* data,
     return i2c_epilogue(status);
 }
 
-i2c_status_t i2c_writeReg16(uint8_t devaddr, uint16_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout) {
+i2c_status_t i2c_write_register16(uint8_t devaddr, uint16_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout) {
     i2c_address = devaddr;
     i2cStart(&I2C_DRIVER, &i2cconfig);
 
@@ -199,14 +199,14 @@ i2c_status_t i2c_writeReg16(uint8_t devaddr, uint16_t regaddr, const uint8_t* da
     return i2c_epilogue(status);
 }
 
-i2c_status_t i2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout) {
+i2c_status_t i2c_read_register(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout) {
     i2c_address = devaddr;
     i2cStart(&I2C_DRIVER, &i2cconfig);
     msg_t status = i2cMasterTransmitTimeout(&I2C_DRIVER, (i2c_address >> 1), &regaddr, 1, data, length, TIME_MS2I(timeout));
     return i2c_epilogue(status);
 }
 
-i2c_status_t i2c_readReg16(uint8_t devaddr, uint16_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout) {
+i2c_status_t i2c_read_register16(uint8_t devaddr, uint16_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout) {
     i2c_address = devaddr;
     i2cStart(&I2C_DRIVER, &i2cconfig);
     uint8_t register_packet[2] = {regaddr >> 8, regaddr & 0xFF};

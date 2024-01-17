@@ -27,9 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_LED_COUNT 60
 #endif
 
-#define RGB_MATRIX_LED_COUNT 60
-#define RGB_MATRIX_SPLIT { 30, 30 }
-
 #ifdef IOS_DEVICE_ENABLE
   #define RGBLIGHT_LIMIT_VAL 40
   #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 40

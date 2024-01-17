@@ -69,8 +69,8 @@ static void board_set_slave_led(board_info_t* board, uint8_t led_index, bool sta
     board->led_status[led_index] = status;
     uint8_t iodir                = board_merge_led_config(board, 0xff);
     uint8_t data                 = board_merge_led_status(board, 0x00);
-    i2c_writeReg(EXPANDER_ADDR(board->i2c_address), EXPANDER_IODIRB, (const uint8_t*)&iodir, sizeof(iodir), BOARD_I2C_TIMEOUT);
-    i2c_writeReg(EXPANDER_ADDR(board->i2c_address), EXPANDER_OLATB, (const uint8_t*)&data, sizeof(data), BOARD_I2C_TIMEOUT);
+    i2c_write_register(EXPANDER_ADDR(board->i2c_address), EXPANDER_IODIRB, (const uint8_t*)&iodir, sizeof(iodir), BOARD_I2C_TIMEOUT);
+    i2c_write_register(EXPANDER_ADDR(board->i2c_address), EXPANDER_OLATB, (const uint8_t*)&data, sizeof(data), BOARD_I2C_TIMEOUT);
 }
 
 static uint8_t board_merge_led_config(board_info_t* board, uint8_t iodir) {
@@ -86,30 +86,30 @@ static bool board_slave_config(board_info_t* board) {
     i2c_status_t res   = 0;
 
     // Set to input
-    res = i2c_writeReg(EXPANDER_ADDR(board->i2c_address), EXPANDER_IODIRA, (const uint8_t*)&set, sizeof(set), BOARD_I2C_TIMEOUT);
+    res = i2c_write_register(EXPANDER_ADDR(board->i2c_address), EXPANDER_IODIRA, (const uint8_t*)&set, sizeof(set), BOARD_I2C_TIMEOUT);
     if (res < 0) return false;
     // RESTRICTION: LEDs only on PORT B.
     set = board_merge_led_config(board, set);
-    res = i2c_writeReg(EXPANDER_ADDR(board->i2c_address), EXPANDER_IODIRB, (const uint8_t*)&set, sizeof(set), BOARD_I2C_TIMEOUT);
+    res = i2c_write_register(EXPANDER_ADDR(board->i2c_address), EXPANDER_IODIRB, (const uint8_t*)&set, sizeof(set), BOARD_I2C_TIMEOUT);
     if (res < 0) return false;
     set = 0xff;
 
     // Pull up for input - enable
-    res = i2c_writeReg(EXPANDER_ADDR(board->i2c_address), EXPANDER_GPPUA, (const uint8_t*)&set, sizeof(set), BOARD_I2C_TIMEOUT);
+    res = i2c_write_register(EXPANDER_ADDR(board->i2c_address), EXPANDER_GPPUA, (const uint8_t*)&set, sizeof(set), BOARD_I2C_TIMEOUT);
     if (res < 0) return false;
-    res = i2c_writeReg(EXPANDER_ADDR(board->i2c_address), EXPANDER_GPPUB, (const uint8_t*)&set, sizeof(set), BOARD_I2C_TIMEOUT);
+    res = i2c_write_register(EXPANDER_ADDR(board->i2c_address), EXPANDER_GPPUB, (const uint8_t*)&set, sizeof(set), BOARD_I2C_TIMEOUT);
     if (res < 0) return false;
 
     // Disable interrupt
-    res = i2c_writeReg(EXPANDER_ADDR(board->i2c_address), EXPANDER_GPINTENA, (const uint8_t*)&clear, sizeof(clear), BOARD_I2C_TIMEOUT);
+    res = i2c_write_register(EXPANDER_ADDR(board->i2c_address), EXPANDER_GPINTENA, (const uint8_t*)&clear, sizeof(clear), BOARD_I2C_TIMEOUT);
     if (res < 0) return false;
-    res = i2c_writeReg(EXPANDER_ADDR(board->i2c_address), EXPANDER_GPINTENB, (const uint8_t*)&clear, sizeof(clear), BOARD_I2C_TIMEOUT);
+    res = i2c_write_register(EXPANDER_ADDR(board->i2c_address), EXPANDER_GPINTENB, (const uint8_t*)&clear, sizeof(clear), BOARD_I2C_TIMEOUT);
     if (res < 0) return false;
 
     // Polarity - same logic
-    res = i2c_writeReg(EXPANDER_ADDR(board->i2c_address), EXPANDER_IPOLA, (const uint8_t*)&clear, sizeof(clear), BOARD_I2C_TIMEOUT);
+    res = i2c_write_register(EXPANDER_ADDR(board->i2c_address), EXPANDER_IPOLA, (const uint8_t*)&clear, sizeof(clear), BOARD_I2C_TIMEOUT);
     if (res < 0) return false;
-    res = i2c_writeReg(EXPANDER_ADDR(board->i2c_address), EXPANDER_IPOLB, (const uint8_t*)&clear, sizeof(clear), BOARD_I2C_TIMEOUT);
+    res = i2c_write_register(EXPANDER_ADDR(board->i2c_address), EXPANDER_IPOLB, (const uint8_t*)&clear, sizeof(clear), BOARD_I2C_TIMEOUT);
     if (res < 0) return false;
 
     return true;
@@ -203,7 +203,7 @@ static uint8_t board_read_slave_cols(board_info_t* board) {
         return 0xff;
     }
     uint8_t      data = 0xff;
-    i2c_status_t res  = i2c_readReg(EXPANDER_ADDR(board->i2c_address), EXPANDER_GPIOA, &data, sizeof(data), BOARD_I2C_TIMEOUT);
+    i2c_status_t res  = i2c_read_register(EXPANDER_ADDR(board->i2c_address), EXPANDER_GPIOA, &data, sizeof(data), BOARD_I2C_TIMEOUT);
     return (res < 0) ? 0xff : data;
 }
 
@@ -214,8 +214,8 @@ static void board_select_slave_row(board_info_t* board, uint8_t board_row) {
     uint8_t pin    = board->row_pins[board_row];
     uint8_t iodir  = board_merge_led_config(board, PIN2MASK(pin));
     uint8_t status = board_merge_led_status(board, PIN2MASK(pin));
-    i2c_writeReg(EXPANDER_ADDR(board->i2c_address), EXPANDER_IODIRB, (const uint8_t*)&iodir, sizeof(iodir), BOARD_I2C_TIMEOUT);
-    i2c_writeReg(EXPANDER_ADDR(board->i2c_address), EXPANDER_OLATB, (const uint8_t*)&status, sizeof(status), BOARD_I2C_TIMEOUT);
+    i2c_write_register(EXPANDER_ADDR(board->i2c_address), EXPANDER_IODIRB, (const uint8_t*)&iodir, sizeof(iodir), BOARD_I2C_TIMEOUT);
+    i2c_write_register(EXPANDER_ADDR(board->i2c_address), EXPANDER_OLATB, (const uint8_t*)&status, sizeof(status), BOARD_I2C_TIMEOUT);
 }
 
 static void board_unselect_slave_rows(board_info_t* board) {
@@ -224,8 +224,8 @@ static void board_unselect_slave_rows(board_info_t* board) {
     }
     uint8_t iodir = board_merge_led_config(board, 0xff);
     uint8_t data  = board_merge_led_status(board, 0x00);
-    i2c_writeReg(EXPANDER_ADDR(board->i2c_address), EXPANDER_IODIRB, (const uint8_t*)&iodir, sizeof(iodir), BOARD_I2C_TIMEOUT);
-    i2c_writeReg(EXPANDER_ADDR(board->i2c_address), EXPANDER_OLATB, (const uint8_t*)&data, sizeof(data), BOARD_I2C_TIMEOUT);
+    i2c_write_register(EXPANDER_ADDR(board->i2c_address), EXPANDER_IODIRB, (const uint8_t*)&iodir, sizeof(iodir), BOARD_I2C_TIMEOUT);
+    i2c_write_register(EXPANDER_ADDR(board->i2c_address), EXPANDER_OLATB, (const uint8_t*)&data, sizeof(data), BOARD_I2C_TIMEOUT);
 }
 
 static void board_unselect_slave_row(board_info_t* board, uint8_t board_row) { board_unselect_slave_rows(board); }
