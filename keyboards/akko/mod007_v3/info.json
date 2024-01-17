@@ -1,35 +1,38 @@
 {
-    "keyboard_name": "MOD007_V3",
     "manufacturer": "Akko",
-    "url":"https://www.akkogear.com",
+    "keyboard_name": "MOD007_V3",
     "maintainer": "jonylee@hfd",
-    "usb": {
-        "vid": "0xFFFE",
-        "pid": "0x000F",
-        "device_version": "1.0.3",
-        "suspend_wakeup_delay": 400
-    },
-    "processor": "WB32FQ95",
     "bootloader": "wb32-dfu",
-    "features": {
-        "bootmagic": true,
-        "mousekey": true,
-        "extrakey": true,
-        "nkro": true,
-        "encoder": true
-    },
+    "diode_direction": "ROW2COL",
     "dynamic_keymap": {
         "layer_count": 6
     },
-    "matrix_pins": {
-        "cols": [ "C1", "C2", "C3", "A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "C4", "C5", "B0", "B1", "B2"],
-        "rows": [ "B15", "C6", "C7", "C8", "C9", "A8"]
-    },
-    "diode_direction": "ROW2COL",
     "encoder": {
         "rotary": [
-            { "pin_a": "B14", "pin_b": "B13" }
+            {
+                "pin_a": "B14",
+                "pin_b": "B13"
+            }
         ]
+    },
+    "features": {
+        "bootmagic": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "matrix_pins": {
+        "cols": ["C1", "C2", "C3", "A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "C4", "C5", "B0", "B1", "B2"],
+        "rows": ["B15", "C6", "C7", "C8", "C9", "A8"]
+    },
+    "processor": "WB32FQ95",
+    "url": "https://www.akkogear.com",
+    "usb": {
+        "device_version": "1.0.3",
+        "pid": "0x000F",
+        "suspend_wakeup_delay": 400,
+        "vid": "0xFFFE"
     },
     "layouts": {
         "LAYOUT_all": {
@@ -267,7 +270,7 @@
                 { "label": ":", "matrix": [3, 10], "x": 10.75, "y": 3.25 },
                 { "label": "\"", "matrix": [3, 11], "x": 11.75, "y": 3.25 },
                 { "label": ":", "matrix": [3, 12], "x": 12.75, "y": 3.25 },
-                { "label": "Enter", "matrix": [3, 13], "w": 1.25, "h": 2, "x": 13.75, "y": 2.25 },
+                { "h": 2, "label": "Enter", "matrix": [3, 13], "w": 1.25, "x": 13.75, "y": 2.25 },
                 { "label": "PageDn", "matrix": [3, 15], "x": 15.5, "y": 3.25 },
                 { "label": "Shift", "matrix": [4, 0], "w": 1.25, "x": 0, "y": 4.25 },
                 { "label": ":", "matrix": [4, 11], "x": 1.25, "y": 4.25 },
