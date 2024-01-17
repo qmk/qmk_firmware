@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = caterina
-
 # Build Options
 #   change yes to no to disable
 #
@@ -19,4 +13,6 @@ AUDIO_ENABLE = no           # Audio output
 CUSTOM_MATRIX = lite
 SPLIT_KEYBOARD = yes
 
-SRC += analog.c ec_switch_matrix.c matrix.c
+ANALOG_DRIVER_REQUIRED = yes
+
+SRC += ec_switch_matrix.c matrix.c

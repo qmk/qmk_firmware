@@ -3,20 +3,13 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-// #define MATRIX_ROWS 5
-// #define MATRIX_COLS 15
 
 /* ----------------
  * RGB Matrix stuff
  * ---------------- */
 
-#define RGB_DI_PIN F0
-
 // RGB Matrix config
-#if defined(RGB_DI_PIN) && defined(RGB_MATRIX_ENABLE)
+#if defined(RGB_MATRIX_ENABLE)
 
     #ifndef ID61_DISABLE_UNDERGLOW
         #define RGB_MATRIX_LED_COUNT 71

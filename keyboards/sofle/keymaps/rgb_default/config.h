@@ -32,7 +32,7 @@
 #define CUSTOM_LAYER_READ //if you remove this it causes issues - needs better guarding
 
 
-#define TAPPING_FORCE_HOLD
+#define QUICK_TAP_TERM 0
 #ifdef TAPPING_TERM
     #undef TAPPING_TERM
     #define TAPPING_TERM 200
@@ -45,7 +45,7 @@
 #define RGBLIGHT_LAYERS
 
 /* ws2812 RGB LED */
-#define RGB_DI_PIN D3
+#define WS2812_DI_PIN D3
 
 
 #ifdef RGB_MATRIX_ENABLE

@@ -32,7 +32,7 @@ enum {
 };
 
 // Tap Dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     // Tap once for Escape, twice for Number 4 (armor plates in warzone)
     [TD_ESC_TAB] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_TAB),
     [TD_3_L0] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_3, 1),

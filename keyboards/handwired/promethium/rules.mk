@@ -1,11 +1,5 @@
-# MCU name
-MCU = atmega32u4
-
 # Processor frequency
 F_CPU = 8000000
-
-# Bootloader selection
-BOOTLOADER = caterina
 
 # Build Options
 #   change yes to no to disable
@@ -24,11 +18,11 @@ PS2_ENABLE = yes
 PS2_DRIVER = interrupt
 CUSTOM_MATRIX = yes
 BLUETOOTH_ENABLE = yes
-BLUETOOTH_DRIVER = BluefruitLE
 
-SRC += ws2812.c
+WS2812_DRIVER_REQUIRED = yes
+ANALOG_DRIVER_REQUIRED = yes
+
 SRC += rgbsps.c
-SRC += analog.c
 SRC += matrix.c
 
 LTO_ENABLE = yes

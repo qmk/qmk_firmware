@@ -2,5 +2,41 @@
     "usb": {
         "pid": "0x6161",
         "device_version": "0.0.1"
-    }
+    },
+    "matrix_pins": {
+        "cols": ["A10", "A15", "B3", "B4", "B5", "B7", "B6", "A1", "A2", "A3", "A4", "A5"],
+        "rows": ["A6", "A7", "B0", "B1", "B10"]
+    },
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A0", "pin_b": "B8"}
+        ]
+    },
+    "indicators": {
+        "caps_lock": "C13",
+        "num_lock": "B12",
+        "scroll_lock": "B13"
+    },
+    "rgblight": {
+        "led_count": 20,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "B15"
+    },
+    "processor": "STM32F401",
+    "bootloader": "tinyuf2",
+    "board": "BLACKPILL_STM32_F401"
 }

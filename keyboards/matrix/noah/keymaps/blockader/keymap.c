@@ -32,7 +32,7 @@ enum{
     DANCE_PGUP_TOP,
 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [DANCE_PGDN_BOTTOM] = ACTION_TAP_DANCE_DOUBLE(KC_PGDN, LGUI(KC_DOWN)),
     [DANCE_PGUP_TOP] = ACTION_TAP_DANCE_DOUBLE(KC_PGUP, LGUI(KC_UP)),
 };
@@ -645,7 +645,7 @@ bool process_record_user(uint16_t key, keyrecord_t* record) {
     return handle_common_key(key, record);
 }
 
-void keyboard_post_init_user() {
+void keyboard_post_init_user(void) {
     rgblight_disable_noeeprom();
     rgb_matrix_disable();
     common_layer_data.back = false;

@@ -8,8 +8,8 @@ Most of our style is pretty easy to pick up on, but right now it's not entirely 
   * Closing Brace: Lined up with the first character of the statement that opens the block
   * Else If: Place the closing brace at the beginning of the line and the next opening brace at the end of the same line.
   * Optional Braces: Always include optional braces.
-    * Good: if (condition) { return false; }
-    * Bad: if (condition) return false;
+    * Good: `if (condition) { return false; }`
+    * Bad: `if (condition) return false;`
 * We encourage use of C style comments: `/* */`
   * Think of them as a story describing the feature
   * Use them liberally to explain why particular decisions were made.

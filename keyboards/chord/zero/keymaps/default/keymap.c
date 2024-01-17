@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
-#include "keymap_steno.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
@@ -21,5 +20,3 @@ const uint16_t PROGMEM bootloader_combo[] = {
 combo_t key_combos[] = {
     COMBO(bootloader_combo, QK_BOOTLOADER),
 };
-
-uint16_t COMBO_LEN = sizeof(key_combos) / sizeof(key_combos[0]);

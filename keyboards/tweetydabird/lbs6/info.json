@@ -3,9 +3,7 @@
     "manufacturer": "Tweetys Wild Thinking",
     "url": "https://lectronz.com/stores/tweetys-wild-thinking",
     "maintainer": "TweetyDaBird",
-    
     "development_board": "promicro",
-    
     "features": {
         "bootmagic": true,
         "command": false,
@@ -16,19 +14,17 @@
         "rgblight": true,
         "encoder": true
     },
-
     "build": {
         "lto": true
     },
-
     "usb": {
         "vid": "0xFEED",
         "pid": "0x23B0",
         "device_version": "1.1.0"
     },
-    
-    "debounce": 5,
-    
+    "bootmagic": {
+        "matrix": [2, 2]
+    },
     "matrix_pins": {
         "direct": [
             [null, "F5", null],
@@ -36,16 +32,13 @@
             ["C6", "E6", "B5"]
         ]
     },
-
     "encoder": {
         "rotary": [
-            { "pin_a": "F7", "pin_b": "F6", "resolution": 2 }
+            {"pin_a": "F7", "pin_b": "F6", "resolution": 2}
         ]
     },
-
     "rgblight": {
         "led_count": 8,
-        "pin": "D2",
         "hue_steps": 8,
         "saturation_steps": 17,
         "brightness_steps": 17,
@@ -57,19 +50,21 @@
             "static_gradient": true
         }
     },
-    
+    "ws2812": {
+        "pin": "D2"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
-            { "label": "Play", "matrix": [0, 1], "x": 1, "y": 0, "w": 1, "h": 1 }, 
-            
-            { "label": "F1", "matrix": [1, 0], "x": 0, "y": 1, "w": 1, "h": 1 }, 
-            { "label": "F2", "matrix": [1, 1], "x": 1, "y": 1, "w": 1, "h": 1 }, 
-            { "label": "F3", "matrix": [1, 2], "x": 2, "y": 1, "w": 1, "h": 1 },
-            
-            { "label": "F4", "matrix": [2, 0], "x": 0, "y": 2, "w": 1, "h": 1 },
-            { "label": "F5", "matrix": [2, 1], "x": 1, "y": 2, "w": 1, "h": 1 },
-            { "label": "F6", "matrix": [2, 2], "x": 2, "y": 2, "w": 1, "h": 1 }
+            {"label": "Play", "matrix": [0, 1], "x": 1, "y": 0},
+
+            {"label": "F1", "matrix": [1, 0], "x": 0, "y": 1},
+            {"label": "F2", "matrix": [1, 1], "x": 1, "y": 1},
+            {"label": "F3", "matrix": [1, 2], "x": 2, "y": 1},
+
+            {"label": "F4", "matrix": [2, 0], "x": 0, "y": 2},
+            {"label": "F5", "matrix": [2, 1], "x": 1, "y": 2},
+            {"label": "F6", "matrix": [2, 2], "x": 2, "y": 2}
             ]
         }
     }

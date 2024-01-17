@@ -16,11 +16,9 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #ifdef RGB_MATRIX_ENABLE
 
-    #define RGB_DI_PIN A4                               // The pin connected to the data pin of the LEDs    
     #define RGB_MATRIX_LED_COUNT 61                     // The number of LEDs connected
     
     #define RGB_MATRIX_KEYPRESSES                       // reacts to keypresses

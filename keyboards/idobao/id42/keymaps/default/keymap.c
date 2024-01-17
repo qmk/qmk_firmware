@@ -3,11 +3,6 @@
 
 #include QMK_KEYBOARD_H
 
-enum custom_keycodes {
-    FN_MO13 = SAFE_RANGE,
-    FN_MO23,
-};
-
 // more Layer Tap stuff
 #define SPC_FN1 LT(1, KC_SPC)
 #define SPC_FN2 LT(2, KC_SPC)
@@ -29,7 +24,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         QK_GESC, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
         KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,             KC_ENT,
         KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_RSFT, KC_UP,   KC_DEL,
-        KC_LCTL, KC_LGUI, KC_LALT,          SPC_FN2,          FN_MO13,                   KC_LEFT, KC_DOWN, KC_RIGHT
+        KC_LCTL, KC_LGUI, KC_LALT,          SPC_FN2,          TL_LOWR,                   KC_LEFT, KC_DOWN, KC_RIGHT
     ),
 
     /* Layer 2
@@ -86,29 +81,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,          _______,          _______,                   RGB_SPD, RGB_VAD, RGB_SPI
     ),
 };
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case FN_MO13:
-            if (record->event.pressed) {
-                layer_on(1);
-                update_tri_layer(1, 2, 3);
-            } else {
-                layer_off(1);
-                update_tri_layer(1, 2, 3);
-            }
-            return false;
-            break;
-        case FN_MO23:
-            if (record->event.pressed) {
-                layer_on(2);
-                update_tri_layer(1, 2, 3);
-            } else {
-                layer_off(2);
-                update_tri_layer(1, 2, 3);
-            }
-            return false;
-            break;
-    }
-    return true;
-}

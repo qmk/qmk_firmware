@@ -29,24 +29,17 @@ enum {
 };
 
 enum {
-    KC_MCON = USER00,  // macOS Open Mission Control
-    KC_LPAD,           // macOS Open Launchpad
     #ifdef RGB_MATRIX_ENABLE
-    RGB_TPK,           // Toggle Per-Key
+    RGB_TPK = QK_KB_0,  // Toggle Per-Key
     RGB_TUG,           // Toggle Underglow
     #endif  // RGB_MATRIX_ENABLE
-    KB_VRSN = USER09   // debug, type version
+    KB_VRSN = QK_KB_9   // debug, type version
 };
 
 #ifndef RGB_MATRIX_ENABLE
     #define RGB_TPK _______
     #define RGB_TUG _______
 #endif  // RGB_MATRIX_ENABLE
-
-enum macos_consumer_usages {
-    _AC_SHOW_ALL_WINDOWS = 0x29F,  // mapped to KC_MCON
-    _AC_SHOW_ALL_APPS    = 0x2A0   // mapped to KC_LPAD
-};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
@@ -290,23 +283,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (!record->event.pressed) {
                     SEND_STRING(QMK_KEYBOARD ":" QMK_KEYMAP " (v" QMK_VERSION ")");
                 }
-            }
-            return false;
-
-        // @see: https://github.com/qmk/qmk_firmware/issues/10111#issuecomment-752300353
-        case KC_MCON:
-            if (record->event.pressed) {
-                host_consumer_send(_AC_SHOW_ALL_WINDOWS);
-            } else {
-                host_consumer_send(0);
-            }
-            return false;
-
-        case KC_LPAD:
-            if (record->event.pressed) {
-                host_consumer_send(_AC_SHOW_ALL_APPS);
-            } else {
-                host_consumer_send(0);
             }
             return false;
 

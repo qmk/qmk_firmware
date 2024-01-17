@@ -20,13 +20,13 @@ To use the ADNS 5050 sensor, add this to your `rules.mk`
 POINTING_DEVICE_DRIVER = adns5050
 ```
 
-The ADNS 5050 sensor uses a serial type protocol for communication, and requires an additional light source. 
+The ADNS 5050 sensor uses a serial type protocol for communication, and requires an additional light source.
 
-| Setting             | Description                                                         | Default                    |
-| ------------------- | ------------------------------------------------------------------- | -------------------------- |
-| `ADNS5050_SCLK_PIN` | (Required) The pin connected to the clock pin of the sensor.        | `POINTING_DEVICE_SCLK_PIN` |
-| `ADNS5050_SDIO_PIN` | (Required) The pin connected to the data pin of the sensor.         | `POINTING_DEVICE_SDIO_PIN` |
-| `ADNS5050_CS_PIN`   | (Required) The pin connected to the cable select pin of the sensor. | `POINTING_DEVICE_CS_PIN`   |
+| Setting (`config.h`) | Description                                                        | Default                    |
+| -------------------- | ------------------------------------------------------------------ | -------------------------- |
+| `ADNS5050_SCLK_PIN`  | (Required) The pin connected to the clock pin of the sensor.       | `POINTING_DEVICE_SCLK_PIN` |
+| `ADNS5050_SDIO_PIN`  | (Required) The pin connected to the data pin of the sensor.        | `POINTING_DEVICE_SDIO_PIN` |
+| `ADNS5050_CS_PIN`    | (Required) The pin connected to the Chip Select pin of the sensor. | `POINTING_DEVICE_CS_PIN`   |
 
 
 
@@ -40,15 +40,15 @@ To use the ADNS 9800 sensor, add this to your `rules.mk`
 POINTING_DEVICE_DRIVER = adns9800
 ```
 
-The ADNS 9800 is an SPI driven optical sensor, that uses laser output for surface tracking. 
+The ADNS 9800 is an SPI driven optical sensor, that uses laser output for surface tracking.
 
-| Setting                 | Description                                                            | Default                  |
+| Setting (`config.h`)    | Description                                                            | Default                  |
 | ----------------------- | ---------------------------------------------------------------------- | ------------------------ |
 | `ADNS9800_CLOCK_SPEED`  | (Optional) Sets the clock speed that the sensor runs at.               | `2000000`                |
 | `ADNS9800_SPI_LSBFIRST` | (Optional) Sets the Least/Most Significant Byte First setting for SPI. | `false`                  |
 | `ADNS9800_SPI_MODE`     | (Optional) Sets the SPI Mode for the sensor.                           | `3`                      |
 | `ADNS9800_SPI_DIVISOR`  | (Optional) Sets the SPI Divisor used for SPI communication.            | _varies_                 |
-| `ADNS9800_CS_PIN`       | (Required) Sets the Cable Select pin connected to the sensor.          | `POINTING_DEVICE_CS_PIN` |
+| `ADNS9800_CS_PIN`       | (Required) Sets the Chip Select pin connected to the sensor.           | `POINTING_DEVICE_CS_PIN` |
 
 
 The CPI range is 800-8200, in increments of 200. Defaults to 1800 CPI. 
@@ -63,7 +63,7 @@ POINTING_DEVICE_DRIVER = analog_joystick
 
 The Analog Joystick is an analog (ADC) driven sensor.  There are a variety of joysticks that you can use for this.
 
-| Setting                           | Description                                                                | Default       |
+| Setting (`config.h`)              | Description                                                                | Default       |
 | --------------------------------- | -------------------------------------------------------------------------- | ------------- |
 | `ANALOG_JOYSTICK_X_AXIS_PIN`      | (Required) The pin used for the vertical/X axis.                           | _not defined_ |
 | `ANALOG_JOYSTICK_Y_AXIS_PIN`      | (Required) The pin used for the horizontal/Y axis.                         | _not defined_ |
@@ -73,6 +73,71 @@ The Analog Joystick is an analog (ADC) driven sensor.  There are a variety of jo
 | `ANALOG_JOYSTICK_READ_INTERVAL`   | (Optional) The interval in milliseconds between reads.                     | `10`          |
 | `ANALOG_JOYSTICK_SPEED_MAX`       | (Optional) The maximum value used for motion.                              | `2`           |
 | `ANALOG_JOYSTICK_CLICK_PIN`       | (Optional) The pin wired up to the press switch of the analog stick.       | _not defined_ |
+
+### Azoteq IQS5XX Trackpad
+
+To use a Azoteq IQS5XX trackpad, add this to your `rules.mk`:
+
+```make
+POINTING_DEVICE_DRIVER = azoteq_iqs5xx
+```
+
+This supports the  IQS525, IQS550 and IQS572 controllers, with the latter two being used in the TPS43 and TPS65 trackpads.
+
+#### Device settings
+
+Specific device profiles are provided which set the required values for dimensions and resolution.
+
+| Setting                          | Description                                                |
+| -------------------------------- | ---------------------------------------------------------- |
+| `AZOTEQ_IQS5XX_TPS43`            | (Pick One) Sets resolution/mm to TPS43 specifications.     |
+| `AZOTEQ_IQS5XX_TPS65`            | (Pick One) Sets resolution/mm to TPS65 specifications.     |
+
+?> If using one of the above defines you can skip to gesture settings.
+
+| Setting                          | Description                                                | Default       |
+| -------------------------------- | ---------------------------------------------------------- | ------------- |
+| `AZOTEQ_IQS5XX_WIDTH_MM`         | (Required) Width of the trackpad sensor in millimeters.    | _not defined_ |
+| `AZOTEQ_IQS5XX_HEIGHT_MM`        | (Required) Height of the trackpad sensor in millimeters.   | _not defined_ |
+| `AZOTEQ_IQS5XX_RESOLUTION_X`     | (Optional) Specify X resolution for CPI calculation.       | _not defined_ |
+| `AZOTEQ_IQS5XX_RESOLUTION_Y`     | (Optional) Specify Y resolution for CPI calculation.       | _not defined_ |
+
+**`AZOTEQ_IQS5XX_RESOLUTION_X/Y`** fall back resolutions are provided within the driver based on controller model.
+
+| I2C Setting               | Description                                                                     | Default |
+| ------------------------- | ------------------------------------------------------------------------------- | ------- |
+| `AZOTEQ_IQS5XX_ADDRESS`   | (Optional) Sets the I2C Address for the Azoteq trackpad                         | `0xE8`  |
+| `AZOTEQ_IQS5XX_TIMEOUT_MS`| (Optional) The timeout for i2c communication with in milliseconds.              | `10`    |
+
+#### Gesture settings
+
+| Setting                                   | Description                                                                          | Default     |
+| ----------------------------------------- | ------------------------------------------------------------------------------------ | ----------- |
+| `AZOTEQ_IQS5XX_TAP_ENABLE`                | (Optional) Enable single finger tap. (Left click)                                    | `true`      |
+| `AZOTEQ_IQS5XX_TWO_FINGER_TAP_ENABLE`     | (Optional) Enable two finger tap. (Right click)                                      | `true`      |
+| `AZOTEQ_IQS5XX_PRESS_AND_HOLD_ENABLE`     | (Optional) Emulates holding left click to select text.                               | `false`     |
+| `AZOTEQ_IQS5XX_SWIPE_X_ENABLE`            | (Optional) Enable swipe gestures X+ (Mouse Button 5) / X- (Mouse Button 4)           | `false`     |
+| `AZOTEQ_IQS5XX_SWIPE_Y_ENABLE`            | (Optional) Enable swipe gestures Y+ (Mouse Button 3) / Y- (Mouse Button 6)           | `false`     |
+| `AZOTEQ_IQS5XX_ZOOM_ENABLE`               | (Optional) Enable zoom gestures Zoom Out (Mouse Button 7) / Zoom In (Mouse Button 8) | `false`     |
+| `AZOTEQ_IQS5XX_SCROLL_ENABLE`             | (Optional) Enable scrolling using two fingers.                                       | `true`      |
+| `AZOTEQ_IQS5XX_TAP_TIME`                  | (Optional) Maximum time in ms for tap to be registered.                              | `150`       |
+| `AZOTEQ_IQS5XX_TAP_DISTANCE`              | (Optional) Maximum deviation in pixels before single tap is no longer valid.         | `25`        |
+| `AZOTEQ_IQS5XX_HOLD_TIME`                 | (Optional) Minimum time in ms for press and hold.                                    | `300`       |
+| `AZOTEQ_IQS5XX_SWIPE_INITIAL_TIME`        | (Optional) Maximum time to travel initial distance before swipe is registered.       | `150`       |
+| `AZOTEQ_IQS5XX_SWIPE_INITIAL_DISTANCE`    | (Optional) Minimum travel in pixels before swipe is registered.                      | `300`       |
+| `AZOTEQ_IQS5XX_SWIPE_CONSECUTIVE_TIME`    | (Optional) Maximum time to travel consecutive distance before swipe is registered.   | `0`         |
+| `AZOTEQ_IQS5XX_SWIPE_CONSECUTIVE_DISTANCE`| (Optional) Minimum travel in pixels before a consecutive swipe is registered.        | `2000`      |
+| `AZOTEQ_IQS5XX_SCROLL_INITIAL_DISTANCE`   | (Optional) Minimum travel in pixels before scroll is registered.                     | `50`        |
+| `AZOTEQ_IQS5XX_ZOOM_INITIAL_DISTANCE`     | (Optional) Minimum travel in pixels before zoom is registered.                       | `50`        |
+| `AZOTEQ_IQS5XX_ZOOM_CONSECUTIVE_DISTANCE` | (Optional) Maximum time to travel zoom distance before zoom is registered.           | `25`        |
+
+#### Rotation settings
+
+| Setting                      | Description                                                | Default       |
+| ---------------------------- | ---------------------------------------------------------- | ------------- |
+| `AZOTEQ_IQS5XX_ROTATION_90`  | (Optional) Configures hardware for 90 degree rotation.     | _not defined_ |
+| `AZOTEQ_IQS5XX_ROTATION_180` | (Optional) Configures hardware for 180 degree rotation.    | _not defined_ |
+| `AZOTEQ_IQS5XX_ROTATION_270` | (Optional) Configures hardware for 270 degree rotation.    | _not defined_ |
 
 ### Cirque Trackpad
 
@@ -124,7 +189,7 @@ Default attenuation is set to 4X, although if you are using a thicker overlay (s
 | `CIRQUE_PINNACLE_SPI_LSBFIRST` | (Optional) Sets the Least/Most Significant Byte First setting for SPI. | `false`                  |
 | `CIRQUE_PINNACLE_SPI_MODE`     | (Optional) Sets the SPI Mode for the sensor.                           | `1`                      |
 | `CIRQUE_PINNACLE_SPI_DIVISOR`  | (Optional) Sets the SPI Divisor used for SPI communication.            | _varies_                 |
-| `CIRQUE_PINNACLE_SPI_CS_PIN`   | (Required) Sets the Cable Select pin connected to the sensor.          | `POINTING_DEVICE_CS_PIN` |
+| `CIRQUE_PINNACLE_SPI_CS_PIN`   | (Required) Sets the Chip Select pin connected to the sensor.           | `POINTING_DEVICE_CS_PIN` |
 
 Default Scaling is 1024. Actual CPI depends on trackpad diameter.
 
@@ -153,7 +218,7 @@ Additionally, `POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE` is supported in thi
 
 #### Relative mode gestures
 
-| Gesture Setting                        | Description                                                                                                                                                                               | Default       |
+| Gesture Setting (`config.h`)           | Description                                                                                                                                                                               | Default       |
 | -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
 | `CIRQUE_PINNACLE_TAP_ENABLE`           | (Optional) Enable tap to "left click". Works on both sides of a split keyboard.                                                                                                           | _not defined_ |
 | `CIRQUE_PINNACLE_SECONDARY_TAP_ENABLE` | (Optional) Tap in upper right corner (half of the finger needs to be outside of the trackpad) of the trackpad will result in "right click". `CIRQUE_PINNACLE_TAP_ENABLE` must be enabled. | _not defined_ |
@@ -172,10 +237,10 @@ POINTING_DEVICE_DRIVER = paw3204
 
 The paw 3204 sensor uses a serial type protocol for communication, and requires an additional light source. 
 
-| Setting            | Description                                                    | Default                    |
-| ------------------ |--------------------------------------------------------------- | -------------------------- |
-| `PAW3204_SCLK_PIN` | (Required) The pin connected to the clock pin of the sensor.   | `POINTING_DEVICE_SCLK_PIN` |
-| `PAW3204_SDIO_PIN` | (Required) The pin connected to the data pin of the sensor.    | `POINTING_DEVICE_SDIO_PIN` |
+| Setting (`config.h`) | Description                                                    | Default                    |
+| -------------------- |--------------------------------------------------------------- | -------------------------- |
+| `PAW3204_SCLK_PIN`   | (Required) The pin connected to the clock pin of the sensor.   | `POINTING_DEVICE_SCLK_PIN` |
+| `PAW3204_SDIO_PIN`   | (Required) The pin connected to the data pin of the sensor.    | `POINTING_DEVICE_SDIO_PIN` |
 
 The CPI range is 400-1600, with supported values of (400, 500, 600, 800, 1000, 1200 and 1600).  Defaults to 1000 CPI.
 
@@ -189,13 +254,31 @@ POINTING_DEVICE_DRIVER = pimoroni_trackball
 
 The Pimoroni Trackball module is a I2C based breakout board with an RGB enable trackball. 
 
-| Setting                              | Description                                                                        | Default |
+| Setting (`config.h`)                 | Description                                                                        | Default |
 | ------------------------------------ | ---------------------------------------------------------------------------------- | ------- |
 | `PIMORONI_TRACKBALL_ADDRESS`         | (Required) Sets the I2C Address for the Pimoroni Trackball.                        | `0x0A`  |
 | `PIMORONI_TRACKBALL_TIMEOUT`         | (Optional) The timeout for i2c communication with the trackball in milliseconds.   | `100`   |
 | `PIMORONI_TRACKBALL_SCALE`           | (Optional) The multiplier used to generate reports from the sensor.                | `5`     |
 | `PIMORONI_TRACKBALL_DEBOUNCE_CYCLES` | (Optional) The number of scan cycles used for debouncing on the ball press.        | `20`    |
 | `PIMORONI_TRACKBALL_ERROR_COUNT`     | (Optional) Specifies the number of read/write errors until the sensor is disabled. | `10`    |
+
+### PMW3320 Sensor
+
+To use the PMW3320 sensor, add this to your `rules.mk`
+
+```make
+POINTING_DEVICE_DRIVER = pmw3320
+```
+
+The PMW3320 sensor uses a serial type protocol for communication, and requires an additional light source (it could work without one, but expect it to be out of service early).
+
+| Setting             | Description                                                         | Default                    |
+| ------------------- | ------------------------------------------------------------------- | -------------------------- |
+| `PMW3320_SCLK_PIN` | (Required) The pin connected to the clock pin of the sensor.        | `POINTING_DEVICE_SCLK_PIN` |
+| `PMW3320_SDIO_PIN` | (Required) The pin connected to the data pin of the sensor.         | `POINTING_DEVICE_SDIO_PIN` |
+| `PMW3320_CS_PIN`   | (Required) The pin connected to the cable select pin of the sensor. | `POINTING_DEVICE_CS_PIN`   |
+
+The CPI range is 500-3500, in increments of 250. Defaults to 1000 CPI.
 
 ### PMW 3360 and PMW 3389 Sensor
 
@@ -218,11 +301,14 @@ POINTING_DEVICE_DRIVER = pmw3389
 The CPI range is 50-16000, in increments of 50. Defaults to 2000 CPI.
 
 Both PMW 3360 and PMW 3389 are SPI driven optical sensors, that use a built in IR LED for surface tracking.
+If you have different CS wiring on each half you can use `PMW33XX_CS_PIN_RIGHT` or `PMW33XX_CS_PINS_RIGHT` in combination with `PMW33XX_CS_PIN` or `PMW33XX_CS_PINS` to configure both sides independently. If `_RIGHT` values aren't provided, they default to be the same as the left ones.
 
-| Setting                      | Description                                                                                 | Default                  |
+| Setting (`config.h`)         | Description                                                                                 | Default                  |
 | ---------------------------- | ------------------------------------------------------------------------------------------- | ------------------------ |
-| `PMW33XX_CS_PIN`             | (Required) Sets the Cable Select pin connected to the sensor.                               | `POINTING_DEVICE_CS_PIN` |
-| `PMW33XX_CS_PINS`            | (Alternative) Sets the Cable Select pins connected to multiple sensors.                     | _not defined_            |
+| `PMW33XX_CS_PIN`             | (Required) Sets the Chip Select pin connected to the sensor.                                | `POINTING_DEVICE_CS_PIN` |
+| `PMW33XX_CS_PINS`            | (Alternative) Sets the Chip Select pins connected to multiple sensors.                      | `{PMW33XX_CS_PIN}`       |
+| `PMW33XX_CS_PIN_RIGHT`       | (Optional) Sets the Chip Select pin connected to the sensor on the right half.              | `PMW33XX_CS_PIN`         |
+| `PMW33XX_CS_PINS_RIGHT`      | (Optional) Sets the Chip Select pins connected to multiple sensors on the right half.       | `{PMW33XX_CS_PIN_RIGHT}` |
 | `PMW33XX_CPI`                | (Optional) Sets counts per inch sensitivity of the sensor.                                  | _varies_                 |
 | `PMW33XX_CLOCK_SPEED`        | (Optional) Sets the clock speed that the sensor runs at.                                    | `2000000`                |
 | `PMW33XX_SPI_DIVISOR`        | (Optional) Sets the SPI Divisor used for SPI communication.                                 | _varies_                 |
@@ -431,6 +517,75 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 This allows you to toggle between scrolling and cursor movement by pressing the DRAG_SCROLL key.  
 
+### Advanced Drag Scroll
+
+Sometimes, like with the Cirque trackpad, you will run into issues where the scrolling may be too fast.
+
+Here is a slightly more advanced example of drag scrolling. You will be able to change the scroll speed based on the values in set in `SCROLL_DIVISOR_H` and `SCROLL_DIVISOR_V`. This bit of code is also set up so that instead of toggling the scrolling state with set_scrolling = !set_scrolling, the set_scrolling variable is set directly to record->event.pressed. This way, the drag scrolling will only be active while the DRAG_SCROLL button is held down.
+
+```c
+enum custom_keycodes {
+    DRAG_SCROLL = SAFE_RANGE,
+};
+
+bool set_scrolling = false;
+
+// Modify these values to adjust the scrolling speed
+#define SCROLL_DIVISOR_H 8.0
+#define SCROLL_DIVISOR_V 8.0
+
+// Variables to store accumulated scroll values
+float scroll_accumulated_h = 0;
+float scroll_accumulated_v = 0;
+
+// Function to handle mouse reports and perform drag scrolling
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    // Check if drag scrolling is active
+    if (set_scrolling) {
+        // Calculate and accumulate scroll values based on mouse movement and divisors
+        scroll_accumulated_h += (float)mouse_report.x / SCROLL_DIVISOR_H;
+        scroll_accumulated_v += (float)mouse_report.y / SCROLL_DIVISOR_V;
+
+        // Assign integer parts of accumulated scroll values to the mouse report
+        mouse_report.h = (int8_t)scroll_accumulated_h;
+        mouse_report.v = (int8_t)scroll_accumulated_v;
+
+        // Update accumulated scroll values by subtracting the integer parts
+        scroll_accumulated_h -= (int8_t)scroll_accumulated_h;
+        scroll_accumulated_v -= (int8_t)scroll_accumulated_v;
+
+        // Clear the X and Y values of the mouse report
+        mouse_report.x = 0;
+        mouse_report.y = 0;
+    }
+    return mouse_report;
+}
+
+// Function to handle key events and enable/disable drag scrolling
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case DRAG_SCROLL:
+            // Toggle set_scrolling when DRAG_SCROLL key is pressed or released
+            set_scrolling = record->event.pressed;
+            break;
+        default:
+            break;
+    }
+    return true;
+}
+
+// Function to handle layer changes and disable drag scrolling when not in AUTO_MOUSE_DEFAULT_LAYER
+layer_state_t layer_state_set_user(layer_state_t state) {
+    // Disable set_scrolling if the current layer is not the AUTO_MOUSE_DEFAULT_LAYER
+    if (get_highest_layer(state) != AUTO_MOUSE_DEFAULT_LAYER) {
+        set_scrolling = false;
+    }
+    return state;
+}
+
+```
+
+
 ## Split Examples
 
 The following examples make use the `SPLIT_POINTING_ENABLE` functionality and show how to manipulate the mouse report for a scrolling mode.
@@ -599,6 +754,10 @@ There are several functions that allow for more advanced interaction with the au
 | `auto_mouse_layer_off(void)`                               | Disable target layer if appropriate will call (makes call to `layer_state_set`)      |                           |   `void`(None)  |
 | `auto_mouse_toggle(void)`                                  | Toggle on/off target toggle state (disables layer deactivation when true)            |                           |    `void`(None) |
 | `get_auto_mouse_toggle(void)`                              | Return value of toggling state variable                                              |                           |          `bool` |
+| `set_auto_mouse_timeout(uint16_t timeout)`                 | Change/set the timeout for turing off the layer                                      |                           |    `void`(None) |
+| `get_auto_mouse_timeout(void)`                             | Return the current timeout for turing off the layer                                  |                           |      `uint16_t` |
+| `set_auto_mouse_debounce(uint16_t timeout)`                | Change/set the debounce for preventing layer activation                              |                           |    `void`(None) |
+| `get_auto_mouse_debounce(void)`                            | Return the current debounce for preventing layer activation                          |                           |       `uint8_t` |
 
 _NOTES:_   
     - _Due to the nature of how some functions work, the `auto_mouse_trigger_reset`, and `auto_mouse_layer_off` functions should never be called in the `layer_state_set_*` stack as this can cause indefinite loops._   
@@ -641,9 +800,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 #### Set different target layer when a particular layer is active:
 
-The below code will change the auto mouse layer target to `_MOUSE_LAYER_2` when `_DEFAULT_LAYER_2` is highest default layer state.   
-*NOTE: that `auto_mouse_layer_off` is used here instead of `remove_auto_mouse_layer` as `default_layer_state_set_*` stack is separate from the `layer_state_set_*` stack* if something similar was to be done in `layer_state_set_user `state = remove_auto_mouse_layer(state, false)` should be used instead    
-*ADDITIONAL NOTE: `AUTO_MOUSE_TARGET_LAYER` is checked if already set to avoid deactivating the target layer unless needed*   
+The below code will change the auto mouse layer target to `_MOUSE_LAYER_2` when `_DEFAULT_LAYER_2` is highest default layer state.
+
+*NOTE: that `auto_mouse_layer_off` is used here instead of `remove_auto_mouse_layer` as `default_layer_state_set_*` stack is separate from the `layer_state_set_*` stack*, if something similar was to be done in `layer_state_set_user`, `state = remove_auto_mouse_layer(state, false)` should be used instead.
+
+*ADDITIONAL NOTE: `AUTO_MOUSE_TARGET_LAYER` is checked if already set to avoid deactivating the target layer unless needed*.
 
 ```c
 // in keymap.c
@@ -710,7 +871,7 @@ _Note: The Cirque pinnacle track pad already implements a custom activation func
 When using a custom pointing device (overwriting `pointing_device_task`) the following code should be somewhere in the `pointing_device_task_*` stack:
 
 ```c
-void pointing_device_task(void) {
+bool pointing_device_task(void) {
     //...Custom pointing device task code
     
     // handle automatic mouse layer (needs report_mouse_t as input)
@@ -718,7 +879,7 @@ void pointing_device_task(void) {
     
     //...More custom pointing device task code
     
-    pointing_device_send();
+    return pointing_device_send();
 }
 ```
 

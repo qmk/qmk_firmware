@@ -36,7 +36,7 @@
 
 // Set defaults for Spread Spectrum Register
 #ifndef ISSI_SSR_1
-#    if DRIVER_COUNT == 1
+#    ifndef DRIVER_ADDR_2
 #        define ISSI_SSR_1 0x00
 #    else
 #        define ISSI_SSR_1 0xC0

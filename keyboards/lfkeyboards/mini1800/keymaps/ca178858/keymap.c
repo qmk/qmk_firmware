@@ -12,16 +12,6 @@ enum {
     TD_SPC_SPAM
 };
 
-// Colors of the layer indicator LED
-// This list needs to define layer 0xFFFFFFFF, it is the end of the list, and the unknown layer
-const Layer_Info layer_info[] = {
-    // Layer     Mask           Red     Green   Blue
-    {0x00000000, 0xFFFFFFFF, {0x00, 0xFF, 0x00}}, // base layers - green
-    {0x00000002, 0xFFFFFFFE, {0x00, 0x00, 0xFF}}, // function layer - blue
-    {0x00000004, 0xFFFFFFFC, {0xFF, 0x00, 0xFF}}, // settings layer - magenta
-    {0xFFFFFFFF, 0xFFFFFFFF, {0xFF, 0xFF, 0xFF}}, // unknown layer - REQUIRED - white
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Keymap VANILLA: (Base Layer) Default Layer
      * ,-----------------------------------------------------------------------------.
@@ -93,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-void tap_esc_func_finished(qk_tap_dance_state_t *state, void *user_data) {
+void tap_esc_func_finished(tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
         layer_on(FUNC);
     } else {
@@ -101,11 +91,11 @@ void tap_esc_func_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void tap_esc_func_reset(qk_tap_dance_state_t *state, void *user_data) {
+void tap_esc_func_reset(tap_dance_state_t *state, void *user_data) {
     layer_off(FUNC);
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_ESC_FUNC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tap_esc_func_finished, tap_esc_func_reset),
 };
 

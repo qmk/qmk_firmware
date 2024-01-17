@@ -274,48 +274,41 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 
-LEADER_EXTERNS();
+void leader_end_user(void) {
+    // Set current OS indicator to macOs
+    if (leader_sequence_one_key(KC_M)) {
+        user_config.osIsWindows = false;
+        eeconfig_update_user(user_config.raw);
+    }
 
-void matrix_scan_user(void) {
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
+    // Set current OS indicator to Windows
+    if (leader_sequence_one_key(KC_W)) {
+        user_config.osIsWindows = true;
+        eeconfig_update_user(user_config.raw);
+    }
 
-        // Set current OS indicator to macOs
-        SEQ_ONE_KEY(KC_M) {
-            user_config.osIsWindows = false;
-            eeconfig_update_user(user_config.raw);
+    // Screenshot
+    if (leader_sequence_one_key(KC_S)) {
+        if (user_config.osIsWindows == 1) {
+            tap_code16(S(G(KC_S)));
+        } else if (user_config.osIsWindows == 0) {
+            tap_code16(S(G(KC_4)));
         }
+    }
 
-        // Set current OS indicator to Windows
-        SEQ_ONE_KEY(KC_W) {
-            user_config.osIsWindows = true;
-            eeconfig_update_user(user_config.raw);
+    // Video
+    if (leader_sequence_one_key(KC_V)) {
+        if (user_config.osIsWindows == 0) {
+            tap_code16(S(G(KC_5)));
         }
+    }
 
-        // Screenshot
-        SEQ_ONE_KEY(KC_S) {
-            if (user_config.osIsWindows == 1) {
-                tap_code16(S(G(KC_S)));
-            } else if (user_config.osIsWindows == 0) {
-                tap_code16(S(G(KC_4)));
-            }
-        }
-
-        // Video
-        SEQ_ONE_KEY(KC_V) {
-            if (user_config.osIsWindows == 0) {
-                tap_code16(S(G(KC_5)));
-            }
-        }
-
-        // Sleep
-        SEQ_ONE_KEY(KC_P) {
-            if (user_config.osIsWindows == 1) {
-                SEND_STRING(SS_LGUI("x") "u" "h");
-            } else if (user_config.osIsWindows == 0) {
-                tap_code16(A(G(KC_PWR)));
-            }
+    // Sleep
+    if (leader_sequence_one_key(KC_P)) {
+        if (user_config.osIsWindows == 1) {
+            SEND_STRING(SS_LGUI("x") "u" "h");
+        } else if (user_config.osIsWindows == 0) {
+            tap_code16(A(G(KC_PWR)));
         }
     }
 }
