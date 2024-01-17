@@ -41,8 +41,6 @@ void pca9505_init(uint8_t slave_addr) {
     }
 
     // TODO: could check device connected
-    // i2c_start(SLAVE_TO_ADDR(slave) | I2C_WRITE);
-    // i2c_stop();
 }
 
 bool pca9505_set_config(uint8_t slave_addr, pca9505_port_t port, uint8_t conf) {
