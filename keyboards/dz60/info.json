@@ -55,6 +55,7 @@
         "60_ansi_arrow",
         "60_ansi_split_bs_rshift",
         "60_ansi_tsangan",
+        "60_tsangan_hhkb",
         "60_ansi_wkl",
         "60_ansi_wkl_split_bs_rshift",
         "60_hhkb",
@@ -64,7 +65,6 @@
         "60_iso_tsangan_split_bs_rshift",
         "60_iso_wkl",
         "60_iso_wkl_split_bs_rshift",
-        "60_tsangan_hhkb",
         "64_ansi",
         "64_iso"
     ],
