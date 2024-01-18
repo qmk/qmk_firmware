@@ -1,2 +1,0 @@
-COMBO_ENABLE = yes
-CONSOLE_ENABLE = yes

@@ -1,1 +1,0 @@
-The default layout for the KapCave Arya
