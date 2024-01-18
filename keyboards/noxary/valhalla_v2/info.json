@@ -35,7 +35,6 @@
     "bootloader": "stm32-dfu",
     "backlight": {
         "as_caps_lock": true,
-        "breathing": false,
         "driver": "pwm",
         "levels": 20,
         "pin": "A7"
