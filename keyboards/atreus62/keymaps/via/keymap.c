@@ -16,9 +16,11 @@
 
 #include QMK_KEYBOARD_H
 
-#define _DEFAULT 0
-#define _NAV 1
-#define _RESET 2
+enum layers {
+    _DEFAULT,
+    _NAV,
+    _RESET,
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_DEFAULT] = LAYOUT( /* qwerty */
