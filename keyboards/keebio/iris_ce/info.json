@@ -1,7 +1,7 @@
 {
     "manufacturer": "Keebio",
-    "url": "https://keeb.io",
     "maintainer": "Keebio",
+    "url": "https://keeb.io",
     "usb": {
         "vid": "0xCB10"
     }
