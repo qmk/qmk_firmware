@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+qmk compile -km default -kb ergodox_ez && wally
