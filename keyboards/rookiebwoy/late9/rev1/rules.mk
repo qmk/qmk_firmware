@@ -1,3 +1,1 @@
-# Build Options
-
-OLED_ENABLE = yes
+# This file intentionally left blank

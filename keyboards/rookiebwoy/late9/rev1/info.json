@@ -21,7 +21,8 @@
     "diode_direction": "ROW2COL",
     "features": {
       "bootmagic": true,
-      "nkro": true
+      "nkro": true,
+      "oled": true
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",
