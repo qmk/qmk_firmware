@@ -163,9 +163,7 @@
             {"matrix": [5, 2], "x": 30, "y": 64, "flags": 4},
             {"matrix": [5, 5], "x": 75, "y": 64, "flags": 4}
         ],
-        "max_brightness": 108,
-        "speed_steps": 64,
-        "val_steps": 27
+        "max_brightness": 108
     },
     "url": "http://www.frscn.com",
     "usb": {
