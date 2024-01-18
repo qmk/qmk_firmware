@@ -94,7 +94,6 @@ TEST_F(ComboRepress, combo_repress_held_released_one_key_and_repressed) {
     VERIFY_AND_CLEAR(driver);
 }
 
-
 TEST_F(ComboRepress, combo_repress_normal_combo) {
     TestDriver driver;
     KeymapKey  key_f(0, 0, 0, KC_F);
