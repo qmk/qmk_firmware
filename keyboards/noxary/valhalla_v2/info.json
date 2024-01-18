@@ -27,8 +27,7 @@
         "driver": "wear_leveling",
         "wear_leveling": {
             "driver": "embedded_flash",
-            "backing_size": 4096,
-            "logical_size": 2048
+            "backing_size": 4096
         }
     },
     "diode_direction": "COL2ROW",
