@@ -23,6 +23,8 @@
 
 #include "lang/lang_lut.h"
 
+#define RAW_EPSIZE 32
+
 #define FULL_BRIGHT 50
 #define MIN_BRIGHT 1
 #define DISP_OFF 0
@@ -39,6 +41,7 @@
 /*[[[cog
 import cog
 import os
+from textwrap import wrap
 from openpyxl import load_workbook
 wb = load_workbook(filename = os.path.join(os.path.abspath(os.path.dirname(cog.inFile)), "lang", "lang_lut.xlsx"))
 sheet = wb['key_lut']
@@ -91,7 +94,7 @@ enum my_keycodes {
       for lang in languages:
           cog.out(f"KC_{lang}, ")
     ]]]*/
-    KC_LANG_EN, KC_LANG_DE, KC_LANG_FR, KC_LANG_ES, KC_LANG_PT, KC_LANG_IT, KC_LANG_TR, KC_LANG_KO, KC_LANG_JA, KC_LANG_AR, KC_LANG_GR,
+    KC_LANG_EN, KC_LANG_DE, KC_LANG_FR, KC_LANG_ES, KC_LANG_PT, KC_LANG_IT, KC_LANG_TR, KC_LANG_KO, KC_LANG_JA, KC_LANG_AR, KC_LANG_GR, 
     //[[[end]]]
 };
 
@@ -952,7 +955,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case EE_CLR:
         return u"ClrEE";
     case QK_REBOOT:
-        return u"Boot";
+        return u" " ARROWS_CIRCLE;
         /*[[[cog
             for lang in languages:
                 short = lang.split("_")[1]
@@ -1768,8 +1771,9 @@ void suspend_power_down_kb(void) {
          g_local.flags &= ~((uint8_t)RGB_MATRIX_ON);
     }
 
-    sync_and_refresh_displays();
-    //sync_and_refresh_displays();
+    if(is_usb_host_side()) {
+        sync_and_refresh_displays();
+    }
 }
 
 void suspend_wakeup_init_kb(void) {
@@ -1783,17 +1787,71 @@ void suspend_wakeup_init_kb(void) {
     } else {
         rgb_matrix_enable_noeeprom();
     }
-    if(is_usb_host_side()) {
-        sync_and_refresh_displays();
-    }
+    sync_and_refresh_displays();
 }
 
 void raw_hid_receive(uint8_t *data, uint8_t length) {
-    uint8_t response[length];
-    memset(response, 0, length);
-    response[0] = 'K';
+    uint8_t response[RAW_EPSIZE];
+    memset(response, 0, RAW_EPSIZE);
+    const char * name = "P0:PolyKybd Split72";
 
-    if(data[0] == 'P') {
-        raw_hid_send(response, length);
+    if(length>1 && data[0] == 'P') {
+        switch(data[1]) {
+            case '0': //id
+                memcpy(response, name, strlen(name));
+                raw_hid_send(response, RAW_EPSIZE);
+                break;
+            case '1': //lang
+                switch(g_local.lang) {
+                    /*[[[cog
+                    for lang in languages:
+                        cog.outl(f'case {lang}: memcpy(response, "P1:{lang[5:]}", 5); break;')
+                    ]]]*/
+                    case LANG_EN: memcpy(response, "P1:EN", 5); break;
+                    case LANG_DE: memcpy(response, "P1:DE", 5); break;
+                    case LANG_FR: memcpy(response, "P1:FR", 5); break;
+                    case LANG_ES: memcpy(response, "P1:ES", 5); break;
+                    case LANG_PT: memcpy(response, "P1:PT", 5); break;
+                    case LANG_IT: memcpy(response, "P1:IT", 5); break;
+                    case LANG_TR: memcpy(response, "P1:TR", 5); break;
+                    case LANG_KO: memcpy(response, "P1:KO", 5); break;
+                    case LANG_JA: memcpy(response, "P1:JA", 5); break;
+                    case LANG_AR: memcpy(response, "P1:AR", 5); break;
+                    case LANG_GR: memcpy(response, "P1:GR", 5); break;
+                    //[[[end]]]
+                    default:
+                        memcpy(response, "P1:UKWN", 7);
+                        break;
+                }
+                raw_hid_send(response, RAW_EPSIZE);
+                break;
+            case '2': //lang list
+                    /*[[[cog
+                    lang_list = "P2:"
+                    for lang in languages:
+                        lang_list += lang[5:]
+                        if len(lang_list)>=(32-3-1):
+                            cog.outl(f'memcpy(response, "{lang_list}", {len(lang_list)});')
+                            cog.outl(f'raw_hid_send(response, RAW_EPSIZE);')
+                            cog.outl(f'memset(response, 0, RAW_EPSIZE);')
+                            lang_list = "P2:"
+                        elif lang != languages[-1]:
+                            lang_list += ","
+                    cog.outl(f'memcpy(response, "{lang_list}", {len(lang_list)});')
+                    cog.outl(f'raw_hid_send(response, RAW_EPSIZE);')
+                    ]]]*/
+                    memcpy(response, "P2:EN,DE,FR,ES,PT,IT,TR,KO,JA", 29);
+                    raw_hid_send(response, RAW_EPSIZE);
+                    memset(response, 0, RAW_EPSIZE);
+                    memcpy(response, "P2:AR,GR", 8);
+                    raw_hid_send(response, RAW_EPSIZE);
+                    //[[[end]]]
+                break;
+            default:
+                memcpy(response, "P?:UKWN", 7);
+                response[1] = data[1];
+                raw_hid_send(response, RAW_EPSIZE);
+                break;
+        }
     }
 }
