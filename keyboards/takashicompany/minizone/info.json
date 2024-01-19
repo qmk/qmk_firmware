@@ -51,7 +51,6 @@
         "rows": ["D4", "C6", "D7", "E6", "B4", "B5"]
     },
     "diode_direction": "COL2ROW",
-    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [
