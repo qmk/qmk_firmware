@@ -81,7 +81,8 @@ class BuildTarget:
 
     @extra_args.setter
     def extra_args(self, ex_args: Dict[str, str]):
-        self._extra_args = {k: v for k, v in ex_args.items()}
+        if ex_args is not None and isinstance(ex_args, dict):
+            self._extra_args = {k: v for k, v in ex_args.items()}
 
     def target_name(self, **env_vars) -> str:
         # Work out the intended target name
