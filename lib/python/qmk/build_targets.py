@@ -84,20 +84,20 @@ class BuildTarget:
         if ex_args is not None and isinstance(ex_args, dict):
             self._extra_args = {k: v for k, v in ex_args.items()}
 
-    def all_vars(self, **env_vars) -> Dict[str, str]:
-        vars = {k: v for k, v in env_vars.items()}
-        for k, v in self._extra_args.items():
-            vars[k] = v
-        return vars
-
     def target_name(self, **env_vars) -> str:
         # Work out the intended target name
         target = f'{self._keyboard_safe}_{self.keymap}'
-        vars = self.all_vars(**env_vars)
+        vars = self._all_vars(**env_vars)
         for modifier in TARGET_FILENAME_MODIFIERS:
             if modifier in vars:
                 target += f"_{vars[modifier]}"
         return target
+
+    def _all_vars(self, **env_vars) -> Dict[str, str]:
+        vars = {k: v for k, v in env_vars.items()}
+        for k, v in self._extra_args.items():
+            vars[k] = v
+        return vars
 
     def _intermediate_output(self, **env_vars) -> Path:
         return Path(f'{INTERMEDIATE_OUTPUT_PREFIX}{self.target_name(**env_vars)}')
@@ -135,7 +135,7 @@ class BuildTarget:
             'QMK_BIN="qmk"',
         ])
 
-        vars = self.all_vars(**env_vars)
+        vars = self._all_vars(**env_vars)
         for k, v in vars.items():
             compile_args.append(f'{k}={v}')
 
@@ -195,7 +195,7 @@ class KeyboardKeymapBuildTarget(BuildTarget):
         # Need to override the keymap path if the keymap is a userspace directory.
         # This also ensures keyboard aliases as per `keyboard_aliases.hjson` still work if the userspace has the keymap
         # in an equivalent historical location.
-        vars = self.all_vars(**env_vars)
+        vars = self._all_vars(**env_vars)
         keymap_location = locate_keymap(self.keyboard, self.keymap, force_layout=vars.get('FORCE_LAYOUT'))
         if is_under_qmk_userspace(keymap_location) and not is_under_qmk_firmware(keymap_location):
             keymap_directory = keymap_location.parent
