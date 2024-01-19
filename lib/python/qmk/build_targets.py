@@ -193,7 +193,7 @@ class KeyboardKeymapBuildTarget(BuildTarget):
         # Need to override the keymap path if the keymap is a userspace directory.
         # This also ensures keyboard aliases as per `keyboard_aliases.hjson` still work if the userspace has the keymap
         # in an equivalent historical location.
-        keymap_location = locate_keymap(self.keyboard, self.keymap)
+        keymap_location = locate_keymap(self.keyboard, self.keymap, force_layout=env_vars.get('FORCE_LAYOUT'))
         if is_under_qmk_userspace(keymap_location) and not is_under_qmk_firmware(keymap_location):
             keymap_directory = keymap_location.parent
             compile_args.extend([

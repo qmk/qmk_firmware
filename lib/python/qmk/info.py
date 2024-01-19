@@ -149,7 +149,7 @@ def _validate(keyboard, info_data):
         exit(1)
 
 
-def info_json(keyboard):
+def info_json(keyboard, force_layout=None):
     """Generate the info.json data for a specific keyboard.
     """
     cur_dir = Path('keyboards')
@@ -191,6 +191,11 @@ def info_json(keyboard):
 
     # Merge in data from <keyboard.c>
     info_data = _extract_led_config(info_data, str(keyboard))
+
+    # Force a community layout if requested
+    community_layouts = info_data.get("community_layouts", [])
+    if force_layout in community_layouts:
+        info_data["community_layouts"] = [force_layout]
 
     # Validate
     _validate(keyboard, info_data)
