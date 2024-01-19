@@ -34,8 +34,15 @@
         "brightness_steps": 10,
         "saturation_steps": 8,
         "led_count": 6,
-        "max_brightness": 120
-        
+        "max_brightness": 120,
+        "default": {
+            "val": 10
+        },
+        "layers": {
+            "enabled": true,
+            "override_rgb": true
+        },
+        "sleep": true
     },
     "dynamic_keymap": {
         "layer_count": 2

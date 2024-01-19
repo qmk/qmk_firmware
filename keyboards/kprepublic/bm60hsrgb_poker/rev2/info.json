@@ -75,6 +75,9 @@
             "static_gradient": true,
             "rgb_test": true,
             "alternating": true
+        },
+        "default": {
+            "animation": "rainbow_mood"
         }
     },
     "matrix_pins": {

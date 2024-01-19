@@ -24,6 +24,13 @@
             "rgb_test": true,
             "alternating": true,
             "twinkle": true
+        },
+        "default": {
+            "animation": "rainbow_mood"
+        },
+        "layers": {
+            "enabled": true,
+            "override_rgb": true
         }
     },
     "matrix_pins": {
