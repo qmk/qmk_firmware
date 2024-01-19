@@ -31,7 +31,7 @@ def userspace_list(cli):
                 if len(this_build_targets) > 0:
                     if 'env' in e:
                         for t in this_build_targets:
-                            t.extra_args = [(k, v) for k, v in e['env'].items()]
+                            t.extra_args = e.get('env')
                     build_targets.extend(this_build_targets)
     else:
         build_targets = userspace.build_targets
@@ -45,7 +45,7 @@ def userspace_list(cli):
             # keyboard/keymap dict from userspace
             keyboard = e['keyboard']
             keymap = e['keymap']
-            extra_args = e['env'] if 'env' in e else {}
+            extra_args = e.get('env')
         elif isinstance(e, BuildTarget):
             # BuildTarget from search_keymap_targets()
             keyboard = e.keyboard

@@ -118,8 +118,6 @@ class BuildTarget:
         if build_target:
             compile_args.append(build_target)
 
-        intermediate_output = self._intermediate_output(**env_vars)
-
         compile_args.extend([
             f'KEYBOARD={self.keyboard}',
             f'KEYMAP={self.keymap}',
