@@ -15,8 +15,6 @@
         "layer_count": 10
     },
     "features": {
-        "audio": false,
-        "backlight": false,
         "bootmagic": true,
         "command": false,
         "console": false,
@@ -24,7 +22,6 @@
         "mousekey": true,
         "nkro": false,
         "rgb_matrix": true,
-        "rgblight": false,
         "oled": true
     },
     "matrix_pins": {
