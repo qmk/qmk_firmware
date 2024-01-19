@@ -666,7 +666,11 @@ void process_action(keyrecord_t *record, action_t action) {
                                 reset_oneshot_layer();
                                 set_oneshot_layer(action.layer_tap.val, ONESHOT_TOGGLED);
                             } else {
+                                if (get_oneshot_layer() != action.layer_tap.val) {
+                                    layer_off(action.layer_tap.val);
+                            } else {
                                 clear_oneshot_layer_state(ONESHOT_PRESSED);
+                                }
                             }
                         }
 #        else
