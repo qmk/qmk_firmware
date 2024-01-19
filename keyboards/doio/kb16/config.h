@@ -17,13 +17,5 @@
 
 #pragma once
 
-#define NO_ACTION_ONESHOT
-
 /* Use the custom font */
 #define OLED_FONT_H "./lib/glcdfont.c"
-
-#ifdef RGB_MATRIX_ENABLE
-    /* RGB Matrix config */
-    #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_UP_DOWN
-    #define RGB_MATRIX_KEYPRESSES
-#endif
