@@ -125,7 +125,6 @@ class BuildTarget:
             f'KEYMAP={self.keymap}',
             f'KEYBOARD_FILESAFE={self._keyboard_safe}',
             f'TARGET={self._keyboard_safe}_{self.keymap}',  # don't use self.target_name() here, it's rebuilt on the makefile side
-            f'INTERMEDIATE_OUTPUT={intermediate_output}',
             f'VERBOSE={verbose}',
             f'COLOR={color}',
             'SILENT=false',
