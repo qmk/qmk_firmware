@@ -3,9 +3,7 @@
 #pragma once
 
 
-#define EECONFIG_USER_DATA_SIZE    8  // This is the size of the EEPROM for the custom VIA-specific data
 
-#define RGB_MATRIX_LED_COUNT       89
 
 
 
