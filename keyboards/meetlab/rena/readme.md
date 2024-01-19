@@ -3,7 +3,7 @@
 ![Rena](https://i.imgur.com/95rqwegh.jpg)
 
 A 59 keys keyboard with rgb.
-This keyboard use 16mhz HSE and STM32F103 as MCU.
+This keyboard use 8mhz HSE and STM32F103 as MCU.
 
 * Keyboard Maintainer: https://github.com/LXF-YZP
 * Hardware Supported: Rena PCB
