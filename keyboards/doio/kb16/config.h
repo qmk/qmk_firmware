@@ -15,36 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
+#pragma once
 
-// OLED animation
-#include "./lib/logo.h"
+#define NO_ACTION_ONESHOT
 
-// Default timeout for displaying boot logo.
-#ifndef OLED_LOGO_TIMEOUT
-    #define OLED_LOGO_TIMEOUT 5000
-#endif
+/* Use the custom font */
+#define OLED_FONT_H "./lib/glcdfont.c"
 
-#ifdef OLED_ENABLE
-    uint16_t startup_timer;
-
-    oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
-        startup_timer = timer_read();
-
-        return rotation;
-    }
-
-    bool oled_task_kb(void) {
-        static bool finished_logo = false;
-
-        if ((timer_elapsed(startup_timer) < OLED_LOGO_TIMEOUT) && !finished_logo) {
-            render_logo();
-        } else {
-            finished_logo = true;
-            if (!oled_task_user()) {
-                return false;
-            }
-        }
-        return true;
-    }
+#ifdef RGB_MATRIX_ENABLE
+    /* RGB Matrix config */
+    #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_UP_DOWN
+    #define RGB_MATRIX_KEYPRESSES
 #endif
