@@ -12,11 +12,11 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 
 
 analog_config g_config = {
-    .mode = dynamic_actuation,
+    .mode = static_actuation,
     .actuation_point = 32,
     .press_sensitivity = 32,
     .release_sensitivity = 32,
-    .press_hysteresis = 0,
+    .press_hysteresis = 5,
     .release_hysteresis = 5
 };
 
@@ -50,11 +50,12 @@ bool           debug_print(void) {
     // }
 
     uprintf("%s", buffer);
+
     return true;
 }
 
 uint32_t debug_print_callback(uint32_t trigger_time, void *cb_arg) {
-    debug_print();
+    // debug_print();
     return 25;
 }
 #    endif
