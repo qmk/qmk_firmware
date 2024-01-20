@@ -13,14 +13,16 @@
     "rgb_matrix": {
         "driver": "is31fl3733"
     },
+    "build": {
+        "lto": true
+    },
     "features": {
         "bootmagic": true,
         "command": false,
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "lto": true
+        "nkro": true
     },
     "diode_direction": "ROW2COL",
     "matrix_pins": {

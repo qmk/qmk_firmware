@@ -9,7 +9,6 @@
         "command": false,
         "console": false,
         "extrakey": true,
-        "lto": true,
         "mousekey": true,
         "nkro": true,
         "rgb_matrix": true
