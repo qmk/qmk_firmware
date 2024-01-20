@@ -7,9 +7,7 @@
         "mousekey": true,
         "nkro": true,
         "encoder": true,
-        "oled": true,
-        "rgblight": false,
-        "rgb_matrix": false
+        "oled": true
     },
     "build": {
         "lto": true
