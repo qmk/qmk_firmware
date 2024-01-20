@@ -304,7 +304,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 				}
 			} return false;
 
-		//Dead-hold keys (acts like dead key when held):
+		//Dead-hold keys (acts like dead key when held), requires "English(US)"+"Qwerty US" language+kbd settings in windows:
 		case DH_QUOT: //works for both ['] and ["] (except when ["] is accessed via combo, because then shift is not activated)
 			if (record->event.pressed && record->tap.count) { //if tapped, behave as normal key
 				tap_code16(KC_QUOT); tap_code16(KC_SPC);
