@@ -383,3 +383,77 @@ TEST_F(OneShot, OSLWithOsmAndAdditionalKeypress) {
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 }
+
+TEST_F(OneShot, OSLWithNestedOSL) {
+    TestDriver driver;
+    KeymapKey layer0_osl_key = KeymapKey{0, 0, 0, OSL(1)};
+    KeymapKey layer1_osl_key = KeymapKey{1, 1, 0, OSL(2)};
+    KeymapKey layer2_regular_key = KeymapKey{2, 1, 1, KC_A};
+
+    set_keymap({layer0_osl_key, layer1_osl_key, layer2_regular_key});
+
+    EXPECT_NO_REPORT(driver);
+
+    /* Activate OSL for layer 1 */
+    tap_key(layer0_osl_key);
+    EXPECT_TRUE(layer_state_is(1));
+    VERIFY_AND_CLEAR(driver);
+
+    /* Activate OSL for layer 2 from layer 1 */
+    EXPECT_NO_REPORT(driver);
+    tap_key(layer1_osl_key);
+    EXPECT_TRUE(layer_state_is(2));
+    VERIFY_AND_CLEAR(driver);
+
+    /* Tap key on layer 2 */
+    EXPECT_REPORT(driver, (layer2_regular_key.report_code)).Times(1);
+    EXPECT_EMPTY_REPORT(driver);
+    tap_key(layer2_regular_key);
+    VERIFY_AND_CLEAR(driver);
+
+    /* Ensure both layers are deactivated. */
+    EXPECT_FALSE(layer_state_is(1));
+    EXPECT_FALSE(layer_state_is(2));
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(OneShot, HeldOSLWithNestedOSL) {
+    TestDriver driver;
+    KeymapKey layer0_osl_key = KeymapKey{0, 0, 0, OSL(1)};
+    KeymapKey layer1_osl_key = KeymapKey{1, 1, 0, OSL(2)};
+    KeymapKey layer2_regular_key = KeymapKey{2, 1, 1, KC_A};
+
+    set_keymap({layer0_osl_key, layer1_osl_key, layer2_regular_key});
+
+    /* Hold OSL for layer 1 key */
+    EXPECT_NO_REPORT(driver);
+    layer0_osl_key.press();
+    idle_for(TAPPING_TERM);
+    run_one_scan_loop(); // The layer isn't activated until one loop more than
+    expect_layer_state(1);
+    VERIFY_AND_CLEAR(driver);
+
+    /* Tap OSL for layer 2 */
+    EXPECT_NO_REPORT(driver);
+    tap_key(layer1_osl_key);
+    expect_layer_state(2);
+    VERIFY_AND_CLEAR(driver);
+
+    /* Ensure layer 2 key can be pressed */
+    EXPECT_REPORT(driver, (layer2_regular_key.report_code)).Times(1);
+    EXPECT_EMPTY_REPORT(driver);
+    tap_key(layer2_regular_key);
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_FALSE(layer_state_is(2));
+    VERIFY_AND_CLEAR(driver);
+
+    /* Release OSL key for layer 1 */
+    EXPECT_NO_REPORT(driver);
+    layer0_osl_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_FALSE(layer_state_is(1));
+    VERIFY_AND_CLEAR(driver);
+}
