@@ -14,8 +14,8 @@
         "rgb_matrix": true
     },
     "indicators": {
-        "num_lock": "A3",
         "caps_lock": "A2",
+        "num_lock": "A3",
         "scroll_lock": "A1"
     },
     "matrix_pins": {
