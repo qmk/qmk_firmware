@@ -130,7 +130,8 @@
             {"matrix": [9, 5], "x": 126, "y": 52, "flags": 4}
         ],
         "max_brightness": 120,
-        "split_count": [34, 34]
+        "split_count": [34, 34],
+        "sleep": true
     },
     "split": {
         "enabled": true,
