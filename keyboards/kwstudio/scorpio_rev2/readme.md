@@ -2,7 +2,7 @@
 
 ![Scorpio Rev2](https://i.imgur.com/pfSLX67h.jpeg)
 
-This keyboard use 16mhz HSE and STM32F103 as MCU.
+This keyboard use 8MHz HSE and STM32F103 as MCU.
 
 * Keyboard Maintainer: https://github.com/khchen2004
 * Hardware Supported: Scorpio Rev2 PCB
