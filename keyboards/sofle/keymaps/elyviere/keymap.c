@@ -530,3 +530,33 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 
 #endif
+
+#ifdef BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+
+bool caps_word_press_user(uint16_t keycode) {
+    switch (keycode) {
+        // Keycodes that continue Caps Word, with shift applied.
+        case SE_A ... SE_Z:
+        case SE_MINS:
+            add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.
+            return true;
+
+        // Keycodes that continue Caps Word, without shifting.
+        case KC_1 ... KC_0:
+        case KC_BSPC:
+        case KC_DEL:
+        case SE_UNDS:
+            return true;
+
+        default:
+            return false;  // Deactivate Caps Word.
+    }
+}
+
+void caps_word_set_user(bool active) {
+	if (active && host_keyboard_led_state().caps_lock) {
+		register_code(KC_CAPS);
+	}
+}
+
+#endif

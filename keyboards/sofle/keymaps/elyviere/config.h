@@ -5,6 +5,8 @@
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 #define OLED_BRIGHTNESS 10
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+#define CAPS_WORD_INVERT_ON_SHIFT
 //#define OLED_TIMEOUT 0
 
 /* The way how "handedness" is decided (which half is which),

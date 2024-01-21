@@ -282,9 +282,15 @@ static void print_status_narrow(void) {
 
 	/* lock status */
 	oled_set_cursor(0,5);
-	oled_write(led_usb_state.caps_lock? "CAPS" : "\n", true);
+	if (led_usb_state.caps_lock) {
+		oled_write("CAPS", true);
+	} else if (is_caps_word_on()) {
+		oled_write("WORD", true);
+	} else {
+		oled_write("\n", true);
+	}
 	oled_set_cursor(0,6);
-	oled_write(shift_held? "SHIFT": "\n", true);
+	oled_write(shift_held? "SHIFT" : "\n", true);
 	oled_set_cursor(0,7);
 	oled_write(ctrl_held? "CTRL" : "\n", true);
 	//oled_write_ln("Num", !led_usb_state.num_lock);
