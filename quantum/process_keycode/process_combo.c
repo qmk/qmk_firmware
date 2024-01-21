@@ -273,8 +273,11 @@ static inline void _find_key_index_and_count(const uint16_t *keys, uint16_t keyc
 #ifdef COMBO_IGNORE_MOD_TAP
     switch (keycode) {
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+            keycode = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+            break;
         case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
-            keycode &= 0xff;
+            keycode = QK_LAYER_TAP_GET_TAP_KEYCODE(keycode);
+            break;
     }
 #endif /* ifdef COMBO_IGNORE_MOD_TAP */
     while (true) {
