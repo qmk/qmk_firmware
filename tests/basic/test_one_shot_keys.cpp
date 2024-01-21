@@ -386,9 +386,9 @@ TEST_F(OneShot, OSLWithOsmAndAdditionalKeypress) {
 
 TEST_F(OneShot, OSLWithNestedOSL) {
     TestDriver driver;
-    KeymapKey layer0_osl_key = KeymapKey{0, 0, 0, OSL(1)};
-    KeymapKey layer1_osl_key = KeymapKey{1, 1, 0, OSL(2)};
-    KeymapKey layer2_regular_key = KeymapKey{2, 1, 1, KC_A};
+    KeymapKey  layer0_osl_key     = KeymapKey{0, 0, 0, OSL(1)};
+    KeymapKey  layer1_osl_key     = KeymapKey{1, 1, 0, OSL(2)};
+    KeymapKey  layer2_regular_key = KeymapKey{2, 1, 1, KC_A};
 
     set_keymap({layer0_osl_key, layer1_osl_key, layer2_regular_key});
 
@@ -419,9 +419,9 @@ TEST_F(OneShot, OSLWithNestedOSL) {
 
 TEST_F(OneShot, HeldOSLWithNestedOSL) {
     TestDriver driver;
-    KeymapKey layer0_osl_key = KeymapKey{0, 0, 0, OSL(1)};
-    KeymapKey layer1_osl_key = KeymapKey{1, 1, 0, OSL(2)};
-    KeymapKey layer2_regular_key = KeymapKey{2, 1, 1, KC_A};
+    KeymapKey  layer0_osl_key     = KeymapKey{0, 0, 0, OSL(1)};
+    KeymapKey  layer1_osl_key     = KeymapKey{1, 1, 0, OSL(2)};
+    KeymapKey  layer2_regular_key = KeymapKey{2, 1, 1, KC_A};
 
     set_keymap({layer0_osl_key, layer1_osl_key, layer2_regular_key});
 
