@@ -73,22 +73,17 @@ void reverse_weak_layer(bool isLThumbMoPristine) {
 }
 bool switch_ctl_tab_off(uint16_t keycode) {
     if (isCtlTabStarted
-    && (keycode != MA_TAB)
+    && (keycode != KC_TAB)
     && (keycode != KC_UP)
     && (keycode != KC_DOWN)
     && (keycode != KC_LEFT)
     && (keycode != KC_RIGHT)
-    && (keycode != MA_UP)
-    && (keycode != MA_DOWN)
-    && (keycode != MA_LEFT)
-    && (keycode != MA_RIGHT)
     && (keycode != MA_LTHUMBD)
     && (keycode != MA_LTHUMBE)
     && (keycode != KC_LSFT)) {
         isCtlTabStarted = false;
         unregister_mods(MOD_MASK_CTRL);
         if ((keycode == KC_ENT)
-        || (keycode == MA_ENT)
         || (keycode == MA_ENTX2)
         || (keycode == MA_ENTX4)) {
             return false;
@@ -96,6 +91,7 @@ bool switch_ctl_tab_off(uint16_t keycode) {
     }
     return true;
 }
+
 
 bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
     if (isAltTabStarted
@@ -112,7 +108,6 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
         isAltTabStarted = false;
         unregister_code16(KC_LALT);
         if ((keycode == KC_ENT)
-        || (keycode == MA_ENT)
         || (keycode == MA_ENTX2)
         || (keycode == MA_ENTX4)) {
             return false;
@@ -131,7 +126,6 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
         isSftTabStarted = false;
         unregister_code16(KC_LSFT);
         if ((keycode == KC_ENT)
-        || (keycode == MA_ENT)
         || (keycode == MA_ENTX2)
         || (keycode == MA_ENTX4)) {
             return false;
@@ -166,12 +160,10 @@ bool processKeycodeIfLBase(uint16_t keycode, keyrecord_t* record) {
             }
             return false;
         case KC_LSFT:
-            if (record->event.pressed) {
-                if ((mod_state & MOD_BIT(KC_RSFT)) == MOD_BIT(KC_RSFT)) {
-                    isCapswordStarted = true;
-                    layer_on(LA_CAPSLOCK);
-                    return false;
-                }
+            if ((mod_state & MOD_BIT(KC_RSFT)) == MOD_BIT(KC_RSFT) && record->event.pressed) {
+                isCapswordStarted = true;
+                layer_on(LA_CAPSLOCK);
+                return false;
             }
             return true;
         case KC_RSFT:
@@ -263,8 +255,8 @@ bool processKeycodeIfLCapslock(uint16_t keycode, keyrecord_t* record) {
     (keycode == KC_SPC
     || keycode == KC_UP
     || keycode == KC_DOWN
-    || keycode == MA_HOME
-    || keycode == MA_END
+    || keycode == KC_HOME
+    || keycode == KC_END
     || keycode == KC_ENT
     || keycode == KC_RSFT
     || keycode == KC_LSFT)) {
@@ -437,7 +429,7 @@ bool processKeycodeIfLMouse(uint16_t keycode, keyrecord_t* record) {
                 scrollUp = false;
             }
             return false;
-        case MA_DOWN:
+        case KC_DOWN:
             if (record->event.pressed) {
                 if (isAltTabStarted) {
                     tap_code16(KC_DOWN);
@@ -452,7 +444,7 @@ bool processKeycodeIfLMouse(uint16_t keycode, keyrecord_t* record) {
                 mouseDown = false;
             }
             return false;
-        case MA_UP:
+        case KC_UP:
             if (record->event.pressed) {
                 if (isAltTabStarted) {
                     tap_code16(KC_UP);
@@ -465,7 +457,7 @@ bool processKeycodeIfLMouse(uint16_t keycode, keyrecord_t* record) {
                 mouseUp = false;
             }
             return false;
-        case MA_LEFT:
+        case KC_LEFT:
             if (record->event.pressed) {
                 if (isAltTabStarted) {
                     tap_code16(KC_LEFT);
@@ -478,7 +470,7 @@ bool processKeycodeIfLMouse(uint16_t keycode, keyrecord_t* record) {
                 mouseLeft = false;
             }
             return false;
-        case MA_RIGHT:
+        case KC_RIGHT:
             if (record->event.pressed) {
                 if (isAltTabStarted) {
                     tap_code16(KC_RIGHT);
@@ -493,12 +485,12 @@ bool processKeycodeIfLMouse(uint16_t keycode, keyrecord_t* record) {
                 mouseRight = false;
             }
             return false;
-        case MA_END:
+        case KC_END:
             if (record->event.pressed) {
                 tap_code16(KC_MS_BTN5);
             }
             return false;
-        case MA_HOME:
+        case KC_HOME:
             if (record->event.pressed) {
                 tap_code16(KC_MS_BTN4);
             }
@@ -512,11 +504,6 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
         case MA_LPINKY:
             if (!(record->event.pressed)) {
                 layer_off(LA_LPINKY);
-            }
-            return false;
-        case MA_ENT:
-            if (record->event.pressed) {
-                tap_code16(KC_ENT);
             }
             return false;
         case MA_DELLINE:
@@ -547,215 +534,32 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
                 }
             }
             return false;
-        case MA_ESC:
-            if (record->event.pressed) {
-                tap_code16(KC_ESC);
+        case KC_UP:
+            if ((mod_state & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT) && record->event.pressed) {
+                unregister_code16(KC_LSFT);
+                tap_code16(KC_DOWN);
+                register_code16(KC_LSFT);
+                return false;
             }
-            return false;
-        case MA_UP:
-            if (record->event.pressed) {
-                if ((mod_state & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT)) {
-                    unregister_code16(KC_LSFT);
-                    tap_code16(KC_DOWN);
-                    register_code16(KC_LSFT);
-                } else {
-                    tap_code16(KC_UP);
-                }
+            return true;
+        case FR_EQL:
+            if ((mod_state & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT) && record->event.pressed) {
+                unregister_code16(KC_LSFT);
+                tap_code16(FR_EQL);
+                tap_code16(FR_RABK);
+                register_code16(KC_LSFT);
+                return false;
             }
-            return false;
-        case MA_BSPC:
-            if (record->event.pressed) {
-                tap_code16(KC_BSPC);
+            return true;
+        case FR_MINS:
+            if ((mod_state & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT) && record->event.pressed) {
+                unregister_code16(KC_LSFT);
+                tap_code16(FR_MINS);
+                tap_code16(FR_RABK);
+                register_code16(KC_LSFT);
+                return false;
             }
-            return false;
-        case MA_0:
-            if (record->event.pressed) {
-                tap_code16(FR_0);
-            }
-            return false;
-        case MA_1:
-            if (record->event.pressed) {
-                tap_code16(FR_1);
-            }
-            return false;
-        case MA_2:
-            if (record->event.pressed) {
-                tap_code16(FR_2);
-            }
-            return false;
-        case MA_3:
-            if (record->event.pressed) {
-                tap_code16(FR_3);
-            }
-            return false;
-        case MA_4:
-            if (record->event.pressed) {
-                if ((mod_state & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT)) {
-                    unregister_code16(KC_LSFT);
-                    tap_code16(KC_5);
-                    register_code16(KC_LSFT);
-                } else {
-                    tap_code16(FR_4);
-                }
-            }
-            return false;
-        case MA_5:
-            if (record->event.pressed) {
-                tap_code16(FR_5);
-            }
-            return false;
-        case MA_6:
-            if (record->event.pressed) {
-                if ((mod_state & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT)) {
-                    unregister_code16(KC_LSFT);
-                    tap_code16(KC_MINS);
-                    register_code16(KC_LSFT);
-                } else {
-                    tap_code16(FR_6);
-                }
-            }
-            return false;
-        case MA_7:
-            if (record->event.pressed) {
-                if ((mod_state & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT)) {
-                    unregister_code16(KC_LSFT);
-                    tap_code16(KC_NUBS);
-                    register_code16(KC_LSFT);
-                } else {
-                    tap_code16(FR_7);
-                }
-            }
-            return false;
-        case MA_8:
-            if (record->event.pressed) {
-                tap_code16(FR_8);
-            }
-            return false;
-        case MA_9:
-            if (record->event.pressed) {
-                if ((mod_state & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT)) {
-                    unregister_code16(KC_LSFT);
-                    tap_code16(S(FR_LABK));
-                    register_code16(KC_LSFT);
-                } else {
-                    tap_code16(FR_9);
-                }
-            }
-            return false;
-        case MA_EQL:
-            if (record->event.pressed) {
-                if ((mod_state & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT)) {
-                    unregister_code16(KC_LSFT);
-                    tap_code16(FR_EQL);
-                    tap_code16(FR_RABK);
-                    register_code16(KC_LSFT);
-                } else {
-                    tap_code16(FR_EQL);
-                }
-            }
-            return false;
-        case MA_MINS:
-            if (record->event.pressed) {
-                if ((mod_state & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT)) {
-                    unregister_code16(KC_LSFT);
-                    tap_code16(FR_MINS);
-                    tap_code16(FR_RABK);
-                    register_code16(KC_LSFT);
-                } else {
-                    tap_code16(FR_MINS);
-                }
-            }
-            return false;
-        case MA_ASTR:
-            if (record->event.pressed) {
-                tap_code16(FR_ASTR);
-            }
-            return false;
-        case MA_DOT:
-            if (record->event.pressed) {
-                tap_code16(FR_DOT);
-            }
-            return false;
-        case MA_PLUS:
-            if (record->event.pressed) {
-                tap_code16(FR_PLUS);
-            }
-            return false;
-        case MA_SLSH:
-            if (record->event.pressed) {
-                tap_code16(FR_SLSH);
-            }
-            return false;
-        case MA_SPC:
-            if (record->event.pressed) {
-                tap_code16(KC_SPC);
-            }
-            return false;
-        case MA_DEL:
-            if (record->event.pressed) {
-                tap_code16(KC_DEL);
-            }
-            return false;
-        case MA_F1:
-            if (record->event.pressed) {
-                tap_code16(KC_F1);
-            }
-            return false;
-        case MA_F2:
-            if (record->event.pressed) {
-                tap_code16(KC_F2);
-            }
-            return false;
-        case MA_F3:
-            if (record->event.pressed) {
-                tap_code16(KC_F3);
-            }
-            return false;
-        case MA_F4:
-            if (record->event.pressed) {
-                tap_code16(KC_F4);
-            }
-            return false;
-        case MA_F5:
-            if (record->event.pressed) {
-                tap_code16(KC_F5);
-            }
-            return false;
-        case MA_F6:
-            if (record->event.pressed) {
-                tap_code16(KC_F6);
-            }
-            return false;
-        case MA_F7:
-            if (record->event.pressed) {
-                tap_code16(KC_F7);
-            }
-            return false;
-        case MA_F8:
-            if (record->event.pressed) {
-                tap_code16(KC_F8);
-            }
-            return false;
-        case MA_F9:
-            if (record->event.pressed) {
-                tap_code16(KC_F9);
-            }
-            return false;
-        case MA_F10:
-            if (record->event.pressed) {
-                tap_code16(KC_F10);
-            }
-            return false;
-        case MA_F11:
-            if (record->event.pressed) {
-                tap_code16(KC_F11);
-            }
-            return false;
-        case MA_F12:
-            if (record->event.pressed) {
-                tap_code16(KC_F12);
-            }
-            return false;
+            return true;
         default:
             return true;
     }
@@ -824,118 +628,83 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
             }
             return false;
         case KC_UP:
-            if (record->event.pressed) {
-                if (isCtlTabStarted) {
-                    register_code16(KC_LSFT);
-                    tap_code16(KC_TAB);
-                    unregister_code16(KC_LSFT);
-                    return false;
-                }
+            if (isCtlTabStarted && record->event.pressed) {
+                register_code16(KC_LSFT);
+                tap_code16(KC_TAB);
+                unregister_code16(KC_LSFT);
+                return false;
             }
             return true;
         case KC_DOWN:
-            if (record->event.pressed) {
-                if (isCtlTabStarted) {
-                    tap_code16(KC_TAB);
-                    return false;
-                }
+            if (isCtlTabStarted && record->event.pressed) {
+                tap_code16(KC_TAB);
+                return false;
             }
             return true;
         case KC_LEFT:
-            if (record->event.pressed) {
-                if (isCtlTabStarted) {
-                    register_code16(KC_LSFT);
-                    tap_code16(KC_TAB);
-                    unregister_code16(KC_LSFT);
-                    return false;
-                } else if (IS_LAYER_ON(LA_LPINKY)) {
-                    register_code16(KC_LCTL);
-                    tap_code16(KC_LEFT);
-                    unregister_code16(KC_LCTL);
-                    return false;
-                }
+            if (isCtlTabStarted && record->event.pressed) {
+                register_code16(KC_LSFT);
+                tap_code16(KC_TAB);
+                unregister_code16(KC_LSFT);
+                return false;
+            } else if (IS_LAYER_ON(LA_LPINKY) && record->event.pressed) {
+                register_code16(KC_LCTL);
+                tap_code16(KC_LEFT);
+                unregister_code16(KC_LCTL);
+                return false;
             }
             return true;
         case KC_RGHT:
-            if (record->event.pressed) {
-                if (isCtlTabStarted ) {
-                    tap_code16(KC_TAB);
-                    return false;
-                } else if (IS_LAYER_ON(LA_LPINKY)) {
-                    register_code16(KC_LCTL);
-                    tap_code16(KC_RGHT);
-                    unregister_code16(KC_LCTL);
-                    return false;
-                }
+            if (isCtlTabStarted && record->event.pressed) {
+                tap_code16(KC_TAB);
+                return false;
+            } else if (IS_LAYER_ON(LA_LPINKY) && record->event.pressed) {
+                register_code16(KC_LCTL);
+                tap_code16(KC_RGHT);
+                unregister_code16(KC_LCTL);
+                return false;
             }
             return true;
-        case MA_HOME:
-            if (record->event.pressed) {
+        case KC_PGUP:
+            if (IS_LAYER_ON(LA_LPINKY) && record->event.pressed) {
+                register_code16(KC_LCTL);
                 tap_code16(KC_HOME);
+                unregister_code16(KC_LCTL);
                 return false;
             }
             return true;
-        case MA_END:
-            if (record->event.pressed) {
+        case KC_PGDN:
+            if (IS_LAYER_ON(LA_LPINKY) && record->event.pressed) {
+                register_code16(KC_LCTL);
                 tap_code16(KC_END);
-                return false;
-            }
-            return true;
-        case MA_PGUP:
-            if (record->event.pressed) {
-                if (IS_LAYER_ON(LA_LPINKY)) {
-                    register_code16(KC_LCTL);
-                    tap_code16(KC_HOME);
-                    unregister_code16(KC_LCTL);
-                } else {
-                    tap_code16(KC_PGUP);
-                }
-                return false;
-            }
-            return true;
-        case MA_PGDN:
-            if (record->event.pressed) {
-                if (IS_LAYER_ON(LA_LPINKY)) {
-                    register_code16(KC_LCTL);
-                    tap_code16(KC_END);
-                    unregister_code16(KC_LCTL);
-                } else {
-                    tap_code16(KC_PGDN);
-                }
+                unregister_code16(KC_LCTL);
                 return false;
             }
             return true;
         case KC_BSPC:
-            if (record->event.pressed) {
-                if (IS_LAYER_ON(LA_LPINKY)) {
-                    register_code16(KC_LCTL);
-                    tap_code16(KC_BSPC);
-                    unregister_code16(KC_LCTL);
-                    return false;
-                }
+            if (IS_LAYER_ON(LA_LPINKY) && record->event.pressed) {
+                register_code16(KC_LCTL);
+                tap_code16(KC_BSPC);
+                unregister_code16(KC_LCTL);
+                return false;
             }
             return true;
         case KC_DEL:
-            if (record->event.pressed) {
-                if (IS_LAYER_ON(LA_LPINKY)) {
-                    register_code16(KC_LCTL);
-                    tap_code16(KC_DEL);
-                    unregister_code16(KC_LCTL);
-                    return false;
-                }
+            if (IS_LAYER_ON(LA_LPINKY) && record->event.pressed) {
+                register_code16(KC_LCTL);
+                tap_code16(KC_DEL);
+                unregister_code16(KC_LCTL);
+                return false;
             }
             return true;
-        case MA_TAB:
-            if (record->event.pressed) {
-                if (!isCtlTabStarted) {
-                    isCtlTabStarted = true;
-                    register_mods(MOD_MASK_CTRL);
-                    tap_code16(KC_TAB);
-                } else {
-                    tap_code16(KC_TAB);
-                }
+        case KC_TAB:
+            if (!isCtlTabStarted && record->event.pressed) {
+                isCtlTabStarted = true;
+                register_mods(MOD_MASK_CTRL);
+                tap_code16(KC_TAB);
+                return false;
             }
-            return false;
+            return true;
         default:
             return true;
     }
@@ -1023,51 +792,39 @@ bool processKeycodeIfLThumbMs(uint16_t keycode, keyrecord_t* record) {
                 }
             }
             return false;
-        case MA_TAB:
-            if (record->event.pressed) {
-                if (!isCtlTabStarted) {
-                    isCtlTabStarted = true;
-                    register_mods(MOD_MASK_CTRL);
-                    tap_code16(KC_TAB);
-                } else {
-                    tap_code16(KC_TAB);
-                }
-            }
-            return false;
-        case MA_UP:
-            if (record->event.pressed) {
-                if (isCtlTabStarted) {
-                    register_code16(KC_LSFT);
-                    tap_code16(KC_TAB);
-                    unregister_code16(KC_LSFT);
-                    return false;
-                }
+        case KC_TAB:
+            if (!isCtlTabStarted && record->event.pressed) {
+                isCtlTabStarted = true;
+                register_mods(MOD_MASK_CTRL);
+                tap_code16(KC_TAB);
             }
             return true;
-        case MA_DOWN:
-            if (record->event.pressed) {
-                if (isCtlTabStarted) {
-                    tap_code16(KC_TAB);
-                    return false;
-                }
+        case KC_UP:
+            if (isCtlTabStarted && record->event.pressed) {
+                register_code16(KC_LSFT);
+                tap_code16(KC_TAB);
+                unregister_code16(KC_LSFT);
+                return false;
             }
             return true;
-        case MA_LEFT:
-            if (record->event.pressed) {
-                if (isCtlTabStarted) {
-                    register_code16(KC_LSFT);
-                    tap_code16(KC_TAB);
-                    unregister_code16(KC_LSFT);
-                    return false;
-                }
+        case KC_DOWN:
+            if (isCtlTabStarted && record->event.pressed) {
+                tap_code16(KC_TAB);
+                return false;
             }
             return true;
-        case MA_RIGHT:
-            if (record->event.pressed) {
-                if (isCtlTabStarted ) {
-                    tap_code16(KC_TAB);
-                    return false;
-                }
+        case KC_LEFT:
+            if (isCtlTabStarted && record->event.pressed) {
+                register_code16(KC_LSFT);
+                tap_code16(KC_TAB);
+                unregister_code16(KC_LSFT);
+                return false;
+            }
+            return true;
+        case KC_RIGHT:
+            if (isCtlTabStarted && record->event.pressed) {
+                tap_code16(KC_TAB);
+                return false;
             }
             return true;
     }
