@@ -535,7 +535,7 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
             }
             return false;
         case KC_UP:
-            if ((mod_state & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT) && record->event.pressed) {
+            if ((mod_state & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT) && IS_LAYER_OFF(LA_LTHUMB) && record->event.pressed) {
                 unregister_code16(KC_LSFT);
                 tap_code16(KC_DOWN);
                 register_code16(KC_LSFT);
