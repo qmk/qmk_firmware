@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Sofle",
     "features": {
-        "swap_hands": true,
         "bootmagic": true,
         "extrakey": true,
         "mousekey": true,
