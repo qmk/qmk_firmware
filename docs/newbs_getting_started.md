@@ -73,7 +73,7 @@ Install the QMK CLI by running:
 You will need to install Git and Python. It's very likely that you already have both, but if not, one of the following commands should install them:
 
 * Debian / Ubuntu / Devuan: `sudo apt install -y git python3-pip`
-* Fedora / Red Hat / CentOS: `sudo yum -y install git python3-pip`
+* Fedora / Red Hat / CentOS: `sudo yum -y install git python3-pip && sudo dnf copr enable erovia/dfu-programmer`
 * Arch / Manjaro: `sudo pacman --needed --noconfirm -S git python-pip libffi`
 * Void: `sudo xbps-install -y git python3-pip`
 * Solus: `sudo eopkg -y install git python3`
