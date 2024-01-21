@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_COLEMAK] = LAYOUT(
-   SE_SECT,    SE_1,    SE_2,    SE_3,    SE_4,    SE_5,                         SE_6,    SE_7,    SE_8,    SE_9,    SE_0,   SE_SECT,
+  SE_SECT,    SE_1,    SE_2,    SE_3,    SE_4,    SE_5,                         SE_6,    SE_7,    SE_8,    SE_9,    SE_0,   SE_SECT,
    KC_ESC,    SE_Q,    SE_W,    SE_F,    SE_P,    SE_G,                         SE_J,    SE_L,    SE_U,    SE_Y, SE_ODIA,  KC_BSPC,
    KC_TAB,    SE_A,    SE_R,    SE_S,    SE_T,    SE_D,                         SE_H,    SE_N,    SE_E,    SE_I,    SE_O,  SE_ADIA,
   KC_LSFT,    SE_Z,    SE_X,    SE_C,    SE_V,    SE_B, KC_MUTE,    KC_MPLY,    SE_K,    SE_M, SE_COMM,  SE_DOT, SE_MINS,  KC_RSFT,
@@ -110,18 +110,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 /* GAMING
- * ,-----------------------------------------.                    ,-----------------------------------------.
- * |      |      |   1  |   2  |   3  |   4  |                    |      |      |      |      |      |      |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | Esc  |      |   Q  |   W  |   E  |   R  |-<--->-.    ,-<--->-|      |      |  Up  |   I  |      | Bspc |
- * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
- * | Tab  |      |   A  |   S  |   D  |   F  |-------|    |-------|      | Left | Down | Right|      |      |
- * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
- * |LShift|      |   Z  |   X  |   C  |   V  |-------|    |-------|      |      |      |      |      |HoldSh|
- * `-----------------------------------------/       /    \       \-----------------------------------------'
- *           | RGUI | LAlt | LCtrl| / Enter / LOWER /      \ RAISE \ Space \ | Hold | RAlt | RGUI |
- *           |      |      |      |/       /       /        \       \       \| Ctrl |      |      |
- *           `------'------'------'-------'-------'          `-------'-------'------'------'------'
+ *               ,---------------------------.                       ,-----------------------------------------.
+ * ,-------------|   1  |   2  |   3  |   4  |                       |      |      |      |      |      |      |
+ * |      |      |------+------+------+------|                       |------+------+------+------+------+------|
+ * |------+------|   Q  |   W  |   E  |   R  | <---->        ,-<--->-|      |      |  Up  |   I  |      | Bspc |
+ * | Esc  |      |------+------+------+------|               |       |------+------+------+------+------+------|
+ * |------+------|   A  |   S  |   D  |   F  |--------.      |-------|      | Left | Down | Right|      |      |
+ * | Tab  |      |------+------+------+------|        |      |       |------+------+------+------+------+------|
+ * |------+------|   Z  |   X  |   C  |   V  |________|___   |-------|      |      |      |      |      |HoldSh|
+ * |LShift|      |---------------------------'   /       /    \       \-----------------------------------------'
+ * `-------------| RGUI | LAlt | LCtrl| / Enter / LOWER /      \ RAISE \ Space \ | Hold | RAlt | RGUI |
+ *               |      |      |      |/       /       /        \       \       \| Ctrl |      |      |
+ *               `------'------'------'-------'-------'          `-------'-------'------'------'------'
  */
 [_GAMING] = LAYOUT(
   XXXXXXX, XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -134,11 +134,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |                    |  F7  |  F8  |  F9  |  F10  | F11  | F12  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | Esc  |   ~  |   !  |   @  |   #  |   Å  | <--->        <---> |   *  |   1  |   2  |   3  |   #  |   @  |
+ * | Esc  |      |      |      |   @  |   Å  | <--->        <---> |   *  |   1  |   2  |   3  |   #  |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | Tab  | QUES |   $  |   %  |   ^  |   Ä  |-------.    ,-------|   -  |   4  |   5  |   6  |   /  |   |  |
+ * | Tab  |   ?  |      |      |   ^  |   Ä  |-------.    ,-------|   -  |   4  |   5  |   6  |   /  |   |  |
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
- * |LShift|   `  |   &  |   *  |   /  |   Ö  |-------|    |-------|   +  |   7  |   8  |   9  |   \  |RShift|
+ * |LShift|   `  |      |      |      |   Ö  |-------|    |-------|   +  |   7  |   8  |   9  |   \  |      |
  * `-----------------------------------------/       /    \       \-----------------------------------------'
  *           |      |      |      | /       /       /      \ ADJUST\       \ |      |   0  |   .  |
  *           |      |      |      |/       /       /        \       \       \|      |      |      |
@@ -146,9 +146,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_LOWER] = LAYOUT(
     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                        KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,
-  _______, SE_TILD, SE_EXLM,   SE_AT, SE_HASH, SE_ARNG,                      KC_PAST,    SE_1,    SE_2,    SE_3, SE_HASH,   SE_AT,
-  _______, SE_QUES, SE_DLR, SE_PERC, SE_AMPR, SE_ADIA,                      KC_PMNS,    SE_4,    SE_5,    SE_6, KC_PSLS, SE_PIPE,
-  _______, SE_SECT, SE_SLSH, SE_ASTR, SE_MINS, SE_ODIA, KC_MUTE,    KC_MPLY, KC_PPLS,    SE_7,    SE_8,    SE_9, SE_BSLS, _______,
+  _______, XXXXXXX, XXXXXXX, XXXXXXX,   SE_AT, SE_ARNG,                      KC_PAST,    SE_1,    SE_2,    SE_3, SE_HASH, _______,
+  _______, SE_QUES, XXXXXXX, XXXXXXX, SE_CIRC, SE_ADIA,                      KC_PMNS,    SE_4,    SE_5,    SE_6, KC_PSLS, SE_PIPE,
+  _______,  SE_GRV, XXXXXXX, XXXXXXX, XXXXXXX, SE_ODIA, KC_MUTE,    KC_MPLY, KC_PPLS,    SE_7,    SE_8,    SE_9, SE_BSLS, _______,
                     _______, _______, _______, _______, _______,    _______, _______, SE_SLSH,    SE_0, KC_PDOT
 
 ),
@@ -158,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | Esc  | Ins  | Pscr | Menu |      |      |-<--->-.    ,-<--->-|      | PWrd |  Up  | NWrd | DLine| Bspc |
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
- * | Tab  | LAlt | LCtl |LShift|      | Caps |-------|    |-------|      | Left | Down | Rigth|  Del | Bspc |
+ * | Tab  |      |      |      |      | Caps |-------|    |-------|      | Left | Down | Rigth|  Del | Bspc |
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
  * |LShift| Undo |  Cut | Copy | Paste|      |-------|    |-------|      | LStr |      | LEnd |      |RShift|
  * `-----------------------------------------/       /    \       \-----------------------------------------'
@@ -169,7 +169,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE] = LAYOUT(
   XXXXXXX, XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX,                       XXXXXXX, KC_DSKL, KC_DESK, KC_DSKR, XXXXXXX, XXXXXXX,
   _______,  KC_INS,  KC_PSCR,   KC_APP,  XXXXXXX, XXXXXXX,                       KC_PGUP,KC_PRVWD,   KC_UP,KC_NXTWD,KC_DLINE, KC_BSPC,
-  _______, KC_LALT,  KC_LCTL,  KC_LSFT,  XXXXXXX, KC_CAPS,                       KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT,  KC_DEL, KC_BSPC,
+  _______, XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, KC_CAPS,                       KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT,  KC_DEL, KC_BSPC,
   _______, KC_UNDO,   KC_CUT,  KC_COPY, KC_PASTE, XXXXXXX, KC_MUTE,     KC_MPLY, XXXXXXX,KC_LSTRT, XXXXXXX, KC_LEND, XXXXXXX, _______,
                      _______,  _______,  _______, _______, _______,     _______, _______, _______, _______, _______
 ),
@@ -285,6 +285,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 	return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
+void disable_held_keys(bool *shift_held, bool *ctrl_held) {
+	*shift_held = false;
+	unregister_mods(mod_config(MOD_LSFT));
+	*ctrl_held = false;
+	unregister_mods(mod_config(MOD_LCTL));
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #if defined(KEYBOARD_PET) || defined(OLED_LOGO)
 	if (record->event.pressed) { //OLED timeout code
@@ -295,16 +302,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		case KC_QWERTY:
 			if (record->event.pressed) {
 				set_single_persistent_default_layer(_QWERTY);
+				disable_held_keys(&shift_held, &ctrl_held);
 			}
 			return false;
 		case KC_COLEMAK:
 			if (record->event.pressed) {
 				set_single_persistent_default_layer(_COLEMAK);
+				disable_held_keys(&shift_held, &ctrl_held);
 			}
 			return false;
 		case KC_P_DVORAK:
 			if (record->event.pressed) {
 				set_single_persistent_default_layer(_PROGRAMMER_DVORAK);
+				disable_held_keys(&shift_held, &ctrl_held);
 			}
 			return false;
 		case KC_GAMING:
@@ -467,7 +477,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
 			return true;
 		case KC_SPC:
-			if (record->event.pressed) { //Pet jumps when enter is pressed.
+			if (record->event.pressed) { //Pet jumps when space is pressed.
 				isJumping = true;
 				showedJump = false;
 			} else {
@@ -477,7 +487,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
 		case HLDSHIF:
 			if (record->event.pressed) {
-				static bool shift_held = true;
 				shift_held = !shift_held;
 				if (shift_held) {
 					register_mods(mod_config(MOD_LSFT));
@@ -488,7 +497,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			return false;
 		case HLDCTRL:
 			if (record->event.pressed) {
-				static bool ctrl_held = true;
 				ctrl_held = !ctrl_held;
 				if (ctrl_held) {
 					register_mods(mod_config(MOD_LCTL));

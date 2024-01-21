@@ -231,7 +231,7 @@
 				oled_write_P(PSTR("P Dvk"), false);
 				break;
 			case _GAMING:
-				oled_write_P(PSTR("Game"), false);
+				oled_write_P(PSTR("Game "), false);
 				break;
 			default:
 				oled_write_P(PSTR("Undef"), false);
@@ -242,6 +242,9 @@
 		oled_write_P(PSTR("WPM:\n"), false);
 		oled_write(get_u8_str(get_current_wpm(), ' '), false);
 	}
+
+bool shift_held = false;
+bool ctrl_held = false;
 
 static void print_status_narrow(void) {
 	if (keymap_config.swap_lctl_lgui) {
@@ -279,12 +282,11 @@ static void print_status_narrow(void) {
 
 	/* lock status */
 	oled_set_cursor(0,5);
-	//oled_write("LOCK", false);
-	if (led_usb_state.caps_lock) {
-		oled_write_ln("CAPS\nLOCK", true);
-	} else {
-		oled_write_P(PSTR("\n\n"), false);
-	}
+	oled_write(led_usb_state.caps_lock? "CAPS" : "\n", true);
+	oled_set_cursor(0,6);
+	oled_write(shift_held? "SHIFT": "\n", true);
+	oled_set_cursor(0,7);
+	oled_write(ctrl_held? "CTRL" : "\n", true);
 	//oled_write_ln("Num", !led_usb_state.num_lock);
 	//oled_write_ln("Scrl", led_usb_state.scroll_lock);
 
