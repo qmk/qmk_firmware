@@ -28,7 +28,6 @@
         ]
     },
 
-    "debounce": 0,
 
     "processor": "RP2040",
     "url": "",

@@ -21,13 +21,54 @@ hybrid_key_t keys[MATRIX_ROWS][MATRIX_COLS] = {0};
 void matrix_init_custom(void) {
 
     wait_ms(3500); //give time to try to have hid_listen spin up
+
+    printf("%s\n", "test print at start of matrix init");
+    wait_ms(250);
+
+
+    // printf("%s\n", "2nd test print at start of matrix init");
+    // wait_ms(250);
+    // printf("%u\n", MATRIX_COLS);
+    // wait_ms(250);
+    // printf("%u\n", MATRIX_ROWS);
+    // wait_ms(250);
+    // for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+    //     for (uint8_t col = 0; col < MATRIX_COLS; col++) {
+    //         printf("%lu\n", matrix_pins[row][col]);
+    //         wait_ms(250);
+    //     }
+    //     wait_ms(250);
+    //     printf("\n");
+    // }
+
+    // wait_ms(250);
+
+
+
     for (uint8_t i = 0; i < MATRIX_COLS; i++) {
         keys[1][i].is_analog = true;
     }
-    printf("%s", "test print at start of matrix init\n");
+
+    // for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+    //     for (uint8_t col = 0; col < MATRIX_COLS; col++) {
+
+    //         printf("keys[%u][%u].value = %u\n", row, col, keys[row][col].value);
+    //         wait_ms(250);
+    //         printf("keys[%u][%u].extremum = %u\n", row, col, keys[row][col].extremum);
+    //         wait_ms(250);
+    //         printf("keys[%u][%u].offset = %u\n", row, col, keys[row][col].offset);
+    //         wait_ms(250);
+    //         printf("keys[%u][%u].is_analog = %s\n", row, col, keys[row][col].is_analog ? "true" : "false");
+    //         wait_ms(250);
+    //         printf("keys[%u][%u].dynamic_actuation_bool = %s\n", row, col, keys[row][col].dynamic_actuation_bool ? "true" : "false");
+    //     }
+    //     wait_ms(250);
+    //     printf("\n");
+    // }
+
     generate_lut();
     get_sensor_offsets();
-    wait_ms(100); // Let ADC reach steady state
+    wait_ms(200); // Let ADC reach steady state
     get_sensor_offsets();
 }
 
