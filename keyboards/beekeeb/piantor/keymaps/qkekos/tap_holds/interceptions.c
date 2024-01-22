@@ -14,6 +14,14 @@ bool intr_process_record(uint16_t keycode, keyrecord_t *record, bool *return_val
     *return_value = false;
 
     switch (keycode) {
+        case LT_I:
+            if (record->event.pressed && record->tap.count == 2) {
+                tap_code16(KC_BSPC);
+                add_weak_mods(MOD_BIT(KC_LSFT));
+            }
+
+            return false;
+
         case TH_LNUM:
             if (!record->tap.count) return lower_layer_mo(NUM, record);
             return false;
