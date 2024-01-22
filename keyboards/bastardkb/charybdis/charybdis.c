@@ -303,18 +303,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
             break;
     }
 #        endif // !NO_CHARYBDIS_KEYCODES
-#        ifndef MOUSEKEY_ENABLE
-    // Simulate mouse keys if full support is not enabled (reduces firmware size
-    // while maintaining support for mouse keys).
-    if (IS_MOUSEKEY_BUTTON(keycode)) {
-        report_mouse_t mouse_report = pointing_device_get_report();
-        mouse_report.buttons        = pointing_device_handle_buttons(mouse_report.buttons, record->event.pressed, keycode - KC_MS_BTN1);
-        pointing_device_set_report(mouse_report);
-        pointing_device_send();
-    }
-#        endif // !MOUSEKEY_ENABLE
 #    endif     // POINTING_DEVICE_ENABLE
-    if ((keycode >= POINTER_DEFAULT_DPI_FORWARD && keycode < CHARYBDIS_SAFE_RANGE) || IS_MOUSEKEY(keycode)) {
+    if (IS_QK_KB(keycode) || IS_MOUSEKEY(keycode)) {
         debug_charybdis_config_to_console(&g_charybdis_config);
     }
     return true;
@@ -392,3 +382,20 @@ void matrix_scan_kb(void) {
     matrix_scan_user();
 }
 #endif // KEYBOARD_bastardkb_charybdis_3x5_blackpill || KEYBOARD_bastardkb_charybdis_4x6_blackpill
+
+bool shutdown_kb(bool jump_to_bootloader) {
+    if (!shutdown_user(jump_to_bootloader)) {
+        return false;
+    }
+#ifdef RGBLIGHT_ENABLE
+    rgblight_enable_noeeprom();
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+    rgblight_setrgb(RGB_RED);
+#endif // RGBLIGHT_ENABLE
+#ifdef RGB_MATRIX_ENABLE
+    void rgb_matrix_update_pwm_buffers(void);
+    rgb_matrix_set_color_all(RGB_RED);
+    rgb_matrix_update_pwm_buffers();
+#endif // RGB_MATRIX_ENABLE
+    return true;
+}

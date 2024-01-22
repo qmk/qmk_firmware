@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RALT, MO(1),   KC_RGUI, KC_RCTL,             KC_LEFT, KC_DOWN, KC_RGHT),
 
   [1] = LAYOUT_all(
-    KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI,             BL_TOGG, BL_DEC,  BL_INC,
+    KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI,             BL_TOGG, BL_DOWN, BL_UP,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_VOLU,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, QK_BOOT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,             KC_MPLY, KC_MNXT, KC_VOLD,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -82,7 +82,7 @@ The default keymap uses the `LAYOUT_all` macro, so that will be the value of the
       "KC_LCTL", "KC_LGUI", "KC_LALT",                                  "KC_SPC",                                   "KC_RALT", "MO(1)",   "KC_RGUI", "KC_RCTL",               "KC_LEFT", "KC_DOWN", "KC_RGHT"
     ],
     [
-      "KC_TRNS",            "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "RGB_TOG", "RGB_MOD", "RGB_HUD", "RGB_HUI", "RGB_SAD", "RGB_SAI", "RGB_VAD", "RGB_VAI",               "BL_TOGG", "BL_DEC",  "BL_INC",
+      "KC_TRNS",            "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "RGB_TOG", "RGB_MOD", "RGB_HUD", "RGB_HUI", "RGB_SAD", "RGB_SAI", "RGB_VAD", "RGB_VAI",               "BL_TOGG", "BL_DOWN", "BL_UP",
       "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",    "KC_TRNS", "KC_TRNS", "KC_VOLU",
       "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "QK_BOOT", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",               "KC_MPLY", "KC_MNXT", "KC_VOLD",
       "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",
@@ -122,26 +122,26 @@ There is a way to support custom keycodes: if the logic for a custom keycode is 
 
 ```c
 enum custom_keycodes {
-    MACRO_1 = SAFE_RANGE,
-    MACRO_2,
-    MACRO_3
+    CUSTOM_1 = SAFE_RANGE,
+    CUSTOM_2,
+    CUSTOM_3
 };
 ...
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
-        case MACRO_1:
+        case CUSTOM_1:
             if (record->event.pressed) {
-                SEND_STRING("This is macro #1.");
+                SEND_STRING("This is custom keycode #1.");
             }
             return false;
-        case MACRO_2:
+        case CUSTOM_2:
             if (record->event.pressed) {
-                SEND_STRING("This is macro #2.");
+                SEND_STRING("This is custom keycode #2.");
             }
             return false;
-        case MACRO_3:
+        case CUSTOM_3:
             if (record->event.pressed) {
-                SEND_STRING("This is macro #3.");
+                SEND_STRING("This is custom keycode #3.");
             }
             return false;
     }
@@ -153,10 +153,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 ```c
 enum keyboard_keycodes {
-    MACRO_1 = SAFE_RANGE,
-    MACRO_2,
-    MACRO_3,
-    NEW_SAFE_RANGE  // Important!
+    CUSTOM_1 = QK_KB_0,
+    CUSTOM_2,
+    CUSTOM_3,
 };
 ```
 
@@ -165,19 +164,19 @@ enum keyboard_keycodes {
 ```c
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
-        case MACRO_1:
+        case CUSTOM_1:
             if (record->event.pressed) {
-                SEND_STRING("This is macro #1.");
+                SEND_STRING("This is custom keycode #1.");
             }
             return false;
-        case MACRO_2:
+        case CUSTOM_2:
             if (record->event.pressed) {
-                SEND_STRING("This is macro #2.");
+                SEND_STRING("This is custom keycode #2.");
             }
             return false;
-        case MACRO_3:
+        case CUSTOM_3:
             if (record->event.pressed) {
-                SEND_STRING("This is macro #3.");
+                SEND_STRING("This is custom keycode #3.");
             }
             return false;
     }
@@ -185,8 +184,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 };
 ```
 
-Note the call to `process_record_user()` at the end. Additionally, users of the keyboard will need to use `NEW_SAFE_RANGE` instead of `SAFE_RANGE` if they wish to add their own custom keycodes at keymap level, beyond what is provided by the keyboard.
-
+Note the call to `process_record_user()` at the end.
 
 ## Additional Reading :id=additional-reading
 

@@ -17,67 +17,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/*
- * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
- */
-// #define SOFT_SERIAL_PIN D0  // or D1, D2, D3, E6
-
-//#define LED_NUM_LOCK_PIN B0
-//#define LED_CAPS_LOCK_PIN B1
-//#define LED_SCROLL_LOCK_PIN B2
-//#define LED_COMPOSE_PIN B3
-//#define LED_KANA_PIN B4
-
-//#define BACKLIGHT_PIN B7
-//#define BACKLIGHT_LEVELS 3
-//#define BACKLIGHT_BREATHING
-
-/* ws2812 RGB LED */
-#define RGB_DI_PIN D3
-//#ifdef RGB_DI_PIN
-//#    define RGBLED_NUM 16
-//#    define RGBLIGHT_HUE_STEP 8
-//#    define RGBLIGHT_SAT_STEP 8
-//#    define RGBLIGHT_VAL_STEP 8
-//#    define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
-//#    define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-/*== all animations enable ==*/
-//#    define RGBLIGHT_ANIMATIONS
-/*== or choose animations ==*/
-//#    define RGBLIGHT_EFFECT_BREATHING
-//#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
-//#    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-//#    define RGBLIGHT_EFFECT_SNAKE
-//#    define RGBLIGHT_EFFECT_KNIGHT
-//#    define RGBLIGHT_EFFECT_CHRISTMAS
-//#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
-//#    define RGBLIGHT_EFFECT_RGB_TEST
-//#    define RGBLIGHT_EFFECT_ALTERNATING
-/*== customize breathing effect ==*/
-/*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
-//#    define RGBLIGHT_BREATHE_TABLE_SIZE 256      // 256(default) or 128 or 64
-/*==== use exp() and sin() ====*/
-//#    define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
-//#    define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
-//#endif
-
-
 #ifdef RGB_MATRIX_ENABLE
 
 /* ws2812 RGB MATRIX */
-#   define DRIVER_LED_TOTAL 116
-
+#   define RGB_MATRIX_LED_COUNT 116
  // reacts to keypresses
 #   define RGB_MATRIX_KEYPRESSES
 
 //  for all fingers used at once.
 #   define LED_HITS_TO_REMEMBER 10
 
-#   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 50
-#   define RGB_MATRIX_STARTUP_SPD 127
-#   define RGB_MATRIX_CENTER { 124, 32 }
 // the above brighness setting has no effect on rgb_matrix_set_color().
 // Use darker colors instead.
 /*              RGB darker COLORS             */
@@ -103,51 +52,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //  https://docs.qmk.fm/#/feature_rgb_matrix
 //  Enable suspend mode.
 #   define RGB_DISABLE_WHEN_USB_SUSPENDED
-
-#   ifdef CONSOLE_ENABLE
-#       define ENABLE_RGB_MATRIX_SOLID_COLOR
-#       define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
-#   else
-#       define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
-#       define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
-#       define ENABLE_RGB_MATRIX_BREATHING
-#       define ENABLE_RGB_MATRIX_BAND_SAT
-#       define ENABLE_RGB_MATRIX_BAND_VAL
-#       define ENABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
-#       define ENABLE_RGB_MATRIX_BAND_PINWHEEL_VAL
-#       define ENABLE_RGB_MATRIX_BAND_SPIRAL_SAT
-#       define ENABLE_RGB_MATRIX_BAND_SPIRAL_VAL
-#       define ENABLE_RGB_MATRIX_CYCLE_ALL
-#       define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
-#       define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
-#       define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
-#       define ENABLE_RGB_MATRIX_CYCLE_OUT_IN
-#       define ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
-#       define ENABLE_RGB_MATRIX_CYCLE_PINWHEEL
-#       define ENABLE_RGB_MATRIX_CYCLE_SPIRAL
-#       define ENABLE_RGB_MATRIX_DUAL_BEACON
-#       define ENABLE_RGB_MATRIX_RAINBOW_BEACON
-#       define ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS
-#       define ENABLE_RGB_MATRIX_RAINDROPS
-#       define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
-#       define ENABLE_RGB_MATRIX_HUE_BREATHING
-#       define ENABLE_RGB_MATRIX_HUE_PENDULUM
-#       define ENABLE_RGB_MATRIX_HUE_WAVE
-#       define ENABLE_RGB_MATRIX_TYPING_HEATMAP
-#       define ENABLE_RGB_MATRIX_DIGITAL_RAIN
-#       define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-#       define ENABLE_RGB_MATRIX_SOLID_REACTIVE
-#       define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
-#       define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
-#       define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
-#       define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
-#       define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
-#       define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
-#       define ENABLE_RGB_MATRIX_SPLASH
-#       define ENABLE_RGB_MATRIX_MULTISPLASH
-#       define ENABLE_RGB_MATRIX_SOLID_SPLASH
-#       define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-#   endif  // CONSOLE_ENABLE
 #endif  // RGB_MATRIX_ENABLE
 
 /* Audio */

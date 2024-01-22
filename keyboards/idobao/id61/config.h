@@ -3,25 +3,18 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-// #define MATRIX_ROWS 5
-// #define MATRIX_COLS 15
 
 /* ----------------
  * RGB Matrix stuff
  * ---------------- */
 
-#define RGB_DI_PIN F0
-
 // RGB Matrix config
-#if defined(RGB_DI_PIN) && defined(RGB_MATRIX_ENABLE)
+#if defined(RGB_MATRIX_ENABLE)
 
     #ifndef ID61_DISABLE_UNDERGLOW
-        #define DRIVER_LED_TOTAL 71
+        #define RGB_MATRIX_LED_COUNT 71
     #else
-        #define DRIVER_LED_TOTAL 61  // = 71 - 10
+        #define RGB_MATRIX_LED_COUNT 61  // = 71 - 10
     #endif
 
     #define RGB_DISABLE_WHEN_USB_SUSPENDED     // turn off effects when suspended

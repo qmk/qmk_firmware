@@ -1,5 +1,7 @@
-#include "audio.h"
 #include "process_clicky.h"
+#include "audio.h"
+#include "eeconfig.h"
+#include <stdlib.h>
 
 #ifdef AUDIO_CLICKY
 
@@ -26,7 +28,7 @@ float clicky_freq = AUDIO_CLICKY_FREQ_DEFAULT;
 float clicky_rand = AUDIO_CLICKY_FREQ_RANDOMNESS;
 
 // the first "note" is an intentional delay; the 2nd and 3rd notes are the "clicky"
-float clicky_song[][2] = {{AUDIO_CLICKY_FREQ_MIN, AUDIO_CLICKY_DELAY_DURATION}, {AUDIO_CLICKY_FREQ_DEFAULT, 3}, {AUDIO_CLICKY_FREQ_DEFAULT, 1}}; // 3 and 1 --> durations
+float clicky_song[][2] = {{0.0f, AUDIO_CLICKY_DELAY_DURATION}, {AUDIO_CLICKY_FREQ_DEFAULT, 3}, {AUDIO_CLICKY_FREQ_DEFAULT, 1}}; // 3 and 1 --> durations
 
 extern audio_config_t audio_config;
 
@@ -82,31 +84,31 @@ bool is_clicky_on(void) {
 }
 
 bool process_clicky(uint16_t keycode, keyrecord_t *record) {
-    if (keycode == CLICKY_TOGGLE && record->event.pressed) {
+    if (keycode == QK_AUDIO_CLICKY_TOGGLE && record->event.pressed) {
         clicky_toggle();
     }
 
-    if (keycode == CLICKY_ENABLE && record->event.pressed) {
+    if (keycode == QK_AUDIO_CLICKY_ON && record->event.pressed) {
         clicky_on();
     }
-    if (keycode == CLICKY_DISABLE && record->event.pressed) {
+    if (keycode == QK_AUDIO_CLICKY_OFF && record->event.pressed) {
         clicky_off();
     }
 
-    if (keycode == CLICKY_RESET && record->event.pressed) {
+    if (keycode == QK_AUDIO_CLICKY_RESET && record->event.pressed) {
         clicky_freq_reset();
     }
 
-    if (keycode == CLICKY_UP && record->event.pressed) {
+    if (keycode == QK_AUDIO_CLICKY_UP && record->event.pressed) {
         clicky_freq_up();
     }
-    if (keycode == CLICKY_DOWN && record->event.pressed) {
+    if (keycode == QK_AUDIO_CLICKY_DOWN && record->event.pressed) {
         clicky_freq_down();
     }
 
     if (audio_config.enable && audio_config.clicky_enable) {
-        if (record->event.pressed) {                      // Leave this separate so it's easier to add upstroke sound
-            if (keycode != AU_OFF && keycode != AU_TOG) { // DO NOT PLAY if audio will be disabled, and causes issuse on ARM
+        if (record->event.pressed) {                                 // Leave this separate so it's easier to add upstroke sound
+            if (keycode != QK_AUDIO_ON && keycode != QK_AUDIO_OFF) { // DO NOT PLAY if audio will be disabled, and causes issuse on ARM
                 clicky_play();
             }
         }

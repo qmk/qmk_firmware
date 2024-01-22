@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "blackpill103.h"
+#include "quantum.h"
 
 void matrix_init_kb(void) {
   /* LED pins setup */

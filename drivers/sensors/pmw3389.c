@@ -8,8 +8,6 @@
 #include "pmw33xx_common.h"
 #include "progmem.h"
 
-extern const size_t pmw33xx_number_of_sensors;
-
 uint16_t pmw33xx_get_cpi(uint8_t sensor) {
     if (sensor >= pmw33xx_number_of_sensors) {
         return 0;
@@ -24,7 +22,7 @@ void pmw33xx_set_cpi(uint8_t sensor, uint16_t cpi) {
         return;
     }
 
-    uint16_t cpival = CONSTRAIN((cpi / PMW33XX_CPI_STEP) - 1, 0, (PMW33XX_CPI_MAX / PMW33XX_CPI_STEP) - 1U);
+    uint16_t cpival = CONSTRAIN((cpi / PMW33XX_CPI_STEP), (PMW33XX_CPI_MIN / PMW33XX_CPI_STEP), (PMW33XX_CPI_MAX / PMW33XX_CPI_STEP)) - 1U;
     // Sets upper byte first for more consistent setting of cpi
     pmw33xx_write(sensor, REG_Resolution_H, (cpival >> 8) & 0xFF);
     pmw33xx_write(sensor, REG_Resolution_L, cpival & 0xFF);

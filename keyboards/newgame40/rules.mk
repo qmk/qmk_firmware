@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = caterina
-
 # Build Options
 #   change yes to no to disable
 #
@@ -18,5 +12,3 @@ AUDIO_ENABLE = no           # Audio output
 UNICODE_ENABLE = yes        # Unicode
 RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
 IOS_DEVICE_ENABLE = no     # connect to IOS Device
-
-LAYOUTS = ortho_4x10

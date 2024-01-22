@@ -23,6 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "arm_atsam_protocol.h"
 #    include "led.h"
 #    include "rgb_matrix.h"
+#    include "eeprom.h"
+#    include "host.h"
 #    include <string.h>
 #    include <math.h>
 
@@ -347,24 +349,24 @@ static void flush(void) {
 }
 
 void md_rgb_matrix_indicators_advanced(uint8_t led_min, uint8_t led_max) {
-    uint8_t kbled = keyboard_leds();
-    if (kbled && rgb_matrix_config.enable) {
+    led_t led_state = host_keyboard_led_state();
+    if (led_state.raw && rgb_matrix_config.enable) {
         for (uint8_t i = led_min; i < led_max; i++) {
             if (
 #    if USB_LED_NUM_LOCK_SCANCODE != 255
-                (led_map[i].scan == USB_LED_NUM_LOCK_SCANCODE && (kbled & (1 << USB_LED_NUM_LOCK))) ||
+                (led_map[i].scan == USB_LED_NUM_LOCK_SCANCODE && led_state.num_lock) ||
 #    endif // NUM LOCK
 #    if USB_LED_CAPS_LOCK_SCANCODE != 255
-                (led_map[i].scan == USB_LED_CAPS_LOCK_SCANCODE && (kbled & (1 << USB_LED_CAPS_LOCK))) ||
+                (led_map[i].scan == USB_LED_CAPS_LOCK_SCANCODE && led_state.caps_lock) ||
 #    endif // CAPS LOCK
 #    if USB_LED_SCROLL_LOCK_SCANCODE != 255
-                (led_map[i].scan == USB_LED_SCROLL_LOCK_SCANCODE && (kbled & (1 << USB_LED_SCROLL_LOCK))) ||
+                (led_map[i].scan == USB_LED_SCROLL_LOCK_SCANCODE && led_state.scroll_lock) ||
 #    endif // SCROLL LOCK
 #    if USB_LED_COMPOSE_SCANCODE != 255
-                (led_map[i].scan == USB_LED_COMPOSE_SCANCODE && (kbled & (1 << USB_LED_COMPOSE))) ||
+                (led_map[i].scan == USB_LED_COMPOSE_SCANCODE && led_state.compose) ||
 #    endif // COMPOSE
 #    if USB_LED_KANA_SCANCODE != 255
-                (led_map[i].scan == USB_LED_KANA_SCANCODE && (kbled & (1 << USB_LED_KANA))) ||
+                (led_map[i].scan == USB_LED_KANA_SCANCODE && led_state.kana) ||
 #    endif // KANA
                 (0)) {
                 if (rgb_matrix_get_flags() & LED_FLAG_INDICATOR) {

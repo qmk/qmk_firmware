@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #if defined(ENCODER_MAP_ENABLE)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_QWERTY] = { ENCODER_CCW_CW(KC_WH_U, KC_WH_D), },
     [_LOWER] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD) },
     [_RAISE] = { ENCODER_CCW_CW(RGB_MOD, RGB_RMOD) },

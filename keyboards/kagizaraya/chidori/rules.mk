@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega328p
-
-# Bootloader selection
-BOOTLOADER = usbasploader
-
 # Build Options
 #   change yes to no to disable
 #
@@ -22,4 +16,4 @@ CUSTOM_MATRIX = lite
 # project specific files
 SRC += matrix.c
 SRC += board.c
-QUANTUM_LIB_SRC += i2c_master.c
+I2C_DRIVER_REQUIRED = yes

@@ -44,6 +44,8 @@ typedef enum qp_image_format_t {
     PALETTE_2BPP   = 0x05,
     PALETTE_4BPP   = 0x06,
     PALETTE_8BPP   = 0x07,
+    RGB565_16BPP   = 0x08, // Natively streamed to the panel, no interpolation or palette handling
+    RGB888_24BPP   = 0x09, // Natively streamed to the panel, no interpolation or palette handling
 } qp_image_format_t;
 
 typedef enum painter_compression_t { IMAGE_UNCOMPRESSED, IMAGE_COMPRESSED_RLE } painter_compression_t;
