@@ -21,10 +21,6 @@
 
 /*encoder resolution */
 #define ENCODER_DEFAULT_POS 0x3
-
-/* DIP switch */
-#define DIP_SWITCH_PINS { A9 }
-
 /* LED Indicators */
 #define LED_MAC_OS_PIN      C10
 #define LED_WIN_LOCK_PIN    C11
