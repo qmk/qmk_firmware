@@ -50,16 +50,4 @@
 #define SNLED27351_I2C_ADDRESS_2 SNLED27351_I2C_ADDRESS_VDDIO
 #define I2C1_OPMODE OPMODE_I2C
 #define I2C1_CLOCK_SPEED 400000 /* 400000 */
-
-#define DRIVER_1_LED_TOTAL 63
-#define DRIVER_2_LED_TOTAL 21
-#define RGB_MATRIX_LED_COUNT    (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL+22)
-
-#define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
-
-#define RGB_TRIGGER_ON_KEYDOWN
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#define RGB_MATRIX_KEYPRESSES
-#define RGB_MATRIX_KEYRELEASES
-
 // #define DISABLE_5075_KEYCODES /*If you need to change or restore the default QMK button function, please open it*/
