@@ -38,6 +38,12 @@
             {"pin_a": "C14", "pin_b": "C15"}
         ]
     },
+    "indicators": {
+        "caps_lock": "C2",
+        "num_lock": "C3",
+        "scroll_lock": "C0",
+        "on_state": 0
+    },
     "rgb_matrix": {
         "driver": "aw20216",
         "max_brightness": 108,
