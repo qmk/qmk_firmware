@@ -46,7 +46,7 @@ void process_magic_key(void) {
         triple_magic_case(KC_V,  CLT_A, KC_C,  "y");
         triple_magic_case(KC_G,  CLT_A, KC_C,  "y");
         triple_magic_case(GLT_S, KC_Y,  GLT_S, "tem");
-        triple_magic_case(KC_O,  KC_B,  KC_V,  "iously");
+        triple_magic_case(KC_O,  KC_B,  KC_V,  "ious");
     }
 
     switch (queue(-2)) {
