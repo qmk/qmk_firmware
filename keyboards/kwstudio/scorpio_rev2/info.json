@@ -2,8 +2,7 @@
     "manufacturer": "kwstudio",
     "keyboard_name": "Scorpio Rev2",
     "maintainer": "kwstudio",
-    "processor": "STM32F103",
-    "bootloader": "stm32duino",
+    "development_board": "bluepill",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
@@ -33,8 +32,7 @@
             "animation": "rainbow_swirl"
         },
         "layers": {
-            "enabled": true,
-            "override_rgb": false
+            "enabled": true
         },
         "led_count": 9,
         "saturation_steps": 8
