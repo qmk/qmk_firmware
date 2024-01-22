@@ -1,6 +1,6 @@
 # Noxary Valhalla V2
 
-![valhalla](https://cdn.shopify.com/s/files/1/0071/6377/3043/products/BG_AngleL_a247224d-f9ca-4093-b0de-df776e34b02d_900x.jpg?v=1598742611)
+![valhalla](https://imgur.com/281HMjnh.jpg)
 
 An ergonomic 65% by Noxary
 
