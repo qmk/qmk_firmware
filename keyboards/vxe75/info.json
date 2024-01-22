@@ -47,8 +47,6 @@
     "rgb_matrix": {
         "driver": "aw20216",
         "max_brightness": 108,
-        "val_steps": 27,
-        "speed_steps": 64,
         "animations": {
             "solid_color": true,
             "alphas_mods": true,
