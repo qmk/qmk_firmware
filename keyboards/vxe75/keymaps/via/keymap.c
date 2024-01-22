@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  GU_TOGG,  _______,                      RGB_TOG,                                _______,  _______,            RGB_SPD,  RGB_VAD,  RGB_SPI),
 };
 
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
     [1] = { ENCODER_CCW_CW(RGB_MOD, RGB_RMOD)},
     [2] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS)},
