@@ -2,19 +2,16 @@
     "manufacturer": "VGN",
     "keyboard_name": "VXE75",
     "maintainer": "Westberry",
-    "url": "",
-    "processor": "WB32FQ95",
     "bootloader": "wb32-dfu",
     "bootmagic": {
         "matrix": [3, 1]
     },
-    "usb": {
-        "device_version": "1.0.0",
-        "vid": "0x342D",
-        "pid": "0xE3B2",
-        "suspend_wakeup_delay": 1000
-    },
     "diode_direction": "ROW2COL",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "C14", "pin_b": "C15"}
+        ]
+    },
     "features": {
         "bootmagic": true,
         "extrakey": true,
@@ -23,27 +20,17 @@
         "rgb_matrix": true,
         "encoder": true
     },
-    "matrix_pins": {
-        "cols": ["B0", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "C12", "D2", "B10", "B11", "B12", "B13"],
-        "rows": ["A0", "A1", "A2", "A3", "A4", "A8", "A9", "A10"]
-    },
-    "eeprom": {
-        "wear_leveling": {
-            "backing_size": 4096,
-            "driver": "spi_flash"
-        }
-    },
-    "encoder": {
-        "rotary": [
-            {"pin_a": "C14", "pin_b": "C15"}
-        ]
-    },
     "indicators": {
         "caps_lock": "C2",
         "num_lock": "C3",
         "scroll_lock": "C0",
         "on_state": 0
     },
+    "matrix_pins": {
+        "cols": ["B0", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "C12", "D2", "B10", "B11", "B12", "B13"],
+        "rows": ["A0", "A1", "A2", "A3", "A4", "A8", "A9", "A10"]
+    },
+    "processor": "WB32FQ95",
     "rgb_matrix": {
         "driver": "aw20216",
         "max_brightness": 108,
@@ -179,6 +166,19 @@
             {"flags": 4, "matrix":[3, 7],"x":196 , "y":64 },
             {"flags": 4, "matrix":[5, 0],"x":210 , "y":64 }
           ]
+    },
+    "url": "",
+    "usb": {
+        "device_version": "1.0.0",
+        "vid": "0x342D",
+        "pid": "0xE3B2",
+        "suspend_wakeup_delay": 1000
+    },
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096,
+            "driver": "spi_flash"
+        }
     },
     "layouts": {
         "LAYOUT": {
