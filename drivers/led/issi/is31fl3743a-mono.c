@@ -83,7 +83,7 @@ void is31fl3743a_select_page(uint8_t addr, uint8_t page) {
     is31fl3743a_write_register(addr, IS31FL3743A_REG_COMMAND, page);
 }
 
-void is31fl3743a_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
+void is31fl3743a_write_pwm_buffer(uint8_t addr, uint8_t index) {
     // Assumes page 0 is already selected.
     // Transmit PWM registers in 11 transfers of 18 bytes.
 
@@ -91,10 +91,10 @@ void is31fl3743a_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     for (uint8_t i = 0; i < IS31FL3743A_PWM_REGISTER_COUNT; i += 18) {
 #if IS31FL3743A_I2C_PERSISTENCE > 0
         for (uint8_t j = 0; j < IS31FL3743A_I2C_PERSISTENCE; j++) {
-            if (i2c_writeReg(addr << 1, i + 1, pwm_buffer + i, 18, IS31FL3743A_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
+            if (i2c_writeReg(addr << 1, i + 1, g_pwm_buffer[index] + i, 18, IS31FL3743A_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
         }
 #else
-        i2c_writeReg(addr << 1, i + 1, pwm_buffer + i, 18, IS31FL3743A_I2C_TIMEOUT);
+        i2c_writeReg(addr << 1, i + 1, g_pwm_buffer[index] + i, 18, IS31FL3743A_I2C_TIMEOUT);
 #endif
     }
 }
@@ -192,7 +192,7 @@ void is31fl3743a_update_pwm_buffers(uint8_t addr, uint8_t index) {
     if (g_pwm_buffer_update_required[index]) {
         is31fl3743a_select_page(addr, IS31FL3743A_COMMAND_PWM);
 
-        is31fl3743a_write_pwm_buffer(addr, g_pwm_buffer[index]);
+        is31fl3743a_write_pwm_buffer(addr, index);
 
         g_pwm_buffer_update_required[index] = false;
     }

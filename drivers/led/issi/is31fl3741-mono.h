@@ -105,7 +105,6 @@ void is31fl3741_init_drivers(void);
 void is31fl3741_init(uint8_t addr);
 void is31fl3741_write_register(uint8_t addr, uint8_t reg, uint8_t data);
 void is31fl3741_select_page(uint8_t addr, uint8_t page);
-void is31fl3741_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
 
 void is31fl3741_set_value(int index, uint8_t value);
 void is31fl3741_set_value_all(uint8_t value);
