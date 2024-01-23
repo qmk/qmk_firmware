@@ -6,6 +6,18 @@
 #include "quantum.h"
 
 #ifdef VIA_ENABLE
+
+enum tomak_keycodes {
+    IN_TOGG = QK_KB_0,   // indicator toggle
+    IN_OVER,             // indicator override toggle
+	IN_BRINC,            // indicator brightness increase
+	IN_BRDEC,            // indicator brightness decrease
+    IN_HUEINC,           // indicator hue increase
+    IN_HUEDEC,           // indicator hue decrease
+    IN_SATINC,           // indicator saturation increase
+    IN_SATDEC            // indicator saturation decrease
+};
+
 // struct to save things
 typedef struct {
     bool enable_ind:1;                   // | byte
@@ -14,8 +26,7 @@ typedef struct {
     uint8_t ind_index_1;      // 1 byte
     uint8_t ind_index_2;      // 1 byte
     uint8_t ind_index_3;      // 1 byte
-} indicator_settings_config;
-// total 7 bytes
+} indicator_settings_config;  // total 7 bytes
 
 // via value id declaration
 enum tomak_custom_value_id {
@@ -31,4 +42,5 @@ void indicator_config_get_value( uint8_t *data );
 void indicator_config_save ( void );
 void _set_color(HSV *color, uint8_t *data);
 void _get_color(HSV *color, uint8_t *data);
+
 #endif

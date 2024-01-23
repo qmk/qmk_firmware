@@ -1,7 +1,7 @@
 // Copyright 2023 Hyojin Bak (@eerraa)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "tomak_hs.h"
+#include "tomak.h"
 
 #ifdef VIA_ENABLE
 #include "quantum.h"
@@ -172,5 +172,67 @@ void indicator_config_set_value( uint8_t *data )
         }
     }
 }
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    switch(keycode) {
+        case IN_TOGG:
+		{
+            if (record->event.pressed) {
+				g_config.enable_ind = g_config.enable_ind ? false : true;
+			}
+            return false;
+		}
+        case IN_OVER:
+		{
+            if (record->event.pressed) {
+				g_config.ind_override = g_config.ind_override ? false : true;
+			}
+            return false;
+		}
+        case IN_BRINC:
+		{
+            if (record->event.pressed) {
+				g_config.indicator_color.v = (g_config.indicator_color.v + 1) % 256;
+			}
+            return false;
+		}
+        case IN_BRDEC:
+		{
+            if (record->event.pressed) {
+				g_config.indicator_color.v = (g_config.indicator_color.v + 255) % 256;
+			}
+            return false;
+		}
+        case IN_HUEINC:
+		{
+            if (record->event.pressed) {
+				g_config.indicator_color.h = (g_config.indicator_color.h + 1) % 256;
+			}
+            return false;
+		}
+        case IN_HUEDEC:
+		{
+            if (record->event.pressed) {
+				g_config.indicator_color.h = (g_config.indicator_color.h + 255) % 256;
+			}
+            return false;
+		}
+        case IN_SATINC:
+		{
+            if (record->event.pressed) {
+				g_config.indicator_color.h = (g_config.indicator_color.s + 1) % 256;
+			}
+            return false;
+		}
+        case IN_SATDEC:
+		{
+            if (record->event.pressed) {
+				g_config.indicator_color.h = (g_config.indicator_color.s + 255) % 256;
+			}
+            return false;
+		}
+    }
+    return process_record_user(keycode, record);
+};
 
 #endif
