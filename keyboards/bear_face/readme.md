@@ -2,11 +2,11 @@
 
 ![bear_face](https://i.imgur.com/SALKmdP.png)
 
-QMK-compatible replacement PCB for the Vortex Race 3 designed by [chemicalwill](https://github.com/chemicalwill)
+QMK-compatible replacement PCB for the Vortex Race 3 designed by [will-hedges](https://github.com/will-hedges)
 
-* Keyboard Maintainer: [chemicalwill](https://github.com/chemicalwill)
+* Keyboard Maintainer: [will-hedges](https://github.com/will-hedges)
 * Hardware Supported: bear_face v1, v2, v3; atmega32u4
-* Hardware Availability: [currently by request](https://www.reddit.com/message/compose?to=chemicalwill&subject=bear_face%20v2)
+* Hardware Availability: [currently by request on Reddit](https://www.reddit.com/message/compose?to=chemicalwill&subject=bear_face%20v2)
 
 Make example for this keyboard (after setting up your build environment):
 

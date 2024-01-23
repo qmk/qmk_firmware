@@ -1,5 +1,5 @@
 /*
-Copyright 2023 chemicalwill <https://github.com/will-hedges>
+Copyright 2024 chemicalwill <https://github.com/will-hedges>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

@@ -1,8 +1,8 @@
 {
     "keyboard_name": "bear_face",
-    "manufacturer": "chemicalwill",
-    "url": "https://github.com/chemicalwill/bear_face_pcb",
-    "maintainer": "chemicalwill",
+    "manufacturer": "will-hedges",
+    "url": "https://github.com/will-hedges",
+    "maintainer": "will-hedges",
     "debounce": 6,
     "usb": {
         "vid": "0xFEED",
