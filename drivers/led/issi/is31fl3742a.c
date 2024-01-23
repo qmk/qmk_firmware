@@ -62,10 +62,10 @@ uint8_t g_scaling_registers[IS31FL3742A_DRIVER_COUNT][IS31FL3742A_SCALING_REGIST
 void is31fl3742a_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
 #if IS31FL3742A_I2C_PERSISTENCE > 0
     for (uint8_t i = 0; i < IS31FL3742A_I2C_PERSISTENCE; i++) {
-        if (i2c_writeReg(addr << 1, reg, &data, 1, IS31FL3742A_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
+        if (i2c_write_register(addr << 1, reg, &data, 1, IS31FL3742A_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
     }
 #else
-    i2c_writeReg(addr << 1, reg, &data, 1, IS31FL3742A_I2C_TIMEOUT);
+    i2c_write_register(addr << 1, reg, &data, 1, IS31FL3742A_I2C_TIMEOUT);
 #endif
 }
 
@@ -82,10 +82,10 @@ void is31fl3742a_write_pwm_buffer(uint8_t addr, uint8_t index) {
     for (uint8_t i = 0; i < IS31FL3742A_PWM_REGISTER_COUNT; i += 30) {
 #if IS31FL3742A_I2C_PERSISTENCE > 0
         for (uint8_t j = 0; j < IS31FL3742A_I2C_PERSISTENCE; j++) {
-            if (i2c_writeReg(addr << 1, i, g_pwm_buffer[index] + i, 30, IS31FL3742A_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
+            if (i2c_write_register(addr << 1, i, g_pwm_buffer[index] + i, 30, IS31FL3742A_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
         }
 #else
-        i2c_writeReg(addr << 1, i, g_pwm_buffer[index] + i, 30, IS31FL3742A_I2C_TIMEOUT);
+        i2c_write_register(addr << 1, i, g_pwm_buffer[index] + i, 30, IS31FL3742A_I2C_TIMEOUT);
 #endif
     }
 }
