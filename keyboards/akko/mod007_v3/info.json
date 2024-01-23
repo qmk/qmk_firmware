@@ -7,6 +7,13 @@
     "dynamic_keymap": {
         "layer_count": 6
     },
+    "eeprom": {
+        "driver": "wear_leveling",
+        "wear_leveling": {
+            "driver": "spi_flash",
+            "backing_size": 8192
+        }
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "B14", "pin_b": "B13"}
