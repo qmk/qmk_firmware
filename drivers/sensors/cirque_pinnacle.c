@@ -218,9 +218,16 @@ void cirque_pinnacle_cursor_smoothing(bool enable) {
 
 // Check sensor is connected
 bool cirque_pinnacle_connected(void) {
-    uint8_t zidle = 0;
-    RAP_ReadBytes(HOSTREG__ZIDLE, &zidle, 1);
-    return zidle == HOSTREG__ZIDLE_DEFVAL;
+    uint8_t current_zidle = 0;
+    uint8_t temp_zidle    = 0;
+    RAP_ReadBytes(HOSTREG__ZIDLE, &current_zidle, 1);
+    RAP_Write(HOSTREG__ZIDLE, HOSTREG__ZIDLE_DEFVAL);
+    RAP_ReadBytes(HOSTREG__ZIDLE, &temp_zidle, 1);
+    if (temp_zidle == HOSTREG__ZIDLE_DEFVAL) {
+        RAP_Write(HOSTREG__ZIDLE, current_zidle);
+        return true;
+    }
+    return false;
 }
 
 /*  Pinnacle-based TM040040/TM035035/TM023023 Functions  */
