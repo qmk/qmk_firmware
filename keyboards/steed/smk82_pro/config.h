@@ -8,8 +8,6 @@
  *  These options are also useful to firmware size reduction.
  */
 
-#define BT_MODE_ENABLE
-
 #define ENCODER_DEFAULT_POS 0x3
 
 /* I2C Config for LED Driver */
