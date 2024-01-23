@@ -79,7 +79,7 @@ void is31fl3741_select_page(uint8_t addr, uint8_t page) {
     is31fl3741_write_register(addr, IS31FL3741_REG_COMMAND, page);
 }
 
-void is31fl3741_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
+void is31fl3741_write_pwm_buffer(uint8_t addr, uint8_t index) {
     // Assume page 0 is already selected
 
     for (uint16_t i = 0; i < 342; i += 18) {
@@ -89,20 +89,20 @@ void is31fl3741_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
 
 #if IS31FL3741_I2C_PERSISTENCE > 0
         for (uint8_t j = 0; j < IS31FL3741_I2C_PERSISTENCE; j++) {
-            if (i2c_writeReg(addr << 1, i % 180, pwm_buffer + i, 18, IS31FL3741_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
+            if (i2c_writeReg(addr << 1, i % 180, g_pwm_buffer[index] + i, 18, IS31FL3741_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
         }
 #else
-        i2c_writeReg(addr << 1, i % 180, pwm_buffer + i, 18, IS31FL3741_I2C_TIMEOUT);
+        i2c_writeReg(addr << 1, i % 180, g_pwm_buffer[index] + i, 18, IS31FL3741_I2C_TIMEOUT);
 #endif
     }
 
     // transfer the left cause the total number is 351
 #if IS31FL3741_I2C_PERSISTENCE > 0
     for (uint8_t i = 0; i < IS31FL3741_I2C_PERSISTENCE; i++) {
-        if (i2c_writeReg(addr << 1, 162, pwm_buffer + 342, 9, IS31FL3741_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
+        if (i2c_writeReg(addr << 1, 162, g_pwm_buffer[index] + 342, 9, IS31FL3741_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
     }
 #else
-    i2c_writeReg(addr << 1, 162, pwm_buffer + 342, 9, IS31FL3741_I2C_TIMEOUT);
+    i2c_writeReg(addr << 1, 162, g_pwm_buffer[index] + 342, 9, IS31FL3741_I2C_TIMEOUT);
 #endif
 }
 
@@ -199,7 +199,7 @@ void is31fl3741_update_pwm_buffers(uint8_t addr, uint8_t index) {
     if (g_pwm_buffer_update_required[index]) {
         is31fl3741_select_page(addr, IS31FL3741_COMMAND_PWM_0);
 
-        is31fl3741_write_pwm_buffer(addr, g_pwm_buffer[index]);
+        is31fl3741_write_pwm_buffer(addr, index);
 
         g_pwm_buffer_update_required[index] = false;
     }
