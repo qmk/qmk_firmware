@@ -41,8 +41,8 @@
     "url": "",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x4B53",
-        "vid": "0x0003"
+        "pid": "0x0003",
+        "vid": "0x4B53"
     },
     "ws2812": {
         "driver": "pwm",
