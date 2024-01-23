@@ -26,11 +26,9 @@
         "dip_switch": true,
         "encoder": true,
         "extrakey": true,
-        "haptic": false,
         "mousekey": true,
         "nkro": true,
-        "rgb_matrix": true,
-        "rgblight": false
+        "rgb_matrix": true
     },
     "indicators": {
         "caps_lock": "D2"
