@@ -1,8 +1,8 @@
 # Wave
 
-![Wave pcb](https://i.imgur.com/oWF1Fnr.png)
+![Wave Keyboard](https://i.imgur.com/Lz45D3z.png)
 
-_The Wave is a small, reversible keyboard inspired by the [Ferris](https://github.com/pierrechevalier83/ferris), the [Ferris Sweep](https://github.com/davidphilipbarr/Sweep), the [Swoop](https://github.com/jimmerricks/swoop) and the [Sweep36](https://github.com/sadekbaroudi/sweep36). It aims to put together everything I like about these other models and to solve a few issues I found with them.
+_The Wave is a small, reversible keyboard inspired by the [Ferris](https://github.com/pierrechevalier83/ferris), the [Ferris Sweep](https://github.com/davidphilipbarr/Sweep), the [Swoop](https://github.com/jimmerricks/swoop) and the [Sweep36](https://github.com/sadekbaroudi/sweep36). It aims to put together everything I like about these other models and to solve a few issues I found with them._
 
 -   Keyboard Maintainer: [Etienne Collin](https://github.com/etiennecollin)
 -   Hardware Supported: [Wave](https://github.com/etiennecollin/wave)
