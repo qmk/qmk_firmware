@@ -178,7 +178,7 @@ void is31fl3745_set_value(int index, uint8_t value) {
         }
 
         driver_buffers[led.driver].pwm_buffer[led.v] = value;
-        driver_buffers[led.driver].pwm_buffer_dirty = true;
+        driver_buffers[led.driver].pwm_buffer_dirty  = true;
     }
 }
 

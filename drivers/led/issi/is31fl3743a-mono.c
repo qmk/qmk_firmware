@@ -193,7 +193,7 @@ void is31fl3743a_set_scaling_register(uint8_t index, uint8_t value) {
     memcpy_P(&led, (&g_is31fl3743a_leds[index]), sizeof(led));
 
     driver_buffers[led.driver].scaling_buffer[led.v] = value;
-    driver_buffers[led.driver].scaling_buffer_dirty = true;
+    driver_buffers[led.driver].scaling_buffer_dirty  = true;
 }
 
 void is31fl3743a_update_pwm_buffers(uint8_t addr, uint8_t index) {
