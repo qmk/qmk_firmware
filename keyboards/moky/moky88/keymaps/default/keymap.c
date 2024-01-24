@@ -1,4 +1,4 @@
-// Copyright 2023 MOKY
+// Copyright 2023 VertorWang (@itarze)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
