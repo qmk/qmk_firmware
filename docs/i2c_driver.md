@@ -117,6 +117,42 @@ See [this page](https://www.playembedded.org/blog/stm32-i2c-chibios/#8_I2Cv2_I2C
 |`I2C1_TIMINGR_SCLH`  |`38U`  |
 |`I2C1_TIMINGR_SCLL`  |`129U` |
 
+### I2C Fallback :id=arm-configuration-i2cfallback
+ChibiOS provides a software solution through the I2C Fallback driver for cases where hardware I2C is not available.
+To enable it instead of the hardware driver, add the following to your `rules.mk`:
+```make
+USE_HAL_I2C_FALLBACK = yes
+```
+Then modify your board's `halconf.h` to select the I2C Fallback driver( assuming selected I2C peripheral is `I2CD1`).
+```c
+#define SW_I2C_USE_I2C1 TRUE
+```
+By default, the delay required for I2C communication is calculated automatically with a target frequency of 100kHz, through the ChibiOS OSAL layer. If you wish to override this behavior, further modify your board's `halconf.h`
+```c
+#define SW_I2C_USE_OSAL_DELAY FALSE
+```
+and provide the following function in your board's files
+```c
+void i2c_sw_delay(void) {
+  // custom delay goes here
+}
+```
+The I2C Fallback configuration structure is as follows
+|`config.h` Override    |Default |
+|-----------------------|--------|
+|`I2C1_CLOCK_SPEED`     |`100000`|
+
+|`halconf.h` Override   |Default |
+|-----------------------|--------|
+|`SW_I2C_USE_OSAL_DELAY`|`TRUE`  |
+
+Note that `I2C1_CLOCK_SPEED` is target I2C speed in `Hz` and is only respected if `SW_I2C_USE_OSAL_DELAY` is `TRUE`.
+The actual speed is controlled via software delays, using the following calculation
+```c
+#define SW_I2C_DELAY ceil((CH_CFG_ST_FREQUENCY / I2C1_CLOCK_SPEED) / 2)
+```
+
+
 ## API :id=api
 
 ### `void i2c_init(void)` :id=api-i2c-init
