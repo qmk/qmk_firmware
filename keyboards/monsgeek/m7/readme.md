@@ -1,10 +1,11 @@
 # M7
-![M7](image-1.png)
+![M7](https://github.com/jonylee1986/qmk_firmware_master/assets/108282809/b9d54e20-7691-489b-903b-c3e40744e583)
+
 A customizable 65% keyboard.
 
 * Keyboard Maintainer: [jonylee@hfd](https://github.com/jonylee1986)
-* Hardware Supported: MonsGeek M7
-* Hardware Availability: [STEED](https://steed.sg/products/smk82)
+* Hardware Supported: monsgeek M7
+* Hardware Availability: [monsgeek](https://www.monsgeek.com)
 
 Make example for this keyboard (after setting up your build environment):
 
