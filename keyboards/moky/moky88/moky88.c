@@ -89,31 +89,31 @@ const aw_led g_aw_leds[RGB_MATRIX_LED_COUNT] = {
     {0, CS1_SW11,  CS2_SW11,  CS3_SW11   },  // 60 L
     {0, CS1_SW12,  CS2_SW12,  CS3_SW12   },  // 61 ;:
     {1, CS1_SW1,   CS2_SW1,   CS3_SW1    },  // 62 '
-    {1, CS1_SW3,   CS2_SW3,   CS3_SW3    },  // 64 Enter
+    {1, CS1_SW3,   CS2_SW3,   CS3_SW3    },  // 63 Enter
 
-    {0, CS4_SW2,   CS5_SW2,   CS6_SW2    },  // 65 Shift
-    {0, CS4_SW4,   CS5_SW4,   CS6_SW4    },  // 67 Z
-    {0, CS4_SW5,   CS5_SW5,   CS6_SW5    },  // 68 X
-    {0, CS4_SW6,   CS5_SW6,   CS6_SW6    },  // 69 C
-    {0, CS4_SW7,   CS5_SW7,   CS6_SW7    },  // 70 V
-    {0, CS4_SW8,   CS5_SW8,   CS6_SW8    },  // 71 B
-    {0, CS4_SW9,   CS5_SW9,   CS6_SW9    },  // 72 N
-    {0, CS4_SW10,  CS5_SW10,  CS6_SW10   },  // 73 M
-    {0, CS4_SW11,  CS5_SW11,  CS6_SW11   },  // 74 ,<
-    {0, CS4_SW12,  CS5_SW12,  CS6_SW12   },  // 75 .>
-    {1, CS4_SW1,   CS5_SW1,   CS6_SW1    },  // 76 ?
-    {1, CS4_SW3,   CS5_SW3,   CS6_SW3    },  // 77 Shift
-    {1, CS4_SW5,   CS5_SW5,   CS6_SW5    },  // 78 Up
+    {0, CS4_SW2,   CS5_SW2,   CS6_SW2    },  // 64 Shift
+    {0, CS4_SW4,   CS5_SW4,   CS6_SW4    },  // 65 Z
+    {0, CS4_SW5,   CS5_SW5,   CS6_SW5    },  // 66 X
+    {0, CS4_SW6,   CS5_SW6,   CS6_SW6    },  // 67 C
+    {0, CS4_SW7,   CS5_SW7,   CS6_SW7    },  // 68 V
+    {0, CS4_SW8,   CS5_SW8,   CS6_SW8    },  // 69 B
+    {0, CS4_SW9,   CS5_SW9,   CS6_SW9    },  // 70 N
+    {0, CS4_SW10,  CS5_SW10,  CS6_SW10   },  // 71 M
+    {0, CS4_SW11,  CS5_SW11,  CS6_SW11   },  // 72 ,<
+    {0, CS4_SW12,  CS5_SW12,  CS6_SW12   },  // 73 .>
+    {1, CS4_SW1,   CS5_SW1,   CS6_SW1    },  // 74 ?
+    {1, CS4_SW3,   CS5_SW3,   CS6_SW3    },  // 75 Shift
+    {1, CS4_SW5,   CS5_SW5,   CS6_SW5    },  // 76 Up
 
-    {0, CS7_SW2,   CS8_SW2,   CS9_SW2    },  // 79 Ctrl_L
-    {0, CS7_SW3,   CS8_SW3,   CS9_SW3    },  // 80 Win_L
-    {0, CS7_SW4,   CS8_SW4,   CS9_SW4    },  // 81 ALT_L
-    {0, CS7_SW8,   CS8_SW8,   CS9_SW8    },  // 82 SPACE
-    {0, CS7_SW12,  CS8_SW12,  CS9_SW12   },  // 83 ALT_L
-    {1, CS7_SW1,   CS8_SW1,   CS9_SW1    },  // 84 Win_L
-    {1, CS7_SW2,   CS8_SW2,   CS9_SW2    },  // 85 Fn
-    {1, CS7_SW3,   CS8_SW3,   CS9_SW3    },  // 86 Ctrl_L
-    {1, CS7_SW4,   CS8_SW4,   CS9_SW4    },  // 87 Left
-    {1, CS7_SW5,   CS8_SW5,   CS9_SW5    },  // 88 Down
-    {1, CS7_SW6,   CS8_SW6,   CS9_SW6    },  // 89 Right
+    {0, CS7_SW2,   CS8_SW2,   CS9_SW2    },  // 77 Ctrl_L
+    {0, CS7_SW3,   CS8_SW3,   CS9_SW3    },  // 78 Win_L
+    {0, CS7_SW4,   CS8_SW4,   CS9_SW4    },  // 79 ALT_L
+    {0, CS7_SW8,   CS8_SW8,   CS9_SW8    },  // 80 SPACE
+    {0, CS7_SW12,  CS8_SW12,  CS9_SW12   },  // 81 ALT_L
+    {1, CS7_SW1,   CS8_SW1,   CS9_SW1    },  // 82 Win_L
+    {1, CS7_SW2,   CS8_SW2,   CS9_SW2    },  // 83 Fn
+    {1, CS7_SW3,   CS8_SW3,   CS9_SW3    },  // 84 Ctrl_L
+    {1, CS7_SW4,   CS8_SW4,   CS9_SW4    },  // 85 Left
+    {1, CS7_SW5,   CS8_SW5,   CS9_SW5    },  // 86 Down
+    {1, CS7_SW6,   CS8_SW6,   CS9_SW6    },  // 87 Right
 };
