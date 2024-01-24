@@ -5,9 +5,6 @@
   "url": "",
   "processor": "WB32FQ95",
   "bootloader": "wb32-dfu",
-  "bootmagic": {
-      "matrix": [0, 0]
-  },
   "usb": {
       "device_version": "1.0.0",
       "vid": "0xBB4F",
