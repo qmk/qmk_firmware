@@ -38,20 +38,20 @@ bool    g_led_control_registers_update_required                        = false;
 void is31fl3218_write_register(uint8_t reg, uint8_t data) {
 #if IS31FL3218_I2C_PERSISTENCE > 0
     for (uint8_t i = 0; i < IS31FL3218_I2C_PERSISTENCE; i++) {
-        if (i2c_writeReg(IS31FL3218_I2C_ADDRESS << 1, reg, &data, 1, IS31FL3218_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
+        if (i2c_write_register(IS31FL3218_I2C_ADDRESS << 1, reg, &data, 1, IS31FL3218_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
     }
 #else
-    i2c_writeReg(IS31FL3218_I2C_ADDRESS << 1, reg, &data, 1, IS31FL3218_I2C_TIMEOUT);
+    i2c_write_register(IS31FL3218_I2C_ADDRESS << 1, reg, &data, 1, IS31FL3218_I2C_TIMEOUT);
 #endif
 }
 
 void is31fl3218_write_pwm_buffer(void) {
 #if IS31FL3218_I2C_PERSISTENCE > 0
     for (uint8_t i = 0; i < IS31FL3218_I2C_PERSISTENCE; i++) {
-        if (i2c_writeReg(IS31FL3218_I2C_ADDRESS << 1, IS31FL3218_REG_PWM, g_pwm_buffer, 18, IS31FL3218_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
+        if (i2c_write_register(IS31FL3218_I2C_ADDRESS << 1, IS31FL3218_REG_PWM, g_pwm_buffer, 18, IS31FL3218_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
     }
 #else
-    i2c_writeReg(IS31FL3218_I2C_ADDRESS << 1, IS31FL3218_REG_PWM, g_pwm_buffer, 18, IS31FL3218_I2C_TIMEOUT);
+    i2c_write_register(IS31FL3218_I2C_ADDRESS << 1, IS31FL3218_REG_PWM, g_pwm_buffer, 18, IS31FL3218_I2C_TIMEOUT);
 #endif
 }
 

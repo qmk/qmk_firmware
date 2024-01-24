@@ -75,10 +75,10 @@ bool    g_led_control_registers_update_required[IS31FL3733_DRIVER_COUNT]        
 void is31fl3733_write_register(uint8_t index, uint8_t addr, uint8_t reg, uint8_t data) {
 #if IS31FL3733_I2C_PERSISTENCE > 0
     for (uint8_t i = 0; i < IS31FL3733_I2C_PERSISTENCE; i++) {
-        if (i2c_writeReg(index, addr << 1, reg, &data, 1, IS31FL3733_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
+        if (i2c_write_register(index, addr << 1, reg, &data, 1, IS31FL3733_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
     }
 #else
-    i2c_writeReg(index, addr << 1, reg, &data, 1, IS31FL3733_I2C_TIMEOUT);
+    i2c_write_register(index, addr << 1, reg, &data, 1, IS31FL3733_I2C_TIMEOUT);
 #endif
 }
 
@@ -95,10 +95,10 @@ void is31fl3733_write_pwm_buffer(uint8_t addr, uint8_t index) {
     for (uint8_t i = 0; i < IS31FL3733_PWM_REGISTER_COUNT; i += 16) {
 #if IS31FL3733_I2C_PERSISTENCE > 0
         for (uint8_t j = 0; j < IS31FL3733_I2C_PERSISTENCE; j++) {
-            if (i2c_writeReg(index, addr << 1, i, g_pwm_buffer[index] + i, 16, IS31FL3733_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
+            if (i2c_write_register(index, addr << 1, i, g_pwm_buffer[index] + i, 16, IS31FL3733_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
         }
 #else
-        i2c_writeReg(index, addr << 1, i, g_pwm_buffer[index] + i, 16, IS31FL3733_I2C_TIMEOUT);
+        i2c_write_register(index, addr << 1, i, g_pwm_buffer[index] + i, 16, IS31FL3733_I2C_TIMEOUT);
 #endif
     }
 }
