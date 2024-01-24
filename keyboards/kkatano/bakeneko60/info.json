@@ -1,7 +1,7 @@
 {
     "keyboard_name": "Bakeneko 60",
     "manufacturer": "kkatano",
-    "url": "https://github.com/kkatano/bakeneko-60-pcb",
+    "url": "https://github.com/kkatano/bakeneko-60",
     "maintainer": "kkatano",
     "usb": {
         "vid": "0x3A0E",
