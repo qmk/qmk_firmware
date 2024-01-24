@@ -34,7 +34,10 @@ extern DEV_INFO_STRUCT dev_info;
 
 
 /* qmk process record */
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if(!process_record_user(keycode, record)){
+        return false;
+    }
     no_act_time = 0;
     rf_linking_time = 0;
 
@@ -226,6 +229,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         default:
             return true;
     }
+    return true;
 }
 
 
