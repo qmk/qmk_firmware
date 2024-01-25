@@ -1,11 +1,10 @@
-// Copyright 2022 Kyle McCreery (@kylemccreery)
+// Copyright 2024 QMK Contributors (@qmk)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
 
-/* RGB settings, uncomment this define to enable RGB */
-#define WS2812_DI_PIN B6
-#define RGB_MATRIX_LED_COUNT  28
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
+#define WS2812_PWM_DRIVER PWMD4
+#define WS2812_PWM_CHANNEL 1
+#define WS2812_PWM_PAL_MODE 2
+#define WS2812_DMA_STREAM STM32_DMA1_STREAM6
+#define WS2812_DMA_CHANNEL 2
