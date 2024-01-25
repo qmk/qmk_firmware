@@ -1,4 +1,5 @@
 # moky88
+![image](https://github.com/VertorWang/qmk_firmware/assets/96033026/15564003-4d7c-4fd9-8259-5202695cc76b)
 
 An in-switch RGB LED keyboard with RGB underglow.
 
