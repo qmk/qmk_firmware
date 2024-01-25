@@ -1,6 +1,6 @@
 # storre
 
-![Storre](https://i.imgur.com/flyrutPh.jpeg)
+![Storre](https://i.imgur.com/xxb9p5y.jpeg)
 
 Större is an easy to build 75%ish keyboard using only through hole components. It uses a separate microcontroller (like the Pro Micro or Elite C) to enable flexibility in connectivity and to further simplify the soldering experience (no more tricksy USB ports).
 
