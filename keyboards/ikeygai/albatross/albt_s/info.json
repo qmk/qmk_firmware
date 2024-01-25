@@ -34,7 +34,9 @@
     "backlight": {
         "pin": "B1",
         "levels": 20,
-        "as_caps_lock": true
+        "default": {
+            "brightness": 31
+        }
     },
     "processor": "STM32F401",
     "bootloader": "stm32-dfu",

@@ -14,6 +14,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "quantum.h"
 
-#include_next <mcuconf.h>
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    led_state.caps_lock ? backlight_enable() : backlight_disable() ; 
+    return res;
+}
