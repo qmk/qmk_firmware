@@ -14,3 +14,4 @@
 
 #define CALIBRATION_RANGE 255
 
+#define DEBOUNCE 16
