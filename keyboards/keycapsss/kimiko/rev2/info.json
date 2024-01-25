@@ -117,10 +117,7 @@
                 "rows": ["D4", "C6", "D7", "E6", "B4", "B5"]
             }
         },
-        "soft_serial_pin": "D2",
-        "transport": {
-            "matrix_state": true
-        }
+        "soft_serial_pin": "D2"
     },
     "url": "https://keycapsss.com",
     "usb": {
