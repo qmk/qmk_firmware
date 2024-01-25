@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 
 enum layer_number {
-  _QWERTY = 0,
+  _DVORAK = 0,
   _LOWER,
   _RAISE,
   _ADJUST,
@@ -13,22 +13,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * | ESC  |  P8  |  P4  |  P5  |  P6  | TG_A |                    | INS  | DEL  | HOME | END  | PGUP | PGDN |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | Tab  |   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |   P  |  -   |
+ * | Tab  |   '  |   ,  |   .  |   P  |   Y  |                    |   F  |   G  |   C  |   R  |   L  |  /   |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |LShift|   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   ;  |  '   |
+ * |LShift|   A  |   O  |   E  |   U  |   I  |-------.    ,-------|   D  |   H  |   T  |   N  |   S  |  -   |
  * |------+------+------+------+------+------| LOCK  |    | Mute  |------+------+------+------+------+------|
- * |LCTRL |   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |RShift|
+ * |LCTRL |   ;  |   Q  |   J  |   K  |   X  |-------|    |-------|   B  |   M  |   W  |   V  |   Z  |RShift|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   | LGUI | LAlt |LOWER | /Space  /       \Enter \  |RAISE |BackSP| RGUI |
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
 
- [_QWERTY] = LAYOUT(
+ [_DVORAK] = LAYOUT(
   KC_ESC,  KC_P8,  KC_P4,   KC_P5,   KC_P6,TG(_ADJUST),                 KC_INS,  KC_DEL, KC_HOME,  KC_END,  KC_PGUP,   KC_PGDN,
-  KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS,
-  KC_LSFT,  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-  KC_LCTL,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, QK_LOCK,   KC_MUTE, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT,
+  KC_TAB,KC_QUOTE,KC_COMM, KC_DOT,    KC_P,    KC_Y,                     KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH,
+  KC_LSFT,  KC_A,   KC_O,    KC_E,    KC_U,    KC_I,                     KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINUS,
+  KC_LCTL,KC_SCLN,  KC_Q,    KC_J,    KC_K,    KC_X, QK_LOCK,   KC_MUTE, KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,     KC_RSFT,
                         KC_LGUI, KC_LALT, MO(_LOWER), KC_SPC, KC_ENT  , MO(_RAISE), KC_BSPC, KC_RGUI
 ),
 /* LOWER
