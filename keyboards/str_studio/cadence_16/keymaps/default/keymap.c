@@ -84,6 +84,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef ENCODER_ENABLE
 
+// // Define your encoder actions
+// enum encoder_action {
+//     ENCODER_VOLUME,
+//     ENCODER_SCROLL,
+//     // Add more actions as needed
+// };
+
+// // Define a map for the encoder actions
+// const uint16_t PROGMEM encoder_map[][2] = {
+//     [ENCODER_VOLUME] = {KC_VOLU, KC_VOLD},
+//     [ENCODER_SCROLL] = {KC_PGUP, KC_PGDN},
+//     // Add more mappings as needed
+// };
+
+// bool encoder_update_user(uint8_t index, bool clockwise) {
+//     if (index < sizeof(encoder_map) / sizeof(encoder_map[0])) {
+//         uint16_t keycode = encoder_map[index][clockwise ? 0 : 1];
+//         tap_code(keycode);
+//     }
+//     return true;
+// }
+
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (clockwise) {

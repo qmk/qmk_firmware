@@ -16,15 +16,6 @@
 
 #pragma once
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 4
-
-#define MATRIX_ROW_PINS { F0, F6, F5, F4, F1 }
-#define MATRIX_COL_PINS { B6, B5, B4, D7 } // A virtual pin (NO_PIN) is needed for the encoder key matrix in via.
-
-#define DIODE_DIRECTION COL2ROW
-
 #define TAP_CODE_DELAY  10
 
 // OLED settings
