@@ -97,6 +97,7 @@ void process_magic_key(void) {
         magic_case(CLT_R,  "l");
         magic_case(SMT_D,  "y");
         magic_case(ALT_E,  "u");
+        magic_case(CLT_A,  "b");
         magic_case(LT_I,   "on");
         magic_case(KC_V,   "er");
         magic_case(KC_Q,   "ue");
@@ -109,6 +110,5 @@ void process_magic_key(void) {
         magic_case(KC_W,   "hich");
         magic_case(KC_F,   "irst");
         magic_case(KC_B,   "efore");
-        remember_magic_case(CLT_A, "b", KC_B);
     }
 }

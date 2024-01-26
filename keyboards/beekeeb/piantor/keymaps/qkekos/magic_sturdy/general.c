@@ -19,6 +19,27 @@ void refresh_token(void) {
     magic_timeout_token = defer_exec(MAGIC_KEY_TIMEOUT, enqueue_space, NULL);
 }
 
+void record_send_string(const char *str) {
+    for (int i = 0; str[i] != '\0'; i++) {
+        switch (str[i]) {
+            record_case('s', GLT_S);
+            record_case('t', ALT_T);
+            record_case('r', CLT_R);
+            record_case('d', SMT_D);
+
+            record_case('n', SMT_N);
+            record_case('a', CLT_A);
+            record_case('e', ALT_E);
+            record_case('i', LT_I );
+        }
+
+        if (65 <= str[i] && str[i] <= 90) enqueue(str[i] - 61);
+        else if (97 <= str[i] && str[i] <= 122) enqueue(str[i] - 93);
+    }
+
+    SEND_STRING(str);
+}
+
 void enqueue(int keycode) {
     for (int i = 0; i < PREV_KEYS_QUEUE_SIZE - 1; i += 1)
         prev_keys_queue[i] = prev_keys_queue[i + 1];
