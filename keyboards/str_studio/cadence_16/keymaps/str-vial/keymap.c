@@ -18,15 +18,20 @@
 
 #include "oled.c"
 // #include "encoder.c"
+extern MidiDevice midi_device;
+#define MIDI_CC_OFF 0
+#define MIDI_CC_ON  127
 
 enum custom_layers {
     /* _M_XYZ = Mac Os, _W_XYZ = Win/Linux */
     _NUMBER,
-    _LOWER
+    _FN,
+    _MIDI
 };
 
 enum custom_keycodes {
     PLACEHOLDER = SAFE_RANGE,
+    MIDI_CC80,
     CYCLE
 };
 
@@ -43,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------|
  * |   1  |   2  |   3  |  En  |
  * |--------------------|  te  |
- * | LOWR |   0  |  Del |  r   |
+ * | LOWR |   0  |  .   |  r   |
  * `---------------------------'
  */
 
@@ -52,54 +57,64 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_KP_7,     KC_KP_8,    KC_KP_9,    KC_KP_MINUS,
    KC_KP_4,     KC_KP_5,    KC_KP_6,    KC_KP_PLUS,
    KC_KP_1,     KC_KP_2,    KC_KP_3,    KC_KP_ENTER,
-   MO(_LOWER),  KC_KP_0,    KC_KP_DOT
+   MO(_FN),     KC_KP_0,    KC_KP_DOT
 ),
 
-/* LOWER
+/* FUNCTION
  * ,---------------------------.
  * |      |      |      | Mute |
  * |------+------+------+------|
- * | Nlck |  Up  |   *  |   /  |
+ * | Nlck |  Up  | Bksp |   /  |
  * |------+------+------+------|
  * | Left | Down | Rght |   *  |
  * |------+------+------+------|
- * | Left | Down | Rght |  En  |
+ * |      | Home | PgUp |  En  |
  * |--------------------|  te  |
- * |  Fn  |   0  |  Del |  r   |
+ * |  Fn  | End  | PgDn |  r   |
  * `---------------------------'
  */
  
-[_LOWER] = LAYOUT(
-                                            KC_MUTE,
-   KC_NUM_LOCK, KC_UP,       KC_KP_ASTERISK, KC_KP_SLASH,
-   KC_LEFT,     KC_DOWN,     KC_RGHT,        KC_KP_ASTERISK,
-   KC_LEFT,     KC_DOWN,     KC_RGHT,        KC_KP_ENTER,
-   MO(_LOWER),  KC_KP_0,     KC_KP_DOT
+[_FN] = LAYOUT(
+                                            TO(_MIDI),
+   KC_NUM_LOCK, KC_UP,      KC_BACKSPACE,   KC_KP_SLASH,
+   KC_LEFT,     KC_DOWN,    KC_RGHT,        KC_KP_ASTERISK,
+   QK_BOOT,       KC_HOME,    KC_PAGE_UP,     KC_KP_ENTER,
+   MO(_FN),     KC_END,     KC_PAGE_DOWN
+),
+
+[_MIDI] = LAYOUT(
+                                            QK_MIDI_ON,
+    QK_MIDI_NOTE_A_0,     QK_MIDI_NOTE_A_SHARP_0,    QK_MIDI_NOTE_B_0,    QK_MIDI_NOTE_C_1,
+    QK_MIDI_NOTE_F_0,     QK_MIDI_NOTE_F_SHARP_0,    QK_MIDI_NOTE_G_0,    QK_MIDI_NOTE_G_SHARP_0,
+    QK_MIDI_NOTE_D_0,     QK_MIDI_NOTE_D_SHARP_0,    QK_MIDI_NOTE_E_0,    MIDI_CC80,
+    TO(_NUMBER),     QK_MIDI_NOTE_C_0,    QK_MIDI_NOTE_C_SHARP_0
 )
 
 };
 
-// layer_state_t layer_state_set_user(layer_state_t state) {
-//     return update_tri_layer_state(state, _LOWER);
-// }
-
-#ifdef ENCODER_ENABLE
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    } else if (index == 1) {
-        if (clockwise) {
-            tap_code(KC_PGDN);
-        } else {
-            tap_code(KC_PGUP);
-        }
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case MIDI_CC80:
+            if (record->event.pressed) {
+                midi_send_cc(&midi_device, midi_config.channel, 80, MIDI_CC_ON);
+            } else {
+                midi_send_cc(&midi_device, midi_config.channel, 80, MIDI_CC_OFF);
+            }
+            return true;
     }
     return true;
-}
+};
 
+// layer_state_t layer_state_set_user(layer_state_t state) {
+//     return update_tri_layer_state(state, _FN);
+// }
+
+// ================== Encoder ==================
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_NUMBER] =   { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+    [_FN]     =   { ENCODER_CCW_CW(KC_PGDN, KC_PGUP)  },
+    [_MIDI]   =   { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+    //                  Encoder 1              
+};  
 #endif
