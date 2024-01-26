@@ -85,7 +85,7 @@ int main(void)
         _delay_ms(1000);
     }
 
-    debug("init: done\n");
+    dprintf("init: done\n");
 
     for (;;) {
         keyboard_task();
