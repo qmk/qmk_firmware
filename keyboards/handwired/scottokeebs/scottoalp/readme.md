@@ -2,7 +2,7 @@
 
 ![ScottoAlp](https://i.imgur.com/XKpYcMgh.jpeg)
 
-A 35-key ortholinear keyboard with a 3u spacebar and is compatible with both MX or Alps. Case files available [here](https://github.com/joe-scotto/scottokeebs).
+A 35 or 43-key ortholinear keyboard with a 3u spacebar and is compatible with both MX or Alps. Case files available [here](https://github.com/joe-scotto/scottokeebs).
 
 *   Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
 *   Hardware Supported: ATmega32U4
