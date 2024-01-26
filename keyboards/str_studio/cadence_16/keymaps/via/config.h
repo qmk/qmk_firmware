@@ -16,14 +16,9 @@
 
 #pragma once
 
-#define VIAL_KEYBOARD_UID {0x10, 0x69, 0x8E, 0x5C, 0x79, 0x4D, 0x46, 0xB8}
-#define VIAL_UNLOCK_COMBO_ROWS {1, 2, 3}
-#define VIAL_UNLOCK_COMBO_COLS {3, 3, 3}
-#define MIDI_ADVANCED
-
 
 // Disabled to save space
-// #define NO_ACTION_ONESHOT  // 332
-// #define NO_ACTION_MACRO    // 0
-// #define NO_ACTION_FUNCTION // 0
-// #define DISABLE_LEADER     // 0
+#define NO_ACTION_ONESHOT  // 332
+#define NO_ACTION_MACRO    // 0
+#define NO_ACTION_FUNCTION // 0
+#define DISABLE_LEADER     // 0

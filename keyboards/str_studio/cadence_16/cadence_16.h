@@ -2,7 +2,6 @@
 
 #include "quantum.h"
 
-
 #define LAYOUT( \
                    K03, \
     K10, K11, K12, K13, \

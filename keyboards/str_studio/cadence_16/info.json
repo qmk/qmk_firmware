@@ -1,6 +1,6 @@
 {
     "keyboard_name": "cadence-16",
-    "manufacturer": "str-studio",
+    "manufacturer": "str studio",
     "usb": {
         "vid": "0x5712",
         "pid": "0x0001",
@@ -8,7 +8,7 @@
     },
     "encoder": {
         "rotary": [
-            {"pin_a": "F0", "pin_b": "D7", "resolution": 2}
+            {"pin_a": "D2", "pin_b": "D3", "resolution": 2}
         ]
     },
     "processor": "atmega32u4",
