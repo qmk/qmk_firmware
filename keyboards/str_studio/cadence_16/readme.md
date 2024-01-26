@@ -9,7 +9,7 @@ A weighty compact 16 keys numpad made and sold by [str studio](https://strstudio
 
 Make example for this keyboard (after setting up your build environment):
 
-    qmk compile -kb str_studio/cadence16 -km default
+    qmk compile -kb str_studio/cadence_16 -km default
 
 Flashing the firmware using [QMK Toolbox](https://github.com/qmk/qmk_toolbox)
 

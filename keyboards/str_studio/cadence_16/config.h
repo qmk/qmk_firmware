@@ -21,7 +21,3 @@
 // OLED settings
 #define OLED_TIMEOUT    80000
 #define OLED_BRIGHTNESS 90
-
-// Encoder settings
-#define ENCODERS_PAD_A { D2 }
-#define ENCODERS_PAD_B { D3 }
