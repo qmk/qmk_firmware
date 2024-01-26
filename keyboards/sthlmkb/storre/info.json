@@ -10,7 +10,7 @@
          "vid": "0x8086"
      },
     "features": {
-         "bootmagic": false,
+         "bootmagic": true,
          "command": false,
          "console": false,
          "extrakey": true,
