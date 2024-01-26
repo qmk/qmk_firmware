@@ -1,4 +1,4 @@
-/* Copyright 2021 Yiancar-Designs
+/* Copyright 2024 Yiancar-Designs
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,9 +13,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- #include "lvl_type1_80.h"
+#include "quantum.h"
 
 void led_init_ports(void) {
     // Set our LED pins as open drain outputs
-    palSetLineMode(LED_CAPS_LOCK_PIN, PAL_MODE_OUTPUT_OPENDRAIN);
+    setPinOutputOpenDrain(LED_CAPS_LOCK_PIN);
 }
