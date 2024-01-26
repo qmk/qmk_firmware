@@ -18,8 +18,8 @@
     },
     "encoder": {
         "rotary": [
-            {"pin_a": "D4", "pin_b": "C6"},
-            {"pin_a": "F4", "pin_b": "F5"}
+            {"pin_a": "C6", "pin_b": "D4"},
+            {"pin_a": "F5", "pin_b": "F4"}
         ]
     },
     "layouts": {
@@ -156,7 +156,7 @@
                 {"label": "-", "matrix": [1, 11], "x": 11, "y": 2.25},
                 {"label": "=", "matrix": [1, 12], "x": 12, "y": 2.25},
                 {"label": "Backspace", "matrix": [1, 14], "x": 13, "y": 2.25, "w": 2},
-                {"label": "Home", "matrix": [1, 15], "x": 15, "y": 2.25},      
+                {"label": "Home", "matrix": [1, 15], "x": 15, "y": 2.25},
 
                 {"label": "Tab", "matrix": [2, 2], "x": 0, "y": 3.25, "w": 1.5},
                 {"label": "Q", "matrix": [2, 3], "x": 1.5, "y": 3.25},
@@ -251,7 +251,7 @@
                 {"label": "=", "matrix": [1, 12], "x": 12, "y": 2.25},
                 {"label": "Backspace", "matrix": [1, 13], "x": 13, "y": 2.25},
                 {"label": "Backspace", "matrix": [1, 14], "x": 14, "y": 2.25},
-                {"label": "Home", "matrix": [1, 15], "x": 15, "y": 2.25},      
+                {"label": "Home", "matrix": [1, 15], "x": 15, "y": 2.25},
 
                 {"label": "Tab", "matrix": [2, 2], "x": 0, "y": 3.25, "w": 1.5},
                 {"label": "Q", "matrix": [2, 3], "x": 1.5, "y": 3.25},
@@ -345,7 +345,7 @@
                 {"label": "-", "matrix": [1, 11], "x": 11, "y": 2.25},
                 {"label": "=", "matrix": [1, 12], "x": 12, "y": 2.25},
                 {"label": "Backspace", "matrix": [1, 14], "x": 13, "y": 2.25, "w": 2},
-                {"label": "Home", "matrix": [1, 15], "x": 15, "y": 2.25},      
+                {"label": "Home", "matrix": [1, 15], "x": 15, "y": 2.25},
 
                 {"label": "Tab", "matrix": [2, 2], "x": 0, "y": 3.25, "w": 1.5},
                 {"label": "Q", "matrix": [2, 3], "x": 1.5, "y": 3.25},
@@ -442,7 +442,7 @@
                 {"label": "=", "matrix": [1, 12], "x": 12, "y": 2.25},
                 {"label": "Backspace", "matrix": [1, 13], "x": 13, "y": 2.25},
                 {"label": "Backspace", "matrix": [1, 14], "x": 14, "y": 2.25},
-                {"label": "Home", "matrix": [1, 15], "x": 15, "y": 2.25},      
+                {"label": "Home", "matrix": [1, 15], "x": 15, "y": 2.25},
 
                 {"label": "Tab", "matrix": [2, 2], "x": 0, "y": 3.25, "w": 1.5},
                 {"label": "Q", "matrix": [2, 3], "x": 1.5, "y": 3.25},
@@ -538,7 +538,7 @@
                 {"label": "-", "matrix": [1, 11], "x": 11, "y": 2.25},
                 {"label": "=", "matrix": [1, 12], "x": 12, "y": 2.25},
                 {"label": "Backspace", "matrix": [1, 14], "x": 13, "y": 2.25, "w": 2},
-                {"label": "Home", "matrix": [1, 15], "x": 15, "y": 2.25},      
+                {"label": "Home", "matrix": [1, 15], "x": 15, "y": 2.25},
 
                 {"label": "Tab", "matrix": [2, 2], "x": 0, "y": 3.25, "w": 1.5},
                 {"label": "Q", "matrix": [2, 3], "x": 1.5, "y": 3.25},
@@ -632,7 +632,7 @@
                 {"label": "=", "matrix": [1, 12], "x": 12, "y": 2.25},
                 {"label": "Backspace", "matrix": [1, 13], "x": 13, "y": 2.25},
                 {"label": "Backspace", "matrix": [1, 14], "x": 14, "y": 2.25},
-                {"label": "Home", "matrix": [1, 15], "x": 15, "y": 2.25},      
+                {"label": "Home", "matrix": [1, 15], "x": 15, "y": 2.25},
 
                 {"label": "Tab", "matrix": [2, 2], "x": 0, "y": 3.25, "w": 1.5},
                 {"label": "Q", "matrix": [2, 3], "x": 1.5, "y": 3.25},
@@ -821,7 +821,7 @@
                 {"label": "=", "matrix": [1, 12], "x": 12, "y": 2.25},
                 {"label": "Backspace", "matrix": [1, 13], "x": 13, "y": 2.25},
                 {"label": "Backspace", "matrix": [1, 14], "x": 14, "y": 2.25},
-                {"label": "Home", "matrix": [1, 15], "x": 15, "y": 2.25},      
+                {"label": "Home", "matrix": [1, 15], "x": 15, "y": 2.25},
 
                 {"label": "Tab", "matrix": [2, 2], "x": 0, "y": 3.25, "w": 1.5},
                 {"label": "Q", "matrix": [2, 3], "x": 1.5, "y": 3.25},
@@ -917,7 +917,7 @@
                 {"label": "-", "matrix": [1, 11], "x": 11, "y": 2.25},
                 {"label": "=", "matrix": [1, 12], "x": 12, "y": 2.25},
                 {"label": "Backspace", "matrix": [1, 14], "x": 13, "y": 2.25, "w": 2},
-                {"label": "Home", "matrix": [1, 15], "x": 15, "y": 2.25},      
+                {"label": "Home", "matrix": [1, 15], "x": 15, "y": 2.25},
 
                 {"label": "Tab", "matrix": [2, 2], "x": 0, "y": 3.25, "w": 1.5},
                 {"label": "Q", "matrix": [2, 3], "x": 1.5, "y": 3.25},
@@ -1016,7 +1016,7 @@
                 {"label": "=", "matrix": [1, 12], "x": 12, "y": 2.25},
                 {"label": "Backspace", "matrix": [1, 13], "x": 13, "y": 2.25},
                 {"label": "Backspace", "matrix": [1, 14], "x": 14, "y": 2.25},
-                {"label": "Home", "matrix": [1, 15], "x": 15, "y": 2.25},      
+                {"label": "Home", "matrix": [1, 15], "x": 15, "y": 2.25},
 
                 {"label": "Tab", "matrix": [2, 2], "x": 0, "y": 3.25, "w": 1.5},
                 {"label": "Q", "matrix": [2, 3], "x": 1.5, "y": 3.25},
@@ -1114,7 +1114,7 @@
                 {"label": "-", "matrix": [1, 11], "x": 11, "y": 2.25},
                 {"label": "=", "matrix": [1, 12], "x": 12, "y": 2.25},
                 {"label": "Backspace", "matrix": [1, 14], "x": 13, "y": 2.25, "w": 2},
-                {"label": "Home", "matrix": [1, 15], "x": 15, "y": 2.25},      
+                {"label": "Home", "matrix": [1, 15], "x": 15, "y": 2.25},
 
                 {"label": "Tab", "matrix": [2, 2], "x": 0, "y": 3.25, "w": 1.5},
                 {"label": "Q", "matrix": [2, 3], "x": 1.5, "y": 3.25},
@@ -1210,7 +1210,7 @@
                 {"label": "=", "matrix": [1, 12], "x": 12, "y": 2.25},
                 {"label": "Backspace", "matrix": [1, 13], "x": 13, "y": 2.25},
                 {"label": "Backspace", "matrix": [1, 14], "x": 14, "y": 2.25},
-                {"label": "Home", "matrix": [1, 15], "x": 15, "y": 2.25},      
+                {"label": "Home", "matrix": [1, 15], "x": 15, "y": 2.25},
 
                 {"label": "Tab", "matrix": [2, 2], "x": 0, "y": 3.25, "w": 1.5},
                 {"label": "Q", "matrix": [2, 3], "x": 1.5, "y": 3.25},
