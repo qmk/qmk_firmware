@@ -14,7 +14,7 @@
          "command": false,
          "console": false,
          "extrakey": true,
-         "mousekey": false,
+         "mousekey": true,
          "encoder": true,
          "oled": true
     },
