@@ -8,9 +8,13 @@ void process_rep_key(void) {
     }
 
     switch (queue(-2)) {
+        double_magic_switch(TH_NUM,
+            magic_case(KC_B, "ecause");
+            magic_case(LT_I, "i");
+        );
+
         double_magic_case(KC_F,   CLT_R, "om");
         double_magic_case(KC_L,   CLT_A, "st");
-        double_magic_case(TH_NUM, KC_B,  "ecause");
     }
 
     switch (queue(-1)) {
