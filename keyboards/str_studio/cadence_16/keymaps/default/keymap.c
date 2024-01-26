@@ -16,12 +16,10 @@
 
 #include QMK_KEYBOARD_H
 
-#include "oled.c"
-
 enum custom_layers {
     /* _M_XYZ = Mac Os, _W_XYZ = Win/Linux */
     _NUMBER,
-    _LOWER
+    _FN
 };
 
 enum custom_keycodes {
@@ -51,76 +49,86 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_KP_7,     KC_KP_8,    KC_KP_9,    KC_KP_MINUS,
    KC_KP_4,     KC_KP_5,    KC_KP_6,    KC_KP_PLUS,
    KC_KP_1,     KC_KP_2,    KC_KP_3,    KC_KP_ENTER,
-   MO(_LOWER),  KC_KP_0,    KC_KP_DOT
+   MO(_FN),     KC_KP_0,    KC_KP_DOT
 ),
 
-/* LOWER
+/* FUNCTION
  * ,---------------------------.
  * |      |      |      | Mute |
  * |------+------+------+------|
- * | Nlck |  Up  |   *  |   /  |
+ * | Nlck |  Up  | Bksp |   /  |
  * |------+------+------+------|
  * | Left | Down | Rght |   *  |
  * |------+------+------+------|
- * | Left | Down | Rght |  En  |
+ * |      | Home | PgUp |  En  |
  * |--------------------|  te  |
- * |  Fn  |   0  |  Del |  r   |
+ * |  Fn  | End  | PgDn |  r   |
  * `---------------------------'
  */
  
-[_LOWER] = LAYOUT(
+[_FN] = LAYOUT(
                                             KC_MUTE,
-   KC_NUM_LOCK, KC_UP,       KC_KP_ASTERISK, KC_KP_SLASH,
-   KC_LEFT,     KC_DOWN,     KC_RGHT,        KC_KP_ASTERISK,
-   KC_LEFT,     KC_DOWN,     KC_RGHT,        KC_KP_ENTER,
-   MO(_LOWER),  KC_KP_0,     KC_KP_DOT
+   KC_NUM_LOCK, KC_UP,      KC_BACKSPACE,   KC_KP_SLASH,
+   KC_LEFT,     KC_DOWN,    KC_RGHT,        KC_KP_ASTERISK,
+   QK_BOOT,     KC_HOME,    KC_PAGE_UP,     KC_KP_ENTER,
+   MO(_FN),     KC_END,     KC_PAGE_DOWN
 )
 
 };
 
-// layer_state_t layer_state_set_user(layer_state_t state) {
-//     return update_tri_layer_state(state, _LOWER);
-// }
+// ================== Encoder ==================
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_NUMBER] =   { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+    [_FN]     =   { ENCODER_CCW_CW(KC_PGDN, KC_PGUP)  }
+    //                  Encoder 1              
+};  
+#endif
 
-#ifdef ENCODER_ENABLE
 
-// // Define your encoder actions
-// enum encoder_action {
-//     ENCODER_VOLUME,
-//     ENCODER_SCROLL,
-//     // Add more actions as needed
-// };
+// ================== OLED ==================
 
-// // Define a map for the encoder actions
-// const uint16_t PROGMEM encoder_map[][2] = {
-//     [ENCODER_VOLUME] = {KC_VOLU, KC_VOLD},
-//     [ENCODER_SCROLL] = {KC_PGUP, KC_PGDN},
-//     // Add more mappings as needed
-// };
+#ifdef OLED_ENABLE
 
-// bool encoder_update_user(uint8_t index, bool clockwise) {
-//     if (index < sizeof(encoder_map) / sizeof(encoder_map[0])) {
-//         uint16_t keycode = encoder_map[index][clockwise ? 0 : 1];
-//         tap_code(keycode);
-//     }
-//     return true;
-// }
+/* advanced settings */
+#    define ANIM_FRAME_DURATION 200  // how long each frame lasts in ms
+#    define ANIM_SIZE           128   // number of bytes in array. If you change sprites, minimize for adequate firmware size. max is 1024
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    } else if (index == 1) {
-        if (clockwise) {
-            tap_code(KC_PGDN);
-        } else {
-            tap_code(KC_PGUP);
-        }
+static void print_status_narrow(void) {
+    // Print current mode
+    // oled_write_P(PSTR("\n\n"), false);
+
+    // Print current layer
+    oled_write_P(PSTR("LAYER: "), false);
+    switch (get_highest_layer(layer_state)) {
+        case 0: // _NUMBER
+            oled_write_P(PSTR("Num\n"), false);
+            break;
+        case 1: // _FN
+            oled_write_P(PSTR("Fn\n"), false);
+            break;
+        default:
+            oled_write_P(PSTR("Undef"), false);
     }
-    return true;
+    // oled_write_P(PSTR("\n\n"), false);
+    led_t led_usb_state = host_keyboard_led_state();
+    oled_write_ln_P(PSTR("NUMLCK"), !led_usb_state.num_lock);
+}
+
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    if (is_keyboard_master()) {
+        return OLED_ROTATION_180;
+    }
+    return rotation;
+}
+
+bool oled_task_user(void) {
+    if (is_keyboard_master()) {
+        print_status_narrow();
+    } else {
+        print_status_narrow();
+    }
+    return false;
 }
 
 #endif
