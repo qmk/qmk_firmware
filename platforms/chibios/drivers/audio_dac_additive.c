@@ -46,7 +46,7 @@
 #    define AUDIO_PIN_ALT PAL_NOLINE
 #endif
 
-// Check to seee if the dac audio triggers are set. If not set them to the defaults for the f303
+// Check to see if the DAC triggers are set. If not set them to the defaults for the STM32F303
 #if !defined(AUDIO_DAC_CH1_TRIGGER)
 #    define AUDIO_DAC_CH1_TRIGGER 0b000
 #endif
@@ -285,10 +285,12 @@ static void dac_error(DACDriver *dacp, dacerror_t err) {
     chSysHalt("DAC failure. halp");
 }
 
-static const GPTConfig gpt6cfg1 = {.frequency = AUDIO_DAC_SAMPLE_RATE * 3,
-                                   .callback  = NULL,
-                                   .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.  */
-                                   .dier      = 0U};
+static const GPTConfig gpt6cfg1 = {
+    .frequency = AUDIO_DAC_SAMPLE_RATE * 3,
+    .callback  = NULL,
+    .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.  */
+    .dier      = 0U,
+};
 
 static const DACConfig dac_conf = {.init = AUDIO_DAC_OFF_VALUE, .datamode = DAC_DHRM_12BIT_RIGHT};
 

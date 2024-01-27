@@ -48,7 +48,7 @@
 #    define AUDIO_PIN_ALT -1
 #endif
 
-// Check to seee if the dac audio triggers are set. If not set them to the defaults for the f303
+// Check to see if the DAC triggers are set. If not set them to the defaults for the STM32F303
 #if !defined(AUDIO_DAC_CH1_TRIGGER)
 #    define AUDIO_DAC_CH1_TRIGGER 0b000
 #endif
@@ -75,20 +75,26 @@ static const dacsample_t dac_buffer_2[AUDIO_DAC_BUFFER_SIZE] = {
     [AUDIO_DAC_BUFFER_SIZE / 2 ... AUDIO_DAC_BUFFER_SIZE - 1] = AUDIO_DAC_SAMPLE_MAX,
 };
 
-GPTConfig gpt6cfg1 = {.frequency = AUDIO_DAC_SAMPLE_RATE,
-                      .callback  = NULL,
-                      .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.    */
-                      .dier      = 0U};
-GPTConfig gpt7cfg1 = {.frequency = AUDIO_DAC_SAMPLE_RATE,
-                      .callback  = NULL,
-                      .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.    */
-                      .dier      = 0U};
+GPTConfig gpt6cfg1 = {
+    .frequency = AUDIO_DAC_SAMPLE_RATE,
+    .callback  = NULL,
+    .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.    */
+    .dier      = 0U,
+};
+GPTConfig gpt7cfg1 = {
+    .frequency = AUDIO_DAC_SAMPLE_RATE,
+    .callback  = NULL,
+    .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.    */
+    .dier      = 0U,
+};
 
 static void gpt_audio_state_cb(GPTDriver *gptp);
-GPTConfig   gptStateUpdateCfg = {.frequency = 10,
-                                 .callback  = gpt_audio_state_cb,
-                                 .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.    */
-                                 .dier      = 0U};
+GPTConfig   gptStateUpdateCfg = {
+      .frequency = 10,
+      .callback  = gpt_audio_state_cb,
+      .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.    */
+      .dier      = 0U,
+};
 
 static const DACConfig dac_conf_ch1 = {.init = AUDIO_DAC_OFF_VALUE, .datamode = DAC_DHRM_12BIT_RIGHT};
 static const DACConfig dac_conf_ch2 = {.init = AUDIO_DAC_OFF_VALUE, .datamode = DAC_DHRM_12BIT_RIGHT};
