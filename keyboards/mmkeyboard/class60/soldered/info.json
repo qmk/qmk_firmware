@@ -4,10 +4,18 @@
     "maintainer": "lexbrugman",
     "bootloader": "uf2boot",
     "development_board": "bluepill",
+    "diode_direction": "COL2ROW",
+    "indicators": {
+        "caps_lock": "B9",
+        "num_lock": "B8",
+        "on_state": 0,
+        "scroll_lock": "B11"
+    },
     "matrix_pins": {
         "cols": ["B1", "B0", "A7", "A1", "A2", "A3", "A4", "A5", "B12", "B13", "A10", "A9", "A8", "B14", "B15"],
         "rows": ["B6", "B7", "C13", "B10", "C14", "B5"]
     },
+    "processor": "STM32F103",
     "url": "https://www.mmkeyboard.com/products/mm-class60-retro-custom-mechanical-keyboard",
     "usb": {
         "device_version": "0.0.1",
