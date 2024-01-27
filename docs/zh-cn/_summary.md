@@ -73,6 +73,7 @@
     * [Mod-Tap](zh-cn/mod_tap.md)
     * [宏](zh-cn/feature_macros.md)
     * [鼠标键](zh-cn/feature_mouse_keys.md)
+    * [Repeat Key](zh-cn/feature_repeat_key.md)
     * [Space Cadet Shift](zh-cn/feature_space_cadet.md)
     * [US ANSI上档键值](zh-cn/keycodes_us_ansi_shifted.md)
 
@@ -120,7 +121,6 @@
     * [分体式键盘](zh-cn/feature_split_keyboard.md)
     * [速记](zh-cn/feature_stenography.md)
     * [热敏打印机](zh-cn/feature_thermal_printer.md)
-    * [Velocikey](zh-cn/feature_velocikey.md)
 
 * QMK开发
   * [PR Checklist](zh-cn/pr_checklist.md)

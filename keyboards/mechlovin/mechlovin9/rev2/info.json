@@ -9,6 +9,9 @@
         "rows": ["A0", "A1", "A2", "A3", "A4"]
     },
     "diode_direction": "COL2ROW",
+    "features": {
+        "backlight": true
+    },
     "backlight": {
         "pin": "D4",
         "breathing": true

@@ -14,6 +14,4 @@ UNICODE_ENABLE = yes     # Unicode
 AUDIO_ENABLE = no        # Audio output
 
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306 # Enable OLED display support
 ENCODER_ENABLE = yes     # Enable encoder support
-

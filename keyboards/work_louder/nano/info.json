@@ -6,7 +6,11 @@
     "usb": {
         "vid": "0x574C",
         "pid": "0xE6F0",
-        "device_version": "0.0.1"
+        "device_version": "0.0.1",
+        "max_power": 100
+    },
+    "rgb_matrix": {
+        "driver": "ws2812"
     },
     "matrix_pins": {
         "cols": ["B5", "B6", "C6"],
@@ -18,6 +22,24 @@
             {"pin_a": "D7", "pin_b": "B4"}
         ]
     },
+    "ws2812": {
+        "pin": "F6"
+    },
+    "rgblight": {
+        "led_count": 6,
+        "max_brightness": 120,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
+    },
     "bootmagic": {
         "matrix": [0, 2]
     },
@@ -26,9 +48,9 @@
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"label": "k00", "x": 0, "y": 0},
-                {"label": "k01", "x": 1, "y": 0},
-                {"label": "k02", "x": 2, "y": 0}
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0}
             ]
         }
     }

@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_HAND_PIN      C14  // high = left, low = right
 
 // WS2812 RGB LED strip input and number of LEDs
-#define RGB_DI_PIN          A1
 #define WS2812_PWM_DRIVER   PWMD2  // default: PWMD2
 #define WS2812_PWM_CHANNEL  2      // default: 2
 #define WS2812_PWM_PAL_MODE 1      // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 2
@@ -31,12 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WS2812_DMA_STREAM   STM32_DMA1_STREAM7  // DMA Stream for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
 #define WS2812_DMA_CHANNEL  3                   // DMA Channel for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
 #define WS2812_PWM_TARGET_PERIOD 800000
-
-
-#define RGBLED_NUM          52
-#define RGBLIGHT_SPLIT
-#define RGBLED_SPLIT \
-    { 26, 26 }
 
 #define DEBUG_LED_PIN      C13
 

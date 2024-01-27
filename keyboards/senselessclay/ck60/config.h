@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* RGB matrix lighting */ 
-#define RGB_DI_PIN B1
 #define RGB_MATRIX_LED_COUNT 62
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS

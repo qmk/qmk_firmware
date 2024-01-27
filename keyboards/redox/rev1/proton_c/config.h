@@ -25,10 +25,6 @@
 #define SERIAL_USART_RX_PAL_MODE 7 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
 #define SERIAL_USART_TIMEOUT 20    // USART driver timeout. default 20
 
-/* ws2812 RGB LED */
-#undef RGB_DI_PIN
-#define RGB_DI_PIN A9
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

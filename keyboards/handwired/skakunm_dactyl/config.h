@@ -19,11 +19,6 @@
 /* Enables This makes it easier for fast typists to use dual-function keys */
 #define PERMISSIVE_HOLD
 
-/* ws2812 RGB LED */
-//#define RGB_DI_PIN D3
-
-//#define RGBLED_NUM 12    // Number of LEDs
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

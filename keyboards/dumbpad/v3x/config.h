@@ -21,13 +21,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_01 B3
 #define LED_02 B6
 
-#define RGB_DI_PIN D1
 #define RGB_MATRIX_LED_COUNT 16
 
 // Cleanup RGB
 #ifdef RGB_MATRIX_ENABLE
 
-#define RGB_DISABLE_TIMEOUT 300000 // 5 minutes (5 * 60 * 1000ms)
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS // Heatmap, Rain

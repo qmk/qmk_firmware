@@ -46,7 +46,7 @@ __attribute__((weak)) uint16_t keycode_at_keymap_location(uint8_t layer_num, uin
 
 #if defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
 
-#    define NUM_ENCODERMAP_LAYERS_RAW ((uint8_t)(sizeof(encoder_map) / ((NUM_ENCODERS) * (2) * sizeof(uint16_t))))
+#    define NUM_ENCODERMAP_LAYERS_RAW ((uint8_t)(sizeof(encoder_map) / ((NUM_ENCODERS) * (NUM_DIRECTIONS) * sizeof(uint16_t))))
 
 uint8_t encodermap_layer_count_raw(void) {
     return NUM_ENCODERMAP_LAYERS_RAW;
@@ -70,3 +70,24 @@ __attribute__((weak)) uint16_t keycode_at_encodermap_location(uint8_t layer_num,
 }
 
 #endif // defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Combos
+
+#if defined(COMBO_ENABLE)
+
+uint16_t combo_count_raw(void) {
+    return sizeof(key_combos) / sizeof(combo_t);
+}
+__attribute__((weak)) uint16_t combo_count(void) {
+    return combo_count_raw();
+}
+
+combo_t* combo_get_raw(uint16_t combo_idx) {
+    return &key_combos[combo_idx];
+}
+__attribute__((weak)) combo_t* combo_get(uint16_t combo_idx) {
+    return combo_get_raw(combo_idx);
+}
+
+#endif // defined(COMBO_ENABLE)

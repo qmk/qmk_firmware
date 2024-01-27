@@ -1,4 +1,4 @@
-#include "yd60mq.h"
+#include "quantum.h"
 
 __attribute__((weak))
 void matrix_init_kb(void){

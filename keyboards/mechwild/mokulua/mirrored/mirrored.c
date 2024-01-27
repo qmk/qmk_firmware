@@ -1,7 +1,7 @@
 // Copyright 2022 Kyle McCreery (@Kyle McCreery)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "mirrored.h"
+#include "quantum.h"
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_kb(uint8_t index, bool clockwise) {

@@ -23,14 +23,6 @@ If it is determined that your submission is a breaking change, there are a few t
 
 If you are contributing core code, and the only reason it needs to go through breaking changes is that you are updating keymaps to match your change, consider whether you can submit your feature in a way that the old keymaps continue to work. Then submit a separate PR that goes through the breaking changes process to remove the old code.
 
-### Contribute a ChangeLog Entry
-
-We require submissions that go through the Breaking Change process to include a changelog entry. The entry should be a short summary of the changes your pull request makes &ndash; [each section here started as a changelog](ChangeLog/20190830.md "n.b. This should link to the 2019 Aug 30 Breaking Changes doc  - @noroadsleft").
-
-Your changelog should be located at `docs/ChangeLog/YYYYMMDD/PR####.md`, where `YYYYMMDD` is the date on which QMK's breaking change branch &ndash; usually named `develop` &ndash; will be merged into the `master` branch, and `####` is the number of your pull request.
-
-If your submission requires action on the part of users, your changelog should instruct users what action(s) must be taken, or link to a location that does so.
-
 ### Document Your Changes
 
 Understanding the purpose for your submission, and possible implications or actions it will require can make the review process more straightforward. A changelog may suffice for this purpose, but more extensive changes may require a level of detail that is ill-suited for a changelog.

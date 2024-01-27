@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "crkbd.h"
+#include "quantum.h"
 
 char mode_icon[24];
 
