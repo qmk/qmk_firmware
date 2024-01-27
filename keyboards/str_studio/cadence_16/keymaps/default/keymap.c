@@ -22,12 +22,6 @@ enum custom_layers {
     _FN
 };
 
-enum custom_keycodes {
-    PLACEHOLDER = SAFE_RANGE,
-    CYCLE
-};
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  * NUMBER
@@ -78,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // ================== Encoder ==================
 #if defined(ENCODER_MAP_ENABLE)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_NUMBER] =   { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
     [_FN]     =   { ENCODER_CCW_CW(KC_PGDN, KC_PGUP)  }
     //                  Encoder 1              
@@ -90,14 +84,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 
 #ifdef OLED_ENABLE
 
-/* advanced settings */
-#    define ANIM_FRAME_DURATION 200  // how long each frame lasts in ms
-#    define ANIM_SIZE           128   // number of bytes in array. If you change sprites, minimize for adequate firmware size. max is 1024
-
 static void print_status_narrow(void) {
-    // Print current mode
-    // oled_write_P(PSTR("\n\n"), false);
-
     // Print current layer
     oled_write_P(PSTR("LAYER: "), false);
     switch (get_highest_layer(layer_state)) {
@@ -110,7 +97,6 @@ static void print_status_narrow(void) {
         default:
             oled_write_P(PSTR("Undef"), false);
     }
-    // oled_write_P(PSTR("\n\n"), false);
     led_t led_usb_state = host_keyboard_led_state();
     oled_write_ln_P(PSTR("NUMLCK"), !led_usb_state.num_lock);
 }
@@ -123,11 +109,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 bool oled_task_user(void) {
-    if (is_keyboard_master()) {
-        print_status_narrow();
-    } else {
-        print_status_narrow();
-    }
+    print_status_narrow();
     return false;
 }
 

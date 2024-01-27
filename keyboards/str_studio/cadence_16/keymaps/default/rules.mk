@@ -1,5 +1,2 @@
 OLED_ENABLE = yes
-OLED_DRIVER = ssd1306
-
-ENCODER_MAP_ENABLE = yes    # Enable Encoder Map
-ENCODER_ENABLE = yes
+ENCODER_MAP_ENABLE = yes
