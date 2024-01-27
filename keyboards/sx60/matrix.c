@@ -214,7 +214,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
         return 0;
     } else {
         uint8_t data = 0;
-        mcp23018_status = i2c_readReg(I2C_ADDR, GPIOA, &data, 1, I2C_TIMEOUT);
+        mcp23018_status = i2c_read_register(I2C_ADDR, GPIOA, &data, 1, I2C_TIMEOUT);
         if (!mcp23018_status) {
             current_matrix[current_row] |= (~((uint16_t)data) << 8);
         }
@@ -245,7 +245,7 @@ static void select_row(uint8_t row)
            set active row output : 1
            set other rows hi-Z : 1 */
         uint8_t port = 0xFF & ~(1<<abs(row-4));
-        mcp23018_status = i2c_writeReg(I2C_ADDR, GPIOB, &port, 1, I2C_TIMEOUT);
+        mcp23018_status = i2c_write_register(I2C_ADDR, GPIOB, &port, 1, I2C_TIMEOUT);
     }
 
     uint8_t pin = row_pins[row];

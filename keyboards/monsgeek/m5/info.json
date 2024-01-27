@@ -176,7 +176,9 @@
             { "flags": 4, "matrix": [5, 16], "x": 176, "y": 64 },
             { "flags": 4, "matrix": [5, 18], "x": 199, "y": 64 },
             { "flags": 4, "matrix": [5, 19], "x": 214, "y": 64 }
-    ]
+        ],
+        "react_on_keyup": true,
+        "sleep": true
     },
     "layouts": {
         "LAYOUT": {

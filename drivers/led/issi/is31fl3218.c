@@ -38,20 +38,20 @@ bool    g_led_control_registers_update_required                        = false;
 void is31fl3218_write_register(uint8_t reg, uint8_t data) {
 #if IS31FL3218_I2C_PERSISTENCE > 0
     for (uint8_t i = 0; i < IS31FL3218_I2C_PERSISTENCE; i++) {
-        if (i2c_writeReg(IS31FL3218_I2C_ADDRESS << 1, reg, &data, 1, IS31FL3218_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
+        if (i2c_write_register(IS31FL3218_I2C_ADDRESS << 1, reg, &data, 1, IS31FL3218_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
     }
 #else
-    i2c_writeReg(IS31FL3218_I2C_ADDRESS << 1, reg, &data, 1, IS31FL3218_I2C_TIMEOUT);
+    i2c_write_register(IS31FL3218_I2C_ADDRESS << 1, reg, &data, 1, IS31FL3218_I2C_TIMEOUT);
 #endif
 }
 
-void is31fl3218_write_pwm_buffer(uint8_t *pwm_buffer) {
+void is31fl3218_write_pwm_buffer(void) {
 #if IS31FL3218_I2C_PERSISTENCE > 0
     for (uint8_t i = 0; i < IS31FL3218_I2C_PERSISTENCE; i++) {
-        if (i2c_writeReg(IS31FL3218_I2C_ADDRESS << 1, IS31FL3218_REG_PWM, pwm_buffer, 18, IS31FL3218_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
+        if (i2c_write_register(IS31FL3218_I2C_ADDRESS << 1, IS31FL3218_REG_PWM, g_pwm_buffer, 18, IS31FL3218_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
     }
 #else
-    i2c_writeReg(IS31FL3218_I2C_ADDRESS << 1, IS31FL3218_REG_PWM, pwm_buffer, 18, IS31FL3218_I2C_TIMEOUT);
+    i2c_write_register(IS31FL3218_I2C_ADDRESS << 1, IS31FL3218_REG_PWM, g_pwm_buffer, 18, IS31FL3218_I2C_TIMEOUT);
 #endif
 }
 
@@ -90,14 +90,14 @@ void is31fl3218_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     if (index >= 0 && index < IS31FL3218_LED_COUNT) {
         memcpy_P(&led, (&g_is31fl3218_leds[index]), sizeof(led));
 
-        if (g_pwm_buffer[led.r - IS31FL3218_REG_PWM] == red && g_pwm_buffer[led.g - IS31FL3218_REG_PWM] == green && g_pwm_buffer[led.b - IS31FL3218_REG_PWM] == blue) {
+        if (g_pwm_buffer[led.r] == red && g_pwm_buffer[led.g] == green && g_pwm_buffer[led.b] == blue) {
             return;
         }
 
-        g_pwm_buffer[led.r - IS31FL3218_REG_PWM] = red;
-        g_pwm_buffer[led.g - IS31FL3218_REG_PWM] = green;
-        g_pwm_buffer[led.b - IS31FL3218_REG_PWM] = blue;
-        g_pwm_buffer_update_required             = true;
+        g_pwm_buffer[led.r]          = red;
+        g_pwm_buffer[led.g]          = green;
+        g_pwm_buffer[led.b]          = blue;
+        g_pwm_buffer_update_required = true;
     }
 }
 
@@ -111,12 +111,12 @@ void is31fl3218_set_led_control_register(uint8_t index, bool red, bool green, bo
     is31fl3218_led_t led;
     memcpy_P(&led, (&g_is31fl3218_leds[index]), sizeof(led));
 
-    uint8_t control_register_r = (led.r - IS31FL3218_REG_PWM) / 6;
-    uint8_t control_register_g = (led.g - IS31FL3218_REG_PWM) / 6;
-    uint8_t control_register_b = (led.b - IS31FL3218_REG_PWM) / 6;
-    uint8_t bit_r              = (led.r - IS31FL3218_REG_PWM) % 6;
-    uint8_t bit_g              = (led.g - IS31FL3218_REG_PWM) % 6;
-    uint8_t bit_b              = (led.b - IS31FL3218_REG_PWM) % 6;
+    uint8_t control_register_r = led.r / 6;
+    uint8_t control_register_g = led.g / 6;
+    uint8_t control_register_b = led.b / 6;
+    uint8_t bit_r              = led.r % 6;
+    uint8_t bit_g              = led.g % 6;
+    uint8_t bit_b              = led.b % 6;
 
     if (red) {
         g_led_control_registers[control_register_r] |= (1 << bit_r);
@@ -139,7 +139,7 @@ void is31fl3218_set_led_control_register(uint8_t index, bool red, bool green, bo
 
 void is31fl3218_update_pwm_buffers(void) {
     if (g_pwm_buffer_update_required) {
-        is31fl3218_write_pwm_buffer(g_pwm_buffer);
+        is31fl3218_write_pwm_buffer();
         // Load PWM registers and LED Control register data
         is31fl3218_write_register(IS31FL3218_REG_UPDATE, 0x01);
 
@@ -149,7 +149,7 @@ void is31fl3218_update_pwm_buffers(void) {
 
 void is31fl3218_update_led_control_registers(void) {
     if (g_led_control_registers_update_required) {
-        for (int i = 0; i < IS31FL3218_LED_CONTROL_REGISTER_COUNT; i++) {
+        for (uint8_t i = 0; i < IS31FL3218_LED_CONTROL_REGISTER_COUNT; i++) {
             is31fl3218_write_register(IS31FL3218_REG_LED_CONTROL_1 + i, g_led_control_registers[i]);
         }
 
