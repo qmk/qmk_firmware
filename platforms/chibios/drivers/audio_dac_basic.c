@@ -53,7 +53,7 @@
 #   define AUDIO_DAC_CH1_TRIGGER 0b000
 #endif
 
-#if !defined(AUDIO_DAC_CH1_TRIGGER)
+#if !defined(AUDIO_DAC_CH2_TRIGGER)
 #   define AUDIO_DAC_CH2_TRIGGER 0b010
 #endif
 
