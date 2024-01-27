@@ -31,8 +31,8 @@
     "rgb_matrix": {
         "driver": "ws2812",
         "layout": [
-            { "flags": 8, "matrix": [ 3, 0 ],  "x": 0,   "y": 0 },
-            { "flags": 8, "matrix": [ 3, 0 ],  "x": 15,  "y": 15 }
+            { "flags": 8, "matrix": [ 0, 0 ],  "x": 0,   "y": 0 },
+            { "flags": 8, "matrix": [ 0, 1 ],  "x": 15,  "y": 15 }
         ],
         "max_brightness": 210,
         "sleep": true
