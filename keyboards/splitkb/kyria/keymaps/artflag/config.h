@@ -18,6 +18,3 @@
 
 #define TAPPING_TERM 175
 #define TAPPING_TOGGLE 2
-
-// Lets you roll mod-tap keys
-#define IGNORE_MOD_TAP_INTERRUPT

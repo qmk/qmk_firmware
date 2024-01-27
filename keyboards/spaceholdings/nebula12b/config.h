@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* RGB options */
 
-#define RGB_DI_PIN D5
 #define RGB_MATRIX_LED_COUNT 16
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255
 #define RGB_DISABLE_WHEN_USB_SUSPENDED

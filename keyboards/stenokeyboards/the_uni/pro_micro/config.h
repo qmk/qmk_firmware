@@ -22,7 +22,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-
-/*force the nkro if it does not work*/
-#define FORCE_NKRO

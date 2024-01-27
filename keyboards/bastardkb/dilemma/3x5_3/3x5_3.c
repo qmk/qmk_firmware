@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "3x5_3.h"
+#include "quantum.h"
 
 /**
  * LEDs index.

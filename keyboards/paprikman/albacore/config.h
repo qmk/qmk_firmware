@@ -17,8 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define RGB_DI_PIN B3
-
 #ifdef RGB_MATRIX_ENABLE
   #define RGB_MATRIX_LED_COUNT 8
   #define RGB_DISABLE_WHEN_USB_SUSPENDED

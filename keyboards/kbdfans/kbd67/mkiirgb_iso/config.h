@@ -18,7 +18,6 @@
 
 #define USB_SUSPEND_WAKEUP_DELAY 5000
 
-#define RGB_DI_PIN C7
 #define RGB_MATRIX_LED_COUNT 68
 
 #ifdef RGB_MATRIX_ENABLE
@@ -27,10 +26,6 @@
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150  // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
 #    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_ALL
-#    define RGB_MATRIX_HUE_STEP 8
-#    define RGB_MATRIX_SAT_STEP 8
-#    define RGB_MATRIX_VAL_STEP 8
-#    define RGB_MATRIX_SPD_STEP 10
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects

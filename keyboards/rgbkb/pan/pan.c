@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "pan.h"
+
 #include "quantum.h"
 #include "rgb_matrix_types.h"
 
@@ -22,12 +22,11 @@
 #        include "ws2812.h"
 
 // LED color buffer
-LED_TYPE rgb_matrix_ws2812_array[RGB_MATRIX_LED_COUNT];
+rgb_led_t rgb_matrix_ws2812_array[RGB_MATRIX_LED_COUNT];
 
 static void init(void) {}
 
 static void flush(void) {
-    // Assumes use of RGB_DI_PIN
     ws2812_setleds(rgb_matrix_ws2812_array, RGB_MATRIX_LED_COUNT);
 }
 

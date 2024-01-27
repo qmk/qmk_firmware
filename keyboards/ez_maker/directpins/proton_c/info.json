@@ -38,22 +38,22 @@
     "layouts": {
         "LAYOUT_all": {
             "layout": [
-                { "label": "A9", "matrix": [0, 0], "x": 0, "y": 0 },
-                { "label": "A10", "matrix": [1, 0], "x": 0, "y": 1 },
-                { "label": "B7", "matrix": [2, 0], "x": 0, "y": 4 }, { "label": "A2", "matrix": [2, 1], "x": 2, "y": 4 },
-                { "label": "B6", "matrix": [3, 0], "x": 0, "y": 5 }, { "label": "A1", "matrix": [3, 1], "x": 2, "y": 5 },
-                { "label": "B5", "matrix": [4, 0], "x": 0, "y": 6 }, { "label": "A0", "matrix": [4, 1], "x": 2, "y": 6 },
-                { "label": "B4", "matrix": [5, 0], "x": 0, "y": 7 }, { "label": "B8", "matrix": [5, 1], "x": 2, "y": 7 },
-                { "label": "B3", "matrix": [6, 0], "x": 0, "y": 8 }, { "label": "B13", "matrix": [6, 1], "x": 2, "y": 8 },
-                { "label": "B2", "matrix": [7, 0], "x": 0, "y": 9 }, { "label": "B14", "matrix": [7, 1], "x": 2, "y": 9 },
-                { "label": "B1", "matrix": [8, 0], "x": 0, "y": 10 }, { "label": "B15", "matrix": [8, 1], "x": 2, "y": 10 },
-                { "label": "B0", "matrix": [9, 0], "x": 0, "y": 11 }, { "label": "B9", "matrix": [9, 1], "x": 2, "y": 11 },
-                { "label": "A4", "matrix": [10, 0], "x": 0, "y": 13 }, { "label": "B10", "matrix": [10, 1], "x": 2, "y": 13 },
-                { "label": "A5", "matrix": [11, 0], "x": 0, "y": 14 }, { "label": "B11", "matrix": [11, 1], "x": 2, "y": 14 },
-                { "label": "A6", "matrix": [12, 0], "x": 0, "y": 15 }, { "label": "B12", "matrix": [12, 1], "x": 2, "y": 15 },
-                { "label": "A7", "matrix": [13, 0], "x": 0, "y": 16 }, { "label": "A14", "matrix": [13, 1], "x": 2, "y": 16 },
-                { "label": "A8", "matrix": [14, 0], "x": 0, "y": 17 }, { "label": "A13", "matrix": [14, 1], "x": 2, "y": 17 },
-                { "label": "A15", "matrix": [15, 0], "x": 0, "y": 18 }
+                {"label": "A9", "matrix": [0, 0], "x": 0, "y": 0},
+                {"label": "A10", "matrix": [1, 0], "x": 0, "y": 1},
+                {"label": "B7", "matrix": [2, 0], "x": 0, "y": 4}, {"label": "A2", "matrix": [2, 1], "x": 2, "y": 4},
+                {"label": "B6", "matrix": [3, 0], "x": 0, "y": 5}, {"label": "A1", "matrix": [3, 1], "x": 2, "y": 5},
+                {"label": "B5", "matrix": [4, 0], "x": 0, "y": 6}, {"label": "A0", "matrix": [4, 1], "x": 2, "y": 6},
+                {"label": "B4", "matrix": [5, 0], "x": 0, "y": 7}, {"label": "B8", "matrix": [5, 1], "x": 2, "y": 7},
+                {"label": "B3", "matrix": [6, 0], "x": 0, "y": 8}, {"label": "B13", "matrix": [6, 1], "x": 2, "y": 8},
+                {"label": "B2", "matrix": [7, 0], "x": 0, "y": 9}, {"label": "B14", "matrix": [7, 1], "x": 2, "y": 9},
+                {"label": "B1", "matrix": [8, 0], "x": 0, "y": 10}, {"label": "B15", "matrix": [8, 1], "x": 2, "y": 10},
+                {"label": "B0", "matrix": [9, 0], "x": 0, "y": 11}, {"label": "B9", "matrix": [9, 1], "x": 2, "y": 11},
+                {"label": "A4", "matrix": [10, 0], "x": 0, "y": 13}, {"label": "B10", "matrix": [10, 1], "x": 2, "y": 13},
+                {"label": "A5", "matrix": [11, 0], "x": 0, "y": 14}, {"label": "B11", "matrix": [11, 1], "x": 2, "y": 14},
+                {"label": "A6", "matrix": [12, 0], "x": 0, "y": 15}, {"label": "B12", "matrix": [12, 1], "x": 2, "y": 15},
+                {"label": "A7", "matrix": [13, 0], "x": 0, "y": 16}, {"label": "A14", "matrix": [13, 1], "x": 2, "y": 16},
+                {"label": "A8", "matrix": [14, 0], "x": 0, "y": 17}, {"label": "A13", "matrix": [14, 1], "x": 2, "y": 17},
+                {"label": "A15", "matrix": [15, 0], "x": 0, "y": 18}
             ]
         }
     }

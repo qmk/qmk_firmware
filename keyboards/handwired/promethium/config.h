@@ -154,7 +154,6 @@ enum led_sequence {
     LED_TOTAL
 };
 
-#    define RGB_DI_PIN B5
 #    define RGBSPS_NUM LED_TOTAL
 #endif
 

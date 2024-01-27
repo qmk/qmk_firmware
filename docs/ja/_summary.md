@@ -68,6 +68,7 @@
     * [モッドタップ](ja/mod_tap.md)
     * [マクロ](ja/feature_macros.md)
     * [マウスキー](ja/feature_mouse_keys.md)
+    * [Repeat Key](ja/feature_repeat_key.md)
     * [Space Cadet Shift](ja/feature_space_cadet.md)
     * [US ANSI シフトキー](ja/keycodes_us_ansi_shifted.md)
 
@@ -111,7 +112,6 @@
     * [分割キーボード](ja/feature_split_keyboard.md)
     * [速記](ja/feature_stenography.md)
     * [感熱式プリンタ](ja/feature_thermal_printer.md)
-    * [Velocikey](ja/feature_velocikey.md)
 
 * QMK の開発
   * [PR チェックリスト](ja/pr_checklist.md)

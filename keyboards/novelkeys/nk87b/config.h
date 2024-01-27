@@ -19,14 +19,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* RGB options */
 
-#define RGB_DI_PIN B0
 #define WS2812_PWM_DRIVER PWMD3
 #define WS2812_PWM_CHANNEL 3
 #define WS2812_PWM_PAL_MODE 1
 #define WS2812_DMA_STREAM STM32_DMA1_STREAM3
 #define WS2812_DMA_CHANNEL 3
 
-#define RGBLED_NUM 87
 #define RGB_MATRIX_LED_COUNT 87
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 114
 #define RGB_DISABLE_WHEN_USB_SUSPENDED

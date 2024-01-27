@@ -23,7 +23,6 @@
 #define SPLIT_HAND_PIN A3 // High -> left, Low -> right.
 
 /* RGB settings. */
-#define RGB_DI_PIN A1
 #define WS2812_PWM_DRIVER PWMD2
 #define WS2812_PWM_CHANNEL 2
 #define WS2812_PWM_PAL_MODE 1

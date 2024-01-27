@@ -3,7 +3,7 @@
 #pragma once
 
 // Uncomment the following if your board uses 1.5A and 3.0A hold current fuses.
-//#define DJINN_SUPPORTS_3A_FUSE
+// #define DJINN_SUPPORTS_3A_FUSE
 
 // Encoder settings
 #define ENCODER_RESOLUTION 2

@@ -36,12 +36,7 @@
 // I2C EEPROM
 #define EEPROM_I2C_24LC64
 
-// More EEPROM for layers
-#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 8191
-
 /* RGB Matrix */
-#define RGB_DI_PIN A9
-#define RGBLED_NUM 28
 #define RGB_MATRIX_LED_COUNT 28
 #define NOP_FUDGE 0.4
 

@@ -14,30 +14,55 @@
             {"pin_a": "B5", "pin_b": "B4"}
         ]
     },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 11,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "D1"
+    },
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "debounce": 20,
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"label":"Mute", "x":0.5, "y":0},
-                {"label":"Play / Pause", "x":2.5, "y":0},
-                {"label":"7", "x":0, "y":1},
-                {"label":"8", "x":1, "y":1},
-                {"label":"9", "x":2, "y":1},
-                {"label":"*", "x":3, "y":1},
-                {"label":"4", "x":0, "y":2},
-                {"label":"5", "x":1, "y":2},
-                {"label":"6", "x":2, "y":2},
-                {"label":"-", "x":3, "y":2},
-                {"label":"1", "x":0, "y":3},
-                {"label":"2", "x":1, "y":3},
-                {"label":"3", "x":2, "y":3},
-                {"label":"+", "x":3, "y":3},
-                {"label":"MO(1)", "x":0, "y":4},
-                {"label":"0", "x":1, "y":4},
-                {"label":".", "x":2, "y":4},
-                {"label":"N.ENT", "x":3, "y":4}
+                {"matrix": [4, 0], "x": 0.5, "y": 0},
+                {"matrix": [4, 1], "x": 2.5, "y": 0},
+
+                {"matrix": [0, 0], "x": 0, "y": 1},
+                {"matrix": [0, 1], "x": 1, "y": 1},
+                {"matrix": [0, 2], "x": 2, "y": 1},
+                {"matrix": [0, 3], "x": 3, "y": 1},
+
+                {"matrix": [1, 0], "x": 0, "y": 2},
+                {"matrix": [1, 1], "x": 1, "y": 2},
+                {"matrix": [1, 2], "x": 2, "y": 2},
+                {"matrix": [1, 3], "x": 3, "y": 2},
+
+                {"matrix": [2, 0], "x": 0, "y": 3},
+                {"matrix": [2, 1], "x": 1, "y": 3},
+                {"matrix": [2, 2], "x": 2, "y": 3},
+                {"matrix": [2, 3], "x": 3, "y": 3},
+
+                {"matrix": [3, 0], "x": 0, "y": 4},
+                {"matrix": [3, 1], "x": 1, "y": 4},
+                {"matrix": [3, 2], "x": 2, "y": 4},
+                {"matrix": [3, 3], "x": 3, "y": 4}
             ]
         }
     }

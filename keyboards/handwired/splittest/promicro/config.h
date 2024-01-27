@@ -21,6 +21,3 @@
 #define USE_I2C
 
 #define SPLIT_HAND_PIN F6
-
-/* ws2812 RGB LED */
-#define RGB_DI_PIN D3

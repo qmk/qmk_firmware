@@ -15,17 +15,17 @@
  */
 #pragma once
 
+#define DEF_SERIAL_NUMBER "purdea.ro:overnumpad_controller"
 
-#define SERIAL_NUMBER "purdea.ro:overnumpad_controller"
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-#define MATRIX_HAS_GHOST
+#ifndef SERIAL_NUMBER
+#define SERIAL_NUMBER DEF_SERIAL_NUMBER
+#endif
 
 #define STM32_HSECLK 16000000
 
 #define SOLENOID_PIN B5
 #define HAPTIC_ENABLE_PIN C13
-#define SOLENOID_DEFAULT_DWELL 4
+#define SOLENOID_DEFAULT_DWELL 20
 #define SOLENOID_MIN_DWELL 4
 #define HAPTIC_OFF_IN_LOW_POWER 1
 #define NO_HAPTIC_MOD

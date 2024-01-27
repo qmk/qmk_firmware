@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "cor_tkl.h"
+#include "quantum.h"
 
 led_config_t g_led_config = {{
     // Key Matrix to LED Index
