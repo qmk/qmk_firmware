@@ -25,6 +25,9 @@
         "pid": "0x0001",
         "vid": "0x5712"
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
