@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
+#include "os_detection.h"
 
 enum layers {
     BASE,  // default layer
@@ -16,12 +17,28 @@ const uint16_t PROGMEM combo_enter[] = {KC_L, KC_U, COMBO_END};
 const uint16_t PROGMEM combo_esc[] = {KC_F, KC_P, COMBO_END};
 const uint16_t PROGMEM combo_rctl[] = {KC_H, KC_COMMA, COMBO_END};
 const uint16_t PROGMEM combo_semi[] = {KC_F, KC_P, COMBO_END};
-const uint16_t PROGMEM combo_colon[] = {KC_C, KC_D, COMBO_END};
+const uint16_t PROGMEM combo_cd[] = {KC_C, KC_D, COMBO_END};
+const uint16_t PROGMEM combo_xc[] = {KC_X, KC_C, COMBO_END};
+const uint16_t PROGMEM combo_w3[] = {KC_W, KC_3, COMBO_END};
+const uint16_t PROGMEM combo_y8[] = {KC_Y, KC_8, COMBO_END};
 const uint16_t PROGMEM combo_backtick[] = {KC_W, KC_F, COMBO_END};
 const uint16_t PROGMEM combo_dqt[] = {KC_X, KC_C, COMBO_END};
 
 bool is_alt_tab_active = false;
 uint16_t alt_tab_timer = 0;
+
+enum custom_keycodes {
+  VRSN = SAFE_RANGE,
+  DESKTOP_LEFT,
+  DESKTOP_RIGHT,
+  BUFFER_PREV,
+  BUFFER_NEXT,
+  ALT_TAB,
+  COPY,
+  PASTE,
+  HISTORY_PREV,
+  HISTORY_NEXT,
+};
 
 combo_t key_combos[] = {
     COMBO(combo_btn1l, KC_BTN1),
@@ -33,15 +50,10 @@ combo_t key_combos[] = {
     COMBO(combo_enter, KC_ENTER),
     COMBO(combo_rctl, OSM(MOD_LCTL)),
     COMBO(combo_dqt, KC_DQT),
-};
-
-enum custom_keycodes {
-  VRSN = SAFE_RANGE,
-  DESKTOP_LEFT,
-  DESKTOP_RIGHT,
-  BUFFER_PREV,
-  BUFFER_NEXT,
-  ALT_TAB,
+    COMBO(combo_xc, COPY),
+    COMBO(combo_cd, PASTE),
+    COMBO(combo_w3, HISTORY_PREV),
+    COMBO(combo_y8, HISTORY_NEXT),
 };
 
 // clang-format off
@@ -72,7 +84,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  os_variant_t os = detected_host_os();
   switch (keycode) { // This will do most of the grunt work with the keycodes.
+    case HISTORY_PREV:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LALT(SS_TAP(X_LEFT)));
+      }
+      break;
+    case HISTORY_NEXT:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LALT(SS_TAP(X_RIGHT)));
+      }
+      break;
+    case COPY:
+      if (record->event.pressed) {
+        if (os == OS_MACOS) {
+          SEND_STRING(SS_LGUI("c"));
+        } else {
+          SEND_STRING(SS_LCTL("c"));
+        }
+      }
+      break;
+    case PASTE:
+      if (record->event.pressed) {
+        if (os == OS_MACOS) {
+          SEND_STRING(SS_LGUI("v"));
+        } else {
+          SEND_STRING(SS_LCTL("v"));
+        }
+      }
+      break;
     case ALT_TAB:
       if (record->event.pressed) {
         if (!is_alt_tab_active) {
