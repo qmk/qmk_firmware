@@ -49,8 +49,7 @@
         "driver": "pwm"
     },
     "community_layouts": [
-        "tkl_ansi_tsangan",
-        "tkl_ansi_wkl"
+        "tkl_ansi_tsangan"
     ],
     "layouts": {
         "LAYOUT_tkl_ansi_tsangan": {
