@@ -48,7 +48,7 @@
 
 // Check to seee if the dac audio triggers are set. If not set them to the defaults for the f303
 #if !defined(AUDIO_DAC_CH1_TRIGGER)
-#   define AUDIO_DAC_CH1_TRIGGER 0b000
+#    define AUDIO_DAC_CH1_TRIGGER 0b000
 #endif
 
 #if !defined(AUDIO_DAC_SAMPLE_WAVEFORM_SINE) && !defined(AUDIO_DAC_SAMPLE_WAVEFORM_TRIANGLE) && !defined(AUDIO_DAC_SAMPLE_WAVEFORM_SQUARE) && !defined(AUDIO_DAC_SAMPLE_WAVEFORM_TRAPEZOID)
@@ -329,10 +329,10 @@ void audio_driver_initialize(void) {
      *
      * This Explict setting to 0 does not seem to be needed for the G4 Series
      */
-#   if !defined(AUDIO_NO_BOFF)
+#if !defined(AUDIO_NO_BOFF)
     DACD1.params->dac->CR &= ~DAC_CR_BOFF1;
     DACD2.params->dac->CR &= ~DAC_CR_BOFF2;
-#   endif
+#endif
 
     /* Start the DAC output with all off values. This buffer will then get fed
      * with samples from dac_end, which will play notes.

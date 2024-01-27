@@ -50,11 +50,11 @@
 
 // Check to seee if the dac audio triggers are set. If not set them to the defaults for the f303
 #if !defined(AUDIO_DAC_CH1_TRIGGER)
-#   define AUDIO_DAC_CH1_TRIGGER 0b000
+#    define AUDIO_DAC_CH1_TRIGGER 0b000
 #endif
 
 #if !defined(AUDIO_DAC_CH2_TRIGGER)
-#   define AUDIO_DAC_CH2_TRIGGER 0b010
+#    define AUDIO_DAC_CH2_TRIGGER 0b010
 #endif
 
 #if !defined(AUDIO_STATE_TIMER)
@@ -86,9 +86,9 @@ GPTConfig gpt7cfg1 = {.frequency = AUDIO_DAC_SAMPLE_RATE,
 
 static void gpt_audio_state_cb(GPTDriver *gptp);
 GPTConfig   gptStateUpdateCfg = {.frequency = 10,
-                               .callback  = gpt_audio_state_cb,
-                               .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.    */
-                               .dier      = 0U};
+                                 .callback  = gpt_audio_state_cb,
+                                 .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.    */
+                                 .dier      = 0U};
 
 static const DACConfig dac_conf_ch1 = {.init = AUDIO_DAC_OFF_VALUE, .datamode = DAC_DHRM_12BIT_RIGHT};
 static const DACConfig dac_conf_ch2 = {.init = AUDIO_DAC_OFF_VALUE, .datamode = DAC_DHRM_12BIT_RIGHT};
@@ -227,10 +227,10 @@ void audio_driver_initialize(void) {
      *
      * This Explict setting to 0 does not seem to be needed for the G4 Series
      */
-#   if !defined(AUDIO_NO_BOFF)
+#if !defined(AUDIO_NO_BOFF)
     DACD1.params->dac->CR &= ~DAC_CR_BOFF1;
     DACD2.params->dac->CR &= ~DAC_CR_BOFF2;
-#   endif
+#endif
 
     // start state-updater
     gptStart(&AUDIO_STATE_TIMER, &gptStateUpdateCfg);
