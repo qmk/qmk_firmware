@@ -1012,7 +1012,6 @@ void raw_hid_send(uint8_t *data, uint8_t length) {
 
 #    ifdef ORYX_ENABLE
     if (chnWriteTimeout(&drivers.raw_driver.driver, data, length, TIME_IMMEDIATE) != length) {
-        rawhid_state.pairing = false;
         rawhid_state.paired  = false;
     }
 #    else

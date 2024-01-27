@@ -21,14 +21,8 @@ Once the host has paired, it can freely use the commands define in the Oryx_Comm
 #    define RAW_EPSIZE 32
 #endif
 
-#define ORYX_PROTOCOL_VERSION = 0x01
+#define ORYX_PROTOCOL_VERSION = 0x02
 #define ORYX_STOP_BIT -2
-#define ORYX_PAIRING_MAX_INDEX 3
-#define PAIRING_BLINK_STEPS 512
-#define PAIRING_BLINK_END PAIRING_BLINK_STEPS * 60
-#define PAIRING_SEQUENCE_SIZE 3
-#define PAIRING_SEQUENCE_NUM_STORED 3
-#define PAIRING_STORAGE_SIZE PAIRING_SEQUENCE_SIZE* PAIRING_SEQUENCE_NUM_STORED * sizeof(uint16_t)
 
 enum Oryx_Command_Code {
     ORYX_CMD_GET_FW_VERSION,
@@ -70,7 +64,6 @@ enum Oryx_Error_Code {
 extern bool oryx_state_live_training_enabled;
 
 typedef struct {
-    bool pairing;
     bool paired;
     bool rgb_control;
 } rawhid_state_t;
@@ -78,11 +71,6 @@ typedef struct {
 extern rawhid_state_t rawhid_state;
 
 void oryx_error(uint8_t code);
-bool pairing_key_input_handler(keypos_t pos);
-void get_pairing_code(keypos_t positions[], int size);
-void pairing_init_handler(void);
-void pairing_validate_handler(uint8_t *param);
-void pairing_key_input_event(void);
 void pairing_failed_event(void);
 void pairing_succesful_event(void);
 
