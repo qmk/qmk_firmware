@@ -2,7 +2,6 @@
 
 #pragma once
 
-#define DIODE_DIRECTION COL2ROW
 #define MATRIX_HAS_GHOST
 
 #define LOCKING_SUPPORT_ENABLE
@@ -16,11 +15,6 @@
 #define SOLENOID_MAX_DWELL 45
 #define HAPTIC_OFF_IN_LOW_POWER 1
 #define NO_HAPTIC_MOD
-
-#define LED_PIN_ON_STATE 0
-#define LED_NUM_LOCK_PIN B8
-#define LED_CAPS_LOCK_PIN B9
-#define LED_SCROLL_LOCK_PIN B11
 
 #define AUDIO_CLICKY
 #define AUDIO_PIN A6

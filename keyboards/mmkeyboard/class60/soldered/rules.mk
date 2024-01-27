@@ -1,9 +1,3 @@
-# MCU name
-MCU = STM32F103
-
-# Bootloader selection
-BOOTLOADER = uf2boot
-
 # Build Options
 #   change yes to no to disable
 #
