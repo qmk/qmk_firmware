@@ -33,7 +33,9 @@
         "layout": [
             { "flags": 8, "matrix": [ 3, 0 ],  "x": 0,   "y": 0 },
             { "flags": 8, "matrix": [ 3, 0 ],  "x": 15,  "y": 15 }
-        ]
+        ],
+        "max_brightness": 210,
+        "sleep": true
     },
     "url": "https://github.com/Smollchungus",
     "layouts": {
