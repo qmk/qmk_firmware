@@ -226,6 +226,15 @@ uint16_t ec_readkey_raw(uint8_t channel, uint8_t row, uint8_t col) {
 bool ec_update_key(matrix_row_t* current_row, uint8_t row, uint8_t col, uint16_t sw_value) {
     bool current_state = (*current_row >> col) & 1;
 
+    // Real Time Noise Floor Calibration
+    if (sw_value < (ec_config.noise_floor[row][col] - NOISE_FLOOR_THRESHOLD)) {
+        uprintf("Noise Floor Change: %d, %d, %d\n", row, col, sw_value);
+        ec_config.noise_floor[row][col]                             = sw_value;
+        ec_config.rescaled_mode_0_actuation_threshold[row][col]     = rescale(ec_config.mode_0_actuation_threshold, 0, 1023, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
+        ec_config.rescaled_mode_0_release_threshold[row][col]       = rescale(ec_config.mode_0_release_threshold, 0, 1023, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
+        ec_config.rescaled_mode_1_initial_deadzone_offset[row][col] = rescale(ec_config.mode_1_initial_deadzone_offset, 0, 1023, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
+    }
+
     // Normal board-wide APC
     if (ec_config.actuation_mode == 0) {
         if (current_state && sw_value < ec_config.rescaled_mode_0_release_threshold[row][col]) {
