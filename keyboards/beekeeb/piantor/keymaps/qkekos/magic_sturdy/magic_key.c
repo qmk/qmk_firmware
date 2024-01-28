@@ -3,17 +3,13 @@
 
 void process_magic_key(void) {
     if (alt_rep_key_count >= 2) {
-        switch (queue(-3)) {
-            triple_magic_case(TH_NUM, CLT_A, KC_L, "eady");
+        switch (queue(-4)) {
+            quadruple_magic_case(TH_NUM, CLT_A, KC_L, CLT_R, "eady");
         }
 
-        switch (queue(-1)) {
-            case KC_Q:
-                break;
-
-            default:
-                SEND_STRING("n");
-                return;
+        switch (queue(-3)) {
+            triple_magic_case(KC_Q, KC_U, ALT_E, "ue");
+            default: SEND_STRING("n"); return;
         }
     }
 
