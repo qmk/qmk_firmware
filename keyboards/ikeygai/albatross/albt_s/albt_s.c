@@ -15,9 +15,11 @@
  */
 
 #include "quantum.h"
+#include "backlight.h"
+extern backlight_config_t backlight_config;
 
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
-    led_state.caps_lock ? backlight_enable() : backlight_disable() ; 
+    (led_state.caps_lock && backlight_config.enable) ? backlight_set(backlight_config.level) : backlight_set(0);
     return res;
 }
