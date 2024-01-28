@@ -28,27 +28,27 @@
                 { "label": "(", "matrix": [0, 2], "x": 2, "y": 0 },
                 { "label": ")", "matrix": [0, 3], "x": 3, "y": 0 },
 
-                { "label": "-", "matrix": [1, 0], "x": 0, "y": 1 },
-                { "label": "*", "matrix": [1, 1], "x": 1, "y": 1 },
-                { "label": "/", "matrix": [1, 2], "x": 2, "y": 1 },
-                { "label": "Num Lock", "matrix": [1, 3], "x": 3, "y": 1 },
+                { "label": "Num Lock", "matrix": [1, 0], "x": 0, "y": 1 },
+                { "label": "/", "matrix": [1, 1], "x": 1, "y": 1 },
+                { "label": "*", "matrix": [1, 2], "x": 2, "y": 1 },
+                { "label": "-", "matrix": [1, 3], "x": 3, "y": 1 },
 
-                { "label": "+", "matrix": [2, 0], "x": 0, "y": 2, "h": 2 },
-                { "label": "9", "matrix": [2, 1], "x": 1, "y": 2 },
-                { "label": "8", "matrix": [2, 2], "x": 2, "y": 2 },
-                { "label": "7", "matrix": [2, 3], "x": 3, "y": 2 },
+                { "label": "7", "matrix": [2, 0], "x": 0, "y": 2, "h": 2 },
+                { "label": "8", "matrix": [2, 1], "x": 1, "y": 2 },
+                { "label": "9", "matrix": [2, 2], "x": 2, "y": 2 },
+                { "label": "+", "matrix": [2, 3], "x": 3, "y": 2 },
 
-                { "label": "6", "matrix": [3, 1], "x": 1, "y": 3 },
-                { "label": "5", "matrix": [3, 2], "x": 2, "y": 3 },
-                { "label": "4", "matrix": [3, 3], "x": 3, "y": 3 },
+                { "label": "4", "matrix": [3, 0], "x": 1, "y": 3 },
+                { "label": "5", "matrix": [3, 1], "x": 2, "y": 3 },
+                { "label": "6", "matrix": [3, 2], "x": 3, "y": 3 },
 
-                { "label": "Enter", "matrix": [4, 0], "x": 0, "y": 4, "h": 2 },
-                { "label": "3", "matrix": [4, 1], "x": 1, "y": 4 },
-                { "label": "2", "matrix": [4, 2], "x": 2, "y": 4 },
-                { "label": "1", "matrix": [4, 3], "x": 3, "y": 4 },
+                { "label": "1", "matrix": [4, 0], "x": 0, "y": 4, "h": 2 },
+                { "label": "2", "matrix": [4, 1], "x": 1, "y": 4 },
+                { "label": "3", "matrix": [4, 2], "x": 2, "y": 4 },
+                { "label": "Enter", "matrix": [4, 3], "x": 3, "y": 4 },
 
-                { "label": ".", "matrix": [5, 1], "x": 1, "y": 5 },
-                { "label": "0", "matrix": [5, 3], "x": 2, "y": 5, "w": 2 }
+                { "label": "0", "matrix": [5, 0], "x": 1, "y": 5 },
+                { "label": ".", "matrix": [5, 2], "x": 2, "y": 5, "w": 2 }
             ]
         }
     }
