@@ -111,7 +111,7 @@ uint8_t matrix_scan(void)
     code = uart_read();
     if (!code) return 0;
 
-    debug_hex(code); debug(" ");
+    dprintf("%02X ", code);
 
     switch (code) {
         case 0xFF:  // reset success: FF 04
