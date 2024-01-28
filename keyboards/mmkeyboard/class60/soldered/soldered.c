@@ -1,6 +1,7 @@
-/* SPDX-License-Identifier: GPL-2.0-or-later */
+// Copyright 2023 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "soldered.h"
+#include "quantum.h"
 
 #ifdef AUDIO_ENABLE
 float caps_on[][2] = SONG(CAPS_LOCK_ON_SOUND);
