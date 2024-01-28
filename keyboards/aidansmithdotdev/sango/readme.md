@@ -1,6 +1,6 @@
 # Sango
 
-![aidansmithdotdev/sango](https://github.com/Aidan-OS/Sango/blob/main/Sango.jpg)
+![aidansmithdotdev/sango](https://i.imgur.com/NzvLxqyh.jpg)
 
 An open source 65%ish split columnar low profile keyboard.
 
