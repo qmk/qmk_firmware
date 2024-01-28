@@ -3,8 +3,19 @@
     "keyboard_name": "Class60",
     "maintainer": "lexbrugman",
     "bootloader": "uf2boot",
+    "build": {
+        "lto": true
+    },
     "development_board": "bluepill",
     "diode_direction": "COL2ROW",
+    "features": {
+        "audio": true,
+        "bootmagic": true,
+        "extrakey": true,
+        "haptic": true,
+        "mousekey": true,
+        "nkro": true
+    },
     "indicators": {
         "caps_lock": "B9",
         "num_lock": "B8",
@@ -15,7 +26,12 @@
         "cols": ["B1", "B0", "A7", "A1", "A2", "A3", "A4", "A5", "B12", "B13", "A10", "A9", "A8", "B14", "B15"],
         "rows": ["B6", "B7", "C13", "B10", "C14", "B5"]
     },
-    "processor": "STM32F103",
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "url": "https://www.mmkeyboard.com/products/mm-class60-retro-custom-mechanical-keyboard",
     "usb": {
         "device_version": "0.0.1",
@@ -23,6 +39,7 @@
         "pid": "0x3876",
         "vid": "0x3874"
     },
+    "community_layouts": ["60_ansi_tsangan"],
     "layouts": {
         "LAYOUT_60_ansi_tsangan": {
             "layout": [
