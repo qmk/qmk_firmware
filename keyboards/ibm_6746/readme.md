@@ -1,8 +1,13 @@
 # ibm_6746
 
-![ibm_6746](imgur.com image replace me!)
+![ibm_6746](https://i.imgur.com/mrXTFi9.png)
+![circuit board:](https://i.imgur.com/QPzkDhs.png)
 
-*A short description of the keyboard/project*
+This is a project to convert the IBM 6746 Typewriter into a USB-C compatible keyboard. The project uses an Elite-Pi RP2040 microcontroller, in pro micro form factor.
+Primary purpose of the RP2040 over a pro micro is twofold: One, to increase the number of IO pins to suit this archaic board layout, and two, the relative lack of 
+available USB-C microcontrollers at the time of creation (start of 2023).
+
+Note that this 6746 board is very rudimentary and has massive ghosting issues. It types really nice though, and has a unique layout. There may be one or two keys that do not function due to the nature of the board's circuitry.
 
 * Keyboard Maintainer: [Justin](https://github.com/Justin-sandwich)
 * Hardware Supported: *The PCBs, controllers supported*
