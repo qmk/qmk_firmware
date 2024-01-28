@@ -82,17 +82,17 @@ typedef struct is31fl3745_led_t {
 extern const is31fl3745_led_t PROGMEM g_is31fl3745_leds[IS31FL3745_LED_COUNT];
 
 void is31fl3745_init_drivers(void);
-void is31fl3745_init(uint8_t addr, uint8_t sync);
-void is31fl3745_write_register(uint8_t addr, uint8_t reg, uint8_t data);
-void is31fl3745_select_page(uint8_t addr, uint8_t page);
+void is31fl3745_init(uint8_t index);
+void is31fl3745_write_register(uint8_t index, uint8_t reg, uint8_t data);
+void is31fl3745_select_page(uint8_t index, uint8_t page);
 
 void is31fl3745_set_value(int index, uint8_t value);
 void is31fl3745_set_value_all(uint8_t value);
 
 void is31fl3745_set_scaling_register(uint8_t index, uint8_t value);
 
-void is31fl3745_update_pwm_buffers(uint8_t addr, uint8_t index);
-void is31fl3745_update_scaling_registers(uint8_t addr, uint8_t index);
+void is31fl3745_update_pwm_buffers(uint8_t index);
+void is31fl3745_update_scaling_registers(uint8_t index);
 
 void is31fl3745_flush(void);
 

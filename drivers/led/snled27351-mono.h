@@ -154,9 +154,9 @@ typedef struct snled27351_led_t {
 extern const snled27351_led_t PROGMEM g_snled27351_leds[SNLED27351_LED_COUNT];
 
 void snled27351_init_drivers(void);
-void snled27351_init(uint8_t addr);
-void snled27351_select_page(uint8_t addr, uint8_t page);
-void snled27351_write_register(uint8_t addr, uint8_t reg, uint8_t data);
+void snled27351_init(uint8_t index);
+void snled27351_select_page(uint8_t index, uint8_t page);
+void snled27351_write_register(uint8_t index, uint8_t reg, uint8_t data);
 
 void snled27351_set_value(int index, uint8_t value);
 void snled27351_set_value_all(uint8_t value);
@@ -167,13 +167,13 @@ void snled27351_set_led_control_register(uint8_t index, bool value);
 // (eg. from a timer interrupt).
 // Call this while idle (in between matrix scans).
 // If the buffer is dirty, it will update the driver with the buffer.
-void snled27351_update_pwm_buffers(uint8_t addr, uint8_t index);
-void snled27351_update_led_control_registers(uint8_t addr, uint8_t index);
+void snled27351_update_pwm_buffers(uint8_t index);
+void snled27351_update_led_control_registers(uint8_t index);
 
 void snled27351_flush(void);
 
-void snled27351_sw_return_normal(uint8_t addr);
-void snled27351_sw_shutdown(uint8_t addr);
+void snled27351_sw_return_normal(uint8_t index);
+void snled27351_sw_shutdown(uint8_t index);
 
 #define A_1 0x00
 #define A_2 0x01
