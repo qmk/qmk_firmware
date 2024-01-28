@@ -3,11 +3,6 @@
 
 #pragma once
 
-/* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 13
-
-
 /* The 6746 has no diodes */
 #define MATRIX_HAS_GHOST
 
