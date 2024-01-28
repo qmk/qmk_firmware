@@ -28,7 +28,7 @@
 //  K3N (right shift) is skipped as it is electronically identical to K3B (left shift).
 //  K4P (line space) is skipped as it is not found on the keyboard electronically.
 
-#define LAYOUT(	
+#define LAYOUT(	\
 	       K0A,  K0B,K0C,K0D,K0E,K0F,K0G,K0H,K0I,K0J,K0K,K0L,K0M,K0N,K0O,  K0P, \
 	       K1A,  K1B,K1C,K1D,K1E,K1F,K1G,K1H,K1I,K1J,K1K,K1L,K1M,K1N,K1O,  K1P, \
 	       K2A,  K2B,K2C,K2D,K2E,K2F,K2G,K2H,K2I,K2J,K2K,K2L,K2M,K2N,      K2P, \
@@ -43,5 +43,5 @@
     {KC_NO, K1A,   K1B,   KC_NO, K1C,   K1D,   K1E,   K1F, K1I, K1J,   K1K,   K1L, K1P  }, \
     {KC_NO, KC_NO, K2A,   KC_NO, KC_NO, KC_NO, KC_NO, K1G, K1H, K1N,   KC_NO, K1M, KC_NO}, \
     {KC_NO, K3P,   K2B,   KC_NO, K3D,   K3E,   K3F,   K3G, K3J, K3K,   K3L,   K2N, K1O  }, \
-    {K4D,   K4G,   K4O,   K3B,   K3C,   KC_NO, KC_NO, K3H, K3I, KC_NO, KC_NO, K3M, KC_NO}, \ 
-}
+    {K4D,   K4G,   K4O,   K3B,   K3C,   KC_NO, KC_NO, K3H, K3I, KC_NO, KC_NO, K3M, KC_NO}, \
+	}
