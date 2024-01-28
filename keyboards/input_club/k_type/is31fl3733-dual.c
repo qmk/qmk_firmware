@@ -250,8 +250,8 @@ void is31fl3733_update_led_control_registers(uint8_t bus, uint8_t index) {
 }
 
 void is31fl3733_flush(void) {
-    is31fl3733_update_pwm_buffers(IS31FL3733_I2C_ADDRESS_1, 0);
+    is31fl3733_update_pwm_buffers(0, 0);
 #    ifdef USE_I2C2
-    is31fl3733_update_pwm_buffers(IS31FL3733_I2C_ADDRESS_2, 1);
+    is31fl3733_update_pwm_buffers(1, 1);
 #    endif
 }
