@@ -9,6 +9,3 @@
 #define WIN_MOD_INDEX 17
 #define MAC_MOD_INDEX 18
 #define SDB B5
-
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
-
