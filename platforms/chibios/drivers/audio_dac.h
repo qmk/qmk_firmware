@@ -145,6 +145,45 @@
 #endif
 
 /**
+ * Check to see if the DAC triggers are set.
+ * If not set them to the defaults for based on the detected MCU family.
+ * If no family is set issue a info message to aid potential debug and default
+ * to the Setting for a STM32F303.
+ *
+ * Here are all the values for DAC_TRG (TSEL in the ref manual) for the STM32F303
+ * TIM15_TRGO 0b011
+ * TIM2_TRGO  0b100
+ * TIM3_TRGO  0b001
+ * TIM6_TRGO  0b000
+ * TIM7_TRGO  0b010
+ * EXTI9      0b110
+ * SWTRIG     0b111
+ *
+ * Other MCUs may vary and the relevant values can be found in there ref manuals
+ */
+#if !defined(AUDIO_DAC_CH1_TRIGGER)
+#    if defined(QMK_MCU_SERIES_STM32G4XX)
+#        define AUDIO_DAC_CH1_TRIGGER 0b0111
+#    else
+#        define AUDIO_DAC_CH1_TRIGGER 0b000
+#        if !defined(QMK_MCU_SERIES_STM32F0XX) && !defined(QMK_MCU_SERIES_STM32F3XX) && !defined(QMK_MCU_SERIES_STM32L0XX) && !defined(QMK_MCU_SERIES_STM32L4XX) && !defined(QMK_MCU_SERIES_GD32VF103)
+#            pragma message "Default trigger value assigned for AUDIO_DAC_CH1_TRIGGER please ensure this is correct for your MCU"
+#        endif
+#    endif
+#endif
+
+#if !defined(AUDIO_DAC_CH2_TRIGGER)
+#    if defined(QMK_MCU_SERIES_STM32G4XX)
+#        define AUDIO_DAC_CH2_TRIGGER 0b0010
+#    else
+#        define AUDIO_DAC_CH2_TRIGGER 0b010
+#        if !defined(QMK_MCU_SERIES_STM32F0XX) && !defined(QMK_MCU_SERIES_STM32F3XX) && !defined(QMK_MCU_SERIES_STM32L0XX) && !defined(QMK_MCU_SERIES_STM32L4XX) && !defined(QMK_MCU_SERIES_GD32VF103)
+#            pragma message "Default trigger value assigned for AUDIO_DAC_CH2_TRIGGER please ensure this is correct for your MCU"
+#        endif
+#    endif
+#endif
+
+/**
  *user overridable sample generation/processing
  */
 uint16_t dac_value_generate(void);

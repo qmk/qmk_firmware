@@ -46,11 +46,6 @@
 #    define AUDIO_PIN_ALT PAL_NOLINE
 #endif
 
-// Check to see if the DAC triggers are set. If not set them to the defaults for the STM32F303
-#if !defined(AUDIO_DAC_CH1_TRIGGER)
-#    define AUDIO_DAC_CH1_TRIGGER 0b000
-#endif
-
 #if !defined(AUDIO_DAC_SAMPLE_WAVEFORM_SINE) && !defined(AUDIO_DAC_SAMPLE_WAVEFORM_TRIANGLE) && !defined(AUDIO_DAC_SAMPLE_WAVEFORM_SQUARE) && !defined(AUDIO_DAC_SAMPLE_WAVEFORM_TRAPEZOID)
 #    define AUDIO_DAC_SAMPLE_WAVEFORM_SINE
 #endif
@@ -295,18 +290,9 @@ static const GPTConfig gpt6cfg1 = {
 static const DACConfig dac_conf = {.init = AUDIO_DAC_OFF_VALUE, .datamode = DAC_DHRM_12BIT_RIGHT};
 
 /**
- * @note The DAC_TRG(0) here selects the Timer 6 TRGO event, which is triggered
+ * @note The DAC_TRG() here selects the Timer 6 TRGO event, which is triggered
  * on the rising edge after 3 APB1 clock cycles, causing our gpt6cfg1.frequency
  * to be a third of what we expect.
- *
- * Here are all the values for DAC_TRG (TSEL in the ref manual)
- * TIM15_TRGO 0b011
- * TIM2_TRGO  0b100
- * TIM3_TRGO  0b001
- * TIM6_TRGO  0b000
- * TIM7_TRGO  0b010
- * EXTI9      0b110
- * SWTRIG     0b111
  */
 static const DACConversionGroup dac_conv_cfg = {.num_channels = 1U, .end_cb = dac_end, .error_cb = dac_error, .trigger = DAC_TRG(AUDIO_DAC_CH1_TRIGGER)};
 
