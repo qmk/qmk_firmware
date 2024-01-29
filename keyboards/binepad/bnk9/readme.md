@@ -2,7 +2,7 @@
 
 ![BINEPAD BNK9](https://i.imgur.com/FrkVRhhh.jpg)
 
-*A 3x3 macropad with a large rotary encoder*
+A 3x3 macropad with a large rotary encoder.
 
 * Keyboard Maintainer: [binepad](https://github.com/binepad)
 * Hardware Supported: BINPAD BNK9

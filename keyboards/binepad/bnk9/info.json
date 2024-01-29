@@ -13,8 +13,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,
@@ -73,7 +71,7 @@
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"label": "Knob", "matrix": [0, 0], "x": 0, "y": 0, "w": 3, "h": 3},
+                {"label": "Knob", "matrix": [0, 0], "x": 0, "y": 0, "w": 3, "h": 3, "encoder": 0},
                 {"label": "1", "matrix": [1, 0], "x": 3.25, "y": 0},
                 {"label": "2", "matrix": [1, 1], "x": 4.25, "y": 0},
                 {"label": "3", "matrix": [1, 2], "x": 5.25, "y": 0},
