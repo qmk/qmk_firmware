@@ -90,10 +90,10 @@ GPTConfig gpt7cfg1 = {
 
 static void gpt_audio_state_cb(GPTDriver *gptp);
 GPTConfig   gptStateUpdateCfg = {
-      .frequency = 10,
-      .callback  = gpt_audio_state_cb,
-      .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.    */
-      .dier      = 0U,
+    .frequency = 10,
+    .callback  = gpt_audio_state_cb,
+    .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.    */
+    .dier      = 0U,
 };
 
 static const DACConfig dac_conf_ch1 = {.init = AUDIO_DAC_OFF_VALUE, .datamode = DAC_DHRM_12BIT_RIGHT};
