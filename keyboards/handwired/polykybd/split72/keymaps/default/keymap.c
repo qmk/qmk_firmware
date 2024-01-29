@@ -35,8 +35,8 @@
 //1 min
 #define FADE_OUT_TIME 60000
 //20 min
-#define TURN_OFF_TIME 1200000
-//#define TURN_OFF_TIME   8000000
+//#define TURN_OFF_TIME 1200000
+#define TURN_OFF_TIME 120000
 
 /*[[[cog
 import cog
@@ -94,7 +94,7 @@ enum my_keycodes {
       for lang in languages:
           cog.out(f"KC_{lang}, ")
     ]]]*/
-    KC_LANG_EN, KC_LANG_DE, KC_LANG_FR, KC_LANG_ES, KC_LANG_PT, KC_LANG_IT, KC_LANG_TR, KC_LANG_KO, KC_LANG_JA, KC_LANG_AR, KC_LANG_GR, 
+    KC_LANG_EN, KC_LANG_DE, KC_LANG_FR, KC_LANG_ES, KC_LANG_PT, KC_LANG_IT, KC_LANG_TR, KC_LANG_KO, KC_LANG_JA, KC_LANG_AR, KC_LANG_GR,
     //[[[end]]]
 };
 
@@ -119,6 +119,7 @@ struct display_info key_display[] = {
 struct display_info disp_row_0 = { BITMASK1(0) };
 struct display_info disp_row_3 = { BITMASK4(0) };
 
+//static uint8_t lang_from_hid = 0;
 
 enum refresh_mode { START_FIRST_HALF, START_SECOND_HALF, DONE_ALL, ALL_AT_ONCE };
 static enum refresh_mode g_refresh = DONE_ALL;
@@ -157,16 +158,8 @@ typedef struct _poly_sync_t {
     uint8_t contrast;
     uint8_t flags;
     layer_state_t default_ls;
+    uint16_t checksum;
 } poly_sync_t;
-
-/*
-typedef struct _poly_error_chk{
-    poly_sync_t a;
-    uint16_t sum_a;
-    poly_sync_t b;
-    uint16_t sum_b;
-} poly_error_chk;
-*/
 
 typedef struct _poly_state_t {
     led_t led_state;
@@ -175,8 +168,8 @@ typedef struct _poly_state_t {
     poly_sync_t s;
 } poly_state_t;
 
-poly_state_t g_state;
-poly_sync_t g_local;
+static poly_state_t g_state;
+static poly_sync_t g_local;
 
 static int32_t last_update = 0;
 
@@ -185,9 +178,9 @@ void update_displays(enum refresh_mode mode);
 void set_displays(uint8_t contrast, bool idle);
 void set_selected_displays(int8_t old_value, int8_t new_value);
 void toggle_stagger(bool new_state);
-//static int8_t old_contrast = 0;
+void oled_update_buffer(void);
 
-uint16_t fletcher16( uint8_t *data, int count )
+uint16_t fletcher16(const uint8_t *data, int count )
 {
    uint16_t sum1 = 0;
    uint16_t sum2 = 0;
@@ -276,49 +269,28 @@ void request_disp_refresh(void) {
     // g_refresh = START_FIRST_HALF;
 }
 
-/*static bool wait_for_data = false;
-void user_sync_poly_data_handler(uint8_t in_len, const void* in_data, uint8_t out_len, void* out_data) {
-    if (in_len == sizeof(poly_error_chk) && in_data != NULL) {
-        poly_error_chk* data = (poly_error_chk*)in_data;
-        if(data->sum_a == fletcher16((uint8_t *)&data->a, sizeof(poly_sync_t))) {
-            wait_for_data = true;
-            memcpy(&g_local, &data->a, sizeof(poly_sync_t));
-            wait_for_data = false;
-        } else if(data->sum_b == fletcher16((uint8_t *)&data->b, sizeof(poly_sync_t))) {
-            wait_for_data = true;
-            memcpy(&g_local, &data->b, sizeof(poly_sync_t));
-            wait_for_data = false;
-        }
-    }
-}*/
-
 void user_sync_poly_data_handler(uint8_t in_len, const void* in_data, uint8_t out_len, void* out_data) {
     if (in_len == sizeof(poly_sync_t) && in_data != NULL) {
-        memcpy(&g_local, in_data, sizeof(poly_sync_t));
+        int checksum = fletcher16(in_data, sizeof(g_local)-sizeof(g_local.checksum));
+        if(checksum == ((const poly_sync_t *)in_data)->checksum) {
+            memcpy(&g_local, in_data, sizeof(poly_sync_t));
+        }
     }
 }
 
 void oled_on_off(bool on);
 
 void sync_and_refresh_displays(void) {
-    bool retry = false;
+    bool sync_success = true;
+
     if (is_usb_host_side()) {
         //master syncs data
         if ( memcmp(&g_local, &g_state.s, sizeof(poly_sync_t))!=0 ) {
-            retry = true;
-            /*
-            poly_error_chk data;
-            memcpy(&(data.a), (poly_sync_t*)&g_local, sizeof(poly_sync_t));
-            memcpy(&(data.b), (poly_sync_t*)&g_local, sizeof(poly_sync_t));
-            data.sum_a = data.sum_b = fletcher16((uint8_t *)&g_local, sizeof(poly_sync_t));
-            */
-            if (transaction_rpc_send(USER_SYNC_POLY_DATA, sizeof(poly_sync_t), &g_local)) {
-                retry = false;
-            }
+            g_local.checksum = fletcher16((const void *)&g_local, sizeof(g_local)-sizeof(g_local.checksum));
+            sync_success = transaction_rpc_send(USER_SYNC_POLY_DATA, sizeof(poly_sync_t), &g_local);
         }
     }
-    //while(wait_for_data) {}
-    if(!retry) {
+    if(sync_success) {
         const bool idle_changed = (g_local.flags&DISP_IDLE)!=(g_state.s.flags&DISP_IDLE);
         if(idle_changed) {
             if((g_local.flags&DISP_IDLE)==0) {
@@ -359,45 +331,44 @@ void sync_and_refresh_displays(void) {
             set_displays(g_local.contrast, (g_local.flags&DISP_IDLE)!=0);
         }
 
-        // if((g_local.flags&USE_STAGGER)!=(g_state.s.flags&USE_STAGGER)) {
-        //     toggle_stagger((g_local.flags&USE_STAGGER)==0);
-        // }
-        g_state.s = g_local;
+        memcpy(&g_state.s, &g_local, sizeof(g_local));
     }
 }
 
 void housekeeping_task_user(void) {
     sync_and_refresh_displays();
 
-    //turn off displays
-    uint32_t elapsed_time_since_update = timer_elapsed32(last_update);
+    if(last_update>=0) {
+        //turn off displays
+        uint32_t elapsed_time_since_update = timer_elapsed32(last_update);
 
-    if (is_usb_host_side()) {
-        g_local.flags |= STATUS_DISP_ON;
+        if (is_usb_host_side()) {
+            g_local.flags |= STATUS_DISP_ON;
 
-        if(elapsed_time_since_update > FADE_OUT_TIME && g_local.contrast >= MIN_BRIGHT && (g_local.flags & DISP_IDLE)==0) {
-            poly_eeconf ee = load_user_eeconf();
-            int32_t time_after = elapsed_time_since_update - FADE_OUT_TIME;
-            int16_t brightness = ((FADE_TRANSITION_TIME - time_after) * ee.conf.brightness) / FADE_TRANSITION_TIME;
+            if(elapsed_time_since_update > FADE_OUT_TIME && g_local.contrast >= MIN_BRIGHT && (g_local.flags & DISP_IDLE)==0) {
+                poly_eeconf ee = load_user_eeconf();
+                int32_t time_after = elapsed_time_since_update - FADE_OUT_TIME;
+                int16_t brightness = ((FADE_TRANSITION_TIME - time_after) * ee.conf.brightness) / FADE_TRANSITION_TIME;
 
-            //transition to pulsing mode
-            if(brightness<=MIN_BRIGHT) {
+                //transition to pulsing mode
+                if(brightness<=MIN_BRIGHT) {
+                    g_local.contrast = DISP_OFF;
+                    g_local.flags |= DISP_IDLE;
+                } else if(brightness>FULL_BRIGHT) {
+                    g_local.contrast = FULL_BRIGHT;
+                } else{
+                    g_local.contrast = brightness;
+                }
+            } else if(elapsed_time_since_update > TURN_OFF_TIME) {
                 g_local.contrast = DISP_OFF;
-                g_local.flags |= DISP_IDLE;
-            } else if(brightness>FULL_BRIGHT) {
-                g_local.contrast = FULL_BRIGHT;
-            } else{
-                g_local.contrast = brightness;
+                g_local.flags &= ~((uint8_t)STATUS_DISP_ON);
+                g_local.flags &= ~((uint8_t)DISP_IDLE);
+            } else if((g_local.flags & DISP_IDLE)!=0) {
+                int32_t time_after = PK_MAX(elapsed_time_since_update - FADE_OUT_TIME - FADE_TRANSITION_TIME, 0)/300;
+                g_local.contrast = time_after%50;
+            } else {
+                g_local.flags &= ~((uint8_t)DISP_IDLE);
             }
-        } else if(elapsed_time_since_update > TURN_OFF_TIME) {
-            g_local.contrast = DISP_OFF;
-            g_local.flags &= ~((uint8_t)STATUS_DISP_ON);
-            g_local.flags &= ~((uint8_t)DISP_IDLE);
-        } else if((g_local.flags & DISP_IDLE)!=0) {
-            int32_t time_after = PK_MAX(elapsed_time_since_update - FADE_OUT_TIME - FADE_TRANSITION_TIME, 0)/300;
-            g_local.contrast = time_after%50;
-        } else {
-            g_local.flags &= ~((uint8_t)DISP_IDLE);
         }
     }
 }
@@ -998,7 +969,6 @@ const uint16_t* keycode_to_disp_overlay(uint16_t keycode, led_t state) {
         case KC_F2: return u"      " PRIVATE_NOTE;
         case KC_F5: return u"     " ARROWS_CIRCLE;
         case QK_DEBUG_TOGGLE: return debug_enable==0 ? u"\v" ICON_SWITCH_OFF : u"\v" ICON_SWITCH_ON;
-        //case RGB_TOG: return rgb_matrix_is_enabled() ? u"\v" ICON_SWITCH_ON : u"\v" ICON_SWITCH_OFF;
         default: break;
     }
 
@@ -1032,12 +1002,11 @@ const uint16_t* keycode_to_disp_overlay(uint16_t keycode, led_t state) {
 
 
 void update_displays(enum refresh_mode mode) {
-    uint8_t layer = get_highest_layer(layer_state);
-    /*if (layer > _LL) {
-        layer = g_local.default_ls;
-    }*/
+    if(g_local.contrast<=DISP_OFF || (g_local.flags&DISP_IDLE)!=0) {
+        return;
+    }
 
-    //set_displays(g_local.contrast, false);
+    uint8_t layer = get_highest_layer(layer_state);
 
     led_t state = host_keyboard_led_state();
     bool capital_case = ((get_mods() & MOD_MASK_SHIFT) != 0) || state.caps_lock;
@@ -1177,7 +1146,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     if (record->event.pressed) {
         switch (keycode) {
         case QK_BOOTLOADER:
-            //uprintf("Enter Bootloader...");
+            uprintf("Enter Bootloader...\n");
             clear_all_displays();
             display_message(1, 1, u"BOOT-", &FreeSansBold24pt7b);
             display_message(3, 0, u"LOADER!", &FreeSansBold24pt7b);
@@ -1187,103 +1156,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
     return display_wakeup(record);
 }
-
-/*
-           0            1        2              3            4       5            6             7
-    [_L0] = LAYOUT_left_right_stacked(
-        KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_NUBS,
-        KC_TAB,     KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       KC_GRAVE,
-        MO(_FL0),   KC_A,       KC_S,       KC_D,       KC_F,       KC_G,       KC_QUOTE,   KC_MS_BTN1,
-        KC_LSFT,    KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       KC_NUHS,    MO(_NL),
-        KC_LCTL,    KC_LWIN,    KC_LALT,    KC_APP,                 KC_SPACE,   KC_DEL,     KC_ENTER,
-
-                    KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,   KC_EQUAL,   KC_6,
-                    KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       KC_LBRC,    KC_HYPR,
-        KC_NO,      KC_H,       KC_J,       KC_K,       KC_L,       KC_SCLN,    KC_RBRC,    MO(_ADDLANG
-        KC_LANG,    KC_BSLS,    KC_N,       KC_M,       KC_COMMA,   KC_DOT,     KC_SLASH,   KC_RSFT,
-        KC_ENTER,   KC_BSPC,    KC_SPC,                 KC_LEFT,    KC_UP,      KC_DOWN,    KC_RIGHT
-        ),
-         8            9          10          11           12          13         14           15
-    [_L1] = LAYOUT_left_right_stacked(
-        KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_6,
-        KC_TAB,     KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       KC_GRAVE,
-        MO(_FL1),   KC_A,       KC_S,       KC_D,       KC_F,       KC_G,       KC_QUOTE,   KC_MS_BTN1,
-        KC_LSFT,    KC_NUHS,    KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       MO(_NL),
-        KC_LCTL,    KC_LWIN,    KC_LALT,    MO(_ADDLANG1),          KC_SPACE,   KC_DEL,     KC_ENTER,
-
-                    KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,   KC_EQUAL,   KC_HYPR,
-                    KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       KC_LBRC,    KC_NUBS,
-        KC_NO,      KC_H,       KC_J,       KC_K,       KC_L,       KC_SCLN,    KC_RBRC,    KC_BSLS,
-        KC_LANG,    KC_APP,     KC_N,       KC_M,       KC_COMMA,   KC_DOT,     KC_SLASH,   KC_RSFT,
-        KC_ENTER,   KC_BSPC,    KC_SPC,                 KC_LEFT,    KC_UP,      KC_DOWN,    KC_RIGHT
-        ),
-*/
-// void shiftl_row(const uint8_t row, const uint8_t from, const uint8_t to) {
-//     uint16_t swap = keymaps[g_local.default_ls][row][from];
-
-//     for(uint8_t current = from; current<to; current++) {
-//         keymaps[g_local.default_ls][row][current] = keymaps[g_local.default_ls][row][current+1];
-//     }
-//     keymaps[g_local.default_ls][row][to] = swap;
-// }
-
-// void shiftr_row(const uint8_t row, const uint8_t from, const uint8_t to) {
-//     uint16_t swap = keymaps[g_local.default_ls][row][to];
-
-//     for(uint8_t current = to; current>from; current--) {
-//         keymaps[g_local.default_ls][row][current] = keymaps[g_local.default_ls][row][current-1];
-//     }
-//     keymaps[g_local.default_ls][row][from] = swap;
-// }
-
-// void swap_keys(const uint8_t r1, const uint8_t c1, const uint8_t r2, const uint8_t c2) {
-//     uint16_t swap = keymaps[g_local.default_ls][r1][c1];
-//     keymaps[g_local.default_ls][r1][c1] = keymaps[g_local.default_ls][r2][c2];
-//     keymaps[g_local.default_ls][r2][c2] = swap;
-// }
-
-// void shiftl_3keys(const uint8_t r1, const uint8_t c1, const uint8_t r2, const uint8_t c2, const uint8_t r3, const uint8_t c3) {
-//     uint16_t swap = keymaps[g_local.default_ls][r1][c1];
-//     keymaps[g_local.default_ls][r1][c1] = keymaps[g_local.default_ls][r2][c2];
-//     keymaps[g_local.default_ls][r2][c2] = keymaps[g_local.default_ls][r3][c3];
-//     keymaps[g_local.default_ls][r3][c3] = swap;
-// }
-
-// void shiftr_3keys(const uint8_t r1, const uint8_t c1, const uint8_t r2, const uint8_t c2, const uint8_t r3, const uint8_t c3) {
-//     uint16_t swap = keymaps[g_local.default_ls][r3][c3];
-//     keymaps[g_local.default_ls][r3][c3] = keymaps[g_local.default_ls][r2][c2];
-//     keymaps[g_local.default_ls][r2][c2] = keymaps[g_local.default_ls][r1][c1];
-//     keymaps[g_local.default_ls][r1][c1] = swap;
-// }
-
-// void toggle_stagger(bool new_state) {
-//     bool current_state = (g_local.flags&USE_STAGGER) != 0;
-//     if(current_state!=new_state) {
-//         if(new_state) {
-//             shiftr_row(3,1,6);
-
-//             keymaps[g_local.default_ls][0][2] = MO(_FL1);
-
-//             shiftl_row(6,1,7);
-//             shiftl_row(7,1,7);
-//             shiftl_row(5,1,7);
-
-//             shiftl_3keys(7,7, 8,1, 4,3);
-//             shiftl_3keys(7,5, 7,6, 0,6);
-//         } else {
-//             shiftl_row(3,1,6);
-
-//             keymaps[g_local.default_ls][0][2] = MO(_FL0);
-
-//             shiftr_3keys(7,7, 8,1, 4,3);
-//             shiftr_3keys(7,5, 7,6, 0,6);
-
-//             shiftr_row(6,1,7);
-//             shiftr_row(7,1,7);
-//             shiftr_row(5,1,7);
-//         }
-//     }
-// }
 
 void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
     if (keycode == KC_CAPS_LOCK) {
@@ -1359,7 +1231,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
         case KC_DBRI:
             inc_brightness();
             break;
-            /*[[[cog
+        /*[[[cog
             for lang in languages:
                 cog.outl(f'case KC_{lang}: g_local.lang = {lang}; layer_off(_LL); break;')
             ]]]*/
@@ -1374,7 +1246,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
             case KC_LANG_JA: g_local.lang = LANG_JA; layer_off(_LL); break;
             case KC_LANG_AR: g_local.lang = LANG_AR; layer_off(_LL); break;
             case KC_LANG_GR: g_local.lang = LANG_GR; layer_off(_LL); break;
-            //[[[end]]]
+        //[[[end]]]
         case KC_F1:case KC_F2:case KC_F3:case KC_F4:case KC_F5:case KC_F6:
         case KC_F7:case KC_F8:case KC_F9:case KC_F10:case KC_F11:case KC_F12:
             layer_off(_LL);
@@ -1444,11 +1316,11 @@ void show_splash_screen(void) {
 }
 
 void oled_on_off(bool on) {
-    if (!on) {//} && is_oled_on()) {
+    if (!on) {
         oled_off();
-    } else { //} if (on && !is_oled_on()) {
+    } else {
         oled_on();
-        uprintf("oled_on %s", is_usb_host_side() ? "Host" : "Bridge");
+        uprintf("oled_on %s\n", is_usb_host_side() ? "Host" : "Bridge");
     }
 }
 
@@ -1485,7 +1357,7 @@ bool display_wakeup(keyrecord_t* record) {
 
     return accept_keypress;
 }
-//void oled_render_logos(void);
+
 void keyboard_post_init_user(void) {
     // Customise these values to desired behaviour
     debug_enable = true;
@@ -1509,21 +1381,15 @@ void keyboard_post_init_user(void) {
     setPinInputHigh(GP29);
 
     //srand(halGetCounterValue());
-    dprintf("PolyKybd ready.");
 
-    wait_ms(500);
+    memset(&g_state, 0, sizeof(g_state));
+
     transaction_register_rpc(USER_SYNC_POLY_DATA, user_sync_poly_data_handler);
-/*
-    int8_t retries = 5;
-    while(!transaction_rpc_send(USER_SYNC_POLY_DATA, sizeof(g_local), &g_local) && retries>0) {
-        retries--;
-        wait_ms(1000);
-        dprintf("Connecting...");
-    }*/
 }
 
 void keyboard_pre_init_user(void) {
-    memset(&g_state, 0, sizeof(g_state));
+
+
     kdisp_hw_setup();
     kdisp_init(NUM_SHIFT_REGISTERS);
     peripherals_reset();
@@ -1548,6 +1414,7 @@ void keyboard_pre_init_user(void) {
 }
 
 void eeconfig_init_user(void) {
+    uprint("Init EE config\n");
     poly_eeconf ee;
     ee.conf.lang = g_lang_init;
     ee.conf.brightness = ~FULL_BRIGHT;
@@ -1593,14 +1460,7 @@ void hex_to_u16_string(char* buffer, uint8_t buffer_len, uint8_t value) {
     }
 }
 
-void oled_status_screen(void) {
-    if( (g_local.flags&STATUS_DISP_ON) == 0) {
-        oled_off();
-        //rgb_matrix_disable_noeeprom();
-        return;
-    } else if( (g_local.flags&STATUS_DISP_ON) != 0) {
-        oled_on();
-    }
+void oled_update_buffer() {
     uint16_t buffer[32];
 
     kdisp_set_buffer(0);
@@ -1669,8 +1529,22 @@ void oled_status_screen(void) {
         kdisp_write_gfx_text(smallFont, 1, 0, 58, u"WPM");
         num_to_u16_string((char*) buffer, sizeof(buffer), get_current_wpm());
         kdisp_write_gfx_text(smallFont, 1, 44, 58, buffer);
+
+        kdisp_write_gfx_text(smallFont, 1, 68, 58, u"L");
+        num_to_u16_string((char*) buffer, sizeof(buffer), g_local.lang);
+        kdisp_write_gfx_text(smallFont, 1, 84, 58, buffer);
+    }
+}
+
+void oled_status_screen(void) {
+     if( (g_local.flags&STATUS_DISP_ON) == 0) {
+        oled_off();
+        return;
+    } else if( (g_local.flags&STATUS_DISP_ON) != 0) {
+        oled_on();
     }
 
+    oled_update_buffer();
     oled_clear();
     oled_write_raw((char *)get_scratch_buffer(), get_scratch_buffer_size());
 }
@@ -1760,40 +1634,35 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation){
 }
 
 void suspend_power_down_kb(void) {
-    dprint("Suspend power down\n");
     g_local.flags &= ~((uint8_t)STATUS_DISP_ON);
     g_local.flags &= ~((uint8_t)DISP_IDLE);
     g_local.contrast = DISP_OFF;
+    last_update = -1;
 
-    if(rgb_matrix_is_enabled()) {
-         g_local.flags |= RGB_MATRIX_ON;
-    }else{
-         g_local.flags &= ~((uint8_t)RGB_MATRIX_ON);
-    }
+    rgb_matrix_disable_noeeprom();
 
-    if(is_usb_host_side()) {
-        sync_and_refresh_displays();
-    }
+    housekeeping_task_user();
+    suspend_power_down_user();
 }
 
+
 void suspend_wakeup_init_kb(void) {
-    dprint("Suspend wakeup\n");
     g_local.flags |= STATUS_DISP_ON;
     g_local.flags &= ~((uint8_t)DISP_IDLE);
-    g_local.contrast = FULL_BRIGHT;
+    poly_eeconf ee = load_user_eeconf();
+    g_local.contrast = ee.conf.brightness;
+    last_update = 0;
 
-    if((g_local.flags&RGB_MATRIX_ON)==0) {
-        rgb_matrix_disable_noeeprom();
-    } else {
-        rgb_matrix_enable_noeeprom();
-    }
-    sync_and_refresh_displays();
+    rgb_matrix_reload_from_eeprom();
+
+    housekeeping_task_user();
+    suspend_wakeup_init_user();
 }
 
 void raw_hid_receive(uint8_t *data, uint8_t length) {
     uint8_t response[RAW_EPSIZE];
     memset(response, 0, RAW_EPSIZE);
-    const char * name = "P0:PolyKybd Split72";
+    const char * name = "P0.PolyKybd Split72";
 
     if(length>1 && data[0] == 'P') {
         switch(data[1]) {
@@ -1805,50 +1674,61 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                 switch(g_local.lang) {
                     /*[[[cog
                     for lang in languages:
-                        cog.outl(f'case {lang}: memcpy(response, "P1:{lang[5:]}", 5); break;')
+                        cog.outl(f'case {lang}: memcpy(response, "P1.{lang[5:]}", 5); break;')
                     ]]]*/
-                    case LANG_EN: memcpy(response, "P1:EN", 5); break;
-                    case LANG_DE: memcpy(response, "P1:DE", 5); break;
-                    case LANG_FR: memcpy(response, "P1:FR", 5); break;
-                    case LANG_ES: memcpy(response, "P1:ES", 5); break;
-                    case LANG_PT: memcpy(response, "P1:PT", 5); break;
-                    case LANG_IT: memcpy(response, "P1:IT", 5); break;
-                    case LANG_TR: memcpy(response, "P1:TR", 5); break;
-                    case LANG_KO: memcpy(response, "P1:KO", 5); break;
-                    case LANG_JA: memcpy(response, "P1:JA", 5); break;
-                    case LANG_AR: memcpy(response, "P1:AR", 5); break;
-                    case LANG_GR: memcpy(response, "P1:GR", 5); break;
+                    case LANG_EN: memcpy(response, "P1.EN", 5); break;
+                    case LANG_DE: memcpy(response, "P1.DE", 5); break;
+                    case LANG_FR: memcpy(response, "P1.FR", 5); break;
+                    case LANG_ES: memcpy(response, "P1.ES", 5); break;
+                    case LANG_PT: memcpy(response, "P1.PT", 5); break;
+                    case LANG_IT: memcpy(response, "P1.IT", 5); break;
+                    case LANG_TR: memcpy(response, "P1.TR", 5); break;
+                    case LANG_KO: memcpy(response, "P1.KO", 5); break;
+                    case LANG_JA: memcpy(response, "P1.JA", 5); break;
+                    case LANG_AR: memcpy(response, "P1.AR", 5); break;
+                    case LANG_GR: memcpy(response, "P1.GR", 5); break;
                     //[[[end]]]
                     default:
-                        memcpy(response, "P1:UKWN", 7);
+                        memcpy(response, "P1!", 3);
                         break;
                 }
                 raw_hid_send(response, RAW_EPSIZE);
                 break;
             case '2': //lang list
                     /*[[[cog
-                    lang_list = "P2:"
+                    lang_list = "P2."
                     for lang in languages:
                         lang_list += lang[5:]
                         if len(lang_list)>=(32-3-1):
                             cog.outl(f'memcpy(response, "{lang_list}", {len(lang_list)});')
                             cog.outl(f'raw_hid_send(response, RAW_EPSIZE);')
                             cog.outl(f'memset(response, 0, RAW_EPSIZE);')
-                            lang_list = "P2:"
+                            lang_list = "P2."
                         elif lang != languages[-1]:
                             lang_list += ","
                     cog.outl(f'memcpy(response, "{lang_list}", {len(lang_list)});')
                     cog.outl(f'raw_hid_send(response, RAW_EPSIZE);')
                     ]]]*/
-                    memcpy(response, "P2:EN,DE,FR,ES,PT,IT,TR,KO,JA", 29);
+                    memcpy(response, "P2.EN,DE,FR,ES,PT,IT,TR,KO,JA", 29);
                     raw_hid_send(response, RAW_EPSIZE);
                     memset(response, 0, RAW_EPSIZE);
-                    memcpy(response, "P2:AR,GR", 8);
+                    memcpy(response, "P2.AR,GR", 8);
                     raw_hid_send(response, RAW_EPSIZE);
                     //[[[end]]]
                 break;
+            case '3': //change language
+                if(data[3]< NUM_LANG) {
+                    g_local.lang = data[3];
+                    memcpy(response, data, 4);
+                    response[2] = '.';
+                    update_performed();
+                } else {
+                    memcpy(response, "P3!", 3);
+                }
+                raw_hid_send(response, RAW_EPSIZE);
+                break;
             default:
-                memcpy(response, "P?:UKWN", 7);
+                memcpy(response, "P??", 3);
                 response[1] = data[1];
                 raw_hid_send(response, RAW_EPSIZE);
                 break;
