@@ -231,9 +231,10 @@ void audio_driver_initialize(void) {
      * this is done here, reaching directly into the stm32 registers since chibios has not implemented BOFF handling yet
      * (see: chibios/os/hal/ports/STM32/todo.txt '- BOFF handling in DACv1.'
      *
-     * This Explict setting to 0 does not seem to be needed for the G4 Series
+     * This Explict setting to 0 does not seem to be needed for the G4 Series and possibly the L4+ serires
+     * to handle this id the BOFF bit defination does not exist then dont include the clearing.
      */
-#if !defined(AUDIO_NO_BOFF)
+#if defined(DAC_CR_BOFF1)
     DACD1.params->dac->CR &= ~DAC_CR_BOFF1;
     DACD2.params->dac->CR &= ~DAC_CR_BOFF2;
 #endif

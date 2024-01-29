@@ -122,7 +122,6 @@ Additionally, in the board config, you'll want to make changes to enable the DAC
 | `AUDIO_DAC_BUFFER_SIZE`          | __see next table__         | Number of samples generated every refill. Too few may cause excessive CPU load; too many may cause freezes, RAM or flash exhaustion or lags during matrix scanning.   |
 | `AUDIO_DAC_CH1_TRIGGER`          | `0b000`                    | Trigger used in the DAC for channel 1. The default is to select timer 6 this is the correct configuration for the F3 family. The G4 Family uses  0b111 |
 | `AUDIO_DAC_CH2_TRIGGER`          | `0b010`                    | Trigger used in the DAC for channel 1. The default is to select timer 7 this is the correct configuration for the F3 family. The G4 Family also uses  0b010 |
-| `AUDIO_NO_BOFF`                  | undefined                  | If this define is set then the BOFF bit in the CR register is not automatically cleared. The default is for the F3 family where the BOFF bits must be explictly cleared. In the G4 family this behaviour is not needed |
 
 There are a number of predefined quality settings that you can use, with "sane minimum" being the default.  You can use custom values by simply defining the sample rate, number of simultaneous tones and buffer size, instead of using one of the listed presets.
 
