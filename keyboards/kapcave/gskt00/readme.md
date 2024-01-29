@@ -1,5 +1,8 @@
 # GSKT-00 PCB
 
+![Front](https://i.imgur.com/JF4hVDCh.png)
+![Back](https://i.imgur.com/7dLaSxVh.png)
+
 Firmware for the GSKT-00 PCB
 
 * Keyboard Maintainer: [KapCave](https://github.com/nachie)
