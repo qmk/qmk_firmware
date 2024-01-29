@@ -6,7 +6,7 @@
 #define MAGIC_KEY_TIMEOUT 1500
 
 bool strd_process_record(uint16_t keycode, keyrecord_t *record, bool *return_value);
-bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* remembered_mods);
+bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* mods);
 void record_send_string(const char *str);
 void enqueue(int keycode);
 void dequeue(void);
