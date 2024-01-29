@@ -166,7 +166,7 @@
 #        define AUDIO_DAC_CH1_TRIGGER 0b0111
 #    else
 #        define AUDIO_DAC_CH1_TRIGGER 0b000
-#        if !defined(QMK_MCU_SERIES_STM32F0XX) && !defined(QMK_MCU_SERIES_STM32F3XX) && !defined(QMK_MCU_SERIES_STM32L0XX) && !defined(QMK_MCU_SERIES_STM32L4XX) && !defined(QMK_MCU_SERIES_GD32VF103)
+#        if !defined(QMK_MCU_SERIES_STM32F0XX) && !defined(QMK_MCU_SERIES_STM32F3XX) && !defined(QMK_MCU_SERIES_STM32F4XX) && !defined(QMK_MCU_SERIES_STM32L0XX) && !defined(QMK_MCU_SERIES_STM32L4XX) && !defined(QMK_MCU_SERIES_GD32VF103)
 #            pragma message "Default trigger value assigned for AUDIO_DAC_CH1_TRIGGER please ensure this is correct for your MCU"
 #        endif
 #    endif
@@ -177,7 +177,7 @@
 #        define AUDIO_DAC_CH2_TRIGGER 0b0010
 #    else
 #        define AUDIO_DAC_CH2_TRIGGER 0b010
-#        if !defined(QMK_MCU_SERIES_STM32F0XX) && !defined(QMK_MCU_SERIES_STM32F3XX) && !defined(QMK_MCU_SERIES_STM32L0XX) && !defined(QMK_MCU_SERIES_STM32L4XX) && !defined(QMK_MCU_SERIES_GD32VF103)
+#        if !defined(QMK_MCU_SERIES_STM32F0XX) && !defined(QMK_MCU_SERIES_STM32F3XX) && !defined(QMK_MCU_SERIES_STM32F4XX) && !defined(QMK_MCU_SERIES_STM32L0XX) && !defined(QMK_MCU_SERIES_STM32L4XX) && !defined(QMK_MCU_SERIES_GD32VF103)
 #            pragma message "Default trigger value assigned for AUDIO_DAC_CH2_TRIGGER please ensure this is correct for your MCU"
 #        endif
 #    endif
