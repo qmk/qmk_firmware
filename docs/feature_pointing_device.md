@@ -74,6 +74,71 @@ The Analog Joystick is an analog (ADC) driven sensor.  There are a variety of jo
 | `ANALOG_JOYSTICK_SPEED_MAX`       | (Optional) The maximum value used for motion.                              | `2`           |
 | `ANALOG_JOYSTICK_CLICK_PIN`       | (Optional) The pin wired up to the press switch of the analog stick.       | _not defined_ |
 
+### Azoteq IQS5XX Trackpad
+
+To use a Azoteq IQS5XX trackpad, add this to your `rules.mk`:
+
+```make
+POINTING_DEVICE_DRIVER = azoteq_iqs5xx
+```
+
+This supports the  IQS525, IQS550 and IQS572 controllers, with the latter two being used in the TPS43 and TPS65 trackpads.
+
+#### Device settings
+
+Specific device profiles are provided which set the required values for dimensions and resolution.
+
+| Setting                          | Description                                                |
+| -------------------------------- | ---------------------------------------------------------- |
+| `AZOTEQ_IQS5XX_TPS43`            | (Pick One) Sets resolution/mm to TPS43 specifications.     |
+| `AZOTEQ_IQS5XX_TPS65`            | (Pick One) Sets resolution/mm to TPS65 specifications.     |
+
+?> If using one of the above defines you can skip to gesture settings.
+
+| Setting                          | Description                                                | Default       |
+| -------------------------------- | ---------------------------------------------------------- | ------------- |
+| `AZOTEQ_IQS5XX_WIDTH_MM`         | (Required) Width of the trackpad sensor in millimeters.    | _not defined_ |
+| `AZOTEQ_IQS5XX_HEIGHT_MM`        | (Required) Height of the trackpad sensor in millimeters.   | _not defined_ |
+| `AZOTEQ_IQS5XX_RESOLUTION_X`     | (Optional) Specify X resolution for CPI calculation.       | _not defined_ |
+| `AZOTEQ_IQS5XX_RESOLUTION_Y`     | (Optional) Specify Y resolution for CPI calculation.       | _not defined_ |
+
+**`AZOTEQ_IQS5XX_RESOLUTION_X/Y`** fall back resolutions are provided within the driver based on controller model.
+
+| I2C Setting               | Description                                                                     | Default |
+| ------------------------- | ------------------------------------------------------------------------------- | ------- |
+| `AZOTEQ_IQS5XX_ADDRESS`   | (Optional) Sets the I2C Address for the Azoteq trackpad                         | `0xE8`  |
+| `AZOTEQ_IQS5XX_TIMEOUT_MS`| (Optional) The timeout for i2c communication with in milliseconds.              | `10`    |
+
+#### Gesture settings
+
+| Setting                                   | Description                                                                          | Default     |
+| ----------------------------------------- | ------------------------------------------------------------------------------------ | ----------- |
+| `AZOTEQ_IQS5XX_TAP_ENABLE`                | (Optional) Enable single finger tap. (Left click)                                    | `true`      |
+| `AZOTEQ_IQS5XX_TWO_FINGER_TAP_ENABLE`     | (Optional) Enable two finger tap. (Right click)                                      | `true`      |
+| `AZOTEQ_IQS5XX_PRESS_AND_HOLD_ENABLE`     | (Optional) Emulates holding left click to select text.                               | `false`     |
+| `AZOTEQ_IQS5XX_SWIPE_X_ENABLE`            | (Optional) Enable swipe gestures X+ (Mouse Button 5) / X- (Mouse Button 4)           | `false`     |
+| `AZOTEQ_IQS5XX_SWIPE_Y_ENABLE`            | (Optional) Enable swipe gestures Y+ (Mouse Button 3) / Y- (Mouse Button 6)           | `false`     |
+| `AZOTEQ_IQS5XX_ZOOM_ENABLE`               | (Optional) Enable zoom gestures Zoom Out (Mouse Button 7) / Zoom In (Mouse Button 8) | `false`     |
+| `AZOTEQ_IQS5XX_SCROLL_ENABLE`             | (Optional) Enable scrolling using two fingers.                                       | `true`      |
+| `AZOTEQ_IQS5XX_TAP_TIME`                  | (Optional) Maximum time in ms for tap to be registered.                              | `150`       |
+| `AZOTEQ_IQS5XX_TAP_DISTANCE`              | (Optional) Maximum deviation in pixels before single tap is no longer valid.         | `25`        |
+| `AZOTEQ_IQS5XX_HOLD_TIME`                 | (Optional) Minimum time in ms for press and hold.                                    | `300`       |
+| `AZOTEQ_IQS5XX_SWIPE_INITIAL_TIME`        | (Optional) Maximum time to travel initial distance before swipe is registered.       | `150`       |
+| `AZOTEQ_IQS5XX_SWIPE_INITIAL_DISTANCE`    | (Optional) Minimum travel in pixels before swipe is registered.                      | `300`       |
+| `AZOTEQ_IQS5XX_SWIPE_CONSECUTIVE_TIME`    | (Optional) Maximum time to travel consecutive distance before swipe is registered.   | `0`         |
+| `AZOTEQ_IQS5XX_SWIPE_CONSECUTIVE_DISTANCE`| (Optional) Minimum travel in pixels before a consecutive swipe is registered.        | `2000`      |
+| `AZOTEQ_IQS5XX_SCROLL_INITIAL_DISTANCE`   | (Optional) Minimum travel in pixels before scroll is registered.                     | `50`        |
+| `AZOTEQ_IQS5XX_ZOOM_INITIAL_DISTANCE`     | (Optional) Minimum travel in pixels before zoom is registered.                       | `50`        |
+| `AZOTEQ_IQS5XX_ZOOM_CONSECUTIVE_DISTANCE` | (Optional) Maximum time to travel zoom distance before zoom is registered.           | `25`        |
+
+#### Rotation settings
+
+| Setting                      | Description                                                | Default       |
+| ---------------------------- | ---------------------------------------------------------- | ------------- |
+| `AZOTEQ_IQS5XX_ROTATION_90`  | (Optional) Configures hardware for 90 degree rotation.     | _not defined_ |
+| `AZOTEQ_IQS5XX_ROTATION_180` | (Optional) Configures hardware for 180 degree rotation.    | _not defined_ |
+| `AZOTEQ_IQS5XX_ROTATION_270` | (Optional) Configures hardware for 270 degree rotation.    | _not defined_ |
+
 ### Cirque Trackpad
 
 To use the Cirque Trackpad sensor, add this to your `rules.mk`:
@@ -735,9 +800,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 #### Set different target layer when a particular layer is active:
 
-The below code will change the auto mouse layer target to `_MOUSE_LAYER_2` when `_DEFAULT_LAYER_2` is highest default layer state.   
-*NOTE: that `auto_mouse_layer_off` is used here instead of `remove_auto_mouse_layer` as `default_layer_state_set_*` stack is separate from the `layer_state_set_*` stack* if something similar was to be done in `layer_state_set_user `state = remove_auto_mouse_layer(state, false)` should be used instead    
-*ADDITIONAL NOTE: `AUTO_MOUSE_TARGET_LAYER` is checked if already set to avoid deactivating the target layer unless needed*   
+The below code will change the auto mouse layer target to `_MOUSE_LAYER_2` when `_DEFAULT_LAYER_2` is highest default layer state.
+
+*NOTE: that `auto_mouse_layer_off` is used here instead of `remove_auto_mouse_layer` as `default_layer_state_set_*` stack is separate from the `layer_state_set_*` stack*, if something similar was to be done in `layer_state_set_user`, `state = remove_auto_mouse_layer(state, false)` should be used instead.
+
+*ADDITIONAL NOTE: `AUTO_MOUSE_TARGET_LAYER` is checked if already set to avoid deactivating the target layer unless needed*.
 
 ```c
 // in keymap.c

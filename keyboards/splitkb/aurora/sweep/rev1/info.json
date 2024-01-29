@@ -79,7 +79,6 @@
             "matrix": [4, 4]
         },
         "soft_serial_pin": "D2",
-        "main": "pin",
         "matrix_pins": {
             "right": {
                 "rows": ["B1", "F7", "F6", "B3"],
@@ -105,7 +104,7 @@
         "pin": "D3"
     },
     "rgb_matrix": {
-        "driver": "WS2812",
+        "driver": "ws2812",
         "layout": [
             {"flags": 2, "x": 71, "y": 15},
             {"flags": 2, "x": 51, "y": 8},
@@ -153,6 +152,7 @@
             {"flags": 4, "matrix": [6, 4], "x": 224, "y": 47},
             {"flags": 4, "matrix": [7, 0], "x": 132, "y": 64},
             {"flags": 4, "matrix": [7, 1], "x": 153, "y": 60}
-        ]
+        ],
+        "max_brightness": 128
     }
 }

@@ -13,6 +13,9 @@
         "nkro": true,
         "rgb_matrix": true
     },
+    "build": {
+        "debounce_type": "sym_eager_pk"
+    },
     "matrix_pins": {
         "cols": ["GP21", "GP22", "GP23", "GP24", "GP25", "GP26", "GP28", "GP3", "GP4", "GP5", "GP6", "GP9", "GP10", "GP11", "GP12", "GP13"],
         "rows": ["GP29", "GP27", "GP20", "GP19", "GP18"]
@@ -23,7 +26,7 @@
         "pin": "GP0"
     },
     "rgb_matrix": {
-        "driver": "WS2812",
+        "driver": "ws2812",
         "layout": [
             {"matrix": [0, 0], "x": 33.1, "y": 3.7, "flags": 4},
             {"matrix": [0, 1], "x": 45.7, "y": 3.7, "flags": 4},

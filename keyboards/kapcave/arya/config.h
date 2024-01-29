@@ -22,8 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define TAP_CODE_DELAY 25 
-
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3
 
 /*

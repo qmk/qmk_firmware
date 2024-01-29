@@ -21,7 +21,23 @@
         "pin": "F7"
     },
     "rgblight": {
-        "max_brightness": 130
+        "hue_steps": 10,
+        "saturation_steps": 10,
+        "brightness_steps": 10,
+        "led_count": 30,
+        "max_brightness": 130,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

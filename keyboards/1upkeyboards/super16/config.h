@@ -17,24 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#    define RGBLED_NUM 16  // Add 12 if attaching the RGB LED ring
-#    define RGB_MATRIX_LED_COUNT RGBLED_NUM
-#    ifdef RGBLIGHT_ENABLE
-#        define RGBLIGHT_HUE_STEP 8
-#        define RGBLIGHT_SAT_STEP 8
-#        define RGBLIGHT_VAL_STEP 8
-#        define RGBLIGHT_SLEEP         /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-#        define RGBLIGHT_EFFECT_BREATHING
-#        define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#        define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#        define RGBLIGHT_EFFECT_SNAKE
-#        define RGBLIGHT_EFFECT_KNIGHT
-#        define RGBLIGHT_EFFECT_CHRISTMAS
-#        define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#        define RGBLIGHT_EFFECT_RGB_TEST
-#        define RGBLIGHT_EFFECT_ALTERNATING
-#        define RGBLIGHT_EFFECT_TWINKLE
-#    elif defined RGB_MATRIX_ENABLE
+#    define RGB_MATRIX_LED_COUNT 16
+#    ifdef RGB_MATRIX_ENABLE
 #        define RGB_MATRIX_KEYPRESSES   // reacts to keypresses
 #        define RGB_MATRIX_FRAMEBUFFER_EFFECTS  // reacts to keyreleases (instead of keypresses)
 // RGB Matrix Animation modes. Explicitly enabled

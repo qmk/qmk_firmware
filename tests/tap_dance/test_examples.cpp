@@ -316,3 +316,119 @@ TEST_F(TapDance, QuadFunction) {
     EXPECT_EMPTY_REPORT(driver);
     run_one_scan_loop();
 }
+
+TEST_F(TapDance, DanceFnAdvancedWithRelease) {
+    TestDriver driver;
+    InSequence s;
+    auto       key_rls = KeymapKey(0, 1, 0, TD(TD_RELEASE));
+
+    set_keymap({key_rls});
+
+    /* Single press and unpress */
+    key_rls.press();
+    EXPECT_REPORT(driver, (KC_P));
+    EXPECT_EMPTY_REPORT(driver);
+    run_one_scan_loop();
+
+    key_rls.release();
+    EXPECT_REPORT(driver, (KC_U));
+    EXPECT_EMPTY_REPORT(driver);
+    run_one_scan_loop();
+
+    EXPECT_REPORT(driver, (KC_F));
+    EXPECT_EMPTY_REPORT(driver);
+    EXPECT_REPORT(driver, (KC_R));
+    EXPECT_EMPTY_REPORT(driver);
+    idle_for(TAPPING_TERM);
+    run_one_scan_loop();
+
+    /* Double press and unpress */
+    key_rls.press();
+    EXPECT_REPORT(driver, (KC_P));
+    EXPECT_EMPTY_REPORT(driver);
+    run_one_scan_loop();
+
+    key_rls.release();
+    EXPECT_REPORT(driver, (KC_U));
+    EXPECT_EMPTY_REPORT(driver);
+    run_one_scan_loop();
+
+    key_rls.press();
+    EXPECT_REPORT(driver, (KC_P));
+    EXPECT_EMPTY_REPORT(driver);
+    run_one_scan_loop();
+
+    key_rls.release();
+    EXPECT_REPORT(driver, (KC_U));
+    EXPECT_EMPTY_REPORT(driver);
+    run_one_scan_loop();
+
+    EXPECT_REPORT(driver, (KC_F));
+    EXPECT_EMPTY_REPORT(driver);
+    EXPECT_REPORT(driver, (KC_R));
+    EXPECT_EMPTY_REPORT(driver);
+    idle_for(TAPPING_TERM);
+    run_one_scan_loop();
+
+    /* Unpress after tapping term has elapsed (key is registered as held) */
+    key_rls.press();
+    EXPECT_REPORT(driver, (KC_P));
+    EXPECT_EMPTY_REPORT(driver);
+    run_one_scan_loop();
+
+    EXPECT_REPORT(driver, (KC_F));
+    EXPECT_EMPTY_REPORT(driver);
+    idle_for(TAPPING_TERM);
+    run_one_scan_loop();
+
+    key_rls.release();
+    EXPECT_REPORT(driver, (KC_U));
+    EXPECT_EMPTY_REPORT(driver);
+    EXPECT_REPORT(driver, (KC_R));
+    EXPECT_EMPTY_REPORT(driver);
+    run_one_scan_loop();
+}
+
+TEST_F(TapDance, DanceFnAdvancedWithReleaseAndFinish) {
+    TestDriver driver;
+    InSequence s;
+    auto       key_rls = KeymapKey(0, 1, 0, TD(TD_RELEASE_AND_FINISH));
+
+    set_keymap({key_rls});
+
+    /* Single press and unpress */
+    key_rls.press();
+    EXPECT_REPORT(driver, (KC_P));
+    EXPECT_EMPTY_REPORT(driver);
+    run_one_scan_loop();
+
+    key_rls.release();
+    EXPECT_REPORT(driver, (KC_U));
+    EXPECT_EMPTY_REPORT(driver);
+    EXPECT_REPORT(driver, (KC_R));
+    EXPECT_EMPTY_REPORT(driver);
+    run_one_scan_loop();
+
+    // Verify the finished and/or reset functions aren't called
+    // after the tapping term elapses
+    idle_for(TAPPING_TERM);
+    run_one_scan_loop();
+
+    /* Unpress after tapping term has elapsed (key is registered as held) */
+    key_rls.press();
+    EXPECT_REPORT(driver, (KC_P));
+    EXPECT_EMPTY_REPORT(driver);
+    run_one_scan_loop();
+
+    EXPECT_REPORT(driver, (KC_F));
+    EXPECT_EMPTY_REPORT(driver);
+    idle_for(TAPPING_TERM);
+    run_one_scan_loop();
+
+    key_rls.release();
+    EXPECT_REPORT(driver, (KC_U));
+    EXPECT_EMPTY_REPORT(driver);
+    EXPECT_REPORT(driver, (KC_R));
+    EXPECT_EMPTY_REPORT(driver);
+    run_one_scan_loop();
+}

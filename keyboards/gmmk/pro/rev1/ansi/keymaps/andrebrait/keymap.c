@@ -17,26 +17,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-enum layers {
-    WIN_BASE = 0,
-    WIN_FN,
-    MAC_BASE,
-    MAC_FN
-};
+enum layers { WIN_BASE = 0, WIN_FN, MAC_BASE, MAC_FN };
 
 enum custom_keycodes {
-    CMDQ_TOG = QK_KB_2                  // TECH DEBT: Starts at QK_KB_2 to maintain ordering with VIA definitions. See #19884. Revert to QK_KB_0 when VIA catches up with QMK.
+    CMDQ_TOG = QK_KB_2 // TECH DEBT: Starts at QK_KB_2 to maintain ordering with VIA definitions. See #19884. Revert to QK_KB_0 when VIA catches up with QMK.
 };
 
-#define KC_TASK LWIN(KC_TAB)            // Open Task Manager
-#define KC_FLXP LWIN(KC_E)              // Open File Explorer
-#define DF_WINB DF(WIN_BASE)            // Switch to WIN_BASE layer
-#define MO_WINF MO(WIN_FN)              // Toggle to WIN_FN layer
-#define DF_MACB DF(MAC_BASE)            // Switch to MAX_BASE layer
-#define MO_MACF MO(MAC_FN)              // Toggle to MAC_FN layer
+#define KC_TASK LWIN(KC_TAB) // Open Task Manager
+#define KC_FLXP LWIN(KC_E)   // Open File Explorer
+#define DF_WINB DF(WIN_BASE) // Switch to WIN_BASE layer
+#define MO_WINF MO(WIN_FN)   // Toggle to WIN_FN layer
+#define DF_MACB DF(MAC_BASE) // Switch to MAX_BASE layer
+#define MO_MACF MO(MAC_FN)   // Toggle to MAC_FN layer
 
 // clang-format off
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // The GMMK Pro default layout is:
 //
@@ -103,111 +98,99 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [WIN_BASE] =    { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [WIN_FN] =      { ENCODER_CCW_CW(XXXXXXX, XXXXXXX) },
-    [MAC_BASE] =    { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [MAC_FN] =      { ENCODER_CCW_CW(XXXXXXX, XXXXXXX) },
+    [WIN_BASE] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+    [WIN_FN]   = {ENCODER_CCW_CW(XXXXXXX, XXXXXXX)},
+    [MAC_BASE] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+    [MAC_FN]   = {ENCODER_CCW_CW(XXXXXXX, XXXXXXX)},
 };
 #endif
 
 /* To record user preferences */
 typedef union {
-    uint32_t raw;                           // set to 32-bit of size
+    uint32_t raw; // set to 32-bit of size
     struct {
-        bool rgb_enabled            :1;     // Artificial RGB ON/OFF flag (1 bit)
-        bool cmd_q_delay_enabled    :1;     // Toggle CMD+Q delay (1 bit)
+        bool rgb_enabled : 1;         // Artificial RGB ON/OFF flag (1 bit)
+        bool cmd_q_delay_enabled : 1; // Toggle CMD+Q delay (1 bit)
     };
 } user_config_t;
 user_config_t user_config;
 
 /* Delayed keypresses variables and functions */
-static uint16_t delayed_press_delay = 0;
-static uint16_t delayed_press_keycode = KC_NO;
-static uint16_t delayed_press_start_time = 0;
-static uint16_t delayed_press_sent_keycode = KC_NO;
-static void start_delayed_press(const uint16_t delay, const uint16_t keycode);
-static bool is_any_delayed_press_pending(void);
-static bool is_delayed_press_pending(const uint16_t keycode);
-static bool is_delayed_press_sent(const uint16_t keycode);
-static void mark_delayed_press_sent(void);
-static void mark_delayed_release_sent(void);
-static void cancel_delayed_press(void);
+static fast_timer_t delayed_press_delay        = 0;
+static uint16_t     delayed_press_keycode      = KC_NO;
+static fast_timer_t delayed_press_start_time   = 0;
+static uint16_t     delayed_press_sent_keycode = KC_NO;
+static void         start_delayed_press(fast_timer_t delay, uint16_t keycode);
+static void         mark_delayed_press_sent(void);
+static void         mark_delayed_release_sent(void);
+static void         cancel_delayed_press(void);
+
+#define IS_ANY_DELAYED_PRESS_PENDING() (delayed_press_start_time > 0 && delayed_press_keycode != KC_NO)
+#define IS_DELAYED_PRESS_PENDING(keycode) (delayed_press_start_time > 0 && delayed_press_keycode == (keycode))
+#define IS_DELAYED_PRESS_SENT(keycode) (delayed_press_sent_keycode != KC_NO && delayed_press_sent_keycode == (keycode))
 
 /* CMD+Q delay */
 #ifndef CMD_Q_DELAY
-    #define CMD_Q_DELAY 1000
+#    define CMD_Q_DELAY 1000
 #endif
 #if CMD_Q_DELAY <= 0 || CMD_Q_DELAY >= UINT16_MAX / 2
-    #error "CMD_Q_DELAY must be a positive integer smaller than UINT16_MAX / 2"
+#    error "CMD_Q_DELAY must be a positive integer smaller than UINT16_MAX / 2"
 #endif
-
-#define MIN(x, y) (((x) < (y)) ? (x) : (y))
-#define MAX(x, y) (((x) > (y)) ? (x) : (y))
 
 #ifdef RGB_MATRIX_ENABLE
 
-#define CAPS_LOCK_COLOR     RGB_RED
-#define WIN_BASE_COLOR      RGB_BLUE
-#define WIN_FN_COLOR        RGB_BLUE
-#define MAC_BASE_COLOR      RGB_WHITE
-#define MAC_FN_COLOR        RGB_WHITE
-#define UNKNOWN_LAYER_COLOR RGB_PINK
+#    define CAPS_LOCK_COLOR RGB_RED
+#    define WIN_BASE_COLOR RGB_BLUE
+#    define WIN_FN_COLOR RGB_BLUE
+#    define MAC_BASE_COLOR RGB_WHITE
+#    define MAC_FN_COLOR RGB_WHITE
+#    define UNKNOWN_LAYER_COLOR RGB_PINK
 
 /* The maximum effects duration */
-#ifndef EFFECTS_DURATION
-    #define EFFECTS_DURATION 2000
-#endif
-#if EFFECTS_DURATION <= 0 || EFFECTS_DURATION >= UINT16_MAX / 2
-    #error "EFFECTS_DURATION must be a positive integer smaller than UINT16_MAX / 2"
-#endif
+#    ifndef EFFECTS_DURATION
+#        define EFFECTS_DURATION 2000
+#    endif
+#    if EFFECTS_DURATION <= 0 || EFFECTS_DURATION >= UINT16_MAX / 2
+#        error "EFFECTS_DURATION must be a positive integer smaller than UINT16_MAX / 2"
+#    endif
 /* The interval for the flashing effect */
-#ifndef FLASHING_EFFECT_INTERVAL
-    #define FLASHING_EFFECT_INTERVAL 250
-#endif
-#if FLASHING_EFFECT_INTERVAL <= 0 || FLASHING_EFFECT_INTERVAL >= UINT16_MAX / 2
-    #error "FLASHING_EFFECT_INTERVAL must be a positive integer smaller than UINT16_MAX / 2"
-#endif
+#    ifndef FLASHING_EFFECT_INTERVAL
+#        define FLASHING_EFFECT_INTERVAL 250
+#    endif
+#    if FLASHING_EFFECT_INTERVAL <= 0 || FLASHING_EFFECT_INTERVAL >= UINT16_MAX / 2
+#        error "FLASHING_EFFECT_INTERVAL must be a positive integer smaller than UINT16_MAX / 2"
+#    endif
 
 static void set_rgb_layer_winfn(void);
 static void set_rgb_layer_macfn(void);
 
 /* Effects functions */
-static float flashing_effect(const uint16_t delta_time);
-static float static_effect(const uint16_t delta_time);
-static float increasing_effect(const uint16_t delta_time);
+static float flashing_effect(fast_timer_t delta_time);
+static float static_effect(fast_timer_t delta_time);
+static float increasing_effect(fast_timer_t delta_time);
 
 /* Effect variables and functions */
-static uint16_t effect_started_time = 0;
-static uint16_t effect_max_duration = EFFECTS_DURATION;
-static uint8_t effect_r = 0x0, effect_g = 0x0, effect_b = 0x0;
-static float (*effect_multiplier)(const uint16_t) = static_effect;
-static void start_effects(
-        const uint16_t max_duration,
-        const uint8_t r_color,
-        const uint8_t g_color,
-        const uint8_t b_color,
-        const float (*multiplier)(const uint16_t));
+static fast_timer_t effect_started_time = 0;
+static fast_timer_t effect_max_duration = EFFECTS_DURATION;
+static uint8_t      effect_r = 0x0, effect_g = 0x0, effect_b = 0x0;
+static float (*effect_multiplier)(fast_timer_t) = static_effect;
+static void start_effects(fast_timer_t max_duration, uint8_t r_color, uint8_t g_color, uint8_t b_color, float (*multiplier)(fast_timer_t));
 static void stop_effects(void);
 
 /* Delayed keypresses variables with RGB variant */
-static void start_delayed_press_with_effects(
-        const uint16_t delay,
-        const uint16_t keycode,
-        const uint8_t r_color,
-        const uint8_t g_color,
-        const uint8_t b_color);
+static void start_delayed_press_with_effects(fast_timer_t delay, uint16_t keycode, uint8_t r_color, uint8_t g_color, uint8_t b_color);
 
 #endif // RGB_MATRIX_ENABLE
 
-void eeconfig_init_user(void) {                 // EEPROM is getting reset!
-    user_config.raw = 0;
-    user_config.rgb_enabled = true;             // We want this enabled by default
-    user_config.cmd_q_delay_enabled = true;     // We want this enabled by default
-    eeconfig_update_user(user_config.raw);      // Write default value to EEPROM now
+void eeconfig_init_user(void) { // EEPROM is getting reset!
+    user_config.raw                 = 0;
+    user_config.rgb_enabled         = true; // We want this enabled by default
+    user_config.cmd_q_delay_enabled = true; // We want this enabled by default
+    eeconfig_update_user(user_config.raw);  // Write default value to EEPROM now
 }
 
 void keyboard_post_init_user(void) {
-    #ifdef RGB_MATRIX_ENABLE
+#ifdef RGB_MATRIX_ENABLE
     // Enable the RGB matrix, if not enabled
     if (!rgb_matrix_is_enabled()) {
         rgb_matrix_enable();
@@ -216,15 +199,15 @@ void keyboard_post_init_user(void) {
     if (rgb_matrix_get_flags() != LED_FLAG_ALL) {
         rgb_matrix_set_flags(LED_FLAG_ALL);
     }
-    #endif
+#endif
 
     // Read the user config from EEPROM
     user_config.raw = eeconfig_read_user();
 }
 
 void matrix_scan_user(void) {
-    if (is_any_delayed_press_pending()) {
-        if (sync_timer_elapsed(delayed_press_start_time) > delayed_press_delay) {
+    if (IS_ANY_DELAYED_PRESS_PENDING()) {
+        if (timer_elapsed_fast(delayed_press_start_time) > delayed_press_delay) {
             register_code(delayed_press_keycode);
             mark_delayed_press_sent();
         }
@@ -232,20 +215,20 @@ void matrix_scan_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (is_delayed_press_sent(keycode)) {
+    if (IS_DELAYED_PRESS_SENT(keycode)) {
         if (!record->event.pressed) {
             /* Send key-up event and clear the keycode and stop processing */
             unregister_code(keycode);
             mark_delayed_release_sent();
             return false;
         }
-    } else if (is_delayed_press_pending(keycode)) {
+    } else if (IS_DELAYED_PRESS_PENDING(keycode)) {
         if (!record->event.pressed) {
             /* Cancel the pending press and stop processing */
             cancel_delayed_press();
             return false;
         }
-    } else if (is_any_delayed_press_pending()) {
+    } else if (IS_ANY_DELAYED_PRESS_PENDING()) {
         /* Cancel the pending press and resume processing */
         cancel_delayed_press();
     }
@@ -258,17 +241,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case CMDQ_TOG:
             if (record->event.pressed) {
+#ifdef RGB_MATRIX_ENABLE
                 if (user_config.cmd_q_delay_enabled) {
                     /* Turning delay OFF */
-                    #ifdef RGB_MATRIX_ENABLE
                     start_effects(EFFECTS_DURATION, RGB_RED, flashing_effect);
-                    #endif
                 } else {
                     /* Turning delay ON */
-                    #ifdef RGB_MATRIX_ENABLE
                     start_effects(EFFECTS_DURATION, RGB_GREEN, flashing_effect);
-                    #endif
                 }
+#endif
                 user_config.cmd_q_delay_enabled = !user_config.cmd_q_delay_enabled;
                 eeconfig_update_user(user_config.raw);
             }
@@ -276,22 +257,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_Q:
             if (user_config.cmd_q_delay_enabled) {
                 if (layer_state_is(MAC_BASE)) {
-                    const uint8_t mods = get_mods();
+                    uint8_t mods = get_mods();
                     if (mods == MOD_BIT(KC_LCMD) || mods == MOD_BIT(KC_RCMD)) {
                         if (record->event.pressed) {
-                            #ifdef RGB_MATRIX_ENABLE
+#ifdef RGB_MATRIX_ENABLE
                             start_delayed_press_with_effects(CMD_Q_DELAY, KC_Q, RGB_ORANGE);
-                            #else
+#else
                             start_delayed_press(CMD_Q_DELAY, KC_Q);
-                            #endif
+#endif
                         }
                         return false;
                     }
                 }
             }
             break;
-        #ifdef RGB_MATRIX_ENABLE
-        #ifdef NKRO_ENABLE
+#ifdef RGB_MATRIX_ENABLE
+#    ifdef NKRO_ENABLE
         case NK_TOGG:
             if (record->event.pressed) {
                 if (keymap_config.nkro) {
@@ -303,50 +284,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             break;
-        #endif // NKRO_ENABLE
-        case RGB_MOD:
-        case RGB_RMOD:
-        case RGB_HUI:
-        case RGB_HUD:
-        case RGB_SAI:
-        case RGB_SAD:
-        case RGB_VAI:
-        case RGB_VAD:
-        case RGB_SPI:
-        case RGB_SPD:
-            if (!user_config.rgb_enabled) {
-                /* Ignore changes to RGB settings while only it's supposed to be OFF */
-                return false;  // Skip all further processing of this key
-            }
-            break;
+#    endif // NKRO_ENABLE
         case RGB_TOG:
             if (record->event.pressed) {
                 user_config.rgb_enabled = !user_config.rgb_enabled;
                 eeconfig_update_user(user_config.raw);
             }
             return false;
-        #endif // RGB_MATRIX_ENABLE
+        case RGB_MODE_FORWARD ... RGB_MODE_TWINKLE:
+            if (!user_config.rgb_enabled) {
+                /* Ignore changes to RGB settings while only it's supposed to be OFF */
+                return false; // Skip all further processing of this key
+            }
+            break;
+#endif // RGB_MATRIX_ENABLE
     }
     return true;
 }
 
-static void start_delayed_press(const uint16_t delay, const uint16_t keycode) {
-    delayed_press_delay = delay;
-    delayed_press_keycode = keycode;
-    delayed_press_start_time = sync_timer_read();
+static void start_delayed_press(fast_timer_t delay, uint16_t keycode) {
+    delayed_press_delay        = delay;
+    delayed_press_keycode      = keycode;
+    delayed_press_start_time   = timer_read_fast();
     delayed_press_sent_keycode = KC_NO;
-}
-
-static bool is_any_delayed_press_pending(void) {
-    return delayed_press_start_time > 0 && delayed_press_keycode != KC_NO;
-}
-
-static bool is_delayed_press_pending(const uint16_t keycode) {
-    return delayed_press_start_time > 0 && delayed_press_keycode == keycode;
-}
-
-static bool is_delayed_press_sent(const uint16_t keycode) {
-    return delayed_press_sent_keycode != KC_NO && delayed_press_sent_keycode == keycode;
 }
 
 static void mark_delayed_press_sent(void) {
@@ -359,22 +319,17 @@ static void mark_delayed_release_sent(void) {
 }
 
 static void cancel_delayed_press(void) {
-    delayed_press_delay = 0;
-    delayed_press_keycode = KC_NO;
+    delayed_press_delay      = 0;
+    delayed_press_keycode    = KC_NO;
     delayed_press_start_time = 0;
-    #ifdef RGB_MATRIX_ENABLE
+#ifdef RGB_MATRIX_ENABLE
     stop_effects();
-    #endif
+#endif
 }
 
 #ifdef RGB_MATRIX_ENABLE
 
-static void start_delayed_press_with_effects(
-        const uint16_t delay,
-        const uint16_t keycode,
-        const uint8_t r_color,
-        const uint8_t g_color,
-        const uint8_t b_color) {
+static void start_delayed_press_with_effects(fast_timer_t delay, uint16_t keycode, uint8_t r_color, uint8_t g_color, uint8_t b_color) {
     start_delayed_press(delay, keycode);
     start_effects(delay, r_color, g_color, b_color, increasing_effect);
 }
@@ -386,7 +341,7 @@ Effects when switching layers
 static uint8_t previous_layer = UINT8_MAX;
 
 layer_state_t default_layer_state_set_user(layer_state_t state) {
-    const uint8_t current_layer = get_highest_layer(state);
+    uint8_t current_layer = get_highest_layer(state);
     if (previous_layer != current_layer) {
         // For some reason, setting the default layer alone doesn't change it fully
         layer_move(current_layer);
@@ -407,50 +362,45 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
     return state;
 }
 
-static void start_effects(
-        const uint16_t max_duration,
-        const uint8_t r_color,
-        const uint8_t g_color,
-        const uint8_t b_color,
-        const float (*multiplier)(const uint16_t)) {
-    effect_r = r_color;
-    effect_g = g_color;
-    effect_b = b_color;
-    effect_multiplier = multiplier;
+static void start_effects(fast_timer_t max_duration, uint8_t r_color, uint8_t g_color, uint8_t b_color, float (*multiplier)(fast_timer_t)) {
+    effect_r            = r_color;
+    effect_g            = g_color;
+    effect_b            = b_color;
+    effect_multiplier   = multiplier;
     effect_max_duration = max_duration;
-    effect_started_time = sync_timer_read();
+    effect_started_time = timer_read_fast();
 }
 
 static void stop_effects(void) {
-    effect_r = 0x0;
-    effect_g = 0x0;
-    effect_b = 0x0;
-    effect_multiplier = static_effect;
+    effect_r            = 0x0;
+    effect_g            = 0x0;
+    effect_b            = 0x0;
+    effect_multiplier   = static_effect;
     effect_max_duration = EFFECTS_DURATION;
     effect_started_time = 0;
 }
 
-static float flashing_effect(const uint16_t delta_time) {
+static float flashing_effect(fast_timer_t delta_time) {
     return ((delta_time / FLASHING_EFFECT_INTERVAL) + 1) & 0x01;
 }
 
-static float static_effect(const uint16_t delta_time) {
+static float static_effect(fast_timer_t delta_time) {
     return 1.0;
 }
 
-static float increasing_effect(const uint16_t delta_time) {
-    return MAX(0.0, MIN(1.0, ((float) delta_time) / effect_max_duration));
+static float increasing_effect(fast_timer_t delta_time) {
+    return ((float)delta_time) / effect_max_duration;
 }
 
 bool rgb_matrix_indicators_user(void) {
     if (effect_started_time > 0) {
-        const uint16_t delta_time = sync_timer_elapsed(effect_started_time);
+        fast_timer_t delta_time = timer_elapsed_fast(effect_started_time);
         if (delta_time <= effect_max_duration) {
             /* Render effect */
-            const float multiplier = effect_multiplier(delta_time);
-            const uint8_t val_r = multiplier * effect_r;
-            const uint8_t val_g = multiplier * effect_g;
-            const uint8_t val_b = multiplier * effect_b;
+            float   multiplier = effect_multiplier(delta_time);
+            uint8_t val_r      = multiplier * effect_r;
+            uint8_t val_g      = multiplier * effect_g;
+            uint8_t val_b      = multiplier * effect_b;
             rgb_matrix_set_color_all(val_r, val_g, val_b);
             return false;
         } else {

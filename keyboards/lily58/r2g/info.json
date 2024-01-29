@@ -104,7 +104,7 @@
         }
     },
     "rgb_matrix": {
-        "driver": "WS2812",
+        "driver": "ws2812",
         "split_count": [37, 37],
         "layout": [
             {"flags": 4, "matrix": [0, 5], "x": 72, "y": 4},   // L SW06

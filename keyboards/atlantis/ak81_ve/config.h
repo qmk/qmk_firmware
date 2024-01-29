@@ -16,9 +16,6 @@
 
 #pragma once
 
-#define ENCODERS_CCW_KEY { { 4, 5 } } // Note:  array is { col, row )
-#define ENCODERS_CW_KEY  { { 3, 5 } } // Note:  array is { col, row )
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 
@@ -30,9 +27,7 @@
 #define RGB_DISABLE_WHEN_USB_SUSPENDED true
 #define RGB_MATRIX_LED_COUNT 96
 #define RGB_MATRIX_DEFAULT_HUE 170
-#define RGB_MATRIX_DEFAULT_SAT 255
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 130
-#define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
 
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS               // Static dual hue, speed is hue for secondary hue
 #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN          // Static gradient top to bottom, speed controls how much gradient changes

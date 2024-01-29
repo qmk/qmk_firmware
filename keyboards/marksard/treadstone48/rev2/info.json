@@ -12,7 +12,17 @@
         "pin": "D3"
     },
     "rgblight": {
-        "max_brightness": 220
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 12,
+        "max_brightness": 220,
+        "sleep": true,
+        "animations": {
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "knight": true,
+            "static_gradient": true
+        }
     },
     "matrix_pins": {
         "cols": ["D4", "C6", "D7", "E6", "B4", "B5"],

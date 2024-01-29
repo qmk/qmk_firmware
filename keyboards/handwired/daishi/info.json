@@ -18,6 +18,9 @@
             {"pin_a": "F1", "pin_b": "F0", "resolution": 2}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "processor": "at90usb1286",
     "bootloader": "atmel-dfu",
     "layouts": {
