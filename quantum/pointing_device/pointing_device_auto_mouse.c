@@ -45,7 +45,7 @@ static inline bool layer_hold_check(void) {
 }
 
 /* check all layer activation criteria */
-static inline bool is_auto_mouse_active(void) {
+bool is_auto_mouse_active(void) {
     return auto_mouse_context.status.is_activated || auto_mouse_context.status.mouse_key_tracker || layer_hold_check();
 }
 

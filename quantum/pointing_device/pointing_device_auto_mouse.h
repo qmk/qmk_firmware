@@ -83,7 +83,7 @@ void          set_auto_mouse_debounce(uint8_t debounce);                // set d
 uint8_t       get_auto_mouse_debounce(void);                            // get debounce
 void          auto_mouse_layer_off(void);                               // disable target layer if appropriate (DO NOT USE in layer_state_set stack!!)
 layer_state_t remove_auto_mouse_layer(layer_state_t state, bool force); // remove auto mouse target layer from state if appropriate (can be forced)
-
+bool          is_auto_mouse_active(void);                               // check if target layer is active
 /* ----------For custom pointing device activation----------------------------------------------------------- */
 bool auto_mouse_activation(report_mouse_t mouse_report); // handles pointing device trigger conditions for target layer activation (overwritable)
 
