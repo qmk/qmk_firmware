@@ -199,11 +199,11 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
 /* KEYBOARD XOMT START */
 static void render_xomt(int XOMT_X, int XOMT_Y) {
     static const char PROGMEM xomt[] = {
-        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 
     };
  
     oled_set_cursor(XOMT_X, XOMT_Y);
-    oled_write_P(xomt, false);
+    oled_write_raw_P(xomt, 8);
 }   
 /* KEYBOARD XOMT END */
 
@@ -257,7 +257,7 @@ static void print_status_narrow(void) {
 
     /* KEYBOARD XOMT RENDER START */
 
-    render_xomt(0, 11);
+    render_xomt(0, 10);
 
     /* KEYBOARD XOMT RENDER ENDER */
 
