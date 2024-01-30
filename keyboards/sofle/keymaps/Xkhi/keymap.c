@@ -1,5 +1,7 @@
 #include QMK_KEYBOARD_H
 
+static void ctrl_plus_key(keyrecord_t *record, uint16_t key);
+
 enum sofle_layers {
     /* _M_XYZ = Mac Os, _W_XYZ = Win/Linux */
     _QWERTY,
@@ -14,7 +16,15 @@ enum custom_keycodes {
     KC_NXTWD,
     KC_LSTRT,
     KC_LEND,
-    KC_DLINE
+    KC_DLINE,
+    // USER DEFINED KEYCODES
+    KC_QUIT,
+    KC_CLOSE,
+    KC_REL,
+    KC_NTAB,
+    KC_ALL,
+    KC_SAVE,
+    KC_SRCH
 };
 
 
@@ -46,11 +56,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |KC_GRV|  F2  |  F3  |  F4  |  F5  |  F6  |                    |  F7  |  F8  |  F9  |  F10 | F11  | F12  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |  F1  |      |      |      |      |      |                    |      |   {  |   }  |   +  |   =  |      |
+ * |  F1  | Quit | Cls  |      | Rld  | Tab  |                    |      |   {  |   }  |   +  |   =  |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | Caps |      |      |      |      |      |-------.    ,-------|      |   (  |   )  |   [  |   ]  |      |
+ * | Caps | All  | Save |      | Srch |      |-------.    ,-------|      |   (  |   )  |   [  |   ]  |      |
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
- * |      | Undo |  Cut | Copy | Paste|      |-------|    |-------|      |      |      |      |      |      |
+ * |      | Undo | Cut  | Copy | Paste|      |-------|    |-------|      |      |      |      |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            |      |      |      |      | / LOWER /       \      \  |      |      |      |      |
  *            |      |      |      |      |/  ^^^^^/         \      \ |      |      |      |      |
@@ -58,8 +68,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_LOWER] = LAYOUT(
    KC_GRV,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                   KC_F7,   KC_F8,   KC_F9,  KC_F10, KC_F11,  KC_F12,
-    KC_F1,  _______, _______, _______, _______, _______,                 _______, KC_LCBR, KC_RCBR, KC_PLUS, KC_EQL, _______,
-  KC_CAPS,  _______, _______, _______, _______, _______,                 _______, KC_LPRN, KC_RPRN, KC_LBRC, KC_RBRC, _______,
+    KC_F1,  KC_QUIT, KC_CLOSE,_______, KC_REL,  KC_NTAB,                 _______, KC_LCBR, KC_RCBR, KC_PLUS, KC_EQL, _______,
+  KC_CAPS,  KC_ALL,  KC_SAVE, _______, KC_SRCH, _______,                 _______, KC_LPRN, KC_RPRN, KC_LBRC, KC_RBRC, _______,
   _______,  KC_UNDO,  KC_CUT, KC_COPY,KC_PASTE, _______, _______,      _______, _______, _______, _______, _______, _______, _______,
                     _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______
 ),
@@ -246,50 +256,41 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
         case KC_DLINE:
-            if (record->event.pressed) {
-                register_mods(mod_config(MOD_LCTL));
-                register_code(KC_BSPC);
-            } else {
-                unregister_mods(mod_config(MOD_LCTL));
-                unregister_code(KC_BSPC);
-            }
+            ctrl_plus_key(record, KC_BSPC);
             break;
         case KC_COPY:
-            if (record->event.pressed) {
-                register_mods(mod_config(MOD_LCTL));
-                register_code(KC_C);
-            } else {
-                unregister_mods(mod_config(MOD_LCTL));
-                unregister_code(KC_C);
-            }
+            ctrl_plus_key(record, KC_C);
             return false;
         case KC_PASTE:
-            if (record->event.pressed) {
-                register_mods(mod_config(MOD_LCTL));
-                register_code(KC_V);
-            } else {
-                unregister_mods(mod_config(MOD_LCTL));
-                unregister_code(KC_V);
-            }
+            ctrl_plus_key(record, KC_V);
             return false;
         case KC_CUT:
-            if (record->event.pressed) {
-                register_mods(mod_config(MOD_LCTL));
-                register_code(KC_X);
-            } else {
-                unregister_mods(mod_config(MOD_LCTL));
-                unregister_code(KC_X);
-            }
+            ctrl_plus_key(record, KC_X);
             return false;
-            break;
         case KC_UNDO:
-            if (record->event.pressed) {
-                register_mods(mod_config(MOD_LCTL));
-                register_code(KC_Z);
-            } else {
-                unregister_mods(mod_config(MOD_LCTL));
-                unregister_code(KC_Z);
-            }
+            ctrl_plus_key(record, KC_Z);
+            return false;
+        // USER DEFINED CODES NOT INCLUDED IN DEFAULT CONFIG
+        case KC_QUIT:
+            ctrl_plus_key(record, KC_Q);
+            return false;
+        case KC_CLOSE:
+            ctrl_plus_key(record, KC_W);
+            return false;
+        case KC_REL:
+            ctrl_plus_key(record, KC_R);
+            return false;
+        case KC_NTAB:
+            ctrl_plus_key(record, KC_T);
+            return false;
+        case KC_ALL:
+            ctrl_plus_key(record, KC_A);
+            return false;
+        case KC_SAVE:
+            ctrl_plus_key(record, KC_S);
+            return false;
+        case KC_SRCH:
+            ctrl_plus_key(record, KC_F);
             return false;
     }
     return true;
@@ -306,12 +307,23 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         }
     } else if (index == 1) {
         if (clockwise) {
-            tap_code(KC_WH_D);
+            tap_code(KC_PGDN);
         } else {
-            tap_code(KC_WH_U);
+            tap_code(KC_PGUP);
         }
     }
     return true;
 }
 
 #endif
+
+static void ctrl_plus_key(keyrecord_t *record, uint16_t key) {
+    if (record->event.pressed) {
+        register_mods(mod_config(MOD_LCTL));
+        register_code(key);
+    } else {
+        unregister_mods(mod_config(MOD_LCTL));
+        unregister_code(key);
+    }
+    return;
+}
