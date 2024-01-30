@@ -196,6 +196,17 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
 
 /* KEYBOARD PET END */
 
+/* KEYBOARD XOMT START */
+static void render_xomt(int XOMT_X, int XOMT_Y) {
+    static const char PROGMEM xomt[] = {
+        0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF
+    };
+ 
+    oled_set_cursor(XOMT_X, XOMT_Y);
+    oled_write_P(xomt, false);
+}   
+/* KEYBOARD XOMT END */
+
 static void print_status_narrow(void) {
     oled_set_cursor(0, 0);
     oled_write("Major", false);
@@ -243,6 +254,12 @@ static void print_status_narrow(void) {
     oled_write(get_u8_str(get_current_wpm(), ' '), false);
     oled_set_cursor(0, 8);
     oled_write(" wpm", false);
+
+    /* KEYBOARD XOMT RENDER START */
+
+    render_xomt(0, 11);
+
+    /* KEYBOARD XOMT RENDER ENDER */
 
     /* KEYBOARD PET RENDER START */
 
