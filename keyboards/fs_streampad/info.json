@@ -76,6 +76,9 @@
             "pixel_flow": true,
             "pixel_rain": true
         },
+        "default": {
+            "animation": "cycle_left_right"
+        },
         "sleep": true,
         "layout": [
             {"matrix": [0, 0], "flags": 4, "x": 0,   "y": 0 },
