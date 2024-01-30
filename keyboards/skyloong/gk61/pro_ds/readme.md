@@ -1,11 +1,11 @@
-# GK61 PRO 48
+# GK61 PRO DS
 
-![GK61 PRO](https://i.imgur.com/DTetyVLh.jpg)
+![GK61 PRO DS](https://i.imgur.com/x7riwSeh.png)
 
 ## The PCB features:
 * QMK & VIA compatibility
 * RGB Matrix backlight
-* The space bar position switch can be interchanged with encoder module.
+* There are double 3.125 split space bars or a 6.25 long space bar in space position .
 
 
 The following is the QMK Firmware for the Destop 60% keylayout -  designed in Dongguan Jizhi Electronic Technology Co., Ltd
@@ -16,11 +16,11 @@ The following is the QMK Firmware for the Destop 60% keylayout -  designed in Do
 
 Make example for this keyboard (after setting up your build environment):
 
-    make skyloong/gk61/pro_48:default
+    make skyloong/gk61/pro_ds:default
 
 Flashing example for this keyboard:
 
-    make skyloong/gk61/pro_48:default:flash
+    make skyloong/gk61/pro_ds:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 

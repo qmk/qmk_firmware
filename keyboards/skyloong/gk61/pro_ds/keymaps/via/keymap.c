@@ -2,6 +2,10 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
+_Bool FN_WIN = 0;
+_Bool FN_MAC = 0;
+_Bool L_WIN = 0;
+_Bool L_MAC = 0;
 
 enum layer_names {
     _WIN,
@@ -118,3 +122,116 @@ tap_dance_action_t tap_dance_actions[] = {
 };
 
 
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+
+   switch (get_highest_layer(layer_state)) {
+      case 2:{
+        RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 255, 255, 255);
+        if (!rgb_matrix_get_flags()) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 0, 0, 0);
+         }
+      } break;
+      case 3:{
+        RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 255, 255, 255);
+        if (!rgb_matrix_get_flags()) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 0, 0, 0);
+         }
+      } break;
+
+      case 0:{
+       if (L_WIN) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 255, 255, 255);
+            if (!rgb_matrix_get_flags()) {
+               RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 0, 0, 0);
+            }
+            }else{
+                if (!rgb_matrix_get_flags()) {
+                   RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 0, 0, 0);
+                 }
+              }
+         } break;
+
+     case 1:{
+       if (L_MAC) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 255, 255, 255);
+            if (!rgb_matrix_get_flags()) {
+               RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 0, 0, 0);
+            }
+            }else{
+                if (!rgb_matrix_get_flags()) {
+                   RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 0, 0, 0);
+                 }
+              }
+         } break;
+
+      default:{
+         if (!rgb_matrix_get_flags()) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 0, 0, 0);
+            RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 0, 0, 0);
+         }
+      }
+    }
+    return true;
+}
+
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
+    switch (keycode) {
+#    ifdef RGB_MATRIX_ENABLE
+        case RGB_TOG:
+            if (record->event.pressed) {
+                switch (rgb_matrix_get_flags()) {
+                    case LED_FLAG_ALL: {
+                        rgb_matrix_set_flags(LED_FLAG_NONE);
+                        rgb_matrix_set_color_all(0, 0, 0);
+                    } break;
+                    default: {
+                        rgb_matrix_set_flags(LED_FLAG_ALL);
+                    } break;
+                }
+            }
+         return false;
+        case RGB_VAI:
+          rgb_matrix_set_flags(LED_FLAG_ALL);
+          return true;
+#    endif
+     case TO(0):
+      if (record->event.pressed) {
+       L_WIN = 1;
+       set_single_persistent_default_layer(0); // Save default layer 0 to eeprom
+      } else {
+       L_WIN = 0;
+      }
+      return true; // continue all further processing of this key
+
+     case MO(2):
+      if (record->event.pressed) {
+       FN_WIN = 1;
+      } else {
+       FN_WIN = 0;
+      }
+      return true; // continue all further processing of this key
+
+     case TO(1):
+      if (record->event.pressed) {
+       L_MAC = 1;
+       set_single_persistent_default_layer(1);  //Save default layer 1 to eeprom
+      } else {
+       L_MAC = 0;
+      }
+      return true; // continue all further processing of this key
+
+     case MO(3):
+      if (record->event.pressed) {
+       FN_MAC = 1;
+      } else {
+       FN_MAC = 0;
+      }
+      return true; // continue all further processing of this key
+    default:
+      return true;
+    }
+}
