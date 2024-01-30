@@ -183,9 +183,7 @@ void led_task(void) {
         last_led_modification_time = timer_read32();
 
         if (debug_keyboard) {
-            debug("led_task: ");
-            debug_hex8(led_status);
-            debug("\n");
+            dprintf("led_task: %02X\n", led_status);
         }
         led_set(led_status);
     }
