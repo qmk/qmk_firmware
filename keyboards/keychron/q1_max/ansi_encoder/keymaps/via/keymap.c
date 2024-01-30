@@ -23,6 +23,7 @@ enum layers {
     WIN_BASE,
     WIN_FN,
 };
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  [MAC_BASE] = LAYOUT_ansi_82(

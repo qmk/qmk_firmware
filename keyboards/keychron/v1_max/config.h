@@ -20,9 +20,6 @@
 #define ENCODER_DEFAULT_POS 0x3
 #define ENCODER_MAP_KEY_DELAY 2
 
-/* Turn off effects when suspended */
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
-
 #ifdef LK_WIRELESS_ENABLE
 /* Hardware configuration */
 #    define P2P4_MODE_SELECT_PIN A10
