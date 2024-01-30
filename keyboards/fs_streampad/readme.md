@@ -1,5 +1,4 @@
-FS streampad
-========
+# FS streampad
 
 A 3x3 hotswap macropad.
 
