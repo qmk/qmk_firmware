@@ -1,0 +1,78 @@
+{
+    "keyboard_name": "Keya",
+    "maintainer": "PenEngineering",
+    "manufacturer": "PenEngineering",
+    "processor": "ATmega32U4",
+    "bootloader": "caterina",
+    "usb": {
+        "vid": "0x2341",
+        "pid": "0x8037",
+        "device_version": "0.0.1"
+    },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "console": false,
+        "command": false,
+        "nkro": true
+    },
+    "diode_direction": "COL2ROW",
+    "dynamic_keymap": {
+        "layer_count": 6,
+        "matrix_pins": {
+            "rows": [ "GP2", "GP29", "GP28" ],
+            "cols": [ "GP26", "GP25", "GP24" ]
+        },
+        "url": "",
+        "layouts": {
+            "LAYOUT": {
+                "layout": [
+                    {
+                        "matrix": [ 0, 0 ],
+                        "x": 0,
+                        "y": 0
+                    },
+                    {
+                        "matrix": [ 0, 1 ],
+                        "x": 1.25,
+                        "y": 0
+                    },
+                    {
+                        "matrix": [ 0, 2 ],
+                        "x": 2.25,
+                        "y": 0
+                    },
+                    {
+                        "matrix": [ 1, 0 ],
+                        "x": 0,
+                        "y": 1.25
+                    },
+                    {
+                        "matrix": [ 1, 1 ],
+                        "x": 1,
+                        "y": 1.25
+                    },
+                    {
+                        "matrix": [ 1, 2 ],
+                        "x": 2,
+                        "y": 1.25
+                    },
+                    {
+                        "matrix": [ 2, 0 ],
+                        "x": 0,
+                        "y": 2.25
+                    },
+                    {
+                        "matrix": [ 2, 1 ],
+                        "x": 1.5,
+                        "y": 2.25
+                    },
+                    {
+                        "matrix": [ 2, 2 ],
+                        "x": 2.5,
+                        "y": 2.25
+                    }
+                ]
+            }
+        }
