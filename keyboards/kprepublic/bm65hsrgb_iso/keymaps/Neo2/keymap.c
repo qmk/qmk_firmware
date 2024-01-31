@@ -56,7 +56,6 @@
 
 enum custom_keycodes {
         PLACEHOLDER = SAFE_RANGE,     // can always be here
-        MC_EJCT,
         MC_CT_N,
         // custom neo related keycodes
         NO_UONE
@@ -75,15 +74,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 
     switch (keycode) {
-    case MC_EJCT:
-        if (record->event.pressed) {
-            register_code(KC_RCTL);
-            register_code(KC_END);
-        } else {
-            unregister_code(KC_RCTL);
-            unregister_code(KC_END);
-        }
-        break;
     case MC_CT_N:
         if (record->event.pressed) {
             SEND_STRING(SS_RCTL("n"));
@@ -242,7 +232,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV,     KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,     KC_F11,     KC_F12,     ______,     ______,
         ______,     RGB_TOG,    RGB_MOD,    RGB_HUI,    RGB_SAI,    RGB_VAI,    RGB_SPI,    ______,     ______,     ______,     ______,     ______,     ______,                 TO(NEO_1),
         ______,     ______,     RGB_RMOD,   RGB_HUD,    RGB_SAD,    RGB_VAD,    RGB_SPD,    MC_CT_N,    ______,     ______,     ______,     ______,     ______,     ______,     TO(QWERTZ),
-        ______,     ______,     ______,     ______,     ______,     ______,     ______,     ______,     ______,     ______,     ______,     ______,     ______,     KC_PGUP,    MC_EJCT,
+        ______,     ______,     ______,     ______,     ______,     ______,     ______,     ______,     ______,     ______,     ______,     ______,     ______,     KC_PGUP,    ______,
         ______,     QK_BOOT,    ______,                                         ______,                                         ______,     ______,     KC_HOME,    KC_PGDN,    KC_END
     ),
 
