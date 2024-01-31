@@ -36,10 +36,6 @@ pin_t bt_led_pins[]   = BT_HOST_LED_PIN_LIST;
 pin_t p24g_led_pins[] = P24G_HOST_LED_PIN_LIST;
 #endif
 
-#ifdef KEYCHRON_CALLBACK_ENABLE
-bool keychron_task_kb(void);
-#endif
-
 bool dip_switch_update_kb(uint8_t index, bool active) {
     if (index == 0) {
         default_layer_set(1UL << (active ? 0 : 2));
@@ -63,11 +59,7 @@ void keyboard_post_init_kb(void) {
 #ifdef ENCODER_ENABLE
     encoder_cb_init();
 #endif
-#ifdef KEYCHRON_CALLBACK_ENABLE
-    factory_test_init();
-    register_record_process(process_record_keychron_kb, false);
-    register_keychron_task(keychron_task_kb, false);
-#endif
+
     keyboard_post_init_user();
 }
 

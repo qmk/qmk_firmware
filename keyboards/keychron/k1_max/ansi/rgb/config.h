@@ -31,7 +31,7 @@
 #    define SPI_DRIVER SPID1
 
 /* Scan phase of led driver set as MSKPHASE_9CHANNEL(defined as 0x03 in snled27351.h) */
-#    define PHASE_CHANNEL MSKPHASE_12CHANNEL
+#    define SNLED27351_PHASE_CHANNEL MSKPHASE_12CHANNEL
 
 /* Set LED driver current */
 #    define SNLED27351_CURRENT_TUNE \

@@ -30,10 +30,6 @@
 #define POWER_ON_LED_DURATION 3000
 static uint32_t power_on_indicator_timer;
 
-#ifdef KEYCHRON_CALLBACK_ENABLE
-bool keychron_task_kb(void);
-#endif
-
 #ifdef DIP_SWITCH_ENABLE
 bool dip_switch_update_kb(uint8_t index, bool active) {
     if (index == 0) {
@@ -59,11 +55,6 @@ void keyboard_post_init_kb(void) {
     encoder_cb_init();
 #endif
 
-#ifdef KEYCHRON_CALLBACK_ENABLE
-    factory_test_init();
-    register_record_process(process_record_keychron_kb, false);
-    register_keychron_task(keychron_task_kb, false);
-#endif
     keyboard_post_init_user();
 }
 
@@ -84,6 +75,7 @@ bool keychron_task_kb(void) {
     }
     return true;
 }
+
 #ifdef LK_WIRELESS_ENABLE
 bool lpm_is_kb_idle(void) {
     return power_on_indicator_timer == 0 && !factory_reset_indicating();

@@ -47,7 +47,7 @@
 /* Turn off backlight on low brightness to save power */
 #    define RGB_MATRIX_BRIGHTNESS_TURN_OFF_VAL 32
 
-/* Indicator */
+/* Indications */
 #    define BT_HOST_LED_MATRIX_LIST \
         { 15, 16, 17 }
 

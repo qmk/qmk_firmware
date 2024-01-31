@@ -22,6 +22,9 @@
         "rows": ["C12", "D2", "B3", "B4", "B5", "B6"]
     },
     "diode_direction": "ROW2COL",
+    "dip_switch": {
+        "pins": ["B14"]
+    },
     "eeprom": {
         "wear_leveling": {
             "driver": "embedded_flash",

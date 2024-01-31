@@ -22,6 +22,9 @@
         "rows": ["C12", "D2", "B3", "B4", "B5", "B6"]
     },
     "diode_direction": "ROW2COL",
+    "dip_switch": {
+        "pins": ["B14"]
+    },
     "eeprom": {
         "wear_leveling": {
             "driver": "embedded_flash",
@@ -122,7 +125,7 @@
                 {"matrix":[5,14], "x":14, "y":5},
                 {"matrix":[5,15], "x":15, "y":5}
             ]
-        },
+        }
         "LAYOUT_iso_85": {
             "layout": [
                 {"matrix":[0, 0], "x":0, "y":0},
@@ -216,7 +219,7 @@
                 {"matrix":[5,14], "x":14, "y":5},
                 {"matrix":[5,15], "x":15, "y":5}
             ]
-        },
+        }
         "LAYOUT_jis_87": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
@@ -314,4 +317,5 @@
             ]
         }
     }
+
 }

@@ -60,7 +60,7 @@ void keyboard_post_init_kb(void) {
     keyboard_post_init_user();
 }
 
-bool lemokey_task_kb(void) {
+bool keychron_task_kb(void) {
     if (power_on_indicator_timer) {
         if (timer_elapsed32(power_on_indicator_timer) > POWER_ON_LED_DURATION) {
             power_on_indicator_timer = 0;
@@ -68,6 +68,7 @@ bool lemokey_task_kb(void) {
 #ifdef LK_WIRELESS_ENABLE
             writePin(BAT_LOW_LED_PIN, !BAT_LOW_LED_PIN_ON_STATE);
 #endif
+
         } else {
 #ifdef LK_WIRELESS_ENABLE
             writePin(BAT_LOW_LED_PIN, BAT_LOW_LED_PIN_ON_STATE);

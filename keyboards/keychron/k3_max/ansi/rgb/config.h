@@ -1,4 +1,4 @@
-/* Copyright 2023 @ Keychron (https://www.keychron.com)
+/* Copyright 2024 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,9 +19,7 @@
 #ifdef RGB_MATRIX_ENABLE
 /* RGB Matrix driver configuration */
 #    define DRIVER_COUNT 2
-#    define DRIVER_1_LED_COUNT 46
-#    define DRIVER_2_LED_COUNT 38
-#    define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_COUNT + DRIVER_2_LED_COUNT)
+#    define RGB_MATRIX_LED_COUNT 84
 
 #    define SPI_SCK_PIN A5
 #    define SPI_MISO_PIN A6
@@ -33,7 +31,7 @@
 #    define SPI_DRIVER SPID1
 
 /* Scan phase of led driver set as MSKPHASE_9CHANNEL(defined as 0x03 in snled27351.h) */
-#    define PHASE_CHANNEL MSKPHASE_9CHANNEL
+#    define SNLED27351_PHASE_CHANNEL MSKPHASE_9CHANNEL
 
 /* Set LED driver current */
 #    define SNLED27351_CURRENT_TUNE \

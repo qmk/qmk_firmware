@@ -1,0 +1,67 @@
+{
+    "keyboard_name": "Keychron V5 Max",
+    "manufacturer": "Keychron",
+    "url": "https://github.com/Keychron",
+    "maintainer": "lokher",
+    "processor": "STM32F401",
+    "bootloader": "stm32-dfu",
+    "usb": {
+        "vid": "0x3434"
+    },
+    "features": {
+        "bootmagic": true,
+        "extrakey" : true,
+        "mousekey" : true,
+        "dip_switch" : true,
+        "nkro" : true,
+        "rgb_matrix": true,
+        "raw" : true,
+        "sendstring" : true
+    },
+    "matrix_pins": {
+        "cols": ["C6", "C7", "C8", "A14", "A15", "C10", "C11", "C13", "C14", "C15", "C0", "C1", "C2", "C3", "A0", "A1", "A2", "A3", "C9"],
+        "rows": ["C12", "D2", "B3", "B4", "B5", "B6"]
+    },
+    "diode_direction": "ROW2COL",
+    "dip_switch" :{
+        "pins": ["A8"]
+    },
+    "rgb_matrix": {
+        "driver": "snled27351_spi",
+        "sleep": true,
+        "animations": {
+            "band_spiral_val": true,
+            "breathing": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_out_in": true,
+            "cycle_out_in_dual": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "cycle_up_down": true,
+            "digital_rain": true,
+            "dual_beacon": true,
+            "jellybean_raindrops": true,
+            "pixel_rain": true,
+            "rainbow_beacon": true,
+            "rainbow_moving_chevron": true,
+            "solid_reactive_multinexus": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_simple": true,
+            "solid_splash": true,
+            "splash": true,
+            "typing_heatmap": true
+        }
+    },
+    "eeprom": {
+        "wear_leveling": {
+            "driver": "embedded_flash",
+            "logical_size": 2048,
+            "backing_size": 4096
+        }
+    },
+    "build": {
+        "debounce_type": "sym_eager_pk"
+    },
+    "debounce": 20
+}

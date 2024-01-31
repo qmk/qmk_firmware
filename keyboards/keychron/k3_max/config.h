@@ -1,4 +1,4 @@
-/* Copyright 2023 @ Keychron (https://www.keychron.com)
+/* Copyright 2024 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,9 +16,6 @@
 
 #pragma once
 
-/* DIP switch for Mac/win OS switch */
-#define DIP_SWITCH_PINS \
-    { B14 }
 /* Caps lock LED */
 #define LED_CAPS_LOCK_PIN A13
 #define LED_PIN_ON_STATE 1

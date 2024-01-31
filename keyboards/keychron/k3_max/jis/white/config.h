@@ -1,4 +1,4 @@
-/* Copyright 2023 @ Keychron (https://www.keychron.com)
+/* Copyright 2024 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@
 #    define SPI_DRIVER SPID1
 
 /* Use first 6 channels of LED driver */
-#    define PHASE_CHANNEL MSKPHASE_6CHANNEL
+#    define SNLED27351_PHASE_CHANNEL MSKPHASE_6CHANNEL
 
 /* Set LED driver current */
 #    define SNLED27351_CURRENT_TUNE \
@@ -44,7 +44,7 @@
 /* Turn off backlight on low brightness to save power */
 #    define LED_MATRIX_BRIGHTNESS_TURN_OFF_VAL 48
 
-/* Caps lock indicating led */
+/* Indications */
 #    define DIM_CAPS_LOCK
 #    define CAPS_LOCK_INDEX 47
 #    define LOW_BAT_IND_INDEX \
