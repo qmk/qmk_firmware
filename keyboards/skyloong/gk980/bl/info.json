@@ -5,6 +5,11 @@
     "build": {
         "debounce_type": "asym_eager_defer_pk"
     },
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "A1", "pin_b": "A0", "resolution": 2},
