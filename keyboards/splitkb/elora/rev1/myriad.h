@@ -26,7 +26,6 @@ typedef enum {
 	SKB_JOYSTICK
 } myriad_card_t;
 
-void myriad_init(void);
 void myriad_task(void);
 bool myriad_hook_matrix(matrix_row_t current_matrix[]);
 void myriad_hook_encoder(uint8_t count, bool pads[]);

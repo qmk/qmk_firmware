@@ -13,14 +13,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SPI_DRIVER_REQUIRED = yes
+QUANTUM_LIB_SRC += spi_master.c
 CUSTOM_MATRIX = lite
 CUSTOM_ENCODER = yes
 
 SERIAL_DRIVER = usart
+OLED_DRIVER = ssd1306
 
 # Myriad boilerplate
-SRC += myriad.c
-ANALOG_DRIVER_REQUIRED = yes
+SRC += myriad.c analog.c
 POINTING_DEVICE_ENABLE = yes
 POINTING_DEVICE_DRIVER = custom
