@@ -1,4 +1,4 @@
-////START marker DEF combos; for easy enabling/disabling of specific combo ranges in keymap file
+////START marker DEF combos////for easy enabling/disabling of specific combo ranges in keymap file
 COMB(DEF_START,     KC_NO,          KC_NO, KC_NO)
 
 #include "combos_QTY.def" //default layer combos
@@ -6,9 +6,9 @@ COMB(DEF_START,     KC_NO,          KC_NO, KC_NO)
 #include "combos_MOD.def" //quantum modifier combos
 #include "combos_NUM.def" //_NUM layer combos
 
-//MISC clearkb (no individual combos file for MISC layer)
+////MISC LAYER////
 COMB(MISC_CKB,      CLEARKB,        XXXXXXX, XXXXXXX)
 COMB(MISCrCKB,      CLEARKB,        KC_PSCR, KC_PGUP)
 
-////FINAL marker DEF combos
+////FINAL marker DEF combos////
 COMB(DEF_FINAL,     KC_NO,          KC_NO, KC_NO)

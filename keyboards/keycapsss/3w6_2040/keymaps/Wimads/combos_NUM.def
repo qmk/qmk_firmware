@@ -1,21 +1,18 @@
-////START marker NUM combos
+////START marker NUM combos////
 COMB(NUM_START,     KC_NO,          KC_NO, KC_NO)
 
-//basic combos:
+////BASIC COMBOS////
 COMB(NUM_ENT,       KC_PENT,        KC_LT,   KC_GT,   KC_RBRC) //<>] Numpad enter
 COMB(NUMrENT,       KC_PENT,        KC_1,    KC_2,    KC_3)    //123 Numpad enter
 COMB(NUM_TAB,       KC_TAB,         KC_4,    KC_5,    KC_6)    //456 TAB, useful for locked numpad layer
 COMB(NUM_ESC,       KC_ESC,         KC_7,    KC_8,    KC_9)    //789 ESC, useful for locked numpad layer
 
-//Navigation:
-COMB(NUM_HOME,      KC_HOME,        KC_7,    KC_4)
-COMB(NUM_UP,        KC_UP,          KC_8,    KC_5)
-COMB(NUM_END,       KC_END,         KC_9,    KC_6)
-COMB(NUM_LEFT,      KC_LEFT,        KC_4,    KC_1)
-COMB(NUM_DOWN,      KC_DOWN,        KC_5,    KC_2)
-COMB(NUM_RGHT,      KC_RGHT,        KC_6,    KC_3)
+////MODIFIERS////
+COMB(NUM_CS,        C(KC_LSFT),     UND_SFT, KC_LCTL)
+COMB(NUM_AS,        A(KC_LSFT),     UND_SFT, KC_LALT)
+COMB(NUM_MEH,       KC_MEH,         UND_SFT, KC_LCTL, KC_LALT)
 
-//Numpad combos:
+////NUMPAD////
 COMB(NUM_BSP,       KC_BSPC,        KC_RPRN, KC_GRV)
 COMB(NUMrBSP,       KC_BSPC,        KC_PLUS, KC_4)
 COMB(NUM_DEL,       KC_DEL,         KC_RBRC, KC_HASH)
@@ -36,7 +33,15 @@ COMB(NUMrDOT,       KC_DOT,         KC_5,    KC_3)   //53  Dot
 COMB(NUM_CKB,       CLEARKB,        KC_AT,   DH_TILD) //@~ Clear keyboard
 COMB(NUMrCKB,       CLEARKB,        DH_CIRC, KC_PERC) //^% Clear keyboard
 
-//Fn keys:
+////NAVIGATION////
+COMB(NUM_HOME,      KC_HOME,        KC_7,    KC_4)
+COMB(NUM_UP,        KC_UP,          KC_8,    KC_5)
+COMB(NUM_END,       KC_END,         KC_9,    KC_6)
+COMB(NUM_LEFT,      KC_LEFT,        KC_4,    KC_1)
+COMB(NUM_DOWN,      KC_DOWN,        KC_5,    KC_2)
+COMB(NUM_RGHT,      KC_RGHT,        KC_6,    KC_3)
+
+////FN KEYS////
 COMB(NUM_F1,        KC_F1,          KC_LALT, KC_LT)
 COMB(NUM_F2,        KC_F2,          KC_LALT, KC_GT)
 COMB(NUM_F3,        KC_F3,          KC_LALT, KC_RBRC)
@@ -62,11 +67,6 @@ COMB(NUMrF9,        KC_F9,          DOTCOMM, KC_9)
 COMB(NUMrF10,       KC_F10,         DOTCOMM, KC_1,   KC_3)
 COMB(NUMrF11,       KC_F11,         DOTCOMM, KC_1,   KC_2)
 COMB(NUMrF12,       KC_F12,         DOTCOMM, KC_2,   KC_3)
-
-//modifiers:
-COMB(NUM_SC,        CMOD_SC,        UND_SFT, KC_LCTL)
-COMB(NUM_SA,        CMOD_SA,        UND_SFT, KC_LALT)
-COMB(NUM_MEH,       KC_MEH,         UND_SFT, KC_LCTL, KC_LALT)
 
 ////FINAL marker NUM combos
 COMB(NUM_FINAL,     KC_NO,          KC_NO, KC_NO)
