@@ -20,11 +20,14 @@
 
 #include "spi_master.h"
 #include "matrix.h"
+#include "keyboard.h"
 
 #include "myriad.h"
 
 // Needed for early boot
 #include "hardware/xosc.h"
+
+bool is_oled_enabled = true;
 
 //// Early boot
 
@@ -38,18 +41,18 @@ static void enter_standby_mode(void) {
         // - deinit PLL
         // - MEMPOWERDOWN
         // - QSPI power-down (idle use is 10-50 uA)
-
+    
         // The RP2040 *should* be able to power-down to about 180uA,
         // while the QSPI chip can do 1-15 uA.
-
+    
         // Additional 3V3 power usage which can't be disabled:
         // - Matrix SPI NOT gate: 0.1-4 uA
         // - Matrix SPI tri-state buffer: 0.1-10 uA
         // - Shift registers: 5x 0.1-2 uA
-
+    
         // Turns off the crystal oscillator until the core is woken by an interrupt.
         // This will block and hence the entire system will stop, until an interrupt wakes it up.
-        // This function will continue to block until the oscillator becomes stable after its wakeup.
+        // This function will continue to block until the oscillator becomes stable after its wakeup. 
         xosc_dormant();
     }
 }
@@ -80,14 +83,11 @@ void keyboard_pre_init_kb(void) {
     // We have to get the SPI interface working quite early,
     // So make sure it is available well before we need it
     spi_init();
-
+    
     keyboard_pre_init_user();
 }
 
 void keyboard_post_init_kb(void) {
-    #ifdef MYRIAD_ENABLE
-    myriad_init();
-    #endif
 
     keyboard_post_init_user();
 }
@@ -165,7 +165,7 @@ void encoder_read_pads_from(bool pads[], matrix_row_t mat[]) {
     // First two matrix rows:
     //
     // Pin  A   B   C   D   E   F   G   H
-    // Left:
+    // Left: 
     //   { __, __, __, __, __, __, A1, B1 },
     //   { A3, B3, A2, B2, __, __, __, __ }
     // Right:
@@ -224,6 +224,74 @@ void encoder_read_pads(uint8_t count, bool pads[]) {
 
 //// Default functionality
 
+// RGB Matrix definition for Elora
+#ifdef RGB_MATRIX_ENABLE
+
+#define NLD NO_LED
+
+// Layout
+//     2                          1                            0                  6                            7                          8
+//     ┌───────────────────────────────────────────┐                                          ┌───────────────────────────────────────────┐
+//     │ MX101, MX105, MX109, MX113, MX117, MX121, │                                          │ MX221, MX217, MX213, MX209, MX205, MX201, │
+//     ├───────────────────────────────────────────┤                                          ├───────────────────────────────────────────┤
+//     │ MX102, MX106, MX110, MX114, MX118, MX122, │                                          │ MX222, MX218, MX214, MX210, MX206, MX202, │
+//     ├───────────────────────────────────────────┤                                          ├───────────────────────────────────────────┤
+//     │ MX103, MX107, MX111, MX115, MX119, MX123, │                                          │ MX223, MX219, MX215, MX211, MX207, MX203, │
+//     ├───────────────────────────────────────────┴─────────────┐              ┌─────────────┴───────────────────────────────────────────┤
+//     │ MX104, MX108, MX112, MX116, MX120, MX124, MX131, MX130, │              │ MX230, MX231, MX224, MX220, MX216, MX212, MX208, MX204, │
+//     └────────────────────┬────────────────────────────────────┤              ├───────────────────────────────────┬─────────────────────┘
+//     3                    │ MX125, MX126, MX127, MX128, MX129, │              │ MX229, MX228, MX227, MX226, MX225 │                     9
+//                          └────────────────────────────────────┘              └───────────────────────────────────┘
+//                                4                            5                 11                           10
+
+// #define LAYOUT_myr(
+//     2 2 2 1 1 0        NLD NLD         6  7  7 8 8 8
+//     2 2 2 1 1 0        NLD NLD         6  7  7 8 8 8
+//     3 3 3 4 4 0        NLD NLD         6 10 10 9 9 9
+//     3 3 3 4 4 4 5 5             11 11 10 10 10 9 9 9
+//             3 4 4 5 5        11 11 10 10  9
+//     NLD NLD NLD NLD NLD          NLD NLD NLD NLD NLD
+// )
+
+
+led_config_t g_led_config = { 
+    {
+    //COL  01   02   03   04   05   011   010   09    ROW
+        {   5, NLD, NLD, NLD,   5,   5, NLD, NLD }, // 00
+        { NLD, NLD, NLD, NLD,   5,   4,   4,   3 }, // 01
+        {   1,   1,   0,   0,   0,   4,   4,   4 }, // 02
+        {   2,   2,   1,   1,   4,   4,   3,   3 }, // 03
+        {   2,   2,   2,   2,   3,   3,   3,   3 }, // 04
+        { NLD, NLD, NLD, NLD, NLD, NLD, NLD, NLD }, // 05
+
+        { NLD, NLD,  11,  11, NLD, NLD, NLD,  11 }, // 06
+        {   9,  10,  10,  11, NLD, NLD, NLD, NLD }, // 07
+        {   10, 10,  10,   6,   6,   6,   7,   7,}, // 08
+        {   9,   9,  10,  10,   7,   7,   8,   8 }, // 09
+        {   9,   9,   9,   9,   8,   8,   8,   8 }, // 10
+        { NLD, NLD, NLD, NLD, NLD, NLD, NLD, NLD }, // 11
+    }, 
+    {
+        // { 112, 32 } is the center
+        {90 , 0},  // 0
+        {45 , 0},  // 1
+        {0  , 0},  // 2
+        {0  , 64}, // 3
+        {45 , 64}, // 4
+        {90 , 64}, // 5
+        {134, 0},  // 6
+        {179, 0},  // 7
+        {224, 0},  // 8
+        {224, 64}, // 9
+        {179, 64}, // 10
+        {134, 64}   // 11
+    }, 
+    {
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+    } 
+};
+#endif
+
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     if (is_keyboard_left()) {
@@ -236,6 +304,13 @@ oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
 bool oled_task_kb(void) {
     if (!oled_task_user()) {
         return false;
+    }
+
+    if (!is_oled_enabled) {
+        oled_off();
+        return false;
+    } else  {
+        oled_on();
     }
 
     if (is_keyboard_master()) {
@@ -272,7 +347,7 @@ bool oled_task_kb(void) {
         static const char PROGMEM elora_logo[] = {
             0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,128,128,192,224,224,240,248,120, 56, 60,188,158,158,222,206,207,207,207,239,239,239,239,239,239,207,207,207,206,222,158,158,188, 60, 56,120,248,240,224,224,192,128,128,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,192,224,248,252,126, 31,143,199,227,243,249,124, 60, 30, 31, 15,  7,  7,  3,  3,  3,131,193,225,241,249,253,255,255,255,255,127, 63, 31, 15,  7,  7,  7,143,223,254,252,252,249,243,227,199,143, 31,126,252,248,224,192,  0,  0,  0,  0,  0,
             0,192,240,254,255, 63,  7,227,248,252,127, 31, 15,  3,  1,  0,  0,  0,128,192,224,240,248,252,254,255,255,255,127, 63, 31, 15,  7,  3,  1,128,192,224,240,248,252,254,255,255,255,255,127, 63, 31, 15,  7, 15, 31,255,252,248,227,  7, 63,255,254,240,192,  0,252,255,255,255,  1,224,255,255,255,  7,  0,  0,  0,  0,  0,  0,  0,  0, 31, 31, 31, 31, 31, 15,  7,  3,  1,  0,  0,  0,240,248,252,254,255,255,255,255,127, 63, 31, 15,  7,  3,  1,128,192,224,240,248,252,254,255,255,255,255,255,255,224,  1,255,255,255,252,
-            63,255,255,255,128,  7,255,255,255,224,  0,  0,  0,  0,  0,  0,  0,  0,  0,128,192,224,240,248,248,248,248,248,248,  0,  3,  3,  3,  3,  3,  3,  1,128,192,224,240,248,252,254,255,255,255,127, 63, 31, 15,  7,  3,  1,224,255,255,255,  7,128,255,255,255, 63,  0,  3, 15,127,255,252,224,199, 31, 63,254,248,240,192,128,  0,  0,  0,  0, 31, 31, 31, 31, 31, 31, 15,  7,  3,  1,  0,  0,  0,  0,  0,  0, 62, 63, 63, 63, 63, 63, 31, 15,  7,  3,  1,  0,  0,  0,128,192,240,248,254, 63, 31,199,224,252,255,127, 15,  3,  0,
+            63,255,255,255,128,  7,255,255,255,224,  0,  0,  0,  0,  0,  0,  0,  0,  0,128,192,224,240,248,248,248,248,248,248,  0,  3,  3,  3,  3,  3,  3,  1,128,192,224,240,248,252,254,255,255,255,127, 63, 31, 15,  7,  3,  1,224,255,255,255,  7,128,255,255,255, 63,  0,  3, 15,127,255,252,224,199, 31, 63,254,248,240,192,128,  0,  0,  0,  0, 31, 31, 31, 31, 31, 31, 15,  7,  3,  1,  0,  0,  0,  0,  0,  0, 62, 63, 63, 63, 63, 63, 31, 15,  7,  3,  1,  0,  0,  0,128,192,240,248,254, 63, 31,199,224,252,255,127, 15,  3,  0, 
             0,  0,  0,  0,  0,  3,  7, 31, 63,126,248,241,227,199,207,159, 62, 60,120,248,240,224,224,192,192,192,192,128,128,128,128,128,128,128,128,128,128,192,192,192,192,224,224,240,248,120, 60, 62,159,207,199,227,241,248,126, 63, 31,  7,  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1,  3,  7,  7, 15, 31, 30, 28, 60, 61,121,121,123,115,243,243,243,247,247,247,247,247,247,243,243,243,115,123,121,121, 61, 60, 28, 30, 31, 15,  7,  7,  3,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
         };
         // clang-format on
@@ -281,6 +356,10 @@ bool oled_task_kb(void) {
     }
 
     return false;
+}
+
+void housekeeping_task_kb(void) {
+    is_oled_enabled = last_input_activity_elapsed() < 60000;
 }
 #endif
 

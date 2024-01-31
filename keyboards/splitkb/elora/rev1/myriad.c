@@ -37,6 +37,8 @@ typedef struct __attribute__((__packed__)) {
 } identity_record_t;
 
 static bool myriad_reader(uint8_t *data, uint16_t length) {
+    i2c_init();
+
     const uint8_t eeprom_address = 0x50; // 1010 000 - NOT shifted for R/W bit
     const uint16_t i2c_timeout = 100; // in milliseconds
 
@@ -192,7 +194,6 @@ myriad_card_t detect_myriad(void) {
     static myriad_card_t card = UNINITIALIZED;
 
     if (card == UNINITIALIZED) {
-        i2c_init();
         card = _detect_myriad();
     }
 
@@ -214,20 +215,9 @@ static void myr_encoder_init(void) {
 
 static uint16_t myr_joystick_timer;
 static void myr_joystick_init(void) {
-    setPinInput(MYRIAD_ADC1); // Y
-    setPinInput(MYRIAD_ADC2); // X
     setPinInputHigh(MYRIAD_GPIO1); // Press
 
     myr_joystick_timer = timer_read();
-}
-
-static uint8_t myriad_led_base(void) {
-    // Counting is continuous, with left first.
-    if (is_keyboard_left()) {
-        return 6;
-    } else {
-        return 6+8+6;
-    }
 }
 
 // Make sure any card present is ready for use
@@ -239,19 +229,6 @@ static myriad_card_t myriad_card_init(void) {
         return card;
     }
     initialized = true;
-
-    // 6 onboard LEDs, 8 Myriad LEDs
-    for (int i = 0; i < 8; i++) {
-        rgblight_setrgb_at(RGB_BLACK, myriad_led_base() + i);
-    }
-    if (is_keyboard_left()) {
-        rgblight_set_effect_range(0, 6);
-    } else {
-        rgblight_set_effect_range(6+8, 6);
-    }
-    // You'd think that we could now use `rgblight_setrgb_at` to individually set Myriad LEDs,
-    // but for some reason that seems to reset `rgblight_set_effect_range`...
-    // We'll leave that as a TODO for later.
 
     switch (card) {
         case SKB_SWITCHES:
@@ -266,52 +243,7 @@ static myriad_card_t myriad_card_init(void) {
         default:
             break;
     }
-
     return card;
-}
-
-// Detect a potentially inserted Myriad card, and announce the result to the user using underglow
-void myriad_init(void) {
-
-    // About the `wait_ms(1)` stuff:
-    // If we try to write to RGB *immediately* after another write, the second one will get lost!
-    rgblight_enable_noeeprom();
-    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-    wait_ms(1);
-
-    // Turn the RGB off for a short while so the user can clearly see the Myriad status color flash,
-    // even if the Myriad status color is the same as the color restored by rgblight from EEPROM on reset.
-    rgblight_sethsv_noeeprom(HSV_BLACK);
-    wait_ms(100);
-
-    // Yellow should never be visible - it is here only so we can debug a hang/crash in `detect_myriad`.
-    rgblight_sethsv_noeeprom(HSV_YELLOW);
-    wait_ms(1); 
-    myriad_card_t card = myriad_card_init();
-    switch (card) {
-        case NONE:
-            rgblight_sethsv_noeeprom(HSV_BLUE);
-            break;
-        case INVALID:
-            rgblight_sethsv_noeeprom(HSV_RED);
-            break;
-        case UNKNOWN:
-            rgblight_sethsv_noeeprom(HSV_PINK);
-            break;
-        default:
-            rgblight_sethsv_noeeprom(HSV_GREEN);
-            break;
-    }
-    // We try to keep this as short as possible because
-    // the keyboard will not be usable while we are doing this.
-    wait_ms(250);
-
-    // Again, short flash to distinguish Myriad status color from EEPROM restore color.
-    rgblight_sethsv_noeeprom(HSV_BLACK);
-    wait_ms(100);
-
-    // ... and return to original value
-    rgblight_reload_from_eeprom();
 }
 
 bool myriad_hook_matrix(matrix_row_t current_matrix[]) {
@@ -324,6 +256,8 @@ bool myriad_hook_matrix(matrix_row_t current_matrix[]) {
         word |= ((!readPin(MYRIAD_GPIO4)) & 1) << 2;
         word |= ((!readPin(MYRIAD_GPIO1)) & 1) << 3;
     } else if (card == SKB_ENCODER) {
+        word |= ((!readPin(MYRIAD_GPIO1)) & 1) << 4;
+    } else if (card == SKB_JOYSTICK) {
         word |= ((!readPin(MYRIAD_GPIO1)) & 1) << 4;
     } else {
         return false;
@@ -344,21 +278,23 @@ void myriad_hook_encoder(uint8_t count, bool pads[]) {
     pads[7] = !readPin(MYRIAD_GPIO3);
 }
 
-static void myr_joystick_task(void) {
+report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
+    if (myriad_card_init() != SKB_JOYSTICK) { return mouse_report; }
+
     if (timer_elapsed(myr_joystick_timer) < 10) {
-        return;
+        wait_ms(2);
+        return mouse_report;
     }
+
     myr_joystick_timer = timer_read();
 
-    report_mouse_t report = pointing_device_get_report();
-
     // `analogReadPin` returns 0..1023
-    int16_t y = (analogReadPin(MYRIAD_ADC1) - 512) * -1; // Note: axis is flipped
-    int16_t x = analogReadPin(MYRIAD_ADC2) - 512;
+    int32_t y = (analogReadPin(MYRIAD_ADC1) - 512) * -1; // Note: axis is flipped
+    int32_t x = analogReadPin(MYRIAD_ADC2) - 512;
     // Values are now -512..512
 
     // Create a dead zone in the middle where the mouse doesn't move
-    const int16_t dead_zone = 100;
+    const int16_t dead_zone = 10;
     if ((y < 0 && y > -1*dead_zone) || (y > 0 && y < dead_zone)) {
         y = 0;
     }
@@ -366,9 +302,9 @@ static void myr_joystick_task(void) {
         x = 0;
     }
 
-    // Scale to a somewhat usable value
-    y = y / 16;
-    x = x / 16;
+    // quadratic movement
+    x = abs(x) * x / 5000;
+    y = abs(y) * y / 5000;
 
     // Clamp final value to make sure we don't under/overflow
     if (y < -127) { y = -127; }
@@ -376,11 +312,15 @@ static void myr_joystick_task(void) {
     if (x < -127) { x = -127; }
     if (x > 127) { x = 127; }
 
-    // .. and set the report
-    report.y = y;
-    report.x = x;
-    report.buttons = (!readPin(MYRIAD_GPIO1)) & 1;
-    pointing_device_set_report(report);
+    mouse_report.x = x;
+    mouse_report.y = y;
+
+    return mouse_report;
+}
+
+void pointing_device_driver_init(void) {
+    setPinInput(MYRIAD_ADC1); // Y
+    setPinInput(MYRIAD_ADC2); // X
 }
 
 void myriad_task(void) {
@@ -394,7 +334,7 @@ void myriad_task(void) {
             // Handled via hook
             break;
         case SKB_JOYSTICK:
-            myr_joystick_task();
+            // Handled via pointing_device_driver_get_report
             break;
         default:
             break;
