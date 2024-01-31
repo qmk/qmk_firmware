@@ -152,7 +152,7 @@ typedef union _poly_eeconf{
     poly_eeconf_t conf;
 } poly_eeconf;
 
-enum flags { STATUS_DISP_ON = 1, RGB_MATRIX_ON = 2, DISP_IDLE = 4, DEAD_KEY_ON_WAKEUP = 8};
+enum flags { STATUS_DISP_ON = 1, IDLE_TRANSITION = 2, DISP_IDLE = 4, DEAD_KEY_ON_WAKEUP = 8};
 typedef struct _poly_sync_t {
     uint8_t lang;
     uint8_t contrast;
@@ -160,6 +160,11 @@ typedef struct _poly_sync_t {
     layer_state_t default_ls;
     uint16_t checksum;
 } poly_sync_t;
+
+#define SYNC_ACK 0b11001010
+typedef struct _poly_sync_reply_t {
+    uint8_t ack;
+} poly_sync_reply_t;
 
 typedef struct _poly_state_t {
     led_t led_state;
@@ -179,6 +184,7 @@ void set_displays(uint8_t contrast, bool idle);
 void set_selected_displays(int8_t old_value, int8_t new_value);
 void toggle_stagger(bool new_state);
 void oled_update_buffer(void);
+void poly_suspend(void);
 
 uint16_t fletcher16(const uint8_t *data, int count )
 {
@@ -270,10 +276,11 @@ void request_disp_refresh(void) {
 }
 
 void user_sync_poly_data_handler(uint8_t in_len, const void* in_data, uint8_t out_len, void* out_data) {
-    if (in_len == sizeof(poly_sync_t) && in_data != NULL) {
+    if (in_len == sizeof(poly_sync_t) && in_data != NULL && out_len == sizeof(poly_sync_reply_t) && out_data!= NULL) {
         int checksum = fletcher16(in_data, sizeof(g_local)-sizeof(g_local.checksum));
         if(checksum == ((const poly_sync_t *)in_data)->checksum) {
             memcpy(&g_local, in_data, sizeof(poly_sync_t));
+            ((poly_sync_reply_t*)out_data)->ack = SYNC_ACK;
         }
     }
 }
@@ -284,24 +291,34 @@ void sync_and_refresh_displays(void) {
     bool sync_success = true;
 
     if (is_usb_host_side()) {
+        // if((g_local.flags&IDLE_TRANSITION)==0 && (g_state.s.flags&IDLE_TRANSITION)!=0) {
+        //     poly_eeconf ee = load_user_eeconf();
+        //     g_local.contrast = ee.conf.brightness;
+        // }
+
         //master syncs data
         if ( memcmp(&g_local, &g_state.s, sizeof(poly_sync_t))!=0 ) {
-            g_local.checksum = fletcher16((const void *)&g_local, sizeof(g_local)-sizeof(g_local.checksum));
-            sync_success = transaction_rpc_send(USER_SYNC_POLY_DATA, sizeof(poly_sync_t), &g_local);
+            for(uint8_t retry = 0; retry<3; ++retry) {
+                poly_sync_reply_t reply;
+                g_local.checksum = fletcher16((const void *)&g_local, sizeof(g_local)-sizeof(g_local.checksum));
+                sync_success = transaction_rpc_exec(USER_SYNC_POLY_DATA, sizeof(poly_sync_t), &g_local, sizeof(poly_sync_reply_t), &reply);
+                if(sync_success && reply.ack == SYNC_ACK) {
+                    break;
+                }
+                sync_success = false;
+            }
         }
     }
     if(sync_success) {
         const bool idle_changed = (g_local.flags&DISP_IDLE)!=(g_state.s.flags&DISP_IDLE);
+        const bool in_idle_mode = (g_local.flags&DISP_IDLE)!=0;
         if(idle_changed) {
-            if((g_local.flags&DISP_IDLE)==0) {
-                oled_set_brightness(OLED_BRIGHTNESS);
-            } else {
+            if(in_idle_mode) {
                 oled_set_brightness(0);
+            } else {
+                oled_set_brightness(OLED_BRIGHTNESS);
             }
         }
-        /*if((g_state.s.flags&STATUS_DISP_ON) != (g_local.flags&STATUS_DISP_ON)) {
-            oled_on_off((g_local.flags&STATUS_DISP_ON)!=0);
-        }*/
 
         const led_t led_state = host_keyboard_led_state();
         const uint8_t mod_state = get_mods();
@@ -328,7 +345,15 @@ void sync_and_refresh_displays(void) {
             update_displays(g_refresh);
             g_refresh = DONE_ALL;
         } else if (g_state.s.contrast != g_local.contrast || idle_changed) {
-            set_displays(g_local.contrast, (g_local.flags&DISP_IDLE)!=0);
+            set_displays(g_local.contrast, in_idle_mode);
+        }
+
+        //sync rgb matrix
+        if(g_local.contrast==DISP_OFF && g_state.s.contrast < DISP_OFF) {
+           rgb_matrix_disable_noeeprom();
+        } else if(g_state.s.contrast == DISP_OFF && g_local.contrast > DISP_OFF) {
+            poly_eeconf ee = load_user_eeconf();
+            g_local.contrast = ee.conf.brightness;
         }
 
         memcpy(&g_state.s, &g_local, sizeof(g_local));
@@ -344,6 +369,7 @@ void housekeeping_task_user(void) {
 
         if (is_usb_host_side()) {
             g_local.flags |= STATUS_DISP_ON;
+            g_local.flags &= ~IDLE_TRANSITION;
 
             if(elapsed_time_since_update > FADE_OUT_TIME && g_local.contrast >= MIN_BRIGHT && (g_local.flags & DISP_IDLE)==0) {
                 poly_eeconf ee = load_user_eeconf();
@@ -359,10 +385,9 @@ void housekeeping_task_user(void) {
                 } else{
                     g_local.contrast = brightness;
                 }
+                g_local.flags |= IDLE_TRANSITION;
             } else if(elapsed_time_since_update > TURN_OFF_TIME) {
-                g_local.contrast = DISP_OFF;
-                g_local.flags &= ~((uint8_t)STATUS_DISP_ON);
-                g_local.flags &= ~((uint8_t)DISP_IDLE);
+                poly_suspend();
             } else if((g_local.flags & DISP_IDLE)!=0) {
                 int32_t time_after = PK_MAX(elapsed_time_since_update - FADE_OUT_TIME - FADE_TRANSITION_TIME, 0)/300;
                 g_local.contrast = time_after%50;
@@ -1271,12 +1296,6 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
                 layer_on(_LL);
             }
             break;
-        case RGB_TOG:
-            if(!rgb_matrix_is_enabled()) {
-                g_local.flags |= RGB_MATRIX_ON;
-            }else{
-                g_local.flags &= ~((uint8_t)RGB_MATRIX_ON);
-            }
         case RGB_MOD:
         case RGB_RMOD:
             request_disp_refresh();
@@ -1633,14 +1652,16 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation){
     return rotation;
 }
 
-void suspend_power_down_kb(void) {
+void poly_suspend(void) {
     g_local.flags &= ~((uint8_t)STATUS_DISP_ON);
     g_local.flags &= ~((uint8_t)DISP_IDLE);
     g_local.contrast = DISP_OFF;
     last_update = -1;
+}
 
+void suspend_power_down_kb(void) {
+    poly_suspend();
     rgb_matrix_disable_noeeprom();
-
     housekeeping_task_user();
     suspend_power_down_user();
 }
@@ -1655,6 +1676,7 @@ void suspend_wakeup_init_kb(void) {
 
     rgb_matrix_reload_from_eeprom();
 
+    update_performed();
     housekeeping_task_user();
     suspend_wakeup_init_user();
 }
