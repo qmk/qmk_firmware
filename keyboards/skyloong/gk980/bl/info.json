@@ -37,8 +37,7 @@
         "breathing": true,
         "breathing_period": 5,
         "default": {
-            "breathing": false,
-            "brightness": 30
+            "breathing": false
         },
         "driver": "pwm",
         "levels": 20,
