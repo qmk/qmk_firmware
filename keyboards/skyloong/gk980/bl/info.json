@@ -42,7 +42,6 @@
         },
         "driver": "pwm",
         "levels": 20,
-        "max_brightness": 255,
         "on_state": 1,
         "pin": "B8"
     },
