@@ -41,15 +41,18 @@ enum layers {
 #define DH_CIRC LT(12, KC_CIRC)  //further defined in macro
 //Other:
 #define DOTCOMM LT(10, KC_DOT)   //KC_DOT, KC_COMM on shif; swap behavoiur by double tap (further defined in macro)
+
 //Macros:
 enum custom_keycodes {
 		CLEARKB = SAFE_RANGE,   //clears all keys and/or layers that might be stuck
-		CADTOGG,
-		RNUMTOG,
-        QTYTOGG,
-        CMOD_SC, CMOD_SA, CMOD_SG, CMOD_SRA,
-        CMOD_CA, CMOD_CG, CMOD_CRA,
-        CMOD_AG,
+        EE_BOOT,                //clear eeprom, then boot mode
+		CADTOGG,                //toggle CAD mode
+		RNUMTOG,                //toggle RNUM layer
+        QTYTOGG,                //toggle QTYe layer
+        //Modifier combos:
+        CMOD_SC, CMOD_SA, CMOD_SG, CMOD_SRA, //Shift + mod
+        CMOD_CA, CMOD_CG, CMOD_CRA,          //Control + mod
+        CMOD_AG,                             //Alt + mod
 };
 //Combos:
 #include "g/keymap_combo.h" //included after custom keycodes, so custom keycodes can be used in combos.def
@@ -93,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   //OTHER:
   [_MISC] = LAYOUT_split_3x5_3(
-	  XXXXXXX, XXXXXXX, EE_CLR,  XXXXXXX, XXXXXXX,          KC_PGUP, KC_BRIU, KC_INS,  KC_VOLU, KC_PSCR,
+	  QK_BOOT, XXXXXXX, EE_CLR,  XXXXXXX, XXXXXXX,          KC_PGUP, KC_BRIU, KC_INS,  KC_VOLU, KC_PSCR,
 	  XXXXXXX, KC_SCRL, XXXXXXX, XXXXXXX, XXXXXXX,          KC_PGDN, KC_BRID, XXXXXXX,  KC_VOLD, XXXXXXX,
 	  XXXXXXX, XXXXXXX, KC_CAPS, XXXXXXX, KC_BRK,           KC_NUM,  KC_MENU, XXXXXXX, KC_MUTE, XXXXXXX,
 						XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX
@@ -103,15 +106,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 ////LED INDICATORS////
 //rgb lighting variables:
-int rgb_hue = 170;
+int rgb_hue = 40;
 int rgb_sat = 255;
 int rgb_val = 255;
 int rgb_mode = 1;
-int rgb_hue_q = 170; //qwerty
-int rgb_hue_c = 145;  //CAD
-int rgb_hue_n = 11;  //NUM
-int rgb_hue_m = 185; //MISC
-int rgb_hue_e = 100; //emulation
+int rgb_hue_q = 36;  //qwerty (yellow)
+int rgb_hue_c = 52;  //CAD (green)
+int rgb_hue_n = 12;  //NUM (red/orange)
+int rgb_hue_m = 185; //MISC (purple)
+int rgb_hue_e = 165; //emulation
 //index of left LED = 0, right LED = 1
 const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {2, 2, 2, 2}; // RGB breathing animation speed
 //Set default lighting state:
@@ -216,7 +219,7 @@ int get_index_customshift(uint16_t keycode_record) { //find corresponding item i
 //Macros..
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 	int index = get_index_customshift(keycode);// check if keycode is in customshift map
-    int CMOD_delay = 10;//delay for mod combos (for vectorworks)
+    //int CMOD_delay = 10;//delay for mod combos (for vectorworks)
 	const uint16_t mod_shift = get_mods() & MOD_MASK_SHIFT; //track shift state for customshift behaviours
 	static bool dotcomm_state = true; //true = dot; false = comma;
 	switch(keycode) {
@@ -225,6 +228,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 				clear_keyboard(); //clears all keys and modifiers that might be stuck
 				layer_clear();    //clears all layers that might be stuck
 			} return false;
+        case EE_BOOT:
+            if (record->event.pressed) {
+                eeconfig_init(); //clear eeprom
+                wait_ms(10); //wait 10 ms
+                reset_keyboard(); //enter bootmode
+            } return false; //enter boot mode
 
         //layer toggles:
 		case CADTOGG:
@@ -242,7 +251,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 				layer_invert(_QTYe);
 			} return false;
 
-        //Combo mods:
+        /*//Combo mods:
         case CMOD_SC:
             if(record->event.pressed) {register_code16(KC_LCTL); wait_ms(CMOD_delay); register_code16(KC_LSFT);}
             else                    {unregister_code16(KC_LCTL);                    unregister_code16(KC_LSFT);}
@@ -275,6 +284,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
             if(record->event.pressed) {register_code16(KC_LALT); wait_ms(CMOD_delay); register_code16(KC_LGUI);}
             else                    {unregister_code16(KC_LALT);                    unregister_code16(KC_LGUI);}
             return false;
+        */
 
         //special keycodes:
 		case UND_SFT:

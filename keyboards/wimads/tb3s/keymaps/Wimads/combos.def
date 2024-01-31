@@ -1,6 +1,6 @@
 COMB(DEF_MMB,       MMB,            LMB, SCR_SNI)       // _ X X
 COMB(DEF_NAV,       FWD,            RMB, SCR_SNI)       // X X _
-COMB(DEF_SCR,       BCK,            RMB, LMB)           // X _ Xs
-COMB(DEF_RST,       QK_BOOT,        RMB, LMB, SCR_SNI)  // X X X
+COMB(DEF_SCR,       BCK,            RMB, LMB)           // X _ X
+COMB(DEF_RST,       EE_BOOT,        RMB, LMB, SCR_SNI)  // X X X
 
 
