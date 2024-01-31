@@ -18,18 +18,3 @@ COMB(QTY_HYPR,      KC_HYPR,        KC_RALT, SPC_SFT, MO(_MISC))
 
 ////FINAL marker MOD combos////
 COMB(MOD_FINAL,     KC_NO,          KC_NO, KC_NO)
-
-
-
-/*//legacy
-COMB(QTY_SC,        CMOD_SC,        KC_LSFT, KC_LCTL)
-COMB(QTY_SA,        CMOD_SA,        KC_LSFT, KC_LALT)
-COMB(QTY_SG,        CMOD_SG,        SPC_SFT, MO(_MISC))
-COMB(QTY_SRA,       CMOD_SRA,       SPC_SFT, KC_RALT)
-
-COMB(QTY_CA,        CMOD_CA,        KC_LCTL, KC_LALT)
-COMB(QTY_CG,        CMOD_CG,        KC_LCTL, MO(_MISC))
-COMB(QTY_CRA,       CMOD_CRA,       KC_LCTL, KC_RALT)
-
-COMB(QTY_AG,        CMOD_AG,        KC_LALT, MO(_MISC))
-*/

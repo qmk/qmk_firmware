@@ -1,6 +1,5 @@
 /*TO DO
-* Resolve DeadHold and CustomShift macros for Onshot modifiers
-* implement dragscroll trigger via numlock (if want to add external qmk trackball)
+* implement dragscroll trigger via numlock
 * get into lighting layers to fix capsword led animation
 */
 
@@ -17,7 +16,7 @@ enum layers {
 	_MISC = 9, //MISCelaneous;
 };
 
-//Custom keycodes..
+///Custom keycodes..
 //Tap-hold keys:
 #define EQL_RLT RALT_T(KC_EQL)
 #define UND_SFT LSFT_T(KC_UNDS) //further defined in macro (because shifted keycodes in _T() is not possible)
@@ -41,7 +40,6 @@ enum layers {
 #define DH_CIRC LT(12, KC_CIRC)  //further defined in macro
 //Other:
 #define DOTCOMM LT(10, KC_DOT)   //KC_DOT, KC_COMM on shif; swap behavoiur by double tap (further defined in macro)
-
 //Macros:
 enum custom_keycodes {
 		CLEARKB = SAFE_RANGE,   //clears all keys and/or layers that might be stuck
@@ -49,16 +47,14 @@ enum custom_keycodes {
 		CADTOGG,                //toggle CAD mode
 		RNUMTOG,                //toggle RNUM layer
         QTYTOGG,                //toggle QTYe layer
-        //Modifier combos:
-        CMOD_SC, CMOD_SA, CMOD_SG, CMOD_SRA, //Shift + mod
-        CMOD_CA, CMOD_CG, CMOD_CRA,          //Control + mod
-        CMOD_AG,                             //Alt + mod
 };
+
 //Combos:
 #include "g/keymap_combo.h" //included after custom keycodes, so custom keycodes can be used in combos.def
-//..custom keycodes
 
-//Keymaps..
+///..custom keycodes
+
+///Keymaps..
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //Qwerty:
   [_QTY] = LAYOUT_split_3x5_3(
@@ -102,29 +98,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 						XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX
   ),
 };
-//..keymaps
+///..keymaps
 
 ////LED INDICATORS////
+/* LED numbering:
+ * Left  hand LED = 0;
+ * Right hand LED = 1;
+*/
 //rgb lighting variables:
-int rgb_hue = 40;
-int rgb_sat = 255;
-int rgb_val = 255;
-int rgb_mode = 1;
+int rgb_hue = 40; int rgb_sat = 255; int rgb_val = 255; int rgb_mode = 1; //initial values
 int rgb_hue_q = 36;  //qwerty (yellow)
-int rgb_hue_c = 52;  //CAD (green)
+int rgb_hue_c = 52;  //CAD (lime)
 int rgb_hue_n = 12;  //NUM (red/orange)
 int rgb_hue_m = 185; //MISC (purple)
-int rgb_hue_e = 165; //emulation
-//index of left LED = 0, right LED = 1
-const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {2, 2, 2, 2}; // RGB breathing animation speed
-//Set default lighting state:
+int rgb_hue_e = 165; //emulation (blue)
+
+//animation speed:
+const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {2, 2, 2, 2};
+
+//Set initial LED lighting state:
 void matrix_init_user(void) {
 	// initiate rgb underglow (default mode as per ASW_on true):
 	rgblight_enable();
 	rgblight_mode(rgb_mode);                                //set light effect for both LEDs
 	rgblight_sethsv(rgb_hue, rgb_sat, rgb_val);             //set HSV value for both LEDs
 };
-//RGB Capsword indicator:
+
+//Capsword indicator:
 void caps_word_set_user(bool active) {
 	if (active) {
 		rgb_mode = 2;
@@ -144,7 +144,8 @@ void caps_word_set_user(bool active) {
 		}
 	}
 };
-//RGB Layer indicators:
+
+//Layer indicators:
 layer_state_t layer_state_set_user(layer_state_t state) {
 	if (IS_LAYER_ON_STATE(state, _RNUM) && is_caps_word_on()) {
 		rgblight_mode(rgb_mode);
@@ -169,10 +170,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 	}
 	return state;
 };
-//..led indicators
 
 ////CUSTOM KEY BEHAVIOURS////
-//Combos per layer:
+//Turn on/off CAD combos:
 bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
 	switch (combo_index) {
 		case CAD_START ... CAD_FINAL:
@@ -187,13 +187,13 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 	switch (keycode) {
 		case UND_SFT:
-			return 250; //to be tweaked still
+			return 250;
 		default:
 			return TAPPING_TERM;
 	}
 };
 
-//Customshift keycodes..
+///Customshift keycodes..
 typedef struct _customshift_keycode_t { //define customshift functions
 	uint16_t keycode_record;  //unmodified keycode
 	uint16_t keycode_shifted; //alternate keycode to output on shift
@@ -214,21 +214,23 @@ int get_index_customshift(uint16_t keycode_record) { //find corresponding item i
 	}
 	return -1; //return -1 if pressed key is not in customshift map
 };
-//..customshift keycodes
+///..customshift keycodes
 
-//Macros..
+///Macros..
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+    //variables:
 	int index = get_index_customshift(keycode);// check if keycode is in customshift map
-    //int CMOD_delay = 10;//delay for mod combos (for vectorworks)
 	const uint16_t mod_shift = get_mods() & MOD_MASK_SHIFT; //track shift state for customshift behaviours
 	static bool dotcomm_state = true; //true = dot; false = comma;
+
+    //macros:
 	switch(keycode) {
-		case CLEARKB:
+		case CLEARKB: //clear keyboard
 			if (record->event.pressed) {
 				clear_keyboard(); //clears all keys and modifiers that might be stuck
 				layer_clear();    //clears all layers that might be stuck
 			} return false;
-        case EE_BOOT:
+        case EE_BOOT: //clear eeprom and boot
             if (record->event.pressed) {
                 eeconfig_init(); //clear eeprom
                 wait_ms(10); //wait 10 ms
@@ -236,65 +238,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
             } return false; //enter boot mode
 
         //layer toggles:
-		case CADTOGG:
+		case CADTOGG: //toggle CAD mode
 			if(record->event.pressed) {
-                //toggle _CAD on/off, and turn _RNUM off everytime
-                layer_off(_RNUM);
-                layer_invert(_CAD);
+                layer_off(_RNUM);   //always turn off _RNUM when toggling CAD mode on/off
+                layer_invert(_CAD); //toggle CAD mode on/off
 			} return false;
-		case RNUMTOG:
+		case RNUMTOG: //toggle numpad on/off (only right hand side)
 			if(record->event.pressed) {
 				layer_invert(_RNUM);
 			} return false;
-        case QTYTOGG:
+        case QTYTOGG: //toggle emulation mode (unmodified qwerty layout)
 			if(record->event.pressed) {
 				layer_invert(_QTYe);
 			} return false;
 
-        /*//Combo mods:
-        case CMOD_SC:
-            if(record->event.pressed) {register_code16(KC_LCTL); wait_ms(CMOD_delay); register_code16(KC_LSFT);}
-            else                    {unregister_code16(KC_LCTL);                    unregister_code16(KC_LSFT);}
-            return false;
-        case CMOD_SA:
-            if(record->event.pressed) {register_code16(KC_LALT); wait_ms(CMOD_delay); register_code16(KC_LSFT);}
-            else                    {unregister_code16(KC_LALT);                    unregister_code16(KC_LSFT);}
-            return false;
-        case CMOD_SG:
-            if(record->event.pressed) {register_code16(KC_LGUI); wait_ms(CMOD_delay); register_code16(KC_LSFT);}
-            else                    {unregister_code16(KC_LGUI);                    unregister_code16(KC_LSFT);}
-            return false;
-        case CMOD_SRA:
-            if(record->event.pressed) {register_code16(KC_RALT); wait_ms(CMOD_delay); register_code16(KC_LSFT);}
-            else                    {unregister_code16(KC_RALT);                    unregister_code16(KC_LSFT);}
-            return false;
-        case CMOD_CA:
-            if(record->event.pressed) {register_code16(KC_LCTL); wait_ms(CMOD_delay); register_code16(KC_LALT);}
-            else                    {unregister_code16(KC_LCTL);                    unregister_code16(KC_LALT);}
-            return false;
-        case CMOD_CG:
-            if(record->event.pressed) {register_code16(KC_LCTL); wait_ms(CMOD_delay); register_code16(KC_LGUI);}
-            else                    {unregister_code16(KC_LCTL);                    unregister_code16(KC_LGUI);}
-            return false;
-        case CMOD_CRA:
-            if(record->event.pressed) {register_code16(KC_LCTL); wait_ms(CMOD_delay); register_code16(KC_RALT);}
-            else                    {unregister_code16(KC_LCTL);                    unregister_code16(KC_RALT);}
-            return false;
-        case CMOD_AG:
-            if(record->event.pressed) {register_code16(KC_LALT); wait_ms(CMOD_delay); register_code16(KC_LGUI);}
-            else                    {unregister_code16(KC_LALT);                    unregister_code16(KC_LGUI);}
-            return false;
-        */
-
         //special keycodes:
 		case UND_SFT:
-			if(record->event.pressed && record->tap.count) {
+			if(record->event.pressed && record->tap.count) { //underscore when tapped
 				tap_code16(S(KC_UNDS));
 				return false;
-			} return true;
+			} return true; //shift when held
 		case DOTCOMM:
-			if (record->event.pressed && record->tap.count == 2) {//swap DOTCOMM state on double tap
-				dotcomm_state = !dotcomm_state; //swap state
+			if (record->event.pressed && record->tap.count == 2) {//invert DOTCOMM state on double tap
+				dotcomm_state = !dotcomm_state; //invert state
 				tap_code16(KC_BSPC);            //remove character output from first tap
 			} else if (record->event.pressed && dotcomm_state) {//when state is true
 				if (mod_shift) { //send comm when shifted
@@ -361,6 +327,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
 	return true; //if key is not in customshift map or other macro, return normal key behaviour
 };
-//..Macros
+///..Macros
 
 
