@@ -2,7 +2,7 @@
 
 ![Cadence_16](https://strstudio.net/_next/image?url=%2Fcadence-1.png&w=1920&q=100)
 
-A weighty compact 16 keys numpad made and sold by [str studio](https://strstudio.net/).
+A weighty compact 16 keys numpad designed, made and sold by [str studio](https://strstudio.net/) in California.
 
 * Keyboard Maintainer: [str studio](https://strstudio.net/)
 * Hardware Availability: [str studio - store](https://strstudio.net/store/cadence)
