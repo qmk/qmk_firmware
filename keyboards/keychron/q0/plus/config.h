@@ -19,9 +19,6 @@
 /* RGB Matrix Driver Configuration */
 #define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_VDDIO
 
-/* RGB Matrix Configuration */
-#define RGB_MATRIX_LED_COUNT 26
-
 #define SNLED27351_PHASE_CHANNEL SNLED27351_SCAN_PHASE_9_CHANNEL
 
 /* Encoder Configuration*/

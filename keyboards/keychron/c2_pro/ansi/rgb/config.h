@@ -24,22 +24,8 @@
 #define SNLED27351_CURRENT_TUNE \
     { 0xAA, 0xAA, 0x56, 0xAA, 0xAA, 0x56, 0xAA, 0xAA, 0x56, 0xAA, 0xAA, 0x56 }
 
-/* RGB Matrix Configuration */
-#define DRIVER_1_LED_TOTAL 60
-#define DRIVER_2_LED_TOTAL 48
-#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
-
 /* Enable indicator LED*/
 #define NUM_LED_INDEX 16
 #define CAPS_LED_INDEX 17
 #define MAC_LED_INDEX 18
 #define WIN_LED_INDEX 19
-
-/* turn off effects when suspended */
-#define RGB_MATRIX_SLEEP
-
-// RGB Matrix Animation modes. Explicitly enabled
-// For full list of effects, see:
-// https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#define RGB_MATRIX_KEYPRESSES
