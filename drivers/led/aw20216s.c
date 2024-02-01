@@ -134,6 +134,7 @@ void aw20216s_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     if (g_pwm_buffer[led.driver][led.r] == red && g_pwm_buffer[led.driver][led.g] == green && g_pwm_buffer[led.driver][led.b] == blue) {
         return;
     }
+
     g_pwm_buffer[led.driver][led.r]          = red;
     g_pwm_buffer[led.driver][led.g]          = green;
     g_pwm_buffer[led.driver][led.b]          = blue;
@@ -149,8 +150,8 @@ void aw20216s_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 void aw20216s_update_pwm_buffers(pin_t cs_pin, uint8_t index) {
     if (g_pwm_buffer_update_required[index]) {
         aw20216s_write(cs_pin, AW20216S_PAGE_PWM, 0, g_pwm_buffer[index], AW20216S_PWM_REGISTER_COUNT);
+        g_pwm_buffer_update_required[index] = false;
     }
-    g_pwm_buffer_update_required[index] = false;
 }
 
 void aw20216s_flush(void) {

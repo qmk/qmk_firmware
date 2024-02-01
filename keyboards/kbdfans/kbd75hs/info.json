@@ -33,6 +33,9 @@
             "rgb_test": true,
             "alternating": true,
             "twinkle": true
+        },
+        "default": {
+            "speed": 15
         }
     },
     "ws2812": {

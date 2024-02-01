@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31fl3741_led_t g_is31fl3741_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3741_led_t PROGMEM g_is31fl3741_leds[IS31FL3741_LED_COUNT] = {
     {0, CS18_SW1, CS17_SW1, CS16_SW1}, /* RGB1 */
     {0, CS18_SW2, CS17_SW2, CS16_SW2}, /* RGB2 */
     {0, CS18_SW3, CS17_SW3, CS16_SW3}, /* RGB3 */
@@ -133,13 +133,13 @@ bool rgb_matrix_indicators_kb(void) {
         return false;
     }
     if (host_keyboard_led_state().caps_lock) {
-        for (uint8_t i = 0; i < DRIVER_1_LED_TOTAL; i++) {
+        for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
             rgb_matrix_set_color(i, 0xFF, 0xFF, 0xFF);
         }
     }
     else {
          if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
-            for (uint8_t i = 0; i < DRIVER_1_LED_TOTAL; i++) {
+            for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
                 rgb_matrix_set_color(i, 0, 0, 0);
             }
         }
