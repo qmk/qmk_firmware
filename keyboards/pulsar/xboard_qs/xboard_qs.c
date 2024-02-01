@@ -34,12 +34,6 @@ void suspend_wakeup_init_kb(void) { // code will run on keyboard wakeup
 
 #ifdef RGB_MATRIX_ENABLE
 #define ___ NO_LED
-
-bool rgb_matrix_indicators_kb(void)  {
-    return rgb_matrix_indicators_user();
-    return TRUE;
-} 
-
 led_config_t g_led_config = {    // 상단에 21개의 더미 LED 추가 됨
     {   { 37, 36, 35,  34,  33,  32,  31,  30,   29,  28,  27,  26,  25,  23,  22,  21 },
         { 38, 39, 40,  41,  42,  43,  44,  45,   46,  47,  48,  49,  50, ___,  51,  54 },
