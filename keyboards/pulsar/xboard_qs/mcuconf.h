@@ -37,5 +37,3 @@
 #define STM32_USBSW                         STM32_USBSW_PCLK
 #undef STM32_ST_USE_TIMER   
 #define STM32_ST_USE_TIMER                  3
-
-//#define STM32_USB_USE_USB1                  TRUE
