@@ -1,7 +1,7 @@
 // Copyright 2022 peepeetee (@peepeetee)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "v1rgb.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
 

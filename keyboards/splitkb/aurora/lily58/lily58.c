@@ -212,14 +212,19 @@ void render_layer_state(void) {
         0x20, 0x9d, 0x9e, 0x9f, 0x20,
         0x20, 0xbd, 0xbe, 0xbf, 0x20,
         0x20, 0xdd, 0xde, 0xdf, 0x20, 0};
-    if(layer_state_is(_LOWER)) {
-        oled_write_P(lower_layer, false);
-    } else if(layer_state_is(_RAISE)) {
-        oled_write_P(raise_layer, false);
-    } else if(layer_state_is(_DEFAULT)) {
-        oled_write_P(default_layer, false);
-    } else {
-        oled_write_P(adjust_layer, false);
+
+    switch (get_highest_layer(layer_state | default_layer_state)) {
+        case _LOWER:
+            oled_write_P(lower_layer, false);
+            break;
+        case _RAISE:
+            oled_write_P(raise_layer, false);
+            break;
+        case _ADJUST:
+            oled_write_P(adjust_layer, false);
+            break;
+        default:
+            oled_write_P(default_layer, false);
     }
 }
 
@@ -286,8 +291,8 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) {
         return false;
     }
-    // 0 and 1 are left-half encoders,
-    // 2 and 3 are right-half encoders
+    // 0 is left-half encoder,
+    // 1 is right-half encoder
     if (index == 0) {
         // Volume control
         if (clockwise) {
@@ -296,20 +301,6 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
             tap_code(KC_VOLD);
         }
     } else if (index == 1) {
-        // Volume control
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    } else if (index == 2) {
-        // Page up/Page down
-        if (clockwise) {
-            tap_code(KC_PGDN);
-        } else {
-            tap_code(KC_PGUP);
-        }
-    } else if (index == 3) {
         // Page up/Page down
         if (clockwise) {
             tap_code(KC_PGDN);

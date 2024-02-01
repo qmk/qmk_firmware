@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "punk75.h"
+#include "quantum.h"
 
 void matrix_init_kb(void) {
     // Set our LED pin as output

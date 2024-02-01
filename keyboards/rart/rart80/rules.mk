@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32a
-
-# Bootloader selection
-BOOTLOADER = usbasploader
-
 # Processor frequency
 F_CPU = 16000000
 

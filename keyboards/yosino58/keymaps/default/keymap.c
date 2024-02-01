@@ -200,8 +200,9 @@ bool oled_task_user(void) {
     int rowa = 0;
 
     //Set Indicator icon
-    if (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) { rown = 1; } else { rown = 0; }
-    if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) { rowc = 1; } else { rowc = 0; }
+    led_t led_state = host_keyboard_led_state();
+    if (led_state.num_lock) { rown = 1; } else { rown = 0; }
+    if (led_state.caps_lock) { rowc = 1; } else { rowc = 0; }
     if (layer_state == L_LOWER) { rowl = 1; }
     if (layer_state == L_RAISE) { rowr = 1; }
     if (layer_state == L_ADJUST) { rowa = 1; }

@@ -1,10 +1,3 @@
-# MCU name
-MCU = STM32F303
-BOARD = QMK_PROTON_C
-
-# Bootloader selection
-BOOTLOADER = stm32-dfu
-
 # Do not put the microcontroller into power saving mode
 # when we get USB suspend event. We want it to keep updating
 # backlight effects.
@@ -29,5 +22,5 @@ CIE1931_CURVE = yes
 SRC =	keyboards/wilba_tech/wt_main.c \
 		keyboards/wilba_tech/wt_rgb_backlight.c \
 		drivers/led/issi/is31fl3733.c \
-		quantum/color.c \
-		i2c_master.c
+		quantum/color.c
+I2C_DRIVER_REQUIRED = yes

@@ -107,7 +107,7 @@ void unicode_hex2output_single (long unsigned int either) {
 
 
 // Required by QMK Unicode
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
 
 };
 
@@ -2022,7 +2022,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 # endif // REMOVE_DRA
 
 
-        /* _BON layer definitions. Due to running out of X(…), XP(…) space.*/
+        /* _BON layer definitions. */
 
    // ------------------------- row 4
 # ifndef REMOVE_BON // Removes this layer entirely, if set.

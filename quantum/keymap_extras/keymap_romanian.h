@@ -1,39 +1,33 @@
-/* Copyright 2020
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2024 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+/*******************************************************************************
+  88888888888 888      d8b                .d888 d8b 888               d8b
+      888     888      Y8P               d88P"  Y8P 888               Y8P
+      888     888                        888        888
+      888     88888b.  888 .d8888b       888888 888 888  .d88b.       888 .d8888b
+      888     888 "88b 888 88K           888    888 888 d8P  Y8b      888 88K
+      888     888  888 888 "Y8888b.      888    888 888 88888888      888 "Y8888b.
+      888     888  888 888      X88      888    888 888 Y8b.          888      X88
+      888     888  888 888  88888P'      888    888 888  "Y8888       888  88888P'
+                                                        888                 888
+                                                        888                 888
+                                                        888                 888
+     .d88b.   .d88b.  88888b.   .d88b.  888d888 8888b.  888888 .d88b.   .d88888
+    d88P"88b d8P  Y8b 888 "88b d8P  Y8b 888P"      "88b 888   d8P  Y8b d88" 888
+    888  888 88888888 888  888 88888888 888    .d888888 888   88888888 888  888
+    Y88b 888 Y8b.     888  888 Y8b.     888    888  888 Y88b. Y8b.     Y88b 888
+     "Y88888  "Y8888  888  888  "Y8888  888    "Y888888  "Y888 "Y8888   "Y88888
+         888
+    Y8b d88P
+     "Y88P"
+*******************************************************************************/
 
 #pragma once
-
-#include "keymap.h"
-
+#include "keycodes.h"
 // clang-format off
 
-/*
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ „ │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ - │ = │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │ Q │ W │ E │ R │ T │ Y │ U │ I │ O │ P │ Ă │ Î │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │ A │ S │ D │ F │ G │ H │ J │ K │ L │ Ș │ Ț │ Â │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │ \ │ Z │ X │ C │ V │ B │ N │ M │ , │ . │ / │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
+// Aliases
 #define RO_DLQU KC_GRV  // „
 #define RO_1    KC_1    // 1
 #define RO_2    KC_2    // 2
@@ -47,7 +41,6 @@
 #define RO_0    KC_0    // 0
 #define RO_MINS KC_MINS // -
 #define RO_EQL  KC_EQL  // =
-// Row 2
 #define RO_Q    KC_Q    // Q
 #define RO_W    KC_W    // W
 #define RO_E    KC_E    // E
@@ -60,7 +53,6 @@
 #define RO_P    KC_P    // P
 #define RO_ABRV KC_LBRC // Ă
 #define RO_ICIR KC_RBRC // Î
-// Row 3
 #define RO_A    KC_A    // A
 #define RO_S    KC_S    // S
 #define RO_D    KC_D    // D
@@ -73,7 +65,6 @@
 #define RO_SCOM KC_SCLN // Ș
 #define RO_TCOM KC_QUOT // Ț
 #define RO_ACIR KC_NUHS // Â
-// Row 4
 #define RO_BSLS KC_NUBS // (backslash)
 #define RO_Z    KC_Z    // Z
 #define RO_X    KC_X    // X
@@ -85,21 +76,6 @@
 #define RO_COMM KC_COMM // ,
 #define RO_DOT  KC_DOT  // .
 #define RO_SLSH KC_SLSH // /
-
-/* Shifted symbols
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ ” │ ! │ @ │ # │ $ │ % │ ^ │ & │ * │ ( │ ) │ _ │ + │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │   │   │   │   │   │   │   │   │   │   │   │   │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │   │   │   │   │   │   │   │   │   │   │   │   │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │ | │   │   │   │   │   │   │   │ ; │ : │ ? │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
 #define RO_RDQU S(RO_DLQU) // ”
 #define RO_EXLM S(RO_1)    // !
 #define RO_AT   S(RO_2)    // @
@@ -113,26 +89,10 @@
 #define RO_RPRN S(RO_0)    // )
 #define RO_UNDS S(RO_MINS) // _
 #define RO_PLUS S(RO_EQL)  // +
-// Row 4
 #define RO_PIPE S(RO_BSLS) // |
 #define RO_SCLN S(RO_COMM) // ;
 #define RO_COLN S(RO_DOT)  // :
 #define RO_QUES S(RO_SLSH) // ?
-
-/* AltGr symbols
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ ` │ ~ │ ˇ │ ^ │ ˘ │ ° │ ˛ │ ` │ ˙ │ ´ │ ˝ │ ¨ │ ¸ │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │   │   │ € │   │   │   │   │   │   │ § │ [ │ ] │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │   │ ß │ Đ │   │   │   │   │   │ Ł │   │ ' │   │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │   │   │   │ © │   │   │   │   │ < │ > │   │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
 #define RO_GRV  ALGR(RO_DLQU) // `
 #define RO_DTIL ALGR(RO_1)    // ~ (dead)
 #define RO_CARN ALGR(RO_2)    // ˇ (dead)
@@ -146,43 +106,23 @@
 #define RO_DACU ALGR(RO_0)    // ˝ (dead)
 #define RO_DIAE ALGR(RO_MINS) // ¨ (dead)
 #define RO_CEDL ALGR(RO_EQL)  // ¸ (dead)
-// Row 2
 #define RO_EURO ALGR(RO_E)    // €
 #define RO_SECT ALGR(RO_P)    // §
 #define RO_LBRC ALGR(RO_ABRV) // [
 #define RO_RBRC ALGR(RO_ICIR) // ]
-// Row 3
 #define RO_SS   ALGR(RO_S)    // ß
 #define RO_DSTR ALGR(RO_D)    // Đ
 #define RO_LSTR ALGR(RO_L)    // Ł
 #define RO_QUOT ALGR(RO_TCOM) // '
-// Row 4
 #define RO_COPY ALGR(RO_C)    // ©
 #define RO_LABK ALGR(RO_COMM) // <
 #define RO_RABK ALGR(RO_DOT)  // >
-
-/* Shift+AltGr symbols
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ ~ │   │   │   │   │   │   │   │   │   │   │ – │ ± │       │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │   │   │   │   │   │   │   │   │   │   │ { │ } │     │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │   │   │   │   │   │   │   │   │   │   │ " │   │    │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │   │   │   │   │   │   │   │   │ « │ » │   │          │
- * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
- * │    │    │    │                        │    │    │    │    │
- * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
- */
-// Row 1
 #define RO_TILD S(ALGR(RO_DLQU)) // ~
 #define RO_NDSH S(ALGR(RO_MINS)) // –
 #define RO_PLMN S(ALGR(RO_EQL))  // ±
-// Row 2
 #define RO_LCBR S(ALGR(RO_ABRV)) // {
 #define RO_RCBR S(ALGR(RO_ICIR)) // }
-// Row 3
 #define RO_DQUO S(ALGR(RO_TCOM)) // "
-// Row 4
 #define RO_LDAQ S(ALGR(RO_COMM)) // «
 #define RO_RDAQ S(ALGR(RO_DOT))  // »
+

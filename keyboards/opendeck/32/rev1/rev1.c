@@ -17,7 +17,7 @@
 #include "rev1.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
     /* Refer to IS31 manual for these locations
      *   driver
      *   |  R location
@@ -102,7 +102,7 @@ void keyboard_pre_init_kb(void) {
     setPinInput(RGB_IRQ_N_PIN);
 }
 
-void keyboard_post_init_user() {
+void keyboard_post_init_user(void) {
     // RGB enabled by default, no way to turn off. No need to expend EEPROM write cycles here.
     rgb_matrix_enable_noeeprom();
 }

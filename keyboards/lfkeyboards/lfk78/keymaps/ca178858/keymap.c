@@ -15,23 +15,6 @@ enum {
 
 bool spam_space = false;
 
-// {0x00000000, 0xFFFFFFFF, {0x0000, 0x0FFF, 0x0000}}, // base layer - green
-// {0x00000008, 0xFFFFFFF8, {0x07FF, 0x07FF, 0x0000}}, // CSGO layer - orange
-// {0x00000010, 0xFFFFFFF0, {0x0000, 0x0000, 0x0FFF}}, // function layer - blue
-// {0x00000020, 0xFFFFFFE0, {0x0FFF, 0x0000, 0x0FFF}}, // settings layer - magenta
-// {0xFFFFFFFF, 0xFFFFFFFF, {0x0FFF, 0x0FFF, 0x0FFF}}, // unknown layer - REQUIRED - white
-
-// Colors of the layer indicator LED
-// This list needs to define layer 0xFFFFFFFF, it is the end of the list, and the unknown layer
-const Layer_Info layer_info[] = {
-    // Layer     Mask           Red     Green   Blue
-    {0x00000000, 0xFFFFFFFF, {0x0000, 0x0FFF, 0x0000}}, // base layer - green
-    {0x00000002, 0xFFFFFFFE, {0x07FF, 0x07FF, 0x0000}}, // CSGO layer - orange
-    {0x00000004, 0xFFFFFFFC, {0x0000, 0x0000, 0x0FFF}}, // function layer - blue
-    {0x00000008, 0xFFFFFFE8, {0x0FFF, 0x0000, 0x0FFF}}, // settings layer - magenta
-    {0xFFFFFFFF, 0xFFFFFFFF, {0x0FFF, 0x0FFF, 0x0FFF}}, // unknown layer - REQUIRED - white
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Keymap BASE: (Base Layer) Default Layer
      * ,---------.  ,------------------------------------------------------------.  ,---------.
@@ -55,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [CS_GO] = LAYOUT_split_rshift(
-        _______, _______, QK_GESC,         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,      _______,            F(0),        _______,
+        _______, _______, QK_GESC,         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,      _______,            _______,     _______,
         _______, _______, _______,         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,      _______,            _______,     _______,
         _______, _______, KC_LCTL,         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,               _______,
         _______, _______, _______,         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                          _______,
@@ -105,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-void tap_space_spam_finished(qk_tap_dance_state_t *state, void *user_data) {
+void tap_space_spam_finished(tap_dance_state_t *state, void *user_data) {
     if (get_mods() & (MOD_BIT(KC_LGUI))) {
       return;
     }
@@ -115,12 +98,12 @@ void tap_space_spam_finished(qk_tap_dance_state_t *state, void *user_data) {
     tap_code(KC_SPC);
 }
 
-void tap_space_spam_reset(qk_tap_dance_state_t *state, void *user_data) {
+void tap_space_spam_reset(tap_dance_state_t *state, void *user_data) {
     spam_space = false;
     unregister_code(KC_SPC);
 }
 
-void tap_esc_func_finished(qk_tap_dance_state_t *state, void *user_data) {
+void tap_esc_func_finished(tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
         layer_on(FUNC);
     } else {
@@ -128,11 +111,11 @@ void tap_esc_func_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void tap_esc_func_reset(qk_tap_dance_state_t *state, void *user_data) {
+void tap_esc_func_reset(tap_dance_state_t *state, void *user_data) {
     layer_off(FUNC);
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_ESC_FUNC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tap_esc_func_finished, tap_esc_func_reset),
     [TD_SPC_SPAM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tap_space_spam_finished, tap_space_spam_reset),
 };

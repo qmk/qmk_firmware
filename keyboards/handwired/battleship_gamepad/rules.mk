@@ -1,11 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = caterina
-
-SRC += analog.c
-
 # Build Options
 #   change yes to no to disable
 #

@@ -16,7 +16,7 @@
 #pragma once
 
 // ws2812 options
-#define RGB_DI_PIN C7 // pin the DI on the ws2812 is hooked-up to
+#define WS2812_DI_PIN C7 // pin the DI on the ws2812 is hooked-up to
 #define RGBLED_NUM 4 // number of LEDs
 #define RGB_MATRIX_LED_COUNT RGBLED_NUM
 

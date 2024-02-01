@@ -1,4 +1,4 @@
-#include "retro_refit.h"
+#include "quantum.h"
 #include "led.h"
 
 void matrix_init_kb(void) {
@@ -12,36 +12,13 @@ void matrix_init_kb(void) {
     matrix_init_user();
 };
 
-void led_set_kb(uint8_t usb_led) {
-    // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) {
+        writePin(D0, !led_state.caps_lock);
+        writePin(D1, !led_state.num_lock);
+        writePin(C6, !led_state.scroll_lock);
 
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-        // output low
-        DDRD |= (1<<0);
-        PORTD &= ~(1<<0);
-    } else {
-        // Hi-Z
-        DDRD &= ~(1<<0);
-        PORTD &= ~(1<<0);
     }
-    if (usb_led & (1<<USB_LED_NUM_LOCK)) {
-        // output low
-        DDRD |= (1<<1);
-        PORTD &= ~(1<<1);
-    } else {
-        // Hi-Z
-        DDRD &= ~(1<<1);
-        PORTD &= ~(1<<1);
-    }
-    if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
-        // output low
-        DDRC |= (1<<6);
-        PORTC &= ~(1<<6);
-    } else {
-        // Hi-Z
-        DDRC &= ~(1<<6);
-        PORTC &= ~(1<<6);
-    }
-
-    led_set_user(usb_led);
-};
+    return res;
+}

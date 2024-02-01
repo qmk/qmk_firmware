@@ -1,4 +1,4 @@
-/* Copyright 2019 Thomas Baart <thomas@splitkb.com>
+/* Copyright 2022 splitkb.com <support@splitkb.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,7 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "kyria.h"
+
+#include "quantum.h"
 
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
@@ -39,6 +40,8 @@ bool oled_task_kb(void) {
         oled_write_P(PSTR("rev1\n\n"), false);
 #elif defined(KEYBOARD_splitkb_kyria_rev2)
         oled_write_P(PSTR("rev2\n\n"), false);
+#elif defined(KEYBOARD_splitkb_kyria_rev3)
+        oled_write_P(PSTR("rev3\n\n"), false);
 #endif
         // Host Keyboard Layer Status
         oled_write_P(PSTR("Layer: "), false);

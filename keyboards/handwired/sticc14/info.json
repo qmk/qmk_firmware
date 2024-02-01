@@ -8,23 +8,34 @@
         "pid": "0x0000",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B6", "B2", "B3"],
+        "rows": ["F4", "F5", "F6", "F7", "B1"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"label":"K00", "x":0, "y":0},
-                {"label":"K01", "x":1, "y":0},
-                {"label":"K02", "x":2, "y":0},
-                {"label":"K10", "x":0, "y":1},
-                {"label":"K11", "x":1, "y":1},
-                {"label":"K12", "x":2, "y":1},
-                {"label":"K20", "x":0, "y":2},
-                {"label":"K21", "x":1, "y":2},
-                {"label":"K22", "x":2, "y":2},
-                {"label":"K30", "x":0, "y":3},
-                {"label":"K31", "x":1, "y":3},
-                {"label":"K32", "x":2, "y":3},
-                {"label":"K40", "x":0, "y":4, "w":2},
-                {"label":"K41", "x":2, "y":4}
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+
+                {"matrix": [3, 0], "x": 0, "y": 3},
+                {"matrix": [3, 1], "x": 1, "y": 3},
+                {"matrix": [3, 2], "x": 2, "y": 3},
+
+                {"matrix": [4, 0], "x": 0, "y": 4, "w": 2},
+                {"matrix": [4, 1], "x": 2, "y": 4}
             ]
         }
     }

@@ -17,22 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 17
-
-//                        C0 , C1 , C2 , C3 , C4 , C5 , C6 , C7 , C8 , C9 , C10, C11, C12, C13, C14, C15, C16 } 
-#define MATRIX_COL_PINS { C8 , C9 , A8 , A10, C7 , C6 , B14, B12, B10, B1 , C5 , C4 , A7 , B0 , C11, A3 , B4  }
-//                        R0 , R1 , R2 , R3 , R4 , R5 
-#define MATRIX_ROW_PINS { B3 , D2 , C12, A6 , A5 , A4 }
-#define DIODE_DIRECTION COL2ROW
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    5
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
@@ -40,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 
-#define RGB_DI_PIN B15
 #define RGB_MATRIX_LED_COUNT 87
 
 #define WS2812_PWM_COMPLEMENTARY_OUTPUT

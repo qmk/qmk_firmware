@@ -126,12 +126,12 @@ void encoder_double_click(void) {
 void encoder_triple_click(void) {
     tap_code(KC_MPRV);
 }
-void matrix_init_kb() {
+void matrix_init_kb(void) {
     matrix_init_user();
 
     setPinInputHigh(ENCODER_SWITCH);
 }
-void matrix_scan_kb() {
+void matrix_scan_kb(void) {
     matrix_scan_user();
     if (readPin(ENCODER_SWITCH)) {
         if (encoder_pressed) { // release switch
