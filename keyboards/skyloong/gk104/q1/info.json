@@ -1,0 +1,80 @@
+{
+    "manufacturer": "skyloong",
+    "maintainer": "NaturalZh",
+    "bootloader": "stm32duino",
+    "build": {
+        "debounce_type": "asym_eager_defer_pk"
+    },
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A1", "pin_b": "A0", "resolution": 2},
+            {"pin_a": "A3", "pin_b": "A2", "resolution": 2},
+            {"pin_a": "A4", "pin_b": "B0", "resolution": 2},
+            {"pin_a": "B3", "pin_b": "B1", "resolution": 2},
+            {"pin_a": "B10", "pin_b": "B4", "resolution": 2}
+        ]
+    },
+    "features": {
+        "bootmagic": true,
+        "command": true,
+        "console": false,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgb_matrix": true
+    },
+    "indicators": {
+        "num_lock": "C15",
+        "on_state": 1,
+        "caps_lock": "C14"
+    },
+    "matrix_pins": {
+        "cols": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+        "rows": ["A8", "A9", "A10", "A15", "B6", "B7","B9"]
+    },
+    "processor": "STM32F103",
+    "rgb_matrix": {
+        "animations": {
+            "band_spiral_val": true,
+            "breathing": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_out_in": true,
+            "cycle_out_in_dual": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "cycle_up_down": true,
+            "digital_rain": true,
+            "dual_beacon": true,
+            "jellybean_raindrops": true,
+            "pixel_rain": true,
+            "rainbow_moving_chevron": true,
+            "raindrops": true,
+            "solid_reactive_multinexus": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_simple": true,
+            "solid_splash": true,
+            "splash": true,
+            "typing_heatmap": true
+        },
+        "driver": "aw20216",
+        "hue_steps": 20,
+        "max_brightness": 200,
+        "sat_steps": 20,
+        "speed_steps": 20,
+        "val_steps": 20,
+        "sleep": true
+    },
+    "url": "https://www.skyloong.vip",
+    "usb": {
+        "max_power": 380,
+        "vid": "0x1EA7"
+    }
+
+}
