@@ -3,7 +3,7 @@
     "keyboard_name": "GK61 Pro DS_1.0.0",
     "maintainer": "NaturalZh",
     "bootloader": "stm32duino",
-
+    "debounce": 10,
     "diode_direction": "ROW2COL",
 
     "features": {
