@@ -180,9 +180,6 @@ void indicator_init(void) {
     setPinOutput(BAT_LOW_LED_PIN);
     writePin(BAT_LOW_LED_PIN, !BAT_LOW_LED_PIN_ON_STATE);
 #endif
-#ifdef KEYCHRON_CALLBACK_ENABLE
-    register_led_indicator_task(LED_INDICATORS_KB, false);
-#endif
 }
 
 #if defined(LED_MATRIX_ENABLE) || defined(RGB_MATRIX_ENABLE)

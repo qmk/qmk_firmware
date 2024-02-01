@@ -113,10 +113,6 @@ void wireless_init(void) {
     nkro.bluetooth = keymap_config.nkro;
 #    endif
 #endif
-#ifdef LEMOKEY_CALLBACK_ENABLE
-    register_wt_tasks();
-    register_record_process(process_record_wireless, false);
-#endif
 }
 
 /*

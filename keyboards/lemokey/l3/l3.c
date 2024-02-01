@@ -36,10 +36,6 @@ pin_t bt_led_pins[]   = BT_HOST_LED_PIN_LIST;
 pin_t p24g_led_pins[] = P24G_HOST_LED_PIN_LIST;
 #endif
 
-#ifdef LEMOKEY_CALLBACK_ENABLE
-bool lemokey_task_kb(void);
-#endif
-
 bool process_record_lemokey_kb(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
@@ -60,11 +56,7 @@ void keyboard_post_init_kb(void) {
 #ifdef ENCODER_ENABLE
     encoder_cb_init();
 #endif
-#ifdef LEMOKEY_CALLBACK_ENABLE
-    factory_test_init();
-    register_record_process(process_record_lemokey_kb, false);
-    register_lemokey_task(lemokey_task_kb, false);
-#endif
+
     keyboard_post_init_user();
 }
 

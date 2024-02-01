@@ -296,14 +296,6 @@ bool factory_test_task(void) {
     return true;
 }
 
-#ifdef LEMOKEY_CALLBACK_ENABLE
-void factory_test_init(void) {
-    register_lemokey_task(factory_test_task, false);
-    register_record_process(process_record_factory_test, false);
-    register_led_indicator_task(factory_test_indicator, false);
-}
-#endif
-
 void factory_test_send(uint8_t *payload, uint8_t length) {
 #ifdef RAW_ENABLE
     uint16_t checksum         = 0;

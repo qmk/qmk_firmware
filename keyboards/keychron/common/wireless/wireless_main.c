@@ -34,9 +34,3 @@ bool wireless_tasks(void) {
     if (get_transport() == TRANSPORT_USB) usb_remote_wakeup();
     return true;
 }
-
-#ifdef KEYCHRON_CALLBACK_ENABLE
-void register_wt_tasks(void) {
-    register_keychron_task(wireless_tasks, true);
-}
-#endif

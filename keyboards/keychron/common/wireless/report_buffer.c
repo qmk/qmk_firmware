@@ -59,10 +59,6 @@ void report_buffer_init(void) {
     report_buffer_queue_tail = 0;
     retry                    = 0;
     report_timer_buffer      = timer_read32();
-
-#ifdef KEYCHRON_CALLBACK_ENABLE
-    register_keychron_task(report_buffer_task, true);
-#endif
 }
 
 bool report_buffer_enqueue(report_buffer_t *report) {

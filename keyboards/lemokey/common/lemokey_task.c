@@ -19,182 +19,57 @@
 #include "quantum.h"
 #include "lemokey_common.h"
 #ifdef FACTORY_TEST_ENABLE
-#include "factory_test.h"
+#    include "factory_test.h"
 #endif
 
-#ifdef LEMOKEY_CALLBACK_ENABLE
-
-typedef struct lk_node {
-    lemokey_cb  lk_cb;
-    struct lk_node* next;
-}lk_Node;
-
-typedef struct lk_process_node {
-    lemokey_record_process_cb  process_cb;
-    struct lk_process_node* next;
-}lk_process_Node;
-
-
-lk_Node *p;
-lk_Node *lk_task_list = NULL;
-lk_process_Node *p_process;
-lk_process_Node *lk_record_process_list = NULL;
-
-#if defined(LED_MATRIX_ENABLE) ||  defined(RGB_MATRIX_ENABLE)
-lk_Node *led_indicator_task_list = NULL;
-#endif
-
-void register_lemokey_cb(lk_Node **head, lemokey_cb cb, bool priority) {
-    /* Create task node */
-    lk_Node* task = (lk_Node*)malloc(sizeof(lk_Node));
-    task->lk_cb = cb;
-    task->next = NULL;
-
-    /* Add to the list*/
-    if (*head) {
-        if (priority) {
-           task->next = *head;
-           *head = task;
-        }
-        else {
-            p = *head;
-            while (p->next) p  = p->next;
-            p->next = task;
-        }
-    }
-    else {
-        *head = task;
-    }
-}
-
-void deregister_lemokey_cb(lk_Node **head, lemokey_cb cb) {
-
-    p = *head;
-    while (p) {
-        if (p->lk_cb == cb) {
-           // lk_Node* temp = p;
-            //if 
-        }
-    }
-}
-
-void register_lemokey_task(lemokey_cb cb, bool priority) {
-    register_lemokey_cb(&lk_task_list, cb, priority);
-}
-
-void register_led_indicator_task(lemokey_cb cb, bool priority) {
-    register_lemokey_cb(&led_indicator_task_list, cb, priority);
-}
-
-void register_record_process(lemokey_record_process_cb cb, bool priority) {
-    lk_process_Node* process = (lk_process_Node*)malloc(sizeof(lk_process_Node));
-    process->process_cb = cb;
-    process->next = NULL;
-
-    /* Add to the list*/
-    if (lk_record_process_list) {
-        if (priority) {
-           process->next = lk_record_process_list;
-           lk_record_process_list = process;
-        }
-        else {
-            p_process = lk_record_process_list;
-            while (p_process->next) p_process  = p_process->next;
-            p_process->next = process;
-        }
-    }
-    else {
-        lk_record_process_list = process;
-    }
-}
-
-inline void lemokey_task(void) {
-    p = lk_task_list;
-    while (p) {
-        p->lk_cb();
-        p = p->next;
-    }
-}
-
-inline bool process_record_lemokey(uint16_t keycode, keyrecord_t *record) {
-
-    p_process = lk_record_process_list;
-    while (p_process) {
-        if (!p_process->process_cb(keycode, record)) {
-            return false;
-        }
-        p_process = p_process->next;
-    }
-
+__attribute__((weak)) bool process_record_lemokey_kb(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
-
-#if defined(LED_MATRIX_ENABLE) || defined(RGB_MATRIX_ENABLE)
-#if defined(LED_MATRIX_ENABLE) 
-inline bool led_matrix_indicators_lemokey(void) {
-#else
-inline bool rgb_matrix_indicators_lemokey(void) {
-#endif
-
-    p = led_indicator_task_list;
-    while (p) {
-        p->lk_cb();
-        p = p->next;
-    }
-    
-    return true;
-}
-#endif
-
-#else
-
-__attribute__((weak)) bool process_record_lemokey_kb(uint16_t keycode, keyrecord_t *record) { return true; }
 
 bool process_record_lemokey(uint16_t keycode, keyrecord_t *record) {
 #ifdef LK_WIRELESS_ENABLE
-    extern bool process_record_wireless(uint16_t keycode, keyrecord_t *record);
-    if (!process_record_wireless(keycode, record))
-        return false;
+    extern bool process_record_wireless(uint16_t keycode, keyrecord_t * record);
+    if (!process_record_wireless(keycode, record)) return false;
 #endif
 #ifdef FACTORY_TEST_ENABLE
-     if (!process_record_factory_test(keycode, record))
-        return false;
+    if (!process_record_factory_test(keycode, record)) return false;
 #endif
-     //extern bool process_record_lemokey_kb(uint16_t keycode, keyrecord_t *record);
+    // extern bool process_record_lemokey_kb(uint16_t keycode, keyrecord_t *record);
 
-     if (!process_record_lemokey_kb(keycode, record))
-        return false;
+    if (!process_record_lemokey_kb(keycode, record)) return false;
 
     return true;
 }
 
-#if defined(LED_MATRIX_ENABLE) 
+#if defined(LED_MATRIX_ENABLE)
 bool led_matrix_indicators_lemokey(void) {
-#ifdef LK_WIRELESS_ENABLE
+#    ifdef LK_WIRELESS_ENABLE
     extern bool led_matrix_indicators_bt(void);
     led_matrix_indicators_bt();
-#endif
-#ifdef FACTORY_TEST_ENABLE
+#    endif
+#    ifdef FACTORY_TEST_ENABLE
     factory_test_indicator();
-#endif
+#    endif
     return true;
 }
 #endif
 
-#if defined(RGB_MATRIX_ENABLE) 
+#if defined(RGB_MATRIX_ENABLE)
 bool rgb_matrix_indicators_lemokey(void) {
-#ifdef LK_WIRELESS_ENABLE
+#    ifdef LK_WIRELESS_ENABLE
     extern bool rgb_matrix_indicators_bt(void);
     rgb_matrix_indicators_bt();
-#endif
-#ifdef FACTORY_TEST_ENABLE
+#    endif
+#    ifdef FACTORY_TEST_ENABLE
     factory_test_indicator();
-#endif
+#    endif
     return true;
 }
 #endif
 
-__attribute__((weak)) bool lemokey_task_kb(void){ return true; }
+__attribute__((weak)) bool lemokey_task_kb(void) {
+    return true;
+}
 
 void lemokey_task(void) {
 #ifdef LK_WIRELESS_ENABLE
@@ -208,22 +83,18 @@ void lemokey_task(void) {
 
     lemokey_task_kb();
 }
-#endif // #ifdef LEMOKEY_CALLBACK_ENABLE
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_user(keycode, record))
-        return false;
-    
-    if (!process_record_lemokey(keycode, record))
-        return false;
+    if (!process_record_user(keycode, record)) return false;
+
+    if (!process_record_lemokey(keycode, record)) return false;
 
     return true;
 }
 
 #ifdef RGB_MATRIX_ENABLE
 bool rgb_matrix_indicators_kb(void) {
-    if (!rgb_matrix_indicators_user())
-        return false;
+    if (!rgb_matrix_indicators_user()) return false;
 
     rgb_matrix_indicators_lemokey();
 
@@ -233,8 +104,7 @@ bool rgb_matrix_indicators_kb(void) {
 
 #ifdef LED_MATRIX_ENABLE
 bool led_matrix_indicators_kb(void) {
-    if (!led_matrix_indicators_user())
-        return false;
+    if (!led_matrix_indicators_user()) return false;
 
     led_matrix_indicators_lemokey();
 
@@ -245,4 +115,3 @@ bool led_matrix_indicators_kb(void) {
 void housekeeping_task_kb(void) {
     lemokey_task();
 }
-
