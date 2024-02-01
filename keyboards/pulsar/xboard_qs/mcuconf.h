@@ -35,5 +35,3 @@
 #define STM32_PLLMUL_VALUE                  4
 #undef STM32_USBSW  
 #define STM32_USBSW                         STM32_USBSW_PCLK
-#undef STM32_ST_USE_TIMER   
-#define STM32_ST_USE_TIMER                  3
