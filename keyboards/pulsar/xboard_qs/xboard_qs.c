@@ -16,22 +16,6 @@
 
 #include "quantum.h"
 
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    return process_record_user(keycode, record);
-}
-
-void keyboard_pre_init_kb(void) {
-    keyboard_pre_init_user();
-}
-
-void keyboard_post_init_kb(void) {
-    keyboard_post_init_user();
-}
-
-void suspend_wakeup_init_kb(void) { // code will run on keyboard wakeup
-    clear_keyboard();
-}
-
 #ifdef RGB_MATRIX_ENABLE
 #define ___ NO_LED
 led_config_t g_led_config = {    // 상단에 21개의 더미 LED 추가 됨
