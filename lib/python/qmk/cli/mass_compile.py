@@ -3,36 +3,42 @@
 This will compile everything in parallel, for testing purposes.
 """
 import os
+from typing import List
 from pathlib import Path
 from subprocess import DEVNULL
 from milc import cli
 
 from qmk.constants import QMK_FIRMWARE
-from qmk.commands import _find_make, get_make_parallel_args
+from qmk.commands import find_make, get_make_parallel_args, build_environment
 from qmk.search import search_keymap_targets, search_make_targets
+from qmk.build_targets import BuildTarget, JsonKeymapBuildTarget
 
 
-def mass_compile_targets(targets, clean, dry_run, no_temp, parallel, env):
+def mass_compile_targets(targets: List[BuildTarget], clean: bool, dry_run: bool, no_temp: bool, parallel: int, **env):
     if len(targets) == 0:
         return
 
-    make_cmd = _find_make()
+    make_cmd = find_make()
     builddir = Path(QMK_FIRMWARE) / '.build'
     makefile = builddir / 'parallel_kb_builds.mk'
 
     if dry_run:
         cli.log.info('Compilation targets:')
-        for target in sorted(targets):
-            cli.log.info(f"{{fg_cyan}}qmk compile -kb {target[0]} -km {target[1]}{{fg_reset}}")
+        for target in sorted(targets, key=lambda t: (t.keyboard, t.keymap)):
+            cli.log.info(f"{{fg_cyan}}qmk compile -kb {target.keyboard} -km {target.keymap}{{fg_reset}}")
     else:
         if clean:
             cli.run([make_cmd, 'clean'], capture_output=False, stdin=DEVNULL)
 
         builddir.mkdir(parents=True, exist_ok=True)
         with open(makefile, "w") as f:
-            for target in sorted(targets):
-                keyboard_name = target[0]
-                keymap_name = target[1]
+            for target in sorted(targets, key=lambda t: (t.keyboard, t.keymap)):
+                keyboard_name = target.keyboard
+                keymap_name = target.keymap
+                target.configure(parallel=1)  # We ignore parallelism on a per-build basis as we defer to the parent make invocation
+                target.prepare_build(**env)  # If we've got json targets, allow them to write out any extra info to .build before we kick off `make`
+                command = target.compile_command(**env)
+                command[0] = '+@$(MAKE)'  # Override the make so that we can use jobserver to handle parallelism
                 keyboard_safe = keyboard_name.replace('/', '_')
                 build_log = f"{QMK_FIRMWARE}/.build/build.log.{os.getpid()}.{keyboard_safe}.{keymap_name}"
                 failed_log = f"{QMK_FIRMWARE}/.build/failed.log.{os.getpid()}.{keyboard_safe}.{keymap_name}"
@@ -43,7 +49,7 @@ all: {keyboard_safe}_{keymap_name}_binary
 {keyboard_safe}_{keymap_name}_binary:
 	@rm -f "{build_log}" || true
 	@echo "Compiling QMK Firmware for target: '{keyboard_name}:{keymap_name}'..." >>"{build_log}"
-	+@$(MAKE) -C "{QMK_FIRMWARE}" -f "{QMK_FIRMWARE}/builddefs/build_keyboard.mk" KEYBOARD="{keyboard_name}" KEYMAP="{keymap_name}" COLOR=true SILENT=false {' '.join(env)} \\
+	{' '.join(command)} \\
 		>>"{build_log}" 2>&1 \\
 		|| cp "{build_log}" "{failed_log}"
 	@{{ grep '\[ERRORS\]' "{build_log}" >/dev/null 2>&1 && printf "Build %-64s \e[1;31m[ERRORS]\e[0m\\n" "{keyboard_name}:{keymap_name}" ; }} \\
@@ -66,7 +72,7 @@ all: {keyboard_safe}_{keymap_name}_binary
                     # yapf: enable
                 f.write('\n')
 
-        cli.run([make_cmd, *get_make_parallel_args(parallel), '-f', makefile.as_posix(), 'all'], capture_output=False, stdin=DEVNULL)
+        cli.run([find_make(), *get_make_parallel_args(parallel), '-f', makefile.as_posix(), 'all'], capture_output=False, stdin=DEVNULL)
 
         # Check for failures
         failures = [f for f in builddir.glob(f'failed.log.{os.getpid()}.*')]
@@ -95,8 +101,11 @@ def mass_compile(cli):
     """Compile QMK Firmware against all keyboards.
     """
     if len(cli.args.builds) > 0:
-        targets = search_make_targets(cli.args.builds, cli.args.filter)
+        json_like_targets = list([Path(p) for p in filter(lambda e: Path(e).exists() and Path(e).suffix == '.json', cli.args.builds)])
+        make_like_targets = list(filter(lambda e: Path(e) not in json_like_targets, cli.args.builds))
+        targets = search_make_targets(make_like_targets)
+        targets.extend([JsonKeymapBuildTarget(e) for e in json_like_targets])
     else:
-        targets = search_keymap_targets(cli.args.keymap, cli.args.filter)
+        targets = search_keymap_targets([('all', cli.config.mass_compile.keymap)], cli.args.filter)
 
-    return mass_compile_targets(targets, cli.args.clean, cli.args.dry_run, cli.args.no_temp, cli.args.parallel, cli.args.env)
+    return mass_compile_targets(targets, cli.args.clean, cli.args.dry_run, cli.args.no_temp, cli.config.mass_compile.parallel, **build_environment(cli.args.env))
