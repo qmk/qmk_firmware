@@ -43,6 +43,7 @@ void process_magic_key(void) {
             double_magic_switch(ALT_E,
                 magic_case(KC_C,  "ome");
                 magic_case(ALT_T, "ween");
+                magic_case(KC_L,  "ieve");
             );
         );
 

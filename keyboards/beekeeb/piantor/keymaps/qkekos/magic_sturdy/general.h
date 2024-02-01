@@ -2,7 +2,7 @@
 #pragma once
 #include "../__init__.h"
 
-#define PREV_KEYS_QUEUE_SIZE 15
+#define PREV_KEYS_QUEUE_SIZE 10
 #define MAGIC_KEY_TIMEOUT 1500
 
 bool strd_process_record(uint16_t keycode, keyrecord_t *record, bool *return_value);
