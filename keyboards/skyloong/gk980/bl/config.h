@@ -5,4 +5,3 @@
 
 #define MAC_PIN C13
 #define ENCODER_MAP_KEY_DELAY 20
-#define DEBOUNCE 10

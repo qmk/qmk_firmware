@@ -2,6 +2,7 @@
     "manufacturer": "skyloong",
     "maintainer": "NaturalZh",
     "bootloader": "stm32duino",
+    "debounce": 10,
     "build": {
         "debounce_type": "asym_eager_defer_pk"
     },
