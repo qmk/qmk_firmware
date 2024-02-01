@@ -10,10 +10,10 @@
         },
         "driver": "pwm",
         "levels": 20,
-        "max_brightness": 255,
         "on_state": 1,
         "pin": "B8"
     },
+    "debounce": 10,
     "bootloader": "stm32duino",
     "build": {
         "debounce_type": "asym_eager_defer_pk"
