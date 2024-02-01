@@ -30,6 +30,8 @@
 #define DISP_OFF 0
 #define BRIGHT_STEP 1
 
+#define EMJ(x) UM(PRIVATE_EMOJI_##x)
+
 //6 sec
 #define FADE_TRANSITION_TIME 6000
 //1 min
@@ -72,7 +74,8 @@ enum kb_layers {
     _UL,
     _SL,
     _LL,
-    _ADDLANG1 };
+    _ADDLANG1,
+    _EMJ };
 
 enum my_keycodes {
     KC_LANG = SAFE_RANGE,
@@ -298,9 +301,9 @@ void sync_and_refresh_displays(void) {
 
         //master syncs data
         if ( memcmp(&g_local, &g_state.s, sizeof(poly_sync_t))!=0 ) {
+            poly_sync_reply_t reply;
+            g_local.checksum = fletcher16((const void *)&g_local, sizeof(g_local)-sizeof(g_local.checksum));
             for(uint8_t retry = 0; retry<3; ++retry) {
-                poly_sync_reply_t reply;
-                g_local.checksum = fletcher16((const void *)&g_local, sizeof(g_local)-sizeof(g_local.checksum));
                 sync_success = transaction_rpc_exec(USER_SYNC_POLY_DATA, sizeof(poly_sync_t), &g_local, sizeof(poly_sync_reply_t), &reply);
                 if(sync_success && reply.ack == SYNC_ACK) {
                     break;
@@ -348,11 +351,12 @@ void sync_and_refresh_displays(void) {
             set_displays(g_local.contrast, in_idle_mode);
         }
 
-        //sync rgb matrix
-        if(g_local.contrast==DISP_OFF && g_state.s.contrast < DISP_OFF) {
-           rgb_matrix_disable_noeeprom();
-        } else if(g_state.s.contrast == DISP_OFF && g_local.contrast > DISP_OFF) {
-            poly_eeconf ee = load_user_eeconf();
+        // sync rgb matrix
+        if (g_local.contrast == DISP_OFF && idle_changed) {
+            rgb_matrix_disable_noeeprom();
+        } else if ( (g_state.s.contrast == DISP_OFF && g_local.contrast > DISP_OFF) ||
+                    ((g_local.flags & IDLE_TRANSITION) == 0 && (g_state.s.flags & IDLE_TRANSITION) != 0)) {
+            poly_eeconf ee   = load_user_eeconf();
             g_local.contrast = ee.conf.brightness;
         }
 
@@ -398,7 +402,7 @@ void housekeeping_task_user(void) {
     }
 }
 enum unicode_names {
-    UM_A,
+    UM_A=70,
     UM_AC,
     UM_O,
     UM_OC,
@@ -409,6 +413,81 @@ enum unicode_names {
 };
 
 const uint32_t unicode_map[] PROGMEM = {
+    /*[[[cog
+    for idx in range(70):
+        cog.outl(f'[{idx}] = 0x1F6{idx:02X},')
+    ]]]*/
+    [0] = 0x1F600,
+    [1] = 0x1F601,
+    [2] = 0x1F602,
+    [3] = 0x1F603,
+    [4] = 0x1F604,
+    [5] = 0x1F605,
+    [6] = 0x1F606,
+    [7] = 0x1F607,
+    [8] = 0x1F608,
+    [9] = 0x1F609,
+    [10] = 0x1F60A,
+    [11] = 0x1F60B,
+    [12] = 0x1F60C,
+    [13] = 0x1F60D,
+    [14] = 0x1F60E,
+    [15] = 0x1F60F,
+    [16] = 0x1F610,
+    [17] = 0x1F611,
+    [18] = 0x1F612,
+    [19] = 0x1F613,
+    [20] = 0x1F614,
+    [21] = 0x1F615,
+    [22] = 0x1F616,
+    [23] = 0x1F617,
+    [24] = 0x1F618,
+    [25] = 0x1F619,
+    [26] = 0x1F61A,
+    [27] = 0x1F61B,
+    [28] = 0x1F61C,
+    [29] = 0x1F61D,
+    [30] = 0x1F61E,
+    [31] = 0x1F61F,
+    [32] = 0x1F620,
+    [33] = 0x1F621,
+    [34] = 0x1F622,
+    [35] = 0x1F623,
+    [36] = 0x1F624,
+    [37] = 0x1F625,
+    [38] = 0x1F626,
+    [39] = 0x1F627,
+    [40] = 0x1F628,
+    [41] = 0x1F629,
+    [42] = 0x1F62A,
+    [43] = 0x1F62B,
+    [44] = 0x1F62C,
+    [45] = 0x1F62D,
+    [46] = 0x1F62E,
+    [47] = 0x1F62F,
+    [48] = 0x1F630,
+    [49] = 0x1F631,
+    [50] = 0x1F632,
+    [51] = 0x1F633,
+    [52] = 0x1F634,
+    [53] = 0x1F635,
+    [54] = 0x1F636,
+    [55] = 0x1F637,
+    [56] = 0x1F638,
+    [57] = 0x1F639,
+    [58] = 0x1F63A,
+    [59] = 0x1F63B,
+    [60] = 0x1F63C,
+    [61] = 0x1F63D,
+    [62] = 0x1F63E,
+    [63] = 0x1F63F,
+    [64] = 0x1F640,
+    [65] = 0x1F641,
+    [66] = 0x1F642,
+    [67] = 0x1F643,
+    [68] = 0x1F644,
+    [69] = 0x1F645,
+    //[[[end]]]
     [UM_A]  = UMLAUT_A_SMALL[0],
     [UM_AC] = UMLAUT_A[0],
     [UM_O]  = UMLAUT_O_SMALL[0],
@@ -441,7 +520,7 @@ uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_NUBS,
         KC_TAB,     KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       KC_GRAVE,
         MO(_FL0),   KC_A,       KC_S,       KC_D,       KC_F,       KC_G,       KC_QUOTE,   KC_MS_BTN1,
-        KC_LSFT,    KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       KC_NUHS,    MO(_NL),
+        KC_LSFT,    KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       TO(_EMJ),   MO(_NL),
         KC_LCTL,    KC_LWIN,    KC_LALT,    KC_APP,                 KC_SPACE,   KC_DEL,     KC_ENTER,
 
                     KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,   KC_BSPC,
@@ -472,7 +551,7 @@ uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_6,
         KC_TAB,     KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       KC_GRAVE,
         MO(_FL1),   KC_A,       KC_S,       KC_D,       KC_F,       KC_G,       KC_QUOTE,   KC_MS_BTN1,
-        KC_LSFT,    KC_NUHS,    KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       MO(_NL),
+        KC_LSFT,    TO(_EMJ),   KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       MO(_NL),
         KC_LCTL,    KC_LWIN,    KC_LALT,    MO(_ADDLANG1),          KC_SPACE,   KC_DEL,     KC_ENTER,
 
                     KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,   KC_EQUAL,   KC_HYPR,
@@ -501,7 +580,7 @@ uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_NUBS,
         KC_TAB,     KC_Q,       KC_W,       KC_F,       KC_P,       KC_B,       KC_GRAVE,
         MO(_FL1),   KC_A,       KC_R,       KC_S,       KC_T,       KC_G,       KC_QUOTE,   KC_MS_BTN1,
-        KC_LSFT,    KC_Z,       KC_X,       KC_C,       KC_D,       KC_V,       KC_NUHS,    MO(_NL),
+        KC_LSFT,    KC_Z,       KC_X,       KC_C,       KC_D,       KC_V,       TO(_EMJ),    MO(_NL),
         KC_LCTL,    KC_LWIN,    KC_LALT,    KC_APP,                 KC_SPACE,   KC_DEL,     KC_ENTER,
 
                     KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,   KC_EQUAL,
@@ -558,7 +637,7 @@ uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_L4] = LAYOUT_left_right_stacked(
         KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_GRAVE,
         KC_TAB,     KC_Q,       KC_D,       KC_R,       KC_W,       KC_B,       KC_HYPR,
-        MO(_FL1),   KC_A,       KC_S,       KC_H,       KC_T,       KC_G,       KC_MEH,     KC_MS_BTN1,
+        MO(_FL1),   KC_A,       KC_S,       KC_H,       KC_T,       KC_G,       TO(_EMJ),     KC_MS_BTN1,
         KC_LSFT,    KC_Z,       KC_X,       KC_M,       KC_C,       KC_V,       MO(_ADDLANG1), MO(_NL),
         KC_LCTL,    KC_LWIN,    KC_LALT,    KC_APP,                 KC_SPACE,   KC_DEL,     KC_ENTER,
 
@@ -578,9 +657,9 @@ uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                     KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,      KC_F11,    KC_F12,
                     KC_BTN3,    KC_BTN2,    _______,    _______,    _______,    _______,    TO(_SL),
-        _______,    KC_BTN1,    _______,    _______,    _______,    _______,    _______,    _______,
-        TO(_NL),    _______,    _______,    _______,    _______,    _______,    _______,    _______,
-        KC_RALT,    KC_RWIN,    KC_RCTL,                KC_HOME,    KC_PGUP,    KC_PGDN,    KC_END
+        _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
+        TO(_NL),    KC_RALT,    _______,    _______,    _______,    _______,    _______,    _______,
+        KC_BTN1,    KC_RWIN,    KC_RCTL,                KC_HOME,    KC_PGUP,    KC_PGDN,    KC_END
         ),
     [_FL1] = LAYOUT_left_right_stacked(
         OSL(_UL),   KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,
@@ -591,9 +670,9 @@ uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                     KC_F7,      KC_F8,      KC_F9,      KC_F10,      KC_F11,     KC_F12,    TO(_UL),
                     KC_BTN3,    KC_BTN2,    _______,    _______,    _______,    _______,    TO(_SL),
-        _______,    KC_BTN1,    _______,    _______,    _______,    _______,    _______,    KC_CAPS,
-        TO(_NL),    _______,    _______,    _______,    _______,    _______,    _______,    _______,
-        KC_RALT,    KC_RWIN,    KC_RCTL,                KC_HOME,    KC_PGUP,    KC_PGDN,    KC_END
+        _______,    _______,    _______,    _______,    _______,    _______,    _______,    KC_CAPS,
+        TO(_NL),    KC_RALT,    _______,    _______,    _______,    _______,    _______,    _______,
+        KC_BTN1,    KC_RWIN,    KC_RCTL,                KC_HOME,    KC_PGUP,    KC_PGDN,    KC_END
         ),
      //Num Layer
     [_NL] = LAYOUT_left_right_stacked(
@@ -664,6 +743,19 @@ uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,                _______,    _______,    _______,    _______
+        ),
+    [_EMJ] = LAYOUT_left_right_stacked(
+        UM(0),    UM(1),    UM(2),    UM(3),    UM(4),    UM(5),    UM(6),
+        UM(14),   UM(15),   UM(16),   UM(17),   UM(18),   UM(19),   UM(20),
+        UM(28),   UM(29),   UM(30),   UM(31),   UM(32),   UM(33),   UM(34),   _______,
+        UM(42),   UM(43),   UM(44),   UM(45),   UM(46),   UM(47),   UM(48),   UM(49),
+        KC_BASE,  UM(58),   UM(59),   UM(60),             UM(61),   UM(62),   UM(63),
+
+                  UM(7),    UM(8),    UM(9),    UM(10),   UM(11),   UM(12),   UM(13),
+                  UM(21),   UM(22),   UM(23),   UM(24),   UM(25),   UM(26),   UM(27),
+        _______,  UM(35),   UM(36),   UM(37),   UM(38),   UM(39),   UM(40),   UM(41),
+        UM(50),   UM(51),   UM(52),   UM(53),   UM(54),   UM(55),   UM(56),   UM(57),
+        UM(64),   UM(65),   UM(66),             UM(67),   UM(68),   UM(69),   KC_BASE
         )
 };
 
@@ -713,6 +805,82 @@ led_config_t g_led_config = { {// Key Matrix to LED Index
 
 const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     switch (keycode) {
+         /*[[[cog
+    for idx in range(70):
+        cog.outl(f'case UM({idx}): return u" " PRIVATE_EMOJI_1F6{idx:02X};')
+    ]]]*/
+    case UM(0): return u" " PRIVATE_EMOJI_1F600;
+    case UM(1): return u" " PRIVATE_EMOJI_1F601;
+    case UM(2): return u" " PRIVATE_EMOJI_1F602;
+    case UM(3): return u" " PRIVATE_EMOJI_1F603;
+    case UM(4): return u" " PRIVATE_EMOJI_1F604;
+    case UM(5): return u" " PRIVATE_EMOJI_1F605;
+    case UM(6): return u" " PRIVATE_EMOJI_1F606;
+    case UM(7): return u" " PRIVATE_EMOJI_1F607;
+    case UM(8): return u" " PRIVATE_EMOJI_1F608;
+    case UM(9): return u" " PRIVATE_EMOJI_1F609;
+    case UM(10): return u" " PRIVATE_EMOJI_1F60A;
+    case UM(11): return u" " PRIVATE_EMOJI_1F60B;
+    case UM(12): return u" " PRIVATE_EMOJI_1F60C;
+    case UM(13): return u" " PRIVATE_EMOJI_1F60D;
+    case UM(14): return u" " PRIVATE_EMOJI_1F60E;
+    case UM(15): return u" " PRIVATE_EMOJI_1F60F;
+    case UM(16): return u" " PRIVATE_EMOJI_1F610;
+    case UM(17): return u" " PRIVATE_EMOJI_1F611;
+    case UM(18): return u" " PRIVATE_EMOJI_1F612;
+    case UM(19): return u" " PRIVATE_EMOJI_1F613;
+    case UM(20): return u" " PRIVATE_EMOJI_1F614;
+    case UM(21): return u" " PRIVATE_EMOJI_1F615;
+    case UM(22): return u" " PRIVATE_EMOJI_1F616;
+    case UM(23): return u" " PRIVATE_EMOJI_1F617;
+    case UM(24): return u" " PRIVATE_EMOJI_1F618;
+    case UM(25): return u" " PRIVATE_EMOJI_1F619;
+    case UM(26): return u" " PRIVATE_EMOJI_1F61A;
+    case UM(27): return u" " PRIVATE_EMOJI_1F61B;
+    case UM(28): return u" " PRIVATE_EMOJI_1F61C;
+    case UM(29): return u" " PRIVATE_EMOJI_1F61D;
+    case UM(30): return u" " PRIVATE_EMOJI_1F61E;
+    case UM(31): return u" " PRIVATE_EMOJI_1F61F;
+    case UM(32): return u" " PRIVATE_EMOJI_1F620;
+    case UM(33): return u" " PRIVATE_EMOJI_1F621;
+    case UM(34): return u" " PRIVATE_EMOJI_1F622;
+    case UM(35): return u" " PRIVATE_EMOJI_1F623;
+    case UM(36): return u" " PRIVATE_EMOJI_1F624;
+    case UM(37): return u" " PRIVATE_EMOJI_1F625;
+    case UM(38): return u" " PRIVATE_EMOJI_1F626;
+    case UM(39): return u" " PRIVATE_EMOJI_1F627;
+    case UM(40): return u" " PRIVATE_EMOJI_1F628;
+    case UM(41): return u" " PRIVATE_EMOJI_1F629;
+    case UM(42): return u" " PRIVATE_EMOJI_1F62A;
+    case UM(43): return u" " PRIVATE_EMOJI_1F62B;
+    case UM(44): return u" " PRIVATE_EMOJI_1F62C;
+    case UM(45): return u" " PRIVATE_EMOJI_1F62D;
+    case UM(46): return u" " PRIVATE_EMOJI_1F62E;
+    case UM(47): return u" " PRIVATE_EMOJI_1F62F;
+    case UM(48): return u" " PRIVATE_EMOJI_1F630;
+    case UM(49): return u" " PRIVATE_EMOJI_1F631;
+    case UM(50): return u" " PRIVATE_EMOJI_1F632;
+    case UM(51): return u" " PRIVATE_EMOJI_1F633;
+    case UM(52): return u" " PRIVATE_EMOJI_1F634;
+    case UM(53): return u" " PRIVATE_EMOJI_1F635;
+    case UM(54): return u" " PRIVATE_EMOJI_1F636;
+    case UM(55): return u" " PRIVATE_EMOJI_1F637;
+    case UM(56): return u" " PRIVATE_EMOJI_1F638;
+    case UM(57): return u" " PRIVATE_EMOJI_1F639;
+    case UM(58): return u" " PRIVATE_EMOJI_1F63A;
+    case UM(59): return u" " PRIVATE_EMOJI_1F63B;
+    case UM(60): return u" " PRIVATE_EMOJI_1F63C;
+    case UM(61): return u" " PRIVATE_EMOJI_1F63D;
+    case UM(62): return u" " PRIVATE_EMOJI_1F63E;
+    case UM(63): return u" " PRIVATE_EMOJI_1F63F;
+    case UM(64): return u" " PRIVATE_EMOJI_1F640;
+    case UM(65): return u" " PRIVATE_EMOJI_1F641;
+    case UM(66): return u" " PRIVATE_EMOJI_1F642;
+    case UM(67): return u" " PRIVATE_EMOJI_1F643;
+    case UM(68): return u" " PRIVATE_EMOJI_1F644;
+    case UM(69): return u" " PRIVATE_EMOJI_1F645;
+    //[[[end]]]
+    case TO(_EMJ): return u" " PRIVATE_EMOJI_1F600;
     case KC_DEADKEY: return (g_local.flags&DEAD_KEY_ON_WAKEUP)==0 ? u"WakeX\r\v" ICON_SWITCH_OFF : u"WakeX\r\v" ICON_SWITCH_ON;
     case QK_UNICODE_MODE_MACOS: return u"Mac";
     case QK_UNICODE_MODE_LINUX: return u"Lnx";
@@ -1260,17 +1428,17 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
             for lang in languages:
                 cog.outl(f'case KC_{lang}: g_local.lang = {lang}; layer_off(_LL); break;')
             ]]]*/
-            case KC_LANG_EN: g_local.lang = LANG_EN; layer_off(_LL); break;
-            case KC_LANG_DE: g_local.lang = LANG_DE; layer_off(_LL); break;
-            case KC_LANG_FR: g_local.lang = LANG_FR; layer_off(_LL); break;
-            case KC_LANG_ES: g_local.lang = LANG_ES; layer_off(_LL); break;
-            case KC_LANG_PT: g_local.lang = LANG_PT; layer_off(_LL); break;
-            case KC_LANG_IT: g_local.lang = LANG_IT; layer_off(_LL); break;
-            case KC_LANG_TR: g_local.lang = LANG_TR; layer_off(_LL); break;
-            case KC_LANG_KO: g_local.lang = LANG_KO; layer_off(_LL); break;
-            case KC_LANG_JA: g_local.lang = LANG_JA; layer_off(_LL); break;
-            case KC_LANG_AR: g_local.lang = LANG_AR; layer_off(_LL); break;
-            case KC_LANG_GR: g_local.lang = LANG_GR; layer_off(_LL); break;
+        case KC_LANG_EN: g_local.lang = LANG_EN; layer_off(_LL); break;
+        case KC_LANG_DE: g_local.lang = LANG_DE; layer_off(_LL); break;
+        case KC_LANG_FR: g_local.lang = LANG_FR; layer_off(_LL); break;
+        case KC_LANG_ES: g_local.lang = LANG_ES; layer_off(_LL); break;
+        case KC_LANG_PT: g_local.lang = LANG_PT; layer_off(_LL); break;
+        case KC_LANG_IT: g_local.lang = LANG_IT; layer_off(_LL); break;
+        case KC_LANG_TR: g_local.lang = LANG_TR; layer_off(_LL); break;
+        case KC_LANG_KO: g_local.lang = LANG_KO; layer_off(_LL); break;
+        case KC_LANG_JA: g_local.lang = LANG_JA; layer_off(_LL); break;
+        case KC_LANG_AR: g_local.lang = LANG_AR; layer_off(_LL); break;
+        case KC_LANG_GR: g_local.lang = LANG_GR; layer_off(_LL); break;
         //[[[end]]]
         case KC_F1:case KC_F2:case KC_F3:case KC_F4:case KC_F5:case KC_F6:
         case KC_F7:case KC_F8:case KC_F9:case KC_F10:case KC_F11:case KC_F12:
