@@ -1,4 +1,4 @@
-/* Copyright 2020 Gondolindrim
+/* Copyright 2023 Gondolindrim
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,22 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
+#pragma once
 
-void board_init(void) {
-    setPinInput(B6);
-    setPinInput(B7);
-#if defined (LINE_RGBS)
-    rgblight_set_effect_range(0,16);
-#elif defined (RUNE_RGBS)
-    rgblight_set_effect_range(0,5);
-#elif defined (LUKE_RGBS)
-    rgblight_set_effect_range(0,2);
-#endif
-}
+#define HAL_USE_SPI TRUE
 
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if(res) writePin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
-    return res;
-}
+#include_next <halconf.h>

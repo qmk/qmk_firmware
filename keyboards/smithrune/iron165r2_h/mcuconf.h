@@ -1,5 +1,4 @@
-/*
-Copyright 2020 Gondolindrim
+/* Copyright 2023 Gondolindrim
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define BACKLIGHT_PWM_DRIVER    PWMD3
-#define BACKLIGHT_PWM_CHANNEL   1
-#define BACKLIGHT_PAL_MODE      1
+#include_next <mcuconf.h>
+
+#undef STM32_SPI_USE_SPI2
+#define STM32_SPI_USE_SPI2 TRUE
