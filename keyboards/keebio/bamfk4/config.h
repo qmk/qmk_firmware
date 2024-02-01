@@ -46,7 +46,7 @@
 #        define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #        define RGB_MATRIX_MAXIMUM_BRIGHTNESS 160
 #        define RGB_MATRIX_LED_COUNT 32
-#        define RGB_DISABLE_WHEN_USB_SUSPENDED
+#        define RGB_MATRIX_SLEEP
 #        define RGB_MATRIX_KEYPRESSES
 //#    endif
 

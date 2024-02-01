@@ -147,10 +147,10 @@ __attribute__((weak)) bool is_keyboard_left_impl(void) {
     return readPin(SPLIT_HAND_PIN);
 #    endif
 #elif defined(SPLIT_HAND_MATRIX_GRID)
-#    ifdef SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
-    return peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID);
-#    else
+#    ifdef SPLIT_HAND_MATRIX_GRID_LOW_IS_LEFT
     return !peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID);
+#    else
+    return peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID);
 #    endif
 #elif defined(EE_HANDS)
     if (!eeconfig_is_enabled()) {
