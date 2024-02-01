@@ -95,7 +95,7 @@ void disable_unused_amux(uint8_t channel) {
 }
 // Discharge the peak hold capacitor
 void discharge_capacitor(void) {
-#if OPEN_DRAIN_SUPPORT
+#ifdef OPEN_DRAIN_SUPPORT
     writePinLow(DISCHARGE_PIN);
 #else
     writePinLow(DISCHARGE_PIN);
@@ -105,7 +105,7 @@ void discharge_capacitor(void) {
 
 // Charge the peak hold capacitor
 void charge_capacitor(uint8_t row) {
-#if OPEN_DRAIN_SUPPORT
+#ifdef OPEN_DRAIN_SUPPORT
     writePinHigh(DISCHARGE_PIN);
 #else
     setPinInput(DISCHARGE_PIN);
@@ -124,7 +124,7 @@ int ec_init(void) {
 
     // Initialize discharge pin as discharge mode
     writePinLow(DISCHARGE_PIN);
-#if OPEN_DRAIN_SUPPORT
+#ifdef OPEN_DRAIN_SUPPORT
     setPinOutputOpenDrain(DISCHARGE_PIN);
 #else
     setPinOutput(DISCHARGE_PIN);
