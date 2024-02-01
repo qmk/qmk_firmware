@@ -39,6 +39,13 @@ void process_magic_key(void) {
             double_magic_case(ALT_E, KC_X,  "ample");
         );
 
+        triple_magic_switch(KC_B,
+            double_magic_switch(ALT_E,
+                magic_case(ALT_T, "ween");
+                magic_case(KC_C, "ome");
+            );
+        );
+
         triple_magic_case(KC_V,  CLT_A, KC_C,  "y");
         triple_magic_case(KC_G,  CLT_A, KC_C,  "y");
         triple_magic_case(GLT_S, KC_Y,  GLT_S, "tem");
