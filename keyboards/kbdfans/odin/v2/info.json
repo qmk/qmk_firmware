@@ -34,6 +34,9 @@
             "snake": true,
             "christmas": true,
             "static_gradient": true
+        },
+        "default": {
+            "animation": "rainbow_swirl"
         }
     },
     "processor": "STM32F072",

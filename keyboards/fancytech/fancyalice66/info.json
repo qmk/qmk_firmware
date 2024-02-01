@@ -9,11 +9,13 @@
             {"pin_a": "F0", "pin_b": "F1", "resolution": 2}
         ]
     },
+    "build": {
+        "lto": true
+    },
     "features": {
         "bootmagic": true,
         "encoder": false,
         "extrakey": true,
-        "lto": true,
         "mousekey": true,
         "nkro": true,
         "rgb_matrix": true

@@ -48,6 +48,9 @@
             "raindrops": true,
             "ranbow_beacon": true
         },
+        "default": {
+            "val": 150
+        },
         "driver": "ws2812",
         "hue_steps": 20,
         "layout": [
@@ -99,7 +102,8 @@
         "max_brightness": 180,
         "sat_steps": 20,
         "speed_steps": 20,
-        "val_steps": 20
+        "val_steps": 20,
+        "sleep": true
     },
     "url": "https://github.com/JZ-Skyloong",
     "usb": {
