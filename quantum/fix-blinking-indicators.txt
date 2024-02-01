@@ -1,0 +1,50 @@
+This is a bit involved as it requires foreknowledge of the Index values for your indicators (CAPS, NUM, SCROLL) in advance.
+Once you know the above value(s) a slight modification is required to either signalrgb.c or via.c depending upon your firmware build.
+Replace the CAPS_LOCK_LED_INDEX, NUM_LOCK_LED_INDEX, or SCROLL_LOCK_LED_INDEX with the index values for your keyboard.
+
+So if CAPS_LOCK Index is 36 this line:
+if ((index + i) == CAPS_LOCK_LED_INDEX && host_keyboard_led_state().caps_lock)   {
+Becomes this line:
+if ((index + i) == 36 && host_keyboard_led_state().caps_lock)   {
+
+void led_streaming(uint8_t *data) //Stream data from HID Packets to Keyboard.
+{
+    uint8_t index = data[1];
+    uint8_t numberofleds = data[2]; 
+
+    if(numberofleds >= 10)
+    {
+        packet[1] = DEVICE_ERROR_LEDS;
+        raw_hid_send(packet,32);
+        return; 
+    } 
+    
+    for (uint8_t i = 0; i < numberofleds; i++)
+    {
+      uint8_t offset = (i * 3) + 3;
+      uint8_t  r = data[offset];
+      uint8_t  g = data[offset + 1];
+      uint8_t  b = data[offset + 2];
+      
+      /* ONLY USE ONE OF THESE */
+
+      /* This is for all three CAPS, NUM, and SCROLL LOCKS */
+      if ( ((index + i) == CAPS_LOCK_LED_INDEX && host_keyboard_led_state().caps_lock) || ((index + i) == NUM_LOCK_LED_INDEX && host_keyboard_led_state().num_lock) || ((index + i) == SCROLL_LOCK_LED_INDEX && host_keyboard_led_state().scroll_lock))   {
+      
+      /* This is for CAPS and NUM LOCK */
+      if ( ((index + i) == CAPS_LOCK_LED_INDEX && host_keyboard_led_state().caps_lock) || ((index + i) == NUM_LOCK_LED_INDEX && host_keyboard_led_state().num_lock))   {
+
+      /* This is for CAPS LOCK */
+      if ((index + i) == CAPS_LOCK_LED_INDEX && host_keyboard_led_state().caps_lock)   {
+      
+      /* This is for NUM LOCK */
+      if ((index + i) == NUM_LOCK_LED_INDEX && host_keyboard_led_state().num_lock)  {
+
+      /* ONLY USE ONE OF THE ABOVE */
+      
+      rgb_matrix_set_color(index + i, 255, 255, 255);
+      } else {
+      rgb_matrix_set_color(index + i, r, g, b);
+      }
+     }
+}
