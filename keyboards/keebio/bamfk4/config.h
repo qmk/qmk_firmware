@@ -3,7 +3,6 @@
 
 #pragma once
 
-#define RGBLIGHT_DEFAULT_VAL 120
 #define RGBLIGHT_DEFAULT_MODE (RGBLIGHT_MODE_RAINBOW_SWIRL + 2)
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */

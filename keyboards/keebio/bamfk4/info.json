@@ -70,6 +70,9 @@
             "rgb_test": true,
             "alternating": true,
             "twinkle": true
+        },
+        "default": {
+            "val": 120
         }
     },
     "matrix_pins": {
