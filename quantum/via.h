@@ -123,14 +123,14 @@ enum signalrgb_responses {
 
 /*
 DEVICE, DEVICE_UNIQUE_IDENTIFIER_BYTE_1,DEVICE_UNIQUE_IDENTIFIER_BYTE_2,DEVICE_UNIQUE_IDENTIFIER_BYTE_3
-gmmk/pro/rev1/ansi:default                  0 0 5
-gmmk/pro/rev2/ansi:default                  0 0 5
-gmmk/pro/rev1/iso:default                   0 0 6
-gmmk/pro/rev2/iso:default                   0 0 6
-gmmk/gmmk2/p65/ansi:default                 0 0 7
-gmmk/gmmk2/p65/iso:default                  0 0 8
-gmmk/gmmk2/p96/ansi:default                 0 0 9
-gmmk/gmmk2/p96/iso:default                  0 0 10
+gmmk/pro/rev1/ansi:via                  0 0 5
+gmmk/pro/rev2/ansi:via                  0 0 5
+gmmk/pro/rev1/iso:via                   0 0 6
+gmmk/pro/rev2/iso:via                   0 0 6
+gmmk/gmmk2/p65/ansi:via                 0 0 7
+gmmk/gmmk2/p65/iso:via                  0 0 8
+gmmk/gmmk2/p96/ansi:via                 0 0 9
+gmmk/gmmk2/p96/iso:via                  0 0 10
 redragon/k556:via                       0 1 3
 redragon/k580:via                       0 1 4
 */
