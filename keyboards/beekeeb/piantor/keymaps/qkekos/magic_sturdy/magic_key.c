@@ -41,8 +41,8 @@ void process_magic_key(void) {
 
         triple_magic_switch(KC_B,
             double_magic_switch(ALT_E,
-                magic_case(ALT_T, "ween");
                 magic_case(KC_C,  "ome");
+                magic_case(ALT_T, "ween");
             );
         );
 
@@ -73,6 +73,11 @@ void process_magic_key(void) {
             magic_case(ALT_E, "ry");
         );
 
+        double_magic_switch(TH_NUM,
+            magic_case(ALT_T, "hat");
+            magic_case(ALT_E, ".g.");
+        );
+
         double_magic_case(LT_I,   KC_C,  "k");
         double_magic_case(KC_U,   KC_C,  "k");
         double_magic_case(KC_C,   KC_Y,  "c");
@@ -82,7 +87,6 @@ void process_magic_key(void) {
         double_magic_case(GLT_S,  KC_O,  "me");
         double_magic_case(KC_L,   LT_I,  "st");
         double_magic_case(KC_B,   ALT_E, "en");
-        double_magic_case(TH_NUM, ALT_E, ".g.");
         double_magic_case(KC_P,   ALT_E, "ople");
     }
 
