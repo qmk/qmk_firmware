@@ -78,8 +78,12 @@ void process_magic_key(void) {
             magic_case(ALT_E, ".g.");
         );
 
+        double_magic_switch(KC_U,
+            magic_case(KC_P, "date");
+            magic_case(KC_C, "k");
+        );
+
         double_magic_case(LT_I,   KC_C,  "k");
-        double_magic_case(KC_U,   KC_C,  "k");
         double_magic_case(KC_C,   KC_Y,  "c");
         double_magic_case(CLT_A,  KC_C,  "k");
         double_magic_case(ALT_E,  KC_C,  "k");
