@@ -3,7 +3,7 @@
     "keyboard_name": "qmk68 pro",
     "maintainer": "NaturalZh",
     "bootloader": "stm32duino",
-
+    "debounce": 10,
     "diode_direction": "ROW2COL",
     "encoder": {
         "rotary": [
