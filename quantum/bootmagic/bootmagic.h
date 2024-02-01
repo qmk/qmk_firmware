@@ -15,8 +15,11 @@
  */
 #pragma once
 
-#if defined(BOOTMAGIC_LITE)
-#    include "bootmagic_lite.h"
+#ifndef BOOTMAGIC_LITE_COLUMN
+#    define BOOTMAGIC_LITE_COLUMN 0
+#endif
+#ifndef BOOTMAGIC_LITE_ROW
+#    define BOOTMAGIC_LITE_ROW 0
 #endif
 
 void bootmagic(void);

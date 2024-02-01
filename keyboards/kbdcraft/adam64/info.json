@@ -133,7 +133,8 @@
             {"flags": 4, "matrix": [4, 11], "x": 176, "y": 40},
             {"flags": 4, "matrix": [4, 12], "x": 192, "y": 40},
             {"flags": 4, "matrix": [4, 13], "x": 208, "y": 40}
-        ]
+        ],
+        "sleep": true
     },
     "layouts": {
         "LAYOUT_64_ansi": {
