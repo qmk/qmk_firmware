@@ -9,7 +9,10 @@
     "backlight": {
         "pin": "GP13",
         "levels": 8,
-    }
+    },
+    "rgblight": {
+        "led_count": 1
+    },
     "ws2812": {
         "pin": "GP23"
     },
