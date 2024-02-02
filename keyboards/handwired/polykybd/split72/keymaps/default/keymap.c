@@ -19,6 +19,8 @@
 #include "version.h"
 #include "print.h"
 
+#include "uni.h"
+
 #include <transactions.h>
 
 #include "lang/lang_lut.h"
@@ -75,7 +77,8 @@ enum kb_layers {
     _SL,
     _LL,
     _ADDLANG1,
-    _EMJ };
+    _EMJ0,
+    _EMJ1 };
 
 enum my_keycodes {
     KC_LANG = SAFE_RANGE,
@@ -121,8 +124,6 @@ struct display_info key_display[] = {
 
 struct display_info disp_row_0 = { BITMASK1(0) };
 struct display_info disp_row_3 = { BITMASK4(0) };
-
-//static uint8_t lang_from_hid = 0;
 
 enum refresh_mode { START_FIRST_HALF, START_SECOND_HALF, DONE_ALL, ALL_AT_ONCE };
 static enum refresh_mode g_refresh = DONE_ALL;
@@ -404,102 +405,6 @@ void housekeeping_task_user(void) {
         }
     }
 }
-enum unicode_names {
-    UM_A=70,
-    UM_AC,
-    UM_O,
-    UM_OC,
-    UM_U,
-    UM_UC,
-    SZ,
-    SZC
-};
-
-const uint32_t unicode_map[] PROGMEM = {
-    /*[[[cog
-    for idx in range(70):
-        cog.outl(f'[{idx}] = 0x1F6{idx:02X},')
-    ]]]*/
-    [0] = 0x1F600,
-    [1] = 0x1F601,
-    [2] = 0x1F602,
-    [3] = 0x1F603,
-    [4] = 0x1F604,
-    [5] = 0x1F605,
-    [6] = 0x1F606,
-    [7] = 0x1F607,
-    [8] = 0x1F608,
-    [9] = 0x1F609,
-    [10] = 0x1F60A,
-    [11] = 0x1F60B,
-    [12] = 0x1F60C,
-    [13] = 0x1F60D,
-    [14] = 0x1F60E,
-    [15] = 0x1F60F,
-    [16] = 0x1F610,
-    [17] = 0x1F611,
-    [18] = 0x1F612,
-    [19] = 0x1F613,
-    [20] = 0x1F614,
-    [21] = 0x1F615,
-    [22] = 0x1F616,
-    [23] = 0x1F617,
-    [24] = 0x1F618,
-    [25] = 0x1F619,
-    [26] = 0x1F61A,
-    [27] = 0x1F61B,
-    [28] = 0x1F61C,
-    [29] = 0x1F61D,
-    [30] = 0x1F61E,
-    [31] = 0x1F61F,
-    [32] = 0x1F620,
-    [33] = 0x1F621,
-    [34] = 0x1F622,
-    [35] = 0x1F623,
-    [36] = 0x1F624,
-    [37] = 0x1F625,
-    [38] = 0x1F626,
-    [39] = 0x1F627,
-    [40] = 0x1F628,
-    [41] = 0x1F629,
-    [42] = 0x1F62A,
-    [43] = 0x1F62B,
-    [44] = 0x1F62C,
-    [45] = 0x1F62D,
-    [46] = 0x1F62E,
-    [47] = 0x1F62F,
-    [48] = 0x1F630,
-    [49] = 0x1F631,
-    [50] = 0x1F632,
-    [51] = 0x1F633,
-    [52] = 0x1F634,
-    [53] = 0x1F635,
-    [54] = 0x1F636,
-    [55] = 0x1F637,
-    [56] = 0x1F638,
-    [57] = 0x1F639,
-    [58] = 0x1F63A,
-    [59] = 0x1F63B,
-    [60] = 0x1F63C,
-    [61] = 0x1F63D,
-    [62] = 0x1F63E,
-    [63] = 0x1F63F,
-    [64] = 0x1F640,
-    [65] = 0x1F641,
-    [66] = 0x1F642,
-    [67] = 0x1F643,
-    [68] = 0x1F644,
-    [69] = 0x1F645,
-    //[[[end]]]
-    [UM_A]  = UMLAUT_A_SMALL[0],
-    [UM_AC] = UMLAUT_A[0],
-    [UM_O]  = UMLAUT_O_SMALL[0],
-    [UM_OC] = UMLAUT_O[0],
-    [UM_U]  = UMLAUT_U_SMALL[0],
-    [UM_UC] = UMLAUT_U[0],
-    [SZ]  = ESZETT[0],
-    [SZC] = 0x1E9E
-};
 
 uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //Base Layers
@@ -523,7 +428,7 @@ uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_NUBS,
         KC_TAB,     KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       KC_GRAVE,
         MO(_FL0),   KC_A,       KC_S,       KC_D,       KC_F,       KC_G,       KC_QUOTE,   KC_MS_BTN1,
-        KC_LSFT,    KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       TO(_EMJ),   MO(_NL),
+        KC_LSFT,    KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       TO(_EMJ0),   MO(_NL),
         KC_LCTL,    KC_LWIN,    KC_LALT,    KC_APP,                 KC_SPACE,   KC_DEL,     KC_ENTER,
 
                     KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,   KC_BSPC,
@@ -554,7 +459,7 @@ uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_6,
         KC_TAB,     KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       KC_GRAVE,
         MO(_FL1),   KC_A,       KC_S,       KC_D,       KC_F,       KC_G,       KC_QUOTE,   KC_MS_BTN1,
-        KC_LSFT,    TO(_EMJ),   KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       MO(_NL),
+        KC_LSFT,    TO(_EMJ0),   KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       MO(_NL),
         KC_LCTL,    KC_LWIN,    KC_LALT,    MO(_ADDLANG1),          KC_SPACE,   KC_DEL,     KC_ENTER,
 
                     KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,   KC_EQUAL,   KC_HYPR,
@@ -583,7 +488,7 @@ uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_NUBS,
         KC_TAB,     KC_Q,       KC_W,       KC_F,       KC_P,       KC_B,       KC_GRAVE,
         MO(_FL1),   KC_A,       KC_R,       KC_S,       KC_T,       KC_G,       KC_QUOTE,   KC_MS_BTN1,
-        KC_LSFT,    KC_Z,       KC_X,       KC_C,       KC_D,       KC_V,       TO(_EMJ),    MO(_NL),
+        KC_LSFT,    KC_Z,       KC_X,       KC_C,       KC_D,       KC_V,       TO(_EMJ0),    MO(_NL),
         KC_LCTL,    KC_LWIN,    KC_LALT,    KC_APP,                 KC_SPACE,   KC_DEL,     KC_ENTER,
 
                     KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,   KC_EQUAL,
@@ -640,7 +545,7 @@ uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_L4] = LAYOUT_left_right_stacked(
         KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_GRAVE,
         KC_TAB,     KC_Q,       KC_D,       KC_R,       KC_W,       KC_B,       KC_HYPR,
-        MO(_FL1),   KC_A,       KC_S,       KC_H,       KC_T,       KC_G,       TO(_EMJ),     KC_MS_BTN1,
+        MO(_FL1),   KC_A,       KC_S,       KC_H,       KC_T,       KC_G,       TO(_EMJ0),     KC_MS_BTN1,
         KC_LSFT,    KC_Z,       KC_X,       KC_M,       KC_C,       KC_V,       MO(_ADDLANG1), MO(_NL),
         KC_LCTL,    KC_LWIN,    KC_LALT,    KC_APP,                 KC_SPACE,   KC_DEL,     KC_ENTER,
 
@@ -747,7 +652,7 @@ uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,                _______,    _______,    _______,    _______
         ),
-    [_EMJ] = LAYOUT_left_right_stacked(
+    [_EMJ0] = LAYOUT_left_right_stacked(
         UM(0),    UM(1),    UM(2),    UM(3),    UM(4),    UM(5),    UM(6),
         UM(14),   UM(15),   UM(16),   UM(17),   UM(18),   UM(19),   UM(20),
         UM(28),   UM(29),   UM(30),   UM(31),   UM(32),   UM(33),   UM(34),   _______,
@@ -758,7 +663,20 @@ uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                   UM(21),   UM(22),   UM(23),   UM(24),   UM(25),   UM(26),   UM(27),
         _______,  UM(35),   UM(36),   UM(37),   UM(38),   UM(39),   UM(40),   UM(41),
         UM(50),   UM(51),   UM(52),   UM(53),   UM(54),   UM(55),   UM(56),   UM(57),
-        UM(64),   UM(65),   UM(66),             UM(67),   UM(68),   UM(69),   KC_BASE
+        UM(64),   UM(65),   UM(66),             UM(67),   UM(68),   UM(69),   TO(_EMJ1)
+        ),
+    [_EMJ1] = LAYOUT_left_right_stacked(
+        UM(70+0),    UM(70+1),    UM(70+2),    UM(70+3),    UM(70+4),    UM(70+5),    UM(70+6),
+        UM(70+14),   UM(70+15),   UM(70+16),   UM(70+17),   UM(70+18),   UM(70+19),   UM(70+20),
+        UM(70+28),   UM(70+29),   UM(70+30),   UM(70+31),   UM(70+32),   UM(70+33),   UM(70+34),   _______,
+        UM(70+42),   UM(70+43),   UM(70+44),   UM(70+45),   UM(70+46),   UM(70+47),   UM(70+48),   UM(70+49),
+        KC_BASE,     UM(70+58),   UM(70+59),   UM(70+60),                UM(70+61),   UM(70+62),   UM(70+63),
+
+                     UM(70+7),    UM(70+8),    UM(70+9),    UM(70+10),   UM(70+11),   UM(70+12),   UM(70+13),
+                     UM(70+21),   UM(70+22),   UM(70+23),   UM(70+24),   UM(70+25),   UM(70+26),   UM(70+27),
+        _______,     UM(70+35),   UM(70+36),   UM(70+37),   UM(70+38),   UM(70+39),   UM(70+40),   UM(70+41),
+        UM(70+50),   UM(70+51),   UM(70+52),   UM(70+53),   UM(70+54),   UM(70+55),   UM(70+56),   UM(70+57),
+        UM(70+64),   UM(70+65),   UM(70+66),                UM(70+67),   UM(70+68),   UM(70+69),   TO(_EMJ0)
         )
 };
 
@@ -808,9 +726,19 @@ led_config_t g_led_config = { {// Key Matrix to LED Index
 
 const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     switch (keycode) {
-         /*[[[cog
-    for idx in range(70):
-        cog.outl(f'case UM({idx}): return u" " PRIVATE_EMOJI_1F6{idx:02X};')
+    /*[[[cog
+    wb = load_workbook(filename = os.path.join(os.path.abspath(os.path.dirname(cog.inFile)), "lang/lang_lut.xlsx"), data_only=True)
+    sheet = wb['named_glyphs']
+
+    idx = 0
+    glyph_index = 404
+    glyph_key = sheet["A403"].value
+    while glyph_key and glyph_key.startswith("PRIVATE_EMOJI"):
+        cog.outl(f'case UM({idx}): return u" " {glyph_key};')
+        glyph_key = sheet[f"A{glyph_index}"].value
+        idx = idx + 1
+        glyph_index = glyph_index + 1
+
     ]]]*/
     case UM(0): return u" " PRIVATE_EMOJI_1F600;
     case UM(1): return u" " PRIVATE_EMOJI_1F601;
@@ -870,20 +798,91 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case UM(55): return u" " PRIVATE_EMOJI_1F637;
     case UM(56): return u" " PRIVATE_EMOJI_1F638;
     case UM(57): return u" " PRIVATE_EMOJI_1F639;
-    case UM(58): return u" " PRIVATE_EMOJI_1F63A;
-    case UM(59): return u" " PRIVATE_EMOJI_1F63B;
-    case UM(60): return u" " PRIVATE_EMOJI_1F63C;
-    case UM(61): return u" " PRIVATE_EMOJI_1F63D;
-    case UM(62): return u" " PRIVATE_EMOJI_1F63E;
-    case UM(63): return u" " PRIVATE_EMOJI_1F63F;
-    case UM(64): return u" " PRIVATE_EMOJI_1F640;
-    case UM(65): return u" " PRIVATE_EMOJI_1F641;
-    case UM(66): return u" " PRIVATE_EMOJI_1F642;
-    case UM(67): return u" " PRIVATE_EMOJI_1F643;
-    case UM(68): return u" " PRIVATE_EMOJI_1F644;
-    case UM(69): return u" " PRIVATE_EMOJI_1F645;
+    case UM(58): return u" " PRIVATE_EMOJI_1F644;
+    case UM(59): return u" " PRIVATE_EMOJI_1F645;
+    case UM(60): return u" " PRIVATE_EMOJI_1F646;
+    case UM(61): return u" " PRIVATE_EMOJI_1F647;
+    case UM(62): return u" " PRIVATE_EMOJI_1F648;
+    case UM(63): return u" " PRIVATE_EMOJI_1F649;
+    case UM(64): return u" " PRIVATE_EMOJI_1F64A;
+    case UM(65): return u" " PRIVATE_EMOJI_1F64B;
+    case UM(66): return u" " PRIVATE_EMOJI_1F64C;
+    case UM(67): return u" " PRIVATE_EMOJI_1F64D;
+    case UM(68): return u" " PRIVATE_EMOJI_1F64E;
+    case UM(69): return u" " PRIVATE_EMOJI_1F64F;
+    case UM(70): return u" " PRIVATE_EMOJI_1F440;
+    case UM(71): return u" " PRIVATE_EMOJI_1F441;
+    case UM(72): return u" " PRIVATE_EMOJI_1F442;
+    case UM(73): return u" " PRIVATE_EMOJI_1F443;
+    case UM(74): return u" " PRIVATE_EMOJI_1F444;
+    case UM(75): return u" " PRIVATE_EMOJI_1F445;
+    case UM(76): return u" " PRIVATE_EMOJI_1F446;
+    case UM(77): return u" " PRIVATE_EMOJI_1F447;
+    case UM(78): return u" " PRIVATE_EMOJI_1F448;
+    case UM(79): return u" " PRIVATE_EMOJI_1F449;
+    case UM(80): return u" " PRIVATE_EMOJI_1F44A;
+    case UM(81): return u" " PRIVATE_EMOJI_1F44B;
+    case UM(82): return u" " PRIVATE_EMOJI_1F44C;
+    case UM(83): return u" " PRIVATE_EMOJI_1F44D;
+    case UM(84): return u" " PRIVATE_EMOJI_1F44E;
+    case UM(85): return u" " PRIVATE_EMOJI_1F44F;
+    case UM(86): return u" " PRIVATE_EMOJI_1F450;
+    case UM(87): return u" " PRIVATE_EMOJI_1F451;
+    case UM(88): return u" " PRIVATE_EMOJI_1F452;
+    case UM(89): return u" " PRIVATE_EMOJI_1F453;
+    case UM(90): return u" " PRIVATE_EMOJI_1F47B;
+    case UM(91): return u" " PRIVATE_EMOJI_1F47C;
+    case UM(92): return u" " PRIVATE_EMOJI_1F47D;
+    case UM(93): return u" " PRIVATE_EMOJI_1F47E;
+    case UM(94): return u" " PRIVATE_EMOJI_1F47F;
+    case UM(95): return u" " PRIVATE_EMOJI_1F480;
+    case UM(96): return u" " PRIVATE_EMOJI_1F481;
+    case UM(97): return u" " PRIVATE_EMOJI_1F482;
+    case UM(98): return u" " PRIVATE_EMOJI_1F483;
+    case UM(99): return u" " PRIVATE_EMOJI_1F484;
+    case UM(100): return u" " PRIVATE_EMOJI_1F485;
+    case UM(101): return u" " PRIVATE_EMOJI_1F489;
+    case UM(102): return u" " PRIVATE_EMOJI_1F48A;
+    case UM(103): return u" " PRIVATE_EMOJI_1F48B;
+    case UM(104): return u" " PRIVATE_EMOJI_1F48C;
+    case UM(105): return u" " PRIVATE_EMOJI_1F48D;
+    case UM(106): return u" " PRIVATE_EMOJI_1F48E;
+    case UM(107): return u" " PRIVATE_EMOJI_1F48F;
+    case UM(108): return u" " PRIVATE_EMOJI_1F490;
+    case UM(109): return u" " PRIVATE_EMOJI_1F491;
+    case UM(110): return u" " PRIVATE_EMOJI_1F492;
+    case UM(111): return u" " PRIVATE_EMOJI_1F493;
+    case UM(112): return u" " PRIVATE_EMOJI_1F494;
+    case UM(113): return u" " PRIVATE_EMOJI_1F495;
+    case UM(114): return u" " PRIVATE_EMOJI_1F496;
+    case UM(115): return u" " PRIVATE_EMOJI_1F4A1;
+    case UM(116): return u" " PRIVATE_EMOJI_1F4A2;
+    case UM(117): return u" " PRIVATE_EMOJI_1F4A3;
+    case UM(118): return u" " PRIVATE_EMOJI_1F4A4;
+    case UM(119): return u" " PRIVATE_EMOJI_1F4A5;
+    case UM(120): return u" " PRIVATE_EMOJI_1F4A6;
+    case UM(121): return u" " PRIVATE_EMOJI_1F4A7;
+    case UM(122): return u" " PRIVATE_EMOJI_1F4A8;
+    case UM(123): return u" " PRIVATE_EMOJI_1F4A9;
+    case UM(124): return u" " PRIVATE_EMOJI_1F4AA;
+    case UM(125): return u" " PRIVATE_EMOJI_1F4AB;
+    case UM(126): return u" " PRIVATE_EMOJI_1F4AC;
+    case UM(127): return u" " PRIVATE_EMOJI_1F4AD;
+    case UM(128): return u" " PRIVATE_EMOJI_1F4AE;
+    case UM(129): return u" " PRIVATE_EMOJI_1F4AF;
+    case UM(130): return u" " PRIVATE_EMOJI_1F4B0;
+    case UM(131): return u" " PRIVATE_EMOJI_1F4B1;
+    case UM(132): return u" " PRIVATE_EMOJI_1F912;
+    case UM(133): return u" " PRIVATE_EMOJI_1F913;
+    case UM(134): return u" " PRIVATE_EMOJI_1F914;
+    case UM(135): return u" " PRIVATE_EMOJI_1F915;
+    case UM(136): return u" " PRIVATE_EMOJI_1F916;
+    case UM(137): return u" " PRIVATE_EMOJI_1F917;
+    case UM(138): return u" " PRIVATE_EMOJI_1F918;
+    case UM(139): return u" " PRIVATE_EMOJI_1F919;
     //[[[end]]]
-    case TO(_EMJ): return u" " PRIVATE_EMOJI_1F600;
+    case TO(_EMJ0): return u" " PRIVATE_EMOJI_1F600 u"\v" ICON_LAYER;
+    case TO(_EMJ1): return u" " PRIVATE_EMOJI_1F440 u"\v" ICON_LAYER;
     case KC_DEADKEY: return (g_local.flags&DEAD_KEY_ON_WAKEUP)==0 ? u"WakeX\r\v" ICON_SWITCH_OFF : u"WakeX\r\v" ICON_SWITCH_ON;
     case QK_UNICODE_MODE_MACOS: return u"Mac";
     case QK_UNICODE_MODE_LINUX: return u"Lnx";

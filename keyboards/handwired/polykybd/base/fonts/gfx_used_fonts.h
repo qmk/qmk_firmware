@@ -25,8 +25,10 @@
 #include "generated/5NotoSansSymbols2_Regular_Volume_20pt.h"
 #include "generated/5NotoSansSymbols2_Regular_Window_18pt.h"
 #include "generated/6NotoEmoji_Medium_AI_20pt.h"
-#include "generated/6NotoEmoji_Medium_Emoji_20pt.h"
+#include "generated/6NotoEmoji_Medium_Emoji0_20pt.h"
 #include "generated/6NotoEmoji_Medium_Light_20pt.h"
+#include "generated/7NotoEmoji_Medium_Emoji1 _20pt.h"
+#include "generated/7NotoEmoji_Medium_Emoji2_20pt.h"
 #include "generated/NotoSansAR_Regular_FormsB_16pt.h"
 #include "generated/NotoSansAR_Regular_Isolated_16pt.h"
 #include "generated/NotoSansJP_Regular_Hiragana_15pt.h"
@@ -68,8 +70,10 @@ const GFXfont* ALL_FONTS [] = {
   &NotoSansSymbols2_Regular_Volume_20pt16b,
   &NotoSansSymbols2_Regular_Window_18pt16b,
   &NotoEmoji_Medium_AI_20pt16b,
-  &NotoEmoji_Medium_Emojis_20pt16b,
+  &NotoEmoji_Medium_Emojis0_20pt16b,
   &NotoEmoji_Medium_Light_20pt16b,
+  &NotoEmoji_Medium_Emojis1_20pt16b,
+  &NotoEmoji_Medium_Emojis2_20pt16b,
   &NotoSansArabic_Regular_FormsB_16pt16b,
   &NotoSansArabic_Regular_Isolated_16pt16b,
   &NotoSansJP_Regular_Hiragana_15pt16b,
