@@ -173,11 +173,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ------------------------------------------------------------------------------------------------------------------------------------
     [MEDIA] = LAYOUT_split_3x6_3(
 //     ┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┐      ┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┐
-         KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_VLUP,         KC_NO,    KC_NO,    KC_MS_U,  KC_NO,    US_LGTG,  TG_GAME,
+         KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_VOLU,         KC_NO,    KC_NO,    KC_MS_U,  KC_NO,    US_LGTG,  TG_GAME,
 //     ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤      ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-         KC_NO,    KC_NO,    KC_LALT,  KC_LCTL,  KC_LSFT,  KC_VLDW,         KC_NO,    KC_MS_L,  KC_MS_D,  KC_MS_R,  KC_NO,    KC_SCRL,
+         KC_NO,    KC_NO,    KC_LALT,  KC_LCTL,  KC_LSFT,  KC_VOLD,         KC_NO,    KC_MS_L,  KC_MS_D,  KC_MS_R,  KC_NO,    KC_SCRL,
 //     ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤      ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-         HK_SALL,  HK_UNDO,  HK_CUT,   HK_COPY,  HK_PSTE,  KC_MPLY,         KC_ESC,   KC_NO,    KC_VLUP,  KC_VLDW,  QK_BOOT,  EE_CLR,
+         HK_SALL,  HK_UNDO,  HK_CUT,   HK_COPY,  HK_PSTE,  KC_MPLY,         KC_ESC,   KC_NO,    KC_VOLU,  KC_VOLD,  QK_BOOT,  EE_CLR,
 //     └─────────┴─────────┴─────────┴─────────┴─────────┴─────────┘      └─────────┴─────────┴─────────┴─────────┴─────────┴─────────┘
 //                                   ┌─────────┬─────────┬─────────┐      ┌─────────┬─────────┬─────────┐
                                        KC_NO,    KC_NO,    KC_NO,           KC_BTN3,  KC_BTN1,  KC_BTN2

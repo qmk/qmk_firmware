@@ -15,9 +15,6 @@
 
 #define MO_PAD  MO(NUMPAD)
 
-#define KC_VLUP KC_KB_VOLUME_UP
-#define KC_VLDW KC_KB_VOLUME_DOWN
-
 // HOTKEYS
 #define HK_TMCF S(KC_ENT)
 #define HK_TMOP S(KC_ESC)
