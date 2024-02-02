@@ -1,11 +1,22 @@
-//  Copyright 2023 JZ-Skyloong (@JZ-Skyloong)
+//  Copyright 2023 NaturalZh (@NaturalZh)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "quantum.h"
 
-#define MAC_OFF 0x1A  //disable mac layer indicator on LED display
-#define MAC_ON 0x3B  //enable mac layer indicator on LED diaplay
-
-
+/**
+ *  74HC595 Skyloong LED display Driver
+ *  data(default):1-on/0-off
+ *    bit0 --- MAC layer indicator
+ *    bit1 --- Win layer indicator
+ *    bit2 --- CAPS indicator
+ *    bit3 --- NUM indicator
+ *    bit4 --- SCR indicator
+ *    bit7 --- Skyloong LOGO display
+ *
+**/
+#define HC595_ST_PIN A6  //74HC595 storage register clock input
+#define HC595_SH_PIN A5  //74HC595 shift register clock input
+#define HC595_DS A7   // 74HC595 serial data input
+#include "led_hc595.c"
 uint8_t IND = 0;  //buffer of LED Display
 
 #if defined(RGB_MATRIX_ENABLE)  /*&& defined(CAPS_LOCK_INDEX)*/
@@ -128,16 +139,14 @@ const aw20216s_led_t PROGMEM g_aw20216s_leds[AW20216S_LED_COUNT] = {
     {1, CS16_SW5,  CS17_SW5,  CS18_SW5},
     {1, CS16_SW6,  CS17_SW6,  CS18_SW6}
 };
-
 #endif
-
-
 
 void suspend_power_down_kb() {
 #    ifdef RGB_MATRIX_ENABLE
     writePinLow(SDB);
 #    endif
     writePinLow(MAC_PIN);
+    s_serial_to_parallel(0);
     suspend_power_down_user();
 }
 
@@ -145,11 +154,13 @@ void suspend_wakeup_init_kb() {
 #    ifdef RGB_MATRIX_ENABLE
     writePinHigh(SDB);
 #    endif
+    s_serial_to_parallel(IND);
     suspend_wakeup_init_user();
 }
 
 bool shutdown_kb(bool jump_to_bootloader) {
     writePinLow(SDB);
+    s_serial_to_parallel(0);
     return shutdown_user(jump_to_bootloader);
 }
 
@@ -157,15 +168,18 @@ layer_state_t default_layer_state_set_kb(layer_state_t state) {
     switch (get_highest_layer(state)) {
     case 0:
         writePinLow(MAC_PIN);
-        IND =& MAC_OFF;
-        serial_to_parallel(IND);
+        //switch to win layer display
+        IND = IND & (~MAC_ON);
+        IND = IND | WIN_ON;
         break;
     case 1:
         writePinHigh(MAC_PIN);
-        IND =|| MAC_ON;
-        serial_to_parallel(IND);
+        //switch to mac layer display
+        IND = IND & (~WIN_ON);
+        IND = IND | MAC_ON;
         break;
     }
+    s_serial_to_parallel(IND);
   return state;
 }
 
@@ -174,63 +188,39 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
         return false;
     }
-
+    //caps lock display
     if (host_keyboard_led_state().caps_lock) {
         RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_INDEX, 255, 255, 255);
+        IND = IND | CAPS_ON;
     } else {
         if (!rgb_matrix_get_flags()) {
             RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_INDEX, 0, 0, 0);
         }
+        IND = IND & (~CAPS_ON);
+    }
+    //number lock display
+    if (host_keyboard_led_state().num_lock) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(NUM_LOCK_INDEX, 255, 255, 255);
+        IND = IND | NUM_ON;
+    } else {
+        if (!rgb_matrix_get_flags()) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(NUM_LOCK_INDEX, 0, 0, 0);
+        }
+        IND = IND & (~NUM_ON);
+    }
+    //scroll lock display
+    if (host_keyboard_led_state().scroll_lock) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(SCR_LOCK_INDEX, 255, 255, 255);
+        IND = IND | SCR_ON;
+    } else {
+        if (!rgb_matrix_get_flags()) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(SCR_LOCK_INDEX, 0, 0, 0);
+        }
+        IND = IND & (~SCR_ON);
     }
 
-   switch (get_highest_layer(layer_state)) {
-      case 2:{
-        RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 255, 255, 255);
-        if (!rgb_matrix_get_flags()) {
-            RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 0, 0, 0);
-         }
-      } break;
-      case 3:{
-        RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 255, 255, 255);
-        if (!rgb_matrix_get_flags()) {
-            RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 0, 0, 0);
-         }
-      } break;
-
-      case 0:{
-       if (L_WIN) {
-            RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 255, 255, 255);
-            if (!rgb_matrix_get_flags()) {
-               RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 0, 0, 0);
-            }
-            }else{
-                if (!rgb_matrix_get_flags()) {
-                   RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 0, 0, 0);
-                 }
-              }
-         } break;
-
-     case 1:{
-       if (L_MAC) {
-            RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 255, 255, 255);
-            if (!rgb_matrix_get_flags()) {
-               RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 0, 0, 0);
-            }
-            }else{
-                if (!rgb_matrix_get_flags()) {
-                   RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 0, 0, 0);
-                 }
-              }
-         } break;
-
-      default:{
-         if (!rgb_matrix_get_flags()) {
-            RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 0, 0, 0);
-            RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 0, 0, 0);
-         }
-      }
-    }
-    return false;
+    s_serial_to_parallel(IND);
+    return true;
 }
 
 
@@ -243,51 +233,6 @@ void board_init(void) {
 #   endif
     setPinOutput(MAC_PIN);
     writePinHigh(MAC_PIN);
+    s_serial_to_parallel(SKYLOONG);
 }
 
-/*
-LED display driver
-*/
-#define ClockTime 15
-#define HC595_ST_PIN A6  //74HC595 storage register clock input
-#define HC595_SH_PIN A5  //74HC595 shift register clock input
-#define HC595_DS A7   // 74HC595 serial data input
-
-static inline void setPinOutput_writeLow(pin_t pin) {
-    ATOMIC_BLOCK_FORCEON {
-        setPinOutput(pin);
-        writePinLow(pin);
-    }
-}
-
-static inline void setPinOutput_writeHigh(pin_t pin) {
-    ATOMIC_BLOCK_FORCEON {
-        setPinOutput(pin);
-        writePinHigh(pin);
-    }
-}
-
-static inline void select_delay(uint16_t n) {
-    while (n-- > 0) {
-        asm volatile("nop" ::: "memory");
-    };
-}
-
-static inline void clockPulse(uint16_t n) {
-    writePinHigh(HC595_SH_PIN);
-    writePinHigh(HC595_ST_PIN);
-    select_delay(n);
-    writePinLow(HC595_SH_PIN);
-    writePinLow(HC595_ST_PIN);
-}
-
-void serial_to_parallel(uint8_t data) { // 串口转并口函数
-    setPinOutput_writeLow(HC595_DS);
-    setPinOutput_writeLow(HC595_SH_PIN);
-    setPinOutput_writeLow(HC595_ST_PIN);
-    for(uint8_t i = 0; i < 8; i++) { // 循环8次，每次输出一位数据
-        HC595_DS = (data & 0x01); // 将最低位写入串口数据输入端
-        clockPulse(ClockTime);
-        data >>= 1; // 将数据右移一位，准备输出下一位数据
-    }
-}
