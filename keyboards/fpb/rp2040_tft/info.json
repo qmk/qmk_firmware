@@ -1,0 +1,51 @@
+{
+    "keyboard_name": "Onekey RP2040",
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "matrix_pins": {
+        "cols": ["GP4"],
+        "rows": ["GP5"]
+    },
+    "backlight": {
+        "pin": "GP13",
+        "levels": 8,
+    }
+    "ws2812": {
+        "pin": "GP23"
+    },
+    "indicators": {
+        "caps_lock": "GP25"
+    },
+    "manufacturer": "QMK",
+    "url": "",
+    "maintainer": "qmk",
+    "usb": {
+        "vid": "0x0C45",
+        "pid": "0x6465",
+        "device_version": "0.0.1"
+    },
+    "tapping": {
+        "term": 500
+    },
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": false,
+        "mousekey": false,
+        "extrakey": true,
+        "console": true,
+        "command": false,
+        "nkro": false,
+        "backlight": true,
+        "rgblight": true,
+        "audio": false
+    },
+    "community_layouts": ["ortho_1x1"],
+    "layouts": {
+        "LAYOUT_ortho_1x1": {
+            "layout": [
+                {"x": 0, "y": 0, "matrix": [0, 0]}
+            ]
+        }
+    }
+}
+
