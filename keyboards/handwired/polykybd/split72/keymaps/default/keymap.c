@@ -294,10 +294,12 @@ void sync_and_refresh_displays(void) {
     bool sync_success = true;
 
     if (is_usb_host_side()) {
-        // if((g_local.flags&IDLE_TRANSITION)==0 && (g_state.s.flags&IDLE_TRANSITION)!=0) {
-        //     poly_eeconf ee = load_user_eeconf();
-        //     g_local.contrast = ee.conf.brightness;
-        // }
+        const bool back_from_idle_transition = (g_local.flags & IDLE_TRANSITION) == 0 && (g_state.s.flags & IDLE_TRANSITION) != 0;
+        if (back_from_idle_transition) {
+            poly_eeconf ee   = load_user_eeconf();
+            g_local.contrast = ee.conf.brightness;
+            //request_disp_refresh();
+        }
 
         //master syncs data
         if ( memcmp(&g_local, &g_state.s, sizeof(poly_sync_t))!=0 ) {
@@ -313,8 +315,11 @@ void sync_and_refresh_displays(void) {
         }
     }
     if(sync_success) {
-        const bool idle_changed = (g_local.flags&DISP_IDLE)!=(g_state.s.flags&DISP_IDLE);
-        const bool in_idle_mode = (g_local.flags&DISP_IDLE)!=0;
+        const bool status_disp_turned_off    = (g_local.flags & STATUS_DISP_ON) == 0 && (g_state.s.flags & DISP_IDLE) != 0;
+        const bool idle_changed              = (g_local.flags & DISP_IDLE) != (g_state.s.flags & DISP_IDLE);
+        const bool in_idle_mode              = (g_local.flags & DISP_IDLE) != 0;
+        const bool displays_turned_on        = (g_state.s.contrast <= DISP_OFF && g_local.contrast > DISP_OFF);
+
         if(idle_changed) {
             if(in_idle_mode) {
                 oled_set_brightness(0);
@@ -352,12 +357,10 @@ void sync_and_refresh_displays(void) {
         }
 
         // sync rgb matrix
-        if (g_local.contrast == DISP_OFF && idle_changed) {
+        if (status_disp_turned_off) {
             rgb_matrix_disable_noeeprom();
-        } else if ( (g_state.s.contrast == DISP_OFF && g_local.contrast > DISP_OFF) ||
-                    ((g_local.flags & IDLE_TRANSITION) == 0 && (g_state.s.flags & IDLE_TRANSITION) != 0)) {
-            poly_eeconf ee   = load_user_eeconf();
-            g_local.contrast = ee.conf.brightness;
+        } else if(displays_turned_on) {
+            rgb_matrix_reload_from_eeprom();
         }
 
         memcpy(&g_state.s, &g_local, sizeof(g_local));

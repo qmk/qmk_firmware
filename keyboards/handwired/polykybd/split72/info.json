@@ -3,10 +3,24 @@
     "manufacturer": "thpoll",
     "url": "https://ko-fi.com/polykb",
     "maintainer": "[thpoll]",
+    "bootloader": "rp2040",
+    "processor": "RP2040",
     "usb": {
       "vid": "0x2021",
       "pid": "0x2007",
       "device_version": "2.2.0"
+    },
+    "features": {
+        "bootmagic": false,
+        "command": false,
+        "console": true,
+        "extrakey": true,
+        "mousekey": true,
+        "debug": true,
+        "unicode": false,
+        "unicodemap": true,
+        "deferred_exec": true,
+        "nkro": true
     },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_left_right_stacked"
