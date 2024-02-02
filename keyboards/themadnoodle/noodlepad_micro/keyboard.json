@@ -13,8 +13,7 @@
         "mousekey": true,
         "nkro": true,
         "rgblight": true,
-        "encoder": true,
-        "unicode": true
+        "encoder": true
     },
     "rgblight": {
         "hue_steps": 10,
@@ -31,13 +30,7 @@
             "rgb_test": true,
             "alternating": true,
             "twinkle": true
-        },
-    "layers": {
-        "enabled": true,
-        "blink": true,
-        "max": 8,
-        "override_rgb": false
-    }
+        }
     },
     "matrix_pins": {
         "cols": ["GP6", "GP7", "GP0"],
