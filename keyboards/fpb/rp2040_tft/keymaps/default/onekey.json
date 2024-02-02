@@ -1,0 +1,24 @@
+{
+    "name": "Royal Kludge RK61 RGB",
+    "vendorId": "0x0c45",
+    "productId": "0x6465",
+    "menus": [
+      ],
+        "keycodes": ["qmk_lighting"],
+        "customKeycodes": [
+        {"name": "Windows Mode", "title": "Windows Mode", "shortName": "WIN"},
+        {"name": "Mac Mode", "title": "Mac Mode", "shortName": "MAC"},
+        {"name": "Bluetooth Host 1", "title": "Bluetooth Host 1", "shortName": "BT1"},
+        {"name": "Bluetooth Host 2", "title": "Bluetooth Host 2", "shortName": "BT2"},
+        {"name": "Bluetooth Host 3", "title": "Bluetooth Host 3", "shortName": "BT3"},
+        {"name": "Bluetooth Pairing", "title": "Bluetooth Pairing", "shortName": "BT_PAIR"},
+        {"name": "Bluetooth Toggle", "title": "Bluetooth Toggle", "shortName": "BT_TOG"},
+        {"name": "Bluetooth Reset", "title": "Bluetooth Reset", "shortName": "BT_RST"}
+        ],
+    "matrix": {"rows": 5, "cols": 14},
+    "layouts": {
+        "keymap": [
+            [ "0,0" ]
+        ]
+    }
+}
