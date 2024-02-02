@@ -23,5 +23,4 @@ POINTING_DEVICE_DRIVER = pmw3360
 MOUSE_SHARED_EP = no # Unify multiple HID interfaces into a single Endpoint
 KEYBOARD_SHARED_EP = yes
 
-EEPROM_DRIVER = spi
 SERIAL_DRIVER = usart

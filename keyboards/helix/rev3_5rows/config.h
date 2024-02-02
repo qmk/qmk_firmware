@@ -41,9 +41,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_HAND_MATRIX_GRID D7,B2
 #define SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
 
-/* Dip switch on matrix grid */
-#define DIP_SWITCH_MATRIX_GRID { {0,6}, {1,6}, {5,6}, {6,6} }
-
 #ifdef RGB_MATRIX_ENABLE
   #define RGB_MATRIX_LED_COUNT 64
 #   define RGB_MATRIX_KEYPRESSES // reacts to keypresses
