@@ -8,6 +8,9 @@
         "pid": "0x4D45",
         "device_version": "0.0.1"
     },
+    "build": {
+        "lto": true
+    },
     "features": {
         "audio": false,
         "backlight": true,
@@ -16,7 +19,6 @@
         "console": false,
         "encoder": false,
         "extrakey": true,
-        "lto": true,
         "mousekey": false,
         "nkro": true,
         "rgblight": false

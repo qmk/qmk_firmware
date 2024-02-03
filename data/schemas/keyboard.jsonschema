@@ -314,8 +314,8 @@
         },
         "features": {
             "$ref": "qmk.definitions.v1#/boolean_array",
-            "propertyNames": { "$ref": "qmk.definitions.v1#/snake_case" }
-
+            "propertyNames": { "$ref": "qmk.definitions.v1#/snake_case" },
+            "not": { "required": [ "lto" ] }
         },
         "indicators": {
             "type": "object",

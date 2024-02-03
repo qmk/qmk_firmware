@@ -31,6 +31,9 @@
             "snake": true,
             "static_gradient": true,
             "twinkle": true
+        },
+        "default": {
+            "val": 0
         }
     },
     "indicators": {

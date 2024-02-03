@@ -12,7 +12,34 @@
         "pin": "F0"
     },
     "rgb_matrix": {
-        "driver": "ws2812"
+        "animations": {
+            "gradient_up_down": true,
+            "gradient_left_right": true,
+            "breathing": true,
+            "band_sat": true,
+            "band_val": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "rainbow_moving_chevron": true,
+            "cycle_out_in": true,
+            "cycle_out_in_dual": true,
+            "dual_beacon": true,
+            "rainbow_beacon": true,
+            "raindrops": true,
+            "pixel_fractal": true,
+            "typing_heatmap": true,
+            "solid_reactive": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_multinexus": true,
+            "splash": true,
+            "multisplash": true,
+            "solid_splash": true,
+            "solid_multisplash": true
+        },
+        "driver": "ws2812",
+        "max_brightness": 200,
+        "sleep": true
     },
     "matrix_pins": {
         "cols": ["E6", "B2", "B7", "D1", "D2", "D3"],
@@ -34,5 +61,4 @@
             ]
         }
     }
-    ,"meta": "https://noroadsleft.github.io/kbf_qmk_converter/"
 }

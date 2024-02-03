@@ -11,7 +11,6 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 WAIT_FOR_USB = yes
-LAYOUTS_HAS_RGB = no
 CUSTOM_MATRIX = yes
 
 SRC = matrix.c

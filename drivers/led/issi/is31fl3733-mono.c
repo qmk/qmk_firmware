@@ -77,10 +77,10 @@ bool    g_led_control_registers_update_required[IS31FL3733_DRIVER_COUNT]        
 void is31fl3733_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
 #if IS31FL3733_I2C_PERSISTENCE > 0
     for (uint8_t i = 0; i < IS31FL3733_I2C_PERSISTENCE; i++) {
-        if (i2c_writeReg(addr << 1, reg, &data, 1, IS31FL3733_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
+        if (i2c_write_register(addr << 1, reg, &data, 1, IS31FL3733_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
     }
 #else
-    i2c_writeReg(addr << 1, reg, &data, 1, IS31FL3733_I2C_TIMEOUT);
+    i2c_write_register(addr << 1, reg, &data, 1, IS31FL3733_I2C_TIMEOUT);
 #endif
 }
 
@@ -89,7 +89,7 @@ void is31fl3733_select_page(uint8_t addr, uint8_t page) {
     is31fl3733_write_register(addr, IS31FL3733_REG_COMMAND, page);
 }
 
-void is31fl3733_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
+void is31fl3733_write_pwm_buffer(uint8_t addr, uint8_t index) {
     // Assumes page 1 is already selected.
     // Transmit PWM registers in 12 transfers of 16 bytes.
 
@@ -97,10 +97,10 @@ void is31fl3733_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     for (uint8_t i = 0; i < IS31FL3733_PWM_REGISTER_COUNT; i += 16) {
 #if IS31FL3733_I2C_PERSISTENCE > 0
         for (uint8_t j = 0; j < IS31FL3733_I2C_PERSISTENCE; j++) {
-            if (i2c_writeReg(addr << 1, i, pwm_buffer + i, 16, IS31FL3733_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
+            if (i2c_write_register(addr << 1, i, g_pwm_buffer[index] + i, 16, IS31FL3733_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
         }
 #else
-        i2c_writeReg(addr << 1, i, pwm_buffer + i, 16, IS31FL3733_I2C_TIMEOUT);
+        i2c_write_register(addr << 1, i, g_pwm_buffer[index] + i, 16, IS31FL3733_I2C_TIMEOUT);
 #endif
     }
 }
@@ -145,7 +145,7 @@ void is31fl3733_init(uint8_t addr, uint8_t sync) {
     is31fl3733_select_page(addr, IS31FL3733_COMMAND_LED_CONTROL);
 
     // Turn off all LEDs.
-    for (int i = 0; i < IS31FL3733_LED_CONTROL_REGISTER_COUNT; i++) {
+    for (uint8_t i = 0; i < IS31FL3733_LED_CONTROL_REGISTER_COUNT; i++) {
         is31fl3733_write_register(addr, i, 0x00);
     }
 
@@ -153,7 +153,7 @@ void is31fl3733_init(uint8_t addr, uint8_t sync) {
 
     // Set PWM on all LEDs to 0
     // No need to setup Breath registers to PWM as that is the default.
-    for (int i = 0; i < IS31FL3733_PWM_REGISTER_COUNT; i++) {
+    for (uint8_t i = 0; i < IS31FL3733_PWM_REGISTER_COUNT; i++) {
         is31fl3733_write_register(addr, i, 0x00);
     }
 
@@ -213,7 +213,7 @@ void is31fl3733_update_pwm_buffers(uint8_t addr, uint8_t index) {
     if (g_pwm_buffer_update_required[index]) {
         is31fl3733_select_page(addr, IS31FL3733_COMMAND_PWM);
 
-        is31fl3733_write_pwm_buffer(addr, g_pwm_buffer[index]);
+        is31fl3733_write_pwm_buffer(addr, index);
 
         g_pwm_buffer_update_required[index] = false;
     }
@@ -223,7 +223,7 @@ void is31fl3733_update_led_control_registers(uint8_t addr, uint8_t index) {
     if (g_led_control_registers_update_required[index]) {
         is31fl3733_select_page(addr, IS31FL3733_COMMAND_LED_CONTROL);
 
-        for (int i = 0; i < IS31FL3733_LED_CONTROL_REGISTER_COUNT; i++) {
+        for (uint8_t i = 0; i < IS31FL3733_LED_CONTROL_REGISTER_COUNT; i++) {
             is31fl3733_write_register(addr, i, g_led_control_registers[index][i]);
         }
 
