@@ -1,7 +1,7 @@
 {
     "keyboard_name": "ZahraNetMe 8 MacroPad",
     "manufacturer": "veriyan",
-    "url": "https://macropad.zlab.me/",
+    "url": "https://github.com/zahranetme",
     "maintainer": "veriyan",
     "usb": {
       "vid": "0x4154",
