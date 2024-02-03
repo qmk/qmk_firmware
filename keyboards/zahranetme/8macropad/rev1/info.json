@@ -5,43 +5,61 @@
       "device_version": "1.0.0"
     },
     "encoder": {
-        "rotary": [
-            {"pin_a": "D0", "pin_b": "D1"},
-            {"pin_a": "F6", "pin_b": "F5"}
-        ]
+      "rotary": [
+        {
+          "pin_a": "D0",
+          "pin_b": "D1"
+        },
+        {
+          "pin_a": "F6",
+          "pin_b": "F5"
+        }
+      ]
     },
     "backlight": {
-        "pin": "B6",
-        "levels": 7
+      "pin": "B6",
+      "levels": 7
     },
     "rgblight": {
-        "saturation_steps": 8,
-        "brightness_steps": 8,
-        "led_count": 6,
-        "sleep": false,
-        "animations": {
-            "breathing": true,
-            "rainbow_mood": true,
-            "rainbow_swirl": true,
-            "snake": true,
-            "knight": true,
-            "christmas": true,
-            "static_gradient": true,
-            "rgb_test": true,
-            "alternating": true,
-            "twinkle": true
-        }
+      "saturation_steps": 8,
+      "brightness_steps": 8,
+      "led_count": 6,
+      "sleep": false,
+      "animations": {
+        "breathing": true,
+        "rainbow_mood": true,
+        "rainbow_swirl": true,
+        "snake": true,
+        "knight": true,
+        "christmas": true,
+        "static_gradient": true,
+        "rgb_test": true,
+        "alternating": true,
+        "twinkle": true
+      }
     },
     "ws2812": {
-        "pin": "D3"
+      "pin": "D3"
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "matrix_pins": {
-        "direct": [
-            ["D2", "D4", "F4"],
-            ["D7", "B1", "B3"],
-            ["E6", "B4", "B2"]
+      "direct": [
+        [
+          "D2",
+          "D4",
+          "F4"
+        ],
+        [
+          "D7",
+          "B1",
+          "B3"
+        ],
+        [
+          "E6",
+          "B4",
+          "B2"
         ]
+      ]
     }
-}
+  }
