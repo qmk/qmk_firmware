@@ -8,7 +8,7 @@ int prev_keys_queue[PREV_KEYS_QUEUE_SIZE] = {KC_NO};
 deferred_token magic_timeout_token = INVALID_DEFERRED_TOKEN;
 
 uint32_t enqueue_space(uint32_t trigger_time, void *cb_arg) {
-    enqueue(TH_NUM);
+    enqueue(KC_SPC);
     return 0;
 }
 
@@ -21,18 +21,6 @@ void refresh_token(void) {
 
 void record_send_string(const char *str) {
     for (int i = 0; str[i] != '\0'; i++) {
-        switch (str[i]) {
-            record_case('s', GLT_S);
-            record_case('t', ALT_T);
-            record_case('r', CLT_R);
-            record_case('d', SMT_D);
-
-            record_case('n', SMT_N);
-            record_case('a', CLT_A);
-            record_case('e', ALT_E);
-            record_case('i', LT_I );
-        }
-
         if (65 <= str[i] && str[i] <= 90) enqueue(str[i] - 61);
         else if (97 <= str[i] && str[i] <= 122) enqueue(str[i] - 93);
     }
@@ -57,13 +45,15 @@ void dequeue(void) {
 }
 
 bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* mods) {
-    if (keycode == TH_NAV)
+    keycode = normalize_keycode(keycode);
+
+    if (keycode == KC_BSPC)
         dequeue();
 
     if (
         (*mods & MOD_MASK_CTRL) &&
-        ((keycode == TH_NAV && record->tap.count) || (keycode == KC_BSPC))
-    ) keycode = TH_NUM;
+        ((keycode == KC_BSPC && record->tap.count) || (keycode == KC_BSPC))
+    ) keycode = KC_SPC;
 
     switch (keycode) {
         case KC_ENT:
@@ -73,17 +63,16 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* mods
         case TD_BSLS:
         case US_CLER:
         case HK_RMWR:
-            keycode = TH_NUM;
+            keycode = KC_SPC;
     }
 
     switch (keycode) {
-        case TH_NAV:
-        case KC_BSPC:
         case US_REP:
+        case KC_BSPC:
         case US_AREP:
             return false;
 
-        case SMT_N:
+        case KC_N:
             if (record->tap.count == 2) return false;
             break;
     }
