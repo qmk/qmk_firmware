@@ -20,8 +20,6 @@
     "processor": "RP2040",
     "rgb_matrix": {
         "driver": "ws2812",
-        "max_brightness": 255,
-        "default_val": 10,
         "default": {
             "animation": "solid_color",
             "hue": 127,
@@ -51,7 +49,6 @@
             "rainbow_moving_chevron": true,
             "rainbow_pinwheels": true,
             "raindrops": true,
-            "solid_color": true,
             "solid_multisplash": true,
             "solid_reactive": true,
             "solid_reactive_cross": true,
