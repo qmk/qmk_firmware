@@ -37,21 +37,11 @@ enum {
     BT_HST3,
     P2P4G,
     BAT_LVL,
-#else
-    BT_HST1 = _______,
-    BT_HST2 = _______,
-    BT_HST3 = _______,
-    P2P4G   = _______,
-    BAT_LVL = _______,
 #endif
-#ifdef DANANLOG_MATRIX
+#ifdef ANANLOG_MATRIX
     PROF1,
     PROF2,
     PROF3,
-#else
-    PROF1 = _______,
-    PROF2 = _______,
-    PROF3 = _______,
 #endif
     NEW_SAFE_RANGE,
 };
