@@ -29,3 +29,4 @@ uint16_t normalize_keycode(uint16_t keycode);
     }
 
 #define tap_clear_code(code) execute_without_mods(tap_code16(code))
+#define IS_ALPHA_KEY(keycode) (KC_A <= keycode && keycode <= KC_Z)

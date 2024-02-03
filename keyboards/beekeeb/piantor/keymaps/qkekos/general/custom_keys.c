@@ -9,10 +9,6 @@ uint32_t send_clear_enter_defer(uint32_t trigger_time, void *cb_arg) {
 bool custom_keys_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
     *return_value = false;
 
-    if (!process_case_modes(keycode, record)) {
-        return true;
-    }
-
     switch (keycode) {
         case US_SLSR:
             if (record->event.pressed) {
@@ -96,11 +92,11 @@ bool custom_keys_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
             return true;
 
         case US_SNKE:
-            if (record->event.pressed) enable_xcase_with(KC_UNDS);
+            if (record->event.pressed) toggle_alt_case_with(KC_UNDS, 1);
             return true;
 
         case US_CAML:
-            if (record->event.pressed) enable_xcase_with(OSM(MOD_LSFT));
+            if (record->event.pressed) toggle_alt_case_with(KC_LSFT, 0);
             return true;
     }
 
