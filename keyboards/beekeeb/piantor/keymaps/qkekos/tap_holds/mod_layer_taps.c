@@ -10,7 +10,7 @@ bool proceed_mlt(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-bool mlt_process_record(uint16_t keycode, keyrecord_t *record, bool *return_value) {
+bool mod_layer_taps_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
     *return_value = true;
 
     switch (keycode) {

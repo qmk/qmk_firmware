@@ -36,7 +36,7 @@ void oneshot_mods_changed_user(uint8_t mods) {
     current_oneshot_key = KC_NO;
 }
 
-bool os_process_record(uint16_t keycode, keyrecord_t *record, bool *return_value) {
+bool oneshot_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
     *return_value = true;
 
     switch (keycode) {

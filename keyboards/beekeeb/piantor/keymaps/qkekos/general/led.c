@@ -29,7 +29,7 @@ bool led_update_user(led_t led_state) {
     return true;
 }
 
-bool led_process_record(uint16_t keycode, keyrecord_t *record, bool *return_value) {
+bool led_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
     *return_value = true;
 
     switch (keycode) {

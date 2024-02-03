@@ -3,15 +3,15 @@
 #include "g/keymap_combo.h"
 
 bool (*process_records[])(uint16_t, keyrecord_t*, bool*) = {
-    strd_process_record,
-    sw_process_record,
-    os_process_record,
-    lind_process_record,
-    mlt_process_record,
+    sturdy_pr,
+    swapper_pr,
+    oneshot_pr,
+    lang_independant_pr,
+    mod_layer_taps_pr,
     custom_keys_pr,
-    intr_process_record,
-    led_process_record,
-    td_process_record,
+    interceptions_pr,
+    led_pr ,
+    td_pr,
     NULL
 };
 

@@ -169,7 +169,7 @@ int handle_override(int keycode) {
     return keycode;
 }
 
-bool lind_process_record(uint16_t keycode, keyrecord_t *record, bool *return_value) {
+bool lang_independant_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
     if (
         (
             is_alpha_layer_on() &&

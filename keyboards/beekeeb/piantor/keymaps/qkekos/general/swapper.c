@@ -3,7 +3,7 @@
 
 bool is_active = false;
 
-bool sw_process_record(uint16_t keycode, keyrecord_t *record, bool *return_value) {
+bool swapper_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
     if (!record->event.pressed) {
         if (IS_QK_LAYER_TAP(keycode) && is_active) {
             tap_code16(KC_ENT);

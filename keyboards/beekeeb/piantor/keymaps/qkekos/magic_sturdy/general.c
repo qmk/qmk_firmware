@@ -92,7 +92,7 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* mods
     return true;
 }
 
-bool strd_process_record(uint16_t keycode, keyrecord_t *record, bool *return_value) {
+bool sturdy_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
     *return_value = false;
 
     if (record->event.pressed) {
