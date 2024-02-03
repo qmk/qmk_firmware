@@ -17,12 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-// The number of LEDs connected
-#define RGB_MATRIX_LED_COUNT  98
-#define RGB_MATRIX_KEYPRESSES // reacts to keypresses
-//#define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

@@ -42,7 +42,6 @@
 #include "action_layer.h"
 #include "eeconfig.h"
 #include "bootloader.h"
-#include "bootmagic.h"
 #include "timer.h"
 #include "sync_timer.h"
 #include "gpio.h"
@@ -58,6 +57,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+
+#ifdef BOOTMAGIC_ENABLE
+#    include "bootmagic.h"
+#endif
 
 #ifdef DEFERRED_EXEC_ENABLE
 #    include "deferred_exec.h"

@@ -35,18 +35,18 @@ void ad5258_init(void) {
 uint8_t ad5258_read_rdac(void) {
     // read RDAC register
     uint8_t ret = 0;
-    i2c_readReg(AD5258_I2C_ADDRESS, AD5258_INST_RDAC, &ret, 1, 100);
+    i2c_read_register(AD5258_I2C_ADDRESS, AD5258_INST_RDAC, &ret, 1, 100);
     return ret;
 }
 
 uint8_t ad5258_read_eeprom(void) {
     uint8_t ret = 0;
-    i2c_readReg(AD5258_I2C_ADDRESS, AD5258_INST_EEPROM, &ret, 1, 100);
+    i2c_read_register(AD5258_I2C_ADDRESS, AD5258_INST_EEPROM, &ret, 1, 100);
     return ret;
 }
 
 void ad5258_write_rdac(uint8_t rdac) {
     // write RDAC register:
     uint8_t data = rdac & 0x3F;
-    i2c_writeReg(AD5258_I2C_ADDRESS, AD5258_INST_RDAC, &data, 1, 100);
+    i2c_write_register(AD5258_I2C_ADDRESS, AD5258_INST_RDAC, &data, 1, 100);
 }

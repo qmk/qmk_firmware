@@ -11,7 +11,28 @@
         "pin": "E2"
     },
     "rgb_matrix": {
-        "driver": "ws2812"
+        "animations": {
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "cycle_out_in": true,
+            "cycle_out_in_dual": true,
+            "rainbow_moving_chevron": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "raindrops": true,
+            "splash": true,
+            "multisplash": true
+        },
+        "default": {
+            "animation": "rainbow_moving_chevron",
+            "hue": 142,
+            "sat": 255,
+            "speed": 127
+        },
+        "driver": "ws2812",
+        "max_brightness": 176,
+        "sleep": true
     },
     "matrix_pins": {
         "cols": ["D7", "C7", "C6", "B6", "B5", "B4", "D6", "D4", "E6", "D5", "D3", "D2", "B7", "B0"],

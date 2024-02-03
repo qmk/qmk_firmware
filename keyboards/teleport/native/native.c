@@ -25,7 +25,7 @@ void keyboard_post_init_kb(void) {
 }
 
 #ifdef RGB_MATRIX_ENABLE
-const is31fl3733_led_t PROGMEM g_is31fl3733_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT] = {
     /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location

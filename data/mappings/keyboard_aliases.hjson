@@ -287,6 +287,12 @@
     "honeycomb": {
         "target": "keyhive/honeycomb"
     },
+    "hub16": {
+        "target": "joshajohnson/hub16"
+    },
+    "hub20": {
+        "target": "joshajohnson/hub20"
+    },
     "idb_60": {
         "target": "idb/idb_60"
     },
@@ -329,11 +335,47 @@
     "keycapsss/plaid_pad": {
         "target": "keycapsss/plaid_pad/rev1"
     },
+    "kira75": {
+        "target": "kira/kira75"
+    },
+    "kira80": {
+        "target": "kira/kira80"
+    },
     "kudox": {
-        "target": "kudox/rev1"
+        "target": "kumaokobo/kudox/rev1"
+    },
+    "kudox/columner": {
+        "target": "kumaokobo/kudox/columner"
+    },
+    "kudox/rev1": {
+        "target": "kumaokobo/kudox/rev1"
+    },
+    "kudox/rev2": {
+        "target": "kumaokobo/kudox/rev2"
+    },
+    "kudox/rev3": {
+        "target": "kumaokobo/kudox/rev3"
+    },
+    "kudox_full": {
+        "target": "kumaokobo/kudox_full/rev1"
+    },
+    "kudox_full/rev1": {
+        "target": "kumaokobo/kudox_full/rev1"
+    },
+    "kudox_game": {
+        "target": "kumaokobo/kudox_game/rev1"
+    },
+    "kudox_game/rev1": {
+        "target": "kumaokobo/kudox_game/rev1"
+    },
+    "kudox_game/rev2": {
+        "target": "kumaokobo/kudox_game/rev2"
     },
     "kyria": {
         "target": "splitkb/kyria"
+    },
+    "laser_ninja/pumpkin_pad": {
+        "target": "laser_ninja/pumpkinpad"
     },
     "lattice60": {
         "target": "keyhive/lattice60"
@@ -449,6 +491,15 @@
     "minim": {
         "target": "matthewdias/minim"
     },
+    "mnk1800s": {
+        "target": "monokei/mnk1800s"
+    },
+    "mnk50": {
+        "target": "monokei/mnk50"
+    },
+    "mnk75": {
+        "target": "monokei/mnk75"
+    },
     "model01": {
         "target": "keyboardio/model01"
     },
@@ -460,6 +511,9 @@
     },
     "montsinger/rebound": {
         "target": "montsinger/rebound/rev1"
+    },
+    "moonlander": {
+        "target": "zsa/moonlander"
     },
     "mschwingen/modelm": {
         "target": "ibm/model_m/mschwingen"
@@ -487,6 +541,15 @@
     },
     "peiorisboards/ixora": {
         "target": "coarse/ixora"
+    },
+    "pico": {
+        "target": "kumaokobo/pico/65keys"
+    },
+    "pico/65keys": {
+        "target": "kumaokobo/pico/65keys"
+    },
+    "pico/70keys": {
+        "target": "kumaokobo/pico/70keys"
     },
     "plaid": {
         "target": "dm9records/plaid"
@@ -532,6 +595,9 @@
     },
     "ramonimbao/mona": {
         "target": "rmi_kb/mona/v1"
+    },
+    "redox_w": {
+        "target": "redox/wireless"
     },
     "rgbkb/pan": {
         "target": "rgbkb/pan/rev1/32a"
@@ -801,6 +867,12 @@
     "eggman": {
         "target": "qpockets/eggman"
     },
+    "enter67": {
+        "target": "kezewa/enter67"
+    },
+    "enter80": {
+        "target": "kezewa/enter80"
+    },
     "ergo42": {
         "target": "biacco42/ergo42"
     },
@@ -824,6 +896,9 @@
     },
     "felix": {
         "target": "unikeyboard/felix"
+    },
+    "flygone60/rev3": {
+        "target": "shandoncodes/flygone60/rev3"
     },
     "four_banger": {
         "target": "bpiphany/four_banger"
@@ -918,6 +993,12 @@
     "keychron/q4": {
         "target": "keychron/q4/ansi/v1"
     }
+    "kmac": {
+        "target": "kbdmania/kmac"
+    }
+    "kmac_pad": {
+        "target": "kbdmania/kmac_pad"
+    }
     "kprepublic/bm40hsrgb": {
         "target": "kprepublic/bm40hsrgb/rev1"
     },
@@ -926,6 +1007,9 @@
     },
     "kprepublic/bm68hsrgb": {
         "target": "kprepublic/bm68hsrgb/rev1"
+    },
+    "late9/rev1": {
+        "target": "rookiebwoy/late9/rev1"
     },
     "latin17rgb": {
         "target": "latincompass/latin17rgb"
@@ -972,8 +1056,20 @@
     "ls_60": {
         "target": "weirdo/ls_60"
     },
+    "lpad": {
+        "target": "laneware/lpad"
+    },
+    "lw67": {
+        "target": "laneware/lw67"
+    },
+    "lw75": {
+        "target": "laneware/lw75"
+    },
     "m3n3van": {
         "target": "matthewdias/m3n3van"
+    },
+    "macro1": {
+        "target": "laneware/macro1"
     },
     "massdrop/thekey": {
         "target": "drop/thekey/v1"
@@ -999,8 +1095,20 @@
     "melody96": {
         "target": "ymdk/melody96"
     },
+    "miniaxe": {
+        "target": "kagizaraya/miniaxe"
+    },
     "minidox/rev1": {
         "target": "maple_computing/minidox/rev1"
+    },
+    "mino/hotswap": {
+        "target": "shandoncodes/mino/hotswap"
+    },
+    "mino_plus/hotswap": {
+        "target": "shandoncodes/mino_plus/hotswap"
+    },
+    "mino_plus/soldered": {
+        "target": "shandoncodes/mino_plus/soldered"
     },
     "mio": {
         "target": "recompile_keys/mio"
@@ -1055,6 +1163,9 @@
     },
     "nebula68b": {
         "target": "spaceholdings/nebula68b"
+    },
+    "neopad/rev1": {
+        "target": "rookiebwoy/neopad/rev1"
     },
     "niu_mini": {
         "target": "kbdfans/niu_mini"
@@ -1122,6 +1233,9 @@
     "rabbit_capture_plan": {
         "target": "kakunpc/rabbit_capture_plan"
     },
+    "raindrop": {
+        "target": "laneware/raindrop"
+    },
     "ramonimbao/aelith": {
         "target": "rmi_kb/aelith"
     },
@@ -1187,6 +1301,9 @@
     },
     "reviung61": {
         "target": "reviung/reviung61"
+    },
+    "riot_pad": {
+        "target": "shandoncodes/riot_pad"
     },
     "runner3680/3x6": {
         "target": "omkbd/runner3680/3x6"
@@ -1361,6 +1478,12 @@
     },
     "yurei": {
         "target": "kkatano/yurei"
+    },
+    "z12": {
+        "target": "zigotica/z12"
+    },
+    "z34": {
+        "target": "zigotica/z34"
     },
     "zinc": {
         "target": "25keys/zinc"

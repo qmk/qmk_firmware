@@ -128,6 +128,9 @@ report_analog_joystick_t analog_joystick_read(void) {
 }
 
 void analog_joystick_init(void) {
+    setPinInputHigh(ANALOG_JOYSTICK_X_AXIS_PIN);
+    setPinInputHigh(ANALOG_JOYSTICK_Y_AXIS_PIN);
+
 #ifdef ANALOG_JOYSTICK_CLICK_PIN
     setPinInputHigh(ANALOG_JOYSTICK_CLICK_PIN);
 #endif
