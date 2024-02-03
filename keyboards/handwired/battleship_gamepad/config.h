@@ -18,7 +18,6 @@
 
 /* joystick configuration */
 #define JOYSTICK_BUTTON_COUNT 25
-#define JOYSTICK_AXIS_COUNT 2
 #define JOYSTICK_AXIS_RESOLUTION 10
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */

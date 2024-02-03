@@ -3,9 +3,21 @@
     "usb": {
         "pid": "0x1829"
     },
+    "rgb_matrix": {
+        "max_brightness": 50,
+        "sleep": true,
+        "split_count": [29, 29]
+    },
     "rgblight": {
         "led_count": 58,
         "split_count": [29, 29]
+    },
+    "split": {
+        "transport": {
+            "sync": {
+                "matrix_state": true
+            }
+        }
     },
     "layouts": {
         "LAYOUT_split_4x6_5": {

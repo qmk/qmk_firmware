@@ -218,9 +218,16 @@ void cirque_pinnacle_cursor_smoothing(bool enable) {
 
 // Check sensor is connected
 bool cirque_pinnacle_connected(void) {
-    uint8_t zidle = 0;
-    RAP_ReadBytes(HOSTREG__ZIDLE, &zidle, 1);
-    return zidle == HOSTREG__ZIDLE_DEFVAL;
+    uint8_t current_zidle = 0;
+    uint8_t temp_zidle    = 0;
+    RAP_ReadBytes(HOSTREG__ZIDLE, &current_zidle, 1);
+    RAP_Write(HOSTREG__ZIDLE, HOSTREG__ZIDLE_DEFVAL);
+    RAP_ReadBytes(HOSTREG__ZIDLE, &temp_zidle, 1);
+    if (temp_zidle == HOSTREG__ZIDLE_DEFVAL) {
+        RAP_Write(HOSTREG__ZIDLE, current_zidle);
+        return true;
+    }
+    return false;
 }
 
 /*  Pinnacle-based TM040040/TM035035/TM023023 Functions  */
@@ -329,6 +336,15 @@ pinnacle_data_t cirque_pinnacle_read_data(void) {
         result.yDelta = -((int16_t)data[2]);
     }
     result.wheelCount = ((int8_t*)data)[3];
+#endif
+
+#ifdef CIRQUE_PINNACLE_REACHABLE_CALIBRATION
+    static uint16_t xMin = UINT16_MAX, yMin = UINT16_MAX, yMax = 0, xMax = 0;
+    if (result.xValue < xMin) xMin = result.xValue;
+    if (result.xValue > xMax) xMax = result.xValue;
+    if (result.yValue < yMin) yMin = result.yValue;
+    if (result.yValue > yMax) yMax = result.yValue;
+    pd_dprintf("%s: xLo=%3d xHi=%3d yLo=%3d yHi=%3d\n", __FUNCTION__, xMin, xMax, yMin, yMax);
 #endif
 
     result.valid = true;

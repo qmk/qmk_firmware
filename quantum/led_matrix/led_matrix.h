@@ -58,6 +58,10 @@
 #    define LED_MATRIX_DEFAULT_SPD UINT8_MAX / 2
 #endif
 
+#ifndef LED_MATRIX_DEFAULT_FLAGS
+#    define LED_MATRIX_DEFAULT_FLAGS LED_FLAG_ALL
+#endif
+
 #ifndef LED_MATRIX_LED_FLUSH_LIMIT
 #    define LED_MATRIX_LED_FLUSH_LIMIT 16
 #endif
@@ -135,6 +139,8 @@ bool led_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max);
 bool led_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max);
 
 void led_matrix_init(void);
+
+void led_matrix_reload_from_eeprom(void);
 
 void        led_matrix_set_suspend_state(bool state);
 bool        led_matrix_get_suspend_state(void);

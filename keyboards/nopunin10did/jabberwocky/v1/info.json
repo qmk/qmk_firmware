@@ -17,6 +17,9 @@
         "caps_lock": "B0",
         "num_lock": "D1"
     },
+    "dynamic_keymap": {
+        "layer_count": 3
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {

@@ -21,6 +21,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "progmem.h"
+#include "util.h"
 
 #define IS31FL3733_REG_INTERRUPT_MASK 0xF0
 #define IS31FL3733_REG_INTERRUPT_STATUS 0xF1
@@ -58,20 +59,33 @@
 #define IS31FL3733_I2C_ADDRESS_VCC_SDA 0x5E
 #define IS31FL3733_I2C_ADDRESS_VCC_VCC 0x5F
 
+#if !defined(IS31FL3733_LED_COUNT)
+#    define IS31FL3733_LED_COUNT RGB_MATRIX_LED_COUNT
+#endif
+
+#if defined(IS31FL3733_I2C_ADDRESS_4)
+#    define IS31FL3733_DRIVER_COUNT 4
+#elif defined(IS31FL3733_I2C_ADDRESS_3)
+#    define IS31FL3733_DRIVER_COUNT 3
+#elif defined(IS31FL3733_I2C_ADDRESS_2)
+#    define IS31FL3733_DRIVER_COUNT 2
+#elif defined(IS31FL3733_I2C_ADDRESS_1)
+#    define IS31FL3733_DRIVER_COUNT 1
+#endif
+
 typedef struct is31fl3733_led_t {
     uint8_t driver : 2;
     uint8_t r;
     uint8_t g;
     uint8_t b;
-} __attribute__((packed)) is31fl3733_led_t;
+} PACKED is31fl3733_led_t;
 
 extern const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT];
 
 void is31fl3733_init_drivers(void);
 void is31fl3733_init(uint8_t bus, uint8_t addr, uint8_t sync);
-bool is31fl3733_write_register(uint8_t index, uint8_t addr, uint8_t reg, uint8_t data);
+void is31fl3733_write_register(uint8_t index, uint8_t addr, uint8_t reg, uint8_t data);
 void is31fl3733_select_page(uint8_t index, uint8_t addr, uint8_t page);
-bool is31fl3733_write_pwm_buffer(uint8_t index, uint8_t addr, uint8_t *pwm_buffer);
 
 void is31fl3733_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
 void is31fl3733_set_color_all(uint8_t red, uint8_t green, uint8_t blue);

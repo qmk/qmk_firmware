@@ -119,6 +119,7 @@ void aw20216s_flush(void);
 #define CS16_SW1 0x0F
 #define CS17_SW1 0x10
 #define CS18_SW1 0x11
+
 #define CS1_SW2 0x12
 #define CS2_SW2 0x13
 #define CS3_SW2 0x14
@@ -137,6 +138,7 @@ void aw20216s_flush(void);
 #define CS16_SW2 0x21
 #define CS17_SW2 0x22
 #define CS18_SW2 0x23
+
 #define CS1_SW3 0x24
 #define CS2_SW3 0x25
 #define CS3_SW3 0x26
@@ -155,6 +157,7 @@ void aw20216s_flush(void);
 #define CS16_SW3 0x33
 #define CS17_SW3 0x34
 #define CS18_SW3 0x35
+
 #define CS1_SW4 0x36
 #define CS2_SW4 0x37
 #define CS3_SW4 0x38
@@ -173,6 +176,7 @@ void aw20216s_flush(void);
 #define CS16_SW4 0x45
 #define CS17_SW4 0x46
 #define CS18_SW4 0x47
+
 #define CS1_SW5 0x48
 #define CS2_SW5 0x49
 #define CS3_SW5 0x4A
@@ -191,6 +195,7 @@ void aw20216s_flush(void);
 #define CS16_SW5 0x57
 #define CS17_SW5 0x58
 #define CS18_SW5 0x59
+
 #define CS1_SW6 0x5A
 #define CS2_SW6 0x5B
 #define CS3_SW6 0x5C
@@ -209,6 +214,7 @@ void aw20216s_flush(void);
 #define CS16_SW6 0x69
 #define CS17_SW6 0x6A
 #define CS18_SW6 0x6B
+
 #define CS1_SW7 0x6C
 #define CS2_SW7 0x6D
 #define CS3_SW7 0x6E
@@ -227,6 +233,7 @@ void aw20216s_flush(void);
 #define CS16_SW7 0x7B
 #define CS17_SW7 0x7C
 #define CS18_SW7 0x7D
+
 #define CS1_SW8 0x7E
 #define CS2_SW8 0x7F
 #define CS3_SW8 0x80
@@ -245,6 +252,7 @@ void aw20216s_flush(void);
 #define CS16_SW8 0x8D
 #define CS17_SW8 0x8E
 #define CS18_SW8 0x8F
+
 #define CS1_SW9 0x90
 #define CS2_SW9 0x91
 #define CS3_SW9 0x92
@@ -263,6 +271,7 @@ void aw20216s_flush(void);
 #define CS16_SW9 0x9F
 #define CS17_SW9 0xA0
 #define CS18_SW9 0xA1
+
 #define CS1_SW10 0xA2
 #define CS2_SW10 0xA3
 #define CS3_SW10 0xA4
@@ -281,6 +290,7 @@ void aw20216s_flush(void);
 #define CS16_SW10 0xB1
 #define CS17_SW10 0xB2
 #define CS18_SW10 0xB3
+
 #define CS1_SW11 0xB4
 #define CS2_SW11 0xB5
 #define CS3_SW11 0xB6
@@ -299,6 +309,7 @@ void aw20216s_flush(void);
 #define CS16_SW11 0xC3
 #define CS17_SW11 0xC4
 #define CS18_SW11 0xC5
+
 #define CS1_SW12 0xC6
 #define CS2_SW12 0xC7
 #define CS3_SW12 0xC8
