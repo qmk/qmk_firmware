@@ -27,7 +27,7 @@
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0001",
-        "vid": "0x4B4B"
+        "vid": "0x6B6B"
     },
     "community_layouts": ["65_ansi"],
     "layouts": {
