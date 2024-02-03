@@ -15,6 +15,7 @@
 #include "overrides/__init__.h"
 #include "tap_dances/__init__.h"
 #include "tap_holds/__init__.h"
+#include "typing_modes/__init__.h"
 
 #define highest_layer get_highest_layer(layer_state)
 extern int combo_actions_keys[][2];

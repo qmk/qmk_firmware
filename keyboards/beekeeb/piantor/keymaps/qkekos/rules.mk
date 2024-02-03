@@ -43,3 +43,6 @@ SRC += tap_holds/mod_layer_taps.c
 SRC += tap_holds/get_hold.c
 SRC += tap_holds/general.c
 SRC += tap_holds/interceptions.c
+
+SRC += typing_modes/case_modes.c
+SRC += typing_modes/fence.c

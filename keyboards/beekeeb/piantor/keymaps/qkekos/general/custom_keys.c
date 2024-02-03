@@ -6,8 +6,12 @@ uint32_t send_clear_enter_defer(uint32_t trigger_time, void *cb_arg) {
     return 0;
 }
 
-bool cusk_process_record(uint16_t keycode, keyrecord_t *record, bool *return_value) {
+bool custom_keys_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
     *return_value = false;
+
+    if (!process_case_modes(keycode, record)) {
+        return true;
+    }
 
     switch (keycode) {
         case US_SLSR:
@@ -89,6 +93,14 @@ bool cusk_process_record(uint16_t keycode, keyrecord_t *record, bool *return_val
             layer_off(QWERTY);
 
             *return_value = true;
+            return true;
+
+        case US_SNKE:
+            if (record->event.pressed) enable_xcase_with(KC_UNDS);
+            return true;
+
+        case US_CAML:
+            if (record->event.pressed) enable_xcase_with(OSM(MOD_LSFT));
             return true;
     }
 

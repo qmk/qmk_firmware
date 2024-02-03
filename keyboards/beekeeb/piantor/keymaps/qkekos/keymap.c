@@ -8,7 +8,7 @@ bool (*process_records[])(uint16_t, keyrecord_t*, bool*) = {
     os_process_record,
     lind_process_record,
     mlt_process_record,
-    cusk_process_record,
+    custom_keys_pr,
     intr_process_record,
     led_process_record,
     td_process_record,
@@ -121,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ------------------------------------------------------------------------------------------------------------------------------------
     [NAV] = LAYOUT_split_3x6_3(
 //     ┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┐      ┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┐
-         HK_GSRC,  _______,  _______,  _______,  _______,  HK_SWAP,         KC_PGUP,  KC_HOME,  KC_UP,    KC_END,   US_CLER,  KC_SPC,
+         HK_GSRC,  _______,  US_FNCE,  US_CAML,  US_SNKE,  HK_SWAP,         KC_PGUP,  KC_HOME,  KC_UP,    KC_END,   US_CLER,  KC_SPC,
 //     ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤      ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
          HK_SLXT,  HR_RMLN,  HR_SAVE,  HR_CPLN,  HR_SRCH,  KC_F3,           KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,  HR_DEL,   KC_NO,
 //     ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤      ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤

@@ -13,7 +13,10 @@ enum blender_keycode {
     US_QTLY,
     US_SLSR,
     US_CLER,
-    US_CWRD
+    US_CWRD,
+    US_FNCE,
+    US_SNKE,
+    US_CAML
 };
 
-bool cusk_process_record(uint16_t keycode, keyrecord_t *record, bool *return_value);
+bool custom_keys_pr(uint16_t keycode, keyrecord_t *record, bool *return_value);
