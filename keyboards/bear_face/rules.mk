@@ -26,4 +26,4 @@ BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
-DEFAULT_FOLDER = bear_face/v1
+DEFAULT_FOLDER = bear_face/v3
