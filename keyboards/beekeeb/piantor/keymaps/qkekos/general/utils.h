@@ -18,6 +18,7 @@ bool is_os_gui_held(void);
 bool is_os_alt_held(void);
 
 bool is_alpha_layer_on(void);
+uint16_t normalize_keycode(uint16_t keycode);
 
 #define execute_without_mods(x) \
     { \

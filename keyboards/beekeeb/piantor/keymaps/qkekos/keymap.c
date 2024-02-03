@@ -4,6 +4,7 @@
 
 bool (*process_records[])(uint16_t, keyrecord_t*, bool*) = {
     sturdy_pr,
+    fence_pr,
     swapper_pr,
     oneshot_pr,
     lang_independant_pr,
