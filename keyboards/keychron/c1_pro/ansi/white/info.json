@@ -107,8 +107,6 @@
     "led_matrix": {
         "driver": "snled27351",
         "animations": {
-            "none": true,
-            "solid": true,
             "breathing": true,
             "band_pinwheel": true,
             "band_spiral": true,

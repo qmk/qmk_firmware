@@ -233,6 +233,9 @@ def _extract_features(info_data, rules):
             key = '_'.join(key.split('_')[:-1]).lower()
             value = True if value.lower() in true_values else False if value.lower() in false_values else value
 
+            if key in ['lto']:
+                continue
+
             if 'config_h_features' not in info_data:
                 info_data['config_h_features'] = {}
 

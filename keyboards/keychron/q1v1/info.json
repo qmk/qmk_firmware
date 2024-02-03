@@ -4,13 +4,15 @@
     "maintainer": "lalalademaxiya1",
     "bootloader": "atmel-dfu",
     "diode_direction": "ROW2COL",
+    "build": {
+        "lto": true
+    },
     "features": {
         "bootmagic": true,
         "command": false,
         "console": false,
         "dip_switch": true,
         "extrakey": true,
-        "lto": true,
         "mousekey": true,
         "nkro": true,
         "rgb_matrix": true

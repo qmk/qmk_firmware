@@ -29,14 +29,16 @@
         "led_flush_limit": 32,
         "sleep": true
     },
+    "build": {
+        "lto": true
+    },
     "features": {
         "bootmagic": true,
         "command": false,
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "lto": true
+        "nkro": true
     },
     "diode_direction": "ROW2COL",
     "matrix_pins": {
