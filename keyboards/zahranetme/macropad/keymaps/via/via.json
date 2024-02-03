@@ -1,25 +1,18 @@
 {
-    "name": "ZahraNetMe 8 MacroPad",
-    "vendorId": "0x4154",
-    "productId": "0x5A58",
-      "keycodes": ["qmk_lighting"],
-  "menus": ["qmk_backlight_rgblight"],
-  "matrix": {"rows": 3, "cols": 3},
-  "layouts": {
-    "labels": ["KNOB KIRI",  "KNOB KANAN"],
-    "keymap": [
-      ["0,0\n\n\n0,0",
-      {"x":1},
-      "0,2\n\n\n1,0"],
-      [
-        {"y":0.35},
-        "1,0", "1,1", "1,2"],
-      ["2,0", "2,1", "2,2"],
-      [
-        {"y": 0.25},
-        "0,0\n\n\n0,1\n\n\n\n\n\ne0",
-        "0,2\n\n\n1,1\n\n\n\n\n\ne1"
-      ]
-    ]
+  "name": "ZahraNetMe 8 MacroPad", "vendorId": "0x4154", "productId": "0x5A58", "keycodes": ["qmk_lighting"], "menus": ["qmk_backlight_rgblight"], "matrix":{
+  "rows": 3, "cols":3}
+  , "layouts":{
+    "labels": ["KNOB KIRI", "KNOB KANAN"], "keymap":[["0,0\n\n\n0,0",
+      {
+    "x":1}
+      , "0,2\n\n\n1,0"],[
+                {
+    "y":					  0.35}
+                , "1,0", "1,1", "1,2"],["2,0", "2,1", "2,2"],[
+                                       {
+    "y":																	 0.25}
+                                       ,
+                                       "0,0\n\n\n0,1\n\n\n\n\n\ne0",
+                                       "0,2\n\n\n1,1\n\n\n\n\n\ne1"]]}
   }
-}
+  

@@ -1,66 +1,54 @@
 {
-    "keyboard_name": "ZahraNetMe 8 MacroPad",
-    "manufacturer": "veriyan",
-    "url": "https://macropad.zlab.me/",
-    "maintainer": "veriyan",
-    "usb": {
-      "vid": "0x4154",
-      "pid": "0x5A58",
-      "device_version": "1.0.0"
-    },
-    "encoder": {
-        "rotary": [
-            {"pin_a": "D1", "pin_b": "D0"},
-            {"pin_a": "F6", "pin_b": "F5"}
-        ]
-    },
-    "backlight": {
-        "pin": "B6",
-        "levels": 7
-    },
-    "rgblight": {
-        "saturation_steps": 8,
-        "brightness_steps": 8,
-        "led_count": 6,
-        "sleep": false,
-        "animations": {
-            "breathing": true,
-            "rainbow_mood": true,
-            "rainbow_swirl": true,
-            "snake": true,
-            "knight": true,
-            "christmas": true,
-            "static_gradient": true,
-            "rgb_test": true,
-            "alternating": true,
-            "twinkle": true
-        }
-    },
-    "ws2812": {
-        "pin": "D3"
-    },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
-    "matrix_pins": {
-        "direct": [
-            ["D2", "D4", "F4"],
-            ["D7", "B1", "B3"],
-            ["E6", "B4", "B2"]
-        ]
-    },
-    "layouts": {
-        "LAYOUT": {
-          "layout": [
-            {"x": 0, "y": 0, "matrix": [0, 0]},
-            {"x": 1, "y": 0, "matrix": [0, 1]},
-            {"x": 2, "y": 0, "matrix": [0, 2]},
-            {"x": 0, "y": 1, "matrix": [1, 0]},
-            {"x": 1, "y": 1, "matrix": [1, 1]},
-            {"x": 2, "y": 1, "matrix": [1, 2]},
-            {"x": 0, "y": 2, "matrix": [2, 0]},
-            {"x": 1, "y": 2, "matrix": [2, 1]},
-            {"x": 2, "y": 2, "matrix": [2, 2]}
-          ]
-        }
+    "keyboard_name": "ZahraNetMe 8 MacroPad", "manufacturer": "veriyan", "url": "https://macropad.zlab.me/", "maintainer": "veriyan", "usb":{
+    "vid": "0x4154", "pid": "0x5A58", "device_version":"1.0.0"}
+    , "encoder":{
+      "rotary":[
+          {
+      "pin_a": "D1", "pin_b":"D0"}
+          ,
+          {
+      "pin_a": "F6", "pin_b":"F5"}
+      ]}
+    , "backlight":{
+    "pin": "B6", "levels":7}
+    , "rgblight":{
+      "saturation_steps": 8, "brightness_steps": 8, "led_count": 6, "sleep": false, "animations":{
+      "breathing": true, "rainbow_mood": true, "rainbow_swirl": true, "snake": true, "knight": true, "christmas": true, "static_gradient": true, "rgb_test": true, "alternating": true, "twinkle":true}
       }
-}
+    , "ws2812":{
+    "pin":"D3"}
+    , "processor": "atmega32u4", "bootloader": "caterina", "matrix_pins":{
+    "direct":[["D2", "D4", "F4"],["D7", "B1", "B3"],["E6", "B4", "B2"]]}
+    , "layouts":{
+      "LAYOUT":{
+        "layout":[
+            {
+        "x": 0, "y": 0, "matrix":[0, 0]}
+            ,
+            {
+        "x": 1, "y": 0, "matrix":[0, 1]}
+            ,
+            {
+        "x": 2, "y": 0, "matrix":[0, 2]}
+            ,
+            {
+        "x": 0, "y": 1, "matrix":[1, 0]}
+            ,
+            {
+        "x": 1, "y": 1, "matrix":[1, 1]}
+            ,
+            {
+        "x": 2, "y": 1, "matrix":[1, 2]}
+            ,
+            {
+        "x": 0, "y": 2, "matrix":[2, 0]}
+            ,
+            {
+        "x": 1, "y": 2, "matrix":[2, 1]}
+            ,
+            {
+        "x": 2, "y": 2, "matrix":[2, 2]}
+        ]}
+      }
+    }
+    
