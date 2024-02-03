@@ -1,7 +1,8 @@
 #include QMK_KEYBOARD_H
 
 enum layer_number {
-  _DVORAK = 0,
+  _QWERTY = 0,
+  _DVORAK,
   _LOWER,
   _RAISE,
   _ADJUST,
@@ -13,11 +14,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * | ESC  |  P8  |  P4  |  P5  |  P6  | TG_A |                    | INS  | DEL  | HOME | END  | PGUP | PGDN |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | Tab  |   '  |   ,  |   .  |   P  |   Y  |                    |   F  |   G  |   C  |   R  |   L  |  /   |
+ * | Tab  |   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |   P  |  -   |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * |LShift|   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   ;  |  '   |
+ * |------+------+------+------+------+------| LOCK  |    | Mute  |------+------+------+------+------+------|
+ * |LCTRL |   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |RShift|
+ * `-----------------------------------------/       /     \      \-----------------------------------------'
+ *                   | LGUI | LAlt |LOWER | /Space  /       \Enter \  |RAISE |BackSP| RGUI |
+ *                   |      |      |      |/       /         \      \ |      |      |      |
+ *                   `----------------------------'           '------''--------------------'
+ */
+
+ [_QWERTY] = LAYOUT(
+  KC_ESC,  KC_P8,  KC_P4,   KC_P5,   KC_P6,TG(_ADJUST),                 KC_INS,  KC_DEL, KC_HOME,  KC_END,  KC_PGUP,   KC_PGDN,
+  KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS,
+  KC_LSFT,  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+  KC_LCTL,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, QK_LOCK,   KC_MUTE, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT,
+                        KC_LGUI, KC_LALT, MO(_LOWER), KC_SPC, KC_ENT  , MO(_RAISE), KC_BSPC, KC_RGUI
+),
+
+/* DVORAK
+ * ,-----------------------------------------.                    ,-----------------------------------------.
+ * | ESC  |  P8  |  P4  |  P5  |  P6  | TG_A |                    | INS  | DEL  | HOME | END  | PGUP | PGDN |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * | Tab  |   ;  |   ,  |   .  |   P  |   Y  |                    |   F  |   G  |   C  |   R  |   L  |  /   |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |LShift|   A  |   O  |   E  |   U  |   I  |-------.    ,-------|   D  |   H  |   T  |   N  |   S  |  -   |
  * |------+------+------+------+------+------| LOCK  |    | Mute  |------+------+------+------+------+------|
- * |LCTRL |   ;  |   Q  |   J  |   K  |   X  |-------|    |-------|   B  |   M  |   W  |   V  |   Z  |RShift|
+ * |LCTRL |   '  |   Q  |   J  |   K  |   X  |-------|    |-------|   B  |   M  |   W  |   V  |   Z  |RShift|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   | LGUI | LAlt |LOWER | /Space  /       \Enter \  |RAISE |BackSP| RGUI |
  *                   |      |      |      |/       /         \      \ |      |      |      |
@@ -26,9 +50,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  [_DVORAK] = LAYOUT(
   KC_ESC,  KC_P8,  KC_P4,   KC_P5,   KC_P6,TG(_ADJUST),                 KC_INS,  KC_DEL, KC_HOME,  KC_END,  KC_PGUP,   KC_PGDN,
-  KC_TAB,KC_QUOTE,KC_COMM, KC_DOT,    KC_P,    KC_Y,                     KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH,
+  KC_TAB, KC_SCLN,KC_COMM, KC_DOT,    KC_P,    KC_Y,                     KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH,
   KC_LSFT,  KC_A,   KC_O,    KC_E,    KC_U,    KC_I,                     KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINUS,
-  KC_LCTL,KC_SCLN,  KC_Q,    KC_J,    KC_K,    KC_X, QK_LOCK,   KC_MUTE, KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,     KC_RSFT,
+  KC_LCTL,KC_QUOTE, KC_Q,    KC_J,    KC_K,    KC_X, QK_LOCK,   KC_MUTE, KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,     KC_RSFT,
                         KC_LGUI, KC_LALT, MO(_LOWER), KC_SPC, KC_ENT  , MO(_RAISE), KC_BSPC, KC_RGUI
 ),
 /* LOWER
@@ -76,11 +100,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 /* ADJUST
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * |      |      |      |      |      |      |                    |      |      |  P7  |  P8  |  P9  |  P/  |
+ * |QWERTY|DVORAK|      |      |      |      |                    |      |      |  P7  |  P8  |  P9  |  P/  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |      |      |      |      |      |      |                    |      |      |  P4  |  P5  |  P6  |  P*  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |      |      |      |      |-------.    ,-------|      |      |  P1  |  P2  |  P3  |  P-  |
+ * |      |      |      |  MB4 |  MB5 |      |-------.    ,-------|      |      |  P1  |  P2  |  P3  |  P-  |
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
  * |      |      |      |      |      |      |-------|    |-------|      |      |  P0  |  P.  |  PE  |  P+  |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
@@ -89,9 +113,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   `----------------------------'           '------''--------------------'
  */
   [_ADJUST] = LAYOUT(
-  _______, _______, _______, _______, _______, _______,                   _______, _______, KC_KP_7, KC_KP_8, KC_KP_9, KC_PSLS,
+DF(_QWERTY),DF(_DVORAK),_______,_______,_______,_______,                  _______, _______, KC_KP_7, KC_KP_8, KC_KP_9, KC_PSLS,
   _______, _______, _______, _______, _______, _______,                   _______, _______, KC_KP_4, KC_KP_5, KC_KP_6, KC_PAST,
-  _______, _______, _______, _______, _______, _______,                   _______, _______, KC_KP_1, KC_KP_2, KC_KP_3, KC_PMNS,
+  _______, _______, _______, KC_BTN4, KC_BTN5, _______,                   _______, _______, KC_KP_1, KC_KP_2, KC_KP_3, KC_PMNS,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_KP_0, KC_PDOT, KC_PENT, KC_PPLS,
                              _______, _______, _______, _______, _______,  _______, _______, _______
   )
