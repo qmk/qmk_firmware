@@ -3,6 +3,7 @@
     "vendorId": "0x0c45",
     "productId": "0x6465",
     "menus": [
+        "qmk_backlight"
       ],
         "keycodes": ["qmk_lighting"],
         "customKeycodes": [

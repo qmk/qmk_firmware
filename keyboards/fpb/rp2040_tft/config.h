@@ -1,4 +1,4 @@
-// Copyright 2022 Stefan Kerkmann
+// Copyright 2024 Fernando Birra
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
