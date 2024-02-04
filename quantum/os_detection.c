@@ -92,7 +92,7 @@ void os_detection_task(void) {
 #    ifdef OS_DETECTION_KEYBOARD_RESET
     // resetting the keyboard on the USB device state change callback results in instability, so delegate that to this task
     // only take action if it's been stable at least once, to avoid issues with some KVMs
-    else if (current_usb_device_state == USB_DEVICE_STATE_INIT && reported_usb_device_state == USB_DEVICE_STATE_CONFIGURED) {
+    else if (current_usb_device_state == USB_DEVICE_STATE_INIT && reported_usb_device_state != USB_DEVICE_STATE_INIT) {
         soft_reset_keyboard();
     }
 #    endif
@@ -107,7 +107,21 @@ __attribute__((weak)) bool process_detected_host_os_user(os_variant_t detected_o
 }
 
 // Some collected sequences of wLength can be found in tests.
-void make_guess(void) {
+void process_wlength(const uint16_t w_length) {
+#    ifdef OS_DETECTION_DEBUG_ENABLE
+    usb_setups[setups_data.count] = w_length;
+#    endif
+    setups_data.count++;
+    setups_data.last_wlength = w_length;
+    if (w_length == 0x2) {
+        setups_data.cnt_02++;
+    } else if (w_length == 0x4) {
+        setups_data.cnt_04++;
+    } else if (w_length == 0xFF) {
+        setups_data.cnt_ff++;
+    }
+
+    // now try to make a guess
     os_variant_t guessed = OS_UNSURE;
     if (setups_data.count >= 3) {
         if (setups_data.cnt_ff >= 2 && setups_data.cnt_04 >= 1) {
@@ -128,26 +142,15 @@ void make_guess(void) {
             guessed = OS_LINUX;
         }
     }
-    // whatever the result, debounce
-    debouncing  = true;
-    detected_os = guessed;
-    last_time   = timer_read_fast();
-}
 
-void process_wlength(const uint16_t w_length) {
-#    ifdef OS_DETECTION_DEBUG_ENABLE
-    usb_setups[setups_data.count] = w_length;
-#    endif
-    setups_data.count++;
-    setups_data.last_wlength = w_length;
-    if (w_length == 0x2) {
-        setups_data.cnt_02++;
-    } else if (w_length == 0x4) {
-        setups_data.cnt_04++;
-    } else if (w_length == 0xFF) {
-        setups_data.cnt_ff++;
+    // only replace the guessed value if not unsure
+    if (guessed != OS_UNSURE) {
+        detected_os = guessed;
     }
-    make_guess();
+
+    // whatever the result, debounce
+    last_time  = timer_read_fast();
+    debouncing = true;
 }
 
 os_variant_t detected_host_os(void) {
@@ -167,13 +170,15 @@ void erase_wlength_data(void) {
 void os_detection_notify_usb_device_state_change(enum usb_device_state usb_device_state) {
     // treat this like any other source of instability
     current_usb_device_state = usb_device_state;
-    debouncing               = OS_DETECTION_DEBOUNCE;
     last_time                = timer_read_fast();
+    debouncing               = true;
 }
 
 #    if defined(SPLIT_KEYBOARD) && defined(SPLIT_DETECTED_OS_ENABLE)
 void slave_update_detected_host_os(os_variant_t os) {
     detected_os = os;
+    last_time   = timer_read_fast();
+    debouncing  = true;
 }
 #    endif
 

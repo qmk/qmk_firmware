@@ -233,6 +233,13 @@ TEST_F(OsDetectionTest, TestVusbQuest2) {
     assert_not_reported();
 }
 
+// Regression reported in https://github.com/qmk/qmk_firmware/pull/21777#issuecomment-1922815841
+TEST_F(OsDetectionTest, TestDetectMacM1AsIOS) {
+    EXPECT_EQ(check_sequence({0x02, 0x32, 0x02, 0x24, 0x101, 0xFF}), OS_IOS);
+    os_detection_task();
+    assert_not_reported();
+}
+
 TEST_F(OsDetectionTest, TestDoNotReportIfUsbUnstable) {
     EXPECT_EQ(check_sequence({0xFF, 0xFF, 0xFF, 0xFE}), OS_LINUX);
     os_detection_task();
@@ -376,4 +383,11 @@ TEST_F(OsDetectionTest, TestDoNotReportIntermediateResults) {
     os_detection_task();
     assert_reported(OS_WINDOWS);
     EXPECT_EQ(detected_host_os(), OS_WINDOWS);
+}
+
+TEST_F(OsDetectionTest, TestDoNotGoBackToUnsure) {
+    // 0x02 would cause it to go back to Unsure, so check that it does not
+    EXPECT_EQ(check_sequence({0xFF, 0xFF, 0xFF, 0xFE, 0x02}), OS_LINUX);
+    os_detection_task();
+    assert_not_reported();
 }
