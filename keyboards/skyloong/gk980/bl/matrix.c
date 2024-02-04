@@ -12,10 +12,6 @@
 #define HC595_SH_PIN A5
 #define HC595_DS_PIN A7
 
-/* matrix state(1:on, 0:off) */
-extern matrix_row_t raw_matrix[MATRIX_ROWS]; // raw values
-extern matrix_row_t matrix[MATRIX_ROWS];     // debounced values
-
 pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 
