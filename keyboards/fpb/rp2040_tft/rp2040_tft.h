@@ -1,7 +1,9 @@
+// Copyright 2024 Fernando Birra
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #pragma once
 
 #define PANEL_WIDTH     128
-//#define PANEL_HEIGHT    160
 #define PANEL_HEIGHT    128
 
 #define PANEL_DC        8
