@@ -28,7 +28,7 @@
         "pid": "0x0603",
         "vid": "0x4358"
     },
-    "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift", "60_hhkb", "60_iso", "60_tsangan_hhkb"],
+    "community_layouts": ["60_ansi", "60_hhkb", "60_iso", "60_tsangan_hhkb"],
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [
