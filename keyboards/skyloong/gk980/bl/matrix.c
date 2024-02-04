@@ -3,7 +3,6 @@
 //Matrix read rows set col:DIODE_DIRECTION == ROW2COL
 
 #include "quantum.h"
-#include "debounce.h"
 
 #define ReadDelayTime 120
 #define ClockTime 15
