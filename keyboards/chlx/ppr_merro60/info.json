@@ -3,6 +3,14 @@
     "manufacturer": "chlx bsmt",
     "url": "www.github.com/gaclee3b",
     "maintainer": "gaclee3b",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "console": false,
+        "command": false,
+        "nkro": true
+    },
     "usb": {
       "vid": "0x4358",
       "pid": "0x0603",
