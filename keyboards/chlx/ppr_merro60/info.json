@@ -13,6 +13,11 @@
         "rows": [ "F7", "B2", "B3", "B7", "D7", "B4", "B5" ]
     },
     "diode_direction": "ROW2COL",
+    "indicators": {
+        "caps_lock": "C7",
+        "scroll_lock": "F0",
+        "on_state": 0
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {
