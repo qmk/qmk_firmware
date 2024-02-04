@@ -1,6 +1,5 @@
-// Copyright 2024 Fernando Birra 
+// Copyright 2024 Fernando Birra
 // SPDX-License-Identifier: GPL-2.0-or-later
-
 #include "qp_internal.h"
 #include "qp_comms.h"
 #include "qp_gc9107.h"

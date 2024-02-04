@@ -1,6 +1,5 @@
 // Copyright 2024 Fernando Birra (@gr1mr3aver)
 // SPDX-License-Identifier: GPL-2.0-or-later
-
 #pragma once
 
 #include "gpio.h"
