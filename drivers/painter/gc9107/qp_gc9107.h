@@ -1,4 +1,5 @@
 // Copyright 2024 Fernando Birra (@gr1mr3aver)
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
 
@@ -34,6 +35,6 @@
  */
 painter_device_t qp_gc9107_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
 
-void qp_gc9107_set_backlight_level(uint8_t level);
+void qp_gc9107_set_backlight_level(uint16_t level);
 
 #endif // QUANTUM_PAINTER_GC9107_SPI_ENABLE
