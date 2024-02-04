@@ -1,4 +1,5 @@
 // Copyright 2024 Fernando Birra 
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "qp_internal.h"
 #include "qp_comms.h"
@@ -28,14 +29,14 @@ __attribute__((weak)) bool qp_gc9107_init(painter_device_t device, painter_rotat
         GC9107_SET_FUNCTION_CTL2,       0,  1, ALLOW_SET_VGH | ALLOW_SET_VGL | ALLOW_SET_VGH_VGL_CLK,
         GC9107_SET_FUNCTION_CTL3,       0,  1,  ALLOW_SET_GAMMA1 | ALLOW_SET_GAMMA2,
         GC9107_SET_FUNCTION_CTL6,       0,  1,  ALLOW_SET_FRAMERATE | ALLOW_SET_COMPLEMENT_RGB | ALLOW_SET_BLANK_PORCH,
-        // The following commands are required (tested on 0.85" 128x128 IPS display)
 
-        GC9107_CMD_TEARING_OFF,         0,  0,
-        GC9107_SET_VGH,                 0,  1,  0x24,
-        GC9107_SET_VGL,                 0,  1,  0x48,
-        GC9107_SET_VGH_VGL_CLK,         0,  1,  VGH_CLK_DIV_4 | VGL_CLK_DIV_4, 
-        GC9107_SET_GAMMA1,              0,  14, 0x1F, 0x28, 0x04, 0x3E, 0x2A, 0x2E, 0x20, 0x00, 0x0C, 0x06, 0x00, 0x1C, 0x1F, 0x0F,
-        GC9107_SET_GAMMA2,              0,  14, 0x00, 0x2D, 0x2F, 0x3F, 0x6F, 0x1C, 0x0B, 0x00, 0x00, 0x00, 0x07, 0x0D, 0x11, 0x0F,
+        // The following commands were found on LovyanGFX (https://github.com/lovyan03/LovyanGFX) but they are not required
+        // GC9107_CMD_TEARING_OFF,         0,  0,
+        // GC9107_SET_VGH,                 0,  1,  0x24,
+        // GC9107_SET_VGL,                 0,  1,  0x48,
+        // GC9107_SET_VGH_VGL_CLK,         0,  1,  VGH_CLK_DIV_4 | VGL_CLK_DIV_4, 
+        // GC9107_SET_GAMMA1,              0,  14, 0x1F, 0x28, 0x04, 0x3E, 0x2A, 0x2E, 0x20, 0x00, 0x0C, 0x06, 0x00, 0x1C, 0x1F, 0x0F,
+        // GC9107_SET_GAMMA2,              0,  14, 0x00, 0x2D, 0x2F, 0x3F, 0x6F, 0x1C, 0x0B, 0x00, 0x00, 0x00, 0x07, 0x0D, 0x11, 0x0F,
 
         GC9107_SET_PIXEL_FORMAT,        0,  1, PIXEL_FORMAT_16_BPP,
         GC9107_CMD_INVERT_ON,           0,  0,
