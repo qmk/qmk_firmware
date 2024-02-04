@@ -2,10 +2,10 @@
 
 ![ppr.merro60 PCB](https://i.imgur.com/xyQA68Xh.jpg)
 
-A standard 60% format keyboard pcb with USB-C and unified daughterboard compatibility.
-Has modified cutouts to allow usage of certain tray mount cases into gummy gasket o-ring mount.
-Has additional center flex cut.
-Meant to be manufactured in 1.2mm.
+- Standard 60% format keyboard PCB with USB-C and unified daughterboard compatibility.
+- Modified cutouts to allow usage of certain tray mount cases into gummy gasket o-ring mount.
+- Additional center flex cut.
+- Meant to be manufactured in 1.2mm thickness.
 
 * Keyboard Maintainer: [Alexander Lee](https://github.com/gaclee3b)
 * Hardware Supported: chlx PCB ppr.merro60.x.x.x
