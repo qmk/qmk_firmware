@@ -134,17 +134,8 @@ __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[]
 }
 
 void matrix_init_custom(void) {
-
     // initialize key pins
     matrix_init_pins();
-
-    // initialize matrix state: all keys off
-    memset(matrix, 0, sizeof(matrix));
-    memset(raw_matrix, 0, sizeof(raw_matrix));
-
-    debounce_init(MATRIX_ROWS);
-
-    matrix_init_kb();
 }
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
