@@ -1,5 +1,7 @@
 # Waldo
 
+![Waldo](https://i.imgur.com/8N4sMHbh.jpeg)
+
 A 60% Keyboard for use in the Holz case by Greenwald Designs
 
 Keyboard Maintainer: [That-Canadian](https://github.com/that-canadian)  
