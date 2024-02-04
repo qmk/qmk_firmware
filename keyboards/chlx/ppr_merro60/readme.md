@@ -7,8 +7,8 @@ Has modified cutouts to allow usage of certain tray mount cases into gummy gaske
 Has additional center flex cut.
 Meant to be manufactured in 1.2mm.
 
-Keyboard Maintainer: [Alexander Lee](https://github.com/gaclee3b)
-Hardware Supported: chlx PCB ppr.merro60.x.x.x
+* Keyboard Maintainer: [Alexander Lee](https://github.com/gaclee3b)
+* Hardware Supported: chlx PCB ppr.merro60.x.x.x
 
 Enter bootloader mode by any of the following options -
 - When unplugged, holding the top-left key (typically ESC) while plugging in the keyboard
