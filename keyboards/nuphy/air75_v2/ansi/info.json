@@ -25,6 +25,13 @@
         "rows": ["C14", "C15", "A0", "A1", "A2", "A3"]
     },
     "diode_direction": "COL2ROW",
+    "dynamic_keymap": {
+        "layer_count": 8,
+        "micro_delay": 8
+    },
+    "qmk": {
+        "tap_keycode_delay": 8
+      },
     "rgb_matrix": {
       "driver": "ws2812",
       "center_point": [80, 30],

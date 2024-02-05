@@ -200,7 +200,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 if(user_config.sleep_enable) user_config.sleep_enable = false;
                 else user_config.sleep_enable = true;
                 f_sleep_show       = 1;
-                eeconfig_update_user_datablock(&user_config);
+                eeconfig_update_kb_datablock(&user_config);
             }
             return false;
 
@@ -211,19 +211,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             return false;
 
         case BAT_NUM:
-            if (record->event.pressed) {
-                f_bat_num_show = 1;
-            } else {
-                f_bat_num_show = 0;
-            }
+            f_bat_num_show = record->event.pressed;
             return false;
 
         case RGB_TEST:
-            if (record->event.pressed) {
-                f_rgb_test_press = 1;
-            } else {
-                f_rgb_test_press = 0;
-            }
+            f_rgb_test_press = record->event.pressed;
             return false;
 
         default:
@@ -233,8 +225,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 }
 
 
-bool rgb_matrix_indicators_user(void)
+bool rgb_matrix_indicators_kb(void)
 {
+    if(!rgb_matrix_indicators_user()){
+        return false;
+    }
     if(f_bat_num_show) {
         num_led_show();
     }
@@ -245,7 +240,8 @@ bool rgb_matrix_indicators_user(void)
 }
 
 /* qmk keyboard post init */
-void keyboard_post_init_user(void) {
+void keyboard_post_init_kb(void) {
+
     gpio_init();
     rf_uart_init();
     wait_ms(500);
@@ -254,10 +250,12 @@ void keyboard_post_init_user(void) {
     break_all_key();
     dial_sw_fast_scan();
     londing_eeprom_data();
+    keyboard_post_init_user();
 }
 
 /* qmk housekeeping task */
-void housekeeping_task_user(void) {
+void housekeeping_task_kb(void) {
+
     timer_pro();
 
     uart_receive_pro();
@@ -273,4 +271,6 @@ void housekeeping_task_user(void) {
     side_led_show();
 
     sleep_handle();
+
+    housekeeping_task_user();
 }

@@ -1,7 +1,7 @@
 c# NuPhy Air75 V2
 
 *NuPhy Air75 V2 is a standard 84 key keyboard.*
-![NuPhy Air75 V2](https://bit.ly/486pSkN)
+![NuPhy Air75 V2](https://imgur.com/R7jS2JC)
 
 * Keyboard Maintainer: [nuphy](https://github.com/nuphy-src)
 * Hardware Supported: NuPhy Air75 V2 PCB
