@@ -72,6 +72,7 @@ void process_magic_key(void) {
         double_magic_switch(KC_V,
             magic_case(KC_I, "ew");
             magic_case(KC_E, "ry");
+            magic_case(KC_A, "lue");
         );
 
         double_magic_switch(KC_SPC,
