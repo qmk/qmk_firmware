@@ -10,25 +10,31 @@
     "usb": {
         "pid": "0x0001",
         "vid": "0x4753",
-        "device_version": "0.0.1"
+        "device_version": "1.0.0"
     },
     "matrix_pins": {
-        "cols": ["F6", "F7", "B1", "B3", "B2", "B6"],
-        "rows": ["C6", "D7", "E6", "B4", "B5"]
+        "cols": ["GP10", "GP11", "GP12", "GP13", "GP14", "GP15"],
+        "rows": ["GP21", "GP20", "GP19", "GP18", "GP17"]
     },
     "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
-            {"pin_a": "F5", "pin_b": "F4", "resolution": 2}
+            {"pin_a": "GP26", "pin_b": "GP22"}
         ]
     },
     "split": {
-        "soft_serial_pin": "D2",
+        "soft_serial_pin": "GP03",
         "encoder": {
             "right": {
                 "rotary": [
-                    {"pin_a": "F4", "pin_b": "F5", "resolution": 2}
+                    {"pin_a": "GP26", "pin_b": "GP22"}
                 ]
+            }
+        },
+        "matrix_pins":{
+            "right": {
+                "cools": ["GP10", "GP11", "GP12", "GP13", "GP14", "GP15"],
+                "rows": ["GP21", "GP20", "GP19", "GP18", "GP17"]
             }
         }
     },
