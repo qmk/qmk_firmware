@@ -34,7 +34,7 @@ void eeconfig_init_kb(void) {
 }
 
 bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) {
+    if (!encoder_update_kb(index, clockwise)) {
         return false;
     }
     if (index == 0) {
