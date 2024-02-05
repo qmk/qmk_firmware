@@ -14,11 +14,11 @@ void process_magic_key(void) {
     }
 
     switch (queue(-4)) {
-        quadruple_magic_case(KC_O,   KC_L,  KC_I, KC_C, "y");
-        quadruple_magic_case(KC_U,   KC_R,  KC_A, KC_C, "y");
-        quadruple_magic_case(KC_R,   KC_M,  KC_A, KC_C, "y");
-        quadruple_magic_case(KC_SPC, KC_R,  KC_E, KC_C, "y");
-        quadruple_magic_case(KC_C,   KC_R,  KC_A, KC_C, "y");
+        quadruple_magic_case(KC_O,   KC_L, KC_I, KC_C, "y");
+        quadruple_magic_case(KC_U,   KC_R, KC_A, KC_C, "y");
+        quadruple_magic_case(KC_R,   KC_M, KC_A, KC_C, "y");
+        quadruple_magic_case(KC_SPC, KC_R, KC_E, KC_C, "y");
+        quadruple_magic_case(KC_C,   KC_R, KC_A, KC_C, "y");
     }
 
     switch (queue(-3)) {
@@ -60,7 +60,7 @@ void process_magic_key(void) {
         );
 
         double_magic_switch(KC_O,
-            magic_case(KC_C,  "k");
+            magic_case(KC_C, "k");
             magic_case(KC_T, "her");
         );
 
@@ -96,11 +96,11 @@ void process_magic_key(void) {
     }
 
     switch (queue(-1)) {
-        magic_case(KC_S,  "k");
-        magic_case(KC_R,  "l");
-        magic_case(KC_D,  "y");
-        magic_case(KC_E,  "u");
-        magic_case(KC_A,  "b");
+        magic_case(KC_S,   "k");
+        magic_case(KC_R,   "l");
+        magic_case(KC_D,   "y");
+        magic_case(KC_E,   "u");
+        magic_case(KC_A,   "b");
         magic_case(KC_L,   "k");
         magic_case(KC_C,   "y");
         magic_case(KC_P,   "y");
