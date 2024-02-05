@@ -3,13 +3,16 @@
 
 uint16_t next_keycode;
 keyrecord_t *next_record;
+short next_row;
 
 bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
     uprintf("pre_process_record_user: %d\n", keycode);
 
     if (record->event.pressed) {
         next_keycode = keycode;
+
         next_record = record;
+        next_row = record->event.key.row;
     }
 
     return true;
@@ -18,7 +21,7 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case TH_NAV:
-            return record->event.key.row >= 4;
+            return next_row >= 4;
 
         case HR_DEL:
         case HR_RMLN:
