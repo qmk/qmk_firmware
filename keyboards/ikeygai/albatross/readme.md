@@ -18,7 +18,7 @@ The DFU state in the bootloader can be accessed in 3 ways:
 * **Physical reset button**: press the button on the back of the PCB, and hold it for five seconds
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available (Escape key on the default keymap)
 
-## Compile firmware
+### Compile firmware
 
 Albatross supported two PCB versions: hotswap (`albt_h`) and solderable (`albt_s`).
 
