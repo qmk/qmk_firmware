@@ -34,6 +34,8 @@ void exlm_td(tap_dance_state_t *state, void *user_data) {
 void eql_td(tap_dance_state_t *state, void *user_data) {
     if (state->count % 3 == 0 && is_shift_held()) {
         send_lang_independant_string(" 1");
+    } else if (state->count % 3 == 0 && is_ctrl_held()) {
+        send_lang_independant_string(";");
     } else double_sequence_td(
         execute_without_mods(tap_code(KC_ENT)),
         send_lang_independant_string("="),

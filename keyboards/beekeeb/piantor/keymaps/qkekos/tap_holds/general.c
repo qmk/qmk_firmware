@@ -18,6 +18,8 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case TH_NAV:
+            return record->event.key.row >= 4;
+
         case HR_DEL:
         case HR_RMLN:
         case HR_SAVE:

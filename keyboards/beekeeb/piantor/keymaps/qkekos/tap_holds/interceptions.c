@@ -15,7 +15,7 @@ bool interceptions_pr(uint16_t keycode, keyrecord_t *record, bool *return_value)
 
     switch (keycode) {
         case LT_I:
-            if (record->event.pressed && record->tap.count == 2) {
+            if (record->event.pressed && record->tap.count == 2 && queue(-3) != KC_V) {
                 tap_code16(KC_BSPC);
                 add_weak_mods(MOD_BIT(KC_LSFT));
             }
