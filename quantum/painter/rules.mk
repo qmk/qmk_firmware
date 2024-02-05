@@ -132,10 +132,10 @@ define handle_quantum_painter_driver
         OPT_DEFS += -DQUANTUM_PAINTER_GC9A01_ENABLE -DQUANTUM_PAINTER_GC9A01_SPI_ENABLE
         COMMON_VPATH += \
             $(DRIVER_PATH)/painter/tft_panel \
-            $(DRIVER_PATH)/painter/gc9a01
+            $(DRIVER_PATH)/painter/gc9xxx
         SRC += \
             $(DRIVER_PATH)/painter/tft_panel/qp_tft_panel.c \
-            $(DRIVER_PATH)/painter/gc9a01/qp_gc9a01.c
+            $(DRIVER_PATH)/painter/gc9xxx/qp_gc9a01.c
 
     else ifeq ($$(strip $$(CURRENT_PAINTER_DRIVER)),gc9107_spi)
         QUANTUM_PAINTER_NEEDS_COMMS_SPI := yes
@@ -143,10 +143,10 @@ define handle_quantum_painter_driver
         OPT_DEFS += -DQUANTUM_PAINTER_GC9107_ENABLE -DQUANTUM_PAINTER_GC9107_SPI_ENABLE
         COMMON_VPATH += \
             $(DRIVER_PATH)/painter/tft_panel \
-            $(DRIVER_PATH)/painter/gc9107
+            $(DRIVER_PATH)/painter/gc9xxx
         SRC += \
             $(DRIVER_PATH)/painter/tft_panel/qp_tft_panel.c \
-            $(DRIVER_PATH)/painter/gc9107/qp_gc9107.c
+            $(DRIVER_PATH)/painter/gc9xxx/qp_gc9107.c
 
     else ifeq ($$(strip $$(CURRENT_PAINTER_DRIVER)),ssd1351_spi)
         QUANTUM_PAINTER_NEEDS_COMMS_SPI := yes

@@ -3,6 +3,7 @@
 #include "qp_internal.h"
 #include "qp_comms.h"
 #include "qp_gc9107.h"
+#include "qp_gc9xxx_opcodes.h"
 #include "qp_gc9107_opcodes.h"
 #include "qp_tft_panel.h"
 
@@ -22,8 +23,8 @@ __attribute__((weak)) bool qp_gc9107_init(painter_device_t device, painter_rotat
     const uint8_t gc9107_init_sequence[] = {
         // Command,                 Delay,  N, Data[N]
         // The following commands are not really needed since the functionality isn't being used
-        GC9107_SET_INTER_REG_ENABLE1,   5,  0,
-        GC9107_SET_INTER_REG_ENABLE2,   5,  0,
+        GC9XXX_SET_INTER_REG_ENABLE1,   5,  0,
+        GC9XXX_SET_INTER_REG_ENABLE2,   5,  0,
         GC9107_SET_FUNCTION_CTL1,       0,  1,  ALLOW_AVDD_VCL_CLK,
         GC9107_SET_FUNCTION_CTL2,       0,  1, ALLOW_SET_VGH | ALLOW_SET_VGL | ALLOW_SET_VGH_VGL_CLK,
         GC9107_SET_FUNCTION_CTL3,       0,  1,  ALLOW_SET_GAMMA1 | ALLOW_SET_GAMMA2,
@@ -37,10 +38,10 @@ __attribute__((weak)) bool qp_gc9107_init(painter_device_t device, painter_rotat
         // GC9107_SET_GAMMA1,              0,  14, 0x1F, 0x28, 0x04, 0x3E, 0x2A, 0x2E, 0x20, 0x00, 0x0C, 0x06, 0x00, 0x1C, 0x1F, 0x0F,
         // GC9107_SET_GAMMA2,              0,  14, 0x00, 0x2D, 0x2F, 0x3F, 0x6F, 0x1C, 0x0B, 0x00, 0x00, 0x00, 0x07, 0x0D, 0x11, 0x0F,
 
-        GC9107_SET_PIXEL_FORMAT,        0,  1, PIXEL_FORMAT_16_BPP,
-        GC9107_CMD_INVERT_ON,           0,  0,
-        GC9107_CMD_SLEEP_OFF,           120,  0,
-        GC9107_CMD_DISPLAY_ON,          20,  0
+        GC9XXX_SET_PIXEL_FORMAT,        0,  1, PIXEL_FORMAT_16_BPP,
+        GC9XXX_CMD_INVERT_ON,           0,  0,
+        GC9XXX_CMD_SLEEP_OFF,           120,  0,
+        GC9XXX_CMD_DISPLAY_ON,          20,  0
     };
 
     // clang-format on
@@ -48,12 +49,12 @@ __attribute__((weak)) bool qp_gc9107_init(painter_device_t device, painter_rotat
 
     // Configure the rotation (i.e. the ordering and direction of memory writes in GRAM)
     const uint8_t madctl[] = {
-        [QP_ROTATION_0]   = GC9107_MADCTL_BGR,
-        [QP_ROTATION_90]  = GC9107_MADCTL_BGR | GC9107_MADCTL_MX | GC9107_MADCTL_MV,
-        [QP_ROTATION_180] = GC9107_MADCTL_BGR | GC9107_MADCTL_MX | GC9107_MADCTL_MY,
-        [QP_ROTATION_270] = GC9107_MADCTL_BGR | GC9107_MADCTL_MV | GC9107_MADCTL_MY,
+        [QP_ROTATION_0]   = GC9XXX_MADCTL_BGR,
+        [QP_ROTATION_90]  = GC9XXX_MADCTL_BGR | GC9XXX_MADCTL_MX | GC9XXX_MADCTL_MV,
+        [QP_ROTATION_180] = GC9XXX_MADCTL_BGR | GC9XXX_MADCTL_MX | GC9XXX_MADCTL_MY,
+        [QP_ROTATION_270] = GC9XXX_MADCTL_BGR | GC9XXX_MADCTL_MV | GC9XXX_MADCTL_MY,
     };
-    qp_comms_command_databyte(device, GC9107_SET_MEM_ACS_CTL, madctl[rotation]);
+    qp_comms_command_databyte(device, GC9XXX_SET_MEM_ACS_CTL, madctl[rotation]);
 
     return true;
 }
@@ -79,11 +80,11 @@ const tft_panel_dc_reset_painter_driver_vtable_t gc9107_driver_vtable = {
     .swap_window_coords = false,
     .opcodes =
         {
-            .display_on         = GC9107_CMD_DISPLAY_ON,
-            .display_off        = GC9107_CMD_DISPLAY_OFF,
-            .set_column_address = GC9107_SET_COL_ADDR,
-            .set_row_address    = GC9107_SET_ROW_ADDR,
-            .enable_writes      = GC9107_SET_MEM,
+            .display_on         = GC9XXX_CMD_DISPLAY_ON,
+            .display_off        = GC9XXX_CMD_DISPLAY_OFF,
+            .set_column_address = GC9XXX_SET_COL_ADDR,
+            .set_row_address    = GC9XXX_SET_ROW_ADDR,
+            .enable_writes      = GC9XXX_SET_MEM,
         },
 };
 

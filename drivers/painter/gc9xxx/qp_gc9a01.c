@@ -5,6 +5,7 @@
 #include "qp_internal.h"
 #include "qp_comms.h"
 #include "qp_gc9a01.h"
+#include "qp_gc9xxx_opcodes.h"
 #include "qp_gc9a01_opcodes.h"
 #include "qp_tft_panel.h"
 
@@ -22,10 +23,10 @@ __attribute__((weak)) bool qp_gc9a01_init(painter_device_t device, painter_rotat
     // clang-format off
     const uint8_t gc9a01_init_sequence[] = {
         // Command,                 Delay,  N, Data[N]
-        GC9A01_SET_INTER_REG_ENABLE2,   0,  0,
+        GC9XXX_SET_INTER_REG_ENABLE2,   0,  0,
         0xEB,                           0,  1, 0x14,
-        GC9A01_SET_INTER_REG_ENABLE1,   0,  0,
-        GC9A01_SET_INTER_REG_ENABLE2,   0,  0,
+        GC9XXX_SET_INTER_REG_ENABLE1,   0,  0,
+        GC9XXX_SET_INTER_REG_ENABLE2,   0,  0,
         0xEB,                           0,  1, 0x14,
         0x84,                           0,  1, 0x40,
         0x85,                           0,  1, 0xFF,
@@ -40,7 +41,7 @@ __attribute__((weak)) bool qp_gc9a01_init(painter_device_t device, painter_rotat
         0x8e,                           0,  1, 0xFF,
         0x8f,                           0,  1, 0xFF,
         GC9A01_SET_FUNCTION_CTL,        0,  2, 0x00, 0x20,
-        GC9A01_SET_PIX_FMT,             0,  1, 0x55,
+        GC9XXX_SET_PIXEL_FORMAT,        0,  1, 0x55,
         0x90,                           0,  4, 0x08, 0x08, 0x08, 0x08,
         0xBD,                           0,  1, 0x06,
         0xBC,                           0,  1, 0x00,
@@ -51,8 +52,8 @@ __attribute__((weak)) bool qp_gc9a01_init(painter_device_t device, painter_rotat
         0xBE,                           0,  1, 0x11,
         0xE1,                           0,  2, 0x10, 0x0E,
         0xDF,                           0,  3, 0x21, 0x0C, 0x02,
-        GC9A01_SET_GAMMA1,              0,  6, 0x45, 0x09, 0x08, 0x08, 0x26, 0x2A,
-        GC9A01_SET_GAMMA2,              0,  6, 0x43, 0x70, 0x72, 0x36, 0x37, 0x6F,
+        GC9XXX_SET_GAMMA1,              0,  6, 0x45, 0x09, 0x08, 0x08, 0x26, 0x2A,
+        GC9XXX_SET_GAMMA2,              0,  6, 0x43, 0x70, 0x72, 0x36, 0x37, 0x6F,
         GC9A01_SET_GAMMA3,              0,  6, 0x45, 0x09, 0x08, 0x08, 0x26, 0x2A,
         GC9A01_SET_GAMMA4,              0,  6, 0x43, 0x70, 0x72, 0x36, 0x37, 0x6F,
         0xED,                           0,  2, 0x1B, 0x0B,
@@ -67,10 +68,10 @@ __attribute__((weak)) bool qp_gc9a01_init(painter_device_t device, painter_rotat
         0x67,                           0, 10, 0x00, 0x3C, 0x00, 0x00, 0x00, 0x01, 0x54, 0x10, 0x32, 0x98,
         0x74,                           0,  7, 0x10, 0x85, 0x80, 0x00, 0x00, 0x4E, 0x00,
         0x98,                           0,  2, 0x3E, 0x07,
-        GC9A01_CMD_TEARING_OFF,         0,  0,
-        GC9A01_CMD_INVERT_OFF,          0,  0,
-        GC9A01_CMD_SLEEP_OFF,         120,  0,
-        GC9A01_CMD_DISPLAY_ON,         20,  0
+        GC9XXX_CMD_TEARING_ON,          0,  0,
+        GC9XXX_CMD_INVERT_OFF,          0,  0,
+        GC9XXX_CMD_SLEEP_OFF,         120,  0,
+        GC9XXX_CMD_DISPLAY_ON,         20,  0
     };
     // clang-format on
 
@@ -79,12 +80,12 @@ __attribute__((weak)) bool qp_gc9a01_init(painter_device_t device, painter_rotat
 
     // Configure the rotation (i.e. the ordering and direction of memory writes in GRAM)
     const uint8_t madctl[] = {
-        [QP_ROTATION_0]   = GC9A01_MADCTL_BGR,
-        [QP_ROTATION_90]  = GC9A01_MADCTL_BGR | GC9A01_MADCTL_MX | GC9A01_MADCTL_MV,
-        [QP_ROTATION_180] = GC9A01_MADCTL_BGR | GC9A01_MADCTL_MX | GC9A01_MADCTL_MY,
-        [QP_ROTATION_270] = GC9A01_MADCTL_BGR | GC9A01_MADCTL_MV | GC9A01_MADCTL_MY,
+        [QP_ROTATION_0]   = GC9XXX_MADCTL_BGR,
+        [QP_ROTATION_90]  = GC9XXX_MADCTL_BGR | GC9XXX_MADCTL_MX | GC9XXX_MADCTL_MV,
+        [QP_ROTATION_180] = GC9XXX_MADCTL_BGR | GC9XXX_MADCTL_MX | GC9XXX_MADCTL_MY,
+        [QP_ROTATION_270] = GC9XXX_MADCTL_BGR | GC9XXX_MADCTL_MV | GC9XXX_MADCTL_MY,
     };
-    qp_comms_command_databyte(device, GC9A01_SET_MEM_ACS_CTL, madctl[rotation]);
+    qp_comms_command_databyte(device, GC9XXX_SET_MEM_ACS_CTL, madctl[rotation]);
 
     return true;
 }
@@ -110,11 +111,11 @@ const tft_panel_dc_reset_painter_driver_vtable_t gc9a01_driver_vtable = {
     .swap_window_coords = false,
     .opcodes =
         {
-            .display_on         = GC9A01_CMD_DISPLAY_ON,
-            .display_off        = GC9A01_CMD_DISPLAY_OFF,
-            .set_column_address = GC9A01_SET_COL_ADDR,
-            .set_row_address    = GC9A01_SET_PAGE_ADDR,
-            .enable_writes      = GC9A01_SET_MEM,
+            .display_on         = GC9XXX_CMD_DISPLAY_ON,
+            .display_off        = GC9XXX_CMD_DISPLAY_OFF,
+            .set_column_address = GC9XXX_SET_COL_ADDR,
+            .set_row_address    = GC9XXX_SET_ROW_ADDR,
+            .enable_writes      = GC9XXX_SET_MEM,
         },
 };
 
