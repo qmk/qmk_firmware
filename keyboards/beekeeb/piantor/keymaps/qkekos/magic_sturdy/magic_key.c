@@ -110,10 +110,10 @@ void process_magic_key(void) {
         magic_case(KC_O,   "a");
         magic_case(KC_U,   "e");
         magic_case(KC_X,   "t");
-        magic_case(KC_N,  "ion");
         magic_case(KC_I,   "on");
         magic_case(KC_V,   "er");
         magic_case(KC_Q,   "ue");
+        magic_case(KC_N,   "ion");
         magic_case(KC_M,   "ent");
         magic_case(KC_J,   "ust");
         magic_case(KC_Z,   "one");
