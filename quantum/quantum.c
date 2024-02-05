@@ -72,6 +72,9 @@
 #ifdef VELOCIKEY_ENABLE
 #    include "velocikey.h"
 #endif
+#ifdef LAYER_LOCK_ENABLE
+#    include "process_layer_lock.h"
+#endif
 
 #ifdef AUDIO_ENABLE
 #    ifndef GOODBYE_SONG
@@ -397,6 +400,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
 #ifdef TRI_LAYER_ENABLE
             process_tri_layer(keycode, record) &&
+#endif
+#ifdef LAYER_LOCK_ENABLE
+            process_layer_lock(keycode, record) &&
 #endif
             true)) {
         return false;
