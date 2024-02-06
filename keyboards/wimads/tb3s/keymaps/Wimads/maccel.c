@@ -9,10 +9,6 @@ static float maccel_a = MACCEL_STEEPNESS; //steepness of acceleration curve
 static float maccel_b = MACCEL_OFFSET;    //start offset of acceleration curve
 static float maccel_c = MACCEL_LIMIT;     //upper limit of acceleration factor
 
-report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-    return pointing_device_task_maccel(mouse_report);
-};
-
 report_mouse_t pointing_device_task_maccel(report_mouse_t mouse_report) {
     if(mouse_report.x != 0 || mouse_report.y != 0) {
         uint16_t device_dpi = pointing_device_get_cpi();
