@@ -151,36 +151,36 @@
 |`KC_LOCKING_SCROLL`    |`KC_LSCR`                     |Scroll Lock のロック                      |✔           |✔            |                 |
 |`KC_KP_COMMA`          |`KC_PCMM`                     |テンキー `,`                             |             |             |✔                |
 |`KC_KP_EQUAL_AS400`    |                              |AS/400 キーボードのテンキー `=`          |             |             |                 |
-|`KC_INT1`              |`KC_RO`                       |JIS `\` と `_`                           |✔           |             |✔                |
-|`KC_INT2`              |`KC_KANA`                     |JIS カタカナ/ひらがな                            |✔           |             |✔                |
-|`KC_INT3`              |`KC_JYEN`                     |JIS `¥` と `\|`                          |✔           |             |✔                |
-|`KC_INT4`              |`KC_HENK`                     |JIS 変換                                 |✔           |             |✔                |
-|`KC_INT5`              |`KC_MHEN`                     |JIS 無変換                               |✔           |             |✔                |
-|`KC_INT6`              |                              |JIS テンキー `,`                         |             |             |✔                |
-|`KC_INT7`              |                              |International 7                          |             |             |                 |
-|`KC_INT8`              |                              |International 8                          |             |             |                 |
-|`KC_INT9`              |                              |International 9                          |             |             |                 |
-|`KC_LANG1`             |`KC_HAEN`                     |ハングル/英語                            |             |             |✔                |
-|`KC_LANG2`             |`KC_HANJ`                     |韓文漢字                                 |             |             |✔                |
-|`KC_LANG3`             |                              |JIS カタカナ                             |             |             |✔                |
-|`KC_LANG4`             |                              |JIS ひらがな                             |             |             |✔                |
-|`KC_LANG5`             |                              |JIS 全角/半角                            |             |             |✔                |
-|`KC_LANG6`             |                              |Language 6                               |             |             |                 |
-|`KC_LANG7`             |                              |Language 7                               |             |             |                 |
-|`KC_LANG8`             |                              |Language 8                               |             |             |                 |
-|`KC_LANG9`             |                              |Language 9                               |             |             |                 |
-|`KC_ALT_ERASE`         |`KC_ERAS`                     |Alternate Erase                          |             |             |                 |
-|`KC_SYSREQ`            |                              |SysReq/Attention                         |             |             |                 |
-|`KC_CANCEL`            |                              |Cancel                                   |             |             |                 |
+|`KC_INTERNATIONAL_1`   |`KC_INT1`                     |JIS `\` と `_`                           |✔           |             |✔                |
+|`KC_INTERNATIONAL_2`   |`KC_INT2`                     |JIS カタカナ/ひらがな                            |✔           |             |✔                |
+|`KC_INTERNATIONAL_3`   |`KC_INT3`                     |JIS `¥` と `\|`                          |✔           |             |✔                |
+|`KC_INTERNATIONAL_4`   |`KC_INT4`                     |JIS 変換                                 |✔           |             |✔                |
+|`KC_INTERNATIONAL_5`   |`KC_INT5`                     |JIS 無変換                               |✔           |             |✔                |
+|`KC_INTERNATIONAL_6`   |`KC_INT6`                     |JIS テンキー `,`                         |             |             |✔                |
+|`KC_INTERNATIONAL_7`   |`KC_INT7`                     |International 7                          |             |             |                 |
+|`KC_INTERNATIONAL_8`   |`KC_INT8`                     |International 8                          |             |             |                 |
+|`KC_INTERNATIONAL_9`   |`KC_INT9`                     |International 9                          |             |             |                 |
+|`KC_LANGUAGE_1`        |`KC_LNG1`                     |ハングル/英語                            |             |             |✔                |
+|`KC_LANGUAGE_2`        |`KC_LNG2`                     |韓文漢字                                 |             |             |✔                |
+|`KC_LANGUAGE_3`        |`KC_LNG3`                     |JIS カタカナ                             |             |             |✔                |
+|`KC_LANGUAGE_4`        |`KC_LNG4`                     |JIS ひらがな                             |             |             |✔                |
+|`KC_LANGUAGE_5`        |`KG_LNG5`                     |JIS 全角/半角                            |             |             |✔                |
+|`KC_LANGUAGE_6`        |`KC_LNG6`                     |Language 6                               |             |             |                 |
+|`KC_LANGUAGE_7`        |`KC_LNG7`                     |Language 7                               |             |             |                 |
+|`KC_LANGUAGE_8`        |`KC_LNG8`                     |Language 8                               |             |             |                 |
+|`KC_LANGUAGE_9`        |`KC_LNG9`                     |Language 9                               |             |             |                 |
+|`KC_ALTERNATE_ERASE`   |`KC_ERAS`                     |Alternate Erase                          |             |             |                 |
+|`KC_SYSTEM_REQUEST`    |`KC_SYRQ`                     |SysReq/Attention                         |             |             |                 |
+|`KC_CANCEL`            |`KC_CNCL`                     |Cancel                                   |             |             |                 |
 |`KC_CLEAR`             |`KC_CLR`                      |Clear                                    |             |             |✔                |
-|`KC_PRIOR`             |                              |Prior                                    |             |             |                 |
-|`KC_RETURN`            |                              |Return                                   |             |             |                 |
-|`KC_SEPARATOR`         |                              |Separator                                |             |             |                 |
+|`KC_PRIOR`             |`KC_PRIR`                     |Prior                                    |             |             |                 |
+|`KC_RETURN`            |`KC_RETN`                     |Return                                   |             |             |                 |
+|`KC_SEPARATOR`         |`KC_SEPR`                     |Separator                                |             |             |                 |
 |`KC_OUT`               |                              |Out                                      |             |             |                 |
 |`KC_OPER`              |                              |Oper                                     |             |             |                 |
-|`KC_CLEAR_AGAIN`       |                              |Clear/Again                              |             |             |                 |
-|`KC_CRSEL`             |                              |CrSel/Props                              |             |             |                 |
-|`KC_EXSEL`             |                              |ExSel                                    |             |             |                 |
+|`KC_CLEAR_AGAIN`       |`KC_CLAG`                     |Clear/Again                              |             |             |                 |
+|`KC_CRSEL`             |`KC_CRSL`                     |CrSel/Props                              |             |             |                 |
+|`KC_EXSEL`             |`KC_EXSL`                     |ExSel                                    |             |             |                 |
 |`KC_LCTRL`             |`KC_LCTL`                     |左 Control                               |✔           |✔            |✔                |
 |`KC_LSHIFT`            |`KC_LSFT`                     |左 Shift                                 |✔           |✔            |✔                |
 |`KC_LALT`              |`KC_LOPT`                     |左 Alt (Option)                          |✔           |✔            |✔                |
@@ -215,6 +215,10 @@
 |`KC_MEDIA_REWIND`      |`KC_MRWD`                     |前の曲へ                                 |✔<sup>6</sup>|✔<sup>5</sup>|✔                |
 |`KC_BRIGHTNESS_UP`     |`KC_BRIU`                     |画面の明るさアップ                       |✔            |✔            |✔                |
 |`KC_BRIGHTNESS_DOWN`   |`KC_BRID`                     |画面の明るさダウン                       |✔            |✔            |✔                |
+|`KC_CONTROL_PANEL`     |`KC_CPNL`                     |コントロールパネルを開く                     |✔            |             |                 |
+|`KC_ASSISTANT`         |`KC_ASST`                     |Context-Aware Assistantを開く         |✔            |             |                 |
+|`KC_MISSION_CONTROL`   |`KC_MCTL`                     |Mission Control                   |             |✔            |                 |
+|`KC_LAUNCHPAD`         |`KC_LPAD`                     |Launchpadを開く                        |             |✔            |                 |
 
 <sup>1. Linux カーネル HID ドライバは [ほぼ全てのキーコード](https://github.com/torvalds/linux/blob/master/drivers/hid/hid-input.c) を識別しますが、デフォルトの関連付けは デスクトップ環境/ウィンドウマネージャによって決まります。</sup><br/>
 <sup>2. F13-F15 として取り扱われます。</sup><br/>
@@ -232,6 +236,8 @@
 |`QK_BOOTLOADER`  |`QK_BOOT`|ファームウエア書き込みのためにキーボードをブートローダーモードにします |
 |`QK_DEBUG_TOGGLE`|`DB_TOGG`|デバッグモードを切り替えます                             |
 |`QK_CLEAR_EEPROM`|`EE_CLR` |キーボードの EEPROM (不揮発メモリ) を再初期化します      |
+|`QK_MAKE`        |         |Shiftが押されている場合、`qmk compile -kb (keyboard) -km (keymap)`か`qmk flash`を入力します。ShiftとControlが押されている場合、キーボードをブートローダーモードに移行します。|
+|`QK_REBOOT`      |`QK_RBT` |キーボードをリセットします。ブートローダーはロードしません                                                                                                |
 
 ## オーディオキー :id=audio-keys
 
@@ -250,6 +256,46 @@
 |`MU_OFF`        |            |音楽モードをオフにします               |
 |`MU_TOG`        |            |音楽モードを切り替えます               |
 |`MU_MOD`        |            |音楽モードを循環します                 |
+
+|-------------------------|---------|-------------------------------------------|
+|`QK_AUDIO_ON`            |`AU_ON`  |オーディオモードオン                     |
+|`QK_AUDIO_OFF`           |`AU_OFF` |オーディオモードオフ                    |
+|`QK_AUDIO_TOGGLE`        |`AU_TOGG`|オーディオモードの切り替え                       |
+|`QK_AUDIO_CLICKY_TOGGLE` |`CK_TOGG`|オーディオクリックモードの切り替え                 |
+|`QK_AUDIO_CLICKY_ON`     |`CK_ON`  |オーディオクリックモードオン                 |
+|`QK_AUDIO_CLICKY_OFF`    |`CK_OFF` |オーディオクリックモードオフ                 |
+|`QK_AUDIO_CLICKY_UP`     |`CK_UP`  |クリック音の周波数を増やします          |
+|`QK_AUDIO_CLICKY_DOWN`   |`CK_DOWN`|クリック音の周波数を減らします          |
+|`QK_AUDIO_CLICKY_RESET`  |`CK_RST` |周波数をデフォルトに設定します                |
+|`QK_MUSIC_ON`            |`MU_ON`  |音楽モードオン                        |
+|`QK_MUSIC_OFF`           |`MU_OFF` |音楽モードオフ                       |
+|`QK_MUSIC_TOGGLE`        |`MU_TOGG`|音楽モードの切り替え                         |
+|`QK_MUSIC_MODE_NEXT`     |`MU_NEXT`|音楽モードを循環します             |
+|`QK_AUDIO_VOICE_NEXT`    |`AU_NEXT`|音声モードを循環します            |
+|`QK_AUDIO_VOICE_PREVIOUS`|`AU_PREV`|音声モードを逆順に循環します |
+
+## 自動シフト :id=auto-shift
+
+[Auto Shift](feature_auto_shift.md) も見てください。
+
+|キー                  |エイリアス|説明                                       |
+|----------------------|---------|--------------------------------------------|
+|`QK_AUTO_SHIFT_DOWN`  |`AS_DOWN`|自動シフトまでの時間を短くします               |
+|`QK_AUTO_SHIFT_UP`    |`AS_UP`  |自動シフトまでの時間を長くします               |
+|`QK_AUTO_SHIFT_REPORT`|`AS_RPT` |現在の自動シフトまでの時間を報告します          |
+|`QK_AUTO_SHIFT_ON`    |`AS_ON`  |自動シフト機能をオンにします                   |
+|`QK_AUTO_SHIFT_OFF`   |`AS_OFF` |自動シフト機能をオフにします                   |
+|`QK_AUTO_SHIFT_TOGGLE`|`AS_TOGG`|自動シフトの切り替え                          |
+
+## 自動修正 :id=autocorrect
+
+[Autocorrect](feature_autocorrect.md) も見てください。
+
+|キー                    |エイリアス  |説明                                      |
+|-----------------------|---------|----------------------------------------------|
+|`QK_AUTOCORRECT_ON`    |`AC_ON`  |自動修正をオンにします                          |
+|`QK_AUTOCORRECT_OFF`   |`AC_OFF` |自動修正をオフにします                          |
+|`QK_AUTOCORRECT_TOGGLE`|`AC_TOGG`|自動修正の切り替え                              |
 
 ## バックライト :id=backlighting
 
