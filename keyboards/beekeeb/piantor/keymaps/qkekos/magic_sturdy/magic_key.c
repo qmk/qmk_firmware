@@ -5,6 +5,7 @@ void process_magic_key(void) {
     if (alt_rep_key_count >= 2) {
         switch (queue(-4)) {
             quadruple_magic_case(KC_SPC, KC_A, KC_L, KC_R, "eady");
+            quadruple_magic_case(KC_J,   KC_U, KC_D, KC_G, "ment");
         }
 
         switch (queue(-3)) {
@@ -33,10 +34,14 @@ void process_magic_key(void) {
                 magic_case(KC_N, "other");
             );
 
+            double_magic_switch(KC_E,
+                magic_case(KC_D, "ge");
+                magic_case(KC_X, "ample");
+            );
+
             double_magic_case(KC_U, KC_S, "e");
             double_magic_case(KC_T, KC_I, "me");
             double_magic_case(KC_I, KC_N, "form");
-            double_magic_case(KC_E, KC_X, "ample");
         );
 
         triple_magic_switch(KC_B,
@@ -45,10 +50,19 @@ void process_magic_key(void) {
                 magic_case(KC_T, "ween");
                 magic_case(KC_L, "ieve");
             );
+
+            double_magic_case(KC_U, KC_D, "get");
+        );
+
+        triple_magic_switch(KC_R,
+            double_magic_case(KC_I, KC_D, "ge");
+            double_magic_case(KC_E, KC_D, "ge");
         );
 
         triple_magic_case(KC_V, KC_A, KC_C, "y");
         triple_magic_case(KC_G, KC_A, KC_C, "y");
+        triple_magic_case(KC_J, KC_U, KC_D, "g");
+        triple_magic_case(KC_L, KC_E, KC_D, "ge");
         triple_magic_case(KC_S, KC_Y, KC_S, "tem");
         triple_magic_case(KC_O, KC_B, KC_V, "ious");
     }
