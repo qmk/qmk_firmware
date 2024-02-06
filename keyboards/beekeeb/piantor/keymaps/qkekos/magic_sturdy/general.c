@@ -44,6 +44,13 @@ void dequeue(void) {
     prev_keys_queue[0] = KC_NO;
 }
 
+void print_queue(void) {
+    uprintf("queue: ");
+
+    for (int i = 0; i < PREV_KEYS_QUEUE_SIZE - 1; i += 1)
+        uprintf("%d, ", prev_keys_queue[i]);
+}
+
 bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* mods) {
     keycode = normalize_keycode(keycode);
 

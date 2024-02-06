@@ -10,6 +10,7 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* mods
 void record_send_string(const char *str);
 void enqueue(int keycode);
 void dequeue(void);
+void print_queue(void);
 
 uint32_t enqueue_space(uint32_t trigger_time, void *cb_arg);
 void refresh_token(void);
