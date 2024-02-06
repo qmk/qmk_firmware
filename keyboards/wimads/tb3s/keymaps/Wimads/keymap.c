@@ -14,10 +14,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+////TO DO////
+/* Undo EE_BOOT
+ * Remove snipe
+ * Add layer for EEPROM stuff in place of snipe
+*/
 #include QMK_KEYBOARD_H
 
 enum layers {
    _DEF,
+   _QMK,
 };
 
 #define LMB KC_BTN1
@@ -26,32 +32,26 @@ enum layers {
 #define BCK KC_BTN4
 #define FWD KC_BTN5
 
-#define SCR_SNI LT(10, KC_NO) //dragscroll-sniping (further defined in macro)
-
-enum custom_keycodes {
-        EE_BOOT = SAFE_RANGE, //clear eeprom, then enter boot mode
-};
-
+#define RST_QMK LT(_QMK, QK_BOOT) //
+#define DRTGSCR LT(10, KC_NO)     //drag-toggle-scroll >>further defined in macro
 
 #include "gboards/g/keymap_combo.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_DEF] = LAYOUT(RMB,   SCR_SNI, LMB)
+    [_DEF] = LAYOUT(RMB,    DRTGSCR,  LMB),
+    [_QMK] = LAYOUT(EE_CLR, DPI_RMOD, DPI_MOD)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     static bool dragscroll = false; //dragscroll active or not
     static bool drag_toggle = false; //dragscroll was activated via toggle or not
-    static bool sniping = false;
     switch(keycode) {
-        case EE_BOOT:
-            if (record->event.pressed) {
-                eeconfig_init(); //clear eeproms
-                wait_ms(10); //wait 10 ms
-                reset_keyboard(); //enter bootmode
-            } return false;
-
-        case SCR_SNI: //dragscroll / drag_toggle / sniping - all in one key!
+        case RST_QMK:
+            if (record->event.pressed && record->tap.count){
+                reset_keyboard();
+                return false;
+            } return true;
+        case DRTGSCR: //dragscroll / drag_toggle / sniping - all in one key!
             if (record->event.pressed && record->tap.count) { //on tap
                 //toggle dragscroll on/off
                 dragscroll = !dragscroll; //invert dragscroll state
@@ -65,14 +65,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
                 //turn dragscroll off, and turn sniping on
                 drag_toggle = false;
                 dragscroll = false;
-                sniping = true;
                 charybdis_set_pointer_dragscroll_enabled(dragscroll);
-                charybdis_set_pointer_sniping_enabled(sniping);
             } else { //on release
-                if(sniping) { //if sniping true, turn off sniping
-                    sniping = false;
-                    charybdis_set_pointer_sniping_enabled(sniping);
-                } else if(!drag_toggle) { //if no drag_toggle, turn off dragscroll
+                if(!drag_toggle) { //if no drag_toggle, turn off dragscroll
                     dragscroll = false;
                     charybdis_set_pointer_dragscroll_enabled(dragscroll);
                 } //else do nothing
