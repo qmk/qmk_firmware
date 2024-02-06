@@ -21,7 +21,7 @@ bool alt_case_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
     if (queue(-2) == KC_SPC) {
         is_alt_case_active = false;
         toggle_right_pin();
-        for (int i = 0; i < case_sep_len; i += 1) tap_code16(KC_BSPC);
+        multi_tap(KC_BSPC, case_sep_len);
         return false;
     }
 

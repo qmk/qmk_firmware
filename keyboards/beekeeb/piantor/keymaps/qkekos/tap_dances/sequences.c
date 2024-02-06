@@ -172,20 +172,12 @@ void md_td(tap_dance_state_t *state, void *user_data) {
     sequence_td(
         {
             send_lang_independant_string("[](<>)");
-
-            execute_without_mods(
-                for (int i = 0; i < 5; i += 1)
-                    tap_code16(KC_LEFT);
-            );
+            execute_without_mods(multi_tap(KC_LEFT, 5));
         },
 
         {
             send_lang_independant_string("[]()");
-
-            execute_without_mods(
-                for (int i = 0; i < 3; i += 1)
-                    tap_code16(KC_LEFT);
-            );
+            execute_without_mods(multi_tap(KC_LEFT, 3));
         },
 
         ,

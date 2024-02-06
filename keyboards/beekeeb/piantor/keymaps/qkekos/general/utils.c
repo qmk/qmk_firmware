@@ -26,3 +26,8 @@ uint16_t normalize_keycode(uint16_t keycode) {
 
     return keycode;
 }
+
+void multi_tap(uint16_t keycode, int count) {
+    for (int i = 0; i < count; i += 1)
+        tap_code16(keycode);
+}

@@ -7,9 +7,7 @@ enum language_modes language_mode = TRIPPLE;
 void cycle_language(int swaps_count, enum languages new_lang) {
     bool do_invert = current_lang == ENG || new_lang == ENG;
 
-    for (int i = 0; i < swaps_count; i += 1)
-        tap_code16(A(KC_LSFT));
-
+    multi_tap(A(KC_LSFT), swaps_count);
     current_lang = new_lang;
 
     if (do_invert)
