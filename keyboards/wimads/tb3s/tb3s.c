@@ -23,11 +23,11 @@
 #include <string.h>
 
 #    ifndef CHARYBDIS_MINIMUM_DEFAULT_DPI
-#        define CHARYBDIS_MINIMUM_DEFAULT_DPI 100
+#        define CHARYBDIS_MINIMUM_DEFAULT_DPI 300
 #    endif // CHARYBDIS_MINIMUM_DEFAULT_DPI
 
 #    ifndef CHARYBDIS_DEFAULT_DPI_CONFIG_STEP
-#        define CHARYBDIS_DEFAULT_DPI_CONFIG_STEP 100
+#        define CHARYBDIS_DEFAULT_DPI_CONFIG_STEP 200
 #    endif // CHARYBDIS_DEFAULT_DPI_CONFIG_STEP
 
 #    ifndef CHARYBDIS_MINIMUM_SNIPING_DPI
@@ -39,17 +39,16 @@
 #    endif // CHARYBDIS_SNIPING_DPI_CONFIG_STEP
 
 #    ifndef CHARYBDIS_DRAGSCROLL_DPI
-#        define CHARYBDIS_DRAGSCROLL_DPI CHARYBDIS_MINIMUM_DEFAULT_DPI
+#        define CHARYBDIS_DRAGSCROLL_DPI 100
 #    endif // CHARYBDIS_DRAGSCROLL_DPI
 
-#include "maccel.c"
 typedef union {
     uint8_t raw;
     struct {
-        uint8_t pointer_default_dpi : 3; // 16 steps available.
-        uint8_t pointer_sniping_dpi : 1; // 4 steps available.
-        bool    is_dragscroll_enabled : 1;
-        bool    is_sniping_enabled : 1;
+        uint8_t  pointer_default_dpi : 2; // 16 steps available.
+        uint8_t  pointer_sniping_dpi : 1; // 4 steps available.
+        bool     is_dragscroll_enabled : 1;
+        bool     is_sniping_enabled : 1;
     } __attribute__((packed));
 } charybdis_config_t;
 

@@ -20,6 +20,7 @@
  * Add layer for EEPROM stuff in place of snipe
 */
 #include QMK_KEYBOARD_H
+#include "maccel.c"
 
 enum layers {
    _DEF,
@@ -40,6 +41,10 @@ enum layers {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_DEF] = LAYOUT(RMB,    DRTGSCR,  LMB),
     [_QMK] = LAYOUT(EE_CLR, DPI_RMOD, DPI_MOD)
+};
+
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    return pointing_device_task_maccel(mouse_report);
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
