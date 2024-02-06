@@ -18,8 +18,8 @@
 
 |キー                   |エイリアス                    |説明                                     |Windows      |macOS        |Linux<sup>1</sup>|
 |-----------------------|------------------------------|-----------------------------------------|-------------|-------------|-----------------|
-|`KC_NO`                |`XXXXXXX`                     |このキーを無視します (何もしません) 。   |*N/A*        |*N/A*        |*N/A*            |
-|`KC_TRANSPARENT`       |`KC_TRNS`, `_______`          | 次に低いレイヤーの非透過キーを使う      |*N/A*        |*N/A*        |*N/A*            |
+|`KC_NO`                |`XXXXXXX`                     |このキーを無視します (何もしません) 。      |*N/A*        |*N/A*        |*N/A*            |
+|`KC_TRANSPARENT`       |`KC_TRNS`, `_______`          | 次に低いレイヤーの非透過キーを使う         |*N/A*        |*N/A*        |*N/A*            |
 |`KC_A`                 |                              |`a` と `A`                               |✔           |✔            |✔                |
 |`KC_B`                 |                              |`b` と `B`                               |✔           |✔            |✔                |
 |`KC_C`                 |                              |`c` と `C`                               |✔           |✔            |✔                |
@@ -69,11 +69,11 @@
 |`KC_NONUS_HASH`        |`KC_NUHS`                     |Non-US `#` と `~`                       |✔           |✔            |✔                |
 |`KC_SCOLON`            |`KC_SCLN`                     |`;` と `:`                               |✔           |✔            |✔                |
 |`KC_QUOTE`             |`KC_QUOT`                     |`'` と `"`                               |✔           |✔            |✔                |
-|`KC_GRAVE`             |`KC_GRV`, `KC_ZKHK`           |<code>&#96;</code> と `~`, JIS 全角/半角 |✔           |✔            |✔                |
+|`KC_GRAVE`             |`KC_GRV`                      |<code>&#96;</code> と `~`, JIS 全角/半角 |✔           |✔            |✔                |
 |`KC_COMMA`             |`KC_COMM`                     |`,` と `<`                               |✔           |✔            |✔                |
 |`KC_DOT`               |                              |`.` と `>`                               |✔           |✔            |✔                |
 |`KC_SLASH`             |`KC_SLSH`                     |`/` と `?`                               |✔           |✔            |✔                |
-|`KC_CAPSLOCK`          |`KC_CLCK`, `KC_CAPS`          |Caps Lock                                |✔           |✔            |✔                |
+|`KC_CAPS_LOCK`         |`KC_CAPS`                     |Caps Lock                                |✔           |✔            |✔                |
 |`KC_F1`                |                              |F1                                       |✔           |✔            |✔                |
 |`KC_F2`                |                              |F2                                       |✔           |✔            |✔                |
 |`KC_F3`                |                              |F3                                       |✔           |✔            |✔                |
@@ -86,15 +86,15 @@
 |`KC_F10`               |                              |F10                                      |✔           |✔            |✔                |
 |`KC_F11`               |                              |F11                                      |✔           |✔            |✔                |
 |`KC_F12`               |                              |F12                                      |✔           |✔            |✔                |
-|`KC_PSCREEN`           |`KC_PSCR`                     |Print Screen                             |✔           |✔<sup>2</sup>|✔                |
-|`KC_SCROLLLOCK`        |`KC_SCRL`, `KC_BRMD`          |Scroll Lock, 画面の明るさダウン (macOS)   |✔           |✔<sup>2</sup>|✔                |
+|`KC_PRINT_SCREEN`      |`KC_PSCR`                     |Print Screen                             |✔           |✔<sup>2</sup>|✔                |
+|`KC_SCROLL_LOCK`       |`KC_SCRL`, `KC_BRMD`          |Scroll Lock, 画面の明るさダウン (macOS)   |✔           |✔<sup>2</sup>|✔                |
 |`KC_PAUSE`             |`KC_PAUS`, `KC_BRK`, `KC_BRMU`|Pause, 画面の明るさアップ (macOS)         |✔           |✔<sup>2</sup>|✔                |
 |`KC_INSERT`            |`KC_INS`                      |Insert                                   |✔           |             |✔                |
 |`KC_HOME`              |                              |Home                                     |✔           |✔            |✔                |
-|`KC_PGUP`              |                              |Page Up                                  |✔           |✔            |✔                |
+|`KC_PAGE_UP`           |`KC_PGDN`                     |Page Up                                  |✔           |✔            |✔                |
 |`KC_DELETE`            |`KC_DEL`                      |Forward Delete                           |✔           |✔            |✔                |
 |`KC_END`               |                              |End                                      |✔           |✔            |✔                |
-|`KC_PGDOWN`            |`KC_PGDN`                     |Page Down                                |✔           |✔            |✔                |
+|`KC_PAGE_DOWN`         |`KC_PGDN`                     |Page Down                                |✔           |✔            |✔                |
 |`KC_RIGHT`             |`KC_RGHT`                     |右矢印                                   |✔           |✔            |✔                |
 |`KC_LEFT`              |                              |左矢印                                   |✔           |✔            |✔                |
 |`KC_DOWN`              |                              |下矢印                                   |✔           |✔            |✔                |
