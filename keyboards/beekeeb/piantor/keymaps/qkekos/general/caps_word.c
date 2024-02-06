@@ -20,7 +20,7 @@ bool caps_word_press_user(uint16_t keycode) {
         case KC_LBRC:
         case KC_QUOT:
         case KC_SCLN:
-            if (get_highest_layer(layer_state) == STURDY)
+            if (highest_layer == STURDY)
                 return false;
 
             add_weak_mods(MOD_BIT(KC_LSFT));

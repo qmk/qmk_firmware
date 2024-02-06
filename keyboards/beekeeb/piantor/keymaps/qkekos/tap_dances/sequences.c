@@ -132,7 +132,7 @@ void eclp_td(tap_dance_state_t *state, void *user_data) {
         execute_without_mods(delete_line()),
         execute_without_mods(delete_line()),
         {
-            if (get_highest_layer(layer_state) >= NAV) {
+            if (highest_layer >= NAV) {
                 tap_code16(C(S((KC_T))));
             } else {
                 send_lang_independant_string("...");
@@ -143,7 +143,7 @@ void eclp_td(tap_dance_state_t *state, void *user_data) {
         execute_without_mods(delete_line()),
         execute_without_mods(tap_code16(C(KC_V))),
         {
-            if (get_highest_layer(layer_state) >= NAV) {
+            if (highest_layer >= NAV) {
                 tap_code16(C(S((KC_T))));
             } else {
                 send_lang_independant_string("...");
@@ -154,7 +154,7 @@ void eclp_td(tap_dance_state_t *state, void *user_data) {
         execute_without_mods(copy_line()),
         execute_without_mods(delete_line()),
         {
-            if (get_highest_layer(layer_state) >= NAV) {
+            if (highest_layer >= NAV) {
                 tap_code16(C(S((KC_T))));
             } else {
                 send_lang_independant_string("...");
