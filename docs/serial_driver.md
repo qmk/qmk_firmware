@@ -78,7 +78,7 @@ Only one GPIO pin is needed for the Half-duplex driver, as only one wire is used
 
 ### Setup
 
-To use the Half-duplex driver follow these steps to activate it. If you target the Raspberry Pi RP2040 PIO implementation, start at step 1a.
+To use the Half-duplex driver follow these steps to activate it. If you target the Raspberry Pi RP2040 PIO implementation, start at step 2.
 
 1. Change the `SERIAL_DRIVER` to `usart` in your keyboards `rules.mk` file:
 
@@ -86,13 +86,15 @@ To use the Half-duplex driver follow these steps to activate it. If you target t
 SERIAL_DRIVER = usart
 ```
 
-1a. (RP2040 + PIO only!) Change the `SERIAL_DRIVER` to `vendor` in your keyboards `rules.mk` file:
+Skip to step 3.
+
+2. (RP2040 + PIO only!) Change the `SERIAL_DRIVER` to `vendor` in your keyboards `rules.mk` file:
 
 ```make
 SERIAL_DRIVER = vendor
 ```
 
-2. Configure the hardware of your keyboard via the `config.h` file:
+3. Configure the hardware of your keyboard via the `config.h` file:
 
 ```c
 #define SERIAL_USART_TX_PIN B6     // The GPIO pin that is used split communication.
@@ -105,7 +107,7 @@ For STM32 MCUs several GPIO configuration options can be changed as well. See th
 #define SERIAL_USART_TX_PAL_MODE 7 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
 ```
 
-3. Decide either for `SERIAL`, `SIO`, or `PIO` subsystem. See section ["Choosing a driver subsystem"](#choosing-a-driver-subsystem).
+4. Decide either for `SERIAL`, `SIO`, or `PIO` subsystem. See section ["Choosing a driver subsystem"](#choosing-a-driver-subsystem).
 
 <hr>
 
@@ -135,7 +137,7 @@ To use this driver the USART peripherals `TX` and `RX` pins must be configured w
 
 ### Setup
 
-To use the Full-duplex driver follow these steps to activate it. If you target the Raspberry Pi RP2040 PIO implementation, start at step 1a.
+To use the Full-duplex driver follow these steps to activate it. If you target the Raspberry Pi RP2040 PIO implementation, start at step 2
 
 1. Change the `SERIAL_DRIVER` to `usart` in your keyboards `rules.mk` file:
 
@@ -143,13 +145,15 @@ To use the Full-duplex driver follow these steps to activate it. If you target t
 SERIAL_DRIVER = usart
 ```
 
-1a. (RP2040 + PIO only!) Change the `SERIAL_DRIVER` to `vendor` in your keyboards `rules.mk` file:
+Skip to step 3
+
+2. (RP2040 + PIO only!) Change the `SERIAL_DRIVER` to `vendor` in your keyboards `rules.mk` file:
 
 ```make
 SERIAL_DRIVER = vendor
 ```
 
-2. Configure the hardware of your keyboard via the `config.h` file:
+3. Configure the hardware of your keyboard via the `config.h` file:
 
 ```c
 #define SERIAL_USART_FULL_DUPLEX   // Enable full duplex operation mode.
@@ -165,7 +169,7 @@ For STM32 MCUs several GPIO configuration options, including the ability for `TX
 #define SERIAL_USART_TX_PAL_MODE 7 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
 ```
 
-3. Decide either for `SERIAL`, `SIO` or `PIO` subsystem. See section ["Choosing a driver subsystem"](#choosing-a-driver-subsystem).
+4. Decide either for `SERIAL`, `SIO` or `PIO` subsystem. See section ["Choosing a driver subsystem"](#choosing-a-driver-subsystem).
 
 <hr>
 
