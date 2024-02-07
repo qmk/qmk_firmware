@@ -5,6 +5,7 @@ void process_rep_key(void) {
     switch (queue(-3)) {
         triple_magic_case(KC_A,   KC_N, KC_Y, "way");
         triple_magic_case(KC_SPC, KC_A, KC_B, "out");
+        triple_magic_case(KC_C,   KC_A, KC_P, "able");
     }
 
     switch (queue(-2)) {
