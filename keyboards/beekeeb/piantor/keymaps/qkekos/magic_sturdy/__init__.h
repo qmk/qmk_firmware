@@ -6,45 +6,45 @@
 #include "magic_key.h"
 #include "rep_key.h"
 
+#define single_queue_check(p_key) queue(-1) == p_key
+#define double_queue_check(pp_key, p_key) queue(-2) == pp_key && single_queue_check(p_key)
+#define tripple_queue_check(ppp_key, pp_key, p_key) queue(-3) == ppp_key && double_queue_check(pp_key, p_key)
+#define quadruple_queue_check(pppp_key, ppp_key, pp_key, p_key) queue(-4) == pppp_key && tripple_queue_check(ppp_key, pp_key, p_key)
+
+#define magic_case_core(trigger, condition, supplement) \
+    case trigger: \
+        if (condition) { \
+            record_send_string(supplement); \
+            return; \
+        } \
+        break
+
+#define magic_switch_core(trigger, body, index) \
+    case trigger: \
+        switch (queue(index)) { \
+            body \
+        } \
+        break
+
 #define magic_case(trigger, supplement) \
     case trigger: \
         record_send_string(supplement); \
         return
 
 #define double_magic_switch(trigger, body) \
-    case trigger: \
-        switch (queue(-1)) { \
-            body \
-        } \
-        break
-
-#define double_magic_case(trigger, p_key, supplement) \
-    case trigger: \
-        if (queue(-1) == p_key) { \
-            record_send_string(supplement); \
-            return; \
-        } \
-        break
+    magic_switch_core(trigger, body, -1)
 
 #define triple_magic_switch(trigger, body) \
-    case trigger: \
-        switch (queue(-2)) { \
-            body \
-        } \
-        break
+    magic_switch_core(trigger, body, -2)
+
+#define double_magic_case(trigger, p_key, supplement) \
+    magic_case_core(trigger, single_queue_check(p_key), supplement)
 
 #define triple_magic_case(trigger, pp_key, p_key, supplement) \
-    case trigger: \
-        if (queue(-2) == pp_key && queue(-1) == p_key) { \
-            record_send_string(supplement); \
-            return; \
-        } \
-        break
+    magic_case_core(trigger, double_queue_check(pp_key, p_key), supplement)
 
 #define quadruple_magic_case(trigger, ppp_key, pp_key, p_key, supplement) \
-    case trigger: \
-        if (queue(-3) == ppp_key && queue(-2) == pp_key && queue(-1) == p_key) { \
-            record_send_string(supplement); \
-            return; \
-        } \
-        break
+    magic_case_core(trigger, tripple_queue_check(ppp_key, pp_key, p_key), supplement)
+
+#define quintiple_magic_case(trigger, pppp_key, ppp_key, pp_key, p_key, supplement) \
+    magic_case_core(trigger, quadruple_queue_check(pppp_key, ppp_key, pp_key, p_key), supplement)
