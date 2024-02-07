@@ -96,6 +96,7 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* mods
 
 bool sturdy_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
     *return_value = false;
+    int prev_key_time = last_key_pressed_time;
 
     if (record->event.pressed) {
         if (keycode != US_REP && keycode != US_AREP) {
@@ -132,6 +133,19 @@ bool sturdy_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
             }
 
             return false;
+
+        case KC_B:
+            if (
+                !record->event.pressed ||
+                highest_layer != STURDY ||
+                queue(-2) != KC_B ||
+                timer_elapsed(prev_key_time) > get_tapping_term(KC_B, NULL)
+            ) return false;
+
+            dequeue();
+            process_magic_key();
+
+            return true;
     }
 
     return false;
