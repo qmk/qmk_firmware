@@ -76,6 +76,7 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* mods
         case TD_DQT:
         case KC_TAB:
         case TD_BSLS:
+        case TD_UNDS:
         case US_CLER:
         case HK_RMWR:
             keycode = KC_SPC;
