@@ -25,6 +25,6 @@ void process_rep_key(void) {
         magic_case(KC_J,   "oin");
         magic_case(KC_SPC, "for");
         magic_case(KC_W,   "ould");
-        default: tap_code16(queue(-1));
+        default: tap_code16(queue(-1)); enqueue(queue(-1));
     }
 }
