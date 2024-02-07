@@ -169,7 +169,7 @@ For STM32 MCUs several GPIO configuration options, including the ability for `TX
 #define SERIAL_USART_TX_PAL_MODE 7 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
 ```
 
-4. Decide either for `SERIAL`, `SIO` or `PIO` subsystem. See section ["Choosing a driver subsystem"](#choosing-a-driver-subsystem).
+4. Decide either for `SERIAL`, `SIO`, or `PIO` subsystem. See section ["Choosing a driver subsystem"](#choosing-a-driver-subsystem).
 
 <hr>
 
