@@ -31,6 +31,9 @@
 #define ONESHOT_TAP_TOGGLE 2  /* Tapping this number of times holds the key until tapped once again. */
 #define ONESHOT_TIMEOUT 5000  /* Time (in ms) before the one shot key is released */
 
+#define ENCODERS_PAD_A { GP26 }
+#define ENCODERS_PAD_B { GP22 }
+
 /*#undef I2C_DRIVER
 /*#define I2C_DRIVER I2CD0
 /*#undef I2C1_SCL_PIN
