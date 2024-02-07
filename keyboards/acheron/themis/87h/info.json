@@ -8,9 +8,11 @@
         "cols": ["A8" ,"C9" ,"C8" ,"B14","B12","B10","B1" ,"B0" ,"A7" ,"A6" ,"A5" ,"A4" ,"C5" ,"C7" ,"B3" ,"A2" ,"C12","D2" ],
         "rows": ["A15","A10","C6" ,"C4" ,"A3" ,"A1" ,"C11","C10","B4"]
     },
+    "build": {
+        "lto": true
+    },
     "features": {
         "bootmagic": true,
-        "lto":       true,
         "mousekey":  true,
         "extrakey":  true,
         "console":   false,
@@ -25,6 +27,9 @@
         "wear_leveling": {
             "backing_size": 8192
         }
+    },
+    "rgblight": {
+        "led_count": 1
     },
     "ws2812": {
         "pin": "B15"

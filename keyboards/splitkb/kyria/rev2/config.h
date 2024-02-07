@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Side detection
 // col 4 row 3 on right-hand-side
 #define SPLIT_HAND_MATRIX_GRID E6, B3 // row first because the board is col2row
-#define SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
 #define MATRIX_MASKED // actual mask is defined by `matrix_mask` in `rev2.c`
 
 /*
@@ -50,13 +49,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef OLED_ENABLE
 #    define OLED_DISPLAY_128X64
 #    define SPLIT_OLED_ENABLE
-#endif
-
-/* RGB matrix support */
-#ifdef RGB_MATRIX_ENABLE
-#    define SPLIT_TRANSPORT_MIRROR
-#    define RGB_MATRIX_LED_COUNT 20 // Number of LEDs
-#    define RGB_MATRIX_SPLIT { 10, 10 }
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 170
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED
 #endif

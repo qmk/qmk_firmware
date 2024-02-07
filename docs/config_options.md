@@ -223,7 +223,7 @@ If you define these options you will enable the associated feature, which may in
   * Adds ability to [blink](feature_rgblight.md?id=lighting-layer-blink) a lighting layer for a specified number of milliseconds (e.g. to acknowledge an action).
 * `#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF`
   * If defined, then [lighting layers](feature_rgblight?id=overriding-rgb-lighting-onoff-status) will be shown even if RGB Light is off.
-* `#define RGBLED_NUM 12`
+* `#define RGBLIGHT_LED_COUNT 12`
   * number of LEDs
 * `#define RGBLIGHT_SPLIT`
   * Needed if both halves of the board have RGB LEDs wired directly to the RGB output pin on the controllers instead of passing the output of the left half to the input of the right half
@@ -275,7 +275,7 @@ There are a few different ways to set handedness for split keyboards (listed in 
   * For using high/low pin to determine handedness, low = right hand, high = left hand. Replace `B7` with the pin you are using. This is optional, and if you leave `SPLIT_HAND_PIN` undefined, then you can still use the EE_HANDS method or MASTER_LEFT / MASTER_RIGHT defines like the stock Let's Split uses.
 
 * `#define SPLIT_HAND_MATRIX_GRID <out_pin>,<in_pin>`
-  * The handedness is determined by using the intersection of the keyswitches in the key matrix, which does not exist. Normally, when this intersection is shorted (level low), it is considered left. If you define `#define SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT`, it is determined to be right when the level is low.
+  * The handedness is determined by using the intersection of the keyswitches in the key matrix, which does not exist. Normally, when this intersection is shorted (level low), it is considered right. If you define `#define SPLIT_HAND_MATRIX_GRID_LOW_IS_LEFT`, it is determined to be left when the level is low.
 
 * `#define EE_HANDS` (only works if `SPLIT_HAND_PIN` and `SPLIT_HAND_MATRIX_GRID` are not defined)
   * Reads the handedness value stored in the EEPROM after `eeprom-lefthand.eep`/`eeprom-righthand.eep` has been flashed to their respective halves.
