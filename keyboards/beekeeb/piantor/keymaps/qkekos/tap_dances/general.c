@@ -27,7 +27,7 @@ void num_td(enum td_actions action) {
 }
 
 void lang_td(enum td_actions action) {
-    if (language_mode == TRIPPLE) {
+    if (language_mode == TRIPLE) {
         tap_hold_case(
             tri_tap_actions[current_lang](),
             tri_hold_actions[current_lang]()

@@ -2,7 +2,7 @@
 #include "../__init__.h"
 
 enum languages current_lang = ENG;
-enum language_modes language_mode = TRIPPLE;
+enum language_modes language_mode = TRIPLE;
 
 void cycle_language(int swaps_count, enum languages new_lang) {
     bool do_invert = current_lang == ENG || new_lang == ENG;

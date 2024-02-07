@@ -14,5 +14,5 @@ enum languages {
 
 enum language_modes {
     DOUBLE,
-    TRIPPLE
+    TRIPLE
 };
