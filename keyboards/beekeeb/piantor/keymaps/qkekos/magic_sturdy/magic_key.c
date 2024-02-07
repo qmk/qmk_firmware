@@ -14,12 +14,15 @@ void process_magic_key(void) {
         }
     }
 
+    switch(queue(-5)) {
+        quintiple_magic_case(KC_O, KC_C, KC_R, KC_A, KC_C, "y");
+    }
+
     switch (queue(-4)) {
         quadruple_magic_case(KC_O,   KC_L, KC_I, KC_C, "y");
         quadruple_magic_case(KC_U,   KC_R, KC_A, KC_C, "y");
         quadruple_magic_case(KC_R,   KC_M, KC_A, KC_C, "y");
         quadruple_magic_case(KC_SPC, KC_R, KC_E, KC_C, "y");
-        quadruple_magic_case(KC_C,   KC_R, KC_A, KC_C, "y");
     }
 
     switch (queue(-3)) {
