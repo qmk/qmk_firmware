@@ -49,13 +49,19 @@ void print_queue(void) {
 
     for (int i = 0; i < PREV_KEYS_QUEUE_SIZE - 1; i += 1)
         uprintf("%d, ", prev_keys_queue[i]);
+
+    uprintf("\n");
 }
 
 bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* mods) {
     keycode = normalize_keycode(keycode);
 
-    if (keycode == KC_BSPC)
-        dequeue();
+    switch (keycode) {
+        case KC_BSPC:
+        case KC_LEFT:
+            dequeue();
+            return false;
+    }
 
     if (
         (*mods & MOD_MASK_CTRL) &&
@@ -75,7 +81,6 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* mods
 
     switch (keycode) {
         case US_REP:
-        case KC_BSPC:
         case US_AREP:
             return false;
 
@@ -85,6 +90,7 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* mods
     }
 
     enqueue(keycode);
+    print_queue();
     return true;
 }
 
