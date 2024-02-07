@@ -31,7 +31,7 @@ This is the Default driver, absence of configuration assumes this driver. It wor
 +-------+                 +-------+
 ```
 
-One GPIO pin is needed for the bitbang driver, as only one wire is used for receiving and transmitting data. This pin is referred to as the `SOFT_SERIAL_PIN` (SSP) in the configuration. A simple TRS or USB cable provides enough conductors for this driver to function. 
+One GPIO pin is needed for the bitbang driver, as only one wire is used for receiving and transmitting data. This pin is referred to as the `SOFT_SERIAL_PIN` (SSP) in the configuration. A TRS or USB cable provides enough conductors for this driver to function. 
 
 ### Setup
 
