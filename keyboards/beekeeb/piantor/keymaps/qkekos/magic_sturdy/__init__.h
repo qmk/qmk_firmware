@@ -46,5 +46,5 @@
 #define quadruple_magic_case(trigger, ppp_key, pp_key, p_key, supplement) \
     magic_case_core(trigger, triple_queue_check(ppp_key, pp_key, p_key), supplement)
 
-#define quintiple_magic_case(trigger, pppp_key, ppp_key, pp_key, p_key, supplement) \
+#define quintuple_magic_case(trigger, pppp_key, ppp_key, pp_key, p_key, supplement) \
     magic_case_core(trigger, quadruple_queue_check(pppp_key, ppp_key, pp_key, p_key), supplement)
