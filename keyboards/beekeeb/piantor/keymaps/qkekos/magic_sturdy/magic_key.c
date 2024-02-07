@@ -107,6 +107,7 @@ void process_magic_key(void) {
             magic_case(KC_L, "y");
             magic_case(KC_A, "ge");
             magic_case(KC_E, "ople");
+            magic_case(KC_R, "evious");
         );
 
         double_magic_case(KC_I, KC_C, "k");
