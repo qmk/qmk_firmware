@@ -58,16 +58,16 @@ void process_magic_key(void) {
             double_magic_case(KC_U, KC_D, "get");
         );
 
-        triple_magic_switch(KC_R,
-            double_magic_case(KC_I, KC_D, "ge");
-            double_magic_case(KC_E, KC_D, "ge");
-        );
-
         triple_magic_switch(KC_V,
             double_magic_switch(KC_A,
                 magic_case(KC_C, "y");
                 magic_case(KC_R, "ious");
             );
+        );
+
+        triple_magic_switch(KC_R,
+            double_magic_case(KC_I, KC_D, "ge");
+            double_magic_case(KC_E, KC_D, "ge");
         );
 
         triple_magic_switch(KC_S,
