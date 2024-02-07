@@ -63,11 +63,21 @@ void process_magic_key(void) {
             double_magic_case(KC_E, KC_D, "ge");
         );
 
-        triple_magic_case(KC_V, KC_A, KC_C, "y");
+        triple_magic_switch(KC_V,
+            double_magic_switch(KC_A,
+                magic_case(KC_C, "y");
+                magic_case(KC_R, "ious");
+            );
+        );
+
+        triple_magic_switch(KC_S,
+            double_magic_case(KC_Y, KC_S, "tem");
+            double_magic_case(KC_E, KC_R, "ious");
+        );
+
         triple_magic_case(KC_G, KC_A, KC_C, "y");
         triple_magic_case(KC_J, KC_U, KC_D, "g");
         triple_magic_case(KC_L, KC_E, KC_D, "ge");
-        triple_magic_case(KC_S, KC_Y, KC_S, "tem");
         triple_magic_case(KC_O, KC_B, KC_V, "ious");
     }
 
