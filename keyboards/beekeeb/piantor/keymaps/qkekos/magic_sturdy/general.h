@@ -7,6 +7,7 @@
 
 bool sturdy_pr(uint16_t keycode, keyrecord_t *record, bool *return_value);
 bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* mods);
+bool process_double_tap(uint16_t keycode, keyrecord_t *record);
 void record_send_string(const char *str);
 void enqueue(int keycode);
 void dequeue(void);

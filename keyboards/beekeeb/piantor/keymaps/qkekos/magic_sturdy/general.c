@@ -4,6 +4,8 @@
 int rep_key_count = 0;
 int alt_rep_key_count = 0;
 int last_key_pressed_time = 0;
+int prev_key_time;
+
 int prev_keys_queue[PREV_KEYS_QUEUE_SIZE] = {KC_NO};
 deferred_token magic_timeout_token = INVALID_DEFERRED_TOKEN;
 
@@ -96,7 +98,7 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* mods
 
 bool sturdy_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
     *return_value = false;
-    int prev_key_time = last_key_pressed_time;
+    prev_key_time = last_key_pressed_time;
 
     if (record->event.pressed) {
         if (keycode != US_REP && keycode != US_AREP) {
@@ -125,28 +127,31 @@ bool sturdy_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
             return true;
 
         case SMT_N:
-            if (record->tap.count == 2) {
-                if (record->event.pressed)
-                    process_magic_key();
+            if (record->tap.count != 2) return false;
 
-                return true;
-            }
-
-            return false;
-
-        case KC_B:
-            if (
-                !record->event.pressed ||
-                highest_layer != STURDY ||
-                queue(-2) != KC_B ||
-                timer_elapsed(prev_key_time) > get_tapping_term(KC_B, NULL)
-            ) return false;
-
-            dequeue();
-            process_magic_key();
+            if (record->event.pressed)
+                process_magic_key();
 
             return true;
+
+        case KC_B:
+        case KC_Z:
+            return process_double_tap(keycode, record);
     }
 
     return false;
+}
+
+bool process_double_tap(uint16_t keycode, keyrecord_t *record) {
+    if (
+        !record->event.pressed ||
+        highest_layer != STURDY ||
+        queue(-2) != keycode ||
+        timer_elapsed(prev_key_time) > get_tapping_term(keycode, NULL)
+    ) return false;
+
+    dequeue();
+    process_magic_key();
+
+    return true;
 }
