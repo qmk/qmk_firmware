@@ -9,6 +9,7 @@ void process_magic_key(void) {
         }
 
         switch (queue(-3)) {
+            triple_magic_case(KC_M, KC_P, KC_L, "y");
             triple_magic_case(KC_Q, KC_U, KC_E, "ue");
             default: SEND_STRING("n"); return;
         }
@@ -102,6 +103,11 @@ void process_magic_key(void) {
             magic_case(KC_P, "date");
         );
 
+        double_magic_switch(KC_P,
+            magic_case(KC_L, "y");
+            magic_case(KC_E, "ople");
+        );
+
         double_magic_case(KC_I, KC_C, "k");
         double_magic_case(KC_C, KC_Y, "c");
         double_magic_case(KC_A, KC_C, "k");
@@ -110,7 +116,6 @@ void process_magic_key(void) {
         double_magic_case(KC_B, KC_E, "en");
         double_magic_case(KC_S, KC_O, "me");
         double_magic_case(KC_L, KC_I, "st");
-        double_magic_case(KC_P, KC_E, "ople");
     }
 
     switch (queue(-1)) {
