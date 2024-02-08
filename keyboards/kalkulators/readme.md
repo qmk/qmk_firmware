@@ -19,15 +19,15 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 * **To decrese display brightness**: 
 
-- Tap "Delete" and "Divide" buttons in unison.
+    Tap "Delete" and "Divide" buttons in unison.
 
 * **To increase display brightness**: 
 
-- Tap "Delete" and "*" buttons in unison.
+    Tap "Delete" and "*" buttons in unison.
 
 * **To switch between calculator and numpad mode when connected to a host computer**: 
 
-- Tap "+" and "-" buttons in unison.
+    Tap "+" and "-" buttons in unison.
 
 ## Bootloader
 
