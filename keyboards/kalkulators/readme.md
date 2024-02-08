@@ -1,11 +1,11 @@
 # kalkulators
 
-![kalkulators](https://imgur.com/a/VdijoMC)
+![kalkulators](https://i.imgur.com/i3iX4gc.jpeg)
 
 An 8 digit 7-segment display calculator and numpad. 
 USB-C, STM32F072, TM1638 LED controller, 1xAA battery.
 
-*When editing layers through keymap or VIA, do not delte/edit the 1st layer, it is needed for the calculator functionality!*
+**When editing layers through keymap or VIA, do not delete/edit the 1st layer, it is needed for the calculator functionality!**
 
 * Keyboard Maintainer: [georgsnarbuts](https://github.com/georgsnarbuts)
 
@@ -17,11 +17,17 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Combos
 
-To decrese display brightness: Tap "Delete" and "Divide" buttons in unison.
+* **To decrese display brightness**: 
 
-To increase display brightness: Tap "Delete" and "*" buttons in unison.
+Tap "Delete" and "Divide" buttons in unison.
 
-To switch between calculator and numpad mode when connected to a host computer: Tap "+" and "-" buttons in unison.
+* **To increase display brightness**: 
+
+Tap "Delete" and "*" buttons in unison.
+
+* **To switch between calculator and numpad mode when connected to a host computer**: 
+
+Tap "+" and "-" buttons in unison.
 
 ## Bootloader
 
