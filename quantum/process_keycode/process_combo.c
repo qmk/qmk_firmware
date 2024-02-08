@@ -270,7 +270,7 @@ static inline void dump_key_buffer(void) {
     } while (0)
 
 static inline void _find_key_index_and_count(const uint16_t *keys, uint16_t keycode, uint16_t *key_index, uint8_t *key_count) {
-#ifdef COMBO_IGNORE_MOD_TAP
+#ifdef COMBO_USE_BASIC_KEYCODE
     switch (keycode) {
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
             keycode = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
@@ -279,7 +279,7 @@ static inline void _find_key_index_and_count(const uint16_t *keys, uint16_t keyc
             keycode = QK_LAYER_TAP_GET_TAP_KEYCODE(keycode);
             break;
     }
-#endif /* ifdef COMBO_IGNORE_MOD_TAP */
+#endif /* ifdef COMBO_USE_BASIC_KEYCODE */
     while (true) {
         uint16_t key = pgm_read_word(&keys[*key_count]);
         if (keycode == key) *key_index = *key_count;
