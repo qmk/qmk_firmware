@@ -149,7 +149,7 @@ bool process_double_tap(uint16_t keycode, keyrecord_t *record) {
         !record->event.pressed ||
         highest_layer != STURDY ||
         queue(-2) != keycode ||
-        timer_elapsed(prev_key_time) > get_tapping_term(keycode, NULL)
+        timer_elapsed(prev_key_time) > (get_tapping_term(keycode, NULL) + 50)
     ) return false;
 
     dequeue();
