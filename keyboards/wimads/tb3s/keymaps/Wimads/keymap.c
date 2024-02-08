@@ -15,13 +15,17 @@
  */
 
 ////TO DO////
-/* Undo EE_BOOT
- * Remove snipe
- * Add layer for EEPROM stuff in place of snipe
+/*
 */
 #include QMK_KEYBOARD_H
-#include "maccel.c"
 
+////MOUSE ACCELERATION////
+#include "maccel.c"
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    return pointing_device_task_maccel(mouse_report);
+};
+
+////LAYER & KEYCODE DEFINITIONS////
 enum layers {
    _DEF,
    _QMK,
@@ -43,10 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QMK] = LAYOUT(EE_CLR, DPI_RMOD, DPI_MOD)
 };
 
-report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-    return pointing_device_task_maccel(mouse_report);
-};
-
+////CUSTOM KEY BEHAVIOURS////
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     static bool dragscroll = false; //dragscroll active or not
     static bool drag_toggle = false; //dragscroll was activated via toggle or not

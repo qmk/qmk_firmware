@@ -16,6 +16,7 @@
 
 #pragma once
 
+/* Pointer settings */
 #define ROTATIONAL_TRANSFORM_ANGLE -90
 #define POINTING_DEVICE_INVERT_Y
 
@@ -23,9 +24,6 @@
 
 #undef  POINTING_DEVICE_TASK_THROTTLE_MS
 #define POINTING_DEVICE_TASK_THROTTLE_MS 5 //to tame the buffer-less dragscroll a bit
-
-#undef  PRINTF_SUPPORT_DECIMAL_SPECIFIERS
-#define PRINTF_SUPPORT_DECIMAL_SPECIFIERS 1  //enable floats in debug console
 
 /* PMW3360 Settings */
 #define PMW33XX_LIFTOFF_DISTANCE 0x00
