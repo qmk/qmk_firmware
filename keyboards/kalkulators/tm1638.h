@@ -1,8 +1,6 @@
-#ifndef TM1638_H
-#define TM1638_H
+#pragma once
 
 extern const unsigned char * pFontSevenSegptr;
-
 
 #define TextAlignment "TMAlignTextRight"
 
@@ -40,5 +38,3 @@ void displayTextRightFloat(const char *text);
 void displayIntNum(unsigned long number, bool leadingZeros);
 void displayHex(uint8_t position, uint8_t hex);
 void DisplayDecNumNibble(uint16_t  numberUpper, uint16_t numberLower, bool leadingZeros);
-
-#endif  // TM1638_H

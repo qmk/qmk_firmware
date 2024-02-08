@@ -1,5 +1,4 @@
-#ifndef CALC_H
-#define CALC_H
+#pragma once
 
 void countDigitsAndDecimalPlaces(double input, int *wholeDigits, int *decimalPlaces);
 void reset_states(void);
@@ -14,6 +13,3 @@ void multiply_operation(void);
 void divide_operation(void);
 void clear_operation(void);
 void process_input(double input);
-
-
-#endif
