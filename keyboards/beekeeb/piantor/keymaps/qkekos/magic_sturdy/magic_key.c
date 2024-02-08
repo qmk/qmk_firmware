@@ -63,6 +63,8 @@ void process_magic_key(void) {
                 magic_case(KC_C, "y");
                 magic_case(KC_R, "ious");
             );
+
+            double_magic_case(KC_I, KC_D, "eo");
         );
 
         triple_magic_switch(KC_R,
