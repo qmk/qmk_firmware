@@ -1,6 +1,6 @@
 # kalkulators
 
-![kalkulators](https://i.imgur.com/i3iX4gc.jpeg)
+![kalkulators](https://i.imgur.com/hodQbV1.jpeg)
 
 An 8 digit 7-segment display calculator and numpad. 
 USB-C, STM32F072, TM1638 LED controller, 1xAA battery.
