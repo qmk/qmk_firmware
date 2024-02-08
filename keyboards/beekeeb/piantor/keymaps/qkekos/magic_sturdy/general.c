@@ -137,6 +137,7 @@ bool sturdy_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
 
         case KC_B:
         case KC_Z:
+        case KC_F:
             return process_double_tap(keycode, record);
     }
 

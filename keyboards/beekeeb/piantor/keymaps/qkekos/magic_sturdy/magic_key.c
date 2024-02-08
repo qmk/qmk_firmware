@@ -86,6 +86,7 @@ void process_magic_key(void) {
         triple_magic_case(KC_L, KC_E, KC_D, "ge");
         triple_magic_case(KC_O, KC_B, KC_V, "ious");
         triple_magic_case(KC_H, KC_I, KC_L, "arious");
+        triple_magic_case(KC_D, KC_E, KC_F, "initely");
     }
 
     switch (queue(-2)) {
