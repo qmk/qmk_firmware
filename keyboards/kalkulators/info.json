@@ -1,0 +1,70 @@
+{
+    "manufacturer": "georgsnarbuts",
+    "keyboard_name": "kalkulators",
+    "maintainer": "georgsnarbuts",
+    "bootloader": "stm32-dfu",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "command": true,
+        "console": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "matrix_pins": {
+        "cols": ["A6", "A5", "A4", "A3"],
+        "rows": ["A7", "B0", "A2", "A1", "A0"]
+    },
+    "processor": "STM32F072",
+    "url": "",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x4B4C",
+        "vid": "0x474E"
+    },
+    "layouts": {
+        "LAYOUT_numpad": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+                {"matrix": [1, 3], "x": 3, "y": 1, "h": 2},
+                {"matrix": [3, 0], "x": 0, "y": 3},
+                {"matrix": [3, 1], "x": 1, "y": 3},
+                {"matrix": [3, 2], "x": 2, "y": 3},
+                {"matrix": [4, 0], "x": 0, "y": 4, "w": 2},
+                {"matrix": [4, 2], "x": 2, "y": 4},
+                {"matrix": [3, 3], "x": 3, "y": 3, "h": 2}
+            ]
+        },
+        "LAYOUT_calc": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+                {"matrix": [1, 3], "x": 3, "y": 1, "h": 2},
+                {"matrix": [3, 0], "x": 0, "y": 3},
+                {"matrix": [3, 1], "x": 1, "y": 3},
+                {"matrix": [3, 2], "x": 2, "y": 3},
+                {"matrix": [4, 0], "x": 0, "y": 4, "w": 2},
+                {"matrix": [4, 2], "x": 2, "y": 4},
+                {"matrix": [3, 3], "x": 3, "y": 3, "h": 2}
+            ]
+        }
+    }
+}
