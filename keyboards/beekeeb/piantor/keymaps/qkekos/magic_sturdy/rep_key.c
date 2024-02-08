@@ -3,10 +3,14 @@
 
 void process_rep_key(void) {
     switch (queue(-3)) {
+        triple_magic_switch(KC_D,
+            double_magic_case(KC_E, KC_F, "ault");
+            double_magic_case(KC_I, KC_F, "ficult");
+        );
+
         triple_magic_case(KC_A,   KC_N, KC_Y, "way");
         triple_magic_case(KC_SPC, KC_A, KC_B, "out");
         triple_magic_case(KC_C,   KC_A, KC_P, "able");
-        triple_magic_case(KC_D,   KC_E, KC_F, "ault");
     }
 
     switch (queue(-2)) {
