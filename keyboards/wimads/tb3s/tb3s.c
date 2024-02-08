@@ -23,11 +23,11 @@
 #include <string.h>
 
 #    ifndef CHARYBDIS_MINIMUM_DEFAULT_DPI
-#        define CHARYBDIS_MINIMUM_DEFAULT_DPI 300
+#        define CHARYBDIS_MINIMUM_DEFAULT_DPI 100
 #    endif // CHARYBDIS_MINIMUM_DEFAULT_DPI
 
 #    ifndef CHARYBDIS_DEFAULT_DPI_CONFIG_STEP
-#        define CHARYBDIS_DEFAULT_DPI_CONFIG_STEP 200
+#        define CHARYBDIS_DEFAULT_DPI_CONFIG_STEP 100
 #    endif // CHARYBDIS_DEFAULT_DPI_CONFIG_STEP
 
 #    ifndef CHARYBDIS_MINIMUM_SNIPING_DPI
@@ -43,9 +43,9 @@
 #    endif // CHARYBDIS_DRAGSCROLL_DPI
 
 typedef union {
-    uint8_t raw;
+    uint16_t raw;
     struct {
-        uint8_t  pointer_default_dpi : 2; // 16 steps available.
+        uint8_t  pointer_default_dpi : 7; // 16 steps available.
         uint8_t  pointer_sniping_dpi : 1; // 4 steps available.
         bool     is_dragscroll_enabled : 1;
         bool     is_sniping_enabled : 1;
