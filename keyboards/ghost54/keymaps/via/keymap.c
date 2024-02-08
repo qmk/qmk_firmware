@@ -1,15 +1,12 @@
 /*
  * Copyright 2024 João Silva @https://github.com/Ghost-Spot
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
+ * This is an adaptation of several pieces of code
+ * I found online, starting from a copy of a sofle,
+ * as it as the same layout (minus 2 thumb keys),
+ * an OLED and an encoder, on each half.
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * Use this at your own discretion!
  *
  */
 
@@ -139,9 +136,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 };
 
+/* Behaviour of the ENCODERS  */
+
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (get_highest_layer(layer_state|default_layer_state) == 0) {
-        if (index == 0) {
+        if (index == 0) { // Alt+TAB and Alt+Shift+TAB
             register_code(KC_LALT);
             is_alt_tab_active = true;
             if (clockwise) {
@@ -153,23 +152,54 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             }
             alt_tab_timer = timer_read();
         } else if (index == 1) {
-            if (clockwise) {
-                tap_code(KC_VOLU);
+            if (clockwise) { // Scroll horizontally words
+                tap_code(C(KC_LEFT));
             } else {
-                tap_code(KC_VOLD);
+                tap_code(C(KC_RIGHT));
             }
         }
     } else if (get_highest_layer(layer_state|default_layer_state) == 1) {
-            register_code(KC_LALT);
-            is_alt_tab_active = true;
+        if (index == 0) { // PGUP and PGDN
             if (clockwise) {
-                tap_code(KC_TAB);
+                tap_code(KC_PGDN);
             } else {
-                register_code(KC_LSFT);
-                tap_code(KC_TAB);
-                unregister_code(KC_LSFT); // this fixes the getting stuck problem
+                tap_code(KC_PGUP);
             }
-            alt_tab_timer = timer_read();
+        } else if (index == 1) { // Scroll tabs
+            if (clockwise) {
+                tap_code16(C(KC_TAB));
+            } else {
+                tap_code16(S(C(KC_TAB)));
+            }
+        }
+    } else if (get_highest_layer(layer_state|default_layer_state) == 2) {
+        if (index == 0) { // PGUP and PGDN
+            if (clockwise) {
+                tap_code(KC_PGDN);
+            } else {
+                tap_code(KC_PGUP);
+            }
+        } else if (index == 1) { // Scroll tabs
+            if (clockwise) {
+                tap_code16(C(KC_TAB));
+            } else {
+                tap_code16(S(C(KC_TAB)));
+            }
+        }
+    } else if (get_highest_layer(layer_state|default_layer_state) == 3) {
+        if (index == 0) { // History Scrubbing
+            if (clockwise) {
+                tap_code(C(KC_Y));
+            } else {
+                tap_code(C(KC_Z));
+            }
+        } else if (index == 1) {
+            if (clockwise) { // Volume Control
+                tap_code16(KC_VOLU);
+            } else {
+                tap_code16(KC_VOLD);
+            }
+        }
     }
     return false;
 };
