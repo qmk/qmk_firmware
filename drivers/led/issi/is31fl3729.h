@@ -1,6 +1,6 @@
-/* Copyright 2023 HorrorTroll <https://github.com/HorrorTroll>
- * Copyright 2023 Harrison Chan (Xelus)
- * Copyright 2023 Dimitris Mantzouranis <d3xter93@gmail.com>
+/* Copyright 2024 HorrorTroll <https://github.com/HorrorTroll>
+ * Copyright 2024 Harrison Chan (Xelus)
+ * Copyright 2024 Dimitris Mantzouranis <d3xter93@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -62,7 +62,6 @@ extern const is31fl3729_led_t PROGMEM g_is31fl3729_leds[IS31FL3729_LED_COUNT];
 void is31fl3729_init_drivers(void);
 void is31fl3729_init(uint8_t addr);
 void is31fl3729_write_register(uint8_t addr, uint8_t reg, uint8_t data);
-bool is31fl3729_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
 
 void is31fl3729_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
 void is31fl3729_set_color_all(uint8_t red, uint8_t green, uint8_t blue);

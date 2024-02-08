@@ -1,6 +1,6 @@
-/* Copyright 2023 HorrorTroll <https://github.com/HorrorTroll>
- * Copyright 2023 Harrison Chan (Xelus)
- * Copyright 2023 Dimitris Mantzouranis <d3xter93@gmail.com>
+/* Copyright 2024 HorrorTroll <https://github.com/HorrorTroll>
+ * Copyright 2024 Harrison Chan (Xelus)
+ * Copyright 2024 Dimitris Mantzouranis <d3xter93@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,40 +17,39 @@
  */
 
 #include "is31fl3729-mono.h"
-#include <string.h>
 #include "i2c_master.h"
 #include "wait.h"
 
-// Set defaults for Timeout and Persistence
+#define IS31FL3729_PWM_REGISTER_COUNT 143
+#define IS31FL3729_SCALING_REGISTER_COUNT 16
+
 #ifndef IS31FL3729_I2C_TIMEOUT
 #    define IS31FL3729_I2C_TIMEOUT 100
 #endif
+
 #ifndef IS31FL3729_I2C_PERSISTENCE
 #    define IS31FL3729_I2C_PERSISTENCE 0
 #endif
 
-// Set defaults for Registers
 #ifndef IS31FL3729_CONFIGURATION
 #    define IS31FL3729_CONFIGURATION IS31FL3729_CONFIG_SWS_15_9
 #endif
+
 #ifndef IS31FL3729_GLOBAL_CURRENT
 #    define IS31FL3729_GLOBAL_CURRENT 0x40
 #endif
+
 #ifndef IS31FL3729_PULLDOWNUP
 #    define IS31FL3729_PULLDOWNUP 0x33
 #endif
+
 #ifndef IS31FL3729_SPREAD_SPECTRUM
 #    define IS31FL3729_SPREAD_SPECTRUM IS31FL3729_SSP_DISABLE
 #endif
+
 #ifndef IS31FL3729_PWM_FREQUENCY
 #    define IS31FL3729_PWM_FREQUENCY IS31FL3729_PWM_FREQUENCY_32K_HZ
 #endif
-
-// Set buffer sizes
-#define IS31FL3729_PWM_REGISTER_COUNT 143
-#define IS31FL3729_SCALING_REGISTER_COUNT 16
-
-uint8_t i2c_transfer_buffer[20];
 
 // These buffers match the PWM & scaling registers.
 // Storing them like this is optimal for I2C transfers to the registers.
@@ -61,45 +60,28 @@ uint8_t g_scaling_registers[IS31FL3729_DRIVER_COUNT][IS31FL3729_SCALING_REGISTER
 bool    g_scaling_registers_update_required[IS31FL3729_DRIVER_COUNT] = {false};
 
 void is31fl3729_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
-    // Set register address and register data ready to write
-    i2c_transfer_buffer[0] = reg;
-    i2c_transfer_buffer[1] = data;
-
 #if IS31FL3729_I2C_PERSISTENCE > 0
     for (uint8_t i = 0; i < IS31FL3729_I2C_PERSISTENCE; i++) {
-        if (i2c_transmit(addr << 1, i2c_transfer_buffer, 2, IS31FL3729_I2C_TIMEOUT) == 0) break;
+        if (i2c_write_register(addr << 1, reg, &data, 1, IS31FL3729_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
     }
 #else
-    i2c_transmit(addr << 1, i2c_transfer_buffer, 2, IS31FL3729_I2C_TIMEOUT);
+    i2c_write_register(addr << 1, reg, &data, 1, IS31FL3729_I2C_TIMEOUT);
 #endif
 }
 
-bool is31fl3729_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
-    // iterate over the pwm_buffer contents at IS31FL3729_SCALING_REGISTER_COUNT byte intervals
-    // datasheet does not mention it, but it auto-increments in 15x9 mode, and
-    // hence does not require us to skip any addresses
-    for (int i = 0; i <= IS31FL3729_PWM_REGISTER_COUNT; i += IS31FL3729_SCALING_REGISTER_COUNT) {
-        i2c_transfer_buffer[0] = i;
+void is31fl3729_write_pwm_buffer(uint8_t addr, uint8_t index) {
+    // Transmit PWM registers in 9 transfers of 16 bytes.
 
-        // copy the data from i to i+IS31FL3729_SCALING_REGISTER_COUNT
-        // device will auto-increment register for data after the first byte
-        // thus this sets registers 0x01-0x10, 0x11-0x20, etc. in one transfer
-        memcpy(i2c_transfer_buffer + 1, pwm_buffer + i, IS31FL3729_SCALING_REGISTER_COUNT);
-
+    // Iterate over the pwm_buffer contents at 16 byte intervals.
+    for (uint8_t i = 0; i <= IS31FL3729_PWM_REGISTER_COUNT; i += 16) {
 #if IS31FL3729_I2C_PERSISTENCE > 0
-        for (uint8_t i = 0; i < IS31FL3729_I2C_PERSISTENCE; i++) {
-            if (i2c_transmit(addr << 1, i2c_transfer_buffer, IS31FL3729_SCALING_REGISTER_COUNT + 1, IS31FL3729_I2C_TIMEOUT) != 0) {
-                return false;
-            }
+        for (uint8_t j = 0; j < IS31FL3729_I2C_PERSISTENCE; j++) {
+            if (i2c_write_register(addr << 1, i, g_pwm_buffer[index] + i, 16, IS31FL3729_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
         }
 #else
-        if (i2c_transmit(addr << 1, i2c_transfer_buffer, IS31FL3729_SCALING_REGISTER_COUNT + 1, IS31FL3729_I2C_TIMEOUT) != 0) {
-            return false;
-        }
+        i2c_write_register(addr << 1, i, g_pwm_buffer[index] + i, 16, IS31FL3729_I2C_TIMEOUT);
 #endif
     }
-
-    return true;
 }
 
 void is31fl3729_init_drivers(void) {
@@ -193,7 +175,7 @@ void is31fl3729_set_scaling_register(uint8_t index, uint8_t value) {
 
 void is31fl3729_update_pwm_buffers(uint8_t addr, uint8_t index) {
     if (g_pwm_buffer_update_required[index]) {
-        is31fl3729_write_pwm_buffer(addr, g_pwm_buffer[index]);
+        is31fl3729_write_pwm_buffer(addr, index);
 
         g_pwm_buffer_update_required[index] = false;
     }
@@ -201,7 +183,7 @@ void is31fl3729_update_pwm_buffers(uint8_t addr, uint8_t index) {
 
 void is31fl3729_update_scaling_registers(uint8_t addr, uint8_t index) {
     if (g_scaling_registers_update_required[index]) {
-        for (int i = 0; i < IS31FL3729_SCALING_REGISTER_COUNT; i++) {
+        for (uint8_t i = 0; i < IS31FL3729_SCALING_REGISTER_COUNT; i++) {
             is31fl3729_write_register(addr, IS31FL3729_REG_SCALING + i, g_scaling_registers[index][i]);
         }
 
