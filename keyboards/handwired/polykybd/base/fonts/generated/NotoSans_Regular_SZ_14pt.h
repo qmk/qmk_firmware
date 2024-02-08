@@ -1,0 +1,22 @@
+// fontconvert -f~/repos/noto-sans/NotoSans-Regular.ttf -s14 -v _SZ_ 0x1E9E 0x1E9E 
+// Visualize your font via https://tchapi.github.io/Adafruit-GFX-Font-Customiser
+
+const uint8_t NotoSans_Regular_SZ_14pt16bBitmaps[] PROGMEM = {
+  0x07, 0xC0, 0x1F, 0xF0, 0x3C, 0x78, 0x70, 0x1C, 0x70, 0x0C, 0x60, 0x1C,
+  0xE0, 0x38, 0xE0, 0x70, 0xE0, 0xE0, 0xE1, 0xFC, 0xE1, 0xFE, 0xE0, 0x0F,
+  0xE0, 0x07, 0xE0, 0x03, 0xE0, 0x03, 0xE0, 0x03, 0xE0, 0x07, 0xE4, 0x07,
+  0xE7, 0xFE, 0xE7, 0xFC };
+
+const GFXglyph NotoSans_Regular_SZ_14pt16bGlyphs[] PROGMEM = {
+// bmpOff,   w,   h,xAdv, xOff, yOff      range 0 (0x1e9e - 0x1e9e)
+  {     0,  16,  20,  19,    2,  -19 } }; // 0x1E9E uni1E9E  (#0)
+
+const GFXfont NotoSans_Regular_SZ_14pt16b PROGMEM = {
+  (uint8_t  *)NotoSans_Regular_SZ_14pt16bBitmaps,
+  (GFXglyph *)NotoSans_Regular_SZ_14pt16bGlyphs,
+  0x1E9E, // first
+  0x1E9E, // last
+  37   //height
+ };
+
+// Approx. 54 bytes

@@ -102,6 +102,12 @@ enum my_keycodes {
     ]]]*/
     KC_LANG_EN, KC_LANG_DE, KC_LANG_FR, KC_LANG_ES, KC_LANG_PT, KC_LANG_IT, KC_LANG_TR, KC_LANG_KO, KC_LANG_JA, KC_LANG_AR, KC_LANG_GR,
     //[[[end]]]
+    /*[[[cog
+      for idx in range(10):
+          cog.out(f"KC_LAT{idx}, ")
+    ]]]*/
+    KC_LAT0, KC_LAT1, KC_LAT2, KC_LAT3, KC_LAT4, KC_LAT5, KC_LAT6, KC_LAT7, KC_LAT8, KC_LAT9,
+    //[[[end]]]
 };
 
 struct display_info {
@@ -149,12 +155,11 @@ typedef struct _poly_eeconf_t {
     uint8_t lang;
     uint8_t brightness;
     uint16_t unused;
+    uint8_t latin_ex[26];
 } poly_eeconf_t;
+static uint8_t latin_ex[26];
 
-typedef union _poly_eeconf{
-    uint32_t raw;
-    poly_eeconf_t conf;
-} poly_eeconf;
+_Static_assert(sizeof(poly_eeconf_t) == EECONFIG_USER_DATA_SIZE, "Mismatch in keyboard EECONFIG stored data");
 
 enum flags { STATUS_DISP_ON = 1, IDLE_TRANSITION = 2, DISP_IDLE = 4, DEAD_KEY_ON_WAKEUP = 8};
 typedef struct _poly_sync_t {
@@ -162,6 +167,7 @@ typedef struct _poly_sync_t {
     uint8_t contrast;
     uint8_t flags;
     layer_state_t default_ls;
+    uint16_t last_latin_kc;
     uint16_t checksum;
 } poly_sync_t;
 
@@ -206,19 +212,21 @@ uint16_t fletcher16(const uint8_t *data, int count )
 }
 
 void save_user_eeconf(void) {
-    poly_eeconf ee;
-    ee.conf.lang = g_local.lang;
-    ee.conf.brightness = ~g_local.contrast;
-    ee.conf.unused = 0;
-    eeconfig_update_user(ee.raw);
+    poly_eeconf_t ee;
+    ee.lang = g_local.lang;
+    ee.brightness = ~g_local.contrast;
+    ee.unused = 0;
+    memcpy(ee.latin_ex, latin_ex, sizeof(latin_ex));
+    eeconfig_update_user_datablock(&ee);
 }
 
-poly_eeconf load_user_eeconf(void) {
-    poly_eeconf ee;
-    ee.raw = eeconfig_read_user();
-    ee.conf.brightness = ~ee.conf.brightness;
-    if(ee.conf.brightness>FULL_BRIGHT) {
-        ee.conf.brightness = FULL_BRIGHT;
+poly_eeconf_t load_user_eeconf(void) {
+    poly_eeconf_t ee;
+    eeconfig_read_user_datablock(&ee);
+
+    ee.brightness = ~ee.brightness;
+    if(ee.brightness>FULL_BRIGHT) {
+        ee.brightness = FULL_BRIGHT;
     }
     return ee;
 }
@@ -297,8 +305,8 @@ void sync_and_refresh_displays(void) {
     if (is_usb_host_side()) {
         const bool back_from_idle_transition = (g_local.flags & IDLE_TRANSITION) == 0 && (g_state.s.flags & IDLE_TRANSITION) != 0;
         if (back_from_idle_transition) {
-            poly_eeconf ee   = load_user_eeconf();
-            g_local.contrast = ee.conf.brightness;
+            poly_eeconf_t ee   = load_user_eeconf();
+            g_local.contrast = ee.brightness;
             //request_disp_refresh();
         }
 
@@ -336,7 +344,9 @@ void sync_and_refresh_displays(void) {
             mod_state != g_state.mod_state ||
             layer_state != g_state.layer_state ||
             g_state.s.lang != g_local.lang ||
-            g_state.s.default_ls != g_local.default_ls) {
+            g_state.s.default_ls != g_local.default_ls ||
+            g_state.s.last_latin_kc != g_local.last_latin_kc) {
+            //memcmp(&g_local, &g_state.s, sizeof(poly_sync_t))!=0 //no!
 
             g_state.led_state = led_state;
             g_state.mod_state = mod_state;
@@ -380,9 +390,9 @@ void housekeeping_task_user(void) {
             g_local.flags &= ~IDLE_TRANSITION;
 
             if(elapsed_time_since_update > FADE_OUT_TIME && g_local.contrast >= MIN_BRIGHT && (g_local.flags & DISP_IDLE)==0) {
-                poly_eeconf ee = load_user_eeconf();
+                poly_eeconf_t ee = load_user_eeconf();
                 int32_t time_after = elapsed_time_since_update - FADE_OUT_TIME;
-                int16_t brightness = ((FADE_TRANSITION_TIME - time_after) * ee.conf.brightness) / FADE_TRANSITION_TIME;
+                int16_t brightness = ((FADE_TRANSITION_TIME - time_after) * ee.brightness) / FADE_TRANSITION_TIME;
 
                 //transition to pulsing mode
                 if(brightness<=MIN_BRIGHT) {
@@ -451,7 +461,7 @@ uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    ├────────┼───────┼───────┼───────┼───────┼───────┼───────┼────────╮  ╭────────┼───────┼───────┼───────┼───────┼───────┼───────┼────────┤
    │ Shift  │ Nuhs  │   z   │   x   │   c   │   v   │   b   │  Num!  │  │  Lang  │  Ctx  │   n   │   m   │   ,   │   .   │   /   │ Shift  │
    └┬───────┼───────┼───────┼───────┼──────┬┴───────┼───────┼────────┤  ├────────┼───────┼───────┴┬──────┼───────┼───────┼───────┼───────┬┘
-    │ Ctrl  │  Os   │  Alt  │  Intl │      │  Space │  Del  │   Ret  │  │  Ret   │ BckSp │ Space  │      │ Left  │   Up  │  Down │ Right │
+    │ Ctrl  │  Os   │  Alt  │  Intl │      │  Space │  Del  │   Ins  │  │  Ret   │ BckSp │ Space  │      │ Left  │   Up  │  Down │ Right │
     └───────┴───────┴───────┴───────┘      └────────┴───────┴────────╯  └────────┴───────┴────────┘      └───────┴───────┴───────┴───────┘
 */
 
@@ -460,7 +470,7 @@ uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,     KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       KC_GRAVE,
         MO(_FL1),   KC_A,       KC_S,       KC_D,       KC_F,       KC_G,       KC_QUOTE,   KC_MS_BTN1,
         KC_LSFT,    TO(_EMJ0),   KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       MO(_NL),
-        KC_LCTL,    KC_LWIN,    KC_LALT,    MO(_ADDLANG1),          KC_SPACE,   KC_DEL,     KC_ENTER,
+        KC_LCTL,    KC_LWIN,    KC_LALT,    MO(_ADDLANG1),          KC_SPACE,   KC_DEL,     KC_INS,
 
                     KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,   KC_EQUAL,   KC_HYPR,
                     KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       KC_LBRC,    KC_NUBS,
@@ -640,15 +650,15 @@ uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,      KC_NO,      KC_NO,                  KC_NO,      KC_NO,      KC_NO,      KC_BASE
         ),
     [_ADDLANG1] = LAYOUT_left_right_stacked(
-        _______,    _______,    _______,    _______,    _______,    _______,    _______,
-        _______,    _______,    _______,    _______,    _______,    _______,    _______,
-        _______,    XP(UM_A,UM_AC),   XP(SZ,SZC),    _______,    _______,    _______,    _______,    _______,
+        KC_NO,      KC_NO,      KC_LAT0,    KC_LAT1,    KC_LAT2,    KC_LAT3,    KC_LAT4,
+        KC_NO,      _______,    _______,    _______,    _______,    _______,    _______,
+        KC_NO,      _______,    _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
-        _______,    _______,    _______,    _______,                _______,    _______,    _______,
+        KC_NO,      KC_NO,      _______,    _______,                _______,    _______,    _______,
 
-                    _______,    _______,    _______,    _______,    _______,    _______,     _______,
-                    _______,    XP(UM_U,UM_UC),    _______,    XP(UM_O,UM_OC),    _______,    _______,    _______,
-        _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
+                    KC_LAT5,    KC_LAT6,    KC_LAT7,    KC_LAT8,    KC_LAT9,    KC_NO,      KC_NO,
+                    _______,    _______,    _______,    _______,    _______,    _______,    KC_NO,
+        _______,    _______,    _______,    _______,    _______,    _______,    _______,    KC_NO,
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,                _______,    _______,    _______,    _______
         ),
@@ -731,8 +741,11 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     sheet = wb['named_glyphs']
 
     idx = 0
-    glyph_index = 404
-    glyph_key = sheet["A403"].value
+    glyph_index = 1
+    glyph_key = sheet[f"A{glyph_index}"].value
+    while glyph_key and not glyph_key.startswith("PRIVATE_EMOJI"):
+        glyph_key = sheet[f"A{glyph_index}"].value
+        glyph_index = glyph_index + 1
     while glyph_key and glyph_key.startswith("PRIVATE_EMOJI"):
         cog.outl(f'case UM({idx}): return u" " {glyph_key};')
         glyph_key = sheet[f"A{glyph_index}"].value
@@ -1148,6 +1161,21 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     default:
     {
         bool shift = ((get_mods() & MOD_MASK_SHIFT) != 0);
+        bool add_lang = get_highest_layer(layer_state)==_ADDLANG1;
+        bool alt = ((get_mods() & MOD_MASK_ALT) != 0);
+        if(keycode>=KC_A && keycode<=KC_Z && add_lang) {
+            const uint8_t offset = (shift || state.caps_lock) ? 0 : 26;
+            uint8_t variation = (shift || state.caps_lock) ? latin_ex[keycode-KC_A]>>4 : latin_ex[keycode-KC_A]&0xf;
+
+            const uint16_t* def_variation = latin_ex_map[offset+keycode-KC_A][0];
+            return (def_variation!=NULL) ? latin_ex_map[offset+keycode-KC_A][variation] : NULL;
+        }
+
+        if(keycode>=KC_LAT0 && keycode<=KC_LAT9 && add_lang && alt && g_local.last_latin_kc!=0) {
+            const uint8_t offset = (shift || state.caps_lock) ? 0 : 26;
+            return latin_ex_map[offset+g_local.last_latin_kc-KC_A][keycode-KC_LAT0];
+        }
+
         const uint16_t* text = translate_keycode(g_local.lang, keycode, shift, state.caps_lock);
         if (text != NULL) {
             return text;
@@ -1201,7 +1229,7 @@ void update_displays(enum refresh_mode mode) {
         return;
     }
 
-    uint8_t layer = get_highest_layer(layer_state);
+    //uint8_t layer = get_highest_layer(layer_state);
 
     led_t state = host_keyboard_led_state();
     bool capital_case = ((get_mods() & MOD_MASK_SHIFT) != 0) || state.caps_lock;
@@ -1233,7 +1261,10 @@ void update_displays(enum refresh_mode mode) {
             }
             else {
                 if (disp_idx != 255) {
-                    keycode = keymaps[layer][r + offset][c];
+                    uint8_t layer = get_highest_layer(layer_state);
+                    uint16_t highest_kc = keymaps[layer][r + offset][c];
+                    //if we encounter a transparent key go down one layer (but only one!)
+                    keycode = (highest_kc == KC_TRNS) ? keymaps[get_highest_layer(layer_state&~(1<<layer))][r + offset][c] : highest_kc;
                     kdisp_enable(true);//(g_local.flags&STATUS_DISP_ON) != 0);
                     kdisp_set_contrast(g_local.contrast-1);
                     if(keycode!=KC_TRNS) {
@@ -1338,16 +1369,81 @@ void display_message(uint8_t row, uint8_t col, const uint16_t* message, const GF
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+    const bool addlang = get_highest_layer(layer_state)==_ADDLANG1;
     if (record->event.pressed) {
         switch (keycode) {
-        case QK_BOOTLOADER:
-            uprintf("Enter Bootloader...\n");
-            clear_all_displays();
-            display_message(1, 1, u"BOOT-", &FreeSansBold24pt7b);
-            display_message(3, 0, u"LOADER!", &FreeSansBold24pt7b);
-            break;
+            case QK_BOOTLOADER:
+                uprintf("Enter Bootloader...\n");
+                clear_all_displays();
+                display_message(1, 1, u"BOOT-", &FreeSansBold24pt7b);
+                display_message(3, 0, u"LOADER!", &FreeSansBold24pt7b);
+                return true;
+            case KC_A ... KC_Z:
+                g_local.last_latin_kc = keycode;
+                if((get_mods() & MOD_MASK_ALT) == 0 && addlang) {
+                    const bool lshift = get_mods() == MOD_BIT(KC_LEFT_SHIFT);
+                    const bool rshift = get_mods() == MOD_BIT(KC_RIGHT_SHIFT);
+                    const bool upper_case = lshift || rshift || g_state.led_state.caps_lock;
+                    const uint8_t offset = upper_case ? 0 : 26;
+                    if(latin_ex_map[offset+keycode-KC_A][0]) {
+                        uint8_t variation = upper_case ? latin_ex[keycode-KC_A]>>4 : latin_ex[keycode-KC_A]&0xf;
+
+                        //this is a work-around (at least for I-Bus on Linux we need to remove the shift, otherwise the Unicode sequence will not be recognized!)
+                        if(lshift) unregister_code16(KC_LEFT_SHIFT);
+                        if(rshift) unregister_code16(KC_RIGHT_SHIFT);
+                        register_unicode(latin_ex_map[offset+keycode-KC_A][variation][0]);
+                        if(lshift) register_code16(KC_LEFT_SHIFT);
+                        if(rshift) register_code16(KC_RIGHT_SHIFT);
+                        return false;
+                    }
+                }
+                break;
+            default:
+                break;
         }
-    }
+
+        if((get_mods() & MOD_MASK_ALT) != 0 && addlang) {
+            switch(keycode) {
+                case KC_LAT0 ... KC_LAT9:
+                    if( g_local.last_latin_kc!=0) {
+                        uint8_t current = latin_ex[g_local.last_latin_kc-KC_A];
+                        if((get_mods() & MOD_MASK_SHIFT) || g_state.led_state.caps_lock) {
+                            latin_ex[g_local.last_latin_kc-KC_A] = ((keycode-KC_LAT0)<<4) | (current&0xf);
+                        } else {
+                            latin_ex[g_local.last_latin_kc-KC_A] = (keycode-KC_LAT0) | (current&0xf0);
+                        }
+                        save_user_eeconf();
+                        request_disp_refresh();
+                    }
+                    break;
+                case KC_A ... KC_Z:
+                    request_disp_refresh();
+                    break;
+                default:
+                    break;
+            }
+
+            return false;
+        } else {
+            g_local.last_latin_kc = 0;
+        }
+    } /*else {
+        switch (keycode) {
+            case KC_A ... KC_Z:
+                g_local.last_latin_kc = keycode;
+                if((get_mods() & MOD_MASK_ALT) == 0 && addlang) {
+                    const bool upper_case = ((get_mods() & MOD_MASK_SHIFT) || g_state.led_state.caps_lock);
+                    const uint8_t offset = upper_case ? 0 : 26;
+                    if(latin_ex_map[offset+keycode-KC_A][0]) {
+                        uint8_t variation = upper_case ? latin_ex[keycode-KC_A]>>4 : latin_ex[keycode-KC_A]&0xf;
+                        register_code16(UM(latin_rev_ex_map[offset+keycode-KC_A][variation]));
+                    }
+                }
+                break;
+            default:
+                break;
+         }
+    }*/
 
     return display_wakeup(record);
 }
@@ -1536,8 +1632,8 @@ bool display_wakeup(keyrecord_t* record) {
         if(g_local.contrast==DISP_OFF && (g_local.flags&DEAD_KEY_ON_WAKEUP)!=0) {
             accept_keypress = timer_elapsed32(last_update) <= TURN_OFF_TIME;
         }
-        poly_eeconf ee = load_user_eeconf();
-        g_local.contrast = ee.conf.brightness;
+        poly_eeconf_t ee = load_user_eeconf();
+        g_local.contrast = ee.brightness;
         g_local.flags &= ~((uint8_t)DISP_IDLE);
         g_local.flags |= STATUS_DISP_ON;
         update_performed();
@@ -1577,8 +1673,6 @@ void keyboard_post_init_user(void) {
 }
 
 void keyboard_pre_init_user(void) {
-
-
     kdisp_hw_setup();
     kdisp_init(NUM_SHIFT_REGISTERS);
     peripherals_reset();
@@ -1589,14 +1683,16 @@ void keyboard_pre_init_user(void) {
     kdisp_scroll_modehv(true, 3, 1);
     kdisp_scroll(false);
 
-    poly_eeconf ee = load_user_eeconf();
+    poly_eeconf_t ee = load_user_eeconf();
 
-    g_local.lang = ee.conf.lang;
+    g_local.lang = ee.lang;
     g_local.default_ls = 0;
-    g_local.contrast = ee.conf.brightness;
+    g_local.contrast = ee.brightness;
     g_local.flags = STATUS_DISP_ON;
+    memcpy(latin_ex, ee.latin_ex, sizeof(latin_ex));
 
     set_displays(g_local.contrast, false);
+    g_local.last_latin_kc = 0;
     show_splash_screen();
 
     setPinInputHigh(I2C1_SDA_PIN);
@@ -1604,11 +1700,12 @@ void keyboard_pre_init_user(void) {
 
 void eeconfig_init_user(void) {
     uprint("Init EE config\n");
-    poly_eeconf ee;
-    ee.conf.lang = g_lang_init;
-    ee.conf.brightness = ~FULL_BRIGHT;
-    ee.conf.unused = 0;
-    eeconfig_update_user(ee.raw);
+    poly_eeconf_t ee;
+    ee.lang = g_lang_init;
+    ee.brightness = ~FULL_BRIGHT;
+    ee.unused = 0;
+    memset(ee.latin_ex, 0, sizeof(ee.latin_ex));
+    eeconfig_read_user_datablock(&ee);
 }
 
 
@@ -1840,8 +1937,8 @@ void suspend_power_down_kb(void) {
 void suspend_wakeup_init_kb(void) {
     g_local.flags |= STATUS_DISP_ON;
     g_local.flags &= ~((uint8_t)DISP_IDLE);
-    poly_eeconf ee = load_user_eeconf();
-    g_local.contrast = ee.conf.brightness;
+    poly_eeconf_t ee = load_user_eeconf();
+    g_local.contrast = ee.brightness;
     last_update = 0;
 
     rgb_matrix_reload_from_eeprom();

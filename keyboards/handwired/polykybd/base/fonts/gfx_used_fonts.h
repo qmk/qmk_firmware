@@ -39,6 +39,7 @@
 #include "generated/NotoSans_Regular_GreekBase_14pt.h"
 #include "generated/NotoSans_Regular_GreekChi_14pt.h"
 #include "generated/NotoSans_Regular_GreekTonos_14pt.h"
+#include "generated/NotoSans_Regular_SZ_14pt.h"
 #include "gfx_icons.h"
 
 #include "FreeSansBold24pt7b.h"
@@ -84,5 +85,6 @@ const GFXfont* ALL_FONTS [] = {
   &NotoSans_Regular_GreekBase_14pt16b,
   &NotoSans_Regular_GreekChi_14pt16b,
   &NotoSans_Regular_GreekTonos_14pt16b,
+  &NotoSans_Regular_SZ_14pt16b,
 };
 
