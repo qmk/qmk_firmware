@@ -33,12 +33,7 @@
 /* Limit the maximum brigtness current of colour white to 500mA */
 #define SNLED27351_CURRENT_TUNE { 0xA8, 0xA8, 0x48, 0xA8, 0xA8, 0x48, 0xA8, 0xA8, 0x48, 0xA8, 0xA8, 0x48 }
 
-/* DIP switch */
-#define DIP_SWITCH_MATRIX_GRID  { {5, 4} }
 #define SCAN_COUNT_MAX 100
-
-/* Disable DIP switch in matrix data */
-#define MATRIX_MASKED
 
 /* turn off effects when suspended */
 #define RGB_MATRIX_SLEEP

@@ -16,15 +16,6 @@
 
 #pragma once
 
-// Connects each switch in the dip switch to the GPIO pin of the MCU
-#define DIP_SWITCH_PINS \
-    { A8 }
-
-/* handedness */
-#define SPLIT_HAND_MATRIX_GRID A2, A15
-
-#define MATRIX_MASKED // actual mask is defined by `matrix_mask` in `q11.c`
-
 /* RGB Matrix Driver Configuration */
 #define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_GND
 

@@ -18,6 +18,9 @@
         "rgb_matrix": true,
         "dip_switch": true
     },
+    "dip_switch": {
+        "matrix_grid": [ [5, 4] ]
+    },
     "matrix_pins": {
         "cols": ["C14", "C15", "A0", "A1", "A2", "A3", "A4", "A5", null, null, null, null, null, null, null, null],
         "rows": ["B5", "B4", "B3", "A15", "A14", "A13"],

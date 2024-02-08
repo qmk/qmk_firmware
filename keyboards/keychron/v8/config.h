@@ -33,12 +33,6 @@
 #define SNLED27351_PHASE_CHANNEL SNLED27351_SCAN_PHASE_9_CHANNEL
 #define SNLED27351_CURRENT_TUNE { 0xC4, 0xC4, 0x60, 0xC4, 0xC4, 0x60, 0xC4, 0xC4, 0x60, 0xC4, 0xC4, 0x60 }
 
-/* DIP switch */
-#define DIP_SWITCH_MATRIX_GRID  { {4, 4} }
-
-/* Disable DIP switch in matrix data */
-#define MATRIX_MASKED
-
 /* Turn off effects when suspended */
 #define RGB_MATRIX_SLEEP
 
