@@ -17,6 +17,9 @@
         "mousekey": true,
         "nkro": true
     },
+    "dip_switch": {
+        "matrix_grid": [ [5, 4] ]
+    },
     "matrix_pins": {
         "cols": ["A10", "A9", "A8", "B1", "B0", "A7", "A6", "A5", "A4", "A3", "A2", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "C14"],
         "rows": ["B5", "B4", "B3", "A15", "A14", "A13"],
