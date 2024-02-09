@@ -12,6 +12,7 @@ void process_rep_key(void) {
         triple_magic_case(KC_SPC, KC_A, KC_B, "out");
         triple_magic_case(KC_C,   KC_A, KC_P, "able");
         triple_magic_case(KC_U,   KC_N, KC_I, "versity");
+        triple_magic_case(KC_I,   KC_M, KC_P, "ossible");
     }
 
     switch (queue(-2)) {
