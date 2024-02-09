@@ -26,7 +26,7 @@
 #        error "No clock pin defined -- missing POINTING_DEVICE_SCLK_PIN or PAW3204_SCLK_PIN"
 #    endif
 #endif
-#ifndef PAW3204_SDIO_PIN
+#ifndef PAW3204_SDIO_PINds
 #    ifdef POINTING_DEVICE_SDIO_PIN
 #        define PAW3204_SDIO_PIN POINTING_DEVICE_SDIO_PIN
 #    else
