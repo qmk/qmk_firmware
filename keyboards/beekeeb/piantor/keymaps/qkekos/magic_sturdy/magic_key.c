@@ -142,8 +142,12 @@ void process_magic_key(void) {
             magic_case(KC_H, "ould");
         );
 
+        double_magic_switch(KC_A,
+            magic_case(KC_C, "k");
+            magic_case(KC_G, "ainst");
+        );
+
         double_magic_case(KC_I, KC_C, "k");
-        double_magic_case(KC_A, KC_C, "k");
         double_magic_case(KC_E, KC_C, "k");
         double_magic_case(KC_D, KC_A, "y");
         double_magic_case(KC_B, KC_E, "en");
