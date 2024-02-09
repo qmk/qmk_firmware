@@ -147,7 +147,7 @@ void matrix_init_kb(void) {
         is31fl3741_set_scaling_registers(&led, 0xFF, 0xFF, 0xFF);
     }
 
-    is31fl3741_update_led_control_registers(IS31FL3741_I2C_ADDRESS_1, 0);
+    is31fl3741_update_led_control_registers(0);
 
     matrix_init_user();
 }
