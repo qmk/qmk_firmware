@@ -28,11 +28,6 @@ void process_magic_key(void) {
 
     switch (queue(-3)) {
         triple_magic_switch(KC_SPC,
-            double_magic_switch(KC_M,
-                magic_case(KC_O, "st");
-                magic_case(KC_U, "sic");
-            );
-
             double_magic_switch(KC_A,
                 magic_case(KC_L, "r");
                 magic_case(KC_N, "other");
@@ -45,6 +40,7 @@ void process_magic_key(void) {
 
             double_magic_case(KC_U, KC_S, "e");
             double_magic_case(KC_T, KC_I, "me");
+            double_magic_case(KC_M, KC_U, "sic");
             double_magic_case(KC_I, KC_N, "form");
         );
 
@@ -99,6 +95,7 @@ void process_magic_key(void) {
         double_magic_switch(KC_M,
             magic_case(KC_P, "l");
             magic_case(KC_A, "o");
+            magic_case(KC_O, "st");
         );
 
         double_magic_switch(KC_O,
