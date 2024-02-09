@@ -24,6 +24,14 @@ This will send "Escape" if you hit the A and B keys, and Ctrl+Z when you hit the
 const uint16_t PROGMEM test_combo1[] = {LSFT_T(KC_A), LT(1, KC_B), COMBO_END};
 ```
 
+Alternatively, you can define `COMBO_USE_BASIC_KEYCODE` in your `config.h` and define your combos with only the basic keycodes you want to trigger the combos. For example, the combo:
+
+```c
+const uint16_t PROGMEM jk_esc_combo[] = {KC_J, KC_K, COMBO_END};
+```
+
+will be triggered even if you defined the keys in your keymap with tap-hold options, like `LSFT_T(KC_J)` and `LCTL_T(KC_K)`. This is handy when you use home row mods in your keymap and it makes defining combos much easier.
+
 ## Overlapping Combos
 It is possible to overlap combos. Before, with the example below both combos would activate when all three keys were pressed. Now only the three key combo will activate.
 
