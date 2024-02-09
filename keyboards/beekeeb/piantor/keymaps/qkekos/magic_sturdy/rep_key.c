@@ -23,6 +23,7 @@ void process_rep_key(void) {
         double_magic_case(KC_F, KC_R, "om");
         double_magic_case(KC_L, KC_A, "st");
         double_magic_case(KC_M, KC_A, "ke");
+        double_magic_case(KC_S, KC_C, "hool");
     }
 
     switch (queue(-1)) {
