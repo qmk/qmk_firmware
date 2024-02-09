@@ -143,6 +143,7 @@ void process_magic_key(void) {
         double_magic_case(KC_B, KC_E, "en");
         double_magic_case(KC_S, KC_O, "me");
         double_magic_case(KC_L, KC_I, "st");
+        double_magic_case(KC_T, KC_H, "rough");
     }
 
     switch (queue(-1)) {
