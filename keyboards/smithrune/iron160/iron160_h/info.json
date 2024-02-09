@@ -17,9 +17,12 @@
    "ws2812": {
        "pin": "B15"
    },
-   "rgblight": {
-       "led_count": 1
-   },
+    "rgblight": {
+        "led_count": 1,
+        "default": {
+           "val": 50
+        }
+    },
    "diode_direction": "COL2ROW",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_60_tsangan_hhkb"

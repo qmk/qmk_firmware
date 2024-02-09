@@ -20,12 +20,6 @@
 #define IS31FL3733_I2C_ADDRESS_1 IS31FL3733_I2C_ADDRESS_GND_GND
 #define IS31FL3733_I2C_ADDRESS_2 IS31FL3733_I2C_ADDRESS_VCC_VCC
 
-/* DIP switch */
-#define DIP_SWITCH_MATRIX_GRID  { {0,1} }
-
-/* Disable DIP switch in matrix data */
-#define MATRIX_MASKED
-
 /* Encoder Configuration*/
 #define ENCODER_DEFAULT_POS 0x3
 

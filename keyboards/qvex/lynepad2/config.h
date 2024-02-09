@@ -25,9 +25,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //Thumbwheel
 #define PIN_TC D2
-
-//Backlighting
-#define BACKLIGHT_DEFAULT_LEVEL 5
-
-//RGB arc
-#define RGBLIGHT_DEFAULT_VAL 64

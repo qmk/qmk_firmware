@@ -27,15 +27,6 @@
 #define I2C1_TIMINGR_SCLH 15U
 #define I2C1_TIMINGR_SCLL 51U
 
-/* DIP switch */
-#define DIP_SWITCH_MATRIX_GRID \
-    {                          \
-        { 5, 4 }               \
-    }
-
-/* Disable DIP switch in matrix data */
-#define MATRIX_MASKED
-
 /* Disable RGB lighting when PC is in suspend */
 #define RGB_MATRIX_SLEEP
 

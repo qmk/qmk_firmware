@@ -100,9 +100,9 @@ typedef struct is31fl3737_led_t {
 extern const is31fl3737_led_t PROGMEM g_is31fl3737_leds[IS31FL3737_LED_COUNT];
 
 void is31fl3737_init_drivers(void);
-void is31fl3737_init(uint8_t addr);
-void is31fl3737_write_register(uint8_t addr, uint8_t reg, uint8_t data);
-void is31fl3737_select_page(uint8_t addr, uint8_t page);
+void is31fl3737_init(uint8_t index);
+void is31fl3737_write_register(uint8_t index, uint8_t reg, uint8_t data);
+void is31fl3737_select_page(uint8_t index, uint8_t page);
 
 void is31fl3737_set_value(int index, uint8_t value);
 void is31fl3737_set_value_all(uint8_t value);
@@ -113,8 +113,8 @@ void is31fl3737_set_led_control_register(uint8_t index, bool value);
 // (eg. from a timer interrupt).
 // Call this while idle (in between matrix scans).
 // If the buffer is dirty, it will update the driver with the buffer.
-void is31fl3737_update_pwm_buffers(uint8_t addr, uint8_t index);
-void is31fl3737_update_led_control_registers(uint8_t addr, uint8_t index);
+void is31fl3737_update_pwm_buffers(uint8_t index);
+void is31fl3737_update_led_control_registers(uint8_t index);
 
 void is31fl3737_flush(void);
 
