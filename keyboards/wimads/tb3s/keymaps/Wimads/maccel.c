@@ -34,7 +34,7 @@ Set to match the value for your device sensor:
 #define DEVICE_CPI_PARAM .087  //device specific cpi scaling parameter
 #endif
 #ifndef MACCEL_STEEPNESS
-#define MACCEL_STEEPNESS 0.4  // steepness of accel curve
+#define MACCEL_STEEPNESS 0.3  // steepness of accel curve
 #endif
 #ifndef MACCEL_OFFSET
 #define MACCEL_OFFSET 1     // start offset of accel curve
