@@ -92,6 +92,11 @@ void process_magic_key(void) {
     }
 
     switch (queue(-2)) {
+        double_magic_switch(KC_SPC,
+            magic_case(KC_T, "hat");
+            magic_case(KC_E, ".g.");
+        );
+
         double_magic_switch(KC_M,
             magic_case(KC_P, "l");
             magic_case(KC_A, "o");
@@ -114,11 +119,6 @@ void process_magic_key(void) {
             magic_case(KC_A, "lue");
         );
 
-        double_magic_switch(KC_SPC,
-            magic_case(KC_T, "hat");
-            magic_case(KC_E, ".g.");
-        );
-
         double_magic_switch(KC_U,
             magic_case(KC_C, "k");
             magic_case(KC_P, "date");
@@ -136,12 +136,16 @@ void process_magic_key(void) {
             magic_case(KC_O, "uld");
         );
 
+        double_magic_switch(KC_S,
+            magic_case(KC_O, "me");
+            magic_case(KC_H, "ould");
+        );
+
         double_magic_case(KC_I, KC_C, "k");
         double_magic_case(KC_A, KC_C, "k");
         double_magic_case(KC_E, KC_C, "k");
         double_magic_case(KC_D, KC_A, "y");
         double_magic_case(KC_B, KC_E, "en");
-        double_magic_case(KC_S, KC_O, "me");
         double_magic_case(KC_L, KC_I, "st");
         double_magic_case(KC_T, KC_H, "rough");
     }
