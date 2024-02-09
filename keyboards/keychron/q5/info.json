@@ -4,6 +4,9 @@
     "maintainer": "lalalademaxiya1",
     "bootloader": "stm32-dfu",
     "diode_direction": "ROW2COL",
+    "dip_switch": {
+        "matrix_grid": [ [5, 4] ]
+    },
     "eeprom": {
         "wear_leveling": {
             "backing_size": 4096

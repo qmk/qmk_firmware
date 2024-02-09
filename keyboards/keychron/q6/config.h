@@ -30,12 +30,6 @@
 #define SNLED27351_CURRENT_TUNE \
     { 0xA4, 0xA4, 0x52, 0xA4, 0xA4, 0x52, 0xA4, 0xA4, 0x52, 0xA4, 0xA4, 0x52 }
 
-/* DIP switch */
-#define DIP_SWITCH_MATRIX_GRID  { {5, 4} }
-
-/* Disable DIP switch in matrix data */
-#define MATRIX_MASKED
-
 /* turn off effects when suspended */
 #define RGB_MATRIX_SLEEP
 

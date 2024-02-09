@@ -34,12 +34,6 @@
 #define SNLED27351_CURRENT_TUNE \
     { 0xC4, 0xC4, 0x60, 0xC4, 0xC4, 0x60, 0xC4, 0xC4, 0x60, 0xC4, 0xC4, 0x60 }
 
-/* DIP switch */
-#define DIP_SWITCH_MATRIX_GRID  { {4, 4} }
-
-/* Disable DIP switch in matrix data */
-#define MATRIX_MASKED
-
 /* Encoder Configuration */
 #define ENCODER_DEFAULT_POS 0x3
 

@@ -11,6 +11,9 @@
     "bootmagic": {
         "matrix": [0, 1]
     },
+    "dip_switch": {
+        "pins": ["A8"]
+    },
     "features": {
         "bootmagic": true,
         "command": false,
@@ -35,6 +38,9 @@
                     {"pin_a": "C14", "pin_b": "C15"}
                 ]
             }
+        },
+        "handedness": {
+            "matrix_grid": ["A2", "A15"]
         },
         "matrix_pins": {
             "right": {

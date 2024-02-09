@@ -1,0 +1,5 @@
+{
+    "dip_switch": {
+        "matrix_grid": [ [5, 4] ]
+    }
+}
