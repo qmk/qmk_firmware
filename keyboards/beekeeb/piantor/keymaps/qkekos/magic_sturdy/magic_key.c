@@ -134,8 +134,12 @@ void process_magic_key(void) {
             magic_case(KC_R, "evious");
         );
 
+        double_magic_switch(KC_C,
+            magic_case(KC_Y, "c");
+            magic_case(KC_O, "uld");
+        );
+
         double_magic_case(KC_I, KC_C, "k");
-        double_magic_case(KC_C, KC_Y, "c");
         double_magic_case(KC_A, KC_C, "k");
         double_magic_case(KC_E, KC_C, "k");
         double_magic_case(KC_D, KC_A, "y");
