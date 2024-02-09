@@ -140,9 +140,9 @@ typedef struct is31fl3733_led_t {
 extern const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT];
 
 void is31fl3733_init_drivers(void);
-void is31fl3733_init(uint8_t addr, uint8_t sync);
-void is31fl3733_write_register(uint8_t addr, uint8_t reg, uint8_t data);
-void is31fl3733_select_page(uint8_t addr, uint8_t page);
+void is31fl3733_init(uint8_t index);
+void is31fl3733_write_register(uint8_t index, uint8_t reg, uint8_t data);
+void is31fl3733_select_page(uint8_t index, uint8_t page);
 
 void is31fl3733_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
 void is31fl3733_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
@@ -153,8 +153,8 @@ void is31fl3733_set_led_control_register(uint8_t index, bool red, bool green, bo
 // (eg. from a timer interrupt).
 // Call this while idle (in between matrix scans).
 // If the buffer is dirty, it will update the driver with the buffer.
-void is31fl3733_update_pwm_buffers(uint8_t addr, uint8_t index);
-void is31fl3733_update_led_control_registers(uint8_t addr, uint8_t index);
+void is31fl3733_update_pwm_buffers(uint8_t index);
+void is31fl3733_update_led_control_registers(uint8_t index);
 
 void is31fl3733_flush(void);
 

@@ -84,17 +84,17 @@ typedef struct is31fl3746a_led_t {
 extern const is31fl3746a_led_t PROGMEM g_is31fl3746a_leds[IS31FL3746A_LED_COUNT];
 
 void is31fl3746a_init_drivers(void);
-void is31fl3746a_init(uint8_t addr);
-void is31fl3746a_write_register(uint8_t addr, uint8_t reg, uint8_t data);
-void is31fl3746a_select_page(uint8_t addr, uint8_t page);
+void is31fl3746a_init(uint8_t index);
+void is31fl3746a_write_register(uint8_t index, uint8_t reg, uint8_t data);
+void is31fl3746a_select_page(uint8_t index, uint8_t page);
 
 void is31fl3746a_set_value(int index, uint8_t value);
 void is31fl3746a_set_value_all(uint8_t value);
 
 void is31fl3746a_set_scaling_register(uint8_t index, uint8_t value);
 
-void is31fl3746a_update_pwm_buffers(uint8_t addr, uint8_t index);
-void is31fl3746a_update_scaling_registers(uint8_t addr, uint8_t index);
+void is31fl3746a_update_pwm_buffers(uint8_t index);
+void is31fl3746a_update_scaling_registers(uint8_t index);
 
 void is31fl3746a_flush(void);
 
