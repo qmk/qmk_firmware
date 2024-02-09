@@ -89,6 +89,7 @@ void process_magic_key(void) {
         triple_magic_case(KC_O, KC_B, KC_V, "ious");
         triple_magic_case(KC_E, KC_X, KC_A, "ctly");
         triple_magic_case(KC_P, KC_O, KC_S, "ition");
+        triple_magic_case(KC_I, KC_N, KC_T, "erest");
         triple_magic_case(KC_H, KC_I, KC_L, "arious");
     }
 
