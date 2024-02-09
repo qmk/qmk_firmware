@@ -294,6 +294,10 @@ void user_sync_poly_data_handler(uint8_t in_len, const void* in_data, uint8_t ou
             memcpy(&g_local, in_data, sizeof(poly_sync_t));
             ((poly_sync_reply_t*)out_data)->ack = SYNC_ACK;
         }
+    } else if(in_len == sizeof(latin_ex)) {
+        memcpy(latin_ex, in_data, sizeof(latin_ex)); //no check sum for now
+        save_user_eeconf();
+        request_disp_refresh();
     }
 }
 
@@ -1411,6 +1415,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
                             latin_ex[g_local.last_latin_kc-KC_A] = ((keycode-KC_LAT0)<<4) | (current&0xf);
                         } else {
                             latin_ex[g_local.last_latin_kc-KC_A] = (keycode-KC_LAT0) | (current&0xf0);
+                        }
+                        bool sync_success = false;
+                        for(uint8_t retry = 0; retry<3 && !sync_success; ++retry) {
+                            sync_success = transaction_rpc_send(USER_SYNC_POLY_DATA, sizeof(latin_ex), latin_ex);
                         }
                         save_user_eeconf();
                         request_disp_refresh();
