@@ -53,6 +53,7 @@ void process_rep_key(void) {
         magic_case(KC_I,   "ng");
         magic_case(KC_Y,   "ou");
         magic_case(KC_Q,   "ui");
+        magic_case(KC_V,   "er");
         magic_case(KC_J,   "oin");
         magic_case(KC_SPC, "for");
         magic_case(KC_W,   "ould");
