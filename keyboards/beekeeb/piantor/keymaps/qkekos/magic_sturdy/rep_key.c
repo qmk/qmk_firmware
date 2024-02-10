@@ -53,6 +53,7 @@ void process_rep_key(void) {
     switch (queue(-2)) {
         double_magic_switch(KC_SPC,
             magic_case(KC_I, "i");
+            magic_case(KC_T, "an");
             magic_case(KC_B, "ecause");
         );
 
