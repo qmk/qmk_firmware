@@ -5,6 +5,7 @@ void process_rep_key(void) {
     if (rep_key_count == 2) {
         switch(queue(-4)) {
             quadruple_magic_case(KC_P, KC_O, KC_S, KC_S, "ible");
+            quadruple_magic_case(KC_E, KC_L, KC_O, KC_P, "ment");
             quadruple_magic_case(KC_T, KC_I, KC_O, KC_N, "ality");
         }
     }
@@ -20,7 +21,11 @@ void process_rep_key(void) {
         );
 
         triple_magic_switch(KC_D,
-            double_magic_case(KC_E, KC_F, "ault");
+            double_magic_switch(KC_E,
+                magic_case(KC_F, "ault");
+                magic_case(KC_V, "elop");
+            );
+
             double_magic_case(KC_I, KC_F, "ficult");
         );
 
