@@ -2,6 +2,12 @@
 #include "../__init__.h"
 
 void process_rep_key(void) {
+    if (rep_key_count == 2) {
+        switch(queue(-4)) {
+            quadruple_magic_case(KC_P, KC_O, KC_S, KC_S, "ible");
+        }
+    }
+
     switch (queue(-3)) {
         triple_magic_switch(KC_D,
             double_magic_case(KC_E, KC_F, "ault");
