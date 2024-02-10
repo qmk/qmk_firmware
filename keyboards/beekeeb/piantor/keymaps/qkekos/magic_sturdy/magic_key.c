@@ -39,6 +39,7 @@ void process_magic_key(void) {
         triple_magic_switch(KC_SPC,
             double_magic_switch(KC_A,
                 magic_case(KC_L, "r");
+                magic_case(KC_R, "ound");
                 magic_case(KC_N, "other");
             );
 
@@ -172,7 +173,6 @@ void process_magic_key(void) {
 
         double_magic_switch(KC_A,
             magic_case(KC_C, "k");
-            magic_case(KC_R, "ound");
             magic_case(KC_G, "ainst");
         );
 
