@@ -12,8 +12,14 @@ void process_magic_key(void) {
         switch (queue(-3)) {
             triple_magic_case(KC_M, KC_P, KC_L, "y");
             triple_magic_case(KC_Q, KC_U, KC_E, "ue");
-            default: record_send_string("n"); return;
         }
+
+        switch (queue(-2)) {
+            double_magic_case(KC_D, KC_Y, "namic");
+        }
+
+        record_send_string("n");
+        return;
     }
 
     switch(queue(-5)) {
