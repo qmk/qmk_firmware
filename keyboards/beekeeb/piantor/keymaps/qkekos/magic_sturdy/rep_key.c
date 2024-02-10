@@ -19,12 +19,16 @@ void process_rep_key(void) {
             double_magic_case(KC_W, KC_K, "ward");
         );
 
+        triple_magic_switch(KC_I,
+            double_magic_case(KC_N, KC_C, "rease");
+            double_magic_case(KC_M, KC_P, "ossible");
+        );
+
         triple_magic_case(KC_SPC, KC_A, KC_B, "out");
         triple_magic_case(KC_C,   KC_A, KC_P, "able");
         triple_magic_case(KC_P,   KC_R, KC_O, "gram");
         triple_magic_case(KC_H,   KC_O, KC_W, "ever");
         triple_magic_case(KC_U,   KC_N, KC_I, "versity");
-        triple_magic_case(KC_I,   KC_M, KC_P, "ossible");
     }
 
     switch (queue(-2)) {
