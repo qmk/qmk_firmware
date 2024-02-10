@@ -58,7 +58,7 @@ void process_rep_key(void) {
 
         double_magic_switch(KC_M,
             magic_case(KC_A, "ke");
-            magic_case(KC_U, "st");
+            magic_case(KC_U, "sic");
         );
 
         double_magic_case(KC_L, KC_A, "st");
