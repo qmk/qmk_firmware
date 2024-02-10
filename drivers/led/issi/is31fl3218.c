@@ -28,12 +28,20 @@
 #    define IS31FL3218_I2C_PERSISTENCE 0
 #endif
 
-// IS31FL3218 has 18 PWM outputs and a fixed I2C address, so no chaining.
-uint8_t g_pwm_buffer[IS31FL3218_PWM_REGISTER_COUNT];
-bool    g_pwm_buffer_update_required = false;
+typedef struct is31fl3218_driver_t {
+    uint8_t pwm_buffer[IS31FL3218_PWM_REGISTER_COUNT];
+    bool    pwm_buffer_dirty;
+    uint8_t led_control_buffer[IS31FL3218_LED_CONTROL_REGISTER_COUNT];
+    bool    led_control_buffer_dirty;
+} PACKED is31fl3218_driver_t;
 
-uint8_t g_led_control_registers[IS31FL3218_LED_CONTROL_REGISTER_COUNT] = {0};
-bool    g_led_control_registers_update_required                        = false;
+// IS31FL3218 has 18 PWM outputs and a fixed I2C address, so no chaining.
+is31fl3218_driver_t driver_buffers = {
+    .pwm_buffer               = {0},
+    .pwm_buffer_dirty         = false,
+    .led_control_buffer       = {0},
+    .led_control_buffer_dirty = false,
+};
 
 void is31fl3218_write_register(uint8_t reg, uint8_t data) {
 #if IS31FL3218_I2C_PERSISTENCE > 0
@@ -48,10 +56,10 @@ void is31fl3218_write_register(uint8_t reg, uint8_t data) {
 void is31fl3218_write_pwm_buffer(void) {
 #if IS31FL3218_I2C_PERSISTENCE > 0
     for (uint8_t i = 0; i < IS31FL3218_I2C_PERSISTENCE; i++) {
-        if (i2c_write_register(IS31FL3218_I2C_ADDRESS << 1, IS31FL3218_REG_PWM, g_pwm_buffer, 18, IS31FL3218_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
+        if (i2c_write_register(IS31FL3218_I2C_ADDRESS << 1, IS31FL3218_REG_PWM, driver_buffers.pwm_buffer, 18, IS31FL3218_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
     }
 #else
-    i2c_write_register(IS31FL3218_I2C_ADDRESS << 1, IS31FL3218_REG_PWM, g_pwm_buffer, 18, IS31FL3218_I2C_TIMEOUT);
+    i2c_write_register(IS31FL3218_I2C_ADDRESS << 1, IS31FL3218_REG_PWM, driver_buffers.pwm_buffer, 18, IS31FL3218_I2C_TIMEOUT);
 #endif
 }
 
@@ -90,14 +98,14 @@ void is31fl3218_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     if (index >= 0 && index < IS31FL3218_LED_COUNT) {
         memcpy_P(&led, (&g_is31fl3218_leds[index]), sizeof(led));
 
-        if (g_pwm_buffer[led.r] == red && g_pwm_buffer[led.g] == green && g_pwm_buffer[led.b] == blue) {
+        if (driver_buffers.pwm_buffer[led.r] == red && driver_buffers.pwm_buffer[led.g] == green && driver_buffers.pwm_buffer[led.b] == blue) {
             return;
         }
 
-        g_pwm_buffer[led.r]          = red;
-        g_pwm_buffer[led.g]          = green;
-        g_pwm_buffer[led.b]          = blue;
-        g_pwm_buffer_update_required = true;
+        driver_buffers.pwm_buffer[led.r] = red;
+        driver_buffers.pwm_buffer[led.g] = green;
+        driver_buffers.pwm_buffer[led.b] = blue;
+        driver_buffers.pwm_buffer_dirty  = true;
     }
 }
 
@@ -119,40 +127,40 @@ void is31fl3218_set_led_control_register(uint8_t index, bool red, bool green, bo
     uint8_t bit_b              = led.b % 6;
 
     if (red) {
-        g_led_control_registers[control_register_r] |= (1 << bit_r);
+        driver_buffers.led_control_buffer[control_register_r] |= (1 << bit_r);
     } else {
-        g_led_control_registers[control_register_r] &= ~(1 << bit_r);
+        driver_buffers.led_control_buffer[control_register_r] &= ~(1 << bit_r);
     }
     if (green) {
-        g_led_control_registers[control_register_g] |= (1 << bit_g);
+        driver_buffers.led_control_buffer[control_register_g] |= (1 << bit_g);
     } else {
-        g_led_control_registers[control_register_g] &= ~(1 << bit_g);
+        driver_buffers.led_control_buffer[control_register_g] &= ~(1 << bit_g);
     }
     if (blue) {
-        g_led_control_registers[control_register_b] |= (1 << bit_b);
+        driver_buffers.led_control_buffer[control_register_b] |= (1 << bit_b);
     } else {
-        g_led_control_registers[control_register_b] &= ~(1 << bit_b);
+        driver_buffers.led_control_buffer[control_register_b] &= ~(1 << bit_b);
     }
 
-    g_led_control_registers_update_required = true;
+    driver_buffers.led_control_buffer_dirty = true;
 }
 
 void is31fl3218_update_pwm_buffers(void) {
-    if (g_pwm_buffer_update_required) {
+    if (driver_buffers.pwm_buffer_dirty) {
         is31fl3218_write_pwm_buffer();
         // Load PWM registers and LED Control register data
         is31fl3218_write_register(IS31FL3218_REG_UPDATE, 0x01);
 
-        g_pwm_buffer_update_required = false;
+        driver_buffers.pwm_buffer_dirty = false;
     }
 }
 
 void is31fl3218_update_led_control_registers(void) {
-    if (g_led_control_registers_update_required) {
+    if (driver_buffers.led_control_buffer_dirty) {
         for (uint8_t i = 0; i < IS31FL3218_LED_CONTROL_REGISTER_COUNT; i++) {
-            is31fl3218_write_register(IS31FL3218_REG_LED_CONTROL_1 + i, g_led_control_registers[i]);
+            is31fl3218_write_register(IS31FL3218_REG_LED_CONTROL_1 + i, driver_buffers.led_control_buffer[i]);
         }
 
-        g_led_control_registers_update_required = false;
+        driver_buffers.led_control_buffer_dirty = false;
     }
 }

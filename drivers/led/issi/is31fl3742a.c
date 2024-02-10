@@ -66,11 +66,19 @@ const uint8_t i2c_addresses[IS31FL3742A_DRIVER_COUNT] = {
 #endif
 };
 
-uint8_t g_pwm_buffer[IS31FL3742A_DRIVER_COUNT][IS31FL3742A_PWM_REGISTER_COUNT];
-bool    g_pwm_buffer_update_required[IS31FL3742A_DRIVER_COUNT]        = {false};
-bool    g_scaling_registers_update_required[IS31FL3742A_DRIVER_COUNT] = {false};
+typedef struct is31fl3742a_driver_t {
+    uint8_t pwm_buffer[IS31FL3742A_PWM_REGISTER_COUNT];
+    bool    pwm_buffer_dirty;
+    uint8_t scaling_buffer[IS31FL3742A_SCALING_REGISTER_COUNT];
+    bool    scaling_buffer_dirty;
+} PACKED is31fl3742a_driver_t;
 
-uint8_t g_scaling_registers[IS31FL3742A_DRIVER_COUNT][IS31FL3742A_SCALING_REGISTER_COUNT];
+is31fl3742a_driver_t driver_buffers[IS31FL3742A_DRIVER_COUNT] = {{
+    .pwm_buffer           = {0},
+    .pwm_buffer_dirty     = false,
+    .scaling_buffer       = {0},
+    .scaling_buffer_dirty = false,
+}};
 
 void is31fl3742a_write_register(uint8_t index, uint8_t reg, uint8_t data) {
 #if IS31FL3742A_I2C_PERSISTENCE > 0
@@ -95,10 +103,10 @@ void is31fl3742a_write_pwm_buffer(uint8_t index) {
     for (uint8_t i = 0; i < IS31FL3742A_PWM_REGISTER_COUNT; i += 30) {
 #if IS31FL3742A_I2C_PERSISTENCE > 0
         for (uint8_t j = 0; j < IS31FL3742A_I2C_PERSISTENCE; j++) {
-            if (i2c_write_register(i2c_addresses[index] << 1, i, g_pwm_buffer[index] + i, 30, IS31FL3742A_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
+            if (i2c_write_register(i2c_addresses[index] << 1, i, driver_buffers[index].pwm_buffer + i, 30, IS31FL3742A_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
         }
 #else
-        i2c_write_register(i2c_addresses[index] << 1, i, g_pwm_buffer[index] + i, 30, IS31FL3742A_I2C_TIMEOUT);
+        i2c_write_register(i2c_addresses[index] << 1, i, driver_buffers[index].pwm_buffer + i, 30, IS31FL3742A_I2C_TIMEOUT);
 #endif
     }
 }
@@ -155,14 +163,14 @@ void is31fl3742a_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) 
     if (index >= 0 && index < IS31FL3742A_LED_COUNT) {
         memcpy_P(&led, (&g_is31fl3742a_leds[index]), sizeof(led));
 
-        if (g_pwm_buffer[led.driver][led.r] == red && g_pwm_buffer[led.driver][led.g] == green && g_pwm_buffer[led.driver][led.b] == blue) {
+        if (driver_buffers[led.driver].pwm_buffer[led.r] == red && driver_buffers[led.driver].pwm_buffer[led.g] == green && driver_buffers[led.driver].pwm_buffer[led.b] == blue) {
             return;
         }
 
-        g_pwm_buffer[led.driver][led.r]          = red;
-        g_pwm_buffer[led.driver][led.g]          = green;
-        g_pwm_buffer[led.driver][led.b]          = blue;
-        g_pwm_buffer_update_required[led.driver] = true;
+        driver_buffers[led.driver].pwm_buffer[led.r] = red;
+        driver_buffers[led.driver].pwm_buffer[led.g] = green;
+        driver_buffers[led.driver].pwm_buffer[led.b] = blue;
+        driver_buffers[led.driver].pwm_buffer_dirty  = true;
     }
 }
 
@@ -176,31 +184,31 @@ void is31fl3742a_set_scaling_register(uint8_t index, uint8_t red, uint8_t green,
     is31fl3742a_led_t led;
     memcpy_P(&led, (&g_is31fl3742a_leds[index]), sizeof(led));
 
-    g_scaling_registers[led.driver][led.r]          = red;
-    g_scaling_registers[led.driver][led.g]          = green;
-    g_scaling_registers[led.driver][led.b]          = blue;
-    g_scaling_registers_update_required[led.driver] = true;
+    driver_buffers[led.driver].scaling_buffer[led.r] = red;
+    driver_buffers[led.driver].scaling_buffer[led.g] = green;
+    driver_buffers[led.driver].scaling_buffer[led.b] = blue;
+    driver_buffers[led.driver].scaling_buffer_dirty  = true;
 }
 
 void is31fl3742a_update_pwm_buffers(uint8_t index) {
-    if (g_pwm_buffer_update_required[index]) {
+    if (driver_buffers[index].pwm_buffer_dirty) {
         is31fl3742a_select_page(index, IS31FL3742A_COMMAND_PWM);
 
         is31fl3742a_write_pwm_buffer(index);
 
-        g_pwm_buffer_update_required[index] = false;
+        driver_buffers[index].pwm_buffer_dirty = false;
     }
 }
 
 void is31fl3742a_update_scaling_registers(uint8_t index) {
-    if (g_scaling_registers_update_required[index]) {
+    if (driver_buffers[index].scaling_buffer_dirty) {
         is31fl3742a_select_page(index, IS31FL3742A_COMMAND_SCALING);
 
         for (uint8_t i = 0; i < IS31FL3742A_SCALING_REGISTER_COUNT; i++) {
-            is31fl3742a_write_register(index, i, g_scaling_registers[index][i]);
+            is31fl3742a_write_register(index, i, driver_buffers[index].scaling_buffer[i]);
         }
 
-        g_scaling_registers_update_required[index] = false;
+        driver_buffers[index].scaling_buffer_dirty = false;
     }
 }
 
