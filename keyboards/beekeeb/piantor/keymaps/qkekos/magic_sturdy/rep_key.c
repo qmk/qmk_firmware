@@ -45,6 +45,7 @@ void process_rep_key(void) {
             double_magic_case(KC_A, KC_P, "able");
         );
 
+        triple_magic_case(KC_S, KC_T, KC_I, "ll");
         triple_magic_case(KC_P, KC_R, KC_O, "gram");
         triple_magic_case(KC_H, KC_O, KC_W, "ever");
         triple_magic_case(KC_U, KC_N, KC_I, "versity");
