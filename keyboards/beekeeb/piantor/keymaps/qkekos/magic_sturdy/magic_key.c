@@ -172,6 +172,7 @@ void process_magic_key(void) {
 
         double_magic_switch(KC_A,
             magic_case(KC_C, "k");
+            magic_case(KC_R, "ound");
             magic_case(KC_G, "ainst");
         );
 
