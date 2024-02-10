@@ -122,11 +122,25 @@ void process_magic_key(void) {
             magic_case(KC_E, ".g.");
         );
 
+        double_magic_switch(KC_P,
+            magic_case(KC_L, "y");
+            magic_case(KC_A, "ge");
+            magic_case(KC_E, "ople");
+            magic_case(KC_U, "blic");
+            magic_case(KC_R, "evious");
+        );
+
         double_magic_switch(KC_M,
             magic_case(KC_P, "l");
             magic_case(KC_A, "o");
             magic_case(KC_O, "st");
             magic_case(KC_U, "st");
+        );
+
+        double_magic_switch(KC_V,
+            magic_case(KC_I, "ew");
+            magic_case(KC_E, "ry");
+            magic_case(KC_A, "lue");
         );
 
         double_magic_switch(KC_O,
@@ -139,23 +153,9 @@ void process_magic_key(void) {
             magic_case(KC_A, "y");
         );
 
-        double_magic_switch(KC_V,
-            magic_case(KC_I, "ew");
-            magic_case(KC_E, "ry");
-            magic_case(KC_A, "lue");
-        );
-
         double_magic_switch(KC_U,
             magic_case(KC_C, "k");
             magic_case(KC_P, "date");
-        );
-
-        double_magic_switch(KC_P,
-            magic_case(KC_L, "y");
-            magic_case(KC_A, "ge");
-            magic_case(KC_E, "ople");
-            magic_case(KC_U, "blic");
-            magic_case(KC_R, "evious");
         );
 
         double_magic_switch(KC_C,

@@ -12,6 +12,11 @@ void process_rep_key(void) {
     }
 
     switch (queue(-3)) {
+        triple_magic_switch(KC_SPC,
+            double_magic_case(KC_A, KC_B, "out");
+            double_magic_case(KC_V, KC_I, "sion");
+        );
+
         triple_magic_switch(KC_I,
             double_magic_switch(KC_N,
                 magic_case(KC_C, "rease");
@@ -40,10 +45,9 @@ void process_rep_key(void) {
             double_magic_case(KC_A, KC_P, "able");
         );
 
-        triple_magic_case(KC_SPC, KC_A, KC_B, "out");
-        triple_magic_case(KC_P,   KC_R, KC_O, "gram");
-        triple_magic_case(KC_H,   KC_O, KC_W, "ever");
-        triple_magic_case(KC_U,   KC_N, KC_I, "versity");
+        triple_magic_case(KC_P, KC_R, KC_O, "gram");
+        triple_magic_case(KC_H, KC_O, KC_W, "ever");
+        triple_magic_case(KC_U, KC_N, KC_I, "versity");
     }
 
     switch (queue(-2)) {
