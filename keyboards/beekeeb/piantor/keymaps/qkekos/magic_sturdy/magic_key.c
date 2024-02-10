@@ -2,7 +2,11 @@
 #include "../__init__.h"
 
 void process_magic_key(void) {
-    if (alt_rep_key_count >= 2) {
+    if (alt_rep_key_count == 2) {
+        switch(queue(-5)) {
+            quintuple_magic_case(KC_N, KC_E, KC_V, KC_E, KC_R, "theless");
+        }
+
         switch (queue(-4)) {
             quadruple_magic_case(KC_SPC, KC_A, KC_L, KC_R, "eady");
             quadruple_magic_case(KC_J,   KC_U, KC_D, KC_G, "ment");
@@ -25,6 +29,7 @@ void process_magic_key(void) {
     switch(queue(-5)) {
         quintuple_magic_case(KC_O, KC_C, KC_R, KC_A, KC_C, "y");
         quintuple_magic_case(KC_I, KC_M, KC_P, KC_L, KC_E, "ment");
+        quintuple_magic_case(KC_N, KC_E, KC_V, KC_E, KC_R, "theless");
     }
 
     switch (queue(-4)) {
