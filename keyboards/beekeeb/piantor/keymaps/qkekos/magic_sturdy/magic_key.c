@@ -92,11 +92,15 @@ void process_magic_key(void) {
             double_magic_case(KC_S, KC_S, "ential");
         );
 
+        triple_magic_switch(KC_P,
+            double_magic_case(KC_R, KC_O, "blem");
+            double_magic_case(KP_O, KC_S, "ition");
+        );
+
         triple_magic_case(KC_J, KC_U, KC_D, "g");
         triple_magic_case(KC_M, KC_E, KC_N, "u");
         triple_magic_case(KC_L, KC_E, KC_D, "ge");
         triple_magic_case(KC_O, KC_B, KC_V, "ious");
-        triple_magic_case(KC_P, KC_O, KC_S, "ition");
         triple_magic_case(KC_I, KC_N, KC_T, "erest");
         triple_magic_case(KC_C, KC_O, KC_N, "sider");
         triple_magic_case(KC_H, KC_I, KC_L, "arious");
