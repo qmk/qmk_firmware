@@ -111,6 +111,7 @@ void process_magic_key(void) {
         triple_magic_case(KC_J, KC_U, KC_D, "g");
         triple_magic_case(KC_M, KC_E, KC_N, "u");
         triple_magic_case(KC_L, KC_E, KC_D, "ge");
+        triple_magic_case(KC_T, KC_H, KC_O, "ugh");
         triple_magic_case(KC_I, KC_N, KC_T, "erest");
         triple_magic_case(KC_C, KC_O, KC_N, "sider");
         triple_magic_case(KC_H, KC_I, KC_L, "arious");
