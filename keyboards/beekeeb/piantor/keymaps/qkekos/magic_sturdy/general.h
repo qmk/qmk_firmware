@@ -12,9 +12,11 @@ void record_send_string(const char *str);
 void enqueue(int keycode);
 void dequeue(void);
 void print_queue(void);
+void refill_queue(void);
 
 uint32_t enqueue_space(uint32_t trigger_time, void *cb_arg);
 void refresh_token(void);
+bool is_ctrl_backspace(uint16_t keycode, keyrecord_t* record, uint8_t* mods);
 
 extern int prev_keys_queue[];
 extern int rep_key_count;

@@ -46,6 +46,13 @@ void dequeue(void) {
     prev_keys_queue[0] = KC_NO;
 }
 
+void refill_queue(void) {
+    for (int i = 0; i < PREV_KEYS_QUEUE_SIZE - 1; i += 1)
+        prev_keys_queue[i] = KC_NO;
+
+    prev_keys_queue[PREV_KEYS_QUEUE_SIZE - 1] = KC_SPC;
+}
+
 void print_queue(void) {
     uprintf("queue: ");
 
@@ -56,6 +63,11 @@ void print_queue(void) {
 }
 
 bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* mods) {
+    if (is_ctrl_backspace(keycode, record, mods)) {
+        refill_queue();
+        return false;
+    }
+
     keycode = normalize_keycode(keycode);
 
     switch (keycode) {
@@ -65,11 +77,6 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* mods
             return false;
     }
 
-    if (
-        (*mods & MOD_MASK_CTRL) &&
-        ((keycode == KC_BSPC && record->tap.count) || (keycode == KC_BSPC))
-    ) keycode = KC_SPC;
-
     switch (keycode) {
         case KC_ENT:
         case TD_EQL:
@@ -78,7 +85,6 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* mods
         case TD_BSLS:
         case TD_UNDS:
         case US_CLER:
-        case HK_RMWR:
             keycode = KC_SPC;
     }
 
@@ -157,4 +163,14 @@ bool process_double_tap(uint16_t keycode, keyrecord_t *record) {
     process_magic_key();
 
     return true;
+}
+
+bool is_ctrl_backspace(uint16_t keycode, keyrecord_t* record, uint8_t* mods) {
+    if (keycode == HK_RMWR) return true;
+    if (!(*mods & MOD_MASK_CTRL)) return false;
+
+    if (keycode == TH_NAV && record->tap.count) return true;
+    if (keycode == KC_BSPC) return true;
+
+    return false;
 }
