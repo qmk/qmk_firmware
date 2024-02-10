@@ -10,6 +10,15 @@ void process_rep_key(void) {
     }
 
     switch (queue(-3)) {
+        triple_magic_switch(KC_I,
+            double_magic_switch(KC_N,
+                magic_case(KC_C, "rease");
+                magic_case(KC_T, "erest");
+            );
+
+            double_magic_case(KC_M, KC_P, "ossible");
+        );
+
         triple_magic_switch(KC_D,
             double_magic_case(KC_E, KC_F, "ault");
             double_magic_case(KC_I, KC_F, "ficult");
@@ -18,11 +27,6 @@ void process_rep_key(void) {
         triple_magic_switch(KC_A,
             double_magic_case(KC_N, KC_Y, "way");
             double_magic_case(KC_W, KC_K, "ward");
-        );
-
-        triple_magic_switch(KC_I,
-            double_magic_case(KC_N, KC_C, "rease");
-            double_magic_case(KC_M, KC_P, "ossible");
         );
 
         triple_magic_switch(KC_C,
