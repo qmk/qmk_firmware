@@ -114,6 +114,7 @@ void process_magic_key(void) {
         triple_magic_case(KC_C, KC_O, KC_N, "sider");
         triple_magic_case(KC_A, KC_L, KC_T, "hough");
         triple_magic_case(KC_H, KC_I, KC_L, "arious");
+        triple_magic_case(KC_U, KC_N, KC_F, "ortunate");
     }
 
     switch (queue(-2)) {
