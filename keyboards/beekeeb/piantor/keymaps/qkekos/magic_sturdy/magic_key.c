@@ -6,6 +6,7 @@ void process_magic_key(void) {
         switch (queue(-4)) {
             quadruple_magic_case(KC_SPC, KC_A, KC_L, KC_R, "eady");
             quadruple_magic_case(KC_J,   KC_U, KC_D, KC_G, "ment");
+            quadruple_magic_case(KC_T,   KC_I, KC_A, KC_L, "ly");
         }
 
         switch (queue(-3)) {
@@ -86,11 +87,15 @@ void process_magic_key(void) {
             double_magic_case(KC_E, KC_F, "initely");
         );
 
+        triple_magic_switch(KC_E,
+            double_magic_case(KC_X, KC_A, "ctly");
+            double_magic_case(KC_S, KC_S, "ential");
+        );
+
         triple_magic_case(KC_J, KC_U, KC_D, "g");
         triple_magic_case(KC_M, KC_E, KC_N, "u");
         triple_magic_case(KC_L, KC_E, KC_D, "ge");
         triple_magic_case(KC_O, KC_B, KC_V, "ious");
-        triple_magic_case(KC_E, KC_X, KC_A, "ctly");
         triple_magic_case(KC_P, KC_O, KC_S, "ition");
         triple_magic_case(KC_I, KC_N, KC_T, "erest");
         triple_magic_case(KC_C, KC_O, KC_N, "sider");
