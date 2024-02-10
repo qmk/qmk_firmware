@@ -56,11 +56,19 @@ const uint8_t i2c_addresses[SNLED27351_DRIVER_COUNT] = {
 // We could optimize this and take out the unused registers from these
 // buffers and the transfers in snled27351_write_pwm_buffer() but it's
 // probably not worth the extra complexity.
-uint8_t g_pwm_buffer[SNLED27351_DRIVER_COUNT][SNLED27351_PWM_REGISTER_COUNT];
-bool    g_pwm_buffer_update_required[SNLED27351_DRIVER_COUNT] = {false};
+typedef struct snled27351_driver_t {
+    uint8_t pwm_buffer[SNLED27351_PWM_REGISTER_COUNT];
+    bool    pwm_buffer_dirty;
+    uint8_t led_control_buffer[SNLED27351_LED_CONTROL_REGISTER_COUNT];
+    bool    led_control_buffer_dirty;
+} PACKED snled27351_driver_t;
 
-uint8_t g_led_control_registers[SNLED27351_DRIVER_COUNT][SNLED27351_LED_CONTROL_REGISTER_COUNT] = {0};
-bool    g_led_control_registers_update_required[SNLED27351_DRIVER_COUNT]                        = {false};
+snled27351_driver_t driver_buffers[SNLED27351_DRIVER_COUNT] = {{
+    .pwm_buffer               = {0},
+    .pwm_buffer_dirty         = false,
+    .led_control_buffer       = {0},
+    .led_control_buffer_dirty = false,
+}};
 
 void snled27351_write_register(uint8_t index, uint8_t reg, uint8_t data) {
 #if SNLED27351_I2C_PERSISTENCE > 0
@@ -84,10 +92,10 @@ void snled27351_write_pwm_buffer(uint8_t index) {
     for (uint8_t i = 0; i < SNLED27351_PWM_REGISTER_COUNT; i += 16) {
 #if SNLED27351_I2C_PERSISTENCE > 0
         for (uint8_t j = 0; j < SNLED27351_I2C_PERSISTENCE; j++) {
-            if (i2c_write_register(i2c_addresses[index] << 1, i, g_pwm_buffer[index] + i, 16, SNLED27351_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
+            if (i2c_write_register(i2c_addresses[index] << 1, i, driver_buffers[index].pwm_buffer + i, 16, SNLED27351_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
         }
 #else
-        i2c_write_register(i2c_addresses[index] << 1, i, g_pwm_buffer[index] + i, 16, SNLED27351_I2C_TIMEOUT);
+        i2c_write_register(i2c_addresses[index] << 1, i, driver_buffers[index].pwm_buffer + i, 16, SNLED27351_I2C_TIMEOUT);
 #endif
     }
 }
@@ -160,14 +168,14 @@ void snled27351_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     if (index >= 0 && index < SNLED27351_LED_COUNT) {
         memcpy_P(&led, (&g_snled27351_leds[index]), sizeof(led));
 
-        if (g_pwm_buffer[led.driver][led.r] == red && g_pwm_buffer[led.driver][led.g] == green && g_pwm_buffer[led.driver][led.b] == blue) {
+        if (driver_buffers[led.driver].pwm_buffer[led.r] == red && driver_buffers[led.driver].pwm_buffer[led.g] == green && driver_buffers[led.driver].pwm_buffer[led.b] == blue) {
             return;
         }
 
-        g_pwm_buffer[led.driver][led.r]          = red;
-        g_pwm_buffer[led.driver][led.g]          = green;
-        g_pwm_buffer[led.driver][led.b]          = blue;
-        g_pwm_buffer_update_required[led.driver] = true;
+        driver_buffers[led.driver].pwm_buffer[led.r] = red;
+        driver_buffers[led.driver].pwm_buffer[led.g] = green;
+        driver_buffers[led.driver].pwm_buffer[led.b] = blue;
+        driver_buffers[led.driver].pwm_buffer_dirty  = true;
     }
 }
 
@@ -189,43 +197,43 @@ void snled27351_set_led_control_register(uint8_t index, bool red, bool green, bo
     uint8_t bit_b              = led.b % 8;
 
     if (red) {
-        g_led_control_registers[led.driver][control_register_r] |= (1 << bit_r);
+        driver_buffers[led.driver].led_control_buffer[control_register_r] |= (1 << bit_r);
     } else {
-        g_led_control_registers[led.driver][control_register_r] &= ~(1 << bit_r);
+        driver_buffers[led.driver].led_control_buffer[control_register_r] &= ~(1 << bit_r);
     }
     if (green) {
-        g_led_control_registers[led.driver][control_register_g] |= (1 << bit_g);
+        driver_buffers[led.driver].led_control_buffer[control_register_g] |= (1 << bit_g);
     } else {
-        g_led_control_registers[led.driver][control_register_g] &= ~(1 << bit_g);
+        driver_buffers[led.driver].led_control_buffer[control_register_g] &= ~(1 << bit_g);
     }
     if (blue) {
-        g_led_control_registers[led.driver][control_register_b] |= (1 << bit_b);
+        driver_buffers[led.driver].led_control_buffer[control_register_b] |= (1 << bit_b);
     } else {
-        g_led_control_registers[led.driver][control_register_b] &= ~(1 << bit_b);
+        driver_buffers[led.driver].led_control_buffer[control_register_b] &= ~(1 << bit_b);
     }
 
-    g_led_control_registers_update_required[led.driver] = true;
+    driver_buffers[led.driver].led_control_buffer_dirty = true;
 }
 
 void snled27351_update_pwm_buffers(uint8_t index) {
-    if (g_pwm_buffer_update_required[index]) {
+    if (driver_buffers[index].pwm_buffer_dirty) {
         snled27351_select_page(index, SNLED27351_COMMAND_PWM);
 
         snled27351_write_pwm_buffer(index);
 
-        g_pwm_buffer_update_required[index] = false;
+        driver_buffers[index].pwm_buffer_dirty = false;
     }
 }
 
 void snled27351_update_led_control_registers(uint8_t index) {
-    if (g_led_control_registers_update_required[index]) {
+    if (driver_buffers[index].led_control_buffer_dirty) {
         snled27351_select_page(index, SNLED27351_COMMAND_LED_CONTROL);
 
         for (uint8_t i = 0; i < SNLED27351_LED_CONTROL_REGISTER_COUNT; i++) {
-            snled27351_write_register(index, i, g_led_control_registers[index][i]);
+            snled27351_write_register(index, i, driver_buffers[index].led_control_buffer[i]);
         }
 
-        g_led_control_registers_update_required[index] = false;
+        driver_buffers[index].led_control_buffer_dirty = false;
     }
 }
 

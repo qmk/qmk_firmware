@@ -94,11 +94,19 @@ const uint8_t driver_sync[IS31FL3733_DRIVER_COUNT] = {
 // We could optimize this and take out the unused registers from these
 // buffers and the transfers in is31fl3733_write_pwm_buffer() but it's
 // probably not worth the extra complexity.
-uint8_t g_pwm_buffer[IS31FL3733_DRIVER_COUNT][IS31FL3733_PWM_REGISTER_COUNT];
-bool    g_pwm_buffer_update_required[IS31FL3733_DRIVER_COUNT] = {false};
+typedef struct is31fl3733_driver_t {
+    uint8_t pwm_buffer[IS31FL3733_PWM_REGISTER_COUNT];
+    bool    pwm_buffer_dirty;
+    uint8_t led_control_buffer[IS31FL3733_LED_CONTROL_REGISTER_COUNT];
+    bool    led_control_buffer_dirty;
+} PACKED is31fl3733_driver_t;
 
-uint8_t g_led_control_registers[IS31FL3733_DRIVER_COUNT][IS31FL3733_LED_CONTROL_REGISTER_COUNT] = {0};
-bool    g_led_control_registers_update_required[IS31FL3733_DRIVER_COUNT]                        = {false};
+is31fl3733_driver_t driver_buffers[IS31FL3733_DRIVER_COUNT] = {{
+    .pwm_buffer               = {0},
+    .pwm_buffer_dirty         = false,
+    .led_control_buffer       = {0},
+    .led_control_buffer_dirty = false,
+}};
 
 void is31fl3733_write_register(uint8_t index, uint8_t reg, uint8_t data) {
 #if IS31FL3733_I2C_PERSISTENCE > 0
@@ -123,10 +131,10 @@ void is31fl3733_write_pwm_buffer(uint8_t index) {
     for (uint8_t i = 0; i < IS31FL3733_PWM_REGISTER_COUNT; i += 16) {
 #if IS31FL3733_I2C_PERSISTENCE > 0
         for (uint8_t j = 0; j < IS31FL3733_I2C_PERSISTENCE; j++) {
-            if (i2c_write_register(i2c_addresses[index] << 1, i, g_pwm_buffer[index] + i, 16, IS31FL3733_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
+            if (i2c_write_register(i2c_addresses[index] << 1, i, driver_buffers[index].pwm_buffer + i, 16, IS31FL3733_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
         }
 #else
-        i2c_write_register(i2c_addresses[index] << 1, i, g_pwm_buffer[index] + i, 16, IS31FL3733_I2C_TIMEOUT);
+        i2c_write_register(i2c_addresses[index] << 1, i, driver_buffers[index].pwm_buffer + i, 16, IS31FL3733_I2C_TIMEOUT);
 #endif
     }
 }
@@ -191,12 +199,12 @@ void is31fl3733_set_value(int index, uint8_t value) {
     if (index >= 0 && index < IS31FL3733_LED_COUNT) {
         memcpy_P(&led, (&g_is31fl3733_leds[index]), sizeof(led));
 
-        if (g_pwm_buffer[led.driver][led.v] == value) {
+        if (driver_buffers[led.driver].pwm_buffer[led.v] == value) {
             return;
         }
 
-        g_pwm_buffer[led.driver][led.v]          = value;
-        g_pwm_buffer_update_required[led.driver] = true;
+        driver_buffers[led.driver].pwm_buffer[led.v] = value;
+        driver_buffers[led.driver].pwm_buffer_dirty  = true;
     }
 }
 
@@ -214,33 +222,33 @@ void is31fl3733_set_led_control_register(uint8_t index, bool value) {
     uint8_t bit_value        = led.v % 8;
 
     if (value) {
-        g_led_control_registers[led.driver][control_register] |= (1 << bit_value);
+        driver_buffers[led.driver].led_control_buffer[control_register] |= (1 << bit_value);
     } else {
-        g_led_control_registers[led.driver][control_register] &= ~(1 << bit_value);
+        driver_buffers[led.driver].led_control_buffer[control_register] &= ~(1 << bit_value);
     }
 
-    g_led_control_registers_update_required[led.driver] = true;
+    driver_buffers[led.driver].led_control_buffer_dirty = true;
 }
 
 void is31fl3733_update_pwm_buffers(uint8_t index) {
-    if (g_pwm_buffer_update_required[index]) {
+    if (driver_buffers[index].pwm_buffer_dirty) {
         is31fl3733_select_page(index, IS31FL3733_COMMAND_PWM);
 
         is31fl3733_write_pwm_buffer(index);
 
-        g_pwm_buffer_update_required[index] = false;
+        driver_buffers[index].pwm_buffer_dirty = false;
     }
 }
 
 void is31fl3733_update_led_control_registers(uint8_t index) {
-    if (g_led_control_registers_update_required[index]) {
+    if (driver_buffers[index].led_control_buffer_dirty) {
         is31fl3733_select_page(index, IS31FL3733_COMMAND_LED_CONTROL);
 
         for (uint8_t i = 0; i < IS31FL3733_LED_CONTROL_REGISTER_COUNT; i++) {
-            is31fl3733_write_register(index, i, g_led_control_registers[index][i]);
+            is31fl3733_write_register(index, i, driver_buffers[index].led_control_buffer[i]);
         }
 
-        g_led_control_registers_update_required[index] = false;
+        driver_buffers[index].led_control_buffer_dirty = false;
     }
 }
 
