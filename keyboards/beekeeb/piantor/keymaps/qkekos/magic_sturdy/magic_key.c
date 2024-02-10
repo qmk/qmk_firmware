@@ -4,6 +4,7 @@
 void process_magic_key(void) {
     if (alt_rep_key_count == 2) {
         switch(queue(-5)) {
+            quintuple_magic_case(KC_A, KC_G, KC_A, KC_I, KC_N, "st");
             quintuple_magic_case(KC_N, KC_E, KC_V, KC_E, KC_R, "theless");
         }
 
@@ -175,7 +176,7 @@ void process_magic_key(void) {
 
         double_magic_switch(KC_A,
             magic_case(KC_C, "k");
-            magic_case(KC_G, "ainst");
+            magic_case(KC_G, "ain");
         );
 
         double_magic_switch(KC_D,
