@@ -42,6 +42,7 @@ void process_magic_key(void) {
 
             double_magic_case(KC_U, KC_S, "e");
             double_magic_case(KC_T, KC_I, "me");
+            double_magic_case(KC_S, KC_E, "en");
             double_magic_case(KC_M, KC_U, "sic");
             double_magic_case(KC_I, KC_N, "form");
         );
