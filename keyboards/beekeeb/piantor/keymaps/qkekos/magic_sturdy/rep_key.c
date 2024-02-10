@@ -43,8 +43,12 @@ void process_rep_key(void) {
             magic_case(KC_U, "nction");
         );
 
+        double_magic_switch(KC_M,
+            magic_case(KC_A, "ke");
+            magic_case(KC_U, "st");
+        );
+
         double_magic_case(KC_L, KC_A, "st");
-        double_magic_case(KC_M, KC_A, "ke");
         double_magic_case(KC_S, KC_C, "hool");
     }
 
