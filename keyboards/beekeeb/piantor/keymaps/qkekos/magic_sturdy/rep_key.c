@@ -6,6 +6,7 @@ void process_rep_key(void) {
         switch(queue(-4)) {
             quadruple_magic_case(KC_P, KC_O, KC_S, KC_S, "ible");
             quadruple_magic_case(KC_E, KC_L, KC_O, KC_P, "ment");
+            quadruple_magic_case(KC_A, KC_S, KC_I, KC_C, "ally");
             quadruple_magic_case(KC_T, KC_I, KC_O, KC_N, "ality");
         }
     }
@@ -62,6 +63,7 @@ void process_rep_key(void) {
         );
 
         double_magic_case(KC_L, KC_A, "st");
+        double_magic_case(KC_B, KC_A, "sic");
         double_magic_case(KC_S, KC_C, "hool");
     }
 
