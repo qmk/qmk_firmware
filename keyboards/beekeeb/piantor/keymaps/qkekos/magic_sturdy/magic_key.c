@@ -94,7 +94,7 @@ void process_magic_key(void) {
 
         triple_magic_switch(KC_P,
             double_magic_case(KC_R, KC_O, "blem");
-            double_magic_case(KP_O, KC_S, "ition");
+            double_magic_case(KC_O, KC_S, "ition");
         );
 
         triple_magic_switch(KC_O,
