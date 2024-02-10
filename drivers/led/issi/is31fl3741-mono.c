@@ -129,11 +129,11 @@ void is31fl3741_write_pwm_buffer(uint8_t index) {
     // Iterate over the pwm_buffer_1 contents at 19 byte intervals.
     for (uint8_t i = 0; i < IS31FL3741_PWM_1_REGISTER_COUNT; i += 19) {
 #if IS31FL3741_I2C_PERSISTENCE > 0
-    for (uint8_t i = 0; i < IS31FL3741_I2C_PERSISTENCE; i++) {
-        if (i2c_write_register(i2c_addresses[index] << 1, i, driver_buffers[index].pwm_buffer_1 + i, 19, IS31FL3741_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
-    }
+        for (uint8_t i = 0; i < IS31FL3741_I2C_PERSISTENCE; i++) {
+            if (i2c_write_register(i2c_addresses[index] << 1, i, driver_buffers[index].pwm_buffer_1 + i, 19, IS31FL3741_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
+        }
 #else
-    i2c_write_register(i2c_addresses[index] << 1, i, driver_buffers[index].pwm_buffer_1 + i, 19, IS31FL3741_I2C_TIMEOUT);
+        i2c_write_register(i2c_addresses[index] << 1, i, driver_buffers[index].pwm_buffer_1 + i, 19, IS31FL3741_I2C_TIMEOUT);
 #endif
     }
 }
