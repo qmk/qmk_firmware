@@ -33,7 +33,7 @@
         },
         "matrix_pins":{
             "right": {
-                "cools": ["GP10", "GP11", "GP12", "GP13", "GP14", "GP15"],
+                "cols": ["GP10", "GP11", "GP12", "GP13", "GP14", "GP15"],
                 "rows": ["GP21", "GP20", "GP19", "GP18", "GP17"]
             }
         }
@@ -46,15 +46,12 @@
     },
     "features": {
         "command": false,
-        "console": false,
-        "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgb_matrix": false,
-        "oled": true
+        "rgb_matrix": false
     },
-    "layout": {
-        "LAYOUT": {
+    "layouts": {
+        "Ghost54": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0.5},
                 {"matrix": [0, 1], "x": 1 , "y": 0.5},

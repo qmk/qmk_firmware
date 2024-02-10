@@ -33,14 +33,3 @@
 
 #define ENCODERS_PAD_A { GP26 }
 #define ENCODERS_PAD_B { GP22 }
-
-/*#undef I2C_DRIVER
-/*#define I2C_DRIVER I2CD0
-/*#undef I2C1_SCL_PIN
-/*#define I2C1_SCL_PIN GP25
-/*#undef I2C1_SDA_PIN
-/*#define I2C1_SDA_PIN GP24
-
-/* #define EE_HANDS  */
-/* #define MASTER_LEFT */
-/* #define MASTER_RIGHT */
