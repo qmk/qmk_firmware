@@ -22,17 +22,17 @@ enum pr_response td_pr(uint16_t keycode, keyrecord_t *record) {
                     if (!record->event.pressed && defer_token != INVALID_DEFERRED_TOKEN)
                         send_tap(current_td);
 
-                    return PR_TRUE;
+                    return true;
 
                 case DOUBLE_TAP:
                     if (record->event.pressed && defer_token != INVALID_DEFERRED_TOKEN)
                         send_double_tap(current_td);
 
-                    return PR_TRUE;
+                    return true;
             }
         } else {
             send_tap(current_td);
-            return PR_TRUE;
+            return true;
         }
     }
 

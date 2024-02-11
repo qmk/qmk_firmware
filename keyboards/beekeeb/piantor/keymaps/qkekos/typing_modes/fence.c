@@ -31,7 +31,7 @@ enum pr_response fence_pr(uint16_t keycode, keyrecord_t *record) {
 
     if (is_tap_hold) {
         tap_code16(S(keycode));
-        return PR_FALSE;
+        return false;
     } else add_weak_mods(MOD_BIT(KC_LSFT));
 
     return PR_IGNORE;

@@ -26,5 +26,5 @@ enum pr_response alt_case_pr(uint16_t keycode, keyrecord_t *record) {
     if (case_separator == KC_LSFT) add_oneshot_mods(MOD_BIT(KC_LSFT));
     else tap_code16(case_separator);
 
-    return PR_FALSE;
+    return false;
 }

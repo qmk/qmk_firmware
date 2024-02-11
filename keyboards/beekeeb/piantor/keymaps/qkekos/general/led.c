@@ -33,14 +33,14 @@ enum pr_response led_pr(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_CAPS:
             if (record->event.pressed) toggle_left_pin();
-            return PR_TRUE;
+            return true;
 
         case TG_GAME:
         case TG_NUM:
         case TG_NAV:
         case TG_LOCK:
             if (record->event.pressed) toggle_both_pins();
-            return PR_TRUE;
+            return true;
     }
 
     return PR_IGNORE;

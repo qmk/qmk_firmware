@@ -7,7 +7,7 @@ enum pr_response proceed_mlt(uint16_t keycode, keyrecord_t *record) {
         else unregister_code(keycode);
     }
 
-    return PR_TRUE;
+    return true;
 }
 
 enum pr_response mod_layer_taps_pr(uint16_t keycode, keyrecord_t *record) {

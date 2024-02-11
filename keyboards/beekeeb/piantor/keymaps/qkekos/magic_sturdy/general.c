@@ -124,13 +124,13 @@ enum pr_response sturdy_pr(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed)
                 process_rep_key();
 
-            return PR_FALSE;
+            return false;
 
         case US_AREP:
             if (record->event.pressed)
                 process_magic_key();
 
-            return PR_FALSE;
+            return false;
 
         case SMT_N:
             if (record->tap.count != 2) return PR_IGNORE;
@@ -138,7 +138,7 @@ enum pr_response sturdy_pr(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed)
                 process_magic_key();
 
-            return PR_FALSE;
+            return false;
 
         case KC_B:
         case KC_Z:
@@ -161,7 +161,7 @@ enum pr_response process_double_tap(uint16_t keycode, keyrecord_t *record) {
     dequeue();
     process_magic_key();
 
-    return PR_FALSE;
+    return false;
 }
 
 bool is_ctrl_backspace(uint16_t keycode, keyrecord_t* record, uint8_t* mods) {

@@ -14,7 +14,7 @@ enum pr_response custom_keys_pr(uint16_t keycode, keyrecord_t *record) {
                 tap_code16(HK_SLSR);
             }
 
-            return PR_FALSE;
+            return false;
 
         case US_3ARR:
             send_repeated_arrow(
@@ -23,7 +23,7 @@ enum pr_response custom_keys_pr(uint16_t keycode, keyrecord_t *record) {
             );
 
             if (!record->event.pressed) arrow_repeat_rate = arrow_repeat_delay;
-            return PR_FALSE;
+            return false;
 
         case US_3ARL:
             send_repeated_arrow(
@@ -32,7 +32,7 @@ enum pr_response custom_keys_pr(uint16_t keycode, keyrecord_t *record) {
             );
 
             if (!record->event.pressed) arrow_repeat_rate = arrow_repeat_delay;
-            return PR_FALSE;
+            return false;
 
         case US_3ARU:
             send_repeated_arrow(
@@ -41,7 +41,7 @@ enum pr_response custom_keys_pr(uint16_t keycode, keyrecord_t *record) {
             );
 
             if (!record->event.pressed) arrow_repeat_rate = arrow_repeat_delay;
-            return PR_FALSE;
+            return false;
 
         case US_3ARD:
             send_repeated_arrow(
@@ -50,11 +50,11 @@ enum pr_response custom_keys_pr(uint16_t keycode, keyrecord_t *record) {
             );
 
             if (!record->event.pressed) arrow_repeat_rate = arrow_repeat_delay;
-            return PR_FALSE;
+            return false;
 
         case US_LGTG:
             if (record->event.pressed) language_mode = !language_mode;
-            return PR_FALSE;
+            return false;
 
         case US_QTLY:
             if (record->event.pressed) {
@@ -62,23 +62,23 @@ enum pr_response custom_keys_pr(uint16_t keycode, keyrecord_t *record) {
                 defer_exec(50, send_clear_enter_defer, NULL);
             }
 
-            return PR_FALSE;
+            return false;
 
         case US_CLER:
-            if (!record->event.pressed) return PR_FALSE;
+            if (!record->event.pressed) return false;
 
             tap_code16(HK_SALL);
             tap_code16(KC_BSPC);
 
-            return PR_FALSE;
+            return false;
 
         case US_CWRD:
-            if (!record->event.pressed) return PR_FALSE;
+            if (!record->event.pressed) return false;
 
             if (is_shift_held()) tap_code16(C(S(KC_F)));
             else caps_word_toggle();
 
-            return PR_FALSE;
+            return false;
 
         case KC_SCRL:
             current_lang = ENG;
@@ -86,15 +86,15 @@ enum pr_response custom_keys_pr(uint16_t keycode, keyrecord_t *record) {
             layer_on(STURDY);
             layer_off(QWERTY);
 
-            return PR_TRUE;
+            return true;
 
         case US_SNKE:
             if (record->event.pressed) toggle_alt_case_with(KC_UNDS, 1);
-            return PR_FALSE;
+            return false;
 
         case US_CAML:
             if (record->event.pressed) toggle_alt_case_with(KC_LSFT, 0);
-            return PR_FALSE;
+            return false;
     }
 
     return PR_IGNORE;

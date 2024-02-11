@@ -46,18 +46,18 @@ enum pr_response oneshot_pr(uint16_t keycode, keyrecord_t *record) {
                 if (is_os_shift_held()) {
                     del_oneshot_mods(MOD_MASK_SHIFT);
 
-                    return PR_FALSE;
+                    return false;
                 }
 
                 if (is_ctrl_held() && !is_os_ctrl_held()) {
                     current_oneshot_key = KC_NO;
                     tap_clear_code(KC_ENT);
 
-                    return PR_FALSE;
+                    return false;
                 }
             }
 
-            return PR_TRUE;
+            return true;
 
         case OS_LCTL:
             current_oneshot_key = OSM(MOD_LCTL);
@@ -66,18 +66,18 @@ enum pr_response oneshot_pr(uint16_t keycode, keyrecord_t *record) {
                 if (is_os_ctrl_held()) {
                     del_oneshot_mods(MOD_MASK_CTRL);
 
-                    return PR_FALSE;
+                    return false;
                 }
 
                 if (is_shift_held() && !is_os_shift_held()) {
                     current_oneshot_key = KC_NO;
                     tap_clear_code(KC_ENT);
 
-                    return PR_FALSE;
+                    return false;
                 }
             }
 
-            return PR_TRUE;
+            return true;
     }
 
     return PR_IGNORE;

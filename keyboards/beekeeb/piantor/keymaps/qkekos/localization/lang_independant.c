@@ -199,7 +199,7 @@ enum pr_response lang_independant_pr(uint16_t keycode, keyrecord_t *record) {
             current_key = KC_NO;
         } else return PR_IGNORE;
 
-        return PR_FALSE;
+        return false;
     } else if (!record->event.pressed && current_key == primary_key) {
         cancel_deferred_exec(override_repeat_token);
         current_key = KC_NO;

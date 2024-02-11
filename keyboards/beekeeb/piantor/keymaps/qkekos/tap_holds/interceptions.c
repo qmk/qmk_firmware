@@ -4,7 +4,7 @@
 enum pr_response proceed_custom_tap(uint16_t keycode, keyrecord_t *record) {
     if (record->tap.count && record->event.pressed) {
         tap_code16(keycode);
-        return PR_FALSE;
+        return false;
     }
 
     return PR_IGNORE;
