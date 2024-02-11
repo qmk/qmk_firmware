@@ -189,10 +189,14 @@ void process_magic_key(void) {
             magic_case(KC_H, "rough");
         );
 
+        double_magic_switch(KC_L,
+            magic_case(KC_I, "st");
+            magic_case(KC_A, "rge");
+        );
+
         double_magic_case(KC_I, KC_C, "k");
         double_magic_case(KC_E, KC_C, "k");
         double_magic_case(KC_B, KC_E, "en");
-        double_magic_case(KC_L, KC_I, "st");
     }
 
     switch (queue(-1)) {
