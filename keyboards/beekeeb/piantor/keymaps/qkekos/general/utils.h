@@ -32,3 +32,5 @@ const char* to_upper_case(const char *str);
 
 #define tap_clear_code(code) execute_without_mods(tap_code16(code))
 #define IS_ALPHA_KEY(keycode) (KC_A <= keycode && keycode <= KC_Z)
+
+#define MAX_STR_LEN 100

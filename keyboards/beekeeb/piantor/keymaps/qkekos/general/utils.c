@@ -32,22 +32,20 @@ void multi_tap(uint16_t keycode, int count) {
         tap_code16(keycode);
 }
 
-#define MAX_STR_LEN 100
-
 const char* to_upper_case(const char *str) {
-    static char uppercasedString[MAX_STR_LEN];
+    static char result_string[MAX_STR_LEN];
     int len = strlen(str);
 
     if (len >= MAX_STR_LEN) {
         printf("Input string is too long\n");
-        return NULL;
+        return "\0";
     }
 
     for (int i = 0; i < len; i++) {
-        if ('a' <= str[i] && str[i] <= 'z') uppercasedString[i] = str[i] - 32;
-        else uppercasedString[i] = str[i];
+        if ('a' <= str[i] && str[i] <= 'z') result_string[i] = str[i] - 32;
+        else result_string[i] = str[i];
     }
 
-    uppercasedString[len] = '\0';
-    return uppercasedString;
+    result_string[len] = '\0';
+    return result_string;
 }
