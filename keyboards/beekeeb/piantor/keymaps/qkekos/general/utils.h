@@ -20,6 +20,7 @@ bool is_os_alt_held(void);
 bool is_alpha_layer_on(void);
 void multi_tap(uint16_t keycode, int count);
 uint16_t normalize_keycode(uint16_t keycode);
+const char* to_upper_case(const char *str);
 
 #define execute_without_mods(x) \
     { \
