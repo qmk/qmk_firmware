@@ -1,13 +1,11 @@
 # The default VIA keymap for quick7
 
-#### Rotary Encoder is not configurable through VIA
-
 ### Base Layer
 ```
 Left Encoder(CW: Vol+, CCW: Vol-)
 Right Encoder(CW: RGB HUE-, CCW: RGB HUE+)
 ,----------- --------- ------------,
-|   MUTE    |  Func1  |  RGB MODE  |
+|   MUTE    |  Func  |  RGB MODE  |
  ----------- --------- ------------
 | Shift+Tab |   UP    |    TAB     |
  ----------- --------- ------------
@@ -17,8 +15,10 @@ Right Encoder(CW: RGB HUE-, CCW: RGB HUE+)
 
 ### Func1 Layer
 ```
+Left Encoder(CW: RGB HUE-, CCW: RGB HUE+)
+Right Encoder(CW: Vol+, CCW: Vol-)
 ,----------- --------- ------------,
-|   QK_BOOT   |  Func1  | RGB TOGGLE |
+|   QK_BOOT   |  Func  | RGB TOGGLE |
  ----------- --------- ------------
 |   HOME    |  VOL+   |    END     |
  ----------- --------- ------------
