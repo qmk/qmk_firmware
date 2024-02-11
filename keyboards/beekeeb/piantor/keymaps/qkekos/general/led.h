@@ -7,4 +7,4 @@ void toggle_right_pin(void);
 void toggle_both_pins(void);
 
 void caps_word_set_user(bool active);
-bool led_pr(uint16_t keycode, keyrecord_t *record, bool *return_value);
+int led_pr(uint16_t keycode, keyrecord_t *record);

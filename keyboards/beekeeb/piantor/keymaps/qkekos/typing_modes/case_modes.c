@@ -12,21 +12,19 @@ void toggle_alt_case_with(uint16_t separator, int sep_len) {
     toggle_right_pin();
 }
 
-bool alt_case_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
-    *return_value = false;
-
-    if (!(record->event.pressed && is_alt_case_active)) return false;
-    if (!(keycode == TH_NUM && record->tap.count)) return false;
+int alt_case_pr(uint16_t keycode, keyrecord_t *record) {
+    if (!(record->event.pressed && is_alt_case_active)) return PR_IGNORE;
+    if (!(keycode == TH_NUM && record->tap.count)) return PR_IGNORE;
 
     if (queue(-2) == KC_SPC) {
         is_alt_case_active = false;
         toggle_right_pin();
         multi_tap(KC_BSPC, case_sep_len);
-        return false;
+        return PR_IGNORE;
     }
 
     if (case_separator == KC_LSFT) add_oneshot_mods(MOD_BIT(KC_LSFT));
     else tap_code16(case_separator);
 
-    return true;
+    return PR_FALSE;
 }

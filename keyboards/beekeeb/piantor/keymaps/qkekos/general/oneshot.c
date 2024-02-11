@@ -36,9 +36,7 @@ void oneshot_mods_changed_user(uint8_t mods) {
     current_oneshot_key = KC_NO;
 }
 
-bool oneshot_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
-    *return_value = true;
-
+int oneshot_pr(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case OS_LSFT:
             uprintf("os - %d\n", record->tap.count);
@@ -48,20 +46,18 @@ bool oneshot_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
                 if (is_os_shift_held()) {
                     del_oneshot_mods(MOD_MASK_SHIFT);
 
-                    *return_value = false;
-                    return true;
+                    return PR_FALSE;
                 }
 
                 if (is_ctrl_held() && !is_os_ctrl_held()) {
                     current_oneshot_key = KC_NO;
                     tap_clear_code(KC_ENT);
 
-                    *return_value = false;
-                    return true;
+                    return PR_FALSE;
                 }
             }
 
-            return true;
+            return PR_TRUE;
 
         case OS_LCTL:
             current_oneshot_key = OSM(MOD_LCTL);
@@ -70,21 +66,19 @@ bool oneshot_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
                 if (is_os_ctrl_held()) {
                     del_oneshot_mods(MOD_MASK_CTRL);
 
-                    *return_value = false;
-                    return true;
+                    return PR_FALSE;
                 }
 
                 if (is_shift_held() && !is_os_shift_held()) {
                     current_oneshot_key = KC_NO;
                     tap_clear_code(KC_ENT);
 
-                    *return_value = false;
-                    return true;
+                    return PR_FALSE;
                 }
             }
 
-            return true;
+            return PR_TRUE;
     }
 
-    return false;
+    return PR_IGNORE;
 }

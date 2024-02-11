@@ -29,21 +29,19 @@ bool led_update_user(led_t led_state) {
     return true;
 }
 
-bool led_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
-    *return_value = true;
-
+int led_pr(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_CAPS:
             if (record->event.pressed) toggle_left_pin();
-            return true;
+            return PR_TRUE;
 
         case TG_GAME:
         case TG_NUM:
         case TG_NAV:
         case TG_LOCK:
             if (record->event.pressed) toggle_both_pins();
-            return true;
+            return PR_TRUE;
     }
 
-    return false;
+    return PR_IGNORE;
 }

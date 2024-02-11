@@ -169,14 +169,14 @@ int handle_override(int keycode) {
     return keycode;
 }
 
-bool lang_independant_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
+int lang_independant_pr(uint16_t keycode, keyrecord_t *record) {
     if (
         (
             is_alpha_layer_on() &&
             record->event.type != COMBO_EVENT &&
             record->event.pressed
         ) || current_lang == ENG
-    ) return false;
+    ) return PR_IGNORE;
 
     int primary_key = keycode;
     keycode = handle_override(keycode);
@@ -197,16 +197,15 @@ bool lang_independant_pr(uint16_t keycode, keyrecord_t *record, bool *return_val
         } else if (current_key == primary_key) {
             cancel_deferred_exec(override_repeat_token);
             current_key = KC_NO;
-        } else return false;
+        } else return PR_IGNORE;
 
-        *return_value = false;
-        return true;
+        return PR_FALSE;
     } else if (!record->event.pressed && current_key == primary_key) {
         cancel_deferred_exec(override_repeat_token);
         current_key = KC_NO;
     }
 
-    return false;
+    return PR_IGNORE;
 }
 
 void tap_lang_independant_key(uint16_t keycode) {

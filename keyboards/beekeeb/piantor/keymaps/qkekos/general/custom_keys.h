@@ -19,4 +19,4 @@ enum blender_keycode {
     US_CAML
 };
 
-bool custom_keys_pr(uint16_t keycode, keyrecord_t *record, bool *return_value);
+int custom_keys_pr(uint16_t keycode, keyrecord_t *record);

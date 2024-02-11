@@ -6,9 +6,7 @@ uint32_t send_clear_enter_defer(uint32_t trigger_time, void *cb_arg) {
     return 0;
 }
 
-bool custom_keys_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
-    *return_value = false;
-
+int custom_keys_pr(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case US_SLSR:
             if (record->event.pressed) {
@@ -16,7 +14,7 @@ bool custom_keys_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
                 tap_code16(HK_SLSR);
             }
 
-            return true;
+            return PR_FALSE;
 
         case US_3ARR:
             send_repeated_arrow(
@@ -25,7 +23,7 @@ bool custom_keys_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
             );
 
             if (!record->event.pressed) arrow_repeat_rate = arrow_repeat_delay;
-            return true;
+            return PR_FALSE;
 
         case US_3ARL:
             send_repeated_arrow(
@@ -34,7 +32,7 @@ bool custom_keys_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
             );
 
             if (!record->event.pressed) arrow_repeat_rate = arrow_repeat_delay;
-            return true;
+            return PR_FALSE;
 
         case US_3ARU:
             send_repeated_arrow(
@@ -43,7 +41,7 @@ bool custom_keys_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
             );
 
             if (!record->event.pressed) arrow_repeat_rate = arrow_repeat_delay;
-            return true;
+            return PR_FALSE;
 
         case US_3ARD:
             send_repeated_arrow(
@@ -52,11 +50,11 @@ bool custom_keys_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
             );
 
             if (!record->event.pressed) arrow_repeat_rate = arrow_repeat_delay;
-            return true;
+            return PR_FALSE;
 
         case US_LGTG:
             if (record->event.pressed) language_mode = !language_mode;
-            return true;
+            return PR_FALSE;
 
         case US_QTLY:
             if (record->event.pressed) {
@@ -64,23 +62,23 @@ bool custom_keys_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
                 defer_exec(50, send_clear_enter_defer, NULL);
             }
 
-            return true;
+            return PR_FALSE;
 
         case US_CLER:
-            if (!record->event.pressed) return true;
+            if (!record->event.pressed) return PR_FALSE;
 
             tap_code16(HK_SALL);
             tap_code16(KC_BSPC);
 
-            return true;
+            return PR_FALSE;
 
         case US_CWRD:
-            if (!record->event.pressed) return true;
+            if (!record->event.pressed) return PR_FALSE;
 
             if (is_shift_held()) tap_code16(C(S(KC_F)));
             else caps_word_toggle();
 
-            return true;
+            return PR_FALSE;
 
         case KC_SCRL:
             current_lang = ENG;
@@ -88,17 +86,16 @@ bool custom_keys_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
             layer_on(STURDY);
             layer_off(QWERTY);
 
-            *return_value = true;
-            return true;
+            return PR_TRUE;
 
         case US_SNKE:
             if (record->event.pressed) toggle_alt_case_with(KC_UNDS, 1);
-            return true;
+            return PR_FALSE;
 
         case US_CAML:
             if (record->event.pressed) toggle_alt_case_with(KC_LSFT, 0);
-            return true;
+            return PR_FALSE;
     }
 
-    return false;
+    return PR_IGNORE;
 }

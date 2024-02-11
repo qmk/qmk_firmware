@@ -2,7 +2,7 @@
 #include "__init__.h"
 #include "g/keymap_combo.h"
 
-bool (*process_records[])(uint16_t, keyrecord_t*, bool*) = {
+int (*process_records[])(uint16_t, keyrecord_t*) = {
     sturdy_pr,
     fence_pr,
     alt_case_pr,
@@ -44,11 +44,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
              );
     #endif
 
-    bool return_value;
-
     for (int i = 0; process_records[i] != NULL; i++) {
-        if (process_records[i](keycode, record, &return_value))
-            return return_value;
+        int response = process_records[i](keycode, record);
+
+        if (response == PR_IGNORE) continue;
+        return response;
     }
 
     return true;

@@ -67,7 +67,7 @@ typedef struct {
     { .fn = {on_tap_fn, NULL, NULL}, .user_data = (void *)&((multiaction_td_data){index, callback, DOUBLE_TAP}), }
 
 void on_tap_fn(tap_dance_state_t *state, void *user_data);
-bool td_pr(uint16_t keycode, keyrecord_t *record, bool *return_value);bool td_process_record(uint16_t keycode, keyrecord_t *record, bool *return_value);
+int td_pr(uint16_t keycode, keyrecord_t *record);
 
 void reset_token(void);
 

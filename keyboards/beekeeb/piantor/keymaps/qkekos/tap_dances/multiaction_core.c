@@ -14,9 +14,7 @@ void on_tap_fn(tap_dance_state_t *state, void *user_data) {
     defer_token = defer_exec(get_tapping_term(TD(current_td->index), NULL), callback, user_data);
 }
 
-bool td_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
-    *return_value = true;
-
+int td_pr(uint16_t keycode, keyrecord_t *record) {
     if (current_td != NULL) {
         if (IS_QK_TAP_DANCE(keycode) && TD_INDEX(keycode) == current_td->index) {
             switch (current_td->type) {
@@ -24,21 +22,21 @@ bool td_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
                     if (!record->event.pressed && defer_token != INVALID_DEFERRED_TOKEN)
                         send_tap(current_td);
 
-                    return true;
+                    return PR_TRUE;
 
                 case DOUBLE_TAP:
                     if (record->event.pressed && defer_token != INVALID_DEFERRED_TOKEN)
                         send_double_tap(current_td);
 
-                    return true;
+                    return PR_TRUE;
             }
         } else {
             send_tap(current_td);
-            return true;
+            return PR_TRUE;
         }
     }
 
-    return false;
+    return PR_IGNORE;
 }
 
 void reset_token(void) {

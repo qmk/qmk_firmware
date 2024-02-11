@@ -103,8 +103,7 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* mods
     return true;
 }
 
-bool sturdy_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
-    *return_value = false;
+int sturdy_pr(uint16_t keycode, keyrecord_t *record) {
     prev_key_time = last_key_pressed_time;
 
     if (record->event.pressed) {
@@ -125,21 +124,21 @@ bool sturdy_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
             if (record->event.pressed)
                 process_rep_key();
 
-            return true;
+            return PR_FALSE;
 
         case US_AREP:
             if (record->event.pressed)
                 process_magic_key();
 
-            return true;
+            return PR_FALSE;
 
         case SMT_N:
-            if (record->tap.count != 2) return false;
+            if (record->tap.count != 2) return PR_IGNORE;
 
             if (record->event.pressed)
                 process_magic_key();
 
-            return true;
+            return PR_FALSE;
 
         case KC_B:
         case KC_Z:
@@ -148,21 +147,21 @@ bool sturdy_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
             return process_double_tap(keycode, record);
     }
 
-    return false;
+    return PR_IGNORE;
 }
 
-bool process_double_tap(uint16_t keycode, keyrecord_t *record) {
+int process_double_tap(uint16_t keycode, keyrecord_t *record) {
     if (
         !record->event.pressed ||
         highest_layer != STURDY ||
         queue(-2) != keycode ||
         timer_elapsed(prev_key_time) > (get_tapping_term(keycode, NULL) + 50)
-    ) return false;
+    ) return PR_IGNORE;
 
     dequeue();
     process_magic_key();
 
-    return true;
+    return PR_FALSE;
 }
 
 bool is_ctrl_backspace(uint16_t keycode, keyrecord_t* record, uint8_t* mods) {

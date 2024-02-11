@@ -2,11 +2,11 @@
 #include "../__init__.h"
 
 bool is_fence_active = false;
+
 bool was_upper = true;
 
-bool fence_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
-    *return_value = false;
-    if (!record->event.pressed) return false;
+int fence_pr(uint16_t keycode, keyrecord_t *record) {
+    if (!record->event.pressed) return PR_IGNORE;
 
     if (keycode == US_FNCE) {
         is_fence_active = !is_fence_active;
@@ -17,7 +17,7 @@ bool fence_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
 
     if (!is_fence_active) {
         was_upper = true;
-        return false;
+        return PR_IGNORE;
     }
 
     bool is_tap_hold = false;
@@ -25,15 +25,15 @@ bool fence_pr(uint16_t keycode, keyrecord_t *record, bool *return_value) {
     if (IS_QK_MOD_TAP(keycode) || IS_QK_LAYER_TAP(keycode)) is_tap_hold = true;
 
     keycode = normalize_keycode(keycode);
-    if (!IS_ALPHA_KEY(keycode)) return false;
+    if (!IS_ALPHA_KEY(keycode)) return PR_IGNORE;
 
     was_upper = !was_upper;
-    if (!was_upper) return false;
+    if (!was_upper) return PR_IGNORE;
 
     if (is_tap_hold) {
         tap_code16(S(keycode));
-        return true;
+        return PR_FALSE;
     } else add_weak_mods(MOD_BIT(KC_LSFT));
 
-    return false;
+    return PR_IGNORE;
 }
