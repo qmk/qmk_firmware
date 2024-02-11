@@ -169,7 +169,7 @@ int handle_override(int keycode) {
     return keycode;
 }
 
-int lang_independant_pr(uint16_t keycode, keyrecord_t *record) {
+enum pr_response lang_independant_pr(uint16_t keycode, keyrecord_t *record) {
     if (
         (
             is_alpha_layer_on() &&

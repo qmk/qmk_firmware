@@ -6,7 +6,7 @@ uint32_t send_clear_enter_defer(uint32_t trigger_time, void *cb_arg) {
     return 0;
 }
 
-int custom_keys_pr(uint16_t keycode, keyrecord_t *record) {
+enum pr_response custom_keys_pr(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case US_SLSR:
             if (record->event.pressed) {

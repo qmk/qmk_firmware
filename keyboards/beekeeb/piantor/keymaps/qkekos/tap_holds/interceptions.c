@@ -1,7 +1,7 @@
 
 #include "../__init__.h"
 
-bool proceed_custom_tap(uint16_t keycode, keyrecord_t *record) {
+enum pr_response proceed_custom_tap(uint16_t keycode, keyrecord_t *record) {
     if (record->tap.count && record->event.pressed) {
         tap_code16(keycode);
         return PR_FALSE;
@@ -10,7 +10,7 @@ bool proceed_custom_tap(uint16_t keycode, keyrecord_t *record) {
     return PR_IGNORE;
 }
 
-int interceptions_pr(uint16_t keycode, keyrecord_t *record) {
+enum pr_response interceptions_pr(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LT_I:
             if (record->event.pressed && record->tap.count == 2 && queue(-3) != KC_V) {

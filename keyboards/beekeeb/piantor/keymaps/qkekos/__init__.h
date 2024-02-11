@@ -20,6 +20,8 @@
 #define highest_layer get_highest_layer(layer_state)
 extern int combo_actions_keys[][2];
 
-#define PR_IGNORE -1
-#define PR_FALSE   0
-#define PR_TRUE    1
+enum pr_response {
+    PR_FALSE,
+    PR_TRUE,
+    PR_IGNORE
+};

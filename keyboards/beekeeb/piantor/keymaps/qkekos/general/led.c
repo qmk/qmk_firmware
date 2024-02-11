@@ -29,7 +29,7 @@ bool led_update_user(led_t led_state) {
     return true;
 }
 
-int led_pr(uint16_t keycode, keyrecord_t *record) {
+enum pr_response led_pr(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_CAPS:
             if (record->event.pressed) toggle_left_pin();

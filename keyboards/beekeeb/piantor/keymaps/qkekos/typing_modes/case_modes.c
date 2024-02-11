@@ -12,7 +12,7 @@ void toggle_alt_case_with(uint16_t separator, int sep_len) {
     toggle_right_pin();
 }
 
-int alt_case_pr(uint16_t keycode, keyrecord_t *record) {
+enum pr_response alt_case_pr(uint16_t keycode, keyrecord_t *record) {
     if (!(record->event.pressed && is_alt_case_active)) return PR_IGNORE;
     if (!(keycode == TH_NUM && record->tap.count)) return PR_IGNORE;
 

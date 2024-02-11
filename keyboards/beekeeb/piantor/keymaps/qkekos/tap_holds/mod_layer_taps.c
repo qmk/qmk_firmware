@@ -1,7 +1,7 @@
 
 #include "../__init__.h"
 
-int proceed_mlt(uint16_t keycode, keyrecord_t *record) {
+enum pr_response proceed_mlt(uint16_t keycode, keyrecord_t *record) {
     if (!record->tap.count) {
         if (record->event.pressed) register_code(keycode);
         else unregister_code(keycode);
@@ -10,7 +10,7 @@ int proceed_mlt(uint16_t keycode, keyrecord_t *record) {
     return PR_TRUE;
 }
 
-int mod_layer_taps_pr(uint16_t keycode, keyrecord_t *record) {
+enum pr_response mod_layer_taps_pr(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case GLT_S:
             return proceed_mlt(KC_LGUI, record);

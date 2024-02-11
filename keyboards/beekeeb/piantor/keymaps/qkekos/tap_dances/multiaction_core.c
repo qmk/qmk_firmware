@@ -14,7 +14,7 @@ void on_tap_fn(tap_dance_state_t *state, void *user_data) {
     defer_token = defer_exec(get_tapping_term(TD(current_td->index), NULL), callback, user_data);
 }
 
-int td_pr(uint16_t keycode, keyrecord_t *record) {
+enum pr_response td_pr(uint16_t keycode, keyrecord_t *record) {
     if (current_td != NULL) {
         if (IS_QK_TAP_DANCE(keycode) && TD_INDEX(keycode) == current_td->index) {
             switch (current_td->type) {

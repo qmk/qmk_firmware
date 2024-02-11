@@ -103,7 +103,7 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* mods
     return true;
 }
 
-int sturdy_pr(uint16_t keycode, keyrecord_t *record) {
+enum pr_response sturdy_pr(uint16_t keycode, keyrecord_t *record) {
     prev_key_time = last_key_pressed_time;
 
     if (record->event.pressed) {
@@ -150,7 +150,7 @@ int sturdy_pr(uint16_t keycode, keyrecord_t *record) {
     return PR_IGNORE;
 }
 
-int process_double_tap(uint16_t keycode, keyrecord_t *record) {
+enum pr_response process_double_tap(uint16_t keycode, keyrecord_t *record) {
     if (
         !record->event.pressed ||
         highest_layer != STURDY ||

@@ -2,7 +2,7 @@
 #include "__init__.h"
 #include "g/keymap_combo.h"
 
-int (*process_records[])(uint16_t, keyrecord_t*) = {
+enum pr_response (*process_records[])(uint16_t, keyrecord_t*) = {
     sturdy_pr,
     fence_pr,
     alt_case_pr,

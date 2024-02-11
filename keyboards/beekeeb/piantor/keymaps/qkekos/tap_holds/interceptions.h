@@ -2,4 +2,4 @@
 #pragma once
 #include "../__init__.h"
 
-int interceptions_pr(uint16_t keycode, keyrecord_t *record);
+enum pr_response interceptions_pr(uint16_t, keyrecord_t*);
