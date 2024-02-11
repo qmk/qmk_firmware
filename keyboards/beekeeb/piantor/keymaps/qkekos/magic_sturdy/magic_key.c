@@ -17,6 +17,7 @@ void process_magic_key(void) {
         switch (queue(-3)) {
             triple_magic_case(KC_M, KC_P, KC_L, "y");
             triple_magic_case(KC_Q, KC_U, KC_E, "ue");
+            triple_magic_case(KC_I, KC_O, KC_N, "al");
         }
 
         switch (queue(-2)) {
