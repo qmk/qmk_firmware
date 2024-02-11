@@ -10,3 +10,7 @@ ARMV = 7
 BOOTLOADER = halfkay
 
 FIRMWARE_FORMAT = hex
+
+# Do not enter lower-power sleep mode when on the ChibiOS idle thread.
+# See https://github.com/qmk/qmk_firmware/issues/23053.
+OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=FALSE
