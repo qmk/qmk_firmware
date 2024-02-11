@@ -671,7 +671,6 @@ void process_action(keyrecord_t *record, action_t action) {
                         }
 #        else
                         if (event.pressed) {
-                            layer_on(action.layer_tap.val);
                             set_oneshot_layer(action.layer_tap.val, ONESHOT_START);
                         } else {
                             clear_oneshot_layer_state(ONESHOT_PRESSED);
