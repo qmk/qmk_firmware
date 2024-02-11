@@ -12,7 +12,6 @@
 
 #include QMK_KEYBOARD_H
 #include "keymap_portuguese.h"
-#include "ghost54.c"
 
 bool is_alt_tab_active = false; // ADD this near the begining of keymap.c
 uint16_t alt_tab_timer = 0;     // we will be using them soon.
