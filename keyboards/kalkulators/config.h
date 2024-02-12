@@ -3,11 +3,6 @@
 
 #pragma once
 
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
 #define TM1638_CLK_PIN A8
 #define TM1638_DIO_PIN A9
 #define TM1638_STB_PIN B15

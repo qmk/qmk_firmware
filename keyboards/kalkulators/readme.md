@@ -11,7 +11,7 @@ USB-C, STM32F072, TM1638 LED controller, 1xAA battery.
 
 Make example for this keyboard (after setting up your build environment):
 
-    qmk compile -kb kalkulators -km via
+    make kalkulators:default
 
 Flashing example for this keyboard:
 

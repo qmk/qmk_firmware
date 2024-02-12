@@ -20,11 +20,12 @@
 #include <math.h>
 #include <ctype.h>
 #include <string.h>
+#include "kalkulators.h"
 #include "halconf.h"
 #include "tm1638.h"
 #include "usb_util.h"
 #include "wait.h"
-#include "calc.h"
+
 
 // calculate the number of whole digits and decimal digits in a double
 void countDigitsAndDecimalPlaces(double input, int *wholeDigits, int *decimalPlaces) {
@@ -63,8 +64,25 @@ void countDigitsAndDecimalPlaces(double input, int *wholeDigits, int *decimalPla
     }
 }
 
-enum custom_keycodes { KC_cl = QK_USER, KC_div, KC_times, KC_minus, KC_seven, KC_eight, KC_nine, KC_four, KC_five, KC_six, KC_plus, KC_one, KC_two, KC_three, KC_zero, KC_dot, KC_equals };
-
+enum custom_keycodes {
+    KC_cl = QK_KB_0,
+    KC_div,
+    KC_times,
+    KC_minus,
+    KC_seven,
+    KC_eight,
+    KC_nine,
+    KC_four,
+    KC_five,
+    KC_six,
+    KC_plus,
+    KC_one,
+    KC_two,
+    KC_three,
+    KC_zero,
+    KC_dot,
+    KC_equals
+};
 typedef struct {
     double accumulator;
     char   current_input[8];
@@ -389,7 +407,7 @@ void process_input(double input) {
 }
 
 // listens for keypresses
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
             case KC_cl:
@@ -446,9 +464,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
                 break;
         }
-        return true;
     }
 
-    return true;
+    return process_record_user(keycode, record);
 
 };

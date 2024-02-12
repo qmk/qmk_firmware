@@ -20,11 +20,11 @@
 #include "gpio.h"
 #include "progmem.h"
 #include "wait.h"
-#include QMK_KEYBOARD_H
 #include <stdio.h>
 #include "halconf.h"
 #include "print.h"
 #include <math.h>
+#include "kalkulators.h"
 
 #ifndef TM1638_CLK_PIN
 #    error tm1638: no CLK pin defined!
