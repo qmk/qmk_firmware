@@ -383,3 +383,53 @@ TEST_F(OneShot, OSLWithOsmAndAdditionalKeypress) {
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 }
+
+TEST_F(OneShot, OSLWithMoAndAdditionalKeypress) {
+    TestDriver driver;
+    InSequence s;
+    KeymapKey  osl_key     = KeymapKey{0, 0, 0, OSL(1)};
+    KeymapKey  mo_key      = KeymapKey{1, 1, 0, MO(2)};
+    KeymapKey  regular_key = KeymapKey{2, 1, 1, KC_A};
+
+    set_keymap({osl_key, mo_key, regular_key});
+
+    /* Press OSL key */
+    EXPECT_NO_REPORT(driver);
+    osl_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Release OSL key */
+    EXPECT_NO_REPORT(driver);
+    osl_key.release();
+    run_one_scan_loop();
+    EXPECT_TRUE(layer_state_is(1));
+    VERIFY_AND_CLEAR(driver);
+
+    /* Press MO */
+    EXPECT_NO_REPORT(driver);
+    mo_key.press();
+    run_one_scan_loop();
+    EXPECT_TRUE(layer_state_is(2));
+    VERIFY_AND_CLEAR(driver);
+
+    /* Press regular key */
+    EXPECT_REPORT(driver, (regular_key.report_code)).Times(1);
+    regular_key.press();
+    run_one_scan_loop();
+    EXPECT_TRUE(layer_state_is(2));
+    VERIFY_AND_CLEAR(driver);
+
+    /* Release regular key */
+    EXPECT_EMPTY_REPORT(driver);
+    regular_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Release MO */
+    EXPECT_NO_REPORT(driver);
+    mo_key.release();
+    run_one_scan_loop();
+    EXPECT_TRUE(layer_state_is(0));
+    VERIFY_AND_CLEAR(driver);
+}
