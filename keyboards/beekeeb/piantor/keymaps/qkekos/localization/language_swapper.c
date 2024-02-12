@@ -10,8 +10,10 @@ void cycle_language(int swaps_count, enum languages new_lang) {
     multi_tap(A(KC_LSFT), swaps_count);
     current_lang = new_lang;
 
-    if (do_invert)
+    if (do_invert) {
         layer_invert(QWERTY);
+        autocorrect_toggle();
+    }
 }
 
 void tri_eng_tap_action(void)   { cycle_language(1, RU);  }
@@ -22,7 +24,7 @@ void tri_eng_hold_action(void)  { cycle_language(2, UA);  }
 void tri_ru_hold_action(void)   { cycle_language(1, UA);  }
 void tri_ua_hold_action(void)   { cycle_language(2, RU);  }
 
-void double_ru_tap_action(void) { cycle_language(1, ENG); }
+void double_ru_tap_action(void) { tri_ua_tap_action(); }
 
 void (*tri_tap_actions[])(void) = {
     [ENG] = tri_eng_tap_action,
