@@ -63,8 +63,12 @@
     "ws2812": {
         "pin": "D3"
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_ortho_3x3"
+    },
+    "community_layouts": ["ortho_3x3"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ortho_3x3": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
