@@ -39,12 +39,13 @@ If there are any inconsistencies with these recommendations, you're best off [cr
 
 ## Keymap PRs
 
-Note that personal keymap submissions will no longer be accepted. This section applies to manufacturer-supported keymaps.
+!> Note that personal keymap submissions will no longer be accepted. This section applies to manufacturer-supported keymaps. Please see this [issue](https://github.com/qmk/qmk_firmware/issues/22724) for more information.
 
-- `#include QMK_KEYBOARD_H` preferred to including specific board files
-- prefer layer `enum`s to `#define`s
-- custom keycode `enum`s must have first entry `= SAFE_RANGE`
-- terminating backslash (`\`) in lines of LAYOUT macro parameters is superfluous and should be removed
+- PRs for vendor specific keymaps will be permitted. The naming convention for these should be `default_${vendor}`, `via_${vendor}` i.e. `via_clueboard`.
+    - vendor specific keymaps do not necessarily need to be "vanilla" and can be more richly featured than `default` or `via` stock keymaps.
+- #include QMK_KEYBOARD_H preferred to including specific board files
+- prefer layer enums to #defines
+- custom keycode enums must have first entry = SAFE_RANGE
 - some care with spacing (e.g., alignment on commas or first char of keycodes) makes for a much nicer-looking keymap
 
 ## Keyboard PRs
@@ -103,7 +104,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
 - keyboard `config.h`
     - no `#define DESCRIPTION`
     - no Magic Key Options, MIDI Options or HD44780 configuration
-    - user preference configurable `#define`s need to be moved to keymap `config.h`
+    - user preference configurable `#define`s should not be placed at the keyboard level
     - default values should not be redefined, such as `DEBOUNCE`, RGB related settings, etc.
       - feature specific documentation contains most default values
       - `grep` or alternative tool can be used to search for default values in core directories (e.g. `grep -r "define DEBOUNCE" quantum`)
@@ -117,8 +118,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
         - mirroring existing functionality of a commercial board (like custom keycodes and special animations etc.) should be handled through non-`default` keymaps
     - Vial-related files or changes will not be accepted, as they are not used by QMK firmware (no Vial-specific core code has been submitted or merged)
 - `<keyboard>.c`
-    - empty `xxxx_xxxx_kb()` or other weak-defined default implemented functions removed
-    - empty `xxxx_xxxx_user()` or other user-level functions are disallowed at the keyboard level and must be moved to keymaps
+    - empty `xxxx_xxxx_kb()`, `xxxx_xxxx_user()`, or other weak-defined default implemented functions removed
     - commented-out functions removed too
     - `matrix_init_board()` etc. migrated to `keyboard_pre_init_kb()`, see: [keyboard_pre_init*](custom_quantum_functions.md?id=keyboard_pre_init_-function-documentation)
     - prefer `CUSTOM_MATRIX = lite` if custom matrix used, allows for standard debounce, see [custom matrix 'lite'](custom_matrix.md?id=lite)
@@ -138,7 +138,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - standard layouts preferred in these keymaps, if possible
     - should use [encoder map feature](https://docs.qmk.fm/#/feature_encoders?id=encoder-map), rather than `encoder_update_user()`
     - default keymap should not enable VIA -- the VIA integration documentation requires a keymap called `via`
-- submitters can have a personal (or bells-and-whistles) keymap showcasing capabilities in the same PR but it shouldn't be embedded in the 'default' keymap
+- submitters can add an example (or bells-and-whistles) keymap showcasing capabilities in the same PR but it shouldn't be embedded in the 'default' keymap
 - submitters can also have a "manufacturer-matching" keymap that mirrors existing functionality of the commercial product, if porting an existing board
 - Do not include VIA json files in the PR. These do not belong in the QMK repository as they are not used by QMK firmware -- they belong in the [VIA Keyboard Repo](https://github.com/the-via/keyboards)
 - Do not include KLE json files in the PR. These have no use within QMK.
