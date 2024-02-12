@@ -23,8 +23,12 @@ void refresh_token(void) {
 
 void record_send_string(const char *str) {
     for (int i = 0; str[i] != '\0'; i++) {
-        if ('A' <= str[i] && str[i] <= 'Z') enqueue(str[i] - 61);
-        else if ('a' <= str[i] && str[i] <= 'z') enqueue(str[i] - 93);
+        uint16_t keycode = char_to_keycode(str[i]);
+
+        if (keycode == KC_BSPC) dequeue();
+        if (keycode == KC_NO) continue;
+
+        enqueue(keycode);
     }
 
     SEND_STRING(is_caps_word_on() ? to_upper_case(str) : str);

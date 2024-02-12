@@ -49,3 +49,12 @@ const char* to_upper_case(const char *str) {
     result_string[len] = '\0';
     return result_string;
 }
+
+uint16_t char_to_keycode(char symbol) {
+    if (symbol == '\b') return KC_BSPC;
+
+    if ('A' <= symbol && symbol <= 'Z') return      symbol - 61;
+    else if ('a' <= symbol && symbol <= 'z') return symbol - 93;
+
+    return KC_NO;
+}
