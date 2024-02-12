@@ -142,8 +142,8 @@ const is31_led PROGMEM g_is31_leds[LED_MATRIX_LED_COUNT] = {
  *    driver
  *    |  LED address
  *    |  | */
-    { 0, CS1_SW1 },
-    { 0, CS2_SW1 },
+    { 0, SW1_CS1 },
+    { 0, SW1_CS2 },
     // ...
 }
 ```
