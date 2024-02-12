@@ -95,11 +95,6 @@ __attribute__ ((weak)) void matrix_scan_user(void) {}
 
 
 void keyboard_pre_init_kb(void) {
-#ifdef LED_MATRIX_ENABLE
-    // Turn on LED controller
-    setPinOutput(B16);
-    writePinHigh(B16);
-#endif
     // The backlight always has to be initialized, otherwise it will stay lit
     lcd_backlight_hal_init();
 #ifdef ST7565_ENABLE
