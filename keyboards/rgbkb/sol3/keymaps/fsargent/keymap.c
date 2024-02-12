@@ -39,9 +39,10 @@ enum sol_layers {
 	_WIN,
 	_NAV,
 	_GAME,
-	_SYM,
+	_NUM,
 	_WINNAV,
-	_MEH
+	_MEH,
+	_SYM
 };
 
 enum sol_keycodes {
@@ -56,23 +57,23 @@ enum sol_keycodes {
 #define FN		MO(_FN)
 #define MEHESC		LT(_MEH, KC_ESC)
 #define HYPESC		MT(MOD_HYPR, KC_ESC)
-#define SYMTAB		LT(_SYM, KC_TAB)
+#define SYMTAB		LT(_NUM, KC_TAB)
 #define GAME		DF(_GAME)
 #define QWERTY		DF(_MAC)
-#define UP		LT(_SYM, KC_PGUP)
-#define DOWN		LT(_SYM, KC_PGDN)
+#define UP		LT(_NUM, KC_PGUP)
+#define DOWN		LT(_NUM, KC_PGDN)
 
 #define LBRC 		MT(MOD_LALT, KC_LBRC)
 #define RBRC 		MT(MOD_LGUI, KC_RBRC)
 
-#define MINUS		LT(_SYM, KC_MINUS)
+#define MINUS		LT(_SYM, KC_MINS)
 #define EQL 		LT(_NAV, KC_EQL)
 
 
 #define LTHUMB0		CMD_T(KC_BSPC)
 #define LTHUMB0WIN	CTL_T(KC_BSPC)
 #define LTHUMB1		MT(MOD_LALT, KC_ENT)
-#define LTHUMB2		MT(MOD_LCTRL, KC_TAB)
+#define LTHUMB2		MT(MOD_LCTL, KC_TAB)
 #define RTHUMB0		KC_SPC
 #define RTHUMB2		KC_ENT
 #define RTHUMB1		KC_MPLY
@@ -116,17 +117,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	*/
 
 	[_MAC] = LAYOUT(
-	KC_GRV,		KC_1,		KC_2,		KC_3,		KC_4,		KC_5,		KC_ESC,			KC_NO,	KC_6,	KC_7,	KC_8,	KC_9,	KC_0,	KC_MINUS,
-	KC_TAB,		KC_Q,		KC_W,		KC_E,		KC_R,		KC_T,		TO(_MAC),		KC_NO,	KC_Y,	KC_U,	KC_I,	KC_O,	KC_P,	KC_BSLS,
-	MEHESC,		KC_A,		KC_S,		KC_D,		KC_F,		KC_G,		TO(_WIN),		KC_F11,	KC_H,	MT_J,	MT_K,	MT_L,	MT_SEMI,KC_QUOT,
-	KC_LSFT,	KC_Z,		KC_X,		KC_C,		KC_V,		KC_B,		TO(_GAME),		KC_F12,	KC_N,	KC_M,	KC_COMM,KC_DOT,	KC_SLSH,KC_RSFT,
-	KC_LCTL,	LBRC,		RBRC,		MO(_SYM),	MO(_NAV),
-	LTHUMB0,	LTHUMB1,	LTHUMB2,
-	RTHUMB2,	RTHUMB1,	RTHUMB0,
-	MINUS, 		EQL,		KC_RGUI,	KC_RALT,	KC_RCTL,
+	KC_GRV,		KC_1,		KC_2,		KC_3,		KC_4,		KC_5,		KC_ESC,						KC_NO,		KC_6,		KC_7,		KC_8,		KC_9,		KC_0,		KC_MINS,
+	KC_TAB,		KC_Q,		KC_W,		KC_E,		KC_R,		KC_T,		TO(_MAC),					KC_NO,		KC_Y,		KC_U,		KC_I,		KC_O,		KC_P,		KC_BSLS,
+	MEHESC,		KC_A,		KC_S,		KC_D,		KC_F,		KC_G,		TO(_WIN),					KC_F11,		KC_H,		MT_J,		MT_K,		MT_L,		MT_SEMI,	KC_QUOT,
+	KC_LSFT,	KC_Z,		KC_X,		KC_C,		KC_V,		KC_B,		TO(_GAME),					KC_F12,		KC_N,		KC_M,		KC_COMM,	KC_DOT,		KC_SLSH,	KC_RSFT,
+	KC_LCTL,	LBRC,		RBRC,		MO(_NUM),	MO(_NAV),	LTHUMB0,	LTHUMB1,	LTHUMB2,	RTHUMB2,	RTHUMB1,	RTHUMB0,	MINUS, 		EQL,		KC_RGUI,	KC_RALT,	KC_RCTL,
 
-	KC_VOLD,	KC_VOLU,	KC_VOLD,	KC_VOLU,	KC_VOLD,	KC_VOLU,				KC_VOLU,	KC_VOLD,	KC_MPLY,	KC_MPLY,	KC_MPLY,	KC_MPLY,
-	KC_WH_D,	KC_WH_U,	KC_LBRC,	KC_LPRN,	KC_LCBR,								KC_H,		KC_J,		KC_MNXT,	KC_MPLY,	KC_MPRV
+	KC_VOLD,	KC_VOLU,	KC_VOLD,	KC_VOLU,	KC_VOLD,	KC_VOLU,									KC_VOLU,	KC_VOLD,	KC_MPLY,	KC_MPLY,	KC_MPLY,	KC_MPLY,
+	KC_WH_D,	KC_WH_U,	KC_LBRC,	KC_LPRN,	KC_LCBR,													KC_H,		KC_J,		KC_MNXT,	KC_MPLY,	KC_MPRV
 	),
 
 	/* Win
@@ -146,30 +144,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	*/
 
 	[_WIN] = LAYOUT(
-	KC_GRV,		_______,	_______,	_______,	_______,	_______,	_______,		_______,	_______,	_______,	_______,	_______,	_______,	_______,
-	_______,	_______,	_______,	_______,	_______,	_______,	_______,	 	_______,	_______,	_______,	_______,	_______,	_______,	_______,
-	MEHESC,		_______,	_______,	_______,	_______,	_______,	_______,	 	_______,	_______,	_______,	_______,	_______,	_______,	_______,
-	_______,	_______,	_______,	_______,	_______,	_______,	_______,	 	_______,	_______,	_______,	_______,	_______,	_______,	_______,
+	KC_GRV,		_______,	_______,	_______,	_______,	_______,	_______,					_______,	_______,	_______,	_______,	_______,	_______,	_______,
+	_______,	_______,	_______,	_______,	_______,	_______,	_______,	 				_______,	_______,	_______,	_______,	_______,	_______,	_______,
+	MEHESC,		_______,	_______,	_______,	_______,	_______,	_______,	 				_______,	_______,	_______,	_______,	_______,	_______,	_______,
+	_______,	_______,	_______,	_______,	_______,	_______,	_______,	 				_______,	_______,	_______,	_______,	_______,	_______,	_______,
 
-	_______,	_______,	_______,	_______,	MO(_WINNAV),
-	LTHUMB0WIN,	LTHUMB1,	LTHUMB2,
-	RTHUMB2,	RTHUMB1,	RTHUMB0,
+	_______,	_______,	_______,	_______,	MO(_WINNAV), 	LTHUMB0WIN,	LTHUMB1,	LTHUMB2,	RTHUMB2,	RTHUMB1,	RTHUMB0,	_______,	_______,	_______,	_______,	_______,
 
-																					_______,	_______,	_______,	_______,	_______,
-
-	_______,	_______,	_______,	_______,	_______,	_______,							KC_VOLU,	KC_VOLD,	_______,	_______,	_______,	_______,
-	_______,	_______,	_______,	_______,	_______,											_______,	_______,	_______,	_______,	_______
+	_______,	_______,	_______,	_______,	_______,	_______,									KC_VOLU,	KC_VOLD,	_______,	_______,	_______,	_______,
+	_______,	_______,	_______,	_______,	_______,													_______,	_______,	_______,	_______,	_______
 	),
 
 	[_NAV] = LAYOUT(
-	C(KC_GRV),	KC_F1,			KC_F2,		KC_F3,		KC_F4,		KC_F5,	_______,					_______,	KC_F6,		KC_F7,		KC_F8,		KC_F9,		KC_F10,KC_DEL,
+	C(KC_GRV),	KC_F1,		KC_F2,		KC_F3,		KC_F4,		KC_F5,		_______,					_______,	KC_F6,		KC_F7,		KC_F8,		KC_F9,		KC_F10,		KC_DEL,
 	C(KC_TAB),	A(KC_BSPC),	A(KC_LEFT),	KC_UP,		A(KC_RGHT),	A(KC_DEL),	KC_RCBR,					_______,	KC_WH_U,	KC_WH_U,	KC_MS_U,	KC_WH_L,	KC_PGUP,	_______,
-	KC_MEH,			G(KC_LEFT),	KC_LEFT,	KC_DOWN,	KC_RGHT,	G(KC_RGHT),	KC_RPRN,					KC_F11,		KC_WH_L,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_WH_R,	_______,
-	KC_LSFT,		KC_HOME,		G(KC_DOWN),	KC_DEL,		G(KC_UP),	KC_END,		KC_RBRC,					KC_F12,		KC_WH_D,	KC_WH_D,	KC_NO,		KC_NO,		KC_PGDN,	_______,
-	_______,	_______,	_______,	_______,	_______,		_______,		_______,	_______,	KC_BTN2,	KC_MPLY,	KC_BTN1,	KC_APP,		_______,	_______,	_______,	_______,
+	KC_MEH,		G(KC_LEFT),	KC_LEFT,	KC_DOWN,	KC_RGHT,	G(KC_RGHT),	KC_RPRN,					KC_F11,		KC_WH_L,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_WH_R,	_______,
+	KC_LSFT,	KC_HOME,	G(KC_DOWN),	KC_DEL,		G(KC_UP),	KC_END,		KC_RBRC,					KC_F12,		KC_WH_D,	KC_WH_D,	KC_NO,		KC_NO,		KC_PGDN,	_______,
+	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	KC_BTN2,	KC_MPLY,	KC_BTN1,	KC_APP,		_______,	_______,	_______,	_______,
 
-	_______,	_______,	_______,	_______,	_______,	_______,														KC_F13,	KC_F14,	_______,	_______,	_______,	_______,
-	_______,	_______,	KC_RBRC,	KC_RPRN,	KC_RCBR,																		_______,	_______,	_______,	_______,	_______
+	_______,	_______,	_______,	_______,	_______,	_______,											KC_F13,	KC_F14,	_______,	_______,	_______,	_______,
+	_______,	_______,	KC_RBRC,	KC_RPRN,	KC_RCBR,													_______,	_______,	_______,	_______,	_______
 	),
 
 	[_GAME] = LAYOUT(
@@ -178,35 +172,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_ESC,		_______,	_______,	_______,	_______,	_______,	_______,					_______,	_______,	_______,	_______,	_______,	_______,	_______,
 	_______,	_______,	_______,	_______,	_______,	_______,	_______,					_______,	_______,	_______,	_______,	_______,	_______,	_______,
 
-	_______,	_______,	_______,	_______,	MO(_WINNAV),
-	KC_SPC,	LT(_SYM, KC_DEL), KC_LALT,
-																			KC_ENT,	KC_ESC,	KC_SPC,
-																							_______,	_______,	_______,	_______,	_______,
+	_______,	_______,	_______,	_______,	MO(_WINNAV), KC_SPC,	LT(_NUM, KC_DEL),	 KC_LALT,	KC_ENT,		KC_ESC,		KC_SPC,		_______,	_______,	_______,	_______,	_______,
 
 	_______,	_______,	_______,	_______,	_______,	_______,									KC_VOLU,	KC_VOLD,	_______,	_______,	_______,	_______,
 	_______,	_______,	_______,	_______,	_______,													_______,	_______,	_______,	_______,	_______
 	),
 
-	[_SYM] = LAYOUT(
-	KC_GRV,		KC_F1,		KC_F2,		KC_F3,		KC_F4,		KC_F5,		TO(_MAC),					_______,	KC_F6,		KC_F7,		KC_F8,		KC_F9,		KC_F10,		RESET,
-	_______,	KC_PAST,	KC_P7,		KC_P8,		KC_P9,		KC_MINUS,	KC_NO,						KC_NO,		RGB_MOD,	RGB_VAI,	RGB_HUI,	RGB_SAI,	RGB_SPI,	KC_NO,
-	_______,	KC_KP_0,	KC_P4,		KC_P5,		KC_P6,		KC_PPLS,	MENU_BTN,					RGB_MOD,	RGB_RMOD,	RGB_VAD,	RGB_HUD,	RGB_SAD,	RGB_SPD,	KC_NO,
-	_______,	KC_PSLS,	KC_P1,		KC_P2,		KC_P3,		KC_EQL,		MENU_DN,					RGB_RMOD,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,
-	_______,	KC_EQL,		KC_COMMA,	KC_KP_0,	KC_PDOT,
-											_______,	_______,	_______,
-																			RGB_TOG,	RGB_RST,	RGB_MOD,
-																			RGB_RMOD,	RGB_MOD,	_______,	_______,	_______,
+	[_NUM] = LAYOUT(
+	KC_GRV,		KC_F1,		KC_F2,		KC_F3,		KC_F4,		KC_F5,		TO(_MAC),					KC_NO,		KC_CIRC,	KC_HASH,	KC_DLR,		KC_TILD,	KC_EXLM,	KC_NUM,
+	_______,	KC_PAST,	KC_P7,		KC_P8,		KC_P9,		KC_MINS,	KC_NO,						KC_NO,		KC_PERC,	KC_P7,		KC_P8,		KC_P9,		KC_COLN,	KC_K,
+	KC_NUM,		KC_KP_0,	KC_P4,		KC_P5,		KC_P6,		KC_PPLS,	MENU_BTN,					RGB_MOD,	KC_PPLS,	KC_P4,		KC_P5,		KC_P6,		KC_MINS,	KC_PEQL,
+	_______,	KC_PSLS,	KC_P1,		KC_P2,		KC_P3,		KC_EQL,		MENU_DN,					RGB_RMOD,	KC_PAST,	KC_P1,		KC_P2,		KC_P3,		KC_PSLS,	S(KC_G),
+	_______,	KC_EQL,		KC_COMMA,	KC_KP_0,	KC_PDOT,	_______,	_______,	_______,	KC_PDOT,	KC_PDOT,	KC_KP_0, 	KC_LPRN,	KC_LBRC,	KC_RBRC,	KC_RPRN,	KC_AT,
 
 	_______,	_______,	_______,	_______,	_______,	_______,									MENU_UP,	MENU_DN,	MENU_BTN,	_______,	_______,	_______,
 	_______,	_______,	KC_RBRC,	KC_RPRN,	KC_RCBR,													_______,	_______,	_______,	_______,	_______
 	),
 
 	[_WINNAV] = LAYOUT(
-	C(KC_GRV),	KC_1,		KC_2,		KC_3,		KC_4,		KC_5,		TO(_MAC),					_______,	KC_6,	KC_7,	KC_8,	KC_9,	KC_0,	KC_DEL,
-	C(KC_TAB),	C(KC_BSPC),	C(KC_LEFT),	KC_UP,	C(KC_RGHT),	C(KC_DEL),	KC_RCBR,					_______,	KC_WH_U,	KC_WH_U,	KC_MS_U,	KC_WH_L,	KC_PGUP,	_______,
-	KC_MEH,		KC_HOME,		KC_LEFT,		KC_DOWN,	KC_RGHT,		KC_END,		KC_RPRN,					KC_F11,	KC_WH_L,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_WH_R,	_______,
-	KC_LSFT,		C(KC_HOME),	C(KC_DOWN),	KC_DEL,	C(KC_UP),		C(KC_END),	KC_RBRC,					KC_F12,	KC_WH_D,	KC_WH_D,	KC_NO,	KC_NO,	KC_PGDN,	_______,
-	_______,		_______,		_______,		_______,	_______,		_______,		_______,	_______,	KC_BTN3,	KC_BTN2,	KC_BTN1,	_______,	_______,	_______,	_______,	_______,
+	C(KC_GRV),	KC_F1,		KC_F2,		KC_F3,		KC_F4,		KC_F5,		_______,					_______,	KC_F6,		KC_F7,		KC_F8,		KC_F9,		KC_F10,		KC_DEL,
+	C(KC_TAB),	C(KC_BSPC),	C(KC_LEFT),	KC_UP,		C(KC_RGHT),	C(KC_DEL),	KC_RCBR,					_______,	KC_WH_U,	KC_WH_U,	KC_MS_U,	KC_WH_L,	KC_PGUP,	_______,
+	KC_MEH,		KC_HOME,	KC_LEFT,	KC_DOWN,	KC_RGHT,	KC_END,		KC_RPRN,					KC_F11,		KC_WH_L,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_WH_R,	_______,
+	KC_LSFT,	C(KC_HOME),	C(KC_DOWN),	KC_DEL,		C(KC_UP),	C(KC_END),	KC_RBRC,					KC_F12,		KC_WH_D,	KC_WH_D,	KC_NO,		KC_NO,		KC_PGDN,	_______,
+	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	KC_BTN3,	KC_BTN2,	KC_BTN1,	_______,	_______,	_______,	_______,	_______,
 
 	_______,	_______,	_______,	_______,	_______,	_______,												 _______,	_______,	_______,	_______,	_______,	_______,
 	_______,	_______,	KC_RBRC,	KC_RPRN,	KC_RCBR,																		_______,	_______,	_______,	_______,	_______
@@ -214,16 +202,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	),
 
 	[_MEH]=LAYOUT(
-	_______,	MEH(KC_1),	MEH(KC_2),	MEH(KC_3),	MEH(KC_4),	MEH(KC_5),	TO(_MAC),			_______,	MEH(KC_6),	MEH(KC_7),	MEH(KC_8),	MEH(KC_9),	MEH(KC_0),	MEH(KC_MINUS),
-	_______,	MEH(KC_Q),	MEH(KC_W),	MEH(KC_E),	MEH(KC_R),	MEH(KC_T),	TO(_WIN),			_______,	MEH(KC_Y),	MEH(KC_U),	MEH(KC_I),	MEH(KC_O),	MEH(KC_P),	MEH(KC_BSLS),
-	_______,	MEH(KC_A),	MEH(KC_S),	MEH(KC_D),	MEH(KC_F),	MEH(KC_G),	TO(_GAME),		KC_VOLU,	MEH(KC_H),	MEH(KC_J),	MEH(KC_K),	MEH(KC_L),	MEH(KC_SCLN),	MEH(KC_QUOT),
-	_______,	MEH(KC_Z),	MEH(KC_X),	MEH(KC_C),	MEH(KC_V),	MEH(KC_B),	_______,			KC_VOLD,	MEH(KC_N),	MEH(KC_M),	MEH(KC_COMM),	MEH(KC_DOT),	MEH(KC_SLSH),	MEH(KC_RSFT),
-	_______,	_______,		RGB_RMOD,		RGB_TOG,		RGB_MOD, 		KC_LGUI, KC_LALT, KC_LCTL,
-																						KC_MNXT,	KC_MPRV,	KC_MPLY,
-																						TO(_MAC),	TO(_WIN),	TO(_GAME),		_______,		_______,
+	_______,	MEH(KC_1),	MEH(KC_2),	MEH(KC_3),	MEH(KC_4),	MEH(KC_5),	TO(_MAC),					_______,	MEH(KC_6),	MEH(KC_7),	MEH(KC_8),	MEH(KC_9),	MEH(KC_0),	MEH(KC_MINS),
+	_______,	MEH(KC_Q),	MEH(KC_W),	MEH(KC_E),	MEH(KC_R),	MEH(KC_T),	TO(_WIN),					_______,	MEH(KC_Y),	MEH(KC_U),	MEH(KC_I),	MEH(KC_O),	MEH(KC_P),	MEH(KC_BSLS),
+	_______,	MEH(KC_A),	MEH(KC_S),	MEH(KC_D),	MEH(KC_F),	MEH(KC_G),	TO(_GAME),					KC_VOLU,	MEH(KC_H),	MEH(KC_J),	MEH(KC_K),	MEH(KC_L),	MEH(KC_SCLN),	MEH(KC_QUOT),
+	_______,	MEH(KC_Z),	MEH(KC_X),	MEH(KC_C),	MEH(KC_V),	MEH(KC_B),	_______,					KC_VOLD,	MEH(KC_N),	MEH(KC_M),	MEH(KC_COMM),	MEH(KC_DOT),	MEH(KC_SLSH),	MEH(KC_RSFT),
+	_______,	_______,	RGB_RMOD,	RGB_TOG,	RGB_MOD, 	KC_LGUI, 	KC_LALT, 	KC_LCTL,	KC_MNXT,	KC_MPRV,	KC_MPLY,	TO(_MAC),	TO(_WIN),	TO(_GAME),	_______,	_______,
 
 	_______,	_______,	_______,	_______,	_______,	_______,												 _______,	_______,	_______,	_______,	_______,	_______,
 	_______,	_______,	_______,	_______,	_______,																_______,	_______,	_______,	_______,	_______
+	),
+
+	[_SYM] = LAYOUT(
+	KC_GRV,		KC_GRV,		KC_LPRN,	KC_RPRN,	KC_SCLN,	KC_COMM,	_______,					_______,	_______,	_______,	_______,	_______,	_______,	KC_BSPC,
+	KC_EXLM,	KC_LCBR,	KC_QUOT,	KC_DQT,		KC_RCBR,	KC_QUES,	_______,					_______,	KC_SCLN,	KC_LSFT,	KC_LCTL,	KC_LALT,	KC_LGUI,	_______,
+	KC_HASH,	KC_CIRC,	KC_EQL,		KC_UNDS,	KC_DLR,		KC_ASTR,	_______,					_______,	KC_DOT,		KC_BSPC,	KC_TAB,		KC_SPC,		KC_ENT,		_______,
+	KC_TILD,	KC_LT,		KC_PIPE,	KC_MINS,	KC_GT,		KC_SLSH,	_______,					_______,	KC_SLSH,	KC_DEL,		S(KC_TAB),	_______,	_______,	_______,
+
+	KC_AT,		KC_AMPR,	KC_LBRC,	KC_RBRC,	KC_PLUS,	KC_BSLS,	_______,	_______,	_______,	_______,	_______,	KC_LPRN,	KC_LBRC,	KC_RBRC,	KC_RPRN,	_______,
+
+	_______,	_______,	_______,	_______,	_______,	_______,									KC_VOLU,	KC_VOLD,	_______,	_______,	_______,	_______,
+	_______,	_______,	_______,	_______,	_______,													_______,	_______,	_______,	_______,	_______
 	),
 };
 
@@ -276,7 +274,7 @@ void render_layer_status(void) {
 		case _GAME:
 			oled_write_ln_P(PSTR(" Game"),	true);
 			break;
-		case _SYM:
+		case _NUM:
 			oled_write_ln_P(PSTR(" Sym "),	true);
 			break;
 		case _WINNAV:
@@ -306,7 +304,7 @@ const uint16_t PROGMEM xc_combo[] = {KC_X, KC_C, COMBO_END};
 const uint16_t PROGMEM cv_combo[] = {KC_C, KC_V, COMBO_END};
 const uint16_t PROGMEM qr_combo[] = {KC_Q, KC_R, COMBO_END};
 const uint16_t PROGMEM df_combo[] = {KC_D, KC_F, COMBO_END};
-const uint16_t PROGMEM gravminus_combo[] = {KC_GRV, KC_MINUS, COMBO_END};
+const uint16_t PROGMEM gravminus_combo[] = {KC_GRV, KC_MINS, COMBO_END};
 
 const uint16_t PROGMEM xcv_combo[] = {KC_X, KC_C, KC_V, COMBO_END};
 
@@ -430,7 +428,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 			 break;
 		  // case WINTGSYM:
 			//  if (pressed) {
-			// 	layer_invert(_SYM);
+			// 	layer_invert(_NUM);
 			//  }
 			//  break;
 			case SEL_LINE:
@@ -447,9 +445,9 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     switch (combo_index) {
 	case THUMBS:
 		if (pressed) {
-			layer_on(_SYM);
+			layer_on(_NUM);
 		} else {
-			layer_off(_SYM);
+			layer_off(_NUM);
 		}
 		break;
 	case MUTE:
@@ -458,7 +456,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 		}
 		break;
 	// case TGSYM:
-	// 	if (pressed) {layer_invert(_SYM);}
+	// 	if (pressed) {layer_invert(_NUM);}
 	// 	break;
 	case RST:
 		  if (pressed) {
@@ -574,11 +572,13 @@ uint32_t startup_exec(uint32_t trigger_time, void *cb_arg) {
 
 
 __attribute__((weak)) void keyboard_post_init_keymap(void) {}
-void					   keyboard_post_init_user(void) {
+void keyboard_post_init_user(void) {
 
-#ifdef OS_DETECTION_ENABLE
-	defer_exec(100, startup_exec, NULL);
-#endif
+ 	register_code(KC_NUM);
+    	unregister_code(KC_NUM);
+	#ifdef OS_DETECTION_ENABLE
+		defer_exec(100, startup_exec, NULL);
+	#endif
 
 	keyboard_post_init_keymap();
 }
