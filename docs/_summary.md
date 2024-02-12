@@ -123,6 +123,7 @@
     * [LED Indicators](feature_led_indicators.md)
     * [MIDI](feature_midi.md)
     * [Pointing Device](feature_pointing_device.md)
+    * [Potentiometer](feature_potentiometers.md)
     * [PS/2 Mouse](feature_ps2_mouse.md)
     * [Split Keyboard](feature_split_keyboard.md)
     * [Stenography](feature_stenography.md)

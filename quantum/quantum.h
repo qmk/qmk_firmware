@@ -210,6 +210,10 @@ extern layer_state_t layer_state;
 #    include "encoder.h"
 #endif
 
+#ifdef POTENTIOMETER_ENABLE
+#    include "potentiometer.h"
+#endif
+
 #ifdef POINTING_DEVICE_ENABLE
 #    include "pointing_device.h"
 #endif

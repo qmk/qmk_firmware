@@ -16,8 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include "analog.h"
-#include "qmk_midi.h"
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -43,18 +41,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     RGB_TOG,                         QK_BOOT
   )
 };
-
-// Potentiometer Slider, MIDI Control
-
-uint8_t divisor = 0;
-
-void slider(void) {
-    if (divisor++) { /* only run the slider function 1/256 times it's called */
-        return;
-    }
-    midi_send_cc(&midi_device, 2, 0x3E, 0x7F + (analogReadPin(SLIDER_PIN) >> 3));
-}
-
-void housekeeping_task_user(void) {
-    slider();
-}

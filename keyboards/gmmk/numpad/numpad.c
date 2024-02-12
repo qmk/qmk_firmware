@@ -16,6 +16,7 @@
  */
 
 #include "quantum.h"
+#include "qmk_midi.h"
 
 #ifdef RGB_MATRIX_ENABLE
 
@@ -117,3 +118,10 @@ void keyboard_pre_init_user(void) {
 #    endif
 
 #endif
+
+bool potentiometer_update_kb(uint8_t index, uint16_t value) {
+    if (!potentiometer_update_user(index, value)) {
+        midi_send_cc(&midi_device, 2, 0x3E, 0x7F + value);
+    }
+    return true;
+}
