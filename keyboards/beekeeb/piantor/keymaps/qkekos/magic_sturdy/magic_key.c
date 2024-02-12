@@ -5,13 +5,13 @@ void process_magic_key(void) {
     if (alt_rep_key_count == 2) {
         switch(queue(-5)) {
             quintuple_magic_case(KC_A, KC_G, KC_A, KC_I, KC_N, "st");
+            quintuple_magic_case(KC_J, KC_U, KC_D, KC_G, KC_E, "\bment");
             quintuple_magic_case(KC_N, KC_E, KC_V, KC_E, KC_R, "theless");
         }
 
         switch (queue(-4)) {
             quadruple_magic_case(KC_T,   KC_I, KC_A, KC_L, "ly");
             quadruple_magic_case(KC_SPC, KC_A, KC_L, KC_R, "eady");
-            quadruple_magic_case(KC_J,   KC_U, KC_D, KC_G, "ment");
             quadruple_magic_case(KC_S,   KC_O, KC_M, KC_E, "where");
         }
 
@@ -114,8 +114,8 @@ void process_magic_key(void) {
             double_magic_case(KC_O, KC_S, "ition");
         );
 
-        triple_magic_case(KC_J, KC_U, KC_D, "g");
         triple_magic_case(KC_M, KC_E, KC_N, "u");
+        triple_magic_case(KC_J, KC_U, KC_D, "ge");
         triple_magic_case(KC_L, KC_E, KC_D, "ge");
         triple_magic_case(KC_T, KC_H, KC_O, "ugh");
         triple_magic_case(KC_N, KC_U, KC_M, "ber");
