@@ -1,4 +1,5 @@
 {
+
     "manufacturer": "Ghost-Spot",
     "keyboard_name": "Ghost54",
     "maintainer": "Ghost-Spot",
@@ -23,6 +24,7 @@
         ]
     },
     "split": {
+        "enabled": true,
         "soft_serial_pin": "GP03",
         "encoder": {
             "right": {
