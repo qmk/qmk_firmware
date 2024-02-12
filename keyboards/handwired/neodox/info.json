@@ -55,7 +55,12 @@
             "matrix_grid": ["GP5", "GP15"],
         },
         "transport": {
-            "sync_matrix_state": true,
+            "sync": {
+                "indicators": true,
+                "layer_state": true,
+                "matrix_state": true,
+                "wpm": true
+            },
             "watchdog": true
         }
     },
