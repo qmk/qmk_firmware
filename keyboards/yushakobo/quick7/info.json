@@ -2,7 +2,6 @@
     "manufacturer": "yushakobo",
     "keyboard_name": "quick7",
     "maintainer": "yushakobo",
-    "bootloader": "caterina",
     "encoder": {
         "enabled": true,
         "rotary": [
