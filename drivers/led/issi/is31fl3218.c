@@ -16,6 +16,7 @@
 
 #include "is31fl3218.h"
 #include "i2c_master.h"
+#include "gpio.h"
 
 #define IS31FL3218_PWM_REGISTER_COUNT 18
 #define IS31FL3218_LED_CONTROL_REGISTER_COUNT 3
@@ -65,6 +66,11 @@ void is31fl3218_write_pwm_buffer(void) {
 
 void is31fl3218_init(void) {
     i2c_init();
+
+#if defined(IS31FL3218_SDB_PIN)
+    setPinOutput(IS31FL3218_SDB_PIN);
+    writePinHigh(IS31FL3218_SDB_PIN);
+#endif
 
     // In case we ever want to reinitialize (?)
     is31fl3218_write_register(IS31FL3218_REG_RESET, 0x00);
