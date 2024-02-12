@@ -25,20 +25,7 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "GP03",
-        "encoder": {
-            "right": {
-                "rotary": [
-                    {"pin_a": "GP26", "pin_b": "GP22"}
-                ]
-            }
-        },
-        "matrix_pins":{
-            "right": {
-                "cols": ["GP10", "GP11", "GP12", "GP13", "GP14", "GP15"],
-                "rows": ["GP21", "GP20", "GP19", "GP18", "GP17"]
-            }
-        }
+        "soft_serial_pin": "GP03"
     },
     "tapping": {
         "term": 100
@@ -47,10 +34,11 @@
         "tap_keycode_delay": 10
     },
     "features": {
-        "command": false,
         "mousekey": true,
+        "extrakey": true,
+        "bootmagic": true,
         "nkro": true,
-        "rgb_matrix": false
+        "encoder": true
     },
     "layouts": {
         "LAYOUT": {
