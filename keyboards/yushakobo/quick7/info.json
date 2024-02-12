@@ -38,12 +38,8 @@
             ["E6", "B4", "B2"]
         ]
     },
-    "layout_aliases": {
-        "LAYOUT": "LAYOUT_ortho_3x3"
-    },
-    "community_layouts": ["ortho_3x3"],
     "layouts": {
-        "LAYOUT_ortho_3x3": {
+        "LAYOUT": {
             "layout": [
                 {"x": 0, "y": 0, "matrix": [0, 0]},
                 {"x": 1, "y": 0, "matrix": [0, 1]},
