@@ -4,6 +4,7 @@
 void process_rep_key(void) {
     if (rep_key_count == 2) {
         switch(queue(-4)) {
+            quadruple_magic_case(KC_X, KC_A, KC_C, KC_T, "ly");
             quadruple_magic_case(KC_P, KC_O, KC_S, KC_S, "ible");
             quadruple_magic_case(KC_E, KC_L, KC_O, KC_P, "ment");
             quadruple_magic_case(KC_A, KC_S, KC_I, KC_C, "ally");
@@ -76,6 +77,7 @@ void process_rep_key(void) {
 
         double_magic_case(KC_L, KC_A, "st");
         double_magic_case(KC_B, KC_A, "sic");
+        double_magic_case(KC_E, KC_X, "act");
         double_magic_case(KC_S, KC_C, "hool");
     }
 
