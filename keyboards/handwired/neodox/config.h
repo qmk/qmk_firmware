@@ -37,12 +37,3 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-
-#ifdef RGBLIGHT_ENABLE
-#    define RGBLIGHT_DEFAULT_VAL 35
-#endif
-
-#define SPLIT_LAYER_STATE_ENABLE
-#define SPLIT_LED_STATE_ENABLE
-#define SPLIT_WPM_ENABLE
