@@ -22,6 +22,7 @@
         "nkro": false,
         "rgblight": true
     },
+    "development_board": "promicro",
     "matrix_pins": {
         "direct": [
             ["D2", "D4", "F4"],
