@@ -3,9 +3,6 @@
     "keyboard_name": "quick7",
     "maintainer": "yushakobo",
     "bootloader": "caterina",
-    "bootmagic": {
-        "enabled": true
-    },
     "encoder": {
         "enabled": true,
         "rotary": [
