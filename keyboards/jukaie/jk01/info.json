@@ -7,6 +7,13 @@
         "matrix": [1, 3]
     },
     "diode_direction": "COL2ROW",
+    "eeprom": {
+        "driver": "wear_leveling",
+        "wear_leveling": {
+            "driver": "spi_flash",
+            "backing_size": 8192
+        }
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "C2", "pin_b": "C3"}
@@ -174,9 +181,6 @@
         "device_version": "0.0.2",
         "pid": "0x0002",
         "vid": "0x4141"
-    },
-    "eeprom": {
-        "driver": "wear_leveling"
     },
     "layouts": {
         "LAYOUT": {
