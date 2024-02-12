@@ -143,15 +143,15 @@ const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
- *   |  |       G location
- *   |  |       |       B location
- *   |  |       |       | */
-    {0, B_1,    A_1,    C_1},
+ *   |  |        G location
+ *   |  |        |        B location
+ *   |  |        |        | */
+    {0, SW1_CS1, SW1_CS2, SW1_CS3},
     ....
 }
 ```
 
-Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3733.pdf) and the header file `drivers/led/issi/is31fl3733.h`. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3` for now).
+Where `SWx_CSy` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3733.pdf) and the header file `drivers/led/issi/is31fl3733.h`. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3` for now).
 
 ---
 ### IS31FL3736 :id=is31fl3736
@@ -222,10 +222,10 @@ const is31fl3736_led_t PROGMEM g_is31fl3736_leds[IS31FL3736_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
- *   |  |       G location
- *   |  |       |       B location
- *   |  |       |       | */
-    {0, B_1,    A_1,    C_1},
+ *   |  |        G location
+ *   |  |        |        B location
+ *   |  |        |        | */
+    {0, SW1_CS1, SW1_CS2, SW1_CS3},
     ....
 }
 ```
@@ -296,15 +296,15 @@ const is31fl3737_led_t PROGMEM g_is31fl3737_leds[IS31FL3737_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
- *   |  |       G location
- *   |  |       |       B location
- *   |  |       |       | */
-    {0, B_1,    A_1,    C_1},
+ *   |  |        G location
+ *   |  |        |        B location
+ *   |  |        |        | */
+    {0, SW1_CS1, SW1_CS2, SW1_CS3},
     ....
 }
 ```
 
-Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3737.pdf) and the header file `drivers/led/issi/is31fl3737.h`. The `driver` is the index of the driver you defined in your `config.h` (Only `0`, `1`, `2`, or `3` for now).
+Where `SWx_CSy` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3737.pdf) and the header file `drivers/led/issi/is31fl3737.h`. The `driver` is the index of the driver you defined in your `config.h` (Only `0`, `1`, `2`, or `3` for now).
 
 ---
 ### IS31FLCOMMON :id=is31flcommon
@@ -386,7 +386,7 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
  *   |  |        G location
  *   |  |        |        B location
  *   |  |        |        | */
-    {0, CS1_SW1, CS2_SW1, CS3_SW1},
+    {0, SW1_CS1, SW1_CS2, SW1_CS3},
     ....
 }
 ```
@@ -511,16 +511,16 @@ const aw20216s_led_t PROGMEM g_aw20216s_leds[AW20216S_LED_COUNT] = {
  *    |  |        G location
  *    |  |        |        B location
  *    |  |        |        | */
-    { 0, CS1_SW1, CS2_SW1, CS3_SW1 },
-    { 0, CS4_SW1, CS5_SW1, CS6_SW1 },
-    { 0, CS7_SW1, CS8_SW1, CS9_SW1 },
-    { 0, CS10_SW1, CS11_SW1, CS12_SW1 },
-    { 0, CS13_SW1, CS14_SW1, CS15_SW1 },
+    { 0, SW1_CS1, SW1_CS2, SW1_CS3 },
+    { 0, SW1_CS4, SW1_CS5, SW1_CS6 },
+    { 0, SW1_CS7, SW1_CS8, SW1_CS9 },
+    { 0, SW1_CS10, SW1_CS11, SW1_CS12 },
+    { 0, SW1_CS13, SW1_CS14, SW1_CS15 },
     ...
-    { 1, CS1_SW1, CS2_SW1, CS3_SW1 },
-    { 1, CS13_SW1, CS14_SW1, CS15_SW1 },
-    { 1, CS16_SW1, CS17_SW1, CS18_SW1 },
-    { 1, CS4_SW2, CS5_SW2, CS6_SW2 },
+    { 1, SW1_CS1, SW1_CS2, SW1_CS3 },
+    { 1, SW1_CS13, SW1_CS14, SW1_CS15 },
+    { 1, SW1_CS16, SW1_CS17, SW1_CS18 },
+    { 1, SW2_CS4, SW2_CS5, SW2_CS6 },
     ...
 };
 ```
