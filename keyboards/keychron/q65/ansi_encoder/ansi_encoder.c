@@ -18,8 +18,8 @@
 
 #ifdef RGB_MATRIX_ENABLE
 
-const ckled2001_led PROGMEM g_ckled2001_leds[RGB_MATRIX_LED_COUNT] = {
-/* Refer to CKLED manual for these locations
+const snled27351_led_t PROGMEM g_snled27351_leds[RGB_MATRIX_LED_COUNT] = {
+/* Refer to SNLED27351 manual for these locations
  *   driver
  *   |  R location
  *   |  |       G location
