@@ -29,9 +29,6 @@
             ["E6", "B4", "B2"]
         ]
     },
-    "mouse_key": {
-        "enabled": false
-    },
     "qmk": {
         "locking": {
             "enabled": true,
