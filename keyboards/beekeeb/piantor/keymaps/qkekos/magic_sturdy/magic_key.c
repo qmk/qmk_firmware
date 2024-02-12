@@ -9,9 +9,10 @@ void process_magic_key(void) {
         }
 
         switch (queue(-4)) {
+            quadruple_magic_case(KC_T,   KC_I, KC_A, KC_L, "ly");
             quadruple_magic_case(KC_SPC, KC_A, KC_L, KC_R, "eady");
             quadruple_magic_case(KC_J,   KC_U, KC_D, KC_G, "ment");
-            quadruple_magic_case(KC_T,   KC_I, KC_A, KC_L, "ly");
+            quadruple_magic_case(KC_S,   KC_O, KC_M, KC_E, "where");
         }
 
         switch (queue(-3)) {
@@ -32,6 +33,7 @@ void process_magic_key(void) {
         quintuple_magic_case(KC_O, KC_C, KC_R, KC_A, KC_C, "y");
         quintuple_magic_case(KC_R, KC_E, KC_M, KC_A, KC_C, "y");
         quintuple_magic_case(KC_N, KC_E, KC_V, KC_E, KC_R, "theless");
+
     }
 
     switch (queue(-4)) {
