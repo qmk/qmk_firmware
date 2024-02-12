@@ -5,10 +5,6 @@
 #include "analog.h"
 #include "qmk_midi.h"
 
-enum custom_keycodes { /* In order to add more volume controls, add here a custom keycode, ex: VLC */
-    DEFAULT= SAFE_RANGE,SPOTIFY,DISCORD,CHROME/*,VLC*/
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
         KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,    KC_F9,     KC_F10,

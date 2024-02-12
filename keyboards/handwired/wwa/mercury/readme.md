@@ -1,6 +1,6 @@
 # mercury
 
-![mercury](https://imgur.com/gallery/CgRINo4)
+![mercury](https://i.imgur.com/flE9SPwh.jpeg)
 
 8 Key VIA Compatible Macropad
 

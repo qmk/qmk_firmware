@@ -1,6 +1,6 @@
 # soyuzxl
 
-![soyuzxl](https://imgur.com/gallery/AqPRXY7)
+![soyuzxl](https://i.imgur.com/njUq2s3h.jpeg)
 
 21 Keys, 4 Potentiometers and 1 Fader MIDI Macro Keyboard
 

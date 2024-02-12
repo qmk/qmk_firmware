@@ -1,6 +1,6 @@
 # soyuz
 
-![soyuz](https://imgur.com/a/sOYdpzS)
+![soyuz](https://i.imgur.com/KwwORGSh.jpeg)
 
 21 Key and 3 MIDI Potentiometers Macro Keyboard
 

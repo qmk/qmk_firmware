@@ -5,9 +5,6 @@
 #include "analog.h"
 #include "qmk_midi.h"
 
-enum custom_keycodes { 
-    DEFAULT= SAFE_RANGE,SPOTIFY,DISCORD,CHROME/*,VLC*/
-};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
