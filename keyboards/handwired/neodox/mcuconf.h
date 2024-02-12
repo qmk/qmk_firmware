@@ -7,10 +7,6 @@
 #undef RP_SPI_USE_SPI0
 #define RP_SPI_USE_SPI0         TRUE
 
-/* Used for split comms */
-#undef RP_SIO_USE_UART0
-#define RP_SIO_USE_UART0        TRUE
-
 /* Used for backlight display */
 #undef RP_PWM_USE_PWM6
 #define RP_PWM_USE_PWM6         TRUE
