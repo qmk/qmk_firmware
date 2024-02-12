@@ -3,7 +3,6 @@
     "keyboard_name": "quick7",
     "maintainer": "yushakobo",
     "encoder": {
-        "enabled": true,
         "rotary": [
             {"pin_a": "D1", "pin_b": "D0"},
             {"pin_a": "F5", "pin_b": "F6"}
