@@ -24,6 +24,7 @@ void process_rep_key(void) {
 
         triple_magic_switch(KC_I,
             double_magic_switch(KC_N,
+                magic_case(KC_S, "tead");
                 magic_case(KC_C, "rease");
                 magic_case(KC_T, "erest");
             );
