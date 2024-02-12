@@ -73,10 +73,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [1] = LAYOUT(
-  KC_ESC,       ,   KC_NUM,  KC_PSLS, KC_PAST, S(PT_TILD),                   ,         ,        ,         ,        ,  KC_PSCR,
-  KC_TAB,   PT_EURO,KC_P7,   KC_P8,   KC_P9,   KC_MINS,                      ,     KC_PGUP, KC_UP,    KC_PGDN,     ,      ,
-  KC_LSFT,  KC_P0,  KC_P4,   KC_P5,   KC_P6,   KC_PLUS,                      ,     KC_LEFT, KC_DOWN,  KC_RIGHT,    ,      ,
-  KC_LCTL,  ZEROx3, KC_P1,   KC_P2,   KC_P3,   PT_DOT,                       ,     KC_HOME, KC_INSERT,KC_END,      ,      ,
+  KC_ESC,   _______,KC_NUM,  KC_PSLS, KC_PAST, S(PT_TILD),               _______,  _______, _______,  _______, _______, KC_PSCR,
+  KC_TAB,   PT_EURO,KC_P7,   KC_P8,   KC_P9,   KC_MINS,                  _______,  KC_PGUP, KC_UP,    KC_PGDN, _______, _______,
+  KC_LSFT,  KC_P0,  KC_P4,   KC_P5,   KC_P6,   KC_PLUS,                  _______,  KC_LEFT, KC_DOWN,  KC_RIGHT,_______, _______,
+  KC_LCTL,  ZEROx3, KC_P1,   KC_P2,   KC_P3,   PT_DOT,                   _______,  KC_HOME, KC_INSERT,KC_END,  _______, _______,
                     KC_ENT,  KC_SPC,  MO(0),   LGUI(KC_TAB),             KC_MPLY,  OSL(2),  KC_BSPC,  KC_DEL
 ),
 /* Symbols
@@ -94,10 +94,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                          `---------------------'           '------''-------------'
  */
 [2] = LAYOUT(
-  KC_ESC,        ,       ,          ,        ,        ,                      ,          ,           ,           ,             ,       KC_PSCR,
-  KC_TAB,        ,       ,      PT_LDAQ, PT_BSLS, ALGR(PT_8),            ALGR(PT_9),S(PT_7),    S(PT_LDAQ), ALGR(PT_PLUS),    ,           ,
-  KC_LSFT,   S(PT_3),ALGR(PT_2),PT_LABK, S(PT_1), S(PT_8),               S(PT_9),   S(PT_QUOT), S(PT_LABK), S(PT_0),      S(PT_BSLS),     ,
-  KC_LCTL,       ,       ,      KC_MINS, S(PT_2), ALGR(PT_7),            ALGR(PT_0),PT_QUOT,    S(PT_MINS),     ,             ,           ,
+  KC_ESC,    _______,   _______,_______, _______, _______,               _______,   _______,    _______,    _______,      _______,   KC_PSCR,
+  KC_TAB,    _______,   _______,PT_LDAQ, PT_BSLS, ALGR(PT_8),            ALGR(PT_9),S(PT_7),    S(PT_LDAQ), ALGR(PT_PLUS),_______,   _______,
+  KC_LSFT,   S(PT_3),ALGR(PT_2),PT_LABK, S(PT_1), S(PT_8),               S(PT_9),   S(PT_QUOT), S(PT_LABK), S(PT_0),      S(PT_BSLS),_______,
+  KC_LCTL,   _______,   _______,KC_MINS, S(PT_2), ALGR(PT_7),            ALGR(PT_0),PT_QUOT,    S(PT_MINS), _______,      _______,   _______,
                      KC_ENT,    KC_SPC,  MO(1),   LGUI(KC_TAB),          KC_MPLY,   MO(0),      KC_BSPC,    KC_DEL
 ),
 /* F Keys
@@ -115,10 +115,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                          `---------------------'           '------''-------------'
  */
 [3] = LAYOUT(
-  KC_ESC,      ,   KC_F10, KC_F11, KC_F12,     ,                     ,    KC_F22, KC_F23,  KC_F24,     , KC_PSCR,
-  KC_TAB,      ,   KC_F7,  KC_F8,  KC_F9,      ,                     ,    KC_F19, KC_F20,  KC_F21,     ,     ,
-  KC_LSFT,     ,   KC_F4,  KC_F5,  KC_F6,      ,                     ,    KC_F16, KC_F17,  KC_F18,     ,     ,
-  KC_LCTL,     ,   KC_F1,  KC_F2,  KC_F3,      ,                     ,    KC_F13, KC_F14,  KC_F15,     ,     ,
+  KC_ESC,  _______,   KC_F10, KC_F11, KC_F12,_______,              _______, KC_F22, KC_F23, KC_F24, _______, KC_PSCR,
+  KC_TAB,  _______,   KC_F7,  KC_F8,  KC_F9, _______,              _______, KC_F19, KC_F20, KC_F21, _______, _______,
+  KC_LSFT, _______,   KC_F4,  KC_F5,  KC_F6, _______,              _______, KC_F16, KC_F17, KC_F18, _______, _______,
+  KC_LCTL, _______,   KC_F1,  KC_F2,  KC_F3, _______,              _______, KC_F13, KC_F14, KC_F15, _______, _______,
                    KC_ENT, KC_SPC, MO(1),  LGUI(KC_TAB),         KC_MPLY, OSL(2), KC_BSPC, KC_DEL
 )
 };
