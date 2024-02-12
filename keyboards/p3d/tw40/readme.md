@@ -8,13 +8,12 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make tw40:default
-
+    make p3d/tw40:default
 
 To flash a new firmware plug in the keyboard while holding Esc (top left key) and then run the commands below.
 
 Flashing example for this keyboard:
 
-    make tw40:default:flash
+    make p3d/tw40:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
