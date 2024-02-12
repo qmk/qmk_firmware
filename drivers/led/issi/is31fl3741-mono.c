@@ -250,14 +250,12 @@ void is31fl3741_update_led_control_registers(uint8_t index) {
     if (driver_buffers[index].scaling_buffer_dirty) {
         is31fl3741_select_page(index, IS31FL3741_COMMAND_SCALING_0);
 
-        // CS1_SW1 to CS30_SW6 are on page 2
         for (uint8_t i = 0; i < IS31FL3741_SCALING_0_REGISTER_COUNT; i++) {
             is31fl3741_write_register(index, i, driver_buffers[index].scaling_buffer_0[i]);
         }
 
         is31fl3741_select_page(index, IS31FL3741_COMMAND_SCALING_1);
 
-        // CS1_SW7 to CS39_SW9 are on page 3
         for (uint8_t i = 0; i < IS31FL3741_SCALING_1_REGISTER_COUNT; i++) {
             is31fl3741_write_register(index, i, driver_buffers[index].scaling_buffer_1[i]);
         }
