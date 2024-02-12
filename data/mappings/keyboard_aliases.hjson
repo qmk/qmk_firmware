@@ -894,6 +894,9 @@
     "espectro": {
         "target": "mechkeys/espectro"
     },
+    "eu_isolation": {
+        "target": "p3d/eu_isolation"
+    },
     "felix": {
         "target": "unikeyboard/felix"
     },
@@ -1224,6 +1227,9 @@
     "pw88": {
         "target": "smoll/pw88"
     },
+    "q4z": {
+        "target": "p3d/q4z"
+    },
     "qaz": {
         "target": "tominabox1/qaz"
     },
@@ -1359,6 +1365,9 @@
     "space_space/rev2": {
         "target": "qpockets/space_space/rev2"
     },
+    "spacey": {
+        "target": "p3d/spacey"
+    },
     "spiderisland/winry25tc": {
         "target": "winry/winry25tc"
     },
@@ -1389,6 +1398,9 @@
     "suihankey/split": {
         "target": "kakunpc/suihankey/split"
     },
+    "synapse": {
+        "target": "p3d/synapse"
+    },
     "the_ruler": {
         "target": "maple_computing/the_ruler"
     },
@@ -1409,6 +1421,9 @@
     },
     "tronguylabs/m122_3270": {
         "target": "ibm/model_m_122/m122_3270/teensy"
+    },
+    "tw40": {
+        "target": "p3d/tw40"
     },
     "ua62": {
         "target": "nacly/ua62"
