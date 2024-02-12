@@ -33,7 +33,6 @@
     "mouse_key": {
         "enabled": false
     },
-    "processor": "atmega32u4",
     "qmk": {
         "locking": {
             "enabled": true,
