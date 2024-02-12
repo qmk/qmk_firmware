@@ -40,6 +40,7 @@ void process_magic_key(void) {
         quadruple_magic_case(KC_R,   KC_M, KC_A, KC_C, "y");
         quadruple_magic_case(KC_SPC, KC_R, KC_E, KC_C, "y");
         quadruple_magic_case(KC_W,   KC_I, KC_T, KC_H, "out");
+        quadruple_magic_case(KC_P,   KC_R, KC_O, KC_B, "ably");
     }
 
     switch (queue(-3)) {
