@@ -1,6 +1,6 @@
 # haven60
 
-![haven60](https://i.imgur.com/Uja750O.png)
+![haven60](https://i.imgur.com/Uja750Oh.png)
 
 *A short description of the keyboard/project*
 
