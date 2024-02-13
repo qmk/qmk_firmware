@@ -32,6 +32,10 @@
         "saturation_steps": 8,
         "brightness_steps": 8,
         "sleep": true,
+        "max_brightness": 125,
+        "layers": {
+            "enabled": true
+        },
         "animations": {
             "alternating": true,
             "breathing": true,
