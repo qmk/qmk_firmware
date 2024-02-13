@@ -84,6 +84,13 @@ void process_magic_key(void) {
             double_magic_case(KC_I, KC_D, "eo");
         );
 
+        triple_magic_switch(KC_C,
+            double_magic_switch(KC_O,
+                magic_case(KC_L, "umn");
+                magic_case(KC_N, "sider");
+            );
+        );
+
         triple_magic_switch(KC_R,
             double_magic_case(KC_I, KC_D, "ge");
             double_magic_case(KC_E, KC_D, "ge");
@@ -125,7 +132,6 @@ void process_magic_key(void) {
         triple_magic_case(KC_T, KC_H, KC_O, "ugh");
         triple_magic_case(KC_N, KC_U, KC_M, "ber");
         triple_magic_case(KC_O, KC_B, KC_V, "ious");
-        triple_magic_case(KC_C, KC_O, KC_N, "sider");
         triple_magic_case(KC_H, KC_I, KC_L, "arious");
         triple_magic_case(KC_U, KC_N, KC_F, "ortunate");
     }
