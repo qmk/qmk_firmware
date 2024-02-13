@@ -25,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|WIN+TAB|    |  Play |------+------+------+------+------+------|
  * | Ctrl |   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   -  |  º   |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                          | Enter|Space | /MO(1)  /       \OSL(2)\  |Bcksp | Del  |
+ *                          | Enter|Space | /TG(1)  /       \OSL(2)\  |Bcksp | Del  |
  *                          |      |      |/       /         \      \ |      |      |
  *                          `---------------------'           '------''-------------'
  */
@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    PT_ACUT,
   KC_LSFT,  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    PT_CCED, PT_TILD,
   KC_LCTL,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,                     KC_N,    KC_M,    PT_COMM, PT_DOT,  KC_MINS, PT_MORD,
-                    KC_ENT,  KC_SPC,  MO(1),   LGUI(KC_TAB),             KC_MPLY, OSL(2),  KC_BSPC, KC_DEL
+                    KC_ENT,  KC_SPC,  TG(1),   LGUI(KC_TAB),             KC_MPLY, OSL(2),  KC_BSPC, KC_DEL
 ),
 /*
  * NUMPAD + Navigation
@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|WIN+TAB|    |  Play |------+------+------+------+------+------|
  * | Ctrl |      |   1  |   2  |   3  |   .  |-------|    |-------|      | HOME | INSRT|  END |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                          | Enter|Space | /MO(0)  /       \OSL(2)\  |Bcksp | Del  |
+ *                          | Enter|Space | /TG(0)  /       \OSL(2)\  |Bcksp | Del  |
  *                          |      |      |/       /         \      \ |      |      |
  *                          `---------------------'           '------''-------------'
  */
@@ -57,8 +57,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,   _______,KC_NUM,  KC_PSLS, KC_PAST, S(PT_TILD),               _______,  _______, _______,  _______, _______, KC_PSCR,
   KC_TAB,   PT_EURO,KC_P7,   KC_P8,   KC_P9,   KC_MINS,                  _______,  KC_PGUP, KC_UP,    KC_PGDN, _______, _______,
   KC_LSFT,  KC_P0,  KC_P4,   KC_P5,   KC_P6,   KC_PLUS,                  _______,  KC_LEFT, KC_DOWN,  KC_RIGHT,_______, _______,
-  KC_LCTL,  _______, KC_P1,   KC_P2,   KC_P3,   PT_DOT,                   _______,  KC_HOME, KC_INSERT,KC_END,  _______, _______,
-                    KC_ENT,  KC_SPC,  MO(0),   LGUI(KC_TAB),             KC_MPLY,  OSL(2),  KC_BSPC,  KC_DEL
+  KC_LCTL,  _______,KC_P1,   KC_P2,   KC_P3,   PT_DOT,                   _______,  KC_HOME, KC_INSERT,KC_END,  _______, _______,
+                    KC_ENT,  KC_SPC,  TG(0),   LGUI(KC_TAB),             KC_MPLY,  OSL(2),  KC_BSPC,  KC_DEL
 ),
 /* Symbols
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|WIN+TAB|    |  Play |------+------+------+------+------+------|
  * | Ctrl |      |      |   -  |   "  |  {   |-------|    |-------|   }  |   '  |   _  |      |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                          | Enter|Space | /MO(1)  /       \ MO(0)\  |Bcksp | Del  |
+ *                          | Enter|Space | /TG(1)  /       \ TG(0)\  |Bcksp | Del  |
  *                          |      |      |/       /         \      \ |      |      |
  *                          `---------------------'           '------''-------------'
  */
@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,    _______,   _______,PT_LDAQ, PT_BSLS, ALGR(PT_8),            ALGR(PT_9),S(PT_7),    S(PT_LDAQ), ALGR(PT_PLUS),_______,   _______,
   KC_LSFT,   S(PT_3),ALGR(PT_2),PT_LABK, S(PT_1), S(PT_8),               S(PT_9),   S(PT_QUOT), S(PT_LABK), S(PT_0),      S(PT_BSLS),_______,
   KC_LCTL,   _______,   _______,KC_MINS, S(PT_2), ALGR(PT_7),            ALGR(PT_0),PT_QUOT,    S(PT_MINS), _______,      _______,   _______,
-                     KC_ENT,    KC_SPC,  MO(1),   LGUI(KC_TAB),          KC_MPLY,   MO(0),      KC_BSPC,    KC_DEL
+                     KC_ENT,    KC_SPC,  TG(1),   LGUI(KC_TAB),          KC_MPLY,   TG(0),      KC_BSPC,    KC_DEL
 ),
 /* F Keys
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|WIN+TAB|    |  Play |------+------+------+------+------+------|
  * | Ctrl |      |  F1  |  F2  |  F3  |      |-------|    |-------|      |  F13 |  F14 |  F15 |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                          | Enter|Space | /MO(1)  /       \OSL(2)\  |Bcksp | Del  |
+ *                          | Enter|Space | /TG(1)  /       \OSL(2)\  |Bcksp | Del  |
  *                          |      |      |/       /         \      \ |      |      |
  *                          `---------------------'           '------''-------------'
  */
@@ -100,6 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  _______,   KC_F7,  KC_F8,  KC_F9, _______,              _______, KC_F19, KC_F20, KC_F21, _______, _______,
   KC_LSFT, _______,   KC_F4,  KC_F5,  KC_F6, _______,              _______, KC_F16, KC_F17, KC_F18, _______, _______,
   KC_LCTL, _______,   KC_F1,  KC_F2,  KC_F3, _______,              _______, KC_F13, KC_F14, KC_F15, _______, _______,
-                   KC_ENT, KC_SPC, MO(1),  LGUI(KC_TAB),         KC_MPLY, OSL(2), KC_BSPC, KC_DEL
+                   KC_ENT, KC_SPC, TG(1),  LGUI(KC_TAB),         KC_MPLY, OSL(2), KC_BSPC, KC_DEL
 )
 };
+
