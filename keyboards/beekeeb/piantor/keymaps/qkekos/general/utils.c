@@ -42,7 +42,7 @@ const char* to_upper_case(const char *str) {
     }
 
     for (int i = 0; i < len; i++) {
-        if ('a' <= str[i] && str[i] <= 'z') result_string[i] = str[i] - 32;
+        if (is_lowercase_letter(str[i])) result_string[i] = str[i] - 32;
         else result_string[i] = str[i];
     }
 
@@ -53,8 +53,11 @@ const char* to_upper_case(const char *str) {
 uint16_t char_to_keycode(char symbol) {
     if (symbol == '\b') return KC_BSPC;
 
-    if ('A' <= symbol && symbol <= 'Z') return      symbol - 61;
-    else if ('a' <= symbol && symbol <= 'z') return symbol - 93;
+    if (is_uppercase_letter(symbol)) return      symbol - 'A' + KC_A;
+    else if (is_lowercase_letter(symbol)) return symbol - 'a' + KC_A;
 
     return KC_NO;
 }
+
+bool is_uppercase_letter(char symbol) { return 'A' <= symbol && symbol <= 'Z'; }
+bool is_lowercase_letter(char symbol) { return 'a' <= symbol && symbol <= 'z'; }

@@ -247,10 +247,10 @@ void send_lang_independant_string_core(const char *str) {
         char_code = get_char_code_key(str[i]);
 
         if (char_code != NULL) tap_lang_independant_key(char_code->value);
-        // A - Z is 65 - 90 and a - c is 97 - 99
-        else if (('A' <= str[i] && str[i] <= 'Z') || ('a' <= str[i] && str[i] <= 'c')) send_alt_code(str[i], 1);
-        // d - z is 100 - 122
-        else if ('d' <= str[i] && str[i] <= 'z') send_alt_code(str[i], 2);
+        // 65 - 90 and 97 - 99
+        else if (is_uppercase_letter(str[i]) || ('a' <= str[i] && str[i] <= 'c')) send_alt_code(str[i], 1);
+        // 100 - 122
+        else if (is_lowercase_letter(str[i])) send_alt_code(str[i], 2);
         else SEND_STRING(charToString(str[i]));
     }
 }
