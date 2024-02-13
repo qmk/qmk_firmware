@@ -14,6 +14,7 @@ void process_rep_key(void) {
     }
 
     switch (queue(-4)) {
+        quadruple_magic_case(KC_H, KC_A, KC_N, KC_D, "y");
         quadruple_magic_case(KC_I, KC_M, KC_P, KC_L, "ement");
     }
 
