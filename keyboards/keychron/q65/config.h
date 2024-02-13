@@ -40,14 +40,8 @@
 #define SNLED27351_CURRENT_TUNE \
     { 0xB8, 0xB8, 0x58, 0xB8, 0xB8, 0x58, 0xB8, 0xB8, 0x58, 0xB8, 0xB8, 0x58 }
 
-/* Disable DIP switch in matrix data */
-#define MATRIX_MASKED
-
-/* DIP switch */
-#define DIP_SWITCH_MATRIX_GRID  { {4,4} }
-
 /* Turn off effects when suspended */
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define RGB_MATRIX_SLEEP
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 5
 

@@ -25,7 +25,6 @@
         "driver": "ws2812",
         "max_brightness": 120,
         "animations": {
-            "solid_color": true,
             "alphas_mods": true,
             "gradient_up_down": true,
             "gradient_left_right": true,
@@ -70,6 +69,9 @@
             "solid_splash": true,
             "solid_multisplash": true
         },
+        "default": {
+            "animation": "cycle_all"
+        },
         "layout": [
             { "flags": 4, "matrix": [0, 0], "x": 0, "y": 0 },
             { "flags": 4, "matrix": [0, 1], "x": 122, "y": 0 },
@@ -77,7 +79,8 @@
             { "flags": 4, "matrix": [1, 2], "x": 244, "y": 64 },
             { "flags": 4, "matrix": [1, 1], "x": 122, "y": 64 },
             { "flags": 4, "matrix": [1, 0], "x": 0, "y": 64 }
-        ]
+        ],
+        "sleep": true
     },
     "url": "",
     "usb": {

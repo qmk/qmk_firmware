@@ -124,8 +124,6 @@
     "led_matrix": {
         "driver": "snled27351",
         "animations": {
-            "none": true,
-            "solid": true,
             "breathing": true,
             "band_pinwheel": true,
             "band_spiral": true,
@@ -256,6 +254,8 @@
             {"matrix":[5, 16], "flags":1, "x":180, "y":64},
             {"matrix":[5, 17], "flags":4, "x":198, "y":64},
             {"matrix":[5, 19], "flags":4, "x":214, "y":64}
-        ]
+        ],
+        "sleep": true,
+        "react_on_keyup": true
     }
 }

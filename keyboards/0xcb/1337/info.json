@@ -40,6 +40,11 @@
       "rgb_test": true,
       "alternating": true,
       "twinkle": true
+    },
+    "default": {
+      "hue": 152,
+      "sat": 232,
+      "speed": 2
     }
   },
   "ws2812": {

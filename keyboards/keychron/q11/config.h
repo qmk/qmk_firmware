@@ -16,16 +16,6 @@
 
 #pragma once
 
-// Connects each switch in the dip switch to the GPIO pin of the MCU
-#define DIP_SWITCH_PINS \
-    { A8 }
-
-/* handedness */
-#define SPLIT_HAND_MATRIX_GRID A2, A15
-#define SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
-
-#define MATRIX_MASKED // actual mask is defined by `matrix_mask` in `q11.c`
-
 /* RGB Matrix Driver Configuration */
 #define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_GND
 
@@ -50,10 +40,14 @@
 #define ENCODER_DEFAULT_POS 0x3
 
 /* Disable RGB lighting when PC is in suspend */
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define RGB_MATRIX_SLEEP
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES
+
+// Needed as the master side could enter slave state during poweron
+// of host, due to missing VUSB detection.
+#define SPLIT_WATCHDOG_ENABLE

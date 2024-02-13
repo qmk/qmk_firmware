@@ -39,14 +39,8 @@
 #define SNLED27351_CURRENT_TUNE \
     { 0xB6, 0xB6, 0x56, 0xB6, 0xB6, 0x56, 0xB6, 0xB6, 0x56, 0xB6, 0xB6, 0x56 }
 
-/* DIP switch */
-#define DIP_SWITCH_MATRIX_GRID  { {5, 4} }
-
-/* Disable DIP switch in matrix data */
-#define MATRIX_MASKED
-
 /* turn off effects when suspended */
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define RGB_MATRIX_SLEEP
 
 /* EEPROM Driver Configuration */
 #define WEAR_LEVELING_LOGICAL_SIZE 2048

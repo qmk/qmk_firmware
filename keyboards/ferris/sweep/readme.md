@@ -17,27 +17,6 @@ Make example for this keyboard (after setting up your build environment):
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-## Setting Handedness
-
-Firmware uses [handedness by EEPROM](https://docs.qmk.fm/#/feature_split_keyboard?id=handedness-by-eeprom) as default and it must be *configured once* on each side. The make commands for Pro micros are:
-
-    make ferris/sweep:default:avrdude-split-left
-    make ferris/sweep:default:avrdude-split-right
-
-For Elite-C or compatible controllers using `DFU` bootloader, add the line `BOOTLOADER = atmel-dfu` into the user keymap `rules.mk` file and use the following make commands:
-
-    make ferris/sweep:default:dfu-split-left
-    make ferris/sweep:default:dfu-split-right
-
-[QMK Toolbox](http://qmk.fm/toolbox) can also be used to set EEPROM handedness. Place the controller in bootloader mode and select menu option Tools -> EEPROM -> Set Left/Right Hand
-
-### RP2040 Controllers
-
-Pro Micro RP2040 controllers are supported with [QMK Converters](https://docs.qmk.fm/#/feature_converters). The make command example with handedness setting for Adafruit's KB2040 are:
-
-    make CONVERT_TO=kb2040 ferris/sweep:default:uf2-split-left
-    make CONVERT_TO=kb2040 ferris/sweep:default:uf2-split-right
-
 ## Bootloader
 
 Enter the bootloader in 3 ways:

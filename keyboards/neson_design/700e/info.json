@@ -20,6 +20,7 @@
         "saturation_steps": 8,
         "brightness_steps": 8,
         "led_count": 68,
+        "driver": "custom",
         "animations": {
             "breathing": true,
             "rainbow_mood": true,

@@ -19,7 +19,7 @@
 #ifdef RGB_MATRIX_ENABLE
 
 
-const is31fl3741_led_t PROGMEM g_is31fl3741_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3741_led_t PROGMEM g_is31fl3741_leds[IS31FL3741_LED_COUNT] = {
     {0, CS9_SW1,  CS8_SW1,  CS7_SW1},  /* RGB1 */
     {0, CS9_SW2,  CS8_SW2,  CS7_SW2},  /* RGB2 */
     {0, CS9_SW3,  CS8_SW3,  CS7_SW3},  /* RGB3 */
@@ -177,7 +177,7 @@ void matrix_init_kb(void) {
         is31fl3741_set_scaling_registers(&led, 0xFF, 0xFF, 0xFF);
     }
 
-    is31fl3741_update_led_control_registers(IS31FL3741_I2C_ADDRESS_1, 0);
+    is31fl3741_update_led_control_registers(0);
 
     matrix_init_user();
 }
