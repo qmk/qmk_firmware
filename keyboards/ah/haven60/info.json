@@ -51,7 +51,7 @@
     },
     "community_layouts": ["60_ansi"],
     "layouts": {
-        "LAYOUT_60_ansi": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
