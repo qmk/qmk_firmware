@@ -5,8 +5,8 @@
 *A short description of the keyboard/project*
 
 * Keyboard Maintainer: [Freather](https://github.com/Freather)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: atmega32u4-mu
+* Hardware Availability: keyspensory.store
 
 Make example for this keyboard (after setting up your build environment):
 
