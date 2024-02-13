@@ -18,5 +18,12 @@
 #define SPLIT_WPM_ENABLE
 #define SPLIT_OLED_ENABLE
 
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 1000U
+
+#define SERIAL_USART_FULL_DUPLEX
+#define SERIAL_USART_TX_PIN GP3
+#define SERIAL_USART_RX_PIN GP16
+
 #define ONESHOT_TAP_TOGGLE 2  /* Tapping this number of times holds the key until tapped once again. */
 #define ONESHOT_TIMEOUT 5000  /* Time (in ms) before the one shot key is released */
