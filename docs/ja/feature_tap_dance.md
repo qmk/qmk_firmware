@@ -45,7 +45,7 @@
 LEDを点減させたり、バックライトを調節したりと、これ以上複雑なケースの場合、4番目か5番目のオプションを使います。以下でそれぞれの例を示します。
 
 ## 実装の詳細 :id=implementation
-
+###### aa
 さて、説明の大部分はここまでです！ 以下に挙げているいくつかの例に取り組むことができるようになり、あなた自身のタップダンスの機能を開発できるようになります。しかし、もし、あなたが裏側で起きていることをより深く理解したいのであれば、続けてそれが全てどのように機能するかの説明を読みましょう！
 
 メインエントリーポイントは、`process_tap_dance()` で、`process_record_quantum()` から呼び出されます。これはキーを押すたびに実行され、ハンドラは早期に実行されます。この関数は、押されたキーがタップダンスキーがどうか確認します。
@@ -67,8 +67,7 @@ LEDを点減させたり、バックライトを調節したりと、これ以�
 ここに1つの定義のための簡単な例があります。
 
 1. `rules.mk` に `TAP_DANCE_ENABLE = yes` を追加します。
-2. `config.h` ファイルに `#define TAPPING_TERM 200` を追加します。
-3. `keymap.c` ファイルに変数と定義を定義し、それからキーマップに追加します。
+2. `keymap.c` ファイルに変数と定義を定義し、それからキーマップに追加します。
 
 ```c
 // タップダンスの宣言
@@ -556,10 +555,20 @@ void ql_reset(tap_dance_state_t *state, void *user_data) {
     ql_tap_state.state = TD_NONE;
 }
 
-// タップダンスキーを機能に関連付けます
+// タップダンスキーとその機能を関連付けます
 tap_dance_action_t tap_dance_actions[] = {
-    [QUOT_LAYR] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, ql_finished, ql_reset, 275)
+    [QUOT_LAYR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ql_finished, ql_reset)
 };
+
+// タップダンスキーに長めのタッピング期間を設定する
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case QK_TAP_DANCE ... QK_TAP_DANCE_MAX:
+            return 275;
+        default:
+            return TAPPING_TERM;
+    }
+}
 ```
 
 上記のコードは、前の例で使われたコードに似ています。注意する1つのポイントは、必要に応じてレイヤーを切り替えられるように、どのレイヤーがアクティブになっているかいつでも確認できる必要があることです。これを実現するために、引数で与えられた `layer` がアクティブなら `true` を返す `layer_state_is(layer)` を使います。
@@ -568,7 +577,6 @@ tap_dance_action_t tap_dance_actions[] = {
 
 `ql_finished` 関数における `case: TD_SINGLE_TAP` は、上の例と似ています。`TD_SINGLE_HOLD` の case では、`ql_reset()` と連動してタップダンスキーを押している間 `_MY_LAYER` に切り替わり、キーを離した時に `_MY_LAYER` から離れます。これは、`MO(_MY_LAYER)` に似ています。`TD_DOUBLE_TAP` の case では、`_MY_LAYER` がアクティブレイヤーかどうかを確認することによって動きます。そして、その結果に基づいてレイヤーのオン・オフをトグルします。これは `TG(_MY_LAYER)` に似ています。
 
-`tap_dance_actions[]` は、上の例に似ています。 `ACTION_TAP_DANCE_FN_ADVANCED()` の代わりに `ACTION_TAP_DANCE_FN_ADVANCED_TIME()` を使ったことに注意してください。
-この理由は、私は、非タップダンスキーを使うにあたり `TAPPING_TERM` が短い(175ミリ秒以内)方が好きなのですが、タップダンスのアクションを確実に完了させるには短すぎるとわかったからです——そのため、ここでは時間を275ミリ秒に増やしています。
+`tap_dance_actions[]` は上記の例に似ています。 さらに、タップダンスキーのタッピング期間を長めに設定していることに注意してください。 これは、タップダンス以外のキーに対して `TAPPING_TERM` を短く (\~175ミリ秒) するのが好きですが、タップダンスの実行を確実に完了するには速すぎることがわかったため、ここでは275ミリ秒の時間に増加しました。 キーごとのタップ条件を有効にするには、`TAPPING_TERM_PER_KEY` を `config.h` で定義する必要があります。
 
-最後に、このタップダンスキーを動かすため、忘れずに `TD(QUOT_LAYR)` を `keymaps[]` に加えてください。
+最後に、このタップダンスキーを機能させるには、必ず `keymaps[]` に `TD(QUOT_LAYR)` を加えてください。
