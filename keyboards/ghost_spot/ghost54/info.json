@@ -24,8 +24,7 @@
         ]
     },
     "split": {
-        "enabled": true,
-        "soft_serial_pin": "GP3"
+        "enabled": true
     },
     "qmk": {
         "tap_keycode_delay": 10
