@@ -32,8 +32,8 @@ void process_magic_key(void) {
     switch(queue(-5)) {
         quintuple_magic_case(KC_O, KC_C, KC_R, KC_A, KC_C, "y");
         quintuple_magic_case(KC_R, KC_E, KC_M, KC_A, KC_C, "y");
+        quintuple_magic_case(KC_E, KC_V, KC_E, KC_R, KC_Y, "thing");
         quintuple_magic_case(KC_N, KC_E, KC_V, KC_E, KC_R, "theless");
-
     }
 
     switch (queue(-4)) {
