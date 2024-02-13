@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   VRSN,     KC_F1,      KC_F2,      KC_F3,   KC_F4,    KC_F5,   KC_TRNS,         KC_TRNS, KC_F6,   KC_F7,    KC_F8,   KC_F9,   KC_F10,  KC_F11,
   KC_QUOTE, KC_TRNS,    KC_PGUP,    KC_UP,   KC_PGDN,  KC_EQL,  KC_TRNS,         KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_F12,
   KC_DQT,   KC_HOME,    KC_LEFT,    KC_DOWN, KC_RIGHT, KC_END,                   KC_TRNS, KC_TRNS, KC_TRNS , KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS,  LGUI(KC_E), LGUI(KC_D), KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,         KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS,  LGUI(KC_E), LCTL(LALT(KC_LEFT)),      KC_TRNS, LCTL(LALT(KC_RIGHT)),    KC_TRNS, KC_TRNS,         KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
   EE_CLR,   KC_TRNS,    KC_TRNS,    KC_TRNS, KC_TRNS,                                     KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,
                                             KC_TRNS,  KC_TRNS,     KC_TRNS, KC_TRNS,
                                                       KC_TRNS,     KC_TRNS,
