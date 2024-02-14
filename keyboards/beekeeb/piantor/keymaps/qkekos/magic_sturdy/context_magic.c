@@ -8,16 +8,11 @@
 #include "../__init__.h"
 
 // todo capsword support
-// todo tap_count support
 // todo enqueue space after some time
 
-void test(uint8_t tap_count) {
-    uprintf("hello world\n");
-}
-
 trie_t tries[] = {
-    {US_AREP, MAGIC_DICTIONARY_SIZE,  magic_data,  NULL},
-    {US_REP,  REPEAT_DICTIONARY_SIZE, repeat_data, test},
+    {US_AREP, MAGIC_DICTIONARY_SIZE,  magic_data,  magic_key_fallback },
+    {US_REP,  REPEAT_DICTIONARY_SIZE, repeat_data, repeat_key_fallback},
 
     // terminator
     {KC_NO, 0, NULL}
@@ -84,6 +79,28 @@ bool process_context_magic(uint16_t keycode, keyrecord_t *record) {
 
 uint8_t key_buffer[MAX_CONTEXT_LENGTH] = { KC_SPC };
 uint8_t key_buffer_size = 1;
+uint8_t magic_tap_count = 1;
+
+bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* mods) {
+    trie_t trie = get_trie(keycode);
+
+    if (trie.magic_key == KC_NO) return true;
+
+    if (keycode == get_last_keycode()) magic_tap_count += 1;
+    else magic_tap_count = 1;
+
+    return true;
+}
+
+void magic_key_fallback(uint8_t tap_count) {
+    if (tap_count < 2) return;
+    record_send_string("n");
+}
+
+void repeat_key_fallback(uint8_t tap_count) {
+    tap_code16(buffer(-1));
+    enqueue_keycode(buffer(-1));
+}
 
 /**
  * @brief Add keycode to our key buffer.
@@ -299,7 +316,7 @@ void process_trie(trie_t trie) {
 
     // If we found one, apply completion
     if (!res.depth) {
-        if (trie.fallback) trie.fallback(2);
+        if (trie.fallback) trie.fallback(magic_tap_count);
         return;
     }
 

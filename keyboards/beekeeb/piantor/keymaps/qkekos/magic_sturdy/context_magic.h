@@ -33,5 +33,8 @@ trie_t get_trie(uint16_t);
 void process_trie(trie_t);
 void clear_buffer(void);
 
+void repeat_key_fallback(uint8_t tap_count);
+void magic_key_fallback(uint8_t tap_count);
+
 #define TDATA(L) pgm_read_byte(&trie->data[L])
-#define buffer(i) key_buffer[MAX_CONTEXT_LENGTH + i]
+#define buffer(i) key_buffer[key_buffer_size + i]
