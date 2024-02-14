@@ -25,3 +25,5 @@ void dequeue_keycodes(uint8_t num);
 trie_t get_trie(uint16_t keycode);
 void process_trie(trie_t trie);
 void dequeue_keycode(void);
+
+#define TDATA(L) pgm_read_byte(&trie->data[L])

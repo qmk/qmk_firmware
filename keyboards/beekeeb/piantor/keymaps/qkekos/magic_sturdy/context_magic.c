@@ -17,14 +17,14 @@
 #include "print.h"
 
 trie_t tries[] = {
-    {US_AREP, MAGIC_DICTIONARY_SIZE,  magic_data},
+    {US_AREP, MAGIC_DICTIONARY_SIZE,  magic_data },
     {US_REP,  REPEAT_DICTIONARY_SIZE, repeat_data},
 
     // terminator
     {KC_NO, 0, NULL}
 };
 
-static uint8_t key_buffer[MAX_CONTEXT_LENGTH] = {KC_SPC};
+static uint8_t key_buffer[MAX_CONTEXT_LENGTH] = { KC_SPC };
 static uint8_t key_buffer_size = 1;
 
 /**
@@ -73,8 +73,7 @@ trie_t get_trie(uint16_t keycode) {
  * @return true Allow autocorection
  * @return false Stop processing and escape from autocorrect.
  */
-bool process_check(uint16_t *keycode, keyrecord_t *record, uint8_t *key_buffer_size, uint8_t *mods)
-{
+bool process_check(uint16_t *keycode, keyrecord_t *record, uint8_t *key_buffer_size, uint8_t *mods) {
     // See quantum_keycodes.h for reference on these matched ranges.
     switch (*keycode) {
         // Exclude these keycodes from processing.
@@ -158,7 +157,6 @@ bool process_check(uint16_t *keycode, keyrecord_t *record, uint8_t *key_buffer_s
     return true;
 }
 
-
 /**
  * @brief Find longest chain in trie matching our current key_buffer.
  *
@@ -167,21 +165,24 @@ bool process_check(uint16_t *keycode, keyrecord_t *record, uint8_t *key_buffer_s
  * @param offset current offset in trie data
  * @param depth  current depth in trie
  */
-void find_longest_chain(trie_t *trie, trie_search_result_t *res, int offset, int depth)
-{
-#define TDATA(L) pgm_read_byte(&trie->data[L])
+void find_longest_chain(trie_t *trie, trie_search_result_t *res, int offset, int depth) {
     // Sanity checks
     if (offset >= trie->data_size) {
         uprintf("find_longest_chain() Error: tried reading outside trie data! Offset: %d", offset);
         res->depth = 0;
+
         return;
     }
+
     uint8_t code = TDATA(offset);
+
     if (!code) {
         uprintf("find_longest_chain() Error: unexpected null code! Offset: %d", offset);
         res->depth = 0;
+
         return;
     }
+
 	// Match Node
 	if (code & 128) {
 		depth--;
@@ -191,28 +192,26 @@ void find_longest_chain(trie_t *trie, trie_search_result_t *res, int offset, int
             res->completion_offset = offset + 1;
             res->num_backspaces = (code & 63);
         }
+
 		// Traverse down child node if this isn't the only match
         if (code & 64) {
             // Next node is after completion string
 		    for (offset += 2; TDATA(offset); offset++);
 		    find_longest_chain(trie, res, offset+1, depth+1);
         }
-	}
-	// Branch Node (with multiple children)
-	else if (code & 64) {
+	} else if (code & 64) {  // Branch Node (with multiple children)
 		code &= 63;
         // Find child that matches our current buffer location
         const uint8_t cur_key = key_buffer[key_buffer_size - depth];
 		for (; code && code != cur_key; offset += 3, code = TDATA(offset));
+
         if (code) {
 			// 16bit offset to child node is built from next 2 bytes
 			const int child_offset = TDATA(offset+1) | (TDATA(offset+2) << 8);
 			// Traverse down child node
 			find_longest_chain(trie, res, child_offset, depth+1);
 		}
-	}
-	// Chain node
-	else {
+	} else {  // Chain node
 		// Travel down chain until we reach a zero byte, or we no longer match our buffer
 		for (; code; depth++, code = TDATA(++offset)) {
 			if (code != key_buffer[key_buffer_size - depth])
@@ -265,8 +264,7 @@ void proces_magic_key(uint16_t keycode) {
  * @return true Continue processing keycodes, and send to host
  * @return false Stop processing keycodes, and don't send to host
  */
-bool process_context_magic(uint16_t keycode, keyrecord_t *record)
-{
+bool process_context_magic(uint16_t keycode, keyrecord_t *record) {
     uint8_t mods = get_mods();
 #ifndef NO_ACTION_ONESHOT
     mods |= get_oneshot_mods();
@@ -316,6 +314,7 @@ bool process_context_magic(uint16_t keycode, keyrecord_t *record)
             key_buffer_size = 0;
             return true;
     }
+
     // Append `keycode` to buffer.
     enqueue_keycode(keycode);
     return true;
