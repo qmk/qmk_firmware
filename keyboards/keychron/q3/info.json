@@ -3,6 +3,9 @@
     "maintainer": "lalalademaxiya1",
     "bootloader": "stm32-dfu",
     "diode_direction": "ROW2COL",
+    "dip_switch": {
+        "matrix_grid": [ [5, 4] ]
+    },
     "eeprom": {
         "wear_leveling": {
             "backing_size": 4096
@@ -43,7 +46,8 @@
             "splash": true,
             "typing_heatmap": true
         },
-        "driver": "snled27351"
+        "driver": "snled27351",
+        "sleep": true
     },
     "url": "https://github.com/Keychron",
     "usb": {

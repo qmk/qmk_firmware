@@ -16,15 +16,6 @@
 
 #include "quantum.h"
 
-const matrix_row_t matrix_mask[] = {
-    0b0111111111111101,
-    0b0111111111111111,
-    0b0111111111111111,
-    0b0111111111111111,
-    0b0111111111111111,
-    0b0111111111111111,
-};
-
 #ifdef RGB_MATRIX_ENABLE
 const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
