@@ -5,11 +5,14 @@
 extern uint8_t key_buffer[MAX_CONTEXT_LENGTH];
 extern uint8_t key_buffer_size;
 
+typedef void (*trie_fallback)(uint8_t);
+
 typedef struct
 {
-    uint16_t  magic_key;
-    uint8_t   data_size;
+    uint16_t      magic_key;
+    uint8_t       data_size;
     const uint8_t *data;
+    trie_fallback fallback;
 } trie_t;
 
 typedef struct

@@ -9,12 +9,15 @@
 
 // todo capsword support
 // todo tap_count support
-// todo fallback support
 // todo enqueue space after some time
 
+void test(uint8_t tap_count) {
+    uprintf("hello world\n");
+}
+
 trie_t tries[] = {
-    {US_AREP, MAGIC_DICTIONARY_SIZE,  magic_data },
-    {US_REP,  REPEAT_DICTIONARY_SIZE, repeat_data},
+    {US_AREP, MAGIC_DICTIONARY_SIZE,  magic_data,  NULL},
+    {US_REP,  REPEAT_DICTIONARY_SIZE, repeat_data, test},
 
     // terminator
     {KC_NO, 0, NULL}
@@ -296,8 +299,8 @@ void process_trie(trie_t trie) {
 
     // If we found one, apply completion
     if (!res.depth) {
+        if (trie.fallback) trie.fallback(2);
         return;
-        uprintf("not found\n");
     }
 
     // Send backspaces and dequeue buffer
