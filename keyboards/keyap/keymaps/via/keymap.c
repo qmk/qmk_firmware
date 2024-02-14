@@ -31,16 +31,20 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         case 0:
             writePinHigh(LED1);
             writePinLow(LED2);
+            return state;
             break;
         case 1:
             writePinHigh(LED1);
             writePinLow(LED2);
+            return state;
             break;
         default:
             writePinHigh(LED1);
             writePinHigh(LED2);
+            return state;
             break;
     }
+    return state;
 }
 
 void matrix_init_user(void) {
