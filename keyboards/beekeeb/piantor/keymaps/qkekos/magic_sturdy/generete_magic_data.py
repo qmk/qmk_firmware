@@ -165,7 +165,7 @@ def to_hex(b: int) -> str:
 
 
 def get_line_tokens(line: str, sep: str = "->") -> tuple[str, str]:
-    if line.startswith("#") or line.startswith("\\"):
+    if line.startswith("#") or line.startswith("\\") or not line:
         raise ValueError(f"Invalid line {line}")
 
     tokens = [token.strip() for token in line.split(sep, 1)]

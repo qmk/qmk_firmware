@@ -91,6 +91,6 @@ void process_rep_key1(void) {
         magic_case(KC_SPC, "for");
         magic_case(KC_DOT, "com");
         magic_case(KC_W,   "ould");
-        default: tap_code16(queue(-1)); enqueue(queue(-1));
+//        default: tap_code16(queue(-1)); enqueue(queue(-1));
     }
 }
