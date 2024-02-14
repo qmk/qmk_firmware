@@ -1,6 +1,11 @@
 {
     "keyboard_name": "Olly JF Rev2",
     "bootloader": "stm32duino",
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
     "features": {
         "command": true,
         "console": true,
