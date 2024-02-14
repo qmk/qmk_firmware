@@ -14,7 +14,7 @@ typedef void (*trie_fallback)(uint8_t);
 typedef struct
 {
     uint16_t      magic_key;
-    uint8_t       data_size;
+    int           data_size;
     const uint8_t *data;
     trie_fallback fallback;
 } trie_t;

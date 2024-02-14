@@ -1,13 +1,145 @@
-uld*    -> uldn't
-uldn't* -> uld've
-:p*     -> pepe
-:p**    -> pepega
-:i*     -> i'm
-:i'm*   -> i'll
-:i'll*  -> i've
-:poss@  -> possible
-:*      -> the
-:@      -> for
-i*      -> ion
+
+// Magic
+
+// Quintuple
+never*  -> nevertheless
+every*  -> everything
+ocrac*  -> ocracy
+remac*  -> remacy
+
+// Quadruple
+
+prob*   -> probably
+with*   -> without
+olic*   -> olicy
+urac*   -> uracy
+rmac*   -> rmacy
+:rec*   -> recy
+
+// Triple
+
+:an*    -> another
+:ex*    -> example
+:ar*    -> around
+:in*    -> inform
+:or*    -> order
+:ti*    -> time
+:ed*    -> edge
+:se*    -> seen
+:al*    -> alr
+:us*    -> use
+
+unf*    -> unfortunate
+def*    -> definitely
+hil*    -> hilarious
+ess*    -> essential
 con*    -> consider
+alt*    -> although
+any*    -> anything
+dif*    -> differen
+pos*    -> position
+bel*    -> believe
+bet*    -> between
+var*    -> various
+ser*    -> serious
+gen*    -> general
+exa*    -> exactly
+pro*    -> problem
+bec*    -> become
+bud*    -> budget
+col*    -> column
+tho*    -> though
+num*    -> number
+rid*    -> ridge
+red*    -> redge
+jud*    -> judge
+led*    -> ledge
+vac*    -> vacy
+men*    -> menu
+gac*    -> gacy
+
+// Double
+
+:t*     -> that
+:e*     -> e.g.
+
+pr*     -> previous
 th*     -> through
+ob*     -> obvious
+pe*     -> people
+pu*     -> public
+up*     -> update
+sh*     -> should
+te*     -> tement
+sy*     -> system
+va*     -> value
+ot*     -> other
+co*     -> could
+ag*     -> again
+la*     -> large
+pa*     -> page
+mo*     -> most
+mu*     -> must
+vi*     -> view
+ve*     -> very
+so*     -> some
+do*     -> doub
+li*     -> list
+be*     -> been
+pl*     -> ply
+mp*     -> mpl
+ma*     -> mao
+oc*     -> ock
+we*     -> web
+wa*     -> way
+uc*     -> uck
+cy*     -> cyc
+ac*     -> ack
+da*     -> day
+ic*     -> ick
+ec*     -> eck
+
+// Single
+
+:*      -> the
+
+b*      -> before
+t*      -> tment
+w*      -> which
+f*      -> first
+n*      -> nion
+m*      -> ment
+j*      -> just
+z*      -> zone
+i*      -> ion
+v*      -> ver
+q*      -> que
+s*      -> sk
+r*      -> rl
+d*      -> dy
+e*      -> eu
+a*      -> ab
+l*      -> lk
+c*      -> cy
+p*      -> py
+y*      -> yp
+k*      -> ks
+g*      -> gy
+o*      -> oa
+u*      -> ue
+x*      -> xt
+
+// Double taps
+
+:al**   -> already
+
+ess**   -> essentially
+so**    -> somewhere
+jud**   -> judgment
+ag**    -> against
+do**    -> doable
+
+// Repeat
+y@      -> you
+
+:@      -> for

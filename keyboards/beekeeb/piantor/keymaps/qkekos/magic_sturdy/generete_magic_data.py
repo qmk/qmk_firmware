@@ -310,5 +310,7 @@ def generate_magic_data():
         file.write("\n".join(magic_data_h_lines))
 
 
+# todo make it run only if date_modified of .txt is < date_modified of .h
+
 if __name__ == '__main__':
     generate_magic_data()

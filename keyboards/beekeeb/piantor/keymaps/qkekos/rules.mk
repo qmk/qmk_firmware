@@ -33,7 +33,6 @@ SRC += localization/language_swapper.c
 SRC += localization/lang_independant.c
 
 SRC += magic_sturdy/general.c
-SRC += magic_sturdy/magic_key.c
 SRC += magic_sturdy/rep_key.c
 SRC += magic_sturdy/context_magic.c
 

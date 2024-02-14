@@ -3,7 +3,6 @@
 #include "../__init__.h"
 
 #include "general.h"
-#include "magic_key.h"
 #include "rep_key.h"
 #include "context_magic.h"
 
