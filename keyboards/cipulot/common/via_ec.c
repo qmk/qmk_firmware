@@ -272,11 +272,11 @@ void ec_save_threshold_data(uint8_t option) {
 void ec_save_bottoming_reading(void) {
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-            // If the bottom reading doesn't go over the noise floor by 100, it is likely that:
+            // If the bottom reading doesn't go over the noise floor by BOTTOMING_CALIBRATION_THRESHOLD, it is likely that:
             // 1. The key is not actually in the matrix
             // 2. The key is on an alternative layout, therefore not being pressed
             // 3. The key in in the current layout but not being pressed
-            if (ec_config.bottoming_reading[row][col] < (ec_config.noise_floor[row][col] + 100)) {
+            if (ec_config.bottoming_reading[row][col] < (ec_config.noise_floor[row][col] + BOTTOMING_CALIBRATION_THRESHOLD)) {
                 eeprom_ec_config.bottoming_reading[row][col] = 1023;
             } else {
                 eeprom_ec_config.bottoming_reading[row][col] = ec_config.bottoming_reading[row][col];
