@@ -19,21 +19,51 @@
 // todo: compute max in script
 #define CONTEXT_MAGIC_MAX_LENGTH MAGIC_MAX_LENGTH
 
+trie_t tries[] = {
+    {US_AREP, MAGIC_DICTIONARY_SIZE,  magic_data},
+    {US_REP,  REPEAT_DICTIONARY_SIZE, repeat_data},
+
+    // terminator
+    {KC_NO, 0, NULL}
+};
+
 static uint8_t key_buffer[CONTEXT_MAGIC_MAX_LENGTH] = {KC_SPC};
 static uint8_t key_buffer_size = 1;
 
-typedef struct
-{
-    const uint8_t *data;
-    int     data_size;
-} trie_t;
+/**
+ * @brief Add keycode to our key buffer.
+ *
+ * @param keycode lower 8bits of Keycode registered by matrix press, per keymap
+ */
+void enqueue_keycode(uint8_t keycode) {
+    // Rotate oldest character if buffer is full.
+    if (key_buffer_size >= CONTEXT_MAGIC_MAX_LENGTH) {
+        memmove(key_buffer, key_buffer + 1, CONTEXT_MAGIC_MAX_LENGTH - 1);
+        key_buffer_size = CONTEXT_MAGIC_MAX_LENGTH - 1;
+    }
 
-typedef struct
-{
-    uint8_t depth;
-    uint8_t num_backspaces;
-    int     completion_offset;
-} trie_search_result_t;
+    key_buffer[key_buffer_size++] = keycode;
+}
+
+void dequeue_keycode(void) { dequeue_keycodes(1); }
+
+/**
+ * @brief Remove num keys from our buffer.
+ *
+ * @param count number of keys to remove
+ */
+void dequeue_keycodes(uint8_t count) {
+    key_buffer_size -= MIN(count, key_buffer_size);
+}
+
+trie_t get_trie(uint16_t keycode) {
+    int i = 0;
+
+    for (; tries[i].magic_key != KC_NO; i++)
+        if (tries[i].magic_key == keycode) return tries[i];
+
+    return tries[i];
+}
 
 /**
  * @brief determine if context_magic should process this keypress,
@@ -131,33 +161,6 @@ bool process_check(uint16_t *keycode, keyrecord_t *record, uint8_t *key_buffer_s
     return true;
 }
 
-/**
- * @brief Add keycode to our key buffer.
- *
- * @param keycode lower 8bits of Keycode registered by matrix press, per keymap
- */
-void enqueue_keycode(uint8_t keycode)
-{
-    // Rotate oldest character if buffer is full.
-    if (key_buffer_size >= CONTEXT_MAGIC_MAX_LENGTH) {
-        memmove(key_buffer, key_buffer + 1, CONTEXT_MAGIC_MAX_LENGTH - 1);
-        key_buffer_size = CONTEXT_MAGIC_MAX_LENGTH - 1;
-    }
-    key_buffer[key_buffer_size++] = keycode;
-}
-
-/**
- * @brief Remove num keys from our buffer.
- *
- * @param num number of keys to remove
- */
-void dequeue_keycodes(uint8_t num)
-{
-    if (key_buffer_size < num)
-        key_buffer_size = 0;
-    else
-        key_buffer_size -= num;
-}
 
 /**
  * @brief Find longest chain in trie matching our current key_buffer.
@@ -228,42 +231,33 @@ void find_longest_chain(trie_t *trie, trie_search_result_t *res, int offset, int
  *
  * @param keycode Keycode registered by matrix press, per keymap
  */
-void perform_magic(uint16_t keycode)
-{
-    if (!key_buffer_size)
-        return;
-    trie_t trie;
-    switch (keycode) {
-    case US_REP:
-        trie.data = repeat_data;
-        trie.data_size = REPEAT_DICTIONARY_SIZE;
-        uprintf("repeat trie\n");
-        break;
-    case US_AREP:
-        trie.data = magic_data;
-        trie.data_size = MAGIC_DICTIONARY_SIZE;
-        uprintf("magic trie\n");
-        break;
-    }
+void process_trie(trie_t trie) {
+    if (!key_buffer_size) return;
+
     // Look for chain matching our buffer in the trie.
     trie_search_result_t res  = {0, 0, 0};
     find_longest_chain(&trie, &res, 0, 1);
 
     // If we found one, apply completion
-    if (res.depth) {
-        // Send backspaces and dequeue buffer
-        for (uint8_t i = 0; i < res.num_backspaces; ++i) {
-            tap_code(KC_BSPC);
-        }
-        dequeue_keycodes(res.num_backspaces);
-        // Add completion string to key buffer
-        char c = pgm_read_byte(trie.data + res.completion_offset);
-        for (int i = res.completion_offset; c; c = pgm_read_byte(trie.data + ++i)) {
-            enqueue_keycode(c - 'a' + KC_A);
-        }
-        // Send it!
-        send_string_P((const char *)&trie.data[res.completion_offset]);
-    }
+    if (!res.depth) return;
+
+    // Send backspaces and dequeue buffer
+    multi_tap(KC_BSPC, res.num_backspaces);
+    dequeue_keycodes(res.num_backspaces);
+
+    // Add completion string to key buffer
+    char c = pgm_read_byte(trie.data + res.completion_offset);
+
+    for (int i = res.completion_offset; c; c = pgm_read_byte(trie.data + ++i))
+        enqueue_keycode(char_to_keycode(c));
+
+    // Send it!
+    send_string_P((const char *) &trie.data[res.completion_offset]);
+}
+
+void proces_magic_key(uint16_t keycode) {
+    trie_t trie = get_trie(keycode);
+    if (trie.magic_key != KC_NO) process_trie(trie);
 }
 
 /**
@@ -281,17 +275,18 @@ bool process_context_magic(uint16_t keycode, keyrecord_t *record)
     mods |= get_oneshot_mods();
 #endif
 
-    if (!record->event.pressed) {
-        return true;
-    }
+    if (!record->event.pressed) return true;
+
     // keycode verification and extraction
-    if (!process_check(&keycode, record, &key_buffer_size, &mods)) {
-        return true;
-    }
-    if (keycode == US_REP || keycode == US_AREP) {
-        perform_magic(keycode);
+    if (!process_check(&keycode, record, &key_buffer_size, &mods)) return true;
+
+    trie_t trie = get_trie(keycode);
+
+    if (trie.magic_key != KC_NO) {
+        process_trie(trie);
         return false;
     }
+
     // keycode buffer check
     switch (keycode) {
         case KC_A ... KC_Z:
@@ -311,10 +306,7 @@ bool process_context_magic(uint16_t keycode, keyrecord_t *record)
             break;
         case KC_BSPC:
             // Remove last character from the buffer.
-            if (key_buffer_size > 0) {
-
-                --key_buffer_size;
-            }
+            if (key_buffer_size > 0) key_buffer_size -= 1;
             return true;
         case KC_QUOTE:
             // Treat " (shifted ') as a word boundary.

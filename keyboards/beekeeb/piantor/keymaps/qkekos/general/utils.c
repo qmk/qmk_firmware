@@ -52,6 +52,7 @@ const char* to_upper_case(const char *str) {
 
 uint16_t char_to_keycode(char symbol) {
     if (symbol == '\b') return KC_BSPC;
+    if (symbol == '\'') return KC_QUOT;
 
     if (is_uppercase_letter(symbol)) return      symbol - 'A' + KC_A;
     else if (is_lowercase_letter(symbol)) return symbol - 'a' + KC_A;
