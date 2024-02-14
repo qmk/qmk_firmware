@@ -33,8 +33,8 @@ from typing import Any, Dict, Iterator, List, Tuple
 from pathlib import Path
 
 SEPARATORS = {
-    "*": "magic",
-    "@": "repeat"
+    "☆": "magic",
+    "ᐉ": "repeat",
 }
 
 THIS_FOLDER = Path(__file__).parent
@@ -49,12 +49,14 @@ max_global_typo_len = 0
 
 KC_A = 4
 KC_SPC = 0x2c
+KC_DOT = 55
 KC_QUOT = 0x34
 
 TYPO_CHARS = dict([
-                      ("'", KC_QUOT),
-                      (':', KC_SPC),  # "Word break" character.
-                  ] + [(chr(c), c + KC_A - ord('a')) for c in range(ord('a'), ord('z') + 1)])
+    ("'", KC_QUOT),
+    (".", KC_DOT),
+    ('§', KC_SPC),  # "Word break" character.
+] + [(chr(c), c + KC_A - ord('a')) for c in range(ord('a'), ord('z') + 1)])
 #   Characters a-z.
 
 
@@ -84,8 +86,8 @@ def serialize_trie(trie: Dict[str, Any]) -> List[int]:
     def traverse(trie_node):
         if 'MATCH' in trie_node:  # Handle a MATCH trie node.
             typo, correction = trie_node['MATCH']
-            word_boundary_ending = typo[-1] == ':'
-            typo = typo.strip(':')
+            word_boundary_ending = typo[-1] == '§'
+            typo = typo.strip('§')
             i = 0  # Make the autocorrection data for this entry and serialize it.
             while i < min(len(typo), len(correction)) and typo[i] == correction[i]:
                 i += 1
@@ -173,6 +175,7 @@ def get_line_tokens(line: str, sep: str = "->") -> tuple[str, str]:
     if len(tokens) != 2 or not tokens[0]:
         raise ValueError(f"Invalid line {line}")
 
+    tokens[0] = tokens[0].lower().replace(' ', '§')
     return tokens[0], tokens[1]
 
 
@@ -222,9 +225,6 @@ def parse_lines(filename: str) -> tokens_dict:
             context, complement = get_line_tokens(line)
         except ValueError:
             continue
-
-        context = context.lower()
-        context = context.replace(' ', ':')
 
         for separator in SEPARATORS:
             if not context.endswith(separator):
