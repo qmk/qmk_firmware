@@ -1,3 +1,4 @@
+#include "keyboard.h"
 #include "ws2812.h"
 #include "rgbsps.h"
 
