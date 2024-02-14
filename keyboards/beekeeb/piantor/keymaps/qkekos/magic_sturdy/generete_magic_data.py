@@ -87,6 +87,10 @@ def serialize_trie(trie: Dict[str, Any]) -> List[int]:
             while i < min(len(typo), len(correction)) and typo[i] == correction[i]:
                 i += 1
             backspaces = len(typo) - i + word_boundary_ending
+
+            if not typo:
+                backspaces = 0
+
             assert 0 <= backspaces <= 63
             correction = correction[i:]
             bs_count = [backspaces + 128 + (64 if len(trie_node) > 1 else 0)]

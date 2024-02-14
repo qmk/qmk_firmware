@@ -7,7 +7,6 @@
 
 #include "../__init__.h"
 
-// todo :* shouldnt remove space
 // todo capsword support
 // todo tap_count support
 // todo fallback support
