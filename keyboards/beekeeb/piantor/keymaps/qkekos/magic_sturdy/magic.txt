@@ -43,7 +43,6 @@ bet*    -> between
 var*    -> various
 ser*    -> serious
 gen*    -> general
-exa*    -> exactly
 pro*    -> problem
 bec*    -> become
 bud*    -> budget
@@ -140,6 +139,67 @@ ag**    -> against
 do**    -> doable
 
 // Repeat
-y@      -> you
+
+// Quadruple
+
+:sti@   -> still
+
+some@   -> something
+impl@   -> implement
+poss@   -> possible
+hand@   -> handy
+
+// Triple
+
+:vi@    -> vision
+:ab@    -> about
+
+imp@    -> impossible
+uni@    -> university
+dif@    -> difficult
+inc@    -> increase
+int@    -> interest
+ins@    -> instead
+def@    -> default
+dev@    -> develop
+awk@    -> awkward
+cap@    -> capable
+pro@    -> program
+how@    -> however
+any@    -> anyway
+cou@    -> course
+
+// Double
+
+:b@     -> because
+:t@     -> than
+:i@     -> ii
+
+fu@     -> function
+sc@     -> school
+mu@     -> music
+ba@     -> basic
+ex@     -> exact
+fr@     -> from
+ma@     -> make
+la@     -> last
+
+// Single
 
 :@      -> for
+
+w@      -> would
+j@      -> join
+x@      -> xes
+i@      -> ing
+y@      -> you
+q@      -> qui
+v@      -> ver
+
+// Double taps
+
+impl@@  -> implementation
+fu@@    -> functionality
+dev@@   -> development
+ba@@    -> basically
+ex@@    -> exactly
