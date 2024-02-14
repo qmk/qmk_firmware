@@ -12,7 +12,7 @@
         "mousekey": true,
         "nkro": true,
         "nkro": true,
-+       "encoder": true
+       "encoder": true
 
     },
     "matrix_pins": {
