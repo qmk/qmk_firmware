@@ -1,5 +1,7 @@
 #pragma once
 
+#define MAX_CONTEXT_LENGTH 6
+
 // --------------------------------------------------
 
 // Magic dictionary (7 entries):

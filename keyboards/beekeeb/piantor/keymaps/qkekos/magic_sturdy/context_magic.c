@@ -16,9 +16,6 @@
 #include "magic_data.h"
 #include "print.h"
 
-// todo: compute max in script
-#define CONTEXT_MAGIC_MAX_LENGTH MAGIC_MAX_LENGTH
-
 trie_t tries[] = {
     {US_AREP, MAGIC_DICTIONARY_SIZE,  magic_data},
     {US_REP,  REPEAT_DICTIONARY_SIZE, repeat_data},
@@ -27,7 +24,7 @@ trie_t tries[] = {
     {KC_NO, 0, NULL}
 };
 
-static uint8_t key_buffer[CONTEXT_MAGIC_MAX_LENGTH] = {KC_SPC};
+static uint8_t key_buffer[MAX_CONTEXT_LENGTH] = {KC_SPC};
 static uint8_t key_buffer_size = 1;
 
 /**
@@ -37,9 +34,9 @@ static uint8_t key_buffer_size = 1;
  */
 void enqueue_keycode(uint8_t keycode) {
     // Rotate oldest character if buffer is full.
-    if (key_buffer_size >= CONTEXT_MAGIC_MAX_LENGTH) {
-        memmove(key_buffer, key_buffer + 1, CONTEXT_MAGIC_MAX_LENGTH - 1);
-        key_buffer_size = CONTEXT_MAGIC_MAX_LENGTH - 1;
+    if (key_buffer_size >= MAX_CONTEXT_LENGTH) {
+        memmove(key_buffer, key_buffer + 1, MAX_CONTEXT_LENGTH - 1);
+        key_buffer_size = MAX_CONTEXT_LENGTH - 1;
     }
 
     key_buffer[key_buffer_size++] = keycode;

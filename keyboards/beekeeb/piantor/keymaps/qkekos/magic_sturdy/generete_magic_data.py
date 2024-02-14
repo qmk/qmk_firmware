@@ -42,6 +42,8 @@ OUT_FILE = 'magic_data.h'
 tokens_list = list[tuple[str, str]]
 tokens_dict = dict[str, tokens_list]
 
+max_global_typo_len = 0
+
 KC_A = 4
 KC_SPC = 0x2c
 KC_QUOT = 0x34
@@ -257,6 +259,9 @@ def generate_magic_data_core(tokens: tokens_list, type_name: str) -> List[str]:
     min_typo = min(tokens, key=typo_len)[0]
     max_typo = max(tokens, key=typo_len)[0]
 
+    global max_global_typo_len
+    max_global_typo_len = max(max_global_typo_len, len(max_typo))
+
     magic_data_h_lines = [
         f'// {"-" * 50}\n',
         f'// {type_name.title()} dictionary ({len(tokens)} entries):'
@@ -279,11 +284,15 @@ def generate_magic_data_core(tokens: tokens_list, type_name: str) -> List[str]:
 
 def generate_magic_data():
     magic_data_h_lines = ['#pragma once', '']
+    trie_lines = []
 
     for separator, tokens in parse_lines(IN_FILE).items():
-        magic_data_h_lines.extend(
+        trie_lines.extend(
             generate_magic_data_core(tokens, SEPARATORS.get(separator))
         )
+
+    magic_data_h_lines.extend([f"#define MAX_CONTEXT_LENGTH {max_global_typo_len}", ""])
+    magic_data_h_lines.extend(trie_lines)
 
     # Show the results
     with open(OUT_FILE, "w") as file:
