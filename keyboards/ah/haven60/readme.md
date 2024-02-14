@@ -3,7 +3,6 @@
 ![haven60](https://i.imgur.com/Uja750Oh.png)
 Haven60 PCB for Atelier Haven Haven60% keyboard
 both hotswap and solder pcbs use same firmware
-*A short description of the keyboard/project*
 
 * Keyboard Maintainer: [Freather](https://github.com/Freather)
 * Hardware Supported: atmega32u4-mu
