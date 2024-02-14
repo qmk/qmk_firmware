@@ -46,4 +46,3 @@ SRC = \
 	ap2_led.c \
 	protocol.c \
 	rgb_driver.c \
-	config_led.c
