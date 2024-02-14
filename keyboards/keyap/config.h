@@ -2,14 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
-#define ENCODER_MAP_KEY_DELAY 10
-#define ENCODERS_PAD_A \
-    { D1 }
-#define ENCODERS_PAD_B \
-    { D0 }
-#define ENCODERS_PAD_C \
-    { D4 }
-#define ENCODER_RESOLUTION 4
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

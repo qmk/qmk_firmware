@@ -1,12 +1,12 @@
 # keyap
 
-![keyap](imgur.com image replace me!)
+![keyap](![alt text](56836224-7540-464e-b9fb-072a9ea7f293.jpg))
 
 *A short description of the keyboard/project*
 
-* Keyboard Maintainer: [y](https://github.com/y)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [ArturR0k3r](https://github.com/ArturR0k3r)
+* Hardware Supported: *Atmega32u4*
+* Hardware Availability: *arduino pro micro Arduino leonardo KeyaPad *
 
 Make example for this keyboard (after setting up your build environment):
 
