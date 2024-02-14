@@ -7,7 +7,6 @@
 
 #include "../__init__.h"
 
-// todo capsword support
 // todo enqueue space after some time
 
 trie_t tries[] = {
@@ -78,6 +77,8 @@ bool process_context_magic(uint16_t keycode, keyrecord_t *record) {
 }
 
 uint8_t key_buffer[MAX_CONTEXT_LENGTH] = { KC_SPC };
+char string_buffer[MAX_CONTEXT_LENGTH] = { "\0" };
+
 uint8_t key_buffer_size = 1;
 uint8_t magic_tap_count = 1;
 
@@ -329,11 +330,17 @@ void process_trie(trie_t trie) {
     // Add completion string to key buffer
     char c = pgm_read_byte(trie.data + res.completion_offset);
 
-    for (int i = res.completion_offset; c; c = pgm_read_byte(trie.data + ++i))
-        enqueue_keycode(char_to_keycode(c));
+    int i = res.completion_offset;
 
-    // Send it!
-    send_string_P((const char *) &trie.data[res.completion_offset]);
+    for (; c; c = pgm_read_byte(trie.data + ++i)) {
+        int caspword_offset = ('A' - 'a') * is_caps_word_on();
+
+        enqueue_keycode(char_to_keycode(c));
+        string_buffer[i - res.completion_offset] = c + caspword_offset;
+    }
+
+    string_buffer[i] = '\0';
+    SEND_STRING(string_buffer);
 }
 
 void proces_magic_key(uint16_t keycode) {
