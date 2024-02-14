@@ -25,11 +25,6 @@
 /* If PH3 used with a stronger pull resistor then the following definition needs be included */
 // #define MATRIX_UNSELECT_DRIVE_HIGH
 
-/* RGB Matrix Configuration */
-#define DRIVER_1_LED_TOTAL 48
-#define DRIVER_2_LED_TOTAL 43
-#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
-
 #define SNLED27351_CURRENT_TUNE \
     { 0x94, 0x94, 0x44, 0x94, 0x94, 0x44, 0x94, 0x94, 0x44, 0x94, 0x94, 0x44 }
 

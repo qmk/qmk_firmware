@@ -24,11 +24,5 @@
 
 #define SNLED27351_PHASE_CHANNEL SNLED27351_SCAN_PHASE_9_CHANNEL
 
-/* turn off effects when suspended */
-#define RGB_MATRIX_SLEEP
-
 /* Encoder Configuration*/
 #define ENCODER_DEFAULT_POS 0x3
-
-#define RGB_MATRIX_KEYPRESSES
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
