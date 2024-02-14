@@ -333,7 +333,7 @@ void process_trie(trie_t trie) {
     int i = res.completion_offset;
 
     for (; c; c = pgm_read_byte(trie.data + ++i)) {
-        int caspword_offset = ('A' - 'a') * is_caps_word_on();
+        int caspword_offset = ('A' - 'a') * is_caps_word_on() * is_lowercase_letter(c);
 
         enqueue_keycode(char_to_keycode(c));
         string_buffer[i - res.completion_offset] = c + caspword_offset;
