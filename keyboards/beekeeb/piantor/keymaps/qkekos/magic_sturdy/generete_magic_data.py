@@ -301,6 +301,10 @@ def generate_magic_data():
     magic_data_h_lines.extend([f"#define MAX_CONTEXT_LENGTH {max_global_typo_len + 1}", ""])
     magic_data_h_lines.extend(trie_lines)
 
+    with open(OUT_FILE, "r") as file:
+        if file.read() == "\n".join(magic_data_h_lines):
+            return
+
     # Show the results
     with open(OUT_FILE, "w") as file:
         file.write("\n".join(magic_data_h_lines))
