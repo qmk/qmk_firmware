@@ -20,5 +20,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* key matrix size; rows are doubled for split */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 8
-
-#define RGB_MATRIX_LED_COUNT 64
