@@ -188,12 +188,6 @@ void ws2812_init(void) {
 }
 
 void ws2812_setleds(rgb_led_t* ledarray, uint16_t leds) {
-    static bool s_init = false;
-    if (!s_init) {
-        ws2812_init();
-        s_init = true;
-    }
-
     for (uint8_t i = 0; i < leds; i++) {
         set_led_color_rgb(ledarray[i], i);
     }
