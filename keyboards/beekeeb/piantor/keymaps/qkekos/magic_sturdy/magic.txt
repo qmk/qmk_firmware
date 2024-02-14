@@ -1,0 +1,8 @@
+uld*    -> uldn't
+uldn't* -> uld've
+:p*     -> pepe
+:p**    -> pepega
+:i*     -> i'm
+:i'm*   -> i'll
+:i'll*  -> i've
+:poss@  -> possible

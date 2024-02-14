@@ -124,17 +124,17 @@ enum pr_response sturdy_pr(uint16_t keycode, keyrecord_t *record) {
     }
 
     switch (keycode) {
-        case US_REP:
-            if (record->event.pressed)
-                process_rep_key();
-
-            return false;
-
-        case US_AREP:
-            if (record->event.pressed)
-                process_magic_key();
-
-            return false;
+//        case US_REP:
+//            if (record->event.pressed)
+//                process_rep_key();
+//
+//            return false;
+//
+//        case US_AREP:
+//            if (record->event.pressed)
+//                process_magic_key();
+//
+//            return false;
 
         case SMT_N:
             if (record->tap.count != 2) return PR_IGNORE;
@@ -150,6 +150,9 @@ enum pr_response sturdy_pr(uint16_t keycode, keyrecord_t *record) {
         case KC_H:
             return process_double_tap(keycode, record);
     }
+
+    if (!process_context_magic(keycode, record))
+        return false;
 
     return PR_IGNORE;
 }

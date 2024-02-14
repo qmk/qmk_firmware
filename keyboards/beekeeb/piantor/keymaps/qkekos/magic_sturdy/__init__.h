@@ -5,6 +5,7 @@
 #include "general.h"
 #include "magic_key.h"
 #include "rep_key.h"
+#include "context_magic.h"
 
 #define single_queue_check(p_key) queue(-1) == p_key
 #define double_queue_check(pp_key, p_key) queue(-2) == pp_key && single_queue_check(p_key)
