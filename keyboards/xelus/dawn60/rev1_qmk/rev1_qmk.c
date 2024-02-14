@@ -155,7 +155,7 @@ static void init(void) {
     is31fl3731_update_led_control_registers(1);
     
     //RGB Underglow ws2812
-    
+    ws2812_init();
 }
 
 static void flush(void) {

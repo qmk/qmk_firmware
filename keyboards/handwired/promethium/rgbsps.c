@@ -3,6 +3,12 @@
 
 rgb_led_t led[RGBSPS_NUM];
 
+void keyboard_pre_init_kb(void) {
+  ws2812_init();
+
+  keyboard_pre_init_user();
+}
+
 void rgbsps_set(uint8_t index, uint8_t r, uint8_t g, uint8_t b) {
   led[index].r = r;
   led[index].g = g;

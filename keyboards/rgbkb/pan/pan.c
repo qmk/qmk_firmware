@@ -24,8 +24,6 @@
 // LED color buffer
 rgb_led_t rgb_matrix_ws2812_array[RGB_MATRIX_LED_COUNT];
 
-static void init(void) {}
-
 static void flush(void) {
     ws2812_setleds(rgb_matrix_ws2812_array, RGB_MATRIX_LED_COUNT);
 }
@@ -56,7 +54,7 @@ static void setled_all(uint8_t r, uint8_t g, uint8_t b) {
 }
 
 const rgb_matrix_driver_t rgb_matrix_driver = {
-    .init          = init,
+    .init          = ws2812_init,
     .flush         = flush,
     .set_color     = setled,
     .set_color_all = setled_all,
