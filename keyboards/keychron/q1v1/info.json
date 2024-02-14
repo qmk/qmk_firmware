@@ -49,7 +49,8 @@
             "splash": true,
             "typing_heatmap": true
         },
-        "driver": "is31fl3733"
+        "driver": "is31fl3733",
+        "sleep": true
     },
     "url": "https://github.com/Keychron",
     "usb": {

@@ -122,6 +122,7 @@
             "solid_reactive_multinexus": true,
             "splash": true,
             "solid_splash": true
-        }
+        },
+        "sleep": true
     }
 }

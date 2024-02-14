@@ -16,11 +16,5 @@
 
 #pragma once
 
-/* turn off effects when suspended */
-#define RGB_MATRIX_SLEEP
-
 #define SNLED27351_CURRENT_TUNE \
     { 0xCA, 0xCA, 0x60, 0xCA, 0xCA, 0x60, 0xCA, 0xCA, 0x60, 0xCA, 0xCA, 0x60 }
-
-#define RGB_MATRIX_KEYPRESSES
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
