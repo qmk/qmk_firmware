@@ -1,6 +1,6 @@
 #pragma once
 
-#define MAX_CONTEXT_LENGTH 6
+#define MAX_CONTEXT_LENGTH 7
 
 // --------------------------------------------------
 

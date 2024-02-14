@@ -291,7 +291,7 @@ def generate_magic_data():
             generate_magic_data_core(tokens, SEPARATORS.get(separator))
         )
 
-    magic_data_h_lines.extend([f"#define MAX_CONTEXT_LENGTH {max_global_typo_len}", ""])
+    magic_data_h_lines.extend([f"#define MAX_CONTEXT_LENGTH {max_global_typo_len + 1}", ""])
     magic_data_h_lines.extend(trie_lines)
 
     # Show the results
