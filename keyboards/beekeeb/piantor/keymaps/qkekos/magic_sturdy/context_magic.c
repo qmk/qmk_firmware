@@ -359,7 +359,7 @@ void process_trie(trie_t trie) {
         string_buffer[i - res.completion_offset] = c + caspword_offset;
     }
 
-    string_buffer[i] = '\0';
+    string_buffer[i - res.completion_offset] = '\0';
     SEND_STRING(string_buffer);
 }
 
