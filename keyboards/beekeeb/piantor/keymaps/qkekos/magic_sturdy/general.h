@@ -8,7 +8,6 @@
 enum pr_response sturdy_pr(uint16_t, keyrecord_t*);
 enum pr_response process_double_tap(uint16_t keycode, keyrecord_t *record);
 bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* mods);
-void record_send_string(const char *str);
 void enqueue(int keycode);
 void dequeue(void);
 void print_queue(void);

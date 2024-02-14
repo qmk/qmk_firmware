@@ -23,6 +23,7 @@ bool process_check(uint16_t*, keyrecord_t*, uint8_t*, uint8_t*);
 bool process_context_magic(uint16_t, keyrecord_t*);
 void proces_magic_key(uint16_t);
 void dequeue_keycodes(uint8_t);
+void record_send_string(char*);
 void enqueue_keycode(uint8_t);
 void dequeue_keycode(void);
 trie_t get_trie(uint16_t);

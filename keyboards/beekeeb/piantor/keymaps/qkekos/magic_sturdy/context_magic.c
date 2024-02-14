@@ -7,6 +7,12 @@
 
 #include "../__init__.h"
 
+// todo :* shouldnt remove space
+// todo capsword support
+// todo tap_count support
+// todo fallback support
+// todo enqueue space after some time
+
 trie_t tries[] = {
     {US_AREP, MAGIC_DICTIONARY_SIZE,  magic_data },
     {US_REP,  REPEAT_DICTIONARY_SIZE, repeat_data},
@@ -290,7 +296,10 @@ void process_trie(trie_t trie) {
     find_longest_chain(&trie, &res, 0, 1);
 
     // If we found one, apply completion
-    if (!res.depth) return;
+    if (!res.depth) {
+        return;
+        uprintf("not found\n");
+    }
 
     // Send backspaces and dequeue buffer
     multi_tap(KC_BSPC, res.num_backspaces);
@@ -309,4 +318,17 @@ void process_trie(trie_t trie) {
 void proces_magic_key(uint16_t keycode) {
     trie_t trie = get_trie(keycode);
     if (trie.magic_key != KC_NO) process_trie(trie);
+}
+
+void record_send_string(char* str) {
+    for (int i = 0; str[i] != '\0'; i++) {
+        uint16_t keycode = char_to_keycode(str[i]);
+
+        if (keycode == KC_BSPC) dequeue_keycode();
+        if (keycode == KC_NO) continue;
+
+        enqueue_keycode(keycode);
+    }
+
+    SEND_STRING(is_caps_word_on() ? to_upper_case(str) : str);
 }

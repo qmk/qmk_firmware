@@ -8,3 +8,4 @@ uldn't* -> uld've
 :poss@  -> possible
 :*      -> the
 :@      -> for
+i*      -> ion

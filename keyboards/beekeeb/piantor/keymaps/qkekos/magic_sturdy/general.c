@@ -21,19 +21,6 @@ void refresh_token(void) {
     magic_timeout_token = defer_exec(MAGIC_KEY_TIMEOUT, enqueue_space, NULL);
 }
 
-void record_send_string(const char *str) {
-    for (int i = 0; str[i] != '\0'; i++) {
-        uint16_t keycode = char_to_keycode(str[i]);
-
-        if (keycode == KC_BSPC) dequeue();
-        if (keycode == KC_NO) continue;
-
-        enqueue(keycode);
-    }
-
-    SEND_STRING(is_caps_word_on() ? to_upper_case(str) : str);
-}
-
 void enqueue(int keycode) {
     for (int i = 0; i < PREV_KEYS_QUEUE_SIZE - 1; i += 1)
         prev_keys_queue[i] = prev_keys_queue[i + 1];
@@ -66,47 +53,6 @@ void print_queue(void) {
     uprintf("\n");
 }
 
-bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* mods) {
-    if (is_ctrl_backspace(keycode, record, mods)) {
-        refill_queue();
-        return false;
-    }
-
-    keycode = normalize_keycode(keycode);
-
-    switch (keycode) {
-        case KC_BSPC:
-        case KC_LEFT:
-            dequeue();
-            return false;
-    }
-
-    switch (keycode) {
-        case KC_ENT:
-        case TD_EQL:
-        case TD_DQT:
-        case KC_TAB:
-        case TD_BSLS:
-        case TD_UNDS:
-        case US_CLER:
-            keycode = KC_SPC;
-    }
-
-    switch (keycode) {
-        case US_REP:
-        case US_AREP:
-            return false;
-
-        case KC_N:
-            if (record->tap.count == 2) return false;
-            break;
-    }
-
-    enqueue(keycode);
-    print_queue();
-    return true;
-}
-
 enum pr_response sturdy_pr(uint16_t keycode, keyrecord_t *record) {
     prev_key_time = last_key_pressed_time;
 
@@ -123,7 +69,7 @@ enum pr_response sturdy_pr(uint16_t keycode, keyrecord_t *record) {
         else alt_rep_key_count += 1;
     }
 
-    switch (keycode) {
+//    switch (keycode) {
 //        case US_REP:
 //            if (record->event.pressed)
 //                process_rep_key();
@@ -136,20 +82,20 @@ enum pr_response sturdy_pr(uint16_t keycode, keyrecord_t *record) {
 //
 //            return false;
 
-        case SMT_N:
-            if (record->tap.count != 2) return PR_IGNORE;
-
-            if (record->event.pressed)
-                process_magic_key();
-
-            return false;
-
-        case KC_B:
-        case KC_Z:
-        case KC_F:
-        case KC_H:
-            return process_double_tap(keycode, record);
-    }
+//        case SMT_N:
+//            if (record->tap.count != 2) return PR_IGNORE;
+//
+//            if (record->event.pressed)
+//                process_magic_key();
+//
+//            return false;
+//
+//        case KC_B:
+//        case KC_Z:
+//        case KC_F:
+//        case KC_H:
+//            return process_double_tap(keycode, record);
+//    }
 
     if (!process_context_magic(keycode, record))
         return false;
