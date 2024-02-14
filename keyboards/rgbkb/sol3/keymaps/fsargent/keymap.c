@@ -466,7 +466,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 	//	break;
 	case RST:
 		  if (pressed) {
-			 reset_keyboard();
+		reset_keyboard();
 		  }
 		  break;
 	case QNM:

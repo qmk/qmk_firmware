@@ -24,10 +24,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[0] = LAYOUT(
 	KC_GRV,			KC_1,		KC_2,		KC_3,		KC_4,			KC_5,					KC_6,		KC_7,		KC_8,		KC_9,		KC_0,			KC_MINS,
 	KC_TAB,			KC_Q,		KC_W,		KC_E,		KC_R,			KC_T,					KC_Y,		KC_U,		KC_I,		KC_O,		KC_P,			KC_BSLS,
-	MT(MOD_MEH,KC_ESC),	LGUI_T(KC_A),	LALT_T(KC_S),	LCTL_T(KC_D),	LSFT_T(KC_F),		LT(3,KC_G),				KC_H,		LSFT_T(KC_J),	LCTL_T(KC_K),	LALT_T(KC_L),	LGUI_T(KC_QUOT),	KC_QUOT,
+	MT(MOD_MEH,KC_ESC),	LGUI_T(KC_A),	LALT_T(KC_S),	LCTL_T(KC_D),	LSFT_T(KC_F),		KC_G,					KC_H,		LSFT_T(KC_J),	LCTL_T(KC_K),	LALT_T(KC_L),	LGUI_T(KC_QUOT),	KC_QUOT,
 	KC_LSFT,		LT(3,KC_Z),	LT(3,KC_X),	LT(3,KC_C),	LT(3,KC_V),		KC_B,					KC_N,		KC_M,		KC_COMM,	KC_DOT,		LT(3,KC_SLSH),		MT(MOD_LSFT,KC_BSLS),
-								MO(1),		CMD_T(KC_BSPC),		LT(2,KC_TAB),				LT(2, KC_ENT),	LT(2, KC_SPC),
-								MT(MOD_LCTL, KC_LBRC),			MT(MOD_LALT, KC_RBRC),			KC_DEL
+							LT(1,KC_ESC),	CMD_T(KC_BSPC),		LT(2,KC_TAB),				LT(2, KC_ENT),	LT(2, KC_SPC),
+										KC_LPRN, 		KC_RPRN,				KC_DEL
 	),
 
 	[1] = LAYOUT(
