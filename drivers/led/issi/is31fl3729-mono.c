@@ -61,11 +61,19 @@
 
 // These buffers match the PWM & scaling registers.
 // Storing them like this is optimal for I2C transfers to the registers.
-uint8_t g_pwm_buffer[IS31FL3729_DRIVER_COUNT][IS31FL3729_PWM_REGISTER_COUNT];
-bool    g_pwm_buffer_update_required[IS31FL3729_DRIVER_COUNT] = {false};
+typedef struct is31fl3729_driver_t {
+    uint8_t pwm_buffer[IS31FL3729_PWM_REGISTER_COUNT];
+    bool    pwm_buffer_dirty;
+    uint8_t scaling_buffer[IS31FL3729_SCALING_REGISTER_COUNT];
+    bool    scaling_buffer_dirty;
+} PACKED is31fl3729_driver_t;
 
-uint8_t g_scaling_registers[IS31FL3729_DRIVER_COUNT][IS31FL3729_SCALING_REGISTER_COUNT];
-bool    g_scaling_registers_update_required[IS31FL3729_DRIVER_COUNT] = {false};
+is31fl3729_driver_t driver_buffers[IS31FL3729_DRIVER_COUNT] = {{
+    .pwm_buffer           = {0},
+    .pwm_buffer_dirty     = false,
+    .scaling_buffer       = {0},
+    .scaling_buffer_dirty = false,
+}};
 
 void is31fl3729_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
 #if IS31FL3729_I2C_PERSISTENCE > 0
@@ -84,10 +92,10 @@ void is31fl3729_write_pwm_buffer(uint8_t addr, uint8_t index) {
     for (uint8_t i = 0; i <= IS31FL3729_PWM_REGISTER_COUNT; i += 16) {
 #if IS31FL3729_I2C_PERSISTENCE > 0
         for (uint8_t j = 0; j < IS31FL3729_I2C_PERSISTENCE; j++) {
-            if (i2c_write_register(addr << 1, i, g_pwm_buffer[index] + i, 16, IS31FL3729_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
+            if (i2c_write_register(addr << 1, i, driver_buffers[index].pwm_buffer + i, 16, IS31FL3729_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
         }
 #else
-        i2c_write_register(addr << 1, i, g_pwm_buffer[index] + i, 16, IS31FL3729_I2C_TIMEOUT);
+        i2c_write_register(addr << 1, i, driver_buffers[index].pwm_buffer + i, 16, IS31FL3729_I2C_TIMEOUT);
 #endif
     }
 }
@@ -152,12 +160,12 @@ void is31fl3729_set_value(int index, uint8_t value) {
     if (index >= 0 && index < IS31FL3729_LED_COUNT) {
         memcpy_P(&led, (&g_is31fl3729_leds[index]), sizeof(led));
 
-        if (g_pwm_buffer[led.driver][led.v] == value) {
+        if (driver_buffers[led.driver].pwm_buffer[led.v] == value) {
             return;
         }
 
-        g_pwm_buffer_update_required[led.driver] = true;
-        g_pwm_buffer[led.driver][led.v]          = value;
+        driver_buffers[led.driver].pwm_buffer[led.v] = value;
+        driver_buffers[led.driver].pwm_buffer_dirty  = true;
     }
 }
 
@@ -176,26 +184,25 @@ void is31fl3729_set_scaling_register(uint8_t index, uint8_t value) {
     // only enable them, since they should be default disabled
     int cs_value = (led.v & 0x0F) - 1;
 
-    g_scaling_registers[led.driver][cs_value] = value;
-
-    g_scaling_registers_update_required[led.driver] = true;
+    driver_buffers[led.driver].scaling_buffer[cs_value] = value;
+    driver_buffers[led.driver].scaling_buffer_dirty     = true;
 }
 
 void is31fl3729_update_pwm_buffers(uint8_t addr, uint8_t index) {
-    if (g_pwm_buffer_update_required[index]) {
+    if (driver_buffers[index].pwm_buffer_dirty) {
         is31fl3729_write_pwm_buffer(addr, index);
 
-        g_pwm_buffer_update_required[index] = false;
+        driver_buffers[index].pwm_buffer_dirty = false;
     }
 }
 
 void is31fl3729_update_scaling_registers(uint8_t addr, uint8_t index) {
-    if (g_scaling_registers_update_required[index]) {
+    if (driver_buffers[index].scaling_buffer_dirty) {
         for (uint8_t i = 0; i < IS31FL3729_SCALING_REGISTER_COUNT; i++) {
-            is31fl3729_write_register(addr, IS31FL3729_REG_SCALING + i, g_scaling_registers[index][i]);
+            is31fl3729_write_register(addr, IS31FL3729_REG_SCALING + i, driver_buffers[index].scaling_buffer[i]);
         }
 
-        g_scaling_registers_update_required[index] = false;
+        driver_buffers[index].scaling_buffer_dirty = false;
     }
 }
 
