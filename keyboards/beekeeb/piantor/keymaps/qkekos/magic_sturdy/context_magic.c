@@ -7,14 +7,12 @@
 
 #include "../__init__.h"
 
-// todo enqueue space after some time
-
 trie_t tries[] = {
     {US_AREP, MAGIC_DICTIONARY_SIZE,  magic_data,  magic_key_fallback },
     {US_REP,  REPEAT_DICTIONARY_SIZE, repeat_data, repeat_key_fallback},
 
     // terminator
-    {KC_NO, 0, NULL}
+    { KC_NO }
 };
 
 /**
@@ -82,9 +80,30 @@ char string_buffer[MAX_CONTEXT_LENGTH] = { "\0" };
 uint8_t key_buffer_size = 1;
 uint8_t magic_tap_count = 1;
 
+deferred_token magic_timeout_token = INVALID_DEFERRED_TOKEN;
+int prev_key_timestamp = 0;
+int current_key_timestamp;
+
+uint32_t enqueue_space(uint32_t trigger_time, void *cb_arg) {
+    enqueue_keycode(KC_SPC);
+    return 0;
+}
+
+void refresh_token(void) {
+    if (magic_timeout_token != INVALID_DEFERRED_TOKEN)
+        cancel_deferred_exec(magic_timeout_token);
+
+    magic_timeout_token = defer_exec(MAGIC_KEY_TIMEOUT, enqueue_space, NULL);
+}
+
 bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* mods) {
     trie_t trie = get_trie(keycode);
     if (trie.magic_key == KC_NO) return true;
+
+    prev_key_timestamp = current_key_timestamp;
+    current_key_timestamp = timer_read();
+
+    refresh_token();
 
     if (keycode == get_last_keycode()) magic_tap_count += 1;
     else magic_tap_count = 1;
@@ -345,7 +364,7 @@ void process_trie(trie_t trie) {
     SEND_STRING(string_buffer);
 }
 
-void proces_magic_key(uint16_t keycode) {
+void process_magic_key(uint16_t keycode) {
     trie_t trie = get_trie(keycode);
     if (trie.magic_key != KC_NO) process_trie(trie);
 }

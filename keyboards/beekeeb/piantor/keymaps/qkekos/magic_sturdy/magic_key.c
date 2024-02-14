@@ -1,8 +1,7 @@
 
 #include "../__init__.h"
 
-void process_magic_key(void) {
-    if (alt_rep_key_count == 2) {
+void process_magic_key1(void) {
         switch(queue(-5)) {
             quintuple_magic_case(KC_A, KC_G, KC_A, KC_I, KC_N, "st");
             quintuple_magic_case(KC_J, KC_U, KC_D, KC_G, KC_E, "\bment");
@@ -27,7 +26,6 @@ void process_magic_key(void) {
 
         record_send_string("n");
         return;
-    }
 
     switch(queue(-5)) {
         quintuple_magic_case(KC_O, KC_C, KC_R, KC_A, KC_C, "y");

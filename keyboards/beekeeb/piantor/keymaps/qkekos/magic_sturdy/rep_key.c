@@ -1,8 +1,7 @@
 
 #include "../__init__.h"
 
-void process_rep_key(void) {
-    if (rep_key_count == 2) {
+void process_rep_key1(void) {
         switch(queue(-4)) {
             quadruple_magic_case(KC_X, KC_A, KC_C, KC_T, "ly");
             quadruple_magic_case(KC_P, KC_O, KC_S, KC_S, "ible");
@@ -11,7 +10,6 @@ void process_rep_key(void) {
             quadruple_magic_case(KC_T, KC_I, KC_O, KC_N, "ality");
             quadruple_magic_case(KC_M, KC_E, KC_N, KC_T, "ation");
         }
-    }
 
     switch (queue(-4)) {
         quadruple_magic_case(KC_H, KC_A, KC_N, KC_D, "y");
