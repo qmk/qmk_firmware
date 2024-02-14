@@ -22,8 +22,8 @@
             "enabled": true,
             "resync": true
         },
-        "community_layouts": ["ortho_5x6"],
     },
+    "community_layouts": ["ortho_5x6"],
     "layouts": {
         "LAYOUT_ortho_5x6": {
             "layout": [
