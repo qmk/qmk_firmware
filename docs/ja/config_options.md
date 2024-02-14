@@ -108,7 +108,7 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
   * デバイスの USB 経由の最大電力(mA) を設定します (デフォルト: 500)
 * `#define USB_POLLING_INTERVAL_MS 10`
   * キーボード、マウス および 共有 (NKRO/メディアキー) インタフェースのための USB ポーリングレートをミリ秒で設定します
-* `#define USB_SUSPEND_WAKEUP_DELAY 200`
+* `#define USB_SUSPEND_WAKEUP_DELAY 0`
    * ウェイクアップパケットを送信した後で一時停止するミリ秒を設定します
 * `#define F_SCL 100000L`
   * I2C を使用するキーボードのための I2C クロックレート速度を設定します。デフォルトは `400000L` ですが、`split_common` を使っているキーボードは別でデフォルトは `100000L` です。
@@ -144,7 +144,7 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
 ## 設定可能な挙動 :id=behaviors-that-can-be-configured
 
 * `#define TAPPING_TERM 200`
-  * タップがホールドになるまでの時間。500以上に設定された場合、タップ期間中にタップされたキーもホールドになります。(訳注: PERMISSIVE_HOLDも参照)
+  * タップがホールドになるまでの時間。
 * `#define TAPPING_TERM_PER_KEY`
   * キーごとの `TAPPING_TERM` 設定の処理を有効にします
 * `#define RETRO_TAPPING`
@@ -159,11 +159,6 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
   * 詳細は [Permissive Hold](ja/tap_hold.md#permissive-hold) を見てください
 * `#define PERMISSIVE_HOLD_PER_KEY`
   * キーごとの `PERMISSIVE_HOLD` 設定の処理を有効にします
-* `#define IGNORE_MOD_TAP_INTERRUPT`
-  * 両方のキーに `TAPPING_TERM` を適用することで、ホールド時に他のキーに変換するキーを使ってローリングコンボ (zx) をすることができるようにします
-  * 詳細は [Ignore Mod Tap Interrupt](ja/tap_hold.md#ignore-mod-tap-interrupt) を見てください
-* `#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY`
-  * キーごとの `IGNORE_MOD_TAP_INTERRUPT` 設定の処理を有効にします
 * `#define TAPPING_FORCE_HOLD`
   * タップされた直後に、デュアルロールキーを修飾子として使用できるようにします
   * [Tapping Force Hold](ja/tap_hold.md#tapping-force-hold)を見てください
@@ -181,10 +176,6 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
   * ワンショットがタイムアウトするまでの時間
 * `#define ONESHOT_TAP_TOGGLE 2`
   * ワンショットトグルが引き起こされるまでのタップ数
-* `#define QMK_KEYS_PER_SCAN 4`
-  * 走査ごとに1つ以上のキーを送信できるようにします。デフォルトでは、走査ごとに `process_record()` 経由で1つのキーイベントのみが送信されます。これはほとんどのタイピングにほとんど影響しませんが、多くのコードを入力しているか、走査レートが最初から遅い場合、キーイベントの処理に多少の遅延が生じる可能性があります。それぞれのプレスとリリースは別のイベントです。スキャン時間が 1ms 程度のキーボードの場合、とても高速なタイピストでさえ、実際にキーボードから数 ms 以上の遅延を発生させるのに必要な 500 キーストロークを1秒間に生成することはないでしょう。しかし、3～4ms の走査時間でコードを入力している場合はどうでしょうか？おそらくこれが必要です。
-* `#define COMBO_COUNT 2`
-  * [コンボ](ja/feature_combo.md)機能で使っているコンボの数にこれを設定します。
 * `#define COMBO_TERM 200`
   * コンボキーが検出されるまでの時間。定義されていない場合は、デフォルトは `TAPPING_TERM` です。
 * `#define TAP_CODE_DELAY 100`
@@ -196,8 +187,6 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
 
 * `#define RGB_DI_PIN D7`
   * WS2812 の DI 端子につなぐピン
-* `#define RGBLIGHT_ANIMATIONS`
-  * RGB アニメーションを実行します
 * `#define RGBLIGHT_LAYERS`
   * オンとオフを切り替えることができる [ライトレイヤー](ja/feature_rgblight.md?id=lighting-layers) を定義できます。現在のキーボードレイヤーまたは Caps Lock 状態を表示するのに最適です。
 * `#define RGBLIGHT_MAX_LAYERS`
@@ -358,7 +347,7 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
 これらを使って特定の機能のビルドを有効または無効にします。有効にすればするほどファームウェアが大きくなり、MCU には大きすぎるファームウェアを構築するリスクがあります。
 
 * `BOOTMAGIC_ENABLE`
-  * 仮想 DIP スイッチ設定
+  * ブートマジックライトを有効にします
 * `MOUSEKEY_ENABLE`
   * マウスキー
 * `EXTRAKEY_ENABLE`

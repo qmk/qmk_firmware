@@ -1,5 +1,4 @@
 #ifdef ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
-#define RGB_MATRIX_EFFECT_GRADIENT_UP_DOWN
 RGB_MATRIX_EFFECT(GRADIENT_UP_DOWN)
 #    ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
@@ -16,8 +15,8 @@ bool GRADIENT_UP_DOWN(effect_params_t* params) {
         RGB rgb = rgb_matrix_hsv_to_rgb(hsv);
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return rgb_matrix_check_finished_leds(led_max);
 }
 
-#    endif  // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
-#endif      // DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
+#    endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+#endif     // ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN

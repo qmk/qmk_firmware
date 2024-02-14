@@ -1,5 +1,4 @@
 #ifdef ENABLE_RGB_MATRIX_HUE_BREATHING
-#define RGB_MATRIX_EFFECT_HUE_BREATHING
 RGB_MATRIX_EFFECT(HUE_BREATHING)
 #    ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
@@ -16,8 +15,8 @@ bool HUE_BREATHING(effect_params_t* params) {
         RGB_MATRIX_TEST_LED_FLAGS();
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return rgb_matrix_check_finished_leds(led_max);
 }
 
-#    endif  // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
-#endif      // DISABLE_RGB_HUE_BREATHING
+#    endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+#endif     // DISABLE_RGB_HUE_BREATHING

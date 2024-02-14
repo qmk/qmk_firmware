@@ -165,7 +165,7 @@ Clueboard は、サブフォルダをまとめるためとキーボードのリ�
 * `void matrix_init_kb(void)`
 * `void matrix_scan_kb(void)`
 * `bool process_record_kb(uint16_t keycode, keyrecord_t *record)`
-* `void led_set_kb(uint8_t usb_led)`
+* `bool led_update_kb(led_t led_state)`
 
 ### `<keyboard_name.h>`
 
@@ -233,8 +233,6 @@ QMK が提供する機能の量を考えれば、新しいユーザーが混乱�
 ## ライセンス
 
 QMK のコア部分は [GNU General Public License](https://www.gnu.org/licenses/licenses.en.html) でライセンスされます。AVR マイコン用のバイナリを提供する場合は、[GPLv2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html) か、[GPLv3](https://www.gnu.org/licenses/gpl.html) のどちらかから選択出来ます。ARM マイコン用のバイナリを提供する場合は、 [ChibiOS](https://www.chibios.org) の GPLv3 ライセンスに準拠するため、[GPL Version 3](https://www.gnu.org/licenses/gpl.html) を選択しなければいけません。
-
-[uGFX](https://ugfx.io) を使用している場合は、[uGFX License](https://ugfx.io/license.html) に準拠する必要があります。uGFX を利用したデバイスを販売するには個別に商用ライセンスを取得しなければいけません。
 
 ## 技術的な詳細
 

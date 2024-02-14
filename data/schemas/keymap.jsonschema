@@ -1,10 +1,16 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$schema": "https://json-schema.org/draft/2020-12/schema#",
     "$id": "qmk.keymap.v1",
     "title": "Keymap Information",
     "type": "object",
     "properties": {
         "author": {"type": "string"},
+        "converter": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[a-z][0-9a-z_]*$"
+        },
+        "host_language": {"$ref": "qmk.definitions.v1#/text_identifier"},
         "keyboard": {"$ref": "qmk.definitions.v1#/text_identifier"},
         "keymap": {"$ref": "qmk.definitions.v1#/text_identifier"},
         "layout": {"$ref": "qmk.definitions.v1#/layout_macro"},
@@ -15,10 +21,61 @@
                 "items": {"type": "string"}
             }
         },
+        "encoders": {
+            "type": "array",
+            "items": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "required": ["ccw", "cw"],
+                    "properties": {
+                        "ccw": {"type": "string"},
+                        "cw": {"type": "string"}
+                    }
+                }
+            }
+        },
+        "macros": {
+            "type": "array",
+            "items": {
+                "type": "array",
+                "items": {
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "action": {
+                                    "type": "string",
+                                    "enum": ["beep", "delay", "down", "tap", "up"]
+                                },
+                                "keycodes": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "qmk.definitions.v1#/text_identifier"
+                                    }
+                                },
+                                "duration": {
+                                    "$ref": "qmk.definitions.v1#/unsigned_int"
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        "keycodes": {"$ref": "qmk.definitions.v1#/keycode_decl_array"},
         "config": {"$ref": "qmk.keyboard.v1"},
         "notes": {
-            "type": "string",
-            "description": "asdf"
+            "type": "string"
         }
-    }
+    },
+    "required": [
+        "keyboard",
+        "layout",
+        "layers"
+    ]
 }

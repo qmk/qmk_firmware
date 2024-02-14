@@ -1,6 +1,7 @@
 /* Copyright 2017 Jason Williams
  * Copyright 2018 Jack Humbert
  * Copyright 2018 Yiancar
+ * Copyright 2021 Doni Crosby
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,31 +22,142 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "progmem.h"
+#include "util.h"
 
-typedef struct is31_led {
+// ======== DEPRECATED DEFINES - DO NOT USE ========
+#ifdef DRIVER_ADDR_1
+#    define IS31FL3737_I2C_ADDRESS_1 DRIVER_ADDR_1
+#endif
+#ifdef DRIVER_ADDR_2
+#    define IS31FL3737_I2C_ADDRESS_2 DRIVER_ADDR_2
+#endif
+#ifdef DRIVER_ADDR_3
+#    define IS31FL3737_I2C_ADDRESS_3 DRIVER_ADDR_3
+#endif
+#ifdef DRIVER_ADDR_4
+#    define IS31FL3737_I2C_ADDRESS_4 DRIVER_ADDR_4
+#endif
+#ifdef ISSI_TIMEOUT
+#    define IS31FL3737_I2C_TIMEOUT ISSI_TIMEOUT
+#endif
+#ifdef ISSI_PERSISTENCE
+#    define IS31FL3737_I2C_PERSISTENCE ISSI_PERSISTENCE
+#endif
+#ifdef ISSI_PWM_FREQUENCY
+#    define IS31FL3737_PWM_FREQUENCY ISSI_PWM_FREQUENCY
+#endif
+#ifdef ISSI_SWPULLUP
+#    define IS31FL3737_SW_PULLUP ISSI_SWPULLUP
+#endif
+#ifdef ISSI_CSPULLUP
+#    define IS31FL3737_CS_PULLDOWN ISSI_CSPULLUP
+#endif
+#ifdef ISSI_GLOBALCURRENT
+#    define IS31FL3737_GLOBAL_CURRENT ISSI_GLOBALCURRENT
+#endif
+
+#define is31_led is31fl3737_led_t
+#define g_is31_leds g_is31fl3737_leds
+
+#define PUR_0R IS31FL3737_PUR_0_OHM
+#define PUR_05KR IS31FL3737_PUR_0K5_OHM
+#define PUR_1KR IS31FL3737_PUR_1K_OHM
+#define PUR_2KR IS31FL3737_PUR_2K_OHM
+#define PUR_4KR IS31FL3737_PUR_4K_OHM
+#define PUR_8KR IS31FL3737_PUR_8K_OHM
+#define PUR_16KR IS31FL3737_PUR_16K_OHM
+#define PUR_32KR IS31FL3737_PUR_32K_OHM
+// ========
+
+#define IS31FL3737_REG_INTERRUPT_MASK 0xF0
+#define IS31FL3737_REG_INTERRUPT_STATUS 0xF1
+
+#define IS31FL3737_REG_COMMAND 0xFD
+
+#define IS31FL3737_COMMAND_LED_CONTROL 0x00
+#define IS31FL3737_COMMAND_PWM 0x01
+#define IS31FL3737_COMMAND_AUTO_BREATH 0x02
+#define IS31FL3737_COMMAND_FUNCTION 0x03
+
+#define IS31FL3737_FUNCTION_REG_CONFIGURATION 0x00
+#define IS31FL3737_FUNCTION_REG_GLOBAL_CURRENT 0x01
+#define IS31FL3737_FUNCTION_REG_SW_PULLUP 0x0F
+#define IS31FL3737_FUNCTION_REG_CS_PULLDOWN 0x10
+#define IS31FL3737_FUNCTION_REG_RESET 0x11
+
+#define IS31FL3737_REG_COMMAND_WRITE_LOCK 0xFE
+#define IS31FL3737_COMMAND_WRITE_LOCK_MAGIC 0xC5
+
+#define IS31FL3737_I2C_ADDRESS_GND 0x50
+#define IS31FL3737_I2C_ADDRESS_SCL 0x55
+#define IS31FL3737_I2C_ADDRESS_SDA 0x5A
+#define IS31FL3737_I2C_ADDRESS_VCC 0x5F
+
+#if defined(RGB_MATRIX_IS31FL3737)
+#    define IS31FL3737_LED_COUNT RGB_MATRIX_LED_COUNT
+#endif
+
+#if defined(IS31FL3737_I2C_ADDRESS_4)
+#    define IS31FL3737_DRIVER_COUNT 4
+#elif defined(IS31FL3737_I2C_ADDRESS_3)
+#    define IS31FL3737_DRIVER_COUNT 3
+#elif defined(IS31FL3737_I2C_ADDRESS_2)
+#    define IS31FL3737_DRIVER_COUNT 2
+#elif defined(IS31FL3737_I2C_ADDRESS_1)
+#    define IS31FL3737_DRIVER_COUNT 1
+#endif
+
+typedef struct is31fl3737_led_t {
     uint8_t driver : 2;
     uint8_t r;
     uint8_t g;
     uint8_t b;
-} __attribute__((packed)) is31_led;
+} PACKED is31fl3737_led_t;
 
-extern const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL];
+extern const is31fl3737_led_t PROGMEM g_is31fl3737_leds[IS31FL3737_LED_COUNT];
 
-void IS31FL3737_init(uint8_t addr);
-void IS31FL3737_write_register(uint8_t addr, uint8_t reg, uint8_t data);
-void IS31FL3737_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
+void is31fl3737_init_drivers(void);
+void is31fl3737_init(uint8_t addr);
+void is31fl3737_write_register(uint8_t addr, uint8_t reg, uint8_t data);
+void is31fl3737_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
 
-void IS31FL3737_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
-void IS31FL3737_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
+void is31fl3737_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
+void is31fl3737_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
 
-void IS31FL3737_set_led_control_register(uint8_t index, bool red, bool green, bool blue);
+void is31fl3737_set_led_control_register(uint8_t index, bool red, bool green, bool blue);
 
 // This should not be called from an interrupt
 // (eg. from a timer interrupt).
 // Call this while idle (in between matrix scans).
 // If the buffer is dirty, it will update the driver with the buffer.
-void IS31FL3737_update_pwm_buffers(uint8_t addr1, uint8_t addr2);
-void IS31FL3737_update_led_control_registers(uint8_t addr1, uint8_t addr2);
+void is31fl3737_update_pwm_buffers(uint8_t addr, uint8_t index);
+void is31fl3737_update_led_control_registers(uint8_t addr, uint8_t index);
+
+void is31fl3737_flush(void);
+
+#define IS31FL3737_PDR_0_OHM 0b000   // No pull-down resistor
+#define IS31FL3737_PDR_0K5_OHM 0b001 // 0.5 kOhm resistor
+#define IS31FL3737_PDR_1K_OHM 0b010  // 1 kOhm resistor
+#define IS31FL3737_PDR_2K_OHM 0b011  // 2 kOhm resistor
+#define IS31FL3737_PDR_4K_OHM 0b100  // 4 kOhm resistor
+#define IS31FL3737_PDR_8K_OHM 0b101  // 8 kOhm resistor
+#define IS31FL3737_PDR_16K_OHM 0b110 // 16 kOhm resistor
+#define IS31FL3737_PDR_32K_OHM 0b111 // 32 kOhm resistor
+
+#define IS31FL3737_PUR_0_OHM 0b000   // No pull-up resistor
+#define IS31FL3737_PUR_0K5_OHM 0b001 // 0.5 kOhm resistor
+#define IS31FL3737_PUR_1K_OHM 0b010  // 1 kOhm resistor
+#define IS31FL3737_PUR_2K_OHM 0b011  // 2 kOhm resistor
+#define IS31FL3737_PUR_4K_OHM 0b100  // 4 kOhm resistor
+#define IS31FL3737_PUR_8K_OHM 0b101  // 8 kOhm resistor
+#define IS31FL3737_PUR_16K_OHM 0b110 // 16 kOhm resistor
+#define IS31FL3737_PUR_32K_OHM 0b111 // 32 kOhm resistor
+
+#define IS31FL3737_PWM_FREQUENCY_8K4_HZ 0b000
+#define IS31FL3737_PWM_FREQUENCY_4K2_HZ 0b001
+#define IS31FL3737_PWM_FREQUENCY_26K7_HZ 0b010
+#define IS31FL3737_PWM_FREQUENCY_2K1_HZ 0b011
+#define IS31FL3737_PWM_FREQUENCY_1K05_HZ 0b100
 
 #define A_1 0x00
 #define A_2 0x01

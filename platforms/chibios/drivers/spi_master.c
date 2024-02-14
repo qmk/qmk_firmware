@@ -18,13 +18,13 @@
 
 #include "timer.h"
 
-static pin_t currentSlavePin = NO_PIN;
+static bool spiStarted = false;
 
-#if defined(K20x) || defined(KL2x)
-static SPIConfig spiConfig = {NULL, 0, 0, 0};
-#else
-static SPIConfig spiConfig = {false, NULL, 0, 0, 0, 0};
+#if SPI_SELECT_MODE == SPI_SELECT_MODE_NONE
+static pin_t currentSlavePin;
 #endif
+
+static SPIConfig spiConfig;
 
 __attribute__((weak)) void spi_init(void) {
     static bool is_initialised = false;
@@ -33,27 +33,47 @@ __attribute__((weak)) void spi_init(void) {
 
         // Try releasing special pins for a short time
         setPinInput(SPI_SCK_PIN);
-        setPinInput(SPI_MOSI_PIN);
-        setPinInput(SPI_MISO_PIN);
+        if (SPI_MOSI_PIN != NO_PIN) {
+            setPinInput(SPI_MOSI_PIN);
+        }
+        if (SPI_MISO_PIN != NO_PIN) {
+            setPinInput(SPI_MISO_PIN);
+        }
 
         chThdSleepMilliseconds(10);
 #if defined(USE_GPIOV1)
         palSetPadMode(PAL_PORT(SPI_SCK_PIN), PAL_PAD(SPI_SCK_PIN), SPI_SCK_PAL_MODE);
-        palSetPadMode(PAL_PORT(SPI_MOSI_PIN), PAL_PAD(SPI_MOSI_PIN), SPI_MOSI_PAL_MODE);
-        palSetPadMode(PAL_PORT(SPI_MISO_PIN), PAL_PAD(SPI_MISO_PIN), SPI_MISO_PAL_MODE);
+        if (SPI_MOSI_PIN != NO_PIN) {
+            palSetPadMode(PAL_PORT(SPI_MOSI_PIN), PAL_PAD(SPI_MOSI_PIN), SPI_MOSI_PAL_MODE);
+        }
+        if (SPI_MISO_PIN != NO_PIN) {
+            palSetPadMode(PAL_PORT(SPI_MISO_PIN), PAL_PAD(SPI_MISO_PIN), SPI_MISO_PAL_MODE);
+        }
 #else
-        palSetPadMode(PAL_PORT(SPI_SCK_PIN), PAL_PAD(SPI_SCK_PIN), PAL_MODE_ALTERNATE(SPI_SCK_PAL_MODE) | PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST);
-        palSetPadMode(PAL_PORT(SPI_MOSI_PIN), PAL_PAD(SPI_MOSI_PIN), PAL_MODE_ALTERNATE(SPI_MOSI_PAL_MODE) | PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST);
-        palSetPadMode(PAL_PORT(SPI_MISO_PIN), PAL_PAD(SPI_MISO_PIN), PAL_MODE_ALTERNATE(SPI_MISO_PAL_MODE) | PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST);
+        palSetPadMode(PAL_PORT(SPI_SCK_PIN), PAL_PAD(SPI_SCK_PIN), SPI_SCK_FLAGS);
+        if (SPI_MOSI_PIN != NO_PIN) {
+            palSetPadMode(PAL_PORT(SPI_MOSI_PIN), PAL_PAD(SPI_MOSI_PIN), SPI_MOSI_FLAGS);
+        }
+        if (SPI_MISO_PIN != NO_PIN) {
+            palSetPadMode(PAL_PORT(SPI_MISO_PIN), PAL_PAD(SPI_MISO_PIN), SPI_MISO_FLAGS);
+        }
 #endif
+        spiStop(&SPI_DRIVER);
+        spiStarted = false;
     }
 }
 
 bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
-    if (currentSlavePin != NO_PIN || slavePin == NO_PIN) {
+    if (spiStarted) {
         return false;
     }
+#if SPI_SELECT_MODE != SPI_SELECT_MODE_NONE
+    if (slavePin == NO_PIN) {
+        return false;
+    }
+#endif
 
+#if !(defined(WB32F3G71xx) || defined(WB32FQ95xx))
     uint16_t roundedDivisor = 2;
     while (roundedDivisor < divisor) {
         roundedDivisor <<= 1;
@@ -62,6 +82,7 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
     if (roundedDivisor < 2 || roundedDivisor > 256) {
         return false;
     }
+#endif
 
 #if defined(K20x) || defined(KL2x)
     spiConfig.tar0 = SPIx_CTARn_FMSZ(7) | SPIx_CTARn_ASC(1);
@@ -108,6 +129,91 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
             break;
         case 256:
             spiConfig.tar0 |= SPIx_CTARn_BR(8);
+            break;
+    }
+
+#elif defined(HT32)
+    spiConfig.cr0 = SPI_CR0_SELOEN;
+    spiConfig.cr1 = SPI_CR1_MODE | 8; // 8 bits and in master mode
+
+    if (lsbFirst) {
+        spiConfig.cr1 |= SPI_CR1_FIRSTBIT;
+    }
+
+    switch (mode) {
+        case 0:
+            spiConfig.cr1 |= SPI_CR1_FORMAT_MODE0;
+            break;
+        case 1:
+            spiConfig.cr1 |= SPI_CR1_FORMAT_MODE1;
+            break;
+        case 2:
+            spiConfig.cr1 |= SPI_CR1_FORMAT_MODE2;
+            break;
+        case 3:
+            spiConfig.cr1 |= SPI_CR1_FORMAT_MODE3;
+            break;
+    }
+
+    spiConfig.cpr = (roundedDivisor - 1) >> 1;
+
+#elif defined(WB32F3G71xx) || defined(WB32FQ95xx)
+    if (!lsbFirst) {
+        osalDbgAssert(lsbFirst != FALSE, "unsupported lsbFirst");
+    }
+
+    if (divisor < 1) {
+        return false;
+    }
+
+    spiConfig.SPI_BaudRatePrescaler = (divisor << 2);
+
+    switch (mode) {
+        case 0:
+            spiConfig.SPI_CPHA = SPI_CPHA_1Edge;
+            spiConfig.SPI_CPOL = SPI_CPOL_Low;
+            break;
+        case 1:
+            spiConfig.SPI_CPHA = SPI_CPHA_2Edge;
+            spiConfig.SPI_CPOL = SPI_CPOL_Low;
+            break;
+        case 2:
+            spiConfig.SPI_CPHA = SPI_CPHA_1Edge;
+            spiConfig.SPI_CPOL = SPI_CPOL_High;
+            break;
+        case 3:
+            spiConfig.SPI_CPHA = SPI_CPHA_2Edge;
+            spiConfig.SPI_CPOL = SPI_CPOL_High;
+            break;
+    }
+#elif defined(MCU_RP)
+    if (lsbFirst) {
+        osalDbgAssert(lsbFirst == false, "RP2040s PrimeCell SPI implementation does not support sending LSB first.");
+    }
+
+    // Motorola frame format and 8bit transfer data size.
+    spiConfig.SSPCR0 = SPI_SSPCR0_FRF_MOTOROLA | SPI_SSPCR0_DSS_8BIT;
+    // Serial output clock = (ck_sys or ck_peri) / (SSPCPSR->CPSDVSR * (1 +
+    // SSPCR0->SCR)). SCR is always set to zero, as QMK SPI API expects the
+    // passed divisor to be the only value to divide the input clock by.
+    spiConfig.SSPCPSR = roundedDivisor; // Even number from 2 to 254
+
+    switch (mode) {
+        case 0:
+            spiConfig.SSPCR0 &= ~SPI_SSPCR0_SPO; // Clock polarity: low
+            spiConfig.SSPCR0 &= ~SPI_SSPCR0_SPH; // Clock phase: sample on first edge
+            break;
+        case 1:
+            spiConfig.SSPCR0 &= ~SPI_SSPCR0_SPO; // Clock polarity: low
+            spiConfig.SSPCR0 |= SPI_SSPCR0_SPH;  // Clock phase: sample on second edge transition
+            break;
+        case 2:
+            spiConfig.SSPCR0 |= SPI_SSPCR0_SPO;  // Clock polarity: high
+            spiConfig.SSPCR0 &= ~SPI_SSPCR0_SPH; // Clock phase: sample on first edge
+            break;
+        case 3:
+            spiConfig.SSPCR0 |= SPI_SSPCR0_SPO; // Clock polarity: high
+            spiConfig.SSPCR0 |= SPI_SSPCR0_SPH; // Clock phase: sample on second edge transition
             break;
     }
 #else
@@ -158,13 +264,29 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
     }
 #endif
 
-    currentSlavePin  = slavePin;
+    spiStarted = true;
+#if SPI_SELECT_MODE == SPI_SELECT_MODE_NONE
+    currentSlavePin = slavePin;
+#endif
+#if SPI_SELECT_MODE == SPI_SELECT_MODE_PAD
     spiConfig.ssport = PAL_PORT(slavePin);
     spiConfig.sspad  = PAL_PAD(slavePin);
-
     setPinOutput(slavePin);
+#elif SPI_SELECT_MODE == SPI_SELECT_MODE_NONE
+    if (slavePin != NO_PIN) {
+        setPinOutput(slavePin);
+    }
+#else
+#    error "Unsupported SPI_SELECT_MODE"
+#endif
+
     spiStart(&SPI_DRIVER, &spiConfig);
     spiSelect(&SPI_DRIVER);
+#if SPI_SELECT_MODE == SPI_SELECT_MODE_NONE
+    if (slavePin != NO_PIN) {
+        writePinLow(slavePin);
+    }
+#endif
 
     return true;
 }
@@ -194,9 +316,14 @@ spi_status_t spi_receive(uint8_t *data, uint16_t length) {
 }
 
 void spi_stop(void) {
-    if (currentSlavePin != NO_PIN) {
+    if (spiStarted) {
+#if SPI_SELECT_MODE == SPI_SELECT_MODE_NONE
+        if (currentSlavePin != NO_PIN) {
+            writePinHigh(currentSlavePin);
+        }
+#endif
         spiUnselect(&SPI_DRIVER);
         spiStop(&SPI_DRIVER);
-        currentSlavePin = NO_PIN;
+        spiStarted = false;
     }
 }

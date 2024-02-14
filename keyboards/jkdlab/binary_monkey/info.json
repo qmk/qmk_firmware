@@ -1,0 +1,32 @@
+{
+    "keyboard_name": "Binary_Monkey",
+    "manufacturer": "JKDLAB.",
+    "url": "https://gumroad.com/jkdlab",
+    "maintainer": "JKDLAB.",
+    "usb": {
+        "vid": "0x4934",
+        "pid": "0x0101",
+        "device_version": "0.0.1",
+        "max_power": 100
+    },
+    "matrix_pins": {
+        "cols": ["D1", "D2", "D3"],
+        "rows": ["D0"]
+    },
+    "diode_direction": "COL2ROW",
+    "bootmagic": {
+        "matrix": [0, 2]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 1], "x": 0, "y": 0},
+                {"matrix": [0, 2], "x": 1, "y": 0},
+
+                {"matrix": [0, 0], "x": 0, "y": 1, "w": 2}
+            ]
+        }
+    }
+}

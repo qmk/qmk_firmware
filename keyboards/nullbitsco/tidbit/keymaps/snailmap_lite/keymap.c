@@ -16,49 +16,52 @@
 
 #include QMK_KEYBOARD_H
 
-enum custom_keycodes {
-    KC_CUST = SAFE_RANGE,
-};
-
 enum layer_names {
-  _LAY0,
-  _LAY1,
-  _LAY2,
-  _LAY3
+    _LAY0,
+    _LAY1,
+    _LAY2,
+    _LAY3
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  // Base layer (numpad)
-  [_LAY0] = LAYOUT(
-           KC_PSLS,  KC_KP_ASTERISK, KC_KP_MINUS, 
-  KC_KP_7, KC_KP_8,  KC_KP_9,        KC_KP_PLUS, 
-  KC_KP_4, KC_KP_5,  KC_KP_6,        KC_NO, 
-  KC_KP_1, KC_KP_2,  KC_KP_3,        KC_PENT, 
-  KC_KP_0, KC_KP_0,  KC_KP_DOT,      KC_NO 
-  ),
-  // Function layer (numpad)
-  [_LAY1] = LAYOUT(
-           KC_NO, KC_NO, KC_NO,
-    KC_NO, KC_NO, KC_NO, KC_NO,
-    KC_NO, KC_NO, KC_NO, KC_NO,
-    KC_NO, KC_NO, KC_NO, KC_NO,
-    KC_NO, KC_NO, KC_NO, KC_NO
-  ),
-  [_LAY2] = LAYOUT(
-           KC_NO, KC_NO, KC_NO,
-    KC_NO, KC_NO, KC_NO, KC_NO,
-    KC_NO, KC_NO, KC_NO, KC_NO,
-    KC_NO, KC_NO, KC_NO, KC_NO,
-    KC_NO, KC_NO, KC_NO, KC_NO
-  ),
-  [_LAY3] = LAYOUT(
-           KC_NO, KC_NO, KC_NO,
-    KC_NO, KC_NO, KC_NO, KC_NO,
-    KC_NO, KC_NO, KC_NO, KC_NO,
-    KC_NO, KC_NO, KC_NO, KC_NO,
-    KC_NO, KC_NO, KC_NO, KC_NO
-  ),
+    [_LAY0] = LAYOUT(
+        KC_PSLS, KC_PAST, KC_PMNS,
+        KC_P7, KC_P8,   KC_P9,   KC_PPLS,
+        KC_P4, KC_P5,   KC_P6,   KC_PPLS,
+        KC_P1, KC_P2,   KC_P3,   KC_PENT,
+        KC_P0, KC_P0,   KC_PDOT, KC_PENT
+    ),
+    [_LAY1] = LAYOUT(
+        _______, _______, _______,
+        _______, _______, _______, _______,
+        _______, _______, _______, _______,
+        _______, _______, _______, _______,
+        _______, _______, _______, _______
+    ),
+    [_LAY2] = LAYOUT(
+        _______, _______, _______,
+        _______, _______, _______, _______,
+        _______, _______, _______, _______,
+        _______, _______, _______, _______,
+        _______, _______, _______, _______
+    ),
+    [_LAY3] = LAYOUT(
+        _______, _______, _______,
+        _______, _______, _______, _______,
+        _______, _______, _______, _______,
+        _______, _______, _______, _______,
+        _______, _______, _______, _______
+    )
 };
+
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), },
+    [1] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), },
+    [2] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), },
+    [3] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), },
+};
+#endif
 
 #ifdef OLED_ENABLE
 /*===========================================    OLED CONFIGURATION    ===========================================*/
@@ -115,18 +118,18 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 // Draw static background image to OLED (keyboard with no bottom row)
 static void render_background(void) {
     static const char PROGMEM nullbits_n_oled[] = {
-        0x00, 0xe0, 0xf0, 0xf0, 0xf8, 0xf8, 0xf0, 0xf0, 0xe0, 0x80, 0x20, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 
-        0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xe0, 0xe0, 0xe0, 0xc0, 0x80, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 
-        0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 
-        0x1f, 0x1f, 0x1f, 0x1f, 0x3f, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xfe, 0xfc, 0xf0, 0x00, 0x00, 
-        0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xfe, 0x00, 
-        0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 
-        0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 
-        0x00, 0x07, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x07, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x07, 0x03, 0x00, 
+        0x00, 0xe0, 0xf0, 0xf0, 0xf8, 0xf8, 0xf0, 0xf0, 0xe0, 0x80, 0x20, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0,
+        0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xe0, 0xe0, 0xe0, 0xc0, 0x80, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f,
+        0x1f, 0x1f, 0x1f, 0x1f, 0x3f, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xfe, 0xfc, 0xf0, 0x00, 0x00,
+        0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xfe, 0x00,
+        0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00,
+        0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00,
+        0x00, 0x07, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x07, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x07, 0x03, 0x00,
     };
     oled_write_raw_P(nullbits_n_oled, sizeof(nullbits_n_oled));
 }
@@ -163,31 +166,26 @@ static void render_wpm_counters(uint8_t current_wpm) {
     uint8_t cursorposition_cur = 13;
     uint8_t cursorposition_max = 14;
 
-    char wpm_counter[4];
-    wpm_counter[3] = '\0';
-    wpm_counter[2] = '0' + current_wpm % 10;
-    wpm_counter[1] = '0' + (current_wpm / 10) % 10;
-    wpm_counter[0] = '0' + (current_wpm / 100) % 10;
     oled_set_cursor(0, cursorposition_cur);
-    oled_write(wpm_counter, false);
+    oled_write(get_u8_str(current_wpm, '0'), false);
 
     if (current_wpm > oled_data.max_wpm) {
         oled_data.max_wpm = current_wpm;
         oled_data.wpm_limit = oled_data.max_wpm + 20;
         oled_set_cursor(0, cursorposition_max);
-        oled_write(wpm_counter, false);
+        oled_write(get_u8_str(current_wpm, '0'), false);
     }
 }
 
 static void render_led_status(void) {
     // Host Keyboard LED Status
-    uint8_t led_usb_state = host_keyboard_leds();
+    led_t led_state = host_keyboard_led_state();
     oled_set_cursor(0, 8);
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK) ? PSTR(CAPLCK_STR) : PSTR(EMPTY_STR), false);
+    oled_write_P(led_state.caps_lock ? PSTR(CAPLCK_STR) : PSTR(EMPTY_STR), false);
     oled_set_cursor(0, 9);
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK) ? PSTR(NUMLCK_STR) : PSTR(EMPTY_STR), false);
+    oled_write_P(led_state.num_lock ? PSTR(NUMLCK_STR) : PSTR(EMPTY_STR), false);
     oled_set_cursor(0, 10);
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR(SCRLK_STR) : PSTR(EMPTY_STR), false);
+    oled_write_P(led_state.scroll_lock ? PSTR(SCRLK_STR) : PSTR(EMPTY_STR), false);
 }
 
 // Update WPM snail icon
@@ -259,7 +257,7 @@ static void render_wpm_graph(uint8_t current_wpm) {
 }
 
 // Call OLED functions
-void oled_task_user(void) {
+bool oled_task_user(void) {
     // Draw OLED keyboard, prevent redraw
     if (oled_data.first_loop) {
         render_background();
@@ -267,12 +265,6 @@ void oled_task_user(void) {
     }
     // Get current WPM, subtract 25% for accuracy and prevent large jumps caused by simultaneous keypresses
     uint8_t current_wpm = get_current_wpm();
-    // Note: This will most likely be removed once QMK's WPM calculation is updated
-    current_wpm -= current_wpm >> 2;
-    if (current_wpm > oled_data.wpm_limit) {
-        current_wpm = oled_data.max_wpm;
-        set_current_wpm(oled_data.max_wpm);
-    }
     // Write active layer name to display
     render_layer_state();
     // Update WPM counters
@@ -286,6 +278,7 @@ void oled_task_user(void) {
         render_wpm_graph(current_wpm);
         oled_data.timer = timer_read();
     }
+    return false;
 }
 #endif
 
@@ -294,35 +287,3 @@ bool wpm_keycode_user(uint16_t keycode) {
     return true;
 }
 
-// Called by QMK during key processing
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // Forwards keystrokes from an external input device over UART/TRRS
-    process_record_remote_kb(keycode, record);
-
-    return true;
-}
-
-// Rotary encoder behavior - Change volume on default layer, RGB/OLED on other layers
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (layer_state_is(0)) {
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    } else {
-        // You can do other things in higher layers
-        // Add them here based on the layer number
-    }
-    return true;
-}
-
-// Initialize remote keyboard, if connected
-void matrix_init_user(void) {
-    matrix_init_remote_kb();
-}
-
-// Scan and parse keystrokes from remote keyboard, if connected
-void matrix_scan_user(void) {
-    matrix_scan_remote_kb();
-}

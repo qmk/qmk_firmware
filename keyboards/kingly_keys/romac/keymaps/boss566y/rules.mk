@@ -1,0 +1,3 @@
+VIA_ENABLE = yes
+BOOTLOADER = qmk-dfu
+OLED_ENABLE = yes

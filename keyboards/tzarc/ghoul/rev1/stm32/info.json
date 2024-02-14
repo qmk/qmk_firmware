@@ -1,0 +1,15 @@
+{
+  "keyboard_name": "Ghoul_STM32",
+  "processor": "STM32F405",
+  "bootloader": "stm32-dfu",
+  "bootloader_instructions": "Press the 5 keys on the bottom row of the left side, or hold the boot switch and tap the reset switch, or hold the top-left key when plugging in the board.",
+  "ws2812": {
+    "pin": "C6",
+    "driver": "pwm"
+  },
+  "encoder": {
+    "rotary": [
+      {"pin_a": "B10", "pin_b": "B1", "resolution": 2}
+    ]
+  }
+}

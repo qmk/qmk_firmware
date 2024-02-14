@@ -1,0 +1,12 @@
+{
+  "manufacturer": "KBDfans",
+  "url": "",
+  "maintainer": "moyi4681",
+  "usb": {
+    "vid": "0x4B42"
+  },
+  "community_layouts": ["65_ansi_blocker"],
+  "layout_aliases": {
+    "LAYOUT": "LAYOUT_65_ansi_blocker"
+  }
+}

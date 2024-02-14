@@ -37,9 +37,9 @@ For more information on bitwise operators in C, click [here](https://en.wikipedi
 
 In practice, this means that you can check whether a given modifier is active with `get_mods() & MOD_BIT(KC_<modifier>)` (see the [list of modifier keycodes](keycodes_basic.md#modifiers)) or with `get_mods() & MOD_MASK_<modifier>` if the difference between left and right hand modifiers is not important and you want to match both. Same thing can be done for one-shot modifiers if you replace `get_mods()` with `get_oneshot_mods()`.
 
-To check that *only* a specific set of mods is active at a time, AND the modifier state and your desired mod mask as explained above and compare the result to the mod mask itself: `get_mods() & <mod mask> == <mod mask>`.
+To check that *only* a specific set of mods is active at a time, use a simple equality operator: `get_mods() == <mod mask>`.
 
-For example, let's say you want to trigger a piece of custom code if one-shot left control and one-shot left shift are on but every other one-shot mods are off. To do so, you can compose the desired mod mask by combining the mod bits for left control and shift with `(MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT))` and then plug it in: `get_oneshot_mods & (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT)) == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT))`. Using `MOD_MASK_CS` instead for the mod bitmask would have forced you to press four modifier keys (both versions of control and shift) to fulfill the condition.
+For example, let's say you want to trigger a piece of custom code if one-shot left control and one-shot left shift are on but every other one-shot mods are off. To do so, you can compose the desired mod mask by combining the mod bits for left control and shift with `(MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT))` and then plug it in: `get_oneshot_mods() == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT))`. Using `MOD_MASK_CS` instead for the mod bitmask would have forced you to press four modifier keys (both versions of control and shift) to fulfill the condition.
 
 The full list of mod masks is as follows:
 
@@ -91,7 +91,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case KC_ESC:
         // Detect the activation of only Left Alt
-        if ((get_mods() & MOD_BIT(KC_LALT)) == MOD_BIT(KC_LALT)) {
+        if (get_mods() == MOD_BIT(KC_LALT)) {
             if (record->event.pressed) {
                 // No need to register KC_LALT because it's already active.
                 // The Alt modifier will apply on this KC_TAB.
@@ -160,8 +160,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 ```
+Alternatively, this can be done with [Key Overrides](feature_key_overrides?id=simple-example).
 
-# Legacy Content :id=legacy-content
+# Advanced topics :id=advanced-topics
 
 This page used to encompass a large set of features. We have moved many sections that used to be part of this page to their own pages. Everything below this point is simply a redirect so that people following old links on the web find what they're looking for.
 
@@ -180,3 +181,7 @@ This page used to encompass a large set of features. We have moved many sections
 ## Tap-Hold Configuration Options :id=tap-hold-configuration-options
 
 * [Tap-Hold Configuration Options](tap_hold.md)
+
+## Key Overrides :id=key-overrides
+
+* [Key Overrides](feature_key_overrides.md)

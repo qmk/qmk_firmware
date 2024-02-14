@@ -36,21 +36,16 @@ rules.mk で:
 
 ```makefile
 PS2_MOUSE_ENABLE = yes
-PS2_USE_BUSYWAIT = yes
+PS2_ENABLE = yes
+PS2_DRIVER = busywait
 ```
 
 キーボードの config.h で:
 
 ```c
-#ifdef PS2_USE_BUSYWAIT
-#   define PS2_CLOCK_PORT  PORTD
-#   define PS2_CLOCK_PIN   PIND
-#   define PS2_CLOCK_DDR   DDRD
-#   define PS2_CLOCK_BIT   1
-#   define PS2_DATA_PORT   PORTD
-#   define PS2_DATA_PIN    PIND
-#   define PS2_DATA_DDR    DDRD
-#   define PS2_DATA_BIT    2
+#ifdef PS2_DRIVER_BUSYWAIT
+#   define PS2_CLOCK_PIN   D1
+#   define PS2_DATA_PIN    D2
 #endif
 ```
 
@@ -62,21 +57,16 @@ rules.mk で:
 
 ```makefile
 PS2_MOUSE_ENABLE = yes
-PS2_USE_INT = yes
+PS2_ENABLE = yes
+PS2_DRIVER = interrupt
 ```
 
 キーボードの config.h で:
 
 ```c
-#ifdef PS2_USE_INT
-#define PS2_CLOCK_PORT  PORTD
-#define PS2_CLOCK_PIN   PIND
-#define PS2_CLOCK_DDR   DDRD
-#define PS2_CLOCK_BIT   2
-#define PS2_DATA_PORT   PORTD
-#define PS2_DATA_PIN    PIND
-#define PS2_DATA_DDR    DDRD
-#define PS2_DATA_BIT    5
+#ifdef PS2_DRIVER_INTERRUPT
+#define PS2_CLOCK_PIN   D2
+#define PS2_DATA_PIN    D5
 
 #define PS2_INT_INIT()  do {    \
     EICRA |= ((1<<ISC21) |      \
@@ -100,21 +90,16 @@ rules.mk で:
 
 ```makefile
 PS2_MOUSE_ENABLE = yes
-PS2_USE_USART = yes
+PS2_ENABLE = yes
+PS2_DRIVER = usart
 ```
 
 キーボードの config.h で:
 
 ```c
-#ifdef PS2_USE_USART
-#define PS2_CLOCK_PORT  PORTD
-#define PS2_CLOCK_PIN   PIND
-#define PS2_CLOCK_DDR   DDRD
-#define PS2_CLOCK_BIT   5
-#define PS2_DATA_PORT   PORTD
-#define PS2_DATA_PIN    PIND
-#define PS2_DATA_DDR    DDRD
-#define PS2_DATA_BIT    2
+#ifdef PS2_DRIVER_USART
+#define PS2_CLOCK_PIN   D5
+#define PS2_DATA_PIN    D2
 
 /* 同期、奇数パリティ、1-bit ストップ、8-bit データ、立ち下がりエッジでサンプル */
 /* CLOCK の DDR を入力としてスレーブに設定 */

@@ -1,0 +1,60 @@
+{
+    "keyboard_name": "Zima",
+    "manufacturer": "splitkb",
+    "url": "splitkb.com",
+    "maintainer": "splitkb.com, drashna",
+    "usb": {
+        "vid": "0x8D1D",
+        "pid": "0xF75B",
+        "device_version": "0.0.1"
+    },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 5,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "B5"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B4", "pin_b": "D7", "resolution": 2}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "matrix_pins": {
+        "direct": [
+            ["C6", "D6", "D5"],
+            ["C7", "F7", "D4"],
+            ["E6", "F5", "F6"],
+            ["F0", "F1", "F4"]
+        ]
+    },
+    "layouts": {
+        "LAYOUT_ortho_4x3": {
+            "layout": [
+                {"x": 0, "y": 0, "matrix": [0, 0]},
+                {"x": 1, "y": 0, "matrix": [0, 1]},
+                {"x": 2, "y": 0, "matrix": [0, 2]},
+                {"x": 0, "y": 1, "matrix": [1, 0]},
+                {"x": 1, "y": 1, "matrix": [1, 1]},
+                {"x": 2, "y": 1, "matrix": [1, 2]},
+                {"x": 0, "y": 2, "matrix": [2, 0]},
+                {"x": 1, "y": 2, "matrix": [2, 1]},
+                {"x": 2, "y": 2, "matrix": [2, 2]},
+                {"x": 0, "y": 3, "matrix": [3, 0]},
+                {"x": 1, "y": 3, "matrix": [3, 1]},
+                {"x": 2, "y": 3, "matrix": [3, 2]}
+            ]
+        }
+    }
+}

@@ -14,18 +14,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "matrix.h"
-#include "quantum.h"
-#include <stdlib.h>
+#include "debounce.h"
+#include <string.h>
 
 void debounce_init(uint8_t num_rows) {}
 
-void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
-    for (int i = 0; i < num_rows; i++) {
-        cooked[i] = raw[i];
-    }
-}
+bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
+    bool cooked_changed = false;
 
-bool debounce_active(void) { return false; }
+    if (changed) {
+        size_t matrix_size = num_rows * sizeof(matrix_row_t);
+        if (memcmp(cooked, raw, matrix_size) != 0) {
+            memcpy(cooked, raw, matrix_size);
+            cooked_changed = true;
+        }
+    }
+
+    return cooked_changed;
+}
 
 void debounce_free(void) {}

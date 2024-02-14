@@ -1,0 +1,11 @@
+{
+  "keyboard_name": "i75",
+  "manufacturer": "di0ib",
+  "url": "",
+  "maintainer": "qmk",
+  "usb": {
+    "vid": "0x4025",
+    "pid": "0x0A0C",
+    "device_version": "1.7.5"
+  }
+}

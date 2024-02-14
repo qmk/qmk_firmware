@@ -18,12 +18,10 @@
 
 #ifndef USBPD_UCPD1_CFG1
 #    define USBPD_UCPD1_CFG1 (UCPD_CFG1_PSC_UCPDCLK_0 | UCPD_CFG1_TRANSWIN_3 | UCPD_CFG1_IFRGAP_4 | UCPD_CFG1_HBITCLKDIV_4)
-#endif  // USBPD_UCPD1_CFG1
+#endif // USBPD_UCPD1_CFG1
 
 // Initialises the USBPD subsystem
 __attribute__((weak)) void usbpd_init(void) {
-    // Disable dead-battery signals
-    PWR->CR3 |= PWR_CR3_UCPD_DBDIS;
     // Enable the clock for the UCPD1 peripheral
     RCC->APB1ENR2 |= RCC_APB1ENR2_UCPD1EN;
 
@@ -46,6 +44,11 @@ __attribute__((weak)) void usbpd_init(void) {
     CR |= UCPD_CR_ANAMODE | UCPD_CR_CCENABLE_Msk;
     // Apply the changes
     UCPD1->CR = CR;
+
+    // Disable dead-battery signals only after UCPD1 is configured to ensure
+    // that the transition does not go through any intermediate state without
+    // any pull-down resistance.
+    PWR->CR3 |= PWR_CR3_UCPD_DBDIS;
 }
 
 // Gets the current state of the USBPD allowance
@@ -64,7 +67,7 @@ __attribute__((weak)) usbpd_allowance_t usbpd_get_allowance(void) {
         switch (vstate_max) {
             case 0:
             case 1:
-                return USBPD_500MA;  // Note that this is 500mA (i.e. max USB 2.0), not 900mA, as we're not using USB 3.1 as a sink device.
+                return USBPD_500MA; // Note that this is 500mA (i.e. max USB 2.0), not 900mA, as we're not using USB 3.1 as a sink device.
             case 2:
                 return USBPD_1500MA;
             case 3:

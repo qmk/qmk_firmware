@@ -15,35 +15,57 @@
  */
 
 #include "quantum.h"
-#include "magic.h"
-#include "qmk_settings.h"
+
+#if defined(BACKLIGHT_ENABLE) || defined(LED_MATRIX_ENABLE)
+#    include "process_backlight.h"
+#endif
 
 #ifdef BLUETOOTH_ENABLE
 #    include "outputselect.h"
 #endif
 
-#ifdef BACKLIGHT_ENABLE
-#    include "backlight.h"
+#ifdef GRAVE_ESC_ENABLE
+#    include "process_grave_esc.h"
 #endif
 
-#ifdef API_ENABLE
-#    include "api.h"
+#ifdef HAPTIC_ENABLE
+#    include "process_haptic.h"
+#endif
+
+#ifdef JOYSTICK_ENABLE
+#    include "process_joystick.h"
+#endif
+
+#ifdef LEADER_ENABLE
+#    include "process_leader.h"
+#endif
+
+#ifdef MAGIC_ENABLE
+#    include "process_magic.h"
 #endif
 
 #ifdef MIDI_ENABLE
 #    include "process_midi.h"
 #endif
 
-#ifdef VELOCIKEY_ENABLE
-#    include "velocikey.h"
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+#    include "process_programmable_button.h"
 #endif
 
-#ifdef HAPTIC_ENABLE
-#    include "haptic.h"
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+#    include "process_rgb.h"
 #endif
 
-#ifdef VIAL_ENABLE
-#    include "vial.h"
+#ifdef SECURE_ENABLE
+#    include "process_secure.h"
+#endif
+
+#ifdef TRI_LAYER_ENABLE
+#    include "process_tri_layer.h"
+#endif
+
+#ifdef UNICODE_COMMON_ENABLE
+#    include "process_unicode_common.h"
 #endif
 
 #ifdef AUDIO_ENABLE
@@ -56,10 +78,6 @@ float default_layer_songs[][16][2] = DEFAULT_LAYER_SONGS;
 #    endif
 #endif
 
-#ifdef AUTO_SHIFT_ENABLE
-#    include "process_auto_shift.h"
-#endif
-
 uint8_t extract_mod_bits(uint16_t code) {
     switch (code) {
         case QK_MODS ... QK_MODS_MAX:
@@ -70,25 +88,27 @@ uint8_t extract_mod_bits(uint16_t code) {
 
     uint8_t mods_to_send = 0;
 
-    if (code & QK_RMODS_MIN) {  // Right mod flag is set
-        if (code & QK_LCTL) mods_to_send |= MOD_BIT(KC_RCTL);
-        if (code & QK_LSFT) mods_to_send |= MOD_BIT(KC_RSFT);
-        if (code & QK_LALT) mods_to_send |= MOD_BIT(KC_RALT);
-        if (code & QK_LGUI) mods_to_send |= MOD_BIT(KC_RGUI);
+    if (code & QK_RMODS_MIN) { // Right mod flag is set
+        if (code & QK_LCTL) mods_to_send |= MOD_BIT(KC_RIGHT_CTRL);
+        if (code & QK_LSFT) mods_to_send |= MOD_BIT(KC_RIGHT_SHIFT);
+        if (code & QK_LALT) mods_to_send |= MOD_BIT(KC_RIGHT_ALT);
+        if (code & QK_LGUI) mods_to_send |= MOD_BIT(KC_RIGHT_GUI);
     } else {
-        if (code & QK_LCTL) mods_to_send |= MOD_BIT(KC_LCTL);
-        if (code & QK_LSFT) mods_to_send |= MOD_BIT(KC_LSFT);
-        if (code & QK_LALT) mods_to_send |= MOD_BIT(KC_LALT);
-        if (code & QK_LGUI) mods_to_send |= MOD_BIT(KC_LGUI);
+        if (code & QK_LCTL) mods_to_send |= MOD_BIT(KC_LEFT_CTRL);
+        if (code & QK_LSFT) mods_to_send |= MOD_BIT(KC_LEFT_SHIFT);
+        if (code & QK_LALT) mods_to_send |= MOD_BIT(KC_LEFT_ALT);
+        if (code & QK_LGUI) mods_to_send |= MOD_BIT(KC_LEFT_GUI);
     }
 
     return mods_to_send;
 }
 
-static void do_code16(uint16_t code, void (*f)(uint8_t)) { f(extract_mod_bits(code)); }
+void do_code16(uint16_t code, void (*f)(uint8_t)) {
+    f(extract_mod_bits(code));
+}
 
-void register_code16(uint16_t code) {
-    if (IS_MOD(code) || code == KC_NO) {
+__attribute__((weak)) void register_code16(uint16_t code) {
+    if (IS_MODIFIER_KEYCODE(code) || code == KC_NO) {
         do_code16(code, register_mods);
     } else {
         do_code16(code, register_weak_mods);
@@ -96,32 +116,63 @@ void register_code16(uint16_t code) {
     register_code(code);
 }
 
-void unregister_code16(uint16_t code) {
+__attribute__((weak)) void unregister_code16(uint16_t code) {
     unregister_code(code);
-    if (IS_MOD(code) || code == KC_NO) {
+    if (IS_MODIFIER_KEYCODE(code) || code == KC_NO) {
         do_code16(code, unregister_mods);
     } else {
         do_code16(code, unregister_weak_mods);
     }
 }
 
-void tap_code16(uint16_t code) {
+/** \brief Tap a keycode with a delay.
+ *
+ * \param code The modded keycode to tap.
+ * \param delay The amount of time in milliseconds to leave the keycode registered, before unregistering it.
+ */
+__attribute__((weak)) void tap_code16_delay(uint16_t code, uint16_t delay) {
     register_code16(code);
-    qs_wait_ms(QS_tap_code_delay);
+    for (uint16_t i = delay; i > 0; i--) {
+        wait_ms(1);
+    }
     unregister_code16(code);
 }
 
-__attribute__((weak)) bool process_action_kb(keyrecord_t *record) { return true; }
+/** \brief Tap a keycode with the default delay.
+ *
+ * \param code The modded keycode to tap. If `code` is `KC_CAPS_LOCK`, the delay will be `TAP_HOLD_CAPS_DELAY`, otherwise `TAP_CODE_DELAY`, if defined.
+ */
+__attribute__((weak)) void tap_code16(uint16_t code) {
+    tap_code16_delay(code, code == KC_CAPS_LOCK ? TAP_HOLD_CAPS_DELAY : TAP_CODE_DELAY);
+}
 
-__attribute__((weak)) bool process_record_kb(uint16_t keycode, keyrecord_t *record) { return process_record_user(keycode, record); }
+__attribute__((weak)) bool pre_process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    return pre_process_record_user(keycode, record);
+}
 
-__attribute__((weak)) bool process_record_user(uint16_t keycode, keyrecord_t *record) { return true; }
+__attribute__((weak)) bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
+    return true;
+}
 
-__attribute__((weak)) void post_process_record_kb(uint16_t keycode, keyrecord_t *record) { post_process_record_user(keycode, record); }
+__attribute__((weak)) bool process_action_kb(keyrecord_t *record) {
+    return true;
+}
+
+__attribute__((weak)) bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    return process_record_user(keycode, record);
+}
+
+__attribute__((weak)) bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    return true;
+}
+
+__attribute__((weak)) void post_process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    post_process_record_user(keycode, record);
+}
 
 __attribute__((weak)) void post_process_record_user(uint16_t keycode, keyrecord_t *record) {}
 
-void reset_keyboard(void) {
+void shutdown_quantum(bool jump_to_bootloader) {
     clear_keyboard();
 #if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
     process_midi_all_notes_off();
@@ -132,27 +183,38 @@ void reset_keyboard(void) {
 #    endif
     uint16_t timer_start = timer_read();
     PLAY_SONG(goodbye_song);
-    shutdown_user();
-    while (timer_elapsed(timer_start) < 250) wait_ms(1);
+    shutdown_kb(jump_to_bootloader);
+    while (timer_elapsed(timer_start) < 250)
+        wait_ms(1);
     stop_all_notes();
 #else
-    shutdown_user();
+    shutdown_kb(jump_to_bootloader);
     wait_ms(250);
 #endif
 #ifdef HAPTIC_ENABLE
     haptic_shutdown();
 #endif
+}
+
+void reset_keyboard(void) {
+    shutdown_quantum(true);
     bootloader_jump();
+}
+
+void soft_reset_keyboard(void) {
+    shutdown_quantum(false);
+    mcu_reset();
 }
 
 /* Convert record into usable keycode via the contained event. */
 uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache) {
-#ifdef COMBO_ENABLE
-    if (record->keycode) { return record->keycode; }
+#if defined(COMBO_ENABLE) || defined(REPEAT_KEY_ENABLE)
+    if (record->keycode) {
+        return record->keycode;
+    }
 #endif
     return get_event_keycode(record->event, update_layer_cache);
 }
-
 
 /* Convert event into usable keycode. Checks the layer cache to ensure that it
  * retains the correct keycode after a layer change, if the key is still pressed.
@@ -180,14 +242,12 @@ uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache) {
 
 /* Get keycode, and then process pre tapping functionality */
 bool pre_process_record_quantum(keyrecord_t *record) {
-    if (!(
+    uint16_t keycode = get_record_keycode(record, true);
+    return pre_process_record_kb(keycode, record) &&
 #ifdef COMBO_ENABLE
-        process_combo(get_record_keycode(record, true), record) &&
+           process_combo(keycode, record) &&
 #endif
-        true)) {
-        return false;
-    }
-    return true; // continue processing
+           true;
 }
 
 /* Get keycode, and then call keyboard function */
@@ -196,25 +256,37 @@ void post_process_record_quantum(keyrecord_t *record) {
     post_process_record_kb(keycode, record);
 }
 
-bool process_record_quantum(keyrecord_t *record) {
-    uint16_t keycode = get_record_keycode(record, true);
-    return process_record_quantum_helper(keycode, record);
-}
 /* Core keycode function, hands off handling to other functions,
     then processes internal quantum keycodes, and then processes
     ACTIONs.                                                      */
-bool process_record_quantum_helper(uint16_t keycode, keyrecord_t *record) {
+bool process_record_quantum(keyrecord_t *record) {
+    uint16_t keycode = get_record_keycode(record, true);
+
     // This is how you use actions here
-    // if (keycode == KC_LEAD) {
+    // if (keycode == QK_LEADER) {
     //   action_t action;
     //   action.code = ACTION_DEFAULT_LAYER_SET(0);
     //   process_action(record, action);
     //   return false;
     // }
 
-#ifdef VELOCIKEY_ENABLE
-    if (velocikey_enabled() && record->event.pressed) {
-        velocikey_accelerate();
+#if defined(SECURE_ENABLE)
+    if (!preprocess_secure(keycode, record)) {
+        return false;
+    }
+#endif
+
+#ifdef TAP_DANCE_ENABLE
+    if (preprocess_tap_dance(keycode, record)) {
+        // The tap dance might have updated the layer state, therefore the
+        // result of the keycode lookup might change.
+        keycode = get_record_keycode(record, true);
+    }
+#endif
+
+#ifdef RGBLIGHT_ENABLE
+    if (record->event.pressed) {
+        preprocess_rgblight();
     }
 #endif
 
@@ -222,10 +294,6 @@ bool process_record_quantum_helper(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         update_wpm(keycode);
     }
-#endif
-
-#ifdef TAP_DANCE_ENABLE
-    preprocess_tap_dance(keycode, record);
 #endif
 
     if (!(
@@ -237,6 +305,9 @@ bool process_record_quantum_helper(uint16_t keycode, keyrecord_t *record) {
             // Must run asap to ensure all keypresses are recorded.
             process_dynamic_macro(keycode, record) &&
 #endif
+#ifdef REPEAT_KEY_ENABLE
+            process_last_key(keycode, record) && process_repeat_key(keycode, record) &&
+#endif
 #if defined(AUDIO_ENABLE) && defined(AUDIO_CLICKY)
             process_clicky(keycode, record) &&
 #endif
@@ -246,10 +317,13 @@ bool process_record_quantum_helper(uint16_t keycode, keyrecord_t *record) {
 #if defined(VIA_ENABLE)
             process_record_via(keycode, record) &&
 #endif
-#if defined(VIAL_ENABLE)
-            process_record_vial(keycode, record) &&
+#if defined(POINTING_DEVICE_ENABLE) && defined(POINTING_DEVICE_AUTO_MOUSE_ENABLE)
+            process_auto_mouse(keycode, record) &&
 #endif
             process_record_kb(keycode, record) &&
+#if defined(SECURE_ENABLE)
+            process_secure(keycode, record) &&
+#endif
 #if defined(SEQUENCER_ENABLE)
             process_sequencer(keycode, record) &&
 #endif
@@ -268,31 +342,31 @@ bool process_record_quantum_helper(uint16_t keycode, keyrecord_t *record) {
 #if (defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))) && !defined(NO_MUSIC_MODE)
             process_music(keycode, record) &&
 #endif
+#ifdef CAPS_WORD_ENABLE
+            process_caps_word(keycode, record) &&
+#endif
 #ifdef KEY_OVERRIDE_ENABLE
             process_key_override(keycode, record) &&
 #endif
 #ifdef TAP_DANCE_ENABLE
             process_tap_dance(keycode, record) &&
 #endif
-#if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
+#if defined(UNICODE_COMMON_ENABLE)
             process_unicode_common(keycode, record) &&
 #endif
 #ifdef LEADER_ENABLE
             process_leader(keycode, record) &&
 #endif
-#ifdef PRINTING_ENABLE
-            process_printer(keycode, record) &&
-#endif
 #ifdef AUTO_SHIFT_ENABLE
             process_auto_shift(keycode, record) &&
 #endif
-#ifdef TERMINAL_ENABLE
-            process_terminal(keycode, record) &&
+#ifdef DYNAMIC_TAPPING_TERM_ENABLE
+            process_dynamic_tapping_term(keycode, record) &&
 #endif
 #ifdef SPACE_CADET_ENABLE
             process_space_cadet(keycode, record) &&
 #endif
-#ifdef MAGIC_KEYCODE_ENABLE
+#ifdef MAGIC_ENABLE
             process_magic(keycode, record) &&
 #endif
 #ifdef GRAVE_ESC_ENABLE
@@ -304,6 +378,15 @@ bool process_record_quantum_helper(uint16_t keycode, keyrecord_t *record) {
 #ifdef JOYSTICK_ENABLE
             process_joystick(keycode, record) &&
 #endif
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+            process_programmable_button(keycode, record) &&
+#endif
+#ifdef AUTOCORRECT_ENABLE
+            process_autocorrect(keycode, record) &&
+#endif
+#ifdef TRI_LAYER_ENABLE
+            process_tri_layer(keycode, record) &&
+#endif
             true)) {
         return false;
     }
@@ -311,12 +394,15 @@ bool process_record_quantum_helper(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
 #ifndef NO_RESET
-            case RESET:
+            case QK_BOOTLOADER:
                 reset_keyboard();
+                return false;
+            case QK_REBOOT:
+                soft_reset_keyboard();
                 return false;
 #endif
 #ifndef NO_DEBUG
-            case DEBUG:
+            case QK_DEBUG_TOGGLE:
                 debug_enable ^= 1;
                 if (debug_enable) {
                     print("DEBUG: enabled.\n");
@@ -325,35 +411,67 @@ bool process_record_quantum_helper(uint16_t keycode, keyrecord_t *record) {
                 }
 #endif
                 return false;
-            case EEPROM_RESET:
+            case QK_CLEAR_EEPROM:
+#ifdef NO_RESET
                 eeconfig_init();
+#else
+                eeconfig_disable();
+                soft_reset_keyboard();
+#endif
                 return false;
 #ifdef VELOCIKEY_ENABLE
-            case VLK_TOG:
+            case QK_VELOCIKEY_TOGGLE:
                 velocikey_toggle();
                 return false;
 #endif
 #ifdef BLUETOOTH_ENABLE
-            case OUT_AUTO:
+            case QK_OUTPUT_AUTO:
                 set_output(OUTPUT_AUTO);
                 return false;
-            case OUT_USB:
+            case QK_OUTPUT_USB:
                 set_output(OUTPUT_USB);
                 return false;
-            case OUT_BT:
+            case QK_OUTPUT_BLUETOOTH:
                 set_output(OUTPUT_BLUETOOTH);
                 return false;
 #endif
 #ifndef NO_ACTION_ONESHOT
-            case ONESHOT_TOGGLE:
+            case QK_ONE_SHOT_TOGGLE:
                 oneshot_toggle();
                 break;
-            case ONESHOT_ENABLE:
+            case QK_ONE_SHOT_ON:
                 oneshot_enable();
                 break;
-            case ONESHOT_DISABLE:
+            case QK_ONE_SHOT_OFF:
                 oneshot_disable();
                 break;
+#endif
+#ifdef ENABLE_COMPILE_KEYCODE
+            case QK_MAKE: // Compiles the firmware, and adds the flash command based on keyboard bootloader
+            {
+#    ifdef NO_ACTION_ONESHOT
+                const uint8_t temp_mod = mod_config(get_mods());
+#    else
+                const uint8_t temp_mod = mod_config(get_mods() | get_oneshot_mods());
+                clear_oneshot_mods();
+#    endif
+                clear_mods();
+
+                SEND_STRING_DELAY("qmk", TAP_CODE_DELAY);
+                if (temp_mod & MOD_MASK_SHIFT) { // if shift is held, flash rather than compile
+                    SEND_STRING_DELAY(" flash ", TAP_CODE_DELAY);
+                } else {
+                    SEND_STRING_DELAY(" compile ", TAP_CODE_DELAY);
+                }
+#    if defined(CONVERTER_ENABLED)
+                SEND_STRING_DELAY("-kb " QMK_KEYBOARD " -km " QMK_KEYMAP " -e CONVERT_TO=" CONVERTER_TARGET SS_TAP(X_ENTER), TAP_CODE_DELAY);
+#    else
+                SEND_STRING_DELAY("-kb " QMK_KEYBOARD " -km " QMK_KEYMAP SS_TAP(X_ENTER), TAP_CODE_DELAY);
+#    endif
+                if (temp_mod & MOD_MASK_SHIFT && temp_mod & MOD_MASK_CTRL) {
+                    reset_keyboard();
+                }
+            }
 #endif
         }
     }
@@ -369,122 +487,157 @@ void set_single_persistent_default_layer(uint8_t default_layer) {
     default_layer_set((layer_state_t)1 << default_layer);
 }
 
-layer_state_t update_tri_layer_state(layer_state_t state, uint8_t layer1, uint8_t layer2, uint8_t layer3) {
-    layer_state_t mask12 = ((layer_state_t)1 << layer1) | ((layer_state_t)1 << layer2);
-    layer_state_t mask3  = (layer_state_t)1 << layer3;
-    return (state & mask12) == mask12 ? (state | mask3) : (state & ~mask3);
-}
-
-void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3) { layer_state_set(update_tri_layer_state(layer_state, layer1, layer2, layer3)); }
-
-void matrix_init_quantum() {
-    magic();
-    led_init_ports();
-#ifdef BACKLIGHT_ENABLE
-    backlight_init_ports();
-#endif
-#ifdef AUDIO_ENABLE
-    audio_init();
-#endif
-#ifdef LED_MATRIX_ENABLE
-    led_matrix_init();
-#endif
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_init();
-#endif
-#if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
-    unicode_input_mode_init();
-#endif
-#ifdef HAPTIC_ENABLE
-    haptic_init();
-#endif
-#if defined(BLUETOOTH_ENABLE) && defined(OUTPUT_AUTO_ENABLE)
-    set_output(OUTPUT_AUTO);
-#endif
-
-    matrix_init_kb();
-}
-
-void matrix_scan_quantum() {
-#if defined(AUDIO_ENABLE) && defined(AUDIO_INIT_DELAY)
-    // There are some tasks that need to be run a little bit
-    // after keyboard startup, or else they will not work correctly
-    // because of interaction with the USB device state, which
-    // may still be in flux...
-    //
-    // At the moment the only feature that needs this is the
-    // startup song.
-    static bool     delayed_tasks_run  = false;
-    static uint16_t delayed_task_timer = 0;
-    if (!delayed_tasks_run) {
-        if (!delayed_task_timer) {
-            delayed_task_timer = timer_read();
-        } else if (timer_elapsed(delayed_task_timer) > 300) {
-            audio_startup();
-            delayed_tasks_run = true;
-        }
-    }
-#endif
-
-#if defined(AUDIO_ENABLE) && !defined(NO_MUSIC_MODE)
-    music_task();
-#endif
-
-#ifdef KEY_OVERRIDE_ENABLE
-    key_override_task();
-#endif
-
-#ifdef SEQUENCER_ENABLE
-    sequencer_task();
-#endif
-
-#ifdef TAP_DANCE_ENABLE
-    tap_dance_task();
-#endif
-
-#ifdef COMBO_ENABLE
-    combo_task();
-#endif
-
-#ifdef LED_MATRIX_ENABLE
-    led_matrix_task();
-#endif
-
-#ifdef WPM_ENABLE
-    decay_wpm();
-#endif
-
-#ifdef HAPTIC_ENABLE
-    haptic_task();
-#endif
-
-#ifdef DIP_SWITCH_ENABLE
-    dip_switch_read(false);
-#endif
-
-#ifdef AUTO_SHIFT_ENABLE
-    autoshift_matrix_scan();
-#endif
-
-    matrix_scan_kb();
-}
-
-#ifdef HD44780_ENABLED
-#    include "hd44780.h"
-#endif
-
-void api_send_unicode(uint32_t unicode) {
-#ifdef API_ENABLE
-    uint8_t chunk[4];
-    dword_to_bytes(unicode, chunk);
-    MT_SEND_DATA(DT_UNICODE, chunk, 5);
-#endif
-}
-
 //------------------------------------------------------------------------------
 // Override these functions in your keymap file to play different tunes on
 // different events such as startup and bootloader jump
 
-__attribute__((weak)) void startup_user() {}
+__attribute__((weak)) bool shutdown_user(bool jump_to_bootloader) {
+    return true;
+}
 
-__attribute__((weak)) void shutdown_user() {}
+__attribute__((weak)) bool shutdown_kb(bool jump_to_bootloader) {
+    if (!shutdown_user(jump_to_bootloader)) {
+        return false;
+    }
+    return true;
+}
+
+void suspend_power_down_quantum(void) {
+    suspend_power_down_kb();
+#ifndef NO_SUSPEND_POWER_DOWN
+// Turn off backlight
+#    ifdef BACKLIGHT_ENABLE
+    backlight_level_noeeprom(0);
+#    endif
+
+#    ifdef LED_MATRIX_ENABLE
+    led_matrix_task();
+#    endif
+#    ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_task();
+#    endif
+
+    // Turn off LED indicators
+    led_suspend();
+
+// Turn off audio
+#    ifdef AUDIO_ENABLE
+    stop_all_notes();
+#    endif
+
+// Turn off underglow
+#    if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
+    rgblight_suspend();
+#    endif
+
+#    if defined(LED_MATRIX_ENABLE)
+    led_matrix_set_suspend_state(true);
+#    endif
+#    if defined(RGB_MATRIX_ENABLE)
+    rgb_matrix_set_suspend_state(true);
+#    endif
+
+#    ifdef OLED_ENABLE
+    oled_off();
+#    endif
+#    ifdef ST7565_ENABLE
+    st7565_off();
+#    endif
+#    if defined(POINTING_DEVICE_ENABLE)
+    // run to ensure scanning occurs while suspended
+    pointing_device_task();
+#    endif
+#endif
+}
+
+__attribute__((weak)) void suspend_wakeup_init_quantum(void) {
+// Turn on backlight
+#ifdef BACKLIGHT_ENABLE
+    backlight_init();
+#endif
+
+    // Restore LED indicators
+    led_wakeup();
+
+// Wake up underglow
+#if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
+    rgblight_wakeup();
+#endif
+
+#if defined(LED_MATRIX_ENABLE)
+    led_matrix_set_suspend_state(false);
+#endif
+#if defined(RGB_MATRIX_ENABLE)
+    rgb_matrix_set_suspend_state(false);
+#endif
+    suspend_wakeup_init_kb();
+}
+
+/** \brief converts unsigned integers into char arrays
+ *
+ * Takes an unsigned integer and converts that value into an equivalent char array
+ * A padding character may be specified, ' ' for leading spaces, '0' for leading zeros.
+ */
+
+const char *get_numeric_str(char *buf, size_t buf_len, uint32_t curr_num, char curr_pad) {
+    buf[buf_len - 1] = '\0';
+    for (size_t i = 0; i < buf_len - 1; ++i) {
+        char c               = '0' + curr_num % 10;
+        buf[buf_len - 2 - i] = (c == '0' && i == 0) ? '0' : (curr_num > 0 ? c : curr_pad);
+        curr_num /= 10;
+    }
+    return buf;
+}
+
+/** \brief converts uint8_t into char array
+ *
+ * Takes an uint8_t, and uses an internal static buffer to render that value into a char array
+ * A padding character may be specified, ' ' for leading spaces, '0' for leading zeros.
+ *
+ * NOTE: Subsequent invocations will reuse the same static buffer and overwrite the previous
+ *       contents. Use the result immediately, instead of caching it.
+ */
+const char *get_u8_str(uint8_t curr_num, char curr_pad) {
+    static char    buf[4]   = {0};
+    static uint8_t last_num = 0xFF;
+    static char    last_pad = '\0';
+    if (last_num == curr_num && last_pad == curr_pad) {
+        return buf;
+    }
+    last_num = curr_num;
+    last_pad = curr_pad;
+    return get_numeric_str(buf, sizeof(buf), curr_num, curr_pad);
+}
+
+/** \brief converts uint16_t into char array
+ *
+ * Takes an uint16_t, and uses an internal static buffer to render that value into a char array
+ * A padding character may be specified, ' ' for leading spaces, '0' for leading zeros.
+ *
+ * NOTE: Subsequent invocations will reuse the same static buffer and overwrite the previous
+ *       contents. Use the result immediately, instead of caching it.
+ */
+const char *get_u16_str(uint16_t curr_num, char curr_pad) {
+    static char     buf[6]   = {0};
+    static uint16_t last_num = 0xFF;
+    static char     last_pad = '\0';
+    if (last_num == curr_num && last_pad == curr_pad) {
+        return buf;
+    }
+    last_num = curr_num;
+    last_pad = curr_pad;
+    return get_numeric_str(buf, sizeof(buf), curr_num, curr_pad);
+}
+
+#if defined(SECURE_ENABLE)
+void secure_hook_quantum(secure_status_t secure_status) {
+    // If keys are being held when this is triggered, they may not be released properly
+    // this can result in stuck keys, mods and layers.  To prevent that, manually
+    // clear these, when it is triggered.
+
+    if (secure_status == SECURE_PENDING) {
+        clear_keyboard();
+        layer_clear();
+    }
+}
+#endif

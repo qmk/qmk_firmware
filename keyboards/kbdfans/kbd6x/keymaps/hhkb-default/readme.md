@@ -1,0 +1,1 @@
+# default hhkb layout adapted to the 6x (for tofu hhkb)

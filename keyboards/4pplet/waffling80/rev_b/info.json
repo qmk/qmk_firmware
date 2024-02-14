@@ -1,0 +1,22 @@
+{
+    "keyboard_name": "waffling80 Rev B",
+    "usb": {
+        "pid": "0x000F",
+        "device_version": "0.0.2"
+    },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 2
+    },
+    "ws2812": {
+        "pin": "A8"
+    },
+    "matrix_pins": {
+        "cols": ["B2", "B1", "B0", "A7", "A6", "A3", "B9", "B8"],
+        "rows": ["B13", "B12", "A5", "A4", "A2", "A1", "F0", "C15", "C13", "C14", "F1", "A0"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu"
+}

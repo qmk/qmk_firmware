@@ -19,7 +19,8 @@
 #include "debounce_test_common.h"
 
 TEST_F(DebounceTest, OneKeyShort1) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
         {1, {{0, 1, UP}}, {}},
 
@@ -32,7 +33,8 @@ TEST_F(DebounceTest, OneKeyShort1) {
 }
 
 TEST_F(DebounceTest, OneKeyShort2) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
         {1, {{0, 1, UP}}, {}},
 
@@ -45,7 +47,8 @@ TEST_F(DebounceTest, OneKeyShort2) {
 }
 
 TEST_F(DebounceTest, OneKeyShort3) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
         {1, {{0, 1, UP}}, {}},
 
@@ -58,7 +61,8 @@ TEST_F(DebounceTest, OneKeyShort3) {
 }
 
 TEST_F(DebounceTest, OneKeyShort4) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
         {1, {{0, 1, UP}}, {}},
 
@@ -71,7 +75,8 @@ TEST_F(DebounceTest, OneKeyShort4) {
 }
 
 TEST_F(DebounceTest, OneKeyShort5) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
         {1, {{0, 1, UP}}, {}},
 
@@ -83,7 +88,8 @@ TEST_F(DebounceTest, OneKeyShort5) {
 }
 
 TEST_F(DebounceTest, OneKeyShort6) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
         {1, {{0, 1, UP}}, {}},
 
@@ -95,7 +101,8 @@ TEST_F(DebounceTest, OneKeyShort6) {
 }
 
 TEST_F(DebounceTest, OneKeyBouncing1) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
         {1, {{0, 1, UP}}, {}},
         {2, {{0, 1, DOWN}}, {}},
@@ -110,7 +117,8 @@ TEST_F(DebounceTest, OneKeyBouncing1) {
 }
 
 TEST_F(DebounceTest, OneKeyBouncing2) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
         /* Change twice in the same time period */
         {1, {{0, 1, UP}}, {}},
@@ -135,7 +143,8 @@ TEST_F(DebounceTest, OneKeyBouncing2) {
 }
 
 TEST_F(DebounceTest, OneKeyLong) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
 
         {25, {{0, 1, UP}}, {{0, 1, UP}}},
@@ -146,7 +155,8 @@ TEST_F(DebounceTest, OneKeyLong) {
 }
 
 TEST_F(DebounceTest, TwoRowsShort) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
         {1, {{0, 1, UP}}, {}},
         {2, {{2, 0, DOWN}}, {{2, 0, DOWN}}},
@@ -167,7 +177,8 @@ TEST_F(DebounceTest, TwoRowsShort) {
 }
 
 TEST_F(DebounceTest, TwoKeysOverlap) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
         {1, {{0, 1, UP}}, {}},
         /* Press a second key during the first debounce */
@@ -190,7 +201,8 @@ TEST_F(DebounceTest, TwoKeysOverlap) {
 }
 
 TEST_F(DebounceTest, TwoKeysSimultaneous1) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}, {0, 2, DOWN}}, {{0, 1, DOWN}, {0, 2, DOWN}}},
         {20, {{0, 1, UP}}, {{0, 1, UP}}},
         {21, {{0, 2, UP}}, {}},
@@ -202,7 +214,8 @@ TEST_F(DebounceTest, TwoKeysSimultaneous1) {
 }
 
 TEST_F(DebounceTest, TwoKeysSimultaneous2) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}, {0, 2, DOWN}}, {{0, 1, DOWN}, {0, 2, DOWN}}},
         {20, {{0, 1, UP}, {0, 2, UP}}, {{0, 1, UP}, {0, 2, UP}}},
     });
@@ -210,7 +223,8 @@ TEST_F(DebounceTest, TwoKeysSimultaneous2) {
 }
 
 TEST_F(DebounceTest, OneKeyDelayedScan1) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
 
         /* Processing is very late but the change will now be accepted */
@@ -221,7 +235,8 @@ TEST_F(DebounceTest, OneKeyDelayedScan1) {
 }
 
 TEST_F(DebounceTest, OneKeyDelayedScan2) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
 
         /* Processing is very late but the change will now be accepted even with a 1 scan delay */
@@ -233,7 +248,8 @@ TEST_F(DebounceTest, OneKeyDelayedScan2) {
 }
 
 TEST_F(DebounceTest, OneKeyDelayedScan3) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
 
         /* Processing is very late but the change will now be accepted even with a 1ms delay */
@@ -245,7 +261,8 @@ TEST_F(DebounceTest, OneKeyDelayedScan3) {
 }
 
 TEST_F(DebounceTest, OneKeyDelayedScan4) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
 
         /* Processing is a bit late but the change will now be accepted */
@@ -256,7 +273,8 @@ TEST_F(DebounceTest, OneKeyDelayedScan4) {
 }
 
 TEST_F(DebounceTest, OneKeyDelayedScan5) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
 
         /* Processing is very late but the change will now be accepted even with a 1 scan delay */
@@ -268,7 +286,8 @@ TEST_F(DebounceTest, OneKeyDelayedScan5) {
 }
 
 TEST_F(DebounceTest, OneKeyDelayedScan6) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
 
         /* Processing is very late but the change will now be accepted even with a 1ms delay */
@@ -276,5 +295,23 @@ TEST_F(DebounceTest, OneKeyDelayedScan6) {
         {51, {{0, 1, UP}}, {{0, 1, UP}}},
     });
     time_jumps_ = true;
+    runEvents();
+}
+
+TEST_F(DebounceTest, AsyncTickOneKeyShort1) {
+    addEvents({
+        /* Time, Inputs, Outputs */
+        {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
+        {1, {{0, 1, UP}}, {}},
+
+        {5, {}, {{0, 1, UP}}},
+        /* Press key again after 1ms delay (debounce has not yet finished) */
+        {6, {{0, 1, DOWN}}, {}},
+        {10, {}, {{0, 1, DOWN}}}, /* 5ms after UP at time 5 */
+    });
+    /*
+     * Debounce implementations should never read the timer more than once per invocation
+     */
+    async_time_jumps_ = DEBOUNCE;
     runEvents();
 }
