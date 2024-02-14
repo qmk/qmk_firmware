@@ -6,3 +6,5 @@ uldn't* -> uld've
 :i'm*   -> i'll
 :i'll*  -> i've
 :poss@  -> possible
+:*      -> the
+:@      -> for
