@@ -54,22 +54,15 @@ bool process_context_magic(uint16_t keycode, keyrecord_t *record) {
             keycode = KC_SPC;
             break;
 
-        case KC_ENTER:
-            // Behave more conservatively for the enter key. Reset, so that enter
-            // can't be used on a word ending.
-            keycode = KC_SPC;
-            clear_buffer();
+        case KC_QUOTE:
+            // Treat " (shifted ') as a word boundary.
+            if (is_shift_held_core(mods)) keycode = KC_SPC;
             break;
 
         case KC_BSPC:
             // Remove last character from the buffer.
             dequeue_keycode();
             return true;
-
-        case KC_QUOTE:
-            // Treat " (shifted ') as a word boundary.
-            if (is_shift_held_core(mods)) keycode = KC_SPC;
-            break;
 
         default:
             // Clear state if some other non-alpha key is pressed.
@@ -109,7 +102,11 @@ void dequeue_keycodes(uint8_t count) {
 }
 
 void dequeue_keycode(void) { dequeue_keycodes(1); }
-void clear_buffer(void) { key_buffer_size = 0; }
+
+void clear_buffer(void) {
+    key_buffer_size = 0;
+    enqueue_keycode(KC_SPC);
+}
 
 trie_t get_trie(uint16_t keycode) {
     int i = 0;
