@@ -28,7 +28,7 @@
         "pin": "GP15",
         "levels": 5,
         "default": {
-            "brightness": 204
+            "brightness": 3
         }
     },
     "layouts": {
