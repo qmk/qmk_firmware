@@ -18,107 +18,107 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef RGB_MATRIX_ENABLE
 const is31fl3741_led_t PROGMEM g_is31fl3741_leds[IS31FL3741_LED_COUNT] = {
-    {0, CS2_SW1, CS3_SW1, CS1_SW1},    /* RGB0-ESC ROW0*/
-    {0, CS5_SW1, CS6_SW1, CS4_SW1},    /* RGB1-F1 */
-    {0, CS8_SW1, CS9_SW1, CS7_SW1},    /* RGB2-F2 */
-    {0, CS11_SW1, CS12_SW1, CS10_SW1}, /* RGB3-F3 */
-    {0, CS14_SW1, CS15_SW1, CS13_SW1}, /* RGB4-F4 */
-    {0, CS17_SW1, CS18_SW1, CS16_SW1}, /* RGB5-F5 */
-    {0, CS20_SW1, CS21_SW1, CS19_SW1}, /* RGB6-F6 */
-    {0, CS23_SW1, CS24_SW1, CS22_SW1}, /* RGB7-F7 */
-    {0, CS26_SW1, CS27_SW1, CS25_SW1}, /* RGB8-F8 */
-    {0, CS29_SW1, CS30_SW1, CS28_SW1}, /* RGB9-F9 */
-    {0, CS32_SW1, CS33_SW1, CS31_SW1}, /* RGB10-F10 */
-    {0, CS35_SW1, CS36_SW1, CS34_SW1}, /* RGB11-F11 */
-    {0, CS38_SW1, CS39_SW1, CS37_SW1}, /* RGB12-F12 */
-    {0, CS29_SW7, CS30_SW7, CS28_SW7}, /* RGB13-Delete */
-    {0, CS32_SW7, CS33_SW7, CS31_SW7}, /* RGB14-End */
-    {0, CS35_SW7, CS36_SW7, CS34_SW7}, /* RGB15-Insert */
-    {0, CS38_SW7, CS39_SW7, CS37_SW7}, /* RGB16-Home */
-    {0, CS2_SW2, CS3_SW2, CS1_SW2},    /* RGB17-~ ----ROW1*/
-    {0, CS5_SW2, CS6_SW2, CS4_SW2},    /* RGB18-1 */
-    {0, CS8_SW2, CS9_SW2, CS7_SW2},    /* RGB19-2 */
-    {0, CS11_SW2, CS12_SW2, CS10_SW2}, /* RGB20-3 */
-    {0, CS14_SW2, CS15_SW2, CS13_SW2}, /* RGB21-4 */
-    {0, CS17_SW2, CS18_SW2, CS16_SW2}, /* RGB22-5 */
-    {0, CS20_SW2, CS21_SW2, CS19_SW2}, /* RGB23-6 */
-    {0, CS23_SW2, CS24_SW2, CS22_SW2}, /* RGB24-7 */
-    {0, CS26_SW2, CS27_SW2, CS25_SW2}, /* RGB25-8 */
-    {0, CS29_SW2, CS30_SW2, CS28_SW2}, /* RGB26-9 */
-    {0, CS32_SW2, CS33_SW2, CS31_SW2}, /* RGB27-0 */
-    {0, CS35_SW2, CS36_SW2, CS34_SW2}, /* RGB28--- */
-    {0, CS38_SW2, CS39_SW2, CS37_SW2}, /* RGB29-+= */
-    {0, CS26_SW7, CS27_SW7, CS25_SW7}, /* RGB30-BS */
-    {0, CS29_SW8, CS30_SW8, CS28_SW8}, /* RGB31-Num Lock */
-    {0, CS32_SW8, CS33_SW8, CS31_SW8}, /* RGB32- / */
-    {0, CS35_SW8, CS36_SW8, CS34_SW8}, /* RGB33- * */
-    {0, CS38_SW8, CS39_SW8, CS37_SW8}, /* RGB34- - */
-    {0, CS2_SW3, CS3_SW3, CS1_SW3},    /* RGB35-TAB ----ROW2*/
-    {0, CS5_SW3, CS6_SW3, CS4_SW3},    /* RGB36-Q */
-    {0, CS8_SW3, CS9_SW3, CS7_SW3},    /* RGB37-W */
-    {0, CS11_SW3, CS12_SW3, CS10_SW3}, /* RGB38-E */
-    {0, CS14_SW3, CS15_SW3, CS13_SW3}, /* RGB39-R */
-    {0, CS17_SW3, CS18_SW3, CS16_SW3}, /* RGB40-T */
-    {0, CS20_SW3, CS21_SW3, CS19_SW3}, /* RGB41-Y */
-    {0, CS23_SW3, CS24_SW3, CS22_SW3}, /* RGB42-U */
-    {0, CS26_SW3, CS27_SW3, CS25_SW3}, /* RGB43-I */
-    {0, CS29_SW3, CS30_SW3, CS28_SW3}, /* RGB44-O */
-    {0, CS32_SW3, CS33_SW3, CS31_SW3}, /* RGB45-P */
-    {0, CS35_SW3, CS36_SW3, CS34_SW3}, /* RGB46-[ */
-    {0, CS38_SW3, CS39_SW3, CS37_SW3}, /* RGB47-] */
-    {0, CS26_SW9, CS27_SW9, CS25_SW9}, /* RGB48-\ */
-    {0, CS29_SW9, CS30_SW9, CS28_SW9}, /* RGB49-page up */
-    {0, CS32_SW9, CS33_SW9, CS31_SW9}, /* RGB50-7 */
-    {0, CS35_SW9, CS36_SW9, CS34_SW9}, /* RGB51-8 */
-    {0, CS38_SW9, CS39_SW9, CS37_SW9}, /* RGB52-9 */
-    {0, CS2_SW4, CS3_SW4, CS1_SW4},    /* RGB53-CAPS---ROW3*/
-    {0, CS5_SW4, CS6_SW4, CS4_SW4},    /* RGB54-A-- */
-    {0, CS8_SW4, CS9_SW4, CS7_SW4},    /* RGB55-S-- */
-    {0, CS11_SW4, CS12_SW4, CS10_SW4}, /* RGB56-D */
-    {0, CS14_SW4, CS15_SW4, CS13_SW4}, /* RGB57-F */
-    {0, CS17_SW4, CS18_SW4, CS16_SW4}, /* RGB58-G */
-    {0, CS20_SW4, CS21_SW4, CS19_SW4}, /* RGB59-H */
-    {0, CS23_SW4, CS24_SW4, CS22_SW4}, /* RGB60-J */
-    {0, CS26_SW4, CS27_SW4, CS25_SW4}, /* RGB61-K */
-    {0, CS29_SW4, CS30_SW4, CS28_SW4}, /* RGB62-L */
-    {0, CS32_SW4, CS33_SW4, CS31_SW4}, /* RGB63-;: */
-    {0, CS35_SW4, CS36_SW4, CS34_SW4}, /* RGB64-'" */
-    {0, CS38_SW4, CS39_SW4, CS37_SW4}, /* RGB65-ENTER */
-    {0, CS11_SW7, CS12_SW7, CS10_SW7}, /* RGB66-Page Down */
-    {0, CS14_SW7, CS15_SW7, CS13_SW7}, /* RGB67-4 */
-    {0, CS17_SW7, CS18_SW7, CS16_SW7}, /* RGB68-5 */
-    {0, CS20_SW7, CS21_SW7, CS19_SW7}, /* RGB69-6 */
-    {0, CS23_SW7, CS24_SW7, CS22_SW7}, /* RGB70-+ */
-    {0, CS2_SW5, CS3_SW5, CS1_SW5},    /* RGB71-LSF --ROW4*/
-    {0, CS5_SW5, CS6_SW5, CS4_SW5},    /* RGB72-Z */
-    {0, CS8_SW5, CS9_SW5, CS7_SW5},    /* RGB73-X */
-    {0, CS11_SW5, CS12_SW5, CS10_SW5}, /* RGB74-C */
-    {0, CS14_SW5, CS15_SW5, CS13_SW5}, /* RGB75-V */
-    {0, CS17_SW5, CS18_SW5, CS16_SW5}, /* RGB76-B */
-    {0, CS20_SW5, CS21_SW5, CS19_SW5}, /* RGB77-N */
-    {0, CS23_SW5, CS24_SW5, CS22_SW5}, /* RGB78-M */
-    {0, CS26_SW5, CS27_SW5, CS25_SW5}, /* RGB79-,< */
-    {0, CS29_SW5, CS30_SW5, CS28_SW5}, /* RGB80->. */
-    {0, CS32_SW5, CS33_SW5, CS31_SW5}, /* RGB81-?/ */
-    {0, CS35_SW5, CS36_SW5, CS34_SW5}, /* RGB82-RSF */
-    {0, CS38_SW5, CS39_SW5, CS37_SW5}, /* RGB83-UP */
-    {0, CS14_SW8, CS15_SW8, CS13_SW8}, /* RGB84-1*/
-    {0, CS17_SW8, CS18_SW8, CS16_SW8}, /* RGB85-2 */
-    {0, CS20_SW8, CS21_SW8, CS19_SW8}, /* RGB86-3 */
-    {0, CS23_SW8, CS24_SW8, CS22_SW8}, /* RGB87-Enter */
-    {0, CS2_SW6, CS3_SW6, CS1_SW6},    /* RGB88-lct-- ROW5*/
-    {0, CS5_SW6, CS6_SW6, CS4_SW6},    /* RGB89-lwin */
-    {0, CS8_SW6, CS9_SW6, CS7_SW6},    /* RGB90-lalt */
-    {0, CS11_SW6, CS12_SW6, CS10_SW6}, /* RGB91-sp0 */
-    {0, CS17_SW6, CS18_SW6, CS16_SW6}, /* RGB92-sp */
-    {0, CS26_SW6, CS27_SW6, CS25_SW6}, /* RGB93-sp2 */
-    {0, CS29_SW6, CS30_SW6, CS28_SW6}, /* RGB94-ralt */
-    {0, CS32_SW6, CS33_SW6, CS31_SW6}, /* RGB95- fn */
-    {0, CS35_SW6, CS36_SW6, CS34_SW6}, /* RGB96-left */
-    {0, CS38_SW6, CS39_SW6, CS37_SW6}, /* RGB97-down */
-    {0, CS11_SW9, CS12_SW9, CS10_SW9}, /* RGB98-right */
-    {0, CS14_SW9, CS15_SW9, CS13_SW9}, /* RGB99- 0 */
-    {0, CS20_SW9, CS21_SW9, CS19_SW9}  /* RGB100- . */
+    {0, SW1_CS2, SW1_CS3, SW1_CS1},    /* RGB0-ESC ROW0*/
+    {0, SW1_CS5, SW1_CS6, SW1_CS4},    /* RGB1-F1 */
+    {0, SW1_CS8, SW1_CS9, SW1_CS7},    /* RGB2-F2 */
+    {0, SW1_CS11, SW1_CS12, SW1_CS10}, /* RGB3-F3 */
+    {0, SW1_CS14, SW1_CS15, SW1_CS13}, /* RGB4-F4 */
+    {0, SW1_CS17, SW1_CS18, SW1_CS16}, /* RGB5-F5 */
+    {0, SW1_CS20, SW1_CS21, SW1_CS19}, /* RGB6-F6 */
+    {0, SW1_CS23, SW1_CS24, SW1_CS22}, /* RGB7-F7 */
+    {0, SW1_CS26, SW1_CS27, SW1_CS25}, /* RGB8-F8 */
+    {0, SW1_CS29, SW1_CS30, SW1_CS28}, /* RGB9-F9 */
+    {0, SW1_CS32, SW1_CS33, SW1_CS31}, /* RGB10-F10 */
+    {0, SW1_CS35, SW1_CS36, SW1_CS34}, /* RGB11-F11 */
+    {0, SW1_CS38, SW1_CS39, SW1_CS37}, /* RGB12-F12 */
+    {0, SW7_CS29, SW7_CS30, SW7_CS28}, /* RGB13-Delete */
+    {0, SW7_CS32, SW7_CS33, SW7_CS31}, /* RGB14-End */
+    {0, SW7_CS35, SW7_CS36, SW7_CS34}, /* RGB15-Insert */
+    {0, SW7_CS38, SW7_CS39, SW7_CS37}, /* RGB16-Home */
+    {0, SW2_CS2, SW2_CS3, SW2_CS1},    /* RGB17-~ ----ROW1*/
+    {0, SW2_CS5, SW2_CS6, SW2_CS4},    /* RGB18-1 */
+    {0, SW2_CS8, SW2_CS9, SW2_CS7},    /* RGB19-2 */
+    {0, SW2_CS11, SW2_CS12, SW2_CS10}, /* RGB20-3 */
+    {0, SW2_CS14, SW2_CS15, SW2_CS13}, /* RGB21-4 */
+    {0, SW2_CS17, SW2_CS18, SW2_CS16}, /* RGB22-5 */
+    {0, SW2_CS20, SW2_CS21, SW2_CS19}, /* RGB23-6 */
+    {0, SW2_CS23, SW2_CS24, SW2_CS22}, /* RGB24-7 */
+    {0, SW2_CS26, SW2_CS27, SW2_CS25}, /* RGB25-8 */
+    {0, SW2_CS29, SW2_CS30, SW2_CS28}, /* RGB26-9 */
+    {0, SW2_CS32, SW2_CS33, SW2_CS31}, /* RGB27-0 */
+    {0, SW2_CS35, SW2_CS36, SW2_CS34}, /* RGB28--- */
+    {0, SW2_CS38, SW2_CS39, SW2_CS37}, /* RGB29-+= */
+    {0, SW7_CS26, SW7_CS27, SW7_CS25}, /* RGB30-BS */
+    {0, SW8_CS29, SW8_CS30, SW8_CS28}, /* RGB31-Num Lock */
+    {0, SW8_CS32, SW8_CS33, SW8_CS31}, /* RGB32- / */
+    {0, SW8_CS35, SW8_CS36, SW8_CS34}, /* RGB33- * */
+    {0, SW8_CS38, SW8_CS39, SW8_CS37}, /* RGB34- - */
+    {0, SW3_CS2, SW3_CS3, SW3_CS1},    /* RGB35-TAB ----ROW2*/
+    {0, SW3_CS5, SW3_CS6, SW3_CS4},    /* RGB36-Q */
+    {0, SW3_CS8, SW3_CS9, SW3_CS7},    /* RGB37-W */
+    {0, SW3_CS11, SW3_CS12, SW3_CS10}, /* RGB38-E */
+    {0, SW3_CS14, SW3_CS15, SW3_CS13}, /* RGB39-R */
+    {0, SW3_CS17, SW3_CS18, SW3_CS16}, /* RGB40-T */
+    {0, SW3_CS20, SW3_CS21, SW3_CS19}, /* RGB41-Y */
+    {0, SW3_CS23, SW3_CS24, SW3_CS22}, /* RGB42-U */
+    {0, SW3_CS26, SW3_CS27, SW3_CS25}, /* RGB43-I */
+    {0, SW3_CS29, SW3_CS30, SW3_CS28}, /* RGB44-O */
+    {0, SW3_CS32, SW3_CS33, SW3_CS31}, /* RGB45-P */
+    {0, SW3_CS35, SW3_CS36, SW3_CS34}, /* RGB46-[ */
+    {0, SW3_CS38, SW3_CS39, SW3_CS37}, /* RGB47-] */
+    {0, SW9_CS26, SW9_CS27, SW9_CS25}, /* RGB48-\ */
+    {0, SW9_CS29, SW9_CS30, SW9_CS28}, /* RGB49-page up */
+    {0, SW9_CS32, SW9_CS33, SW9_CS31}, /* RGB50-7 */
+    {0, SW9_CS35, SW9_CS36, SW9_CS34}, /* RGB51-8 */
+    {0, SW9_CS38, SW9_CS39, SW9_CS37}, /* RGB52-9 */
+    {0, SW4_CS2, SW4_CS3, SW4_CS1},    /* RGB53-CAPS---ROW3*/
+    {0, SW4_CS5, SW4_CS6, SW4_CS4},    /* RGB54-A-- */
+    {0, SW4_CS8, SW4_CS9, SW4_CS7},    /* RGB55-S-- */
+    {0, SW4_CS11, SW4_CS12, SW4_CS10}, /* RGB56-D */
+    {0, SW4_CS14, SW4_CS15, SW4_CS13}, /* RGB57-F */
+    {0, SW4_CS17, SW4_CS18, SW4_CS16}, /* RGB58-G */
+    {0, SW4_CS20, SW4_CS21, SW4_CS19}, /* RGB59-H */
+    {0, SW4_CS23, SW4_CS24, SW4_CS22}, /* RGB60-J */
+    {0, SW4_CS26, SW4_CS27, SW4_CS25}, /* RGB61-K */
+    {0, SW4_CS29, SW4_CS30, SW4_CS28}, /* RGB62-L */
+    {0, SW4_CS32, SW4_CS33, SW4_CS31}, /* RGB63-;: */
+    {0, SW4_CS35, SW4_CS36, SW4_CS34}, /* RGB64-'" */
+    {0, SW4_CS38, SW4_CS39, SW4_CS37}, /* RGB65-ENTER */
+    {0, SW7_CS11, SW7_CS12, SW7_CS10}, /* RGB66-Page Down */
+    {0, SW7_CS14, SW7_CS15, SW7_CS13}, /* RGB67-4 */
+    {0, SW7_CS17, SW7_CS18, SW7_CS16}, /* RGB68-5 */
+    {0, SW7_CS20, SW7_CS21, SW7_CS19}, /* RGB69-6 */
+    {0, SW7_CS23, SW7_CS24, SW7_CS22}, /* RGB70-+ */
+    {0, SW5_CS2, SW5_CS3, SW5_CS1},    /* RGB71-LSF --ROW4*/
+    {0, SW5_CS5, SW5_CS6, SW5_CS4},    /* RGB72-Z */
+    {0, SW5_CS8, SW5_CS9, SW5_CS7},    /* RGB73-X */
+    {0, SW5_CS11, SW5_CS12, SW5_CS10}, /* RGB74-C */
+    {0, SW5_CS14, SW5_CS15, SW5_CS13}, /* RGB75-V */
+    {0, SW5_CS17, SW5_CS18, SW5_CS16}, /* RGB76-B */
+    {0, SW5_CS20, SW5_CS21, SW5_CS19}, /* RGB77-N */
+    {0, SW5_CS23, SW5_CS24, SW5_CS22}, /* RGB78-M */
+    {0, SW5_CS26, SW5_CS27, SW5_CS25}, /* RGB79-,< */
+    {0, SW5_CS29, SW5_CS30, SW5_CS28}, /* RGB80->. */
+    {0, SW5_CS32, SW5_CS33, SW5_CS31}, /* RGB81-?/ */
+    {0, SW5_CS35, SW5_CS36, SW5_CS34}, /* RGB82-RSF */
+    {0, SW5_CS38, SW5_CS39, SW5_CS37}, /* RGB83-UP */
+    {0, SW8_CS14, SW8_CS15, SW8_CS13}, /* RGB84-1*/
+    {0, SW8_CS17, SW8_CS18, SW8_CS16}, /* RGB85-2 */
+    {0, SW8_CS20, SW8_CS21, SW8_CS19}, /* RGB86-3 */
+    {0, SW8_CS23, SW8_CS24, SW8_CS22}, /* RGB87-Enter */
+    {0, SW6_CS2, SW6_CS3, SW6_CS1},    /* RGB88-lct-- ROW5*/
+    {0, SW6_CS5, SW6_CS6, SW6_CS4},    /* RGB89-lwin */
+    {0, SW6_CS8, SW6_CS9, SW6_CS7},    /* RGB90-lalt */
+    {0, SW6_CS11, SW6_CS12, SW6_CS10}, /* RGB91-sp0 */
+    {0, SW6_CS17, SW6_CS18, SW6_CS16}, /* RGB92-sp */
+    {0, SW6_CS26, SW6_CS27, SW6_CS25}, /* RGB93-sp2 */
+    {0, SW6_CS29, SW6_CS30, SW6_CS28}, /* RGB94-ralt */
+    {0, SW6_CS32, SW6_CS33, SW6_CS31}, /* RGB95- fn */
+    {0, SW6_CS35, SW6_CS36, SW6_CS34}, /* RGB96-left */
+    {0, SW6_CS38, SW6_CS39, SW6_CS37}, /* RGB97-down */
+    {0, SW9_CS11, SW9_CS12, SW9_CS10}, /* RGB98-right */
+    {0, SW9_CS14, SW9_CS15, SW9_CS13}, /* RGB99- 0 */
+    {0, SW9_CS20, SW9_CS21, SW9_CS19}  /* RGB100- . */
 };
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
