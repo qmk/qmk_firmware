@@ -5,19 +5,8 @@
 A very moddable 19-key numpad kit built by nullbits. [More info at nullbits.co](https://nullbits.co/tidbit/)
 
 * Keyboard Maintainer: [Jay Greco](https://github.com/jaygreco)
-* Hardware Supported: TIDBIT Rev1, Pro Micro comaptible MCUs.
+* Hardware Supported: NIBBLE Rev1, [Bit-C](https://nullbits.co/bit-c/) Pro Micro with USB-C.
 * Hardware Availability: [nullbits.co](https://nullbits.co/)
-
-Note: If you are seeing issues with MacOS and keyboard hangs after sleep, make sure `NO_USB_STARTUP_CHECK = yes` is set in your rules.mk.
-
-Adds experimental "Remote Keyboard" functionality, which forwards keystrokes from an external macropad, keyboard, or numpad over UART/TRRS, removing the need for an additional USB connection.
-
-## Bootloader
-
-Enter the bootloader in 2 ways:
-
-* **Physical reset button**: Briefly press the button on the back of the PCB
-* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
 
 Make example for this keyboard (after setting up your build environment):
 
