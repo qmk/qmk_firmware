@@ -14,6 +14,11 @@
     "dip_switch": {
         "pins": ["A8"]
     },
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
     "features": {
         "bootmagic": true,
         "command": false,

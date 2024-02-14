@@ -18,6 +18,11 @@
         "rgb_matrix": true,
         "dip_switch": true
     },
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
     "dip_switch": {
         "matrix_grid": [ [5, 4] ]
     },
