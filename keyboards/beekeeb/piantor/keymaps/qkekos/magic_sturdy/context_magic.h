@@ -24,6 +24,7 @@ typedef struct
 
 bool process_check(uint16_t*, keyrecord_t*, uint8_t*, uint8_t*);
 bool process_context_magic(uint16_t, keyrecord_t*);
+uint16_t get_buffer_element(int index);
 void proces_magic_key(uint16_t);
 void dequeue_keycodes(uint8_t);
 void record_send_string(char*);
@@ -37,4 +38,3 @@ void repeat_key_fallback(uint8_t tap_count);
 void magic_key_fallback(uint8_t tap_count);
 
 #define TDATA(L) pgm_read_byte(&trie->data[L])
-#define buffer(i) key_buffer[key_buffer_size + i]

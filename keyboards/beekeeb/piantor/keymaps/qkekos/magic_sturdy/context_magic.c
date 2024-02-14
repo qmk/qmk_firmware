@@ -83,7 +83,6 @@ uint8_t magic_tap_count = 1;
 
 bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* mods) {
     trie_t trie = get_trie(keycode);
-
     if (trie.magic_key == KC_NO) return true;
 
     if (keycode == get_last_keycode()) magic_tap_count += 1;
@@ -98,8 +97,11 @@ void magic_key_fallback(uint8_t tap_count) {
 }
 
 void repeat_key_fallback(uint8_t tap_count) {
-    tap_code16(buffer(-1));
-    enqueue_keycode(buffer(-1));
+    uint16_t last_key = get_buffer_element(-1);
+    if (!last_key) return;
+
+    tap_code16(last_key);
+    enqueue_keycode(last_key);
 }
 
 /**
@@ -350,4 +352,11 @@ void record_send_string(char* str) {
     }
 
     SEND_STRING(is_caps_word_on() ? to_upper_case(str) : str);
+}
+
+uint16_t get_buffer_element(int index) {
+    index = key_buffer_size + index;
+
+    if (index >= MAX_CONTEXT_LENGTH || index < 0) return KC_NO;
+    return key_buffer[index];
 }
