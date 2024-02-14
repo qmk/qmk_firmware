@@ -1,7 +1,5 @@
 {
-    "processor": "STM32F401",
-    "board": "BLACKPILL_STM32_F401",
-    "bootloader": "stm32-dfu",
+    "development_board": "blackpill_f401",
     "diode_direction": "COL2ROW",
     "matrix_pins": {
         "cols": ["A5", "A6", "A7", "B0", "B1", "B10"],
