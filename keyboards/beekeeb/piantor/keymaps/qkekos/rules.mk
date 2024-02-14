@@ -1,4 +1,6 @@
 
+$(shell python3 keyboards/beekeeb/piantor/keymaps/qkekos/magic_sturdy/generete_magic_data.py)
+
 VIA_ENABLE = yes
 AUTOCORRECT_ENABLE = yes
 

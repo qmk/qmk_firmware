@@ -30,14 +30,17 @@ For full documentation, see QMK Docs
 import sys
 import textwrap
 from typing import Any, Dict, Iterator, List, Tuple
+from pathlib import Path
 
 SEPARATORS = {
     "*": "magic",
     "@": "repeat"
 }
 
-IN_FILE = "magic.txt"
-OUT_FILE = 'magic_data.h'
+THIS_FOLDER = Path(__file__).parent
+
+IN_FILE = THIS_FOLDER / "magic.txt"
+OUT_FILE = THIS_FOLDER / 'magic_data.h'
 
 tokens_list = list[tuple[str, str]]
 tokens_dict = dict[str, tokens_list]
