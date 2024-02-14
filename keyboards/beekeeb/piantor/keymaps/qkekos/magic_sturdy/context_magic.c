@@ -97,13 +97,12 @@ void refresh_token(void) {
 }
 
 bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* mods) {
-    trie_t trie = get_trie(keycode);
-    if (trie.magic_key == KC_NO) return true;
-
     prev_key_timestamp = current_key_timestamp;
     current_key_timestamp = timer_read();
-
     refresh_token();
+
+    trie_t trie = get_trie(keycode);
+    if (trie.magic_key == KC_NO) return true;
 
     if (keycode == get_last_keycode()) magic_tap_count += 1;
     else magic_tap_count = 1;

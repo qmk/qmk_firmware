@@ -9,3 +9,5 @@ uldn't* -> uld've
 :*      -> the
 :@      -> for
 i*      -> ion
+con*    -> consider
+th*     -> through
