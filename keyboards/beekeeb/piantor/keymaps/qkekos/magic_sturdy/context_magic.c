@@ -90,8 +90,12 @@ uint32_t enqueue_space(uint32_t trigger_time, void *cb_arg) {
 }
 
 void refresh_token(void) {
-    if (magic_timeout_token != INVALID_DEFERRED_TOKEN)
-        cancel_deferred_exec(magic_timeout_token);
+    if (magic_timeout_token != INVALID_DEFERRED_TOKEN) {
+        int difference = MAGIC_KEY_TIMEOUT - timer_elapsed(prev_key_timestamp);
+        extend_deferred_exec(magic_timeout_token, difference);
+
+        return;
+    }
 
     magic_timeout_token = defer_exec(MAGIC_KEY_TIMEOUT, enqueue_space, NULL);
 }
