@@ -6,15 +6,6 @@
 // Original source: https://getreuer.info/posts/keyboards/autocorrection
 
 #include "../__init__.h"
-#include "context_magic.h"
-#include <string.h>
-#include "keycodes.h"
-#include "quantum_keycodes.h"
-#include "keycode_config.h"
-#include "send_string.h"
-#include "action_util.h"
-#include "magic_data.h"
-#include "print.h"
 
 trie_t tries[] = {
     {US_AREP, MAGIC_DICTIONARY_SIZE,  magic_data },
@@ -24,8 +15,74 @@ trie_t tries[] = {
     {KC_NO, 0, NULL}
 };
 
-static uint8_t key_buffer[MAX_CONTEXT_LENGTH] = { KC_SPC };
-static uint8_t key_buffer_size = 1;
+/**
+ * @brief Process handler for context_magic feature.
+ *
+ * @param keycode Keycode registered by matrix press, per keymap
+ * @param record keyrecord_t structure
+ * @return true Continue processing keycodes, and send to host
+ * @return false Stop processing keycodes, and don't send to host
+ */
+bool process_context_magic(uint16_t keycode, keyrecord_t *record) {
+    uint8_t mods = get_mods();
+#ifndef NO_ACTION_ONESHOT
+    mods |= get_oneshot_mods();
+#endif
+
+    if (!record->event.pressed) return true;
+
+    // keycode verification and extraction
+    if (!process_check(&keycode, record, &key_buffer_size, &mods)) return true;
+
+    trie_t trie = get_trie(keycode);
+
+    if (trie.magic_key != KC_NO) {
+        process_trie(trie);
+        return false;
+    }
+
+    // keycode buffer check
+    switch (keycode) {
+        case KC_A ... KC_Z:
+            // process normally
+            break;
+
+        case KC_1 ... KC_0:
+        case KC_GRV ... KC_SLSH:
+        case KC_TAB ... KC_SCLN:
+            // Set a word boundary if space, period, digit, etc. is pressed.
+            keycode = KC_SPC;
+            break;
+
+        case KC_ENTER:
+            // Behave more conservatively for the enter key. Reset, so that enter
+            // can't be used on a word ending.
+            keycode = KC_SPC;
+            clear_buffer();
+            break;
+
+        case KC_BSPC:
+            // Remove last character from the buffer.
+            dequeue_keycode();
+            return true;
+
+        case KC_QUOTE:
+            // Treat " (shifted ') as a word boundary.
+            if (is_shift_held_core(mods)) keycode = KC_SPC;
+            break;
+
+        default:
+            // Clear state if some other non-alpha key is pressed.
+            clear_buffer();
+            return true;
+    }
+
+    enqueue_keycode(keycode);
+    return true;
+}
+
+uint8_t key_buffer[MAX_CONTEXT_LENGTH] = { KC_SPC };
+uint8_t key_buffer_size = 1;
 
 /**
  * @brief Add keycode to our key buffer.
@@ -42,8 +99,6 @@ void enqueue_keycode(uint8_t keycode) {
     key_buffer[key_buffer_size++] = keycode;
 }
 
-void dequeue_keycode(void) { dequeue_keycodes(1); }
-
 /**
  * @brief Remove num keys from our buffer.
  *
@@ -52,6 +107,9 @@ void dequeue_keycode(void) { dequeue_keycodes(1); }
 void dequeue_keycodes(uint8_t count) {
     key_buffer_size -= MIN(count, key_buffer_size);
 }
+
+void dequeue_keycode(void) { dequeue_keycodes(1); }
+void clear_buffer(void) { key_buffer_size = 0; }
 
 trie_t get_trie(uint16_t keycode) {
     int i = 0;
@@ -254,68 +312,4 @@ void process_trie(trie_t trie) {
 void proces_magic_key(uint16_t keycode) {
     trie_t trie = get_trie(keycode);
     if (trie.magic_key != KC_NO) process_trie(trie);
-}
-
-/**
- * @brief Process handler for context_magic feature.
- *
- * @param keycode Keycode registered by matrix press, per keymap
- * @param record keyrecord_t structure
- * @return true Continue processing keycodes, and send to host
- * @return false Stop processing keycodes, and don't send to host
- */
-bool process_context_magic(uint16_t keycode, keyrecord_t *record) {
-    uint8_t mods = get_mods();
-#ifndef NO_ACTION_ONESHOT
-    mods |= get_oneshot_mods();
-#endif
-
-    if (!record->event.pressed) return true;
-
-    // keycode verification and extraction
-    if (!process_check(&keycode, record, &key_buffer_size, &mods)) return true;
-
-    trie_t trie = get_trie(keycode);
-
-    if (trie.magic_key != KC_NO) {
-        process_trie(trie);
-        return false;
-    }
-
-    // keycode buffer check
-    switch (keycode) {
-        case KC_A ... KC_Z:
-            // process normally
-            break;
-        case KC_1 ... KC_0:
-        case KC_TAB ... KC_SEMICOLON:
-        case KC_GRAVE ... KC_SLASH:
-            // Set a word boundary if space, period, digit, etc. is pressed.
-            keycode = KC_SPC;
-            break;
-        case KC_ENTER:
-            // Behave more conservatively for the enter key. Reset, so that enter
-            // can't be used on a word ending.
-            key_buffer_size = 0;
-            keycode = KC_SPC;
-            break;
-        case KC_BSPC:
-            // Remove last character from the buffer.
-            if (key_buffer_size > 0) key_buffer_size -= 1;
-            return true;
-        case KC_QUOTE:
-            // Treat " (shifted ') as a word boundary.
-            if ((mods & MOD_MASK_SHIFT) != 0) {
-                keycode = KC_SPC;
-            }
-            break;
-        default:
-            // Clear state if some other non-alpha key is pressed.
-            key_buffer_size = 0;
-            return true;
-    }
-
-    // Append `keycode` to buffer.
-    enqueue_keycode(keycode);
-    return true;
 }

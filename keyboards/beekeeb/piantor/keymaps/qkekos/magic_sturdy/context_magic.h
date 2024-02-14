@@ -1,13 +1,14 @@
 #pragma once
 
-#include <stdint.h>
-#include <stdbool.h>
-#include "action.h"
+#include "magic_data.h"
+
+extern uint8_t key_buffer[MAX_CONTEXT_LENGTH];
+extern uint8_t key_buffer_size;
 
 typedef struct
 {
-    uint16_t magic_key;
-    uint8_t  data_size;
+    uint16_t  magic_key;
+    uint8_t   data_size;
     const uint8_t *data;
 } trie_t;
 
@@ -18,12 +19,15 @@ typedef struct
     int     completion_offset;
 } trie_search_result_t;
 
-bool process_context_magic(uint16_t keycode, keyrecord_t *record);
-void proces_magic_key(uint16_t keycode);
-void enqueue_keycode(uint8_t keycode);
-void dequeue_keycodes(uint8_t num);
-trie_t get_trie(uint16_t keycode);
-void process_trie(trie_t trie);
+bool process_check(uint16_t*, keyrecord_t*, uint8_t*, uint8_t*);
+bool process_context_magic(uint16_t, keyrecord_t*);
+void proces_magic_key(uint16_t);
+void dequeue_keycodes(uint8_t);
+void enqueue_keycode(uint8_t);
 void dequeue_keycode(void);
+trie_t get_trie(uint16_t);
+void process_trie(trie_t);
+void clear_buffer(void);
 
 #define TDATA(L) pgm_read_byte(&trie->data[L])
+#define buffer(i) key_buffer[MAX_CONTEXT_LENGTH + i]
