@@ -28,11 +28,11 @@ void keyboard_pre_init_user(void) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
-        case _RAISE:
+        case 0:
             writePinHigh(LED1);
             writePinLow(LED2);
             break;
-        case _LOWER:
+        case 1:
             writePinHigh(LED1);
             writePinLow(LED2);
             break;
