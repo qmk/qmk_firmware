@@ -367,7 +367,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         if (host_keyboard_led_state().caps_lock) {
           set_rgb_caps_leds();
         }
-        return;
+        return false;
       } else {
         /* EFFECTS duration is finished */
         effect_started_time = 0;
