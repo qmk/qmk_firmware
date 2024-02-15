@@ -10,8 +10,7 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "encoder": true
+        "nkro": true
     },
     "matrix_pins": {
         "cols": ["B4", "B5", "B6"],
@@ -24,7 +23,6 @@
         "pid": "0x0001",
         "vid": "0x5054"
     },
-    "community_layouts": ["ortho_3x3"],
     "layouts": {
         "LAYOUT_ortho_3x3": {
             "layout": [

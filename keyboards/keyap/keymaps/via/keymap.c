@@ -18,11 +18,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [0] = LAYOUT_ortho_3x3(KC_A, KC_B, KC_C, KC_VOLD, KC_E, KC_VOLU, KC_G, KC_H, KC_I)};
 
-#ifdef ENCODER_MAP_ENABLE
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [0] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_PGDN, KC_PGUP)}
-};
-#endif
+// #if defined(ENCODER_MAP_ENABLE) // If encoder support is enabled
+const uint16_t PROGMEM encoder_map[][1][2] = {[0] = {{KC_C, KC_D}}};
 
 void keyboard_pre_init_user(void) {
     setPinOutput(LED1); // initialize B0 for LED
@@ -55,3 +52,16 @@ void matrix_scan_user(void) {
         tap_code(KC_MUTE);
     }
 }
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0) {
+        if (clockwise) {
+            tap_code(KC_L);
+        } else {
+            tap_code(KC_R);
+        }
+    } else if (index == 1) {
+    }
+    return false;
+}
+// #endif
