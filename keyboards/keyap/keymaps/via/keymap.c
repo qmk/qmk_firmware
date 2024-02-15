@@ -23,9 +23,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [0] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_PGDN, KC_PGUP)}
-};
 void keyboard_pre_init_user(void) {
     setPinOutput(LED1); // initialize B0 for LED
     setPinOutput(LED2); // initialize B1 for LED
