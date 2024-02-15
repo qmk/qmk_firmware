@@ -40,7 +40,6 @@ with☆      -> without
 // Triple
 
 →an☆       -> another
-→ex☆       -> example
 →ar☆       -> around
 →in☆       -> inform
 →or☆       -> order
@@ -78,6 +77,8 @@ led☆       -> ledge
 vac☆       -> vacy
 men☆       -> menu
 gac☆       -> gacy
+tex☆       -> text
+nex☆       -> next
 
 // Double
 
@@ -87,6 +88,7 @@ gac☆       -> gacy
 pr☆        -> previous
 th☆        -> through
 ob☆        -> obvious
+ex☆        -> example
 pe☆        -> people
 pu☆        -> public
 up☆        -> update
