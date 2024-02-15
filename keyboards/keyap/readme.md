@@ -1,6 +1,6 @@
 # keyap
 
-![keyap](![alt text](56836224-7540-464e-b9fb-072a9ea7f293.jpg))
+![keyap](![alt text]())
 
 *A short description of the keyboard/project*
 

@@ -16,16 +16,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │ G │ H │ I │
      * └───┴───┴───┘
      */
-        [0] = LAYOUT_ortho_3x3(
-        KC_A, KC_B, KC_C,
-        KC_D, KC_E, KC_F,
-        KC_G, KC_H, KC_I
-    )
-};
+    [0] = LAYOUT_ortho_3x3(KC_A, KC_B, KC_C, KC_VOLD, KC_E, KC_VOLU, KC_G, KC_H, KC_I)};
 
+#ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_PGDN, KC_PGUP)}
 };
+#endif
+
 void keyboard_pre_init_user(void) {
     setPinOutput(LED1); // initialize B0 for LED
     setPinOutput(LED2); // initialize B1 for LED
@@ -33,23 +31,19 @@ void keyboard_pre_init_user(void) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
-        case 0:
+        case _RAISE:
             writePinHigh(LED1);
             writePinLow(LED2);
-            return state;
             break;
-        case 1:
+        case _LOWER:
             writePinHigh(LED1);
             writePinLow(LED2);
-            return state;
             break;
         default:
             writePinHigh(LED1);
             writePinHigh(LED2);
-            return state;
             break;
     }
-    return state;
 }
 
 void matrix_init_user(void) {
