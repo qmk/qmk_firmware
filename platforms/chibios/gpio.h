@@ -27,7 +27,7 @@ typedef ioline_t pin_t;
 #define gpio_set_pin_input_low(pin) palSetLineMode((pin), PAL_MODE_INPUT_PULLDOWN)
 #define gpio_set_pin_output_push_pull(pin) palSetLineMode((pin), PAL_MODE_OUTPUT_PUSHPULL)
 #define gpio_set_pin_output_open_drain(pin) palSetLineMode((pin), PAL_MODE_OUTPUT_OPENDRAIN)
-#define gpio_set_pin_output(pin) gpio_set_output_push_pull(pin)
+#define gpio_set_pin_output(pin) gpio_set_pin_output_push_pull(pin)
 
 #define gpio_write_pin_high(pin) palSetLine(pin)
 #define gpio_write_pin_low(pin) palClearLine(pin)

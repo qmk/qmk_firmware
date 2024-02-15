@@ -56,7 +56,7 @@ typedef uint8_t pin_t;
 
 #define gpio_set_pin_output_open_drain(pin) _Static_assert(0, "Open-drain outputs are not available on ATSAM")
 
-#define gpio_set_pin_output(pin) gpio_set_output_push_pull(pin)
+#define gpio_set_pin_output(pin) gpio_set_pin_output_push_pull(pin)
 
 #define gpio_write_pin_high(pin)                                     \
     do {                                                             \
