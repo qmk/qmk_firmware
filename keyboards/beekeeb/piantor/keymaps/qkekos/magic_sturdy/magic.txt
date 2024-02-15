@@ -139,6 +139,7 @@ some★      -> somewhere
 judge★     -> judgment
 again★     -> against
 doub★      -> doable
+que★       -> queue
 
 // Repeat
 
