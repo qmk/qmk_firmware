@@ -1,6 +1,6 @@
-# Infinity87 Rev. 3
+# infinity87
 
-![infinity87](https://i.imgur.com/QuK1EnNh.png)
+![infinity87](https://i.imgur.com/QuK1EnNl.png)
 
 A replacement PCB for TKL keyboard 
 
