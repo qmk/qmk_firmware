@@ -11,6 +11,7 @@ ever★      -> everything
 some★      -> somewhere
 confused★  -> confusion
 other★     -> otherwise
+recycle★   -> recycling
 judge★     -> judgment
 could★     -> couldn't
 again★     -> against
@@ -34,7 +35,7 @@ polic☆     -> policy
 
 // Quadruple
 
-→rec☆      -> recycl
+→rec☆      -> recycle
 
 // Triple
 
