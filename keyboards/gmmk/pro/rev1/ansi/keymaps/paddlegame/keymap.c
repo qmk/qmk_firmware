@@ -46,9 +46,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_WINLK:
         if (record->event.pressed) {
             if(!keymap_config.no_gui) {
-                process_magic(GUI_OFF, record);
+                keymap_config.no_gui = true;
             } else {
-                process_magic(GUI_ON, record);
+                keymap_config.no_gui = false;
             }
         } else  unregister_code16(keycode);
         break;

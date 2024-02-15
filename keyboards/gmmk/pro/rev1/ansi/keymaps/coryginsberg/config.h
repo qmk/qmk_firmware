@@ -22,3 +22,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define TAPPING_TERM 250
 #define RGBLIGHT_DEFAULT_MODE SOLID_WHITE
+#define DYNAMIC_KEYMAP_LAYER_COUNT 5
