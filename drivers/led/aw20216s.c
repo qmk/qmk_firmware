@@ -113,16 +113,18 @@ static inline void aw20216s_auto_lowpower(pin_t cs_pin) {
 void aw20216s_init_drivers(void) {
     spi_init();
 
-    aw20216s_init(AW20216S_CS_PIN_1, AW20216S_EN_PIN_1);
+#if defined(AW20216S_EN_PIN)
+    setPinOutput(AW20216S_EN_PIN);
+    writePinHigh(AW20216S_EN_PIN);
+#endif
+
+    aw20216s_init(AW20216S_CS_PIN_1);
 #if defined(AW20216S_CS_PIN_2)
-    aw20216s_init(AW20216S_CS_PIN_2, AW20216S_EN_PIN_2);
+    aw20216s_init(AW20216S_CS_PIN_2);
 #endif
 }
 
-void aw20216s_init(pin_t cs_pin, pin_t en_pin) {
-    setPinOutput(en_pin);
-    writePinHigh(en_pin);
-
+void aw20216s_init(pin_t cs_pin) {
     aw20216s_soft_reset(cs_pin);
     wait_ms(2);
 

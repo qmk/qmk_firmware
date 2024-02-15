@@ -111,8 +111,8 @@ led_config_t g_led_config = {{
 
 void keyboard_pre_init_user(void) {
     wait_ms(2000);
-    setPinOutput(AW20216S_PW_EN_PIN_1);
-    writePinHigh(AW20216S_PW_EN_PIN_1);
+    setPinOutput(AW20216S_PW_EN_PIN);
+    writePinHigh(AW20216S_PW_EN_PIN);
 }
 #    endif
 
