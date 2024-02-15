@@ -19,6 +19,7 @@
 #ifndef MASTER_RIGHT
 //  SPLIT_HAND_MATRIX_GRID was initially designed to use with left hand side diode D35 mounted and not pressing K7 on the right hand side during boot. However when a USB cable is reconnected immediately, it fails. Decided to use "MASTER_RIGHT" to make it more reliable.
 #   define SPLIT_HAND_MATRIX_GRID B5, D0
+#   define SPLIT_HAND_MATRIX_GRID_LOW_IS_LEFT
 #endif
 
 #define SPLIT_USB_DETECT

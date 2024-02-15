@@ -173,7 +173,8 @@
             { "flags": 4, "matrix": [0, 3], "x": 155, "y": 55 },
             { "flags": 4, "matrix": [7, 3], "x": 165, "y": 55 },
             { "flags": 4, "matrix": [0, 5], "x": 175, "y": 55 }
-        ]
+        ],
+        "sleep": true
     },
     "url": "",
     "usb": {

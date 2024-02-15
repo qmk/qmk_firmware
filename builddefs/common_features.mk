@@ -608,24 +608,9 @@ ifeq ($(strip $(VIA_ENABLE)), yes)
     TRI_LAYER_ENABLE := yes
 endif
 
-VALID_MAGIC_TYPES := yes
-BOOTMAGIC_ENABLE ?= no
-ifneq ($(strip $(BOOTMAGIC_ENABLE)), no)
-  ifeq ($(filter $(BOOTMAGIC_ENABLE),$(VALID_MAGIC_TYPES)),)
-    $(call CATASTROPHIC_ERROR,Invalid BOOTMAGIC_ENABLE,BOOTMAGIC_ENABLE="$(BOOTMAGIC_ENABLE)" is not a valid type of magic)
-  endif
-  ifneq ($(strip $(BOOTMAGIC_ENABLE)), no)
-      OPT_DEFS += -DBOOTMAGIC_LITE
-      QUANTUM_SRC += $(QUANTUM_DIR)/bootmagic/bootmagic_lite.c
-  endif
-endif
-COMMON_VPATH += $(QUANTUM_DIR)/bootmagic
-QUANTUM_SRC += $(QUANTUM_DIR)/bootmagic/magic.c
-
 VALID_CUSTOM_MATRIX_TYPES:= yes lite no
 
 CUSTOM_MATRIX ?= no
-
 ifneq ($(strip $(CUSTOM_MATRIX)), yes)
     ifeq ($(filter $(CUSTOM_MATRIX),$(VALID_CUSTOM_MATRIX_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid CUSTOM_MATRIX,CUSTOM_MATRIX="$(CUSTOM_MATRIX)" is not a valid custom matrix type)

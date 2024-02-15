@@ -145,12 +145,7 @@ static matrix_row_t read_cols(uint8_t row) {
             uint8_t data = 0;
             // reading GPIOB (column port) since in mcp23018's sequential mode
             // it is addressed directly after writing to GPIOA in select_row()
-            mcp23018_status = i2c_start(I2C_ADDR_READ, BAJJAK_EZ_I2C_TIMEOUT);    if (mcp23018_status) goto out;
-            mcp23018_status = i2c_read_nack(BAJJAK_EZ_I2C_TIMEOUT);               if (mcp23018_status < 0) goto out;
-            data            = ~((uint8_t)mcp23018_status);
-            mcp23018_status = I2C_STATUS_SUCCESS;
-        out:
-            i2c_stop();
+            mcp23018_status = i2c_receive(I2C_ADDR, &data, 1, BAJJAK_EZ_I2C_TIMEOUT);
             return data;
         }
     } else {
@@ -195,11 +190,10 @@ static void select_row(uint8_t row) {
         if (!mcp23018_status) {
             // set active row low  : 0
             // set other rows hi-Z : 1
-            mcp23018_status = i2c_start(I2C_ADDR_WRITE, BAJJAK_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(GPIOA, BAJJAK_EZ_I2C_TIMEOUT);                 if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(0xFF & ~(1 << row), BAJJAK_EZ_I2C_TIMEOUT);    if (mcp23018_status) goto out;
-        out:
-            i2c_stop();
+            uint8_t data;
+            data = 0xFF & ~(1 << row);
+            mcp23018_status = i2c_writeReg(I2C_ADDR, GPIOA, &data, 1, BAJJAK_EZ_I2C_TIMEOUT);
+
         }
     } else {
         // select on teensy
