@@ -9,6 +9,7 @@ never★     -> nevertheless
 essential★ -> essentially
 some★      -> somewhere
 confused★  -> confusion
+other★     -> otherwise
 judge★     -> judgment
 could★     -> couldn't
 again★     -> against
