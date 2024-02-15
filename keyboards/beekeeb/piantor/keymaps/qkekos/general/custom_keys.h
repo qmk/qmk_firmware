@@ -17,7 +17,8 @@ enum blender_keycode {
     US_FNCE,
     US_SNKE,
     US_CAML,
-    DB_AREP
+    DB_AREP,
+    MG_SPCL
 };
 
 enum pr_response custom_keys_pr(uint16_t, keyrecord_t*);

@@ -9,8 +9,9 @@
 
 trie_t tries[] = {
     {US_AREP, MAGIC_DICTIONARY_SIZE,    magic_data,    NULL, db_arep_provider},
-    {DB_AREP, DB_MAGIC_DICTIONARY_SIZE, db_magic_data, magic_key_fallback},
     {US_REP,  REPEAT_DICTIONARY_SIZE,   repeat_data,   repeat_key_fallback},
+    {DB_AREP, DB_MAGIC_DICTIONARY_SIZE, db_magic_data, magic_key_fallback},
+    {MG_SPCL, SPECIAL_DICTIONARY_SIZE,  special_data},
 
     // terminator
     { KC_NO }

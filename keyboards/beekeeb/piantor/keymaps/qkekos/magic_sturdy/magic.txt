@@ -221,3 +221,7 @@ fuᐅᐅ       -> functionality
 devᐅᐅ      -> development
 baᐅᐅ       -> basically
 exᐅᐅ       -> exactly
+
+// Special
+
+q✪          -> qua

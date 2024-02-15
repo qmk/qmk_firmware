@@ -37,6 +37,7 @@ SEPARATORS = {
     "☆": "magic",
     "ᐅ": "repeat",
     "★": "db_magic",
+    "✪": "special",
 }
 
 THIS_FOLDER = Path(__file__).parent
