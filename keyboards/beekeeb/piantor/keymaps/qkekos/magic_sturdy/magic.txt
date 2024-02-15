@@ -11,6 +11,7 @@ remac☆     -> remacy
 // Quadruple
 
 prob☆      -> probably
+keyb☆      -> keyboard
 with☆      -> without
 olic☆      -> olicy
 urac☆      -> uracy
@@ -45,6 +46,7 @@ var☆       -> various
 ser☆       -> serious
 gen☆       -> general
 pro☆       -> problem
+key☆       -> keycode
 bec☆       -> become
 bud☆       -> budget
 col☆       -> column
@@ -180,6 +182,7 @@ couᐉ       -> course
 
 fuᐉ        -> function
 scᐉ        -> school
+syᐉ        -> symbol
 muᐉ        -> music
 baᐉ        -> basic
 exᐉ        -> exact
