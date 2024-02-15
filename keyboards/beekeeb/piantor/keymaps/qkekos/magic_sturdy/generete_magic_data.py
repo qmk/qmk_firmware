@@ -35,7 +35,7 @@ from string import ascii_letters, digits
 
 SEPARATORS = {
     "☆": "magic",
-    "ᐉ": "repeat",
+    "ᐅ": "repeat",
     "★": "db_magic",
 }
 

@@ -147,66 +147,66 @@ que★       -> queue
 
 // Quadruple
 
-→stiᐉ      -> still
+→stiᐅ      -> still
 
-someᐉ      -> something
-implᐉ      -> implement
-possᐉ      -> possible
-handᐉ      -> handy
+someᐅ      -> something
+implᐅ      -> implement
+possᐅ      -> possible
+handᐅ      -> handy
 
 // Triple
 
-→viᐉ       -> vision
-→abᐉ       -> about
+→viᐅ       -> vision
+→abᐅ       -> about
 
-impᐉ       -> impossible
-uniᐉ       -> university
-difᐉ       -> difficult
-incᐉ       -> increase
-intᐉ       -> interest
-insᐉ       -> instead
-defᐉ       -> default
-devᐉ       -> develop
-awkᐉ       -> awkward
-capᐉ       -> capable
-proᐉ       -> program
-howᐉ       -> however
-anyᐉ       -> anyway
-couᐉ       -> course
+impᐅ       -> impossible
+uniᐅ       -> university
+difᐅ       -> difficult
+incᐅ       -> increase
+intᐅ       -> interest
+insᐅ       -> instead
+defᐅ       -> default
+devᐅ       -> develop
+awkᐅ       -> awkward
+capᐅ       -> capable
+proᐅ       -> program
+howᐅ       -> however
+anyᐅ       -> anyway
+couᐅ       -> course
 
 // Double
 
-→bᐉ        -> because
-→tᐉ        -> than
-→iᐉ        -> ii
+→bᐅ        -> because
+→tᐅ        -> than
+→iᐅ        -> ii
 
-fuᐉ        -> function
-scᐉ        -> school
-syᐉ        -> symbol
-muᐉ        -> music
-baᐉ        -> basic
-exᐉ        -> exact
-frᐉ        -> from
-maᐉ        -> make
-laᐉ        -> last
+fuᐅ        -> function
+scᐅ        -> school
+syᐅ        -> symbol
+muᐅ        -> music
+baᐅ        -> basic
+exᐅ        -> exact
+frᐅ        -> from
+maᐅ        -> make
+laᐅ        -> last
 
 // Single
 
-.ᐉ         -> .com
-→ᐉ         -> for
+.ᐅ         -> .com
+→ᐅ         -> for
 
-wᐉ         -> would
-jᐉ         -> join
-xᐉ         -> xes
-iᐉ         -> ing
-yᐉ         -> you
-qᐉ         -> qui
-vᐉ         -> ver
+wᐅ         -> would
+jᐅ         -> join
+xᐅ         -> xes
+iᐅ         -> ing
+yᐅ         -> you
+qᐅ         -> qui
+vᐅ         -> ver
 
 // Double taps
 
-implᐉᐉ     -> implementation
-fuᐉᐉ       -> functionality
-devᐉᐉ      -> development
-baᐉᐉ       -> basically
-exᐉᐉ       -> exactly
+implᐅᐅ     -> implementation
+fuᐅᐅ       -> functionality
+devᐅᐅ      -> development
+baᐅᐅ       -> basically
+exᐅᐅ       -> exactly
