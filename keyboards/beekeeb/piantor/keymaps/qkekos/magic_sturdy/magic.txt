@@ -118,6 +118,7 @@ t☆         -> tment
 w☆         -> which
 m☆         -> ment
 j☆         -> just
+f☆         -> fine
 i☆         -> ion
 v☆         -> ver
 q☆         -> que
