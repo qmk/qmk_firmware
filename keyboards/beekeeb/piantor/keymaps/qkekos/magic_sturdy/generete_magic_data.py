@@ -33,9 +33,9 @@ from typing import Any, Dict, Iterator, List, Tuple
 from pathlib import Path
 
 SEPARATORS = {
-    "*": "magic",
-    "@": "repeat",
-    "/": "db_magic",
+    "☆": "magic",
+    "ᐉ": "repeat",
+    "★": "db_magic",
 }
 
 THIS_FOLDER = Path(__file__).parent
@@ -56,7 +56,7 @@ KC_QUOT = 0x34
 TYPO_CHARS = dict([
     ("'", KC_QUOT),
     (".", KC_DOT),
-    (':', KC_SPC),  # "Word break" character.
+    ('→', KC_SPC),  # "Word break" character.
 ] + [(chr(c), c + KC_A - ord('a')) for c in range(ord('a'), ord('z') + 1)])
 #   Characters a-z.
 
@@ -87,8 +87,8 @@ def serialize_trie(trie: Dict[str, Any]) -> List[int]:
     def traverse(trie_node):
         if 'MATCH' in trie_node:  # Handle a MATCH trie node.
             typo, correction = trie_node['MATCH']
-            word_boundary_ending = typo[-1] == ':'
-            typo = typo.strip(':')
+            word_boundary_ending = typo[-1] == '→'
+            typo = typo.strip('→')
             i = 0  # Make the autocorrection data for this entry and serialize it.
             while i < min(len(typo), len(correction)) and typo[i] == correction[i]:
                 i += 1
@@ -176,7 +176,7 @@ def get_line_tokens(line: str, sep: str = "->") -> tuple[str, str]:
     if len(tokens) != 2 or not tokens[0]:
         raise ValueError(f"Invalid line {line}")
 
-    tokens[0] = tokens[0].lower().replace(' ', ':')
+    tokens[0] = tokens[0].lower().replace(' ', '→')
     return tokens[0], tokens[1]
 
 
@@ -216,7 +216,7 @@ def handle_different_double_separator(
 
 
 def parse_lines(filename: str) -> tokens_dict:
-    with open(filename, "r") as file:
+    with open(filename, "r", encoding="utf-8") as file:
         lines = [line.strip() for line in file.readlines()]
 
     separator_to_tokens = {separator: [] for separator in SEPARATORS}
@@ -302,12 +302,12 @@ def generate_magic_data():
     magic_data_h_lines.extend([f"#define MAX_CONTEXT_LENGTH {max_global_typo_len + 1}", ""])
     magic_data_h_lines.extend(trie_lines)
 
-    with open(OUT_FILE, "r") as file:
+    with open(OUT_FILE, "r", encoding="utf-8") as file:
         if file.read() == "\n".join(magic_data_h_lines):
             return
 
     # Show the results
-    with open(OUT_FILE, "w") as file:
+    with open(OUT_FILE, "w", encoding="utf-8") as file:
         file.write("\n".join(magic_data_h_lines))
 
 

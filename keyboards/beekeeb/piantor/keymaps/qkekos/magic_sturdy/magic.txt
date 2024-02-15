@@ -3,206 +3,206 @@
 
 // Quintuple
 
-never*     -> nevertheless
-every*     -> everything
-ocrac*     -> ocracy
-remac*     -> remacy
+never☆     -> nevertheless
+every☆     -> everything
+ocrac☆     -> ocracy
+remac☆     -> remacy
 
 // Quadruple
 
-prob*      -> probably
-with*      -> without
-olic*      -> olicy
-urac*      -> uracy
-rmac*      -> rmacy
-:rec*      -> recy
+prob☆      -> probably
+with☆      -> without
+olic☆      -> olicy
+urac☆      -> uracy
+rmac☆      -> rmacy
+→rec☆      -> recy
 
 // Triple
 
-:an*       -> another
-:ex*       -> example
-:ar*       -> around
-:in*       -> inform
-:or*       -> order
-:ti*       -> time
-:ed*       -> edge
-:se*       -> seen
-:al*       -> alr
-:us*       -> use
+→an☆       -> another
+→ex☆       -> example
+→ar☆       -> around
+→in☆       -> inform
+→or☆       -> order
+→ti☆       -> time
+→ed☆       -> edge
+→se☆       -> seen
+→al☆       -> alr
+→us☆       -> use
 
-unf*       -> unfortunate
-def*       -> definitely
-hil*       -> hilarious
-ess*       -> essential
-con*       -> consider
-alt*       -> although
-any*       -> anything
-dif*       -> differen
-pos*       -> position
-bel*       -> believe
-bet*       -> between
-var*       -> various
-ser*       -> serious
-gen*       -> general
-pro*       -> problem
-bec*       -> become
-bud*       -> budget
-col*       -> column
-tho*       -> though
-num*       -> number
-rid*       -> ridge
-red*       -> redge
-jud*       -> judge
-led*       -> ledge
-vac*       -> vacy
-men*       -> menu
-gac*       -> gacy
+unf☆       -> unfortunate
+def☆       -> definitely
+hil☆       -> hilarious
+ess☆       -> essential
+con☆       -> consider
+alt☆       -> although
+any☆       -> anything
+dif☆       -> differen
+pos☆       -> position
+bel☆       -> believe
+bet☆       -> between
+var☆       -> various
+ser☆       -> serious
+gen☆       -> general
+pro☆       -> problem
+bec☆       -> become
+bud☆       -> budget
+col☆       -> column
+tho☆       -> though
+num☆       -> number
+rid☆       -> ridge
+red☆       -> redge
+jud☆       -> judge
+led☆       -> ledge
+vac☆       -> vacy
+men☆       -> menu
+gac☆       -> gacy
 
 // Double
 
-:t*        -> that
-:e*        -> e.g.
+→t☆        -> that
+→e☆        -> e.g.
 
-pr*        -> previous
-th*        -> through
-ob*        -> obvious
-pe*        -> people
-pu*        -> public
-up*        -> update
-sh*        -> should
-te*        -> tement
-sy*        -> system
-va*        -> value
-ot*        -> other
-co*        -> could
-ag*        -> again
-la*        -> large
-pa*        -> page
-mo*        -> most
-mu*        -> must
-vi*        -> view
-ve*        -> very
-so*        -> some
-do*        -> doub
-li*        -> list
-be*        -> been
-pl*        -> ply
-mp*        -> mpl
-ma*        -> mao
-oc*        -> ock
-we*        -> web
-wa*        -> way
-uc*        -> uck
-cy*        -> cyc
-ac*        -> ack
-da*        -> day
-ic*        -> ick
-ec*        -> eck
+pr☆        -> previous
+th☆        -> through
+ob☆        -> obvious
+pe☆        -> people
+pu☆        -> public
+up☆        -> update
+sh☆        -> should
+te☆        -> tement
+sy☆        -> system
+va☆        -> value
+ot☆        -> other
+co☆        -> could
+ag☆        -> again
+la☆        -> large
+pa☆        -> page
+mo☆        -> most
+mu☆        -> must
+vi☆        -> view
+ve☆        -> very
+so☆        -> some
+do☆        -> doub
+li☆        -> list
+be☆        -> been
+pl☆        -> ply
+mp☆        -> mpl
+ma☆        -> mao
+oc☆        -> ock
+we☆        -> web
+wa☆        -> way
+uc☆        -> uck
+cy☆        -> cyc
+ac☆        -> ack
+da☆        -> day
+ic☆        -> ick
+ec☆        -> eck
 
 // Single
 
-:*         -> the
+→☆         -> the
 
-b*         -> before
-t*         -> tment
-w*         -> which
-f*         -> first
-n*         -> nion
-m*         -> ment
-j*         -> just
-z*         -> zone
-i*         -> ion
-v*         -> ver
-q*         -> que
-s*         -> sk
-r*         -> rl
-d*         -> dy
-e*         -> eu
-a*         -> ab
-l*         -> lk
-c*         -> cy
-p*         -> py
-y*         -> yp
-k*         -> ks
-g*         -> gy
-o*         -> oa
-u*         -> ue
-x*         -> xt
+b☆         -> before
+t☆         -> tment
+w☆         -> which
+f☆         -> first
+n☆         -> nion
+m☆         -> ment
+j☆         -> just
+z☆         -> zone
+i☆         -> ion
+v☆         -> ver
+q☆         -> que
+s☆         -> sk
+r☆         -> rl
+d☆         -> dy
+e☆         -> eu
+a☆         -> ab
+l☆         -> lk
+c☆         -> cy
+p☆         -> py
+y☆         -> yp
+k☆         -> ks
+g☆         -> gy
+o☆         -> oa
+u☆         -> ue
+x☆         -> xt
 
 // Double taps
 
-:alr/      -> already
+→alr★      -> already
 
-never/     -> nevertheless
-essential/ -> essentially
-some/      -> somewhere
-judge/     -> judgment
-again/     -> against
-doub/      -> doable
+never★     -> nevertheless
+essential★ -> essentially
+some★      -> somewhere
+judge★     -> judgment
+again★     -> against
+doub★      -> doable
 
 // Repeat
 
 // Quadruple
 
-:sti@      -> still
+→stiᐉ      -> still
 
-some@      -> something
-impl@      -> implement
-poss@      -> possible
-hand@      -> handy
+someᐉ      -> something
+implᐉ      -> implement
+possᐉ      -> possible
+handᐉ      -> handy
 
 // Triple
 
-:vi@       -> vision
-:ab@       -> about
+→viᐉ       -> vision
+→abᐉ       -> about
 
-imp@       -> impossible
-uni@       -> university
-dif@       -> difficult
-inc@       -> increase
-int@       -> interest
-ins@       -> instead
-def@       -> default
-dev@       -> develop
-awk@       -> awkward
-cap@       -> capable
-pro@       -> program
-how@       -> however
-any@       -> anyway
-cou@       -> course
+impᐉ       -> impossible
+uniᐉ       -> university
+difᐉ       -> difficult
+incᐉ       -> increase
+intᐉ       -> interest
+insᐉ       -> instead
+defᐉ       -> default
+devᐉ       -> develop
+awkᐉ       -> awkward
+capᐉ       -> capable
+proᐉ       -> program
+howᐉ       -> however
+anyᐉ       -> anyway
+couᐉ       -> course
 
 // Double
 
-:b@        -> because
-:t@        -> than
-:i@        -> ii
+→bᐉ        -> because
+→tᐉ        -> than
+→iᐉ        -> ii
 
-fu@        -> function
-sc@        -> school
-mu@        -> music
-ba@        -> basic
-ex@        -> exact
-fr@        -> from
-ma@        -> make
-la@        -> last
+fuᐉ        -> function
+scᐉ        -> school
+muᐉ        -> music
+baᐉ        -> basic
+exᐉ        -> exact
+frᐉ        -> from
+maᐉ        -> make
+laᐉ        -> last
 
 // Single
 
-.@         -> .com
-:@         -> for
+.ᐉ         -> .com
+→ᐉ         -> for
 
-w@         -> would
-j@         -> join
-x@         -> xes
-i@         -> ing
-y@         -> you
-q@         -> qui
-v@         -> ver
+wᐉ         -> would
+jᐉ         -> join
+xᐉ         -> xes
+iᐉ         -> ing
+yᐉ         -> you
+qᐉ         -> qui
+vᐉ         -> ver
 
 // Double taps
 
-impl@@     -> implementation
-fu@@       -> functionality
-dev@@      -> development
-ba@@       -> basically
-ex@@       -> exactly
+implᐉᐉ     -> implementation
+fuᐉᐉ       -> functionality
+devᐉᐉ      -> development
+baᐉᐉ       -> basically
+exᐉᐉ       -> exactly
