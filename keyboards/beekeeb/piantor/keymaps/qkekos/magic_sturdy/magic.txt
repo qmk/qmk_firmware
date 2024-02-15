@@ -9,9 +9,13 @@ never★     -> nevertheless
 essential★ -> essentially
 some★      -> somewhere
 judge★     -> judgment
+could★     -> couldn't
 again★     -> against
+copy★      -> copying
 doub★      -> doable
 que★       -> queue
+
+some★★     -> somehow
 
 // Quintuple
 
@@ -144,6 +148,10 @@ u☆         -> ue
 x☆         -> xt
 
 // Repeat
+
+// A lot
+
+shouldᐅ    -> shouldn't
 
 // Quadruple
 
