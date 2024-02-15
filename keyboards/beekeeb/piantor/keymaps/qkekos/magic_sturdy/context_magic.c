@@ -8,8 +8,9 @@
 #include "../__init__.h"
 
 trie_t tries[] = {
-    {US_AREP, MAGIC_DICTIONARY_SIZE,  magic_data,  magic_key_fallback },
-    {US_REP,  REPEAT_DICTIONARY_SIZE, repeat_data, repeat_key_fallback},
+    {US_AREP, MAGIC_DICTIONARY_SIZE,    magic_data,    NULL, db_arep_provider},
+    {DB_AREP, DB_MAGIC_DICTIONARY_SIZE, db_magic_data, magic_key_fallback},
+    {US_REP,  REPEAT_DICTIONARY_SIZE,   repeat_data,   repeat_key_fallback},
 
     // terminator
     { KC_NO }
@@ -37,6 +38,15 @@ bool process_context_magic(uint16_t keycode, keyrecord_t *record) {
     trie_t trie = get_trie(keycode);
 
     if (trie.magic_key != KC_NO) {
+        if (!trie.next_magic_provider) {
+            process_trie(trie);
+            return false;
+        }
+
+        // handle next magic key if provided
+        uint16_t next_magic = trie.next_magic_provider(magic_tap_count);
+        if (next_magic) trie = get_trie(next_magic);
+
         process_trie(trie);
         return false;
     }
@@ -114,12 +124,16 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* mods
     return true;
 }
 
-void magic_key_fallback(uint8_t tap_count) {
-    if (tap_count < 2) return;
+uint16_t db_arep_provider(uint8_t tap_count) {
+    if (tap_count >= 2) return DB_AREP;
+    return KC_NO;
+}
+
+void magic_key_fallback(void) {
     record_send_string("n");
 }
 
-void repeat_key_fallback(uint8_t tap_count) {
+void repeat_key_fallback(void) {
     uint16_t last_key = get_buffer_element(-1);
     if (!last_key) return;
 
@@ -343,7 +357,7 @@ void process_trie(trie_t trie) {
 
     // If we found one, apply completion
     if (!res.depth) {
-        if (trie.fallback) trie.fallback(magic_tap_count);
+        if (trie.fallback) trie.fallback();
         return;
     }
 
