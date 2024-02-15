@@ -118,8 +118,6 @@ Using the [standard `compile_commands.json` database](https://clang.llvm.org/doc
 
 Now you're ready to code QMK Firmware in VS Code!
 
-And now you're ready to code QMK Firmware in VS Code!
-
 # Debugging ARM MCUs with Visual Studio Code
 
 **...and a Black Magic Probe.**
