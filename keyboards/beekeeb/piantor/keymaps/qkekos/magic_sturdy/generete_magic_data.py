@@ -31,6 +31,7 @@ import sys
 import textwrap
 from typing import Any, Dict, Iterator, List, Tuple
 from pathlib import Path
+from string import ascii_letters, digits
 
 SEPARATORS = {
     "☆": "magic",
@@ -47,18 +48,32 @@ tokens_list = list[tuple[str, str]]
 tokens_dict = dict[str, tokens_list]
 
 max_global_typo_len = 0
+symbols_used = set()
+
+S = lambda a: a | 0x0200
 
 KC_A = 4
 KC_SPC = 0x2c
-KC_DOT = 55
+KC_MINUS = 0x002D
+KC_SEMICOLON = 0x0033
 KC_QUOT = 0x34
+KC_1 = 0x001E
+qmk_digits = digits[1:] + digits[0]
 
+
+def generate_range(start: int, chars: str) -> list[tuple[str, int]]:
+    return [(char, start + i) for i, char in enumerate(chars)]
+
+
+#   Characters a-z.
 TYPO_CHARS = dict([
-    ("'", KC_QUOT),
-    (".", KC_DOT),
+    *generate_range(KC_QUOT, "'`,./"),
+    *generate_range(KC_MINUS, "-=[]\\"),
+    *generate_range(KC_1, qmk_digits),
+    # *generate_range(S(KC_1), "!@#$%^&*()"),
+    (":", KC_SEMICOLON),
     ('→', KC_SPC),  # "Word break" character.
 ] + [(chr(c), c + KC_A - ord('a')) for c in range(ord('a'), ord('z') + 1)])
-#   Characters a-z.
 
 
 def make_trie(magicions: tokens_list) -> Dict[str, Any]:
@@ -167,8 +182,23 @@ def to_hex(b: int) -> str:
     return f'0x{b:02X}'
 
 
+def register_token(
+    tokens: tokens_dict, sep: str,
+    context: str, complement: str
+) -> None:
+    difference = set(context).difference(
+        set(ascii_letters + "".join(SEPARATORS) + "→")
+    )
+
+    if difference:
+        for symbol in difference:
+            symbols_used.add(symbol)
+
+    tokens[sep].append((context, complement))
+
+
 def get_line_tokens(line: str, sep: str = "->") -> tuple[str, str]:
-    if line.startswith("#") or line.startswith("\\") or not line:
+    if line.startswith("//") or not line:
         raise ValueError(f"Invalid line {line}")
 
     tokens = [token.strip() for token in line.split(sep, 1)]
@@ -181,8 +211,8 @@ def get_line_tokens(line: str, sep: str = "->") -> tuple[str, str]:
 
 
 def handle_same_double_separator(
-        context: str, complement: str,
-        tokens: tokens_dict, line: str
+    context: str, complement: str,
+    tokens: tokens_dict, line: str
 ) -> None:
     separator = context[-1]
 
@@ -190,7 +220,7 @@ def handle_same_double_separator(
         if tmp_context != context[:-2]:
             continue
 
-        tokens[separator].append((tmp_complement, complement))
+        register_token(tokens, separator, tmp_complement, complement)
         break
 
     else:
@@ -198,8 +228,8 @@ def handle_same_double_separator(
 
 
 def handle_different_double_separator(
-        context: str, complement: str,
-        tokens: tokens_dict, line: str
+    context: str, complement: str,
+    tokens: tokens_dict, line: str
 ) -> None:
     outer_separator = context[-1]
     inner_separator = context[-2]
@@ -208,7 +238,7 @@ def handle_different_double_separator(
         if tmp_context != context[:-2]:
             continue
 
-        tokens[outer_separator].append((tmp_complement, complement))
+        register_token(tokens, outer_separator, tmp_complement, complement)
         break
 
     else:
@@ -237,7 +267,7 @@ def parse_lines(filename: str) -> tokens_dict:
 
             if sep_count == 1:
                 context = context.replace(separator, "")
-                separator_to_tokens[separator].append((context, complement))
+                register_token(separator_to_tokens, separator, context, complement)
                 break
 
             if context[-2] == separator:
@@ -300,6 +330,12 @@ def generate_magic_data():
         )
 
     magic_data_h_lines.extend([f"#define MAX_CONTEXT_LENGTH {max_global_typo_len + 1}", ""])
+
+    symbols_used_kcs = set(map(TYPO_CHARS.get, symbols_used))
+
+    magic_data_h_lines.extend([f"static const uint16_t trie_symbols[] = {symbols_used_kcs};"])
+    magic_data_h_lines.extend([f"#define TRIE_SYMBOLS_COUNT {len(symbols_used)}", ""])
+
     magic_data_h_lines.extend(trie_lines)
 
     with open(OUT_FILE, "r", encoding="utf-8") as file:
@@ -310,8 +346,6 @@ def generate_magic_data():
     with open(OUT_FILE, "w", encoding="utf-8") as file:
         file.write("\n".join(magic_data_h_lines))
 
-
-# todo make it run only if date_modified of .txt is < date_modified of .h
 
 if __name__ == '__main__':
     generate_magic_data()

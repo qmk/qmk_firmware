@@ -60,7 +60,12 @@ bool process_context_magic(uint16_t keycode, keyrecord_t *record) {
         case KC_1 ... KC_0:
         case KC_GRV ... KC_SLSH:
         case KC_TAB ... KC_SCLN:
-            // Set a word boundary if space, period, digit, etc. is pressed.
+            for (int i = 0; i < TRIE_SYMBOLS_COUNT; i += 1)
+                if (trie_symbols[i] == keycode) {
+                    enqueue_keycode(keycode);
+                    return true;
+                }
+
             keycode = KC_SPC;
             break;
 

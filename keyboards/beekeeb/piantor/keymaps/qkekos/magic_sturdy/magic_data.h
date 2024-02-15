@@ -2,6 +2,9 @@
 
 #define MAX_CONTEXT_LENGTH 10
 
+static const uint16_t trie_symbols[] = {55};
+#define TRIE_SYMBOLS_COUNT 1
+
 // --------------------------------------------------
 
 // Magic dictionary (110 entries):
