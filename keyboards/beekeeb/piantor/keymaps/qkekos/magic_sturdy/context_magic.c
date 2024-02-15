@@ -275,11 +275,13 @@ bool process_check(uint16_t *keycode, keyrecord_t *record, uint8_t *key_buffer_s
             return false;
 #endif
     }
+
     // Disable autocorrect while a mod other than shift is active.
     if ((*mods & ~MOD_MASK_SHIFT) != 0) {
-        *key_buffer_size = 0;
+        clear_buffer();
         return false;
     }
+
     return true;
 }
 
