@@ -31,7 +31,7 @@ typedef uint8_t pin_t;
 
 #define gpio_write_pin_high(pin) (PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
 #define gpio_write_pin_low(pin) (PORTx_ADDRESS(pin) &= ~_BV((pin)&0xF))
-#define gpio_write_pin(pin, level) ((level) ? gpio_write_high(pin) : gpio_write_low(pin))
+#define gpio_write_pin(pin, level) ((level) ? gpio_write_pin_high(pin) : gpio_write_pin_low(pin))
 
 #define gpio_read_pin(pin) ((bool)(PINx_ADDRESS(pin) & _BV((pin)&0xF)))
 

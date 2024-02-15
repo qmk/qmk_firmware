@@ -31,13 +31,13 @@ typedef ioline_t pin_t;
 
 #define gpio_write_pin_high(pin) palSetLine(pin)
 #define gpio_write_pin_low(pin) palClearLine(pin)
-#define gpio_write_pin(pin, level) \
-    do {                           \
-        if (level) {               \
-            gpio_write_high(pin);  \
-        } else {                   \
-            gpio_write_low(pin);   \
-        }                          \
+#define gpio_write_pin(pin, level)    \
+    do {                              \
+        if (level) {                  \
+            gpio_write_pin_high(pin); \
+        } else {                      \
+            gpio_write_pin_low(pin);  \
+        }                             \
     } while (0)
 
 #define gpio_read_pin(pin) palReadLine(pin)
