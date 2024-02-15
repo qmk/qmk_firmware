@@ -13,6 +13,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │ G │ H │ I │
      * └───┴───┴───┘
      */
+<<<<<<< HEAD
     [0] = LAYOUT_ortho_3x3(KC_A, KC_B, KC_C, 
                            KC_D, KC_E, KC_F,
                            KC_G, KC_H, KC_I)
@@ -24,3 +25,11 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_PGDN, KC_PGUP)}
 };
 #endif
+=======
+    [0] = LAYOUT_ortho_3x3(
+        KC_A, KC_B, KC_C,
+        KC_D, KC_E, KC_F,
+        KC_G, KC_H, KC_I
+    )
+};
+>>>>>>> ce39023fb5e1fffa16ed795e8eeaccb19bbb41f5

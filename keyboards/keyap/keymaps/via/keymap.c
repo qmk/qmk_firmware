@@ -18,12 +18,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [0] = LAYOUT_ortho_3x3(KC_A, KC_B, KC_C, KC_VOLD, KC_E, KC_VOLU, KC_G, KC_H, KC_I)};
 
+<<<<<<< HEAD
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_PGDN, KC_PGUP)}
 };
 #endif
 
+=======
+>>>>>>> ce39023fb5e1fffa16ed795e8eeaccb19bbb41f5
 void keyboard_pre_init_user(void) {
     setPinOutput(LED1); // initialize B0 for LED
     setPinOutput(LED2); // initialize B1 for LED
