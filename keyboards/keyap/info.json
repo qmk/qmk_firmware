@@ -25,6 +25,7 @@
         "vid": "0x5054"
     },
     "community_layouts": ["ortho_3x3"],
+    "community_layouts": ["ortho_3x3"],
     "layouts": {
         "LAYOUT_ortho_3x3": {
             "layout": [
