@@ -181,6 +181,7 @@ couᐅ       -> course
 →iᐅ        -> ii
 
 fuᐅ        -> function
+htᐅ        -> https://
 scᐅ        -> school
 syᐅ        -> symbol
 muᐅ        -> music
