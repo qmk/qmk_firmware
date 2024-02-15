@@ -1,0 +1,13 @@
+{
+    "manufacturer": "Mechlovin.Studio",
+    "maintainer": "Team Mechlovin'",
+    "usb": {
+        "vid": "0x4D4C"
+    },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true
+    }
+}

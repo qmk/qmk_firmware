@@ -4,6 +4,7 @@
         "rows": ["A10", "B13", "B12", "B11", "C14", "C15"]
     },
     "diode_direction": "COL2ROW",
+    
     "backlight": {
         "pin": "B0",
         "breathing": true
@@ -14,5 +15,10 @@
     },
     "processor": "STM32F303",
     "bootloader": "stm32-dfu",
-    "board": "QMK_PROTON_C"
+    "board": "QMK_PROTON_C",
+    "features": {
+        "backlight": true,
+        "console": false,
+        "command": false
+    }
 }

@@ -1,18 +1,24 @@
 {
     "keyboard_name": "Infinity87 Rev.2",
-    "manufacturer": "Mechlovin.Studio",
     "url": "",
-    "maintainer": "Mechlovin' Studio",
     "usb": {
-        "vid": "0x4D4C",
         "pid": "0x8702",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN" ],
+        "rows": [ "D5", "D2", "D4", "D3", "D0", "D1"],
+        "custom": true,
+        "custom_lite": true
+    },
+    "matrix_size": {
+        "cols": 17,
+        "rows": 6
+    },
+    "diode_direction": "ROW2COL",
     "features": {
-        "bootmagic": true,
-        "mousekey": true,
-        "extrakey": true,
-        "nkro": true,
+        "console": false,
+        "command": false,
         "backlight": true,
         "rgblight": true
     },
