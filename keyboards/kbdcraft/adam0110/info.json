@@ -1,0 +1,23 @@
+{
+    "keyboard_name": "Adam0110",
+    "manufacturer": "KBDCRAFT",
+    "maintainer": "KBDCRAFT",
+    "bootloader": "tinyuf2",
+    "diode_direction": "ROW2COL",
+    "features": {
+        "bootmagic": false,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": true
+    },
+    "processor": "STM32F401",
+    "url": "",
+    "usb": {
+        "device_version": "0.0.0",
+        "vid": "0x586A",
+        "pid": "0xB002"
+
+    }
+}
