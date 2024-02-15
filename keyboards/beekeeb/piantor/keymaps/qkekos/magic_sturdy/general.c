@@ -11,7 +11,7 @@ enum pr_response sturdy_pr(uint16_t keycode, keyrecord_t *record) {
 
             if (record->event.pressed) {
                 dequeue_keycode();
-                process_magic_key(US_AREP);
+                process_magic_key(DB_LTTR);
             }
 
             return false;
@@ -19,11 +19,9 @@ enum pr_response sturdy_pr(uint16_t keycode, keyrecord_t *record) {
         case KC_B:
         case KC_Z:
         case KC_H:
-            return process_double_tap(keycode, record, US_AREP);
-
         case KC_F:
         case KC_Q:
-            return process_double_tap(keycode, record, MG_SPCL);
+            return process_double_tap(keycode, record, DB_LTTR);
     }
 
     return PR_IGNORE;

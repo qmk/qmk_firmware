@@ -33,16 +33,11 @@ polic☆     -> policy
 
 // Quadruple
 
-prob☆      -> probably
-keyb☆      -> keyboard
-with☆      -> without
 →rec☆      -> recy
 
 // Triple
 
-→an☆       -> another
 →ar☆       -> around
-→in☆       -> inform
 →or☆       -> order
 →ti☆       -> time
 →ed☆       -> edge
@@ -52,7 +47,6 @@ with☆      -> without
 
 hil☆       -> hilarious
 ess☆       -> essential
-con☆       -> consider
 alt☆       -> although
 any☆       -> anything
 pos☆       -> position
@@ -61,7 +55,6 @@ bel☆       -> believe
 bet☆       -> between
 var☆       -> various
 ser☆       -> serious
-gen☆       -> general
 pro☆       -> problem
 key☆       -> keycode
 bec☆       -> become
@@ -74,7 +67,6 @@ red☆       -> redge
 jud☆       -> judge
 led☆       -> ledge
 vac☆       -> vacy
-men☆       -> menu
 gac☆       -> gacy
 tex☆       -> text
 nex☆       -> next
@@ -85,13 +77,10 @@ nex☆       -> next
 →e☆        -> e.g.
 
 pr☆        -> previous
-th☆        -> through
-ob☆        -> obvious
 ex☆        -> example
 pe☆        -> people
 pu☆        -> public
 up☆        -> update
-sh☆        -> should
 te☆        -> tement
 sy☆        -> system
 va☆        -> value
@@ -125,13 +114,10 @@ ec☆        -> eck
 
 →☆         -> the
 
-b☆         -> before
 t☆         -> tment
 w☆         -> which
-n☆         -> nion
 m☆         -> ment
 j☆         -> just
-z☆         -> zone
 i☆         -> ion
 v☆         -> ver
 q☆         -> que
@@ -224,10 +210,36 @@ exᐅᐅ       -> exactly
 
 // Special
 
+// Quadruple
+
+with✪      -> without
+
+prob✪      -> probably
+keyb✪      -> keyboard
+
+// Triple
+
+con✪       -> consider
+gen✪       -> general
+→an✪       -> another
+→in✪       -> inform
+men✪       -> menu
+
 unf✪       -> unfortunate
 def✪       -> definitely
-dif✪       -> differen
 cof✪       -> confusing
+dif✪       -> differen
 
+// Double
+
+th✪        -> through
+ob✪        -> obvious
+sh✪        -> should
+
+// Single
+
+b✪         -> before
 f✪         -> first
+n✪         -> nion
+z✪         -> zone
 q✪         -> qua
