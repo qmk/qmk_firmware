@@ -1,6 +1,6 @@
 # The Compensator
 
-[Compensator](https://i.imgur.com/fAB2SST.png)
+[Compensator](https://i.imgur.com/fAB2SSTh.png)
 
 A 40% monstrosity with 10U spacebar support and a required 2 keycap sets to fill. It supports VIA. [Geekhack Post](https://geekhack.org/index.php?topic=122493.0)
 
