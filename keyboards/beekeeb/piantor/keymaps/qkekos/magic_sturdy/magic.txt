@@ -19,10 +19,10 @@ some★★     -> somehow
 
 // A lot
 
-democrac☆   -> democracy
-supremac☆   -> supremacy
-accurac☆    -> accuracy
-pharmac☆    -> pharmacy
+democrac☆  -> democracy
+supremac☆  -> supremacy
+accurac☆   -> accuracy
+pharmac☆   -> pharmacy
 
 // Quintuple
 
@@ -224,4 +224,4 @@ exᐅᐅ       -> exactly
 
 // Special
 
-q✪          -> qua
+q✪         -> qua
