@@ -3,12 +3,6 @@
     // Unofficially, QMK uses spaces for indentation
     "editor.insertSpaces": true,
     // Configure glob patterns for excluding files and folders.
-    "files.exclude": {
-        "**/.build": true,
-        "**/*.hex": true,
-        "**/*.bin": true,
-        "**/*.uf2": true
-    },
     "files.associations": {
         "*.h": "c",
         "*.c": "c",
@@ -28,7 +22,5 @@
     "[json]": {
         "editor.formatOnSave": false
     },
-    "clangd.arguments": [
-        "--header-insertion=never"
-    ]
+    "clangd.arguments": ["--header-insertion=never"]
 }
