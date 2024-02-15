@@ -11,7 +11,7 @@ The following macros provide basic control of GPIOs and are found in `platforms/
 |`gpio_set_pin_input(pin)`            |Set pin as input with high impedance (High-Z)                        |
 |`gpio_set_pin_input_high(pin)`       |Set pin as input with builtin pull-up resistor                       |
 |`gpio_set_pin_input_low(pin)`        |Set pin as input with builtin pull-down resistor (unavailable on AVR)|
-|`gpio_set_pin_output(pin)`           |Set pin as output (alias of `gpio_set_output_push_pull`)             |
+|`gpio_set_pin_output(pin)`           |Set pin as output (alias of `gpio_set_pin_output_push_pull`)         |
 |`gpio_set_pin_output_push_pull(pin)` |Set pin as output, push/pull mode                                    |
 |`gpio_set_pin_output_open_drain(pin)`|Set pin as output, open-drain mode (unavailable on AVR and ATSAM)    |
 |`gpio_write_pin_high(pin)`           |Set pin level as high, assuming it is an output                      |
