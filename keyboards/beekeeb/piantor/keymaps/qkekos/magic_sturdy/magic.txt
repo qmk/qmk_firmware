@@ -212,17 +212,17 @@ exᐅᐅ       -> exactly
 
 // Quadruple
 
-with✪      -> without
-
 prob✪      -> probably
 keyb✪      -> keyboard
+with✪      -> without
 
 // Triple
 
-con✪       -> consider
-gen✪       -> general
 →an✪       -> another
 →in✪       -> inform
+
+con✪       -> consider
+gen✪       -> general
 men✪       -> menu
 
 unf✪       -> unfortunate

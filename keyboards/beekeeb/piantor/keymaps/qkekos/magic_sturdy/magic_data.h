@@ -295,13 +295,13 @@ static const uint8_t db_magic_data[DB_MAGIC_DICTIONARY_SIZE] PROGMEM = {
 // --------------------------------------------------
 
 // Db_Letter dictionary (20 entries):
-//   with -> without
 //   prob -> probably
 //   keyb -> keyboard
-//   con  -> consider
-//   gen  -> general
+//   with -> without
 //   →an  -> another
 //   →in  -> inform
+//   con  -> consider
+//   gen  -> general
 //   men  -> menu
 //   unf  -> unfortunate
 //   def  -> definitely
@@ -317,7 +317,7 @@ static const uint8_t db_magic_data[DB_MAGIC_DICTIONARY_SIZE] PROGMEM = {
 //   q    -> qua
 
 #define DB_LETTER_MIN_LENGTH 1 // "b"
-#define DB_LETTER_MAX_LENGTH 4 // "with"
+#define DB_LETTER_MAX_LENGTH 4 // "prob"
 #define DB_LETTER_DICTIONARY_SIZE 217
 
 static const uint8_t db_letter_data[DB_LETTER_DICTIONARY_SIZE] PROGMEM = {
