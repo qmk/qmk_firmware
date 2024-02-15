@@ -329,6 +329,8 @@ void find_longest_chain(trie_t *trie, trie_search_result_t *res, int offset, int
 		    find_longest_chain(trie, res, offset+1, depth+1);
         }
 	} else if (code & 64) {  // Branch Node (with multiple children)
+	    if (depth > key_buffer_size) return;
+
 		code &= 63;
         // Find child that matches our current buffer location
         const uint8_t cur_key = key_buffer[key_buffer_size - depth];
@@ -343,7 +345,7 @@ void find_longest_chain(trie_t *trie, trie_search_result_t *res, int offset, int
 	} else {  // Chain node
 		// Travel down chain until we reach a zero byte, or we no longer match our buffer
 		for (; code; depth++, code = TDATA(++offset)) {
-			if (code != key_buffer[key_buffer_size - depth])
+			if (depth > key_buffer_size || code != key_buffer[key_buffer_size - depth])
 				return;
 		}
 		// After a chain, there should be a leaf or branch
