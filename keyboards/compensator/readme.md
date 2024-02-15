@@ -1,6 +1,8 @@
 # The Compensator
 
-A 40% monstrosity with 10U spacebar support and a required 2 keycap sets to fill. It supports VIA. [Compensator](https://geekhack.org/index.php?topic=122493.0)
+[Compensator](https://i.imgur.com/fAB2SST.png)
+
+A 40% monstrosity with 10U spacebar support and a required 2 keycap sets to fill. It supports VIA. [Geekhack Post](https://geekhack.org/index.php?topic=122493.0)
 
 * Keyboard Maintainer: [Lrfoster03](https://lrfoster03.github.io/) and on [GitHub](https://github.com/Lrfoster03)
 * Hardware Supported: A 40% with 2 numpads, 2 nav clusters, and 2 XT columns with an ATMEGU32U4
