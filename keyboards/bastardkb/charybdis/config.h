@@ -41,8 +41,6 @@
 #    define RGB_MATRIX_KEYPRESSES
 
 // Startup values.
-#    define RGB_MATRIX_DEFAULT_HUE 0
-#    define RGB_MATRIX_DEFAULT_SAT 255
 #    define RGB_MATRIX_DEFAULT_VAL 64
 
 // Rainbow swirl as startup mode.

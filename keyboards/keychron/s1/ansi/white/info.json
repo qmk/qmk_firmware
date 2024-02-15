@@ -9,7 +9,7 @@
         "device_version": "1.0.0"
     },
     "led_matrix": {
-        "driver": "ckled2001"
+        "driver": "snled27351"
     },
     "matrix_pins": {
         "cols": ["A10", "A9", "A8", "B1", "B0", "A7", "A6", "A5", "A4", "A3", "A2", "A1", "A0", "C15", "C14"],

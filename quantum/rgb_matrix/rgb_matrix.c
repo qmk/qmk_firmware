@@ -60,56 +60,6 @@ __attribute__((weak)) RGB rgb_matrix_hsv_to_rgb(HSV hsv) {
 // -----End rgb effect includes macros-------
 // ------------------------------------------
 
-#ifndef RGB_MATRIX_TIMEOUT
-#    define RGB_MATRIX_TIMEOUT 0
-#endif
-
-#if !defined(RGB_MATRIX_MAXIMUM_BRIGHTNESS) || RGB_MATRIX_MAXIMUM_BRIGHTNESS > UINT8_MAX
-#    undef RGB_MATRIX_MAXIMUM_BRIGHTNESS
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS UINT8_MAX
-#endif
-
-#if !defined(RGB_MATRIX_HUE_STEP)
-#    define RGB_MATRIX_HUE_STEP 8
-#endif
-
-#if !defined(RGB_MATRIX_SAT_STEP)
-#    define RGB_MATRIX_SAT_STEP 16
-#endif
-
-#if !defined(RGB_MATRIX_VAL_STEP)
-#    define RGB_MATRIX_VAL_STEP 16
-#endif
-
-#if !defined(RGB_MATRIX_SPD_STEP)
-#    define RGB_MATRIX_SPD_STEP 16
-#endif
-
-#if !defined(RGB_MATRIX_DEFAULT_MODE)
-#    ifdef ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
-#        define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
-#    else
-// fallback to solid colors if RGB_MATRIX_CYCLE_LEFT_RIGHT is disabled in userspace
-#        define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR
-#    endif
-#endif
-
-#if !defined(RGB_MATRIX_DEFAULT_HUE)
-#    define RGB_MATRIX_DEFAULT_HUE 0
-#endif
-
-#if !defined(RGB_MATRIX_DEFAULT_SAT)
-#    define RGB_MATRIX_DEFAULT_SAT UINT8_MAX
-#endif
-
-#if !defined(RGB_MATRIX_DEFAULT_VAL)
-#    define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
-#endif
-
-#if !defined(RGB_MATRIX_DEFAULT_SPD)
-#    define RGB_MATRIX_DEFAULT_SPD UINT8_MAX / 2
-#endif
-
 // globals
 rgb_config_t rgb_matrix_config; // TODO: would like to prefix this with g_ for global consistancy, do this in another pr
 uint32_t     g_rgb_timer;
@@ -149,7 +99,7 @@ void eeconfig_update_rgb_matrix(void) {
 
 void eeconfig_update_rgb_matrix_default(void) {
     dprintf("eeconfig_update_rgb_matrix_default\n");
-    rgb_matrix_config.enable = 1;
+    rgb_matrix_config.enable = RGB_MATRIX_DEFAULT_ON;
     rgb_matrix_config.mode   = RGB_MATRIX_DEFAULT_MODE;
     rgb_matrix_config.hsv    = (HSV){RGB_MATRIX_DEFAULT_HUE, RGB_MATRIX_DEFAULT_SAT, RGB_MATRIX_DEFAULT_VAL};
     rgb_matrix_config.speed  = RGB_MATRIX_DEFAULT_SPD;
@@ -433,8 +383,7 @@ void rgb_matrix_task(void) {
         case RENDERING:
             rgb_task_render(effect);
             if (effect) {
-                // Only run the basic indicators in the last render iteration (default there are 5 iterations)
-                if (rgb_effect_params.iter == RGB_MATRIX_LED_PROCESS_MAX_ITERATIONS) {
+                if (rgb_task_state == FLUSHING) { // ensure we only draw basic indicators once rendering is finished
                     rgb_matrix_indicators();
                 }
                 rgb_matrix_indicators_advanced(&rgb_effect_params);
@@ -459,6 +408,36 @@ __attribute__((weak)) bool rgb_matrix_indicators_kb(void) {
 
 __attribute__((weak)) bool rgb_matrix_indicators_user(void) {
     return true;
+}
+
+struct rgb_matrix_limits_t rgb_matrix_get_limits(uint8_t iter) {
+    struct rgb_matrix_limits_t limits = {0};
+#if defined(RGB_MATRIX_LED_PROCESS_LIMIT) && RGB_MATRIX_LED_PROCESS_LIMIT > 0 && RGB_MATRIX_LED_PROCESS_LIMIT < RGB_MATRIX_LED_COUNT
+#    if defined(RGB_MATRIX_SPLIT)
+    limits.led_min_index = RGB_MATRIX_LED_PROCESS_LIMIT * (iter);
+    limits.led_max_index = limits.led_min_index + RGB_MATRIX_LED_PROCESS_LIMIT;
+    if (limits.led_max_index > RGB_MATRIX_LED_COUNT) limits.led_max_index = RGB_MATRIX_LED_COUNT;
+    uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;
+    if (is_keyboard_left() && (limits.led_max_index > k_rgb_matrix_split[0])) limits.led_max_index = k_rgb_matrix_split[0];
+    if (!(is_keyboard_left()) && (limits.led_min_index < k_rgb_matrix_split[0])) limits.led_min_index = k_rgb_matrix_split[0];
+#    else
+    limits.led_min_index = RGB_MATRIX_LED_PROCESS_LIMIT * (iter);
+    limits.led_max_index = limits.led_min_index + RGB_MATRIX_LED_PROCESS_LIMIT;
+    if (limits.led_max_index > RGB_MATRIX_LED_COUNT) limits.led_max_index = RGB_MATRIX_LED_COUNT;
+#    endif
+#else
+#    if defined(RGB_MATRIX_SPLIT)
+    limits.led_min_index                = 0;
+    limits.led_max_index                = RGB_MATRIX_LED_COUNT;
+    const uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;
+    if (is_keyboard_left() && (limits.led_max_index > k_rgb_matrix_split[0])) limits.led_max_index = k_rgb_matrix_split[0];
+    if (!(is_keyboard_left()) && (limits.led_min_index < k_rgb_matrix_split[0])) limits.led_min_index = k_rgb_matrix_split[0];
+#    else
+    limits.led_min_index = 0;
+    limits.led_max_index = RGB_MATRIX_LED_COUNT;
+#    endif
+#endif
+    return limits;
 }
 
 void rgb_matrix_indicators_advanced(effect_params_t *params) {
@@ -736,7 +715,7 @@ void rgb_matrix_decrease_speed(void) {
 void rgb_matrix_set_flags_eeprom_helper(led_flags_t flags, bool write_to_eeprom) {
     rgb_matrix_config.flags = flags;
     eeconfig_flag_rgb_matrix(write_to_eeprom);
-    dprintf("rgb matrix set speed [%s]: %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", rgb_matrix_config.flags);
+    dprintf("rgb matrix set flags [%s]: %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", rgb_matrix_config.flags);
 }
 
 led_flags_t rgb_matrix_get_flags(void) {

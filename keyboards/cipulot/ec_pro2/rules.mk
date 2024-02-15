@@ -1,2 +1,4 @@
 CUSTOM_MATRIX = lite
-SRC += analog.c matrix.c ec_switch_matrix.c
+SRC += matrix.c ec_switch_matrix.c
+
+ANALOG_DRIVER_REQUIRED = yes

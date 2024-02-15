@@ -61,7 +61,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#        define ENABLE_RGB_MATRIX_SOLID_SPLASH
 //#        define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #        define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
-#        define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
 #        define RGB_MATRIX_LED_COUNT 68
 #        define RGB_MATRIX_SPLIT { 34, 34 }
 #        define RGB_DISABLE_WHEN_USB_SUSPENDED

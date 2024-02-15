@@ -38,7 +38,6 @@
     /* RGB Matrix config */
     #define RGB_MATRIX_LED_COUNT 36
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
-    #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
     #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_UP_DOWN
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED
 #    define RGB_MATRIX_KEYPRESSES
@@ -89,9 +88,6 @@
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif
 
-
-
-// #define DYNAMIC_KEYMAP_LAYER_COUNT 4
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

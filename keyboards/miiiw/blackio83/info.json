@@ -26,6 +26,9 @@
         "cols": ["H0", "H1", "H2", "H3", "H4", "H5", "H6", "H7", "H8", "H9", "H10", "H11", "H12", "H13", "H14", "H15"],
         "rows": ["A7", "A6", "A5", "A4", "A3", "A2"]
     },
+    "dip_switch": {
+        "pins": ["B0", "B1", "B8", "B12"]
+    },
     "processor": "STM32F072",
     "rgb_matrix": {
         "driver": "ws2812",

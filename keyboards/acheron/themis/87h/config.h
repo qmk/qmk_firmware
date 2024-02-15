@@ -28,6 +28,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WS2812_PWM_PAL_MODE 1
 #define WS2812_DMA_STREAM STM32_DMA2_STREAM5
 #define WS2812_DMA_CHANNEL 6
-
-#define WEAR_LEVELING_LOGICAL_SIZE 4096
-#define WEAR_LEVELING_BACKING_SIZE 8192

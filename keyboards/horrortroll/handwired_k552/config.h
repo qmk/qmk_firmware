@@ -30,10 +30,6 @@
 #define EXTERNAL_FLASH_BLOCK_SIZE 4096
 #define EXTERNAL_FLASH_SIZE (256 * 1024) // 2M-bit flash size
 
-// Wear-leveling driver configuration
-#define WEAR_LEVELING_LOGICAL_SIZE 1024
-#define WEAR_LEVELING_BACKING_SIZE (WEAR_LEVELING_LOGICAL_SIZE * 2)
-
 #ifdef OLED_ENABLE
     /* Mapping I2C2 for OLED */
     #define I2C1_SCL_PIN B10
@@ -47,7 +43,6 @@
 #ifdef RGB_MATRIX_ENABLE
     #define RGB_MATRIX_LED_COUNT 24
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
-    #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
 
     /* RGB Matrix effect */
     #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN

@@ -9,7 +9,11 @@
 #    if defined(STM32F0XX) || defined(STM32F1XX) || defined(GD32VF103) || defined(STM32F3XX) || defined(STM32F4XX) || defined(STM32L0XX) || defined(WB32F3G71xx) || defined(WB32FQ95xx)
 #        define NOP_FUDGE 0.4
 #    else
-#        error("NOP_FUDGE configuration required")
+#        if defined(RP2040)
+#            error "Please use `vendor` WS2812 driver for RP2040"
+#        else
+#            error "NOP_FUDGE configuration required"
+#        endif
 #        define NOP_FUDGE 1 // this just pleases the compile so the above error is easier to spot
 #    endif
 #endif
@@ -72,7 +76,7 @@ void ws2812_init(void) {
 }
 
 // Setleds for standard RGB
-void ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
+void ws2812_setleds(rgb_led_t *ledarray, uint16_t leds) {
     static bool s_init = false;
     if (!s_init) {
         ws2812_init();

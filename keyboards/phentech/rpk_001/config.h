@@ -6,7 +6,6 @@
 /* RGB Config */
 #define DRIVER_1_CS B6
 #define DRIVER_1_EN B7
-#define DRIVER_COUNT 1
 #define RGB_MATRIX_LED_COUNT 67
 
 /* SPI Config */
@@ -17,7 +16,6 @@
 
 /* SPI Flash */
 #define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN C12
-#define WEAR_LEVELING_BACKING_SIZE (4 * 1024)
 
 /* RGB Matrix */
 #define RGB_DISABLE_WHEN_USB_SUSPENDED

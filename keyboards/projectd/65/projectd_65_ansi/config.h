@@ -25,7 +25,6 @@
 
 /* External spi flash */
 #define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN B14
-#define WEAR_LEVELING_BACKING_SIZE (4 * 1024)
 
 /* SPI Config for LED Driver */
 #define SPI_DRIVER SPIDQ
@@ -33,10 +32,7 @@
 #define SPI_MOSI_PIN A7
 #define SPI_MISO_PIN A6
 
-#define DRIVER_1_CS A15
-#define DRIVER_2_CS B15
-#define DRIVER_1_EN C13
-#define DRIVER_2_EN C13
+#define AW20216S_CS_PIN_1 A15
+#define AW20216S_EN_PIN_1 C13
 
-#define DRIVER_COUNT 1
 #define RGB_MATRIX_LED_COUNT 71
