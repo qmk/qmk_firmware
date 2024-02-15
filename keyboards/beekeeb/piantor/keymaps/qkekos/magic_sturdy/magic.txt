@@ -1,6 +1,18 @@
 
 // Magic
 
+// Double taps
+
+→alr★      -> already
+
+never★     -> nevertheless
+essential★ -> essentially
+some★      -> somewhere
+judge★     -> judgment
+again★     -> against
+doub★      -> doable
+que★       -> queue
+
 // Quintuple
 
 never☆     -> nevertheless
@@ -130,18 +142,6 @@ g☆         -> gy
 o☆         -> oa
 u☆         -> ue
 x☆         -> xt
-
-// Double taps
-
-→alr★      -> already
-
-never★     -> nevertheless
-essential★ -> essentially
-some★      -> somewhere
-judge★     -> judgment
-again★     -> against
-doub★      -> doable
-que★       -> queue
 
 // Repeat
 
