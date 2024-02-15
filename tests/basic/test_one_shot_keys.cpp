@@ -177,7 +177,7 @@ TEST_F(OneShot, OSMChainingTwoOSMs) {
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
-    /* Press and relesea OSM2 */
+    /* Press and release OSM2 */
     EXPECT_NO_REPORT(driver);
     osm_key2.press();
     run_one_scan_loop();
@@ -429,6 +429,48 @@ TEST_F(OneShot, OSLWithMoAndAdditionalKeypress) {
     /* Release MO */
     EXPECT_NO_REPORT(driver);
     mo_key.release();
+    run_one_scan_loop();
+    EXPECT_TRUE(layer_state_is(0));
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(OneShot, OSLChainingTwoOSLsAndAdditionalKeypress) {
+    TestDriver driver;
+    InSequence s;
+    KeymapKey  osl1_key    = KeymapKey{0, 0, 0, OSL(1)};
+    KeymapKey  osl2_key    = KeymapKey{1, 1, 0, OSL(2)};
+    KeymapKey  regular_key = KeymapKey{2, 1, 1, KC_A};
+
+    set_keymap({osl1_key, osl2_key, regular_key});
+
+    /* Press and release first OSL key */
+    EXPECT_NO_REPORT(driver);
+    osl1_key.press();
+    run_one_scan_loop();
+    osl1_key.release();
+    run_one_scan_loop();
+    EXPECT_TRUE(layer_state_is(1));
+    VERIFY_AND_CLEAR(driver);
+
+    /* Press and release second OSL */
+    EXPECT_NO_REPORT(driver);
+    osl2_key.press();
+    run_one_scan_loop();
+    osl2_key.release();
+    run_one_scan_loop();
+    EXPECT_TRUE(layer_state_is(2));
+    VERIFY_AND_CLEAR(driver);
+
+    /* Press regular key */
+    EXPECT_REPORT(driver, (regular_key.report_code)).Times(1);
+    EXPECT_EMPTY_REPORT(driver);
+    regular_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Release regular key */
+    EXPECT_NO_REPORT(driver);
+    regular_key.release();
     run_one_scan_loop();
     EXPECT_TRUE(layer_state_is(0));
     VERIFY_AND_CLEAR(driver);
