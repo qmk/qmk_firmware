@@ -80,4 +80,4 @@ def compile(cli):
         return False
 
     target.configure(parallel=cli.config.compile.parallel, clean=cli.args.clean, compiledb=cli.args.compiledb)
-    target.compile(cli.args.target, dry_run=cli.args.dry_run, **envs)
+    return target.compile(cli.args.target, dry_run=cli.args.dry_run, **envs)

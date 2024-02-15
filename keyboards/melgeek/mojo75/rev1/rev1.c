@@ -18,7 +18,7 @@
 
 #ifdef RGB_MATRIX_ENABLE
 
-const is31fl3741_led_t PROGMEM g_is31fl3741_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3741_led_t PROGMEM g_is31fl3741_leds[IS31FL3741_LED_COUNT] = {
     {0,  CS6_SW1,  CS5_SW1,  CS4_SW1}, /* RGB1 */
     {0,  CS6_SW2,  CS5_SW2,  CS4_SW2}, /* RGB2 */
     {0,  CS6_SW3,  CS5_SW3,  CS4_SW3}, /* RGB3 */
@@ -149,12 +149,4 @@ void suspend_wakeup_init_kb(void) {
     rgb_matrix_set_suspend_state(false);
     suspend_wakeup_init_user();
 }
-
-void keyboard_pre_init_kb(void) {
-    setPinOutput(A2);
-    writePinHigh(A2);
-    keyboard_pre_init_user();
-}
-
 #endif
-

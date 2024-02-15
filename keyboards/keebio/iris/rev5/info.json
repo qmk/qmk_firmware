@@ -16,7 +16,10 @@
     },
     "backlight": {
         "pin": "B5",
-        "levels": 5
+        "levels": 5,
+        "default": {
+            "brightness": 3
+        }
     },
     "rgblight": {
         "led_count": 12,
@@ -32,6 +35,9 @@
             "rgb_test": true,
             "alternating": true,
             "twinkle": true
+        },
+        "default": {
+            "val": 128
         }
     },
     "ws2812": {

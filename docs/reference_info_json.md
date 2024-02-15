@@ -111,6 +111,13 @@ Configures the [APA102](apa102_driver.md) driver.
 Configures the [Audio](feature_audio.md) feature.
 
 * `audio`
+    * `default`
+        * `on`
+            * The default audio enabled state.
+            * Default: `true`
+        * `clicky`
+            * The default audio clicky enabled state.
+            * Default: `true`
     * `macro_beep`
         * Play a short beep for `\a` (ASCII `BEL`) characters in Send String macros.
         * Default: `false`
