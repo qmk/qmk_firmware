@@ -1,4 +1,4 @@
-/* Copyright 2020 Team Mechlovin'
+/* Copyright 2024 Mechlovin' Stuido
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,4 +16,5 @@
 
 #pragma once
 
-#define IS31FL3741_I2C_ADDRESS_1 IS31FL3741_I2C_ADDRESS_SDA
+#define WS2812_SPI_DRIVER SPID2
+#define WS2812_SPI_MOSI_PAL_MODE 0 // MOSI pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 5

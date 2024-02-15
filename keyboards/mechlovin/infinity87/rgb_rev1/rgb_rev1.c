@@ -17,7 +17,7 @@
 #include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31fl3741_led_t PROGMEM g_is31fl3741_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3741_led_t PROGMEM g_is31fl3741_leds[IS31FL3741_LED_COUNT] = {
     {0, CS34_SW1,   CS35_SW1,   CS36_SW1}, //D92-K00-0
     {0, CS37_SW1,   CS38_SW1,   CS39_SW1}, //D94-K01-1
     {0, CS31_SW1,   CS32_SW1,   CS33_SW1}, //D96-K02-2
