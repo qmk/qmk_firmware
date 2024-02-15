@@ -34,7 +34,7 @@ polic☆     -> policy
 
 // Quadruple
 
-→rec☆      -> recy
+→rec☆      -> recycl
 
 // Triple
 
