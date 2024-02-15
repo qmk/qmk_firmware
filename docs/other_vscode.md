@@ -154,7 +154,7 @@ A debugging target for the MCU for your board needs to be defined, and can be do
       "device": "STM32F303",
       "v1": false,
       "windows": {
-        "armToolchainPath": "Q:\\gcc-arm-none-eabi-9-2020-q2-update-win32\\bin"
+        "armToolchainPath": "C:\\QMK_MSYS\\mingw64\\bin"
       }
     }
   ]
@@ -166,10 +166,12 @@ You'll need to perform some modifications to the file above in order to target y
 * `"name"`: Can be anything, but if you're debugging multiple targets you'll want something descriptive here.
 * `"cwd"`: The path to the QMK Firmware repository root directory -- _if using the `.vscode` directory existing in the `qmk_firmware` git repository, the default above should be correct_
 * `"executable"`: The path to the `elf` file generated as part of the build for your keyboard -- _exists in `<qmk_firmware>/.build`_
-* `"BMPGDBSerialPort"`: The `COM` port under Windows, or the `/dev/...` path for Linux/macOS.
+* `"BMPGDBSerialPort"`: The `COM` port under Windows, or the `/dev/...` path for Linux/macOS. Two serial port devices will be created -- the Black Magic Probe debug port is *usually* the first. If it doesn't work, try the second.
 * `"svdFile"`: _[Optional]_ The path to the SVD file that defines the register layout for the MCU -- the appropriate file can be downloaded from the [cmsis-svd repository](https://github.com/posborne/cmsis-svd/tree/master/data/STMicro)
 * `"device"`: The name of the MCU, which matches the `<name>` tag at the top of the downloaded `svd` file.
-* `"armToolchainPath"`: _[Optional]_ The path to the ARM toolchain installation location on Windows -- under normal circumstances Linux/macOS will auto-detect this correctly and will not need to be specified. Windows is special, which is why it has its own section. You can get a copy of the GNU ARM toolchain for Windows from [developer.arm.com](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads).
+* `"armToolchainPath"`: _[Optional]_ The path to the ARM toolchain installation location on Windows -- under normal circumstances Linux/macOS will auto-detect this correctly and will not need to be specified. 
+
+!> Windows builds of QMK Firmware are generally compiled using QMK MSYS, and the path to gdb's location (`C:\\QMK_MSYS\\mingw64\\bin`) needs to be specified under `armToolchainPath` for it to be detected. You may also need to change the GDB path to point at `C:\\QMK_MSYS\\mingw64\\bin\\gdb-multiarch.exe` in the VSCode Cortex-Debug user settings: ![VSCode Settings](https://i.imgur.com/EGrPM1L.png)
 
 Optionally, the following modifications should also be made to the keyboard's `rules.mk` file to disable optimisations -- not strictly required but will ensure breakpoints and variable viewing works correctly:
 ```makefile
