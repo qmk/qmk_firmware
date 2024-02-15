@@ -208,7 +208,7 @@ devᐅᐅ      -> development
 baᐅᐅ       -> basically
 exᐅᐅ       -> exactly
 
-// Special
+// Double letter taps
 
 // Quadruple
 
