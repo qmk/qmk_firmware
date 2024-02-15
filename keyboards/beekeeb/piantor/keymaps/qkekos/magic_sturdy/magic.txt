@@ -133,6 +133,7 @@ x*         -> xt
 
 :alr/      -> already
 
+never/     -> nevertheless
 essential/ -> essentially
 some/      -> somewhere
 judge/     -> judgment
