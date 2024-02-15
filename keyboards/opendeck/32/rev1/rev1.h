@@ -19,8 +19,6 @@
 #include "quantum.h"
 
 #define POWER_LED_PIN F1
-#define RGB_DISABLE_N_PIN D2
-#define RGB_IRQ_N_PIN D3
 
 // If you want something similar to what Taran from LMG does in https://github.com/TaranVH/2nd-keyboard
 // you can create a "wrapper key" by uncommenting the row below and chosing your wrapper keycode.

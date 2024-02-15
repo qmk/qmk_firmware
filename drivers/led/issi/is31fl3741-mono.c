@@ -19,6 +19,7 @@
 
 #include "is31fl3741-mono.h"
 #include "i2c_master.h"
+#include "gpio.h"
 #include "wait.h"
 
 #define IS31FL3741_PWM_0_REGISTER_COUNT 180
@@ -140,6 +141,11 @@ void is31fl3741_write_pwm_buffer(uint8_t index) {
 
 void is31fl3741_init_drivers(void) {
     i2c_init();
+
+#if defined(IS31FL3741_SDB_PIN)
+    setPinOutput(IS31FL3741_SDB_PIN);
+    writePinHigh(IS31FL3741_SDB_PIN);
+#endif
 
     for (uint8_t i = 0; i < IS31FL3741_DRIVER_COUNT; i++) {
         is31fl3741_init(i);

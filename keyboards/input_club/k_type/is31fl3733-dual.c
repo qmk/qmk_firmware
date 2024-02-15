@@ -18,6 +18,7 @@
 
 #include "is31fl3733-dual.h"
 #include "i2c_master.h"
+#include "gpio.h"
 #include "wait.h"
 
 #define IS31FL3733_PWM_REGISTER_COUNT 192
@@ -126,6 +127,11 @@ void is31fl3733_write_pwm_buffer(uint8_t bus, uint8_t index) {
 }
 
 void is31fl3733_init_drivers(void) {
+#if defined(IS31FL3733_SDB_PIN)
+    setPinOutput(IS31FL3733_SDB_PIN);
+    writePinHigh(IS31FL3733_SDB_PIN);
+#endif
+
     i2c_init(&I2CD1, I2C1_SCL_PIN, I2C1_SDA_PIN);
 
     is31fl3733_init(0, 0);
