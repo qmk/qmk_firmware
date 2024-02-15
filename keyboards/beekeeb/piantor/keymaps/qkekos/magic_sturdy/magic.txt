@@ -17,21 +17,24 @@ que★       -> queue
 
 some★★     -> somehow
 
+// A lot
+
+democrac☆   -> democracy
+supremac☆   -> supremacy
+accurac☆    -> accuracy
+pharmac☆    -> pharmacy
+
 // Quintuple
 
 never☆     -> nevertheless
 every☆     -> everything
-ocrac☆     -> ocracy
-remac☆     -> remacy
+polic☆     -> policy
 
 // Quadruple
 
 prob☆      -> probably
 keyb☆      -> keyboard
 with☆      -> without
-olic☆      -> olicy
-urac☆      -> uracy
-rmac☆      -> rmacy
 →rec☆      -> recy
 
 // Triple
