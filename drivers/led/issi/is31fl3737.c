@@ -19,6 +19,7 @@
 
 #include "is31fl3737.h"
 #include "i2c_master.h"
+#include "gpio.h"
 #include "wait.h"
 
 #define IS31FL3737_PWM_REGISTER_COUNT 192 // actually 144
@@ -114,6 +115,11 @@ void is31fl3737_write_pwm_buffer(uint8_t index) {
 
 void is31fl3737_init_drivers(void) {
     i2c_init();
+
+#if defined(IS31FL3737_SDB_PIN)
+    setPinOutput(IS31FL3737_SDB_PIN);
+    writePinHigh(IS31FL3737_SDB_PIN);
+#endif
 
     for (uint8_t i = 0; i < IS31FL3737_DRIVER_COUNT; i++) {
         is31fl3737_init(i);

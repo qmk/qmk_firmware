@@ -201,14 +201,6 @@ led_config_t g_led_config = {
     }
 };
 
-void keyboard_pre_init_kb(void) {
-    // Turn on LED controller
-    setPinOutput(B16);
-    writePinHigh(B16);
-
-    keyboard_pre_init_user();
-}
-
 void matrix_init_kb(void) {
     // put your keyboard start-up code here
     // runs once when the firmware starts up

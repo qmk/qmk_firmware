@@ -16,6 +16,7 @@
 
 #include "snled27351-mono.h"
 #include "i2c_master.h"
+#include "gpio.h"
 
 #define SNLED27351_PWM_REGISTER_COUNT 192
 #define SNLED27351_LED_CONTROL_REGISTER_COUNT 24
@@ -102,6 +103,11 @@ void snled27351_write_pwm_buffer(uint8_t index) {
 
 void snled27351_init_drivers(void) {
     i2c_init();
+
+#if defined(SNLED27351_SDB_PIN)
+    setPinOutput(SNLED27351_SDB_PIN);
+    writePinHigh(SNLED27351_SDB_PIN);
+#endif
 
     for (uint8_t i = 0; i < SNLED27351_DRIVER_COUNT; i++) {
         snled27351_init(i);
