@@ -1,6 +1,6 @@
 # rouge87 PCB 
 
-![infinity87](https://i.imgur.com/y2RVpzSl.jpeg)
+![infinity87/rev3/rouge87](https://i.imgur.com/y2RVpzSh.jpeg)
 
 A replacement PCB OTD 356.2, 360c, 456gt, The Cheat
 
