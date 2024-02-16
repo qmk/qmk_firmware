@@ -5,4 +5,5 @@
 
 #include "general.h"
 #include "trie_core.h"
+#include "training_mode.h"
 #include "process_magic.h"

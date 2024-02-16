@@ -4,6 +4,7 @@
 
 #define MAGIC_KEY_TIMEOUT 1500
 
+extern trie_t tries[];
 extern uint8_t magic_tap_count;
 
 extern int prev_key_timestamp;

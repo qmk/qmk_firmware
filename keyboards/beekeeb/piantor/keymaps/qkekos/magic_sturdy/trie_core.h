@@ -37,13 +37,9 @@ typedef struct {
     uint8_t bspace_count;  
 } search_result_t;
 
-typedef struct {
-    char    *max_completion;
-    char    context_string[MAX_CONTEXT_LENGTH];
-    uint8_t max_completion_len;
-} potential_compl_result_t;
-
+void search_trie(const uint8_t *trie, int offset, trie_visitor_t *v);
 bool process_check(uint16_t*, keyrecord_t*, uint8_t*, uint8_t*);
+void stack_dump(stack_t *stack, char *str);
 void dequeue_keycodes(uint8_t);
 void enqueue_keycode(uint8_t);
 void dequeue_keycode(void);

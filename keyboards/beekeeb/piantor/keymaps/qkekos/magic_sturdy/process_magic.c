@@ -17,6 +17,10 @@ trie_t tries[] = {
     { KC_NO }
 };
 
+void pontential_match_found(uint16_t magic_key, char *context, char *completion) {
+    uprintf("hello world\n");
+}
+
 /**
  * @brief Process handler for context_magic feature.
  *
@@ -87,6 +91,8 @@ bool process_context_magic(uint16_t keycode, keyrecord_t *record) {
     }
 
     enqueue_keycode(keycode);
+//    check_potential_matches(pontential_match_found);
+
     return true;
 }
 

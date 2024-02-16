@@ -35,6 +35,7 @@ SRC += localization/lang_independant.c
 SRC += magic_sturdy/general.c
 SRC += magic_sturdy/process_magic.c
 SRC += magic_sturdy/trie_core.c
+SRC += magic_sturdy/training_mode.c
 
 SRC += overrides/general.c
 
