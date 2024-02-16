@@ -56,7 +56,7 @@ uint16_t char_to_keycode(char symbol) {
 
 char keycode_to_char(uint16_t code) {
 	switch (code) {
-        case KC_SPACE: return ':';
+        case KC_SPACE: return ' ';
         case KC_QUOTE: return '\'';
 	}
 
