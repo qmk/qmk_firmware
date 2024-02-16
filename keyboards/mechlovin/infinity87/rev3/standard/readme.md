@@ -1,4 +1,4 @@
-# infinity87
+# infinity87 Rev 3 Standard
 
 ![infinity87/rev3/standard](https://i.imgur.com/QuK1EnNh.png)
 
