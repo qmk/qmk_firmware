@@ -165,6 +165,7 @@ awkᐅ       -> awkward
 capᐅ       -> capable
 proᐅ       -> program
 howᐅ       -> however
+witᐅ       -> without
 anyᐅ       -> anyway
 couᐅ       -> course
 
@@ -210,40 +211,40 @@ exᐅᐅ       -> exactly
 
 [oaui]n✪   -> \1nion
 
+// Quintuple
+
+→prob✪     -> probably
+→keyb✪     -> keyboard
+
 // Quadruple
 
-prob✪      -> probably
-keyb✪      -> keyboard
-with✪      -> without
+→con✪      -> consider
+→gen✪      -> general
+→men✪      -> menu
+
+→def✪      -> definitely
+→cof✪      -> confusing
+→dif✪      -> differen
+
+→bel✪      -> believe
+→bet✪      -> between
+→bec✪      -> become
 
 // Triple
 
+→uf✪       -> unfortunate
 →an✪       -> another
 →in✪       -> inform
-
-con✪       -> consider
-gen✪       -> general
-men✪       -> menu
-
-unf✪       -> unfortunate
-def✪       -> definitely
-cof✪       -> confusing
-dif✪       -> differen
-
-bel✪       -> believe
-bet✪       -> between
-bec✪       -> become
+→th✪       -> through
+→ob✪       -> obvious
+→sh✪       -> should
+→af✪       -> after
 
 // Double
 
 →b✪        -> before
 →f✪        -> first
 →z✪        -> zone
-
-th✪        -> through
-ob✪        -> obvious
-sh✪        -> should
-af✪        -> after
 
 // Single
 
