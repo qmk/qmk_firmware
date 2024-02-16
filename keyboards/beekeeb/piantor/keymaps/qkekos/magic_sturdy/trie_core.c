@@ -63,6 +63,15 @@ void stack_pop(stack_t *s) {
 		s->size--;
 }
 
+void print_buffer(void) {
+    uprintf("buffer: ");
+
+    for (int i = 0; i < key_buffer_size; i += 1)
+        uprintf("%c", keycode_to_char(key_buffer[i]));
+
+    uprintf("\n");
+}
+
 void stack_print(stack_t *s) {
 	for (int i = s->size - 1; i >= 0; --i)
 		uprintf("%c", s->buffer[i]);

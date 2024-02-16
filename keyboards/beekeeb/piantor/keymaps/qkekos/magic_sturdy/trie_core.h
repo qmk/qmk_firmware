@@ -45,6 +45,7 @@ void enqueue_keycode(uint8_t);
 void dequeue_keycode(void);
 void process_trie(trie_t);
 void clear_buffer(void);
+void print_buffer(void);
 
 #define TDATA(L) pgm_read_byte(&trie->data[L])
 #define queue(i) get_buffer_element(i)
