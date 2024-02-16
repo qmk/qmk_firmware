@@ -208,7 +208,7 @@ exᐅᐅ       -> exactly
 
 // Double letter taps
 
-[oaui]n✪   -> nion
+[oaui]n✪   -> \1nion
 
 // Quadruple
 
