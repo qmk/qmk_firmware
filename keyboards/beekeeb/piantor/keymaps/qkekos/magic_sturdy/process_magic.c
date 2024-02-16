@@ -92,7 +92,7 @@ bool process_context_magic(uint16_t keycode, keyrecord_t *record) {
     }
 
     enqueue_keycode(keycode);
-    check_potential_matches(pontential_match_found);
+//    check_potential_matches(pontential_match_found);
 
     return true;
 }
