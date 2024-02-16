@@ -95,6 +95,10 @@ enum pr_response custom_keys_pr(uint16_t keycode, keyrecord_t *record) {
         case US_CAML:
             if (record->event.pressed) toggle_alt_case_with(KC_LSFT, 0);
             return false;
+
+        case US_MGTR:
+            if (record->event.pressed) toggle_magic_training();
+            return false;
     }
 
     return PR_IGNORE;

@@ -2,8 +2,6 @@
 #include "../__init__.h"
 
 bool caps_word_press_user(uint16_t keycode) {
-    uprintf("caps word - %d\n", keycode);
-
     switch (keycode) {
         case KC_A ... KC_Z:
             add_weak_mods(MOD_BIT(KC_LSFT));

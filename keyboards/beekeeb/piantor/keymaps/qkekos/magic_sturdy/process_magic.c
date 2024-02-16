@@ -17,8 +17,25 @@ trie_t tries[] = {
     { KC_NO }
 };
 
+const char* get_magic_key_symbol(uint16_t magic_key) {
+    switch (magic_key) {
+        case US_AREP: return "☆";
+        case US_REP:  return "✵";
+        case DB_AREP: return "★";
+        case DB_LTTR: return "✪";
+    }
+
+    return "\0";
+}
+
 void pontential_match_found(uint16_t magic_key, char *context, char *completion) {
-    uprintf("%s -> %s\n", context, completion);
+    flick_leds(1.5, 250);
+
+    uprintf(
+        "Could have used %s%s -> %s%s!\n",
+        context, get_magic_key_symbol(magic_key),
+        context, completion
+    );
 }
 
 /**

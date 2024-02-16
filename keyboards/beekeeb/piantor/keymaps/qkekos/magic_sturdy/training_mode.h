@@ -11,3 +11,8 @@ typedef struct {
 } potential_compl_result_t;
 
 void check_potential_matches(potential_match_found_cb callback);
+
+void disable_magic_training(void);
+void toggle_magic_training(void); 
+void enable_magic_training(void); 
+bool is_magic_training_on(void);

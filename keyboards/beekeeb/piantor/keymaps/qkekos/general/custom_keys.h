@@ -17,6 +17,7 @@ enum blender_keycode {
     US_FNCE,
     US_SNKE,
     US_CAML,
+    US_MGTR,
 
     DB_AREP,
     DB_LTTR

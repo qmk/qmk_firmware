@@ -6,8 +6,6 @@ keyrecord_t *next_record;
 short next_row;
 
 bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
-    uprintf("pre_process_record_user: %d\n", keycode);
-
     if (record->event.pressed) {
         next_keycode = keycode;
 

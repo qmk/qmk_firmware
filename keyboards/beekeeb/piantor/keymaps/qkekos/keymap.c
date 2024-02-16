@@ -27,23 +27,10 @@ void keyboard_pre_init_user(void) {
 
     transaction_register_rpc(USER_SYNC_A, user_sync_a_slave_handler);
     lang_independant_init();
+    enable_magic_training();
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    #ifdef CONSOLE_ENABLE
-        const bool is_combo = record->event.type == COMBO_EVENT;
-        uprintf("0x%04X,%u,%u,%u,%d,0x%02X,0x%02X,%u\n",
-             keycode,
-             is_combo ? 254 : record->event.key.row,
-             is_combo ? 254 : record->event.key.col,
-             highest_layer,
-             record->event.pressed,
-             get_mods(),
-             get_oneshot_mods(),
-             record->tap.count
-             );
-    #endif
-
     for (int i = 0; process_records[i] != NULL; i++) {
         int response = process_records[i](keycode, record);
 
@@ -149,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ------------------------------------------------------------------------------------------------------------------------------------
     [NAV_LEFT] = LAYOUT_split_3x6_3(
 //     ┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┐      ┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┐
-         KC_SPC,   KC_TAB,   KC_HOME,  KC_UP,    KC_END,   HK_SWAP,         _______,  _______,  _______,  _______,  _______,  _______,
+         KC_SPC,   KC_TAB,   KC_HOME,  KC_UP,    KC_END,   HK_SWAP,         _______,  _______,  _______,  _______,  _______,  US_MGTR,
 //     ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤      ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
          KC_ENT,   HK_RMLN,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_BSPC,         _______,  _______,  _______,  _______,  _______,  _______,
 //     ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤      ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤

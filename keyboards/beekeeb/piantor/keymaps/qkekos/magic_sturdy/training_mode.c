@@ -1,6 +1,13 @@
 
 #include "../__init__.h"
 
+bool is_magic_training_active = false;
+
+void toggle_magic_training(void)  { is_magic_training_active = !is_magic_training_active; } 
+void enable_magic_training(void)  { is_magic_training_active = true; } 
+void disable_magic_training(void) { is_magic_training_active = false; } 
+bool is_magic_training_on(void)   { return is_magic_training_active; } 
+
 uint8_t temple_key_buffer[MAX_CONTEXT_LENGTH];
 uint8_t temple_len;
 
@@ -39,15 +46,16 @@ bool check_potential_match(trie_t trie, potential_compl_result_t* result) {
 }
 
 void check_potential_matches(potential_match_found_cb callback) {
-    for (int i = 0; tries[i].magic_key != KC_NO; i++) {
-        potential_compl_result_t result;
+    if (!is_magic_training_active) return;
+    potential_compl_result_t result;
 
+    for (int i = 0; tries[i].magic_key != KC_NO; i++) {
         for (int i = 0; i < key_buffer_size; i += 1)
             temple_key_buffer[i] = key_buffer[i];
 
-        if (check_potential_match(tries[i], &result))
+        if (check_potential_match(tries[i], &result)) {
             callback(tries[i].magic_key, result.context_string, result.max_completion);
-
-        break;
+            return;
+        }
     }
 }
