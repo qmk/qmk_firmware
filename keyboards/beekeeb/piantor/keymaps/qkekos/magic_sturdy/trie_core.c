@@ -241,17 +241,17 @@ bool process_check(uint16_t *keycode, keyrecord_t *record, uint8_t *key_buffer_s
  *
  * @param keycode Keycode registered by matrix press, per keymap
  */
-void process_trie(trie_t trie) {
+void process_trie(trie_t* trie) {
     if (!key_buffer_size) return;
 
     search_result_t result = {};
     trie_visitor_t search_visitor = { record_longest_match, &result };
 
-    search_trie(trie.data, 0, &search_visitor);
+    search_trie(trie->data, 0, &search_visitor);
 
     // If we found one, apply completion
     if (!result.completion) {
-        if (trie.fallback) trie.fallback();
+        if (trie->fallback) trie->fallback();
         return;
     }
 

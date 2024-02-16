@@ -30,7 +30,7 @@ void record_potential_match(trie_visitor_t *v, int bspaces, const char *completi
     stack_dump(&v->stack, result->context_string);
 }
 
-bool check_potential_match(trie_t trie, potential_compl_result_t* result) {
+bool check_potential_match(trie_t* trie, potential_compl_result_t* result) {
     trie_visitor_t record_visitor = { record_potential_match, result };
 
     temple_len = key_buffer_size;
@@ -38,7 +38,7 @@ bool check_potential_match(trie_t trie, potential_compl_result_t* result) {
 
     for (; key_buffer_size; key_buffer_size -= 1) {
         record_visitor.stack.size = 0;
-        search_trie(trie.data, 0, &record_visitor);
+        search_trie(trie->data, 0, &record_visitor);
     }
 
     key_buffer_size = temple_len;
@@ -53,7 +53,7 @@ void check_potential_matches(potential_match_found_cb callback) {
         for (int i = 0; i < key_buffer_size; i += 1)
             temple_key_buffer[i] = key_buffer[i];
 
-        if (check_potential_match(tries[i], &result)) {
+        if (check_potential_match(&tries[i], &result)) {
             callback(tries[i].magic_key, result.context_string, result.max_completion);
             return;
         }

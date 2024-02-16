@@ -57,16 +57,16 @@ bool process_context_magic(uint16_t keycode, keyrecord_t *record) {
     // keycode verification and extraction
     if (!process_check(&keycode, record, &key_buffer_size, &mods)) return true;
 
-    trie_t trie = get_trie(keycode);
+    trie_t* trie = get_trie(keycode);
 
-    if (trie.magic_key != KC_NO) {
-        if (!trie.next_magic_provider) {
+    if (trie->magic_key != KC_NO) {
+        if (!trie->next_magic_provider) {
             process_trie(trie);
             return false;
         }
 
         // handle next magic key if provided
-        uint16_t next_magic = trie.next_magic_provider(magic_tap_count);
+        uint16_t next_magic = trie->next_magic_provider(magic_tap_count);
         if (next_magic) trie = get_trie(next_magic);
 
         process_trie(trie);
@@ -141,8 +141,8 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* mods
     current_key_timestamp = timer_read();
     refresh_token();
 
-    trie_t trie = get_trie(keycode);
-    if (trie.magic_key == KC_NO) return true;
+    trie_t* trie = get_trie(keycode);
+    if (trie->magic_key == KC_NO) return true;
 
     if (keycode == get_last_keycode()) magic_tap_count += 1;
     else magic_tap_count = 1;
@@ -170,15 +170,15 @@ void repeat_key_fallback(void) {
 }
 
 void process_magic_key(uint16_t keycode) {
-    trie_t trie = get_trie(keycode);
-    if (trie.magic_key != KC_NO) process_trie(trie);
+    trie_t* trie = get_trie(keycode);
+    if (trie->magic_key != KC_NO) process_trie(trie);
 }
 
-trie_t get_trie(uint16_t keycode) {
+trie_t* get_trie(uint16_t keycode) {
     int i = 0;
 
     for (; tries[i].magic_key != KC_NO; i++)
-        if (tries[i].magic_key == keycode) return tries[i];
+        if (tries[i].magic_key == keycode) return &tries[i];
 
-    return tries[i];
+    return &tries[i];
 }

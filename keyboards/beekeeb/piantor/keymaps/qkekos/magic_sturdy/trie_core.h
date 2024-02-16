@@ -43,7 +43,7 @@ void stack_dump(stack_t *stack, char *str);
 void dequeue_keycodes(uint8_t);
 void enqueue_keycode(uint8_t);
 void dequeue_keycode(void);
-void process_trie(trie_t);
+void process_trie(trie_t*);
 void clear_buffer(void);
 void print_buffer(void);
 

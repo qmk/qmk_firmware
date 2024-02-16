@@ -66,6 +66,9 @@ uint32_t stop_flick(uint32_t trigger_time, void *cb_arg) {
 }
 
 void flick_leds(float time_seconds, int interval) {
+    if (flick_token != INVALID_DEFERRED_TOKEN)
+        cancel_deferred_exec(flick_token);
+
     flick_interval = interval;
     flick_token = defer_exec(1, flick_leds_core, NULL);
 
