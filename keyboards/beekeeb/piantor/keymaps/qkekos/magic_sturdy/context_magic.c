@@ -11,7 +11,7 @@ trie_t tries[] = {
     {US_AREP, MAGIC_DICTIONARY_SIZE,     magic_data,    NULL, db_arep_provider},
     {US_REP,  REPEAT_DICTIONARY_SIZE,    repeat_data,   repeat_key_fallback},
     {DB_AREP, DB_MAGIC_DICTIONARY_SIZE,  db_magic_data, magic_key_fallback},
-    {DB_LTTR, DB_LETTER_DICTIONARY_SIZE, db_letter_data},
+    {DB_LTTR, DB_LETTER_DICTIONARY_SIZE, db_letter_data, repeat_key_fallback},
 
     // terminator
     { KC_NO }

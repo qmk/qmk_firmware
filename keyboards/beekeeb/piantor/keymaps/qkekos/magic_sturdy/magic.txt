@@ -53,13 +53,10 @@ alt☆       -> although
 any☆       -> anything
 pos☆       -> position
 cof☆       -> confused
-bel☆       -> believe
-bet☆       -> between
 var☆       -> various
 ser☆       -> serious
 pro☆       -> problem
 key☆       -> keycode
-bec☆       -> become
 bud☆       -> budget
 col☆       -> column
 tho☆       -> though
@@ -233,6 +230,10 @@ unf✪       -> unfortunate
 def✪       -> definitely
 cof✪       -> confusing
 dif✪       -> differen
+
+bel✪       -> believe
+bet✪       -> between
+bec✪       -> become
 
 // Double
 

@@ -7,6 +7,7 @@ enum pr_response sturdy_pr(uint16_t keycode, keyrecord_t *record) {
 
     switch (keycode) {
         case SMT_N:
+        case ALT_T:
             if (record->tap.count != 2) return PR_IGNORE;
 
             if (record->event.pressed) {
@@ -21,6 +22,8 @@ enum pr_response sturdy_pr(uint16_t keycode, keyrecord_t *record) {
         case KC_H:
         case KC_F:
         case KC_Q:
+        case KC_C:
+        case KC_L:
             return process_double_tap(keycode, record, DB_LTTR);
     }
 
