@@ -11,6 +11,7 @@
         "caps_lock": "A4",
         "scroll_lock": "A8"
     },
+    "community_layouts": ["tkl_ansi_tsangan", "tkl_iso_tsangan"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
