@@ -28,6 +28,10 @@ __attribute__((weak)) bool qp_gc9a01_init(painter_device_t device, painter_rotat
         GC9XXX_SET_INTER_REG_ENABLE2,   0,  0,
         0x84,                           0,  1, 0x40,
         GC9A01_SET_FUNCTION_CTL,        0,  3, 0x00, GC9A01_SOURCE_OUTPUT_SCAN_DIRECTION_S360_TO_S1 | GC9A01_GATE_OUTPUT_SCAN_DIRECTION_G1_TO_G32, GC9A01_LCD_DRIVE_LINE_240, // Only works if the previous command is present (undocumented)
+        GC9XXX_SET_GAMMA1,              0,  6, 0x45, 0x09, 0x08, 0x08, 0x26, 0x2A,
+        GC9XXX_SET_GAMMA2,              0,  6, 0x43, 0x70, 0x72, 0x36, 0x37, 0x6F,
+        GC9A01_SET_GAMMA3,              0,  6, 0x45, 0x09, 0x08, 0x08, 0x26, 0x2A,
+        GC9A01_SET_GAMMA4,              0,  6, 0x43, 0x70, 0x72, 0x36, 0x37, 0x6F,
         0x66,                           0, 10, 0x3C, 0x00, 0xCD, 0x67, 0x45, 0x45, 0x10, 0x00, 0x00, 0x00,
         0x67,                           0, 10, 0x00, 0x3C, 0x00, 0x00, 0x00, 0x01, 0x54, 0x10, 0x32, 0x98,
         GC9XXX_CMD_TEARING_ON,          0,  0,
