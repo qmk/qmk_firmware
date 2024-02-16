@@ -47,7 +47,7 @@ PLATFORM:=TEST
 PLATFORM_KEY:=test
 BOOTLOADER_TYPE:=none
 
-ifeq ($(strip $(DEBUG)), 1)
+ifeq ($(shell test $$(($(strip $(DEBUG))+0)) -gt 0; echo $$?), 0)
 CONSOLE_ENABLE = yes
 endif
 
