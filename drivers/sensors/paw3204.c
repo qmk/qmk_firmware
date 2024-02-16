@@ -51,7 +51,7 @@ uint8_t paw3204_read_reg(uint8_t reg_addr);
 void    paw3204_write_reg(uint8_t reg_addr, uint8_t data);
 
 void paw3204_init(void) {
-    gpio_set_pin_output(PAW3204_SCLK_PIN);    // setclockpin to output
+    gpio_set_pin_output(PAW3204_SCLK_PIN);     // setclockpin to output
     gpio_set_pin_input_high(PAW3204_SDIO_PIN); // set datapin input high
 
     paw3204_write_reg(REG_SETUP, 0x86); // reset sensor and set 1600cpi
