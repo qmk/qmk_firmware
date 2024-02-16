@@ -66,6 +66,7 @@ class Length(FilterFunction):
         _kb, _km, info = target_info
         return (self.key in info and len(info[self.key]) == int(self.value))
 
+
 class Contains(FilterFunction):
     func_name = "contains"
 
@@ -89,6 +90,7 @@ def _get_filter_class(func_name: str, key: str, value: str) -> Optional[FilterFu
 def filter_help() -> str:
     names = [f"'{f.func_name}'" for f in FilterFunction.__subclasses__()]
     return ", ".join(names[:-1]) + f" and {names[-1]}"
+
 
 def _set_log_level(level):
     cli.acquire_lock()
