@@ -23,6 +23,7 @@ const char* to_upper_case(const char *str);
 uint16_t char_to_keycode(char symbol);
 bool is_uppercase_letter(char symbol);
 bool is_lowercase_letter(char symbol);
+char keycode_to_char(uint16_t code);
 bool is_alpha_layer_on(void);
 
 #define execute_without_mods(x) \

@@ -54,5 +54,14 @@ uint16_t char_to_keycode(char symbol) {
     return pgm_read_byte(&ascii_to_keycode_lut[(uint8_t)symbol]);
 }
 
+char keycode_to_char(uint16_t code) {
+	switch (code) {
+        case KC_SPACE: return ':';
+        case KC_QUOTE: return '\'';
+	}
+
+	return code - KC_A + 'a';
+}
+
 bool is_uppercase_letter(char symbol) { return 'A' <= symbol && symbol <= 'Z'; }
 bool is_lowercase_letter(char symbol) { return 'a' <= symbol && symbol <= 'z'; }

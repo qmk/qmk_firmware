@@ -3,8 +3,15 @@
 
 uint8_t key_buffer[MAX_CONTEXT_LENGTH] = { KC_SPC };
 char string_buffer[MAX_CONTEXT_LENGTH] = { "\0" };
-
 uint8_t key_buffer_size = 1;
+
+void record_longest_match(trie_visitor_t *v, int bspaces, const char *completion) {
+    uint8_t completion_len = strlen(completion);
+    if (completion_len < v->max_completion_len) return;
+
+    v->max_completion = (char*)completion;
+    v->bspace_count = bspaces;
+}
 
 /**
  * @brief Add keycode to our key buffer.
@@ -42,6 +49,83 @@ uint16_t get_buffer_element(int index) {
 
     if (index >= MAX_CONTEXT_LENGTH || index < 0) return KC_NO;
     return key_buffer[index];
+}
+
+void stack_push(stack_t *s, char c) {
+	if (s->size < MAX_CONTEXT_LENGTH)
+		s->buffer[s->size++] = c;
+}
+
+void stack_pop(stack_t *s) {
+	if (s->size > 0)
+		s->size--;
+}
+
+void stack_print(stack_t *s) {
+	for (int i = s->size - 1; i >= 0; --i)
+		uprintf("%c", s->buffer[i]);
+}
+
+void stack_dump(stack_t *stack, char *str) {
+	for (int i = stack->size - 1; i >= 0; i -= 1)
+        str[stack->size - 1 - i] = stack->buffer[i];
+
+	str[stack->size] = '\0';
+}
+
+void search_trie(const uint8_t *trie, int offset, trie_visitor_t *v) {
+	uint8_t code = trie[offset];
+	assert(code);
+	// MATCH node
+	if (code & 128) {
+		const int bspaces = (code & 63);
+		const char *completion = (const char *)(trie + offset + 1);
+		v->cb_func(v, bspaces, completion);		
+		// Traverse down child node if this isn't the only match
+		if (code & 64) {
+			for (offset += 2; trie[offset]; offset++);
+			search_trie(trie, offset+1, v);
+		}
+	}
+	// BRANCH node
+	else if (code & 64) {
+		if ((v->stack.size+1) > key_buffer_size) return;
+
+		code &= 63;
+		uint8_t cur_keycode = key_buffer[key_buffer_size - (v->stack.size+1)];
+
+		// find child that matches our current buffer location
+		for (; code; offset += 3, code = trie[offset]) {
+			if (cur_keycode == code) {
+			    const char c = keycode_to_char(code);
+				// 16bit offset to child node is built from next 2 bytes
+				const int child_offset = trie[offset + 1] | (trie[offset + 2] << 8);
+				// Traverse down child node
+				stack_push(&v->stack, c);
+				search_trie(trie, child_offset, v);
+				stack_pop(&v->stack);
+				return;
+			}
+		}
+	}
+	// Chain node
+	else {
+		// Travel down chain until we reach a zero byte, or we no longer match our buffer
+		const int prev_stack_size = v->stack.size;
+		for (; code; code = trie[++offset]) {
+			const char c = keycode_to_char(code);
+			stack_push(&v->stack, c);
+			if (v->stack.size > key_buffer_size ||
+				code != key_buffer[key_buffer_size - v->stack.size]
+				) {
+				v->stack.size = prev_stack_size;
+				return;
+			}
+		}
+		// After a chain, there should be a leaf or branch
+		search_trie(trie, offset+1, v);
+		v->stack.size = prev_stack_size;
+	}
 }
 
 /**
@@ -142,106 +226,25 @@ bool process_check(uint16_t *keycode, keyrecord_t *record, uint8_t *key_buffer_s
 }
 
 /**
- * @brief Find longest chain in trie matching our current key_buffer.
- *
- * @param trie   trie_t struct containing trie data/size
- * @param res    result containing current best
- * @param offset current offset in trie data
- * @param depth  current depth in trie
- */
-void find_longest_chain(trie_t *trie, trie_search_result_t *res, int offset, int depth) {
-    // Sanity checks
-    if (offset >= trie->data_size) {
-        uprintf("find_longest_chain() Error: tried reading outside trie data! Offset: %d", offset);
-        res->depth = 0;
-
-        return;
-    }
-
-    uint8_t code = TDATA(offset);
-
-    if (!code) {
-        uprintf("find_longest_chain() Error: unexpected null code! Offset: %d", offset);
-        res->depth = 0;
-
-        return;
-    }
-
-	// Match Node
-	if (code & 128) {
-		depth--;
-        // Record result if depth better than current best
-        if (depth > res->depth) {
-            res->depth = depth;
-            res->completion_offset = offset + 1;
-            res->num_backspaces = (code & 63);
-        }
-
-		// Traverse down child node if this isn't the only match
-        if (code & 64) {
-            // Next node is after completion string
-		    for (offset += 2; TDATA(offset); offset++);
-		    find_longest_chain(trie, res, offset+1, depth+1);
-        }
-	} else if (code & 64) {  // Branch Node (with multiple children)
-	    if (depth > key_buffer_size) return;
-
-		code &= 63;
-        // Find child that matches our current buffer location
-        const uint8_t cur_key = key_buffer[key_buffer_size - depth];
-		for (; code && code != cur_key; offset += 3, code = TDATA(offset));
-
-        if (code) {
-			// 16bit offset to child node is built from next 2 bytes
-			const int child_offset = TDATA(offset+1) | (TDATA(offset+2) << 8);
-			// Traverse down child node
-			find_longest_chain(trie, res, child_offset, depth+1);
-		}
-	} else {  // Chain node
-		// Travel down chain until we reach a zero byte, or we no longer match our buffer
-		for (; code; depth++, code = TDATA(++offset)) {
-			if (depth > key_buffer_size || code != key_buffer[key_buffer_size - depth])
-				return;
-		}
-		// After a chain, there should be a leaf or branch
-		find_longest_chain(trie, res, offset+1, depth);
-	}
-}
-
-/**
  * @brief Handles magic/repeat key press
  *
  * @param keycode Keycode registered by matrix press, per keymap
  */
 void process_trie(trie_t trie) {
     if (!key_buffer_size) return;
-
-    // Look for chain matching our buffer in the trie.
-    trie_search_result_t res  = {0, 0, 0};
-    find_longest_chain(&trie, &res, 0, 1);
+    
+    trie_visitor_t search_visitor = { record_longest_match };
+    search_trie(trie.data, 0, &search_visitor);
 
     // If we found one, apply completion
-    if (!res.depth) {
+    if (!search_visitor.max_completion) {
         if (trie.fallback) trie.fallback();
         return;
     }
 
     // Send backspaces and dequeue buffer
-    multi_tap(KC_BSPC, res.num_backspaces);
-    dequeue_keycodes(res.num_backspaces);
+    multi_tap(KC_BSPC, search_visitor.bspace_count);
+    dequeue_keycodes(search_visitor.bspace_count);
 
-    // Add completion string to key buffer
-    char c = pgm_read_byte(trie.data + res.completion_offset);
-
-    int i = res.completion_offset;
-
-    for (; c; c = pgm_read_byte(trie.data + ++i)) {
-        int caspword_offset = ('A' - 'a') * is_caps_word_on() * is_lowercase_letter(c);
-
-        enqueue_keycode(char_to_keycode(c));
-        string_buffer[i - res.completion_offset] = c + caspword_offset;
-    }
-
-    string_buffer[i - res.completion_offset] = '\0';
-    SEND_STRING(string_buffer);
+    record_send_string(search_visitor.max_completion);
 }
