@@ -217,12 +217,13 @@ Also see the `POINTING_DEVICE_TASK_THROTTLE_MS`, which defaults to 10ms when usi
 
 #### Absolute mode settings
 
-| Setting                          | Description                                                | Default            |
-| -------------------------------- | ---------------------------------------------------------- | ------------------ |
-| `CIRQUE_PINNACLE_X_LOWER`        | (Optional) The minimum reachable X value on the sensor.    | `127`              |
-| `CIRQUE_PINNACLE_X_UPPER`        | (Optional) The maximum reachable X value on the sensor.    | `1919`             |
-| `CIRQUE_PINNACLE_Y_LOWER`        | (Optional) The minimum reachable Y value on the sensor.    | `63`               |
-| `CIRQUE_PINNACLE_Y_UPPER`        | (Optional) The maximum reachable Y value on the sensor.    | `1471`             |
+| Setting                                 | Description                                                             | Default     |
+|-----------------------------------------|-------------------------------------------------------------------------|-------------|
+| `CIRQUE_PINNACLE_X_LOWER`               | (Optional) The minimum reachable X value on the sensor.                 | `127`       |
+| `CIRQUE_PINNACLE_X_UPPER`               | (Optional) The maximum reachable X value on the sensor.                 | `1919`      |
+| `CIRQUE_PINNACLE_Y_LOWER`               | (Optional) The minimum reachable Y value on the sensor.                 | `63`        |
+| `CIRQUE_PINNACLE_Y_UPPER`               | (Optional) The maximum reachable Y value on the sensor.                 | `1471`      |
+| `CIRQUE_PINNACLE_REACHABLE_CALIBRATION` | (Optional) Enable console messages to aide in calibrating above values. | not defined |
 
 #### Absolute mode gestures
 
