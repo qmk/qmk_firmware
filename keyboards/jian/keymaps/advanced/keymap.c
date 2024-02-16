@@ -11,7 +11,6 @@ typedef union {
 user_config_t user_config;
 
 #ifdef STENO_ENABLE
-#include "keymap_steno.h"
 #endif // STENO_ENABLE
 
 

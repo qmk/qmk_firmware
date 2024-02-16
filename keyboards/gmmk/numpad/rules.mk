@@ -18,5 +18,6 @@ RGB_MATRIX_ENABLE = yes
 
 LTO_ENABLE = yes
 
-SRC += 	analog.c \
-		matrix.c
+ANALOG_DRIVER_REQUIRED = yes
+
+SRC += matrix.c

@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGB_MATRIX_ENABLE
 #    include "is31fl3733-dual.h"
 
-const is31fl3733_led_t PROGMEM g_is31fl3733_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT] = {
     { 0, B_1,  A_1,  C_1  },
     { 0, B_2,  A_2,  C_2  },
     { 0, B_3,  A_3,  C_3  },
@@ -200,14 +200,6 @@ led_config_t g_led_config = {
         2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,
     }
 };
-
-void keyboard_pre_init_kb(void) {
-    // Turn on LED controller
-    setPinOutput(B16);
-    writePinHigh(B16);
-
-    keyboard_pre_init_user();
-}
 
 void matrix_init_kb(void) {
     // put your keyboard start-up code here

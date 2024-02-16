@@ -40,7 +40,6 @@ Add the following to your `config.h`:
 |`BACKLIGHT_DEFAULT_ON`       |`true`            |Enable backlight upon clearing the EEPROM                                                                        |
 |`BACKLIGHT_DEFAULT_BREATHING`|`false`           |Whether to enable backlight breathing upon clearing the EEPROM                                                   |
 |`BACKLIGHT_DEFAULT_LEVEL`    |`BACKLIGHT_LEVELS`|The default backlight level to use upon clearing the EEPROM                                                      |
-|`BACKLIGHT_PWM_PERIOD`       |2048Hz            |Defaults to `BACKLIGHT_PWM_COUNTER_FREQUENCY / 2048`, which results in a PWM frequency of 2048Hz.                |
 
 Unless you are designing your own keyboard, you generally should not need to change the `BACKLIGHT_PIN` or `BACKLIGHT_ON_STATE`.
 
@@ -174,11 +173,13 @@ Depending on the ChibiOS board configuration, you may need to enable PWM at the 
 
 The following `#define`s apply only to the `pwm` driver:
 
-|Define                 |Default |Description                        |
-|-----------------------|--------|-----------------------------------|
-|`BACKLIGHT_PWM_DRIVER` |`PWMD4` |The PWM driver to use              |
-|`BACKLIGHT_PWM_CHANNEL`|`3`     |The PWM channel to use             |
-|`BACKLIGHT_PAL_MODE`   |`2`     |The pin alternative function to use|
+|Define                 |Default      |Description                                                    |
+|-----------------------|-------------|---------------------------------------------------------------|
+|`BACKLIGHT_PWM_DRIVER` |`PWMD4`      |The PWM driver to use                                          |
+|`BACKLIGHT_PWM_CHANNEL`|`3`          |The PWM channel to use                                         |
+|`BACKLIGHT_PAL_MODE`   |`2`          |The pin alternative function to use                            |
+|`BACKLIGHT_PWM_PERIOD` |*Not defined*|The PWM period in counter ticks - Default is platform dependent|
+
 
 Refer to the ST datasheet for your particular MCU to determine these values. For example, these defaults are set up for pin `B8` on a Proton-C (STM32F303) using `TIM4_CH3` on AF2. Unless you are designing your own keyboard, you generally should not need to change them.
 

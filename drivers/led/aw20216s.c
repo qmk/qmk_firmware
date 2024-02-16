@@ -19,38 +19,15 @@
 #include "wait.h"
 #include "spi_master.h"
 
-/* The AW20216S appears to be somewhat similar to the IS31FL743, although quite
- * a few things are different, such as the command byte format and page ordering.
- * The LED addresses start from 0x00 instead of 0x01.
- */
-#define AW20216S_ID 0b1010 << 4
-
-#define AW20216S_PAGE_FUNCTION 0x00 << 1   // PG0, Function registers
-#define AW20216S_PAGE_PWM 0x01 << 1        // PG1, LED PWM control
-#define AW20216S_PAGE_SCALING 0x02 << 1    // PG2, LED current scaling control
-#define AW20216S_PAGE_PATCHOICE 0x03 << 1  // PG3, Pattern choice?
-#define AW20216S_PAGE_PWMSCALING 0x04 << 1 // PG4, LED PWM + Scaling control?
-
-#define AW20216S_WRITE 0
-#define AW20216S_READ 1
-
-#define AW20216S_REG_CONFIGURATION 0x00 // PG0
-#define AW20216S_REG_GLOBALCURRENT 0x01 // PG0
-#define AW20216S_REG_RESET 0x2F         // PG0
-#define AW20216S_REG_MIXFUNCTION 0x46   // PG0
-
-// Default value of AW20216S_REG_CONFIGURATION
-// D7:D4 = 1011, SWSEL (SW1~SW12 active)
-// D3 = 0?, reserved (apparently this should be 1 but it doesn't seem to matter)
-// D2:D1 = 00, OSDE (open/short detection enable)
-// D0 = 0, CHIPEN (write 1 to enable LEDs when hardware enable pulled high)
-#define AW20216S_CONFIG_DEFAULT 0b10110000
-#define AW20216S_MIXCR_DEFAULT 0b00000000
-#define AW20216S_RESET_CMD 0xAE
-#define AW20216S_CHIPEN 1
-#define AW20216S_LPEN (0x01 << 1)
-
 #define AW20216S_PWM_REGISTER_COUNT 216
+
+#ifndef AW20216S_CONFIGURATION
+#    define AW20216S_CONFIGURATION (AW20216S_CONFIGURATION_SWSEL_1_12 | AW20216S_CONFIGURATION_CHIPEN)
+#endif
+
+#ifndef AW20216S_MIX_FUNCTION
+#    define AW20216S_MIX_FUNCTION (AW20216S_MIX_FUNCTION_LPEN)
+#endif
 
 #ifndef AW20216S_SCALING_MAX
 #    define AW20216S_SCALING_MAX 150
@@ -68,8 +45,15 @@
 #    define AW20216S_SPI_DIVISOR 4
 #endif
 
-uint8_t g_pwm_buffer[AW20216S_DRIVER_COUNT][AW20216S_PWM_REGISTER_COUNT];
-bool    g_pwm_buffer_update_required[AW20216S_DRIVER_COUNT] = {false};
+typedef struct aw20216s_driver_t {
+    uint8_t pwm_buffer[AW20216S_PWM_REGISTER_COUNT];
+    bool    pwm_buffer_dirty;
+} PACKED aw20216s_driver_t;
+
+aw20216s_driver_t driver_buffers[AW20216S_DRIVER_COUNT] = {{
+    .pwm_buffer       = {0},
+    .pwm_buffer_dirty = false,
+}};
 
 bool aw20216s_write(pin_t cs_pin, uint8_t page, uint8_t reg, uint8_t* data, uint8_t len) {
     static uint8_t s_spi_transfer_buffer[2] = {0};
@@ -102,7 +86,7 @@ static inline bool aw20216s_write_register(pin_t cs_pin, uint8_t page, uint8_t r
 }
 
 void aw20216s_soft_reset(pin_t cs_pin) {
-    aw20216s_write_register(cs_pin, AW20216S_PAGE_FUNCTION, AW20216S_REG_RESET, AW20216S_RESET_CMD);
+    aw20216s_write_register(cs_pin, AW20216S_PAGE_FUNCTION, AW20216S_FUNCTION_REG_RESET, AW20216S_RESET_MAGIC);
 }
 
 static void aw20216s_init_scaling(pin_t cs_pin) {
@@ -114,22 +98,33 @@ static void aw20216s_init_scaling(pin_t cs_pin) {
 
 static inline void aw20216s_init_current_limit(pin_t cs_pin) {
     // Push config
-    aw20216s_write_register(cs_pin, AW20216S_PAGE_FUNCTION, AW20216S_REG_GLOBALCURRENT, AW20216S_GLOBAL_CURRENT_MAX);
+    aw20216s_write_register(cs_pin, AW20216S_PAGE_FUNCTION, AW20216S_FUNCTION_REG_GLOBAL_CURRENT, AW20216S_GLOBAL_CURRENT_MAX);
 }
 
 static inline void aw20216s_soft_enable(pin_t cs_pin) {
     // Push config
-    aw20216s_write_register(cs_pin, AW20216S_PAGE_FUNCTION, AW20216S_REG_CONFIGURATION, AW20216S_CONFIG_DEFAULT | AW20216S_CHIPEN);
+    aw20216s_write_register(cs_pin, AW20216S_PAGE_FUNCTION, AW20216S_FUNCTION_REG_CONFIGURATION, AW20216S_CONFIGURATION);
 }
 
 static inline void aw20216s_auto_lowpower(pin_t cs_pin) {
-    aw20216s_write_register(cs_pin, AW20216S_PAGE_FUNCTION, AW20216S_REG_MIXFUNCTION, AW20216S_MIXCR_DEFAULT | AW20216S_LPEN);
+    aw20216s_write_register(cs_pin, AW20216S_PAGE_FUNCTION, AW20216S_FUNCTION_REG_MIX_FUNCTION, AW20216S_MIX_FUNCTION);
 }
 
-void aw20216s_init(pin_t cs_pin, pin_t en_pin) {
-    setPinOutput(en_pin);
-    writePinHigh(en_pin);
+void aw20216s_init_drivers(void) {
+    spi_init();
 
+#if defined(AW20216S_EN_PIN)
+    setPinOutput(AW20216S_EN_PIN);
+    writePinHigh(AW20216S_EN_PIN);
+#endif
+
+    aw20216s_init(AW20216S_CS_PIN_1);
+#if defined(AW20216S_CS_PIN_2)
+    aw20216s_init(AW20216S_CS_PIN_2);
+#endif
+}
+
+void aw20216s_init(pin_t cs_pin) {
     aw20216s_soft_reset(cs_pin);
     wait_ms(2);
 
@@ -145,24 +140,32 @@ void aw20216s_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     aw20216s_led_t led;
     memcpy_P(&led, (&g_aw20216s_leds[index]), sizeof(led));
 
-    if (g_pwm_buffer[led.driver][led.r] == red && g_pwm_buffer[led.driver][led.g] == green && g_pwm_buffer[led.driver][led.b] == blue) {
+    if (driver_buffers[led.driver].pwm_buffer[led.r] == red && driver_buffers[led.driver].pwm_buffer[led.g] == green && driver_buffers[led.driver].pwm_buffer[led.b] == blue) {
         return;
     }
-    g_pwm_buffer[led.driver][led.r]          = red;
-    g_pwm_buffer[led.driver][led.g]          = green;
-    g_pwm_buffer[led.driver][led.b]          = blue;
-    g_pwm_buffer_update_required[led.driver] = true;
+
+    driver_buffers[led.driver].pwm_buffer[led.r] = red;
+    driver_buffers[led.driver].pwm_buffer[led.g] = green;
+    driver_buffers[led.driver].pwm_buffer[led.b] = blue;
+    driver_buffers[led.driver].pwm_buffer_dirty  = true;
 }
 
 void aw20216s_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
-    for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+    for (uint8_t i = 0; i < AW20216S_LED_COUNT; i++) {
         aw20216s_set_color(i, red, green, blue);
     }
 }
 
 void aw20216s_update_pwm_buffers(pin_t cs_pin, uint8_t index) {
-    if (g_pwm_buffer_update_required[index]) {
-        aw20216s_write(cs_pin, AW20216S_PAGE_PWM, 0, g_pwm_buffer[index], AW20216S_PWM_REGISTER_COUNT);
+    if (driver_buffers[index].pwm_buffer_dirty) {
+        aw20216s_write(cs_pin, AW20216S_PAGE_PWM, 0, driver_buffers[index].pwm_buffer, AW20216S_PWM_REGISTER_COUNT);
+        driver_buffers[index].pwm_buffer_dirty = false;
     }
-    g_pwm_buffer_update_required[index] = false;
+}
+
+void aw20216s_flush(void) {
+    aw20216s_update_pwm_buffers(AW20216S_CS_PIN_1, 0);
+#if defined(AW20216S_CS_PIN_2)
+    aw20216s_update_pwm_buffers(AW20216S_CS_PIN_2, 1);
+#endif
 }

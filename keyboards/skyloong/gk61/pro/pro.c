@@ -6,7 +6,7 @@ int FN_MAC = 0;
 int L_WIN = 0;
 int L_MAC = 0;
 
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3743a_led_t PROGMEM g_is31fl3743a_leds[IS31FL3743A_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -213,14 +213,14 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 
 void suspend_power_down_kb() {
 #    ifdef RGB_MATRIX_ENABLE
-    writePinLow(SDB);
+    writePinLow(IS31FL3743A_SDB_PIN);
 #    endif
      suspend_power_down_user();
 }
 
 void suspend_wakeup_init_kb() {
 #    ifdef RGB_MATRIX_ENABLE
-    writePinHigh(SDB);
+    writePinHigh(IS31FL3743A_SDB_PIN);
 #    endif
      suspend_wakeup_init_user();
 }
@@ -228,8 +228,4 @@ void suspend_wakeup_init_kb() {
 void board_init(void) {
     // JTAG-DP Disabled and SW-DP Disabled
     AFIO->MAPR = (AFIO->MAPR & ~AFIO_MAPR_SWJ_CFG_Msk) | AFIO_MAPR_SWJ_CFG_DISABLE;
-#    ifdef RGB_MATRIX_ENABLE
-    setPinOutput(SDB);
-    writePinHigh(SDB);
-#   endif
 }

@@ -17,6 +17,7 @@
     "BOOTLOADER": {"info_key": "bootloader", "warn_duplicate": false},
     "BOOTMAGIC_ENABLE": {"info_key": "bootmagic.enabled", "value_type": "bool"},
     "CAPS_WORD_ENABLE": {"info_key": "caps_word.enabled", "value_type": "bool"},
+    "DIP_SWITCH_ENABLE": {"info_key": "dip_switch.enabled", "value_type": "bool"},
     "DEBOUNCE_TYPE": {"info_key": "build.debounce_type"},
     "EEPROM_DRIVER": {"info_key": "eeprom.driver"},
     "ENCODER_ENABLE": {"info_key": "encoder.enabled", "value_type": "bool"},

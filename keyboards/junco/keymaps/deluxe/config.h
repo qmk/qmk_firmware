@@ -39,7 +39,7 @@
 #    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_RAINBOW_MOVING_CHEVRON
 
 // Turns off RGB effects when there is no longer a USB connection
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED
+#    define RGB_MATRIX_SLEEP
 
 // Throttling of RGB to increase keyboard responsiveness, set to 1.5x the default limits
 #    define RGB_MATRIX_LED_PROCESS_LIMIT (RGB_MATRIX_LED_COUNT + 4) / 6 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)

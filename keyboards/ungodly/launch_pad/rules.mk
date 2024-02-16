@@ -19,4 +19,4 @@ MAGIC_ENABLE = no
 GRAVE_ESC_ENABLE = no
 LTO_ENABLE = yes
 
-SRC += analog.c
+ANALOG_DRIVER_REQUIRED = yes

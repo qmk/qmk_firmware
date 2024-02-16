@@ -17,8 +17,4 @@
 #pragma once
 
 /* RGB Matrix Driver Configuration */
-#define SNLED27351_DRIVER_COUNT 1
 #define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_GND
-
-/* RGB Matrix Configuration */
-#define RGB_MATRIX_LED_COUNT 61

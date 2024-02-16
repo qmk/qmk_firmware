@@ -4,7 +4,7 @@
 #    include "host.h"
 #    include "rgb_matrix.h"
 
-const is31fl3733_led_t PROGMEM g_is31fl3733_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT] = {
      { 0, K_1,  J_1,  L_1  },// LED1
      { 0, K_2,  J_2,  L_2  },
      { 0, K_3,  J_3,  L_3  },
