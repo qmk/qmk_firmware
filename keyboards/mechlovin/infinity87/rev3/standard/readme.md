@@ -1,6 +1,6 @@
 # infinity87
 
-![infinity87](https://i.imgur.com/QuK1EnNl.png)
+![infinity87/rev3/standard](https://i.imgur.com/QuK1EnNh.png)
 
 A replacement PCB for TKL keyboard. A87 form factor,south-facing stabilisers.  
 
