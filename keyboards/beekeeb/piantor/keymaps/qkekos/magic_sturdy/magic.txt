@@ -168,6 +168,8 @@ how✵       -> however
 wit✵       -> without
 any✵       -> anyway
 cou✵       -> course
+nat✵       -> nation
+tio✵       -> tional
 
 // Double
 
