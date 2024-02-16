@@ -815,15 +815,12 @@ ifeq ($(strip $(JOYSTICK_ENABLE)), yes)
         $(call CATASTROPHIC_ERROR,Invalid JOYSTICK_DRIVER,JOYSTICK_DRIVER="$(JOYSTICK_DRIVER)" is not a valid joystick driver)
     endif
     OPT_DEFS += -DJOYSTICK_ENABLE
+    OPT_DEFS += -DJOYSTICK_$(strip $(shell echo $(JOYSTICK_DRIVER) | tr '[:lower:]' '[:upper:]'))
     SRC += $(QUANTUM_DIR)/process_keycode/process_joystick.c
     SRC += $(QUANTUM_DIR)/joystick.c
 
     ifeq ($(strip $(JOYSTICK_DRIVER)), analog)
         ANALOG_DRIVER_REQUIRED = yes
-        OPT_DEFS += -DANALOG_JOYSTICK_ENABLE
-    endif
-    ifeq ($(strip $(JOYSTICK_DRIVER)), digital)
-        OPT_DEFS += -DDIGITAL_JOYSTICK_ENABLE
     endif
 endif
 
