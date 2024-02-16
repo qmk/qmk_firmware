@@ -137,75 +137,75 @@ x☆         -> xt
 
 // A lot
 
-shouldᐅ    -> shouldn't
+should✵    -> shouldn't
 
 // Quadruple
 
-→stiᐅ      -> still
+→sti✵      -> still
 
-someᐅ      -> something
-implᐅ      -> implement
-possᐅ      -> possible
-handᐅ      -> handy
+some✵      -> something
+impl✵      -> implement
+poss✵      -> possible
+hand✵      -> handy
 
 // Triple
 
-→viᐅ       -> vision
-→abᐅ       -> about
+→vi✵       -> vision
+→ab✵       -> about
 
-impᐅ       -> impossible
-uniᐅ       -> university
-difᐅ       -> difficult
-incᐅ       -> increase
-intᐅ       -> interest
-insᐅ       -> instead
-defᐅ       -> default
-devᐅ       -> develop
-awkᐅ       -> awkward
-capᐅ       -> capable
-proᐅ       -> program
-howᐅ       -> however
-witᐅ       -> without
-anyᐅ       -> anyway
-couᐅ       -> course
+imp✵       -> impossible
+uni✵       -> university
+dif✵       -> difficult
+inc✵       -> increase
+int✵       -> interest
+ins✵       -> instead
+def✵       -> default
+dev✵       -> develop
+awk✵       -> awkward
+cap✵       -> capable
+pro✵       -> program
+how✵       -> however
+wit✵       -> without
+any✵       -> anyway
+cou✵       -> course
 
 // Double
 
-→bᐅ        -> because
-→tᐅ        -> than
-→iᐅ        -> ii
+→b✵        -> because
+→t✵        -> than
+→i✵        -> ii
 
-fuᐅ        -> function
-htᐅ        -> https://
-scᐅ        -> school
-syᐅ        -> symbol
-muᐅ        -> music
-baᐅ        -> basic
-exᐅ        -> exact
-frᐅ        -> from
-maᐅ        -> make
-laᐅ        -> last
+fu✵        -> function
+ht✵        -> https://
+sc✵        -> school
+sy✵        -> symbol
+mu✵        -> music
+ba✵        -> basic
+ex✵        -> exact
+fr✵        -> from
+ma✵        -> make
+la✵        -> last
 
 // Single
 
-.ᐅ         -> .com
-→ᐅ         -> for
+.✵         -> .com
+→✵         -> for
 
-wᐅ         -> would
-jᐅ         -> join
-xᐅ         -> xes
-iᐅ         -> ing
-yᐅ         -> you
-qᐅ         -> qui
-vᐅ         -> ver
+w✵         -> would
+j✵         -> join
+x✵         -> xes
+i✵         -> ing
+y✵         -> you
+q✵         -> qui
+v✵         -> ver
 
 // Double taps
 
-implᐅᐅ     -> implementation
-fuᐅᐅ       -> functionality
-devᐅᐅ      -> development
-baᐅᐅ       -> basically
-exᐅᐅ       -> exactly
+impl✵✵     -> implementation
+fu✵✵       -> functionality
+dev✵✵      -> development
+ba✵✵       -> basically
+ex✵✵       -> exactly
 
 // Double letter taps
 

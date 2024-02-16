@@ -22,7 +22,7 @@ void pontential_match_found(uint16_t magic_key, char *context, char *completion)
 }
 
 /**
- * @brief Process handler for context_magic feature.
+ * @brief Process handler for context_magic feature. 
  *
  * @param keycode Keycode registered by matrix press, per keymap
  * @param record keyrecord_t structure

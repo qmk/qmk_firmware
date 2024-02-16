@@ -36,7 +36,7 @@ import re
 
 SEPARATORS = {
     "☆": "magic",
-    "ᐅ": "repeat",
+    "✵": "repeat",
     "★": "db_magic",
     "✪": "db_letter",
 }
