@@ -8,6 +8,11 @@ static const uint16_t trie_symbols[] = {55};
 // --------------------------------------------------
 
 // Magic dictionary (94 entries):
+//   oc       -> ock
+//   uc       -> uck
+//   ac       -> ack
+//   ic       -> ick
+//   ec       -> eck
 //   democrac -> democracy
 //   supremac -> supremacy
 //   accurac  -> accuracy
@@ -70,15 +75,10 @@ static const uint16_t trie_symbols[] = {55};
 //   pl       -> ply
 //   mp       -> mpl
 //   ma       -> mao
-//   oc       -> ock
 //   we       -> web
 //   wa       -> way
-//   uc       -> uck
 //   cy       -> cyc
-//   ac       -> ack
 //   da       -> day
-//   ic       -> ick
-//   ec       -> eck
 //   →        -> the
 //   t        -> tment
 //   w        -> which

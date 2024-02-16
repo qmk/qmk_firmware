@@ -1,6 +1,8 @@
 
 // Magic
 
+[ouaie]c☆  -> \1ck
+
 // Double taps
 
 →alr★      -> already
@@ -99,15 +101,10 @@ be☆        -> been
 pl☆        -> ply
 mp☆        -> mpl
 ma☆        -> mao
-oc☆        -> ock
 we☆        -> web
 wa☆        -> way
-uc☆        -> uck
 cy☆        -> cyc
-ac☆        -> ack
 da☆        -> day
-ic☆        -> ick
-ec☆        -> eck
 
 // Single
 

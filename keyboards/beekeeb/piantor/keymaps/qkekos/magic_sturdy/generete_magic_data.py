@@ -184,21 +184,30 @@ def to_hex(b: int) -> str:
     return f'0x{b:02X}'
 
 
+def regex_handle(
+    tokens: tokens_dict, sep: str,
+    context: str, complement: str
+) -> bool:
+    try:
+        reget_context = re.findall("\[([a-z]+)\]", context)[0]
+    except IndexError:
+        return False
+
+    for letter in reget_context:
+        register_token(
+            tokens, sep,
+            context.replace(f"[{reget_context}]", letter),
+            complement.replace(f"\\1", letter)
+        )
+
+    return True
+
+
 def register_token(
     tokens: tokens_dict, sep: str,
     context: str, complement: str
 ) -> None:
-    regex_part = re.findall("\[([a-z]+)\]", context)
-
-    if regex_part:
-        regex_part = regex_part[0]
-
-        for letter in regex_part:
-            register_token(
-                tokens, sep,
-                context.replace(f"[{regex_part}]", letter), complement
-            )
-
+    if regex_handle(tokens, sep, context, complement):
         return
 
     difference = set(context).difference(
