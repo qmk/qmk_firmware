@@ -39,7 +39,7 @@
             "static_gradient": true,
             "twinkle": true
         }
-    }
+    },
     "matrix_pins": {
         "cols": ["A1" , "A2" , "A4" , "C9" , "A8" , "A10", "B8" , "A15", "C10", "C11", "B5" , "B4", "B3" , "D2" , "C12" ],
         "rows": ["C15", "A7" , "C4" , "C5" , "C8" , "C3" , "C1" , "C0" , "C2" , "C14" , "A0" ]

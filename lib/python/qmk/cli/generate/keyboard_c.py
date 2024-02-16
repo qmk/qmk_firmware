@@ -64,12 +64,15 @@ def _gen_matrix_mask(info_data):
     rows = info_data['matrix_size']['rows']
 
     # Default mask to everything disabled
-    mask = [['0'] * cols for i in range(rows)]
+    mask = [['0'] * cols for _ in range(rows)]
 
     # Mirror layout macros squashed on top of each other
-    for layout_data in info_data['layouts'].values():
+    for layout_name, layout_data in info_data['layouts'].items():
         for key_data in layout_data['layout']:
             row, col = key_data['matrix']
+            if row >= rows or col >= cols:
+                cli.log.error(f'Skipping matrix_mask due to {layout_name} containing invalid matrix values')
+                return []
             mask[row][col] = '1'
 
     lines = []
