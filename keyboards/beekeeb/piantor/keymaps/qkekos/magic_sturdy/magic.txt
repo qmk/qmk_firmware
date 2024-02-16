@@ -239,6 +239,7 @@ dif✪       -> differen
 th✪        -> through
 ob✪        -> obvious
 sh✪        -> should
+af✪        -> after
 
 // Single
 
