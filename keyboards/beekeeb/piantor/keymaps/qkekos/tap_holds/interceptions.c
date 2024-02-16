@@ -14,6 +14,7 @@ enum pr_response interceptions_pr(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LT_I:
             if (record->event.pressed && record->tap.count == 2 && queue(-3) != KC_V) {
+                dequeue_keycode();
                 tap_code16(KC_BSPC);
                 add_weak_mods(MOD_BIT(KC_LSFT));
             }
