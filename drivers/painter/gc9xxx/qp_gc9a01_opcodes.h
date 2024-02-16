@@ -10,9 +10,9 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Level 1 command opcodes
 
-#define GC9A01_SET_MEM_CONT 0x3C      // Set memory continue
-#define GC9A01_SET_BRIGHTNESS 0x51    // Set brightness
-#define GC9A01_SET_DISPLAY_CTL 0x53   // Set display ctl
+#define GC9A01_SET_MEM_CONT 0x3C    // Set memory continue
+#define GC9A01_SET_BRIGHTNESS 0x51  // Set brightness
+#define GC9A01_SET_DISPLAY_CTL 0x53 // Set display ctl
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Level 2 command opcodes
@@ -26,15 +26,15 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Level 3 command opcodes
 
-#define GC9A01_SET_POWER_CTL_7 0xA7       // Set power ctl 7
+#define GC9A01_SET_POWER_CTL_7 0xA7 // Set power ctl 7
 
-#define GC9A01_SET_POWER_CTL_1 0xC1       // Set power ctl 1
-#define GC9A01_SET_POWER_CTL_2 0xC3       // Set power ctl 2
-#define GC9A01_SET_POWER_CTL_3 0xC4       // Set power ctl 3
-#define GC9A01_SET_POWER_CTL_4 0xC9       // Set power ctl 4
+#define GC9A01_SET_POWER_CTL_1 0xC1 // Set power ctl 1
+#define GC9A01_SET_POWER_CTL_2 0xC3 // Set power ctl 2
+#define GC9A01_SET_POWER_CTL_3 0xC4 // Set power ctl 3
+#define GC9A01_SET_POWER_CTL_4 0xC9 // Set power ctl 4
 
-#define GC9A01_SET_FRAME_RATE 0xE8        // Set frame rate
-#define GC9A01_SET_SPI_2DATA 0xE9         // Set frame rate
+#define GC9A01_SET_FRAME_RATE 0xE8 // Set frame rate
+#define GC9A01_SET_SPI_2DATA 0xE9  // Set frame rate
 
 #define GC9A01_SET_GAMMA3 0xF2
 #define GC9A01_SET_GAMMA4 0xF3
@@ -80,7 +80,3 @@
 #define GC9A01_LCD_DRIVE_LINE_224 0x1B
 #define GC9A01_LCD_DRIVE_LINE_232 0x1C
 #define GC9A01_LCD_DRIVE_LINE_240 0x1D
-
-
-
-
