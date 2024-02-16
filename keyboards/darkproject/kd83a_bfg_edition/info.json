@@ -177,7 +177,11 @@
         "vid": "0x342D"
     },
     "eeprom": {
-        "driver": "wear_leveling"
+        "driver": "wear_leveling",
+        "wear_leveling": {
+            "driver": "spi_flash",
+            "backing_size": 8192
+        }
     },
     "layouts": {
         "LAYOUT": {
