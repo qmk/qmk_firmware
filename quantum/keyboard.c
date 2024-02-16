@@ -137,6 +137,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef WPM_ENABLE
 #    include "wpm.h"
 #endif
+#ifdef OS_DETECTION_ENABLE
+#    include "os_detection.h"
+#endif
 
 static uint32_t last_input_modification_time = 0;
 uint32_t        last_input_activity_time(void) {
@@ -741,4 +744,8 @@ void keyboard_task(void) {
 #endif
 
     led_task();
+
+#ifdef OS_DETECTION_ENABLE
+    os_detection_task();
+#endif
 }
