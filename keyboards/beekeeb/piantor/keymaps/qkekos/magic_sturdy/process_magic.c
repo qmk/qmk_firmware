@@ -18,7 +18,7 @@ trie_t tries[] = {
 };
 
 void pontential_match_found(uint16_t magic_key, char *context, char *completion) {
-//    uprintf("%s -> %s\n", context, completion);some
+    uprintf("%s -> %s\n", context, completion);
 }
 
 /**
@@ -86,13 +86,12 @@ bool process_context_magic(uint16_t keycode, keyrecord_t *record) {
 
         default:
             // Clear state if some other non-alpha key is pressed.
-            // some some
             clear_buffer();
             return true;
     }
 
     enqueue_keycode(keycode);
-//    check_potential_matches(pontential_match_found);
+    check_potential_matches(pontential_match_found);
 
     return true;
 }
