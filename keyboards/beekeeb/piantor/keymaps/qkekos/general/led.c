@@ -1,10 +1,17 @@
 
 #include "../__init__.h"
 
+deferred_token flick_token = INVALID_DEFERRED_TOKEN;
+int flick_interval = 0;
+
 bool inited = false;
 
 void toggle_left_pin(void) {
     togglePin(GP25);
+}
+
+void disable_left_pin(void) {
+    writePinLow(GP25);
 }
 
 void toggle_right_pin(void) {
@@ -44,4 +51,23 @@ enum pr_response led_pr(uint16_t keycode, keyrecord_t *record) {
     }
 
     return PR_IGNORE;
+}
+
+uint32_t flick_leds_core(uint32_t trigger_time, void *cb_arg) {
+    toggle_left_pin();
+    return flick_interval;
+}
+
+uint32_t stop_flick(uint32_t trigger_time, void *cb_arg) {
+    cancel_deferred_exec(flick_token);
+    disable_left_pin();
+
+    return 0;
+}
+
+void flick_leds(float time_seconds, int interval) {
+    flick_interval = interval;
+    flick_token = defer_exec(1, flick_leds_core, NULL);
+
+    defer_exec(time_seconds * 1000, stop_flick, NULL);
 }
