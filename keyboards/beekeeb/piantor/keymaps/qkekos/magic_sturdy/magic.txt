@@ -211,6 +211,8 @@ exᐅᐅ       -> exactly
 
 // Double letter taps
 
+[oaui]n✪   -> nion
+
 // Quadruple
 
 prob✪      -> probably
@@ -237,6 +239,10 @@ bec✪       -> become
 
 // Double
 
+→b✪        -> before
+→f✪        -> first
+→z✪        -> zone
+
 th✪        -> through
 ob✪        -> obvious
 sh✪        -> should
@@ -244,8 +250,4 @@ af✪        -> after
 
 // Single
 
-b✪         -> before
-f✪         -> first
-n✪         -> nion
-z✪         -> zone
 q✪         -> qua

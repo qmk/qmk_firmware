@@ -32,6 +32,7 @@ import textwrap
 from typing import Any, Dict, Iterator, List, Tuple
 from pathlib import Path
 from string import ascii_letters, digits
+import re
 
 SEPARATORS = {
     "☆": "magic",
@@ -187,6 +188,19 @@ def register_token(
     tokens: tokens_dict, sep: str,
     context: str, complement: str
 ) -> None:
+    regex_part = re.findall("\[([a-z]+)\]", context)
+
+    if regex_part:
+        regex_part = regex_part[0]
+
+        for letter in regex_part:
+            register_token(
+                tokens, sep,
+                context.replace(f"[{regex_part}]", letter), complement
+            )
+
+        return
+
     difference = set(context).difference(
         set(ascii_letters + "".join(SEPARATORS) + "→")
     )
