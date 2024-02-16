@@ -32,8 +32,8 @@ struct trie_visitor {
 };
 
 typedef struct {
-    char    *max_completion;
-    uint8_t max_completion_len;
+    char    *completion;
+    uint8_t max_condext_len;
     uint8_t bspace_count;  
 } search_result_t;
 

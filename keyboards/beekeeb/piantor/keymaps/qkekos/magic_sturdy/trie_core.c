@@ -6,12 +6,12 @@ char string_buffer[MAX_CONTEXT_LENGTH] = { "\0" };
 uint8_t key_buffer_size = 1;
 
 void record_longest_match(trie_visitor_t *v, int bspaces, const char *completion) {
-    uint8_t completion_len = strlen(completion);
+    uint8_t context_len = v->stack.size;
     search_result_t *result = (search_result_t*)(v->cb_data);
 
-    if (completion_len < result->max_completion_len) return;
+    if (context_len < result->max_condext_len) return;
 
-    result->max_completion = (char*)completion;
+    result->completion = (char*)completion;
     result->bspace_count = bspaces;
 }
 
@@ -241,7 +241,7 @@ void process_trie(trie_t trie) {
     search_trie(trie.data, 0, &search_visitor);
 
     // If we found one, apply completion
-    if (!result.max_completion) {
+    if (!result.completion) {
         if (trie.fallback) trie.fallback();
         return;
     }
@@ -250,5 +250,5 @@ void process_trie(trie_t trie) {
     multi_tap(KC_BSPC, result.bspace_count);
     dequeue_keycodes(result.bspace_count);
 
-    record_send_string(result.max_completion);
+    record_send_string(result.completion);
 }
