@@ -29,11 +29,19 @@ struct trie_visitor {
 	trie_visitor_cb_t cb_func;
 	void	          *cb_data;
 	stack_t	          stack;
-	char              *max_completion;
-    char              context_string[MAX_CONTEXT_LENGTH];
-    uint8_t           max_completion_len;
-    uint8_t           bspace_count;
 };
+
+typedef struct {
+    char    *max_completion;
+    uint8_t max_completion_len;
+    uint8_t bspace_count;  
+} search_result_t;
+
+typedef struct {
+    char    *max_completion;
+    char    context_string[MAX_CONTEXT_LENGTH];
+    uint8_t max_completion_len;
+} potential_compl_result_t;
 
 bool process_check(uint16_t*, keyrecord_t*, uint8_t*, uint8_t*);
 void dequeue_keycodes(uint8_t);

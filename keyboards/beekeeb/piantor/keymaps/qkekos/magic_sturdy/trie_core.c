@@ -7,10 +7,12 @@ uint8_t key_buffer_size = 1;
 
 void record_longest_match(trie_visitor_t *v, int bspaces, const char *completion) {
     uint8_t completion_len = strlen(completion);
-    if (completion_len < v->max_completion_len) return;
+    search_result_t *result = (search_result_t*)(v->cb_data);
 
-    v->max_completion = (char*)completion;
-    v->bspace_count = bspaces;
+    if (completion_len < result->max_completion_len) return;
+
+    result->max_completion = (char*)completion;
+    result->bspace_count = bspaces;
 }
 
 /**
@@ -232,19 +234,21 @@ bool process_check(uint16_t *keycode, keyrecord_t *record, uint8_t *key_buffer_s
  */
 void process_trie(trie_t trie) {
     if (!key_buffer_size) return;
-    
-    trie_visitor_t search_visitor = { record_longest_match };
+
+    search_result_t result = {};
+    trie_visitor_t search_visitor = { record_longest_match, &result };
+
     search_trie(trie.data, 0, &search_visitor);
 
     // If we found one, apply completion
-    if (!search_visitor.max_completion) {
+    if (!result.max_completion) {
         if (trie.fallback) trie.fallback();
         return;
     }
 
     // Send backspaces and dequeue buffer
-    multi_tap(KC_BSPC, search_visitor.bspace_count);
-    dequeue_keycodes(search_visitor.bspace_count);
+    multi_tap(KC_BSPC, result.bspace_count);
+    dequeue_keycodes(result.bspace_count);
 
-    record_send_string(search_visitor.max_completion);
+    record_send_string(result.max_completion);
 }
