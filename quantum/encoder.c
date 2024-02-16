@@ -162,12 +162,12 @@ void encoder_init(void) {
 #endif // defined(SPLIT_KEYBOARD) && defined(ENCODER_RESOLUTIONS)
 
     for (uint8_t i = 0; i < thisCount; i++) {
-        setPinInputHigh(encoders_pad_a[i]);
-        setPinInputHigh(encoders_pad_b[i]);
+        gpio_set_pin_input_high(encoders_pad_a[i]);
+        gpio_set_pin_input_high(encoders_pad_b[i]);
     }
     encoder_wait_pullup_charge();
     for (uint8_t i = 0; i < thisCount; i++) {
-        encoder_state[i] = (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
+        encoder_state[i] = (gpio_read_pin(encoders_pad_a[i]) << 0) | (gpio_read_pin(encoders_pad_b[i]) << 1);
     }
 }
 
@@ -247,7 +247,7 @@ static bool encoder_update(uint8_t index, uint8_t state) {
 bool encoder_read(void) {
     bool changed = false;
     for (uint8_t i = 0; i < thisCount; i++) {
-        uint8_t new_status = (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
+        uint8_t new_status = (gpio_read_pin(encoders_pad_a[i]) << 0) | (gpio_read_pin(encoders_pad_b[i]) << 1);
         if ((encoder_state[i] & 0x3) != new_status) {
             encoder_state[i] <<= 2;
             encoder_state[i] |= new_status;

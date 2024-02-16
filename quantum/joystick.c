@@ -62,27 +62,27 @@ int16_t joystick_read_axis(uint8_t axis) {
     if (axis >= JOYSTICK_AXIS_COUNT) return 0;
 
     // disable pull-up resistor
-    writePinLow(joystick_axes[axis].input_pin);
+    gpio_write_pin_low(joystick_axes[axis].input_pin);
 
     // if pin was a pull-up input, we need to uncharge it by turning it low
     // before making it a low input
-    setPinOutput(joystick_axes[axis].input_pin);
+    gpio_set_pin_output(joystick_axes[axis].input_pin);
 
     wait_us(10);
 
     if (joystick_axes[axis].output_pin != JS_VIRTUAL_AXIS) {
-        setPinOutput(joystick_axes[axis].output_pin);
-        writePinHigh(joystick_axes[axis].output_pin);
+        gpio_set_pin_output(joystick_axes[axis].output_pin);
+        gpio_write_pin_high(joystick_axes[axis].output_pin);
     }
 
     if (joystick_axes[axis].ground_pin != JS_VIRTUAL_AXIS) {
-        setPinOutput(joystick_axes[axis].ground_pin);
-        writePinLow(joystick_axes[axis].ground_pin);
+        gpio_set_pin_output(joystick_axes[axis].ground_pin);
+        gpio_write_pin_low(joystick_axes[axis].ground_pin);
     }
 
     wait_us(10);
 
-    setPinInput(joystick_axes[axis].input_pin);
+    gpio_set_pin_input(joystick_axes[axis].input_pin);
 
     wait_us(10);
 
