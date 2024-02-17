@@ -81,6 +81,7 @@ nex☆       -> next
 di☆        -> dictionary
 pr☆        -> previous
 ex☆        -> example
+re☆        -> reorder
 pe☆        -> people
 pu☆        -> public
 up☆        -> update
