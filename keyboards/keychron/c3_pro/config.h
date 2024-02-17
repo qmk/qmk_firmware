@@ -21,10 +21,6 @@
 #define LED_WIN_OS_PIN A5
 #define LED_OS_PIN_ON_STATE 1
 
-/* EEPROM Driver Configuration */
-//#define WEAR_LEVELING_LOGICAL_SIZE 2048
-//#define WEAR_LEVELING_BACKING_SIZE (WEAR_LEVELING_LOGICAL_SIZE * 2)
-
 /* I2C driver Configuration */
 #define I2C1_SCL_PIN B8
 #define I2C1_SDA_PIN B9
