@@ -1,6 +1,6 @@
 # dc60
 
-![dc60](imgur.com image replace me!)
+![dc60](https://i.imgur.com/catCJLdh.jpeg)
 
 A 60% PCB sold with the Alf DC60.
 
