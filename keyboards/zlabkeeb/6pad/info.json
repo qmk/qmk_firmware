@@ -4,12 +4,9 @@
     "development_board": "promicro",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "encoder": true,
-        "mousekey": false,
-        "nkro": false
+        "mousekey": true,
     },
     "build": {
         "lto": true
