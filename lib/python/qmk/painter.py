@@ -3,6 +3,7 @@
 import datetime
 import math
 import re
+import sys
 from string import Template
 from PIL import Image, ImageOps
 
@@ -151,10 +152,11 @@ def generate_subs(cli, out_bytes, *, font_metadata=None, image_metadata=None):
     }
 
     if font_metadata is not None:
+        command = sys.argv[1]  # extract whether we are in `painter-convert-font` or `painter-convert-font-image`
         subs.update({
             "generated_type": "font",
             "var_prefix": "font",
-            "generator_command": f"qmk painter-convert-font-image -i {cli.args.input.name} -f {cli.args.format}{' --no-ascii' if cli.args.no_ascii else ''}",
+            "generator_command": f"qmk {command} -i {cli.args.input.name} -f {cli.args.format}{' --no-ascii' if cli.args.no_ascii else ''}",
             # not using triple quotes to avoid extra indentation/weird formatted code
             "metadata": "\n".join([
                 "// Font's metadata",

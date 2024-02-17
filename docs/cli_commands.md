@@ -796,3 +796,4 @@ This command converts a TTF font to an intermediate format for editing, before c
 ## `qmk painter-convert-font-image`
 
 This command converts an intermediate font image to the QFF File Format. See the [Quantum Painter](quantum_painter.md?id=quantum-painter-cli) documentation for more information on this command.
+

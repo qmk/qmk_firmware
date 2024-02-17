@@ -115,8 +115,7 @@ This command converts a TTF font to a QFF File Format.
 **Usage**:
 
 ```
-usage: qmk painter-convert-font [-h] [-w] [-u UNICODE_GLYPHS] [-s SIZE] [-o OUTPUT] [-i INPUT] -f FORMAT
-                                [-r] [-n] [-a]
+usage: qmk painter-convert-font [-h] [-w] [-u UNICODE_GLYPHS] [-s SIZE] [-o OUTPUT] [-i INPUT] -f FORMAT [-r] [-n] [-a]
 
 options:
   -h, --help            show this help message and exit
@@ -129,8 +128,7 @@ options:
   -i INPUT, --input INPUT
                         Specify input font file.
   -f FORMAT, --format FORMAT
-                        Output format, valid types: rgb888, rgb565, pal256, pal16, pal4, pal2, mono256,
-                        mono16, mono4, mono2
+                        Output format, valid types: rgb888, rgb565, pal256, pal16, pal4, pal2, mono256, mono16, mono4, mono2
   -r, --no-rle          Disable the use of RLE to minimise converted image size.
   -n, --no-ascii        Disables output of the full ASCII character set (0x20..0x7E), exporting only the
                         glyphs specified.
@@ -159,8 +157,7 @@ options:
   -a, --no-aa           Disable anti-aliasing on fonts.
   -u UNICODE_GLYPHS, --unicode-glyphs UNICODE_GLYPHS
                         Also generate the specified unicode glyphs.
-  -n, --no-ascii        Disables output of the full ASCII character set (0x20..0x7E), exporting only the
-                        glyphs specified.
+  -n, --no-ascii        Disables output of the full ASCII character set (0x20..0x7E), exporting only the glyphs specified.
   -s SIZE, --size SIZE  Specify font size. Default 12.
   -o OUTPUT, --output OUTPUT
                         Specify output image path.
@@ -197,16 +194,14 @@ This command expects an image that conforms to the following format:
 **Usage**:
 
 ```
-usage: qmk painter-convert-font-image [-h] [-w] [-r] -f FORMAT [-u UNICODE_GLYPHS] [-n] [-o OUTPUT]
-                                      [-i INPUT]
+usage: qmk painter-convert-font-image [-h] [-w] [-r] -f FORMAT [-u UNICODE_GLYPHS] [-n] [-o OUTPUT] [-i INPUT]
 
 options:
   -h, --help            show this help message and exit
   -w, --raw             Writes out the QFF file as raw data instead of c/h combo.
   -r, --no-rle          Disable the use of RLE to minimise converted image size.
   -f FORMAT, --format FORMAT
-                        Output format, valid types: rgb888, rgb565, pal256, pal16, pal4, pal2, mono256,
-                        mono16, mono4, mono2
+                        Output format, valid types: rgb888, rgb565, pal256, pal16, pal4, pal2, mono256, mono16, mono4, mono2
   -u UNICODE_GLYPHS, --unicode-glyphs UNICODE_GLYPHS
                         Also generate the specified unicode glyphs.
   -n, --no-ascii        Disables output of the full ASCII character set (0x20..0x7E), exporting only the
