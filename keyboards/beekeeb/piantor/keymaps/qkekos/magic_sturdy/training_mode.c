@@ -32,31 +32,19 @@ void record_potential_match(trie_visitor_t *v, int bspaces, const char *completi
         result->context_string[0] = '\0';
     }
 
-    if (completion_len > buffer_len_copy) return;
-
     for (int i = 0; i < completion_len; i += 1) {
         int index = buffer_len_copy - completion_len + i;
-
-        if (index < 0 || index > buffer_len_copy) {
-            uprintf("ALARM!!!!!\n");
-            return;
-        }
+        if (index < 0 || index > buffer_len_copy) return;
 
         if (keycode_to_char(key_buffer_copy[index]) != completion[i])
             return;
     }
 
-    if (completion_len + v->stack.size > buffer_len_copy) return;
-
     for (int i = 0; i < v->stack.size; i += 1) {
         int index = buffer_len_copy - completion_len - i - 1;
+        if (index < 0 || index > buffer_len_copy) return;
 
-        if (index < 0 || index > buffer_len_copy) {
-            uprintf("ALARM 2!!!!!\n");
-            return;
-        }
-
-        if (key_buffer_copy[buffer_len_copy - completion_len - i - 1] != char_to_keycode(v->stack.buffer[i]))
+        if (key_buffer_copy[index] != char_to_keycode(v->stack.buffer[i]))
             return;
     }
 
@@ -78,12 +66,7 @@ bool check_potential_match(trie_t* trie, potential_compl_result_t* result) {
     }
 
     key_buffer_size = buffer_len_copy;
-
-    if (result->max_completion_len) {
-        uprintf("yep - %d\n", result->max_completion_len);
-    }
-
-    return result->max_completion_len;
+    return result->max_completion_len > 0;
 }
 
 void check_potential_matches(potential_match_found_cb callback) {
