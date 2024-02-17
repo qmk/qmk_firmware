@@ -38,6 +38,7 @@ polic☆     -> policy
 // Quadruple
 
 →rec☆      -> recycle
+than☆      -> thanks
 
 // Triple
 
@@ -208,6 +209,7 @@ fu✵✵       -> functionality
 dev✵✵      -> development
 ba✵✵       -> basically
 ex✵✵       -> exactly
+→t✵✵       -> thank
 
 // Double letter taps
 
