@@ -16,7 +16,7 @@ void record_potential_match(trie_visitor_t *v, int bspaces, const char *completi
     uint8_t completion_len = strlen(completion);
 
     if (completion_len < result->max_completion_len) return;
-    if (!is_stack_valid(&v->stack)) return;
+    if (!is_stack_valid(&v->stack) || v->stack.size == 0) return;
 
     if (
         completion_len == result->max_completion_len &&
