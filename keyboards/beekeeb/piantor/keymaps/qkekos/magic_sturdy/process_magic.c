@@ -29,7 +29,8 @@ const char* get_magic_key_symbol(uint16_t magic_key) {
 }
 
 void pontential_match_found(uint16_t magic_key, char *context, char *completion) {
-    if (!strcmp(context, "a")) return;
+    ignore_match("a", "b");
+    ignore_match(" i", "i");
 
     flick_leds(1.5, 250);
 

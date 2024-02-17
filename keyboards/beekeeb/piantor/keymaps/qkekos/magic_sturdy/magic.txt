@@ -245,6 +245,7 @@ ex✵✵       -> exactly
 // Double
 
 →b✪        -> before
+→h✪        -> health
 →f✪        -> first
 →z✪        -> zone
 

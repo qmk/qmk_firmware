@@ -17,6 +17,21 @@ void record_potential_match(trie_visitor_t *v, int bspaces, const char *completi
     uint8_t completion_len = strlen(completion);
     if (completion_len < result->max_completion_len) return;
 
+    if (
+        completion_len == result->max_completion_len &&
+        v->stack.size < strlen(result->context_string)
+    ) return;
+
+    if (
+        v->stack.size > strlen(result->context_string) &&
+        key_buffer_size >= result->match_context_level
+    ) {
+        result->max_completion = NULL;
+        result->max_completion_len = 0;
+        result->match_context_level = 0;
+        result->context_string[0] = '\0';
+    }
+
     for (int i = 0; i < completion_len; i += 1)
         if (keycode_to_char(temple_key_buffer[temple_len - completion_len + i]) != completion[i])
             return;
@@ -27,6 +42,7 @@ void record_potential_match(trie_visitor_t *v, int bspaces, const char *completi
 
     result->max_completion = (char*)completion;
     result->max_completion_len = completion_len;
+    result->match_context_level = key_buffer_size;
     stack_dump(&v->stack, result->context_string);
 }
 

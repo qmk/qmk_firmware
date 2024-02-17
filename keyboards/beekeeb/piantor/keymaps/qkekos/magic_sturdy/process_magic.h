@@ -18,3 +18,6 @@ trie_t* get_trie(uint16_t);
 uint16_t db_arep_provider(uint8_t);
 void repeat_key_fallback(void);
 void magic_key_fallback(void);
+
+#define ignore_match(a, b) \
+    if (!strcmp(context, a) && !strcmp(completion, b)) return
