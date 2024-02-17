@@ -1,5 +1,9 @@
 # Eniigma Keyboards ek60
 
+| | |
+|---|---|
+|![front](https://i.imgur.com/0zWj9vDh.jpeg)|![back](https://i.imgur.com/wHXwLPMh.jpeg)|
+
 * Keyboard Maintainer: [eniigmakeyboards](https://github.com/eniigmakeyboards) and [adamws](https://github.com/adamws)
 
 Make example for this keyboard (after setting up your build environment):
