@@ -9,6 +9,7 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 #include "analog.h"
 #include "lut.h"
 #include "scanfunctions.h"
+#include "debounce_digital.c"
 
 #ifndef MATRIX_INPUT_PRESSED_STATE
 #    define MATRIX_INPUT_PRESSED_STATE 0
@@ -17,6 +18,8 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 pin_t matrix_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
 
 hybrid_key_t keys[MATRIX_ROWS][MATRIX_COLS] = {0};
+
+
 
 void matrix_init_custom(void) {
 
@@ -70,6 +73,43 @@ void matrix_init_custom(void) {
     get_sensor_offsets();
     wait_ms(200); // Let ADC reach steady state
     get_sensor_offsets();
+}
+
+/* matrix state(1:on, 0:off) */
+matrix_row_t raw_matrix[MATRIX_ROWS]; // raw values
+matrix_row_t matrix[MATRIX_ROWS];     // debounced values
+
+void matrix_init(void) {
+    // TODO: initialize hardware and global matrix state here
+    //matrix.c row 274
+    //matrix_common.c row 149
+
+
+    // initialize key pins
+    // matrix_init_pins();
+        for (int row = 0; row < MATRIX_ROWS; row++) {
+        // if (row != 1){
+            for (int col = 0; col < MATRIX_COLS; col++) {
+                pin_t pin = matrix_pins[row][col];
+                if (pin != NO_PIN) {
+                    setPinInputHigh(pin);
+                }
+            }
+        // }
+    }
+    matrix_init_custom();
+
+    // initialize matrix state: all keys off
+    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+        raw_matrix[i] = 0;
+        matrix[i]     = 0;
+    }
+
+    // Unless hardware debouncing - Init the configured debounce routine
+    debounce_init(MATRIX_ROWS);
+
+    // This *must* be called for correct keyboard behavior
+    matrix_init_kb();
 }
 
 matrix_row_t previous_matrix[MATRIX_ROWS];
