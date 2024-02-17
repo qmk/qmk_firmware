@@ -43,7 +43,7 @@
         },
         "development_board": {
             "type": "string",
-            "enum": ["promicro", "elite_c", "elite_pi", "proton_c", "kb2040", "promicro_rp2040", "blok", "michi", "bit_c_pro", "stemcell", "bluepill", "blackpill_f401", "blackpill_f411", "bonsai_c4", "helios", "liatris"]
+            "enum": ["promicro", "elite_c", "elite_pi", "proton_c", "kb2040", "promicro_rp2040", "blok", "michi", "bit_c_pro", "stemcell", "bluepill", "blackpill_f401", "blackpill_f411", "bonsai_c4", "helios", "liatris", "imera"]
         },
         "pin_compatible": {
             "type": "string",
@@ -123,6 +123,14 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
+                "default": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "on": {"type": "boolean"},
+                        "clicky": {"type": "boolean"}
+                    }
+                },
                 "macro_beep": {"type": "boolean"},
                 "pins": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
                 "voices": {"type": "boolean"}
@@ -306,8 +314,8 @@
         },
         "features": {
             "$ref": "qmk.definitions.v1#/boolean_array",
-            "propertyNames": { "$ref": "qmk.definitions.v1#/snake_case" }
-
+            "propertyNames": { "$ref": "qmk.definitions.v1#/snake_case" },
+            "not": { "required": [ "lto" ] }
         },
         "indicators": {
             "type": "object",

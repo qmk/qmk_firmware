@@ -42,8 +42,17 @@
 #ifndef AUTO_MOUSE_DEBOUNCE
 #    define AUTO_MOUSE_DEBOUNCE 25
 #endif
+#ifndef AUTO_MOUSE_THRESHOLD
+#    define AUTO_MOUSE_THRESHOLD 10
+#endif
 
 /* data structure */
+typedef struct {
+    mouse_xy_report_t x;
+    mouse_xy_report_t y;
+    int8_t            v;
+    int8_t            h;
+} total_mouse_movement_t;
 typedef struct {
     struct {
         bool     is_enabled;
@@ -60,6 +69,7 @@ typedef struct {
         bool   is_toggled;
         int8_t mouse_key_tracker;
     } status;
+    total_mouse_movement_t total_mouse_movement;
 } auto_mouse_context_t;
 
 /* ----------Set up and control------------------------------------------------------------------------------ */
