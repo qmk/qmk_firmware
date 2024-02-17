@@ -5,16 +5,6 @@ uint8_t key_buffer[MAX_CONTEXT_LENGTH] = { KC_SPC };
 char string_buffer[MAX_CONTEXT_LENGTH] = { "\0" };
 uint8_t key_buffer_size = 1;
 
-void record_longest_match(trie_visitor_t *v, int bspaces, const char *completion) {
-    uint8_t context_len = v->stack.size;
-    search_result_t *result = (search_result_t*)(v->cb_data);
-
-    if (context_len < result->max_condext_len) return;
-
-    result->completion = (char*)completion;
-    result->bspace_count = bspaces;
-}
-
 /**
  * @brief Add keycode to our key buffer.
  *
@@ -234,30 +224,4 @@ bool process_check(uint16_t *keycode, keyrecord_t *record, uint8_t *key_buffer_s
     }
 
     return true;
-}
-
-/**
- * @brief Handles magic/repeat key press
- *
- * @param keycode Keycode registered by matrix press, per keymap
- */
-void process_trie(trie_t* trie) {
-    if (!key_buffer_size) return;
-
-    search_result_t result = {};
-    trie_visitor_t search_visitor = { record_longest_match, &result };
-
-    search_trie(trie->data, 0, &search_visitor);
-
-    // If we found one, apply completion
-    if (!result.completion) {
-        if (trie->fallback) trie->fallback();
-        return;
-    }
-
-    // Send backspaces and dequeue buffer
-    multi_tap(KC_BSPC, result.bspace_count);
-    dequeue_keycodes(result.bspace_count);
-
-    record_send_string(result.completion);
 }

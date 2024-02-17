@@ -60,19 +60,8 @@ bool process_context_magic(uint16_t keycode, keyrecord_t *record) {
     // keycode verification and extraction
     if (!process_check(&keycode, record, &key_buffer_size, &mods)) return true;
 
-    trie_t* trie = get_trie(keycode);
-
-    if (trie->magic_key != KC_NO) {
-        if (!trie->next_magic_provider) {
-            process_trie(trie);
-            return false;
-        }
-
-        // handle next magic key if provided
-        uint16_t next_magic = trie->next_magic_provider(magic_tap_count);
-        if (next_magic) trie = get_trie(next_magic);
-
-        process_trie(trie);
+    if (is_magic(keycode)) {
+        process_magic_key(keycode);
         return false;
     }
 
@@ -116,6 +105,15 @@ bool process_context_magic(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+void record_longest_match(trie_visitor_t *v, int bspaces, const char *completion) {
+    uint8_t context_len = v->stack.size;
+    search_result_t *result = (search_result_t*)(v->cb_data);
+
+    if (context_len < result->max_condext_len) return;
+
+    result->completion = (char*)completion;
+    result->bspace_count = bspaces;
+}
 
 uint8_t magic_tap_count = 1;
 
@@ -144,8 +142,7 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* mods
     current_key_timestamp = timer_read();
     refresh_token();
 
-    trie_t* trie = get_trie(keycode);
-    if (trie->magic_key == KC_NO) return true;
+    if (!is_magic(keycode)) return true;
 
     if (keycode == get_last_keycode()) magic_tap_count += 1;
     else magic_tap_count = 1;
@@ -174,7 +171,19 @@ void repeat_key_fallback(void) {
 
 void process_magic_key(uint16_t keycode) {
     trie_t* trie = get_trie(keycode);
-    if (trie->magic_key != KC_NO) process_trie(trie);
+    if (trie->magic_key == KC_NO) return;
+
+    if (!trie->next_magic_provider) {
+        process_trie(trie);
+        return;
+    }
+
+    // handle next magic key if provided
+    uint16_t next_magic = trie->next_magic_provider(magic_tap_count);
+    if (next_magic) trie = get_trie(next_magic);
+
+    process_trie(trie);
+    return;
 }
 
 trie_t* get_trie(uint16_t keycode) {
@@ -184,4 +193,35 @@ trie_t* get_trie(uint16_t keycode) {
         if (tries[i].magic_key == keycode) return &tries[i];
 
     return &tries[i];
+}
+
+/**
+ * @brief Handles magic/repeat key press
+ *
+ * @param keycode Keycode registered by matrix press, per keymap
+ */
+void process_trie(trie_t* trie) {
+    if (!key_buffer_size) return;
+
+    search_result_t result = {};
+    trie_visitor_t search_visitor = { record_longest_match, &result };
+
+    search_trie(trie->data, 0, &search_visitor);
+
+    // If we found one, apply completion
+    if (!result.completion) {
+        if (trie->fallback) trie->fallback();
+        return;
+    }
+
+    // Send backspaces and dequeue buffer
+    multi_tap(KC_BSPC, result.bspace_count);
+    dequeue_keycodes(result.bspace_count);
+
+    record_send_string(result.completion);
+}
+
+bool is_magic(uint16_t keycode) {
+    trie_t *trie = get_trie(keycode);
+    return trie->magic_key != KC_NO;
 }
