@@ -108,6 +108,43 @@ Writing /home/qmk/qmk_firmware/keyboards/my_keeb/generated/my_image.qgf.h...
 Writing /home/qmk/qmk_firmware/keyboards/my_keeb/generated/my_image.qgf.c...
 ```
 
+### ** `qmk painter-convert-font` **
+
+This command converts a TTF font to a QFF File Format.
+
+**Usage**:
+
+```
+usage: qmk painter-convert-font [-h] [-w] [-u UNICODE_GLYPHS] [-s SIZE] [-o OUTPUT] [-i INPUT] -f FORMAT
+                                [-r] [-n] [-a]
+
+options:
+  -h, --help            show this help message and exit
+  -w, --raw             Writes out the QFF file as raw data instead of c/h combo.
+  -u UNICODE_GLYPHS, --unicode-glyphs UNICODE_GLYPHS
+                        Also generate the specified unicode glyphs.
+  -s SIZE, --size SIZE  Specify font size. Default 12.
+  -o OUTPUT, --output OUTPUT
+                        Specify output directory. Defaults to same directory as input.
+  -i INPUT, --input INPUT
+                        Specify input font file.
+  -f FORMAT, --format FORMAT
+                        Output format, valid types: rgb888, rgb565, pal256, pal16, pal4, pal2, mono256,
+                        mono16, mono4, mono2
+  -r, --no-rle          Disable the use of RLE to minimise converted image size.
+  -n, --no-ascii        Disables output of the full ASCII character set (0x20..0x7E), exporting only the
+                        glyphs specified.
+  -a, --no-aa           Disable anti-aliasing on fonts.
+```
+
+**Examples**:
+
+```
+$ qmk painter-convert-font -i /usr/share/fonts/some_font/SomeFont.ttf -f mono4 --size 11 -o /home/qmk/qmk_firmware/my_keeb/generated
+```
+
+?> Note: The following commands do this in a 2-step process, so you can customize the font a bit.
+
 ### ** `qmk painter-make-font-image` **
 
 This command converts a TTF font to an intermediate format for editing, before converting to the QFF File Format.
@@ -115,21 +152,23 @@ This command converts a TTF font to an intermediate format for editing, before c
 **Usage**:
 
 ```
-usage: qmk painter-make-font-image [-h] [-a] [-u UNICODE_GLYPHS] [-n] [-s SIZE] -o OUTPUT -f FONT
+usage: qmk painter-make-font-image [-h] [-a] [-u UNICODE_GLYPHS] [-n] [-s SIZE] -o OUTPUT -i INPUT
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
   -a, --no-aa           Disable anti-aliasing on fonts.
   -u UNICODE_GLYPHS, --unicode-glyphs UNICODE_GLYPHS
                         Also generate the specified unicode glyphs.
-  -n, --no-ascii        Disables output of the full ASCII character set (0x20..0x7E), exporting only the glyphs specified.
+  -n, --no-ascii        Disables output of the full ASCII character set (0x20..0x7E), exporting only the
+                        glyphs specified.
   -s SIZE, --size SIZE  Specify font size. Default 12.
   -o OUTPUT, --output OUTPUT
                         Specify output image path.
-  -f FONT, --font FONT  Specify input font file.
+  -i INPUT, --input INPUT
+                        Specify input font file.
 ```
 
-The `FONT` argument is generally a TrueType Font file (TTF).
+The `INPUT` argument is generally a TrueType Font file (TTF).
 
 The `OUTPUT` argument is the output image to generate, generally something like `my_font.png`.
 
@@ -138,7 +177,7 @@ The `UNICODE_GLYPHS` argument allows for specifying extra unicode glyphs to gene
 **Examples**:
 
 ```
-$ qmk painter-make-font-image --font NotoSans-ExtraCondensedBold.ttf --size 11 -o noto11.png --unicode-glyphs "ĄȽɂɻɣɈʣ"
+$ qmk painter-make-font-image --input NotoSans-ExtraCondensedBold.ttf --size 11 -o noto11.png --unicode-glyphs "ĄȽɂɻɣɈʣ"
 ```
 
 ### ** `qmk painter-convert-font-image` **
@@ -158,24 +197,27 @@ This command expects an image that conforms to the following format:
 **Usage**:
 
 ```
-usage: qmk painter-convert-font-image [-h] [-w] [-r] -f FORMAT [-u UNICODE_GLYPHS] [-n] [-o OUTPUT] [-i INPUT]
+usage: qmk painter-convert-font-image [-h] [-w] [-r] -f FORMAT [-u UNICODE_GLYPHS] [-n] [-o OUTPUT]
+                                      [-i INPUT]
 
 options:
   -h, --help            show this help message and exit
   -w, --raw             Writes out the QFF file as raw data instead of c/h combo.
   -r, --no-rle          Disable the use of RLE to minimise converted image size.
   -f FORMAT, --format FORMAT
-                        Output format, valid types: rgb565, pal256, pal16, pal4, pal2, mono256, mono16, mono4, mono2
+                        Output format, valid types: rgb888, rgb565, pal256, pal16, pal4, pal2, mono256,
+                        mono16, mono4, mono2
   -u UNICODE_GLYPHS, --unicode-glyphs UNICODE_GLYPHS
                         Also generate the specified unicode glyphs.
-  -n, --no-ascii        Disables output of the full ASCII character set (0x20..0x7E), exporting only the glyphs specified.
+  -n, --no-ascii        Disables output of the full ASCII character set (0x20..0x7E), exporting only the
+                        glyphs specified.
   -o OUTPUT, --output OUTPUT
                         Specify output directory. Defaults to same directory as input.
   -i INPUT, --input INPUT
                         Specify input graphic file.
 ```
 
-The same arguments for `--no-ascii` and `--unicode-glyphs` need to be specified, as per `qmk painter-make-font-image`.
+The argumens `--no-ascii` and `--unicode-glyphs` need to match the ones passed to `qmk painter-make-font-image` when creating the image.
 
 **Examples**:
 
