@@ -13,9 +13,10 @@ uint8_t buffer_len_copy;
 
 void record_potential_match(trie_visitor_t *v, int bspaces, const char *completion) {
     potential_compl_result_t *result = (potential_compl_result_t*)(v->cb_data);
-
     uint8_t completion_len = strlen(completion);
+
     if (completion_len < result->max_completion_len) return;
+    if (!is_stack_valid(&v->stack)) return;
 
     if (
         completion_len == result->max_completion_len &&

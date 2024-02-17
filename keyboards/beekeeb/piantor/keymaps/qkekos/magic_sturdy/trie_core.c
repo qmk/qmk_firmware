@@ -74,6 +74,17 @@ void stack_dump(stack_t *stack, char *str) {
 	str[stack->size] = '\0';
 }
 
+bool is_stack_valid(stack_t *stack) {
+    for (int i = stack->size - 1; i >= 0; i -= 1) {
+        if (stack->buffer[i] == ' ') continue;
+
+        if (!('a' <= stack->buffer[i] && stack->buffer[i] <= 'z'))
+            return false; 
+    }
+
+    return true;
+}
+
 void search_trie(const uint8_t *trie, int offset, trie_visitor_t *v) {
 	uint8_t code = trie[offset];
 	assert(code);
