@@ -3,7 +3,10 @@
         "pin": "D2"
     },
     "rgblight": {
-        "max_brightness": 195
+        "hue_steps": 10,
+        "led_count": 84,
+        "max_brightness": 195,
+        "split_count": [38, 46]
     },
     "matrix_pins": {
         "cols": ["B6", "B2", "B3", "B1", "F7", "F6", "F5", "F4", "D3"],

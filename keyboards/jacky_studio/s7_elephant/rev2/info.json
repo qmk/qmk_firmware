@@ -12,6 +12,24 @@
         "cols": ["D0", "D1", "D2", "D3", "D5", "D4", "D6", "D7", "B4", "F7", "F6", "F5", "F4", "F1", "F0", "E6"],
         "rows": ["B0", "B1", "B2", "B3", "B7"]
     },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 2,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
     "ws2812": {
         "pin": "E2"
     },

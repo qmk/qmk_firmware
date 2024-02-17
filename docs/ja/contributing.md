@@ -110,11 +110,11 @@ enum my_keycodes {
 
 開発環境をセットアップした場合は、プルリクエストを開く前に以下のコマンドを `qmk_firmware/` フォルダから実行することで、あなたの変更をプレビューすることができます:
 
-    ./bin/qmk docs
+    qmk docs
 
 または、Python 3 のみがインストールされている場合:
 
-    python3 -m http.server 8936
+    python3 -m http.server 8936 --directory docs
 
 その後、ウェブブラウザで、`http://localhost:8936/` を表示します。
 

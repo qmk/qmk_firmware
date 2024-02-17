@@ -14,6 +14,7 @@
     },
     "diode_direction": "COL2ROW",
     "backlight": {
+        "driver": "timer",
         "pin": "F5",
         "levels": 10,
         "on_state": 0
@@ -21,6 +22,22 @@
     "indicators": {
         "caps_lock": "B2",
         "on_state": 0
+    },
+    "rgblight": {
+        "led_count": 12,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "ws2812": {
         "pin": "F6"

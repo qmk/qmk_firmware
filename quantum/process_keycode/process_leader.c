@@ -16,6 +16,7 @@
 
 #include "process_leader.h"
 #include "leader.h"
+#include "quantum_keycodes.h"
 
 bool process_leader(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {

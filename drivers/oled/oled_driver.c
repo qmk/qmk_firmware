@@ -19,6 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "spi_master.h"
 #elif defined(OLED_TRANSPORT_I2C)
 #    include "i2c_master.h"
+#    if defined(USE_I2C) && defined(SPLIT_KEYBOARD)
+#        include "keyboard.h"
+#    endif
 #endif
 #include "oled_driver.h"
 #include OLED_FONT_H
@@ -220,13 +223,8 @@ __attribute__((weak)) bool oled_send_cmd_P(const uint8_t *data, uint16_t size) {
     spi_stop();
     return (status >= 0);
 #    elif defined(OLED_TRANSPORT_I2C)
-    i2c_status_t status = i2c_start((OLED_DISPLAY_ADDRESS << 1) | I2C_WRITE, OLED_I2C_TIMEOUT);
 
-    for (uint16_t i = 0; i < size && status >= 0; i++) {
-        status = i2c_write(pgm_read_byte((const char *)data++), OLED_I2C_TIMEOUT);
-    }
-
-    i2c_stop();
+    i2c_status_t status = i2c_transmit_P((OLED_DISPLAY_ADDRESS << 1), data, size, OLED_I2C_TIMEOUT);
 
     return (status == I2C_STATUS_SUCCESS);
 #    endif
@@ -250,7 +248,7 @@ __attribute__((weak)) bool oled_send_data(const uint8_t *data, uint16_t size) {
     spi_stop();
     return true;
 #elif defined(OLED_TRANSPORT_I2C)
-    i2c_status_t status = i2c_writeReg((OLED_DISPLAY_ADDRESS << 1), I2C_DATA, data, size, OLED_I2C_TIMEOUT);
+    i2c_status_t status = i2c_write_register((OLED_DISPLAY_ADDRESS << 1), I2C_DATA, data, size, OLED_I2C_TIMEOUT);
     return (status == I2C_STATUS_SUCCESS);
 #endif
 }
@@ -448,7 +446,7 @@ static void rotate_90(const uint8_t *src, uint8_t *dest) {
     }
 }
 
-void oled_render(void) {
+void oled_render_dirty(bool all) {
     // Do we have work to do?
     oled_dirty &= OLED_ALL_BLOCKS_MASK;
     if (!oled_dirty || !oled_initialized || oled_scrolling) {
@@ -460,7 +458,7 @@ void oled_render(void) {
 
     uint8_t update_start  = 0;
     uint8_t num_processed = 0;
-    while (oled_dirty && num_processed++ < OLED_UPDATE_PROCESS_LIMIT) { // render all dirty blocks (up to the configured limit)
+    while (oled_dirty && (num_processed++ < OLED_UPDATE_PROCESS_LIMIT || all)) { // render all dirty blocks (up to the configured limit)
         // Find next dirty block
         while (!(oled_dirty & ((OLED_BLOCK_TYPE)1 << update_start))) {
             ++update_start;

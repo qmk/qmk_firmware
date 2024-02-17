@@ -145,7 +145,7 @@ bool qp_internal_load_qgf_palette(qp_stream_t *stream, uint8_t bpp) {
 
 bool qp_setpixel(painter_device_t device, uint16_t x, uint16_t y, uint8_t hue, uint8_t sat, uint8_t val) {
     painter_driver_t *driver = (painter_driver_t *)device;
-    if (!driver->validate_ok) {
+    if (!driver || !driver->validate_ok) {
         qp_dprintf("qp_setpixel: fail (validation_ok == false)\n");
         return false;
     }
@@ -175,7 +175,7 @@ bool qp_line(painter_device_t device, uint16_t x0, uint16_t y0, uint16_t x1, uin
 
     qp_dprintf("qp_line(%d, %d, %d, %d): entry\n", (int)x0, (int)y0, (int)x1, (int)y1);
     painter_driver_t *driver = (painter_driver_t *)device;
-    if (!driver->validate_ok) {
+    if (!driver || !driver->validate_ok) {
         qp_dprintf("qp_line: fail (validation_ok == false)\n");
         return false;
     }
@@ -253,7 +253,7 @@ bool qp_internal_fillrect_helper_impl(painter_device_t device, uint16_t left, ui
 bool qp_rect(painter_device_t device, uint16_t left, uint16_t top, uint16_t right, uint16_t bottom, uint8_t hue, uint8_t sat, uint8_t val, bool filled) {
     qp_dprintf("qp_rect(%d, %d, %d, %d): entry\n", (int)left, (int)top, (int)right, (int)bottom);
     painter_driver_t *driver = (painter_driver_t *)device;
-    if (!driver->validate_ok) {
+    if (!driver || !driver->validate_ok) {
         qp_dprintf("qp_rect: fail (validation_ok == false)\n");
         return false;
     }

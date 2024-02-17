@@ -12,8 +12,3 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 LTO_ENABLE = no
 ENCODER_ENABLE = yes
-
-EEPROM_DRIVER = i2c
-
-# Enter lower-power sleep mode when on the ChibiOS idle thread
-OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE

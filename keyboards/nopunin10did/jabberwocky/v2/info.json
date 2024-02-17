@@ -14,9 +14,12 @@
     },
     "diode_direction": "COL2ROW",
     "backlight": {
-        "driver": "software",
-        "pins": ["D6"],
+        "driver": "timer",
+        "pin": "D6",
         "levels": 6
+    },
+    "dynamic_keymap": {
+        "layer_count": 3
     },
     "indicators": {
         "caps_lock": "B7",

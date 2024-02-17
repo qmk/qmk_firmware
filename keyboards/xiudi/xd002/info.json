@@ -8,6 +8,9 @@
     "pid": "0x0202",
     "device_version": "0.0.1"
   },
+  "rgblight": {
+    "led_count": 2
+  },
   "ws2812": {
     "pin": "B2"
   },

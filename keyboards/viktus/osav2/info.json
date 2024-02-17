@@ -44,6 +44,7 @@
         "pin": "D4"
     },
     "backlight": {
+        "driver": "timer",
         "levels": 6,
         "max_brightness": 191,
         "pin": "D6"

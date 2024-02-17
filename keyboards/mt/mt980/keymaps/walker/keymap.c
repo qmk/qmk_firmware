@@ -89,8 +89,8 @@ tap_dance_action_t tap_dance_actions[] = {
   [ALT_L1] = ACTION_TAP_DANCE_FN_ADVANCED(NULL,alt_finished, alt_reset)
 };
 
-void led_set_keymap(uint8_t usb_led) {
-  if (usb_led & (1<<USB_LED_NUM_LOCK)) {
+bool led_update_keymap(led_t led_state) {
+  if (led_state.num_lock) {
     numlock_on = true;
   }
   else {

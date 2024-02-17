@@ -5,6 +5,9 @@
 
 #define LAYER_STATE_8BIT
 
+#define TURBO_ENABLE
+#define HOLD_ON_OTHER_KEY_PRESS
+
 // RGB Matrix effects disable
 #ifdef RGB_MATRIX_ENABLE
 #    define UNDERGLOW_DISABLE

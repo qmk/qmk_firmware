@@ -96,9 +96,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t * record) {
   return true;
 }
 
-void led_set_user(uint8_t usb_led)
+bool led_update_user(led_t led_state)
 {
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+    if (led_state.caps_lock) {
         // output high
         DDRD |= (1<<6);
         PORTD |= (1<<6);
@@ -107,7 +107,7 @@ void led_set_user(uint8_t usb_led)
         DDRD &= ~(1<<6);
         PORTD &= ~(1<<6);
     }
-    if (usb_led & (1<<USB_LED_NUM_LOCK)) {
+    if (led_state.num_lock) {
         // output low
         DDRC |= (1<<7);
         PORTC |= ~(1<<7);
@@ -116,4 +116,5 @@ void led_set_user(uint8_t usb_led)
         DDRC &= ~(1<<7);
         PORTC &= ~(1<<7);
     }
+    return false;
 }

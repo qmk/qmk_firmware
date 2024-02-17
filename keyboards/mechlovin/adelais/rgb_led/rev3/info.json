@@ -4,7 +4,56 @@
         "pid": "0xAEC3"
     },
     "rgb_matrix": {
-        "driver": "IS31FL3741"
+        "animations": {
+            "alphas_mods": true,
+            "gradient_up_down": true,
+            "gradient_left_right": true,
+            "breathing": true,
+            "band_sat": true,
+            "band_val": true,
+            "band_pinwheel_sat": true,
+            "band_pinwheel_val": true,
+            "band_spiral_sat": true,
+            "band_spiral_val": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "rainbow_moving_chevron": true,
+            "cycle_out_in": true,
+            "cycle_out_in_dual": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "dual_beacon": true,
+            "rainbow_beacon": true,
+            "rainbow_pinwheels": true,
+            "raindrops": true,
+            "jellybean_raindrops": true,
+            "hue_breathing": true,
+            "hue_pendulum": true,
+            "hue_wave": true,
+            "pixel_fractal": true,
+            "pixel_rain": true,
+            "typing_heatmap": true,
+            "digital_rain": true,
+            "solid_reactive_simple": true,
+            "solid_reactive": true,
+            "solid_reactive_wide": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_cross": true,
+            "solid_reactive_multicross": true,
+            "solid_reactive_nexus": true,
+            "solid_reactive_multinexus": true,
+            "splash": true,
+            "multisplash": true,
+            "solid_splash": true,
+            "solid_multisplash": true
+        },
+        "default": {
+            "animation": "cycle_pinwheel"
+        },
+        "driver": "is31fl3741",
+        "react_on_keyup": true,
+        "sleep": true
     },
     "matrix_pins": {
         "cols": ["B10", "B11", "B2", "B1", "B0", "A6", "A5", "A10", "A9", "A15", "B3", "B4", "B5", "B8", "B9"],
@@ -16,12 +65,32 @@
             {"pin_a": "B12", "pin_b": "B13"}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "processor": "STM32F103",
     "bootloader": "stm32duino",
     "indicators": {
         "caps_lock": "C14",
         "num_lock": "A0",
         "scroll_lock": "C15"
+    },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 23,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "ws2812": {
         "pin": "A7",

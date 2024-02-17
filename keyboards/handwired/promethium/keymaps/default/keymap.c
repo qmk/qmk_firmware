@@ -1303,8 +1303,8 @@ void turn_off_capslock(void) {
     rgbsps_send();
   }
 
-  void led_set_user(uint8_t usb_led) {
-    bool new_capslock = usb_led & (1<<USB_LED_CAPS_LOCK);
+  bool led_update_user(led_t led_state) {
+    bool new_capslock = led_state.caps_lock;
     if (new_capslock ^ capslock) { // capslock state is different
       if ((capslock = new_capslock)) {
         rgbsps_set(LED_IND_CAPSLOCK, THEME_COLOR_CAPSLOCK);
@@ -1313,6 +1313,7 @@ void turn_off_capslock(void) {
       }
       rgbsps_send();
     }
+    return false;
   }
 #endif
 

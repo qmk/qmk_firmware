@@ -20,5 +20,3 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-#define TAP_CODE_DELAY 10

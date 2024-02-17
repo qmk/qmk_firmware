@@ -19,9 +19,28 @@
         ]
     },
     "backlight": {
+        "driver": "timer",
         "pin": "D1",
         "levels": 6,
         "breathing": true
+    },
+    "rgblight": {
+        "hue_steps": 12,
+        "saturation_steps": 12,
+        "brightness_steps": 12,
+        "led_count": 14,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "ws2812": {
         "pin": "B1"

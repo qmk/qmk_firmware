@@ -241,19 +241,24 @@ def _parse_led_config(file, matrix_cols, matrix_rows):
     position_raw = []
     flags = []
 
-    found_led_config = False
+    found_led_config_t = False
+    found_g_led_config = False
     bracket_count = 0
     section = 0
     current_row_index = 0
     current_row = []
 
     for _type, value in lex(_preprocess_c_file(file), CLexer()):
-        # Assume g_led_config..stuff..;
-        if value == 'g_led_config':
-            found_led_config = True
+        if not found_g_led_config:
+            # Check for type
+            if value == 'led_config_t':
+                found_led_config_t = True
+            # Type found, now check for name
+            elif found_led_config_t and value == 'g_led_config':
+                found_g_led_config = True
         elif value == ';':
-            found_led_config = False
-        elif found_led_config:
+            found_g_led_config = False
+        else:
             # Assume bracket count hints to section of config we are within
             if value == '{':
                 bracket_count += 1

@@ -8,6 +8,23 @@
         "pid": "0x2137",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 24,
+        "sleep": true,
+        "led_map": [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 23, 21, 19, 17, 15, 13, 11, 9, 7, 5, 3, 1],
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "alternating": true
+        }
+    },
     "ws2812": {
         "pin": "B9"
     },

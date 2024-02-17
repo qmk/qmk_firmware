@@ -17,11 +17,6 @@
 
 #pragma once
 
-#if defined(RGBLIGHT_ENABLE)
-#    define RGBLED_NUM 2
-#    define RGBLIGHT_EFFECT_BREATHING
-#endif
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

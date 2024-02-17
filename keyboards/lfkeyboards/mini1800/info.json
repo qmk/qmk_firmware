@@ -13,13 +13,6 @@
         "rows": ["D7", "E1", "F2", "F0", "F1"]
     },
     "diode_direction": "COL2ROW",
-    "backlight": {
-        "driver": "custom",
-        "levels": 10
-    },
-    "ws2812": {
-        "pin": "F4"
-    },
     "layouts": {
         "LAYOUT": {
             "layout": [

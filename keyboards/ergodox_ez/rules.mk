@@ -17,12 +17,11 @@ UNICODE_ENABLE   = no  # Unicode
 SWAP_HANDS_ENABLE= no   # Allow swapping hands of keyboard
 
 RGB_MATRIX_ENABLE = no # enable later
-DEBOUNCE_TYPE = sym_eager_pr
 
 # project specific files
 SRC += matrix.c \
 	   led_i2c.c
-QUANTUM_LIB_SRC += i2c_master.c
+I2C_DRIVER_REQUIRED = yes
 
 # Disable unsupported hardware
 AUDIO_SUPPORTED = no

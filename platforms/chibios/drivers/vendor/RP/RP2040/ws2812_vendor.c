@@ -2,12 +2,18 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "ws2812.h"
-#include "hardware/timer.h"
-#include "hardware/clocks.h"
+
 // Keep this exact include order otherwise we run into naming conflicts between
 // pico-sdk and rp2040.h which we don't control.
-#include "quantum.h"
+#include "hardware/timer.h"
+#include "hardware/clocks.h"
+#include <hal.h>
 #include "hardware/pio.h"
+
+#include "gpio.h"
+#include "debug.h"
+#include "wait.h"
+#include "util.h"
 
 #if !defined(MCU_RP)
 #    error PIO Driver is only available for Raspberry Pi 2040 MCUs!
@@ -262,7 +268,7 @@ static inline void sync_ws2812_transfer(void) {
     busy_wait_until(LAST_TRANSFER);
 }
 
-void ws2812_setleds(LED_TYPE* ledarray, uint16_t leds) {
+void ws2812_setleds(rgb_led_t* ledarray, uint16_t leds) {
     static bool is_initialized = false;
     if (unlikely(!is_initialized)) {
         is_initialized = ws2812_init();

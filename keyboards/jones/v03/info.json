@@ -14,6 +14,15 @@
       {"pin_a": "B3", "pin_b": "B2"}
     ]
   },
+  "rgblight": {
+    "saturation_steps": 8,
+    "brightness_steps": 8,
+    "led_count": 6,
+    "animations": {
+      "rainbow_swirl": true,
+      "knight": true
+    }
+  },
   "ws2812": {
     "pin": "B7"
   },

@@ -31,12 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WS2812_DMA_CHANNEL  3                   // DMA Channel for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
 #define WS2812_PWM_TARGET_PERIOD 800000
 
-
-#define RGBLED_NUM          57
-#define RGBLIGHT_SPLIT
-#define RGBLED_SPLIT \
-    { 26, 31 }
-
 #define DEBUG_LED_PIN      C13
 
 /* Audio config */

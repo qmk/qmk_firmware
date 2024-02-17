@@ -12,7 +12,19 @@
         "pin": "D0"
     },
     "rgblight": {
-        "max_brightness": 192
+        "led_count": 22,
+        "max_brightness": 192,
+        "led_map": [19, 18, 17, 16, 15, 14, 13, 12, 11, 20, 10, 21, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8],
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "alternating": true
+        }
     },
     "matrix_pins": {
         "cols": ["B6", "D4", "D6", "D7", "B4", "B5", "C6", "C7"],

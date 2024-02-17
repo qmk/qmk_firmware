@@ -8,26 +8,108 @@
         "pid": "0x3505",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "led_count": 98,
+        "split_count": [49, 49],
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
     "ws2812": {
         "pin": "B5",
         "driver": "pwm"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "animations":{
+            "alphas_mods": true,
+            "gradient_up_down": true,
+            "gradient_left_right": true,
+            "breathing": true,
+            "band_sat": true,
+            "band_val": true,
+            "band_pinwheel_sat": true,
+            "band_pinwheel_val": true,
+            "band_spiral_sat": true,
+            "band_spiral_val": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "rainbow_moving_chevron": true,
+            "cycle_out_in": true,
+            "cycle_out_in_dual": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "dual_beacon": true,
+            "rainbow_beacon": true,
+            "rainbow_pinwheels": true,
+            "raindrops": true,
+            "jellybean_raindrops": true,
+            "hue_breathing": true,
+            "hue_pendulum": true,
+            "hue_wave": true,
+            "pixel_rain": true,
+            "pixel_flow": true,
+            "pixel_fractal": true,
+            "typing_heatmap": true,
+            "digital_rain": true,
+            "solid_reactive_simple": true,
+            "solid_reactive": true,
+            "solid_reactive_wide": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_cross": true,
+            "solid_reactive_multicross": true,
+            "solid_reactive_nexus": true,
+            "solid_reactive_multinexus": true,
+            "splash": true,
+            "multisplash": true,
+            "solid_splash": true,
+            "solid_multisplash": true
+        },
+        "center_point": [128, 34],
+        "driver": "ws2812",
+        "led_flush_limit": 33,
+        "led_process_limit": 10,
+        "sleep": true,
+        "split_count": [49, 49]
     },
     "matrix_pins": {
         "cols": ["A0", "B11", "B0", "B10", "B12", "B2", "A8"],
-        "rows": ["A1", "A3", "B3", "A13", "B15", null, null]
+        "rows": ["A1", "A3", "B3", "A13", "B15", null, null],
+        "io_delay": 5
     },
     "diode_direction": "COL2ROW",
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "B8", "pin_b": "A14"},
             {"pin_a": "B9", "pin_b": "A15"}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 5
+    },
     "split": {
-        "soft_serial_pin": "A9"
+        "soft_serial_pin": "A9",
+        "transport": {
+            "sync": {
+                "indicators": true,
+                "layer_state": true,
+                "matrix_state": true
+            }
+        }
     },
     "processor": "STM32F303",
     "bootloader": "stm32-dfu",
@@ -113,16 +195,6 @@
                 {"matrix": [11, 2], "x": 11.5, "y": 4},
                 {"matrix": [11, 1], "x": 12.5, "y": 4},
                 {"matrix": [11, 0], "x": 13.5, "y": 4},
-
-                {"matrix": [5, 0], "x": 0, "y": 5.5},
-                {"matrix": [5, 1], "x": 1, "y": 5.5},
-                {"matrix": [5, 2], "x": 2, "y": 5.5},
-                {"matrix": [5, 3], "x": 3, "y": 5.5},
-
-                {"matrix": [12, 0], "x": 10.5, "y": 5.5},
-                {"matrix": [12, 1], "x": 11.5, "y": 5.5},
-                {"matrix": [12, 2], "x": 12.5, "y": 5.5},
-                {"matrix": [12, 3], "x": 13.5, "y": 5.5},
 
                 {"matrix": [6, 0], "x": 0, "y": 6.5},
                 {"matrix": [6, 1], "x": 1, "y": 6.5},

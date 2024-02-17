@@ -8,6 +8,12 @@
         "pid": "0x0001",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 7,
+        "sleep": true
+    },
     "ws2812": {
         "pin": "D3"
     },

@@ -26,5 +26,3 @@ MOUSE_SHARED_EP = no # Unify multiple HID interfaces into a single Endpoint
 KEYBOARD_SHARED_EP = yes
 
 SERIAL_DRIVER = usart
-
-DEBOUNCE_TYPE = asym_eager_defer_pk

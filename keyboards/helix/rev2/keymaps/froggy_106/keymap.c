@@ -1,9 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "keymap_japanese.h"
 #include <string.h>
-#ifdef SSD1306OLED
-  #include "ssd1306.h"
-#endif
 
 #define LAYOUT_half( \
     L00, L01, L02, L03, L04, L05,       \
@@ -563,15 +560,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-
-//keyboard start-up code. Runs once when the firmware starts up.
-void matrix_init_user(void) {
-    //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
-    #ifdef SSD1306OLED
-        iota_gfx_init(!has_usb());   // turns on the display
-    #endif
-}
-
 // LED Effect
 #ifdef RGBLIGHT_ENABLE
 unsigned char rgb[7][5][3];
@@ -632,10 +620,6 @@ layer_state_t layer_state_old;
 
 //runs every scan cycle (a lot)
 void matrix_scan_user(void) {
-  #ifdef SSD1306OLED
-    iota_gfx_task();  // this is what updates the display continuously
-  #endif
-
   if(delay_key_stat && (timer_elapsed(key_timer) > DELAY_TIME)){
     if (IS_MODE_106())
       register_delay_code(_BASE_106);
@@ -692,141 +676,6 @@ void matrix_scan_user(void) {
     }
   #endif
 }
-
-//SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
-#ifdef SSD1306OLED
-
-void matrix_update(struct CharacterMatrix *dest,
-                          const struct CharacterMatrix *source) {
-  if (memcmp(dest->display, source->display, sizeof(dest->display))) {
-    memcpy(dest->display, source->display, sizeof(dest->display));
-    dest->dirty = true;
-  }
-}
-
-// Render to OLED
-void render_status(struct CharacterMatrix *matrix) {
-
-  // froggy logo
-  static char logo[4][17]=
-  {
-    {0x68,0x69,0x6a,0x6b,0x6c,0x6d,0x6e,0x6f,0x70,0x71,0x72,0x73,0x74,0},
-    {0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,0},
-    {0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,0},
-    {0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0},
-  };
-  
-  static char modectl[4][2][4]=
-  {
-    {
-      {0x65,0x66,0x67,0}, //WIN
-      {0x85,0x86,0x87,0}, //WIN
-    },
-    {
-      {0xa5,0xa6,0xa7,0}, //US(101)
-      {0xc5,0xc6,0xc7,0}, //US(101)
-    },
-    {
-      {0xbd,0xbe,0xbf,0}, //MAC
-      {0xdd,0xde,0xdf,0}, //MAC
-    },
-    {
-      {0xba,0xbb,0xbc,0}, //JP(106)
-      {0xda,0xdb,0xdc,0}, //JP(106)
-    },
-  };
-  
-  static char indctr[8][2][4]=
-  {
-    // white icon
-    {
-      {0x60,0x61,0x62,0}, //NUM
-      {0x63,0x64,0}       //FUNC
-    },
-    {
-      {0x80,0x81,0x82,0}, //NUM
-      {0x83,0x84,0}       //FUNC
-    },
-    {
-      {0xa0,0xa1,0xa2,0}, //CAPS
-      {0xa3,0xa4,0}       //SCLK
-    },
-    {
-      {0xc0,0xc1,0xc2,0}, //CAPS
-      {0xc3,0xc4,0}       //SCLK
-    },
-    // Black icon
-    {
-      {0x75,0x76,0x77,0}, //NUM
-      {0x78,0x79,0}       //FUNC
-    },
-    {
-      {0x95,0x96,0x97,0}, //NUM
-      {0x98,0x99,0}       //FUNC
-    },
-    {
-      {0xb5,0xb6,0xb7,0}, //CAPS
-      {0xb8,0xb9,0}       //SCLK
-    },
-    {
-     {0xd5,0xd6,0xd7,0}, //CAPS
-     {0xd8,0xd9,0}       //SCLK
-    },
-  };
-
-  int rown = 0;
-  int rowf = 0;
-  int rowa = 0;
-  int rows = 0;
-  int rowm = 0;
-  int rowj = 1;
-
-  //Set Indicator icon
-  if (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) { rown = 4; }
-  if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) { rowa = 4; }
-  if (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) { rows = 4; }
-  if (IS_LAYER_ON(_FUNC)) { rowf = 4; }
-
-  //Set Mode icon
-  if (IS_MODE_MAC()) { rowm = 2; }
-  if (IS_MODE_106()) { rowj = 3; }
-
-  matrix_write(matrix, indctr[rown]  [0]);
-  matrix_write(matrix, indctr[rowf]  [1]);
-  matrix_write(matrix, modectl[rowm] [0]);
-  matrix_write(matrix, logo[0]);
-  matrix_write(matrix, indctr[rown+1][0]);
-  matrix_write(matrix, indctr[rowf+1][1]);
-  matrix_write(matrix, modectl[rowm] [1]);
-  matrix_write(matrix, logo[1]);
-  matrix_write(matrix, indctr[rowa+2][0]);
-  matrix_write(matrix, indctr[rows+2][1]);
-  matrix_write(matrix, modectl[rowj] [0]);
-  matrix_write(matrix, logo[2]);
-  matrix_write(matrix, indctr[rowa+3][0]);
-  matrix_write(matrix, indctr[rows+3][1]);
-  matrix_write(matrix, modectl[rowj] [1]);
-  matrix_write(matrix, logo[3]);
-
-}
-
-void iota_gfx_task_user(void) {
-  struct CharacterMatrix matrix;
-
-#if DEBUG_TO_SCREEN
-  if (debug_enable) {
-    return;
-  }
-#endif
-
-  matrix_clear(&matrix);
-  if (is_keyboard_master()) {
-    render_status(&matrix);
-  }
-  matrix_update(&display, &matrix);
-}
-
-#endif // end of SSD1306OLED
 
 //OLED update loop
 #ifdef OLED_ENABLE
@@ -909,9 +758,10 @@ void render_status(void) {
   int rowj = 1;
 
   //Set Indicator icon
-  if (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) { rown = 4; }
-  if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) { rowa = 4; }
-  if (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) { rows = 4; }
+  led_t led_state = host_keyboard_led_state();
+  if (led_state.num_lock) { rown = 4; }
+  if (led_state.caps_lock) { rowa = 4; }
+  if (led_state.scroll_lock) { rows = 4; }
   if (IS_LAYER_ON(_FUNC)) { rowf = 4; }
 
   //Set Mode icon

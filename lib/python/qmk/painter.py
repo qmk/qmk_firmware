@@ -300,7 +300,7 @@ def rgb_to565(r, g, b):
     return [msb, lsb]
 
 
-def convert_image_bytes(im, format):  # sourcery skip: raise-specific-error
+def convert_image_bytes(im, format):
     """Convert the supplied image to the equivalent bytes required by the QMK firmware.
     """
 
@@ -365,7 +365,6 @@ def convert_image_bytes(im, format):  # sourcery skip: raise-specific-error
         palette = None
 
         bytearray = [byte for r, g, b in zip(red, green, blue) for byte in rgb_to565(r, g, b)]
-
 
     if image_format == 'IMAGE_FORMAT_RGB888':
         # Take the red, green, and blue channels

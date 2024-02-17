@@ -4,6 +4,11 @@
         "pid": "0x0006",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 2
+    },
     "ws2812": {
         "pin": "D7"
     },

@@ -19,6 +19,27 @@
     "split": {
         "soft_serial_pin": "D0"
     },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 9,
+        "split": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "tapping": {
+        "term": 120
+    },
     "ws2812": {
         "pin": "F0"
     },

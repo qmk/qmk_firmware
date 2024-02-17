@@ -19,5 +19,6 @@ MOUSEKEY_ENABLE = yes       # Mouse keys
 ENCODER_ENABLE := no
 OPTS_DEF += -DENCODER_ENABLE
 
-QUANTUM_LIB_SRC += analog.c
+ANALOG_DRIVER_REQUIRED = yes
+
 SRC += opt_encoder.c

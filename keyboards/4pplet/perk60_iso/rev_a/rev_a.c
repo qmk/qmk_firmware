@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "rev_a.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT] = {
     { 0, K_2,  J_2,  L_2 }, //D402
     { 0, K_3,  J_3,  L_3 }, //D403
     { 0, K_4,  J_4,  L_4 }, //D404
@@ -82,10 +82,9 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     { 0, B_16,  A_16,  C_16 } //D464
 };
 
+#define XXX NO_LED
 led_config_t g_led_config = {
     {
-    #define XXX NO_LED
-
     {   0,   2,   4,   6,   8,  10,  12 },
     {   1,   3,   5,   7,   9,  11, XXX },
     {  14,  16,  18,  20,  22,  24,  26 },

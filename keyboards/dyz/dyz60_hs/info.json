@@ -37,6 +37,9 @@
         "pid": "0x001A",
         "device_version": "0.0.1"
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift", "60_tsangan_hhkb", "60_iso", "60_iso_split_bs_rshift"],
