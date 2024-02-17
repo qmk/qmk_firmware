@@ -12,6 +12,7 @@
 #define GC9107_GET_IMAGE_FMT 0x0D         // Get image format
 #define GC9107_GET_SIGNAL_MODE 0x0E       // Get signal mode
 #define GC9107_GET_DIAG_RESULT 0x0F       // Get self-diagnostic results
+#define GC9107_SET_FRAME_RATE 0xAB        // Set frame rate
 #define GC9107_SET_COMPLEMENT_RGB 0xAC    // Set complement Principle RGB
 #define GC9107_SET_BLANK_PORCH 0xAD       // Set blank porch control, 0;front_porch[6:0],0;back_porch[6:0]
 #define GC9107_SET_FUNCTION_CTL1 0xB1     // Set access to AVDD_VCL_CLK and VGH_VGL_CLK commands
@@ -43,7 +44,7 @@
 //      GC9107_SET_FUNCTION_CTL2
 #define GC9107_ALLOW_SET_VGH 0b00000001         // Allow GC9107_SET_VGH
 #define GC9107_ALLOW_SET_VGL 0b00000010         // Allow GC9107_SET_VGL
-#define GC9107_ALLOW_SET_VGH_VGL_CLK 0b00000100 // Alloq GC9107_SET_VGH_VGL_CLK
+#define GC9107_ALLOW_SET_VGH_VGL_CLK 0b00000100 // Allow GC9107_SET_VGH_VGL_CLK
 //      Parameter masks for
 //      GC9107_SET_FUNCTION_CTL3
 #define GC9107_ALLOW_SET_GAMMA1 0b00000001 // Allow GC9107_SET_GAMMA1

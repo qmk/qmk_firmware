@@ -20,16 +20,32 @@ __attribute__((weak)) bool qp_gc9107_init(painter_device_t device, painter_rotat
     // A lot of these "unknown" opcodes are sourced from other OSS projects and are seemingly required for this display to function.
     // clang-format off
 
-
     const uint8_t gc9107_init_sequence[] = {
         // Command,                 Delay,  N, Data[N]
         // The following commands are not really needed since the functionality isn't being used
-        GC9XXX_SET_INTER_REG_ENABLE1,   5,  0,
-        GC9XXX_SET_INTER_REG_ENABLE2,   5,  0,
 
-        GC9XXX_SET_PIXEL_FORMAT,        0,  1, GC9107_PIXEL_FORMAT_16_BPP,
+        // GC9XXX_SET_INTER_REG_ENABLE1,   5,  0,
+        // GC9XXX_SET_INTER_REG_ENABLE2,   5,  0,
+        // GC9107_SET_FUNCTION_CTL2,       0,  1,  GC9107_ALLOW_SET_VGH | GC9107_ALLOW_SET_VGL | GC9107_ALLOW_SET_VGH_VGL_CLK,
+        // GC9107_SET_FUNCTION_CTL3,       0,  1,  GC9107_ALLOW_SET_GAMMA1 | GC9107_ALLOW_SET_GAMMA2,
+
+        // GC9107_SET_FUNCTION_CTL6,       0,  1,  GC9107_ALLOW_SET_FRAMERATE | GC9107_ALLOW_SET_COMPLEMENT_RGB,    // Offset an diagonal 0b00011001
+        
+        // GC9107_SET_COMPLEMENT_RGB,      0,  1,  GC9107_COMPLEMENT_WITH_LSB,
+        // GC9107_SET_FRAME_RATE,          0,  1,  0x19,   // 69Hz
+     
+        // GC9107_SET_VGH,                 0,  1,  GC9107_VGH_P140,
+        // GC9107_SET_VGL,                 0,  1,  VGL_N_075,
+
+        // GC9107_SET_VGH_VGL_CLK,         0,  1,  GC9107_VGH_CLK_DIV_4 | GC9107_VGL_CLK_DIV_4,
+
+        // Values taken from waveshare example. Colors seem a little washed out
+        // GC9XXX_SET_GAMMA1,              0,  14, 0x1F, 0x28, 0x04, 0x3E, 0x2A, 0x2E, 0x20, 0x00, 0x0C, 0x06, 0x00, 0x1C, 0x1F, 0x0F,
+        // GC9XXX_SET_GAMMA2,              0,  14, 0x00, 0x2D, 0x2F, 0x3C, 0x6F, 0x1C, 0x0B, 0x00, 0x00, 0x00, 0x07, 0x0D, 0x11, 0x0F,
+
+        GC9XXX_SET_PIXEL_FORMAT,        0,  1,  GC9107_PIXEL_FORMAT_16_BPP,
         GC9XXX_CMD_INVERT_ON,           0,  0,
-        GC9XXX_CMD_SLEEP_OFF,           120,  0,
+        GC9XXX_CMD_SLEEP_OFF,           120,  0,        
         GC9XXX_CMD_DISPLAY_ON,          20,  0
     };
 
