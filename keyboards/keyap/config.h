@@ -7,9 +7,6 @@
     { D1 }
 #define ENCODERS_PAD_B \
     { D0 }
-#define ENCODERS_PAD_C \
-    { D4 }
-#define ENCODER_RESOLUTION 4
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
