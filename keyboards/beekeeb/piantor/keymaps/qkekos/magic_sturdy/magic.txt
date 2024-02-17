@@ -78,6 +78,7 @@ nex☆       -> next
 →t☆        -> that
 →e☆        -> e.g.
 
+di☆        -> dictionary
 pr☆        -> previous
 ex☆        -> example
 pe☆        -> people
