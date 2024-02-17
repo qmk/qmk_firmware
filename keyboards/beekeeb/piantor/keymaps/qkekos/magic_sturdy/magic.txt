@@ -248,6 +248,7 @@ ex✵✵       -> exactly
 →h✪        -> health
 →f✪        -> first
 →z✪        -> zone
+→t✪        -> this
 
 // Single
 
