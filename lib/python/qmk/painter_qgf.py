@@ -328,8 +328,8 @@ def _compress_image(frame, last_frame, *, use_rle, use_deltas, format_, **_kwarg
 
 # Helper function to save each frame to the output file
 def _write_frame(idx, frame, last_frame, *, fp, frame_offsets, metadata, **kwargs):
-    # Not an argument of the function as it would then not be part of **kwargs
-    # This would cause an issue with `_compress_image(kwargs)` missing an argument
+    # Not an argument of the function as it would then not be part of kwargs
+    # This would cause an issue with `_compress_image(**kwargs)` missing an argument
     format_ = kwargs["format_"]
 
     # (potentially) Apply RLE and/or delta, and work out output image's information
