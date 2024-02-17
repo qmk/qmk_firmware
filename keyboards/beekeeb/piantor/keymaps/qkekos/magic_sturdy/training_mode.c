@@ -32,6 +32,8 @@ void record_potential_match(trie_visitor_t *v, int bspaces, const char *completi
         result->context_string[0] = '\0';
     }
 
+    if (completion_len > temple_len) return;
+
     for (int i = 0; i < completion_len; i += 1)
         if (keycode_to_char(temple_key_buffer[temple_len - completion_len + i]) != completion[i])
             return;
