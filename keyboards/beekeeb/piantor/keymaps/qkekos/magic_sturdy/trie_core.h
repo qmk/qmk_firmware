@@ -21,7 +21,7 @@ typedef struct
 } trie_t;
 
 typedef struct {
-	char buffer[MAGIC_MAX_LENGTH];
+	char buffer[MAX_CONTEXT_LENGTH];
 	int size;
 } stack_t;
 
