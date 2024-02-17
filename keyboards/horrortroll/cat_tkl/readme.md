@@ -1,8 +1,12 @@
-# Cat x(
+# Cat TKL
 
-![Cat](https://i.imgur.com/sPZxgXuh.png)
+![CatTkl](https://i.imgur.com/sPZxgXuh.png)
 
-A TKL keyboard, which controlled by an RP2040 chipset.
+TKL (F13 top row) sized keyboard controlled by an RP2040 controller, with layout options:
+- ANSI or ISO form factor
+- Split or 2u Backspace
+- Split (1.75u-1u) or 2.75u Right Shift
+- Standard or Tsangan bottom row
 
 * Keyboard Maintainer: [HorrorTroll](https://github.com/HorrorTroll)
 * Hardware Supported: RP2040
