@@ -173,6 +173,7 @@ cou✵       -> course
 nat✵       -> nation
 tio✵       -> tional
 min✵       -> minute
+ing✵       -> inge
 
 // Double
 
