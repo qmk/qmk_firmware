@@ -16,41 +16,46 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
-//SSD1306 OLED update loop
+
+// SSD1306 OLED update loop
+#include "oled_driver.h"
+#ifdef CONSOLE_ENABLE
+#    include "print.h"
+#endif
 #ifdef OLED_ENABLE
-	/* KEYBOARD PET START */
-	#define KEYBOARD_PET
-	 
-	/* settings */
-	#define MIN_WALK_SPEED 10
-	#define MIN_RUN_SPEED 40
-	 
-	/* advanced settings */
-	#define ANIM_FRAME_DURATION 200 // how long each frame lasts in ms
-	#define ANIM_SIZE 96 // number of bytes in array. If you change sprites, minimize for adequate firmware size. max is 1024
-	 
-	/* timers */
-	uint32_t anim_timer = 0;
-	uint32_t anim_sleep = 0;
-	 
-	/* current frame */
-	uint8_t current_frame = 0;
-	 
-	/* status variables */
-	int current_wpm_read = 0;
-	uint32_t oled_timer = 0; //For Keyboard pet OLED timeout with animations, code by Drashna.
-	led_t led_usb_state;
-	 
-	bool isSneaking = false;
-	bool isJumping = false;
-	bool showedJump = true;
-	bool isBarking = false;
-	 
-	 
-	/* logic */
-	static void render_luna(int LUNA_X, int LUNA_Y) {
-	 
+uint32_t oled_timer = 0; // For Keyboard pet OLED timeout with animations, code by Drashna.
+#    ifndef PET_DISABLE
+/* KEYBOARD PET START */
+#        define KEYBOARD_PET
+
+/* settings */
+#        define MIN_WALK_SPEED 10
+#        define MIN_RUN_SPEED 40
+
+/* advanced settings */
+#        define ANIM_FRAME_DURATION 200 // how long each frame lasts in ms
+#        define ANIM_SIZE 96            // number of bytes in array. If you change sprites, minimize for adequate firmware size. max is 1024
+
+/* timers */
+uint32_t anim_timer = 0;
+uint32_t anim_sleep = 0;
+
+/* current frame */
+uint8_t current_frame = 0;
+
+/* status variables */
+int current_wpm_read = 0;
+
+#        ifndef SNEAK_DISABLE
+bool isSneaking = false;
+#        endif
+bool isJumping  = false;
+bool showedJump = true;
+bool isBarking  = false;
+
+/* logic */
+static void render_luna(int LUNA_X, int LUNA_Y) {
+    // clang-format off
 		/* Sit */
 		static const char PROGMEM sit[2][ANIM_SIZE] = {
 			/* 'sit1', 32x22px */
@@ -62,7 +67,7 @@
 				0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x02, 0x04, 0x0c, 0x10, 0x10, 0x20, 0x20, 0x20, 0x28,
 				0x3e, 0x1c, 0x20, 0x20, 0x3e, 0x0f, 0x11, 0x1f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 			},
-	 
+
 			/* 'sit2', 32x22px */
 			{
 				0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe0, 0x1c,
@@ -70,10 +75,10 @@
 				0x00, 0x00, 0x00, 0x00, 0x00, 0xe0, 0x90, 0x08, 0x18, 0x60, 0x10, 0x08, 0x04, 0x03, 0x00, 0x00,
 				0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x0e, 0x82, 0x7c, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 				0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x02, 0x04, 0x0c, 0x10, 0x10, 0x20, 0x20, 0x20, 0x28,
-				0x3e, 0x1c, 0x20, 0x20, 0x3e, 0x0f, 0x11, 0x1f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+				0x3e, 0x1c, 0x20, 0x20, 0x3e, 0x0f, 0x11, 0x1f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 			}
 		};
-	 
+
 		/* Walk */
 		static const char PROGMEM walk[2][ANIM_SIZE] = {
 			/* 'walk1', 32x22px */
@@ -85,7 +90,7 @@
 				0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x1c, 0x20, 0x20, 0x3c, 0x0f, 0x11, 0x1f, 0x03,
 				0x06, 0x18, 0x20, 0x20, 0x3c, 0x0c, 0x12, 0x1e, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 			},
-	 
+
 			/* 'walk2', 32x22px */
 			{
 				0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x40, 0x20, 0x20, 0x20, 0x40, 0x80, 0x00, 0x00, 0x00,
@@ -96,7 +101,7 @@
 				0x02, 0x1c, 0x14, 0x08, 0x10, 0x20, 0x2c, 0x32, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 			}
 		};
-	 
+
 		/* Run */
 		static const char PROGMEM run[2][ANIM_SIZE] = {
 			/* 'run1', 32x22px */
@@ -108,7 +113,7 @@
 				0x00, 0x00, 0x00, 0x00, 0x00, 0x0e, 0x09, 0x04, 0x04, 0x04, 0x04, 0x02, 0x03, 0x02, 0x01, 0x01,
 				0x02, 0x02, 0x04, 0x08, 0x10, 0x26, 0x2b, 0x32, 0x04, 0x05, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00,
 			},
-	 
+
 			/* 'run2', 32x22px */
 			{
 				0x00, 0x00, 0x00, 0xe0, 0x10, 0x10, 0xf0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80,
@@ -119,7 +124,7 @@
 				0x02, 0x1e, 0x20, 0x20, 0x18, 0x0c, 0x14, 0x1e, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 			}
 		};
-	 
+
 		/* Bark */
 		static const char PROGMEM bark[2][ANIM_SIZE] = {
 			/* 'bark1', 32x22px */
@@ -131,7 +136,7 @@
 				0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x02, 0x0c, 0x10, 0x20, 0x28, 0x37, 0x02, 0x02,
 				0x04, 0x08, 0x10, 0x26, 0x2b, 0x32, 0x04, 0x05, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 			},
-	 
+
 			/* 'bark2', 32x22px */
 			{
 				0x00, 0xe0, 0x10, 0x10, 0xf0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x80, 0x40,
@@ -142,7 +147,8 @@
 				0x04, 0x08, 0x10, 0x26, 0x2b, 0x32, 0x04, 0x05, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 			}
 		};
-	 
+
+    #ifndef SNEAK_DISABLE
 		/* Sneak */
 		static const char PROGMEM sneak[2][ANIM_SIZE] = {
 			/* 'sneak1', 32x22px */
@@ -154,7 +160,7 @@
 				0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x1c, 0x20, 0x20, 0x3c, 0x0f, 0x11, 0x1f, 0x02, 0x06,
 				0x18, 0x20, 0x20, 0x38, 0x08, 0x10, 0x18, 0x04, 0x04, 0x02, 0x02, 0x01, 0x00, 0x00, 0x00, 0x00,
 			},
-	 
+
 			/* 'sneak2', 32x22px */
 			{
 				0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x40, 0x40, 0x40, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -165,110 +171,124 @@
 				0x18, 0x10, 0x08, 0x10, 0x20, 0x28, 0x34, 0x06, 0x02, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00,
 			}
 		};
-	 
-		/* animation */
-		void animate_luna(void) {
-	 
-			/* jump */
-			if (isJumping || !showedJump) {
-	 
-				/* clear */
-				oled_set_cursor(LUNA_X,LUNA_Y +2);
-				oled_write("     ", false);
-	 
-				oled_set_cursor(LUNA_X,LUNA_Y -1);
-	 
-				showedJump = true;
-			} else {
-	 
-				/* clear */
-				oled_set_cursor(LUNA_X,LUNA_Y -1);
-				oled_write("     ", false);
-	 
-				oled_set_cursor(LUNA_X,LUNA_Y);
-			}
-	 
-			/* switch frame */
-			current_frame = (current_frame + 1) % 2;
-	 
-			/* current status */
-			if(isBarking) {
-				oled_write_raw_P(bark[abs(1 - current_frame)], ANIM_SIZE);
-	 
-			} else if(isSneaking) {
-				oled_write_raw_P(sneak[abs(1 - current_frame)], ANIM_SIZE);
-	 
-			} else if(current_wpm_read <= MIN_WALK_SPEED) {
-				oled_write_raw_P(sit[abs(1 - current_frame)], ANIM_SIZE);
-	 
-			} else if(current_wpm_read <= MIN_RUN_SPEED) {
-				oled_write_raw_P(walk[abs(1 - current_frame)], ANIM_SIZE);
-	 
-			} else {
-				oled_write_raw_P(run[abs(1 - current_frame)], ANIM_SIZE);
-			}
-		}
-	 
-		/* animation timer */
-		if(timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION) {
-			anim_timer = timer_read32();
-			animate_luna();
-		}	 
-	}
-	 
-	/* KEYBOARD PET END */
+    #endif
+    // clang-format on
 
-	static void print_logo_narrow(void) {
-		oled_set_cursor(0, 2);
-		switch (get_highest_layer(default_layer_state)) {
-			case _QWERTY:
-				oled_write_P(PSTR("Qwrty"), false);
-				break;
-			case _COLEMAK:
-				oled_write_P(PSTR("Colmk"), false);
-				break;
-			case _PROGRAMMER_DVORAK:
-				oled_write_P(PSTR("P Dvk"), false);
-				break;
-			case _GAMING:
-				oled_write_P(PSTR("Game "), false);
-				break;
-			default:
-				oled_write_P(PSTR("Undef"), false);
-		}
+    /* animation */
+    void animate_luna(void) {
+        /* jump */
+        if (isJumping || !showedJump) {
+            /* clear */
+            oled_set_cursor(LUNA_X, LUNA_Y + 2);
+            oled_write_ln("", false);
 
-		/* wpm counter */
-		oled_set_cursor(0,9);
-		oled_write_P(PSTR("WPM:\n"), false);
-		oled_write(get_u8_str(get_current_wpm(), ' '), false);
-	}
+            oled_set_cursor(LUNA_X, LUNA_Y - 1);
+
+            showedJump = true;
+        } else {
+            /* clear */
+            oled_set_cursor(LUNA_X, LUNA_Y - 1);
+            oled_write_ln("", false);
+
+            oled_set_cursor(LUNA_X, LUNA_Y);
+        }
+
+        /* switch frame */
+        current_frame = (current_frame + 1) % 2;
+
+        /* current status */
+        if (isBarking) {
+            oled_write_raw_P(bark[abs(1 - current_frame)], ANIM_SIZE);
+#        ifndef SNEAK_DISABLE
+        } else if (isSneaking) {
+            oled_write_raw_P(sneak[abs(1 - current_frame)], ANIM_SIZE);
+#        endif
+        } else if (current_wpm_read <= MIN_WALK_SPEED) {
+            oled_write_raw_P(sit[abs(1 - current_frame)], ANIM_SIZE);
+
+        } else if (current_wpm_read <= MIN_RUN_SPEED) {
+            oled_write_raw_P(walk[abs(1 - current_frame)], ANIM_SIZE);
+
+        } else {
+            oled_write_raw_P(run[abs(1 - current_frame)], ANIM_SIZE);
+        }
+    }
+
+    /* animation timer */
+    if (timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION) {
+        anim_timer = timer_read32();
+        animate_luna();
+    }
+}
+
+/* KEYBOARD PET END */
+#    endif
+
+#    ifdef RAW_ENABLE
+#        include "transactions.h"
+char    *time             = "     ";
+uint32_t last_time_update = 0;
+#    endif
+
+static void print_layout_and_wpm(void) {
+#    ifdef RAW_ENABLE
+    oled_set_cursor(0, 0);
+    if (timer_elapsed32(last_time_update) <= 60000) {
+        oled_write(time, false);
+    } else {
+        oled_write_ln("", false);
+    }
+#    endif
+
+    oled_set_cursor(0, 2);
+    switch (get_highest_layer(default_layer_state)) {
+        case _QWERTY:
+            oled_write_P(PSTR("Qwrty"), false);
+            break;
+        case _COLEMAK:
+            oled_write_P(PSTR("Colmk"), false);
+            break;
+        case _PROGRAMMER_DVORAK:
+            oled_write_P(PSTR("P Dvk"), false);
+            break;
+        case _GAMING:
+            oled_write_P(PSTR("Game "), false);
+            break;
+        default:
+            oled_write_P(PSTR("Undef"), false);
+    }
+
+    /* wpm counter */
+    oled_set_cursor(0, 9);
+    oled_write_P(PSTR("WPM:\n"), false);
+    oled_write(get_u8_str(get_current_wpm(), ' '), false);
+}
 
 bool shift_held = false;
-bool ctrl_held = false;
+bool ctrl_held  = false;
 
 static void print_status_narrow(void) {
-	if (keymap_config.swap_lctl_lgui) {
-		oled_write_ln_P(PSTR("MAC"), false);
-	}
-	else {
-		oled_write_ln_P(PSTR(""), false);
-		//oled_write_ln_P(PSTR("WIN"), false);
-	}
+    if (keymap_config.swap_lctl_lgui) {
+        oled_write_ln_P(PSTR("MAC"), false);
+    } else {
+        oled_write_ln_P(PSTR(""), false);
+        // oled_write_ln_P(PSTR("WIN"), false);
+    }
 
-	/* Print current layer */
-	oled_set_cursor(0,2);
-	oled_write("LAYER", false);
+    /* Print current layer */
+    oled_set_cursor(0, 2);
+    oled_write("LAYER", false);
 
-	oled_set_cursor(0,3);
+    oled_set_cursor(0, 3);
     switch (get_highest_layer(layer_state)) {
         case _COLEMAK:
         case _QWERTY:
-		case _PROGRAMMER_DVORAK:
-		case _GAMING:
+        case _PROGRAMMER_DVORAK:
+        case _GAMING:
             oled_write_P(PSTR("Base "), false);
             break;
         case _RAISE:
-            oled_write_P(PSTR("Raise"), false); 
+            oled_write_P(PSTR("Raise"), false);
             break;
         case _LOWER:
             oled_write_P(PSTR("Lower"), false);
@@ -280,57 +300,110 @@ static void print_status_narrow(void) {
             oled_write_P(PSTR("Undef"), false);
     }
 
-	/* lock status */
-	oled_set_cursor(0,5);
-	if (led_usb_state.caps_lock) {
-		oled_write("CAPS", true);
-	} else if (is_caps_word_on()) {
-		oled_write("WORD", true);
-	} else {
-		oled_write("\n", true);
-	}
-	oled_set_cursor(0,6);
-	oled_write(shift_held? "SHIFT" : "\n", true);
-	oled_set_cursor(0,7);
-	oled_write(ctrl_held? "CTRL" : "\n", true);
-	//oled_write_ln("Num", !led_usb_state.num_lock);
-	//oled_write_ln("Scrl", led_usb_state.scroll_lock);
+    /* lock status */
+    led_t led_usb_state = host_keyboard_led_state();
+    oled_set_cursor(0, 5);
+    if (led_usb_state.caps_lock) {
+        oled_write("CAPS", true);
+#    if defined(CAPS_WORD_ENABLE)
+    } else if (is_caps_word_on()) {
+        oled_write("WORD", true);
+#    endif
+    } else {
+        oled_write("\n", true);
+    }
+    oled_set_cursor(0, 6);
+    oled_write(shift_held ? "SHIFT" : "\n", true);
+    oled_set_cursor(0, 7);
+    oled_write(ctrl_held ? "CTRL" : "\n", true);
+    // oled_write_ln("Num", !led_usb_state.num_lock);
+    // oled_write_ln("Scrl", led_usb_state.scroll_lock);
 
-	/* KEYBOARD PET RENDER START */
-	render_luna(0,11);
-	/* KEYBOARD PET RENDER END */
+#    ifndef PET_DISABLE
+    /* KEYBOARD PET RENDER START */
+    render_luna(0, 11);
+    /* KEYBOARD PET RENDER END */
+#    endif
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-	return OLED_ROTATION_270;
+    return OLED_ROTATION_270;
 }
 
 bool oled_task_user(void) {
-	/* KEYBOARD PET VARIABLES START */
-	current_wpm_read = get_current_wpm();
-	led_usb_state = host_keyboard_led_state();
-	/* KEYBOARD PET VARIABLES END */
+#    ifndef PET_DISABLE
+    /* KEYBOARD PET VARIABLES START */
+    current_wpm_read = get_current_wpm();
+    /* KEYBOARD PET VARIABLES END */
+#    endif
 
-	if (is_keyboard_master()) { //Drashna's OLED timeout off code for animations
-		if (timer_elapsed32(oled_timer) > 30000) {
-			oled_off();
-			return false;
-		} else {
-			oled_on();
-		}
-	} else {
-		if (is_oled_on()) {
-			oled_on();
-		} else {
-			oled_off();
-		}
-	}
+    if (is_keyboard_master()) { // Drashna's OLED timeout off code for animations
+        if (timer_elapsed32(oled_timer) > 30000) {
+            oled_off();
+            return false;
+        } else {
+            oled_on();
+        }
+    } else {
+        if (is_oled_on()) {
+            oled_on();
+        } else {
+            oled_off();
+        }
+    }
 
-	if (is_keyboard_master()) {
-		print_status_narrow();
-	} else {
-		print_logo_narrow();
-	}
-	return false;
+    if (is_keyboard_master()) {
+        print_status_narrow();
+    } else {
+        print_layout_and_wpm();
+    }
+    return false;
 }
+
+#    ifdef RAW_ENABLE
+void sync_time(uint8_t in_buflen, const void *in_data, uint8_t out_buflen, void *out_data) {
+    // Set the time on the slave-side keyboard
+    time = (char *)in_data;
+    dprintf("Synced time '%s' to right-side keyboard\n", time);
+    last_time_update = timer_read32();
+    dprintf("Updated last_time_update to %d\n", last_time_update);
+}
+
+void raw_hid_receive(uint8_t *data, uint8_t length) {
+    // Set the time on the main-side keyboard
+    strcpy(time, (char *)data);
+    dprintf("Received '%s' via hid\n", time);
+}
+
+void housekeeping_task_user(void) {
+    if (is_keyboard_master()) {
+        // Interact with slave every 1000ms
+        static uint32_t last_sync = 0;
+        if (timer_elapsed32(last_sync) > 1000) {
+            if (transaction_rpc_send(TIME_SYNC, 6, time)) {
+                dprintf("Sent '%s' to the right keyboard\n", time);
+                last_sync = timer_read32();
+            } else {
+                dprintln("Sending to right keyboard failed!");
+            }
+        }
+    }
+}
+#    endif
+
+#    if defined(RAW_ENABLE) || defined(CONSOLE_ENABLE)
+void keyboard_post_init_user(void) {
+#        ifdef CONSOLE_ENABLE
+    debug_enable = true;
+    // debug_matrix = true;
+    // debug_keyboard = true;
+    // debug_mouse = true;
+#        endif
+#        ifdef RAW_ENABLE
+    transaction_register_rpc(TIME_SYNC, sync_time);
+    dprintf("Registered sync_time method for syncing time between split\n", time);
+#        endif
+}
+#    endif
+
 #endif

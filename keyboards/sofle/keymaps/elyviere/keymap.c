@@ -1,7 +1,8 @@
+// If there are errors: qmk generate-compilation-database
+
+#include "oled_driver.h"
 #include QMK_KEYBOARD_H
 #include "keymap_swedish.h"
-// #include <stdio.h>
-// #include <time.h>
 
 enum sofle_layers {
     /* _M_XYZ = Mac Os, _W_XYZ = Win/Linux */
@@ -207,15 +208,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define dvorak_shift(k, o) ko_make_with_layers_negmods_and_options(MOD_MASK_SHIFT, k, o, 1 << _PROGRAMMER_DVORAK, MOD_MASK_CA, ko_option_no_reregister_trigger)
 const key_override_t tilde_override   = dvorak_shift(SE_DLR, SE_TILD);
 const key_override_t percent_override = dvorak_shift(SE_AMPR, SE_PERC);
-const key_override_t seven_override   = dvorak_shift(SE_ARNG, SE_7);
+const key_override_t seven_override   = dvorak_shift(SE_LBRC, SE_7);
 const key_override_t five_override    = dvorak_shift(SE_LCBR, SE_5);
 const key_override_t three_override   = dvorak_shift(SE_RCBR, SE_3);
 const key_override_t one_override     = dvorak_shift(SE_LPRN, SE_1);
-const key_override_t nine_override    = dvorak_shift(SE_ACUT, SE_9);
+const key_override_t nine_override    = dvorak_shift(SE_EQL, SE_9);
 const key_override_t zero_override    = dvorak_shift(SE_ASTR, SE_0);
 const key_override_t two_override     = dvorak_shift(SE_RPRN, SE_2);
 const key_override_t four_override    = dvorak_shift(SE_PLUS, SE_4);
-const key_override_t six_override     = dvorak_shift(SE_DIAE, SE_6);
+const key_override_t six_override     = dvorak_shift(SE_RBRC, SE_6);
 const key_override_t eight_override   = dvorak_shift(SE_EXLM, SE_8);
 const key_override_t colon_override   = dvorak_shift(SE_SCLN, SE_COLN);
 const key_override_t rabk_override    = dvorak_shift(SE_COMM, SE_LABK);
@@ -256,7 +257,7 @@ const key_override_t **key_overrides = (const key_override_t *[]){
     &delete_key_override,
     &next_track_override,
     &prev_track_override,
-    NULL // Null terminate the array of overrides!
+    NULL // Null terminate the array of overrides
 };
 
 #ifdef OLED_ENABLE
@@ -282,7 +283,7 @@ void disable_held_keys(bool *shift_held, bool *ctrl_held) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-#if defined(KEYBOARD_PET) || defined(OLED_LOGO)
+#ifdef OLED_ENABLE
     if (record->event.pressed) { // OLED timeout code
         oled_timer = timer_read32();
     }
@@ -499,8 +500,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-#ifdef ENCODER_ENABLE
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    // Mappings for 1st Encoder          // Mappings for 2nd Encoder
 
+    [_QWERTY]            = {ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)}, // Mapping for Base layer
+    [_COLEMAK]           = {ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)}, // Mapping for Base layer
+    [_PROGRAMMER_DVORAK] = {ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)}, // Mapping for Base layer
+    [_GAMING]            = {ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)}, // Mapping for Base layer
+    [_LOWER]             = {ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)}, // Mapping for Base layer
+    [_RAISE]             = {ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)}, // Mapping for Base layer
+    [_ADJUST]            = {ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)}, // Mapping for Base layer
+    // [1] = { ENCODER_CCW_CW(RGB_HUD, RGB_HUI),  ENCODER_CCW_CW(RGB_SAD, RGB_SAI)  }, // Mapping for Layer 1
+    // [2] = { ENCODER_CCW_CW(RGB_VAD, RGB_VAI),  ENCODER_CCW_CW(RGB_SPD, RGB_SPI)  }, // Mapping for Layer 2
+    // [3] = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD), ENCODER_CCW_CW(KC_LEFT, KC_RIGHT) }, // Mapping for Layer 3
+
+    // You can add more layers here if you need them, or you can also delete lines for layers you are not using
+};
+#endif
+
+#if defined(ENCODER_ENABLE) && !defined(ENCODER_MAP_ENABLE)
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (clockwise) {
@@ -517,11 +536,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     }
     return false;
 }
-
 #endif
 
-#ifdef BOTH_SHIFTS_TURNS_ON_CAPS_WORD
-
+#ifdef CAPS_WORD_ENABLE
 bool caps_word_press_user(uint16_t keycode) {
     switch (keycode) {
         // Keycodes that continue Caps Word, with shift applied.
@@ -547,5 +564,4 @@ void caps_word_set_user(bool active) {
         register_code(KC_CAPS);
     }
 }
-
 #endif

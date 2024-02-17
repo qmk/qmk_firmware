@@ -1,0 +1,1 @@
+/home/elyviere/qmk_firmware/quantum/keymap_extras/keymap_swedish.h
