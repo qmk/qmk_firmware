@@ -13,6 +13,13 @@ uint8_t buffer_len_copy;
 
 char tmp_buffer[MAX_CONTEXT_LENGTH];
 
+void wipe_result(potential_compl_result_t *result) {
+    result->max_completion = NULL;
+    result->max_completion_len = 0;
+    result->match_context_level = 0;
+    result->context_string[0] = '\0';
+}
+
 void record_potential_match(trie_visitor_t *v, int bspaces, const char *completion) {
     potential_compl_result_t *result = (potential_compl_result_t*)(v->cb_data);
     uint8_t completion_len = strlen(completion);
@@ -31,12 +38,7 @@ void record_potential_match(trie_visitor_t *v, int bspaces, const char *completi
     if (
         v->stack.size > strlen(result->context_string) &&
         key_buffer_size >= result->match_context_level
-    ) {
-        result->max_completion = NULL;
-        result->max_completion_len = 0;
-        result->match_context_level = 0;
-        result->context_string[0] = '\0';
-    }
+    ) wipe_result(result);
 
     for (int i = 0; i < completion_len; i += 1) {
         int index = buffer_len_copy - completion_len + i;
@@ -77,15 +79,27 @@ bool check_potential_match(trie_t* trie, potential_compl_result_t* result) {
 
 void check_potential_matches(potential_match_found_cb callback) {
     if (!is_magic_training_active) return;
-    potential_compl_result_t result;
+
+    potential_compl_result_t best_result;
+    potential_compl_result_t current_result;
+
+    uint16_t magic_key;
 
     for (int i = 0; tries[i].magic_key != KC_NO; i++) {
-        for (int i = 0; i < key_buffer_size; i += 1)
-            key_buffer_copy[i] = key_buffer[i];
+        wipe_result(&current_result);
 
-        if (check_potential_match(&tries[i], &result)) {
-            callback(tries[i].magic_key, result.context_string, result.max_completion);
-            return;
+        for (int j = 0; j < key_buffer_size; j += 1)
+            key_buffer_copy[j] = key_buffer[j];
+
+        if (
+            check_potential_match(&tries[i], &current_result) &&
+            current_result.max_completion_len > best_result.max_completion_len
+        ) {
+            magic_key = tries[i].magic_key;
+            best_result = current_result;
         }
     }
+
+    if (magic_key)
+        callback(magic_key, best_result.context_string, best_result.max_completion);
 }
