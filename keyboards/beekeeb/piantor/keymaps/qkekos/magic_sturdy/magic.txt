@@ -87,7 +87,6 @@ pu☆        -> public
 up☆        -> update
 te☆        -> tement
 sy☆        -> system
-va☆        -> value
 ot☆        -> other
 co☆        -> could
 ag☆        -> again
@@ -191,6 +190,7 @@ ex✵        -> exact
 fr✵        -> from
 ma✵        -> make
 la✵        -> last
+va✵        -> value
 
 // Single
 
