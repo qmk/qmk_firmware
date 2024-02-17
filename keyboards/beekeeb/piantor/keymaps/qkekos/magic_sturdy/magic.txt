@@ -93,7 +93,6 @@ pa☆        -> page
 mo☆        -> most
 mu☆        -> must
 vi☆        -> view
-ve☆        -> very
 so☆        -> some
 do☆        -> doub
 li☆        -> list
