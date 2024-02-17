@@ -27,6 +27,9 @@ void enqueue_keycode(uint8_t keycode) {
  */
 void dequeue_keycodes(uint8_t count) {
     key_buffer_size -= MIN(count, key_buffer_size);
+
+    if (!key_buffer_size)
+        enqueue_keycode(KC_SPC);
 }
 
 void dequeue_keycode(void) { dequeue_keycodes(1); }
