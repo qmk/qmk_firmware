@@ -239,10 +239,11 @@ ex✵✵       -> exactly
 // Triple
 
 →uf✪       -> unfortunate
+→wh✪       -> whatever
 →an✪       -> another
-→in✪       -> inform
 →th✪       -> through
 →ob✪       -> obvious
+→in✪       -> inform
 →sh✪       -> should
 →af✪       -> after
 
