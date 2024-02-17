@@ -63,5 +63,16 @@ char keycode_to_char(uint16_t code) {
 	return code - KC_A + 'a';
 }
 
+bool is_string_ascii(char *str) {
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (str[i] == ' ') continue;
+    
+        if (!('a' <= str[i] && str[i] <= 'z'))
+            return false; 
+    }
+
+    return true;
+}
+
 bool is_uppercase_letter(char symbol) { return 'A' <= symbol && symbol <= 'Z'; }
 bool is_lowercase_letter(char symbol) { return 'a' <= symbol && symbol <= 'z'; }
