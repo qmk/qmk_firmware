@@ -20,6 +20,7 @@ again★     -> against
 copy★      -> copying
 doub★      -> doable
 que★       -> queue
+ion★       -> ional
 ck★        -> cks
 
 some★★     -> somehow
