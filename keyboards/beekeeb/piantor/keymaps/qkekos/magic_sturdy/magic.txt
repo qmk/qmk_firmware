@@ -168,6 +168,7 @@ cap✵       -> capable
 pro✵       -> program
 how✵       -> however
 wit✵       -> without
+thr✵       -> through
 any✵       -> anyway
 cou✵       -> course
 nat✵       -> nation
@@ -241,11 +242,11 @@ ex✵✵       -> exactly
 →uf✪       -> unfortunate
 →wh✪       -> whatever
 →an✪       -> another
-→th✪       -> through
 →ob✪       -> obvious
 →in✪       -> inform
 →sh✪       -> should
 →af✪       -> after
+→th✪       -> this
 
 // Double
 
@@ -253,7 +254,6 @@ ex✵✵       -> exactly
 →h✪        -> health
 →f✪        -> first
 →z✪        -> zone
-→t✪        -> this
 
 // Single
 
