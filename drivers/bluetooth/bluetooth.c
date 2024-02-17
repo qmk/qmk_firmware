@@ -1,5 +1,5 @@
 /*
- * Copyright 2022
+ * Copyright 2024
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,48 +15,80 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <stdbool.h>
+#include <stddef.h>
 #include "bluetooth.h"
+#include "usb_util.h"
+
+/* Each driver needs to define the struct
+ *    const bluetooth_driver_t bluetooth_driver;
+ * Members `init`, `send_keyboard`, `send_mouse` and `send_consumer` must be provided.
+ * Members `task`, `is_connected` and `send_system` are optional and may be set to `NULL`.
+ * Keyboard custom drivers can define this in their own files, it should only
+ * be here if shared between boards on a QMK core driver.
+ */
 
 #if defined(BLUETOOTH_BLUEFRUIT_LE)
-#    include "bluefruit_le.h"
+const bluetooth_driver_t bluetooth_driver = {
+    .init          = bluefruit_le_init,
+    .task          = bluefruit_le_task,
+    .is_connected  = bluefruit_le_is_connected,
+    .send_keyboard = bluefruit_le_send_keyboard,
+    .send_mouse    = bluefruit_le_send_mouse,
+    .send_consumer = bluefruit_le_send_consumer,
+    .send_system   = NULL,
+};
+#    ifdef ENABLE_NKRO
+#        error BlueFruit LE does not support NKRO, do not declare `ENABLE_NKRO`
+#    endif
+
 #elif defined(BLUETOOTH_RN42)
-#    include "rn42.h"
+const bluetooth_driver_t bluetooth_driver = {
+    .init          = rn42_init,
+    .task          = NULL,
+    .is_connected  = NULL,
+    .send_keyboard = rn42_send_keyboard,
+    .send_mouse    = rn42_send_mouse,
+    .send_consumer = rn42_send_consumer,
+    .send_system   = NULL,
+};
+#    ifdef ENABLE_NKRO
+#        error RN42 does not support NKRO, do not declare `ENABLE_NKRO`
+#    endif
+
 #endif
 
-void bluetooth_init(void) {
-#if defined(BLUETOOTH_BLUEFRUIT_LE)
-    bluefruit_le_init();
-#elif defined(BLUETOOTH_RN42)
-    rn42_init();
+#ifndef SEND_OUTPUT_DEFAULT
+#    define SEND_OUTPUT_DEFAULT SEND_OUTPUT_AUTO
 #endif
+
+send_output_t desired_send_output = SEND_OUTPUT_DEFAULT;
+
+send_output_t set_send_output(send_output_t send_output) {
+    desired_send_output = set_send_output_kb(send_output);
+    return desired_send_output;
 }
 
-void bluetooth_task(void) {
-#if defined(BLUETOOTH_BLUEFRUIT_LE)
-    bluefruit_le_task();
-#endif
+__attribute__((weak)) send_output_t set_send_output_kb(send_output_t send_output) {
+    return set_send_output_user(send_output);
 }
 
-void bluetooth_send_keyboard(report_keyboard_t *report) {
-#if defined(BLUETOOTH_BLUEFRUIT_LE)
-    bluefruit_le_send_keyboard(report);
-#elif defined(BLUETOOTH_RN42)
-    rn42_send_keyboard(report);
-#endif
+__attribute__((weak)) send_output_t set_send_output_user(send_output_t send_output) {
+    return send_output;
 }
 
-void bluetooth_send_mouse(report_mouse_t *report) {
-#if defined(BLUETOOTH_BLUEFRUIT_LE)
-    bluefruit_le_send_mouse(report);
-#elif defined(BLUETOOTH_RN42)
-    rn42_send_mouse(report);
-#endif
-}
-
-void bluetooth_send_consumer(uint16_t usage) {
-#if defined(BLUETOOTH_BLUEFRUIT_LE)
-    bluefruit_le_send_consumer(usage);
-#elif defined(BLUETOOTH_RN42)
-    rn42_send_consumer(usage);
-#endif
+send_output_t get_send_output(void) {
+    if (desired_send_output == SEND_OUTPUT_AUTO) {
+        // only if USB is **disconnected**
+        if (usb_connected_state()) {
+            return SEND_OUTPUT_USB;
+        }
+        if ((NULL != bluetooth_driver.is_connected) && (bluetooth_driver.is_connected())) {
+            return SEND_OUTPUT_BLUETOOTH;
+        } else {
+            return SEND_OUTPUT_NONE;
+        }
+    } else {
+        return desired_send_output;
+    }
 }

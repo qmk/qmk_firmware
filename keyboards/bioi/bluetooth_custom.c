@@ -75,6 +75,8 @@ void bluetooth_init(void) {
 
 void bluetooth_task(void) {}
 
+bool bluetooth_is_connected(void) { return true; }  // lie
+
 void bluetooth_send_keyboard(report_keyboard_t *report)
 {
 #ifdef BLUEFRUIT_TRACE_SERIAL
@@ -155,3 +157,12 @@ void bluetooth_send_consumer(uint16_t usage)
     bluefruit_trace_footer();
 #endif
 }
+
+const bluetooth_driver_t bluetooth_driver = {
+    .init          = bluetooth_init,
+    .task          = bluetooth_task,
+    .is_connected  = bluetooth_is_connected,
+    .send_keyboard = bluetooth_send_keyboard,
+    .send_mouse    = bluetooth_send_mouse,
+    .send_consumer = bluetooth_send_consumer,
+};

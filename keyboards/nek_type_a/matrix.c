@@ -34,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "matrix.h"
 #include "timer.h"
 #include "mcp23017.h"
-#include "outputselect.h"
+#include "bluetooth.h"
 
 /* Set 0 if debouncing isn't needed */
 
@@ -136,7 +136,7 @@ void matrix_init(void) {
     }
 
     matrix_init_kb();
-    set_output(OUTPUT_AUTO);
+    set_send_output(SEND_OUTPUT_AUTO);
 }
 
 uint8_t matrix_scan(void)
