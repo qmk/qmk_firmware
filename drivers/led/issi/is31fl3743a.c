@@ -138,8 +138,8 @@ void is31fl3743a_init_drivers(void) {
     i2c_init();
 
 #if defined(IS31FL3743A_SDB_PIN)
-    setPinOutput(IS31FL3743A_SDB_PIN);
-    writePinHigh(IS31FL3743A_SDB_PIN);
+    gpio_set_pin_output(IS31FL3743A_SDB_PIN);
+    gpio_write_pin_high(IS31FL3743A_SDB_PIN);
 #endif
 
     for (uint8_t i = 0; i < IS31FL3743A_DRIVER_COUNT; i++) {

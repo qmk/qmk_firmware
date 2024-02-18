@@ -68,8 +68,8 @@ void is31fl3218_init(void) {
     i2c_init();
 
 #if defined(IS31FL3218_SDB_PIN)
-    setPinOutput(IS31FL3218_SDB_PIN);
-    writePinHigh(IS31FL3218_SDB_PIN);
+    gpio_set_pin_output(IS31FL3218_SDB_PIN);
+    gpio_write_pin_high(IS31FL3218_SDB_PIN);
 #endif
 
     // In case we ever want to reinitialize (?)
