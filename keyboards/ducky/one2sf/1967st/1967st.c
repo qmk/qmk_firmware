@@ -419,7 +419,7 @@ void MBIA045_disable_rows(void) {
     PB2 = PAL_LOW;
 
     // Row 4
-    PD9 = PAL_LOW;
+    PD8 = PAL_LOW;
 }
 
 /**
@@ -441,7 +441,7 @@ void MBIA045_select_row(int row) {
             PB2 = PAL_HIGH;
             break;
         case 4: // Row 4
-            PD9 = PAL_HIGH;
+            PD8 = PAL_HIGH;
             break;
     }
 }
