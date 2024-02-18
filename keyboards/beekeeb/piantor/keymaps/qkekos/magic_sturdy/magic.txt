@@ -45,6 +45,8 @@ polic☆     -> policy
 // Triple
 
 →ar☆       -> around
+→si☆       -> singer
+→gi☆       -> ginger
 →or☆       -> order
 →ti☆       -> time
 →ed☆       -> edge
@@ -66,6 +68,7 @@ bud☆       -> budget
 col☆       -> column
 tho☆       -> though
 num☆       -> number
+cri☆       -> cringe
 rid☆       -> ridge
 red☆       -> redge
 jud☆       -> judge
@@ -89,6 +92,7 @@ pu☆        -> public
 up☆        -> update
 te☆        -> tement
 sy☆        -> system
+fi☆        -> finger
 ot☆        -> other
 co☆        -> could
 ag☆        -> again
@@ -176,7 +180,6 @@ cou✵       -> course
 nat✵       -> nation
 tio✵       -> tional
 min✵       -> minute
-ing✵       -> inge
 
 // Double
 
