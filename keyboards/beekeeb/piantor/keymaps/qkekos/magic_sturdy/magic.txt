@@ -250,6 +250,7 @@ ex✵✵       -> exactly
 →in✪       -> inform
 →sh✪       -> should
 →af✪       -> after
+→tn✪       -> think
 →th✪       -> this
 
 // Double
