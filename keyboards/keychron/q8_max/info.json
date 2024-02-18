@@ -18,7 +18,7 @@
         "nkro" : true,
         "rgb_matrix": true,
         "raw" : true,
-        "sendstring" : true
+        "send_string" : true
     },
     "matrix_pins": {
         "cols": ["C8", "C9", "A8", "A15", "C10", "C11", "C15", "C0", "C1", "C2", "C3", "A0", "A1", "A2", "A3"],

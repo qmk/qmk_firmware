@@ -1,5 +1,5 @@
 {
-    "keyboard_name": "Keychron Q1 Max",
+    "keyboard_name": "Keychron Q10 Max",
     "manufacturer": "Keychron",
     "url": "https://github.com/Keychron",
     "maintainer": "lokher",
@@ -18,13 +18,16 @@
         "nkro" : true,
         "rgb_matrix": true,
         "raw" : true,
-        "send_string" : true
+        "send_string": true
     },
     "matrix_pins": {
-        "cols": ["C7", "C8", "A14", "A15", "C10", "C11", "C13", "C14", "C15", "C0", "C1", "C2", "C3", "A0", "A1"],
+        "cols": ["C7", "C8", "C9", "A8", "A15", "C10", "C11", "C15", "C0", "C1", "C2", "C3", "A0", "A1", "A2", "A3"],
         "rows": ["C12", "D2", "B3", "B4", "B5", "B6"]
     },
     "diode_direction": "ROW2COL",
+    "bootmagic": {
+        "matrix": [0, 1]
+    },
     "encoder": {
         "rotary": [
             {
@@ -34,7 +37,7 @@
         ]
     },
     "dip_switch" :{
-        "pins": ["B12"]
+        "pins": ["B7"]
     },
     "rgb_matrix": {
         "driver": "snled27351_spi",
