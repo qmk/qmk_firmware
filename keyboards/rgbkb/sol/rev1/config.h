@@ -24,5 +24,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLIGHT_LED_COUNT 70
 #endif
 #define RGB_MATRIX_LED_COUNT  RGBLIGHT_LED_COUNT
-
-#define RGB_MATRIX_CENTER { 112, 35 }

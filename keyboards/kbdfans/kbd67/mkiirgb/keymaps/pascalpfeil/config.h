@@ -23,7 +23,7 @@
 #define FORCE_NKRO
 
 #ifdef RGB_MATRIX_ENABLE
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED
+#    define RGB_MATRIX_SLEEP
 #    undef RGB_MATRIX_TIMEOUT
 #    define RGB_MATRIX_TIMEOUT 900000
 #endif

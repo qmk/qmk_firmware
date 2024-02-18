@@ -127,6 +127,14 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
+                "default": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "on": {"type": "boolean"},
+                        "clicky": {"type": "boolean"}
+                    }
+                },
                 "macro_beep": {"type": "boolean"},
                 "pins": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
                 "voices": {"type": "boolean"}
@@ -310,8 +318,8 @@
         },
         "features": {
             "$ref": "qmk.definitions.v1#/boolean_array",
-            "propertyNames": { "$ref": "qmk.definitions.v1#/snake_case" }
-
+            "propertyNames": { "$ref": "qmk.definitions.v1#/snake_case" },
+            "not": { "required": [ "lto" ] }
         },
         "indicators": {
             "type": "object",
