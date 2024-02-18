@@ -9,9 +9,19 @@
         "force_nkro": true
     },
     "features": {
+        "bootmagic": true,
+        "dip_switch": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
         "rgb_matrix": true
     },
     "rgb_matrix": {
+        "animations": {
+            "breathing": true,
+            "cycle_left_right": true,
+            "typing_heatmap": true
+        },
         "driver": "custom",
         "layout": [
             {"matrix": [0, 0], "x": 0, "y": 0, "flags": 4},
@@ -56,6 +66,7 @@
             {"matrix": [2, 9], "x": 144, "y": 32, "flags": 4},
             {"matrix": [2, 10], "x": 160, "y": 32, "flags": 4},
             {"matrix": [2, 11], "x": 176, "y": 32, "flags": 4},
+            {"matrix": [2, 12], "x": 192, "y": 32, "flags": 4},
             {"matrix": [2, 13], "x": 208, "y": 32, "flags": 4},
             {"matrix": [2, 14], "x": 224, "y": 32, "flags": 4},
             {"matrix": [3, 0], "x": 0, "y": 48, "flags": 5},
