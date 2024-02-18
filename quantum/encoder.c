@@ -54,12 +54,12 @@ static bool encoder_handle_queue(void) {
 bool encoder_task(void) {
     bool changed = false;
 
-#ifdef ENCODER_ENABLE
+#ifdef SPLIT_KEYBOARD
     // Attempt to process existing encoder events in case split handling has already enqueued events
     if (should_process_encoder()) {
         changed |= encoder_handle_queue();
     }
-#endif // ENCODER_ENABLE
+#endif // SPLIT_KEYBOARD
 
     // Let the encoder driver produce events
     encoder_driver_task();
