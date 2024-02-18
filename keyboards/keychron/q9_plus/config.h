@@ -30,9 +30,5 @@
 #define SNLED27351_CURRENT_TUNE \
     { 0xF8, 0xF8, 0x70, 0xF8, 0xF8, 0x70, 0xF8, 0xF8, 0x70, 0xF8, 0xF8, 0x70 }
 
-/* EEPROM Driver Configuration */
-#define WEAR_LEVELING_LOGICAL_SIZE 2048
-#define WEAR_LEVELING_BACKING_SIZE (WEAR_LEVELING_LOGICAL_SIZE * 2)
-
 /* Old default behavior of mod-taps */
 #define HOLD_ON_OTHER_KEY_PRESS

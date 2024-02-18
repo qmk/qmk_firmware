@@ -19,6 +19,11 @@
         "nkro": true,
         "rgb_matrix": true
     },
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
     "dip_switch": {
         "matrix_grid": [ [3, 4] ]
     },

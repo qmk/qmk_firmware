@@ -183,11 +183,4 @@ void matrix_init_kb(void) {
 
     matrix_init_user();
 }
-
-
-void keyboard_pre_init_kb(void) {
-    setPinOutput(B7);
-    writePinHigh(B7);
-    keyboard_pre_init_user();
-}
 #endif
