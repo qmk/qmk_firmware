@@ -1,4 +1,4 @@
-# dc60
+# DC60
 
 ![dc60](https://i.imgur.com/catCJLdh.jpeg)
 
