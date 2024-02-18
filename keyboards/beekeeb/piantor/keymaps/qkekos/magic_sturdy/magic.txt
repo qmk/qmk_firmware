@@ -196,6 +196,7 @@ fr✵        -> from
 ma✵        -> make
 la✵        -> last
 st✵        -> sts
+rs✵        -> rst
 
 // Single
 
