@@ -9,6 +9,11 @@
         "force_nkro": true
     },
     "features": {
+        "bootmagic_enable": true,
+        "dip_switch_enable": true,
+        "extrakey_enable": true,
+        "mousekey_enable": true,
+        "nkro_enable": true,
         "rgb_matrix": true
     },
     "rgb_matrix": {
