@@ -12,17 +12,17 @@
     "bootmagic": {
         "matrix": [0, 3]
     },
-    "encoder": {
-        "rotary": [
-            {"pin_a": "F0", "pin_b": "F4"}
-        ]
-    },
+
     "features": {
         "bootmagic": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,
-        "pointing_device": true
+        "pointing_device": true,
+        "encoder": true
+    },
+    "encoder": {
+        "driver": "custom"
     },
     "layouts": {
         "LAYOUT": {

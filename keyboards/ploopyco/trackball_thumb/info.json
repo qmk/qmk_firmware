@@ -17,12 +17,11 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "pointing_device": true
+        "pointing_device": true,
+        "encoder": true
     },
     "encoder": {
-        "rotary": [
-            {"pin_a": "F4", "pin_b": "F0"}
-        ]
+        "driver": "custom"
     },
     "layouts": {
         "LAYOUT": {

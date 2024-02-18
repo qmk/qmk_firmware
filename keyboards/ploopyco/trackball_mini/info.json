@@ -17,14 +17,13 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": false,
-        "pointing_device": true
+        "pointing_device": true,
+        "encoder": true
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "encoder": {
-        "rotary": [
-            {"pin_a": "F0", "pin_b": "F4"}
-        ]
+        "driver": "custom"
     },
     "layouts": {
         "LAYOUT": {

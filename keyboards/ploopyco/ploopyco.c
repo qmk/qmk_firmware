@@ -74,12 +74,6 @@ uint16_t lastMidClick      = 0; // Stops scrollwheel from being read if it was p
 pin_t    encoder_pins_a[1] = ENCODERS_PAD_A;
 pin_t    encoder_pins_b[1] = ENCODERS_PAD_B;
 bool     debug_encoder     = false;
-#endif
-
-#ifdef ENCODER_ENABLE
-__attribute__((weak)) bool encoder_update_user(uint8_t index, bool clockwise) {
-    return true;
-}
 
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) {
@@ -96,40 +90,40 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     return true;
 }
 
-bool encoder_read(void) {
+void encoder_driver_init(void) {
+    gpio_set_pin_input(OPT_ENC1);
+    gpio_set_pin_input(OPT_ENC2);
+
+    opt_encoder_init();
+}
+
+void encoder_driver_task(void) {
     uint16_t p1 = analogReadPin(encoder_pins_a[0]);
     uint16_t p2 = analogReadPin(encoder_pins_b[0]);
+
     if (debug_encoder) dprintf("OPT1: %d, OPT2: %d\n", p1, p2);
 
     int8_t dir = opt_encoder_handler(p1, p2);
-
     // If the mouse wheel was just released, do not scroll.
     if (timer_elapsed(lastMidClick) < PLOOPY_SCROLL_BUTTON_DEBOUNCE) {
-        return false;
+        return;
     }
 
     // Limit the number of scrolls per unit time.
     if (timer_elapsed(lastScroll) < PLOOPY_SCROLL_DEBOUNCE) {
-        return false;
+        return;
     }
 
     // Don't scroll if the middle button is depressed.
     if (is_scroll_clicked) {
 #    ifndef PLOOPY_IGNORE_SCROLL_CLICK
-        return false;
+        return;
 #    endif
     }
 
-    if (dir == 0) return false;
-    encoder_update_kb(0, dir > 0);
+    if (dir == 0) return;
+    encoder_queue_event(0, dir > 0);
     lastScroll = timer_read();
-    return true;
-}
-#endif
-
-#ifdef ENCODER_ENABLE
-void encoder_init(void) {
-    opt_encoder_init();
 }
 #endif
 
@@ -199,10 +193,10 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 
 // Hardware Setup
 void keyboard_pre_init_kb(void) {
-#ifdef ENCODER_ENABLE
-    setPinInput(encoder_pins_a[0]);
-    setPinInput(encoder_pins_b[0]);
-#endif
+    // debug_enable  = true;
+    // debug_matrix  = true;
+    // debug_mouse   = true;
+    // debug_encoder = true;
 
     /* Ground all output pins connected to ground. This provides additional
      * pathways to ground. If you're messing with this, know this: driving ANY
@@ -212,15 +206,15 @@ void keyboard_pre_init_kb(void) {
     const pin_t unused_pins[] = UNUSABLE_PINS;
 
     for (uint8_t i = 0; i < ARRAY_SIZE(unused_pins); i++) {
-        setPinOutput(unused_pins[i]);
-        writePinLow(unused_pins[i]);
+        gpio_set_pin_output_push_pull(unused_pins[i]);
+        gpio_write_pinLow(unused_pins[i]);
     }
 #endif
 
     // This is the debug LED.
 #if defined(DEBUG_LED_PIN)
-    setPinOutput(DEBUG_LED_PIN);
-    writePin(DEBUG_LED_PIN, debug_enable);
+    gpio_set_pin_output_push_pull(DEBUG_LED_PIN);
+    gpio_write_pin(DEBUG_LED_PIN, debug_enable);
 #endif
 
     keyboard_pre_init_user();
