@@ -19,6 +19,7 @@ could★     -> couldn't
 again★     -> against
 copy★      -> copying
 doub★      -> doable
+most★      -> mostly
 que★       -> queue
 ion★       -> ional
 ck★        -> cks
