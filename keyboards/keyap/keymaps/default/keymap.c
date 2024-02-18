@@ -3,8 +3,6 @@
 
 #include QMK_KEYBOARD_H
 
-#define NUM_ENCODERS 1
-#define NUM_DIRECTIONS 2
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = 
     {
