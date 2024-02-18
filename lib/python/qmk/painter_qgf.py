@@ -17,8 +17,9 @@ def o24(i):
     return o16(i & 0xFFFF) + o8((i & 0xFF0000) >> 16)
 
 
-# Helper to convert from RGB888 to the QMK "dialect" of HSV888
 def rgb888_to_qmk_hsv888(e):
+    """Helper to convert from RGB888 to the QMK "dialect" of HSV888
+    """
     hsv = rgb_to_hsv(e[0] / 255.0, e[1] / 255.0, e[2] / 255.0)
     return (int(hsv[0] * 255.0), int(hsv[1] * 255.0), int(hsv[2] * 255.0))
 

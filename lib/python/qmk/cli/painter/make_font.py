@@ -95,7 +95,6 @@ def painter_make_font_image(cli):
     print(f"Writing {cli.args.output} ...")
 
 
-
 @cli.argument('-i', '--input', help='Specify input graphic file.')
 @cli.argument('-o', '--output', default='', help='Specify output directory. Defaults to same directory as input.')
 @cli.argument('-n', '--no-ascii', arg_only=True, action='store_true', help='Disables output of the full ASCII character set (0x20..0x7E), exporting only the glyphs specified.')
