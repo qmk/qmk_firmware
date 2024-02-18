@@ -5,6 +5,7 @@ from pygments.token import Token
 from pygments import lex
 from itertools import islice
 from pathlib import Path
+from typing import List
 import re
 
 from milc import cli
@@ -44,7 +45,7 @@ def strip_multiline_comment(string):
     return multi_comment_regex.sub('', string)
 
 
-def c_source_files(dir_names):
+def c_source_files(dir_names: List[str]) -> List[Path]:
     """Returns a list of all *.c, *.h, and *.cpp files for a given list of directories
 
     Args:

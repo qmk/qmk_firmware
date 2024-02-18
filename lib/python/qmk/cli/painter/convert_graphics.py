@@ -56,7 +56,7 @@ def painter_convert_graphics(cli):
 
     if cli.args.raw:
         raw_file = cli.args.output / (cli.args.input.stem + ".qgf")
-        with open(raw_file, 'wb') as raw:
+        with raw_file.open('wb') as raw:
             raw.write(out_bytes)
         return
 
@@ -79,7 +79,7 @@ def painter_convert_graphics(cli):
     # Render and write the header file
     header_text = render_header(subs)
     header_file = cli.args.output / (cli.args.input.stem + ".qgf.h")
-    with open(header_file, 'w') as header:
+    with header_file.open('w') as header:
         print(f"Writing {header_file}...")
         header.write(header_text)
         header.close()
@@ -87,7 +87,7 @@ def painter_convert_graphics(cli):
     # Render and write the source file
     source_text = render_source(subs)
     source_file = cli.args.output / (cli.args.input.stem + ".qgf.c")
-    with open(source_file, 'w') as source:
+    with source_file.open('w') as source:
         print(f"Writing {source_file}...")
         source.write(source_text)
         source.close()

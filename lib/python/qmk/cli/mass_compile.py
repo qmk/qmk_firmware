@@ -31,7 +31,7 @@ def mass_compile_targets(targets: List[BuildTarget], clean: bool, dry_run: bool,
             cli.run([make_cmd, 'clean'], capture_output=False, stdin=DEVNULL)
 
         builddir.mkdir(parents=True, exist_ok=True)
-        with open(makefile, "w") as f:
+        with makefile.open("w") as f:
             for target in sorted(targets, key=lambda t: (t.keyboard, t.keymap)):
                 keyboard_name = target.keyboard
                 keymap_name = target.keymap
