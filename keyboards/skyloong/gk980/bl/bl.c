@@ -19,28 +19,15 @@ void suspend_wakeup_init_kb(void) {
     suspend_wakeup_init_user();
 }
 
-layer_state_t default_layer_state_set_kb(layer_state_t state) {
-    switch (get_highest_layer(state)) {
-    case 0:
-        writePinLow(MAC_PIN);
-        break;
-    case 1:
-        writePinHigh(MAC_PIN);
-        break;
-    }
-  return state;
-}
-
 bool shutdown_kb(bool jump_to_bootloader) {
     if (!shutdown_user(jump_to_bootloader)) {
         return false;
     }
-
+    backlight_disable();
     if (jump_to_bootloader) {
-        backlight_disable();
-        writePinHigh(MAC_PIN);
-    } else {
         backlight_enable_breathing();
+    } else {
+        writePinLow(MAC_PIN);
     }
     return true;
 }
