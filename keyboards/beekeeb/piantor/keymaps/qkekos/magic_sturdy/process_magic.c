@@ -34,6 +34,7 @@ void pontential_match_found(uint16_t magic_key, char *context, char *completion)
 
     ignore_match("a", "b");
     ignore_match(" i", "i");
+    if (queue(-3) == KC_C) ignore_match("k", "s");
 
     flick_leds(1.5, 250);
 

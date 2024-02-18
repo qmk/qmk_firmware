@@ -22,7 +22,6 @@ doub★      -> doable
 most★      -> mostly
 que★       -> queue
 ion★       -> ional
-ck★        -> cks
 
 some★★     -> somehow
 
