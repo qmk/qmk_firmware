@@ -191,10 +191,11 @@ sy✵        -> symbol
 mu✵        -> music
 ba✵        -> basic
 ex✵        -> exact
+va✵        -> value
 fr✵        -> from
 ma✵        -> make
 la✵        -> last
-va✵        -> value
+st✵        -> sts
 
 // Single
 
