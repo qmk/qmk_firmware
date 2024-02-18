@@ -14,8 +14,8 @@ from qmk.painter_qgf import QGFBlockHeader, QGFFramePaletteDescriptorV1
 from milc.attrdict import AttrDict
 import qmk.painter
 
-
 DEFAULT_FMT = "PNG"
+
 
 def o24(i):
     return o16(i & 0xFFFF) + o8((i & 0xFF0000) >> 16)
