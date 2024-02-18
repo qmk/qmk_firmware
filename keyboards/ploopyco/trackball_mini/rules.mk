@@ -13,9 +13,6 @@ POINTING_DEVICE_ENABLE = yes
 POINTING_DEVICE_DRIVER = adns5050
 MOUSEKEY_ENABLE = yes        # Mouse keys
 
-ENCODER_ENABLE = yes
-ENCODER_DRIVER = custom
-
 ANALOG_DRIVER_REQUIRED = yes
 
 SRC += opt_encoder.c

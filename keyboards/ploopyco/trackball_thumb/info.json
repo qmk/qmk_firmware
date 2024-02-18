@@ -20,6 +20,9 @@
         "pointing_device": true,
         "encoder": true
     },
+    "encoder": {
+        "driver": "custom"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
