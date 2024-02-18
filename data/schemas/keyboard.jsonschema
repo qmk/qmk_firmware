@@ -8,7 +8,7 @@
             "properties": {
                 "driver": {
                     "type": "string",
-                    "enum": ["graycode", "custom"]
+                    "enum": ["quadrature", "custom"]
                 },
                 "rotary": {
                     "type": "array",

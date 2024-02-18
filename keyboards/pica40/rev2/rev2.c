@@ -14,9 +14,9 @@ void encoder_sync_slave_handler(uint8_t in_buflen, const void *in_data, uint8_t 
     *(uint8_t *)out_data = readPin(ENCODER_PIN_B) ? 1 : 0;
 }
 
-void encoder_graycode_init_pin(uint8_t index, bool pad_b) {}
+void encoder_quadrature_init_pin(uint8_t index, bool pad_b) {}
 
-uint8_t encoder_graycode_read_pin(uint8_t index, bool pad_b) {
+uint8_t encoder_quadrature_read_pin(uint8_t index, bool pad_b) {
     if(pad_b) {
         uint8_t data = 0;
         transaction_rpc_recv(ENCODER_SYNC, sizeof(data), &data);

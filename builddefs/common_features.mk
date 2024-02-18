@@ -887,8 +887,8 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
 endif
 
 ENCODER_ENABLE ?= no
-ENCODER_DRIVER ?= graycode
-VALID_ENCODER_DRIVER_TYPES := graycode custom
+ENCODER_DRIVER ?= quadrature
+VALID_ENCODER_DRIVER_TYPES := quadrature custom
 ifeq ($(strip $(ENCODER_ENABLE)), yes)
     ifeq ($(filter $(ENCODER_DRIVER),$(VALID_ENCODER_DRIVER_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid ENCODER_DRIVER,ENCODER_DRIVER="$(ENCODER_DRIVER)" is not a valid encoder driver)

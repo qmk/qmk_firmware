@@ -112,7 +112,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     return changed;
 }
 
-uint8_t encoder_graycode_read_pin(uint8_t index, bool pad_b) {
+uint8_t encoder_quadrature_read_pin(uint8_t index, bool pad_b) {
     pin_t pin = pad_b ? B13: B12;
     setPinInputHigh(pin);
     writePinLow(matrix_row_pins[index]);
