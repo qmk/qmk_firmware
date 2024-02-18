@@ -157,6 +157,7 @@ hand✵      -> handy
 →vi✵       -> vision
 →ab✵       -> about
 
+sim✵       -> simultaneously
 imp✵       -> impossible
 uni✵       -> university
 dif✵       -> difficult
@@ -213,6 +214,7 @@ v✵         -> ver
 
 impl✵✵     -> implementation
 fu✵✵       -> functionality
+sim✵✵      -> simultaneous
 dev✵✵      -> development
 ba✵✵       -> basically
 ex✵✵       -> exactly
