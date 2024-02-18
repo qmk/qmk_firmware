@@ -32,24 +32,6 @@ void multi_tap(uint16_t keycode, int count) {
         tap_code16(keycode);
 }
 
-const char* to_upper_case(const char *str) {
-    static char result_string[MAX_STR_LEN];
-    int len = strlen(str);
-
-    if (len >= MAX_STR_LEN) {
-        printf("Input string is too long\n");
-        return "\0";
-    }
-
-    for (int i = 0; i < len; i++) {
-        if (is_lowercase_letter(str[i])) result_string[i] = str[i] - 32;
-        else result_string[i] = str[i];
-    }
-
-    result_string[len] = '\0';
-    return result_string;
-}
-
 uint16_t char_to_keycode(char symbol) {
     return pgm_read_byte(&ascii_to_keycode_lut[(uint8_t)symbol]);
 }
@@ -58,6 +40,7 @@ char keycode_to_char(uint16_t code) {
 	switch (code) {
         case KC_SPACE: return ' ';
         case KC_QUOTE: return '\'';
+        case KC_DOT:   return '.';
 	}
 
 	return code - KC_A + 'a';

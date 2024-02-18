@@ -179,13 +179,7 @@ void magic_key_fallback(void) {
 }
 
 void repeat_key_fallback(void) {
-    uint16_t last_key = get_buffer_element(-1);
-    if (!last_key) return;
-
-    if (is_caps_word_on()) last_key = S(last_key);
-
-    tap_code16(last_key);
-    enqueue_keycode(last_key);
+    record_tap_code(queue(-1));
 }
 
 void process_magic_key(uint16_t keycode) {

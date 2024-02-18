@@ -44,15 +44,17 @@ enum pr_response process_double_tap(uint16_t keycode, keyrecord_t *record, uint1
     return false;
 }
 
+void record_tap_code(uint8_t keycode) {
+    if (!keycode) return;
+
+    if (is_caps_word_on())
+        add_weak_mods(MOD_BIT(KC_LSFT));
+
+    tap_code(keycode);
+    enqueue_keycode(keycode);
+}
+
 void record_send_string(char* str) {
-    for (int i = 0; str[i] != '\0'; i++) {
-        uint16_t keycode = char_to_keycode(str[i]);
-
-        if (keycode == KC_BSPC) dequeue_keycode();
-        if (keycode == KC_NO) continue;
-
-        enqueue_keycode(keycode);
-    }
-
-    SEND_STRING(is_caps_word_on() ? to_upper_case(str) : str);
+    for (int i = 0; str[i] != '\0'; i++)
+        record_tap_code(char_to_keycode(str[i]));
 }
