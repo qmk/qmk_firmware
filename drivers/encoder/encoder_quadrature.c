@@ -44,14 +44,14 @@ __attribute__((weak)) void encoder_wait_pullup_charge(void) {
 __attribute__((weak)) void encoder_quadrature_init_pin(uint8_t index, bool pad_b) {
     pin_t pin = pad_b ? encoders_pad_b[index] : encoders_pad_a[index];
     if (pin != NO_PIN) {
-        setPinInputHigh(pin);
+        gpio_set_pin_input_high(pin);
     }
 }
 
 __attribute__((weak)) uint8_t encoder_quadrature_read_pin(uint8_t index, bool pad_b) {
     pin_t pin = pad_b ? encoders_pad_b[index] : encoders_pad_a[index];
     if (pin != NO_PIN) {
-        return readPin(pin) ? 1 : 0;
+        return gpio_read_pin(pin) ? 1 : 0;
     }
     return 0;
 }
