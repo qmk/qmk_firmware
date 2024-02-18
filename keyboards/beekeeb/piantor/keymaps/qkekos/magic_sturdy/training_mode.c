@@ -2,11 +2,17 @@
 #include "../__init__.h"
 
 bool is_magic_training_active = false;
+bool is_hard_training_active = false;
 
 void toggle_magic_training(void)  { is_magic_training_active = !is_magic_training_active; } 
 void enable_magic_training(void)  { is_magic_training_active = true; } 
 void disable_magic_training(void) { is_magic_training_active = false; } 
-bool is_magic_training_on(void)   { return is_magic_training_active; } 
+bool is_magic_training_on(void)   { return is_magic_training_active; }
+
+void toggle_hard_training(void)  { is_hard_training_active = !is_hard_training_active; } 
+void enable_hard_training(void)  { is_hard_training_active = true; } 
+void disable_hard_training(void) { is_hard_training_active = false; } 
+bool is_hard_training_on(void)   { return is_hard_training_active; } 
 
 uint8_t key_buffer_copy[MAX_CONTEXT_LENGTH];
 uint8_t buffer_len_copy;

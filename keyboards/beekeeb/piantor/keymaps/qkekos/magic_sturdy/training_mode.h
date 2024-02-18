@@ -17,3 +17,8 @@ void disable_magic_training(void);
 void toggle_magic_training(void); 
 void enable_magic_training(void); 
 bool is_magic_training_on(void);
+
+void disable_hard_training(void); 
+void toggle_hard_training(void);
+void enable_hard_training(void); 
+bool is_hard_training_on(void);

@@ -17,6 +17,13 @@ trie_t tries[] = {
     { KC_NO }
 };
 
+uint32_t remove_word_defer(uint32_t trigger_time, void *cb_arg) {
+    tap_code16(C(KC_BSPC));
+    clear_buffer();
+
+    return 0;
+}
+
 const char* get_magic_key_symbol(uint16_t magic_key) {
     switch (magic_key) {
         case US_AREP: return "☆";
@@ -48,6 +55,9 @@ void pontential_match_found(uint16_t magic_key, char *context, char *completion)
         context, get_magic_key_symbol(magic_key),
         context, completion
     );
+
+    if (is_hard_training_on())
+        defer_exec(1, remove_word_defer, NULL);
 }
 
 /**
