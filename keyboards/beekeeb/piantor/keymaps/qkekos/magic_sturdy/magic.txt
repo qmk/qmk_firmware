@@ -22,6 +22,7 @@ doub★      -> doable
 most★      -> mostly
 que★       -> queue
 ion★       -> ional
+that★      -> thank
 
 some★★     -> somehow
 
@@ -40,7 +41,6 @@ polic☆     -> policy
 // Quadruple
 
 →rec☆      -> recycle
-than☆      -> thanks
 
 // Triple
 
@@ -217,7 +217,6 @@ sim✵✵      -> simultaneous
 dev✵✵      -> development
 ba✵✵       -> basically
 ex✵✵       -> exactly
-→t✵✵       -> thank
 
 // Double letter taps
 
