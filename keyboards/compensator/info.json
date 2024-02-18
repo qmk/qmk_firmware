@@ -19,13 +19,7 @@
         "bootmagic": true,
         "mousekey": true,
         "extrakey": true,
-        "console": true,
-        "command": true,
-        "nkro": false,
-        "backlight": false,
-        "rgblight": false,
-        "audio": false,
-        "key_lock": false
+        "nkro": false
     },
     "bootmagic": {
         "matrix": [0, 5]
