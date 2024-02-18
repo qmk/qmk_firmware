@@ -15,18 +15,14 @@
         "mousekey": true,
         "nkro": false,
         "pointing_device": true,
-        "rgblight": false
+        "rgblight": false,
+        "encoder": true
     },
     "bootmagic": {
         "matrix": [0, 3]
     },
     "ws2812": {
         "pin": "B5"
-    },
-    "encoder": {
-        "rotary": [
-            {"pin_a": "F0", "pin_b": "F4"}
-        ]
     },
     "rgblight": {
         "led_count": 4,
@@ -43,9 +39,6 @@
         "direct": [
             ["D4", "D2", "E6", "B6", "D7", "C6", "C7", "B7"]
         ]
-    },
-    "features": {
-        "encoder": true
     },
     "encoder": {
         "driver": "custom"

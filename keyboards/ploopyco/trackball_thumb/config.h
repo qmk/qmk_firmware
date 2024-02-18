@@ -41,3 +41,6 @@
 #define ENCODER_HIGH_THRES_B 90
 /* Custom encoder needs to specify just how many encoders we have */
 #define NUM_ENCODERS 1
+
+#define ENCODERS_PAD_A { F4 }
+#define ENCODERS_PAD_B { F0 }

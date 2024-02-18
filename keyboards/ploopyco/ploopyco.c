@@ -91,9 +91,10 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 }
 
 void encoder_driver_init(void) {
-    gpio_set_pin_input(OPT_ENC1);
-    gpio_set_pin_input(OPT_ENC2);
-
+    for (uint8_t i = 0; i < ARRAY_SIZE(encoder_pins_a); i++) {
+        gpio_set_pin_input(encoder_pins_a[i]);
+        gpio_set_pin_input(encoder_pins_b[i]);
+    }
     opt_encoder_init();
 }
 
@@ -207,7 +208,7 @@ void keyboard_pre_init_kb(void) {
 
     for (uint8_t i = 0; i < ARRAY_SIZE(unused_pins); i++) {
         gpio_set_pin_output_push_pull(unused_pins[i]);
-        gpio_write_pinLow(unused_pins[i]);
+        gpio_write_pin_low(unused_pins[i]);
     }
 #endif
 
