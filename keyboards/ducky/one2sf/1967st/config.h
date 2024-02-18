@@ -1,6 +1,5 @@
 /*
 Copyright 2019 /u/KeepItUnder
-Copyright 2023 Hayley Hughes
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -21,7 +20,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIP_SWITCH_MATRIX_GRID { {0,14}, {1,14}, {2,14}, {3,14} }
 
 #define GPIO_INPUT_PIN_DELAY (NUC123_HCLK / 6 / 1000000L)
-
-#define ENABLE_RGB_MATRIX_BREATHING
-#define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
-#define ENABLE_RGB_MATRIX_TYPING_HEATMAP

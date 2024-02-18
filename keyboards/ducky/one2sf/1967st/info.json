@@ -9,14 +9,19 @@
         "force_nkro": true
     },
     "features": {
-        "bootmagic_enable": true,
-        "dip_switch_enable": true,
-        "extrakey_enable": true,
-        "mousekey_enable": true,
-        "nkro_enable": true,
+        "bootmagic": true,
+        "dip_switch": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
         "rgb_matrix": true
     },
     "rgb_matrix": {
+        "animations": {
+            "breathing": true,
+            "cycle_left_right": true,
+            "typing_heatmap": true
+        },
         "driver": "custom",
         "layout": [
             {"matrix": [0, 0], "x": 0, "y": 0, "flags": 4},
