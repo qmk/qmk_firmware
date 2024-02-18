@@ -18,9 +18,6 @@
     "quantum_painter": true,
     "rgb_matrix": true
   },
-  "encoder": {
-    "driver": "graycode"
-  },
   "rgb_matrix": {
     "driver": "ws2812"
   },
