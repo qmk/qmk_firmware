@@ -100,13 +100,13 @@ enum my_keycodes {
       for lang in languages:
           cog.out(f"KC_{lang}, ")
     ]]]*/
-    KC_LANG_EN, KC_LANG_DE, KC_LANG_FR, KC_LANG_ES, KC_LANG_PT, KC_LANG_IT, KC_LANG_TR, KC_LANG_KO, KC_LANG_JA, KC_LANG_AR, KC_LANG_GR,
+    KC_LANG_EN, KC_LANG_DE, KC_LANG_FR, KC_LANG_ES, KC_LANG_PT, KC_LANG_IT, KC_LANG_TR, KC_LANG_KO, KC_LANG_JA, KC_LANG_AR, KC_LANG_GR, 
     //[[[end]]]
     /*[[[cog
       for idx in range(10):
           cog.out(f"KC_LAT{idx}, ")
     ]]]*/
-    KC_LAT0, KC_LAT1, KC_LAT2, KC_LAT3, KC_LAT4, KC_LAT5, KC_LAT6, KC_LAT7, KC_LAT8, KC_LAT9,
+    KC_LAT0, KC_LAT1, KC_LAT2, KC_LAT3, KC_LAT4, KC_LAT5, KC_LAT6, KC_LAT7, KC_LAT8, KC_LAT9, 
     //[[[end]]]
 };
 
@@ -1532,19 +1532,19 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
             break;
         /*[[[cog
             for lang in languages:
-                cog.outl(f'case KC_{lang}: g_local.lang = {lang}; layer_off(_LL); break;')
+                cog.outl(f'case KC_{lang}: g_local.lang = {lang}; save_user_eeconf(); layer_off(_LL); break;')
             ]]]*/
-        case KC_LANG_EN: g_local.lang = LANG_EN; layer_off(_LL); break;
-        case KC_LANG_DE: g_local.lang = LANG_DE; layer_off(_LL); break;
-        case KC_LANG_FR: g_local.lang = LANG_FR; layer_off(_LL); break;
-        case KC_LANG_ES: g_local.lang = LANG_ES; layer_off(_LL); break;
-        case KC_LANG_PT: g_local.lang = LANG_PT; layer_off(_LL); break;
-        case KC_LANG_IT: g_local.lang = LANG_IT; layer_off(_LL); break;
-        case KC_LANG_TR: g_local.lang = LANG_TR; layer_off(_LL); break;
-        case KC_LANG_KO: g_local.lang = LANG_KO; layer_off(_LL); break;
-        case KC_LANG_JA: g_local.lang = LANG_JA; layer_off(_LL); break;
-        case KC_LANG_AR: g_local.lang = LANG_AR; layer_off(_LL); break;
-        case KC_LANG_GR: g_local.lang = LANG_GR; layer_off(_LL); break;
+        case KC_LANG_EN: g_local.lang = LANG_EN; save_user_eeconf(); layer_off(_LL); break;
+        case KC_LANG_DE: g_local.lang = LANG_DE; save_user_eeconf(); layer_off(_LL); break;
+        case KC_LANG_FR: g_local.lang = LANG_FR; save_user_eeconf(); layer_off(_LL); break;
+        case KC_LANG_ES: g_local.lang = LANG_ES; save_user_eeconf(); layer_off(_LL); break;
+        case KC_LANG_PT: g_local.lang = LANG_PT; save_user_eeconf(); layer_off(_LL); break;
+        case KC_LANG_IT: g_local.lang = LANG_IT; save_user_eeconf(); layer_off(_LL); break;
+        case KC_LANG_TR: g_local.lang = LANG_TR; save_user_eeconf(); layer_off(_LL); break;
+        case KC_LANG_KO: g_local.lang = LANG_KO; save_user_eeconf(); layer_off(_LL); break;
+        case KC_LANG_JA: g_local.lang = LANG_JA; save_user_eeconf(); layer_off(_LL); break;
+        case KC_LANG_AR: g_local.lang = LANG_AR; save_user_eeconf(); layer_off(_LL); break;
+        case KC_LANG_GR: g_local.lang = LANG_GR; save_user_eeconf(); layer_off(_LL); break;
         //[[[end]]]
         case KC_F1:case KC_F2:case KC_F3:case KC_F4:case KC_F5:case KC_F6:
         case KC_F7:case KC_F8:case KC_F9:case KC_F10:case KC_F11:case KC_F12:
@@ -1564,6 +1564,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
         case KC_LANG:
             if (IS_LAYER_ON(_LL)) {
                 g_local.lang = (g_local.lang + 1) % NUM_LANG;
+                save_user_eeconf();
                 layer_off(_LL);
             }
             else {
