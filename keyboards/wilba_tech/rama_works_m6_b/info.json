@@ -18,7 +18,7 @@
   "layout_aliases": {
     "LAYOUT": "LAYOUT_ortho_2x3"
   },
-  "community_layout": ["ortho_2x3"],
+  "community_layouts": ["ortho_2x3"],
   "layouts": {
     "LAYOUT_ortho_2x3": {
       "layout": [
