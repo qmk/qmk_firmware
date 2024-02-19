@@ -18,6 +18,7 @@ recycle★   -> recycling
 judge★     -> judgment
 could★     -> couldn't
 special★   -> specific
+over★      -> override
 again★     -> against
 copy★      -> copying
 start★     -> started
@@ -163,6 +164,7 @@ should✵    -> shouldn't
 some✵      -> something
 impl✵      -> implement
 poss✵      -> possible
+over✵      -> overall
 hand✵      -> handy
 
 // Triple
