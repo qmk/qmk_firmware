@@ -20,11 +20,6 @@
 #define MASTER_LEFT
 #define SPLIT_MODS_ENABLE
 
-#ifdef RGB_MATRIX_ENABLE
-#    define RGB_MATRIX_LED_COUNT 100
-#    define RGB_MATRIX_SPLIT { 48, 52 }
-#endif
-
 #define AUDIO_PIN B6
 
 #ifdef AUDIO_ENABLE

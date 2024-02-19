@@ -16,8 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
+
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
-#define RGB_MATRIX_LED_COUNT 70
 
 /* disable debug print */
 //#define NO_DEBUG

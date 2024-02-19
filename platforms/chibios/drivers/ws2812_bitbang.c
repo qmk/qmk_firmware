@@ -9,7 +9,11 @@
 #    if defined(STM32F0XX) || defined(STM32F1XX) || defined(GD32VF103) || defined(STM32F3XX) || defined(STM32F4XX) || defined(STM32L0XX) || defined(WB32F3G71xx) || defined(WB32FQ95xx)
 #        define NOP_FUDGE 0.4
 #    else
-#        error("NOP_FUDGE configuration required")
+#        if defined(RP2040)
+#            error "Please use `vendor` WS2812 driver for RP2040"
+#        else
+#            error "NOP_FUDGE configuration required"
+#        endif
 #        define NOP_FUDGE 1 // this just pleases the compile so the above error is easier to spot
 #    endif
 #endif
@@ -53,15 +57,15 @@ void sendByte(uint8_t byte) {
         // using something like wait_ns(is_one ? T1L : T0L) here throws off timings
         if (is_one) {
             // 1
-            writePinHigh(WS2812_DI_PIN);
+            gpio_write_pin_high(WS2812_DI_PIN);
             wait_ns(WS2812_T1H);
-            writePinLow(WS2812_DI_PIN);
+            gpio_write_pin_low(WS2812_DI_PIN);
             wait_ns(WS2812_T1L);
         } else {
             // 0
-            writePinHigh(WS2812_DI_PIN);
+            gpio_write_pin_high(WS2812_DI_PIN);
             wait_ns(WS2812_T0H);
-            writePinLow(WS2812_DI_PIN);
+            gpio_write_pin_low(WS2812_DI_PIN);
             wait_ns(WS2812_T0L);
         }
     }
