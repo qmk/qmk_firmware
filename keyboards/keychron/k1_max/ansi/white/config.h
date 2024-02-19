@@ -1,4 +1,4 @@
-/* Copyright 2023 @ Keychron (https://www.keychron.com)
+/* Copyright 2024 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,11 +31,11 @@
 #    define SPI_DRIVER SPID1
 
 /* Use first 6 channels of LED driver */
-#    define PHASE_CHANNEL MSKPHASE_8CHANNEL
+#    define SNLED27351_PHASE_CHANNEL MSKPHASE_6CHANNEL
 
 /* Set LED driver current */
 #    define SNLED27351_CURRENT_TUNE \
-        { 0x24, 0x24, 0x24, 0x24, 0x24, 0x24, 0x24, 0x24, 0x24, 0x24, 0x24, 0x24 }
+        { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 }
 
 /* Set to infinit, which is use in USB mode by default */
 #    define LED_MATRIX_TIMEOUT LED_MATRIX_TIMEOUT_INFINITE

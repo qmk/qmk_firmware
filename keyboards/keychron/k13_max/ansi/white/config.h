@@ -16,40 +16,37 @@
 
 #pragma once
 
-#ifdef RGB_MATRIX_ENABLE
-/* RGB Matrix driver configuration */
-#    define DRIVER_COUNT 2
-#    define RGB_MATRIX_LED_COUNT 87
+#ifdef LED_MATRIX_ENABLE
+/* LED matrix driver configuration */
+#    define DRIVER_COUNT 1
+#    define LED_MATRIX_LED_COUNT 90
 
 #    define SPI_SCK_PIN A5
 #    define SPI_MISO_PIN A6
 #    define SPI_MOSI_PIN A7
 
 #    define DRIVER_CS_PINS \
-        { B8, B9 }
+        { B9 }
 #    define SNLED23751_SPI_DIVISOR 16
 #    define SPI_DRIVER SPID1
 
-/* Scan phase of led driver set as MSKPHASE_9CHANNEL(defined as 0x03 in snled27351.h) */
-#    define SNLED27351_PHASE_CHANNEL MSKPHASE_12CHANNEL
+/* Use first 6 channels of LED driver */
+#    define SNLED27351_PHASE_CHANNEL MSKPHASE_6CHANNEL
 
 /* Set LED driver current */
 #    define SNLED27351_CURRENT_TUNE \
-        { 0x14, 0x14, 0x14, 0x14, 0x14, 0x14, 0x14, 0x14, 0x14, 0x14, 0x14, 0x14 }
+        { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 }
 
 /* Set to infinit, which is use in USB mode by default */
-#    define RGB_MATRIX_TIMEOUT RGB_MATRIX_TIMEOUT_INFINITE
-
+#    define LED_MATRIX_TIMEOUT LED_MATRIX_TIMEOUT_INFINITE
 /* Allow shutdown of led driver to save power */
-#    define RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
+#    define LED_MATRIX_DRIVER_SHUTDOWN_ENABLE
 /* Turn off backlight on low brightness to save power */
-#    define RGB_MATRIX_BRIGHTNESS_TURN_OFF_VAL 48
+#    define LED_MATRIX_BRIGHTNESS_TURN_OFF_VAL 48
 
-/* Indications */
+/* Low battery indicating led */
 #    define LOW_BAT_IND_INDEX \
-        { 79 }
+        { 82 }
 
-#    define RGB_MATRIX_KEYPRESSES
-#    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-
+#    define LED_MATRIX_KEYPRESSES
 #endif

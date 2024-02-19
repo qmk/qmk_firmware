@@ -19,7 +19,7 @@
 #ifdef RGB_MATRIX_ENABLE
 /* RGB Matrix driver configuration */
 #    define DRIVER_COUNT 2
-#    define RGB_MATRIX_LED_COUNT 87
+#    define RGB_MATRIX_LED_COUNT 90
 
 #    define SPI_SCK_PIN A5
 #    define SPI_MISO_PIN A6
@@ -47,7 +47,7 @@
 
 /* Indications */
 #    define LOW_BAT_IND_INDEX \
-        { 79 }
+        { 82 }
 
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS

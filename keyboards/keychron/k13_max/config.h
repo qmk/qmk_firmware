@@ -89,5 +89,6 @@
 /* Factory test keys */
 #define FN_KEY_1 MO(1)
 #define FN_KEY_2 MO(3)
+#define BL_TRIG_KEY KC_P5
 
 #define MATRIX_IO_DELAY 10
