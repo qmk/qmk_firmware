@@ -7,6 +7,7 @@
 #define WIN_MOD_INDEX 16
 #define MAC_MOD_INDEX 17
 #define SDB A4
+#define TAPPING_TERM_PER_KEY
 
 #define AW20216S_CS_PIN_1 B12
 #define AW20216S_EN_PIN_1 SDB

@@ -18,6 +18,14 @@ enum tap_hold_keys {
     _DN_MU   //Tap--KC_DOWN  and  Hold--KC_APP
 };
 
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case RSFT_T(KC_UP):
+            return TAPPING_TERM - 80; //right shift hold time less than default tapping term 80ms
+        default:
+            return TAPPING_TERM;
+    }
+}
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
@@ -72,20 +80,6 @@ typedef struct {
     uint16_t hold;
     uint16_t held;
 } tap_dance_tap_hold_t;
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    tap_dance_action_t *action;
-
-    switch (keycode) {
-        case TD(_DN_MU):
-            action = &tap_dance_actions[TD_INDEX(keycode)];
-            if (!record->event.pressed && action->state.count && !action->state.finished) {
-                tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
-                tap_code16(tap_hold->tap);
-            }
-    }
-    return true;
-}
 
 void tap_dance_tap_hold_finished(tap_dance_state_t *state, void *user_data) {
     tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
@@ -175,10 +169,9 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 }
 
 
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_user(keycode, record)) {
-        return false;
-    }
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    tap_dance_action_t *action;
+
     switch (keycode) {
 #    ifdef RGB_MATRIX_ENABLE
         case RGB_TOG:
@@ -231,7 +224,15 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
        FN_MAC = 0;
       }
       return true; // continue all further processing of this key
-    default:
-      return true;
+
+     case TD(_DN_MU):
+         action = &tap_dance_actions[TD_INDEX(keycode)];
+           if (!record->event.pressed && action->state.count && !action->state.finished) {
+                tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
+                tap_code16(tap_hold->tap);
+            }
+
+     default:
+       return true;
     }
 }
