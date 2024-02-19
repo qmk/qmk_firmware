@@ -24,12 +24,16 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     }
     switch (keycode) {
        case DF(0):
-            set_single_persistent_default_layer(0); // Save default layer 0 to eeprom
-         return true; // continue all further processing of this key
+            if (record->event.pressed){
+               set_single_persistent_default_layer(0); // Save default layer 0 to eeprom
+           }
+         return false;
 
        case DF(1):
-            set_single_persistent_default_layer(1);  //Save default layer 1 to eeprom
-         return true; // continue all further processing of this key
+            if (record->event.pressed){
+               set_single_persistent_default_layer(1); // Save default layer 0 to eeprom
+           }
+         return false;
 
        case BL_TOGG:
            if (record->event.pressed){
