@@ -19,6 +19,7 @@ could★     -> couldn't
 special★   -> specific
 again★     -> against
 copy★      -> copying
+start★     -> started
 doub★      -> doable
 most★      -> mostly
 que★       -> queue
@@ -50,6 +51,7 @@ undo☆      -> undoable
 →si☆       -> singer
 →gi☆       -> ginger
 →or☆       -> order
+→st☆       -> start
 →ti☆       -> time
 →ed☆       -> edge
 →se☆       -> seen
