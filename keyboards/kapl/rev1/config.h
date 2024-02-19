@@ -8,7 +8,6 @@
 #define RGB_MATRIX_LED_COUNT 88
 #define RGB_MATRIX_SPLIT { 44, 44 }
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
-#define SPLIT_TRANSPORT_MIRROR
 
 #ifdef RGB_MATRIX_ENABLE
 // EFFECTS
@@ -41,6 +40,3 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-#define SPLIT_LAYER_STATE_ENABLE
-#define SPLIT_LED_STATE_ENABLE

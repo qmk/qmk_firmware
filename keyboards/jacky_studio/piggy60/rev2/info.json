@@ -1,5 +1,4 @@
 {
-    "board": "STM32_F103_STM32DUINO",
     "bootloader": "uf2boot",
     "diode_direction": "ROW2COL",
     "community_layouts": ["60_hhkb", "60_tsangan_hhkb"],

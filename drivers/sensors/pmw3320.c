@@ -178,7 +178,7 @@ uint16_t pmw3320_get_cpi(void) {
 }
 
 void pmw3320_set_cpi(uint16_t cpi) {
-    uint8_t cpival = constrain((cpi / PMW3320_CPI_STEP) - 1U, 0, (PMW3320_CPI_MAX / PMW3320_CPI_STEP) - 1U);
+    uint8_t cpival = constrain((cpi / PMW3320_CPI_STEP), (PMW3320_CPI_MIN / PMW3320_CPI_STEP), (PMW3320_CPI_MAX / PMW3320_CPI_STEP)) - 1U;
     // Fifth bit is probably a control bit.
     // PMW3320 datasheet don't have any info on this, so this is a pure guess.
     pmw3320_write_reg(REG_Resolution, 0x20 | cpival);

@@ -16,4 +16,4 @@ CUSTOM_MATRIX = lite
 # project specific files
 SRC += matrix.c
 SRC += board.c
-QUANTUM_LIB_SRC += i2c_master.c
+I2C_DRIVER_REQUIRED = yes

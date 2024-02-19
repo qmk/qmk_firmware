@@ -1,6 +1,6 @@
 {
     "manufacturer": "momokai",
-    "keyboard_name": "momokai/aurora",
+    "keyboard_name": "Aurora",
     "maintainer": "peepeetee",
     "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",
@@ -50,11 +50,7 @@
             { "flags": 4, "matrix": [1, 1], "x": 102, "y": 38 },
             { "flags": 4, "matrix": [2, 1], "x": 102, "y": 51 },
             { "flags": 4, "matrix": [2, 2], "x": 154, "y": 51 },
-            { "flags": 4, "matrix": [1, 2], "x": 154, "y": 38 },
-            { "flags": 2,  "x": 77, "y": 12 },
-            { "flags": 2,  "x": 128, "y": 26 },
-            { "flags": 2,  "x": 77, "y": 26 },
-            { "flags": 2,  "x": 128, "y": 12 }
+            { "flags": 4, "matrix": [1, 2], "x": 154, "y": 38 }
         ]
     },
     "layouts": {

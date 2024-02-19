@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "mousekey.h"
 
 enum layer_names {
     _QW,

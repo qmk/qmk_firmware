@@ -37,6 +37,14 @@
         "io_delay": 5
     },
     "diode_direction": "COL2ROW",
+    "dip_switch": {
+        "pins": ["A14", "B13"]
+    },
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "A1", "pin_b": "A2"},
@@ -45,6 +53,11 @@
         ]
     },
     "split": {
+        "dip_switch": {
+            "right": {
+                "pins": ["A14", "B0"]
+            }
+        },
         "soft_serial_pin": "A9",
         "encoder": {
             "right": {
@@ -59,6 +72,13 @@
             "right": {
                 "cols": ["B9", "B8", "B4", "A6", "A3", "B10", "B12", "B11"],
                 "rows": ["B15", "B14", "A8", "A13", "A7", null]
+            }
+        },
+        "transport": {
+            "sync": {
+                "indicators": true,
+                "layer_state": true,
+                "matrix_state": true
             }
         }
     },

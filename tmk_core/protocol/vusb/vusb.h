@@ -121,4 +121,3 @@ typedef struct usbConfigurationDescriptor {
 extern bool vusb_suspended;
 
 host_driver_t *vusb_driver(void);
-void           vusb_transfer_keyboard(void);

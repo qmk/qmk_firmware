@@ -7,7 +7,7 @@
 #include "color.h"
 
 static inline void rgblite_setrgb(RGB rgb) {
-    LED_TYPE leds[RGBLED_NUM] = {{.r = rgb.r, .g = rgb.g, .b = rgb.b}};
+    rgb_led_t leds[RGBLED_NUM] = {{.r = rgb.r, .g = rgb.g, .b = rgb.b}};
     ws2812_setleds(leds, RGBLED_NUM);
 }
 

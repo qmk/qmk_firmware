@@ -17,8 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define DRIVER_ADDR_1 0b0110000
-#define DRIVER_COUNT 1
+#define IS31FL3741_I2C_ADDRESS_1 IS31FL3741_I2C_ADDRESS_GND
 #define DRIVER_1_LED_TOTAL 82
 #define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
 #define DRIVER_INDICATOR_LED_TOTAL 0

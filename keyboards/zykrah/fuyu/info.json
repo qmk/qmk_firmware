@@ -19,6 +19,9 @@
         "rgb_matrix": true
     },
     "diode_direction": "COL2ROW",
+    "dynamic_keymap": {
+        "layer_count": 6
+    },
     "matrix_pins": {
         "rows": ["GP13", "GP12", "GP11", "GP10", "GP15", "GP14"],
         "cols": ["GP29", "GP28", "GP26", "GP25", "GP24", "GP23", "GP22", "GP21", "GP20", "GP19", "GP18", "GP17", "GP16", "GP27", "GP9", "GP1", "GP0"]
