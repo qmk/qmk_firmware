@@ -1,7 +1,7 @@
 // Copyright 2023 Colin Kinloch (@ColinKinloch)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include QMK_KEYBOARD_H
+#include "quantum.h"
 
 static uint8_t anim = 0;
 

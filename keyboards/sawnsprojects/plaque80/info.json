@@ -25,7 +25,6 @@
         "rgblight": true
     },
     "rgblight": {
-        "pin": "F0",
         "led_count": 30,
         "sleep": true,
         "animations": {
@@ -40,6 +39,9 @@
             "static_gradient": true,
             "twinkle": true
         }
+    },
+    "ws2812": {
+        "pin": "F0"
     },
     "indicators": {
         "caps_lock": "E6",

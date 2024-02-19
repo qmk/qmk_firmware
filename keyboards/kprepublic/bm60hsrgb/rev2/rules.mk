@@ -13,9 +13,8 @@ AUDIO_ENABLE = no           # Audio output
 NO_USB_STARTUP_CHECK = no
 LTO_ENABLE = yes
 RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = custom
 WS2812_DRIVER_REQUIRED = yes
 
 COMMON_VPATH += $(DRIVER_PATH)/led/issi
 SRC += is31fl3733.c
-QUANTUM_LIB_SRC += i2c_master.c
+I2C_DRIVER_REQUIRED = yes

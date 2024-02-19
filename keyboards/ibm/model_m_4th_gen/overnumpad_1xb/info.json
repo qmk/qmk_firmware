@@ -3,6 +3,11 @@
     "manufacturer": "IBM/Purdea Andrei",
     "url": "https://github.com/purdeaandrei/overnumpad_controller_1xb",
     "maintainer": "purdeaandrei",
+    "usb": {
+        "vid": "0x16C0",
+        "pid": "0x27DB",
+        "device_version": "0.0.1"
+    },
     "indicators": {
         "caps_lock": "C11",
         "num_lock": "C12",

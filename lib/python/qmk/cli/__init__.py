@@ -31,6 +31,7 @@ safe_commands = [
 ]
 
 subcommands = [
+    'qmk.cli.ci.validate_aliases',
     'qmk.cli.bux',
     'qmk.cli.c2json',
     'qmk.cli.cd',
@@ -57,6 +58,7 @@ subcommands = [
     'qmk.cli.generate.keyboard_h',
     'qmk.cli.generate.keycodes',
     'qmk.cli.generate.keycodes_tests',
+    'qmk.cli.generate.make_dependencies',
     'qmk.cli.generate.rgb_breathe_table',
     'qmk.cli.generate.rules_mk',
     'qmk.cli.generate.version_h',
@@ -67,6 +69,7 @@ subcommands = [
     'qmk.cli.import.keymap',
     'qmk.cli.info',
     'qmk.cli.json2c',
+    'qmk.cli.license_check',
     'qmk.cli.lint',
     'qmk.cli.kle2json',
     'qmk.cli.list.keyboards',
@@ -78,6 +81,11 @@ subcommands = [
     'qmk.cli.new.keymap',
     'qmk.cli.painter',
     'qmk.cli.pytest',
+    'qmk.cli.userspace.add',
+    'qmk.cli.userspace.compile',
+    'qmk.cli.userspace.doctor',
+    'qmk.cli.userspace.list',
+    'qmk.cli.userspace.remove',
     'qmk.cli.via2json',
 ]
 
@@ -209,8 +217,8 @@ if int(milc_version[0]) < 2 and int(milc_version[1]) < 4:
 # Make sure we can run binaries in the same directory as our Python interpreter
 python_dir = os.path.dirname(sys.executable)
 
-if python_dir not in os.environ['PATH'].split(':'):
-    os.environ['PATH'] = ":".join((python_dir, os.environ['PATH']))
+if python_dir not in os.environ['PATH'].split(os.pathsep):
+    os.environ['PATH'] = os.pathsep.join((python_dir, os.environ['PATH']))
 
 # Check to make sure we have all our dependencies
 msg_install = f'\nPlease run `{sys.executable} -m pip install -r %s` to install required python dependencies.'

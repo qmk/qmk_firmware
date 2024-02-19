@@ -20,7 +20,6 @@
         "rgblight": true
     },
     "rgblight": {
-        "pin": "GP12",
         "led_count": 1,
         "hue_steps": 10,
         "saturation_steps": 17,
@@ -39,32 +38,24 @@
             "twinkle": true
         }
     },
+    "ws2812": {
+        "pin": "GP12",
+        "driver": "vendor"
+    },
     "encoder": {
     "enabled": true,
         "rotary": [
-        {
-            "pin_a": "GP27",
-            "pin_b": "GP28",
-            "resolution": 2
-        },
-        {
-            "pin_a": "GP4",
-            "pin_b": "GP3",
-            "resolution": 2
-        },
-        {
-            "pin_a": "GP1",
-            "pin_b": "GP2",
-            "resolution": 2
-        }
+            {"pin_a": "GP27", "pin_b": "GP28", "resolution": 2},
+            {"pin_a": "GP4", "pin_b": "GP3", "resolution": 2},
+            {"pin_a": "GP1", "pin_b": "GP2", "resolution": 2}
         ]
     },
     "layouts": {
         "LAYOUT": {
             "layout": [
-                { "label":"Mute", "x": 0, "y": 0, "matrix": [0, 0] },
-                { "label":"RGB", "x": 0, "y": 1, "matrix": [0, 1] },
-                { "label":"Animation", "x": 0, "y": 2, "matrix": [0, 2] }
+                {"label": "Mute", "x": 0, "y": 0, "matrix": [0, 0]},
+                {"label": "RGB", "x": 0, "y": 1, "matrix": [0, 1]},
+                {"label": "Animation", "x": 0, "y": 2, "matrix": [0, 2]}
             ]
         }
     },

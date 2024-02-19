@@ -10,6 +10,7 @@ The main characteristics of this keymap are:
   * The main thumb buttons are spaces when tapped and enable the LOWER layer
     when held.
   * Vim style arrow keys.
+  * Left Control is ESC when tapped.
   * Left and right ALT in case you need different behaviors. (For example, the
     default Option and readline's Alt behavior in macOS.)
 * The LOWER layer has mostly meta keys.
@@ -23,7 +24,7 @@ The main characteristics of this keymap are:
 |------+------+------+------+------+------|                    |------+------+------+------+------+------|
 | TAB  |   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |   P  |  -   |
 |------+------+------+------+------+------|                    |------+------+------+------+------+------|
-|LCTRL |   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   ;  |  '   |
+|C_ESC |   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   ;  |  '   |
 |------+------+------+------+------+------| MOUSE |    |    =  |------+------+------+------+------+------|
 | LSFT |   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  | ENT  |
 `-----------------------------------------/  LT   /     \  LT   \----------------------------------------'
@@ -36,7 +37,7 @@ The main characteristics of this keymap are:
 
 ```plain
 ,-----------------------------------------.                    ,-----------------------------------------.
-| ESC  |  F1  |  F2  |  F3  |  F4  |  F5  |                    |  F6  |  F7  |  F8  |  F9  | F10  | F11  |
+| TRNS |  F1  |  F2  |  F3  |  F4  |  F5  |                    |  F6  |  F7  |  F8  |  F9  | F10  | F11  |
 |------+------+------+------+------+------|                    |------+------+------+------+------+------|
 | TRNS |      | MUTE | VOLD | VOLU |      |                    | HOME | PGDN | PGUP | END  |      | F12  |
 |------+------+------+------+------+------|                    |------+------+------+------+------+------|

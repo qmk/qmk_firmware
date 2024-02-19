@@ -3,10 +3,15 @@
 
 #pragma once
 
-/** \file
+/**
+ * \file
  *
- * Exposes a set of functionality to act as a virtual padlock for your device
- * ... As long as that padlock is made of paper and its currently raining.
+ * \defgroup secure Secure API
+ *
+ * \brief Exposes a set of functionality to act as a virtual padlock for your device
+ * ...as long as that padlock is made of paper and it's currently raining.
+ *
+ * \{
  */
 
 #include <stdint.h>
@@ -77,3 +82,5 @@ bool secure_hook_user(secure_status_t secure_status);
 /** \brief keyboard hook called when changing secure status device
  */
 bool secure_hook_kb(secure_status_t secure_status);
+
+/** \} */

@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <stdint.h>
 #include <stdbool.h>
-#include "owlet60.h"
 #include "wait.h"
 #include "print.h"
 #include "debug.h"

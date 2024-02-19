@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-#define MATRIX_ROW_PINS { B6, B2, B3 }
-#define MATRIX_COL_PINS { C6, D7, E6, B4, B5 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 /* Register custom font file */
 #ifdef OLED_ENABLE
   #define OLED_FONT_H "lib/glcdfont.c"

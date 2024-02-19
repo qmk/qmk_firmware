@@ -8,15 +8,39 @@
         "pid": "0x6073",
         "device_version": "0.0.2"
     },
+    "ws2812": {
+        "pin": "D3"
+    },
+    "rgblight": {
+        "led_count": 11,
+        "max_brightness": 128,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "matrix_pins": {
+        "cols": ["B4", "B3", "B5"],
+        "rows": ["B0"]
+    },
+    "diode_direction": "ROW2COL",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "debounce": 50,
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"x": 0, "y": 0, "w": 4, "h": 4},
-                {"x": 4, "y": 0, "w": 4, "h": 4},
-                {"x": 8, "y": 0, "w": 4, "h": 4}
+                {"matrix": [0, 0], "x": 0, "y": 0, "w": 4, "h": 4},
+                {"matrix": [0, 1], "x": 4, "y": 0, "w": 4, "h": 4},
+                {"matrix": [0, 2], "x": 8, "y": 0, "w": 4, "h": 4}
             ]
         }
     }

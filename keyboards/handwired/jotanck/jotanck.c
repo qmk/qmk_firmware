@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "jotanck.h"
+#include "quantum.h"
 
 void keyboard_pre_init_kb(void) {
     setPinOutput(JOTANCK_LED1);

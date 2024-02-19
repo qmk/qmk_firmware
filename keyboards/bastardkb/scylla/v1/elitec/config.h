@@ -18,14 +18,5 @@
 
 #pragma once
 
-/* Key matrix configuration. */
-#define MATRIX_ROW_PINS \
-    { D7, B5, F7, F6, B6 }
-#define MATRIX_COL_PINS \
-    { B4, E6, C6, B1, B3, B2 }
-
 /* Handedness. */
 #define MASTER_RIGHT
-
-/* RGB settings. */
-#define RGB_DI_PIN D2

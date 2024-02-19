@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include QMK_KEYBOARD_H
+#include "snap.h"
 
 // Macro variables
 bool is_alt_tab_active = false;
@@ -111,17 +111,3 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
     return true;
 }
-
-#ifdef ENCODER_ENABLE
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) { return false; }
-    if (index == 0) {
-        if (clockwise) {
-            tap_code_delay(KC_VOLU, 10);
-        } else {
-            tap_code_delay(KC_VOLD, 10);
-        }
-    }
-    return true;
-}
-#endif

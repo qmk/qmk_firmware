@@ -16,7 +16,7 @@
 
 #pragma once
 
-#define RGB_DI_PIN B2
+#define WS2812_DI_PIN B2
 #define RGBLED_NUM 8
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
