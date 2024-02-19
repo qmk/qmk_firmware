@@ -1,5 +1,5 @@
 # 5075
-![5075](https://github.com/jonylee1986/qmk_firmware_master/assets/108282809/b4a560da-15ed-414c-a067-e778c4ced761)
+![5075](https://en.akkogear.com/wp-content/uploads/2022/06/5075S-Shine-through-Black3.jpg)
 
 A customizable 75% encoder keyboard.
 
