@@ -64,16 +64,3 @@ void matrix_scan_user(void) {
         tap_code(KC_MUTE);
     }
 }
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_L);
-        } else {
-            tap_code(KC_R);
-        }
-    } else if (index == 1) {
-    }
-    return false;
-}
-// #endif
