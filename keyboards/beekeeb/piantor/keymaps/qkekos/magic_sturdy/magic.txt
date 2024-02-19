@@ -16,6 +16,7 @@ other★     -> otherwise
 recycle★   -> recycling
 judge★     -> judgment
 could★     -> couldn't
+special★   -> specific
 again★     -> against
 copy★      -> copying
 doub★      -> doable
@@ -40,6 +41,7 @@ polic☆     -> policy
 
 // Quadruple
 
+undo☆      -> undoable
 →rec☆      -> recycle
 
 // Triple
@@ -54,6 +56,8 @@ polic☆     -> policy
 →al☆       -> alr
 →us☆       -> use
 
+esp☆       -> especially
+exp☆       -> experience
 hil☆       -> hilarious
 ess☆       -> essential
 alt☆       -> although
@@ -64,11 +68,13 @@ var☆       -> various
 ser☆       -> serious
 pro☆       -> problem
 key☆       -> keycode
+spe☆       -> special
 bud☆       -> budget
 col☆       -> column
 tho☆       -> though
 num☆       -> number
 cri☆       -> cringe
+exc☆       -> except
 rid☆       -> ridge
 red☆       -> redge
 jud☆       -> judge
@@ -180,6 +186,7 @@ cou✵       -> course
 nat✵       -> nation
 tio✵       -> tional
 min✵       -> minute
+exp✵       -> expect
 
 // Double
 
@@ -212,7 +219,6 @@ x✵         -> xes
 i✵         -> ing
 y✵         -> you
 q✵         -> qui
-v✵         -> ver
 
 // Double taps
 
@@ -229,6 +235,7 @@ ex✵✵       -> exactly
 
 // Quintuple
 
+→even✪     -> eventually
 →prob✪     -> probably
 →keyb✪     -> keyboard
 
@@ -264,6 +271,7 @@ ex✵✵       -> exactly
 →h✪        -> health
 →f✪        -> first
 →z✪        -> zone
+→n✪        -> nice
 
 // Single
 
