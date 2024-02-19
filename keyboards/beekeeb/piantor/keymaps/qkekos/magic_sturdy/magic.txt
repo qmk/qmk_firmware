@@ -9,6 +9,7 @@
 
 never★     -> nevertheless
 essential★ -> essentially
+restrict★  -> restriction
 ever★      -> everything
 some★      -> somewhere
 confused★  -> confusion
@@ -66,6 +67,7 @@ alt☆       -> although
 any☆       -> anything
 pos☆       -> position
 cof☆       -> confused
+res☆       -> restrict
 var☆       -> various
 ser☆       -> serious
 pro☆       -> problem
