@@ -16,11 +16,9 @@
 
 #pragma once
 
-#ifdef OS_DETECTION_ENABLE
-
-#    include <stdint.h>
-#    include <stdbool.h>
-#    include "usb_device_state.h"
+#include <stdint.h>
+#include <stdbool.h>
+#include "usb_device_state.h"
 
 typedef enum {
     OS_UNSURE,
@@ -40,13 +38,11 @@ void os_detection_task(void);
 bool process_detected_host_os_kb(os_variant_t os);
 bool process_detected_host_os_user(os_variant_t os);
 
-#    if defined(SPLIT_KEYBOARD) && defined(SPLIT_DETECTED_OS_ENABLE)
+#if defined(SPLIT_KEYBOARD) && defined(SPLIT_DETECTED_OS_ENABLE)
 void slave_update_detected_host_os(os_variant_t os);
-#    endif
+#endif
 
-#    ifdef OS_DETECTION_DEBUG_ENABLE
+#ifdef OS_DETECTION_DEBUG_ENABLE
 void print_stored_setups(void);
 void store_setups_in_eeprom(void);
-#    endif
-
-#endif // OS_DETECTION_ENABLE
+#endif
