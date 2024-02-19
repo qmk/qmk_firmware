@@ -6,11 +6,15 @@
 // Double taps
 
 →alr★      -> already
+→enque★    -> enqueue
+→deque★    -> dequeue
+→que★      -> queue
 
 never★     -> nevertheless
 essential★ -> essentially
 restrict★  -> restriction
 ever★      -> everything
+encrypt★   -> encryption
 some★      -> somewhere
 confused★  -> confusion
 other★     -> otherwise
@@ -25,7 +29,6 @@ start★     -> started
 use★       -> useless
 doub★      -> doable
 most★      -> mostly
-que★       -> queue
 ion★       -> ional
 that★      -> thank
 
@@ -41,6 +44,7 @@ pharmac☆   -> pharmacy
 // Quintuple
 
 polic☆     -> policy
+encry☆     -> encrypt
 
 // Quadruple
 
@@ -53,6 +57,7 @@ undo☆      -> undoable
 →ar☆       -> around
 →si☆       -> singer
 →gi☆       -> ginger
+→by☆       -> bypass
 →or☆       -> order
 →st☆       -> start
 →ti☆       -> time
@@ -60,6 +65,7 @@ undo☆      -> undoable
 →se☆       -> seen
 →al☆       -> alr
 →us☆       -> use
+→ty☆       -> typ
 
 esp☆       -> especially
 exp☆       -> experience
@@ -82,6 +88,7 @@ tho☆       -> though
 num☆       -> number
 cri☆       -> cringe
 exc☆       -> except
+pay☆       -> paypal
 rid☆       -> ridge
 red☆       -> redge
 jud☆       -> judge
@@ -135,6 +142,7 @@ w☆         -> which
 m☆         -> ment
 j☆         -> just
 f☆         -> fine
+y☆         -> ying
 i☆         -> ion
 v☆         -> ver
 q☆         -> que
@@ -146,7 +154,6 @@ a☆         -> ab
 l☆         -> lk
 c☆         -> cy
 p☆         -> py
-y☆         -> yp
 k☆         -> ks
 g☆         -> gy
 o☆         -> oa
@@ -195,6 +202,7 @@ nat✵       -> nation
 tio✵       -> tional
 min✵       -> minute
 exp✵       -> expect
+ous✵       -> ously
 
 // Double
 
