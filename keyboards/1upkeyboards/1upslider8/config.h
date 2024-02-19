@@ -22,8 +22,3 @@
 
 #define SLIDER_PIN GP28
 #define MIDI_ADVANCED
-
-#define RGB_MATRIX_LED_COUNT 8
-#define RGB_MATRIX_KEYPRESSES // reacts to keypresses
-#define RGB_MATRIX_SLEEP // turn off effects when suspended
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS

@@ -9,6 +9,8 @@
 #    include "aw20216s.h"
 #elif defined(RGB_MATRIX_IS31FL3218)
 #    include "is31fl3218.h"
+#elif defined(RGB_MATRIX_IS31FL3729)
+#    include "is31fl3729.h"
 #elif defined(RGB_MATRIX_IS31FL3731)
 #    include "is31fl3731.h"
 #elif defined(RGB_MATRIX_IS31FL3733)
@@ -19,8 +21,14 @@
 #    include "is31fl3737.h"
 #elif defined(RGB_MATRIX_IS31FL3741)
 #    include "is31fl3741.h"
-#elif defined(IS31FLCOMMON)
-#    include "is31flcommon.h"
+#elif defined(RGB_MATRIX_IS31FL3742A)
+#    include "is31fl3742a.h"
+#elif defined(RGB_MATRIX_IS31FL3743A)
+#    include "is31fl3743a.h"
+#elif defined(RGB_MATRIX_IS31FL3745)
+#    include "is31fl3745.h"
+#elif defined(RGB_MATRIX_IS31FL3746A)
+#    include "is31fl3746a.h"
 #elif defined(RGB_MATRIX_SNLED27351)
 #    include "snled27351.h"
 #elif defined(RGB_MATRIX_WS2812)
