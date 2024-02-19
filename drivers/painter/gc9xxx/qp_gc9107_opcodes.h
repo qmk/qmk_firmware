@@ -6,29 +6,29 @@
 // Quantum Painter GC9107 command opcodes
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#define GC9107_GET_POWER_MODE 0x0A          // Get power mode
-#define GC9107_GET_MADCTL 0x0B              // Get MADCTL
-#define GC9107_GET_PIXEL_FMT 0x0C           // Get pixel format
-#define GC9107_GET_IMAGE_FMT 0x0D           // Get image format
-#define GC9107_GET_SIGNAL_MODE 0x0E         // Get signal mode
-#define GC9107_GET_DIAG_RESULT 0x0F         // Get self-diagnostic results
+#define GC9107_GET_POWER_MODE 0x0A  // Get power mode
+#define GC9107_GET_MADCTL 0x0B      // Get MADCTL
+#define GC9107_GET_PIXEL_FMT 0x0C   // Get pixel format
+#define GC9107_GET_IMAGE_FMT 0x0D   // Get image format
+#define GC9107_GET_SIGNAL_MODE 0x0E // Get signal mode
+#define GC9107_GET_DIAG_RESULT 0x0F // Get self-diagnostic results
 
-#define GC9107_SET_FRAME_RATE 0xA8          // Set frame rate
-#define GC9107_SET_COMPLEMENT_RGB 0xAC      // Set complement Principle RGB
-#define GC9107_SET_BLANK_PORCH 0xAD         // Set blank porch control, 0;front_porch[6:0],0;back_porch[6:0]
-#define GC9107_SET_FUNCTION_CTL1 0xB1       // Set access to AVDD_VCL_CLK and VGH_VGL_CLK commands
-#define GC9107_SET_FUNCTION_CTL2 0xB2       // Set access to VGH, VGH control commands
-#define GC9107_SET_FUNCTION_CTL3 0xB3       // Set access to Gamma control commands
-#define GC9107_SET_DISPLAY_INVERSION 0xB4   // Set Display Inversion control
-#define GC9107_SET_FUNCTION_CTL6 0xB6       // Set access to commands SET_FRAME_RATE, SET_COMPLEMENT_RGB and SET_BLANK_PORCH
-#define GC9107_SET_CUSTOM_ID_INFO 0xD3      // Set customized display id information
-#define GC9107_AVDD_VCL_CLK 0xE3            // AVDD_CLK
-#define GC9107_SET_VGH 0xE8                 // Set VGH
-#define GC9107_SET_VGL 0xE9                 // Set VGL
-#define GC9107_SET_VGH_VGL_CLK 0xEA         // Set VGH and VGL clock divisors
+#define GC9107_SET_FRAME_RATE 0xA8        // Set frame rate
+#define GC9107_SET_COMPLEMENT_RGB 0xAC    // Set complement Principle RGB
+#define GC9107_SET_BLANK_PORCH 0xAD       // Set blank porch control, 0;front_porch[6:0],0;back_porch[6:0]
+#define GC9107_SET_FUNCTION_CTL1 0xB1     // Set access to AVDD_VCL_CLK and VGH_VGL_CLK commands
+#define GC9107_SET_FUNCTION_CTL2 0xB2     // Set access to VGH, VGH control commands
+#define GC9107_SET_FUNCTION_CTL3 0xB3     // Set access to Gamma control commands
+#define GC9107_SET_DISPLAY_INVERSION 0xB4 // Set Display Inversion control
+#define GC9107_SET_FUNCTION_CTL6 0xB6     // Set access to commands SET_FRAME_RATE, SET_COMPLEMENT_RGB and SET_BLANK_PORCH
+#define GC9107_SET_CUSTOM_ID_INFO 0xD3    // Set customized display id information
+#define GC9107_AVDD_VCL_CLK 0xE3          // AVDD_CLK
+#define GC9107_SET_VGH 0xE8               // Set VGH
+#define GC9107_SET_VGL 0xE9               // Set VGL
+#define GC9107_SET_VGH_VGL_CLK 0xEA       // Set VGH and VGL clock divisors
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// GC9107 Parameter constants 
+// GC9107 Parameter constants
 
 //      Parameter values for
 //      GC9107_SET_PIXEL_FORMAT
