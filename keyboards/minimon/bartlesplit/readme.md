@@ -29,11 +29,3 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 ## Bootloader
 
 Enter the bootloader in shorting the reset pin on Pro Micro on the hub.
-
-## Keymaps
-
-### Miryoku
-
-Caps-words are enabled out of the box with double tap on shift.
-
-    qmk compile -c -kb minimon/bartlesplit -km manna-harbour_miryoku

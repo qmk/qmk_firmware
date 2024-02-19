@@ -9,14 +9,15 @@
         "console": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": false
+        "nkro": false,
+        "caps_word": true
     },
     "matrix_pins": {
         "cols": ["B3", "B3", "B1", "B1", "F7", "F7", "E6", "E6", "D7", "D7", "C6", "C6"],
         "rows": ["B5", "B4", "B2", "B6"]
     },
     "pin_compatible": "promicro",
-    "url": "https://gitub.com/Kyrremann/bartlesplit",
+    "url": "https://github.com/Kyrremann/bartlesplit",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x1306",
