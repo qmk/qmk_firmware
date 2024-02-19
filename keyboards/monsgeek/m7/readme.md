@@ -1,5 +1,5 @@
 # M7
-![M7](https://github.com/jonylee1986/qmk_firmware_master/assets/108282809/b9d54e20-7691-489b-903b-c3e40744e583)
+![M7](https://www.monsgeek.com/wp-content/uploads/2023/12/M7-VIA-Main-1.png)
 
 A customizable 65% (68 key) keyboard.
 
