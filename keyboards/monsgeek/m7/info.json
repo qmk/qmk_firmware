@@ -146,8 +146,9 @@
         "suspend_wakeup_delay": 1000,
         "vid": "0x0021"
     },
+    "community_layouts": ["68_ansi"],
     "layouts": {
-        "LAYOUT_ansi": {
+        "LAYOUT_68_ansi": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "!", "matrix": [0, 1], "x": 1, "y": 0},
