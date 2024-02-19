@@ -12,6 +12,11 @@
         "mousekey": true,
         "nkro": true
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D1", "pin_b": "D0"}
+        ]
+    },
     "matrix_pins": {
         "cols": ["B4", "B5", "B6"],
         "rows": ["C6", "D7", "E6"]
