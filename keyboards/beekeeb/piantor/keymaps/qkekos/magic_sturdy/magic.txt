@@ -44,6 +44,7 @@ polic☆     -> policy
 
 // Quadruple
 
+algo☆      -> algorithm
 undo☆      -> undoable
 →rec☆      -> recycle
 
