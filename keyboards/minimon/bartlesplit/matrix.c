@@ -70,15 +70,11 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     // Store last value of row prior to reading
     matrix_row_t last_row_value = current_matrix[current_row];
 
-    // Clear data in matrix row
-    //current_matrix[current_row] = 0;
-
     // Select row and wait for row selection to stabilize
     select_row(current_row);
     wait_us(30);
 
     // For each col...
-    // for (uint8_t col_index = (MATRIX_COLS/2) - 1; col_index >= 0; col_index--) {
     for (uint8_t col_index = 0; col_index < MATRIX_COLS / 2; col_index++) {
         uint16_t column_index_bitmask = ROW_SHIFTER << ((col_index * 2) + 1);
         // Check row pin state
@@ -144,17 +140,13 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     bool changed = false;
 
     // Set row, read cols
-    // for (uint8_t current_row = MATRIX_ROWS-1; current_row >= 0; current_row--) {
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
         changed |= read_cols_on_row(current_matrix, current_row);
     }
     // Set col, read rows
-    // for (uint8_t current_col = MATRIX_COLS/2; current_col >= 0; current_col--) {
     for (uint8_t current_col = 0; current_col < MATRIX_COLS/2; current_col++) {
         changed |= read_rows_on_col(current_matrix, current_col);
     }
-
-    //debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
 
     return changed;
 }
