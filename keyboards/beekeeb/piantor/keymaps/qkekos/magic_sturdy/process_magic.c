@@ -201,10 +201,13 @@ void process_magic_key(uint16_t keycode) {
     }
 
     // handle next magic key if provided
+    uint16_t last_keycode = get_last_keycode();
     uint16_t next_magic = trie->next_magic_provider(magic_tap_count);
-    if (next_magic) trie = get_trie(next_magic);
 
+    if (next_magic) trie = get_trie(next_magic);
     process_trie(trie);
+
+    set_last_keycode(last_keycode);
     return;
 }
 
