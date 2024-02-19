@@ -230,6 +230,7 @@ impl✵✵     -> implementation
 fu✵✵       -> functionality
 sim✵✵      -> simultaneous
 dev✵✵      -> development
+int✵✵      -> interesting
 ba✵✵       -> basically
 ex✵✵       -> exactly
 
