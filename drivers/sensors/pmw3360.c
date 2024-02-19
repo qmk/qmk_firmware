@@ -15,6 +15,7 @@ uint16_t pmw33xx_get_cpi(uint8_t sensor) {
     }
 
     uint8_t cpival = pmw33xx_read(sensor, REG_Config1);
+    pmw33xx_write(sensor, REG_Config1, cpival);
     return (uint16_t)((cpival + 1) & 0xFF) * PMW33XX_CPI_STEP;
 }
 
