@@ -7,32 +7,31 @@
 // Quantum Painter GC9A01 command opcodes
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#define GC9A01_SET_MEM_CONT 0x3C            // Set memory continue
-#define GC9A01_SET_BRIGHTNESS 0x51          // Set brightness
-#define GC9A01_SET_DISPLAY_CTL 0x53         // Set display ctl
+#define GC9A01_SET_MEM_CONT 0x3C    // Set memory continue
+#define GC9A01_SET_BRIGHTNESS 0x51  // Set brightness
+#define GC9A01_SET_DISPLAY_CTL 0x53 // Set display ctl
 
-#define GC9A01_SET_RGB_IF_SIG_CTL 0xB0      // RGB IF signal ctl
-#define GC9A01_SET_BLANKING_PORCH_CTL 0xB5  // Set blanking porch ctl
-#define GC9A01_SET_FUNCTION_CTL 0xB6        // Set function ctl
-#define GC9A01_SET_TEARING_EFFECT 0xBA      // Set tering effect control
-#define GC9A01_SET_POWER_CTL_7 0xA7         // Set power ctl 7
-#define GC9A01_SET_POWER_CTL_1 0xC1         // Set power ctl 1
-#define GC9A01_SET_POWER_CTL_2 0xC3         // Set power ctl 2
-#define GC9A01_SET_POWER_CTL_3 0xC4         // Set power ctl 3
-#define GC9A01_SET_POWER_CTL_4 0xC9         // Set power ctl 4
-#define GC9A01_SET_FRAME_RATE 0xE8          // Set frame rate
-#define GC9A01_SET_SPI_2DATA 0xE9           // Set frame rate
-#define GC9A01_SET_GAMMA3 0xF2              // Set gamma 3
-#define GC9A01_SET_GAMMA4 0xF3              // Set gamma 4
-#define GC9A01_SET_IF_CTL 0xF6              // Set interface control
-
+#define GC9A01_SET_RGB_IF_SIG_CTL 0xB0     // RGB IF signal ctl
+#define GC9A01_SET_BLANKING_PORCH_CTL 0xB5 // Set blanking porch ctl
+#define GC9A01_SET_FUNCTION_CTL 0xB6       // Set function ctl
+#define GC9A01_SET_TEARING_EFFECT 0xBA     // Set tering effect control
+#define GC9A01_SET_POWER_CTL_7 0xA7        // Set power ctl 7
+#define GC9A01_SET_POWER_CTL_1 0xC1        // Set power ctl 1
+#define GC9A01_SET_POWER_CTL_2 0xC3        // Set power ctl 2
+#define GC9A01_SET_POWER_CTL_3 0xC4        // Set power ctl 3
+#define GC9A01_SET_POWER_CTL_4 0xC9        // Set power ctl 4
+#define GC9A01_SET_FRAME_RATE 0xE8         // Set frame rate
+#define GC9A01_SET_SPI_2DATA 0xE9          // Set frame rate
+#define GC9A01_SET_GAMMA3 0xF2             // Set gamma 3
+#define GC9A01_SET_GAMMA4 0xF3             // Set gamma 4
+#define GC9A01_SET_IF_CTL 0xF6             // Set interface control
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // GC9A01 MADCTL Flags
 #define GC9A01_MADCTL_MH 0b00000100
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// GC9A01 Parameter constants 
+// GC9A01 Parameter constants
 
 //      Parameter values for
 //      GC9A01_SET_PIXEL_FORMAT

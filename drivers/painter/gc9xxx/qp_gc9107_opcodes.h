@@ -21,7 +21,7 @@
 #define GC9107_SET_FUNCTION_CTL3 0xB3       // Set access to Gamma control commands
 #define GC9107_SET_DISPLAY_INVERSION 0xB4   // Set Display Inversion control
 #define GC9107_SET_FUNCTION_CTL6 0xB6       // Set access to commands SET_FRAME_RATE, SET_COMPLEMENT_RGB and SET_BLANK_PORCH
-#define GC9107_GET_CUSTOM_ID_INFO 0xD3      // Set customized display id information
+#define GC9107_SET_CUSTOM_ID_INFO 0xD3      // Set customized display id information
 #define GC9107_AVDD_VCL_CLK 0xE3            // AVDD_CLK
 #define GC9107_SET_VGH 0xE8                 // Set VGH
 #define GC9107_SET_VGL 0xE9                 // Set VGL
