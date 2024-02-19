@@ -1,6 +1,5 @@
 {
     "keyboard_name": "Bartlesplit",
-    "maintainer": "Kyrremann",
     "development_board": "promicro",
     "diode_direction": "ROW2COL",
     "features": {
