@@ -886,9 +886,24 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
     endif
 endif
 
+ENCODER_ENABLE ?= no
+ENCODER_DRIVER ?= quadrature
+VALID_ENCODER_DRIVER_TYPES := quadrature custom
 ifeq ($(strip $(ENCODER_ENABLE)), yes)
+    ifeq ($(filter $(ENCODER_DRIVER),$(VALID_ENCODER_DRIVER_TYPES)),)
+        $(call CATASTROPHIC_ERROR,Invalid ENCODER_DRIVER,ENCODER_DRIVER="$(ENCODER_DRIVER)" is not a valid encoder driver)
+    endif
     SRC += $(QUANTUM_DIR)/encoder.c
     OPT_DEFS += -DENCODER_ENABLE
+    OPT_DEFS += -DENCODER_DRIVER_$(strip $(shell echo $(ENCODER_DRIVER) | tr '[:lower:]' '[:upper:]'))
+
+    COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/encoder
+    COMMON_VPATH += $(DRIVER_PATH)/encoder
+
+    ifneq ($(strip $(ENCODER_DRIVER)), custom)
+        SRC += encoder_$(strip $(ENCODER_DRIVER)).c
+    endif
+
     ifeq ($(strip $(ENCODER_MAP_ENABLE)), yes)
         OPT_DEFS += -DENCODER_MAP_ENABLE
     endif

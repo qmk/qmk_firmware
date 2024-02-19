@@ -6,6 +6,10 @@
         "encoder_config": {
             "type": "object",
             "properties": {
+                "driver": {
+                    "type": "string",
+                    "enum": ["quadrature", "custom"]
+                },
                 "rotary": {
                     "type": "array",
                     "items": {
