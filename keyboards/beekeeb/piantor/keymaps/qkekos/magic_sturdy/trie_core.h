@@ -42,6 +42,7 @@ bool process_check(uint16_t*, keyrecord_t*, uint8_t*, uint8_t*);
 void stack_dump(stack_t *stack, char *str);
 void dequeue_keycodes(uint8_t);
 void enqueue_keycode(uint8_t);
+void stack_print(stack_t *s);
 void dequeue_keycode(void);
 void clear_buffer(void);
 void print_buffer(void);

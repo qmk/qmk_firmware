@@ -68,6 +68,8 @@ void print_buffer(void) {
 void stack_print(stack_t *s) {
 	for (int i = s->size - 1; i >= 0; --i)
 		uprintf("%c", s->buffer[i]);
+
+    uprintf("\n");
 }
 
 void stack_dump(stack_t *stack, char *str) {
