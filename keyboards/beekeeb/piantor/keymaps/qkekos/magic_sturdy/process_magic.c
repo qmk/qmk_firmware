@@ -48,6 +48,11 @@ void pontential_match_found(uint16_t magic_key, char *context, char *completion)
             ignore_match("k", "s");
     }
 
+    switch (get_last_keycode()) {
+        case US_REP:
+            if (magic_key == US_AREP) ignore_match("d", "y");
+    }
+
     flick_leds(1.5, 250);
 
     uprintf(
@@ -170,7 +175,11 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* mods
 }
 
 uint16_t db_arep_provider(uint8_t tap_count) {
-    if (tap_count >= 2) return DB_AREP;
+    if (tap_count >= 2) {
+        set_last_keycode(DB_AREP);
+        return DB_AREP;    
+    }
+
     return KC_NO;
 }
 
@@ -224,6 +233,13 @@ void process_trie(trie_t* trie) {
     // If we found one, apply completion
     if (!result.completion) {
         if (trie->fallback) trie->fallback();
+
+        uint16_t last_keycode = get_last_keycode();
+
+        set_last_keycode(KC_NO);
+        check_potential_matches(pontential_match_found);
+
+        set_last_keycode(last_keycode);
         return;
     }
 
@@ -232,6 +248,7 @@ void process_trie(trie_t* trie) {
     dequeue_keycodes(result.bspace_count);
 
     record_send_string(result.completion);
+    check_potential_matches(pontential_match_found);
 }
 
 bool is_magic(uint16_t keycode) {

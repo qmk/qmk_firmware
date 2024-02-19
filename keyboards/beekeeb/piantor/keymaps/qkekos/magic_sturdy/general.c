@@ -1,6 +1,12 @@
 
 #include "../__init__.h"
 
+void call_db_trie(void) {
+    dequeue_keycode();
+    set_last_keycode(DB_LTTR);
+    process_magic_key(DB_LTTR);
+}
+
 enum pr_response sturdy_pr(uint16_t keycode, keyrecord_t *record) {
     if (!process_context_magic(keycode, record))
         return false;
@@ -9,11 +15,7 @@ enum pr_response sturdy_pr(uint16_t keycode, keyrecord_t *record) {
         case SMT_N:
         case ALT_T:
             if (record->tap.count != 2) return PR_IGNORE;
-
-            if (record->event.pressed) {
-                dequeue_keycode();
-                process_magic_key(DB_LTTR);
-            }
+            if (record->event.pressed) call_db_trie();
 
             return false;
 
@@ -38,9 +40,7 @@ enum pr_response process_double_tap(uint16_t keycode, keyrecord_t *record, uint1
         timer_elapsed(prev_key_timestamp) > (get_tapping_term(keycode, NULL) + 50)
     ) return PR_IGNORE;
 
-    dequeue_keycode();
-    process_magic_key(magic_key);
-
+    call_db_trie();
     return false;
 }
 

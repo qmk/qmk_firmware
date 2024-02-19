@@ -106,6 +106,7 @@ void check_potential_matches(potential_match_found_cb callback) {
         }
     }
 
-    if (magic_key)
+    if (magic_key && get_last_keycode() != magic_key) {
         callback(magic_key, best_result.context_string, best_result.max_completion);
+    }
 }
