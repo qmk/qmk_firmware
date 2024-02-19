@@ -38,9 +38,9 @@ __attribute__((weak)) bool qp_gc9a01_init(painter_device_t device, painter_rotat
         0x66,                           0, 10, 0x3C, 0x00, 0xCD, 0x67, 0x45, 0x45, 0x10, 0x00, 0x00, 0x00,
         0x67,                           0, 10, 0x00, 0x3C, 0x00, 0x00, 0x00, 0x01, 0x54, 0x10, 0x32, 0x98,
         GC9XXX_CMD_TEARING_ON,          0,  0,
-        GC9XXX_SET_PIXEL_FORMAT,        0,  1, GC9A01_PIXEL_FORMAT_16_BPP_MCUIF,
+        GC9XXX_SET_PIXEL_FORMAT,        0,  1, GC9A01_PIXEL_FORMAT_16_BPP_DBI,
         GC9XXX_CMD_INVERT_ON,           0,  0,
-        GC9XXX_CMD_SLEEP_OFF,           120,  0,
+        GC9XXX_CMD_SLEEP_OFF,           120, 0,
         GC9XXX_CMD_DISPLAY_ON,          20,  0
     };
     // clang-format on

@@ -7,50 +7,51 @@
 // Quantum Painter GC9A01 command opcodes
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+#define GC9A01_SET_MEM_CONT 0x3C            // Set memory continue
+#define GC9A01_SET_BRIGHTNESS 0x51          // Set brightness
+#define GC9A01_SET_DISPLAY_CTL 0x53         // Set display ctl
+
+#define GC9A01_SET_RGB_IF_SIG_CTL 0xB0      // RGB IF signal ctl
+#define GC9A01_SET_BLANKING_PORCH_CTL 0xB5  // Set blanking porch ctl
+#define GC9A01_SET_FUNCTION_CTL 0xB6        // Set function ctl
+#define GC9A01_SET_TEARING_EFFECT 0xBA      // Set tering effect control
+#define GC9A01_SET_POWER_CTL_7 0xA7         // Set power ctl 7
+#define GC9A01_SET_POWER_CTL_1 0xC1         // Set power ctl 1
+#define GC9A01_SET_POWER_CTL_2 0xC3         // Set power ctl 2
+#define GC9A01_SET_POWER_CTL_3 0xC4         // Set power ctl 3
+#define GC9A01_SET_POWER_CTL_4 0xC9         // Set power ctl 4
+#define GC9A01_SET_FRAME_RATE 0xE8          // Set frame rate
+#define GC9A01_SET_SPI_2DATA 0xE9           // Set frame rate
+#define GC9A01_SET_GAMMA3 0xF2              // Set gamma 3
+#define GC9A01_SET_GAMMA4 0xF3              // Set gamma 4
+#define GC9A01_SET_IF_CTL 0xF6              // Set interface control
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Level 1 command opcodes
-
-#define GC9A01_SET_MEM_CONT 0x3C    // Set memory continue
-#define GC9A01_SET_BRIGHTNESS 0x51  // Set brightness
-#define GC9A01_SET_DISPLAY_CTL 0x53 // Set display ctl
+// GC9A01 MADCTL Flags
+#define GC9A01_MADCTL_MH 0b00000100
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Level 2 command opcodes
+// GC9A01 Parameter constants 
 
-#define GC9A01_SET_RGB_IF_SIG_CTL 0xB0     // RGB IF signal ctl
-#define GC9A01_SET_BLANKING_PORCH_CTL 0xB5 // Set blanking porch ctl
-#define GC9A01_SET_FUNCTION_CTL 0xB6       // Set function ctl
-#define GC9A01_SET_TEARING_EFFECT 0xBA     // Set tering effect control
-#define GC9A01_SET_IF_CTL 0xF6             // Set interface control
+//      Parameter values for
+//      GC9A01_SET_PIXEL_FORMAT
+#define GC9A01_PIXEL_FORMAT_12_BPP_DBI (0b011 << 0) // 12 bits/pixel MCU interface format
+#define GC9A01_PIXEL_FORMAT_16_BPP_DBI (0b101 << 0) // 16 bits/pixel MCU interface format
+#define GC9A01_PIXEL_FORMAT_18_BPP_DBI (0b110 << 0) // 18 bits/pixel MCU interface format
+#define GC9A01_PIXEL_FORMAT_16_BPP_DPI (0b101 << 4) // 16 bits/pixel RGB interface format
+#define GC9A01_PIXEL_FORMAT_18_BPP_DPI (0b110 << 4) // 18 bits/pixel RGB interface format
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Level 3 command opcodes
-
-#define GC9A01_SET_POWER_CTL_7 0xA7 // Set power ctl 7
-
-#define GC9A01_SET_POWER_CTL_1 0xC1 // Set power ctl 1
-#define GC9A01_SET_POWER_CTL_2 0xC3 // Set power ctl 2
-#define GC9A01_SET_POWER_CTL_3 0xC4 // Set power ctl 3
-#define GC9A01_SET_POWER_CTL_4 0xC9 // Set power ctl 4
-
-#define GC9A01_SET_FRAME_RATE 0xE8 // Set frame rate
-#define GC9A01_SET_SPI_2DATA 0xE9  // Set frame rate
-
-#define GC9A01_SET_GAMMA3 0xF2
-#define GC9A01_SET_GAMMA4 0xF3
-
-#define GC9A01_PIXEL_FORMAT_12_BPP_MCUIF 0x03 // 12 bits/pixel MCU interface format
-#define GC9A01_PIXEL_FORMAT_16_BPP_MCUIF 0x05 // 16 bits/pixel MCU interface format
-#define GC9A01_PIXEL_FORMAT_18_BPP_MCUIF 0x06 // 18 bits/pixel MCU interface format
-#define GC9A01_PIXEL_FORMAT_16_BPP_RGBIF 0x05 // 16 bits/pixel MCU interface format
-#define GC9A01_PIXEL_FORMAT_18_BPP_RGBIF 0x06 // 18 bits/pixel MCU interface format
-
+//      Parameter values for
+//      GC9A01_SET_FUNCTION_CTL (2nd parameter)
 #define GC9A01_SOURCE_OUTPUT_SCAN_DIRECTION_S1_TO_S360 0b00000000
 #define GC9A01_SOURCE_OUTPUT_SCAN_DIRECTION_S360_TO_S1 0b00100000
 #define GC9A01_GATE_OUTPUT_SCAN_DIRECTION_G1_TO_G32 0b00000000
 #define GC9A01_GATE_OUTPUT_SCAN_DIRECTION_G32_TO_G1 0b01000000
 #define GC9A01_SCAN_MODE_INTER 0x10
 
+//      Parameter values for
+//      GC9A01_SET_FUNCTION_CTL (3rd parameter)
 #define GC9A01_LCD_DRIVE_LINE_16 0x01
 #define GC9A01_LCD_DRIVE_LINE_24 0x02
 #define GC9A01_LCD_DRIVE_LINE_32 0x03
@@ -80,3 +81,25 @@
 #define GC9A01_LCD_DRIVE_LINE_224 0x1B
 #define GC9A01_LCD_DRIVE_LINE_232 0x1C
 #define GC9A01_LCD_DRIVE_LINE_240 0x1D
+
+//      Parameter values for
+//      GC9A01_SET_DISPLAY_CTL
+#define GC9A01_BRIGHTNESS_CONTROL_ON 0b00100000
+#define GC9A01_DIMMING_ON 0b00001000
+#define GC9A01_BACKLIGHT_ON 0b00000100
+#define GC9A01_BRIGHTNESS_CONTROL_OFF 0b00000000
+#define GC9A01_DIMMING_OFF 0b00000000
+#define GC9A01_BACKLIGHT_OFF 0b00000000
+
+//      Parameter values for
+//      GC9A01_SET_IF_CTL
+#define GC9A01_DISPLAY_MODE_INTERNAL_CLOCK 0b00000000
+#define GC9A01_DISPLAY_MODE_RGB_INTERFACE 0b00000100
+#define GC9A01_DISPLAY_MODE_VSYNC_INTERFACE 0b00001000
+#define GC9A01_DSISPLAY_MODE_DISABLED 0b00001100
+
+#define GC0A01_GRAM_INTERFACE_VSYNC 0b00000000
+#define GC9A01_GRAM_INTERFACE_RGB 0b00000010
+
+#define GC9A01_RGB_INTERFACE_MODE_1_TRANSFER 0b00000000
+#define GC9A01_RGB_INTERFACE_MODE_3_TRANSFER 0b00000001
