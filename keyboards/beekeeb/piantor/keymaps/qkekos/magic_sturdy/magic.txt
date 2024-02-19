@@ -70,6 +70,7 @@ any☆       -> anything
 pos☆       -> position
 cof☆       -> confused
 res☆       -> restrict
+inc☆       -> increase
 var☆       -> various
 ser☆       -> serious
 pro☆       -> problem
@@ -177,7 +178,7 @@ sim✵       -> simultaneously
 imp✵       -> impossible
 uni✵       -> university
 dif✵       -> difficult
-inc✵       -> increase
+inc✵       -> incapable
 int✵       -> interest
 ins✵       -> instead
 def✵       -> default
