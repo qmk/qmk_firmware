@@ -36,8 +36,8 @@ const char* get_magic_key_symbol(uint16_t magic_key) {
 }
 
 void pontential_match_found(uint16_t magic_key, char *context, char *completion) {
-    if (!is_string_ascii(context) || strlen(context) == 0) return;
-    if (!is_string_ascii(completion) || strlen(completion) == 0) return;
+//    if (!is_string_ascii(context) || strlen(context) == 0) return;
+//    if (!is_string_ascii(completion) || strlen(completion) == 0) return;
 
     ignore_match("a", "b");
     ignore_match(" i", "i");

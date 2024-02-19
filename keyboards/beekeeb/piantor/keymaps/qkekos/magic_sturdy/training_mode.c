@@ -32,9 +32,9 @@ void record_potential_match(trie_visitor_t *v, int bspaces, const char *completi
 
     if (completion_len < result->max_completion_len) return;
 
-    stack_dump(&v->stack, tmp_buffer);
-    if (!is_string_ascii(tmp_buffer) || v->stack.size == 0) return;
-    if (!is_string_ascii((char*)completion)) return;
+//    stack_dump(&v->stack, tmp_buffer);
+//    if (!is_string_ascii(tmp_buffer) || v->stack.size == 0) return;
+//    if (!is_string_ascii((char*)completion)) return;
 
     if (
         completion_len == result->max_completion_len &&

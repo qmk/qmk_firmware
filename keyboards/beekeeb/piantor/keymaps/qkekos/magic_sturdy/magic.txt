@@ -235,12 +235,12 @@ ex✵✵       -> exactly
 
 // Quintuple
 
-→even✪     -> eventually
 →prob✪     -> probably
 →keyb✪     -> keyboard
 
 // Quadruple
 
+→evn✪      -> eventually
 →con✪      -> consider
 →gen✪      -> general
 →men✪      -> menu
