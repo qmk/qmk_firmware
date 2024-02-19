@@ -22,6 +22,7 @@ over★      -> override
 again★     -> against
 copy★      -> copying
 start★     -> started
+use★       -> useless
 doub★      -> doable
 most★      -> mostly
 que★       -> queue
