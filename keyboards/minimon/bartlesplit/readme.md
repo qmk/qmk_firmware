@@ -1,6 +1,6 @@
 # Bartlesplitt
 
-![Bartlesplit with the hub in the 3x6 setup](https://github.com/Kyrremann/bartlesplit/raw/main/images/v1-pcb-1.png)
+![Bartlesplit with the hub in the 3x6 setup](https://i.imgur.com/IoMpwylh.png)
 
 Bartlesplit is based on [Cheapino](https://github.com/tompi/cheapino) by Tompi.
 The original idea was to build a Cheapino with hot swaps, but it evolved into something more!
