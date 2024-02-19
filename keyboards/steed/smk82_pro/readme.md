@@ -1,5 +1,5 @@
 # STEED SMK82 PRO
-![STEED SMK82 PRO](https://github.com/jonylee1986/qmk_firmware_master/assets/108282809/42973b4e-8ed5-43d7-8379-70851c67df0f)
+![STEED SMK82 PRO](https://cdn.shopifycdn.net/s/files/1/0809/0550/3006/files/SMK82WARCTIC.jpg?v=1701773689&width=1000)
 A customizable 75% encoder keyboard.
 
 * Keyboard Maintainer: [jonylee@hfd](https://github.com/jonylee1986)
