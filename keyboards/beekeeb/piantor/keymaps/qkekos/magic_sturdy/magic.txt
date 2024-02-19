@@ -39,7 +39,6 @@ pharmac☆   -> pharmacy
 
 // Quintuple
 
-never☆     -> nevertheless
 polic☆     -> policy
 
 // Quadruple
