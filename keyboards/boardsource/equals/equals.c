@@ -2,11 +2,12 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "quantum.h"
+
+#ifdef QUANTUM_PAINTER_ENABLE
 #include "qp.h"
 #include "qp_st7735.h"
 #include "graphics/thintel15.qff.c"
 
-#ifdef QUANTUM_PAINTER_ENABLE
 static painter_device_t      oled;
 static painter_font_handle_t font;
 
