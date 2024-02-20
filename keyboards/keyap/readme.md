@@ -6,7 +6,7 @@
 
 * Keyboard Maintainer: [ArturR0k3r](https://github.com/ArturR0k3r)
 * Hardware Supported: *Atmega32u4*
-* Hardware Availability: *arduino pro micro Arduino leonardo KeyaPad *
+* Hardware Availability: *Atmega32u4,KeyapadPCB*
 
 Make example for this keyboard (after setting up your build environment):
 
