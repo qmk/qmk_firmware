@@ -51,6 +51,9 @@ void pontential_match_found(uint16_t magic_key, char *context, char *completion)
     switch (get_last_keycode()) {
         case US_REP:
             if (magic_key == US_AREP) ignore_match("d", "y");
+
+        case DB_AREP:
+            if (magic_key == US_AREP) ignore_match("pl", "y");
     }
 
     flick_leds(1.5, 250);
@@ -236,7 +239,6 @@ void process_trie(trie_t* trie) {
     // If we found one, apply completion
     if (!result.completion) {
         if (trie->fallback) trie->fallback();
-
         uint16_t last_keycode = get_last_keycode();
 
         set_last_keycode(KC_NO);
@@ -248,7 +250,7 @@ void process_trie(trie_t* trie) {
 
     // Send backspaces and dequeue buffer
     multi_tap(KC_BSPC, result.bspace_count);
-    dequeue_keycodes(result.bspace_count);
+//    dequeue_keycodes(result.bspace_count);
 
     record_send_string(result.completion);
     check_potential_matches(pontential_match_found);

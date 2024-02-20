@@ -29,6 +29,7 @@ start★     -> started
 use★       -> useless
 doub★      -> doable
 most★      -> mostly
+simpl★     -> simply
 ion★       -> ional
 that★      -> thank
 
