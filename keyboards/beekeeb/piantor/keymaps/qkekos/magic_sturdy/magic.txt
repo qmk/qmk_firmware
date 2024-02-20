@@ -251,6 +251,7 @@ sim✵✵      -> simultaneous
 dev✵✵      -> development
 int✵✵      -> interesting
 ba✵✵       -> basically
+v✵✵        -> variable
 ex✵✵       -> exactly
 
 // Double letter taps
