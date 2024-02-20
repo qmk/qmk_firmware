@@ -13,6 +13,57 @@
 #include "gpio.h"
 #include "chibios_config.h"
 
+// ======== DEPRECATED DEFINES - DO NOT USE ========
+#ifdef SERIAL_DRIVER
+#    define UART_DRIVER SERIAL_DRIVER
+#endif
+#ifdef SD1_TX_PIN
+#    define UART_TX_PIN SD1_TX_PIN
+#endif
+#ifdef SD1_RX_PIN
+#    define UART_RX_PIN SD1_RX_PIN
+#endif
+#ifdef SD1_CTS_PIN
+#    define UART_CTS_PIN SD1_CTS_PIN
+#endif
+#ifdef SD1_RTS_PIN
+#    define UART_RTS_PIN SD1_RTS_PIN
+#endif
+#ifdef SD1_TX_PAL_MODE
+#    define UART_TX_PAL_MODE SD1_TX_PAL_MODE
+#endif
+#ifdef SD1_RX_PAL_MODE
+#    define UART_RX_PAL_MODE SD1_RX_PAL_MODE
+#endif
+#ifdef SD1_CTS_PAL_MODE
+#    define UART_RTS_PAL_MODE SD1_CTS_PAL_MODE
+#endif
+#ifdef SD1_RTS_PAL_MODE
+#    define UART_TX_PAL_MODE SD1_RTS_PAL_MODE
+#endif
+#ifdef SD1_CR1
+#    define UART_CR1 SD1_CR1
+#endif
+#ifdef SD1_CR2
+#    define UART_CR2 SD1_CR2
+#endif
+#ifdef SD1_CR3
+#    define UART_CR3 SD1_CR3
+#endif
+#ifdef SD1_WRDLEN
+#    define UART_WRDLEN SD1_WRDLEN
+#endif
+#ifdef SD1_STPBIT
+#    define UART_STPBIT SD1_STPBIT
+#endif
+#ifdef SD1_PARITY
+#    define UART_PARITY SD1_PARITY
+#endif
+#ifdef SD1_ATFLCT
+#    define UART_ATFLCT SD1_ATFLCT
+#endif
+// ========
+
 #ifndef UART_DRIVER
 #    if (HAL_USE_SERIAL == TRUE)
 #        define UART_DRIVER SD1
