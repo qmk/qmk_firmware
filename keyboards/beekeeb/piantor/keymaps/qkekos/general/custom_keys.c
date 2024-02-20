@@ -86,6 +86,10 @@ enum pr_response custom_keys_pr(uint16_t keycode, keyrecord_t *record) {
             layer_on(STURDY);
             layer_off(QWERTY);
 
+            enable_magic_training();
+            enable_hard_training();
+            autocorrect_enable();
+
             return true;
 
         case US_SNKE:

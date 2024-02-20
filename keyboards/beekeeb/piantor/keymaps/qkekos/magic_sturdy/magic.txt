@@ -95,6 +95,7 @@ rid☆       -> ridge
 red☆       -> redge
 jud☆       -> judge
 led☆       -> ledge
+ion☆       -> ional
 vac☆       -> vacy
 gac☆       -> gacy
 tex☆       -> text

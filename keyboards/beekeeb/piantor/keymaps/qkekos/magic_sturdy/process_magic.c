@@ -48,14 +48,12 @@ void pontential_match_found(uint16_t magic_key, char *context, char *completion)
             ignore_match("k", "s");
     }
 
-    switch (get_last_keycode()) {
-        case US_REP:
-            if (magic_key == US_AREP) ignore_match("d", "y");
+    ignore_magic(US_AREP, US_REP)  ignore_match("tio", "nal");
 
-        case DB_AREP:
-            if (magic_key == US_AREP) ignore_match("pl", "y");
-            if (magic_key == US_REP)  ignore_match("tio", "nal");
-    }
+    ignore_magic(DB_AREP, US_AREP) ignore_match("pl", "y");
+    ignore_magic(DB_AREP, US_REP)  ignore_match("tio", "nal");
+
+    ignore_magic(US_REP, US_AREP)  ignore_match("d", "y");
 
     flick_leds(1.5, 250);
 

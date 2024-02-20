@@ -23,3 +23,6 @@ void magic_key_fallback(void);
 
 #define ignore_match(a, b) \
     if (!strcmp(context, a) && !strcmp(completion, b)) return
+
+#define ignore_magic(prev_key, suggested_key) \
+    if (get_last_keycode() == prev_key && magic_key == suggested_key)
