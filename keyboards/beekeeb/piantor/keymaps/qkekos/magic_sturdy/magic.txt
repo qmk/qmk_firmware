@@ -204,6 +204,7 @@ nat✵       -> nation
 tio✵       -> tional
 min✵       -> minute
 exp✵       -> expect
+bet✵       -> better
 ous✵       -> ously
 
 // Double
