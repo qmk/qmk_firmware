@@ -19,11 +19,12 @@
 
 // SSD1306 OLED update loop
 #include "oled_driver.h"
+#include "timer.h"
 #ifdef CONSOLE_ENABLE
 #    include "print.h"
 #endif
 #ifdef OLED_ENABLE
-uint32_t oled_timer = 0; // For Keyboard pet OLED timeout with animations, code by Drashna.
+uint16_t oled_timer = 0; // For Keyboard pet OLED timeout with animations, code by Drashna.
 #    ifndef PET_DISABLE
 /* KEYBOARD PET START */
 #        define KEYBOARD_PET
@@ -37,8 +38,8 @@ uint32_t oled_timer = 0; // For Keyboard pet OLED timeout with animations, code 
 #        define ANIM_SIZE 96            // number of bytes in array. If you change sprites, minimize for adequate firmware size. max is 1024
 
 /* timers */
-uint32_t anim_timer = 0;
-uint32_t anim_sleep = 0;
+uint16_t anim_timer = 0;
+uint16_t anim_sleep = 0;
 
 /* current frame */
 uint8_t current_frame = 0;
@@ -215,8 +216,8 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
     }
 
     /* animation timer */
-    if (timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION) {
-        anim_timer = timer_read32();
+    if (timer_elapsed(anim_timer) > ANIM_FRAME_DURATION) {
+        anim_timer = timer_read();
         animate_luna();
     }
 }
@@ -226,18 +227,13 @@ static void render_luna(int LUNA_X, int LUNA_Y) {
 
 #    ifdef RAW_ENABLE
 #        include "transactions.h"
-char    *time             = "     ";
-uint32_t last_time_update = 0;
+char time[6] = "     ";
 #    endif
 
 static void print_layout_and_wpm(void) {
 #    ifdef RAW_ENABLE
     oled_set_cursor(0, 0);
-    if (timer_elapsed32(last_time_update) <= 60000) {
-        oled_write(time, false);
-    } else {
-        oled_write_ln("", false);
-    }
+    oled_write(time, false);
 #    endif
 
     oled_set_cursor(0, 2);
@@ -338,7 +334,7 @@ bool oled_task_user(void) {
 #    endif
 
     if (is_keyboard_master()) { // Drashna's OLED timeout off code for animations
-        if (timer_elapsed32(oled_timer) > 30000) {
+        if (timer_elapsed(oled_timer) > 30000) {
             oled_off();
             return false;
         } else {
@@ -361,31 +357,66 @@ bool oled_task_user(void) {
 }
 
 #    ifdef RAW_ENABLE
-void sync_time(uint8_t in_buflen, const void *in_data, uint8_t out_buflen, void *out_data) {
-    // Set the time on the slave-side keyboard
-    time = (char *)in_data;
-    dprintf("Synced time '%s' to right-side keyboard\n", time);
-    last_time_update = timer_read32();
-    dprintf("Updated last_time_update to %d\n", last_time_update);
-}
+uint16_t last_time_update = 0;
 
 void raw_hid_receive(uint8_t *data, uint8_t length) {
     // Set the time on the main-side keyboard
     strcpy(time, (char *)data);
+    last_time_update = timer_read();
     dprintf("Received '%s' via hid\n", time);
+}
+
+void sync_time(uint8_t in_buflen, const void *in_data, uint8_t out_buflen, void *out_data) {
+    // Set the time on the slave-side keyboard
+    strcpy(time, (char *)in_data);
+}
+
+void increment_time(void) {
+    if (time[4] == '9') {
+        if (time[3] == '5') {
+            if (time[1] == '9') {
+                // Increment ten hour
+                time[0] = time[0] + 1;
+                time[1] = '0';
+                time[3] = '0';
+                time[4] = '0';
+            } else if (time[1] == '3' && time[0] == '2') {
+                // Increment day
+                strcpy(time, "00:00");
+            } else {
+                // Increment hour
+                time[1] = time[1] + 1;
+                time[3] = '0';
+                time[4] = '0';
+            }
+        } else {
+            // Increment ten minute
+            time[3] = time[3] + 1;
+            time[4] = '0';
+        }
+    } else {
+        // Increment minute
+        time[4] = time[4] + 1;
+    }
 }
 
 void housekeeping_task_user(void) {
     if (is_keyboard_master()) {
         // Interact with slave every 1000ms
-        static uint32_t last_sync = 0;
-        if (timer_elapsed32(last_sync) > 1000) {
+        static uint16_t last_sync = 0;
+#        ifdef CONSOLE_ENABLE
+#        endif
+        if (timer_elapsed(last_sync) > 1000) {
             if (transaction_rpc_send(TIME_SYNC, 6, time)) {
                 dprintf("Sent '%s' to the right keyboard\n", time);
-                last_sync = timer_read32();
+                last_sync = timer_read();
             } else {
                 dprintln("Sending to right keyboard failed!");
             }
+        }
+        if (timer_elapsed(last_time_update) >= 60000) {
+            last_time_update = timer_read() - (timer_elapsed(last_time_update) - 60000);
+            increment_time();
         }
     }
 }
