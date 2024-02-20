@@ -72,6 +72,7 @@ esp☆       -> especially
 exp☆       -> experience
 hil☆       -> hilarious
 ess☆       -> essential
+sit☆       -> situation
 alt☆       -> although
 any☆       -> anything
 pos☆       -> position

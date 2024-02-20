@@ -54,6 +54,7 @@ void pontential_match_found(uint16_t magic_key, char *context, char *completion)
 
         case DB_AREP:
             if (magic_key == US_AREP) ignore_match("pl", "y");
+            if (magic_key == US_REP)  ignore_match("tio", "nal");
     }
 
     flick_leds(1.5, 250);
