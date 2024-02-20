@@ -2,8 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
-#include "encoder.h"
-
 
 #define LED1 B0
 #define LED2 B1
@@ -23,7 +21,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                            KC_G, KC_H, KC_I)
     };
 
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS]= {[0] = {{KC_C, KC_D}}};
+const uint16_t PROGMEM encoder_map[][1][2] = {[0] = {{KC_C, KC_D}}};
 
 void keyboard_pre_init_user(void) {
     setPinOutput(LED1); // initialize B0 for LED
