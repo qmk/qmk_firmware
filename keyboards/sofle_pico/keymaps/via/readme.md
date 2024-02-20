@@ -7,7 +7,6 @@
 Ported directly from the classic Sofle Keyboard by Josef Adamcik.
 Layout in [Keyboard Layout Editor](http://www.keyboard-layout-editor.com/#/gists/76efb423a46cbbea75465cb468eef7ff) and [adjust layer](http://www.keyboard-layout-editor.com/#/gists/4bcf66f922cfd54da20ba04905d56bd4)
 
-
 Features:
 
 - Symmetric modifiers (CMD/Super, Alt/Opt, Ctrl, Shift)

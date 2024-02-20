@@ -1,50 +1,45 @@
 {
     "manufacturer": "Ryan Neff",
     "keyboard_name": "Sofle Pico",
-    "url": "https://github.com/JellyTitan/Sofle-Pico",
-    "bootloader_instructions": "Hold the BOOT button while plugging in the usb cable",
     "maintainer": "Ryan Neff <github@JellyTitan.com>",
-    "tags": ["ortho", "split", "rgb", "encoder", "OLED", "128x64", "tenting_puck"],
-    "usb": {
-        "vid": "0x4A54",
-        "pid": "0x5350",
-        "device_version": "3.5.4"
-    },
+    "bootloader": "rp2040",
+    "bootloader_instructions": "Hold the BOOT button while plugging in the usb cable",
     "build": {
         "lto": false
+    },
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "GP14", "pin_b": "GP15", "resolution": 4}
+        ]
     },
     "features": {
         "bootmagic": true,
         "command": false,
+        "console": false,
         "dynamic_tapping_term": true,
         "encoder": true,
         "encoder_map": true,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgb_matrix": true,
         "oled": true,
+        "rgb_matrix": true,
         "wpm": true
     },
-    "ws2812": {
-        "pin": "GP0",
-        "driver": "vendor"
+    "matrix_pins": {
+        "cols": ["GP1", "GP2", "GP3", "GP4", "GP5", "GP8"],
+        "rows": ["GP9", "GP10", "GP11", "GP12", "GP13"]
     },
     "mouse_key": {
-        "enabled": true,
         "delay": 10,
+        "enabled": true,
         "interval": 16,
         "max_speed": 2,
         "time_to_max": 40
     },
-    "tapping": {
-        "term": 210
-    },
+    "processor": "RP2040",
     "rgb_matrix": {
-        "driver": "ws2812",
-        "max_brightness": 127,
-        "split_count": [29, 29],
         "animations": {
             "band_pinwheel_sat": true,
             "band_pinwheel_val": true,
@@ -92,77 +87,69 @@
             "animation": "cycle_out_in",
             "speed": 16
         },
+        "driver": "ws2812",
         "layout": [
-            { "flags": 4, "matrix": [0, 5], "x": 95, "y":  7 },
-            { "flags": 4, "matrix": [1, 5], "x": 95, "y": 21 },
-            { "flags": 4, "matrix": [2, 5], "x": 95, "y": 36 },
-            { "flags": 4, "matrix": [3, 5], "x": 95, "y": 50 },
-            { "flags": 4, "matrix": [4, 4], "x":115, "y": 64 },
-            { "flags": 4, "matrix": [4, 3], "x": 95, "y": 64 },
-            { "flags": 4, "matrix": [4, 2], "x": 76, "y": 62 },
-            { "flags": 4, "matrix": [3, 4], "x": 76, "y": 48 },
-            { "flags": 4, "matrix": [2, 4], "x": 76, "y": 33 },
-            { "flags": 4, "matrix": [1, 4], "x": 76, "y": 19 },
-            { "flags": 4, "matrix": [0, 4], "x": 76, "y":  5 },
-            { "flags": 4, "matrix": [0, 3], "x": 57, "y":  3 },
-            { "flags": 4, "matrix": [1, 3], "x": 57, "y": 17 },
-            { "flags": 4, "matrix": [2, 3], "x": 57, "y": 31 },
-            { "flags": 4, "matrix": [3, 3], "x": 57, "y": 46 },
-            { "flags": 4, "matrix": [4, 1], "x": 57, "y": 62 },
-            { "flags": 4, "matrix": [4, 0], "x": 38, "y": 64 },
-            { "flags": 4, "matrix": [3, 2], "x": 38, "y": 48 },
-            { "flags": 4, "matrix": [2, 2], "x": 38, "y": 33 },
-            { "flags": 4, "matrix": [1, 2], "x": 38, "y": 19 },
-            { "flags": 4, "matrix": [0, 2], "x": 38, "y":  5 },
-            { "flags": 4, "matrix": [0, 1], "x": 19, "y":  7 },
-            { "flags": 4, "matrix": [1, 1], "x": 19, "y": 21 },
-            { "flags": 4, "matrix": [2, 1], "x": 19, "y": 36 },
-            { "flags": 4, "matrix": [3, 1], "x": 19, "y": 50 },
-            { "flags": 4, "matrix": [3, 0], "x":  0, "y": 50 },
-            { "flags": 4, "matrix": [2, 0], "x":  0, "y": 36 },
-            { "flags": 4, "matrix": [1, 0], "x":  0, "y": 21 },
-            { "flags": 4, "matrix": [0, 0], "x":  0, "y":  7 },
-
-            { "flags": 4, "matrix": [5, 5], "x":129, "y":  7 },
-            { "flags": 4, "matrix": [6, 5], "x":129, "y": 21 },
-            { "flags": 4, "matrix": [7, 5], "x":129, "y": 36 },
-            { "flags": 4, "matrix": [8, 5], "x":129, "y": 50 },
-            { "flags": 4, "matrix": [9, 4], "x":119, "y": 64 },
-            { "flags": 4, "matrix": [9, 3], "x":129, "y": 64 },
-            { "flags": 4, "matrix": [9, 2], "x":148, "y": 62 },
-            { "flags": 4, "matrix": [8, 4], "x":148, "y": 48 },
-            { "flags": 4, "matrix": [7, 4], "x":148, "y": 33 },
-            { "flags": 4, "matrix": [6, 4], "x":148, "y": 19 },
-            { "flags": 4, "matrix": [5, 4], "x":148, "y":  5 },
-            { "flags": 4, "matrix": [5, 3], "x":167, "y":  3 },
-            { "flags": 4, "matrix": [6, 3], "x":167, "y": 17 },
-            { "flags": 4, "matrix": [7, 3], "x":167, "y": 31 },
-            { "flags": 4, "matrix": [8, 3], "x":167, "y": 46 },
-            { "flags": 4, "matrix": [9, 1], "x":167, "y": 62 },
-            { "flags": 4, "matrix": [9, 0], "x":186, "y": 64 },
-            { "flags": 4, "matrix": [8, 2], "x":186, "y": 48 },
-            { "flags": 4, "matrix": [7, 2], "x":186, "y": 33 },
-            { "flags": 4, "matrix": [6, 2], "x":186, "y": 19 },
-            { "flags": 4, "matrix": [5, 2], "x":186, "y":  5 },
-            { "flags": 4, "matrix": [5, 1], "x":209, "y":  7 },
-            { "flags": 4, "matrix": [6, 1], "x":209, "y": 21 },
-            { "flags": 4, "matrix": [7, 1], "x":209, "y": 36 },
-            { "flags": 4, "matrix": [8, 1], "x":209, "y": 50 },
-            { "flags": 4, "matrix": [8, 0], "x":224, "y": 50 },
-            { "flags": 4, "matrix": [7, 0], "x":224, "y": 36 },
-            { "flags": 4, "matrix": [6, 0], "x":224, "y": 21 },
-            { "flags": 4, "matrix": [5, 0], "x":224, "y":  7 }
-        ]
-    },
-    "matrix_pins": {
-        "rows": ["GP9", "GP10", "GP11", "GP12", "GP13"],
-        "cols": ["GP1", "GP2", "GP3", "GP4", "GP5", "GP8"]
-    },
-    "diode_direction": "COL2ROW",
-    "encoder": {
-        "rotary": [
-            {"pin_a": "GP14", "pin_b": "GP15", "resolution": 4}
-        ]
+            {"matrix": [0, 5], "x": 95, "y": 7, "flags": 4},
+            {"matrix": [1, 5], "x": 95, "y": 21, "flags": 4},
+            {"matrix": [2, 5], "x": 95, "y": 36, "flags": 4},
+            {"matrix": [3, 5], "x": 95, "y": 50, "flags": 4},
+            {"matrix": [4, 4], "x": 115, "y": 64, "flags": 4},
+            {"matrix": [4, 3], "x": 95, "y": 64, "flags": 4},
+            {"matrix": [4, 2], "x": 76, "y": 62, "flags": 4},
+            {"matrix": [3, 4], "x": 76, "y": 48, "flags": 4},
+            {"matrix": [2, 4], "x": 76, "y": 33, "flags": 4},
+            {"matrix": [1, 4], "x": 76, "y": 19, "flags": 4},
+            {"matrix": [0, 4], "x": 76, "y": 5, "flags": 4},
+            {"matrix": [0, 3], "x": 57, "y": 3, "flags": 4},
+            {"matrix": [1, 3], "x": 57, "y": 17, "flags": 4},
+            {"matrix": [2, 3], "x": 57, "y": 31, "flags": 4},
+            {"matrix": [3, 3], "x": 57, "y": 46, "flags": 4},
+            {"matrix": [4, 1], "x": 57, "y": 62, "flags": 4},
+            {"matrix": [4, 0], "x": 38, "y": 64, "flags": 4},
+            {"matrix": [3, 2], "x": 38, "y": 48, "flags": 4},
+            {"matrix": [2, 2], "x": 38, "y": 33, "flags": 4},
+            {"matrix": [1, 2], "x": 38, "y": 19, "flags": 4},
+            {"matrix": [0, 2], "x": 38, "y": 5, "flags": 4},
+            {"matrix": [0, 1], "x": 19, "y": 7, "flags": 4},
+            {"matrix": [1, 1], "x": 19, "y": 21, "flags": 4},
+            {"matrix": [2, 1], "x": 19, "y": 36, "flags": 4},
+            {"matrix": [3, 1], "x": 19, "y": 50, "flags": 4},
+            {"matrix": [3, 0], "x": 0, "y": 50, "flags": 4},
+            {"matrix": [2, 0], "x": 0, "y": 36, "flags": 4},
+            {"matrix": [1, 0], "x": 0, "y": 21, "flags": 4},
+            {"matrix": [0, 0], "x": 0, "y": 7, "flags": 4},
+            {"matrix": [5, 5], "x": 129, "y": 7, "flags": 4},
+            {"matrix": [6, 5], "x": 129, "y": 21, "flags": 4},
+            {"matrix": [7, 5], "x": 129, "y": 36, "flags": 4},
+            {"matrix": [8, 5], "x": 129, "y": 50, "flags": 4},
+            {"matrix": [9, 4], "x": 119, "y": 64, "flags": 4},
+            {"matrix": [9, 3], "x": 129, "y": 64, "flags": 4},
+            {"matrix": [9, 2], "x": 148, "y": 62, "flags": 4},
+            {"matrix": [8, 4], "x": 148, "y": 48, "flags": 4},
+            {"matrix": [7, 4], "x": 148, "y": 33, "flags": 4},
+            {"matrix": [6, 4], "x": 148, "y": 19, "flags": 4},
+            {"matrix": [5, 4], "x": 148, "y": 5, "flags": 4},
+            {"matrix": [5, 3], "x": 167, "y": 3, "flags": 4},
+            {"matrix": [6, 3], "x": 167, "y": 17, "flags": 4},
+            {"matrix": [7, 3], "x": 167, "y": 31, "flags": 4},
+            {"matrix": [8, 3], "x": 167, "y": 46, "flags": 4},
+            {"matrix": [9, 1], "x": 167, "y": 62, "flags": 4},
+            {"matrix": [9, 0], "x": 186, "y": 64, "flags": 4},
+            {"matrix": [8, 2], "x": 186, "y": 48, "flags": 4},
+            {"matrix": [7, 2], "x": 186, "y": 33, "flags": 4},
+            {"matrix": [6, 2], "x": 186, "y": 19, "flags": 4},
+            {"matrix": [5, 2], "x": 186, "y": 5, "flags": 4},
+            {"matrix": [5, 1], "x": 209, "y": 7, "flags": 4},
+            {"matrix": [6, 1], "x": 209, "y": 21, "flags": 4},
+            {"matrix": [7, 1], "x": 209, "y": 36, "flags": 4},
+            {"matrix": [8, 1], "x": 209, "y": 50, "flags": 4},
+            {"matrix": [8, 0], "x": 224, "y": 50, "flags": 4},
+            {"matrix": [7, 0], "x": 224, "y": 36, "flags": 4},
+            {"matrix": [6, 0], "x": 224, "y": 21, "flags": 4},
+            {"matrix": [5, 0], "x": 224, "y": 7, "flags": 4}
+        ],
+        "max_brightness": 127,
+        "split_count": [29, 29]
     },
     "split": {
         "enabled": true,
@@ -174,8 +161,20 @@
             }
         }
     },
-    "processor": "RP2040",
-    "bootloader": "rp2040",
+    "tags": ["ortho", "split", "rgb", "encoder", "OLED", "128x64", "tenting_puck"],
+    "tapping": {
+        "term": 210
+    },
+    "url": "https://github.com/JellyTitan/Sofle-Pico",
+    "usb": {
+        "device_version": "3.5.4",
+        "pid": "0x5350",
+        "vid": "0x4A54"
+    },
+    "ws2812": {
+        "driver": "vendor",
+        "pin": "GP0"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -191,7 +190,6 @@
                 {"label": "9", "matrix": [5, 2], "x": 12, "y": 0.3},
                 {"label": "0", "matrix": [5, 1], "x": 13, "y": 0.7},
                 {"label": "`", "matrix": [5, 0], "x": 14, "y": 0.7},
-
                 {"label": "Esc", "matrix": [1, 0], "x": 0, "y": 1.7},
                 {"label": "Q", "matrix": [1, 1], "x": 1, "y": 1.7},
                 {"label": "W", "matrix": [1, 2], "x": 2, "y": 1.3},
@@ -204,7 +202,6 @@
                 {"label": "O", "matrix": [6, 2], "x": 12, "y": 1.3},
                 {"label": "P", "matrix": [6, 1], "x": 13, "y": 1.7},
                 {"label": "Bspc", "matrix": [6, 0], "x": 14, "y": 1.7},
-
                 {"label": "Tab", "matrix": [2, 0], "x": 0, "y": 2.7},
                 {"label": "A", "matrix": [2, 1], "x": 1, "y": 2.7},
                 {"label": "S", "matrix": [2, 2], "x": 2, "y": 2.3},
@@ -217,7 +214,6 @@
                 {"label": "L", "matrix": [7, 2], "x": 12, "y": 2.3},
                 {"label": ";", "matrix": [7, 1], "x": 13, "y": 2.7},
                 {"label": "'", "matrix": [7, 0], "x": 14, "y": 2.7},
-
                 {"label": "LShift", "matrix": [3, 0], "x": 0, "y": 3.7},
                 {"label": "Z", "matrix": [3, 1], "x": 1, "y": 3.7},
                 {"label": "X", "matrix": [3, 2], "x": 2, "y": 3.3},
@@ -232,7 +228,6 @@
                 {"label": ".", "matrix": [8, 2], "x": 12, "y": 3.3},
                 {"label": "/", "matrix": [8, 1], "x": 13, "y": 3.7},
                 {"label": "RShift", "matrix": [8, 0], "x": 14, "y": 3.7},
-
                 {"label": "LCtrl", "matrix": [4, 0], "x": 2, "y": 4.3},
                 {"label": "LGUI", "matrix": [4, 1], "x": 3, "y": 4},
                 {"label": "LCmnd", "matrix": [4, 2], "x": 4, "y": 4.3},

@@ -1,8 +1,8 @@
-# sofle_pico <!-- omit from toc -->
+# Sofle Pico Keyboard
 
 ![Sofle Pico](https://i.imgur.com/12R25jF.jpg)
 
-Sofle Pico is a 60% Raspberry Pi Pico powered split keyboard boasting a 4x6 layout with an aggressive columnar stagger. It has 5 "thumb" keys on either side, support for 2-4 rotary encoders, and per-key RGB lighting.
+Sofle Pico is a 60% Raspberry Pi Pico powered split keyboard boasting a 4x6 layout with an aggressive columnar stagger. It has 5 "thumb" keys on either side, support for 2-4 rotary encoders, per-key RGB lighting, 128x64 OLEDs and a tenting puck mount.
 
 - Keyboard Maintainer: [Ryan Neff](https://github.com/JellyTitan)
 - Hardware Supported: sofle_pico PCB, Raspberry Pi Pico
@@ -11,8 +11,6 @@ Sofle Pico is a 60% Raspberry Pi Pico powered split keyboard boasting a 4x6 layo
 Remember you have to flash both halves of the keyboard for it to work!
 
 Make example for this keyboard (after setting up your build environment):
-
-    make sofle_pico:default
 
 Flashing example for this keyboard:
 
@@ -30,7 +28,7 @@ qmk flash -kb sofle_pico --keymap default -bl uf2-split-right
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-## Bootloader <!-- omit from toc -->
+## Bootloader
 
 Enter the bootloader in 3 ways:
 
@@ -38,6 +36,6 @@ Enter the bootloader in 3 ways:
 - **Physical reset button**: Hold the `BOOT` button on the Pico and press the `RST` button on the Pico, release the the `RST` button before the `BOOT` button.
 - **Keycode in layout**: In the default layout, the `Bootloader` keycode is above home row pinky on the right side's adjust layer.
 
-Once you enter the bootloader, the keyboard will show up as a USB device on your computer, you could drag and drop a firmware file to flash it, but I recommend using the flash commands for the respective side.
+Once you enter the bootloader, the keyboard will show up as a USB device on your computer, you could drag and drop a `.uf2` firmware file to flash it.
 
 [Keyboard-layout-editor.com](http://www.keyboard-layout-editor.com/#/gists/2fa0527caf2f6e527e4f46787a74a9d2)
