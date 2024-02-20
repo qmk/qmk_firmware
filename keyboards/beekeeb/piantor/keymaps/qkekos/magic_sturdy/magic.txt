@@ -119,6 +119,7 @@ ot☆        -> other
 co☆        -> could
 ag☆        -> again
 la☆        -> large
+po☆        -> point
 pa☆        -> page
 mo☆        -> most
 mu☆        -> must
@@ -172,6 +173,7 @@ should✵    -> shouldn't
 
 →sti✵      -> still
 
+every✵     -> everywhere
 some✵      -> something
 impl✵      -> implement
 poss✵      -> possible
@@ -180,6 +182,7 @@ hand✵      -> handy
 
 // Triple
 
+→cu✵       -> curious
 →vi✵       -> vision
 →ab✵       -> about
 
@@ -238,6 +241,7 @@ x✵         -> xes
 i✵         -> ing
 y✵         -> you
 q✵         -> qui
+v✵         -> var
 
 // Double taps
 
