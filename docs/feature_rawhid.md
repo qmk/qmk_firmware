@@ -29,6 +29,7 @@ To send data to the keyboard, you must first find a library for communicating wi
 * **C/C++:** [hidapi](https://github.com/libusb/hidapi)
 * **Java:** [purejavahidapi](https://github.com/nyholku/purejavahidapi) and [hid4java](https://github.com/gary-rowe/hid4java)
 * **Python:** [pyhidapi](https://pypi.org/project/hid/) and [pywinusb](https://pypi.org/project/pywinusb)
+* **Go:** [hid](https://github.com/karalabe/hid)
 
 Please refer to these libraries' own documentation for instructions on usage. Remember to close the device once you are finished with it!
 
@@ -39,10 +40,16 @@ It's also a good idea to narrow down the list of potential HID devices the libra
 Once you are able to open the HID device and send reports to it, it's time to handle them on the keyboard side. Implement the following function in your `keymap.c` and start coding:
 
 ```c
-void raw_hid_receive(uint8_t *data, uint8_t length) {
+bool raw_hid_receive_user(uint8_t *data, uint8_t length) {
     // Your code goes here
     // `data` is a pointer to the buffer containing the received HID report
     // `length` is the length of the report - always `RAW_EPSIZE`
+    //
+    // This function should return true if the data is to be processed
+    // down the line, for instance by VIA, and false otherwise.
+    // You can typically use a header with some magic identifier
+    // and integrity mechanisms like a CRC to check the data was
+    // yours to proceed.
 }
 ```
 
@@ -59,14 +66,16 @@ The received report can then be handled in whichever way your HID library provid
 The following example reads the first byte of the received report from the host, and if it is an ASCII "A", responds with "B". `memset()` is used to fill the response buffer (which could still contain the previous response) with null bytes.
 
 ```c
-void raw_hid_receive(uint8_t *data, uint8_t length) {
+bool raw_hid_receive_user(uint8_t *data, uint8_t length) {
     uint8_t response[length];
     memset(response, 0, length);
     response[0] = 'B';
 
     if(data[0] == 'A') {
         raw_hid_send(response, length);
+        return false;
     }
+    return true;
 }
 ```
 
@@ -131,16 +140,21 @@ if __name__ == '__main__':
 
 ## API :id=api
 
-### `void raw_hid_receive(uint8_t *data, uint8_t length)` :id=api-raw-hid-receive
+### `bool raw_hid_receive_user(uint8_t *data, uint8_t length)` :id=api-raw-hid-receive-user
 
 Callback, invoked when a raw HID report has been received from the host.
 
-#### Arguments :id=api-raw-hid-receive-arguments
+#### Arguments :id=api-raw-hid-receive-user-arguments
 
  - `uint8_t *data`  
    A pointer to the received data. Always 32 bytes in length.
  - `uint8_t length`  
    The length of the buffer. Always 32.
+
+#### Return value :id=api-raw-hid-receive-user-return
+
+ - `bool`
+   A boolean flag set to `true` if and only if the `data` is to be processed down the line
 
 ---
 
