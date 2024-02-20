@@ -973,6 +973,13 @@ void raw_hid_send(uint8_t *data, uint8_t length) {
     chnWrite(&drivers.raw_driver.driver, data, length);
 }
 
+__attribute__((weak)) bool raw_hid_receive_user(uint8_t *data, uint8_t length) {
+    // Users should #include "raw_hid.h" in their own code
+    // and implement this function there. Leave this as weak linkage
+    // so users can opt to not handle data coming in.
+    return true;
+}
+
 __attribute__((weak)) void raw_hid_receive(uint8_t *data, uint8_t length) {
     // Users should #include "raw_hid.h" in their own code
     // and implement this function there. Leave this as weak linkage
@@ -982,10 +989,14 @@ __attribute__((weak)) void raw_hid_receive(uint8_t *data, uint8_t length) {
 void raw_hid_task(void) {
     uint8_t buffer[RAW_EPSIZE];
     size_t  size = 0;
+    bool cont = false;
     do {
         size = chnReadTimeout(&drivers.raw_driver.driver, buffer, sizeof(buffer), TIME_IMMEDIATE);
         if (size > 0) {
-            raw_hid_receive(buffer, size);
+            cont = raw_hid_receive_user(buffer, size);
+            if (cont == true) {
+                raw_hid_receive(buffer, size);
+            }
         }
     } while (size > 0);
 }
