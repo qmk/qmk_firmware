@@ -3,9 +3,11 @@
     "keymap": "via",
     "layout": "LAYOUT_tkl_ansi",
     "config": {
-        "features": {
-            "via": true,
+        "build": {
             "lto": true
+        },
+        "features": {
+            "via": true
         }
     },
     "layers": [
