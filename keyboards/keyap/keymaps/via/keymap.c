@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
+#include "encoder.h"
+
 
 #define LED1 B0
 #define LED2 B1
