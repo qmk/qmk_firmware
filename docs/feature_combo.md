@@ -335,7 +335,6 @@ is not set, all other layers will reference themselves.
 
 ```c
 #define COMBO_REF_DEFAULT _MY_COMBO_LAYER
-...
 
 uint8_t combo_ref_from_layer(uint8_t layer){
     switch (get_highest_layer(layer_state)){
