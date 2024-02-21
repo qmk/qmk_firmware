@@ -15,6 +15,7 @@ essential★ -> essentially
 restrict★  -> restriction
 ever★      -> everything
 encrypt★   -> encryption
+reason★    -> reasonable
 some★      -> somewhere
 confused★  -> confusion
 other★     -> otherwise
@@ -33,6 +34,7 @@ simpl★     -> simply
 ion★       -> ional
 that★      -> thank
 
+reason★★   -> reasonably
 some★★     -> somehow
 
 // A lot
@@ -44,8 +46,10 @@ pharmac☆   -> pharmacy
 
 // Quintuple
 
-polic☆     -> policy
+→reor☆     -> reorder
+
 encry☆     -> encrypt
+polic☆     -> policy
 
 // Quadruple
 
@@ -59,6 +63,7 @@ undo☆      -> undoable
 →si☆       -> singer
 →gi☆       -> ginger
 →by☆       -> bypass
+→re☆       -> reason
 →or☆       -> order
 →st☆       -> start
 →ti☆       -> time
@@ -109,7 +114,6 @@ nex☆       -> next
 di☆        -> dictionary
 pr☆        -> previous
 ex☆        -> example
-re☆        -> reorder
 pe☆        -> people
 pu☆        -> public
 up☆        -> update
@@ -169,6 +173,7 @@ x☆         -> xt
 // A lot
 
 should✵    -> shouldn't
+reason✵    -> reasoning
 
 // Quadruple
 
