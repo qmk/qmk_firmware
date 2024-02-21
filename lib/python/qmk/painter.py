@@ -158,35 +158,43 @@ def convert_requested_format(im, format):
     ncolors = format["num_colors"]
     image_format = format["image_format"]
 
+    # -- Check if ncolors is valid
+    # Formats accepting several options
+    if image_format in ['IMAGE_FORMAT_GRAYSCALE', 'IMAGE_FORMAT_PALETTE']:
+        valid = [2, 4, 8, 16, 256]
+
+    # Formats expecting a particular number
+    else:
+        # Read number from specs dict, instead of hardcoding
+        for _, fmt in valid_formats.items():
+            if fmt["image_format"] == image_format:
+                # has to be an iterable, to use `in`
+                valid = [fmt["num_colors"]]
+                break
+
+    if ncolors not in valid:
+        raise ValueError(f"Number of colors must be: {', '.join(valid)}.")
+
     # Work out where we're getting the bytes from
     if image_format == 'IMAGE_FORMAT_GRAYSCALE':
-        # Ensure we have a valid number of colors for the palette
-        if ncolors <= 0 or ncolors > 256 or (ncolors & (ncolors - 1) != 0):
-            raise ValueError("Number of colors must be 2, 4, 16, or 256.")
         # If mono, convert input to grayscale, then to RGB, then grab the raw bytes corresponding to the intensity of the red channel
         im = ImageOps.grayscale(im)
         im = im.convert("RGB")
     elif image_format == 'IMAGE_FORMAT_PALETTE':
-        # Ensure we have a valid number of colors for the palette
-        if ncolors <= 0 or ncolors > 256 or (ncolors & (ncolors - 1) != 0):
-            raise ValueError("Number of colors must be 2, 4, 16, or 256.")
         # If color, convert input to RGB, palettize based on the supplied number of colors, then get the raw palette bytes
         im = im.convert("RGB")
         im = im.convert("P", palette=Image.ADAPTIVE, colors=ncolors)
-    elif image_format == 'IMAGE_FORMAT_RGB565':
-        # Ensure we have a valid number of colors for the palette
-        if ncolors != 65536:
-            raise ValueError("Number of colors must be 65536.")
-        # If color, convert input to RGB
-        im = im.convert("RGB")
-    elif image_format == 'IMAGE_FORMAT_RGB888':
-        # Ensure we have a valid number of colors for the palette
-        if ncolors != 1677216:
-            raise ValueError("Number of colors must be 16777216.")
-        # If color, convert input to RGB
+    elif image_format in ['IMAGE_FORMAT_RGB565', 'IMAGE_FORMAT_RGB888']:
+        # Convert input to RGB
         im = im.convert("RGB")
 
     return im
+
+
+def rgb_to565(r, g, b):
+    msb = ((r >> 3 & 0x1F) << 3) + (g >> 5 & 0x07)
+    lsb = ((g >> 2 & 0x07) << 5) + (b >> 3 & 0x1F)
+    return [msb, lsb]
 
 
 def convert_image_bytes(im, format):
@@ -246,41 +254,25 @@ def convert_image_bytes(im, format):
 
     if image_format == 'IMAGE_FORMAT_RGB565':
         # Take the red, green, and blue channels
-        image_bytes_red = im.tobytes("raw", "R")
-        image_bytes_green = im.tobytes("raw", "G")
-        image_bytes_blue = im.tobytes("raw", "B")
-        image_pixels_len = len(image_bytes_red)
+        red = im.tobytes("raw", "R")
+        green = im.tobytes("raw", "G")
+        blue = im.tobytes("raw", "B")
 
         # No palette
         palette = None
 
-        bytearray = []
-        for x in range(image_pixels_len):
-            # 5 bits of red, 3 MSb of green
-            byte = ((image_bytes_red[x] >> 3 & 0x1F) << 3) + (image_bytes_green[x] >> 5 & 0x07)
-            bytearray.append(byte)
-            # 3 LSb of green, 5 bits of blue
-            byte = ((image_bytes_green[x] >> 2 & 0x07) << 5) + (image_bytes_blue[x] >> 3 & 0x1F)
-            bytearray.append(byte)
+        bytearray = [byte for r, g, b in zip(red, green, blue) for byte in rgb_to565(r, g, b)]
 
     if image_format == 'IMAGE_FORMAT_RGB888':
         # Take the red, green, and blue channels
-        image_bytes_red = im.tobytes("raw", "R")
-        image_bytes_green = im.tobytes("raw", "G")
-        image_bytes_blue = im.tobytes("raw", "B")
-        image_pixels_len = len(image_bytes_red)
+        red = im.tobytes("raw", "R")
+        green = im.tobytes("raw", "G")
+        blue = im.tobytes("raw", "B")
 
         # No palette
         palette = None
 
-        bytearray = []
-        for x in range(image_pixels_len):
-            byte = image_bytes_red[x]
-            bytearray.append(byte)
-            byte = image_bytes_green[x]
-            bytearray.append(byte)
-            byte = image_bytes_blue[x]
-            bytearray.append(byte)
+        bytearray = [byte for r, g, b in zip(red, green, blue) for byte in (r, g, b)]
 
     if len(bytearray) != expected_byte_count:
         raise Exception(f"Wrong byte count, was {len(bytearray)}, expected {expected_byte_count}")

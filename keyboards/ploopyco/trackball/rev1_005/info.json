@@ -5,5 +5,17 @@
         "direct": [
             ["D4", "D2", "E6", "B6", "D7"]
         ]
+    },
+    "ws2812": {
+        "pin": "B5"
+    },
+    "rgblight": {
+        "led_count": 3,
+        "max_brightness": 40,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true
+        }
     }
 }

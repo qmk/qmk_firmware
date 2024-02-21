@@ -40,7 +40,7 @@ const uint16_t PROGMEM lprn_combo[] = {KC_X, KC_C, COMBO_END};
 const uint16_t PROGMEM rprn_combo[] = {KC_COMM, KC_DOT, COMBO_END};
 
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
   [combo_ESC] = COMBO(esc_combo, KC_ESC),
   [combo_BACK] = COMBO(bspc_combo, KC_BSPC),
   [combo_TAB] = COMBO(tab_combo, KC_TAB),
@@ -68,9 +68,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
     [_FN] = LAYOUT_ortho_3x12(
-        KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, 
+        KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12,
         xxx, xxx, xxx, xxx, xxx, xxx, xxx, xxx, xxx, xxx, xxx, xxx,
-        KC_VOLD, KC_VOLU, KC_MSTP, KC_MPLY, KC_MPRV, KC_MNXT, KC_MUTE, KC_MRWD, KC_MFFD, xxx, xxx, xxx       
+        KC_VOLD, KC_VOLU, KC_MSTP, KC_MPLY, KC_MPRV, KC_MNXT, KC_MUTE, KC_MRWD, KC_MFFD, xxx, xxx, xxx
   )
 
 };

@@ -1,14 +1,14 @@
 {
-    "keyboard_name": "Navi60", 
+    "keyboard_name": "Navi60",
     "manufacturer": "Navi60",
-    "url": "", 
-    "maintainer": "DeskDaily", 
+    "url": "",
+    "maintainer": "DeskDaily",
     "usb": {
-    	"vid": "0x5001",
-    	"pid": "0x0001",
-    	"device_version": "0.0.1"
+        "vid": "0x5001",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
     },
-	 "processor": "atmega32u4",
+    "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "matrix_pins": {
         "rows": ["F4", "F1", "D5", "B6", "F6"],
@@ -45,7 +45,7 @@
                 {"label": "-", "matrix": [0, 12], "x": 12, "y": 0},
                 {"label": "=", "matrix": [0, 13], "x": 13, "y": 0},
                 {"label": "Backspace", "matrix": [1, 13], "x": 14, "y": 0},
-				
+
                 {"label": "Tab", "matrix": [1, 0], "x": 0, "y": 1, "w": 1.5},
                 {"label": "Q", "matrix": [1, 1], "x": 1.5, "y": 1},
                 {"label": "W)", "matrix": [1, 2], "x": 2.5, "y": 1},
@@ -60,7 +60,7 @@
                 {"label": "[", "matrix": [1, 11], "x": 11.5, "y": 1},
                 {"label": "]", "matrix": [1, 12], "x": 12.5, "y": 1},
                 {"label": "|", "matrix": [2, 13], "x": 13.5, "y": 1, "w": 1.5},
-				
+
                 {"label": "Caps Lock", "matrix": [2, 0], "x": 0, "y": 2, "w": 1.75},
                 {"label": "A", "matrix": [2, 1], "x": 1.75, "y": 2},
                 {"label": "S", "matrix": [2, 2], "x": 2.75, "y": 2},
@@ -74,7 +74,7 @@
                 {"label": ";", "matrix": [2, 10], "x": 10.75, "y": 2},
                 {"label": "'", "matrix": [2, 11], "x": 11.75, "y": 2},
                 {"label": "Enter", "matrix": [2, 12], "x": 12.75, "y": 2, "w": 2.25},
-				
+
                 {"label": "Shift", "matrix": [3, 0], "x": 0, "y": 3, "w": 1.25},
                 {"label": "Shift", "matrix": [3, 1], "x": 1.25, "y": 3},
                 {"label": "Z", "matrix": [3, 2], "x": 2.25, "y": 3},
@@ -89,7 +89,7 @@
                 {"label": "?", "matrix": [3, 11], "x": 11.25, "y": 3},
                 {"label": "Shift", "matrix": [3, 12], "x": 12.25, "y": 3, "w": 1.75},
                 {"label": "Shift", "matrix": [3, 13], "x": 14, "y": 3},
-				
+
                 {"label": "Control", "matrix": [4, 0], "x": 0, "y": 4, "w": 1.25},
                 {"label": "GUI", "matrix": [4, 2], "x": 1.25, "y": 4, "w": 1.25},
                 {"label": "Alt", "matrix": [4, 3], "x": 2.5, "y": 4, "w": 1.25},
@@ -98,7 +98,7 @@
                 {"label": "App", "matrix": [4, 11], "x": 11.25, "y": 4, "w": 1.25},
                 {"label": "GUI", "matrix": [4, 12], "x": 12.5, "y": 4, "w": 1.25},
                 {"label": "Control", "matrix": [4, 13], "x": 13.75, "y": 4, "w": 1.25}
-			]
+            ]
         }
     }
 }

@@ -28,7 +28,7 @@ const matrix_row_t matrix_mask[] = {
 #ifdef DIP_SWITCH_ENABLE
 
 bool dip_switch_update_kb(uint8_t index, bool active) {
-    if (!dip_switch_update_user(index, active)) { return false;}
+    if (!dip_switch_update_user(index, active)) { return false; }
     if (index == 0) {
         default_layer_set(1UL << (active ? 2 : 0));
     }
@@ -73,10 +73,54 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
         RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_LED_INDEX, 255, 255, 255);
     } else {
         if (!rgb_matrix_get_flags()) {
-           RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_LED_INDEX, 0, 0, 0);
+            RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_LED_INDEX, 0, 0, 0);
         }
     }
     return true;
 }
 
-#endif // CAPS_LOCK_LED_INDEX
+#endif // RGB_MATRIX_ENABLE && CAPS_LOCK_LED_INDEX
+
+#if defined(LED_MATRIX_ENABLE) && defined(CAPS_LOCK_LED_INDEX)
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_user(keycode, record)) { return false; }
+    switch (keycode) {
+#ifdef LED_MATRIX_ENABLE
+        case BL_TOGG:
+            if (record->event.pressed) {
+                switch (led_matrix_get_flags()) {
+                    case LED_FLAG_ALL: {
+                        led_matrix_set_flags(LED_FLAG_NONE);
+                        led_matrix_set_value_all(0);
+                    } break;
+                    default: {
+                        led_matrix_set_flags(LED_FLAG_ALL);
+                    } break;
+                }
+            }
+            if (!led_matrix_is_enabled()) {
+                led_matrix_set_flags(LED_FLAG_ALL);
+                led_matrix_enable();
+            }
+            return false;
+#endif
+    }
+    return true;
+}
+
+bool led_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
+    if (!led_matrix_indicators_advanced_user(led_min, led_max)) { return false; }
+
+    if (host_keyboard_led_state().caps_lock) {
+        led_matrix_set_value(CAPS_LOCK_LED_INDEX, 255);
+
+    } else {
+        if (!led_matrix_get_flags()) {
+            led_matrix_set_value(CAPS_LOCK_LED_INDEX, 0);
+        }
+    }
+    return true;
+}
+
+#endif // LED_MATRIX_ENABLE && CAPS_LOCK_LED_INDEX

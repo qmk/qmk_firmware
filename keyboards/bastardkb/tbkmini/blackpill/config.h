@@ -19,17 +19,10 @@
 
 #pragma once
 
-/* Key matrix configuration. */
-#define MATRIX_ROW_PINS \
-    { A2, B8, A8, B9 }
-#define MATRIX_COL_PINS \
-    { B0, B1, B10, B3, B4, B5 }
-
 /* Handedness. */
 #define SPLIT_HAND_PIN A3 // High -> left, Low -> right.
 
 /* RGB settings. */
-#define RGB_DI_PIN A1
 #define WS2812_PWM_DRIVER PWMD2
 #define WS2812_PWM_CHANNEL 2
 #define WS2812_PWM_PAL_MODE 1

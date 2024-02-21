@@ -1,1 +1,0 @@
-# Objectively the best keymap for EDC40

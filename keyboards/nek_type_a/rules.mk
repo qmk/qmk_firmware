@@ -16,6 +16,5 @@ AUDIO_ENABLE = no           # Audio output
 CUSTOM_MATRIX = yes
 DEBUG_ENABLE = yes
 BLUETOOTH_ENABLE = yes
-BLUETOOTH_DRIVER = BluefruitLE
 
 SRC += matrix.c mcp23017.c

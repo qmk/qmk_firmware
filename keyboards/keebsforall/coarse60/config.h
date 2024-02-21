@@ -16,10 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#define MATRIX_COL_PINS { B1, B0, A7, B14, A5, A4, A3, B9, B8, B7, B6, B5, B4, B3, A15 }
-#define MATRIX_ROW_PINS { A9, A10, B12, A2, C13 }
-#define DIODE_DIRECTION COL2ROW
-
 #define BACKLIGHT_PWM_DRIVER    PWMD3
 #define BACKLIGHT_PWM_CHANNEL   1
 #define BACKLIGHT_PAL_MODE      1
@@ -29,23 +25,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define RGB_DI_PIN B15
-#define RGBLED_NUM 14
-#define WS2812_SPI SPID2
+#define WS2812_SPI_DRIVER SPID2
 #define WS2812_SPI_MOSI_PAL_MODE 0
 #define WS2812_SPI_SCK_PAL_MODE 0
 #define WS2812_SPI_SCK_PIN B13
-
-#define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#define RGBLIGHT_EFFECT_SNAKE
-#define RGBLIGHT_EFFECT_KNIGHT
-#define RGBLIGHT_EFFECT_CHRISTMAS
-#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#define RGBLIGHT_EFFECT_RGB_TEST
-#define RGBLIGHT_EFFECT_ALTERNATING
-#define RGBLIGHT_EFFECT_TWINKLE
 
 // 2 bits for 4 layout options
 #define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 2

@@ -22,26 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 6
 
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-/*
-#define MATRIX_ROW_PINS \
-    { D0, D5 }
-#define MATRIX_COL_PINS \
-    { F1, F0, B0 }
-*/
-
-/* COL2ROW, ROW2COL*/
-// #define DIODE_DIRECTION COL2ROW
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
@@ -68,7 +48,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 
 /* USB config */
-#define USB_MAX_POWER_CONSUMPTION 100
 #define USB_COUNT_SOF 0
 #define USB_INTR_CFG_SET (1 << ISC01)
 #define USB_INTR_ENABLE_BIT INT0

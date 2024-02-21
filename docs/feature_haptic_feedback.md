@@ -4,11 +4,12 @@
 
 The following options are currently available for haptic feedback in `rules.mk`:
 
-```
+```make
 HAPTIC_ENABLE = yes
 
-HAPTIC_DRIVER += DRV2605L
-HAPTIC_DRIVER += SOLENOID
+HAPTIC_DRIVER = drv2605l
+# or
+HAPTIC_DRIVER = solenoid
 ```
 
 The following `config.h` settings are available for all types of haptic feedback:
@@ -92,30 +93,30 @@ This driver supports 2 different feedback motors. Set the following in your `con
 
 Eccentric Rotating Mass vibration motors (ERM) is motor with a off-set weight attached so when drive signal is attached, the off-set weight spins and causes a sinusoidal wave that translate into vibrations.
 
-```
-#define FB_ERM_LRA 0
-#define FB_BRAKEFACTOR 3 /* For 1x:0, 2x:1, 3x:2, 4x:3, 6x:4, 8x:5, 16x:6, Disable Braking:7 */
-#define FB_LOOPGAIN 1 /* For  Low:0, Medium:1, High:2, Very High:3 */
+```c
+#define DRV2605L_FB_ERM_LRA 0
+#define DRV2605L_FB_BRAKEFACTOR 3 /* For 1x:0, 2x:1, 3x:2, 4x:3, 6x:4, 8x:5, 16x:6, Disable Braking:7 */
+#define DRV2605L_FB_LOOPGAIN 1 /* For  Low:0, Medium:1, High:2, Very High:3 */
 
 /* Please refer to your datasheet for the optimal setting for your specific motor. */
-#define RATED_VOLTAGE 3
-#define V_PEAK 5
+#define DRV2605L_RATED_VOLTAGE 3
+#define DRV2605L_V_PEAK 5
 ```
 ##### LRA
 
 Linear resonant actuators (LRA, also know as a linear vibrator) works different from a ERM. A LRA has a weight and magnet suspended by springs and a voice coil. When the drive signal is applied, the weight would be vibrate on a single axis (side to side or up and down). Since the weight is attached to a spring, there is a resonance effect at a specific frequency. This frequency is where the LRA will operate the most efficiently. Refer to the motor's datasheet for the recommanded range for this frequency.
 
-``` 
-#define FB_ERM_LRA 1
-#define FB_BRAKEFACTOR 3 /* For 1x:0, 2x:1, 3x:2, 4x:3, 6x:4, 8x:5, 16x:6, Disable Braking:7 */
-#define FB_LOOPGAIN 1 /* For  Low:0, Medium:1, High:2, Very High:3 */
+```c
+#define DRV2605L_FB_ERM_LRA 1
+#define DRV2605L_FB_BRAKEFACTOR 3 /* For 1x:0, 2x:1, 3x:2, 4x:3, 6x:4, 8x:5, 16x:6, Disable Braking:7 */
+#define DRV2605L_FB_LOOPGAIN 1 /* For  Low:0, Medium:1, High:2, Very High:3 */
 
 /* Please refer to your datasheet for the optimal setting for your specific motor. */
-#define RATED_VOLTAGE 2
-#define V_PEAK 2.8
-#define V_RMS 2.0 
-#define V_PEAK 2.1
-#define F_LRA 205 /* resonance freq */
+#define DRV2605L_RATED_VOLTAGE 2
+#define DRV2605L_V_PEAK 2.8
+#define DRV2605L_V_RMS 2.0 
+#define DRV2605L_V_PEAK 2.1
+#define DRV2605L_F_LRA 205 /* resonance freq */
 ```
 
 #### DRV2605L waveform library
@@ -170,13 +171,13 @@ List of waveform sequences from the datasheet:
 | 42  | lg_dblclick_med_80  | 84  | transition_rampup_med_smooth1     |     |                                      |
 ### Optional DRV2605L defines
 
-```
-#define DRV_GREETING *sequence name or number*
+```c
+#define DRV2605L_GREETING *sequence name or number*
 ```
 If haptic feedback is enabled, the keyboard will vibrate to a specific sequence during startup. That can be selected using the following define:
 
-```
-#define DRV_MODE_DEFAULT *sequence name or number*
+```c
+#define DRV2605L_DEFAULT_MODE *sequence name or number*
 ```
 This will set what sequence `HF_RST` will set as the active mode. If not defined, mode will be set to 1 when `HF_RST` is pressed.
 

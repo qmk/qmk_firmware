@@ -19,9 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "eeprom.h"
 
 #ifndef EECONFIG_MAGIC_NUMBER
-#    define EECONFIG_MAGIC_NUMBER (uint16_t)0xFEE7 // When changing, decrement this value to avoid future re-init issues
+#    define EECONFIG_MAGIC_NUMBER (uint16_t)0xFEE6 // When changing, decrement this value to avoid future re-init issues
 #endif
 #define EECONFIG_MAGIC_NUMBER_OFF (uint16_t)0xFFFF
 
@@ -39,19 +40,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EECONFIG_HANDEDNESS (uint8_t *)14
 #define EECONFIG_KEYBOARD (uint32_t *)15
 #define EECONFIG_USER (uint32_t *)19
-#define EECONFIG_VELOCIKEY (uint8_t *)23
-
-#define EECONFIG_HAPTIC (uint32_t *)24
-
+#define EECONFIG_UNUSED (uint8_t *)23
 // Mutually exclusive
-#define EECONFIG_LED_MATRIX (uint32_t *)28
-#define EECONFIG_RGB_MATRIX (uint32_t *)28
-// Speed & Flags
-#define EECONFIG_LED_MATRIX_EXTENDED (uint16_t *)32
-#define EECONFIG_RGB_MATRIX_EXTENDED (uint16_t *)32
+#define EECONFIG_LED_MATRIX (uint32_t *)24
+#define EECONFIG_RGB_MATRIX (uint64_t *)24
+
+#define EECONFIG_HAPTIC (uint32_t *)32
+#define EECONFIG_RGBLIGHT_EXTENDED (uint8_t *)36
 
 // Size of EEPROM being used for core data storage
-#define EECONFIG_BASE_SIZE 34
+#define EECONFIG_BASE_SIZE 37
 
 // Size of EEPROM dedicated to keyboard- and user-specific data
 #ifndef EECONFIG_KB_DATA_SIZE

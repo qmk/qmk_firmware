@@ -51,23 +51,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-
-
-void matrix_init_user(void) {
-  //user initialization
-}
-
-void matrix_scan_user(void) {
-  //user matrix
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
-
-void led_set_user(uint8_t usb_led) {
+bool led_update_user(led_t led_state) {
   // Insert custom handling for CAPS_LOCK, NUM_LOCK, SCROLL_LOCK here
-      if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
+      if (led_state.num_lock) {
         writePinHigh(F4);
         writePinHigh(F1);
         writePinHigh(F5);
@@ -76,4 +62,5 @@ void led_set_user(uint8_t usb_led) {
         writePinLow(F1);
         writePinLow(F5);
     }
+    return false;
 }

@@ -18,4 +18,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define SOLENOID_PIN A2
 
-#define FORCE_NKRO
+#define WS2812_SPI_DRIVER SPID2
+#define WS2812_SPI_MOSI_PAL_MODE 5

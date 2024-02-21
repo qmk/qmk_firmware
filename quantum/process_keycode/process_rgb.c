@@ -14,6 +14,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "process_rgb.h"
+#include "action_util.h"
+
+#ifdef RGB_MATRIX_ENABLE
+#    include "rgb_matrix.h"
+#endif
+#ifdef RGBLIGHT_ENABLE
+#    include "rgblight.h"
+#endif
 
 typedef void (*rgb_func_pointer)(void);
 

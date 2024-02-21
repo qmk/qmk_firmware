@@ -15,9 +15,6 @@
 
 #define WS2812_PIO_USE_PIO1
 
-#define RGBLIGHT_LED_MAP { 0, 1, 2, 3, 4, 5, \
-                           11, 10, 9, 8, 7, 6 }
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

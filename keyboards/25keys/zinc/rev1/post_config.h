@@ -34,7 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       #ifdef RGBLED_CONT
         #define RGBLED_NUM 60
         #define RGBLED_SPLIT { 30, 30 }
-//      #define RGBLIGHT_LED_MAP {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29}
       #else
         #define RGBLED_NUM 30
       #endif
@@ -72,8 +71,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #endif
   #define RGBLIGHT_VAL_STEP 4
 #endif
-#define RGBLIGHT_HUE_STEP 10
-#define RGBLIGHT_SAT_STEP 17
 
 #if defined(RGBLIGHT_ENABLE) && !defined(IOS_DEVICE_ENABLE)
 // USB_MAX_POWER_CONSUMPTION value

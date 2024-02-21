@@ -1,13 +1,10 @@
-#include <stdint.h>
-#include <stdbool.h>
+#include "matrix.h"
 #include <string.h>
-#include <hal.h>
 #include "timer.h"
 #include "wait.h"
-#include "print.h"
-#include "matrix.h"
+#include "debug.h"
 #include "i2c_master.h"
-#include QMK_KEYBOARD_H
+#include "ergodox_stm32.h"
 
 #ifndef DEBOUNCE
 #define DEBOUNCE 10

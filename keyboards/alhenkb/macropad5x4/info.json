@@ -45,7 +45,7 @@
                 {"label": "K40 (B5,F4)", "matrix": [4, 0], "x": 0, "y": 4},
                 {"label": "K41 (B5,F6)", "matrix": [4, 1], "x": 1, "y": 4},
                 {"label": "K42 (B5,B1)", "matrix": [4, 2], "x": 2, "y": 4},
-                {"label": "K43 (B5,B2)", "matrix": [4, 3], "x": 3, "y": 4}                
+                {"label": "K43 (B5,B2)", "matrix": [4, 3], "x": 3, "y": 4}
             ]
         },
         "LAYOUT_numpad_5x4": {
@@ -65,8 +65,8 @@
                 {"label": "K31 (B6,F6)", "matrix": [3, 1], "x": 1, "y": 3},
                 {"label": "K32 (B6,B1)", "matrix": [3, 2], "x": 2, "y": 3},
                 {"label": "K40 (B5,F4)", "matrix": [4, 0], "x": 0, "y": 4, "w": 2},
-                {"label": "K42 (B5,B1)", "matrix": [4, 2], "x": 2, "y": 4}
-                {"label": "K43 (B5,B2)", "matrix": [4, 3], "x": 3, "y": 3, "h": 2},
+                {"label": "K42 (B5,B1)", "matrix": [4, 2], "x": 2, "y": 4},
+                {"label": "K43 (B5,B2)", "matrix": [4, 3], "x": 3, "y": 3, "h": 2}
             ]
         }
     }

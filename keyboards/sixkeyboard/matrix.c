@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "util.h"
 #include "matrix.h"
-#include "sixkeyboard.h"
+#include "timer.h"
 #include <string.h>
 
 /* matrix state(1:on, 0:off) */

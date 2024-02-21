@@ -37,8 +37,6 @@
 // More EEPROM for layers
 
 // RGBLIGHT
-#define RGB_DI_PIN A10
-#define RGBLED_NUM 8            // actually only has 1
 #define RGBLIGHT_LAYERS
 #define WS2812_EXTERNAL_PULLUP
 #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
