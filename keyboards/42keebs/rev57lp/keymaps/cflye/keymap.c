@@ -34,6 +34,12 @@ LAYOUT_rev57lp_wrapper(\
 
 #define LAYOUT_base_wrapper(...) LAYOUT_rev57lp_base(__VA_ARGS__)
 
+#undef _________________THUMB_LEFT________________
+#undef _________________THUMB_RIGHT_______________
+
+#define _________________THUMB_LEFT________________     KC_NO,             KC_NO,             LT(_MOUSE, KC_LGUI),   LT(_MEDIA,KC_ESC), LT(_NAV,KC_SPC)
+#define _________________THUMB_RIGHT_______________     LT(_SYM,KC_ENT),   LT(_NUM,KC_TAB),   LT(_FUN, KC_RGUI),     KC_NO,             KC_NO
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_base_wrapper(
         _________________COLEMAK_L1_________________, _________________COLEMAK_R1_________________,
