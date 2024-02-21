@@ -22,6 +22,7 @@ enum custom_keycodes {
   LOCK,
   INSP,
   KILL,
+  VOLMAN,
 };
 
 
@@ -57,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | CAPS |      |  lft |  dwn |  rt  | PGDN |-------.    ,-------|      |      | KILL | LOCK |      | END  |
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
- * |      |      |      | CALC |      | BACK |-------|    |-------| NEXT | MUTE | VOLD | VOLU |      |      |
+ * |      |      |      | CALC |VOLMAN| BACK |-------|    |-------| NEXT | MUTE | VOLD | VOLU |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   |      |       |     | /       /       \ PLAY \  |      |       |      |
  *                   |      |       |     |/       /         \ PAUSE\ |      |       |      |
@@ -68,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,   KC_F1,   KC_F2,   KC_F3,     KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,
   KC_F12,  _______, _______,   KC_UP,       ADJ, KC_PGUP,                   _______, _______,    INSP, _______,      SS, KC_HOME,
   KC_CAPS, _______, KC_LEFT, KC_DOWN,  KC_RIGHT, KC_PGDN,                   _______, _______,    KILL,    LOCK, _______,  KC_END,
-  _______, _______, _______,    CALC,  _______,  KC_MPRV, _______, _______, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______,
+  _______, _______, _______,    CALC,  VOLMAN,  KC_MPRV, _______, _______, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______,
                              _______,  _______,  _______, _______, KC_MPLY, _______, _______, _______
 ),
 
@@ -497,6 +498,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             } else { // windows action
                 unregister_mods(mod_config(MOD_LGUI));
                 unregister_code(KC_L);
+            }
+        }
+        return false;
+        break;
+    case VOLMAN:
+        if (record->event.pressed) {
+            if (keymap_config.swap_lctl_lgui) { // mac action
+                // No Mac Action
+            } else { // windows action
+                register_mods(mod_config(MOD_LCTL));
+                register_mods(mod_config(MOD_LALT));
+                register_code(KC_V);
+            }
+        } else {
+            if (keymap_config.swap_lctl_lgui) { // mac action
+                // No Mac Action
+            } else { // windows action
+                unregister_mods(mod_config(MOD_LCTL));
+                unregister_mods(mod_config(MOD_LALT));
+                unregister_code(KC_V);
             }
         }
         return false;
