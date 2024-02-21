@@ -4,7 +4,7 @@
   "url": "",
   "maintainer": "qmk",
   "usb": {
-    "vid": "0xFEED",
+    "vid": "0x5072",
     "pid": "0x6062",
     "device_version": "0.0.1"
   },

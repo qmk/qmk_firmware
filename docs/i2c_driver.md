@@ -127,8 +127,8 @@ This function is weakly defined, meaning it can be overridden if necessary for y
 
 ```c
 void i2c_init(void) {
-    setPinInput(B6); // Try releasing special pins for a short time
-    setPinInput(B7);
+    gpio_set_pin_input(B6); // Try releasing special pins for a short time
+    gpio_set_pin_input(B7);
     wait_ms(10); // Wait for the release to happen
 
     palSetPadMode(GPIOB, 6, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_PUPDR_PULLUP); // Set B6 to I2C function

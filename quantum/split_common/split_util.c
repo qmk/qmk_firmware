@@ -123,14 +123,14 @@ void split_watchdog_task(void) {
 void matrix_io_delay(void);
 
 static uint8_t peek_matrix_intersection(pin_t out_pin, pin_t in_pin) {
-    setPinInputHigh(in_pin);
-    setPinOutput(out_pin);
-    writePinLow(out_pin);
+    gpio_set_pin_input_high(in_pin);
+    gpio_set_pin_output(out_pin);
+    gpio_write_pin_low(out_pin);
     // It's almost unnecessary, but wait until it's down to low, just in case.
     wait_us(1);
-    uint8_t pin_state = readPin(in_pin);
+    uint8_t pin_state = gpio_read_pin(in_pin);
     // Set out_pin to a setting that is less susceptible to noise.
-    setPinInputHigh(out_pin);
+    gpio_set_pin_input_high(out_pin);
     matrix_io_delay(); // Wait for the pull-up to go HIGH.
     return pin_state;
 }
@@ -138,13 +138,13 @@ static uint8_t peek_matrix_intersection(pin_t out_pin, pin_t in_pin) {
 
 __attribute__((weak)) bool is_keyboard_left_impl(void) {
 #if defined(SPLIT_HAND_PIN)
-    setPinInput(SPLIT_HAND_PIN);
+    gpio_set_pin_input(SPLIT_HAND_PIN);
     wait_us(100);
     // Test pin SPLIT_HAND_PIN for High/Low, if low it's right hand
 #    ifdef SPLIT_HAND_PIN_LOW_IS_LEFT
-    return !readPin(SPLIT_HAND_PIN);
+    return !gpio_read_pin(SPLIT_HAND_PIN);
 #    else
-    return readPin(SPLIT_HAND_PIN);
+    return gpio_read_pin(SPLIT_HAND_PIN);
 #    endif
 #elif defined(SPLIT_HAND_MATRIX_GRID)
 #    ifdef SPLIT_HAND_MATRIX_GRID_LOW_IS_LEFT

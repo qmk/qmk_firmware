@@ -7,6 +7,8 @@
 
 #if defined(LED_MATRIX_IS31FL3218)
 #    include "is31fl3218-mono.h"
+#elif defined(LED_MATRIX_IS31FL3729)
+#    include "is31fl3729-mono.h"
 #elif defined(LED_MATRIX_IS31FL3731)
 #    include "is31fl3731-mono.h"
 #elif defined(LED_MATRIX_IS31FL3733)

@@ -12,7 +12,8 @@
         "pin": "B0"
     },
     "rgb_matrix": {
-        "driver": "ws2812"
+        "driver": "ws2812",
+        "sleep": true
     },
     "rgblight": {
         "max_brightness": 96

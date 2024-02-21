@@ -51,7 +51,6 @@
         "max_brightness": 176,
         "center_point": [112, 28],
         "animations": {
-            "solid_color": true,
             "alphas_mods": true,
             "gradient_up_down": true,
             "gradient_left_right": true,

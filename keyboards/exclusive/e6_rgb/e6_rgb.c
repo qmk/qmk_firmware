@@ -1,12 +1,6 @@
 #include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
-void matrix_init_kb(void) {
-  setPinOutput(D5);
-  writePinHigh(D5);
-  matrix_init_user();
-}
-
 const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver

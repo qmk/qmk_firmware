@@ -27,32 +27,32 @@ static const pin_t address_pins[ADDRESS_PIN_COUNT] = SN74X154_ADDRESS_PINS;
 
 void sn74x154_init(void) {
     for (int i = 0; i < ADDRESS_PIN_COUNT; i++) {
-        setPinOutput(address_pins[i]);
-        writePinLow(address_pins[i]);
+        gpio_set_pin_output(address_pins[i]);
+        gpio_write_pin_low(address_pins[i]);
     }
 
 #if defined(SN74X154_E0_PIN)
-    setPinOutput(SN74X154_E0_PIN);
-    writePinHigh(SN74X154_E0_PIN);
+    gpio_set_pin_output(SN74X154_E0_PIN);
+    gpio_write_pin_high(SN74X154_E0_PIN);
 #endif
 
 #if defined(SN74X154_E1_PIN)
-    setPinOutput(SN74X154_E1_PIN);
-    writePinHigh(SN74X154_E1_PIN);
+    gpio_set_pin_output(SN74X154_E1_PIN);
+    gpio_write_pin_high(SN74X154_E1_PIN);
 #endif
 }
 
 void sn74x154_set_enabled(bool enabled) {
 #if defined(SN74X154_E0_PIN)
-    writePin(SN74X154_E0_PIN, !enabled);
+    gpio_write_pin(SN74X154_E0_PIN, !enabled);
 #endif
 #if defined(SN74X154_E1_PIN)
-    writePin(SN74X154_E1_PIN, !enabled);
+    gpio_write_pin(SN74X154_E1_PIN, !enabled);
 #endif
 }
 
 void sn74x154_set_addr(uint8_t address) {
     for (int i = 0; i < ADDRESS_PIN_COUNT; i++) {
-        writePin(address_pins[i], address & (1 << i));
+        gpio_write_pin(address_pins[i], address & (1 << i));
     }
 }

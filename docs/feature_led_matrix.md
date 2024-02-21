@@ -142,8 +142,8 @@ const is31_led PROGMEM g_is31_leds[LED_MATRIX_LED_COUNT] = {
  *    driver
  *    |  LED address
  *    |  | */
-    { 0, CS1_SW1 },
-    { 0, CS2_SW1 },
+    { 0, SW1_CS1 },
+    { 0, SW1_CS2 },
     // ...
 }
 ```
@@ -365,6 +365,7 @@ For inspiration and examples, check out the built-in effects under `quantum/led_
 #define LED_MATRIX_DEFAULT_MODE LED_MATRIX_SOLID // Sets the default mode, if none has been set
 #define LED_MATRIX_DEFAULT_VAL LED_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set
 #define LED_MATRIX_DEFAULT_SPD 127 // Sets the default animation speed, if none has been set
+#define LED_MATRIX_DEFAULT_FLAGS LED_FLAG_ALL // Sets the default LED flags, if none has been set
 #define LED_MATRIX_SPLIT { X, Y }   // (Optional) For split keyboards, the number of LEDs connected on each half. X = left, Y = Right.
                                     // If reactive effects are enabled, you also will want to enable SPLIT_TRANSPORT_MIRROR
 ```

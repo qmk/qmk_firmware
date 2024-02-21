@@ -13,6 +13,11 @@
         "nkro": true,
         "rgb_matrix": true
     },
+    "indicators": {
+        "caps_lock": "A2",
+        "num_lock": "A3",
+        "scroll_lock": "A1"
+    },
     "matrix_pins": {
         "cols": ["B10", "A8", "A7", "B15", "A6", "B14", "A4", "C15", "B9", "C14", "B8", "C13", "B7", "B6", "B5", "B3", "B4", "A15"],
         "rows": ["B12", "B13", "A5", "B0", "B1"]

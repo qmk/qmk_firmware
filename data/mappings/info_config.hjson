@@ -36,10 +36,10 @@
     "BACKLIGHT_DEFAULT_LEVEL": {"info_key": "backlight.default.brightness", "value_type": "int"},
 
     // Bootmagic
-    "BOOTMAGIC_LITE_COLUMN": {"info_key": "bootmagic.matrix.1", "value_type": "int"},
-    "BOOTMAGIC_LITE_COLUMN_RIGHT": {"info_key": "split.bootmagic.matrix.1", "value_type": "int"},
-    "BOOTMAGIC_LITE_ROW": {"info_key": "bootmagic.matrix.0", "value_type": "int"},
-    "BOOTMAGIC_LITE_ROW_RIGHT": {"info_key": "split.bootmagic.matrix.0", "value_type": "int"},
+    "BOOTMAGIC_COLUMN": {"info_key": "bootmagic.matrix.1", "value_type": "int"},
+    "BOOTMAGIC_COLUMN_RIGHT": {"info_key": "split.bootmagic.matrix.1", "value_type": "int"},
+    "BOOTMAGIC_ROW": {"info_key": "bootmagic.matrix.0", "value_type": "int"},
+    "BOOTMAGIC_ROW_RIGHT": {"info_key": "split.bootmagic.matrix.0", "value_type": "int"},
 
     // Caps Word
     "BOTH_SHIFTS_TURNS_ON_CAPS_WORD": {"info_key": "caps_word.both_shifts_turns_on", "value_type": "flag"},

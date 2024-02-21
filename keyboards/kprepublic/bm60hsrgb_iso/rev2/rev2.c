@@ -153,16 +153,16 @@ rgb_led_t rgb_matrix_ws2812_array[WS2812_LED_TOTAL];
 
 static void rgb_matrix_driver_init(void) {
     i2c_init();
-    is31fl3733_init(IS31FL3733_I2C_ADDRESS_1, IS31FL3733_SYNC_NONE);
+    is31fl3733_init(0);
     for (uint8_t index = 0; index < IS31FL3733_LED_COUNT; index++) {
         bool enabled = true;
         is31fl3733_set_led_control_register(index, enabled, enabled, enabled);
     }
-    is31fl3733_update_led_control_registers(IS31FL3733_I2C_ADDRESS_1, 0);
+    is31fl3733_update_led_control_registers(0);
 }
 
 static void rgb_matrix_driver_flush(void) {
-    is31fl3733_update_pwm_buffers(IS31FL3733_I2C_ADDRESS_1, 0);
+    is31fl3733_update_pwm_buffers(0);
 #    if WS2812_LED_TOTAL > 0
     ws2812_setleds(rgb_matrix_ws2812_array, WS2812_LED_TOTAL);
 #    endif

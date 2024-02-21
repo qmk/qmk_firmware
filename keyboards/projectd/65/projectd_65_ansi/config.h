@@ -31,4 +31,4 @@
 #define SPI_MISO_PIN A6
 
 #define AW20216S_CS_PIN_1 A15
-#define AW20216S_EN_PIN_1 C13
+#define AW20216S_EN_PIN C13

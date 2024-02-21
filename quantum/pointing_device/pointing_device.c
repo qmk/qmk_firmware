@@ -149,9 +149,9 @@ __attribute__((weak)) void pointing_device_init(void) {
         pointing_device_driver.init();
 #ifdef POINTING_DEVICE_MOTION_PIN
 #    ifdef POINTING_DEVICE_MOTION_PIN_ACTIVE_LOW
-        setPinInputHigh(POINTING_DEVICE_MOTION_PIN);
+        gpio_set_pin_input_high(POINTING_DEVICE_MOTION_PIN);
 #    else
-        setPinInput(POINTING_DEVICE_MOTION_PIN);
+        gpio_set_pin_input(POINTING_DEVICE_MOTION_PIN);
 #    endif
 #endif
     }
@@ -247,9 +247,9 @@ __attribute__((weak)) bool pointing_device_task(void) {
 #        error POINTING_DEVICE_MOTION_PIN not supported when sharing the pointing device report between sides.
 #    endif
 #    ifdef POINTING_DEVICE_MOTION_PIN_ACTIVE_LOW
-    if (!readPin(POINTING_DEVICE_MOTION_PIN))
+    if (!gpio_read_pin(POINTING_DEVICE_MOTION_PIN))
 #    else
-    if (readPin(POINTING_DEVICE_MOTION_PIN))
+    if (gpio_read_pin(POINTING_DEVICE_MOTION_PIN))
 #    endif
     {
 #endif

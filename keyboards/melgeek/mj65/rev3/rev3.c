@@ -131,9 +131,3 @@ void suspend_wakeup_init_kb(void) {
 }
 
 #endif 
-
-void keyboard_pre_init_kb(void) {
-    setPinOutput(A2);
-    writePinHigh(A2);
-    keyboard_pre_init_user();
-}

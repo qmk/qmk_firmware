@@ -32,6 +32,9 @@
     "pin_compatible": "promicro",
     "processor": "atmega32u4",
     "rgblight": {
+        "default": {
+            "val": 87
+        },
         "led_count": 70,
         "max_brightness": 175,
         "sleep": true,
@@ -49,6 +52,9 @@
                     {"pin_a": "F4", "pin_b": "F5", "resolution": 2}
                 ]
             }
+        },
+        "handedness": {
+            "pin": "B5"
         },
         "soft_serial_pin": "D2",
         "transport": {

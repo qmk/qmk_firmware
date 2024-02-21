@@ -46,7 +46,6 @@
         "driver": "snled27351",
         "max_brightness": 180,
         "animations": {
-            "solid_color": true,
             "breathing": true,
             "cycle_all": true,
             "cycle_left_right": true,
