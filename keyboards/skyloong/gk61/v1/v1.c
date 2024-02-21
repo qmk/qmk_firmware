@@ -102,18 +102,13 @@ const snled27351_led_t PROGMEM g_snled27351_leds[SNLED27351_LED_COUNT] = {
 #endif // RGB_MATRIX_ENABLE
 
 void suspend_power_down_kb() {
-    writePinLow(SDB);
+    writePinLow(SNLED27351_SDB_PIN);
 
     suspend_power_down_user();
 }
 
 void suspend_wakeup_init_kb() {
-    writePinHigh(SDB);
-    
-    suspend_wakeup_init_user();
-}
+    writePinHigh(SNLED27351_SDB_PIN);
 
-void board_init(void) {
-    setPinOutput(SDB);
-    writePinHigh(SDB);
+    suspend_wakeup_init_user();
 }

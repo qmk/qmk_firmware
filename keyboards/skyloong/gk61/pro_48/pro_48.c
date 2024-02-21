@@ -149,12 +149,12 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 
 
 void suspend_power_down_kb(void) {
-    writePinLow(SDB);
+    writePinLow(IS31FL3743A_SDB_PIN);
     suspend_power_down_user();
 }
 
 void suspend_wakeup_init_kb(void) {
-    writePinHigh(SDB);
+    writePinHigh(IS31FL3743A_SDB_PIN);
     suspend_wakeup_init_user();
 }
 #endif
@@ -220,8 +220,4 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 void board_init(void) {
     // JTAG-DP Disabled and SW-DP Disabled
     AFIO->MAPR = (AFIO->MAPR & ~AFIO_MAPR_SWJ_CFG_Msk) | AFIO_MAPR_SWJ_CFG_DISABLE;
-#    ifdef RGB_MATRIX_ENABLE
-    setPinOutput(SDB);
-    writePinHigh(SDB);
-#   endif
 }
