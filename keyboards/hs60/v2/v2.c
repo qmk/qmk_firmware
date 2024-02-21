@@ -15,5 +15,82 @@
  */
 
 #ifndef RGB_BACKLIGHT_HS60
-#error RGB_BACKLIGHT_HS60 not defined, recheck config.h
+#    error RGB_BACKLIGHT_HS60 not defined, recheck config.h
+#else
+#    include "drivers/led/issi/is31fl3733.h"
+#endif
+
+#if defined(RGB_MATRIX_ENABLE) || defined(RGB_BACKLIGHT_HS60)
+const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT] = {
+/* Refer to IS31 manual for these locations
+ *   driver
+ *   |  R location
+ *   |  |      G location
+ *   |  |      |      B location
+ *   |  |      |      | */
+    {0, B_1,   A_1,   C_1}, //LA1
+    {0, E_1,   D_1,   F_1}, //LA2
+    {0, H_1,   G_1,   I_1}, //LA3
+    {0, K_1,   J_1,   L_1}, //LA4
+    {0, B_2,   A_2,   C_2}, //LA5
+    {0, E_2,   D_2,   F_2}, //LA6
+    {0, H_2,   G_2,   I_2}, //LA7
+    {0, K_2,   J_2,   L_2}, //LA8
+    {0, B_3,   A_3,   C_3}, //LA9
+    {0, E_3,   D_3,   F_3}, //LA10
+    {0, H_3,   G_3,   I_3}, //LA11
+    {0, K_3,   J_3,   L_3}, //LA12
+    {0, B_4,   A_4,   C_4}, //LA13
+    {0, E_4,   D_4,   F_4}, //LA14
+    {0, H_4,   G_4,   I_4}, //LA15
+    {0, K_4,   J_4,   L_4}, //LA16
+    {0, B_5,   A_5,   C_5}, //LA17
+    {0, E_5,   D_5,   F_5}, //LA18
+    {0, H_5,   G_5,   I_5}, //LA19
+    {0, K_5,   J_5,   L_5}, //LA20
+    {0, B_6,   A_6,   C_6}, //LA21
+    {0, E_6,   D_6,   F_6}, //LA22
+    {0, H_6,   G_6,   I_6}, //LA23
+    {0, K_6,   J_6,   L_6}, //LA24
+    {0, B_7,   A_7,   C_7}, //LA25
+    {0, E_7,   D_7,   F_7}, //LA26
+    {0, H_7,   G_7,   I_7}, //LA27
+    {0, K_7,   J_7,   L_7}, //LA28
+    {0, B_8,   A_8,   C_8}, //LA29
+    {0, E_8,   D_8,   F_8}, //LA30
+    {0, H_8,   G_8,   I_8}, //LA31
+    {0, K_8,   J_8,   L_8}, //LA32
+    {0, B_9,   A_9,   C_9}, //LA33
+    {0, E_9,   D_9,   F_9}, //LA34
+    {0, H_9,   G_9,   I_9}, //LA35
+    {0, K_9,   J_9,   L_9}, //LA36
+    {0, B_10,  A_10,  C_10}, //LA37
+    {0, E_10,  D_10,  F_10}, //LA38
+    {0, H_10,  G_10,  I_10}, //LA39
+    {0, K_10,  J_10,  L_10}, //LA40
+    {0, B_11,  A_11,  C_11}, //LA41
+    {0, E_11,  D_11,  F_11}, //LA42
+    {0, H_11,  G_11,  I_11}, //LA43
+    {0, K_11,  J_11,  L_11}, //LA44
+    {0, B_12,  A_12,  C_12}, //LA45
+    {0, E_12,  D_12,  F_12}, //LA46
+    {0, H_12,  G_12,  I_12}, //LA47
+    {0, K_12,  J_12,  L_12}, //LA48
+    {0, B_13,  A_13,  C_13}, //LA49
+    {0, E_13,  D_13,  F_13}, //LA50
+    {0, H_13,  G_13,  I_13}, //LA51
+    {0, K_13,  J_13,  L_13}, //LA52
+    {0, B_14,  A_14,  C_14}, //LA53
+    {0, E_14,  D_14,  F_14}, //LA54
+    {0, H_14,  G_14,  I_14}, //LA55
+    {0, K_14,  J_14,  L_14}, //LA56
+    {0, B_15,  A_15,  C_15}, //LA57
+    {0, E_15,  D_15,  F_15}, //LA58
+    {0, H_15,  G_15,  I_15}, //LA59
+    {0, K_15,  J_15,  L_15}, //LA60
+    {0, B_16,  A_16,  C_16}, //LA61
+    {0, E_16,  D_16,  F_16}, //LA62
+    {0, H_16,  G_16,  I_16}, //LA63
+    {0, K_16,  J_16,  L_16}, //LA64
+};
 #endif

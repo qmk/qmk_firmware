@@ -44,7 +44,9 @@
         },
         "transport": {
             "protocol": "serial_usart",
-            "sync_matrix_state": true
+            "sync" :{
+                "matrix_state": true
+            }
         },
         "bootmagic": {
             "matrix": [6, 7]
@@ -59,7 +61,7 @@
         ]
     },
     "rgb_matrix": {
-        "driver": "ckled2001",
+        "driver": "snled27351",
         "animations": {
             "breathing": true,
             "band_spiral_val": true,

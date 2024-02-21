@@ -147,13 +147,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* RGB matrix indicator code
 It reads the current matrix color, offsets the hue by 30, 
-and sets val to either 255 or, if defined, RGB_MATRIX_MAXIMUM_BRIGHTNESS
+and sets val to RGB_MATRIX_MAXIMUM_BRIGHTNESS (by default, 255)
 This is applied to both caps lock, and other indicator keys for layer 1 */
 
 bool rgb_matrix_indicators_user(void) {
   /* Layer 2 (perf mode on this keymap) is not supposed to have LED refreshes, hence excluded */
   if (!IS_LAYER_ON(2)) {
-    HSV hsv_ind = {rgb_matrix_get_hue()+30,255,INDICATOR_MAX_BRIGHTNESS};
+    HSV hsv_ind = {rgb_matrix_get_hue()+30,255,RGB_MATRIX_MAXIMUM_BRIGHTNESS};
     RGB rgb_ind = hsv_to_rgb(hsv_ind);
 
     /* Sets Caps to different color as indicator. If RGB mode is rain, and caps indicator is off, the LED will always be off.
@@ -166,7 +166,7 @@ bool rgb_matrix_indicators_user(void) {
 
     /* Sets W, A, S, D, LGUI to a different color as layer indicator */
     if(IS_LAYER_ON(1)) {
-      HSV hsv_ind = {rgb_matrix_get_hue()+30,255,INDICATOR_MAX_BRIGHTNESS};
+      HSV hsv_ind = {rgb_matrix_get_hue()+30,255,RGB_MATRIX_MAXIMUM_BRIGHTNESS};
       RGB rgb_ind = hsv_to_rgb(hsv_ind);
 
       rgb_matrix_set_color(W_LED_INDEX, rgb_ind.r, rgb_ind.g, rgb_ind.b);

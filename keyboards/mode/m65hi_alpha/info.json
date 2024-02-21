@@ -13,6 +13,9 @@
     "rows": ["A7", "A10", "D2", "C12", "B1", "C11"]
   },
   "diode_direction": "COL2ROW",
+  "eeprom": {
+    "driver": "i2c"
+  },
   "indicators": {
     "caps_lock": "A6"
   },

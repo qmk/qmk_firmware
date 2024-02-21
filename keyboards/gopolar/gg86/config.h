@@ -23,7 +23,6 @@
     /* RGB Matrix config */
     #define RGB_MATRIX_LED_COUNT 100
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
-    #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
     #define RGB_MATRIX_KEYPRESSES
 
     /* RGB Matrix effect */

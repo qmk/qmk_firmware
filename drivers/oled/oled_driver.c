@@ -451,7 +451,7 @@ static void rotate_90(const uint8_t *src, uint8_t *dest) {
     }
 }
 
-void oled_render(void) {
+void oled_render_dirty(bool all) {
     // Do we have work to do?
     oled_dirty &= OLED_ALL_BLOCKS_MASK;
     if (!oled_dirty || !oled_initialized || oled_scrolling) {
@@ -463,7 +463,7 @@ void oled_render(void) {
 
     uint8_t update_start  = 0;
     uint8_t num_processed = 0;
-    while (oled_dirty && num_processed++ < OLED_UPDATE_PROCESS_LIMIT) { // render all dirty blocks (up to the configured limit)
+    while (oled_dirty && (num_processed++ < OLED_UPDATE_PROCESS_LIMIT || all)) { // render all dirty blocks (up to the configured limit)
         // Find next dirty block
         while (!(oled_dirty & ((OLED_BLOCK_TYPE)1 << update_start))) {
             ++update_start;

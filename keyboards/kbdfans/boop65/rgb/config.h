@@ -26,8 +26,7 @@
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
 #    define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set
 #    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_ALL
-#    define DRIVER_ADDR_1 0b0110000
-#    define DRIVER_COUNT 1
+#    define IS31FL3741_I2C_ADDRESS_1 IS31FL3741_I2C_ADDRESS_GND
 #    define RGB_MATRIX_LED_COUNT 83
 #    define DRIVER_INDICATOR_LED_TOTAL 0
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS

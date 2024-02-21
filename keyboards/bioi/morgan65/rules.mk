@@ -18,7 +18,5 @@ BLUETOOTH_ENABLE = yes
 
 VIA_ENABLE = yes            # VIA support should be enabled here due to the main() loop will be compiled first.
 
-SRC += usart.c ble.c
-
-OPT_DEFS += -DUART_RX1_BUFFER_SIZE=16 -DUART_TX1_BUFFER_SIZE=16
-OPT_DEFS += -DUSART1_ENABLED
+UART_DRIVER_REQUIRED = yes
+SRC += bluetooth_custom.c

@@ -2,6 +2,18 @@
 
 The I2C Master drivers used in QMK have a set of common functions to allow portability between MCUs.
 
+## Usage :id=usage
+
+In most cases, the I2C Master driver code is automatically included if you are using a feature or driver which requires it, such as [OLED](feature_oled_driver.md).
+
+However, if you need to use the driver standalone, add the following to your `rules.mk`:
+
+```make
+I2C_DRIVER_REQUIRED = yes
+```
+
+You can then call the I2C API by including `i2c_master.h` in your code.
+
 ## I2C Addressing :id=note-on-i2c-addresses
 
 All of the addresses expected by this driver should be pushed to the upper 7 bits of the address byte. Setting

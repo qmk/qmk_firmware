@@ -8,13 +8,22 @@
         "pid": "0x1969",
         "device_version": "0.0.1"
     },
+    "dynamic_keymap": {
+        "layer_count": 8
+    },
+    "eeprom": {
+        "driver": "i2c"
+    },
     "rgb_matrix": {
         "driver": "is31fl3731"
     },
     "processor": "STM32F303",
     "bootloader": "stm32-dfu",
+    "layout_aliases": {
+        "LAYOUT_moonlander": "LAYOUT"
+    },
     "layouts": {
-        "LAYOUT_moonlander": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0.375},
                 {"matrix": [0, 1], "x": 1, "y": 0.375},

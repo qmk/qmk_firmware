@@ -19,16 +19,13 @@
 
 #ifdef RGB_MATRIX_ENABLE
 
-const aw_led g_aw_leds[RGB_MATRIX_LED_COUNT] = {
-/* Each AW20216 channel is controlled by a register at some offset between 0x00
- * and 0xD7 inclusive.
- * See drivers/awinic/aw20216.h for the mapping between register offsets and
- * driver pin locations.
+const aw20216s_led_t g_aw20216s_leds[RGB_MATRIX_LED_COUNT] = {
+/* Refer to AW20216S manual for these locations
  *   driver
  *   |     R location
- *   |     |         G location
- *   |     |         |         B location
- *   |     |         |         | */
+ *   |     |          G location
+ *   |     |          |          B location
+ *   |     |          |          | */
     {0, CS4_SW1,  CS5_SW1,  CS6_SW1  },  //  0  NUM
     {0, CS4_SW2,  CS5_SW2,  CS6_SW2  },  //  1  /
     {0, CS7_SW1,  CS8_SW1,  CS9_SW1  },  //  2  *
@@ -110,12 +107,12 @@ led_config_t g_led_config = {{
 	2, 2, 2, 2, 2, 2, 2
 } };
 
-#    ifdef DRIVER_1_PW_EN
+#    ifdef AW20216S_PW_EN_PIN_1
 
 void keyboard_pre_init_user(void) {
     wait_ms(2000);
-    setPinOutput(DRIVER_1_PW_EN);
-    writePinHigh(DRIVER_1_PW_EN);
+    setPinOutput(AW20216S_PW_EN_PIN_1);
+    writePinHigh(AW20216S_PW_EN_PIN_1);
 }
 #    endif
 

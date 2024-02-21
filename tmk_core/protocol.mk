@@ -46,9 +46,7 @@ else
 endif
 
 ifeq ($(strip $(NKRO_ENABLE)), yes)
-    ifeq ($(PROTOCOL), VUSB)
-        $(info NKRO is not currently supported on V-USB, and has been disabled.)
-    else ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
+    ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
         $(info NKRO is not currently supported with Bluetooth, and has been disabled.)
     else
         OPT_DEFS += -DNKRO_ENABLE

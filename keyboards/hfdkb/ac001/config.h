@@ -32,7 +32,6 @@
 #define SPI_MOSI_PAL_MODE 5
 
 #define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN C12
-#define WEAR_LEVELING_BACKING_SIZE (8 * 1024)
 
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 
