@@ -1,6 +1,7 @@
 # transition_lite
 
 ![transition_lite](https://i.imgur.com/9IUQvsG.jpg)
+
 A 80% keyboard with RGB.
 
 - Keyboard Maintainer: https://github.com/jiaxin96
