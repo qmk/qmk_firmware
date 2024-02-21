@@ -6,6 +6,10 @@
         "encoder_config": {
             "type": "object",
             "properties": {
+                "driver": {
+                    "type": "string",
+                    "enum": ["quadrature", "custom"]
+                },
                 "rotary": {
                     "type": "array",
                     "items": {
@@ -314,8 +318,8 @@
         },
         "features": {
             "$ref": "qmk.definitions.v1#/boolean_array",
-            "propertyNames": { "$ref": "qmk.definitions.v1#/snake_case" }
-
+            "propertyNames": { "$ref": "qmk.definitions.v1#/snake_case" },
+            "not": { "required": [ "lto" ] }
         },
         "indicators": {
             "type": "object",

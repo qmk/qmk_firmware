@@ -133,13 +133,13 @@ bool rgb_matrix_indicators_kb(void) {
         return false;
     }
     if (host_keyboard_led_state().caps_lock) {
-        for (uint8_t i = 0; i < DRIVER_1_LED_TOTAL; i++) {
+        for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
             rgb_matrix_set_color(i, 0xFF, 0xFF, 0xFF);
         }
     }
     else {
          if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
-            for (uint8_t i = 0; i < DRIVER_1_LED_TOTAL; i++) {
+            for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
                 rgb_matrix_set_color(i, 0, 0, 0);
             }
         }

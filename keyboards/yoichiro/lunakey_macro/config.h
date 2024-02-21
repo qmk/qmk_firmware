@@ -27,9 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Mouse Keys Combined mode */
 //#define MK_COMBINED
 
-/* Layer Count */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 3
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
