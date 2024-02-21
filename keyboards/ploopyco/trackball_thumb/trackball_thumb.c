@@ -79,6 +79,11 @@ void encoder_init(void) { opt_encoder_init(); }
 
 bool encoder_read(void) {
     // Lovingly ripped from the Ploopy Source
+    uint16_t p1 = adc_read(OPT_ENC1_MUX);
+    uint16_t p2 = adc_read(OPT_ENC2_MUX);
+    if (debug_encoder) dprintf("OPT1: %d, OPT2: %d\n", p1, p2);
+
+    int dir = opt_encoder_handler(p1, p2);
 
     // If the mouse wheel was just released, do not scroll.
     if (timer_elapsed(last_mid_click) < SCROLL_BUTT_DEBOUNCE) {
@@ -97,16 +102,12 @@ bool encoder_read(void) {
 #endif
     }
 
-    last_scroll = timer_read();
-    uint16_t p1 = adc_read(OPT_ENC1_MUX);
-    uint16_t p2 = adc_read(OPT_ENC2_MUX);
-    if (debug_encoder) dprintf("OPT1: %d, OPT2: %d\n", p1, p2);
-
-    int dir = opt_encoder_handler(p1, p2);
-
     if (dir == 0) return false;
-    ;
-    encoder_update_kb(0, dir == 1);
+
+    encoder_update_kb(0, dir > 0);
+
+    last_scroll = timer_read();
+
     return true;
 }
 

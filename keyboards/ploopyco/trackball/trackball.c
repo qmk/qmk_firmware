@@ -86,6 +86,11 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 void process_wheel(void) {
     // TODO: Replace this with interrupt driven code,  polling is S L O W
     // Lovingly ripped from the Ploopy Source
+    uint16_t p1 = adc_read(OPT_ENC1_MUX);
+    uint16_t p2 = adc_read(OPT_ENC2_MUX);
+    if (debug_encoder) dprintf("OPT1: %d, OPT2: %d\n", p1, p2);
+
+    int dir = opt_encoder_handler(p1, p2);
 
     // If the mouse wheel was just released, do not scroll.
     if (timer_elapsed(lastMidClick) < SCROLL_BUTT_DEBOUNCE) {
@@ -104,15 +109,10 @@ void process_wheel(void) {
 #endif
     }
 
-    lastScroll  = timer_read();
-    uint16_t p1 = adc_read(OPT_ENC1_MUX);
-    uint16_t p2 = adc_read(OPT_ENC2_MUX);
-    if (debug_encoder) dprintf("OPT1: %d, OPT2: %d\n", p1, p2);
-
-    int dir = opt_encoder_handler(p1, p2);
-
     if (dir == 0) return;
     encoder_update_kb(0, dir > 0);
+
+    lastScroll  = timer_read();
 }
 
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
