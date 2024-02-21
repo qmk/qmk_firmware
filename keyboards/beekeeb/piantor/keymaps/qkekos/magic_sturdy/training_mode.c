@@ -86,7 +86,7 @@ bool check_potential_match(trie_t* trie, potential_compl_result_t* result) {
 void check_potential_matches(potential_match_found_cb callback) {
     if (!is_magic_training_active) return;
 
-    potential_compl_result_t best_result;
+    potential_compl_result_t best_result = {};
     potential_compl_result_t current_result;
 
     uint16_t magic_key;
