@@ -1,0 +1,4 @@
+//   name     result    chord keys
+COMB(RST,   	RESET,   KC_KP_ENTER, LT(_NAV,KC_KP_PLUS), KC_KP_0, KC_KP_DOT)
+COMB(TAB,   KC_TAB,   LT(_NAV,KC_KP_PLUS), KC_KP_MINUS)
+COMB(STAB,  S(KC_TAB),   KC_KP_3, KC_KP_DOT)

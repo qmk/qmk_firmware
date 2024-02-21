@@ -27,3 +27,4 @@ MOUSE_SHARED_EP = no # Unify multiple HID interfaces into a single Endpoint
 # Enable link-time optimization by default.  The Charybdis packs a lot of
 # features (RGB, Via, trackball) in a small atmega32u4 package.
 LTO_ENABLE = yes
+COMBO_ENABLE = yes

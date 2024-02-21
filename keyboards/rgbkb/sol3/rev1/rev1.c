@@ -165,6 +165,7 @@ void rgb_matrix_increase_flags(void)
 #endif
 
 
+
 __attribute__((weak))
 void render_layer_status(void) {
     // Keymap specific, expected to be overridden
@@ -208,9 +209,9 @@ void render_audio_status(void)
         0x0E,0x3A,0
     };
     oled_write_P(audio_icon, false);
-    oled_write_P( audio_is_on() ? PSTR("A")  : PSTR(" "), false);
-    oled_write_P(is_clicky_on() ? PSTR("C")  : PSTR(" "), false);
-    oled_write_P( is_music_on() ? PSTR("M")  : PSTR(" "), false);
+    oled_write_P( audio_is_on() ? PSTR("Audio")  : PSTR(" "), false);
+    oled_write_P(is_clicky_on() ? PSTR("Clicky")  : PSTR(" "), false);
+    oled_write_P( is_music_on() ? PSTR("Music")  : PSTR(" "), false);
 }
 
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
@@ -222,16 +223,11 @@ bool oled_task_kb(void) {
     if (!oled_task_user())
         return false;
 
-    if (is_keyboard_left()) {
+    if (!is_keyboard_left()) {
         render_icon();
         oled_write_P(PSTR("     "), false);
         render_layer_status();
-        oled_write_P(PSTR("     "), false);
-        render_leds_status();
-        oled_write_P(PSTR("     "), false);
-        render_touch_status();
-        oled_write_P(PSTR("     "), false);
-        render_audio_status();
+        render_rgb_menu();
     }
     else {
         render_icon();
@@ -242,16 +238,16 @@ bool oled_task_kb(void) {
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_user(keycode, record))
-        return false;
+if (!process_record_user(keycode, record))
+	return false;
 
-    switch(keycode) {
+switch(keycode) {
 #ifdef RGB_MATRIX_ENABLE
-        case RGB_TOG:
-            if (record->event.pressed) {
-                rgb_matrix_increase_flags();
-            }
-            return false;
+	case RGB_TOG:
+		if (record->event.pressed) {
+			rgb_matrix_increase_flags();
+		}
+		return false;
 #endif
     }
     return true;

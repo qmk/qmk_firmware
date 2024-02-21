@@ -1,0 +1,153 @@
+{
+  "keys": [
+    "TOP1", "TOP2", "TOP3", "TOP4", "TOP5", "TOP6",    "TOP7", "TOP8", "TOP9", "TOP10", "TOP11", "TOP12",
+    "BOT1", "BOT2", "BOT3", "BOT4", "BOT5", "BOT6",    "BOT7", "BOT8", "BOT9", "BOT10", "BOT11", "BOT12",
+                            "THU1", "THU2", "THU3",    "THU4", "THU5", "THU6"
+  ],
+  "parameters": {
+    "layout_function_name": "LAYOUT_georgi",
+    "chord_timeout": 100,
+    "dance_timeout": 200,
+    "leader_timeout": 750,
+    "tap_timeout": 50,
+    "command_max_length": 5,
+    "leader_max_length": 5,
+    "dynamic_macro_max_length": 20,
+    "string_max_length": 16,
+    "long_press_multiplier": 3,
+    "default_pseudolayer": "QWERTY"
+  },
+  "layers": [
+    {
+      "type": "auto"
+    }
+  ],
+  "chord_sets": [
+    {
+      "name": "rows",
+      "chords":
+      [
+        ["TOP1"], ["TOP2"], ["TOP3"], ["TOP4"], ["TOP5"], ["TOP6"], ["TOP7"], ["TOP8"], ["TOP9"], ["TOP10"], ["TOP11"], ["TOP12"],
+        ["TOP1", "BOT1"], ["TOP2", "BOT2"], ["TOP3", "BOT3"], ["TOP4", "BOT4"], ["TOP5", "BOT5"], ["TOP6", "BOT6"], ["TOP7", "BOT7"], ["TOP8", "BOT8"], ["TOP9", "BOT9"], ["TOP10", "BOT10"], ["TOP11", "BOT11"], ["TOP12", "BOT12"],
+        ["BOT1"], ["BOT2"], ["BOT3"], ["BOT4"], ["BOT5"], ["BOT6"], ["BOT7"], ["BOT8"], ["BOT9"], ["BOT10"], ["BOT11"], ["BOT12"],
+        ["THU1"], ["THU2"], ["THU3"], ["THU4"], ["THU5"], ["THU6"]
+      ]
+    }
+  ],
+  "pseudolayers": [
+    {
+      "name": "ALWAYS_ON",
+      "chords": [
+        {
+          "type": "visual",
+          "chord": [
+            "X", " ", " ", " ", " ", " ",    " ", " ", " ", " ", " ", "X",
+            "X", " ", " ", " ", " ", " ",    " ", " ", " ", " ", " ", "X",
+                           " ", " ", " ",    " ", " ", " "
+          ],
+          "keycode": "CLEAR_KB"
+        },
+        {
+          "type": "visual",
+          "chord": [
+            " ", " ", " ", " ", " ", "X",    "X", " ", " ", " ", " ", " ",
+            " ", " ", " ", " ", " ", "X",    "X", " ", " ", " ", " ", " ",
+                           " ", " ", " ",    " ", " ", " "
+          ],
+          "keycode": "CMD"
+        }
+      ]
+    },
+    {
+      "name": "QWERTY",
+      "chords": [
+        {
+          "type": "chord_set",
+          "set": "rows",
+          "keycodes": [
+            "ESC", "Q",           "W",           "E",            "R",           "T",        "Y",           "U",            "I",           "O",           "P", "\\", 
+            "INS", "A", "KK(S, LALT)", "KM(D, LCTL)",  "KM(F, LSFT)", "KK(G, LGUI)",        "KK(H, RGUI)", "KM(J, RSFT)",  "KM(K, RCTL)", "KK(L, RALT)", ";", " ",
+            "TAB", "Z",           "X",           "C",            "V",           "B",        "N",           "M",            ",",           ".",           "/", "'",
+                                           "","","","","",""
+          ]
+        },
+        {
+          "type": "visual_array",
+          "keys": ["THU1", "THU2", "THU3", "THU4", "THU5", "THU6"],
+          "dictionary": [
+            ["X", " ", " ", " ", " ", " ", "ENTER"],
+            [" ", "X", " ", " ", " ", " ", "KL(SPC, NUM)"],
+            [" ", " ", "X", " ", " ", " ", "KL(BSPC, NAV)"],
+            [" ", " ", " ", "X", " ", " ", "DEL"],
+            [" ", " ", " ", " ", "X", " ", "KL(SPC, FNC)"],
+            [" ", " ", " ", " ", " ", "X", "ENTER"],
+            [" ", "X", "X", " ", " ", " ", "MO(MOUSE)"]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "NUM",
+      "chords": [
+        {
+          "type": "chord_set",
+          "set": "rows",
+          "keycodes": [
+            "`", "1",    "2",    "3",    "4",    "5",        "6",    "7",    "8",    "9",    "0", "-", 
+            " ", " ", "LALT", "LCTL", "LSFT", "LGUI",        "RGUI", "RSFT", "RCTL", "RALT", " ", " ",
+            " ", " ",    " ",    " ",    " ",    " ",        " ",    " ",    " ",    "[",    "]", "=",
+                                         " ",    " ",        " ",    " ",    " ",    " "
+          ]
+        }
+      ]
+    },
+    {
+      "name": "FNC",
+      "chords": [
+        {
+          "type": "chord_set",
+          "set": "rows",
+          "keycodes": [
+            " ", "F1",   "F2",   "F3",   "F4",   "F5",        "F6",   "F7",   "F8",   "F9",   "F10", "F11", 
+            " ",  " ", "LALT", "LCTL", "LSFT", "LGUI",        "RGUI", "RSFT", "RCTL", "RALT", " ",   " ",
+            " ",  " ",    " ",    " ",    " ",    " ",        " ",    " ",    " ",    " ",    " ",   "F12",
+                                  " ",    " ",    " ",        " ",    " ",    " "
+          ]
+        }
+      ]
+    },
+    {
+      "name": "NAV",
+      "chords": [
+        {
+          "type": "chord_set",
+          "set": "rows",
+          "keycodes": [
+            " ", " ",    " ",    " ",    " ",    " ",        " ", "HOME", "UP",   "END",   "PGUP", " ", 
+            " ", " ", "LALT", "LCTL", "LSFT", "LGUI",        " ", " ",    " ",    " ",     " ",    " ",
+            " ", " ",    " ",    " ",    " ",    " ",        " ", "LEFT", "DOWN", "RIGHT", "PGDN", " ",
+                                 " ",    " ",    " ",        " ", " ",    " "
+          ]
+        }
+      ]
+    },
+    {
+      "name": "MOUSE",
+      "chords": [
+        {
+          "type": "chord_set",
+          "set": "rows",
+          "keycodes": [
+            " ", " ",    " ",    " ",    " ",    " ",        " ", "BTN1", "MS_U", "BTN2", "WH_U", " ", 
+            " ", " ", "LALT", "LCTL", "LSFT", "LGUI",        " ", " ",    " ",    " ",    " ",    " ",
+            " ", " ",    " ",    " ",    " ",    " ",        " ", "MS_L", "MS_D", "MS_R", "WH_D", " ",
+                                 " ",    " ",    " ",        " ", " ",    " "
+          ]
+        }
+      ]
+    }
+  ],
+  "leader_sequences": [],
+  "extra_code": "",
+  "extra_dependencies": []
+}
