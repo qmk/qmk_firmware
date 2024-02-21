@@ -129,9 +129,9 @@ tex☆        -> text
 →ty☆        -> typ
 →we☆        -> web
 →wa☆        -> way
-→da☆        -> day
 
 te☆         -> tement
+da☆         -> day
 ma☆         -> mao
 mp☆         -> mpl
 pl☆         -> ply
