@@ -1,309 +1,309 @@
 
 // Magic
 
-[oauei]c☆  -> \1ck
+[oauei]c☆   -> \1ck
 
-// Double taps
+// Double magic
 
-→alr★      -> already
-→enque★    -> enqueue
-→deque★    -> dequeue
-→que★      -> queue
+→never★     -> nevertheless
+→essential★ -> essentially
+→restrict★  -> restriction
+→encrypt★   -> encryption
+→reason★    -> reasonable
+→ever★      -> everything
+→confused★  -> confusion
+→recycle★   -> recycling
+→other★     -> otherwise
+→some★      -> somewhere
+→special★   -> specific
+→judge★     -> judgment
+→could★     -> couldn't
+→over★      -> override
+→again★     -> against
+→start★     -> started
+→enque★     -> enqueue
+→deque★     -> dequeue
+→copy★      -> copying
+→use★       -> useless
+→alr★       -> already
+→simpl★     -> simply
+→doub★      -> doable
+→most★      -> mostly
+→that★      -> thank
+→que★       -> queue
 
-never★     -> nevertheless
-essential★ -> essentially
-restrict★  -> restriction
-ever★      -> everything
-encrypt★   -> encryption
-reason★    -> reasonable
-some★      -> somewhere
-confused★  -> confusion
-other★     -> otherwise
-recycle★   -> recycling
-judge★     -> judgment
-could★     -> couldn't
-special★   -> specific
-over★      -> override
-again★     -> against
-copy★      -> copying
-start★     -> started
-use★       -> useless
-doub★      -> doable
-most★      -> mostly
-simpl★     -> simply
-ion★       -> ional
-that★      -> thank
+ion★        -> ional
 
-reason★★   -> reasonably
-some★★     -> somehow
+→reason★★   -> reasonably
 
 // A lot
 
-democrac☆  -> democracy
-supremac☆  -> supremacy
-accurac☆   -> accuracy
-pharmac☆   -> pharmacy
-
-// Quintuple
-
-→reor☆     -> reorder
-
-encry☆     -> encrypt
-polic☆     -> policy
+→democrac☆  -> democracy
+→supremac☆  -> supremacy
+→accurac☆   -> accuracy
+→pharmac☆   -> pharmacy
+→privac☆    -> privacy
+→polic☆     -> policy
+→lega☆      -> legacy
 
 // Quadruple
 
-algo☆      -> algorithm
-undo☆      -> undoable
-→rec☆      -> recycle
+→unre☆      -> unreasonable
+→algo☆      -> algorithm
+→undo☆      -> undoable
+→reor☆      -> reorder
 
 // Triple
 
-→ar☆       -> around
-→si☆       -> singer
-→gi☆       -> ginger
-→by☆       -> bypass
-→re☆       -> reason
-→or☆       -> order
-→st☆       -> start
-→ti☆       -> time
-→ed☆       -> edge
-→se☆       -> seen
-→al☆       -> alr
-→us☆       -> use
-→ty☆       -> typ
+→rec☆       -> recycle
+→enc☆       -> encrypt
 
-esp☆       -> especially
-exp☆       -> experience
-hil☆       -> hilarious
-ess☆       -> essential
-sit☆       -> situation
-alt☆       -> although
-any☆       -> anything
-pos☆       -> position
-cof☆       -> confused
-res☆       -> restrict
-inc☆       -> increase
-var☆       -> various
-ser☆       -> serious
-pro☆       -> problem
-key☆       -> keycode
-spe☆       -> special
-bud☆       -> budget
-col☆       -> column
-tho☆       -> though
-num☆       -> number
-cri☆       -> cringe
-exc☆       -> except
-pay☆       -> paypal
-rid☆       -> ridge
-red☆       -> redge
-jud☆       -> judge
-led☆       -> ledge
-ion☆       -> ional
-vac☆       -> vacy
-gac☆       -> gacy
-tex☆       -> text
-nex☆       -> next
+→esp☆       -> especially
+→exp☆       -> experience
+→hil☆       -> hilarious
+→ess☆       -> essential
+→sit☆       -> situation
+→alt☆       -> although
+→any☆       -> anything
+→pos☆       -> position
+→cof☆       -> confused
+→res☆       -> restrict
+→inc☆       -> increase
+→var☆       -> various
+→ser☆       -> serious
+→pro☆       -> problem
+→key☆       -> keycode
+→spe☆       -> special
+→bud☆       -> budget
+→col☆       -> column
+→tho☆       -> though
+→num☆       -> number
+→cri☆       -> cringe
+→exc☆       -> except
+→pay☆       -> paypal
+→red☆       -> redge
+→jud☆       -> judge
+→led☆       -> ledge
+→nex☆       -> next
+
+ion☆        -> ional
+rid☆        -> ridge
+tex☆        -> text
 
 // Double
 
-→t☆        -> that
-→e☆        -> e.g.
+→di☆        -> dictionary
+→pr☆        -> previous
+→ex☆        -> example
+→pe☆        -> people
+→pu☆        -> public
+→up☆        -> update
+→sy☆        -> system
+→fi☆        -> finger
+→ar☆        -> around
+→si☆        -> singer
+→gi☆        -> ginger
+→by☆        -> bypass
+→re☆        -> reason
+→ot☆        -> other
+→co☆        -> could
+→ag☆        -> again
+→la☆        -> large
+→po☆        -> point
+→or☆        -> order
+→st☆        -> start
+→pa☆        -> page
+→mo☆        -> most
+→mu☆        -> must
+→vi☆        -> view
+→so☆        -> some
+→do☆        -> doub
+→li☆        -> list
+→be☆        -> been
+→ti☆        -> time
+→ed☆        -> edge
+→se☆        -> seen
+→al☆        -> alr
+→us☆        -> use
+→ty☆        -> typ
+→we☆        -> web
+→wa☆        -> way
+→da☆        -> day
 
-di☆        -> dictionary
-pr☆        -> previous
-ex☆        -> example
-pe☆        -> people
-pu☆        -> public
-up☆        -> update
-te☆        -> tement
-sy☆        -> system
-fi☆        -> finger
-ot☆        -> other
-co☆        -> could
-ag☆        -> again
-la☆        -> large
-po☆        -> point
-pa☆        -> page
-mo☆        -> most
-mu☆        -> must
-vi☆        -> view
-so☆        -> some
-do☆        -> doub
-li☆        -> list
-be☆        -> been
-pl☆        -> ply
-mp☆        -> mpl
-ma☆        -> mao
-we☆        -> web
-wa☆        -> way
-cy☆        -> cyc
-da☆        -> day
+te☆         -> tement
+ma☆         -> mao
+mp☆         -> mpl
+pl☆         -> ply
 
 // Single
 
-→☆         -> the
+→w☆         -> which
+→t☆         -> that
+→j☆         -> just
+→f☆         -> fine
 
-t☆         -> tment
-w☆         -> which
-m☆         -> ment
-j☆         -> just
-f☆         -> fine
-y☆         -> ying
-i☆         -> ion
-v☆         -> ver
-q☆         -> que
-s☆         -> sk
-r☆         -> rl
-d☆         -> dy
-e☆         -> eu
-a☆         -> ab
-l☆         -> lk
-c☆         -> cy
-p☆         -> py
-k☆         -> ks
-g☆         -> gy
-o☆         -> oa
-u☆         -> ue
-x☆         -> xt
+→☆          -> the
+
+t☆          -> tment
+m☆          -> ment
+y☆          -> ying
+i☆          -> ion
+v☆          -> ver
+q☆          -> que
+s☆          -> sk
+r☆          -> rl
+d☆          -> dy
+e☆          -> eu
+a☆          -> ab
+l☆          -> lk
+c☆          -> cy
+p☆          -> py
+k☆          -> ks
+g☆          -> gy
+o☆          -> oa
+u☆          -> ue
+x☆          -> xt
 
 // Repeat
 
 // A lot
 
-should✵    -> shouldn't
-reason✵    -> reasoning
+→every✵     -> everywhere
+→reason✵    -> reasoning
+→should✵    -> shouldn't
+→somewhere✵ -> somehow
 
 // Quadruple
 
-→sti✵      -> still
-
-every✵     -> everywhere
-some✵      -> something
-impl✵      -> implement
-poss✵      -> possible
-over✵      -> overall
-hand✵      -> handy
+→some✵      -> something
+→impl✵      -> implement
+→poss✵      -> possible
+→over✵      -> overall
+→hand✵      -> handy
 
 // Triple
 
-→cu✵       -> curious
-→vi✵       -> vision
-→ab✵       -> about
+→sim✵       -> simultaneously
+→imp✵       -> impossible
+→uni✵       -> university
+→dif✵       -> difficult
+→inc✵       -> incapable
+→int✵       -> interest
+→ins✵       -> instead
+→def✵       -> default
+→dev✵       -> develop
+→awk✵       -> awkward
+→cap✵       -> capable
+→pro✵       -> program
+→how✵       -> however
+→wit✵       -> without
+→thr✵       -> through
+→any✵       -> anyway
+→cou✵       -> course
+→min✵       -> minute
+→exp✵       -> expect
+→bet✵       -> better
+→sti✵       -> still
 
-sim✵       -> simultaneously
-imp✵       -> impossible
-uni✵       -> university
-dif✵       -> difficult
-inc✵       -> incapable
-int✵       -> interest
-ins✵       -> instead
-def✵       -> default
-dev✵       -> develop
-awk✵       -> awkward
-cap✵       -> capable
-pro✵       -> program
-how✵       -> however
-wit✵       -> without
-thr✵       -> through
-any✵       -> anyway
-cou✵       -> course
-nat✵       -> nation
-tio✵       -> tional
-min✵       -> minute
-exp✵       -> expect
-bet✵       -> better
-ous✵       -> ously
+nat✵        -> nation
+tio✵        -> tional
+ous✵        -> ously
 
 // Double
 
-→b✵        -> because
-→t✵        -> than
-→i✵        -> ii
+→fu✵        -> function
+→ht✵        -> https://
+→cu✵        -> curious
+→sc✵        -> school
+→sy✵        -> symbol
+→vi✵        -> vision
+→mu✵        -> music
+→ba✵        -> basic
+→ex✵        -> exact
+→va✵        -> value
+→ab✵        -> about
+→sk✵        -> skill
+→fr✵        -> from
+→ma✵        -> make
+→la✵        -> last
 
-fu✵        -> function
-ht✵        -> https://
-sc✵        -> school
-sy✵        -> symbol
-mu✵        -> music
-ba✵        -> basic
-ex✵        -> exact
-va✵        -> value
-fr✵        -> from
-ma✵        -> make
-la✵        -> last
-st✵        -> sts
-rs✵        -> rst
+st✵         -> sts
+rs✵         -> rst
 
 // Single
 
-.✵         -> .com
-→✵         -> for
+→b✵         -> because
+→w✵         -> would
+→t✵         -> than
+→j✵         -> join
+→v✵         -> var
+→i✵         -> ii
 
-w✵         -> would
-j✵         -> join
-x✵         -> xes
-i✵         -> ing
-y✵         -> you
-q✵         -> qui
-v✵         -> var
+.✵          -> .com
+→✵          -> for
+
+x✵          -> xes
+i✵          -> ing
+y✵          -> you
+q✵          -> qui
 
 // Double taps
 
-impl✵✵     -> implementation
-fu✵✵       -> functionality
-sim✵✵      -> simultaneous
-dev✵✵      -> development
-int✵✵      -> interesting
-ba✵✵       -> basically
-v✵✵        -> variable
-ex✵✵       -> exactly
+→impl✵✵     -> implementation
+→fu✵✵       -> functionality
+→sim✵✵      -> simultaneous
+→dev✵✵      -> development
+→int✵✵      -> interesting
+→ba✵✵       -> basically
+→v✵✵        -> variable
+→ex✵✵       -> exactly
 
 // Double letter taps
 
-[oaui]n✪   -> \1nion
+[oaui]n✪    -> \1nion
 
 // Quintuple
 
-→prob✪     -> probably
-→keyb✪     -> keyboard
+→quin✪      -> quintessential
+→prob✪      -> probably
+→keyb✪      -> keyboard
 
 // Quadruple
 
-→evn✪      -> eventually
-→con✪      -> consider
-→gen✪      -> general
-→men✪      -> menu
+→evn✪       -> eventually
+→con✪       -> consider
+→gen✪       -> general
+→men✪       -> menu
 
-→def✪      -> definitely
-→cof✪      -> confusing
-→dif✪      -> differen
+→def✪       -> definitely
+→cof✪       -> confusing
+→dif✪       -> differen
+→ref✪       -> refuse
 
-→bel✪      -> believe
-→bet✪      -> between
-→bec✪      -> become
+→bel✪       -> believe
+→bet✪       -> between
+→bec✪       -> become
 
 // Triple
 
-→uf✪       -> unfortunate
-→wh✪       -> whatever
-→an✪       -> another
-→ob✪       -> obvious
-→in✪       -> inform
-→sh✪       -> should
-→af✪       -> after
-→tn✪       -> think
-→th✪       -> this
+→uf✪        -> unfortunate
+→wh✪        -> whatever
+→an✪        -> another
+→ob✪        -> obvious
+→in✪        -> inform
+→sh✪        -> should
+→af✪        -> after
+→tn✪        -> think
+→th✪        -> this
 
 // Double
 
-→b✪        -> before
-→h✪        -> health
-→f✪        -> first
-→z✪        -> zone
-→n✪        -> nice
+→b✪         -> before
+→h✪         -> health
+→f✪         -> first
+→z✪         -> zone
+→n✪         -> nice
 
 // Single
 
-q✪         -> qua
+q✪          -> qua
