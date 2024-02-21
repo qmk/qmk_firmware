@@ -1,4 +1,4 @@
-// Copyright 2023 QMK
+// Copyright 2024 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*******************************************************************************
@@ -721,6 +721,8 @@ enum qk_keycode_defines {
     QK_AUTOCORRECT_TOGGLE = 0x7C76,
     QK_TRI_LAYER_LOWER = 0x7C77,
     QK_TRI_LAYER_UPPER = 0x7C78,
+    QK_REPEAT_KEY = 0x7C79,
+    QK_ALT_REPEAT_KEY = 0x7C7A,
     QK_KB_0 = 0x7E00,
     QK_KB_1 = 0x7E01,
     QK_KB_2 = 0x7E02,
@@ -1362,6 +1364,8 @@ enum qk_keycode_defines {
     AC_TOGG    = QK_AUTOCORRECT_TOGGLE,
     TL_LOWR    = QK_TRI_LAYER_LOWER,
     TL_UPPR    = QK_TRI_LAYER_UPPER,
+    QK_REP     = QK_REPEAT_KEY,
+    QK_AREP    = QK_ALT_REPEAT_KEY,
 };
 
 // Range Helpers
@@ -1413,6 +1417,28 @@ enum qk_keycode_defines {
 #define IS_MACRO_KEYCODE(code) ((code) >= QK_MACRO_0 && (code) <= QK_MACRO_31)
 #define IS_BACKLIGHT_KEYCODE(code) ((code) >= QK_BACKLIGHT_ON && (code) <= QK_BACKLIGHT_TOGGLE_BREATHING)
 #define IS_RGB_KEYCODE(code) ((code) >= RGB_TOG && (code) <= RGB_MODE_TWINKLE)
-#define IS_QUANTUM_KEYCODE(code) ((code) >= QK_BOOTLOADER && (code) <= QK_TRI_LAYER_UPPER)
+#define IS_QUANTUM_KEYCODE(code) ((code) >= QK_BOOTLOADER && (code) <= QK_ALT_REPEAT_KEY)
 #define IS_KB_KEYCODE(code) ((code) >= QK_KB_0 && (code) <= QK_KB_31)
 #define IS_USER_KEYCODE(code) ((code) >= QK_USER_0 && (code) <= QK_USER_31)
+
+// Switch statement Helpers
+#define INTERNAL_KEYCODE_RANGE              KC_NO ... KC_TRANSPARENT
+#define BASIC_KEYCODE_RANGE                 KC_A ... KC_EXSEL
+#define SYSTEM_KEYCODE_RANGE                KC_SYSTEM_POWER ... KC_SYSTEM_WAKE
+#define CONSUMER_KEYCODE_RANGE              KC_AUDIO_MUTE ... KC_LAUNCHPAD
+#define MOUSE_KEYCODE_RANGE                 KC_MS_UP ... KC_MS_ACCEL2
+#define MODIFIER_KEYCODE_RANGE              KC_LEFT_CTRL ... KC_RIGHT_GUI
+#define SWAP_HANDS_KEYCODE_RANGE            QK_SWAP_HANDS_TOGGLE ... QK_SWAP_HANDS_ONE_SHOT
+#define MAGIC_KEYCODE_RANGE                 QK_MAGIC_SWAP_CONTROL_CAPS_LOCK ... QK_MAGIC_TOGGLE_ESCAPE_CAPS_LOCK
+#define MIDI_KEYCODE_RANGE                  QK_MIDI_ON ... QK_MIDI_PITCH_BEND_UP
+#define SEQUENCER_KEYCODE_RANGE             QK_SEQUENCER_ON ... QK_SEQUENCER_STEPS_CLEAR
+#define JOYSTICK_KEYCODE_RANGE              QK_JOYSTICK_BUTTON_0 ... QK_JOYSTICK_BUTTON_31
+#define PROGRAMMABLE_BUTTON_KEYCODE_RANGE   QK_PROGRAMMABLE_BUTTON_1 ... QK_PROGRAMMABLE_BUTTON_32
+#define AUDIO_KEYCODE_RANGE                 QK_AUDIO_ON ... QK_AUDIO_VOICE_PREVIOUS
+#define STENO_KEYCODE_RANGE                 QK_STENO_BOLT ... QK_STENO_COMB_MAX
+#define MACRO_KEYCODE_RANGE                 QK_MACRO_0 ... QK_MACRO_31
+#define BACKLIGHT_KEYCODE_RANGE             QK_BACKLIGHT_ON ... QK_BACKLIGHT_TOGGLE_BREATHING
+#define RGB_KEYCODE_RANGE                   RGB_TOG ... RGB_MODE_TWINKLE
+#define QUANTUM_KEYCODE_RANGE               QK_BOOTLOADER ... QK_ALT_REPEAT_KEY
+#define KB_KEYCODE_RANGE                    QK_KB_0 ... QK_KB_31
+#define USER_KEYCODE_RANGE                  QK_USER_0 ... QK_USER_31

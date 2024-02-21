@@ -16,11 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-
-/* Column/Row IO definitions */
-#define MATRIX_ROW_PINS { F4, F5, F6, F7 }
-#define MATRIX_COL_PINS { B5, B4, E6, D7, C6 }
-
 /* Onboard LEDs - reversed */
 #define LED_00 B3
 #define LED_01 B1

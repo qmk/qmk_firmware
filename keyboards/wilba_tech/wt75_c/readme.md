@@ -2,9 +2,9 @@
 
 WT75-C is a keyboard PCB supporting 75% layout with offset arrow keys. [More info at wilba.tech](https://wilba.tech/)
 
-Keyboard Maintainer: [Wilba6582](https://github.com/Wilba6582)  
-Hardware Supported: wilba.tech WT75-C  
-Hardware Availability: Custom keyboard group buys
+* Keyboard Maintainer: [Wilba](https://github.com/wilba)
+* Hardware Supported: wilba.tech WT75-C
+* Hardware Availability: Custom keyboard group buys
 
 Make example for this keyboard (after setting up your build environment):
 

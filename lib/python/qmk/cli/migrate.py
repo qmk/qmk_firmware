@@ -75,7 +75,7 @@ def migrate(cli):
 
     # Finally write out updated info.json
     cli.log.info(f'  Updating {target_info}')
-    target_info.write_text(json.dumps(info_data.to_dict(), cls=InfoJSONEncoder))
+    target_info.write_text(json.dumps(info_data.to_dict(), cls=InfoJSONEncoder, sort_keys=True))
 
     cli.log.info(f'{{fg_green}}Migration of keyboard {{fg_cyan}}{cli.args.keyboard}{{fg_green}} complete!{{fg_reset}}')
     cli.log.info(f"Verify build with {{fg_yellow}}qmk compile -kb {cli.args.keyboard} -km default{{fg_reset}}.")

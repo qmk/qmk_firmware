@@ -4,6 +4,7 @@
 // chibiOS headers
 #include "ch.h"
 #include "hal.h"
+#include "gpio.h"
 
 /* Check port settings for clock and data line */
 #if !(defined(PS2_CLOCK_PIN))

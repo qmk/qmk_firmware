@@ -1,4 +1,4 @@
-// Copyright 2021 Nick Brassel (@tzarc)
+// Copyright 2021-2023 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
@@ -19,7 +19,7 @@ typedef bool (*painter_driver_append_pixels)(painter_device_t device, uint8_t *t
 typedef bool (*painter_driver_append_pixdata)(painter_device_t device, uint8_t *target_buffer, uint32_t pixdata_offset, uint8_t pixdata_byte);
 
 // Driver vtable definition
-struct painter_driver_vtable_t {
+typedef struct painter_driver_vtable_t {
     painter_driver_init_func            init;
     painter_driver_power_func           power;
     painter_driver_clear_func           clear;
@@ -29,7 +29,7 @@ struct painter_driver_vtable_t {
     painter_driver_convert_palette_func palette_convert;
     painter_driver_append_pixels        append_pixels;
     painter_driver_append_pixdata       append_pixdata;
-};
+} painter_driver_vtable_t;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Comms callbacks
@@ -39,28 +39,28 @@ typedef bool (*painter_driver_comms_start_func)(painter_device_t device);
 typedef void (*painter_driver_comms_stop_func)(painter_device_t device);
 typedef uint32_t (*painter_driver_comms_send_func)(painter_device_t device, const void *data, uint32_t byte_count);
 
-struct painter_comms_vtable_t {
+typedef struct painter_comms_vtable_t {
     painter_driver_comms_init_func  comms_init;
     painter_driver_comms_start_func comms_start;
     painter_driver_comms_stop_func  comms_stop;
     painter_driver_comms_send_func  comms_send;
-};
+} painter_comms_vtable_t;
 
 typedef void (*painter_driver_comms_send_command_func)(painter_device_t device, uint8_t cmd);
 typedef void (*painter_driver_comms_bulk_command_sequence)(painter_device_t device, const uint8_t *sequence, size_t sequence_len);
 
-struct painter_comms_with_command_vtable_t {
-    struct painter_comms_vtable_t              base; // must be first, so this object can be cast from the painter_comms_vtable_t* type
+typedef struct painter_comms_with_command_vtable_t {
+    painter_comms_vtable_t                     base; // must be first, so this object can be cast from the painter_comms_vtable_t* type
     painter_driver_comms_send_command_func     send_command;
     painter_driver_comms_bulk_command_sequence bulk_command_sequence;
-};
+} painter_comms_with_command_vtable_t;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Driver base definition
 
-struct painter_driver_t {
-    const struct painter_driver_vtable_t *driver_vtable;
-    const struct painter_comms_vtable_t * comms_vtable;
+typedef struct painter_driver_t {
+    const painter_driver_vtable_t *driver_vtable;
+    const painter_comms_vtable_t * comms_vtable;
 
     // Flag signifying if validation was successful
     bool validate_ok;
@@ -81,4 +81,9 @@ struct painter_driver_t {
 
     // Comms config pointer -- needs to point to an appropriate comms config if the comms driver requires it.
     void *comms_config;
-};
+} painter_driver_t;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Device internals
+
+bool qp_internal_register_device(painter_device_t driver);

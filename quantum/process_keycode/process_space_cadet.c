@@ -13,8 +13,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include "process_space_cadet.h"
+#include "keycodes.h"
+#include "timer.h"
+#include "action.h"
 #include "action_tapping.h"
+#include "action_util.h"
 
 // ********** OBSOLETE DEFINES, STOP USING! (pls?) **********
 // Shift / paren setup

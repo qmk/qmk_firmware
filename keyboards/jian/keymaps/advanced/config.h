@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define AUTO_SHIFT_TIMEOUT 150
 //#define NO_AUTO_SHIFT_NUMERIC
 //#define AUTO_SHIFT_MODIFIERS
-#define IGNORE_MOD_TAP_INTERRUPT
 #define ALT_LAYOUTS_ENABLE
 //#define TRAINING_HALFES_LOCK
+
+#define LAYER_STATE_32BIT

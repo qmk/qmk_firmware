@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // If you are not using an encoder, remember to set ENCODER_ENABLE and ENCODER_MAP_ENABLE to no in rules.mk.
 #ifdef ENCODER_MAP_ENABLE
-    const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
         [_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
         [_FN1]  = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
         [_FN2]  = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },

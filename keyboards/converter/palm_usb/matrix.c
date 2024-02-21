@@ -17,7 +17,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include QMK_KEYBOARD_H
+#include "matrix.h"
+#include "debug.h"
+#include "wait.h"
 #include "uart.h"
 #include "timer.h"
 
@@ -134,14 +136,14 @@ uint8_t rts_reset(void) {
     if (firstread) {
         writePinLow(RTS_PIN);
     } 
-     _delay_ms(10);
+     wait_ms(10);
     writePinHigh(RTS_PIN);
     
 
 /* the future is Arm 
     if (!palReadPad(RTS_PIN_IOPRT))
   {
-    _delay_ms(10);
+    wait_ms(10);
     palSetPadMode(RTS_PINn_IOPORT, PinDirectionOutput_PUSHPULL);
     palSetPad(RTS_PORT, RTS_PIN);
   }
@@ -150,13 +152,13 @@ uint8_t rts_reset(void) {
     palSetPadMode(RTS_PIN_RTS_PORT, PinDirectionOutput_PUSHPULL);
     palSetPad(RTS_PORT, RTS_PIN);
     palClearPad(RTS_PORT, RTS_PIN);
-    _delay_ms(10);
+    wait_ms(10);
     palSetPad(RTS_PORT, RTS_PIN);
   }
 */
 
 
- _delay_ms(5);  
+ wait_ms(5);  
  //print("rts\n");
  return 1;
 }
@@ -222,7 +224,7 @@ uint8_t handspring_handshake(void) {
 
 uint8_t handspring_reset(void) {
     writePinLow(VCC_PIN);
-    _delay_ms(5);
+    wait_ms(5);
     writePinHigh(VCC_PIN);
 
     if ( handspring_handshake() ) {
@@ -257,7 +259,7 @@ void matrix_init(void)
         last_activity = timer_read();
     } else { 
         print("failed handshake");
-        _delay_ms(1000);
+        wait_ms(1000);
         //BUG /should/ power cycle or toggle RTS & reset, but this usually works. 
     }
 
@@ -271,7 +273,7 @@ void matrix_init(void)
         last_activity = timer_read();
     } else { 
         print("failed handshake");
-        _delay_ms(1000);
+        wait_ms(1000);
         //BUG /should/ power cycle or toggle RTS & reset, but this usually works. 
     }
 

@@ -1,38 +1,31 @@
 {
-    "keyboard_name": "Erdnuss65",
     "manufacturer": "Citrus Lab",
-    "processor": "STM32F103",
-    "bootloader": "stm32duino",
+    "keyboard_name": "Erdnuss65",
     "maintainer": "ctt",
-    "usb": {
-        "vid": "0x636C",
-        "pid": "0x6374",
-        "device_version": "0.0.1"
-    },
-
-    "matrix_pins": {
-        "rows": 
-        ["B10","B1", "B0","A7","A6"],  
-        "cols": 
-        ["B12","B14","B15","A8","B13","B3","B4","B5","A1","A2","A0","A3","A4","A5","B11"]
-    },
-
+    "bootloader": "stm32duino",
     "diode_direction": "COL2ROW",
-
     "features": {
         "bootmagic": true,
-        "mousekey": true,
         "extrakey": true,
-        "console": false,
-        "command": false,
+        "mousekey": true,
         "nkro": true,
-        "backlight": false,
-        "rgblight": true,
-        "audio": false
+        "rgblight": true
     },
+    "matrix_pins": {
+        "cols": ["B12", "B14", "B15", "B5", "B13", "B3", "B4", "B6", "A0", "A1", "A2", "A3", "A4", "A5", "B11"],
+        "rows": ["B10", "B1", "B0", "A7", "A6"]
+    },
+    "processor": "STM32F103",
     "rgblight": {
-        "pin": "A15",
         "led_count": 1
+    },
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x6374",
+        "vid": "0x636C"
+    },
+    "ws2812": {
+        "pin": "A15"
     },
     "layouts": {
         "LAYOUT": {
@@ -40,7 +33,7 @@
                 {"label": "ESC K00 (B10,B12)", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "1 K01 (B10,B14)", "matrix": [0, 1], "x": 1, "y": 0},
                 {"label": "2 K02 (B10,B15)", "matrix": [0, 2], "x": 2, "y": 0},
-                {"label": "3 K03 (B10,A8)", "matrix": [0, 3], "x": 3, "y": 0},
+                {"label": "3 K03 (B10,B5)", "matrix": [0, 3], "x": 3, "y": 0},
                 {"label": "4 K04 (B10,B13)", "matrix": [0, 4], "x": 4, "y": 0},
                 {"label": "5 K05 (B10,B3)", "matrix": [0, 5], "x": 5, "y": 0},
                 {"label": "6 K06 (B10,B4)", "matrix": [0, 6], "x": 6, "y": 0},
@@ -55,7 +48,7 @@
                 {"label": "TAB (B1,B12)", "matrix": [1, 0], "x": 0, "y": 1, "w": 1.5},
                 {"label": "Q (B1,B14)", "matrix": [1, 1], "x": 1.5, "y": 1},
                 {"label": "W (B1,B15)", "matrix": [1, 2], "x": 2.5, "y": 1},
-                {"label": "E (B1,A8)", "matrix": [1, 3], "x": 3.5, "y": 1},
+                {"label": "E (B1,B5)", "matrix": [1, 3], "x": 3.5, "y": 1},
                 {"label": "R (B1,B13)", "matrix": [1, 4], "x": 4.5, "y": 1},
                 {"label": "T (B1,B3)", "matrix": [1, 5], "x": 5.5, "y": 1},
                 {"label": "Y (B1,B4)", "matrix": [1, 6], "x": 6.5, "y": 1},
@@ -67,10 +60,10 @@
                 {"label": "] (B1,A4)", "matrix": [1, 12], "x": 12.5, "y": 1},
                 {"label": "\" (B1,A5)", "matrix": [1, 13], "x": 13.5, "y": 1, "w": 1.5},
                 {"label": "DEL (B1,B11)", "matrix": [1, 14], "x": 15, "y": 1},
-                {"label": "CAPSLOCK (B0,B12)", "matrix": [2, 0], "x": 0, "y": 2, "w": 1.25},
+                {"label": "CAPSLOCK (B0,B12)", "matrix": [2, 0], "x": 0, "y": 2, "w": 1.75},
                 {"label": "A (B0,B14)", "matrix": [2, 1], "x": 1.75, "y": 2},
                 {"label": "S (B0,B15)", "matrix": [2, 2], "x": 2.75, "y": 2},
-                {"label": "D (B0,A8)", "matrix": [2, 3], "x": 3.75, "y": 2},
+                {"label": "D (B0,B5)", "matrix": [2, 3], "x": 3.75, "y": 2},
                 {"label": "F (B0,B13)", "matrix": [2, 4], "x": 4.75, "y": 2},
                 {"label": "G (B0,B3)", "matrix": [2, 5], "x": 5.75, "y": 2},
                 {"label": "H (B0,B4)", "matrix": [2, 6], "x": 6.75, "y": 2},
@@ -84,7 +77,7 @@
                 {"label": "LSHIFT (A7,B12)", "matrix": [3, 0], "x": 0, "y": 3, "w": 2.25},
                 {"label": "Z (A7,B14)", "matrix": [3, 1], "x": 2.25, "y": 3},
                 {"label": "X (A7,B15)", "matrix": [3, 2], "x": 3.25, "y": 3},
-                {"label": "C (A7,A8)", "matrix": [3, 3], "x": 4.25, "y": 3},
+                {"label": "C (A7,B5)", "matrix": [3, 3], "x": 4.25, "y": 3},
                 {"label": "V (A7,B13)", "matrix": [3, 4], "x": 5.25, "y": 3},
                 {"label": "B (A7,B3)", "matrix": [3, 5], "x": 6.25, "y": 3},
                 {"label": "N (A7,B4)", "matrix": [3, 6], "x": 7.25, "y": 3},
@@ -98,12 +91,12 @@
                 {"label": "LCTRL (A6,B12)", "matrix": [4, 0], "x": 0, "y": 4, "w": 1.5},
                 {"label": "WIN (A6,B14)", "matrix": [4, 1], "x": 1.5, "y": 4},
                 {"label": "ALT (A6,B15)", "matrix": [4, 2], "x": 2.5, "y": 4, "w": 1.5},
-                {"label": "SPACE (A6,A8)", "matrix": [4, 3], "x": 4, "y": 4, "w": 7},
+                {"label": "SPACE (A6,B5)", "matrix": [4, 3], "x": 4, "y": 4, "w": 7},
                 {"label": "FN (A6,A0)", "matrix": [4, 10], "x": 11, "y": 4, "w": 1.5},
                 {"label": "LEFT (A6,A4)", "matrix": [4, 12], "x": 13, "y": 4},
                 {"label": "DOWN (A6,A5)", "matrix": [4, 13], "x": 14, "y": 4},
                 {"label": "RIGHT (A6,B11)", "matrix": [4, 14], "x": 15, "y": 4}
-           ]
+            ]
         }
     }
 }

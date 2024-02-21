@@ -21,7 +21,7 @@
 
 keyboard_config_t keyboard_config;
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3737_led_t PROGMEM g_is31fl3737_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -356,3 +356,14 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 const uint8_t PROGMEM encoder_hand_swap_config[NUM_ENCODERS] = {0};
 #    endif
 #endif
+
+const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = {
+    {36, 37, 38, 39, 40, 41},
+    {24, 25, 26, 27, 28, 29},
+    {12, 13, 14, 15, 16, 17},
+    { 0,  1,  2, 10, 11,  6},
+    {42, 43, 44, 45, 46, 47},
+    {30, 31, 32, 33, 34, 35},
+    {18, 19, 20, 21, 22, 23},
+    { 7,  8,  9,  3,  4,  5}
+};

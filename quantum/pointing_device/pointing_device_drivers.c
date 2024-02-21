@@ -50,6 +50,28 @@ const pointing_device_driver_t pointing_device_driver = {
 };
 // clang-format on
 
+#elif defined(POINTING_DEVICE_DRIVER_pmw3320)
+report_mouse_t pmw3320_get_report(report_mouse_t mouse_report) {
+    report_pmw3320_t data = pmw3320_read_burst();
+
+    if (data.dx != 0 || data.dy != 0) {
+        pd_dprintf("Raw ] X: %d, Y: %d\n", data.dx, data.dy);
+        mouse_report.x = (mouse_xy_report_t)data.dx;
+        mouse_report.y = (mouse_xy_report_t)data.dy;
+    }
+
+    return mouse_report;
+}
+
+// clang-format off
+const pointing_device_driver_t pointing_device_driver = {
+    .init         = pmw3320_init,
+    .get_report   = pmw3320_get_report,
+    .set_cpi      = pmw3320_set_cpi,
+    .get_cpi      = pmw3320_get_cpi,
+};
+// clang-format on
+
 #elif defined(POINTING_DEVICE_DRIVER_adns9800)
 
 report_mouse_t adns9800_get_report_driver(report_mouse_t mouse_report) {
@@ -90,6 +112,119 @@ const pointing_device_driver_t pointing_device_driver = {
     .get_report = analog_joystick_get_report,
     .set_cpi    = NULL,
     .get_cpi    = NULL
+};
+// clang-format on
+
+#elif defined(POINTING_DEVICE_DRIVER_azoteq_iqs5xx)
+
+static i2c_status_t azoteq_iqs5xx_init_status = 1;
+
+void azoteq_iqs5xx_init(void) {
+    i2c_init();
+    azoteq_iqs5xx_wake();
+    azoteq_iqs5xx_reset_suspend(true, false, true);
+    wait_ms(100);
+    azoteq_iqs5xx_wake();
+    if (azoteq_iqs5xx_get_product() != AZOTEQ_IQS5XX_UNKNOWN) {
+        azoteq_iqs5xx_setup_resolution();
+        azoteq_iqs5xx_init_status = azoteq_iqs5xx_set_report_rate(AZOTEQ_IQS5XX_REPORT_RATE, AZOTEQ_IQS5XX_ACTIVE, false);
+        azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_event_mode(false, false);
+        azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_reati(true, false);
+#    if defined(AZOTEQ_IQS5XX_ROTATION_90)
+        azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_xy_config(false, true, true, true, false);
+#    elif defined(AZOTEQ_IQS5XX_ROTATION_180)
+        azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_xy_config(true, true, false, true, false);
+#    elif defined(AZOTEQ_IQS5XX_ROTATION_270)
+        azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_xy_config(true, false, true, true, false);
+#    else
+        azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_xy_config(false, false, false, true, false);
+#    endif
+        azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_gesture_config(true);
+        wait_ms(AZOTEQ_IQS5XX_REPORT_RATE + 1);
+    }
+};
+
+report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report) {
+    report_mouse_t temp_report           = {0};
+    static uint8_t previous_button_state = 0;
+    static uint8_t read_error_count      = 0;
+
+    if (azoteq_iqs5xx_init_status == I2C_STATUS_SUCCESS) {
+        azoteq_iqs5xx_base_data_t base_data = {0};
+#    if !defined(POINTING_DEVICE_MOTION_PIN)
+        azoteq_iqs5xx_wake();
+#    endif
+        i2c_status_t status          = azoteq_iqs5xx_get_base_data(&base_data);
+        bool         ignore_movement = false;
+
+        if (status == I2C_STATUS_SUCCESS) {
+            // pd_dprintf("IQS5XX - previous cycle time: %d \n", base_data.previous_cycle_time);
+            read_error_count = 0;
+            if (base_data.gesture_events_0.single_tap || base_data.gesture_events_0.press_and_hold) {
+                pd_dprintf("IQS5XX - Single tap/hold.\n");
+                temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON1);
+            } else if (base_data.gesture_events_1.two_finger_tap) {
+                pd_dprintf("IQS5XX - Two finger tap.\n");
+                temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON2);
+            } else if (base_data.gesture_events_0.swipe_x_neg) {
+                pd_dprintf("IQS5XX - X-.\n");
+                temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON4);
+                ignore_movement     = true;
+            } else if (base_data.gesture_events_0.swipe_x_pos) {
+                pd_dprintf("IQS5XX - X+.\n");
+                temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON5);
+                ignore_movement     = true;
+            } else if (base_data.gesture_events_0.swipe_y_neg) {
+                pd_dprintf("IQS5XX - Y-.\n");
+                temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON6);
+                ignore_movement     = true;
+            } else if (base_data.gesture_events_0.swipe_y_pos) {
+                pd_dprintf("IQS5XX - Y+.\n");
+                temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON3);
+                ignore_movement     = true;
+            } else if (base_data.gesture_events_1.zoom) {
+                if (AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l) < 0) {
+                    pd_dprintf("IQS5XX - Zoom out.\n");
+                    temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON7);
+                } else if (AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l) > 0) {
+                    pd_dprintf("IQS5XX - Zoom in.\n");
+                    temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON8);
+                }
+            } else if (base_data.gesture_events_1.scroll) {
+                pd_dprintf("IQS5XX - Scroll.\n");
+                temp_report.h = CONSTRAIN_HID(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l));
+                temp_report.v = CONSTRAIN_HID(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.y.h, base_data.y.l));
+            }
+            if (base_data.number_of_fingers == 1 && !ignore_movement) {
+                temp_report.x = CONSTRAIN_HID_XY(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l));
+                temp_report.y = CONSTRAIN_HID_XY(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.y.h, base_data.y.l));
+            }
+
+            previous_button_state = temp_report.buttons;
+
+        } else {
+            if (read_error_count > 10) {
+                read_error_count      = 0;
+                previous_button_state = 0;
+            } else {
+                read_error_count++;
+            }
+            temp_report.buttons = previous_button_state;
+            pd_dprintf("IQS5XX - get report failed: %d \n", status);
+        }
+    } else {
+        pd_dprintf("IQS5XX - Init failed: %d \n", azoteq_iqs5xx_init_status);
+    }
+
+    return temp_report;
+}
+
+// clang-format off
+const pointing_device_driver_t pointing_device_driver = {
+    .init       = azoteq_iqs5xx_init,
+    .get_report = azoteq_iqs5xx_get_report,
+    .set_cpi    = azoteq_iqs5xx_set_cpi,
+    .get_cpi    = azoteq_iqs5xx_get_cpi
 };
 // clang-format on
 

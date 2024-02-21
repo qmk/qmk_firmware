@@ -13,6 +13,5 @@ AUDIO_ENABLE = no           # Audio output
 LTO_ENABLE = yes
 
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
 
 DEFAULT_FOLDER = lefty/rev2

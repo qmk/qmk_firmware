@@ -18,7 +18,7 @@
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"matrix": [0, 0], "x":0, "y":0}
+                {"matrix": [0, 0], "x": 0, "y": 0}
             ]
         }
     }

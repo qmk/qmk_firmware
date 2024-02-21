@@ -17,13 +17,15 @@
 #include "quantum.h"
 
 /* This board has !SDB of the is31 wired to D2. Set high to enable */
-void keyboard_post_init_user(void) {
+void keyboard_post_init_kb(void) {
     setPinOutput(B9);
     writePinHigh(B9);
+    
+    keyboard_post_init_user();
 }
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3733_led_t PROGMEM g_is31fl3733_leds[RGB_MATRIX_LED_COUNT] = {
     /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location

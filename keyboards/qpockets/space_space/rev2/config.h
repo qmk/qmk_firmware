@@ -16,20 +16,6 @@
 
 #pragma once
 
-
-#define MATRIX_ROW_PINS \
-    { B1, B0, D5, B6 }
-#define MATRIX_COL_PINS \
-    { C6, F6, F1, F4, F5, E6, D6, B2, B5, D3, D2 }
-
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 #define LOCKING_SUPPORT_ENABLE
 
-#define RGB_DI_PIN F0
-#define RGBLED_NUM 4
-
-#define RGB_MATRIX_LED_COUNT RGBLED_NUM
 #define RGBLIGHT_DEFAULT_HUE 130

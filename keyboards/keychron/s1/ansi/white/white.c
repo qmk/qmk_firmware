@@ -20,8 +20,8 @@
 
 // clang-format off
 
-const ckled2001_led PROGMEM g_ckled2001_leds[LED_MATRIX_LED_COUNT] = {
-/* Refer to CKLED2001 manual for these locations
+const snled27351_led_t PROGMEM g_snled27351_leds[LED_MATRIX_LED_COUNT] = {
+/* Refer to SNLED27351 manual for these locations
  *   driver
  *   |  LED address
  *   |  |   */

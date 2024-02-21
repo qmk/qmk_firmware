@@ -23,8 +23,6 @@
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
-#define USB_MAX_POWER_CONSUMPTION 100
-
 #define ROTATIONAL_TRANSFORM_ANGLE 20
 
 // If board has a debug LED, you can enable it by defining this

@@ -14,8 +14,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "process_music.h"
+#include "timer.h"
 
 #ifdef AUDIO_ENABLE
+#    include "audio.h"
 #    include "process_audio.h"
 #endif
 #if defined(MIDI_ENABLE) && defined(MIDI_BASIC)

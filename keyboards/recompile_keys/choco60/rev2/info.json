@@ -1,6 +1,17 @@
 {
+    "matrix_pins": {
+        "cols": ["C6", "B4", "B3", "B2", "B1", "B0", null, null, null],
+        "rows": ["C5", "C4", "B6", "B7", "C7"]
+    },
+    "diode_direction": "COL2ROW",
     "split": {
-        "soft_serial_pin": "D0"
+        "soft_serial_pin": "D0",
+        "matrix_pins": {
+            "right": {
+                "cols": ["C7", "B7", "B6", "B5", "B4", "B3", "B2", "C6", "D4"],
+                "rows": ["D3", "D2", "D5", "D6", "B0"]
+            }
+        }
     },
     "processor": "atmega32u2",
     "bootloader": "atmel-dfu"

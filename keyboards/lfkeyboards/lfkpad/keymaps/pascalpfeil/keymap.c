@@ -56,18 +56,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             _______,      _______, _______
     ),
 };
-
-const uint8_t number_leds[] = {8, 9, 10, 11, 12, 13, 15, 16, 17};
-const uint8_t number_leds_size = ARRAY_SIZE(number_leds);
-
-bool led_update_user(led_t led_state) {
-    for (uint8_t i = 0; i < number_leds_size; i++)
-        if (led_state.num_lock)
-            // set to whatever the other leds are doing
-            // this is needed so that upon disabling num lock, the leds don't stay red 
-            rgblight_sethsv_at(rgblight_get_hue(), rgblight_get_sat(), rgblight_get_val(), numer_leds[i]); 
-        else
-            rgblight_setrgb_at(RGB_RED, numer_leds[i]); // set to red
-
-    return true;
-}

@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "wt60_xt.h"
+#include "quantum.h"
 
 #ifdef AUDIO_ENABLE
 #include "audio.h"
