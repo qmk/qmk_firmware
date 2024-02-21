@@ -189,6 +189,7 @@ x☆          -> xt
 →dif✵       -> difficult
 →inc✵       -> incapable
 →int✵       -> interest
+→beh✵       -> behavior
 →ins✵       -> instead
 →def✵       -> default
 →dev✵       -> develop
