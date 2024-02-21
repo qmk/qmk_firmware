@@ -24,6 +24,7 @@
 →enque★     -> enqueue
 →deque★     -> dequeue
 →copy★      -> copying
+→ment★      -> mention
 →use★       -> useless
 →alr★       -> already
 →simpl★     -> simply
