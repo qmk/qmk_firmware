@@ -1,6 +1,6 @@
 # keyap
 
-![keyap](![alt text](https://imgur.com/a/2MoN9eG))
+![keyap](https://i.imgur.com/fjOVpheh.jpeg)
 
 *A short description of the keyboard/project*
 
