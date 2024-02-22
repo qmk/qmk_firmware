@@ -13,6 +13,7 @@
 
 #include "quantum/quantum_keycodes.h"
 #include "quantum/keymap_extras/keymap_german.h"
+#include "quantum/via.h"
 
 #include "raw_hid.h"
 #include "oled_driver.h"
@@ -223,7 +224,6 @@ void save_user_eeconf(void) {
 poly_eeconf_t load_user_eeconf(void) {
     poly_eeconf_t ee;
     eeconfig_read_user_datablock(&ee);
-
     ee.brightness = ~ee.brightness;
     if(ee.brightness>FULL_BRIGHT) {
         ee.brightness = FULL_BRIGHT;
@@ -1957,79 +1957,85 @@ void suspend_wakeup_init_kb(void) {
     suspend_wakeup_init_user();
 }
 
-void raw_hid_receive(uint8_t *data, uint8_t length) {
-    uint8_t response[RAW_EPSIZE];
-    memset(response, 0, RAW_EPSIZE);
+void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
+    //uint8_t response[RAW_EPSIZE];
+    memset(data, 0, length);
     const char * name = "P0.PolyKybd Split72";
 
-    if(length>1 && data[0] == 'P') {
+    if(length>1 && (data[0] == /*via_command_id::*/id_custom_save || data[0] == 'P')) {
         switch(data[1]) {
+            case /*via_channel_id::*/id_qmk_backlight_channel ... /*via_channel_id::*/id_qmk_led_matrix_channel:
+                //used by VIA, so that will never occuer if used together with VIA
+                //without VIA, lets handle it like '0'
             case '0': //id
-                memcpy(response, name, strlen(name));
-                raw_hid_send(response, RAW_EPSIZE);
+                memset(data, 0, length);
+                memcpy(data, name, strlen(name));
                 break;
             case '1': //lang
+                memset(data, 0, length);
                 switch(g_local.lang) {
                     /*[[[cog
                     for lang in languages:
-                        cog.outl(f'case {lang}: memcpy(response, "P1.{lang[5:]}", 5); break;')
+                        cog.outl(f'case {lang}: memcpy(data, "P1.{lang[5:]}", 5); break;')
                     ]]]*/
-                    case LANG_EN: memcpy(response, "P1.EN", 5); break;
-                    case LANG_DE: memcpy(response, "P1.DE", 5); break;
-                    case LANG_FR: memcpy(response, "P1.FR", 5); break;
-                    case LANG_ES: memcpy(response, "P1.ES", 5); break;
-                    case LANG_PT: memcpy(response, "P1.PT", 5); break;
-                    case LANG_IT: memcpy(response, "P1.IT", 5); break;
-                    case LANG_TR: memcpy(response, "P1.TR", 5); break;
-                    case LANG_KO: memcpy(response, "P1.KO", 5); break;
-                    case LANG_JA: memcpy(response, "P1.JA", 5); break;
-                    case LANG_AR: memcpy(response, "P1.AR", 5); break;
-                    case LANG_GR: memcpy(response, "P1.GR", 5); break;
+                    case LANG_EN: memcpy(data, "P1.EN", 5); break;
+                    case LANG_DE: memcpy(data, "P1.DE", 5); break;
+                    case LANG_FR: memcpy(data, "P1.FR", 5); break;
+                    case LANG_ES: memcpy(data, "P1.ES", 5); break;
+                    case LANG_PT: memcpy(data, "P1.PT", 5); break;
+                    case LANG_IT: memcpy(data, "P1.IT", 5); break;
+                    case LANG_TR: memcpy(data, "P1.TR", 5); break;
+                    case LANG_KO: memcpy(data, "P1.KO", 5); break;
+                    case LANG_JA: memcpy(data, "P1.JA", 5); break;
+                    case LANG_AR: memcpy(data, "P1.AR", 5); break;
+                    case LANG_GR: memcpy(data, "P1.GR", 5); break;
                     //[[[end]]]
                     default:
-                        memcpy(response, "P1!", 3);
+                        memcpy(data, "P1!", 3);
                         break;
                 }
-                raw_hid_send(response, RAW_EPSIZE);
                 break;
             case '2': //lang list
+                    memset(data, 0, length);
                     /*[[[cog
                     lang_list = "P2."
                     for lang in languages:
                         lang_list += lang[5:]
                         if len(lang_list)>=(32-3-1):
-                            cog.outl(f'memcpy(response, "{lang_list}", {len(lang_list)});')
-                            cog.outl(f'raw_hid_send(response, RAW_EPSIZE);')
-                            cog.outl(f'memset(response, 0, RAW_EPSIZE);')
+                            cog.outl(f'memcpy(data, "{lang_list}", {len(lang_list)});')
+                            cog.outl(f'raw_hid_send(data, length);')
+                            cog.outl(f'memset(data, 0, length);')
                             lang_list = "P2."
                         elif lang != languages[-1]:
                             lang_list += ","
                     cog.outl(f'memcpy(response, "{lang_list}", {len(lang_list)});')
-                    cog.outl(f'raw_hid_send(response, RAW_EPSIZE);')
                     ]]]*/
-                    memcpy(response, "P2.EN,DE,FR,ES,PT,IT,TR,KO,JA", 29);
-                    raw_hid_send(response, RAW_EPSIZE);
-                    memset(response, 0, RAW_EPSIZE);
-                    memcpy(response, "P2.AR,GR", 8);
-                    raw_hid_send(response, RAW_EPSIZE);
+                    memcpy(data, "P2.EN,DE,FR,ES,PT,IT,TR,KO,JA", 29);
+                    raw_hid_send(data, length);
+                    memset(data, 0, length);
+                    memcpy(data, "P2.AR,GR", 8);
                     //[[[end]]]
                 break;
             case '3': //change language
                 if(data[3]< NUM_LANG) {
                     g_local.lang = data[3];
-                    memcpy(response, data, 4);
-                    response[2] = '.';
+                    data[2] = '.';
                     update_performed();
                 } else {
-                    memcpy(response, "P3!", 3);
+                    memset(data, 0, length);
+                    memcpy(data, "P3!", 3);
                 }
-                raw_hid_send(response, RAW_EPSIZE);
                 break;
             default:
-                memcpy(response, "P??", 3);
-                response[1] = data[1];
-                raw_hid_send(response, RAW_EPSIZE);
                 break;
         }
+        #ifndef VIA_ENABLE
+            raw_hid_send(data, length);
+        #endif
     }
 }
+#ifndef VIA_ENABLE
+void raw_hid_receive(uint8_t *data, uint8_t length) {
+    via_custom_value_command_kb(data, length);
+}
+#endif

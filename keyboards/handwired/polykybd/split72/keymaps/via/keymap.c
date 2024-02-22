@@ -2,36 +2,51 @@
 
 #include "polykybd.h"
 #include "split72/split72.h"
-#include "print.h"
 #include "base/disp_array.h"
 #include "base/helpers.h"
 #include "base/spi_helper.h"
 #include "base/shift_reg.h"
+#include "base/text_helper.h"
+#include "base/fonts/NotoSans_Regular_Base_11pt.h"
+#include "base/fonts/NotoSans_Medium_Base_8pt.h"
 #include "base/fonts/gfx_used_fonts.h"
 
 #include "quantum/quantum_keycodes.h"
+#include "quantum/keymap_extras/keymap_german.h"
+#include "quantum/via.h"
+
+#include "raw_hid.h"
+#include "oled_driver.h"
 #include "version.h"
 #include "print.h"
+
+#include "uni.h"
 
 #include <transactions.h>
 
 #include "lang/lang_lut.h"
 
-#define FULL_BRIGHT 49
+#define RAW_EPSIZE 32
+
+#define FULL_BRIGHT 50
 #define MIN_BRIGHT 1
 #define DISP_OFF 0
-#define BRIGHT_STEP 4
+#define BRIGHT_STEP 1
+
+#define EMJ(x) UM(PRIVATE_EMOJI_##x)
 
 //6 sec
 #define FADE_TRANSITION_TIME 6000
 //1 min
 #define FADE_OUT_TIME 60000
 //20 min
-#define TURN_OFF_TIME 1200000
+//#define TURN_OFF_TIME 1200000
+#define TURN_OFF_TIME 120000
 
 /*[[[cog
 import cog
 import os
+from textwrap import wrap
 from openpyxl import load_workbook
 wb = load_workbook(filename = os.path.join(os.path.abspath(os.path.dirname(cog.inFile)), "lang", "lang_lut.xlsx"))
 sheet = wb['key_lut']
@@ -42,22 +57,57 @@ lang_key = sheet["B1"].value
 while lang_key:
     languages.append(lang_key)
     if lang_index==0:
-        cog.outl(f"static enum lang_layer g_lang = {lang_key};")
+        cog.outl(f"static enum lang_layer g_lang_init = {lang_key};")
     lang_index = lang_index + 1
     lang_key = sheet.cell(row = 1, column = 2 + lang_index*3).value
 ]]]*/
-static enum lang_layer g_lang = LANG_EN;
+static enum lang_layer g_lang_init = LANG_EN;
 //[[[end]]]
 
-enum kb_layers { _L0 = 0x00, _BL=_L0, _L1 = 0x01, _L2 = 0x02, _FL0 = 0x03, _FL1 = 0x04, _NL = 0x05, _UL = 0x06, _LS = 0x07, _ADDLANG1 = 0x08};
+enum kb_layers {
+    _BL = 0x00,
+    _L0 = _BL,
+    _L1,
+    _L2,
+    _L3,
+    _L4,
+    _FL0,
+    _FL1,
+    _NL,
+    _UL,
+    _SL,
+    _LL,
+    _ADDLANG1,
+    _EMJ0,
+    _EMJ1 };
 
 enum my_keycodes {
-    KC_LANG = SAFE_RANGE, KC_DECC, KC_INCC, KC_TOGBASE, KC_BASE, KC_L0, KC_L1, KC_L2, //KC_ADDLANG1,
+    KC_LANG = SAFE_RANGE,
+    KC_DMIN,
+    KC_DMAX,
+    KC_DDIM,
+    KC_DBRI,
+    KC_DHLF,
+    KC_D1Q,
+    KC_D3Q,
+    KC_BASE,
+    KC_L0,
+    KC_L1,
+    KC_L2,
+    KC_L3,
+    KC_L4,
+    KC_DEADKEY,
     /*[[[cog
       for lang in languages:
           cog.out(f"KC_{lang}, ")
     ]]]*/
     KC_LANG_EN, KC_LANG_DE, KC_LANG_FR, KC_LANG_ES, KC_LANG_PT, KC_LANG_IT, KC_LANG_TR, KC_LANG_KO, KC_LANG_JA, KC_LANG_AR, KC_LANG_GR,
+    //[[[end]]]
+    /*[[[cog
+      for idx in range(10):
+          cog.out(f"KC_LAT{idx}, ")
+    ]]]*/
+    KC_LAT0, KC_LAT1, KC_LAT2, KC_LAT3, KC_LAT4, KC_LAT5, KC_LAT6, KC_LAT7, KC_LAT8, KC_LAT9,
     //[[[end]]]
 };
 
@@ -84,14 +134,48 @@ struct display_info disp_row_3 = { BITMASK4(0) };
 
 enum refresh_mode { START_FIRST_HALF, START_SECOND_HALF, DONE_ALL, ALL_AT_ONCE };
 static enum refresh_mode g_refresh = DONE_ALL;
-static int8_t g_contrast = FULL_BRIGHT;
-static layer_state_t g_default_ls = 0;
-static uint16_t last_key = 0;
+
+enum com_state { NOT_INITIALIZED, USB_HOST, BRIDGE };
+static enum com_state com = NOT_INITIALIZED;
+
+bool is_usb_host_side(void) {
+    return com == USB_HOST;
+}
+
+enum side_state { UNDECIDED, LEFT_SIDE, RIGHT_SIDE };
+static enum side_state side = UNDECIDED;
+
+bool is_left_side(void) {
+    return side == LEFT_SIDE;
+}
+
+bool is_right_side(void) {
+    return side == RIGHT_SIDE;
+}
+typedef struct _poly_eeconf_t {
+    uint8_t lang;
+    uint8_t brightness;
+    uint16_t unused;
+    uint8_t latin_ex[26];
+} poly_eeconf_t;
+static uint8_t latin_ex[26];
+
+_Static_assert(sizeof(poly_eeconf_t) == EECONFIG_USER_DATA_SIZE, "Mismatch in keyboard EECONFIG stored data");
+
+enum flags { STATUS_DISP_ON = 1, IDLE_TRANSITION = 2, DISP_IDLE = 4, DEAD_KEY_ON_WAKEUP = 8};
 typedef struct _poly_sync_t {
     uint8_t lang;
-    int8_t contrast;
+    uint8_t contrast;
+    uint8_t flags;
     layer_state_t default_ls;
+    uint16_t last_latin_kc;
+    uint16_t checksum;
 } poly_sync_t;
+
+#define SYNC_ACK 0b11001010
+typedef struct _poly_sync_reply_t {
+    uint8_t ack;
+} poly_sync_reply_t;
 
 typedef struct _poly_state_t {
     led_t led_state;
@@ -100,31 +184,73 @@ typedef struct _poly_state_t {
     poly_sync_t s;
 } poly_state_t;
 
-poly_state_t g_state;
+static poly_state_t g_state;
+static poly_sync_t g_local;
 
-static int32_t last_update;
-static bool g_first_sync = false;
+static int32_t last_update = 0;
 
 bool display_wakeup(keyrecord_t* record);
 void update_displays(enum refresh_mode mode);
-bool set_displays(int8_t contrast);
-static int8_t old_contrast = 0;
+void set_displays(uint8_t contrast, bool idle);
+void set_selected_displays(int8_t old_value, int8_t new_value);
+void toggle_stagger(bool new_state);
+void oled_update_buffer(void);
+void poly_suspend(void);
+
+uint16_t fletcher16(const uint8_t *data, int count )
+{
+   uint16_t sum1 = 0;
+   uint16_t sum2 = 0;
+   int index;
+
+   for ( index = 0; index < count; ++index )
+   {
+      sum1 = (sum1 + data[index]) % 255;
+      sum2 = (sum2 + sum1) % 255;
+   }
+
+   return (sum2 << 8) | sum1;
+}
+
+void save_user_eeconf(void) {
+    poly_eeconf_t ee;
+    ee.lang = g_local.lang;
+    ee.brightness = ~g_local.contrast;
+    ee.unused = 0;
+    memcpy(ee.latin_ex, latin_ex, sizeof(latin_ex));
+    eeconfig_update_user_datablock(&ee);
+}
+
+poly_eeconf_t load_user_eeconf(void) {
+    poly_eeconf_t ee;
+    eeconfig_read_user_datablock(&ee);
+
+    ee.brightness = ~ee.brightness;
+    if(ee.brightness>FULL_BRIGHT) {
+        ee.brightness = FULL_BRIGHT;
+    }
+    return ee;
+}
 
 void inc_brightness(void) {
-    if (g_contrast < FULL_BRIGHT) {
-        g_contrast += BRIGHT_STEP;
+    if (g_local.contrast < FULL_BRIGHT) {
+        g_local.contrast += BRIGHT_STEP;
     }
-    if (g_contrast > FULL_BRIGHT) {
-        g_contrast = FULL_BRIGHT;
+    if (g_local.contrast > FULL_BRIGHT) {
+        g_local.contrast = FULL_BRIGHT;
     }
+
+    save_user_eeconf();
 }
 
 void dec_brightness(void) {
-    if (g_contrast > (MIN_BRIGHT+BRIGHT_STEP)) {
-        g_contrast -= BRIGHT_STEP;
+    if (g_local.contrast > (MIN_BRIGHT+BRIGHT_STEP)) {
+        g_local.contrast -= BRIGHT_STEP;
     } else {
-        g_contrast = MIN_BRIGHT;
+        g_local.contrast = MIN_BRIGHT;
     }
+
+    save_user_eeconf();
 }
 
 void select_all_displays(void) {
@@ -141,11 +267,6 @@ void clear_all_displays(void) {
 
 void early_hardware_init_post(void) {
     spi_hw_setup();
-
-}
-
-void set_last_key(uint16_t keycode) {
-    last_key = keycode;
 }
 
 void update_performed(void) {
@@ -168,134 +289,193 @@ void request_disp_refresh(void) {
 }
 
 void user_sync_poly_data_handler(uint8_t in_len, const void* in_data, uint8_t out_len, void* out_data) {
-    if (in_len != 0 && in_data != NULL) {
-        g_lang = ((poly_sync_t*)in_data)->lang;
-        g_contrast = ((poly_sync_t*)in_data)->contrast;
-        g_default_ls = ((poly_sync_t*)in_data)->default_ls;
+    if (in_len == sizeof(poly_sync_t) && in_data != NULL && out_len == sizeof(poly_sync_reply_t) && out_data!= NULL) {
+        int checksum = fletcher16(in_data, sizeof(g_local)-sizeof(g_local.checksum));
+        if(checksum == ((const poly_sync_t *)in_data)->checksum) {
+            memcpy(&g_local, in_data, sizeof(poly_sync_t));
+            ((poly_sync_reply_t*)out_data)->ack = SYNC_ACK;
+        }
+    } else if(in_len == sizeof(latin_ex)) {
+        memcpy(latin_ex, in_data, sizeof(latin_ex)); //no check sum for now
+        save_user_eeconf();
+        request_disp_refresh();
     }
 }
 
+void oled_on_off(bool on);
+
 void sync_and_refresh_displays(void) {
-    if (is_keyboard_master()) {
+    bool sync_success = true;
+
+    if (is_usb_host_side()) {
+        const bool back_from_idle_transition = (g_local.flags & IDLE_TRANSITION) == 0 && (g_state.s.flags & IDLE_TRANSITION) != 0;
+        if (back_from_idle_transition) {
+            poly_eeconf_t ee   = load_user_eeconf();
+            g_local.contrast = ee.brightness;
+            //request_disp_refresh();
+        }
+
         //master syncs data
-        if (!g_first_sync || g_lang != g_state.s.lang || g_contrast != g_state.s.contrast || g_default_ls != g_state.s.default_ls ){
-            poly_sync_t send = { g_lang, g_contrast, g_default_ls};
-            if (transaction_rpc_send(USER_SYNC_POLY_DATA, sizeof(send), &send)) {
-                g_state.s.lang = g_lang;
-                g_first_sync = true;
+        if ( memcmp(&g_local, &g_state.s, sizeof(poly_sync_t))!=0 ) {
+            poly_sync_reply_t reply;
+            g_local.checksum = fletcher16((const void *)&g_local, sizeof(g_local)-sizeof(g_local.checksum));
+            for(uint8_t retry = 0; retry<3; ++retry) {
+                sync_success = transaction_rpc_exec(USER_SYNC_POLY_DATA, sizeof(poly_sync_t), &g_local, sizeof(poly_sync_reply_t), &reply);
+                if(sync_success && reply.ack == SYNC_ACK) {
+                    break;
+                }
+                sync_success = false;
             }
         }
     }
+    if(sync_success) {
+        const bool status_disp_turned_off    = (g_local.flags & STATUS_DISP_ON) == 0 && (g_state.s.flags & DISP_IDLE) != 0;
+        const bool idle_changed              = (g_local.flags & DISP_IDLE) != (g_state.s.flags & DISP_IDLE);
+        const bool in_idle_mode              = (g_local.flags & DISP_IDLE) != 0;
+        const bool displays_turned_on        = (g_state.s.contrast <= DISP_OFF && g_local.contrast > DISP_OFF);
 
-    if (g_state.s.contrast != g_contrast && g_refresh == DONE_ALL) {
-        bool need_refresh = set_displays(g_contrast);
-        g_state.s.contrast = g_contrast;
-        if (!is_keyboard_master() && need_refresh) {
+        if(idle_changed) {
+            if(in_idle_mode) {
+                oled_set_brightness(0);
+            } else {
+                oled_set_brightness(OLED_BRIGHTNESS);
+            }
+        }
+
+        const led_t led_state = host_keyboard_led_state();
+        const uint8_t mod_state = get_mods();
+
+        if (led_state.raw != g_state.led_state.raw ||
+            mod_state != g_state.mod_state ||
+            layer_state != g_state.layer_state ||
+            g_state.s.lang != g_local.lang ||
+            g_state.s.default_ls != g_local.default_ls ||
+            g_state.s.last_latin_kc != g_local.last_latin_kc) {
+            //memcmp(&g_local, &g_state.s, sizeof(poly_sync_t))!=0 //no!
+
+            g_state.led_state = led_state;
+            g_state.mod_state = mod_state;
+            g_state.layer_state = layer_state;
+
             request_disp_refresh();
         }
-    }
 
-    led_t led_state = host_keyboard_led_state();
-    uint8_t mod_state = get_mods();
+        //split the update cycle
+        if (g_refresh == START_FIRST_HALF) {
+            update_displays(START_FIRST_HALF);
+            g_refresh = START_SECOND_HALF;
+        }
+        else if (g_refresh == START_SECOND_HALF || g_refresh == ALL_AT_ONCE) {
+            update_displays(g_refresh);
+            g_refresh = DONE_ALL;
+        } else if (g_state.s.contrast != g_local.contrast || idle_changed) {
+            set_displays(g_local.contrast, in_idle_mode);
+        }
 
-    if (led_state.raw != g_state.led_state.raw ||
-        mod_state != g_state.mod_state ||
-        layer_state != g_state.layer_state ||
-        g_state.s.lang != g_lang ||
-        g_state.s.default_ls != g_default_ls) {
+        // sync rgb matrix
+        if (status_disp_turned_off) {
+            rgb_matrix_disable_noeeprom();
+        } else if(displays_turned_on) {
+            rgb_matrix_reload_from_eeprom();
+        }
 
-        g_state.led_state = host_keyboard_led_state();
-        g_state.mod_state = get_mods();
-        g_state.layer_state = layer_state;
-        g_state.s.lang = g_lang;
-        g_state.s.default_ls = g_default_ls;
-        request_disp_refresh();
-    }
-
-    //split the update cycle
-    if (g_refresh == START_FIRST_HALF) {
-        update_displays(START_FIRST_HALF);
-        g_refresh = START_SECOND_HALF;
-    }
-    else if (g_refresh == START_SECOND_HALF || g_refresh == ALL_AT_ONCE) {
-        update_displays(g_refresh);
-        g_refresh = DONE_ALL;
+        memcpy(&g_state.s, &g_local, sizeof(g_local));
     }
 }
 
 void housekeeping_task_user(void) {
     sync_and_refresh_displays();
 
-    //turn off displays
-    uint32_t elapsed_time_since_update = timer_elapsed32(last_update);
+    if(last_update>=0) {
+        //turn off displays
+        uint32_t elapsed_time_since_update = timer_elapsed32(last_update);
 
-    if (is_keyboard_master()) {
-        if(elapsed_time_since_update > FADE_OUT_TIME && g_contrast >= MIN_BRIGHT) {
-            int32_t time_after = elapsed_time_since_update - FADE_OUT_TIME;
-            g_contrast = ((FADE_TRANSITION_TIME - time_after) * FULL_BRIGHT) / FADE_TRANSITION_TIME;
+        if (is_usb_host_side()) {
+            g_local.flags |= STATUS_DISP_ON;
+            g_local.flags &= ~IDLE_TRANSITION;
 
-            //transition to pulsing mode
-            if(g_contrast<=MIN_BRIGHT) {
-                g_contrast = -MIN_BRIGHT;
+            if(elapsed_time_since_update > FADE_OUT_TIME && g_local.contrast >= MIN_BRIGHT && (g_local.flags & DISP_IDLE)==0) {
+                poly_eeconf_t ee = load_user_eeconf();
+                int32_t time_after = elapsed_time_since_update - FADE_OUT_TIME;
+                int16_t brightness = ((FADE_TRANSITION_TIME - time_after) * ee.brightness) / FADE_TRANSITION_TIME;
+
+                //transition to pulsing mode
+                if(brightness<=MIN_BRIGHT) {
+                    g_local.contrast = DISP_OFF;
+                    g_local.flags |= DISP_IDLE;
+                } else if(brightness>FULL_BRIGHT) {
+                    g_local.contrast = FULL_BRIGHT;
+                } else{
+                    g_local.contrast = brightness;
+                }
+                g_local.flags |= IDLE_TRANSITION;
+            } else if(elapsed_time_since_update > TURN_OFF_TIME) {
+                poly_suspend();
+            } else if((g_local.flags & DISP_IDLE)!=0) {
+                int32_t time_after = PK_MAX(elapsed_time_since_update - FADE_OUT_TIME - FADE_TRANSITION_TIME, 0)/300;
+                g_local.contrast = time_after%50;
+            } else {
+                g_local.flags &= ~((uint8_t)DISP_IDLE);
             }
-        } else if(elapsed_time_since_update > TURN_OFF_TIME) {
-            g_contrast = DISP_OFF;
-        } else if(g_contrast < MIN_BRIGHT) {
-            int32_t time_after = PK_MAX(elapsed_time_since_update - FADE_OUT_TIME - FADE_TRANSITION_TIME, 0)/300;
-            int8_t amplitude = time_after%14;
-            if(amplitude>7) amplitude = 14-amplitude;
-
-            if(amplitude>2) amplitude = amplitude-2;
-            else if(amplitude==2) amplitude = 1;
-            else amplitude = 0;
-
-            g_contrast = -amplitude;
         }
     }
 }
-enum unicode_names {
-    UM_A,
-    UM_AC,
-    UM_O,
-    UM_OC,
-    UM_U,
-    UM_UC,
-    SZ,
-    SZC
-};
 
-const uint32_t unicode_map[] PROGMEM = {
-    [UM_A]  = UMLAUT_A_SMALL[0],
-    [UM_AC] = UMLAUT_A[0],
-    [UM_O]  = UMLAUT_O_SMALL[0],
-    [UM_OC] = UMLAUT_O[0],
-    [UM_U]  = UMLAUT_U_SMALL[0],
-    [UM_UC] = UMLAUT_U[0],
-    [SZ]  = ESZETT[0],
-    [SZC] = 0x1E9E
-};
-
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //Base Layers
+/*
+                                                              ┌────────────────┐
+                                                              │     QWERTY     │
+                                                              └────────────────┘
+   ┌────────┬───────┬───────┬───────┬───────┬───────┬───────┐                    ┌───────┬───────┬───────┬───────┬───────┬───────┬────────┐
+   │  Esc   │   1   │   2   │   3   │   4   │   5   │  Nubs │ ╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮ │   6   │   7   │   8   │   9   │   0   │   -   │ BckSp  │
+   ├────────┼───────┼───────┼───────┼───────┼───────┼───────┤ │╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯│ ├───────┼───────┼───────┼───────┼───────┼───────┼────────┤
+   │  TAB   │   q   │   w   │   e   │   r   │   t   │   `   ├─╯                ╰─┤  Hypr │   y   │   u   │   i   │   o   │   p   │   \    │
+   ├────────┼───────┼───────┼───────┼───────┼───────┼───────┤                    ├───────┼───────┼───────┼───────┼───────┼───────┼────────┤
+   │  FN    │   a   │   s   │   d   │   f   │   g   │   '   │  (MB1)             │  Intl │   h   │   j   │   k   │   l   │   =   │  Ret   │
+   ├────────┼───────┼───────┼───────┼───────┼───────┼───────┼────────╮  ╭────────┼───────┼───────┼───────┼───────┼───────┼───────┼────────┤
+   │ Shift  │   z   │   x   │   c   │   v   │   b   │  Nuhs │  Num!  │  │   [    │   ]   │   n   │   m   │   ,   │   ;   │  Up   │ Shift  │
+   └┬───────┼───────┼───────┼───────┼──────┬┴───────┼───────┼────────┤  ├────────┼───────┼───────┴┬──────┼───────┼───────┼───────┼───────┬┘
+    │ Ctrl  │  Os   │  Alt  │  Intl │      │  Space │  Del  │   Ret  │  │  Lang  │   /   │ Space  │      │   .   │  Left │  Down │ Right │
+    └───────┴───────┴───────┴───────┘      └────────┴───────┴────────╯  └────────┴───────┴────────┘      └───────┴───────┴───────┴───────┘
+*/
     [_L0] = LAYOUT_left_right_stacked(
         KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_NUBS,
         KC_TAB,     KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       KC_GRAVE,
         MO(_FL0),   KC_A,       KC_S,       KC_D,       KC_F,       KC_G,       KC_QUOTE,   KC_MS_BTN1,
-        KC_LSFT,    KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       KC_NUHS,    MO(_NL),
+        KC_LSFT,    KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       TO(_EMJ0),   MO(_NL),
         KC_LCTL,    KC_LWIN,    KC_LALT,    KC_APP,                 KC_SPACE,   KC_DEL,     KC_ENTER,
 
-                    KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,   KC_EQUAL,
-                    KC_HYPR,    KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       KC_LBRC,
-        KC_NO,      KC_MEH,     KC_H,       KC_J,       KC_K,       KC_L,       KC_SCLN,    KC_RBRC,
-        KC_LANG,    KC_BSLS,    KC_N,       KC_M,       KC_COMMA,   KC_DOT,     KC_SLASH,   KC_RSFT,
-        KC_ENTER,   KC_BSPC,    KC_SPC,                 KC_LEFT,    KC_UP,      KC_DOWN,    KC_RIGHT
+                    KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,   KC_BSPC,
+                    KC_HYPR,    KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       KC_BSLS,
+        KC_NO,      MO(_ADDLANG1),KC_H,     KC_J,       KC_K,       KC_L,       KC_EQUAL,   KC_ENTER,
+        KC_LBRC,    KC_RBRC,    KC_N,       KC_M,       KC_COMMA,   KC_SCLN,    KC_UP,      KC_RSFT,
+        KC_LANG,    KC_SLASH,    KC_SPC,                KC_DOT,     KC_LEFT,    KC_DOWN,    KC_RIGHT
         ),
+
+/*
+                                                              ┌────────────────┐
+                                                              │     QWERTY!    │
+                                                              └────────────────┘
+   ┌────────┬───────┬───────┬───────┬───────┬───────┬───────┐                    ┌───────┬───────┬───────┬───────┬───────┬───────┬────────┐
+   │  Esc   │   1   │   2   │   3   │   4   │   5   │   6   │ ╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮ │   7   │   8   │   9   │   0   │   -   │   =   │  Hypr  │
+   ├────────┼───────┼───────┼───────┼───────┼───────┼───────┤ │╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯│ ├───────┼───────┼───────┼───────┼───────┼───────┼────────┤
+   │  TAB   │   q   │   w   │   e   │   r   │   t   │   `   ├─╯                ╰─┤   y   │   u   │   i   │   o   │   p   │   [   │  Nubs  │
+   ├────────┼───────┼───────┼───────┼───────┼───────┼───────┤                    ├───────┼───────┼───────┼───────┼───────┼───────┼────────┤
+   │  FN    │   a   │   s   │   d   │   f   │   g   │   '   │  (MB1)             │   h   │   j   │   k   │   l   │   ;   │   ]   │    \   │
+   ├────────┼───────┼───────┼───────┼───────┼───────┼───────┼────────╮  ╭────────┼───────┼───────┼───────┼───────┼───────┼───────┼────────┤
+   │ Shift  │ Nuhs  │   z   │   x   │   c   │   v   │   b   │  Num!  │  │  Lang  │  Ctx  │   n   │   m   │   ,   │   .   │   /   │ Shift  │
+   └┬───────┼───────┼───────┼───────┼──────┬┴───────┼───────┼────────┤  ├────────┼───────┼───────┴┬──────┼───────┼───────┼───────┼───────┬┘
+    │ Ctrl  │  Os   │  Alt  │  Intl │      │  Space │  Del  │   Ins  │  │  Ret   │ BckSp │ Space  │      │ Left  │   Up  │  Down │ Right │
+    └───────┴───────┴───────┴───────┘      └────────┴───────┴────────╯  └────────┴───────┴────────┘      └───────┴───────┴───────┴───────┘
+*/
+
     [_L1] = LAYOUT_left_right_stacked(
         KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_6,
         KC_TAB,     KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       KC_GRAVE,
         MO(_FL1),   KC_A,       KC_S,       KC_D,       KC_F,       KC_G,       KC_QUOTE,   KC_MS_BTN1,
-        KC_LSFT,    KC_NUHS,    KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       MO(_NL),
-        KC_LCTL,    KC_LWIN,    KC_LALT,    MO(_ADDLANG1),          KC_SPACE,   KC_DEL,     KC_ENTER,
+        KC_LSFT,    TO(_EMJ0),   KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       MO(_NL),
+        KC_LCTL,    KC_LWIN,    KC_LALT,    MO(_ADDLANG1),          KC_SPACE,   KC_DEL,     KC_INS,
 
                     KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,   KC_EQUAL,   KC_HYPR,
                     KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       KC_LBRC,    KC_NUBS,
@@ -303,50 +483,124 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LANG,    KC_APP,     KC_N,       KC_M,       KC_COMMA,   KC_DOT,     KC_SLASH,   KC_RSFT,
         KC_ENTER,   KC_BSPC,    KC_SPC,                 KC_LEFT,    KC_UP,      KC_DOWN,    KC_RIGHT
         ),
+/*
+                                                              ┌────────────────┐
+                                                              │   Colemak DH   │
+                                                              └────────────────┘
+   ┌────────┬───────┬───────┬───────┬───────┬───────┬───────┐                    ┌───────┬───────┬───────┬───────┬───────┬───────┬────────┐
+   │  Esc   │   1   │   2   │   3   │   4   │   5   │  Nub  │ ╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮ │   6   │   7   │   8   │   9   │   0   │   -   │   =    │
+   ├────────┼───────┼───────┼───────┼───────┼───────┼───────┤ │╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯│ ├───────┼───────┼───────┼───────┼───────┼───────┼────────┤
+   │  TAB   │   q   │   w   │   f   │   p   │   b   │   `   ├─╯                ╰─┤   j   │   l   │   u   │   y   │   ;   │   [   │  Intl  │
+   ├────────┼───────┼───────┼───────┼───────┼───────┼───────┤                    ├───────┼───────┼───────┼───────┼───────┼───────┼────────┤
+   │  FN    │   a   │   r   │   s   │   t   │   g   │   '   │  (MB1)             │   m   │   n   │   e   │   i   │   o   │   ]   │    \   │
+   ├────────┼───────┼───────┼───────┼───────┼───────┼───────┼────────╮  ╭────────┼───────┼───────┼───────┼───────┼───────┼───────┼────────┤
+   │ Shift  │   z   │   x   │   c   │   d   │   v   │  Nuhs |  Num!  │  │  Lang  │  Hypr │   k   │   h   │   ,   │   .   │   /   │ Shift  │
+   └┬───────┼───────┼───────┼───────┼──────┬┴───────┼───────┼────────┤  ├────────┼───────┼───────┴┬──────┼───────┼───────┼───────┼───────┬┘
+    │ Ctrl  │  Os   │  Alt  │  Ctx  │      │  Space │  Del  │   Ret  │  │  Ret   │ BckSp │ Space  │      │ Left  │   Up  │  Down │ Right │
+    └───────┴───────┴───────┴───────┘      └────────┴───────┴────────╯  └────────┴───────┴────────┘      └───────┴───────┴───────┴───────┘
+*/
     [_L2] = LAYOUT_left_right_stacked(
         KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_NUBS,
-        KC_TAB,     KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       KC_GRAVE,
-        MO(_FL1),   KC_A,       KC_S,       KC_D,       KC_F,       KC_G,       KC_QUOTE,   KC_MS_BTN1,
-        KC_LSFT,    KC_NUHS,    KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       MO(_NL),
+        KC_TAB,     KC_Q,       KC_W,       KC_F,       KC_P,       KC_B,       KC_GRAVE,
+        MO(_FL1),   KC_A,       KC_R,       KC_S,       KC_T,       KC_G,       KC_QUOTE,   KC_MS_BTN1,
+        KC_LSFT,    KC_Z,       KC_X,       KC_C,       KC_D,       KC_V,       TO(_EMJ0),    MO(_NL),
         KC_LCTL,    KC_LWIN,    KC_LALT,    KC_APP,                 KC_SPACE,   KC_DEL,     KC_ENTER,
 
                     KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,   KC_EQUAL,
-                    KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       KC_LBRC,    MO(_ADDLANG1),
-        KC_NO,      KC_H,       KC_J,       KC_K,       KC_L,       KC_SCLN,    KC_RBRC,    KC_BSLS,
-        KC_LANG,    KC_HYPR,    KC_N,       KC_M,       KC_COMMA,   KC_DOT,     KC_SLASH,   KC_RSFT,
+                    KC_J,       KC_L,       KC_U,       KC_Y,       KC_SCLN,    KC_LBRC,    MO(_ADDLANG1),
+        KC_NO,      KC_M,       KC_N,       KC_E,       KC_I,       KC_O,       KC_RBRC,    KC_BSLS,
+        KC_LANG,    KC_HYPR,    KC_K,       KC_H,       KC_COMMA,   KC_DOT,     KC_SLASH,   KC_RSFT,
+        KC_ENTER,   KC_BSPC,    KC_SPC,                 KC_LEFT,    KC_UP,      KC_DOWN,    KC_RIGHT
+        ),
+        /*
+                                                              ┌────────────────┐
+                                                              │       Neo      │
+                                                              └────────────────┘
+   ┌────────┬───────┬───────┬───────┬───────┬───────┬───────┐                    ┌───────┬───────┬───────┬───────┬───────┬───────┬────────┐
+   │  Esc   │   1   │   2   │   3   │   4   │   5   │   <   │ ╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮ │   6   │   7   │   8   │   9   │   0   │   -   │   `    │
+   ├────────┼───────┼───────┼───────┼───────┼───────┼───────┤ │╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯│ ├───────┼───────┼───────┼───────┼───────┼───────┼────────┤
+   │  TAB   │   x   │   v   │   l   │   c   │   w   │   ^   ├─╯                ╰─┤   k   │   h   │   g   │   f   │   q   │   ß   │   ´    │
+   ├────────┼───────┼───────┼───────┼───────┼───────┼───────┤                    ├───────┼───────┼───────┼───────┼───────┼───────┼────────┤
+   │  FN    │   u   │   i   │   a   │   e   │   o   │   '   │  (MB1)             │   s   │   n   │   r   │   t   │   d   │   y   │   \    │
+   ├────────┼───────┼───────┼───────┼───────┼───────┼───────┼────────╮  ╭────────┼───────┼───────┼───────┼───────┼───────┼───────┼────────┤
+   │ Shift  │   #   │   ü   │   ö   │   ä   │   p   │   z   │  Num!  │  │  Lang  │   +   │   b   │   m   │   ,   │   .   │   j   │ Shift  │
+   └┬───────┼───────┼───────┼───────┼──────┬┴───────┼───────┼────────┤  ├────────┼───────┼───────┴┬──────┼───────┼───────┼───────┼───────┬┘
+    │ Ctrl  │  Os   │  Alt  │  Ctx  │      │  Space │  Del  │   Ret  │  │  Ret   │ BckSp │ Space  │      │ Left  │   Up  │  Down │ Right │
+    └───────┴───────┴───────┴───────┘      └────────┴───────┴────────╯  └────────┴───────┴────────┘      └───────┴───────┴───────┴───────┘
+*/
+    [_L3] = LAYOUT_left_right_stacked(
+        KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       DE_LABK,
+        KC_TAB,     KC_X,       KC_V,       KC_L,       KC_C,       KC_W,       DE_CIRC,
+        MO(_FL0),   KC_U,       KC_I,       KC_A,       KC_E,       KC_O,       KC_QUOTE,   KC_MS_BTN1,
+        KC_LSFT,    DE_HASH,    DE_UDIA,    DE_ODIA,    DE_ADIA,    KC_P,       DE_Z,       MO(_NL),
+        KC_LCTL,    KC_LWIN,    KC_LALT,    KC_APP,                 KC_SPACE,   KC_DEL,     KC_ENTER,
+
+                    KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       DE_MINS,    DE_GRV,
+                    KC_K,       KC_H,       KC_G,       KC_F,       KC_Q,       DE_SS,      DE_ACUT,
+        KC_NO,      KC_S,       KC_N,       KC_R,       KC_T,       KC_D,       DE_Y,       KC_BSLS,
+        KC_LANG,    DE_PLUS,    KC_B,       KC_M,       KC_COMMA,   KC_DOT,     KC_J,       KC_RSFT,
+        KC_ENTER,   KC_BSPC,    KC_SPC,                 KC_LEFT,    KC_UP,      KC_DOWN,    KC_RIGHT
+        ),
+        /*
+                                                              ┌────────────────┐
+                                                              │    Workman     │
+                                                              └────────────────┘
+   ┌────────┬───────┬───────┬───────┬───────┬───────┬───────┐                    ┌───────┬───────┬───────┬───────┬───────┬───────┬────────┐
+   │  Esc   │   1   │   2   │   3   │   4   │   5   │   `   │ ╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮ │   6   │   7   │   8   │   9   │   0   │   -   │   =    │
+   ├────────┼───────┼───────┼───────┼───────┼───────┼───────┤ │╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯│ ├───────┼───────┼───────┼───────┼───────┼───────┼────────┤
+   │  TAB   │   q   │   d   │   r   │   w   │   b   │  Hypr ├─╯                ╰─┤   j   │   f   │   u   │   p   │   ;   │   [   │   ]    │
+   ├────────┼───────┼───────┼───────┼───────┼───────┼───────┤                    ├───────┼───────┼───────┼───────┼───────┼───────┼────────┤
+   │  FN    │   a   │   s   │   h   │   t   │   g   │  Meh  │  (MB1)             │   y   │   n   │   e   │   o   │   i   │   '   │   \    │
+   ├────────┼───────┼───────┼───────┼───────┼───────┼───────┼────────╮  ╭────────┼───────┼───────┼───────┼───────┼───────┼───────┼────────┤
+   │ Shift  │   z   │   x   │   m   │   c   │   v   │  Intl │  Num!  │  │  Lang  │   k   │   b   │   l   │   ,   │   .   │   /   │ Shift  │
+   └┬───────┼───────┼───────┼───────┼──────┬┴───────┼───────┼────────┤  ├────────┼───────┼───────┴┬──────┼───────┼───────┼───────┼───────┬┘
+    │ Ctrl  │  Os   │  Alt  │  Ctx  │      │  Space │  Del  │   Ret  │  │  Ret   │ BckSp │ Space  │      │ Left  │   Up  │  Down │ Right │
+    └───────┴───────┴───────┴───────┘      └────────┴───────┴────────╯  └────────┴───────┴────────┘      └───────┴───────┴───────┴───────┘
+*/
+    [_L4] = LAYOUT_left_right_stacked(
+        KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_GRAVE,
+        KC_TAB,     KC_Q,       KC_D,       KC_R,       KC_W,       KC_B,       KC_HYPR,
+        MO(_FL1),   KC_A,       KC_S,       KC_H,       KC_T,       KC_G,       TO(_EMJ0),     KC_MS_BTN1,
+        KC_LSFT,    KC_Z,       KC_X,       KC_M,       KC_C,       KC_V,       MO(_ADDLANG1), MO(_NL),
+        KC_LCTL,    KC_LWIN,    KC_LALT,    KC_APP,                 KC_SPACE,   KC_DEL,     KC_ENTER,
+
+                    KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,   KC_EQUAL,
+                    KC_J,       KC_F,       KC_U,       KC_P,       KC_SCLN,    KC_LBRC,    KC_RBRC,
+        KC_NO,      KC_Y,       KC_N,       KC_E,       KC_O,       KC_I,       KC_QUOTE,   KC_BSLS,
+        KC_LANG,    KC_K,       KC_B,       KC_L,       KC_COMMA,   KC_DOT,     KC_SLASH,   KC_RSFT,
         KC_ENTER,   KC_BSPC,    KC_SPC,                 KC_LEFT,    KC_UP,      KC_DOWN,    KC_RIGHT
         ),
     //Function Layer (Fn)
     [_FL0] = LAYOUT_left_right_stacked(
         OSL(_UL),   KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,     TO(_UL),
-        KC_MS_BTN1, _______,    _______,    _______,    _______,    _______,    _______,
+        _______,    _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
         KC_CAPS,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
-        _______,    _______,    _______,    KC_MS_BTN2,             _______,    _______,    _______,
+        _______,    _______,    _______,    KC_BTN2,                _______,    _______,    _______,
 
-                    KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,      KC_F11,     KC_F12,
-                    _______,    _______,    _______,    _______,    _______,    _______,    _______,
+                    KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,      KC_F11,    KC_F12,
+                    KC_BTN3,    KC_BTN2,    _______,    _______,    _______,    _______,    TO(_SL),
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
-        TO(_NL),    _______,    _______,    _______,    _______,    _______,    _______,    _______,
-        _______,    _______,    _______,                KC_HOME,    KC_PGUP,    KC_PGDN,    KC_END
+        TO(_NL),    KC_RALT,    _______,    _______,    _______,    _______,    _______,    _______,
+        KC_BTN1,    KC_RWIN,    KC_RCTL,                KC_HOME,    KC_PGUP,    KC_PGDN,    KC_END
         ),
     [_FL1] = LAYOUT_left_right_stacked(
         OSL(_UL),   KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,
-        KC_MS_BTN1, _______,    _______,    _______,    _______,    _______,    _______,
+        _______,    _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
-        _______,    _______,    _______,    KC_MS_BTN2,             _______,    _______,    _______,
+        _______,    _______,    _______,    _______,             _______,    _______,    _______,
 
                     KC_F7,      KC_F8,      KC_F9,      KC_F10,      KC_F11,     KC_F12,    TO(_UL),
-                    _______,    _______,    _______,    _______,    _______,    _______,    _______,
+                    KC_BTN3,    KC_BTN2,    _______,    _______,    _______,    _______,    TO(_SL),
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    KC_CAPS,
-        TO(_NL),    _______,    _______,    _______,    _______,    _______,    _______,    _______,
-        _______,    _______,    _______,                KC_HOME,    KC_PGUP,    KC_PGDN,    KC_END
+        TO(_NL),    KC_RALT,    _______,    _______,    _______,    _______,    _______,    _______,
+        KC_BTN1,    KC_RWIN,    KC_RCTL,                KC_HOME,    KC_PGUP,    KC_PGDN,    KC_END
         ),
      //Num Layer
     [_NL] = LAYOUT_left_right_stacked(
         KC_NO,      KC_NUM,     KC_PSLS,    KC_PAST,    KC_PMNS,    KC_NO,      KC_NO,
-        KC_MS_BTN1, KC_KP_7,    KC_KP_8,    KC_KP_9,    KC_PPLS,    KC_INS,     KC_NO,
+        KC_BTN1,    KC_KP_7,    KC_KP_8,    KC_KP_9,    KC_PPLS,    KC_INS,     KC_NO,
         KC_NO,      KC_KP_4,    KC_KP_5,    KC_KP_6,    KC_PPLS,    KC_DEL,     KC_NO,     _______,
         KC_NO,      KC_KP_1,    KC_KP_2,    KC_KP_3,    KC_PENT,    KC_NO,      KC_NO,     _______,
         KC_BASE,    KC_KP_0,    KC_PDOT,    KC_PENT,                KC_MS_BTN2, KC_NO,     KC_NO,
@@ -361,18 +615,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_UL] = LAYOUT_left_right_stacked(
         KC_NO,      KC_F13,     KC_F14,     KC_F15,     KC_F16,     KC_F17,     KC_F18,
         KC_MYCM,    KC_CALC,    KC_PSCR,    KC_SCRL,    KC_BRK,     KC_NO,      KC_NO,
-        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,     _______,
-        KC_NO,      KC_NO,      SH_TOGG,      KC_NO,      KC_NO,      KC_NO,      KC_NO,     QK_DEBUG_TOGGLE,
-        KC_BASE,    KC_INCC,    KC_NO,      KC_DECC,                QK_RBT,     QK_MAKE,   QK_BOOT,
+        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      _______,
+        KC_LSFT,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+        KC_BASE,    KC_NO,      KC_NO,      KC_NO,                  KC_NO,      KC_NO,      KC_NO,
 
-                    KC_F19,     KC_F20,     KC_F21,     KC_F22,     KC_F23,     KC_F24,    KC_NO,
-                    KC_MPRV,    KC_MPLY,    KC_MSTP,    KC_MNXT,    KC_MUTE,    KC_VOLD,   KC_VOLU,
-        _______,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,     KC_NO,
-        KC_NO,      KC_NO,      KC_TOGBASE, KC_L0,      KC_L1,      KC_L2,      KC_NO,     KC_NO,
-        KC_NO,      KC_NO,      KC_NO,                  RGB_RMOD,   RGB_TOG,    RGB_MOD,   KC_BASE
+                    KC_F19,     KC_F20,     KC_F21,     KC_F22,     KC_F23,     KC_F24,     KC_NO,
+                    KC_NO,      KC_MPRV,    KC_MPLY,    KC_MSTP,    KC_MNXT,    KC_NO,      TO(_SL),
+        _______,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+        KC_NO,      KC_NO,      KC_MUTE,    KC_VOLD,    KC_VOLU,    KC_NO,      KC_NO,      KC_RSFT,
+        KC_NO,      KC_NO,      KC_NO,                  KC_NO,      KC_NO,      KC_NO,      KC_BASE
+        ),
+    //Settings Layer
+    [_SL] = LAYOUT_left_right_stacked(
+        KC_DDIM,    KC_DMIN,    KC_D1Q,     KC_DHLF,    KC_D3Q,     KC_DMAX,    KC_DBRI,
+        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+        KC_NO,      KC_L0,      KC_L1,      KC_L2,      KC_L3,      KC_L4,      KC_NO,      _______,
+        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      QK_RBT,
+        KC_BASE,    KC_NO,      KC_NO,      KC_NO,                  KC_NO,      QK_MAKE,    QK_BOOT,
+
+
+                    RGB_RMOD,   RGB_M_SW,   RGB_M_R,    RGB_TOG,    RGB_M_P,    RGB_M_B,    RGB_MOD,
+                    KC_NO,      RGB_SPD,    RGB_SPI,    KC_NO,      RGB_HUD,    RGB_HUI,    KC_NO,
+        _______,    KC_NO,      RGB_VAD,    RGB_VAI,    KC_NO,      RGB_SAD,    RGB_SAI,    KC_NO,
+        EE_CLR,     KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+        DB_TOGG,    KC_DEADKEY, KC_NO,                  KC_NO,      KC_NO,      KC_NO,      KC_BASE
         ),
     //Language Selection Layer
-    [_LS] = LAYOUT_left_right_stacked(
+    [_LL] = LAYOUT_left_right_stacked(
                         KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
                         KC_NO,      KC_LANG_PT, KC_LANG_ES, KC_LANG_AR, KC_LANG_GR, KC_NO,      KC_NO,
         QK_UNICODE_MODE_WINCOMPOSE, KC_LANG_FR, KC_LANG_DE, KC_LANG_JA, KC_LANG_TR, KC_NO,      KC_NO,      KC_MS_BTN1,
@@ -386,17 +655,43 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,      KC_NO,      KC_NO,                  KC_NO,      KC_NO,      KC_NO,      KC_BASE
         ),
     [_ADDLANG1] = LAYOUT_left_right_stacked(
-        _______,    _______,    _______,    _______,    _______,    _______,    _______,
-        _______,    _______,    _______,    _______,    _______,    _______,    _______,
-        _______,    XP(UM_A,UM_AC),   XP(SZ,SZC),    _______,    _______,    _______,    _______,    _______,
+        KC_NO,      KC_NO,      KC_LAT0,    KC_LAT1,    KC_LAT2,    KC_LAT3,    KC_LAT4,
+        KC_NO,      _______,    _______,    _______,    _______,    _______,    _______,
+        KC_NO,      _______,    _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
-        _______,    _______,    _______,    _______,                _______,    _______,    _______,
+        KC_NO,      KC_NO,      _______,    _______,                _______,    _______,    _______,
 
-                    _______,    _______,    _______,    _______,    _______,    _______,     _______,
-                    _______,    XP(UM_U,UM_UC),    _______,    XP(UM_O,UM_OC),    _______,    _______,    _______,
-        _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
+                    KC_LAT5,    KC_LAT6,    KC_LAT7,    KC_LAT8,    KC_LAT9,    KC_NO,      KC_NO,
+                    _______,    _______,    _______,    _______,    _______,    _______,    KC_NO,
+        _______,    _______,    _______,    _______,    _______,    _______,    _______,    KC_NO,
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,                _______,    _______,    _______,    _______
+        ),
+    [_EMJ0] = LAYOUT_left_right_stacked(
+        UM(0),    UM(1),    UM(2),    UM(3),    UM(4),    UM(5),    UM(6),
+        UM(14),   UM(15),   UM(16),   UM(17),   UM(18),   UM(19),   UM(20),
+        UM(28),   UM(29),   UM(30),   UM(31),   UM(32),   UM(33),   UM(34),   _______,
+        UM(42),   UM(43),   UM(44),   UM(45),   UM(46),   UM(47),   UM(48),   UM(49),
+        KC_BASE,  UM(58),   UM(59),   UM(60),             UM(61),   UM(62),   UM(63),
+
+                  UM(7),    UM(8),    UM(9),    UM(10),   UM(11),   UM(12),   UM(13),
+                  UM(21),   UM(22),   UM(23),   UM(24),   UM(25),   UM(26),   UM(27),
+        _______,  UM(35),   UM(36),   UM(37),   UM(38),   UM(39),   UM(40),   UM(41),
+        UM(50),   UM(51),   UM(52),   UM(53),   UM(54),   UM(55),   UM(56),   UM(57),
+        UM(64),   UM(65),   UM(66),             UM(67),   UM(68),   UM(69),   TO(_EMJ1)
+        ),
+    [_EMJ1] = LAYOUT_left_right_stacked(
+        UM(70+0),    UM(70+1),    UM(70+2),    UM(70+3),    UM(70+4),    UM(70+5),    UM(70+6),
+        UM(70+14),   UM(70+15),   UM(70+16),   UM(70+17),   UM(70+18),   UM(70+19),   UM(70+20),
+        UM(70+28),   UM(70+29),   UM(70+30),   UM(70+31),   UM(70+32),   UM(70+33),   UM(70+34),   _______,
+        UM(70+42),   UM(70+43),   UM(70+44),   UM(70+45),   UM(70+46),   UM(70+47),   UM(70+48),   UM(70+49),
+        KC_BASE,     UM(70+58),   UM(70+59),   UM(70+60),                UM(70+61),   UM(70+62),   UM(70+63),
+
+                     UM(70+7),    UM(70+8),    UM(70+9),    UM(70+10),   UM(70+11),   UM(70+12),   UM(70+13),
+                     UM(70+21),   UM(70+22),   UM(70+23),   UM(70+24),   UM(70+25),   UM(70+26),   UM(70+27),
+        _______,     UM(70+35),   UM(70+36),   UM(70+37),   UM(70+38),   UM(70+39),   UM(70+40),   UM(70+41),
+        UM(70+50),   UM(70+51),   UM(70+52),   UM(70+53),   UM(70+54),   UM(70+55),   UM(70+56),   UM(70+57),
+        UM(70+64),   UM(70+65),   UM(70+66),                UM(70+67),   UM(70+68),   UM(70+69),   TO(_EMJ0)
         )
 };
 
@@ -444,108 +739,181 @@ led_config_t g_led_config = { {// Key Matrix to LED Index
                                  4, 4, 4, 4, 4, 4, 4, 4
                              } };
 
-const uint16_t* get_led_matrix_text(void) {
-    switch(rgb_matrix_get_mode()) {
-        case RGB_MATRIX_SPLASH:
-            return u"Sp";
-        case RGB_MATRIX_MULTISPLASH:
-            return u"SpMu";
-        case RGB_MATRIX_SOLID_SPLASH:
-            return u"SpSo";
-        case RGB_MATRIX_SOLID_MULTISPLASH:
-            return u"SpSM";
-        case RGB_MATRIX_RAINBOW_MOVING_CHEVRON:
-            return u"Rnbw";
-        case RGB_MATRIX_BREATHING:
-            return u"Brth";
-        case RGB_MATRIX_SOLID_REACTIVE_SIMPLE:
-            return u"Smpl";
-        case RGB_MATRIX_SOLID_REACTIVE_CROSS:
-            return u"Crss";
-        case RGB_MATRIX_SOLID_REACTIVE:
-            return u"Rctv";
-        case RGB_MATRIX_SOLID_REACTIVE_WIDE:
-            return u"RtWd";
-        case RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE:
-            return u"RtMW";
-        case RGB_MATRIX_SOLID_REACTIVE_MULTICROSS:
-            return u"RtMC";
-        case RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS:
-            return u"RtMN";
-        case RGB_MATRIX_SOLID_REACTIVE_NEXUS:
-            return u"RtNe";
-        case RGB_MATRIX_ALPHAS_MODS:
-            return u"AlpM";
-        case RGB_MATRIX_GRADIENT_UP_DOWN:
-            return u"GrUD";
-        case RGB_MATRIX_GRADIENT_LEFT_RIGHT:
-            return u"GrLR";
-        case RGB_MATRIX_BAND_SAT:
-            return u"BndS";
-        case RGB_MATRIX_BAND_VAL:
-            return u"BndV";
-        case RGB_MATRIX_BAND_PINWHEEL_SAT:
-            return u"BPwS";
-        case RGB_MATRIX_BAND_PINWHEEL_VAL:
-            return u"BPwV";
-        case RGB_MATRIX_BAND_SPIRAL_SAT:
-            return u"BSpS";
-        case RGB_MATRIX_CYCLE_ALL:
-            return u"All";
-        case RGB_MATRIX_CYCLE_LEFT_RIGHT:
-            return u"CyLR";
-        case RGB_MATRIX_CYCLE_UP_DOWN:
-            return u"CyUD";
-        case RGB_MATRIX_CYCLE_OUT_IN:
-            return u"CyOI";
-        case RGB_MATRIX_CYCLE_OUT_IN_DUAL:
-            return u"CyDu";
-        case RGB_MATRIX_CYCLE_PINWHEEL:
-            return u"CyPw";
-        case RGB_MATRIX_CYCLE_SPIRAL:
-            return u"CySp";
-        case RGB_MATRIX_DUAL_BEACON:
-            return u"DuBc";
-        case RGB_MATRIX_RAINBOW_BEACON:
-            return u"RnBc";
-        case RGB_MATRIX_RAINBOW_PINWHEELS:
-            return u"RnPw";
-        case RGB_MATRIX_RAINDROPS:
-            return u"Rndp";
-        case RGB_MATRIX_JELLYBEAN_RAINDROPS:
-            return u"JRnp";
-        case RGB_MATRIX_HUE_BREATHING:
-            return u"HueB";
-        case RGB_MATRIX_HUE_PENDULUM:
-            return u"HueP";
-        case RGB_MATRIX_HUE_WAVE:
-            return u"HueW";
-        case RGB_MATRIX_PIXEL_FRACTAL:
-            return u"PxlF";
-        case RGB_MATRIX_PIXEL_FLOW:
-            return u"PxlF";
-        case RGB_MATRIX_PIXEL_RAIN:
-            return u"PxlR";
-        default:
-            return u"Unkn";
-    }
-}
-
-
 const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     switch (keycode) {
+    /*[[[cog
+    wb = load_workbook(filename = os.path.join(os.path.abspath(os.path.dirname(cog.inFile)), "lang/lang_lut.xlsx"), data_only=True)
+    sheet = wb['named_glyphs']
+
+    idx = 0
+    glyph_index = 1
+    glyph_key = sheet[f"A{glyph_index}"].value
+    while glyph_key and not glyph_key.startswith("PRIVATE_EMOJI"):
+        glyph_key = sheet[f"A{glyph_index}"].value
+        glyph_index = glyph_index + 1
+    while glyph_key and glyph_key.startswith("PRIVATE_EMOJI"):
+        cog.outl(f'case UM({idx}): return u" " {glyph_key};')
+        glyph_key = sheet[f"A{glyph_index}"].value
+        idx = idx + 1
+        glyph_index = glyph_index + 1
+
+    ]]]*/
+    case UM(0): return u" " PRIVATE_EMOJI_1F600;
+    case UM(1): return u" " PRIVATE_EMOJI_1F601;
+    case UM(2): return u" " PRIVATE_EMOJI_1F602;
+    case UM(3): return u" " PRIVATE_EMOJI_1F603;
+    case UM(4): return u" " PRIVATE_EMOJI_1F604;
+    case UM(5): return u" " PRIVATE_EMOJI_1F605;
+    case UM(6): return u" " PRIVATE_EMOJI_1F606;
+    case UM(7): return u" " PRIVATE_EMOJI_1F607;
+    case UM(8): return u" " PRIVATE_EMOJI_1F608;
+    case UM(9): return u" " PRIVATE_EMOJI_1F609;
+    case UM(10): return u" " PRIVATE_EMOJI_1F60A;
+    case UM(11): return u" " PRIVATE_EMOJI_1F60B;
+    case UM(12): return u" " PRIVATE_EMOJI_1F60C;
+    case UM(13): return u" " PRIVATE_EMOJI_1F60D;
+    case UM(14): return u" " PRIVATE_EMOJI_1F60E;
+    case UM(15): return u" " PRIVATE_EMOJI_1F60F;
+    case UM(16): return u" " PRIVATE_EMOJI_1F610;
+    case UM(17): return u" " PRIVATE_EMOJI_1F611;
+    case UM(18): return u" " PRIVATE_EMOJI_1F612;
+    case UM(19): return u" " PRIVATE_EMOJI_1F613;
+    case UM(20): return u" " PRIVATE_EMOJI_1F614;
+    case UM(21): return u" " PRIVATE_EMOJI_1F615;
+    case UM(22): return u" " PRIVATE_EMOJI_1F616;
+    case UM(23): return u" " PRIVATE_EMOJI_1F617;
+    case UM(24): return u" " PRIVATE_EMOJI_1F618;
+    case UM(25): return u" " PRIVATE_EMOJI_1F619;
+    case UM(26): return u" " PRIVATE_EMOJI_1F61A;
+    case UM(27): return u" " PRIVATE_EMOJI_1F61B;
+    case UM(28): return u" " PRIVATE_EMOJI_1F61C;
+    case UM(29): return u" " PRIVATE_EMOJI_1F61D;
+    case UM(30): return u" " PRIVATE_EMOJI_1F61E;
+    case UM(31): return u" " PRIVATE_EMOJI_1F61F;
+    case UM(32): return u" " PRIVATE_EMOJI_1F620;
+    case UM(33): return u" " PRIVATE_EMOJI_1F621;
+    case UM(34): return u" " PRIVATE_EMOJI_1F622;
+    case UM(35): return u" " PRIVATE_EMOJI_1F623;
+    case UM(36): return u" " PRIVATE_EMOJI_1F624;
+    case UM(37): return u" " PRIVATE_EMOJI_1F625;
+    case UM(38): return u" " PRIVATE_EMOJI_1F626;
+    case UM(39): return u" " PRIVATE_EMOJI_1F627;
+    case UM(40): return u" " PRIVATE_EMOJI_1F628;
+    case UM(41): return u" " PRIVATE_EMOJI_1F629;
+    case UM(42): return u" " PRIVATE_EMOJI_1F62A;
+    case UM(43): return u" " PRIVATE_EMOJI_1F62B;
+    case UM(44): return u" " PRIVATE_EMOJI_1F62C;
+    case UM(45): return u" " PRIVATE_EMOJI_1F62D;
+    case UM(46): return u" " PRIVATE_EMOJI_1F62E;
+    case UM(47): return u" " PRIVATE_EMOJI_1F62F;
+    case UM(48): return u" " PRIVATE_EMOJI_1F630;
+    case UM(49): return u" " PRIVATE_EMOJI_1F631;
+    case UM(50): return u" " PRIVATE_EMOJI_1F632;
+    case UM(51): return u" " PRIVATE_EMOJI_1F633;
+    case UM(52): return u" " PRIVATE_EMOJI_1F634;
+    case UM(53): return u" " PRIVATE_EMOJI_1F635;
+    case UM(54): return u" " PRIVATE_EMOJI_1F636;
+    case UM(55): return u" " PRIVATE_EMOJI_1F637;
+    case UM(56): return u" " PRIVATE_EMOJI_1F638;
+    case UM(57): return u" " PRIVATE_EMOJI_1F639;
+    case UM(58): return u" " PRIVATE_EMOJI_1F644;
+    case UM(59): return u" " PRIVATE_EMOJI_1F645;
+    case UM(60): return u" " PRIVATE_EMOJI_1F646;
+    case UM(61): return u" " PRIVATE_EMOJI_1F647;
+    case UM(62): return u" " PRIVATE_EMOJI_1F648;
+    case UM(63): return u" " PRIVATE_EMOJI_1F649;
+    case UM(64): return u" " PRIVATE_EMOJI_1F64A;
+    case UM(65): return u" " PRIVATE_EMOJI_1F64B;
+    case UM(66): return u" " PRIVATE_EMOJI_1F64C;
+    case UM(67): return u" " PRIVATE_EMOJI_1F64D;
+    case UM(68): return u" " PRIVATE_EMOJI_1F64E;
+    case UM(69): return u" " PRIVATE_EMOJI_1F64F;
+    case UM(70): return u" " PRIVATE_EMOJI_1F440;
+    case UM(71): return u" " PRIVATE_EMOJI_1F441;
+    case UM(72): return u" " PRIVATE_EMOJI_1F442;
+    case UM(73): return u" " PRIVATE_EMOJI_1F443;
+    case UM(74): return u" " PRIVATE_EMOJI_1F444;
+    case UM(75): return u" " PRIVATE_EMOJI_1F445;
+    case UM(76): return u" " PRIVATE_EMOJI_1F446;
+    case UM(77): return u" " PRIVATE_EMOJI_1F447;
+    case UM(78): return u" " PRIVATE_EMOJI_1F448;
+    case UM(79): return u" " PRIVATE_EMOJI_1F449;
+    case UM(80): return u" " PRIVATE_EMOJI_1F44A;
+    case UM(81): return u" " PRIVATE_EMOJI_1F44B;
+    case UM(82): return u" " PRIVATE_EMOJI_1F44C;
+    case UM(83): return u" " PRIVATE_EMOJI_1F44D;
+    case UM(84): return u" " PRIVATE_EMOJI_1F44E;
+    case UM(85): return u" " PRIVATE_EMOJI_1F44F;
+    case UM(86): return u" " PRIVATE_EMOJI_1F450;
+    case UM(87): return u" " PRIVATE_EMOJI_1F451;
+    case UM(88): return u" " PRIVATE_EMOJI_1F452;
+    case UM(89): return u" " PRIVATE_EMOJI_1F453;
+    case UM(90): return u" " PRIVATE_EMOJI_1F47B;
+    case UM(91): return u" " PRIVATE_EMOJI_1F47C;
+    case UM(92): return u" " PRIVATE_EMOJI_1F47D;
+    case UM(93): return u" " PRIVATE_EMOJI_1F47E;
+    case UM(94): return u" " PRIVATE_EMOJI_1F47F;
+    case UM(95): return u" " PRIVATE_EMOJI_1F480;
+    case UM(96): return u" " PRIVATE_EMOJI_1F481;
+    case UM(97): return u" " PRIVATE_EMOJI_1F482;
+    case UM(98): return u" " PRIVATE_EMOJI_1F483;
+    case UM(99): return u" " PRIVATE_EMOJI_1F484;
+    case UM(100): return u" " PRIVATE_EMOJI_1F485;
+    case UM(101): return u" " PRIVATE_EMOJI_1F489;
+    case UM(102): return u" " PRIVATE_EMOJI_1F48A;
+    case UM(103): return u" " PRIVATE_EMOJI_1F48B;
+    case UM(104): return u" " PRIVATE_EMOJI_1F48C;
+    case UM(105): return u" " PRIVATE_EMOJI_1F48D;
+    case UM(106): return u" " PRIVATE_EMOJI_1F48E;
+    case UM(107): return u" " PRIVATE_EMOJI_1F48F;
+    case UM(108): return u" " PRIVATE_EMOJI_1F490;
+    case UM(109): return u" " PRIVATE_EMOJI_1F491;
+    case UM(110): return u" " PRIVATE_EMOJI_1F492;
+    case UM(111): return u" " PRIVATE_EMOJI_1F493;
+    case UM(112): return u" " PRIVATE_EMOJI_1F494;
+    case UM(113): return u" " PRIVATE_EMOJI_1F495;
+    case UM(114): return u" " PRIVATE_EMOJI_1F496;
+    case UM(115): return u" " PRIVATE_EMOJI_1F4A1;
+    case UM(116): return u" " PRIVATE_EMOJI_1F4A2;
+    case UM(117): return u" " PRIVATE_EMOJI_1F4A3;
+    case UM(118): return u" " PRIVATE_EMOJI_1F4A4;
+    case UM(119): return u" " PRIVATE_EMOJI_1F4A5;
+    case UM(120): return u" " PRIVATE_EMOJI_1F4A6;
+    case UM(121): return u" " PRIVATE_EMOJI_1F4A7;
+    case UM(122): return u" " PRIVATE_EMOJI_1F4A8;
+    case UM(123): return u" " PRIVATE_EMOJI_1F4A9;
+    case UM(124): return u" " PRIVATE_EMOJI_1F4AA;
+    case UM(125): return u" " PRIVATE_EMOJI_1F4AB;
+    case UM(126): return u" " PRIVATE_EMOJI_1F4AC;
+    case UM(127): return u" " PRIVATE_EMOJI_1F4AD;
+    case UM(128): return u" " PRIVATE_EMOJI_1F4AE;
+    case UM(129): return u" " PRIVATE_EMOJI_1F4AF;
+    case UM(130): return u" " PRIVATE_EMOJI_1F4B0;
+    case UM(131): return u" " PRIVATE_EMOJI_1F4B1;
+    case UM(132): return u" " PRIVATE_EMOJI_1F912;
+    case UM(133): return u" " PRIVATE_EMOJI_1F913;
+    case UM(134): return u" " PRIVATE_EMOJI_1F914;
+    case UM(135): return u" " PRIVATE_EMOJI_1F915;
+    case UM(136): return u" " PRIVATE_EMOJI_1F916;
+    case UM(137): return u" " PRIVATE_EMOJI_1F917;
+    case UM(138): return u" " PRIVATE_EMOJI_1F918;
+    case UM(139): return u" " PRIVATE_EMOJI_1F919;
+    //[[[end]]]
+    case TO(_EMJ0): return u" " PRIVATE_EMOJI_1F600 u"\v" ICON_LAYER;
+    case TO(_EMJ1): return u" " PRIVATE_EMOJI_1F440 u"\v" ICON_LAYER;
+    case KC_DEADKEY: return (g_local.flags&DEAD_KEY_ON_WAKEUP)==0 ? u"WakeX\r\v" ICON_SWITCH_OFF : u"WakeX\r\v" ICON_SWITCH_ON;
     case QK_UNICODE_MODE_MACOS: return u"Mac";
     case QK_UNICODE_MODE_LINUX: return u"Lnx";
     case QK_UNICODE_MODE_WINDOWS: return u"Win";
     case QK_UNICODE_MODE_BSD: return u"BSD";
-    case QK_UNICODE_MODE_WINCOMPOSE: return u"WCmp";
+    case QK_UNICODE_MODE_WINCOMPOSE: return u"WinC";
     case QK_UNICODE_MODE_EMACS: return u"Emcs";
     case QK_LEAD:
         return u"Lead";
     case KC_HYPR:
-        return u"Hypr";
+        return u" " PRIVATE_HYPER;
     case KC_MEH:
-        return u"Meh";
+        return u" " PRIVATE_MEH;
     case KC_EXEC:
         return u"Exec";
     case KC_NUM_LOCK:
@@ -590,11 +958,35 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case QK_DEBUG_TOGGLE:
         return debug_enable==0? u"Dbg\r\v" ICON_SWITCH_OFF : u"Dbg\r\v" ICON_SWITCH_ON;
     case RGB_RMOD:
-        return u"RGB\v" ICON_LEFT;
+        return u" " ICON_LEFT PRIVATE_LIGHT;
     case RGB_TOG:
-        return get_led_matrix_text();
+        return u"  I/O";
     case RGB_MOD:
-        return u"RGB\v" ICON_RIGHT;
+        return PRIVATE_LIGHT ICON_RIGHT;
+    case RGB_HUI:
+        return u"Hue+";
+    case RGB_HUD:
+        return u"Hue-";
+    case RGB_SAI:
+        return u"Sat+";
+    case RGB_SAD:
+        return u"Sat-";
+    case RGB_VAI:
+        return u"Bri+";
+    case RGB_VAD:
+        return u"Bri-";
+    case RGB_SPI:
+        return u"Spd+";
+    case RGB_SPD:
+        return u"Spd-";
+    case RGB_MODE_PLAIN:
+        return u"Plan";
+    case RGB_MODE_BREATHE:
+        return u"Brth";
+    case RGB_MODE_SWIRL:
+        return u"Swrl";
+    case RGB_MODE_RAINBOW:
+        return u"Rnbw";
     case KC_MEDIA_NEXT_TRACK:
         return ICON_RIGHT ICON_RIGHT;
     case KC_MEDIA_PLAY_PAUSE:
@@ -609,11 +1001,11 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         return u">>>";
     case KC_MS_ACCEL2:
         return u">>>>";
-    case KC_MS_BTN1:
+    case KC_BTN1:
         return u"  " ICON_LMB;
-    case KC_MS_BTN2:
+    case KC_BTN2:
         return u"  " ICON_RMB;
-    case KC_MS_BTN3:
+    case KC_BTN3:
         return u"  " ICON_MMB;
     case KC_MS_UP:
         return u"  " ICON_UP;
@@ -630,7 +1022,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case KC_AUDIO_VOL_UP:
         return u"  " PRIVATE_VOL_UP;
     case KC_PRINT_SCREEN:
-        return u"  " PRIVATE_SCREEN;
+        return u"  " PRIVATE_IMAGE;
     case KC_SCROLL_LOCK:
         return u"ScLk";
     case KC_PAUSE:
@@ -649,6 +1041,8 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         return TECHNICAL_ERASERIGHT;
     case KC_MYCM:
         return u"  " PRIVATE_PC;
+    case TO(_SL):
+        return PRIVATE_SETTINGS u"\v" ICON_LAYER;
     case MO(_FL0):
     case MO(_FL1):
         return u"Fn\r\v\t" ICON_LAYER;
@@ -658,14 +1052,16 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         return u"Nm!\r\v\t" ICON_LAYER;
     case KC_BASE:
         return u"Base\r\v\t" ICON_LAYER;
-    case KC_TOGBASE:
-        return u"TgBL\r\v\t" ICON_LAYER;
     case KC_L0:
-        return g_default_ls==_L0 ? u"BL 0" ICON_LAYER u"\r\v" ICON_SWITCH_ON : u"BL 0" ICON_LAYER u"\r\v" ICON_SWITCH_OFF;
+        return g_local.default_ls==_L0 ? u"Qwty\r\v" ICON_SWITCH_ON : u"Qwty\r\v" ICON_SWITCH_OFF;
     case KC_L1:
-        return g_default_ls==_L1 ? u"BL 1" ICON_LAYER u"\r\v" ICON_SWITCH_ON : u"BL 0" ICON_LAYER u"\r\v" ICON_SWITCH_OFF;
+        return g_local.default_ls==_L1 ? u"Qwty!\r\v" ICON_SWITCH_ON : u"Qwty!\r\v" ICON_SWITCH_OFF;
     case KC_L2:
-        return g_default_ls==_L2 ? u"BL 2" ICON_LAYER u"\r\v" ICON_SWITCH_ON : u"BL 0" ICON_LAYER u"\r\v" ICON_SWITCH_OFF;
+        return g_local.default_ls==_L2 ? u"Clmk\r\v" ICON_SWITCH_ON : u"Clmk\r\v" ICON_SWITCH_OFF;
+    case KC_L3:
+        return g_local.default_ls==_L3 ? u"Neo\r\v" ICON_SWITCH_ON : u"Neo\r\v" ICON_SWITCH_OFF;
+    case KC_L4:
+        return g_local.default_ls==_L4 ? u"Wkm\r\v" ICON_SWITCH_ON : u"Wkm\r\v" ICON_SWITCH_OFF;
     case OSL(_UL):
         return u"Util*\r\v\t" ICON_LAYER;
     case TO(_UL):
@@ -700,9 +1096,8 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case KC_RIGHT_CTRL:
         return TECHNICAL_COMMAND;
     case KC_LEFT_ALT:
-        return TECHNICAL_OPTION;
     case KC_RIGHT_ALT:
-        return u"AltGr";
+        return TECHNICAL_OPTION;
     case KC_LWIN:
     case KC_RWIN:
         return  DINGBAT_BLACK_DIA_X;
@@ -721,43 +1116,72 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         return u" " ICON_SHIFT;
     case KC_NO:
         return u"";
-    case KC_DECC:
-        return u" -";
-    case KC_INCC:
-        return u" +";
+    case KC_DDIM:
+        return u"  " ICON_LEFT;
+    case KC_DBRI:
+        return u"  " ICON_RIGHT;
+    case KC_D1Q:
+        return u"  " PRIVATE_DISP_DARKER;
+    case KC_D3Q:
+        return u"  " PRIVATE_DISP_BRIGHTER;
+    case KC_DHLF:
+        return u"  " PRIVATE_DISP_HALF;
+    case KC_DMIN:
+        return u"  " PRIVATE_DISP_DARK;
+    case KC_DMAX:
+        return u"  " PRIVATE_DISP_BRIGHT;
     case KC_LANG:
         return PRIVATE_WORLD;
     case SH_TOGG:
         return u"SwpH";
     case QK_MAKE:
         return u"Make";
+    case EE_CLR:
+        return u"ClrEE";
     case QK_REBOOT:
-        return u"Rst";
+        return u" " ARROWS_CIRCLE;
         /*[[[cog
             for lang in languages:
                 short = lang.split("_")[1]
-                cog.outl(f'case KC_{lang}: return g_lang == {lang} ? u"[{short}]" : u" {short}";')
+                cog.outl(f'case KC_{lang}: return g_local.lang == {lang} ? u"[{short}]" : u" {short}";')
         ]]]*/
-        case KC_LANG_EN: return g_lang == LANG_EN ? u"[EN]" : u" EN";
-        case KC_LANG_DE: return g_lang == LANG_DE ? u"[DE]" : u" DE";
-        case KC_LANG_FR: return g_lang == LANG_FR ? u"[FR]" : u" FR";
-        case KC_LANG_ES: return g_lang == LANG_ES ? u"[ES]" : u" ES";
-        case KC_LANG_PT: return g_lang == LANG_PT ? u"[PT]" : u" PT";
-        case KC_LANG_IT: return g_lang == LANG_IT ? u"[IT]" : u" IT";
-        case KC_LANG_TR: return g_lang == LANG_TR ? u"[TR]" : u" TR";
-        case KC_LANG_KO: return g_lang == LANG_KO ? u"[KO]" : u" KO";
-        case KC_LANG_JA: return g_lang == LANG_JA ? u"[JA]" : u" JA";
-        case KC_LANG_AR: return g_lang == LANG_AR ? u"[AR]" : u" AR";
-        case KC_LANG_GR: return g_lang == LANG_GR ? u"[GR]" : u" GR";
+        case KC_LANG_EN: return g_local.lang == LANG_EN ? u"[EN]" : u" EN";
+        case KC_LANG_DE: return g_local.lang == LANG_DE ? u"[DE]" : u" DE";
+        case KC_LANG_FR: return g_local.lang == LANG_FR ? u"[FR]" : u" FR";
+        case KC_LANG_ES: return g_local.lang == LANG_ES ? u"[ES]" : u" ES";
+        case KC_LANG_PT: return g_local.lang == LANG_PT ? u"[PT]" : u" PT";
+        case KC_LANG_IT: return g_local.lang == LANG_IT ? u"[IT]" : u" IT";
+        case KC_LANG_TR: return g_local.lang == LANG_TR ? u"[TR]" : u" TR";
+        case KC_LANG_KO: return g_local.lang == LANG_KO ? u"[KO]" : u" KO";
+        case KC_LANG_JA: return g_local.lang == LANG_JA ? u"[JA]" : u" JA";
+        case KC_LANG_AR: return g_local.lang == LANG_AR ? u"[AR]" : u" AR";
+        case KC_LANG_GR: return g_local.lang == LANG_GR ? u"[GR]" : u" GR";
         //[[[end]]]
     case KC_LNG1:
         return u"Han/Y";
     case KC_APP:
         return u" Ctx";
+    case DE_GRV: //for Neo Layout
+        return u"`";
     default:
     {
         bool shift = ((get_mods() & MOD_MASK_SHIFT) != 0);
-        const uint16_t* text = translate_keycode(g_lang, keycode, shift, state.caps_lock);
+        bool add_lang = get_highest_layer(layer_state)==_ADDLANG1;
+        bool alt = ((get_mods() & MOD_MASK_ALT) != 0);
+        if(keycode>=KC_A && keycode<=KC_Z && add_lang) {
+            const uint8_t offset = (shift || state.caps_lock) ? 0 : 26;
+            uint8_t variation = (shift || state.caps_lock) ? latin_ex[keycode-KC_A]>>4 : latin_ex[keycode-KC_A]&0xf;
+
+            const uint16_t* def_variation = latin_ex_map[offset+keycode-KC_A][0];
+            return (def_variation!=NULL) ? latin_ex_map[offset+keycode-KC_A][variation] : NULL;
+        }
+
+        if(keycode>=KC_LAT0 && keycode<=KC_LAT9 && add_lang && alt && g_local.last_latin_kc!=0) {
+            const uint8_t offset = (shift || state.caps_lock) ? 0 : 26;
+            return latin_ex_map[offset+g_local.last_latin_kc-KC_A][keycode-KC_LAT0];
+        }
+
+        const uint16_t* text = translate_keycode(g_local.lang, keycode, shift, state.caps_lock);
         if (text != NULL) {
             return text;
         }
@@ -773,7 +1197,6 @@ const uint16_t* keycode_to_disp_overlay(uint16_t keycode, led_t state) {
         case KC_F2: return u"      " PRIVATE_NOTE;
         case KC_F5: return u"     " ARROWS_CIRCLE;
         case QK_DEBUG_TOGGLE: return debug_enable==0 ? u"\v" ICON_SWITCH_OFF : u"\v" ICON_SWITCH_ON;
-        case RGB_TOG: return rgb_matrix_is_enabled() ? u"\v" ICON_SWITCH_ON : u"\v" ICON_SWITCH_OFF;
         default: break;
     }
 
@@ -794,8 +1217,9 @@ const uint16_t* keycode_to_disp_overlay(uint16_t keycode, led_t state) {
         }
     } else if((get_mods() & MOD_MASK_GUI) != 0) {
         switch(keycode) {
-            case KC_D:      return u"    " PRIVATE_SCREEN;
+            case KC_D:      return u"    " PRIVATE_PC;
             case KC_L:      return u"    " PRIVATE_LOCK;
+            case KC_P:      return u"    " PRIVATE_SCREEN;
             case KC_UP:     return u"     " PRIVATE_MAXIMIZE;
             case KC_DOWN:   return u"     " PRIVATE_WINDOW;
             default: break;
@@ -806,15 +1230,16 @@ const uint16_t* keycode_to_disp_overlay(uint16_t keycode, led_t state) {
 
 
 void update_displays(enum refresh_mode mode) {
-    uint8_t layer = get_highest_layer(layer_state);
-    /*if (layer > _LS) {
-        layer = g_default_ls;
-    }*/
+    if(g_local.contrast<=DISP_OFF || (g_local.flags&DISP_IDLE)!=0) {
+        return;
+    }
+
+    //uint8_t layer = get_highest_layer(layer_state);
 
     led_t state = host_keyboard_led_state();
     bool capital_case = ((get_mods() & MOD_MASK_SHIFT) != 0) || state.caps_lock;
     //the left side has an offset of 0, the right side an offset of MATRIX_ROWS_PER_SIDE
-    uint8_t offset = is_keyboard_left() ? 0 : MATRIX_ROWS_PER_SIDE;
+    uint8_t offset = is_left_side() ? 0 : MATRIX_ROWS_PER_SIDE;
     uint8_t start_row = 0;
 
     //select first display (and later on shift that 0 till the end)
@@ -841,23 +1266,78 @@ void update_displays(enum refresh_mode mode) {
             }
             else {
                 if (disp_idx != 255) {
-                    keycode = keymaps[layer][r + offset][c];
+                    uint8_t layer = get_highest_layer(layer_state);
+                    uint16_t highest_kc = keymaps[layer][r + offset][c];
+                    //if we encounter a transparent key go down one layer (but only one!)
+                    keycode = (highest_kc == KC_TRNS) ? keymaps[get_highest_layer(layer_state&~(1<<layer))][r + offset][c] : highest_kc;
+                    kdisp_enable(true);//(g_local.flags&STATUS_DISP_ON) != 0);
+                    kdisp_set_contrast(g_local.contrast-1);
                     if(keycode!=KC_TRNS) {
                         const uint16_t* text = keycode_to_disp_text(keycode, state);
                         kdisp_set_buffer(0x00);
                         if(text==NULL){
                             if((keycode&QK_UNICODEMAP_PAIR)!=0){
                                 uint16_t chr = capital_case ? QK_UNICODEMAP_PAIR_GET_SHIFTED_INDEX(keycode) : QK_UNICODEMAP_PAIR_GET_UNSHIFTED_INDEX(keycode);
-                                kdisp_write_gfx_char(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 22, unicode_map[chr]);
+                                kdisp_write_gfx_char(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 23, unicode_map[chr]);
                             }
                         } else {
-                            kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 22, text);
+                            kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 23, text);
                         }
                         text = keycode_to_disp_overlay(keycode, state);
                         if(text!=NULL) {
-                            kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 22, text);
+                            kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 23, text);
                         }
                         kdisp_send_buffer();
+                    }
+                }
+                sr_shift_once_latch();
+            }
+
+        }
+        for (;skip > 0;skip--) {
+            sr_shift_once_latch();
+        }
+    }
+}
+
+uint8_t to_brightness(uint8_t b) {
+    switch(b) {
+        case 23: case 24: case 25: case 26: case 27: return 7;
+        case 22: case 28: return 6;
+        case 21: case 29: return 5;
+        case 20: case 30: return 4;
+        case 19: case 31: return 3;
+        case 18: case 32: return 2;
+        case 1: case 7: return 1;
+        case 2: case 6: return 3;
+        case 3: case 4: case 5: return 5;
+        default: return 0;
+    }
+}
+
+void kdisp_idle(uint8_t contrast) {
+    uint8_t offset = is_left_side() ? 0 : MATRIX_ROWS_PER_SIDE;
+    uint8_t skip = 0;
+    sr_shift_out_buffer_latch(disp_row_0.bitmask, sizeof(struct display_info));
+
+    //uint8_t idx = 0;
+    for (uint8_t r = 0; r < MATRIX_ROWS_PER_SIDE; ++r) {
+        for (uint8_t c = 0; c < MATRIX_COLS; ++c) {
+            uint8_t  disp_idx = LAYOUT_TO_INDEX(r, c);
+
+            //since MATRIX_COLS==8 we don't need to shift multiple times at the end of the row
+            //except there was a leading and missing physical key (KC_NO on base layer)
+            uint16_t keycode = keymaps[_BL][r + offset][c];
+            if (keycode == KC_NO) {
+                skip++;
+            } else {
+                if (disp_idx != 255) {
+                    uint8_t idle_brightness = to_brightness((contrast+(c%3+r)*keycode+offset+r)%50);
+                    if(idle_brightness==0) {
+                        kdisp_enable(false);
+                    } else {
+                        kdisp_enable(true);
+                        kdisp_set_contrast(idle_brightness-1);
                     }
                 }
                 sr_shift_once_latch();
@@ -894,22 +1374,88 @@ void display_message(uint8_t row, uint8_t col, const uint16_t* message, const GF
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+    const bool addlang = get_highest_layer(layer_state)==_ADDLANG1;
     if (record->event.pressed) {
         switch (keycode) {
-        case QK_BOOTLOADER:
-            //uprintf("Enter Bootloader...");
-            clear_all_displays();
-            display_message(1, 1, u"BOOT-", &FreeSansBold24pt7b);
-            display_message(3, 0, u"LOADER!", &FreeSansBold24pt7b);
-            break;
+            case QK_BOOTLOADER:
+                uprintf("Enter Bootloader...\n");
+                clear_all_displays();
+                display_message(1, 1, u"BOOT-", &FreeSansBold24pt7b);
+                display_message(3, 0, u"LOADER!", &FreeSansBold24pt7b);
+                return true;
+            case KC_A ... KC_Z:
+                g_local.last_latin_kc = keycode;
+                if((get_mods() & MOD_MASK_ALT) == 0 && addlang) {
+                    const bool lshift = get_mods() == MOD_BIT(KC_LEFT_SHIFT);
+                    const bool rshift = get_mods() == MOD_BIT(KC_RIGHT_SHIFT);
+                    const bool upper_case = lshift || rshift || g_state.led_state.caps_lock;
+                    const uint8_t offset = upper_case ? 0 : 26;
+                    if(latin_ex_map[offset+keycode-KC_A][0]) {
+                        uint8_t variation = upper_case ? latin_ex[keycode-KC_A]>>4 : latin_ex[keycode-KC_A]&0xf;
+
+                        //this is a work-around (at least for I-Bus on Linux we need to remove the shift, otherwise the Unicode sequence will not be recognized!)
+                        if(lshift) unregister_code16(KC_LEFT_SHIFT);
+                        if(rshift) unregister_code16(KC_RIGHT_SHIFT);
+                        register_unicode(latin_ex_map[offset+keycode-KC_A][variation][0]);
+                        if(lshift) register_code16(KC_LEFT_SHIFT);
+                        if(rshift) register_code16(KC_RIGHT_SHIFT);
+                        return false;
+                    }
+                }
+                break;
+            default:
+                break;
         }
-    }
+
+        if((get_mods() & MOD_MASK_ALT) != 0 && addlang) {
+            switch(keycode) {
+                case KC_LAT0 ... KC_LAT9:
+                    if( g_local.last_latin_kc!=0) {
+                        uint8_t current = latin_ex[g_local.last_latin_kc-KC_A];
+                        if((get_mods() & MOD_MASK_SHIFT) || g_state.led_state.caps_lock) {
+                            latin_ex[g_local.last_latin_kc-KC_A] = ((keycode-KC_LAT0)<<4) | (current&0xf);
+                        } else {
+                            latin_ex[g_local.last_latin_kc-KC_A] = (keycode-KC_LAT0) | (current&0xf0);
+                        }
+                        bool sync_success = false;
+                        for(uint8_t retry = 0; retry<3 && !sync_success; ++retry) {
+                            sync_success = transaction_rpc_send(USER_SYNC_POLY_DATA, sizeof(latin_ex), latin_ex);
+                        }
+                        save_user_eeconf();
+                        request_disp_refresh();
+                    }
+                    break;
+                case KC_A ... KC_Z:
+                    request_disp_refresh();
+                    break;
+                default:
+                    break;
+            }
+
+            return false;
+        } else {
+            g_local.last_latin_kc = 0;
+        }
+    } /*else {
+        switch (keycode) {
+            case KC_A ... KC_Z:
+                g_local.last_latin_kc = keycode;
+                if((get_mods() & MOD_MASK_ALT) == 0 && addlang) {
+                    const bool upper_case = ((get_mods() & MOD_MASK_SHIFT) || g_state.led_state.caps_lock);
+                    const uint8_t offset = upper_case ? 0 : 26;
+                    if(latin_ex_map[offset+keycode-KC_A][0]) {
+                        uint8_t variation = upper_case ? latin_ex[keycode-KC_A]>>4 : latin_ex[keycode-KC_A]&0xf;
+                        register_code16(UM(latin_rev_ex_map[offset+keycode-KC_A][variation]));
+                    }
+                }
+                break;
+            default:
+                break;
+         }
+    }*/
 
     return display_wakeup(record);
 }
-
-
-
 
 void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
     if (keycode == KC_CAPS_LOCK) {
@@ -918,59 +1464,92 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
 
     if (!record->event.pressed) {
         switch (keycode) {
+        case KC_DEADKEY:
+            if((g_local.flags&DEAD_KEY_ON_WAKEUP)==0) {
+                g_local.flags |= DEAD_KEY_ON_WAKEUP;
+            } else {
+                g_local.flags &= ~((uint8_t)DEAD_KEY_ON_WAKEUP);
+            }
+            request_disp_refresh();
+            break;
         case KC_L0:
-            g_default_ls = _L0;
-            persistent_default_layer_set(g_default_ls);
+            g_local.default_ls = _L0;
+            persistent_default_layer_set(g_local.default_ls);
             request_disp_refresh();
             break;
         case KC_L1:
-            g_default_ls = _L1;
-            persistent_default_layer_set(g_default_ls);
+            g_local.default_ls = _L1;
+            persistent_default_layer_set(g_local.default_ls);
             request_disp_refresh();
             break;
         case KC_L2:
-            g_default_ls = _L2;
-            persistent_default_layer_set(g_default_ls);
+            g_local.default_ls = _L2;
+            persistent_default_layer_set(g_local.default_ls);
             request_disp_refresh();
             break;
-        case KC_TOGBASE:
-            g_default_ls = (g_default_ls==_L0) ? _L1 : (g_default_ls==_L1) ? _L2 : _L0;
-            persistent_default_layer_set(g_default_ls);
+        case KC_L3:
+            g_local.default_ls = _L3;
+            persistent_default_layer_set(g_local.default_ls);
+            request_disp_refresh();
+            break;
+        case KC_L4:
+            g_local.default_ls = _L4;
+            persistent_default_layer_set(g_local.default_ls);
             request_disp_refresh();
             break;
         case KC_BASE:
             layer_clear();
-            layer_on(g_default_ls);
+            layer_on(g_local.default_ls);
             break;
         case KC_RIGHT_SHIFT:
         case KC_LEFT_SHIFT:
             request_disp_refresh();
             break;
-        case KC_DECC:
+        case KC_D1Q:
+            g_local.contrast = FULL_BRIGHT/4;
+            save_user_eeconf();
+            break;
+        case KC_D3Q:
+            g_local.contrast = (FULL_BRIGHT/4)*3;
+            save_user_eeconf();
+            break;
+        case KC_DHLF:
+            g_local.contrast = FULL_BRIGHT/2;
+            save_user_eeconf();
+            break;
+        case KC_DMAX:
+            g_local.contrast = FULL_BRIGHT;
+            save_user_eeconf();
+            break;
+        case KC_DMIN:
+            g_local.contrast = 2;
+            save_user_eeconf();
+            break;
+        case KC_DDIM:
             dec_brightness();
             break;
-        case KC_INCC:
+        case KC_DBRI:
             inc_brightness();
             break;
-            /*[[[cog
+        /*[[[cog
             for lang in languages:
-                cog.outl(f'case KC_{lang}: g_lang = {lang}; layer_off(_LS); break;')
+                cog.outl(f'case KC_{lang}: g_local.lang = {lang}; layer_off(_LL); break;')
             ]]]*/
-            case KC_LANG_EN: g_lang = LANG_EN; layer_off(_LS); break;
-            case KC_LANG_DE: g_lang = LANG_DE; layer_off(_LS); break;
-            case KC_LANG_FR: g_lang = LANG_FR; layer_off(_LS); break;
-            case KC_LANG_ES: g_lang = LANG_ES; layer_off(_LS); break;
-            case KC_LANG_PT: g_lang = LANG_PT; layer_off(_LS); break;
-            case KC_LANG_IT: g_lang = LANG_IT; layer_off(_LS); break;
-            case KC_LANG_TR: g_lang = LANG_TR; layer_off(_LS); break;
-            case KC_LANG_KO: g_lang = LANG_KO; layer_off(_LS); break;
-            case KC_LANG_JA: g_lang = LANG_JA; layer_off(_LS); break;
-            case KC_LANG_AR: g_lang = LANG_AR; layer_off(_LS); break;
-            case KC_LANG_GR: g_lang = LANG_GR; layer_off(_LS); break;
-            //[[[end]]]
+        case KC_LANG_EN: g_local.lang = LANG_EN; layer_off(_LL); break;
+        case KC_LANG_DE: g_local.lang = LANG_DE; layer_off(_LL); break;
+        case KC_LANG_FR: g_local.lang = LANG_FR; layer_off(_LL); break;
+        case KC_LANG_ES: g_local.lang = LANG_ES; layer_off(_LL); break;
+        case KC_LANG_PT: g_local.lang = LANG_PT; layer_off(_LL); break;
+        case KC_LANG_IT: g_local.lang = LANG_IT; layer_off(_LL); break;
+        case KC_LANG_TR: g_local.lang = LANG_TR; layer_off(_LL); break;
+        case KC_LANG_KO: g_local.lang = LANG_KO; layer_off(_LL); break;
+        case KC_LANG_JA: g_local.lang = LANG_JA; layer_off(_LL); break;
+        case KC_LANG_AR: g_local.lang = LANG_AR; layer_off(_LL); break;
+        case KC_LANG_GR: g_local.lang = LANG_GR; layer_off(_LL); break;
+        //[[[end]]]
         case KC_F1:case KC_F2:case KC_F3:case KC_F4:case KC_F5:case KC_F6:
         case KC_F7:case KC_F8:case KC_F9:case KC_F10:case KC_F11:case KC_F12:
-            layer_off(_LS);
+            layer_off(_LL);
             break;
         default:
             break;
@@ -984,15 +1563,14 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
             request_disp_refresh();
             break;
         case KC_LANG:
-            if (IS_LAYER_ON(_LS)) {
-                g_lang = (g_lang + 1) % NUM_LANG;
-                layer_off(_LS);
+            if (IS_LAYER_ON(_LL)) {
+                g_local.lang = (g_local.lang + 1) % NUM_LANG;
+                layer_off(_LL);
             }
             else {
-                layer_on(_LS);
+                layer_on(_LL);
             }
             break;
-        case RGB_TOG:
         case RGB_MOD:
         case RGB_RMOD:
             request_disp_refresh();
@@ -1031,54 +1609,50 @@ void show_splash_screen(void) {
     display_message(2, 1, u"KYBD", &FreeSansBold24pt7b);
 }
 
-bool set_displays(int8_t contrast) {
-    bool need_refresh = false;
-    select_all_displays();
-
-    if (old_contrast <= DISP_OFF && contrast > DISP_OFF) {
-        kdisp_scroll(false);
-        kdisp_enable(true);
-        need_refresh = true;
-        dprint("Displays on, stop scrolling.\n");
-    } else if (old_contrast > DISP_OFF && contrast <= DISP_OFF) {
-        kdisp_scroll(true);
-        dprint("Enable scrolling.\n");
-    } else if(old_contrast == DISP_OFF && g_contrast!= DISP_OFF) {
-        kdisp_enable(true);
-        dprint("Displays on, keep going.\n");
+void oled_on_off(bool on) {
+    if (!on) {
+        oled_off();
+    } else {
+        oled_on();
+        uprintf("oled_on %s\n", is_usb_host_side() ? "Host" : "Bridge");
     }
-
-    int8_t corrected_contrast = PK_ABS(contrast);
-
-    if (contrast == DISP_OFF) {
-        kdisp_enable(false);
-        dprint("Displays off.\n");
-    } else if(old_contrast != contrast) {
-        kdisp_set_contrast(corrected_contrast - 1);
-    }
-    old_contrast = contrast;
-    return need_refresh;
 }
+
+void set_displays(uint8_t contrast, bool idle) {
+    if(idle) {
+        kdisp_idle(contrast);
+    } else {
+        select_all_displays();
+        if(contrast==DISP_OFF) {
+            kdisp_enable(false);
+        } else {
+            kdisp_enable(true);
+            kdisp_set_contrast(contrast - 1);
+        }
+    }
+}
+
+
 
 //disable first keypress if the displays are turned off
 bool display_wakeup(keyrecord_t* record) {
     bool accept_keypress = true;
-    if (g_contrast < MIN_BRIGHT && record->event.pressed) {
-        if(g_contrast==DISP_OFF) {
+    if ((g_local.contrast==DISP_OFF || (g_local.flags & DISP_IDLE)!=0) && record->event.pressed) {
+        if(g_local.contrast==DISP_OFF && (g_local.flags&DEAD_KEY_ON_WAKEUP)!=0) {
             accept_keypress = timer_elapsed32(last_update) <= TURN_OFF_TIME;
         }
-        g_contrast = FULL_BRIGHT; //not always full bright, but the set value
+        poly_eeconf_t ee = load_user_eeconf();
+        g_local.contrast = ee.brightness;
+        g_local.flags &= ~((uint8_t)DISP_IDLE);
+        g_local.flags |= STATUS_DISP_ON;
         update_performed();
         request_disp_refresh();
     }
 
     return accept_keypress;
 }
-void keyboard_post_init_user(void) {
-    //rgb_matrix_disable_noeeprom();
-    rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_CROSS);
-    rgb_matrix_enable_noeeprom();
 
+void keyboard_post_init_user(void) {
     // Customise these values to desired behaviour
     debug_enable = true;
     debug_matrix = false;
@@ -1088,12 +1662,22 @@ void keyboard_post_init_user(void) {
     //pointing_device_set_cpi(20000);
     //pointing_device_set_cpi(2000);
     //pimoroni_trackball_set_rgbw(0,0,255,100);
-    g_default_ls = persistent_default_layer_get();
+    g_local.default_ls = persistent_default_layer_get();
     layer_clear();
-    layer_on(g_default_ls);
-    dprintf("PolyKybd ready.");
+    layer_on(g_local.default_ls);
 
-    wait_ms(500);
+    //set these values, they will never change
+    com = is_keyboard_master() ? USB_HOST : BRIDGE;
+    side = is_keyboard_left() ? LEFT_SIDE : RIGHT_SIDE;
+
+    //encoder pins
+    setPinInputHigh(GP25);
+    setPinInputHigh(GP29);
+
+    //srand(halGetCounterValue());
+
+    memset(&g_state, 0, sizeof(g_state));
+
     transaction_register_rpc(USER_SYNC_POLY_DATA, user_sync_poly_data_handler);
 }
 
@@ -1108,43 +1692,174 @@ void keyboard_pre_init_user(void) {
     kdisp_scroll_modehv(true, 3, 1);
     kdisp_scroll(false);
 
+    poly_eeconf_t ee = load_user_eeconf();
 
-    set_displays(FULL_BRIGHT);
+    g_local.lang = ee.lang;
+    g_local.default_ls = 0;
+    g_local.contrast = ee.brightness;
+    g_local.flags = STATUS_DISP_ON;
+    memcpy(latin_ex, ee.latin_ex, sizeof(latin_ex));
+
+    set_displays(g_local.contrast, false);
+    g_local.last_latin_kc = 0;
     show_splash_screen();
 
     setPinInputHigh(I2C1_SDA_PIN);
 }
 
+void eeconfig_init_user(void) {
+    uprint("Init EE config\n");
+    poly_eeconf_t ee;
+    ee.lang = g_lang_init;
+    ee.brightness = ~FULL_BRIGHT;
+    ee.unused = 0;
+    memset(ee.latin_ex, 0, sizeof(ee.latin_ex));
+    eeconfig_read_user_datablock(&ee);
+}
 
+
+void num_to_u16_string(char* buffer, uint8_t buffer_len, uint8_t value) {
+    if(value<10) {
+        snprintf((char*) buffer, buffer_len, "%d", value);
+        buffer[1] = 0;
+        buffer[2] = 0;
+        buffer[3] = 0;
+    } else if(value>99) {
+        snprintf((char*) buffer, buffer_len, "%d %d %d", value/100, (value/10)%10, value%10);
+        buffer[1] = 0;
+        buffer[3] = 0;
+        buffer[5] = 0;
+        buffer[6] = 0;
+        buffer[7] = 0;
+    } else {
+        snprintf((char*) buffer, buffer_len, "%d %d", value/10, value%10);
+        buffer[1] = 0;
+        buffer[3] = 0;
+        buffer[4] = 0;
+        buffer[5] = 0;
+    }
+}
+
+void hex_to_u16_string(char* buffer, uint8_t buffer_len, uint8_t value) {
+    if(value<16) {
+        snprintf((char*) buffer, buffer_len, "%X", value);
+        buffer[1] = 0;
+        buffer[2] = 0;
+        buffer[3] = 0;
+    } else {
+        snprintf((char*) buffer, buffer_len, "%X %X", value/16, value%16);
+        buffer[1] = 0;
+        buffer[3] = 0;
+        buffer[4] = 0;
+        buffer[5] = 0;
+    }
+}
+
+void oled_update_buffer() {
+    uint16_t buffer[32];
+
+    kdisp_set_buffer(0);
+
+    const GFXfont* displayFont[] = { &NotoSans_Regular11pt7b };
+    const GFXfont* smallFont[] = { &NotoSans_Medium8pt7b };
+    kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 0, 14, ICON_LAYER);
+    hex_to_u16_string((char*) buffer, sizeof(buffer), get_highest_layer(layer_state));
+    kdisp_write_gfx_text(displayFont, 1, 20, 14, buffer);
+    if(side==UNDECIDED) {
+        kdisp_write_gfx_text(displayFont, 1, 50, 14, u"Uknw");
+    } else {
+        kdisp_write_gfx_text(displayFont, 1, 38, 14, is_left_side() ? u"LEFT" : u"RIGHT");
+    }
+
+    kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 108, 16, g_state.led_state.num_lock ? ICON_NUMLOCK_ON : ICON_NUMLOCK_OFF);
+    kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 108, 38, g_state.led_state.caps_lock ? ICON_CAPSLOCK_ON : ICON_CAPSLOCK_OFF);
+    if(g_state.led_state.scroll_lock) {
+        kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 112, 54, ARROWS_DOWNSTOP);
+    } else {
+        kdisp_write_gfx_text(smallFont, 1, 112, 56, is_usb_host_side() ? u"H" : u"B");
+    }
+
+
+
+    if(is_right_side()) {
+        kdisp_write_gfx_text(smallFont, 1, 0, 30, u"RGB");
+
+        if(!rgb_matrix_is_enabled()) {
+            kdisp_write_gfx_text(smallFont, 1, 34, 30, u"Off");
+        } else {
+            num_to_u16_string((char*) buffer, sizeof(buffer), rgb_matrix_get_mode());
+            kdisp_write_gfx_text(smallFont, 1, 34, 30, buffer);
+            kdisp_write_gfx_text(smallFont, 1, 58, 30, get_led_matrix_text(rgb_matrix_get_mode()));
+            kdisp_write_gfx_text(smallFont, 1, 0, 44, u"HSV");
+            hex_to_u16_string((char*) buffer, sizeof(buffer), rgb_matrix_get_hue());
+            kdisp_write_gfx_text(smallFont, 1, 38, 44, buffer);
+            hex_to_u16_string((char*) buffer, sizeof(buffer), rgb_matrix_get_sat());
+            kdisp_write_gfx_text(smallFont, 1, 60, 44, buffer);
+            hex_to_u16_string((char*) buffer, sizeof(buffer), rgb_matrix_get_val());
+            kdisp_write_gfx_text(smallFont, 1, 82, 44, buffer);
+            kdisp_write_gfx_text(smallFont, 1, 0, 58, u"Speed");
+            num_to_u16_string((char*) buffer, sizeof(buffer), rgb_matrix_get_speed());
+            kdisp_write_gfx_text(smallFont, 1, 58, 58, buffer);
+        }
+    } else {
+        switch(g_local.default_ls) {
+            case 0: kdisp_write_gfx_text(smallFont, 1, 0, 30, u"Qwerty"); break;
+            case 1: kdisp_write_gfx_text(smallFont, 1, 0, 30, u"Qwerty Stag!"); break;
+            case 2: kdisp_write_gfx_text(smallFont, 1, 0, 30, u"Colemak DH"); break;
+            case 3: kdisp_write_gfx_text(smallFont, 1, 0, 30, u"Neo"); break;
+            case 4: kdisp_write_gfx_text(smallFont, 1, 0, 30, u"Workman"); break;
+            default: kdisp_write_gfx_text(smallFont, 1, 0, 30, u"Unknown"); break;
+        }
+        kdisp_write_gfx_text(smallFont, 1, 0, 44, u"Dsp*");
+        num_to_u16_string((char*) buffer, sizeof(buffer), g_local.contrast);
+        kdisp_write_gfx_text(smallFont, 1, 42, 44, buffer);
+        uint8_t i=0;
+        for(;i<(g_local.contrast/5);++i) {
+            buffer[i] = 'l';
+        }
+        buffer[i] = 0;
+        buffer[i+1] = 0;
+        kdisp_write_gfx_text(smallFont, 1, 64, 44, buffer);
+
+        kdisp_write_gfx_text(smallFont, 1, 0, 58, u"WPM");
+        num_to_u16_string((char*) buffer, sizeof(buffer), get_current_wpm());
+        kdisp_write_gfx_text(smallFont, 1, 44, 58, buffer);
+
+        kdisp_write_gfx_text(smallFont, 1, 68, 58, u"L");
+        num_to_u16_string((char*) buffer, sizeof(buffer), g_local.lang);
+        kdisp_write_gfx_text(smallFont, 1, 84, 58, buffer);
+    }
+}
+
+void oled_status_screen(void) {
+     if( (g_local.flags&STATUS_DISP_ON) == 0) {
+        oled_off();
+        return;
+    } else if( (g_local.flags&STATUS_DISP_ON) != 0) {
+        oled_on();
+    }
+
+    oled_update_buffer();
+    oled_clear();
+    oled_write_raw((char *)get_scratch_buffer(), get_scratch_buffer_size());
+}
+
+void oled_render_logos(void) {
+    if(is_left_side()) {
+        oled_draw_poly();
+        oled_scroll_right();
+    } else {
+        oled_draw_kybd();
+        oled_scroll_left();
+    }
+}
 bool oled_task_user(void) {
-    char buffer[32];
-
-    led_t led_state = host_keyboard_led_state();
-    snprintf(buffer, sizeof(buffer), "Layer: %d %s %s %s",
-        get_highest_layer(layer_state),
-        led_state.num_lock ? "NUM" : "[ ]",
-        led_state.caps_lock ? "CAP" : "[ ]",
-        led_state.scroll_lock ? "SCR" : "[ ]"
-    );
-    oled_write(buffer, false);
-
-    snprintf(buffer, sizeof(buffer), "\nLast Key: 0x%04x", last_key);
-    oled_write(buffer, false);
-
-    snprintf(buffer, sizeof(buffer), "\nRGB:%2d", rgb_matrix_get_mode());
-    oled_write(buffer, false);
-
-    snprintf(buffer, sizeof(buffer), "\n%s %s", is_keyboard_master() ? "USB-Host" : "Bridge", is_keyboard_left() ? "LEFT" : "RIGHT");
-
-    oled_write(buffer, false);
-
-    oled_set_cursor(0, 4);
-    static const char PROGMEM raw_logo[] = { 0x80, 0xc0, 0xc0, 0x40, 0x40, 0x40, 0xc0, 0xc0, 0xc0, 0x80, 0x00, 0x80, 0xc0, 0xc0, 0x40, 0x40, 0x40, 0x40, 0xc0, 0xc0, 0x80, 0x00, 0x80, 0xc0, 0x40, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0x80, 0x00, 0x80, 0xc0, 0x40, 0xc0, 0xc0, 0xc0, 0xc0, 0x40, 0xc0, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                            0xff, 0xff, 0x00, 0xef, 0xef, 0xef, 0xf0, 0xff, 0xff, 0xff, 0x00, 0xff, 0xff, 0x00, 0xff, 0xff, 0xff, 0xff, 0x00, 0xff, 0xff, 0x00, 0xff, 0xff, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0xff, 0xff, 0xf8, 0xf7, 0xf7, 0x07, 0xf7, 0xf8, 0xff, 0xff, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x00, 0x00, 0x00, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x00, 0x00, 0x00, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x00, 0x00, 0x00, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x00, 0x00, 0x00, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x00, 0x00, 0x00, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x00, 0x00, 0x00, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x00, 0x00, 0x00, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x00,
-                                            0x01, 0x03, 0x02, 0x03, 0x73, 0x73, 0x63, 0x03, 0x73, 0x61, 0x30, 0x01, 0x03, 0x03, 0x02, 0x02, 0x02, 0x02, 0x03, 0x03, 0x01, 0x00, 0x01, 0x03, 0x03, 0x02, 0x02, 0x02, 0x02, 0x02, 0x03, 0x01, 0x00, 0x01, 0x03, 0x03, 0x03, 0x03, 0x02, 0x03, 0x03, 0xff, 0xff, 0x00, 0xcf, 0xdf, 0x2f, 0xf0, 0xff, 0xff, 0xff, 0x00, 0xff, 0xff, 0x01, 0xee, 0xee, 0xfe, 0xfe, 0xfe, 0xff, 0xff, 0x00, 0xff, 0xff, 0xf0, 0xef, 0xef, 0x0f, 0xef, 0xf0, 0xff, 0xff, 0x00, 0xff, 0xff, 0x00, 0xfe, 0xfe, 0xee, 0xce, 0x31, 0xff, 0xff, 0x00, 0xff, 0xff, 0x01, 0xfe, 0xfe, 0xfe, 0xfe, 0x01, 0xff, 0xff, 0x00, 0xff, 0xff, 0x07, 0xb9, 0xbe, 0xbe, 0xb9, 0x07, 0xff, 0xff, 0x00, 0xff, 0xff, 0x01, 0xde, 0xde, 0x9e, 0x61, 0xff, 0xff, 0xff, 0x00, 0xff, 0xff, 0x00, 0xfe, 0xfe, 0xfe, 0xfd, 0x03, 0xff, 0xff,
-                                            0x00, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x21, 0x27, 0x21, 0x20, 0x27, 0x22, 0x27, 0x20, 0x27, 0x23, 0x23, 0x20, 0x27, 0x25, 0x27, 0x20, 0x27, 0x27, 0x24, 0x20, 0x27, 0x27, 0x24, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x23, 0x27, 0x24, 0x27, 0x27, 0x27, 0x24, 0x27, 0x27, 0x23, 0x20, 0x23, 0x27, 0x26, 0x25, 0x25, 0x25, 0x25, 0x25, 0x27, 0x23, 0x20, 0x23, 0x27, 0x27, 0x27, 0x27, 0x24, 0x27, 0x27, 0x27, 0x23, 0x20, 0x23, 0x27, 0x24, 0x25, 0x25, 0x25, 0x25, 0x26, 0x27, 0x23, 0x20, 0x23, 0x27, 0x26, 0x25, 0x25, 0x25, 0x25, 0x26, 0x27, 0x23, 0x20, 0x23, 0x27, 0x24, 0x27, 0x27, 0x27, 0x27, 0x24, 0x27, 0x03, 0x20, 0x03, 0x27, 0x04, 0x27, 0x07, 0x67, 0x34, 0x77, 0x07, 0x13, 0x70, 0x13, 0x07, 0x74, 0x55, 0x75, 0x05, 0x76, 0x37, 0x77, 0x03 };
-    oled_write_raw_P(raw_logo, sizeof(raw_logo));
-
+    if((g_local.flags&DISP_IDLE) != 0) {
+        oled_render_logos();
+    } else {
+        oled_scroll_off();
+        oled_status_screen();
+    }
     return false;
 }
 
@@ -1155,7 +1870,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
       tap_code(KC_WH_D);
     }
 
-    return true;
+    return false;
 }
 
 void invert_display(uint8_t r, uint8_t c, bool state) {
@@ -1178,7 +1893,7 @@ void invert_display(uint8_t r, uint8_t c, bool state) {
 extern matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t last_matrix[MATRIX_ROWS_PER_SIDE];
 void matrix_scan_user(void) {
-    uint8_t first   = is_keyboard_master() ? 0 : MATRIX_ROWS_PER_SIDE;
+    uint8_t first   = is_left_side() ? 0 : MATRIX_ROWS_PER_SIDE;
     bool    changed = false;
     for (uint8_t r = first; r < first + MATRIX_ROWS_PER_SIDE; r++) {
         if (last_matrix[r - first] != matrix[r]) {
@@ -1204,17 +1919,125 @@ void matrix_slave_scan_user(void) {
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation){
+    oled_off();
+    oled_clear();
+    oled_render();
+    oled_scroll_set_speed(0);
+    oled_render_logos();
+    oled_on();
     return rotation;
 }
 
-void suspend_power_down_kb(void) {
-    dprint("Suspend power down\n");
-    g_contrast = DISP_OFF;
-    sync_and_refresh_displays();
+void poly_suspend(void) {
+    g_local.flags &= ~((uint8_t)STATUS_DISP_ON);
+    g_local.flags &= ~((uint8_t)DISP_IDLE);
+    g_local.contrast = DISP_OFF;
+    last_update = -1;
 }
 
-void suspend_wakeup_init_kb(void) {
-    dprint("Suspend wakeup\n");
-    g_contrast = FULL_BRIGHT;
-    sync_and_refresh_displays();
+void suspend_power_down_kb(void) {
+    poly_suspend();
+    rgb_matrix_disable_noeeprom();
+    housekeeping_task_user();
+    suspend_power_down_user();
 }
+
+
+void suspend_wakeup_init_kb(void) {
+    g_local.flags |= STATUS_DISP_ON;
+    g_local.flags &= ~((uint8_t)DISP_IDLE);
+    poly_eeconf_t ee = load_user_eeconf();
+    g_local.contrast = ee.brightness;
+    last_update = 0;
+
+    rgb_matrix_reload_from_eeprom();
+
+    update_performed();
+    housekeeping_task_user();
+    suspend_wakeup_init_user();
+}
+
+void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
+    uint8_t response[RAW_EPSIZE];
+    memset(response, 0, RAW_EPSIZE);
+    const char * name = "P0.PolyKybd Split72";
+
+    if(length>1 && (data[0] == /*via_command_id::*/id_custom_save || data[0] == 'P')) {
+        switch(data[1]) {
+            case /*via_channel_id::*/id_qmk_backlight_channel ... /*via_channel_id::*/id_qmk_led_matrix_channel:
+                //used by VIA, so that will never occuer if used together with VIA
+                //without VIA, lets handle it like '0'
+            case '0': //id
+                memcpy(response, name, strlen(name));
+                raw_hid_send(response, RAW_EPSIZE);
+                break;
+            case '1': //lang
+                switch(g_local.lang) {
+                    /*[[[cog
+                    for lang in languages:
+                        cog.outl(f'case {lang}: memcpy(response, "P1.{lang[5:]}", 5); break;')
+                    ]]]*/
+                    case LANG_EN: memcpy(response, "P1.EN", 5); break;
+                    case LANG_DE: memcpy(response, "P1.DE", 5); break;
+                    case LANG_FR: memcpy(response, "P1.FR", 5); break;
+                    case LANG_ES: memcpy(response, "P1.ES", 5); break;
+                    case LANG_PT: memcpy(response, "P1.PT", 5); break;
+                    case LANG_IT: memcpy(response, "P1.IT", 5); break;
+                    case LANG_TR: memcpy(response, "P1.TR", 5); break;
+                    case LANG_KO: memcpy(response, "P1.KO", 5); break;
+                    case LANG_JA: memcpy(response, "P1.JA", 5); break;
+                    case LANG_AR: memcpy(response, "P1.AR", 5); break;
+                    case LANG_GR: memcpy(response, "P1.GR", 5); break;
+                    //[[[end]]]
+                    default:
+                        memcpy(response, "P1!", 3);
+                        break;
+                }
+                raw_hid_send(response, RAW_EPSIZE);
+                break;
+            case '2': //lang list
+                    /*[[[cog
+                    lang_list = "P2."
+                    for lang in languages:
+                        lang_list += lang[5:]
+                        if len(lang_list)>=(32-3-1):
+                            cog.outl(f'memcpy(response, "{lang_list}", {len(lang_list)});')
+                            cog.outl(f'raw_hid_send(response, RAW_EPSIZE);')
+                            cog.outl(f'memset(response, 0, RAW_EPSIZE);')
+                            lang_list = "P2."
+                        elif lang != languages[-1]:
+                            lang_list += ","
+                    cog.outl(f'memcpy(response, "{lang_list}", {len(lang_list)});')
+                    cog.outl(f'raw_hid_send(response, RAW_EPSIZE);')
+                    ]]]*/
+                    memcpy(response, "P2.EN,DE,FR,ES,PT,IT,TR,KO,JA", 29);
+                    raw_hid_send(response, RAW_EPSIZE);
+                    memset(response, 0, RAW_EPSIZE);
+                    memcpy(response, "P2.AR,GR", 8);
+                    raw_hid_send(response, RAW_EPSIZE);
+                    //[[[end]]]
+                break;
+            case '3': //change language
+                if(data[3]< NUM_LANG) {
+                    g_local.lang = data[3];
+                    memcpy(response, data, 4);
+                    response[2] = '.';
+                    update_performed();
+                } else {
+                    memcpy(response, "P3!", 3);
+                }
+                raw_hid_send(response, RAW_EPSIZE);
+                break;
+            default:
+                memcpy(response, "P??", 3);
+                response[1] = data[1];
+                raw_hid_send(response, RAW_EPSIZE);
+                break;
+        }
+    }
+}
+#ifndef VIA_ENABLE
+void raw_hid_receive(uint8_t *data, uint8_t length) {
+    via_custom_value_command_kb(data, length);
+}
+#endif
