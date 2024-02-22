@@ -1,20 +1,27 @@
 # glyphkbd_v2
 
+![glyphkbd_v2](https://imgur.com/a/UT6CJB6h)
+
 *5x13 ortholinear plus TKL nav and arrow clusters*
 
-* Keyboard Maintainer: [galile0](https://github.com/galile0-designs)
-* Hardware Supported: glyphkbd_v2 PCB
+* Keyboard Maintainer: [Fabian Leijström](https://github.com/galile0-designs)
+* Hardware Supported: *glyphkbd_v2 PCB*
+* Hardware Availability: *Contact Me*
 
-Additional files and information [here](https://github.com/galile0-designs/glyphkbd)
-
-
-
-make example for this keyboard:
+Make example for this keyboard (after setting up your build environment):
 
     make galile0/glyphkbd_v2:default
 
+Flashing example for this keyboard:
 
+    make galile0/glyphkbd_v2:default:flash
 
-How to put PCB into Bootloader (DFU):
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-on glyphkbd_v2 PCB, bootloader can accessed by holding down the BOOT switch on the backside while plugging it into USB or pressing the RESET switch. Or, if the PCB has already been loaded with this firmware, it can be put into DFU mode by holding down Esc key (0,0 in the matrix) while plugging into USB or pressing RESET.
+## Bootloader
+
+Enter the bootloader in 3 ways:
+
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
+* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
