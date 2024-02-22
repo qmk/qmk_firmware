@@ -1,6 +1,6 @@
 # transition_lite
 
-![transition_lite](https://i.imgur.com/9IUQvsG.jpg)
+![transition_lite](https://i.imgur.com/9IUQvsGh.jpg)
 
 A 80% keyboard with RGB.
 
