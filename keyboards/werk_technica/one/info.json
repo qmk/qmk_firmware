@@ -5,13 +5,15 @@
     "url": "https://werktechnica.com/",
     "bootloader": "stm32-dfu",
     "processor": "STM32F411",
-    "board": "GENERIC_STM32_F411XE",
     "usb": {
         "pid": "0x0001",
         "vid": "0x7774",
         "device_version": "1.0.0"
     },
     "diode_direction": "COL2ROW",
+    "build": {
+        "lto": true
+    },
     "features": {
         "bootmagic": true,
         "command": false,
@@ -19,8 +21,7 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "encoder": true,
-        "lto": true
+        "encoder": true
     },
     "matrix_pins": {
         "cols": [ "A6", "A7", "B0", "B1", "B10", "B12", "B13", "B14", "B15", "A8", "A10", "A13", "A5", "A4", "C15" ],
@@ -30,8 +31,7 @@
         "rotary": [
             { 
                 "pin_a": "B5", 
-                "pin_b": "A15",
-                "resolution": 4
+                "pin_b": "A15"
             }
         ]
     },
