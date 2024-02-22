@@ -1,25 +1,25 @@
 {
     "manufacturer": "galile0",
     "keyboard_name": "glyphkbd_v2",
-    "url": "https://github.com/galile0-designs/glyphkbd",
     "maintainer": "galile0-designs",
     "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",
-    "matrix_pins": {
-        "cols": ["B1", "A1", "B0", "A0", "C5", "C3", "C4", "C2", "A7", "C1", "A6", "C0", "A5", "B12", "B13", "B14"],
-        "rows": ["B10", "B2", "A2", "F0", "F1"]
-    },
-    "processor": "STM32F072",
-    "usb": {
-        "device_version": "1.0.0",
-        "pid": "0x0001",
-        "vid": "0x4744"
-    },
     "features": {
         "bootmagic": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
+    },
+    "matrix_pins": {
+        "cols": ["B1", "A1", "B0", "A0", "C5", "C3", "C4", "C2", "A7", "C1", "A6", "C0", "A5", "B12", "B13", "B14"],
+        "rows": ["B10", "B2", "A2", "F0", "F1"]
+    },
+    "processor": "STM32F072",
+    "url": "https://github.com/galile0-designs/glyphkbd",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0001",
+        "vid": "0x4744"
     },
     "layouts": {
         "LAYOUT": {
