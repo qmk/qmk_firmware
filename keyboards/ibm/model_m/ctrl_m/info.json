@@ -1,7 +1,7 @@
 {
     "keyboard_name": "ctrl-M",
     "manufacturer": "nuess0r",
-    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/ibm/model_m/ctrl_m",
+    "url": "https://github.com/nuess0r/ctrl-m",
     "maintainer": "nuess0r",
     "usb": {
         "vid": "0x1D50",
