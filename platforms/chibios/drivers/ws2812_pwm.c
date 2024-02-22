@@ -2,6 +2,18 @@
 #include "gpio.h"
 #include "chibios_config.h"
 
+// ======== DEPRECATED DEFINES - DO NOT USE ========
+#ifdef WS2812_DMA_STREAM
+#    define WS2812_PWM_DMA_STREAM WS2812_DMA_STREAM
+#endif
+#ifdef WS2812_DMA_CHANNEL
+#    define WS2812_PWM_DMA_CHANNEL WS2812_DMA_CHANNEL
+#endif
+#ifdef WS2812_DMAMUX_ID
+#    define WS2812_PWM_DMAMUX_ID WS2812_DMAMUX_ID
+#endif
+// ========
+
 /* Adapted from https://github.com/joewa/WS2812-LED-Driver_ChibiOS/ */
 
 #ifdef RGBW
