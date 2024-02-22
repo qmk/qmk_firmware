@@ -15,6 +15,12 @@
         "pid": "0x0001",
         "vid": "0x4744"
     },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
