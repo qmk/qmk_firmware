@@ -32,10 +32,6 @@ void record_potential_match(trie_visitor_t *v, int bspaces, const char *completi
 
     if (completion_len < result->max_completion_len) return;
 
-//    stack_dump(&v->stack, tmp_buffer);
-//    if (!is_string_ascii(tmp_buffer) || v->stack.size == 0) return;
-//    if (!is_string_ascii((char*)completion)) return;
-
     if (
         completion_len == result->max_completion_len &&
         v->stack.size < strlen(result->context_string)
@@ -46,21 +42,15 @@ void record_potential_match(trie_visitor_t *v, int bspaces, const char *completi
         key_buffer_size >= result->match_context_level
     ) wipe_result(result);
 
-    for (int i = 0; i < completion_len; i += 1) {
-        int index = buffer_len_copy - completion_len + i;
-        if (index < 0 || index > buffer_len_copy) return;
+    if (completion_len + v->stack.size > buffer_len_copy) return;
 
-        if (keycode_to_char(key_buffer_copy[index]) != completion[i])
+    for (int i = 0; i < completion_len; i += 1)
+        if (keycode_to_char(key_buffer_copy[buffer_len_copy - completion_len + i]) != completion[i])
             return;
-    }
 
-    for (int i = 0; i < v->stack.size; i += 1) {
-        int index = buffer_len_copy - completion_len - i - 1;
-        if (index < 0 || index > buffer_len_copy) return;
-
-        if (key_buffer_copy[index] != char_to_keycode(v->stack.buffer[i]))
+    for (int i = 0; i < v->stack.size; i += 1)
+        if (key_buffer_copy[buffer_len_copy - completion_len - i - 1] != char_to_keycode(v->stack.buffer[i]))
             return;
-    }
 
     result->max_completion = (char*)completion;
     result->max_completion_len = completion_len;
