@@ -3,7 +3,7 @@
     "maintainer": "JZ-Skyloong",
     "bootloader": "stm32duino",
     "diode_direction": "ROW2COL",
-
+    "debounce": 10,
     "features": {
         "bootmagic": true,
         "command": true,

@@ -253,7 +253,7 @@ void suspend_wakeup_init_kb() {
 
 bool shutdown_kb(bool jump_to_bootloader) {
     writePinLow(SDB);
-    return shutdown_user(jump_to_bootloader);
+    return true;
 }
 
 
