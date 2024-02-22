@@ -1,5 +1,5 @@
 /*
- *Copyright 2024 Fabian Leijström ["galile0"](https://github.com/galile0-designs) fabianleij@gmail.com
+ *Copyright 2024 Fabian Leijström (@galile0-designs)
  *
  *This program is free software: you can redistribute it and/or modify
  *it under the terms of the GNU General Public License as published by

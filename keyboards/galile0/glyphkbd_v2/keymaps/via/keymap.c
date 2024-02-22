@@ -1,4 +1,4 @@
-// Copyright 2024 galile0 (@galile0-designs)
+// Copyright 2024 Fabian Leijström (@galile0-designs)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
