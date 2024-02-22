@@ -288,6 +288,7 @@ q✵          -> qui
 
 // Triple
 
+→ab✪        -> abbreviation
 →uf✪        -> unfortunate
 →wh✪        -> whatever
 →an✪        -> another
