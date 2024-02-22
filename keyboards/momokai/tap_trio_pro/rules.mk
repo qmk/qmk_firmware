@@ -1,5 +1,5 @@
 QUANTUM_LIB_SRC += analog.c
-SRC += matrix.c lut.c scanfunctions.c debounce_analog.c debounce_digital.c
+SRC += matrix.c lut.c scanfunctions.c
 
 CUSTOM_MATRIX = yes
 
