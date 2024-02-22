@@ -6,7 +6,7 @@ from typing import List, Union
 from pathlib import Path
 from dotty_dict import dotty, Dotty
 from milc import cli
-from qmk.constants import QMK_FIRMWARE, INTERMEDIATE_OUTPUT_PREFIX
+from qmk.constants import QMK_FIRMWARE, INTERMEDIATE_OUTPUT_PREFIX, HAS_QMK_USERSPACE, QMK_USERSPACE
 from qmk.commands import find_make, get_make_parallel_args, parse_configurator_json
 from qmk.keyboard import keyboard_folder
 from qmk.info import keymap_json
@@ -118,7 +118,10 @@ class BuildTarget:
         self.prepare_build(build_target=build_target, **env_vars)
         command = self.compile_command(build_target=build_target, dry_run=True, **env_vars)
         from qmk.cli.generate.compilation_database import write_compilation_database  # Lazy load due to circular references
-        write_compilation_database(command=command, output_path=QMK_FIRMWARE / 'compile_commands.json', skip_clean=skip_clean, **env_vars)
+        output_path = QMK_FIRMWARE / 'compile_commands.json'
+        write_compilation_database(command=command, output_path=output_path, skip_clean=skip_clean, **env_vars)
+        if output_path.exists() and HAS_QMK_USERSPACE:
+            shutil.copy(str(output_path), str(QMK_USERSPACE / 'compile_commands.json'))
 
     def compile(self, build_target: str = None, dry_run: bool = False, **env_vars) -> None:
         if self._clean or self._compiledb:
