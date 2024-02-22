@@ -2,8 +2,7 @@
     "manufacturer": "PenEngineering",
     "keyboard_name": "Keyapad",
     "maintainer": "PenEngineering",
-    "processor": "atmega32u4",
-    "bootloader": "atmel-dfu",
+    "development_board": "elite_c",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
