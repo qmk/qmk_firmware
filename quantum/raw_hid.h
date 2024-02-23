@@ -12,7 +12,6 @@
  * \{
  */
 
-
 /**
  * \brief Callback, invoked when a raw HID report has been received from the host.
  *

@@ -114,7 +114,7 @@ static const USBDescriptor *usb_get_descriptor_cb(USBDriver *usbp, uint8_t dtype
 
     static USBDescriptor descriptor;
     descriptor.ud_string = NULL;
-    descriptor.ud_size   = get_usb_descriptor(setup->wValue.word, setup->wIndex, setup->wLength, (const void **const) & descriptor.ud_string);
+    descriptor.ud_size   = get_usb_descriptor(setup->wValue.word, setup->wIndex, setup->wLength, (const void **const)&descriptor.ud_string);
 
     if (descriptor.ud_string == NULL) {
         return NULL;
@@ -989,7 +989,7 @@ __attribute__((weak)) void raw_hid_receive(uint8_t *data, uint8_t length) {
 void raw_hid_task(void) {
     uint8_t buffer[RAW_EPSIZE];
     size_t  size = 0;
-    bool cont = false;
+    bool    cont = false;
     do {
         size = chnReadTimeout(&drivers.raw_driver.driver, buffer, sizeof(buffer), TIME_IMMEDIATE);
         if (size > 0) {
