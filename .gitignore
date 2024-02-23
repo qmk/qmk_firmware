@@ -28,7 +28,6 @@ quantum/version.h
 *.eep
 *.hex
 *.qmk
-*.uf2
 
 # DD config at wrong location
 /keyboards/**/keymaps/*/info.json
