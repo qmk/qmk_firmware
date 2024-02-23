@@ -6,7 +6,7 @@
 
 * Keyboard Maintainer: [Fabian Leijström](https://github.com/galile0-designs)
 * Hardware Supported: *glyphkbd_v2 PCB*
-* Hardware Availability: *Contact Me*
+* Hardware Availability: [Github Repository](https://github.com/galile0-designs/glyphkbd)
 
 Make example for this keyboard (after setting up your build environment):
 
