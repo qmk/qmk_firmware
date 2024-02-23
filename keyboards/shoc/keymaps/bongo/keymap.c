@@ -17,32 +17,26 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-	[0] = LAYOUT(
-		KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7,
-		KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Z, KC_U,
-		KC_CAPS, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J,
-		KC_LSFT, KC_Y, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M,
-		KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, MO(1), KC_SPC, KC_RALT, KC_RCTL,
-		KC_BSPC, KC_MINS, KC_0, KC_9, KC_8, KC_I, KC_O, KC_P,
-		KC_RGHT, KC_DOWN, KC_LEFT, KC_EQL, KC_UP, KC_SLSH, KC_COMM, KC_DOT,
-		KC_RBRC, KC_LBRC, KC_BSLS, KC_ENT, KC_QUOT, KC_SCLN, KC_L, KC_K),
+    [0] = LAYOUT(
+        KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,          KC_BSPC,
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Z,    KC_U,    KC_I,    KC_O,    KC_P,    KC_RBRC, KC_LBRC, KC_BSLS,
+        KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,
+        KC_LSFT,          KC_Y,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_DOT,  KC_COMM, KC_SLSH, KC_UP,   KC_EQL,
+        KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,  MO(1),   KC_SPC,           KC_RALT, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT),
 
     [1] = LAYOUT(
-		KC_ESC, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7,
-		KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Z, KC_U,
-		KC_CAPS, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J,
-		KC_LSFT, KC_Y, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M,
-		KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, MO(1), KC_SPC, KC_RALT, KC_RCTL,
-		KC_BSPC, KC_F11, KC_F10, KC_F9, KC_F8, KC_I, KC_O, KC_P,
-		KC_RGHT, KC_DOWN, KC_LEFT, KC_DEL, KC_UP, KC_SLSH, KC_COMM, KC_DOT,
-		KC_RBRC, KC_LBRC, KC_BSLS, KC_ENT, KC_QUOT, KC_SCLN, KC_L, KC_K)
+        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,           KC_BSPC,
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Z,    KC_U,    KC_I,    KC_O,    KC_P,    KC_RBRC, KC_LBRC, KC_BSLS,
+        KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,
+        KC_LSFT,          KC_Y,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_DOT,  KC_COMM, KC_SLSH, KC_UP,   KC_DEL,
+        KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,  MO(1),   KC_SPC,           KC_RALT, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT)
 
 
 };
 #ifdef OLED_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-	return OLED_ROTATION_0;
+    return OLED_ROTATION_0;
 }
 //full credit goes to https://www.reddit.com/user/Pop-X-/ only small feature comforts were added
 
@@ -163,7 +157,7 @@ bool oled_task_user(void) {
     oled_set_cursor(0,6);
     oled_write_P(PSTR("       WPM: "), false);
     oled_write(get_u8_str(get_current_wpm(), '0'), false);
-    if(host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)){
+    if(host_keyboard_led_state().caps_lock){
         oled_set_cursor(0,5);
         oled_write_P(PSTR("      CAPS  LOCK"), false);
     }

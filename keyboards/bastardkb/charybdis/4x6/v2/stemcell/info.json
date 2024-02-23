@@ -3,6 +3,21 @@
     "usb": {
         "device_version": "2.0.0"
     },
+    "rgb_matrix": {
+        "driver": "ws2812"
+    },
+    "ws2812": {
+        "pin": "D3",
+        "driver": "pwm"
+    },
+    "build": {
+        "debounce_type": "asym_eager_defer_pk"
+    },
+    "matrix_pins": {
+        "cols": ["F6", "F5", "B6", "D7", "E6", "B4"],
+        "rows": ["F4", "F7", "C6", "D4", "B5"]
+    },
+    "diode_direction": "ROW2COL",
     "split": {
         "soft_serial_pin": "D2"
     },

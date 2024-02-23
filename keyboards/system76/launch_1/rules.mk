@@ -19,8 +19,9 @@ BACKLIGHT_ENABLE = no       # Keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 RGB_MATRIX_ENABLE = yes     # RGB matrix
-RGB_MATRIX_DRIVER = WS2812
 RGB_MATRIX_CUSTOM_KB = yes  # Custom keyboard effects
 LTO_ENABLE = yes            # Link-time optimization for smaller binary
-SRC += usb_mux.c# Add USB mux driver
-QUANTUM_LIB_SRC += i2c_master.c# Add I2C driver
+
+# Add System76 EC command interface as well as I2C and USB mux drivers
+SRC += system76_ec.c usb_mux.c
+I2C_DRIVER_REQUIRED = yes

@@ -18,19 +18,8 @@
 
 #pragma once
 
-
-// key matrix pins
-#define MATRIX_ROW_PINS { C14, C15, A0, A1, A2 }
-#define MATRIX_COL_PINS { A3, A4, A5, A6, A7, B0, B1, B10, B11, B12, B13, B14, B15, A8, A9, A10 }
-
-// COL2ROW or ROW2COL
-#define DIODE_DIRECTION COL2ROW
-
-#define RGB_DI_PIN B9
-
 #define RGB_MATRIX_KEYPRESSES
-#define RGBLED_NUM 68
-#define RGB_MATRIX_LED_COUNT RGBLED_NUM
+#define RGB_MATRIX_LED_COUNT 68
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 128
 // RGB Matrix Animation modes. Explicitly enabled

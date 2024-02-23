@@ -8,27 +8,6 @@
 #    define STARTUP_SONG SONG(STARTUP_SOUND)
 #endif
 
-#define ENCODERS_CW_KEY  { { 1, 1 }, { 3, 1 } }
-#define ENCODERS_CCW_KEY { { 0, 1 }, { 2, 1 } }
-
-#define RGB_DI_PIN D3
-#ifdef RGB_DI_PIN
-#    define RGBLED_NUM 16
-#    define RGBLIGHT_HUE_STEP 8
-#    define RGBLIGHT_SAT_STEP 8
-#    define RGBLIGHT_VAL_STEP 8
-#    define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
-#    define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-#    define RGBLIGHT_EFFECT_BREATHING
-#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#    define RGBLIGHT_EFFECT_SNAKE
-#    define RGBLIGHT_EFFECT_KNIGHT
-#    define RGBLIGHT_EFFECT_CHRISTMAS
-#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#    define RGBLIGHT_EFFECT_RGB_TEST
-#    define RGBLIGHT_EFFECT_ALTERNATING
-#endif
 #define RGBLIGHT_DEFAULT_MODE (RGBLIGHT_MODE_RAINBOW_SWIRL + 2)
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */

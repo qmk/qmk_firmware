@@ -1,0 +1,54 @@
+{
+    "keyboard_name": "Keychron Q1v1",
+    "manufacturer": "Keychron",
+    "maintainer": "lalalademaxiya1",
+    "bootloader": "atmel-dfu",
+    "diode_direction": "ROW2COL",
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "dip_switch": true,
+        "extrakey": true,
+        "lto": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgb_matrix": true
+    },
+    "matrix_pins": {
+        "cols": ["D5", "D4", "D6", "D7", "B4", "B5", "B6", "C6", "C7", "F7", "F6", "F5", "F4", "F1", "F0"],
+        "rows": ["D3", "D2", "B3", "B2", "B1", "B0"]
+    },
+    "processor": "atmega32u4",
+    "rgb_matrix": {
+        "animations": {
+            "band_spiral_val": true,
+            "breathing": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_out_in": true,
+            "cycle_out_in_dual": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "cycle_up_down": true,
+            "digital_rain": true,
+            "dual_beacon": true,
+            "jellybean_raindrops": true,
+            "pixel_rain": true,
+            "rainbow_beacon": true,
+            "rainbow_moving_chevron": true,
+            "solid_reactive_multinexus": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_simple": true,
+            "solid_splash": true,
+            "splash": true,
+            "typing_heatmap": true
+        },
+        "driver": "is31fl3733"
+    },
+    "url": "https://github.com/Keychron",
+    "usb": {
+        "force_nkro": true,
+        "vid": "0x3434"
+    }
+}

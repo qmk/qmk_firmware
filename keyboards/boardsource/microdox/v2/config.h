@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
-#define RGB_DI_PIN B5
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
 #define RGB_MATRIX_LED_COUNT 44
 #define RGB_MATRIX_SPLIT { 22, 22 }

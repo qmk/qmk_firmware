@@ -1,0 +1,32 @@
+{
+    "manufacturer": "CannonKeys",
+    "keyboard_name": "is0GR",
+    "maintainer": "awkannan",
+    "bootloader": "stm32-dfu",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "matrix_pins": {
+        "cols": ["B3"],
+        "rows": ["A15"]
+    },
+    "processor": "STM32F072",
+    "url": "https://cannonkeys.com",
+    "usb": {
+        "device_version": "0.0.1",
+        "pid": "0x0028",
+        "vid": "0xCA04"
+    },
+    "community_layouts": ["ortho_1x1"],
+    "layouts": {
+        "LAYOUT_ortho_1x1": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0.25, "y": 0, "w": 1.25, "h": 2}
+            ]
+        }
+    }
+}

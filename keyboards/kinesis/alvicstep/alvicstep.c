@@ -1,4 +1,7 @@
-#include "kinesis.h"
+// Copyright 2023 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+#include "alvicstep.h"
 
 // begin section origin  https://github.com/alvicstep/tmk_keyboard 
 

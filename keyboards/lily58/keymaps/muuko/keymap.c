@@ -36,7 +36,7 @@ static long int oled_timeout = 300000;
 enum combos { ESCAPE_COMBO, DELETE_COMBO };
 const uint16_t PROGMEM escape_combo[] = { KC_GRV, KC_1, COMBO_END };
 const uint16_t PROGMEM delete_combo[] = { KC_DOT, KC_SLSH, COMBO_END };
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
     [ESCAPE_COMBO] = COMBO(escape_combo, KC_ESC),
     [DELETE_COMBO] = COMBO(delete_combo, KC_DEL)
 };

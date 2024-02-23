@@ -102,7 +102,7 @@ def augment_community_info(src, dest):
         item["matrix"] = [int(item["y"]), int(item["x"])]
 
     # finally write out the updated info.json
-    dest.write_text(json.dumps(info, cls=InfoJSONEncoder))
+    dest.write_text(json.dumps(info, cls=InfoJSONEncoder, sort_keys=True))
 
 
 def _question(*args, **kwargs):

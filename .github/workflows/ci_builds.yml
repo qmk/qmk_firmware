@@ -4,34 +4,39 @@ permissions:
   contents: read
 
 on:
+  push:
+    branches: [master, develop]
   workflow_dispatch:
-  schedule:
-    - cron: '0 0,12 * * *'
+    inputs:
+      branch:
+        type: choice
+        description: 'Branch to build'
+        options: [master, develop]
+
+concurrency: ci_build-${{ github.event.inputs.branch || github.ref_name }}
 
 jobs:
   ci_builds:
+    if: github.repository == 'qmk/qmk_firmware'
     name: "CI Build"
     runs-on: self-hosted
     timeout-minutes: 1380
 
-    if: github.repository == 'qmk/qmk_firmware'
-
     strategy:
       fail-fast: false
       matrix:
-        branch: [master, develop]
         keymap: [default, via]
 
-    container: qmkfm/qmk_cli
+    container: ghcr.io/qmk/qmk_cli
 
     steps:
     - name: Disable safe.directory check
       run : git config --global --add safe.directory '*'
 
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         submodules: recursive
-        ref: ${{ matrix.branch }}
+        ref: ${{ github.event.inputs.branch || github.ref }}
 
     - name: Install dependencies
       run: pip3 install -r requirements.txt
@@ -48,13 +53,22 @@ jobs:
         [ ! -f .failed ] || exit 1
 
     - name: 'Upload artifacts'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: artifacts-${{ matrix.branch }}-${{ matrix.keymap }}
+        name: artifacts-${{ github.event.inputs.branch || github.ref_name }}-${{ matrix.keymap }}
         if-no-files-found: ignore
         path: |
           *.bin
           *.hex
           *.uf2
           .build/failed.*
+
+    - name: 'CI Discord Notification'
+      if: always()
+      working-directory: util/ci/
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.CI_DISCORD_WEBHOOK }}
+      run: |
+        python3 -m pip install -r requirements.txt
+        python3 ./discord-results.py --branch ${{ github.event.inputs.branch || github.ref_name }} --keymap ${{ matrix.keymap }} --url ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}

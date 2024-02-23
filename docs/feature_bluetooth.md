@@ -4,10 +4,10 @@
 
 Currently Bluetooth support is limited to AVR based chips. For Bluetooth 2.1, QMK has support for RN-42 modules. For more recent BLE protocols, currently only the Adafruit Bluefruit SPI Friend is directly supported. BLE is needed to connect to iOS devices. Note iOS does not support mouse input.
 
-|Board                                                           |Bluetooth Protocol  |Connection Type|rules.mk                        |Bluetooth Chip|
-|----------------------------------------------------------------|--------------------|---------------|--------------------------------|--------------|
-|Roving Networks RN-42 (Sparkfun Bluesmirf)                      |Bluetooth Classic   |UART           |`BLUETOOTH_DRIVER = RN42`       |RN-42         |
-|[Bluefruit LE SPI Friend](https://www.adafruit.com/product/2633)|Bluetooth Low Energy|SPI            |`BLUETOOTH_DRIVER = BluefruitLE`|nRF51822      |
+|Board                                                           |Bluetooth Protocol  |Connection Type|rules.mk                         |Bluetooth Chip|
+|----------------------------------------------------------------|--------------------|---------------|---------------------------------|--------------|
+|Roving Networks RN-42 (Sparkfun Bluesmirf)                      |Bluetooth Classic   |UART           |`BLUETOOTH_DRIVER = rn42`        |RN-42         |
+|[Bluefruit LE SPI Friend](https://www.adafruit.com/product/2633)|Bluetooth Low Energy|SPI            |`BLUETOOTH_DRIVER = bluefruit_le`|nRF51822      |
 
 Not Supported Yet but possible:
 * [Bluefruit LE UART Friend](https://www.adafruit.com/product/2479). [Possible tmk implementation found in](https://github.com/tmk/tmk_keyboard/issues/514)
@@ -32,7 +32,7 @@ Add the following to your `rules.mk`:
 
 ```make
 BLUETOOTH_ENABLE = yes
-BLUETOOTH_DRIVER = BluefruitLE # or RN42
+BLUETOOTH_DRIVER = bluefruit_le # or rn42
 ```
 
 ## Bluetooth Keycodes

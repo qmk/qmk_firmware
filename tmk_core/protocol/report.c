@@ -15,6 +15,7 @@
  */
 
 #include "report.h"
+#include "action_util.h"
 #include "host.h"
 #include "keycode_config.h"
 #include "debug.h"
@@ -35,14 +36,14 @@ static int8_t cb_count = 0;
  *
  * FIXME: Needs doc
  */
-uint8_t has_anykey(report_keyboard_t* keyboard_report) {
+uint8_t has_anykey(void) {
     uint8_t  cnt = 0;
     uint8_t* p   = keyboard_report->keys;
     uint8_t  lp  = sizeof(keyboard_report->keys);
 #ifdef NKRO_ENABLE
     if (keyboard_protocol && keymap_config.nkro) {
-        p  = keyboard_report->nkro.bits;
-        lp = sizeof(keyboard_report->nkro.bits);
+        p  = nkro_report->bits;
+        lp = sizeof(nkro_report->bits);
     }
 #endif
     while (lp--) {
@@ -55,13 +56,13 @@ uint8_t has_anykey(report_keyboard_t* keyboard_report) {
  *
  * FIXME: Needs doc
  */
-uint8_t get_first_key(report_keyboard_t* keyboard_report) {
+uint8_t get_first_key(void) {
 #ifdef NKRO_ENABLE
     if (keyboard_protocol && keymap_config.nkro) {
         uint8_t i = 0;
-        for (; i < KEYBOARD_REPORT_BITS && !keyboard_report->nkro.bits[i]; i++)
+        for (; i < NKRO_REPORT_BITS && !nkro_report->bits[i]; i++)
             ;
-        return i << 3 | biton(keyboard_report->nkro.bits[i]);
+        return i << 3 | biton(nkro_report->bits[i]);
     }
 #endif
 #ifdef RING_BUFFERED_6KRO_REPORT_ENABLE
@@ -83,14 +84,14 @@ uint8_t get_first_key(report_keyboard_t* keyboard_report) {
  * Returns true if the keyboard_report reports that the key is pressed, otherwise false
  * Note: The function doesn't support modifers currently, and it returns false for KC_NO
  */
-bool is_key_pressed(report_keyboard_t* keyboard_report, uint8_t key) {
+bool is_key_pressed(uint8_t key) {
     if (key == KC_NO) {
         return false;
     }
 #ifdef NKRO_ENABLE
     if (keyboard_protocol && keymap_config.nkro) {
-        if ((key >> 3) < KEYBOARD_REPORT_BITS) {
-            return keyboard_report->nkro.bits[key >> 3] & 1 << (key & 7);
+        if ((key >> 3) < NKRO_REPORT_BITS) {
+            return nkro_report->bits[key >> 3] & 1 << (key & 7);
         } else {
             return false;
         }
@@ -215,9 +216,9 @@ void del_key_byte(report_keyboard_t* keyboard_report, uint8_t code) {
  *
  * FIXME: Needs doc
  */
-void add_key_bit(report_keyboard_t* keyboard_report, uint8_t code) {
-    if ((code >> 3) < KEYBOARD_REPORT_BITS) {
-        keyboard_report->nkro.bits[code >> 3] |= 1 << (code & 7);
+void add_key_bit(report_nkro_t* nkro_report, uint8_t code) {
+    if ((code >> 3) < NKRO_REPORT_BITS) {
+        nkro_report->bits[code >> 3] |= 1 << (code & 7);
     } else {
         dprintf("add_key_bit: can't add: %02X\n", code);
     }
@@ -227,9 +228,9 @@ void add_key_bit(report_keyboard_t* keyboard_report, uint8_t code) {
  *
  * FIXME: Needs doc
  */
-void del_key_bit(report_keyboard_t* keyboard_report, uint8_t code) {
-    if ((code >> 3) < KEYBOARD_REPORT_BITS) {
-        keyboard_report->nkro.bits[code >> 3] &= ~(1 << (code & 7));
+void del_key_bit(report_nkro_t* nkro_report, uint8_t code) {
+    if ((code >> 3) < NKRO_REPORT_BITS) {
+        nkro_report->bits[code >> 3] &= ~(1 << (code & 7));
     } else {
         dprintf("del_key_bit: can't del: %02X\n", code);
     }
@@ -240,10 +241,10 @@ void del_key_bit(report_keyboard_t* keyboard_report, uint8_t code) {
  *
  * FIXME: Needs doc
  */
-void add_key_to_report(report_keyboard_t* keyboard_report, uint8_t key) {
+void add_key_to_report(uint8_t key) {
 #ifdef NKRO_ENABLE
     if (keyboard_protocol && keymap_config.nkro) {
-        add_key_bit(keyboard_report, key);
+        add_key_bit(nkro_report, key);
         return;
     }
 #endif
@@ -254,10 +255,10 @@ void add_key_to_report(report_keyboard_t* keyboard_report, uint8_t key) {
  *
  * FIXME: Needs doc
  */
-void del_key_from_report(report_keyboard_t* keyboard_report, uint8_t key) {
+void del_key_from_report(uint8_t key) {
 #ifdef NKRO_ENABLE
     if (keyboard_protocol && keymap_config.nkro) {
-        del_key_bit(keyboard_report, key);
+        del_key_bit(nkro_report, key);
         return;
     }
 #endif
@@ -268,11 +269,11 @@ void del_key_from_report(report_keyboard_t* keyboard_report, uint8_t key) {
  *
  * FIXME: Needs doc
  */
-void clear_keys_from_report(report_keyboard_t* keyboard_report) {
+void clear_keys_from_report(void) {
     // not clear mods
 #ifdef NKRO_ENABLE
     if (keyboard_protocol && keymap_config.nkro) {
-        memset(keyboard_report->nkro.bits, 0, sizeof(keyboard_report->nkro.bits));
+        memset(nkro_report->bits, 0, sizeof(nkro_report->bits));
         return;
     }
 #endif
@@ -281,13 +282,21 @@ void clear_keys_from_report(report_keyboard_t* keyboard_report) {
 
 #ifdef MOUSE_ENABLE
 /**
- * @brief Compares 2 mouse reports for difference and returns result
+ * @brief Compares 2 mouse reports for difference and returns result. Empty
+ * reports always evaluate as unchanged.
  *
  * @param[in] new_report report_mouse_t
  * @param[in] old_report report_mouse_t
  * @return bool result
  */
 __attribute__((weak)) bool has_mouse_report_changed(report_mouse_t* new_report, report_mouse_t* old_report) {
-    return memcmp(new_report, old_report, sizeof(report_mouse_t));
+    // memcmp doesn't work here because of the `report_id` field when using
+    // shared mouse endpoint
+    bool changed = ((new_report->buttons != old_report->buttons) ||
+#    ifdef MOUSE_EXTENDED_REPORT
+                    (new_report->boot_x != 0 && new_report->boot_x != old_report->boot_x) || (new_report->boot_y != 0 && new_report->boot_y != old_report->boot_y) ||
+#    endif
+                    (new_report->x != 0 && new_report->x != old_report->x) || (new_report->y != 0 && new_report->y != old_report->y) || (new_report->h != 0 && new_report->h != old_report->h) || (new_report->v != 0 && new_report->v != old_report->v));
+    return changed;
 }
 #endif

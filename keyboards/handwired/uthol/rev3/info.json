@@ -3,6 +3,32 @@
     "usb": {
         "device_version": "0.0.3"
     },
+    "rgblight": {
+        "led_count": 39,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "tapping": {
+        "term": 500
+    },
+    "ws2812": {
+        "pin": "B0"
+    },
+    "matrix_pins": {
+        "cols": ["B1", "B10", "B9", "B8", "B5", "B4", "B3", "A15", "B15", "B14", "B13", "B12"],
+        "rows": ["A4", "A3", "A2", "A1", "A0"]
+    },
+    "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
             {"pin_a": "C15", "pin_b": "C14", "resolution": 2}

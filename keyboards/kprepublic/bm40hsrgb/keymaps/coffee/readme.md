@@ -21,12 +21,12 @@ The secondary layer ( `_SUB` ) is for syntax, F keys, and number keys
 | 4   | _   | _  |    | _  | _   | _   | <-  | _  |      |     |    |      |
 
 The control layer ( `_CTR` ) is for lighting, media, and macros
-| row | 1 | 2     | 3    | 4     | 5    | 6       | 7   | 8    | 9    | 10   | 11 | 12      |
-|-----|---|-------|------|-------|------|---------|-----|------|------|------|----|---------|
-| 1   |   | SPD-  | BRI+ | SPD+  | HUE+ | SAT+    |     |      | VOL+ |      |    | MCR_REC |
-| 2   |   | EFCT- | BRI- | EFCT+ | HUE- | SAT-    |     | PREV | PLAY | NEXT |    | MCR_PLY |
-| 3   |   |       | TOG  |       |      |         |     |      | VOL- |      |    | MCR_SWT |
-| 4   |   |       |      |       |      | MSE_TOG | <-  |      |      |      |    |         |
+| row | 1 | 2     | 3    |  4      |  5      | 6       | 7   | 8    | 9    | 10   | 11 | 12      |
+|-----|---|-------|------|---------|---------|---------|-----|------|------|------|----|---------|
+| 1   |   | SPD-  | BRI+ |  SPD+   |  HUE+   | SAT+    |     |      | VOL+ |      |    | MCR_REC |
+| 2   |   | EFCT- | BRI- |  EFCT+  |  HUE-   | SAT-    |     | PREV | PLAY | NEXT |    | MCR_PLY |
+| 3   |   |       | TOG  |         |         |         |     |      | VOL- |      |    | MCR_SWT |
+| 4   |   |       |      | TRBO_TI | TRBO_ST | MSE_TOG | <-  |      |      |      |    |         |
 
 The mouse layer ( `_MSE` ) is for making the keyboard function as a mouse as well
 | row | 1 | 2    | 3    | 4    | 5     | 6       | 7   | 8     | 9     | 10    | 11    | 12 |
@@ -67,6 +67,8 @@ The mouse layer ( `_MSE` ) is for making the keyboard function as a mouse as wel
 | SCR_D    | Mouse scroll down                            |
 | ACL_U    | Raise mouse/scroll speed                     |
 | ACL_D    | Lower mouse/scroll speed                     |
+| TRBO_ST  | Set turbo key (Hold), start/stop turbo (Tap) |
+| TRBO_TI  | Turbo speed +/- (Hold to switch direction)   |
 
 ## Compiling
 

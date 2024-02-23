@@ -1,6 +1,14 @@
 {
+    "matrix_pins": {
+        "cols": ["B6"],
+        "rows": ["B3"]
+    },
+    "diode_direction": "COL2ROW",
     "split": {
         "soft_serial_pin": "D1"
+    },
+    "ws2812": {
+        "pin": "D3"
     },
     "processor": "atmega32u4",
     "bootloader": "caterina"

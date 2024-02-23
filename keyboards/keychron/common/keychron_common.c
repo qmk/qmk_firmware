@@ -14,8 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include QMK_KEYBOARD_H
 #include "keychron_common.h"
+#include "sync_timer.h"
 
 bool is_siri_active = false;
 uint32_t siri_timer = 0;

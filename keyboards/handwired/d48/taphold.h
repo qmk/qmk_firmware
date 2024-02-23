@@ -1,3 +1,5 @@
+#pragma once
+
 #include "quantum.h"
 
 typedef enum taphold_mode_t {

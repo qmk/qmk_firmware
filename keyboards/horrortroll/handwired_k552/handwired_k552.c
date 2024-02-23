@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "handwired_k552.h"
+#include "quantum.h"
 
 // OLED animation
 #include "lib/logo.h"

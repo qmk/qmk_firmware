@@ -17,25 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-#define MATRIX_ROW_PINS { F4, F1, F0, C7, B6 }
-#define MATRIX_COL_PINS { C6, B5, B4, D7, D6, D4, D2, D3, B7 } // B7 is not actually used, but it is needed since # of entries must equal 9
-#define MATRIX_ROW_PINS_RIGHT { E6, F0, F1, F7, D7 }
-#define MATRIX_COL_PINS_RIGHT { B4, B5, B6, C6, C7, D4, D6, D3, D2 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 #define SPLIT_HAND_PIN D5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */

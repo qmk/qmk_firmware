@@ -14,9 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "delta.h"
+#include "quantum.h"
 
-#define LED_PIN_ON_STATE 1
 // Inits all indicator LEDs as push-pull outputs
 void led_init_ports(void) {
     palSetLineMode(LED1_PIN, PAL_MODE_OUTPUT_PUSHPULL);

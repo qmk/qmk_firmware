@@ -17,14 +17,6 @@
 
 #include "quantum.h"
 
-#ifdef KEYBOARD_durgod_dgk6x_hades
-#   include "hades.h"
-#elif defined KEYBOARD_durgod_dgk6x_venus
-#   include "venus.h"
-#elif defined KEYBOARD_durgod_dgk6x_galaxy
-#   include "galaxy.h"
-#endif
-
 /* Function Prototype */
 void off_all_leds(void);
 void on_all_leds(void);

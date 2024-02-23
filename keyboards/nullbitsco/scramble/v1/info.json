@@ -4,6 +4,9 @@
             {"pin_a": "D6", "pin_b": "D7"}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "processor": "atmega328p",
     "bootloader": "usbasploader",
     "matrix_pins": {

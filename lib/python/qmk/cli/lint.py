@@ -20,6 +20,9 @@ def _list_defaultish_keymaps(kb):
     """
     defaultish = ['ansi', 'iso', 'via']
 
+    # This is only here to flag it as "testable", so it doesn't fly under the radar during PR
+    defaultish.append('vial')
+
     keymaps = set()
     for x in list_keymaps(kb):
         if x in defaultish or x.startswith('default'):

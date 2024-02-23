@@ -22,23 +22,6 @@
 #define LOCKING_RESYNC_ENABLE
 
 /*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-
-#define MATRIX_ROW_PINS { F6, F5, F4, F1 }
-#define MATRIX_COL_PINS { F7, E2, C7, C6, B6, B5, D7, D6, D4, D5, D3, D2 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
-/*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
  */

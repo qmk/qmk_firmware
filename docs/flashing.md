@@ -322,6 +322,29 @@ Flashing sequence:
 3. Flash a .bin file
 4. Reset the device into application mode (may be done automatically)
 
+## WB32 DFU
+
+Some keyboards produced for several commercial brands (GMMK, Akko, MonsGeek, Inland) use this bootloader. The `wb32-dfu-updater` utility is bundled with [QMK MSYS](https://msys.qmk.fm/) and [Glorious's build of QMK Toolbox](https://www.gloriousgaming.com/blogs/guides-resources/gmmk-2-qmk-installation-guide). If neither of these flashing methods is available for your OS, you will likely need to [compile the CLI version from source](https://github.com/WestberryTech/wb32-dfu-updater).
+
+The `info.json` setting for this bootloader is `wb32-dfu`.
+
+Compatible flashers:
+
+* [Glorious's build of QMK Toolbox](https://www.gloriousgaming.com/blogs/guides-resources/gmmk-2-qmk-installation-guide) (recommended GUI)
+* [wb32-dfu-updater_cli](https://github.com/WestberryTech/wb32-dfu-updater) / `:flash` target in QMK (recommended command line)
+  ```
+  wb32-dfu-updater_cli -t -s 0x8000000 -D <filename>
+  ```
+
+Flashing sequence:
+
+1. Enter the bootloader using any of the following methods:
+    * Tap the `QK_BOOT` keycode
+    * Press the `RESET` button on the PCB
+2. Wait for the OS to detect the device
+3. Flash a .bin file
+4. Reset the device into application mode (may be done automatically)
+
 ## tinyuf2
 
 Keyboards may opt into supporting the tinyuf2 bootloader. This is currently only supported on F303/F401/F411.

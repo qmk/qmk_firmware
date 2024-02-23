@@ -17,25 +17,25 @@
 
 #pragma once
 
-// Key matrix pins
-// ROWS: AVR pins used for rows, top to bottom
-// COLS: AVR pins used for columns, left to right
-#define MATRIX_ROW_PINS { F0, F1, F4, F5, F6, F7 }
-#define MATRIX_COL_PINS { D7, C7, C6, B6, B5, B4, D6, D4, E6, D5, D3, D2, B7, B0 }
+//// Key matrix pins
+//// ROWS: AVR pins used for rows, top to bottom
+//// COLS: AVR pins used for columns, left to right
+//#define MATRIX_ROW_PINS { F0, F1, F4, F5, F6, F7 }
+//#define MATRIX_COL_PINS { D7, C7, C6, B6, B5, B4, D6, D4, E6, D5, D3, D2, B7, B0 }
 
-// Matrix diode direction
-// COL2ROW: COL => Anode (+), ROW => Cathode (-)
-// ROW2COL: ROW => Anode (+), COL => Cathode (-)
-#define DIODE_DIRECTION COL2ROW
+//// Matrix diode direction
+//// COL2ROW: COL => Anode (+), ROW => Cathode (-)
+//// ROW2COL: ROW => Anode (+), COL => Cathode (-)
+//#define DIODE_DIRECTION COL2ROW
 
 // RGB matrix
 #ifdef RGB_MATRIX_ENABLE
-#    define RGB_DI_PIN E2           // Pin connected to the data pin of the LEDs
-#    define RGB_MATRIX_LED_COUNT 84 // Number of LEDs connected
-#    define RGB_MATRIX_KEYPRESSES   // Reacts to keypresses
-//#    define RGB_MATRIX_KEYRELEASES         // Reacts to keyreleases (instead of keypresses)
-//#    define RGB_MATRIX_FRAMEBUFFER_EFFECTS // Enables framebuffer effects
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED // Turns off effects when suspended
+//#    define RGB_DI_PIN E2           // Pin connected to the data pin of the LEDs
+#    define RGB_MATRIX_LED_COUNT 84                                   // Number of LEDs connected
+#    define RGB_MATRIX_KEYPRESSES                                     // Reacts to keypresses
+//#    define RGB_MATRIX_KEYRELEASES                                    // Reacts to keyreleases (instead of keypresses)
+//#    define RGB_MATRIX_FRAMEBUFFER_EFFECTS                            // Enables framebuffer effects
+#    define RGB_DISABLE_WHEN_USB_SUSPENDED                            // Turns off effects when suspended
 // Limit brightness to support USB-A at 0.5 A
 // TODO: Do this dynamically based on power source
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 176                         // Limits maximum brightness of LEDs to 176 out of 255. If not defined, maximum brightness is set to 255

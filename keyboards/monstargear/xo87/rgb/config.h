@@ -16,18 +16,12 @@
 
 #pragma once
 
-#define MATRIX_ROW_PINS { E6,E7, E3, B0, B1 ,A2}
-#define MATRIX_COL_PINS { C5,C3,C1,E1,D6,D2,B7,B3,F6,F7,F3,A5,A1,E2,C7,A6 }
-#define DIODE_DIRECTION ROW2COL
-#define RGB_DI_PIN D7
 #define RGB_MATRIX_LED_COUNT 110
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 100 // limits maximum brightness of LEDs to 100 out of 255.
-#define RGBLIGHT_LIMIT_VAL 100 // limits maximum brightness of LEDs to 100 out of 255.
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#define RGBLED_NUM 110
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects

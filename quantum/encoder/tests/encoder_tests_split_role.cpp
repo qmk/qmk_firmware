@@ -22,6 +22,7 @@
 
 extern "C" {
 #include "encoder.h"
+#include "keyboard.h"
 #include "encoder/tests/mock_split.h"
 }
 
