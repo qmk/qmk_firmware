@@ -24,6 +24,8 @@
 #define BOLT_STROKE_SIZE 4
 #define GEMINI_STROKE_SIZE 6
 
+#define CHORD_END 0
+
 #ifdef STENO_ENABLE_GEMINI
 #    define MAX_STROKE_SIZE GEMINI_STROKE_SIZE
 #else
@@ -40,3 +42,6 @@ bool process_steno(uint16_t keycode, keyrecord_t *record);
 void steno_init(void);
 void steno_set_mode(steno_mode_t mode);
 #endif // STENO_ENABLE_ALL
+
+// Can be called programmatically by the user. Returns true if successful, otherwise false.
+bool send_custom_steno_chord(const uint16_t *stenochord);

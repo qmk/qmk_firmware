@@ -118,6 +118,8 @@ To test your keymap, you can chord keys on your keyboard and either look at the 
 
 ## Interfacing with the code :id=interfacing-with-the-code
 
+### Using hooks
+
 The steno code has three interceptable hooks. If you define these functions, they will be called at certain points in processing; if they return true, processing continues, otherwise it's assumed you handled things.
 
 ```c
@@ -146,6 +148,22 @@ The `n_pressed_keys` argument is the number of physical keys actually being held
 This is not always equal to the number of bits set to 1 (aka the [Hamming weight](https://en.wikipedia.org/wiki/Hamming_weight)) in `chord` because it is possible to simultaneously press down four keys, then release three of those four keys and then press yet another key while the fourth finger is still holding down its key.
 At the end of this scenario given as an example, `chord` would have five bits set to 1 but
 `n_pressed_keys` would be set to 2 because there are only two keys currently being pressed down.
+
+### Programmatically sending steno chords
+
+You can programmatically send chords to Plover using the following function:
+```c
+bool send_custom_steno_chord(const uint16_t *stenochord);
+// Returns true upon successful processing and sending, and false otherwise.
+```
+
+To use the function, first manually construct an array of standard steno keycodes that is terminated by `CHORD_END`, then pass the arary to the function:
+
+```c
+static const uint16_t myChord[] PROGMEM  = {STN_SL, STN_TL, STN_O, STN_E, STN_U, STN_PR, STN_BR, CHORD_END};
+send_custom_steno_chord(myChord);
+```
+The keycodes do not need to be in proper steno order, but the array must terminate with `CHORD_END`.
 
 ## Keycode Reference :id=keycode-reference
 
