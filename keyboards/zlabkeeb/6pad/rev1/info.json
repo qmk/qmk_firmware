@@ -20,7 +20,7 @@
             "static_gradient": true,
             "twinkle": true
         },
-        "led_count": 12,
+        "led_count": 4,
         "max_brightness": 180,
         "saturation_steps": 8,
         "sleep": true
