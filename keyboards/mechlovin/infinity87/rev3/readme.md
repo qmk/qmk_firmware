@@ -5,7 +5,8 @@
 A replacement PCB for TKL keyboard 
 
 * Keyboard Maintainer: [Mechlovin' Studio](https://mechlovin.studio/)
-* Hardware Supported: Infinity87 rev.3, APM32F103
+* Hardware Supported: Infinity87 rev.3, APM32F103.
+* Hardware Availability: [Nika TKL](https://www.a7xnika.com/), [Mechlovin' Studio](https://mechlovin.studio/) (stock soon).
 
 Make example for this keyboard (after setting up your build environment):
 
