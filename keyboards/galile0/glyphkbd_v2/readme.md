@@ -1,6 +1,6 @@
 # glyphkbd_v2
 
-![glyphkbd_v2](https://imgur.com/a/UT6CJB6)
+![glyphkbd_v2](https://i.imgur.com/9PxLaPlh.jpeg)
 
 *5x13 ortholinear plus TKL nav and arrow clusters*
 
