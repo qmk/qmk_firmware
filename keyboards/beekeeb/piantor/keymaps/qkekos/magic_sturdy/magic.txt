@@ -39,6 +39,7 @@ ion★        -> ional
 
 // A lot
 
+→implement☆ -> implementation
 →democrac☆  -> democracy
 →supremac☆  -> supremacy
 →accurac☆   -> accuracy
@@ -251,8 +252,8 @@ q✵          -> qui
 
 // Double taps
 
-→impl✵✵     -> implementation
 →fu✵✵       -> functionality
+→impl✵✵     -> implementing
 →sim✵✵      -> simultaneous
 →dev✵✵      -> development
 →int✵✵      -> interesting
