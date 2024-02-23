@@ -22,33 +22,33 @@
 #include "tb3s.h"
 #include <string.h>
 
-#    ifndef CHARYBDIS_MINIMUM_DEFAULT_DPI
-#        define CHARYBDIS_MINIMUM_DEFAULT_DPI 100
-#    endif // CHARYBDIS_MINIMUM_DEFAULT_DPI
+#ifndef CHARYBDIS_MINIMUM_DEFAULT_DPI
+#    define CHARYBDIS_MINIMUM_DEFAULT_DPI 100
+#endif // CHARYBDIS_MINIMUM_DEFAULT_DPI
 
-#    ifndef CHARYBDIS_DEFAULT_DPI_CONFIG_STEP
-#        define CHARYBDIS_DEFAULT_DPI_CONFIG_STEP 100
-#    endif // CHARYBDIS_DEFAULT_DPI_CONFIG_STEP
+#ifndef CHARYBDIS_DEFAULT_DPI_CONFIG_STEP
+#    define CHARYBDIS_DEFAULT_DPI_CONFIG_STEP 100
+#endif // CHARYBDIS_DEFAULT_DPI_CONFIG_STEP
 
-#    ifndef CHARYBDIS_MINIMUM_SNIPING_DPI
-#        define CHARYBDIS_MINIMUM_SNIPING_DPI 100
-#    endif // CHARYBDIS_MINIMUM_SNIPER_MODE_DPI
+#ifndef CHARYBDIS_MINIMUM_SNIPING_DPI
+#    define CHARYBDIS_MINIMUM_SNIPING_DPI 100
+#endif // CHARYBDIS_MINIMUM_SNIPER_MODE_DPI
 
-#    ifndef CHARYBDIS_SNIPING_DPI_CONFIG_STEP
-#        define CHARYBDIS_SNIPING_DPI_CONFIG_STEP 100
-#    endif // CHARYBDIS_SNIPING_DPI_CONFIG_STEP
+#ifndef CHARYBDIS_SNIPING_DPI_CONFIG_STEP
+#    define CHARYBDIS_SNIPING_DPI_CONFIG_STEP 100
+#endif // CHARYBDIS_SNIPING_DPI_CONFIG_STEP
 
-#    ifndef CHARYBDIS_DRAGSCROLL_DPI
-#        define CHARYBDIS_DRAGSCROLL_DPI 100
-#    endif // CHARYBDIS_DRAGSCROLL_DPI
+#ifndef CHARYBDIS_DRAGSCROLL_DPI
+#    define CHARYBDIS_DRAGSCROLL_DPI 100
+#endif // CHARYBDIS_DRAGSCROLL_DPI
 
 typedef union {
     uint16_t raw;
     struct {
-        uint8_t  pointer_default_dpi : 7; // 16 steps available.
-        uint8_t  pointer_sniping_dpi : 1; // 4 steps available.
-        bool     is_dragscroll_enabled : 1;
-        bool     is_sniping_enabled : 1;
+        uint8_t pointer_default_dpi : 7; // 16 steps available.
+        uint8_t pointer_sniping_dpi : 1; // 4 steps available.
+        bool    is_dragscroll_enabled : 1;
+        bool    is_sniping_enabled : 1;
     } __attribute__((packed));
 } charybdis_config_t;
 
@@ -174,34 +174,38 @@ void charybdis_set_pointer_dragscroll_enabled(bool enable) {
  */
 static void pointing_device_task_charybdis(report_mouse_t* mouse_report) {
     if (g_charybdis_config.is_dragscroll_enabled) {
-#    ifdef CHARYBDIS_DRAGSCROLL_REVERSE_X
-        mouse_report->h = -1*mouse_report->x;
-#    else
+#ifdef CHARYBDIS_DRAGSCROLL_REVERSE_X
+        mouse_report->h = mouse_report->x * -1;
+#else
         mouse_report->h = mouse_report->x;
-#    endif // CHARYBDIS_DRAGSCROLL_REVERSE_X
-#    ifdef CHARYBDIS_DRAGSCROLL_REVERSE_Y
-        mouse_report->v = -1*mouse_report->y;
-#    else
+
+#endif // CHARYBDIS_DRAGSCROLL_REVERSE_X
+
+#ifdef CHARYBDIS_DRAGSCROLL_REVERSE_Y
+        mouse_report->v = mouse_report->y * -1;
+#else
         mouse_report->v = mouse_report->y;
-#    endif // CHARYBDIS_DRAGSCROLL_REVERSE_Y
+#endif // CHARYBDIS_DRAGSCROLL_REVERSE_Y
+
+        // set mouse xy to 0 when scrolling
         mouse_report->x = 0;
         mouse_report->y = 0;
     }
 }
 
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
-    pointing_device_task_charybdis(&mouse_report);
     mouse_report = pointing_device_task_user(mouse_report);
+    pointing_device_task_charybdis(&mouse_report);
     return mouse_report;
 }
 
 // brief Whether SHIFT mod is enabled.
 static bool has_shift_mod(void) {
-#        ifdef NO_ACTION_ONESHOT
+#ifdef NO_ACTION_ONESHOT
     return mod_config(get_mods()) & MOD_MASK_SHIFT;
-#        else
+#else
     return mod_config(get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT;
-#        endif // NO_ACTION_ONESHOT
+#endif // NO_ACTION_ONESHOT
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
@@ -251,7 +255,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
             break;
     }
     if (IS_QK_KB(keycode) || IS_MOUSEKEY(keycode)) {
-        //debug_charybdis_config_to_console(&g_charybdis_config);
+        // debug_charybdis_config_to_console(&g_charybdis_config);
     }
     return true;
 }
@@ -286,8 +290,7 @@ void keyboard_pre_init_kb(void) {
      * pathways to ground. If you're messing with this, know this: driving ANY
      * of these pins high will cause a short. On the MCU. Ka-blooey.
      */
-    const pin_t unused_pins[] = { GP1, GP3, GP4, GP6, GP8, GP10, GP14, GP16,
-        GP18, GP21, GP22, GP24, GP25, GP26, GP27, GP28, GP29 };
+    const pin_t unused_pins[] = {GP1, GP3, GP4, GP6, GP8, GP10, GP14, GP16, GP18, GP21, GP22, GP24, GP25, GP26, GP27, GP28, GP29};
 
     for (uint8_t i = 0; i < (sizeof(unused_pins) / sizeof(pin_t)); i++) {
         setPinOutput(unused_pins[i]);
@@ -296,5 +299,3 @@ void keyboard_pre_init_kb(void) {
 
     keyboard_pre_init_user();
 }
-
-

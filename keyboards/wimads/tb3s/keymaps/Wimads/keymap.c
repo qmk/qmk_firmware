@@ -19,16 +19,12 @@
 */
 #include QMK_KEYBOARD_H
 
-////MOUSE ACCELERATION////
-#include "maccel.c"
-report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-    return pointing_device_task_maccel(mouse_report);
-};
-
 ////LAYER & KEYCODE DEFINITIONS////
 enum layers {
    _DEF,
    _QMK,
+   _VARUP,
+   _VARDN
 };
 
 #define LMB KC_BTN1
@@ -38,6 +34,8 @@ enum layers {
 #define FWD KC_BTN5
 
 #define RST_QMK LT(_QMK, QK_BOOT) //
+#define FWD_VARUP LT(_VARUP, FWD)
+#define BCK_VARDN LT(_VARDN, BCK)
 #define DRTGSCR LT(10, KC_NO)     //drag-toggle-scroll >>further defined in macro
 
 #include "gboards/g/keymap_combo.h"
@@ -57,6 +55,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
                 reset_keyboard();
                 return false;
             } return true;
+
+        case FWD_VARUP:
+            if (record->event.pressed && record->tap.count){
+                tap_code16(KC_BTN5);
+                return false;
+            } return true;
+        case BCK_VARDN:
+            if (record->event.pressed && record->tap.count){
+                tap_code16(KC_BTN4);
+                return false;
+            } else if (record->event.pressed) {
+                return true;
+                register_mods(KC_LSFT);
+            } else {
+                unregister_mods(KC_LSFT);
+                return true;
+            }
+
         case DRTGSCR: //dragscroll / drag_toggle / sniping - all in one key!
             if (record->event.pressed && record->tap.count) { //on tap
                 //toggle dragscroll on/off
@@ -78,7 +94,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
                     charybdis_set_pointer_dragscroll_enabled(dragscroll);
                 } //else do nothing
             } return false;
-
         default:
             return true;
     }//.switch(keycode)

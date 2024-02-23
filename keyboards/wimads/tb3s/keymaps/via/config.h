@@ -16,7 +16,18 @@
 
 #pragma once
 
-//combos
+// combos
 #define COMBO_VARIABLE_LEN
 #define COMBO_TERM 60
 
+// maccel config
+#define MACCEL_TAKEOFF 2        // smoothing bottom end of curve
+#define MACCEL_GROWTH_RATE 0.25 // steepness of accel curve
+#define MACCEL_OFFSET 2.2       // start offset of accel curve
+#define MACCEL_LIMIT 6          // upper limit of accel curve
+
+#define EECONFIG_USER_DATA_SIZE 20
+
+#define MACCEL_DEBUG // enable debug console
+#undef PRINTF_SUPPORT_DECIMAL_SPECIFIERS
+#define PRINTF_SUPPORT_DECIMAL_SPECIFIERS 1 // enable floats in debug console

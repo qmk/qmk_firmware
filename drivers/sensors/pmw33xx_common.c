@@ -200,7 +200,7 @@ pmw33xx_report_t pmw33xx_read_burst(uint8_t sensor) {
     spi_write(REG_Motion_Burst);
     wait_us(35); // waits for tSRAD_MOTBR
 
-    spi_receive((uint8_t*)&report, sizeof(report));
+    spi_receive((uint8_t *)&report, sizeof(report));
 
     // panic recovery, sometimes burst mode works weird.
     if (report.motion.w & 0b111) {
