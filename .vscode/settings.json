@@ -30,5 +30,43 @@
     },
     "clangd.arguments": [
         "--header-insertion=never"
-    ]
+    ],
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "terminal.integrated.profiles.windows": {
+        "QMK_MSYS": {
+            "path": "C:/QMK_MSYS/usr/bin/bash.exe",
+            "env": {
+                "MSYSTEM": "MINGW64",
+                "CHERE_INVOKING": "1"
+            },
+            "args": [
+                "--login"
+            ]
+        }
+    },
+    "terminal.integrated.cursorStyle": "line",
+    "editor.quickSuggestions": {
+        "other": "inline",
+        "comments": "inline"
+    },
+    "editor.snippetSuggestions": "inline",
+    "editor.inlineSuggest.showToolbar": "never",
+    "editor.suggest.localityBonus": true,
+    "editor.suggest.matchOnWordStartOnly": true,
+    "editor.minimap.enabled": false,
+    "editor.minimap.autohide": true,
+    "diffEditor.wordWrap": "inherit",
+    "C_Cpp.vcFormat.indent.caseLabels": true,
+    "terminal.integrated.defaultProfile.windows": "QMK_MSYS",
+    "terminal.integrated.hideOnStartup": "always",
+    "terminal.integrated.tabs.defaultColor": "terminal.ansiGreen",
+    "terminal.integrated.tabs.location": "right",
+    "terminal.explorerKind": "integrated",
+    "workbench.panel.opensMaximized": "never",
+    "C_Cpp.codeFolding": "enabled",
+    "editor.inlayHints.enabled": "off",
+    "editor.suggest.showValues": false,
+    "editor.suggest.showOperators": false,
+    "editor.acceptSuggestionOnEnter": "off"
 }

@@ -1,0 +1,187 @@
+{
+    "name": "Charybdis Nano",
+    "vendorId": "0xA8F8",
+    "productId": "0x1832",
+    "menus": [
+        "qmk_rgb_matrix",
+        {
+            "label": "Mouse acceleration",
+            "content": [
+                {
+                    "label": "Acceleration",
+                    "content": [
+                        {
+                            "label": "Enabled",
+                            "type": "toggle",
+                            "content": [
+                                "id_maccel_enabled",
+                                24,
+                                5
+                            ]
+                        },
+                        {
+                            "label": "Takeoff",
+                            "type": "range",
+                            "options": [
+                                0,
+                                60000
+                            ],
+                            "content": [
+                                "id_maccel_takeoff",
+                                24,
+                                1
+                            ]
+                        },
+                        {
+                            "label": "Growth Rate",
+                            "type": "range",
+                            "options": [
+                                0,
+                                60000
+                            ],
+                            "content": [
+                                "id_maccel_growth_rate",
+                                24,
+                                2
+                            ]
+                        },
+                        {
+                            "label": "Offset",
+                            "type": "range",
+                            "options": [
+                                0,
+                                60000
+                            ],
+                            "content": [
+                                "id_maccel_offset",
+                                24,
+                                3
+                            ]
+                        },
+                        {
+                            "label": "Limit",
+                            "type": "range",
+                            "options": [
+                                0,
+                                60000
+                            ],
+                            "content": [
+                                "id_maccel_limit",
+                                24,
+                                4
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "matrix": {
+        "rows": 8,
+        "cols": 5
+    },
+    "customKeycodes": [
+        {
+            "title": "Default DPI Increase",
+            "name": "Default DPI Inc",
+            "shortName": "DPI+"
+        },
+        {
+            "title": "Default DPI Decrease",
+            "name": "Default DPI Dec",
+            "shortName": "DPI-"
+        },
+        {
+            "title": "Sniping DPI Increase",
+            "name": "Sniping DPI Inc",
+            "shortName": "Snp+"
+        },
+        {
+            "title": "Sniping DPI Decrease",
+            "name": "Sniping DPI Dec",
+            "shortName": "Snp-"
+        },
+        {
+            "title": "Sniping Momentary",
+            "name": "Sniping MO",
+            "shortName": "Snp"
+        },
+        {
+            "title": "Sniping Toggle",
+            "name": "Sniping TO",
+            "shortName": "SnpT"
+        },
+        {
+            "title": "Drag-scroll Momentary",
+            "name": "Drag-scroll MO",
+            "shortName": "Drg"
+        },
+        {
+            "title": "Drag-scroll Toggle",
+            "name": "Drag-scroll TG",
+            "shortName": "DrgT"
+        }
+    ],
+    "layouts": {
+        "keymap": [
+            [
+                "0,0",
+                "0,1",
+                "0,2",
+                "0,3",
+                "0,4",
+                {
+                    "x": 4
+                },
+                "4,4",
+                "4,3",
+                "4,2",
+                "4,1",
+                "4,0"
+            ],
+            [
+                "1,0",
+                "1,1",
+                "1,2",
+                "1,3",
+                "1,4",
+                {
+                    "x": 4
+                },
+                "5,4",
+                "5,3",
+                "5,2",
+                "5,1",
+                "5,0"
+            ],
+            [
+                "2,0",
+                "2,1",
+                "2,2",
+                "2,3",
+                "2,4",
+                {
+                    "x": 4
+                },
+                "6,4",
+                "6,3",
+                "6,2",
+                "6,1",
+                "6,0"
+            ],
+            [
+                {
+                    "x": 3
+                },
+                "3,2",
+                "3,3",
+                "3,0",
+                {
+                    "x": 2
+                },
+                "7,0",
+                "7,2"
+            ]
+        ]
+    }
+}
