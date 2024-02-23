@@ -1,36 +1,11 @@
-# Included Keyboards
+# Filco Majestouch 2 TKL RP 2040 mod
 
-QMK runs on a diverse range of keyboards. Some of these keyboards are well maintained and see constant community contributions, while others are part of the repository for historical reasons.
+Controller replacement for Filco Majestouch 2 TKL (ISO) by Blaskkaffe
 
-## Official QMK Keyboards
+This is based around rp2040 but will need 28 gpio pins so it will not work with Raspberry Pi pico, you will have to use a clone.
 
-### Ortholinear Keyboards - Jack Humbert
+Make example for this keyboard (after setting up your build environment):
 
-What makes OLKB keyboards shine is a combo of lean aesthetics, compact size, and killer tactile feel. These are available through [olkb.com](http://olkb.com) as well as through [Massdrop](http://massdrop.com) from time to time, as easy to assemble kits.
+    make blaskkaffe/majestouch2040:default
 
-* [Planck](/keyboards/planck/) &mdash; A 40% DIY powerhouse of customizability and modification capability. It's a lean, mean, typing machine.
-* [Preonic](/keyboards/preonic/) &mdash; Like the Planck, but bigger. 50%.
-* [Atomic](/keyboards/atomic/) &mdash; Imagine the size of the Planck. Now imagine the size of the Preonic. Now imagine _bigger_. That is the Atomic. A 60% keyboard.
-
-### Clueboard - Zach White
-
-Designed and built in Felton, CA, Clueboards keyboard emphasize quality and locally sourced components.
-
-* [Clueboard](/keyboards/clueboard/66/) &mdash; The 66% custom keyboard.
-* [Cluecard](/keyboards/clueboard/card/) &mdash; A small board to help you hack on QMK.
-* [Cluepad](/keyboards/clueboard/17/) &mdash; A mechanical numpad with QMK superpowers.
-
-### Moonlander, ErgoDox EZ and Planck EZ - ZSA Technology Labs
-
-[ZSA Technology Labs](https://zsa.io) maintains its own [fork of QMK](https://github.com/zsa/qmk_firmware) which feeds its [configurator](https://configure.zsa.io), for stability and legal purposes. The ZSA boards are:
-
-* [Moonlander Mark I](/keyboards/moonlander/) &mdash; A next-gen split, ergonomic keyboard with an active left side, USB type C, integrated wrist rest, and a thumb cluster that can move.
-* [ErgoDox EZ](/keyboards/ergodox_ez/) &mdash; A powerful split mechanical keyboard.
-* [Planck EZ](/keyboards/planck/ez) &mdash; A 40% DIY powerhouse of customizability and modification capability. It's a lean, mean, typing machine, which ships fully assembled with a two-year warranty.
-
-
-## Community-supported QMK Keyboards
-
-These keyboards are part of the QMK repository, but their manufacturers are not official maintainers of the repository.
-
-Since there are too many to list here and keep updated, please see the folder listing instead.
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
