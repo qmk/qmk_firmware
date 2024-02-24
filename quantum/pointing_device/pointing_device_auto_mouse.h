@@ -42,6 +42,9 @@
 #ifndef AUTO_MOUSE_DEBOUNCE
 #    define AUTO_MOUSE_DEBOUNCE 25
 #endif
+#ifndef AUTO_MOUSE_THRESHOLD
+#    define AUTO_MOUSE_THRESHOLD 0
+#endif
 
 /* data structure */
 typedef struct {

@@ -217,7 +217,11 @@ void auto_mouse_layer_off(void) {
  * @return bool of pointing_device activation
  */
 __attribute__((weak)) bool auto_mouse_activation(report_mouse_t mouse_report) {
-    return mouse_report.x != 0 || mouse_report.y != 0 || mouse_report.h != 0 || mouse_report.v != 0 || mouse_report.buttons;
+    return mouse_report.x > AUTO_MOUSE_THRESHOLD || mouse_report.x < -AUTO_MOUSE_THRESHOLD
+        || mouse_report.y > AUTO_MOUSE_THRESHOLD || mouse_report.y < -AUTO_MOUSE_THRESHOLD
+        || mouse_report.h > AUTO_MOUSE_THRESHOLD || mouse_report.h < -AUTO_MOUSE_THRESHOLD
+        || mouse_report.v > AUTO_MOUSE_THRESHOLD || mouse_report.v < -AUTO_MOUSE_THRESHOLD
+        || mouse_report.buttons;
 }
 
 /**
