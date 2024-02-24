@@ -19,6 +19,7 @@
 →judge★     -> judgment
 →could★     -> couldn't
 →over★      -> override
+→list★      -> listener
 →again★     -> against
 →start★     -> started
 →enque★     -> enqueue
