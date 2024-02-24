@@ -7,8 +7,8 @@
     "url": "",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0000",
-        "vid": "0xFEED"
+        "pid": "0x8010",
+        "vid": "0x0B1E"
     },
     "features": {
         "command": false,
@@ -16,7 +16,10 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgb_matrix": true
+        "rgblight": true
+    },
+    "dynamic_keymap": {
+        "layer_count": 6
     },
     "split": {
         "enabled": true
@@ -25,17 +28,6 @@
     "matrix_pins": {
         "cols": ["GP29", "GP28", "GP27", "GP26", "GP15", "GP14", "GP13"],
         "rows": ["GP5", "GP4", "GP3", "GP2", "GP1", "GP0"]
-    },
-    "rgb_matrix": {
-        "driver": "ws2812",
-        "layout": [
-            {"x": 0, "y": 0.375},
-            {"x": 16.5, "y": 0.38}
-        ]
-    },
-    "ws2812": {
-        "pin": "GP16",
-        "driver": "vendor"
     },
     "layouts": {
         "LAYOUT": {
