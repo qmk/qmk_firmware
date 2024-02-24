@@ -177,8 +177,8 @@ Optionally, the following modifications should also be made to the keyboard's `r
 ```makefile
 # Disable optimisations for debugging purposes
 LTO_ENABLE = no
-OPT = 0
-OPT_DEFS += -g
+OPT = g
+DEBUG = 3
 ```
 
 At this point, you should build and flash your firmware through normal methods (`qmk compile ...` and `qmk flash ...`).
