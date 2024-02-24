@@ -7,7 +7,6 @@
         "vid": "0xA68C",
         "pid": "0x4D90",
         "device_version": "0.0.1",
-        "polling_interval": 1,
         "force_nkro": true
     },
     "processor": "atmega32u2",
