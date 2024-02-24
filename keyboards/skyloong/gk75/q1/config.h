@@ -7,13 +7,12 @@
 
 #define IS31FL3743A_I2C_ADDRESS_1 IS31FL3743A_I2C_ADDRESS_GND_GND
 #define IS31FL3743A_I2C_ADDRESS_2 IS31FL3743A_I2C_ADDRESS_GND_VCC
-#define IS31FL3743A_DRIVER_COUNT 2
+#define IS31FL3743A_SDB_PIN B12
 
 #define CAPS_LOCK_INDEX 44
 #define WIN_MOD_INDEX 20
 #define MAC_MOD_INDEX 21
 #define WIN_LOCK_INDEX 75
-#define SDB B12
 
 /* RGB Matrix Animation modes. Explicitly enabled
  * For full list of effects, see:
