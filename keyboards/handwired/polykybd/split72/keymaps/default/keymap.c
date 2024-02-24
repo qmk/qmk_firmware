@@ -1456,6 +1456,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     return display_wakeup(record);
 }
 
+bool pre_process_record_user(uint16_t keycode, keyrecord_t* record) {
+    if (record->event.pressed) {
+        switch (keycode)
+        {
+        case QK_DEBUG_TOGGLE:
+            // Quantum usually intercepts the debug key (QK_DEBUG_TOGGLE) in process_record_quantum and handles it internally
+            // By using the pre_process handler we can intercept it earlier and implement the toggle cycle as below
+            if (!debug_enable) {
+                debug_enable = 1;
+            } else if (!debug_keyboard) {
+                debug_keyboard = 1;
+            } else if (!debug_matrix) {
+                debug_matrix = 1;
+            } else {
+                debug_enable   = 0;
+                debug_keyboard = 0;
+                debug_matrix   = 0;
+            }
+            dprintf("DEBUG: enable=%u, keyboard=%u, matrix=%u\n", debug_enable, debug_keyboard, debug_matrix);
+            dprint(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE "\n");
+            eeconfig_update_debug(debug_config.raw);
+            request_disp_refresh();
+            return false;
+        default:
+            break;
+        }
+    }
+    return true;
+}
+
 void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
     if (keycode == KC_CAPS_LOCK) {
         request_disp_refresh();
@@ -1574,22 +1604,6 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
         case RGB_MOD:
         case RGB_RMOD:
             request_disp_refresh();
-            break;
-        case QK_DEBUG_TOGGLE:
-            if (!debug_enable) {
-                debug_enable = 1;
-            } else if (!debug_keyboard) {
-                debug_keyboard = 1;
-            } else if (!debug_matrix) {
-                debug_matrix = 1;
-            } else {
-                debug_enable   = 0;
-                debug_keyboard = 0;
-                debug_matrix   = 0;
-            }
-            dprintf("DEBUG: enable=%u, keyboard=%u, matrix=%u\n", debug_enable, debug_keyboard, debug_matrix);
-            dprint(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE "\n");
-            eeconfig_update_debug(debug_config.raw);
             break;
         default:
             break;
