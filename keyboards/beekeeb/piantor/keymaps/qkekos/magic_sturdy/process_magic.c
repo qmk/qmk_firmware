@@ -80,6 +80,12 @@ bool process_context_magic(uint16_t keycode, keyrecord_t *record) {
 
     if (!record->event.pressed) return true;
 
+    if (keycode == OS_LSFT) {
+        enqueue_keycode(KC_SPC);
+        magic_tap_count = 0;
+        return true;
+    }
+
     // keycode verification and extraction
     if (!process_check(&keycode, record, &key_buffer_size, &mods)) return true;
 
