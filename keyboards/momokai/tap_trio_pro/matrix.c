@@ -11,7 +11,7 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 #include "scanfunctions.h"
 #include "debounce_digital.c"
 #include "debounce_analog.c"
-#include "matrix_helpers.c"
+// #include "matrix_helpers.c"
 
 #ifndef MATRIX_INPUT_PRESSED_STATE
 #    define MATRIX_INPUT_PRESSED_STATE 0
