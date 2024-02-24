@@ -19,6 +19,7 @@
         "bootmagic": true,
         "extrakey": true,
         "mousekey": true,
+        "rgblight": true,
         "nkro": false
     },
     "rgblight": {
