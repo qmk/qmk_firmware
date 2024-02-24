@@ -235,27 +235,21 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     }
     return false;
 }
-#endif
-
 void suspend_power_down_kb() {
-#if defined(RGB_MATRIX_ENABLE)
-    writePinLow(SDB);
-#endif
+    gpio_write_pin_low(IS31FL3743A_SDB_PIN);
     suspend_power_down_user();
 }
 
 void suspend_wakeup_init_kb() {
-#if defined(RGB_MATRIX_ENABLE)
-    writePinHigh(SDB);
-#endif
+    gpio_write_pin_high(IS31FL3743A_SDB_PIN);
     suspend_wakeup_init_user();
 }
 
 bool shutdown_kb(bool jump_to_bootloader) {
-    writePinLow(SDB);
+    gpio_write_pin_low(IS31FL3743A_SDB_PIN);
     return true;
 }
-
+#endif
 
 void board_init(void) {
     // JTAG-DP Disabled and SW-DP Disabled
