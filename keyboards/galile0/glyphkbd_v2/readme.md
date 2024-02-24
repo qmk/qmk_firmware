@@ -2,7 +2,7 @@
 
 ![glyphkbd_v2](https://i.imgur.com/9PxLaPlh.jpeg)
 
-*5x13 ortholinear plus TKL nav and arrow clusters*
+5x13 ortholinear plus TKL nav and arrow clusters.
 
 * Keyboard Maintainer: [Fabian Leijström](https://github.com/galile0-designs)
 * Hardware Supported: *glyphkbd_v2 PCB*
