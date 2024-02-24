@@ -207,6 +207,7 @@ x☆          -> xt
 →min✵       -> minute
 →exp✵       -> expect
 →bet✵       -> better
+→ask✵       -> asking
 →sti✵       -> still
 
 nat✵        -> nation
