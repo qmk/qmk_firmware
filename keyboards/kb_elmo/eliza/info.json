@@ -1,7 +1,7 @@
 {
     "manufacturer": "kb_elmo",
-    "keyboard_name": "3liza",
-    "url": "https://github.com/kb-elmo/3liza",
+    "keyboard_name": "Eliza",
+    "url": "https://github.com/kb-elmo/eliza",
     "maintainer": "kb-elmo",
     "usb": {
         "vid": "0xA68C",
