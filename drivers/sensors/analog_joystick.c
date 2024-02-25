@@ -92,7 +92,7 @@ int8_t axisToMouseComponent(pin_t pin, int16_t origin, uint8_t maxSpeed, uint8_t
     int32_t coordinate = axisCoordinate(pin, origin, axis);
     int8_t  result;
 #ifndef ANALOG_JOYSTICK_WEIGHTS
-    int8_t  scale      = 100;
+    int8_t scale = 100;
     coordinate *= scale;
     if (coordinate != 0) {
         int32_t component = (coordinate / 100 * maxCursorSpeed * abs(coordinate)) / (speedRegulator * scale);
