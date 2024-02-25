@@ -14,9 +14,6 @@
         "cols": ["C14", "C13", "C15", "B6", "B5", "B4", "C4", "A7"],
         "rows": ["C11", "C12", "B3", "D2", "A1", "A2", "A5", "A4", "B1", "B0"]
     },
-    "mouse_key": {
-        "enabled": true
-    },
     "processor": "STM32F303",
     "qmk": {
         "locking": {
