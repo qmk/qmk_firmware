@@ -3,6 +3,14 @@
     "manufacturer": "PDAINUA",
     "url": "https://pda.in.ua",
     "maintainer": "set-st",
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
     "usb": {
         "vid": "0x20A0",
         "pid": "0x42F9",
