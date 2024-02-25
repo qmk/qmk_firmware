@@ -139,6 +139,28 @@ Note that adding a diode at a previously unused intersection will effectively te
 
 While `MATRIX_MASKED` isn't necessary to use `SPLIT_HAND_MATRIX_GRID` successfully, without it you may experience issues trying to suspend your computer with your keyboard attached as the matrix will always report at least one key-press.
 
+
+For example, suppose you have the following keyboard.
+
+```c
+#define MATRIX_ROW_PINS { D4, C6, D7, E6, B4 }
+#define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2 }
+
+/* COL2ROW, ROW2COL*/
+#define DIODE_DIRECTION COL2ROW
+```
+
+<img alt="IMG_4592" width="1389" src="https://private-user-images.githubusercontent.com/2170248/302690105-8172daba-ce51-44bf-87e8-3003b9dfdf57.PNG?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDg4MzAwOTgsIm5iZiI6MTcwODgyOTc5OCwicGF0aCI6Ii8yMTcwMjQ4LzMwMjY5MDEwNS04MTcyZGFiYS1jZTUxLTQ0YmYtODdlOC0zMDAzYjlkZmRmNTcuUE5HP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDIyNSUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDAyMjVUMDI1NjM4WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9MWQzZTBmOTdhOWM5OGI1NjdlMmU1NTBjY2NiODU1ZmYzZmYwMDA3NGQ4M2FkNDkzNTIwMTk3NTJmNGRiMDhlMyZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.FHPKAjiecrzeVfnqJ7NUlA08M4Xus4oJ_vp6iD2B7IM">
+
+You can add a diode to the circuit as below and further configuration as below.
+
+<img alt="IMG_4593" width="1389" src="https://private-user-images.githubusercontent.com/2170248/302690284-109ea260-0633-4404-901f-7931384d3782.PNG?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDg4MzAwOTgsIm5iZiI6MTcwODgyOTc5OCwicGF0aCI6Ii8yMTcwMjQ4LzMwMjY5MDI4NC0xMDllYTI2MC0wNjMzLTQ0MDQtOTAxZi03OTMxMzg0ZDM3ODIuUE5HP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDIyNSUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDAyMjVUMDI1NjM4WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9MTRlOGYxYTlkNWNlZTFhYmE5N2VhZjQzMTljOGRiYzdmYTYzZTMyZDJiNmU5NDYzMTYwYzkzODdiOTQ1YTdhYiZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.OGFeGDN5wNomA5J4-YSkaz0ubzbOHp5ZW8A_Fnwfu1E">
+
+```c
+/* Split hand configration */
+#define SPLIT_HAND_MATRIX_GRID D4,B2
+```
+
 #### Handedness by EEPROM
 
 This method sets the keyboard's handedness by setting a flag in the persistent storage (`EEPROM`).  This is checked when the controller first starts up, and determines what half the keyboard is, and how to orient the keyboard layout. 
