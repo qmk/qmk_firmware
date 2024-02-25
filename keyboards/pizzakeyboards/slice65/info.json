@@ -8,6 +8,8 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
         "nkro": true
     },
     "matrix_pins": {
