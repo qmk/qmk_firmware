@@ -760,6 +760,7 @@
                     "additionalProperties": false,
                     "properties": {
                         "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                        "low_is_left": {"type": "boolean"}
                         "matrix_grid": {
                             "$ref": "qmk.definitions.v1#/mcu_pin_array",
                             "minItems": 2,
