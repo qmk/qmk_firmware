@@ -58,4 +58,6 @@ void keyboard_post_init_kb(void) {
             ec_config.rescaled_mode_1_initial_deadzone_offset[row][col] = rescale(ec_config.mode_1_initial_deadzone_offset, 0, 1023, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
         }
     }
+
+    keyboard_post_init_user();
 }
