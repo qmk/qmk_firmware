@@ -45,3 +45,6 @@
 
 /* RGB matrix support. */
 #define SPLIT_TRANSPORT_MIRROR
+
+// Reduce soft serial speed: Work around rp2040 issues
+#define SELECT_SOFT_SERIAL_SPEED 4
