@@ -1,6 +1,6 @@
 # Pizza Keyboards (V2) Slice65
 
-![Pizza V2](https://i.imgur.com/RfqnpVl.jpeg)
+![Pizza V2](https://i.imgur.com/RfqnpVlh.jpeg)
 
 A 65% keyboard kit made and sold by [pizza keyboards](https://keyboards.pizza).
 
