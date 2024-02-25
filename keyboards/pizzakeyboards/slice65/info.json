@@ -8,7 +8,7 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "nkro": true,
+        "nkro": true
     },
     "matrix_pins": {
         "cols": ["C14", "C13", "C15", "B6", "B5", "B4", "C4", "A7"],
@@ -18,6 +18,12 @@
         "enabled": true
     },
     "processor": "STM32F303",
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "url": "www.keyboards.pizza",
     "usb": {
         "device_version": "1.0.0",
