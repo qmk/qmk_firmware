@@ -37,6 +37,6 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
 }
 
 // Bootmagic overriden to avoid conflicts with EC
-void bootmagic_lite(void) {
+void bootmagic_scan(void) {
     ;
 }
