@@ -32,6 +32,8 @@ void eeconfig_init_kb(void) {
     }
     // Write default value to EEPROM now
     eeconfig_update_kb_datablock(&eeprom_ec_config);
+
+    eeconfig_init_user();
 }
 
 // On Keyboard startup
