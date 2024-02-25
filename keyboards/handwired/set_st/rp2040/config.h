@@ -17,33 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* OLED SPI Defines */
 #define OLED_DISPLAY_128X64
-//#define OLED_FADE_OUT
-//#define OLED_IC OLED_IC_SH1106
 
-/* OLED SPI Pins */
-// #define OLED_DC_PIN GP24
-// #define OLED_CS_PIN GP22
-// #define OLED_RST_PIN GP23
-
-/* Shift OLED columns by 2 pixels */
 #define OLED_COLUMN_OFFSET 0
 
-/* Divisor for OLED */
-//#define OLED_SPI_DIVISOR 4
-
-/* ChibiOS SPI definitions */
-// #define SPI_DRIVER SPID1
-// #define SPI_SCK_PIN GP26
-// #define SPI_MOSI_PIN GP27
-// #define SPI_MISO_PIN GP28
-
-//#define MY_I2C_ADDRESS (0x78 << 1)
-
-//#define I2C_DRIVER I2CD0
-//#define I2C1_SDA_PIN GP26
-//#define I2C1_SCL_PIN GP27
 #define USE_I2C
 #define I2C_DRIVER I2CD1
 #define I2C1_SDA_PIN GP26
@@ -52,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Double tap the side button to enter bootloader */
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP13
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP16
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 500U
 
 #ifdef RGB_MATRIX_ENABLE

@@ -24,40 +24,50 @@ enum keycodes {
   KC_CYCLE_LAYERS = QK_USER,
 };
 
+enum layers{
+  BASE,
+  FN,
+  MEDIA,
+  LIGHT
+};
+
+#define KC_TASK LGUI(KC_TAB)
+#define KC_FLXP LGUI(KC_E)
+
 // 1st layer on the cycle
 #define LAYER_CYCLE_START 0
 // Last layer on the cycle
 #define LAYER_CYCLE_END   4
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT(
+  [BASE] = LAYOUT(
       KC_MEDIA_PLAY_PAUSE,
-      KC_CYCLE_LAYERS, KC_KP_2, KC_KP_3, KC_KP_4, KC_KP_5,
+      KC_CYCLE_LAYERS, KC_COPY, KC_PASTE, KC_KP_4, KC_KP_5,
       KC_KP_6, KC_KP_7, KC_KP_8, LCTL(KC_LEFT), LCTL(KC_RIGHT)
   ),
-  [1] = LAYOUT(
+  [FN] = LAYOUT(
       _______,
       KC_CYCLE_LAYERS, _______, _______, _______, _______,
       _______, _______, _______, _______, _______
   ),
-  [2] = LAYOUT(
+  [MEDIA] = LAYOUT(
       _______,
       KC_CYCLE_LAYERS, _______, _______, _______, _______,
       _______, _______, _______, _______, _______
   ),
-  [3] = LAYOUT(
+  [LIGHT] = LAYOUT(
       _______,
-      KC_CYCLE_LAYERS, _______, _______, _______, _______,
-      _______, _______, _______, _______, _______
+      KC_CYCLE_LAYERS, RGB_MOD, RGB_RMOD, _______, _______,
+      RGB_TOG, _______, _______, RGB_VAI, RGB_VAD
   ),
 };
 
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-  [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-  [1] = { ENCODER_CCW_CW(_______, _______) },
-  [2] = { ENCODER_CCW_CW(_______, _______) },
-  [3] = { ENCODER_CCW_CW(_______, _______) }
+  [BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+  [FN] = { ENCODER_CCW_CW(_______, _______) },
+  [MEDIA] = { ENCODER_CCW_CW(_______, _______) },
+  [LIGHT] = { ENCODER_CCW_CW(_______, _______) }
 };
 #endif
 
@@ -151,17 +161,17 @@ bool oled_task_user(void) {
     oled_set_cursor(0, 0);
     // Switch on current active layer
     switch (get_highest_layer(layer_state)) {
-        case 0 :
-            oled_write("Layer 1", false);
+        case BASE :
+            oled_write_ln_P("Base", false);
             break;
-        case 1 :
-            oled_write("Layer 2", false);
+        case FN :
+            oled_write_ln_P("Functions", false);
             break;
-        case 2 : 
-            oled_write("Layer 3", false);
+        case MEDIA : 
+            oled_write_ln_P("Media", false);
             break;
-        case 3 :
-            oled_write("Layer 4", false);
+        case LIGHT :
+            oled_write_ln_P("Lights controll", false);
             break;
     }
   }
@@ -171,6 +181,7 @@ bool oled_task_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (display_mode == LOGO_MODE) {
     display_mode = TEXT_MODE; // Переключаемся на отображение текста
+    oled_clear();
   }
   switch (keycode) {
     case KC_CYCLE_LAYERS:
@@ -188,7 +199,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
 
       uint8_t next_layer = current_layer + 1;
-      if (next_layer > LAYER_CYCLE_END) {
+      if (next_layer >= LAYER_CYCLE_END) {
           next_layer = LAYER_CYCLE_START;
       }
       layer_move(next_layer);
