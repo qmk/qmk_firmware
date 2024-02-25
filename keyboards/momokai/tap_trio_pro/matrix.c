@@ -9,8 +9,7 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 #include "analog.h"
 #include "lut.h"
 #include "scanfunctions.h"
-#include "debounce_digital.c"
-#include "debounce_analog.c"
+#include "debounce.c"
 // #include "matrix_helpers.c"
 
 #ifndef MATRIX_INPUT_PRESSED_STATE
@@ -20,6 +19,11 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 pin_t matrix_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
 
 hybrid_key_t keys[MATRIX_ROWS][MATRIX_COLS] = {0};
+
+/* matrix state(1:on, 0:off) */
+matrix_row_t raw_matrix[MATRIX_ROWS]; // raw values
+matrix_row_t matrix[MATRIX_ROWS];     // debounced values
+
 
 
 
@@ -77,9 +81,7 @@ void matrix_init_custom(void) {
     get_sensor_offsets();
 }
 
-/* matrix state(1:on, 0:off) */
-matrix_row_t raw_matrix[MATRIX_ROWS]; // raw values
-matrix_row_t matrix[MATRIX_ROWS];     // debounced values
+
 
 //setup only rows 0 and 2, leave row 1 untouched
 __attribute__((weak)) void matrix_init_pins(void) {
@@ -170,9 +172,7 @@ void matrix_init(void) {
     matrix_init_kb();
 }
 
-matrix_row_t previous_matrix[MATRIX_ROWS];
 
-// matrix_row_t is an alias for u_int8_t
 
 static inline uint8_t readMatrixPin(pin_t pin) {
     if (pin != NO_PIN) {
@@ -197,6 +197,12 @@ __attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[]
 }
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
+
+    matrix_row_t previous_matrix[MATRIX_ROWS];
+
+    // matrix_row_t is an alias for u_int8_t
+
+
     memcpy(previous_matrix, current_matrix, sizeof(previous_matrix));
 
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
