@@ -2,7 +2,6 @@
     "manufacturer": "Pizzakeyboards",
     "keyboard_name": "Slice65",
     "maintainer": "mm0nte",
-    "board": "GENERIC_STM32_F303XC",
     "bootloader": "stm32-dfu",
     "debounce": 10,
     "diode_direction": "COL2ROW",
