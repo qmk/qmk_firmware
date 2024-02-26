@@ -153,7 +153,10 @@ void ec_noise_floor(void) {
         for (uint8_t amux = 0; amux < AMUX_COUNT; amux++) {
             disable_unused_amux(amux);
             for (uint8_t col = 0; col < amux_n_col_sizes[amux]; col++) {
-                uint8_t adjusted_col = amux == 0 ? col : col + amux_n_col_sizes[amux - 1];
+                uint8_t sum = 0;
+                for (uint8_t i = 0; i < (amux > 0 ? amux : 0); i++)
+                    sum += amux_n_col_sizes[i];
+                uint8_t adjusted_col = col + sum;
                 for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
                     ec_config.noise_floor[row][adjusted_col] += ec_readkey_raw(amux, row, col);
                 }
@@ -178,7 +181,10 @@ bool ec_matrix_scan(matrix_row_t current_matrix[]) {
         disable_unused_amux(amux);
         for (uint8_t col = 0; col < amux_n_col_sizes[amux]; col++) {
             for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-                uint8_t adjusted_col        = amux == 0 ? col : col + amux_n_col_sizes[amux - 1];
+                uint8_t sum = 0;
+                for (uint8_t i = 0; i < (amux > 0 ? amux : 0); i++)
+                    sum += amux_n_col_sizes[i];
+                uint8_t adjusted_col        = col + sum;
                 sw_value[row][adjusted_col] = ec_readkey_raw(amux, row, col);
 
                 if (ec_config.bottoming_calibration) {
