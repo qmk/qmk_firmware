@@ -19,14 +19,13 @@
 #include "oled_driver.h"
 #include "version.h"
 #include "print.h"
+#include "debug.h"
 
 #include "uni.h"
 
 #include <transactions.h>
 
 #include "lang/lang_lut.h"
-
-#define RAW_EPSIZE 32
 
 #define FULL_BRIGHT 50
 #define MIN_BRIGHT 1
@@ -162,7 +161,7 @@ static uint8_t latin_ex[26];
 
 _Static_assert(sizeof(poly_eeconf_t) == EECONFIG_USER_DATA_SIZE, "Mismatch in keyboard EECONFIG stored data");
 
-enum flags { STATUS_DISP_ON = 1, IDLE_TRANSITION = 2, DISP_IDLE = 4, DEAD_KEY_ON_WAKEUP = 8};
+enum flags { STATUS_DISP_ON = 1, IDLE_TRANSITION = 2, DISP_IDLE = 4, DEAD_KEY_ON_WAKEUP = 8, DBG_ON = 16};
 typedef struct _poly_sync_t {
     uint8_t lang;
     uint8_t contrast;
@@ -224,7 +223,6 @@ void save_user_eeconf(void) {
 poly_eeconf_t load_user_eeconf(void) {
     poly_eeconf_t ee;
     eeconfig_read_user_datablock(&ee);
-
     ee.brightness = ~ee.brightness;
     if(ee.brightness>FULL_BRIGHT) {
         ee.brightness = FULL_BRIGHT;
@@ -308,6 +306,17 @@ void sync_and_refresh_displays(void) {
     bool sync_success = true;
 
     if (is_usb_host_side()) {
+        if(debug_enable && (g_local.flags & DBG_ON) == 0) {
+            g_local.flags |= DBG_ON;
+
+            printf("DEBUG: enable=%u, keyboard=%u, matrix=%u\n", debug_enable, debug_keyboard, debug_matrix);
+            print(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE "\n");
+        } else if(!debug_enable && (g_local.flags & DBG_ON) != 0) {
+            g_local.flags &= ~((uint8_t)DBG_ON);
+
+            printf("DEBUG: enable=%u, keyboard=%u, matrix=%u\n", debug_enable, debug_keyboard, debug_matrix);
+            print(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE "\n");
+        }
         const bool back_from_idle_transition = (g_local.flags & IDLE_TRANSITION) == 0 && (g_state.s.flags & IDLE_TRANSITION) != 0;
         if (back_from_idle_transition) {
             poly_eeconf_t ee   = load_user_eeconf();
@@ -319,12 +328,13 @@ void sync_and_refresh_displays(void) {
         if ( memcmp(&g_local, &g_state.s, sizeof(poly_sync_t))!=0 ) {
             poly_sync_reply_t reply;
             g_local.checksum = fletcher16((const void *)&g_local, sizeof(g_local)-sizeof(g_local.checksum));
-            for(uint8_t retry = 0; retry<3; ++retry) {
+            for(uint8_t retry = 0; retry<10; ++retry) {
                 sync_success = transaction_rpc_exec(USER_SYNC_POLY_DATA, sizeof(poly_sync_t), &g_local, sizeof(poly_sync_reply_t), &reply);
                 if(sync_success && reply.ack == SYNC_ACK) {
                     break;
                 }
                 sync_success = false;
+                printf("Bridge sync retry %d (success: %d, ack: %d)\n", retry, sync_success, reply.ack == SYNC_ACK);
             }
         }
     }
@@ -333,7 +343,7 @@ void sync_and_refresh_displays(void) {
         const bool idle_changed              = (g_local.flags & DISP_IDLE) != (g_state.s.flags & DISP_IDLE);
         const bool in_idle_mode              = (g_local.flags & DISP_IDLE) != 0;
         const bool displays_turned_on        = (g_state.s.contrast <= DISP_OFF && g_local.contrast > DISP_OFF);
-
+        const bool dbg_changed               = (g_local.flags & DBG_ON) != (g_state.s.flags & DBG_ON);
         if(idle_changed) {
             if(in_idle_mode) {
                 oled_set_brightness(0);
@@ -380,6 +390,10 @@ void sync_and_refresh_displays(void) {
         }
 
         memcpy(&g_state.s, &g_local, sizeof(g_local));
+
+        if(dbg_changed) {
+            request_disp_refresh();
+        }
     }
 }
 
@@ -392,7 +406,7 @@ void housekeeping_task_user(void) {
 
         if (is_usb_host_side()) {
             g_local.flags |= STATUS_DISP_ON;
-            g_local.flags &= ~IDLE_TRANSITION;
+            g_local.flags &= ~((uint8_t)IDLE_TRANSITION);
 
             if(elapsed_time_since_update > FADE_OUT_TIME && g_local.contrast >= MIN_BRIGHT && (g_local.flags & DISP_IDLE)==0) {
                 poly_eeconf_t ee = load_user_eeconf();
@@ -956,7 +970,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case QK_BOOTLOADER:
         return u"Boot";
     case QK_DEBUG_TOGGLE:
-        return debug_enable==0? u"Dbg\r\v" ICON_SWITCH_OFF : u"Dbg\r\v" ICON_SWITCH_ON;
+        return ((g_local.flags & DBG_ON) == 0) ? u"Dbg\r\v" ICON_SWITCH_OFF : u"Dbg\r\v" ICON_SWITCH_ON;
     case RGB_RMOD:
         return u" " ICON_LEFT PRIVATE_LIGHT;
     case RGB_TOG:
@@ -1196,7 +1210,6 @@ const uint16_t* keycode_to_disp_overlay(uint16_t keycode, led_t state) {
     {
         case KC_F2: return u"      " PRIVATE_NOTE;
         case KC_F5: return u"     " ARROWS_CIRCLE;
-        case QK_DEBUG_TOGGLE: return debug_enable==0 ? u"\v" ICON_SWITCH_OFF : u"\v" ICON_SWITCH_ON;
         default: break;
     }
 
@@ -1378,7 +1391,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     if (record->event.pressed) {
         switch (keycode) {
             case QK_BOOTLOADER:
-                uprintf("Enter Bootloader...\n");
+                uprintf("Bootloader entered. Please copy new Firmware.\n");
                 clear_all_displays();
                 display_message(1, 1, u"BOOT-", &FreeSansBold24pt7b);
                 display_message(3, 0, u"LOADER!", &FreeSansBold24pt7b);
@@ -1533,19 +1546,19 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
             break;
         /*[[[cog
             for lang in languages:
-                cog.outl(f'case KC_{lang}: g_local.lang = {lang}; layer_off(_LL); break;')
+                cog.outl(f'case KC_{lang}: g_local.lang = {lang}; save_user_eeconf(); layer_off(_LL); break;')
             ]]]*/
-        case KC_LANG_EN: g_local.lang = LANG_EN; layer_off(_LL); break;
-        case KC_LANG_DE: g_local.lang = LANG_DE; layer_off(_LL); break;
-        case KC_LANG_FR: g_local.lang = LANG_FR; layer_off(_LL); break;
-        case KC_LANG_ES: g_local.lang = LANG_ES; layer_off(_LL); break;
-        case KC_LANG_PT: g_local.lang = LANG_PT; layer_off(_LL); break;
-        case KC_LANG_IT: g_local.lang = LANG_IT; layer_off(_LL); break;
-        case KC_LANG_TR: g_local.lang = LANG_TR; layer_off(_LL); break;
-        case KC_LANG_KO: g_local.lang = LANG_KO; layer_off(_LL); break;
-        case KC_LANG_JA: g_local.lang = LANG_JA; layer_off(_LL); break;
-        case KC_LANG_AR: g_local.lang = LANG_AR; layer_off(_LL); break;
-        case KC_LANG_GR: g_local.lang = LANG_GR; layer_off(_LL); break;
+        case KC_LANG_EN: g_local.lang = LANG_EN; save_user_eeconf(); layer_off(_LL); break;
+        case KC_LANG_DE: g_local.lang = LANG_DE; save_user_eeconf(); layer_off(_LL); break;
+        case KC_LANG_FR: g_local.lang = LANG_FR; save_user_eeconf(); layer_off(_LL); break;
+        case KC_LANG_ES: g_local.lang = LANG_ES; save_user_eeconf(); layer_off(_LL); break;
+        case KC_LANG_PT: g_local.lang = LANG_PT; save_user_eeconf(); layer_off(_LL); break;
+        case KC_LANG_IT: g_local.lang = LANG_IT; save_user_eeconf(); layer_off(_LL); break;
+        case KC_LANG_TR: g_local.lang = LANG_TR; save_user_eeconf(); layer_off(_LL); break;
+        case KC_LANG_KO: g_local.lang = LANG_KO; save_user_eeconf(); layer_off(_LL); break;
+        case KC_LANG_JA: g_local.lang = LANG_JA; save_user_eeconf(); layer_off(_LL); break;
+        case KC_LANG_AR: g_local.lang = LANG_AR; save_user_eeconf(); layer_off(_LL); break;
+        case KC_LANG_GR: g_local.lang = LANG_GR; save_user_eeconf(); layer_off(_LL); break;
         //[[[end]]]
         case KC_F1:case KC_F2:case KC_F3:case KC_F4:case KC_F5:case KC_F6:
         case KC_F7:case KC_F8:case KC_F9:case KC_F10:case KC_F11:case KC_F12:
@@ -1565,6 +1578,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
         case KC_LANG:
             if (IS_LAYER_ON(_LL)) {
                 g_local.lang = (g_local.lang + 1) % NUM_LANG;
+                save_user_eeconf();
                 layer_off(_LL);
             }
             else {
@@ -1574,22 +1588,6 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
         case RGB_MOD:
         case RGB_RMOD:
             request_disp_refresh();
-            break;
-        case QK_DEBUG_TOGGLE:
-            if (!debug_enable) {
-                debug_enable = 1;
-            } else if (!debug_keyboard) {
-                debug_keyboard = 1;
-            } else if (!debug_matrix) {
-                debug_matrix = 1;
-            } else {
-                debug_enable   = 0;
-                debug_keyboard = 0;
-                debug_matrix   = 0;
-            }
-            dprintf("DEBUG: enable=%u, keyboard=%u, matrix=%u\n", debug_enable, debug_keyboard, debug_matrix);
-            dprint(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE "\n");
-            eeconfig_update_debug(debug_config.raw);
             break;
         default:
             break;
@@ -1958,8 +1956,7 @@ void suspend_wakeup_init_kb(void) {
 }
 
 void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
-    uint8_t response[RAW_EPSIZE];
-    memset(response, 0, RAW_EPSIZE);
+    memset(data, 0, length);
     const char * name = "P0.PolyKybd Split72";
 
     if(length>1 && (data[0] == /*via_command_id::*/id_custom_save || data[0] == 'P')) {
@@ -1968,72 +1965,73 @@ void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
                 //used by VIA, so that will never occuer if used together with VIA
                 //without VIA, lets handle it like '0'
             case '0': //id
-                memcpy(response, name, strlen(name));
-                raw_hid_send(response, RAW_EPSIZE);
+                memset(data, 0, length);
+                memcpy(data, name, strlen(name));
                 break;
             case '1': //lang
+                memset(data, 0, length);
                 switch(g_local.lang) {
                     /*[[[cog
                     for lang in languages:
-                        cog.outl(f'case {lang}: memcpy(response, "P1.{lang[5:]}", 5); break;')
+                        cog.outl(f'case {lang}: memcpy(data, "P1.{lang[5:]}", 5); break;')
                     ]]]*/
-                    case LANG_EN: memcpy(response, "P1.EN", 5); break;
-                    case LANG_DE: memcpy(response, "P1.DE", 5); break;
-                    case LANG_FR: memcpy(response, "P1.FR", 5); break;
-                    case LANG_ES: memcpy(response, "P1.ES", 5); break;
-                    case LANG_PT: memcpy(response, "P1.PT", 5); break;
-                    case LANG_IT: memcpy(response, "P1.IT", 5); break;
-                    case LANG_TR: memcpy(response, "P1.TR", 5); break;
-                    case LANG_KO: memcpy(response, "P1.KO", 5); break;
-                    case LANG_JA: memcpy(response, "P1.JA", 5); break;
-                    case LANG_AR: memcpy(response, "P1.AR", 5); break;
-                    case LANG_GR: memcpy(response, "P1.GR", 5); break;
+                    case LANG_EN: memcpy(data, "P1.EN", 5); break;
+                    case LANG_DE: memcpy(data, "P1.DE", 5); break;
+                    case LANG_FR: memcpy(data, "P1.FR", 5); break;
+                    case LANG_ES: memcpy(data, "P1.ES", 5); break;
+                    case LANG_PT: memcpy(data, "P1.PT", 5); break;
+                    case LANG_IT: memcpy(data, "P1.IT", 5); break;
+                    case LANG_TR: memcpy(data, "P1.TR", 5); break;
+                    case LANG_KO: memcpy(data, "P1.KO", 5); break;
+                    case LANG_JA: memcpy(data, "P1.JA", 5); break;
+                    case LANG_AR: memcpy(data, "P1.AR", 5); break;
+                    case LANG_GR: memcpy(data, "P1.GR", 5); break;
                     //[[[end]]]
                     default:
-                        memcpy(response, "P1!", 3);
+                        memcpy(data, "P1!", 3);
                         break;
                 }
-                raw_hid_send(response, RAW_EPSIZE);
                 break;
             case '2': //lang list
-                    /*[[[cog
-                    lang_list = "P2."
-                    for lang in languages:
-                        lang_list += lang[5:]
-                        if len(lang_list)>=(32-3-1):
-                            cog.outl(f'memcpy(response, "{lang_list}", {len(lang_list)});')
-                            cog.outl(f'raw_hid_send(response, RAW_EPSIZE);')
-                            cog.outl(f'memset(response, 0, RAW_EPSIZE);')
-                            lang_list = "P2."
-                        elif lang != languages[-1]:
-                            lang_list += ","
-                    cog.outl(f'memcpy(response, "{lang_list}", {len(lang_list)});')
-                    cog.outl(f'raw_hid_send(response, RAW_EPSIZE);')
-                    ]]]*/
-                    memcpy(response, "P2.EN,DE,FR,ES,PT,IT,TR,KO,JA", 29);
-                    raw_hid_send(response, RAW_EPSIZE);
-                    memset(response, 0, RAW_EPSIZE);
-                    memcpy(response, "P2.AR,GR", 8);
-                    raw_hid_send(response, RAW_EPSIZE);
-                    //[[[end]]]
+                memset(data, 0, length);
+                /*[[[cog
+                lang_list = "P2."
+                for lang in languages:
+                    lang_list += lang[5:]
+                    if len(lang_list)>=(32-3-1):
+                        cog.outl(f'memcpy(data, "{lang_list}", {len(lang_list)});')
+                        cog.outl(f'raw_hid_send(data, length);')
+                        cog.outl(f'memset(data, 0, length);')
+                        lang_list = "P2."
+                    elif lang != languages[-1]:
+                        lang_list += ","
+                cog.outl(f'memcpy(response, "{lang_list}", {len(lang_list)});')
+                ]]]*/
+                memcpy(data, "P2.EN,DE,FR,ES,PT,IT,TR,KO,JA", 29);
+                raw_hid_send(data, length);
+                memset(data, 0, length);
+                memcpy(data, "P2.AR,GR", 8);
+                //[[[end]]]
                 break;
             case '3': //change language
                 if(data[3]< NUM_LANG) {
                     g_local.lang = data[3];
-                    memcpy(response, data, 4);
-                    response[2] = '.';
+                    data[2] = '.';
                     update_performed();
                 } else {
-                    memcpy(response, "P3!", 3);
+                    memset(data, 0, length);
+                    memcpy(data, "P3!", 3);
                 }
-                raw_hid_send(response, RAW_EPSIZE);
-                break;
+                                break;
             default:
-                memcpy(response, "P??", 3);
-                response[1] = data[1];
-                raw_hid_send(response, RAW_EPSIZE);
+                //memcpy(response, "P??", 3);
+                //response[1] = data[1];
+                //raw_hid_send(response, length);
                 break;
         }
+        #ifndef VIA_ENABLE
+            raw_hid_send(data, length);
+        #endif
     }
 }
 #ifndef VIA_ENABLE

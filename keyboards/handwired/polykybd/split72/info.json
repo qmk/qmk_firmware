@@ -1,5 +1,5 @@
 {
-    "keyboard_name": "PolyKybd Split72 v2.2.0",
+    "keyboard_name": "PolyKybd Split72 v3.1.0",
     "manufacturer": "thpoll",
     "url": "https://ko-fi.com/polykb",
     "maintainer": "[thpoll]",
@@ -8,7 +8,7 @@
     "usb": {
       "vid": "0x2021",
       "pid": "0x2007",
-      "device_version": "2.2.0"
+      "device_version": "3.1.0"
     },
     "features": {
         "bootmagic": false,
