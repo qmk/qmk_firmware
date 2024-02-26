@@ -1,4 +1,8 @@
-#include "satisfaction75.h"
+// Copyright 2023 Andrew Kannan
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+#include "satisfaction_core.h"
+#include <stdio.h>
 
 void draw_default(void);
 void draw_clock(void);
@@ -15,7 +19,7 @@ bool oled_task_kb(void) {
     oled_clear();
     if (clock_set_mode) {
         draw_clock();
-        return false;;
+        return false;
     }
     switch (oled_mode) {
         default:
@@ -145,8 +149,8 @@ static char* get_time(void) {
         hour = 12;
     }
 
-    static char time_str[11] = "";
-    sprintf(time_str, "%02d:%02d%s", hour, minute, is_pm ? "pm" : "am");
+    static char time_str[8] = "";
+    snprintf(time_str, sizeof(time_str), "%02hhu:%02hu%s", hour, minute, is_pm ? "pm" : "am");
 
     return time_str;
 }
@@ -162,8 +166,8 @@ static char* get_date(void) {
         day   = day_config;
     }
 
-    static char date_str[15] = "";
-    sprintf(date_str, "%04d-%02d-%02d", year, month, day);
+    static char date_str[11] = "";
+    snprintf(date_str, sizeof(date_str), "%04hd-%02hhd-%02hhd", year, month, day);
 
     return date_str;
 }
@@ -262,6 +266,14 @@ void draw_clock(void) {
     // bodge extra lines for invert layer and enc mode
     draw_line_v(101, 0, 8);
     draw_line_v(113, 8, 8);
+}
+
+#else
+
+void oled_request_repaint(void){
+}
+
+void oled_request_wakeup(void){
 }
 
 #endif
