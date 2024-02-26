@@ -1,16 +1,18 @@
-{%- macro gen_payload(name, type, members) -%}
+{%- macro gen_payload(name, type, purpose, members) -%}
 {%- if type == 'struct' -%}
 __{{ name }}:__
 {%- for member in members -%}
 <br>{{ "&nbsp;"|safe*4 }}* {{ member.name }}: `{{ member.type }}`
 {%- endfor -%}
+{%- elif purpose -%}
+__{{ name }}:__<br>{{ "&nbsp;"|safe*4 }}* {{ purpose }}: `{{ type }}`
 {%- elif type -%}
 __{{ name }}:__ `{{ type }}`
 {%- endif -%}
 {%- endmacro -%}
 
 {%- macro gen_payloads(route) -%}
-{{ gen_payload('Request', route.request_type, route.request_struct_members) }}{%- if route.return_type and route.request_type -%}<br><br>{% endif %}{{ gen_payload('Response', route.return_type, route.return_struct_members) }}
+{{ gen_payload('Request', route.request_type, route.request_purpose, route.request_struct_members) }}{%- if route.return_type and route.request_type -%}<br><br>{% endif %}{{ gen_payload('Response', route.return_type, null, route.return_struct_members) }}
 {%- endmacro -%}
 
 {%- macro gen_tags(route) -%}
