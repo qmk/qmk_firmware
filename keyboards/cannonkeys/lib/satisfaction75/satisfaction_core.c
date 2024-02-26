@@ -50,7 +50,7 @@ void board_init(void) {
   SYSCFG->CFGR1 &= ~(SYSCFG_CFGR1_SPI2_DMA_RMP);
 }
 
-void keyboard_post_init_kb(){
+void keyboard_post_init_kb(void) {
       /*
         This is a workaround to some really weird behavior
         Without this code, the OLED will turn on, but not when you initially plug the keyboard in. 
@@ -63,6 +63,8 @@ void keyboard_post_init_kb(){
         oled_init(OLED_ROTATION_0);
     }
     #endif
+
+    keyboard_post_init_user();
 }
 
 #ifdef VIA_ENABLE
