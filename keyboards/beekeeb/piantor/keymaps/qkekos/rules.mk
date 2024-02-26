@@ -1,5 +1,6 @@
 
 $(shell python3 keyboards/beekeeb/piantor/keymaps/qkekos/magic_sturdy/generete_magic_data.py)
+$(shell python3 keyboards/beekeeb/piantor/keymaps/qkekos/sequence_transform/generator/sequence_transform_data.py)
 
 AUTOCORRECT_ENABLE = yes
 
