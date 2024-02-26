@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_KB_VOLUME_DOWN,  XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,            XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        KC_BRID, 
     KC_KB_MUTE,         XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,            XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX, 
                                         _______,        _______,        _______,            _______,        _______,        _______)
-    };
+    }; 
 
 const uint16_t PROGMEM layers_combo[] = {MO(_NUMBER), MO(_FUNCTION), COMBO_END};
 const uint16_t PROGMEM undo[] = {CTL_T(KC_A), KC_Z, COMBO_END};
