@@ -183,6 +183,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     display_mode = TEXT_MODE; // Переключаемся на отображение текста
     oled_clear();
   }
+  
   switch (keycode) {
     case KC_CYCLE_LAYERS:
       // Our logic will happen on presses, nothing is done on releases
