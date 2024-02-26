@@ -21,11 +21,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#ifdef RGB_MATRIX_ENABLE
-#define RGB_MATRIX_LED_COUNT 70
-#define RGB_MATRIX_SPLIT { 30, 40 }    // Number of LEDs
-#endif
-
 #define SELECT_SOFT_SERIAL_SPEED 1
 /*Sets the protocol speed when using serial communication*/
 //Speeds:

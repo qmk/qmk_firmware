@@ -24,6 +24,7 @@ Supported devices:
 | GC9A01         | RGB LCD (circular) | 240x240          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += gc9a01_spi`  |
 | ILI9163        | RGB LCD            | 128x128          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9163_spi` |
 | ILI9341        | RGB LCD            | 240x320          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9341_spi` |
+| ILI9486        | RGB LCD            | 320x480          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9486_spi` |
 | ILI9488        | RGB LCD            | 320x480          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9488_spi` |
 | SSD1351        | RGB OLED           | 128x128          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ssd1351_spi` |
 | ST7735         | RGB LCD            | 132x162, 80x160  | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += st7735_spi`  |
@@ -280,6 +281,39 @@ The maximum number of displays can be configured by changing the following in yo
 ```
 
 Native color format rgb565 is compatible with ILI9341
+
+#### ** ILI9486 **
+
+Enabling support for the ILI9486 in Quantum Painter is done by adding the following to `rules.mk`:
+
+```make
+QUANTUM_PAINTER_ENABLE = yes
+QUANTUM_PAINTER_DRIVERS += ili9486_spi
+```
+
+Creating a ILI9486 device in firmware can then be done with the following API:
+
+```c
+painter_device_t qp_ili9486_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
+```
+
+There's another variant for this [Waveshare module](https://www.waveshare.com/wiki/3.5inch_TFT_Touch_Shield), because it has a quirky SPI->Parallel converter. You can create it with:
+
+```c
+painter_device_t qp_ili9486_make_spi_waveshare_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
+```
+
+The device handle returned from these functions can be used to perform all other drawing operations.
+
+The maximum number of displays can be configured by changing the following in your `config.h` (default is 1):
+
+```c
+// 3 displays:
+#define ILI9486_NUM_DEVICES 3
+```
+
+Native color format rgb888 is compatible with ILI9486
+Native color format rgb565 is compatible with ILI9486 Waveshare
 
 #### ** ILI9488 **
 
