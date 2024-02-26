@@ -12,16 +12,16 @@ enum signalrgb_commands
     GET_FIRMWARE_TYPE = 0x28,
 };
 
-enum signalrgb_responses //These are a bit clunky right now. Could use improvement.
-{
+enum signalrgb_responses {
     PROTOCOL_VERSION_BYTE_1 = 1,
     PROTOCOL_VERSION_BYTE_2 = 0,
     PROTOCOL_VERSION_BYTE_3 = 4,
     DEVICE_UNIQUE_IDENTIFIER_BYTE_1 = 0,
     DEVICE_UNIQUE_IDENTIFIER_BYTE_2 = 0,
     DEVICE_UNIQUE_IDENTIFIER_BYTE_3 = 0,
-    FIRMWARE_TYPE_BYTE = 1, 
-    DEVICE_ERROR_LEDS = 255, //Error code to show that there are more leds than a packet will allow.
+    FIRMWARE_TYPE_BYTE = 2, 
+    DEVICE_ERROR_LED_BOUNDS = 253,
+    DEVICE_ERROR_LED_COUNT = 254
 };
 
 void get_qmk_version(void);
@@ -37,6 +37,7 @@ void get_total_leds(void);
 //V1.0.2 added another detection byte for which fork of SignalRGB firmware device is running. This means we can keep overlap Unique Identifiers between Sonix and Mainline.
 //V1.0.3 unifies the command IDs between Mainline, Sonix, and VIA. All commands have a 0x20 offset now.
 //V1.0.4 improves detection handling, and has a complete rewrite of the plugins. Also merges Mainline and VIA branches. VIA Branch is deprecated.
+//V1.0.5 adds support for RGBLight and adds proper bounds checking for leds to ensure we don't crash the firmware.
 
 /*
 DEVICE, DEVICE_UNIQUE_IDENTIFIER_BYTE_1,DEVICE_UNIQUE_IDENTIFIER_BYTE_2,DEVICE_UNIQUE_IDENTIFIER_BYTE_3
