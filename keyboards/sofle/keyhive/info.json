@@ -1,13 +1,10 @@
 {
     "keyboard_name": "Sofle",
     "manufacturer": "Keyhive",
+    "development_board": "elite_c",
     "usb": {
-        "vid": "0xFC32",
         "pid": "0x1287",
         "device_version": "0.0.2"
-    },
-    "ws2812": {
-        "pin": "D3"
     },
     "rgblight": {
         "hue_steps": 10,
@@ -21,14 +18,12 @@
         "cols": ["B6", "B2", "B3", "B1", "F7", "F6", null],
         "rows": ["C6", "D7", "E6", "B4", "B5"]
     },
-    "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
             {"pin_a": "F5", "pin_b": "F4"}
         ]
     },
     "split": {
-        "soft_serial_pin": "D2",
         "encoder": {
             "right": {
                 "rotary": [
@@ -41,13 +36,14 @@
                 "cols": ["F6", "F7", "B1", "B3", "B2", "B6", null],
                 "rows": ["C6", "D7", "E6", "B4", "B5"]
             }
+        },
+        "transport": {
+            "sync": {
+                "oled": true,
+                "wpm": true
+            }
         }
     },
-    "qmk": {
-        "tap_keycode_delay": 10
-    },
-    "processor": "atmega32u4",
-    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

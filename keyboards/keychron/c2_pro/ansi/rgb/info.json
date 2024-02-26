@@ -122,7 +122,7 @@
         }
     },
     "rgb_matrix": {
-        "driver": "ckled2001",
+        "driver": "snled27351",
         "animations": {
             "breathing": true,
             "band_spiral_val": true,
@@ -261,6 +261,7 @@
             {"matrix":[5, 16], "flags":1, "x":180, "y":64},
             {"matrix":[5, 17], "flags":4, "x":198, "y":64},
             {"matrix":[5, 18], "flags":4, "x":214, "y":64}
-        ]
+        ],
+        "sleep": true
     }
 }

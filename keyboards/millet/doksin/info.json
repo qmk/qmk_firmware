@@ -1,0 +1,31 @@
+{
+    "manufacturer": "millet",
+    "keyboard_name": "doksin",
+    "maintainer": "millet",
+    "bootloader": "atmel-dfu",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true
+    },
+    "matrix_pins": {
+        "direct": [
+            ["D4"]
+        ]
+    },
+    "processor": "atmega32u2",
+    "url": "",
+    "usb": {
+        "device_version": "0.0.1",
+        "pid": "0x1919",
+        "vid": "0xBDD1"
+    },
+    "community_layouts": ["ortho_1x1"],
+    "layouts": {
+        "LAYOUT_ortho_1x1": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0}
+            ]
+        }
+    }
+}

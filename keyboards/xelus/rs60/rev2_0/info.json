@@ -8,6 +8,9 @@
         "rows": ["B15", "B14", "B12", "B1", "B0"]
     },
     "diode_direction": "COL2ROW",
+    "eeprom": {
+        "driver": "i2c"
+    },
     "indicators": {
         "caps_lock": "A1"
     },
