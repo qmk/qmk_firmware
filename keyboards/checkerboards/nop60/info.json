@@ -46,6 +46,7 @@
         "LAYOUT_2x3u": "LAYOUT_60_tsangan_hhkb_split_space",
         "LAYOUT_7u": "LAYOUT_60_tsangan_hhkb"
     },
+    "community_layouts": ["60_ansi_tsangan", "60_tsangan_hhkb", "60_ansi_wkl", "60_ansi_wkl_split_bs_rshift", "60_hhkb"],
     "layouts": {
         "LAYOUT_60_tsangan_hhkb_split_space": {
             "layout": [
