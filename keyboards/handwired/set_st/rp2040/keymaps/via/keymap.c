@@ -53,19 +53,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [MEDIA] = LAYOUT(
       _______,
       KC_CYCLE_LAYERS, _______, _______, _______, _______,
-      _______, _______, _______, _______, _______
+      KC_MEDIA_PLAY_PAUSE, _______, _______, KC_VOLD, KC_VOLU
   ),
   [LIGHT] = LAYOUT(
       _______,
       KC_CYCLE_LAYERS, RGB_MOD, RGB_RMOD, _______, _______,
-      RGB_TOG, _______, _______, RGB_VAI, RGB_VAD
+      RGB_TOG, _______, _______, RGB_VAD, RGB_VAI
   ),
 };
 
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
   [BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-  [FN] = { ENCODER_CCW_CW(_______, _______) },
+  [FN] = { ENCODER_CCW_CW(LCTL(KC_LEFT), LCTL(KC_RIGHT)) },
   [MEDIA] = { ENCODER_CCW_CW(_______, _______) },
   [LIGHT] = { ENCODER_CCW_CW(_______, _______) }
 };
