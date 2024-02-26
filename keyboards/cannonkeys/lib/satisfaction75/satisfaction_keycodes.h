@@ -3,4 +3,8 @@
 
 #pragma once
 
-#include "satisfaction_keycodes.h"
+enum my_keycodes {
+  ENC_PRESS = QK_KB_0,
+  CLOCK_SET,
+  OLED_TOGG
+};

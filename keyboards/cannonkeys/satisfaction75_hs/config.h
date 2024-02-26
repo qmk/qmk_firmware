@@ -9,9 +9,7 @@
 /* LSE clock */
 #define STM32_LSECLK 32768
 
-#define BACKLIGHT_PWM_DRIVER    PWMD3
-#define BACKLIGHT_PWM_CHANNEL   1
-#define BACKLIGHT_PAL_MODE      1
+#define ENCODER_RESOLUTION 2
 
 // I2C config
 #define I2C_DRIVER I2CD1
@@ -24,11 +22,6 @@
 #define I2C1_TIMINGR_SDADEL 0x01U
 #define I2C1_TIMINGR_SCLH 0x03U
 #define I2C1_TIMINGR_SCLL 0x09U
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
 
 // configure oled driver for the 128x32 oled
 #define OLED_UPDATE_INTERVAL 66 // ~15fps
@@ -47,4 +40,5 @@
 // 6 for 3x custom encoder settings, left, right, and press (18 bytes)
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 20
 
-
+// VIA lighting is handled by the keyboard-level code
+#define VIA_CUSTOM_LIGHTING_ENABLE
