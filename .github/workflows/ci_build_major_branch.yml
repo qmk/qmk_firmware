@@ -1,0 +1,90 @@
+name: CI Build Major Branch
+
+permissions:
+  contents: read
+  actions: write
+
+on:
+  push:
+    branches: [master, develop]
+  workflow_dispatch:
+    inputs:
+      branch:
+        type: choice
+        description: "Branch to build"
+        options: [master, develop]
+
+env:
+  # https://docs.github.com/en/actions/learn-github-actions/usage-limits-billing-and-administration#usage-limits
+  CONCURRENT_JOBS: 20
+
+jobs:
+  determine_concurrency:
+    name: "Determine concurrency"
+    if: github.repository == 'qmk/qmk_firmware'
+    runs-on: ubuntu-latest
+    container: ghcr.io/qmk/qmk_cli
+
+    outputs:
+      slice_length: ${{ steps.generate_slice_length.outputs.slice_length }}
+
+    steps:
+      - name: Install prerequisites
+        run: |
+          apt-get update
+          apt-get install -y jq
+
+      - name: Disable safe.directory check
+        run: |
+          git config --global --add safe.directory '*'
+
+      - name: Checkout QMK Firmware
+        uses: actions/checkout@v4
+
+      - name: Determine concurrency
+        id: generate_slice_length
+        run: |
+          target_count=$( {
+            qmk find -km default 2>/dev/null
+            qmk find -km via 2>/dev/null
+          } | sort | uniq | wc -l)
+          slice_length=$((target_count / ($CONCURRENT_JOBS - 1))) # Err on the side of caution as we're splitting default and via
+          echo "slice_length=$slice_length" >> $GITHUB_OUTPUT
+
+  build_targets:
+    name: "Compile keymap ${{ matrix.keymap }}"
+    needs: determine_concurrency
+    strategy:
+      fail-fast: false
+      matrix:
+        keymap: [default, via]
+    uses: ./.github/workflows/ci_build_major_branch_keymap.yml
+    with:
+      branch: ${{ inputs.branch || github.ref_name }}
+      keymap: ${{ matrix.keymap }}
+      slice_length: ${{ needs.determine_concurrency.outputs.slice_length }}
+
+  check_failures:
+    name: "Check build for failures"
+    needs: build_targets
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download firmwares
+        uses: actions/download-artifact@v4
+        with:
+          pattern: firmware-*
+          path: .
+          merge-multiple: true
+
+      - name: Check if failure marker exists
+        id: check_failure_marker
+        uses: andstor/file-existence-action@v3
+        with:
+          files: .failed
+
+      - name: Fail build if needed
+        if: steps.check_failure_marker.outputs.exists == 'true'
+        run: |
+          # Exit with failure if the compilation stage failed
+          exit 1
