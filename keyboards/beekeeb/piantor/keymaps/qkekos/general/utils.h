@@ -19,11 +19,8 @@ bool is_os_alt_held(void);
 
 uint16_t normalize_keycode(uint16_t keycode);
 void multi_tap(uint16_t keycode, int count);
-uint16_t char_to_keycode(char symbol);
 bool is_uppercase_letter(char symbol);
 bool is_lowercase_letter(char symbol);
-char keycode_to_char(uint16_t code);
-bool is_string_ascii(char *str);
 bool is_alpha_layer_on(void);
 
 #define execute_without_mods(x) \
@@ -35,6 +32,4 @@ bool is_alpha_layer_on(void);
     }
 
 #define tap_clear_code(code) execute_without_mods(tap_code16(code))
-#define IS_ALPHA_KEY(keycode) (KC_A <= keycode && keycode <= KC_Z)
-
-#define MAX_STR_LEN 100
+#define IS_ALPHA_KEYCODE(keycode) (KC_A <= keycode && keycode <= KC_Z)

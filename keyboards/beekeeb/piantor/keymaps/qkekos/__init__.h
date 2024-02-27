@@ -8,6 +8,8 @@
 #include QMK_KEYBOARD_H
 #include "transactions.h"
 
+#include "sequence_transform/sequence_transform.h"
+
 #include "protected.h"
 #include "general/__init__.h"
 #include "combos/__init__.h"

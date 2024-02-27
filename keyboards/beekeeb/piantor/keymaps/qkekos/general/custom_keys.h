@@ -3,9 +3,7 @@
 #include "../__init__.h"
 
 enum blender_keycode {
-    US_REP = SAFE_RANGE,
-    US_AREP,
-    US_3ARR,
+    US_3ARR = SAFE_RANGE,
     US_3ARL,
     US_3ARU,
     US_3ARD,
@@ -20,8 +18,10 @@ enum blender_keycode {
     US_MGTR,
     US_HRTR,
 
+    US_AREP,
+    US_REP,
     DB_AREP,
-    DB_LTTR
+    DB_LTTR,
 };
 
 enum pr_response custom_keys_pr(uint16_t, keyrecord_t*);
