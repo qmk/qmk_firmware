@@ -4,7 +4,6 @@
     "maintainer": "awkannan",
     "backlight": {
         "breathing": true,
-        "breathing_period": 6,
         "levels": 24,
         "pin": "A6"
     },

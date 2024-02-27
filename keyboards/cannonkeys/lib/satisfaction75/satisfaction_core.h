@@ -33,7 +33,7 @@ enum encoder_modes {
 };
 
 enum custom_encoder_behavior {
-    ENC_CUSTOM_CW = 0,
+    ENC_CUSTOM_CW,
     ENC_CUSTOM_CCW,
     ENC_CUSTOM_PRESS
 };
@@ -76,12 +76,6 @@ extern int8_t year_config;
 extern int8_t month_config;
 extern int8_t day_config;
 extern uint8_t previous_encoder_mode;
-
-// Backlighting
-#ifdef BACKLIGHT_ENABLE
-extern backlight_config_t kb_backlight_config;
-extern bool kb_backlight_breathing;
-#endif
 
 void pre_encoder_mode_change(void);
 void post_encoder_mode_change(void);
