@@ -226,11 +226,20 @@ void get_unique_identifier(void) //Grab the unique identifier for each specific 
 void led_streaming(uint8_t *data) //Stream data from HID Packets to Keyboard.
 {
     uint8_t index = data[1];
-    uint8_t numberofleds = data[2]; 
+    uint8_t numberofleds = data[2];
+    #if defined(RGBLIGHT_ENABLE)
+        if(index + numberofleds > RGBLED_NUM) {
+    #elif defined(RGB_MATRIX_ENABLE)
+        if(index + numberofleds > RGB_MATRIX_LED_COUNT) {
+    #endif
+        packet[1] = DEVICE_ERROR_LED_BOUNDS;
+        raw_hid_send(packet,32);
+        return; 
+    }
 
     if(numberofleds >= 10)
     {
-        packet[1] = DEVICE_ERROR_LEDS;
+        packet[1] = DEVICE_ERROR_LED_BOUNDS;
         raw_hid_send(packet,32);
         return; 
     } 

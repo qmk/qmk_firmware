@@ -112,7 +112,8 @@ enum signalrgb_responses {
     DEVICE_UNIQUE_IDENTIFIER_BYTE_2 = 0,
     DEVICE_UNIQUE_IDENTIFIER_BYTE_3 = 0,
     FIRMWARE_TYPE_BYTE = 2, 
-    DEVICE_ERROR_LEDS = 254,
+    DEVICE_ERROR_LED_BOUNDS = 253,
+    DEVICE_ERROR_LED_COUNT = 254
 };
 
 //Changelogs for Firmware Versions------------------------------------
@@ -120,6 +121,7 @@ enum signalrgb_responses {
 //V1.0.2 added another detection byte for which fork of SignalRGB firmware device is running. This means we can keep overlap Unique Identifiers between Sonix and Mainline.
 //V1.0.3 unifies the command IDs between Mainline, Sonix, and VIA. All commands have a 0x20 offset now.
 //V1.0.4 improves detection handling, and has a complete rewrite of the plugins. Also merges Mainline and VIA branches. VIA Branch is deprecated.
+//V1.0.5 adds support for RGBLight and adds proper bounds checking for leds to ensure we don't crash the firmware.
 
 enum via_keyboard_value_id {
     id_uptime              = 0x01,
