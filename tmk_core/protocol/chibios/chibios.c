@@ -77,9 +77,6 @@ void raw_hid_task(void);
 #ifdef CONSOLE_ENABLE
 void console_task(void);
 #endif
-#ifdef MIDI_ENABLE
-void midi_ep_task(void);
-#endif
 
 /* TESTING
  * Amber LED blinker thread, times are in milliseconds.
@@ -208,9 +205,6 @@ void protocol_pre_task(void) {
 void protocol_post_task(void) {
 #ifdef CONSOLE_ENABLE
     console_task();
-#endif
-#ifdef MIDI_ENABLE
-    midi_ep_task();
 #endif
 #ifdef VIRTSER_ENABLE
     virtser_task();
