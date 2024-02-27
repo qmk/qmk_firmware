@@ -16,7 +16,6 @@
         "cols": ["C6", "D4", "D0", "D1"],
         "rows": ["B4", "E6", "D7"]
     },
-    "processor": "atmega32u4",
     "url": "",
     "usb": {
         "device_version": "1.0.0",

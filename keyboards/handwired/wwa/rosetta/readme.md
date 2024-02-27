@@ -5,7 +5,7 @@
 21 Keys, 4 Fader MIDI Macro Keyboard
 
 * Keyboard Maintainer: [spacehangover](https://github.com/spacehangover)
-* Hardware Supported: Arduino Pro Micro, B103K Slide Pot
+* Hardware Supported: Pro Micro development board, B103K Slide Pot
 * Hardware Availability: Arduino Pro Micro
 
 Make example for this keyboard (after setting up your build environment):
