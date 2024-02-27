@@ -25,26 +25,42 @@
      N30, N31, K32, K33, K34,                K35, K36, K37, N38, N39\
 ) \
 LAYOUT_rev57lp_wrapper(\
-    KC_GRV,   KC_1,     KC_2,     KC_3,     KC_4,      KC_5,                        KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_DEL, \
+    KC_GRV,   ________________NUMBER_LEFT________________,                          ________________NUMBER_RIGHT_______________,      KC_DEL, \
     KC_DEL,   K00,      K01,      K02,      K03,       K04,                         K05,      K06,      K07,      K08,      K09,      KC_BSPC, \
-    KC_LSFT,  K10,      K11,      K12,      K13,       K14,         KC_AA,          K15,      K16,      K17,      K18,      K19,      KC_RSFT, \
+    KC_LSFT,  K10,      K11,      K12,      K13,       K14,         KC_MPLY,        K15,      K16,      K17,      K18,      K19,      KC_RSFT, \
     KC_LCTL,  K20,      K21,      K22,      K23,       K24,                         K25,      K26,      K27,      K28,      K29,      KC_RCTL, \
-                                  K32,      K33,       K34,     KC_AE,   KC_OE,     K35,    K36,  K37 \
+                                  K32,      K33,       K34,     KC_LBRC, KC_RBRC,   K35,    K36,  K37 \
 )
 
+#define LAYOUT_rev57lp_gaming( \
+     K00, K01, K02, K03, K04,               K05, K06, K07, K08, K09,\
+     K10, K11, K12, K13, K14,               K15, K16, K17, K18, K19,\
+     K20, K21, K22, K23, K24,               K25, K26, K27, K28, K29,\
+     N30, N31, K32, K33, K34,               K35, K36, K37, N38, N39\
+    ) \
+LAYOUT_rev57lp_wrapper( \
+    KC_ESC,   ________________NUMBER_LEFT________________,                          ________________NUMBER_RIGHT_______________,      KC_DEL, \
+    KC_TAB,   K00,      K01,      K02,      K03,       K04,                         K05,      K06,      K07,      K08,      K09,      KC_BSPC, \
+    KC_LSFT,  K10,      K11,      K12,      K13,       K14,         KC_MPLY,        K15,      K16,      K17,      K18,      K19,      KC_RSFT, \
+    KC_LCTL,  K20,      K21,      K22,      K23,       K24,                         K25,      K26,      K27,      K28,      K29,      KC_RCTL, \
+                                  K32,      KC_LALT,   KC_SPC,  KC_LBRC, KC_RBRC,   K35,    K36,  K37 \
+    )
+
 #define LAYOUT_base_wrapper(...) LAYOUT_rev57lp_base(__VA_ARGS__)
+#define LAYOUT_gaming_wrapper(...) LAYOUT_rev57lp_gaming(__VA_ARGS__)
 
-#undef _________________THUMB_LEFT________________
-#undef _________________THUMB_RIGHT_______________
-
-#define _________________THUMB_LEFT________________     KC_NO,             KC_NO,             LT(_MOUSE, KC_LGUI),   LT(_MEDIA,KC_ESC), LT(_NAV,KC_SPC)
-#define _________________THUMB_RIGHT_______________     LT(_SYM,KC_ENT),   LT(_NUM,KC_TAB),   LT(_FUN, KC_RGUI),     KC_NO,             KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_base_wrapper(
         _________________COLEMAK_L1_________________, _________________COLEMAK_R1_________________,
         _________________COLEMAK_L2_________________, _________________COLEMAK_R2_________________,
         _________________COLEMAK_L3_________________, _________________COLEMAK_R3_________________,
+        _________________THUMB_LEFT________________,  _________________THUMB_RIGHT_______________
+    ),
+    [_GAMING] = LAYOUT_gaming_wrapper(
+        _________________GAMING_L1__________________, _________________GAMING_R1__________________,
+        _________________GAMING_L2__________________, _________________GAMING_R2__________________,
+        _________________GAMING_L3__________________, _________________GAMING_R3__________________,
         _________________THUMB_LEFT________________,  _________________THUMB_RIGHT_______________
     ),
     [_ALT] = LAYOUT_base_wrapper(

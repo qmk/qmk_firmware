@@ -21,6 +21,7 @@
 
 #define ESC_CTL LCTL_T(KC_ESC)
 #define TOG_WS MT(MOD_LGUI | MOD_LSFT, KC_PSCR)
+#define GAM_WIN LT(_FUN, KC_LGUI)
 
 #define LAYOUT_moonlander_wrapper(...) LAYOUT_moonlander(__VA_ARGS__)
 
@@ -47,22 +48,15 @@
     LAYOUT_moonlander_wrapper( \
         KC_ESC,  ________________NUMBER_LEFT________________, XXX,         XXX, ________________NUMBER_RIGHT_______________,     XXX,\
         KC_TAB,  K00,     K01,     K02,     K03,     K04,     XXX,         KC_AA,   K05,     K06,     K07,     K08,     K09,     KC_BSPC,\
-        KC_LCTL, K10,     K11,     K12,     K13,     K14,     KC_AE,       KC_OE,   K15,     K16,     K17,     K18,     K19,     KC_RCTL,\
-        KC_LSFT, K20,     K21,     K22,     K23,     K24,                           K25,     K26,     K27,     K28,     K29,     KC_RSFT,\
-        XXX,     XXX,     XXX,   LT(_ALT,KC_LGUI),   KC_LALT,    XXX,      XXX,              K36,     K37,     XXX,     XXX,     XXX,\
+        KC_LSFT, K10,     K11,     K12,     K13,     K14,     KC_AE,       KC_OE,   K15,     K16,     K17,     K18,     K19,     KC_RSFT,\
+        KC_LCTL, K20,     K21,     K22,     K23,     K24,                           K25,     K26,     K27,     K28,     K29,     KC_RCTL,\
+        XXX,     XXX,     XXX,     GAM_WIN, KC_LALT,             XXX,      XXX,              K36,     K37,     XXX,     XXX,     XXX,\
                                             KC_SPC,     XXX,     XXX,      XXX,     XXX,     K35\
     )
 
 
 #define LAYOUT_base_wrapper(...) LAYOUT_moonlander_base(__VA_ARGS__)
 #define LAYOUT_gaming_wrapper(...) LAYOUT_moonlander_gaming(__VA_ARGS__)
-
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    state = update_tri_layer_state(state, _NUM, _MEDIA, _MOUSE);
-    state = update_tri_layer_state(state, _NAV, _SYM, _FUN);
-    return state;
-}
 
 
 // clang-format off
@@ -73,16 +67,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _________________COLEMAK_L3_________________, _________________COLEMAK_R3_________________,
         _________________THUMB_LEFT________________,  _________________THUMB_RIGHT_______________
     ),
-    [_ALT] = LAYOUT_base_wrapper(
-        ___________________FUN_L1___________________, ___________________FUN_R1___________________,
-        ___________________FUN_L2___________________, ___________________FUN_R2___________________,
-        ___________________FUN_L3___________________, ___________________FUN_R3___________________,
-        ___________________FUN_L4___________________, ___________________FUN_R4___________________
-    ),
     [_GAMING] = LAYOUT_gaming_wrapper(
         _________________GAMING_L1__________________, _________________GAMING_R1__________________,
         _________________GAMING_L2__________________, _________________GAMING_R2__________________,
         _________________GAMING_L3__________________, _________________GAMING_R3__________________,
+        _________________THUMB_LEFT________________,  _________________THUMB_RIGHT_______________
+    ),
+    [_ALT] = LAYOUT_base_wrapper(
+        _________________QWERTY_L1__________________, _________________QWERTY_R1__________________,
+        _________________QWERTY_L2__________________, _________________QWERTY_R2__________________,
+        _________________QWERTY_L3__________________, _________________QWERTY_R3__________________,  
         _________________THUMB_LEFT________________,  _________________THUMB_RIGHT_______________
     ),
     [_SYM] = LAYOUT_base_wrapper(

@@ -34,9 +34,9 @@
 LAYOUT_keychron_v1_wrapper(\
     KC_ESC,     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  QK_BOOT,     KC_MPLY,\
     KC_GRV,     KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    XXX,     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_BSPC,     KC_DEL,\
-    KC_TAB,     K00,     K01,     K02,     K03,     K04,     XXX,     K05,     K06,     K07,     K08,     K09,     XXX,                  KC_HOME,\
-    KC_LSFT,    K10,     K11,     K12,     K13,     K14,     KC_AA,   K15,     K16,     K17,     K18,     K19,     KC_RSFT, KC_ENT,      KC_END,\
-    KC_LCTL,    K20,     K21,     K22,     K23,     K24,     KC_AE,   KC_OE,   K25,     K26,     K27,     K28,     K29,     KC_UP,          \
+    KC_DEL,     K00,     K01,     K02,     K03,     K04,     K05,     K06,     K07,     K08,     K09,     KC_LBRC, KC_RBRC,              KC_HOME,\
+    KC_LSFT,    K10,     K11,     K12,     K13,     K14,     K15,     K16,     K17,     K18,     K19,     KC_NUHS, KC_RSFT, KC_ENT,      KC_END,\
+    KC_LCTL,    K20,     K21,     K22,     K23,     K24,     XXX,     K25,     K26,     K27,     K28,     K29,     KC_RSFT,     KC_UP,          \
     KC_LGUI,    K32,     LT(_NAV,KC_ESC),                KC_SPC,                       K36, K37, KC_LGUI,              KC_LEFT, KC_DOWN, KC_RGHT\
 )
 
@@ -49,9 +49,9 @@ LAYOUT_keychron_v1_wrapper(\
 LAYOUT_keychron_v1_wrapper(\
     KC_ESC,     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  TOG_WS,      KC_MPLY,\
     KC_GRV,     KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    XXX,     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_BSPC,     KC_DEL,\
-    KC_TAB,     K00,     K01,     K02,     K03,     K04,     XXX,     K05,     K06,     K07,     K08,     K09,     XXX,                  KC_HOME,\
-    KC_LSFT,    K10,     K11,     K12,     K13,     K14,     KC_AA,   K15,     K16,     K17,     K18,     K19,     XXX,     KC_ENT,      KC_END,\
-    KC_LCTL,    K20,     K21,     K22,     K23,     K24,     KC_AE,   KC_OE,   K25,     K26,     K27,     K28,     KC_RSFT,     KC_UP,          \
+    KC_TAB,     K00,     K01,     K02,     K03,     K04,     K05,     K06,     K07,     K08,     K09,     KC_LBRC, KC_RBRC,              KC_HOME,\
+    KC_LSFT,    K10,     K11,     K12,     K13,     K14,     K15,     K16,     K17,     K18,     K19,     KC_NUHS, KC_RSFT, KC_ENT,      KC_END,\
+    KC_LCTL,    K20,     K21,     K22,     K23,     K24,     XXX,     K25,     K26,     K27,     K28,     K29,     KC_RSFT,     KC_UP,          \
     K32,        K33,     KC_LALT,                         KC_SPC,                       K36, K37, KC_LGUI,             KC_LEFT, KC_DOWN, KC_RGHT\
 )
 
@@ -99,20 +99,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 [_MEDIA] = LAYOUT_base_wrapper(
     __________________MEDIA_L1__________________, __________________MEDIA_R1__________________,
-    __________________MEDIA_L2__________________, __________________MEDIA_VI_R2_______________,
-    __________________MEDIA_L3__________________, __________________MEDIA_VI_R3_______________,
+    __________________MEDIA_L2__________________, __________________MEDIA_R2__________________,
+    __________________MEDIA_L3__________________, __________________MEDIA_R3__________________,
     __________________MEDIA_L4__________________, __________________MEDIA_R4__________________
 ),
 [_NAV] = LAYOUT_base_wrapper(
     ___________________NAV_L1___________________, ___________________NAV_R1___________________,
-    ___________________NAV_L2___________________, ___________________NAV_VI_R2________________,
-    ___________________NAV_L3___________________, ___________________NAV_VI_R3________________,
+    ___________________NAV_L2___________________, ___________________NAV_R2___________________,
+    ___________________NAV_L3___________________, ___________________NAV_R3___________________,
     ___________________NAV_L4___________________, ___________________NAV_R4___________________
 ),
 [_MOUSE] = LAYOUT_base_wrapper(
     __________________MOUSE_L1__________________, __________________MOUSE_R1__________________,
-    __________________MOUSE_L2__________________, __________________MOUSE_VI_R2_______________,
-    __________________MOUSE_L3__________________, __________________MOUSE_VI_R3_______________,
+    __________________MOUSE_L2__________________, __________________MOUSE_R2__________________,
+    __________________MOUSE_L3__________________, __________________MOUSE_R3__________________,
     __________________MOUSE_L4__________________, __________________MOUSE_R4__________________
 ),
 

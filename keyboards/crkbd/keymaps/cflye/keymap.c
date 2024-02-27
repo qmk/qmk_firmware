@@ -38,13 +38,6 @@ LAYOUT_crkbd_wrapper( \
 #define LAYOUT_base_wrapper(...) LAYOUT_crkbd_base(__VA_ARGS__)
 
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-    state = update_tri_layer_state(state, _NUM, _MEDIA, _MOUSE);
-    state = update_tri_layer_state(state, _NAV, _SYM, _FUN);
-    return state;
-}
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_base_wrapper(
         _________________COLEMAK_L1_________________, _________________COLEMAK_R1_________________,
@@ -53,9 +46,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _________________THUMB_LEFT________________,  _________________THUMB_RIGHT_______________
     ),
     [_ALT] = LAYOUT_base_wrapper(
-        _________________COLEMAK_L1_________________, _________________COLEMAK_R1_________________,
-        _________________COLEMAK_L2_________________, _________________COLEMAK_R2_________________,
-        _________________COLEMAK_L3_________________, _________________COLEMAK_R3_________________,
+        _________________QWERTY_L1__________________, _________________QWERTY_R1__________________,
+        _________________QWERTY_L2__________________, _________________QWERTY_R2__________________,
+        _________________QWERTY_L3__________________, _________________QWERTY_R3__________________,  
         _________________THUMB_LEFT________________,  _________________THUMB_RIGHT_______________
     ),
     [_SYM] = LAYOUT_base_wrapper(
