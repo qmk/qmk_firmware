@@ -2,7 +2,7 @@
     "manufacturer": "spacehangover",
     "keyboard_name": "Rosetta",
     "maintainer": "spacehangover",
-    "bootloader": "atmel-dfu",
+    "development_board": "elite_c",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
