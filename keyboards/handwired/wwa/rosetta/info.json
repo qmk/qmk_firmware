@@ -10,7 +10,11 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "midi": true
+    },
+    "build":{
+        "lto": true
     },
     "matrix_pins": {
         "cols": ["C6", "D4", "D0", "D1"],
@@ -21,6 +25,12 @@
         "device_version": "1.0.0",
         "pid": "0x0006",
         "vid": "0x5757"
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     },
     "layouts": {
         "LAYOUT": {
