@@ -114,7 +114,6 @@
             {"matrix": [5, 17], "x": 212, "y": 52, "flags": 4}
         ],
         "animations": {
-            "solid_color": true,
             "alphas_mods": true,
             "gradient_up_down": true,
             "gradient_left_right": true,
