@@ -2,98 +2,28 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "rev2.h"
+#include "gpio.h"
 
 #ifdef ENCODER_ENABLE // code based on encoder.c
 
-static const pin_t encoders_pad_a[] = ENCODERS_PAD_A;
-static const pin_t encoders_pad_b[] = ENCODERS_PAD_B;
-
-static int8_t  encoder_LUT[]  = {0, -1, 1, 0, 1, 0, 0, -1, -1, 0, 0, 1, 0, 1, -1, 0};
-static uint8_t encoder_state  = 3;
-static int8_t  encoder_pulses = 0;
-static uint8_t encoder_value  = 0;
-
-typedef struct encoder_sync_data {
-    int value;
-} encoder_sync_data;
+#define ENCODER_PIN_A (((pin_t[])ENCODERS_PAD_A)[0])
+#define ENCODER_PIN_B (((pin_t[])ENCODERS_PAD_B)[0])
 
 // custom handler that returns encoder B pin status from slave side
 void encoder_sync_slave_handler(uint8_t in_buflen, const void *in_data, uint8_t out_buflen, void *out_data) {
-    encoder_sync_data *data = (encoder_sync_data *)out_data;
-    data->value = readPin(encoders_pad_b[0]);
+    *(uint8_t *)out_data = readPin(ENCODER_PIN_B) ? 1 : 0;
 }
 
-__attribute__((weak)) bool encoder_update_user(uint8_t index, bool clockwise) {
-    return true;
-}
+void encoder_quadrature_init_pin(uint8_t index, bool pad_b) {}
 
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) return false;
-
-    tap_code(clockwise ? KC_VOLU : KC_VOLD);
-
-    return false;
-}
-
-#ifdef ENCODER_MAP_ENABLE
-static void encoder_exec_mapping(uint8_t index, bool clockwise) {
-    action_exec(clockwise ? ENCODER_CW_EVENT(index, true) : ENCODER_CCW_EVENT(index, true));
-    wait_ms(ENCODER_MAP_KEY_DELAY);
-    action_exec(clockwise ? ENCODER_CW_EVENT(index, false) : ENCODER_CCW_EVENT(index, false));
-    wait_ms(ENCODER_MAP_KEY_DELAY);
-}
-#endif // ENCODER_MAP_ENABLE
-
-void encoder_init(void) {
-    setPinInputHigh(encoders_pad_a[0]);
-    setPinInputHigh(encoders_pad_b[0]);
-    wait_us(100);
-    transaction_register_rpc(ENCODER_SYNC, encoder_sync_slave_handler);
-}
-
-bool encoder_read(void) {
-    // ignore if running on slave side
-    if (!is_keyboard_master()) return false;
-
-    bool changed = false;
-    encoder_sync_data data = {0};
-    // request pin B status from slave side
-    if (transaction_rpc_recv(ENCODER_SYNC, sizeof(data), &data)) {
-        uint8_t new_status = (readPin(encoders_pad_a[0]) << 0) | (data.value << 1);
-        if ((encoder_state & 0x3) != new_status) {
-            encoder_state <<= 2;
-            encoder_state |= new_status;
-            encoder_pulses += encoder_LUT[encoder_state & 0xF];
-
-            if (encoder_pulses >= ENCODER_RESOLUTION) {
-                encoder_value++;
-                changed = true;
-#ifdef ENCODER_MAP_ENABLE
-                encoder_exec_mapping(0, false);
-#else  // ENCODER_MAP_ENABLE
-                encoder_update_kb(0, false);
-#endif // ENCODER_MAP_ENABLE
-            }
-
-            if (encoder_pulses <= -ENCODER_RESOLUTION) {
-                encoder_value--;
-                changed = true;
-#ifdef ENCODER_MAP_ENABLE
-                encoder_exec_mapping(0, true);
-#else  // ENCODER_MAP_ENABLE
-                encoder_update_kb(0, true);
-#endif // ENCODER_MAP_ENABLE
-            }
-
-            encoder_pulses %= ENCODER_RESOLUTION;
-        }
+uint8_t encoder_quadrature_read_pin(uint8_t index, bool pad_b) {
+    if(pad_b) {
+        uint8_t data = 0;
+        transaction_rpc_recv(ENCODER_SYNC, sizeof(data), &data);
+        return data;
     }
-    return changed;
+    return readPin(ENCODER_PIN_A) ? 1 : 0;
 }
-
-// do not use standard split encoder transactions
-void encoder_state_raw(uint8_t *slave_state) {}
-void encoder_update_raw(uint8_t *slave_state) {}
 
 #endif // ENCODER_ENABLE
 
@@ -124,6 +54,12 @@ bool should_set_rgblight = false;
 
 void keyboard_post_init_kb(void) {
     setPinOutput(PICA40_RGB_POWER_PIN);
+
+#ifdef ENCODER_ENABLE
+    setPinInputHigh(ENCODER_PIN_A);
+    setPinInputHigh(ENCODER_PIN_B);
+    transaction_register_rpc(ENCODER_SYNC, encoder_sync_slave_handler);
+#endif // ENCODER_ENABLE
 
 #ifdef PICA40_RGBLIGHT_TIMEOUT
     idle_timer = timer_read();
