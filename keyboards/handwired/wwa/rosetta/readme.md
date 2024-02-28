@@ -1,6 +1,6 @@
 # rosetta
 
-![rosetta](https://i.imgur.com/KQL8cUe.jpg)
+![rosetta](https://i.imgur.com/KQL8cUeh.jpg)
 
 21 Keys, 4 Fader MIDI Macro Keyboard
 

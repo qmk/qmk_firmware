@@ -26,12 +26,6 @@
         "pid": "0x0006",
         "vid": "0x5757"
     },
-    "qmk": {
-        "locking": {
-            "enabled": true,
-            "resync": true
-        }
-    },
     "layouts": {
         "LAYOUT": {
             "layout": [
