@@ -32,3 +32,6 @@
 #define ADNS5050_CS_PIN           B4
 
 #define POINTING_DEVICE_ROTATION_270
+
+/* Custom encoder needs to specify just how many encoders we have */
+#define NUM_ENCODERS 1

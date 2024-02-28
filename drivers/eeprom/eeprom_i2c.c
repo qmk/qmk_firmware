@@ -57,8 +57,8 @@ void eeprom_driver_init(void) {
     i2c_init();
 #if defined(EXTERNAL_EEPROM_WP_PIN)
     /* We are setting the WP pin to high in a way that requires at least two bit-flips to change back to 0 */
-    writePin(EXTERNAL_EEPROM_WP_PIN, 1);
-    setPinInputHigh(EXTERNAL_EEPROM_WP_PIN);
+    gpio_write_pin(EXTERNAL_EEPROM_WP_PIN, 1);
+    gpio_set_pin_input_high(EXTERNAL_EEPROM_WP_PIN);
 #endif
 }
 
@@ -100,8 +100,8 @@ void eeprom_write_block(const void *buf, void *addr, size_t len) {
     uintptr_t target_addr = (uintptr_t)addr;
 
 #if defined(EXTERNAL_EEPROM_WP_PIN)
-    setPinOutput(EXTERNAL_EEPROM_WP_PIN);
-    writePin(EXTERNAL_EEPROM_WP_PIN, 0);
+    gpio_set_pin_output(EXTERNAL_EEPROM_WP_PIN);
+    gpio_write_pin(EXTERNAL_EEPROM_WP_PIN, 0);
 #endif
 
     while (len > 0) {
@@ -134,7 +134,7 @@ void eeprom_write_block(const void *buf, void *addr, size_t len) {
 
 #if defined(EXTERNAL_EEPROM_WP_PIN)
     /* We are setting the WP pin to high in a way that requires at least two bit-flips to change back to 0 */
-    writePin(EXTERNAL_EEPROM_WP_PIN, 1);
-    setPinInputHigh(EXTERNAL_EEPROM_WP_PIN);
+    gpio_write_pin(EXTERNAL_EEPROM_WP_PIN, 1);
+    gpio_set_pin_input_high(EXTERNAL_EEPROM_WP_PIN);
 #endif
 }

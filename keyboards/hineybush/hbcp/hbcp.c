@@ -70,7 +70,7 @@ bool led_update_kb(led_t led_state) {
 
 __attribute__ ((weak))
 void keyboard_post_init_user(void) {
-    rgblight_set_effect_range(3, RGBLED_NUM-3);
+    rgblight_set_effect_range(3, RGBLIGHT_LED_COUNT-3);
     led_t led_state = {
         .caps_lock = true,
         .num_lock = true,

@@ -10,10 +10,7 @@
 #define MCP23017_A1 0
 #define MCP23017_A2 0
 
-#define I2C_ADDR        (0x20)
-#define I2C_ADDR_WRITE  ((I2C_ADDR << 1) | I2C_WRITE)
-#define I2C_ADDR_READ   ((I2C_ADDR << 1) | I2C_READ)
-
+#define I2C_ADDR        ((0x20) << 1)
 
 #define MCP23017_B0_IODIRA     0x00
 #define MCP23017_B0_IODIRB     0x01
@@ -39,8 +36,6 @@
 #define MCP23017_B0_OLATB      0x15
 
 #define HOTDOX_I2C_TIMEOUT     100
-
-typedef int16_t i2c_status_t;
 
 void left_init(void);
 void left_scan(void);

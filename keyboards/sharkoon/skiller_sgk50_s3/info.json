@@ -59,7 +59,6 @@
             "rainbow_moving_chevron": true,
             "rainbow_pinwheels": true,
             "raindrops": true,
-            "solid_color": true,
             "solid_multisplash": true,
             "solid_reactive": true,
             "solid_reactive_cross": true,
@@ -72,6 +71,9 @@
             "solid_splash": true,
             "splash": true,
             "typing_heatmap": true
+        },
+        "default": {
+            "val": 80
         },
         "driver": "ws2812",
         "layout": [
@@ -165,7 +167,8 @@
             {"matrix": [4, 1], "x": 15, "y": 51, "flags": 4}
         ],
         "max_brightness": 110,
-        "val_steps": 28
+        "val_steps": 28,
+        "sleep": true
     },
     "url": "",
     "usb": {

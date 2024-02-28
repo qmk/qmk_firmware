@@ -364,16 +364,9 @@ static inline bool qp_font_code_point_handler_drawglyph(qff_font_handle_t *qff_f
     // Move the x-position for the next glyph
     state->xpos += width;
 
-    // Decode the pixel data for the glyph
+    // Decode the pixel data for the glyph, and stream it
     uint32_t pixel_count = ((uint32_t)width) * height;
-    bool     ret         = qp_internal_decode_palette(state->device, pixel_count, qff_font->bpp, state->input_callback, state->input_state, qp_internal_global_pixel_lookup_table, qp_internal_pixel_appender, state->output_state);
-
-    // Any leftovers need transmission as well.
-    if (ret && state->output_state->pixel_write_pos > 0) {
-        ret &= driver->driver_vtable->pixdata(state->device, qp_internal_global_pixdata_buffer, state->output_state->pixel_write_pos);
-    }
-
-    return ret;
+    return qp_internal_appender(state->device, qff_font->bpp, pixel_count, state->input_callback, state->input_state);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

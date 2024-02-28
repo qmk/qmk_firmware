@@ -13,6 +13,12 @@
         "rgb_matrix": true
     },
     "rgb_matrix": {
+        "animations": {
+            "typing_heatmap": true
+        },
+        "default": {
+            "animation": "typing_heatmap"
+        },
         "driver": "ws2812"
     },
     "matrix_pins": {

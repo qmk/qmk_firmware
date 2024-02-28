@@ -69,6 +69,20 @@
 #    ifndef SPI_MISO_PAL_MODE
 #        define SPI_MISO_PAL_MODE (PAL_MODE_ALTERNATE_SPI | PAL_RP_PAD_SLEWFAST | PAL_RP_PAD_DRIVE4)
 #    endif
+
+#    ifndef UART_TX_PAL_MODE
+#        define UART_TX_PAL_MODE PAL_MODE_ALTERNATE_UART
+#    endif
+#    ifndef UART_RX_PAL_MODE
+#        define UART_RX_PAL_MODE PAL_MODE_ALTERNATE_UART
+#    endif
+#    ifndef UART_CTS_PAL_MODE
+#        define UART_CTS_PAL_MODE PAL_MODE_ALTERNATE_UART
+#    endif
+#    ifndef UART_RTS_PAL_MODE
+#        define UART_RTS_PAL_MODE PAL_MODE_ALTERNATE_UART
+#    endif
+
 #endif
 
 // STM32 compatibility

@@ -3,7 +3,7 @@
     "url": "https://openannepro.github.io/",
     "maintainer": "bwisn",
     "usb": {
-        "vid": "0xFEED",
+        "vid": "0xAC20",
         "device_version": "13.3.7"
     },
     "layouts": {

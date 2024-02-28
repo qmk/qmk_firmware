@@ -11,6 +11,14 @@
     "bootmagic": {
         "matrix": [0, 1]
     },
+    "dip_switch": {
+        "pins": ["A8"]
+    },
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
     "features": {
         "bootmagic": true,
         "command": false,
@@ -35,6 +43,9 @@
                     {"pin_a": "C14", "pin_b": "C15"}
                 ]
             }
+        },
+        "handedness": {
+            "matrix_grid": ["A2", "A15"]
         },
         "matrix_pins": {
             "right": {
@@ -84,7 +95,8 @@
             "solid_reactive_multinexus": true,
             "splash": true,
             "solid_splash": true
-        }
+        },
+        "sleep": true
     },
     "layouts": {
         "LAYOUT_91_ansi": {
