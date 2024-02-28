@@ -17,7 +17,7 @@
         "matrix": [1, 0]
     },
     "build": {
-        "debounce_type": "sym_eager_pk"
+        "debounce_type": "asym_eager_defer_pk"
     },
     "matrix_pins": {
         "direct": [
