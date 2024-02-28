@@ -36,7 +36,3 @@ bool setPin(pin_t pin, bool val) {
 }
 
 void last_encoder_activity_trigger(void) {}
-
-__attribute__((weak)) bool is_keyboard_master(void) {
-    return true;
-}
