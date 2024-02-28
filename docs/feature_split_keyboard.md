@@ -119,12 +119,12 @@ You can configure the firmware to read key matrix pins on the controller to dete
 
 The first pin is the output pin and the second is the input pin.
 
-Some keyboards have unused intersections in the key matrix. This setting uses one of these unused intersections to determine the handness.
+Some keyboards have unused intersections in the key matrix. This setting uses one of these unused intersections to determine the handedness.
 
-Normally, when a diode is connected to an intersection, it is judged to be left. If you add the following definition, it will be judged to be right.
+Normally, when a diode is connected to an intersection, it is judged to be right. If you add the following definition, it will be judged to be left.
 
 ```c
-#define SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
+#define SPLIT_HAND_MATRIX_GRID_LOW_IS_LEFT
 ```
 
 Note that adding a diode at a previously unused intersection will effectively tell the firmware that there is a key held down at that point. You can instruct qmk to ignore that intersection by defining `MATRIX_MASKED` and then defining a `matrix_row_t matrix_mask[MATRIX_ROWS]` array in your keyboard config. Each bit of a single value (starting form the least-significant bit) is used to tell qmk whether or not to pay attention to key presses at that intersection.
