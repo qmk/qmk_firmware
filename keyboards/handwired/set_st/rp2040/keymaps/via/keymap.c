@@ -19,6 +19,7 @@
 #ifdef VIA_ENABLE
   #include "via.h"
 #endif
+#include "os_detection.h"
 
 enum keycodes {
   KC_CYCLE_LAYERS = QK_USER,
@@ -92,9 +93,27 @@ bool oled_task_user(void) {
             oled_write_ln_P("4:Lights controll", false);
             break;
     }
+    
 
     oled_set_cursor(0, 1);
-    oled_write_ln_P(PSTR("Keys:"), false);
+    oled_write(PSTR("Keys: "), false);
+
+    os_variant_t os = detected_host_os();
+    switch (os){
+      case OS_MACOS:
+        oled_write("MAC", false);
+        break;
+      case OS_LINUX:
+        oled_write("LIN", false);
+        break;
+      case OS_WINDOWS:
+        oled_write("WIN", false);
+        break;
+      default:
+        break;
+    }
+    oled_write_ln("", false);
+
     for (int i = 0; i < MATRIX_ROWS; i++) {
         for (int j = 0; j < MATRIX_COLS; j++) {
             uint16_t keycode = keymaps[get_highest_layer(layer_state)][i][j];
@@ -150,10 +169,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       // Код клавиши будет отображаться на OLED дисплее
       oled_clear(); // Очищаем дисплей
       oled_set_cursor(0, 6);
-      oled_write_ln_P("Keycode:", false); // Отображаем текст "Keycode:"
+      oled_write("Keycode: ", false); // Отображаем текст "Keycode:"
       char keycode_str[6]; // Создаем массив для хранения строки с кодом клавиши (5 символов для числа + 1 символ для завершающего нуля)
       itoa(keycode, keycode_str, 10); // Преобразуем код клавиши в строку
-      oled_write_ln_P(keycode_str, false); // Отображаем код клавиши на OLED дисплее
+      oled_write(keycode_str, false); // Отображаем код клавиши на OLED дисплее
+      oled_write_ln("", false);
       return true;
   }
 }
