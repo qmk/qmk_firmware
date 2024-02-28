@@ -22,9 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "wait.h"
 #include "util.h"
 #include "matrix.h"
-#include "config.h"
 #include "quantum.h"
-#include "debounce.h"
 
 #define ROW_SHIFTER ((uint16_t)1)
 
@@ -131,8 +129,6 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 void matrix_init_custom(void) {
     // initialize key pins
     init_pins();
-
-    debounce_init(MATRIX_ROWS);
 }
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
