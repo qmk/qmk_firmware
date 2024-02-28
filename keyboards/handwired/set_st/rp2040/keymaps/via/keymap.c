@@ -16,11 +16,6 @@
 
 #include QMK_KEYBOARD_H
 
-#ifdef VIA_ENABLE
-  #include "via.h"
-#endif
-#include "os_detection.h"
-
 enum keycodes {
   KC_CYCLE_LAYERS = QK_USER,
 };
