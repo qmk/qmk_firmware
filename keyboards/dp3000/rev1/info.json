@@ -29,7 +29,6 @@
             "hue_wave": true,
             "rainbow_moving_chevron": true,
             "raindrops": true,
-            "solid_color": true,
             "solid_reactive": true,
             "solid_reactive_multinexus": true,
             "solid_reactive_simple": true,
@@ -51,7 +50,9 @@
         "max_brightness": 180,
         "sat_steps": 8,
         "speed_steps": 10,
-        "val_steps": 8
+        "val_steps": 8,
+        "react_on_keyup": true,
+        "sleep": true
     },
     "ws2812": {
         "pin": "B5"
