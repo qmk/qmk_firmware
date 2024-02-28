@@ -177,20 +177,12 @@ static matrix_row_t read_cols(uint8_t row) {
         if (mcp23018_status) {  // if there was an error
             return 0;
         } else {
-            uint8_t data    = 0;
-            mcp23018_status = i2c_start(I2C_ADDR_READ, I2C_TIMEOUT);
-            if (mcp23018_status) goto out;
-            mcp23018_status = i2c_read_nack(I2C_TIMEOUT);
-            if (mcp23018_status < 0) goto out;
-            data            = ~((uint8_t)mcp23018_status);
-            mcp23018_status = I2C_STATUS_SUCCESS;
-        out:
-            i2c_stop();
-
+            uint8_t data = 0;
+            mcp23018_status = i2c_receive(I2C_ADDR, &data, 1, I2C_TIMEOUT);
 #ifdef DEBUG_MATRIX
-            if (data != 0x00) xprintf("I2C: %d\n", data);
+            if (~data != 0x00) xprintf("I2C: %d\n", ~data);
 #endif
-            return data;
+            return ~data;
         }
     } else {
         return ~((((PINF & COL4) >> 1) | ((PINF & (COL1 | COL2 | COL3)) >> 3)) & 0xF);
@@ -213,14 +205,10 @@ static void select_row(uint8_t row) {
         // select on mcp23018
         if (mcp23018_status) {  // do nothing on error
         } else {                // set active row low  : 0 // set other rows hi-Z : 1
-            mcp23018_status = i2c_start(I2C_ADDR_WRITE, I2C_TIMEOUT);
-            if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(GPIOA, I2C_TIMEOUT);
-            if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(0xFF & ~(1 << (row + 1)), I2C_TIMEOUT);
-            if (mcp23018_status) goto out;
-        out:
-            i2c_stop();
+            uint8_t data;
+            data = 0xFF & ~(1 << (row + 1));
+            mcp23018_status = i2c_writeReg(I2C_ADDR, GPIOA, &data, 1, I2C_TIMEOUT);
+
         }
     } else {
         setPinOutput(row_pins[row - MATRIX_ROWS_PER_SIDE]);
