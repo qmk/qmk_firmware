@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "stdlib.h"
 
 #include "iosevka11.qff.h"
-#include "kicub.qgf.h"
+#include "inv_gear5.qgf.h"
 #include "qp.h"
 
 
@@ -56,12 +56,19 @@ void keyboard_post_init_kb(void) {
     qp_rect(lcd, 0, 0, WIDTH, HEIGHT, 127, 230, 255, true);
 
     
-    image = qp_load_image_mem(gfx_kicub);
+    image = qp_load_image_mem(gfx_inv_gear5);
     
     if (image != NULL) {
         // qp_drawimage(lcd, 0, 0, image);
-        qp_drawimage_recolor(lcd, 2, 8, image, 0, 255, 0, 127, 230, 255);
+        // qp_drawimage_recolor(lcd, 2, 8, image, 0, 255, 0, 127, 230, 255);
         // qp_drawimage_recolor(lcd, 0, 0, image, 0, 255, 255, 0, 255, 0);
+        // bool qp_drawimage_recolor(painter_device_t device, uint16_t x, uint16_t y, painter_image_handle_t image, 
+        // uint8_t hue_fg, uint8_t sat_fg, uint8_t val_fg, uint8_t hue_bg, uint8_t sat_bg, uint8_t val_bg);
+        // qp_drawimage_recolor(lcd, 0, 0, image, 0, 255, 255, 0, 0, 255);
+        qp_drawimage_recolor(lcd, 0, 0, image, 0, 255, 255, 0, 255, 255);
+
+
+        
 
         qp_flush(lcd);
     }

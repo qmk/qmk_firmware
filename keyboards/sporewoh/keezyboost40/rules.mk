@@ -21,7 +21,7 @@ AUDIO_ENABLE = no           # Audio output
 
 LAYOUTS = ortho_5x12
 
-SRC += kicub.qgf.c
+SRC += inv_gear5.qgf.c
 SRC += iosevka11.qff.c
 
 QUANTUM_PAINTER_ENABLE = yes
