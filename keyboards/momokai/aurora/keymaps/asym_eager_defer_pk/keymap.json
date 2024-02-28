@@ -1,0 +1,5 @@
+{
+    "build": {
+        "debounce_type": "asym_eager_defer_pk"
+    },
+}
