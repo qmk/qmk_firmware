@@ -12,6 +12,7 @@ These functions allow you to create macros by typing out sequences of keystrokes
 `public void `[`send_string`](#group__send__string_1gac5e380e2be08c7a8bee8532cc72d8b30)`(const char * string)`            | Type out a string of ASCII characters.
 `public void `[`send_string_with_delay`](#group__send__string_1gaa1d72394f1e4d90a4d789935f947fde6)`(const char * string,uint8_t interval)`            | Type out a string of ASCII characters, with a delay between each character.
 `public void `[`send_char`](#group__send__string_1gaac462f52e01a0434a3d0d427156f7ba1)`(char ascii_code)`            | Type out an ASCII character.
+`public void `[`send_char_with_delay`](#group__send__string_1gab0daee2d0e9544007c1039b2b0325413)`(char ascii_code,uint8_t interval)`            | Type out an ASCII character, with a delay between any modifiers.
 `public void `[`send_dword`](#group__send__string_1gacf74558e7014b43355e61fa7104ffa8c)`(uint32_t number)`            | Type out an eight digit (unsigned 32-bit) hexadecimal value.
 `public void `[`send_word`](#group__send__string_1ga9ec68473d4b590a48b9d52e35f8aecf3)`(uint16_t number)`            | Type out a four digit (unsigned 16-bit) hexadecimal value.
 `public void `[`send_byte`](#group__send__string_1ga015a1b20ba56c7debe2b4edfed5cb815)`(uint8_t number)`            | Type out a two digit (8-bit) hexadecimal value.
@@ -40,7 +41,7 @@ On ARM devices, this define evaluates to send_string_with_delay(string, interval
 
 Type out a string of ASCII characters.
 
-This function simply calls `send_string_with_delay(string, 0)`.
+This function simply calls `send_string_with_delay(string, TAP_CODE_DELAY)`.
 
 Most keycodes from the basic keycode range are also supported by way of a special sequence - see `[send_string_keycodes.h](#send__string__keycodes_8h_source)`.
 
@@ -54,14 +55,25 @@ Type out a string of ASCII characters, with a delay between each character.
 #### Parameters
 * `string` The string to type out. 
 
-* `interval` The amount of time, in milliseconds, to wait before typing the next character.
+* `interval` The amount of time, in milliseconds, to wait before typing the next character. Note this can be set to 0 to ensure no delay, regardless of what TAP_CODE_DELAY is set to.
 
 #### `public void `[`send_char`](#group__send__string_1gaac462f52e01a0434a3d0d427156f7ba1)`(char ascii_code)` 
 
 Type out an ASCII character.
 
+This function simply calls `send_char_with_delay(string, TAP_CODE_DELAY)`.
+
 #### Parameters
 * `ascii_code` The character to type.
+
+#### `public void `[`send_char_with_delay`](#group__send__string_1gab0daee2d0e9544007c1039b2b0325413)`(char ascii_code,uint8_t interval)` 
+
+Type out an ASCII character, with a delay between any modifiers.
+
+#### Parameters
+* `ascii_code` The character to type. 
+
+* `interval` The amount of time, in milliseconds, to wait in between key presses. Note this can be set to 0 to ensure no delay, regardless of what TAP_CODE_DELAY is set to.
 
 #### `public void `[`send_dword`](#group__send__string_1gacf74558e7014b43355e61fa7104ffa8c)`(uint32_t number)` 
 
