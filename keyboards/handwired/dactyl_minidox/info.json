@@ -20,7 +20,9 @@
         "pin": "D3"
     },
     "rgb_matrix": {
-        "driver": "ws2812"
+        "center_point": [133, 54],
+        "driver": "ws2812",
+        "split_count": [18, 18]
     },
     "matrix_pins": {
         "cols": ["C6", "D7", "E6", "B4", "B5"],
