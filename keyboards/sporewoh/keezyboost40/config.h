@@ -20,19 +20,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xBEAF
-#define PRODUCT_ID      0x0003
-#define DEVICE_VER      0x0000
-#define MANUFACTURER    sporewoh
-#define PRODUCT         keezyboost40
+// #define VENDOR_ID       0xBEAF
+// #define PRODUCT_ID      0x0003
+// #define DEVICE_VER      0x0000
+// #define MANUFACTURER    sporewoh
+// #define PRODUCT         keezyboost40
 
 /* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 10
+#define MATRIX_ROWS 5
+#define MATRIX_COLS 12
 
 /* pin-out for PCB */
-#define MATRIX_ROW_PINS { GP5, GP6, GP7, GP8 }
-#define MATRIX_COL_PINS { GP27, GP26, GP22, GP21, GP20, GP4, GP3, GP2, GP1, GP0 }
+#define MATRIX_ROW_PINS { GP5, GP6, GP7, GP8,GP9}
+#define MATRIX_COL_PINS { GP27, GP26, GP22, GP21, GP20, GP4, GP3, GP2, GP1, GP0, GP23, GP24 }
 
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP25

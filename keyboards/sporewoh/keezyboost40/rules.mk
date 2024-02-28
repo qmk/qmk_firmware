@@ -19,7 +19,7 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
-LAYOUTS = ortho_4x10
+LAYOUTS = ortho_5x12
 
 SRC += kicub.qgf.c
 SRC += iosevka11.qff.c
