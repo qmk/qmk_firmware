@@ -960,6 +960,15 @@ ifeq ($(strip $(SPI_DRIVER_REQUIRED)), yes)
 endif
 
 ifeq ($(strip $(UART_DRIVER_REQUIRED)), yes)
-    OPT_DEFS += -DHAL_USE_SERIAL=TRUE
-    QUANTUM_LIB_SRC += uart.c
+    ifeq ($(strip $(PLATFORM)), CHIBIOS)
+        ifneq ($(filter $(MCU_SERIES),RP2040),)
+            OPT_DEFS += -DHAL_USE_SIO=TRUE
+            QUANTUM_LIB_SRC += uart_sio.c
+        else
+            OPT_DEFS += -DHAL_USE_SERIAL=TRUE
+            QUANTUM_LIB_SRC += uart_serial.c
+        endif
+    else
+        QUANTUM_LIB_SRC += uart.c
+    endif
 endif

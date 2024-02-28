@@ -45,6 +45,8 @@ os_variant_t check_sequence(const std::vector<uint16_t> &w_lengths) {
 bool process_detected_host_os_kb(os_variant_t os) {
     reported_count = reported_count + 1;
     reported_os    = os;
+
+    return true;
 }
 
 void assert_not_reported(void) {
