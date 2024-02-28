@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, _______, _______, _______, _______
   ),
   [MEDIA] = LAYOUT(
-      _______,
+      KC_MEDIA_PLAY_PAUSE,
       KC_CYCLE_LAYERS, _______, _______, _______, _______,
       KC_MEDIA_PLAY_PAUSE, _______, _______, KC_VOLD, KC_VOLU
   ),
@@ -97,18 +97,23 @@ bool oled_task_user(void) {
     oled_write_ln_P(PSTR("Keys:"), false);
     for (int i = 0; i < MATRIX_ROWS; i++) {
         for (int j = 0; j < MATRIX_COLS; j++) {
-            uint16_t keycode = keymaps[layer_state][i][j];
-            if (keycode != KC_NO) {
-                oled_write("(", false);
-                if (KEYCODE2CONSUMER(keycode)) {
-                    oled_write("C", false);
-                }
-                else{
-                   oled_write("D", false);
-                }
-                oled_write(") ", false);
-             } else {
-                oled_write("    ", false); // Пустая клавиша
+            uint16_t keycode = keymaps[get_highest_layer(layer_state)][i][j];
+            if(keycode == KC_NO || keycode == KC_TRANSPARENT){
+              oled_write("    ", false);
+            }
+            else{
+              oled_write("(", false);
+              if (KEYCODE2CONSUMER(keycode)) {
+                    oled_write("M", false);
+              }
+              else if (IS_ANY(keycode))
+              {
+                oled_write("A", false);
+              }
+              else{
+                  oled_write("D", false);
+              }
+              oled_write(") ", false);
             }
         }
         oled_write_ln("", false); // Переходим на новую строку
