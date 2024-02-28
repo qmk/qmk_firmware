@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include_next <halconf.h>
+#define HAL_USE_I2C TRUE
 
-#undef STM32_I2C_USE_I2C2
-#define STM32_I2C_USE_I2C2 TRUE
+#include_next <halconf.h>
