@@ -88,22 +88,27 @@ combo_t key_combos[]   = {
 
 // Caps layer
 const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 2, 0, 255, 65}       // Light 4 LEDs, starting with LED 6
+    {0, 1, 0, 255, 65}       // Light 4 LEDs, starting with LED 6
 );
 
 // Layer 1
 const rgblight_segment_t PROGMEM my_layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 2, 201, 255, 65}
+    {0, 1, 201, 255, 65}
 );
 
 // Layer 2
 const rgblight_segment_t PROGMEM my_layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 2, 169, 255, 65}
+    {0, 1, 169, 255, 65}
 );
 
 // Layer 3
 const rgblight_segment_t PROGMEM my_layer3_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 2, 106, 255, 65}
+    {0, 1, 106, 255, 65}
+);
+
+// Layer 4
+const rgblight_segment_t PROGMEM my_layer4_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 1, 21, 255, 65}
 );
 
 // Now define the array of layers. Later layers take precedence
@@ -111,7 +116,8 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     my_capslock_layer,
     my_layer1_layer,    // Overrides caps lock layer
     my_layer2_layer,    // Overrides other layers
-    my_layer3_layer     // Overrides other layers
+    my_layer3_layer,     // Overrides other layers
+    my_layer4_layer
 );
 
 void keyboard_post_init_user(){
@@ -133,7 +139,9 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    rgblight_set_layer_state(2, layer_state_cmp(state, _NUMBER));
-    rgblight_set_layer_state(3, layer_state_cmp(state, _FUNCTION));
+        // rgblight_set_layer_state(0, host_keyboard_led_state().caps_lock);
+        rgblight_set_layer_state(2, layer_state_cmp(state, _NUMBER));
+        rgblight_set_layer_state(3, layer_state_cmp(state, _FUNCTION));
+        rgblight_set_layer_state(4, layer_state_cmp(state, _CTL));
     return state;
 }
