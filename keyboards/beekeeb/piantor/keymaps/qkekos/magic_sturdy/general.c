@@ -8,6 +8,14 @@
 //}
 
 enum pr_response sturdy_pr(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case TH_NAV:
+            if (record->tap.count)
+                keycode = US_REP;
+
+            break;
+    }
+
     if (!process_sequence_transform(keycode, record, US_AREP))
         return false;
 
