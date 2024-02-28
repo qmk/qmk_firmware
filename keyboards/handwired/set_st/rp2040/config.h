@@ -22,7 +22,6 @@
 #define I2C_DRIVER I2CD1
 #define I2C1_SDA_PIN GP26
 #define I2C1_SCL_PIN GP27
-#define SSD1306_I2C_ADDRESS 0x3c
 
 /* Double tap the side button to enter bootloader */
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
