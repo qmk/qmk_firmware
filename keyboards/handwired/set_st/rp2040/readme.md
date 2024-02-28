@@ -12,12 +12,11 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Features
 
-- Raspberry Pi RP2040 Chip + 8MB Flash memory - Dual-core Cortex M0+ at ~130MHz with 264KB of RAM.
+- Raspberry Pi RP2040 Zero or Plus.
 - 2x10 Mechanical key switch sockets - accepts any Cherry MX-compatible switches. Individually tied to GPIO pins (not matrix wired)
 - One NeoPixel RGB LED per switch, on north side.
-- Rotary encoder, 20 detents per rotation, with push-switch on GPIO pin. Push switch is also used for entering bootloader mode when held down on power-up or reset.
-- 128x64 SH1106 Monochrome OLED display - On high-speed hardware SPI port for quick updates.
-- 8mm Speaker/Buzzer - With Class D amplifier and RC filter, can be used to make simple beeps and sounds effects. (Unsupported for now)
+- Rotary encoder, 20 detents per rotation, with push-switch on GPIO pin.
+- 128x64 SH1306 Monochrome OLED i2c display.
 
 ## Bootloader
 
