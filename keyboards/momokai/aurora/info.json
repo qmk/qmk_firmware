@@ -16,6 +16,9 @@
     "bootmagic": {
         "matrix": [1, 0]
     },
+    "build": {
+        "debounce_type": "sym_eager_pk"
+    },
     "matrix_pins": {
         "direct": [
             ["NO_PIN", "B0", "NO_PIN" ],
