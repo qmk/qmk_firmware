@@ -3,7 +3,12 @@
         "rgblight": true
     },
     "split": {
-        "soft_serial_pin": "D2"
+        "soft_serial_pin": "D2",
+        "transport": {
+            "sync": {
+                "matrix_state": true
+            }
+        }
     },
     "rgblight": {
         "led_count": 54,
@@ -13,6 +18,7 @@
         "pin": "D3"
     },
     "rgb_matrix": {
+        "split_count": [27, 27],
         "layout": [
             {"x": 85, "y": 16, "flags": 2},
             {"x": 50, "y": 13, "flags": 2},
