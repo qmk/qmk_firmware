@@ -41,9 +41,6 @@
         "max_brightness": 200,
         "sleep": true
     },
-    "build": {
-        "debounce_type": "asym_eager_defer_pk"
-    },
     "matrix_pins": {
         "cols": ["E6", "B2", "B7", "D1", "D2", "D3"],
         "rows": ["E0"]
