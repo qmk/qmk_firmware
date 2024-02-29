@@ -3,6 +3,9 @@
     "keyboard_name": "Chameleon",
     "maintainer": "TweetyDaBird",
     "bootloader": "rp2040",
+		"bootmagic": {
+        "matrix": [0, 0]
+    },
     "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
@@ -13,8 +16,10 @@
         ]
     },
     "features": {
+        "autoshift": true,
         "bootmagic": true,
         "encoder": true,
+		"encoder_map": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
