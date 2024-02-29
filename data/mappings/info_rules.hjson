@@ -17,9 +17,11 @@
     "BOOTLOADER": {"info_key": "bootloader", "warn_duplicate": false},
     "BOOTMAGIC_ENABLE": {"info_key": "bootmagic.enabled", "value_type": "bool"},
     "CAPS_WORD_ENABLE": {"info_key": "caps_word.enabled", "value_type": "bool"},
+    "DIP_SWITCH_ENABLE": {"info_key": "dip_switch.enabled", "value_type": "bool"},
     "DEBOUNCE_TYPE": {"info_key": "build.debounce_type"},
     "EEPROM_DRIVER": {"info_key": "eeprom.driver"},
     "ENCODER_ENABLE": {"info_key": "encoder.enabled", "value_type": "bool"},
+    "ENCODER_DRIVER": {"info_key": "encoder.driver"},
     "FIRMWARE_FORMAT": {"info_key": "build.firmware_format"},
     "KEYBOARD_SHARED_EP": {"info_key": "usb.shared_endpoint.keyboard", "value_type": "bool"},
     "LAYOUTS": {"info_key": "community_layouts", "value_type": "list"},
@@ -42,6 +44,7 @@
     "STENO_ENABLE": {"info_key": "stenography.enabled", "value_type": "bool"},
     "STENO_PROTOCOL": {"info_key": "stenography.protocol"},
     "WAIT_FOR_USB": {"info_key": "usb.wait_for", "value_type": "bool"},
+    "WEAR_LEVELING_DRIVER": {"info_key": "eeprom.wear_leveling.driver"},
     "WS2812_DRIVER": {"info_key": "ws2812.driver"},
 
     // Items we want flagged in lint

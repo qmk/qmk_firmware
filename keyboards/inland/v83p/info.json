@@ -12,6 +12,13 @@
         "suspend_wakeup_delay": 1000
     },
     "diode_direction": "ROW2COL",
+    "eeprom": {
+        "driver": "wear_leveling",
+        "wear_leveling": {
+            "driver": "spi_flash",
+            "backing_size": 4096
+        }
+    },
     "features": {
         "bootmagic": true,
         "command": false,
@@ -27,16 +34,18 @@
         "cols": ["C1","C2","C3","A0","A1","A2","A3","A4","A5","A6","A7","C4","C5","B0","B1","B2"],
         "rows": ["B15", "C6", "C7", "C8", "C9", "B14"]
     },
+    "dip_switch": {
+        "pins": ["C11"]
+    },
     "encoder": {
         "rotary": [
             { "pin_a": "A8", "pin_b": "B13" }
         ]
     },
     "rgb_matrix": {
-        "driver": "ckled2001",
+        "driver": "snled27351",
         "max_brightness": 180,
         "animations": {
-            "solid_color": true,
             "breathing": true,
             "cycle_all": true,
             "cycle_left_right": true,
@@ -154,7 +163,9 @@
             { "flags": 2, "x": 224, "y": 32},
             { "flags": 2, "x": 224, "y": 48},
             { "flags": 2, "x": 224, "y": 64}
-        ]
+        ],
+        "react_on_keyup": true,
+        "sleep": true
     },
     "layouts": {
         "LAYOUT_ansi": {

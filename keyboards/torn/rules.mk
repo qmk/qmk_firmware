@@ -18,4 +18,4 @@ SRC += matrix.c \
     mcp23018.c \
     torn_encoder.c
 
-QUANTUM_LIB_SRC += i2c_master.c
+I2C_DRIVER_REQUIRED = yes

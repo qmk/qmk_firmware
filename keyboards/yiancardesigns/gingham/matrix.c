@@ -42,9 +42,9 @@ static void init_pins(void) {
     unselect_rows();
     // Set I/O
     uint8_t send_data = 0x07;
-    i2c_writeReg((PORT_EXPANDER_ADDRESS << 1), 0x00, &send_data, 1, 20);
+    i2c_write_register((PORT_EXPANDER_ADDRESS << 1), 0x00, &send_data, 1, 20);
     // Set Pull-up
-    i2c_writeReg((PORT_EXPANDER_ADDRESS << 1), 0x06, &send_data, 1, 20);
+    i2c_write_register((PORT_EXPANDER_ADDRESS << 1), 0x06, &send_data, 1, 20);
 
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
         if ( (x > 0) && (x < 12) ) {
@@ -80,15 +80,15 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
         // Select the col pin to read (active low)
         switch (col_index) {
             case 0 :
-                i2c_readReg((PORT_EXPANDER_ADDRESS << 1), 0x09, &pin_state, 1, 20);
+                i2c_read_register((PORT_EXPANDER_ADDRESS << 1), 0x09, &pin_state, 1, 20);
                 pin_state = pin_state & 0x01;
                 break;
             case 12 :
-                i2c_readReg((PORT_EXPANDER_ADDRESS << 1), 0x09, &pin_state, 1, 20);
+                i2c_read_register((PORT_EXPANDER_ADDRESS << 1), 0x09, &pin_state, 1, 20);
                 pin_state = pin_state & (1 << 2);
                 break;
             case 13 :
-                i2c_readReg((PORT_EXPANDER_ADDRESS << 1), 0x09, &pin_state, 1, 20);
+                i2c_read_register((PORT_EXPANDER_ADDRESS << 1), 0x09, &pin_state, 1, 20);
                 pin_state = pin_state & (1 << 1);
                 break;
             default :

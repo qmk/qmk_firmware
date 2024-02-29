@@ -3,6 +3,9 @@
     "usb": {
         "device_version": "1.0.0"
     },
+    "eeprom": {
+        "driver": "spi"
+    },
     "rgb_matrix": {
         "driver": "ws2812"
     },

@@ -36,29 +36,29 @@ static bool     blink_state = false;
 static uint8_t  isRecording = 0;
 
 #ifdef KEYBOARD_ibm_model_m_mschwingen_led_ws2812
-#    if RGBLED_NUM < 3
+#    if RGBLIGHT_LED_COUNT < 3
 #        error we need at least 3 RGB LEDs!
 #    endif
-static cRGB led[RGBLED_NUM] = {{255, 255, 255}, {255, 255, 255}, {255, 255, 255}};
+static rgb_led_t led[RGBLIGHT_LED_COUNT] = {{255, 255, 255}, {255, 255, 255}, {255, 255, 255}};
 
 #    define BRIGHT 32
 #    define DIM 6
 
-static const cRGB black = {.r = 0, .g = 0, .b = 0};
+static const rgb_led_t black = {.r = 0, .g = 0, .b = 0};
 
-static const __attribute__((unused)) cRGB green  = {.r = 0, .g = BRIGHT, .b = 0};
-static const __attribute__((unused)) cRGB lgreen = {.r = 0, .g = DIM, .b = 0};
+static const __attribute__((unused)) rgb_led_t green  = {.r = 0, .g = BRIGHT, .b = 0};
+static const __attribute__((unused)) rgb_led_t lgreen = {.r = 0, .g = DIM, .b = 0};
 
-static const __attribute__((unused)) cRGB red  = {.r = BRIGHT, .g = 0, .b = 0};
-static const __attribute__((unused)) cRGB lred = {.r = DIM, .g = 0, .b = 0};
+static const __attribute__((unused)) rgb_led_t red  = {.r = BRIGHT, .g = 0, .b = 0};
+static const __attribute__((unused)) rgb_led_t lred = {.r = DIM, .g = 0, .b = 0};
 
-static const __attribute__((unused)) cRGB blue  = {.r = 0, .g = 0, .b = BRIGHT};
-static const __attribute__((unused)) cRGB lblue = {.r = 0, .g = 0, .b = DIM};
+static const __attribute__((unused)) rgb_led_t blue  = {.r = 0, .g = 0, .b = BRIGHT};
+static const __attribute__((unused)) rgb_led_t lblue = {.r = 0, .g = 0, .b = DIM};
 
-static const __attribute__((unused)) cRGB turq  = {.r = 0, .g = BRIGHT, .b = BRIGHT};
-static const __attribute__((unused)) cRGB lturq = {.r = 0, .g = DIM, .b = DIM};
+static const __attribute__((unused)) rgb_led_t turq  = {.r = 0, .g = BRIGHT, .b = BRIGHT};
+static const __attribute__((unused)) rgb_led_t lturq = {.r = 0, .g = DIM, .b = DIM};
 
-static const __attribute__((unused)) cRGB white = {.r = BRIGHT, .g = BRIGHT, .b = BRIGHT};
+static const __attribute__((unused)) rgb_led_t white = {.r = BRIGHT, .g = BRIGHT, .b = BRIGHT};
 
 static led_t   led_state;
 static uint8_t layer;
@@ -84,13 +84,13 @@ void sleep_led_enable(void) {
     led[0] = black;
     led[1] = black;
     led[2] = black;
-    ws2812_setleds(led, RGBLED_NUM);
+    ws2812_setleds(led, RGBLIGHT_LED_COUNT);
 #endif
 }
 
 void keyboard_pre_init_kb(void) {
 #ifdef KEYBOARD_ibm_model_m_mschwingen_led_ws2812
-    ws2812_setleds(led, RGBLED_NUM);
+    ws2812_setleds(led, RGBLIGHT_LED_COUNT);
 #else
     /* Set status LEDs pins to output and Low (on) */
     setPinOutput(MODELM_LED_CAPSLOCK);
@@ -146,7 +146,7 @@ static void led_update_rgb(void) {
             break;
     }
     if (!suspend_active) {
-	ws2812_setleds(led, RGBLED_NUM);
+	ws2812_setleds(led, RGBLIGHT_LED_COUNT);
     }
 }
 
