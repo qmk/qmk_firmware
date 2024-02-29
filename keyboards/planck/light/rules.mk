@@ -12,5 +12,3 @@ MIDI_ENABLE = yes           # MIDI support
 AUDIO_ENABLE = yes           # Audio output
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 RGB_MATRIX_ENABLE = yes
-
-LAYOUTS_HAS_RGB = no
