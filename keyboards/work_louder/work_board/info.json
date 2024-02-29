@@ -74,6 +74,9 @@
         "christmas": true,
         "static_gradient": true,
         "twinkle": true
+      },
+      "default": {
+          "hue": 213
       }
     },
     "processor": "atmega32u4",

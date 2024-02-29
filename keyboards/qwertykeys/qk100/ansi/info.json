@@ -114,7 +114,6 @@
             {"matrix": [5, 17], "x": 212, "y": 52, "flags": 4}
         ],
         "animations": {
-            "solid_color": true,
             "alphas_mods": true,
             "gradient_up_down": true,
             "gradient_left_right": true,
@@ -141,7 +140,6 @@
             "hue_breathing": true,
             "hue_pendulum": true,
             "hue_wave": true,
-            "pixel_fractal": true,
             "pixel_flow": true,
             "pixel_rain": true,
             "typing_heatmap": true,
@@ -149,15 +147,11 @@
             "solid_reactive_simple": true,
             "solid_reactive": true,
             "solid_reactive_wide": true,
-            "solid_reactive_multiwide": true,
             "solid_reactive_cross": true,
-            "solid_reactive_multicross": true,
             "solid_reactive_nexus": true,
-            "solid_reactive_multinexus": true,
             "splash": true,
             "multisplash": true,
-            "solid_splash": true,
-            "solid_multisplash": true
+            "solid_splash": true
         },
         "default": {
             "val": 128
