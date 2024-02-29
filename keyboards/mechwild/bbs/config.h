@@ -3,10 +3,6 @@
  
 #pragma once
 
-
-/* allows the "key" button on the blackpill to toggle caps lock for user testing before soldering */
-#define DIP_SWITCH_PINS { A0 }
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

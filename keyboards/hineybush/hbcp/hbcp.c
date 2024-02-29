@@ -49,19 +49,19 @@ bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if (res) {
         if (led_state.caps_lock) {
-            sethsv_raw(HSV_CAPS, (LED_TYPE *)&led[0]);
+            sethsv_raw(HSV_CAPS, (rgb_led_t *)&led[0]);
         } else {
-            sethsv(HSV_BLACK, (LED_TYPE *)&led[0]);
+            sethsv(HSV_BLACK, (rgb_led_t *)&led[0]);
         }
         if (led_state.num_lock) {
-            sethsv_raw(HSV_NLCK, (LED_TYPE *)&led[1]);
+            sethsv_raw(HSV_NLCK, (rgb_led_t *)&led[1]);
         } else {
-            sethsv(HSV_BLACK, (LED_TYPE *)&led[1]);
+            sethsv(HSV_BLACK, (rgb_led_t *)&led[1]);
         }
         if (led_state.scroll_lock) {
-            sethsv_raw(HSV_SCRL, (LED_TYPE *)&led[2]);
+            sethsv_raw(HSV_SCRL, (rgb_led_t *)&led[2]);
         } else {
-            sethsv(HSV_BLACK, (LED_TYPE *)&led[2]);
+            sethsv(HSV_BLACK, (rgb_led_t *)&led[2]);
         }
         rgblight_set();
     }
@@ -70,7 +70,7 @@ bool led_update_kb(led_t led_state) {
 
 __attribute__ ((weak))
 void keyboard_post_init_user(void) {
-    rgblight_set_effect_range(3, RGBLED_NUM-3);
+    rgblight_set_effect_range(3, RGBLIGHT_LED_COUNT-3);
     led_t led_state = {
         .caps_lock = true,
         .num_lock = true,
@@ -83,7 +83,7 @@ void keyboard_post_init_user(void) {
 
 __attribute__ ((weak))
 void hbcp_sethsv_range(uint8_t hue, uint8_t sat, uint8_t val, uint8_t start, uint8_t end) {
-  LED_TYPE tmp_led;
+  rgb_led_t tmp_led;
   sethsv_raw(hue, sat, val, &tmp_led);
   for (uint8_t i = start; i < end; i++) {
       led[i] = tmp_led;

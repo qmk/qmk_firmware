@@ -30,7 +30,7 @@
 #endif
 // rgb ring leds setting
 
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -357,7 +357,7 @@ static void custom_effects(void)
     effect_funcs[rgb_ring.effect]();
 }
 
-void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds)
+void setleds_custom(rgb_led_t *start_led, uint16_t num_leds)
 {
     if (rgb_ring.state != RING_STATE_QMK) {
         return;
@@ -368,16 +368,14 @@ void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds)
     }
 }
 
+const rgblight_driver_t rgblight_driver = {
+    .setleds = setleds_custom,
+};
+
 
 void rgb_ring_init(void)
 {
-    i2c_init();
-    is31fl3731_init(DRIVER_ADDR_1);
-    for (int index = 0; index < RGB_MATRIX_LED_COUNT; index++) {
-        bool enabled = true;
-        is31fl3731_set_led_control_register(index, enabled, enabled, enabled);
-    }
-    is31fl3731_update_led_control_registers(DRIVER_ADDR_1, 0);
+    is31fl3731_init_drivers();
 }
 
 void rgb_ring_task(void)
@@ -396,7 +394,7 @@ void rgb_ring_task(void)
             break;
     };
 
-    is31fl3731_update_pwm_buffers(DRIVER_ADDR_1, 0);
+    is31fl3731_flush();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record)

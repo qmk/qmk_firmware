@@ -17,6 +17,9 @@
     "processor": "STM32L422",
     "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",
+    "eeprom": {
+        "driver": "i2c"
+    },
     "matrix_pins": {
         "cols": ["B0", "B1", "A8", "A9", "B5", "A6", "C14", "C15", "A0", "A5", "A4", "A3", "A2", "A1"],
         "rows": ["B4", "B3", "A15", "A14", "A7"]

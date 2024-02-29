@@ -3,7 +3,7 @@
 DIVINE Keyboard
 
 * Keyboard Maintainer: [ERA](https://github.com/eerraa)
-* Hardware Supported: RP2040
+* Hardware Supported: DIVINE 1.0.0 PCB
 * Hardware Availability: [ERA](https://github.com/eerraa)
 
 Make example for this keyboard (after setting up your build environment):
@@ -21,5 +21,5 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the key at ESC(0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Short the reset hole of the PCB twice within 1 second.
+* **Physical reset button**: Briefly short the `RESET` and `GND` pads on the SWD header twice, or short the `BOOT` header and plug in keyboard
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available

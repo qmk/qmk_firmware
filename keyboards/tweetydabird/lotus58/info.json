@@ -32,6 +32,9 @@
     "pin_compatible": "promicro",
     "processor": "atmega32u4",
     "rgblight": {
+        "default": {
+            "val": 87
+        },
         "led_count": 70,
         "max_brightness": 175,
         "sleep": true,
@@ -50,11 +53,19 @@
                 ]
             }
         },
+        "handedness": {
+            "pin": "B5"
+        },
         "soft_serial_pin": "D2",
         "transport": {
             "protocol": "serial",
-            "sync_matrix_state": true,
-            "sync_modifiers": true
+            "sync": {
+                "indicators": true,
+                "layer_state": true,
+                "matrix_state": true,
+                "modifiers": true,
+                "oled": true
+            }
         },
         "usb_detect": {
             "enabled": true
