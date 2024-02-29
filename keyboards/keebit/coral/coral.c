@@ -10,11 +10,11 @@ enum RGB_LAYERS {
 };
 
 const rgblight_segment_t PROGMEM capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, RGBLED_NUM, HSV_BLUE}
+    {0, RGBLIGHT_LED_COUNT, HSV_BLUE}
 );
 
 const rgblight_segment_t PROGMEM capsword_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, RGBLED_NUM, HSV_WHITE}
+    {0, RGBLIGHT_LED_COUNT, HSV_WHITE}
 );
 
 // Now define the array of layers. Later layers take precedence

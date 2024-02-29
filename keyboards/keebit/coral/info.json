@@ -3,6 +3,9 @@
     "keyboard_name": "coral",
     "maintainer": "numToStr",
     "bootloader": "rp2040",
+    "build": {
+        "lto": true
+    },
     "diode_direction": "COL2ROW",
     "encoder": {
         "enabled": true,
@@ -15,7 +18,6 @@
         "command": false,
         "console": false,
         "extrakey": true,
-        "lto": true,
         "mousekey": true,
         "nkro": true,
         "rgblight": true
@@ -26,25 +28,18 @@
     },
     "processor": "RP2040",
     "rgblight": {
-        "animations": {
-            "breathing": true,
-            "christmas": true,
-            "rainbow_swirl": true,
-            "snake": true,
-            "twinkle": true
-        },
-        "brightness_steps": 2,
-        "hue_steps": 2,
+        "brightness_steps": 1,
+        "hue_steps": 1,
         "layers": {
-            "blink": true,
             "enabled": true,
             "override_rgb": true
         },
-        "led_count": 1,
-        "max_brightness": 20,
-        "saturation_steps": 2,
+        "led_count": 2,
+        "max_brightness": 2,
+        "saturation_steps": 1,
         "sleep": true,
-        "split": true
+        "split": true,
+        "split_count": [1, 1]
     },
     "split": {
         "enabled": true,
