@@ -1,6 +1,6 @@
 # NormiePad
 
-![NormiePad](https://i.imgur.com/Fr8o5Ijm.png)
+![NormiePad](https://i.imgur.com/Fr8o5Ijmh.png)
 
 This is a standard layout numberpad with USB-C connection and Kailh hotswap sockets, built on the RP2040 MCU.
 
