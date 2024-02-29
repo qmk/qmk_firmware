@@ -29,24 +29,11 @@
 #define SNLED27351_CURRENT_TUNE \
     { 0x80, 0xFF, 0xFF, 0x80, 0xFF, 0xFF, 0x80, 0xFF, 0xFF, 0x80, 0xFF, 0xFF } // 300mA
 
-/* EEPROM Driver Configuration */
-#define WEAR_LEVELING_LOGICAL_SIZE 2048
-#define WEAR_LEVELING_BACKING_SIZE (WEAR_LEVELING_LOGICAL_SIZE * 2)
-
 /* Split Keyboard specific options. */
 #define SERIAL_USART_TX_PIN A9 // USART TX pin
 
 /* Encoder Configuration */
 #define ENCODER_DEFAULT_POS 0x3
-
-/* Disable RGB lighting when PC is in suspend */
-#define RGB_MATRIX_SLEEP
-
-// RGB Matrix Animation modes. Explicitly enabled
-// For full list of effects, see:
-// https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#define RGB_MATRIX_KEYPRESSES
 
 // Needed as the master side could enter slave state during poweron
 // of host, due to missing VUSB detection.

@@ -8,6 +8,11 @@
     "usb": {
         "vid": "0x3434"
     },
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
     "features": {
         "bootmagic": true,
         "command": false,

@@ -137,6 +137,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef WPM_ENABLE
 #    include "wpm.h"
 #endif
+#ifdef OS_DETECTION_ENABLE
+#    include "os_detection.h"
+#endif
 
 static uint32_t last_input_modification_time = 0;
 uint32_t        last_input_activity_time(void) {
@@ -460,6 +463,9 @@ void keyboard_init(void) {
 #ifdef DIP_SWITCH_ENABLE
     dip_switch_init();
 #endif
+#ifdef JOYSTICK_ENABLE
+    joystick_init();
+#endif
 #ifdef SLEEP_LED_ENABLE
     sleep_led_init();
 #endif
@@ -683,7 +689,7 @@ void keyboard_task(void) {
 #endif
 
 #ifdef ENCODER_ENABLE
-    if (encoder_read()) {
+    if (encoder_task()) {
         last_encoder_activity_trigger();
         activity_has_occurred = true;
     }
@@ -738,4 +744,8 @@ void keyboard_task(void) {
 #endif
 
     led_task();
+
+#ifdef OS_DETECTION_ENABLE
+    os_detection_task();
+#endif
 }

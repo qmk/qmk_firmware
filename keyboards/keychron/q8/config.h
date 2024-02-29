@@ -36,6 +36,3 @@
 
 /* Encoder Configuration */
 #define ENCODER_DEFAULT_POS 0x3
-
-/* Turn off effects when suspended */
-#define RGB_MATRIX_SLEEP

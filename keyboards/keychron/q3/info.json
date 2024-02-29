@@ -46,7 +46,8 @@
             "splash": true,
             "typing_heatmap": true
         },
-        "driver": "snled27351"
+        "driver": "snled27351",
+        "sleep": true
     },
     "url": "https://github.com/Keychron",
     "usb": {

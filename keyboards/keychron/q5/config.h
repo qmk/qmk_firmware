@@ -33,8 +33,5 @@
 #define SNLED27351_CURRENT_TUNE \
     { 0xB6, 0xB6, 0x56, 0xB6, 0xB6, 0x56, 0xB6, 0xB6, 0x56, 0xB6, 0xB6, 0x56 }
 
-/* turn off effects when suspended */
-#define RGB_MATRIX_SLEEP
-
 /* Encoder Configuration*/
 #define ENCODER_DEFAULT_POS 0x3
