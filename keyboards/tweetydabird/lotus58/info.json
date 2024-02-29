@@ -1,11 +1,8 @@
 {
     "manufacturer": "Tweetys Wild Thinking",
-    "keyboard_name": "Lotus 58 Glow (QMK)",
+    "keyboard_name": "Lotus 58 Glow",
     "maintainer": "TweetyDaBird",
     "bootloader_instructions": "Short marked pads on PCB, or hold top-outer key when plugging in each hand.",
-    "build": {
-        "lto": true
-    },
     "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
