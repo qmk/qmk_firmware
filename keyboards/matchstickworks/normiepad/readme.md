@@ -1,14 +1,12 @@
 # NormiePad
 
-# UPDATE THIS THO OKAY?!?!
-![Southpad](https://i.imgur.com/Wl71thnh.jpg)
+![NormiePad](https://i.imgur.com/Fr8o5Ijm.png)
 
 This is a standard layout numberpad with USB-C connection and Kailh hotswap sockets, built on the RP2040 MCU.
 
-Default layout is such:
+## Default layout
 
-# UPDATE THIS THO OKAY?!?!
-![NormiePad Layout](https://i.imgur.com/jc7T2jl.jpg)
+![NormiePad Layout](https://i.imgur.com/IZxBA1f.png)
 
 * Keyboard Maintainer: [Logan Butler](https://github.com/MatchstickWorks)
 * Hardware Supported: NormiePad PCB
