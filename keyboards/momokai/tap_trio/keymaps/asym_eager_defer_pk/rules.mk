@@ -1,4 +1,4 @@
 VIA_ENABLE = yes
 LTO_ENABLE = yes
 
-DEBOUNCE_TYPE = sym_eager_pk
+DEBOUNCE_TYPE = asym_eager_defer_pk
