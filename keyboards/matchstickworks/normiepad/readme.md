@@ -6,7 +6,7 @@ This is a standard layout numberpad with USB-C connection and Kailh hotswap sock
 
 ## Default layout
 
-![NormiePad Layout](https://i.imgur.com/IZxBA1f.png)
+![NormiePad Layout](https://i.imgur.com/IZxBA1fh.png)
 
 * Keyboard Maintainer: [Logan Butler](https://github.com/MatchstickWorks)
 * Hardware Supported: NormiePad PCB
