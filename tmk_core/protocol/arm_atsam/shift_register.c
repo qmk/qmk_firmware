@@ -28,27 +28,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define CLOCK_DELAY 10
 
 void shift_init_impl(void) {
-    setPinOutput(SR_EXP_RCLK_PIN);
-    setPinOutput(SPI_DATAOUT_PIN);
-    setPinOutput(SPI_SCLK_PIN);
+    gpio_set_pin_output(SR_EXP_RCLK_PIN);
+    gpio_set_pin_output(SPI_DATAOUT_PIN);
+    gpio_set_pin_output(SPI_SCLK_PIN);
 }
 
 void shift_out_impl(const uint8_t *data, uint16_t length) {
-    writePinLow(SR_EXP_RCLK_PIN);
+    gpio_write_pin_low(SR_EXP_RCLK_PIN);
     for (uint16_t i = 0; i < length; i++) {
         uint8_t val = data[i];
 
         // shift out lsb first
         for (uint8_t bit = 0; bit < 8; bit++) {
-            writePin(SPI_DATAOUT_PIN, !!(val & (1 << bit)));
-            writePin(SPI_SCLK_PIN, true);
+            gpio_write_pin(SPI_DATAOUT_PIN, !!(val & (1 << bit)));
+            gpio_write_pin(SPI_SCLK_PIN, true);
             wait_us(CLOCK_DELAY);
 
-            writePin(SPI_SCLK_PIN, false);
+            gpio_write_pin(SPI_SCLK_PIN, false);
             wait_us(CLOCK_DELAY);
         }
     }
-    writePinHigh(SR_EXP_RCLK_PIN);
+    gpio_write_pin_high(SR_EXP_RCLK_PIN);
     return SPI_STATUS_SUCCESS;
 }
 
@@ -74,13 +74,13 @@ void shift_out(const uint8_t *data, uint16_t length) {
 }
 
 void shift_enable(void) {
-    setPinOutput(SR_EXP_OE_PIN);
-    writePinLow(SR_EXP_OE_PIN);
+    gpio_set_pin_output(SR_EXP_OE_PIN);
+    gpio_write_pin_low(SR_EXP_OE_PIN);
 }
 
 void shift_disable(void) {
-    setPinOutput(SR_EXP_OE_PIN);
-    writePinHigh(SR_EXP_OE_PIN);
+    gpio_set_pin_output(SR_EXP_OE_PIN);
+    gpio_write_pin_high(SR_EXP_OE_PIN);
 }
 
 void shift_init(void) {

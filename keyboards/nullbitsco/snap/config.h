@@ -59,6 +59,3 @@
 
 /* Optional speaker pin */
 #define AUDIO_PIN B6
-
-/* Optional split transactions */
-#define SPLIT_OLED_ENABLE

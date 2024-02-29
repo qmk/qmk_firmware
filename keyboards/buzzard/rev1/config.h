@@ -10,7 +10,6 @@
 
 #ifdef OLED_ENABLE
 #define OLED_DISPLAY_128X32
-#define SPLIT_OLED_ENABLE
 #endif
 
 #ifdef PS2_DRIVER_INTERRUPT
