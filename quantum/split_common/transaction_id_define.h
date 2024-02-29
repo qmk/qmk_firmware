@@ -31,6 +31,7 @@ enum serial_transaction_id {
 #ifdef ENCODER_ENABLE
     GET_ENCODERS_CHECKSUM,
     GET_ENCODERS_DATA,
+    PUT_ENCODER_TAIL,
 #endif // ENCODER_ENABLE
 
 #ifndef DISABLE_SYNC_TIMER

@@ -19,47 +19,44 @@
 
 #ifdef RGB_MATRIX_ENABLE
 
-const aw_led g_aw_leds[RGB_MATRIX_LED_COUNT] = {
-/* Each AW20216 channel is controlled by a register at some offset between 0x00
- * and 0xD7 inclusive.
- * See drivers/awinic/aw20216.h for the mapping between register offsets and
- * driver pin locations.
+const aw20216s_led_t PROGMEM g_aw20216s_leds[AW20216S_LED_COUNT] = {
+/* Refer to AW20216S manual for these locations
  *   driver
  *   |     R location
- *   |     |         G location
- *   |     |         |         B location
- *   |     |         |         | */
-    {0, CS4_SW1,  CS5_SW1,  CS6_SW1  },  //  0  NUM
-    {0, CS4_SW2,  CS5_SW2,  CS6_SW2  },  //  1  /
-    {0, CS7_SW1,  CS8_SW1,  CS9_SW1  },  //  2  *
-    {0, CS7_SW2,  CS8_SW2,  CS9_SW2  },  //  3  -
-    {0, CS4_SW3,  CS5_SW3,  CS6_SW3  },  //  4  7
-    {0, CS4_SW4,  CS5_SW4,  CS6_SW4  },  //  5  8
-    {0, CS7_SW3,  CS8_SW3,  CS9_SW3  },  //  6  9
-    {0, CS7_SW4,  CS8_SW4,  CS9_SW4  },  //  7  +
-    {0, CS4_SW5,  CS5_SW5,  CS6_SW5  },  //  8  4
-    {0, CS4_SW6,  CS5_SW6,  CS6_SW6  },  //  9  5
-    {0, CS7_SW5,  CS8_SW5,  CS9_SW5  },  //  10 6
-    {0, CS4_SW7,  CS5_SW7,  CS6_SW7  },  //  11 1
-    {0, CS4_SW8,  CS5_SW8,  CS6_SW8  },  //  12 2
-    {0, CS7_SW7,  CS8_SW7,  CS9_SW7  },  //  13 3
-    {0, CS7_SW8,  CS8_SW8,  CS9_SW8  },  //  14 ENTER
-    {0, CS4_SW9,  CS5_SW9,  CS6_SW9  },  //  15 0
-    {0, CS7_SW9,  CS8_SW9,  CS9_SW9  },  //  16 .
-    {0, CS1_SW1,  CS2_SW1,  CS3_SW1  },  //  17 LED18
-    {0, CS1_SW2,  CS2_SW2,  CS3_SW2  },  //  18 LED19
-    {0, CS1_SW3,  CS2_SW3,  CS3_SW3  },  //  19 LED20
-    {0, CS1_SW4,  CS2_SW4,  CS3_SW4  },  //  20 LED21
-    {0, CS1_SW5,  CS2_SW5,  CS3_SW5  },  //  21 LED22
-    {0, CS1_SW6,  CS2_SW6,  CS3_SW6  },  //  22 LED23
-    {0, CS1_SW7,  CS2_SW7,  CS3_SW7  },  //  23 LED24
-    {0, CS10_SW1, CS11_SW1, CS12_SW1 },  //  24 LED27
-    {0, CS10_SW2, CS11_SW2, CS12_SW2 },  //  25 LED28
-    {0, CS10_SW3, CS11_SW3, CS12_SW3 },  //  26 LED29
-    {0, CS10_SW4, CS11_SW4, CS12_SW4 },  //  27 LED30
-    {0, CS10_SW5, CS11_SW5, CS12_SW5 },  //  28 LED31
-    {0, CS10_SW6, CS11_SW6, CS12_SW6 },  //  29 LED32
-    {0, CS10_SW7, CS11_SW7, CS12_SW7 },  //  30 LED33
+ *   |     |          G location
+ *   |     |          |          B location
+ *   |     |          |          | */
+    {0, SW1_CS4,  SW1_CS5,  SW1_CS6  },  //  0  NUM
+    {0, SW2_CS4,  SW2_CS5,  SW2_CS6  },  //  1  /
+    {0, SW1_CS7,  SW1_CS8,  SW1_CS9  },  //  2  *
+    {0, SW2_CS7,  SW2_CS8,  SW2_CS9  },  //  3  -
+    {0, SW3_CS4,  SW3_CS5,  SW3_CS6  },  //  4  7
+    {0, SW4_CS4,  SW4_CS5,  SW4_CS6  },  //  5  8
+    {0, SW3_CS7,  SW3_CS8,  SW3_CS9  },  //  6  9
+    {0, SW4_CS7,  SW4_CS8,  SW4_CS9  },  //  7  +
+    {0, SW5_CS4,  SW5_CS5,  SW5_CS6  },  //  8  4
+    {0, SW6_CS4,  SW6_CS5,  SW6_CS6  },  //  9  5
+    {0, SW5_CS7,  SW5_CS8,  SW5_CS9  },  //  10 6
+    {0, SW7_CS4,  SW7_CS5,  SW7_CS6  },  //  11 1
+    {0, SW8_CS4,  SW8_CS5,  SW8_CS6  },  //  12 2
+    {0, SW7_CS7,  SW7_CS8,  SW7_CS9  },  //  13 3
+    {0, SW8_CS7,  SW8_CS8,  SW8_CS9  },  //  14 ENTER
+    {0, SW9_CS4,  SW9_CS5,  SW9_CS6  },  //  15 0
+    {0, SW9_CS7,  SW9_CS8,  SW9_CS9  },  //  16 .
+    {0, SW1_CS1,  SW1_CS2,  SW1_CS3  },  //  17 LED18
+    {0, SW2_CS1,  SW2_CS2,  SW2_CS3  },  //  18 LED19
+    {0, SW3_CS1,  SW3_CS2,  SW3_CS3  },  //  19 LED20
+    {0, SW4_CS1,  SW4_CS2,  SW4_CS3  },  //  20 LED21
+    {0, SW5_CS1,  SW5_CS2,  SW5_CS3  },  //  21 LED22
+    {0, SW6_CS1,  SW6_CS2,  SW6_CS3  },  //  22 LED23
+    {0, SW7_CS1,  SW7_CS2,  SW7_CS3  },  //  23 LED24
+    {0, SW1_CS10, SW1_CS11, SW1_CS12 },  //  24 LED27
+    {0, SW2_CS10, SW2_CS11, SW2_CS12 },  //  25 LED28
+    {0, SW3_CS10, SW3_CS11, SW3_CS12 },  //  26 LED29
+    {0, SW4_CS10, SW4_CS11, SW4_CS12 },  //  27 LED30
+    {0, SW5_CS10, SW5_CS11, SW5_CS12 },  //  28 LED31
+    {0, SW6_CS10, SW6_CS11, SW6_CS12 },  //  29 LED32
+    {0, SW7_CS10, SW7_CS11, SW7_CS12 },  //  30 LED33
 };
 
 led_config_t g_led_config = {{
@@ -110,12 +107,12 @@ led_config_t g_led_config = {{
 	2, 2, 2, 2, 2, 2, 2
 } };
 
-#    ifdef DRIVER_1_PW_EN
+#    ifdef AW20216S_PW_EN_PIN_1
 
 void keyboard_pre_init_user(void) {
     wait_ms(2000);
-    setPinOutput(DRIVER_1_PW_EN);
-    writePinHigh(DRIVER_1_PW_EN);
+    setPinOutput(AW20216S_PW_EN_PIN);
+    writePinHigh(AW20216S_PW_EN_PIN);
 }
 #    endif
 

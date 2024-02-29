@@ -17,53 +17,50 @@ extern rgblight_config_t rgblight_config;
 
 // led 0 for caps lock, led 1 for scroll lock, led 3 for num lock
 // led 4 for layer 1, led 5 for layer 2, led 6 for layer 3, led 7 for layer 4
-#if RGBLED_NUM < 7
-#error "MUST set the RGBLED_NUM bigger than 7"
+#if RGBLIGHT_LED_COUNT < 7
+#error "MUST set the RGBLIGHT_LED_COUNT bigger than 7"
 #endif
-LED_TYPE noah_leds[RGBLED_NUM];
+rgb_led_t noah_leds[RGBLIGHT_LED_COUNT];
 static bool noah_led_mode = false;
-void rgblight_set(void) {
+void setleds_custom(rgb_led_t *ledarray, uint16_t num_leds) {
     memset(&noah_leds[0], 0, sizeof(noah_leds));
     if (!rgblight_config.enable) {
-        for (uint8_t i = 0; i < RGBLED_NUM; i++) {
-            led[i].r = 0;
-            led[i].g = 0;
-            led[i].b = 0;
+        for (uint8_t i = 0; i < RGBLIGHT_LED_COUNT; i++) {
+            ledarray[i].r = 0;
+            ledarray[i].g = 0;
+            ledarray[i].b = 0;
         }
     }
     if (noah_led_mode) {
       led_t led_state = host_keyboard_led_state();
       if (led_state.caps_lock) {
-        noah_leds[0] = led[0];
+        noah_leds[0] = ledarray[0];
       }
       if (led_state.scroll_lock) {
-        noah_leds[1] = led[1];
+        noah_leds[1] = ledarray[1];
       }
       if (led_state.num_lock) {
-        noah_leds[2] = led[2];
+        noah_leds[2] = ledarray[2];
       }
       for (int32_t i = 0; i < 4; i++) {
         if(layer_state_is(i+1)) {
-          noah_leds[i + 3] = led[i + 3];
+          noah_leds[i + 3] = ledarray[i + 3];
         }
       }
     } else {
-      memcpy(&noah_leds[0], &led[0], sizeof(noah_leds));
+      memcpy(&noah_leds[0], &ledarray[0], sizeof(noah_leds));
     }
 
-  ws2812_setleds(noah_leds, RGBLED_NUM);
+  ws2812_setleds(noah_leds, RGBLIGHT_LED_COUNT);
 }
-#endif
 
-void matrix_scan_kb(void) {
-#ifdef RGBLIGHT_ENABLE
-    rgblight_task();
+const rgblight_driver_t rgblight_driver = {
+    .setleds = setleds_custom,
+};
 #endif
-    matrix_scan_user();
-}
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location

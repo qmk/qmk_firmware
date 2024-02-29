@@ -143,13 +143,13 @@ Replace `username.json` with the JSON file name that was downloaded from [QMK Co
 
 If you have completed all steps correctly, the folder `qmk_keymap/` will contain the following files:
 ```
-|-- .github
-|   `-- workflows
-|       `-- build.yml
-|-- rules.mk
-|-- config.h
-|-- source.c
-|-- username.json
+├── .github
+│   └── workflows
+│       └── build.yml
+├── rules.mk
+├── config.h
+├── source.c
+└── username.json
 ```
 
 To commit and push them into GitHub, run the following commands (replacing `gh-username` with your GitHub user name):

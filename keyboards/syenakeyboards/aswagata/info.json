@@ -22,7 +22,7 @@
         "device_version": "1.0.0",
         "pid": "0x4173",
         "vid": "0x5373"
-    }
+    },
     "layouts": {
         "LAYOUT_ortho_2x2": {
             "layout": [

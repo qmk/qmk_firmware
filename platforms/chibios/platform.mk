@@ -277,7 +277,8 @@ PLATFORM_SRC = \
         $(CHIBIOS)/os/various/syscalls.c \
         $(PLATFORM_COMMON_DIR)/syscall-fallbacks.c \
         $(PLATFORM_COMMON_DIR)/wait.c \
-        $(PLATFORM_COMMON_DIR)/synchronization_util.c
+        $(PLATFORM_COMMON_DIR)/synchronization_util.c \
+        $(PLATFORM_COMMON_DIR)/interrupt_handlers.c
 
 # Ensure the ASM files are not subjected to LTO -- it'll strip out interrupt handlers otherwise.
 QUANTUM_LIB_SRC += $(STARTUPASM) $(PORTASM) $(OSALASM) $(PLATFORMASM)
@@ -327,6 +328,17 @@ ifeq ($(strip $(USE_CHIBIOS_CONTRIB)),yes)
     PLATFORM_SRC += $(PLATFORMSRC_CONTRIB) $(HALSRC_CONTRIB)
     EXTRAINCDIRS += $(PLATFORMINC_CONTRIB) $(HALINC_CONTRIB) $(CHIBIOS_CONTRIB)/os/various
 endif
+
+#
+# Extract supported HAL drivers
+##############################################################################
+
+define add_lld_driver_define
+    $(eval driver := $(word 2,$(subst /LLD/, ,$(1))))
+    $(eval OPT_DEFS += -DCHIBIOS_HAL_$(driver))
+endef
+
+$(foreach dir,$(EXTRAINCDIRS),$(if $(findstring /LLD/,$(dir)),$(call add_lld_driver_define,$(dir))))
 
 #
 # Project, sources and paths
@@ -475,6 +487,11 @@ NM      = $(TOOLCHAIN)nm
 HEX     = $(OBJCOPY) -O $(FORMAT)
 EEP     =
 BIN     = $(OBJCOPY) -O binary
+
+# disable warning about RWX triggered by ChibiOS linker scripts
+ifeq ("$(shell echo "int main(){}" | $(CC) -shared -Wl,--no-warn-rwx-segments -x c - -o /dev/null 2>&1)", "")
+	SHARED_LDFLAGS += -Wl,--no-warn-rwx-segments
+endif
 
 ##############################################################################
 # Make targets

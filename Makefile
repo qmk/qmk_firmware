@@ -38,6 +38,11 @@ $(info QMK Firmware $(QMK_VERSION))
 endif
 endif
 
+# Try to determine userspace from qmk config, if set.
+ifeq ($(QMK_USERSPACE),)
+    QMK_USERSPACE = $(shell qmk config -ro user.overlay_dir | cut -d= -f2 | sed -e 's@^None$$@@g')
+endif
+
 # Determine which qmk cli to use
 QMK_BIN := qmk
 
@@ -191,9 +196,20 @@ define PARSE_KEYBOARD
     KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_4)/keymaps/*/.)))
     KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_5)/keymaps/*/.)))
 
+    ifneq ($(QMK_USERSPACE),)
+        KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(QMK_USERSPACE)/keyboards/$$(KEYBOARD_FOLDER_PATH_1)/keymaps/*/.)))
+        KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(QMK_USERSPACE)/keyboards/$$(KEYBOARD_FOLDER_PATH_2)/keymaps/*/.)))
+        KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(QMK_USERSPACE)/keyboards/$$(KEYBOARD_FOLDER_PATH_3)/keymaps/*/.)))
+        KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(QMK_USERSPACE)/keyboards/$$(KEYBOARD_FOLDER_PATH_4)/keymaps/*/.)))
+        KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(QMK_USERSPACE)/keyboards/$$(KEYBOARD_FOLDER_PATH_5)/keymaps/*/.)))
+    endif
+
     KEYBOARD_LAYOUTS := $(shell $(QMK_BIN) list-layouts --keyboard $1)
     LAYOUT_KEYMAPS :=
     $$(foreach LAYOUT,$$(KEYBOARD_LAYOUTS),$$(eval LAYOUT_KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/layouts/*/$$(LAYOUT)/*/.)))))
+    ifneq ($(QMK_USERSPACE),)
+        $$(foreach LAYOUT,$$(KEYBOARD_LAYOUTS),$$(eval LAYOUT_KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(QMK_USERSPACE)/layouts/$$(LAYOUT)/*/.)))))
+    endif
 
     KEYMAPS := $$(sort $$(KEYMAPS) $$(LAYOUT_KEYMAPS))
 
@@ -300,17 +316,18 @@ endef
 define BUILD_TEST
     TEST_PATH := $1
     TEST_NAME := $$(notdir $$(TEST_PATH))
+    TEST_FULL_NAME := $$(subst /,_,$$(patsubst $$(ROOT_DIR)tests/%,%,$$(TEST_PATH)))
     MAKE_TARGET := $2
     COMMAND := $1
     MAKE_CMD := $$(MAKE) -r -R -C $(ROOT_DIR) -f $(BUILDDEFS_PATH)/build_test.mk $$(MAKE_TARGET)
-    MAKE_VARS := TEST=$$(TEST_NAME) TEST_PATH=$$(TEST_PATH) FULL_TESTS="$$(FULL_TESTS)"
+    MAKE_VARS := TEST=$$(TEST_NAME) TEST_OUTPUT=$$(TEST_FULL_NAME) TEST_PATH=$$(TEST_PATH) FULL_TESTS="$$(FULL_TESTS)"
     MAKE_MSG := $$(MSG_MAKE_TEST)
     $$(eval $$(call BUILD))
     ifneq ($$(MAKE_TARGET),clean)
-        TEST_EXECUTABLE := $$(TEST_OUTPUT_DIR)/$$(TEST_NAME).elf
-        TESTS += $$(TEST_NAME)
+        TEST_EXECUTABLE := $$(TEST_OUTPUT_DIR)/$$(TEST_FULL_NAME).elf
+        TESTS += $$(TEST_FULL_NAME)
         TEST_MSG := $$(MSG_TEST)
-        $$(TEST_NAME)_COMMAND := \
+        $$(TEST_FULL_NAME)_COMMAND := \
             printf "$$(TEST_MSG)\n"; \
             $$(TEST_EXECUTABLE); \
             if [ $$$$? -gt 0 ]; \
@@ -318,6 +335,12 @@ define BUILD_TEST
             fi; \
             printf "\n";
     endif
+endef
+
+define LIST_TEST
+    include $(BUILDDEFS_PATH)/testlist.mk
+    FOUND_TESTS := $$(patsubst ./tests/%,%,$$(TEST_LIST))
+    $$(info $$(FOUND_TESTS))
 endef
 
 define PARSE_TEST
@@ -328,7 +351,7 @@ define PARSE_TEST
     ifeq ($$(TEST_NAME),all)
         MATCHED_TESTS := $$(TEST_LIST)
     else
-        MATCHED_TESTS := $$(foreach TEST, $$(TEST_LIST),$$(if $$(findstring x$$(TEST_NAME)x, x$$(notdir $$(TEST))x), $$(TEST),))
+        MATCHED_TESTS := $$(foreach TEST, $$(TEST_LIST),$$(if $$(findstring x$$(TEST_NAME)x, x$$(patsubst ./tests/%,%,$$(TEST)x)), $$(TEST),))
     endif
     $$(foreach TEST,$$(MATCHED_TESTS),$$(eval $$(call BUILD_TEST,$$(TEST),$$(TEST_TARGET))))
 endef
@@ -413,6 +436,10 @@ git-submodules: git-submodule
 list-keyboards:
 	$(QMK_BIN) list-keyboards --no-resolve-defaults | tr '\n' ' '
 
+.PHONY: list-tests
+list-tests:
+	$(eval $(call LIST_TEST))
+
 .PHONY: generate-keyboards-file
 generate-keyboards-file:
 	$(QMK_BIN) list-keyboards --no-resolve-defaults
@@ -423,8 +450,18 @@ clean:
 	rm -rf $(BUILD_DIR)
 	echo 'done.'
 
-.PHONY: distclean
-distclean: clean
+.PHONY: distclean distclean_qmk
+distclean: distclean_qmk
+distclean_qmk: clean
 	echo -n 'Deleting *.bin, *.hex, and *.uf2 ... '
 	rm -f *.bin *.hex *.uf2
 	echo 'done.'
+
+ifneq ($(QMK_USERSPACE),)
+.PHONY: distclean_userspace
+distclean: distclean_userspace
+distclean_userspace: clean
+	echo -n 'Deleting userspace *.bin, *.hex, and *.uf2 ... '
+	rm -f $(QMK_USERSPACE)/*.bin $(QMK_USERSPACE)/*.hex $(QMK_USERSPACE)/*.uf2
+	echo 'done.'
+endif
