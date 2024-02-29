@@ -98,7 +98,7 @@ void eeconfig_update_led_matrix_default(void) {
     led_matrix_eeconfig.mode   = LED_MATRIX_DEFAULT_MODE;
     led_matrix_eeconfig.val    = LED_MATRIX_DEFAULT_VAL;
     led_matrix_eeconfig.speed  = LED_MATRIX_DEFAULT_SPD;
-    led_matrix_eeconfig.flags  = LED_FLAG_ALL;
+    led_matrix_eeconfig.flags  = LED_MATRIX_DEFAULT_FLAGS;
     eeconfig_flush_led_matrix(true);
 }
 

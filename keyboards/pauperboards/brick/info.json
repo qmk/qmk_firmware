@@ -23,8 +23,7 @@
         "mousekey": true,
         "nkro": true,
         "encoder": true,
-        "rgblight": true,
-        "lto": true
+        "rgblight": true
     },
     "build": {
         "lto": true

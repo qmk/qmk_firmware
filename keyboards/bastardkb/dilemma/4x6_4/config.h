@@ -45,10 +45,3 @@
 
 /* RGB matrix support. */
 #define SPLIT_TRANSPORT_MIRROR
-#define RGB_MATRIX_SLEEP
-#define RGB_MATRIX_KEYPRESSES
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-
-// Startup values.
-#define RGB_MATRIX_DEFAULT_VAL 64
-#define RGB_MATRIX_DEFAULT_SPD 32

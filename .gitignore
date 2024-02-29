@@ -18,6 +18,11 @@
 *.lst
 *.map
 *.o
+*.a
+*.so
+*.dylib
+*.dll
+*.la
 *.stackdump
 *.sym
 

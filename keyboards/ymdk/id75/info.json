@@ -158,7 +158,8 @@
             {"flags": 2, "x": 190, "y": 0},
             {"flags": 2, "x": 224, "y": 0}
         ],
-        "max_brightness": 128
+        "max_brightness": 128,
+        "sleep": true
     },
     "usb": {
         "device_version": "0.0.1",

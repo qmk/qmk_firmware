@@ -9,7 +9,29 @@
         "device_version": "0.0.1"
     },
     "rgb_matrix": {
-        "driver": "is31fl3731"
+        "animations": {
+            "breathing": true,
+            "band_spiral_val": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "cycle_out_in": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "rainbow_pinwheels": true,
+            "raindrops": true,
+            "solid_reactive_simple": true,
+            "solid_reactive": true,
+            "solid_reactive_wide": true,
+            "solid_reactive_cross": true,
+            "splash": true,
+            "solid_multisplash": true  
+        },
+        "center_point": [92, 33],
+        "driver": "is31fl3731",
+        "led_process_limit": 18,
+        "max_brightness": 200,
+        "sleep": true
     },
     "matrix_pins": {
         "cols": ["B0", "B1", "B2", "B3", "B7", "D2", "D3", "D5", "D4", "D6", "D7", "B4", "B5", "B6", "C6"],

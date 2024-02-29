@@ -15,7 +15,6 @@
     "diode_direction": "COL2ROW",
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
-    "community_layouts": ["tkl_ansi"],
     "layout_aliases": {
         "LAYOUT_eighty_m80h": "LAYOUT_tkl_ansi"
     },

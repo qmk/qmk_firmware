@@ -9,7 +9,23 @@
         "device_version": "30.3.1"
     },
     "rgb_matrix": {
-        "driver": "is31fl3731"
+        "animations": {
+            "cycle_up_down": true,
+            "cycle_left_right": true,
+            "cycle_out_in": true,
+            "breathing": true,
+            "band_val": true,
+            "band_pinwheel_val": true,
+            "band_spiral_val": true,
+            "hue_breathing": true,
+            "typing_heatmap": true,
+            "solid_reactive": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_multicross": true
+        },
+        "driver": "is31fl3731",
+        "react_on_keyup": true,
+        "sleep": true
     },
     "matrix_pins": {
         "cols": ["B5", "C6", "C7", "F7", "F6", "D5", "D3", "D2", "F1", "F4", "B7", "F5"],

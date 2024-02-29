@@ -36,6 +36,7 @@ These headers are located in [`quantum/keymap_extras/`](https://github.com/qmk/q
 |French (AFNOR)                   |`keymap_french_afnor.h`          |`sendstring_french_afnor.h`         |
 |French (BÉPO)                    |`keymap_bepo.h`                  |`sendstring_bepo.h`                 |
 |French (Belgium)                 |`keymap_belgian.h`               |`sendstring_belgian.h`              |
+|French (Canada)                  |`keymap_canadian_french.h`       |`sendstring_canadian_french.h`      |
 |French (Switzerland)             |`keymap_swiss_fr.h`              |`sendstring_swiss_fr.h`             |
 |French (macOS, ISO)              |`keymap_french_mac_iso.h`        |`sendstring_french_mac_iso.h`       |
 |German                           |`keymap_german.h`                |`sendstring_german.h`               |

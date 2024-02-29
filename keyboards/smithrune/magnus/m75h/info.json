@@ -8,6 +8,14 @@
         "pid": "0x1676",
         "device_version": "0.0.1"
     },
+    "build": {
+        "lto": true
+    },
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
     "features": {
         "audio": false,
         "backlight": false,
@@ -16,7 +24,6 @@
         "console": false,
         "encoder": false,
         "extrakey": true,
-        "lto": true,
         "mousekey": true,
         "nkro": true,
         "rgblight": true

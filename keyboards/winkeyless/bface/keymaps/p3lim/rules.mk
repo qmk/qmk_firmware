@@ -1,1 +1,0 @@
-RGBLIGHT_ENABLE = no

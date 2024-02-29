@@ -12,7 +12,6 @@ AUDIO_ENABLE = no           # Audio output
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 SPLIT_KEYBOARD = no
 WAIT_FOR_USB = yes
-LAYOUTS_HAS_RGB = no
 CUSTOM_MATRIX = yes
 
 SRC = matrix.c

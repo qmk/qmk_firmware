@@ -5,8 +5,3 @@
 
 /* Enable num-lock LED */
 #define NUM_LOCK_INDEX 13
-
-#define RGB_MATRIX_LED_COUNT 21
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS  //Enable frame effects
-#define RGB_MATRIX_KEYPRESSES  //Reacts to keypress
-#define RGB_MATRIX_SLEEP   //turn off effects when suspended

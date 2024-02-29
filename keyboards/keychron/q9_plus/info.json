@@ -19,6 +19,14 @@
         "nkro": true,
         "rgb_matrix": true
     },
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
+    "dip_switch": {
+        "matrix_grid": [ [3, 4] ]
+    },
     "matrix_pins": {
         "cols": ["A10", "A9", "A8", "B1", "B0", "A7", "A6", "A5", "A4", "A3", "A2", "A1", "A0", "C15", "C14"],
         "rows": ["B3", "A15", "A14", "A13"]
@@ -119,6 +127,7 @@
             "solid_reactive_multinexus": true,
             "splash": true,
             "solid_splash": true
-        }
+        },
+        "sleep": true
     }
 }

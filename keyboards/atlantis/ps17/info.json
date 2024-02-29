@@ -64,6 +64,12 @@
         }
     },
     "rgb_matrix": {
+        "animations": {
+            "cycle_all": true,
+            "cycle_pinwheel": true,
+            "rainbow_beacon": true,
+            "pixel_rain": true
+        },
         "driver": "ws2812",
         "center_point": [126, 126],
         "layout": [
@@ -96,6 +102,7 @@
             {"flags": 2, "x": 192, "y": 87},
             {"flags": 2, "x": 183, "y": 26},
             {"flags": 2, "x": 127, "y": 24}
-        ]
+        ],
+        "sleep": true
     }
 }

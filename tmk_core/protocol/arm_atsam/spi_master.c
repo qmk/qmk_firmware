@@ -60,8 +60,8 @@ bool spi_start(pin_t csPin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
     }
 
     currentSelectPin = csPin;
-    setPinOutput(currentSelectPin);
-    writePinLow(currentSelectPin);
+    gpio_set_pin_output(currentSelectPin);
+    gpio_write_pin_low(currentSelectPin);
 
     SPI_SERCOM->SPI.CTRLA.bit.DORD = lsbFirst; // Data Order - LSB is transferred first
     SPI_SERCOM->SPI.CTRLA.bit.CPOL = 1;        // Clock Polarity - SCK high when idle. Leading edge of cycle is falling. Trailing rising.
@@ -94,8 +94,8 @@ spi_status_t spi_transmit(const uint8_t *data, uint16_t length) {
 
 void spi_stop(void) {
     if (currentSelectPin != NO_PIN) {
-        setPinOutput(currentSelectPin);
-        writePinHigh(currentSelectPin);
+        gpio_set_pin_output(currentSelectPin);
+        gpio_write_pin_high(currentSelectPin);
         currentSelectPin = NO_PIN;
     }
 }

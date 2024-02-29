@@ -42,9 +42,9 @@ static void init_pins(void) {
     unselect_rows();
     // Set I/O
     uint8_t send_data[2] = { 0xFF, 0x03};
-    i2c_writeReg((PORT_EXPANDER_ADDRESS << 1), 0x00, &send_data[0], 2, 20);
+    i2c_write_register((PORT_EXPANDER_ADDRESS << 1), 0x00, &send_data[0], 2, 20);
     // Set Pull-up
-    i2c_writeReg((PORT_EXPANDER_ADDRESS << 1), 0x0C, &send_data[0], 2, 20);
+    i2c_write_register((PORT_EXPANDER_ADDRESS << 1), 0x0C, &send_data[0], 2, 20);
 
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
         if ( x < 8 ) {
@@ -75,7 +75,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     matrix_io_delay();
 
     uint8_t port_expander_col_buffer[2];
-    i2c_readReg((PORT_EXPANDER_ADDRESS << 1), 0x12, &port_expander_col_buffer[0], 2, 20);
+    i2c_read_register((PORT_EXPANDER_ADDRESS << 1), 0x12, &port_expander_col_buffer[0], 2, 20);
 
     // For each col...
     for(uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {

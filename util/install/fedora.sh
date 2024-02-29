@@ -3,6 +3,11 @@
 _qmk_install() {
     echo "Installing dependencies"
 
+    . /etc/os-release
+    if [ "$VERSION_ID" == "39" ]; then
+        sudo dnf $SKIP_PROMPT copr enable erovia/dfu-programmer
+    fi
+
     # TODO: Check whether devel/headers packages are really needed
     sudo dnf $SKIP_PROMPT install \
         clang diffutils git gcc glibc-headers kernel-devel kernel-headers \

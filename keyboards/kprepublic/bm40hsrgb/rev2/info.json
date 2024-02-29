@@ -62,11 +62,6 @@
           "hue_breathing": true,
           "hue_pendulum": true,
           "hue_wave": true,
-          "pixel_rain": true,
-          "pixel_flow": true,
-          "pixel_fractal": true,
-          "typing_heatmap": true,
-          "digital_rain": true,
           "solid_reactive_simple": true,
           "solid_reactive": true,
           "solid_reactive_wide": true,
@@ -128,7 +123,8 @@
             {"matrix": [3, 9],  "x": 183,  "y": 64, "flags": 1},
             {"matrix": [3, 10], "x": 203,  "y": 64, "flags": 1},
             {"matrix": [3, 11], "x": 224,  "y": 64, "flags": 1}
-        ]
+        ],
+        "sleep": true
     },
     "matrix_pins": {
         "cols": ["B2", "B3", "D5", "D3", "D2", "B7", "F0", "B4", "B5", "B6", "C6", "C7"],

@@ -31,6 +31,9 @@
             "static_gradient": true,
             "twinkle": true
         },
+        "default": {
+            "animation": "rainbow_swirl"
+        },
         "driver": "ws2812",
         "led_count": 20,
         "max_brightness": 120,

@@ -70,13 +70,13 @@ The device name here is the name that appears in Zadig, and may not be what the 
 
 |Bootloader    |Device Name                   |VID/PID       |Driver |
 |--------------|------------------------------|--------------|-------|
-|`atmel-dfu`   |ATmega16u2 DFU                |`03EB:2FEF`   |libusb0|
-|`atmel-dfu`   |ATmega32U2 DFU                |`03EB:2FF0`   |libusb0|
-|`atmel-dfu`   |ATm16U4 DFU V1.0.2            |`03EB:2FF3`   |libusb0|
-|`atmel-dfu`   |ATm32U4DFU                    |`03EB:2FF4`   |libusb0|
-|`atmel-dfu`   |*none* (AT90USB64)            |`03EB:2FF9`   |libusb0|
-|`atmel-dfu`   |AT90USB128 DFU                |`03EB:2FFB`   |libusb0|
-|`qmk-dfu`     |(keyboard name) Bootloader    |As `atmel-dfu`|libusb0|
+|`atmel-dfu`   |ATmega16u2 DFU                |`03EB:2FEF`   |WinUSB |
+|`atmel-dfu`   |ATmega32U2 DFU                |`03EB:2FF0`   |WinUSB |
+|`atmel-dfu`   |ATm16U4 DFU V1.0.2            |`03EB:2FF3`   |WinUSB |
+|`atmel-dfu`   |ATm32U4DFU                    |`03EB:2FF4`   |WinUSB |
+|`atmel-dfu`   |*none* (AT90USB64)            |`03EB:2FF9`   |WinUSB |
+|`atmel-dfu`   |AT90USB128 DFU                |`03EB:2FFB`   |WinUSB |
+|`qmk-dfu`     |(keyboard name) Bootloader    |As `atmel-dfu`|WinUSB |
 |`halfkay`     |*none*                        |`16C0:0478`   |HidUsb |
 |`caterina`    |Pro Micro 3.3V                |`1B4F:9203`   |usbser |
 |`caterina`    |Pro Micro 5V                  |`1B4F:9205`   |usbser |

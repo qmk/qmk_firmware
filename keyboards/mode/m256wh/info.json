@@ -4,9 +4,11 @@
     "maintainer": "Gondolindrim",
     "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",
+    "build": {
+        "lto": true
+    },
     "features": {
         "extrakey": true,
-        "lto": true,
         "mousekey": true,
         "nkro": true,
         "rgblight": true

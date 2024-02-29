@@ -9,7 +9,31 @@
         "device_version": "1.0.0"
     },
     "led_matrix": {
-        "driver": "snled27351"
+        "animations":{
+            "alphas_mods": true,
+            "breathing": true,
+            "band": true,
+            "band_pinwheel": true,
+            "band_spiral": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "cycle_out_in": true,
+            "dual_beacon": true,
+            "solid_reactive_simple": true,
+            "solid_reactive_wide": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_cross": true,
+            "solid_reactive_multicross": true,
+            "solid_reactive_nexus": true,
+            "solid_reactive_multinexus": true,
+            "splash": true,
+            "multisplash": true,
+            "wave_left_right": true,
+            "wave_up_down": true
+        },
+        "driver": "snled27351",
+        "sleep": true,
+        "react_on_keyup": true
     },
     "matrix_pins": {
         "cols": ["A10", "A9", "A8", "B1", "B0", "A7", "A6", "A5", "A4", "A3", "A2", "A1", "A0", "C15", "C14"],

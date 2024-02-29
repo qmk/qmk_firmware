@@ -1,12 +1,23 @@
 {
     "keyboard_name": "Heavy Left",
     "manufacturer": "takashicompany",
-    "url": "",
     "maintainer": "takashicompany",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "rgblight": true
+    },
     "usb": {
         "vid": "0x7463",
         "pid": "0x0015",
         "device_version": "0.0.1"
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     },
     "rgblight": {
         "saturation_steps": 8,
@@ -19,11 +30,8 @@
             "rainbow_mood": true,
             "rainbow_swirl": true,
             "snake": true,
-            "knight": true,
             "christmas": true,
             "static_gradient": true,
-            "rgb_test": true,
-            "alternating": true,
             "twinkle": true
         }
     },
@@ -36,10 +44,11 @@
     },
     "diode_direction": "COL2ROW",
     "split": {
-        "soft_serial_pin": "D2"
+        "enabled": true,
+        "soft_serial_pin": "D2",
+        "main": "eeprom"
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "layouts": {
         "LAYOUT": {
             "layout": [

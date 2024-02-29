@@ -10,25 +10,25 @@ Practically, this means QMK merges the `develop` branch into the `master` branch
 
 ## What has been included in past Breaking Changes?
 
+* [2024 Feb 25](ChangeLog/20240225.md)
 * [2023 Nov 26](ChangeLog/20231126.md)
 * [2023 Aug 27](ChangeLog/20230827.md)
-* [2023 May 28](ChangeLog/20230528.md)
 * [Older Breaking Changes](breaking_changes_history.md)
 
 ## When is the next Breaking Change?
 
-The next Breaking Change is scheduled for November 26, 2023.
+The next Breaking Change is scheduled for May 26, 2024.
 
 ### Important Dates
 
-* 2023 Nov 26 - `develop` is tagged with a new release version. Each push to `master` is subsequently merged to `develop` by GitHub actions.
-* 2024 Jan 28 - `develop` closed to new PRs.
-* 2024 Jan 28 - Call for testers.
-* 2024 Feb 4 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
-* 2024 Feb 18 - `develop` is locked, only critical bugfix PRs merged.
-* 2024 Feb 22 - `master` is locked, no PRs merged.
-* 2024 Feb 25 - Merge `develop` to `master`.
-* 2024 Feb 25 - `master` is unlocked. PRs can be merged again.
+* 2024 Feb 25 - `develop` is tagged with a new release version. Each push to `master` is subsequently merged to `develop` by GitHub actions.
+* 2024 Apr 28 - `develop` closed to new PRs.
+* 2024 Apr 28 - Call for testers.
+* 2024 May 5 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
+* 2024 May 19 - `develop` is locked, only critical bugfix PRs merged.
+* 2024 May 23 - `master` is locked, no PRs merged.
+* 2024 May 26 - Merge `develop` to `master`.
+* 2024 May 26 - `master` is unlocked. PRs can be merged again.
 
 ## What changes will be included?
 
@@ -48,7 +48,7 @@ Criteria for acceptance:
 
 Strongly suggested:
 
-* The PR has a ChangeLog file describing the changes under `<qmk_firmware>/docs/Changelog/20240225`.
+* The PR has a ChangeLog file describing the changes under `<qmk_firmware>/docs/Changelog/20240526`.
     * This should be in Markdown format, with a name in the format `PR12345.md`, substituting the digits for your PRs ID.
     * One strong recommendation that the ChangeLog document matches the PR description on GitHub, so as to ensure traceability.
 

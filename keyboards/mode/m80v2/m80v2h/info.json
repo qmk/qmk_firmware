@@ -19,7 +19,6 @@
     },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
-    "community_layouts": ["tkl_ansi"],
     "layout_aliases": {
         "LAYOUT_m80v2h": "LAYOUT_tkl_ansi"
     },
