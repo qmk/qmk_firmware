@@ -24,7 +24,5 @@ void autocorrect_enable(void);
 void autocorrect_disable(void);
 void autocorrect_toggle(void);
 
-#ifdef AUTOCORRECT_MULTI_BANK
-void autocorrect_bank_toggle(void);
-void autocorrect_init_bank(void);
-#endif
+void autocorrect_dict_cycle(bool forward);
+void autocorrect_init_dict(void);

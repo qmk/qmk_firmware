@@ -44,7 +44,7 @@ typedef union {
         bool oneshot_enable : 1;
         bool swap_escape_capslock : 1;
         bool autocorrect_enable : 1;
-        bool autocorrect_bank : 1;
+        uint8_t autocorrect_curr_dict : 3;
     };
 } keymap_config_t;
 
