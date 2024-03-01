@@ -217,12 +217,13 @@ Also see the `POINTING_DEVICE_TASK_THROTTLE_MS`, which defaults to 10ms when usi
 
 #### Absolute mode settings
 
-| Setting                          | Description                                                | Default            |
-| -------------------------------- | ---------------------------------------------------------- | ------------------ |
-| `CIRQUE_PINNACLE_X_LOWER`        | (Optional) The minimum reachable X value on the sensor.    | `127`              |
-| `CIRQUE_PINNACLE_X_UPPER`        | (Optional) The maximum reachable X value on the sensor.    | `1919`             |
-| `CIRQUE_PINNACLE_Y_LOWER`        | (Optional) The minimum reachable Y value on the sensor.    | `63`               |
-| `CIRQUE_PINNACLE_Y_UPPER`        | (Optional) The maximum reachable Y value on the sensor.    | `1471`             |
+| Setting                                 | Description                                                             | Default     |
+|-----------------------------------------|-------------------------------------------------------------------------|-------------|
+| `CIRQUE_PINNACLE_X_LOWER`               | (Optional) The minimum reachable X value on the sensor.                 | `127`       |
+| `CIRQUE_PINNACLE_X_UPPER`               | (Optional) The maximum reachable X value on the sensor.                 | `1919`      |
+| `CIRQUE_PINNACLE_Y_LOWER`               | (Optional) The minimum reachable Y value on the sensor.                 | `63`        |
+| `CIRQUE_PINNACLE_Y_UPPER`               | (Optional) The maximum reachable Y value on the sensor.                 | `1471`      |
+| `CIRQUE_PINNACLE_REACHABLE_CALIBRATION` | (Optional) Enable console messages to aide in calibrating above values. | not defined |
 
 #### Absolute mode gestures
 
@@ -728,6 +729,7 @@ There are a few ways to control the auto mouse feature with both `config.h` opti
 | `AUTO_MOUSE_TIME`                   | (Optional) Time layer remains active after activation                 | _ideally_ (250-1000) |     _ms_    |                   `650 ms` |
 | `AUTO_MOUSE_DELAY`                  | (Optional) Lockout time after non-mouse key is pressed                | _ideally_ (100-1000) |     _ms_    | `TAPPING_TERM` or `200 ms` |
 | `AUTO_MOUSE_DEBOUNCE`               | (Optional) Time delay from last activation to next update             | _ideally_ (10 - 100) |     _ms_    |                    `25 ms` |
+| `AUTO_MOUSE_THRESHOLD`              | (Optional) Amount of mouse movement required to switch layers         | 0 -                  |   _units_   |                 `10 units` |
 
 ### Adding mouse keys
 

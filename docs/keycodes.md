@@ -277,7 +277,6 @@ See also: [Autocorrect](feature_autocorrect.md)
 |`QK_AUTOCORRECT_TOGGLE`     |`AC_TOGG`|Toggles the status of the Autocorrect feature.                   |
 |`QK_AUTOCORRECT_DICT_CYCLE` |`AC_DICT`|Cycle through dictionaries, reverse direction when Shift is held.|
 
-
 ## Backlighting :id=backlighting
 
 See also: [Backlighting](feature_backlight.md)

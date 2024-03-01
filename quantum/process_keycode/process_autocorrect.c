@@ -19,7 +19,6 @@
 #    include "autocorrect_data_default.h"
 #endif
 
-// dict-specific variables
 static const uint8_t *current_dict_data;
 static uint16_t current_dict_min_length;
 static uint16_t current_dict_max_length;
@@ -313,6 +312,7 @@ bool process_autocorrect(uint16_t keycode, keyrecord_t *record) {
         memmove(typo_buffer, typo_buffer + 1, current_dict_max_length - 1);
         typo_buffer_size = current_dict_max_length - 1;
     }
+#endif
 
     // Append `keycode` to buffer.
     typo_buffer[typo_buffer_size++] = keycode;
@@ -324,6 +324,7 @@ bool process_autocorrect(uint16_t keycode, keyrecord_t *record) {
     // Check for typo in buffer using a trie stored in `current_dict_data`.
     uint16_t state = 0;
     uint8_t  code  = pgm_read_byte(current_dict_data + state);
+  
     for (int8_t i = typo_buffer_size - 1; i >= 0; --i) {
         uint8_t const key_i = typo_buffer[i];
 

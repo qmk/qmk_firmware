@@ -9,6 +9,25 @@
       "device_version": "0.0.1"
     },
     "rgb_matrix": {
+      "animations": {
+        "gradient_up_down": true,
+        "gradient_left_right": true,
+        "breathing": true,
+        "cycle_left_right": true,
+        "cycle_up_down": true,
+        "raindrops": true,
+        "jellybean_raindrops": true,
+        "hue_breathing": true,
+        "hue_pendulum": true,
+        "hue_wave": true,
+        "pixel_rain": true,
+        "pixel_flow": true,
+        "pixel_fractal": true,
+        "typing_heatmap": true,
+        "digital_rain": true,
+        "solid_reactive_simple": true,
+        "solid_reactive": true
+      },
       "driver": "ws2812"
     },
     "matrix_pins": {

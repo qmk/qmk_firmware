@@ -269,7 +269,6 @@ Additional user callback functions to manipulate Autocorrect:
 | `autocorrect_is_enabled()`            | Returns true if Autocorrect is currently on.                   |
 | `autocorrect_dict_cycle(bool forward)`| Cycles through dictionaries (parameter controls the direction).|
 
-
 ## Appendix: Trie binary data format :id=appendix
 
 This section details how the trie is serialized to byte data in autocorrect_data. You don’t need to care about this to use this autocorrection implementation. But it is documented for the record in case anyone is interested in modifying the implementation, or just curious how it works.

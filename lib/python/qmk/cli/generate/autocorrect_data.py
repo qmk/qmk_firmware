@@ -269,6 +269,7 @@ class AutocorrectDict:
 @cli.argument('-km', '--keymap', completer=keymap_completer, help='The keymap to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.argument('-o', '--output', arg_only=True, type=normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
+@cli.argument('-a', '--alternate', arg_only=True, action='store_true', help="Create an alternate dictionary file")
 @cli.subcommand('Generate the autocorrection data file from a dictionary file.')
 def generate_autocorrect_data(cli):
     if len(cli.args.filenames) > 8:
@@ -280,8 +281,12 @@ def generate_autocorrect_data(cli):
     current_keyboard = cli.args.keyboard or cli.config.user.keyboard or cli.config.generate_autocorrect_data.keyboard
     current_keymap = cli.args.keymap or cli.config.user.keymap or cli.config.generate_autocorrect_data.keymap
 
+    file_name = 'autocorrect_data_alt.h' if cli.args.alternate else 'autocorrect_data.h'
+    defines_suffix = '_ALT' if cli.args.alternate else ''
+    static_suffix = '_alt' if cli.args.alternate else ''
+
     if current_keyboard and current_keymap:
-        cli.args.output = locate_keymap(current_keyboard, current_keymap).parent / 'autocorrect_data.h'
+        cli.args.output = locate_keymap(current_keyboard, current_keymap).parent / file_name
 
     # Build the autocorrect_data.h file.
     autocorrect_data_h_lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '#pragma once', '']
@@ -331,7 +336,7 @@ def generate_autocorrect_data(cli):
     autocorrect_data_h_lines.append(f'#define DICTIONARY_SIZE {sum(sizes)}')
     autocorrect_data_h_lines.append(f'#define TYPO_BUFFER_SIZE {max(maxs)}')
     autocorrect_data_h_lines.append('')
-    autocorrect_data_h_lines.append('static const uint8_t autocorrect_data[DICTIONARY_SIZE] PROGMEM = {')
+    autocorrect_data_h_lines.append(f'static const uint8_t autocorrect_data{static_suffix}[DICTIONARY_SIZE{defines_suffix}] PROGMEM = {{')
     autocorrect_data_h_lines.append(textwrap.fill('    %s' % (', '.join(map(to_hex, data))), width=100, subsequent_indent='    '))
     autocorrect_data_h_lines.append('};')
 
