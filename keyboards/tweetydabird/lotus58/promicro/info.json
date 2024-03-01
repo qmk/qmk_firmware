@@ -24,14 +24,7 @@
         },
         "soft_serial_pin": "D2",
         "transport": {
-            "protocol": "serial",
-            "sync": {
-                "indicators": true,
-                "layer_state": true,
-                "matrix_state": true,
-                "modifiers": true,
-                "oled": true
-            }
+            "protocol": "serial"
         },
     },
     "ws2812": {
