@@ -42,7 +42,6 @@
 #include "action_layer.h"
 #include "eeconfig.h"
 #include "bootloader.h"
-#include "bootmagic.h"
 #include "timer.h"
 #include "sync_timer.h"
 #include "gpio.h"
@@ -58,6 +57,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+
+#ifdef BOOTMAGIC_ENABLE
+#    include "bootmagic.h"
+#endif
 
 #ifdef DEFERRED_EXEC_ENABLE
 #    include "deferred_exec.h"
@@ -231,6 +234,10 @@ extern layer_state_t layer_state;
 #ifdef REPEAT_KEY_ENABLE
 #    include "repeat_key.h"
 #    include "process_repeat_key.h"
+#endif
+
+#ifdef OS_DETECTION_ENABLE
+#    include "os_detection.h"
 #endif
 
 void set_single_persistent_default_layer(uint8_t default_layer);
