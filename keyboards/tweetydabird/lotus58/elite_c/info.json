@@ -24,7 +24,7 @@
         },
         "soft_serial_pin": "D2",
         "transport": {
-            "protocol": "serial",
+            "protocol": "serial"
         },
     },
     "ws2812": {
