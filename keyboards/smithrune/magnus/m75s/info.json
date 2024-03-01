@@ -11,6 +11,11 @@
     "build": {
         "lto": true
     },
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
     "features": {
         "audio": false,
         "backlight": true,

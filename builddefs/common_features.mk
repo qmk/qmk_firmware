@@ -340,7 +340,7 @@ LED_MATRIX_DRIVER := snled27351
 endif
 
 LED_MATRIX_ENABLE ?= no
-VALID_LED_MATRIX_TYPES := is31fl3218 is31fl3731 is31fl3733 is31fl3736 is31fl3737 is31fl3741 is31fl3742a is31fl3743a is31fl3745 is31fl3746a snled27351 custom
+VALID_LED_MATRIX_TYPES := is31fl3218 is31fl3729 is31fl3731 is31fl3733 is31fl3736 is31fl3737 is31fl3741 is31fl3742a is31fl3743a is31fl3745 is31fl3746a snled27351 custom
 
 ifeq ($(strip $(LED_MATRIX_ENABLE)), yes)
     ifeq ($(filter $(LED_MATRIX_DRIVER),$(VALID_LED_MATRIX_TYPES)),)
@@ -363,6 +363,12 @@ ifeq ($(strip $(LED_MATRIX_ENABLE)), yes)
         I2C_DRIVER_REQUIRED = yes
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31fl3218-mono.c
+    endif
+
+    ifeq ($(strip $(LED_MATRIX_DRIVER)), is31fl3729)
+        I2C_DRIVER_REQUIRED = yes
+        COMMON_VPATH += $(DRIVER_PATH)/led/issi
+        SRC += is31fl3729-mono.c
     endif
 
     ifeq ($(strip $(LED_MATRIX_DRIVER)), is31fl3731)
@@ -437,7 +443,7 @@ endif
 
 RGB_MATRIX_ENABLE ?= no
 
-VALID_RGB_MATRIX_TYPES := aw20216s is31fl3218 is31fl3731 is31fl3733 is31fl3736 is31fl3737 is31fl3741 is31fl3742a is31fl3743a is31fl3745 is31fl3746a snled27351 ws2812 custom
+VALID_RGB_MATRIX_TYPES := aw20216s is31fl3218 is31fl3729 is31fl3731 is31fl3733 is31fl3736 is31fl3737 is31fl3741 is31fl3742a is31fl3743a is31fl3745 is31fl3746a snled27351 ws2812 custom
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
     ifeq ($(filter $(RGB_MATRIX_DRIVER),$(VALID_RGB_MATRIX_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid RGB_MATRIX_DRIVER,RGB_MATRIX_DRIVER="$(RGB_MATRIX_DRIVER)" is not a valid matrix type)
@@ -466,6 +472,12 @@ ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
         I2C_DRIVER_REQUIRED = yes
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31fl3218.c
+    endif
+
+    ifeq ($(strip $(RGB_MATRIX_DRIVER)), is31fl3729)
+        I2C_DRIVER_REQUIRED = yes
+        COMMON_VPATH += $(DRIVER_PATH)/led/issi
+        SRC += is31fl3729.c
     endif
 
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), is31fl3731)
@@ -815,15 +827,12 @@ ifeq ($(strip $(JOYSTICK_ENABLE)), yes)
         $(call CATASTROPHIC_ERROR,Invalid JOYSTICK_DRIVER,JOYSTICK_DRIVER="$(JOYSTICK_DRIVER)" is not a valid joystick driver)
     endif
     OPT_DEFS += -DJOYSTICK_ENABLE
+    OPT_DEFS += -DJOYSTICK_$(strip $(shell echo $(JOYSTICK_DRIVER) | tr '[:lower:]' '[:upper:]'))
     SRC += $(QUANTUM_DIR)/process_keycode/process_joystick.c
     SRC += $(QUANTUM_DIR)/joystick.c
 
     ifeq ($(strip $(JOYSTICK_DRIVER)), analog)
         ANALOG_DRIVER_REQUIRED = yes
-        OPT_DEFS += -DANALOG_JOYSTICK_ENABLE
-    endif
-    ifeq ($(strip $(JOYSTICK_DRIVER)), digital)
-        OPT_DEFS += -DDIGITAL_JOYSTICK_ENABLE
     endif
 endif
 
@@ -877,9 +886,24 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
     endif
 endif
 
+ENCODER_ENABLE ?= no
+ENCODER_DRIVER ?= quadrature
+VALID_ENCODER_DRIVER_TYPES := quadrature custom
 ifeq ($(strip $(ENCODER_ENABLE)), yes)
+    ifeq ($(filter $(ENCODER_DRIVER),$(VALID_ENCODER_DRIVER_TYPES)),)
+        $(call CATASTROPHIC_ERROR,Invalid ENCODER_DRIVER,ENCODER_DRIVER="$(ENCODER_DRIVER)" is not a valid encoder driver)
+    endif
     SRC += $(QUANTUM_DIR)/encoder.c
     OPT_DEFS += -DENCODER_ENABLE
+    OPT_DEFS += -DENCODER_DRIVER_$(strip $(shell echo $(ENCODER_DRIVER) | tr '[:lower:]' '[:upper:]'))
+
+    COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/encoder
+    COMMON_VPATH += $(DRIVER_PATH)/encoder
+
+    ifneq ($(strip $(ENCODER_DRIVER)), custom)
+        SRC += encoder_$(strip $(ENCODER_DRIVER)).c
+    endif
+
     ifeq ($(strip $(ENCODER_MAP_ENABLE)), yes)
         OPT_DEFS += -DENCODER_MAP_ENABLE
     endif
@@ -936,6 +960,15 @@ ifeq ($(strip $(SPI_DRIVER_REQUIRED)), yes)
 endif
 
 ifeq ($(strip $(UART_DRIVER_REQUIRED)), yes)
-    OPT_DEFS += -DHAL_USE_SERIAL=TRUE
-    QUANTUM_LIB_SRC += uart.c
+    ifeq ($(strip $(PLATFORM)), CHIBIOS)
+        ifneq ($(filter $(MCU_SERIES),RP2040),)
+            OPT_DEFS += -DHAL_USE_SIO=TRUE
+            QUANTUM_LIB_SRC += uart_sio.c
+        else
+            OPT_DEFS += -DHAL_USE_SERIAL=TRUE
+            QUANTUM_LIB_SRC += uart_serial.c
+        endif
+    else
+        QUANTUM_LIB_SRC += uart.c
+    endif
 endif

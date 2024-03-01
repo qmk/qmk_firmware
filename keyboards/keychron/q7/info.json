@@ -4,6 +4,9 @@
     "maintainer": "lalalademaxiya1",
     "bootloader": "stm32-dfu",
     "diode_direction": "ROW2COL",
+    "dip_switch": {
+        "matrix_grid": [ [4, 4] ]
+    },
     "dynamic_keymap": {
         "layer_count": 5
     },

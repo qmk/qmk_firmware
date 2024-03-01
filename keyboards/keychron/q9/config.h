@@ -16,12 +16,6 @@
 
 #pragma once
 
-/* Disable DIP switch in matrix data */
-#define MATRIX_MASKED
-
-/* DIP switch */
-#define DIP_SWITCH_MATRIX_GRID { { 3, 4 } }
-
 /* RGB Matrix Driver Configuration */
 #define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_GND
 
@@ -34,9 +28,6 @@
 
 #define SNLED27351_CURRENT_TUNE \
     { 0xF8, 0xF8, 0x70, 0xF8, 0xF8, 0x70, 0xF8, 0xF8, 0x70, 0xF8, 0xF8, 0x70 }
-
-/* turn off effects when suspended */
-#define RGB_MATRIX_SLEEP
 
 /* Encoder Configuration */
 #define ENCODER_DEFAULT_POS 0x3
