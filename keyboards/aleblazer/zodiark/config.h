@@ -17,11 +17,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #define SELECT_SOFT_SERIAL_SPEED 1
-
-#ifdef RGB_MATRIX_ENABLE
-#define RGB_MATRIX_LED_COUNT 68
-#define RGB_MATRIX_SPLIT { 34, 34 }
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
-#define RGB_MATRIX_KEYPRESSES
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#endif
