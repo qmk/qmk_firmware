@@ -1,30 +1,28 @@
 {
-    "pin_compatible": "elite_c",
-    "processor": "atmega32u4",
-    "bootloader": "atmel-dfu",
-    "encoder": {
+    "development_board": "promicro_rp2040",
+	"processor": "RP2040",
+    "bootloader": "rp2040",
+	"encoder": {
         "rotary": [
-            {"pin_a": "F5", "pin_b": "F4", "resolution": 2}
+            {"pin_a": "GP28", "pin_b": "GP29", "resolution": 2}
         ]
     },
     "matrix_pins": {
-        "cols": ["B1", "B2", "B3", "B6", "F7", "F6"],
-        "rows": ["D4", "C6", "D7", "E6", "B4"]
+        "cols": ["GP22", "GP23", "GP20", "GP21", "GP26", "GP27"],
+        "rows": ["GP4", "GP5", "GP6", "GP7", "GP8"]
     },
     "split": {
         "encoder": {
             "right": {
                 "rotary": [
-                    {"pin_a": "F4", "pin_b": "F5", "resolution": 2}
+                    {"pin_a": "GP29", "pin_b": "GP28", "resolution": 2}
                 ]
             }
         },
         "handedness": {
-            "pin": "B5"
+            "pin": "GP9"
         },
-        "soft_serial_pin": "D2",
         "transport": {
-            "protocol": "serial",
             "sync": {
                 "indicators": true,
                 "layer_state": true,
@@ -33,8 +31,13 @@
                 "oled": true
             }
         },
+        "usb_detect": {
+            "enabled": true
+        }
     },
     "ws2812": {
-        "pin": "D3"
+		"driver": "vendor",
+        "pin": "GP0"
     },
+    
 }
