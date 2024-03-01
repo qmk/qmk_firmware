@@ -29,10 +29,6 @@
                 "oled": true
             }
         },
-        "usb_detect": {
-            "enabled": true
-        }
-    },
     "ws2812": {
 		"driver": "vendor",
         "pin": "GP0"
