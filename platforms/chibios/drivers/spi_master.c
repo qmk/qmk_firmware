@@ -32,12 +32,12 @@ __attribute__((weak)) void spi_init(void) {
         is_initialised = true;
 
         // Try releasing special pins for a short time
-        setPinInput(SPI_SCK_PIN);
+        gpio_set_pin_input(SPI_SCK_PIN);
         if (SPI_MOSI_PIN != NO_PIN) {
-            setPinInput(SPI_MOSI_PIN);
+            gpio_set_pin_input(SPI_MOSI_PIN);
         }
         if (SPI_MISO_PIN != NO_PIN) {
-            setPinInput(SPI_MISO_PIN);
+            gpio_set_pin_input(SPI_MISO_PIN);
         }
 
         chThdSleepMilliseconds(10);
@@ -271,10 +271,10 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
 #if SPI_SELECT_MODE == SPI_SELECT_MODE_PAD
     spiConfig.ssport = PAL_PORT(slavePin);
     spiConfig.sspad  = PAL_PAD(slavePin);
-    setPinOutput(slavePin);
+    gpio_set_pin_output(slavePin);
 #elif SPI_SELECT_MODE == SPI_SELECT_MODE_NONE
     if (slavePin != NO_PIN) {
-        setPinOutput(slavePin);
+        gpio_set_pin_output(slavePin);
     }
 #else
 #    error "Unsupported SPI_SELECT_MODE"
@@ -284,7 +284,7 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
     spiSelect(&SPI_DRIVER);
 #if SPI_SELECT_MODE == SPI_SELECT_MODE_NONE
     if (slavePin != NO_PIN) {
-        writePinLow(slavePin);
+        gpio_write_pin_low(slavePin);
     }
 #endif
 
@@ -319,7 +319,7 @@ void spi_stop(void) {
     if (spiStarted) {
 #if SPI_SELECT_MODE == SPI_SELECT_MODE_NONE
         if (currentSlavePin != NO_PIN) {
-            writePinHigh(currentSlavePin);
+            gpio_write_pin_high(currentSlavePin);
         }
 #endif
         spiUnselect(&SPI_DRIVER);
