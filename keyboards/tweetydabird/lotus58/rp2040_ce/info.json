@@ -20,10 +20,10 @@
         "soft_serial_pin": "GP1",
         "handedness": {
             "pin": "GP9"
-        },
-    "ws2812": {
+        }
+	},
+	"ws2812": {
 		"driver": "vendor",
-        "pin": "GP0"
-    },
-    
+		"pin": "GP0"
+	}
 }
