@@ -57,6 +57,9 @@
         "pid": "0x0049",
         "vid": "0x7463"
     },
+    "dynamic_keymap": {
+        "layer_count": 11
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
