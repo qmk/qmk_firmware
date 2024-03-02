@@ -1,12 +1,12 @@
 {
     "manufacturer": "Baionlenja",
-    "keyboard_name": "Baion878 HS-A",
+    "keyboard_name": "Baion878 HS-I",
     "maintainer": "ojthetiny",
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "usb": {
         "vid": "0x424C",
-        "pid": "0x4841",
+        "pid": "0x4849",
         "device_version": "1.0.0"
     },
     "features": {
@@ -26,7 +26,7 @@
         "on_state": 1
     },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0 },
                 { "matrix": [0, 2], "x": 2, "y": 0 },
@@ -75,7 +75,7 @@
                 { "matrix": [2, 10], "x": 10.5, "y": 2.25 },
                 { "matrix": [2, 11], "x": 11.5, "y": 2.25 },
                 { "matrix": [2, 12], "x": 12.5, "y": 2.25 },
-                { "matrix": [2, 14], "w": 1.5, "x": 13.5, "y": 2.25 },
+                { "h": 2, "matrix": [3, 14], "w": 1.25, "x": 13.75, "y": 2.25 },
                 { "matrix": [2, 15], "x": 15.25, "y": 2.25 },
                 { "matrix": [2, 16], "x": 16.25, "y": 2.25 },
                 { "matrix": [2, 17], "x": 17.25, "y": 2.25 },
@@ -91,8 +91,9 @@
                 { "matrix": [3, 9], "x": 9.75, "y": 3.25 },
                 { "matrix": [3, 10], "x": 10.75, "y": 3.25 },
                 { "matrix": [3, 11], "x": 11.75, "y": 3.25 },
-                { "matrix": [3, 13], "w": 2.25, "x": 12.75, "y": 3.25 },
-                { "matrix": [4, 0], "w": 2.25, "x": 0, "y": 4.25 },
+                { "matrix": [3, 12], "x": 12.75, "y": 3.25 },
+                { "matrix": [4, 0], "w": 1.25, "x": 0, "y": 4.25 },
+                { "matrix": [4, 1], "x": 1.25, "y": 4.25 },
                 { "matrix": [4, 2], "x": 2.25, "y": 4.25 },
                 { "matrix": [4, 3], "x": 3.25, "y": 4.25 },
                 { "matrix": [4, 4], "x": 4.25, "y": 4.25 },
