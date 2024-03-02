@@ -239,9 +239,8 @@ static bool encoder_handlers_master(matrix_row_t master_matrix[], matrix_row_t s
 
     bool okay = read_if_checksum_mismatch(GET_ENCODERS_CHECKSUM, GET_ENCODERS_DATA, &last_update, &temp_events, &split_shmem->encoders.events, sizeof(temp_events));
     if (okay) {
-        encoder_handle_slave_events(&split_shmem->encoders.events);
-        transport_write(PUT_ENCODER_TAIL, &split_shmem->encoders.events.tail, sizeof(split_shmem->encoders.events.tail));
-        split_shmem->encoders.checksum = crc8(&split_shmem->encoders.events, sizeof(split_shmem->encoders.events));
+        encoder_handle_slave_events(&temp_events);
+        transport_write(PUT_ENCODER_TAIL, &temp_events.tail, sizeof(temp_events.tail));
     }
     return okay;
 }
@@ -256,6 +255,7 @@ static void encoder_handlers_slave(matrix_row_t master_matrix[], matrix_row_t sl
 static void encoder_handlers_slave_reset(uint8_t initiator2target_buffer_size, const void *initiator2target_buffer, uint8_t target2initiator_buffer_size, void *target2initiator_buffer) {
     uint8_t tail_index = *(uint8_t *)initiator2target_buffer;
     encoder_set_tail_index(tail_index);
+    split_shmem->encoders.checksum = encoder_retrieve_events_checksum();
 }
 
 // clang-format off
