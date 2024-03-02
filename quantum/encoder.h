@@ -88,8 +88,7 @@ typedef struct encoder_events_t {
 } encoder_events_t;
 
 // Get the current queued events
-void    encoder_retrieve_events(encoder_events_t *events);
-uint8_t encoder_retrieve_events_checksum(void);
+void encoder_retrieve_events(encoder_events_t *events);
 
 #    ifdef SPLIT_KEYBOARD
 void encoder_set_tail_index(uint8_t tail_index);

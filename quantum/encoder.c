@@ -4,7 +4,6 @@
 #include <string.h>
 #include "action.h"
 #include "encoder.h"
-#include "crc.h"
 #include "wait.h"
 
 #ifndef ENCODER_MAP_KEY_DELAY
@@ -93,22 +92,19 @@ void encoder_retrieve_events(encoder_events_t *events) {
     memcpy(events, &encoder_events, sizeof(encoder_events));
 }
 
-uint8_t encoder_retrieve_events_checksum(void) {
-    return crc8((uint8_t *)&encoder_events, sizeof(encoder_events));
-}
-
 #ifdef SPLIT_KEYBOARD
 void encoder_set_tail_index(uint8_t tail_index) {
     encoder_events.tail = tail_index;
 }
 
 void encoder_handle_slave_events(encoder_events_t *events) {
-    if (events->tail < MAX_QUEUED_ENCODER_EVENTS && events->head < MAX_QUEUED_ENCODER_EVENTS) {
-        while (events->tail != events->head) {
-            encoder_event_t event = events->queue[events->tail];
-            events->tail          = (events->tail + 1) % MAX_QUEUED_ENCODER_EVENTS;
-            encoder_queue_event(event.index, event.clockwise ? true : false);
-        }
+    if (events->tail >= MAX_QUEUED_ENCODER_EVENTS || events->head >= MAX_QUEUED_ENCODER_EVENTS) {
+        return;
+    }
+    while (events->tail != events->head) {
+        encoder_event_t event = events->queue[events->tail];
+        events->tail          = (events->tail + 1) % MAX_QUEUED_ENCODER_EVENTS;
+        encoder_queue_event(event.index, event.clockwise ? true : false);
     }
 }
 #endif // SPLIT_KEYBOARD

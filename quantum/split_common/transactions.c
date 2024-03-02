@@ -254,8 +254,8 @@ static void encoder_handlers_slave(matrix_row_t master_matrix[], matrix_row_t sl
 
 static void encoder_handlers_slave_reset(uint8_t initiator2target_buffer_size, const void *initiator2target_buffer, uint8_t target2initiator_buffer_size, void *target2initiator_buffer) {
     uint8_t tail_index = *(uint8_t *)initiator2target_buffer;
-    encoder_set_tail_index(tail_index);
-    split_shmem->encoders.checksum = encoder_retrieve_events_checksum();
+    encoder_set_tail_index(tail_index); // no need to update shmem's tail as `[PUT_ENCODER_TAIL]` has already done so
+    split_shmem->encoders.checksum = crc8(&split_shmem->encoders.events, sizeof(split_shmem->encoders.events));
 }
 
 // clang-format off
