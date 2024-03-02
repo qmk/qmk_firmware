@@ -1,7 +1,7 @@
-#include "gm862.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31fl3733_led_t PROGMEM g_is31fl3733_leds[RGB_MATRIX_LED_COUNT] = {
     {0, B_1,    A_1,    C_1},
     {0, B_2,    A_2,    C_2},
     {0, B_3,    A_3,    C_3},
@@ -72,11 +72,11 @@ led_config_t g_led_config = { {
     {  41,  42,  43,  44,     45,      46,  47,     48,     49,     50,  51,  NO_LED,NO_LED, 52 },
     {  53,  54,  55,  NO_LED, NO_LED,  56,  NO_LED, NO_LED, NO_LED, 57,  58,  NO_LED,59,     60 }
 }, {
-    {   0,   0 }, {  16,   0 }, {  32,   0 }, {  48,   0 }, {  64,   0 }, {  80,   0 }, {  96,   0 }, { 112,   0 },  { 128,   0 },  { 144,   0 }, { 160,   0 }, { 176,   0 }, { 192,   0 }, { 216,   0 }, 
+    {   0,   0 }, {  16,   0 }, {  32,   0 }, {  48,   0 }, {  64,   0 }, {  80,   0 }, {  96,   0 }, { 112,   0 },  { 128,   0 },  { 144,   0 }, { 160,   0 }, { 176,   0 }, { 192,   0 }, { 216,   0 },
     {   4,  16 }, {  24,  16 }, {  40,  16 }, {  56,  16 }, {  72,  16 }, {  88,  16 }, { 104,  16 }, { 120,  16 },  { 136,  16 },  { 152,  16 }, { 168,  16 }, { 184,  16 }, { 200,  16 }, { 220,  16 },
-    {   6,  32 }, {  28,  32 }, {  44,  32 }, {  60,  32 }, {  76,  32 }, {  92,  32 }, { 108,  32 }, { 124,  32 },  { 140,  32 },  { 156,  32 }, { 172,  32 }, { 188,  32 }, { 204,  32 }, 
+    {   6,  32 }, {  28,  32 }, {  44,  32 }, {  60,  32 }, {  76,  32 }, {  92,  32 }, { 108,  32 }, { 124,  32 },  { 140,  32 },  { 156,  32 }, { 172,  32 }, { 188,  32 }, { 204,  32 },
     {  10,  48 }, {  20,  48 }, {  52,  48 }, {  68,  48 }, {  84,  48 }, { 100,  48 }, { 116,  48 }, { 132,  48 },  { 148,  48 },  { 164,  48 }, { 180,  48 }, { 210,  48 },
-    {   2,  64 }, {  22,  64 }, {  42,  64 }, { 102,  64 }, { 162,  64 }, { 182,  64 }, { 202,  64 }, { 222,  64 },    
+    {   2,  64 }, {  22,  64 }, {  42,  64 }, { 102,  64 }, { 162,  64 }, { 182,  64 }, { 202,  64 }, { 222,  64 },
 }, {
     1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1,
     4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
@@ -86,21 +86,12 @@ led_config_t g_led_config = { {
 } };
 #endif
 
-void suspend_power_down_kb(void) {
-    rgb_matrix_set_suspend_state(true);
-    suspend_power_down_user();
-}
-
-void suspend_wakeup_init_kb(void) {
-    rgb_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
-}
-
-__attribute__ ((weak))
-void rgb_matrix_indicators_user(void)
-{
-    if (host_keyboard_led_state().caps_lock)
-    {
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
+    if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(28, 0xFF, 0xFF, 0xFF);
     }
+    return true;
 }

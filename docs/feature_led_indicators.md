@@ -19,7 +19,7 @@ There are three ways to get the lock LED state:
 
 Two deprecated functions that provide the LED state as `uint8_t`:
 
-* `uint8_t led_set_kb(uint8_t usb_led)` and `_user(uint8_t usb_led)`
+* `uint8_t led_set_user(uint8_t usb_led)`
 * `uint8_t host_keyboard_leds()`
 
 ## Configuration Options
@@ -100,6 +100,13 @@ The `host_keyboard_led_state()` function will report the LED state returned from
 ```c
 bool caps = host_keyboard_led_state().caps_lock;
 ```
+
+## `led_update_ports()`
+
+This function writes the LED state to the actual hardware. Call it manually
+from your `led_update_*()` callbacks to modify the handling of the standard
+keyboard LEDs.
+For example when repurposing a standard LED indicator as layer indicator.
 
 ## Setting Physical LED State
 

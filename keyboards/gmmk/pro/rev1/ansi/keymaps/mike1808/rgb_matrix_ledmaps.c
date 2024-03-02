@@ -15,9 +15,9 @@
  */
 #include "rgb_matrix_ledmaps.h"
 
-__attribute__((weak)) void rgb_matrix_indicators_keymap(void) { return; }
-__attribute__((weak)) void rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
-    return;
+__attribute__((weak)) bool rgb_matrix_indicators_keymap(void) { return true; }
+__attribute__((weak)) bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
+    return true;
 }
 
 #ifdef RGB_MATRIX_LEDMAPS_ENABLED
@@ -26,15 +26,15 @@ static bool enabled = true;
 
 #endif  // RGB_MATRIX_LEDMAPS_ENABLED
 
-void rgb_matrix_indicators_user(void) { rgb_matrix_indicators_keymap(); }
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_user(void) { return rgb_matrix_indicators_keymap(); }
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 #ifdef RGB_MATRIX_LEDMAPS_ENABLED
     if (rgb_matrix_is_enabled() && enabled) {
         set_layer_rgb(led_min, led_max, get_highest_layer(layer_state | default_layer_state));
     }
 
 #endif  // RGB_MATRIX_LEDMAPS_ENABLED
-    rgb_matrix_indicators_advanced_keymap(led_min, led_max);
+    return rgb_matrix_indicators_advanced_keymap(led_min, led_max);
 }
 
 #ifdef RGB_MATRIX_LEDMAPS_ENABLED
@@ -44,7 +44,7 @@ void set_layer_rgb(uint8_t led_min, uint8_t led_max, int layer) {
 
     uint8_t val = rgb_matrix_get_val();
 
-    for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+    for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
         HSV hsv = {
             .h = (*l)[i][0],
             .s = (*l)[i][1],
@@ -58,12 +58,12 @@ void set_layer_rgb(uint8_t led_min, uint8_t led_max, int layer) {
     }
 }
 
-void rgb_matrix_layers_enable() {
+void rgb_matrix_layers_enable(void) {
     dprintf("ledmaps are enabled\n");
     enabled = true;
 }
 
-void rgb_matrix_layers_disable() {
+void rgb_matrix_layers_disable(void) {
     dprintf("ledmaps are disabled\n");
     enabled = false;
 }

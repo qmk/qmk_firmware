@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "um80.h"
+#include "quantum.h"
 
 #ifndef WPM_ENABLE
 #    define get_current_wpm() 0

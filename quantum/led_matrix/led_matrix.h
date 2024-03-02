@@ -23,18 +23,62 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "led_matrix_types.h"
-#include "quantum.h"
+#include "keyboard.h"
 
-#ifdef IS31FL3731
+#if defined(LED_MATRIX_IS31FL3218)
+#    include "is31fl3218-simple.h"
+#elif defined(LED_MATRIX_IS31FL3731)
 #    include "is31fl3731-simple.h"
-#elif defined(IS31FLCOMMON)
-#    include "is31flcommon.h"
 #endif
-#ifdef IS31FL3733
+#ifdef LED_MATRIX_IS31FL3733
 #    include "is31fl3733-simple.h"
 #endif
-#ifdef CKLED2001
-#    include "ckled2001-simple.h"
+#ifdef LED_MATRIX_IS31FL3736
+#    include "is31fl3736-simple.h"
+#endif
+#ifdef LED_MATRIX_IS31FL3737
+#    include "is31fl3737-simple.h"
+#endif
+#ifdef LED_MATRIX_IS31FL3741
+#    include "is31fl3741-simple.h"
+#endif
+#if defined(IS31FLCOMMON)
+#    include "is31flcommon.h"
+#endif
+#ifdef LED_MATRIX_SNLED27351
+#    include "snled27351-simple.h"
+#endif
+
+#ifndef LED_MATRIX_TIMEOUT
+#    define LED_MATRIX_TIMEOUT 0
+#endif
+
+#ifndef LED_MATRIX_MAXIMUM_BRIGHTNESS
+#    define LED_MATRIX_MAXIMUM_BRIGHTNESS UINT8_MAX
+#endif
+
+#ifndef LED_MATRIX_VAL_STEP
+#    define LED_MATRIX_VAL_STEP 8
+#endif
+
+#ifndef LED_MATRIX_SPD_STEP
+#    define LED_MATRIX_SPD_STEP 16
+#endif
+
+#ifndef LED_MATRIX_DEFAULT_ON
+#    define LED_MATRIX_DEFAULT_ON true
+#endif
+
+#ifndef LED_MATRIX_DEFAULT_MODE
+#    define LED_MATRIX_DEFAULT_MODE LED_MATRIX_SOLID
+#endif
+
+#ifndef LED_MATRIX_DEFAULT_VAL
+#    define LED_MATRIX_DEFAULT_VAL LED_MATRIX_MAXIMUM_BRIGHTNESS
+#endif
+
+#ifndef LED_MATRIX_DEFAULT_SPD
+#    define LED_MATRIX_DEFAULT_SPD UINT8_MAX / 2
 #endif
 
 #ifndef LED_MATRIX_LED_FLUSH_LIMIT
@@ -42,38 +86,24 @@
 #endif
 
 #ifndef LED_MATRIX_LED_PROCESS_LIMIT
-#    define LED_MATRIX_LED_PROCESS_LIMIT (DRIVER_LED_TOTAL + 4) / 5
+#    define LED_MATRIX_LED_PROCESS_LIMIT ((LED_MATRIX_LED_COUNT + 4) / 5)
 #endif
 
-#if defined(LED_MATRIX_LED_PROCESS_LIMIT) && LED_MATRIX_LED_PROCESS_LIMIT > 0 && LED_MATRIX_LED_PROCESS_LIMIT < DRIVER_LED_TOTAL
-#    if defined(LED_MATRIX_SPLIT)
-#        define LED_MATRIX_USE_LIMITS(min, max)                                                   \
-            uint8_t min = LED_MATRIX_LED_PROCESS_LIMIT * params->iter;                            \
-            uint8_t max = min + LED_MATRIX_LED_PROCESS_LIMIT;                                     \
-            if (max > DRIVER_LED_TOTAL) max = DRIVER_LED_TOTAL;                                   \
-            uint8_t k_led_matrix_split[2] = LED_MATRIX_SPLIT;                                     \
-            if (is_keyboard_left() && (max > k_led_matrix_split[0])) max = k_led_matrix_split[0]; \
-            if (!(is_keyboard_left()) && (min < k_led_matrix_split[0])) min = k_led_matrix_split[0];
-#    else
-#        define LED_MATRIX_USE_LIMITS(min, max)                        \
-            uint8_t min = LED_MATRIX_LED_PROCESS_LIMIT * params->iter; \
-            uint8_t max = min + LED_MATRIX_LED_PROCESS_LIMIT;          \
-            if (max > DRIVER_LED_TOTAL) max = DRIVER_LED_TOTAL;
-#    endif
-#else
-#    if defined(LED_MATRIX_SPLIT)
-#        define LED_MATRIX_USE_LIMITS(min, max)                                                   \
-            uint8_t       min                   = 0;                                              \
-            uint8_t       max                   = DRIVER_LED_TOTAL;                               \
-            const uint8_t k_led_matrix_split[2] = LED_MATRIX_SPLIT;                               \
-            if (is_keyboard_left() && (max > k_led_matrix_split[0])) max = k_led_matrix_split[0]; \
-            if (!(is_keyboard_left()) && (min < k_led_matrix_split[0])) min = k_led_matrix_split[0];
-#    else
-#        define LED_MATRIX_USE_LIMITS(min, max) \
-            uint8_t min = 0;                    \
-            uint8_t max = DRIVER_LED_TOTAL;
-#    endif
-#endif
+struct led_matrix_limits_t {
+    uint8_t led_min_index;
+    uint8_t led_max_index;
+};
+
+struct led_matrix_limits_t led_matrix_get_limits(uint8_t iter);
+
+#define LED_MATRIX_USE_LIMITS_ITER(min, max, iter)                   \
+    struct led_matrix_limits_t limits = led_matrix_get_limits(iter); \
+    uint8_t                    min    = limits.led_min_index;        \
+    uint8_t                    max    = limits.led_max_index;        \
+    (void)min;                                                       \
+    (void)max;
+
+#define LED_MATRIX_USE_LIMITS(min, max) LED_MATRIX_USE_LIMITS_ITER(min, max, params->iter)
 
 #define LED_MATRIX_TEST_LED_FLAGS() \
     if (!HAS_ANY_FLAGS(g_led_config.flags[i], params->flags)) continue
@@ -120,12 +150,12 @@ void led_matrix_task(void);
 // This runs after another backlight effect and replaces
 // values already set
 void led_matrix_indicators(void);
-void led_matrix_indicators_kb(void);
-void led_matrix_indicators_user(void);
+bool led_matrix_indicators_kb(void);
+bool led_matrix_indicators_user(void);
 
 void led_matrix_indicators_advanced(effect_params_t *params);
-void led_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max);
-void led_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max);
+bool led_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max);
+bool led_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max);
 
 void led_matrix_init(void);
 
@@ -181,9 +211,9 @@ static inline bool led_matrix_check_finished_leds(uint8_t led_idx) {
         uint8_t k_led_matrix_split[2] = LED_MATRIX_SPLIT;
         return led_idx < k_led_matrix_split[0];
     } else
-        return led_idx < DRIVER_LED_TOTAL;
+        return led_idx < LED_MATRIX_LED_COUNT;
 #else
-    return led_idx < DRIVER_LED_TOTAL;
+    return led_idx < LED_MATRIX_LED_COUNT;
 #endif
 }
 

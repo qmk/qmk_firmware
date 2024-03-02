@@ -1,10 +1,3 @@
-# Written for a Pro Micro. The keyboard case is compatible with much else.
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = caterina
-
 # Build Options
 #   change yes to no to disable
 #

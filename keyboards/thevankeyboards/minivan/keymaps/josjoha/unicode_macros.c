@@ -90,7 +90,7 @@ void unicode_hex2output (long unsigned int unshifted, long unsigned int shifted)
             bitmove *= 0x10; // next digit
         }
     
-        SEND_STRING ( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "f" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) ); // lead-in for Unicode on Linux, 'descramble' mode
+        SEND_STRING ( SS_DOWN(X_LCTL) SS_DOWN(X_LSFT) "f" SS_UP(X_LSFT) SS_UP(X_LCTL) ); // lead-in for Unicode on Linux, 'descramble' mode
         send_string (output + index); // pointer to argument with formatted string
         SEND_STRING ( " " ); // Ends the Unicode numerical input mode
     }
@@ -107,7 +107,7 @@ void unicode_hex2output_single (long unsigned int either) {
 
 
 // Required by QMK Unicode
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
 
 };
 
@@ -652,7 +652,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Shift detection system.
                                                   // Disused because it turned out 'one shot' like Unicode input. Shift detection copied from.
                                                   // https://github.com/kyleterry/qmk_firmware/blob/master/quantum/quantum.c
-                                                  //uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
+                                                  //uint8_t shifted = get_mods() & (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT));
 
         // Crude but self contained in this source file shift detection.
         // ... right shift
@@ -2022,7 +2022,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 # endif // REMOVE_DRA
 
 
-        /* _BON layer definitions. Due to running out of X(…), XP(…) space.*/
+        /* _BON layer definitions. */
 
    // ------------------------- row 4
 # ifndef REMOVE_BON // Removes this layer entirely, if set.

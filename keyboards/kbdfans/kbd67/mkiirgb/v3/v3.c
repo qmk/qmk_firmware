@@ -14,11 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "v3.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
 
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31fl3741_led_t PROGMEM g_is31fl3741_leds[RGB_MATRIX_LED_COUNT] = {
     {0, CS21_SW1, CS20_SW1, CS19_SW1},
     {0, CS21_SW2, CS20_SW2, CS19_SW2},
     {0, CS21_SW3, CS20_SW3, CS19_SW3},
@@ -125,20 +125,18 @@ led_config_t g_led_config = { {
 
 #if defined(RGB_MATRIX_ENABLE) && defined(CAPS_LOCK_LED_INDEX)
 
-#ifdef RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#if !defined(CAPS_LOCK_MAX_BRIGHTNESS)
     #define CAPS_LOCK_MAX_BRIGHTNESS RGB_MATRIX_MAXIMUM_BRIGHTNESS
-#else
-    #define CAPS_LOCK_MAX_BRIGHTNESS 0xFF
 #endif
 
-#ifdef RGB_MATRIX_VAL_STEP
+#if !defined(CAPS_LOCK_VAL_STEP)
     #define CAPS_LOCK_VAL_STEP RGB_MATRIX_VAL_STEP
-#else
-    #define CAPS_LOCK_VAL_STEP 8
 #endif
 
-__attribute__ ((weak))
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
     if (host_keyboard_led_state().caps_lock) {
         uint8_t b = rgb_matrix_get_val();
         if (b < CAPS_LOCK_VAL_STEP) {
@@ -150,6 +148,7 @@ void rgb_matrix_indicators_user(void) {
         }
         rgb_matrix_set_color(CAPS_LOCK_LED_INDEX, b, b, b);  // white, with the adjusted brightness
     }
+    return true;
 }
 
 #endif

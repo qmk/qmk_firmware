@@ -29,17 +29,3 @@
 // Note: The default is to not wrap and to send F13-F24 with combinations of shift/control/alt as these
 // are immediately usable in most software (e.g. OBS and DCSB for streaming) without using AHK.
 //#define KC_WRAPPER_KEY KC_F24
-
-// clang-format off
-#define LAYOUT_ortho_4x8( \
-    Q00, Q01, Q02, Q03, Q04, Q05, Q06, Q07, \
-    Q10, Q11, Q12, Q13, Q14, Q15, Q16, Q17, \
-    Q20, Q21, Q22, Q23, Q24, Q25, Q26, Q27, \
-    Q30, Q31, Q32, Q33, Q34, Q35, Q36, Q37  \
-) { \
-    {Q00, Q01, Q02, Q03, Q04, Q05, Q06, Q07}, \
-    {Q10, Q11, Q12, Q13, Q14, Q15, Q16, Q17}, \
-    {Q20, Q21, Q22, Q23, Q24, Q25, Q26, Q27}, \
-    {Q30, Q31, Q32, Q33, Q34, Q35, Q36, Q37}  \
-}
-// clang-format on

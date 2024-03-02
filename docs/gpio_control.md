@@ -30,7 +30,7 @@ The above functions are not always guaranteed to work atomically. Therefore, if 
 
 eg.
 ```c
-void some_function() {
+void some_function(void) {
      // some process
      ATOMIC_BLOCK_FORCEON {
         // Atomic Processing

@@ -1,0 +1,68 @@
+{
+    "usb": {
+        "vid": "0x5957",
+        "pid": "0x0300",
+        "device_version": "0.1.0"
+    },
+    "manufacturer": "Yowkees",
+    "keyboard_name": "KeyballONE47",
+    "rgblight": {
+        "driver": "ws2812"
+    },
+    "layouts": {
+      "LAYOUT_right_ball": {
+        "layout": [
+          { "label": "K00", "x": 0, "y": 0 },
+          { "label": "K01", "x": 1, "y": 0 },
+          { "label": "K02", "x": 2, "y": 0 },
+          { "label": "K03", "x": 3, "y": 0 },
+          { "label": "K04", "x": 4, "y": 0 },
+          { "label": "K05", "x": 5, "y": 0 },
+          { "label": "K06", "x": 8, "y": 0 },
+          { "label": "K07", "x": 9, "y": 0 },
+          { "label": "K08", "x":10, "y": 0 },
+          { "label": "K09", "x":11, "y": 0 },
+          { "label": "K0A", "x":12, "y": 0 },
+          { "label": "K0B", "x":13, "y": 0 },
+
+          { "label": "K10", "x": 0, "y": 1 },
+          { "label": "K11", "x": 1, "y": 1 },
+          { "label": "K12", "x": 2, "y": 1 },
+          { "label": "K13", "x": 3, "y": 1 },
+          { "label": "K14", "x": 4, "y": 1 },
+          { "label": "K15", "x": 5, "y": 1 },
+          { "label": "K16", "x": 8, "y": 1 },
+          { "label": "K17", "x": 9, "y": 1 },
+          { "label": "K18", "x":10, "y": 1 },
+          { "label": "K19", "x":11, "y": 1 },
+          { "label": "K1A", "x":12, "y": 1 },
+          { "label": "K1B", "x":13, "y": 1 },
+
+          { "label": "K20", "x": 0, "y": 2 },
+          { "label": "K21", "x": 1, "y": 2 },
+          { "label": "K22", "x": 2, "y": 2 },
+          { "label": "K23", "x": 3, "y": 2 },
+          { "label": "K24", "x": 4, "y": 2 },
+          { "label": "K25", "x": 5, "y": 2 },
+          { "label": "K35", "x": 6, "y": 2 },
+          { "label": "K38", "x": 7, "y": 2 },
+          { "label": "K26", "x": 8, "y": 2 },
+          { "label": "K27", "x": 9, "y": 2 },
+          { "label": "K28", "x":10, "y": 2 },
+          { "label": "K29", "x":11, "y": 2 },
+          { "label": "K2A", "x":12, "y": 2 },
+          { "label": "K2B", "x":13, "y": 2 },
+
+          { "label": "K30", "x": 1, "y": 3 },
+          { "label": "K31", "x": 2, "y": 3 },
+          { "label": "K32", "x": 3, "y": 3 },
+          { "label": "K33", "x": 4, "y": 3 },
+          { "label": "K34", "x": 5, "y": 3 },
+          { "label": "K36", "x": 6, "y": 3 },
+          { "label": "K37", "x": 7, "y": 3 },
+          { "label": "K39", "x": 8, "y": 3 },
+          { "label": "K3A", "x":12, "y": 3 }
+        ]
+      }
+    }
+}

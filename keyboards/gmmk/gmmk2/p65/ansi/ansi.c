@@ -14,12 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "ansi.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
 
-const aw_led g_aw_leds[DRIVER_LED_TOTAL] = {
-/* Refer to IS31 manual for these locations
+const aw20216s_led_t g_aw20216s_leds[RGB_MATRIX_LED_COUNT] = {
+/* Refer to AW20216S manual for these locations
  *   driver
  *   |     R location
  *   |     |          G location

@@ -43,7 +43,7 @@ enum {
 };
 
 /* Tap Dance definitions */
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_1] = ACTION_TAP_DANCE_DOUBLE(LCTL(KC_1), LCTL(LSFT(KC_1))),
     [TD_2] = ACTION_TAP_DANCE_DOUBLE(LCTL(KC_2), LCTL(LSFT(KC_2))),
     [TD_3] = ACTION_TAP_DANCE_DOUBLE(LCTL(KC_3), LCTL(LSFT(KC_3))),

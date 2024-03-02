@@ -21,29 +21,103 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "progmem.h"
+#include "util.h"
 
-typedef struct is31_led {
+// ======== DEPRECATED DEFINES - DO NOT USE ========
+#ifdef LED_DRIVER_ADDR_1
+#    define IS31FL3731_I2C_ADDRESS_1 LED_DRIVER_ADDR_1
+#endif
+#ifdef LED_DRIVER_ADDR_2
+#    define IS31FL3731_I2C_ADDRESS_2 LED_DRIVER_ADDR_2
+#endif
+#ifdef LED_DRIVER_ADDR_3
+#    define IS31FL3731_I2C_ADDRESS_3 LED_DRIVER_ADDR_3
+#endif
+#ifdef LED_DRIVER_ADDR_4
+#    define IS31FL3731_I2C_ADDRESS_4 LED_DRIVER_ADDR_4
+#endif
+#ifdef ISSI_TIMEOUT
+#    define IS31FL3731_I2C_TIMEOUT ISSI_TIMEOUT
+#endif
+#ifdef ISSI_PERSISTENCE
+#    define IS31FL3731_I2C_PERSISTENCE ISSI_PERSISTENCE
+#endif
+#ifdef ISSI_3731_DEGHOST
+#    define IS31FL3731_DEGHOST ISSI_3731_DEGHOST
+#endif
+
+#define is31_led is31fl3731_led_t
+#define g_is31_leds g_is31fl3731_leds
+// ========
+
+#define IS31FL3731_REG_COMMAND 0xFD
+#define IS31FL3731_COMMAND_FRAME_1 0x00
+#define IS31FL3731_COMMAND_FRAME_2 0x01
+#define IS31FL3731_COMMAND_FRAME_3 0x02
+#define IS31FL3731_COMMAND_FRAME_4 0x03
+#define IS31FL3731_COMMAND_FRAME_5 0x04
+#define IS31FL3731_COMMAND_FRAME_6 0x05
+#define IS31FL3731_COMMAND_FRAME_7 0x06
+#define IS31FL3731_COMMAND_FRAME_8 0x07
+#define IS31FL3731_COMMAND_FUNCTION 0x0B
+
+#define IS31FL3731_FUNCTION_REG_CONFIG 0x00
+#define IS31FL3731_CONFIG_MODE_PICTURE 0x00
+#define IS31FL3731_CONFIG_MODE_AUTO_PLAY 0x08
+#define IS31FL3731_CONFIG_MODE_AUDIO_PLAY 0x18
+
+#define IS31FL3731_FUNCTION_REG_PICTURE_DISPLAY 0x01
+#define IS31FL3731_FUNCTION_REG_AUDIO_SYNC 0x06
+#define IS31FL3731_FUNCTION_REG_SHUTDOWN 0x0A
+
+// Not defined in the datasheet -- See AN for IC
+#define IS31FL3731_FUNCTION_REG_GHOST_IMAGE_PREVENTION 0xC2
+#define IS31FL3731_GHOST_IMAGE_PREVENTION_GEN 0x10
+
+#define IS31FL3731_I2C_ADDRESS_GND 0x74
+#define IS31FL3731_I2C_ADDRESS_SCL 0x75
+#define IS31FL3731_I2C_ADDRESS_SDA 0x76
+#define IS31FL3731_I2C_ADDRESS_VCC 0x77
+
+#if defined(LED_MATRIX_IS31FL3731)
+#    define IS31FL3731_LED_COUNT LED_MATRIX_LED_COUNT
+#endif
+
+#if defined IS31FL3731_I2C_ADDRESS_4
+#    define IS31FL3731_DRIVER_COUNT 4
+#elif defined IS31FL3731_I2C_ADDRESS_3
+#    define IS31FL3731_DRIVER_COUNT 3
+#elif defined IS31FL3731_I2C_ADDRESS_2
+#    define IS31FL3731_DRIVER_COUNT 2
+#elif defined IS31FL3731_I2C_ADDRESS_1
+#    define IS31FL3731_DRIVER_COUNT 1
+#endif
+
+typedef struct is31fl3731_led_t {
     uint8_t driver : 2;
     uint8_t v;
-} __attribute__((packed)) is31_led;
+} PACKED is31fl3731_led_t;
 
-extern const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL];
+extern const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT];
 
-void IS31FL3731_init(uint8_t addr);
-void IS31FL3731_write_register(uint8_t addr, uint8_t reg, uint8_t data);
-void IS31FL3731_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
+void is31fl3731_init_drivers(void);
+void is31fl3731_init(uint8_t addr);
+void is31fl3731_write_register(uint8_t addr, uint8_t reg, uint8_t data);
+void is31fl3731_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
 
-void IS31FL3731_set_value(int index, uint8_t value);
-void IS31FL3731_set_value_all(uint8_t value);
+void is31fl3731_set_value(int index, uint8_t value);
+void is31fl3731_set_value_all(uint8_t value);
 
-void IS31FL3731_set_led_control_register(uint8_t index, bool value);
+void is31fl3731_set_led_control_register(uint8_t index, bool value);
 
 // This should not be called from an interrupt
 // (eg. from a timer interrupt).
 // Call this while idle (in between matrix scans).
 // If the buffer is dirty, it will update the driver with the buffer.
-void IS31FL3731_update_pwm_buffers(uint8_t addr, uint8_t index);
-void IS31FL3731_update_led_control_registers(uint8_t addr, uint8_t index);
+void is31fl3731_update_pwm_buffers(uint8_t addr, uint8_t index);
+void is31fl3731_update_led_control_registers(uint8_t addr, uint8_t index);
+
+void is31fl3731_flush(void);
 
 #define C1_1 0x24
 #define C1_2 0x25

@@ -40,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    * accented characters are defined in unicode_weurope.h
    *
    * Unicode macros facilitate recomputing for re-computing the Dvorak with changed letters 
-   * ('descramble'), and exist because space ran out for * XP(…).
+   * ('descramble'), and exist because space ran out for * UP(…).
    *
    * The led color code might be a bit hairy, due to speed/count middle led overlapping layer color. 
    *
@@ -192,8 +192,8 @@ void keyboard_post_init_user (void) {
     rgblight_mode_noeeprom (RGBLIGHT_EFFECT_BREATHING + 2);
 
     // Init the first and last LEDs to a static color.
-    setrgb (0, 0, 0, (LED_TYPE *)&led[0]); // Led[0] is led 0
-    setrgb (0, 0, 0, (LED_TYPE *)&led[2]); // 2nd led
+    setrgb (0, 0, 0, (rgb_led_t *)&led[0]); // Led[0] is led 0
+    setrgb (0, 0, 0, (rgb_led_t *)&led[2]); // 2nd led
 
 // The logic seems to be to establish the effect first, and then toggle it on/off.
 #     ifdef STARTUP_MID_LED_OFF
@@ -288,7 +288,7 @@ void speed_led (int speed) {
 
 
 // do this in one place to handle left/right leds being off here
-void isolate_rgblight_set () {
+void isolate_rgblight_set (void) {
 
 # ifdef RGBLIGHT_ENABLE
     if (!leds_on) { // left/right leds are off
@@ -301,8 +301,8 @@ void isolate_rgblight_set () {
         led2r = 0; 
         led2g = 0; 
         led2b = 0; 
-        setrgb(led0r, led0g, led0b, (LED_TYPE *)&led[0]); // Led 0
-        setrgb(led2r, led2g, led2b, (LED_TYPE *)&led[2]); // Led 2
+        setrgb(led0r, led0g, led0b, (rgb_led_t *)&led[0]); // Led 0
+        setrgb(led2r, led2g, led2b, (rgb_led_t *)&led[2]); // Led 2
     }
     rgblight_set ();
 # endif
@@ -326,8 +326,8 @@ void indicate_fun_stay (void) {
         led0g = 50;  //   
         led2r = 255; // red
     }
-    setrgb(led0r, led0g, led0b, (LED_TYPE *)&led[0]); // Led 0
-    setrgb(led2r, led2g, led2b, (LED_TYPE *)&led[2]); // Led 2
+    setrgb(led0r, led0g, led0b, (rgb_led_t *)&led[0]); // Led 0
+    setrgb(led2r, led2g, led2b, (rgb_led_t *)&led[2]); // Led 2
     isolate_rgblight_set ();
 
 # endif //RGBLIGHT_ENABLE
@@ -369,8 +369,8 @@ void indicate_base (void) {
         led2g = 255; 
         led2b = 255; 
     }
-    setrgb(led0r, led0g, led0b, (LED_TYPE *)&led[0]); // Led 0
-    setrgb(led2r, led2g, led2b, (LED_TYPE *)&led[2]); // Led 2
+    setrgb(led0r, led0g, led0b, (rgb_led_t *)&led[0]); // Led 0
+    setrgb(led2r, led2g, led2b, (rgb_led_t *)&led[2]); // Led 2
     isolate_rgblight_set ();
 
 # endif //RGBLIGHT_ENABLE
@@ -535,8 +535,8 @@ void set_led_colors_ (layer_state_t state) {
     //---
 
     // pushes the configuration
-    setrgb (led0r, led0g, led0b, (LED_TYPE *)&led[0]); // Led 0
-    setrgb (led2r, led2g, led2b, (LED_TYPE *)&led[2]); // Led 2
+    setrgb (led0r, led0g, led0b, (rgb_led_t *)&led[0]); // Led 0
+    setrgb (led2r, led2g, led2b, (rgb_led_t *)&led[2]); // Led 2
 
     isolate_rgblight_set (); // Activates the led color change, after on/off check.
 
@@ -1191,8 +1191,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //      <pink2    , <pinky           , <ring            , <middl           , <index           , <indx2           |, indx2>        , index>  , middl>           , ring>              , pinky>  , pink2>        ,
 //                ,                  ,                  ,                  , -*-              ,                 <|,>              ,         ,                  ,                    ,         ,               ,
         CTO_BASE  , COUNT_TOG        , COUNT_NULL       , COUNT_WORDMIN    , COUNT_REPORT     , SPEED_TOG         , SPEED_REPORT  , KC_MPLY , KC_MNXT          , KC_MPRV            , KC_MSTP , KC_RSFT       ,
-        KC_CAPS   , C_KC_PWR         , C_KC_WAKE        , C_KC_SLEP        , C_KC_PAUS        , KC_SLCK           , KC_PSCR       , XXXXXXX , KC_VOLU          , KC_VOLD            , KC_MUTE , KC_INS        ,
-        XP_DRA_CG , UNICODE_MODE_LNX , UNICODE_MODE_BSD , UNICODE_MODE_OSX , UNICODE_MODE_WIN , UNICODE_MODE_WINC , XXXXXXX       , XXXXXXX , KC_BRIGHTNESS_UP , KC_BRIGHTNESS_DOWN , XXXXXXX , KC_APP        ,
+        KC_CAPS   , C_KC_PWR         , C_KC_WAKE        , C_KC_SLEP        , C_KC_PAUS        , KC_SCRL           , KC_PSCR       , XXXXXXX , KC_VOLU          , KC_VOLD            , KC_MUTE , KC_INS        ,
+        XP_DRA_CG , UC_LINX          , UC_BSD           , UC_MAC           , UC_WIN           , UC_WINC           , XXXXXXX       , XXXXXXX , KC_BRIGHTNESS_UP , KC_BRIGHTNESS_DOWN , XXXXXXX , KC_APP        ,
 //      -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         LEDS_ON  
 #     ifdef TRANSMINIVAN_LEFTSIDE
@@ -1289,7 +1289,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                 , TRANS_MIDLEFT
 #             endif
 
-                                                , KC_NUMLOCK , XXXXXXX , KC__YGUI
+                                                , KC_NUM , XXXXXXX , KC__YGUI
 
 #             ifdef TRANSMINIVAN_RIGHTSIDE
                                                                                   , TRANS_RIGHT
@@ -1381,7 +1381,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     , TRANS_MIDLEFT
 #             endif
 
-                                                    , KC_NUMLOCK , KC_KP_0 
+                                                    , KC_NUM , KC_KP_0 
 
 // See comment in ./base_numpad.c on the first layout (double handed Base layer), about the next few keys:
 // This layer follows that layout Base Numpad.

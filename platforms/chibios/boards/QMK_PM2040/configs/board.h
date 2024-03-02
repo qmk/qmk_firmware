@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include_next "board.h"
+#include_next <board.h>
 
 #undef BOARD_RP_PICO_RP2040
 #define BOARD_PM2040

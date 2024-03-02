@@ -1,8 +1,8 @@
 {
-    "keyboard": "handwired/pytest/basic",
+    "keyboard": "handwired/pytest/macro",
     "keymap": "default_json",
     "layout": "LAYOUT_ortho_1x1",
-    "layers": [["MACRO_0"]],
+    "layers": [["QK_MACRO_0"]],
     "macros": [
         [
             "Hello, World!",

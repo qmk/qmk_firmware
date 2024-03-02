@@ -6,8 +6,8 @@
 #define KC_FNLK TG(1) // Fn lock
 #define KC_HOME LGUI(KC_LEFT) // Home, or cmd-left
 #define KC_END LGUI(KC_RGHT) // End, or cmd-right
-#define KC_SLP LGUI(LALT(KC_POWER)) // sleep, or cmd-option-power
-#define KC_SCLK LCTL(LSFT(KC_POWER)) // lock screen, or ctrl-shift-power
+#define KC_SLP LGUI(LALT(KC_PWR)) // sleep, or cmd-option-power
+#define KC_SCLK LCTL(LSFT(KC_PWR)) // lock screen, or ctrl-shift-power
 
 // Mark I keyboard layout for GH60 Satan
 // http://www.keyboard-layout-editor.com/#/gists/e1cde292bd2094cc3b763206d4d2cfb5

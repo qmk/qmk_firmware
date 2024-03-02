@@ -16,10 +16,4 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* matrix properties */
-#define MATRIX_COLS 19
-#define MATRIX_ROWS 8
-#define DEBOUNCE 5
 #define MATRIX_HAS_GHOST

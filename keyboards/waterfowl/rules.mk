@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -18,6 +12,5 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
 OLED_ENABLE = yes        # Enables the use of OLED displays
-OLED_DRIVER = SSD1306    # Specifies the type of OLED
 SPLIT_KEYBOARD = yes     # Enables split functionality
 ENCODER_ENABLE = yes	 # Enables the encoders

@@ -36,7 +36,7 @@ enum {
     CMD_LED_MASK_SET_MONO = 0x12,
 
     /* Reactive / status */
-    CMD_LED_GET_STATUS = 0x20,
+    CMD_LED_GET_STATUS = 0x20, /* unused */
     CMD_LED_KEY_BLINK  = 0x21,
     CMD_LED_KEY_DOWN   = 0x22,
     CMD_LED_KEY_UP     = 0x23, /* TODO */

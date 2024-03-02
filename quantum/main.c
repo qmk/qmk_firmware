@@ -60,9 +60,9 @@ int main(void) {
         protocol_task();
 
 #ifdef QUANTUM_PAINTER_ENABLE
-        // Run Quantum Painter animations
-        void qp_internal_animation_tick(void);
-        qp_internal_animation_tick();
+        // Run Quantum Painter task
+        void qp_internal_task(void);
+        qp_internal_task();
 #endif
 
 #ifdef DEFERRED_EXEC_ENABLE

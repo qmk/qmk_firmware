@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <stdint.h>
 #include <stdbool.h>
-#include "owlet60.h"
 #include "wait.h"
 #include "print.h"
 #include "debug.h"
@@ -200,7 +199,7 @@ void matrix_init(void) {
 
     debounce_init(MATRIX_ROWS);
 
-    matrix_init_quantum();
+    matrix_init_kb();
 
     setPinInput(D5);
     setPinInput(B0);
@@ -217,7 +216,7 @@ uint8_t matrix_scan(void)
 
     debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
 
-    matrix_scan_quantum();
+    matrix_scan_kb();
     return (uint8_t)changed;
 }
 
@@ -235,7 +234,7 @@ uint8_t matrix_scan(void)
 
   debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
 
-  matrix_scan_quantum();
+  matrix_scan_kb();
   return (uint8_t)changed;
 }
 */

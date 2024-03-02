@@ -1,0 +1,375 @@
+{
+    "aliases": {
+/*
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │ ` │ ! │ - │ / │ ; │ : │ , │ . │ = │ ( │ ) │ ? │ X │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │ Ą │ Ž │ E │ R │ T │ Y │ U │ I │ O │ P │ Į │ W │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │ A │ S │ D │ Š │ G │ H │ J │ K │ L │ Ų │ Ė │ Q │    │
+ * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
+ * │    │ < │ Z │ Ū │ C │ V │ B │ N │ M │ Č │ F │ Ę │          │
+ * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+        "KC_GRV": {
+            "key": "LT_GRV",
+            "label": "`",
+        }
+        "KC_1": {
+            "key": "LT_EXLM",
+            "label": "!",
+        }
+        "KC_2": {
+            "key": "LT_MINS",
+            "label": "-",
+        }
+        "KC_3": {
+            "key": "LT_SLSH",
+            "label": "/",
+        }
+        "KC_4": {
+            "key": "LT_SCLN",
+            "label": ";",
+        }
+        "KC_5": {
+            "key": "LT_COLN",
+            "label": ":",
+        }
+        "KC_6": {
+            "key": "LT_COMM",
+            "label": ",",
+        }
+        "KC_7": {
+            "key": "LT_DOT",
+            "label": ".",
+        }
+        "KC_8": {
+            "key": "LT_EQL",
+            "label": "=",
+        }
+        "KC_9": {
+            "key": "LT_LPRN",
+            "label": "(",
+        }
+        "KC_0": {
+            "key": "LT_RPRN",
+            "label": ")",
+        }
+        "KC_MINS": {
+            "key": "LT_QUES",
+            "label": "?",
+        }
+        "KC_EQL": {
+            "key": "LT_X",
+            "label": "X",
+        }
+        "KC_Q": {
+            "key": "LT_AOGO",
+            "label": "Ą",
+        }
+        "KC_W": {
+            "key": "LT_ZCAR",
+            "label": "Ž",
+        }
+        "KC_E": {
+            "key": "LT_E",
+            "label": "E",
+        }
+        "KC_R": {
+            "key": "LT_R",
+            "label": "R",
+        }
+        "KC_T": {
+            "key": "LT_T",
+            "label": "T",
+        }
+        "KC_Y": {
+            "key": "LT_Y",
+            "label": "Y",
+        }
+        "KC_U": {
+            "key": "LT_U",
+            "label": "U",
+        }
+        "KC_I": {
+            "key": "LT_I",
+            "label": "I",
+        }
+        "KC_O": {
+            "key": "LT_O",
+            "label": "O",
+        }
+        "KC_P": {
+            "key": "LT_P",
+            "label": "P",
+        }
+        "KC_LBRC": {
+            "key": "LT_IOGO",
+            "label": "Į",
+        }
+        "KC_RBRC": {
+            "key": "LT_W",
+            "label": "W",
+        }
+        "KC_A": {
+            "key": "LT_A",
+            "label": "A",
+        }
+        "KC_S": {
+            "key": "LT_S",
+            "label": "S",
+        }
+        "KC_D": {
+            "key": "LT_D",
+            "label": "D",
+        }
+        "KC_F": {
+            "key": "LT_SCAR",
+            "label": "Š",
+        }
+        "KC_G": {
+            "key": "LT_G",
+            "label": "G",
+        }
+        "KC_H": {
+            "key": "LT_H",
+            "label": "H",
+        }
+        "KC_J": {
+            "key": "LT_J",
+            "label": "J",
+        }
+        "KC_K": {
+            "key": "LT_K",
+            "label": "K",
+        }
+        "KC_L": {
+            "key": "LT_L",
+            "label": "L",
+        }
+        "KC_SCLN": {
+            "key": "LT_UOGO",
+            "label": "Ų",
+        }
+        "KC_QUOT": {
+            "key": "LT_EDOT",
+            "label": "Ė",
+        }
+        "KC_NUHS": {
+            "key": "LT_Q",
+            "label": "Q",
+        }
+        "KC_NUBS": {
+            "key": "LT_LABK",
+            "label": "<",
+        }
+        "KC_Z": {
+            "key": "LT_Z",
+            "label": "Z",
+        }
+        "KC_X": {
+            "key": "LT_UMAC",
+            "label": "Ū",
+        }
+        "KC_C": {
+            "key": "LT_C",
+            "label": "C",
+        }
+        "KC_V": {
+            "key": "LT_V",
+            "label": "V",
+        }
+        "KC_B": {
+            "key": "LT_B",
+            "label": "B",
+        }
+        "KC_N": {
+            "key": "LT_N",
+            "label": "N",
+        }
+        "KC_M": {
+            "key": "LT_M",
+            "label": "M",
+        }
+        "KC_COMM": {
+            "key": "LT_CCAR",
+            "label": "Č",
+        }
+        "KC_DOT": {
+            "key": "LT_F",
+            "label": "F",
+        }
+        "KC_SLSH": {
+            "key": "LT_EOGO",
+            "label": "Ę",
+        }
+/* Shifted symbols
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │ ~ │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ + │   │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │   │   │   │   │   │   │   │   │   │   │   │   │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │   │   │   │   │   │   │   │   │   │   │   │   │    │
+ * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
+ * │    │ > │   │   │   │   │   │   │   │   │   │   │          │
+ * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+        "S(LT_GRV)": {
+            "key": "LT_TILD",
+            "label": "~",
+        }
+        "S(LT_EXLM)": {
+            "key": "LT_1",
+            "label": "1",
+        }
+        "S(LT_MINS)": {
+            "key": "LT_2",
+            "label": "2",
+        }
+        "S(LT_SLSH)": {
+            "key": "LT_3",
+            "label": "3",
+        }
+        "S(LT_SCLN)": {
+            "key": "LT_4",
+            "label": "4",
+        }
+        "S(LT_COLN)": {
+            "key": "LT_5",
+            "label": "5",
+        }
+        "S(LT_COMM)": {
+            "key": "LT_6",
+            "label": "6",
+        }
+        "S(LT_DOT)": {
+            "key": "LT_7",
+            "label": "7",
+        }
+        "S(LT_EQL)": {
+            "key": "LT_8",
+            "label": "8",
+        }
+        "S(LT_LPRN)": {
+            "key": "LT_9",
+            "label": "9",
+        }
+        "S(LT_RPRN)": {
+            "key": "LT_0",
+            "label": "0",
+        }
+        "S(LT_QUES)": {
+            "key": "LT_PLUS",
+            "label": "+",
+        }
+        "S(LT_LABK)": {
+            "key": "LT_RABK",
+            "label": ">",
+        }
+/* AltGr symbols
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │ ´ │ @ │ _ │ # │ $ │ § │ ^ │ & │ * │ [ │ ] │ ' │ % │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │   │   │ € │   │   │   │   │   │   │   │ { │ } │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │   │   │   │   │   │   │   │   │   │   │ " │ | │    │
+ * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
+ * │    │ – │   │   │   │   │   │   │   │ „ │ “ │ \ │          │
+ * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+        "ALGR(LT_GRV)": {
+            "key": "LT_ACUT",
+            "label": "´",
+        }
+        "ALGR(LT_EXLM)": {
+            "key": "LT_AT",
+            "label": "@",
+        }
+        "ALGR(LT_MINS)": {
+            "key": "LT_UNDS",
+            "label": "_",
+        }
+        "ALGR(LT_SLSH)": {
+            "key": "LT_HASH",
+            "label": "#",
+        }
+        "ALGR(LT_SCLN)": {
+            "key": "LT_DLR",
+            "label": "$",
+        }
+        "ALGR(LT_COLN)": {
+            "key": "LT_SECT",
+            "label": "§",
+        }
+        "ALGR(LT_COMM)": {
+            "key": "LT_CIRC",
+            "label": "^",
+        }
+        "ALGR(LT_DOT)": {
+            "key": "LT_AMPR",
+            "label": "&",
+        }
+        "ALGR(LT_EQL)": {
+            "key": "LT_ASTR",
+            "label": "*",
+        }
+        "ALGR(LT_LPRN)": {
+            "key": "LT_LBRC",
+            "label": "[",
+        }
+        "ALGR(LT_RPRN)": {
+            "key": "LT_RBRC",
+            "label": "]",
+        }
+        "ALGR(LT_QUES)": {
+            "key": "LT_QUOT",
+            "label": "'",
+        }
+        "ALGR(LT_X)": {
+            "key": "LT_PERC",
+            "label": "%",
+        }
+        "ALGR(LT_E)": {
+            "key": "LT_EURO",
+            "label": "€",
+        }
+        "ALGR(LT_IOGO)": {
+            "key": "LT_LCBR",
+            "label": "{",
+        }
+        "ALGR(LT_W)": {
+            "key": "LT_RCBR",
+            "label": "}",
+        }
+        "ALGR(LT_EDOT)": {
+            "key": "LT_DQUO",
+            "label": "\"",
+        }
+        "ALGR(LT_Q)": {
+            "key": "LT_PIPE",
+            "label": "|",
+        }
+        "ALGR(LT_LABK)": {
+            "key": "LT_NDSH",
+            "label": "–",
+        }
+        "ALGR(LT_CCAR)": {
+            "key": "LT_DLQU",
+            "label": "„",
+        }
+        "ALGR(LT_F)": {
+            "key": "LT_LDQU",
+            "label": "“",
+        }
+        "ALGR(LT_EOGO)": {
+            "key": "LT_BSLS",
+            "label": "\\",
+        }
+    }
+}

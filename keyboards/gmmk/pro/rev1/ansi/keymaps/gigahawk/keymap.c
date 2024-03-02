@@ -52,10 +52,11 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     } else {
         tap_code(KC_VOLD);
     }
-    return true;
+    //return true; //set to return false to counteract enabled encoder in pro.c
+    return false;
 }
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     if (IS_LAYER_ON(_TRAN)) {
         rgb_matrix_set_color_all(_TRAN_COLOR_RGB);
     } else if (IS_LAYER_ON(_GAME)) {
@@ -65,10 +66,11 @@ void rgb_matrix_indicators_user(void) {
     }
 
     if (host_keyboard_led_state().caps_lock) {
-        for (uint8_t i = 0; i < DRIVER_LED_TOTAL; ++i) {
+        for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; ++i) {
             if (HAS_ANY_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
                 rgb_matrix_set_color(i, _CAPS_COLOR_RGB);
             }
         }
     }
+    return false;
 }

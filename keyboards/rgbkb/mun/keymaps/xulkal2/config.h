@@ -10,7 +10,7 @@
 #pragma once
 
 // Xulkal custom stuff
-#undef TAPPING_FORCE_HOLD
+#undef QUICK_TAP_TERM
 
 #undef TAPPING_TERM
 #define TAPPING_TERM 175
@@ -29,7 +29,7 @@
 #undef ENABLE_RGB_MATRIX_SOLID_SPLASH
 
 // 20m timeout (20m * 60s * 1000mil)
-// #define RGB_DISABLE_TIMEOUT 1200000
+// #define RGB_MATRIX_TIMEOUT 1200000
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 #define OLED_SCROLL_TIMEOUT 20000
 #define ONESHOT_TAP_TOGGLE 2

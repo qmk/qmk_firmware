@@ -1,3 +1,6 @@
+// Copyright 2023 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
@@ -36,20 +39,20 @@ enum {
   PSPA
 };
 
-void dance_LAYER_finished(qk_tap_dance_state_t *state, void *user_data) {
+void dance_LAYER_finished(tap_dance_state_t *state, void *user_data) {
   if (state->count == 2) {
      layer_on(_ADJUST2);
      set_oneshot_layer(_ADJUST2, ONESHOT_START);
   }
 }
-void dance_LAYER_reset(qk_tap_dance_state_t *state, void *user_data) {
+void dance_LAYER_reset(tap_dance_state_t *state, void *user_data) {
   if (state->count == 2) {
      layer_off(_ADJUST2);
      clear_oneshot_layer_state(ONESHOT_PRESSED);
   }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
 [ADJ]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_LAYER_finished, dance_LAYER_reset),  //  Double-tap to activate Adjust layer via oneshot layer
 [LBCB] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_LCBR),  // Left bracket on a single-tap, left brace on a double-tap
 [RBCB] = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, KC_RCBR),  // Right bracket on a single-tap, right brace on a double-tap
@@ -119,12 +122,12 @@ Colemak
 	                                          |   Fn   | Number |  Bspc  |                 |  Enter | Number2|   Fn2  |
 	                                          `--------------------------'                 `--------------------------'
 */
-[_COLEMAK] = LAYOUT_pretty(
-  KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR, KC_SLCK, KC_PAUS, NUMPAD,  ADJUST,
+[_COLEMAK] = LAYOUT(
+  KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR, KC_SCRL, KC_PAUS, NUMPAD,  ADJUST,
   KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                                          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
   KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                                                          KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSLS,
   CTLESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,                                                          KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
-  KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                                                          KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
+  SC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                                                          KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SC_RSPC,
            KC_INS,  KC_GRV,  KC_LBRC, KC_RBRC,                                                                         KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
                                                         CTLESC,  HYPER,                     KC_RALT, KC_RCTL,
                                                                  ALTAPP,                    KC_RGUI,
@@ -156,12 +159,12 @@ QWERTY
 	                                          |   Fn   | Number |  Bspc  |                 |  Enter | Number2|   Fn2  |
 	                                          `--------------------------'                 `--------------------------'
 */
-[_QWERTY] = LAYOUT_pretty(
-  KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR, KC_SLCK, KC_PAUS, NUMPAD,  ADJUST,
+[_QWERTY] = LAYOUT(
+  KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR, KC_SCRL, KC_PAUS, NUMPAD,  ADJUST,
   KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                                          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                                          KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
   CTLESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                                                          KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-  KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                                                          KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
+  SC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                                                          KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SC_RSPC,
            KC_INS,  KC_GRV,  KC_LBRC, KC_RBRC,                                                                         KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
                                                         CTLESC,  HYPER,                     KC_RALT, KC_RCTL,
                                                                  ALTAPP,                    KC_RGUI,
@@ -193,7 +196,7 @@ Numbers/Symbols layer
 	                                          |        |        |        |                 |        |        |        |
 	                                          `--------------------------'                 `--------------------------'
 */
-[_NUMBERS] = LAYOUT_pretty(
+[_NUMBERS] = LAYOUT(
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                                         KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
   _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,                                                          KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
@@ -205,7 +208,7 @@ Numbers/Symbols layer
                                                _______, _______, _______,                   _______, _______, _______
 ),
 
-[_NUMBERS2] = LAYOUT_pretty(
+[_NUMBERS2] = LAYOUT(
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                                         KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
   _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,                                                          KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
@@ -241,7 +244,7 @@ Function layer
 	                                          |        |        |        |                 |        |        |        |
 	                                          `--------------------------'                 `--------------------------'
 */
-[_FUNCTION] = LAYOUT_pretty(
+[_FUNCTION] = LAYOUT(
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                                         KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
   _______, _______, _______, KC_UP,   _______, _______,                                                       _______, _______, KC_UP,   CTL_Y,   _______, _______,
@@ -253,7 +256,7 @@ Function layer
                                                _______, _______, _______,                   _______, _______, _______
 ),
 
-[_FUNCTION2] = LAYOUT_pretty(
+[_FUNCTION2] = LAYOUT(
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                                         KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
   _______, _______, _______, KC_UP,   _______, _______,                                                       _______, _______, KC_UP,   CTL_Y,   _______, _______,
@@ -290,9 +293,9 @@ Numpad layer
 	                                          |        |        |        |                 |        |        |        |
 	                                          `--------------------------'                 `--------------------------'
 */
-[_NUMPAD] = LAYOUT_pretty(
+[_NUMPAD] = LAYOUT(
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-  _______, KC_NLCK, _______, _______, _______, _______,                                                       KC_TAB,  KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, _______,
+  _______, KC_NUM,  _______, _______, _______, _______,                                                       KC_TAB,  KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS, _______,
   _______, KC_P6,   KC_P7,   KC_P8,   KC_P9,   KC_P0,                                                         _______, KC_P7,   KC_P8,   KC_P9,   KC_PPLS, _______,
   _______, KC_P1,   KC_P2,   KC_P3,   KC_P4,   KC_P5,                                                         _______, KC_P4,   KC_P5,   KC_P6,   KC_EQL,  _______,
   _______, _______, KC_PDOT, TD_PSPA, TD_MNUN, TD_PPEQ,                                                       _______, KC_P1,   KC_P2,   KC_P3,   KC_PENT, _______,
@@ -327,7 +330,7 @@ Gaming
 	                                          |        |        |  Bspc  |                 |Enter/NS| Number2|   Fn2  |
 	                                          `--------------------------'                 `--------------------------'
 */
-[_GAMING] = LAYOUT_pretty(
+[_GAMING] = LAYOUT(
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,                                                       _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,                                                       _______, _______, _______, _______, _______, _______,
@@ -364,7 +367,7 @@ Adjust layer
 	                                          |        |        |        |                 |        |        |        |
 	                                          `--------------------------'                 `--------------------------'
 */
-[_ADJUST] = LAYOUT_pretty(
+[_ADJUST] = LAYOUT(
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______, COLEMAK, QWERTY,  _______, GAMING,  _______,                                                       NUMPAD,  _______, _______, _______, _______, QK_BOOT,
   _______, _______, _______, _______, _______, _______,                                                       _______, _______, _______, _______, _______, _______,
@@ -376,7 +379,7 @@ Adjust layer
                                                _______, _______, _______,                   _______, _______, _______
 ),
 
-[_ADJUST2] = LAYOUT_pretty(
+[_ADJUST2] = LAYOUT(
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______, COLEMAK, QWERTY,  _______, GAMING,  _______,                                                       NUMPAD,  _______, _______, _______, _______, QK_BOOT,
   _______, _______, _______, _______, _______, _______,                                                       _______, _______, _______, _______, _______, _______,

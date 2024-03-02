@@ -43,9 +43,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_FUNC] = LAYOUT_all(
          KC_GRV,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, _______,_______,KC_INS, 
-         _______,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI,_______,KC_PSCR,KC_SLCK,KC_PAUS,_______,_______,_______,      KC_HOME, 
-         _______,     VLK_TOG, RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD,_______,_______,_______,_______,_______,      _______,      KC_END, 
-         _______,_______,BL_TOGG, BL_DEC, BL_INC, BL_BRTG,_______,_______,_______,_______,_______,_______,_______,        KC_PGUP,_______, 
+         _______,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI,_______,KC_PSCR,KC_SCRL,KC_PAUS,_______,_______,_______,      KC_HOME, 
+         _______,     VK_TOGG, RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD,_______,_______,_______,_______,_______,      _______,      KC_END, 
+         _______,_______,BL_TOGG, BL_DOWN,BL_UP,  BL_BRTG,_______,_______,_______,_______,_______,_______,_______,        KC_PGUP,_______, 
          KC_SLEP,QK_BOOT,_______,      LCA(KC_DEL),     LCA(KC_DEL),    LCA(KC_DEL),  LCA(KC_INS),KC_APP, _______,KC_HOME,KC_PGDN,KC_END),
        
     /* Keymap Numpad Layer
@@ -65,26 +65,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, KC_KP_1, KC_KP_2, KC_KP_3, KC_KP_4, KC_KP_5, KC_KP_6, KC_KP_7, KC_KP_8, KC_KP_9, KC_KP_0, KC_KP_SLASH, _______, _______, _______, _______, 
         _______, _______, _______, _______, _______, _______, _______, KC_KP_4, KC_KP_5, KC_KP_6, KC_KP_ASTERISK, _______, _______, _______, _______, 
         _______, _______, _______, _______, _______, _______, _______, KC_KP_1, KC_KP_2, KC_KP_3, KC_KP_MINUS, _______, _______,             _______, 
-        _______, _______, KC_NLCK, _______, _______, _______, _______, _______, KC_KP_0, _______, _______, KC_KP_PLUS, _______,   _______, _______, 
+        _______, _______, KC_NUM,  _______, _______, _______, _______, _______, KC_KP_0, _______, _______, KC_KP_PLUS, _______,   _______, _______, 
         _______, _______, _______,       _______,        _______,         _______,          _______, _______, XXXXXXX, _______, _______, _______),
     };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    return true;
-}
-
-void matrix_init_user(void) {
-    
-}
-
-void matrix_scan_user(void) {
-    
-}
-
-void led_set_user(uint8_t usb_led) {
-    if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
+bool led_update_user(led_t led_state) {
+    if (led_state.caps_lock) {
       rgblight_enable_noeeprom();
     } else {
       rgblight_disable_noeeprom();
     }
+    return false;
 }

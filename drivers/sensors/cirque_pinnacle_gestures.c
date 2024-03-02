@@ -37,14 +37,6 @@ static report_mouse_t trackpad_tap(report_mouse_t mouse_report, pinnacle_data_t 
         if (!touchData.zValue) {
             if (timer_elapsed(tap.timer) < CIRQUE_PINNACLE_TAPPING_TERM && tap.timer != 0) {
                 mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, true, POINTING_DEVICE_BUTTON1);
-                pointing_device_set_report(mouse_report);
-                pointing_device_send();
-#    if TAP_CODE_DELAY > 0
-                wait_ms(TAP_CODE_DELAY);
-#    endif
-                mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, false, POINTING_DEVICE_BUTTON1);
-                pointing_device_set_report(mouse_report);
-                pointing_device_send();
             }
         }
         tap.timer = timer_read();

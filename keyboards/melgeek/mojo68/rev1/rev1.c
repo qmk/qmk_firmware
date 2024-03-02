@@ -14,11 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "mojo68.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
 
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31fl3741_led_t PROGMEM g_is31fl3741_leds[RGB_MATRIX_LED_COUNT] = {
     {0, CS9_SW1, CS8_SW1, CS7_SW1},    /* RGB1 */
     {0, CS9_SW2, CS8_SW2, CS7_SW2},    /* RGB2 */
     {0, CS9_SW3, CS8_SW3, CS7_SW3},    /* RGB3 */
@@ -112,7 +112,7 @@ led_config_t g_led_config = {
 	}
 };
 
-const is31_led g_is31_indicator_leds[3] = {
+const is31fl3741_led_t g_is31_indicator_leds[3] = {
     {0, CS6_SW1, CS5_SW1, CS4_SW1}, /* RGB124 */
     {0, CS6_SW2, CS5_SW2, CS4_SW2}, /* RGB125 */
     {0, CS6_SW3, CS5_SW3, CS4_SW3}, /* RGB126 */
@@ -121,21 +121,21 @@ const is31_led g_is31_indicator_leds[3] = {
 bool led_update_kb(led_t led_state) {
     if (led_update_user(led_state)) {
         if (led_state.caps_lock) {
-            IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[2], 0xff, 0x00, 0x00);
+            is31fl3741_set_pwm_buffer(&g_is31_indicator_leds[2], 0xff, 0x00, 0x00);
         } else {
-            IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[2], 0x00, 0x00, 0x00);
+            is31fl3741_set_pwm_buffer(&g_is31_indicator_leds[2], 0x00, 0x00, 0x00);
         }
 
         if (led_state.num_lock) {
-            IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[1], 0x00, 0xff, 0x00);
+            is31fl3741_set_pwm_buffer(&g_is31_indicator_leds[1], 0x00, 0xff, 0x00);
         } else {
-            IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[1], 0x00, 0x00, 0x00);
+            is31fl3741_set_pwm_buffer(&g_is31_indicator_leds[1], 0x00, 0x00, 0x00);
         }
 
         if (led_state.scroll_lock) {
-            IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[0], 0x00, 0x00, 0xff);
+            is31fl3741_set_pwm_buffer(&g_is31_indicator_leds[0], 0x00, 0x00, 0xff);
         } else {
-            IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[0], 0x00, 0x00, 0x00);
+            is31fl3741_set_pwm_buffer(&g_is31_indicator_leds[0], 0x00, 0x00, 0x00);
         }
     }
     return true;
@@ -143,11 +143,11 @@ bool led_update_kb(led_t led_state) {
 
 void matrix_init_kb(void) {
     for (int i = 0; i < DRIVER_INDICATOR_LED_TOTAL; ++i) {
-        is31_led led = g_is31_indicator_leds[i];
-        IS31FL3741_set_scaling_registers(&led, 0xFF, 0xFF, 0xFF);
+        is31fl3741_led_t led = g_is31_indicator_leds[i];
+        is31fl3741_set_scaling_registers(&led, 0xFF, 0xFF, 0xFF);
     }
 
-    IS31FL3741_update_led_control_registers(DRIVER_ADDR_1, 0);
+    is31fl3741_update_led_control_registers(IS31FL3741_I2C_ADDRESS_1, 0);
 
     matrix_init_user();
 }

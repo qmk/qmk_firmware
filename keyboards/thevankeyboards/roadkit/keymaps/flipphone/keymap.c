@@ -42,34 +42,34 @@ enum roadkit_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_NUMPAD] = LAYOUT_numpad_4x4( /* Numpad */
-    KC_KP_7,    KC_KP_8,    KC_KP_9,    KC_KP_PLUS,  \
-    KC_KP_4,    KC_KP_5,    KC_KP_6,                 \
-    KC_KP_1,    KC_KP_2,    KC_KP_3,    KC_KP_ENTER, \
-    LT(_ADJUST, KC_KP_0),   KC_KP_DOT                \
+    KC_KP_7,    KC_KP_8,    KC_KP_9,    KC_KP_PLUS,
+    KC_KP_4,    KC_KP_5,    KC_KP_6,
+    KC_KP_1,    KC_KP_2,    KC_KP_3,    KC_KP_ENTER,
+    LT(_ADJUST, KC_KP_0),   KC_KP_DOT
   ),
   [_FPH] = LAYOUT_numpad_4x4( /* Quiet T9 */
-    FPH_7,      FPH_8,      FPH_9,      KC_KP_PLUS,         \
-    FPH_4,      FPH_5,      FPH_6,                          \
-    FPH_1,      FPH_2,      FPH_3,      SFT_T(KC_KP_ENTER), \
-    LT(_ADJUST, KC_SPACE),  KC_KP_DOT                       \
+    FPH_7,      FPH_8,      FPH_9,      KC_KP_PLUS,
+    FPH_4,      FPH_5,      FPH_6,
+    FPH_1,      FPH_2,      FPH_3,      SFT_T(KC_KP_ENTER),
+    LT(_ADJUST, KC_SPACE),  KC_KP_DOT
   ),
   [_FPHNOISY] = LAYOUT_numpad_4x4( /* Noisy T9 */
-    FPH_7,      FPH_8,      FPH_9,      KC_KP_PLUS,         \
-    FPH_4,      FPH_5,      FPH_6,                          \
-    FPH_1,      FPH_2,      FPH_3,      SFT_T(KC_KP_ENTER), \
-    LT(_ADJUST, KC_SPACE),  KC_KP_DOT                       \
+    FPH_7,      FPH_8,      FPH_9,      KC_KP_PLUS,
+    FPH_4,      FPH_5,      FPH_6,
+    FPH_1,      FPH_2,      FPH_3,      SFT_T(KC_KP_ENTER),
+    LT(_ADJUST, KC_SPACE),  KC_KP_DOT
     ),
   [_ADJUST] = LAYOUT_numpad_4x4( /* Adjustments */
-    KC_NUMLOCK, TG(_FPHNOISY), TG(_FPH), TG(_NUMPAD), \
-    KC_BSPC,    BACKLIT,       KC_DEL,                \
-    MACSLEEP,   _______,       _______,  _______,     \
-    _______,                   MO(_DYN)               \
+    KC_NUM,     TG(_FPHNOISY), TG(_FPH), TG(_NUMPAD),
+    KC_BSPC,    BACKLIT,       KC_DEL,
+    MACSLEEP,   _______,       _______,  _______,
+    _______,                   MO(_DYN)
   ),
   [_DYN] = LAYOUT_numpad_4x4( /* DYNAMIC MACRO */
-    DYN_REC_START1, DYN_REC_START2, _______, DYN_REC_STOP, \
-    _______, _______,  _______,                            \
-    DYN_MACRO_PLAY1, DYN_MACRO_PLAY2, _______, _______,    \
-    _______,            _______                            \
+    DM_REC1, DM_REC2, _______, DM_RSTP,
+    _______, _______,  _______,
+    DM_PLY1, DM_PLY2, _______, _______,
+    _______,            _______
   ),
 };
 
@@ -133,9 +133,9 @@ uint16_t get_render_keycode(uint16_t keycode, uint16_t tap_qty){ // maybe replac
       return kc[tap_qty % 4];}
     break;
     case FPH_1:
-      {uint16_t kc[] = {KC_COMM, LSFT(KC_SLSH), KC_EXLM, KC_AT, KC_MINS, KC_UNDS, KC_PLUS, \
-          KC_SCLN, LSFT(KC_SCLN), KC_QUOT, LSFT(KC_QUOT), KC_TILD, \
-          KC_PIPE, KC_BSLS, KC_HASH, LSFT(KC_4), KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, \
+      {uint16_t kc[] = {KC_COMM, LSFT(KC_SLSH), KC_EXLM, KC_AT, KC_MINS, KC_UNDS, KC_PLUS,
+          KC_SCLN, LSFT(KC_SCLN), KC_QUOT, LSFT(KC_QUOT), KC_TILD,
+          KC_PIPE, KC_BSLS, KC_HASH, LSFT(KC_4), KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR,
           KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, LSFT(KC_COMM), LSFT(KC_DOT)};
       return kc[tap_qty % 26];}
   }
@@ -199,8 +199,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
           register_code(KC_RSFT);
           register_code(KC_RCTL);
-          register_code(KC_POWER);
-          unregister_code(KC_POWER);
+          register_code(KC_PWR);
+          unregister_code(KC_PWR);
           unregister_code(KC_RCTL);
           unregister_code(KC_RSFT);
       }

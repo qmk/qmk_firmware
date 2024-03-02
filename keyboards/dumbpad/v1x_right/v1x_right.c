@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "v1x_right.h"
+#include "quantum.h"
 
 void keyboard_pre_init_kb(void) {
     // Set LED IO as outputs
@@ -23,11 +23,15 @@ void keyboard_pre_init_kb(void) {
     keyboard_pre_init_user();
 }
 
-void shutdown_user() {
+bool shutdown_kb(bool jump_to_bootloader) {
+    if (!shutdown_user(jump_to_bootloader)) {
+        return false;
+    }
     // Shutdown LEDs
     writePinLow(LED_00);
     writePinLow(LED_01);
     writePinLow(LED_02);
+    return true;
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
@@ -62,8 +66,10 @@ void matrix_init_kb(void) {
     matrix_init_user();
 }
 
-void led_set_kb(uint8_t usb_led) {
-    // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
-    writePin(LED_02, !IS_LED_ON(usb_led, USB_LED_NUM_LOCK));
-    led_set_user(usb_led);
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) {
+        writePin(LED_02, !led_state.num_lock);
+    }
+    return res;
 }

@@ -34,7 +34,7 @@ void matrix_scan_user(void) {
     if (current_effect >= RGB_MATRIX_SOLID_REACTIVE_SIMPLE && current_effect <= RGB_MATRIX_SOLID_MULTISPLASH) {
         // set all underglow leds to current color
         RGB current_color = hsv_to_rgb(rgb_matrix_get_hsv());
-        for (int i = DRIVER_LED_TOTAL - DRIVER_LED_UNDERGLOW; i < DRIVER_LED_TOTAL; i++) {
+        for (int i = RGB_MATRIX_LED_COUNT - DRIVER_LED_UNDERGLOW; i < RGB_MATRIX_LED_COUNT; i++) {
             rgb_matrix_set_color(i, current_color.r, current_color.g, current_color.b);
         }
     }

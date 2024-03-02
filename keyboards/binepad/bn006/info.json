@@ -1,0 +1,59 @@
+{
+    "manufacturer": "Binepad",
+    "keyboard_name": "BN006",
+    "maintainer": "Binepad",
+    "bootloader": "stm32duino",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false,
+        "rgb_matrix": true
+    },
+    "matrix_pins": {
+        "cols": ["A15", "B3", "B4"],
+        "rows": ["A8", "C14"]
+    },
+    "processor": "STM32F103",
+    "url": "https://binepad.com",
+    "usb": {
+        "vid": "0x4249",
+        "pid": "0x426E",
+        "device_version": "1.0.0"
+    },
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
+    "ws2812": {
+        "pin": "B15"
+    },
+    "rgb_matrix": {
+        "driver": "ws2812",
+        "layout": [
+            {"flags": 4, "matrix": [0, 0], "x": 0, "y": 0},
+            {"flags": 4, "matrix": [0, 1], "x": 112, "y": 0},
+            {"flags": 4, "matrix": [0, 2], "x": 224, "y": 0},
+            {"flags": 4, "matrix": [1, 0], "x": 0, "y": 64},
+            {"flags": 4, "matrix": [1, 1], "x": 112, "y": 64},
+            {"flags": 4, "matrix": [1, 2], "x": 224, "y": 64}
+        ]
+    },
+    "community_layouts": ["ortho_2x3"],
+    "layouts": {
+        "LAYOUT_ortho_2x3": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1}
+            ]
+        }
+    }
+}

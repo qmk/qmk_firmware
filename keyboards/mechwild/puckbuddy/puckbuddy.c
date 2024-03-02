@@ -16,7 +16,7 @@
 
 keyboard_config_t keyboard_config;
 uint16_t          dpi_array[] = GLIDEPOINT_DPI_OPTIONS;
-#define DPI_OPTION_SIZE (sizeof(dpi_array) / sizeof(uint16_t))
+#define DPI_OPTION_SIZE ARRAY_SIZE(dpi_array)
 
 void board_init(void) {
     // B9 is configured as I2C1_SDA in the board file; that function must be
@@ -57,7 +57,7 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
     if (!dip_switch_update_user(index, active)) { return false; }
     switch (index) {
         case 0:
-            if(active) { tap_code(KC_CLCK); }
+            if(active) { tap_code(KC_CAPS_LOCK); }
             break;
         break;
     }
@@ -126,7 +126,8 @@ bool oled_task_kb(void) {
     if(!oled_task_user()) {
         return false;
     }
-    if ( IS_HOST_LED_OFF(USB_LED_NUM_LOCK) && IS_HOST_LED_OFF(USB_LED_CAPS_LOCK) && IS_HOST_LED_OFF(USB_LED_SCROLL_LOCK) && get_highest_layer(layer_state) == 0 ) {
+    led_t led_state = host_keyboard_led_state();
+    if ( !led_state.num_lock && !led_state.caps_lock && !led_state.scroll_lock && get_highest_layer(layer_state) == 0 ) {
         if (clear_screen_art == true) {
             oled_clear();
             oled_render();

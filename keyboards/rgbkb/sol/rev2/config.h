@@ -18,9 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* ws2812 RGB LED */
-#define RGB_DI_PIN B7
-
 // Underglow / DIY Tent Glow are parallel to the top row leds, no separate define
 // Full Hand case adds 24 LEDs, Star Fighter case adds 38 LEDs
 // For mirrored LED control (each MCU controls half the LEDs), total LED counts are divided in half
@@ -48,7 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #endif
 #endif
 
-#define DRIVER_LED_TOTAL  RGBLED_NUM
+#define RGB_MATRIX_LED_COUNT  RGBLED_NUM
 
 #define RGB_MATRIX_CENTER { 112, 37 }
 

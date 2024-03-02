@@ -16,8 +16,13 @@
  */
 
 #include "audio.h"
-#include <ch.h>
-#include <hal.h>
+#include "gpio.h"
+#include <math.h>
+#include "util.h"
+
+// Need to disable GCC's "tautological-compare" warning for this file, as it causes issues when running `KEEP_INTERMEDIATES=yes`. Corresponding pop at the end of the file.
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wtautological-compare"
 
 /*
   Audio Driver: DAC
@@ -61,7 +66,7 @@ static const dacsample_t dac_buffer_triangle[AUDIO_DAC_BUFFER_SIZE] = {
 #endif // AUDIO_DAC_SAMPLE_WAVEFORM_TRIANGLE
 #ifdef AUDIO_DAC_SAMPLE_WAVEFORM_SQUARE
 static const dacsample_t dac_buffer_square[AUDIO_DAC_BUFFER_SIZE] = {
-    [0 ... AUDIO_DAC_BUFFER_SIZE / 2 - 1]                     = 0,                    // first and
+    [0 ... AUDIO_DAC_BUFFER_SIZE / 2 - 1]                     = AUDIO_DAC_OFF_VALUE,  // first and
     [AUDIO_DAC_BUFFER_SIZE / 2 ... AUDIO_DAC_BUFFER_SIZE - 1] = AUDIO_DAC_SAMPLE_MAX, // second half
 };
 #endif // AUDIO_DAC_SAMPLE_WAVEFORM_SQUARE
@@ -79,12 +84,12 @@ static const dacsample_t dac_buffer_trapezoid[AUDIO_DAC_BUFFER_SIZE] = {0x0,   0
                                                                         0xfff, 0xfdf, 0xf7f, 0xf1f, 0xebf, 0xe5f, 0xdff, 0xd9f, 0xd3f, 0xcdf, 0xc7f, 0xc1f, 0xbbf, 0xb5f, 0xaff, 0xa9f, 0xa3f, 0x9df, 0x97f, 0x91f, 0x8bf, 0x85f, 0x7ff, 0x79f, 0x73f, 0x6df, 0x67f, 0x61f, 0x5bf, 0x55f, 0x4ff, 0x49f, 0x43f, 0x3df, 0x37f, 0x31f, 0x2bf, 0x25f, 0x1ff, 0x19f, 0x13f, 0xdf,  0x7f,  0x1f,  0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0,   0x0};
 #endif // AUDIO_DAC_SAMPLE_WAVEFORM_TRAPEZOID
 
-static dacsample_t dac_buffer_empty[AUDIO_DAC_BUFFER_SIZE] = {AUDIO_DAC_OFF_VALUE};
+static dacsample_t dac_buffer[AUDIO_DAC_BUFFER_SIZE];
 
 /* keep track of the sample position for for each frequency */
 static float dac_if[AUDIO_MAX_SIMULTANEOUS_TONES] = {0.0};
 
-static float   active_tones_snapshot[AUDIO_MAX_SIMULTANEOUS_TONES] = {0, 0};
+static float   active_tones_snapshot[AUDIO_MAX_SIMULTANEOUS_TONES] = {0};
 static uint8_t active_tones_snapshot_length                        = 0;
 
 typedef enum {
@@ -116,24 +121,27 @@ __attribute__((weak)) uint16_t dac_value_generate(void) {
     /* doing additive wave synthesis over all currently playing tones = adding up
      * sine-wave-samples for each frequency, scaled by the number of active tones
      */
-    uint16_t value     = 0;
-    float    frequency = 0.0f;
+    uint_fast16_t value     = 0;
+    float         frequency = 0.0f;
 
-    for (uint8_t i = 0; i < active_tones_snapshot_length; i++) {
+    for (size_t i = 0; i < active_tones_snapshot_length; i++) {
         /* Note: a user implementation does not have to rely on the active_tones_snapshot, but
          * could directly query the active frequencies through audio_get_processed_frequency */
         frequency = active_tones_snapshot[i];
 
-        dac_if[i] = dac_if[i] + ((frequency * AUDIO_DAC_BUFFER_SIZE) / AUDIO_DAC_SAMPLE_RATE) * 2 / 3;
+        float new_dac_if = dac_if[i];
+        new_dac_if += frequency * ((float)AUDIO_DAC_BUFFER_SIZE / AUDIO_DAC_SAMPLE_RATE * 2.0f / 3.0f);
         /*Note: the 2/3 are necessary to get the correct frequencies on the
          *      DAC output (as measured with an oscilloscope), since the gpt
          *      timer runs with 3*AUDIO_DAC_SAMPLE_RATE; and the DAC callback
          *      is called twice per conversion.*/
 
-        dac_if[i] = fmod(dac_if[i], AUDIO_DAC_BUFFER_SIZE);
+        while (new_dac_if >= AUDIO_DAC_BUFFER_SIZE)
+            new_dac_if -= AUDIO_DAC_BUFFER_SIZE;
+        dac_if[i] = new_dac_if;
 
         // Wavetable generation/lookup
-        uint16_t dac_i = (uint16_t)dac_if[i];
+        size_t dac_i = (size_t)new_dac_if;
 
 #if defined(AUDIO_DAC_SAMPLE_WAVEFORM_SINE)
         value += dac_buffer_sine[dac_i] / active_tones_snapshot_length;
@@ -281,7 +289,7 @@ static const DACConfig dac_conf = {.init = AUDIO_DAC_OFF_VALUE, .datamode = DAC_
  */
 static const DACConversionGroup dac_conv_cfg = {.num_channels = 1U, .end_cb = dac_end, .error_cb = dac_error, .trigger = DAC_TRG(0b000)};
 
-void audio_driver_initialize() {
+void audio_driver_initialize(void) {
     if ((AUDIO_PIN == A4) || (AUDIO_PIN_ALT == A4)) {
         palSetLineMode(A4, PAL_MODE_INPUT_ANALOG);
         dacStart(&DACD1, &dac_conf);
@@ -303,10 +311,17 @@ void audio_driver_initialize() {
     DACD1.params->dac->CR &= ~DAC_CR_BOFF1;
     DACD2.params->dac->CR &= ~DAC_CR_BOFF2;
 
+    /* Start the DAC output with all off values. This buffer will then get fed
+     * with samples from dac_end, which will play notes.
+     */
+    for (size_t i = 0; i < AUDIO_DAC_BUFFER_SIZE; i++) {
+        dac_buffer[i] = AUDIO_DAC_OFF_VALUE;
+    }
+
     if (AUDIO_PIN == A4) {
-        dacStartConversion(&DACD1, &dac_conv_cfg, dac_buffer_empty, AUDIO_DAC_BUFFER_SIZE);
+        dacStartConversion(&DACD1, &dac_conv_cfg, dac_buffer, AUDIO_DAC_BUFFER_SIZE);
     } else if (AUDIO_PIN == A5) {
-        dacStartConversion(&DACD2, &dac_conv_cfg, dac_buffer_empty, AUDIO_DAC_BUFFER_SIZE);
+        dacStartConversion(&DACD2, &dac_conv_cfg, dac_buffer, AUDIO_DAC_BUFFER_SIZE);
     }
 
     // no inverted/out-of-phase waveform (yet?), only pulling AUDIO_PIN_ALT to AUDIO_DAC_OFF_VALUE
@@ -335,3 +350,5 @@ void audio_driver_start(void) {
     active_tones_snapshot_length = 0;
     state                        = OUTPUT_SHOULD_START;
 }
+
+#pragma GCC diagnostic pop
