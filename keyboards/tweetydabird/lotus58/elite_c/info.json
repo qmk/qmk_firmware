@@ -1,4 +1,7 @@
 {
+	"build": {
+        "lto": true
+    },
     "development_board": "elite_c",
     "pin_compatible": "elite_c",
     "encoder": {

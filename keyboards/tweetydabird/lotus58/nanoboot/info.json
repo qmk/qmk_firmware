@@ -1,5 +1,8 @@
 {
-    "pin_compatible": "promicro",
+    "build": {
+        "lto": true
+    },
+	"pin_compatible": "promicro",
     "processor": "atmega32u4",
     "encoder": {
         "rotary": [

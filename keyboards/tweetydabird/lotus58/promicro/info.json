@@ -1,5 +1,8 @@
 {
-    "development_board": "promicro",
+    "build": {
+        "lto": true
+    },
+	"development_board": "promicro",
     "encoder": {
         "rotary": [
             {"pin_a": "F5", "pin_b": "F4", "resolution": 2}
