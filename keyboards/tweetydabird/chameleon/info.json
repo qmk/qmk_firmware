@@ -15,7 +15,7 @@
     "features": {
         "bootmagic": true,
         "encoder": true,
-		"extrakey": true,
+        "extrakey": true,
         "mousekey": true,
         "nkro": true,
         "rgblight": true,
