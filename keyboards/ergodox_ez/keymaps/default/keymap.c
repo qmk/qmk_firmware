@@ -2,6 +2,9 @@
 #include "version.h"
 #include "os_detection.h"
 
+#define ONESHOT_TAP_TOGGLE 3  /* Tapping this number of times holds the key until tapped once again. */
+#define ONESHOT_TIMEOUT 4000  /* Time (in ms) before the one shot key is released */
+
 enum layers {
     BASE,  // default layer
     SYMB,  // symbols
@@ -63,10 +66,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,          KC_Q,               KC_W,                 KC_F,                KC_P,                  KC_B,    KC_LBRC,                   KC_RBRC,        KC_J,                  KC_L,                  KC_U,                      KC_Y,                 KC_TRNS,                KC_BSPC,
   KC_ESC,          KC_A,               KC_R,                 KC_S,                KC_T,                  KC_G,                                               KC_M,                  KC_N,                  KC_E,                      KC_I,                 KC_O,                   KC_ENT,
   KC_LSFT,         KC_Z,               KC_X,                 KC_C,                KC_D,                  KC_V,    KC_QUOT,                   KC_SEMICOLON,   KC_K,                  KC_H,                  KC_COMMA,                  KC_DOT,               KC_MINUS,               KC_RSFT,
-  KC_TRNS,         KC_TRNS,            KC_DELETE,            KC_BSPC,             MO(SYMB),                                                                                         KC_LGUI,               KC_TRNS,                   KC_TRNS,              KC_TRNS,                KC_TRNS,
-                                                             KC_LT,               KC_GT,                                                    KC_VOLU,         KC_TRNS,
+  KC_TRNS,         KC_TRNS,            KC_DELETE,            KC_BSPC,             MO(SYMB),                                                                                         OSM(MOD_LGUI),         KC_TRNS,                   KC_TRNS,              KC_TRNS,                KC_TRNS,
+                                                             KC_LT,               KC_GT,                                                    KC_VOLU,         OSM(MOD_LCTL),
                                                                                   KC_PSCR,                                                  KC_VOLD,
-                                                     KC_SPC, KC_ENT,              KC_SLASH,                                                 KC_GRAVE,        KC_LALT,               KC_LCTL
+                                                     KC_SPC, OSM(MOD_LSFT),       KC_SLASH,                                                 KC_GRAVE,        OSM(MOD_LALT),               OSM(MOD_LCTL)
 ),
 
 [SYMB] = LAYOUT_ergodox_pretty(
