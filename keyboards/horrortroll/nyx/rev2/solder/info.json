@@ -29,6 +29,7 @@
     },
     "rgb_matrix": {
         "driver": "ws2812",
+        "led_count": 19,
         "max_brightness": 200,
         "animations": {
             "gradient_left_right": true,
