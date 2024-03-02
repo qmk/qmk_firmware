@@ -45,6 +45,8 @@ void eeconfig_init_kb(void) {
     }
     // Write default value to EEPROM now
     eeconfig_update_kb_datablock(&eeprom_ec_config);
+
+    eeconfig_init_user();
 }
 
 // On Keyboard startup
@@ -74,6 +76,8 @@ void keyboard_post_init_kb(void) {
     rgblight_set_effect_range(3, 66);
     // Call the indicator callback to set the indicator color
     indicators_callback();
+
+    keyboard_post_init_user();
 }
 
 // This function gets called when caps, num, scroll change
