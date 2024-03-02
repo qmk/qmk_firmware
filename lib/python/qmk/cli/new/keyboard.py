@@ -254,5 +254,6 @@ def new_keyboard(cli):
     augment_community_info(community_info, keyboard(kb_name) / community_info.name)
 
     cli.log.info(f'{{fg_green}}Created a new keyboard called {{fg_cyan}}{kb_name}{{fg_green}}.{{fg_reset}}')
-    cli.log.info(f'Project Location: {{fg_cyan}}{QMK_FIRMWARE}/{keyboard(kb_name)}{{fg_reset}},')
     cli.log.info(f"Build Command: {{fg_yellow}}qmk compile -kb {kb_name} -km default{{fg_reset}}.")
+    cli.log.info(f'Project Location: {{fg_cyan}}{QMK_FIRMWARE}/{keyboard(kb_name)}{{fg_reset}},')
+    cli.log.info(f"{{fg_yellow}}Now update the config files to match the hardware!{{fg_reset}}")
