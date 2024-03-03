@@ -25,6 +25,7 @@
         "pid": "0x6BB6",
         "vid": "0x6369"
     },
+    "community_layouts": ["60_ansi_wkl_split_bs_rshift", "60_hhkb", "60_tsangan_hhkb"],
     "layouts": {
         "LAYOUT_60_tsangan_hhkb": {
             "layout": [
