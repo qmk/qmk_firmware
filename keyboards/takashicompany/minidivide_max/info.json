@@ -41,21 +41,8 @@
         "enabled": true,
         "matrix_pins": {
             "right": {
-                "cols": [
-                    "B5",
-                    "B4",
-                    "E6",
-                    "D7",
-                    "C6",
-                    "D4"
-                ],
-                "rows": [
-                    "F4",
-                    "F5",
-                    "F6",
-                    "F7",
-                    "B1"
-                ]
+                "cols": ["B5", "B4", "E6", "D7", "C6", "D4"],
+                "rows": ["F4", "F5", "F6", "F7", "B1"]
             }
         },
         "soft_serial_pin": "D2"
