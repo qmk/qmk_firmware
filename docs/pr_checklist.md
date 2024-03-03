@@ -39,12 +39,13 @@ If there are any inconsistencies with these recommendations, you're best off [cr
 
 ## Keymap PRs
 
-!> Note that personal keymap submissions will no longer be accepted. This section applies to manufacturer-supported keymaps.
+!> Note that personal keymap submissions will no longer be accepted. This section applies to manufacturer-supported keymaps. Please see this [issue](https://github.com/qmk/qmk_firmware/issues/22724) for more information.
 
-- `#include QMK_KEYBOARD_H` preferred to including specific board files
-- prefer layer `enum`s to `#define`s
-- custom keycode `enum`s must have first entry `= SAFE_RANGE`
-- terminating backslash (`\`) in lines of LAYOUT macro parameters is superfluous and should be removed
+- PRs for vendor specific keymaps will be permitted. The naming convention for these should be `default_${vendor}`, `via_${vendor}` i.e. `via_clueboard`.
+    - vendor specific keymaps do not necessarily need to be "vanilla" and can be more richly featured than `default` or `via` stock keymaps.
+- #include QMK_KEYBOARD_H preferred to including specific board files
+- prefer layer enums to #defines
+- custom keycode enums must have first entry = SAFE_RANGE
 - some care with spacing (e.g., alignment on commas or first char of keycodes) makes for a much nicer-looking keymap
 
 ## Keyboard PRs

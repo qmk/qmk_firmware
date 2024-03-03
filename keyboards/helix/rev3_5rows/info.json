@@ -103,8 +103,7 @@
     "animations": {
       "rainbow_mood": true,
       "rainbow_swirl": true,
-      "static_gradient": true,
-      "rgb_test": true
+      "static_gradient": true
     }
   },
   "processor": "atmega32u4",

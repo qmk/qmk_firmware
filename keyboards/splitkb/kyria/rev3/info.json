@@ -186,6 +186,7 @@
             {"flags": 4, "matrix": [4, 4], "x": 195, "y": 4},  // R SW04
             {"flags": 4, "matrix": [4, 5], "x": 210, "y": 11}, // R SW05
             {"flags": 4, "matrix": [4, 6], "x": 224, "y": 11}  // R SW06
-        ]
+        ],
+        "max_brightness": 128
     }
 }

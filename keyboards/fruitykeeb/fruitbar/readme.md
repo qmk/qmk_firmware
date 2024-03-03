@@ -6,6 +6,8 @@ A budget-oriented 40% with base kit compatibility. Perfect for those who have al
 
 * Keyboard Maintainer: [The QMK Community](https://github.com/qmk)
 * Hardware Supported:
+  * Fruitbar PCB R1 (atmega32u4)
+    * If the keyboard was built with an Elite-C, use the `fruitykeeb/fruitbar/r1/elite_c` firmware for RGB and encoder support.
   * Fruitbar PCB R2 (RP2040, rp2040)
 * Hardware Availability:
   * R1 Group Buy took place between 2021-10-01 and 2021-10-24 on [FruityKeeb](https://fruitykeeb.xyz/).
@@ -13,10 +15,12 @@ A budget-oriented 40% with base kit compatibility. Perfect for those who have al
 
 Make example for this keyboard (after setting up your build environment):
 
+    make fruitykeeb/fruitbar/r1:default
     make fruitykeeb/fruitbar/r2:default
 
 Flashing example for this keyboard:
 
+    make fruitykeeb/fruitbar/r1:default:flash
     make fruitykeeb/fruitbar/r2:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
