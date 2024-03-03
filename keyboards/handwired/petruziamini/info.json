@@ -2,7 +2,7 @@
     "manufacturer": "LLLKST",
     "keyboard_name": "PetruziaMini",
     "maintainer": "LLLKST",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
@@ -16,15 +16,13 @@
         "cols": ["D7", "C6", "D4", "D0", "D1", "F4", "F5", "F6", "F7", "B1"],
         "rows": ["B4", "E6", "B3", "B2"]
     },
-    "processor": "atmega32u4",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0000",
         "vid": "0xFEED"
     },
     "layouts": {
-        "LAYOUT_ortho_4x10": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
