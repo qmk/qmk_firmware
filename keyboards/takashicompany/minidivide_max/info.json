@@ -56,6 +56,9 @@
     "ws2812": {
         "pin": "D3"
     },
+    "dynamic_keymap": {
+        "layer_count": 7
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
