@@ -2,7 +2,8 @@
     "build": {
         "lto": true
     },
-	"development_board": "promicro",
+	"pin_compatible": "promicro",
+    "processor": "atmega32u4",
     "encoder": {
         "rotary": [
             {"pin_a": "F5", "pin_b": "F4", "resolution": 2}
