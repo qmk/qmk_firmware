@@ -6,7 +6,7 @@
 
 * Keyboard Maintainer: [LLLKST](https://github.com/LLLKST)
 * Hardware Supported: *promicro compatible controller*
-* Hardware Availability: *(https://it.aliexpress.com/item/1005005967686665.html?spm=a2g0o.order_list.order_list_main.36.40f03696oa5yNm&gatewayAdapt=glo2ita)*
+* Hardware Availability: [Aliexpress Pro Micro](https://www.aliexpress.us/item/3256805781371913.html)
 
 
 Make example for this keyboard (after setting up your build environment):
