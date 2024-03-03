@@ -68,8 +68,9 @@ enum {
     TD_PLAY,
     TD_VOLD,
     TD_VOLU,
-    TD_TAB,
-    TD_ESC
+    TD_ESC,
+    TD_TAB
+
 };
 
 
@@ -144,10 +145,10 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_QWERTY]=LAYOUT_ortho_4x12(
-			TD(TD_RHAND_LAYER),		LGUI_T(KC_Q),	RALT_T(KC_W),	KC_E,					KC_R,				KC_T,			KC_Y,			KC_U,				KC_I,					RALT_T(KC_O),	KC_P,						KC_BSPC,
-			TD(TD_ESC),				KC_A,			LALT_T(KC_S),	LCTL_T(KC_D),			LSFT_T(KC_F),		KC_G,			KC_H,			RSFT_T(KC_J),		RCTL_T(KC_K),			LALT_T(KC_L),	LT(_FUNCTION_KEYS,KC_SCLN),	LT(_FUNCTION2_KEYS,KC_QUOT),
-			OSM(MOD_LCTL),			LGUI_T(KC_Z),	KC_X,			KC_C,					KC_V,				KC_B,			KC_N,			KC_M,				KC_COMM,				KC_DOT,			RGUI_T(KC_SLSH),			QK_LEAD,
-			OSM(MOD_LGUI),			OSM(MOD_LALT),	OSM(MOD_RALT),	TD(TD_SIFT_CAPSLOCK),	TD(TD_TAB),			SH_T(KC_SPACE),	SH_T(KC_SPACE),	LT(_RAISE,KC_ENT),	TD(TD_SIFT_CAPSLOCK),	TD(TD_PLAY),	TD(TD_VOLU),				TD(TD_VOLD)
+			TD(TD_RHAND_LAYER),		LGUI_T(KC_Q),		RALT_T(KC_W),		KC_E,					KC_R,				KC_T,			KC_Y,			KC_U,				KC_I,					RALT_T(KC_O),	KC_P,						KC_BSPC,
+			TD(TD_ESC),				LT(_MOV,KC_A),		LALT_T(KC_S),		LCTL_T(KC_D),			LSFT_T(KC_F),		KC_G,			KC_H,			RSFT_T(KC_J),		RCTL_T(KC_K),			LALT_T(KC_L),	LT(_FUNCTION_KEYS,KC_SCLN),	LT(_FUNCTION2_KEYS,KC_QUOT),
+			OSM(MOD_LCTL),			LGUI_T(KC_Z),		LT(_MOUSE,KC_X),	KC_C,					KC_V,				KC_B,			KC_N,			KC_M,				KC_COMM,				KC_DOT,			RGUI_T(KC_SLSH),			QK_LEAD,
+			OSM(MOD_LGUI),			OSM(MOD_LALT),		OSM(MOD_RALT),		TD(TD_SIFT_CAPSLOCK),	TD(TD_TAB),			SH_T(KC_SPACE),	SH_T(KC_SPACE),	LT(_RAISE,KC_ENT),	TD(TD_SIFT_CAPSLOCK),	TD(TD_PLAY),	TD(TD_VOLU),				TD(TD_VOLD)
 	),
     
 	[_RAISE]=LAYOUT_ortho_4x12(
@@ -186,9 +187,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	),
 
 	[_MOV]=LAYOUT_ortho_4x12(
-			KC_NO,			KC_NO,			DM_PLY2,		DM_PLY1,		KC_NO,		KC_NO,		KC_PAUS,	KC_HOME,	KC_INS,		KC_PGUP,		KC_NO,			KC_BSPC,
-			KC_TRNS,		KC_LGUI,		KC_LALT,		KC_LCTL,		KC_LSFT,	KC_HOME,	KC_LEFT,	KC_DOWN,	KC_UP,		KC_RGHT,		KC_NO,			KC_NO,
-			KC_NO,			KC_NO,			KC_NO,			C(KC_C),		C(KC_V),	KC_NO,		KC_NO,		KC_END,		KC_NO,		KC_PGDN,		KC_NO,			KC_NO,
+			KC_NO,			KC_NO,			KC_NO,			KC_NO,			KC_NO,		KC_NO,		KC_PAUS,	KC_HOME,	KC_INS,		KC_PGUP,		KC_NO,			KC_BSPC,
+			KC_NO,			KC_TRNS,		KC_LALT,		KC_LCTL,		KC_LSFT,	KC_LGUI,	KC_LEFT,	KC_DOWN,	KC_UP,		KC_RGHT,		KC_NO,			KC_NO,
+			KC_NO,			KC_NO,			KC_NO,			KC_NO,			KC_NO,		KC_NO,		KC_NO,		KC_END,		KC_DEL,		KC_PGDN,		KC_NO,			KC_NO,
 			KC_NO,			KC_NO,			KC_NO,			KC_NO,			KC_TAB,		KC_SPACE,	KC_SPACE,	KC_ENT,		DEL_LINE,	DEL_WORD,		DEL_END_LINE,		KC_NO
 	),
 
@@ -436,7 +437,7 @@ tap_dance_action_t tap_dance_actions[] = {
 	[TD_WIN_MENU]  = ACTION_TAP_DANCE_DOUBLE(KC_LGUI, KC_APP),
 	[TD_MNXT]  = ACTION_TAP_DANCE_DOUBLE(KC_MPLY, KC_MNXT),
 	[TD_PLAY]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, play_finished, NULL),
-	[TD_ESC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, scape_finished, scape_reset),
+	[TD_ESC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, scape_finished, scape_reset),	
 	[TD_VOLD] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, vold_finished, vold_reset),
 	[TD_VOLU] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, volu_finished, volu_reset),
 	[TD_TAB]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tab_finished, tab_reset),
@@ -553,87 +554,6 @@ void numpad_reset(tap_dance_state_t *state, void *user_data) {
 
 
 
-void scape_finished(tap_dance_state_t *state, void *user_data) {
-    
-    numpad_tap_state.state = cur_dance(state);
-    
-	switch (numpad_tap_state.state) {
-		
-		case TD_SINGLE_TAP:
-			
-			if (layer_state_is(_QWERTY)) {
-				
-				tap_code(KC_ESC);
-			}
-
-			if (host_keyboard_led_state().caps_lock) {
-				
-				tap_code(KC_CAPS);
-			}
-
-			reset_oneshot_layer();
-			clear_oneshot_locked_mods();
-			layer_clear();
-			clear_keyboard();    
-			
-			break;
-
-		case TD_SINGLE_HOLD:
-			
-			if (layer_state_is(_MOV)) {
-				
-				layer_off(_MOV);
-			} 
-			
-			else {
-				
-				layer_on(_MOV);
-			}
-			
-			break;
-
-		case TD_DOUBLE_TAP:
-			
-			if (layer_state_is(_MOV)) {
-				
-				layer_off(_MOV);
-			} 
-			
-			else {
-				
-				layer_on(_MOV);
-			}
-			
-			break;
-				  
-		case TD_DOUBLE_HOLD:
-			
-			if (layer_state_is(_MOUSE)) {
-				layer_off(_MOUSE);
-			} 
-			
-			else {
-				layer_on(_MOUSE);
-			}
-			
-			break;
-
-		default:
-			break;
-	}
-}
-
-
-void scape_reset(tap_dance_state_t *state, void *user_data) {
-		
-		layer_clear();
-		numpad_tap_state.state = TD_NONE;
-		
-}
-
-
-
-
 void capslock_finished(tap_dance_state_t *state, void *user_data) {
     
     numpad_tap_state.state = cur_dance(state);
@@ -670,6 +590,55 @@ void capslock_reset(tap_dance_state_t *state, void *user_data) {
 
 
 
+void scape_finished(tap_dance_state_t *state, void *user_data) {
+    
+    numpad_tap_state.state = cur_dance(state);
+    
+	switch (numpad_tap_state.state) {
+		
+		case TD_SINGLE_TAP:
+				
+			tap_code(KC_ESC);
+
+
+			if (host_keyboard_led_state().caps_lock) {
+				
+				tap_code(KC_CAPS);
+			}
+
+			break;
+
+		case TD_SINGLE_HOLD:
+			
+			register_code16(KC_LCTL);
+			
+			break;
+
+		case TD_DOUBLE_TAP:
+			
+			tap_code(KC_ESC);
+			tap_code(KC_ESC);
+			break;
+				  
+		case TD_DOUBLE_HOLD:
+			
+			register_code16(KC_ESC);
+			
+			break;
+
+		default:
+			break;
+	}
+}
+
+
+void scape_reset(tap_dance_state_t *state, void *user_data) {
+		
+		unregister_code16(KC_LCTL);
+		unregister_code16(KC_ESC);
+		numpad_tap_state.state = TD_NONE;
+		
+}
 
 void vold_finished(tap_dance_state_t *state, void *user_data) {
     
