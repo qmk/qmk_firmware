@@ -330,17 +330,6 @@ ifeq ($(strip $(USE_CHIBIOS_CONTRIB)),yes)
 endif
 
 #
-# Extract supported HAL drivers
-##############################################################################
-
-define add_lld_driver_define
-    $(eval driver := $(word 2,$(subst /LLD/, ,$(1))))
-    $(eval OPT_DEFS += -DCHIBIOS_HAL_$(driver))
-endef
-
-$(foreach dir,$(EXTRAINCDIRS),$(if $(findstring /LLD/,$(dir)),$(call add_lld_driver_define,$(dir))))
-
-#
 # Project, sources and paths
 ##############################################################################
 
