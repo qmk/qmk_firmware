@@ -28,6 +28,8 @@ jobs:
     - name: Get changed files
       id: file_changes
       uses: tj-actions/changed-files@v42
+      with:
+        use_rest_api: true
 
     - name: Print info
       run: |
