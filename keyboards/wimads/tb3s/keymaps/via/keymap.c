@@ -60,7 +60,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     static bool dragscroll  = false; // dragscroll active or not
     static bool drag_toggle = false; // dragscroll was activated via toggle or not
-    return true;
     // other macros:
     switch (keycode) {
         case RST_QMK:

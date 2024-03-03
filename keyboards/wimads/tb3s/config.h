@@ -23,8 +23,8 @@
 
 #define MOUSE_EXTENDED_REPORT
 
-#undef  POINTING_DEVICE_TASK_THROTTLE_MS
-#define POINTING_DEVICE_TASK_THROTTLE_MS 5 //to tame the buffer-less dragscroll a bit
+#undef POINTING_DEVICE_TASK_THROTTLE_MS
+#define POINTING_DEVICE_TASK_THROTTLE_MS 5 // to tame the buffer-less dragscroll a bit
 
 /* PMW3360 Settings */
 #define PMW33XX_LIFTOFF_DISTANCE 0x00
