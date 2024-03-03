@@ -1,6 +1,6 @@
 # PetruziaMini
 
-![PetruziaMini](https://imgur.com/uk2BSaz)
+![PetruziaMini](https://i.imgur.com/uk2BSazh.jpeg)
 
 36 key ortholinear keyboard intended to be mapped as a split keyboard.
 
