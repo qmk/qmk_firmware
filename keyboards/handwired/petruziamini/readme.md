@@ -1,8 +1,8 @@
 # PetruziaMini
 
-![PetruziaMini](imgur.com image replace me!)
+![PetruziaMini](https://imgur.com/uk2BSaz)
 
-*My first handwired projec. This is a 36 keys ortholinear thinked to be keymapped as a split kb. My hoping is to learn how to use github and qmk firmware in one shot, Let's try it.*
+36 key ortholinear keyboard intended to be mapped as a split keyboard.
 
 * Keyboard Maintainer: [LLLKST](https://github.com/LLLKST)
 * Hardware Supported: *promicro compatible controller*
@@ -11,11 +11,11 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make petruziamini:default
+    make handwired/petruziamini:default
 
 Flashing example for this keyboard:
 
-    make PetruziaMini:default:flash
+    make handwired/petruziamini:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
