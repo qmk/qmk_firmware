@@ -6,6 +6,11 @@ TKL PCB for Gehirn by Baionlenja
 * Hardware Supported: Baion878 PCB
 * Hardware Availability: Pre-Order
 
+Baion878 Comes in 3 layouts:
+878HSA for ANSI Hotswap
+878HSI for ISO Hotwsap
+878SL for Universal Solderable
+
 
 Make example for this keyboard (after setting up your build environment):
 
