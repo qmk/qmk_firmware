@@ -64,8 +64,8 @@ jobs:
       keymap: ${{ matrix.keymap }}
       slice_length: ${{ needs.determine_concurrency.outputs.slice_length }}
 
-  check_failures:
-    name: "Check build for failures"
+  rollup_tasks:
+    name: "Housekeeping"
     needs: build_targets
     runs-on: ubuntu-latest
 
@@ -74,14 +74,40 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           pattern: firmware-*
-          path: .
+          path: firmwares
           merge-multiple: true
 
-      - name: Check if failure marker exists
+      - name: Upload to https://ci.qmk.fm/${{ inputs.branch || github.ref_name }}/${{ github.sha }}
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read --follow-symlinks --delete
+        env:
+          AWS_S3_BUCKET: qmk-ci
+          AWS_ACCESS_KEY_ID: ${{ secrets.CI_QMK_FM_SPACES_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.CI_QMK_FM_SPACES_SECRET }}
+          AWS_REGION: nyc3
+          AWS_S3_ENDPOINT: nyc3.digitaloceanspaces.com
+          SOURCE_DIR: firmwares
+          DEST_DIR: ${{ inputs.branch || github.ref_name }}/${{ github.sha }}
+
+      - name: Upload to https://ci.qmk.fm/${{ inputs.branch || github.ref_name }}/latest
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read --follow-symlinks --delete
+        env:
+          AWS_S3_BUCKET: qmk-ci
+          AWS_ACCESS_KEY_ID: ${{ secrets.CI_QMK_FM_SPACES_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.CI_QMK_FM_SPACES_SECRET }}
+          AWS_REGION: nyc3
+          AWS_S3_ENDPOINT: nyc3.digitaloceanspaces.com
+          SOURCE_DIR: firmwares
+          DEST_DIR: ${{ inputs.branch || github.ref_name }}/latest
+
+      - name: Check if failure marker file exists
         id: check_failure_marker
         uses: andstor/file-existence-action@v3
         with:
-          files: .failed
+          files: firmwares/.failed
 
       - name: Fail build if needed
         if: steps.check_failure_marker.outputs.exists == 'true'
