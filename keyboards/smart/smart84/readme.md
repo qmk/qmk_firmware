@@ -1,6 +1,6 @@
 # Smart84
 
-![Smart84](https://imgur.com/dtG6IXe)
+![Smart84](https://imgur.com/D07mXuI)
 
 A compact 75% (16x6) ortholinear keyboard kit made and sold by alber. [More info on albert_zheng/qmk_firmware](https://github.com/alber-Zheng/qmk_firmware)
 
