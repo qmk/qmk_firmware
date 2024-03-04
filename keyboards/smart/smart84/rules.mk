@@ -1,5 +1,5 @@
 
-QUANTUM_LIB_SRC += uart.c
+# QUANTUM_LIB_SRC += uart.c
 MCU_LDSCRIPT = STM32F103xB
 
 DEFERRED_EXEC_ENABLE = yes
@@ -17,8 +17,5 @@ DYNAMIC_KEYMAP_ENABLE = yes
 
 
 SRC +=   analog.c
-#		 smart_ble.c
-#		 //
-#		 disable_swd.c
 
 DEBOUNCE_TYPE = sym_eager_pr
