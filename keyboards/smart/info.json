@@ -1,6 +1,7 @@
 {
-    "manufacturer": "Smart",
-    "maintainer": "albert",
+    "manufacturer": "albert-zheng",
+    "maintainer": "albert-zheng",
+    "url": "",
     "bootloader": "stm32duino",
     "bootloader_instructions": "Press ESC(ROW0COL0), Plug USB. ",
     "processor": "STM32F103",
