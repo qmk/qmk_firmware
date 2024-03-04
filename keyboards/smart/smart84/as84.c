@@ -15,7 +15,6 @@
  */
 #include "quantum.h"
 #include "uart.h"
-// #include "smart_ble.h"
 #include "keyboard.h"
 #include "analog.h"
 #include "print.h"
