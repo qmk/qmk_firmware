@@ -6,12 +6,8 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
-        "extrakey": false,
-        "mousekey": false,
-        "nkro": false,
-        "rgbmatrix": true
+        "extrakey": true,
+        "mousekey": true,
     },
     "matrix_pins": {
         "cols": ["GP6", "GP7", "GP8", "GP9", "GP10", "GP11", "GP12", "GP13", "GP14", "GP15", "GP16", "GP17", "GP18", "GP19", "GP20"],
