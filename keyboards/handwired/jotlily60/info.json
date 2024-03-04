@@ -19,8 +19,7 @@
     "tapping": {
         "term": 175
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "diode_direction": "COL2ROW",
     "matrix_pins": {
         "cols": [ "D0", "D4", "C6", "D7", "E6", "B4", "B5" ],
