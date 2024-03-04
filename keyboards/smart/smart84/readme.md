@@ -5,7 +5,7 @@
 A compact 75% (16x6) ortholinear keyboard kit made and sold by alber. [More info on albert_zheng/qmk_firmware](https://github.com/alber-Zheng/qmk_firmware)
 
 * Keyboard Maintainer: [alber-Zheng](https://github.com/alber-Zheng/qmk_firmware)
-* Hardware Supported: Smart84 PCB rev1=
+* Hardware Supported: Smart84 PCB rev1
 
 Make example for this keyboard (after setting up your build environment):
 
