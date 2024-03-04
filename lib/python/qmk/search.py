@@ -5,14 +5,91 @@ import functools
 import fnmatch
 import logging
 import re
-from typing import List, Tuple
-from dotty_dict import dotty
+from typing import Callable, List, Optional, Tuple
+from dotty_dict import dotty, Dotty
 from milc import cli
 
 from qmk.util import parallel_map
 from qmk.info import keymap_json
-import qmk.keyboard
-import qmk.keymap
+from qmk.keyboard import list_keyboards, keyboard_folder
+from qmk.keymap import list_keymaps, locate_keymap
+from qmk.build_targets import KeyboardKeymapBuildTarget, BuildTarget
+
+TargetInfo = Tuple[str, str, dict]
+
+
+# by using a class for filters, we dont need to worry about capturing values
+# see details <https://github.com/qmk/qmk_firmware/pull/21090>
+class FilterFunction:
+    """Base class for filters.
+    It provides:
+        - __init__: capture key and value
+
+    Each subclass should provide:
+        - func_name: how it will be specified on CLI
+            >>> qmk find -f <func_name>...
+        - apply: function that actually applies the filter
+            ie: return whether the input kb/km satisfies the condition
+    """
+
+    key: str
+    value: Optional[str]
+
+    func_name: str
+    apply: Callable[[TargetInfo], bool]
+
+    def __init__(self, key, value):
+        self.key = key
+        self.value = value
+
+
+class Exists(FilterFunction):
+    func_name = "exists"
+
+    def apply(self, target_info: TargetInfo) -> bool:
+        _kb, _km, info = target_info
+        return self.key in info
+
+
+class Absent(FilterFunction):
+    func_name = "absent"
+
+    def apply(self, target_info: TargetInfo) -> bool:
+        _kb, _km, info = target_info
+        return self.key not in info
+
+
+class Length(FilterFunction):
+    func_name = "length"
+
+    def apply(self, target_info: TargetInfo) -> bool:
+        _kb, _km, info = target_info
+        return (self.key in info and len(info[self.key]) == int(self.value))
+
+
+class Contains(FilterFunction):
+    func_name = "contains"
+
+    def apply(self, target_info: TargetInfo) -> bool:
+        _kb, _km, info = target_info
+        return (self.key in info and self.value in info[self.key])
+
+
+def _get_filter_class(func_name: str, key: str, value: str) -> Optional[FilterFunction]:
+    """Initialize a filter subclass based on regex findings and return it.
+    None if no there's no filter with the name queried.
+    """
+
+    for subclass in FilterFunction.__subclasses__():
+        if func_name == subclass.func_name:
+            return subclass(key, value)
+
+    return None
+
+
+def filter_help() -> str:
+    names = [f"'{f.func_name}'" for f in FilterFunction.__subclasses__()]
+    return ", ".join(names[:-1]) + f" and {names[-1]}"
 
 
 def _set_log_level(level):
@@ -36,22 +113,23 @@ def _all_keymaps(keyboard):
     """Returns a list of tuples of (keyboard, keymap) for all keymaps for the given keyboard.
     """
     with ignore_logging():
-        keyboard = qmk.keyboard.resolve_keyboard(keyboard)
-        return [(keyboard, keymap) for keymap in qmk.keymap.list_keymaps(keyboard)]
+        keyboard = keyboard_folder(keyboard)
+        return [(keyboard, keymap) for keymap in list_keymaps(keyboard)]
 
 
 def _keymap_exists(keyboard, keymap):
     """Returns the keyboard name if the keyboard+keymap combination exists, otherwise None.
     """
     with ignore_logging():
-        return keyboard if qmk.keymap.locate_keymap(keyboard, keymap) is not None else None
+        return keyboard if locate_keymap(keyboard, keymap) is not None else None
 
 
-def _load_keymap_info(kb_km):
+def _load_keymap_info(target: Tuple[str, str]) -> TargetInfo:
     """Returns a tuple of (keyboard, keymap, info.json) for the given keyboard/keymap combination.
     """
+    kb, km = target
     with ignore_logging():
-        return (kb_km[0], kb_km[1], keymap_json(kb_km[0], kb_km[1]))
+        return (kb, km, keymap_json(kb, km))
 
 
 def expand_make_targets(targets: List[str]) -> List[Tuple[str, str]]:
@@ -75,7 +153,7 @@ def _expand_keymap_target(keyboard: str, keymap: str, all_keyboards: List[str] =
     Caters for 'all' in either keyboard or keymap, or both.
     """
     if all_keyboards is None:
-        all_keyboards = qmk.keyboard.list_keyboards()
+        all_keyboards = list_keyboards()
 
     if keyboard == 'all':
         if keymap == 'all':
@@ -90,30 +168,38 @@ def _expand_keymap_target(keyboard: str, keymap: str, all_keyboards: List[str] =
             return [(kb, keymap) for kb in filter(lambda e: e is not None, parallel_map(keyboard_filter, all_keyboards))]
     else:
         if keymap == 'all':
-            keyboard = qmk.keyboard.resolve_keyboard(keyboard)
             cli.log.info(f'Retrieving list of keymaps for keyboard "{keyboard}"...')
             return _all_keymaps(keyboard)
         else:
-            return [(qmk.keyboard.resolve_keyboard(keyboard), keymap)]
+            return [(keyboard, keymap)]
 
 
 def expand_keymap_targets(targets: List[Tuple[str, str]]) -> List[Tuple[str, str]]:
     """Expand a list of (keyboard, keymap) tuples inclusive of 'all', into a list of explicit (keyboard, keymap) tuples.
     """
     overall_targets = []
-    all_keyboards = qmk.keyboard.list_keyboards()
+    all_keyboards = list_keyboards()
     for target in targets:
         overall_targets.extend(_expand_keymap_target(target[0], target[1], all_keyboards))
     return list(sorted(set(overall_targets)))
 
 
-def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str] = [], print_vals: List[str] = []) -> List[Tuple[str, str, List[Tuple[str, str]]]]:
+def _construct_build_target_kb_km(e):
+    return KeyboardKeymapBuildTarget(keyboard=e[0], keymap=e[1])
+
+
+def _construct_build_target_kb_km_json(e):
+    return KeyboardKeymapBuildTarget(keyboard=e[0], keymap=e[1], json=e[2])
+
+
+def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str] = []) -> List[BuildTarget]:
     """Filter a list of (keyboard, keymap) tuples based on the supplied filters.
 
     Optionally includes the values of the queried info.json keys.
     """
-    if len(filters) == 0 and len(print_vals) == 0:
-        targets = [(kb, km, {}) for kb, km in target_list]
+    if len(filters) == 0:
+        cli.log.info('Preparing target list...')
+        targets = list(set(parallel_map(_construct_build_target_kb_km, target_list)))
     else:
         cli.log.info('Parsing data for all matching keyboard/keymap combinations...')
         valid_keymaps = [(e[0], e[1], dotty(e[2])) for e in parallel_map(_load_keymap_info, target_list)]
@@ -130,26 +216,14 @@ def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str
                 key = function_match.group('key')
                 value = function_match.group('value')
 
-                if value is not None:
-                    if func_name == 'length':
-                        valid_keymaps = filter(lambda e, key=key, value=value: key in e[2] and len(e[2].get(key)) == int(value), valid_keymaps)
-                    elif func_name == 'contains':
-                        valid_keymaps = filter(lambda e, key=key, value=value: key in e[2] and value in e[2].get(key), valid_keymaps)
-                    else:
-                        cli.log.warning(f'Unrecognized filter expression: {function_match.group(0)}')
-                        continue
+                filter_class = _get_filter_class(func_name, key, value)
+                if filter_class is None:
+                    cli.log.warning(f'Unrecognized filter expression: {function_match.group(0)}')
+                    continue
+                valid_keymaps = filter(filter_class.apply, valid_keymaps)
 
-                    cli.log.info(f'Filtering on condition: {{fg_green}}{func_name}{{fg_reset}}({{fg_cyan}}{key}{{fg_reset}}, {{fg_cyan}}{value}{{fg_reset}})...')
-                else:
-                    if func_name == 'exists':
-                        valid_keymaps = filter(lambda e, key=key: key in e[2], valid_keymaps)
-                    elif func_name == 'absent':
-                        valid_keymaps = filter(lambda e, key=key: key not in e[2], valid_keymaps)
-                    else:
-                        cli.log.warning(f'Unrecognized filter expression: {function_match.group(0)}')
-                        continue
-
-                    cli.log.info(f'Filtering on condition: {{fg_green}}{func_name}{{fg_reset}}({{fg_cyan}}{key}{{fg_reset}})...')
+                value_str = f", {{fg_cyan}}{value}{{fg_reset}})" if value is not None else ""
+                cli.log.info(f'Filtering on condition: {{fg_green}}{func_name}{{fg_reset}}({{fg_cyan}}{key}{{fg_reset}}{value_str}...')
 
             elif equals_match is not None:
                 key = equals_match.group('key')
@@ -172,18 +246,20 @@ def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str
                 cli.log.warning(f'Unrecognized filter expression: {filter_expr}')
                 continue
 
-            targets = [(e[0], e[1], [(p, e[2].get(p)) for p in print_vals]) for e in valid_keymaps]
+        cli.log.info('Preparing target list...')
+        valid_keymaps = [(e[0], e[1], e[2].to_dict() if isinstance(e[2], Dotty) else e[2]) for e in valid_keymaps]  # need to convert dotty_dict back to dict because it doesn't survive parallelisation
+        targets = list(set(parallel_map(_construct_build_target_kb_km_json, list(valid_keymaps))))
 
     return targets
 
 
-def search_keymap_targets(targets: List[Tuple[str, str]] = [('all', 'default')], filters: List[str] = [], print_vals: List[str] = []) -> List[Tuple[str, str, List[Tuple[str, str]]]]:
+def search_keymap_targets(targets: List[Tuple[str, str]] = [('all', 'default')], filters: List[str] = []) -> List[BuildTarget]:
     """Search for build targets matching the supplied criteria.
     """
-    return list(sorted(_filter_keymap_targets(expand_keymap_targets(targets), filters, print_vals), key=lambda e: (e[0], e[1])))
+    return _filter_keymap_targets(expand_keymap_targets(targets), filters)
 
 
-def search_make_targets(targets: List[str], filters: List[str] = [], print_vals: List[str] = []) -> List[Tuple[str, str, List[Tuple[str, str]]]]:
+def search_make_targets(targets: List[str], filters: List[str] = []) -> List[BuildTarget]:
     """Search for build targets matching the supplied criteria.
     """
-    return list(sorted(_filter_keymap_targets(expand_make_targets(targets), filters, print_vals), key=lambda e: (e[0], e[1])))
+    return _filter_keymap_targets(expand_make_targets(targets), filters)

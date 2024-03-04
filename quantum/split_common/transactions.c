@@ -234,21 +234,28 @@ static void master_matrix_handlers_slave(matrix_row_t master_matrix[], matrix_ro
 #ifdef ENCODER_ENABLE
 
 static bool encoder_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
-    static uint32_t last_update = 0;
-    uint8_t         temp_state[NUM_ENCODERS_MAX_PER_SIDE];
+    static uint32_t  last_update = 0;
+    encoder_events_t temp_events;
 
-    bool okay = read_if_checksum_mismatch(GET_ENCODERS_CHECKSUM, GET_ENCODERS_DATA, &last_update, temp_state, split_shmem->encoders.state, sizeof(temp_state));
-    if (okay) encoder_update_raw(temp_state);
+    bool okay = read_if_checksum_mismatch(GET_ENCODERS_CHECKSUM, GET_ENCODERS_DATA, &last_update, &temp_events, &split_shmem->encoders.events, sizeof(temp_events));
+    if (okay) {
+        encoder_handle_slave_events(&split_shmem->encoders.events);
+        transport_write(PUT_ENCODER_TAIL, &split_shmem->encoders.events.tail, sizeof(split_shmem->encoders.events.tail));
+        split_shmem->encoders.checksum = crc8(&split_shmem->encoders.events, sizeof(split_shmem->encoders.events));
+    }
     return okay;
 }
 
 static void encoder_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
-    uint8_t encoder_state[NUM_ENCODERS_MAX_PER_SIDE];
-    encoder_state_raw(encoder_state);
     // Always prepare the encoder state for read.
-    memcpy(split_shmem->encoders.state, encoder_state, sizeof(encoder_state));
+    encoder_retrieve_events(&split_shmem->encoders.events);
     // Now update the checksum given that the encoders has been written to
-    split_shmem->encoders.checksum = crc8(encoder_state, sizeof(encoder_state));
+    split_shmem->encoders.checksum = crc8(&split_shmem->encoders.events, sizeof(split_shmem->encoders.events));
+}
+
+static void encoder_handlers_slave_reset(uint8_t initiator2target_buffer_size, const void *initiator2target_buffer, uint8_t target2initiator_buffer_size, void *target2initiator_buffer) {
+    uint8_t tail_index = *(uint8_t *)initiator2target_buffer;
+    encoder_set_tail_index(tail_index);
 }
 
 // clang-format off
@@ -256,7 +263,8 @@ static void encoder_handlers_slave(matrix_row_t master_matrix[], matrix_row_t sl
 #    define TRANSACTIONS_ENCODERS_SLAVE() TRANSACTION_HANDLER_SLAVE_AUTOLOCK(encoder)
 #    define TRANSACTIONS_ENCODERS_REGISTRATIONS \
     [GET_ENCODERS_CHECKSUM] = trans_target2initiator_initializer(encoders.checksum), \
-    [GET_ENCODERS_DATA]     = trans_target2initiator_initializer(encoders.state),
+    [GET_ENCODERS_DATA]     = trans_target2initiator_initializer(encoders.events), \
+    [PUT_ENCODER_TAIL]      = trans_initiator2target_initializer_cb(encoders.events.tail, encoder_handlers_slave_reset),
 // clang-format on
 
 #else // ENCODER_ENABLE

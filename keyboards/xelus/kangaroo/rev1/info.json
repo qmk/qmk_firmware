@@ -8,6 +8,9 @@
         "rows": ["A9", "A8", "B15", "B14", "B13", "B12", "A4", "A5", "A6", "A7", "B0", "B1"]
     },
     "diode_direction": "COL2ROW",
+    "eeprom": {
+        "driver": "i2c"
+    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu"
 }

@@ -13,6 +13,3 @@ LTO_ENABLE = no
 ENCODER_ENABLE = no
 
 BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality
-
-EEPROM_DRIVER = i2c
-

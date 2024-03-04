@@ -26,6 +26,7 @@
 #define MATRIX_ROW_PINS { A8, A1, A2, B1, A7 }
 
 // FRAM configuration
+#define EEPROM_SPI_MB85RS64V
 #define EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN A0
 #define EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR 4 // 48MHz / 4 = 12MHz; max supported by MB85R64 is 20MHz
 

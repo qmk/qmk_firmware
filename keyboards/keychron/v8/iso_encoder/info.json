@@ -8,9 +8,6 @@
         "pid": "0x0383",
         "device_version": "1.0.0"
     },
-    "rgb_matrix": {
-        "driver": "ckled2001"
-    },
     "matrix_pins": {
         "cols": ["C14", "C15", "A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "B0", "B1", "A8", "A9", "H3"],
         "rows": ["B4", "B3", "A15", "A14", "A13"]

@@ -14,6 +14,9 @@
         "rows": ["B12", "B10", "B13", "B1", "B14"]
     },
     "diode_direction": "COL2ROW",
+    "dip_switch": {
+        "pins": ["A0"]
+    },
     "indicators": {
         "caps_lock": "C13",
         "on_state": 0
