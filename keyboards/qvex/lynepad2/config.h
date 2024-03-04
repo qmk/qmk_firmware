@@ -16,8 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 5
-
 //Digital joystick (4-way switch + encoder)
 #define PIN_JU D4
 #define PIN_JD B6
@@ -27,9 +25,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //Thumbwheel
 #define PIN_TC D2
-
-//Backlighting
-#define BACKLIGHT_DEFAULT_LEVEL 5
-
-//RGB arc
-#define RGBLIGHT_DEFAULT_VAL 64

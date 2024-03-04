@@ -45,10 +45,10 @@ void matrix_init_custom(void) {
     uint8_t pullup[2]    = {0, expander_input_mask};
 
     for (uint8_t i = 0; i < 2; ++i) {
-        expander_status = i2c_writeReg(i2c_addr[i], IODIRA, direction, 2, I2C_TIMEOUT);
+        expander_status = i2c_write_register(i2c_addr[i], IODIRA, direction, 2, I2C_TIMEOUT);
         if (expander_status) return;
 
-        expander_status = i2c_writeReg(i2c_addr[i], GPPUA, pullup, 2, I2C_TIMEOUT);
+        expander_status = i2c_write_register(i2c_addr[i], GPPUA, pullup, 2, I2C_TIMEOUT);
     }
 }
 
@@ -79,7 +79,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
     // On both expanders: select col and read rows
     for (size_t i = 0; i < 2; ++i) {
         if (!expander_status) {
-            expander_status = i2c_writeReg(i2c_addr[i], EXPANDER_COL_REGISTER, &port, 1, I2C_TIMEOUT);
+            expander_status = i2c_write_register(i2c_addr[i], EXPANDER_COL_REGISTER, &port, 1, I2C_TIMEOUT);
         }
         wait_us(30);
 
@@ -87,7 +87,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
             return false;
         }
 
-        expander_status = i2c_readReg(i2c_addr[i], EXPANDER_ROW_REGISTER, &column_state[i], 1, I2C_TIMEOUT);
+        expander_status = i2c_read_register(i2c_addr[i], EXPANDER_ROW_REGISTER, &column_state[i], 1, I2C_TIMEOUT);
         column_state[i] = (~column_state[i]) & ((1 << MATRIX_ROWS_PER_SIDE) - 1);
     }
 

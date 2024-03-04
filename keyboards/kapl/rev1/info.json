@@ -12,8 +12,32 @@
     "pin": "D4"
   },
   "rgb_matrix": {
+    "animations":{
+      "alphas_mods": true,
+      "gradient_up_down": true,
+      "gradient_left_right": true,
+      "breathing": true,
+      "band_spiral_sat": true,
+      "band_spiral_val": true,
+      "cycle_all": true,
+      "cycle_left_right": true,
+      "cycle_up_down": true,
+      "cycle_out_in": true,
+      "cycle_spiral": true,
+      "hue_breathing": true,
+      "hue_wave": true,
+      "solid_reactive_simple": true,
+      "solid_reactive": true,
+      "solid_reactive_multiwide": true,
+      "solid_reactive_multicross": true,
+      "solid_reactive_multinexus": true,
+      "multisplash": true,
+      "solid_multisplash": true
+    },
     "driver": "ws2812",
-    "speed_steps": 10
+    "max_brightness": 120,
+    "speed_steps": 10,
+    "split_count": [44, 44]
   },
   "rgblight": {
     "saturation_steps": 16,
@@ -36,7 +60,14 @@
   },
   "diode_direction": "COL2ROW",
   "split": {
-    "soft_serial_pin": "D2"
+    "soft_serial_pin": "D2",
+    "transport": {
+      "sync": {
+          "indicators": true,
+          "layer_state": true,
+          "matrix_state": true
+      }
+    }
   },
   "processor": "atmega32u4",
   "bootloader": "caterina",

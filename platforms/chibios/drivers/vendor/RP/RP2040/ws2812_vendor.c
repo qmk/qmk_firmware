@@ -268,7 +268,7 @@ static inline void sync_ws2812_transfer(void) {
     busy_wait_until(LAST_TRANSFER);
 }
 
-void ws2812_setleds(LED_TYPE* ledarray, uint16_t leds) {
+void ws2812_setleds(rgb_led_t* ledarray, uint16_t leds) {
     static bool is_initialized = false;
     if (unlikely(!is_initialized)) {
         is_initialized = ws2812_init();

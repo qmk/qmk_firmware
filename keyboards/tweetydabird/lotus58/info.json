@@ -16,11 +16,11 @@
         "bootmagic": true,
         "command": false,
         "console": false,
+        "encoder": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
         "oled": true,
-        "encoder": true,
         "rgblight": true,
         "split": true,
         "tri_layer": true
@@ -32,14 +32,14 @@
     "pin_compatible": "promicro",
     "processor": "atmega32u4",
     "rgblight": {
+        "default": {
+            "val": 87
+        },
         "led_count": 70,
-        "split": true,
-        "split_count": [35, 35],
+        "max_brightness": 175,
         "sleep": true,
-        "max_brightness": 175
-    },
-    "ws2812": {
-        "pin": "D3"
+        "split": true,
+        "split_count": [35, 35]
     },
     "split": {
         "bootmagic": {
@@ -53,11 +53,19 @@
                 ]
             }
         },
+        "handedness": {
+            "pin": "B5"
+        },
         "soft_serial_pin": "D2",
         "transport": {
             "protocol": "serial",
-            "sync_matrix_state": true,
-            "sync_modifiers": true
+            "sync": {
+                "indicators": true,
+                "layer_state": true,
+                "matrix_state": true,
+                "modifiers": true,
+                "oled": true
+            }
         },
         "usb_detect": {
             "enabled": true
@@ -65,10 +73,13 @@
     },
     "url": "https://lectronz.com/stores/tweetys-wild-thinking",
     "usb": {
-        "vid": "0xFEED",
-        "pid": "0x23B0",
         "device_version": "1.2.3",
-        "force_nkro": true
+        "force_nkro": true,
+        "pid": "0x23B0",
+        "vid": "0xFEED"
+    },
+    "ws2812": {
+        "pin": "D3"
     },
     "layouts": {
         "LAYOUT": {

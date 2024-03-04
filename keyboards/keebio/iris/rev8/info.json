@@ -31,7 +31,9 @@
             }
         },
         "transport": {
-            "sync_matrix_state": true
+            "sync" :{
+                "matrix_state": true
+            }
         }
     },
     "processor": "RP2040",
@@ -236,7 +238,8 @@
             {"matrix": [9,3], "flags":4, "x":152, "y":58},
             {"flags":2, "x":144, "y":58},
             {"matrix": [9,4], "flags":4, "x":134, "y":64},
-            {"matrix": [9,5], "flags":4, "x":126, "y":52},
-        ]
+            {"matrix": [9,5], "flags":4, "x":126, "y":52}
+        ],
+        "sleep": true
     }
 }
