@@ -5,6 +5,7 @@ LTO_ENABLE      = yes    # Habilita "Link-Time Optimization", (optimiza código 
 EXTRAKEY_ENABLE = yes    # Habilita las teclas para multimedia
 TAP_DANCE_ENABLE = yes   # Habilita las funciones Tap Dance (Doble Click)
 RGB_MATRIX_ENABLE = yes  # Hbailita la matriz RGB del teclado
+SPLIT_KEYBOARD = yes
 
 SRC += oled.c
 
