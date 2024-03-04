@@ -1,7 +1,6 @@
 {
-    "manufacturer": "SmartCloud",
-    "url": "www.i-chip.cn",
-    "maintainer": "Jacky",
+    "manufacturer": "Smart",
+    "maintainer": "albert",
     "bootloader": "stm32duino",
     "bootloader_instructions": "Press ESC(ROW0COL0), Plug USB. ",
     "processor": "STM32F103",
