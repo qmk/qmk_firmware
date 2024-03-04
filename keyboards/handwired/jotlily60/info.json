@@ -10,10 +10,10 @@
     },
     "features": {
         "bootmagic": true,
-        "command": true,
-        "console": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
-        "mousekey": false,
+        "mousekey": true,
         "nkro": true
     },
     "tapping": {
