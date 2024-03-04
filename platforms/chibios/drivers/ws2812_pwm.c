@@ -48,9 +48,6 @@
 #ifndef WS2812_PWM_COMPLEMENTARY_OUTPUT
 #    define WS2812_PWM_OUTPUT_MODE PWM_OUTPUT_ACTIVE_HIGH
 #else
-#    if !STM32_PWM_USE_ADVANCED
-#        error "WS2812_PWM_COMPLEMENTARY_OUTPUT requires STM32_PWM_USE_ADVANCED == TRUE"
-#    endif
 #    define WS2812_PWM_OUTPUT_MODE PWM_COMPLEMENTARY_OUTPUT_ACTIVE_HIGH
 #endif
 
@@ -379,7 +376,7 @@ void ws2812_write_led_rgbw(uint16_t led_number, uint8_t r, uint8_t g, uint8_t b,
 }
 
 // Setleds for standard RGB
-void ws2812_setleds(LED_TYPE* ledarray, uint16_t leds) {
+void ws2812_setleds(rgb_led_t* ledarray, uint16_t leds) {
     static bool s_init = false;
     if (!s_init) {
         ws2812_init();

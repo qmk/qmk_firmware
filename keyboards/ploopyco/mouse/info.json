@@ -31,6 +31,12 @@
             ["D4", "D2", "E6", "B6", "D7", "C6", "C7", "B7"]
         ]
     },
+    "features": {
+        "encoder": true
+    },
+    "encoder": {
+        "driver": "custom"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

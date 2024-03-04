@@ -11,8 +11,6 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 
-EEPROM_DRIVER = i2c
-
 RGB_MATRIX_ENABLE = yes
 
 COMMON_VPATH += $(DRIVER_PATH)/issi

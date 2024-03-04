@@ -17,9 +17,6 @@
 
 #pragma once
 
-#define DIP_SWITCH_PINS \
-    { B14, A15, A0, B9 }
-
 #define MUSIC_MAP
 #undef AUDIO_VOICES
 #undef AUDIO_PIN
@@ -32,8 +29,6 @@
 #define WS2812_PWM_PAL_MODE 1
 #define WS2812_DMA_STREAM STM32_DMA1_STREAM2
 #define WS2812_DMA_CHANNEL 2
-
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
 
 /*
  * Feature disable options

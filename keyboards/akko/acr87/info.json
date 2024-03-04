@@ -26,8 +26,18 @@
         "rows": [ "B15", "C6", "C7", "C8", "C9", "A8"]
     },
     "diode_direction": "ROW2COL",
+    "dynamic_keymap": {
+        "layer_count": 6
+    },
+    "eeprom": {
+        "driver": "wear_leveling",
+        "wear_leveling": {
+            "driver": "spi_flash",
+            "backing_size": 8192
+        }
+    },
     "rgb_matrix": {
-        "driver": "is31fl3733",
+        "driver": "snled27351",
         "max_brightness": 180,
         "animations": {
             "breathing": true,
@@ -190,7 +200,9 @@
             {"flags": 2, "x":196, "y":64},
             {"flags": 2, "x":210, "y":64},
             {"flags": 2, "x":224, "y":64}
-    ]
+        ],
+        "react_on_keyup": true,
+        "sleep": true
     }, 
     "layouts": {
         "LAYOUT": {

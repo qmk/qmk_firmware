@@ -7,6 +7,9 @@
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",
+    "dynamic_keymap": {
+        "layer_count": 3
+    },
     "features": {
         "rgblight": true,
         "backlight": true
@@ -18,7 +21,10 @@
         "enabled": true,
         "soft_serial_pin": "D0",
         "transport": {
-            "protocol": "serial"
+            "protocol": "serial",
+            "sync" :{
+                "indicators": true
+            }
         },
         "encoder": {
             "right": {
