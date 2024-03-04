@@ -2,9 +2,11 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
-#define _QWERTY 0
-#define _FN     1
-#define _ADJUST 2
+enum layers {
+    _QWERTY,
+    _FN,
+    _ADJUST
+};
 
 #define FN MO(_FN)
 #define ADJUST MO(_ADJUST)
