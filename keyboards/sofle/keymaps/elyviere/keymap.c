@@ -1,5 +1,8 @@
 // If there are errors: qmk generate-compilation-database
 
+#include "action_layer.h"
+#include "keycodes.h"
+#include "modifiers.h"
 #include "oled_driver.h"
 #include QMK_KEYBOARD_H
 #include "keymap_swedish.h"
@@ -19,8 +22,8 @@ enum custom_keycodes { KC_QWERTY = SAFE_RANGE, KC_COLEMAK, KC_P_DVORAK, KC_GAMIN
 
 // A key replaced with '-------' represents a key identical to the base layer,
 // whereas 'XXXXXXX' represents a key without value within that layer
-#define L_RAISE MO(_RAISE)
-#define L_LOWER MO(_LOWER)
+#define L_RAISE TT(_RAISE) // MO - Activate layer while modifier key is held
+#define L_LOWER TT(_LOWER) // TT - Like MO, but tap TAPPING_TOGGLE times to toggle the layer
 #define KC_CAD LALT(LCTL(KC_DEL))
 #define KC_DSKL LGUI(LCTL(KC_LEFT))
 #define KC_DSKR LGUI(LCTL(KC_RGHT))
@@ -29,8 +32,8 @@ enum custom_keycodes { KC_QWERTY = SAFE_RANGE, KC_COLEMAK, KC_P_DVORAK, KC_GAMIN
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/*
- * QWERTY
+/* QWERTY
+ *
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |  `   |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |  `   |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
@@ -52,8 +55,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     KC_LGUI, KC_LALT, KC_LCTL,  KC_ENT, L_LOWER,    L_RAISE,  KC_SPC, KC_RCTL, KC_RALT, KC_RGUI
 ),
 
-/*
- * COLEMAK
+/* COLEMAK
+ *
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |  `   |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |  `   |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
@@ -75,8 +78,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     KC_LGUI, KC_LALT, KC_LCTL,  KC_ENT, L_LOWER,    L_RAISE,  KC_SPC, KC_RCTL, KC_RALT, KC_RGUI
 ),
 
-/*
- * PROGRAMMER DVORAK
+/* PROGRAMMER DVORAK
+ *
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |   $  |   &  |   [  |   {  |   }  |   (  |                    |   =  |   *  |   )  |   +  |   ]  |  !   |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
@@ -113,10 +116,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *               `------'------'------'-------'-------'          `-------'-------'------'------'------'
  */
 [_GAMING] = LAYOUT(
-  XXXXXXX, XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  _______, XXXXXXX,     SE_Q,     SE_W,     SE_E,    SE_R,                       XXXXXXX, XXXXXXX,   KC_UP,    SE_I, XXXXXXX, KC_BSPC,
-  _______, XXXXXXX,     SE_A,     SE_S,     SE_D,    SE_F,                       XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,
-  _______, XXXXXXX,     SE_Z,     SE_X,     SE_C,    SE_V, KC_MUTE,     KC_MPLY, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, HLDSHIF,
+  _______,    SE_1,     SE_2,     SE_3,     SE_4,    SE_5,                          SE_6,    SE_7,    SE_8,    SE_9,    SE_0, _______,
+  _______, _______,     SE_Q,     SE_W,     SE_E,    SE_R,                       _______, _______,   KC_UP,    SE_I, _______, KC_BSPC,
+  _______, _______,     SE_A,     SE_S,     SE_D,    SE_F,                       _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
+  _______, _______,     SE_Z,     SE_X,     SE_C,    SE_V, KC_MUTE,     KC_MPLY, _______, _______, _______, _______, _______, HLDSHIF,
                      _______,  _______,  _______, _______, _______,     _______, _______, HLDCTRL, _______, _______
 ),
 
@@ -140,7 +143,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, SE_QUES, XXXXXXX, XXXXXXX, SE_CIRC, SE_ADIA,                      KC_PMNS,    SE_4,    SE_5,    SE_6, KC_PSLS, SE_PIPE,
   _______,  SE_GRV, XXXXXXX, XXXXXXX, XXXXXXX, SE_ODIA, KC_MUTE,    KC_MPLY, KC_PPLS,    SE_7,    SE_8,    SE_9, SE_BSLS, _______,
                     _______, _______, _______, _______, _______,    _______, _______, SE_SLSH,    SE_0, KC_PDOT
-
 ),
 
 /* RAISE
@@ -188,8 +190,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-/*
- * SHIFT(PROGRAMMER DVORAK)
+/* SHIFT(PROGRAMMER DVORAK)
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |   ~  |   %  |   7  |   5  |   3  |   1  |                    |   9  |   0  |   2  |   4  |   6  |   8  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
@@ -231,8 +232,6 @@ const key_override_t next_track_override = ko_make_with_layers_negmods_and_optio
                                                                                    ~0,                               // Activate on all layers
                                                                                    MOD_MASK_SA,                      // Do not activate when shift or alt are pressed
                                                                                    ko_option_no_reregister_trigger); // Specifies that the play key is not registered again after lifting ctrl
-
-// TODO Make overrides for number-keys for PGDVK layer
 
 const key_override_t prev_track_override = ko_make_with_layers_negmods_and_options(MOD_MASK_CS, KC_MPLY, KC_MPRV, ~0, MOD_MASK_ALT, ko_option_no_reregister_trigger);
 
@@ -282,6 +281,25 @@ void disable_held_keys(bool *shift_held, bool *ctrl_held) {
     unregister_mods(mod_config(MOD_LCTL));
 }
 
+#define CLICK(mod, key)                            \
+    if (record->event.pressed) {                   \
+        if (mod) register_mods(mod_config(mod));   \
+        register_code(key);                        \
+    } else {                                       \
+        if (mod) unregister_mods(mod_config(mod)); \
+        unregister_code(key);                      \
+    }
+
+#define TOGGLE_HOLD(key, hold)                \
+    if (record->event.pressed) {              \
+        hold = !hold;                         \
+        if (hold) {                           \
+            register_mods(mod_config(key));   \
+        } else {                              \
+            unregister_mods(mod_config(key)); \
+        }                                     \
+    }
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef OLED_ENABLE
     if (record->event.pressed) { // OLED timeout code
@@ -313,129 +331,51 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
         case KC_PRVWD:
-            if (record->event.pressed) {
-                if (keymap_config.swap_lctl_lgui) {
-                    register_mods(mod_config(MOD_LALT));
-                    register_code(KC_LEFT);
-                } else {
-                    register_mods(mod_config(MOD_LCTL));
-                    register_code(KC_LEFT);
-                }
+            if (keymap_config.swap_lctl_lgui) {
+                CLICK(MOD_LALT, KC_LEFT);
             } else {
-                if (keymap_config.swap_lctl_lgui) {
-                    unregister_mods(mod_config(MOD_LALT));
-                    unregister_code(KC_LEFT);
-                } else {
-                    unregister_mods(mod_config(MOD_LCTL));
-                    unregister_code(KC_LEFT);
-                }
+                CLICK(MOD_LCTL, KC_LEFT);
             }
             break;
         case KC_NXTWD:
-            if (record->event.pressed) {
-                if (keymap_config.swap_lctl_lgui) {
-                    register_mods(mod_config(MOD_LALT));
-                    register_code(KC_RIGHT);
-                } else {
-                    register_mods(mod_config(MOD_LCTL));
-                    register_code(KC_RIGHT);
-                }
+            if (keymap_config.swap_lctl_lgui) {
+                CLICK(MOD_LALT, KC_RIGHT);
             } else {
-                if (keymap_config.swap_lctl_lgui) {
-                    unregister_mods(mod_config(MOD_LALT));
-                    unregister_code(KC_RIGHT);
-                } else {
-                    unregister_mods(mod_config(MOD_LCTL));
-                    unregister_code(KC_RIGHT);
-                }
+                CLICK(MOD_LCTL, KC_RIGHT);
             }
             break;
         case KC_LSTRT:
-            if (record->event.pressed) {
-                if (keymap_config.swap_lctl_lgui) {
-                    // CMD-arrow on Mac, but we have CTL and GUI swapped
-                    register_mods(mod_config(MOD_LCTL));
-                    register_code(KC_LEFT);
-                } else {
-                    register_code(KC_HOME);
-                }
+            if (keymap_config.swap_lctl_lgui) {
+                CLICK(MOD_LCTL, KC_LEFT);
             } else {
-                if (keymap_config.swap_lctl_lgui) {
-                    unregister_mods(mod_config(MOD_LCTL));
-                    unregister_code(KC_LEFT);
-                } else {
-                    unregister_code(KC_HOME);
-                }
+                CLICK(0, KC_HOME);
             }
             break;
         case KC_LEND:
-            if (record->event.pressed) {
-                if (keymap_config.swap_lctl_lgui) {
-                    // CMD-arrow on Mac, but we have CTL and GUI swapped
-                    register_mods(mod_config(MOD_LCTL));
-                    register_code(KC_RIGHT);
-                } else {
-                    register_code(KC_END);
-                }
+            if (keymap_config.swap_lctl_lgui) {
+                // CMD-arrow on Mac, but we have CTL and GUI swapped
+                CLICK(MOD_LCTL, KC_RIGHT);
             } else {
-                if (keymap_config.swap_lctl_lgui) {
-                    unregister_mods(mod_config(MOD_LCTL));
-                    unregister_code(KC_RIGHT);
-                } else {
-                    unregister_code(KC_END);
-                }
+                CLICK(0, KC_END);
             }
             break;
         case KC_DLINE:
-            if (record->event.pressed) {
-                register_mods(mod_config(MOD_LCTL));
-                register_code(KC_BSPC);
-            } else {
-                unregister_mods(mod_config(MOD_LCTL));
-                unregister_code(KC_BSPC);
-            }
+            CLICK(MOD_LCTL, KC_BSPC);
             break;
         case KC_COPY:
-            if (record->event.pressed) {
-                register_mods(mod_config(MOD_LCTL));
-                register_code(KC_C);
-            } else {
-                unregister_mods(mod_config(MOD_LCTL));
-                unregister_code(KC_C);
-            }
+            CLICK(MOD_LCTL, KC_C);
             return false;
         case KC_PASTE:
-            if (record->event.pressed) {
-                register_mods(mod_config(MOD_LCTL));
-                register_code(KC_V);
-            } else {
-                unregister_mods(mod_config(MOD_LCTL));
-                unregister_code(KC_V);
-            }
+            CLICK(MOD_LCTL, KC_V);
             return false;
         case KC_CUT:
-            if (record->event.pressed) {
-                register_mods(mod_config(MOD_LCTL));
-                register_code(KC_X);
-            } else {
-                unregister_mods(mod_config(MOD_LCTL));
-                unregister_code(KC_X);
-            }
+            CLICK(MOD_LCTL, KC_X);
             return false;
-            break;
         case KC_UNDO:
-            if (record->event.pressed) {
-                register_mods(mod_config(MOD_LCTL));
-                register_code(KC_Z);
-            } else {
-                unregister_mods(mod_config(MOD_LCTL));
-                unregister_code(KC_Z);
-            }
+            CLICK(MOD_LCTL, KC_Z);
             return false;
-        case KC_RSFT: // Shift Backspace to Delete Whole Word. Inspired by Hellsingcoder.
-                      // rshift_held = record->event.pressed;
-                      // held_shift = keycode;
-#ifdef KEYBOARD_PET   // KEYBOARD PET STATUS
+        case KC_RSFT:
+#ifdef KEYBOARD_PET // KEYBOARD PET STATUS
             if (record->event.pressed) {
                 isBarking = true;
             } else {
@@ -444,8 +384,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
             return true;
         case KC_LSFT:
-            // lshift_held = record->event.pressed;
-            // held_shift = keycode;
 #ifdef KEYBOARD_PET // KEYBOARD PET STATUS
             if (record->event.pressed) {
                 isBarking = true;
@@ -476,24 +414,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return true;
 #endif
         case HLDSHIF:
-            if (record->event.pressed) {
-                shift_held = !shift_held;
-                if (shift_held) {
-                    register_mods(mod_config(MOD_LSFT));
-                } else {
-                    unregister_mods(mod_config(MOD_LSFT));
-                }
-            }
+            TOGGLE_HOLD(MOD_LSFT, shift_held);
             return false;
         case HLDCTRL:
-            if (record->event.pressed) {
-                ctrl_held = !ctrl_held;
-                if (ctrl_held) {
-                    register_mods(mod_config(MOD_LCTL));
-                } else {
-                    unregister_mods(mod_config(MOD_LCTL));
-                }
-            }
+            TOGGLE_HOLD(MOD_LCTL, ctrl_held);
             return false;
     }
 
@@ -508,30 +432,38 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_COLEMAK]           = {ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)}, // Mapping for Base layer
     [_PROGRAMMER_DVORAK] = {ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)}, // Mapping for Base layer
     [_GAMING]            = {ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)}, // Mapping for Base layer
-    [_LOWER]             = {ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)}, // Mapping for Base layer
+    [_LOWER]             = {ENCODER_CCW_CW(KC_PGUP, KC_PGDN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},           // Mapping for Base layer
     [_RAISE]             = {ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)}, // Mapping for Base layer
     [_ADJUST]            = {ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)}, // Mapping for Base layer
-    // [1] = { ENCODER_CCW_CW(RGB_HUD, RGB_HUI),  ENCODER_CCW_CW(RGB_SAD, RGB_SAI)  }, // Mapping for Layer 1
-    // [2] = { ENCODER_CCW_CW(RGB_VAD, RGB_VAI),  ENCODER_CCW_CW(RGB_SPD, RGB_SPI)  }, // Mapping for Layer 2
-    // [3] = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD), ENCODER_CCW_CW(KC_LEFT, KC_RIGHT) }, // Mapping for Layer 3
-
-    // You can add more layers here if you need them, or you can also delete lines for layers you are not using
 };
 #endif
 
 #if defined(ENCODER_ENABLE) && !defined(ENCODER_MAP_ENABLE)
+#    define ON_TURN(leftSpin, rightSpin) \
+        if (clockwise) {                 \
+            tap_code(leftSpin);          \
+        } else {                         \
+            tap_code(rightSpin);         \
+        }
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
+        switch (get_highest_layer(layer_state)) {
+            case _RAISE:
+                ON_TURN(KC_MS_RIGHT, KC_MS_LEFT);
+                break;
+            default:
+                ON_TURN(KC_VOLU, KC_VOLU);
         }
     } else if (index == 1) {
-        if (clockwise) {
-            tap_code(KC_MS_WH_DOWN);
-        } else {
-            tap_code(KC_MS_WH_UP);
+        switch (get_highest_layer(layer_state)) {
+            case _LOWER:
+                ON_TURN(KC_PGDN, KC_PGUP);
+                break;
+            case _RAISE:
+                ON_TURN(KC_MS_DOWN, KC_MS_UP);
+                break;
+            default:
+                ON_TURN(KC_MS_WH_DOWN, KC_MS_WH_UP);
         }
     }
     return false;

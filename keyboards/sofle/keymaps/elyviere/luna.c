@@ -24,7 +24,7 @@
 #    include "print.h"
 #endif
 #ifdef OLED_ENABLE
-uint16_t oled_timer = 0; // For Keyboard pet OLED timeout with animations, code by Drashna.
+uint32_t oled_timer = 0; // For Keyboard pet OLED timeout with animations, code by Drashna.
 #    ifndef PET_DISABLE
 /* KEYBOARD PET START */
 #        define KEYBOARD_PET
@@ -334,7 +334,7 @@ bool oled_task_user(void) {
 #    endif
 
     if (is_keyboard_master()) { // Drashna's OLED timeout off code for animations
-        if (timer_elapsed(oled_timer) > 30000) {
+        if (timer_elapsed32(oled_timer) > 30000) {
             oled_off();
             return false;
         } else {
@@ -416,7 +416,9 @@ void housekeeping_task_user(void) {
         }
         if (timer_elapsed(last_time_update) >= 60000) {
             last_time_update = timer_read() - (timer_elapsed(last_time_update) - 60000);
-            increment_time();
+            if (time[2] == ':') {
+                increment_time();
+            }
         }
     }
 }
