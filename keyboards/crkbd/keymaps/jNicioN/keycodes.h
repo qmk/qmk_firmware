@@ -12,5 +12,6 @@ enum layers{
 enum tapDance{
 	TD_CTRALT,  //Tap para CTRL(⌃), doble tap para ALT(⌥)
 	TD_MAYUS,   //Tap para SHIFT, doble tap para BLOQ MAYUS
-	TD_QUESAPE  //Tap para (´), doble tap para (¿)
+	TD_QUESAPE, //Tap para (´), doble tap para (¿)
+	TD_MENMAY  //Tap para (<), doble tap para (>)
 };
