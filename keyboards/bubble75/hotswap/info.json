@@ -13,7 +13,36 @@
         "pin": "B7"
     },
     "rgb_matrix": {
-        "driver": "ws2812"
+        "animations": {
+            "breathing": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "rainbow_moving_chevron": true,
+            "cycle_out_in": true,
+            "cycle_out_in_dual": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "dual_beacon": true,
+            "rainbow_beacon": true,
+            "raindrops": true,
+            "typing_heatmap": true,
+            "digital_rain": true,
+            "solid_reactive_simple": true,
+            "solid_reactive": true,
+            "solid_reactive_wide": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_cross": true,
+            "solid_reactive_multicross": true,
+            "solid_reactive_nexus": true,
+            "solid_reactive_multinexus": true,
+            "splash": true,
+            "multisplash": true,
+            "solid_splash": true,
+            "solid_multisplash": true
+        },
+        "driver": "ws2812",
+        "max_brightness": 180
     },
     "matrix_pins": {
         "cols": ["B0", "B1", "B2", "B3", "E6", "F0", "D0", "D1", "D4", "D6", "D7", "B4", "B5", "B6", "C6"],

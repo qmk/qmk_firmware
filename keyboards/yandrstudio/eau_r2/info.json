@@ -30,6 +30,9 @@
             "rgb_test": true,
             "alternating": true,
             "twinkle": true
+        },
+        "default": {
+            "animation": "rainbow_mood"
         }
     },
     "debounce": 8,
