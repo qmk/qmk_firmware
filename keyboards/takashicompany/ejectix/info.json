@@ -2,7 +2,7 @@
     "manufacturer": "takashicompany",
     "keyboard_name": "Ejectix",
     "maintainer": "takashicompany",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "diode_direction": "COL2ROW",
     "dynamic_keymap": {
         "layer_count": 11
