@@ -17,9 +17,6 @@ Make example for this keyboard (after setting up your build environment):
 
     make takashicompany/ejectix:default
     
-    or
-    
-    make takashicompany/ejectix:via
 
 Flashing example for this keyboard:
 
