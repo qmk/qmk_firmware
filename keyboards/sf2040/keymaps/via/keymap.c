@@ -19,7 +19,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, KC_UP, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______, KC_ENTER,
         KC_LEFT_SHIFT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_RIGHT_SHIFT,
-        KC_LEFT_CTRL, KC_LEFT_GUI, KC_LEFT_ALT, KC_SPACE, MO(1), KC_HOME, KC_END, KC_RIGHT_CTRL
+        KC_LEFT_CTRL, KC_LEFT_GUI, KC_LEFT_ALT, KC_SPACE, _______, KC_HOME, KC_END, KC_RIGHT_CTRL
     ),
     [2] = LAYOUT(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
