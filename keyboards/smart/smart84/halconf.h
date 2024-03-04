@@ -22,7 +22,7 @@
 
 #define HAL_USE_ADC TRUE
 
-// This enables interrupt-driven mode
+/* This enables interrupt-driven mode */
 #define PAL_USE_WAIT TRUE
 #define USB_USE_WAIT TRUE
 
