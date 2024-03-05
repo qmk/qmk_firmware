@@ -152,9 +152,9 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_QWERTY]=LAYOUT_ortho_4x12(
-			TD(TD_RHAND_LAYER),		LGUI_T(KC_Q),		RALT_T(KC_W),		KC_E,					KC_R,				KC_T,			KC_Y,			KC_U,				KC_I,					RALT_T(KC_O),	KC_P,						KC_BSPC,
+			TD(TD_RHAND_LAYER),		LGUI_T(KC_Q),		RALT_T(KC_W),		LT(_MOUSE,KC_E),		KC_R,				KC_T,			KC_Y,			KC_U,				KC_I,					RALT_T(KC_O),	KC_P,						KC_BSPC,
 			TD(TD_ESC),				LT(_MOV,KC_A),		LCTL_T(KC_S),		LALT_T(KC_D),			LSFT_T(KC_F),		KC_G,			KC_H,			RSFT_T(KC_J),		LALT_T(KC_K),			RCTL_T(KC_L),	LT(_FUNCTION_KEYS,KC_SCLN),	LT(_FUNCTION2_KEYS,KC_QUOT),
-			OSM(MOD_LCTL),			LGUI_T(KC_Z),		LT(_MOUSE,KC_X),	KC_C,					KC_V,				KC_B,			KC_N,			KC_M,				KC_COMM,				KC_DOT,			RGUI_T(KC_SLSH),			QK_LEAD,
+			OSM(MOD_LCTL),			LGUI_T(KC_Z),		KC_X,				KC_C,					KC_V,				KC_B,			KC_N,			KC_M,				KC_COMM,				KC_DOT,			RGUI_T(KC_SLSH),			QK_LEAD,
 			OSM(MOD_LGUI),			OSM(MOD_LALT),		OSM(MOD_RALT),		TD(TD_SIFT_CAPSLOCK),	TD(TD_TAB),			SH_T(KC_SPACE),	SH_T(KC_SPACE),	LT(_RAISE,KC_ENT),	TD(TD_SIFT_CAPSLOCK),	TD(TD_PLAY),	TD(TD_VOLU),				TD(TD_VOLD)
 	),
     
@@ -836,6 +836,27 @@ void tab_reset(tap_dance_state_t *state, void *user_data) {
 
 
 
+void running_boot(void){
+
+	if (timer_elapsed32(key_timer_boot) > tiempo_boot) {
+	
+	key_timer_boot = timer_read32();
+		if(is_boot_active){
+		  //SEND_STRING(SS_TAP(X_F13));
+		  // SEND_STRING(SS_TAP(X_WH_U)); //Rueda del ratón hacia arriba
+		  // SEND_STRING(SS_TAP(X_WH_D)); //Rueda del ratón hacia abajo
+		  SEND_STRING(SS_TAP(X_MS_U)); //Mueve el ratón hacia arriba
+		  SEND_STRING(SS_TAP(X_MS_D)); //Mueve el ratón hacia abajo
+		  SEND_STRING(SS_TAP(X_MS_R)); //Mueve el ratón hacia derecha
+		  SEND_STRING(SS_TAP(X_MS_L)); //Mueve el ratón hacia izquierda
+		  // SEND_STRING(SS_TAP(X_BTN1)); //Pulsa el botón 1 del ratón
+		  // SEND_STRING(SS_TAP(X_BTN2)); //Pulsa el botón 2 del ratón
+		  // SEND_STRING(SS_TAP(X_BTN3)); //Pulsa el botón 3 del ratón
+		}
+	} 
+	
+}	
+
 
 void handleBoot(){
 	
@@ -843,40 +864,22 @@ void handleBoot(){
 	
 	if(is_boot_active){
 		
-		tiempo_boot = 600000; //10 minutos
-		SEND_STRING("Boot Activado\n");
+		tiempo_boot = 60000; //10 minutos
+		SEND_STRING("Boot Actived\n");
 	}
 	else{
 
 
 		tiempo_boot = 0;
-		SEND_STRING("Boot Desactivado\n");
+		SEND_STRING("Boot Unactived\n");
 	}  
 }
-
 
 
 
 void matrix_scan_user(void) {
   
 	macrokeys_reset_tokens();
-	
-	
-	  if (timer_elapsed32(key_timer_boot) > tiempo_boot) {
-      key_timer_boot = timer_read32();
-      if(is_boot_active){
-      //SEND_STRING(SS_TAP(X_F13));
-      // SEND_STRING(SS_TAP(X_WH_U)); //Rueda del ratón hacia arriba
-      // SEND_STRING(SS_TAP(X_WH_D)); //Rueda del ratón hacia abajo
-      // SEND_STRING(SS_TAP(X_MS_U)); //Mueve el ratón hacia arriba
-      SEND_STRING(SS_TAP(X_MS_D)); //Mueve el ratón hacia abajo
-      // SEND_STRING(SS_TAP(X_MS_R)); //Mueve el ratón hacia derecha
-      // SEND_STRING(SS_TAP(X_MS_L)); //Mueve el ratón hacia izquierda
-      // SEND_STRING(SS_TAP(X_BTN1)); //Pulsa el botón 1 del ratón
-      // SEND_STRING(SS_TAP(X_BTN2)); //Pulsa el botón 2 del ratón
-      // SEND_STRING(SS_TAP(X_BTN3)); //Pulsa el botón 3 del ratón
-      }
-    } 
-    
-	
+	running_boot();
+		
 }
