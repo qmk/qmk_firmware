@@ -22,7 +22,7 @@
 
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS // enable framebuffer effects
-#define RGB_DISABLE_WHEN_USB_SUSPENDED // USB待机时候停止灯效
+#define RGB_MATRIX_SLEEP // USB待机时候停止灯效
 #define RGB_MATRIX_SOLID_REACTIVE_GRADIENT_MODE
 #define RGB_MATRIX_TIMEOUT 0 //#define RGBLIGHT_DISABLE_KEYCODES
 
