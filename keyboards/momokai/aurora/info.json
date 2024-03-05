@@ -43,6 +43,34 @@
         "pin": "C7"
     },
     "rgb_matrix": {
+        "animations": {
+            "gradient_up_down": true,
+            "gradient_left_right": true,
+            "breathing": true,
+            "band_sat": true,
+            "band_val": true,
+            "band_pinwheel_sat": true,
+            "band_pinwheel_val": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "cycle_out_in": true,
+            "cycle_spiral": true,
+            "raindrops": true,
+            "jellybean_raindrops": true,
+            "hue_breathing": true,
+            "hue_wave": true,
+            "pixel_rain": true,
+            "pixel_flow": true,
+            "typing_heatmap": true,
+            "digital_rain": true,
+            "solid_reactive_simple": true,
+            "solid_reactive": true,
+            "solid_reactive_cross": true,
+            "solid_reactive_nexus": true,
+            "splash": true,
+            "solid_splash": true
+        },
         "driver": "ws2812",
         "layout": [
             { "flags": 4, "matrix": [2, 0], "x": 51, "y": 51 },
@@ -51,7 +79,9 @@
             { "flags": 4, "matrix": [2, 1], "x": 102, "y": 51 },
             { "flags": 4, "matrix": [2, 2], "x": 154, "y": 51 },
             { "flags": 4, "matrix": [1, 2], "x": 154, "y": 38 }
-        ]
+        ],
+        "max_brightness": 200,
+        "sleep": true
     },
     "layouts": {
         "LAYOUT": {

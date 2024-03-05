@@ -114,7 +114,6 @@ typedef struct usbConfigurationDescriptor {
     usbInterfaceDescriptor_t consoleInterface;
     usbHIDDescriptor_t       consoleHID;
     usbEndpointDescriptor_t  consoleINEndpoint;
-    usbEndpointDescriptor_t  consoleOUTEndpoint;
 #endif
 } __attribute__((packed)) usbConfigurationDescriptor_t;
 

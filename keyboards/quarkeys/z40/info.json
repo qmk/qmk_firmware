@@ -9,10 +9,31 @@
         "device_version": "0.0.1"
     },
     "rgb_matrix": {
+        "animations": {
+            "alphas_mods": true,
+            "breathing": true,
+            "cycle_up_down": true,
+            "rainbow_moving_chevron": true,
+            "cycle_out_in": true,
+            "cycle_out_in_dual": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "dual_beacon": true,
+            "rainbow_beacon": true,
+            "rainbow_pinwheels": true,
+            "solid_reactive": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_multicross": true,
+            "solid_reactive_multinexus": true,
+            "multisplash": true,
+            "solid_multisplash": true
+        },
         "driver": "ws2812",
         "sat_steps": 8,
         "val_steps": 8,
-        "speed_steps": 10
+        "speed_steps": 10,
+        "max_brightness": 130,
+        "sleep": true
     },
     "rgblight": {
         "saturation_steps": 8,

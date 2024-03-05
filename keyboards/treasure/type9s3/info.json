@@ -31,6 +31,28 @@
         "pin": "B6"
     },
     "rgb_matrix": {
+        "animations": {
+            "gradient_up_down": true,
+            "gradient_left_right": true,
+            "breathing": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "jellybean_raindrops": true,
+            "pixel_fractal": true,
+            "pixel_rain": true,
+            "typing_heatmap": true,
+            "digital_rain": true,
+            "solid_reactive_simple": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_nexus": true,
+            "splash": true,
+            "solid_splash": true
+        },
+        "default": {
+            "speed": 40,
+            "val": 120
+        },
         "driver": "ws2812",
         "layout": [
             { "matrix": [2, 0],"flags": 4, "x": 0, "y": 20 },
@@ -42,7 +64,8 @@
             { "matrix": [0, 0],"flags": 4, "x": 0, "y": 0 },
             { "matrix": [0, 1],"flags": 4, "x": 10, "y": 0 },
             { "matrix": [0, 2],"flags": 4, "x": 20, "y": 0 }
-        ]
+        ],
+        "sleep": true
     },
     "community_layouts": ["ortho_3x3"],
     "layouts": {

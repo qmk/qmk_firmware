@@ -23,7 +23,6 @@
     "processor": "RP2040",
     "rgb_matrix": {
         "animations": {
-            "solid_color": true,
             "alphas_mods": true,
             "gradient_up_down": true,
             "gradient_left_right": true,

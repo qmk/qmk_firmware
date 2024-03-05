@@ -19,6 +19,7 @@ The following converters are available at this time:
 | `promicro` | `elite_pi`        |
 | `promicro` | `helios`          |
 | `promicro` | `liatris`         |
+| `promicro` | `imera`           |
 | `promicro` | `michi`           |
 | `elite_c`  | `stemcell`        |
 | `elite_c`  | `rp2040_ce`       |
@@ -82,6 +83,7 @@ If a board currently supported in QMK uses a [Pro Micro](https://www.sparkfun.co
 | [Elite-Pi](https://keeb.io/products/elite-pi-usb-c-pro-micro-replacement-rp2040)         | `elite_pi`        |
 | [0xCB Helios](https://keeb.supply/products/0xcb-helios)                                  | `helios`          |
 | [Liatris](https://splitkb.com/products/liatris)                                          | `liatris`         |
+| [Imera](https://splitkb.com/products/imera)                                              | `imera`           |
 | [Michi](https://github.com/ci-bus/michi-promicro-rp2040)                                 | `michi`           |
 
 Converter summary:
@@ -99,6 +101,7 @@ Converter summary:
 | `elite_pi`        | `-e CONVERT_TO=elite_pi`        | `CONVERT_TO=elite_pi`        | `#ifdef CONVERT_TO_ELITE_PI`        |
 | `helios`          | `-e CONVERT_TO=helios`          | `CONVERT_TO=helios`          | `#ifdef CONVERT_TO_HELIOS`          |
 | `liatris`         | `-e CONVERT_TO=liatris`         | `CONVERT_TO=liatris`         | `#ifdef CONVERT_TO_LIATRIS`         |
+| `imera`           | `-e CONVERT_TO=imera`           | `CONVERT_TO=imera`           | `#ifdef CONVERT_TO_IMERA`           |
 | `michi`           | `-e CONVERT_TO=michi`           | `CONVERT_TO=michi`           | `#ifdef CONVERT_TO_MICHI`           |
 
 ### Proton C :id=proton_c

@@ -45,8 +45,15 @@
 #    define AW20216S_SPI_DIVISOR 4
 #endif
 
-uint8_t g_pwm_buffer[AW20216S_DRIVER_COUNT][AW20216S_PWM_REGISTER_COUNT];
-bool    g_pwm_buffer_update_required[AW20216S_DRIVER_COUNT] = {false};
+typedef struct aw20216s_driver_t {
+    uint8_t pwm_buffer[AW20216S_PWM_REGISTER_COUNT];
+    bool    pwm_buffer_dirty;
+} PACKED aw20216s_driver_t;
+
+aw20216s_driver_t driver_buffers[AW20216S_DRIVER_COUNT] = {{
+    .pwm_buffer       = {0},
+    .pwm_buffer_dirty = false,
+}};
 
 bool aw20216s_write(pin_t cs_pin, uint8_t page, uint8_t reg, uint8_t* data, uint8_t len) {
     static uint8_t s_spi_transfer_buffer[2] = {0};
@@ -106,16 +113,18 @@ static inline void aw20216s_auto_lowpower(pin_t cs_pin) {
 void aw20216s_init_drivers(void) {
     spi_init();
 
-    aw20216s_init(AW20216S_CS_PIN_1, AW20216S_EN_PIN_1);
+#if defined(AW20216S_EN_PIN)
+    gpio_set_pin_output(AW20216S_EN_PIN);
+    gpio_write_pin_high(AW20216S_EN_PIN);
+#endif
+
+    aw20216s_init(AW20216S_CS_PIN_1);
 #if defined(AW20216S_CS_PIN_2)
-    aw20216s_init(AW20216S_CS_PIN_2, AW20216S_EN_PIN_2);
+    aw20216s_init(AW20216S_CS_PIN_2);
 #endif
 }
 
-void aw20216s_init(pin_t cs_pin, pin_t en_pin) {
-    setPinOutput(en_pin);
-    writePinHigh(en_pin);
-
+void aw20216s_init(pin_t cs_pin) {
     aw20216s_soft_reset(cs_pin);
     wait_ms(2);
 
@@ -131,13 +140,14 @@ void aw20216s_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     aw20216s_led_t led;
     memcpy_P(&led, (&g_aw20216s_leds[index]), sizeof(led));
 
-    if (g_pwm_buffer[led.driver][led.r] == red && g_pwm_buffer[led.driver][led.g] == green && g_pwm_buffer[led.driver][led.b] == blue) {
+    if (driver_buffers[led.driver].pwm_buffer[led.r] == red && driver_buffers[led.driver].pwm_buffer[led.g] == green && driver_buffers[led.driver].pwm_buffer[led.b] == blue) {
         return;
     }
-    g_pwm_buffer[led.driver][led.r]          = red;
-    g_pwm_buffer[led.driver][led.g]          = green;
-    g_pwm_buffer[led.driver][led.b]          = blue;
-    g_pwm_buffer_update_required[led.driver] = true;
+
+    driver_buffers[led.driver].pwm_buffer[led.r] = red;
+    driver_buffers[led.driver].pwm_buffer[led.g] = green;
+    driver_buffers[led.driver].pwm_buffer[led.b] = blue;
+    driver_buffers[led.driver].pwm_buffer_dirty  = true;
 }
 
 void aw20216s_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
@@ -147,10 +157,10 @@ void aw20216s_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void aw20216s_update_pwm_buffers(pin_t cs_pin, uint8_t index) {
-    if (g_pwm_buffer_update_required[index]) {
-        aw20216s_write(cs_pin, AW20216S_PAGE_PWM, 0, g_pwm_buffer[index], AW20216S_PWM_REGISTER_COUNT);
+    if (driver_buffers[index].pwm_buffer_dirty) {
+        aw20216s_write(cs_pin, AW20216S_PAGE_PWM, 0, driver_buffers[index].pwm_buffer, AW20216S_PWM_REGISTER_COUNT);
+        driver_buffers[index].pwm_buffer_dirty = false;
     }
-    g_pwm_buffer_update_required[index] = false;
 }
 
 void aw20216s_flush(void) {

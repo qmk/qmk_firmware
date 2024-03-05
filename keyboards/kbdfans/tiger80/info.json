@@ -42,6 +42,9 @@
             "snake": true,
             "static_gradient": true,
             "twinkle": true
+        },
+        "default": {
+            "speed": 15
         }
     },
     "ws2812": {

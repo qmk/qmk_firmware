@@ -29,6 +29,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "encoder.h"
 #endif
 
+#ifdef DIP_SWITCH_MAP_ENABLE
+#    include "dip_switch.h"
+#endif
+
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
 #endif
@@ -204,5 +208,13 @@ __attribute__((weak)) uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key
         return keycode_at_encodermap_location(layer, key.col, false);
     }
 #endif // ENCODER_MAP_ENABLE
+#ifdef DIP_SWITCH_MAP_ENABLE
+    else if (key.row == KEYLOC_DIP_SWITCH_ON && key.col < NUM_DIP_SWITCHES) {
+        return keycode_at_dip_switch_map_location(key.col, true);
+    } else if (key.row == KEYLOC_DIP_SWITCH_OFF && key.col < NUM_DIP_SWITCHES) {
+        return keycode_at_dip_switch_map_location(key.col, false);
+    }
+#endif // DIP_SWITCH_MAP_ENABLE
+
     return KC_NO;
 }

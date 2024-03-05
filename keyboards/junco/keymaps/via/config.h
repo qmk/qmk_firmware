@@ -26,7 +26,7 @@
 #    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_RAINBOW_MOVING_CHEVRON
 
 // Turns off RGB effects when there is no longer a USB connection
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED
+#    define RGB_MATRIX_SLEEP
 
 // Allow keypress reactive animations
 #    define SPLIT_TRANSPORT_MIRROR // Necessary setting for key press animations on a split
