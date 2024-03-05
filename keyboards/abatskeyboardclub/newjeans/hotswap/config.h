@@ -3,6 +3,9 @@
 
 #pragma once
 
+/* VIA custom menu*/
+#define VIA_EEPROM_CUSTOM_CONFIG_SIZE 7
+
 /* RGB */
 #define WS2812_SPI_DRIVER SPID2
 #define WS2812_SPI_MOSI_PAL_MODE 0
