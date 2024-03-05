@@ -23,7 +23,7 @@
 #include "usb_util.h"
 #include "usb_driver.h"
 #include "os_detection.h"
-#include "as84.h"
+#include "albert_smart84.h"
 
 
 #define LED1 A9
