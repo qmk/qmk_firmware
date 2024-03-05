@@ -13,7 +13,8 @@
         "mousekey": true,
         "nkro": true,
         "rgblight": true,
-        "encoder": true
+        "encoder": true,
+        "unicode": true
     },
     "rgblight": {
         "hue_steps": 10,
