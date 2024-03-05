@@ -50,7 +50,8 @@ enum custom_keycodes {
   WINTAB,
   DEL_WORD,
   DEL_LINE,
-  DEL_END_LINE
+  DEL_END_LINE,
+  ONOFFBOT
 };
 
 bool alttab_token;
@@ -130,6 +131,12 @@ const uint32_t PROGMEM unicode_map[] = {
 
 
 
+static void handleBoot(void);
+static uint32_t key_timer_boot = 0;
+uint32_t tiempo_boot = 0;
+bool is_boot_active = false;
+
+
 
 
 
@@ -161,8 +168,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LOWER]=LAYOUT_ortho_4x12(
 			KC_DEL,     KC_NO,		KC_NO,		DM_PLY2,		DM_PLY1,            KC_NO,	RALT(KC_1),		 					KC_EXLM,		KC_AT,		    KC_HASH,	    	KC_DLR,			KC_PERC,
 			KC_NO,		WINTAB,		ALTTAB,	    C(G(KC_LEFT)),	C(G(KC_RIGHT)),		KC_NO,	KC_GRV,								KC_CIRC,		KC_AMPR,	    KC_ASTR,	        KC_LPRN,	    KC_RPRN,
-			KC_NO,		KC_NO,		KC_NO,		G(S(KC_S)),		G(KC_V),		    KC_NO,	XP(ORDINAL_MALE,ORDINAL_FEMALE),	KC_MINS,		KC_EQL,		    KC_BSLS,		    KC_LBRC,		KC_RBRC,
-			KC_NO,		KC_TRNS,	KC_TRNS,	KC_TRNS,		KC_TRNS,	        KC_NO,	KC_NO,		 						MO(_OTHERS),	RALT(KC_5),		KC_NO,				KC_LCBR,		KC_RCBR
+			KC_NO,		KC_NO,		KC_NO,		G(S(KC_S)),		G(KC_V),		    KC_NO,	XP(ORDINAL_MALE,ORDINAL_FEMALE),	KC_MINS,		KC_EQL,		    KC_BSLS,		    KC_LCBR,		KC_RCBR,
+			KC_NO,		KC_TRNS,	KC_TRNS,	KC_TRNS,		KC_TRNS,	        KC_NO,	KC_NO,		 						MO(_OTHERS),	RALT(KC_5),		KC_NO,				KC_LBRC,		KC_RBRC
 	),
     
    	[_FUNCTION_KEYS]=LAYOUT_ortho_4x12(
@@ -180,10 +187,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	),
 	
 	[_OTHERS]=LAYOUT_ortho_4x12(
-			QK_BOOT,	KC_NO,		KC_NO,		DM_REC2,	DM_REC1,	DM_RSTP,	KC_NO,	KC_NO,		KC_NO,		KC_PWR,		KC_SLEP,	KC_WAKE,
+			QK_BOOT,	KC_NO,		KC_NO,		DM_REC2,	DM_REC1,	DM_RSTP,	KC_NO,	ONOFFBOT,	KC_NO,		KC_PWR,		KC_SLEP,	KC_WAKE,
 			QK_RBT,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,	KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
 			QK_MAKE,	KC_NO,		KC_NO,		KC_BRID,	KC_BRIU,	KC_NO,		KC_NO,	DT_DOWN,	DT_PRNT,	DT_UP,		KC_NO,		KC_NO,
-			KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_NO,		KC_NO,	KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO
+			KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_NO,		KC_NO,	KC_TRNS,	KC_NO,		KC_NO,		KC_NO,		KC_NO
 	),
 
 	[_MOV]=LAYOUT_ortho_4x12(
@@ -279,6 +286,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				alttab_token = true;
 			}
 
+			break;
+			
+			
+		case ONOFFBOT:
+			
+			if (record->event.pressed){
+			
+				handleBoot();
+			}
 			break;
 
 
@@ -821,10 +837,46 @@ void tab_reset(tap_dance_state_t *state, void *user_data) {
 
 
 
+void handleBoot(){
+	
+	is_boot_active = !is_boot_active;
+	
+	if(is_boot_active){
+		
+		tiempo_boot = 600000; //10 minutos
+		SEND_STRING("Boot Activado\n");
+	}
+	else{
+
+
+		tiempo_boot = 0;
+		SEND_STRING("Boot Desactivado\n");
+	}  
+}
+
+
 
 
 void matrix_scan_user(void) {
   
 	macrokeys_reset_tokens();
+	
+	
+	  if (timer_elapsed32(key_timer_boot) > tiempo_boot) {
+      key_timer_boot = timer_read32();
+      if(is_boot_active){
+      //SEND_STRING(SS_TAP(X_F13));
+      // SEND_STRING(SS_TAP(X_WH_U)); //Rueda del ratón hacia arriba
+      // SEND_STRING(SS_TAP(X_WH_D)); //Rueda del ratón hacia abajo
+      // SEND_STRING(SS_TAP(X_MS_U)); //Mueve el ratón hacia arriba
+      SEND_STRING(SS_TAP(X_MS_D)); //Mueve el ratón hacia abajo
+      // SEND_STRING(SS_TAP(X_MS_R)); //Mueve el ratón hacia derecha
+      // SEND_STRING(SS_TAP(X_MS_L)); //Mueve el ratón hacia izquierda
+      // SEND_STRING(SS_TAP(X_BTN1)); //Pulsa el botón 1 del ratón
+      // SEND_STRING(SS_TAP(X_BTN2)); //Pulsa el botón 2 del ratón
+      // SEND_STRING(SS_TAP(X_BTN3)); //Pulsa el botón 3 del ratón
+      }
+    } 
+    
 	
 }
