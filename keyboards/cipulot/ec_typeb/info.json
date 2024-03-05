@@ -20,7 +20,7 @@
         "mousekey": true,
         "nkro": true
     },
-    "processor": "STM32F401",
+    "processor": "STM32F411",
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x6BAA",
