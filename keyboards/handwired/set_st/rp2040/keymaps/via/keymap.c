@@ -1,4 +1,4 @@
-/* Copyright 2020 set_st
+/* Copyright 2024 set_st
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -130,7 +130,7 @@ bool oled_task_user(void) {
               oled_write(") ", false);
             }
         }
-        oled_write_ln("", false); // Переходим на новую строку
+        oled_write_ln("", false);
     }
   
   return false;
@@ -139,15 +139,11 @@ bool oled_task_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case KC_CYCLE_LAYERS:
-      // Our logic will happen on presses, nothing is done on releases
       if (!record->event.pressed) { 
-        // We've already handled the keycode (doing nothing), let QMK know so no further code is run unnecessarily
         return false;
       }
 
       uint8_t current_layer = get_highest_layer(layer_state);
-
-      // Check if we are within the range, if not quit
       if (current_layer > LAYER_CYCLE_END || current_layer < LAYER_CYCLE_START) {
         return false;
       }
@@ -158,16 +154,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       layer_move(next_layer);
       return false;
-
-    // Process other keycodes normally
     default:
-      // Код клавиши будет отображаться на OLED дисплее
-      oled_clear(); // Очищаем дисплей
+      oled_clear();
       oled_set_cursor(0, 6);
-      oled_write("Keycode: ", false); // Отображаем текст "Keycode:"
-      char keycode_str[6]; // Создаем массив для хранения строки с кодом клавиши (5 символов для числа + 1 символ для завершающего нуля)
-      itoa(keycode, keycode_str, 10); // Преобразуем код клавиши в строку
-      oled_write(keycode_str, false); // Отображаем код клавиши на OLED дисплее
+      oled_write("Keycode: ", false);
+      char keycode_str[6];
+      itoa(keycode, keycode_str, 10);
+      oled_write(keycode_str, false);
       oled_write_ln("", false);
       return true;
   }
