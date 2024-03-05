@@ -19,3 +19,9 @@
 
 /* Handedness. */
 #define MASTER_RIGHT
+
+/* Acchordion */
+#define ACHORDION_STREAK
+#define TAPPING_TERM 150
+#define PERMISSIVE_HOLD
+#define QUICK_TAP_TERM_PER_KEY
