@@ -17,7 +17,7 @@
 
 #include QMK_KEYBOARD_H
 
-add #include "albert_smart84.h"
+#include "albert_smart84.h"
 
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
