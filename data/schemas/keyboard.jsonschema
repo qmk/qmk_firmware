@@ -135,6 +135,14 @@
                 },
                 "macro_beep": {"type": "boolean"},
                 "pins": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
+                "power_control": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "on_state": {"$ref": "qmk.definitions.v1#/bit"},
+                        "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"}
+                    }
+                },
                 "voices": {"type": "boolean"}
             }
         },
