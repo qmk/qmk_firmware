@@ -48,9 +48,12 @@ enum unicode_names {
 enum custom_keycodes {
   ALTTAB = SAFE_RANGE,
   WINTAB,
-  DEL_WORD,
+  DEL_LWORD,
+  DEL_RWORD,
   DEL_LINE,
   DEL_END_LINE,
+  UP_NEW_LINE,
+  DOWN_NEW_LINE,
   ONOFFBOT
 };
 
@@ -86,6 +89,7 @@ enum layer_names {
   _RAISE,
   _OTHERS,
   _MOV,
+  _MOV2,
   _NUM_PAD,
   _RNUM_PAD,
   _MOUSE,
@@ -154,7 +158,7 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_QWERTY]=LAYOUT_ortho_4x12(
-			TD(TD_RHAND_LAYER),		LGUI_T(KC_Q),		RALT_T(KC_W),		LT(_MOUSE,KC_E),		KC_R,				KC_T,			KC_Y,			KC_U,				KC_I,					KC_O,			KC_P,						KC_BSPC,
+			TD(TD_RHAND_LAYER),		LGUI_T(KC_Q),		RALT_T(KC_W),		LT(_MOUSE,KC_E),		LT(_MOV2,KC_R),		KC_T,			KC_Y,			KC_U,				KC_I,					KC_O,			KC_P,						KC_BSPC,
 			TD(TD_ESC),				LT(_MOV,KC_A),		LALT_T(KC_S),		LCTL_T(KC_D),			LSFT_T(KC_F),		KC_G,			KC_H,			RSFT_T(KC_J),		RCTL_T(KC_K),			RALT_T(KC_L),	LT(_FUNCTION_KEYS,KC_SCLN),	LT(_FUNCTION2_KEYS,KC_QUOT),
 			OSM(MOD_LCTL),			LGUI_T(KC_Z),		KC_X,				TD(TD_CTL_MOV),			TD(TD_SFT_MOV),		KC_B,			KC_N,			KC_M,				KC_COMM,				KC_DOT,			RGUI_T(KC_SLSH),			QK_LEAD,
 			OSM(MOD_LGUI),			OSM(MOD_LALT),		OSM(MOD_RALT),		TD(TD_SIFT_CAPSLOCK),	TD(TD_TAB),			SH_T(KC_SPACE),	SH_T(KC_SPACE),	LT(_RAISE,KC_ENT),	TD(TD_SIFT_CAPSLOCK),	TD(TD_PLAY),	TD(TD_VOLU),				TD(TD_VOLD)
@@ -199,9 +203,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			KC_NO,			KC_NO,			KC_NO,			KC_NO,			KC_NO,		KC_NO,		KC_PAUS,	KC_HOME,	KC_INS,		KC_PGUP,		KC_NO,			KC_BSPC,
 			KC_NO,			KC_TRNS,		KC_LALT,		KC_LCTL,		KC_LSFT,	KC_LGUI,	KC_LEFT,	KC_DOWN,	KC_UP,		KC_RGHT,		KC_NO,			KC_NO,
 			KC_NO,			KC_NO,			KC_NO,			KC_TRNS,		KC_TRNS,	KC_NO,		KC_NO,		KC_END,		KC_DEL,		KC_PGDN,		KC_NO,			KC_NO,
-			KC_NO,			KC_NO,			KC_NO,			KC_NO,			KC_TAB,		KC_SPACE,	KC_SPACE,	KC_ENT,		DEL_LINE,	DEL_WORD,		DEL_END_LINE,	KC_NO
+			KC_NO,			KC_NO,			KC_NO,			KC_NO,			KC_TAB,		KC_SPACE,	KC_SPACE,	KC_ENT,		DEL_LINE,	DEL_LWORD,		DEL_END_LINE,	KC_NO
 	),
 
+	[_MOV2]=LAYOUT_ortho_4x12(
+			KC_NO,			KC_NO,			KC_NO,			KC_NO,			KC_TRNS,	KC_NO,		KC_NO,		KC_NO,			KC_NO,		KC_NO,			KC_NO,	KC_NO,
+			KC_NO,			KC_NO,			KC_NO,			KC_NO,			KC_NO,		KC_NO,		DEL_LWORD,	DEL_END_LINE,	DEL_LINE,	DEL_RWORD,		KC_NO,	KC_NO,
+			KC_NO,			KC_NO,			KC_NO,			KC_NO,			KC_NO,		KC_NO,		KC_NO,		UP_NEW_LINE,	KC_NO,		KC_NO,			KC_NO,	KC_NO,
+			KC_NO,			KC_NO,			KC_NO,			KC_NO,			KC_TAB,		KC_SPACE,	KC_SPACE,	DOWN_NEW_LINE,	KC_NO,		KC_NO,			KC_NO,	KC_NO
+	),
+	
+	
 	[_RNUM_PAD]=LAYOUT_ortho_4x12(
 			KC_TRNS,						KC_PMNS,	KC_PAST,	KC_PSLS,	KC_NUM,		KC_ESC,				KC_ESC,			KC_P7,	KC_P8,	KC_P9,		KC_PPLS,	KC_BSPC,
 			LM(_QWERTY2,MOD_LALT),			KC_NO,		KC_NO,		KC_NO,		KC_AT,		KC_TAB,				KC_TAB,			KC_P4,	KC_P5,	KC_P6,		KC_PPLS,	KC_DEL,
@@ -260,22 +272,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 			break;
 
-		case DEL_WORD: 
+		case DEL_LWORD: 
 
 			if (record->event.pressed){
 
 				SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_LCTL) SS_TAP(X_LEFT) SS_UP(X_LCTL) SS_UP(X_LSFT) SS_TAP(X_DEL));
-				alttab_token = true;
+				
 			}
 
 			break;
 
+		case DEL_RWORD: 
+
+			if (record->event.pressed){
+
+				SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_LCTL) SS_TAP(X_RIGHT) SS_UP(X_LCTL) SS_UP(X_LSFT) SS_TAP(X_DEL));
+				
+			}
+
+			break;
+			
 		case DEL_LINE: 
 
 			if (record->event.pressed){
 				
 				SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_HOME) SS_UP(X_LSFT) SS_TAP(X_DEL));
-				alttab_token = true;
+				
 			}
 
 			break;
@@ -285,11 +307,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			if (record->event.pressed){
 				
 				SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_END) SS_UP(X_LSFT) SS_TAP(X_DEL));
-				alttab_token = true;
+				
 			}
 
 			break;
 			
+		case DOWN_NEW_LINE:
+
+			if (record->event.pressed){
+
+				SEND_STRING(SS_TAP(X_END) SS_TAP(X_ENTER));
+				
+			}
+
+			break;
+			
+		
+		case UP_NEW_LINE:
+
+			if (record->event.pressed){
+
+				SEND_STRING(SS_TAP(X_HOME) SS_TAP(X_ENTER) SS_TAP(X_UP));
+				
+			}
+
+			break;
+
 			
 		case ONOFFBOT:
 			
@@ -978,7 +1021,7 @@ void handleBoot(){
 	
 	if(is_boot_active){
 		
-		tiempo_boot = 60000; //10 minutos
+		tiempo_boot = 600000; //10 minutos
 		SEND_STRING("Boot Actived\n");
 	}
 	else{
