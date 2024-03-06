@@ -100,6 +100,9 @@
 
 static uint16_t azoteq_iqs5xx_product_number = AZOTEQ_IQS5XX_UNKNOWN;
 
+const pointing_device_driver_t     azoteq_iqs5xx_driver_default     = {.init = azoteq_iqs5xx_init, .get_report = azoteq_iqs5xx_get_report, .set_cpi = NULL, .get_cpi = NULL};
+const pointing_device_i2c_config_t azoteq_iqs5xx_i2c_config_default = {.address = AZOTEQ_IQS5XX_ADDRESS, .timeout = AZOTEQ_IQS5XX_TIMEOUT_MS};
+
 static struct {
     uint16_t resolution_x;
     uint16_t resolution_y;
@@ -119,7 +122,7 @@ i2c_status_t azoteq_iqs5xx_end_session(const pointing_device_i2c_config_t *i2c_c
 i2c_status_t azoteq_iqs5xx_get_base_data(const pointing_device_i2c_config_t *i2c_config, azoteq_iqs5xx_base_data_t *base_data) {
     i2c_status_t status = i2c_read_register16(i2c_config->address << 1, AZOTEQ_IQS5XX_REG_PREVIOUS_CYCLE_TIME, (uint8_t *)base_data, 10, i2c_config->timeout);
     if (status == I2C_STATUS_SUCCESS) {
-        azoteq_iqs5xx_end_session();
+        azoteq_iqs5xx_end_session(i2c_config);
     }
     return status;
 }
@@ -132,13 +135,13 @@ i2c_status_t azoteq_iqs5xx_get_report_rate(const pointing_device_i2c_config_t *i
     uint16_t     selected_reg = AZOTEQ_IQS5XX_REG_REPORT_RATE_ACTIVE + (2 * mode);
     i2c_status_t status       = i2c_read_register16(i2c_config->address << 1, selected_reg, (uint8_t *)report_rate, 2, i2c_config->timeout);
     if (end_session) {
-        azoteq_iqs5xx_end_session();
+        azoteq_iqs5xx_end_session(i2c_config);
     }
     return status;
 }
 
 
-i2c_status_t azoteq_iqs5xx_set_report_rate(const pointing_device_i2c_config_t *i2c_config, uint16_t report_rate_ms, azoteq_charging_modes_t mode, bool end_session) {
+i2c_status_t azoteq_iqs5xx_set_report_rate(const pointing_device_i2c_config_t *i2c_config, uint16_t report_rate_ms, azoteq_iqs5xx_charging_modes_t mode, bool end_session) {
     if (mode > AZOTEQ_IQS5XX_LP2) {
         pd_dprintf("IQS5XX - Invalid mode for set report rate.\n");
         return I2C_STATUS_ERROR;
@@ -149,7 +152,7 @@ i2c_status_t azoteq_iqs5xx_set_report_rate(const pointing_device_i2c_config_t *i
     report_rate.l                            = (uint8_t)(report_rate_ms & 0xFF);
     i2c_status_t status                      = i2c_write_register16(i2c_config->address << 1, selected_reg, (uint8_t *)&report_rate, 2, i2c_config->timeout);
     if (end_session) {
-        azoteq_iqs5xx_end_session();
+        azoteq_iqs5xx_end_session(i2c_config);
     }
     return status;
 }
@@ -162,7 +165,7 @@ i2c_status_t azoteq_iqs5xx_set_reati(const pointing_device_i2c_config_t *i2c_con
         status       = i2c_write_register16(i2c_config->address << 1, AZOTEQ_IQS5XX_REG_SYSTEM_CONFIG_0, (uint8_t *)&config, sizeof(azoteq_iqs5xx_system_config_0_t), i2c_config->timeout);
     }
     if (end_session) {
-        azoteq_iqs5xx_end_session();
+        azoteq_iqs5xx_end_session(i2c_config);
     }
     return status;
 }
@@ -182,7 +185,7 @@ i2c_status_t azoteq_iqs5xx_set_event_mode(const pointing_device_i2c_config_t *i2
         status                = i2c_write_register16(i2c_config->address << 1, AZOTEQ_IQS5XX_REG_SYSTEM_CONFIG_1, (uint8_t *)&config, sizeof(azoteq_iqs5xx_system_config_1_t), i2c_config->timeout);
     }
     if (end_session) {
-        azoteq_iqs5xx_end_session();
+        azoteq_iqs5xx_end_session(i2c_config);
     }
     return status;
 }
@@ -214,7 +217,7 @@ i2c_status_t azoteq_iqs5xx_set_gesture_config(const pointing_device_i2c_config_t
         status                                       = i2c_write_register16(i2c_config->address << 1, AZOTEQ_IQS5XX_REG_SINGLE_FINGER_GESTURES, (uint8_t *)&config, sizeof(azoteq_iqs5xx_gesture_config_t), i2c_config->timeout);
     }
     if (end_session) {
-        azoteq_iqs5xx_end_session();
+        azoteq_iqs5xx_end_session(i2c_config);
     }
     return status;
 }
@@ -236,7 +239,7 @@ i2c_status_t azoteq_iqs5xx_set_xy_config(const pointing_device_i2c_config_t *i2c
         status             = i2c_write_register16(i2c_config->address << 1, AZOTEQ_IQS5XX_REG_XY_CONFIG_0, (uint8_t *)&config, sizeof(azoteq_iqs5xx_xy_config_0_t), i2c_config->timeout);
     }
     if (end_session) {
-        azoteq_iqs5xx_end_session();
+        azoteq_iqs5xx_end_session(i2c_config);
     }
     return status;
 }
@@ -250,7 +253,7 @@ i2c_status_t azoteq_iqs5xx_reset_suspend(const pointing_device_i2c_config_t *i2c
         status         = i2c_write_register16(i2c_config->address << 1, AZOTEQ_IQS5XX_REG_SYSTEM_CONTROL_1, (uint8_t *)&config, sizeof(azoteq_iqs5xx_system_control_1_t), i2c_config->timeout);
     }
     if (end_session) {
-        azoteq_iqs5xx_end_session();
+        azoteq_iqs5xx_end_session(i2c_config);
     }
     return status;
 }
@@ -275,7 +278,7 @@ uint16_t azoteq_iqs5xx_get_cpi(const pointing_device_i2c_config_t *i2c_config) {
     return 0;
 }
 
-uint16_t azoteq_iqs5xx_get_product(const pointing_device_i2c_config_t *i2c_config,) {
+uint16_t azoteq_iqs5xx_get_product(const pointing_device_i2c_config_t *i2c_config) {
     i2c_status_t status = i2c_read_register16(i2c_config->address << 1, AZOTEQ_IQS5XX_REG_PRODUCT_NUMBER, (uint8_t *)&azoteq_iqs5xx_product_number, sizeof(uint16_t), i2c_config->timeout);
     if (status == I2C_STATUS_SUCCESS) {
         azoteq_iqs5xx_product_number = AZOTEQ_IQS5XX_SWAP_H_L_BYTES(azoteq_iqs5xx_product_number);
@@ -284,7 +287,7 @@ uint16_t azoteq_iqs5xx_get_product(const pointing_device_i2c_config_t *i2c_confi
     return azoteq_iqs5xx_product_number;
 }
 
-void azoteq_iqs5xx_setup_resolution(void) {
+void azoteq_iqs5xx_setup_resolution(const pointing_device_i2c_config_t *i2c_config) {
 #if !defined(AZOTEQ_IQS5XX_RESOLUTION_X) && !defined(AZOTEQ_IQS5XX_RESOLUTION_Y)
     switch (azoteq_iqs5xx_product_number) {
         case AZOTEQ_IQS550:
@@ -312,7 +315,106 @@ void azoteq_iqs5xx_setup_resolution(void) {
 #ifdef AZOTEQ_IQS5XX_RESOLUTION_Y
     azoteq_iqs5xx_device_resolution_t.resolution_y = AZOTEQ_IQS5XX_RESOLUTION_Y;
 #endif
-    i2c_status_t status                      = i2c_write_register16(i2c_config->address << 1, selected_reg, (uint8_t *)&report_rate, sizeof(azoteq_iqs5xx_report_rate_t), i2c_config->timeout);
-    azoteq_iqs5xx_end_session(i2c_config);
-    return status;
+}
+
+static i2c_status_t azoteq_iqs5xx_init_status = 1; //move me
+
+void azoteq_iqs5xx_init(const void *i2c_config) {
+    i2c_init();
+    azoteq_iqs5xx_wake(i2c_config);
+    azoteq_iqs5xx_reset_suspend(i2c_config, true, false, true);
+    wait_ms(100);
+    azoteq_iqs5xx_wake(i2c_config);
+    if (azoteq_iqs5xx_get_product(i2c_config) != AZOTEQ_IQS5XX_UNKNOWN) {
+        azoteq_iqs5xx_setup_resolution(i2c_config);
+        azoteq_iqs5xx_init_status = azoteq_iqs5xx_set_report_rate(i2c_config, AZOTEQ_IQS5XX_REPORT_RATE, AZOTEQ_IQS5XX_ACTIVE, false);
+        azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_event_mode(i2c_config, false, false);
+        azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_reati(i2c_config, true, false);
+#    if defined(AZOTEQ_IQS5XX_ROTATION_90)
+        azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_xy_config(i2c_config, false, true, true, true, false);
+#    elif defined(AZOTEQ_IQS5XX_ROTATION_180)
+        azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_xy_config(i2c_config, true, true, false, true, false);
+#    elif defined(AZOTEQ_IQS5XX_ROTATION_270)
+        azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_xy_config(i2c_config, true, false, true, true, false);
+#    else
+        azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_xy_config(i2c_config, false, false, false, true, false);
+#    endif
+        azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_gesture_config(i2c_config, true);
+        wait_ms(AZOTEQ_IQS5XX_REPORT_RATE + 1);
+    }
+};
+
+report_mouse_t azoteq_iqs5xx_get_report(const void *i2c_config) {
+    report_mouse_t temp_report           = {0};
+    static uint8_t previous_button_state = 0; //move me
+    static uint8_t read_error_count      = 0; //move me
+
+    if (azoteq_iqs5xx_init_status == I2C_STATUS_SUCCESS) {
+        azoteq_iqs5xx_base_data_t base_data = {0};
+#    if !defined(POINTING_DEVICE_MOTION_PIN)
+        azoteq_iqs5xx_wake(i2c_config);
+#    endif
+        i2c_status_t status          = azoteq_iqs5xx_get_base_data(i2c_config, &base_data);
+        bool         ignore_movement = false;
+
+        if (status == I2C_STATUS_SUCCESS) {
+            // pd_dprintf("IQS5XX - previous cycle time: %d \n", base_data.previous_cycle_time);
+            read_error_count = 0;
+            if (base_data.gesture_events_0.single_tap || base_data.gesture_events_0.press_and_hold) {
+                pd_dprintf("IQS5XX - Single tap/hold.\n");
+                temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON1);
+            } else if (base_data.gesture_events_1.two_finger_tap) {
+                pd_dprintf("IQS5XX - Two finger tap.\n");
+                temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON2);
+            } else if (base_data.gesture_events_0.swipe_x_neg) {
+                pd_dprintf("IQS5XX - X-.\n");
+                temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON4);
+                ignore_movement     = true;
+            } else if (base_data.gesture_events_0.swipe_x_pos) {
+                pd_dprintf("IQS5XX - X+.\n");
+                temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON5);
+                ignore_movement     = true;
+            } else if (base_data.gesture_events_0.swipe_y_neg) {
+                pd_dprintf("IQS5XX - Y-.\n");
+                temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON6);
+                ignore_movement     = true;
+            } else if (base_data.gesture_events_0.swipe_y_pos) {
+                pd_dprintf("IQS5XX - Y+.\n");
+                temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON3);
+                ignore_movement     = true;
+            } else if (base_data.gesture_events_1.zoom) {
+                if (AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l) < 0) {
+                    pd_dprintf("IQS5XX - Zoom out.\n");
+                    temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON7);
+                } else if (AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l) > 0) {
+                    pd_dprintf("IQS5XX - Zoom in.\n");
+                    temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON8);
+                }
+            } else if (base_data.gesture_events_1.scroll) {
+                pd_dprintf("IQS5XX - Scroll.\n");
+                temp_report.h = CONSTRAIN_HID(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l));
+                temp_report.v = CONSTRAIN_HID(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.y.h, base_data.y.l));
+            }
+            if (base_data.number_of_fingers == 1 && !ignore_movement) {
+                temp_report.x = CONSTRAIN_HID_XY(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l));
+                temp_report.y = CONSTRAIN_HID_XY(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.y.h, base_data.y.l));
+            }
+
+            previous_button_state = temp_report.buttons;
+
+        } else {
+            if (read_error_count > 10) {
+                read_error_count      = 0;
+                previous_button_state = 0;
+            } else {
+                read_error_count++;
+            }
+            temp_report.buttons = previous_button_state;
+            pd_dprintf("IQS5XX - get report failed: %d \n", status);
+        }
+    } else {
+        pd_dprintf("IQS5XX - Init failed: %d \n", azoteq_iqs5xx_init_status);
+    }
+
+    return temp_report;
 }
