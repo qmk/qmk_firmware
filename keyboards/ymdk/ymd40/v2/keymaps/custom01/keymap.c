@@ -372,8 +372,13 @@ void macrokeys_reset_tokens(void){
 
 // FUNCION TECLA LEADER
 
-void leader_end_user(void) {
+void leader_start_user(void) {
+	
+	layer_on(_QWERTY2);
+}
 
+void leader_end_user(void) {
+		
 		// ScreenShoot
 		if (leader_sequence_one_key(KC_S)) {
 			SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_S))));
@@ -436,6 +441,8 @@ void leader_end_user(void) {
 		else if (leader_sequence_three_keys(KC_C, KC_L, KC_S)) {
 			SEND_STRING(SS_LALT(SS_TAP(X_F4)));
 		}
+	
+		layer_clear();
 }
 
 
