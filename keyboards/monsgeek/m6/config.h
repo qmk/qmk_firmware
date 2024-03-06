@@ -39,3 +39,8 @@
 #define I2C1_CLOCK_SPEED 400000 /* 400000 */
 
 #define RGB_TRIGGER_ON_KEYDOWN
+
+/*以下は自分で追加したもの */
+#define RGBLIGHT_LAYERS
+#define RGBLED_NUM 68
+#define RGBLIGHT_MAX_LAYERS 6
