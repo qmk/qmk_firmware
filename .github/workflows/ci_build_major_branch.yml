@@ -16,7 +16,13 @@ on:
 
 env:
   # https://docs.github.com/en/actions/learn-github-actions/usage-limits-billing-and-administration#usage-limits
-  CONCURRENT_JOBS: 20
+  # We've decreased it from 20 to 15 to allow for other GHA to run unimpeded
+  CONCURRENT_JOBS: 15
+
+# Ensure we only have one build running at a time, cancelling any active builds if a new commit is pushed to the respective branch
+concurrency:
+  group: ci_build-${{ github.event.inputs.branch || github.ref_name }}
+  cancel-in-progress: true
 
 jobs:
   determine_concurrency:
