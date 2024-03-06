@@ -43,8 +43,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#define RGBLED_NUM 15
-#define RGBLIGHT_LED_MAP { 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 }
+#define RGBLED_NUM 30
+#define RGBLIGHT_SPLIT
+#define RGBLED_SPLIT { 15, 15 }
+#define RGBLIGHT_LED_MAP { 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 }
 
 #define TAPPING_TERM 205
 #define TAPPING_FORCE_HOLD
