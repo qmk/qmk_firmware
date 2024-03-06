@@ -187,7 +187,7 @@ __attribute__((weak)) void pointing_device_init(void) {
             pointing_device_configs[i].driver->init(pointing_device_configs[i].config);
         }
         if (pointing_device_configs[i].motion.pin) {
-            setPinInput(pointing_device_configs[i].motion.pin);
+            gpio_set_pin_input(pointing_device_configs[i].motion.pin);
         }
         pointing_device_init_kb_by_index(i);
     }
@@ -250,7 +250,7 @@ __attribute__((weak)) bool pointing_device_is_ready(pointing_device_config_t dev
     if (timer_elapsed_fast(last_check[index]) >= device_config.throttle) {
         last_check[index] = timer_read_fast();
         if (device_config.motion.pin) { // FIX ME
-            if (readPin(device_config.motion.pin) != device_config.motion.active_low) {
+            if (gpio_read_pin(device_config.motion.pin) != device_config.motion.active_low) {
                 ready = true;
             }
         } else {
