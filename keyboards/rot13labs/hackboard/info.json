@@ -3,6 +3,14 @@
     "manufacturer": "rot13labs",
     "url": "https://rot13labs.com",
     "maintainer": "c0ldbru",
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": false
+    },
     "usb": {
         "vid": "0xBEEF",
         "pid": "0xCAFE",
