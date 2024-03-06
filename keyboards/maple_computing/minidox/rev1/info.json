@@ -22,6 +22,9 @@
   "layout_aliases": {
     "LAYOUT": "LAYOUT_split_3x5_3"
   },
+  "ws2812": {
+      "pin": "D7"
+  },
   "layouts": {
     "LAYOUT_split_3x5_3": {
       "layout": [

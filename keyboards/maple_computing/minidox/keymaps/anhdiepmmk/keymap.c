@@ -89,9 +89,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * MED
  */
 [_MED] =  LAYOUT_split_3x5_3(
-  _______, _______, _______, _______, _______,      _______, _______          , _______        , _______, _______,
-  _______, _______, _______, _______, _______,      KC_MPRV, KC_KB_VOLUME_DOWN, KC_KB_VOLUME_UP, KC_MNXT, _______,
-  _______, _______, _______, _______, _______,      _______, _______          , _______        , _______, _______,
+  QK_BOOT, RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI,      _______, _______          , _______        , _______, _______,
+  _______, BL_TOGG, BL_BRTG, BL_UP  , BL_DOWN,      KC_MPRV, KC_KB_VOLUME_DOWN, KC_KB_VOLUME_UP, KC_MNXT, _______,
+  _______, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI,      _______, _______          , _______        , _______, _______,
                     _______, _______, _______,      KC_MSTP, KC_MPLY          , KC_KB_MUTE
 ),
 /* 
