@@ -7,8 +7,6 @@
 #define READ_MASK 0xA0
 #define FILLER_BYTE 0xFC
 
-extern bool touchpad_init;
-
 const cirque_rap_t                 cirque_rap_spi            = {.read = &cirque_read_spi, .write = &cirque_write_spi};
 const pointing_device_driver_t     cirque_driver_spi_default = {.init = cirque_pinnacle_init_spi, .get_report = cirque_pinnacle_get_report_spi, .set_cpi = cirque_pinnacle_set_scale, .get_cpi = cirque_pinnacle_get_scale};
 const pointing_device_spi_config_t cirque_config_spi_default = {.cs = CIRQUE_PINNACLE_SPI_CS_PIN, .mode = CIRQUE_PINNACLE_SPI_MODE, .divisor = CIRQUE_PINNACLE_SPI_DIVISOR};

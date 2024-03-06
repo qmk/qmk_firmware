@@ -21,7 +21,6 @@ void cirque_read_i2c(const void *config, uint8_t regaddr, uint8_t *data, uint8_t
     i2c_write_register(i2c_config->address << 1, cmdByte, NULL, 0, i2c_config->timeout);
     if (i2c_read_register(i2c_config->address << 1, cmdByte, data, count, CIRQUE_PINNACLE_TIMEOUT) != I2C_STATUS_SUCCESS) {
         pd_dprintf("error cirque_pinnacle i2c_readReg\n");
-        touchpad_init = false;
     }
 
 }
@@ -32,7 +31,6 @@ void cirque_write_i2c(const void *config, uint8_t regaddr, uint8_t data) {
     pointing_device_i2c_config_t *i2c_config = (pointing_device_i2c_config_t *)config;
     if (i2c_write_register(i2c_config->address << 1, cmdByte, &data, sizeof(data), i2c_config->timeout) != I2C_STATUS_SUCCESS) {
         pd_dprintf("error cirque_pinnacle i2c_writeReg\n");
-        touchpad_init = false;
     }
 }
 
