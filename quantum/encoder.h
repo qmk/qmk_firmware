@@ -29,6 +29,7 @@ __attribute__((weak)) bool should_process_encoder(void);
 void encoder_init(void);
 bool encoder_task(void);
 bool encoder_queue_event(uint8_t index, bool clockwise);
+bool encoder_dequeue_event(uint8_t *index, bool *clockwise);
 
 bool encoder_update_kb(uint8_t index, bool clockwise);
 bool encoder_update_user(uint8_t index, bool clockwise);
@@ -82,6 +83,8 @@ typedef struct encoder_event_t {
 } encoder_event_t;
 
 typedef struct encoder_events_t {
+    uint16_t        enqueued;
+    uint16_t        dequeued;
     uint8_t         head;
     uint8_t         tail;
     encoder_event_t queue[MAX_QUEUED_ENCODER_EVENTS];
@@ -90,9 +93,12 @@ typedef struct encoder_events_t {
 // Get the current queued events
 void encoder_retrieve_events(encoder_events_t *events);
 
+// Encoder event queue management
+bool encoder_queue_event_advanced(encoder_events_t *events, uint8_t index, bool clockwise);
+bool encoder_dequeue_event_advanced(encoder_events_t *events, uint8_t *index, bool *clockwise);
+
 #    ifdef SPLIT_KEYBOARD
-void encoder_set_tail_index(uint8_t tail_index);
-void encoder_handle_slave_events(encoder_events_t *events);
+void encoder_queue_drain(void);
 #    endif // SPLIT_KEYBOARD
 
 #    ifdef ENCODER_MAP_ENABLE
