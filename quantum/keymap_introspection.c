@@ -181,7 +181,7 @@ __attribute__((weak)) const key_override_t* key_override_get(uint16_t key_overri
 
 #if defined(POINTING_MODE_MAP_ENABLE)
 
-#    define POINTING_MODE_MAP_COUNT_RAW (uint8_t)(sizeof(pointing_mode_maps) / ((POINTING_NUM_DIRECTIONS) * sizeof(uint16_t)))
+#    define POINTING_MODE_MAP_COUNT_RAW (uint8_t)(sizeof(pointing_mode_maps) / ((POINTING_MODE_NUM_DIRECTIONS) * sizeof(uint16_t)))
 
 uint8_t pointing_mode_map_count_raw(void) {
     return POINTING_MODE_MAP_COUNT_RAW;

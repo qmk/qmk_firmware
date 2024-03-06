@@ -52,8 +52,14 @@ enum qk_keycode_ranges {
     QK_ONE_SHOT_MOD_MAX            = 0x52BF,
     QK_LAYER_TAP_TOGGLE            = 0x52C0,
     QK_LAYER_TAP_TOGGLE_MAX        = 0x52DF,
+    QK_POINTING_MODE_MO            = 0x52E0,
+    QK_POINTING_MODE_MO_MAX        = 0x52EF,
     QK_PERSISTENT_DEF_LAYER        = 0x52E0,
     QK_PERSISTENT_DEF_LAYER_MAX    = 0x52FF,
+    QK_POINTING_MODE_TG            = 0x52F0,
+    QK_POINTING_MODE_TG_MAX        = 0x52FF,
+    QK_POINTING_MODE_UTIL          = 0x5300,
+    QK_POINTING_MODE_UTIL_MAX      = 0x5303,
     QK_POINTING_MODE_MO            = 0x5300,
     QK_POINTING_MODE_MO_MAX        = 0x531F,
     QK_POINTING_MODE_TG            = 0x5320,
@@ -322,9 +328,9 @@ enum qk_keycode_defines {
     KC_RIGHT_SHIFT = 0x00E5,
     KC_RIGHT_ALT = 0x00E6,
     KC_RIGHT_GUI = 0x00E7,
-    QK_PM_CYCLE_DEVICES = 0x5320,
-    QK_PM_DEVICE_RIGHT = 0x5321,
-    QK_PM_DEVICE_LEFT = 0x5322,
+    QK_PM_CYCLE_DEVICES = 0x5340,
+    QK_PM_DEVICE_RIGHT = 0x5341,
+    QK_PM_DEVICE_LEFT = 0x5342,
     QK_SWAP_HANDS_TOGGLE = 0x56F0,
     QK_SWAP_HANDS_TAP_TOGGLE = 0x56F1,
     QK_SWAP_HANDS_MOMENTARY_ON = 0x56F2,
@@ -1478,7 +1484,10 @@ enum qk_keycode_defines {
 #define IS_QK_ONE_SHOT_LAYER(code) ((code) >= QK_ONE_SHOT_LAYER && (code) <= QK_ONE_SHOT_LAYER_MAX)
 #define IS_QK_ONE_SHOT_MOD(code) ((code) >= QK_ONE_SHOT_MOD && (code) <= QK_ONE_SHOT_MOD_MAX)
 #define IS_QK_LAYER_TAP_TOGGLE(code) ((code) >= QK_LAYER_TAP_TOGGLE && (code) <= QK_LAYER_TAP_TOGGLE_MAX)
+#define IS_QK_POINTING_MODE_MO(code) ((code) >= QK_POINTING_MODE_MO && (code) <= QK_POINTING_MODE_MO_MAX)
 #define IS_QK_PERSISTENT_DEF_LAYER(code) ((code) >= QK_PERSISTENT_DEF_LAYER && (code) <= QK_PERSISTENT_DEF_LAYER_MAX)
+#define IS_QK_POINTING_MODE_TG(code) ((code) >= QK_POINTING_MODE_TG && (code) <= QK_POINTING_MODE_TG_MAX)
+#define IS_QK_POINTING_MODE_UTIL(code) ((code) >= QK_POINTING_MODE_UTIL && (code) <= QK_POINTING_MODE_UTIL_MAX)
 #define IS_QK_POINTING_MODE_MO(code) ((code) >= QK_POINTING_MODE_MO && (code) <= QK_POINTING_MODE_MO_MAX)
 #define IS_QK_POINTING_MODE_TG(code) ((code) >= QK_POINTING_MODE_TG && (code) <= QK_POINTING_MODE_TG_MAX)
 #define IS_QK_POINTING_MODE_UTIL(code) ((code) >= QK_POINTING_MODE_UTIL && (code) <= QK_POINTING_MODE_UTIL_MAX)
