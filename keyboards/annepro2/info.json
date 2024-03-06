@@ -6,6 +6,9 @@
         "vid": "0xAC20",
         "device_version": "13.3.7"
     },
+    "build": {
+        "lto": true
+    },
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [
