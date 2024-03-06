@@ -389,6 +389,11 @@ void leader_end_user(void) {
 			SEND_STRING(SS_LCTL(SS_LALT(SS_TAP(X_T))));
 		}
 		
+		// Notepad
+		else if (leader_sequence_one_key(KC_N)) {
+			SEND_STRING(SS_LCTL(SS_LALT(SS_TAP(X_N))));
+		}
+		
 		// Explorador Archivos
 		else if (leader_sequence_one_key(KC_E)) {
 			SEND_STRING(SS_LCTL(SS_LALT(SS_TAP(X_E))));
