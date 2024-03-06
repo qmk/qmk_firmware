@@ -237,9 +237,6 @@ enum pointing_device_mode_list {
     PM_NONE = 0,
     PM_PRECISION,
     PM_DRAG,
-    PM_CARET,
-    PM_HISTORY,
-    PM_VOLUME,
     // safe range for custom modes with built in keycodes
     PM_SAFE_RANGE,
     // range for custom modes requiring custom activation/new keycodes
@@ -249,8 +246,5 @@ enum pointing_device_mode_list {
 // pointing mode aliases
 #define PM_PRE PM_PRECISION
 #define PM_DRG PM_DRAG
-#define PM_CRT PM_CARET
-#define PM_HST PM_HISTORY
-#define PM_VOL PM_VOLUME
 
 #include "quantum_keycodes_legacy.h"

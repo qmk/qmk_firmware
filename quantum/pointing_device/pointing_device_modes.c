@@ -14,32 +14,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef POINTING_DEVICE_MODES_ENABLE
+#ifdef POINTING_DEVICE_POINTING_MODES_ENABLE
 
 #    include "pointing_device_modes.h"
 
 // initialize local functions
-static report_mouse_t process_pointing_mode(pointing_mode_t pointing_mode, report_mouse_t mouse_report);
-static uint8_t        get_pointing_mode_direction(void);
-static uint8_t        get_pointing_mode_divisor(void);
+static report_mouse_t process_pointing_mode(pointing_mode_device_t pointing_mode, report_mouse_t mouse_report);
+static uint8_t        pointing_mode_update_direction(void);
+static uint8_t        pointing_mode_update_divisor(void);
 static uint8_t        divisor_postprocess(uint8_t divisor);
 
 // local variables
-#    if POINTING_MODES_DEVICE_CONTROL_COUNT > 1
-static uint8_t current_device = POINTING_MODES_DEFAULT_DEVICE;
+static uint8_t current_direction = 0;
+static uint8_t current_divisor   = POINTING_MODE_DEFAULT_DIVISOR;
+
+// set up devices and active device
+static pointing_mode_device_t pointing_mode_devices[]  = {[0 ... POINTING_MODE_DEVICE_CONTROL_COUNT - 1] = {.toggle_id = POINTING_MODE_DEFAULT_MODE, .mode_id = POINTING_MODE_DEFAULT_MODE}};
+#    if POINTING_MODE_DEVICE_CONTROL_COUNT > 1
+static uint8_t active_device_id = POINTING_MODE_DEFAULT_DEVICE;
 #    else
-static const uint8_t current_device  = 0;
-#        if defined(POINTING_MODES_SINGLE_CONTROL)
-static uint8_t       selected_device = POINTING_MODES_DEFAULT_DEVICE;
-#        endif
+static const uint8_t active_device_id = 0;
 #    endif
 
-static uint8_t         current_direction = 0;
-static uint8_t         current_divisor   = POINTING_DEFAULT_DIVISOR;
-static uint8_t         toggle_ids[]      = {[0 ... POINTING_MODES_DEVICE_CONTROL_COUNT - 1] = POINTING_MODE_DEFAULT};
-static pointing_mode_t pointing_modes[]  = {[0 ... POINTING_MODES_DEVICE_CONTROL_COUNT - 1] = {.id = POINTING_MODE_DEFAULT}};
-
-// set up clamping and divisor application functions
+// set up clamping and divisor application functions (move to standard utils perhaps?)
 static inline int8_t clamp_int_16_to_8(int16_t value) {
     if (value < INT8_MIN) {
         return INT8_MIN;
@@ -136,16 +133,20 @@ int16_t multiply_divisor_hv(int8_t value) {
 }
 
 /**
+ * @brief Return device struct by device id
+ *
+ */
+pointing_mode_device_t pointing_mode_get_device_settings(uint8_t device_id) {
+    return pointing_mode_devices[device_id];
+}
+
+/**
  * @brief Return device id of current controlled device
  *
  * @return current device id [uint8_t]
  */
-uint8_t get_pointing_mode_device(void) {
-#    ifdef POINTING_MODES_SINGLE_CONTROL
-    return selected_device;
-#    else
-    return current_device;
-#    endif
+uint8_t pointing_mode_active_device_id(void) {
+    return active_device_id;
 }
 
 /**
@@ -157,14 +158,10 @@ uint8_t get_pointing_mode_device(void) {
  *
  * @params[in] new side uint8_t
  */
-void set_pointing_mode_device(uint8_t device) {
-#    if (POINTING_MODES_NUM_DEVICES > 1)
-    if (device > (POINTING_MODES_NUM_DEVICES - 1)) device = 0;
-#        ifdef POINTING_MODES_SINGLE_CONTROL
-    selected_device = device;
-#        else
-    current_device = device;
-#        endif
+void pointing_mode_set_active_device_id(uint8_t device_id) {
+#    if (POINTING_MODE_NUM_DEVICES > 1)
+    if (device_id > (POINTING_MODE_NUM_DEVICES - 1)) device_id = 0;
+    active_device_id = device_id;
 #    else
     ;
 #    endif
@@ -176,19 +173,42 @@ void set_pointing_mode_device(uint8_t device) {
  *  Clear poiting mode and set to defaults
  */
 void pointing_mode_reset(void) {
-    memset(&pointing_modes[current_device], 0, sizeof(pointing_mode_t));
-    pointing_modes[current_device].id = toggle_ids[current_device];
+    memset(&pointing_mode_devices[active_device_id], 0, sizeof(pointing_mode_device_t));
+    pointing_mode_devices[active_device_id].mode_id = pointing_mode_devices[active_device_id].toggle_id;
 }
 
 /**
- * @brief set current pointing mode data
+ * @brief set pointing mode data of active device
  *
- * @param[in] pointing_mode pointing_mode_t
+ * @param[in] pointing_mode_device pointing_mode_device_t
  */
-void set_pointing_mode(pointing_mode_t pointing_mode) {
+void pointing_mode_set_device_settings(pointing_mode_device_t device) {
     // skip if same
-    if (!memcmp(&pointing_modes[current_device], &pointing_mode, sizeof(pointing_mode_t))) return;
-    memcpy(&pointing_modes[current_device], &pointing_mode, sizeof(pointing_mode_t));
+    if (!memcmp(&pointing_mode_devices[active_device_id], &device, sizeof(pointing_mode_device_t))) return;
+    memcpy(&pointing_mode_devices[active_device_id], &device, sizeof(pointing_mode_device_t));
+}
+
+/**
+ * @brief get precision of active device
+ *
+ * @return uint8_t active device precision divisor
+ */
+uint8_t pointing_mode_get_precision(void) {
+    return pointing_mode_devices[active_device_id].precision;
+}
+
+/**
+ * @brief set precision of active device
+ *
+ * @param[in] uint8_t precision
+ */
+void pointing_mode_set_precision(uint8_t precision) {
+    if (precision > POINTING_MODE_PRECISION_MAX || !precision) {
+        pointing_mode_devices[active_device_id].precision = 1;
+    }
+    else {
+        pointing_mode_devices[active_device_id].precision = precision;
+    }
 }
 
 /**
@@ -196,8 +216,8 @@ void set_pointing_mode(pointing_mode_t pointing_mode) {
  *
  * @return uint8_t current pointing mode id
  */
-uint8_t get_pointing_mode_id(void) {
-    return pointing_modes[current_device].id;
+uint8_t pointing_mode_get_mode(void) {
+    return pointing_mode_devices[active_device_id].mode_id;
 }
 
 /**
@@ -205,10 +225,10 @@ uint8_t get_pointing_mode_id(void) {
  *
  * @param[in] mode_id uint8_t
  */
-void set_pointing_mode_id(uint8_t mode_id) {
-    if (get_pointing_mode_id() != mode_id) {
+void pointing_mode_set_mode(uint8_t mode_id) {
+    if (pointing_mode_get_mode() != mode_id) {
         pointing_mode_reset();
-        pointing_modes[current_device].id = mode_id;
+        pointing_mode_devices[active_device_id].mode_id = mode_id;
     }
 }
 
@@ -217,24 +237,24 @@ void set_pointing_mode_id(uint8_t mode_id) {
  *
  * @return uint8_t toggle pointing mode
  */
-uint8_t get_toggled_pointing_mode_id(void) {
-    return toggle_ids[current_device];
+uint8_t pointing_mode_get_toggled_mode(void) {
+    return pointing_mode_devices[active_device_id].toggle_id;
 }
 
 /**
  * @brief Toggle pointing mode id on/off
  *
- * Will change tg_mode_id setting to POINTING_MODE_DEFAULT when toggling "off"
+ * Will change tg_mode_id setting to POINTING_MODE_DEFAULT_MODE when toggling "off"
  *
  * @param[in] mode_id uint8_t
  */
-void toggle_pointing_mode_id(uint8_t mode_id) {
-    if (get_toggled_pointing_mode_id() == mode_id) {
-        toggle_ids[current_device] = POINTING_MODE_DEFAULT;
+void pointing_mode_device_toggle_mode(uint8_t mode_id) {
+    if (pointing_mode_get_toggled_mode() == mode_id) {
+        pointing_mode_devices[active_device_id].toggle_id = POINTING_MODE_DEFAULT;
     } else {
-        toggle_ids[current_device] = mode_id;
+        pointing_mode_devices[active_device_id].toggle_id = mode_id;
     }
-    if (get_pointing_mode_id() != get_toggled_pointing_mode_id()) pointing_mode_reset();
+    if (pointing_mode_get_mode() != pointing_mode_get_toggled_mode()) pointing_mode_reset();
 }
 
 /**
@@ -243,58 +263,29 @@ void toggle_pointing_mode_id(uint8_t mode_id) {
  * The default uses accumulation based on inversion defines and
  * halts cursor movement
  *
- * @params pointing_modes[in] pointing_mode_t
+ * @params pointing_mode_devices[in] pointing_mode_device_t
  * @params mouse_report[in]  report_mouse_t
  *
  * @return updated mouse_report report_mouse_t
  */
-__attribute__((weak)) report_mouse_t pointing_modes_axes_conv(pointing_mode_t pointing_mode, report_mouse_t mouse_report) {
+static report_mouse_t pointing_mode_axes_conv(pointing_mode_device_t device, report_mouse_t mouse_report) {
+    // !! fix this as these are signed ints so bit shifting needs to respect sign
+    // set X axis of pointing mode for device
 #    ifdef POINTING_DEVICE_MODES_INVERT_X
-    pointing_mode.x -= mouse_report.x;
+    pointing_mode_device.x -= (mouse_report.x / device.precision);
 #    else
-    pointing_mode.x += mouse_report.x;
+    pointing_mode_device.x += (mouse_report.x / device.precision);
 #    endif
+// set Y axis of pointing mode for device
 #    ifdef POINTING_DEVICE_MODES_INVERT_Y
-    pointing_mode.y -= mouse_report.y;
+    pointing_mode_device.y -= (mouse_report.y / device.precision);
 #    else
-    pointing_mode.y += mouse_report.y;
+    pointing_mode_device.y += (mouse_report.y / device.precision);
 #    endif
-    set_pointing_mode(pointing_mode);
+    pointing_mode_set_device_settings(device);
     mouse_report.x = 0;
     mouse_report.y = 0;
     return mouse_report;
-}
-
-/**
- * @brief Modifies divisor after
- *
- * @params pointing_modes[in] uint8_t
- * @params direction[in] uint8_t
- *
- * @return divisor uint8_t
- */
-static uint8_t divisor_postprocess(uint8_t divisor) {
-    if (!(pointing_mode_divisor_postprocess_user(&divisor) && pointing_mode_divisor_postprocess_kb(&divisor))) {
-        // never return without zero checking
-        return divisor ? divisor : POINTING_DEFAULT_DIVISOR;
-    }
-    // Modify divisor if precision is toggled
-    if (get_toggled_pointing_mode_id() == PM_PRECISION && !(get_pointing_mode_id() == PM_PRECISION)) {
-        divisor = clamp_uint_16_to_8(divisor * POINTING_PRECISION_DIVISOR);
-    }
-    // never return without zero checking
-    return divisor ? divisor : POINTING_DEFAULT_DIVISOR;
-}
-
-/**
- * @brief override current divisor value
- *
- * Will only take effect until next cycle update or next call of this process
- *
- * @param[in] divisor uint8_t
- */
-void pointing_mode_divisor_override(uint8_t divisor) {
-    current_divisor = divisor_postprocess(divisor);
 }
 
 /**
@@ -306,38 +297,20 @@ void pointing_mode_divisor_override(uint8_t divisor) {
  *
  * @return divisor uint8_t
  */
-static uint8_t get_pointing_mode_divisor(void) {
+static uint8_t pointing_mode_update_divisor(void) {
     uint8_t divisor = 0;
     // allow for user and keyboard overrides
-    divisor = get_pointing_mode_divisor_user(get_pointing_mode_id(), current_pointing_mode_direction());
-    if (divisor) return divisor_postprocess(divisor);
-    divisor = get_pointing_mode_divisor_kb(get_pointing_mode_id(), current_pointing_mode_direction());
-    if (divisor) return divisor_postprocess(divisor);
+    divisor = get_pointing_mode_divisor_user(pointing_mode_get_mode(), current_pointing_mode_direction());
+    if (divisor) return divisor;
+    divisor = get_pointing_mode_divisor_kb(pointing_mode_get_mode(), current_pointing_mode_direction());
+    if (divisor) return divisor;
     // built in divisors
-    switch (get_pointing_mode_id()) {
-        case PM_PRECISION:
-            divisor = POINTING_PRECISION_DIVISOR;
-            break;
-
+    switch (pointing_mode_get_mode()) {
         case PM_DRAG:
-            divisor = POINTING_DRAG_DIVISOR;
+            divisor = POINTING_MODE_DRAG_DIVISOR;
             break;
-
-        case PM_CARET:
-            divisor = current_pointing_mode_direction() < PD_LEFT ? POINTING_CARET_DIVISOR_V : POINTING_CARET_DIVISOR_H;
-            break;
-
-        case PM_HISTORY:
-            divisor = POINTING_HISTORY_DIVISOR;
-            break;
-
-#    ifdef EXTRAKEY_ENABLE
-        case PM_VOLUME:
-            divisor = POINTING_VOLUME_DIVISOR;
-            break;
-#    endif
     }
-    return divisor_postprocess(divisor);
+    return divisor ? divisor : POINTING_MODE_DEFAULT_DIVISOR;
 }
 
 /**
@@ -349,18 +322,18 @@ static uint8_t get_pointing_mode_divisor(void) {
  *
  * @return direction uint8_t
  */
-static uint8_t get_pointing_mode_direction(void) {
-    if (abs(pointing_modes[current_device].x) > abs(pointing_modes[current_device].y)) {
-        if (pointing_modes[current_device].x > 0) {
+static uint8_t pointing_mode_update_direction(void) {
+    if (abs(pointing_mode_devices[active_device_id].x) > abs(pointing_mode_devices[active_device_id].y)) {
+        if (pointing_mode_devices[active_device_id].x > 0) {
             return PD_RIGHT;
         } else {
             return PD_LEFT;
         }
     } else {
-        if (pointing_modes[current_device].y > 0) {
-            return PD_UP;
-        } else {
+        if (pointing_mode_devices[active_device_id].y > 0) {
             return PD_DOWN;
+        } else {
+            return PD_UP;
         }
     }
 }
@@ -372,8 +345,8 @@ static uint8_t get_pointing_mode_direction(void) {
  *
  */
 void pointing_mode_update(void) {
-    current_direction = get_pointing_mode_direction();
-    current_divisor   = get_pointing_mode_divisor();
+    current_direction = pointing_mode_update_direction();
+    current_divisor   = pointing_mode_update_divisor();
 }
 
 /**
@@ -412,16 +385,16 @@ static void pointing_tap_keycodes_raw(uint16_t* pm_keycodes) {
 
     switch (dir) {
         case PD_DOWN ... PD_UP:
-            count = divisor_divide16(pointing_modes[current_device].y);
+            count = divisor_divide16(pointing_mode_devices[active_device_id].y);
             if (!count) return; // exit if accumulated y is too low
-            pointing_modes[current_device].y -= divisor_multiply16(count);
-            pointing_modes[current_device].x = 0;
+            pointing_mode_devices[active_device_id].y -= divisor_multiply16(count);
+            pointing_mode_devices[active_device_id].x = 0;
             break;
         case PD_LEFT ... PD_RIGHT:
-            count = divisor_divide16(pointing_modes[current_device].x);
+            count = divisor_divide16(pointing_mode_devices[active_device_id].x);
             if (!count) return; // exit if accumulated x is too low
-            pointing_modes[current_device].x -= divisor_multiply16(count);
-            pointing_modes[current_device].y = 0;
+            pointing_mode_devices[active_device_id].x -= divisor_multiply16(count);
+            pointing_mode_devices[active_device_id].y = 0;
             break;
     }
     // skip if KC_TRNS or KC_NO (but allow for axes update above)
@@ -430,7 +403,7 @@ static void pointing_tap_keycodes_raw(uint16_t* pm_keycodes) {
     // tap codes
     uint8_t taps = clamp_uint_16_to_8((uint16_t)abs(count));
     do {
-        tap_code16_delay(pm_keycodes[dir], POINTING_TAP_DELAY);
+        tap_code16_delay(pm_keycodes[dir], POINTING_MODE_TAP_DELAY);
     } while (--taps);
 }
 
@@ -467,16 +440,16 @@ static void pointing_exec_mapping(uint8_t map_id) {
 
     switch (dir) {
         case PD_DOWN ... PD_UP:
-            count = divisor_divide16(pointing_modes[current_device].y);
+            count = divisor_divide16(pointing_mode_devices[active_device_id].y);
             if (!count) return; // exit if accumulated y is too low
-            pointing_modes[current_device].y -= divisor_multiply16(count);
-            pointing_modes[current_device].x = 0;
+            pointing_mode_devices[active_device_id].y -= divisor_multiply16(count);
+            pointing_mode_devices[active_device_id].x = 0;
             break;
         case PD_LEFT ... PD_RIGHT:
-            count = divisor_divide16(pointing_modes[current_device].x);
+            count = divisor_divide16(pointing_mode_devices[active_device_id].x);
             if (!count) return; // exit if accumulated x is too low
-            pointing_modes[current_device].x -= divisor_multiply16(count);
-            pointing_modes[current_device].y = 0;
+            pointing_mode_devices[active_device_id].x -= divisor_multiply16(count);
+            pointing_mode_devices[active_device_id].y = 0;
             break;
     }
 
@@ -484,9 +457,9 @@ static void pointing_exec_mapping(uint8_t map_id) {
     uint8_t taps = clamp_uint_16_to_8((uint16_t)abs(count));
     do {
         action_exec(MAKE_POINTING_MODE_EVENT(map_id, dir, true));
-#        if POINTING_TAP_DELAY > 0
-        wait_ms(POINTING_TAP_DELAY);
-#        endif // POINTING_TAP_DELAY > 0
+#        if POINTING_MODE_TAP_DELAY > 0
+        wait_ms(POINTING_MODE_TAP_DELAY);
+#        endif // POINTING_MODE_TAP_DELAY > 0
         action_exec(MAKE_POINTING_MODE_EVENT(map_id, dir, false));
     } while (--taps);
 }
@@ -503,11 +476,9 @@ static void pointing_exec_mapping(uint8_t map_id) {
  */
 report_mouse_t pointing_device_modes_task(report_mouse_t mouse_report) {
     // skip all processing if pointing mode is PM_NONE
-    if (get_pointing_mode_id() == PM_NONE) return mouse_report;
-
-    mouse_report = pointing_modes_axes_conv(pointing_modes[current_device], mouse_report);
+    mouse_report = pointing_mode_axes_conv(pointing_mode_devices[active_device_id], mouse_report);
     pointing_mode_update();
-    mouse_report = process_pointing_mode(pointing_modes[current_device], mouse_report);
+    mouse_report = process_pointing_mode(pointing_mode_devices[active_device_id], mouse_report);
 
     return mouse_report;
 }
@@ -515,66 +486,44 @@ report_mouse_t pointing_device_modes_task(report_mouse_t mouse_report) {
 /**
  * @brief Handle processing of pointing modes
  *
- * Takes in report_mouse_t and pointing_mode_t allowing manipulation of mouse_report
- * and pointing_mode via set_pointing_mode
+ * Takes in report_mouse_t and pointing_mode_device_t allowing manipulation of mouse_report
+ * and pointing_mode via pointing_mode_set_device_settings
  *
  * @return mouse_report report_mouse_t
  */
-static report_mouse_t process_pointing_mode(pointing_mode_t pointing_mode, report_mouse_t mouse_report) {
+static report_mouse_t process_pointing_mode(pointing_mode_device_t pointing_mode_device, report_mouse_t mouse_report) {
     // allow overwrite of pointing modes by user, and kb
     if (!(process_pointing_mode_user(pointing_mode, &mouse_report) && process_pointing_mode_kb(pointing_mode, &mouse_report))) {
         return mouse_report;
     }
-    switch (pointing_mode.id) {
-        // precision mode  (reduce x y sensitivity temporarily)
-        case PM_PRECISION:
+    switch (pointing_mode.mode_id) {
+        // if no pointing mode selected set back to mouse_report and clear
+        case PM_NONE:
 #    ifdef POINTING_DEVICE_MODES_INVERT_X
-            mouse_report.x -= apply_divisor_xy(pointing_mode.x);
-            pointing_mode.x += multiply_divisor_xy(mouse_report.x);
+            mouse_report.x -= pointing_mode_device.x;
 #    else
-            mouse_report.x += apply_divisor_xy(pointing_mode.x);
-            pointing_mode.x -= multiply_divisor_xy(mouse_report.x);
+            mouse_report.x += pointing_mode_device.x;
 #    endif
 #    ifdef POINTING_DEVICE_MODES_INVERT_Y
-            mouse_report.y -= apply_divisor_xy(pointing_mode.y);
-            pointing_mode.y += multiply_divisor_xy(mouse_report.y);
+            mouse_report.y -= pointing_mode_device.y;
 #    else
-            mouse_report.y += apply_divisor_xy(pointing_mode.y);
-            pointing_mode.y -= multiply_divisor_xy(mouse_report.y);
+            mouse_report.y += pointing_mode_device.y;
 #    endif
-            set_pointing_mode(pointing_mode);
-            break;
-
+            pointing_mode_device.x = 0;
+            pointing_mode_device.y = 0;
         // drag scroll mode (sets mouse axes to mouse_report h & v with divisor)
         case PM_DRAG:
-            mouse_report.h = apply_divisor_hv(pointing_mode.x);
-            pointing_mode.x -= multiply_divisor_hv(mouse_report.h);
-            mouse_report.v = apply_divisor_hv(pointing_mode.y);
-            pointing_mode.y -= multiply_divisor_hv(mouse_report.v);
-            set_pointing_mode(pointing_mode);
+            mouse_report.h = apply_divisor_hv(pointing_mode_device.x);
+            pointing_mode_device.x -= multiply_divisor_hv(mouse_report.h);
+            mouse_report.v = apply_divisor_hv(pointing_mode_device.y);
+            pointing_mode_device.y -= multiply_divisor_hv(mouse_report.v);
+            pointing_mode_set_device_settings(pointing_mode);
             break;
-
-        // caret mode (uses arrow keys to move cursor)
-        case PM_CARET:
-            pointing_tap_codes(KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT);
-            break;
-
-        // history scroll mode (will scroll through undo/redo history)
-        case PM_HISTORY:
-            pointing_tap_codes(C(KC_Z), KC_NO, KC_NO, C(KC_Y));
-            break;
-
-#    ifdef EXTRAKEY_ENABLE
-        // volume scroll mode (adjusts audio volume)
-        case PM_VOLUME:
-            pointing_tap_codes(KC_NO, KC_VOLD, KC_VOLU, KC_NO);
-            break;
-#    endif
 
 #    ifdef POINTING_MODE_MAP_ENABLE
         default:
-            if (pointing_mode.id > POINTING_MODE_MAP_START) {
-                pointing_exec_mapping(pointing_mode.id - POINTING_MODE_MAP_START);
+            if (pointing_mode_device.mode_id > POINTING_MODE_MAP_START) {
+                pointing_exec_mapping(pointing_mode_device.mode_id - POINTING_MODE_MAP_START);
             }
 #    endif
     }
@@ -584,36 +533,36 @@ static report_mouse_t process_pointing_mode(pointing_mode_t pointing_mode, repor
 /**
  * @brief User level processing of pointing device modes
  *
- * Takes pointing_mode_t struct, and pointer to the report_mouse_t struct used in pointing mode process allowing
- * modification of mouse_report directly and pointing mode using set_pointing_mode(pointing_mode) and the returned
+ * Takes pointing_mode_device_t struct, and pointer to the report_mouse_t struct used in pointing mode process allowing
+ * modification of mouse_report directly and pointing mode using pointing_mode_set_device_settings(pointing_mode) and the returned
  * bool controls the continued processing of pointing modes.
  *
  * NOTE: returning false will stop mode processing (for overwriting modes)
  *
- * @params pointing_modes[in] pointing_mode_t
+ * @params pointing_mode_devices[in] pointing_mode_device_t
  * @params mouse_report[in] pointer to report_mouse_t
  *
  * @return bool continue processing flag
  */
-__attribute__((weak)) bool process_pointing_mode_user(pointing_mode_t pointing_mode, report_mouse_t* mouse_report) {
+__attribute__((weak)) bool process_pointing_mode_user(pointing_mode_device_t pointing_mode, report_mouse_t* mouse_report) {
     return true; // continue processing
 }
 
 /**
  * @brief Keyboard level processing of pointing device modes
  *
- * Takes pointing_mode_t struct, and pointer to the report_mouse_t struct used in pointing mode process allowing
- * modification of mouse_report directly and pointing mode using set_pointing_mode(pointing_mode) and the returned
+ * Takes pointing_mode_device_t struct, and pointer to the report_mouse_t struct used in pointing mode process allowing
+ * modification of mouse_report directly and pointing mode using pointing_mode_set_device_settings(pointing_mode) and the returned
  * bool controls the continued processing of pointing modes.
  *
  * NOTE: returning false will stop mode processing (for overwriting modes)
  *
- * @params pointing_modes[in] pointing_mode_t
+ * @params pointing_mode_devices[in] pointing_mode_device_t
  * @params mouse_report[in]  pointer to report_mouse_t
  *
  * @return bool continue processing flag
  */
-__attribute__((weak)) bool process_pointing_mode_kb(pointing_mode_t pointing_mode, report_mouse_t* mouse_report) {
+__attribute__((weak)) bool process_pointing_mode_kb(pointing_mode_device_t pointing_mode, report_mouse_t* mouse_report) {
     return true; // continue processing
 }
 
@@ -623,7 +572,7 @@ __attribute__((weak)) bool process_pointing_mode_kb(pointing_mode_t pointing_mod
  * Takes in mode id and direction allowing for divisor values to be
  * determined based on these parameters
  *
- * @params pointing_modes[in] uint8_t
+ * @params pointing_mode_devices[in] uint8_t
  * @params direction[in] uint8_t
  *
  * @return divisor uint8_t
@@ -638,7 +587,7 @@ __attribute__((weak)) uint8_t get_pointing_mode_divisor_user(uint8_t mode_id, ui
  * Takes in mode id and direction allowing for divisor values to be
  * determined based on these parameters
  *
- * @params pointing_modes[in] uint8_t
+ * @params pointing_mode_devices[in] uint8_t
  * @params direction[in] uint8_t
  *
  * @return divisor uint8_t
@@ -647,32 +596,4 @@ __attribute__((weak)) uint8_t get_pointing_mode_divisor_kb(uint8_t mode_id, uint
     return 0; // continue processing
 }
 
-/**
- * @brief Keyboard level modifying of divisors after being set and before use
- *
- * Allows modification the divisor after being set by get_pointing_mode_divisor stack before
- * handing off to default post processing
- *
- * @params[in] pointer to divisor uint8_t
- *
- * @return bool continue processing flag
- */
-__attribute__((weak)) bool pointing_mode_divisor_postprocess_kb(uint8_t* divisor) {
-    return true;
-}
-
-/**
- * @brief User level modifying of divisors after being set and before use
- *
- * Allows modification the divisor after being set by get_pointing_mode_divisor stack before
- * handing off to default post processing
- *
- * @params[in] pointer to divisor uint8_t
- *
- * @return bool continue processing flag
- */
-__attribute__((weak)) bool pointing_mode_divisor_postprocess_user(uint8_t* divisor) {
-    return true;
-}
-
-#endif // POINTING_DEVICE_MODES_ENABLE
+#endif // POINTING_DEVICE_POINTING_MODES_ENABLE

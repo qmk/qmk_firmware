@@ -6,7 +6,7 @@
         "0x52F0/0x000F": {
             "define": "QK_POINTING_MODE_TG"
         },
-        "0x5300/0x0002": {
+        "0x5300/0x0003": {
             "define": "QK_POINTING_MODE_UTIL"
         }
     }
