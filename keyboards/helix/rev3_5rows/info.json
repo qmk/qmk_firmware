@@ -12,7 +12,7 @@
     "driver": "ws2812",
     "sat_steps": 8,
     "val_steps": 8,
-    "speed_steps": 10
+    "speed_steps": 10,
     "layout": [
         {"matrix": [0, 5], "x": 80, "y": 0, "flags": 4},
         {"matrix": [0, 4], "x": 64, "y": 0, "flags": 4},
@@ -80,7 +80,8 @@
         {"matrix": [9, 0], "x": 224, "y": 64, "flags": 4}
     ],
     "max_brightness": 128,
-    "split_count": [32, 32]
+    "split_count": [32, 32],
+    "sleep": true
   },
   "dip_switch": {
     "matrix_grid": [ [0,6], [1,6], [5,6], [6,6] ]
@@ -102,8 +103,7 @@
     "split_count": [32, 32],
     "animations": {
       "rainbow_mood": true,
-      "rainbow_swirl": true,
-      "static_gradient": true
+      "rainbow_swirl": true
     }
   },
   "processor": "atmega32u4",

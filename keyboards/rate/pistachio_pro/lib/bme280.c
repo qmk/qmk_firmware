@@ -102,9 +102,9 @@ static int32_t t_fine;
 static void readTrim(void) {
     uint8_t data[32];
 
-    i2c_readReg(BME280_ADDRESS, BME280_REG_CALIB00, &data[0], 24, I2C_BME280_TIMEOUT);
-    i2c_readReg(BME280_ADDRESS, BME280_REG_CALIB25, &data[25], 1, I2C_BME280_TIMEOUT);
-    i2c_readReg(BME280_ADDRESS, BME280_REG_CALIB26, &data[25], 7, I2C_BME280_TIMEOUT);
+    i2c_read_register(BME280_ADDRESS, BME280_REG_CALIB00, &data[0], 24, I2C_BME280_TIMEOUT);
+    i2c_read_register(BME280_ADDRESS, BME280_REG_CALIB25, &data[25], 1, I2C_BME280_TIMEOUT);
+    i2c_read_register(BME280_ADDRESS, BME280_REG_CALIB26, &data[25], 7, I2C_BME280_TIMEOUT);
 
     dig_T1 = (data[1] << 8) | data[0];
     dig_T2 = (data[3] << 8) | data[2];
@@ -131,7 +131,7 @@ static void readTrim(void) {
 static void readData(void) {
     uint8_t data[8];
 
-    i2c_readReg(BME280_ADDRESS, 0xF7, &data[0], 8, I2C_BME280_TIMEOUT);
+    i2c_read_register(BME280_ADDRESS, 0xF7, &data[0], 8, I2C_BME280_TIMEOUT);
 
     pres_raw = data[0];
     pres_raw = (pres_raw<<8) | data[1];
@@ -210,9 +210,9 @@ void bme280_init(void) {
     config_reg = BME280_CONFIG_VAL;
 
     i2c_init();
-    i2c_writeReg(BME280_ADDRESS, BME280_REG_CTRL_HUM, &ctrl_hum_reg, 1, I2C_BME280_TIMEOUT);
-    i2c_writeReg(BME280_ADDRESS, BME280_REG_CTRL_MEAS, &ctrl_meas_reg, 1, I2C_BME280_TIMEOUT);
-    i2c_writeReg(BME280_ADDRESS, BME280_REG_CONFIG, &config_reg, 1, I2C_BME280_TIMEOUT);
+    i2c_write_register(BME280_ADDRESS, BME280_REG_CTRL_HUM, &ctrl_hum_reg, 1, I2C_BME280_TIMEOUT);
+    i2c_write_register(BME280_ADDRESS, BME280_REG_CTRL_MEAS, &ctrl_meas_reg, 1, I2C_BME280_TIMEOUT);
+    i2c_write_register(BME280_ADDRESS, BME280_REG_CONFIG, &config_reg, 1, I2C_BME280_TIMEOUT);
     readTrim();
 
     return;

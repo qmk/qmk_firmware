@@ -65,8 +65,8 @@ typedef struct _split_master_matrix_sync_t {
 
 #ifdef ENCODER_ENABLE
 typedef struct _split_slave_encoder_sync_t {
-    uint8_t checksum;
-    uint8_t state[NUM_ENCODERS_MAX_PER_SIDE];
+    uint8_t          checksum;
+    encoder_events_t events;
 } split_slave_encoder_sync_t;
 #endif // ENCODER_ENABLE
 

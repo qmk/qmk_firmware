@@ -41,7 +41,6 @@
         "driver": "ws2812",
         "max_brightness": 150,
         "animations": {
-            "solid_color": true,
             "alphas_mods": true,
             "gradient_up_down": true,
             "gradient_left_right": true,
@@ -85,7 +84,8 @@
             "multisplash": true,
             "solid_splash": true,
             "solid_multisplash": true
-        }
+        },
+        "sleep": true
     },
     "ws2812": {
         "pin": "GP0",

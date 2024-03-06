@@ -216,10 +216,10 @@ void init_expander(void) {
 #endif
 
 
-    expander_status = i2c_writeReg(I2C_ADDR, IODIRA, direction, 2, I2C_TIMEOUT);
+    expander_status = i2c_write_register(I2C_ADDR, IODIRA, direction, 2, I2C_TIMEOUT);
     if (expander_status) return;
 
-    expander_status = i2c_writeReg(I2C_ADDR, GPPUA, pullup, 2, I2C_TIMEOUT);
+    expander_status = i2c_write_register(I2C_ADDR, GPPUA, pullup, 2, I2C_TIMEOUT);
 }
 
 uint8_t matrix_scan(void)
@@ -333,7 +333,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     // Read columns from expander, unless it's in an error state
     if (! expander_status) {
         uint8_t state = 0;
-        expander_status = i2c_readReg(I2C_ADDR, EXPANDER_COL_REGISTER, &state, 1, I2C_TIMEOUT);
+        expander_status = i2c_read_register(I2C_ADDR, EXPANDER_COL_REGISTER, &state, 1, I2C_TIMEOUT);
         if (! expander_status) {
             current_matrix[current_row] |= (~state) & expander_input_pin_mask;
         }
@@ -359,7 +359,7 @@ static void select_row(uint8_t row) {
         // set active row low  : 0
         // set other rows hi-Z : 1
         uint8_t port = 0xFF & ~(1<<row);
-        expander_status = i2c_writeReg(I2C_ADDR, EXPANDER_ROW_REGISTER, &port, 1, I2C_TIMEOUT);
+        expander_status = i2c_write_register(I2C_ADDR, EXPANDER_ROW_REGISTER, &port, 1, I2C_TIMEOUT);
     }
 
     // select on teensy
@@ -415,7 +415,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
             return false;
         }
 
-        expander_status = i2c_readReg(I2C_ADDR, EXPANDER_ROW_REGISTER, &column_state, 1, I2C_TIMEOUT);
+        expander_status = i2c_read_register(I2C_ADDR, EXPANDER_ROW_REGISTER, &column_state, 1, I2C_TIMEOUT);
 
         column_state = ~column_state;
     } else {
@@ -460,7 +460,7 @@ static void select_col(uint8_t col)
             // set active col low  : 0
             // set other cols hi-Z : 1
             uint8_t port = 0xFF & ~(1<<col);
-            expander_status = i2c_writeReg(I2C_ADDR, EXPANDER_COL_REGISTER, &port, 1, I2C_TIMEOUT);
+            expander_status = i2c_write_register(I2C_ADDR, EXPANDER_COL_REGISTER, &port, 1, I2C_TIMEOUT);
         }
     } else {
         // select on teensy

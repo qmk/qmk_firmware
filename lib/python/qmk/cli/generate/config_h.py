@@ -108,6 +108,8 @@ def generate_config_items(kb_info_json, config_h_lines):
         elif key_type.startswith('array'):
             config_h_lines.append(generate_define(config_key, f'{{ {", ".join(map(str, config_value))} }}'))
         elif key_type == 'bool':
+            config_h_lines.append(generate_define(config_key, 'true' if config_value else 'false'))
+        elif key_type == 'flag':
             if config_value:
                 config_h_lines.append(generate_define(config_key))
         elif key_type == 'mapping':

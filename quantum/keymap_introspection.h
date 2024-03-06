@@ -36,6 +36,18 @@ uint16_t keycode_at_encodermap_location(uint8_t layer_num, uint8_t encoder_idx, 
 #endif // defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Dip Switch mapping
+
+#if defined(DIP_SWITCH_ENABLE) && defined(DIP_SWITCH_MAP_ENABLE)
+
+// Get the keycode for the dip_switch mapping location, stored in firmware rather than any other persistent storage
+uint16_t keycode_at_dip_switch_map_location_raw(uint8_t switch_idx, bool on);
+// Get the keycode for the dip_switch mapping location, potentially stored dynamically
+uint16_t keycode_at_dip_switch_map_location(uint8_t switch_idx, bool on);
+
+#endif // defined(DIP_SWITCH_ENABLE) && defined(DIP_SWITCH_MAP_ENABLE)
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Combos
 
 #if defined(COMBO_ENABLE)

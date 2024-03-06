@@ -7,8 +7,8 @@
 #    undef MATRIX_COL_PINS_RIGHT
 
 #    ifdef RGBLIGHT_ENABLE
-#        undef RGBLED_NUM
-#        define RGBLED_NUM 120
+#        undef RGBLIGHT_LED_COUNT
+#        define RGBLIGHT_LED_COUNT 120
 #        undef RGBLIGHT_LED_MAP
 #        define RGBLIGHT_LED_MAP { \
            108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, \

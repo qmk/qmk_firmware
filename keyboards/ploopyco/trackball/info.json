@@ -12,6 +12,12 @@
     "bootmagic": {
         "matrix": [0, 3]
     },
+    "features": {
+        "encoder": true
+    },
+    "encoder": {
+        "driver": "custom"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

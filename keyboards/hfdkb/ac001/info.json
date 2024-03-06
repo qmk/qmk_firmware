@@ -10,7 +10,16 @@
         "force_nkro": true
     },
     "rgb_matrix": {
-        "driver": "ws2812"
+        "animations": {
+            "breathing": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "rainbow_moving_chevron": true,
+            "multisplash": true
+        },
+        "driver": "ws2812",
+        "react_on_keyup": true,
+        "sleep": true
     },
     "matrix_pins": {
         "cols": ["A5", "A6", "A7", "C4", "C5"],

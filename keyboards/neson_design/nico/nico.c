@@ -18,6 +18,7 @@
  */
 
 #include "quantum.h"
+#include "ws2812.h"
 #ifdef RGBLIGHT_ENABLE
 
 static bool alert = false;
@@ -53,20 +54,20 @@ void housekeeping_task_kb(void)
             alert = !alert;
             last_ticks = timer_read();
         }
-        ws2812_setleds(led, RGBLED_NUM);
+        ws2812_setleds(led, RGBLIGHT_LED_COUNT);
     } else {
         if (backup) {
             led[4].r = caps_led.r;
             led[4].g = caps_led.g;
             led[4].b = caps_led.b;
             backup = false;
-            ws2812_setleds(led, RGBLED_NUM);
+            ws2812_setleds(led, RGBLIGHT_LED_COUNT);
         }
     }
     housekeeping_task_user();
 }
 
-void rgblight_call_driver(rgb_led_t *start_led, uint8_t num_leds)
+void setleds_custom(rgb_led_t *start_led, uint16_t num_leds)
 {
     start_led[2].r = start_led[0].r;
     start_led[2].g = start_led[0].g;
@@ -79,7 +80,10 @@ void rgblight_call_driver(rgb_led_t *start_led, uint8_t num_leds)
     uint8_t tmp = start_led[4].g;
     start_led[4].g = start_led[4].r;
     start_led[4].r = tmp;
-    ws2812_setleds(start_led, RGBLED_NUM);
+    ws2812_setleds(start_led, RGBLIGHT_LED_COUNT);
 }
 
+const rgblight_driver_t rgblight_driver = {
+    .setleds = setleds_custom,
+};
 #endif

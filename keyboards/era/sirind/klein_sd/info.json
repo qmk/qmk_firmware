@@ -74,6 +74,9 @@
             "splash": true,
             "typing_heatmap": true
         },
+        "default": {
+            "val": 60
+        },
         "driver": "ws2812",
         "layout": [
             {"matrix": [0, 7], "x": 97, "y": 10, "flags": 4},
@@ -143,7 +146,8 @@
             {"matrix": [4, 13], "x": 192, "y": 55, "flags": 1},
             {"matrix": [4, 14], "x": 205, "y": 55, "flags": 1},
             {"matrix": [4, 15], "x": 224, "y": 55, "flags": 1}
-        ]
+        ],
+        "sleep": true
     },
     "url": "",
     "usb": {

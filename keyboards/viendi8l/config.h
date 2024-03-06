@@ -33,8 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 
-#define RGBLIGHT_DEFAULT_VAL 0
-
 #define WS2812_PWM_COMPLEMENTARY_OUTPUT
 #define WS2812_PWM_DRIVER PWMD1
 #define WS2812_PWM_CHANNEL 3

@@ -83,6 +83,8 @@
           {"flags": 4, "matrix": [6, 0], "x": 224, "y": 16},  // R LB56 | SW36
           {"flags": 4, "matrix": [7, 0], "x": 224, "y": 32},  // R LB57 | SW42
           {"flags": 4, "matrix": [8, 0], "x": 224, "y": 48}   // R LB58 | SW48
-        ]
+        ],
+        "split_count": [29, 29],
+        "sleep": true
     }
-  }
+}

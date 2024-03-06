@@ -4,8 +4,7 @@
     "layout": "LAYOUT_tkl_ansi",
     "config": {
         "features": {
-            "via": true,
-            "lto": true
+            "via": true
         }
     },
     "layers": [
