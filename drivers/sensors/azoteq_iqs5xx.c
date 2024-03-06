@@ -346,8 +346,6 @@ void azoteq_iqs5xx_init(const void *i2c_config) {
 
 report_mouse_t azoteq_iqs5xx_get_report(const void *i2c_config) {
     report_mouse_t temp_report           = {0};
-    static uint8_t previous_button_state = 0; //move me
-    static uint8_t read_error_count      = 0; //move me
 
     if (azoteq_iqs5xx_init_status == I2C_STATUS_SUCCESS) {
         azoteq_iqs5xx_base_data_t base_data = {0};
@@ -359,7 +357,6 @@ report_mouse_t azoteq_iqs5xx_get_report(const void *i2c_config) {
 
         if (status == I2C_STATUS_SUCCESS) {
             // pd_dprintf("IQS5XX - previous cycle time: %d \n", base_data.previous_cycle_time);
-            read_error_count = 0;
             if (base_data.gesture_events_0.single_tap || base_data.gesture_events_0.press_and_hold) {
                 pd_dprintf("IQS5XX - Single tap/hold.\n");
                 temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON1);
@@ -400,16 +397,7 @@ report_mouse_t azoteq_iqs5xx_get_report(const void *i2c_config) {
                 temp_report.y = CONSTRAIN_HID_XY(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.y.h, base_data.y.l));
             }
 
-            previous_button_state = temp_report.buttons;
-
         } else {
-            if (read_error_count > 10) {
-                read_error_count      = 0;
-                previous_button_state = 0;
-            } else {
-                read_error_count++;
-            }
-            temp_report.buttons = previous_button_state;
             pd_dprintf("IQS5XX - get report failed: %d \n", status);
         }
     } else {
