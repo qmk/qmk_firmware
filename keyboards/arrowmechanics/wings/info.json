@@ -10,6 +10,14 @@
             {"pin_a": "GP6", "pin_b": "GP7"}
         ]
     },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "audio": true,
+        "encoder": true,
+        "rgb_matrix": true
+    },
     "matrix_pins": {
         "cols": ["GP8", "GP9", "GP10", "GP11", "GP12", "GP13", "GP14", "GP15", "GP16"],
         "rows": ["GP22", "GP21", "GP20", "GP19", "GP18", "GP17"]
@@ -166,9 +174,6 @@
         "enabled": true,
         "handedness": {
             "pin": "GP3"
-        },
-        "transport": {
-            "protocol": "serial"
         }
     },
     "url": "https://arrowmechanics.com",
