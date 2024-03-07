@@ -43,7 +43,11 @@
 
 #pragma once
 
+#ifdef ES_INCLUDE_INFO_CONFIG_FILE
+#include "USB.h"
+#else                          
 #include <LUFA/Drivers/USB/USB.h>
+#endif
 
 #ifdef PROTOCOL_CHIBIOS
 #    include <hal.h>
