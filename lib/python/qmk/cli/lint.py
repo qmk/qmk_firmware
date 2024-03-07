@@ -1,6 +1,7 @@
 """Command to look over a keyboard/keymap and check for common mistakes.
 """
 from pathlib import Path
+from typing import List
 
 from milc import cli
 
@@ -32,7 +33,7 @@ def _list_defaultish_keymaps(kb):
     return keymaps
 
 
-def _get_code_files(kb, km=None):
+def _get_code_files(kb, km=None) -> List[Path]:
     """Return potential keyboard/keymap code files
     """
     search_path = locate_keymap(kb, km).parent if km else keyboard(kb)
@@ -47,12 +48,12 @@ def _get_code_files(kb, km=None):
     return code_files
 
 
-def _has_license(file):
+def _has_license(file: Path) -> bool:
     """Check file has a license header
     """
     # Crude assumption that first line of license header is a comment
-    fline = open(file).readline().rstrip()
-    return fline.startswith(("/*", "//"))
+    with file.open() as f:
+        return f.readline().rstrip().startswith(("/*", "//"))
 
 
 def _handle_json_errors(kb, info):
