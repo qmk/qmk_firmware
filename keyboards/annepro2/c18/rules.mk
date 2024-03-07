@@ -26,12 +26,8 @@ NKRO_ENABLE = no            # Enable N-Key Rollover
 # Custom RGB matrix handling
 RGB_MATRIX_ENABLE = yes
 
-# Keys
-CUSTOM_MATRIX = lite
-
 # Anne Pro 2
 SRC = \
-	matrix.c \
 	annepro2_ble.c \
 	ap2_led.c \
 	protocol.c \

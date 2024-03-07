@@ -10,6 +10,11 @@
             "backing_size": 2048
         }
     },
+    "diode_direction": "COL2ROW",
+    "matrix_pins": {
+        "cols": ["C4", "C5", "B10", "B11", "C0", "A15", "A8", "A10", "A11", "A12", "A13", "A14", "B2", "B3"],
+        "rows": ["C2", "C1", "B5", "B4", "C3"]
+    },
     "rgb_matrix": {
         "animations":{
            "alphas_mods": true,
