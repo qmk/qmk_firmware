@@ -13,12 +13,8 @@ BOARD = ANNEPRO2_C18
 BOOTLOADER = custom
 PROGRAM_CMD = annepro2_tools --boot $(BUILD_DIR)/$(TARGET).bin
 
-# Keys
-CUSTOM_MATRIX = lite
-
 # Anne Pro 2
 SRC = \
-	matrix.c \
 	annepro2_ble.c \
 	ap2_led.c \
 	protocol.c \
