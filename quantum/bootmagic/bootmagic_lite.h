@@ -23,3 +23,4 @@
 #endif
 
 void bootmagic_lite(void);
+extern void bootloader_jump(void);
