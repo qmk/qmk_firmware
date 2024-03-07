@@ -38,22 +38,22 @@ const pmw33xx_regs_common_t pmw3360_common_regs = {
 
 uint16_t pmw3360_get_cpi(const void *config) {
     pointing_device_spi_config_t *spi_config = (pointing_device_spi_config_t *)config;
-    uint8_t cpival = pmw33xx_read(spi_config,&pmw3360_common_regs, PMW3360_REG_Config1);
+    uint8_t                       cpival     = pmw33xx_read(spi_config, &pmw3360_common_regs, PMW3360_REG_Config1);
     // In some cases (100, 900, 1700, 2500), reading the CPI corrupts the firmware and the sensor stops responding.
     // To avoid this, we write the value back to the sensor, which seems to prevent the corruption.
-    pmw33xx_write(spi_config,&pmw3360_common_regs, PMW3360_REG_Config1, cpival);
+    pmw33xx_write(spi_config, &pmw3360_common_regs, PMW3360_REG_Config1, cpival);
     return (uint16_t)((cpival + 1) & 0xFF) * PMW3360_CPI_STEP;
 }
 
 void pmw3360_set_cpi(const void *config, uint16_t cpi) {
     pointing_device_spi_config_t *spi_config = (pointing_device_spi_config_t *)config;
-    uint8_t cpival = CONSTRAIN((cpi / PMW3360_CPI_STEP) - 1, 0, (PMW3360_CPI_MAX / PMW3360_CPI_STEP) - 1U);
-    pmw33xx_write(spi_config,&pmw3360_common_regs, PMW3360_REG_Config1, cpival);
+    uint8_t                       cpival     = CONSTRAIN((cpi / PMW3360_CPI_STEP) - 1, 0, (PMW3360_CPI_MAX / PMW3360_CPI_STEP) - 1U);
+    pmw33xx_write(spi_config, &pmw3360_common_regs, PMW3360_REG_Config1, cpival);
 }
 
 void pmw3360_init(const void *config) {
     pointing_device_spi_config_t *spi_config = (pointing_device_spi_config_t *)config;
-    pmw33xx_init(spi_config,&pmw3360_common_regs, pmw3360_firmware_data, PMW3360_FIRMWARE_LENGTH,pmw3360_firmware_signature);
+    pmw33xx_init(spi_config, &pmw3360_common_regs, pmw3360_firmware_data, PMW3360_FIRMWARE_LENGTH, pmw3360_firmware_signature);
 }
 
 report_mouse_t pmw3360_get_report(const void *config) {

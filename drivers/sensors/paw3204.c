@@ -51,17 +51,16 @@ void    paw3204_serial_write(paw3204_config_t* paw3204_config, uint8_t reg_addr)
 uint8_t paw3204_read_reg(paw3204_config_t* paw3204_config, uint8_t reg_addr);
 void    paw3204_write_reg(paw3204_config_t* paw3204_config, uint8_t reg_addr, uint8_t data);
 
-
 void paw3204_init(const void* config) {
     paw3204_config_t* paw3204_config = (paw3204_config_t*)config;
 
-    gpio_set_pin_output(paw3204_config->sclk);    // setclockpin to output
+    gpio_set_pin_output(paw3204_config->sclk);     // setclockpin to output
     gpio_set_pin_input_high(paw3204_config->sdio); // set datapin input high
 
     paw3204_write_reg(paw3204_config, PAW3204_REG_SETUP, 0x86); // reset sensor and set 1600cpi
     wait_us(5);
 
-    paw3204_read_reg(paw3204_config,0x00); // read id
+    paw3204_read_reg(paw3204_config, 0x00); // read id
     paw3204_read_reg(paw3204_config, 0x01); // read id2
     // PAW3204_write_reg(REG_SETUP,0x06);  // dont reset sensor and set cpi 1600
     paw3204_write_reg(paw3204_config, PAW3204_REG_IMGTRASH, 0x32); // write image trashhold
@@ -181,8 +180,8 @@ uint8_t read_pid_paw3204(paw3204_config_t* paw3204_config) {
 
 report_mouse_t paw3204_get_report(const void* config) {
     paw3204_config_t* paw3204_config = (paw3204_config_t*)config;
-    report_paw3204_t data = paw3204_read(paw3204_config);
-    report_mouse_t mouse_report = {0};
+    report_paw3204_t  data           = paw3204_read(paw3204_config);
+    report_mouse_t    mouse_report   = {0};
     if (data.isMotion) {
         pd_dprintf("Raw ] X: %d, Y: %d\n", data.x, data.y);
 

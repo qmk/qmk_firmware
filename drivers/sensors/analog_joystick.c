@@ -93,7 +93,6 @@ int16_t axisCoordinate(analog_joystick_config_t *analog_config, pin_t pin, uint1
 }
 
 int8_t axisToMouseComponent(analog_joystick_config_t *analog_config, pin_t pin, int16_t origin, uint8_t maxSpeed, uint8_t axis) {
-
     int16_t coordinate = axisCoordinate(analog_config, pin, origin);
     int8_t  result;
 #ifndef ANALOG_JOYSTICK_WEIGHTS

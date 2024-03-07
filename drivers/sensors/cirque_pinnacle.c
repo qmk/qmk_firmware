@@ -239,10 +239,10 @@ bool cirque_pinnacle_connected(const cirque_rap_t* cirque_rap, const void* confi
     uint8_t current_zidle = 0;
     uint8_t temp_zidle    = 0;
     cirque_rap->read(config, CIRQUE_HOSTREG__ZIDLE, &current_zidle, 1);
-    cirque_rap->write(config,CIRQUE_HOSTREG__ZIDLE, CIRQUE_HOSTREG__ZIDLE_DEFVAL);
+    cirque_rap->write(config, CIRQUE_HOSTREG__ZIDLE, CIRQUE_HOSTREG__ZIDLE_DEFVAL);
     cirque_rap->read(config, CIRQUE_HOSTREG__ZIDLE, &temp_zidle, 1);
     if (temp_zidle == CIRQUE_HOSTREG__ZIDLE_DEFVAL) {
-         cirque_rap->write(config,CIRQUE_HOSTREG__ZIDLE, current_zidle);
+        cirque_rap->write(config, CIRQUE_HOSTREG__ZIDLE, current_zidle);
         return true;
     }
     return false;
@@ -306,7 +306,7 @@ void cirque_pinnacle_init(const cirque_rap_t* cirque_rap, const cirque_init_conf
     cirque_pinnacle_enable_feed(cirque_rap, config, true);
 
 #ifndef CIRQUE_PINNACLE_SKIP_SENSOR_CHECK
-    //touchpad_init = cirque_pinnacle_connected(cirque_rap, config); //FIX ME
+    // touchpad_init = cirque_pinnacle_connected(cirque_rap, config); //FIX ME
 #endif
 }
 

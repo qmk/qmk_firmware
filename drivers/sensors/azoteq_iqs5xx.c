@@ -140,7 +140,6 @@ i2c_status_t azoteq_iqs5xx_get_report_rate(const pointing_device_i2c_config_t *i
     return status;
 }
 
-
 i2c_status_t azoteq_iqs5xx_set_report_rate(const pointing_device_i2c_config_t *i2c_config, uint16_t report_rate_ms, azoteq_iqs5xx_charging_modes_t mode, bool end_session) {
     if (mode > AZOTEQ_IQS5XX_LP2) {
         pd_dprintf("IQS5XX - Invalid mode for set report rate.\n");
@@ -317,7 +316,7 @@ void azoteq_iqs5xx_setup_resolution(const pointing_device_i2c_config_t *i2c_conf
 #endif
 }
 
-static i2c_status_t azoteq_iqs5xx_init_status = 1; //move me
+static i2c_status_t azoteq_iqs5xx_init_status = 1; // move me
 
 void azoteq_iqs5xx_init(const void *i2c_config) {
     i2c_init();
@@ -330,28 +329,28 @@ void azoteq_iqs5xx_init(const void *i2c_config) {
         azoteq_iqs5xx_init_status = azoteq_iqs5xx_set_report_rate(i2c_config, AZOTEQ_IQS5XX_REPORT_RATE, AZOTEQ_IQS5XX_ACTIVE, false);
         azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_event_mode(i2c_config, false, false);
         azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_reati(i2c_config, true, false);
-#    if defined(AZOTEQ_IQS5XX_ROTATION_90)
+#if defined(AZOTEQ_IQS5XX_ROTATION_90)
         azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_xy_config(i2c_config, false, true, true, true, false);
-#    elif defined(AZOTEQ_IQS5XX_ROTATION_180)
+#elif defined(AZOTEQ_IQS5XX_ROTATION_180)
         azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_xy_config(i2c_config, true, true, false, true, false);
-#    elif defined(AZOTEQ_IQS5XX_ROTATION_270)
+#elif defined(AZOTEQ_IQS5XX_ROTATION_270)
         azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_xy_config(i2c_config, true, false, true, true, false);
-#    else
+#else
         azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_xy_config(i2c_config, false, false, false, true, false);
-#    endif
+#endif
         azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_gesture_config(i2c_config, true);
         wait_ms(AZOTEQ_IQS5XX_REPORT_RATE + 1);
     }
 };
 
 report_mouse_t azoteq_iqs5xx_get_report(const void *i2c_config) {
-    report_mouse_t temp_report           = {0};
+    report_mouse_t temp_report = {0};
 
     if (azoteq_iqs5xx_init_status == I2C_STATUS_SUCCESS) {
         azoteq_iqs5xx_base_data_t base_data = {0};
-#    if !defined(POINTING_DEVICE_MOTION_PIN)
+#if !defined(POINTING_DEVICE_MOTION_PIN)
         azoteq_iqs5xx_wake(i2c_config);
-#    endif
+#endif
         i2c_status_t status          = azoteq_iqs5xx_get_base_data(i2c_config, &base_data);
         bool         ignore_movement = false;
 
