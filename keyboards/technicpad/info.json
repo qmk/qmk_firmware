@@ -19,7 +19,7 @@
   "processor": "atmega32u4",
   "bootloader": "caterina",
   "layouts": {
-    "LAYOUT_all": {
+    "LAYOUT": {
       "layout": [
          	{"label": "D1", "matrix": [0, 0], "x": 0, "y": 0},
          	{"label": "D0", "matrix": [1, 0], "x": 0, "y": 1},
