@@ -17,7 +17,7 @@
 #include "matrix.h"
 #include "keyboard.h"
 #include "wait.h"
-#include "studio.h"
+#include "stdio.h"
 #include "eeconfig.h"
 #include "bootloader.h"
 #include "md_syscfg.h"
