@@ -128,7 +128,7 @@ combo_t key_combos[] = {
 #ifdef OLED_ENABLE
 
 // Draw to OLED
-bool oled_task_user() {
+bool oled_task_user(void) {
     //set cursor position
     oled_set_cursor(0,1);
 
@@ -147,9 +147,6 @@ bool oled_task_user() {
             oled_write("Function Layer", false);
             break;
     }
-
-    //set cursor position
-    oled_set_cursor(16,1);
 
     // Caps Lock Status
     led_t led_state = host_keyboard_led_state();
