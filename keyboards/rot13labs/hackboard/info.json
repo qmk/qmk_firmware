@@ -23,7 +23,6 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32a",
     "bootloader": "usbasploader",
-    "community_layouts": ["tkl_ansi"],
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [
