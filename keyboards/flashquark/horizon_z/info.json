@@ -20,6 +20,36 @@
     },
     "processor": "atmega32u4",
     "rgb_matrix": {
+        "animations": {
+           "alphas_mods": true,
+           "gradient_left_right": true,
+           "breathing": true,
+           "band_val": true,
+           "band_pinwheel_val": true,
+           "band_spiral_val": true,
+           "cycle_all": true,
+           "cycle_left_right": true,
+           "cycle_up_down": true,
+           "rainbow_moving_chevron": true,
+           "cycle_out_in": true,
+           "cycle_out_in_dual": true,
+           "cycle_pinwheel": true,
+           "cycle_spiral": true,
+           "dual_beacon": true,
+           "rainbow_beacon": true,
+           "rainbow_pinwheels": true,
+           "raindrops": true,
+           "jellybean_raindrops": true,
+           "hue_breathing": true,
+           "hue_pendulum": true,
+           "hue_wave": true,
+           "pixel_rain": true,
+           "pixel_flow": true,
+           "pixel_fractal": true,
+           "typing_heatmap": true,
+           "solid_reactive_simple": true,
+           "solid_reactive": true
+        },
         "driver": "is31fl3733",
         "layout": [
             { "flags": 1, "matrix": [0, 0], "x": 0, "y": 0 },
@@ -83,7 +113,8 @@
             { "flags": 1, "matrix": [4, 10], "x": 182, "y": 64 },
             { "flags": 1, "matrix": [4, 12], "x": 202, "y": 64 },
             { "flags": 1, "matrix": [4, 13], "x": 222, "y": 64 }
-        ]
+        ],
+        "sleep": true
     },
     "url": "https://flashquark.com/product/flashquark-horizon-z-qmk-edition-custom-kit/",
     "usb": {
