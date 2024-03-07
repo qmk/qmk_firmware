@@ -22,6 +22,7 @@
 #include "timer.h"
 #include "util.h"
 #include "keyboard.h"
+#include "split_util.h"
 #ifdef MOUSEKEY_ENABLE
 #    include "mousekey.h"
 #endif
@@ -74,7 +75,9 @@ bool pointing_device_check_shared_cpi_update_flags(void) {
 bool pointing_device_task_handle_shared_report(report_mouse_t* local_report, bool* device_was_ready) {
     static uint8_t counter = 0;
     if (is_keyboard_master()) {
+        static uint shared_buttons = 0;
         if (counter != shared_report.counter) {
+            shared_buttons = 0;
 #    if defined(POINTING_DEVICE_DEBUG)
             if (shared_report.counter != (((uint16_t)counter + 1) & UINT8_MAX)) {
                 pd_dprintf("POINTING DEVICE: Missed shared report - last report: %d, new report: %d\n", counter, shared_report.counter);
@@ -83,7 +86,14 @@ bool pointing_device_task_handle_shared_report(report_mouse_t* local_report, boo
             pointing_device_add_and_clamp_report(local_report, &shared_report.report);
             counter           = shared_report.counter;
             *device_was_ready = true;
+            shared_buttons = shared_report.report.buttons;
             return true;
+        } else {
+            if (shared_buttons && is_transport_connected()){
+               local_report->buttons |= shared_buttons;
+            } else {
+                shared_buttons = 0; // Don't want stuck buttons
+            }
         }
     } else {
         if (*device_was_ready) {
