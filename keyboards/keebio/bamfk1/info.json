@@ -1,27 +1,24 @@
 {
-    "keyboard_name": "BAMFK-1",
     "manufacturer": "Keebio",
-    "url": "https://keeb.io",
+    "keyboard_name": "BAMFK-1",
     "maintainer": "nooges",
-    "usb": {
-        "vid": "0xCB10",
-        "pid": "0x1211",
-        "device_version": "0.0.1"
-    },
-    "features": {
-        "bootmagic": true,
-        "extrakey": true,
-        "mousekey": false,
-        "audio": false,
-        "rgb_matrix": true
-    },
-    "ws2812": {
-        "pin": "D3"
-    },
+    "bootloader": "atmel-dfu",
     "encoder": {
         "rotary": [
             {"pin_a": "C7", "pin_b": "B5"},
             {"pin_a": "D7", "pin_b": "D4"}
+        ]
+    },
+    "features": {
+        "audio": false,
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": false,
+        "rgb_matrix": true
+    },
+    "matrix_pins": {
+        "direct": [
+            ["E6", "B6", "D6"]
         ]
     },
     "processor": "atmega32u4",
@@ -92,18 +89,21 @@
         ],
         "sleep": true
     },
-    "bootloader": "atmel-dfu",
-    "matrix_pins": {
-        "direct": [
-            ["E6", "B6", "D6"]
-        ]
+    "url": "https://keeb.io",
+    "usb": {
+        "device_version": "0.0.1",
+        "pid": "0x1211",
+        "vid": "0xCB10"
+    },
+    "ws2812": {
+        "pin": "D3"
     },
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"x": 1, "y": 0, "h": 2, "w": 2, "matrix": [0, 0]},
-                {"x": 0, "y": 2.25, "matrix": [0, 1]},
-                {"x": 3, "y": 2.25, "matrix": [0, 2]}
+                {"matrix": [0, 0], "x": 1, "y": 0, "w": 2, "h": 2},
+                {"matrix": [0, 1], "x": 0, "y": 2.25},
+                {"matrix": [0, 2], "x": 3, "y": 2.25}
             ]
         }
     }
