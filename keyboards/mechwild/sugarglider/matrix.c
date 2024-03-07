@@ -50,7 +50,7 @@ static void select_row(uint8_t row) {
         //wait_us(100);
         return;
     }
-    
+
     if (row > 1) {
         mcp23018_errors += !mcp23018_set_config(I2C_ADDR, mcp23018_PORTB, ALL_INPUT);
         mcp23018_errors += !mcp23018_set_config(I2C_ADDR, mcp23018_PORTA, ~(row_pos[row]));
@@ -87,8 +87,10 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     bool changed = false;
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
         changed |= read_cols_on_row(current_matrix, current_row);
+
 #ifdef ENCODER_ENABLE
-        encoder_read();
+        // Need to frequently read the encoder pins while scanning because the I/O expander takes a long time in comparison.
+        encoder_driver_task();
 #endif
     }
     return changed;
