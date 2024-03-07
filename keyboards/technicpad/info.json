@@ -1,31 +1,34 @@
 {
-  "keyboard_name": "TechnicPad",
-  "manufacturer": "nwhirschfeld",
-  "url": "https://github.com/nwhirschfeld/TechnicPad/tree/main",
-  "maintainer": "qmk",
-  "usb": {
-    "vid": "0x4E57",
-    "pid": "0x5450",
-    "device_version": "0.0.1"
-  },
-  "matrix_pins": {
-    "direct": [
-      ["D1"],
-      ["D0"],
-      ["D4"],
-      ["C6"]
-    ]
-  },
-  "processor": "atmega32u4",
-  "bootloader": "caterina",
-  "layouts": {
-    "LAYOUT": {
-      "layout": [
-         	{"label": "D1", "matrix": [0, 0], "x": 0, "y": 0},
-         	{"label": "D0", "matrix": [1, 0], "x": 0, "y": 1},
-            {"label": "D4", "matrix": [2, 0], "x": 1, "y": 0},
-            {"label": "C6", "matrix": [3, 0], "x": 1, "y": 1}
-      ]
+    "manufacturer": "nwhirschfeld",
+    "keyboard_name": "TechnicPad",
+    "maintainer": "nwhirschfeld",
+    "bootloader": "caterina",
+    "bootmagic": {
+        "matrix": [3, 0]
+    },
+    "matrix_pins": {
+        "direct": [
+            ["D1"],
+            ["D0"],
+            ["D4"],
+            ["C6"]
+        ]
+    },
+    "processor": "atmega32u4",
+    "url": "https://github.com/nwhirschfeld/TechnicPad",
+    "usb": {
+        "device_version": "0.0.1",
+        "pid": "0x5450",
+        "vid": "0x4E57"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label": "D1", "matrix": [0, 0], "x": 0, "y": 0},
+                {"label": "D0", "matrix": [1, 0], "x": 0, "y": 1},
+                {"label": "D4", "matrix": [2, 0], "x": 1, "y": 0},
+                {"label": "C6", "matrix": [3, 0], "x": 1, "y": 1}
+            ]
+        }
     }
-  }
 }
