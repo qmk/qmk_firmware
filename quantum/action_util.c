@@ -34,7 +34,14 @@ static uint8_t suppressed_mods    = 0;
 
 // TODO: pointer variable is not needed
 // report_keyboard_t keyboard_report = {};
+
+#ifdef ES_INCLUDE_INFO_CONFIG_FILE
+report_keyboard_t test_00000_report_keyboard;                                              
+report_keyboard_t *keyboard_report = &test_00000_report_keyboard;
+#else                                                
 report_keyboard_t *keyboard_report = &(report_keyboard_t){};
+#endif
+
 #ifdef NKRO_ENABLE
 report_nkro_t *nkro_report = &(report_nkro_t){};
 #endif
@@ -316,7 +323,7 @@ void send_nkro_report(void) {
  *
  * FIXME: needs doc
  */
-void send_keyboard_report(void) {
+void send_keyboard_report(void) {  
 #ifdef NKRO_ENABLE
     if (keyboard_protocol && keymap_config.nkro) {
         send_nkro_report();
@@ -324,6 +331,11 @@ void send_keyboard_report(void) {
         send_6kro_report();
     }
 #else
+    
+        #ifdef ES_INCLUDE_INFO_CONFIG_FILE
+        /*es_bp_set*/
+        #endif
+        
     send_6kro_report();
 #endif
 }
