@@ -99,6 +99,8 @@
           {"flags": 4, "matrix": [6, 0], "x": 224, "y": 16},  // R LB72 | SW36
           {"flags": 4, "matrix": [7, 0], "x": 224, "y": 32},  // R LB73 | SW42
           {"flags": 4, "matrix": [8, 0], "x": 224, "y": 48}   // R LB74 | SW48
-        ]
+        ],
+        "split_count": [37, 37],
+        "sleep": true
     }
-  }
+}
