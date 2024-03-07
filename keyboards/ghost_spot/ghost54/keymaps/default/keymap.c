@@ -124,6 +124,9 @@ combo_t key_combos[] = {
     COMBO(layer2to3, TO(3)),
 };
 
+
+#ifdef OLED_ENABLE
+
 // Draw to OLED
 bool oled_task_user() {
     //set cursor position
@@ -154,3 +157,5 @@ bool oled_task_user() {
 
     return false;
 }
+
+#endif
