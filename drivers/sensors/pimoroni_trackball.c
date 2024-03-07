@@ -34,8 +34,8 @@
 
 static uint16_t precision = 128;
 
-const pointing_device_driver_t pimoroni_trackball_driver_default = {.init = pimoroni_trackball_device_init, .get_report = pimoroni_trackball_get_raw_report, .set_cpi = pimoroni_trackball_set_cpi, .get_cpi = pimoroni_trackball_get_cpi};
-const pointing_device_i2c_config_t pimoroni_trackball_config_default = {.address = PIMORONI_TRACKBALL_ADDRESS, .timeout = PIMORONI_TRACKBALL_TIMEOUT };
+const pointing_device_driver_t     pimoroni_trackball_driver_default = {.init = pimoroni_trackball_device_init, .get_report = pimoroni_trackball_get_raw_report, .set_cpi = pimoroni_trackball_set_cpi, .get_cpi = pimoroni_trackball_get_cpi};
+const pointing_device_i2c_config_t pimoroni_trackball_config_default = {.address = PIMORONI_TRACKBALL_ADDRESS, .timeout = PIMORONI_TRACKBALL_TIMEOUT};
 
 uint16_t pimoroni_trackball_get_cpi(const void* i2c_config) {
     return (precision * 125);
@@ -85,9 +85,9 @@ i2c_status_t pimoroni_trackball_enable_interrupt_pin(const pointing_device_i2c_c
     } pimoroni_trackball_reg_int_t;
 
     pimoroni_trackball_reg_int_t int_reg = {0};
-    i2c_status_t status = i2c_readReg(i2c_config->address << 1, PIMORONI_TRACKBALL_REG_INT, (uint8_t*)&int_reg, sizeof(uint8_t), i2c_config->timeout);
-    int_reg.int_pin_en = int_pin_en;
-    status = i2c_writeReg(i2c_config->address << 1, PIMORONI_TRACKBALL_REG_INT, (uint8_t*)&int_reg, sizeof(uint8_t), i2c_config->timeout);
+    i2c_status_t                 status  = i2c_readReg(i2c_config->address << 1, PIMORONI_TRACKBALL_REG_INT, (uint8_t*)&int_reg, sizeof(uint8_t), i2c_config->timeout);
+    int_reg.int_pin_en                   = int_pin_en;
+    status                               = i2c_writeReg(i2c_config->address << 1, PIMORONI_TRACKBALL_REG_INT, (uint8_t*)&int_reg, sizeof(uint8_t), i2c_config->timeout);
     return status;
 }
 

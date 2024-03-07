@@ -86,11 +86,11 @@ bool pointing_device_task_handle_shared_report(report_mouse_t* local_report, boo
             pointing_device_add_and_clamp_report(local_report, &shared_report.report);
             counter           = shared_report.counter;
             *device_was_ready = true;
-            shared_buttons = shared_report.report.buttons;
+            shared_buttons    = shared_report.report.buttons;
             return true;
         } else {
-            if (shared_buttons && is_transport_connected()){
-               local_report->buttons |= shared_buttons;
+            if (shared_buttons && is_transport_connected()) {
+                local_report->buttons |= shared_buttons;
             } else {
                 shared_buttons = 0; // Don't want stuck buttons
             }
@@ -205,7 +205,7 @@ __attribute__((weak)) void pointing_device_init(void) {
 }
 
 __attribute__((weak)) void pointing_device_send(report_mouse_t* sending_report) {
-    if (is_keyboard_master()){
+    if (is_keyboard_master()) {
         host_mouse_send(sending_report);
     }
     memset(sending_report, 0, sizeof(report_mouse_t));

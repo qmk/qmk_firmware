@@ -37,7 +37,7 @@ const pmw33xx_regs_common_t pmw3389_common_regs = {
 
 uint16_t pmw3389_get_cpi(const void *config) {
     pointing_device_spi_config_t *spi_config = (pointing_device_spi_config_t *)config;
-    uint16_t                      cpival     = (pmw33xx_read(spi_config, &pmw3389_common_regs, PMW3389_REG_Resolution_H) << 8) | pmw33xx_read(spi_config, &pmw3389_common_regs,PMW3389_REG_Resolution_L);
+    uint16_t                      cpival     = (pmw33xx_read(spi_config, &pmw3389_common_regs, PMW3389_REG_Resolution_H) << 8) | pmw33xx_read(spi_config, &pmw3389_common_regs, PMW3389_REG_Resolution_L);
     return (uint16_t)((cpival + 1) & 0xFFFF) * PMW3389_CPI_STEP;
 }
 
@@ -45,13 +45,13 @@ void pmw3389_set_cpi(const void *config, uint16_t cpi) {
     pointing_device_spi_config_t *spi_config = (pointing_device_spi_config_t *)config;
     uint16_t                      cpival     = CONSTRAIN((cpi / PMW3389_CPI_STEP) - 1, 0, (PMW3389_CPI_MAX / PMW3389_CPI_STEP) - 1U);
     // Sets upper byte first for more consistent setting of cpi
-    pmw33xx_write(spi_config, &pmw3389_common_regs,PMW3389_REG_Resolution_H, (cpival >> 8) & 0xFF);
-    pmw33xx_write(spi_config, &pmw3389_common_regs,PMW3389_REG_Resolution_L, cpival & 0xFF);
+    pmw33xx_write(spi_config, &pmw3389_common_regs, PMW3389_REG_Resolution_H, (cpival >> 8) & 0xFF);
+    pmw33xx_write(spi_config, &pmw3389_common_regs, PMW3389_REG_Resolution_L, cpival & 0xFF);
 }
 
 void pmw3389_init(const void *config) {
     pointing_device_spi_config_t *spi_config = (pointing_device_spi_config_t *)config;
-    pmw33xx_init(spi_config,&pmw3389_common_regs, pmw3389_firmware_data, PMW3389_FIRMWARE_LENGTH,pmw3389_firmware_signature);
+    pmw33xx_init(spi_config, &pmw3389_common_regs, pmw3389_firmware_data, PMW3389_FIRMWARE_LENGTH, pmw3389_firmware_signature);
 }
 
 report_mouse_t pmw3389_get_report(const void *config) {

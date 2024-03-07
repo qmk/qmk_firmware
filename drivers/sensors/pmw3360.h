@@ -81,7 +81,7 @@
 const pointing_device_driver_t     pmw3360_driver_spi_default;
 const pointing_device_spi_config_t pmw3360_config_spi_default;
 
-void              pmw3360_init(const void* config);
-uint16_t          pmw3360_get_cpi(const void* config);
-void              pmw3360_set_cpi(const void* config, uint16_t cpi);
-report_mouse_t    pmw3360_get_report(const void* config);
+void           pmw3360_init(const void* config);
+uint16_t       pmw3360_get_cpi(const void* config);
+void           pmw3360_set_cpi(const void* config, uint16_t cpi);
+report_mouse_t pmw3360_get_report(const void* config);

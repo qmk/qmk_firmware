@@ -58,5 +58,5 @@ void           pimoroni_trackball_set_cpi(const void* i2c_config, uint16_t cpi);
 report_mouse_t pimoroni_trackball_get_raw_report(const void* i2c_config);
 i2c_status_t   read_pimoroni_trackball(const pointing_device_i2c_config_t* i2c_config, pimoroni_data_t* data);
 
-const pointing_device_driver_t pimoroni_trackball_driver_default;
+const pointing_device_driver_t     pimoroni_trackball_driver_default;
 const pointing_device_i2c_config_t pimoroni_trackball_config_default;

@@ -22,7 +22,6 @@ void cirque_read_i2c(const void *config, uint8_t regaddr, uint8_t *data, uint8_t
     if (i2c_read_register(i2c_config->address << 1, cmdByte, data, count, CIRQUE_PINNACLE_TIMEOUT) != I2C_STATUS_SUCCESS) {
         pd_dprintf("error cirque_pinnacle i2c_readReg\n");
     }
-
 }
 
 // Writes single-byte <data> to <address>
