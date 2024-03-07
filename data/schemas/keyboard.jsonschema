@@ -218,7 +218,7 @@
                 "caterina",
                 "custom",
                 "gd32v-dfu",
-                "es32fs026_bootloader",
+                "fs026_bootloader",
                 "halfkay",
                 "kiibohd",
                 "lufa-dfu",
