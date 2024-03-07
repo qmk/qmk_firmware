@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [1] = LAYOUT(
   KC_ESC,   _______,KC_NUM,  KC_PSLS, KC_PAST, S(PT_TILD),               _______,  _______, _______,  _______, _______, KC_PSCR,
   KC_TAB,   PT_EURO,KC_P7,   KC_P8,   KC_P9,   KC_MINS,                  _______,  KC_PGUP, KC_UP,    KC_PGDN, _______, _______,
-  KC_LSFT,LGUI_T(KC_P0),LALT_T(KC_P4),LCTL_T(KC_P5),LSFT_T(KC_P6),PT_PLUS,                  _______,  KC_LEFT, KC_DOWN,  KC_RIGHT,_______, _______,
+  KC_LSFT,LGUI_T(KC_P0),LALT_T(KC_P4),LCTL_T(KC_P5),LSFT_T(KC_P6),KC_PLUS,                  _______,  KC_LEFT, KC_DOWN,  KC_RIGHT,_______, _______,
   KC_LCTL,  _______,KC_P1,   KC_P2,   KC_P3,   PT_DOT,                   _______,  KC_HOME, KC_INSERT,KC_END,  _______, _______,
                     KC_ENT,  KC_SPC,  TO(0),   LGUI(KC_TAB),             KC_MPLY,  TO(2),   KC_BSPC,  KC_DEL
 ),
@@ -126,15 +126,33 @@ combo_t key_combos[] = {
 
 
 #ifdef OLED_ENABLE
+
 // Draw to OLED
 bool oled_task_user(void) {
     //set cursor position
     oled_set_cursor(0,1);
 
-    // Write to OLED
-    oled_write("Hello World!", false);
+    // Switch on current active layer
+    switch (get_highest_layer(layer_state)) {
+        case _WIN_DEFAULT :
+            oled_write("Main Layer", false);
+            break;
+        case _WIN_NUMPAD :
+            oled_write("Numpad Layer", false);
+            break;
+        case _WIN_SYMBOLS :
+            oled_write("Symbols Layer", false);
+            break;
+        case _WIN_FKEYS :
+            oled_write("Function Layer", false);
+            break;
+    }
 
+    // Caps Lock Status
+    led_t led_state = host_keyboard_led_state();
+    oled_write_P(led_state.caps_lock ? PSTR("Caps Lock On") : PSTR("Caps Lock Off"), false);
 
     return false;
 }
+
 #endif
