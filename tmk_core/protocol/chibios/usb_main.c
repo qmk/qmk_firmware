@@ -15,6 +15,10 @@
 #include <hal.h>
 #include <string.h>
 
+#ifdef ES_INCLUDE_INFO_CONFIG_FILE
+#pragma pack(4)
+#endif
+
 #include "usb_main.h"
 #include "usb_report_handling.h"
 
