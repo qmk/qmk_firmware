@@ -73,7 +73,7 @@ void bootmagic(void) {
 void bootloader_jump(void)
 {
     md_syscfg_set_memory_mapping (SYSCFG, MD_SYSCFG_MEMMOD_MAIN) ;
-    md_syscig_set_flash_remap_base (SYSCFG, BOOT_FLASH_S/4096) ;
+    md_syscfg_set_flash_remap_base (SYSCFG, BOOT_FLASH_S/4096) ;
     md_syscfg_enable_memory_remap(SYSCFG);
 
     NVIC_SystemReset () ; 
