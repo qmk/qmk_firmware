@@ -16,6 +16,10 @@
 
 #pragma once
 
+#ifdef ES_INCLUDE_INFO_CONFIG_FILE
+#include QMK_KEYMAP_CONFIG_H      
+#endif
+
 /*
     The size of the transient EEPROM buffer size.
 */
