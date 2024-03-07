@@ -10,10 +10,9 @@
         ]
     },
     "features": {
-        "audio": false,
         "bootmagic": true,
         "extrakey": true,
-        "mousekey": false,
+        "mousekey": true,
         "rgb_matrix": true
     },
     "matrix_pins": {
