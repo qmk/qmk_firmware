@@ -14,50 +14,26 @@
 #    error hc595: no serial data input pins defined!
 #endif
 
-/**
- *  74HC595 Skyloong LED display Driver
- *  data(default):1-on/0-off
- *    bit0 --- MAC layer indicator
- *    bit1 --- Win layer indicator
- *    bit2 --- CAPS indicator
- *    bit3 --- NUM indicator
- *    bit4 --- SCR indicator
- *    bit7 --- Skyloong LOGO display
- *
-**/
-#ifndef ClockTime
-#    define ClockTime 15
-#endif
+/*
+ *LED display driver.74HC595 Serial to parallel control LED field on/off.
+ *  data(default):1-on/0-off (left low bit)
+ *    bit0 --- NUM indicator
+ *    bit1 --- CAPS indicator
+ *    bit2 --- SCR indicator
+ *    bit3 --- WinLock indicator
+ *    bit4 --- Skyloong LOGO display
+ *    bit5 --- Win layer indicator
+ *    bit6 --- MAC layer indicator
+ */
+#define NUM_ON 0b10000000
+#define CAPS_ON 0b01000000
+#define SCR_ON 0b00100000
+#define WINLK_ON 0b00010000
+#define SKYLOONG 0b00001000
+#define WIN_ON 0b00000010
+#define MAC_ON 0b00000100
 
-//enable mac layer indicator on LED diaplay
-#ifndef MAC_ON
-#    define MAC_ON  0b00000001
-#endif
-
-//enable win layer indicator on LED diaplay
-#ifndef WIN_ON
-#    define WIN_ON  0b00000010
-#endif
-
-//enable caps lock indicator on LED diaplay
-#ifndef CAPS_ON
-#    define CAPS_ON  0b00000100
-#endif
-
-//enable number lock indicator on LED diaplay
-#ifndef NUM_ON
-#    define NUM_ON  0b00001000
-#endif
-
-//enable scroll lock indicator on LED diaplay
-#ifndef SCR_ON
-#    define SCR_ON  0b00010000
-#endif
-
-//Skyloong LOGO display on
-#ifndef SKYLOONG
-#    define SKYLOONG 0b10000000
-#endif
+# define ClockTime 15
 
 static inline void setPinOutput_writeLow(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {

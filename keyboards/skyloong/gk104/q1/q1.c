@@ -2,22 +2,14 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "quantum.h"
 
-/**
- *  74HC595 Skyloong LED display Driver
- *  data(default):1-on/0-off
- *    bit0 --- MAC layer indicator
- *    bit1 --- Win layer indicator
- *    bit2 --- CAPS indicator
- *    bit3 --- NUM indicator
- *    bit4 --- SCR indicator
- *    bit7 --- Skyloong LOGO display
- *
-**/
-#define HC595_ST_PIN A6  //74HC595 storage register clock input
-#define HC595_SH_PIN A5  //74HC595 shift register clock input
-#define HC595_DS A7   // 74HC595 serial data input
+#define HC595_ST_PIN B1  //74HC595 storage register clock input
+#define HC595_SH_PIN B0  //74HC595 shift register clock input
+#define HC595_DS B3   // 74HC595 serial data input
 #include "led_hc595.c"
 uint8_t IND = 0;  //buffer of LED Display
+
+int FN_ON = 0;
+_Bool WIN_LOCK = 0;
 
 #if defined(RGB_MATRIX_ENABLE)  /*&& defined(CAPS_LOCK_INDEX)*/
 const aw20216s_led_t PROGMEM g_aw20216s_leds[AW20216S_LED_COUNT] = {
@@ -30,116 +22,204 @@ const aw20216s_led_t PROGMEM g_aw20216s_leds[AW20216S_LED_COUNT] = {
  *   |  |          G location
  *   |  |          |          B location
  *   |  |          |          | */
-    {0, CS1_SW1,   CS2_SW1,   CS3_SW1},
-    {0, CS1_SW3,   CS2_SW3,   CS3_SW3},
-    {0, CS1_SW4,   CS2_SW4,   CS3_SW4},
-    {0, CS1_SW5,   CS2_SW5,   CS3_SW5},
-    {0, CS1_SW6,   CS2_SW6,   CS3_SW6},
-    {0, CS1_SW7,   CS2_SW7,   CS3_SW7},
-    {0, CS1_SW8,   CS2_SW8,   CS3_SW8},
-    {0, CS1_SW9,   CS2_SW9,   CS3_SW9},
-    {0, CS1_SW10,  CS2_SW10,  CS3_SW10},
-    {0, CS1_SW11,  CS2_SW11,  CS3_SW11},
-    {0, CS1_SW12,  CS2_SW12,  CS3_SW12},
-    {0, CS10_SW2,  CS11_SW2,  CS12_SW2},
-    {0, CS10_SW3,  CS11_SW3,  CS12_SW3},
-      //encoder no led
-    {0, CS10_SW5,  CS11_SW5,  CS12_SW5},
-    {0, CS10_SW6,  CS11_SW6,  CS12_SW6},
-    {0, CS10_SW7,  CS11_SW7,  CS12_SW7},
-    {0, CS10_SW8,  CS11_SW8,  CS12_SW8},
+    {0, SW1_CS1,   SW1_CS2,   SW1_CS3},  //ESC
+    {0, SW3_CS1,   SW3_CS2,   SW3_CS3},  //F1
+    {0, SW4_CS1,   SW4_CS2,   SW4_CS3},
+    {0, SW5_CS1,   SW5_CS2,   SW5_CS3},  //F3
+    {0, SW6_CS1,   SW6_CS2,   SW6_CS3},
+    {0, SW7_CS1,   SW7_CS2,   SW7_CS3},  //F5
+    {0, SW8_CS1,   SW8_CS2,   SW8_CS3},
+    {0, SW9_CS1,   SW9_CS2,   SW9_CS3},  //F7
+    {0, SW10_CS1,  SW10_CS2,  SW10_CS3},
+    {0, SW11_CS1,  SW11_CS2,  SW11_CS3},  //F9
+    {0, SW12_CS1,  SW12_CS2,  SW12_CS3},  //F10
+    {0, SW2_CS10,  SW2_CS11,  SW2_CS12},
+    {0, SW3_CS10,  SW3_CS11,  SW3_CS12},  //F12
+    {0, SW4_CS10,  SW4_CS11,  SW4_CS12},  //PrtSc
+    {0, SW5_CS10,  SW5_CS11,  SW5_CS12},  //Scroll
+    {0, SW6_CS10,  SW6_CS11,  SW6_CS12},  //Pause
+    //encoder no led
+    //encoder no led
 
-    {0, CS4_SW1,   CS5_SW1,   CS6_SW1},
-    {0, CS4_SW2,   CS5_SW2,   CS6_SW2},
-    {0, CS4_SW3,   CS5_SW3,   CS6_SW3},
-    {0, CS4_SW4,   CS5_SW4,   CS6_SW4},
-    {0, CS4_SW5,   CS5_SW5,   CS6_SW5},
-    {0, CS4_SW6,   CS5_SW6,   CS6_SW6},
-    {0, CS4_SW7,   CS5_SW7,   CS6_SW7},
-    {0, CS4_SW8,   CS5_SW8,   CS6_SW8},
-    {0, CS4_SW9,   CS5_SW9,   CS6_SW9},
-    {0, CS4_SW10,  CS5_SW10,  CS6_SW10},
-    {0, CS4_SW11,  CS5_SW11,  CS6_SW11},
-    {0, CS4_SW12,  CS5_SW12,  CS6_SW12},
-    {0, CS13_SW2,  CS14_SW2,  CS15_SW2},
-    {0, CS13_SW3,  CS14_SW3,  CS15_SW3},
-    {0, CS13_SW4,  CS14_SW4,  CS15_SW4},
-    {0, CS13_SW5,  CS14_SW5,  CS15_SW5},
-    {0, CS13_SW6,  CS14_SW6,  CS15_SW6},
-    {0, CS13_SW7,  CS14_SW7,  CS15_SW7},
+    {0, SW1_CS4,   SW1_CS5,   SW1_CS6},   //`~
+    {0, SW2_CS4,   SW2_CS5,   SW2_CS6},   //1
+    {0, SW3_CS4,   SW3_CS5,   SW3_CS6},   //2
+    {0, SW4_CS4,   SW4_CS5,   SW4_CS6},
+    {0, SW5_CS4,   SW5_CS5,   SW5_CS6},   //4
+    {0, SW6_CS4,   SW6_CS5,   SW6_CS6},
+    {0, SW7_CS4,   SW7_CS5,   SW7_CS6},   //6
+    {0, SW8_CS4,   SW8_CS5,   SW8_CS6},
+    {0, SW9_CS4,   SW9_CS5,   SW9_CS6},   //8
+    {0, SW10_CS4,  SW10_CS5,  SW10_CS6},
+    {0, SW11_CS4,  SW11_CS5,  SW11_CS6},  //0
+    {0, SW12_CS4,  SW12_CS5,  SW12_CS6},  //-_
+    {0, SW2_CS13,  CS14_SW2,  CS15_SW2},  //=+
+    {0, SW3_CS13,  SW3_CS14,  SW3_CS15},  //BS
+    {0, SW4_CS13,  SW4_CS14,  SW4_CS15},  //INS
+    {0, SW5_CS13,  SW5_CS14,  SW5_CS15},  //Home
+    {0, SW6_CS13,  SW6_CS14,  SW6_CS15},  //PgUp
+    {0, SW7_CS13,  SW7_CS14,  SW7_CS15},  //NumLK
+    {0, SW8_CS13,  SW8_CS14,  SW8_CS15},  //P/
+    {0, SW9_CS13,  SW9_CS14,  SW9_CS15},  //P*
+    {0, SW10_CS13,  SW10_CS14,  SW10_CS15},  //P-
 
-    {0, CS7_SW1,   CS8_SW1,   CS9_SW1},
-    {0, CS7_SW2,   CS8_SW2,   CS9_SW2},
-    {0, CS7_SW3,   CS8_SW3,   CS9_SW3},
-    {0, CS7_SW4,   CS8_SW4,   CS9_SW4},
-    {0, CS7_SW5,   CS8_SW5,   CS9_SW5},
-    {0, CS7_SW6,   CS8_SW6,   CS9_SW6},
-    {0, CS7_SW7,   CS8_SW7,   CS9_SW7},
-    {0, CS7_SW8,   CS8_SW8,   CS9_SW8},
-    {0, CS7_SW9,   CS8_SW9,   CS9_SW9},
-    {0, CS7_SW10,  CS8_SW10,  CS9_SW10},
-    {0, CS7_SW11,  CS8_SW11,  CS9_SW11},
-    {0, CS7_SW12,  CS8_SW12,  CS9_SW12},
-    {0, CS16_SW2,  CS17_SW2,  CS18_SW2},
-    {0, CS16_SW3,  CS17_SW3,  CS18_SW3},
-    {0, CS16_SW4,  CS17_SW4,  CS18_SW4},
-    {0, CS16_SW5,  CS17_SW5,  CS18_SW5},
-    {0, CS16_SW6,  CS17_SW6,  CS18_SW6},
-    {0, CS16_SW7,  CS17_SW7,  CS18_SW7},
+    {0, SW1_CS7,   SW1_CS8,   SW1_CS9},   //Tab
+    {0, SW2_CS7,   SW2_CS8,   SW2_CS9},   //Q
+    {0, SW3_CS7,   SW3_CS8,   SW3_CS9},   //W
+    {0, SW4_CS7,   SW4_CS8,   SW4_CS9},   //E
+    {0, SW5_CS7,   SW5_CS8,   SW5_CS9},   //R
+    {0, SW6_CS7,   SW6_CS8,   SW6_CS9},   //T
+    {0, SW7_CS7,   SW7_CS8,   SW7_CS9},   //Y
+    {0, SW8_CS7,   SW8_CS8,   SW8_CS9},   //U
+    {0, SW9_CS7,   SW9_CS8,   SW9_CS9},   //I
+    {0, SW10_CS7,  SW10_CS8,  SW10_CS9},   //O
+    {0, SW11_CS7,  SW11_CS8,  SW11_CS9},   //P
+    {0, SW12_CS7,  SW12_CS8,  SW12_CS9},   //[
+    {0, SW2_CS16,  SW2_CS17,  SW2_CS18},   //]
+    {0, SW3_CS16,  SW3_CS17,  SW3_CS18},   //|
+    {0, SW4_CS16,  SW4_CS17,  SW4_CS18},   //DEL
+    {0, SW5_CS16,  SW5_CS17,  SW5_CS18},   //END
+    {0, SW6_CS16,  SW6_CS17,  SW6_CS18},   //PgDn
+    {0, SW7_CS16,  SW7_CS17,  SW7_CS18},   //P7
+    {0, SW8_CS16,  SW8_CS17,  SW8_CS18},   //P8
+    {0, SW9_CS16,  SW9_CS17,  SW9_CS18},   //P9
+    {0, SW10_CS16,  SW10_CS17,  SW10_CS18},   //P+
+
+    {1, SW1_CS1,   SW1_CS2,   SW1_CS3},   //Cap
+    {1, SW2_CS1,   SW2_CS2,   SW2_CS3},   //A
+    {1, SW3_CS1,   SW3_CS2,   SW3_CS3},   //S
+    {1, SW4_CS1,   SW4_CS2,   SW4_CS3},   //D
+    {1, SW5_CS1,   SW5_CS2,   SW5_CS3},   //F
+    {1, SW6_CS1,   SW6_CS2,   SW6_CS3},   //G
+    {1, SW7_CS1,   SW7_CS2,   SW7_CS3},   //H
+    {1, SW8_CS1,   SW8_CS2,   SW8_CS3},   //J
+    {1, SW9_CS1,   SW9_CS2,   SW9_CS3},   //K
+    {1, SW10_CS1,  SW10_CS2,  SW10_CS3},   //L
+    {1, SW11_CS1,  SW11_CS2,  SW11_CS3},   //;
+    {1, SW12_CS1,  SW12_CS2,  SW12_CS3},   //.
+    {1, SW2_CS10,  SW2_CS11,  SW2_CS12},   //Ent
+    {1, SW5_CS10,  SW5_CS11,  SW5_CS12},   //P4
+    {1, SW6_CS10,  SW6_CS11,  SW6_CS12},   //P5
+    {1, SW7_CS10,  SW7_CS11,  SW7_CS12},   //P6
+
+    {1, SW1_CS4,   SW1_CS5,   SW1_CS6},   //Shift
+    {1, SW2_CS4,   SW2_CS5,   SW2_CS6},   //Z
+    {1, SW3_CS4,   SW3_CS5,   SW3_CS6},   //X
+    {1, SW4_CS4,   SW4_CS5,   SW4_CS6},   //C
+    {1, SW5_CS4,   SW5_CS5,   SW5_CS6},   //V
+    {1, SW6_CS4,   SW6_CS5,   SW6_CS6},   //B
+    {1, SW7_CS4,   SW7_CS5,   SW7_CS6},   //N
+    {1, SW8_CS4,   SW8_CS5,   SW8_CS6},   //M
+    {1, SW9_CS4,   SW9_CS5,   SW9_CS6},   //,
+    {1, SW10_CS4,  SW10_CS5,  SW10_CS6},   //.
+    {1, SW11_CS4,  SW11_CS5,  SW11_CS6},   //?
+    {1, SW2_CS13,  SW2_CS14,  SW2_CS15},   //Shift
+    {1, SW3_CS10,  SW3_CS11,  SW3_CS12},   //Up
+    {1, SW5_CS13,  SW5_CS14,  SW5_CS15},   //P1
+    {1, SW6_CS13,  SW6_CS14,  SW6_CS15},   //P2
+    {1, SW7_CS13,  SW7_CS14,  SW7_CS15},   //P3
+    {1, SW7_CS16,  SW7_CS17,  SW7_CS18},   //PENT
 
 
-    {1, CS1_SW1,   CS2_SW1,   CS3_SW1},
-    {1, CS1_SW2,   CS2_SW2,   CS3_SW2},
-    {1, CS1_SW3,   CS2_SW3,   CS3_SW3},
-    {1, CS1_SW4,   CS2_SW4,   CS3_SW4},
-    {1, CS1_SW5,   CS2_SW5,   CS3_SW5},
-    {1, CS1_SW6,   CS2_SW6,   CS3_SW6},
-    {1, CS1_SW7,   CS2_SW7,   CS3_SW7},
-    {1, CS1_SW8,   CS2_SW8,   CS3_SW8},
-    {1, CS1_SW9,   CS2_SW9,   CS3_SW9},
-    {1, CS1_SW10,  CS2_SW10,  CS3_SW10},
-    {1, CS1_SW11,  CS2_SW11,  CS3_SW11},
-    {1, CS1_SW12,  CS2_SW12,  CS3_SW12},
-    {1, CS10_SW3,  CS11_SW3,  CS12_SW3},
-    {1, CS10_SW4,  CS11_SW4,  CS12_SW4},
-    {1, CS10_SW5,  CS11_SW5,  CS12_SW5},
-    {1, CS10_SW6,  CS11_SW6,  CS12_SW6},
-
-    {1, CS4_SW1,   CS5_SW1,   CS6_SW1},
-    {1, CS4_SW2,   CS5_SW2,   CS6_SW2},
-    {1, CS4_SW3,   CS5_SW3,   CS6_SW3},
-    {1, CS4_SW4,   CS5_SW4,   CS6_SW4},
-    {1, CS4_SW5,   CS5_SW5,   CS6_SW5},
-    {1, CS4_SW6,   CS5_SW6,   CS6_SW6},
-    {1, CS4_SW7,   CS5_SW7,   CS6_SW7},
-    {1, CS4_SW8,   CS5_SW8,   CS6_SW8},
-    {1, CS4_SW9,   CS5_SW9,   CS6_SW9},
-    {1, CS4_SW10,  CS5_SW10,  CS6_SW10},
-    {1, CS4_SW11,  CS5_SW11,  CS6_SW11},
-    {1, CS13_SW2,  CS14_SW2,  CS15_SW2},
-    {1, CS13_SW3,  CS14_SW3,  CS15_SW3},
-    {1, CS13_SW4,  CS14_SW4,  CS15_SW4},
-    {1, CS13_SW5,  CS14_SW5,  CS15_SW5},
-    {1, CS13_SW6,  CS14_SW6,  CS15_SW6},
-    {1, CS13_SW7,  CS14_SW7,  CS15_SW7},
-
-
-    {1, CS7_SW1,   CS8_SW1,   CS9_SW1},
-    {1, CS7_SW2,   CS8_SW2,   CS9_SW2},
-    {1, CS7_SW3,   CS8_SW3,   CS9_SW3},
-    {1, CS7_SW5,   CS8_SW5,   CS9_SW5},
-    {1, CS7_SW6,   CS8_SW6,   CS9_SW6},
-    {1, CS7_SW8,   CS8_SW8,   CS9_SW8},
-    {1, CS7_SW10,  CS8_SW10,  CS9_SW10},
-    {1, CS7_SW11,  CS8_SW11,  CS9_SW11},
-    {1, CS7_SW12,  CS8_SW12,  CS9_SW12},
-    {1, CS16_SW2,  CS17_SW2,  CS18_SW2},
-    {1, CS16_SW3,  CS17_SW3,  CS18_SW3},
-    {1, CS16_SW4,  CS17_SW4,  CS18_SW4},
-    {1, CS16_SW5,  CS17_SW5,  CS18_SW5},
-    {1, CS16_SW6,  CS17_SW6,  CS18_SW6}
+    {1, SW1_CS7,   SW1_CS8,   SW1_CS9},   //Ctrl
+    {1, SW2_CS7,   SW2_CS8,   SW2_CS9},   //Com
+    {1, SW3_CS7,   SW3_CS8,   SW3_CS9},   //Alt
+    {1, SW4_CS7,   SW4_CS8,   SW4_CS9},   //SPAC1
+    {1, SW6_CS7,   SW6_CS8,   SW6_CS9},   //SPAC
+    {1, SW8_CS7,   SW8_CS8,   SW8_CS9},   //SPAC2
+    {1, SW10_CS7,  SW10_CS8,  SW10_CS9},   //Alt
+    {1, SW11_CS7,  SW11_CS8,  SW11_CS9},   //Fn
+    {1, SW12_CS7,  SW12_CS8,  SW12_CS9},   //Menu
+    {1, SW2_CS16,  SW2_CS17,  SW2_CS18},   //Ctrl
+    {1, SW3_CS16,  SW3_CS17,  SW3_CS18},   //Left
+    {1, SW3_CS13,  SW3_CS14,  SW3_CS15},   //Down
+    {1, SW4_CS16,  SW4_CS17,  SW4_CS18},   //Right
+    {1, SW5_CS16,  SW5_CS17,  SW5_CS18},   //P0
+    {1, SW6_CS16,  SW6_CS17,  SW6_CS18}    //PDot
 };
 #endif
+
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
+    switch (keycode) {
+#  ifdef RGB_MATRIX_ENABLE
+    case RGB_TOG:
+         if (record->event.pressed) {
+            switch (rgb_matrix_get_flags()) {
+                    case LED_FLAG_ALL: {
+                        rgb_matrix_set_flags(LED_FLAG_NONE);
+                        rgb_matrix_set_color_all(0, 0, 0);
+                    } break;
+                    default: {
+                        rgb_matrix_set_flags(LED_FLAG_ALL);
+                    } break;
+            }
+        }
+        return false;
+    case RGB_VAI:
+       rgb_matrix_set_flags(LED_FLAG_ALL);
+       return true;
+#    endif
+
+    case MO(1):
+      if (record->event.pressed) {
+       FN_ON = 1;
+      } else {
+       FN_ON = 0;
+      }
+      return true;
+
+    case MO(2):
+      if (record->event.pressed) {
+       FN_ON = 1;
+      } else {
+       FN_ON = 0;
+      }
+      return true;
+
+    case MO(3):
+      if (record->event.pressed) {
+       FN_ON = 1;
+      } else {
+       FN_ON = 0;
+      }
+      return true;
+
+    case KC_LGUI:
+      if (FN_ON){
+          if ( record->event.pressed){
+             WIN_LOCK = !WIN_LOCK ; //change win lock state
+            }
+          if (!WIN_LOCK) {
+             IND = IND & (~WINLK_ON);   //Close win lock display
+             s_serial_to_parallel(IND);
+             return false; //windows key locked do nothing
+            }
+          s_serial_to_parallel(IND);
+        }
+      if (WIN_LOCK) {
+             IND = IND | WINLK_ON;   //Open win lock display
+             s_serial_to_parallel(IND);
+             return false; //windows key locked do nothing
+            }
+      return true;  // continue all further processing of this key
+
+    case TO(0):
+       set_single_persistent_default_layer(0);
+       return true;
+
+    case TO(1):
+       set_single_persistent_default_layer(1);
+       return true;
+
+    default:
+      return true;
+    }
+   s_serial_to_parallel(IND);
+}
 
 void suspend_power_down_kb() {
 #    ifdef RGB_MATRIX_ENABLE
@@ -161,7 +241,7 @@ void suspend_wakeup_init_kb() {
 bool shutdown_kb(bool jump_to_bootloader) {
     writePinLow(SDB);
     s_serial_to_parallel(0);
-    return shutdown_user(jump_to_bootloader);
+    return true;
 }
 
 layer_state_t default_layer_state_set_kb(layer_state_t state) {
@@ -188,6 +268,7 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
         return false;
     }
+
     //caps lock display
     if (host_keyboard_led_state().caps_lock) {
         RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_INDEX, 255, 255, 255);
@@ -219,6 +300,37 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
         IND = IND & (~SCR_ON);
     }
 
+    switch (get_highest_layer(layer_state)) {
+    case 0:{
+       if (FN_ON) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 255, 255, 255);
+            if (!rgb_matrix_get_flags()) {
+               RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 0, 0, 0);
+               RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 0, 0, 0);
+            }
+         }
+    } break;
+
+     case 1:{
+       if (FN_ON) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 255, 255, 255);
+            if (!rgb_matrix_get_flags()) {
+               RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 0, 0, 0);
+               RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 0, 0, 0);
+            }
+        }
+    } break;
+
+     default:{
+         if (!rgb_matrix_get_flags()) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 0, 0, 0);
+            RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 0, 0, 0);
+         }
+      }
+
+     return true;
+    }
+
     s_serial_to_parallel(IND);
     return true;
 }
@@ -233,6 +345,7 @@ void board_init(void) {
 #   endif
     setPinOutput(MAC_PIN);
     writePinHigh(MAC_PIN);
-    s_serial_to_parallel(SKYLOONG);
+    s_serial_to_parallel(0xFF);
+    IND = SKYLOONG;
 }
 
