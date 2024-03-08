@@ -3,17 +3,20 @@
  
 #pragma once
 
-/* VBUS detection. */
+/* Split configuration */
+#define SPLIT_HAND_PIN GP21
 #define USB_VBUS_PIN GP29
-
-/* Serial Driver. */
 #define SERIAL_USART_FULL_DUPLEX
 #define SERIAL_USART_TX_PIN GP0
 #define SERIAL_USART_RX_PIN GP1
 #define SERIAL_USART_PIN_SWAP
+#define BOOTMAGIC_ROW_RIGHT 6
+#define BOOTMAGIC_COLUMN_RIGHT 0
 
-/* Reset. */
+/* Sync configuration */
+#define TOMAK_CONFIG_SYNC
+#define SPLIT_TRANSACTION_IDS_KB RPC_ID_KB_CONFIG_SYNC
+
+/* Reset */
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 1000U
-
-#define VIA_EEPROM_CUSTOM_CONFIG_SIZE 7

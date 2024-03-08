@@ -1,5 +1,9 @@
 # Tomak
 
+![Tomak](https://i.imgur.com/CmVR0G1.jpeg)
+
+Ergonomics Split Keyboard powered by RP2040.
+
 * Keyboard Maintainer: [ERA](https://github.com/eerraa)
 * Hardware supported: SIRIND Tomak
 * Hardware availability: [Syryan](https://srind.mysoho.com/)
@@ -18,6 +22,6 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader in 3 ways:
 
-* **Bootmagic reset**: Hold down the key at ESC(0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly short the `RESET` and `GND` pads on the SWD header twice, or short the `BOOT` header and plug in keyboard
-* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+* **Bootmagic reset**: Hold down the 'top-left(ESC, F7)' key and plug in the keyboard.
+* **Physical reset**: Short the 'RESET' and 'GND' holes twice within one second, or plug in the keyboard with the 'BOOT' and 'GND' holes shorted.
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available.
