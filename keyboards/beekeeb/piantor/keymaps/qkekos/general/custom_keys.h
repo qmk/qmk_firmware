@@ -20,7 +20,6 @@ enum blender_keycode {
 
     US_AREP,
     US_REP,
-    DB_AREP,
     DB_LTTR,
 };
 
