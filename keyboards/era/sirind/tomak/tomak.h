@@ -8,8 +8,8 @@
 enum tomak_keycodes {
     IN_TOGG = QK_KB_0,   // indicator toggle
     IN_OVER,             // indicator override toggle
-	IN_BRI,              // indicator brightness increase
-	IN_BRD,              // indicator brightness decrease
+    IN_BRI,              // indicator brightness increase
+    IN_BRD,              // indicator brightness decrease
     IN_HUEI,             // indicator hue increase
     IN_HUED,             // indicator hue decrease
     IN_SATI,             // indicator saturation increase
