@@ -2,12 +2,13 @@
     "manufacturer": "Arrow Mechanics",
     "keyboard_name": "WINGS Mark 1",
     "maintainer": "arrowmechanics",
+    "tags": ["columnar", "split", "rgb", "hotswap"],
     "bootloader": "rp2040",
     "diode_direction": "ROW2COL",
     "encoder": {
         "rotary": [
-            {"pin_a": "GP6", "pin_b": "GP7"},
-            {"pin_a": "GP6", "pin_b": "GP7"}
+            {"pin_a": "GP6", "pin_b": "GP7", "resolution":  2},
+            {"pin_a": "GP6", "pin_b": "GP7", "resolution":  2}
         ]
     },
     "features": {
@@ -168,13 +169,11 @@
             {"matrix": [11, 4], "x": 165, "y": 60, "flags": 4},
             {"matrix": [11, 2], "x": 149, "y": 60, "flags": 4},
             {"matrix": [11, 1], "x": 126, "y": 61, "flags": 4}
-        ]
+        ],
+        "split_count": [46, 46]
     },
     "split": {
-        "enabled": true,
-        "handedness": {
-            "pin": "GP3"
-        }
+        "enabled": true
     },
     "url": "https://arrowmechanics.com",
     "usb": {
