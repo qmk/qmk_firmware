@@ -5,6 +5,7 @@
 #include "action.h"
 #include "encoder.h"
 #include "wait.h"
+#include "debug.h"
 
 #ifndef ENCODER_MAP_KEY_DELAY
 #    define ENCODER_MAP_KEY_DELAY TAP_CODE_DELAY
@@ -15,10 +16,17 @@ __attribute__((weak)) bool should_process_encoder(void) {
 }
 
 static encoder_events_t encoder_events;
+static bool             signal_queue_drain = false;
 
 void encoder_init(void) {
     memset(&encoder_events, 0, sizeof(encoder_events));
     encoder_driver_init();
+}
+
+static void encoder_queue_drain(void) {
+    // dprintf("Draining encoder queue\n");
+    encoder_events.tail     = encoder_events.head;
+    encoder_events.dequeued = encoder_events.enqueued;
 }
 
 static bool encoder_handle_queue(void) {
@@ -59,6 +67,11 @@ bool encoder_task(void) {
         changed |= encoder_handle_queue();
     }
 #endif // SPLIT_KEYBOARD
+
+    if (signal_queue_drain) {
+        signal_queue_drain = false;
+        encoder_queue_drain();
+    }
 
     // Let the encoder driver produce events
     encoder_driver_task();
@@ -137,18 +150,9 @@ void encoder_retrieve_events(encoder_events_t *events) {
     memcpy(events, &encoder_events, sizeof(encoder_events));
 }
 
-#ifdef SPLIT_KEYBOARD
-void encoder_queue_drain(void) {
-    uint8_t index;
-    bool    clockwise;
-
-    // dprintf("Draining encoder queue\n");
-
-    while (encoder_events.dequeued != encoder_events.enqueued) {
-        encoder_dequeue_event(&index, &clockwise);
-    }
+void encoder_signal_queue_drain(void) {
+    signal_queue_drain = true;
 }
-#endif // SPLIT_KEYBOARD
 
 __attribute__((weak)) bool encoder_update_user(uint8_t index, bool clockwise) {
     return true;

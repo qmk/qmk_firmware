@@ -83,8 +83,8 @@ typedef struct encoder_event_t {
 } encoder_event_t;
 
 typedef struct encoder_events_t {
-    uint16_t        enqueued;
-    uint16_t        dequeued;
+    uint8_t         enqueued;
+    uint8_t         dequeued;
     uint8_t         head;
     uint8_t         tail;
     encoder_event_t queue[MAX_QUEUED_ENCODER_EVENTS];
@@ -97,9 +97,8 @@ void encoder_retrieve_events(encoder_events_t *events);
 bool encoder_queue_event_advanced(encoder_events_t *events, uint8_t index, bool clockwise);
 bool encoder_dequeue_event_advanced(encoder_events_t *events, uint8_t *index, bool *clockwise);
 
-#    ifdef SPLIT_KEYBOARD
-void encoder_queue_drain(void);
-#    endif // SPLIT_KEYBOARD
+// Reset the queue to be empty
+void encoder_signal_queue_drain(void);
 
 #    ifdef ENCODER_MAP_ENABLE
 #        define NUM_DIRECTIONS 2

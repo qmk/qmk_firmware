@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <stdint.h>
 #include <string.h>
 #include <stddef.h>
 
@@ -238,21 +239,25 @@ static void master_matrix_handlers_slave(matrix_row_t master_matrix[], matrix_ro
 #ifdef ENCODER_ENABLE
 
 static bool encoder_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
-    static uint32_t  last_update = 0;
+    static uint32_t  last_update   = 0;
+    static uint8_t   last_checksum = 0;
     encoder_events_t temp_events;
 
     bool okay = read_if_checksum_mismatch(GET_ENCODERS_CHECKSUM, GET_ENCODERS_DATA, &last_update, &temp_events, &split_shmem->encoders.events, sizeof(temp_events));
     if (okay) {
-        bool    actioned = false;
-        uint8_t index;
-        bool    clockwise;
-        while (okay && encoder_dequeue_event_advanced(&split_shmem->encoders.events, &index, &clockwise)) {
-            okay &= encoder_queue_event(index, clockwise);
-            actioned = true;
-        }
+        if (last_checksum != split_shmem->encoders.checksum) {
+            bool    actioned = false;
+            uint8_t index;
+            bool    clockwise;
+            while (okay && encoder_dequeue_event_advanced(&split_shmem->encoders.events, &index, &clockwise)) {
+                okay &= encoder_queue_event(index, clockwise);
+                actioned = true;
+            }
 
-        if (actioned) {
-            transport_exec(CMD_ENCODER_DRAIN);
+            if (actioned) {
+                okay &= transport_exec(CMD_ENCODER_DRAIN);
+            }
+            last_checksum = split_shmem->encoders.checksum;
         }
     }
     return okay;
@@ -266,7 +271,7 @@ static void encoder_handlers_slave(matrix_row_t master_matrix[], matrix_row_t sl
 }
 
 static void encoder_handlers_slave_drain(uint8_t initiator2target_buffer_size, const void *initiator2target_buffer, uint8_t target2initiator_buffer_size, void *target2initiator_buffer) {
-    encoder_queue_drain();
+    encoder_signal_queue_drain();
 }
 
 // clang-format off
