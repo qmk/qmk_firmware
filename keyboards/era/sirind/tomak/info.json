@@ -179,6 +179,9 @@
                 "rows": ["GP10", "GP11", "GP12", "GP28", "GP19", "GP16"]
             }
         },
+        "bootmagic": {
+            "matrix": [6, 0]
+        },
         "transport": {
             "protocol": "serial_usart",
             "sync": {
