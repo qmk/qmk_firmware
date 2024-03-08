@@ -46,6 +46,19 @@ enum {
     NEW_SAFE_RANGE,
 };
 
+#ifndef LK_WIRELESS_ENABLE
+    #define BT_HST1     KC_TRANS
+    #define BT_HST2     KC_TRANS
+    #define BT_HST3     KC_TRANS
+    #define P2P4G       KC_TRANS
+    #define BAT_LVL     KC_TRANS
+#endif
+#ifndef ANANLOG_MATRIX
+    #define PROF1 KC_TRANS
+    #define PROF2 KC_TRANS
+    #define PROF3 KC_TRANS
+#endif
+
 #define KC_TASK KC_TASK_VIEW
 #define KC_FILE KC_FILE_EXPLORER
 #define KC_SNAP KC_SCREEN_SHOT
