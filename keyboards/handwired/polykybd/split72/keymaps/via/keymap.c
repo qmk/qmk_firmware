@@ -96,6 +96,8 @@ enum my_keycodes {
     KC_L3,
     KC_L4,
     KC_DEADKEY,
+    KC_TOGMODS,
+    KC_TOGTEXT,
     /*[[[cog
       for lang in languages:
           cog.out(f"KC_{lang}, ")
@@ -108,6 +110,8 @@ enum my_keycodes {
     ]]]*/
     KC_LAT0, KC_LAT1, KC_LAT2, KC_LAT3, KC_LAT4, KC_LAT5, KC_LAT6, KC_LAT7, KC_LAT8, KC_LAT9,
     //[[[end]]]
+    //Lables, no functionality:
+    LBL_TEXT
 };
 
 struct display_info {
@@ -161,7 +165,16 @@ static uint8_t latin_ex[26];
 
 _Static_assert(sizeof(poly_eeconf_t) == EECONFIG_USER_DATA_SIZE, "Mismatch in keyboard EECONFIG stored data");
 
-enum flags { STATUS_DISP_ON = 1, IDLE_TRANSITION = 2, DISP_IDLE = 4, DEAD_KEY_ON_WAKEUP = 8, DBG_ON = 16};
+enum flags {
+    STATUS_DISP_ON      = 1 << 0,
+    IDLE_TRANSITION     = 1 << 1,
+    DISP_IDLE           = 1 << 2,
+    DEAD_KEY_ON_WAKEUP  = 1 << 3,
+    DBG_ON              = 1 << 4,
+    MODS_AS_TEXT        = 1 << 5,
+    MORE_TEXT           = 1 << 6
+    };
+
 typedef struct _poly_sync_t {
     uint8_t lang;
     uint8_t contrast;
@@ -645,7 +658,7 @@ uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
         KC_NO,      KC_L0,      KC_L1,      KC_L2,      KC_L3,      KC_L4,      KC_NO,      _______,
         KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      QK_RBT,
-        KC_BASE,    KC_NO,      KC_NO,      KC_NO,                  KC_NO,      QK_MAKE,    QK_BOOT,
+        KC_BASE,    LBL_TEXT,   KC_TOGMODS, KC_TOGTEXT,             KC_NO,      QK_MAKE,    QK_BOOT,
 
 
                     RGB_RMOD,   RGB_M_SW,   RGB_M_R,    RGB_TOG,    RGB_M_P,    RGB_M_B,    RGB_MOD,
@@ -916,6 +929,9 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case TO(_EMJ0): return u" " PRIVATE_EMOJI_1F600 u"\v" ICON_LAYER;
     case TO(_EMJ1): return u" " PRIVATE_EMOJI_1F440 u"\v" ICON_LAYER;
     case KC_DEADKEY: return (g_local.flags&DEAD_KEY_ON_WAKEUP)==0 ? u"WakeX\r\v" ICON_SWITCH_OFF : u"WakeX\r\v" ICON_SWITCH_ON;
+    case LBL_TEXT: return u"Text:";
+    case KC_TOGMODS: return (g_local.flags&MODS_AS_TEXT)==0 ? u"Mods\r\v" ICON_SWITCH_OFF : u"Mods\r\v" ICON_SWITCH_ON;
+    case KC_TOGTEXT: return (g_local.flags&MORE_TEXT)==0 ? u"Cmds\r\v" ICON_SWITCH_OFF : u"Cmds\r\v" ICON_SWITCH_ON;
     case QK_UNICODE_MODE_MACOS: return u"Mac";
     case QK_UNICODE_MODE_LINUX: return u"Lnx";
     case QK_UNICODE_MODE_WINDOWS: return u"Win";
@@ -925,9 +941,9 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case QK_LEAD:
         return u"Lead";
     case KC_HYPR:
-        return u" " PRIVATE_HYPER;
+        return (g_local.flags&MORE_TEXT)!=0 ? u"Hypr" : u" " PRIVATE_HYPER;
     case KC_MEH:
-        return u" " PRIVATE_MEH;
+        return (g_local.flags&MORE_TEXT)!=0 ? u"Meh" : u" " PRIVATE_MEH;
     case KC_EXEC:
         return u"Exec";
     case KC_NUM_LOCK:
@@ -1052,7 +1068,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case KC_PAGE_DOWN:
         return u"  " ARROWS_DOWNSTOP;
     case KC_DELETE:
-        return TECHNICAL_ERASERIGHT;
+        return (g_local.flags&MORE_TEXT)!=0 ? u"Del" : TECHNICAL_ERASERIGHT;
     case KC_MYCM:
         return u"  " PRIVATE_PC;
     case TO(_SL):
@@ -1108,13 +1124,14 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case KC_F24:return u" F24";
     case KC_LEFT_CTRL:
     case KC_RIGHT_CTRL:
-        return TECHNICAL_COMMAND;
+        return (g_local.flags&MODS_AS_TEXT)!=0 ? u"Ctrl" : TECHNICAL_COMMAND;
     case KC_LEFT_ALT:
+        return (g_local.flags&MODS_AS_TEXT)!=0 ? u"Alt" : TECHNICAL_OPTION;
     case KC_RIGHT_ALT:
-        return TECHNICAL_OPTION;
-    case KC_LWIN:
-    case KC_RWIN:
-        return  DINGBAT_BLACK_DIA_X;
+        return (g_local.flags&MODS_AS_TEXT)!=0 ? ( g_local.lang == KC_LANG_EN ? u"Alt" : u"Alt\nGr") : TECHNICAL_OPTION;
+    case KC_LGUI:
+    case KC_RGUI:
+        return (g_local.flags&MODS_AS_TEXT)!=0 ? u"GUI" : DINGBAT_BLACK_DIA_X;
     case KC_LEFT:
         return u"  " ICON_LEFT;
     case KC_RIGHT:
@@ -1127,7 +1144,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         return state.caps_lock ? u"Cap" ICON_CAPSLOCK_ON : u"Cap" ICON_CAPSLOCK_OFF;
     case KC_LSFT:
     case KC_RSFT:
-        return u" " ICON_SHIFT;
+        return (g_local.flags&MODS_AS_TEXT)!=0 ? u"Shft" : u" " ICON_SHIFT;
     case KC_NO:
         return u"";
     case KC_DDIM:
@@ -1145,7 +1162,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case KC_DMAX:
         return u"  " PRIVATE_DISP_BRIGHT;
     case KC_LANG:
-        return PRIVATE_WORLD;
+        return (g_local.flags&MORE_TEXT)!=0 ? u"Lang" : PRIVATE_WORLD;
     case SH_TOGG:
         return u"SwpH";
     case QK_MAKE:
@@ -1154,29 +1171,36 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         return u"ClrEE";
     case QK_REBOOT:
         return u" " ARROWS_CIRCLE;
-        /*[[[cog
-            for lang in languages:
-                short = lang.split("_")[1]
-                cog.outl(f'case KC_{lang}: return g_local.lang == {lang} ? u"[{short}]" : u" {short}";')
-        ]]]*/
-        case KC_LANG_EN: return g_local.lang == LANG_EN ? u"[EN]" : u" EN";
-        case KC_LANG_DE: return g_local.lang == LANG_DE ? u"[DE]" : u" DE";
-        case KC_LANG_FR: return g_local.lang == LANG_FR ? u"[FR]" : u" FR";
-        case KC_LANG_ES: return g_local.lang == LANG_ES ? u"[ES]" : u" ES";
-        case KC_LANG_PT: return g_local.lang == LANG_PT ? u"[PT]" : u" PT";
-        case KC_LANG_IT: return g_local.lang == LANG_IT ? u"[IT]" : u" IT";
-        case KC_LANG_TR: return g_local.lang == LANG_TR ? u"[TR]" : u" TR";
-        case KC_LANG_KO: return g_local.lang == LANG_KO ? u"[KO]" : u" KO";
-        case KC_LANG_JA: return g_local.lang == LANG_JA ? u"[JA]" : u" JA";
-        case KC_LANG_AR: return g_local.lang == LANG_AR ? u"[AR]" : u" AR";
-        case KC_LANG_GR: return g_local.lang == LANG_GR ? u"[GR]" : u" GR";
-        //[[[end]]]
     case KC_LNG1:
         return u"Han/Y";
     case KC_APP:
         return u" Ctx";
     case DE_GRV: //for Neo Layout
         return u"`";
+    /*[[[cog
+        for lang in languages:
+            short = lang.split("_")[1]
+            cog.outl(f'case KC_{lang}: return g_local.lang == {lang} ? u"[{short}]" : u" {short}";')
+    ]]]*/
+    case KC_LANG_EN: return g_local.lang == LANG_EN ? u"[EN]" : u" EN";
+    case KC_LANG_DE: return g_local.lang == LANG_DE ? u"[DE]" : u" DE";
+    case KC_LANG_FR: return g_local.lang == LANG_FR ? u"[FR]" : u" FR";
+    case KC_LANG_ES: return g_local.lang == LANG_ES ? u"[ES]" : u" ES";
+    case KC_LANG_PT: return g_local.lang == LANG_PT ? u"[PT]" : u" PT";
+    case KC_LANG_IT: return g_local.lang == LANG_IT ? u"[IT]" : u" IT";
+    case KC_LANG_TR: return g_local.lang == LANG_TR ? u"[TR]" : u" TR";
+    case KC_LANG_KO: return g_local.lang == LANG_KO ? u"[KO]" : u" KO";
+    case KC_LANG_JA: return g_local.lang == LANG_JA ? u"[JA]" : u" JA";
+    case KC_LANG_AR: return g_local.lang == LANG_AR ? u"[AR]" : u" AR";
+    case KC_LANG_GR: return g_local.lang == LANG_GR ? u"[GR]" : u" GR";
+    //[[[end]]]
+    //The following entries will over-rule language specific enties in the follow langauge lookup table,
+    //however with this we can control them by flags and so far those wehere not lanuage specific anyway.
+    case KC_ENTER:      return (g_local.flags&MORE_TEXT)!=0 ? u"Enter"    : ARROWS_RETURN;
+    case KC_ESCAPE:	    return (g_local.flags&MORE_TEXT)!=0 ? u"Esc"      : ARROWS_RETURN;
+    case KC_BACKSPACE:  return (g_local.flags&MORE_TEXT)!=0 ? u"Bksp"     : TECHNICAL_ERASELEFT;
+    case KC_TAB:        return (g_local.flags&MORE_TEXT)!=0 ? u"Tab"      : ARROWS_TAB;
+    case KC_SPACE:      return (g_local.flags&MORE_TEXT)!=0 ? u"Space"    : ICON_SPACE;
     default:
     {
         bool shift = ((get_mods() & MOD_MASK_SHIFT) != 0);
@@ -1482,6 +1506,22 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
                 g_local.flags |= DEAD_KEY_ON_WAKEUP;
             } else {
                 g_local.flags &= ~((uint8_t)DEAD_KEY_ON_WAKEUP);
+            }
+            request_disp_refresh();
+            break;
+        case KC_TOGMODS:
+            if((g_local.flags&MODS_AS_TEXT)==0) {
+                g_local.flags |= MODS_AS_TEXT;
+            } else {
+                g_local.flags &= ~((uint8_t)MODS_AS_TEXT);
+            }
+            request_disp_refresh();
+            break;
+        case KC_TOGTEXT:
+            if((g_local.flags&MORE_TEXT)==0) {
+                g_local.flags |= MORE_TEXT;
+            } else {
+                g_local.flags &= ~((uint8_t)MORE_TEXT);
             }
             request_disp_refresh();
             break;

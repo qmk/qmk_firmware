@@ -6,19 +6,23 @@ Development version of PolyKybd, which uses OLED displays in its keycaps.
 Hardware info at https://github.com/thpoll83/PolyKeyboard/tree/master/poly_kb_atom
 
 Keyboard Maintainer: thpoll83
-Hardware Supported: RP2040, STM32F407 (not maintained any more, see `deprecated` folder)
-Hardware Availability:
-
-- https://www.raspberrypi.com/products/raspberry-pi-pico/
-- https://stm32-base.org/boards/STM32F407VGT6-STM32F4XX-M.html
+Hardware Supported: RP2040 (STM32F407 not maintained any more)
 
 # Build Notes
 
 ## Keyboard Variants
 
-- `deprecated/4x2` and `deprecated4x5` were the first dev boards running QMK, these folders are not maintained and also will not compile.
-- `wave` was the first version of the 72-key split keyboard and is still maintained.
-- `split72` is the current hardware iteration of `wave` with slight differences. Only `split72` is actively developed.
+- ~~`deprecated/4x2` and `deprecated4x5` were the first dev boards running QMK, these folders are not maintained and also will not compile.~~
+- `wave` was the first version of the 72-key split keyboard and is kept as a reference.
+- `split72` is the current hardware (HW rev2 and up) iteration of `wave` with slight differences. Only `split72` is actively developed.
+
+### Code generation
+
+Please be aware that the code makes use of cog to generate some code parts. You can find cog here:
+
+[https://github.com/nedbat/cog](https://github.com/nedbat/cog)
+
+Please run `run_cog.sh` in the keymap folder of your choice.
 
 ## Clean
 
@@ -56,7 +60,7 @@ or
 
 `cp .build/handwired_polykybd_split72_rp2040pico_default.uf2 /media/$USER/RPI-RP2/`
 
-## Get debug output
+## Get console output
 
 `qmk console`
 
