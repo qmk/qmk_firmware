@@ -49,6 +49,7 @@ uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
         case TH_NUM:
         case TH_FUNC:
         case TH_NAV:
+        case TH_REP:
         case SMT_F:
         case SMT_J:
         case SMT_D:
