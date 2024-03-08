@@ -71,7 +71,8 @@
             "typing_heatmap": true
         },
         "default": {
-            "animation": "breathing"
+            "animation": "breathing",
+            "hue": 192
         },
         "driver": "ws2812",
         "layout": [
@@ -173,7 +174,13 @@
         "split_count": [46, 46]
     },
     "split": {
-        "enabled": true
+        "enabled": true,
+        "transport": {
+            "sync": {
+                "layer_state": true,
+                "matrix_state": true
+            }
+        }
     },
     "url": "https://arrowmechanics.com",
     "usb": {
