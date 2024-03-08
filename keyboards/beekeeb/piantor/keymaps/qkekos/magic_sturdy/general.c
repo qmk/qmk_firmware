@@ -35,6 +35,10 @@ enum pr_response sturdy_pr(uint16_t keycode, keyrecord_t *record) {
             }
 
             break;
+    
+        case TH_REP:
+            if (record->tap.count) keycode = US_REP;
+            break; 
     }
 
     if (!process_sequence_transform(keycode, record, US_AREP))
