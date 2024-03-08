@@ -9,7 +9,8 @@
     },
     "features": {
         "bootmagic": true,
-        "extrakey": true
+        "extrakey": true,
+        "mousekey": true
     },
     "diode_direction": "COL2ROW",
     "matrix_pins": {
