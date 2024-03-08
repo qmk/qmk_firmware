@@ -13,7 +13,7 @@ void cycle_language(int swaps_count, enum languages new_lang) {
     if (do_invert) {
         layer_invert(QWERTY);
         autocorrect_toggle();
-//        toggle_magic_training();
+        toggle_magic_training();
     }
 }
 

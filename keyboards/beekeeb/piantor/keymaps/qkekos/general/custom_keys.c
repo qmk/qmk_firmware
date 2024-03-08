@@ -86,8 +86,8 @@ int custom_keys_pr(uint16_t keycode, keyrecord_t *record) {
             layer_on(STURDY);
             layer_off(QWERTY);
 
-//            enable_magic_training();
-//            enable_hard_training();
+            enable_magic_training();
+            enable_hard_training();
             autocorrect_enable();
 
             return true;
@@ -99,13 +99,13 @@ int custom_keys_pr(uint16_t keycode, keyrecord_t *record) {
         case US_CAML:
             if (record->event.pressed) toggle_alt_case_with(KC_LSFT, 0);
             return false;
-//
+
         case US_MGTR:
-//            if (record->event.pressed) toggle_magic_training();
+            if (record->event.pressed) toggle_magic_training();
             return false;
 
         case US_HRTR:
-//            if (record->event.pressed) toggle_hard_training();
+            if (record->event.pressed) toggle_hard_training();
             return false;
     }
 
