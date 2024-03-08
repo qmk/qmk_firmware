@@ -25,3 +25,6 @@
 	path = lib/lvgl
 	url = https://github.com/qmk/lvgl.git
 	branch = release/v8.2
+[submodule "keyboards/beekeeb/piantor/keymaps/qkekos/sequence_transform"]
+	path = keyboards/beekeeb/piantor/keymaps/qkekos/sequence_transform
+	url = https://github.com/QKekos/qmk_sequence_transform.git

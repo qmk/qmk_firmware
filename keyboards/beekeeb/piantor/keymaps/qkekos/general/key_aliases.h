@@ -75,6 +75,7 @@
 #define TH_LNUM LT(QWERTY, KC_SPC)
 
 #define TH_NAV  LT(NAV, KC_BSPC)
+#define TH_REP  LT(NAV, KC_NO)
 #define TH_FUNC LT(FUNCTION, KC_DEL)
 
 // STURDY

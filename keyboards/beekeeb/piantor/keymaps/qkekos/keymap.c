@@ -27,8 +27,12 @@ void keyboard_pre_init_user(void) {
 
     transaction_register_rpc(USER_SYNC_A, user_sync_a_slave_handler);
     lang_independant_init();
-    enable_magic_training();
-    enable_hard_training();
+//    enable_magic_training();
+//    enable_hard_training();
+}
+
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+    post_process_sequence_transform();
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -53,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_DEL,    KC_X,     KC_K,    KC_J,     KC_G,     KC_W,            KC_Z,     KC_H,     KC_COMM,  KC_DOT,   KC_SLSH,  US_FNCE,
 //     └─────────┴─────────┴─────────┴─────────┴─────────┴─────────┘      └─────────┴─────────┴─────────┴─────────┴─────────┴─────────┘
 //                                   ┌─────────┬─────────┬─────────┐      ┌─────────┬─────────┬─────────┐
-                                       TH_LNAV,  TH_NUM,   OS_LSFT,         US_REP,   TH_NAV,   TH_FUNC
+                                       TH_LNAV,  TH_NUM,   OS_LSFT,         KC_BSPC,  TH_REP,   TH_FUNC
 //                                   └─────────┴─────────┴─────────┘      └─────────┴─────────┴─────────┘
     ),
 // ------------------------------------------------------------------------------------------------------------------------------------
@@ -66,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_DEL,    KC_Z,     KC_X,    KC_C,     KC_V,     KC_B,            KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RBRC,
 //     └─────────┴─────────┴─────────┴─────────┴─────────┴─────────┘      └─────────┴─────────┴─────────┴─────────┴─────────┴─────────┘
 //                                   ┌─────────┬─────────┬─────────┐      ┌─────────┬─────────┬─────────┐
-                                       TH_LNAV,  TH_NUM,   OS_LSFT,         US_REP,   TH_NAV,   TH_FUNC
+                                       TH_LNAV,  TH_NUM,   OS_LSFT,         KC_BSPC,  TH_REP,   TH_FUNC
 //                                   └─────────┴─────────┴─────────┘      └─────────┴─────────┴─────────┘
     ),
 // ------------------------------------------------------------------------------------------------------------------------------------

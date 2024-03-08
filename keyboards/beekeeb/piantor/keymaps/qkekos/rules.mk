@@ -1,5 +1,5 @@
 
-$(shell python3 keyboards/beekeeb/piantor/keymaps/qkekos/magic_sturdy/generete_magic_data.py)
+$(shell python3 keyboards/beekeeb/piantor/keymaps/qkekos/sequence_transform/generator/sequence_transform_data.py)
 
 AUTOCORRECT_ENABLE = yes
 
@@ -17,6 +17,15 @@ TAP_DANCE_ENABLE = yes
 
 VPATH += keyboards/gboards
 
+SRC += sequence_transform/sequence_transform.c
+SRC += sequence_transform/trie.c
+SRC += sequence_transform/keybuffer.c
+SRC += sequence_transform/utils.c
+SRC += sequence_transform/cursor.c
+SRC += sequence_transform/key_stack.c
+
+SRC += magic_sturdy/general.c
+
 SRC += combos/general.c
 
 SRC += general/utils.c
@@ -30,11 +39,6 @@ SRC += general/arrows.c
 
 SRC += localization/language_swapper.c
 SRC += localization/lang_independant.c
-
-SRC += magic_sturdy/general.c
-SRC += magic_sturdy/process_magic.c
-SRC += magic_sturdy/trie_core.c
-SRC += magic_sturdy/training_mode.c
 
 SRC += overrides/general.c
 

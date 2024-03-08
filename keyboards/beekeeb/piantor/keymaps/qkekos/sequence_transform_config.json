@@ -1,0 +1,12 @@
+{
+    "rules_file_name": "./magic_sturdy/magic.txt",
+    "magic_chars": "★☆✪",
+    "wordbreak_char": "⎵",
+    "output_func_chars": "↻⇑",
+    "comment_str": "//",
+    "separator_str": "⇒",
+    "quiet": true,
+    "seq_tokens_ascii": "*@$#",
+    "wordbreak_ascii": "^",
+    "record_rule_usage": false
+}

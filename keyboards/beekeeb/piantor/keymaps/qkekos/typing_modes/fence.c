@@ -24,7 +24,7 @@ enum pr_response fence_pr(uint16_t keycode, keyrecord_t *record) {
     if (IS_QK_MOD_TAP(keycode) || IS_QK_LAYER_TAP(keycode)) is_tap_hold = true;
 
     keycode = normalize_keycode(keycode);
-    if (!IS_ALPHA_KEY(keycode)) return PR_IGNORE;
+    if (!IS_ALPHA_KEYCODE(keycode)) return PR_IGNORE;
 
     was_upper = !was_upper;
     if (!was_upper) return PR_IGNORE;
