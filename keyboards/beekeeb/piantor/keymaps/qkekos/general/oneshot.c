@@ -30,7 +30,7 @@ void oneshot_mods_changed_user(uint8_t mods) {
     current_oneshot_key = KC_NO;
 }
 
-enum pr_response oneshot_pr(uint16_t keycode, keyrecord_t *record) {
+int oneshot_pr(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case OS_LSFT:
             current_oneshot_key = OSM(MOD_LSFT);

@@ -4,7 +4,7 @@
 bool is_fence_active = false;
 bool was_upper = true;
 
-enum pr_response fence_pr(uint16_t keycode, keyrecord_t *record) {
+int fence_pr(uint16_t keycode, keyrecord_t *record) {
     if (!record->event.pressed) return PR_IGNORE;
 
     if (keycode == US_FNCE) {

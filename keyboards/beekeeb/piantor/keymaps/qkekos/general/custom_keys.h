@@ -23,4 +23,4 @@ enum blender_keycode {
     DB_LTTR,
 };
 
-enum pr_response custom_keys_pr(uint16_t, keyrecord_t*);
+int custom_keys_pr(uint16_t, keyrecord_t*);

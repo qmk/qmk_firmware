@@ -3,7 +3,7 @@
 
 layer_state_t old_layer_state;
 
-enum pr_response lower_layer_mo(int target_layer, keyrecord_t *record) {
+int lower_layer_mo(int target_layer, keyrecord_t *record) {
     if (record->event.pressed) {
         old_layer_state = layer_state;
         layer_state = (layer_state & ((1 << (target_layer + 1)) - 1)) | (1 << target_layer);

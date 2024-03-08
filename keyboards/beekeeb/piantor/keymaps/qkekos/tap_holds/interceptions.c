@@ -1,7 +1,7 @@
 
 #include "../__init__.h"
 
-enum pr_response proceed_custom_tap(uint16_t keycode, keyrecord_t *record) {
+int proceed_custom_tap(uint16_t keycode, keyrecord_t *record) {
     if (record->tap.count && record->event.pressed) {
         tap_code16(keycode);
         return false;
@@ -10,7 +10,7 @@ enum pr_response proceed_custom_tap(uint16_t keycode, keyrecord_t *record) {
     return PR_IGNORE;
 }
 
-enum pr_response interceptions_pr(uint16_t keycode, keyrecord_t *record) {
+int interceptions_pr(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
 
         case TH_LNUM:

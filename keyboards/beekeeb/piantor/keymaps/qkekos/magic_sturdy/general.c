@@ -11,7 +11,7 @@ int trigger_magic_key(uint16_t magic_key, keyrecord_t *record) {
     return PR_IGNORE;
 }
 
-enum pr_response sturdy_pr(uint16_t keycode, keyrecord_t *record) {
+int sturdy_pr(uint16_t keycode, keyrecord_t *record) {
     prev_key_timestamp = current_key_timestamp;
     current_key_timestamp = timer_read();
 
