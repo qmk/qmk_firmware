@@ -16,9 +16,6 @@
         "mousekey": true,
         "nkro": true
     },
-    "tapping": {
-        "term": 175
-    },
     "development_board": "promicro",
     "diode_direction": "COL2ROW",
     "matrix_pins": {
