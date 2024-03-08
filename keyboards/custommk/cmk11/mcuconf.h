@@ -27,5 +27,5 @@
 #define STM32_SPI_USE_SPI1 TRUE
 
 // Used for RGB matrix
-#undef STM32_PWM_USE_TIM1 //timer 1 channel 3
+#undef STM32_PWM_USE_TIM1
 #define STM32_PWM_USE_TIM1 TRUE
