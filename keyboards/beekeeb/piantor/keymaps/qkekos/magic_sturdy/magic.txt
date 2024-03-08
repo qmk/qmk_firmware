@@ -1,4 +1,15 @@
 
+oc☆   ⇒ ock
+ac☆   ⇒ ack
+uc☆   ⇒ uock
+ec☆   ⇒ eck
+ic☆   ⇒ ick
+
+on✪    ⇒ onion
+an✪    ⇒ anion
+un✪    ⇒ union
+in✪    ⇒ inion
+
 // Magic
 
 ✵           ⇒ ↻
