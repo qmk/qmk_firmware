@@ -10,8 +10,6 @@
 #define SERIAL_USART_TX_PIN GP0
 #define SERIAL_USART_RX_PIN GP1
 #define SERIAL_USART_PIN_SWAP
-#define BOOTMAGIC_ROW_RIGHT 6
-#define BOOTMAGIC_COLUMN_RIGHT 0
 
 /* Sync configuration */
 #define TOMAK_CONFIG_SYNC
