@@ -31,6 +31,10 @@ void keyboard_pre_init_user(void) {
 //    enable_hard_training();
 }
 
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+    post_process_sequence_transform();
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     for (int i = 0; process_records[i] != NULL; i++) {
         int response = process_records[i](keycode, record);

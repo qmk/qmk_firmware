@@ -21,6 +21,8 @@ SRC += sequence_transform/sequence_transform.c
 SRC += sequence_transform/trie.c
 SRC += sequence_transform/keybuffer.c
 SRC += sequence_transform/utils.c
+SRC += sequence_transform/cursor.c
+SRC += sequence_transform/key_stack.c
 
 SRC += magic_sturdy/general.c
 

@@ -2,42 +2,42 @@
 // Magic
 
 ✵           ⇒ ↻
-☆☆          ⇒ n
+☆☆          ⇒ ☆n
 
 // Double magic
 
-⎵never★     ⇒ nevertheless
-⎵essential★ ⇒ essentially
-⎵restrict★  ⇒ restriction
-⎵encrypt★   ⇒ encryption
-⎵reason★    ⇒ reasonable
-⎵ever★      ⇒ everything
-⎵confused★  ⇒ confusion
-⎵recycle★   ⇒ recycling
-⎵other★     ⇒ otherwise
-⎵some★      ⇒ somewhere
-⎵special★   ⇒ specific
-⎵judge★     ⇒ judgment
-⎵could★     ⇒ couldn't
-⎵over★      ⇒ override
-⎵list★      ⇒ listener
-⎵again★     ⇒ against
-⎵start★     ⇒ started
-⎵enque★     ⇒ enqueue
-⎵deque★     ⇒ dequeue
-⎵copy★      ⇒ copying
-⎵ment★      ⇒ mention
-⎵use★       ⇒ useless
-⎵alr★       ⇒ already
-⎵simpl★     ⇒ simply
-⎵doub★      ⇒ doable
-⎵most★      ⇒ mostly
-⎵that★      ⇒ thank
-⎵que★       ⇒ queue
+⎵re☆         ⇒ reason
+⎵re☆☆       ⇒ reasonable
+⎵re☆☆y      ⇒ reasonably
 
-ion★        ⇒ ional
+⎵never☆     ⇒ nevertheless
+⎵essential☆ ⇒ essentially
+⎵restrict☆  ⇒ restriction
+⎵encrypt☆   ⇒ encryption
+⎵ever☆      ⇒ everything
+⎵confused☆  ⇒ confusion
+⎵recycle☆   ⇒ recycling
+⎵other☆     ⇒ otherwise
+⎵some☆      ⇒ somewhere
+⎵special☆   ⇒ specific
+⎵judge☆     ⇒ judgment
+⎵could☆     ⇒ couldn't
+⎵over☆      ⇒ override
+⎵list☆      ⇒ listener
+⎵again☆     ⇒ against
+⎵start☆     ⇒ started
+⎵enque☆     ⇒ enqueue
+⎵deque☆     ⇒ dequeue
+⎵copy☆      ⇒ copying
+⎵ment☆      ⇒ mention
+⎵use☆       ⇒ useless
+⎵alr☆       ⇒ already
+⎵simpl☆     ⇒ simply
+⎵doub☆      ⇒ doable
+⎵most☆      ⇒ mostly
+⎵that☆      ⇒ thank
+⎵que☆       ⇒ queue
 
-⎵reason★★   ⇒ reasonably
 
 // A lot
 
@@ -108,7 +108,6 @@ tex☆        ⇒ text
 ⎵si☆        ⇒ singer
 ⎵gi☆        ⇒ ginger
 ⎵by☆        ⇒ bypass
-⎵re☆        ⇒ reason
 ⎵ot☆        ⇒ other
 ⎵co☆        ⇒ could
 ⎵ag☆        ⇒ again

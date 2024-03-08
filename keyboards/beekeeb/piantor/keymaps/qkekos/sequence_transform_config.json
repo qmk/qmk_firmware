@@ -6,5 +6,7 @@
     "comment_str": "//",
     "separator_str": "⇒",
     "quiet": true,
-    "record_rule_usage": true
+    "seq_tokens_ascii": "*@$#",
+    "wordbreak_ascii": "^",
+    "record_rule_usage": false
 }
