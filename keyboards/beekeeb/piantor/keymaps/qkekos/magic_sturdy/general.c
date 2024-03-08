@@ -4,6 +4,14 @@
 int prev_key_timestamp;
 int current_key_timestamp;
 
+void sequence_transform_on_missed_rule_user(const st_trie_rule_t *rule) {
+    flick_leds(1.5, 250);
+    uprintf("Could have used %s -> %s!\n", rule->sequence, rule->transform);
+    
+    tap_code16(C(KC_BSPC));
+    process_sequence_transform(C(KC_BSPC), next_record, US_AREP);
+}
+
 int trigger_magic_key(uint16_t magic_key, keyrecord_t *record) {
     if (!process_sequence_transform(magic_key, record, US_AREP))
         return false;
