@@ -4,7 +4,10 @@
         "device_version": "0.0.2"
     },
     "rgblight": {
-        "led_count": 39
+        "led_count": 39,
+        "default": {
+            "hue": 201
+        }
     },
     "ws2812": {
         "pin": "E6"

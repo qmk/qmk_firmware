@@ -9,7 +9,14 @@
         "device_version": "0.0.1"
     },
     "rgb_matrix": {
-        "driver": "ws2812"
+        "animations": {
+            "rainbow_moving_chevron": true
+        },
+        "default": {
+            "hue": 108
+        },
+        "driver": "ws2812",
+        "react_on_keyup": true
     },
     "matrix_pins": {
         "cols": ["F4", "F5", "C7", "D6", "D4"],
