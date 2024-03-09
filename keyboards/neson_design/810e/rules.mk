@@ -1,5 +1,2 @@
 
 NO_USB_STARTUP_CHECK = yes
-
-SRC += is31fl3236.c is31fl3729.c
-I2C_DRIVER_REQUIRED = yes
