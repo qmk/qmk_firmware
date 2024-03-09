@@ -49,9 +49,9 @@ Re-running the QMK installation script (`./util/qmk_install.sh` from the `qmk_fi
 If that doesn't work, then you may need to download and run Zadig. See [Bootloader Driver Installation with Zadig](driver_installation_zadig.md) for more detailed information.
 
 ## USB VID and PID
-You can use any ID you want with editing `config.h`. Using any presumably unused ID will be no problem in fact except for very low chance of collision with other product.
+You can use any ID you want with editing `config.h`. Using an ID that is presumed to be unused should generally not be a problem, except for the possibility of a rare collision with another product. A unique PID/VID combination is not required, but it is recommended.
 
-Most boards in QMK use `0xFEED` as the vendor ID. You should look through other keyboards to make sure you pick a unique Product ID.
+Most boards in QMK use `0xFEED` as the vendor ID. Using `0xFEED` is not required, and is specifically prohibited in VIA. If you use `0xFEED`, look through other keyboards to make sure you pick a unique Product ID.
 
 Also see this.
 https://github.com/tmk/tmk_keyboard/issues/150
@@ -59,6 +59,8 @@ https://github.com/tmk/tmk_keyboard/issues/150
 You can buy a really unique VID:PID here. I don't think you need this for personal use.
 - https://www.obdev.at/products/vusb/license.html
 - https://www.mcselec.com/index.php?page=shop.product_details&flypage=shop.flypage&product_id=92&option=com_phpshop&Itemid=1
+
+Open-source hardware projects can request a unique [USB-IF](https://www.usb.org/) recognized USB VID:PID by submitting a pull request to [pid.codes](https://pid.codes/). Pid.codes will all alwyas use `0x1209` for the VID. A unique PID is selected when submitting a pull request to pid.codes. Using pid.codes for your VID:PID is not required, and is probably not needed for personal use.
 
 ### I just flashed my keyboard and it does nothing/keypresses don't register - it's also ARM (rev6 planck, clueboard 60, hs60v2, etc...) (Feb 2019)
 Due to how EEPROM works on ARM based chips, saved settings may no longer be valid.  This affects the default layers, and *may*, under certain circumstances we are still figuring out, make the keyboard unusable.  Resetting the EEPROM will correct this.
