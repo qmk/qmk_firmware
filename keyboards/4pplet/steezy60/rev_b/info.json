@@ -26,8 +26,6 @@
         "rows": ["B8", "A15", "C13", "A2", "A6"]
     },
     "features": {
-        "audio": false,
-        "backlight": false,
         "bootmagic": true,
         "command": false,
         "console": false,
