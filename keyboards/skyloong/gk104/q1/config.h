@@ -6,7 +6,7 @@
 #define MAC_PIN C13
 
 #ifdef ENCODER_ENABLE
-#    define ENCODER_MAP_KEY_DELAY 20
+#    define ENCODER_MAP_KEY_DELAY 10
 #endif
 
 #define DIP_SWITCH_PINS {A4}
