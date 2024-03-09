@@ -49,14 +49,14 @@ int sturdy_pr(uint16_t keycode, keyrecord_t *record) {
             return process_double_tap(keycode, record, DB_LTTR);
 
         case LT_I:
-            if (record->event.pressed && record->tap.count == 2 && get_buffer_keycode(1) != KC_V) {
+            if (record->event.pressed && record->tap.count == 2 && sequence_transform_past_keycode(1) != KC_V) {
                 tap_code16(KC_BSPC);
                 add_weak_mods(MOD_BIT(KC_LSFT));
                 return PR_IGNORE;
             }
 
             break;
-    
+
         case TH_REP:
             if (record->tap.count) keycode = US_REP;
             break; 
@@ -72,7 +72,7 @@ int process_double_tap(uint16_t keycode, keyrecord_t *record, uint16_t magic_key
     if (
         !record->event.pressed ||
         highest_layer != STURDY ||
-        get_buffer_keycode(0) != keycode ||
+        sequence_transform_past_keycode(0) != keycode ||
         timer_elapsed(prev_key_timestamp) > (get_tapping_term(keycode, NULL) + 50)
     ) {
         if (!process_sequence_transform(keycode, record, US_AREP))
