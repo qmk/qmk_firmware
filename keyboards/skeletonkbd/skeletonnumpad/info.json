@@ -16,7 +16,18 @@
         "brightness_steps": 8,
         "led_count": 17,
         "max_brightness": 120,
-        "sleep": true
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true
+        }
     },
     "matrix_pins": {
         "cols": ["D6", "D7", "B4", "B5"],

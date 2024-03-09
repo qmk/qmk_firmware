@@ -19,7 +19,10 @@
      ]
   },
   "rgblight": {
-    "led_count": 2
+    "led_count": 2,
+    "animations": {
+      "breathing": true
+    }
   },
   "ws2812": {
      "pin": "B7"

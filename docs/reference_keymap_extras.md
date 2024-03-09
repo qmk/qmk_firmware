@@ -36,6 +36,7 @@ These headers are located in [`quantum/keymap_extras/`](https://github.com/qmk/q
 |French (AFNOR)                   |`keymap_french_afnor.h`          |`sendstring_french_afnor.h`         |
 |French (BÉPO)                    |`keymap_bepo.h`                  |`sendstring_bepo.h`                 |
 |French (Belgium)                 |`keymap_belgian.h`               |`sendstring_belgian.h`              |
+|French (Canada)                  |`keymap_canadian_french.h`       |`sendstring_canadian_french.h`      |
 |French (Switzerland)             |`keymap_swiss_fr.h`              |`sendstring_swiss_fr.h`             |
 |French (macOS, ISO)              |`keymap_french_mac_iso.h`        |`sendstring_french_mac_iso.h`       |
 |German                           |`keymap_german.h`                |`sendstring_german.h`               |
@@ -67,6 +68,7 @@ These headers are located in [`quantum/keymap_extras/`](https://github.com/qmk/q
 |Slovenian                        |`keymap_slovenian.h`             |`sendstring_slovenian.h`            |
 |Spanish                          |`keymap_spanish.h`               |`sendstring_spanish.h`              |
 |Spanish (Dvorak)                 |`keymap_spanish_dvorak.h`        |`sendstring_spanish_dvorak.h`       |
+|Spanish (Latin America)          |`keymap_spanish_latin_america.h` |`sendstring_spanish_latin_america.h`|
 |Swedish                          |`keymap_swedish.h`               |`sendstring_swedish.h`              |
 |Swedish (macOS, ANSI)            |`keymap_swedish_mac_ansi.h`      |                                    |
 |Swedish (macOS, ISO)             |`keymap_swedish_mac_iso.h`       |                                    |
@@ -87,6 +89,5 @@ There are also a few which are not quite language-specific, but useful if you ar
 |Norman             |`keymap_norman.h`           |`sendstring_norman.h`           |
 |Plover             |`keymap_plover.h`           |                                |
 |Plover (Dvorak)    |`keymap_plover_dvorak.h`    |                                |
-|Steno              |`keymap_steno.h`            |                                |
 |Workman            |`keymap_workman.h`          |`sendstring_workman.h`          |
 |Workman (ZXCVM)    |`keymap_workman_zxcvm.h`    |`sendstring_workman_zxcvm.h`    |

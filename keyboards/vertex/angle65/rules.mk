@@ -12,4 +12,4 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
 HAPTIC_ENABLE = yes
-HAPTIC_DRIVER += SOLENOID
+HAPTIC_DRIVER = solenoid

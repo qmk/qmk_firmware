@@ -1,3 +1,0 @@
-WS2812_DRIVER_REQUIRED = yes
-SRC += color.c
-EXTRAKEY_ENABLE = yes

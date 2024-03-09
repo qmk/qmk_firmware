@@ -25,7 +25,12 @@
     "brightness_steps": 8,
     "led_count": 1,
     "max_brightness": 200,
-    "sleep": true
+    "sleep": true,
+    "animations": {
+      "breathing": true,
+      "rainbow_mood": true,
+      "static_gradient": true
+    }
   },
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",

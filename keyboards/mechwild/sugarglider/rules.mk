@@ -2,7 +2,6 @@
 #   change yes to no to disable
 #
 OLED_ENABLE = yes                   # OLED Enabled
-OLED_DRIVER = SSD1306               # OLED Driver
 
 # Cirque touchpad settings
 POINTING_DEVICE_ENABLE = yes                    # Pointing Device Enabled
@@ -14,7 +13,7 @@ CUSTOM_MATRIX = lite
 
 VPATH += drivers/gpio
 SRC += mcp23018.c matrix.c
-QUANTUM_LIB_SRC += i2c_master.c
+I2C_DRIVER_REQUIRED = yes
 
 DEFAULT_FOLDER = mechwild/sugarglider/wide_oled
 

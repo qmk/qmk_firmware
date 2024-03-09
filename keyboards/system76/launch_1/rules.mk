@@ -23,4 +23,4 @@ LTO_ENABLE = yes            # Link-time optimization for smaller binary
 
 # Add System76 EC command interface as well as I2C and USB mux drivers
 SRC += system76_ec.c usb_mux.c
-QUANTUM_LIB_SRC += i2c_master.c
+I2C_DRIVER_REQUIRED = yes

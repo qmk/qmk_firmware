@@ -50,7 +50,7 @@
         }
     },
     "bluetooth": {
-        "driver": "BluefruitLE"
+        "driver": "bluefruit_le"
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",

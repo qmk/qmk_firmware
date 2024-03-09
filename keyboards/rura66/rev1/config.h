@@ -20,20 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Split hand configration */
 #define MASTER_LEFT
 
-#ifdef RGBLIGHT_ENABLE
   #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RGB_TEST
-
-  /*== choose animations ==*/
-//  #define RGBLIGHT_EFFECT_BREATHING
-  #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-  #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-//   #define RGBLIGHT_EFFECT_SNAKE
-//   #define RGBLIGHT_EFFECT_KNIGHT
-//   #define RGBLIGHT_EFFECT_CHRISTMAS
-  #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-  #define RGBLIGHT_EFFECT_RGB_TEST
-//   #define RGBLIGHT_EFFECT_ALTERNATING
-#endif
 
 /* Custom font */
 #define OLED_FONT_H "keyboards/rura66/common/glcdfont.c"

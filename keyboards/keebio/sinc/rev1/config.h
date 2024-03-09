@@ -23,10 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-/* Synchronize Caps Lock LED across halves */
-#define SPLIT_LED_STATE_ENABLE
 
 #define RGBLIGHT_DEFAULT_MODE (RGBLIGHT_MODE_RAINBOW_SWIRL + 2)
 
 #define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 2
-#define DYNAMIC_KEYMAP_LAYER_COUNT 3

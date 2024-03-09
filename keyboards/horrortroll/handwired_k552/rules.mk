@@ -31,9 +31,4 @@ RGB_MATRIX_ENABLE = yes
 
 # OLED enabled
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
 WPM_ENABLE = yes
-
-# Wear-levelling driver
-EEPROM_DRIVER = wear_leveling
-WEAR_LEVELING_DRIVER = spi_flash
