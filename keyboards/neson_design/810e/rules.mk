@@ -1,2 +1,1 @@
-
-NO_USB_STARTUP_CHECK = yes
+# This file intentionally left blank
