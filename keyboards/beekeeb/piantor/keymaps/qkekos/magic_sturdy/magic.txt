@@ -1,4 +1,21 @@
 
+// ★☆✪
+// ↻
+
+// ★ - magic key(upper right index)
+// ☆ - repeat key(home right thumb)
+// ✪ - double letters magic - [bfnzhq] letters act as a dedicated magic key on double tap
+//                            ^ (second tap within tapping term)
+
+// ↻ - repeat token
+
+
+
+// Fundamental rules
+
+☆           ⇒ ↻
+★★          ⇒ ★n
+
 // Change to regex later
 
 oc★         ⇒ ock
@@ -13,9 +30,6 @@ un✪         ⇒ union
 in✪         ⇒ inion
 
 // Magic
-
-☆           ⇒ ↻
-★★          ⇒ ★n
 
 // Double magic
 
@@ -255,7 +269,6 @@ rs☆         ⇒ rst
 ⎵t☆         ⇒ than
 ⎵j☆         ⇒ join
 ⎵v☆         ⇒ var
-⎵i☆         ⇒ ii
 
 .☆          ⇒ .com
 ⎵☆          ⇒ for
