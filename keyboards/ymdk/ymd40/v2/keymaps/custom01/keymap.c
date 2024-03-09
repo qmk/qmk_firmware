@@ -57,6 +57,7 @@ enum custom_keycodes {
   LENS_UP,
   LENS_DOWN,
   LENS_CLOSE,
+  UNIX_HOME,
   ONOFFBOT
 };
 
@@ -78,6 +79,8 @@ enum {
     TD_ESC,
 	TD_SFT_MOV,
 	TD_CTL_MOV,
+	TD_LPRN,
+	TD_RPRN,
     TD_TAB
 
 };
@@ -176,9 +179,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     
     [_LOWER]=LAYOUT_ortho_4x12(
 			KC_DEL,     KC_NO,		LENS_CLOSE,		LENS_DOWN,		LENS_UP,            DM_PLY1,	RALT(KC_1),		 					KC_EXLM,		KC_AT,		    KC_HASH,	    	KC_DLR,			KC_PERC,
-			KC_NO,		WINTAB,		ALTTAB,	    	C(G(KC_LEFT)),	C(G(KC_RIGHT)),		DM_PLY2,	KC_GRV,								KC_CIRC,		KC_AMPR,	    KC_ASTR,	        KC_LPRN,	    KC_RPRN,
-			KC_NO,		KC_NO,		KC_NO,			G(S(KC_S)),		G(KC_V),		    KC_NO,		XP(ORDINAL_MALE,ORDINAL_FEMALE),	KC_MINS,		KC_EQL,		    KC_BSLS,		    KC_LCBR,		KC_RCBR,
-			KC_NO,		KC_TRNS,	KC_TRNS,		KC_TRNS,		KC_TRNS,	        KC_NO,		KC_NO,		 						MO(_OTHERS),	RALT(KC_5),		KC_NO,				KC_LBRC,		KC_RBRC
+			KC_NO,		WINTAB,		ALTTAB,	    	C(G(KC_LEFT)),	C(G(KC_RIGHT)),		DM_PLY2,	KC_GRV,								KC_CIRC,		KC_AMPR,	    KC_ASTR,	        TD(TD_LPRN),	TD(TD_RPRN),
+			KC_NO,		KC_NO,		KC_NO,			G(S(KC_S)),		G(KC_V),		    KC_NO,		XP(ORDINAL_MALE,ORDINAL_FEMALE),	KC_MINS,		KC_EQL,		    KC_BSLS,		    UNIX_HOME,		KC_NO,
+			KC_NO,		KC_TRNS,	KC_TRNS,		KC_TRNS,		KC_TRNS,	        KC_NO,		KC_NO,		 						MO(_OTHERS),	RALT(KC_5),		KC_NO,				KC_NO,			KC_NO
 	),
     
    	[_FUNCTION_KEYS]=LAYOUT_ortho_4x12(
@@ -367,7 +370,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 			break;
 							
+		case UNIX_HOME:
 
+			if (record->event.pressed){
+
+				SEND_STRING("~/");
+				
+			}	
+			
+			break;
+					
+			
 		case ONOFFBOT:
 			
 			if (record->event.pressed){
@@ -537,6 +550,10 @@ void sftmov_finished(tap_dance_state_t *state, void *user_data);
 void sftmov_reset(tap_dance_state_t *state, void *user_data);
 void ctlmov_finished(tap_dance_state_t *state, void *user_data);
 void ctlmov_reset(tap_dance_state_t *state, void *user_data);
+void lprn_finished(tap_dance_state_t *state, void *user_data);
+void lprn_reset(tap_dance_state_t *state, void *user_data);
+void rprn_finished(tap_dance_state_t *state, void *user_data);
+void rprn_reset(tap_dance_state_t *state, void *user_data);
 
 
 
@@ -554,7 +571,8 @@ tap_dance_action_t tap_dance_actions[] = {
 	[TD_TAB]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tab_finished, tab_reset),
 	[TD_SFT_MOV]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, sftmov_finished, sftmov_reset),
 	[TD_CTL_MOV]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctlmov_finished, ctlmov_reset),
-    
+	[TD_LPRN]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lprn_finished, lprn_reset),
+	[TD_RPRN]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, rprn_finished, rprn_reset)     
 };
 
 
@@ -1039,6 +1057,83 @@ void ctlmov_reset(tap_dance_state_t *state, void *user_data) {
 
 
 
+
+void lprn_finished(tap_dance_state_t *state, void *user_data) {
+    
+    numpad_tap_state.state = cur_dance(state);
+ 
+    switch (numpad_tap_state.state) {
+        
+		case TD_SINGLE_TAP:
+			
+			SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_9) SS_UP(X_LSFT));		
+			break;
+
+		
+		case TD_SINGLE_HOLD:
+			
+			SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_LBRC) SS_UP(X_LSFT));
+			break;
+
+		case TD_DOUBLE_TAP:
+			
+			tap_code(KC_LBRC);		
+			break;
+						
+		default:
+			break;
+		
+    }
+}
+
+
+void lprn_reset(tap_dance_state_t *state, void *user_data) {
+
+    numpad_tap_state.state = TD_NONE;
+}
+
+
+
+
+void rprn_finished(tap_dance_state_t *state, void *user_data) {
+    
+    numpad_tap_state.state = cur_dance(state);
+ 
+    switch (numpad_tap_state.state) {
+        
+		case TD_SINGLE_TAP:
+			
+			SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_0) SS_UP(X_LSFT));		
+			break;
+
+		
+		case TD_SINGLE_HOLD:
+			
+			SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_RBRC) SS_UP(X_LSFT));
+			break;
+
+		case TD_DOUBLE_TAP:
+			
+			tap_code(KC_RBRC);		
+			break;
+						
+		default:
+			break;
+		
+    }
+
+}
+
+
+
+void rprn_reset(tap_dance_state_t *state, void *user_data) {
+
+    numpad_tap_state.state = TD_NONE;
+}
+
+
+
+
 void running_boot(void){
 
 	if (timer_elapsed32(key_timer_boot) > tiempo_boot) {
@@ -1056,7 +1151,7 @@ void running_boot(void){
 		  // SEND_STRING(SS_TAP(X_BTN2)); //Pulsa el botón 2 del ratón
 		  // SEND_STRING(SS_TAP(X_BTN3)); //Pulsa el botón 3 del ratón
 		}
-	} 
+	}
 	
 }	
 
