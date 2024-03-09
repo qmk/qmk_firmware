@@ -1,6 +1,11 @@
 {
     "keyboard": "technicpad",
-    "keymap": "default",
+    "keymap": "via",
+    "config": {
+        "features": {
+            "via": true
+        }
+    },
     "layers": [
         ["KC_A", "KC_B", "KC_C", "KC_D"]
     ],
