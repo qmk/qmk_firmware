@@ -12,11 +12,8 @@ COMMAND_ENABLE = yes        # Commands for debug and configuration
 NKRO_ENABLE = no            # Enable N-Key Rollover
 BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
-AUDIO_ENABLE = no           # Audio output
 LTO_ENABLE = yes            # Reduce firmware size
 BLUETOOTH_ENABLE = yes
-
-VIA_ENABLE = yes            # VIA support should be enabled here due to the main() loop will be compiled first.
 
 UART_DRIVER_REQUIRED = yes
 SRC += bluetooth_custom.c
