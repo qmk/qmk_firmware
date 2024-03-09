@@ -4,7 +4,7 @@
     "maintainer": "nwhirschfeld",
     "bootloader": "caterina",
     "bootmagic": {
-        "matrix": [3, 0]
+        "matrix": [0, 0]
     },
     "matrix_pins": {
         "direct": [
