@@ -54,6 +54,9 @@ enum custom_keycodes {
   DEL_END_LINE,
   UP_NEW_LINE,
   DOWN_NEW_LINE,
+  LENS_UP,
+  LENS_DOWN,
+  LENS_CLOSE,
   ONOFFBOT
 };
 
@@ -172,10 +175,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	),
     
     [_LOWER]=LAYOUT_ortho_4x12(
-			KC_DEL,     KC_NO,		KC_NO,		DM_PLY2,		DM_PLY1,            KC_NO,	RALT(KC_1),		 					KC_EXLM,		KC_AT,		    KC_HASH,	    	KC_DLR,			KC_PERC,
-			KC_NO,		WINTAB,		ALTTAB,	    C(G(KC_LEFT)),	C(G(KC_RIGHT)),		KC_NO,	KC_GRV,								KC_CIRC,		KC_AMPR,	    KC_ASTR,	        KC_LPRN,	    KC_RPRN,
-			KC_NO,		KC_NO,		KC_NO,		G(S(KC_S)),		G(KC_V),		    KC_NO,	XP(ORDINAL_MALE,ORDINAL_FEMALE),	KC_MINS,		KC_EQL,		    KC_BSLS,		    KC_LCBR,		KC_RCBR,
-			KC_NO,		KC_TRNS,	KC_TRNS,	KC_TRNS,		KC_TRNS,	        KC_NO,	KC_NO,		 						MO(_OTHERS),	RALT(KC_5),		KC_NO,				KC_LBRC,		KC_RBRC
+			KC_DEL,     KC_NO,		LENS_CLOSE,		LENS_DOWN,		LENS_UP,            DM_PLY1,	RALT(KC_1),		 					KC_EXLM,		KC_AT,		    KC_HASH,	    	KC_DLR,			KC_PERC,
+			KC_NO,		WINTAB,		ALTTAB,	    	C(G(KC_LEFT)),	C(G(KC_RIGHT)),		DM_PLY2,	KC_GRV,								KC_CIRC,		KC_AMPR,	    KC_ASTR,	        KC_LPRN,	    KC_RPRN,
+			KC_NO,		KC_NO,		KC_NO,			G(S(KC_S)),		G(KC_V),		    KC_NO,		XP(ORDINAL_MALE,ORDINAL_FEMALE),	KC_MINS,		KC_EQL,		    KC_BSLS,		    KC_LCBR,		KC_RCBR,
+			KC_NO,		KC_TRNS,	KC_TRNS,		KC_TRNS,		KC_TRNS,	        KC_NO,		KC_NO,		 						MO(_OTHERS),	RALT(KC_5),		KC_NO,				KC_LBRC,		KC_RBRC
 	),
     
    	[_FUNCTION_KEYS]=LAYOUT_ortho_4x12(
@@ -193,9 +196,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	),
 	
 	[_OTHERS]=LAYOUT_ortho_4x12(
-			QK_BOOT,	KC_NO,		KC_NO,		DM_REC2,	DM_REC1,	DM_RSTP,	KC_NO,	ONOFFBOT,	KC_NO,		KC_PWR,		KC_SLEP,	KC_WAKE,
-			QK_RBT,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,	KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
-			QK_MAKE,	KC_NO,		KC_NO,		KC_BRID,	KC_BRIU,	KC_NO,		KC_NO,	DT_DOWN,	DT_PRNT,	DT_UP,		KC_NO,		KC_NO,
+			QK_BOOT,	KC_NO,		KC_NO,		KC_NO,		KC_NO,		DM_REC1,	KC_NO,	ONOFFBOT,	KC_NO,		KC_PWR,		KC_SLEP,	KC_WAKE,
+			QK_RBT,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		DM_REC2,	KC_NO,	KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
+			QK_MAKE,	KC_NO,		KC_NO,		KC_BRID,	KC_BRIU,	DM_RSTP,	KC_NO,	DT_DOWN,	DT_PRNT,	DT_UP,		KC_NO,		KC_NO,
 			KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_NO,		KC_NO,	KC_TRNS,	KC_NO,		KC_NO,		KC_NO,		KC_NO
 	),
 
@@ -332,8 +335,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			}
 
 			break;
-
 			
+		case LENS_UP:
+			
+			if (record->event.pressed){
+
+				SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_EQL) SS_UP(X_LGUI));
+				
+			}	
+
+			break;
+		
+		case LENS_DOWN:
+			
+			if (record->event.pressed){
+
+				SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_MINS) SS_UP(X_LGUI));
+				
+			}	
+
+			break;
+
+
+		case LENS_CLOSE:
+			
+			if (record->event.pressed){
+
+				SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_ESC) SS_UP(X_LGUI));
+				
+			}	
+
+			break;
+							
+
 		case ONOFFBOT:
 			
 			if (record->event.pressed){
