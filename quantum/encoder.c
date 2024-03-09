@@ -5,7 +5,6 @@
 #include "action.h"
 #include "encoder.h"
 #include "wait.h"
-#include "debug.h"
 
 #ifndef ENCODER_MAP_KEY_DELAY
 #    define ENCODER_MAP_KEY_DELAY TAP_CODE_DELAY
@@ -24,7 +23,6 @@ void encoder_init(void) {
 }
 
 static void encoder_queue_drain(void) {
-    // dprintf("Draining encoder queue\n");
     encoder_events.tail     = encoder_events.head;
     encoder_events.dequeued = encoder_events.enqueued;
 }
@@ -114,8 +112,6 @@ bool encoder_queue_event_advanced(encoder_events_t *events, uint8_t index, bool 
     events->head = (events->head + 1) % MAX_QUEUED_ENCODER_EVENTS;
     events->enqueued++;
 
-    // dprintf("Enqueued event: %d %s [h=%d,t=%d,e=%d,d=%d]\n", (int)index, clockwise ? "CW" : "CCW", (int)events->head, (int)events->tail, (int)events->enqueued, (int)events->dequeued);
-
     return true;
 }
 
@@ -132,8 +128,6 @@ bool encoder_dequeue_event_advanced(encoder_events_t *events, uint8_t *index, bo
     // Increment the tail index
     events->tail = (events->tail + 1) % MAX_QUEUED_ENCODER_EVENTS;
     events->dequeued++;
-
-    // dprintf("Dequeued event: %d %s [h=%d,t=%d,e=%d,d=%d]\n", (int)*index, *clockwise ? "CW" : "CCW", (int)events->head, (int)events->tail, (int)events->enqueued, (int)events->dequeued);
 
     return true;
 }
