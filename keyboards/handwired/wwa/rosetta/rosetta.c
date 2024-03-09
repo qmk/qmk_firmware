@@ -1,4 +1,6 @@
-#include QMK_KEYBOARD_H
+// Copyright 2024 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+#include "quantum.h"
 #include "stdlib.h"
 #include "analog.h"
 #include "qmk_midi.h"
@@ -47,6 +49,5 @@ void slider(void) {
     }
 }
 
-void matrix_scan_kb(void) {
-    slider();
-}
+slider();
+matrix_scan_user();
