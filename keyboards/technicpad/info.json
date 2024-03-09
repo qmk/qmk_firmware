@@ -6,6 +6,14 @@
     "bootmagic": {
         "matrix": [0, 0]
     },
+    "build": {
+        "lto": true
+    },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true
+    },
     "matrix_pins": {
         "direct": [
             ["D1"],
