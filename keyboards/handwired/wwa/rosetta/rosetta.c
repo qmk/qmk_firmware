@@ -49,5 +49,6 @@ void slider(void) {
     }
 }
 
-slider();
-matrix_scan_user();
+matrix_scan_user(void){
+    slider();
+}
