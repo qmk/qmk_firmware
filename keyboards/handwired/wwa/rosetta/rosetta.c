@@ -5,8 +5,6 @@
 #include "analog.h"
 #include "qmk_midi.h"
 
-uint8_t divisor = 0;
-
 void slider(void) {
 
     static int previousPotValue = 0;
