@@ -251,7 +251,7 @@ def new_keyboard(cli):
 
     # merge in infos
     community_info = Path(COMMUNITY / f'{default_layout}/info.json')
-    augment_community_info(community_info, keyboard(kb_name) / community_info.name)
+    augment_community_info(community_info, keyboard(kb_name) / 'keyboard.json')
 
     cli.log.info(f'{{fg_green}}Created a new keyboard called {{fg_cyan}}{kb_name}{{fg_green}}.{{fg_reset}}')
     cli.log.info(f"Build Command: {{fg_yellow}}qmk compile -kb {kb_name} -km default{{fg_reset}}.")
