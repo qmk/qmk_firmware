@@ -8,13 +8,13 @@ struct HoldKey {
 };
 
 int media_hold_keys[] = { KC_DOT, KC_SLSH, KC_NO };
-int nav_hold_keys[] = { KC_COMM, KC_DOT, KC_SLSH, KC_Q, KC_NO };
+int nav_hold_keys[] = { KC_COMM, KC_DOT, KC_SLSH, KC_Q, TH_FUNC, KC_NO };
 
 int ctrl_hold_keys[] = {
     TD_EXLM, TD_EQL, TD_DQT,
     TD_BSLS, TD_UNDS, TD_COLN,
     TD_ARR, TD_ECLP, TD_SALL,
-    TH_NAV, KC_NO
+    KC_BSPC, KC_NO
 };
 
 int shift_hold_keys[] = {

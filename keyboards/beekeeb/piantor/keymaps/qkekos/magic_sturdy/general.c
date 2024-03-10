@@ -48,15 +48,6 @@ int sturdy_pr(uint16_t keycode, keyrecord_t *record) {
         case KC_Q:
             return process_double_tap(keycode, record, DB_LTTR);
 
-        case LT_I:
-            if (record->event.pressed && record->tap.count == 2 && sequence_transform_past_keycode(1) != KC_V) {
-                tap_code16(KC_BSPC);
-                add_weak_mods(MOD_BIT(KC_LSFT));
-                return PR_IGNORE;
-            }
-
-            break;
-
         case TH_REP:
             if (record->tap.count) keycode = US_REP;
             break;
