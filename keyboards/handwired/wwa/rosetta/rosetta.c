@@ -47,6 +47,7 @@ void slider(void) {
     }
 }
 
-void matrix_scan_user(void){
+void matrix_scan_kb(void) {
     slider();
+    matrix_scan_user();
 }
