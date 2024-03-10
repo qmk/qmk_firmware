@@ -77,11 +77,11 @@
 #    ifndef WS2812_PWM_PAL_MODE
 #        define WS2812_PWM_PAL_MODE 1
 #    endif
-#    ifndef WS2812_DMA_STREAM
-#        define WS2812_DMA_STREAM STM32_DMA2_STREAM5
+#    ifndef WS2812_PWM_DMA_STREAM
+#        define WS2812_PWM_DMA_STREAM STM32_DMA2_STREAM5
 #    endif
-#    ifndef WS2812_DMA_CHANNEL
-#        define WS2812_DMA_CHANNEL 6
+#    ifndef WS2812_PWM_DMA_CHANNEL
+#        define WS2812_PWM_DMA_CHANNEL 6
 #    endif
 #endif
 

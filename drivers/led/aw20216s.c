@@ -114,8 +114,8 @@ void aw20216s_init_drivers(void) {
     spi_init();
 
 #if defined(AW20216S_EN_PIN)
-    setPinOutput(AW20216S_EN_PIN);
-    writePinHigh(AW20216S_EN_PIN);
+    gpio_set_pin_output(AW20216S_EN_PIN);
+    gpio_write_pin_high(AW20216S_EN_PIN);
 #endif
 
     aw20216s_init(AW20216S_CS_PIN_1);

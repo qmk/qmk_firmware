@@ -18,6 +18,7 @@
 
 #include "is31fl3729.h"
 #include "i2c_master.h"
+#include "gpio.h"
 #include "wait.h"
 
 #define IS31FL3729_PWM_REGISTER_COUNT 143
@@ -39,25 +40,42 @@
 #    define IS31FL3729_GLOBAL_CURRENT 0x40
 #endif
 
-#ifndef IS31FL3729_PULLDOWNUP
-#    define IS31FL3729_PULLDOWNUP 0x33
+#ifndef IS31FL3729_SW_PULLDOWN
+#    define IS31FL3729_SW_PULLDOWN IS31FL3729_SW_PULLDOWN_2K_OHM_SW_OFF
+#endif
+
+#ifndef IS31FL3729_CS_PULLUP
+#    define IS31FL3729_CS_PULLUP IS31FL3729_CS_PULLUP_2K_OHM_CS_OFF
 #endif
 
 #ifndef IS31FL3729_SPREAD_SPECTRUM
-#    define IS31FL3729_SPREAD_SPECTRUM IS31FL3729_SSP_DISABLE
+#    define IS31FL3729_SPREAD_SPECTRUM IS31FL3729_SPREAD_SPECTRUM_DISABLE
 #endif
 
 #ifndef IS31FL3729_SPREAD_SPECTRUM_RANGE
-#    define IS31FL3729_SPREAD_SPECTRUM_RANGE IS31FL3729_RNG_5_PERCENT
+#    define IS31FL3729_SPREAD_SPECTRUM_RANGE IS31FL3729_SPREAD_SPECTRUM_RANGE_5_PERCENT
 #endif
 
 #ifndef IS31FL3729_SPREAD_SPECTRUM_CYCLE_TIME
-#    define IS31FL3729_SPREAD_SPECTRUM_CYCLE_TIME IS31FL3729_CLT_1980_US
+#    define IS31FL3729_SPREAD_SPECTRUM_CYCLE_TIME IS31FL3729_SPREAD_SPECTRUM_CYCLE_TIME_1980_US
 #endif
 
 #ifndef IS31FL3729_PWM_FREQUENCY
 #    define IS31FL3729_PWM_FREQUENCY IS31FL3729_PWM_FREQUENCY_32K_HZ
 #endif
+
+const uint8_t i2c_addresses[IS31FL3729_DRIVER_COUNT] = {
+    IS31FL3729_I2C_ADDRESS_1,
+#ifdef IS31FL3729_I2C_ADDRESS_2
+    IS31FL3729_I2C_ADDRESS_2,
+#    ifdef IS31FL3729_I2C_ADDRESS_3
+    IS31FL3729_I2C_ADDRESS_3,
+#        ifdef IS31FL3729_I2C_ADDRESS_4
+    IS31FL3729_I2C_ADDRESS_4,
+#        endif
+#    endif
+#endif
+};
 
 // These buffers match the PWM & scaling registers.
 // Storing them like this is optimal for I2C transfers to the registers.
@@ -75,27 +93,27 @@ is31fl3729_driver_t driver_buffers[IS31FL3729_DRIVER_COUNT] = {{
     .scaling_buffer_dirty = false,
 }};
 
-void is31fl3729_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
+void is31fl3729_write_register(uint8_t index, uint8_t reg, uint8_t data) {
 #if IS31FL3729_I2C_PERSISTENCE > 0
     for (uint8_t i = 0; i < IS31FL3729_I2C_PERSISTENCE; i++) {
-        if (i2c_write_register(addr << 1, reg, &data, 1, IS31FL3729_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
+        if (i2c_write_register(i2c_addresses[index] << 1, reg, &data, 1, IS31FL3729_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
     }
 #else
-    i2c_write_register(addr << 1, reg, &data, 1, IS31FL3729_I2C_TIMEOUT);
+    i2c_write_register(i2c_addresses[index] << 1, reg, &data, 1, IS31FL3729_I2C_TIMEOUT);
 #endif
 }
 
-void is31fl3729_write_pwm_buffer(uint8_t addr, uint8_t index) {
-    // Transmit PWM registers in 9 transfers of 16 bytes.
+void is31fl3729_write_pwm_buffer(uint8_t index) {
+    // Transmit PWM registers in 11 transfers of 13 bytes.
 
-    // Iterate over the pwm_buffer contents at 16 byte intervals.
-    for (uint8_t i = 0; i <= IS31FL3729_PWM_REGISTER_COUNT; i += 16) {
+    // Iterate over the pwm_buffer contents at 13 byte intervals.
+    for (uint8_t i = 0; i <= IS31FL3729_PWM_REGISTER_COUNT; i += 13) {
 #if IS31FL3729_I2C_PERSISTENCE > 0
         for (uint8_t j = 0; j < IS31FL3729_I2C_PERSISTENCE; j++) {
-            if (i2c_write_register(addr << 1, i, driver_buffers[index].pwm_buffer + i, 16, IS31FL3729_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
+            if (i2c_write_register(i2c_addresses[index] << 1, IS31FL3729_REG_PWM + i, driver_buffers[index].pwm_buffer + i, 13, IS31FL3729_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
         }
 #else
-        i2c_write_register(addr << 1, i, driver_buffers[index].pwm_buffer + i, 16, IS31FL3729_I2C_TIMEOUT);
+        i2c_write_register(i2c_addresses[index] << 1, IS31FL3729_REG_PWM + i, driver_buffers[index].pwm_buffer + i, 13, IS31FL3729_I2C_TIMEOUT);
 #endif
     }
 }
@@ -103,53 +121,35 @@ void is31fl3729_write_pwm_buffer(uint8_t addr, uint8_t index) {
 void is31fl3729_init_drivers(void) {
     i2c_init();
 
-    is31fl3729_init(IS31FL3729_I2C_ADDRESS_1);
-#if defined(IS31FL3729_I2C_ADDRESS_2)
-    is31fl3729_init(IS31FL3729_I2C_ADDRESS_2);
-#    if defined(IS31FL3729_I2C_ADDRESS_3)
-    is31fl3729_init(IS31FL3729_I2C_ADDRESS_3);
-#        if defined(IS31FL3729_I2C_ADDRESS_4)
-    is31fl3729_init(IS31FL3729_I2C_ADDRESS_4);
-#        endif
-#    endif
+#if defined(IS31FL3729_SDB_PIN)
+    gpio_set_pin_output(IS31FL3729_SDB_PIN);
+    gpio_write_pin_high(IS31FL3729_SDB_PIN);
 #endif
+
+    for (uint8_t i = 0; i < IS31FL3729_DRIVER_COUNT; i++) {
+        is31fl3729_init(i);
+    }
 
     for (int i = 0; i < IS31FL3729_LED_COUNT; i++) {
         is31fl3729_set_scaling_register(i, 0xFF, 0xFF, 0xFF);
     }
 
-    is31fl3729_update_scaling_registers(IS31FL3729_I2C_ADDRESS_1, 0);
-#if defined(IS31FL3729_I2C_ADDRESS_2)
-    is31fl3729_update_scaling_registers(IS31FL3729_I2C_ADDRESS_2, 1);
-#    if defined(IS31FL3729_I2C_ADDRESS_3)
-    is31fl3729_update_scaling_registers(IS31FL3729_I2C_ADDRESS_3, 2);
-#        if defined(IS31FL3729_I2C_ADDRESS_4)
-    is31fl3729_update_scaling_registers(IS31FL3729_I2C_ADDRESS_4, 3);
-#        endif
-#    endif
-#endif
+    for (uint8_t i = 0; i < IS31FL3729_DRIVER_COUNT; i++) {
+        is31fl3729_update_scaling_registers(i);
+    }
 }
 
-void is31fl3729_init(uint8_t addr) {
+void is31fl3729_init(uint8_t index) {
     // In order to avoid the LEDs being driven with garbage data
     // in the LED driver's PWM registers, shutdown is enabled last.
     // Set up the mode and other settings, clear the PWM registers,
     // then disable software shutdown.
 
-    // Set Pull up & Down for SWx CSy
-    is31fl3729_write_register(addr, IS31FL3729_REG_PULLDOWNUP, IS31FL3729_PULLDOWNUP);
-
-    // Set Spread Spectrum Register if applicable
-    is31fl3729_write_register(addr, IS31FL3729_REG_SPREAD_SPECTRUM, ((IS31FL3729_SPREAD_SPECTRUM & 0b1) << 4) | ((IS31FL3729_SPREAD_SPECTRUM_RANGE & 0b11) << 2) | (IS31FL3729_SPREAD_SPECTRUM_CYCLE_TIME & 0b11));
-
-    // Set PWM Frequency Register if applicable
-    is31fl3729_write_register(addr, IS31FL3729_REG_PWM_FREQUENCY, IS31FL3729_PWM_FREQUENCY);
-
-    // Set Golbal Current Control Register
-    is31fl3729_write_register(addr, IS31FL3729_REG_GLOBAL_CURRENT, IS31FL3729_GLOBAL_CURRENT);
-
-    // Set to Normal operation
-    is31fl3729_write_register(addr, IS31FL3729_REG_CONFIGURATION, IS31FL3729_CONFIGURATION);
+    is31fl3729_write_register(index, IS31FL3729_REG_PULLDOWNUP, ((IS31FL3729_SW_PULLDOWN & 0b111) << 4) | (IS31FL3729_CS_PULLUP & 0b111));
+    is31fl3729_write_register(index, IS31FL3729_REG_SPREAD_SPECTRUM, ((IS31FL3729_SPREAD_SPECTRUM & 0b1) << 4) | ((IS31FL3729_SPREAD_SPECTRUM_RANGE & 0b11) << 2) | (IS31FL3729_SPREAD_SPECTRUM_CYCLE_TIME & 0b11));
+    is31fl3729_write_register(index, IS31FL3729_REG_PWM_FREQUENCY, IS31FL3729_PWM_FREQUENCY);
+    is31fl3729_write_register(index, IS31FL3729_REG_GLOBAL_CURRENT, IS31FL3729_GLOBAL_CURRENT);
+    is31fl3729_write_register(index, IS31FL3729_REG_CONFIGURATION, IS31FL3729_CONFIGURATION);
 
     // Wait 10ms to ensure the device has woken up.
     wait_ms(10);
@@ -194,18 +194,18 @@ void is31fl3729_set_scaling_register(uint8_t index, uint8_t red, uint8_t green, 
     driver_buffers[led.driver].scaling_buffer_dirty     = true;
 }
 
-void is31fl3729_update_pwm_buffers(uint8_t addr, uint8_t index) {
+void is31fl3729_update_pwm_buffers(uint8_t index) {
     if (driver_buffers[index].pwm_buffer_dirty) {
-        is31fl3729_write_pwm_buffer(addr, index);
+        is31fl3729_write_pwm_buffer(index);
 
         driver_buffers[index].pwm_buffer_dirty = false;
     }
 }
 
-void is31fl3729_update_scaling_registers(uint8_t addr, uint8_t index) {
+void is31fl3729_update_scaling_registers(uint8_t index) {
     if (driver_buffers[index].scaling_buffer_dirty) {
         for (uint8_t i = 0; i < IS31FL3729_SCALING_REGISTER_COUNT; i++) {
-            is31fl3729_write_register(addr, IS31FL3729_REG_SCALING + i, driver_buffers[index].scaling_buffer[i]);
+            is31fl3729_write_register(index, IS31FL3729_REG_SCALING + i, driver_buffers[index].scaling_buffer[i]);
         }
 
         driver_buffers[index].scaling_buffer_dirty = false;
@@ -213,14 +213,7 @@ void is31fl3729_update_scaling_registers(uint8_t addr, uint8_t index) {
 }
 
 void is31fl3729_flush(void) {
-    is31fl3729_update_pwm_buffers(IS31FL3729_I2C_ADDRESS_1, 0);
-#if defined(IS31FL3729_I2C_ADDRESS_2)
-    is31fl3729_update_pwm_buffers(IS31FL3729_I2C_ADDRESS_2, 1);
-#    if defined(IS31FL3729_I2C_ADDRESS_3)
-    is31fl3729_update_pwm_buffers(IS31FL3729_I2C_ADDRESS_3, 2);
-#        if defined(IS31FL3729_I2C_ADDRESS_4)
-    is31fl3729_update_pwm_buffers(IS31FL3729_I2C_ADDRESS_4, 3);
-#        endif
-#    endif
-#endif
+    for (uint8_t i = 0; i < IS31FL3729_DRIVER_COUNT; i++) {
+        is31fl3729_update_pwm_buffers(i);
+    }
 }

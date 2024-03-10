@@ -138,7 +138,7 @@ def _render_image_metadata(metadata):
     return "\n".join(lines)
 
 
-def generate_subs(cli, out_bytes, *, font_metadata=None, image_metadata=None):
+def generate_subs(cli, out_bytes, *, font_metadata=None, image_metadata=None, command):
     if font_metadata is not None and image_metadata is not None:
         raise ValueError("Cant generate subs for font and image at the same time")
 
@@ -149,14 +149,13 @@ def generate_subs(cli, out_bytes, *, font_metadata=None, image_metadata=None):
         "byte_count": len(out_bytes),
         "bytes_lines": render_bytes(out_bytes),
         "format": cli.args.format,
+        "generator_command": command,
     }
 
     if font_metadata is not None:
-        command = sys.argv[1]  # extract whether we are in `painter-convert-font` or `painter-convert-font-image`
         subs.update({
             "generated_type": "font",
             "var_prefix": "font",
-            "generator_command": f"qmk {command} -i {cli.args.input.name} -f {cli.args.format}{' --no-ascii' if cli.args.no_ascii else ''}",
             # not using triple quotes to avoid extra indentation/weird formatted code
             "metadata": "\n".join([
                 "// Font's metadata",
@@ -169,8 +168,7 @@ def generate_subs(cli, out_bytes, *, font_metadata=None, image_metadata=None):
         subs.update({
             "generated_type": "image",
             "var_prefix": "gfx",
-            "generator_command": f"qmk painter-convert-graphics -i {cli.args.input.name} -f {cli.args.format}",
-            # not using triple quotes to avoid extra indentation/weird formatted code
+            "generator_command": command,
             "metadata": _render_image_metadata(image_metadata),
         })
 
