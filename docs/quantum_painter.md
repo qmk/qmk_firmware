@@ -213,7 +213,7 @@ options:
                         Specify input graphic file.
 ```
 
-The argumens `--no-ascii` and `--unicode-glyphs` need to match the ones passed to `qmk painter-make-font-image` when creating the image.
+The arguments `--no-ascii` and `--unicode-glyphs` need to match the ones passed to `qmk painter-make-font-image` when creating the image.
 
 **Examples**:
 
