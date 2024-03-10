@@ -24,12 +24,14 @@
 
 /* matrix state(1:on, 0:off) */
 extern matrix_row_t matrix[MATRIX_COLS];      // debounced values
+                                              // 14
 extern matrix_row_t raw_matrix[MATRIX_COLS];  // raw values
+                                              // 14
 
 static matrix_row_t read_cols(uint8_t row);
-static void         init_cols(void);
-static void         unselect_rows(void);
-static void         select_row(uint8_t row);
+static void         init_rows(void);
+static void         unselect_cols(void);
+static void         select_col(uint8_t col);
 
 static uint8_t mcp23018_reset_loop;
 
@@ -38,8 +40,8 @@ void matrix_init_custom(void) {
 
     mcp23018_status = init_mcp23018();
 
-    unselect_rows();
-    init_cols();
+    unselect_cols();
+    init_rows();
 }
 
 // Reads and stores a row, returning
@@ -62,28 +64,22 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
                 print("left side not responding\n");
             } else {
                 print("left side attached\n");
-#ifdef RGB_MATRIX_ENABLE
-                rgb_matrix_init();  // re-init driver on reconnect
-#endif
             }
         }
     }
 
-#ifdef LEFT_LEDS
-    mcp23018_status = ergodox_left_leds_update();
-#endif  // LEFT_LEDS
     bool changed = false;
     for (uint8_t i = 0; i < MATRIX_COLS_PER_SIDE; i++) {
         // select rows from left and right hands
         uint8_t left_index  = i;
         uint8_t right_index = i + MATRIX_COLS_PER_SIDE;
-        select_row(left_index);
-        select_row(right_index);
+        select_col(left_index);
+        select_col(right_index);
 
         changed |= store_raw_matrix_row(left_index);
         changed |= store_raw_matrix_row(right_index);
 
-        unselect_rows();
+        unselect_cols();
     }
 
     return changed;
@@ -99,17 +95,25 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
  * col: 0   1   2   3   4   5
  * pin: B5  B4  B3  B2  B1  B0
  */
-static void init_cols(void) {
+static void init_rows(void) {
     // init on mcp23018
     // not needed, already done as part of init_mcp23018()
 
     // init on teensy
-    setPinInputHigh(F0);
-    setPinInputHigh(F1);
-    setPinInputHigh(F4);
-    setPinInputHigh(F5);
-    setPinInputHigh(F6);
+    setPinInputHigh(D7);
     setPinInputHigh(F7);
+    setPinInputHigh(F6);
+    setPinInputHigh(F5);
+    setPinInputHigh(F4);
+    setPinInputHigh(F1);
+    setPinInputHigh(F0);
+    /* setPinInputHigh(B0); */
+    /* setPinInputHigh(B1); */
+    /* setPinInputHigh(B2); */
+    /* setPinInputHigh(B3); */
+    /* setPinInputHigh(D2); */
+    /* setPinInputHigh(D3); */
+    /* setPinInputHigh(C6); */
 }
 
 static matrix_row_t read_cols(uint8_t row) {
@@ -144,7 +148,7 @@ static matrix_row_t read_cols(uint8_t row) {
  * row: 0   1   2   3   4   5   6
  * pin: A0  A1  A2  A3  A4  A5  A6
  */
-static void unselect_rows(void) {
+static void unselect_cols(void) {
     // no need to unselect on mcp23018, because the select step sets all
     // the other row bits high, and it's not changing to a different
     // direction
@@ -157,22 +161,32 @@ static void unselect_rows(void) {
     setPinInput(D2);
     setPinInput(D3);
     setPinInput(C6);
+    /* setPinInputHigh(D7); */
+    /* setPinInputHigh(F7); */
+    /* setPinInputHigh(F6); */
+    /* setPinInputHigh(F5); */
+    /* setPinInputHigh(F4); */
+    /* setPinInputHigh(F1); */
+    /* setPinInputHigh(F0); */
 }
 
-static void select_row(uint8_t row) {
-    if (row < 7) {
+static void select_col(uint8_t col) {
+    if (col < 7) {
         // select on mcp23018
         if (!mcp23018_status) {
             // set active row low  : 0
             // set other rows hi-Z : 1
             uint8_t data;
-            data = 0xFF & ~(1 << row);
+            data = 0xFF & ~(1 << col);
             mcp23018_status = i2c_writeReg(I2C_ADDR, GPIOA, &data, 1, ERGODOX_EXTENDED_I2C_TIMEOUT);
         }
     } else {
-        // select on teensy
+        // atmega32u4
         // Output low(DDR:1, PORT:0) to select
-        switch (row) {
+        // Should scan through rows
+        // row: 7   8   9   10  11  12  13
+        // pin: 
+        switch (col) {
             case 7:
                 setPinOutput(B0);
                 writePinLow(B0);
@@ -210,8 +224,8 @@ static void select_row(uint8_t row) {
 void matrix_power_up(void) {
     mcp23018_status = init_mcp23018();
 
-    unselect_rows();
-    init_cols();
+    unselect_cols();
+    init_rows();
 
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {

@@ -19,7 +19,6 @@
 
 #pragma once
 
-
 /* key matrix size */
 #define MATRIX_ROWS 7
 #define MATRIX_COLS_PER_SIDE (MATRIX_COLS / 2)
@@ -53,18 +52,3 @@
     get_mods() == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)) || \
     get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)) \
 )
-
-#ifndef LED_BRIGHTNESS_LO
-#define LED_BRIGHTNESS_LO       15
-#endif
-#ifndef LED_BRIGHTNESS_HI
-#define LED_BRIGHTNESS_HI       255
-#endif
-#define LED_BRIGHTNESS_DEFAULT (LED_BRIGHTNESS_HI)
-
-// Pick one of the modes
-// Defaults to 15 mirror, for legacy behavior
-
-// #define ERGODOX_LED_15 // Addresses 15 LEDs, but same position on both halves
-// #define ERGODOX_LED_15_MIRROR // Addresses 15 LEDs, but are mirrored
-// #define ERGODOX_LED_30 // Addresses all 30 LED individually
