@@ -22,7 +22,6 @@
             ["C6"]
         ]
     },
-    "processor": "atmega32u4",
     "url": "https://github.com/nwhirschfeld/TechnicPad",
     "usb": {
         "device_version": "0.0.1",
