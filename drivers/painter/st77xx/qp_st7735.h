@@ -2,7 +2,6 @@
 // Copyright 2021 Nick Brassel (@tzarc)
 // Copyright 2022 David Hoelscher (@customMK)
 // SPDX-License-Identifier: GPL-2.0-or-later
-
 #pragma once
 
 #include "gpio.h"

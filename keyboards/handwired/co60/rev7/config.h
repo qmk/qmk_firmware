@@ -23,5 +23,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 /* RGB underglow configuration */
-#define WS2812_SPI SPID1
+#define WS2812_SPI_DRIVER SPID1
 #define WS2812_SPI_MOSI_PAL_MODE 5

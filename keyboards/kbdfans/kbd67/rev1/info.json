@@ -8,9 +8,23 @@
     "pid": "0x6066",
     "device_version": "0.0.1"
   },
+  "features": {
+    "bootmagic": true,
+    "extrakey": true,
+    "mousekey": true,
+    "nkro": true,
+    "backlight": true,
+    "rgblight": true
+  },
   "matrix_pins": {
     "cols": ["F0", "F1", "E6", "C7", "C6", "B7", "D4", "B1", "B0", "B5", "B4", "D7", "D6", "B3", "F4", "F5"],
     "rows": ["D0", "D1", "D2", "D3", "D5"]
+  },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
   },
   "diode_direction": "COL2ROW",
   "backlight": {
@@ -38,8 +52,6 @@
       "knight": true,
       "christmas": true,
       "static_gradient": true,
-      "rgb_test": true,
-      "alternating": true,
       "twinkle": true
     }
   },
