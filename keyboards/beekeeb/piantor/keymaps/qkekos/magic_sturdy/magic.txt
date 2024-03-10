@@ -1,15 +1,15 @@
 
+// abcdefghijklmnopqrstuvwxyz
 // ★☆✪
-// ↻
+// ↻⎵
 
 // ★ - magic key(upper right index)
-// ☆ - repeat key(home right thumb)
+//  - repeat key(home right thumb)
 // ✪ - double letters magic - [bfnzhq] letters act as a dedicated magic key on double tap
 //                            ^ (second tap within tapping term)
 
 // ↻ - repeat token
-
-
+// ⎵ - wordbreak token
 
 // Fundamental rules
 
@@ -29,13 +29,49 @@ an✪         ⇒ anion
 un✪         ⇒ union
 in✪         ⇒ inion
 
-// Magic
+// ------------------------------------C---------------------------------------
 
-// Double magic
+⎵cr★        ⇒ cry
+⎵cry☆       ⇒ crying
+
+⎵ca☆        ⇒ capable
+
+// ------------------------------------I---------------------------------------
+
+⎵i☆         ⇒ I
+⎵i☆m        ⇒ I'm
+⎵i☆d        ⇒ I'd
+⎵i☆l        ⇒ I'll
+
+⎵i☆t        ⇒ interest
+⎵i☆td       ⇒ interested
+⎵i☆tg       ⇒ interesting
+
+⎵i☆r        ⇒ increase
+⎵i☆rd       ⇒ increased
+⎵i☆rg       ⇒ increasing
+
+⎵i☆s        ⇒ instead
+⎵i☆c        ⇒ incapable
+
+⎵i☆p        ⇒ implement
+⎵i☆pn       ⇒ implementing
+⎵i☆pt       ⇒ implementation
+
+⎵in✪        ⇒ info
+⎵in✪r       ⇒ inform
+⎵in✪rt      ⇒ information
+
+// ------------------------------------R---------------------------------------
 
 ⎵re★        ⇒ reason
+⎵re★g       ⇒ reasoning
 ⎵re★y       ⇒ reasonably
-⎵reason★    ⇒ reasonable
+⎵re★l       ⇒ reasonable
+
+// General
+
+// Old(er) rules
 
 ⎵never★     ⇒ nevertheless
 ⎵essential★ ⇒ essentially
@@ -68,7 +104,6 @@ in✪         ⇒ inion
 
 // A lot
 
-⎵implement★ ⇒ implementation
 ⎵democrac★  ⇒ democracy
 ⎵supremac★  ⇒ supremacy
 ⎵accurac★   ⇒ accuracy
@@ -199,14 +234,12 @@ x★          ⇒ xt
 // A lot
 
 ⎵every☆     ⇒ everywhere
-⎵reason☆    ⇒ reasoning
 ⎵should☆    ⇒ shouldn't
 ⎵somewhere☆ ⇒ somehow
 
 // Quadruple
 
 ⎵some☆      ⇒ something
-⎵impl☆      ⇒ implement
 ⎵poss☆      ⇒ possible
 ⎵over☆      ⇒ overall
 ⎵hand☆      ⇒ handy
@@ -217,7 +250,6 @@ x★          ⇒ xt
 ⎵imp☆       ⇒ impossible
 ⎵uni☆       ⇒ university
 ⎵dif☆       ⇒ difficult
-⎵inc☆       ⇒ incapable
 ⎵int☆       ⇒ interest
 ⎵beh☆       ⇒ behavior
 ⎵ins☆       ⇒ instead
@@ -280,7 +312,6 @@ q☆          ⇒ qui
 // Double taps
 
 ⎵fu☆☆       ⇒ functionality
-⎵impl☆☆     ⇒ implementing
 ⎵sim☆☆      ⇒ simultaneous
 ⎵dev☆☆      ⇒ development
 ⎵int☆☆      ⇒ interesting
@@ -319,7 +350,6 @@ q☆          ⇒ qui
 ⎵wh✪        ⇒ whatever
 ⎵an✪        ⇒ another
 ⎵ob✪        ⇒ obvious
-⎵in✪        ⇒ inform
 ⎵sh✪        ⇒ should
 ⎵af✪        ⇒ after
 ⎵tn✪        ⇒ think
