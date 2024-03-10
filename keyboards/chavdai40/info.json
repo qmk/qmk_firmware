@@ -1,9 +1,0 @@
-{
-    "manufacturer": "t-miyajima",
-    "url": "https://github.com/dvorak55/chavdai40",
-    "maintainer": "t-miyajima",
-    "usb": {
-        "vid": "0x16D0",
-        "pid": "0x0F95"
-    }
-}

@@ -1,20 +1,4 @@
-/* Copyright 2015-2021 Jack Humbert
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-#include QMK_KEYBOARD_H
+#include "QMK_KEYBOARD_H"
 
 enum preonic_layers {
   _QWERTY,
@@ -49,7 +33,8 @@ enum preonic_keycodes {
 #define EE_RIGHT_SQUARE_BRACKET RALT(KC_9)
 
 #define EE_DOLLAR RALT(KC_4)
-#define EE_AMPERSAND S(KC_6)
+#define EE_EURO RALT(KC_5)
+#define EE_AMPERSAND S(KC_6de)
 #define EE_EQUALS S(KC_0)
 #define EE_UNDERSCORE S(KC_SLSH)
 #define EE_DOUBLE_QUOTE S(KC_2)
@@ -120,22 +105,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB  ,   KC_Q  ,  KC_W   ,       KC_E        , KC_R , KC_T ,    KC_Y  ,  KC_U   , KC_I    ,  KC_O   , KC_P    , KC_DEL  ,
   KC_F13  ,   KC_A  ,  KC_S   ,       KC_D        , KC_F , KC_G ,    KC_H  ,  KC_J   , KC_K    ,  KC_L   , EE_Ö    , KC_QUOT ,
   KC_LSFT ,   KC_Z  ,  KC_X   ,       KC_C        , KC_V , KC_B ,    KC_N  ,  KC_M   , KC_COMM , KC_DOT  , EE_DASH , KC_LSFT ,
-  KC_LCTL , KC_LGUI , KC_LALT , LT(_LOWER,KC_ENT) ,    KC_SPC   ,  LT(_RAISE,KC_SPC) , KC_TILDE , KC_GRAVE , A(KC_F10)   , KC_PSCR
+  KC_LCTL , KC_LGUI , KC_LALT , LT(_LOWER,KC_ENT) ,    KC_SPC   ,  LT(_RAISE,KC_SPC) , _______ , _______ , _______ , _______
 ),
 
 [_LOWER] = LAYOUT_preonic_2x2u(
   KC_GRV  ,  KC_F1  ,  KC_F2  ,   KC_F3  ,    KC_F4  , KC_F5,   KC_F6   ,   KC_F7 ,   KC_F8 ,   KC_F9 ,  KC_F10 , _______ ,
-  _______ , _______ , _______ , _______  ,  _______  , _______, KC_PGUP , KC_HOME , KC_UP   ,  KC_END , _______ , _______ ,
-  KC_CAPS , KC_LGUI , KC_LALT , KC_LCTRL , KC_LSHIFT , _______, KC_PGDN , KC_LEFT , KC_DOWN , KC_RGHT , EE_Õ    , _______ ,
-  _______ , _______ , _______ , _______  ,  _______  , _______, _______ , KC_INS  , _______ , _______ , EE_Ü    , _______ ,
+  _______ , _______ , _______ , _______  ,  _______  , _______, KC_PGUP , KC_HOME , _______ ,  KC_END , _______ , _______ ,
+  KC_CAPS , KC_LGUI , KC_LALT , KC_LCTRL , KC_LSHIFT , _______, KC_LEFT , KC_DOWN ,  KC_UP  , KC_RGHT , EE_Õ    , _______ ,
+  _______ , _______ , _______ , _______  ,  _______  , _______, KC_PGDN , KC_INS  , _______ , _______ , EE_Ü    , _______ ,
   _______ , _______ , _______ , _______  ,        _______     ,       _______     , _______ , _______ , _______ , KC_PSCR
 ),
 
 [_RAISE] = LAYOUT_preonic_2x2u(
   TO(_QWERTY), TO(_GAMING) , _______ , _______ , _______ , _______ , _______  , _______  , _______  , _______  , _______  , _______ ,
-  _______    ,   EE_PRCT   , EE_ATSI , EE_HSTG , EE_LCBR , EE_SLSH , EE_BSLS  , EE_RCBR  , EE_DOLR  , EE_BKTK  , EE_AMPR  , _______ ,
-  _______    ,   EE_PIPE   , EE_DBQT , EE_USCR , EE_LBRC , EE_EXCL , EE_QSTN  , EE_RBRC  , EE_EQLS  , EE_SIQT  , EE_PLUS  , EE_MINS ,
-  _______    ,   EE_CARO   , EE_ROOF , EE_TLDE , EE_LABR , EE_LSBR , EE_RSBR  , EE_RABR  , EE_SCLN  , EE_COLN  , EE_USCR  , EE_ASTR ,
-  _______    ,   _______   , _______ , _______ ,      _______      ,       _______       , _______  , _______  , _______  , _______
+  _______    ,   EE_PRCT   , EE_BKTK , EE_LSBR , EE_LABR , EE_SLSH , EE_BSLS  , EE_RABR  , EE_RSBR  , EE_AMPR  , EE_EURO  , _______ ,
+  _______    ,   EE_PIPE   , EE_DBQT , EE_USCR , EE_LBRC , EE_LCBR , EE_RCBR  , EE_RBRC  , EE_EQLS  , EE_SIQT  , EE_DOLR  , EE_PLUS ,
+  _______    ,   EE_CARO   , EE_ROOF , EE_TLDE , EE_EXCL , EE_ATSI , EE_HSTG  , EE_QSTN  , EE_SCLN  , EE_COLN  , EE_USCR  , _______ ,
+  _______    ,   _______   , _______ , _______ ,      _______      ,       _______       , _______  , _______  , _______  , KC_PSCR
 )
 };
+
