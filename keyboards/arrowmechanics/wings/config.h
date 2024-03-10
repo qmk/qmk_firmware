@@ -16,9 +16,7 @@
 
 #pragma once
 
-#define SPLIT_HAND_PIN_LOW_IS_LEFT
 #define SERIAL_USART_FULL_DUPLEX
-#define MASTER_LEFT
 
 #define AUDIO_PIN GP4
 #define AUDIO_PWM_DRIVER PWMD2
