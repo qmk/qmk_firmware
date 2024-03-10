@@ -863,7 +863,17 @@ def unknown_processor_rules(info_data, rules):
 def merge_info_jsons(keyboard, info_data):
     """Return a merged copy of all the info.json files for a keyboard.
     """
-    for info_file in find_info_json(keyboard):
+    config_files = find_info_json(keyboard)
+
+    # keyboard.json can only exist at the deepest part of the tree
+    keyboard_json_count = 0
+    for index, info_file in enumerate(config_files):
+        if Path(info_file).name == 'keyboard.json':
+            keyboard_json_count += 1
+            if index != 0 or keyboard_json_count > 1:
+                _log_error(info_data, f'Invalid keyboard.json location detected: {info_file}.')
+
+    for info_file in config_files:
         # Load and validate the JSON data
         new_info_data = json_load(info_file)
 
@@ -921,7 +931,7 @@ def find_info_json(keyboard):
     base_path = Path('keyboards')
     keyboard_path = base_path / keyboard
     keyboard_parent = keyboard_path.parent
-    info_jsons = [keyboard_path / 'info.json']
+    info_jsons = [keyboard_path / 'info.json', keyboard_path / 'keyboard.json']
 
     # Add DEFAULT_FOLDER before parents, if present
     rules = rules_mk(keyboard)
@@ -933,6 +943,7 @@ def find_info_json(keyboard):
         if keyboard_parent == base_path:
             break
         info_jsons.append(keyboard_parent / 'info.json')
+        info_jsons.append(keyboard_parent / 'keyboard.json')
         keyboard_parent = keyboard_parent.parent
 
     # Return a list of the info.json files that actually exist
