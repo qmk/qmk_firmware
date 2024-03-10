@@ -20,7 +20,7 @@
 
 oc★         ⇒ ock
 ac★         ⇒ ack
-uc★         ⇒ uock
+uc★         ⇒ uck
 ec★         ⇒ eck
 ic★         ⇒ ick
 
@@ -270,7 +270,6 @@ rs☆         ⇒ rst
 ⎵j☆         ⇒ join
 ⎵v☆         ⇒ var
 
-.☆          ⇒ .com
 ⎵☆          ⇒ for
 
 x☆          ⇒ xes

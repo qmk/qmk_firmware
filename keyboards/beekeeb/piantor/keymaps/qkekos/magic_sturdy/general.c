@@ -22,7 +22,7 @@ void sequence_transform_on_missed_rule_user(const st_trie_rule_t *rule) {
     if (is_hard_mode_active) {
         tap_code16(C(KC_BSPC));
         process_sequence_transform(C(KC_BSPC), next_record, US_AREP);
-    }    
+    }
 }
 
 int trigger_magic_key(uint16_t magic_key, keyrecord_t *record) {
@@ -59,7 +59,11 @@ int sturdy_pr(uint16_t keycode, keyrecord_t *record) {
 
         case TH_REP:
             if (record->tap.count) keycode = US_REP;
-            break; 
+            break;
+
+        case OS_LSFT:
+            keycode = SAFE_RANGE;
+            break;
     }
 
     if (!process_sequence_transform(keycode, record, US_AREP))
