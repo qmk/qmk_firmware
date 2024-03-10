@@ -1066,18 +1066,18 @@ void lprn_finished(tap_dance_state_t *state, void *user_data) {
         
 		case TD_SINGLE_TAP:
 			
-			SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_9) SS_UP(X_LSFT));		
+			SEND_STRING("(");		
 			break;
 
 		
 		case TD_SINGLE_HOLD:
 			
-			SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_LBRC) SS_UP(X_LSFT));
+			SEND_STRING("{");
 			break;
 
 		case TD_DOUBLE_TAP:
 			
-			tap_code(KC_LBRC);		
+			SEND_STRING("[");		
 			break;
 						
 		default:
@@ -1103,18 +1103,18 @@ void rprn_finished(tap_dance_state_t *state, void *user_data) {
         
 		case TD_SINGLE_TAP:
 			
-			SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_0) SS_UP(X_LSFT));		
+			SEND_STRING(")");		
 			break;
 
 		
 		case TD_SINGLE_HOLD:
 			
-			SEND_STRING(SS_DOWN(X_LSFT) SS_TAP(X_RBRC) SS_UP(X_LSFT));
+			SEND_STRING("}");
 			break;
 
 		case TD_DOUBLE_TAP:
 			
-			tap_code(KC_RBRC);		
+			SEND_STRING("]");		
 			break;
 						
 		default:
