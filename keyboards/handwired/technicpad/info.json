@@ -2,7 +2,7 @@
     "manufacturer": "nwhirschfeld",
     "keyboard_name": "TechnicPad",
     "maintainer": "nwhirschfeld",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "bootmagic": {
         "matrix": [0, 0]
     },
