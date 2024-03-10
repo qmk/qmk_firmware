@@ -65,16 +65,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        //resurrect backtick (make it not dead)
         case MY_BKTK:
             if (record->event.pressed) {
                 send_string("`");
                 return false;
             }
+        //resurrect caron (make it not dead)
         case MY_CARN:
             if (record->event.pressed) {
                 SEND_STRING(SS_TAP(X_GRV)SS_TAP(X_GRV));
                 return false;
             }
+        //resurrect tilde (make it not dead)
         case MY_TILD:
             if (record->event.pressed) {
                 SEND_STRING(SS_LSFT(SS_TAP(X_GRV)SS_TAP(X_GRV)));
