@@ -3,9 +3,6 @@
     "keyboard_name": "TechnicPad",
     "maintainer": "nwhirschfeld",
     "development_board": "promicro",
-    "bootmagic": {
-        "matrix": [0, 0]
-    },
     "build": {
         "lto": true
     },
