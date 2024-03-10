@@ -49,7 +49,7 @@ Re-running the QMK installation script (`./util/qmk_install.sh` from the `qmk_fi
 If that doesn't work, then you may need to download and run Zadig. See [Bootloader Driver Installation with Zadig](driver_installation_zadig.md) for more detailed information.
 
 ## USB VID and PID
-You can use any ID you want with editing `config.h`. Using an ID that is presumed to be unused should generally not be a problem, except for the possibility of a rare collision with another product. A unique PID/VID combination is not required, but it is recommended.
+You can use any ID you want with editing `config.h`. VIDs and PIDs are written in hexadecimal format with a `0x` prefix. Using an ID that is presumed to be unused should generally not be a problem, except for the possibility of a rare collision with another product. A unique PID/VID combination is not required, but it is recommended. The `0x3000` block is being actively assigned, and it's well assigned, so Choosing a PID further away from `0x4000` reduces the likleyhood of collisions.
 
 Most boards in QMK use `0xFEED` as the vendor ID. Using `0xFEED` is not required, and is specifically prohibited in VIA. If you use `0xFEED`, look through other keyboards to make sure you pick a unique Product ID.
 
@@ -60,8 +60,11 @@ You can buy a really unique VID:PID here. I don't think you need this for person
 - https://www.obdev.at/products/vusb/license.html
 - https://www.mcselec.com/index.php?page=shop.product_details&flypage=shop.flypage&product_id=92&option=com_phpshop&Itemid=1
 
-Open-source hardware projects can request a unique [USB-IF](https://www.usb.org/) recognized USB VID:PID by submitting a pull request to [pid.codes](https://pid.codes/). Pid.codes will all alwyas use `0x1209` for the VID. A unique PID is selected when submitting a pull request to pid.codes. Using pid.codes for your VID:PID is not required, and is probably not needed for personal use.
-
+There are several sites that allow you to request a unique [USB-IF](https://www.usb.org/) VID:PID for your _open-source_ hardware projects. Some of these use VID's that have been donated, or VID's from out of business vendors. They allow you to use their VID, and you select your own PID. Using USB-IF unique VID:PID is not required, and is probably not needed for personal use.
+- [pid.codes](https://pid.codes/): Apply by submitting a pull request. Pid.codes will all alwyas use `0x1209` for the VID. 
+- [Openmoko.org](https://wiki.openmoko.org/wiki/USB_Product_IDs): Apply through email. Currently has two VID's, `0x1d50` and `0x1457`.
+- [https://microchip.my.site.com/](https://microchip.my.site.com/s/article/How-to-use-a-USB-VID-and-PID-from-the-USB-sub-licensing-program): Apply through an online form.
+  
 ### I just flashed my keyboard and it does nothing/keypresses don't register - it's also ARM (rev6 planck, clueboard 60, hs60v2, etc...) (Feb 2019)
 Due to how EEPROM works on ARM based chips, saved settings may no longer be valid.  This affects the default layers, and *may*, under certain circumstances we are still figuring out, make the keyboard unusable.  Resetting the EEPROM will correct this.
 
