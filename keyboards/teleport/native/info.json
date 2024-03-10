@@ -11,7 +11,26 @@
         "force_nkro": true
     },
     "rgb_matrix": {
-        "driver": "is31fl3733"
+        "animations": {
+            "alphas_mods": true,
+            "breathing": true,
+            "cycle_all": true,
+            "cycle_up_down": true,
+            "cycle_spiral": true,
+            "typing_heatmap": true,
+            "solid_reactive": true,
+            "solid_reactive_multiwide": true
+        },
+        "default": {
+            "speed": 40,
+            "val": 220
+        },
+        "driver": "is31fl3733",
+        "led_flush_limit": 32,
+        "sleep": true
+    },
+    "build": {
+        "lto": true
     },
     "features": {
         "bootmagic": true,
@@ -19,8 +38,7 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "lto": true
+        "nkro": true
     },
     "diode_direction": "ROW2COL",
     "matrix_pins": {

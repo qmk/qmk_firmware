@@ -31,7 +31,6 @@
     "processor": "STM32F103",
     "rgb_matrix": {
         "animations": {
-            "solid_color": true,
             "band_sat": true,
             "band_spiral_val": true,
             "band_spiral_sat": true,
