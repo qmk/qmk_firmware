@@ -86,12 +86,12 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
 /* Column pin configuration
  *
  * Teensy
- * col: 0   1   2   3   4   5
- * pin: F0  F1  F4  F5  F6  F7
+ * col: 0   1   2   3   4   5   6
+ * pin: F0  F1  F4  F5  F6  F7  D7
  *
  * MCP23018
- * col: 0   1   2   3   4   5
- * pin: B5  B4  B3  B2  B1  B0
+ * col: 0   1   2   3   4   5   6
+ * pin: B6  B5  B4  B3  B2  B1  B0
  */
 static void init_cols(void) {
     // init on mcp23018
@@ -104,6 +104,7 @@ static void init_cols(void) {
     setPinInputHigh(F5);
     setPinInputHigh(F6);
     setPinInputHigh(F7);
+    setPinInputHigh(D7);
 }
 
 static matrix_row_t read_cols(uint8_t row) {
@@ -118,13 +119,17 @@ static matrix_row_t read_cols(uint8_t row) {
             return ~data;
         }
     } else {
-        /* read from teensy
-         * bitmask is 0b11110011, but we want those all
-         * in the lower six bits.
-         * we'll return 1s for the top two, but that's harmless.
+        /* read from atmega32u4
+         * bitmask for the F pins is 0b11110011
+         * bitmask for the D pin is  0b10000000
+         * So I want 7 bits. 0b01111111.
+         * Shift PINF 0xF0 2 bits right.
+         * Shift PIND 0x80 1 bit right.
+         * End up with 0b01111111.
+         * 7 bits. 7 rows.
          */
 
-        return ~((PINF & 0x03) | ((PINF & 0xF0) >> 2));
+        return ~(((PIND & 0x80) >> 1) | (PINF & 0x03) | ((PINF & 0xF0) >> 2));
     }
 }
 
