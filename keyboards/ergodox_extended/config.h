@@ -20,9 +20,9 @@
 #pragma once
 
 /* key matrix size */
-#define MATRIX_ROWS 7
-#define MATRIX_COLS_PER_SIDE (MATRIX_COLS / 2)
-#define MATRIX_COLS 14
+#define MATRIX_COLS 7
+#define MATRIX_ROWS_PER_SIDE (MATRIX_ROWS / 2)
+#define MATRIX_ROWS 14
 
 #define COL_EXPANDED { true, true, true, true, true, true, true, false, false, false, false, false, false, false }
 #define MATRIX_ONBOARD_COL_PINS { 0, 0, 0, 0, 0, 0, 0, B0, B1, B2, B3, D2, D3, C6 }
