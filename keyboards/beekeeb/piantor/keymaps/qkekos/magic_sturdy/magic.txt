@@ -46,6 +46,17 @@ in✪         ⇒ inion
 
 // ------------------------------------D---------------------------------------
 // ------------------------------------E---------------------------------------
+
+⎵es☆        ⇒ ess
+⎵es☆t       ⇒ essential
+⎵es☆tl      ⇒ essentially
+
+⎵enc☆       ⇒ encrypt
+⎵enc☆t      ⇒ encryption
+
+⎵ev★t       ⇒ everything
+⎵ever☆      ⇒ everywhere
+
 // ------------------------------------F---------------------------------------
 // ------------------------------------G---------------------------------------
 // ------------------------------------H---------------------------------------
@@ -93,6 +104,9 @@ in✪         ⇒ inion
 ⎵re★y       ⇒ reasonably
 ⎵re★l       ⇒ reasonable
 
+⎵res☆       ⇒ restrict
+⎵res☆n      ⇒ restriction
+
 // ------------------------------------S---------------------------------------
 // ------------------------------------T---------------------------------------
 // ------------------------------------U---------------------------------------
@@ -108,10 +122,6 @@ v☆          ⇒ ver
 
 // Old(er) rules
 
-⎵essential★ ⇒ essentially
-⎵restrict★  ⇒ restriction
-⎵encrypt★   ⇒ encryption
-⎵ever★      ⇒ everything
 ⎵confused★  ⇒ confusion
 ⎵recycle★   ⇒ recycling
 ⎵other★     ⇒ otherwise
@@ -152,7 +162,6 @@ v☆          ⇒ ver
 // Triple
 
 ⎵rec★       ⇒ recycle
-⎵enc★       ⇒ encrypt
 
 ⎵esp★       ⇒ especially
 ⎵exp★       ⇒ experience
@@ -163,7 +172,6 @@ v☆          ⇒ ver
 ⎵any★       ⇒ anything
 ⎵pos★       ⇒ position
 ⎵cof★       ⇒ confused
-⎵res★       ⇒ restrict
 ⎵inc★       ⇒ increase
 ⎵var★       ⇒ various
 ⎵ser★       ⇒ serious
@@ -261,7 +269,6 @@ x★          ⇒ xt
 
 // A lot
 
-⎵every☆     ⇒ everywhere
 ⎵should☆    ⇒ shouldn't
 ⎵somewhere☆ ⇒ somehow
 
