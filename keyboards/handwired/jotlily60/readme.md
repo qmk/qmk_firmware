@@ -4,8 +4,8 @@
 
 A split keyboard kit made by jotix, inspired in the Lily58 keyboard.
 
-Keyboard Maintainer: [jotix](https://github.com/jotix)
-Hardware Supported: Arduino Pro Micro
+* Keyboard Maintainer: [jotix](https://github.com/jotix)
+* Hardware Supported: Arduino Pro Micro
 
 ---
 
