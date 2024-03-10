@@ -3,7 +3,6 @@
 import datetime
 import math
 import re
-import sys
 from string import Template
 from PIL import Image, ImageOps
 
@@ -401,7 +400,7 @@ def compress_bytes_qmk_rle(bytearray):
         output.extend(r)
 
     for n in range(0, len(bytearray) + 1):
-        end = n == len(bytearray)
+        end = True if n == len(bytearray) else False
         if not end:
             c = bytearray[n]
             temp.append(c)
@@ -423,7 +422,7 @@ def compress_bytes_qmk_rle(bytearray):
             if len(temp) >= 2 and temp[-1] == temp[-2]:
                 repeat = True
                 if len(temp) > 2:
-                    append_range(temp[:len(temp) - 2])
+                    append_range(temp[0:(len(temp) - 2)])
                     temp = [temp[-1], temp[-1]]
                 continue
             if len(temp) == 128 or end:
