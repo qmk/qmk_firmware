@@ -27,8 +27,8 @@ void keyboard_pre_init_user(void) {
 
     transaction_register_rpc(USER_SYNC_A, user_sync_a_slave_handler);
     lang_independant_init();
-    toggle_magic_training();
-//    enable_hard_training();
+    enable_magic_training();
+    enable_hard_training();
 }
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
