@@ -19,11 +19,7 @@
 #include "quantum.h"
 
 enum custom_keycodes {
-#ifdef VIA_ENABLE
     KC_USB = QK_KB_0,
-#else
-    KC_USB = SAFE_RANGE,
-#endif
     KC_MAC,
     KC_WIN,
     KC_RESET,
