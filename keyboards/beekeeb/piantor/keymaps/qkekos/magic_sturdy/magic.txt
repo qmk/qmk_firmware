@@ -12,79 +12,98 @@
 
 // Fundamental rules
 
-☆           ⇒ ↻
-★★          ⇒ ★n
+☆             ⇒ ↻
+★★            ⇒ ★n
+
+//REGEX_START
 
 // Change to regex later
 
-oc★         ⇒ ock
-ac★         ⇒ ack
-uc★         ⇒ uck
-ec★         ⇒ eck
-ic★         ⇒ ick
-
-on✪         ⇒ onion
-an✪         ⇒ anion
-un✪         ⇒ union
-in✪         ⇒ inion
-
-⎵enque★     ⇒ enqueue
-⎵deque★     ⇒ dequeue
-⎵que★       ⇒ queue
-
-⎵or★        ⇒ order
-⎵reor★      ⇒ reorder
-
 // ------------------------------------A---------------------------------------
 // ------------------------------------B---------------------------------------
+
+⎵b☆           ⇒ be
+
+⎵b☆e          ⇒ been
+⎵b☆k          ⇒ back
+⎵b☆o          ⇒ both
+⎵b☆c          ⇒ become
+⎵b☆r          ⇒ before
+⎵b☆u          ⇒ buffer
+⎵b☆s          ⇒ because
+⎵b☆l          ⇒ believe
+⎵b☆t          ⇒ between
+⎵b☆v          ⇒ behavior
+
 // ------------------------------------C---------------------------------------
 
-⎵cr★        ⇒ cry
-⎵cry☆       ⇒ crying
+[oauei]c★     ⇒ \1ck
 
-⎵ca☆        ⇒ capable
+⎵c☆           ⇒ co
+
+⎵cr★          ⇒ cry
+⎵cry☆         ⇒ crying
+
+⎵c☆e          ⇒ confuse
+⎵c☆en         ⇒ confusion
+⎵c☆★          ⇒ confusing
+⎵confuse★     ⇒ confused
+
+⎵c☆f          ⇒ config
+⎵c☆fr         ⇒ configure
+
+⎵c☆n          ⇒ consider
+⎵c☆ne         ⇒ considered
+⎵c☆ni         ⇒ considering
+
+// confirm/ed/ing
+
+⎵ca☆          ⇒ capable
 
 // ------------------------------------D---------------------------------------
 // ------------------------------------E---------------------------------------
 
-⎵es☆        ⇒ ess
-⎵es☆t       ⇒ essential
-⎵es☆tl      ⇒ essentially
+⎵es☆          ⇒ ess
+⎵es☆t         ⇒ essential
+⎵es☆tl        ⇒ essentially
 
-⎵enc☆       ⇒ encrypt
-⎵enc☆t      ⇒ encryption
+⎵enc☆         ⇒ encrypt
+⎵enc☆t        ⇒ encryption
 
-⎵ev★t       ⇒ everything
-⎵ever☆      ⇒ everywhere
+⎵ev★t         ⇒ everything
+⎵ev★r         ⇒ everywhere
+⎵ev★o         ⇒ everyone
 
 // ------------------------------------F---------------------------------------
 // ------------------------------------G---------------------------------------
 // ------------------------------------H---------------------------------------
 // ------------------------------------I---------------------------------------
 
-⎵i☆         ⇒ I
-⎵i☆m        ⇒ I'm
-⎵i☆d        ⇒ I'd
-⎵i☆l        ⇒ I'll
+⎵i☆           ⇒ I
+⎵i☆m          ⇒ I'm
+⎵i☆d          ⇒ I'd
+⎵i☆l          ⇒ I'll
+⎵i☆v          ⇒ I've
 
-⎵i☆t        ⇒ interest
-⎵i☆td       ⇒ interested
-⎵i☆tg       ⇒ interesting
+⎵i☆t          ⇒ interest
+⎵i☆td         ⇒ interested
+⎵i☆tg         ⇒ interesting
 
-⎵i☆r        ⇒ increase
-⎵i☆rd       ⇒ increased
-⎵i☆rg       ⇒ increasing
+⎵i☆r          ⇒ increase
+⎵i☆rd         ⇒ increased
+⎵i☆rg         ⇒ increasing
 
-⎵i☆p        ⇒ implement
-⎵i☆pn       ⇒ implementing
-⎵i☆pt       ⇒ implementation
+⎵i☆p          ⇒ implement
+⎵i☆pn         ⇒ implementing
+⎵i☆pt         ⇒ implementation
 
-⎵in✪        ⇒ info
-⎵in✪r       ⇒ inform
-⎵in✪rt      ⇒ information
+⎵i★           ⇒ info
+⎵i★r          ⇒ inform
+⎵i★rd         ⇒ informed
+⎵i★rt         ⇒ information
 
-⎵i☆s        ⇒ instead
-⎵i☆c        ⇒ incapable
+⎵i☆s          ⇒ instead
+⎵i☆c          ⇒ incapable
 
 // ------------------------------------J---------------------------------------
 // ------------------------------------K---------------------------------------
@@ -92,28 +111,35 @@ in✪         ⇒ inion
 // ------------------------------------M---------------------------------------
 // ------------------------------------N---------------------------------------
 
-⎵nev☆l      ⇒ nevertheless
+[oaui]n✪      ⇒ \1nion
+
+⎵nev★l        ⇒ nevertheless
 
 // ------------------------------------O---------------------------------------
+
+⎵(re)?or★     ⇒ \1order
+
 // ------------------------------------P---------------------------------------
 // ------------------------------------Q---------------------------------------
+
+⎵(en|de)?que★ ⇒ \1queue
+
 // ------------------------------------R---------------------------------------
 
-⎵re★        ⇒ reason
-⎵re★g       ⇒ reasoning
-⎵re★y       ⇒ reasonably
-⎵re★l       ⇒ reasonable
+⎵re★          ⇒ reason
+⎵re★g         ⇒ reasoning
+⎵re★y         ⇒ reasonably
+⎵re★l         ⇒ reasonable
 
-⎵res☆       ⇒ restrict
-⎵res☆n      ⇒ restriction
+⎵res☆         ⇒ restrict
+⎵res☆n        ⇒ restriction
 
 // ------------------------------------S---------------------------------------
 // ------------------------------------T---------------------------------------
 // ------------------------------------U---------------------------------------
 // ------------------------------------V---------------------------------------
 
-v★          ⇒ ver
-v☆          ⇒ ver
+v★            ⇒ ver
 
 // ------------------------------------W---------------------------------------
 // ------------------------------------X---------------------------------------
@@ -122,282 +148,273 @@ v☆          ⇒ ver
 
 // Old(er) rules
 
-⎵confused★  ⇒ confusion
-⎵recycle★   ⇒ recycling
-⎵other★     ⇒ otherwise
-⎵some★      ⇒ somewhere
-⎵special★   ⇒ specific
-⎵judge★     ⇒ judgment
-⎵could★     ⇒ couldn't
-⎵over★      ⇒ override
-⎵list★      ⇒ listener
-⎵again★     ⇒ against
-⎵start★     ⇒ started
-⎵copy★      ⇒ copying
-⎵ment★      ⇒ mention
-⎵use★       ⇒ useless
-⎵alr★       ⇒ already
-⎵simpl★     ⇒ simply
-⎵doub★      ⇒ doable
-⎵most★      ⇒ mostly
-⎵that★      ⇒ thank
+⎵recycle★     ⇒ recycling
+⎵other★       ⇒ otherwise
+⎵some★        ⇒ somewhere
+⎵special★     ⇒ specific
+⎵judge★       ⇒ judgment
+⎵could★       ⇒ couldn't
+⎵over★        ⇒ override
+⎵list★        ⇒ listener
+⎵again★       ⇒ against
+⎵start★       ⇒ started
+⎵copy★        ⇒ copying
+⎵ment★        ⇒ mention
+⎵use★         ⇒ useless
+⎵alr★         ⇒ already
+⎵simpl★       ⇒ simply
+⎵doub★        ⇒ doable
+⎵most★        ⇒ mostly
+⎵that★        ⇒ thank
 
 
 // A lot
 
-⎵democrac★  ⇒ democracy
-⎵supremac★  ⇒ supremacy
-⎵accurac★   ⇒ accuracy
-⎵pharmac★   ⇒ pharmacy
-⎵privac★    ⇒ privacy
-⎵polic★     ⇒ policy
-⎵lega★      ⇒ legacy
+⎵democrac★    ⇒ democracy
+⎵supremac★    ⇒ supremacy
+⎵accurac★     ⇒ accuracy
+⎵pharmac★     ⇒ pharmacy
+⎵privac★      ⇒ privacy
+⎵polic★       ⇒ policy
+⎵lega★        ⇒ legacy
 
 // Quadruple
 
-⎵unre★      ⇒ unreasonable
-⎵algo★      ⇒ algorithm
-⎵undo★      ⇒ undoable
+⎵unre★        ⇒ unreasonable
+⎵algo★        ⇒ algorithm
+⎵undo★        ⇒ undoable
 
 // Triple
 
-⎵rec★       ⇒ recycle
+⎵rec★         ⇒ recycle
 
-⎵esp★       ⇒ especially
-⎵exp★       ⇒ experience
-⎵hil★       ⇒ hilarious
-⎵ess★       ⇒ essential
-⎵sit★       ⇒ situation
-⎵alt★       ⇒ although
-⎵any★       ⇒ anything
-⎵pos★       ⇒ position
-⎵cof★       ⇒ confused
-⎵inc★       ⇒ increase
-⎵var★       ⇒ various
-⎵ser★       ⇒ serious
-⎵pro★       ⇒ problem
-⎵key★       ⇒ keycode
-⎵spe★       ⇒ special
-⎵bud★       ⇒ budget
-⎵col★       ⇒ column
-⎵tho★       ⇒ though
-⎵num★       ⇒ number
-⎵cri★       ⇒ cringe
-⎵exc★       ⇒ except
-⎵pay★       ⇒ paypal
-⎵red★       ⇒ redge
-⎵jud★       ⇒ judge
-⎵led★       ⇒ ledge
-⎵nex★       ⇒ next
+⎵esp★         ⇒ especially
+⎵exp★         ⇒ experience
+⎵hil★         ⇒ hilarious
+⎵ess★         ⇒ essential
+⎵sit★         ⇒ situation
+⎵alt★         ⇒ although
+⎵any★         ⇒ anything
+⎵pos★         ⇒ position
 
-ion★        ⇒ ional
-rid★        ⇒ ridge
-tex★        ⇒ text
+⎵inc★         ⇒ increase
+⎵var★         ⇒ various
+⎵ser★         ⇒ serious
+⎵pro★         ⇒ problem
+⎵key★         ⇒ keycode
+⎵spe★         ⇒ special
+⎵bud★         ⇒ budget
+⎵col★         ⇒ column
+⎵tho★         ⇒ though
+⎵num★         ⇒ number
+⎵cri★         ⇒ cringe
+⎵exc★         ⇒ except
+⎵pay★         ⇒ paypal
+⎵red★         ⇒ redge
+⎵jud★         ⇒ judge
+⎵led★         ⇒ ledge
+⎵nex★         ⇒ next
+
+ion★          ⇒ ional
+rid★          ⇒ ridge
+tex★          ⇒ text
 
 // Double
 
-⎵di★        ⇒ dictionary
-⎵pr★        ⇒ previous
-⎵ex★        ⇒ example
-⎵pe★        ⇒ people
-⎵pu★        ⇒ public
-⎵up★        ⇒ update
-⎵sy★        ⇒ system
-⎵fi★        ⇒ finger
-⎵ar★        ⇒ around
-⎵si★        ⇒ singer
-⎵gi★        ⇒ ginger
-⎵by★        ⇒ bypass
-⎵ot★        ⇒ other
-⎵co★        ⇒ could
-⎵ag★        ⇒ again
-⎵la★        ⇒ large
-⎵po★        ⇒ point
-⎵st★        ⇒ start
-⎵pa★        ⇒ page
-⎵mo★        ⇒ most
-⎵mu★        ⇒ must
-⎵vi★        ⇒ view
-⎵so★        ⇒ some
-⎵do★        ⇒ doub
-⎵li★        ⇒ list
-⎵be★        ⇒ been
-⎵ti★        ⇒ time
-⎵ed★        ⇒ edge
-⎵se★        ⇒ seen
-⎵al★        ⇒ alr
-⎵us★        ⇒ use
-⎵ty★        ⇒ typ
-⎵we★        ⇒ web
-⎵wa★        ⇒ way
+⎵di★          ⇒ dictionary
+⎵pr★          ⇒ previous
+⎵ex★          ⇒ example
+⎵pe★          ⇒ people
+⎵pu★          ⇒ public
+⎵up★          ⇒ update
+⎵sy★          ⇒ system
+⎵fi★          ⇒ finger
+⎵ar★          ⇒ around
+⎵si★          ⇒ singer
+⎵gi★          ⇒ ginger
+⎵by★          ⇒ bypass
+⎵ot★          ⇒ other
+⎵co★          ⇒ could
+⎵ag★          ⇒ again
+⎵la★          ⇒ large
+⎵po★          ⇒ point
+⎵st★          ⇒ start
+⎵pa★          ⇒ page
+⎵mo★          ⇒ most
+⎵mu★          ⇒ must
+⎵vi★          ⇒ view
+⎵so★          ⇒ some
+⎵do★          ⇒ doub
+⎵li★          ⇒ list
+⎵ti★          ⇒ time
+⎵ed★          ⇒ edge
+⎵se★          ⇒ seen
+⎵al★          ⇒ alr
+⎵us★          ⇒ use
+⎵ty★          ⇒ typ
+⎵we★          ⇒ web
+⎵wa★          ⇒ way
 
-te★         ⇒ tement
-da★         ⇒ day
-ma★         ⇒ mao
-mp★         ⇒ mpl
-pl★         ⇒ ply
+te★           ⇒ tement
+da★           ⇒ day
+ma★           ⇒ mao
+mp★           ⇒ mpl
+pl★           ⇒ ply
 
 // Single
 
-⎵w★         ⇒ which
-⎵t★         ⇒ that
-⎵j★         ⇒ just
-⎵f★         ⇒ fine
+⎵w★           ⇒ which
+⎵t★           ⇒ that
+⎵j★           ⇒ just
+⎵f★           ⇒ fine
 
-⎵★          ⇒ the
+⎵★            ⇒ the
 
-t★          ⇒ tment
-m★          ⇒ ment
-y★          ⇒ ying
-i★          ⇒ ion
-q★          ⇒ que
-s★          ⇒ sk
-r★          ⇒ rl
-d★          ⇒ dy
-e★          ⇒ eu
-a★          ⇒ ab
-l★          ⇒ lk
-c★          ⇒ cy
-p★          ⇒ py
-k★          ⇒ ks
-g★          ⇒ gy
-o★          ⇒ oa
-u★          ⇒ ue
-x★          ⇒ xt
+t★            ⇒ tment
+m★            ⇒ ment
+y★            ⇒ ying
+i★            ⇒ ion
+q★            ⇒ que
+s★            ⇒ sk
+r★            ⇒ rl
+d★            ⇒ dy
+e★            ⇒ eu
+a★            ⇒ ab
+l★            ⇒ lk
+c★            ⇒ cy
+p★            ⇒ py
+k★            ⇒ ks
+g★            ⇒ gy
+o★            ⇒ oa
+u★            ⇒ ue
+x★            ⇒ xt
 
 // Repeat
 
 // A lot
 
-⎵should☆    ⇒ shouldn't
+⎵should☆      ⇒ shouldn't
 ⎵somewhere☆ ⇒ somehow
 
 // Quadruple
 
-⎵some☆      ⇒ something
-⎵poss☆      ⇒ possible
-⎵over☆      ⇒ overall
-⎵hand☆      ⇒ handy
+⎵some☆        ⇒ something
+⎵poss☆        ⇒ possible
+⎵over☆        ⇒ overall
+⎵hand☆        ⇒ handy
 
 // Triple
 
-⎵sim☆       ⇒ simultaneously
-⎵imp☆       ⇒ impossible
-⎵uni☆       ⇒ university
-⎵dif☆       ⇒ difficult
-⎵int☆       ⇒ interest
-⎵beh☆       ⇒ behavior
-⎵ins☆       ⇒ instead
-⎵def☆       ⇒ default
-⎵dev☆       ⇒ develop
-⎵awk☆       ⇒ awkward
-⎵cap☆       ⇒ capable
-⎵pro☆       ⇒ program
-⎵how☆       ⇒ however
-⎵wit☆       ⇒ without
-⎵thr☆       ⇒ through
-⎵any☆       ⇒ anyway
-⎵cou☆       ⇒ course
-⎵min☆       ⇒ minute
-⎵exp☆       ⇒ expect
-⎵bet☆       ⇒ better
-⎵ask☆       ⇒ asking
-⎵sti☆       ⇒ still
+⎵sim☆         ⇒ simultaneously
+⎵imp☆         ⇒ impossible
+⎵uni☆         ⇒ university
+⎵dif☆         ⇒ difficult
+⎵int☆         ⇒ interest
+⎵ins☆         ⇒ instead
+⎵def☆         ⇒ default
+⎵dev☆         ⇒ develop
+⎵awk☆         ⇒ awkward
+⎵cap☆         ⇒ capable
+⎵pro☆         ⇒ program
+⎵how☆         ⇒ however
+⎵wit☆         ⇒ without
+⎵thr☆         ⇒ through
+⎵any☆         ⇒ anyway
+⎵cou☆         ⇒ course
+⎵min☆         ⇒ minute
+⎵exp☆         ⇒ expect
+⎵bet☆         ⇒ better
+⎵ask☆         ⇒ asking
+⎵sti☆         ⇒ still
 
-nat☆        ⇒ nation
-tio☆        ⇒ tional
-ous☆        ⇒ ously
+nat☆          ⇒ nation
+tio☆          ⇒ tional
+ous☆          ⇒ ously
 
 // Double
 
-⎵fu☆        ⇒ function
-⎵ht☆        ⇒ https://
-⎵cu☆        ⇒ curious
-⎵sc☆        ⇒ school
-⎵sy☆        ⇒ symbol
-⎵vi☆        ⇒ vision
-⎵mu☆        ⇒ music
-⎵ba☆        ⇒ basic
-⎵ex☆        ⇒ exact
-⎵va☆        ⇒ value
-⎵ab☆        ⇒ about
-⎵sk☆        ⇒ skill
-⎵fr☆        ⇒ from
-⎵ma☆        ⇒ make
-⎵la☆        ⇒ last
+⎵fu☆          ⇒ function
+⎵ht☆          ⇒ https://
+⎵cu☆          ⇒ curious
+⎵sc☆          ⇒ school
+⎵sy☆          ⇒ symbol
+⎵vi☆          ⇒ vision
+⎵mu☆          ⇒ music
+⎵ba☆          ⇒ basic
+⎵ex☆          ⇒ exact
+⎵va☆          ⇒ value
+⎵ab☆          ⇒ about
+⎵sk☆          ⇒ skill
+⎵fr☆          ⇒ from
+⎵ma☆          ⇒ make
+⎵la☆          ⇒ last
 
-st☆         ⇒ sts
-rs☆         ⇒ rst
+st☆           ⇒ sts
+rs☆           ⇒ rst
 
 // Single
 
-⎵b☆         ⇒ because
-⎵w☆         ⇒ would
-⎵t☆         ⇒ than
-⎵j☆         ⇒ join
-⎵v☆         ⇒ var
+⎵w☆           ⇒ would
+⎵t☆           ⇒ than
+⎵j☆           ⇒ join
+⎵v☆           ⇒ var
 
-⎵☆          ⇒ for
+⎵☆            ⇒ for
 
-x☆          ⇒ xes
-i☆          ⇒ ing
-y☆          ⇒ you
-q☆          ⇒ qui
+x☆            ⇒ xes
+i☆            ⇒ ing
+y☆            ⇒ you
+q☆            ⇒ qui
 
 // Double taps
 
-⎵fu☆☆       ⇒ functionality
-⎵sim☆☆      ⇒ simultaneous
-⎵dev☆☆      ⇒ development
-⎵int☆☆      ⇒ interesting
-⎵ba☆☆       ⇒ basically
-⎵v☆☆        ⇒ variable
-⎵ex☆☆       ⇒ exactly
+⎵fu☆☆         ⇒ functionality
+⎵sim☆☆        ⇒ simultaneous
+⎵dev☆☆        ⇒ development
+⎵int☆☆        ⇒ interesting
+⎵ba☆☆         ⇒ basically
+⎵v☆☆          ⇒ variable
+⎵ex☆☆         ⇒ exactly
 
 // Double letter taps
 
 // Quintuple
 
-⎵quin✪      ⇒ quintessential
-⎵prob✪      ⇒ probably
-⎵keyb✪      ⇒ keyboard
+⎵quin✪        ⇒ quintessential
+⎵prob✪        ⇒ probably
+⎵keyb✪        ⇒ keyboard
 
 // Quadruple
 
-⎵evn✪       ⇒ eventually
-⎵con✪       ⇒ consider
-⎵gen✪       ⇒ general
-⎵men✪       ⇒ menu
+⎵evn✪         ⇒ eventually
+⎵gen✪         ⇒ general
+⎵men✪         ⇒ menu
 
-⎵def✪       ⇒ definitely
-⎵cof✪       ⇒ confusing
-⎵dif✪       ⇒ differen
-⎵ref✪       ⇒ refuse
-
-⎵bel✪       ⇒ believe
-⎵bet✪       ⇒ between
-⎵bec✪       ⇒ become
+⎵def✪         ⇒ definitely
+⎵dif✪         ⇒ differen
+⎵ref✪         ⇒ refuse
 
 // Triple
 
-⎵ab✪        ⇒ abbreviation
-⎵uf✪        ⇒ unfortunate
-⎵wh✪        ⇒ whatever
-⎵an✪        ⇒ another
-⎵ob✪        ⇒ obvious
-⎵sh✪        ⇒ should
-⎵af✪        ⇒ after
-⎵tn✪        ⇒ think
-⎵th✪        ⇒ this
+⎵ab✪          ⇒ abbreviation
+⎵uf✪          ⇒ unfortunate
+⎵wh✪          ⇒ whatever
+⎵an✪          ⇒ another
+⎵ob✪          ⇒ obvious
+⎵sh✪          ⇒ should
+⎵af✪          ⇒ after
+⎵tn✪          ⇒ think
+⎵th✪          ⇒ this
 
 // Double
 
-⎵b✪         ⇒ before
-⎵h✪         ⇒ health
-⎵f✪         ⇒ first
-⎵z✪         ⇒ zone
-⎵n✪         ⇒ nice
+⎵h✪           ⇒ health
+⎵f✪           ⇒ first
+⎵z✪           ⇒ zone
+⎵n✪           ⇒ nice
 
 // Single
 
-q✪          ⇒ qua
+q✪            ⇒ qua
+
+//REGEX_END
