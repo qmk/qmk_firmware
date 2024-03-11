@@ -1,0 +1,32 @@
+{
+    "keyboard_name": "ZLABKEEB 15PAD",
+    "features": {
+        "rgblight": true
+    },
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x4454"
+    },
+    "rgblight": {
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        },
+        "led_count": 13,
+        "max_brightness": 180,
+        "saturation_steps": 8,
+        "sleep": true
+    },
+    "ws2812": {
+        "pin": "GP15",
+        "driver": "vendor"
+    }
+}
