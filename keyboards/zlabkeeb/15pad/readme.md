@@ -4,7 +4,7 @@
 
 15PAD is a Macropad With 12 Keys & 3 Rotary Encoder, Designed And Manufactured In INDONESIA.
 
--   Rev. 1 Support RGB light UnderGlow
+-   Rev. 1 Support RGB Light UnderGlow
 -   Rev. 2 [SOON!!]
 -   Keyboard Maintainer: [zlabkeeb](https://github.com/zlabkeeb)
 -   Hardware Supported: 15Pad PCB rev1, RP2040 ZERO
