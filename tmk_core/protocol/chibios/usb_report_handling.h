@@ -24,12 +24,12 @@ typedef struct {
     const void (*set_idle)(usb_fs_report_t **, uint8_t, uint8_t);
     const uint8_t (*get_idle)(usb_fs_report_t **, uint8_t);
     const bool (*idle_timer_elasped)(usb_fs_report_t **, uint8_t);
-} usb_report_storage_t;
+} usb_report_handler_t;
 
 #define QMK_USB_REPORT_STROAGE_ENTRY(_report_id, _report_type) [_report_id] = &((usb_fs_report_t){.data = {[0] = _report_id}, .length = sizeof(_report_type)})
 
-#define QMK_USB_REPORT_STORAGE(_get_report, _set_report, _reset_report, _get_idle, _set_idle, _idle_timer_elasped, _report_count, _reports...) \
-    &((usb_report_storage_t){                                                                                                                  \
+#define QMK_USB_REPORT_HANDLER(_get_report, _set_report, _reset_report, _get_idle, _set_idle, _idle_timer_elasped, _report_count, _reports...) \
+    &((usb_report_handler_t){                                                                                                                  \
         .reports            = (_Alignas(4) usb_fs_report_t *[_report_count]){_reports},                                                        \
         .get_report         = _get_report,                                                                                                     \
         .set_report         = _set_report,                                                                                                     \
@@ -39,8 +39,8 @@ typedef struct {
         .idle_timer_elasped = _idle_timer_elasped,                                                                                             \
     })
 
-#define QMK_USB_REPORT_STORAGE_DEFAULT(_report_type)                          \
-    QMK_USB_REPORT_STORAGE(&usb_get_report,         /* _get_report */         \
+#define QMK_USB_REPORT_HANDLER_DEFAULT(_report_type)                          \
+    QMK_USB_REPORT_HANDLER(&usb_get_report,         /* _get_report */         \
                            &usb_set_report,         /* _set_report */         \
                            &usb_reset_report,       /* _reset_report */       \
                            &usb_get_idle_rate,      /* _get_idle */           \

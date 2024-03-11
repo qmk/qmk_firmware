@@ -124,8 +124,8 @@ void usb_endpoint_in_stop(usb_endpoint_in_t *endpoint) {
 
     bqSuspendI(&endpoint->obqueue);
     obqResetI(&endpoint->obqueue);
-    if (endpoint->report_storage != NULL) {
-        endpoint->report_storage->reset_report(endpoint->report_storage->reports);
+    if (endpoint->report_handler != NULL) {
+        endpoint->report_handler->reset_report(endpoint->report_handler->reports);
     }
     osalOsRescheduleS();
     osalSysUnlock();
@@ -147,8 +147,8 @@ void usb_endpoint_in_suspend_cb(usb_endpoint_in_t *endpoint) {
     bqSuspendI(&endpoint->obqueue);
     obqResetI(&endpoint->obqueue);
 
-    if (endpoint->report_storage != NULL) {
-        endpoint->report_storage->reset_report(endpoint->report_storage->reports);
+    if (endpoint->report_handler != NULL) {
+        endpoint->report_handler->reset_report(endpoint->report_handler->reports);
     }
 }
 
@@ -201,9 +201,9 @@ void usb_endpoint_in_tx_complete_cb(USBDriver *usbp, usbep_t ep) {
     if (!obqIsEmptyI(&endpoint->obqueue) && usbp->epc[ep]->in_state->txsize > 0U) {
         /* Store the last send report in the endpoint to be retrieved by a
          * GET_REPORT request or IDLE report handling. */
-        if (endpoint->report_storage != NULL) {
+        if (endpoint->report_handler != NULL) {
             buffer = obqGetFullBufferI(&endpoint->obqueue, &n);
-            endpoint->report_storage->set_report(endpoint->report_storage->reports, buffer, n);
+            endpoint->report_handler->set_report(endpoint->report_handler->reports, buffer, n);
         }
         obqReleaseEmptyBufferI(&endpoint->obqueue);
     }

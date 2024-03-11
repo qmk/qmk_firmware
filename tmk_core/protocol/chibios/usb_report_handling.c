@@ -94,13 +94,13 @@ bool usb_get_report_cb(USBDriver *driver) {
         return false;
     }
 
-    usb_report_storage_t *report_storage = usb_endpoints_in[ep].report_storage;
+    usb_report_handler_t *report_handler = usb_endpoints_in[ep].report_handler;
 
-    if (report_storage == NULL) {
+    if (report_handler == NULL) {
         return false;
     }
 
-    report_storage->get_report(report_storage->reports, report_id, &report);
+    report_handler->get_report(report_handler->reports, report_id, &report);
 
     usbSetupTransfer(driver, (uint8_t *)report.data, report.length, NULL);
 
@@ -197,9 +197,9 @@ void usb_idle_task(void) {
     bool                   non_zero_idle_rate_found = false;
 
     for (int ep = 0; ep < USB_ENDPOINT_IN_COUNT; ep++) {
-        usb_report_storage_t *report_storage = usb_endpoints_in[ep].report_storage;
+        usb_report_handler_t *report_handler = usb_endpoints_in[ep].report_handler;
 
-        if (report_storage == NULL) {
+        if (report_handler == NULL) {
             continue;
         }
 
@@ -207,12 +207,12 @@ void usb_idle_task(void) {
         if (ep == USB_ENDPOINT_IN_SHARED) {
             for (int report_id = 1; report_id <= REPORT_ID_COUNT; report_id++) {
                 osalSysLock();
-                non_zero_idle_rate_found |= report_storage->get_idle(report_storage->reports, report_id) != 0;
+                non_zero_idle_rate_found |= report_handler->get_idle(report_handler->reports, report_id) != 0;
                 osalSysUnlock();
 
-                if (usb_endpoint_in_is_inactive(&usb_endpoints_in[ep]) && report_storage->idle_timer_elasped(report_storage->reports, report_id)) {
+                if (usb_endpoint_in_is_inactive(&usb_endpoints_in[ep]) && report_handler->idle_timer_elasped(report_handler->reports, report_id)) {
                     osalSysLock();
-                    report_storage->get_report(report_storage->reports, report_id, &report);
+                    report_handler->get_report(report_handler->reports, report_id, &report);
                     osalSysUnlock();
                     send_report(ep, &report.data, report.length);
                 }
@@ -222,12 +222,12 @@ void usb_idle_task(void) {
 #endif
 
         osalSysLock();
-        non_zero_idle_rate_found |= report_storage->get_idle(report_storage->reports, 0) != 0;
+        non_zero_idle_rate_found |= report_handler->get_idle(report_handler->reports, 0) != 0;
         osalSysUnlock();
 
-        if (usb_endpoint_in_is_inactive(&usb_endpoints_in[ep]) && report_storage->idle_timer_elasped(report_storage->reports, 0)) {
+        if (usb_endpoint_in_is_inactive(&usb_endpoints_in[ep]) && report_handler->idle_timer_elasped(report_handler->reports, 0)) {
             osalSysLock();
-            report_storage->get_report(report_storage->reports, 0, &report);
+            report_handler->get_report(report_handler->reports, 0, &report);
             osalSysUnlock();
             send_report(ep, &report.data, report.length);
         }
@@ -253,13 +253,13 @@ bool usb_get_idle_cb(USBDriver *driver) {
         return false;
     }
 
-    usb_report_storage_t *report_storage = usb_endpoints_in[ep].report_storage;
+    usb_report_handler_t *report_handler = usb_endpoints_in[ep].report_handler;
 
-    if (report_storage == NULL) {
+    if (report_handler == NULL) {
         return false;
     }
 
-    idle_rate = report_storage->get_idle(report_storage->reports, report_id);
+    idle_rate = report_handler->get_idle(report_handler->reports, report_id);
 
     usbSetupTransfer(driver, &idle_rate, 1, NULL);
 
@@ -282,13 +282,13 @@ bool usb_set_idle_cb(USBDriver *driver) {
         return false;
     }
 
-    usb_report_storage_t *report_storage = usb_endpoints_in[ep].report_storage;
+    usb_report_handler_t *report_handler = usb_endpoints_in[ep].report_handler;
 
-    if (report_storage == NULL) {
+    if (report_handler == NULL) {
         return false;
     }
 
-    report_storage->set_idle(report_storage->reports, report_id, idle_rate);
+    report_handler->set_idle(report_handler->reports, report_id, idle_rate);
 
     usbSetupTransfer(driver, NULL, 0, NULL);
 
