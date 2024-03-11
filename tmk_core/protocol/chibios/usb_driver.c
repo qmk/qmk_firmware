@@ -186,7 +186,7 @@ void usb_endpoint_out_configure_cb(usb_endpoint_out_t *endpoint) {
 void usb_endpoint_in_tx_complete_cb(USBDriver *usbp, usbep_t ep) {
     usb_endpoint_in_t *endpoint = usbp->in_params[ep - 1U];
     size_t             n;
-    uint8_t *          buffer;
+    uint8_t           *buffer;
 
     if (endpoint == NULL) {
         return;
@@ -203,7 +203,7 @@ void usb_endpoint_in_tx_complete_cb(USBDriver *usbp, usbep_t ep) {
          * GET_REPORT request or IDLE report handling. */
         if (endpoint->report_handler != NULL) {
             buffer = obqGetFullBufferI(&endpoint->obqueue, &n);
-            endpoint->report_handler->set_report(endpoint->report_handler->reports, buffer, n);
+            endpoint->report_handler->store_report(endpoint->report_handler->reports, buffer, n);
         }
         obqReleaseEmptyBufferI(&endpoint->obqueue);
     }

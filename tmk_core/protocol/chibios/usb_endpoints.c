@@ -15,7 +15,7 @@ usb_endpoint_in_t usb_endpoints_in[USB_ENDPOINT_IN_COUNT] = {
     [USB_ENDPOINT_IN_SHARED] = QMK_USB_ENDPOINT_IN(USB_EP_MODE_TYPE_INTR, SHARED_EPSIZE, SHARED_IN_EPNUM, SHARED_IN_CAPACITY, NULL,
     QMK_USB_REPORT_HANDLER(
         &usb_shared_get_report,
-        &usb_shared_set_report,
+        &usb_shared_store_report,
         &usb_shared_reset_report,
         &usb_shared_get_idle_rate,
         &usb_shared_set_idle_rate,

@@ -15,7 +15,7 @@
 extern usb_endpoint_in_t     usb_endpoints_in[USB_ENDPOINT_IN_COUNT];
 extern usb_endpoint_in_lut_t usb_endpoint_interface_lut[TOTAL_INTERFACES];
 
-void usb_set_report(usb_fs_report_t **reports, const uint8_t *data, size_t length) {
+void usb_store_report(usb_fs_report_t **reports, const uint8_t *data, size_t length) {
     if (*reports == NULL) {
         return;
     }
@@ -45,7 +45,7 @@ void usb_reset_report(usb_fs_report_t **reports) {
     (*reports)->last_report = 0;
 }
 
-void usb_shared_set_report(usb_fs_report_t **reports, const uint8_t *data, size_t length) {
+void usb_shared_store_report(usb_fs_report_t **reports, const uint8_t *data, size_t length) {
     uint8_t report_id = data[0];
 
     if (report_id > REPORT_ID_COUNT || reports[report_id] == NULL) {

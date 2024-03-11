@@ -19,7 +19,7 @@ typedef struct {
 typedef struct {
     usb_fs_report_t **reports;
     const void (*get_report)(usb_fs_report_t **, uint8_t, usb_fs_report_t *);
-    const void (*set_report)(usb_fs_report_t **, const uint8_t *, size_t);
+    const void (*store_report)(usb_fs_report_t **, const uint8_t *, size_t);
     const void (*reset_report)(usb_fs_report_t **);
     const void (*set_idle)(usb_fs_report_t **, uint8_t, uint8_t);
     const uint8_t (*get_idle)(usb_fs_report_t **, uint8_t);
@@ -28,20 +28,20 @@ typedef struct {
 
 #define QMK_USB_REPORT_STROAGE_ENTRY(_report_id, _report_type) [_report_id] = &((usb_fs_report_t){.data = {[0] = _report_id}, .length = sizeof(_report_type)})
 
-#define QMK_USB_REPORT_HANDLER(_get_report, _set_report, _reset_report, _get_idle, _set_idle, _idle_timer_elasped, _report_count, _reports...) \
-    &((usb_report_handler_t){                                                                                                                  \
-        .reports            = (_Alignas(4) usb_fs_report_t *[_report_count]){_reports},                                                        \
-        .get_report         = _get_report,                                                                                                     \
-        .set_report         = _set_report,                                                                                                     \
-        .reset_report       = _reset_report,                                                                                                   \
-        .get_idle           = _get_idle,                                                                                                       \
-        .set_idle           = _set_idle,                                                                                                       \
-        .idle_timer_elasped = _idle_timer_elasped,                                                                                             \
+#define QMK_USB_REPORT_HANDLER(_get_report, _store_report, _reset_report, _get_idle, _set_idle, _idle_timer_elasped, _report_count, _reports...) \
+    &((usb_report_handler_t){                                                                                                                    \
+        .reports            = (_Alignas(4) usb_fs_report_t *[_report_count]){_reports},                                                          \
+        .get_report         = _get_report,                                                                                                       \
+        .store_report       = _store_report,                                                                                                     \
+        .reset_report       = _reset_report,                                                                                                     \
+        .get_idle           = _get_idle,                                                                                                         \
+        .set_idle           = _set_idle,                                                                                                         \
+        .idle_timer_elasped = _idle_timer_elasped,                                                                                               \
     })
 
 #define QMK_USB_REPORT_HANDLER_DEFAULT(_report_type)                          \
     QMK_USB_REPORT_HANDLER(&usb_get_report,         /* _get_report */         \
-                           &usb_set_report,         /* _set_report */         \
+                           &usb_store_report,       /* _store_report */       \
                            &usb_reset_report,       /* _reset_report */       \
                            &usb_get_idle_rate,      /* _get_idle */           \
                            &usb_set_idle_rate,      /* _set_idle */           \
@@ -50,8 +50,8 @@ typedef struct {
                            QMK_USB_REPORT_STROAGE_ENTRY(0, _report_type))
 
 // USB HID SET_REPORT and GET_REPORT  handling functions
-void usb_set_report(usb_fs_report_t **reports, const uint8_t *data, size_t length);
-void usb_shared_set_report(usb_fs_report_t **reports, const uint8_t *data, size_t length);
+void usb_store_report(usb_fs_report_t **reports, const uint8_t *data, size_t length);
+void usb_shared_store_report(usb_fs_report_t **reports, const uint8_t *data, size_t length);
 
 void usb_get_report(usb_fs_report_t **reports, uint8_t report_id, usb_fs_report_t *report);
 void usb_shared_get_report(usb_fs_report_t **reports, uint8_t report_id, usb_fs_report_t *report);
