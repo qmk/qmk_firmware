@@ -5,6 +5,7 @@ _Bool FN_WIN = 0;
 _Bool FN_MAC = 0;
 _Bool L_WIN = 0;
 _Bool L_MAC = 0;
+_Bool WIN_LOCK = 0;
 
 #    ifdef RGB_MATRIX_ENABLE
 const is31fl3743a_led_t PROGMEM g_is31fl3743a_leds[IS31FL3743A_LED_COUNT] = {
@@ -167,6 +168,21 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
        FN_MAC = 0;
       }
       return true; // continue all further processing of this key
+
+     case KC_LGUI:
+      if (FN_WIN | FN_MAC){
+          if ( record->event.pressed){
+             WIN_LOCK = !WIN_LOCK ; //change win lock state
+            }
+          if (!WIN_LOCK) {
+             return false; //windows key locked do nothing
+            }
+        }
+      if (WIN_LOCK) {
+             return false; //windows key locked do nothing
+            }
+      return true;  // continue all further processing of this key
+
     default:
       return true;
     }
@@ -183,6 +199,14 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     } else {
         if (!rgb_matrix_get_flags()) {
             RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_INDEX, 0, 0, 0);
+        }
+    }
+
+    if (WIN_LOCK) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(WIN_LOCK_INDEX, 255, 255, 255);
+    } else {
+        if (!rgb_matrix_get_flags()) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(WIN_LOCK_INDEX, 0, 0, 0);
         }
     }
 
