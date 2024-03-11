@@ -55,10 +55,15 @@ This file will look like this:
 // ouput         -> output
 // widht         -> width
 
-#define AUTOCORRECT_MIN_LENGTH 5  // "ouput"
-#define AUTOCORRECT_MAX_LENGTH 6  // ":thier"
+#define N_DICTS 1
+
+static const uint16_t autocorrect_offsets[N_DICTS] PROGMEM     = {0};
+static const uint16_t autocorrect_min_lengths[N_DICTS] PROGMEM = {5};
+static const uint16_t autocorrect_max_lengths[N_DICTS] PROGMEM = {6};
+static const uint16_t autocorrect_sizes[N_DICTS] PROGMEM       = {74};
 
 #define DICTIONARY_SIZE 74
+#define TYPO_BUFFER_SIZE 6
 
 static const uint8_t autocorrect_data[DICTIONARY_SIZE] PROGMEM = {85, 7, 0, 23, 35, 0, 0, 8, 0, 76, 16, 0, 15, 25, 0, 0,
     11, 23, 44, 0, 130, 101, 105, 114, 0, 23, 12, 9, 0, 131, 108, 116, 101, 114, 0, 75, 42, 0, 24, 64, 0, 0, 71, 49, 0,
@@ -84,6 +89,16 @@ The `qmk generate-autocorrect-data` commands can make an effort to check for ent
 
 ?> Unfortunately, this is limited to just english words, at this point.
 
+### Using multiple dictionaries
+
+Including additional dictionaries allows for on-the-fly switching between sets of autocorrection rules, useful for bilingual users or for running context-specific rulesets.
+`QK_AUTOCORRECT_DICT_CYCLE` can then be used to cycle the active dictionary and persist the selection to eeprom.
+
+To use this feature, you can input several files into `qmk generate-autocorrect-data`.
+```sh
+qmk generate-autocorrect-data dict1.txt dict2.txt
+```
+
 ## Overriding Autocorrect
 
 Occasionally you might actually want to type a typo (for instance, while editing autocorrect_dict.txt) without being autocorrected. There are a couple of ways to do this:
@@ -98,11 +113,12 @@ Additionally, you can use the `AC_TOGG` keycode to toggle the on/off status for 
 
 ### Keycodes :id=keycodes
 
-|Keycode                |Aliases  |Description                                   |
-|-----------------------|---------|----------------------------------------------|
-|`QK_AUTOCORRECT_ON`    |`AC_ON`  |Turns on the Autocorrect feature.             |
-|`QK_AUTOCORRECT_OFF`   |`AC_OFF` |Turns off the Autocorrect feature.            |
-|`QK_AUTOCORRECT_TOGGLE`|`AC_TOGG`|Toggles the status of the Autocorrect feature.|
+|Keycode                     |Aliases  |Description                                                      |
+|----------------------------|---------|-----------------------------------------------------------------|
+|`QK_AUTOCORRECT_ON`         |`AC_ON`  |Turns on the Autocorrect feature.                                |
+|`QK_AUTOCORRECT_OFF`        |`AC_OFF` |Turns off the Autocorrect feature.                               |
+|`QK_AUTOCORRECT_TOGGLE`     |`AC_TOGG`|Toggles the status of the Autocorrect feature.                   |
+|`QK_AUTOCORRECT_DICT_CYCLE` |`AC_DICT`|Cycle through dictionaries, reverse direction when Shift is held.|
 
 ## User Callback Functions
 
@@ -245,13 +261,13 @@ bool apply_autocorrect(uint8_t backspaces, const char *str, char *typo, char *co
 
 Additional user callback functions to manipulate Autocorrect:
 
-| Function                   | Description                                  |
-|----------------------------|----------------------------------------------|
-| `autocorrect_enable()`     | Turns Autocorrect on.                        |
-| `autocorrect_disable()`    | Turns Autocorrect off.                       |
-| `autocorrect_toggle()`     | Toggles Autocorrect.                         |
-| `autocorrect_is_enabled()` | Returns true if Autocorrect is currently on. |
-
+| Function                              | Description                                                    |
+|---------------------------------------|----------------------------------------------------------------|
+| `autocorrect_enable()`                | Turns Autocorrect on.                                          |
+| `autocorrect_disable()`               | Turns Autocorrect off.                                         |
+| `autocorrect_toggle()`                | Toggles Autocorrect.                                           |
+| `autocorrect_is_enabled()`            | Returns true if Autocorrect is currently on.                   |
+| `autocorrect_dict_cycle(bool forward)`| Cycles through dictionaries (parameter controls the direction).|
 
 ## Appendix: Trie binary data format :id=appendix
 
