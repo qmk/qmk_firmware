@@ -18,7 +18,6 @@
 #pragma once
 
 
-#define DRIVER_COUNT 1
 
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS // enable framebuffer effects
