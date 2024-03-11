@@ -169,7 +169,7 @@
             {"matrix": [11, 2], "x": 149, "y": 60, "flags": 4},
             {"matrix": [11, 1], "x": 126, "y": 61, "flags": 4}
         ],
-        "split_count": [46, 46]
+        "split_count": [47, 47]
     },
     "split": {
         "enabled": true,
