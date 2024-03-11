@@ -5,8 +5,9 @@
 A symmetrical staggered-row layout, an alternative to the Katana60
 
 * Keyboard Maintainer: [Baris Tosun](https://github.com/rominronin)
-* Hardware Supported: Partially compatible with 60% cases, please read compatibility notes at [rominronin.net](https://rominronin.net)
+* Hardware Supported: Tsuka60 Pro PCB
 * Hardware Availability: Not currently available. For more information, please visit [rominronin.net](https://rominronin.net)
+* Cases: Partially compatible with 60% cases, please read compatibility notes at [rominronin.net](https://rominronin.net)
 
 Make example for this keyboard (after setting up your build environment):
 
