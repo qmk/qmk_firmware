@@ -19,4 +19,3 @@
  * https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
  */
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CUSTOM_solid_green
-#define RGB_MATRIX_DEFAULT_HUE 0
