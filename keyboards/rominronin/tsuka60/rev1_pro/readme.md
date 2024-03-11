@@ -1,12 +1,12 @@
 # rominronin/tsuka60/rev1_pro
 
-![rominronin/tsuka60/rev1_pro](imgur.com image replace me!)
+![rominronin/tsuka60/rev1_pro](https://i.imgur.com/SLQ8bmY.jpg)
 
-*A short description of the keyboard/project*
+A symmetrical staggered-row layout, an alternative to the Katana60
 
-* Keyboard Maintainer: [Baris Tosun](https://github.com/Baris Tosun)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [Baris Tosun](https://github.com/rominronin)
+* Hardware Supported: Partially compatible with 60% cases, please read compatibility notes at [rominronin.net](https://rominronin.net)
+* Hardware Availability: Not currently available. For more information, please visit [rominronin.net](https://rominronin.net)
 
 Make example for this keyboard (after setting up your build environment):
 
