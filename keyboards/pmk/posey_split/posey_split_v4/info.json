@@ -21,6 +21,10 @@
         "rows": ["GP10", "GP11", "GP12", "GP13", "GP14", "GP15"]
     },
     "processor": "RP2040",
+    "ws2812": {
+        "pin": "GP17",
+        "driver": "vendor"
+    },
     "rgblight": {
         "animations": {
             "breathing": true
