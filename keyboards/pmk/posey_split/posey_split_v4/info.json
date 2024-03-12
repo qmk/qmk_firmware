@@ -6,7 +6,6 @@
     "build": {
         "debounce_type": "sym_defer_pk"
     },
-    "debounce": 5,
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
