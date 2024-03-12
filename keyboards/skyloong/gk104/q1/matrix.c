@@ -139,18 +139,16 @@ void matrix_init_custom(void) {
 }
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
-    matrix_row_t curr_matrix[MATRIX_ROWS] = {0};
+    matrix_row_t temp_matrix[MATRIX_ROWS] = {0};
 
     // Set col, read rows
     matrix_row_t row_shifter = MATRIX_ROW_SHIFTER;
     for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++, row_shifter <<= 1) {
-        matrix_read_rows_on_col(curr_matrix, current_col, row_shifter);
+        matrix_read_rows_on_col(temp_matrix, current_col, row_shifter);
     }
 
-    bool changed = memcmp(raw_matrix, curr_matrix, sizeof(curr_matrix)) != 0;
-    if (changed) memcpy(raw_matrix, curr_matrix, sizeof(curr_matrix));
+    bool changed = memcmp(temp_matrix, current_matrix, sizeof(temp_matrix)) != 0;
+    if (changed) memcpy(temp_matrix, current_matrix, sizeof(temp_matrix));
 
-    changed = debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
-    matrix_scan_kb();
-    return (uint8_t)changed;
+    return changed;
 }
