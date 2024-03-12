@@ -13,8 +13,8 @@
     },
     "encoder": {
         "rotary": [
-            {"pin_a": "A1", "pin_b": "A0", "resolution": 4},
-            {"pin_a": "A3", "pin_b": "A2", "resolution": 4}
+            {"pin_a": "A1", "pin_b": "A0"},
+            {"pin_a": "A3", "pin_b": "A2"}
         ]
     },
     "features": {
