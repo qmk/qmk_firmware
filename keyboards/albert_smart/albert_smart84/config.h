@@ -38,9 +38,6 @@
 #define WEAR_LEVELING_LOGICAL_SIZE 4096
 #define WEAR_LEVELING_BACKING_SIZE (WEAR_LEVELING_LOGICAL_SIZE * 2)
 
-/*Force NKRO*/
-#define FORCE_NKRO // Force NKRO on by default
-
 /*DEBOUNCE TIME ms, default 5*/
 #define ENCODER_RESOLUTION 4
 
