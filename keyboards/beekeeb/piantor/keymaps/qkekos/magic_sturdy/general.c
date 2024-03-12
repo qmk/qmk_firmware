@@ -1,6 +1,9 @@
 
 #include "../__init__.h"
 
+uint16_t magic_keycode_cast(uint16_t keycode, keyrecord_t *record);
+uint16_t magic_double_tap_cast(uint16_t keycode, keyrecord_t *record, uint16_t magic_key);
+
 int prev_key_timestamp;
 int current_key_timestamp;
 
@@ -25,56 +28,51 @@ void sequence_transform_on_missed_rule_user(const st_trie_rule_t *rule) {
     }
 }
 
-int trigger_magic_key(uint16_t magic_key, keyrecord_t *record) {
-    if (!process_sequence_transform(magic_key, record, US_AREP))
-        return false;
-
-    return PR_IGNORE;
-}
-
 int sturdy_pr(uint16_t keycode, keyrecord_t *record) {
     prev_key_timestamp = current_key_timestamp;
     current_key_timestamp = timer_read();
 
-    switch (keycode) {
-        case SMT_N:
-            if (record->tap.count != 2) break;
-            return trigger_magic_key(DB_LTTR, record);
-
-        case KC_B:
-        case KC_Z:
-        case KC_H:
-        case KC_F:
-        case KC_Q:
-            return process_double_tap(keycode, record, DB_LTTR);
-
-        case TH_REP:
-            if (record->tap.count) keycode = US_REP;
-            break;
-
-        case OS_LSFT:
-            keycode = SAFE_RANGE;
-            break;
-    }
-
+    keycode = magic_keycode_cast(keycode, record);
     if (!process_sequence_transform(keycode, record, US_AREP))
         return false;
 
     return PR_IGNORE;
 }
 
-int process_double_tap(uint16_t keycode, keyrecord_t *record, uint16_t magic_key) {
+uint16_t magic_keycode_cast(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case SMT_N:
+            return record->tap.count == 2 ? DB_LTTR : keycode;
+
+        case TH_REP:
+            return record->tap.count ? US_REP : keycode;
+
+        case OS_LSFT:
+            return KC_ENT;
+
+        case KC_1 ... KC_0:
+        case S(KC_1) ... S(KC_0):
+        case KC_MINUS ... KC_SLASH:
+            return KC_SPC;
+
+        case KC_B:
+        case KC_Z:
+        case KC_H:
+        case KC_F:
+        case KC_Q:
+            return magic_double_tap_cast(keycode, record, DB_LTTR);
+    }
+
+    return keycode;
+}
+
+uint16_t magic_double_tap_cast(uint16_t keycode, keyrecord_t *record, uint16_t magic_key) {
     if (
         !record->event.pressed ||
         highest_layer != STURDY ||
         sequence_transform_past_keycode(0) != keycode ||
         timer_elapsed(prev_key_timestamp) > (get_tapping_term(keycode, NULL) + 50)
-    ) {
-        if (!process_sequence_transform(keycode, record, US_AREP))
-            return false;
+    ) return keycode;
 
-        return PR_IGNORE;
-    }
-
-    return trigger_magic_key(magic_key, record);
+    return magic_key;
 }
