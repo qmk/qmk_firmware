@@ -1,6 +1,6 @@
 # Brick65
 
-![Brick65](https://i.imgur.com/qyQYWfj.jpg)
+![Brick65](https://i.imgur.com/qyQYWfjh.jpg)
 
 Brick65 is a 65% ANSI layout Custom Keyboard
 
