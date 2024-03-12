@@ -50,10 +50,6 @@ Axes can be configured using one of the following macros:
 
  * `JOYSTICK_AXIS_IN(input_pin, low, rest, high)`  
    The ADC samples the provided pin. `low`, `high` and `rest` correspond to the minimum, maximum, and resting (or centered) analog values of the axis, respectively.
- * `JOYSTICK_AXIS_IN_OUT(input_pin, output_pin, low, rest, high)`  
-   Same as `JOYSTICK_AXIS_IN()`, but the provided `output_pin` will be pulled high before `input_pin` is read.
- * `JOYSTICK_AXIS_IN_OUT_GROUND(input_pin, output_pin, ground_pin, low, rest, high)`  
-   Same as `JOYSTICK_AXIS_IN_OUT()`, but the provided `ground_pin` will be pulled low before reading from `input_pin`.
  * `JOYSTICK_AXIS_VIRTUAL`  
    No ADC reading is performed. The value should be provided by user code.
 
@@ -160,12 +156,8 @@ Describes a single axis.
 
 #### Members :id=api-joystick-config-t-members
 
- - `pin_t output_pin`  
-   A pin to set as output high when reading the analog value, or `JS_VIRTUAL_AXIS`.
  - `pin_t input_pin`  
    The pin to read the analog value from, or `JS_VIRTUAL_AXIS`.
- - `pin_t ground_pin`  
-   A pin to set as output low when reading the analog value, or `JS_VIRTUAL_AXIS`.
  - `uint16_t min_digit`  
    The minimum analog value.
  - `uint16_t mid_digit`  

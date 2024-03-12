@@ -6,6 +6,10 @@
         "encoder_config": {
             "type": "object",
             "properties": {
+                "driver": {
+                    "type": "string",
+                    "enum": ["custom", "quadrature"]
+                },
                 "rotary": {
                     "type": "array",
                     "items": {
@@ -24,14 +28,12 @@
         "dip_switch_config": {
             "type": "object",
             "properties": {
-                "pins": {
-                    "$ref": "qmk.definitions.v1#/mcu_pin_array"
-                }
+                "pins": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
             }
-        },
+        }
     },
     "type": "object",
-    "not": { "required": [ "vendorId", "productId" ] }, // reject via keys...
+    "not": {"required": ["vendorId", "productId"]}, // reject via keys...
     "properties": {
         "keyboard_name": {"$ref": "qmk.definitions.v1#/text_identifier"},
         "keyboard_folder": {"$ref": "qmk.definitions.v1#/keyboard"},
@@ -133,6 +135,14 @@
                 },
                 "macro_beep": {"type": "boolean"},
                 "pins": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
+                "power_control": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "on_state": {"$ref": "qmk.definitions.v1#/bit"},
+                        "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"}
+                    }
+                },
                 "voices": {"type": "boolean"}
             }
         },
@@ -142,7 +152,7 @@
             "properties": {
                 "driver": {
                     "type": "string",
-                    "enum": ["pwm", "software", "timer", "custom"]
+                    "enum": ["custom", "pwm", "software", "timer"]
                 },
                 "default": {
                     "type": "object",
@@ -314,8 +324,8 @@
         },
         "features": {
             "$ref": "qmk.definitions.v1#/boolean_array",
-            "propertyNames": { "$ref": "qmk.definitions.v1#/snake_case" }
-
+            "propertyNames": {"$ref": "qmk.definitions.v1#/snake_case"},
+            "not": {"required": ["lto"]}
         },
         "indicators": {
             "type": "object",
@@ -340,15 +350,9 @@
                 "type": "object",
                 "additionalProperties": false,
                 "properties": {
-                    "filename": {
-                        "type": "string"
-                    },
-                    "c_macro": {
-                        "type": "boolean"
-                    },
-                    "json_layout": {
-                        "type": "boolean"
-                    },
+                    "filename": {"type": "string"},
+                    "c_macro": {"type": "boolean"},
+                    "json_layout": {"type": "boolean"},
                     "layout": {
                         "type": "array",
                         "items": {
@@ -431,10 +435,8 @@
             "properties": {
                 "animations": {
                     "type": "object",
-                    "propertyNames": { "$ref": "qmk.definitions.v1#/snake_case" }
-                    "additionalProperties": {
-                        "type": "boolean"
-                    }
+                    "propertyNames": {"$ref": "qmk.definitions.v1#/snake_case"},
+                    "additionalProperties": {"type": "boolean"}
                 },
                 "default": {
                     "type": "object",
@@ -446,7 +448,24 @@
                         "speed": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
                     }
                 },
-                "driver": {"type": "string"},
+                "driver": {
+                    "type": "string",
+                    "enum": [
+                        "custom",
+                        "is31fl3218",
+                        "is31fl3729",
+                        "is31fl3731",
+                        "is31fl3733",
+                        "is31fl3736",
+                        "is31fl3737",
+                        "is31fl3741",
+                        "is31fl3742a",
+                        "is31fl3743a",
+                        "is31fl3745",
+                        "is31fl3746a",
+                        "snled27351"
+                    ]
+                },
                 "center_point": {
                     "type": "array",
                     "minItems": 2,
@@ -495,10 +514,8 @@
             "properties": {
                 "animations": {
                     "type": "object",
-                    "propertyNames": { "$ref": "qmk.definitions.v1#/snake_case" }
-                    "additionalProperties": {
-                        "type": "boolean"
-                    }
+                    "propertyNames": {"$ref": "qmk.definitions.v1#/snake_case"},
+                    "additionalProperties": {"type": "boolean"}
                 },
                 "default": {
                     "type": "object",
@@ -512,7 +529,26 @@
                         "speed": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
                     }
                 },
-                "driver": {"type": "string"},
+                "driver": {
+                    "type": "string",
+                    "enum": [
+                        "aw20216s",
+                        "custom",
+                        "is31fl3218",
+                        "is31fl3729",
+                        "is31fl3731",
+                        "is31fl3733",
+                        "is31fl3736",
+                        "is31fl3737",
+                        "is31fl3741",
+                        "is31fl3742a",
+                        "is31fl3743a",
+                        "is31fl3745",
+                        "is31fl3746a",
+                        "snled27351",
+                        "ws2812"
+                    ]
+                },
                 "center_point": {
                     "type": "array",
                     "minItems": 2,
@@ -564,10 +600,8 @@
             "properties": {
                 "animations": {
                     "type": "object",
-                    "propertyNames": { "$ref": "qmk.definitions.v1#/snake_case" }
-                    "additionalProperties": {
-                        "type": "boolean"
-                    }
+                    "propertyNames": {"$ref": "qmk.definitions.v1#/snake_case"},
+                    "additionalProperties": {"type": "boolean"}
                 },
                 "brightness_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "default": {
@@ -770,7 +804,7 @@
                                 "st7565": {"type": "boolean"},
                                 "wpm": {"type": "boolean"}
                             }
-                        }
+                        },
                         "watchdog": {"type": "boolean"},
                         "watchdog_timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                         "sync_matrix_state": {
