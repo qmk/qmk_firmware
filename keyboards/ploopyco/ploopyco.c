@@ -138,7 +138,7 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
 #ifdef PLOOPY_DRAGSCROLL_INVERT
         mouse_report.v = -(int8_t)scroll_accumulated_v;
 #else
-        mouse_report.v = -(int8_t)scroll_accumulated_v;
+        mouse_report.v = (int8_t)scroll_accumulated_v;
 #endif
 
         // Update accumulated scroll values by subtracting the integer parts
@@ -180,7 +180,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     }
 
     if (keycode == DRAG_SCROLL) {
-#ifndef PLOOPY_DRAGSCROLL_MOMENTARY
+#ifdef PLOOPY_DRAGSCROLL_MOMENTARY
         is_drag_scroll = record->event.pressed;
 #else
         if (record->event.pressed) {
