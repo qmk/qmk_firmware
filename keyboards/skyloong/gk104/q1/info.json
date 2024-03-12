@@ -21,6 +21,7 @@
         "bootmagic": true,
         "command": true,
         "console": false,
+        "dip_switch": true,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,
