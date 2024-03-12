@@ -1,8 +1,7 @@
 # posey_split_v4
 
-![posey_split_v4](https://i.imgur.com/g3yf6al.png)
+![posey_split_v4](https://i.imgur.com/g3yf6alh.png)
 
-*A short description of the keyboard/project*
 
 * Keyboard Maintainer: [Javier Oliver](https://github.com/joliverMI)
 * Hardware Supported: posey_split_v4 and logic_module_v1
@@ -10,11 +9,11 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make posey_split_v4:default
-
+    make pmk/posey_split/posey_split_v4:default
+    
 Flashing example for this keyboard:
 
-    make posey_split_v4:default:flash
+    make pmk/posey_split/posey_split_v4:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
