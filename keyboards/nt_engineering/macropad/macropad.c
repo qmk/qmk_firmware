@@ -38,7 +38,7 @@ void keyboard_post_init_kb(void) {
 }
 
 // Handles layer switching and RGB LED
-void matrix_scan_user(void) {
+void matrix_scan_kb(void) {
     bool switch_pressed = !readPin(GP26);
     if (switch_pressed) {
         if (timer_elapsed32(switch_timer) > DEBOUNCE_MS) {
