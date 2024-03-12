@@ -54,4 +54,5 @@ void matrix_scan_kb(void) {
             switch_timer = timer_read32();
         }
     }
+    matrix_scan_user();
 }
