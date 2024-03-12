@@ -1,4 +1,4 @@
-/* Copyright 2022 Jose Pablo Ramirez <jp.ramangulo@gmail.com>
+/* Copyright 2024 customMK
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,29 +14,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
+#pragma once
 
-#ifdef AUDIO_ENABLE
-void keyboard_pre_init_kb(void) {
-    // ensure pin is set and enabled pre-audio init
-    setPinOutput(SPEAKER_SHUTDOWN);
-    writePinHigh(SPEAKER_SHUTDOWN);
-    keyboard_pre_init_user();
-}
+#define HAL_USE_PWM TRUE
 
-void keyboard_post_init_kb(void) {
-    // set pin based on active status
-    writePin(SPEAKER_SHUTDOWN, audio_is_on());
-    keyboard_post_init_user();
-}
+#define HAL_USE_SPI TRUE
 
-void audio_on_user(void) {
-    writePinHigh(SPEAKER_SHUTDOWN);
-}
+#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
 
-void audio_off_user(void) {
-    // needs a delay or it runs right after play note.
-    wait_ms(200);
-    writePinLow(SPEAKER_SHUTDOWN);
-}
-#endif
+#define SERIAL_BUFFERS_SIZE 256
+
+// This enables interrupt-driven mode
+#define SPI_USE_WAIT TRUE
+
+#include_next <halconf.h>
