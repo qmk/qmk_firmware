@@ -136,7 +136,7 @@ static const pio_program_t ws2812_program = {
 };
 
 static uint32_t                WS2812_BUFFER[WS2812_LED_COUNT];
-static const rp_dma_channel_t* WS2812_DMA_CHANNEL;
+static const rp_dma_channel_t* dma_channel;
 static uint32_t                RP_DMA_MODE_WS2812;
 static int                     STATE_MACHINE = -1;
 
@@ -236,9 +236,9 @@ bool ws2812_init(void) {
     pio_sm_init(pio, STATE_MACHINE, offset, &config);
     pio_sm_set_enabled(pio, STATE_MACHINE, true);
 
-    WS2812_DMA_CHANNEL = dmaChannelAlloc(RP_DMA_CHANNEL_ID_ANY, RP_DMA_PRIORITY_WS2812, (rp_dmaisr_t)ws2812_dma_callback, NULL);
-    dmaChannelEnableInterruptX(WS2812_DMA_CHANNEL);
-    dmaChannelSetDestinationX(WS2812_DMA_CHANNEL, (uint32_t)&pio->txf[STATE_MACHINE]);
+    dma_channel = dmaChannelAlloc(RP_DMA_CHANNEL_ID_ANY, RP_DMA_PRIORITY_WS2812, (rp_dmaisr_t)ws2812_dma_callback, NULL);
+    dmaChannelEnableInterruptX(dma_channel);
+    dmaChannelSetDestinationX(dma_channel, (uint32_t)&pio->txf[STATE_MACHINE]);
 
     // clang-format off
     RP_DMA_MODE_WS2812 = DMA_CTRL_TRIG_INCR_READ |
@@ -256,7 +256,7 @@ static inline void sync_ws2812_transfer(void) {
         // count of LEDs in milliseconds. This is safely much longer than it
         // would take to push all the data out.
         dprintln("ERROR: WS2812 DMA transfer has stalled, aborting!");
-        dmaChannelDisableX(WS2812_DMA_CHANNEL);
+        dmaChannelDisableX(dma_channel);
         pio_sm_clear_fifos(pio, STATE_MACHINE);
         pio_sm_restart(pio, STATE_MACHINE);
         chSemReset(&TRANSFER_COUNTER, 0);
@@ -284,8 +284,8 @@ void ws2812_setleds(rgb_led_t* ledarray, uint16_t leds) {
 #endif
     }
 
-    dmaChannelSetSourceX(WS2812_DMA_CHANNEL, (uint32_t)WS2812_BUFFER);
-    dmaChannelSetCounterX(WS2812_DMA_CHANNEL, leds);
-    dmaChannelSetModeX(WS2812_DMA_CHANNEL, RP_DMA_MODE_WS2812);
-    dmaChannelEnableX(WS2812_DMA_CHANNEL);
+    dmaChannelSetSourceX(dma_channel, (uint32_t)WS2812_BUFFER);
+    dmaChannelSetCounterX(dma_channel, leds);
+    dmaChannelSetModeX(dma_channel, RP_DMA_MODE_WS2812);
+    dmaChannelEnableX(dma_channel);
 }

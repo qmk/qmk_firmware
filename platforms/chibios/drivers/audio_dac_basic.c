@@ -190,7 +190,7 @@ static void gpt_audio_state_cb(GPTDriver *gptp) {
     }
 }
 
-void audio_driver_initialize(void) {
+void audio_driver_initialize_impl(void) {
     if ((AUDIO_PIN == A4) || (AUDIO_PIN_ALT == A4)) {
         palSetPadMode(GPIOA, 4, PAL_MODE_INPUT_ANALOG);
         dacStart(&DACD1, &dac_conf_ch1);
@@ -223,7 +223,7 @@ void audio_driver_initialize(void) {
     gptStart(&AUDIO_STATE_TIMER, &gptStateUpdateCfg);
 }
 
-void audio_driver_stop(void) {
+void audio_driver_stop_impl(void) {
     if ((AUDIO_PIN == A4) || (AUDIO_PIN_ALT == A4)) {
         gptStopTimer(&GPTD6);
 
@@ -241,7 +241,7 @@ void audio_driver_stop(void) {
     gptStopTimer(&AUDIO_STATE_TIMER);
 }
 
-void audio_driver_start(void) {
+void audio_driver_start_impl(void) {
     if ((AUDIO_PIN == A4) || (AUDIO_PIN_ALT == A4)) {
         dacStartConversion(&DACD1, &dac_conv_grp_ch1, (dacsample_t *)dac_buffer_1, AUDIO_DAC_BUFFER_SIZE);
     }

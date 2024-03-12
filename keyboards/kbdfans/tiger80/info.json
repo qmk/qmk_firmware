@@ -4,8 +4,6 @@
     "maintainer": "kbdfans",
     "bootloader": "atmel-dfu",
     "features": {
-        "audio": false,
-        "backlight": false,
         "bootmagic": true,
         "command": false,
         "console": false,

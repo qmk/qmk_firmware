@@ -12,11 +12,8 @@
     "console": true,
     "encoder": true,
     "extrakey": true,
-    "midi": false,
     "mousekey": true,
-    "nkro": true,
-    "rgblight": false,
-    "unicode": false
+    "nkro": true
   },
   "matrix_pins": {
     "cols": ["D2", "D3", "D4", "D5", "D7", "E0", "E1", "B0", "E6", "B3", "B2"],
