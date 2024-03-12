@@ -23,7 +23,7 @@ analog_config g_config = {
 #ifdef BOOTMAGIC_ENABLE
 extern pin_t matrix_pins[MATRIX_ROWS][MATRIX_COLS];
 void         bootmagic_lite(void) {
-    if (analogReadPin(matrix_pins[BOOTMAGIC_LITE_ROW][BOOTMAGIC_LITE_COLUMN]) < 1350) {
+    if (analogReadPin(matrix_pins[BOOTMAGIC_ROW][BOOTMAGIC_COLUMN]) < 1350) {
         bootloader_jump();
     }
 }
