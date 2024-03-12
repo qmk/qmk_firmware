@@ -78,7 +78,7 @@ def _find_invalid_encoder_index(info_data):
     return ret
 
 
-def _validate_layouts(keyboard, info_data):
+def _validate_layouts(keyboard, info_data):  # noqa C901
     """Non schema checks
     """
     col_num = info_data.get('matrix_size', {}).get('cols', 0)
@@ -91,6 +91,11 @@ def _validate_layouts(keyboard, info_data):
     # Make sure we have at least one layout
     if len(layouts) == 0 or all(not layout.get('json_layout', False) for layout in layouts.values()):
         _log_error(info_data, 'No LAYOUTs defined! Need at least one layout defined in info.json.')
+
+    # Make sure all layouts are DD
+    for layout_name, layout_data in layouts.items():
+        if layout_data.get('c_macro', False):
+            _log_error(info_data, f'{layout_name}: Layout macro should not be defined within ".h" files.')
 
     # Make sure all matrix values are in bounds
     for layout_name, layout_data in layouts.items():
