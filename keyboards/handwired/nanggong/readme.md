@@ -24,7 +24,7 @@ The keyboard is built using Arduino Pro Micro Atmega32u4 and QMK Firmware, and f
 
 Compile example for this keyboard (after setting up your build environment):
 
-    qmk compile -kb nanggong -km via 
+    qmk compile -kb handwired/nanggong -km via 
 
 ---
 
