@@ -24,7 +24,7 @@ enum layers {
 };
 
 enum tap_dances {
-    ENC_TAP
+    ENC_TAP,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
