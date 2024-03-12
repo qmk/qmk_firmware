@@ -10,9 +10,7 @@
         "rows": ["GP27", "GP28", "GP29", "GP6"]
     },
     "features": {
-        "bootmagic": false,
-        "command": false,
-        "console": false,
+        "bootmagic": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
