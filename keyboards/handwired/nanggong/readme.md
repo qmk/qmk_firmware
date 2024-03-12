@@ -1,6 +1,6 @@
 # Nanggong
 
-![nanggong](https://i.imgur.com/vky2f07.jpeg)
+![nanggong](https://i.imgur.com/vky2f07h.jpeg)
 
 Nanggong is a 63-key/60% handwired ortholinear keyboard built to fulfill my desire for an ortholinear layout while retaining important features such as arrow keys, numbers, and the standard 1.25u Ctrl key. This design caters to the needs of both programmers (with arrow keys) and gamers (featuring number keys and a 1.25u Ctrl size).
 
