@@ -1,6 +1,6 @@
 # rominronin/tsuka60/rev1_pro
 
-![rominronin/tsuka60/rev1_pro](https://i.imgur.com/SLQ8bmY.jpg)
+![rominronin/tsuka60/rev1_pro](https://i.imgur.com/SLQ8bmYh.jpg)
 
 A symmetrical staggered-row layout, an alternative to the Katana60
 
