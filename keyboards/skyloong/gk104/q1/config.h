@@ -24,8 +24,6 @@
 #    define CAPS_LOCK_INDEX 58
 #    define SCR_LOCK_INDEX 14
 #    define SDB B5
-#    define RGB_MATRIX_KEYPRESSES
-#    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #endif // RGB_MATRIX_ENABLE
 
 
