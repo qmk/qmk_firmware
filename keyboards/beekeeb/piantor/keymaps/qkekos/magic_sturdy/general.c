@@ -32,9 +32,10 @@ int sturdy_pr(uint16_t keycode, keyrecord_t *record) {
     prev_key_timestamp = current_key_timestamp;
     current_key_timestamp = timer_read();
 
-    // 🤡 For whatever on earth reason without such code block keyboard crashes
+    // 🤡 For whatever the fuck reason without such code block keyboard crashes
+    // This code is unreachable, condition is alwas false, but not for LTO 
     if (keycode * -1 == record->tap.count) {
-        process_sequence_transform(DB_LTTR, record, US_AREP);
+        process_sequence_transform(KC_NO, record, US_AREP);
     }
 
     keycode = magic_keycode_cast(keycode, record);
