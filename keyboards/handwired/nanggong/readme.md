@@ -1,4 +1,4 @@
-# Nanggong Keyboard
+# Nanggong
 
 ![nanggong](https://i.imgur.com/vky2f07.jpeg)
 
