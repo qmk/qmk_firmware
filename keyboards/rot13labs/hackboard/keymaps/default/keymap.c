@@ -27,10 +27,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   
   [1] = LAYOUT(
                                                       KC_NO,
-      KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,
-      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,
-      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, QK_BOOT,  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,
-      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,
-      KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,                     KC_VOLU,
-      KC_TRNS, KC_TRNS, KC_TRNS,                          KC_TRNS,                KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,            KC_TRNS, KC_VOLD, KC_TRNS)
+      _______,          _______, _______, _______,_______,_______,_______,_______,_______, _______, _______,  _______, _______,  _______,  _______, _______,
+      _______, _______, _______, _______, _______,_______,_______,_______,_______,_______, _______, _______,  _______, _______,  _______,  _______, _______,
+      _______, _______, _______, _______, QK_BOOT,  _______,_______,_______,_______,_______, _______, _______,  _______, _______,  _______,  _______, _______,
+      _______, _______, _______, _______, _______,_______,_______,_______,_______,_______, _______, _______,  _______,
+      _______,          _______, _______, _______,_______,_______,_______,_______,_______, _______, _______,  _______,                     KC_VOLU,
+      _______, _______, _______,                          _______,                _______, _______, _______,  _______,            _______, KC_VOLD, _______)
 };
