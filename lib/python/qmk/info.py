@@ -107,6 +107,15 @@ def _validate_layouts(keyboard, info_data):  # noqa C901
             if col >= col_num:
                 _log_error(info_data, f'{layout_name}: Matrix column for key {index} ({key_name}) is {col} but must be less than {col_num}')
 
+    # Reject duplicate matrix locations
+    for layout_name, layout_data in layouts.items():
+        seen = set()
+        for index, key_data in enumerate(layout_data['layout']):
+            key = f"{key_data['matrix']}"
+            if key in seen:
+                _log_error(info_data, f'{layout_name}: Matrix location for key {index} is not unique {key_data}')
+            seen.add(key)
+
     # Warn if physical positions are offset (at least one key should be at x=0, and at least one key at y=0)
     for layout_name, layout_data in layouts.items():
         offset_x = min([_get_key_left_position(k) for k in layout_data['layout']])
