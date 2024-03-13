@@ -4,8 +4,6 @@
 
 Posey's Split Mechanical Keyboards Highlights
 
-*A short description of the keyboard/project*
-About Posey's Split Mechanical Keyboards
 The Posey split keyboard was designed from the gournd up for gaming. By pushing the left half of your split keyboard out of the way, you'll be able to game with better posture and increase mouse movement. PMK's have additional keys on the right half to make sure you don't need to reach for your other half while gaming. 
 
 Version Changes from v4:
