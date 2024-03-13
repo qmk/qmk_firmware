@@ -1,6 +1,6 @@
 # 6PAD
 
-![6PAD](https://i.imgur.com/Ugc3R2Th.jpg)
+![6PAD](https://i.imgur.com/yt3dKCBh.jpeg)
 
 6PAD is a Simple Yet Elegant Macropad, 5 Keys & Single Rotary Encoder, Designed And Manufactured In INDONESIA.
 
