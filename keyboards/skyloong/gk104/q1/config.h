@@ -9,8 +9,6 @@
 #    define ENCODER_MAP_KEY_DELAY 10
 #endif
 
-#define DIP_SWITCH_PINS {A4}
-
 #ifdef RGB_MATRIX_ENABLE
 #    define AW20216S_CS_PIN_1 B12
 #    define AW20216S_CS_PIN_2 B11

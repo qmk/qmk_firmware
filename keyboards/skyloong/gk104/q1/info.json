@@ -33,6 +33,9 @@
         "on_state": 1,
         "caps_lock": "C14"
     },
+    "dip_switch":{
+        "pins":["A4"]
+    },
     "matrix_pins": {
         "cols": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,null],
         "rows": ["A8", "A9", "A10", "A15", "B6", "B7","B9"]

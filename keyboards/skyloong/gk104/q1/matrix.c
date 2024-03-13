@@ -147,8 +147,8 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         matrix_read_rows_on_col(temp_matrix, current_col, row_shifter);
     }
 
-    bool changed = memcmp(temp_matrix, current_matrix, sizeof(temp_matrix)) != 0;
-    if (changed) memcpy(temp_matrix, current_matrix, sizeof(temp_matrix));
+    bool changed = memcmp(raw_matrix, temp_matrix, sizeof(temp_matrix)) != 0;
+    if (changed) memcpy(raw_matrix, temp_matrix, sizeof(temp_matrix));
 
     return changed;
 }
