@@ -398,8 +398,8 @@ void mousekey_on(uint8_t code) {
 #        ifdef MK_KINETIC_SPEED
         mouse_timer = timer_read() - (MOUSEKEY_INTERVAL << 2);
 #        else
-        mousekey_repeat       = MOUSEKEY_MOVE_DELTA;
-        mousekey_wheel_repeat = MOUSEKEY_WHEEL_DELTA;
+        mousekey_repeat       = 0;
+        mousekey_wheel_repeat = 0;
 #        endif
     }
 #    endif // ifndef MOUSEKEY_INERTIA
