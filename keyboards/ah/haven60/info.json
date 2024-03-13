@@ -49,6 +49,7 @@
             "twinkle": true
         }
     },
+    "community_layouts": ["60_ansi_tsangan", "60_ansi_wkl"],
     "layouts": {
         "LAYOUT_60_ansi_tsangan": {
             "layout": [
