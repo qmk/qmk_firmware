@@ -48,6 +48,8 @@ enum multiaction_type {
         case DOUBLE_TAP: \
             callback = defer_tap; \
             break; \
+        default: \
+            callback = defer_tap; \
     }
 
 #define MULTIACTION_COUNT 10

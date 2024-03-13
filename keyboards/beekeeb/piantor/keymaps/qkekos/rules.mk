@@ -4,9 +4,10 @@ all: st_build
 st_build:
 	python3 keyboards/beekeeb/piantor/keymaps/qkekos/sequence_transform/generator/sequence_transform_data.py
 
+include keyboards/beekeeb/piantor/keymaps/qkekos/sequence_transform/rules.mk
+
 AUTOCORRECT_ENABLE = yes
 
-LTO_ENABLE = yes
 KEY_LOCK_ENABLE = yes
 NKRO_ENABLE = yes
 COMBO_ENABLE = yes
@@ -28,7 +29,6 @@ SRC += sequence_transform/cursor.c
 SRC += sequence_transform/key_stack.c
 
 SRC += magic_sturdy/general.c
-
 SRC += combos/general.c
 
 SRC += general/utils.c
