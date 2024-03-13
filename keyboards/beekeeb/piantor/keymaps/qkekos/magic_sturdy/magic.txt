@@ -18,6 +18,14 @@
 //REGEX_START
 
 // ------------------------------------A---------------------------------------
+
+⎵ag★          ⇒ again
+⎵ag★t         ⇒ against
+
+⎵al★          ⇒ alr
+⎵al★d         ⇒ already
+⎵al★g         ⇒ alright
+
 // ------------------------------------B---------------------------------------
 
 ⎵b☆           ⇒ be
@@ -54,11 +62,60 @@
 ⎵c☆ne         ⇒ considered
 ⎵c☆ni         ⇒ considering
 
-// confirm/ed/ing
+⎵c☆m         ⇒ confirm
+⎵c☆md        ⇒ confirmed
+⎵c☆mg        ⇒ confirming
 
+⎵co★          ⇒ could
+⎵co★t         ⇒ couldn't
+⎵co★v         ⇒ could've
+
+⎵cop★         ⇒ coping
+⎵com★         ⇒ comment
 ⎵ca☆          ⇒ capable
 
+⎵p☆           ⇒ copy
+⎵p☆n          ⇒ copying
+
 // ------------------------------------D---------------------------------------
+
+d★            ⇒ dy
+
+d★☆           ⇒ dynamic
+d★☆l          ⇒ dynamically
+
+⎵d☆           ⇒ do
+⎵d☆t          ⇒ don't
+⎵d☆n          ⇒ down
+
+⎵d☆★          ⇒ differ
+⎵d☆★t         ⇒ different
+⎵d☆★e         ⇒ difference
+
+⎵dev☆         ⇒ develop
+⎵dev☆d        ⇒ developed
+⎵dev☆r        ⇒ developer
+⎵dev☆n        ⇒ developing
+⎵dev☆m        ⇒ development
+
+⎵didt         ⇒ didn't
+⎵d☆r          ⇒ during
+⎵d☆i          ⇒ decide
+⎵d☆ig         ⇒ deciding
+⎵d☆u          ⇒ difficult
+⎵demo★        ⇒ democracy
+⎵di★          ⇒ dictionary
+
+// TODO
+
+⎵do★          ⇒ doub
+⎵do★l         ⇒ double
+
+// doable
+ 
+⎵def☆         ⇒ default
+⎵def✪         ⇒ definitely
+
 // ------------------------------------E---------------------------------------
 
 ⎵es☆          ⇒ ess
@@ -104,9 +161,33 @@
 ⎵i☆c          ⇒ incapable
 
 // ------------------------------------J---------------------------------------
+
+⎵ju☆          ⇒ judge
+⎵ju☆g         ⇒ judging
+⎵ju☆n         ⇒ judgment
+
+⎵j☆           ⇒ join
+⎵j☆d          ⇒ joined
+⎵j☆g          ⇒ joining
+
+⎵j★           ⇒ just
+⎵j★c          ⇒ justice
+⎵j★y          ⇒ justify
+⎵j★d          ⇒ justified
+⎵j★g          ⇒ justifying
+
 // ------------------------------------K---------------------------------------
 // ------------------------------------L---------------------------------------
+
+⎵li★          ⇒ list
+⎵li★r         ⇒ listener
+
 // ------------------------------------M---------------------------------------
+
+m★            ⇒ ment
+
+⎵m★o         ⇒ mention
+
 // ------------------------------------N---------------------------------------
 
 [oaui]n✪      ⇒ \1nion
@@ -116,6 +197,17 @@
 // ------------------------------------O---------------------------------------
 
 ⎵(re)?or★     ⇒ \1order
+
+⎵ot★          ⇒ other
+⎵other☆       ⇒ otherwise
+
+⎵ov★l         ⇒ overall
+⎵ov★r         ⇒ override
+⎵ov★k         ⇒ overlook
+⎵ov★m         ⇒ overwhelm
+⎵ov★kd        ⇒ overlooked
+⎵ov★md        ⇒ overwhelmed
+⎵ov★mg        ⇒ overwhelming
 
 // ------------------------------------P---------------------------------------
 // ------------------------------------Q---------------------------------------
@@ -132,9 +224,52 @@
 ⎵res☆         ⇒ restrict
 ⎵res☆n        ⇒ restriction
 
+⎵rec★         ⇒ recycle
+⎵recycle☆     ⇒ recycling
+
 // ------------------------------------S---------------------------------------
+
+⎵s☆           ⇒ some
+
+⎵s☆o          ⇒ someone
+⎵s☆h          ⇒ somehow
+⎵s☆w          ⇒ somewhat
+⎵s☆m          ⇒ sometime
+⎵s☆r          ⇒ somewhere
+⎵s☆t          ⇒ something
+
+⎵s☆m★         ⇒ sometimes
+
+⎵spe★         ⇒ special
+
+⎵sp☆          ⇒ specific
+⎵sp☆a         ⇒ specifically
+
+⎵st★          ⇒ start
+⎵st★d         ⇒ started
+
+⎵sip★         ⇒ simply
+
+⎵si★          ⇒ simultaneous
+⎵si★y         ⇒ simultaneously
+
+⎵si☆r         ⇒ singer
+
 // ------------------------------------T---------------------------------------
 // ------------------------------------U---------------------------------------
+
+u★            ⇒ ue
+
+⎵u★           ⇒ under
+
+⎵u☆           ⇒ use
+⎵u☆g          ⇒ using
+⎵u☆f          ⇒ useful
+⎵u☆l          ⇒ useless
+
+⎵up★          ⇒ update
+⎵ug★          ⇒ upgrade
+
 // ------------------------------------V---------------------------------------
 
 v★            ⇒ ver
@@ -146,29 +281,12 @@ v★            ⇒ ver
 
 // Old(er) rules
 
-⎵recycle★     ⇒ recycling
-⎵other★       ⇒ otherwise
-⎵some★        ⇒ somewhere
-⎵special★     ⇒ specific
-⎵judge★       ⇒ judgment
-⎵could★       ⇒ couldn't
-⎵over★        ⇒ override
-⎵list★        ⇒ listener
-⎵again★       ⇒ against
-⎵start★       ⇒ started
-⎵copy★        ⇒ copying
-⎵ment★        ⇒ mention
-⎵use★         ⇒ useless
-⎵alr★         ⇒ already
-⎵simpl★       ⇒ simply
-⎵doub★        ⇒ doable
 ⎵most★        ⇒ mostly
 ⎵that★        ⇒ thank
 
 
 // A lot
 
-⎵democrac★    ⇒ democracy
 ⎵supremac★    ⇒ supremacy
 ⎵accurac★     ⇒ accuracy
 ⎵pharmac★     ⇒ pharmacy
@@ -184,8 +302,6 @@ v★            ⇒ ver
 
 // Triple
 
-⎵rec★         ⇒ recycle
-
 ⎵esp★         ⇒ especially
 ⎵exp★         ⇒ experience
 ⎵hil★         ⇒ hilarious
@@ -200,7 +316,6 @@ v★            ⇒ ver
 ⎵ser★         ⇒ serious
 ⎵pro★         ⇒ problem
 ⎵key★         ⇒ keycode
-⎵spe★         ⇒ special
 ⎵bud★         ⇒ budget
 ⎵col★         ⇒ column
 ⎵tho★         ⇒ though
@@ -209,7 +324,6 @@ v★            ⇒ ver
 ⎵exc★         ⇒ except
 ⎵pay★         ⇒ paypal
 ⎵red★         ⇒ redge
-⎵jud★         ⇒ judge
 ⎵led★         ⇒ ledge
 ⎵nex★         ⇒ next
 
@@ -219,36 +333,24 @@ tex★          ⇒ text
 
 // Double
 
-⎵di★          ⇒ dictionary
 ⎵pr★          ⇒ previous
 ⎵ex★          ⇒ example
 ⎵pe★          ⇒ people
 ⎵pu★          ⇒ public
-⎵up★          ⇒ update
 ⎵sy★          ⇒ system
 ⎵fi★          ⇒ finger
 ⎵ar★          ⇒ around
-⎵si★          ⇒ singer
 ⎵gi★          ⇒ ginger
 ⎵by★          ⇒ bypass
-⎵ot★          ⇒ other
-⎵co★          ⇒ could
-⎵ag★          ⇒ again
 ⎵la★          ⇒ large
 ⎵po★          ⇒ point
-⎵st★          ⇒ start
 ⎵pa★          ⇒ page
 ⎵mo★          ⇒ most
 ⎵mu★          ⇒ must
 ⎵vi★          ⇒ view
-⎵so★          ⇒ some
-⎵do★          ⇒ doub
-⎵li★          ⇒ list
 ⎵ti★          ⇒ time
 ⎵ed★          ⇒ edge
 ⎵se★          ⇒ seen
-⎵al★          ⇒ alr
-⎵us★          ⇒ use
 ⎵ty★          ⇒ typ
 ⎵we★          ⇒ web
 ⎵wa★          ⇒ way
@@ -263,19 +365,18 @@ pl★           ⇒ ply
 
 ⎵w★           ⇒ which
 ⎵t★           ⇒ that
-⎵j★           ⇒ just
 ⎵f★           ⇒ fine
 
 ⎵★            ⇒ the
 
+
+
 t★            ⇒ tment
-m★            ⇒ ment
 y★            ⇒ ying
 i★            ⇒ ion
 q★            ⇒ que
 s★            ⇒ sk
 r★            ⇒ rl
-d★            ⇒ dy
 e★            ⇒ eu
 a★            ⇒ ab
 l★            ⇒ lk
@@ -284,7 +385,6 @@ p★            ⇒ py
 k★            ⇒ ks
 g★            ⇒ gy
 o★            ⇒ oa
-u★            ⇒ ue
 x★            ⇒ xt
 
 // Repeat
@@ -292,25 +392,19 @@ x★            ⇒ xt
 // A lot
 
 ⎵should☆      ⇒ shouldn't
-⎵somewhere☆ ⇒ somehow
 
 // Quadruple
 
-⎵some☆        ⇒ something
 ⎵poss☆        ⇒ possible
-⎵over☆        ⇒ overall
 ⎵hand☆        ⇒ handy
 
 // Triple
 
-⎵sim☆         ⇒ simultaneously
 ⎵imp☆         ⇒ impossible
 ⎵uni☆         ⇒ university
-⎵dif☆         ⇒ difficult
 ⎵int☆         ⇒ interest
 ⎵ins☆         ⇒ instead
-⎵def☆         ⇒ default
-⎵dev☆         ⇒ develop
+
 ⎵awk☆         ⇒ awkward
 ⎵cap☆         ⇒ capable
 ⎵pro☆         ⇒ program
@@ -354,7 +448,6 @@ rs☆           ⇒ rst
 
 ⎵w☆           ⇒ would
 ⎵t☆           ⇒ than
-⎵j☆           ⇒ join
 ⎵v☆           ⇒ var
 
 ⎵☆            ⇒ for
@@ -367,8 +460,6 @@ q☆            ⇒ qui
 // Double taps
 
 ⎵fu☆☆         ⇒ functionality
-⎵sim☆☆        ⇒ simultaneous
-⎵dev☆☆        ⇒ development
 ⎵int☆☆        ⇒ interesting
 ⎵ba☆☆         ⇒ basically
 ⎵v☆☆          ⇒ variable
@@ -388,8 +479,6 @@ q☆            ⇒ qui
 ⎵gen✪         ⇒ general
 ⎵men✪         ⇒ menu
 
-⎵def✪         ⇒ definitely
-⎵dif✪         ⇒ differen
 ⎵ref✪         ⇒ refuse
 
 // Triple
