@@ -1,6 +1,6 @@
 # Swiss
 
-![Swiss](https://imgur.com/8G6MB5D)
+![Swiss](https://i.imgur.com/8G6MB5Dh.png)
 
 An HHKB that looks like... Cheese?
 A fun, not so serious, ridiculously cheesy keyboard. 
@@ -10,11 +10,11 @@ A fun, not so serious, ridiculously cheesy keyboard.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make Swiss:default
+    make swiss:default
 
 Flashing example for this keyboard:
 
-    make Swiss:default:flash
+    make swiss:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
