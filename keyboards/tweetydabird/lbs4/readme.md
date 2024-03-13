@@ -10,6 +10,14 @@
 * Hardware Design: https://github.com/TweetyDaBird/Little-Big-Scroll
 
 
+#### This keyboard firmware contains three different versions, all for the same PCB/hardware, but depending on your choice of controller/bootloader. 
+
+
+* promicro - This uses the default Caterina bootloader.
+* elite_c - This uses the Atmel-DFU bootloader.
+* nanoBoot - A tiny 512 byte bootloader giving far more usable memory for features (This can be used on both Elite C and Pro Micro controller, but requires flashing the new bootloader first).
+
+
 Make example for this keyboard (after setting up your build environment):
 
     make tweetydabird/lbs4:default
