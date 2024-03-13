@@ -22,7 +22,7 @@ void usb_store_report(usb_report_t **reports, const uint8_t *data, size_t length
 
     (*reports)->last_report = chVTGetSystemTimeX();
     (*reports)->length      = length;
-    memcpy(&(*reports)->data, data, length);
+    memcpy((*reports)->data, data, length);
 }
 
 void usb_get_report(usb_report_t **reports, uint8_t report_id, usb_report_t *report) {
@@ -32,7 +32,7 @@ void usb_get_report(usb_report_t **reports, uint8_t report_id, usb_report_t *rep
     }
 
     report->length = (*reports)->length;
-    memcpy(&report->data, &(*reports)->data, report->length);
+    memcpy(report->data, (*reports)->data, report->length);
 }
 
 void usb_reset_report(usb_report_t **reports) {
@@ -40,7 +40,7 @@ void usb_reset_report(usb_report_t **reports) {
         return;
     }
 
-    memset(&(*reports)->data, 0, (*reports)->length);
+    memset((*reports)->data, 0, (*reports)->length);
     (*reports)->idle_rate   = 0;
     (*reports)->last_report = 0;
 }
@@ -54,7 +54,7 @@ void usb_shared_store_report(usb_report_t **reports, const uint8_t *data, size_t
 
     reports[report_id]->last_report = chVTGetSystemTimeX();
     reports[report_id]->length      = length;
-    memcpy(&reports[report_id]->data, data, length);
+    memcpy(reports[report_id]->data, data, length);
 }
 
 void usb_shared_get_report(usb_report_t **reports, uint8_t report_id, usb_report_t *report) {
@@ -63,7 +63,7 @@ void usb_shared_get_report(usb_report_t **reports, uint8_t report_id, usb_report
     }
 
     report->length = reports[report_id]->length;
-    memcpy(&report->data, &reports[report_id]->data, report->length);
+    memcpy(report->data, reports[report_id]->data, report->length);
 }
 
 void usb_shared_reset_report(usb_report_t **reports) {
@@ -71,7 +71,7 @@ void usb_shared_reset_report(usb_report_t **reports) {
         if (reports[i] == NULL) {
             continue;
         }
-        memset(&reports[i]->data, 0, reports[i]->length);
+        memset(reports[i]->data, 0, reports[i]->length);
         reports[i]->idle_rate   = 0;
         reports[i]->last_report = 0;
     }
@@ -81,8 +81,6 @@ bool usb_get_report_cb(USBDriver *driver) {
     usb_control_request_t *setup     = (usb_control_request_t *)driver->setup;
     uint8_t                interface = setup->wIndex;
     uint8_t                report_id = setup->wValue.lbyte;
-
-    static usb_report_t report;
 
     if (!IS_VALID_INTERFACE(interface) || !IS_VALID_REPORT_ID(report_id)) {
         return false;
@@ -99,6 +97,12 @@ bool usb_get_report_cb(USBDriver *driver) {
     if (report_handler == NULL) {
         return false;
     }
+
+    static _Alignas(4) uint8_t report_data[64];
+    static usb_report_t        report;
+    // always reset the report struct, as it might point to a different report
+    report.data   = (uint8_t *)report_data;
+    report.length = ARRAY_SIZE(report_data);
 
     report_handler->get_report(report_handler->reports, report_id, &report);
 
@@ -193,8 +197,12 @@ void usb_idle_task(void) {
         return;
     }
 
-    static usb_report_t report;
-    bool                   non_zero_idle_rate_found = false;
+    bool                       non_zero_idle_rate_found = false;
+    static _Alignas(4) uint8_t report_data[64];
+    static usb_report_t        report;
+    // always reset the report struct, as it might point to a different report
+    report.data   = (uint8_t *)report_data;
+    report.length = ARRAY_SIZE(report_data);
 
     for (int ep = 0; ep < USB_ENDPOINT_IN_COUNT; ep++) {
         usb_report_handler_t *report_handler = usb_endpoints_in[ep].report_handler;
@@ -214,7 +222,7 @@ void usb_idle_task(void) {
                     osalSysLock();
                     report_handler->get_report(report_handler->reports, report_id, &report);
                     osalSysUnlock();
-                    send_report(ep, &report.data, report.length);
+                    send_report(ep, report.data, report.length);
                 }
             }
             continue;
@@ -229,7 +237,7 @@ void usb_idle_task(void) {
             osalSysLock();
             report_handler->get_report(report_handler->reports, 0, &report);
             osalSysUnlock();
-            send_report(ep, &report.data, report.length);
+            send_report(ep, report.data, report.length);
         }
     }
 

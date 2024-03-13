@@ -12,8 +12,8 @@
 typedef struct {
     time_msecs_t idle_rate;
     systime_t    last_report;
-    uint8_t      data[64];
     size_t       length;
+    uint8_t     *data;
 } usb_report_t;
 
 typedef struct {
@@ -26,7 +26,7 @@ typedef struct {
     const bool (*idle_timer_elasped)(usb_report_t **, uint8_t);
 } usb_report_handler_t;
 
-#define QMK_USB_REPORT_STROAGE_ENTRY(_report_id, _report_type) [_report_id] = &((usb_report_t){.data = {[0] = _report_id}, .length = sizeof(_report_type)})
+#define QMK_USB_REPORT_STROAGE_ENTRY(_report_id, _report_type) [_report_id] = &((usb_report_t){.data = (_Alignas(4) uint8_t[sizeof(_report_type)]){[0] = _report_id}, .length = sizeof(_report_type)})
 
 #define QMK_USB_REPORT_HANDLER(_get_report, _store_report, _reset_report, _get_idle, _set_idle, _idle_timer_elasped, _report_count, _reports...) \
     &((usb_report_handler_t){                                                                                                                    \
