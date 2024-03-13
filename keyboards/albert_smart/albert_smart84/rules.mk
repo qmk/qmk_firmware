@@ -1,9 +1,5 @@
 MCU_LDSCRIPT = STM32F103xB
 
-DEFERRED_EXEC_ENABLE = yes
-
-
-
 DYNAMIC_KEYMAP_ENABLE = yes
 
 SRC +=   analog.c

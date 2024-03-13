@@ -19,6 +19,7 @@
         "bootmagic": true,
         "command": false,
         "console": true,
+        "deferred_exec":true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
