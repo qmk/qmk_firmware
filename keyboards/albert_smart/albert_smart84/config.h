@@ -18,13 +18,8 @@
 #pragma once
 
 
-
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS // enable framebuffer effects
-#define RGB_MATRIX_SLEEP // USB待机时候停止灯效
 #define RGB_MATRIX_SOLID_REACTIVE_GRADIENT_MODE
-#define RGB_MATRIX_TIMEOUT 0 //#define RGBLIGHT_DISABLE_KEYCODES
-
 
 /* UART Config  */
 #define SERIAL_DRIVER SD1
@@ -38,4 +33,3 @@
 #define WEAR_LEVELING_LOGICAL_SIZE 4096
 #define WEAR_LEVELING_BACKING_SIZE (WEAR_LEVELING_LOGICAL_SIZE * 2)
 
-#define ENCODER_RESOLUTION 4

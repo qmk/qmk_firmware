@@ -26,9 +26,23 @@
         "rgb_matrix":false
     },
 
+    "rgb_matrix":{
+        "animations":{
+            "solid_color":true
+        },
+        "driver":"aw20216s",
+        "sleep":true,
+        "timeout":0,
+
+        "layout":[
+            {"flags": 2, "x":0, "y":0},
+            {"flags": 2, "x":0, "y":1}
+        ]
+    },
+
     "encoder": {
         "rotary": [
-            { "pin_a": "A6", "pin_b": "A7" }
+            { "pin_a": "A6", "pin_b": "A7", "resolution": 4}
         ]
     },
     "layouts": {
