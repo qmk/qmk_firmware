@@ -1,5 +1,8 @@
 
-$(shell python3 keyboards/beekeeb/piantor/keymaps/qkekos/sequence_transform/generator/sequence_transform_data.py)
+all: st_build
+
+st_build:
+	python3 keyboards/beekeeb/piantor/keymaps/qkekos/sequence_transform/generator/sequence_transform_data.py
 
 AUTOCORRECT_ENABLE = yes
 
