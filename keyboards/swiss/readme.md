@@ -1,6 +1,6 @@
 # Swiss
 
-![Swiss](https://i.imgur.com/8G6MB5Dh.png)
+![Swiss](https://i.imgur.com/8G6MB5D.png)
 
 An HHKB that looks like... Cheese?
 A fun, not so serious, ridiculously cheesy keyboard. 
