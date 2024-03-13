@@ -34,6 +34,7 @@
 ⎵b☆k          ⇒ back
 ⎵b☆o          ⇒ both
 ⎵b☆c          ⇒ become
+⎵b☆ca         ⇒ became
 ⎵b☆r          ⇒ before
 ⎵b☆u          ⇒ buffer
 ⎵b☆s          ⇒ because
@@ -47,13 +48,11 @@
 
 ⎵c☆           ⇒ co
 
+⎵p☆           ⇒ copy
+⎵p☆n          ⇒ copying
+
 ⎵cr★          ⇒ cry
 ⎵cry☆         ⇒ crying
-
-⎵c☆e          ⇒ confuse
-⎵c☆en         ⇒ confusion
-⎵c☆★          ⇒ confusing
-⎵confuse★     ⇒ confused
 
 ⎵c☆f          ⇒ config
 ⎵c☆fr         ⇒ configure
@@ -74,8 +73,10 @@
 ⎵com★         ⇒ comment
 ⎵ca☆          ⇒ capable
 
-⎵p☆           ⇒ copy
-⎵p☆n          ⇒ copying
+⎵c☆e          ⇒ confuse
+⎵c☆en         ⇒ confusion
+⎵c☆★          ⇒ confusing
+⎵confuse★     ⇒ confused
 
 // ------------------------------------D---------------------------------------
 
@@ -84,6 +85,9 @@ d★            ⇒ dy
 d★☆           ⇒ dynamic
 d★☆l          ⇒ dynamically
 
+⎵d☆b          ⇒ doub
+⎵d☆bl         ⇒ double
+
 ⎵d☆           ⇒ do
 ⎵d☆t          ⇒ don't
 ⎵d☆n          ⇒ down
@@ -91,6 +95,11 @@ d★☆l          ⇒ dynamically
 ⎵d☆★          ⇒ differ
 ⎵d☆★t         ⇒ different
 ⎵d☆★e         ⇒ difference
+
+⎵d★f          ⇒ def
+⎵d★ft         ⇒ default
+⎵d★fl         ⇒ definitely
+⎵d★f☆         ⇒ define
 
 ⎵dev☆         ⇒ develop
 ⎵dev☆d        ⇒ developed
@@ -101,44 +110,39 @@ d★☆l          ⇒ dynamically
 ⎵didt         ⇒ didn't
 ⎵d☆r          ⇒ during
 ⎵d☆i          ⇒ decide
+⎵d☆a          ⇒ doable
 ⎵d☆ig         ⇒ deciding
 ⎵d☆u          ⇒ difficult
 ⎵demo★        ⇒ democracy
 ⎵di★          ⇒ dictionary
 
-// TODO
-
-⎵do★          ⇒ doub
-⎵do★l         ⇒ double
-
-// doable
- 
-⎵def☆         ⇒ default
-⎵def✪         ⇒ definitely
-
 // ------------------------------------E---------------------------------------
+
+⎵enc☆         ⇒ encrypt
+⎵enc☆t        ⇒ encryption
 
 ⎵es☆          ⇒ ess
 ⎵es☆t         ⇒ essential
 ⎵es☆tl        ⇒ essentially
-
-⎵enc☆         ⇒ encrypt
-⎵enc☆t        ⇒ encryption
 
 ⎵ev★t         ⇒ everything
 ⎵ev★r         ⇒ everywhere
 ⎵ev★o         ⇒ everyone
 
 // ------------------------------------F---------------------------------------
+
+⎵fu☆          ⇒ fun
+⎵fu☆t         ⇒ function
+⎵fu☆tl        ⇒ functional
+⎵fu☆tg        ⇒ functioning
+⎵fu☆ty        ⇒ functionality
+
 // ------------------------------------G---------------------------------------
 // ------------------------------------H---------------------------------------
 // ------------------------------------I---------------------------------------
 
-⎵i☆           ⇒ I
-⎵i☆m          ⇒ I'm
-⎵i☆d          ⇒ I'd
-⎵i☆l          ⇒ I'll
-⎵i☆v          ⇒ I've
+⎵i☆s          ⇒ instead
+⎵i☆c          ⇒ incapable
 
 ⎵i☆t          ⇒ interest
 ⎵i☆td         ⇒ interested
@@ -157,8 +161,11 @@ d★☆l          ⇒ dynamically
 ⎵i★rd         ⇒ informed
 ⎵i★rt         ⇒ information
 
-⎵i☆s          ⇒ instead
-⎵i☆c          ⇒ incapable
+⎵i☆           ⇒ I
+⎵i☆m          ⇒ I'm
+⎵i☆d          ⇒ I'd
+⎵i☆l          ⇒ I'll
+⎵i☆v          ⇒ I've
 
 // ------------------------------------J---------------------------------------
 
@@ -216,31 +223,20 @@ m★            ⇒ ment
 
 // ------------------------------------R---------------------------------------
 
-⎵re★          ⇒ reason
-⎵re★g         ⇒ reasoning
-⎵re★y         ⇒ reasonably
-⎵re★l         ⇒ reasonable
-
 ⎵res☆         ⇒ restrict
 ⎵res☆n        ⇒ restriction
 
 ⎵rec★         ⇒ recycle
 ⎵recycle☆     ⇒ recycling
 
+⎵re★          ⇒ reason
+⎵re★g         ⇒ reasoning
+⎵re★y         ⇒ reasonably
+⎵re★l         ⇒ reasonable
+
 // ------------------------------------S---------------------------------------
 
 ⎵s☆           ⇒ some
-
-⎵s☆o          ⇒ someone
-⎵s☆h          ⇒ somehow
-⎵s☆w          ⇒ somewhat
-⎵s☆m          ⇒ sometime
-⎵s☆r          ⇒ somewhere
-⎵s☆t          ⇒ something
-
-⎵s☆m★         ⇒ sometimes
-
-⎵spe★         ⇒ special
 
 ⎵sp☆          ⇒ specific
 ⎵sp☆a         ⇒ specifically
@@ -248,27 +244,40 @@ m★            ⇒ ment
 ⎵st★          ⇒ start
 ⎵st★d         ⇒ started
 
-⎵sip★         ⇒ simply
+⎵s★l          ⇒ simple
+⎵s★l☆         ⇒ simply
 
 ⎵si★          ⇒ simultaneous
 ⎵si★y         ⇒ simultaneously
 
 ⎵si☆r         ⇒ singer
+⎵spe★         ⇒ special
+
+⎵s☆o          ⇒ someone
+⎵s☆h          ⇒ somehow
+⎵s☆w          ⇒ somewhat
+⎵s☆m          ⇒ sometime
+⎵s☆r          ⇒ somewhere
+⎵s☆t          ⇒ something
+⎵s☆m★         ⇒ sometimes
 
 // ------------------------------------T---------------------------------------
+
+⎵tal★g        ⇒ talking
+
 // ------------------------------------U---------------------------------------
 
 u★            ⇒ ue
 
 ⎵u★           ⇒ under
 
+⎵up★          ⇒ update
+⎵ug★          ⇒ upgrade
+
 ⎵u☆           ⇒ use
 ⎵u☆g          ⇒ using
 ⎵u☆f          ⇒ useful
 ⎵u☆l          ⇒ useless
-
-⎵up★          ⇒ update
-⎵ug★          ⇒ upgrade
 
 // ------------------------------------V---------------------------------------
 
@@ -425,7 +434,6 @@ ous☆          ⇒ ously
 
 // Double
 
-⎵fu☆          ⇒ function
 ⎵ht☆          ⇒ https://
 ⎵cu☆          ⇒ curious
 ⎵sc☆          ⇒ school
@@ -459,7 +467,6 @@ q☆            ⇒ qui
 
 // Double taps
 
-⎵fu☆☆         ⇒ functionality
 ⎵int☆☆        ⇒ interesting
 ⎵ba☆☆         ⇒ basically
 ⎵v☆☆          ⇒ variable
