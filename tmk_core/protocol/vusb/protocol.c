@@ -181,11 +181,11 @@ void protocol_task(void) {
 #endif
 
 #ifdef XAP_ENABLE
-        usbPoll();
+    usbPoll();
 
-        if (usbConfiguration && usbInterruptIsReady4()) {
-            xap_task();
-        }
+    if (usbConfiguration && usbInterruptIsReady4()) {
+        xap_task();
+    }
 #endif
 
 #ifdef CONSOLE_ENABLE
