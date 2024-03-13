@@ -43,12 +43,6 @@
         "handedness": {
             "pin": "GP18"
         }
-        "matrix_pins": {
-            "right": {
-                "cols": ["GP2", "GP3", "GP4", "GP5", "GP6", "GP7", "GP8", "GP9"],
-                "rows": ["GP10", "GP11", "GP12", "GP13", "GP14", "GP15"]
-            }
-        }
     },
     "tags": ["split"],
     "url": "poseysmechanicalkeyboards.com",
