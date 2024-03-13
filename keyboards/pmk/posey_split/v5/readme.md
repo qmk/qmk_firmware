@@ -3,10 +3,15 @@
 ![posey_split_v5](https://i.imgur.com/g3yf6al.png)
 
 *A short description of the keyboard/project*
+About Posey's Split Mechanical Keyboards
+The Posey split keyboard was designed from the gournd up for gaming. By pushing the left half of your split keyboard out of the way, you'll be able to game with better posture and increase mouse movement. PMK's have additional keys on the right half to make sure you don't need to reach for your other half while gaming. 
+
+Version Changes from v4:
+-Changed bottom row on the left half to use standard modifier key sizes
 
 * Keyboard Maintainer: [Javier Oliver](https://github.com/joliverMI)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: posey_split_v5 and logic_module_v1
+* Hardware Availability: poseysmechanicalkeyboards.com
 
 Make example for this keyboard (after setting up your build environment):
 
