@@ -113,7 +113,8 @@
         "max_brightness": 200,
         "sat_steps": 20,
         "speed_steps": 20,
-        "val_steps": 20
+        "val_steps": 20,
+        "sleep": true
     },
     "url": "https://github.com/JZ-Skyloong",
     "usb": {

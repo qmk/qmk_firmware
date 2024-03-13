@@ -72,6 +72,24 @@ __attribute__((weak)) uint16_t keycode_at_encodermap_location(uint8_t layer_num,
 #endif // defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Dip Switch mapping
+
+#if defined(DIP_SWITCH_ENABLE) && defined(DIP_SWITCH_MAP_ENABLE)
+
+uint16_t keycode_at_dip_switch_map_location_raw(uint8_t switch_idx, bool on) {
+    if (switch_idx < NUM_DIP_SWITCHES) {
+        return pgm_read_word(&dip_switch_map[switch_idx][!!on]);
+    }
+    return KC_TRNS;
+}
+
+uint16_t keycode_at_dip_switch_map_location(uint8_t switch_idx, bool on) {
+    return keycode_at_dip_switch_map_location_raw(switch_idx, on);
+}
+
+#endif // defined(DIP_SWITCH_ENABLE) && defined(DIP_SWITCH_MAP_ENABLE)
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Combos
 
 #if defined(COMBO_ENABLE)

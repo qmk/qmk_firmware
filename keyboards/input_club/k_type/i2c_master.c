@@ -114,7 +114,7 @@ i2c_status_t i2c_receive(uint8_t index, uint8_t address, uint8_t* data, uint16_t
     return chibios_to_qmk(&status);
 }
 
-i2c_status_t i2c_writeReg(uint8_t index, uint8_t devaddr, uint8_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout) {
+i2c_status_t i2c_write_register(uint8_t index, uint8_t devaddr, uint8_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout) {
     if(index >= I2C_COUNT) {
         return I2C_STATUS_ERROR;
     }
@@ -131,7 +131,7 @@ i2c_status_t i2c_writeReg(uint8_t index, uint8_t devaddr, uint8_t regaddr, const
     return chibios_to_qmk(&status);
 }
 
-i2c_status_t i2c_readReg(uint8_t index, uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout) {
+i2c_status_t i2c_read_register(uint8_t index, uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout) {
     if(index >= I2C_COUNT) {
         return I2C_STATUS_ERROR;
     }
