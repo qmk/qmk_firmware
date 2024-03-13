@@ -3,11 +3,11 @@
 
 #include QMK_KEYBOARD_H
 
-
-//System Layers
-#define _QWERTY 0
-#define _NAV 8
-#define _SYMB 9
+enum my_layers {
+    _QWERTY,
+    _NAV,
+    _SYMB,
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
