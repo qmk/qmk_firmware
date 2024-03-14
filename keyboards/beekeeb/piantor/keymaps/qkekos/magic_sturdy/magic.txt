@@ -28,6 +28,7 @@
 
 ⎵arent        ⇒ aren't
 ⎵acc★         ⇒ accuracy
+⎵alg★         ⇒ algorithm
 
 // ------------------------------------B---------------------------------------
 
@@ -72,39 +73,43 @@
 ⎵co★t         ⇒ couldn't
 ⎵co★v         ⇒ could've
 
-⎵cop★         ⇒ coping
-⎵com★         ⇒ comment
-⎵ca☆          ⇒ capable
-
 ⎵c☆e          ⇒ confuse
 ⎵c☆en         ⇒ confusion
 ⎵c☆★          ⇒ confusing
 ⎵c☆e★         ⇒ confused
 
+⎵cop★         ⇒ coping
+⎵com★         ⇒ comment
+⎵ca☆          ⇒ capable
+⎵cant         ⇒ can't
+
 // ------------------------------------D---------------------------------------
 
 d★            ⇒ dy
+⎵d☆           ⇒ dd
 
 d★☆           ⇒ dynamic
 d★☆l          ⇒ dynamically
 
-⎵d☆b          ⇒ doub
-⎵d☆bl         ⇒ double
+⎵d☆o          ⇒ doub
+⎵d☆ol         ⇒ double
 
-⎵d☆           ⇒ do
-⎵d☆t          ⇒ don't
-⎵d☆n          ⇒ down
+⎵des★         ⇒ describe 
+⎵des★☆        ⇒ describing
+
+⎵des☆         ⇒ descript
+⎵des☆n        ⇒ description 
+⎵des☆★        ⇒ descriptive
 
 ⎵d☆★          ⇒ differ
 ⎵d☆★t         ⇒ different
-⎵d☆★e         ⇒ difference
+⎵d☆★r         ⇒ difference
 
-⎵d★f          ⇒ def
-⎵d★ft         ⇒ default
-⎵d★fl         ⇒ definitely
-⎵d★f☆         ⇒ define
-
-// Todo definite, description, describe etc.
+⎵de★          ⇒ default
+⎵del☆         ⇒ deflation
+⎵df☆          ⇒ define
+⎵df☆t         ⇒ definite
+⎵df☆l         ⇒ definitely
 
 ⎵dev☆         ⇒ develop
 ⎵dev☆d        ⇒ developed
@@ -112,6 +117,7 @@ d★☆l          ⇒ dynamically
 ⎵dev☆n        ⇒ developing
 ⎵dev☆m        ⇒ development
 
+⎵d☆n          ⇒ down
 ⎵dont         ⇒ don't
 ⎵didnt        ⇒ didn't
 ⎵d☆r          ⇒ during
@@ -312,9 +318,16 @@ q★            ⇒ que
 ⎵th☆          ⇒ those
 
 ⎵t☆★          ⇒ think
-⎵thg☆         ⇒ though
+⎵tg☆          ⇒ though
 ⎵thr☆         ⇒ through
 ⎵tal★g        ⇒ talking
+
+⎵te★          ⇒ tech
+⎵te★l         ⇒ technical
+⎵te★☆         ⇒ technique
+⎵te★g         ⇒ technology
+⎵te★ly        ⇒ technically
+⎵te★g☆        ⇒ technologies
 
 ⎵★☆           ⇒ then
 ⎵★s           ⇒ this
@@ -336,18 +349,22 @@ u★            ⇒ ue
 ⎵up★          ⇒ update
 ⎵ug★          ⇒ upgrade
 
+⎵unr☆         ⇒ unreal
+⎵unr☆d        ⇒ unrelated
+⎵unr☆t        ⇒ unrealistic
+⎵unr☆s        ⇒ unreasonable
+
 ⎵u☆           ⇒ use
 ⎵u☆g          ⇒ using
 ⎵u☆f          ⇒ useful
 ⎵u☆l          ⇒ useless
-
-// TODO
-
-// unreal/istic/unreasonable/unrelated
+⎵und☆         ⇒ undoable
 
 // ------------------------------------V---------------------------------------
 
 v★            ⇒ ver
+
+v★☆           ⇒ version
 
 // ------------------------------------W---------------------------------------
 
@@ -365,11 +382,6 @@ v★            ⇒ ver
 // ------------------------------------Z---------------------------------------
 
 // Old(er) rules
-
-// Quadruple
-
-⎵algo★        ⇒ algorithm
-⎵undo★        ⇒ undoable
 
 // Triple
 
@@ -461,7 +473,6 @@ x★            ⇒ xt
 
 ⎵imp☆         ⇒ impossible
 ⎵uni☆         ⇒ university
-⎵int☆         ⇒ interest
 ⎵ins☆         ⇒ instead
 
 ⎵awk☆         ⇒ awkward
@@ -514,7 +525,6 @@ y☆            ⇒ you
 
 // Double taps
 
-⎵int☆☆        ⇒ interesting
 ⎵ba☆☆         ⇒ basically
 ⎵v☆☆          ⇒ variable
 ⎵ex☆☆         ⇒ exactly
