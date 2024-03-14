@@ -23,6 +23,8 @@ void dynamic_keymap_reset(void);
 void dynamic_keymap_macro_reset(void);
 #endif
 
+_Static_assert((intptr_t)EECONFIG_HANDEDNESS == 14, "EEPROM handedness offset is incorrect");
+
 /** \brief eeconfig enable
  *
  * FIXME: needs doc
@@ -61,11 +63,9 @@ void eeconfig_init_quantum(void) {
     eeprom_update_byte(EECONFIG_AUDIO, 0);
     eeprom_update_dword(EECONFIG_RGBLIGHT, 0);
     eeprom_update_byte(EECONFIG_RGBLIGHT_EXTENDED, 0);
-    eeprom_update_byte(EECONFIG_UNUSED, 0);
     eeprom_update_byte(EECONFIG_UNICODEMODE, 0);
     eeprom_update_byte(EECONFIG_STENOMODE, 0);
-    uint64_t dummy = 0;
-    eeprom_update_block(&dummy, EECONFIG_RGB_MATRIX, sizeof(uint64_t));
+    eeprom_write_qword(EECONFIG_RGB_MATRIX, 0);
     eeprom_update_dword(EECONFIG_HAPTIC, 0);
 #if defined(HAPTIC_ENABLE)
     haptic_reset();

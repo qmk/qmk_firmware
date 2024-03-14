@@ -171,6 +171,12 @@ __attribute__((weak)) void raw_hid_receive(uint8_t *data, uint8_t length) {
 }
 
 void raw_hid_task(void) {
+    usbPoll();
+
+    if (!usbConfiguration || !usbInterruptIsReady4()) {
+        return;
+    }
+
     if (raw_output_received_bytes == RAW_BUFFER_SIZE) {
         raw_hid_receive(raw_output_buffer, RAW_BUFFER_SIZE);
         raw_output_received_bytes = 0;
@@ -239,6 +245,12 @@ void xap_receive_base(const void *data) {
 }
 
 void xap_task(void) {
+    usbPoll();
+
+    if (!usbConfiguration || !usbInterruptIsReady4()) {
+        return;
+    }
+
     if (xap_output_received_bytes == XAP_BUFFER_SIZE) {
         xap_receive_base(xap_output_buffer);
         xap_output_received_bytes = 0;
@@ -259,7 +271,9 @@ int8_t sendchar(uint8_t c) {
 }
 
 void console_task(void) {
-    if (!usbConfiguration) {
+    usbPoll();
+
+    if (!usbConfiguration || !usbInterruptIsReady3()) {
         return;
     }
 
