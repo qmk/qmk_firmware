@@ -1,6 +1,6 @@
-# GK104 Q1 LED Display Keyboard
+# GK104 Q1 Digital Indicator Keyboard
 
-![GK104 Q1](https://i.imgur.com/TYx22dhh.jpg)
+![GK104 Q1](https://i.imgur.com/EPuSVUAh.jpeg)
 
 ## The PCB features:
 * QMK & VIA compatibility
