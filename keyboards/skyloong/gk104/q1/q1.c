@@ -271,35 +271,41 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 
     //caps lock display
     if (host_keyboard_led_state().caps_lock) {
-        RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_INDEX, 255, 255, 255);
+       // RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_INDEX, 255, 255, 255);
         IND = IND | CAPS_ON;
     } else {
+        /*
         if (!rgb_matrix_get_flags()) {
             RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_INDEX, 0, 0, 0);
         }
+        */
         IND = IND & (~CAPS_ON);
     }
     //number lock display
     if (host_keyboard_led_state().num_lock) {
-        RGB_MATRIX_INDICATOR_SET_COLOR(NUM_LOCK_INDEX, 255, 255, 255);
+       // RGB_MATRIX_INDICATOR_SET_COLOR(NUM_LOCK_INDEX, 255, 255, 255);
         IND = IND | NUM_ON;
     } else {
+        /*
         if (!rgb_matrix_get_flags()) {
             RGB_MATRIX_INDICATOR_SET_COLOR(NUM_LOCK_INDEX, 0, 0, 0);
         }
+        */
         IND = IND & (~NUM_ON);
     }
     //scroll lock display
     if (host_keyboard_led_state().scroll_lock) {
-        RGB_MATRIX_INDICATOR_SET_COLOR(SCR_LOCK_INDEX, 255, 255, 255);
+       // RGB_MATRIX_INDICATOR_SET_COLOR(SCR_LOCK_INDEX, 255, 255, 255);
         IND = IND | SCR_ON;
     } else {
+        /*
         if (!rgb_matrix_get_flags()) {
             RGB_MATRIX_INDICATOR_SET_COLOR(SCR_LOCK_INDEX, 0, 0, 0);
         }
+        */
         IND = IND & (~SCR_ON);
     }
-
+   /*
     switch (get_highest_layer(layer_state)) {
     case 0:{
        if (FN_ON) {
@@ -330,7 +336,7 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 
      return true;
     }
-
+    */
     s_serial_to_parallel(IND);
     return true;
 }

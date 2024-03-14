@@ -61,7 +61,7 @@ const uint16_t PROGMEM dip_switch_map[NUM_DIP_SWITCHES][NUM_DIP_STATES] = {
     DIP_SWITCH_OFF_ON(TO(0), TO(1)),
 };
 #endif
-
+/*
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
    switch (get_highest_layer(layer_state)) {
@@ -87,4 +87,4 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     }
     return true;
 }
-
+*/
