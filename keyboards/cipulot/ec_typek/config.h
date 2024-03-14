@@ -61,7 +61,7 @@
 
 // #define DEBUG_MATRIX_SCAN_RATE
 
-#define EECONFIG_KB_DATA_SIZE 172
+#define EECONFIG_KB_DATA_SIZE 171
 
 // RGB & Indicators
 // PWM driver with direct memory access (DMA) support
