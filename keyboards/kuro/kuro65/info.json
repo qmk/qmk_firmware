@@ -25,10 +25,6 @@
         "console": false,
         "command": false,
         "nkro": true,
-        "backlight": false,
-        "rgblight": false,
-        "audio": false,
-        "key_lock": false,
         "rgb_matrix": true
     },
     "ws2812": {

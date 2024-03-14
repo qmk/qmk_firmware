@@ -11,9 +11,7 @@
         "mousekey": false,
         "extrakey": true,
         "console": false,
-        "audio": false,
-        "command": false,
-        "backlight": false
+        "command": false
     },
     "matrix_pins": {
         "rows": ["D0", "D1", "D2", "D3"],
