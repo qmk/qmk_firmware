@@ -15,7 +15,12 @@
         "device_version": "2.0.0"
     },
     "eeprom": {
-        "driver": "i2c"
+        "driver": "i2c",
+        "i2c": {
+            "device": "24lc256",
+            "address": "0xA8",
+            "write_protect_pin": "B5"
+        }
     },
     "features": {
         "rgb_matrix": true,
