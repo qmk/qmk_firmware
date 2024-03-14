@@ -7,6 +7,18 @@
         "pid": "0x0404",
         "device_version": "0.0.1"
     },
+    "build": {
+        "lto": true
+    },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": false,
+        "space_cadet": false
+    },
     "backlight": {
         "pin": "D5",
         "levels": 6
