@@ -8,6 +8,15 @@
     "pid": "0x0001",
     "device_version": "0.0.2"
   },
+  "features": {
+    "bootmagic": false,
+    "command": false,
+    "console": false,
+    "encoder": true,
+    "extrakey": true,
+    "mousekey": true,
+    "nkro": false
+  },
   "matrix_pins": {
     "cols": ["C6", "B6", "B5", "D7", "D6", "D4"],
     "rows": ["B4", "D5", "B3", "B2", "B1", "B0"]
@@ -19,6 +28,7 @@
     ]
   },
   "split": {
+    "enabled": true,
     "soft_serial_pin": "E6",
     "encoder": {
       "right": {
