@@ -229,13 +229,7 @@ void rgblight_init(void) {
         return;
     }
 
-    dprintf("rgblight_init called.\n");
     dprintf("rgblight_init start!\n");
-    if (!eeconfig_is_enabled()) {
-        dprintf("rgblight_init eeconfig is not enabled.\n");
-        eeconfig_init();
-        eeconfig_update_rgblight_default();
-    }
     rgblight_config.raw = eeconfig_read_rgblight();
     RGBLIGHT_SPLIT_SET_CHANGE_MODEHSVS;
     if (!rgblight_config.mode) {

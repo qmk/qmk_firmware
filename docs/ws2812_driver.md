@@ -208,9 +208,9 @@ The following `#define`s apply only to the `pwm` driver:
 |`WS2812_PWM_DRIVER`              |`PWMD2`             |The PWM driver to use                                                                     |
 |`WS2812_PWM_CHANNEL`             |`2`                 |The PWM channel to use                                                                    |
 |`WS2812_PWM_PAL_MODE`            |`2`                 |The pin alternative function to use                                                       |
-|`WS2812_DMA_STREAM`              |`STM32_DMA1_STREAM2`|The DMA Stream for `TIMx_UP`                                                              |
-|`WS2812_DMA_CHANNEL`             |`2`                 |The DMA Channel for `TIMx_UP`                                                             |
-|`WS2812_DMAMUX_ID`               |*Not defined*       |The DMAMUX configuration for `TIMx_UP` - only required if your MCU has a DMAMUX peripheral|
+|`WS2812_PWM_DMA_STREAM`          |`STM32_DMA1_STREAM2`|The DMA Stream for `TIMx_UP`                                                              |
+|`WS2812_PWM_DMA_CHANNEL`         |`2`                 |The DMA Channel for `TIMx_UP`                                                             |
+|`WS2812_PWM_DMAMUX_ID`           |*Not defined*       |The DMAMUX configuration for `TIMx_UP` - only required if your MCU has a DMAMUX peripheral|
 |`WS2812_PWM_COMPLEMENTARY_OUTPUT`|*Not defined*       |Whether the PWM output is complementary (`TIMx_CHyN`)                                     |
 
 ?> Using a complementary timer output (`TIMx_CHyN`) is possible only for advanced-control timers (1, 8 and 20 on STM32), and the `STM32_PWM_USE_ADVANCED` option in `mcuconf.h` must be set to `TRUE`. Complementary outputs of general-purpose timers are not supported due to ChibiOS limitations.

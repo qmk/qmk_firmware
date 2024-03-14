@@ -100,7 +100,7 @@ void eeconfig_update_rgb_matrix_default(void) {
     rgb_matrix_config.mode   = RGB_MATRIX_DEFAULT_MODE;
     rgb_matrix_config.hsv    = (HSV){RGB_MATRIX_DEFAULT_HUE, RGB_MATRIX_DEFAULT_SAT, RGB_MATRIX_DEFAULT_VAL};
     rgb_matrix_config.speed  = RGB_MATRIX_DEFAULT_SPD;
-    rgb_matrix_config.flags  = LED_FLAG_ALL;
+    rgb_matrix_config.flags  = RGB_MATRIX_DEFAULT_FLAGS;
     eeconfig_flush_rgb_matrix(true);
 }
 
@@ -460,12 +460,6 @@ void rgb_matrix_init(void) {
     }
 #endif // RGB_MATRIX_KEYREACTIVE_ENABLED
 
-    if (!eeconfig_is_enabled()) {
-        dprintf("rgb_matrix_init_drivers eeconfig is not enabled.\n");
-        eeconfig_init();
-        eeconfig_update_rgb_matrix_default();
-    }
-
     eeconfig_init_rgb_matrix();
     if (!rgb_matrix_config.mode) {
         dprintf("rgb_matrix_init_drivers rgb_matrix_config.mode = 0. Write default values to EEPROM.\n");
@@ -475,7 +469,7 @@ void rgb_matrix_init(void) {
 }
 
 void rgb_matrix_set_suspend_state(bool state) {
-#ifdef RGB_DISABLE_WHEN_USB_SUSPENDED
+#ifdef RGB_MATRIX_SLEEP
     if (state && !suspend_state) { // only run if turning off, and only once
         rgb_task_render(0);        // turn off all LEDs when suspending
         rgb_task_flush(0);         // and actually flash led state to LEDs

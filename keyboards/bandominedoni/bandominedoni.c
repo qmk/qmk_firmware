@@ -97,11 +97,11 @@ static enum { UNKNOWN, LEFT, RIGHT } hand_side = UNKNOWN;
         hand_side = readPin(SPLIT_HAND_PIN) ? LEFT : RIGHT;
         return (hand_side == LEFT);
 #elif defined(SPLIT_HAND_MATRIX_GRID)
-#    ifdef SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
-        hand_side = peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID) ? LEFT : RIGHT;
+#    ifdef SPLIT_HAND_MATRIX_GRID_LOW_IS_LEFT
+        hand_side = peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID) ? RIGHT : LEFT;
         return (hand_side == LEFT);
 #    else
-        hand_side = peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID) ? RIGHT : LEFT;
+        hand_side = peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID) ? LEFT : RIGHT;
         return (hand_side == LEFT);
 #    endif
 #elif defined(EE_HANDS)
