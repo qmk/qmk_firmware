@@ -254,7 +254,7 @@ void xap_receive_base(const void *data) {
     }
 }
 
-static void xap_task(void) {
+void xap_task(void) {
     // Create a temporary buffer to hold the read in data from the host
     uint8_t data[XAP_EPSIZE];
     bool    data_read = false;
