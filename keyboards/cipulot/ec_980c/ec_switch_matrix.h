@@ -20,6 +20,7 @@
 #include <stdbool.h>
 #include "matrix.h"
 #include "eeconfig.h"
+#include "util.h"
 
 typedef struct _indicator_config_t {
     uint8_t h;
