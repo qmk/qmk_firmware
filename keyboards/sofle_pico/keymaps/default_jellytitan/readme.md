@@ -2,7 +2,7 @@
 ![jellytitan](https://i.imgur.com/JqGPWCn.png)
 
 This keymap is derived from Ergodox layouts and is adapted for the 
-[sofle_pico](https://github.com/JellyTitan/sofle_pico). 
+[sofle_pico](https://github.com/JellyTitan/Sofle-Pico). 
 It is notable for it's semi-complex programming examples that include the use of
  rotary encoders.
 

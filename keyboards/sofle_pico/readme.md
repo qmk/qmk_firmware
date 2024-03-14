@@ -6,7 +6,7 @@ Sofle Pico is a 60% Raspberry Pi Pico powered split keyboard boasting a 4x6 layo
 
 - Keyboard Maintainer: [Ryan Neff](https://github.com/JellyTitan)
 - Hardware Supported: Sofle Pico PCB v3.5.x, Raspberry Pi Pico
-- Hardware Availability: [PCB, Case, Parts List](https://github.com/JellyTitan/sofle_pico)
+- Hardware Availability: [PCB, Case, Parts List](https://github.com/JellyTitan/Sofle-Pico)
 
 Remember you have to flash both halves of the keyboard for it to work!
 
