@@ -70,13 +70,6 @@ host_driver_t chibios_driver = {keyboard_leds, send_keyboard, send_nkro, send_mo
 void virtser_task(void);
 #endif
 
-#ifdef RAW_ENABLE
-void raw_hid_task(void);
-#endif
-
-#ifdef CONSOLE_ENABLE
-void console_task(void);
-#endif
 #ifdef MIDI_ENABLE
 void midi_ep_task(void);
 #endif
@@ -209,17 +202,11 @@ void protocol_pre_task(void) {
 }
 
 void protocol_post_task(void) {
-#ifdef CONSOLE_ENABLE
-    console_task();
-#endif
 #ifdef MIDI_ENABLE
     midi_ep_task();
 #endif
 #ifdef VIRTSER_ENABLE
     virtser_task();
-#endif
-#ifdef RAW_ENABLE
-    raw_hid_task();
 #endif
     usb_idle_task();
 }
