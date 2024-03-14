@@ -63,7 +63,7 @@
 
 // #define DEBUG_MATRIX_SCAN_RATE
 
-#define EECONFIG_KB_DATA_SIZE 160
+#define EECONFIG_KB_DATA_SIZE 159
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
