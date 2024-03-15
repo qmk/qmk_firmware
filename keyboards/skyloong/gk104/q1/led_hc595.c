@@ -33,7 +33,7 @@
 #define WIN_ON 0b00000010
 #define MAC_ON 0b00000100
 
-# define ClockTime 15
+#define CLOCK_TIME 15
 
 static inline void setPinOutput_writeLow(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
