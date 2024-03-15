@@ -2,10 +2,10 @@
     "manufacturer": "nwhirschfeld",
     "keyboard_name": "TechnicPad",
     "maintainer": "nwhirschfeld",
-    "development_board": "promicro",
     "build": {
         "lto": true
     },
+    "development_board": "promicro",
     "features": {
         "bootmagic": true,
         "extrakey": true,
