@@ -18,68 +18,26 @@
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
     _BASE,
-    _FUNC1,
-    _VIA1,
-    _VIA2
-};
-
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-    YUSHAURL = SAFE_RANGE
+    _FUNC
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_BASE] = LAYOUT(
-        KC_MUTE,   MO(_FUNC1), RGB_MOD,
-        S(KC_TAB), KC_UP,      KC_TAB,
-        KC_LEFT,   KC_DOWN,    KC_RGHT
+        KC_MUTE,   MO(_FUNC), RGB_MOD,
+        S(KC_TAB), KC_UP,     KC_TAB,
+        KC_LEFT,   KC_DOWN,   KC_RGHT
     ),
-    [_FUNC1] = LAYOUT(
-        QK_BOOT,   KC_TRNS, RGB_TOG,
+    [_FUNC] = LAYOUT(
+        QK_BOOT, KC_TRNS, RGB_TOG,
         KC_HOME, KC_VOLU, KC_END,
         KC_MPRV, KC_VOLD, KC_MNXT
-    ),
-    [_VIA1] = LAYOUT(
-        YUSHAURL,XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX
-    ),
-    [_VIA2] = LAYOUT(
-        XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX
     )
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case YUSHAURL:
-            if (record->event.pressed) {
-                // when keycode QMKURL is pressed
-                SEND_STRING("https://yushakobo.jp/\n");
-            } else {
-                // when keycode QMKURL is released
-            }
-            break;
-    }
-    return true;
-}
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) { // Left encoder
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    }
-    else if (index == 1) { // Right encoder
-        if (clockwise) {
-            rgblight_decrease_hue_noeeprom();
-        } else {
-            rgblight_increase_hue_noeeprom();
-        }
-    }
-    return true;
-}
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(RGB_HUI, RGB_HUD) },
+    [_FUNC] = { ENCODER_CCW_CW(RGB_HUI, RGB_HUD),ENCODER_CCW_CW(KC_VOLD, KC_VOLU) }
+};
+#endif
