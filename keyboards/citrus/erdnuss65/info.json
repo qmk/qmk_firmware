@@ -2,7 +2,7 @@
     "manufacturer": "Citrus Lab",
     "keyboard_name": "Erdnuss65",
     "maintainer": "ctt",
-    "development_board": "bluepill",
+    "bootloader": "stm32duino",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
@@ -15,6 +15,7 @@
         "cols": ["B12", "B14", "B15", "B5", "B13", "B3", "B4", "B6", "A0", "A1", "A2", "A3", "A4", "A5", "B11"],
         "rows": ["B10", "B1", "B0", "A7", "A6"]
     },
+    "processor": "STM32F103",
     "rgblight": {
         "led_count": 1
     },
