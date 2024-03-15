@@ -42,7 +42,6 @@
             "knight": true,
             "christmas": false,
             "static_gradient": true,
-            "rgb_test": true,
             "alternating": false,
             "twinkle": false
         }
