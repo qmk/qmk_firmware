@@ -5,8 +5,7 @@
 #include "quantum.h"
 #include "debounce.h"
 
-#define ReadDelayTime 120
-#define ClockTime 15
+#define ClOCK_TIME 15
 #define MATRIX_INPUT_PRESSED_STATE 0
 
 #define HC595_ST_PIN A6
@@ -75,7 +74,7 @@ static bool select_col(uint8_t col) {
             }else{
                writePinHigh(HC595_DS_PIN);
             }
-           clockPulse(ClockTime);
+           clockPulse(ClOCK_TIME);
         }
         return true;
 
@@ -85,7 +84,7 @@ static void unselect_col(uint8_t col) {
     uint8_t x = (MATRIX_COLS - col);
     setPinOutput_writeHigh(HC595_DS_PIN);
      for (uint8_t y = 0; y < x ; y++) {
-        clockPulse(ClockTime);
+        clockPulse(ClOCK_TIME);
     }
 }
 
@@ -94,7 +93,7 @@ static void unselect_cols(void) {
     setPinOutput_writeLow(HC595_ST_PIN);
     setPinOutput_writeHigh(HC595_DS_PIN);
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-        clockPulse(ClockTime);
+        clockPulse(ClOCK_TIME);
     }
 }
 
