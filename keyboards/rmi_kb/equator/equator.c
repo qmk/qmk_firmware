@@ -5,6 +5,9 @@
 
 #ifdef RGB_MATRIX_ENABLE
 bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
+    if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) { 
+        return false;
+    }
     led_t state = host_keyboard_led_state();
     uint32_t highest_layer = get_highest_layer(layer_state);
 
@@ -21,7 +24,6 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
         RGB_MATRIX_INDICATOR_SET_COLOR(2, 0, 0, 0);
     }
 
-    rgb_matrix_indicators_advanced_user(led_min, led_max);
 
     return false;
 }
