@@ -22,9 +22,7 @@
         "console": false,
         "command": false,
         "nkro": true,
-        "backlight": false,
-        "rgblight": true,
-        "audio": false
+        "rgblight": true
     },
     "ws2812": {
         "pin": "A8"
