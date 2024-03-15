@@ -142,7 +142,7 @@ int8_t opt_encoder_handler(uint16_t curA, uint16_t curB) {
         }
     }
 
-    else {  // state must be LOHI
+    else { // state must be LOHI
         if (sA == HI && sB == HI) {
             state = HIHI;
             lohif = true;
@@ -157,9 +157,13 @@ int8_t opt_encoder_handler(uint16_t curA, uint16_t curB) {
     return ret;
 }
 
-void calculateThresholdA(int curA) { scrollThresholdA = calculateThreshold(curA, &lowA, &highA, &cLowA, &cHighA, arLowA, arHighA, &lowIndexA, &highIndexA, &lowOverflowA, &highOverflowA); }
+void calculateThresholdA(int curA) {
+    scrollThresholdA = calculateThreshold(curA, &lowA, &highA, &cLowA, &cHighA, arLowA, arHighA, &lowIndexA, &highIndexA, &lowOverflowA, &highOverflowA);
+}
 
-void calculateThresholdB(int curB) { scrollThresholdB = calculateThreshold(curB, &lowB, &highB, &cLowB, &cHighB, arLowB, arHighB, &lowIndexB, &highIndexB, &lowOverflowB, &highOverflowB); }
+void calculateThresholdB(int curB) {
+    scrollThresholdB = calculateThreshold(curB, &lowB, &highB, &cLowB, &cHighB, arLowB, arHighB, &lowIndexB, &highIndexB, &lowOverflowB, &highOverflowB);
+}
 
 int calculateThreshold(int cur, int* low, int* high, bool* cLow, bool* cHigh, int arLow[], int arHigh[], int* lowIndex, int* highIndex, bool* lowOverflow, bool* highOverflow) {
     if (cur < *low) *low = cur;
@@ -236,7 +240,9 @@ int calculateThreshold(int cur, int* low, int* high, bool* cLow, bool* cHigh, in
     return thresholdEquation(calcLow, calcHigh);
 }
 
-int thresholdEquation(int lo, int hi) { return ((hi - lo) / 3) + lo; }
+int thresholdEquation(int lo, int hi) {
+    return ((hi - lo) / 3) + lo;
+}
 
 void incrementIndex(int* index, bool* ovflw) {
     if (*index < SCROLLER_AR_SIZE - 1)
