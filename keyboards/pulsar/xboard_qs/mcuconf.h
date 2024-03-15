@@ -21,7 +21,6 @@
 #undef STM32_GPT_USE_TIM3
 #define STM32_GPT_USE_TIM3                  TRUE
 
-/* enable SPI2, used for WS2812underglow(RGB BackLight)/WS2812 RGB-Matrix SPI driver, PIN B15 */
 #undef STM32_SPI_USE_SPI2
 #define STM32_SPI_USE_SPI2 TRUE
 
