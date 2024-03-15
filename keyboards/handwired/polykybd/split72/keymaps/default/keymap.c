@@ -11,6 +11,8 @@
 #include "base/fonts/NotoSans_Medium_Base_8pt.h"
 #include "base/fonts/gfx_used_fonts.h"
 
+#include "base/crc32.h"
+
 #include "quantum/quantum_keycodes.h"
 #include "quantum/keymap_extras/keymap_german.h"
 #include "quantum/via.h"
@@ -181,7 +183,7 @@ typedef struct _poly_sync_t {
     uint8_t flags;
     layer_state_t default_ls;
     uint16_t last_latin_kc;
-    uint16_t checksum;
+    uint32_t crc32;
 } poly_sync_t;
 
 #define SYNC_ACK 0b11001010
@@ -301,8 +303,8 @@ void request_disp_refresh(void) {
 
 void user_sync_poly_data_handler(uint8_t in_len, const void* in_data, uint8_t out_len, void* out_data) {
     if (in_len == sizeof(poly_sync_t) && in_data != NULL && out_len == sizeof(poly_sync_reply_t) && out_data!= NULL) {
-        int checksum = fletcher16(in_data, sizeof(g_local)-sizeof(g_local.checksum));
-        if(checksum == ((const poly_sync_t *)in_data)->checksum) {
+        uint32_t crc32 = crc32_1byte(in_data, sizeof(g_local)-sizeof(g_local.crc32), 0);
+        if(crc32 == ((const poly_sync_t *)in_data)->crc32) {
             memcpy(&g_local, in_data, sizeof(poly_sync_t));
             ((poly_sync_reply_t*)out_data)->ack = SYNC_ACK;
         }
@@ -340,14 +342,21 @@ void sync_and_refresh_displays(void) {
         //master syncs data
         if ( memcmp(&g_local, &g_state.s, sizeof(poly_sync_t))!=0 ) {
             poly_sync_reply_t reply;
-            g_local.checksum = fletcher16((const void *)&g_local, sizeof(g_local)-sizeof(g_local.checksum));
-            for(uint8_t retry = 0; retry<10; ++retry) {
+            g_local.crc32 = crc32_1byte((const void *)&g_local, sizeof(g_local)-sizeof(g_local.crc32), 0);
+            uint8_t retry = 0;
+            for(; retry<10; ++retry) {
                 sync_success = transaction_rpc_exec(USER_SYNC_POLY_DATA, sizeof(poly_sync_t), &g_local, sizeof(poly_sync_reply_t), &reply);
                 if(sync_success && reply.ack == SYNC_ACK) {
                     break;
                 }
                 sync_success = false;
                 printf("Bridge sync retry %d (success: %d, ack: %d)\n", retry, sync_success, reply.ack == SYNC_ACK);
+            }
+            if(retry>0) {
+                if(sync_success)
+                    printf("Success on retry %d (success: %d, ack: %d)\n", retry, sync_success, reply.ack == SYNC_ACK);
+                else
+                    printf("Failed sync!\n");
             }
         }
     }
@@ -1197,7 +1206,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     //The following entries will over-rule language specific enties in the follow langauge lookup table,
     //however with this we can control them by flags and so far those wehere not lanuage specific anyway.
     case KC_ENTER:      return (g_local.flags&MORE_TEXT)!=0 ? u"Enter"    : ARROWS_RETURN;
-    case KC_ESCAPE:	    return (g_local.flags&MORE_TEXT)!=0 ? u"Esc"      : ARROWS_RETURN;
+    case KC_ESCAPE:	    return (g_local.flags&MORE_TEXT)!=0 ? u"Esc"      : u"Esc";
     case KC_BACKSPACE:  return (g_local.flags&MORE_TEXT)!=0 ? u"Bksp"     : TECHNICAL_ERASELEFT;
     case KC_TAB:        return (g_local.flags&MORE_TEXT)!=0 ? u"Tab"      : ARROWS_TAB;
     case KC_SPACE:      return (g_local.flags&MORE_TEXT)!=0 ? u"Space"    : ICON_SPACE;
