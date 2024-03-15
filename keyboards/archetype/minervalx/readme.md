@@ -1,6 +1,6 @@
 # Minerva LX
 
-![Minerva LX](https://archetypemade.com/minerva-is-here/)
+![Minerva LX](https://i.imgur.com/f97nsrx.jpg)
 
 The following is the QMK Firmware for the Minerva LX PCB.
 
