@@ -9,7 +9,7 @@ jobs:
   build:
     strategy:
         matrix:
-            keymap: [michael, leon]
+            keymap: [emily, leon]
     runs-on: ubuntu-latest
     container: ghcr.io/qmk/qmk_cli
 
@@ -28,7 +28,6 @@ jobs:
     - name: Run build (keymap ${{ matrix.keymap }})
       run: |
         qmk compile -e CONVERT_TO=promicro_rp2040 -kb splitkb/aurora/sweep -km ${{ matrix.keymap }}
-
     - name: 'Upload artifacts'
       uses: actions/upload-artifact@v3
       if: always()
