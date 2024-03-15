@@ -19,25 +19,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,          _______,                            _______, _______,          _______, _______, _______, _______, _______
     )
 };
-
-#ifdef RGB_MATRIX_ENABLE
-bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    led_t state = host_keyboard_led_state();
-    uint32_t highest_layer = get_highest_layer(layer_state);
-
-
-    if (!(state.compose || state.scroll_lock)) {
-        RGB_MATRIX_INDICATOR_SET_COLOR(0, 0, 0, 0);
-    }
-
-    if (!state.caps_lock) {
-        RGB_MATRIX_INDICATOR_SET_COLOR(1, 0, 0, 0);
-    }
-
-    if (highest_layer == 0) {
-        RGB_MATRIX_INDICATOR_SET_COLOR(2, 0, 0, 0);
-    }
-
-    return false;
-}
-#endif
