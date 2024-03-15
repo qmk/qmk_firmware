@@ -13,6 +13,19 @@
         "rows": ["B0", "B1", "B2", "B3", "B4"]
     },
     "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "mousekey": false,
+        "extrakey": true,
+        "console": false,
+        "command": false,
+        "nkro": false,
+        "backlight": true,
+        "rgblight": true
+    },
+    "build": {
+        "lto": true
+    },
     "backlight": {
         "pin": "D4",
         "levels": 12,
