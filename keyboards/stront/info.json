@@ -85,7 +85,6 @@
         "encoder": true,
         "backlight": true,
         "extrakey": true,
-        "rgblight": false,
         "rgb_matrix": true,
         "nkro": false
     },
