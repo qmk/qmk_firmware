@@ -53,7 +53,8 @@
         "LAYOUT_625u_space_split_bs": "LAYOUT_ansi_blocker_split_bs",
         "LAYOUT_7u_space": "LAYOUT_ansi_blocker_tsangan",
         "LAYOUT_7u_space_split_bs": "LAYOUT_ansi_blocker_tsangan_split_bs",
-        "LAYOUT_iso_625u_space": "LAYOUT_iso_blocker"
+        "LAYOUT_iso_625u_space": "LAYOUT_iso_blocker",
+        "LAYOUT_iso_625u_space_split_bs": "LAYOUT_iso_blocker_split_bs"
     },
     "layouts": {
         "LAYOUT_ansi_blocker": {
@@ -447,7 +448,7 @@
                 {"matrix": [4, 14], "x": 15, "y": 4}
             ]
         },
-        "LAYOUT_iso_625u_space_split_bs": {
+        "LAYOUT_iso_blocker_split_bs": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
