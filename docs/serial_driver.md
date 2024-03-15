@@ -57,7 +57,7 @@ SERIAL_DRIVER = bitbang
 
 ## USART Half-duplex
 
-Targeting ARM boards based on ChibiOS, where communication is offloaded to a USART hardware device that supports Half-duplex operation. The advantages over bitbanging are fast, accurate timings and reduced CPU usage. Therefore it is advised to choose Half-duplex over Bitbang if MCU is capable of utilising Half-duplex, and Full-duplex can't be used instead (e.g. lack of available GPIO pins).
+Targeting ARM boards based on ChibiOS, where communication is offloaded to a USART hardware device that supports Half-duplex operation. The advantages over bitbanging are fast, accurate timings and reduced CPU usage. Therefore it is advised to choose Half-duplex over Bitbang if MCU is capable of utilising Half-duplex, and Full-duplex can't be used instead (e.g. lack of available GPIO pins, or imcompatible PCB design).
 
 ### Pin configuration
 
@@ -74,7 +74,9 @@ Targeting ARM boards based on ChibiOS, where communication is offloaded to a USA
 +-------+                 +-------+
 ```
 
-Only one GPIO pin is needed for the Half-duplex driver, as only one wire is used for receiving and transmitting data. This pin is referred to as the `SERIAL_USART_TX_PIN` in the configuration. Ensure that the pin chosen for split communication can operate as the TX pin of the contoller's USART peripheral. A TRS or USB cable provides enough conductors for this driver to function. As the split connection is configured to operate in open-drain mode, an **external pull-up resistor is needed to keep the line high**. Resistor values of 1.5kΩ to 8.2kΩ are known to work. Please note, a pull-up resistor isn't required for RP2040 controllers configured with PIO subsystem.
+Only one GPIO pin is needed for the Half-duplex driver, as only one wire is used for receiving and transmitting data. This pin is referred to as the `SERIAL_USART_TX_PIN` in the configuration. Ensure that the pin chosen for split communication can operate as the TX pin of the contoller's USART peripheral. A TRS or USB cable provides enough conductors for this driver to function. As the split connection is configured to operate in open-drain mode, an **external pull-up resistor is needed to keep the line high**. Resistor values of 1.5kΩ to 8.2kΩ are known to work. 
+
+!> ***Note:*** A pull-up resistor isn't required for RP2040 controllers configured with PIO subsystem.
 
 ### Setup
 
@@ -229,7 +231,7 @@ Just below `#include_next <mcuconf.h>` add:
 
 Where 'n' matches the peripheral number of your selected USART on the MCU.
 
-3. In keyboard's `config.h` file: override the default USART `SIO` driver if you use a USART peripheral that does not belong to the default selected `SIOD1` driver. For instance, if you selected `STM32_SERIAL_USE_USART3` the matching driver would be `SIOD3`.
+3. In the keyboard's `config.h` file: override the default USART `SIO` driver if you use a USART peripheral that does not belong to the default selected `SIOD1` driver. For instance, if you selected `STM32_SERIAL_USE_USART3` the matching driver would be `SIOD3`.
 
 ```c
  #define SERIAL_USART_DRIVER SIOD3
@@ -239,7 +241,7 @@ Where 'n' matches the peripheral number of your selected USART on the MCU.
 
 The `PIO` subsystem is a Raspberry Pi RP2040 specific implementation, using an integrated PIO peripheral and is therefore only available on this MCU. Because of the flexible nature of PIO peripherals, **any** GPIO pin can be used as a `TX` or `RX` pin. Half-duplex and Full-duplex operation modes are fully supported with this driver. Half-duplex uses the built-in pull-ups and GPIO manipulation of the RP2040 to drive the line high by default, thus an external pull-up resistor **is not required**.
 
-Optionally, the PIO peripheral to be utilised for split communication can be changed with the following define in config.h:
+Optionally, the PIO peripheral utilized for split communication can be changed with the following define in config.h:
 ```c
 #define SERIAL_PIO_USE_PIO1 // Force the usage of PIO1 peripheral, by default the Serial implementation uses the PIO0 peripheral
 ```
