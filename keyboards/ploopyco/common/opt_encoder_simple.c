@@ -63,7 +63,7 @@
 
 typedef enum {
     CALIBRATION, /* Recalibrate encoder state by waiting for a 01 -> 00 or 10 -> 00 transistion */
-    DECODE /* Translate changes in the encoder state into movement */
+    DECODE       /* Translate changes in the encoder state into movement */
 } encoder_state_t;
 
 static encoder_state_t mode;
@@ -87,15 +87,14 @@ static const uint8_t movement[] = {
     // 10 -> 00, 01, 10, 11
     MOVE_DOWN, MOVE_ERR, MOVE_NONE, MOVE_UP,
     // 11 -> 00, 01, 10, 11
-    MOVE_ERR, MOVE_UP, MOVE_DOWN, MOVE_NONE
-};
+    MOVE_ERR, MOVE_UP, MOVE_DOWN, MOVE_NONE};
 
 void opt_encoder_init(void) {
-    mode = CALIBRATION;
+    mode      = CALIBRATION;
     lastState = 0;
 
-    lowA = ENCODER_MAX;
-    lowB = ENCODER_MAX;
+    lowA  = ENCODER_MAX;
+    lowB  = ENCODER_MAX;
     highA = ENCODER_MIN;
     highB = ENCODER_MIN;
 }
@@ -104,26 +103,22 @@ int8_t opt_encoder_handler(uint16_t encA, uint16_t encB) {
     int8_t result = 0;
 
     highA = MAX(encA, highA);
-    lowA = MIN(encA, lowA);
+    lowA  = MIN(encA, lowA);
     highB = MAX(encB, highB);
-    lowB = MIN(encB, lowB);
+    lowB  = MIN(encB, lowB);
 
     /* Only compute the thresholds after a large enough range is established */
     if (highA - lowA > SCROLL_THRESH_RANGE_LIM && highB - lowB > SCROLL_THRESH_RANGE_LIM) {
-        const int16_t lowThresholdA = (highA + lowA) / 4;
+        const int16_t lowThresholdA  = (highA + lowA) / 4;
         const int16_t highThresholdA = (highA + lowA) - lowThresholdA;
-        const int16_t lowThresholdB = (highB + lowB) / 4;
+        const int16_t lowThresholdB  = (highB + lowB) / 4;
         const int16_t highThresholdB = (highB + lowB) - lowThresholdB;
 
-        uint8_t state = MAKE_STATE(
-            STATE_A(lastState) ? encA > lowThresholdA : encA > highThresholdA,
-            STATE_B(lastState) ? encB > lowThresholdB : encB > highThresholdB
-        );
+        uint8_t state = MAKE_STATE(STATE_A(lastState) ? encA > lowThresholdA : encA > highThresholdA, STATE_B(lastState) ? encB > lowThresholdB : encB > highThresholdB);
 
         switch (mode) {
             case CALIBRATION:
-                if ((lastState == HILO && state == LOLO)
-                        || (lastState == LOHI && state == LOLO))
+                if ((lastState == HILO && state == LOLO) || (lastState == LOHI && state == LOLO))
                     mode = DECODE;
                 else
                     mode = CALIBRATION;
@@ -134,7 +129,7 @@ int8_t opt_encoder_handler(uint16_t encA, uint16_t encB) {
                 /* If we detect a state change that should not be possible,
                  * then the wheel might have moved too fast and we need to
                  * recalibrate the encoder position. */
-                mode = result == MOVE_ERR ? CALIBRATION : mode;
+                mode   = result == MOVE_ERR ? CALIBRATION : mode;
                 result = result == MOVE_ERR ? MOVE_NONE : result;
 
                 break;
