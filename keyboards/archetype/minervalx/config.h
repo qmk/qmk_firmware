@@ -1,0 +1,12 @@
+// Copyright 2023 contact@vwolf.be
+// SPDX-License-Identifier: GPL-2.0-or-later
+#pragma once
+
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
+
+#define WS2812_PIO_USE_PIO1
+
+#define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL
+
+#define BACKLIGHT_PWM_DRIVER PWMD5
+#define BACKLIGHT_PWM_CHANNEL RP2040_PWM_CHANNEL_A
