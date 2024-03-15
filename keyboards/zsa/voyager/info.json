@@ -22,9 +22,6 @@
         "swap_hands": true,
         "rgb_matrix": true
     },
-    "build": {
-        "lto": false
-    },
     "bootmagic": {
         "matrix": [0, 1]
     },
@@ -53,7 +50,6 @@
         "max_brightness": 175,
         "sleep": true,
         "animations": {
-            "solid_color": true,
             "alphas_mods": true,
             "gradient_up_down": true,
             "gradient_left_right": true,
