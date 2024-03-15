@@ -18,7 +18,6 @@
 
 #define HAL_USE_PAL                 TRUE
 #define HAL_USE_GPT                 TRUE
-/* enable SPI, used for WS2812underglow(RGB BackLight)/WS2812 RGB-Matrix SPI driver */
 #define HAL_USE_SPI     TRUE
 
 #include_next <halconf.h>
