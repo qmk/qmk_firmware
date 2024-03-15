@@ -1,6 +1,7 @@
 # GK104 Q1 Digital Indicator Keyboard
 
-![GK104 Q1](https://i.imgur.com/EPuSVUAh.jpeg)
+![GK104 Q1 PCBAS](https://i.imgur.com/EPuSVUAh.jpeg)
+![GK104 Q1 keyboard](https://i.imgur.com/fuswwLph.png)
 
 ## The PCB features:
 * QMK & VIA compatibility
@@ -8,7 +9,7 @@
 * Mechanical switches Keyboard with LED display.
 
 
-The following is the QMK Firmware for the Destop 87% keylayout -  designed by Dongguan Jizhi Electronic Technology Co., Ltd
+The following is the QMK Firmware for the Destop 100% keylayout -  designed by Dongguan Jizhi Electronic Technology Co., Ltd
 
 * Keyboard Maintainer: [NaturalZh](https://github.com/NaturalZh)
 * Hardware Supported: DestopPCB for Skyloong keylayout 100%, STM32F103C8T6
