@@ -73,7 +73,7 @@ static void s_serial_to_parallel(uint8_t data) { // Serial port to parallel port
         }else{
             writePinLow(HC595_DS);
         }
-        clockPulse(ClockTime);
+        clockPulse(CLOCK_TIME);
         data >>= 1; // Move the data one digit to the right
     }
 }
