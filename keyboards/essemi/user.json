@@ -1,0 +1,191 @@
+{
+	"name": "NuPhy Air75 V2",
+	"vendorId": "0x19F5",
+	"productId": "0x3245",
+	"matrix": {
+		"rows": 6,
+		"cols": 17
+	},
+	"layouts": {
+		"keymap": [
+			["0,0","0,1","0,2","0,3","0,4","0,5","0,6","0,7","0,8","0,9","0,10","0,11","0,12","2,14","0,15","0,14"],
+			["1,0","1,1","1,2","1,3","1,4","1,5","1,6","1,7","1,8","1,9","1,10","1,11","1,12",{"w":2},"1,13","1,16"],
+			[{"w":1.5},"2,0","2,1","2,2","2,3","2,4","2,5","2,6","2,7","2,8","2,9","2,10","2,11","2,12",{"w":1.5},"2,13","2,16"],
+			[{"w":1.75},"3,0","3,1","3,2","3,3","3,4","3,5","3,6","3,7","3,8","3,9","3,10","3,11",{"w":2.25},"3,13","1,15"],
+			[{"w":2.25},"4,0","4,2","4,3","4,4","4,5","4,6","4,7","4,8","4,9","4,10","4,11",{"w":1.75},"4,13","4,14","2,15"],
+			[{"w":1.25},"5,0",{"w":1.25},"5,1",{"w":1.25},"5,2",{"w":6.25},"5,6","5,9","5,10","3,14","5,13","5,14","5,15"]
+		]
+	},
+	"menus": [
+	{
+		"label": "Lighting",
+		"content": [
+		{
+			"label": "Backlight",
+			"content": [
+			{
+				"label": "Brightness",
+				"type": "range",
+				"options": [0, 255],
+				"content": ["id_qmk_rgb_matrix_brightness", 3, 1]
+			},
+			{
+				"label": "Effect",
+				"type": "dropdown",
+				"content": ["id_qmk_rgb_matrix_effect", 3, 2],
+				"options": [
+					"All Off",
+					"Solid Color",
+					"Gradient Up/Down",
+					"Gradient Left/Right",
+					"Breathing",
+					"Band Sat.",
+					"Band Val.",
+					"Pinwheel Sat.",
+					"Pinwheel Val.",
+					"Spiral Sat.",
+					"Spiral Val.",
+					"Cycle All",
+					"Cycle Left/Right",
+					"Cycle Up/Down",
+                    "Rainbow Moving Chevron",
+					"Cycle Out/In",
+					"Cycle Out/In Dual",
+					"Cycle Pinwheel",
+					"Cycle Spiral",
+					"Dual Beacon",
+					"Rainbow Beacon",
+					"Rainbow Pinwheels",
+					"Raindrops",
+					"Jellybean Raindrops",
+					"Hue Breathing",
+					"Hue Pendulum",
+					"Hue Wave",
+					"Typing Heatmap",
+					"Digital Rain",
+					"Reactive Simple",
+					"Reactive",
+					"Reactive Wide",
+					"Reactive Multiwide",
+					"Reactive Cross",
+					"Reactive Multicross",
+					"Reactive Nexus",
+					"Reactive MultiNexus",
+					"Splash",
+					"MultiSplash",
+					"Solid Splash",
+					"Solid MultiSplash"
+				]
+			},
+			{
+				"showIf": "{id_qmk_rgb_matrix_effect} != 0",
+				"label": "Effect Speed",
+				"type": "range",
+				"options": [0, 255],
+				"content": ["id_qmk_rgb_matrix_effect_speed", 3, 3]
+			},
+			{
+				"showIf": "{id_qmk_rgb_matrix_effect} != 0",
+				"label": "Color",
+				"type": "color",
+				"content": ["id_qmk_rgb_matrix_color", 3, 4]
+			}
+		  ]
+		}
+		]
+	}
+	],
+"keycodes": [
+	"qmk_lighting"
+],
+"customKeycodes": [
+	{
+		"name": "RF\nDFU",
+		"title": "RF DFU"
+	},
+	{
+		"name": "Link\nUSB",
+		"title": "Link USB"
+	},
+	{
+		"name": "Link\nRF",
+		"title": "Link RF"
+	},
+	{
+		"name": "Link\nBLE_1",
+		"title": "Link BLE_1"
+	},
+	{
+		"name": "Link\nBLE_2",
+		"title": "Link BLE_2"
+	},
+	{
+		"name": "Link\nBLE_3",
+		"title": "Link BLE_3"
+	},
+	{
+		"name": "Mac\nTask",
+		"title": "Mac Task"
+	},
+	{
+		"name": "Mac\nSearch",
+		"title": "Mac Search"
+	},
+	{
+		"name": "Mac\nVoice",
+		"title": "Mac Siri Voice"
+	},
+    {
+		"name": "Mac\nConsole",
+		"title": "Mac Console"
+	},
+	{
+		"name": "Print\nWhole",
+		"title": "PrintWhole"
+	},
+	{
+		"name": "Print\nArea",
+		"title": "PrintArea"
+	},
+	{
+		"name": "Side\nLight+",
+		"title": "Side Light +"
+	},
+	{
+		"name": "Side\nLight-",
+		"title": "Side Light -"
+	},
+	{
+		"name": "Side\nMode",
+		"title": "Side Next Mode"
+	},
+	{
+		"name": "Side\nColor",
+		"title": "Side Next Color"
+	},
+	{
+		"name": "Side\nFast",
+		"title": "Side Speed +"
+	},
+	{
+		"name": "Side\nSlow",
+		"title": "Side Speed -"
+	},
+	{
+		"name": "Dev\nReset",
+		"title": "Device Reset"
+	},
+	{
+		"name": "Sleep\nMode",
+		"title": "Auto Sleep"
+	},
+	{
+		"name": "Bat\nShow",
+		"title": "Battery Show"
+	},
+    {
+		"name": "Mac\nDND",
+		"title": "Mac DND"
+	}
+]
+}

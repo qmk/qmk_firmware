@@ -13,6 +13,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#ifdef ES_INCLUDE_INFO_CONFIG_FILE
+#include "info_config.h"
+#endif
 
 #include "dynamic_keymap.h"
 #include "keymap_introspection.h"

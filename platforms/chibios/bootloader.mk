@@ -76,6 +76,14 @@ ifeq ($(strip $(BOOTLOADER)), gd32v-dfu)
     DFU_ARGS ?= -d 28E9:0189 -a 0 -s 0x08000000:leave
     DFU_SUFFIX_ARGS ?= -v 28E9 -p 0189
 endif
+ifeq ($(strip $(BOOTLOADER)), fs026_bootloader)
+    OPT_DEFS += -DBOOTLOADER_FS026
+    BOOTLOADER_TYPE = fs026_bootloader
+
+    # Options to pass to dfu-util when flashing
+    DFU_ARGS ?= -d 30CC:AEF1 -a 0 -s 0x00000000:leave
+    DFU_SUFFIX_ARGS ?= -v 30CC -p AEF1
+endif
 ifeq ($(strip $(BOOTLOADER)), kiibohd)
     OPT_DEFS += -DBOOTLOADER_KIIBOHD
     BOOTLOADER_TYPE = kiibohd

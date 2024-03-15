@@ -28,14 +28,14 @@ enum mods_5bit {
 /** \brief 8-bit packed modifiers
  */
 enum mods_8bit {
-    MOD_BIT_LCTRL  = 0b00000001,
-    MOD_BIT_LSHIFT = 0b00000010,
-    MOD_BIT_LALT   = 0b00000100,
-    MOD_BIT_LGUI   = 0b00001000,
-    MOD_BIT_RCTRL  = 0b00010000,
-    MOD_BIT_RSHIFT = 0b00100000,
-    MOD_BIT_RALT   = 0b01000000,
-    MOD_BIT_RGUI   = 0b10000000,
+    MOD_BIT_LCTRL  = 0x01,
+    MOD_BIT_LSHIFT = 0x02,
+    MOD_BIT_LALT   = 0x04,
+    MOD_BIT_LGUI   = 0x08,
+    MOD_BIT_RCTRL  = 0x10,
+    MOD_BIT_RSHIFT = 0x20,
+    MOD_BIT_RALT   = 0x40,
+    MOD_BIT_RGUI   = 0x80,
 };
 #define MOD_MASK_CTRL (MOD_BIT_LCTRL | MOD_BIT_RCTRL)
 #define MOD_MASK_SHIFT (MOD_BIT_LSHIFT | MOD_BIT_RSHIFT)

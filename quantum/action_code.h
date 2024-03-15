@@ -84,22 +84,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 enum action_kind_id {
     /* Key Actions */
-    ACT_MODS      = 0b0000,
-    ACT_LMODS     = 0b0000,
-    ACT_RMODS     = 0b0001,
-    ACT_MODS_TAP  = 0b0010,
-    ACT_LMODS_TAP = 0b0010,
-    ACT_RMODS_TAP = 0b0011,
+    ACT_MODS      = 0x00,
+    ACT_LMODS     = 0x00,
+    ACT_RMODS     = 0x01,
+    ACT_MODS_TAP  = 0x02,
+    ACT_LMODS_TAP = 0x02,
+    ACT_RMODS_TAP = 0x03,
     /* Other Keys */
-    ACT_USAGE    = 0b0100,
-    ACT_MOUSEKEY = 0b0101,
+    ACT_USAGE    = 0x04,
+    ACT_MOUSEKEY = 0x05,
     /* One-hand Support */
-    ACT_SWAP_HANDS = 0b0110,
+    ACT_SWAP_HANDS = 0x06,
     /* Layer Actions */
-    ACT_LAYER         = 0b1000,
-    ACT_LAYER_MODS    = 0b1001,
-    ACT_LAYER_TAP     = 0b1010, /* Layer  0-15 */
-    ACT_LAYER_TAP_EXT = 0b1011, /* Layer 16-31 */
+    ACT_LAYER         = 0x08,
+    ACT_LAYER_MODS    = 0x09,
+    ACT_LAYER_TAP     = 0x0a, /* Layer  0-15 */
+    ACT_LAYER_TAP_EXT = 0x0b, /* Layer 16-31 */
 };
 
 /** \brief Action Code Struct

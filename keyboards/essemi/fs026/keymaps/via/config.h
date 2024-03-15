@@ -1,4 +1,4 @@
-/* Copyright 2019 Nick Brassel (tzarc)
+/* Copyright 2021 QMK
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,14 +16,18 @@
 
 #pragma once
 
-#ifdef ES_INCLUDE_INFO_CONFIG_FILE
-#include QMK_KEYMAP_CONFIG_H      
-#endif
 
-/*
-    The size of the transient EEPROM buffer size.
-*/
-#ifndef TRANSIENT_EEPROM_SIZE
-#    include "eeconfig.h"
-#    define TRANSIENT_EEPROM_SIZE (((EECONFIG_SIZE + 3) / 4) * 4) // based off eeconfig's current usage, aligned to 4-byte sizes, to deal with LTO
-#endif
+#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR  4095
+
+#define FEE_PAGE_SIZE (0x200)
+#define FEE_PAGE_COUNT (8)
+
+#define FEE_PAGE_BASE_ADDRESS (0x1F000)
+#define FEE_MCU_FLASH_SIZE (0x1000)
+
+#define EECONFIG_USER_DATA_SIZE 4
+
+#define EECONFIG_KB_DATA_SIZE 1
+
+#define TRANSIENT_EEPROM_SIZE 4096
+

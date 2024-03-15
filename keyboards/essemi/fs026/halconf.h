@@ -1,4 +1,4 @@
-/* Copyright 2019 Nick Brassel (tzarc)
+/* Copyright 2021 QMK
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,14 +16,14 @@
 
 #pragma once
 
-#ifdef ES_INCLUDE_INFO_CONFIG_FILE
-#include QMK_KEYMAP_CONFIG_H      
-#endif
+#define HAL_USE_PWM TRUE
 
-/*
-    The size of the transient EEPROM buffer size.
-*/
-#ifndef TRANSIENT_EEPROM_SIZE
-#    include "eeconfig.h"
-#    define TRANSIENT_EEPROM_SIZE (((EECONFIG_SIZE + 3) / 4) * 4) // based off eeconfig's current usage, aligned to 4-byte sizes, to deal with LTO
-#endif
+#define ES32_PWM_USE_GP16C4T2               TRUE
+
+#define BACKLIGHT_PWM_DRIVER    PWM_GP16C4T2
+#define BACKLIGHT_PWM_CHANNEL   3
+
+#define HAL_USE_USB TRUE
+#define HAL_USE_PAL TRUE
+
+#include_next <halconf.h>

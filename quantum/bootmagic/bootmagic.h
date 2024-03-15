@@ -15,26 +15,8 @@
  */
 #pragma once
 
-// ======== DEPRECATED DEFINES - DO NOT USE ========
-#ifdef BOOTMAGIC_LITE_ROW
-#    define BOOTMAGIC_ROW BOOTMAGIC_LITE_ROW
-#endif
-#ifdef BOOTMAGIC_LITE_COLUMN
-#    define BOOTMAGIC_COLUMN BOOTMAGIC_LITE_COLUMN
-#endif
-#ifdef BOOTMAGIC_LITE_ROW_RIGHT
-#    define BOOTMAGIC_ROW_RIGHT BOOTMAGIC_LITE_ROW_RIGHT
-#endif
-#ifdef BOOTMAGIC_LITE_COLUMN_RIGHT
-#    define BOOTMAGIC_COLUMN_RIGHT BOOTMAGIC_LITE_COLUMN_RIGHT
-#endif
-// ========
-
-#ifndef BOOTMAGIC_COLUMN
-#    define BOOTMAGIC_COLUMN 0
-#endif
-#ifndef BOOTMAGIC_ROW
-#    define BOOTMAGIC_ROW 0
+#if defined(BOOTMAGIC_LITE)
+#    include "bootmagic_lite.h"
 #endif
 
 void bootmagic(void);
