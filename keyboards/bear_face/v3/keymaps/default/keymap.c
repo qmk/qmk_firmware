@@ -88,28 +88,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case BASE_QWER:
             if (record->event.pressed) {
-            // when keycode BASE_QWER is pressed
                 set_single_persistent_default_layer(_QWER);
-            } else {
-            // when keycode BASE_QWER is released
             }
             break;
-
         case BASE_COLE:
             if (record->event.pressed) {
-            // when keycode BASE_COLE is pressed
                 set_single_persistent_default_layer(_COLE);
-            } else {
-            // when keycode BASE_COLE is released
             }
             break;
-
         case BASE_DVOR:
             if (record->event.pressed) {
-            // when keycode BASE_DVOR is pressed
                 set_single_persistent_default_layer(_DVOR);
-            } else {
-            // when keycode BASE_DVOR is released
             }
             break;
     }
