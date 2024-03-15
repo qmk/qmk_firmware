@@ -1,10 +1,9 @@
 {
-    "keyboard_name": "Sofle",
     "manufacturer": "JosefAdamcik",
     "url": "https://github.com/josefadamcik/SofleKeyboard",
     "maintainer": "Josef Adamcik <josef.adamcik@gmail.com>",
+    "development_board": "promicro",
     "usb": {
-        "vid": "0xFC32",
         "pid": "0x0287",
         "device_version": "0.0.1"
     },
@@ -12,14 +11,12 @@
         "cols": ["F6", "F7", "B1", "B3", "B2", "B6"],
         "rows": ["C6", "D7", "E6", "B4", "B5"]
     },
-    "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
             {"pin_a": "F5", "pin_b": "F4", "resolution": 2}
         ]
     },
     "split": {
-        "soft_serial_pin": "D2",
         "encoder": {
             "right": {
                 "rotary": [
@@ -28,14 +25,6 @@
             }
         }
     },
-    "tapping": {
-        "term": 100
-    },
-    "qmk": {
-        "tap_keycode_delay": 10
-    },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [
