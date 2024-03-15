@@ -3,8 +3,8 @@
 // ↻⎵
 
 // ★ - magic key(upper right index)
-//  - repeat key(home right thumb)
-// ✪ - double letters magic - [bfnzhq] letters act as a dedicated magic key on double tap
+// ☆ - repeat key(home right thumb)
+// ✪ - double letters magic - [nh] letters act as a dedicated magic key on double tap
 //                            ^ (second tap within tapping term)
 
 // ↻ - repeat token
@@ -22,11 +22,17 @@
 ⎵ag★          ⇒ again
 ⎵ag★t         ⇒ against
 
+⎵av★          ⇒ average
+⎵av★g         ⇒ averaging
+
 ⎵al★          ⇒ alr
 ⎵al★d         ⇒ already
 ⎵al★g         ⇒ alright
 
+⎵aint         ⇒ ain't
+⎵a★v          ⇒ above
 ⎵arent        ⇒ aren't
+⎵alm★         ⇒ almost
 ⎵acc★         ⇒ accuracy
 ⎵alg★         ⇒ algorithm
 
@@ -34,23 +40,33 @@
 
 ⎵b☆           ⇒ be
 
+⎵bc☆          ⇒ bunch
+
 ⎵b☆e          ⇒ been
 ⎵b☆k          ⇒ back
 ⎵b☆o          ⇒ both
-⎵b☆c          ⇒ become
-⎵b☆ca         ⇒ became
+⎵b☆g          ⇒ being
+⎵b☆m          ⇒ become
+⎵b☆ma         ⇒ became
 ⎵b☆r          ⇒ before
 ⎵b☆u          ⇒ buffer
-⎵b☆s          ⇒ because
+⎵b☆p          ⇒ bypass
+⎵b☆t          ⇒ better
+⎵b☆c          ⇒ because
 ⎵b☆l          ⇒ believe
-⎵b☆t          ⇒ between
+⎵b☆w          ⇒ between
 ⎵b☆v          ⇒ behavior
+⎵b☆ps         ⇒ bypassing
+
+// TODO
+
+// bother, bothersome, etc.
 
 // ------------------------------------C---------------------------------------
 
 [oauei]c★     ⇒ \1ck
 
-⎵c☆           ⇒ co
+⎵c☆           ⇒ con
 
 ⎵p☆           ⇒ copy
 ⎵p☆n          ⇒ copying
@@ -60,6 +76,7 @@
 
 ⎵c☆f          ⇒ config
 ⎵c☆fr         ⇒ configure
+⎵c☆ft         ⇒ configuration
 
 ⎵c☆n          ⇒ consider
 ⎵c☆ne         ⇒ considered
@@ -74,14 +91,20 @@
 ⎵co★v         ⇒ could've
 
 ⎵c☆e          ⇒ confuse
+⎵c☆e★         ⇒ confused
 ⎵c☆en         ⇒ confusion
 ⎵c☆★          ⇒ confusing
-⎵c☆e★         ⇒ confused
 
 ⎵cop★         ⇒ coping
 ⎵com★         ⇒ comment
 ⎵ca☆          ⇒ capable
 ⎵cant         ⇒ can't
+
+// TODO
+
+// conversation, comfort/able/ly etc.
+// consistent/cy etc.
+// confident
 
 // ------------------------------------D---------------------------------------
 
@@ -94,11 +117,11 @@ d★☆l          ⇒ dynamically
 ⎵d☆o          ⇒ doub
 ⎵d☆ol         ⇒ double
 
-⎵des★         ⇒ describe 
+⎵des★         ⇒ describe
 ⎵des★☆        ⇒ describing
 
 ⎵des☆         ⇒ descript
-⎵des☆n        ⇒ description 
+⎵des☆n        ⇒ description
 ⎵des☆★        ⇒ descriptive
 
 ⎵d☆★          ⇒ differ
@@ -120,6 +143,7 @@ d★☆l          ⇒ dynamically
 ⎵d☆n          ⇒ down
 ⎵dont         ⇒ don't
 ⎵didnt        ⇒ didn't
+⎵doesnt       ⇒ doesn't
 ⎵d☆r          ⇒ during
 ⎵d☆i          ⇒ decide
 ⎵d☆a          ⇒ doable
@@ -137,9 +161,27 @@ d★☆l          ⇒ dynamically
 ⎵es☆t         ⇒ essential
 ⎵es☆tl        ⇒ essentially
 
+⎵ev★o         ⇒ everyone
 ⎵ev★t         ⇒ everything
 ⎵ev★r         ⇒ everywhere
-⎵ev★o         ⇒ everyone
+
+⎵ed★          ⇒ edge
+⎵evn✪         ⇒ eventually
+
+// TODO
+
+⎵esp★         ⇒ especially
+⎵ess★         ⇒ essential
+⎵exc★         ⇒ except
+
+⎵exp★         ⇒ experience
+⎵exp☆         ⇒ expect
+
+⎵ex★          ⇒ example
+⎵ex☆          ⇒ exact
+⎵ex☆☆         ⇒ exactly
+
+// exception, environment, early/earlier: ea@, ea@l, explain, expected/ing
 
 // ------------------------------------F---------------------------------------
 
@@ -151,9 +193,26 @@ d★☆l          ⇒ dynamically
 ⎵fu☆tg        ⇒ functioning
 ⎵fu☆ty        ⇒ functionality
 
+// TODO
+
+// fancy
+
 // ------------------------------------G---------------------------------------
+
+⎵gov★         ⇒ govern
+⎵gov★☆        ⇒ government
+
 // ------------------------------------H---------------------------------------
+
+⎵hi☆          ⇒ hilarious
+
+// TODO
+
+// hopefully
+
 // ------------------------------------I---------------------------------------
+
+i☆            ⇒ ing
 
 ⎵i☆s          ⇒ instead
 ⎵i☆c          ⇒ incapable
@@ -181,6 +240,8 @@ d★☆l          ⇒ dynamically
 ⎵i☆l          ⇒ I'll
 ⎵i☆v          ⇒ I've
 
+⎵is★          ⇒ issue
+ 
 // ------------------------------------J---------------------------------------
 
 ⎵ju☆          ⇒ judge
@@ -201,6 +262,7 @@ d★☆l          ⇒ dynamically
 // ------------------------------------L---------------------------------------
 
 ⎵lega★        ⇒ legacy
+⎵len☆         ⇒ length
 
 ⎵li★          ⇒ list
 ⎵li★d         ⇒ listed
@@ -229,13 +291,26 @@ m★            ⇒ ment
 ⎵ot★          ⇒ other
 ⎵ot★☆         ⇒ otherwise
 
-⎵ov★l         ⇒ overall
+⎵ov☆          ⇒ obvious
+⎵ov☆l         ⇒ obviously
+
+⎵oj★          ⇒ object
+⎵oj★t         ⇒ objection
+⎵oj★☆         ⇒ objective
+⎵oj★y         ⇒ objectively
+
+⎵ov★☆         ⇒ overall
 ⎵ov★r         ⇒ override
-⎵ov★k         ⇒ overlook
+⎵ov★l         ⇒ overlook
+⎵ov★k         ⇒ overkill
 ⎵ov★m         ⇒ overwhelm
 ⎵ov★kd        ⇒ overlooked
 ⎵ov★md        ⇒ overwhelmed
 ⎵ov★mg        ⇒ overwhelming
+
+// TODO
+
+// overload/ed/ing etc.
 
 // ------------------------------------P---------------------------------------
 
@@ -250,6 +325,10 @@ p★            ⇒ py
 ⎵pol★         ⇒ policy
 ⎵pha★         ⇒ pharmacy
 
+// TODO
+
+// psycho
+
 // ------------------------------------Q---------------------------------------
 
 q☆            ⇒ qui
@@ -260,8 +339,12 @@ q★            ⇒ que
 
 ⎵(en|de)?que☆ ⇒ \1queue
 
-⎵(en|de)quen  ⇒ \1queuing
-⎵q★g          ⇒ \1queuing
+⎵dequen       ⇒ dequeuing
+⎵(en)?queg    ⇒ \1queuing
+
+// TODO
+
+// sequence, frequent, frequency/ies, frequently, consequence
 
 // ------------------------------------R---------------------------------------
 
@@ -278,6 +361,12 @@ q★            ⇒ que
 ⎵re★y         ⇒ reasonably
 ⎵re★l         ⇒ reasonable
 
+⎵rat★         ⇒ rather
+
+// TODO
+
+// reverse, responsibility, review: revi*, restart
+
 // ------------------------------------S---------------------------------------
 
 ⎵s☆           ⇒ some
@@ -285,16 +374,25 @@ q★            ⇒ que
 ⎵sp☆          ⇒ specific
 ⎵sp☆a         ⇒ specifically
 
-⎵st★          ⇒ start
-⎵st★d         ⇒ started
-
 ⎵s★l          ⇒ simple
 ⎵s★l☆         ⇒ simply
 
 ⎵si★          ⇒ simultaneous
 ⎵si★y         ⇒ simultaneously
 
+⎵sit★         ⇒ situation
+⎵sit★☆        ⇒ situational
+
+⎵st★          ⇒ start
+⎵st★d         ⇒ started
+⎵st★g         ⇒ starting
+
+⎵so★          ⇒ sort
+⎵so★d         ⇒ sorted
+⎵so★g         ⇒ sorting
+
 ⎵si☆r         ⇒ singer
+⎵si☆l         ⇒ single
 ⎵str☆         ⇒ string
 ⎵spe★         ⇒ special
 ⎵sup★         ⇒ supremacy
@@ -308,6 +406,16 @@ q★            ⇒ que
 ⎵s☆t          ⇒ something
 ⎵s☆m★         ⇒ sometimes
 
+⎵st☆          ⇒ stat
+⎵st☆a         ⇒ stats
+⎵st☆o         ⇒ station
+⎵st☆u         ⇒ status
+⎵st☆d         ⇒ stated
+⎵st☆c         ⇒ statistic
+⎵st☆★         ⇒ statement
+⎵st☆c★        ⇒ statistics
+⎵st☆ca        ⇒ statistically
+
 // ------------------------------------T---------------------------------------
 
 ⎵★            ⇒ the
@@ -315,6 +423,7 @@ q★            ⇒ que
 ⎵t☆           ⇒ than
 ⎵t★           ⇒ that
 ⎵t★s          ⇒ that's
+⎵t★d          ⇒ that'd
 ⎵th☆          ⇒ those
 
 ⎵t☆★          ⇒ think
@@ -344,8 +453,6 @@ q★            ⇒ que
 
 u★            ⇒ ue
 
-⎵u★           ⇒ under
-
 ⎵up★          ⇒ update
 ⎵ug★          ⇒ upgrade
 
@@ -354,9 +461,15 @@ u★            ⇒ ue
 ⎵unr☆t        ⇒ unrealistic
 ⎵unr☆s        ⇒ unreasonable
 
+⎵u★           ⇒ under
+⎵u★t          ⇒ understand
+⎵u★td         ⇒ understood
+⎵u★tg         ⇒ understanding
+⎵u★tl         ⇒ understandable
+
 ⎵u☆           ⇒ use
 ⎵u☆g          ⇒ using
-⎵u☆f          ⇒ useful
+⎵u☆★          ⇒ useful
 ⎵u☆l          ⇒ useless
 ⎵und☆         ⇒ undoable
 
@@ -364,11 +477,11 @@ u★            ⇒ ue
 
 v★            ⇒ ver
 
-v★☆           ⇒ version
+⎵v★☆          ⇒ version
 
 // ------------------------------------W---------------------------------------
 
-⎵w★           ⇒ which
+⎵w☆           ⇒ wh
 
 ⎵(a)?wa★      ⇒ \1way
 ⎵work☆        ⇒ working
@@ -377,19 +490,35 @@ v★☆           ⇒ version
 ⎵whats        ⇒ what's
 ⎵werent       ⇒ weren't
 
+⎵w☆u          ⇒ would
+⎵w☆ut         ⇒ wouldn't
+⎵w☆uv         ⇒ would've
+
+⎵w☆d          ⇒ we'd
+⎵w☆l          ⇒ we'll
+⎵w☆v          ⇒ we've
+
+⎵w☆n          ⇒ when
+⎵w☆a          ⇒ what
+⎵w☆k          ⇒ work
+⎵w☆i          ⇒ which
+⎵w☆h          ⇒ while
+⎵w☆e          ⇒ where
+⎵w☆ar         ⇒ whatever
+⎵w☆nr         ⇒ whenever
+
 // ------------------------------------X---------------------------------------
 // ------------------------------------Y---------------------------------------
+
+y☆            ⇒ you
+y☆v           ⇒ you've
+
 // ------------------------------------Z---------------------------------------
 
 // Old(er) rules
 
 // Triple
 
-⎵esp★         ⇒ especially
-⎵exp★         ⇒ experience
-⎵hil★         ⇒ hilarious
-⎵ess★         ⇒ essential
-⎵sit★         ⇒ situation
 ⎵alt★         ⇒ although
 ⎵any★         ⇒ anything
 ⎵pos★         ⇒ position
@@ -403,20 +532,16 @@ v★☆           ⇒ version
 ⎵col★         ⇒ column
 ⎵num★         ⇒ number
 ⎵cri★         ⇒ cringe
-⎵exc★         ⇒ except
 ⎵pay★         ⇒ paypal
 ⎵red★         ⇒ redge
 ⎵led★         ⇒ ledge
-⎵nex★         ⇒ next
 
 ion★          ⇒ ional
 rid★          ⇒ ridge
-tex★          ⇒ text
 
 // Double
 
 ⎵pr★          ⇒ previous
-⎵ex★          ⇒ example
 ⎵pe★          ⇒ people
 ⎵pu★          ⇒ public
 ⎵sy★          ⇒ system
@@ -430,7 +555,6 @@ tex★          ⇒ text
 ⎵mu★          ⇒ must
 ⎵vi★          ⇒ view
 ⎵ti★          ⇒ time
-⎵ed★          ⇒ edge
 ⎵se★          ⇒ seen
 ⎵ty★          ⇒ typ
 ⎵we★          ⇒ web
@@ -473,7 +597,6 @@ x★            ⇒ xt
 
 ⎵imp☆         ⇒ impossible
 ⎵uni☆         ⇒ university
-⎵ins☆         ⇒ instead
 
 ⎵awk☆         ⇒ awkward
 ⎵cap☆         ⇒ capable
@@ -483,7 +606,6 @@ x★            ⇒ xt
 ⎵any☆         ⇒ anyway
 ⎵cou☆         ⇒ course
 ⎵min☆         ⇒ minute
-⎵exp☆         ⇒ expect
 ⎵bet☆         ⇒ better
 ⎵ask☆         ⇒ asking
 ⎵sti☆         ⇒ still
@@ -501,7 +623,6 @@ ous☆          ⇒ ously
 ⎵vi☆          ⇒ vision
 ⎵mu☆          ⇒ music
 ⎵ba☆          ⇒ basic
-⎵ex☆          ⇒ exact
 ⎵va☆          ⇒ value
 ⎵ab☆          ⇒ about
 ⎵sk☆          ⇒ skill
@@ -514,20 +635,16 @@ rs☆           ⇒ rst
 
 // Single
 
-⎵w☆           ⇒ would
 ⎵v☆           ⇒ var
 
 ⎵☆            ⇒ for
 
 x☆            ⇒ xes
-i☆            ⇒ ing
-y☆            ⇒ you
 
 // Double taps
 
 ⎵ba☆☆         ⇒ basically
 ⎵v☆☆          ⇒ variable
-⎵ex☆☆         ⇒ exactly
 
 // Double letter taps
 
@@ -539,7 +656,6 @@ y☆            ⇒ you
 
 // Quadruple
 
-⎵evn✪         ⇒ eventually
 ⎵gen✪         ⇒ general
 ⎵men✪         ⇒ menu
 
@@ -549,9 +665,7 @@ y☆            ⇒ you
 
 ⎵ab✪          ⇒ abbreviation
 ⎵uf✪          ⇒ unfortunate
-⎵wh✪          ⇒ whatever
 ⎵an✪          ⇒ another
-⎵ob✪          ⇒ obvious
 ⎵sh✪          ⇒ should
 ⎵af✪          ⇒ after
 

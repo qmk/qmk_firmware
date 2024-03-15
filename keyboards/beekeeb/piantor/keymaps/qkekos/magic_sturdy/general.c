@@ -29,6 +29,8 @@ void sequence_transform_on_missed_rule_user(const st_trie_rule_t *rule) {
 }
 
 int sturdy_pr(uint16_t keycode, keyrecord_t *record) {
+    if (current_lang != ENG) return PR_IGNORE;
+
     prev_key_timestamp = current_key_timestamp;
     current_key_timestamp = timer_read();
 
@@ -55,11 +57,7 @@ uint16_t magic_keycode_cast(uint16_t keycode, keyrecord_t *record) {
         case KC_MINUS ... KC_SLASH:
             return KC_SPC;
 
-        case KC_B:
-        case KC_Z:
         case KC_H:
-        case KC_F:
-        case KC_Q:
             return magic_double_tap_cast(keycode, record, DB_LTTR);
     }
 
@@ -75,4 +73,9 @@ uint16_t magic_double_tap_cast(uint16_t keycode, keyrecord_t *record, uint16_t m
     ) return keycode;
 
     return magic_key;
+}
+
+void matrix_scan_user(void)
+{
+    sequence_transform_task();
 }
