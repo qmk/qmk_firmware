@@ -19,7 +19,9 @@
 extern backlight_config_t backlight_config;
 
 bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
+    if (!led_update_user(led_state)) {
+        return false;
+    }
     (led_state.caps_lock && backlight_config.enable) ? backlight_set(backlight_config.level) : backlight_set(0);
-    return res;
+    return true;
 }
