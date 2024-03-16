@@ -39,6 +39,17 @@
     },
     "processor": "atmega32a",
     "bootloader": "bootloadhid",
+    "features": {
+        "bootmagic": false,
+        "mousekey": false,
+        "extrakey": true,
+        "console": false,
+        "command": false,
+        "nkro": false,
+        "backlight": true,
+        "rgblight": true,
+        "audio": false
+    },
     "community_layouts": ["ortho_4x12", "planck_mit"],
     "layout_aliases": {
         "LAYOUT": "LAYOUT_ortho_4x12_1x2u_c",
