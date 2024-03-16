@@ -111,6 +111,13 @@ Configures the [APA102](apa102_driver.md) driver.
 Configures the [Audio](feature_audio.md) feature.
 
 * `audio`
+    * `default`
+        * `on`
+            * The default audio enabled state.
+            * Default: `true`
+        * `clicky`
+            * The default audio clicky enabled state.
+            * Default: `true`
     * `macro_beep`
         * Play a short beep for `\a` (ASCII `BEL`) characters in Send String macros.
         * Default: `false`
@@ -626,7 +633,7 @@ Configures the [RGB Matrix](feature_rgb_matrix.md) feature.
             * The default animation speed.
             * Default: `128`
     * `driver` (Required)
-        * The driver to use. Must be one of `aw20216s`, `custom`, `is31fl3218`, `is31fl3731`, `is31fl3733`, `is31fl3736`, `is31fl3737`, `is31fl3741`, `is31fl3742a`, `is31fl3743a`, `is31fl3745`, `is31fl3746a`, `snled27351`, `ws2812`.
+        * The driver to use. Must be one of `aw20216s`, `custom`, `is31fl3218`, `is31fl3729`, `is31fl3731`, `is31fl3733`, `is31fl3736`, `is31fl3737`, `is31fl3741`, `is31fl3742a`, `is31fl3743a`, `is31fl3745`, `is31fl3746a`, `snled27351`, `ws2812`.
     * `hue_steps`
         * The number of hue adjustment steps.
         * Default: `8`

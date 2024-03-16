@@ -402,6 +402,17 @@ ifeq ($(strip $(MCU)), risc-v)
                -mabi=$(MCU_ABI) \
                -mcmodel=$(MCU_CMODEL) \
                -mstrict-align
+
+    # Deal with different arch revisions and gcc renaming them
+    ifneq ($(shell echo 'int main() { asm("csrc 0x300,8"); return 0; }' | $(TOOLCHAIN)gcc $(MCUFLAGS) $(TOOLCHAIN_CFLAGS) -x c -o /dev/null - 2>/dev/null >/dev/null; echo $$?),0)
+        MCUFLAGS = -march=$(MCU_ARCH)_zicsr \
+                   -mabi=$(MCU_ABI) \
+                   -mcmodel=$(MCU_CMODEL) \
+                   -mstrict-align
+        ifneq ($(shell echo 'int main() { asm("csrc 0x300,8"); return 0; }' | $(TOOLCHAIN)gcc $(MCUFLAGS) $(TOOLCHAIN_CFLAGS) -x c -o /dev/null - 2>/dev/null >/dev/null; echo $$?),0)
+            $(call CATASTROPHIC_ERROR,Incompatible toolchain,No compatible RISC-V toolchain found. Can't work out correct architecture.)
+        endif
+    endif
 else
     # ARM toolchain specific configuration
     TOOLCHAIN ?= arm-none-eabi-

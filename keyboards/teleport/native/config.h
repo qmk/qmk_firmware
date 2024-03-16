@@ -14,9 +14,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* Use 3 dynamic keymap layers */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 3
-
 /* i2C Config */
 #define I2C_DRIVER I2CD1
 #define I2C1_SCL_PIN        B6
@@ -27,36 +24,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_16_9
 #define I2C1_CLOCK_SPEED 400000
 
-
-/* RGB Matrix driver config */
 #define IS31FL3733_I2C_ADDRESS_1 IS31FL3733_I2C_ADDRESS_GND_GND
 #define IS31FL3733_I2C_ADDRESS_2 IS31FL3733_I2C_ADDRESS_GND_VCC
-#define DRIVER_1_LED_TOTAL 46
-#define DRIVER_2_LED_TOTAL 39
-#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+#define IS31FL3733_SDB_PIN B9
 
-#define RGB_MATRIX_LED_FLUSH_LIMIT 32
-
-#define RGB_DISABLE_WHEN_USB_SUSPENDED 
-
-#define RGB_MATRIX_DEFAULT_SPD 40
-#define RGB_MATRIX_DEFAULT_VAL 220
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CUSTOM_SINGLE_COLOR_RAINDROPS
 
-#define RGB_MATRIX_KEYPRESSES
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-
-// RGB Matrix Animation modes. Explicitly enabled
-// For full list of effects, see:
-// https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
-#define ENABLE_RGB_MATRIX_ALPHAS_MODS                   // 2 Alphas and mods have different colors
-#define ENABLE_RGB_MATRIX_BREATHING                     // 3 Breath a static color
-#define ENABLE_RGB_MATRIX_CYCLE_ALL                     // 4 Cycle all colors
-#define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN                 // 5 Cycle vertically
-#define ENABLE_RGB_MATRIX_CYCLE_SPIRAL                  // 6 Cycle in a spirals
-#define ENABLE_RGB_MATRIX_TYPING_HEATMAP                // 7 Heatmap of typing speed
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE                // 8 Static background, pressed keys light up
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE      // 9 Pressed keys and nearby keys light up
 #define ENABLE_RGB_MATRIX_CUSTOM_SINGLE_COLOR_RAINDROPS // 0 Single color raindrops, random keys lighting up at randomized intensity
 #define ENABLE_RGB_MATRIX_CUSTOM_STATIC_GAME_MODE       // - Game mode sets the entire matrix (static) once, then stops LED refreshes
 
@@ -94,7 +67,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef ENABLE_RGB_MATRIX_TYPING_HEATMAP
     #define RGB_MATRIX_TYPING_HEATMAP_SLIM
 #endif
-
 
 /* Set HSE clock since it differs from F411 default */
 #define STM32_HSECLK 16000000

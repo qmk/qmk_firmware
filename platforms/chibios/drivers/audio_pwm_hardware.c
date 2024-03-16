@@ -22,6 +22,12 @@
 #    define AUDIO_PWM_COUNTER_FREQUENCY 100000
 #endif
 
+#ifndef AUDIO_PWM_COMPLEMENTARY_OUTPUT
+#    define AUDIO_PWM_OUTPUT_MODE PWM_OUTPUT_ACTIVE_HIGH
+#else
+#    define AUDIO_PWM_OUTPUT_MODE PWM_COMPLEMENTARY_OUTPUT_ACTIVE_HIGH
+#endif
+
 extern bool    playing_note;
 extern bool    playing_melody;
 extern uint8_t note_timbre;
@@ -29,7 +35,7 @@ extern uint8_t note_timbre;
 static PWMConfig pwmCFG = {.frequency = AUDIO_PWM_COUNTER_FREQUENCY, /* PWM clock frequency  */
                            .period    = 2,
                            .callback  = NULL,
-                           .channels  = {[(AUDIO_PWM_CHANNEL - 1)] = {.mode = PWM_OUTPUT_ACTIVE_HIGH, .callback = NULL}}};
+                           .channels  = {[(AUDIO_PWM_CHANNEL - 1)] = {.mode = AUDIO_PWM_OUTPUT_MODE, .callback = NULL}}};
 
 static float channel_1_frequency = 0.0f;
 

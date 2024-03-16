@@ -24,35 +24,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLIGHT_SPLIT
   #ifdef RGBLED_BACK
     #ifdef RGBLED_CONT
-      #define RGBLED_NUM 48
+      #define RGBLIGHT_LED_COUNT 48
       #define RGBLED_SPLIT { 24, 24 }
     #else
-      #define RGBLED_NUM 24
+      #define RGBLIGHT_LED_COUNT 24
     #endif
   #else
     #ifdef RGBLED_BOTH
       #ifdef RGBLED_CONT
-        #define RGBLED_NUM 60
+        #define RGBLIGHT_LED_COUNT 60
         #define RGBLED_SPLIT { 30, 30 }
       #else
-        #define RGBLED_NUM 30
+        #define RGBLIGHT_LED_COUNT 30
       #endif
     #else
       #ifdef RGBLED_CONT
-        #define RGBLED_NUM 12
+        #define RGBLIGHT_LED_COUNT 12
         #define RGBLED_SPLIT { 6, 6 }
       #else
-        #define RGBLED_NUM 6
+        #define RGBLIGHT_LED_COUNT 6
       #endif
     #endif
   #endif
 #endif
 
 #ifndef IOS_DEVICE_ENABLE
-  #if (RGBLED_NUM <= 6) || (defined(RGBLED_CONT) && (RGBLED_NUM <= 12))
+  #if (RGBLIGHT_LED_COUNT <= 6) || (defined(RGBLED_CONT) && (RGBLIGHT_LED_COUNT <= 12))
     #define RGBLIGHT_LIMIT_VAL 255
   #else
-    #if (RGBLED_NUM <= 16) || (defined(RGBLED_CONT) && (RGBLED_NUM <= 32))
+    #if (RGBLIGHT_LED_COUNT <= 16) || (defined(RGBLED_CONT) && (RGBLIGHT_LED_COUNT <= 32))
       #define RGBLIGHT_LIMIT_VAL 130
     #else
       #define RGBLIGHT_LIMIT_VAL 120
@@ -60,10 +60,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #endif
   #define RGBLIGHT_VAL_STEP 17
 #else
-  #if (RGBLED_NUM <= 6) || (defined(RGBLED_CONT) && (RGBLED_NUM <= 12))
+  #if (RGBLIGHT_LED_COUNT <= 6) || (defined(RGBLED_CONT) && (RGBLIGHT_LED_COUNT <= 12))
     #define RGBLIGHT_LIMIT_VAL 90
   #else
-    #if (RGBLED_NUM <= 16) || (defined(RGBLED_CONT) && (RGBLED_NUM <= 32))
+    #if (RGBLIGHT_LED_COUNT <= 16) || (defined(RGBLED_CONT) && (RGBLIGHT_LED_COUNT <= 32))
       #define RGBLIGHT_LIMIT_VAL 45
     #else
       #define RGBLIGHT_LIMIT_VAL 35

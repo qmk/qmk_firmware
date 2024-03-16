@@ -52,24 +52,15 @@
 
 #define JOYSTICK_MAX_VALUE ((1L << (JOYSTICK_AXIS_RESOLUTION - 1)) - 1)
 
-// configure on input_pin of the joystick_axes array entry to JS_VIRTUAL_AXIS
-// to prevent it from being read from the ADC. This allows outputing forged axis value.
-//
-#define JS_VIRTUAL_AXIS 0xFF
-
+// configure on input_pin of the joystick_axes array entry to NO_PIN
+// to prevent it from being read from the ADC. This allows outputting forged axis value.
 #define JOYSTICK_AXIS_VIRTUAL \
-    { JS_VIRTUAL_AXIS, JS_VIRTUAL_AXIS, JS_VIRTUAL_AXIS, 0, 1023 }
+    { NO_PIN, 0, JOYSTICK_MAX_VALUE / 2, JOYSTICK_MAX_VALUE }
 #define JOYSTICK_AXIS_IN(INPUT_PIN, LOW, REST, HIGH) \
-    { JS_VIRTUAL_AXIS, INPUT_PIN, JS_VIRTUAL_AXIS, LOW, REST, HIGH }
-#define JOYSTICK_AXIS_IN_OUT(INPUT_PIN, OUTPUT_PIN, LOW, REST, HIGH) \
-    { OUTPUT_PIN, INPUT_PIN, JS_VIRTUAL_AXIS, LOW, REST, HIGH }
-#define JOYSTICK_AXIS_IN_OUT_GROUND(INPUT_PIN, OUTPUT_PIN, GROUND_PIN, LOW, REST, HIGH) \
-    { OUTPUT_PIN, INPUT_PIN, GROUND_PIN, LOW, REST, HIGH }
+    { INPUT_PIN, LOW, REST, HIGH }
 
 typedef struct {
-    pin_t output_pin;
     pin_t input_pin;
-    pin_t ground_pin;
 
     // the AVR ADC offers 10 bit precision, with significant bits on the higher part
     uint16_t min_digit;
@@ -87,6 +78,14 @@ typedef struct {
 
 extern joystick_t joystick_state;
 
+/**
+ * \brief Handle the initialization of the subsystem.
+ */
+void joystick_init(void);
+
+/**
+ * \brief Handle various subsystem background tasks.
+ */
 void joystick_task(void);
 
 /**
@@ -117,6 +116,9 @@ void unregister_joystick_button(uint8_t button);
  */
 int16_t joystick_read_axis(uint8_t axis);
 
+/**
+ * \brief Sample and process the all axis.
+ */
 void joystick_read_axes(void);
 
 /**
@@ -126,7 +128,5 @@ void joystick_read_axes(void);
  * \param value The value to set.
  */
 void joystick_set_axis(uint8_t axis, int16_t value);
-
-void host_joystick_send(joystick_t *joystick);
 
 /** \} */

@@ -20,43 +20,43 @@
 
 // clang-format off
 
-const snled27351_led_t PROGMEM g_snled27351_leds[RGB_MATRIX_LED_COUNT] = {
+const snled27351_led_t PROGMEM g_snled27351_leds[SNLED27351_LED_COUNT] = {
 /* Refer to SNLED27351 manual for these locations
  *   driver
  *   |  R location
  *   |  |       G location
  *   |  |       |       B location
  *   |  |       |       | */
-    {0, I_2,    G_2,    H_2},
-    {0, I_3,    G_3,    H_3},
-    {0, I_4,    G_4,    H_4},
-    {0, I_5,    G_5,    H_5},
+    {0, CB9_CA2,    CB7_CA2,    CB8_CA2},
+    {0, CB9_CA3,    CB7_CA3,    CB8_CA3},
+    {0, CB9_CA4,    CB7_CA4,    CB8_CA4},
+    {0, CB9_CA5,    CB7_CA5,    CB8_CA5},
 
-    {0, C_1,    A_1,    B_1},
-    {0, C_2,    A_2,    B_2},
-    {0, C_3,    A_3,    B_3},
-    {0, C_4,    A_4,    B_4},
-    {0, C_5,    A_5,    B_5},
+    {0, CB3_CA1,    CB1_CA1,    CB2_CA1},
+    {0, CB3_CA2,    CB1_CA2,    CB2_CA2},
+    {0, CB3_CA3,    CB1_CA3,    CB2_CA3},
+    {0, CB3_CA4,    CB1_CA4,    CB2_CA4},
+    {0, CB3_CA5,    CB1_CA5,    CB2_CA5},
 
-    {0, F_1,    D_1,    E_1},
-    {0, F_2,    D_2,    E_2},
-    {0, F_3,    D_3,    E_3},
-    {0, F_4,    D_4,    E_4},
-    {0, F_5,    D_5,    E_5},
+    {0, CB6_CA1,    CB4_CA1,    CB5_CA1},
+    {0, CB6_CA2,    CB4_CA2,    CB5_CA2},
+    {0, CB6_CA3,    CB4_CA3,    CB5_CA3},
+    {0, CB6_CA4,    CB4_CA4,    CB5_CA4},
+    {0, CB6_CA5,    CB4_CA5,    CB5_CA5},
 
-    {0, I_6,    G_6,    H_6},
-    {0, I_7,    G_7,    H_7},
-    {0, I_8,    G_8,    H_8},
-    {0, I_9,    G_9,    H_9},
+    {0, CB9_CA6,    CB7_CA6,    CB8_CA6},
+    {0, CB9_CA7,    CB7_CA7,    CB8_CA7},
+    {0, CB9_CA8,    CB7_CA8,    CB8_CA8},
+    {0, CB9_CA9,    CB7_CA9,    CB8_CA9},
 
-    {0, C_6,    A_6,    B_6},
-    {0, C_7,    A_7,    B_7},
-    {0, C_8,    A_8,    B_8},
-    {0, C_9,    A_9,    B_9},
-    {0, C_10,   A_10,   B_10},
+    {0, CB3_CA6,    CB1_CA6,    CB2_CA6},
+    {0, CB3_CA7,    CB1_CA7,    CB2_CA7},
+    {0, CB3_CA8,    CB1_CA8,    CB2_CA8},
+    {0, CB3_CA9,    CB1_CA9,    CB2_CA9},
+    {0, CB3_CA10,   CB1_CA10,   CB2_CA10},
 
-    {0, F_6,    D_6,    E_6},
-    {0, F_7,    D_7,    E_7},
-    {0, F_9,    D_9,    E_9},
+    {0, CB6_CA6,    CB4_CA6,    CB5_CA6},
+    {0, CB6_CA7,    CB4_CA7,    CB5_CA7},
+    {0, CB6_CA9,    CB4_CA9,    CB5_CA9},
 };
 #endif // RGB_MATRIX_ENABLE

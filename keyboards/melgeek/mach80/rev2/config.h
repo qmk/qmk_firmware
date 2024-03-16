@@ -16,9 +16,4 @@
 
 #pragma once
 
-#define RGB_MATRIX_LED_COUNT 94
 #define DRIVER_INDICATOR_LED_TOTAL 3
-
-
-#define RGB_MATRIX_CENTER { 108, 30 }
-

@@ -11,7 +11,7 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
 
 # project specific files
-SRC =	drivers/led/issi/is31fl3736-simple.c \
+SRC =	drivers/led/issi/is31fl3736-mono.c \
 		quantum/color.c \
 		keyboards/wilba_tech/wt_mono_backlight.c \
 		keyboards/wilba_tech/wt_main.c

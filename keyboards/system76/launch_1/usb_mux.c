@@ -77,50 +77,13 @@ i2c_status_t usb7206_read_reg(struct USB7206* self, uint32_t addr, uint8_t* data
         return status;
     }
 
-    uint8_t read[2] = {
-        0x00,  // Buffer address MSB: always 0
-        0x06,  // Buffer address LSB: 6 to skip header
-    };
-
-    status = i2c_start((self->addr << 1) | I2C_WRITE, I2C_TIMEOUT);
-    if (status >= 0) {
-        for (uint16_t i = 0; i < sizeof(read); i++) {
-            status = i2c_write(read[i], I2C_TIMEOUT);
-            if (status < 0) {
-                goto error;
-            }
-        }
-    } else {
-        goto error;
-    }
-
-    status = i2c_start((self->addr << 1) | I2C_READ, I2C_TIMEOUT);
-    if (status < 0) {
-        goto error;
-    }
-
-    // Read and ignore buffer length
-    status = i2c_read_ack(I2C_TIMEOUT);
-    if (status < 0) {
-        goto error;
-    }
+    uint16_t read = 0x0006; // Buffer address 6 to skip header
+    uint8_t data_with_buffer_length[length];
+    status = i2c_readReg16((self->addr << 1), read, data_with_buffer_length, length, I2C_TIMEOUT);
 
     for (uint16_t i = 0; i < (length - 1) && status >= 0; i++) {
-        status = i2c_read_ack(I2C_TIMEOUT);
-        if (status >= 0) {
-            data[i] = (uint8_t)status;
-        }
+        data[i] = data_with_buffer_length[i+1];
     }
-
-    if (status >= 0) {
-        status = i2c_read_nack(I2C_TIMEOUT);
-        if (status >= 0) {
-            data[(length - 1)] = (uint8_t)status;
-        }
-    }
-
-error:
-    i2c_stop();
 
     return (status < 0) ? status : length;
 }
@@ -160,35 +123,21 @@ i2c_status_t usb7206_write_reg(struct USB7206* self, uint32_t addr, uint8_t* dat
         (uint8_t)(addr >> 8),   // Register address byte 1
         (uint8_t)(addr >> 0),   // Register address byte 0
     };
+    uint8_t send_buffer_length = sizeof(register_write) + length;
+    uint8_t send_buffer[send_buffer_length];
+    uint8_t j = 0;
 
-    status = i2c_start((self->addr << 1) | I2C_WRITE, I2C_TIMEOUT);
-    if (status >= 0) {
-        for (uint16_t i = 0; i < sizeof(register_write); i++) {
-            status = i2c_write(register_write[i], I2C_TIMEOUT);
-            if (status < 0) {
-                goto error;
-            }
-        }
-
-        for (uint16_t i = 0; i < length; i++) {
-            status = i2c_write(data[i], I2C_TIMEOUT);
-            if (status < 0) {
-                goto error;
-            }
-        }
-    } else {
-        goto error;
+    for (uint16_t i = 0; i < sizeof(register_write); i++) {
+        send_buffer[j++] = register_write[i];
     }
 
-    i2c_stop();
+    for (uint16_t i = 0; i < length; i++) {
+        send_buffer[j++] = data[i];
+    }
+
+    status = i2c_transmit((self->addr << 1), send_buffer, send_buffer_length, I2C_TIMEOUT);
 
     status = usb7206_register_access(self);
-    if (status < 0) {
-        goto error;
-    }
-
-error:
-    i2c_stop();
 
     return (status < 0) ? status : length;
 }
@@ -354,7 +303,7 @@ i2c_status_t ptn5110_init(struct PTN5110* self) {
 
 // Read PTN5110 CC_STATUS.
 // Returns zero on success or a negative number on error.
-i2c_status_t ptn5110_get_cc_status(struct PTN5110* self, uint8_t* cc) { return i2c_readReg(self->addr << 1, 0x1D, cc, 1, I2C_TIMEOUT); }
+i2c_status_t ptn5110_get_cc_status(struct PTN5110* self, uint8_t* cc) { return i2c_read_register(self->addr << 1, 0x1D, cc, 1, I2C_TIMEOUT); }
 
 // Set PTN5110 SSMUX orientation.
 // Returns zero on success or a negative number on error.
@@ -362,7 +311,7 @@ i2c_status_t ptn5110_set_ssmux(struct PTN5110* self, bool orientation) { return 
 
 // Write PTN5110 COMMAND.
 // Returns zero on success or negative number on error.
-i2c_status_t ptn5110_command(struct PTN5110* self, uint8_t command) { return i2c_writeReg(self->addr << 1, 0x23, &command, 1, I2C_TIMEOUT); }
+i2c_status_t ptn5110_command(struct PTN5110* self, uint8_t command) { return i2c_write_register(self->addr << 1, 0x23, &command, 1, I2C_TIMEOUT); }
 
 // Set orientation of PTN5110 operating as a sink, call this once.
 // Returns zero on success or a negative number on error.

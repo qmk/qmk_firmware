@@ -9,7 +9,10 @@
         "split_count": [10, 10]
     },
     "rgb_matrix": {
-        "driver": "ws2812"
+        "driver": "ws2812",
+        "max_brightness": 170,
+        "sleep": true,
+        "split_count": [10, 10]
     },
     "matrix_pins": {
         "cols": ["B6", "B2", "B3", "B1", "F7", "F6", "F5", "F4"],
@@ -27,6 +30,11 @@
                 "rotary": [
                     {"pin_a": "B5", "pin_b": "C6"}
                 ]
+            }
+        },
+        "transport": {
+            "sync": {
+                "matrix_state": true
             }
         }
     },
