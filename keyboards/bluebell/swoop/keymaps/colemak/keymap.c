@@ -15,6 +15,32 @@
  */
 #include QMK_KEYBOARD_H
 
+enum ferris_tap_dances {
+  TD_1,
+  TD_2,
+  TD_3,
+  TD_4,
+  TD_5,
+  TD_6,
+  TD_7,
+  TD_8,
+  TD_9,
+};
+
+// Tap Dance definitions
+tap_dance_action_t tap_dance_actions[] = {
+    // Tap once for Escape, twice for Caps Lock
+    [TD_1] = ACTION_TAP_DANCE_DOUBLE(KC_DOT, KC_ENT),
+    [TD_2] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_ESC),
+    [TD_3] = ACTION_TAP_DANCE_DOUBLE(KC_C, LGUI(KC_C)),
+    [TD_4] = ACTION_TAP_DANCE_DOUBLE(KC_V, LGUI(KC_V)),
+    [TD_5] = ACTION_TAP_DANCE_DOUBLE(KC_X, LGUI(KC_X)),
+    [TD_6] = ACTION_TAP_DANCE_DOUBLE(KC_1, LCTL(KC_1)),
+    [TD_7] = ACTION_TAP_DANCE_DOUBLE(KC_2, LCTL(KC_2)),
+    [TD_8] = ACTION_TAP_DANCE_DOUBLE(KC_3, LCTL(KC_3)),
+    [TD_9] = ACTION_TAP_DANCE_DOUBLE(KC_4, LCTL(KC_4)),
+};
+
 enum layers {
     _QWERTY
 };
