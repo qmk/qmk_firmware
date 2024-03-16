@@ -51,7 +51,7 @@ static uint8_t default_layer;
 /* 用于记忆现在在那个层 */
 layer_state_t default_layer_state_set_kb(layer_state_t state){
     default_layer = state;
-    return state;
+    return default_layer_state_set_user(state);
 }
 /* MAC&WINDOWS切换 */
 uint8_t mac_flag = 2;
