@@ -13,8 +13,6 @@ enum LAYERS {
 // Layer Indicator LED index
 #define _NUM_LED_INDEX 8
 
-#define TAPPING_TERM 200
-
 // Tap Dance Declarations
 enum {
     TD_NUM_TOGGLE = 0,
@@ -66,12 +64,12 @@ tap_dance_action_t tap_dance_actions[] = {
 // Setup keymap
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
-     * SCN -> Screenshot
+     * BCK -> Backspace
      * WIN -> Task View
      * EXP -> Open Explorer
-     * BCK -> Backspace
+     * SCN -> Screenshot
      * ┌───┬───┐  ┌───┬───┬───┬───┐
-     * │F13│F19│  │SCN│WIN│EXP│BCK│
+     * │F13│F19│  │BCK│WIN│EXP│SCN│
      * └───┴───┘  └───┴───┴───┴───┘
      * ┌───┬───┐  ┌───┬───┬───┬───┐
      * │F14│F20│  │Num│ / │ * │ - │
