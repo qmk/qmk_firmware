@@ -24,3 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         { 27, 27 }
 #    define SPLIT_TRANSPORT_MIRROR
 #endif
+
+#define SPLIT_USB_DETECT
+#define SPLIT_USB_TIMEOUT 2500

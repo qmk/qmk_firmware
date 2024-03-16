@@ -48,3 +48,10 @@ for more options. */
 #        define RGBLIGHT_VAL_STEP 17
 #    endif
 #endif
+
+#define NO_ACTION_ONESHOT
+#define NO_ACTION_TAPPING
+#define SPLIT_USB_DETECT
+#define SPLIT_USB_TIMEOUT 2500
+#define EE_HANDS
+#define MASTER_RIGHT

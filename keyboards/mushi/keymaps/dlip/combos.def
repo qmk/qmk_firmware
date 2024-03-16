@@ -1,0 +1,13 @@
+#include "briefs.def"
+SUBS(dot, SS_TAP(X_BSPC)". ", KC_COMBO, KC_DOT)
+SUBS(comma, SS_TAP(X_BSPC)", ", KC_COMBO, KC_COMMA)
+SUBS(scln, SS_TAP(X_BSPC)"; ", KC_COMBO, KC_SCLN)
+SUBS(quot, SS_TAP(X_BSPC)"' ", KC_COMBO, KC_QUOT)
+SUBS(quotS, SS_TAP(X_BSPC)"\" ", KC_COMBO, KC_COMBO_SFT, KC_QUOT)
+SUBS(appve, SS_TAP(X_BSPC)"'ve ", KC_COMBO, KC_QUOT, KC_V)
+SUBS(apps, SS_TAP(X_BSPC)"'s ", KC_COMBO, KC_QUOT, KC_GUI_S)
+SUBS(appnt, SS_TAP(X_BSPC)"n't ", KC_COMBO, KC_QUOT, KC_CTL_T)
+SUBS(delword, SS_LCTL(SS_TAP(X_BSPC)), KC_COMBO, KC_Z)
+SUBS(b_Dane, "Dane", KC_COMBO, KC_D, KC_A, KC_CTL_N)
+SUBS(b_Lipscombe, "Lipscombe", KC_COMBO, KC_L, KC_ALT_I, KC_P)
+SUBS(b_danelipscombeatgmaildotcom, "danelipscombe@gmail.com", KC_COMBO, KC_GUI_E, KC_M, KC_G)

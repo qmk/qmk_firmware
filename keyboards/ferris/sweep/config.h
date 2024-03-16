@@ -7,3 +7,6 @@
 #pragma once
 
 #define EE_HANDS
+#define SPLIT_USB_DETECT
+#define SPLIT_USB_TIMEOUT 2500
+#define MASTER_LEFT
