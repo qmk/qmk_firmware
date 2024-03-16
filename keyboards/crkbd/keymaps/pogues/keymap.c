@@ -23,11 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 void set_mods_lights(uint16_t keycode, bool active);
 
 
-// allow a mod tap on ctrl/? and ctrl/@ .   Cannot use CTL_T(KC_QUES) as this is a shifted value
-#define CTL_QUES LT(0, KC_1)
-#define CTL_AT LT(0, KC_2)
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // colemak-dh
     [LCMK] = LAYOUT_split_3x6_3(
