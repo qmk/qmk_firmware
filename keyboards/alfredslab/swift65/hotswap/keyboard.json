@@ -46,11 +46,12 @@
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layout_aliases": {
-        "LAYOUT": "LAYOUT_7u_space",
-        "LAYOUT_all": "LAYOUT_7u_space"
-        },
+        "LAYOUT": "LAYOUT_ansi_blocker_tsangan",
+        "LAYOUT_all": "LAYOUT_ansi_blocker_tsangan",
+        "LAYOUT_7u_space": "LAYOUT_ansi_blocker_tsangan"
+    },
     "layouts": {
-        "LAYOUT_7u_space": {
+        "LAYOUT_ansi_blocker_tsangan": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
