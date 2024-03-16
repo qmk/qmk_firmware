@@ -57,6 +57,7 @@ uint16_t magic_keycode_cast(uint16_t keycode, keyrecord_t *record) {
         case KC_MINUS ... KC_SLASH:
             return KC_SPC;
 
+        case KC_F:
         case KC_H:
             return magic_double_tap_cast(keycode, record, DB_LTTR);
     }
