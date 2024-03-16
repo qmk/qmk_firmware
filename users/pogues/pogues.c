@@ -193,6 +193,15 @@ uint8_t vscode_compose_mapping(uint16_t* sequence, uint8_t sequence_len) {
         COMPOSE_INPUT(KC_R, KC_S),
         { tap_code(KC_F7); }
     )
+    // run selected text
+    COMPOSE_MAPPING(
+        COMPOSE_INPUT(KC_R, KC_T),
+        { SEND_STRING(SS_LSFT(SS_TAP(X_ENT))); }
+    )
+    // focus on the shell
+    COMPOSE_MAPPING_CTL_SFT(KC_F, KC_S, "d")
+    // focus on the editor
+    COMPOSE_MAPPING_CTL(KC_F, KC_E, SS_TAP(X_1))
     // assume we are called last
     return COMPOSE_ERROR;
 }
@@ -206,61 +215,28 @@ uint8_t qzdev_compose_mapping(uint16_t* sequence, uint8_t sequence_len) {
     )
 
     // diff current
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_D, KC_C),
-        { SEND_STRING(SS_LCTL(SS_LSFT("g"))); }
-    )
+    COMPOSE_MAPPING_CTL_SFT(KC_D, KC_C, "g")
     // diff approved
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_D, KC_A),
-        { SEND_STRING(SS_LCTL(SS_LSFT("v"))); }
-    )
+    COMPOSE_MAPPING_CTL_SFT(KC_D, KC_A, "v")
     // diff prod
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_D, KC_P),
-        { SEND_STRING(SS_LCTL(SS_LSFT("p"))); }
-    )
+    COMPOSE_MAPPING_CTL_SFT(KC_D, KC_P, "p")
     // diff head
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_D, KC_H),
-        { SEND_STRING(SS_LCTL(SS_LSFT("e"))); }
-    )
+    COMPOSE_MAPPING_CTL_SFT(KC_D, KC_H, "e")
     // diff against version
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_D, KC_V),
-        { SEND_STRING(SS_LCTL(SS_LSFT("d"))); }
-    )
+    COMPOSE_MAPPING_CTL_SFT(KC_D, KC_V, "d")
 
     // vc blame
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_V, KC_B),
-        { SEND_STRING(SS_LCTL(SS_LSFT("b"))); }
-    )
+    COMPOSE_MAPPING_CTL_SFT(KC_V, KC_B, "b")
     // vc log
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_V, KC_L),
-        { SEND_STRING(SS_LCTL(SS_LSFT("l"))); }
-    )
+    COMPOSE_MAPPING_CTL_SFT(KC_V, KC_L, "l")
     // vc commit
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_V, KC_C),
-        { SEND_STRING(SS_LCTL(SS_LSFT("c"))); }
-    )
+    COMPOSE_MAPPING_CTL_SFT(KC_V, KC_C, "c")
     // vc request review
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_V, KC_R),
-        { SEND_STRING(SS_LCTL(SS_LSFT("w"))); }
-    )
+    COMPOSE_MAPPING_CTL_SFT(KC_V, KC_R, "w")
     // push to
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_V, KC_P),
-        { SEND_STRING(SS_LCTL(SS_LSFT("s"))); }
-    )
+    COMPOSE_MAPPING_CTL_SFT(KC_V, KC_P, "s")
     // vc update
-    COMPOSE_MAPPING(
-        COMPOSE_INPUT(KC_V, KC_U),
-        { SEND_STRING(SS_LCTL(SS_LSFT("u"))); }
-    )
+    COMPOSE_MAPPING_CTL_SFT(KC_V, KC_U, "u")
 
     // run test function
     COMPOSE_MAPPING(
@@ -293,6 +269,17 @@ uint8_t qzdev_compose_mapping(uint16_t* sequence, uint8_t sequence_len) {
         COMPOSE_INPUT(KC_R, KC_T),
         { SEND_STRING(SS_LALT(SS_TAP(X_F9))); }
     )
+
+
+    // focus commands
+    // focus on the shell
+    COMPOSE_MAPPING_ALT(KC_F, KC_S, "s")
+    // focus on the editor
+    COMPOSE_MAPPING_ALT(KC_F, KC_E, "t")
+    // toggle between shell/editor
+    COMPOSE_MAPPING_ALT(KC_F, KC_F, SS_TAP(X_GRV))
+    // select an open buffer
+    COMPOSE_MAPPING_CTL(KC_F, KC_B, "b")
 
     // assume we are called last
     return COMPOSE_ERROR;

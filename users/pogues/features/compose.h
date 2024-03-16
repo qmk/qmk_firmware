@@ -9,7 +9,7 @@
 #endif
 
 enum compose_return_state {
-    COMPOSE_OK = 0,   
+    COMPOSE_OK = 0,
     COMPOSE_PARTIAL,
     COMPOSE_CANCELLED,
     COMPOSE_ERROR,
@@ -53,3 +53,25 @@ int compose_compare_input(uint16_t* input, uint8_t input_len, uint16_t* seq, uin
         register_code16(actions[i]); \
         unregister_code16(actions[i]); \
     }
+
+
+// there is a common case of key+key to alt-k or ctl-k
+#define COMPOSE_MAPPING_ALT(KEY1, KEY2, ACTION_KEY) \
+    COMPOSE_MAPPING( \
+        COMPOSE_INPUT(KEY1, KEY2), \
+        { SEND_STRING(SS_LALT(ACTION_KEY)); } \
+    )
+#define COMPOSE_MAPPING_CTL(KEY1, KEY2, ACTION_KEY) \
+    COMPOSE_MAPPING( \
+        COMPOSE_INPUT(KEY1, KEY2), \
+        { SEND_STRING(SS_LCTL(ACTION_KEY)); } \
+    )
+#define COMPOSE_MAPPING_CTL_SFT(KEY1, KEY2, ACTION_KEY) \
+    COMPOSE_MAPPING( \
+        COMPOSE_INPUT(KEY1, KEY2), \
+        { SEND_STRING(SS_LCTL(SS_LSFT(ACTION_KEY))); } \
+    )
+
+
+
+
