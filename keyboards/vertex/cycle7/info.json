@@ -7,7 +7,6 @@
         "vid": "0x9A94",
         "pid": "0x9F70",
         "device_version": "0.0.1",
-        "force_nkro": true
     },
     "features": {
         "bootmagic": true,
