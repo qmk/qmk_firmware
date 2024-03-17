@@ -251,10 +251,24 @@ combo_t key_combos[] = {
  *      |------|------|------|
  *
  * to set colours on the modifier keys use the below.  RHS is 38, 43, 46, 49 for the numbers
-    //{11, 1, HSV_BLUE},    // gui
-    //{16, 1, HSV_GREEN},   // alt
-    //{19, 1, HSV_ORANGE},  // ctrl
-    //{22, 1, HSV_RED},     // shift
+ * the expected light setup is
+ *      layers (thumb keys)
+ *          no layers active - off
+ *          symbols          - purple
+ *          numpad           - orange
+ *          motion           - blue
+ *          function         - red
+ *          mouse            - white
+ *      one shot mods / mods
+ *          ctrl             - blue on middle finger column
+ *          shift (+caps wd) - green on index finger column
+ *          gui              - red on ring finger column
+ *          alt              - purple on pinkie finger column
+ *      compose mode (inner column)
+ *          pending          - orange
+ *          cancel / error   - red
+ *          success          - blue
+ *
  ******************************************************************************/
 
 #define THUMB_KEYS(colour) RGBLIGHT_LAYER_SEGMENTS( \
@@ -280,8 +294,8 @@ combo_t key_combos[] = {
     {45, 3, HSV_ ##colour} \
 );
 #define PINKIE_KEYS(colour) RGBLIGHT_LAYER_SEGMENTS( \
-    {21, 3, HSV_ ##colour}, \
-    {48, 3, HSV_ ##colour} \
+    {21, 2, HSV_ ##colour}, \
+    {48, 2, HSV_ ##colour} \
 );
 
 const rgblight_segment_t PROGMEM layer_default_lights[] = THUMB_KEYS(OFF)
