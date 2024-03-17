@@ -228,6 +228,8 @@ MODS_HELD_KEYCODES = {
     'CTL_SLS': 'Ctrl',
     'CTL_W': 'Ctrl',
     'CTL_Y': 'Ctrl',
+    'CTL_AT': 'Ctrl',
+    'CTL_QUES': 'Ctrl',
     'SFT_SPC': 'Shift',
     'SFT_BSP': 'Shift',
     'SFT_Z': 'Shift',
@@ -351,13 +353,15 @@ key_names = {
     "CTL_Y": "Y",
     "CTL_Z": "Z",
     "CTL_SLS": "/",
+    "CTL_AT": "@",
+    "CTL_QUES": "?",
     "SFT_Z": "Z",
     "SFT_SLS": "/",
     "SFT_QUO": "'",
     "MY_LLCK": "Lock",
     "KC_NUBS": "\\",
     "KC_NUHS": "#",
-    "MY_COMP": "Compose",
+    "MY_COMP": "Comp",
     "TO(LCMK)": "To CMK",
     "TO(LQWE)": "To QWE",
     "KC_MS_U": "&#8607;",
@@ -562,6 +566,8 @@ def create_svg_for_row(args, row, num_cols, layer_name, x, y, base_row):
     x += padding * (SVG.key_width + SVG.key_spacing)
 
     for idx, key in enumerate(keys, padding):
+        if layer_name == "LSYM":
+            print(f"    {idx=}  {key=}")
         key_classes = []
         # for transparent keys look up on the base layer
         if key in (transparent_keycodes):
@@ -573,8 +579,6 @@ def create_svg_for_row(args, row, num_cols, layer_name, x, y, base_row):
 
         # get the key label, defaulting to the part after KC_
         key_label = key_names.get(key, key.removeprefix(keycode_prefix))
-        if key_label == 'Num':
-            print(f'{key_label=} {key=} {key.removeprefix(keycode_prefix)=} {keycode_prefix=}')
 
         # CSS classes to apply to the key
         key_is_held = key in LAYER_HELD_KEYCODES.get(layer_name, '')
@@ -588,7 +592,6 @@ def create_svg_for_row(args, row, num_cols, layer_name, x, y, base_row):
         else:  # get the annnotation
             for antype, keys in annotation_keycodes.items():
                 if key in keys:
-                    print(f'Have {antype=} and {keys=} for {key_label=}')
                     annotation = f'<div class="annotation {antype}">{antype}</div>'
 
         svg_raw += svg_key_template.substitute({
@@ -723,15 +726,18 @@ def create_svg_for_adjacent_combo(args, layer_data, layer_height, layer_idx):
 # but there is a desire to keep this script contained..
 ################################################################################
 def extract_compose_mappings(args):
+    print(f"calling extract_compose_mappings({args=})")
     """take the compose key presses from the keymap and return as a dict"""
     with open(args.keymap, 'r') as keymapfile:
         keymap_c = keymapfile.read()
 
     compose_mapping_re = re.compile(
-        r'compose_mapping\(uint16_t\* [^,]*, uint8_t [^)]*\)\s*\{(?P<mappings>.*?)COMPOSE_ERROR',
+        r'uint8_t compose_mapping\(uint16_t\* [^,]*, uint8_t [^)]*\)\s*\{(?P<mappings>.*?)COMPOSE_ERROR',
         re.MULTILINE | re.DOTALL
     )
 
+    print("Called extract_compose_mappings with")
+    print(keymap_c)
     compose_mapping = compose_mapping_re.search(keymap_c)
     return compose_mapping.group('mappings')
 
@@ -828,6 +834,9 @@ def extract_compose_action(action_text):
 
     if action_text.startswith(('toggle_num_word')):
         return ['KC_NUMWD']
+
+    if action_text.startswith(('toggle_dev_env')):
+        return ['KC_VSC']
 
     if action_text.startswith('enable_xcase_with(KC_UNDS)'):
         return ['KC_SNAKE']
@@ -982,6 +991,7 @@ def create_and_write_svg(args):
     base_layer = None
     layer_idx = 0
     for layer_name, layer_data in keymap.items():
+        print(f'Processing {layer_name=}')
         base_layer = base_layer or layer_data  # save the first layer
         if args.layer and layer_name != args.layer:
             continue
@@ -1015,6 +1025,21 @@ def main():
         help='the name of the keymap file to parse.'
     )
     parser.add_argument(
+        '-e',
+        '--extra',
+        type=str,
+        nargs='*',
+        action='append',
+        help='extra code files'
+    )
+    parser.add_argument(
+        '-u',
+        '--user',
+        action='store_true',
+        default=True,
+        help='include c files from the user area'
+    )
+    parser.add_argument(
         '-o',
         '--output',
         type=str,
@@ -1046,6 +1071,14 @@ def main():
     )
 
     args = parser.parse_args()
+
+    #TODO gather the -k and the -e to make a single file to parse...
+
+    # as the code can be in multiple files create a single one
+    if args.user or args.extra:
+        # if we have extra code or want the user
+        pass
+
 
     create_and_write_svg(args)
 
