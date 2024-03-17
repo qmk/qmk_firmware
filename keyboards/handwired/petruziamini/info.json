@@ -16,6 +16,11 @@
         "cols": ["D7", "C6", "D4", "D0", "D1", "F4", "F5", "F6", "F7", "B1"],
         "rows": ["B4", "E6", "B3", "B2"]
     },
+    "rgblight": {
+        "animations": {
+            "all": true
+        }
+    }, 
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0000",

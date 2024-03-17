@@ -2,7 +2,7 @@
 
 ![PetruziaMini](https://i.imgur.com/uk2BSazh.jpeg)
 
-36 key ortholinear keyboard intended to be mapped as a split keyboard.
+36 key ortholinear keyboard intended to be mapped as a split keyboard. Now with RGB lighting support.
 
 * Keyboard Maintainer: [LLLKST](https://github.com/LLLKST)
 * Hardware Supported: *promicro compatible controller*
