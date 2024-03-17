@@ -1,1 +1,1 @@
-DEFAULT_FOLDER = zlabkeeb/6pad/rev1
+# This file intentionally left blank
