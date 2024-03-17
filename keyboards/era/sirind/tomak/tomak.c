@@ -138,6 +138,9 @@ void housekeeping_task_kb(void) {
 
 bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max)
 {
+    if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
+        return false;
+    }
     if (g_tomak_config.indicator_toggle) {
         RGB rgb_caps = hsv_to_rgb( (HSV){ .h = g_tomak_config.indicator_hsv.h,
                                           .s = g_tomak_config.indicator_hsv.s,
