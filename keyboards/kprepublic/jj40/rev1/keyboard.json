@@ -45,8 +45,7 @@
         "extrakey": true,
         "nkro": false,
         "backlight": true,
-        "rgblight": true,
-        "audio": false
+        "rgblight": true
     },
     "community_layouts": ["ortho_4x12", "planck_mit"],
     "layout_aliases": {
