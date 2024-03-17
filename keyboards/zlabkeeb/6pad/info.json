@@ -15,6 +15,7 @@
     },
     "url": "https://github.com/zlabkeeb",
     "usb": {
+        "device_version": "1.0.0",
         "vid": "0x4154",
         "pid": "0x7A77"
     },
