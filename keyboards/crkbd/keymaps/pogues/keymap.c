@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 void set_mods_lights(uint16_t keycode, bool active);
 
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // colemak-dh
     [LCMK] = LAYOUT_split_3x6_3(
@@ -32,49 +33,49 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,   SFT_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM,  KC_DOT, SFT_SLS, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                               KC_LGUI, MO(LNUM), MOV_SPC,    SFT_BSP, MO(LSYM), KC_LALT
+                                              KC_LGUI, OSL(LNUM), MOV_SPC,   SFT_BSP, OSL(LSYM), KC_LALT
                                             //`--------------------------'  `--------------------------'
     ),
     [LSYM] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            XXXXXXX, XXXXXXX, KC_QUES, KC_LPRN, KC_RPRN, KC_PERC,                      KC_EXLM, MY_PIPE, KC_UNDS,   MY_AT, XXXXXXX, XXXXXXX,
+            XXXXXXX, XXXXXXX,CTL_QUES, KC_LPRN, KC_RPRN, KC_PERC,                      KC_EXLM, MY_PIPE, KC_UNDS,  CTL_AT, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
               KC_NO, MY_TILD,  KC_GRV, KC_LBRC, KC_RBRC, KC_ASTR,                      KC_NUHS, MY_DQUO, KC_QUOT, KC_SCLN, KC_COLN, KC_NUBS,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX,  KC_EQL,  MY_GBP, KC_LCBR, KC_RCBR, KC_SLSH,                      KC_AMPR,   KC_LT,   KC_GT,  KC_DLR, KC_CIRC, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                               _______, _______, CTL_SPC,     _______,  _______, _______
+                                               _______,TO(LCMK),  KC_SPC,     _______,  _______, _______
                                             //`--------------------------'  `--------------------------'
     ),
     [LNUM] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            XXXXXXX, XXXXXXX,  KC_INS, KC_UNDS,   KC_NO, KC_PERC,                      KC_PLUS,    KC_7,    KC_8,    KC_9, XXXXXXX, XXXXXXX,
+            XXXXXXX, XXXXXXX, KC_LCTL, KC_UNDS,  KC_INS, KC_PERC,                      KC_PLUS,    KC_7,    KC_8,    KC_9, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-              KC_NO, OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT, KC_ASTR,                      KC_MINS,    KC_4,    KC_5,    KC_6, KC_ASTR, KC_PERC,
+           MO(LFUN), OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT, KC_ASTR,                      KC_MINS,    KC_4,    KC_5,    KC_6, KC_ASTR, KC_EXLM,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX, KC_BSPC,  KC_SPC, KC_COMM,  KC_DOT, KC_SLSH,                       KC_EQL,    KC_1,    KC_2,    KC_3, KC_SLSH, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              _______, _______,  _______,     KC_0,  _______, _______
+                                               _______, _______,  KC_SPC,     _______, KC_0, _______
                                             //`--------------------------'  `--------------------------'
     ),
     [LFUN] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            XXXXXXX, XXXXXXX,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                       KC_F10,   KC_F7,   KC_F8,   KC_F9, XXXXXXX, XXXXXXX,
+            XXXXXXX, XXXXXXX, KC_LCTL,   KC_NO,   KC_NO,   KC_NO,                       KC_F10,   KC_F7,   KC_F8,   KC_F9, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
               KC_NO, OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT,   KC_NO,                       KC_F11,   KC_F4,   KC_F5,   KC_F6,   KC_NO,   KC_NO,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            XXXXXXX,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                       KC_F12,   KC_F1,   KC_F2,   KC_F3,   KC_NO, XXXXXXX,
+            XXXXXXX, KC_LSFT,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                       KC_F12,   KC_F1,   KC_F2,   KC_F3,   KC_NO, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              _______, _______,   KC_SPC,     _______, _______, _______
+                                              _______, TO(LCMK),   KC_SPC,     _______, TO(LCMK), _______
                                             //`--------------------------'  `--------------------------'
     ),
     [LMOV] = LAYOUT_split_3x6_3(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-            XXXXXXX, XXXXXXX, ALT_TAB, RGB_VAD, RGB_VAI, RGB_TOG,                      KC_PGUP, KC_HOME,   KC_UP,  KC_END, XXXXXXX, XXXXXXX,
+            XXXXXXX, XXXXXXX, KC_LCTL, ALT_TAB, RGB_VAI, RGB_TOG,                      KC_PGUP, KC_HOME,   KC_UP,  KC_END, XXXXXXX, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
               KC_NO, OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT,   KC_NO,                      KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT,  KC_ENT, KC_DEL,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            XXXXXXX, C(KC_Z), C(KC_X), C(KC_C),   KC_NO, C(KC_V),                        KC_NO,  KC_TAB, KC_PGDN, KC_PGUP,   KC_NO, XXXXXXX,
+            XXXXXXX, C(KC_Z), C(KC_X), C(KC_C),   KC_NO, C(KC_V),                        KC_NO, KC_PGDN, KC_PGUP,   KC_NO,   KC_NO, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                               _______,    KC_NO, _______,     _______,   KC_NO, _______
                                             //`--------------------------'  `--------------------------'
@@ -85,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
               KC_NO, OSM_ALT, OSM_GUI, OSM_CTL, OSM_SFT,   KC_NO,                      KC_WH_U, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D,  KC_DEL,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-            XXXXXXX, C(KC_Z), C(KC_X), C(KC_C),   KC_NO, C(KC_V),                      KC_WH_D,   KC_NO,   KC_NO,   KC_NO,   KC_NO, XXXXXXX,
+            XXXXXXX, C(KC_Z), C(KC_X), C(KC_C),   KC_NO, C(KC_V),                      KC_WH_D, KC_WH_D, KC_WH_U,   KC_NO,   KC_NO, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                                 _______,TO(LCMK),  KC_SPC,   KC_BTN1,  KC_BTN2, KC_BTN3
                                             //`--------------------------'  `--------------------------'
@@ -97,6 +98,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * user specific key processing
  ******************************************************************************/
 
+// method to process a tap and hold key.  generally should use the MT(mod, tap) methods but they
+// have a limitation in that they do not work for shifted values so handle those cases here
+void process_tap_and_hold(uint16_t keycode, keyrecord_t* record, uint16_t tap_key, uint16_t hold_key) {
+    if (record->tap.count > 0) { // tapped
+        if (record->event.pressed) {
+            tap_code16(tap_key);
+        }
+    } else { // held
+        if (record->event.pressed) {
+            register_code16(hold_key);
+        } else {
+            unregister_code16(hold_key);
+        }
+        set_mods_lights(hold_key, record->event.pressed);
+    }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     if (!process_achordion(keycode, record)) {
         return false;
@@ -104,10 +122,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     if (!process_compose(keycode, record, MY_COMP)) {
         return false;
     }
-    if (!process_case_modes(keycode, record)) {
-        return false;
+    switch (keycode) {
+        case CTL_QUES:
+            process_tap_and_hold(keycode, record, KC_QUES, KC_LCTL);
+            return false;
+        case CTL_AT:
+            process_tap_and_hold(keycode, record, MY_AT, KC_LCTL);
+            return false;
     }
-
     // set the mods lights the same as the one shots
     set_mods_lights(keycode, record->event.pressed);
 
@@ -119,151 +141,89 @@ void matrix_scan_user(void) {
     achordion_task();
 }
 
-/*******************************************************************************
- * quick tap term keys (requires QUICK_TAP_TERM_PER_KEY set) a return of non 0
- * will enable tap then hold to autorepeat (which I generally dont want) but this
- * is required to get the ONESHOT_TAP_TOGGLE working
- *******************************************************************************/
-uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case OSM_SFT:
-        case OSM_CTL:
-        case OSM_GUI:
-        case OSM_ALT:
-            // make the one shot mod tap toggle work...
-            return QUICK_TAP_TERM;
-        default:
-            // all others off (so the hold key is done on tap/hold rather than autorepeat)
-            return 0;
-    }
-}
-
-/*******************************************************************************
- * hold on other key (requires HOLD_ON_OTHER_KEY_PER_KEY set) a return of true
- * will mean that the hold action is triggered as soon as another key is pressed
- * (so D(k) D(anything) U(k) will cause hold_k and anything to be pressed)
- * a return of false will use the default behaviour from other settings
- *******************************************************************************/
-bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case CTL_Y:
-            // Immediately select the hold action when another key is pressed.
-            return true;
-        default:
-            // Do not select the hold action when another key is pressed.
-            return false;
-    }
-}
-
-/********************************************************************************
- * achordion configuration
- ********************************************************************************/
-
-/********************************************************************************
- * achordion_chord is called as the main config point.  return true to decide the
- * action as hold, false for a tap.
- ********************************************************************************/
-bool achordion_chord(
-    uint16_t tap_hold_keycode,
-    keyrecord_t* tap_hold_record,
-    uint16_t other_keycode,
-    keyrecord_t* other_record
-) {
-    switch (tap_hold_keycode) {
-        // shift and movement layer are on tap-hold keys and we want the hold to take
-        // precedence even on same hands
-        case MOV_SPC:
-        case SFT_BSP:
-            return true;
-            break;
-
-        // for the top right control we want "y " to take precedence over ctrl-space
-        // and ctrl-v to take precedence over "yv"
-        case CTL_Y:
-            if (other_keycode == MOV_SPC) { return false; }
-            if (other_keycode == KC_V) {return true; }
-            break;
-    }
-
-    // Otherwise, follow the opposite hands rule.
-    return achordion_opposite_hands(tap_hold_record, other_record);
-}
-
-// let achordion run for 800ms only
-uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
-    // switch (tap_hold_keycode) {
-    //     case HOME_SC:
-    //     case HOME_Z:
-    //         return 0;  // Bypass Achordion for these keys.
-    // }
-
-    return 800;  // Otherwise use a timeout of 800 ms.
-}
-
-// achordion_eager_mod determines which mods are applied while waiting for the tap-hold
-// to be resolved.  useful for ctrl-click for instance
-bool achordion_eager_mod(uint8_t mod) {
-    switch (mod) {
-      // Eagerly apply Shift and Ctrl mods.
-      case MOD_LSFT:
-      case MOD_RSFT:
-      case MOD_LCTL:
-      case MOD_RCTL:
-          return true;
-
-      default:
-          return false;
-  }
-}
-
-
 /******************************************************************************
  * combo keys
  ******************************************************************************/
 enum combo_keys {
     // left hand only
-    WF_ESC,
-    CD_TAB,
-    ZX_Q,           // trial on zx for q - skeletyl
+    CMK_ESC,        // wf
 
-    RESET_COMBO,    // put the board into bootloader mode
+    CMK_TAB,        // cd
+    NUM_TAB,
 
-    // right hand only
-    UY_DEL,
-    HCOM_ENT,
-    JY_CTLBSP,
-    DOTSLSH_COMPOSE,  // trial compose on right lower ring/pinkie for skeletyl
+    // uy on all layers for delete
+    CMK_DEL,   // uy
+    SYM_DEL,
+    NUM_DEL,
+    FUN_DEL,
+    // h, on all layers for enter
+    CMK_ENT,
+    SYM_ENT,
+    NUM_ENT,
+    FUN_ENT,
 
     // both hands, not using pl / fu any more due to typing mishits
-    WY_LMSE,
+    WY_LFUN,
+    SS_LMSE,
+
+    // put the board into bootloader mode  (needs mouse layer)
+    RESET_COMBO,
+
+    // for skeletyl have alternates for upper row pinkie
+    ZX_Q,
+    DOTSLSH_COMPOSE,
 
     COMBO_LENGTH
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM combo_esc[] = {CTL_W, KC_F, COMBO_END};
+
 const uint16_t PROGMEM combo_tab[] = {KC_C, KC_D, COMBO_END};
-const uint16_t PROGMEM combo_reset[] = {KC_ESC, KC_TAB, COMBO_END};
+const uint16_t PROGMEM combo_ntab[] = {KC_COMM, KC_DOT, COMBO_END};
+
 const uint16_t PROGMEM combo_del[] = {KC_U, CTL_Y, COMBO_END};
+const uint16_t PROGMEM combo_sdel[] = {KC_UNDS, MY_AT, COMBO_END};
+const uint16_t PROGMEM combo_ndel[] = {KC_8, KC_9, COMBO_END};
+const uint16_t PROGMEM combo_fdel[] = {KC_F8, KC_F9, COMBO_END};
+
 const uint16_t PROGMEM combo_ent[] = {KC_H, KC_COMM, COMBO_END};
-const uint16_t PROGMEM combo_bspc[] = {KC_J, CTL_Y, COMBO_END};
+const uint16_t PROGMEM combo_sent[] = {KC_LT, KC_GT, COMBO_END};
+const uint16_t PROGMEM combo_fent[] = {KC_F1, KC_F2, COMBO_END};
+const uint16_t PROGMEM combo_nent[] = {KC_1, KC_2, COMBO_END};
+
+const uint16_t PROGMEM combo_function[] = {CTL_W, CTL_Y, COMBO_END};
+const uint16_t PROGMEM combo_mouse[] = {SFT_Z, SFT_SLS, COMBO_END};
+
 const uint16_t PROGMEM combo_q[] = {SFT_Z, KC_X, COMBO_END};
 const uint16_t PROGMEM combo_compose[] = {KC_DOT, SFT_SLS, COMBO_END};
-const uint16_t PROGMEM combo_mouse[] = {CTL_W, CTL_Y, COMBO_END};
+
+const uint16_t PROGMEM combo_reset[] = {KC_ESC, KC_TAB, COMBO_END};
 
 combo_t key_combos[] = {
-    [WF_ESC] = COMBO(combo_esc, KC_ESC),
-    [CD_TAB] = COMBO(combo_tab, KC_TAB),
-    [ZX_Q] = COMBO(combo_q, KC_Q),
+    [CMK_ESC] = COMBO(combo_esc, KC_ESC),
 
-    [UY_DEL] = COMBO(combo_del, KC_DEL),
-    [HCOM_ENT] = COMBO(combo_ent, KC_ENT),
-    [JY_CTLBSP] = COMBO(combo_bspc, LCTL(KC_BSPC)),
-    [DOTSLSH_COMPOSE] = COMBO(combo_compose, MY_COMP),
+    [CMK_TAB] = COMBO(combo_tab, KC_TAB),
+    [NUM_TAB] = COMBO(combo_ntab, KC_TAB),
+
+    [CMK_DEL] = COMBO(combo_del, KC_DEL),
+    [SYM_DEL] = COMBO(combo_sdel, KC_DEL),
+    [NUM_DEL] = COMBO(combo_ndel, KC_DEL),
+    [FUN_DEL] = COMBO(combo_fdel, KC_DEL),
+
+    [CMK_ENT] = COMBO(combo_ent, KC_ENT),
+    [SYM_ENT] = COMBO(combo_sent, KC_ENT),
+    [NUM_ENT] = COMBO(combo_nent, KC_ENT),
+    [FUN_ENT] = COMBO(combo_fent, KC_ENT),
+
+    [WY_LFUN] = COMBO(combo_function, TO(LFUN)),
 #ifdef MOUSEKEY_ENABLE
+    [SS_LMSE] = COMBO(combo_mouse, TO(LMSE)),
     [RESET_COMBO] = COMBO(combo_reset, QK_BOOTLOADER),
-    [WY_LMSE] = COMBO(combo_mouse, TO(LMSE)),
 #endif
+
+    [ZX_Q] = COMBO(combo_q, KC_Q),
+    [DOTSLSH_COMPOSE] = COMBO(combo_compose, MY_COMP),
 };
 
 /******************************************************************************
@@ -291,10 +251,24 @@ combo_t key_combos[] = {
  *      |------|------|------|
  *
  * to set colours on the modifier keys use the below.  RHS is 38, 43, 46, 49 for the numbers
-    //{11, 1, HSV_BLUE},    // gui
-    //{16, 1, HSV_GREEN},   // alt
-    //{19, 1, HSV_ORANGE},  // ctrl
-    //{22, 1, HSV_RED},     // shift
+ * the expected light setup is
+ *      layers (thumb keys)
+ *          no layers active - off
+ *          symbols          - purple
+ *          numpad           - orange
+ *          motion           - blue
+ *          function         - red
+ *          mouse            - white
+ *      one shot mods / mods
+ *          ctrl             - blue on middle finger column
+ *          shift (+caps wd) - green on index finger column
+ *          gui              - red on ring finger column
+ *          alt              - purple on pinkie finger column
+ *      compose mode (inner column)
+ *          pending          - orange
+ *          cancel / error   - red
+ *          success          - blue
+ *
  ******************************************************************************/
 
 #define THUMB_KEYS(colour) RGBLIGHT_LAYER_SEGMENTS( \
@@ -320,8 +294,8 @@ combo_t key_combos[] = {
     {45, 3, HSV_ ##colour} \
 );
 #define PINKIE_KEYS(colour) RGBLIGHT_LAYER_SEGMENTS( \
-    {21, 3, HSV_ ##colour}, \
-    {48, 3, HSV_ ##colour} \
+    {21, 2, HSV_ ##colour}, \
+    {48, 2, HSV_ ##colour} \
 );
 
 const rgblight_segment_t PROGMEM layer_default_lights[] = THUMB_KEYS(OFF)
@@ -392,9 +366,7 @@ void keyboard_post_init_user(void) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     // check the tristate layer and update
-    state = update_tri_layer_state(state, LNUM, LSYM, LFUN);
-    // TODO - find out why the below is not working..
-    //state = update_tri_layer_state(state, LSYM, LMOV, LMSE);
+    //state = update_tri_layer_state(state, LNUM, LSYM, LFUN);
 
     // set the led status to indicate layer
     rgblight_set_layer_state(RGBL_DEFAULT, layer_state_cmp(state, LCMK));
@@ -419,6 +391,12 @@ void oneshot_locked_mods_changed_user(uint8_t mods) {
     rgblight_set_layer_state(RGBL_OSM_SFT, mods & MOD_MASK_SHIFT);
     rgblight_set_layer_state(RGBL_OSM_GUI, mods & MOD_MASK_GUI);
     rgblight_set_layer_state(RGBL_OSM_ALT, mods & MOD_MASK_ALT);
+}
+
+void oneshot_layer_changed_user(uint8_t layer) {
+    rgblight_set_layer_state(RGBL_NUMPAD, layer == LNUM);
+    rgblight_set_layer_state(RGBL_SYMBOLS, layer == LSYM);
+    rgblight_set_layer_state(RGBL_DEFAULT, layer == LCMK);  // actually 0
 }
 
 /*******************************************************************************

@@ -2,7 +2,6 @@
 
 #include QMK_KEYBOARD_H
 #include "features/achordion.h"
-#include "features/casemodes.h"
 #include "features/compose.h"
 
 enum userspace_layers {
@@ -11,7 +10,9 @@ enum userspace_layers {
     LNUM = 2,
     LFUN = 3,
     LMOV = 4,
+#ifdef MOUSEKEY_ENABLE
     LMSE = 5,
+#endif
 };
 
 // rename some keys here to allow for the difference in keymap between US and GB
@@ -36,9 +37,13 @@ enum userspace_layers {
 #define SFT_Z SFT_T(KC_Z)
 #define SFT_SLS SFT_T(KC_SLSH)
 #define MOV_SPC LT(LMOV, KC_SPC)
+// keycodes to allow mod tap on ctrl+? and ctrl+@ - cannot use CTL_T(KC_QUES) as this is shifted
+#define CTL_QUES LT(0, KC_1)
+#define CTL_AT LT(0, KC_2)
 
 
 enum custom_keycodes {
     MY_COMP = SAFE_RANGE,
 };
+
 
