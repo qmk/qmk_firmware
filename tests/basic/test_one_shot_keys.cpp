@@ -434,14 +434,16 @@ TEST_F(OneShot, OSLWithMoAndAdditionalKeypress) {
     VERIFY_AND_CLEAR(driver);
 }
 
-TEST_F(OneShot, OSLWithTGAndAdditionalKeypress) {
+class OneShotLayerParametrizedTestFixture : public ::testing::WithParamInterface<uint16_t>, public OneShot {};
+
+TEST_P(OneShotLayerParametrizedTestFixture, OSLWithActionAndAdditionalKeypress) {
     TestDriver driver;
     InSequence s;
     KeymapKey  osl_key     = KeymapKey{0, 0, 0, OSL(1)};
-    KeymapKey  tg_key      = KeymapKey{1, 1, 0, TG(2)};
+    KeymapKey  action_key  = KeymapKey{1, 1, 0, GetParam()};
     KeymapKey  regular_key = KeymapKey{2, 1, 1, KC_A};
 
-    set_keymap({osl_key, tg_key, regular_key});
+    set_keymap({osl_key, action_key, regular_key});
 
     /* Tap OSL key */
     EXPECT_NO_REPORT(driver);
@@ -449,9 +451,9 @@ TEST_F(OneShot, OSLWithTGAndAdditionalKeypress) {
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
-    /* Tag TG key */
+    /* Tag Action key */
     EXPECT_NO_REPORT(driver);
-    tap_key(tg_key);
+    tap_key(action_key);
     run_one_scan_loop();
     EXPECT_TRUE(layer_state_is(2));
     VERIFY_AND_CLEAR(driver);
@@ -469,6 +471,14 @@ TEST_F(OneShot, OSLWithTGAndAdditionalKeypress) {
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 }
+
+INSTANTIATE_TEST_CASE_P(
+    OneShotLayerTests,
+    OneShotLayerParametrizedTestFixture,
+    ::testing::Values(
+        TG(2),
+        TO(2)
+    ));
 
 TEST_F(OneShot, OSLChainingTwoOSLsAndAdditionalKeypress) {
     TestDriver driver;
