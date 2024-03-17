@@ -181,39 +181,25 @@ Outside of `layer_state_set_*` functions, you can use the `IS_LAYER_ON(layer)` a
 
 ### Running on slave half as well as master (for split keyboards)
 
-By default `layer_state_set_*` functions only run on master. A workaround for this is to use split custom communication to call the slave half.
+By default `layer_state_set_*` functions only run on master. A workaround is to manually update it in housekeeping.
 
 In `keymap.c`:
 
 ```c
-#include "transactions.h"
+static uint32_t last_layer_state = 0;
 
-void update_layer_state_set(uint8_t state, const void* unused, uint8_t unused2, void* unused3) {
-    layer_state_set_user(state);
-}
-
-void keyboard_post_init_user(void) {
-    // Register callback to update layer LEDs on layer change.
-    transaction_register_rpc(SYNC_LAYER_CHANGE, update_layer_state_set);
-}
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    /* Other config code
-    ...
-    */
-    if (is_keyboard_master()){
-        transaction_rpc_exec(SYNC_LAYER_CHANGE, state, NULL, 0, NULL);
+void update_layer_state_set(void){
+    if (!is_keyboard_master()) {
+        if (last_layer_state != layer_state) {
+            last_layer_state = layer_state;
+            layer_state_set_user(layer_state);
+        }
     }
-return state;
-```
+}
 
-In `config.h`:
-
-```c
-// Transaction ID for inter-half coms.
-#define SPLIT_TRANSACTION_IDS_USER SYNC_LAYER_CHANGE
-
-#define SPLIT_LAYER_STATE_ENABLE
+void housekeeping_task_user(void) {
+    update_layer_state_set();
+}
 ```
 
 
