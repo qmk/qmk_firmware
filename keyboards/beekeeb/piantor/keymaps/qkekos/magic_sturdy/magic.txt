@@ -4,7 +4,7 @@
 
 // ★ - magic key(upper right index)
 // ☆ - repeat key(home right thumb)
-// ✪ - double letters magic - [nh] letters act as a dedicated magic key on double tap
+// ✪ - double letters magic - [nhf] letters act as a dedicated magic key on double tap
 //                            ^ (second tap within tapping term)
 
 // ↻ - repeat token
@@ -19,6 +19,8 @@
 
 // ------------------------------------A---------------------------------------
 
+a☆            ⇒ and
+
 ⎵ag★          ⇒ again
 ⎵ag★t         ⇒ against
 
@@ -31,8 +33,11 @@
 
 ⎵aint         ⇒ ain't
 ⎵a★v          ⇒ above
+⎵af✪          ⇒ after
+⎵assg         ⇒ assign
 ⎵arent        ⇒ aren't
 ⎵alm★         ⇒ almost
+⎵an✪          ⇒ another
 ⎵acc★         ⇒ accuracy
 ⎵alg★         ⇒ algorithm
 
@@ -40,7 +45,10 @@
 
 ⎵b☆           ⇒ be
 
-⎵bc☆          ⇒ bunch
+⎵bt☆          ⇒ bother
+⎵bt☆d         ⇒ bothered
+⎵bt☆g         ⇒ bothering
+⎵bt☆r         ⇒ bothersome
 
 ⎵b☆e          ⇒ been
 ⎵b☆k          ⇒ back
@@ -51,16 +59,14 @@
 ⎵b☆r          ⇒ before
 ⎵b☆u          ⇒ buffer
 ⎵b☆p          ⇒ bypass
-⎵b☆t          ⇒ better
+⎵b☆tr         ⇒ better
 ⎵b☆c          ⇒ because
 ⎵b☆l          ⇒ believe
 ⎵b☆w          ⇒ between
 ⎵b☆v          ⇒ behavior
 ⎵b☆ps         ⇒ bypassing
 
-// TODO
-
-// bother, bothersome, etc.
+⎵bc☆          ⇒ bunch
 
 // ------------------------------------C---------------------------------------
 
@@ -90,21 +96,38 @@
 ⎵co★t         ⇒ couldn't
 ⎵co★v         ⇒ could've
 
+⎵c☆s★         ⇒ consistent
+⎵c☆s★c        ⇒ consistency
+⎵c☆s★l        ⇒ consistently
+
+⎵cf☆          ⇒ confident
+⎵cf☆e         ⇒ confidence
+⎵cf☆l         ⇒ confidently
+
+⎵c★m          ⇒ comfort
+⎵c★me         ⇒ comfortable
+⎵c★ma         ⇒ comfortably
+
 ⎵c☆e          ⇒ confuse
 ⎵c☆e★         ⇒ confused
 ⎵c☆en         ⇒ confusion
 ⎵c☆★          ⇒ confusing
 
+⎵c☆t★         ⇒ contain
+⎵c☆t★d        ⇒ contained
+⎵c☆t★e        ⇒ container
+⎵c☆t★i        ⇒ containing
+
+⎵c☆v          ⇒ convert
+⎵c☆ve         ⇒ converted
+⎵c☆vo         ⇒ conversion
+⎵c☆vn         ⇒ convenient
+⎵c☆va         ⇒ conversation
+
 ⎵cop★         ⇒ coping
 ⎵com★         ⇒ comment
 ⎵ca☆          ⇒ capable
 ⎵cant         ⇒ can't
-
-// TODO
-
-// conversation, comfort/able/ly etc.
-// consistent/cy etc.
-// confident
 
 // ------------------------------------D---------------------------------------
 
@@ -128,8 +151,6 @@ d★☆l          ⇒ dynamically
 ⎵d☆★t         ⇒ different
 ⎵d☆★r         ⇒ difference
 
-⎵de★          ⇒ default
-⎵del☆         ⇒ deflation
 ⎵df☆          ⇒ define
 ⎵df☆t         ⇒ definite
 ⎵df☆l         ⇒ definitely
@@ -147,9 +168,12 @@ d★☆l          ⇒ dynamically
 ⎵d☆r          ⇒ during
 ⎵d☆i          ⇒ decide
 ⎵d☆a          ⇒ doable
+⎵de★          ⇒ default
 ⎵d☆ig         ⇒ deciding
+⎵del☆         ⇒ deflation
 ⎵d☆u          ⇒ difficult
 ⎵demo★        ⇒ democracy
+⎵disf         ⇒ discomfort
 ⎵di★          ⇒ dictionary
 
 // ------------------------------------E---------------------------------------
@@ -166,7 +190,7 @@ d★☆l          ⇒ dynamically
 ⎵ev★r         ⇒ everywhere
 
 ⎵ed★          ⇒ edge
-⎵evn✪         ⇒ eventually
+⎵evn☆         ⇒ eventually
 
 // TODO
 
@@ -182,10 +206,14 @@ d★☆l          ⇒ dynamically
 ⎵ex☆☆         ⇒ exactly
 
 // exception, environment, early/earlier: ea@, ea@l, explain, expected/ing
+// unexpected and such
 
 // ------------------------------------F---------------------------------------
 
+⎵☆            ⇒ for
+
 ⎵f★           ⇒ fine
+⎵f☆           ⇒ first
 
 ⎵fu☆          ⇒ fun
 ⎵fu☆t         ⇒ function
@@ -193,9 +221,12 @@ d★☆l          ⇒ dynamically
 ⎵fu☆tg        ⇒ functioning
 ⎵fu☆ty        ⇒ functionality
 
-// TODO
+⎵fq           ⇒ frequent
+⎵fqc          ⇒ frequency
+⎵fqy          ⇒ frequently
+⎵fqs          ⇒ frequentcies
 
-// fancy
+⎵fc☆          ⇒ fancy
 
 // ------------------------------------G---------------------------------------
 
@@ -204,11 +235,13 @@ d★☆l          ⇒ dynamically
 
 // ------------------------------------H---------------------------------------
 
+⎵h☆           ⇒ hand
+⎵h✪           ⇒ health
+
 ⎵hi☆          ⇒ hilarious
+⎵hope☆        ⇒ hopefully
 
-// TODO
-
-// hopefully
+⎵havent       ⇒ haven't
 
 // ------------------------------------I---------------------------------------
 
@@ -226,6 +259,7 @@ i☆            ⇒ ing
 ⎵i☆rg         ⇒ increasing
 
 ⎵i☆p          ⇒ implement
+⎵i☆pe         ⇒ implemented
 ⎵i☆pn         ⇒ implementing
 ⎵i☆pt         ⇒ implementation
 
@@ -241,7 +275,7 @@ i☆            ⇒ ing
 ⎵i☆v          ⇒ I've
 
 ⎵is★          ⇒ issue
- 
+
 // ------------------------------------J---------------------------------------
 
 ⎵ju☆          ⇒ judge
@@ -275,11 +309,22 @@ m★            ⇒ ment
 ⎵mo★          ⇒ most
 ⎵mo★l         ⇒ mostly
 
+⎵ma☆          ⇒ make
+⎵ma☆g         ⇒ making
+
+⎵my☆          ⇒ myth
+⎵my☆a         ⇒ mythical
+⎵my☆o         ⇒ mythology
+
 ⎵m★o         ⇒ mention
 
 // ------------------------------------N---------------------------------------
 
 [oaui]n✪      ⇒ \1nion
+⎵n✪           ⇒ nice
+
+⎵gen✪         ⇒ general
+⎵men✪         ⇒ menu
 
 ⎵nev★l        ⇒ nevertheless
 
@@ -300,17 +345,16 @@ m★            ⇒ ment
 ⎵oj★y         ⇒ objectively
 
 ⎵ov★☆         ⇒ overall
+⎵ov★l         ⇒ overload
 ⎵ov★r         ⇒ override
-⎵ov★l         ⇒ overlook
+⎵ov★o         ⇒ overlook
 ⎵ov★k         ⇒ overkill
 ⎵ov★m         ⇒ overwhelm
-⎵ov★kd        ⇒ overlooked
+⎵ov★ld        ⇒ overloaded
+⎵ov★od        ⇒ overlooked
+⎵ov★lg        ⇒ overloading
 ⎵ov★md        ⇒ overwhelmed
 ⎵ov★mg        ⇒ overwhelming
-
-// TODO
-
-// overload/ed/ing etc.
 
 // ------------------------------------P---------------------------------------
 
@@ -318,16 +362,16 @@ p★            ⇒ py
 
 ⎵p★☆          ⇒ python
 
+⎵pol★         ⇒ policy
+⎵pha★         ⇒ pharmacy
+
 ⎵pri★         ⇒ priva
 ⎵pri★t        ⇒ private
 ⎵pri★☆        ⇒ privacy
 
-⎵pol★         ⇒ policy
-⎵pha★         ⇒ pharmacy
-
-// TODO
-
-// psycho
+⎵ps★          ⇒ psych
+⎵ps★o☆        ⇒ psychology
+⎵ps★a         ⇒ psychological
 
 // ------------------------------------Q---------------------------------------
 
@@ -342,11 +386,11 @@ q★            ⇒ que
 ⎵dequen       ⇒ dequeuing
 ⎵(en)?queg    ⇒ \1queuing
 
-// TODO
-
-// sequence, frequent, frequency/ies, frequently, consequence
+⎵q☆★          ⇒ qmk
 
 // ------------------------------------R---------------------------------------
+
+⎵ref✪         ⇒ refuse
 
 ⎵reo★         ⇒ reorder
 
@@ -391,15 +435,13 @@ q★            ⇒ que
 ⎵so★d         ⇒ sorted
 ⎵so★g         ⇒ sorting
 
-⎵si☆r         ⇒ singer
-⎵si☆l         ⇒ single
-⎵str☆         ⇒ string
-⎵spe★         ⇒ special
-⎵sup★         ⇒ supremacy
-⎵str★         ⇒ straight
+⎵sh☆          ⇒ should
+⎵sh☆v         ⇒ should've
+⎵sh☆t         ⇒ shouldn't
 
 ⎵s☆o          ⇒ someone
 ⎵s☆h          ⇒ somehow
+⎵s☆d          ⇒ someday
 ⎵s☆w          ⇒ somewhat
 ⎵s☆m          ⇒ sometime
 ⎵s☆r          ⇒ somewhere
@@ -416,20 +458,28 @@ q★            ⇒ que
 ⎵st☆c★        ⇒ statistics
 ⎵st☆ca        ⇒ statistically
 
+⎵sn☆          ⇒ seen
+⎵si☆r         ⇒ singer
+⎵si☆l         ⇒ single
+⎵str☆         ⇒ string
+⎵spe★         ⇒ special
+⎵sup★         ⇒ supremacy
+⎵str★         ⇒ straight
+⎵(con)?se★     ⇒ \1sequence
+
 // ------------------------------------T---------------------------------------
 
 ⎵★            ⇒ the
 
+⎵ta☆          ⇒ take
+⎵ta☆g         ⇒ taking
+
 ⎵t☆           ⇒ than
 ⎵t★           ⇒ that
+⎵th☆          ⇒ those
+⎵t☆★          ⇒ think
 ⎵t★s          ⇒ that's
 ⎵t★d          ⇒ that'd
-⎵th☆          ⇒ those
-
-⎵t☆★          ⇒ think
-⎵tg☆          ⇒ though
-⎵thr☆         ⇒ through
-⎵tal★g        ⇒ talking
 
 ⎵te★          ⇒ tech
 ⎵te★l         ⇒ technical
@@ -449,12 +499,23 @@ q★            ⇒ que
 ⎵★res         ⇒ there's
 ⎵★ro          ⇒ therefore
 
+⎵tg☆          ⇒ though
+⎵ty★☆         ⇒ typing
+⎵thr☆         ⇒ through
+⎵tal★g        ⇒ talking
+
+// TODO
+
+// theory etc.
+
 // ------------------------------------U---------------------------------------
 
 u★            ⇒ ue
 
 ⎵up★          ⇒ update
 ⎵ug★          ⇒ upgrade
+⎵up★☆         ⇒ updated
+⎵ug★☆         ⇒ upgraded
 
 ⎵unr☆         ⇒ unreal
 ⎵unr☆d        ⇒ unrelated
@@ -472,6 +533,7 @@ u★            ⇒ ue
 ⎵u☆★          ⇒ useful
 ⎵u☆l          ⇒ useless
 ⎵und☆         ⇒ undoable
+⎵unc☆         ⇒ uncomfortable
 
 // ------------------------------------V---------------------------------------
 
@@ -488,6 +550,7 @@ v★            ⇒ ver
 
 ⎵wont         ⇒ won't
 ⎵whats        ⇒ what's
+⎵wasnt        ⇒ wasn't
 ⎵werent       ⇒ weren't
 
 ⎵w☆u          ⇒ would
@@ -498,6 +561,7 @@ v★            ⇒ ver
 ⎵w☆l          ⇒ we'll
 ⎵w☆v          ⇒ we've
 
+⎵w☆★          ⇒ why
 ⎵w☆n          ⇒ when
 ⎵w☆a          ⇒ what
 ⎵w☆k          ⇒ work
@@ -508,12 +572,21 @@ v★            ⇒ ver
 ⎵w☆nr         ⇒ whenever
 
 // ------------------------------------X---------------------------------------
+
+x★            ⇒ xt
+x☆            ⇒ xes
+
 // ------------------------------------Y---------------------------------------
 
 y☆            ⇒ you
 y☆v           ⇒ you've
 
 // ------------------------------------Z---------------------------------------
+
+⎵z☆           ⇒ zone
+
+//REGEX_END
+
 
 // Old(er) rules
 
@@ -555,7 +628,6 @@ rid★          ⇒ ridge
 ⎵mu★          ⇒ must
 ⎵vi★          ⇒ view
 ⎵ti★          ⇒ time
-⎵se★          ⇒ seen
 ⎵ty★          ⇒ typ
 ⎵we★          ⇒ web
 
@@ -580,7 +652,6 @@ c★            ⇒ cy
 k★            ⇒ ks
 g★            ⇒ gy
 o★            ⇒ oa
-x★            ⇒ xt
 
 // Repeat
 
@@ -627,7 +698,6 @@ ous☆          ⇒ ously
 ⎵ab☆          ⇒ about
 ⎵sk☆          ⇒ skill
 ⎵fr☆          ⇒ from
-⎵ma☆          ⇒ make
 ⎵la☆          ⇒ last
 
 st☆           ⇒ sts
@@ -637,9 +707,7 @@ rs☆           ⇒ rst
 
 ⎵v☆           ⇒ var
 
-⎵☆            ⇒ for
 
-x☆            ⇒ xes
 
 // Double taps
 
@@ -650,34 +718,11 @@ x☆            ⇒ xes
 
 // Quintuple
 
-⎵quin✪        ⇒ quintessential
-⎵prob✪        ⇒ probably
-⎵keyb✪        ⇒ keyboard
-
-// Quadruple
-
-⎵gen✪         ⇒ general
-⎵men✪         ⇒ menu
-
-⎵ref✪         ⇒ refuse
+// ⎵quin✪        ⇒ quintessential
+// ⎵prob✪        ⇒ probably
+// ⎵keyb✪        ⇒ keyboard
 
 // Triple
 
-⎵ab✪          ⇒ abbreviation
-⎵uf✪          ⇒ unfortunate
-⎵an✪          ⇒ another
-⎵sh✪          ⇒ should
-⎵af✪          ⇒ after
-
-// Double
-
-⎵h✪           ⇒ health
-⎵f✪           ⇒ first
-⎵z✪           ⇒ zone
-⎵n✪           ⇒ nice
-
-// Single
-
-q✪            ⇒ qua
-
-//REGEX_END
+// ⎵ab✪          ⇒ abbreviation
+// ⎵uf✪          ⇒ unfortunate
