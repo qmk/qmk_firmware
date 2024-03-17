@@ -381,6 +381,26 @@ By default, the inbound and outbound data is limited to a maximum of 32 bytes ea
 #define RPC_S2M_BUFFER_SIZE 48
 ```
 
+If you only need to transfer a small integer one way, or just run a function on the slave, this can be simplified to:
+
+```c
+#include "transactions.h"
+
+void func_to_call(uint8_t data, const void* unused, uint8_t unused2, void* unused3) {
+    do_something_with(data);
+}
+void keyboard_post_init_user(void) {
+    transaction_register_rpc(USER_SYNC_A, func_to_call);
+}
+
+void housekeeping_task_user(void) {
+    if (is_keyboard_master()){
+        transaction_rpc_exec(USER_SYNC_A, 24, NULL, 0, NULL);
+    }
+}
+
+```
+
 ###  Hardware Configuration Options
 
 There are some settings that you may need to configure, based on how the hardware is set up. 
