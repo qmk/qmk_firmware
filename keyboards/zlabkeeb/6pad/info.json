@@ -1,4 +1,5 @@
 {
+    "keyboard_name": "ZLABKEEB 6PAD",
     "manufacturer": "zlabkeeb",
     "maintainer": "zlabkeeb",
     "development_board": "promicro",
@@ -7,13 +8,35 @@
         "extrakey": true,
         "encoder": true,
         "mousekey": true,
+        "rgblight": true
     },
     "build": {
         "lto": true
     },
     "url": "https://github.com/zlabkeeb",
     "usb": {
-        "vid": "0x4154"
+        "vid": "0x4154",
+        "pid": "0x7A77"
+    },
+    "rgblight": {
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        },
+        "led_count": 4,
+        "max_brightness": 180,
+        "saturation_steps": 8,
+        "sleep": true
+    },
+    "ws2812": {
+        "pin": "B6"
     },
     "encoder": {
         "rotary": [

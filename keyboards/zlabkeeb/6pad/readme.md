@@ -4,8 +4,7 @@
 
 6PAD is a Simple Yet Elegant Macropad, 5 Keys & Single Rotary Encoder, Designed And Manufactured In INDONESIA.
 
--   Rev. 1 Support RGB light UnderGlow
--   Rev. 2 [SOON!!]Support RGB light UnderGlow & RGB Matrix
+-   Support RGB light UnderGlow
 -   Keyboard Maintainer: [zlabkeeb](https://github.com/zlabkeeb)
 -   Hardware Supported: 6Pad PCB rev1, Promicro
 -   Hardware Availability: SOON!! TOKOPEDIA
