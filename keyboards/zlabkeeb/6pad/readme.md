@@ -6,16 +6,16 @@
 
 -   Support RGB light UnderGlow
 -   Keyboard Maintainer: [zlabkeeb](https://github.com/zlabkeeb)
--   Hardware Supported: 6Pad PCB rev1, Promicro
--   Hardware Availability: SOON!! TOKOPEDIA
+-   Hardware Supported: 6Pad PCB, Promicro
+-   Hardware Availability: (INDONESIA Only) Will be available at [Tokopedia](https://www.tokopedia.com/zahranetid)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make zlabkeeb/6pad/rev1:default
+    make zlabkeeb/6pad:default
 
 Flashing example for this keyboard:
 
-    make zlabkeeb/6pad/rev1:default:flash
+    make zlabkeeb/6pad:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
