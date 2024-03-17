@@ -4,6 +4,7 @@
 
 36 key ortholinear keyboard intended to be mapped as a split keyboard. Now with RGB lighting support.
 
+
 * Keyboard Maintainer: [LLLKST](https://github.com/LLLKST)
 * Hardware Supported: *promicro compatible controller*
 * Hardware Availability: [Aliexpress Pro Micro](https://www.aliexpress.us/item/3256805781371913.html)
