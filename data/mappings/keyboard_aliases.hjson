@@ -1520,6 +1520,9 @@
         "target": "ymdk/melody96/soldered"
     },
     // Moved during 2024 Q2 cycle
+    "kprepublic/jj40": {
+        "target": "kprepublic/jj40/rev1"
+    },
     "kprepublic/jj50": {
         "target": "kprepublic/jj50/rev1"
     }
