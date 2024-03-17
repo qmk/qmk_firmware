@@ -4,12 +4,12 @@ import contextlib
 import functools
 import fnmatch
 import logging
-import multiprocessing
 import re
 from typing import List, Tuple
 from dotty_dict import dotty
 from milc import cli
 
+from qmk.util import parallel_map
 from qmk.info import keymap_json
 import qmk.keyboard
 import qmk.keymap
@@ -78,17 +78,16 @@ def _expand_keymap_target(keyboard: str, keymap: str, all_keyboards: List[str] =
         all_keyboards = qmk.keyboard.list_keyboards()
 
     if keyboard == 'all':
-        with multiprocessing.Pool() as pool:
-            if keymap == 'all':
-                cli.log.info('Retrieving list of all keyboards and keymaps...')
-                targets = []
-                for kb in pool.imap_unordered(_all_keymaps, all_keyboards):
-                    targets.extend(kb)
-                return targets
-            else:
-                cli.log.info(f'Retrieving list of keyboards with keymap "{keymap}"...')
-                keyboard_filter = functools.partial(_keymap_exists, keymap=keymap)
-                return [(kb, keymap) for kb in filter(lambda e: e is not None, pool.imap_unordered(keyboard_filter, all_keyboards))]
+        if keymap == 'all':
+            cli.log.info('Retrieving list of all keyboards and keymaps...')
+            targets = []
+            for kb in parallel_map(_all_keymaps, all_keyboards):
+                targets.extend(kb)
+            return targets
+        else:
+            cli.log.info(f'Retrieving list of keyboards with keymap "{keymap}"...')
+            keyboard_filter = functools.partial(_keymap_exists, keymap=keymap)
+            return [(kb, keymap) for kb in filter(lambda e: e is not None, parallel_map(keyboard_filter, all_keyboards))]
     else:
         if keymap == 'all':
             keyboard = qmk.keyboard.resolve_keyboard(keyboard)
@@ -117,8 +116,7 @@ def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str
         targets = [(kb, km, {}) for kb, km in target_list]
     else:
         cli.log.info('Parsing data for all matching keyboard/keymap combinations...')
-        with multiprocessing.Pool() as pool:
-            valid_keymaps = [(e[0], e[1], dotty(e[2])) for e in pool.imap_unordered(_load_keymap_info, target_list)]
+        valid_keymaps = [(e[0], e[1], dotty(e[2])) for e in parallel_map(_load_keymap_info, target_list)]
 
         function_re = re.compile(r'^(?P<function>[a-zA-Z]+)\((?P<key>[a-zA-Z0-9_\.]+)(,\s*(?P<value>[^#]+))?\)$')
         equals_re = re.compile(r'^(?P<key>[a-zA-Z0-9_\.]+)\s*=\s*(?P<value>[^#]+)$')
@@ -179,10 +177,10 @@ def _filter_keymap_targets(target_list: List[Tuple[str, str]], filters: List[str
     return targets
 
 
-def search_keymap_targets(keymap='default', filters: List[str] = [], print_vals: List[str] = []) -> List[Tuple[str, str, List[Tuple[str, str]]]]:
+def search_keymap_targets(targets: List[Tuple[str, str]] = [('all', 'default')], filters: List[str] = [], print_vals: List[str] = []) -> List[Tuple[str, str, List[Tuple[str, str]]]]:
     """Search for build targets matching the supplied criteria.
     """
-    return list(sorted(_filter_keymap_targets(expand_keymap_targets([('all', keymap)]), filters, print_vals), key=lambda e: (e[0], e[1])))
+    return list(sorted(_filter_keymap_targets(expand_keymap_targets(targets), filters, print_vals), key=lambda e: (e[0], e[1])))
 
 
 def search_make_targets(targets: List[str], filters: List[str] = [], print_vals: List[str] = []) -> List[Tuple[str, str, List[Tuple[str, str]]]]:

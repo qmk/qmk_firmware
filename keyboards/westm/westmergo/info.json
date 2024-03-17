@@ -33,6 +33,7 @@
     "diode_direction": "COL2ROW",
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
+    "community_layouts": ["alice"],
     "layouts": {
         "LAYOUT_alice": {
             "layout": [

@@ -97,6 +97,6 @@ def mass_compile(cli):
     if len(cli.args.builds) > 0:
         targets = search_make_targets(cli.args.builds, cli.args.filter)
     else:
-        targets = search_keymap_targets(cli.args.keymap, cli.args.filter)
+        targets = search_keymap_targets([('all', cli.config.mass_compile.keymap)], cli.args.filter)
 
-    return mass_compile_targets(targets, cli.args.clean, cli.args.dry_run, cli.args.no_temp, cli.args.parallel, cli.args.env)
+    return mass_compile_targets(targets, cli.args.clean, cli.args.dry_run, cli.config.mass_compile.no_temp, cli.config.mass_compile.parallel, cli.args.env)

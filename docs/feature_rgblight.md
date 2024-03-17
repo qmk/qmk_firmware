@@ -524,7 +524,6 @@ By defining `RGBLIGHT_LED_MAP` as in the example below, you can specify the LED 
 ```
 <img src="https://user-images.githubusercontent.com/2170248/55743725-08ad7a80-5a6e-11e9-83ed-126a2b0209fc.JPG" alt="simple mapped" width="50%"/>
 
-```
 ## Clipping Range
 
 Using the `rgblight_set_clipping_range()` function, you can prepare more buffers than the actual number of LEDs, and output some of the buffers to the LEDs. This is useful if you want the split keyboard to treat left and right LEDs as logically contiguous.
@@ -544,8 +543,8 @@ In addition to setting the Clipping Range, you can use `RGBLIGHT_LED_MAP` togeth
 #define RGBLED_NUM 8
 #define RGBLIGHT_LED_MAP { 7, 6, 5, 4, 3, 2, 1, 0 }
 
-// some soruce
-  rgblight_set_clipping_range(3, 4);
+// some source
+rgblight_set_clipping_range(3, 4);
 ```
 <img src="https://user-images.githubusercontent.com/2170248/55743747-119e4c00-5a6e-11e9-91e5-013203ffae8a.JPG" alt="clip mapped" width="70%"/>
 

@@ -190,4 +190,9 @@
     "PRODUCT": {"info_key": "keyboard_name", "warn_duplicate": false, "value_type": "str", "deprecated": true, "replace_with": "`keyboard_name` in info.json"},
     "PRODUCT_ID": {"info_key": "usb.pid", "value_type": "hex", "deprecated": true, "replace_with": "`usb.pid` in info.json"},
     "VENDOR_ID": {"info_key": "usb.vid", "value_type": "hex", "deprecated": true, "replace_with": "`usb.vid` in info.json"},
+
+    // Items we want flagged in lint
+    "VIAL_KEYBOARD_UID": {"info_key": "_invalid.vial_uid", "invalid": true},
+    "VIAL_UNLOCK_COMBO_COLS": {"info_key": "_invalid.vial_unlock_cols", "invalid": true},
+    "VIAL_UNLOCK_COMBO_ROWS": {"info_key": "_invalid.vial_unlock_rows", "invalid": true}
 }
