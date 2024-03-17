@@ -5,7 +5,7 @@ PICO_INTRINSICS_ENABLED = no # ATM Unsupported by ChibiOS.
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = no      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes        # Mouse keys
 EXTRAKEY_ENABLE = no        # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
@@ -27,5 +27,6 @@ SPLIT_KEYBOARD = yes
 SERIAL_DRIVER = vendor
 WS2812_DRIVER = vendor
 
-SRC += features/casemodes.c
+SRC += pogues.c
+SRC += features/achordion.c
 SRC += features/compose.c
