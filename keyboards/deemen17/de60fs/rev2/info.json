@@ -31,6 +31,8 @@
     "bootloader": "uf2boot",
     "board": "STM32_F103_STM32DUINO",
     "rgblight": {
+        "led_count": 22,
+        "sleep": true,
         "animations": {
             "alternating": true,
             "breathing": true,
@@ -42,13 +44,7 @@
             "snake": true,
             "static_gradient": true,
             "twinkle": true
-        },
-        "default": {
-            "animation": "rainbow_swirl"
-        },
-        "led_count": 22,
-        "max_brightness": 240,
-        "sleep": true
+        }
     },
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_60_tsangan_hhkb"
