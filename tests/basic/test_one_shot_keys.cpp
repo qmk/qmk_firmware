@@ -472,13 +472,7 @@ TEST_P(OneShotLayerParametrizedTestFixture, OSLWithActionAndAdditionalKeypress) 
     VERIFY_AND_CLEAR(driver);
 }
 
-INSTANTIATE_TEST_CASE_P(
-    OneShotLayerTests,
-    OneShotLayerParametrizedTestFixture,
-    ::testing::Values(
-        TG(2),
-        TO(2)
-    ));
+INSTANTIATE_TEST_CASE_P(OneShotLayerTests, OneShotLayerParametrizedTestFixture, ::testing::Values(TG(2), TO(2)));
 
 TEST_F(OneShot, OSLChainingTwoOSLsAndAdditionalKeypress) {
     TestDriver driver;
