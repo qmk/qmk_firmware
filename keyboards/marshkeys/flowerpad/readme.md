@@ -1,5 +1,7 @@
 # Flowerpad
 
+![flowerpad](https://i.imgur.com/SRo0iWLh.jpeg)
+
 A flourishing 6-key macropad that will catch your eye.
 
 * Keyboard Maintainer: [Benjamin Božič](https://github.com/Ethirallan)
