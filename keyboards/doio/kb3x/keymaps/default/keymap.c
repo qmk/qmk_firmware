@@ -20,10 +20,7 @@
 enum layer_names {
     _LAY0,
     _LAY1,
-    _LAY2,
-    _LAY3,
-    _LAY4,
-    _LAY5
+    _LAY2
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
