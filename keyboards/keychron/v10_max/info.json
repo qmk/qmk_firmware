@@ -1,5 +1,5 @@
 {
-    "keyboard_name": "Keychron V6 Max",
+    "keyboard_name": "Keychron V10 Max",
     "manufacturer": "Keychron",
     "url": "https://github.com/Keychron",
     "maintainer": "lokher",
@@ -29,7 +29,7 @@
         ]
     },
     "matrix_pins": {
-        "cols": ["C6", "C7", "C8", "A14", "A15", "C10", "C11", "C13", "C14", "C15", "C0", "C1", "C2", "C3", "A0", "A1", "A2", "A3", "C5", "B10", "C9"],
+        "cols": ["C6", "C7", "C8", "A14", "A15", "C10", "C11", "C13", "C14", "C15", "C0", "C1", "C2", "C3", "A0", "A1", "A2", "A3"],
         "rows": ["C12", "D2", "B3", "B4", "B5", "B6"]
     },
     "diode_direction": "ROW2COL",
