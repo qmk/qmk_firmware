@@ -1,6 +1,6 @@
 # doio/kb3x
 
-![kb3x-01](https://i.imgur.com/6DvIu9M.png)
+![kb3x-01](https://i.imgur.com/6DvIu9Mh.png)
 
 QMK for DOIO Knob keypad .
 
