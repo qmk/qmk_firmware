@@ -1,0 +1,1 @@
+#define KC_MAC_UNDO LGUI(KC_Z)

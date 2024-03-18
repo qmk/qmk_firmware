@@ -12,7 +12,7 @@ EXTRAKEY_ENABLE  = yes  # Audio control and System control
 CONSOLE_ENABLE   = no   # Console for debug
 COMMAND_ENABLE   = no   # Commands for debug and configuration
 CUSTOM_MATRIX    = lite # Custom matrix file for the ErgoDox EZ
-NKRO_ENABLE      = yes           # Enable N-Key Rollover
+NKRO_ENABLE      = no           # Enable N-Key Rollover
 UNICODE_ENABLE   = no  # Unicode
 SWAP_HANDS_ENABLE= no   # Allow swapping hands of keyboard
 
