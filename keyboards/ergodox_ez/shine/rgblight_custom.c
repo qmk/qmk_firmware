@@ -18,10 +18,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifdef RGBLIGHT_ENABLE
-
-#    include "ergodox_ez.h"
-#    include "ws2812.h"
+#include "ergodox_ez.h"
+#include "ws2812.h"
 
 void setleds_custom(rgb_led_t *led, uint16_t led_num) {
     uint16_t length = 0;
@@ -64,7 +62,6 @@ void setleds_custom(rgb_led_t *led, uint16_t led_num) {
 }
 
 const rgblight_driver_t rgblight_driver = {
+    .init    = ws2812_init,
     .setleds = setleds_custom,
 };
-
-#endif  // RGBLIGHT_ENABLE
