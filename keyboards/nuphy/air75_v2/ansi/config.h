@@ -34,5 +34,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SD1_RX_PAL_MODE                     0
 
 #define EECONFIG_KB_DATA_SIZE             8
-
-
