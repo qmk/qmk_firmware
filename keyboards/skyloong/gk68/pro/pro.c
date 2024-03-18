@@ -2,6 +2,9 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "quantum.h"
 
+int FN_ON = 0;
+_Bool WIN_LOCK = 0;
+
 #if defined(RGB_MATRIX_ENABLE)  /*&& defined(CAPS_LOCK_INDEX)*/
 const aw20216s_led_t PROGMEM g_aw20216s_leds[AW20216S_LED_COUNT] = {
 /* Refer to aw20216 manual for these locations
@@ -113,9 +116,58 @@ void suspend_wakeup_init_kb(void) {
 }
 bool shutdown_kb(bool jump_to_bootloader) {
     writePinLow(SDB);
-    return shutdown_user(jump_to_bootloader);
+    return true;
 }
 #endif
+
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
+    switch (keycode) {
+    case MO(1):
+      if (record->event.pressed) {
+       FN_ON = 1;
+      } else {
+       FN_ON = 0;
+      }
+      return true;
+
+    case MO(2):
+      if (record->event.pressed) {
+       FN_ON = 1;
+      } else {
+       FN_ON = 0;
+      }
+      return true;
+
+    case MO(3):
+      if (record->event.pressed) {
+       FN_ON = 1;
+      } else {
+       FN_ON = 0;
+      }
+      return true;
+
+    case KC_LGUI:
+      if (FN_ON){
+          if ( record->event.pressed){
+             WIN_LOCK = !WIN_LOCK ; //change win lock state
+            }
+          if (!WIN_LOCK) {
+             return false; //windows key locked do nothing
+            }
+        }
+      if (WIN_LOCK) {
+             return false; //windows key locked do nothing
+            }
+      return true;  // continue all further processing of this key
+
+    default:
+      return true;
+    }
+}
 
 void board_init(void) {
     // JTAG-DP Disabled and SW-DP Disabled
