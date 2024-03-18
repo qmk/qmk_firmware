@@ -3,7 +3,6 @@
     "keyboard_name": "Sugar Glider",
     "maintainer": "kylemccreery",
     "url": "https://mechwild.com/product/sugar-glider/",
-    "bootloader": "stm32-dfu",
     "features": {
         "bootmagic": true,
         "command": false,

@@ -9,6 +9,15 @@
         "device_version": "0.0.1",
         "max_power": 100
     },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false,
+        "pointing_device": true,
+        "rgblight": false,
+        "encoder": true
+    },
     "bootmagic": {
         "matrix": [0, 3]
     },
@@ -30,9 +39,6 @@
         "direct": [
             ["D4", "D2", "E6", "B6", "D7", "C6", "C7", "B7"]
         ]
-    },
-    "features": {
-        "encoder": true
     },
     "encoder": {
         "driver": "custom"
