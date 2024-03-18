@@ -17,6 +17,48 @@
 
 //REGEX_START
 
+// ------------------------------------'---------------------------------------
+
+⎵aint         ⇒ ain't
+⎵arent        ⇒ aren't
+
+⎵shoulde      ⇒ should've
+⎵shouldt      ⇒ shouldn't
+
+⎵wouldt       ⇒ wouldn't
+⎵wouldv       ⇒ would've
+
+⎵cant         ⇒ can't
+⎵couldt       ⇒ couldn't
+⎵couldv       ⇒ could've
+
+⎵dont         ⇒ don't
+⎵didnt        ⇒ didn't
+⎵doesnt       ⇒ doesn't
+
+⎵i☆m          ⇒ I'm
+⎵i☆d          ⇒ I'd
+⎵i☆l          ⇒ I'll
+⎵i☆v          ⇒ I've
+
+⎵w☆d          ⇒ we'd
+⎵w☆l          ⇒ we'll
+⎵w☆v          ⇒ we've
+
+⎵wont         ⇒ won't
+⎵whats        ⇒ what's
+⎵wasnt        ⇒ wasn't
+⎵werent       ⇒ weren't
+
+⎵thats        ⇒ that's
+⎵thatd        ⇒ that'd
+⎵theyr        ⇒ they're
+⎵theyl        ⇒ they'll
+⎵theres       ⇒ there's
+
+⎵youv         ⇒ you've
+⎵havent       ⇒ haven't
+
 // ------------------------------------A---------------------------------------
 
 a☆            ⇒ and
@@ -31,11 +73,9 @@ a☆            ⇒ and
 ⎵al★d         ⇒ already
 ⎵al★g         ⇒ alright
 
-⎵aint         ⇒ ain't
 ⎵a★v          ⇒ above
 ⎵af✪          ⇒ after
 ⎵assg         ⇒ assign
-⎵arent        ⇒ aren't
 ⎵alm★         ⇒ almost
 ⎵an✪          ⇒ another
 ⎵acc★         ⇒ accuracy
@@ -50,10 +90,15 @@ a☆            ⇒ and
 ⎵bt☆g         ⇒ bothering
 ⎵bt☆r         ⇒ bothersome
 
+⎵b☆q          ⇒ being
+⎵b☆gq         ⇒ begin
+⎵b☆ga         ⇒ began
+⎵b☆ge         ⇒ begging
+⎵b☆gqe        ⇒ beginning
+
 ⎵b☆e          ⇒ been
 ⎵b☆k          ⇒ back
 ⎵b☆o          ⇒ both
-⎵b☆g          ⇒ being
 ⎵b☆m          ⇒ become
 ⎵b☆ma         ⇒ became
 ⎵b☆r          ⇒ before
@@ -80,6 +125,9 @@ a☆            ⇒ and
 ⎵cr★          ⇒ cry
 ⎵cry☆         ⇒ crying
 
+⎵ch☆          ⇒ change
+⎵ch☆e         ⇒ changing
+
 ⎵c☆f          ⇒ config
 ⎵c☆fr         ⇒ configure
 ⎵c☆ft         ⇒ configuration
@@ -91,10 +139,6 @@ a☆            ⇒ and
 ⎵c☆m         ⇒ confirm
 ⎵c☆md        ⇒ confirmed
 ⎵c☆mg        ⇒ confirming
-
-⎵co★          ⇒ could
-⎵co★t         ⇒ couldn't
-⎵co★v         ⇒ could've
 
 ⎵c☆s★         ⇒ consistent
 ⎵c☆s★c        ⇒ consistency
@@ -110,8 +154,13 @@ a☆            ⇒ and
 
 ⎵c☆e          ⇒ confuse
 ⎵c☆e★         ⇒ confused
-⎵c☆en         ⇒ confusion
-⎵c☆★          ⇒ confusing
+⎵c☆en         ⇒ confusing
+⎵c☆eo         ⇒ confusion
+
+⎵c☆★          ⇒ connect
+⎵c☆★e         ⇒ connected
+⎵c☆★o         ⇒ connection
+⎵c☆★i         ⇒ connecting
 
 ⎵c☆t★         ⇒ contain
 ⎵c☆t★d        ⇒ contained
@@ -124,10 +173,10 @@ a☆            ⇒ and
 ⎵c☆vn         ⇒ convenient
 ⎵c☆va         ⇒ conversation
 
+⎵co★          ⇒ could
 ⎵cop★         ⇒ coping
 ⎵com★         ⇒ comment
 ⎵ca☆          ⇒ capable
-⎵cant         ⇒ can't
 
 // ------------------------------------D---------------------------------------
 
@@ -150,6 +199,7 @@ d★☆l          ⇒ dynamically
 ⎵d☆★          ⇒ differ
 ⎵d☆★t         ⇒ different
 ⎵d☆★r         ⇒ difference
+⎵d☆★l         ⇒ differently
 
 ⎵df☆          ⇒ define
 ⎵df☆t         ⇒ definite
@@ -162,9 +212,6 @@ d★☆l          ⇒ dynamically
 ⎵dev☆m        ⇒ development
 
 ⎵d☆n          ⇒ down
-⎵dont         ⇒ don't
-⎵didnt        ⇒ didn't
-⎵doesnt       ⇒ doesn't
 ⎵d☆r          ⇒ during
 ⎵d☆i          ⇒ decide
 ⎵d☆a          ⇒ doable
@@ -185,10 +232,11 @@ d★☆l          ⇒ dynamically
 ⎵es☆t         ⇒ essential
 ⎵es☆tl        ⇒ essentially
 
-⎵ev★o         ⇒ everyone
+⎵ev★☆         ⇒ everyone
 ⎵ev★t         ⇒ everything
 ⎵ev★r         ⇒ everywhere
 
+⎵ey★          ⇒ eye
 ⎵ed★          ⇒ edge
 ⎵evn☆         ⇒ eventually
 
@@ -207,6 +255,7 @@ d★☆l          ⇒ dynamically
 
 // exception, environment, early/earlier: ea@, ea@l, explain, expected/ing
 // unexpected and such
+// enou etc. for example: enough
 
 // ------------------------------------F---------------------------------------
 
@@ -215,6 +264,9 @@ d★☆l          ⇒ dynamically
 ⎵f★           ⇒ fine
 ⎵f☆           ⇒ first
 
+⎵☆b           ⇒ forbid
+⎵☆bd          ⇒ forbidden
+  
 ⎵fu☆          ⇒ fun
 ⎵fu☆t         ⇒ function
 ⎵fu☆tl        ⇒ functional
@@ -240,8 +292,6 @@ d★☆l          ⇒ dynamically
 
 ⎵hi☆          ⇒ hilarious
 ⎵hope☆        ⇒ hopefully
-
-⎵havent       ⇒ haven't
 
 // ------------------------------------I---------------------------------------
 
@@ -269,11 +319,6 @@ i☆            ⇒ ing
 ⎵i★rt         ⇒ information
 
 ⎵i☆           ⇒ I
-⎵i☆m          ⇒ I'm
-⎵i☆d          ⇒ I'd
-⎵i☆l          ⇒ I'll
-⎵i☆v          ⇒ I've
-
 ⎵is★          ⇒ issue
 
 // ------------------------------------J---------------------------------------
@@ -293,6 +338,10 @@ i☆            ⇒ ing
 ⎵j★g          ⇒ justifying
 
 // ------------------------------------K---------------------------------------
+
+⎵(a)?kn☆      ⇒ \1knowledge
+⎵kn☆e         ⇒ knowledgeable
+
 // ------------------------------------L---------------------------------------
 
 ⎵lega★        ⇒ legacy
@@ -301,6 +350,7 @@ i☆            ⇒ ing
 ⎵li★          ⇒ list
 ⎵li★d         ⇒ listed
 ⎵li★r         ⇒ listener
+⎵li★g         ⇒ listening
 
 // ------------------------------------M---------------------------------------
 
@@ -375,8 +425,19 @@ p★            ⇒ py
 
 // ------------------------------------Q---------------------------------------
 
-q☆            ⇒ qui
-q★            ⇒ que
+q[aoei]       ⇒ qu\1
+q[aoei]★      ⇒ q\1
+
+⎵equa☆        ⇒ equal
+⎵equaly       ⇒ equally
+⎵equalt       ⇒ equality
+
+⎵qua☆         ⇒ quali
+⎵qa☆y         ⇒ qualify
+⎵qa☆t         ⇒ quality
+⎵qa☆ye        ⇒ qualified
+⎵qa☆ts        ⇒ qualities
+⎵qa☆yn        ⇒ qualification
 
 ⎵dq           ⇒ deque
 ⎵nq           ⇒ enque
@@ -386,7 +447,7 @@ q★            ⇒ que
 ⎵dequen       ⇒ dequeuing
 ⎵(en)?queg    ⇒ \1queuing
 
-⎵q☆★          ⇒ qmk
+⎵q★           ⇒ qmk
 
 // ------------------------------------R---------------------------------------
 
@@ -427,6 +488,9 @@ q★            ⇒ que
 ⎵sit★         ⇒ situation
 ⎵sit★☆        ⇒ situational
 
+⎵sn☆          ⇒ seen
+⎵sn✪          ⇒ seem
+
 ⎵st★          ⇒ start
 ⎵st★d         ⇒ started
 ⎵st★g         ⇒ starting
@@ -434,10 +498,6 @@ q★            ⇒ que
 ⎵so★          ⇒ sort
 ⎵so★d         ⇒ sorted
 ⎵so★g         ⇒ sorting
-
-⎵sh☆          ⇒ should
-⎵sh☆v         ⇒ should've
-⎵sh☆t         ⇒ shouldn't
 
 ⎵s☆o          ⇒ someone
 ⎵s☆h          ⇒ somehow
@@ -458,7 +518,7 @@ q★            ⇒ que
 ⎵st☆c★        ⇒ statistics
 ⎵st☆ca        ⇒ statistically
 
-⎵sn☆          ⇒ seen
+⎵sh☆          ⇒ should
 ⎵si☆r         ⇒ singer
 ⎵si☆l         ⇒ single
 ⎵str☆         ⇒ string
@@ -478,8 +538,16 @@ q★            ⇒ que
 ⎵t★           ⇒ that
 ⎵th☆          ⇒ those
 ⎵t☆★          ⇒ think
-⎵t★s          ⇒ that's
-⎵t★d          ⇒ that'd
+
+⎵★s           ⇒ this
+⎵★g           ⇒ thing
+⎵★e           ⇒ these
+⎵★k           ⇒ thank
+
+⎵★☆           ⇒ theory
+⎵★☆s          ⇒ theories
+⎵★☆t          ⇒ theorethical
+⎵★☆tl         ⇒ theorethically
 
 ⎵te★          ⇒ tech
 ⎵te★l         ⇒ technical
@@ -488,25 +556,16 @@ q★            ⇒ que
 ⎵te★ly        ⇒ technically
 ⎵te★g☆        ⇒ technologies
 
-⎵★☆           ⇒ then
-⎵★s           ⇒ this
-⎵★g           ⇒ thing
-⎵★e           ⇒ these
-⎵★k           ⇒ thank
-⎵★yr          ⇒ they're
-⎵★yl          ⇒ they'll
-⎵★k☆          ⇒ thanks
-⎵★res         ⇒ there's
-⎵★ro          ⇒ therefore
-
 ⎵tg☆          ⇒ though
+⎵★k☆          ⇒ thanks
 ⎵ty★☆         ⇒ typing
 ⎵thr☆         ⇒ through
 ⎵tal★g        ⇒ talking
+⎵★ro          ⇒ therefore
 
 // TODO
 
-// theory etc.
+// transform etc.
 
 // ------------------------------------U---------------------------------------
 
@@ -548,23 +607,11 @@ v★            ⇒ ver
 ⎵(a)?wa★      ⇒ \1way
 ⎵work☆        ⇒ working
 
-⎵wont         ⇒ won't
-⎵whats        ⇒ what's
-⎵wasnt        ⇒ wasn't
-⎵werent       ⇒ weren't
-
-⎵w☆u          ⇒ would
-⎵w☆ut         ⇒ wouldn't
-⎵w☆uv         ⇒ would've
-
-⎵w☆d          ⇒ we'd
-⎵w☆l          ⇒ we'll
-⎵w☆v          ⇒ we've
-
 ⎵w☆★          ⇒ why
 ⎵w☆n          ⇒ when
 ⎵w☆a          ⇒ what
 ⎵w☆k          ⇒ work
+⎵w☆u          ⇒ would
 ⎵w☆i          ⇒ which
 ⎵w☆h          ⇒ while
 ⎵w☆e          ⇒ where
@@ -579,7 +626,6 @@ x☆            ⇒ xes
 // ------------------------------------Y---------------------------------------
 
 y☆            ⇒ you
-y☆v           ⇒ you've
 
 // ------------------------------------Z---------------------------------------
 
@@ -596,7 +642,6 @@ y☆v           ⇒ you've
 ⎵any★         ⇒ anything
 ⎵pos★         ⇒ position
 
-⎵inc★         ⇒ increase
 ⎵var★         ⇒ various
 ⎵ser★         ⇒ serious
 ⎵pro★         ⇒ problem
@@ -655,14 +700,9 @@ o★            ⇒ oa
 
 // Repeat
 
-// A lot
-
-⎵should☆      ⇒ shouldn't
-
 // Quadruple
 
 ⎵poss☆        ⇒ possible
-⎵hand☆        ⇒ handy
 
 // Triple
 
