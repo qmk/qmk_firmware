@@ -23,6 +23,10 @@
 #include "keycode.h"
 #include "action.h"
 #include "wait.h"
+#ifdef LK_WIRELESS_ENABLE
+#include "wireless.h"
+#endif
+
 
 #if defined(AUDIO_ENABLE) && defined(SENDSTRING_BELL)
 #    include "audio.h"
@@ -177,8 +181,12 @@ void send_string_with_delay(const char *string, uint8_t interval) {
                     ms += keycode - '0';
                     keycode = *(++string);
                 }
-                while (ms--)
+                while (ms--) {
+#ifdef LK_WIRELESS_ENABLE
+                    send_string_task();
+#endif
                     wait_ms(1);
+                }
             }
         } else {
             send_char(ascii_code);
@@ -187,9 +195,16 @@ void send_string_with_delay(const char *string, uint8_t interval) {
         // interval
         {
             uint8_t ms = interval;
-            while (ms--)
+            while (ms--) {
+#ifdef LK_WIRELESS_ENABLE
+                send_string_task();
+#endif
                 wait_ms(1);
+            }
         }
+#ifdef LK_WIRELESS_ENABLE
+        send_string_task();
+#endif
     }
 }
 
