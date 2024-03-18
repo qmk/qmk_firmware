@@ -43,38 +43,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                   _______,                            _______, _______, _______,          RGB_SAD, RGB_VAD, RGB_SAI),
 };
 // clang-format on
-bool process_record_user(uint16_t keycode, keyrecord_t *record)
-{
-    switch (keycode)
-    {
-    case RGB_TOG:
-        if (record->event.pressed)
-        {
-            switch (rgb_matrix_get_flags())
-            {
-            case LED_FLAG_ALL:
-            {
-                rgb_matrix_set_flags(LED_FLAG_NONE);
-                rgb_matrix_set_color_all(0, 0, 0);
-            }
-            break;
-            default:
-            {
-                rgb_matrix_set_flags(LED_FLAG_ALL);
-            }
-            break;
-            }
-        }
-        if (!rgb_matrix_is_enabled())
-        {
-            rgb_matrix_set_flags(LED_FLAG_ALL);
-            rgb_matrix_enable();
-        }
-        return false;
-    default:
-        return true;
-    }
-}
 #ifdef RGB_MATRIX_ENABLE
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max)
 {
