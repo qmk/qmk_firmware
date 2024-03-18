@@ -151,6 +151,7 @@ rgb_led_t rgb_matrix_ws2812_array[WS2812_LED_COUNT];
 bool      ws2812_dirty = false;
 
 static void init(void) {
+    ws2812_init();
     ws2812_dirty = false;
 }
 
