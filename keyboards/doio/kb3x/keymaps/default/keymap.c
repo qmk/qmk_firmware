@@ -39,26 +39,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     C(KC_WH_D), KC_TRNS,    C(KC_WH_U),     KC_DOT,         KC_TRNS,    KC_COMM,            C(KC_B),    KC_TRNS,    C(KC_U),
                 KC_WH_D,                                    S(KC_LBRC),                                 C(KC_M)),
     [_LAY2] = LAYOUT(
-            TO(3),      KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,    
+            TO(0),      KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,    
                 KC_B,                                       KC_UP,                                      S(KC_I),
     KC_P,       KC_TRNS,    KC_H,           KC_RIGHT,       KC_TRNS,    KC_LEFT,            KC_O,       KC_TRNS,    KC_I,
-                KC_Y,                                       KC_DOWN,                                    S(KC_O)),
-    [_LAY3] = LAYOUT(
-            TO(4),      KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,    
-                KC_TRNS,                                    KC_TRNS,                                    KC_TRNS,
-  KC_TRNS,      KC_TRNS,    KC_TRNS,        KC_TRNS,        KC_TRNS,    KC_TRNS,            KC_TRNS,    KC_TRNS,    KC_TRNS,
-                KC_TRNS,                                    KC_TRNS,                                    KC_TRNS),
-    [_LAY4] = LAYOUT(
-            TO(5),      KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,   
-                KC_TRNS,                                    KC_TRNS,                                    KC_TRNS,
-  KC_TRNS,      KC_TRNS,    KC_TRNS,        KC_TRNS,        KC_TRNS,    KC_TRNS,            KC_TRNS,    KC_TRNS,    KC_TRNS,
-                KC_TRNS,                                    KC_TRNS,                                    KC_TRNS),
-    [_LAY5] = LAYOUT(
-		   TO(0),      KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS, 
-                KC_TRNS,                                    KC_TRNS,                                    KC_TRNS,
-  KC_TRNS,      KC_TRNS,    KC_TRNS,        KC_TRNS,        KC_TRNS,    KC_TRNS,            KC_TRNS,    KC_TRNS,    KC_TRNS,
-                KC_TRNS,                                    KC_TRNS,                                    KC_TRNS),
-
+                KC_Y,                                       KC_DOWN,                                    S(KC_O))
 };
 
 #ifdef ENCODER_MAP_ENABLE
