@@ -17,6 +17,7 @@ from qmk.constants import QMK_FIRMWARE
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.keymap import keymap_completer
+from qmk.build_targets import KeyboardKeymapBuildTarget
 
 
 @lru_cache(maxsize=10)
@@ -138,4 +139,5 @@ def generate_compilation_database(cli: MILC) -> Union[bool, int]:
     elif not current_keymap:
         cli.log.error('Could not determine keymap!')
 
-    return write_compilation_database(current_keyboard, current_keymap, QMK_FIRMWARE / 'compile_commands.json')
+    target = KeyboardKeymapBuildTarget(current_keyboard, current_keymap)
+    return target.generate_compilation_database()

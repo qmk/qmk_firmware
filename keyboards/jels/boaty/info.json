@@ -16,8 +16,7 @@
         "mousekey": false,
         "extrakey": true,
         "console": false,
-        "command": false,
-        "backlight": false
+        "command": false
     },
     "matrix_pins": {
         "cols": ["B1", "C0", "C1", "C2", "D4", "D1", "D0", "C5", "C4", "C3", "D5"],

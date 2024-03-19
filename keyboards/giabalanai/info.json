@@ -9,7 +9,15 @@
         "device_version": "0.0.1"
     },
     "rgb_matrix": {
-        "driver": "ws2812"
+        "animations" :{
+            "gradient_up_down": true,
+            "rainbow_moving_chevron": true,
+            "hue_breathing": true,
+            "solid_reactive": true,
+            "multisplash": true
+        },
+        "driver": "ws2812",
+        "max_brightness": 50
     },
     "rgblight": {
         "led_count": 123,
@@ -28,9 +36,7 @@
         "bootmagic": false,
         "console": false,
         "mousekey": false,
-        "nkro": false,
-        "rgblight": false,
-        "audio": false
+        "nkro": false
     },
     "encoder": {
         "rotary": []
