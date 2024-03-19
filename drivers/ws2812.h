@@ -56,9 +56,9 @@
 #    define WS2812_TRST_US 280
 #endif
 
-#if defined(RGBLED_NUM)
-#    define WS2812_LED_COUNT RGBLED_NUM
-#elif defined(RGB_MATRIX_LED_COUNT)
+#if defined(RGBLIGHT_WS2812)
+#    define WS2812_LED_COUNT RGBLIGHT_LED_COUNT
+#elif defined(RGB_MATRIX_WS2812)
 #    define WS2812_LED_COUNT RGB_MATRIX_LED_COUNT
 #endif
 
