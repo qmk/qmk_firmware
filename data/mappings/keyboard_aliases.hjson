@@ -185,6 +185,9 @@
     "eek": {
         "target": "eek/silk_down"
     },
+    "epoch80": {
+        "target": "kbdfans/epoch80"
+    },
     "era/klein": {
         "target": "era/sirind/klein_sd"
 	},
@@ -310,6 +313,9 @@
     },
     "jj50": {
         "target": "kprepublic/jj50"
+    },
+    "jm60": {
+        "target": "kbdfans/jm60"
     },
     "jones": {
         "target": "jones/v03_1"
@@ -1512,5 +1518,12 @@
     // Moved during 2023 Q4 cycle
     "ymdk/melody96": {
         "target": "ymdk/melody96/soldered"
+    },
+    // Moved during 2024 Q2 cycle
+    "kprepublic/jj40": {
+        "target": "kprepublic/jj40/rev1"
+    },
+    "kprepublic/jj50": {
+        "target": "kprepublic/jj50/rev1"
     }
 }
