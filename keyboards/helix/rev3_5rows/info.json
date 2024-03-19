@@ -103,8 +103,7 @@
     "split_count": [32, 32],
     "animations": {
       "rainbow_mood": true,
-      "rainbow_swirl": true,
-      "static_gradient": true
+      "rainbow_swirl": true
     }
   },
   "processor": "atmega32u4",

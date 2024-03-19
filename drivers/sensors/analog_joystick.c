@@ -122,17 +122,17 @@ report_analog_joystick_t analog_joystick_read(void) {
         report.y   = axisToMouseComponent(ANALOG_JOYSTICK_Y_AXIS_PIN, yOrigin, maxCursorSpeed, 1);
     }
 #ifdef ANALOG_JOYSTICK_CLICK_PIN
-    report.button = !readPin(ANALOG_JOYSTICK_CLICK_PIN);
+    report.button = !gpio_read_pin(ANALOG_JOYSTICK_CLICK_PIN);
 #endif
     return report;
 }
 
 void analog_joystick_init(void) {
-    setPinInputHigh(ANALOG_JOYSTICK_X_AXIS_PIN);
-    setPinInputHigh(ANALOG_JOYSTICK_Y_AXIS_PIN);
+    gpio_set_pin_input_high(ANALOG_JOYSTICK_X_AXIS_PIN);
+    gpio_set_pin_input_high(ANALOG_JOYSTICK_Y_AXIS_PIN);
 
 #ifdef ANALOG_JOYSTICK_CLICK_PIN
-    setPinInputHigh(ANALOG_JOYSTICK_CLICK_PIN);
+    gpio_set_pin_input_high(ANALOG_JOYSTICK_CLICK_PIN);
 #endif
     // Account for drift
     xOrigin = analogReadPin(ANALOG_JOYSTICK_X_AXIS_PIN);
