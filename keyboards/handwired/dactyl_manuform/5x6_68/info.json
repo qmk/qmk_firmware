@@ -15,10 +15,7 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "audio": false,
-        "backlight": false,
-        "rgblight": false
+        "nkro": true
     },
     "split": {
         "enabled": true,

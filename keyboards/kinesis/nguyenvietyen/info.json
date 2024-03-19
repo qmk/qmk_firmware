@@ -12,9 +12,7 @@
         "command": true,
         "mousekey": true,
         "extrakey": true,
-        "nkro": true,
-        "audio": false,
-        "backlight": false
+        "nkro": true
     },
     "indicators": {
         "caps_lock": "E6",
