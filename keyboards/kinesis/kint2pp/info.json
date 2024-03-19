@@ -13,9 +13,7 @@
         "command": false,
         "mousekey": true,
         "extrakey": true,
-        "nkro": true,
-        "audio": false,
-        "backlight": false
+        "nkro": true
     },
     "build": {
         "debounce_type": "sym_eager_pk"

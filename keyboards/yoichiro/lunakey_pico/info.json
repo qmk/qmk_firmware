@@ -11,8 +11,7 @@
         "console": false,
         "command": false,
         "nkro": false,
-        "rgblight": true,
-        "audio": false
+        "rgblight": true
     },
     "matrix_pins": {
         "cols": ["GP21", "GP20", "GP19", "GP18", "GP17", "GP16"],
