@@ -9,7 +9,6 @@
         "device_version": "0.0.1"
     },
     "features": {
-        "backlight": false,
         "nkro": true,
         "rgblight": true
     },

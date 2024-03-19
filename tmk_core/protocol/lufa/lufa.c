@@ -151,7 +151,7 @@ __attribute__((weak)) void raw_hid_receive(uint8_t *data, uint8_t length) {
  *
  * FIXME: Needs doc
  */
-static void raw_hid_task(void) {
+void raw_hid_task(void) {
     // Create a temporary buffer to hold the read in data from the host
     uint8_t data[RAW_EPSIZE];
     bool    data_read = false;
@@ -863,10 +863,6 @@ void protocol_post_task(void) {
 #ifdef VIRTSER_ENABLE
     virtser_task();
     CDC_Device_USBTask(&cdc_device);
-#endif
-
-#ifdef RAW_ENABLE
-    raw_hid_task();
 #endif
 
 #if !defined(INTERRUPT_CONTROL_ENDPOINT)
