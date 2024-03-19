@@ -192,7 +192,7 @@ __attribute__((weak)) bool oled_send_cmd(const uint8_t *data, uint16_t size) {
         return false;
     }
     // Command Mode
-    writePinLow(OLED_DC_PIN);
+    gpio_write_pin_low(OLED_DC_PIN);
     // Send the commands
     if (spi_transmit(&data[1], size - 1) != SPI_STATUS_SUCCESS) {
         spi_stop();
@@ -215,7 +215,7 @@ __attribute__((weak)) bool oled_send_cmd_P(const uint8_t *data, uint16_t size) {
     }
     spi_status_t status = SPI_STATUS_SUCCESS;
     // Command Mode
-    writePinLow(OLED_DC_PIN);
+    gpio_write_pin_low(OLED_DC_PIN);
     // Send the commands
     for (uint16_t i = 1; i < size && status >= 0; i++) {
         status = spi_write(pgm_read_byte((const char *)&data[i]));
@@ -223,13 +223,8 @@ __attribute__((weak)) bool oled_send_cmd_P(const uint8_t *data, uint16_t size) {
     spi_stop();
     return (status >= 0);
 #    elif defined(OLED_TRANSPORT_I2C)
-    i2c_status_t status = i2c_start((OLED_DISPLAY_ADDRESS << 1) | I2C_WRITE, OLED_I2C_TIMEOUT);
 
-    for (uint16_t i = 0; i < size && status >= 0; i++) {
-        status = i2c_write(pgm_read_byte((const char *)data++), OLED_I2C_TIMEOUT);
-    }
-
-    i2c_stop();
+    i2c_status_t status = i2c_transmit_P((OLED_DISPLAY_ADDRESS << 1), data, size, OLED_I2C_TIMEOUT);
 
     return (status == I2C_STATUS_SUCCESS);
 #    endif
@@ -244,7 +239,7 @@ __attribute__((weak)) bool oled_send_data(const uint8_t *data, uint16_t size) {
         return false;
     }
     // Data Mode
-    writePinHigh(OLED_DC_PIN);
+    gpio_write_pin_high(OLED_DC_PIN);
     // Send the commands
     if (spi_transmit(data, size) != SPI_STATUS_SUCCESS) {
         spi_stop();
@@ -253,7 +248,7 @@ __attribute__((weak)) bool oled_send_data(const uint8_t *data, uint16_t size) {
     spi_stop();
     return true;
 #elif defined(OLED_TRANSPORT_I2C)
-    i2c_status_t status = i2c_writeReg((OLED_DISPLAY_ADDRESS << 1), I2C_DATA, data, size, OLED_I2C_TIMEOUT);
+    i2c_status_t status = i2c_write_register((OLED_DISPLAY_ADDRESS << 1), I2C_DATA, data, size, OLED_I2C_TIMEOUT);
     return (status == I2C_STATUS_SUCCESS);
 #endif
 }
@@ -261,17 +256,17 @@ __attribute__((weak)) bool oled_send_data(const uint8_t *data, uint16_t size) {
 __attribute__((weak)) void oled_driver_init(void) {
 #if defined(OLED_TRANSPORT_SPI)
     spi_init();
-    setPinOutput(OLED_CS_PIN);
-    writePinHigh(OLED_CS_PIN);
+    gpio_set_pin_output(OLED_CS_PIN);
+    gpio_write_pin_high(OLED_CS_PIN);
 
-    setPinOutput(OLED_DC_PIN);
-    writePinLow(OLED_DC_PIN);
+    gpio_set_pin_output(OLED_DC_PIN);
+    gpio_write_pin_low(OLED_DC_PIN);
 #    ifdef OLED_RST_PIN
     /* Reset device */
-    setPinOutput(OLED_RST_PIN);
-    writePinLow(OLED_RST_PIN);
+    gpio_set_pin_output(OLED_RST_PIN);
+    gpio_write_pin_low(OLED_RST_PIN);
     wait_ms(20);
-    writePinHigh(OLED_RST_PIN);
+    gpio_write_pin_high(OLED_RST_PIN);
     wait_ms(20);
 #    endif
 #elif defined(OLED_TRANSPORT_I2C)

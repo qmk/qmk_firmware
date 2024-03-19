@@ -27,9 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "i2c_master.h"
 
 // I2C aliases and register addresses (see "mcp23018.md")
-#define I2C_ADDR        0b0100000
-#define I2C_ADDR_WRITE  ( (I2C_ADDR<<1) | I2C_WRITE )
-#define I2C_ADDR_READ   ( (I2C_ADDR<<1) | I2C_READ  )
+#define I2C_ADDR        (0b0100000<<1)
 #define IODIRA          0x00            // i/o direction register
 #define IODIRB          0x01
 #define GPPUA           0x0C            // GPIO pull-up resistor register

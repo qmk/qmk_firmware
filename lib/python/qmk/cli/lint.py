@@ -13,6 +13,7 @@ from qmk.git import git_get_ignored_files
 from qmk.c_parse import c_source_files
 
 CHIBIOS_CONF_CHECKS = ['chconf.h', 'halconf.h', 'mcuconf.h', 'board.h']
+INVALID_KB_FEATURES = set(['encoder_map', 'dip_switch_map', 'combo', 'tap_dance', 'via'])
 
 
 def _list_defaultish_keymaps(kb):
@@ -66,6 +67,17 @@ def _handle_json_errors(kb, info):
     if cli.config.lint.strict and info['parse_warnings']:
         ok = False
         cli.log.error(f'{kb}: Warnings found when generating info.json (Strict mode enabled.)')
+    return ok
+
+
+def _handle_invalid_features(kb, info):
+    """Check for features that should never be enabled at the keyboard level
+    """
+    ok = True
+    features = set(info.get('features', []))
+    for found in features & INVALID_KB_FEATURES:
+        ok = False
+        cli.log.error(f'{kb}: Invalid keyboard level feature detected - {found}')
     return ok
 
 
@@ -154,6 +166,9 @@ def keyboard_check(kb):
         ok = False
 
     # Additional checks
+    if not _handle_invalid_features(kb, kb_info):
+        ok = False
+
     rules_mk_assignment_errors = _rules_mk_assignment_only(kb)
     if rules_mk_assignment_errors:
         ok = False

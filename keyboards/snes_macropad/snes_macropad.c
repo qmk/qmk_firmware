@@ -90,7 +90,7 @@ static void setupForFlashing(void) {
     // Set alternating backlight colors
     const uint8_t max = 20;
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-    for (size_t i = 0; i < RGBLED_NUM; ++i) {
+    for (size_t i = 0; i < RGBLIGHT_LED_COUNT; ++i) {
         rgb_led_t *led_ = (rgb_led_t *)&led[i];
         switch (i % 2) {
             case 0:

@@ -43,11 +43,11 @@ typedef struct{
 
 rgb_;
 #define colorAGSize 10
-#define colorBGSize RGBLED_NUM-10
+#define colorBGSize RGBLIGHT_LED_COUNT-10
 
 typedef struct{
 	rgb_ colorAG[colorAGSize];
-    rgb_ colorBG[RGBLED_NUM-10];
+    rgb_ colorBG[RGBLIGHT_LED_COUNT-10];
 }
 
 backLedRgbG_;
