@@ -1,4 +1,5 @@
 {
+    "keyboard_name": "ZLABKEEB 15PAD",
     "manufacturer": "zlabkeeb",
     "maintainer": "zlabkeeb",
     "processor": "RP2040",
@@ -8,14 +9,38 @@
         "bootmagic": true,
         "extrakey": true,
         "encoder": true,
-        "mousekey": true
+        "mousekey": true,
+        "rgblight": true
     },
     "build": {
         "lto": true
     },
     "url": "https://github.com/zlabkeeb",
     "usb": {
-        "vid": "0x4154"
+        "vid": "0x4154",
+        "pid": "0x4454",
+        "device_version": "1.0.0"
+    },
+    "rgblight": {
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        },
+        "led_count": 13,
+        "max_brightness": 180,
+        "saturation_steps": 8,
+        "sleep": true
+    },
+    "ws2812": {
+        "pin": "GP15",
+        "driver": "vendor"
     },
     "encoder": {
         "rotary": [
