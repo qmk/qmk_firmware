@@ -76,9 +76,6 @@ static uint8_t         rgb_last_enable   = UINT8_MAX;
 static uint8_t         rgb_last_effect   = UINT8_MAX;
 static effect_params_t rgb_effect_params = {0, LED_FLAG_ALL, false};
 static rgb_task_states rgb_task_state    = SYNCING;
-#if RGB_MATRIX_TIMEOUT > 0
-static uint32_t rgb_anykey_timer;
-#endif // RGB_MATRIX_TIMEOUT > 0
 
 // double buffers
 static uint32_t rgb_timer_buffer;
@@ -103,7 +100,7 @@ void eeconfig_update_rgb_matrix_default(void) {
     rgb_matrix_config.mode   = RGB_MATRIX_DEFAULT_MODE;
     rgb_matrix_config.hsv    = (HSV){RGB_MATRIX_DEFAULT_HUE, RGB_MATRIX_DEFAULT_SAT, RGB_MATRIX_DEFAULT_VAL};
     rgb_matrix_config.speed  = RGB_MATRIX_DEFAULT_SPD;
-    rgb_matrix_config.flags  = LED_FLAG_ALL;
+    rgb_matrix_config.flags  = RGB_MATRIX_DEFAULT_FLAGS;
     eeconfig_flush_rgb_matrix(true);
 }
 
@@ -163,9 +160,6 @@ void process_rgb_matrix(uint8_t row, uint8_t col, bool pressed) {
 #ifndef RGB_MATRIX_SPLIT
     if (!is_keyboard_master()) return;
 #endif
-#if RGB_MATRIX_TIMEOUT > 0
-    rgb_anykey_timer = 0;
-#endif // RGB_MATRIX_TIMEOUT > 0
 
 #ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
     uint8_t led[LED_HITS_TO_REMEMBER];
@@ -246,17 +240,10 @@ static bool rgb_matrix_none(effect_params_t *params) {
 }
 
 static void rgb_task_timers(void) {
-#if defined(RGB_MATRIX_KEYREACTIVE_ENABLED) || RGB_MATRIX_TIMEOUT > 0
+#if defined(RGB_MATRIX_KEYREACTIVE_ENABLED)
     uint32_t deltaTime = sync_timer_elapsed32(rgb_timer_buffer);
-#endif // defined(RGB_MATRIX_KEYREACTIVE_ENABLED) || RGB_MATRIX_TIMEOUT > 0
+#endif // defined(RGB_MATRIX_KEYREACTIVE_ENABLED)
     rgb_timer_buffer = sync_timer_read32();
-
-    // Update double buffer timers
-#if RGB_MATRIX_TIMEOUT > 0
-    if (rgb_anykey_timer + deltaTime <= UINT32_MAX) {
-        rgb_anykey_timer += deltaTime;
-    }
-#endif // RGB_MATRIX_TIMEOUT > 0
 
     // Update double buffer last hit timers
 #ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
@@ -370,7 +357,7 @@ void rgb_matrix_task(void) {
     // while suspended and just do a software shutdown. This is a cheap hack for now.
     bool suspend_backlight = suspend_state ||
 #if RGB_MATRIX_TIMEOUT > 0
-                             (rgb_anykey_timer > (uint32_t)RGB_MATRIX_TIMEOUT) ||
+                             (last_input_activity_elapsed() > (uint32_t)RGB_MATRIX_TIMEOUT) ||
 #endif // RGB_MATRIX_TIMEOUT > 0
                              false;
 
@@ -473,12 +460,6 @@ void rgb_matrix_init(void) {
     }
 #endif // RGB_MATRIX_KEYREACTIVE_ENABLED
 
-    if (!eeconfig_is_enabled()) {
-        dprintf("rgb_matrix_init_drivers eeconfig is not enabled.\n");
-        eeconfig_init();
-        eeconfig_update_rgb_matrix_default();
-    }
-
     eeconfig_init_rgb_matrix();
     if (!rgb_matrix_config.mode) {
         dprintf("rgb_matrix_init_drivers rgb_matrix_config.mode = 0. Write default values to EEPROM.\n");
@@ -488,7 +469,7 @@ void rgb_matrix_init(void) {
 }
 
 void rgb_matrix_set_suspend_state(bool state) {
-#ifdef RGB_DISABLE_WHEN_USB_SUSPENDED
+#ifdef RGB_MATRIX_SLEEP
     if (state && !suspend_state) { // only run if turning off, and only once
         rgb_task_render(0);        // turn off all LEDs when suspending
         rgb_task_flush(0);         // and actually flash led state to LEDs
