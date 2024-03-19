@@ -18,9 +18,7 @@
         "command": false,
         "mousekey": true,
         "extrakey": true,
-        "nkro": true,
-        "audio": false,
-        "backlight": false
+        "nkro": true
     },
     "matrix_pins": {
         "rows": ["A0", "A1", "A2", "A3", "A4", "A5", "A6"],
