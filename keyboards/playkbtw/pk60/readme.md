@@ -1,6 +1,6 @@
 # Play Keyboard60
 
-![Play Keyboard60](https://i.imgur.com/3pvC6I4h.png)
+![Play Keyboard60 v3](https://i.imgur.com/rLQwknY.png)
 
 A 60% keyboard PCB made by Play Keyboard.
 It supports GH60 layout and multiple layouts like arrows, 2u shift, minila, etc.
