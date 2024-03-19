@@ -3,7 +3,6 @@
 
 #pragma once
 
-
 /* Key Matrix Sizes */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 24
@@ -29,14 +28,6 @@
 
 /* The number of RGB LEDs connected */
 #define RGB_MATRIX_LED_COUNT 105
-/* Set the maximum brightness to 110 to avoid going over 500 mA.
- * At full brightness with all three indicator LEDs on, the power draw is about 450 mA. */
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 110
-/* Enable framebuffer effects */
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-/* Enable the cycle left right animation and set it as the startup mode */
-#define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
-#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
