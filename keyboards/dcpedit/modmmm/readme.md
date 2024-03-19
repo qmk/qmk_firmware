@@ -5,7 +5,7 @@
 Replacement PCB for the IBM Model M keyboard.
 
 * Keyboard Maintainer: [dcpedit](https://github.com/dcpedit)
-* Hardware Supported: Pillbug/Blackpill STM32F411
+* Hardware Supported: Blackpill STM32F411
 * Hardware Availability: https://github.com/dcpedit/mod-mmm
 
 Make example for this keyboard (after setting up your build environment):
