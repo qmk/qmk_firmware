@@ -59,7 +59,7 @@ def cpu_defines(binary: str, compiler_args: str) -> List[str]:
                 define_args.append(f'-D{line_args[1]}={line_args[2]}')
             elif len(line_args) == 2 and line_args[0] == '#define':
                 define_args.append(f'-D{line_args[1]}')
-        return list(set(define_args))
+        return list(sorted(set(define_args)))
     return []
 
 
