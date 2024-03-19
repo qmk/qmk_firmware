@@ -205,10 +205,9 @@ uint8_t pointing_mode_get_precision(void) {
 void pointing_mode_set_precision(uint8_t precision) {
     if (precision > POINTING_MODE_PRECISION_MAX || !precision) {
         pointing_mode_devices[active_device_id].precision = 1;
+        return;
     }
-    else {
-        pointing_mode_devices[active_device_id].precision = precision;
-    }
+    pointing_mode_devices[active_device_id].precision = precision;
 }
 
 /**

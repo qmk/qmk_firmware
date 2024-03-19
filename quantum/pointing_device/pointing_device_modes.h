@@ -82,10 +82,15 @@
 
 /* enums */
 enum pointing_mode_directions {
-    PD_DOWN  = 0, // default value
-    PD_UP    = 1,
-    PD_LEFT  = 2,
-    PD_RIGHT = 3
+    // PD_NONE = 0b0000
+    PD_DOWN  = 0, // 0b1001
+    PD_UP    = 1, // 0b0001
+    PD_LEFT  = 2, // 0b0110
+    PD_RIGHT = 3, // 0b0010
+    PD_DNLFT = 4, // 0b1111
+    PD_DNRGT = 5, // 0b1011
+    PD_UPLFT = 6, // 0b0111
+    PD_UPRGT = 7  // 0b0011
 };
 
 enum pointing_mode_devices {
@@ -124,8 +129,8 @@ int8_t            apply_divisor_hv(int16_t value);                  // divide va
 int16_t           multiply_divisor_xy(mouse_xy_report_t value);     // multiply mouse x/y value by current divisor
 int16_t           multiply_divisor_hv(int8_t value);                // multiply mouse h/v value by current divisor
 
-uint8_t           current_pointing_mode_divisor(void);              // return current divisor
-uint8_t           current_pointing_mode_direction(void);            // return current direction
+uint8_t           current_pointing_mode_divisor(void);              // access current divisor value
+uint8_t           current_pointing_mode_direction(void);            // access current direction value
 
 /* ----------For Custom modes without maps---------------------------------------------------------------------- */
 void pointing_tap_codes(uint16_t kc_left, uint16_t kc_down, uint16_t kc_up, uint16_t kc_right); // pointing_mode x/y to keycode taps
