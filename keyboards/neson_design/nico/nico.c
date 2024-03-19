@@ -84,6 +84,7 @@ void setleds_custom(rgb_led_t *start_led, uint16_t num_leds)
 }
 
 const rgblight_driver_t rgblight_driver = {
+    .init    = ws2812_init,
     .setleds = setleds_custom,
 };
 #endif
