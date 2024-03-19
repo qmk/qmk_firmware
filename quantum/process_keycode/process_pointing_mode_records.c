@@ -69,7 +69,8 @@ void pointing_mode_key_set_device(uint8_t device, bool pressed) {
  * @params pressed[in]    bool
  */
 void pointing_mode_key_set_precision(uint8_t precision, bool pressed) {
-    if (!pressed) pointing_mode_set_precision(precision);
+    if (!pressed) {pointing_mode_set_precision(precision);
+    }
 }
 
 /**
@@ -96,24 +97,42 @@ bool process_pointing_mode_records(uint16_t keycode, keyrecord_t* record) {
 
         // Cycle through precision values
         case QK_PM_CYCLE_PRECISION:
-            pointing_mode_key_set_precision(pointing_mode_get_precision() + POINTING_MODE_PRECISION_STEP, record->event.pressed);
-            return true; // allow further processing
-        case QK_PM_PRECISION_INCREASE:
+            if (!record->event.pressed) {
+                if (get_mods() & MOD_MASK_SHIFT) {
+                    if (pointing_mode_get_precision() <= POINTING_MODE_PRECISION_STEP) {
+                        pointing_mode_set_precision(POINTING_MODE_PRECISION_MAX);
+                        return false; // prevent further processing
+                    }
+                    pointing_mode_set_precision(pointing_mode_get_precision() - POINTING_MODE_PRECISION_STEP);
+                    return false; // prevent further processing
+                }
+                if (pointing_mode_get_precision() == 1) {
+                        pointing_mode_set_precision(POINTING_MODE_PRECISION_STEP);
+                        return false;
+                }
+                pointing_mode_set_precision(pointing_mode_get_precision() + POINTING_MODE_PRECISION_STEP);
+                return false;
+            }
+            return true;
 
 #    if (POINTING_MODE_NUM_DEVICES > 1)
         // utils: Cycle devices
         case QK_PM_CYCLE_DEVICES:
-            pointing_mode_key_set_device(pointing_mode_get_active_device() + 1, record->event.pressed);
+            if (!record->event.pressed) {
+                if (get_mods() & MOD_MASK_SHIFT) {
+                    if(pointing_mode_get_active_device() == 0) {
+                        pointing_mode_set_active_device(POINTING_MODE_NUM_DEVICES - 1);
+                        return false;
+                    }
+                    pointing_mode_set_active_device(pointing_mode_get_active_device() - 1);
+                    return false; // prevent further processing
+                }
+                pointing_mode_set_active_device(pointing_mode_get_active_device() + 1);
+                return false; // prevent further processing
+            }
             return true; // allow further processing
         // cut the below two functions
         // utils: DEVICE RIGHT
-        case QK_PM_DEVICE_RIGHT:
-            pointing_mode_key_set_device(PM_RIGHT_DEVICE, record->event.pressed);
-            return true; // allow further processing
-        // utils: DEVICE LEFT
-        case QK_PM_DEVICE_LEFT:
-            pointing_mode_key_set_device(PM_RIGHT_DEVICE, record->event.pressed);
-            return true; // allow further processing
 #    endif
 
         // end
