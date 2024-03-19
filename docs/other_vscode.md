@@ -117,3 +117,77 @@ Using the [standard `compile_commands.json` database](https://clang.llvm.org/doc
 1. Start typing `clangd: Restart Language Server` and select it when it appears.
 
 Now you're ready to code QMK Firmware in VS Code!
+
+# Debugging ARM MCUs with Visual Studio Code
+
+**...and a Black Magic Probe.**
+
+Visual Studio Code has the ability to debug applications, but requires some configuration in order to get it to be able to do so for ARM targets.
+
+This documentation describes a known-working configuration for setting up the use of a Black Magic Probe to debug using VS Code.
+
+It is assumed that you've correctly set up the electrical connectivity of the Black Magic Probe with your MCU. Wiring up `NRST`, `SWDIO`, `SWCLK`, and `GND` should be enough.
+
+Install the following plugin into VS Code:
+
+* [Cortex-Debug](https://marketplace.visualstudio.com/items?itemName=marus25.cortex-debug) - 
+  This adds debugger support for ARM Cortex targets to VS Code.
+
+A debugging target for the MCU for your board needs to be defined, and can be done so by adding the following to a `.vscode/launch.json` file:
+
+```json
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Black Magic Probe (OneKey Proton-C)",
+      "type": "cortex-debug",
+      "request": "launch",
+      "cwd": "${workspaceRoot}",
+      "executable": "${workspaceRoot}/.build/handwired_onekey_proton_c_default.elf",
+      "servertype": "bmp",
+      "BMPGDBSerialPort": "COM4",
+      "svdFile": "Q:\\svd\\STM32F303.svd",
+      "device": "STM32F303",
+      "v1": false,
+      "windows": {
+        "armToolchainPath": "C:\\QMK_MSYS\\mingw64\\bin"
+      }
+    }
+  ]
+}
+```
+
+You'll need to perform some modifications to the file above in order to target your specific device:
+
+* `"name"`: Can be anything, but if you're debugging multiple targets you'll want something descriptive here.
+* `"cwd"`: The path to the QMK Firmware repository root directory -- _if using the `.vscode` directory existing in the `qmk_firmware` git repository, the default above should be correct_
+* `"executable"`: The path to the `elf` file generated as part of the build for your keyboard -- _exists in `<qmk_firmware>/.build`_
+* `"BMPGDBSerialPort"`: The `COM` port under Windows, or the `/dev/...` path for Linux/macOS. Two serial port devices will be created -- the Black Magic Probe debug port is *usually* the first. If it doesn't work, try the second.
+* `"svdFile"`: _[Optional]_ The path to the SVD file that defines the register layout for the MCU -- the appropriate file can be downloaded from the [cmsis-svd repository](https://github.com/posborne/cmsis-svd/tree/master/data/STMicro)
+* `"device"`: The name of the MCU, which matches the `<name>` tag at the top of the downloaded `svd` file.
+* `"armToolchainPath"`: _[Optional]_ The path to the ARM toolchain installation location on Windows -- under normal circumstances Linux/macOS will auto-detect this correctly and will not need to be specified. 
+
+!> Windows builds of QMK Firmware are generally compiled using QMK MSYS, and the path to gdb's location (`C:\\QMK_MSYS\\mingw64\\bin`) needs to be specified under `armToolchainPath` for it to be detected. You may also need to change the GDB path to point at `C:\\QMK_MSYS\\mingw64\\bin\\gdb-multiarch.exe` in the VSCode Cortex-Debug user settings: ![VSCode Settings](https://i.imgur.com/EGrPM1L.png)
+
+Optionally, the following modifications should also be made to the keyboard's `rules.mk` file to disable optimisations -- not strictly required but will ensure breakpoints and variable viewing works correctly:
+```makefile
+# Disable optimisations for debugging purposes
+LTO_ENABLE = no
+OPT = g
+DEBUG = 3
+```
+
+At this point, you should build and flash your firmware through normal methods (`qmk compile ...` and `qmk flash ...`).
+
+Once completed, you can:
+* Switch to the debug view in VS Code (in the sidebar, the Play button with a bug next to it)
+* Select the newly-created debug target in the dropdown at the top of the sidebar
+* Click the green play button next to the dropdown
+
+VS Code's debugger will then start executing the compiled firmware on the MCU.
+
+At this stage, you should have full debugging set up, with breakpoints and variable listings working!
