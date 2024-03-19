@@ -171,29 +171,31 @@ The available keycodes for audio are:
 
 ## Audio Config
 
-| Settings                        | Default              | Description                                                                   |
-|---------------------------------|----------------------|-------------------------------------------------------------------------------|
-|`AUDIO_PIN`                      | *Not defined*        |Configures the pin that the speaker is connected to.                           |
-|`AUDIO_PIN_ALT`                  | *Not defined*        |Configures the pin for a second speaker or second pin connected to one speaker.|
-|`AUDIO_PIN_ALT_AS_NEGATIVE`      | *Not defined*        |Enables support for one speaker connected to two pins.                         |
-|`AUDIO_INIT_DELAY`               | *Not defined*        |Enables delay during startup song to accomidate for USB startup issues.        |
-|`AUDIO_ENABLE_TONE_MULTIPLEXING` | *Not defined*        |Enables time splicing/multiplexing to create multiple tones simutaneously.     |
-|`STARTUP_SONG`                   | `STARTUP_SOUND`      |Plays when the keyboard starts up (audio.c)                                    |
-|`GOODBYE_SONG`                   | `GOODBYE_SOUND`      |Plays when you press the QK_BOOT key (quantum.c)                               |
-|`AG_NORM_SONG`                   | `AG_NORM_SOUND`      |Plays when you press AG_NORM (process_magic.c)                                 |
-|`AG_SWAP_SONG`                   | `AG_SWAP_SOUND`      |Plays when you press AG_SWAP (process_magic.c)                                 |
-|`CG_NORM_SONG`                   | `AG_NORM_SOUND`      |Plays when you press CG_NORM (process_magic.c)                                 |
-|`CG_SWAP_SONG`                   | `AG_SWAP_SOUND`      |Plays when you press CG_SWAP (process_magic.c)                                 |
-|`MUSIC_ON_SONG`                  | `MUSIC_ON_SOUND`     |Plays when music mode is activated (process_music.c)                           |
-|`MUSIC_OFF_SONG`                 | `MUSIC_OFF_SOUND`    |Plays when music mode is deactivated (process_music.c)                         |
-|`MIDI_ON_SONG`                   | `MUSIC_ON_SOUND`     |Plays when midi mode is activated (process_music.c)                            |
-|`MIDI_OFF_SONG`                  | `MUSIC_OFF_SOUND`    |Plays when midi mode is deactivated (process_music.c)                          |
-|`CHROMATIC_SONG`                 | `CHROMATIC_SOUND`    |Plays when the chromatic music mode is selected (process_music.c)              |
-|`GUITAR_SONG`                    | `GUITAR_SOUND`       |Plays when the guitar music mode is selected (process_music.c)                 |
-|`VIOLIN_SONG`                    | `VIOLIN_SOUND`       |Plays when the violin music mode is selected (process_music.c)                 |
-|`MAJOR_SONG`                     | `MAJOR_SOUND`        |Plays when the major music mode is selected (process_music.c)                  |
-|`DEFAULT_LAYER_SONGS`            | *Not defined*        |Plays song when switched default layers with [`set_single_persistent_default_layer(layer)`](ref_functions.md#setting-the-persistent-default-layer)(quantum.c)       |
-|`SENDSTRING_BELL`                | *Not defined*        |Plays chime when the "enter" ("\a") character is sent (send_string.c)          |
+| Settings                         | Default              | Description                                                                                 |
+|----------------------------------|----------------------|---------------------------------------------------------------------------------------------|
+|`AUDIO_PIN`                       | *Not defined*        |Configures the pin that the speaker is connected to.                                         |
+|`AUDIO_PIN_ALT`                   | *Not defined*        |Configures the pin for a second speaker or second pin connected to one speaker.              |
+|`AUDIO_PIN_ALT_AS_NEGATIVE`       | *Not defined*        |Enables support for one speaker connected to two pins.                                       |
+|`AUDIO_INIT_DELAY`                | *Not defined*        |Enables delay during startup song to accomidate for USB startup issues.                      |
+|`AUDIO_ENABLE_TONE_MULTIPLEXING`  | *Not defined*        |Enables time splicing/multiplexing to create multiple tones simutaneously.                   |
+|`AUDIO_POWER_CONTROL_PIN`         | *Not defined*        |Enables power control code to enable or cut off power to speaker (such as with PAM8302 amp). |
+|`AUDIO_POWER_CONTROL_PIN_ON_STATE`| `1`                  |The state of the audio power control pin when audio is "on" - `1` for high, `0` for low.     |
+|`STARTUP_SONG`                    | `STARTUP_SOUND`      |Plays when the keyboard starts up (audio.c)                                                  |
+|`GOODBYE_SONG`                    | `GOODBYE_SOUND`      |Plays when you press the QK_BOOT key (quantum.c)                                             |
+|`AG_NORM_SONG`                    | `AG_NORM_SOUND`      |Plays when you press AG_NORM (process_magic.c)                                               |
+|`AG_SWAP_SONG`                    | `AG_SWAP_SOUND`      |Plays when you press AG_SWAP (process_magic.c)                                               |
+|`CG_NORM_SONG`                    | `AG_NORM_SOUND`      |Plays when you press CG_NORM (process_magic.c)                                               |
+|`CG_SWAP_SONG`                    | `AG_SWAP_SOUND`      |Plays when you press CG_SWAP (process_magic.c)                                               |
+|`MUSIC_ON_SONG`                   | `MUSIC_ON_SOUND`     |Plays when music mode is activated (process_music.c)                                         |
+|`MUSIC_OFF_SONG`                  | `MUSIC_OFF_SOUND`    |Plays when music mode is deactivated (process_music.c)                                       |
+|`MIDI_ON_SONG`                    | `MUSIC_ON_SOUND`     |Plays when midi mode is activated (process_music.c)                                          |
+|`MIDI_OFF_SONG`                   | `MUSIC_OFF_SOUND`    |Plays when midi mode is deactivated (process_music.c)                                        |
+|`CHROMATIC_SONG`                  | `CHROMATIC_SOUND`    |Plays when the chromatic music mode is selected (process_music.c)                            |
+|`GUITAR_SONG`                     | `GUITAR_SOUND`       |Plays when the guitar music mode is selected (process_music.c)                               |
+|`VIOLIN_SONG`                     | `VIOLIN_SOUND`       |Plays when the violin music mode is selected (process_music.c)                               |
+|`MAJOR_SONG`                      | `MAJOR_SOUND`        |Plays when the major music mode is selected (process_music.c)                                |
+|`DEFAULT_LAYER_SONGS`             | *Not defined*        |Plays song when switched default layers with [`set_single_persistent_default_layer(layer)`](ref_functions.md#setting-the-persistent-default-layer)(quantum.c). |
+|`SENDSTRING_BELL`                 | *Not defined*        |Plays chime when the "enter" ("\a") character is sent (send_string.c)                        |
 
 ## Tempo
 the 'speed' at which SONGs are played is dictated by the set Tempo, which is measured in beats-per-minute. Note lengths are defined relative to that.
