@@ -12,9 +12,7 @@
         "command": false,
         "mousekey": true,
         "extrakey": true,
-        "nkro": true,
-        "audio": false,
-        "backlight": false
+        "nkro": true
     },
     "processor": "at90usb1286",
     "bootloader": "halfkay",
