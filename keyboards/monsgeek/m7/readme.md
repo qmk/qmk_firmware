@@ -1,5 +1,5 @@
 # M7
-![M7](https://www.monsgeek.com/wp-content/uploads/2023/12/M7-VIA-Main-1.png)
+[![M7](https://s21.ax1x.com/2024/03/19/pFRg3cT.png)](https://imgse.com/i/pFRg3cT)
 
 A customizable 65% (68 key) keyboard.
 
