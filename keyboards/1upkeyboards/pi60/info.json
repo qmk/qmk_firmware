@@ -15,8 +15,6 @@
         "layer_count": 10
     },
     "features": {
-        "audio": false,
-        "backlight": false,
         "bootmagic": true,
         "command": false,
         "console": false,
@@ -24,8 +22,7 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": false,
-        "rgb_matrix": true,
-        "rgblight": false
+        "rgb_matrix": true
     },
     "ws2812": {
         "pin": "GP17",

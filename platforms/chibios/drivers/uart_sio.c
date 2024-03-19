@@ -16,7 +16,7 @@ static SIOConfig sioConfig = {
 #else
 static SIOConfig sioConfig = {
     .baud  = SIO_DEFAULT_BITRATE,
-#    if defined(MCU_STM32) && defined(CHIBIOS_HAL_USARTv3)
+#    if defined(MCU_STM32) && defined(USE_USARTV3)
     .presc = USART_PRESC1,
 #    endif
     .cr1   = UART_CR1,

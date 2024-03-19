@@ -8,6 +8,15 @@
         "pid": "0x7075",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgb_matrix": true
+    },
     "rgb_matrix": {
         "animations": {
             "alphas_mods": true,
