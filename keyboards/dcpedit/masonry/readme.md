@@ -1,8 +1,8 @@
 # Masonry
 
-![Red Herring](https://i.imgur.com/b6lKmW0h.jpg)
+![Masonry](https://i.imgur.com/b6lKmW0h.jpg)
 
-Unibody ergonomic orthilinar keyboard with through-hole components.  Supports standard keycaps, a 64x128 OLED, large rotary encoder knob, and a solenoid.
+40% ergo keyboard with irregular keycaps sizes and placements.
 
 * Keyboard Maintainer: [dcpedit](https://github.com/dcpedit)
 * Hardware Supported: STM32F072
