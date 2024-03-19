@@ -15,8 +15,6 @@
         "layer_count": 10
     },
     "features": {
-        "audio": false,
-        "backlight": false,
         "bootmagic": true,
         "command": false,
         "console": false,
@@ -24,7 +22,6 @@
         "mousekey": true,
         "nkro": false,
         "rgb_matrix": true,
-        "rgblight": false,
         "oled": true
     },
     "matrix_pins": {
@@ -41,7 +38,6 @@
         "driver": "ws2812",
         "max_brightness": 150,
         "animations": {
-            "solid_color": true,
             "alphas_mods": true,
             "gradient_up_down": true,
             "gradient_left_right": true,
