@@ -1,3 +1,4 @@
+SRC += mcu_pwr.c
 SRC += rf.c sleep.c rf_driver.c user_kb.c rf_queue.c
 SRC += side.c side_driver.c side_logo.c
 

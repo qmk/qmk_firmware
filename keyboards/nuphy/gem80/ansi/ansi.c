@@ -308,28 +308,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 }
 
 /* qmk keyboard post init */
-void keyboard_post_init_user(void)
-{
-    m_gpio_init();
-#if(WORK_MODE == THREE_MODE)
-    rf_uart_init();
-    wait_ms(500);
-    rf_device_init();
-#endif
-
-    break_all_key();
-    load_eeprom_data();
-    dial_sw_scan();
-
-#if(WORK_MODE == USB_MODE)
-    rf_link_show_time = 0;
-#endif
-}
-
-
-/* qmk keyboard post init */
 void keyboard_post_init_kb(void) {
-    m_gpio_init();
+    gpio_init();
     rf_uart_init();
     wait_ms(500);
     rf_device_init();
@@ -342,6 +322,11 @@ void keyboard_post_init_kb(void) {
 
 bool rgb_matrix_indicators_user(void)
 {
+    if (rf_blink_cnt && dev_info.link_mode >= LINK_BT_1 && dev_info.link_mode <= LINK_BT_3) {
+        user_set_rgb_color(33 - dev_info.link_mode, 0, 0, 0x80);
+    }
+
+
     return true;
 }
 
@@ -374,5 +359,6 @@ void housekeeping_task_kb(void) {
 
     side_led_show();
 
-    Sleep_Handle();
+    sleep_handle();
 }
+

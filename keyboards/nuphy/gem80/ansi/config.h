@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SYS_MODE_PIN                        C1
 #define DC_BOOST_PIN                        C2
 #define NRF_RESET_PIN                       B4
-#define NRF_BOOT_PIN                    	B5
+#define NRF_TEST_PIN                        B5
 #define NRF_WAKEUP_PIN                      B8
 
 
@@ -59,6 +59,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_MATRIX_DEFAULT_MODE             RGB_MATRIX_CUSTOM_position_mode
 #define RGB_DEFAULT_COLOUR                  168
-
+#define RGB_MATRIX_SLEEP
 
 #define DEBOUNCE 10

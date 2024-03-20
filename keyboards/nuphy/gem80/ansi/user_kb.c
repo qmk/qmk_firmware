@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "user_kb.h"
 #include "usb_main.h"
+#include "mcu_pwr.h"
 #include "color.h"
 #include "uart.h"
 
@@ -67,42 +68,31 @@ extern uint8_t            logo_speed;
 extern uint8_t            logo_rgb;
 extern uint8_t            logo_colour;
 
-
 /**
  * @brief  gpio initial.
  */
-void m_gpio_init(void)
-{
-    setPinOutput(DC_BOOST_PIN); writePinHigh(DC_BOOST_PIN);
+void gpio_init(void) {
+    /* power on all LEDs */
+    pwr_rgb_led_on();
+    pwr_side_led_on();
 
-    setPinInput(DRIVER_LED_CS_PIN);
-    setPinInput(DRIVER_SIDE_CS_PIN);
-    setPinOutput(DRIVER_SIDE_PIN); writePinLow(DRIVER_SIDE_PIN);
-#if(WORK_MODE == THREE_MODE)
-    setPinOutput(NRF_WAKEUP_PIN);
-    writePinHigh(NRF_WAKEUP_PIN);
+    /* set side led pin output low */
+    gpio_set_pin_output(DRIVER_SIDE_PIN);
+    gpio_write_pin_low(DRIVER_SIDE_PIN);
+    /* config RF module pin */
+    gpio_set_pin_output(NRF_WAKEUP_PIN);
+    gpio_write_pin_high(NRF_WAKEUP_PIN);
+    gpio_set_pin_input_high(NRF_TEST_PIN);
 
-    setPinInputHigh(NRF_BOOT_PIN);
-
-    setPinOutput(NRF_RESET_PIN); writePinLow(NRF_RESET_PIN);
+    /* reset RF module */
+    gpio_set_pin_output(NRF_RESET_PIN);
+    gpio_write_pin_low(NRF_RESET_PIN);
     wait_ms(50);
-    writePinHigh(NRF_RESET_PIN);
-
-    setPinInputHigh(DEV_MODE_PIN);
-#endif
-    setPinInputHigh(SYS_MODE_PIN);
-
-    // open power
-    setPinOutput(DC_BOOST_PIN);
-    writePinHigh(DC_BOOST_PIN);
-
-    setPinOutput(DRIVER_LED_CS_PIN);
-    writePinLow(DRIVER_LED_CS_PIN);
-
-    setPinOutput(DRIVER_SIDE_CS_PIN);
-    writePinLow(DRIVER_SIDE_CS_PIN);
+    gpio_write_pin_high(NRF_RESET_PIN);
+    /* config dial switch pin */
+    gpio_set_pin_input_high(DEV_MODE_PIN);
+    gpio_set_pin_input_high(SYS_MODE_PIN);
 }
-
 
 /**
  * @brief  long press key process.
@@ -390,7 +380,7 @@ void timer_pro(void) {
     }
 
     // step 10ms
-    if (timer_elapsed32(interval_timer) < 10) return;
+    if (timer_elapsed32(interval_timer) < TIMER_STEP) return;
     interval_timer = timer_read32();
 
     if (rf_link_show_time < RF_LINK_SHOW_TIME) rf_link_show_time++;
@@ -498,5 +488,46 @@ void update_bat_pct_rgb(void) {
     };
 
     bat_pct_rgb = hsv_to_rgb_nocie(hsv); // this results in same calculation as colour pickers.
+}
+
+/**
+ * @brief Wrapper for rgb_matrix_set_color for sleep.c logic usage.
+ */
+void user_set_rgb_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
+    if (red || green || blue) {
+        rgb_led_last_act = 0;
+        pwr_rgb_led_on(); // turn on LEDs
+    }
+    rgb_matrix_set_color(index, red, green, blue);
+}
+
+/**
+ * @brief Handle LED power
+ * @note Turn off LEDs if not used to save some power. This is ported
+ *       from older Nuphy leaks.
+ */
+void led_power_handle(void) {
+    static uint32_t interval = 0;
+
+    if (timer_elapsed32(interval) < 500) // only check once in a while, less flickering for unhandled cases
+        return;
+
+    interval = timer_read32();
+
+    if (rgb_led_last_act > 100) { // 10ms intervals
+        if (rgb_matrix_is_enabled() && rgb_matrix_get_val() != 0) {
+            pwr_rgb_led_on();
+        } else { // brightness is 0 or RGB off.
+            pwr_rgb_led_off();
+        }
+    }
+
+    if (side_led_last_act > 100) { // 10ms intervals
+        if (side_light == 0) {
+            pwr_side_led_off();
+        } else {
+            pwr_side_led_on();
+        }
+    }
 }
 
