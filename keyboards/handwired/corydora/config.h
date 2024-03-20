@@ -18,7 +18,7 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-#define ENCODERS_PAD_A { GP14 }
-#define ENCODERS_PAD_B { GP15 }
-#define DIP_SWITCH_PINS { GP26 }
+#define ENCODERS_PAD_A { GP4 }
+#define ENCODERS_PAD_B { GP5 }
+#define DIP_SWITCH_PINS { GP6 }
 
