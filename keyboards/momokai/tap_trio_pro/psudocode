@@ -1,0 +1,18 @@
+matrix scanning:
+
+    scan values
+    put values in SMA filter
+    get value out, update sensor boundaries if sma initialized
+
+    calebrate key if this is first pass
+
+
+    run algos on the key:
+        regular(look at the methods already implemented)
+        rapid trigger:
+            default boundaries are hysteresis values
+                if continuous rapid trigger,
+
+
+
+
