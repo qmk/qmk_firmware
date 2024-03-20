@@ -10,7 +10,7 @@ const rgblight_segment_t PROGMEM my_numlock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {1, 1, HSV_GREEN}
 );
 const rgblight_segment_t PROGMEM my_layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {3, 1, HSV_BLUE}
+    {0, 1, HSV_BLUE}
 );
 
 const rgblight_segment_t* const PROGMEM enabled_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
