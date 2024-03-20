@@ -526,6 +526,15 @@ void wireless_task(void) {
     lpm_task();
 }
 
+void send_string_task(void) {
+    if ((get_transport() & TRANSPORT_WIRELESS) && wireless_get_state() == WT_CONNECTED) {
+        wireless_transport.task();
+#ifndef DISABLE_REPORT_BUFFER
+        report_buffer_task();
+#endif
+    }
+}
+
 wt_state_t wireless_get_state(void) {
     return wireless_state;
 };

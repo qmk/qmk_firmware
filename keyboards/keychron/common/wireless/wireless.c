@@ -534,8 +534,6 @@ void send_string_task(void) {
 #endif
     }
 }
-
-
 wt_state_t wireless_get_state(void) {
     return wireless_state;
 };
