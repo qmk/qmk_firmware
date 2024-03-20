@@ -8,6 +8,14 @@
         "pid": "0xEA75",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B6", "pin_b": "B5"}
+        ]
+    },
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "board": "QMK_PROTON_C",
     "layouts": {
         "LAYOUT": {
             "layout": [

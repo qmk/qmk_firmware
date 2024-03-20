@@ -8,6 +8,8 @@
         "pid": "0x6D6E",
         "device_version": "0.0.1"
     },
+    "processor": "atmega328p",
+    "bootloader": "usbasploader",
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -137,7 +137,7 @@
 #    define USB_SUSPEND_WAKEUP_DELAY 200
 #endif
 
-#ifdef XAP_ENABLE
+#if defined(XAP_ENABLE) && !defined(__AVR__)
 #    undef DYNAMIC_KEYMAP_LAYER_COUNT
 #    define DYNAMIC_KEYMAP_LAYER_COUNT 12
 #endif

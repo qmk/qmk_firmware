@@ -99,7 +99,7 @@ const rgblight_segment_t *const PROGMEM _rgb_layers[] = {
 
 const uint8_t PROGMEM _n_rgb_layers = ARRAY_SIZE(_rgb_layers) - 1;
 
-void clear_rgb_layers() {
+void clear_rgb_layers(void) {
     for (uint8_t i = 0; i < _n_rgb_layers; i++) {
         rgblight_set_layer_state(i, false);
     }

@@ -49,7 +49,7 @@ void via_init_kb(void)
     }
 }
 
-void keyboard_post_init_kb() {
+void keyboard_post_init_kb(void) {
     // This is a workaround to ensure "EEPROM cleared" PCBs will
     // start with the RGB test mode, essential for testing LEDs.
     if ( g_first_execution ) {

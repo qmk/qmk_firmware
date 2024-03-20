@@ -49,89 +49,69 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-void matrix_init_user(void) {
-
-}
-
-LEADER_EXTERNS();
-
-void matrix_scan_user(void) {
-
-  LEADER_DICTIONARY() {
-    leading = false;
-    leader_end();
-
-    // Close a program in i3wm
-    SEQ_ONE_KEY(KC_Q) {
-      register_code(KC_LGUI);
-      register_code(KC_LSFT);
-      register_code(KC_Q);
-      unregister_code(KC_Q);
-      unregister_code(KC_LSFT);
-      unregister_code(KC_LGUI);
-    }
-    // Exit i3wm
-    SEQ_ONE_KEY(KC_E) {
-      register_code(KC_LGUI);
-      register_code(KC_LSFT);
-      register_code(KC_E);
-      unregister_code(KC_E);
-      unregister_code(KC_LSFT);
-      unregister_code(KC_LGUI);
-    }
-    // Copy selected text in suckless terminal
-    SEQ_ONE_KEY(KC_C) {
-      register_code(KC_LCTL);
-      register_code(KC_LSFT);
-      register_code(KC_C);
-      unregister_code(KC_C);
-      unregister_code(KC_LSFT);
-      unregister_code(KC_LCTL);
-    }
-    // Paste text in suckless terminal
-    SEQ_ONE_KEY(KC_V) {
-      register_code(KC_LCTL);
-      register_code(KC_LSFT);
-      register_code(KC_V);
-      unregister_code(KC_V);
-      unregister_code(KC_LSFT);
-      unregister_code(KC_LCTL);
-    }
-    // FZF shortcut to fuzzy switch directories
-    SEQ_ONE_KEY(KC_D) {
-      register_code(KC_LALT);
-      register_code(KC_C);
-      unregister_code(KC_C);
-      unregister_code(KC_LALT);
-    }
-    // Send keys to bring up fuzzy process kill
-    SEQ_ONE_KEY(KC_K) {
-      SEND_STRING("kill " SS_TAP(X_TAB));
-    }
-    // Send keys to start neovim and fuzzy search for filename
-    SEQ_ONE_KEY(KC_T) {
-      SEND_STRING("nvim ");
-      register_code(KC_LCTL);
-      register_code(KC_T);
-      unregister_code(KC_T);
-      unregister_code(KC_LCTL);
-    }
-    // Switch between windows in tmux
-    SEQ_ONE_KEY(KC_L) {
-      register_code(KC_LCTL);
-      register_code(KC_B);
-      unregister_code(KC_B);
-      unregister_code(KC_LCTL);
-      register_code(KC_L);
-      unregister_code(KC_L);
-    }
+void leader_end_user() {
+  // Close a program in i3wm
+  if (leader_sequence_one_key(KC_Q)) {
+    register_code(KC_LGUI);
+    register_code(KC_LSFT);
+    register_code(KC_Q);
+    unregister_code(KC_Q);
+    unregister_code(KC_LSFT);
+    unregister_code(KC_LGUI);
   }
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
-
-void led_set_user(uint8_t usb_led) {
-
+  // Exit i3wm
+  if (leader_sequence_one_key(KC_E)) {
+    register_code(KC_LGUI);
+    register_code(KC_LSFT);
+    register_code(KC_E);
+    unregister_code(KC_E);
+    unregister_code(KC_LSFT);
+    unregister_code(KC_LGUI);
+  }
+  // Copy selected text in suckless terminal
+  if (leader_sequence_one_key(KC_C)) {
+    register_code(KC_LCTL);
+    register_code(KC_LSFT);
+    register_code(KC_C);
+    unregister_code(KC_C);
+    unregister_code(KC_LSFT);
+    unregister_code(KC_LCTL);
+  }
+  // Paste text in suckless terminal
+  if (leader_sequence_one_key(KC_V)) {
+    register_code(KC_LCTL);
+    register_code(KC_LSFT);
+    register_code(KC_V);
+    unregister_code(KC_V);
+    unregister_code(KC_LSFT);
+    unregister_code(KC_LCTL);
+  }
+  // FZF shortcut to fuzzy switch directories
+  if (leader_sequence_one_key(KC_D)) {
+    register_code(KC_LALT);
+    register_code(KC_C);
+    unregister_code(KC_C);
+    unregister_code(KC_LALT);
+  }
+  // Send keys to bring up fuzzy process kill
+  if (leader_sequence_one_key(KC_K)) {
+    SEND_STRING("kill " SS_TAP(X_TAB));
+  }
+  // Send keys to start neovim and fuzzy search for filename
+  if (leader_sequence_one_key(KC_T)) {
+    SEND_STRING("nvim ");
+    register_code(KC_LCTL);
+    register_code(KC_T);
+    unregister_code(KC_T);
+    unregister_code(KC_LCTL);
+  }
+  // Switch between windows in tmux
+  if (leader_sequence_one_key(KC_L)) {
+    register_code(KC_LCTL);
+    register_code(KC_B);
+    unregister_code(KC_B);
+    unregister_code(KC_LCTL);
+    register_code(KC_L);
+    unregister_code(KC_L);
+  }
 }

@@ -126,3 +126,8 @@ bool qp_tft_panel_append_pixels_rgb888(painter_device_t device, uint8_t *target_
     }
     return true;
 }
+
+bool qp_tft_panel_append_pixdata(painter_device_t device, uint8_t *target_buffer, uint32_t pixdata_offset, uint8_t pixdata_byte) {
+    target_buffer[pixdata_offset] = pixdata_byte;
+    return true;
+}

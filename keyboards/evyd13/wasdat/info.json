@@ -10,6 +10,9 @@
         "pid": "0xC474",
         "device_version": "0.0.1"
     },
+    "bootmagic": {
+        "matrix": [0, 5]
+    },
     "qmk_lufa_bootloader": {
         "esc_output": "D6",
         "esc_input": "D7",
@@ -23,7 +26,8 @@
     "indicators": {
         "num_lock": "B2",
         "caps_lock": "B0",
-        "scroll_lock": "B1"
+        "scroll_lock": "B1",
+        "on_state": 0
     },
     "community_layouts": [
         "fullsize_ansi",

@@ -8,6 +8,15 @@
     "pid": "0xB195",
     "device_version": "0.0.1"
   },
+  "encoder": {
+    "rotary": [
+      {"pin_a": "A1", "pin_b": "A0"},
+      {"pin_a": "B3", "pin_b": "B2"}
+    ]
+  },
+  "processor": "STM32F303",
+  "bootloader": "stm32-dfu",
+  "board": "QMK_PROTON_C",
   "layouts": {
       "LAYOUT": {
           "layout": [

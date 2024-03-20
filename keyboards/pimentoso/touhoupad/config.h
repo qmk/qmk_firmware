@@ -15,10 +15,6 @@
  */
 #pragma once
 
-#include "config_common.h"
-
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 10
 
 #define MATRIX_ROW_PINS { D4 }
 #define MATRIX_COL_PINS { C6,D7,E6,B4,B6,B2,B3,B1,F7,F6 }
@@ -37,9 +33,4 @@
   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-  #define RGBLIGHT_BREATHE_TABLE_SIZE 256      // 256(default) or 128 or 64
-  #define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
-  #define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
 #endif
-
-#define DEBOUNCE 5

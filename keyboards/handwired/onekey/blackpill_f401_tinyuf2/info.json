@@ -1,8 +1,7 @@
 {
     "keyboard_name": "Onekey Blackpill STM32F401 TinyUF2",
-    "processor": "STM32F401",
+    "development_board": "blackpill_f401",
     "bootloader": "tinyuf2",
-    "board": "BLACKPILL_STM32_F401",
     "matrix_pins": {
         "cols": ["B0"],
         "rows": ["A7"]

@@ -1,0 +1,435 @@
+{
+    "aliases": {
+/*
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │ ; │ + │ ě │ š │ č │ ř │ ž │ ý │ á │ í │ é │ = │ ´ │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │ Q │ W │ E │ R │ T │ Z │ U │ I │ O │ P │ ú │ ) │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │ A │ S │ D │ F │ G │ H │ J │ K │ L │ ů │ § │ ¨ │    │
+ * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
+ * │    │ \ │ Y │ X │ C │ V │ B │ N │ M │ , │ . │ - │          │
+ * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+        "KC_GRV": {
+            "key": "CZ_SCLN",
+            "label": ";",
+        }
+        "KC_1": {
+            "key": "CZ_PLUS",
+            "label": "+",
+        }
+        "KC_2": {
+            "key": "CZ_ECAR",
+            "label": "ě",
+        }
+        "KC_3": {
+            "key": "CZ_SCAR",
+            "label": "š",
+        }
+        "KC_4": {
+            "key": "CZ_CCAR",
+            "label": "č",
+        }
+        "KC_5": {
+            "key": "CZ_RCAR",
+            "label": "ř",
+        }
+        "KC_6": {
+            "key": "CZ_ZCAR",
+            "label": "ž",
+        }
+        "KC_7": {
+            "key": "CZ_YACU",
+            "label": "ý",
+        }
+        "KC_8": {
+            "key": "CZ_AACU",
+            "label": "á",
+        }
+        "KC_9": {
+            "key": "CZ_IACU",
+            "label": "í",
+        }
+        "KC_0": {
+            "key": "CZ_EACU",
+            "label": "é",
+        }
+        "KC_MINS": {
+            "key": "CZ_EQL",
+            "label": "=",
+        }
+        "KC_EQL": {
+            "key": "CZ_ACUT",
+            "label": "´ (dead)",
+        }
+        "KC_Q": {
+            "key": "CZ_Q",
+            "label": "Q",
+        }
+        "KC_W": {
+            "key": "CZ_W",
+            "label": "W",
+        }
+        "KC_E": {
+            "key": "CZ_E",
+            "label": "E",
+        }
+        "KC_R": {
+            "key": "CZ_R",
+            "label": "R",
+        }
+        "KC_T": {
+            "key": "CZ_T",
+            "label": "T",
+        }
+        "KC_Y": {
+            "key": "CZ_Z",
+            "label": "Z",
+        }
+        "KC_U": {
+            "key": "CZ_U",
+            "label": "U",
+        }
+        "KC_I": {
+            "key": "CZ_I",
+            "label": "I",
+        }
+        "KC_O": {
+            "key": "CZ_O",
+            "label": "O",
+        }
+        "KC_P": {
+            "key": "CZ_P",
+            "label": "P",
+        }
+        "KC_LBRC": {
+            "key": "CZ_UACU",
+            "label": "ú",
+        }
+        "KC_RBRC": {
+            "key": "CZ_RPRN",
+            "label": ")",
+        }
+        "KC_A": {
+            "key": "CZ_A",
+            "label": "A",
+        }
+        "KC_S": {
+            "key": "CZ_S",
+            "label": "S",
+        }
+        "KC_D": {
+            "key": "CZ_D",
+            "label": "D",
+        }
+        "KC_F": {
+            "key": "CZ_F",
+            "label": "F",
+        }
+        "KC_G": {
+            "key": "CZ_G",
+            "label": "G",
+        }
+        "KC_H": {
+            "key": "CZ_H",
+            "label": "H",
+        }
+        "KC_J": {
+            "key": "CZ_J",
+            "label": "J",
+        }
+        "KC_K": {
+            "key": "CZ_K",
+            "label": "K",
+        }
+        "KC_L": {
+            "key": "CZ_L",
+            "label": "L",
+        }
+        "KC_SCLN": {
+            "key": "CZ_URNG",
+            "label": "ů",
+        }
+        "KC_QUOT": {
+            "key": "CZ_SECT",
+            "label": "§",
+        }
+        "KC_NUHS": {
+            "key": "CZ_DIAE",
+            "label": "¨ (dead)",
+        }
+        "KC_NUBS": {
+            "key": "CZ_BSLS",
+            "label": "\\",
+        }
+        "KC_Z": {
+            "key": "CZ_Y",
+            "label": "Y",
+        }
+        "KC_X": {
+            "key": "CZ_X",
+            "label": "X",
+        }
+        "KC_C": {
+            "key": "CZ_C",
+            "label": "C",
+        }
+        "KC_V": {
+            "key": "CZ_V",
+            "label": "V",
+        }
+        "KC_B": {
+            "key": "CZ_B",
+            "label": "B",
+        }
+        "KC_N": {
+            "key": "CZ_N",
+            "label": "N",
+        }
+        "KC_M": {
+            "key": "CZ_M",
+            "label": "M",
+        }
+        "KC_COMM": {
+            "key": "CZ_COMM",
+            "label": ",",
+        }
+        "KC_DOT": {
+            "key": "CZ_DOT",
+            "label": ".",
+        }
+        "KC_SLSH": {
+            "key": "CZ_MINS",
+            "label": "-",
+        }
+/* Shifted symbols
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │ ° │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ % │ ˇ │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │   │   │   │   │   │   │   │   │   │   │ / │ ( │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │   │   │   │   │   │   │   │   │   │ " │ ! │ ' │    │
+ * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
+ * │    │ | │   │   │   │   │   │   │   │ ? │ : │ _ │          │
+ * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+        "S(CZ_SCLN)": {
+            "key": "CZ_RNGA",
+            "label": "° (dead)",
+        }
+        "S(CZ_PLUS)": {
+            "key": "CZ_1",
+            "label": "1",
+        }
+        "S(CZ_ECAR)": {
+            "key": "CZ_2",
+            "label": "2",
+        }
+        "S(CZ_SCAR)": {
+            "key": "CZ_3",
+            "label": "3",
+        }
+        "S(CZ_CCAR)": {
+            "key": "CZ_4",
+            "label": "4",
+        }
+        "S(CZ_RCAR)": {
+            "key": "CZ_5",
+            "label": "5",
+        }
+        "S(CZ_ZCAR)": {
+            "key": "CZ_6",
+            "label": "6",
+        }
+        "S(CZ_YACU)": {
+            "key": "CZ_7",
+            "label": "7",
+        }
+        "S(CZ_AACU)": {
+            "key": "CZ_8",
+            "label": "8",
+        }
+        "S(CZ_IACU)": {
+            "key": "CZ_9",
+            "label": "9",
+        }
+        "S(CZ_EACU)": {
+            "key": "CZ_0",
+            "label": "0",
+        }
+        "S(CZ_EQL)": {
+            "key": "CZ_PERC",
+            "label": "%",
+        }
+        "S(CZ_ACUT)": {
+            "key": "CZ_CARN",
+            "label": "ˇ (dead)",
+        }
+        "S(CZ_UACU)": {
+            "key": "CZ_SLSH",
+            "label": "/",
+        }
+        "S(CZ_RPRN)": {
+            "key": "CZ_LPRN",
+            "label": "(",
+        }
+        "S(CZ_URNG)": {
+            "key": "CZ_DQUO",
+            "label": "\"",
+        }
+        "S(CZ_SECT)": {
+            "key": "CZ_EXLM",
+            "label": "!",
+        }
+        "S(CZ_DIAE)": {
+            "key": "CZ_QUOT",
+            "label": "'",
+        }
+        "S(CZ_BSLS)": {
+            "key": "CZ_PIPE",
+            "label": "|",
+        }
+        "S(CZ_COMM)": {
+            "key": "CZ_QUES",
+            "label": "?",
+        }
+        "S(CZ_DOT)": {
+            "key": "CZ_COLN",
+            "label": ":",
+        }
+        "S(CZ_MINS)": {
+            "key": "CZ_UNDS",
+            "label": "_",
+        }
+/* AltGr symbols
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │   │ ~ │   │ ^ │ ˘ │   │ ˛ │ ` │ ˙ │   │ ˝ │   │ ¸ │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │   │   │ € │   │   │   │   │   │   │   │ ÷ │ × │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │   │ đ │ Đ │ [ │ ] │   │   │ ł │ Ł │ $ │ ß │ ¤ │    │
+ * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
+ * │    │   │   │ # │ & │ @ │ { │ } │   │ < │ > │ * │          │
+ * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+        "ALGR(CZ_PLUS)": {
+            "key": "CZ_TILD",
+            "label": "~",
+        }
+        "ALGR(CZ_SCAR)": {
+            "key": "CZ_CIRC",
+            "label": "^ (dead)",
+        }
+        "ALGR(CZ_CCAR)": {
+            "key": "CZ_BREV",
+            "label": "˘ (dead)",
+        }
+        "ALGR(CZ_ZCAR)": {
+            "key": "CZ_OGON",
+            "label": "˛ (dead)",
+        }
+        "ALGR(CZ_YACU)": {
+            "key": "CZ_GRV",
+            "label": "` (dead)",
+        }
+        "ALGR(CZ_AACU)": {
+            "key": "CZ_DOTA",
+            "label": "˙ (dead)",
+        }
+        "ALGR(CZ_EACU)": {
+            "key": "CZ_DACU",
+            "label": "˝ (dead)",
+        }
+        "ALGR(CZ_ACUT)": {
+            "key": "CZ_CEDL",
+            "label": "¸ (dead)",
+        }
+        "ALGR(CZ_E)": {
+            "key": "CZ_EURO",
+            "label": "€",
+        }
+        "ALGR(CZ_UACU)": {
+            "key": "CZ_DIV",
+            "label": "÷",
+        }
+        "ALGR(CZ_RPRN)": {
+            "key": "CZ_MUL",
+            "label": "×",
+        }
+        "ALGR(CZ_S)": {
+            "key": "CZ_LDST",
+            "label": "đ",
+        }
+        "ALGR(CZ_D)": {
+            "key": "CZ_CDST",
+            "label": "Đ",
+        }
+        "ALGR(CZ_F)": {
+            "key": "CZ_LBRC",
+            "label": "[",
+        }
+        "ALGR(CZ_G)": {
+            "key": "CZ_RBRC",
+            "label": "]",
+        }
+        "ALGR(CZ_K)": {
+            "key": "CZ_LLST",
+            "label": "ł",
+        }
+        "ALGR(CZ_L)": {
+            "key": "CZ_CLST",
+            "label": "Ł",
+        }
+        "ALGR(CZ_URNG)": {
+            "key": "CZ_DLR",
+            "label": "$",
+        }
+        "ALGR(CZ_SECT)": {
+            "key": "CZ_SS",
+            "label": "ß",
+        }
+        "ALGR(CZ_DIAE)": {
+            "key": "CZ_CURR",
+            "label": "¤",
+        }
+        "ALGR(CZ_X)": {
+            "key": "CZ_HASH",
+            "label": "#",
+        }
+        "ALGR(CZ_C)": {
+            "key": "CZ_AMPR",
+            "label": "&",
+        }
+        "ALGR(CZ_V)": {
+            "key": "CZ_AT",
+            "label": "@",
+        }
+        "ALGR(CZ_B)": {
+            "key": "CZ_LCBR",
+            "label": "{",
+        }
+        "ALGR(CZ_N)": {
+            "key": "CZ_RCBR",
+            "label": "}",
+        }
+        "ALGR(CZ_COMM)": {
+            "key": "CZ_LABK",
+            "label": "<",
+        }
+        "ALGR(CZ_DOT)": {
+            "key": "CZ_RABK",
+            "label": ">",
+        }
+        "ALGR(CZ_MINS)": {
+            "key": "CZ_ASTR",
+            "label": "*",
+        }
+    }
+}

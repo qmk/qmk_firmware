@@ -35,11 +35,4 @@
 #define NUM_LOCK_LED_INDEX 5
 
 /* Encoder Configuration */
-#define ENCODERS_PAD_A { A3 }
-#define ENCODERS_PAD_B { A4 }
-#define ENCODER_RESOLUTION 4
 #define ENCODER_DEFAULT_POS 0x3
-
-/* Specify (0,1) which programmed as "Fn" key on this keyboard as bootmagic key */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 1

@@ -8,6 +8,15 @@
         "pid": "0x7811",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B4", "pin_b": "B3"},
+            {"pin_a": "B0", "pin_b": "B1"}
+        ]
+    },
+    "processor": "atmega32a",
+    "bootloader": "usbasploader",
+    "community_layouts": ["65_iso", "65_ansi"],
     "layouts": {
         "LAYOUT_encoder": {
             "layout": [

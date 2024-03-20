@@ -20,11 +20,10 @@
 #define CALC_DIGITS 12
 
 enum rubi_keycodes {
-    ENC_PRESS = SAFE_RANGE,
+    ENC_PRESS = QK_KB_0,
     CL_PLUS,
     CL_STAR,
-    CL_TYPE,
-    NEW_SAFE_RANGE
+    CL_TYPE
 };
 
 enum oled_modes {

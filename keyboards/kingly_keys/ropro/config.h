@@ -16,24 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.#pragma once
  */
 
-#include "config_common.h"
-
- /* key matrix size */
-#define MATRIX_ROWS 7
-#define MATRIX_COLS 14
-
-#define ENCODERS_PAD_A { B7 }
-#define ENCODERS_PAD_B { D5 }
-
  /* key matrix pins */
 #define MATRIX_ROW_PINS { F4, F5, F6, F7, B1, F1, NO_PIN }
 #define MATRIX_COL_PINS { F0, D1, D0, D4, C6, D7, E6, B4, B5, B3, B2, B6, D2, C7 }
 
  /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
- /* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
 
  /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

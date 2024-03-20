@@ -317,10 +317,10 @@ void music_task(void) {
     }
 }
 
-__attribute__((weak)) void music_on_user() {}
+__attribute__((weak)) void music_on_user(void) {}
 
-__attribute__((weak)) void midi_on_user() {}
+__attribute__((weak)) void midi_on_user(void) {}
 
-__attribute__((weak)) void music_scale_user() {}
+__attribute__((weak)) void music_scale_user(void) {}
 
 #endif // defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))

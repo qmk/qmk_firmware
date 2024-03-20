@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
 
 /* Keyboard Matrix Assignments */
 #define MATRIX_ROW_PINS { B0, E6, F1, F5, F4 }
@@ -29,13 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Indicator LEDs */
-#define LED_CAPS_LOCK_PIN F0
-
-#define BACKLIGHT_PIN B7
-#define BACKLIGHT_LEVELS 8
-#define BACKLIGHT_BREATHING
 
 #define RGB_DI_PIN B1
 #ifdef RGB_DI_PIN
@@ -56,6 +44,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_EFFECT_ALTERNATING
 #    define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_RGB
 #endif
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5

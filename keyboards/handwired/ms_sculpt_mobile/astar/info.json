@@ -1,3 +1,5 @@
 {
-    "keyboard_name": "sculpt mobile astar"
+    "keyboard_name": "sculpt mobile astar",
+    "processor": "atmega32u4",
+    "bootloader": "caterina"
 }

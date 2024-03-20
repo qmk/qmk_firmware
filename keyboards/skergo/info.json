@@ -8,6 +8,8 @@
         "pid": "0x534B",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32a",
+    "bootloader": "usbasploader",
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_split_bs"
     },

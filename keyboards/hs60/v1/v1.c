@@ -307,6 +307,10 @@ led_config_t g_led_config = { {
 
 #endif
 
+#ifndef DEBOUNCE
+#    define DEBOUNCE 5
+#endif
+
 void bootmagic_lite(void)
 {
 	// The lite version of TMK's bootmagic made by Wilba.

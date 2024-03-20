@@ -1,10 +1,5 @@
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 3
-#define MATRIX_COLS 13
 
 /* pcb default pin-out */
 #define MATRIX_ROW_PINS { E6, B4, B5 }

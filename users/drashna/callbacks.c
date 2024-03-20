@@ -3,9 +3,8 @@
 
 #include "drashna.h"
 
-
 #ifdef I2C_SCANNER_ENABLE
-void matrix_scan_i2c(void);
+void housekeeping_task_i2c_scanner(void);
 void keyboard_post_init_i2c(void);
 #endif
 
@@ -20,6 +19,64 @@ void                       keyboard_pre_init_user(void) {
 // functions in the keymaps
 // Call user matrix init, set default RGB colors and then
 // call the keymap's init function
+
+#ifdef CUSTOM_QUANTUM_PAINTER_ENABLE
+void keyboard_post_init_qp(void);
+#endif
+
+#ifdef OS_DETECTION_ENABLE
+os_variant_t os_type;
+
+uint32_t startup_exec(uint32_t trigger_time, void *cb_arg) {
+    /* do something */
+
+    if (is_keyboard_master()) {
+        os_type = detected_host_os();
+        if (os_type) {
+            bool is_mac                  = (os_type == OS_MACOS) || (os_type == OS_IOS);
+            keymap_config.swap_lctl_lgui = keymap_config.swap_rctl_rgui = is_mac;
+#    ifdef UNICODE_COMMON_ENABLE
+            uint8_t mode = is_mac ? UNICODE_MODE_MACOS : UNICODE_MODE_WINCOMPOSE;
+            if (mode != get_unicode_input_mode()) {
+                set_unicode_input_mode(mode);
+            }
+#    endif
+            switch (os_type) {
+                case OS_UNSURE:
+                    xprintf("unknown OS Detected\n");
+                    break;
+                case OS_LINUX:
+                    xprintf("Linux Detected\n");
+                    break;
+                case OS_WINDOWS:
+                    xprintf("Windows Detected\n");
+                    break;
+#    if 0
+                case OS_WINDOWS_UNSURE:
+                    xprintf("Windows? Detected\n");
+                    break;
+#    endif
+                case OS_MACOS:
+                    xprintf("MacOS Detected\n");
+                    break;
+                case OS_IOS:
+                    xprintf("iOS Detected\n");
+                    break;
+#    if 0
+                case OS_PS5:
+                    xprintf("PlayStation 5 Detected\n");
+                    break;
+                case OS_HANDHELD:
+                    xprintf("Nintend Switch/Quest 2 Detected\n");
+                    break;
+#    endif
+            }
+        }
+    }
+
+    return os_type ? 0 : 500;
+}
+#endif
 
 __attribute__((weak)) void keyboard_post_init_keymap(void) {}
 void                       keyboard_post_init_user(void) {
@@ -45,6 +102,10 @@ void                       keyboard_post_init_user(void) {
 
     DDRB &= ~(1 << 0);
     PORTB &= ~(1 << 0);
+#endif
+
+#ifdef OS_DETECTION_ENABLE
+    defer_exec(100, startup_exec, NULL);
 #endif
 
     keyboard_post_init_keymap();
@@ -102,25 +163,6 @@ void                       suspend_wakeup_init_user(void) {
 // scan function
 __attribute__((weak)) void matrix_scan_keymap(void) {}
 void                       matrix_scan_user(void) {
-    static bool has_ran_yet;
-    if (!has_ran_yet) {
-        has_ran_yet = true;
-        startup_user();
-    }
-
-#ifdef TAP_DANCE_ENABLE // Run Diablo 3 macro checking code.
-    run_diablo_macro_check();
-#endif // TAP_DANCE_ENABLE
-#if defined(CUSTOM_RGB_MATRIX)
-    matrix_scan_rgb_matrix();
-#endif
-#ifdef I2C_SCANNER_ENABLE
-    matrix_scan_i2c();
-#endif
-#ifdef CUSTOM_OLED_DRIVER
-    matrix_scan_oled();
-#endif
-
     matrix_scan_keymap();
 }
 
@@ -134,10 +176,6 @@ __attribute__((weak)) layer_state_t layer_state_set_keymap(layer_state_t state) 
     return state;
 }
 layer_state_t layer_state_set_user(layer_state_t state) {
-    if (!is_keyboard_master()) {
-        return state;
-    }
-
     state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
 #if defined(CUSTOM_POINTING_DEVICE)
     state = layer_state_set_pointing(state);
@@ -145,18 +183,33 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #if defined(CUSTOM_RGBLIGHT)
     state = layer_state_set_rgb_light(state);
 #endif // CUSTOM_RGBLIGHT
-#if defined(AUDIO_ENABLE) && !defined(__arm__)
+#if defined(AUDIO_ENABLE)
     static bool is_gamepad_on = false;
     if (layer_state_cmp(state, _GAMEPAD) != is_gamepad_on) {
-        is_gamepad_on = layer_state_cmp(state, _GAMEPAD);
+        static bool is_click_on = false;
+        is_gamepad_on           = layer_state_cmp(state, _GAMEPAD);
         if (is_gamepad_on) {
+            is_click_on = is_clicky_on();
+            if (is_click_on) {
+                clicky_off();
+            }
             PLAY_LOOP(doom_song);
         } else {
+            if (is_click_on) {
+                clicky_on();
+            }
             stop_all_notes();
         }
     }
 #endif
     state = layer_state_set_keymap(state);
+
+#ifdef CONSOLE_ENABLE
+    char layer_buffer[16 + 5];
+    format_layer_bitmap_string(layer_buffer, state, default_layer_state);
+    dprintf("layer state: %s\n", layer_buffer);
+#endif
+
     return state;
 }
 
@@ -227,9 +280,27 @@ void                       matrix_slave_scan_user(void) {
 #endif
 
 __attribute__((weak)) void housekeeping_task_keymap(void) {}
-void housekeeping_task_user(void) {
+void                       housekeeping_task_user(void) {
+    static bool has_ran_yet;
+    if (!has_ran_yet) {
+        has_ran_yet = true;
+        startup_user();
+    }
+#ifdef TAP_DANCE_ENABLE // Run Diablo 3 macro checking code.
+    run_diablo_macro_check();
+#endif // TAP_DANCE_ENABLE
+#if defined(CUSTOM_RGB_MATRIX)
+    housekeeping_task_rgb_matrix();
+#endif
+#ifdef I2C_SCANNER_ENABLE
+    housekeeping_task_i2c_scanner();
+#endif
+#ifdef CUSTOM_OLED_DRIVER
+    housekeeping_task_oled();
+#endif
 #if defined(SPLIT_KEYBOARD) && defined(SPLIT_TRANSACTION_IDS_USER)
     housekeeping_task_transport_sync();
 #endif
+
     housekeeping_task_keymap();
 }

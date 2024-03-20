@@ -256,7 +256,7 @@ enum unicode_name {
   PLMIN,
 };
 
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
   [GRIN] = 0x1F600,
   [TJOY] = 0x1F602,
   [SMILE] = 0x1F601,
@@ -1272,7 +1272,7 @@ void set_output_user(uint8_t output) {
 #endif
 }
 
-void matrix_init_user() {
+void matrix_init_user(void) {
   wait_ms(500); // give time for usb to initialize
 
   set_unicode_input_mode(UNICODE_MODE_LINUX);
@@ -1292,7 +1292,7 @@ void matrix_init_user() {
 #endif
 }
 
-void turn_off_capslock() {
+void turn_off_capslock(void) {
   if (capslock) {
     register_code(KC_CAPS);
     unregister_code(KC_CAPS);
@@ -1323,7 +1323,7 @@ void turn_off_capslock() {
 #endif
 
 #ifdef PS2_MOUSE_ENABLE
-  void ps2_mouse_init_user() {
+  void ps2_mouse_init_user(void) {
       uint8_t rcv;
 
       // set TrackPoint sensitivity

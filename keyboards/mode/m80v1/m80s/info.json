@@ -8,6 +8,8 @@
     	"pid": "0x0080",
     	"device_version": "0.8.3"
     },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_eighty_m80s": {
             "layout": [

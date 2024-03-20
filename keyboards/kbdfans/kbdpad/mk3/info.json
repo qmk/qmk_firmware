@@ -47,7 +47,7 @@
         "max_brightness": 128
     },
     "rgblight": {
-        "pin": "F5",
+        "pin": "F5"
     },
     "usb": {
         "device_version": "3.0.0",

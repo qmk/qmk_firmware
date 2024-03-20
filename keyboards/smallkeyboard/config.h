@@ -17,11 +17,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 3
 
 /*
  * Keyboard Matrix Assignments
@@ -38,9 +33,6 @@
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 3
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
@@ -103,11 +95,3 @@
 #define DRIVER_COUNT 1
 #define RGB_MATRIX_LED_COUNT 6
 #endif
-//#define RGB_DI_PIN B7
-//#ifdef RGB_DI_PIN
-//#define RGBLED_NUM 8
-//#define RGBLIGHT_HUE_STEP 5
-//#define RGBLIGHT_SAT_STEP 5
-//#define RGBLIGHT_VAL_STEP 5
-//#define RGBLIGHT_SLEEP
-//#endif

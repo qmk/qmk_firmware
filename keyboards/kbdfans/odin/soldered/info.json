@@ -8,6 +8,14 @@
         "pid": "0x0101",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "B10",
+        "num_lock": "B9",
+        "on_state": 0
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
+    "debounce": 15,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

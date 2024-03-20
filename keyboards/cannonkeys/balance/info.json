@@ -8,6 +8,18 @@
         "pid": "0xBA77",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B5", "pin_b": "B6", "resolution": 2}
+        ]
+    },
+    "indicators": {
+        "caps_lock": "B12",
+        "num_lock": "B14",
+        "on_state": 0
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

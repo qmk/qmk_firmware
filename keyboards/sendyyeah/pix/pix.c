@@ -14,7 +14,7 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
 
-#include "pix.h"
+#include "quantum.h"
 
 void eeconfig_init_kb(void) {
 #ifdef RGBLIGHT_ENABLE

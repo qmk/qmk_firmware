@@ -25,6 +25,8 @@
         "pid": "0x0002",
         "vid": "0x0645"
     },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "encoder": {
         "rotary": [
             { "pin_a": "B3", "pin_b": "A15" },

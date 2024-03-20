@@ -16,19 +16,11 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 15
 
 #define MATRIX_ROW_PINS { F4, D0, D1, D2, D3, D5 }
 #define MATRIX_COL_PINS { F0, F1, E6, C7, C6, B6, D4, B1, B7, B5, B4, D7, D6, B3, F7 }
 
 #define DIODE_DIRECTION COL2ROW
-
-#define LED_CAPS_LOCK_PIN B2
-#define LED_PIN_ON_STATE 0
 
 #define RGB_DI_PIN F6
 #ifdef RGB_DI_PIN
@@ -49,15 +41,6 @@
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 #endif
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* number of backlight levels */
-#define BACKLIGHT_PIN F5
-#define BACKLIGHT_LEVELS 10
-#define BACKLIGHT_ON_STATE 0
-// #define BACKLIGHT_BREATHING
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

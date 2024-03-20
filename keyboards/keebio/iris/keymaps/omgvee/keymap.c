@@ -32,15 +32,12 @@ enum custom_keycodes {
 #define MW_L KC_MS_WH_LEFT 
 #define MW_R KC_MS_WH_RIGHT
 
-//// only uncomment the below line when you enable leader key in rules.mk
-//LEADER_EXTERNS();
-
 //Tap Dance Declarations
 enum {
   TD_SCL = 0
 };
 //Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   //Tap once for Shift, twice for Caps Lock
   [TD_SCL]  = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
 };

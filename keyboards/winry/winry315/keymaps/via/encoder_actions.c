@@ -27,11 +27,10 @@
 #    define ENCODER_STATE_CW 0x01
 #    define ENCODER_STATE_CCW 0x02
 
-#    ifdef ENCODERS
-static uint8_t  encoder_state[ENCODERS] = {0};
-static uint16_t encoder_timer[ENCODERS] = {0};
-static keypos_t encoder_cw[ENCODERS]    = ENCODERS_CW_KEY;
-static keypos_t encoder_ccw[ENCODERS]   = ENCODERS_CCW_KEY;
+static uint8_t  encoder_state[NUM_ENCODERS] = {0};
+static uint16_t encoder_timer[NUM_ENCODERS] = {0};
+static keypos_t encoder_cw[NUM_ENCODERS]    = ENCODERS_CW_KEY;
+static keypos_t encoder_ccw[NUM_ENCODERS]   = ENCODERS_CCW_KEY;
 
 static void exec_encoder_action(uint8_t index, bool clockwise, bool pressed) {
     // clang-format off
@@ -43,22 +42,18 @@ static void exec_encoder_action(uint8_t index, bool clockwise, bool pressed) {
     // clang-format on
     action_exec(encoder_event);
 }
-#    endif
 
 void encoder_action_unregister(void) {
-#    ifdef ENCODERS
-    for (int index = 0; index < ENCODERS; ++index) {
+    for (int index = 0; index < NUM_ENCODERS; ++index) {
         if (encoder_state[index] && (timer_elapsed(encoder_timer[index]) >= ENCODER_TAP_DURATION_MS)) {
             bool clockwise       = !!(encoder_state[index] & ENCODER_STATE_CW);
             encoder_state[index] = 0;
             exec_encoder_action(index, clockwise, false);
         }
     }
-#    endif
 }
 
 void encoder_action_register(uint8_t index, bool clockwise) {
-#    ifdef ENCODERS
     if (encoder_state[index]) {
         bool was_clockwise   = !!(encoder_state[index] & ENCODER_STATE_CW);
         encoder_state[index] = 0;
@@ -67,7 +62,6 @@ void encoder_action_register(uint8_t index, bool clockwise) {
     encoder_state[index] = clockwise ? ENCODER_STATE_CW : ENCODER_STATE_CCW;
     encoder_timer[index] = timer_read();
     exec_encoder_action(index, clockwise, true);
-#    endif
 }
 
 void matrix_scan_kb(void) {

@@ -8,6 +8,9 @@
         "pid": "0x992D",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["60_ansi", "60_ansi_arrow", "60_ansi_tsangan", "60_tsangan_hhkb", "60_ansi_split_bs_rshift", "60_iso", "60_iso_split_bs_rshift", "60_iso_tsangan"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

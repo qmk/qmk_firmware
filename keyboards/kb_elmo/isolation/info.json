@@ -8,10 +8,17 @@
         "pid": "0x4EE6",
         "device_version": "0.0.1"
     },
+    "processor": "atmega328p",
+    "bootloader": "usbasploader",
+    "matrix_pins": {
+        "direct": [
+            ["B0"]
+        ]
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"x":0.25, "y":0, "w":1.25, "h":2}
+                {"x":0.25, "y":0, "w":1.25, "h":2, "matrix": [0, 0]}
             ]
         }
     }

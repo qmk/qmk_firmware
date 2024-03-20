@@ -1,4 +1,7 @@
 {
+    "backlight": {
+        "pin": "B7"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

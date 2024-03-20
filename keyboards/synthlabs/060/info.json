@@ -6,7 +6,6 @@
   "bootloader": "atmel-dfu",
   "processor": "atmega32u4",
   "diode_direction": "COL2ROW",
-  "debounce": 5,
   "features": {
     "bootmagic": true,
     "command": false,

@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* LED Matrix & Animations */
 #define RGB_DI_PIN B1

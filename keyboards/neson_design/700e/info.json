@@ -8,6 +8,11 @@
         "pid": "0x700E",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "F5"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

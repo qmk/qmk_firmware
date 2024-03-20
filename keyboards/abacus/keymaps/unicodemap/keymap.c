@@ -44,7 +44,7 @@ enum unicode_names {
     EMOJIB
 };
 
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
     [LOVEEYES]  = 0x1f60d,
     [THINK] = 0x1f914,
     [UPSIDEDOWN] = 0x1f643,

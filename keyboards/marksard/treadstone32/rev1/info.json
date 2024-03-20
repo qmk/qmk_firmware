@@ -2,5 +2,7 @@
     "keyboard_name": "treadstone32",
     "usb": {
         "device_version": "0.1.0"
-    }
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu"
 }

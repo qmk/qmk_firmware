@@ -76,12 +76,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C1_CLOCK_SPEED  400000
 #define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_16_9
 
-/* encoder config */
-#define ENCODERS_PAD_A \
-    { A13 }
-#define ENCODERS_PAD_B \
-    { A14 }
-
 /* spi config for eeprom and pmw3360 sensor */
 #define SPI_DRIVER                           SPID1
 #define SPI_SCK_PIN                          A5

@@ -8,6 +8,16 @@
         "pid": "0x4A43",
         "device_version": "2.0.0"
     },
+    "backlight": {
+        "pin": "D4"
+    },
+    "indicators": {
+        "caps_lock": "D1",
+        "num_lock": "D6"
+    },
+    "processor": "atmega32a",
+    "bootloader": "bootloadhid",
+    "community_layouts": ["tkl_f13_ansi", "tkl_f13_ansi_tsangan", "tkl_f13_iso", "tkl_f13_iso_tsangan"],
     "layouts": {
         "LAYOUT_all_f13": {
             "layout": [

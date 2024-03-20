@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "battleship_gamepad.h"
+#include "quantum.h"
 
 /* joystick config */
 joystick_config_t joystick_axes[JOYSTICK_AXIS_COUNT] = {

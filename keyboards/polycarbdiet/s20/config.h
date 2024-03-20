@@ -16,11 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 4
 
 //                         1   2   3   4   5
 #define MATRIX_ROW_PINS { B7, E6, D0, D1, D5 }
@@ -28,10 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION ROW2COL
-
-#define BACKLIGHT_PIN B6
-#define BACKLIGHT_LEVELS 3
-#define BACKLIGHT_BREATHING
 
 #define RGB_DI_PIN B3
 #define RGBLED_NUM 4
@@ -51,8 +42,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

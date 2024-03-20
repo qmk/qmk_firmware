@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-// matrix
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 11
 
 // pins
 #define MATRIX_ROW_PINS { D2, D3, D5, F0 }
@@ -30,16 +25,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // diode mode
 #define DIODE_DIRECTION COL2ROW
 
-// debouncing, NKRO, mouse keys speed
-#define DEBOUNCE 5
 #define FORCE_NKRO
 #define MK_3_SPEED
 #define TERMINAL_HELP
-
-// encoders
-#define ENCODERS_PAD_A { B2, F4 }
-#define ENCODERS_PAD_B { B1, F5 }
-#define ENCODER_RESOLUTION 3
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE

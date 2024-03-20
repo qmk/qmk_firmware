@@ -30,9 +30,6 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 /* RGB Matrix Driver Configuration */
 #define DRIVER_COUNT 2
 #define DRIVER_ADDR_1 0b1110111
@@ -61,10 +58,6 @@
 /* EEPROM Driver Configuration */
 #define WEAR_LEVELING_LOGICAL_SIZE 2048
 #define WEAR_LEVELING_BACKING_SIZE (WEAR_LEVELING_LOGICAL_SIZE * 2)
-
-/* Specify (0,1) which programmed as "ESC" key on this keyboard as bootmagic key */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 1
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:

@@ -26,6 +26,9 @@
         "vid": "0xFEED",
         "pid": "0x0140"
     },
+    "bootmagic": {
+        "matrix": [5, 16]
+    },
     "indicators": {
         "num_lock": "C13",
         "caps_lock": "B14",
@@ -36,8 +39,7 @@
         "rotary": [
             {
             "pin_a": "B13",
-            "pin_b": "B12",
-            "resolution": 4
+            "pin_b": "B12"
             }
         ]
     },

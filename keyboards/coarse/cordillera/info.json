@@ -8,6 +8,20 @@
         "pid": "0x1401",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "A8",
+        "levels": 6,
+        "breathing": true
+    },
+    "indicators": {
+        "caps_lock": "A1",
+        "num_lock": "B0",
+        "scroll_lock": "A0",
+        "on_state": 0
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
+    "community_layouts": ["alice", "alice_split_bs"],
     "layouts": {
         "LAYOUT_alice": {
             "layout": [

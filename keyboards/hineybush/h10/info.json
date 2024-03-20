@@ -8,6 +8,13 @@
         "pid": "0xEBD8",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "B7",
+        "breathing": true
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["ortho_6x4", "numpad_6x4"],
     "layouts": {
         "LAYOUT_ortho_6x4": {
             "layout": [

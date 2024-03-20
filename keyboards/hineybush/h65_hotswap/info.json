@@ -8,9 +8,19 @@
         "pid": "0xE8B7",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "B7",
+        "breathing": true
+    },
+    "indicators": {
+        "caps_lock": "E6"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all"
     },
+    "community_layouts": ["65_ansi_blocker", "65_ansi_blocker_split_bs", "65_iso_blocker", "65_iso_blocker_split_bs"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

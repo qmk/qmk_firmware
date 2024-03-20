@@ -69,6 +69,7 @@ const struct tft_panel_dc_reset_painter_driver_vtable_t ili9488_driver_vtable = 
             .viewport        = qp_tft_panel_viewport,
             .palette_convert = qp_tft_panel_palette_convert_rgb888,
             .append_pixels   = qp_tft_panel_append_pixels_rgb888,
+            .append_pixdata  = qp_tft_panel_append_pixdata,
         },
     .num_window_bytes   = 2,
     .swap_window_coords = false,

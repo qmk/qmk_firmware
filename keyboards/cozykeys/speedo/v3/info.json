@@ -8,6 +8,8 @@
     "pid": "0x1192",
     "device_version": "0.0.3"
   },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
     "LAYOUT": {
       "layout": [

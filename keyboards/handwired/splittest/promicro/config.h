@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 // use I2C on AVR
 #define USE_I2C
@@ -25,7 +24,6 @@
 #define MATRIX_ROW_PINS { B3 }
 #define MATRIX_COL_PINS { B6 }
 #define SPLIT_HAND_PIN F6
-#define SOFT_SERIAL_PIN D1
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3

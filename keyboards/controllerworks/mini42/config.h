@@ -27,7 +27,7 @@
 #define SPLIT_MODS_ENABLE
 
 #undef I2C_DRIVER
-#define I2C_DRIVER I2CD1
+#define I2C_DRIVER I2CD0
 #undef I2C1_SCL_PIN
 #define I2C1_SCL_PIN GP25
 #undef I2C1_SDA_PIN
@@ -36,10 +36,3 @@
 /* #define EE_HANDS  */
 /* #define MASTER_LEFT */
 /* #define MASTER_RIGHT */
-
-/* Top left key on left half */
-#define BOOTMAGIC_LITE_ROW    0
-#define BOOTMAGIC_LITE_COLUMN 0
-/* Top right key on right half */
-#define BOOTMAGIC_LITE_ROW_RIGHT    0
-#define BOOTMAGIC_LITE_COLUMN_RIGHT 0

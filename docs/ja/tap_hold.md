@@ -110,25 +110,6 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
 
 ?> `許容ホールド`を有効にすると、これは両方がどのように動作するかを変更します。通常のキーには、最初のキーが最初に放された場合、あるいは両方のキーが  `TAPPING_TERM` より長くホールドされた場合に、修飾キーが追加されます。
 
-この機能をより細かく制御するために、以下を `config.h` に追加することができます:
-
-```c
-#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-```
-
-そして、以下の関数をキーマップに追加します:
-
-```c
-bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case SFT_T(KC_SPC):
-            return true;
-        default:
-            return false;
-    }
-}
-```
-
 ## タッピング強制ホールド
 
 `タッピング強制ホールド` を有効にするには、以下を `config.h` に追加します:

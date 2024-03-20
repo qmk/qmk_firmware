@@ -53,7 +53,3 @@ Colors for FLED_INDI mode are hardcoded as hue/saturation values, the caps lock 
  - FLED_MOD - Cycle between the 3 modes (FLED_OFF -> FLED_RGB -> FLED_INDI)
  - FLED_VAI - Increase front LED brightness
  - FLED_VAD - Decrease front LED brightness
- 
- # Further Notes
- 
- As SAFE_RANGE is used for defining the custom keycodes seen above, please use NEW_SAFE_RANGE as the starting value for any custom keycodes in keymap.c, as per the example.

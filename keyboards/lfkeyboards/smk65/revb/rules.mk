@@ -1,9 +1,3 @@
-# MCU name
-MCU = at90usb646
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 # Build Options
 #   change yes to no to disable
 #

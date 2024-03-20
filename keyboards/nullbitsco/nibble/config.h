@@ -15,7 +15,6 @@
  */
 #pragma once
 
-#include "config_common.h"
 
 /* Used to set host for remote KB if VUSB detect doesn't work. */
 // #define KEYBOARD_HOST // Force host mode
@@ -28,9 +27,6 @@
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16
 #define MATRIX_MUX_COLS 4
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 10
 
 /*
  * Keyboard Matrix Assignments
@@ -56,7 +52,3 @@
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLIGHT_SLEEP
-
-/* Optional encoder pins */
-#define ENCODERS_PAD_A { B5 }
-#define ENCODERS_PAD_B { B4 }

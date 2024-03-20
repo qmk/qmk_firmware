@@ -340,12 +340,12 @@ void matrix_init_user(void) {
 
 #ifdef AUDIO_ENABLE
 
-void startup_user()
+void startup_user(void)
 {
     _delay_ms(50); // gets rid of tick
 }
 
-void shutdown_user()
+void shutdown_user(void)
 {
     _delay_ms(150);
     stop_all_notes();

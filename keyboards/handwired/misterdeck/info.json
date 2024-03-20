@@ -8,6 +8,8 @@
         "pid": "0x6969",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "diode_direction": "ROW2COL",
     "matrix_pins": {
         "cols": ["D7", "E6", "B4", "B5"],

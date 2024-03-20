@@ -2,7 +2,6 @@
   "manufacturer": "Clueboard",
   "keyboard_name": "Clueboard 66% HotSwap Prototype",
   "maintainer": "skullydazed",
-  "debounce": 5,
   "diode_direction": "COL2ROW",
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
@@ -50,6 +49,10 @@
     "device_version": "0.0.1",
     "pid": "0x2390",
     "vid": "0xC1ED"
+  },
+  "backlight": {
+    "driver": "custom",
+    "levels": 1
   },
   "community_layouts": ["66_ansi"],
   "layout_aliases": {

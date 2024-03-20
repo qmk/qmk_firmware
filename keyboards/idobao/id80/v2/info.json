@@ -6,6 +6,17 @@
         "vid": "0x6964",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "B6",
+        "breathing": true
+    },
+    "indicators": {
+        "caps_lock": "C7",
+        "on_state": 0
+    },
+    "bootmagic": {
+        "matrix": [0, 5]
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "features": {

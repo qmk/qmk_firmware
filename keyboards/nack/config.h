@@ -16,16 +16,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-#include "config_common.h"
-
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 13
 
 #define MATRIX_ROW_PINS { A0, A1, A2, A3 }
 #define MATRIX_COL_PINS { A6, A7, A8, A9, A10, B0, B1, B2, B6, B7, C13, C14, C15 }
 
 #define DIODE_DIRECTION ROW2COL
-#define DEBOUNCE 5
 #define TAPPING_TOGGLE 2
 
 #ifdef RGB_MATRIX_ENABLE

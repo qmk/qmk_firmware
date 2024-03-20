@@ -8,6 +8,13 @@
         "pid": "0x6080",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "B7",
+        "levels": 8
+    },
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu",
+    "community_layouts": ["60_ansi", "60_iso", "60_hhkb", "60_ansi_split_bs_rshift", "60_tsangan_hhkb"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

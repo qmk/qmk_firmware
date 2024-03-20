@@ -83,12 +83,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * | Ctrl | Esc  | Win  | Alt  |Raise |Lower |Space |Space |Alt Gr| Left |  Up  | Down |Right | Ctrl |
    * `-------------------------------------------------------------------------------------------------'
    */
-    [_QWERTY] = LAYOUT(\
-        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL, \
-        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
-        KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT, \
-        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_QUOT,  KC_NUHS, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, \
-        KC_LCTL, KC_ESC,  KC_LGUI, KC_LALT, MO(2),   MO(1),  KC_SPC,   KC_SPC,  KC_RALT, KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT, KC_RCTL \
+    [_QWERTY] = LAYOUT(
+        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL,
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
+        KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_QUOT,  KC_NUHS, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+        KC_LCTL, KC_ESC,  KC_LGUI, KC_LALT, MO(2),   MO(1),  KC_SPC,   KC_SPC,  KC_RALT, KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT, KC_RCTL
         ),
 
     /*Lower
@@ -104,12 +104,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |      |      |      |      |      |      |      |      |      | Home |PageUp|PageDn| End  |      |
    * `-------------------------------------------------------------------------------------------------'
    */
-    [_LOWER] = LAYOUT(\
-        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, \
-        KC_TRNS, KC_MUTE, KC_MPLY, KC_BTN1, KC_BTN2, KC_TRNS,                   KC_PSCR, KC_TRNS, KC_INS,  KC_MINS, KC_EQL,  KC_TRNS, \
-        KC_NO,   KC_BRID, KC_BRIU, KC_VOLD, KC_VOLU, KC_TRNS,                   KC_TRNS, KC_MS_U, KC_TRNS, KC_LBRC, KC_RBRC, KC_TRNS, \
-        KC_TRNS, KC_NUBS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,  KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS, KC_TRNS, KC_TRNS, \
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,  KC_TRNS, KC_TRNS, KC_HOME, KC_PGUP, KC_PGDN, KC_END,  KC_TRNS \
+    [_LOWER] = LAYOUT(
+        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
+        KC_TRNS, KC_MUTE, KC_MPLY, KC_BTN1, KC_BTN2, KC_TRNS,                   KC_PSCR, KC_TRNS, KC_INS,  KC_MINS, KC_EQL,  KC_TRNS,
+        KC_NO,   KC_BRID, KC_BRIU, KC_VOLD, KC_VOLU, KC_TRNS,                   KC_TRNS, KC_MS_U, KC_TRNS, KC_LBRC, KC_RBRC, KC_TRNS,
+        KC_TRNS, KC_NUBS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,  KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,  KC_TRNS, KC_TRNS, KC_HOME, KC_PGUP, KC_PGDN, KC_END,  KC_TRNS
         ),
 
     /* Raise
@@ -125,12 +125,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
    * `-------------------------------------------------------------------------------------------------'
    */
-    [_RAISE] = LAYOUT(\
-        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, \
-        RGB_1,   RGB_2,   RGB_3,   RGB_4,   RGB_TOG, KC_NO,                     KC_NO,   RGB_MOD, RGB_RMOD,KC_NO,   KC_NO,   KC_NO, \
-        RGB_5,   RGB_6,   RGB_7,   RGB_8,   RGB_9,   KC_NO,                     KC_NO,   RGB_HUI, RGB_HUD, KC_NO,   KC_NO,   KC_NO, \
-        KC_NO,   RGB_MOD, RGB_RMOD,RGB_HUI, RGB_HUD, KC_NO,  QK_BOOT,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, \
-        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS, KC_NO,  KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO \
+    [_RAISE] = LAYOUT(
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+        RGB_1,   RGB_2,   RGB_3,   RGB_4,   RGB_TOG, KC_NO,                     KC_NO,   RGB_MOD, RGB_RMOD,KC_NO,   KC_NO,   KC_NO,
+        RGB_5,   RGB_6,   RGB_7,   RGB_8,   RGB_9,   KC_NO,                     KC_NO,   RGB_HUI, RGB_HUD, KC_NO,   KC_NO,   KC_NO,
+        KC_NO,   RGB_MOD, RGB_RMOD,RGB_HUI, RGB_HUD, KC_NO,  QK_BOOT,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS, KC_NO,  KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO
         )
 };
 

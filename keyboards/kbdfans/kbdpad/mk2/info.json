@@ -8,6 +8,18 @@
     	"pid": "0x0006",
     	"device_version": "0.0.1"
     },
+    "backlight": {
+    	"pin": "B7",
+    	"levels": 5,
+    	"breathing": true
+    },
+    "indicators": {
+    	"num_lock": "B4",
+    	"on_state": 0
+    },
+    "processor": "atmega32u2",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["ortho_6x4"],
     "layouts": {
         "LAYOUT_ortho_6x4": {
             "layout": [

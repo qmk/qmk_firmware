@@ -1,16 +1,12 @@
 #pragma once
 
-#include "config_common.h"
 
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
 #define MATRIX_ROW_PINS { F0, B6, B5, B4, D7 }
 #define MATRIX_COL_PINS { C6, C7, F7, F6, F5, F4, F1, B0, B1, B2, B3, B7, D2, D3, D5 }
 #define DIODE_DIRECTION COL2ROW
 
 #define RGB_MATRIX_LED_PROCESS_LIMIT 4
 #define RGB_MATRIX_LED_FLUSH_LIMIT 26
-#define DEBOUNCE 3
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 #define RGB_MATRIX_KEYPRESSES
 // RGB Matrix Animation modes. Explicitly enabled

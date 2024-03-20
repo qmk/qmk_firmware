@@ -85,7 +85,7 @@ void matrix_init(void)
         matrix_stage[i] = 0;
     }
 
-    matrix_init_quantum();
+    matrix_init_kb();
 
 }
 
@@ -109,7 +109,7 @@ uint8_t matrix_scan(void)
         debouncing = false;
     }
 
-    matrix_scan_quantum();
+    matrix_scan_kb();
 
     return 1;
 }

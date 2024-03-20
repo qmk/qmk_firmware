@@ -16,11 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
 
 // ROWS: Top to bottom, COLS: Left to right
 
@@ -49,12 +44,3 @@
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
  #endif
-
-/* set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
-
-#define QMK_ESC_OUTPUT F0 // usually COL
-#define QMK_ESC_INPUT B7 // usually ROW

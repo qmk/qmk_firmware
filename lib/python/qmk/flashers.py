@@ -71,6 +71,12 @@ def _find_usb_device(vid_hex, pid_hex):
             return usb.core.find(idVendor=vid_hex, idProduct=pid_hex)
 
 
+def _find_uf2_devices():
+    """Delegate to uf2conv.py as VID:PID pairs can potentially fluctuate more than other bootloaders
+    """
+    return cli.run(['util/uf2conv.py', '--list']).stdout.splitlines()
+
+
 def _find_bootloader():
     # To avoid running forever in the background, only look for bootloaders for 10min
     start_time = time.time()
@@ -95,6 +101,8 @@ def _find_bootloader():
                     else:
                         details = None
                     return (bl, details)
+        if _find_uf2_devices():
+            return ('_uf2_compatible_', None)
         time.sleep(0.1)
     return (None, None)
 
@@ -184,6 +192,10 @@ def _flash_mdloader(file):
     cli.run(['mdloader', '--first', '--download', file, '--restart'], capture_output=False)
 
 
+def _flash_uf2(file):
+    cli.run(['util/uf2conv.py', '--deploy', file], capture_output=False)
+
+
 def flasher(mcu, file):
     bl, details = _find_bootloader()
     # Add a small sleep to avoid race conditions
@@ -208,6 +220,8 @@ def flasher(mcu, file):
             return (True, "Specifying the MCU with '-m' is necessary for ISP flashing!")
     elif bl == 'md-boot':
         _flash_mdloader(file)
+    elif bl == '_uf2_compatible_':
+        _flash_uf2(file)
     else:
         return (True, "Known bootloader found but flashing not currently supported!")
 

@@ -8,6 +8,17 @@
         "pid": "0x5250",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D4", "pin_b": "C6", "resolution": 2},
+            {"pin_a": "F6", "pin_b": "F7", "resolution": 2}
+        ]
+    },
+    "bootmagic": {
+        "matrix": [1, 3]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT_4x4_encoders": {
             "layout": [

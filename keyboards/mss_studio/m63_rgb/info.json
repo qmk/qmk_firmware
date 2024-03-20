@@ -8,6 +8,8 @@
         "pid": "0x6063",
         "device_version": "0.0.1"
     },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_60_ansi_arrow": {
             "layout": [

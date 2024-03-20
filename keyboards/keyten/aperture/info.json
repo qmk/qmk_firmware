@@ -8,6 +8,8 @@
         "pid": "0x6501",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_65_ansi_blocker_tsangan_split_bs"
     },

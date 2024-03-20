@@ -3,7 +3,6 @@
     "keyboard_name": "Odinmini",
     "maintainer": "moyi4681",
     "bootloader": "rp2040",
-    "debounce": 5,
     "diode_direction": "COL2ROW",
     "features": {
         "audio": false,

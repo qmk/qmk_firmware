@@ -7,7 +7,6 @@
     "bootloader": "atmel-dfu",
     "bootloader_instructions": "Tap reset button on the back.",
     "diode_direction": "COL2ROW",
-    "debounce": 5,
     "features": {
         "bootmagic": true,
         "nkro": true,

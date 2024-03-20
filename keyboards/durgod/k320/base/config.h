@@ -17,13 +17,8 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #define WAIT_US_TIMER           GPTD3
-
-/* key matrix size */
-#define MATRIX_ROWS 7
-#define MATRIX_COLS 16
 
 #define MATRIX_ROW_PINS { A0, A1, A2, A3, A4, A5, A6 }
 #define MATRIX_COL_PINS { C4, C5, B0, B1, B2, B10, B11, B12, B13, B14, B15, C6, C7, C10, C11, C12 }
@@ -36,20 +31,11 @@
 // Users may enable more if they wish
 #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR  4095
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* Bootmagic Lite key configuration */
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
-#define BOOTMAGIC_LITE_ROW                 0
-#define BOOTMAGIC_LITE_COLUMN              0
 
 /* LED indicator pins */
-#define LED_CAPS_LOCK_PIN   C9
-#define LED_SCROLL_LOCK_PIN A8
 #define LED_WIN_LOCK_PIN    A9
 #define LED_MR_LOCK_PIN     A10
-#define LED_PIN_ON_STATE    0
 
 /* Original hardware "reset" button on pin D2 */
 #define HARDWARE_RESET_PIN  D2

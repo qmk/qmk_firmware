@@ -1,0 +1,9 @@
+{
+    "indicators": {
+        "caps_lock": "C13",
+        "on_state": 0
+    },
+    "processor": "STM32F401",
+    "bootloader": "stm32-dfu",
+    "board": "BLACKPILL_STM32_F401"
+}

@@ -1,3 +1,12 @@
 {
-    "keyboard_name": "Adelais"
+    "keyboard_name": "Adelais",
+    "backlight": {
+        "pin": "B0",
+        "breathing": true
+    },
+    "indicators": {
+        "caps_lock": "B2",
+        "num_lock": "C15",
+        "scroll_lock": "B9"
+    }
 }

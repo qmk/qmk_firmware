@@ -19,7 +19,7 @@ There are three ways to get the lock LED state:
 
 Two deprecated functions that provide the LED state as `uint8_t`:
 
-* `uint8_t led_set_kb(uint8_t usb_led)` and `_user(uint8_t usb_led)`
+* `uint8_t led_set_user(uint8_t usb_led)`
 * `uint8_t host_keyboard_leds()`
 
 ## Configuration Options

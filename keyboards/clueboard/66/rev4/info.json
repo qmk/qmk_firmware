@@ -2,7 +2,6 @@
   "manufacturer": "Clueboard",
   "keyboard_name": "Clueboard 66% rev4",
   "maintainer": "skullydazed",
-  "debounce": 5,
   "processor": "STM32F303",
   "board": "QMK_PROTON_C",
   "bootloader": "stm32-dfu",

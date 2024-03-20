@@ -48,7 +48,7 @@ enum emoji_map {
   RGHT, // Point Right
 };
 
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
   [UNAM] = 0x1F612,
   [HEYE] = 0x1f60d,
   [OK]   = 0x1F44C,

@@ -8,6 +8,12 @@
         "pid": "0x0007",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "F6",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_87": "LAYOUT_tkl_f13",
         "LAYOUT_87_split_bs": "LAYOUT_tkl_f13_split_bs",

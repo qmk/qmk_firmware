@@ -157,7 +157,7 @@ enum custom_keycodes {
 
 // Declare unicode map array
 enum unicode_names { BANG, SNEK };
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
     //[UCD_BANG]  = 0x203D,   // ‽
     //[UCD_IRONY] = 0x2E2E,   // ⸮
     [SNEK] = 0x1F40D,  // 🐍
@@ -240,18 +240,17 @@ uint16_t muse_tempo     = 50;
 
 // Used by Leader key chords
 bool did_leader_succeed;
-LEADER_EXTERNS();
 
 // Tap-Dance stuffs, initializing functions that are coded further below
-td_state_t cur_dance(qk_tap_dance_state_t* state);
-void       sml_finished(qk_tap_dance_state_t* state, void* user_data);
-void       sml_reset(qk_tap_dance_state_t* state, void* user_data);
-void       scap_finished(qk_tap_dance_state_t* state, void* user_data);
-void       scap_reset(qk_tap_dance_state_t* state, void* user_data);
-void       slctl_finished(qk_tap_dance_state_t* state, void* user_data);
-void       slctl_reset(qk_tap_dance_state_t* state, void* user_data);
-void       slalt_finished(qk_tap_dance_state_t* state, void* user_data);
-void       slalt_reset(qk_tap_dance_state_t* state, void* user_data);
+td_state_t cur_dance(tap_dance_state_t* state);
+void       sml_finished(tap_dance_state_t* state, void* user_data);
+void       sml_reset(tap_dance_state_t* state, void* user_data);
+void       scap_finished(tap_dance_state_t* state, void* user_data);
+void       scap_reset(tap_dance_state_t* state, void* user_data);
+void       slctl_finished(tap_dance_state_t* state, void* user_data);
+void       slctl_reset(tap_dance_state_t* state, void* user_data);
+void       slalt_finished(tap_dance_state_t* state, void* user_data);
+void       slalt_reset(tap_dance_state_t* state, void* user_data);
 bool       lctl_sticky = false;
 bool       lalt_sticky = false;
 
@@ -414,7 +413,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {                  
     */
     [_TABULA] = LAYOUT_planck_mit(                                                                                                   //
         KC_ESC, KC_ALTF4, VK_TOGG, PRINT_WPM_KEY, WAKE_ANI_TOG, WAKE_AUD_TOG, KC_REDO, UC_NEXT, UC_WINC, CG_TOGG, AG_TOGG, KC_DLINE,  //
-        KC_NXTAB, KC_SLCTALL, KC_SAVE, KC_TRNS, KC_FIND, SH_TG, SH_TG, IRONY, KC_LCUT, KC_LCOPY, KC_TRNS, KC_KILL,                   //
+        KC_NXTAB, KC_SLCTALL, KC_SAVE, KC_TRNS, KC_FIND, SH_TOGG, SH_TOGG, IRONY, KC_LCUT, KC_LCOPY, KC_TRNS, KC_KILL,                   //
         KC_LSFT, KC_UNDO, KC_CUT, KC_COPY, KC_PASTE, KC_PRVWD, KC_NXTWD, TG(_MOUSY), KC_TRNS, KC_HOME, KC_END, SC_SENT,              //
         TO(_BASE), KC_LCTL, KC_LGUI, KC_LALT, SC_LSPO, ALT_TAB, SC_RSPC, KC_PRVWD, KC_BRID, KC_BRIU, KC_NXTWD),
     /* Tabular Layer [8]
@@ -1325,7 +1324,7 @@ void rgb_wakeup_sequence(void) {
 }
 
 // Spits out some unicode special characters in response to a tap-dance
-void send_degree_symbol(qk_tap_dance_state_t* state, void* user_data) {
+void send_degree_symbol(tap_dance_state_t* state, void* user_data) {
     switch (state->count) {
         case 4:
             // ℃
@@ -1369,18 +1368,20 @@ bool get_retro_tapping(uint16_t keycode, keyrecord_t* record) {
             return false;
     }
 }
-// Handles per-key configuration of Mod-Tap-Interrupt
-bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t* record) {
+// Handles per-key configuration of Hold-on-Other-Key-Press
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
+        case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+            return true;
         default:
             return false;
     }
 }
-// Handles per-key configuration of Tapping Force-Hold
-bool get_tapping_force_hold(uint16_t keycode, keyrecord_t* record) {
+// Handles per-key configuration of Quick-Tap
+uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         default:
-            return false;
+            return QUICK_TAP_TERM;
     }
 }
 // Handles per-key configuration of Permissive-Hold
@@ -1395,13 +1396,88 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t* record) {
  * by playing sound at different stages of the leader chord
  */
 // Called when you tap the Leader key
-void leader_start(void) {
+void leader_start_user(void) {
 #ifdef AUDIO_ENABLE
     PLAY_SONG(leader_started);
 #endif
 }
 // Called when either the leader sequence is completed, or the leader timeout is hit
-void leader_end(void) {
+void leader_end_user(void) {
+    did_leader_succeed = false;
+
+    if (leader_sequence_one_key(KC_E)) {
+        SEND_STRING(SS_LCTL(SS_LSFT("t")));
+        did_leader_succeed = true;
+    }
+    if (leader_sequence_one_key(KC_C)) {
+        SEND_STRING(SS_LGUI("r") SS_DELAY(250) "calc\n");
+        did_leader_succeed = true;
+    }
+    else if (leader_sequence_one_key(KC_V)) {
+        SEND_STRING(SS_LCTL("v"));
+        did_leader_succeed = true;
+    }
+    else if (leader_sequence_two_keys(KC_E, KC_D)) {
+        SEND_STRING(SS_LGUI("r") "cmd\n" SS_LCTL("c"));
+        did_leader_succeed = true;
+    }
+    else if (leader_sequence_two_keys(KC_A, KC_C)) {
+        SEND_STRING(SS_LCTL("a") SS_LCTL("c"));
+        did_leader_succeed = true;
+    }
+    else if (leader_sequence_three_keys(KC_C, KC_A, KC_T)) {
+        send_unicode_string("😸");
+        did_leader_succeed = true;
+    }
+    else if (leader_sequence_three_keys(KC_B, KC_A, KC_T)) {
+        send_unicode_string("🦇");
+        did_leader_succeed = true;
+    }
+    else if (leader_sequence_three_keys(KC_D, KC_O, KC_G)) {
+        send_unicode_string("🐶");
+        did_leader_succeed = true;
+    }
+    else if (leader_sequence_five_keys(KC_S, KC_M, KC_I, KC_L, KC_E)) {
+        send_unicode_string("🙂");
+        did_leader_succeed = true;
+    }
+    else if (leader_sequence_four_keys(KC_H, KC_A, KC_P, KC_Y)) {
+        send_unicode_string("🙂");
+        did_leader_succeed = true;
+    }
+    else if (leader_sequence_five_keys(KC_H, KC_A, KC_P, KC_P, KC_Y)) {
+        send_unicode_string("🙂");
+        did_leader_succeed = true;
+    }
+    else if (leader_sequence_three_keys(KC_S, KC_A, KC_D)) {
+        send_unicode_string("🙁");
+        did_leader_succeed = true;
+    }
+    else if (leader_sequence_three_keys(KC_Y, KC_E, KC_S)) {
+        send_unicode_string("👍");
+        did_leader_succeed = true;
+    }
+    else if (leader_sequence_two_keys(KC_N, KC_O)) {
+        send_unicode_string("👎");
+        did_leader_succeed = true;
+    }
+    else if (leader_sequence_three_keys(KC_W, KC_O, KC_W)) {
+        send_unicode_string("🤯");
+        did_leader_succeed = true;
+    }
+    else if (leader_sequence_three_keys(KC_P, KC_O, KC_O)) {
+        send_unicode_string("💩");
+        did_leader_succeed = true;
+    }
+    else if (leader_sequence_four_keys(KC_P, KC_O, KC_O, KC_P)) {
+        send_unicode_string("💩");
+        did_leader_succeed = true;
+    }
+    else if (leader_sequence_four_keys(KC_B, KC_O, KC_A, KC_T)) {
+        send_unicode_string("⛵");
+        did_leader_succeed = true;
+    }
+
     if (did_leader_succeed) {
 #ifdef AUDIO_ENABLE
         PLAY_SONG(leader_succeed);
@@ -1414,7 +1490,7 @@ void leader_end(void) {
 }
 
 // Monitors and labels the current state of any tap-dances
-td_state_t cur_dance(qk_tap_dance_state_t* state) {
+td_state_t cur_dance(tap_dance_state_t* state) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) return TD_SINGLE_TAP;
         // Key has not been interrupted, but the key is still held. Means you want to send a 'HOLD'.
@@ -1444,7 +1520,7 @@ static td_tap_t slctl_state = {.is_press_action = true, .state = TD_NONE};
 static td_tap_t slalt_state = {.is_press_action = true, .state = TD_NONE};
 
 // Left-Shift->Sticky-Caps tap-dance finished
-void scap_finished(qk_tap_dance_state_t* state, void* user_data) {
+void scap_finished(tap_dance_state_t* state, void* user_data) {
     scap_state.state = cur_dance(state);
     switch (scap_state.state) {
         case TD_SINGLE_HOLD:
@@ -1469,13 +1545,13 @@ void scap_finished(qk_tap_dance_state_t* state, void* user_data) {
 }
 
 // Left-Shift->Sticky-Caps tap-dance reset
-void scap_reset(qk_tap_dance_state_t* state, void* user_data) {
+void scap_reset(tap_dance_state_t* state, void* user_data) {
     unregister_code(KC_LSFT);
     scap_state.state = TD_NONE;
 }
 
 // Sticky-Left-Control tap-dance finished
-void slctl_finished(qk_tap_dance_state_t* state, void* user_data) {
+void slctl_finished(tap_dance_state_t* state, void* user_data) {
     slctl_state.state = cur_dance(state);
     switch (slctl_state.state) {
         case TD_SINGLE_HOLD:
@@ -1505,7 +1581,7 @@ void slctl_finished(qk_tap_dance_state_t* state, void* user_data) {
 }
 
 // Sticky-Left-Control tap-dance reset
-void slctl_reset(qk_tap_dance_state_t* state, void* user_data) {
+void slctl_reset(tap_dance_state_t* state, void* user_data) {
     if (!lctl_sticky) {
         unregister_code(KC_LCTL);
         slctl_state.state = TD_NONE;
@@ -1515,7 +1591,7 @@ void slctl_reset(qk_tap_dance_state_t* state, void* user_data) {
 }
 
 // Sticky-Left-Alt tap-dance finished
-void slalt_finished(qk_tap_dance_state_t* state, void* user_data) {
+void slalt_finished(tap_dance_state_t* state, void* user_data) {
     slalt_state.state = cur_dance(state);
     switch (slalt_state.state) {
         case TD_SINGLE_HOLD:
@@ -1545,7 +1621,7 @@ void slalt_finished(qk_tap_dance_state_t* state, void* user_data) {
 }
 
 // Sticky-Left-Alt tap-dance reset
-void slalt_reset(qk_tap_dance_state_t* state, void* user_data) {
+void slalt_reset(tap_dance_state_t* state, void* user_data) {
     if (!lalt_sticky) {
         unregister_code(KC_LALT);
         slalt_state.state = TD_NONE;
@@ -1555,7 +1631,7 @@ void slalt_reset(qk_tap_dance_state_t* state, void* user_data) {
 }
 
 // Smiley key tap-dance finished
-void sml_finished(qk_tap_dance_state_t* state, void* user_data) {
+void sml_finished(tap_dance_state_t* state, void* user_data) {
     sml_state.state = cur_dance(state);
     switch (sml_state.state) {
         default:
@@ -1651,10 +1727,10 @@ void sml_finished(qk_tap_dance_state_t* state, void* user_data) {
             break;
     }
 }
-void sml_reset(qk_tap_dance_state_t* state, void* user_data) { sml_state.state = TD_NONE; }
+void sml_reset(tap_dance_state_t* state, void* user_data) { sml_state.state = TD_NONE; }
 
 // Tap Dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     // Tap once for °, twice for ℉, thrice for ℃
     [TD_DEG_DEGF]    = ACTION_TAP_DANCE_FN(send_degree_symbol),                          //
     [TD_LSHFT_CAPS]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, scap_finished, scap_reset),    //
@@ -1755,84 +1831,6 @@ void matrix_scan_user(void) {
             unregister_code(KC_LALT);
             is_alt_tab_active = false;
         }
-    }
-    // Monitor and perform leader-key chords
-    LEADER_DICTIONARY() {
-        did_leader_succeed = leading = false;
-
-        SEQ_ONE_KEY(KC_E) {
-            SEND_STRING(SS_LCTL(SS_LSFT("t")));
-            did_leader_succeed = true;
-        }
-        SEQ_ONE_KEY(KC_C) {
-            SEND_STRING(SS_LGUI("r") SS_DELAY(250) "calc\n");
-            did_leader_succeed = true;
-        }
-        else SEQ_ONE_KEY(KC_V) {
-            SEND_STRING(SS_LCTL("v"));
-            did_leader_succeed = true;
-        }
-        else SEQ_TWO_KEYS(KC_E, KC_D) {
-            SEND_STRING(SS_LGUI("r") "cmd\n" SS_LCTL("c"));
-            did_leader_succeed = true;
-        }
-        else SEQ_TWO_KEYS(KC_A, KC_C) {
-            SEND_STRING(SS_LCTL("a") SS_LCTL("c"));
-            did_leader_succeed = true;
-        }
-        else SEQ_THREE_KEYS(KC_C, KC_A, KC_T) {
-            send_unicode_string("😸");
-            did_leader_succeed = true;
-        }
-        else SEQ_THREE_KEYS(KC_B, KC_A, KC_T) {
-            send_unicode_string("🦇");
-            did_leader_succeed = true;
-        }
-        else SEQ_THREE_KEYS(KC_D, KC_O, KC_G) {
-            send_unicode_string("🐶");
-            did_leader_succeed = true;
-        }
-        else SEQ_FIVE_KEYS(KC_S, KC_M, KC_I, KC_L, KC_E) {
-            send_unicode_string("🙂");
-            did_leader_succeed = true;
-        }
-        else SEQ_FOUR_KEYS(KC_H, KC_A, KC_P, KC_Y) {
-            send_unicode_string("🙂");
-            did_leader_succeed = true;
-        }
-        else SEQ_FIVE_KEYS(KC_H, KC_A, KC_P, KC_P, KC_Y) {
-            send_unicode_string("🙂");
-            did_leader_succeed = true;
-        }
-        else SEQ_THREE_KEYS(KC_S, KC_A, KC_D) {
-            send_unicode_string("🙁");
-            did_leader_succeed = true;
-        }
-        else SEQ_THREE_KEYS(KC_Y, KC_E, KC_S) {
-            send_unicode_string("👍");
-            did_leader_succeed = true;
-        }
-        else SEQ_TWO_KEYS(KC_N, KC_O) {
-            send_unicode_string("👎");
-            did_leader_succeed = true;
-        }
-        else SEQ_THREE_KEYS(KC_W, KC_O, KC_W) {
-            send_unicode_string("🤯");
-            did_leader_succeed = true;
-        }
-        else SEQ_THREE_KEYS(KC_P, KC_O, KC_O) {
-            send_unicode_string("💩");
-            did_leader_succeed = true;
-        }
-        else SEQ_FOUR_KEYS(KC_P, KC_O, KC_O, KC_P) {
-            send_unicode_string("💩");
-            did_leader_succeed = true;
-        }
-        else SEQ_FOUR_KEYS(KC_B, KC_O, KC_A, KC_T) {
-            send_unicode_string("⛵");
-            did_leader_succeed = true;
-        }
-        leader_end();
     }
     // Run the wake-up RGB animation if performing wake-up
     if (do_wake_animation) {

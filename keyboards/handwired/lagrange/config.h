@@ -16,14 +16,9 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #define EE_HANDS
 #define SPLIT_USB_DETECT
-
-/* key matrix size */
-#define MATRIX_ROWS 14
-#define MATRIX_COLS 6
 
 /* pin-out */
 #define MATRIX_ROW_PINS { E6, F1, F0, F4, F5, F6, F7 }
@@ -33,8 +28,3 @@
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
-
-#define DEBOUNCE 5
-
-#define LED_CAPS_LOCK_PIN D1
-#define LED_SCROLL_LOCK_PIN D2

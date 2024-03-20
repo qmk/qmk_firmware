@@ -1,9 +1,3 @@
-# MCU name
-MCU = MKL26Z64
-
-# Bootloader selection
-BOOTLOADER = halfkay
-
 # Build Options
 #   change yes to no to disable
 #

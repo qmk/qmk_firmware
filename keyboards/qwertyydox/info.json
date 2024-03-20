@@ -9,6 +9,9 @@
     "pid": "0x1256",
     "device_version": "1.0.0"
   },
+  "split": {
+    "soft_serial_pin": "D0"
+  },
   "bootloader": "caterina",
   "processor": "atmega32u4",
   "layouts": {

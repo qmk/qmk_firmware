@@ -45,11 +45,11 @@ enum belak_td {
     TD_LAYER_TOGGLE = 0,
 };
 
-void belak_td_each(qk_tap_dance_state_t *state, void *user_data);
-void belak_td_finished(qk_tap_dance_state_t *state, void *user_data);
-void belak_td_reset(qk_tap_dance_state_t *state, void *user_data);
+void belak_td_each(tap_dance_state_t *state, void *user_data);
+void belak_td_finished(tap_dance_state_t *state, void *user_data);
+void belak_td_reset(tap_dance_state_t *state, void *user_data);
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_LAYER_TOGGLE] = ACTION_TAP_DANCE_FN_ADVANCED(belak_td_each, belak_td_finished, belak_td_reset),
 };
 
@@ -332,7 +332,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void belak_td_each(qk_tap_dance_state_t *state, void *user_data) {
+void belak_td_each(tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
     case 1:
         td_led_override = 1;
@@ -345,7 +345,7 @@ void belak_td_each(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void belak_td_finished(qk_tap_dance_state_t *state, void *user_data) {
+void belak_td_finished(tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
     case 1:
         layer_on(SYMB);
@@ -357,6 +357,6 @@ void belak_td_finished(qk_tap_dance_state_t *state, void *user_data) {
     td_led_override = 0;
 }
 
-void belak_td_reset(qk_tap_dance_state_t *state, void *user_data) {
+void belak_td_reset(tap_dance_state_t *state, void *user_data) {
     td_led_override = 0;
 }

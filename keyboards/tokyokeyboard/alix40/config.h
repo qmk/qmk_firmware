@@ -14,24 +14,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
-
-/* number of backlight levels */
-#define BACKLIGHT_PIN B7
-#ifdef BACKLIGHT_PIN
-#define BACKLIGHT_LEVELS 31
-#define BACKLIGHT_BREATHING
-#endif
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { D7, C6, C7, B5 }
@@ -60,10 +44,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SAT_STEP 10
 #define RGBLIGHT_VAL_STEP 10
 #endif
-
-/* For Production */
-#define QMK_ESC_OUTPUT F7 // usually COL
-#define QMK_ESC_INPUT D7 // usually ROW
 
 /* Bluetooth */
 #define BATTERY_LEVEL_PIN   B6

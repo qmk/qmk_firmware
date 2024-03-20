@@ -8,6 +8,17 @@
         "pid": "0x0012",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "A6",
+        "levels": 6,
+        "breathing": true
+    },
+    "indicators": {
+        "caps_lock": "F1",
+        "on_state": 0
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT"
     },

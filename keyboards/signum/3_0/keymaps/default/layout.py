@@ -388,7 +388,7 @@ qmk_dict = {
     "acc2": "KC_ACL2",
     # Modifiers missinng, add entry for each specific application
     # Mod-Tap Keys missing, add entry for each specific application
-    "_Sh_swp": "LSFT_T(SH_TG)",
+    "_Sh_swp": "LSFT_T(SH_TOGG)",
     # RGB Lighting missing
     # RGB Matrix Lighting missing
     # Thermal Printer missing

@@ -8,6 +8,8 @@
         "pid": "0x60EB",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "community_layouts": [
         "60_tsangan_hhkb",
         "60_iso_tsangan"

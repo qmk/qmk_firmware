@@ -1,4 +1,8 @@
 {
+    "indicators": {
+        "caps_lock": "E6",
+        "on_state": 0
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

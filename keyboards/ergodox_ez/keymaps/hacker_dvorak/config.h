@@ -78,7 +78,7 @@
 // #define NO_PRINT
 
 // #define RETRO_TAPPING
-// #define TAPPING_FORCE_HOLD
+// #define QUICK_TAP_TERM 0
 
 // #define AUTO_SHIFT_TIMEOUT 150
 // #define NO_AUTO_SHIFT_SPECIAL

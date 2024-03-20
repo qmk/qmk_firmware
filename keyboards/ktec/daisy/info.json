@@ -8,6 +8,16 @@
         "pid": "0xD7DC",
         "device_version": "5.0.1"
     },
+    "backlight": {
+        "pin": "D0",
+        "levels": 6
+    },
+    "indicators": {
+        "caps_lock": "C6",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

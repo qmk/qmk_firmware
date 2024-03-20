@@ -2,7 +2,6 @@
     "manufacturer": "Zach White",
     "keyboard_name": "DirectPins Proton C",
     "maintainer": "skullydazed",
-    "debounce": 5,
     "processor": "STM32F303",
     "board": "QMK_PROTON_C",
     "bootloader": "stm32-dfu",

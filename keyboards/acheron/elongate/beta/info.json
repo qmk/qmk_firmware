@@ -8,6 +8,13 @@
         "pid": "0x454C",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "D1",
+        "num_lock": "D2",
+        "scroll_lock": "D0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

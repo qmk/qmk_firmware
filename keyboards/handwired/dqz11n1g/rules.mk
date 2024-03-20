@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = caterina
-
 # Keyboard matrix uses shift-registers read via SPI
 CUSTOM_MATRIX = lite
 SRC += matrix.c 

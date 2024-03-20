@@ -169,12 +169,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    )
 };
 
-bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case CM_SPAR:
-      return true;
-    default:
-      return false;
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+  if (keycode == CM_SPAR) {
+    return false;
+  } else if (QK_MOD_TAP <= keycode && keycode <= QK_MOD_TAP_MAX) {
+    return true; 
+  } else {
+    return false;
   }
 }
 

@@ -23,58 +23,58 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BASE] = LAYOUT_kimiko_wrapper(
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
     KC_ESC,  __________________NUMROW_L_________________,                            __________________NUMROW_R_________________, KC_MINS,
-    KC_GRV,  __________________QWERTY_L1________________,                            __________________QWERTY_R1________________, KC_EQL,
+    ALT_TAB, __________________QWERTY_L1________________,                            __________________QWERTY_R1________________, KC_EQL,
     SFT_CAPS,__________________QWERTY_SACS_L2___________,                            __________________QWERTY_R2________________, KC_QUOT,
-    KC_LSFT, __________________QWERTY_GUIZ_L3___________, TG(_BASE_NOMOD),  KC_B,    __________________QWERTY_HOME_R3___________, RSFT_T(KC_BSLS),
+    KC_LSFT, __________________QWERTY_L3________________, KC_LGUI,           KC_B,   __________________QWERTY_HOME_R3___________, KC_BSLS,
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
-                      KC_BTN2, KC_BTN1, THUMB_L1,THUMB_L2,THUMB_L3,         THUMB_R3,THUMB_R2,THUMB_R1,KC_LBRC, KC_RBRC
+                      TG(_ONEHAND), TG(_BASE_NOMOD), THUMB_L1, THUMB_L2, THUMB_L3,         THUMB_R3,THUMB_R2,THUMB_R1, KC_LNG2, TG(_ONEHAND)
 ),
 
 [_BASE_NOMOD] = LAYOUT_kimiko_wrapper(
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
     KC_ESC,  __________________NUMROW_L_________________,                            __________________NUMROW_R_________________, _______,
-    KC_TAB,  __________________QWERTY_L1________________,                            __________________QWERTY_R1________________, _______,
-    SFT_CAPS,__________________QWERTY_L2_SFTA___________,                            __________________QWERTY_R2________________, _______,
-    KC_LSFT, __________________QWERTY_L3________________, _______,          KC_B,    __________________QWERTY_HOME_R3___________, _______,
+    ALT_TAB, __________________QWERTY_L1________________,                            __________________QWERTY_R1________________, _______,
+    KC_LSFT, __________________QWERTY_L2________________,                            __________________QWERTY_R2________________, _______,
+    KC_LGUI, __________________QWERTY_L3________________, _______,          KC_B,    __________________QWERTY_HOME_R3___________, _______,
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
-                      KC_LGUI, KC_LALT, THUMB_L1,THUMB_L2,THUMB_L3,         _______, _______, _______, _______, _______
+                      _______, _______, THUMB_L1,THUMB_L2, THUMB_L3,         _______, _______, _______, _______, _______
 ),
 
 [_IPC] = LAYOUT_kimiko_wrapper(
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
-    _______, PDF_HL,  KC_P,    KC_X,    ALT_F4,  XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MINS,
-    _______, XXXXXXX, XXXXXXX, CLASS_E, CLASS_A, KC_SLSH,                            KC_GRV,  _________NUM_789_________, KC_RBRC, KC_PLUS,
-    _______, IPC(A),  IPC(S),  IPC_MIN, IPC_COMM,KC_DOT,                             XXXXXXX, _________NUM_456_________, KC_COLN, KC_DQUO,
-    _______, IPC(Z),  HWP_CITE,IPC(C),  KC_EQL,  KC_BSLS, XXXXXXX,          KC_LBRC, KC_RBRC, _________NUM_123_________, _______, KC_PIPE,
+    _______, PDF_HL,  KC_P,    KC_X,    ALT_F4,  XXXXXXX,                                 KC_LBRC, KC_RBRC, KC_LPRN, KC_RPRN, XXXXXXX, _______,
+    _______, XXXXXXX, XXXXXXX, CLASS_E, CLASS_A, KC_SLSH,                                 KC_GRV,  _________NUM_789_________, XXXXXXX, _______,
+    _______, IPC(A),  IPC(S),  IPC_MIN, IPC(F), KC_DOT,                                   AT_IPC,  _________NUM_456_________, KC_COLN, KC_DQUO,
+    _______, IPC(Z),  HWP_CITE,IPC(C),  KC_EQL,  KC_BSLS, TO(_ONEHAND),          XXXXXXX, XXXXXXX, _________NUM_123_________, _______, KC_PIPE,
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
-                      KC_WH_D, KC_WH_U, _______, _______, _______,          _______, LT(_NAV, KC_0), _______, KC_LPRN, KC_RPRN
+                      KC_WH_U, KC_WH_D, _______, _______, _______,          _______, LT(_NAV, KC_0), _______, KC_LPRN, KC_RPRN
 ),
 
-[_NUM] = LAYOUT_kimiko_wrapper(
-// |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
-    TO_BASE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                            XXXXXXX, C(KC_7), C(KC_8), C(KC_9), XXXXXXX, XXXXXXX,
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                            XXXXXXX, C(KC_4), C(KC_5), C(KC_6), XXXXXXX, XXXXXXX,
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TO_BASE,          TO_BASE, XXXXXXX, C(KC_1), C(KC_2), C(KC_3), XXXXXXX, XXXXXXX,
-// |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
-                      KC_TRNS, KC_TRNS, _______, _______, _______,          ENT_HOME, C(KC_0), C(KC_0), KC_LPRN, KC_RPRN
-),
+// [_NUM] = LAYOUT_kimiko_wrapper(
+// // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
+//     TO_BASE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+//     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                            XXXXXXX, C(KC_7), C(KC_8), C(KC_9), XXXXXXX, XXXXXXX,
+//     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                            XXXXXXX, C(KC_4), C(KC_5), C(KC_6), XXXXXXX, XXXXXXX,
+//     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TO_BASE,          TO_BASE, XXXXXXX, C(KC_1), C(KC_2), C(KC_3), XXXXXXX, XXXXXXX,
+// // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
+//                       KC_TRNS, KC_TRNS, _______, _______, _______,          ENT_HOME, C(KC_0), C(KC_0), KC_LPRN, KC_RPRN
+// ),
 
 [_NAV] = LAYOUT_kimiko_wrapper(
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
-    _______, CTRL_F1, KC_F2,   KC_F3,   ALT_F4,   KC_F5,                             XXXXXXX, A(KC_7), A(KC_8), A(KC_9), A(KC_0), XXXXXXX,
-    _______, LCA(KC_H),LCA(KC_J),LCA(KC_K),LCA(KC_L), KC_F6,                         XXXXXXX, A(KC_4), A(KC_5), A(KC_6), XXXXXXX, XXXXXXX,
-    _______, XXXXXXX, KC_LALT, KC_LCTL, KC_LSFT,  KC_F7,                             KC_INS,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX,
-    _______, KC_LGUI, C(KC_X), C(KC_C), C(KC_V), C(KC_B), TO_BASE,          CG_TOGG, KC_APP,  KC_HOME, KC_PGDN, KC_PGUP, KC_END,  XXXXXXX,
+    _______, CTRL_F1, KC_F2,   KC_F3,   ALT_F4,   KC_F5,                             XXXXXXX, A(KC_7), A(KC_5), A(KC_9), A(KC_0), XXXXXXX,
+    LGUI(KC_TAB), NAV_NS,LCA(KC_J),LCA(KC_K),LCA(KC_L), KC_F6,                         XXXXXXX, A(KC_4), A(KC_8), A(KC_6), XXXXXXX, XXXXXXX,
+    G(C(KC_F4)), NAV_NS, KC_LALT, KC_LCTL, KC_LSFT,  KC_F7,                             KC_INS,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX,
+    G(C(KC_D)), NAV(Z), C(KC_X), C(KC_C), C(KC_V), C(KC_B), TO(_ONEHAND),      XXXXXXX, KC_APP,  KC_HOME, KC_PGDN, KC_PGUP, KC_END,  XXXXXXX,
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
-                      _______, _______, _______, KC_BSPC, KC_DEL,           _______, KC_TRNS, _______, _______, _______
+                      G(C(KC_LEFT)), G(C(KC_RGHT)), _______, KC_BSPC, KC_DEL,           _______, KC_TRNS, _______, _______, _______
 ),
 
 [_MOUSE] = LAYOUT_kimiko_wrapper(
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
     _______, CTRL_F1, KC_F2,   KC_F3,   ALT_F4,  KC_F5,                              KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   QK_BOOT,
-    KC_U,    XXXXXXX, KC_WH_D, KC_MS_U, KC_WH_U, XXXXXXX,                            XXXXXXX,  KC_ACL2, XXXXXXX, XXXXXXX, XXXXXXX, QK_MAKE,
-    KC_P,    KC_LSFT, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX,                            XXXXXXX,  KC_ACL0, KC_BTN1, KC_BTN2, KC_BTN3, KC_ENT,
+    KC_U,    XXXXXXX, KC_WH_D, KC_MS_U, KC_WH_U, KC_F6,                            XXXXXXX,  KC_ACL2, XXXXXXX, XXXXXXX, XXXXXXX, QK_MAKE,
+    KC_P,    KC_LSFT, KC_MS_L, KC_MS_D, KC_MS_R, KC_F7,                            XXXXXXX,  KC_ACL0, KC_BTN1, KC_BTN2, KC_BTN3, KC_ENT,
     KC_X,    KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, BOLDFACE,TO_BASE,          XXXXXXX, KC_APP,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX,
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
                       _______, _______, KC_LCTL, KC_SPC,  KC_ENT,           KC_TRNS, _______, _______, _______, _______
@@ -92,12 +92,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_ONEHAND] = LAYOUT_kimiko_wrapper(
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
-    KC_ESC,  C(KC_F1),XXXXXXX, XXXXXXX, A(KC_F4),XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    KC_TAB,  XXXXXXX, KC_WH_U, TO_BASE, KC_BTN2, XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, KC_LSFT, KC_WH_D, KC_UP,   KC_BTN1, KC_BSPC,                            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, KC_LSFT, KC_LEFT, KC_DOWN, KC_RGHT, KC_DEL,  TO_BASE,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    KC_ESC,  C(KC_F1),XXXXXXX, TO_BASE, A(KC_F4),XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    ALT_TAB, XXXXXXX, KC_BTN2, KC_UP, KC_BTN1, XXXXXXX,                            XXXXXXX, XXXXXXX, KC_MS_U, XXXXXXX, XXXXXXX, XXXXXXX,
+    G(KC_UP), G(KC_LEFT),KC_LEFT, KC_DOWN, KC_RGHT, KC_BSPC,                            XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, XXXXXXX,
+    _______, A(KC_F4), KC_BTN2, KC_BTN1, KC_BTN4, KC_ENT,  TO_BASE,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
-                      KC_LGUI, KC_LALT, KC_LCTL, KC_SPC,  KC_ENT,           _______, _______, _______, _______, _______
+                      _______, _______, THUMB_L1, KC_LSFT, KC_BTN4,           _______, _______, _______, _______, _______
 ),
 
 [_SETTINGS] = LAYOUT(
@@ -116,32 +116,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //clang-format on
 //keyboard-specific process
 // COMBOS
-enum combos {
-    COMBO_ONEHAND,
-    COMBO_ONEHAND_END,
-    COMBO_LENGTH
-};
-uint16_t COMBO_LEN = COMBO_LENGTH;
-const uint16_t PROGMEM onehand_combo[]      = {KC_W, KC_E, COMBO_END};
-const uint16_t PROGMEM onehand_end_combo[]  = {KC_BTN2, KC_UP, COMBO_END};
-// const uint16_t PROGMEM shift_T[] = {KC_A, KC_T, COMBO_END};
+// enum combos {
+//     COMBO_ONEHAND,
+//     COMBO_ONEHAND_END,
+//     COMBO_LENGTH
+// };
+// uint16_t COMBO_LEN = COMBO_LENGTH;
+// const uint16_t PROGMEM onehand_combo[]      = {KC_W, KC_E, COMBO_END};
+// const uint16_t PROGMEM onehand_end_combo[]  = {KC_BTN2, KC_UP, COMBO_END};
+// // const uint16_t PROGMEM shift_T[] = {KC_A, KC_T, COMBO_END};
 
-combo_t key_combos[] = {
-    [COMBO_ONEHAND]     = COMBO(onehand_combo, TO(_ONEHAND)),
-    [COMBO_ONEHAND_END] = COMBO(onehand_end_combo,TO(_BASE)),
-    // [SHIFT_T]   = COMBO(shift_T,S(KC_T)),
-};
+// combo_t key_combos[] = {
+//     [COMBO_ONEHAND]     = COMBO(onehand_combo, TO(_ONEHAND)),
+//     [COMBO_ONEHAND_END] = COMBO(onehand_end_combo,TO(_BASE)),
+//     // [SHIFT_T]   = COMBO(shift_T,S(KC_T)),
+// };
 // COMBO_TERM
 
-// Key overrides
-const key_override_t DLR_0_override     = ko_make_basic(MOD_MASK_SHIFT, KC_DLR, KC_0);
-const key_override_t DEL_override       = ko_make_basic(MOD_MASK_SHIFT, KC_DEL, KC_BSPC);
+// // Key overrides
+// const key_override_t DLR_0_override     = ko_make_basic(MOD_MASK_SHIFT, KC_DLR, KC_0);
+// const key_override_t DEL_override       = ko_make_basic(MOD_MASK_SHIFT, KC_DEL, KC_BSPC);
 
-const key_override_t **key_overrides = (const key_override_t *[]){                              // This globally defines all key overrides to be used
-    &DLR_0_override,
-    &DEL_override,
-    NULL                                                                                        // Null terminate the array of overrides!
- };
+// const key_override_t **key_overrides = (const key_override_t *[]){                              // This globally defines all key overrides to be used
+//     &DLR_0_override,
+//     &DEL_override,
+//     NULL                                                                                        // Null terminate the array of overrides!
+//  };
 
 // //RGBLIGHT LAYERS
 // // Light LEDs 6 to 9 and 12 to 15 red when caps lock is active. Hard to ignore!

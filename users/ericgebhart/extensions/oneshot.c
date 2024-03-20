@@ -50,7 +50,7 @@ static int8_t        set_modifier_state_all(oneshot_state new_state);
 static void          set_modifier_state_all_from_to(oneshot_state oneshot_state_from, oneshot_state oneshot_state_to);
 static bool          all_modifiers_are_off(void);
 
-int8_t turnoff_oneshot_modifiers() {
+int8_t turnoff_oneshot_modifiers(void) {
     return set_modifier_state_all(ONESHOT_STATE_OFF);
 }
 
@@ -163,7 +163,7 @@ void set_modifier_state_all_from_to(oneshot_state oneshot_state_from, oneshot_st
     }
 }
 
-bool all_modifiers_are_off() {
+bool all_modifiers_are_off(void) {
     for (int8_t i = 0; i < ONESHOT_MOD_COUNT; i++) {
         if (modifiers_with_state[i] != ONESHOT_STATE_OFF) {
             return false;

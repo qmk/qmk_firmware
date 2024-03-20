@@ -17,9 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 14
-
 #define MATRIX_ROW_PINS { B0, B1, B2, B3, B4, B5 }
 #define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6, C5, C4, C3, C2 }
 
@@ -36,6 +33,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-
-#define BACKLIGHT_PIN D4
-#define BACKLIGHT_LEVELS 3

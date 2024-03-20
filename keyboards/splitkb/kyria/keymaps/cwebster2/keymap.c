@@ -252,7 +252,7 @@ bool led_update_user(led_t led_state) {
 #endif
 
 #ifdef OLED_ENABLE
-void suspend_power_down_user() {
+void suspend_power_down_user(void) {
     oled_clear();
     oled_off();
 }

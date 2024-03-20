@@ -18,7 +18,7 @@
 static td_state_t td_state[3];
 
 // determine the tapdance state to return
-int cur_dance(qk_tap_dance_state_t *state) {
+int cur_dance(tap_dance_state_t *state) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) {
             return SINGLE_TAP;
@@ -33,7 +33,7 @@ int cur_dance(qk_tap_dance_state_t *state) {
     }  // any number higher than the maximum state value you return above
 }
 
-void altf2_finished(qk_tap_dance_state_t *state, void *user_data) {
+void altf2_finished(tap_dance_state_t *state, void *user_data) {
     td_state[0] = cur_dance(state);
     switch (td_state[0]) {
         case SINGLE_TAP:
@@ -49,7 +49,7 @@ void altf2_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void altf2_reset(qk_tap_dance_state_t *state, void *user_data) {
+void altf2_reset(tap_dance_state_t *state, void *user_data) {
     switch (td_state[0]) {
         case SINGLE_TAP:
             unregister_code(KC_F2);
@@ -65,7 +65,7 @@ void altf2_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 
-void ctlf5_finished(qk_tap_dance_state_t *state, void *user_data) {
+void ctlf5_finished(tap_dance_state_t *state, void *user_data) {
     td_state[1] = cur_dance(state);
     switch (td_state[1]) {
         case SINGLE_TAP:
@@ -81,7 +81,7 @@ void ctlf5_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void ctlf5_reset(qk_tap_dance_state_t *state, void *user_data) {
+void ctlf5_reset(tap_dance_state_t *state, void *user_data) {
     switch (td_state[1]) {
         case SINGLE_TAP:
             unregister_code(KC_F5);
@@ -96,7 +96,7 @@ void ctlf5_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void altf7_finished(qk_tap_dance_state_t *state, void *user_data) {
+void altf7_finished(tap_dance_state_t *state, void *user_data) {
     td_state[2] = cur_dance(state);
     switch (td_state[2]) {
         case SINGLE_TAP:
@@ -112,7 +112,7 @@ void altf7_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void altf7_reset(qk_tap_dance_state_t *state, void *user_data) {
+void altf7_reset(tap_dance_state_t *state, void *user_data) {
     switch (td_state[2]) {
         case SINGLE_TAP:
             unregister_code(KC_F7);
@@ -127,7 +127,7 @@ void altf7_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [ALT_F2]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, altf2_finished, altf2_reset),
     [CTL_F5]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctlf5_finished, ctlf5_reset),
     [ALT_F7]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, altf7_finished, altf7_reset),

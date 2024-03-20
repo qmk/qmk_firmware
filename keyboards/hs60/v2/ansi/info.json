@@ -8,6 +8,10 @@
     "pid": "0x4854",
     "device_version": "0.0.2"
   },
+  "processor": "STM32F303",
+  "bootloader": "stm32-dfu",
+  "board": "QMK_PROTON_C",
+  "community_layouts": ["60_ansi"],
   "layouts": {
     "LAYOUT_60_ansi": {
       "layout": [

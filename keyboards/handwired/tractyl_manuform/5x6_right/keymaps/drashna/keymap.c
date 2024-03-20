@@ -130,25 +130,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                      _______, _______,      KC_NUKE, _______
     ),
 };
-
+// clang-format on
 
 #ifdef ENCODER_ENABLE
-#ifdef ENCODER_MAP_ENABLE
+#    ifdef ENCODER_MAP_ENABLE
+// clang-format off
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [_DEFAULT_LAYER_1] = { { KC_VOLD, KC_VOLU }, { KC_WH_D, KC_WH_U } },
-    [_DEFAULT_LAYER_2] = { { _______, _______ }, { _______, _______ } },
-    [_DEFAULT_LAYER_3] = { { _______, _______ }, { _______, _______ } },
-    [_DEFAULT_LAYER_4] = { { _______, _______ }, { _______, _______ } },
-    [_GAMEPAD]         = { { _______, _______ }, { _______, _______ } },
-    [_DIABLO]          = { { _______, _______ }, { _______, _______ } },
-    [_MOUSE]           = { { _______, _______ }, { KC_WH_D, KC_WH_U } },
-    [_MEDIA]           = { { _______, _______ }, { _______, _______ } },
-    [_RAISE]           = { { _______, _______ }, { KC_PGDN, KC_PGUP } },
-    [_LOWER]           = { { RGB_MOD, RGB_RMOD}, { RGB_HUD, RGB_HUI } },
-    [_ADJUST]          = { { CK_DOWN, CK_UP   }, { _______, _______ } },
+    [_DEFAULT_LAYER_1] = { ENCODER_CCW_CW( KC_VOLD, KC_VOLU ), ENCODER_CCW_CW( KC_WH_D, KC_WH_U ) },
+    [_DEFAULT_LAYER_2] = { ENCODER_CCW_CW( _______, _______ ), ENCODER_CCW_CW( _______, _______ ) },
+    [_DEFAULT_LAYER_3] = { ENCODER_CCW_CW( _______, _______ ), ENCODER_CCW_CW( _______, _______ ) },
+    [_DEFAULT_LAYER_4] = { ENCODER_CCW_CW( _______, _______ ), ENCODER_CCW_CW( _______, _______ ) },
+    [_GAMEPAD]         = { ENCODER_CCW_CW( _______, _______ ), ENCODER_CCW_CW( _______, _______ ) },
+    [_DIABLO]          = { ENCODER_CCW_CW( _______, _______ ), ENCODER_CCW_CW( _______, _______ ) },
+    [_MOUSE]           = { ENCODER_CCW_CW( _______, _______ ), ENCODER_CCW_CW( KC_WH_D, KC_WH_U ) },
+    [_MEDIA]           = { ENCODER_CCW_CW( _______, _______ ), ENCODER_CCW_CW( _______, _______ ) },
+    [_RAISE]           = { ENCODER_CCW_CW( _______, _______ ), ENCODER_CCW_CW( KC_PGDN, KC_PGUP ) },
+    [_LOWER]           = { ENCODER_CCW_CW( RGB_MOD, RGB_RMOD), ENCODER_CCW_CW( RGB_HUD, RGB_HUI ) },
+    [_ADJUST]          = { ENCODER_CCW_CW( CK_DOWN, CK_UP   ), ENCODER_CCW_CW( _______, _______ ) },
 };
 // clang-format on
-#else
+#    else
 
 deferred_token encoder_token  = INVALID_DEFERRED_TOKEN;
 static int8_t  last_direction = -1;
@@ -160,11 +161,11 @@ static uint32_t encoder_callback(uint32_t trigger_time, void *cb_arg) {
 }
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
-#    ifdef SWAP_HANDS_ENABLE
+#        ifdef SWAP_HANDS_ENABLE
     if (swap_hands) {
         index ^= 1;
     }
-#    endif
+#        endif
     if (index == 0) {
         tap_code_delay(clockwise ? KC_VOLD : KC_VOLU, 5);
     } else if (index == 1) {
@@ -185,7 +186,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     }
     return false;
 }
-#endif
+#    endif
 #endif
 
 #ifdef OLED_ENABLE
@@ -213,5 +214,9 @@ void oled_render_large_display(bool side) {
 
         render_unicode_mode(1, 14);
     }
+}
+
+void render_oled_title(bool side) {
+    oled_write_P(side ? PSTR("   Tractyl   ") : PSTR("   Manuform  "), true);
 }
 #endif

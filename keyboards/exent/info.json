@@ -8,6 +8,17 @@
         "pid": "0x4558",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "D4"
+    },
+    "indicators": {
+        "caps_lock": "D1",
+        "num_lock": "D0",
+        "scroll_lock": "D6"
+    },
+    "processor": "atmega32a",
+    "bootloader": "bootloadhid",
+    "community_layouts": ["65_ansi", "65_iso"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

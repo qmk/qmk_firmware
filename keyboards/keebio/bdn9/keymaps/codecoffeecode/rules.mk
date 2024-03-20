@@ -1,4 +1,4 @@
 MOUSEKEY_ENABLE = yes
 ifneq (, $(findstring rev1, $(KEYBOARD)))
-  CTPC = yes
+  CONVERT_TO=proton_c
 endif

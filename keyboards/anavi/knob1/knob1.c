@@ -1,7 +1,7 @@
 // Copyright 2022 Leon Anavi <leon@anavi.org>
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "encoder.h"
+#include "quantum.h"
 #include <stdio.h>
 
 void keyboard_post_init_kb(void) {

@@ -7,6 +7,22 @@
         "pid": "0x0000",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "E6", "pin_b": "B4"}
+        ]
+    },
+    "split": {
+        "encoder": {
+            "right": {
+                "rotary": [
+                    {"pin_a": "B4", "pin_b": "E6"}
+                ]
+            }
+        }
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

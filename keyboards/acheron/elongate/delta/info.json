@@ -8,6 +8,14 @@
         "pid": "0x454D",
         "device_version": "0.0.2"
     },
+    "backlight": {
+        "pin": "A6",
+        "levels": 20,
+        "breathing": true,
+        "breathing_period": 3
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

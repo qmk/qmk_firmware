@@ -8,6 +8,11 @@
         "pid": "0x4000",
         "device_version": "0.0.1"
     },
+    "split": {
+        "soft_serial_pin": "D2"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [{"label":"Esc", "x":0, "y":0}, {"label":"Q", "x":1, "y":0}, {"label":"W", "x":2, "y":0}, {"label":"E", "x":3, "y":0}, {"label":"R", "x":4, "y":0}, {"label":"T", "x":5, "y":0}, {"label":"Y", "x":7.25, "y":0}, {"label":"U", "x":8.25, "y":0}, {"label":"I", "x":9.25, "y":0}, {"label":"O", "x":10.25, "y":0}, {"label":"P", "x":11.25, "y":0}, {"label":"{", "x":12.25, "y":0}, {"label":"}", "x":13.25, "y":0}, {"label":"Back<br>Space", "x":14.25, "y":0}, {"label":"Tab", "x":0, "y":1, "w":1.25}, {"label":"A", "x":1.25, "y":1}, {"label":"S", "x":2.25, "y":1}, {"label":"D", "x":3.25, "y":1}, {"label":"F", "x":4.25, "y":1}, {"label":"G", "x":5.25, "y":1}, {"label":"H", "x":7.5, "y":1}, {"label":"J", "x":8.5, "y":1}, {"label":"K", "x":9.5, "y":1}, {"label":"L", "x":10.5, "y":1}, {"label":":", "x":11.5, "y":1}, {"label":"\"", "x":12.5, "y":1}, {"label":"Enter", "x":13.5, "y":1, "w":1.75}, {"label":"Shift", "x":0, "y":2, "w":1.75}, {"label":"Z", "x":1.75, "y":2}, {"label":"X", "x":2.75, "y":2}, {"label":"C", "x":3.75, "y":2}, {"label":"V", "x":4.75, "y":2}, {"label":"B", "x":5.75, "y":2}, {"label":"N", "x":8, "y":2}, {"label":"M", "x":9, "y":2}, {"label":"<", "x":10, "y":2}, {"label":">", "x":11, "y":2}, {"label":"?", "x":12, "y":2}, {"label":"Shift", "x":13, "y":2, "w":1.25}, {"label":"Fn", "x":14.25, "y":2}, {"label":"Opt", "x":1.5, "y":3}, {"label":"Command", "x":2.5, "y":3, "w":1.5}, {"label":"", "x":4, "y":3, "w":2.25}, {"label":"", "x":7.5, "y":3, "w":2.75}, {"label":"Command", "x":10.25, "y":3, "w":1.5}, {"label":"Opt", "x":11.75, "y":3}]

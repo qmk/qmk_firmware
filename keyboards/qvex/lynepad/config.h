@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 3
-#define MATRIX_COLS 4
 
 /* Basic matrix config */
 #define MATRIX_ROW_PINS { C7, F7, F6}
@@ -29,10 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Encoders */
-#define ENCODERS_PAD_A { D0, B5 }
-#define ENCODERS_PAD_B { D1, D6 }
 
 /* LEDs */
 #define RGB_DI_PIN D3

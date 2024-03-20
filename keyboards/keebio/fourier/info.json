@@ -8,6 +8,17 @@
         "pid": "0x1247",
         "device_version": "1.0.0"
     },
+    "qmk_lufa_bootloader": {
+        "esc_input": "F4",
+        "esc_output": "F5",
+        "led": "B0",
+        "speaker": "C6"
+    },
+    "split": {
+        "soft_serial_pin": "D0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

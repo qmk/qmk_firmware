@@ -8,6 +8,12 @@
         "pid": "0x0650",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "B1",
+        "levels": 5
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_65_7u_split_bs": "LAYOUT_65_ansi_blocker_tsangan_split_bs",
         "LAYOUT_all": "LAYOUT_65_ansi_blocker_split_bs",

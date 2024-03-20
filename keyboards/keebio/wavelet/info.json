@@ -8,6 +8,13 @@
     "pid": "0x1046",
     "device_version": "1.0.0"
   },
+  "backlight": {
+    "pin": "B5",
+    "levels": 7
+  },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
+  "community_layouts": ["ortho_4x12"],
   "layouts": {
     "LAYOUT": {
       "layout": [

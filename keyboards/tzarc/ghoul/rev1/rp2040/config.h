@@ -2,8 +2,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 #pragma once
 
-#include "config_common.h"
-
 // Matrix configuration
 #define SPI_MATRIX_CHIP_SELECT_PIN GP21
 #define SPI_MATRIX_DIVISOR 16
@@ -28,8 +26,8 @@
 #define RGB_ENABLE_PIN GP6
 
 // ADC Configuration
-#define ADC_RESOLUTION ? ? ? // ADC_CFGR1_RES_12BIT // TBD when RP2040 has analog support
-#define ADC_SATURATION ? ? ? // ((1 << 12) - 1) // TBD when RP2040 has analog support
+#define ADC_RESOLUTION 12
+#define ADC_SATURATION ((1 << 12) - 1)
 #define ADC_CURRENT_PIN GP26
 #define ADC_VOLTAGE_PIN GP27
 

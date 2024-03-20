@@ -8,6 +8,13 @@
         "pid": "0x1805",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "E0", "pin_b": "E1"}
+        ]
+    },
+    "processor": "at90usb1286",
+    "bootloader": "halfkay",
     "layouts": {
         "LAYOUT": {
             "layout": [

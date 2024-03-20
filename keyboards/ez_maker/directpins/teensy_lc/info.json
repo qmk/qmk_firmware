@@ -2,7 +2,6 @@
     "manufacturer": "Zach White",
     "keyboard_name": "DirectPins Teensy LC",
     "maintainer": "skullydazed",
-    "debounce": 5,
     "processor": "MKL26Z64",
     "bootloader": "halfkay",
     "features": {

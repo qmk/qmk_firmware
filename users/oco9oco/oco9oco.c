@@ -12,7 +12,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "oco9oco.h"
-//test commit
+
+bool is_alt_tab_active = false; // ADD this near the beginning of keymap.c
+uint16_t alt_tab_timer = 0;     // we will be using them soon.
+
 void appcmd(uint16_t keycode) {
     tap_code(KC_APP);
     tap_code(keycode);
@@ -39,8 +42,8 @@ void appcmd(uint16_t keycode) {
 // process_record_user
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case LT(_IPC, KC_BSPC):
-        case LT(_NUM, KC_DEL):
+        case THUMB_L2:
+        case THUMB_L3:
             if (__PRESSED__) {
                 prns_pressed = false;
                 brkt_pressed = false;
@@ -66,14 +69,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     tap_code(KC_BSPC);
                     tap_code(KC_BSPC);
                     tap_code(KC_BSPC);
+                    tap_code(KC_BSPC);
+                    tap_code(KC_BSPC);
+                    if(switch_cite ==0){
+                        tap_code(KC_BSPC);
+                        tap_code(KC_BSPC);
+                        tap_code(KC_BSPC);
+                    }
                 }
                 switch (switch_cite) {
                     case 0:
-                        SEND_STRING("A62B");
+                        SEND_STRING("A62B18");
                         switch_cite = 1;
                         break;
-                    case 1:
-                        SEND_STRING("A41D");
+                        case 1:
+                        SEND_STRING("A62B23");
+                        switch_cite = 2;
+                        break;
+                    case 2:
+                        SEND_STRING("A41D13/11");
                         switch_cite = 0;
                         break;
                 }
@@ -99,11 +113,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         switch_cite = 2;
                         break;
                     case 2:
-                        SEND_STRING("E05G");
+                        SEND_STRING("E06B");
                         switch_cite = 3;
                         break;
                     case 3:
-                        SEND_STRING("E06B");
+                        SEND_STRING("E05G");
                         switch_cite = 0;
                         break;
                 }
@@ -214,12 +228,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // Intercept mod-tap
         case IPC(A):
             if (__TAPPED__ && __PRESSED__) {
-                SEND_STRING(SS_TAP(X_LNG1) SS_TAP(X_A) SS_TAP(X_LNG1));
-                // tap_code(KC_A);
+                if(!cite_done){tap_code(KC_BSPC);}
+                    switch (switch_cite){
+                    case 0:
+                    SEND_STRING(SS_TAP(X_LNG1) SS_TAP(X_A) SS_TAP(X_LNG1));
+                    switch_cite = 1;
+                    break;
+                    case 1:
+                    SEND_STRING(SS_TAP(X_LNG1) SS_TAP(X_B) SS_TAP(X_LNG1));
+                    switch_cite = 2;
+                    break;
+                    case 2:
+                    SEND_STRING(SS_TAP(X_LNG1) SS_TAP(X_C) SS_TAP(X_LNG1));
+                    switch_cite = 3;
+                    break;
+                    case 3:
+                    SEND_STRING(SS_TAP(X_LNG1) SS_TAP(X_D) SS_TAP(X_LNG1));
+                    switch_cite = 0;
+                    break;
+                    }
             } else if (__PRESSED__) {
                 register_code(KC_LSFT);
             } else {
                 unregister_code(KC_LSFT);
+                cite_done=false;
             }
             return false;
             break;
@@ -277,6 +309,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
             break;
 
+        case SFT_CAPS:
+            if (__TAPPED__ && __PRESSED__) {
+                tap_code16(KC_CAPS);
+            } else if (__PRESSED__) {
+                register_code(KC_BTN4);
+            } else {
+                unregister_code(KC_BTN4);
+            }
+            return false;
+            break;
+
+#ifdef __SCROLL_THUMB__
+        case THUMB_L3:
+            if (__TAPPED__ && __PRESSED__) {
+                tap_code16(KC_DEL);
+            } else if (__PRESSED__) {
+                register_code(KC_BTN4);
+            } else {
+                unregister_code(KC_BTN4);
+            }
+            return false;
+            break;
+#endif
         // CLOSING BRACKET PAIRS
         case BRKT:
             if (__PRESSED__) {
@@ -317,14 +372,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             //         SEND_STRING(SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_SLSH) SS_TAP(X_RGHT) SS_TAP(X_RGHT));
             //     }
             //     break;
+        case NAV_NS:
+            if(__PRESSED__){
+                tap_code16(LCA(KC_J));
+                tap_code16(LCA(KC_H));
+            }
+            break;
+
+        case ALT_TAB:
+            if (record->event.pressed) {
+                if (!is_alt_tab_active) {
+                    is_alt_tab_active = true;
+                    register_code(KC_LALT);
+                }
+                alt_tab_timer = timer_read();
+                register_code(KC_TAB);
+            } else {
+                unregister_code(KC_TAB);
+            }
+            break;
+
+
     }
     return true;
+
 };
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case GUIT_Z:
-            return TAPPING_TERM + 200;
+            return TAPPING_TERM + 500;
         case THUMB_L2:
         case SFTT_A:
             return TAPPING_TERM - 170;
@@ -342,53 +419,47 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 // Get hold on other key press
-bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+bool get_permissive_hold(uint16_t keycode, keyrecord_t *record){
     switch (keycode) {
-        case SFT_CAPS:
-            // case SFTT_A:
-            return true;
         default:
             return false;
     }
 }
-// Ignore mod tap interrupt
-bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case NAV(Z):
+//        case LSFT_T(KC_W):
+        case IPC(Z):
+        case THUMB_L1:
+//        case THUMB_L2:
         case THUMB_L3:
-        case THUMB_R2:
+        case THUMB_R1:
         case THUMB_R3:
-        case LSFT_T(KC_Q):
-        case SFTT_A:
-        case SFTT_Z:
-        case GUIT_Z:
-        case SFTT_F:
-        case SFTT_J:
-        case ALTT_S:
-        case CTLT_D:
-        case GUIT_SCL:
-        case ALTT_L:
-        case CTLT_K:
-        case GUIT_A:
-        case LT(_NAV, KC_0):
-        case IPC_COMM:
         case SFT_CAPS:
-        case SFTT_M:
-        case CTL_CL:
-        case ALT_DT:
-        case GUI_SLSH:
+        // case SFTT_A:
+        // case SFTT_Z:
+        // case GUIT_Z:
+        // case SFTT_F:
+        // case SFTT_J:
+        // case ALTT_S:
+        // case CTLT_D:
+        // case GUIT_SCL:
+        // case ALTT_L:
+        // case CTLT_K:
+        // case GUIT_A:
+        // case LT(_NAV, KC_0):
+        // case IPC_COMM:
             return true;
         default:
             return false;
     }
 }
 
-bool get_permissive_hold_per_key(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case THUMB_L2:
-        case SFT_CAPS:
-            return true; // KEY_ROW, KEY_COL: look for oco9oco.h
-        default:
-            return false;
+
+void matrix_scan_user(void) { // The very important timer.
+  if (is_alt_tab_active) {
+    if (timer_elapsed(alt_tab_timer) > 1000) {
+      unregister_code(KC_LALT);
+      is_alt_tab_active = false;
     }
+  }
 }

@@ -32,7 +32,7 @@ enum avenue_tapcodes {
   TD_DBQT,
 };
 
-void dance_rst_reset (qk_tap_dance_state_t *state, void *user_data) { // *Line_Note.001
+void dance_rst_reset (tap_dance_state_t *state, void *user_data) { // *Line_Note.001
   if (state->count >= 2) {
     reset_keyboard();
     reset_tap_dance(state);
@@ -40,7 +40,7 @@ void dance_rst_reset (qk_tap_dance_state_t *state, void *user_data) { // *Line_N
 }
 
 //Tap Dance Functions:
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
  [TD_RST] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, NULL, dance_rst_reset), // References "dance_rst_reset" (*Line_Note.001)
  [TD_DBQT] = ACTION_TAP_DANCE_DOUBLE (KC_QUOTE, KC_DQT)
 };

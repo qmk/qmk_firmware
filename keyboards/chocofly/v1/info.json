@@ -8,6 +8,13 @@
         "pid": "0x1001",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D3", "pin_b": "D2", "resolution": 2}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

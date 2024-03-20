@@ -6,6 +6,14 @@
         "pid": "0x3537",
         "device_version": "0.0.1"
     },
+    "split": {
+        "soft_serial_pin": "D3",
+        "bootmagic": {
+            "matrix": [4, 5]
+        }
+    },
+    "processor": "at90usb1286",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_4x6_right": {
             "layout": [

@@ -2554,9 +2554,7 @@ static void gpt_backlight_timer_task(GPTDriver *gptp)
 
     if ( ! suspend_backlight )
     {
-#if !defined(RGB_BACKLIGHT_M6_B) && !defined(RGB_BACKLIGHT_M10_C)
         backlight_effect_indicators();
-#endif
     }
 }
 
@@ -3426,3 +3424,14 @@ void backlight_debug_led( bool state )
     }
 }
 #endif // defined(RGB_DEBUGGING_ONLY)
+
+void backlight_device_indication(uint8_t value)
+{
+    static uint8_t current_effect = 0;
+    static uint8_t alternate_effect = 0;
+    if ( value == 0 ) {
+        current_effect = g_config.effect;
+        alternate_effect = g_config.effect > 0 ? 0 : 1;
+    }
+    g_config.effect = value % 2 == 0 ? alternate_effect : current_effect;
+}

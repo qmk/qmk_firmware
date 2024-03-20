@@ -8,6 +8,11 @@
         "pid": "0x0652",
         "device_version": "1.0.0"
     },
+    "indicators": {
+        "caps_lock": "A8"
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

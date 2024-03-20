@@ -1,5 +1,7 @@
 {
     "usb": {
         "pid": "0x565F"
-    }
+    },
+    "processor": "atmega32u4",
+    "bootloader": "halfkay"
 }

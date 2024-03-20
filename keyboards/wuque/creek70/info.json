@@ -42,7 +42,8 @@
     "device_version": "0.0.1"
   },
   "indicators": {
-    "caps_lock": "F6"
+    "caps_lock": "F6",
+    "on_state": 0
   },
   "layouts": {
     "LAYOUT": {

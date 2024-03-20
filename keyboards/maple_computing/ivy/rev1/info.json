@@ -8,6 +8,11 @@
         "pid": "0x6012",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "D2"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

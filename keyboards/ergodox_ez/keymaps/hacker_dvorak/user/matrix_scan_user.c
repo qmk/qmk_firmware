@@ -1,5 +1,3 @@
-#include "../leader/leader_setup.c"
-
 bool MATRIX_SCANNED = false;
 
 void matrix_scan_user(void) {
@@ -7,6 +5,16 @@ void matrix_scan_user(void) {
         rgblight_sethsv_noeeprom(HSV_GREEN);
         MATRIX_SCANNED = true;
     }
-
-    #include "../leader/leader_dictionary.c"
 };
+
+void leader_end_user(void) {
+    if (leader_sequence_one_key(TD(APMR_PIPE))) {
+        register_code(KC_LCTL);
+        register_code(KC_LSFT);
+        register_code(KC_U);
+
+        unregister_code(KC_U);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LCTL);
+    }
+}

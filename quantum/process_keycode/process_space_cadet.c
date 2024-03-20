@@ -89,16 +89,16 @@ void perform_space_cadet(keyrecord_t *record, uint16_t sc_keycode, uint8_t holdM
 #ifdef SPACE_CADET_MODIFIER_CARRYOVER
         sc_mods = get_mods();
 #endif
-        if (IS_MOD(holdMod)) {
+        if (IS_MODIFIER_KEYCODE(holdMod)) {
             register_mods(MOD_BIT(holdMod));
         }
     } else {
         if (sc_last == holdMod && timer_elapsed(sc_timer) < GET_TAPPING_TERM(sc_keycode, record)) {
             if (holdMod != tapMod) {
-                if (IS_MOD(holdMod)) {
+                if (IS_MODIFIER_KEYCODE(holdMod)) {
                     unregister_mods(MOD_BIT(holdMod));
                 }
-                if (IS_MOD(tapMod)) {
+                if (IS_MODIFIER_KEYCODE(tapMod)) {
                     register_mods(MOD_BIT(tapMod));
                 }
             }
@@ -109,11 +109,11 @@ void perform_space_cadet(keyrecord_t *record, uint16_t sc_keycode, uint8_t holdM
 #ifdef SPACE_CADET_MODIFIER_CARRYOVER
             clear_weak_mods();
 #endif
-            if (IS_MOD(tapMod)) {
+            if (IS_MODIFIER_KEYCODE(tapMod)) {
                 unregister_mods(MOD_BIT(tapMod));
             }
         } else {
-            if (IS_MOD(holdMod)) {
+            if (IS_MODIFIER_KEYCODE(holdMod)) {
                 unregister_mods(MOD_BIT(holdMod));
             }
         }

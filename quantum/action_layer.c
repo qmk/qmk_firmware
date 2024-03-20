@@ -1,12 +1,6 @@
 #include <limits.h>
 #include <stdint.h>
 
-#ifdef DEBUG_ACTION
-#    include "debug.h"
-#else
-#    include "nodebug.h"
-#endif
-
 #include "keyboard.h"
 #include "keymap.h"
 #include "action.h"
@@ -39,12 +33,12 @@ __attribute__((weak)) layer_state_t default_layer_state_set_kb(layer_state_t sta
  */
 static void default_layer_state_set(layer_state_t state) {
     state = default_layer_state_set_kb(state);
-    debug("default_layer_state: ");
+    ac_dprintf("default_layer_state: ");
     default_layer_debug();
-    debug(" to ");
+    ac_dprintf(" to ");
     default_layer_state = state;
     default_layer_debug();
-    debug("\n");
+    ac_dprintf("\n");
 #if defined(STRICT_LAYER_RELEASE)
     clear_keyboard_but_mods(); // To avoid stuck keys
 #elif defined(SEMI_STRICT_LAYER_RELEASE)
@@ -57,7 +51,7 @@ static void default_layer_state_set(layer_state_t state) {
  * Print out the hex value of the 32-bit default layer state, as well as the value of the highest bit.
  */
 void default_layer_debug(void) {
-    dprintf("%08lX(%u)", default_layer_state, get_highest_layer(default_layer_state));
+    ac_dprintf("%08hX(%u)", default_layer_state, get_highest_layer(default_layer_state));
 }
 
 /** \brief Default Layer Set
@@ -119,12 +113,12 @@ __attribute__((weak)) layer_state_t layer_state_set_kb(layer_state_t state) {
  */
 void layer_state_set(layer_state_t state) {
     state = layer_state_set_kb(state);
-    dprint("layer_state: ");
+    ac_dprintf("layer_state: ");
     layer_debug();
-    dprint(" to ");
+    ac_dprintf(" to ");
     layer_state = state;
     layer_debug();
-    dprintln();
+    ac_dprintf("\n");
 #    if defined(STRICT_LAYER_RELEASE)
     clear_keyboard_but_mods(); // To avoid stuck keys
 #    elif defined(SEMI_STRICT_LAYER_RELEASE)
@@ -218,7 +212,7 @@ void layer_xor(layer_state_t state) {
  * Print out the hex value of the 32-bit layer state, as well as the value of the highest bit.
  */
 void layer_debug(void) {
-    dprintf("%08lX(%u)", layer_state, get_highest_layer(layer_state));
+    ac_dprintf("%08hX(%u)", layer_state, get_highest_layer(layer_state));
 }
 #endif
 
@@ -355,3 +349,15 @@ uint8_t layer_switch_get_layer(keypos_t key) {
 action_t layer_switch_get_action(keypos_t key) {
     return action_for_key(layer_switch_get_layer(key), key);
 }
+
+#ifndef NO_ACTION_LAYER
+layer_state_t update_tri_layer_state(layer_state_t state, uint8_t layer1, uint8_t layer2, uint8_t layer3) {
+    layer_state_t mask12 = ((layer_state_t)1 << layer1) | ((layer_state_t)1 << layer2);
+    layer_state_t mask3  = (layer_state_t)1 << layer3;
+    return (state & mask12) == mask12 ? (state | mask3) : (state & ~mask3);
+}
+
+void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
+    layer_state_set(update_tri_layer_state(layer_state, layer1, layer2, layer3));
+}
+#endif

@@ -15,11 +15,6 @@
   */ 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 11
-#define MATRIX_COLS 10
 
 /* matrix sz handy ruler:  1   2   3   4   5   6   7   8   9  10  11  12 */
 /* key matrix pins */
@@ -30,18 +25,8 @@
 
 //NOTE: if D6 pin shows any issues in exploatation the LED on the Teensy is to be removed
 
-#define LED_NUM_LOCK_PIN F6
-#define LED_CAPS_LOCK_PIN F5
-#define LED_SCROLL_LOCK_PIN F7
-#define LED_PIN_ON_STATE 0
-//TODO change the E6 pin to either B5, B6, B7 or C6 to utilize hardware PWM on a future PCB revision
-#define BACKLIGHT_PIN E6
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
 
 /* force n-key rollover*/
 #define FORCE_NKRO

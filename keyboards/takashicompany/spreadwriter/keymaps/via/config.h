@@ -12,9 +12,6 @@
 // when turn knob clockwise or counterclockwise.
 // This is handy to assign key codes by VIA.
 
-// Number of endoder
-#define ENCODERS 1
-
 // Mappings of encoder rotation to key position in key matrix.
 #define ENCODERS_CW_KEY  { { 0, 4 }}
 #define ENCODERS_CCW_KEY { { 6, 0 }}

@@ -24,10 +24,3 @@
 #define DRIVER_1_LED_TOTAL 59
 #define DRIVER_2_LED_TOTAL 23
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
-
-/* Encoder used pins */
-#define ENCODERS_PAD_A { E6 }
-#define ENCODERS_PAD_B { B7 }
-
-/* Specifies the number of pulses the encoder registers between each detent */
-#define ENCODER_RESOLUTION 4

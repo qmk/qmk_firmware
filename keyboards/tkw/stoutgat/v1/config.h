@@ -16,17 +16,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
 #define TAP_CODE_DELAY 10
 
 #define MATRIX_ROW_PINS { D1, D0, A0, A1, A2 }
 #define MATRIX_COL_PINS { D6, D5, D7, C0, C1, C2, C3, C4, C5, C6, C7, A7, A6, A5, A4 }
-#define ENCODERS_PAD_A { B4, B0 }
-#define ENCODERS_PAD_B { B3, B1 }
-
 
 #define DIODE_DIRECTION COL2ROW

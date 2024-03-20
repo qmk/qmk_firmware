@@ -22,7 +22,7 @@
 #define CAPS_LED D5
 #define SCROLL_LED D4
 
-void keyboard_pre_init_kb() {
+void keyboard_pre_init_kb(void) {
     setPinOutput(CAPS_LED);
     setPinOutput(SCROLL_LED);
     keyboard_pre_init_user();

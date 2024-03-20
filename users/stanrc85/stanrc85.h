@@ -48,8 +48,8 @@ typedef enum {
 } td_state_t;
 
 // function to determine the current tapdance state
-int cur_dance (qk_tap_dance_state_t *state);
+int cur_dance (tap_dance_state_t *state);
 
 // `finished` and `reset` functions for each tapdance keycode
-void ctl_copy_finished (qk_tap_dance_state_t *state, void *user_data);
-void ctl_copy_reset (qk_tap_dance_state_t *state, void *user_data);
+void ctl_copy_finished (tap_dance_state_t *state, void *user_data);
+void ctl_copy_reset (tap_dance_state_t *state, void *user_data);

@@ -3,7 +3,6 @@
     "manufacturer": "Frooastside",
     "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/frooastboard/walnut",
     "maintainer": "Frooastside",
-    "debounce": 5,
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

@@ -8,6 +8,12 @@
         "pid": "0x5854",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "A1",
+        "scroll_lock": "A13"
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

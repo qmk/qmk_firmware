@@ -18,17 +18,25 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT(
-                    KC_MUTE,
+                    LT(1,KC_MUTE),
       KC_ENT, KC_0, KC_BSPC,
       KC_7,   KC_8, KC_9,
       KC_4,   KC_5, KC_6,
       KC_1,   KC_2, KC_3
-  )
+  ),
+  [1] = LAYOUT(
+                        _______,
+      CK_TOGG, AU_TOGG, _______,
+      _______, _______, _______,
+      _______, _______, _______,
+      _______, _______, _______
+  ),
 };
 
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
   [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+  [1] = { ENCODER_CCW_CW(_______, _______) },
 };
 #endif
 
@@ -111,4 +119,3 @@ bool oled_task_user(void) {
 }
 
 #endif
-

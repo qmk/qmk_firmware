@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 // place overrides here
 #define RGBLIGHT_EFFECT_BREATHING

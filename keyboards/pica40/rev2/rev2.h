@@ -16,7 +16,4 @@
 #   ifndef ENCODER_MAP_KEY_DELAY
 #       define ENCODER_MAP_KEY_DELAY 2
 #   endif
-#   ifndef ENCODER_RESOLUTION
-#       define ENCODER_RESOLUTION 4
-#   endif
 #endif

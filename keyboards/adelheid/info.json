@@ -8,6 +8,11 @@
         "pid": "0xAD78",
         "device_version": "0.0.2"
     },
+    "backlight": {
+        "pin": "C6"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

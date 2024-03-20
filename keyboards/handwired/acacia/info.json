@@ -7,7 +7,6 @@
     "bootloader": "atmel-dfu",
     "bootloader_instructions": "Enter the bootloader by using the small buttons on the PCB: press the RESET button while connected to QMK Toolbox.",
     "diode_direction": "COL2ROW",
-    "debounce": 5,
     "matrix_pins": {
         "cols": ["B4", "B3", "B2", "B1", "B0", "D2", "B6", "B7", "C7", "C6"],
         "rows": ["B5", "D3", "D4", "D5", "D6"]

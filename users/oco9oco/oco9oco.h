@@ -69,7 +69,7 @@ Z X C V B  N M , . /
 #define __________________FN_ROW_L_________________ KC_F1, KC_F2, KC_F3, KC_F4, KC_F5
 #define __________________FN_ROW_R_________________ KC_F6, KC_F7, KC_F8, KC_F9, KC_F10
 //     |--------|--------|--------|--------|--------|
-#define __________________QWERTY_L1________________ LSFT_T(KC_Q), KC_W, KC_E, KC_R, KC_T
+#define __________________QWERTY_L1________________ KC_Q, KC_W, KC_E, KC_R, KC_T
 #define __________________QWERTY_L2________________ KC_A, KC_S, KC_D, KC_F, KC_G
 #define __________________QWERTY_L3_SFTZ___________ SFTT_Z, KC_X, KC_C, KC_V, KC_B
 #define __________________QWERTY_GUIZ_L3___________ LGUI_T(KC_Z), KC_X, KC_C, KC_V, KC_B
@@ -78,11 +78,11 @@ Z X C V B  N M , . /
 #define __________________QWERTY_L3________________ KC_Z, KC_X, KC_C, KC_V, KC_B
 //     |--------|--------|--------|--------|--------|
 #define __________________QWERTY_R1________________ KC_Y, KC_U, KC_I, KC_O, KC_P
-#define __________________QWERTY_R2________________ KC_H, KC_J, KC_K, KC_L, KC_SCLN
+#define __________________QWERTY_R2________________ KC_H, KC_J, KC_K, KC_L, LSFT_T(KC_SCLN)
 #define __________________QWERTY_R3________________ KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH
 //     |--------|--------|--------|--------|--------|
 #define __________________QWERTY_HOME_L2___________ GUIT_A, ALTT_S, CTLT_D, SFTT_F, KC_G
-#define __________________QWERTY_HOME_R2___________ KC_H, SFTT_J, CTLT_K, ALTT_L, KC_SCLN
+#define __________________QWERTY_HOME_R2___________ KC_H, KC_J, CTLT_K, ALTT_L, LSFT_T(KC_SCLN)
 #define __________________QWERTY_HOME_R3___________ KC_N, KC_M, LCTL_T(KC_COMM), LALT_T(KC_DOT), LGUI_T(KC_SLSH)
 // different layout
 #define __________________QWERTY_SACS_L2___________ SFTT_A, ALTT_S, CTLT_D, SFTT_F, KC_G
@@ -126,7 +126,7 @@ Z X C V B  N M , . /
 #define TO_NOMOD TG(_BASE_NOMOD)
 #define LT_NAV_0 LT(_NAV, KC_0)
 #define MT_CAPS LALT_T(KC_CAPS)
-#define SFT_CAPS LSFT_T(KC_CAPS)
+#define SFT_CAPS LT(_BASE, KC_BTN1)
 
 // NUMPAD
 #define _________NUM_789_________ KC_7, KC_8, KC_9
@@ -242,7 +242,7 @@ bool qwert;
 // Thumb keys
 #define THUMB_L1 LCTL_T(KC_TAB)
 #define THUMB_L2 LT(_IPC, KC_BSPC)
-#define THUMB_L3 LT(_NUM, KC_DEL)
+#define THUMB_L3 LSFT_T(KC_BSPC)
 
 #define THUMB_R3 LT(_MOUSE, KC_ENT)
 #define THUMB_R2 LT(_NAV, KC_SPC)
@@ -303,6 +303,8 @@ enum custom_keycodes {
     HWP_CITE,
     CLASS_A,
     CLASS_E,
+    ALT_TAB,
+    NAV_NS,
 };
 
 enum layer_index {

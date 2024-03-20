@@ -1,0 +1,15 @@
+{
+    "keyboard_name": "Onekey Bluepill STM32F103 uf2boot",
+    "development_board": "bluepill",
+    "bootloader": "uf2boot",
+    "matrix_pins": {
+        "cols": ["B0"],
+        "rows": ["A7"]
+    },
+    "backlight": {
+        "pin": "A0"
+    },
+    "rgblight": {
+        "pin": "A1"
+    }
+}

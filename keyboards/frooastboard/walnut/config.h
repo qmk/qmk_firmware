@@ -3,9 +3,6 @@
 
 #pragma once
 
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-
 #define ISSI_TIMEOUT 100
 #define ISSI_PERSISTENCE 0
 #define ISSI_PWM_FREQUENCY 0b010

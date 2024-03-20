@@ -19,8 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define SOFT_SERIAL_PIN D2
-
 /* ws2812 RGB LED */
 #define RGB_DI_PIN      D3
 

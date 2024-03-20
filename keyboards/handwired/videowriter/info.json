@@ -8,6 +8,11 @@
         "pid": "0x5657",
         "device_version": "0.0.1"
     },
+    "bootmagic": {
+        "matrix": [1, 7]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -105,34 +105,39 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [_DEFAULT_LAYER_1] = { { KC_VOLD, KC_VOLU }, { KC_WH_D, KC_WH_U } },
-    [_DEFAULT_LAYER_2] = { { _______, _______ }, { _______, _______ } },
-    [_DEFAULT_LAYER_3] = { { _______, _______ }, { _______, _______ } },
-    [_DEFAULT_LAYER_4] = { { _______, _______ }, { _______, _______ } },
-    [_GAMEPAD]         = { { _______, _______ }, { _______, _______ } },
-    [_DIABLO]          = { { _______, _______ }, { _______, _______ } },
-    [_MOUSE]           = { { _______, _______ }, { KC_WH_D, KC_WH_U } },
-    [_MEDIA]           = { { _______, _______ }, { _______, _______ } },
-    [_RAISE]           = { { _______, _______ }, { KC_PGDN, KC_PGUP } },
-    [_LOWER]           = { { RGB_MOD, RGB_RMOD}, { RGB_HUD, RGB_HUI } },
-    [_ADJUST]          = { { CK_DOWN, CK_UP   }, { _______, _______ } },
+    [_DEFAULT_LAYER_1] = { ENCODER_CCW_CW( KC_VOLD, KC_VOLU ), ENCODER_CCW_CW( KC_WH_D, KC_WH_U ) },
+    [_DEFAULT_LAYER_2] = { ENCODER_CCW_CW( _______, _______ ), ENCODER_CCW_CW( _______, _______ ) },
+    [_DEFAULT_LAYER_2] = { ENCODER_CCW_CW( _______, _______ ), ENCODER_CCW_CW( _______, _______ ) },
+    [_DEFAULT_LAYER_2] = { ENCODER_CCW_CW( _______, _______ ), ENCODER_CCW_CW( _______, _______ ) },
+    [_GAMEPAD]         = { ENCODER_CCW_CW( _______, _______ ), ENCODER_CCW_CW( _______, _______ ) },
+    [_DIABLO]          = { ENCODER_CCW_CW( _______, _______ ), ENCODER_CCW_CW( _______, _______ ) },
+    [_MOUSE]           = { ENCODER_CCW_CW( _______, _______ ), ENCODER_CCW_CW( KC_WH_D, KC_WH_U ) },
+    [_MEDIA]           = { ENCODER_CCW_CW( _______, _______ ), ENCODER_CCW_CW( _______, _______ ) },
+    [_RAISE]           = { ENCODER_CCW_CW( _______, _______ ), ENCODER_CCW_CW( KC_PGDN, KC_PGUP ) },
+    [_LOWER]           = { ENCODER_CCW_CW( RGB_MOD, RGB_RMOD), ENCODER_CCW_CW( RGB_HUD, RGB_HUI ) },
+    [_ADJUST]          = { ENCODER_CCW_CW( CK_DOWN, CK_UP   ), ENCODER_CCW_CW( _______, _______ ) },
 };
 #endif
 // clang-format on
 
 #ifdef OLED_ENABLE
+void render_oled_title(bool side) {
+    oled_write_P(side ? PSTR("   Splitkb   ") : PSTR("    Kyria    "), true);
+}
+
 oled_rotation_t oled_init_keymap(oled_rotation_t rotation) {
-#ifdef OLED_DRIVER_SH1107
+#    ifdef OLED_DRIVER_SH1107
     return OLED_ROTATION_0;
-#else
+#    else
     return OLED_ROTATION_180;
-#endif
+#    endif
 }
 
 void oled_render_large_display(bool side) {
     if (side) {
         render_wpm_graph(56, 64);
     } else {
+        // clang-format off
         static const char PROGMEM kyria_logo[] = {
             0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,128,128,192,224,240,112,120, 56, 60, 28, 30, 14, 14, 14,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7, 14, 14, 14, 30, 28, 60, 56,120,112,240,224,192,128,128,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
             0,  0,  0,  0,  0,  0,  0,192,224,240,124, 62, 31, 15,  7,  3,  1,128,192,224,240,120, 56, 60, 28, 30, 14, 14,  7,  7,135,231,127, 31,255,255, 31,127,231,135,  7,  7, 14, 14, 30, 28, 60, 56,120,240,224,192,128,  1,  3,  7, 15, 31, 62,124,240,224,192,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
@@ -144,7 +149,7 @@ void oled_render_large_display(bool side) {
             0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1,  3,  7, 15, 14, 30, 28, 60, 56,120,112,112,112,224,224,224,224,224,224,224,224,224,224,224,224,224,224,224,224,112,112,112,120, 56, 60, 28, 30, 14, 15,  7,  3,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
         };
         // clang-format on
-        oled_set_cursor(0,7);
+        oled_set_cursor(0, 7);
         oled_write_raw_P(kyria_logo, sizeof(kyria_logo));
     }
 }
@@ -170,7 +175,6 @@ void housekeeping_task_keymap(void) {
     rgblight_set_layer_state(3, mods & MOD_MASK_GUI);
 }
 #endif
-
 
 #ifdef KEYBOARD_splitkb_kyria_rev1_proton_c
 void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {

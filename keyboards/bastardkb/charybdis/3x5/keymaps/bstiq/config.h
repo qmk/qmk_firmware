@@ -43,7 +43,7 @@
  *
  * See docs.qmk.fm/using-qmk/software-features/tap_hold#tapping-force-hold
  */
-#define TAPPING_FORCE_HOLD
+#define QUICK_TAP_TERM 0
 
 /*
  * Tap-or-Hold decision modes.

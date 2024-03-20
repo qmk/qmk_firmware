@@ -164,6 +164,12 @@ static bool qp_rgb565_surface_append_pixels_rgb565(painter_device_t device, uint
     return true;
 }
 
+// Append data to the target location
+static bool qp_rgb565_surface_append_pixdata(painter_device_t device, uint8_t *target_buffer, uint32_t pixdata_offset, uint8_t pixdata_byte) {
+    target_buffer[pixdata_offset] = pixdata_byte;
+    return true;
+}
+
 const struct painter_driver_vtable_t rgb565_surface_driver_vtable = {
     .init            = qp_rgb565_surface_init,
     .power           = qp_rgb565_surface_power,
@@ -173,6 +179,7 @@ const struct painter_driver_vtable_t rgb565_surface_driver_vtable = {
     .viewport        = qp_rgb565_surface_viewport,
     .palette_convert = qp_rgb565_surface_palette_convert_rgb565_swapped,
     .append_pixels   = qp_rgb565_surface_append_pixels_rgb565,
+    .append_pixdata  = qp_rgb565_surface_append_pixdata,
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

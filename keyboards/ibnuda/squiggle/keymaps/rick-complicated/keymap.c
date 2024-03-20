@@ -181,15 +181,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 };
 
-LEADER_EXTERNS();
-
-void matrix_scan_user() {
-  LEADER_DICTIONARY() {
-    leading = false;
-    leader_end();
-
-    SEQ_ONE_KEY(KC_U) {
-      SEND_STRING(":luvu:\n");
+void leader_end_user(void) {
+    if (leader_sequence_one_key(KC_U)) {
+        SEND_STRING(":luvu:\n");
     }
-  }
 }

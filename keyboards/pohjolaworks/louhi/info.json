@@ -8,6 +8,13 @@
         "pid": "0x0001",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B2", "pin_b": "B3"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT_7u_space": {
             "layout": [{"label":"k00", "x":0, "y":0}, {"label":"k10", "x":1, "y":0}, {"label":"k01", "x":2, "y":0}, {"label":"k11", "x":3, "y":0}, {"label":"k02", "x":4, "y":0}, {"label":"k12", "x":5, "y":0}, {"label":"k03", "x":6, "y":0}, {"label":"k13", "x":7, "y":0}, {"label":"k04", "x":8, "y":0}, {"label":"k14", "x":9, "y":0}, {"label":"k05", "x":10, "y":0}, {"label":"k15", "x":11, "y":0}, {"label":"k06", "x":12, "y":0}, {"label":"k20", "x":0, "y":1}, {"label":"k30", "x":1, "y":1}, {"label":"k21", "x":2, "y":1}, {"label":"k31", "x":3, "y":1}, {"label":"k22", "x":4, "y":1}, {"label":"k32", "x":5, "y":1}, {"label":"k23", "x":6, "y":1}, {"label":"k33", "x":7, "y":1}, {"label":"k24", "x":8, "y":1}, {"label":"k34", "x":9, "y":1}, {"label":"k25", "x":10, "y":1}, {"label":"k35", "x":11, "y":1}, {"label":"k26", "x":12, "y":1}, {"label":"k40", "x":0, "y":2}, {"label":"k50", "x":1, "y":2}, {"label":"k41", "x":2, "y":2}, {"label":"k51", "x":3, "y":2}, {"label":"k42", "x":4, "y":2}, {"label":"k52", "x":5, "y":2}, {"label":"k43", "x":6, "y":2}, {"label":"k53", "x":7, "y":2}, {"label":"k44", "x":8, "y":2}, {"label":"k54", "x":9, "y":2}, {"label":"k45", "x":10, "y":2}, {"label":"k55", "x":11, "y":2}, {"label":"k46", "x":12, "y":2}, {"label":"k60", "x":0, "y":3}, {"label":"k70", "x":1, "y":3}, {"label":"k61", "x":2, "y":3}, {"label":"k63", "x":3, "y":3, "w":7}, {"label":"k65", "x":10, "y":3}, {"label":"k75", "x":11, "y":3}, {"label":"k66", "x":12, "y":3}]

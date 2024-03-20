@@ -17,7 +17,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* Uthol PCB default pin-out */
 #define MATRIX_ROW_PINS { B1, F7, F6, F5, F4 }

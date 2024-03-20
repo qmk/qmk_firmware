@@ -16,9 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 #define MATRIX_ROW_PINS { A15, B10, A14, A13, A7 }
 #define MATRIX_COL_PINS { A8, A6, B0, B1, B2, B4, B5, A1, A2, B3, B9, A10, A9 }
-#define ENCODERS_PAD_A { B14, B11 }
-#define ENCODERS_PAD_B { B15, B12 }
+
 #define RGB_DI_PIN A3

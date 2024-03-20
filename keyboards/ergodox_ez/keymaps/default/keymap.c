@@ -8,11 +8,7 @@ enum layers {
 };
 
 enum custom_keycodes {
-#ifdef ORYX_CONFIGURATOR
-    VRSN = EZ_SAFE_RANGE,
-#else
     VRSN = SAFE_RANGE,
-#endif
 };
 
 // clang-format off

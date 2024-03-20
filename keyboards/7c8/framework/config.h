@@ -15,20 +15,12 @@
  */
 
 #pragma once
-#include "config_common.h"
-
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 6
 
 #define MATRIX_ROW_PINS { B0, B1, D7, B2, D6, B3, D5, B4, D4, B5 }
 #define MATRIX_COL_PINS { C0, C1, C2, C3, C4, C5 }
-#define ENCODERS_PAD_A  { D0 }
-#define ENCODERS_PAD_B  { D1 }
 
-#define ENCODER_RESOLUTION 4
 #define TAP_CODE_DELAY 16
 #define DIODE_DIRECTION COL2ROW
-#define DEBOUNCE 5
 
 #define LEADER_TIMEOUT 250
 #define LEADER_PER_KEY_TIMING 150

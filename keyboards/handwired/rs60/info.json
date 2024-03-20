@@ -8,6 +8,14 @@
         "pid": "0x4260",
         "device_version": "0.0.1"
     },
+    "qmk_lufa_bootloader": {
+        "esc_input": "B4",
+        "esc_output": "C6",
+        "led": "B0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu",
+    "community_layouts": ["ortho_5x12"],
     "layouts": {
         "LAYOUT_ortho_5x12": {
             "layout": [

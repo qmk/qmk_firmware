@@ -23,6 +23,9 @@
         "pid": "0x0000",
         "vid": "0xFEED"
     },
+    "split": {
+        "soft_serial_pin": "D2"
+    },
     "layouts": {
         "LAYOUT_split_6x4_9": {
             "layout": [

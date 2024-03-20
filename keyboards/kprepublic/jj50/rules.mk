@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32a
-
-# Bootloader selection
-BOOTLOADER = bootloadhid
-
 # Build Options
 #   change yes to no to disable
 #
@@ -17,5 +11,3 @@ BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 WS2812_DRIVER = i2c         # This driver powers the RGB Lighting and RGB Matrix features
 LTO_ENABLE = yes            # Enable link time optimization
-
-LAYOUTS = ortho_5x12

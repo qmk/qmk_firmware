@@ -31,8 +31,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS)
 };
 
-LEADER_EXTERNS();
-
 void keyboard_post_init_user(void) {
     led_t led_state = host_keyboard_led_state();
     if (!led_state.num_lock) {
@@ -44,25 +42,20 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, _SYMBOLS, _NUMBERS, _SPECIALS);
 }
 
-void matrix_scan_user(void) {
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
+void leader_end_user(void) {
+    // Lock screen (macOS)
+    if (leader_sequence_one_key(KC_ESC)) {
+        tap_code16(LCTL(LGUI(KC_Q)));
+    }
 
-        // Lock screen (macOS)
-        SEQ_ONE_KEY(KC_ESC) {
-            tap_code16(LCTL(LGUI(KC_Q)));
-        }
+    // Escape-Shift-Z-Z (VIM)
+    if (leader_sequence_one_key(KC_Z)) {
+        SEND_STRING(SS_TAP(X_ESC) SS_LSFT("zz"));
+    }
 
-        // Escape-Shift-Z-Z (VIM)
-        SEQ_ONE_KEY(KC_Z) {
-            SEND_STRING(SS_TAP(X_ESC) SS_LSFT("zz"));
-        }
-
-        // Dead grave accent (macOS)
-        SEQ_ONE_KEY(KC_E) {
-            tap_code16(LALT(KC_GRAVE));
-        }
+    // Dead grave accent (macOS)
+    if (leader_sequence_one_key(KC_E)) {
+        tap_code16(LALT(KC_GRAVE));
     }
 }
 

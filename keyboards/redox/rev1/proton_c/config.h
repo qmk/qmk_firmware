@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 // wiring of each half
 #undef MATRIX_ROW_PINS
@@ -15,15 +14,9 @@
 
 /* serial.c configuration for split keyboard */
 #define SERIAL_USART_FULL_DUPLEX   // Enable full duplex operation mode.
-/* 
-   Because the rev1 config defines SOFT_SERIAL_PIN, we need to undef it, redefine it, and also assign 
-   it to avoid a redefine error.
- */
-#undef SOFT_SERIAL_PIN
-#define SOFT_SERIAL_PIN B6     // USART TX pin
 
 #define SERIAL_USART_RX_PIN B7     // USART RX pin
-#define SERIAL_USART_TX_PIN SOFT_SERIAL_PIN     // USART TX pin
+#define SERIAL_USART_TX_PIN B6     // USART TX pin
 
 #define SERIAL_USART_PIN_SWAP    // Swap TX and RX pins if keyboard is master halve.
                                    // Check if this feature is necessary with your keyboard design and available on the mcu.

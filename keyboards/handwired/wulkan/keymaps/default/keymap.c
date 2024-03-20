@@ -16,7 +16,7 @@ enum unicode_names {
   SE_ODIA_LOW,
 };
 
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
   [SE_ARNG_HIGH] = 0x00C5,
   [SE_ADIA_HIGH] = 0x00C4,
   [SE_ODIA_HIGH] = 0x00D6,

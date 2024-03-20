@@ -8,6 +8,15 @@
         "pid": "0x0001",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D0", "pin_b": "D1"},
+            {"pin_a": "B1", "pin_b": "B0"}
+        ]
+    },
+    "processor": "atmega32a",
+    "bootloader": "usbasploader",
+    "community_layouts": ["ortho_5x15"],
     "layouts": {
         "LAYOUT_ortho_5x15": {
             "layout": [

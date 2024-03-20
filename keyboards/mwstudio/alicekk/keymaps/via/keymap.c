@@ -53,15 +53,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 #ifdef ENCODER_ENABLE
-#define ENCODERS 1
-static uint8_t  encoder_state[ENCODERS] = {0};
-static keypos_t encoder_cw[ENCODERS] = {{6, 4}};
-static keypos_t encoder_ccw[ENCODERS] = {{7, 4}};
-
+static uint8_t  encoder_state[NUM_ENCODERS] = {0};
+static keypos_t encoder_cw[NUM_ENCODERS] = {{6, 4}};
+static keypos_t encoder_ccw[NUM_ENCODERS] = {{7, 4}};
 
 void encoder_action_unregister(void) {
-#ifdef ENCODERS
-    for (uint8_t index = 0; index < ENCODERS; ++index) {
+    for (uint8_t index = 0; index < NUM_ENCODERS; ++index) {
         if (encoder_state[index]) {
             keyevent_t encoder_event = (keyevent_t) {
                 .key = encoder_state[index] >> 1 ? encoder_cw[index] : encoder_ccw[index],
@@ -72,7 +69,6 @@ void encoder_action_unregister(void) {
             action_exec(encoder_event);
         }
     }
-#endif
 }
 
 void encoder_action_register(uint8_t index, bool clockwise) {

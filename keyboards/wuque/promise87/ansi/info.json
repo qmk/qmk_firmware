@@ -8,6 +8,12 @@
     "pid": "0x0005",
     "device_version": "0.0.1"
   },
+  "indicators": {
+    "caps_lock": "F6",
+    "on_state": 0
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layout_aliases": {
     "LAYOUT_87_ansi": "LAYOUT_tkl_f13_ansi_tsangan",
     "LAYOUT_87_ansi_split_bs": "LAYOUT_tkl_f13_ansi_tsangan_split_bs",
@@ -19,6 +25,7 @@
     "LAYOUT_tkl_f13_ansi_split_rshift": "LAYOUT_tkl_f13_ansi_tsangan_split_rshift",
     "LAYOUT_tkl_f13_ansi_split_bs_rshift": "LAYOUT_tkl_f13_ansi_tsangan_split_bs_rshift"
   },
+  "community_layouts": ["tkl_f13_ansi_tsangan", "tkl_f13_ansi_tsangan_split_bs_rshift"],
   "layouts": {
     "LAYOUT_all": {
       "layout": [

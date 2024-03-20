@@ -22,7 +22,7 @@
 #include "action_layer.h"
 #include "process_keycode/process_tap_dance.h"
 
-void tap_dance_mouse_btns (qk_tap_dance_state_t *state, void *user_data) {
+void tap_dance_mouse_btns (tap_dance_state_t *state, void *user_data) {
     switch(state->count){
     case 1:
         register_code(KC_BTN1);
@@ -72,7 +72,7 @@ static void switch_default_layer(uint8_t layer) {
   }
 */
 
-void tap_dance_df_bepo_layers_switch (qk_tap_dance_state_t *state, void *user_data) {
+void tap_dance_df_bepo_layers_switch (tap_dance_state_t *state, void *user_data) {
   switch(state->count){
   case 1:
     switch_default_layer(_DVORAK_BP);
@@ -89,7 +89,7 @@ void tap_dance_df_bepo_layers_switch (qk_tap_dance_state_t *state, void *user_da
   reset_tap_dance(state);
 }
 
-void tap_dance_layer_switch (qk_tap_dance_state_t *state, void *user_data) {
+void tap_dance_layer_switch (tap_dance_state_t *state, void *user_data) {
   switch(state->count){
   case 1:
     if(on_qwerty())
@@ -115,7 +115,7 @@ void tap_dance_layer_switch (qk_tap_dance_state_t *state, void *user_data) {
   reset_tap_dance(state);
 }
 
-void tap_dance_default_layer_switch (qk_tap_dance_state_t *state, void *user_data) {
+void tap_dance_default_layer_switch (tap_dance_state_t *state, void *user_data) {
     switch(state->count){
     case 1:
       switch_default_layer(_DVORAK);
@@ -178,7 +178,7 @@ void switch_default_layer_on_bepo(int count) {
 // a qwerty software keyboard and a bepo software keyboard.
 // if shifted, choose layers based on the other software keyboard, otherwise choose only
 // layers that work on the current software keyboard.
-void tap_dance_default_os_layer_switch (qk_tap_dance_state_t *state, void *user_data) {
+void tap_dance_default_os_layer_switch (tap_dance_state_t *state, void *user_data) {
     //uint8_t shifted = (get_mods() & MOD_BIT(KC_LSFT|KC_RSFT));
     bool shifted = ( keyboard_report->mods & (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT)) );
     int qwerty = on_qwerty();
@@ -230,7 +230,7 @@ void tap_dance_default_os_layer_switch (qk_tap_dance_state_t *state, void *user_
  * For the third point, there does exist the 'DOUBLE_SINGLE_TAP', however this is not fully tested
  *
  */
-int cur_dance (qk_tap_dance_state_t *state) {
+int cur_dance (tap_dance_state_t *state) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed)  return SINGLE_TAP;
         //key has not been interrupted, but they key is still held. Means you want to send a 'HOLD'.
@@ -257,7 +257,7 @@ int cur_dance (qk_tap_dance_state_t *state) {
 }
 
 //Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     //Tap once for Esc, twice for Caps Lock
     [TD_ESC_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS),
     [TD_TAB_BKTAB] = ACTION_TAP_DANCE_DOUBLE(KC_TAB, LSFT(KC_TAB)),

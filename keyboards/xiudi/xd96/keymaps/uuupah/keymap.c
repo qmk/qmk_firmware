@@ -19,7 +19,7 @@
 #define LT_ENT2 LT(2,KC_ENT)
 
 #ifdef RGBLIGHT_ENABLE
-void matrix_init_user() {
+void matrix_init_user(void) {
   rgblight_disable();
 }
 #endif

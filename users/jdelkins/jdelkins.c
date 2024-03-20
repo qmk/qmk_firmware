@@ -45,7 +45,7 @@ void send_secret_string(uint8_t n) {
 
 // To activate SINGLE_HOLD, you will need to hold for 200ms first.
 // This tap dance favors keys that are used frequently in typing like 'f'
-int cur_dance(qk_tap_dance_state_t *state) {
+int cur_dance(tap_dance_state_t *state) {
     if (state->count == 1) {
         // If count = 1, and it has been interrupted - it doesn't matter if it
         // is pressed or not: Send SINGLE_TAP
@@ -84,7 +84,7 @@ int cur_dance(qk_tap_dance_state_t *state) {
 
 // This works well if you want this key to work as a "fast modifier". It favors
 // being held over being tapped.
-int hold_cur_dance(qk_tap_dance_state_t *state) {
+int hold_cur_dance(tap_dance_state_t *state) {
     if (state->count == 1) {
         if (state->interrupted) {
             if (!state->pressed)

@@ -31,7 +31,7 @@
 // actually sends Ctrl-x. That's bad.)
 #define IGNORE_MOD_TAP_INTERRUPT
 #undef PERMISSIVE_HOLD
-//#define TAPPING_FORCE_HOLD
+//#define QUICK_TAP_TERM 0
 //#define RETRO_TAPPING
 
 #ifndef TAPPING_TOGGLE

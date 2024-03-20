@@ -71,7 +71,6 @@
 
 
 #define DIODE_DIRECTION COL2ROW
-#define DEBOUNCE    5
 
 // i2c setting
 #define I2C1_SCL_PIN B8

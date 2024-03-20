@@ -8,6 +8,14 @@
     	"pid": "0x656D",
     	"device_version": "10.0.0"
     },
+    "encoder": {
+    	"rotary": [
+    		{"pin_a": "C6", "pin_b": "C7"},
+    		{"pin_a": "D4", "pin_b": "D5"}
+    	]
+    },
+    "processor": "atmega32u2",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_default": {
             "layout": [

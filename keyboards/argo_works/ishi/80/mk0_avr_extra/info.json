@@ -11,6 +11,9 @@
         "pid": "0x4930",
         "vid": "0x4157"
     },
+    "bootmagic": {
+        "matrix": [1, 0]
+    },
     "features": {
         "bootmagic": true,
         "command": false,

@@ -8,6 +8,12 @@
         "pid": "0x3536",
         "device_version": "0.0.3"
     },
+    "split": {
+        "soft_serial_pin": "D0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "community_layouts": ["split_3x5_3"],
     "layouts": {
         "LAYOUT_split_3x5_3": {
             "layout": [

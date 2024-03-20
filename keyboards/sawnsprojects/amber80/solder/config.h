@@ -16,16 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 9
-
-/* Indicator */
-#define LED_CAPS_LOCK_PIN F5
-#define LED_SCROLL_LOCK_PIN B0
-#define LED_PIN_ON_STATE 0
 /*
  * Keyboard Matrix Assignments
  *

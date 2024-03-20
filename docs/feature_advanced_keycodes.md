@@ -160,6 +160,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 ```
+Alternatively, this can be done with [Key Overrides](feature_key_overrides?id=simple-example).
 
 # Advanced topics :id=advanced-topics
 
@@ -180,3 +181,7 @@ This page used to encompass a large set of features. We have moved many sections
 ## Tap-Hold Configuration Options :id=tap-hold-configuration-options
 
 * [Tap-Hold Configuration Options](tap_hold.md)
+
+## Key Overrides :id=key-overrides
+
+* [Key Overrides](feature_key_overrides.md)

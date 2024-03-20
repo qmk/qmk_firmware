@@ -171,7 +171,7 @@ void matrix_init(void) {
 
     debounce_init(MATRIX_ROWS);
 
-    matrix_init_quantum();
+    matrix_init_kb();
 }
 
 uint8_t matrix_scan(void) {
@@ -228,7 +228,7 @@ uint8_t matrix_scan(void) {
     MATRIX_DEBUG_SCAN_END(); MATRIX_DEBUG_GAP();
 
     MATRIX_DEBUG_SCAN_START();
-    matrix_scan_quantum();
+    matrix_scan_kb();
     MATRIX_DEBUG_SCAN_END();
     return (uint8_t)changed;
 }

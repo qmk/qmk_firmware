@@ -1,3 +1,13 @@
 {
-    "keyboard_name": "Tractyl Manuform (5x6) Elite-C"
+    "keyboard_name": "Tractyl Manuform (5x6) Elite-C",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D5", "pin_b": "C7"}
+        ]
+    },
+    "split": {
+        "soft_serial_pin": "D2"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu"
 }

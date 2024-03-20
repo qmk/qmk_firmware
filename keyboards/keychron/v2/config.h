@@ -28,9 +28,6 @@
 /* If uses PH3 with a stronger pull resistor then the following definition should be included */
 // #define MATRIX_UNSELECT_DRIVE_HIGH
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 /* RGB Matrix Driver Configuration */
 #define DRIVER_COUNT 2
 #define DRIVER_ADDR_1 0b1110111

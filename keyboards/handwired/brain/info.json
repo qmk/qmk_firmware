@@ -8,6 +8,17 @@
         "pid": "0x0001",
         "device_version": "0.0.1"
     },
+    "bootmagic": {
+        "matrix": [0, 6]
+    },
+    "split": {
+        "soft_serial_pin": "D0",
+        "bootmagic": {
+            "matrix": [5, 0]
+        }
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

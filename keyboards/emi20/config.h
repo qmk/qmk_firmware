@@ -16,11 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 4
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { F4, F5, F6, F7, B6 }
@@ -28,17 +23,6 @@
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* number of backlight levels */
-
-#ifdef BACKLIGHT_PIN
-#define BACKLIGHT_LEVELS 3
-#endif
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
-
 
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_EFFECT_BREATHING

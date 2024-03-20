@@ -16,13 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#include "config_common.h"
 // clang-format off
-
-/* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 6
-
 
 /*
  * Keyboard Matrix Assignments
@@ -41,12 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 #define TAP_CODE_DELAY 10
-#define ENCODER_RESOLUTION 4
-#define ENCODERS_PAD_A { D0 }
-#define ENCODERS_PAD_B { D1 }
 // clang-format on
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -56,7 +45,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* oled custom font */
 #define OLED_FONT_END 255
 #define OLED_FONT_H "gfxfont.c"
-
-/* bootmagic */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0

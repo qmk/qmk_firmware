@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -35,4 +29,4 @@ SRC = matrix.c
 # debug-off: OPT_DEFS := $(filter-out -DCONSOLE_ENABLE,$(OPT_DEFS))
 # debug-off: all
 
-LAYOUTS = 60_hhkb
+DEFAULT_FOLDER = hhkb/ansi/32u4

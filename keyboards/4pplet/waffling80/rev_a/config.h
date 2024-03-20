@@ -16,11 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 8
 
 // ROWS: Top to bottom, COLS: Left to right
 #define MATRIX_ROW_PINS {C4,C5,B4,B3,B1,B0,D6,D5,D3,D4,D1,D2}
@@ -28,15 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
-#define QMK_ESC_OUTPUT C6 // usually COL
-#define QMK_ESC_INPUT C4 // usually ROW
 
 #define RGB_DI_PIN D7
 #define RGBLED_NUM 2

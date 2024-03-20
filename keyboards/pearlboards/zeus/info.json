@@ -8,6 +8,19 @@
         "pid": "0x6966",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "E7", "pin_b": "E6", "resolution": 1}
+        ]
+    },
+    "indicators": {
+        "caps_lock": "C5",
+        "num_lock": "C4",
+        "scroll_lock": "C3",
+        "on_state": 0
+    },
+    "processor": "at90usb1286",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

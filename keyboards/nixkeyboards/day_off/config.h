@@ -16,28 +16,9 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
 
 #define MATRIX_ROW_PINS \
     { B3, B7, F5, F4, F1 }
 #define MATRIX_COL_PINS \
     { F0, F7, C7, C6, B6, B5, B4, D7, D6, D4, D5, D3, D2, D1, D0 }
 #define DIODE_DIRECTION COL2ROW
-
-/* encoder */
-#define ENCODERS_PAD_A \
-    { B0 }
-#define ENCODERS_PAD_B \
-    { B1 }
-#define ENCODER_RESOLUTION 4
-
-/* Debounce reduces chatter */
-#define DEBOUNCE 5
-
-/* Set the Bootmagic key to the escape key (default key doesn't exist 0,0) */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 1

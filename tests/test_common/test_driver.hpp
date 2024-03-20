@@ -98,6 +98,12 @@ class TestDriver {
  */
 #define EXPECT_NO_REPORT(driver) EXPECT_ANY_REPORT(driver).Times(0)
 
+/**
+ * @brief Verify and clear all gmock expectations that have been setup until
+ * this point.
+ */
+#define VERIFY_AND_CLEAR(driver) testing::Mock::VerifyAndClearExpectations(&driver)
+
 namespace internal {
 void expect_unicode_code_point(TestDriver& driver, uint32_t code_point);
 } // namespace internal

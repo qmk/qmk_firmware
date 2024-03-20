@@ -29,7 +29,7 @@ enum tapdances{
 #define KC_ESLO LT(_LOWER, KC_ESC)
 
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_SCCL] = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_QUOT),
   [TD_ENSL] = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_ENT),
   [TD_N0BS] = ACTION_TAP_DANCE_DOUBLE(KC_0, KC_BSLS),

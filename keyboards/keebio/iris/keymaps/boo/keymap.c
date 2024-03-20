@@ -44,7 +44,7 @@ enum keycodes {
     KC_KAK = SAFE_RANGE,
 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [_LCTLGUI] = ACTION_TAP_DANCE_DOUBLE(KC_LCTL, KC_LGUI),
 };
 

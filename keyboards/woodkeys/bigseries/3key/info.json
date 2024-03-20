@@ -8,6 +8,9 @@
         "pid": "0x6073",
         "device_version": "0.0.2"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "debounce": 50,
     "layouts": {
         "LAYOUT": {
             "layout": [

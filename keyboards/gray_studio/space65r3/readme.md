@@ -1,4 +1,4 @@
-# Gray Studio 65 R3
+# Gray Studio Space65 R3
 
 A 65% keyboard by Graystudio. PCB designed and manufactured by DEMO Studio.
 

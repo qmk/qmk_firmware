@@ -15,11 +15,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // TAP-HOLD OPTIONS
 #define TAPPING_TERM 200
-#define TAPPING_FORCE_HOLD
-#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
+#define QUICK_TAP_TERM 0
 #define PERMISSIVE_HOLD_PER_KEY
 #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
-
 // AUTO SHIFT OPTIONS
 #define NO_AUTO_SHIFT_ALPHA
 
@@ -71,6 +69,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ONESHOT_TIMEOUT 5000
 
 // COMBO OPTIONS
-#define COMBO_TERM 40
-#define COMBO_TERM_PER_COMBO
+// #define COMBO_TERM 40
+// #define COMBO_TERM_PER_COMBO
 //#define COMBO_COUNT 4
