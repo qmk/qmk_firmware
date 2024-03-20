@@ -2005,8 +2005,15 @@ void suspend_wakeup_init_kb(void) {
 }
 
 void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
-    memset(data, 0, length);
     const char * name = "P0.PolyKybd Split72";
+
+    if(debug_enable && length < 33)
+    {
+        char cmdstring[33];
+        memcpy(cmdstring, data, length);
+        cmdstring[length] = 0; // Make sure string ends with 0
+        dprintf("DEBUG: custom hid or via command, length=%d cmd=%s\n", length, cmdstring);
+    }
 
     if(length>1 && (data[0] == /*via_command_id::*/id_custom_save || data[0] == 'P')) {
         switch(data[1]) {
