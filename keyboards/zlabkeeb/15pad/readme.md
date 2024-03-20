@@ -1,6 +1,6 @@
 # 15PAD
 
-![15PAD](https://i.imgur.com/J7sZSnxh.jpeg)
+![15PAD](https://i.imgur.com/J7sZSnx.jpeg)
 
 15PAD is a Macropad With 12 Keys & 3 Rotary Encoder, Designed And Manufactured In INDONESIA.
 
