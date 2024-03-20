@@ -1,4 +1,3 @@
-// clang-format off
 COMB(DEF_MMB,   MMB,        LMB, DRTGSCR)      // _ X X
 COMB(DEF_NAV,   FWD,        RMB, DRTGSCR)      // X X _
 COMB(DEF_SCR,   BCK,        RMB, LMB)          // X _ X
