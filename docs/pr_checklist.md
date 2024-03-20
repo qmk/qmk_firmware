@@ -9,6 +9,7 @@ If there are any inconsistencies with these recommendations, you're best off [cr
 - PR should be submitted using a non-`master` branch on the source repository
     - this does not mean you target a different branch for your PR, rather that you're not working out of your own master branch
     - if submitter _does_ use their own `master` branch, they'll be given a link to the ["how to git"](newbs_git_using_your_master_branch.md) page after merging -- (end of this document will contain the contents of the message)
+    - Note, frequently merging upstream with your branch is not needed and is discouraged. Valid reason for updating your branch may be resolving merge conflicts and pulling in new changes relevant to your PR.
 - PRs should contain the smallest amount of modifications required for a single change to the codebase
     - multiple keyboards at the same time is not acceptable
     - **the smaller the PR, the higher likelihood of a quicker review, higher likelihood of quicker merge, and less chance of conflicts**
@@ -43,10 +44,10 @@ If there are any inconsistencies with these recommendations, you're best off [cr
 
 - PRs for vendor specific keymaps will be permitted. The naming convention for these should be `default_${vendor}`, `via_${vendor}` i.e. `via_clueboard`.
     - vendor specific keymaps do not necessarily need to be "vanilla" and can be more richly featured than `default` or `via` stock keymaps.
-- #include QMK_KEYBOARD_H preferred to including specific board files
+- `#include QMK_KEYBOARD_H` preferred to including specific board files
 - prefer layer enums to #defines
-- custom keycode enums must have first entry = SAFE_RANGE
-- some care with spacing (e.g., alignment on commas or first char of keycodes) makes for a much nicer-looking keymap
+- custom keycode enums must have first entry = `QK_USER`
+- some care with spacing (e.g., alignment on commas or first char of keycodes) makes for a much nicer-looking keymap. Spaces are preferred to tabs
 
 ## Keyboard PRs
 
@@ -81,6 +82,8 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
       - Encoder Configuration
       - Bootmagic Configuration
       - LED Indicator Configuration
+      - RGB Light Configuration
+      - RGB Matrix Configuration
     - Run `qmk format-json` on this file before submitting your PR. Be sure to append the `-i` flag to directly modify the file, or paste the outputted code into the file. 
 - `readme.md`
     - must follow the [template](https://github.com/qmk/qmk_firmware/blob/master/data/templates/keyboard/readme.md)
@@ -90,8 +93,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - a picture about the keyboard and preferably about the PCB, too
         - images are not to be placed in the `qmk_firmware` repository
         - images should be uploaded to an external image hosting service, such as [imgur](https://imgur.com/).
-        - if imgur is used, images should be resized appropriately: append "h" to the image url i.e. [https://i.imgur.com/vqgE7Ok.jpg](https://i.imgur.com/vqgE7Ok.jpg) becomes [https://i.imgur.com/vqgE7Ok**h**.jpg](https://i.imgur.com/vqgE7Okh.jpg)
-        - image links should link directly to the image, not a "preview" -- i.e. [https://imgur.com/vqgE7Ok](https://imgur.com/vqgE7Ok) should be [https://i.imgur.com/vqgE7Okh.jpg](https://i.imgur.com/vqgE7Okh.jpg) when using imgur
+        - image links should link directly to the image, not a "preview" -- i.e. [https://imgur.com/vqgE7Ok](https://imgur.com/vqgE7Ok) should be [https://i.imgur.com/vqgE7Ok.jpg](https://i.imgur.com/vqgE7Ok.jpg) when using imgur
 - `rules.mk`
     - removed `MIDI_ENABLE`, `FAUXCLICKY_ENABLE` and `HD44780_ENABLE`
     - modified `# Enable Bluetooth with the Adafruit EZ-Key HID` -> `# Enable Bluetooth`
@@ -204,7 +206,7 @@ Additionally, PR reviews are something that is done in our free time. We are not
 ## Example GPLv2 Header
 
 ```
-/* Copyright 2021 Your Name (@yourgithub)
+/* Copyright 2024 Your Name (@yourgithub)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -224,6 +226,6 @@ Additionally, PR reviews are something that is done in our free time. We are not
 Or, optionally, using [SPDX identifier](https://spdx.org/licenses/) instead:
 
 ```
-// Copyright 2021 Your Name (@yourgithub)
+// Copyright 2024 Your Name (@yourgithub)
 // SPDX-License-Identifier: GPL-2.0-or-later
 ```
