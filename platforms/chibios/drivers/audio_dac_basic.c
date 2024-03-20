@@ -66,40 +66,37 @@ static const dacsample_t dac_buffer_2[AUDIO_DAC_BUFFER_SIZE] = {
     [AUDIO_DAC_BUFFER_SIZE / 2 ... AUDIO_DAC_BUFFER_SIZE - 1] = AUDIO_DAC_SAMPLE_MAX,
 };
 
-GPTConfig gpt6cfg1 = {.frequency = AUDIO_DAC_SAMPLE_RATE,
-                      .callback  = NULL,
-                      .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.    */
-                      .dier      = 0U};
-GPTConfig gpt7cfg1 = {.frequency = AUDIO_DAC_SAMPLE_RATE,
-                      .callback  = NULL,
-                      .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.    */
-                      .dier      = 0U};
+GPTConfig gpt6cfg1 = {
+    .frequency = AUDIO_DAC_SAMPLE_RATE,
+    .callback  = NULL,
+    .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.    */
+    .dier      = 0U,
+};
+GPTConfig gpt7cfg1 = {
+    .frequency = AUDIO_DAC_SAMPLE_RATE,
+    .callback  = NULL,
+    .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.    */
+    .dier      = 0U,
+};
 
 static void gpt_audio_state_cb(GPTDriver *gptp);
-GPTConfig   gptStateUpdateCfg = {.frequency = 10,
-                               .callback  = gpt_audio_state_cb,
-                               .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.    */
-                               .dier      = 0U};
+GPTConfig   gptStateUpdateCfg = {
+    .frequency = 10,
+    .callback  = gpt_audio_state_cb,
+    .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.    */
+    .dier      = 0U,
+};
 
 static const DACConfig dac_conf_ch1 = {.init = AUDIO_DAC_OFF_VALUE, .datamode = DAC_DHRM_12BIT_RIGHT};
 static const DACConfig dac_conf_ch2 = {.init = AUDIO_DAC_OFF_VALUE, .datamode = DAC_DHRM_12BIT_RIGHT};
 
 /**
- * @note The DAC_TRG(0) here selects the Timer 6 TRGO event, which is triggered
- * on the rising edge after 3 APB1 clock cycles, causing our gpt6cfg1.frequency
+ * @note The DAC_TRG() here selects the Timer 6/7 TRGO event, which is triggered
+ * on the rising edge after 3 APB1 clock cycles, causing our gpt6/7cfg1.frequency
  * to be a third of what we expect.
- *
- * Here are all the values for DAC_TRG (TSEL in the ref manual)
- * TIM15_TRGO 0b011
- * TIM2_TRGO  0b100
- * TIM3_TRGO  0b001
- * TIM6_TRGO  0b000
- * TIM7_TRGO  0b010
- * EXTI9      0b110
- * SWTRIG     0b111
  */
-static const DACConversionGroup dac_conv_grp_ch1 = {.num_channels = 1U, .trigger = DAC_TRG(0b000)};
-static const DACConversionGroup dac_conv_grp_ch2 = {.num_channels = 1U, .trigger = DAC_TRG(0b010)};
+static const DACConversionGroup dac_conv_grp_ch1 = {.num_channels = 1U, .trigger = DAC_TRG(AUDIO_DAC_CH1_TRIGGER)};
+static const DACConversionGroup dac_conv_grp_ch2 = {.num_channels = 1U, .trigger = DAC_TRG(AUDIO_DAC_CH2_TRIGGER)};
 
 void channel_1_start(void) {
     gptStart(&GPTD6, &gpt6cfg1);
@@ -215,9 +212,14 @@ void audio_driver_initialize_impl(void) {
      *
      * this is done here, reaching directly into the stm32 registers since chibios has not implemented BOFF handling yet
      * (see: chibios/os/hal/ports/STM32/todo.txt '- BOFF handling in DACv1.'
+     *
+     * This Explict setting to 0 does not seem to be needed for the G4 Series and possibly the L4+ serires
+     * to handle this id the BOFF bit defination does not exist then dont include the clearing.
      */
+#if defined(DAC_CR_BOFF1)
     DACD1.params->dac->CR &= ~DAC_CR_BOFF1;
     DACD2.params->dac->CR &= ~DAC_CR_BOFF2;
+#endif
 
     // start state-updater
     gptStart(&AUDIO_STATE_TIMER, &gptStateUpdateCfg);

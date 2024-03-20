@@ -280,28 +280,21 @@ static void dac_error(DACDriver *dacp, dacerror_t err) {
     chSysHalt("DAC failure. halp");
 }
 
-static const GPTConfig gpt6cfg1 = {.frequency = AUDIO_DAC_SAMPLE_RATE * 3,
-                                   .callback  = NULL,
-                                   .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.  */
-                                   .dier      = 0U};
+static const GPTConfig gpt6cfg1 = {
+    .frequency = AUDIO_DAC_SAMPLE_RATE * 3,
+    .callback  = NULL,
+    .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.  */
+    .dier      = 0U,
+};
 
 static const DACConfig dac_conf = {.init = AUDIO_DAC_OFF_VALUE, .datamode = DAC_DHRM_12BIT_RIGHT};
 
 /**
- * @note The DAC_TRG(0) here selects the Timer 6 TRGO event, which is triggered
+ * @note The DAC_TRG() here selects the Timer 6 TRGO event, which is triggered
  * on the rising edge after 3 APB1 clock cycles, causing our gpt6cfg1.frequency
  * to be a third of what we expect.
- *
- * Here are all the values for DAC_TRG (TSEL in the ref manual)
- * TIM15_TRGO 0b011
- * TIM2_TRGO  0b100
- * TIM3_TRGO  0b001
- * TIM6_TRGO  0b000
- * TIM7_TRGO  0b010
- * EXTI9      0b110
- * SWTRIG     0b111
  */
-static const DACConversionGroup dac_conv_cfg = {.num_channels = 1U, .end_cb = dac_end, .error_cb = dac_error, .trigger = DAC_TRG(0b000)};
+static const DACConversionGroup dac_conv_cfg = {.num_channels = 1U, .end_cb = dac_end, .error_cb = dac_error, .trigger = DAC_TRG(AUDIO_DAC_CH1_TRIGGER)};
 
 void audio_driver_initialize_impl(void) {
     if ((AUDIO_PIN == A4) || (AUDIO_PIN_ALT == A4)) {
@@ -321,9 +314,14 @@ void audio_driver_initialize_impl(void) {
      *
      * this is done here, reaching directly into the stm32 registers since chibios has not implemented BOFF handling yet
      * (see: chibios/os/hal/ports/STM32/todo.txt '- BOFF handling in DACv1.'
+     *
+     * This Explict setting to 0 does not seem to be needed for the G4 Series and possibly the L4+ serires
+     * to handle this id the BOFF bit defination does not exist then dont include the clearing.
      */
+#if defined(DAC_CR_BOFF1)
     DACD1.params->dac->CR &= ~DAC_CR_BOFF1;
     DACD2.params->dac->CR &= ~DAC_CR_BOFF2;
+#endif
 
     /* Start the DAC output with all off values. This buffer will then get fed
      * with samples from dac_end, which will play notes.
