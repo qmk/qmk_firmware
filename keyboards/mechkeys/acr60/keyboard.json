@@ -53,7 +53,7 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
-    "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift", "60_ansi_tsangan", "60_tsangan_hhkb", "60_ansi_wkl", "60_ansi_wkl_split_bs_rshift", "60_ansi_arrow", "64_ansi", "60_hhkb", "60_iso", "60_iso_split_bs_rshift", "60_iso_tsangan", "60_iso_tsangan_split_bs_rshift", "60_iso_wkl", "60_iso_wkl_split_bs_rshift", "64_iso", "60_abnt2"],
+    "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift", "60_ansi_tsangan", "60_tsangan_hhkb", "60_ansi_wkl", "60_ansi_wkl_split_bs_rshift", "60_ansi_arrow", "64_ansi", "60_hhkb", "60_iso", "60_iso_split_bs_rshift", "60_iso_tsangan", "60_iso_tsangan_split_bs_rshift", "60_iso_wkl", "60_iso_wkl_split_bs_rshift", "64_iso"],
     "layout_aliases": {
         "LAYOUT_2_shifts": "LAYOUT_all",
         "LAYOUT_mitchsplit": "LAYOUT_60_ansi_split_space_split_rshift"
@@ -1613,7 +1613,7 @@
                 {"matrix": [4, 14], "x": 14, "y": 4}
             ]
         },
-        "LAYOUT_60_abnt2": {
+        "LAYOUT_abnt2": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -1659,20 +1659,20 @@
                 {"matrix": [1, 14], "x": 12.75, "y": 2},
                 {"matrix": [2, 13], "x": 13.75, "y": 1, "w": 1.25, "h": 2},
 
-                {"matrix": [3, 0], "x": 0, "y": 3, "w": 1.25},
-                {"matrix": [3, 1], "x": 1.25, "y": 3},
-                {"matrix": [3, 2], "x": 2.25, "y": 3},
-                {"matrix": [3, 3], "x": 3.25, "y": 3},
-                {"matrix": [3, 4], "x": 4.25, "y": 3},
-                {"matrix": [3, 5], "x": 5.25, "y": 3},
-                {"matrix": [3, 6], "x": 6.25, "y": 3},
-                {"matrix": [3, 7], "x": 7.25, "y": 3},
-                {"matrix": [3, 8], "x": 8.25, "y": 3},
-                {"matrix": [3, 9], "x": 9.25, "y": 3},
-                {"matrix": [3, 10], "x": 10.25, "y": 3},
-                {"matrix": [3, 11], "x": 11.25, "y": 3},
-                {"matrix": [3, 12], "x": 12.25, "y": 3},
-                {"matrix": [3, 13], "x": 13.25, "y": 3, "w": 1.75},
+                {"matrix": [3, 0], "x": 0, "y": 3},
+                {"matrix": [3, 1], "x": 1, "y": 3},
+                {"matrix": [3, 2], "x": 2, "y": 3},
+                {"matrix": [3, 3], "x": 3, "y": 3},
+                {"matrix": [3, 4], "x": 4, "y": 3},
+                {"matrix": [3, 5], "x": 5, "y": 3},
+                {"matrix": [3, 6], "x": 6, "y": 3},
+                {"matrix": [3, 7], "x": 7, "y": 3},
+                {"matrix": [3, 8], "x": 8, "y": 3},
+                {"matrix": [3, 9], "x": 9, "y": 3},
+                {"matrix": [3, 10], "x": 10, "y": 3},
+                {"matrix": [3, 11], "x": 11, "y": 3},
+                {"matrix": [3, 12], "x": 12, "y": 3},
+                {"matrix": [3, 13], "x": 13, "y": 3, "w": 2},
 
                 {"matrix": [4, 0], "x": 0, "y": 4, "w": 1.25},
                 {"matrix": [4, 1], "x": 1.25, "y": 4, "w": 1.25},
