@@ -23,13 +23,12 @@ enum layers {
 #define SPC_SFT LSFT_T(KC_SPC)
 #define UND_SFT LSFT_T(KC_UNDS) // further defined in macro (because shifted keycodes in _T() is not possible)
 #define EQL_RLT RALT_T(KC_EQL)
-// Auto-Dead-Key:   //auto-send space after deadkey, unless ADK_ key was held; requires "English(US)"+"Qwerty US" language+kbd settings in windows
-#define ADK_A LT(11, KC_A)
-#define ADK_E LT(11, KC_E)
-#define ADK_U LT(11, KC_U)
-#define ADK_I LT(11, KC_I)
-#define ADK_O LT(11, KC_O)
-#define ADK_N LT(11, KC_N)
+// Dead-hold keys:              // normal on tap, dead key on hold; requires "English(US)"+"Qwerty US" language+kbd settings in windows
+#define DH_QUOT LT(11, KC_QUOT) // further defined in macro
+#define DH_DQOT LT(12, KC_QUOT) // further defined in macro
+#define DH_GRV LT(11, KC_GRV)   // further defined in macro
+#define DH_TILD LT(12, KC_TILD) // further defined in macro
+#define DH_CIRC LT(12, KC_CIRC) // further defined in macro
 // Other:
 #define DOTCOMM LT(10, KC_DOT) // KC_DOT, KC_COMM on shif; swap behavoiur by double tap (further defined in macro)
 // Macros:
@@ -44,14 +43,14 @@ enum custom_keycodes {
 #include "g/keymap_combo.h" //included after custom keycodes, so custom keycodes can be used in combos.def
 ///..custom keycodes
 
-/// keymaps..
+/// Keymaps..
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // clang-format off
   //Qwerty:
   [_QTY] = LAYOUT_split_3x5_3(
-	  KC_Q,    KC_W,    ADK_E,   KC_R,    KC_T,             KC_Y,    ADK_U,   ADK_I,   ADK_O,   KC_P,
-	  ADK_A,   KC_S,    KC_D,    FFF_NUM, KC_G,             KC_H,    JJJ_NUM, KC_K,    KC_L,    KC_QUOT,
-	  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             ADK_N,   KC_M,    KC_COMM, KC_DOT,  KC_EXLM,
+	  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
+	  KC_A,    KC_S,    KC_D,    FFF_NUM, KC_G,             KC_H,    JJJ_NUM, KC_K,    KC_L,    DH_QUOT,
+	  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_EXLM,
 						KC_LALT, SPC_SFT, KC_LCTL,          KC_RALT, SPC_SFT, MO(_MISC)
   ),
   //Qwerty e: (unmodified qwerty layout for emulation in for example monkeytype)
@@ -66,17 +65,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	  _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______,
 	  _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______,
 	  _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______,
-						_______, _______, _______,          _______, _______, _______
+						_______, SPC_SFT, _______,          _______, _______, _______
   ),
   //Numbers and symbols:
   [_NUM] = LAYOUT_split_3x5_3(
-	  KC_AT,   KC_DLR,  KC_AMPR, KC_PIPE, KC_TILD,          KC_CIRC, KC_7,    KC_8,    KC_9,    KC_PERC,
-	  KC_LCBR, KC_LPRN, KC_RPRN, KC_RCBR, KC_GRV,           KC_PLUS, KC_4,    KC_5,    KC_6,    KC_MINS,
+	  KC_AT,   KC_DLR,  KC_AMPR, KC_PIPE, DH_TILD,          DH_CIRC, KC_7,    KC_8,    KC_9,    KC_PERC,
+	  KC_LCBR, KC_LPRN, KC_RPRN, KC_RCBR, DH_GRV,           KC_PLUS, KC_4,    KC_5,    KC_6,    KC_MINS,
 	  KC_LBRC, KC_LT,   KC_GT,   KC_RBRC, KC_HASH,          KC_ASTR, KC_1,    KC_2,    KC_3,    KC_SLSH,
 						_______, UND_SFT, _______,          EQL_RLT, KC_0,    DOTCOMM
   ),
   [_RNUM] = LAYOUT_split_3x5_3(
-	  _______, _______, _______, _______, _______,          KC_CIRC, KC_7,    KC_8,    KC_9,    KC_PERC,
+	  _______, _______, _______, _______, _______,          DH_CIRC, KC_7,    KC_8,    KC_9,    KC_PERC,
 	  _______, _______, _______, _______, _______,          KC_PLUS, KC_4,    KC_5,    KC_6,    KC_MINS,
 	  _______, _______, _______, _______, _______,          KC_ASTR, KC_1,    KC_2,    KC_3,    KC_SLSH,
 						_______, _______, _______,          EQL_RLT, KC_0,    DOTCOMM
@@ -196,61 +195,47 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case UND_SFT:
             return 250;
-        case ADK_A:
-        case ADK_E:
-        case ADK_U:
-        case ADK_I:
-        case ADK_O:
-        case ADK_N:
-            return 200;
         default:
             return TAPPING_TERM;
     }
 };
 
-/// multicode keycodes..
-typedef struct _multicode_keycode_t { // define multicode functions
-    uint16_t keycode_record;          // unmodified keycode
-    uint16_t keycode_shifted;         // alternate keycode to output on shift
-    uint16_t keycode_deadkey;         // alternate keycode for auto_dead_key
-} multicode_keycode_t;
-// clang-format off
-#define MULTICODE_COUNT 12 // number of multicode instances in multicode map
-multicode_keycode_t multicodemap[MULTICODE_COUNT] = {
-    // multicode mapping, format: {keycode_record, keycode_shifted, keycode_deadkey}
-    // default layer:
-    {KC_Z,    S(KC_Z),    S(KC_CIRC)}, // z Z ^
-    {KC_X,    S(KC_X),    S(KC_QUOT)}, // x X "
-    {KC_C,    S(KC_C),    KC_QUOT},    // c C '
-    {KC_V,    S(KC_V),    KC_GRV},     // v V `
-    {KC_B,    S(KC_B),    S(KC_GRV)},  // b B ~
-
-    {ADK_N,   S(KC_N),    S(KC_GRV)},  // n N ~
-    {KC_M,    S(KC_M),    KC_GRV},     // m M `
-    {KC_COMM, KC_SCLN,    KC_QUOT},    // , ; '
-    {KC_DOT,  S(KC_SCLN), S(KC_QUOT)}, // . : "
-    {KC_EXLM, KC_QUES,    S(KC_CIRC)}, // ! ? ^
-    // num layer:
-    {KC_SLSH, KC_BSLS,    KC_NO}, // / \ //
-    {KC_DLR,  RALT(KC_5), KC_NO}, // $ €
+/// Customshift keycodes..
+typedef struct _customshift_keycode_t { // define customshift functions
+    uint16_t keycode_record;            // unmodified keycode
+    uint16_t keycode_shifted;           // alternate keycode to output on shift
+} customshift_keycode_t;
+#define KEY_MAP_SIZE 10 // amount of instances in customshift map
+customshift_keycode_t keymap[KEY_MAP_SIZE] = {
+    // customshift mapping, format: {keycode_record, keycode_shifted}
+    // punctuation
+    {KC_EXLM, KC_QUES},
+    {KC_COMM, KC_SCLN},
+    {KC_DOT, S(KC_SCLN)}, // !?  ,;  .:
+    // symbols
+    {KC_SLSH, KC_BSLS},
+    {KC_PIPE, KC_BSLS},
+    {KC_DLR, RALT(KC_5)}, // /\  |\  $€
+    {KC_LCBR, KC_LBRC},
+    {KC_RCBR, KC_RBRC}, // brackets for qwertai
+    // Volume and brightness
+    {KC_VOLU, KC_BRIU},
+    {KC_VOLD, KC_BRID},
 };
-// clang-format on
-int get_index_multicode(uint16_t keycode_record) { // find corresponding item in multicode map for pressed key
-    for (int i = 0; i < MULTICODE_COUNT; i++) {
-        if (multicodemap[i].keycode_record == keycode_record) return i;
+int get_index_customshift(uint16_t keycode_record) { // find corresponding item in customshift map for pressed key
+    for (int i = 0; i < KEY_MAP_SIZE; i++) {
+        if (keymap[i].keycode_record == keycode_record) return i;
     }
-    return -1; // return -1 if pressed key is not in multicode map
+    return -1; // return -1 if pressed key is not in customshift map
 };
-///..multicode keycodes
+///..customshift keycodes
 
 /// Macros..
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // variables:
-    static bool     dotcomm_state = true;                         // true = dot; false = comma;
-    const int       index         = get_index_multicode(keycode); // check if keycode is in multicode map
-    const uint16_t  mod_shift     = get_mods() & MOD_MASK_SHIFT;  // track shift state for custom shift behaviours (defined in multicode keycodes)
-    static uint16_t auto_dead_key = KC_SPC;                       // keycode to send after dead key (defined in multicode keycodes)
-    static uint16_t adk_mod_shift = 0;                            // track shift state for auto_dead_key
+    int            index         = get_index_customshift(keycode); // check if keycode is in customshift map
+    const uint16_t mod_shift     = get_mods() & MOD_MASK_SHIFT;    // track shift state for customshift behaviours
+    static bool    dotcomm_state = true;                           // true = dot; false = comma;
 
     // macros:
     switch (keycode) {
@@ -266,7 +251,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 wait_ms(10);      // wait 10 ms
                 reset_keyboard(); // enter bootmode
             }
-            return false;
+            return false; // enter boot mode
 
         // layer toggles:
         case CADTOGG: // toggle CAD mode
@@ -315,60 +300,68 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
-            // clang-format off
-        // Auto-Dead-Keys:  // requires "English(NL)" or "Nederlands" language setting + "US International" keyboard setting in Windows.
-        case ADK_A: case ADK_E: case ADK_U: case ADK_I: case ADK_O: case ADK_N: // clang-format on
-            if (record->event.pressed && record->tap.count) {
-                // ON TAP:
-                if (index == -1 || auto_dead_key == KC_SPC) return true; // check for index and adk state to avoid conflict with multicode keycodes
-            } else if (record->event.pressed) {
-                // ON HOLD:
-                auto_dead_key = keycode;   // store keycode as auto_dead_key
-                adk_mod_shift = mod_shift; // store shift state of auto_dead_key
-                return false;              // don't return keycode
-            } else {
-                // ON RELEASE:
-                auto_dead_key = KC_SPC;
-                return true;
-            } // clang-format off
-        // Dead keys
-        case KC_QUOT: case KC_GRV: case KC_TILD: case KC_CIRC: // clang-format on
-            if (record->event.pressed && index == -1) {
-                // skip if multicode keycode index active (else creates conflict with ADK_N)
-                tap_code16(keycode);            // tap dead key
-                unregister_mods(mod_shift);     // unregister shift (if it was pressed)
-                register_mods(adk_mod_shift);   // register auto_dead_key shift state
-                tap_code16(auto_dead_key);      // tap auto_dead_key (KC_SPC if no ADK_ keycode was held)
-                unregister_mods(adk_mod_shift); // unregister auto_dead_key shift state
-                register_mods(mod_shift);       // re-register shift (if it was pressed)
-                return false;                   // ignore default key behavior
+
+        // Dead-hold keys (acts like dead key when held), requires "English(US)"+"Qwerty US" language+kbd settings in windows:
+        case DH_QUOT:                                         // works for both ['] and ["] (except when ["] is accessed via combo, because then shift is not activated)
+            if (record->event.pressed && record->tap.count) { // if tapped, behave as normal key
+                tap_code16(KC_QUOT);
+                tap_code16(KC_SPC);
+            } else if (record->event.pressed) { // if held, behave as dead key
+                tap_code16(KC_QUOT);
+                if (mod_shift) {
+                    unregister_mods(mod_shift);
+                } // unregister shift to resolve conflict of holding shifted dead key
             }
+            return false;
+        case DH_DQOT:                                         // workaround for combo-["] on CAD layer
+            if (record->event.pressed && record->tap.count) { // if tapped, behave as normal key
+                tap_code16(S(KC_QUOT));
+                tap_code16(KC_SPC);
+            } else if (record->event.pressed) { // if held, behave as dead key
+                tap_code16(S(KC_QUOT));
+            }
+            return false;
+        case DH_GRV:
+            if (record->event.pressed && record->tap.count) {
+                tap_code16(KC_GRV);
+                tap_code16(KC_SPC);
+            } else if (record->event.pressed) {
+                tap_code16(KC_GRV);
+                layer_off(_NUM);
+            }
+            return false;
+        case DH_TILD:
+            if (record->event.pressed && record->tap.count) {
+                tap_code16(S(KC_GRV));
+                tap_code16(KC_SPC);
+            } else if (record->event.pressed) {
+                tap_code16(S(KC_GRV));
+                layer_off(_NUM);
+            }
+            return false;
+        case DH_CIRC:
+            if (record->event.pressed && record->tap.count) {
+                tap_code16(S(KC_6));
+                tap_code16(KC_SPC);
+            } else if (record->event.pressed) {
+                tap_code16(S(KC_6));
+                layer_off(_NUM);
+            }
+            return false;
 
         default:
-            // multicode keycodes:
-            if (index != -1) { // if key is in multicode map, then:
-                if (record->event.pressed && auto_dead_key != KC_SPC) {
-                    // when auto_dead_key is active:
-                    unregister_mods(mod_shift);                      // unregister shift (if it was pressed)
-                    tap_code16(multicodemap[index].keycode_deadkey); // tap dead key
-                    register_mods(adk_mod_shift);                    // register auto_dead_key shift state
-                    tap_code16(auto_dead_key);                       // tap auto_dead_key (KC_SPC if no ADK_ keycode w
-                    unregister_mods(adk_mod_shift);                  // unregister auto_dead_key shift state
-                    register_mods(mod_shift);                        // re-register shift (if it was pressed)
-                    return false;                                    // ignore default key behaviour
-                } else if (record->event.pressed && mod_shift) {
-                    // when shift is pressed:
-                    unregister_mods(mod_shift);                      // unregister shift
-                    tap_code16(multicodemap[index].keycode_shifted); // tap custom shift key
-                    register_mods(mod_shift);                        // re-register shift
-                    return false;                                    // ignore default key behaviour
+            // Customshift:
+            if (index != -1) {                            // if key is in customshift map, then:
+                if (record->event.pressed && mod_shift) { // shifted action
+                    unregister_mods(mod_shift);
+                    tap_code16(keymap[index].keycode_shifted); // custom shift key
+                    register_mods(mod_shift);
+                    return false; // ignore default shift behaviour
                 }
-                return true; // else return default keycode
+                return true; // return as normal when not shifted
+            }                // end of if(index != -1)
+    }                        //..switch(keycode)
 
-            } //..if(index != -1)
-
-    } //..switch(keycode)
-
-    return true; // if key is not in multicode map or other macro, return normal key behaviour
+    return true; // if key is not in customshift map or other macro, return normal key behaviour
 };
 ///..Macros

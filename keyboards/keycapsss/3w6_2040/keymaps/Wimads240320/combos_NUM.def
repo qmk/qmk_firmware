@@ -30,8 +30,8 @@ COMB(NUM_DOT,       KC_DOT,         KC_LT,   KC_RBRC)//<)  Dot
 COMB(NUMrCOM,       KC_COMMA,       KC_6,    KC_2)   //62  Comma
 COMB(NUMrDOT,       KC_DOT,         KC_5,    KC_3)   //53  Dot
 
-COMB(NUM_CKB,       CLEARKB,        KC_AT,   KC_TILD) //@~ Clear keyboard
-COMB(NUMrCKB,       CLEARKB,        KC_CIRC, KC_PERC) //^% Clear keyboard
+COMB(NUM_CKB,       CLEARKB,        KC_AT,   DH_TILD) //@~ Clear keyboard
+COMB(NUMrCKB,       CLEARKB,        DH_CIRC, KC_PERC) //^% Clear keyboard
 
 ////NAVIGATION////
 COMB(NUM_HOME,      KC_HOME,        KC_7,    KC_4)
