@@ -1,0 +1,237 @@
+{
+  "name": "EPOMAKER TIDE 65",
+  "vendorId": "0x342d",
+  "productId": "0xe463",
+  "keycodes": ["qmk_lighting"],
+  "menus": [
+    {
+      "label": "Lighting",
+      "content": [
+        {
+          "label": "Backlight",
+          "content": [
+            {
+              "label": "Brightness",
+              "type": "range",
+              "options": [0, 255],
+              "content": ["id_qmk_rgb_matrix_brightness", 3, 1]
+            },
+            {
+              "label": "Effect",
+              "type": "dropdown",
+              "content": ["id_qmk_rgb_matrix_effect", 3, 2],
+              "options": [
+                ["All Off", 0],
+                ["Solid Color", 1],
+                ["Alphas Mods", 2],
+                ["Gradient Up Down", 3],
+                ["Gradient Left Right", 4],
+                ["Breathing", 5],
+                ["Band Sat", 6],
+                ["Band Val", 7],
+                ["Band Pinwheel Sat", 8],
+                ["Band Pinwheel Val", 9],
+                ["Band Spiral Sat", 10],
+                ["Band Spiral Val", 11],
+                ["Cycle All", 12],
+                ["Cycle Left Right", 13],
+                ["Cycle Up Down", 14],
+                ["Rainbow Moving Chevron", 15],
+                ["Cycle Out In", 16],
+                ["Cycle Out In Dual", 17],
+                ["Cycle Pinwheel", 18],
+                ["Cycle Spiral", 19],
+                ["Dual Beacon", 20],
+                ["Rainbow Beacon", 21],
+                ["Rainbow Pinwheels", 22],
+                ["Raindrops", 23],
+                ["Jellybean Raindrops", 24],
+                ["Hue Breathing", 25],
+                ["Hue Pendulum", 26],
+                ["Hue Wave", 27],
+                ["Pixel Rain", 28],
+                ["Pixel Flow", 29],
+                ["Pixel Fractal", 30],
+                ["Typing Heatmap", 31],
+                ["Digital Rain", 32],
+                ["Solid Reactive Simple", 33],
+                ["Solid Reactive", 34],
+                ["Solid Reactive Wide", 35],
+                ["Solid Reactive Multiwide", 36],
+                ["Solid Reactive Cross", 37],
+                ["Solid Reactive Multicross", 38],
+                ["Solid Reactive Nexus", 39],
+                ["Solid Reactive Multinexus", 40],
+                ["Splash", 41],
+                ["Multisplash", 42],
+                ["Solid Splash", 43],
+                ["Solid Multisplash", 44],
+                ["Close All", 45]
+              ]
+            },
+            {
+              "showIf": "{id_qmk_rgb_matrix_effect} != 0",
+              "label": "Effect Speed",
+              "type": "range",
+              "options": [0, 255],
+              "content": ["id_qmk_rgb_matrix_effect_speed", 3, 3]
+            },
+            {
+              "showIf": "{id_qmk_rgb_matrix_effect} != 0 && {id_qmk_rgb_matrix_effect} != 24 && {id_qmk_rgb_matrix_effect} != 28 && {id_qmk_rgb_matrix_effect} != 29 && {id_qmk_rgb_matrix_effect} != 32",
+              "label": "Color",
+              "type": "color",
+              "content": ["id_qmk_rgb_matrix_color", 3, 4]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "matrix": {"rows": 5, "cols": 15},
+  "customKeycodes": [
+    {"name": "BT DEV1","title": "BT Device 1","shortName": "DEV1"},
+    {"name": "BT DEV2","title": "BT Device 2","shortName": "DEV2"},
+    {"name": "BT DEV3","title": "BT Device 3","shortName": "DEV3"},
+    {"name": "BT DEV4","title": "BT Device 4","shortName": "DEV4"},
+    {"name": "BT DEV5","title": "BT Device 5","shortName": "DEV5"},
+    {"name": "2.4G","title": "2.4G","shortName": "DEV 2.4G"},
+    {"name": "USB","title": "USB","shortName": "DEV USB"}
+  ],
+  "layouts": {
+      "keymap":
+      [
+        [
+          "0,0\n`",
+          "0,1\n1",
+          "0,2\n2",
+          "0,3\n3",
+          "0,4\n4",
+          "0,5\n5",
+          "0,6\n6",
+          "0,7\n7",
+          "0,8\n8",
+          "0,9\n9",
+          "0,10\n0",
+          "0,11\n-",
+          "0,12\n=",
+          {
+            "w": 2
+          },
+          "0,13",
+          "0,14\n\n\n\n\n\n\n\n\ne0"
+        ],
+        [
+          {
+            "w": 1.5
+          },
+          "1,0",
+          "1,1",
+          "1,2",
+          "1,3",
+          "1,4",
+          "1,5",
+          "1,6",
+          "1,7",
+          "1,8",
+          "1,9",
+          "1,10",
+          "1,11\n[",
+          "1,12\n]",
+          {
+            "w": 1.5
+          },
+          "1,13\n#",
+          "1,14"
+        ],
+        [
+          {
+            "w": 1.75
+          },
+          "2,0",
+          "2,1",
+          "2,2",
+          "2,3",
+          "2,4",
+          "2,5",
+          "2,6",
+          "2,7",
+          "2,8",
+          "2,9",
+          "2,10\n;",
+          "2,11\n'",
+          {
+            "x": 0.25,
+            "w": 2.25,
+            "x2": -0.25
+          },
+          "2,13",
+          {
+            "x": -0.25
+          },
+          "2,14"
+        ],
+        [
+          {
+            "w": 2.25
+          },
+          "3,0",
+          "3,1",
+          "3,2",
+          "3,3",
+          "3,4",
+          "3,5",
+          "3,6",
+          "3,7",
+          "3,8\n,",
+          "3,9\n.",
+          "3,11\n/",
+          {
+            "w": 1.75
+          },
+          "3,12",
+          "3,13",
+          "3,14"
+        ],
+        [
+          {
+            "w": 1.25
+          },
+          "4,0",
+          {
+            "w": 1.25
+          },
+          "4,1",
+          {
+            "w": 1.25
+          },
+          "4,2",
+          {
+            "w": 2.25
+          },
+          "4,3",
+          {
+            "w": 1.25
+          },
+          "4,4",
+          {
+            "w": 2.75
+          },
+          "4,6",
+          {
+            "w": 1.25
+          },
+          "4,9",
+          {
+            "w": 1.25
+          },
+          "4,11",
+          {
+            "x": 0.5
+          },
+          "4,12",
+          "4,13",
+          "4,14"
+        ]
+      ]
+  }
+}
