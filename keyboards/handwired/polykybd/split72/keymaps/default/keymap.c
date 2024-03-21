@@ -2,6 +2,8 @@
 
 #include "polykybd.h"
 #include "split72/split72.h"
+#include "split72/keymaps/default/uni.h"
+
 #include "base/disp_array.h"
 #include "base/helpers.h"
 #include "base/spi_helper.h"
@@ -23,7 +25,7 @@
 #include "print.h"
 #include "debug.h"
 
-#include "uni.h"
+
 
 #include <transactions.h>
 
@@ -83,7 +85,7 @@ enum kb_layers {
     _EMJ1 };
 
 enum my_keycodes {
-    KC_LANG = SAFE_RANGE,
+    KC_LANG = QK_KB_0,
     KC_DMIN,
     KC_DMAX,
     KC_DDIM,
