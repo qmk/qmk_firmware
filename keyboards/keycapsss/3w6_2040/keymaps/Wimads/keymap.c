@@ -56,8 +56,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   //Qwerty e: (unmodified qwerty layout for emulation in for example monkeytype)
   [_QTYe] = LAYOUT_split_3x5_3(
-	  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
-	  KC_A,    KC_S,    KC_D,    FFF_NUM, KC_G,             KC_H,    JJJ_NUM, KC_K,    KC_L,    KC_SCLN,
+	  KC_Q,    KC_W,    ADK_E,   KC_R,    KC_T,             KC_Y,    ADK_U,   ADK_I,   ADK_O,   KC_P,
+	  ADK_A,   KC_S,    KC_D,    FFF_NUM, KC_G,             KC_H,    JJJ_NUM, KC_K,    KC_L,    KC_SCLN,
 	  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
 						KC_LALT, KC_LSFT, KC_LCTL,          KC_RALT, SPC_SFT, MO(_MISC)
   ),
@@ -208,48 +208,48 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 };
 
-/// multicode keycodes..
-typedef struct _multicode_keycode_t { // define multicode functions
-    uint16_t keycode_record;          // unmodified keycode
-    uint16_t keycode_shifted;         // alternate keycode to output on shift
-    uint16_t keycode_deadkey;         // alternate keycode for auto_dead_key
-} multicode_keycode_t;
+/// multifunc keycodes..
+typedef struct _multifunc_keycode_t { // define multifunc keycode functions
+    uint16_t kc_record;               // unmodified keycode
+    uint16_t kc_shifted;              // alternate keycode on shift
+    uint16_t kc_deadkey;              // alternate keycode on auto_dead_key
+} multifunc_keycode_t;
 // clang-format off
-#define MULTICODE_COUNT 12 // number of multicode instances in multicode map
-multicode_keycode_t multicodemap[MULTICODE_COUNT] = {
-    // multicode mapping, format: {keycode_record, keycode_shifted, keycode_deadkey}
-    // default layer:
-    {KC_Z,    S(KC_Z),    S(KC_CIRC)}, // z Z ^
-    {KC_X,    S(KC_X),    S(KC_QUOT)}, // x X "
-    {KC_C,    S(KC_C),    KC_QUOT},    // c C '
-    {KC_V,    S(KC_V),    KC_GRV},     // v V `
-    {KC_B,    S(KC_B),    S(KC_GRV)},  // b B ~
-
-    {ADK_N,   S(KC_N),    S(KC_GRV)},  // n N ~
-    {KC_M,    S(KC_M),    KC_GRV},     // m M `
-    {KC_COMM, KC_SCLN,    KC_QUOT},    // , ; '
-    {KC_DOT,  S(KC_SCLN), S(KC_QUOT)}, // . : "
-    {KC_EXLM, KC_QUES,    S(KC_CIRC)}, // ! ? ^
-    // num layer:
-    {KC_SLSH, KC_BSLS,    KC_NO}, // / \ //
-    {KC_DLR,  RALT(KC_5), KC_NO}, // $ €
+#define MULTIFUNC_COUNT 12 // number of multifunc keycodes in multifuncmap
+multifunc_keycode_t multifuncmap[MULTIFUNC_COUNT] = {
+    /* Multifunc mapping format:
+    {kc_record, kc_shifted, kc_deadkey}*///_DEF L
+    {KC_Z,      S(KC_Z),    S(KC_CIRC)}, // z Z ^
+    {KC_X,      S(KC_X),    S(KC_QUOT)}, // x X "
+    {KC_C,      S(KC_C),    KC_QUOT},    // c C '
+    {KC_V,      S(KC_V),    KC_GRV},     // v V `
+    {KC_B,      S(KC_B),    S(KC_GRV)},  // b B ~
+                                        ///_DEF R
+    {ADK_N,     S(KC_N),    S(KC_GRV)},  // n N ~
+    {KC_M,      S(KC_M),    KC_GRV},     // m M `
+    {KC_COMM,   KC_SCLN,    KC_QUOT},    // , ; '
+    {KC_DOT,    S(KC_SCLN), S(KC_QUOT)}, // . : "
+    {KC_EXLM,   KC_QUES,    S(KC_CIRC)}, // ! ? ^
+                                        ///_NUM
+    {KC_SLSH,   KC_BSLS,    S(KC_CIRC)}, // / \ ^
+    {KC_DLR,    RALT(KC_5), KC_NO},      // $ €
 };
 // clang-format on
-int get_index_multicode(uint16_t keycode_record) { // find corresponding item in multicode map for pressed key
-    for (int i = 0; i < MULTICODE_COUNT; i++) {
-        if (multicodemap[i].keycode_record == keycode_record) return i;
+int get_index_multifunc(uint16_t kc_record) { // find corresponding item in multifunc map for pressed key
+    for (int i = 0; i < MULTIFUNC_COUNT; i++) {
+        if (multifuncmap[i].kc_record == kc_record) return i;
     }
-    return -1; // return -1 if pressed key is not in multicode map
+    return -1; // return -1 if pressed key is not in multifunc map
 };
-///..multicode keycodes
+///..multifunc keycodes
 
 /// Macros..
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // variables:
     static bool     dotcomm_state = true;                         // true = dot; false = comma;
-    const int       index         = get_index_multicode(keycode); // check if keycode is in multicode map
-    const uint16_t  mod_shift     = get_mods() & MOD_MASK_SHIFT;  // track shift state for custom shift behaviours (defined in multicode keycodes)
-    static uint16_t auto_dead_key = KC_SPC;                       // keycode to send after dead key (defined in multicode keycodes)
+    const int       index         = get_index_multifunc(keycode); // check if keycode is in multifunc map
+    const uint16_t  mod_shift     = get_mods() & MOD_MASK_SHIFT;  // track shift state for custom shift behaviours (defined in multifunc keycodes)
+    static uint16_t auto_dead_key = KC_SPC;                       // keycode to send after dead key (defined in multifunc keycodes)
     static uint16_t adk_mod_shift = 0;                            // track shift state for auto_dead_key
 
     // macros:
@@ -320,12 +320,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case ADK_A: case ADK_E: case ADK_U: case ADK_I: case ADK_O: case ADK_N: // clang-format on
             if (record->event.pressed && record->tap.count) {
                 // ON TAP:
-                if (index == -1 || auto_dead_key == KC_SPC) return true; // check for index and adk state to avoid conflict with multicode keycodes
+                if (index == -1 || auto_dead_key == KC_SPC) return true; // check for index and adk state to avoid conflict with multifunc keycodes
             } else if (record->event.pressed) {
                 // ON HOLD:
-                auto_dead_key = keycode;   // store keycode as auto_dead_key
-                adk_mod_shift = mod_shift; // store shift state of auto_dead_key
-                return false;              // don't return keycode
+                auto_dead_key = keycode; // store keycode as auto_dead_key
+                if (is_caps_word_on()) {
+                    adk_mod_shift = MOD_MASK_SHIFT; // store shift state of auto_dead_key
+                } else {
+                    adk_mod_shift = mod_shift; // store shift state of auto_dead_key
+                }
+                return false; // don't return keycode
             } else {
                 // ON RELEASE:
                 auto_dead_key = KC_SPC;
@@ -334,7 +338,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // Dead keys
         case KC_QUOT: case KC_GRV: case KC_TILD: case KC_CIRC: // clang-format on
             if (record->event.pressed && index == -1) {
-                // skip if multicode keycode index active (else creates conflict with ADK_N)
+                // skip if multifunc keycode index active (else creates conflict with ADK_N)
                 tap_code16(keycode);            // tap dead key
                 unregister_mods(mod_shift);     // unregister shift (if it was pressed)
                 register_mods(adk_mod_shift);   // register auto_dead_key shift state
@@ -345,23 +349,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
 
         default:
-            // multicode keycodes:
-            if (index != -1) { // if key is in multicode map, then:
+            // multifunc keycodes:
+            if (index != -1) { // if key is in multifunc map, then:
                 if (record->event.pressed && auto_dead_key != KC_SPC) {
                     // when auto_dead_key is active:
-                    unregister_mods(mod_shift);                      // unregister shift (if it was pressed)
-                    tap_code16(multicodemap[index].keycode_deadkey); // tap dead key
-                    register_mods(adk_mod_shift);                    // register auto_dead_key shift state
-                    tap_code16(auto_dead_key);                       // tap auto_dead_key (KC_SPC if no ADK_ keycode w
-                    unregister_mods(adk_mod_shift);                  // unregister auto_dead_key shift state
-                    register_mods(mod_shift);                        // re-register shift (if it was pressed)
-                    return false;                                    // ignore default key behaviour
+                    unregister_mods(mod_shift);                 // unregister shift (if it was pressed)
+                    tap_code16(multifuncmap[index].kc_deadkey); // tap dead key
+                    register_mods(adk_mod_shift);               // register auto_dead_key shift state
+                    tap_code16(auto_dead_key);                  // tap auto_dead_key (KC_SPC if no ADK_ keycode w
+                    unregister_mods(adk_mod_shift);             // unregister auto_dead_key shift state
+                    register_mods(mod_shift);                   // re-register shift (if it was pressed)
+                    return false;                               // ignore default key behaviour
                 } else if (record->event.pressed && mod_shift) {
                     // when shift is pressed:
-                    unregister_mods(mod_shift);                      // unregister shift
-                    tap_code16(multicodemap[index].keycode_shifted); // tap custom shift key
-                    register_mods(mod_shift);                        // re-register shift
-                    return false;                                    // ignore default key behaviour
+                    unregister_mods(mod_shift);                 // unregister shift
+                    tap_code16(multifuncmap[index].kc_shifted); // tap custom shift key
+                    register_mods(mod_shift);                   // re-register shift
+                    return false;                               // ignore default key behaviour
                 }
                 return true; // else return default keycode
 
@@ -369,6 +373,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     } //..switch(keycode)
 
-    return true; // if key is not in multicode map or other macro, return normal key behaviour
+    return true; // if key is not in multifunc map or other macro, return normal key behaviour
 };
 ///..Macros
