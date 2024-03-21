@@ -131,6 +131,18 @@ check-size:
 		    fi ; \
 		fi ; \
 	fi
+	$(eval END_POINTER=$(shell printf "%d" $$(( 0xffff & 0x$$( if [ -f $(BUILD_DIR)/$(TARGET).elf ]; then avr-objdump -t $(BUILD_DIR)/$(TARGET).elf | grep -e '\b_end\b' | cut -c -8; else printf 0; fi ) )) ))
+	$(eval STACK_POINTER=$(shell printf "%d" $$(( 0xffff & 0x$$( if [ -f $(BUILD_DIR)/$(TARGET).elf ]; then avr-objdump -t $(BUILD_DIR)/$(TARGET).elf | grep -e '\b__stack\b' | cut -c -8; else printf 0; fi ) )) ))
+	$(eval STACK_SIZE=$(shell expr $(STACK_POINTER) + 1 - $(END_POINTER)))
+	$(eval RAM_OVERFLOW_AMOUNT=$(shell expr 0 - $(STACK_SIZE)))
+	if [ $(STACK_POINTER) -gt 0 ] && [ $(END_POINTER) -gt 0 ]; then \
+		$(SILENT) || printf "$(MSG_CHECK_STACKSIZE)" | $(AWK_CMD); \
+		if [ $(STACK_SIZE) -lt 0 ] ; then \
+			printf "\n * $(MSG_MEMORY_OVERFLOW)"; $(PRINT_ERROR_PLAIN); \
+		else \
+			$(SILENT) || printf "\n * $(MSG_STACK_SIZE)"; \
+		fi ; \
+	fi
 
 # Convert hex to bin.
 bin: $(BUILD_DIR)/$(TARGET).hex
