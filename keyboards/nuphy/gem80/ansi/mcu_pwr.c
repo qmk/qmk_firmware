@@ -14,6 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#include "config.h"
 #include "user_kb.h"
 #include "mcu_stm32f0xx.h"
 #include "mcu_pwr.h"
@@ -138,16 +139,13 @@ void enter_deep_sleep(void) {
     NVIC_Init(&NVIC_InitStructure);
 
     led_pwr_sleep_handle();
-
-    setPinOutput(DEV_MODE_PIN);
+    // JC variant
+    /* setPinOutput(DEV_MODE_PIN);
     writePinLow(DEV_MODE_PIN);
 
     setPinOutput(SYS_MODE_PIN);
     writePinLow(SYS_MODE_PIN);
 
-    // These should be LED pins as well, turning them off.
-    setPinOutput(A7);
-    writePinLow(A7);
     setPinOutput(DRIVER_SIDE_PIN);
     writePinLow(DRIVER_SIDE_PIN);
 
@@ -155,7 +153,11 @@ void enter_deep_sleep(void) {
     writePinHigh(NRF_TEST_PIN);
 
     setPinOutput(NRF_WAKEUP_PIN);
-    writePinHigh(NRF_WAKEUP_PIN);
+    writePinHigh(NRF_WAKEUP_PIN); */
+
+    // if f_usb_sleep - to suspend lights - just additionally
+    setPinInput(DRIVER_LED_CS_PIN);
+    setPinInput(DRIVER_SIDE_CS_PIN);
 
     clear_report_buffer();
 
@@ -170,15 +172,15 @@ void enter_deep_sleep(void) {
  */
 void exit_deep_sleep(void) {
     // 矩阵初始化
-    extern void matrix_init_pins(void);
-    matrix_init_pins();
+    // extern void matrix_init_pins(void);
+    // matrix_init_pins();
 
     // 恢复IO工作状态
-    setPinInputHigh(DEV_MODE_PIN); // PC0
-    setPinInputHigh(SYS_MODE_PIN); // PC1
+    // setPinInputHigh(DEV_MODE_PIN); // PC0
+    // setPinInputHigh(SYS_MODE_PIN); // PC1
 
     /* Wake RF module? Not sure if this works... */
-    setPinOutput(NRF_WAKEUP_PIN);
+    // setPinOutput(NRF_WAKEUP_PIN);
 
     // power on LEDs This is missing from Nuphy's logic.
     led_pwr_wake_handle();
@@ -443,4 +445,3 @@ void idle_enter_sleep(void) {
     }
 }
 #endif
-

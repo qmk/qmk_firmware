@@ -55,7 +55,6 @@ enum custom_keycodes {
     LOGO_SPD
 };
 
-#define MAC_PRT                 G(S(KC_3))
-#define MAC_PRTA                G(S(KC_4))
-#define WIN_PRTA                G(S(KC_S))
-
+#define MAC_PRT G(S(KC_3))
+#define MAC_PRTA G(S(KC_4))
+#define WIN_PRTA G(S(KC_S))

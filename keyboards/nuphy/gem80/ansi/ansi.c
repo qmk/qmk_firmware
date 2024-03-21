@@ -43,8 +43,6 @@ extern void logo_light_level_control(uint8_t brighten);
 extern void logo_side_colour_control(uint8_t dir);
 extern void logo_side_mode_control(uint8_t dir);
 
-
-
 /* qmk process record */
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     no_act_time     = 0;
@@ -255,7 +253,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 
-
         case DEV_RESET:
             if (record->event.pressed) {
                 f_dev_reset_press = 1;
@@ -280,10 +277,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             return false;
         case WIN_LOCK:
             if (record->event.pressed) {
-            keymap_config.no_gui = !keymap_config.no_gui;
-            eeconfig_update_keymap(keymap_config.raw);
-            break_all_key();
-            } else  unregister_code16(keycode);
+                keymap_config.no_gui = !keymap_config.no_gui;
+                eeconfig_update_keymap(keymap_config.raw);
+                break_all_key();
+            } else
+                unregister_code16(keycode);
             break;
 
         case RGB_TEST:
@@ -294,8 +292,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 register_code(KC_LSFT);
                 register_code(KC_GRV);
-            }
-            else {
+            } else {
                 unregister_code(KC_LSFT);
                 unregister_code(KC_GRV);
             }
@@ -320,32 +317,28 @@ void keyboard_post_init_kb(void) {
     keyboard_post_init_user();
 }
 
-bool rgb_matrix_indicators_user(void)
-{
+bool rgb_matrix_indicators_user(void) {
     if (rf_blink_cnt && dev_info.link_mode >= LINK_BT_1 && dev_info.link_mode <= LINK_BT_3) {
         user_set_rgb_color(33 - dev_info.link_mode, 0, 0, 0x80);
     }
 
-
     return true;
 }
 
-bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max)
-{
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (keymap_config.no_gui) {
         rgb_matrix_set_color(16, 0x00, 0x80, 0x00);
     }
 
-    rgb_matrix_set_color(RGB_MATRIX_LED_COUNT-1, 0, 0, 0);
+    rgb_matrix_set_color(RGB_MATRIX_LED_COUNT - 1, 0, 0, 0);
     return true;
 }
-
 
 /* qmk housekeeping task */
 void housekeeping_task_kb(void) {
     timer_pro();
 
-#if(WORK_MODE == THREE_MODE)
+#if (WORK_MODE == THREE_MODE)
     uart_receive_pro();
 
     uart_send_report_repeat();
@@ -361,4 +354,3 @@ void housekeeping_task_kb(void) {
 
     sleep_handle();
 }
-

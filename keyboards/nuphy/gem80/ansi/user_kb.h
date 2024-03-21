@@ -17,7 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "quantum.h"
+#include <stdint.h>
+#include "quantum/quantum.h"
 
 typedef enum {
     RX_Idle,
@@ -39,75 +40,75 @@ typedef enum {
 
 } TYPE_RX_STATE;
 
+#define RF_IDLE 0
+#define RF_PAIRING 1
+#define RF_LINKING 2
+#define RF_CONNECT 3
+#define RF_DISCONNECT 4
+#define RF_SLEEP 5
+#define RF_SNIF 6
+#define RF_INVAILD 0XFE
+#define RF_ERR_STATE 0XFF
+#define RF_WAKE 0XA5 // made this up
 
-#define RF_IDLE                 0
-#define RF_PAIRING              1
-#define RF_LINKING              2
-#define RF_CONNECT              3
-#define RF_DISCONNECT           4
-#define RF_SLEEP                5
-#define RF_SNIF                 6
-#define RF_INVAILD              0XFE
-#define RF_ERR_STATE            0XFF
-#define RF_WAKE                 0XA5 // made this up
+#define CMD_POWER_UP 0XF0
+#define CMD_SLEEP 0XF1
+#define CMD_HAND 0XF2
+#define CMD_SNIF 0XF3
+#define CMD_24G_SUSPEND 0XF4
+#define CMD_IDLE_EXIT 0XFE
 
-#define CMD_POWER_UP            0XF0
-#define CMD_SLEEP               0XF1
-#define CMD_HAND                0XF2
-#define CMD_SNIF                0XF3
-#define CMD_24G_SUSPEND         0XF4
-#define CMD_IDLE_EXIT           0XFE
+#define CMD_RPT_MS 0XE0
+#define CMD_RPT_BYTE_KB 0XE1
+#define CMD_RPT_BIT_KB 0XE2
+#define CMD_RPT_CONSUME 0XE3
+#define CMD_RPT_SYS 0XE4
 
-#define CMD_RPT_MS              0XE0
-#define CMD_RPT_BYTE_KB         0XE1
-#define CMD_RPT_BIT_KB          0XE2
-#define CMD_RPT_CONSUME         0XE3
-#define CMD_RPT_SYS             0XE4
+#define CMD_SET_LINK 0XC0
+#define CMD_SET_CONFIG 0XC1
+#define CMD_GET_CONFIG 0XC2
+#define CMD_SET_NAME 0XC3
+#define CMD_GET_NAME 0XC4
+#define CMD_CLR_DEVICE 0XC5
+#define CMD_NEW_ADV 0XC7
+#define CMD_RF_STS_SYSC 0XC9
+#define CMD_SET_24G_NAME 0XCA
+#define CMD_GO_TEST 0XCF
+#define CMD_RF_DFU 0XB1
+#define CMD_NULL 0X00 // I made this up, don't know if it exists. For tracking RX State
 
-#define CMD_SET_LINK            0XC0
-#define CMD_SET_CONFIG          0XC1
-#define CMD_GET_CONFIG          0XC2
-#define CMD_SET_NAME            0XC3
-#define CMD_GET_NAME            0XC4
-#define CMD_CLR_DEVICE          0XC5
-#define CMD_NEW_ADV             0XC7
-#define CMD_RF_STS_SYSC         0XC9
-#define CMD_SET_24G_NAME        0XCA
-#define CMD_GO_TEST             0XCF
-#define CMD_RF_DFU              0XB1
-#define CMD_NULL                0X00 // I made this up, don't know if it exists. For tracking RX State
+#define CMD_WRITE_DATA 0X80
+#define CMD_READ_DATA 0X81
 
-#define CMD_WRITE_DATA          0X80
-#define CMD_READ_DATA           0X81
+#define LINK_RF_24 0
+#define LINK_BT_1 1
+#define LINK_BT_2 2
+#define LINK_BT_3 3
+#define LINK_USB 4
 
-#define LINK_RF_24              0
-#define LINK_BT_1               1
-#define LINK_BT_2               2
-#define LINK_BT_3               3
-#define LINK_USB                4
+#define UART_HEAD 0x5A
+#define FUNC_VALID_LEN 32
+#define UART_MAX_LEN 64
 
-#define UART_HEAD               0x5A
-#define FUNC_VALID_LEN          32
-#define UART_MAX_LEN            64
+#define SYS_SW_WIN 0xa1
+#define SYS_SW_MAC 0xa2
 
-#define SYS_SW_WIN              0xa1
-#define SYS_SW_MAC              0xa2
+#define RF_LINK_SHOW_TIME 300
 
-#define RF_LINK_SHOW_TIME       300
+#define HOST_USB_TYPE 0
+#define HOST_BLE_TYPE 1
+#define HOST_RF_TYPE 2
 
-#define HOST_USB_TYPE           0
-#define HOST_BLE_TYPE           1
-#define HOST_RF_TYPE            2
+#define LINK_TIMEOUT (100 * 120)
+#define LINK_TIMEOUT_ALT (100 * 5)
+#define TIMER_STEP 10
+// #define SLEEP_TIME_DELAY        (5 * 60 * 1000 / TIMER_STEP) // official 6 minutes, I set 5 so this formula is 5 minutes by 60 seconds each by 1000 to convert to ms and then divide by timer step (logic based)
+#define SLEEP_TIME_DELAY (1 * 60 * 1000 / TIMER_STEP) // official 6 minutes, I set 5 so this formula is 5 minutes by 60 seconds each by 1000 to convert to ms and then divide by timer step (logic based)
+#define POWER_DOWN_DELAY (24)
 
-#define LINK_TIMEOUT            (100 * 120)
-#define LINK_TIMEOUT_ALT        (100 * 5)
-#define TIMER_STEP              10
-#define SLEEP_TIME_DELAY        (5 * 60 * 1000 / TIMER_STEP) // official 6 minutes, I set 5 so this formula is 5 minuts by 60 seconds each by 1000 to convert to ms and then divide by timer step (logic based)
-#define POWER_DOWN_DELAY        (24)
-
-#define RF_LONG_PRESS_DELAY     30
-#define DEV_RESET_PRESS_DELAY   30
-#define RGB_TEST_PRESS_DELAY    30
+#define RF_LONG_PRESS_DELAY 30
+#define DEV_RESET_PRESS_DELAY 30
+#define RGB_TEST_PRESS_DELAY 30
 
 typedef struct {
     uint8_t  RXDState;
@@ -121,8 +122,7 @@ typedef struct {
     uint8_t  RXDBuf[UART_MAX_LEN];
 } USART_MGR_STRUCT;
 
-typedef struct
-{
+typedef struct {
     uint8_t link_mode;
     uint8_t rf_channel;
     uint8_t ble_channel;
@@ -179,6 +179,5 @@ void    user_config_reset(void);
 void    user_set_rgb_color(int index, uint8_t red, uint8_t green, uint8_t blue);
 uint8_t uart_send_cmd(uint8_t cmd, uint8_t ack_cnt, uint8_t delayms);
 
-void    sleep_handle(void);
-void    led_power_handle(void);
-
+void sleep_handle(void);
+void led_power_handle(void);

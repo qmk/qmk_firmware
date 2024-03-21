@@ -16,10 +16,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "user_kb.h"
-#include "usb_main.h"
+#include <stdbool.h>
 #include "mcu_pwr.h"
 #include "color.h"
-#include "uart.h"
+#include "host.h"
 
 user_config_t   user_config;
 DEV_INFO_STRUCT dev_info = {
@@ -36,7 +36,6 @@ bool f_rf_sw_press     = 0;
 bool f_dev_reset_press = 0;
 bool f_rgb_test_press  = 0;
 bool f_bat_num_show    = 0;
-
 
 uint8_t        rf_blink_cnt          = 0;
 uint8_t        rf_sw_temp            = 0;
@@ -424,16 +423,16 @@ void user_config_reset(void) {
     side_speed  = 2;
     side_rgb    = 1;
     side_colour = 0;
-    logo_mode = 0;
-    logo_light = 3;
-    logo_speed = 2;
-    logo_rgb = 1;
+    logo_mode   = 0;
+    logo_light  = 3;
+    logo_speed  = 2;
+    logo_rgb    = 1;
     logo_colour = 0;
 
     rgb_matrix_enable();
     rgb_matrix_mode(RGB_MATRIX_DEFAULT_MODE);
     rgb_matrix_set_speed(255 - RGB_MATRIX_SPD_STEP * 2);
-    rgb_matrix_sethsv(RGB_DEFAULT_COLOUR,255, RGB_MATRIX_MAXIMUM_BRIGHTNESS - RGB_MATRIX_VAL_STEP * 2);
+    rgb_matrix_sethsv(RGB_DEFAULT_COLOUR, 255, RGB_MATRIX_MAXIMUM_BRIGHTNESS - RGB_MATRIX_VAL_STEP * 2);
 
     user_config.default_brightness_flag = 0xA5;
     user_config.ee_side_mode            = side_mode;
@@ -520,4 +519,3 @@ void led_power_handle(void) {
         }
     }
 }
-
