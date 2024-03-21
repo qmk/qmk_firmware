@@ -12,6 +12,7 @@
 
 #include QMK_KEYBOARD_H
 #include "keymap_portuguese.h"
+#include <stdio.h>
 
 // Assign names to the layers
 enum layer_names {
@@ -129,8 +130,6 @@ combo_t key_combos[] = {
 
 // Draw to OLED
 bool oled_task_user(void) {
-    //set cursor position
-    oled_set_cursor(0,1);
 
     // Switch on current active layer
     switch (get_highest_layer(layer_state)) {
