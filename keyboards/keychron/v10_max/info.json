@@ -73,5 +73,8 @@
     "build": {
         "debounce_type": "sym_eager_pk"
     },
-    "debounce": 20
+    "debounce": 20,
+    "bootmagic": {
+        "matrix": [0,1]
+    }
 }
