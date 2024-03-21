@@ -30,9 +30,9 @@ To update your fork's master, run the following, hitting the Enter key after eac
 
 ```
 git checkout master
-git fetch upstream
-git pull upstream master
-git push origin master
+git fetch upstream --recurse-submodules
+git pull upstream master --recurse-submodules
+git push origin master --recurse-submodules=on-demand
 ```
 
 This switches you to your `master` branch, retrieves the refs from the QMK repo, downloads the current QMK `master` branch to your computer, and then uploads it to your fork.
