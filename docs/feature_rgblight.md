@@ -356,26 +356,11 @@ Usually lighting layers apply their configured brightness once activated. If you
 
 If you need to change your RGB lighting in code, for example in a macro to change the color whenever you switch layers, QMK provides a set of functions to assist you. See [`rgblight.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight/rgblight.h) for the full list, but the most commonly used functions include:
 
-### Utility Functions
-|Function                                    |Description                                                        |
-|--------------------------------------------|-------------------------------------------------------------------|
-|`sethsv(hue, sat, val, ledbuf)`             |Set ledbuf to the given HSV value                                  |
-|`sethsv_raw(hue, sat, val, ledbuf)`         |Set ledbuf to the given HSV value without RGBLIGHT_LIMIT_VAL check |
-|`setrgb(r, g, b, ledbuf)`                   |Set ledbuf to the given RGB value where `r`/`g`/`b`                |
-
 ### Low level Functions
 |Function                                    |Description                                |
 |--------------------------------------------|-------------------------------------------|
 |`rgblight_set()`                            |Flush out led buffers to LEDs              |
 |`rgblight_set_clipping_range(pos, num)`     |Set clipping Range. see [Clipping Range](#clipping-range) |
-
-Example:
-```c
-sethsv(HSV_WHITE, (rgb_led_t *)&led[0]); // led 0
-sethsv(HSV_RED,   (rgb_led_t *)&led[1]); // led 1
-sethsv(HSV_GREEN, (rgb_led_t *)&led[2]); // led 2
-rgblight_set(); // Utility functions do not call rgblight_set() automatically, so they need to be called explicitly.
-```
 
 ### Effects and Animations Functions
 #### effect range setting
