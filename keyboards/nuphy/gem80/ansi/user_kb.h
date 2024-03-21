@@ -152,8 +152,6 @@ typedef struct {
 } user_config_t;
 
 extern user_config_t user_config;
-#define f_dev_sleep_enable  user_config.sleep_enable
-
 
 void    dev_sts_sync(void);
 void    rf_uart_init(void);

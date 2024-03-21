@@ -316,7 +316,7 @@ void sleep_sw_led_show(void)
     }
 
     if (sleep_show_flag) {
-        if (f_dev_sleep_enable) {
+        if (user_config.sleep_enable) {
             r_temp = 0x00;
             g_temp = 0x80;
             b_temp = 0x00;
@@ -1021,54 +1021,17 @@ void device_reset_show(void)
  */
 void device_reset_init(void)
 {
-    side_mode       = 0;
-    side_light      = 3;
-    side_speed      = 2;
-    side_rgb        = 1;
-    side_colour     = 0;
     side_play_point = 0;
-
     side_play_cnt   = 0;
     side_play_timer = timer_read32();
 
-
-    logo_mode       = 0;
-    logo_light      = 3;
-
-    logo_speed      = 2;
-    logo_rgb        = 1;
-
-    logo_colour     = 0;
     logo_play_point = 0;
-
     logo_play_cnt   = 0;
     logo_play_timer = timer_read32();
 
-
     f_bat_hold = false;
 
-    rgb_matrix_enable();
-    rgb_matrix_mode(RGB_MATRIX_DEFAULT_MODE);
-    rgb_matrix_set_speed(255 - RGB_MATRIX_SPD_STEP * 2);
-    rgb_matrix_sethsv(RGB_DEFAULT_COLOUR,255, RGB_MATRIX_MAXIMUM_BRIGHTNESS - RGB_MATRIX_VAL_STEP * 2);
-
-    user_config.default_brightness_flag = 0xA5;
-    user_config.ee_side_mode            = side_mode;
-    user_config.ee_side_light           = side_light;
-    user_config.ee_side_speed           = side_speed;
-    user_config.ee_side_rgb             = side_rgb;
-    user_config.ee_side_colour          = side_colour;
-    user_config.ee_logo_mode            = logo_mode;
-    user_config.ee_logo_light           = logo_light;
-    user_config.ee_logo_speed           = logo_speed;
-    user_config.ee_logo_rgb             = logo_rgb;
-    user_config.ee_logo_colour          = logo_colour;
-
-#if(WORK_MODE == THREE_MODE)
-    f_dev_sleep_enable                  = 1;
-
-#endif
-    eeconfig_update_kb_datablock(&user_config);
+    user_config_reset();
 }
 
 void rgb_test_show(void)

@@ -59,6 +59,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_MATRIX_DEFAULT_MODE             RGB_MATRIX_CUSTOM_position_mode
 #define RGB_DEFAULT_COLOUR                  168
-#define RGB_MATRIX_SLEEP
 
 #define DEBOUNCE 10

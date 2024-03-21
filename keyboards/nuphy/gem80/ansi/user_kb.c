@@ -412,7 +412,6 @@ void load_eeprom_data(void) {
         logo_speed  = user_config.ee_logo_speed;
         logo_rgb    = user_config.ee_logo_rgb;
         logo_colour = user_config.ee_logo_colour;
-        f_dev_sleep_enable = user_config.sleep_enable;
     }
 }
 
@@ -431,33 +430,24 @@ void user_config_reset(void) {
     logo_rgb = 1;
     logo_colour = 0;
 
+    rgb_matrix_enable();
+    rgb_matrix_mode(RGB_MATRIX_DEFAULT_MODE);
+    rgb_matrix_set_speed(255 - RGB_MATRIX_SPD_STEP * 2);
+    rgb_matrix_sethsv(RGB_DEFAULT_COLOUR,255, RGB_MATRIX_MAXIMUM_BRIGHTNESS - RGB_MATRIX_VAL_STEP * 2);
 
-    rgb_matrix_sethsv(  RGB_DEFAULT_COLOUR,
-                        255,
-                        RGB_MATRIX_MAXIMUM_BRIGHTNESS - RGB_MATRIX_VAL_STEP * 2);
     user_config.default_brightness_flag = 0xA5;
     user_config.ee_side_mode            = side_mode;
     user_config.ee_side_light           = side_light;
     user_config.ee_side_speed           = side_speed;
     user_config.ee_side_rgb             = side_rgb;
     user_config.ee_side_colour          = side_colour;
-
-#if(WORK_MODE == THREE_MODE)
     user_config.sleep_enable            = true;
-    f_dev_sleep_enable = true;
-#else
-    user_config.sleep_enable            = false;
-    f_dev_sleep_enable = false;
-#endif
-
     user_config.rf_link_timeout         = LINK_TIMEOUT_ALT;
     user_config.ee_logo_mode            = logo_mode;
     user_config.ee_logo_light           = logo_light;
     user_config.ee_logo_speed           = logo_speed;
     user_config.ee_logo_rgb             = logo_rgb;
     user_config.ee_logo_colour          = logo_colour;
-    // user_config.slf_dev_sleep_enable                  = 1;
-
 
     eeconfig_update_kb_datablock(&user_config);
 }
