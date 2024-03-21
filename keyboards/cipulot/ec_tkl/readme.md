@@ -2,11 +2,11 @@
 
 ![EC TKL PCB](https://i.imgur.com/jQTHGzBh.png)
 
-Universal TKL Electrostatic Capacitive PCB., with multi-layout support
+Universal TKL Electrostatic Capacitive PCB, with multi-layout support.
 
 * Keyboard Maintainer: [cipulot](https://github.com/cipulot)
-* Hardware Supported: ECip TKL PCB
-* Hardware Availability: [cipulot](https://github.com/Cipulot/EC-TKL)
+* Hardware Supported: EC TKL PCB Rev 1.1
+* Hardware Availability: TBD
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -22,5 +22,5 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader in 2 ways:
 
-* **Physical Boot0 pins**: Short the Boot0 pins on the back of the PCB while plugging in the keyboard
+* **Physical reset**: Long short the exposed pins on the PCB
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
