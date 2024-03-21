@@ -229,6 +229,9 @@ def info_json(keyboard):
     # Merge in data from <keyboard.c>
     info_data = _extract_led_config(info_data, str(keyboard))
 
+    if 'axes' in info_data.get('joystick', {}):
+        info_data['joystick']['axis_count'] = len(info_data['joystick']['axes'])
+
     # Validate
     _validate(keyboard, info_data)
 

@@ -91,6 +91,26 @@ def _gen_matrix_mask(info_data):
     return lines
 
 
+def _gen_joystick_axes(info_data):
+    """Convert info.json content to joystick_axes
+    """
+    if 'axes' not in info_data.get('joystick', {}):
+        return []
+
+    lines = []
+    lines.append('#ifdef JOYSTICK_ENABLE')
+    lines.append('joystick_config_t joystick_axes[JOYSTICK_AXIS_COUNT] = {')
+    for index, axis in enumerate(info_data['joystick']['axes']):
+        if 'input_pin' in axis:
+            lines.append(f"    [{index}] = JOYSTICK_AXIS_IN({axis['input_pin']}, {axis['low']}, {axis['rest']}, {axis['high']}),")
+        else:
+            lines.append(f"    [{index}] = JOYSTICK_AXIS_VIRTUAL,")
+    lines.append('};')
+    lines.append('#endif')
+
+    return lines
+
+
 @cli.argument('-o', '--output', arg_only=True, type=normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
 @cli.argument('-kb', '--keyboard', arg_only=True, type=keyboard_folder, completer=keyboard_completer, required=True, help='Keyboard to generate keyboard.c for.')
@@ -105,6 +125,7 @@ def generate_keyboard_c(cli):
 
     keyboard_h_lines.extend(_gen_led_configs(kb_info_json))
     keyboard_h_lines.extend(_gen_matrix_mask(kb_info_json))
+    keyboard_h_lines.extend(_gen_joystick_axes(kb_info_json))
 
     # Show the results
     dump_lines(cli.args.output, keyboard_h_lines, cli.args.quiet)
