@@ -6,7 +6,7 @@ The Posey Recore keyboard is an ortholinear keyboard designed from the gournd up
 
 * Keyboard Maintainer: [Javier Oliver](https://github.com/joliverMI)
 * Hardware Supported: recore_v3 and logic_module_v1
-* Hardware Availability: poseysmechanicalkeyboards.com
+* Hardware Availability: [poseysmechanicalkeyboards.com](https://poseysmechanicalkeyboards.com/)
 
 Make example for this keyboard (after setting up your build environment):
 
