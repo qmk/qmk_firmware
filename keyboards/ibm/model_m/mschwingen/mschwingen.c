@@ -90,6 +90,7 @@ void sleep_led_enable(void) {
 
 void keyboard_pre_init_kb(void) {
 #ifdef KEYBOARD_ibm_model_m_mschwingen_led_ws2812
+    ws2812_init();
     ws2812_setleds(led, RGBLIGHT_LED_COUNT);
 #else
     /* Set status LEDs pins to output and Low (on) */
