@@ -8,7 +8,8 @@
         "pid": "0x1308",
         "device_version": "1.0.1"
     },
-"layouts": {
+    "community_layouts": ["ergodox"],
+    "layouts": {
         "LAYOUT_ergodox": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0.375, "w": 1.5},
