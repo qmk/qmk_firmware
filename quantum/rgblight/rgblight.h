@@ -240,8 +240,6 @@ void rgblight_unblink_all_but_layer(uint8_t layer);
 
 #endif
 
-extern rgb_led_t led[RGBLIGHT_LED_COUNT];
-
 extern const uint8_t  RGBLED_BREATHING_INTERVALS[4] PROGMEM;
 extern const uint8_t  RGBLED_RAINBOW_MOOD_INTERVALS[3] PROGMEM;
 extern const uint8_t  RGBLED_RAINBOW_SWIRL_INTERVALS[3] PROGMEM;
