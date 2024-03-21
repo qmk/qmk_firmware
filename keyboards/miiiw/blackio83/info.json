@@ -75,6 +75,10 @@
             "splash": true,
             "typing_heatmap": true
         },
+        "center_point": [62, 42],
+        "default": {
+            "animation": "solid_color"
+        },
         "driver": "ws2812",
         "layout": [
             {"matrix": [0, 0], "x": 0, "y": 0, "flags": 4},
