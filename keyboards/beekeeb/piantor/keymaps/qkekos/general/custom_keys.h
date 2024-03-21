@@ -26,6 +26,7 @@ enum blender_keycode {
     WN_TELG,
     WN_WSL,
     WN_TBX,
+    WN_PYCH,
 
     US_AREP,
     US_REP,

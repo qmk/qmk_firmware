@@ -10,6 +10,7 @@ char *get_window_name(uint16_t keycode, keyrecord_t *record) {
         case WN_TELG: return "telegram";
         case WN_WSL: return "wsl";
         case WN_TBX: return "toolbox";
+        case WN_PYCH: return "pycharm";
     }
 
     return "";
