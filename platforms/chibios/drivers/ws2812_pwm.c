@@ -389,12 +389,6 @@ void ws2812_write_led_rgbw(uint16_t led_number, uint8_t r, uint8_t g, uint8_t b,
 
 // Setleds for standard RGB
 void ws2812_setleds(rgb_led_t* ledarray, uint16_t leds) {
-    static bool s_init = false;
-    if (!s_init) {
-        ws2812_init();
-        s_init = true;
-    }
-
     for (uint16_t i = 0; i < leds; i++) {
 #ifdef RGBW
         ws2812_write_led_rgbw(i, ledarray[i].r, ledarray[i].g, ledarray[i].b, ledarray[i].w);
