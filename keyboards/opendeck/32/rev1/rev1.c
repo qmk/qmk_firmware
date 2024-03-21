@@ -17,7 +17,7 @@
 #include "rev1.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
     /* Refer to IS31 manual for these locations
      *   driver
      *   |  R location
@@ -63,57 +63,48 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     // clang-format on
 };
 
-#define P(x,y) {(x*224 / (MATRIX_COLS - 1)), (y*64 / (MATRIX_ROWS - 1))}
 // clang-format off
 led_config_t g_led_config = {
-    // Key Matrix to LED Index
     {
-        {0,  1,  2,  3,  4,  5,  6,  7},
-        {8,  9,  10, 11, 12, 13, 14, 15},
-        {16, 17, 18, 19, 20, 21, 22, 23},
-        {24, 25, 26, 27, 28, 29, 30, 31}
+        // Key Matrix to LED Index
+        {  0,  1,  2,  3,  4,  5,  6,  7 },
+        {  8,  9, 10, 11, 12, 13, 14, 15 },
+        { 16, 17, 18, 19, 20, 21, 22, 23 },
+        { 24, 25, 26, 27, 28, 29, 30, 31 }
     }, {
         // LED Index to Physical Position
-        P(0, 0), P(1, 0), P(2, 0), P(3, 0), P(4, 0), P(5, 0), P(6, 0), P(7, 0),
-        P(0, 1), P(1, 1), P(2, 1), P(3, 1), P(4, 1), P(5, 1), P(6, 1), P(7, 1),
-        P(0, 2), P(1, 2), P(2, 2), P(3, 2), P(4, 2), P(5, 2), P(6, 2), P(7, 2),
-        P(0, 3), P(1, 3), P(2, 3), P(3, 3), P(4, 3), P(5, 3), P(6, 3), P(7, 3),
+        { 0,  0 }, { 32,  0 }, { 64,  0 }, { 96,  0 }, { 128,  0 }, { 160,  0 }, { 192,  0 }, { 224,  0 },
+        { 0, 21 }, { 32, 21 }, { 64, 21 }, { 96, 21 }, { 128, 21 }, { 160, 21 }, { 192, 21 }, { 224, 21 },
+        { 0, 43 }, { 32, 43 }, { 64, 43 }, { 96, 43 }, { 128, 43 }, { 160, 43 }, { 192, 43 }, { 224, 43 },
+        { 0, 64 }, { 32, 64 }, { 64, 64 }, { 96, 64 }, { 128, 64 }, { 160, 64 }, { 192, 64 }, { 224, 64 }
     }, {
         // LED Index to Flag
-        4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4
+        4, 4, 4, 4, 4, 4, 4, 4,
+        4, 4, 4, 4, 4, 4, 4, 4,
+        4, 4, 4, 4, 4, 4, 4, 4,
+        4, 4, 4, 4, 4, 4, 4, 4
     }
 };
-#undef P
 
 // clang-format on
-
-// Set custom key colors here, in order to change the RGB effect, either reserve some keys
-// in the keymap to adjust the pattern (see QMK docs, incompatible with wrapper keys) or
-// change the default pattern in config.h.
-/*
-void rgb_matrix_indicators_kb(void) {
-    //rgb_matrix_set_color(0, 255, 255, 255);
-    //rgb_matrix_set_color_all(0x86,0xff,0xff);
-}
-*/
 
 void keyboard_pre_init_kb(void) {
     // Light power LED
     setPinOutput(POWER_LED_PIN);
     writePinLow(POWER_LED_PIN);
 
-    // Enable RGB driver IC
-    setPinOutput(RGB_DISABLE_N_PIN);
-    writePinHigh(RGB_DISABLE_N_PIN);
-
     // We don't use this feature of the IS31FL3731 but it is electrically connected
     // Make sure not to drive it
-    setPinInput(RGB_IRQ_N_PIN);
+    setPinInput(IS31FL3731_IRQ_PIN);
+
+    keyboard_pre_init_user();
 }
 
-void keyboard_post_init_user() {
+void keyboard_post_init_kb(void) {
     // RGB enabled by default, no way to turn off. No need to expend EEPROM write cycles here.
     rgb_matrix_enable_noeeprom();
+
+    keyboard_post_init_user();
 }
 #endif
 
@@ -122,7 +113,7 @@ void keyboard_post_init_user() {
 static uint8_t g_key_wrapper_tracker = 0;
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_user(keycode, record) { return false; }
+    if (!process_record_user(keycode, record)) { return false; }
     if (record->event.pressed && keycode != KC_WRAPPER_KEY) {
         register_code(KC_WRAPPER_KEY);
         register_code(keycode);

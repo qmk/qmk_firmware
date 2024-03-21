@@ -10,6 +10,9 @@
     "mousekey": false,
     "rgb_matrix": true
   },
+  "ws2812": {
+    "pin": "C6"
+  },
   "matrix_pins": {
     "cols": ["B5", "B6", "B7"],
     "rows": ["B0", "B1", "B2", "B3"]
@@ -22,42 +25,77 @@
     "vid": "0x4273"
   },
   "rgb_matrix": {
+    "animations":{
+      "gradient_up_down": true,
+      "gradient_left_right": true,
+      "breathing": true,
+      "band_sat": true,
+      "band_pinwheel_sat": true,
+      "band_spiral_sat": true,
+      "cycle_all": true,
+      "cycle_left_right": true,
+      "cycle_up_down": true,
+      "rainbow_moving_chevron": true,
+      "cycle_pinwheel": true,
+      "cycle_spiral": true,
+      "dual_beacon": true,
+      "rainbow_beacon": true,
+      "rainbow_pinwheels": true,
+      "raindrops": true,
+      "jellybean_raindrops": true,
+      "hue_breathing": true,
+      "hue_pendulum": true,
+      "hue_wave": true,
+      "pixel_rain": true,
+      "pixel_flow": true,
+      "pixel_fractal": true,
+      "typing_heatmap": true,
+      "digital_rain": true,
+      "solid_reactive": true,
+      "solid_reactive_wide": true,
+      "solid_reactive_cross": true,
+      "solid_reactive_nexus": true,
+      "splash": true,
+      "multisplash": true,
+      "solid_splash": true
+    },
+    "driver": "ws2812",
     "layout": [
-      { "flags": 2, "x": 16, "y": 38 },
-      { "flags": 2, "x": 16, "y": 113 },
-      { "flags": 2, "x": 16, "y": 188 },
-      { "flags": 2, "x": 48, "y": 38 },
-      { "flags": 2, "x": 48, "y": 113 },
-      { "flags": 2, "x": 48, "y": 188 },
-      { "flags": 4, "matrix": [0, 0], "x": 0,  "y": 0 },
-      { "flags": 4, "matrix": [0, 1], "x": 32, "y": 0 },
-      { "flags": 4, "matrix": [0, 2], "x": 64, "y": 0 },
-      { "flags": 4, "matrix": [1, 0], "x": 0,  "y": 75 },
-      { "flags": 4, "matrix": [1, 1], "x": 32, "y": 75 },
-      { "flags": 4, "matrix": [1, 2], "x": 64, "y": 75 },
-      { "flags": 4, "matrix": [2, 0], "x": 0,  "y": 150 },
-      { "flags": 4, "matrix": [2, 1], "x": 32, "y": 150 },
-      { "flags": 4, "matrix": [2, 2], "x": 64, "y": 150 },
-      { "flags": 4, "matrix": [3, 0], "x": 0,  "y": 224 },
-      { "flags": 4, "matrix": [3, 1], "x": 32, "y": 224 },
-      { "flags": 4, "matrix": [3, 2], "x": 64, "y": 224 }
+      {"flags": 2, "x": 16, "y": 38},
+      {"flags": 2, "x": 16, "y": 113},
+      {"flags": 2, "x": 16, "y": 188},
+      {"flags": 2, "x": 48, "y": 38},
+      {"flags": 2, "x": 48, "y": 113},
+      {"flags": 2, "x": 48, "y": 188},
+      {"flags": 4, "matrix": [0, 0], "x": 0, "y": 0},
+      {"flags": 4, "matrix": [0, 1], "x": 32, "y": 0},
+      {"flags": 4, "matrix": [0, 2], "x": 64, "y": 0},
+      {"flags": 4, "matrix": [1, 0], "x": 0, "y": 75},
+      {"flags": 4, "matrix": [1, 1], "x": 32, "y": 75},
+      {"flags": 4, "matrix": [1, 2], "x": 64, "y": 75},
+      {"flags": 4, "matrix": [2, 0], "x": 0, "y": 150},
+      {"flags": 4, "matrix": [2, 1], "x": 32, "y": 150},
+      {"flags": 4, "matrix": [2, 2], "x": 64, "y": 150},
+      {"flags": 4, "matrix": [3, 0], "x": 0, "y": 224},
+      {"flags": 4, "matrix": [3, 1], "x": 32, "y": 224},
+      {"flags": 4, "matrix": [3, 2], "x": 64, "y": 224}
     ]
   },
   "layouts": {
     "LAYOUT": {
       "layout": [
-        { "matrix": [0, 0], "x": 0, "y": 0 },
-        { "matrix": [0, 1], "x": 1, "y": 0 },
-        { "matrix": [0, 2], "x": 2, "y": 0 },
-        { "matrix": [1, 0], "x": 0, "y": 1 },
-        { "matrix": [1, 1], "x": 1, "y": 1 },
-        { "matrix": [1, 2], "x": 2, "y": 1 },
-        { "matrix": [2, 0], "x": 0, "y": 2 },
-        { "matrix": [2, 1], "x": 1, "y": 2 },
-        { "matrix": [2, 2], "x": 2, "y": 2 },
-        { "matrix": [3, 0], "x": 0, "y": 3 },
-        { "matrix": [3, 1], "x": 1, "y": 3 },
-        { "matrix": [3, 2], "x": 2, "y": 3 }
+        {"matrix": [0, 0], "x": 0, "y": 0},
+        {"matrix": [0, 1], "x": 1, "y": 0},
+        {"matrix": [0, 2], "x": 2, "y": 0},
+        {"matrix": [1, 0], "x": 0, "y": 1},
+        {"matrix": [1, 1], "x": 1, "y": 1},
+        {"matrix": [1, 2], "x": 2, "y": 1},
+        {"matrix": [2, 0], "x": 0, "y": 2},
+        {"matrix": [2, 1], "x": 1, "y": 2},
+        {"matrix": [2, 2], "x": 2, "y": 2},
+        {"matrix": [3, 0], "x": 0, "y": 3},
+        {"matrix": [3, 1], "x": 1, "y": 3},
+        {"matrix": [3, 2], "x": 2, "y": 3}
       ]
     }
   }

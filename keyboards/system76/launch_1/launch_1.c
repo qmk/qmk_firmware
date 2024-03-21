@@ -15,7 +15,7 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "launch_1.h"
+#include "quantum.h"
 
 #include "usb_mux.h"
 

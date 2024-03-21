@@ -18,29 +18,10 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 5
-
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
-
 /* disable action features */
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-#define USB_MAX_POWER_CONSUMPTION 100
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 3
 
 #define ROTATIONAL_TRANSFORM_ANGLE 20
 
@@ -50,3 +31,6 @@
 /* PMW33XX Settings */
 #define PMW33XX_CS_PIN             B0
 #define POINTING_DEVICE_INVERT_Y
+
+/* Custom encoder needs to specify just how many encoders we have */
+#define NUM_ENCODERS 1

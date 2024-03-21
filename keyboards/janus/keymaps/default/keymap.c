@@ -42,9 +42,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    _______, _______, _______, MO_FUN
     ),
     [_FUNCTION] = LAYOUT_split_3x5_2(
-        KC_F1  , KC_F2  , KC_F3  , KC_F4  , QK_BOOT, KC_SLCK, KC_F9  , KC_F10 , KC_F11 , KC_F12 ,
-        KC_F5  , KC_F6  , KC_F7  , KC_F8  , XXXXXXX, KC_CLCK, KC_MUTE, KC_VOLD, KC_VOLU, KC_PAUS,
-        OS_LGUI, OS_LALT, OS_LSFT, OS_LCTL, XXXXXXX, KC_NLCK, OS_RCTL, OS_RSFT, OS_RALT, OS_RGUI,
+        KC_F1  , KC_F2  , KC_F3  , KC_F4  , QK_BOOT, KC_SCRL, KC_F9  , KC_F10 , KC_F11 , KC_F12 ,
+        KC_F5  , KC_F6  , KC_F7  , KC_F8  , XXXXXXX, KC_CAPS, KC_MUTE, KC_VOLD, KC_VOLU, KC_PAUS,
+        OS_LGUI, OS_LALT, OS_LSFT, OS_LCTL, XXXXXXX, KC_NUM,  OS_RCTL, OS_RSFT, OS_RALT, OS_RGUI,
                                    _______, _______, _______, _______
     ),
 };

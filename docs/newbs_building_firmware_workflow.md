@@ -85,6 +85,8 @@ Visit the [QMK Configurator](https://config.qmk.fm/#/) to create a keymap file:
 3. Customise the key layout according to your preference.
 4. Select download next to **KEYMAP.JSON** and save the JSON file into the `~/qmk_keymap/` folder.
 
+!> **Important:** Make sure that the GitHub username you use in step 2 is correct. If it is not, the build process will fail to locate your files in the right folder.
+
 ### Add a GitHub Action workflow
 
 Open the file `~/qmk_keymap/.github/workflows/build.yml` with your favorite [text editor](newbs_learn_more_resources.md#text-editor-resources), paste the following workflow content, and save it:
@@ -95,7 +97,7 @@ on: [push, workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: qmkfm/qmk_cli
+    container: ghcr.io/qmk/qmk_cli
     strategy:
       fail-fast: false
       matrix:
@@ -105,6 +107,9 @@ jobs:
 # End of json file list
 
     steps:
+
+    - name: Disable git safe directory checks
+      run : git config --global --add safe.directory '*'
 
     - name: Checkout QMK
       uses: actions/checkout@v3
@@ -138,13 +143,13 @@ Replace `username.json` with the JSON file name that was downloaded from [QMK Co
 
 If you have completed all steps correctly, the folder `qmk_keymap/` will contain the following files:
 ```
-|-- .github
-|   `-- workflows
-|       `-- build.yml
-|-- rules.mk
-|-- config.h
-|-- source.c
-|-- username.json
+├── .github
+│   └── workflows
+│       └── build.yml
+├── rules.mk
+├── config.h
+├── source.c
+└── username.json
 ```
 
 To commit and push them into GitHub, run the following commands (replacing `gh-username` with your GitHub user name):

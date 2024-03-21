@@ -1,6 +1,6 @@
 # 'serial' Driver
 
-The serial driver powers the [Split Keyboard](feature_split_keyboard.md) feature. Several implementations are available, depending on the platform of your split keyboard. Note that none of the drivers support split keyboards with more then two halves.
+The serial driver powers the [Split Keyboard](feature_split_keyboard.md) feature. Several implementations are available, depending on the platform of your split keyboard. Note that none of the drivers support split keyboards with more than two halves.
 
 | Driver                                  | AVR                | ARM                | Connection between halves                                                                     |
 | --------------------------------------- | ------------------ | ------------------ | --------------------------------------------------------------------------------------------- |
@@ -105,7 +105,7 @@ For STM32 MCUs several GPIO configuration options can be changed as well. See th
 #define SERIAL_USART_TX_PAL_MODE 7 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
 ```
 
-1. Decide either for `SERIAL`, `SIO` or `PIO` subsystem, see the section ["Choosing a driver subsystem"](#choosing-a-driver-subsystem).
+4. Decide either for `SERIAL`, `SIO` or `PIO` subsystem, see the section ["Choosing a driver subsystem"](#choosing-a-driver-subsystem).
 
 <hr>
 
@@ -235,7 +235,7 @@ Where 'n' matches the peripheral number of your selected USART on the MCU.
 
 The `PIO` subsystem is a Raspberry Pi RP2040 specific implementation, using the integrated PIO peripheral and is therefore only available on this MCU. Because of the flexible nature of the PIO peripherals, **any** GPIO pin can be used as a `TX` or `RX` pin. Half-duplex and Full-duplex operation is fully supported. The Half-duplex operation mode uses the built-in pull-ups and GPIO manipulation on the RP2040 to drive the line high by default. An external pull-up is therefore not necessary.
 
-Configure the hardware via your config.h:
+You may optionally switch the PIO peripheral used with the following define in config.h:
 ```c
 #define SERIAL_PIO_USE_PIO1 // Force the usage of PIO1 peripheral, by default the Serial implementation uses the PIO0 peripheral
 ```

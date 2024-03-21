@@ -21,9 +21,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "report.h"
 #include "host.h"
 #include "host_driver.h"
+#include "suspend.h"
 #include "keycode_config.h"
 #include <string.h>
-#include "quantum.h"
 
 // From protocol directory
 #include "arm_atsam_protocol.h"
@@ -36,15 +36,15 @@ uint8_t g_usb_state = USB_FSMSTATUS_FSMSTATE_OFF_Val; // Saved USB state from ha
 void    main_subtasks(void);
 uint8_t keyboard_leds(void);
 void    send_keyboard(report_keyboard_t *report);
+void    send_nkro(report_nkro_t *report);
 void    send_mouse(report_mouse_t *report);
-void    send_system(uint16_t data);
-void    send_consumer(uint16_t data);
+void    send_extra(report_extra_t *report);
 
 #ifdef DEFERRED_EXEC_ENABLE
 void deferred_exec_task(void);
 #endif // DEFERRED_EXEC_ENABLE
 
-host_driver_t arm_atsam_driver = {keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer};
+host_driver_t arm_atsam_driver = {keyboard_leds, send_keyboard, send_nkro, send_mouse, send_extra};
 
 uint8_t led_states;
 
@@ -60,41 +60,41 @@ uint8_t keyboard_leds(void) {
 void send_keyboard(report_keyboard_t *report) {
     uint32_t irqflags;
 
+    while (udi_hid_kbd_b_report_trans_ongoing) {
+        main_subtasks();
+    } // Run other tasks while waiting for USB to be free
+
+    irqflags = __get_PRIMASK();
+    __disable_irq();
+    __DMB();
+
+    memcpy(udi_hid_kbd_report, report, UDI_HID_KBD_REPORT_SIZE);
+    udi_hid_kbd_b_report_valid = 1;
+    udi_hid_kbd_send_report();
+
+    __DMB();
+    __set_PRIMASK(irqflags);
+}
+
+void send_nkro(report_nkro_t *report) {
 #ifdef NKRO_ENABLE
-    if (!keymap_config.nkro) {
-#endif // NKRO_ENABLE
-        while (udi_hid_kbd_b_report_trans_ongoing) {
-            main_subtasks();
-        } // Run other tasks while waiting for USB to be free
+    uint32_t irqflags;
 
-        irqflags = __get_PRIMASK();
-        __disable_irq();
-        __DMB();
+    while (udi_hid_nkro_b_report_trans_ongoing) {
+        main_subtasks();
+    } // Run other tasks while waiting for USB to be free
 
-        memcpy(udi_hid_kbd_report, report->raw, UDI_HID_KBD_REPORT_SIZE);
-        udi_hid_kbd_b_report_valid = 1;
-        udi_hid_kbd_send_report();
+    irqflags = __get_PRIMASK();
+    __disable_irq();
+    __DMB();
 
-        __DMB();
-        __set_PRIMASK(irqflags);
-#ifdef NKRO_ENABLE
-    } else {
-        while (udi_hid_nkro_b_report_trans_ongoing) {
-            main_subtasks();
-        } // Run other tasks while waiting for USB to be free
+    memcpy(udi_hid_nkro_report, report, UDI_HID_NKRO_REPORT_SIZE);
+    udi_hid_nkro_b_report_valid = 1;
+    udi_hid_nkro_send_report();
 
-        irqflags = __get_PRIMASK();
-        __disable_irq();
-        __DMB();
-
-        memcpy(udi_hid_nkro_report, report->raw, UDI_HID_NKRO_REPORT_SIZE);
-        udi_hid_nkro_b_report_valid = 1;
-        udi_hid_nkro_send_report();
-
-        __DMB();
-        __set_PRIMASK(irqflags);
-    }
-#endif // NKRO_ENABLE
+    __DMB();
+    __set_PRIMASK(irqflags);
+#endif
 }
 
 void send_mouse(report_mouse_t *report) {
@@ -114,33 +114,20 @@ void send_mouse(report_mouse_t *report) {
 #endif // MOUSEKEY_ENABLE
 }
 
+void send_extra(report_extra_t *report) {
 #ifdef EXTRAKEY_ENABLE
-void send_extra(uint8_t report_id, uint16_t data) {
     uint32_t irqflags;
 
     irqflags = __get_PRIMASK();
     __disable_irq();
     __DMB();
 
-    udi_hid_exk_report.desc.report_id   = report_id;
-    udi_hid_exk_report.desc.report_data = data;
-    udi_hid_exk_b_report_valid          = 1;
+    memcpy(udi_hid_exk_report, report, UDI_HID_EXK_REPORT_SIZE);
+    udi_hid_exk_b_report_valid = 1;
     udi_hid_exk_send_report();
 
     __DMB();
     __set_PRIMASK(irqflags);
-}
-#endif // EXTRAKEY_ENABLE
-
-void send_system(uint16_t data) {
-#ifdef EXTRAKEY_ENABLE
-    send_extra(REPORT_ID_SYSTEM, data);
-#endif // EXTRAKEY_ENABLE
-}
-
-void send_consumer(uint16_t data) {
-#ifdef EXTRAKEY_ENABLE
-    send_extra(REPORT_ID_CONSUMER, data);
 #endif // EXTRAKEY_ENABLE
 }
 

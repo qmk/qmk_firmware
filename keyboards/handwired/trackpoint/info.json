@@ -8,12 +8,19 @@
         "pid": "0x5678",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["F1", "F4", "F5"],
+        "rows": ["F0"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "atmega32u4",
+    "bootloader": "halfkay",
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"x": 0,"y": 0},
-                {"x": 1,"y": 0},
-                {"x": 2,"y": 0}
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0}
             ]
         }
     }

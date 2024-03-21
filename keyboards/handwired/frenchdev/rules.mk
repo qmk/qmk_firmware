@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = halfkay
-
 # Build Options
 #   change yes to no to disable
 #
@@ -19,5 +13,5 @@ AUDIO_ENABLE = no           # Audio output
 RGBLIGHT_ENABLE = no
 
 # project specific files
-SRC = i2c_master.c \
-	  matrix.c
+SRC = matrix.c
+I2C_DRIVER_REQUIRED = yes

@@ -29,11 +29,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * └───┴───────┴───┴───┘
      */
     [_BASE] = LAYOUT_numpad_6x5(
-        KC_GESC,   KC_TAB,   KC_F1,   KC_CALC, KC_BSPC,
-        KC_LCTRL,  KC_NLCK,  KC_PSLS, KC_PAST, KC_PMNS,
+        QK_GESC,   KC_TAB,   KC_F1,   KC_CALC, KC_BSPC,
+        KC_LCTL,   KC_NUM,   KC_PSLS, KC_PAST, KC_PMNS,
         KC_LGUI,   KC_P7,    KC_P8,   KC_P9,   KC_PPLS,
         KC_LALT,   KC_P4,    KC_P5,   KC_P6,
-        KC_LSHIFT, KC_P1,    KC_P2,   KC_P3,   KC_PENT,
+        KC_LSFT,   KC_P1,    KC_P2,   KC_P3,   KC_PENT,
         MO(1),     KC_P0,             KC_PDOT
     ),
 
@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * └───┴───────┴───┴───┘
      */
     [_FN] = LAYOUT_numpad_6x5(
-        QK_BOOT, RGB_TOG, RGB_MOD, KC_PSCR, KC_SLCK,
+        QK_BOOT, RGB_TOG, RGB_MOD, KC_PSCR, KC_SCRL,
         RGB_HUI, XXXXXXX, RGB_SPD, RGB_SPI, RGB_VAD,
         RGB_HUD, KC_HOME, KC_UP,   KC_PGUP, RGB_VAI,
         RGB_SAI, KC_LEFT, XXXXXXX, KC_RGHT,

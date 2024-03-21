@@ -8,17 +8,80 @@
         "pid": "0x6602",
         "device_version": "0.0.1"
     },
+    "ws2812": {
+        "pin": "B5"
+    },
+    "rgb_matrix": {
+        "animations": {
+            "alphas_mods": true,
+            "gradient_up_down": true,
+            "gradient_left_right": true,
+            "breathing": true,
+            "band_sat": true,
+            "band_val": true,
+            "band_pinwheel_sat": true,
+            "band_pinwheel_val": true,
+            "band_spiral_sat": true,
+            "band_spiral_val": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "rainbow_moving_chevron": true,
+            "cycle_out_in": true,
+            "cycle_out_in_dual": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "dual_beacon": true,
+            "rainbow_beacon": true,
+            "rainbow_pinwheels": true,
+            "raindrops": true,
+            "jellybean_raindrops": true,
+            "hue_breathing": true,
+            "hue_pendulum": true,
+            "hue_wave": true,
+            "pixel_rain": true,
+            "pixel_flow": true,
+            "pixel_fractal": true,
+            "typing_heatmap": true,
+            "digital_rain": true,
+            "solid_reactive_simple": true,
+            "solid_reactive": true,
+            "solid_reactive_wide": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_cross": true,
+            "solid_reactive_multicross": true,
+            "solid_reactive_nexus": true,
+            "solid_reactive_multinexus": true,
+            "splash": true,
+            "multisplash": true,
+            "solid_splash": true,
+            "solid_multisplash": true
+        },
+        "default": {
+            "animation": "cycle_all"
+        },
+        "driver": "ws2812",
+        "react_on_keyup": true
+    },
+    "matrix_pins": {
+        "cols": ["F1", "F0", "D5", "D3"],
+        "rows": ["F4", "C7"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_ortho_2x4": {
             "layout": [
-                {"label":"K00 (F4,F1)", "x":0, "y":0},
-                {"label":"K01 (F4,F0)", "x":1, "y":0},
-                {"label":"K02 (F4,D5)", "x":2, "y":0},
-                {"label":"K03 (F4,D3)", "x":3, "y":0},
-                {"label":"K10 (C7,F1)", "x":0, "y":1},
-                {"label":"K11 (C7,F0)", "x":1, "y":1},
-                {"label":"K12 (C7,D5)", "x":2, "y":1},
-                {"label":"K13 (C7,D3)", "x":3, "y":1}
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [1, 3], "x": 3, "y": 1}
             ]
         }
     }

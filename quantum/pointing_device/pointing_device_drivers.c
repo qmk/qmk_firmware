@@ -17,6 +17,7 @@
  */
 
 #include "pointing_device.h"
+#include "pointing_device_internal.h"
 #include "debug.h"
 #include "wait.h"
 #include "timer.h"
@@ -32,10 +33,7 @@ report_mouse_t adns5050_get_report(report_mouse_t mouse_report) {
     report_adns5050_t data = adns5050_read_burst();
 
     if (data.dx != 0 || data.dy != 0) {
-#    ifdef CONSOLE_ENABLE
-        if (debug_mouse) dprintf("Raw ] X: %d, Y: %d\n", data.dx, data.dy);
-#    endif
-
+        pd_dprintf("Raw ] X: %d, Y: %d\n", data.dx, data.dy);
         mouse_report.x = (mouse_xy_report_t)data.dx;
         mouse_report.y = (mouse_xy_report_t)data.dy;
     }
@@ -49,6 +47,28 @@ const pointing_device_driver_t pointing_device_driver = {
     .get_report   = adns5050_get_report,
     .set_cpi      = adns5050_set_cpi,
     .get_cpi      = adns5050_get_cpi,
+};
+// clang-format on
+
+#elif defined(POINTING_DEVICE_DRIVER_pmw3320)
+report_mouse_t pmw3320_get_report(report_mouse_t mouse_report) {
+    report_pmw3320_t data = pmw3320_read_burst();
+
+    if (data.dx != 0 || data.dy != 0) {
+        pd_dprintf("Raw ] X: %d, Y: %d\n", data.dx, data.dy);
+        mouse_report.x = (mouse_xy_report_t)data.dx;
+        mouse_report.y = (mouse_xy_report_t)data.dy;
+    }
+
+    return mouse_report;
+}
+
+// clang-format off
+const pointing_device_driver_t pointing_device_driver = {
+    .init         = pmw3320_init,
+    .get_report   = pmw3320_get_report,
+    .set_cpi      = pmw3320_set_cpi,
+    .get_cpi      = pmw3320_get_cpi,
 };
 // clang-format on
 
@@ -76,9 +96,7 @@ const pointing_device_driver_t pointing_device_driver = {
 report_mouse_t analog_joystick_get_report(report_mouse_t mouse_report) {
     report_analog_joystick_t data = analog_joystick_read();
 
-#    ifdef CONSOLE_ENABLE
-    if (debug_mouse) dprintf("Raw ] X: %d, Y: %d\n", data.x, data.y);
-#    endif
+    pd_dprintf("Raw ] X: %d, Y: %d\n", data.x, data.y);
 
     mouse_report.x = data.x;
     mouse_report.y = data.y;
@@ -94,6 +112,119 @@ const pointing_device_driver_t pointing_device_driver = {
     .get_report = analog_joystick_get_report,
     .set_cpi    = NULL,
     .get_cpi    = NULL
+};
+// clang-format on
+
+#elif defined(POINTING_DEVICE_DRIVER_azoteq_iqs5xx)
+
+static i2c_status_t azoteq_iqs5xx_init_status = 1;
+
+void azoteq_iqs5xx_init(void) {
+    i2c_init();
+    azoteq_iqs5xx_wake();
+    azoteq_iqs5xx_reset_suspend(true, false, true);
+    wait_ms(100);
+    azoteq_iqs5xx_wake();
+    if (azoteq_iqs5xx_get_product() != AZOTEQ_IQS5XX_UNKNOWN) {
+        azoteq_iqs5xx_setup_resolution();
+        azoteq_iqs5xx_init_status = azoteq_iqs5xx_set_report_rate(AZOTEQ_IQS5XX_REPORT_RATE, AZOTEQ_IQS5XX_ACTIVE, false);
+        azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_event_mode(false, false);
+        azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_reati(true, false);
+#    if defined(AZOTEQ_IQS5XX_ROTATION_90)
+        azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_xy_config(false, true, true, true, false);
+#    elif defined(AZOTEQ_IQS5XX_ROTATION_180)
+        azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_xy_config(true, true, false, true, false);
+#    elif defined(AZOTEQ_IQS5XX_ROTATION_270)
+        azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_xy_config(true, false, true, true, false);
+#    else
+        azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_xy_config(false, false, false, true, false);
+#    endif
+        azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_gesture_config(true);
+        wait_ms(AZOTEQ_IQS5XX_REPORT_RATE + 1);
+    }
+};
+
+report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report) {
+    report_mouse_t temp_report           = {0};
+    static uint8_t previous_button_state = 0;
+    static uint8_t read_error_count      = 0;
+
+    if (azoteq_iqs5xx_init_status == I2C_STATUS_SUCCESS) {
+        azoteq_iqs5xx_base_data_t base_data = {0};
+#    if !defined(POINTING_DEVICE_MOTION_PIN)
+        azoteq_iqs5xx_wake();
+#    endif
+        i2c_status_t status          = azoteq_iqs5xx_get_base_data(&base_data);
+        bool         ignore_movement = false;
+
+        if (status == I2C_STATUS_SUCCESS) {
+            // pd_dprintf("IQS5XX - previous cycle time: %d \n", base_data.previous_cycle_time);
+            read_error_count = 0;
+            if (base_data.gesture_events_0.single_tap || base_data.gesture_events_0.press_and_hold) {
+                pd_dprintf("IQS5XX - Single tap/hold.\n");
+                temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON1);
+            } else if (base_data.gesture_events_1.two_finger_tap) {
+                pd_dprintf("IQS5XX - Two finger tap.\n");
+                temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON2);
+            } else if (base_data.gesture_events_0.swipe_x_neg) {
+                pd_dprintf("IQS5XX - X-.\n");
+                temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON4);
+                ignore_movement     = true;
+            } else if (base_data.gesture_events_0.swipe_x_pos) {
+                pd_dprintf("IQS5XX - X+.\n");
+                temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON5);
+                ignore_movement     = true;
+            } else if (base_data.gesture_events_0.swipe_y_neg) {
+                pd_dprintf("IQS5XX - Y-.\n");
+                temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON6);
+                ignore_movement     = true;
+            } else if (base_data.gesture_events_0.swipe_y_pos) {
+                pd_dprintf("IQS5XX - Y+.\n");
+                temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON3);
+                ignore_movement     = true;
+            } else if (base_data.gesture_events_1.zoom) {
+                if (AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l) < 0) {
+                    pd_dprintf("IQS5XX - Zoom out.\n");
+                    temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON7);
+                } else if (AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l) > 0) {
+                    pd_dprintf("IQS5XX - Zoom in.\n");
+                    temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON8);
+                }
+            } else if (base_data.gesture_events_1.scroll) {
+                pd_dprintf("IQS5XX - Scroll.\n");
+                temp_report.h = CONSTRAIN_HID(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l));
+                temp_report.v = CONSTRAIN_HID(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.y.h, base_data.y.l));
+            }
+            if (base_data.number_of_fingers == 1 && !ignore_movement) {
+                temp_report.x = CONSTRAIN_HID_XY(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l));
+                temp_report.y = CONSTRAIN_HID_XY(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.y.h, base_data.y.l));
+            }
+
+            previous_button_state = temp_report.buttons;
+
+        } else {
+            if (read_error_count > 10) {
+                read_error_count      = 0;
+                previous_button_state = 0;
+            } else {
+                read_error_count++;
+            }
+            temp_report.buttons = previous_button_state;
+            pd_dprintf("IQS5XX - get report failed: %d \n", status);
+        }
+    } else {
+        pd_dprintf("IQS5XX - Init failed: %d \n", azoteq_iqs5xx_init_status);
+    }
+
+    return temp_report;
+}
+
+// clang-format off
+const pointing_device_driver_t pointing_device_driver = {
+    .init       = azoteq_iqs5xx_init,
+    .get_report = azoteq_iqs5xx_get_report,
+    .set_cpi    = azoteq_iqs5xx_set_cpi,
+    .get_cpi    = azoteq_iqs5xx_get_cpi
 };
 // clang-format on
 
@@ -117,12 +248,26 @@ void cirque_pinnacle_configure_cursor_glide(float trigger_px) {
 #    endif
 
 #    if CIRQUE_PINNACLE_POSITION_MODE
+
+#        ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+static bool is_touch_down;
+
+bool auto_mouse_activation(report_mouse_t mouse_report) {
+    return is_touch_down || mouse_report.x != 0 || mouse_report.y != 0 || mouse_report.h != 0 || mouse_report.v != 0 || mouse_report.buttons;
+}
+#        endif
+
 report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
+    uint16_t          scale     = cirque_pinnacle_get_scale();
     pinnacle_data_t   touchData = cirque_pinnacle_read_data();
     mouse_xy_report_t report_x = 0, report_y = 0;
-    static uint16_t   x = 0, y = 0;
+    static uint16_t   x = 0, y = 0, last_scale = 0;
+
+#        if defined(CIRQUE_PINNACLE_TAP_ENABLE)
+    mouse_report.buttons        = pointing_device_handle_buttons(mouse_report.buttons, false, POINTING_DEVICE_BUTTON1);
+#        endif
 #        ifdef POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
-    cursor_glide_t    glide_report = {0};
+    cursor_glide_t glide_report = {0};
 
     if (cursor_glide_enable) {
         glide_report = cursor_glide_check(&glide);
@@ -140,22 +285,25 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
         return mouse_report;
     }
 
-#        if CONSOLE_ENABLE
-    if (debug_mouse && touchData.touchDown) {
-        dprintf("cirque_pinnacle touchData x=%4d y=%4d z=%2d\n", touchData.xValue, touchData.yValue, touchData.zValue);
+    if (touchData.touchDown) {
+        pd_dprintf("cirque_pinnacle touchData x=%4d y=%4d z=%2d\n", touchData.xValue, touchData.yValue, touchData.zValue);
     }
+
+#        ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+    is_touch_down = touchData.touchDown;
 #        endif
 
     // Scale coordinates to arbitrary X, Y resolution
-    cirque_pinnacle_scale_data(&touchData, cirque_pinnacle_get_scale(), cirque_pinnacle_get_scale());
+    cirque_pinnacle_scale_data(&touchData, scale, scale);
 
     if (!cirque_pinnacle_gestures(&mouse_report, touchData)) {
-        if (x && y && touchData.xValue && touchData.yValue) {
+        if (last_scale && scale == last_scale && x && y && touchData.xValue && touchData.yValue) {
             report_x = CONSTRAIN_HID_XY((int16_t)(touchData.xValue - x));
             report_y = CONSTRAIN_HID_XY((int16_t)(touchData.yValue - y));
         }
-        x = touchData.xValue;
-        y = touchData.yValue;
+        x          = touchData.xValue;
+        y          = touchData.yValue;
+        last_scale = scale;
 
 #        ifdef POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
         if (cursor_glide_enable) {
@@ -227,9 +375,7 @@ const pointing_device_driver_t pointing_device_driver = {
 report_mouse_t paw3204_get_report(report_mouse_t mouse_report) {
     report_paw3204_t data = paw3204_read();
     if (data.isMotion) {
-#    ifdef CONSOLE_ENABLE
-        dprintf("Raw ] X: %d, Y: %d\n", data.x, data.y);
-#    endif
+        pd_dprintf("Raw ] X: %d, Y: %d\n", data.x, data.y);
 
         mouse_report.x = data.x;
         mouse_report.y = data.y;
@@ -329,7 +475,7 @@ report_mouse_t pmw33xx_get_report(report_mouse_t mouse_report) {
 
     if (!in_motion) {
         in_motion = true;
-        dprintf("PWM3360 (0): starting motion\n");
+        pd_dprintf("PWM3360 (0): starting motion\n");
     }
 
     mouse_report.x = CONSTRAIN_HID_XY(report.delta_x);

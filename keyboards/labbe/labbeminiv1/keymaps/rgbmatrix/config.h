@@ -16,11 +16,11 @@
 #pragma once
 
 // ws2812 options
-#define RGB_DI_PIN C7 // pin the DI on the ws2812 is hooked-up to
-#define RGBLED_NUM 4 // number of LEDs
-#define DRIVER_LED_TOTAL RGBLED_NUM
+#define WS2812_DI_PIN C7 // pin the DI on the ws2812 is hooked-up to
+#define RGBLIGHT_LED_COUNT 4 // number of LEDs
+#define RGB_MATRIX_LED_COUNT RGBLIGHT_LED_COUNT
 
 #define RGB_MATRIX_KEYPRESSES
 
 #define ENABLE_RGB_MATRIX_MULTISPLASH
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_MULTISPLASH
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_MULTISPLASH

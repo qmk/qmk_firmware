@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
 
     [_LAYER0] = LAYOUT(
-                 KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
+                 KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS,
         KC_CALC, KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
         KC_WSCH, KC_P4,   KC_P5,   KC_P6,
         KC_MAIL, KC_P1,   KC_P2,   KC_P3,   KC_PENT,
@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
 
     [_LAYER1] = LAYOUT(
-                 KC_NLCK, KC_PSLS, KC_PAST, RGB_VAD,
+                 KC_NUM,  KC_PSLS, KC_PAST, RGB_VAD,
         KC_TRNS, KC_F7,   KC_F8,   KC_F9,   RGB_VAI,
         KC_TRNS, KC_F4,   KC_F5,   KC_F6,
         KC_TRNS, KC_F1,   KC_F2,   KC_F3,   RGB_MOD,

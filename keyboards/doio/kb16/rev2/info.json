@@ -1,0 +1,21 @@
+{
+    "usb": {
+        "device_version": "0.0.2"
+    },
+    "matrix_pins": {
+        "cols": ["B14", "B13", "B12", "B0", "A7"],
+        "rows": ["B3", "B4", "B9", "B8"]
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B5", "pin_b": "B6"},
+            {"pin_a": "A1", "pin_b": "A2"},
+            {"pin_a": "A3", "pin_b": "A4"}
+        ]
+    },
+    "ws2812": {
+        "pin": "A10"
+    },
+    "processor": "STM32F103",
+    "bootloader": "stm32duino"
+}

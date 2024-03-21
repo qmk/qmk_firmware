@@ -38,7 +38,7 @@ volatile uint8_t LEDs[6][6] = {{0}};//Stores current LED values
 //Read data from the cap touch IC
 uint8_t readDataFromTS(uint8_t reg) {
   uint8_t rx[1] = { 0 };
-  if (i2c_readReg(0x1C << 1, reg, rx, 1, 100) == 0) {
+  if (i2c_read_register(0x1C << 1, reg, rx, 1, 100) == 0) {
     return rx[0];
   }
   return 0;
@@ -158,7 +158,7 @@ void matrix_init(void) {
 
   memset(matrix, 0, MATRIX_ROWS * sizeof(matrix_row_t));
 
-  matrix_init_quantum();
+  matrix_init_kb();
 }
 
 
@@ -261,7 +261,7 @@ uint8_t matrix_scan(void) {
     writePinLow(E6);
   }
 
-  matrix_scan_quantum();
+  matrix_scan_kb();
 
   return 1;
 

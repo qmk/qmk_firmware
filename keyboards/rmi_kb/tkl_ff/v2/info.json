@@ -1,0 +1,23 @@
+{
+    "usb": {
+        "pid": "0x10FF"
+    },
+    "rgblight": {
+        "hue_steps": 32,
+        "saturation_steps": 32,
+        "brightness_steps": 32,
+        "led_count": 26,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true
+        }
+    },
+    "ws2812": {
+        "pin": "E2"
+    }
+}

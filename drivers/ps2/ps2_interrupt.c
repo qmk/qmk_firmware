@@ -47,6 +47,7 @@ POSSIBILITY OF SUCH DAMAGE.
 // chibiOS headers
 #    include "ch.h"
 #    include "hal.h"
+#    include "gpio.h"
 #endif
 
 #include "ps2.h"
@@ -76,17 +77,18 @@ void palCallback(void *arg) {
 }
 
 #    define PS2_INT_INIT()                                 \
-        { palSetLineMode(PS2_CLOCK_PIN, PAL_MODE_INPUT); } \
-        while (0)
+        do {                                               \
+            palSetLineMode(PS2_CLOCK_PIN, PAL_MODE_INPUT); \
+        } while (0)
 #    define PS2_INT_ON()                                                    \
-        {                                                                   \
+        do {                                                                \
             palEnableLineEvent(PS2_CLOCK_PIN, PAL_EVENT_MODE_FALLING_EDGE); \
             palSetLineCallback(PS2_CLOCK_PIN, palCallback, NULL);           \
-        }                                                                   \
-        while (0)
+        } while (0)
 #    define PS2_INT_OFF()                       \
-        { palDisableLineEvent(PS2_CLOCK_PIN); } \
-        while (0)
+        do {                                    \
+            palDisableLineEvent(PS2_CLOCK_PIN); \
+        } while (0)
 #endif // PROTOCOL_CHIBIOS
 
 void ps2_host_init(void) {

@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = caterina
-
 # Build Options
 #   change yes to no to disable
 #
@@ -18,7 +12,5 @@ AUDIO_ENABLE = no           # Audio output
 RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
 
 SPLIT_KEYBOARD = yes
-
-LAYOUTS = ortho_4x12
 
 DEFAULT_FOLDER = lets_split/rev2
