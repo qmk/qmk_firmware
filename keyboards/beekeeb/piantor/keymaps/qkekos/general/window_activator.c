@@ -17,17 +17,11 @@ char *get_window_name(uint16_t keycode, keyrecord_t *record) {
 
 int window_activator_pr(uint16_t keycode, keyrecord_t *record) {
     if (!record->event.pressed) return PR_IGNORE;
+    char *window_name = get_window_name(keycode, record);
 
-    switch (keycode) {
-        case WN_STEM:
-        case WN_DIS:
-        case WN_DISB:
-        case WN_CHRM:
-        case WN_TELG:
-        case WN_WSL:
-        case WN_TBX:
-            uprintf("qmk_show_window: %s\n", get_window_name(keycode, record));
-            return false;
+    if (strlen(window_name)) {
+        uprintf("qmk_show_window: %s\n", window_name);
+        return false;
     }
 
     return PR_IGNORE;
