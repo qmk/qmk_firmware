@@ -12,5 +12,6 @@
 #include "arrows.h"
 #include "caps_word.h"
 #include "utils.h"
+#include "window_activator.h"
 
 #define is_layer_on layer_state_is

@@ -19,6 +19,14 @@ enum blender_keycode {
     US_HRTR,
     US_RFSH,
 
+    WN_STEM,
+    WN_DIS,
+    WN_DISB,
+    WN_CHRM,
+    WN_TELG,
+    WN_WSL,
+    WN_TBX,
+
     US_AREP,
     US_REP,
     DB_LTTR,
