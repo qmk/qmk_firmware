@@ -1,0 +1,5 @@
+{
+    "bluetooth": {
+        "driver": "bluefruit_le"
+    }
+}

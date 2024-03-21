@@ -1,5 +1,7 @@
 name: Automatic Approve
 
+permissions: {}
+
 on:
   schedule:
     - cron: "*/5 * * * *"

@@ -51,21 +51,21 @@ git remote set-url origin https://github.com/<your_username>/qmk_firmware.git
 Now that you have both remotes configured, you need to update the references for the upstream repository, which is QMK's, by running:
 
 ```
-git fetch upstream
+git fetch --recurse-submodules upstream
 ```
 
 At this point, resynchronize your branch to QMK's by running:
 
 ```
-git reset --hard upstream/master
+git reset --recurse-submodules --hard upstream/master
 ```
 
 These steps will update the repository on your computer, but your GitHub fork will still be out of sync. To resynchronize your fork on GitHub, you need to push to your fork, instructing Git to override any remote changes that are not reflected in your local repository. To do this, run:
 
 ```
-git push --force-with-lease
+git push --recurse-submodules=on-demand --force-with-lease
 ```
 
-!> **DO NOT** run `git push --force-with-lease` on a fork to which other users post commits. This will erase their commits.
+!> **DO NOT** run `git push --recurse-submodules=on-demand --force-with-lease` on a fork to which other users post commits. This will erase their commits.
 
 Now your GitHub fork, your local files, and QMK's repository are all the same. From here you can make further needed changes ([use a branch!](newbs_git_using_your_master_branch.md#making-changes)) and post them as normal.

@@ -308,16 +308,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
             break;
     }
 #    endif  // !NO_CHARYBDIS_KEYCODES
-#    ifndef MOUSEKEY_ENABLE
-    // Simulate mouse keys if full support is not enabled (reduces firmware size
-    // while maintaining support for mouse keys).
-    if (IS_MOUSEKEY_BUTTON(keycode)) {
-        report_mouse_t mouse_report = pointing_device_get_report();
-        mouse_report.buttons        = pointing_device_handle_buttons(mouse_report.buttons, record->event.pressed, keycode - KC_MS_BTN1);
-        pointing_device_set_report(mouse_report);
-        pointing_device_send();
-    }
-#    endif  // !MOUSEKEY_ENABLE
     return true;
 }
 

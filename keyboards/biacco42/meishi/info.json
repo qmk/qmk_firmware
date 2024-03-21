@@ -8,13 +8,20 @@
         "pid": "0x0002",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B1", "B3", "B2", "B6"],
+        "rows": ["B5"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"x":0, "y":0},
-                {"x":1, "y":0},
-                {"x":2, "y":0},
-                {"x":3, "y":0}
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0}
             ]
         }
     }

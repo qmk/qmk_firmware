@@ -1,4 +1,4 @@
-#include "rev2.h"
+#include "quantum.h"
 #include "print.h"
 
 void backlight_init_ports(void) {

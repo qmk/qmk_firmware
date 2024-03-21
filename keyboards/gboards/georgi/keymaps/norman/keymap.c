@@ -12,7 +12,6 @@
 
 #include QMK_KEYBOARD_H
 #include "sten.h"
-#include "keymap_steno.h"
 
 // Proper Layers
 #define FUNCT   (LSD | LK | LP | LH)
@@ -263,4 +262,4 @@ KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,       KC_PGDN, KC_LEFT, KC
 			  KC_TRNS, KC_TRNS, KC_TRNS,	                        KC_TRNS, KC_TRNS, KC_TRNS)
 };
 // Don't fuck with this, thanks.
-size_t keymapsCount  = sizeof(keymaps)/sizeof(keymaps[0]);
+size_t keymapsCount  = ARRAY_SIZE(keymaps);

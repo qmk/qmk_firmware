@@ -20,17 +20,17 @@
 
 led_config_t g_led_config = {
     {
-        {     75,     46,     45,     44,     43,     42, NO_LED }, \
-        {     47,     48,     49,     50,     51,     52,     53 }, \
-        {     60,     59,     58,     57,     56,     55,     54 }, \
-        {     61,     62,     63,     64,     65,     66,     67 }, \
-        {     74,     73,     72,     71,     70,     69,     68 }, \
-        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED }, \
-        {      7,      6,      4,      3,      2,      1,      5}, \
-        {      8,      9,     10,     11,     12,     13,      0 }, \
-        {     19,     18,     17,     16,     15,     14,     41 }, \
-        {     20,     21,     22,     23,     24,     25,     40 }, \
-        {     30,     29,     28,     27,     26,     39,     38 }, \
+        {     75,     46,     45,     44,     43,     42, NO_LED },
+        {     47,     48,     49,     50,     51,     52,     53 },
+        {     60,     59,     58,     57,     56,     55,     54 },
+        {     61,     62,     63,     64,     65,     66,     67 },
+        {     74,     73,     72,     71,     70,     69,     68 },
+        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+        {      7,      6,      4,      3,      2,      1,      5},
+        {      8,      9,     10,     11,     12,     13,      0 },
+        {     19,     18,     17,     16,     15,     14,     41 },
+        {     20,     21,     22,     23,     24,     25,     40 },
+        {     30,     29,     28,     27,     26,     39,     38 },
         {     31,     32,     33,     34,     35,     36,     37 }
     }, {
         { 145,  6 }, { 157,  5 }, { 153, 14 }, { 149, 22 }, { 145, 32 }, { 136, 35 }, { 139, 48 }, { 134, 61 },
@@ -97,11 +97,11 @@ static enum { UNKNOWN, LEFT, RIGHT } hand_side = UNKNOWN;
         hand_side = readPin(SPLIT_HAND_PIN) ? LEFT : RIGHT;
         return (hand_side == LEFT);
 #elif defined(SPLIT_HAND_MATRIX_GRID)
-#    ifdef SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
-        hand_side = peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID) ? LEFT : RIGHT;
+#    ifdef SPLIT_HAND_MATRIX_GRID_LOW_IS_LEFT
+        hand_side = peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID) ? RIGHT : LEFT;
         return (hand_side == LEFT);
 #    else
-        hand_side = peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID) ? RIGHT : LEFT;
+        hand_side = peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID) ? LEFT : RIGHT;
         return (hand_side == LEFT);
 #    endif
 #elif defined(EE_HANDS)

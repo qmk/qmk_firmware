@@ -6,7 +6,9 @@ This firmware was tested on the Ducky One 2 SF 1967ST version.
 
 * Keyboard Maintainer: [f7urry](https://github.com/f7urry)
 * Hardware Supported: Ducky One 2 SF RGB (DKON1967ST), NUC123SD4AN0 + MBI5043GP
-  * Only ANSI layout is supported at this time (ISO & VIA still WIP).
+  * Only ANSI layout is supported at this time
+  * ISO compiles but is **untested**
+  * VIA still WIP.
   * RGB LEDs are currently disabled until the driver is merged.
 
 ## Compiling the Firmware:

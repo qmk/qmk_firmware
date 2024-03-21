@@ -1,5 +1,6 @@
-#include "tester.h"
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+#include "quantum.h"
+
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location

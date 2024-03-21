@@ -32,8 +32,8 @@ enum custom_keycodes {
   RGBRST
 };
 
-#define LOWER FN_MO13
-#define RAISE FN_MO23
+#define LOWER TL_LOWR
+#define RAISE TL_UPPR
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -133,24 +133,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case EISU:
       if (record->event.pressed) {
         if (is_mac_mode()) {
-          register_code(KC_LANG2);
+          register_code(KC_LNG2);
         }else{
           tap_code16(LALT(KC_GRAVE));
         }
       } else {
-        unregister_code(KC_LANG2);
+        unregister_code(KC_LNG2);
       }
       return false;
       break;
     case KANA:
       if (record->event.pressed) {
         if (is_mac_mode()) {
-          register_code(KC_LANG1);
+          register_code(KC_LNG1);
         }else{
           tap_code16(LALT(KC_GRAVE));
         }
       } else {
-        unregister_code(KC_LANG1);
+        unregister_code(KC_LNG1);
       }
       return false;
       break;

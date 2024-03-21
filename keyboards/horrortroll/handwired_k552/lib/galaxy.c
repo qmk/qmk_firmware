@@ -1,4 +1,4 @@
-/* Copyright 2021 HorrorTroll <https://github.com/HorrorTroll>
+/* Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,9 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "quantum.h"
+
 # define ANIM_SIZE 636  // number of bytes in array, minimize for adequate firmware size, max is 1024
 
-static void render_galaxy(void) {
+void render_galaxy(void) {
     static const char PROGMEM galaxy[][ANIM_SIZE] = {
         {
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x00, 0x80, 0xc8, 0xe8, 0x49, 0x72,

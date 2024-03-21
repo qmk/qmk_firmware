@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|    |--------+--------+--------+--------+--------+--------|
      KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
   //|--------+--------+--------+--------+--------+--------|    |--------+--------+--------+--------+--------+--------|
-     KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,         KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
+     SC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,         KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SC_RSPC,
   //|--------+--------+--------+--------+--------+--------|    |--------+--------+--------+--------+--------+--------|
      KC_SCTL, KC_SPFN, KC_SPLT, KC_AMPR, KC_NMPD, KC_SPC,       KC_SPC,  KC_SYMB, KC_ASTR, KC_EXLM, KC_LBRC, KC_SCTR
   //`--------+--------+--------+--------+--------+--------'    `--------+--------+--------+--------+--------+--------'
@@ -139,16 +139,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_SCAP:
       if (record->event.pressed){
         layer_on(_CAPS);
-        register_code(KC_CAPSLOCK);
-        unregister_code(KC_CAPSLOCK);
+        register_code(KC_CAPS_LOCK);
+        unregister_code(KC_CAPS_LOCK);
         return false;
       }
       break;
     case KC_SCOF:
       if (record->event.pressed){
         layer_off(_CAPS);
-        register_code(KC_CAPSLOCK);
-        unregister_code(KC_CAPSLOCK);
+        register_code(KC_CAPS_LOCK);
+        unregister_code(KC_CAPS_LOCK);
         return false;
       }
       break;

@@ -1,39 +1,33 @@
-/* Copyright 2016 Stephen Bösebeck
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2024 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+/*******************************************************************************
+  88888888888 888      d8b                .d888 d8b 888               d8b
+      888     888      Y8P               d88P"  Y8P 888               Y8P
+      888     888                        888        888
+      888     88888b.  888 .d8888b       888888 888 888  .d88b.       888 .d8888b
+      888     888 "88b 888 88K           888    888 888 d8P  Y8b      888 88K
+      888     888  888 888 "Y8888b.      888    888 888 88888888      888 "Y8888b.
+      888     888  888 888      X88      888    888 888 Y8b.          888      X88
+      888     888  888 888  88888P'      888    888 888  "Y8888       888  88888P'
+                                                        888                 888
+                                                        888                 888
+                                                        888                 888
+     .d88b.   .d88b.  88888b.   .d88b.  888d888 8888b.  888888 .d88b.   .d88888
+    d88P"88b d8P  Y8b 888 "88b d8P  Y8b 888P"      "88b 888   d8P  Y8b d88" 888
+    888  888 88888888 888  888 88888888 888    .d888888 888   88888888 888  888
+    Y88b 888 Y8b.     888  888 Y8b.     888    888  888 Y88b. Y8b.     Y88b 888
+     "Y88888  "Y8888  888  888  "Y8888  888    "Y888888  "Y888 "Y8888   "Y88888
+         888
+    Y8b d88P
+     "Y88P"
+*******************************************************************************/
 
 #pragma once
-
-#include "keymap.h"
-
+#include "keycodes.h"
 // clang-format off
 
-/*
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬─────┐
- * │ ^ │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ ß │ ´ │     │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬───┤
- * │     │ Q │ W │ E │ R │ T │ Z │ U │ I │ O │ P │ Ü │ + │   │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐  │
- * │      │ A │ S │ D │ F │ G │ H │ J │ K │ L │ Ö │ Ä │ # │  │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴──┤
- * │    │ < │ Y │ X │ C │ V │ B │ N │ M │ , │ . │ - │        │
- * ├────┴┬──┴─┬─┴───┼───┴───┴───┴───┴───┴───┼───┴─┬─┴──┬─────┤
- * │     │    │     │                       │     │    │     │
- * └─────┴────┴─────┴───────────────────────┴─────┴────┴─────┘
- */
-// Row 1
+// Aliases
 #define DE_CIRC KC_GRV  // ^ (dead)
 #define DE_1    KC_1    // 1
 #define DE_2    KC_2    // 2
@@ -47,7 +41,6 @@
 #define DE_0    KC_0    // 0
 #define DE_SS   KC_MINS // ß
 #define DE_ACUT KC_EQL  // ´ (dead)
-// Row 2
 #define DE_Q    KC_Q    // Q
 #define DE_W    KC_W    // W
 #define DE_E    KC_E    // E
@@ -60,7 +53,6 @@
 #define DE_P    KC_P    // P
 #define DE_UDIA KC_LBRC // Ü
 #define DE_PLUS KC_RBRC // +
-// Row 3
 #define DE_A    KC_A    // A
 #define DE_S    KC_S    // S
 #define DE_D    KC_D    // D
@@ -73,7 +65,6 @@
 #define DE_ODIA KC_SCLN // Ö
 #define DE_ADIA KC_QUOT // Ä
 #define DE_HASH KC_NUHS // #
-// Row 4
 #define DE_LABK KC_NUBS // <
 #define DE_Y    KC_Z    // Y
 #define DE_X    KC_X    // X
@@ -85,21 +76,6 @@
 #define DE_COMM KC_COMM // ,
 #define DE_DOT  KC_DOT  // .
 #define DE_MINS KC_SLSH // -
-
-/* Shifted symbols
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬─────┐
- * │ ° │ ! │ " │ § │ $ │ % │ & │ / │ ( │ ) │ = │ ? │ ` │     │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬───┤
- * │     │   │   │   │   │   │   │   │   │   │   │   │ * │   │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐  │
- * │      │   │   │   │   │   │   │   │   │   │   │   │ ' │  │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴──┤
- * │    │ > │   │   │   │   │   │   │   │ ; │ : │ _ │        │
- * ├────┴┬──┴─┬─┴───┼───┴───┴───┴───┴───┴───┼───┴─┬─┴──┬─────┤
- * │     │    │     │                       │     │    │     │
- * └─────┴────┴─────┴───────────────────────┴─────┴────┴─────┘
- */
-// Row 1
 #define DE_DEG  S(DE_CIRC) // °
 #define DE_EXLM S(DE_1)    // !
 #define DE_DQUO S(DE_2)    // "
@@ -113,30 +89,12 @@
 #define DE_EQL  S(DE_0)    // =
 #define DE_QUES S(DE_SS)   // ?
 #define DE_GRV  S(DE_ACUT) // ` (dead)
-// Row 2
 #define DE_ASTR S(DE_PLUS) // *
-// Row 3
 #define DE_QUOT S(DE_HASH) // '
-// Row 4
 #define DE_RABK S(DE_LABK) // >
 #define DE_SCLN S(DE_COMM) // ;
 #define DE_COLN S(DE_DOT)  // :
 #define DE_UNDS S(DE_MINS) // _
-
-/* Alted symbols
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬─────┐
- * │ „ │ ¡ │ “ │ ¶ │ ¢ │ [ │ ] │ | │ { │ } │ ≠ │ ¿ │   │     │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬───┤
- * │     │ « │ ∑ │ € │ ® │ † │ Ω │ ¨ │ ⁄ │ Ø │ π │ • │ ± │   │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐  │
- * │      │ Å │ ‚ │ ∂ │ ƒ │ © │ ª │ º │ ∆ │ @ │ Œ │ Æ │ ‘ │  │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴──┤
- * │    │ ≤ │ ¥ │ ≈ │ Ç │ √ │ ∫ │ ~ │ µ │ ∞ │ … │ – │        │
- * ├────┴┬──┴─┬─┴───┼───┴───┴───┴───┴───┴───┼───┴─┬─┴──┬─────┤
- * │     │    │     │                       │     │    │     │
- * └─────┴────┴─────┴───────────────────────┴─────┴────┴─────┘
- */
-// Row 1
 #define DE_DLQU A(DE_CIRC) // „
 #define DE_IEXL A(DE_1)    // ¡
 #define DE_LDQU A(DE_2)    // “
@@ -149,7 +107,6 @@
 #define DE_RCBR A(DE_9)    // }
 #define DE_NEQL A(DE_0)    // ≠
 #define DE_IQUE A(DE_SS)   // ¿
-// Row 2
 #define DE_LDAQ A(DE_Q)    // «
 #define DE_NARS A(DE_W)    // ∑
 #define DE_EURO A(DE_E)    // €
@@ -162,7 +119,6 @@
 #define DE_PI   A(DE_P)    // π
 #define DE_BULT A(DE_UDIA) // •
 #define DE_PLMN A(DE_PLUS) // ±
-// Row 3
 #define DE_ARNG A(DE_A)    // Å
 #define DE_SLQU A(DE_S)    // ‚
 #define DE_PDIF A(DE_D)    // ∂
@@ -175,7 +131,6 @@
 #define DE_OE   A(DE_ODIA) // Œ
 #define DE_AE   A(DE_ADIA) // Æ
 #define DE_LSQU A(DE_HASH) // ‘
-// Row 4
 #define DE_LTEQ A(DE_LABK) // ≤
 #define DE_YEN  A(DE_Y)    // ¥
 #define DE_AEQL A(DE_X)    // ≈
@@ -187,21 +142,6 @@
 #define DE_INFN A(DE_COMM) // ∞
 #define DE_ELLP A(DE_DOT)  // …
 #define DE_NDSH A(DE_MINS) // –
-
-/* Shift+Alted symbols
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬─────┐
- * │   │ ¬ │ ” │   │ £ │ ﬁ │   │ \ │ ˜ │ · │ ¯ │ ˙ │ ˚ │     │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬───┤
- * │     │ » │   │ ‰ │ ¸ │ ˝ │ ˇ │ Á │ Û │   │ ∏ │   │  │   │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐  │
- * │      │   │ Í │ ™ │ Ï │ Ì │ Ó │ ı │   │ ﬂ │   │   │   │  │
- * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴──┤
- * │    │ ≥ │ ‡ │ Ù │   │ ◊ │ ‹ │ › │ ˘ │ ˛ │ ÷ │ — │        │
- * ├────┴┬──┴─┬─┴───┼───┴───┴───┴───┴───┴───┼───┴─┬─┴──┬─────┤
- * │     │    │     │                       │     │    │     │
- * └─────┴────┴─────┴───────────────────────┴─────┴────┴─────┘
- */
-// Row 1
 #define DE_NOT  S(A(DE_1))    // ¬
 #define DE_RDQU S(A(DE_2))    // ”
 #define DE_PND  S(A(DE_4))    // £
@@ -212,7 +152,6 @@
 #define DE_MACR S(A(DE_0))    // ¯
 #define DE_DOTA S(A(DE_SS))   // ˙
 #define DE_RNGA S(A(DE_ACUT)) // ˚
-// Row 2
 #define DE_RDAQ S(A(DE_Q))    // »
 #define DE_PERM S(A(DE_E))    // ‰
 #define DE_CEDL S(A(DE_R))    // ¸
@@ -222,7 +161,6 @@
 #define DE_UCIR S(A(DE_I))    // Û
 #define DE_NARP S(A(DE_P))    // ∏
 #define DE_APPL S(A(DE_PLUS)) //  (Apple logo)
-// Row 3
 #define DE_IACU S(A(DE_S))    // Í
 #define DE_TM   S(A(DE_D))    // ™
 #define DE_IDIA S(A(DE_F))    // Ï
@@ -230,7 +168,6 @@
 #define DE_OACU S(A(DE_H))    // Ó
 #define DE_DLSI S(A(DE_J))    // ı
 #define DE_FL   S(A(DE_L))    // ﬂ
-// Row 4
 #define DE_GTEQ S(A(DE_LABK)) // ≥
 #define DE_DDAG S(A(DE_Y))    // ‡
 #define DE_UGRV S(A(DE_X))    // Ù
@@ -241,3 +178,4 @@
 #define DE_OGON S(A(DE_COMM)) // ˛
 #define DE_DIV  S(A(DE_DOT))  // ÷
 #define DE_MDSH S(A(DE_MINS)) // —
+

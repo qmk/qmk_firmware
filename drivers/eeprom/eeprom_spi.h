@@ -17,6 +17,18 @@
 #pragma once
 
 /*
+    Default device configurations:
+
+    For the Adafruit SPI Non-Volatile FRAM Breakout: https://www.adafruit.com/product/1897
+        #define EEPROM_SPI_MB85RS64V
+*/
+#if defined(EEPROM_SPI_MB85RS64V)
+#    define EXTERNAL_EEPROM_BYTE_COUNT 8192
+#    define EXTERNAL_EEPROM_PAGE_SIZE 64 // it's FRAM, so it doesn't actually matter, this just sets the RAM buffer
+#    define EXTERNAL_EEPROM_ADDRESS_SIZE 2
+#endif
+
+/*
     The slave select pin of the EEPROM.
     This needs to be a normal GPIO pin_t value, such as A7.
 */

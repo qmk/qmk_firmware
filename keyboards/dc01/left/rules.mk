@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -17,5 +11,5 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
 
 CUSTOM_MATRIX = yes         # Use custom matrix
-SRC += matrix.c \
-       i2c_master.c
+SRC += matrix.c
+I2C_DRIVER_REQUIRED = yes

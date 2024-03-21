@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -19,4 +13,4 @@ MIDI_ENABLE = yes           # MIDI support
 AUDIO_ENABLE = no           # Audio output
 LTO_ENABLE = yes
 
-SRC += analog.c
+ANALOG_DRIVER_REQUIRED = yes

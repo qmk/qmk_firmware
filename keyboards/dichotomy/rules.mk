@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = caterina
-
 # Build Options
 #   change yes to no to disable
 #
@@ -20,4 +14,4 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 
 # # project specific files
 SRC += matrix.c
-QUANTUM_LIB_SRC += uart.c
+UART_DRIVER_REQUIRED = yes

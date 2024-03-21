@@ -20,11 +20,11 @@
 #include "haptic.h"
 #include "gpio.h"
 #include "usb_device_state.h"
+#include "util.h"
 #include <stdlib.h>
 
-uint8_t      solenoid_dwell  = SOLENOID_DEFAULT_DWELL;
 static pin_t solenoid_pads[] = SOLENOID_PINS;
-#define NUMBER_OF_SOLENOIDS (sizeof(solenoid_pads) / sizeof(pin_t))
+#define NUMBER_OF_SOLENOIDS ARRAY_SIZE(solenoid_pads)
 bool     solenoid_on[NUMBER_OF_SOLENOIDS]      = {false};
 bool     solenoid_buzzing[NUMBER_OF_SOLENOIDS] = {false};
 uint16_t solenoid_start[NUMBER_OF_SOLENOIDS]   = {0};
@@ -52,7 +52,7 @@ void solenoid_set_buzz(uint8_t buzz) {
 }
 
 void solenoid_set_dwell(uint8_t dwell) {
-    solenoid_dwell = dwell;
+    haptic_set_dwell(dwell);
 }
 
 /**
@@ -61,7 +61,7 @@ void solenoid_set_dwell(uint8_t dwell) {
  * @param index select which solenoid to check/stop
  */
 void solenoid_stop(uint8_t index) {
-    writePin(solenoid_pads[index], !solenoid_active_state[index]);
+    gpio_write_pin(solenoid_pads[index], !solenoid_active_state[index]);
     solenoid_on[index]      = false;
     solenoid_buzzing[index] = false;
 }
@@ -78,7 +78,7 @@ void solenoid_fire(uint8_t index) {
     solenoid_on[index]      = true;
     solenoid_buzzing[index] = true;
     solenoid_start[index]   = timer_read();
-    writePin(solenoid_pads[index], solenoid_active_state[index]);
+    gpio_write_pin(solenoid_pads[index], solenoid_active_state[index]);
 }
 
 /**
@@ -118,7 +118,7 @@ void solenoid_check(void) {
         elapsed[i] = timer_elapsed(solenoid_start[i]);
 
         // Check if it's time to finish this solenoid click cycle
-        if (elapsed[i] > solenoid_dwell) {
+        if (elapsed[i] > haptic_config.dwell) {
             solenoid_stop(i);
             continue;
         }
@@ -128,12 +128,12 @@ void solenoid_check(void) {
             if ((elapsed[i] % (SOLENOID_BUZZ_ACTUATED + SOLENOID_BUZZ_NONACTUATED)) < SOLENOID_BUZZ_ACTUATED) {
                 if (!solenoid_buzzing[i]) {
                     solenoid_buzzing[i] = true;
-                    writePin(solenoid_pads[i], solenoid_active_state[i]);
+                    gpio_write_pin(solenoid_pads[i], solenoid_active_state[i]);
                 }
             } else {
                 if (solenoid_buzzing[i]) {
                     solenoid_buzzing[i] = false;
-                    writePin(solenoid_pads[i], !solenoid_active_state[i]);
+                    gpio_write_pin(solenoid_pads[i], !solenoid_active_state[i]);
                 }
             }
         }
@@ -147,7 +147,7 @@ void solenoid_check(void) {
 void solenoid_setup(void) {
 #ifdef SOLENOID_PINS_ACTIVE_STATE
     bool    state_temp[] = SOLENOID_PINS_ACTIVE_STATE;
-    uint8_t bound_check  = (sizeof(state_temp) / sizeof(bool));
+    uint8_t bound_check  = ARRAY_SIZE(state_temp);
 #endif
 
     for (uint8_t i = 0; i < NUMBER_OF_SOLENOIDS; i++) {
@@ -156,8 +156,8 @@ void solenoid_setup(void) {
 #else
         solenoid_active_state[i] = high;
 #endif
-        writePin(solenoid_pads[i], !solenoid_active_state[i]);
-        setPinOutput(solenoid_pads[i]);
+        gpio_write_pin(solenoid_pads[i], !solenoid_active_state[i]);
+        gpio_set_pin_output(solenoid_pads[i]);
         if ((!HAPTIC_OFF_IN_LOW_POWER) || (usb_device_state == USB_DEVICE_STATE_CONFIGURED)) {
             solenoid_fire(i);
         }
@@ -170,6 +170,6 @@ void solenoid_setup(void) {
  */
 void solenoid_shutdown(void) {
     for (uint8_t i = 0; i < NUMBER_OF_SOLENOIDS; i++) {
-        writePin(solenoid_pads[i], !solenoid_active_state[i]);
+        gpio_write_pin(solenoid_pads[i], !solenoid_active_state[i]);
     }
 }

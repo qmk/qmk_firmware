@@ -18,46 +18,8 @@
  */
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 16
-#define MATRIX_ROW_PINS { E6, B7, F6, F1, F0}
-#define MATRIX_COL_PINS { F7, B0, B3, B1, B2, F4, C7, C6, B6, B5, B4, D7, D3, D2, D6, D4}
-#define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-
-#define DRIVER_1_LED_TOTAL 32
-#define DRIVER_2_LED_TOTAL 32
-#define DRIVER_ADDR_1 0b1110100
-#define DRIVER_ADDR_2 0b1110111
-#define DRIVER_COUNT 2
-#define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL+DRIVER_2_LED_TOTAL)
-
-#define LED_CAPS_LOCK_PIN   F5
-
-//rgb light setting
-#define RGBLED_NUM          68
-#define RGB_DI_PIN          D5
-#define RGBLIGHT_ANIMATIONS
-#define RGBLIGHT_HUE_STEP   8
-#define RGBLIGHT_SAT_STEP   8
-#define RGBLIGHT_VAL_STEP   8
-//#define RGBLIGHT_LIMIT_VAL  192
+#define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
+#define IS31FL3731_I2C_ADDRESS_2 IS31FL3731_I2C_ADDRESS_VCC
+#define IS31FL3731_LED_COUNT 64
 
 #define USB_SUSPEND_WAKEUP_DELAY 1000

@@ -15,7 +15,7 @@ from qmk.json_schema import load_jsonschema
 from qmk.path import keyboard
 from qmk.json_encoders import InfoJSONEncoder
 from qmk.json_schema import deep_update, json_load
-from qmk.constants import MCU2BOOTLOADER
+from qmk.constants import MCU2BOOTLOADER, QMK_FIRMWARE
 
 COMMUNITY = Path('layouts/default/')
 TEMPLATE = Path('data/templates/keyboard/')
@@ -102,7 +102,7 @@ def augment_community_info(src, dest):
         item["matrix"] = [int(item["y"]), int(item["x"])]
 
     # finally write out the updated info.json
-    dest.write_text(json.dumps(info, cls=InfoJSONEncoder))
+    dest.write_text(json.dumps(info, cls=InfoJSONEncoder, sort_keys=True))
 
 
 def _question(*args, **kwargs):
@@ -195,11 +195,6 @@ def new_keyboard(cli):
     cli.echo('')
 
     kb_name = cli.args.keyboard if cli.args.keyboard else prompt_keyboard()
-    user_name = cli.config.new_keyboard.name if cli.config.new_keyboard.name else prompt_user()
-    real_name = cli.args.realname or cli.config.new_keyboard.name if cli.args.realname or cli.config.new_keyboard.name else prompt_name(user_name)
-    default_layout = cli.args.layout if cli.args.layout else prompt_layout()
-    mcu = cli.args.type if cli.args.type else prompt_mcu()
-
     if not validate_keyboard_name(kb_name):
         cli.log.error('Keyboard names must contain only {fg_cyan}lowercase a-z{fg_reset}, {fg_cyan}0-9{fg_reset}, and {fg_cyan}_{fg_reset}! Please choose a different name.')
         return 1
@@ -208,9 +203,14 @@ def new_keyboard(cli):
         cli.log.error(f'Keyboard {{fg_cyan}}{kb_name}{{fg_reset}} already exists! Please choose a different name.')
         return 1
 
+    user_name = cli.config.new_keyboard.name if cli.config.new_keyboard.name else prompt_user()
+    real_name = cli.args.realname or cli.config.new_keyboard.name if cli.args.realname or cli.config.new_keyboard.name else prompt_name(user_name)
+    default_layout = cli.args.layout if cli.args.layout else prompt_layout()
+    mcu = cli.args.type if cli.args.type else prompt_mcu()
+
     # Preprocess any development_board presets
     if mcu in dev_boards:
-        defaults_map = json_load(Path('data/mappings/defaults.json'))
+        defaults_map = json_load(Path('data/mappings/defaults.hjson'))
         board = defaults_map['development_board'][mcu]
 
         mcu = board['processor']
@@ -254,6 +254,6 @@ def new_keyboard(cli):
     augment_community_info(community_info, keyboard(kb_name) / community_info.name)
 
     cli.log.info(f'{{fg_green}}Created a new keyboard called {{fg_cyan}}{kb_name}{{fg_green}}.{{fg_reset}}')
-    cli.log.info(f'To start working on things, `cd` into {{fg_cyan}}keyboards/{kb_name}{{fg_reset}},')
-    cli.log.info('or open the directory in your preferred text editor.')
-    cli.log.info(f"And build with {{fg_yellow}}qmk compile -kb {kb_name} -km default{{fg_reset}}.")
+    cli.log.info(f"Build Command: {{fg_yellow}}qmk compile -kb {kb_name} -km default{{fg_reset}}.")
+    cli.log.info(f'Project Location: {{fg_cyan}}{QMK_FIRMWARE}/{keyboard(kb_name)}{{fg_reset}},')
+    cli.log.info("{{fg_yellow}}Now update the config files to match the hardware!{{fg_reset}}")

@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RGB_TOG, RGB_MOD, _______,
         RGB_HUI, RGB_SAI, RGB_VAI,
         RGB_HUD, RGB_SAD, RGB_VAD,
-        HPT_TOG, HPT_FBK, HPT_CONT
+        HF_TOGG, HF_FDBK, HF_CONT
     ),
     [3] = LAYOUT_ortho_4x3(
         _______, _______, _______,

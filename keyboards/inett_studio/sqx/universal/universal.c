@@ -20,7 +20,7 @@
 #include "universal.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -156,11 +156,14 @@ led_config_t g_led_config = {
     }
 };
 
-__attribute__ ((weak))
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
     if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(8, 0xFF, 0x0, 0x0);
     }
+    return true;
 }
 
 #endif  //RGB_MATRIX_ENABLE

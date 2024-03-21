@@ -48,31 +48,12 @@
 #    include "sleep_led.h"
 #endif
 #include "suspend.h"
+#include "wait.h"
 
 #include "usb_descriptor.h"
 #include "lufa.h"
-#include "quantum.h"
 #include "usb_device_state.h"
 #include <util/atomic.h>
-
-#ifdef NKRO_ENABLE
-#    include "keycode_config.h"
-
-extern keymap_config_t keymap_config;
-#endif
-
-#ifdef AUDIO_ENABLE
-#    include "audio.h"
-#endif
-
-#ifdef BLUETOOTH_ENABLE
-#    include "outputselect.h"
-#    ifdef BLUETOOTH_BLUEFRUIT_LE
-#        include "bluefruit_le.h"
-#    elif BLUETOOTH_RN42
-#        include "rn42.h"
-#    endif
-#endif
 
 #ifdef VIRTSER_ENABLE
 #    include "virtser.h"
@@ -86,10 +67,6 @@ extern keymap_config_t keymap_config;
 #    include "raw_hid.h"
 #endif
 
-#ifdef JOYSTICK_ENABLE
-#    include "joystick.h"
-#endif
-
 uint8_t keyboard_idle = 0;
 /* 0: Boot Protocol, 1: Report Protocol(default) */
 uint8_t        keyboard_protocol  = 1;
@@ -100,11 +77,27 @@ static report_keyboard_t keyboard_report_sent;
 /* Host driver */
 static uint8_t keyboard_leds(void);
 static void    send_keyboard(report_keyboard_t *report);
+static void    send_nkro(report_nkro_t *report);
 static void    send_mouse(report_mouse_t *report);
-static void    send_system(uint16_t data);
-static void    send_consumer(uint16_t data);
-static void    send_programmable_button(uint32_t data);
-host_driver_t  lufa_driver = {keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer, send_programmable_button};
+static void    send_extra(report_extra_t *report);
+host_driver_t  lufa_driver = {keyboard_leds, send_keyboard, send_nkro, send_mouse, send_extra};
+
+void send_report(uint8_t endpoint, void *report, size_t size) {
+    uint8_t timeout = 255;
+
+    if (USB_DeviceState != DEVICE_STATE_Configured) return;
+
+    Endpoint_SelectEndpoint(endpoint);
+
+    /* Check if write ready for a polling interval around 10ms */
+    while (timeout-- && !Endpoint_IsReadWriteAllowed()) {
+        _delay_us(40);
+    }
+    if (!Endpoint_IsReadWriteAllowed()) return;
+
+    Endpoint_Write_Stream_LE(report, size, NULL);
+    Endpoint_ClearIN();
+}
 
 #ifdef VIRTSER_ENABLE
 // clang-format off
@@ -140,30 +133,8 @@ USB_ClassInfo_CDC_Device_t cdc_device = {
  * FIXME: Needs doc
  */
 void raw_hid_send(uint8_t *data, uint8_t length) {
-    // TODO: implement variable size packet
-    if (length != RAW_EPSIZE) {
-        return;
-    }
-
-    if (USB_DeviceState != DEVICE_STATE_Configured) {
-        return;
-    }
-
-    // TODO: decide if we allow calls to raw_hid_send() in the middle
-    // of other endpoint usage.
-    uint8_t ep = Endpoint_GetCurrentEndpoint();
-
-    Endpoint_SelectEndpoint(RAW_IN_EPNUM);
-
-    // Check to see if the host is ready to accept another packet
-    if (Endpoint_IsINReady()) {
-        // Write data
-        Endpoint_Write_Stream_LE(data, RAW_EPSIZE, NULL);
-        // Finalize the stream transfer to send the last packet
-        Endpoint_ClearIN();
-    }
-
-    Endpoint_SelectEndpoint(ep);
+    if (length != RAW_EPSIZE) return;
+    send_report(RAW_IN_EPNUM, data, RAW_EPSIZE);
 }
 
 /** \brief Raw HID Receive
@@ -213,40 +184,15 @@ static void raw_hid_task(void) {
  * Console
  ******************************************************************************/
 #ifdef CONSOLE_ENABLE
-/** \brief Console Task
+/** \brief Console Tasks
  *
  * FIXME: Needs doc
  */
-static void Console_Task(void) {
+static void console_flush_task(void) {
     /* Device must be connected and configured for the task to run */
     if (USB_DeviceState != DEVICE_STATE_Configured) return;
 
     uint8_t ep = Endpoint_GetCurrentEndpoint();
-
-#    if 0
-    // TODO: impl receivechar()/recvchar()
-    Endpoint_SelectEndpoint(CONSOLE_OUT_EPNUM);
-
-    /* Check to see if a packet has been sent from the host */
-    if (Endpoint_IsOUTReceived())
-    {
-        /* Check to see if the packet contains data */
-        if (Endpoint_IsReadWriteAllowed())
-        {
-            /* Create a temporary buffer to hold the read in report from the host */
-            uint8_t ConsoleData[CONSOLE_EPSIZE];
-
-            /* Read Console Report Data */
-            Endpoint_Read_Stream_LE(&ConsoleData, sizeof(ConsoleData), NULL);
-
-            /* Process Console Report Data */
-            //ProcessConsoleHIDReport(ConsoleData);
-        }
-
-        /* Finalize the stream transfer to send the last packet */
-        Endpoint_ClearOUT();
-    }
-#    endif
 
     /* IN packet */
     Endpoint_SelectEndpoint(CONSOLE_IN_EPNUM);
@@ -266,69 +212,9 @@ static void Console_Task(void) {
 
     Endpoint_SelectEndpoint(ep);
 }
-#endif
 
-/*******************************************************************************
- * Joystick
- ******************************************************************************/
-#ifdef JOYSTICK_ENABLE
-void send_joystick_packet(joystick_t *joystick) {
-    uint8_t timeout = 255;
-
-    static joystick_report_t r;
-    r = (joystick_report_t) {
-#    if JOYSTICK_AXES_COUNT > 0
-        .axes =
-        { joystick->axes[0],
-
-#        if JOYSTICK_AXES_COUNT >= 2
-          joystick->axes[1],
-#        endif
-#        if JOYSTICK_AXES_COUNT >= 3
-          joystick->axes[2],
-#        endif
-#        if JOYSTICK_AXES_COUNT >= 4
-          joystick->axes[3],
-#        endif
-#        if JOYSTICK_AXES_COUNT >= 5
-          joystick->axes[4],
-#        endif
-#        if JOYSTICK_AXES_COUNT >= 6
-          joystick->axes[5],
-#        endif
-        },
-#    endif // JOYSTICK_AXES_COUNT>0
-
-#    if JOYSTICK_BUTTON_COUNT > 0
-        .buttons = {
-            joystick->buttons[0],
-
-#        if JOYSTICK_BUTTON_COUNT > 8
-            joystick->buttons[1],
-#        endif
-#        if JOYSTICK_BUTTON_COUNT > 16
-            joystick->buttons[2],
-#        endif
-#        if JOYSTICK_BUTTON_COUNT > 24
-            joystick->buttons[3],
-#        endif
-        }
-#    endif // JOYSTICK_BUTTON_COUNT>0
-    };
-
-    /* Select the Joystick Report Endpoint */
-    Endpoint_SelectEndpoint(JOYSTICK_IN_EPNUM);
-
-    /* Check if write ready for a polling interval around 10ms */
-    while (timeout-- && !Endpoint_IsReadWriteAllowed())
-        _delay_us(40);
-    if (!Endpoint_IsReadWriteAllowed()) return;
-
-    /* Write Joystick Report Data */
-    Endpoint_Write_Stream_LE(&r, sizeof(joystick_report_t), NULL);
-
-    /* Finalize the stream transfer to send the last packet */
-    Endpoint_ClearIN();
+void console_task(void) {
+    // do nothing
 }
 #endif
 
@@ -386,7 +272,7 @@ void EVENT_USB_Device_Reset(void) {
  *
  * FIXME: Needs doc
  */
-void EVENT_USB_Device_Suspend() {
+void EVENT_USB_Device_Suspend(void) {
     print("[S]");
     usb_device_state_set_suspend(USB_Device_ConfigurationNumber != 0, USB_Device_ConfigurationNumber);
 
@@ -399,7 +285,7 @@ void EVENT_USB_Device_Suspend() {
  *
  * FIXME: Needs doc
  */
-void EVENT_USB_Device_WakeUp() {
+void EVENT_USB_Device_WakeUp(void) {
     print("[W]");
 #if defined(NO_USB_STARTUP_CHECK)
     suspend_wakeup_init();
@@ -434,7 +320,7 @@ void EVENT_USB_Device_StartOfFrame(void) {
     count = 0;
 
     if (!console_flush) return;
-    Console_Task();
+    console_flush_task();
     console_flush = false;
 }
 
@@ -474,15 +360,12 @@ void EVENT_USB_Device_ConfigurationChanged(void) {
 #ifdef CONSOLE_ENABLE
     /* Setup console endpoint */
     ConfigSuccess &= Endpoint_ConfigureEndpoint((CONSOLE_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, CONSOLE_EPSIZE, 1);
-#    if 0
-    ConfigSuccess &= Endpoint_ConfigureEndpoint((CONSOLE_OUT_EPNUM | ENDPOINT_DIR_OUT), EP_TYPE_INTERRUPT, CONSOLE_EPSIZE, 1);
-#    endif
 #endif
 
 #ifdef MIDI_ENABLE
     /* Setup MIDI stream endpoints */
     ConfigSuccess &= Endpoint_ConfigureEndpoint((MIDI_STREAM_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_BULK, MIDI_STREAM_EPSIZE, 1);
-    ConfigSuccess &= Endpoint_ConfigureEndpoint((MIDI_STREAM_OUT_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_BULK, MIDI_STREAM_EPSIZE, 1);
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((MIDI_STREAM_OUT_EPNUM | ENDPOINT_DIR_OUT), EP_TYPE_BULK, MIDI_STREAM_EPSIZE, 1);
 #endif
 
 #ifdef VIRTSER_ENABLE
@@ -492,7 +375,7 @@ void EVENT_USB_Device_ConfigurationChanged(void) {
     ConfigSuccess &= Endpoint_ConfigureEndpoint((CDC_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_BULK, CDC_EPSIZE, 1);
 #endif
 
-#ifdef JOYSTICK_ENABLE
+#if defined(JOYSTICK_ENABLE) && !defined(JOYSTICK_SHARED_EP)
     /* Setup joystick endpoint */
     ConfigSuccess &= Endpoint_ConfigureEndpoint((JOYSTICK_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, JOYSTICK_EPSIZE, 1);
 #endif
@@ -647,45 +530,24 @@ static uint8_t keyboard_leds(void) {
  * FIXME: Needs doc
  */
 static void send_keyboard(report_keyboard_t *report) {
-    uint8_t timeout = 255;
-
-#ifdef BLUETOOTH_ENABLE
-    if (where_to_send() == OUTPUT_BLUETOOTH) {
-#    ifdef BLUETOOTH_BLUEFRUIT_LE
-        bluefruit_le_send_keys(report->mods, report->keys, sizeof(report->keys));
-#    elif BLUETOOTH_RN42
-        rn42_send_keyboard(report);
-#    endif
-        return;
-    }
-#endif
-
-    /* Select the Keyboard Report Endpoint */
-    uint8_t ep   = KEYBOARD_IN_EPNUM;
-    uint8_t size = KEYBOARD_REPORT_SIZE;
-#ifdef NKRO_ENABLE
-    if (keyboard_protocol && keymap_config.nkro) {
-        ep   = SHARED_IN_EPNUM;
-        size = sizeof(struct nkro_report);
-    }
-#endif
-    Endpoint_SelectEndpoint(ep);
-    /* Check if write ready for a polling interval around 10ms */
-    while (timeout-- && !Endpoint_IsReadWriteAllowed())
-        _delay_us(40);
-    if (!Endpoint_IsReadWriteAllowed()) return;
-
     /* If we're in Boot Protocol, don't send any report ID or other funky fields */
     if (!keyboard_protocol) {
-        Endpoint_Write_Stream_LE(&report->mods, 8, NULL);
+        send_report(KEYBOARD_IN_EPNUM, &report->mods, 8);
     } else {
-        Endpoint_Write_Stream_LE(report, size, NULL);
+        send_report(KEYBOARD_IN_EPNUM, report, KEYBOARD_REPORT_SIZE);
     }
 
-    /* Finalize the stream transfer to send the last packet */
-    Endpoint_ClearIN();
-
     keyboard_report_sent = *report;
+}
+
+/** \brief Send NKRO
+ *
+ * FIXME: Needs doc
+ */
+static void send_nkro(report_nkro_t *report) {
+#ifdef NKRO_ENABLE
+    send_report(SHARED_IN_EPNUM, report, sizeof(report_nkro_t));
+#endif
 }
 
 /** \brief Send Mouse
@@ -694,102 +556,35 @@ static void send_keyboard(report_keyboard_t *report) {
  */
 static void send_mouse(report_mouse_t *report) {
 #ifdef MOUSE_ENABLE
-    uint8_t timeout = 255;
-
-#    ifdef BLUETOOTH_ENABLE
-    if (where_to_send() == OUTPUT_BLUETOOTH) {
-#        ifdef BLUETOOTH_BLUEFRUIT_LE
-        // FIXME: mouse buttons
-        bluefruit_le_send_mouse_move(report->x, report->y, report->v, report->h, report->buttons);
-#        elif BLUETOOTH_RN42
-        rn42_send_mouse(report);
-#        endif
-        return;
-    }
-#    endif
-
-    /* Select the Mouse Report Endpoint */
-    Endpoint_SelectEndpoint(MOUSE_IN_EPNUM);
-
-    /* Check if write ready for a polling interval around 10ms */
-    while (timeout-- && !Endpoint_IsReadWriteAllowed())
-        _delay_us(40);
-    if (!Endpoint_IsReadWriteAllowed()) return;
-
-    /* Write Mouse Report Data */
-    Endpoint_Write_Stream_LE(report, sizeof(report_mouse_t), NULL);
-
-    /* Finalize the stream transfer to send the last packet */
-    Endpoint_ClearIN();
+    send_report(MOUSE_IN_EPNUM, report, sizeof(report_mouse_t));
 #endif
 }
-
-#if defined(EXTRAKEY_ENABLE) || defined(PROGRAMMABLE_BUTTON_ENABLE)
-static void send_report(void *report, size_t size) {
-    uint8_t timeout = 255;
-
-    if (USB_DeviceState != DEVICE_STATE_Configured) return;
-
-    Endpoint_SelectEndpoint(SHARED_IN_EPNUM);
-
-    /* Check if write ready for a polling interval around 10ms */
-    while (timeout-- && !Endpoint_IsReadWriteAllowed())
-        _delay_us(40);
-    if (!Endpoint_IsReadWriteAllowed()) return;
-
-    Endpoint_Write_Stream_LE(report, size, NULL);
-    Endpoint_ClearIN();
-}
-#endif
 
 /** \brief Send Extra
  *
  * FIXME: Needs doc
  */
+static void send_extra(report_extra_t *report) {
 #ifdef EXTRAKEY_ENABLE
-static void send_extra(uint8_t report_id, uint16_t data) {
-    static report_extra_t r;
-    r = (report_extra_t){.report_id = report_id, .usage = data};
-    send_report(&r, sizeof(r));
-}
-#endif
-
-/** \brief Send System
- *
- * FIXME: Needs doc
- */
-static void send_system(uint16_t data) {
-#ifdef EXTRAKEY_ENABLE
-    send_extra(REPORT_ID_SYSTEM, data);
+    send_report(SHARED_IN_EPNUM, report, sizeof(report_extra_t));
 #endif
 }
 
-/** \brief Send Consumer
- *
- * FIXME: Needs doc
- */
-static void send_consumer(uint16_t data) {
-#ifdef EXTRAKEY_ENABLE
-#    ifdef BLUETOOTH_ENABLE
-    if (where_to_send() == OUTPUT_BLUETOOTH) {
-#        ifdef BLUETOOTH_BLUEFRUIT_LE
-        bluefruit_le_send_consumer_key(data);
-#        elif BLUETOOTH_RN42
-        rn42_send_consumer(data);
-#        endif
-        return;
-    }
-#    endif
-
-    send_extra(REPORT_ID_CONSUMER, data);
+void send_joystick(report_joystick_t *report) {
+#ifdef JOYSTICK_ENABLE
+    send_report(JOYSTICK_IN_EPNUM, report, sizeof(report_joystick_t));
 #endif
 }
 
-static void send_programmable_button(uint32_t data) {
+void send_programmable_button(report_programmable_button_t *report) {
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
-    static report_programmable_button_t r;
-    r = (report_programmable_button_t){.report_id = REPORT_ID_PROGRAMMABLE_BUTTON, .usage = data};
-    send_report(&r, sizeof(r));
+    send_report(SHARED_IN_EPNUM, report, sizeof(report_programmable_button_t));
+#endif
+}
+
+void send_digitizer(report_digitizer_t *report) {
+#ifdef DIGITIZER_ENABLE
+    send_report(DIGITIZER_IN_EPNUM, report, sizeof(report_digitizer_t));
 #endif
 }
 
@@ -808,7 +603,7 @@ int8_t sendchar(uint8_t c) {
     // The `timed_out` state is an approximation of the ideal `is_listener_disconnected?` state.
     static bool timed_out = false;
 
-    // prevents Console_Task() from running during sendchar() runs.
+    // prevents console_flush_task() from running during sendchar() runs.
     // or char will be lost. These two function is mutually exclusive.
     CONSOLE_FLUSH_SET(false);
 
@@ -962,24 +757,6 @@ void virtser_send(const uint8_t byte) {
 }
 #endif
 
-void send_digitizer(report_digitizer_t *report) {
-#ifdef DIGITIZER_ENABLE
-    uint8_t timeout = 255;
-
-    if (USB_DeviceState != DEVICE_STATE_Configured) return;
-
-    Endpoint_SelectEndpoint(DIGITIZER_IN_EPNUM);
-
-    /* Check if write ready for a polling interval around 10ms */
-    while (timeout-- && !Endpoint_IsReadWriteAllowed())
-        _delay_us(40);
-    if (!Endpoint_IsReadWriteAllowed()) return;
-
-    Endpoint_Write_Stream_LE(report, sizeof(report_digitizer_t), NULL);
-    Endpoint_ClearIN();
-#endif
-}
-
 /*******************************************************************************
  * main
  ******************************************************************************/
@@ -1011,7 +788,7 @@ static void setup_usb(void) {
 
     USB_Init();
 
-    // for Console_Task
+    // for console_flush_task
     USB_Device_EnableSOFEvents();
 }
 
@@ -1027,10 +804,6 @@ void protocol_setup(void) {
 void protocol_pre_init(void) {
     setup_usb();
     sei();
-
-#if defined(BLUETOOTH_RN42)
-    rn42_init();
-#endif
 
     /* wait for USB startup & debug output */
 
@@ -1055,7 +828,7 @@ void protocol_post_init(void) {
 void protocol_pre_task(void) {
 #if !defined(NO_USB_STARTUP_CHECK)
     if (USB_DeviceState == DEVICE_STATE_Suspended) {
-        print("[s]");
+        dprintln("suspending keyboard");
         while (USB_DeviceState == DEVICE_STATE_Suspended) {
             suspend_power_down();
             if (USB_Device_RemoteWakeupEnabled && suspend_wakeup_condition()) {
@@ -1079,12 +852,12 @@ void protocol_pre_task(void) {
 }
 
 void protocol_post_task(void) {
-#ifdef MIDI_ENABLE
-    MIDI_Device_USBTask(&USB_MIDI_Interface);
+#ifdef CONSOLE_ENABLE
+    console_task();
 #endif
 
-#ifdef BLUETOOTH_BLUEFRUIT_LE
-    bluefruit_le_task();
+#ifdef MIDI_ENABLE
+    MIDI_Device_USBTask(&USB_MIDI_Interface);
 #endif
 
 #ifdef VIRTSER_ENABLE
@@ -1102,5 +875,5 @@ void protocol_post_task(void) {
 }
 
 uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint16_t wIndex, const void **const DescriptorAddress) {
-    return get_usb_descriptor(wValue, wIndex, DescriptorAddress);
+    return get_usb_descriptor(wValue, wIndex, USB_ControlRequest.wLength, DescriptorAddress);
 }

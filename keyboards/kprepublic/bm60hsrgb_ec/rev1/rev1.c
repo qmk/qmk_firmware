@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "rev1.h"
+#include "quantum.h"
 led_config_t g_led_config = { {
   { 0,      1,      2,      3,      4,      5,      6,      7,      8,      9,      10,     11,     12,     13 },
   { 14,     15,     16,     17,     18,     19,     20,     21,     22,     23,     24,     25,     26,     27 },
@@ -48,23 +48,12 @@ led_config_t g_led_config = { {
     2, 2, 2, 2, 2, 2
 } };
 
-__attribute__ ((weak))
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
     if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(28, 0xFF, 0xFF, 0xFF);
     }
-}
-
-#ifdef ENCODER_ENABLE
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) { return false; }
-    if (index == 0) {
-        if (clockwise) {
-            tap_code_delay(KC_VOLU, 10);
-        } else {
-            tap_code_delay(KC_VOLD, 10);
-        }
-    }
     return true;
 }
-#endif

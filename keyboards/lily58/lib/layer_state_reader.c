@@ -1,7 +1,5 @@
-
-#include QMK_KEYBOARD_H
+#include "quantum.h"
 #include <stdio.h>
-#include "lily58.h"
 
 #define L_BASE 0
 #define L_LOWER (1 << 1)
@@ -15,7 +13,7 @@ const char *read_layer_state(void) {
   switch (layer_state)
   {
   case L_BASE:
-    snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Default");
+    snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Base");
     break;
   case L_RAISE:
     snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Raise");
