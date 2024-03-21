@@ -70,10 +70,6 @@ host_driver_t chibios_driver = {keyboard_leds, send_keyboard, send_nkro, send_mo
 void virtser_task(void);
 #endif
 
-#ifdef MIDI_ENABLE
-void midi_ep_task(void);
-#endif
-
 /* TESTING
  * Amber LED blinker thread, times are in milliseconds.
  */
@@ -202,9 +198,6 @@ void protocol_pre_task(void) {
 }
 
 void protocol_post_task(void) {
-#ifdef MIDI_ENABLE
-    midi_ep_task();
-#endif
 #ifdef VIRTSER_ENABLE
     virtser_task();
 #endif
