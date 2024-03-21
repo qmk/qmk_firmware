@@ -102,8 +102,8 @@ typedef enum {
 #define LINK_TIMEOUT (100 * 120)
 #define LINK_TIMEOUT_ALT (100 * 5)
 #define TIMER_STEP 10
-// #define SLEEP_TIME_DELAY        (5 * 60 * 1000 / TIMER_STEP) // official 6 minutes, I set 5 so this formula is 5 minutes by 60 seconds each by 1000 to convert to ms and then divide by timer step (logic based)
-#define SLEEP_TIME_DELAY (1 * 60 * 1000 / TIMER_STEP) // official 6 minutes, I set 5 so this formula is 5 minutes by 60 seconds each by 1000 to convert to ms and then divide by timer step (logic based)
+#define SLEEP_TIME_DELAY        (5 * 60 * 1000 / TIMER_STEP) // official 6 minutes, I set 5 so this formula is 5 minutes by 60 seconds each by 1000 to convert to ms and then divide by timer step (logic based)
+// #define SLEEP_TIME_DELAY (1 * 60 * 1000 / TIMER_STEP) // NOTE: for test purpose only
 #define POWER_DOWN_DELAY (24)
 
 #define RF_LONG_PRESS_DELAY 30
