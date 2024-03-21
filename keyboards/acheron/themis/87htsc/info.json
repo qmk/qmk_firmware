@@ -16,10 +16,7 @@
         "mousekey":  true,
         "extrakey":  true,
         "console":   false,
-        "backlight": false,
         "rgblight":  true,
-        "audio":     false,
-        "encoder":   false,
         "nkro":      true
     },
     "diode_direction": "COL2ROW",
