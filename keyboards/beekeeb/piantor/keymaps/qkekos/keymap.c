@@ -169,7 +169,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //     ┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┐      ┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┐
          KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_VOLU,         KC_NO,    KC_NO,    KC_MS_U,  KC_NO,    US_LGTG,  TG_GAME,
 //     ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤      ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-         KC_NO,    KC_NO,    KC_LALT,  KC_LCTL,  KC_LSFT,  KC_VOLD,         KC_NO,    KC_MS_L,  KC_MS_D,  KC_MS_R,  KC_NO,    KC_SCRL,
+         KC_NO,    KC_NO,    KC_LALT,  KC_LCTL,  KC_LSFT,  KC_VOLD,         KC_NO,    KC_MS_L,  KC_MS_D,  KC_MS_R,  KC_NO,    US_RFSH,
 //     ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤      ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
          HK_SALL,  HK_UNDO,  HK_CUT,   HK_COPY,  HK_PSTE,  KC_MPLY,         KC_ESC,   KC_NO,    KC_VOLU,  KC_VOLD,  QK_BOOT,  EE_CLR,
 //     └─────────┴─────────┴─────────┴─────────┴─────────┴─────────┘      └─────────┴─────────┴─────────┴─────────┴─────────┴─────────┘

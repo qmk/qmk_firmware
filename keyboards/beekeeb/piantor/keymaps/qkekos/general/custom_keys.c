@@ -80,7 +80,8 @@ int custom_keys_pr(uint16_t keycode, keyrecord_t *record) {
 
             return false;
 
-        case KC_SCRL:
+        case US_RFSH:
+            uprintf("qmk_language_swap: en\n");
             current_lang = ENG;
 
             layer_on(STURDY);
