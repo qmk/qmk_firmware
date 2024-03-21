@@ -941,13 +941,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-#ifdef RGBSPS_ENABLE
-  led_set_default_layer_indicator();
-#endif
-}
 
 #ifdef DOUBLESPACE_LAYER_ENABLE
 void process_doublespace(bool pressed, bool *isactive, bool *otheractive, bool *isemitted) {
@@ -1120,14 +1113,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // layout switchers
     case QWERTY:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_QWERTY);
+        set_single_persistent_default_layer(_QWERTY);
+#ifdef RGBSPS_ENABLE
+            led_set_default_layer_indicator();
+#endif
       }
       return false;
       break;
 #ifdef LAYOUT_DVORAK
     case DVORAK:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_DVORAK);
+        set_single_persistent_default_layer(_DVORAK);
+#ifdef RGBSPS_ENABLE
+            led_set_default_layer_indicator();
+#endif
       }
       return false;
       break;
@@ -1135,7 +1134,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef LAYOUT_COLEMAK
     case COLEMAK:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_COLEMAK);
+        set_single_persistent_default_layer(_COLEMAK);
+#ifdef RGBSPS_ENABLE
+            led_set_default_layer_indicator();
+#endif
       }
       return false;
       break;
@@ -1143,7 +1145,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef LAYOUT_WORKMAN
     case WORKMAN:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_WORKMAN);
+        set_single_persistent_default_layer(_WORKMAN);
+#ifdef RGBSPS_ENABLE
+            led_set_default_layer_indicator();
+#endif
       }
       return false;
       break;
@@ -1151,7 +1156,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef LAYOUT_NORMAN
     case NORMAN:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_NORMAN);
+        set_single_persistent_default_layer(_NORMAN);
+#ifdef RGBSPS_ENABLE
+            led_set_default_layer_indicator();
+#endif
       }
       return false;
       break;

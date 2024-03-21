@@ -174,7 +174,11 @@ void matrix_init_user(void) {
 
 void matrix_scan_user(void) {
   uint8_t layer = get_highest_layer(layer_state);
-  uint8_t default_layer = biton32(eeconfig_read_default_layer());
+#ifdef DEFAULT_LAYER_BITMASK_ENABLE
+  uint8_t default_layer = get_highest_layer(eeconfig_read_default_layer());
+#else
+  uint8_t default_layer = eeconfig_read_default_layer();
+#endif
   switch (layer) {
     case _LOWER:
       set_led_red;

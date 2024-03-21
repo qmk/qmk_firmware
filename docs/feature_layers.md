@@ -53,6 +53,8 @@ Layers stack on top of each other in numerical order. When determining what a ke
 
 Sometimes, you might want to switch between layers in a macro or as part of a tap dance routine. `layer_on` activates a layer, and `layer_off` deactivates it. More layer-related functions can be found in [action_layer.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/action_layer.h).
 
+If you want to save multiple persistent default layers, you will want to avoid using the `set_single_persistent_default_layer` function which only supports one default persistent layer at a time. Instead, you can `#define DEFAULT_LAYER_BITMASK_ENABLE` and call the `eeconfig_update_default_layer` function directly, passing it an 8-bit wide bitfield representing the least significant byte of a layer_state_t variable. Note that this approach is limited to storing persistent default layers only between layers 0 and 7.
+
 ## Functions :id=functions
 
 There are a number of functions (and variables) related to how you can use or manipulate the layers.
