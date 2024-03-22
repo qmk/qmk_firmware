@@ -1,7 +1,7 @@
 # efreet (as4x)
 
-![efreet](https://i.imgur.com/Kcw8HEhh.png)
-![PCB](https://i.imgur.com/jShRK6Mh.png)
+![efreet](https://i.imgur.com/Kcw8HEh.png)
+![PCB](https://i.imgur.com/jShRK6M.png)
 
 A remake of a PCB for a Polish 40% keyboard with 19 mm switch grid spacing
 
