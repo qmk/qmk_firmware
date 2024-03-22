@@ -58,3 +58,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBOUNCE 12
 #define CAPS_LOCK_LED_SIDE      true
 #define CAPS_LOCK_LED_KEY       false
+#define USB_SLEEP_ENABLED       false
