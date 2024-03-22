@@ -1,5 +1,6 @@
 // Copyright 2023 Persama (@Persama)
 // SPDX-License-Identifier: GPL-2.0-or-later
+#include "rgb_matrix.h"
 #include "user_kb.h"
 #include "side_table.h"
 
@@ -345,8 +346,8 @@ void sleep_sw_led_show(void)
 void sys_led_show(void) {
     if (dev_info.link_mode == LINK_USB) {
         if (host_keyboard_led_state().caps_lock) {
-            set_side_rgb(0X00, 0x80, 0x80);
-
+            set_side_rgb(0X00, 0x80, 0x80); // highlight top-left side led to indicate caps lock enabled state
+            // user_set_rgb_color(63, 0, 0x80, 0x80); // 63 is CAPS_LOCK position NOTE: won't be in default release but can be used to indicate using caps_lock key LED
         }
     }
 

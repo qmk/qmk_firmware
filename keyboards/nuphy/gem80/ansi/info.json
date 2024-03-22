@@ -175,7 +175,7 @@
             {"matrix": [5, 6], "x": 82, "y": 64, "flags": 4},
             {"matrix": [5, 2], "x": 33, "y": 64, "flags": 4},
             {"matrix": [5, 1], "x": 18, "y": 64, "flags": 4},
-            {"matrix": [5, 0], "x": 2, "y": 64, "flags": 4},
+            {"matrix": [5, 0], "x": 2, "y": 64, "flags": 4}
         ]
     },
     "layouts": {
