@@ -29,7 +29,7 @@ void sequence_transform_on_missed_rule_user(const st_trie_rule_t *rule) {
 }
 
 int sturdy_pr(uint16_t keycode, keyrecord_t *record) {
-    if (current_lang != ENG) return PR_IGNORE;
+    if (current_lang != ENG || highest_layer == GAME) return PR_IGNORE;
 
     prev_key_timestamp = current_key_timestamp;
     current_key_timestamp = timer_read();
