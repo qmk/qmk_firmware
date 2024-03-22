@@ -192,16 +192,7 @@ static void render_status(void) {
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     startup_timer = timer_read();
-
-    if (is_keyboard_master()) {
-        if (is_keyboard_left()) {
-            return OLED_ROTATION_90;
-        } else {
-            return OLED_ROTATION_270;
-        }
-    } else {
-         return OLED_ROTATION_270;
-    }
+    return OLED_ROTATION_90;
 }
 
 static void render_qmk_logo(void) {
