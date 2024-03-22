@@ -82,12 +82,9 @@ void keyboard_post_init_user(void) {
 
 __attribute__ ((weak))
 void hbcp_sethsv_range(uint8_t hue, uint8_t sat, uint8_t val, uint8_t start, uint8_t end) {
-  rgb_led_t tmp_led;
-  sethsv_raw(hue, sat, val, &tmp_led);
   for (uint8_t i = start; i < end; i++) {
-      led[i] = tmp_led;
+      rgblight_sethsv_at(hue, sat, val, i);
   }
-  rgblight_set();
 }
 
 #endif
