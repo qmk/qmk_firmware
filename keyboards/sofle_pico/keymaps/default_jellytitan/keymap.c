@@ -282,9 +282,9 @@ bool oled_task_user(void) {
             render_logo();
             // 10 Chars per line. Set cursor used to simplify line wraps.
             oled_set_cursor(0, 12);
-            oled_write_P(PSTR("v3.51"), false);
+            oled_write_P(PSTR("v3.5.4"), false);
             oled_set_cursor(0, 13);
-            oled_write_P(PSTR("12-5-2023"), false);
+            oled_write_P(PSTR("03-22-2024"), false);
             oled_set_cursor(0, 14);
             oled_write_P(PSTR("by:github/"), false);
             oled_set_cursor(0, 15);
