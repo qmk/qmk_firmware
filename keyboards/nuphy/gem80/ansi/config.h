@@ -56,3 +56,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DEFAULT_COLOUR 168
 
 #define DEBOUNCE 12
+#define CAPS_LOCK_LED_SIDE      true
+#define CAPS_LOCK_LED_KEY       false

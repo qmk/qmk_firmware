@@ -346,8 +346,12 @@ void sleep_sw_led_show(void)
 void sys_led_show(void) {
     if (dev_info.link_mode == LINK_USB) {
         if (host_keyboard_led_state().caps_lock) {
+#if CAPS_LOCK_LED_SIDE
             set_side_rgb(0X00, 0x80, 0x80); // highlight top-left side led to indicate caps lock enabled state
-            // user_set_rgb_color(63, 0, 0x80, 0x80); // 63 is CAPS_LOCK position NOTE: won't be in default release but can be used to indicate using caps_lock key LED
+#endif
+#if CAPS_LOCK_LED_KEY
+            user_set_rgb_color(63, 0, 0x80, 0x80); // 63 is CAPS_LOCK position
+#endif
         }
     }
 
