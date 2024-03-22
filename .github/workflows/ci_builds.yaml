@@ -18,13 +18,13 @@ concurrency: ci_build-${{ github.event.inputs.branch || github.ref_name }}
 jobs:
   ci_builds:
     name: "CI Build"
-    runs-on: ubuntu
+    runs-on: ubuntu-latest
     timeout-minutes: 1380
 
     strategy:
       fail-fast: false
       matrix:
-        keymap: [sofle, Xkhi]
+        keymap: [Xkhi]
 
     container: ghcr.io/qmk/qmk_cli
 
@@ -43,7 +43,8 @@ jobs:
     - name: Run `qmk mass-compile` (keymap ${{ matrix.keymap }})
       run: |
         export NCPUS=$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null)
-        qmk mass-compile -t -j $NCPUS -km ${{ matrix.keymap }} -e DUMP_CI_METADATA=yes || touch .failed
+        # qmk mass-compile -t -j $NCPUS -km ${{ matrix.keymap }} -e DUMP_CI_METADATA=yes || touch .failed
+        qmk compile -kb sofle -km ${{ matrix.keymap }} || touch .failed
         # Generate the step summary markdown
         ./util/ci/generate_failure_markdown.sh > $GITHUB_STEP_SUMMARY || true
         # Truncate to a maximum of 1MB to deal with GitHub workflow limit
