@@ -120,7 +120,7 @@ void sleep_handle(void) {
             usb_suspend_debounce = 0;
         }
 #if USB_SLEEP_ENABLED
-        if (no_act_time >= sleep_time_delay) {
+        if (no_act_time >= sleep_time_delay && user_config.usb_sleep_toggle) {
             f_goto_sleep = 1;
         } else {
             f_goto_sleep = 0;
@@ -138,3 +138,5 @@ void sleep_handle(void) {
         }
     }
 }
+
+

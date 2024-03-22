@@ -42,6 +42,7 @@ extern void logo_light_speed_contol(uint8_t fast);
 extern void logo_light_level_control(uint8_t brighten);
 extern void logo_side_colour_control(uint8_t dir);
 extern void logo_side_mode_control(uint8_t dir);
+extern void toggle_usb_sleep(void);
 
 /* qmk process record */
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
@@ -295,6 +296,12 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             } else {
                 unregister_code(KC_LSFT);
                 unregister_code(KC_GRV);
+            }
+            return false;
+
+        case TOG_USB_SLP:
+            if (record -> event.pressed) {
+                toggle_usb_sleep();
             }
             return false;
 

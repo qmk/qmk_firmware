@@ -17,6 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "user_kb.h"
 #include <stdbool.h>
+#include "config.h"
+#include "eeconfig.h"
 #include "mcu_pwr.h"
 #include "color.h"
 #include "host.h"
@@ -30,6 +32,7 @@ DEV_INFO_STRUCT dev_info = {
 bool f_bat_hold        = 0;
 bool f_sys_show        = 0;
 bool f_sleep_show      = 0;
+bool f_usb_sleep_show  = 0;
 bool f_send_channel    = 0;
 bool f_dial_sw_init_ok = 0;
 bool f_rf_sw_press     = 0;
@@ -447,9 +450,17 @@ void user_config_reset(void) {
     user_config.ee_logo_speed           = logo_speed;
     user_config.ee_logo_rgb             = logo_rgb;
     user_config.ee_logo_colour          = logo_colour;
+    user_config.usb_sleep_toggle        = USB_SLEEP_ENABLED;
 
     eeconfig_update_kb_datablock(&user_config);
 }
+
+void toggle_usb_sleep(void) {
+    f_usb_sleep_show             = 1;
+    user_config.usb_sleep_toggle = !user_config.usb_sleep_toggle;
+    eeconfig_update_kb_datablock(&user_config);
+}
+
 /**
  * @brief Updates RGB value for current bat percentage.
  */

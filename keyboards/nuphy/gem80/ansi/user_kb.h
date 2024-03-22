@@ -146,6 +146,7 @@ typedef struct {
     uint8_t  ee_logo_rgb;
     uint8_t  ee_logo_colour;
     uint8_t  sleep_enable;
+    uint8_t  usb_sleep_toggle;
     uint16_t rf_link_timeout;
     uint8_t  retain1;
     uint8_t  retain2;
