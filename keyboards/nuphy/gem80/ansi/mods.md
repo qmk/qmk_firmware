@@ -37,7 +37,7 @@ When you press that key, USB sleep will be toggled on or off.
 
 Top-left LED will indicate USB sleep status.
 
-CYAN - USB sleep is enabled
-YELLOW - USB sleep is disabled
+GREEN - USB sleep is enabled
+RED - USB sleep is disabled
 
 

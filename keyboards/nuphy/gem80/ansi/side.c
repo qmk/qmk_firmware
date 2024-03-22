@@ -315,10 +315,10 @@ void sleep_sw_led_show(void)
         if (user_config.usb_sleep_toggle) {
             r_temp = 0x00;
             g_temp = 0x80;
-            b_temp = 0x80;
+            b_temp = 0x00;
         } else {
             r_temp = 0x80;
-            g_temp = 0x80;
+            g_temp = 0x00;
             b_temp = 0x00;
         }
         if ((timer_elapsed32(sleep_show_timer) / 500) % 2 == 0) {
