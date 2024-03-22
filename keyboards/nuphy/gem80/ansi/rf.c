@@ -82,11 +82,19 @@ static uint8_t get_repeat_interval(void) {
 }
 
 /**
- * @brief Reset report buffers and clear the queue
+ * @brief Reset report buffers.
  */
 void clear_report_buffer(void) {
     if (report_buff_a.cmd) memset(&report_buff_a.cmd, 0, sizeof(report_buffer_t));
     if (report_buff_b.cmd) memset(&report_buff_b.cmd, 0, sizeof(report_buffer_t));
+    rf_queue.clear();
+}
+
+/**
+ * @brief Reset report buffers and clear the queue
+ */
+void clear_report_buffer_and_queue(void) {
+    clear_report_buffer();
     rf_queue.clear();
 }
 
@@ -97,20 +105,23 @@ void uart_send_repeat_from_queue(void) {
     static uint32_t        dequeue_timer = 0;
     static uint32_t        repeat_timer  = 0;
     static report_buffer_t report_buff   = {0};
+    static bool            do_repeat     = true;
     if (timer_elapsed32(dequeue_timer) > 25 && !rf_queue.is_empty()) {
         rf_queue.dequeue(&report_buff);
-        repeat_timer  = 0;
         dequeue_timer = timer_read32();
+        // Repeat only keyboard reports. Extra reports actually repeat the keys.
+        do_repeat = (report_buff.cmd == CMD_RPT_BYTE_KB || report_buff.cmd == CMD_RPT_BIT_KB);
     }
 
     // queue is empty, continue sending from standard process.
     if (rf_queue.is_empty()) {
-        clear_report_buffer();
-        report_buff_a = report_buff;
+        clear_report_buffer_and_queue();
+        if (do_repeat) report_buff_a = report_buff;
     }
 
-    if (timer_elapsed32(repeat_timer) > 3) {
+    if (report_buff.repeat == 0 || (do_repeat && timer_elapsed32(repeat_timer) > 3)) {
         uart_send_report(report_buff.cmd, report_buff.buffer, report_buff.length);
+        report_buff.repeat++;
         repeat_timer = timer_read32();
     }
 }
@@ -124,7 +135,7 @@ void uart_send_report_repeat(void) {
 
     if (dev_info.rf_state != RF_CONNECT) {
         // toss away queue after some time if disconnected to prevent sending random keys
-        if (no_act_time > 100) clear_report_buffer(); // 1 second
+        if (no_act_time > 100) clear_report_buffer_and_queue(); // 1 second
         return;
     }
 
@@ -136,7 +147,7 @@ void uart_send_report_repeat(void) {
 
     uint8_t interval = get_repeat_interval();
     if (timer_elapsed32(uart_rpt_timer) >= interval) {
-        if (no_act_time <= 50) { // increments every 10ms, 50 = 500ms
+        if (no_act_time <= 25) { // increments every 10ms
             if (report_buff_a.cmd) {
                 uart_send_report(report_buff_a.cmd, report_buff_a.buffer, report_buff_a.length);
                 report_buff_a.repeat++;
@@ -147,7 +158,7 @@ void uart_send_report_repeat(void) {
                 report_buff_b.repeat++;
             }
         } else { // clear the report buffer
-            clear_report_buffer();
+            clear_report_buffer_and_queue();
         }
         uart_rpt_timer = timer_read32();
     }
@@ -211,11 +222,10 @@ void rf_protocol_receive(void) {
 
                     dev_info.rf_charge = Usart_Mgr.RXDBuf[7];
                     uint8_t bat_pct    = Usart_Mgr.RXDBuf[8];
+                    if (dev_info.rf_charge & 0x01) bat_pct = 100;
                     if (bat_pct > 0 && bat_pct <= 100) {
-                        dev_info.rf_battery = bat_pct;
+                        update_bat_pct_rgb();
                     }
-                    if (dev_info.rf_charge & 0x01) dev_info.rf_battery = 100;
-                    update_bat_pct_rgb();
                 } else {
                     if (dev_info.rf_state != RF_INVAILD) {
                         if (error_cnt >= 5) {
