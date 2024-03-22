@@ -1,0 +1,181 @@
+name: CI Build Major Branch Keymap
+
+permissions:
+  contents: read
+  actions: write
+
+on:
+  workflow_call:
+    inputs:
+      branch:
+        type: string
+        required: true
+      keymap:
+        type: string
+        required: true
+      slice_length:
+        type: string
+        required: true
+
+jobs:
+  generate_targets:
+    name: "Generate targets (${{ inputs.keymap }})"
+    runs-on: ubuntu-latest
+    container: ghcr.io/qmk/qmk_cli
+
+    outputs:
+      targets: ${{ steps.generate_targets.outputs.targets }}
+
+    steps:
+      - name: Install prerequisites
+        run: |
+          apt-get update
+          apt-get install -y jq
+
+      - name: Disable safe.directory check
+        run: |
+          git config --global --add safe.directory '*'
+
+      - name: Checkout QMK Firmware
+        uses: actions/checkout@v4
+
+      - name: Generate build targets
+        id: generate_targets
+        run: |
+          { # Intentionally use `shuf` here so that we share manufacturers across all build groups -- some have a lot of ARM-based boards which inherently take longer
+            counter=0
+            echo -n '{'
+            qmk find -km ${{ inputs.keymap }} 2>/dev/null | sort | uniq | shuf | xargs -L${{ inputs.slice_length }} | while IFS=$'\n' read target ; do
+                if [ $counter -gt 0 ]; then
+                    echo -n ','
+                fi
+                counter=$((counter+1))
+                printf "\"group %02d\":{" $counter
+                echo -n '"targets":"'
+                echo $target | tr ' ' '\n' | sort | uniq | xargs echo -n
+                echo -n '"}'
+            done
+            echo -n '}'
+          } | sed -e 's@\n@@g' > targets.json
+
+          # Output the target keys as a variable
+          echo "targets=$(jq -c 'keys' targets.json)" >> $GITHUB_OUTPUT
+
+      - name: Upload targets json
+        uses: actions/upload-artifact@v4
+        with:
+          name: targets-${{ inputs.keymap }}
+          path: targets.json
+
+  build_targets:
+    name: "Compile ${{ matrix.target }} (${{ inputs.keymap }})"
+    needs: generate_targets
+    runs-on: ubuntu-latest
+    container: ghcr.io/qmk/qmk_cli
+    continue-on-error: true
+
+    strategy:
+      matrix:
+        target: ${{ fromJson(needs.generate_targets.outputs.targets) }}
+
+    steps:
+      - name: Install prerequisites
+        run: |
+          apt-get update
+          apt-get install -y jq
+
+      - name: Disable safe.directory check
+        run: |
+          git config --global --add safe.directory '*'
+
+      - name: Checkout QMK Firmware
+        uses: actions/checkout@v4
+
+      - name: Get target definitions
+        uses: actions/download-artifact@v4
+        with:
+          name: targets-${{ inputs.keymap }}
+          path: .
+
+      - name: Deploy submodules
+        run: |
+          qmk git-submodule -f
+
+      - name: Dump targets
+        run: |
+          jq -r '.["${{ matrix.target }}"].targets' targets.json | tr ' ' '\n' | sort
+
+      - name: Build targets
+        continue-on-error: true
+        run: |
+          export NCPUS=$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null)
+          qmk mass-compile -t -j $NCPUS -e DUMP_CI_METADATA=yes $(jq -r '.["${{ matrix.target }}"].targets' targets.json) || touch .failed
+
+      - name: Upload binaries
+        uses: actions/upload-artifact@v4
+        with:
+          name: firmware-${{ inputs.keymap }}-${{ matrix.target }}
+          if-no-files-found: ignore
+          path: |
+            *.bin
+            *.hex
+            *.uf2
+            .build/failed.*
+            .failed
+
+      - name: Fail build if any group failed
+        run: |
+          # Exit with failure if the compilation stage failed
+          [ ! -f .failed ] || exit 1
+
+  repack_firmware:
+    if: always()
+    name: "Repack artifacts"
+    needs: build_targets
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout QMK Firmware
+        uses: actions/checkout@v4
+
+      - name: Download firmwares
+        uses: actions/download-artifact@v4
+        with:
+          pattern: firmware-${{ inputs.keymap }}-*
+          path: .
+          merge-multiple: true
+
+      - name: Upload all firmwares
+        uses: actions/upload-artifact@v4
+        with:
+          name: firmware-${{ inputs.keymap }}
+          if-no-files-found: ignore
+          path: |
+            *.bin
+            *.hex
+            *.uf2
+            .build/failed.*
+            .failed
+
+      - name: Generate output logs
+        run: |
+          # Generate the step summary markdown
+          ./util/ci/generate_failure_markdown.sh > $GITHUB_STEP_SUMMARY || true
+          # Truncate to a maximum of 1MB to deal with GitHub workflow limit
+          truncate --size='<960K' $GITHUB_STEP_SUMMARY || true
+
+      - name: Delete temporary build artifacts
+        uses: geekyeggo/delete-artifact@v4
+        with:
+          name: |
+            firmware-${{ inputs.keymap }}-*
+            targets-${{ inputs.keymap }}
+
+      - name: 'CI Discord Notification'
+        if: always()
+        working-directory: util/ci/
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.CI_DISCORD_WEBHOOK }}
+        run: |
+          python3 -m pip install -r requirements.txt
+          python3 ./discord-results.py --branch ${{ inputs.branch || github.ref_name }} --keymap ${{ inputs.keymap }} --url ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
