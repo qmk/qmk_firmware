@@ -171,16 +171,16 @@ static void render_status(void) {
     switch (get_highest_layer(layer_state)) {
         case _COLEMAK:
         case _QWERTY:
-            oled_write_P(PSTR("Base\n"), false);
+            oled_write_ln_P(PSTR("Base"), false);
             break;
         case _RAISE:
-            oled_write_P(PSTR("Raise"), false);
+            oled_write_ln_P(PSTR("Raise"), false);
             break;
         case _LOWER:
-            oled_write_P(PSTR("Lower"), false);
+            oled_write_ln_P(PSTR("Lower"), false);
             break;
         case _ADJUST:
-            oled_write_P(PSTR("Adj\n"), false);
+            oled_write_ln_P(PSTR("Adj"), false);
             break;
         default:
             oled_write_ln_P(PSTR("Undef"), false);
