@@ -3,11 +3,6 @@
 
 #pragma once
 
-/* RGB Matrix */
-#define RGB_MATRIX_LED_COUNT 88
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
-#define RGB_MATRIX_DEFAULT_VAL 80
-
 /* SPI Config for spi flash*/
 #define SPI_DRIVER SPIDQ
 #define SPI_SCK_PIN B3

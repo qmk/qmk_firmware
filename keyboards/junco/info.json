@@ -18,7 +18,8 @@
         "driver": "vendor"
     },
     "rgb_matrix": {
-        "driver": "ws2812"
+        "driver": "ws2812",
+        "split_count": [37, 37]
     },
     "encoder": {
         "rotary": [

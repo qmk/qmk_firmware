@@ -32,13 +32,7 @@ No special setup is required - just connect the `RX` and `TX` pins of your UART 
 
 You'll need to determine which pins can be used for UART -- as an example, STM32 parts generally have multiple UART peripherals, labeled USART1, USART2, USART3 etc.
 
-To enable UART, modify your board's `halconf.h` to enable the serial driver:
-
-```c
-#define HAL_USE_SERIAL TRUE
-```
-
-Then, modify your board's `mcuconf.h` to enable the peripheral you've chosen, for example:
+To enable UART, modify your board's `mcuconf.h` to enable the peripheral you've chosen, for example:
 
 ```c
 #undef STM32_SERIAL_USE_USART2
@@ -47,17 +41,17 @@ Then, modify your board's `mcuconf.h` to enable the peripheral you've chosen, fo
 
 Configuration-wise, you'll need to set up the peripheral as per your MCU's datasheet -- the defaults match the pins for a Proton-C, i.e. STM32F303.
 
-|`config.h` override       |Description                                                    |Default Value|
-|--------------------------|---------------------------------------------------------------|-------------|
-|`#define SERIAL_DRIVER`   |USART peripheral to use - USART1 -> `SD1`, USART2 -> `SD2` etc.|`SD1`        |
-|`#define SD1_TX_PIN`      |The pin to use for TX                                          |`A9`         |
-|`#define SD1_TX_PAL_MODE` |The alternate function mode for TX                             |`7`          |
-|`#define SD1_RX_PIN`      |The pin to use for RX                                          |`A10`        |
-|`#define SD1_RX_PAL_MODE` |The alternate function mode for RX                             |`7`          |
-|`#define SD1_CTS_PIN`     |The pin to use for CTS                                         |`A11`        |
-|`#define SD1_CTS_PAL_MODE`|The alternate function mode for CTS                            |`7`          |
-|`#define SD1_RTS_PIN`     |The pin to use for RTS                                         |`A12`        |
-|`#define SD1_RTS_PAL_MODE`|The alternate function mode for RTS                            |`7`          |
+|     `config.h` override     |                           Description                           | Default Value |
+| --------------------------- | --------------------------------------------------------------- | ------------- |
+| `#define UART_DRIVER`       | USART peripheral to use - USART1 -> `SD1`, USART2 -> `SD2` etc. | `SD1`         |
+| `#define UART_TX_PIN`       | The pin to use for TX                                           | `A9`          |
+| `#define UART_TX_PAL_MODE`  | The alternate function mode for TX                              | `7`           |
+| `#define UART_RX_PIN`       | The pin to use for RX                                           | `A10`         |
+| `#define UART_RX_PAL_MODE`  | The alternate function mode for RX                              | `7`           |
+| `#define UART_CTS_PIN`      | The pin to use for CTS                                          | `A11`         |
+| `#define UART_CTS_PAL_MODE` | The alternate function mode for CTS                             | `7`           |
+| `#define UART_RTS_PIN`      | The pin to use for RTS                                          | `A12`         |
+| `#define UART_RTS_PAL_MODE` | The alternate function mode for RTS                             | `7`           |
 
 ## API :id=api
 

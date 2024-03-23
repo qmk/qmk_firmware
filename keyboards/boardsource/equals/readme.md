@@ -3,7 +3,7 @@
 ![equals](https://i.imgur.com/c3adFqsh.jpeg)
 
 * Keyboard Maintainer: [Cole Smith](https://github.com/boardsource)
-* Hardware Supported: Equals PCB w/ RP2040
+* Hardware Supported: Equals PCB w/ RP2040 or Equals Kit w/ Pro Micro
 * Hardware Availability: [boardsource](https://boardsource.xyz)
 
 Make example for this keyboard (after setting up your build environment):

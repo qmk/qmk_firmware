@@ -18,7 +18,10 @@
         "mousekey": true,
         "nkro": true,
         "pointing_device": true,
-        "encoder": false
+        "encoder": true
+    },
+    "encoder": {
+        "driver": "custom"
     },
     "layouts": {
         "LAYOUT": {
