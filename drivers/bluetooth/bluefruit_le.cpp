@@ -442,6 +442,8 @@ bool bluefruit_le_enable_keyboard(void) {
     static const char kGapDevName[] PROGMEM = "AT+GAPDEVNAME=" PRODUCT;
     // Turn on keyboard support
     static const char kHidEnOn[] PROGMEM = "AT+BLEHIDEN=1";
+    // Turn on battery service
+    static const char kBattEnOn[] PROGMEM = "AT+BLEBATTEN=1";
 
     // Adjust intervals to improve latency.  This causes the "central"
     // system (computer/tablet) to poll us every 10-30 ms.  We can't
@@ -456,7 +458,7 @@ bool bluefruit_le_enable_keyboard(void) {
     // Turn down the power level a bit
     static const char  kPower[] PROGMEM             = "AT+BLEPOWERLEVEL=-12";
     static PGM_P const configure_commands[] PROGMEM = {
-        kEcho, kGapIntervals, kGapDevName, kHidEnOn, kPower, kATZ,
+        kEcho, kGapIntervals, kGapDevName, kHidEnOn, kBattEnOn, kPower, kATZ,
     };
 
     uint8_t i;
@@ -555,6 +557,7 @@ void bluefruit_le_task(void) {
         state.last_battery_update = timer_read();
 
         state.vbat = analogReadPin(BATTERY_LEVEL_PIN);
+        bluefruit_le_set_battery_level(100); // TODO
     }
 #endif
 }
@@ -681,5 +684,15 @@ bool bluefruit_le_set_power_level(int8_t level) {
         return false;
     }
     snprintf(cmd, sizeof(cmd), "AT+BLEPOWERLEVEL=%d", level);
+    return at_command(cmd, NULL, 0, false);
+}
+
+bool bluefruit_le_set_battery_level(uint8_t level) {
+    char cmd[18];
+    if (!state.configured) {
+        return false;
+    }
+
+    snprintf(cmd, sizeof(cmd), "AT+BLEBATTVAL=%d", level);
     return at_command(cmd, NULL, 0, false);
 }
