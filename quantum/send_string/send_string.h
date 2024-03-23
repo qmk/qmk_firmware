@@ -49,7 +49,7 @@ extern const uint8_t ascii_to_keycode_lut[128];
 /**
  * \brief Type out a string of ASCII characters.
  *
- * This function simply calls `send_string_with_delay(string, 0)`.
+ * This function simply calls `send_string_with_delay(string, TAP_CODE_DELAY)`.
  *
  * Most keycodes from the basic keycode range are also supported by way of a special sequence - see `send_string_keycodes.h`.
  *
@@ -61,16 +61,26 @@ void send_string(const char *string);
  * \brief Type out a string of ASCII characters, with a delay between each character.
  *
  * \param string The string to type out.
- * \param interval The amount of time, in milliseconds, to wait before typing the next character.
+ * \param interval The amount of time, in milliseconds, to wait before typing the next character. Note this can be set to 0 to ensure no delay, regardless of what TAP_CODE_DELAY is set to.
  */
 void send_string_with_delay(const char *string, uint8_t interval);
 
 /**
  * \brief Type out an ASCII character.
  *
+ * This function simply calls `send_char_with_delay(string, TAP_CODE_DELAY)`.
+ *
  * \param ascii_code The character to type.
  */
 void send_char(char ascii_code);
+
+/**
+ * \brief Type out an ASCII character, with a delay between any modifiers.
+ *
+ * \param ascii_code The character to type.
+ * \param interval The amount of time, in milliseconds, to wait in between key presses. Note this can be set to 0 to ensure no delay, regardless of what TAP_CODE_DELAY is set to.
+ */
+void send_char_with_delay(char ascii_code, uint8_t interval);
 
 /**
  * \brief Type out an eight digit (unsigned 32-bit) hexadecimal value.
