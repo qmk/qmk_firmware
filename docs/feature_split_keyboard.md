@@ -313,6 +313,7 @@ QMK's split transport allows for arbitrary data transactions at both the keyboar
 To leverage this, a keyboard or user/keymap can define a comma-separated list of _transaction IDs_:
 
 ```c
+// *_SYNC_* names can be called whatever you want, so long as they are passed to transaction_register_rpc with the function they apply to
 // for keyboard-level data sync:
 #define SPLIT_TRANSACTION_IDS_KB KEYBOARD_SYNC_A, KEYBOARD_SYNC_B
 // or, for user:
@@ -379,6 +380,27 @@ By default, the inbound and outbound data is limited to a maximum of 32 bytes ea
 #define RPC_M2S_BUFFER_SIZE 48
 // Slave to master:
 #define RPC_S2M_BUFFER_SIZE 48
+```
+
+If you only need to transfer a small integer one way, or just run a function on the slave, this can be simplified to:
+
+```c
+#include "transactions.h"
+
+void func_to_call(uint8_t data, const void* unused, uint8_t unused2, void* unused3) {
+    do_something_with(data);
+}
+void keyboard_post_init_user(void) {
+    transaction_register_rpc(USER_SYNC_A, func_to_call);
+}
+
+void housekeeping_task_user(void) {
+    if (is_keyboard_master()){
+        // 24 is arbitrary int8
+        transaction_rpc_exec(USER_SYNC_A, 24, NULL, 0, NULL);
+    }
+}
+
 ```
 
 ###  Hardware Configuration Options

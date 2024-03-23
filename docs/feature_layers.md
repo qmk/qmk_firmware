@@ -179,6 +179,30 @@ Use the `IS_LAYER_ON_STATE(state, layer)` and `IS_LAYER_OFF_STATE(state, layer)`
 
 Outside of `layer_state_set_*` functions, you can use the `IS_LAYER_ON(layer)` and `IS_LAYER_OFF(layer)` macros to check global layer state.
 
+### Running on slave half as well as master (for split keyboards)
+
+By default `layer_state_set_*` functions only run on master. A workaround is to manually update it in housekeeping.
+
+In `keymap.c`:
+
+```c
+static uint32_t last_layer_state = 0;
+
+void update_layer_state_set(void){
+    if (!is_keyboard_master()) {
+        if (last_layer_state != layer_state) {
+            last_layer_state = layer_state;
+            layer_state_set_user(layer_state);
+        }
+    }
+}
+
+void housekeeping_task_user(void) {
+    update_layer_state_set();
+}
+```
+
+
 ### `layer_state_set_*` Function Documentation
 
 * Keyboard/Revision: `layer_state_t layer_state_set_kb(layer_state_t state)`
