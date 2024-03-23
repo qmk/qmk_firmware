@@ -35,7 +35,7 @@
             "override_rgb": true
         },
         "led_count": 2,
-        "max_brightness": 2,
+        "max_brightness": 1,
         "saturation_steps": 1,
         "sleep": true,
         "split": true,
