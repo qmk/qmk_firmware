@@ -243,11 +243,11 @@ void rgblight_init(void) {
 
     rgblight_timer_init(); // setup the timer
 
+    rgblight_driver.init();
+
     if (rgblight_config.enable) {
         rgblight_mode_noeeprom(rgblight_config.mode);
     }
-
-    rgblight_driver.init();
 
     is_rgblight_initialized = true;
 }
