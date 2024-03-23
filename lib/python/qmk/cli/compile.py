@@ -41,17 +41,17 @@ def compile(cli):
         cli.args.filter = []
         cli.config.mass_compile.keymap = cli.config.compile.keymap
         cli.config.mass_compile.parallel = cli.config.compile.parallel
-        cli.config.mass_compile.no_temp = False
+        cli.args.no_temp = False
         return mass_compile(cli)
 
     # If we've received `-km all`, reroute it to mass-compile.
     if cli.args.keymap == 'all':
         from .mass_compile import mass_compile
-        cli.args.builds = [f'{cli.args.keyboard}:all']
+        cli.args.builds = [f'{cli.config.compile.keyboard}:all']
         cli.args.filter = []
         cli.config.mass_compile.keymap = None
         cli.config.mass_compile.parallel = cli.config.compile.parallel
-        cli.config.mass_compile.no_temp = False
+        cli.args.no_temp = False
         return mass_compile(cli)
 
     # Build the environment vars
