@@ -33,6 +33,9 @@
 */
 
 #define MIDI_BASIC
+#define TAPPING_TERM 300
+#define DYNAMIC_TAPPING_TERM_INCREMENT 50
+
 
 /* enable advanced MIDI features:
    - MIDI notes can be added to the keymap
