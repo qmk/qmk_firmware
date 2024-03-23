@@ -34,3 +34,8 @@
 #define I2C_DRIVER I2CD1
 #define I2C1_SDA_PIN GP4
 #define I2C1_SCL_PIN GP5
+
+// Force master side determination by USB voltage detect (VBUS sensing) method instead of the default USB data detect method.
+// RP2040 microcontrollers like Splinky and Sea Picro have working VBUS detect on GP19 pin. For Pi Pico it's GP24 pin.
+#undef SPLIT_USB_DETECT
+#define USB_VBUS_PIN GP24

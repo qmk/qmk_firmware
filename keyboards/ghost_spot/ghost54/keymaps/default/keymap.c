@@ -12,7 +12,7 @@
 
 #include QMK_KEYBOARD_H
 #include "keymap_portuguese.h"
-#include <stdio.h>
+#include "i2c_master.h"
 
 // Assign names to the layers
 enum layer_names {
