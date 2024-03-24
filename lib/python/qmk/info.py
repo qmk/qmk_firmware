@@ -7,7 +7,7 @@ from dotty_dict import dotty
 
 from milc import cli
 
-from qmk.constants import CHIBIOS_PROCESSORS, LUFA_PROCESSORS, VUSB_PROCESSORS
+from qmk.constants import COL_LETTERS, ROW_LETTERS, CHIBIOS_PROCESSORS, LUFA_PROCESSORS, VUSB_PROCESSORS
 from qmk.c_parse import find_layouts, parse_config_h_file, find_led_config
 from qmk.json_schema import deep_update, json_load, validate
 from qmk.keyboard import config_h, rules_mk
@@ -78,9 +78,11 @@ def _find_invalid_encoder_index(info_data):
     return ret
 
 
-def _additional_validation(keyboard, info_data):
+def _validate_layouts(keyboard, info_data):  # noqa C901
     """Non schema checks
     """
+    col_num = info_data.get('matrix_size', {}).get('cols', 0)
+    row_num = info_data.get('matrix_size', {}).get('rows', 0)
     layouts = info_data.get('layouts', {})
     layout_aliases = info_data.get('layout_aliases', {})
     community_layouts = info_data.get('community_layouts', [])
@@ -89,6 +91,21 @@ def _additional_validation(keyboard, info_data):
     # Make sure we have at least one layout
     if len(layouts) == 0 or all(not layout.get('json_layout', False) for layout in layouts.values()):
         _log_error(info_data, 'No LAYOUTs defined! Need at least one layout defined in info.json.')
+
+    # Make sure all layouts are DD
+    for layout_name, layout_data in layouts.items():
+        if layout_data.get('c_macro', False):
+            _log_error(info_data, f'{layout_name}: Layout macro should not be defined within ".h" files.')
+
+    # Make sure all matrix values are in bounds
+    for layout_name, layout_data in layouts.items():
+        for index, key_data in enumerate(layout_data['layout']):
+            row, col = key_data['matrix']
+            key_name = key_data.get('label', f'k{ROW_LETTERS[row]}{COL_LETTERS[col]}')
+            if row >= row_num:
+                _log_error(info_data, f'{layout_name}: Matrix row for key {index} ({key_name}) is {row} but must be less than {row_num}')
+            if col >= col_num:
+                _log_error(info_data, f'{layout_name}: Matrix column for key {index} ({key_name}) is {col} but must be less than {col_num}')
 
     # Warn if physical positions are offset (at least one key should be at x=0, and at least one key at y=0)
     for layout_name, layout_data in layouts.items():
@@ -122,12 +139,20 @@ def _additional_validation(keyboard, info_data):
         if layout_name not in layouts and layout_name not in layout_aliases:
             _log_error(info_data, 'Claims to support community layout %s but no %s() macro found' % (layout, layout_name))
 
+
+def _validate_keycodes(keyboard, info_data):
+    """Non schema checks
+    """
     # keycodes with length > 7 must have short forms for visualisation purposes
     for decl in info_data.get('keycodes', []):
         if len(decl["key"]) > 7:
             if not decl.get("aliases", []):
                 _log_error(info_data, f'Keycode {decl["key"]} has no short form alias')
 
+
+def _validate_encoders(keyboard, info_data):
+    """Non schema checks
+    """
     # encoder IDs in layouts must be in range and not duplicated
     found = _find_invalid_encoder_index(info_data)
     for layout_name, encoder_index, reason in found:
@@ -141,7 +166,10 @@ def _validate(keyboard, info_data):
     try:
         validate(info_data, 'qmk.api.keyboard.v1')
 
-        _additional_validation(keyboard, info_data)
+        # Additional validation
+        _validate_layouts(keyboard, info_data)
+        _validate_keycodes(keyboard, info_data)
+        _validate_encoders(keyboard, info_data)
 
     except jsonschema.ValidationError as e:
         json_path = '.'.join([str(p) for p in e.absolute_path])
@@ -209,6 +237,9 @@ def _extract_features(info_data, rules):
         if key.endswith('_ENABLE'):
             key = '_'.join(key.split('_')[:-1]).lower()
             value = True if value.lower() in true_values else False if value.lower() in false_values else value
+
+            if key in ['lto']:
+                continue
 
             if 'config_h_features' not in info_data:
                 info_data['config_h_features'] = {}
@@ -501,6 +532,9 @@ def _config_to_json(key_type, config_value):
     """Convert config value using spec
     """
     if key_type.startswith('array'):
+        if key_type.count('.') > 1:
+            raise Exception(f"Conversion of {key_type} not possible")
+
         if '.' in key_type:
             key_type, array_type = key_type.split('.', 1)
         else:
@@ -513,7 +547,7 @@ def _config_to_json(key_type, config_value):
         else:
             return list(map(str.strip, config_value.split(',')))
 
-    elif key_type == 'bool':
+    elif key_type in ['bool', 'flag']:
         if isinstance(config_value, bool):
             return config_value
         return config_value in true_values
@@ -683,27 +717,23 @@ def _extract_led_config(info_data, keyboard):
     cols = info_data['matrix_size']['cols']
     rows = info_data['matrix_size']['rows']
 
-    # Determine what feature owns g_led_config
-    features = info_data.get("features", {})
-    feature = None
-    if features.get("rgb_matrix", False):
-        feature = "rgb_matrix"
-    elif features.get("led_matrix", False):
-        feature = "led_matrix"
+    for feature in ['rgb_matrix', 'led_matrix']:
+        if info_data.get('features', {}).get(feature, False) or feature in info_data:
 
-    if feature:
-        # Process
-        for file in find_keyboard_c(keyboard):
-            try:
-                ret = find_led_config(file, cols, rows)
-                if ret:
-                    info_data[feature] = info_data.get(feature, {})
-                    info_data[feature]["layout"] = ret
-            except Exception as e:
-                _log_warning(info_data, f'led_config: {file.name}: {e}')
+            # Only attempt search if dd led config is missing
+            if 'layout' not in info_data.get(feature, {}):
+                # Process
+                for file in find_keyboard_c(keyboard):
+                    try:
+                        ret = find_led_config(file, cols, rows)
+                        if ret:
+                            info_data[feature] = info_data.get(feature, {})
+                            info_data[feature]['layout'] = ret
+                    except Exception as e:
+                        _log_warning(info_data, f'led_config: {file.name}: {e}')
 
-        if info_data[feature].get("layout", None) and not info_data[feature].get("led_count", None):
-            info_data[feature]["led_count"] = len(info_data[feature]["layout"])
+            if info_data[feature].get('layout', None) and not info_data[feature].get('led_count', None):
+                info_data[feature]['led_count'] = len(info_data[feature]['layout'])
 
     return info_data
 
