@@ -25,13 +25,13 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define _________________COLEMAK_R2_________________    KC_M,              KC_N,              KC_E,              KC_I,              KC_O
 #define _________________COLEMAK_R3_________________    KC_K,              KC_H,              KC_COMM,           KC_DOT,            KC_SLASH
 
-#define _________________QWERTY_L1__________________    KC_Q,              KC_W,              HOME_QWE_E,        KC_R,              KC_T
-#define _________________QWERTY_L2__________________    KC_A,              KC_S,              KC_D,              KC_F,              KC_G
-#define _________________QWERTY_L3__________________    HOME_QWE_Z,        KC_X,              KC_C,              KC_V,              KC_B
+#define _________________QWERTY_L1__________________    KC_Q,              KC_W,              KC_E,              KC_R,              KC_T
+#define _________________QWERTY_L2__________________    HOME_QWE_A,        HOME_QWE_S,        HOME_QWE_D,        HOME_QWE_F,        KC_G
+#define _________________QWERTY_L3__________________    KC_Z,              KC_X,              KC_C,              KC_V,              KC_B
 
-#define _________________QWERTY_R1__________________    KC_Y,              KC_U,              HOME_QWE_I,        KC_O,              KC_P
+#define _________________QWERTY_R1__________________    KC_Y,              KC_U,              KC_I,              KC_O,              KC_P
 #define _________________QWERTY_R2__________________    KC_H,              KC_J,              KC_K,              KC_L,              KC_SCLN
-#define _________________QWERTY_R3__________________    KC_N,              KC_M,              KC_COMM,           KC_DOT,            HOME_QWE_SLASH
+#define _________________QWERTY_R3__________________    KC_N,              KC_M,              KC_COMM,           KC_DOT,            KC_SLASH
 
 #define _________________DVORAK_L1__________________    KC_QUOT,           KC_COMM,           KC_DOT,            KC_P,              KC_Y
 #define _________________DVORAK_L2__________________    KC_A,              KC_O,              KC_E,              KC_U,              KC_I
@@ -67,7 +67,7 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 
 #define ___________________NUM_R1___________________    _______,           KC_RSFT,           KC_LALT,           KC_RCTL,           KC_RGUI      
 #define ___________________NUM_R2___________________    KC_NO,             KC_AE,             KC_OE,             KC_AA,             _______
-#define ___________________NUM_R3___________________    TD(TD_ALT),        TD(TD_BASE),       TD(TD_GAMING),     TD(TD_EECLEAR),    TD(TD_BOOT)
+#define ___________________NUM_R3___________________    TD(TD_BASE),       TD(TD_GAMING),     TD(TD_ALT),        TD(TD_EECLEAR),    TD(TD_BOOT)
 #define ___________________NUM_R4___________________    _______,           _______,           _______,           _______,           _______
 
 #define ___________________FUN_L1___________________    KC_F12,            KC_F7,             KC_F8,             KC_F9,             KC_PSCR
@@ -76,7 +76,7 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define ___________________FUN_L4___________________    _______,           _______,           _______,           _______,           _______
 // TODO: kc_app 
 
-#define ___________________FUN_R1___________________    TD(TD_ALT),        TD(TD_BASE),       TD(TD_GAMING),     TD(TD_EECLEAR),    TD(TD_BOOT)
+#define ___________________FUN_R1___________________    _______,           _______,           _______,           _______,           _______
 #define ___________________FUN_R2___________________    SHRUG,             _______,           _______,           _______,           _______
 #define ___________________FUN_R3___________________    _______,           _______,           _______,           _______,           _______
 #define ___________________FUN_R4___________________    _______,           _______,           _______,           _______,           _______
@@ -92,8 +92,8 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define __________________MEDIA_R4__________________    _______,           _______,           _______,           _______,           _______
 
 
-#define ___________________NAV_L1___________________    _______,           _______,           _______,           _______,           _______
-#define ___________________NAV_L2___________________    ________________CLIPBOARD_L________________        
+#define ___________________NAV_L1___________________    ________________CLIPBOARD_L________________
+#define ___________________NAV_L2___________________    _______,           KC_LCTL,           KC_LALT,           KC_LSFT,           _______
 #define ___________________NAV_L3___________________    _______,           _______,           _______,           _______,           _______
 #define ___________________NAV_L4___________________    _______,           _______,           _______,           _______,           _______
 
