@@ -218,8 +218,7 @@ bool oled_task_user(void) {
         /* Display the logo for 5 seconds on boot. */
         if (is_keyboard_master()) {
             render_logo();
-            /* Adding text below the partial screen logo requires oled_set_cursor. */
-            /* There are 10 chars per line. Subsequent oled_set_cursor simplifies line wraps. */
+            /* Adding text below the partial screen logo requires oled_set_cursor. There are 10 chars per line. Subsequent oled_set_cursor simplifies line wraps. */
             oled_set_cursor(0, 12);
             oled_write_ln_P(PSTR("v3.5.4"), false);
             oled_set_cursor(0, 13);
