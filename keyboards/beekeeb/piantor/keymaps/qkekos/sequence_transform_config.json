@@ -1,11 +1,15 @@
 {
     "rules_file_name": "./magic_sturdy/magic.txt",
-    "magic_chars": "★☆✪",
-    "wordbreak_char": "⎵",
-    "output_func_chars": "↻⇑",
+    "sequence_token_symbols": {
+        "★": "*",
+        "☆": "@",
+        "✪": "#"
+    },
+    "wordbreak_symbol": {
+        "⎵": "^"
+    },
+    "output_func_symbols": "↻⇑",
     "comment_str": "//",
     "separator_str": "⇒",
-    "quiet": true,
-    "seq_tokens_ascii": "*@#",
-    "wordbreak_ascii": "^"
+    "implicit_transform_leading_wordbreak": true
 }

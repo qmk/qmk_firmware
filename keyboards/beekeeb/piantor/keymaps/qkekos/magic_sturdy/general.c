@@ -24,6 +24,8 @@ void sequence_transform_on_missed_rule_user(const st_trie_rule_t *rule) {
 
     if (is_hard_mode_active) {
         tap_code16(C(KC_BSPC));
+
+        next_record->event.pressed = true;
         process_sequence_transform(C(KC_BSPC), next_record, US_AREP);
     }
 }
