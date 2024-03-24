@@ -1,6 +1,7 @@
 /*
 Copyright 2013 Oleg Kostyuk <cub.uanic@gmail.com>
 Copyright 2017 Erin Call <hello@erincall.com>
+Copyright 2024 Adam Coleman <gephorian@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
