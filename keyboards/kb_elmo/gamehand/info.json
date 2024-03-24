@@ -1,0 +1,61 @@
+{
+    "manufacturer": "kb-elmo",
+    "keyboard_name": "GameHand",
+    "url": "https://github.com/kb-elmo/gamehand",
+    "maintainer": "kb-elmo",
+    "usb": {
+        "vid": "0xA68C",
+        "pid": "0x4D90",
+        "device_version": "0.0.1",
+        "force_nkro": true
+    },
+    "processor": "atmega32u2",
+    "bootloader": "atmel-dfu",
+    "matrix_pins": {
+        "cols": ["B2", "B1", "B0", "B7", "C7", "C6"],
+        "rows": ["D6", "D5", "D4", "D3", "D2"]
+    },
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+    },
+    "build": {
+        "debounce_type": "sym_defer_pk"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [0, 4], "x": 4, "y": 0},
+                {"matrix": [0, 5], "x": 5, "y": 0},
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [1, 3], "x": 3, "y": 1},
+                {"matrix": [1, 4], "x": 4, "y": 1},
+                {"matrix": [1, 5], "x": 5, "y": 1},
+                {"matrix": [2, 0], "x": 0, "y": 2, "w": 1.25},
+                {"matrix": [2, 1], "x": 1.25, "y": 2},
+                {"matrix": [2, 2], "x": 2.25, "y": 2},
+                {"matrix": [2, 3], "x": 3.25, "y": 2},
+                {"matrix": [2, 4], "x": 4.25, "y": 2},
+                {"matrix": [2, 5], "x": 5.25, "y": 2},
+                {"matrix": [3, 0], "x": 0, "y": 3, "w": 1.75},
+                {"matrix": [3, 1], "x": 1.75, "y": 3},
+                {"matrix": [3, 2], "x": 2.75, "y": 3},
+                {"matrix": [3, 3], "x": 3.75, "y": 3},
+                {"matrix": [3, 4], "x": 4.75, "y": 3},
+                {"matrix": [4, 0], "x": 0, "y": 4, "w": 1.5},
+                {"matrix": [4, 1], "x": 1.5, "y": 4, "w": 1.5},
+                {"matrix": [4, 2], "x": 3, "y": 4, "w": 1.5},
+                {"matrix": [4, 5], "x": 4.5, "y": 4, "w": 2}
+            ]
+        }
+    }
+}
