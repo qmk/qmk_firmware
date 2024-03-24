@@ -1,5 +1,6 @@
 // If there are errors: qmk generate-compilation-database
 
+#include <stdint.h>
 #include "action_layer.h"
 #include "keycodes.h"
 #include "modifiers.h"
@@ -128,12 +129,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |                    |  F7  |  F8  |  F9  |  F10  | F11  | F12  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | Esc  |      |      |      |   @  |   Å  | <--->        <---> |   *  |   1  |   2  |   3  |   #  |      |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * |------+------+------+------+------+------|Media N/P   PG UP/DN|------+------+------+------+------+------|
  * | Tab  |   ?  |      |      |   ^  |   Ä  |-------.    ,-------|   -  |   4  |   5  |   6  |   /  |   |  |
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
  * |LShift|   `  |      |      |      |   Ö  |-------|    |-------|   +  |   7  |   8  |   9  |   \  |      |
  * `-----------------------------------------/       /    \       \-----------------------------------------'
- *           |      |      |      | /       /       /      \ ADJUST\       \ |      |   0  |   .  |
+ *           |Cmpose|      |      | /       /       /      \ ADJUST\       \ |      |   0  |   .  |
  *           |      |      |      |/       /       /        \       \       \|      |      |      |
  *           `--------------------'-------'-------'          '-------'-------'--------------------'
  */
@@ -171,10 +172,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,------------------------------------------.                    ,-----------------------------------------.
  * |       |      |      |      |      |      |                    |      |      |      | Wake | Sleep| Power|
  * |-------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |QK_BOOT|      |QWERTY|COLMAK|DVORAK|GAMING|-<--->-.    ,-<--->-|      |      |      |      |      | C+A+D|
- * |-------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
- * |       |      |MACWIN|      |ScrTog|      |-------|    |-------|      | VOLDO| MUTE | VOLUP|      |      |
- * |-------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
+ * |QK_BOOT|      |QWERTY|COLMAK|DVORAK|GAMING|-<--->-.    ,-<--->-|      |M_CLK | M_UP |M_RCLK|      | C+A+D|
+ * |-------+------+------+------+------+------|MS L/R |    |MS U/D |------+------+------+------+------+------|
+ * |       |      |MACWIN|      |ScrTog|      |-------|    |-------|M_BACK|M_LEFT|M_DOWN|M_RGHT|M_FWD |      |
+ * |-------+------+------+------+------+------|MS CLK |    |MS RCLK|------+------+------+------+------+------|
  * |       |      |      |      |      |      |-------|    |-------|      | PREV | PLAY | NEXT |      |      |
  * `------------------------------------------/       /    \       \-----------------------------------------'
  *            |      |      |      | /       /       /      \       \       \ |      |      |      |
@@ -182,11 +183,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            `------------------------------------'          `-------'----------------------------'
  */
   [_ADJUST] = LAYOUT(
-  XXXXXXX, XXXXXXX, XXXXXXX ,  XXXXXXX ,    XXXXXXX,  XXXXXXX,                    XXXXXXX, XXXXXXX, XXXXXXX, KC_WAKE, KC_SLEP,  KC_PWR,
-  QK_BOOT, XXXXXXX,KC_QWERTY,KC_COLEMAK,KC_P_DVORAK,KC_GAMING,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_CAD,
-  XXXXXXX, XXXXXXX,  CG_TOGG,   XXXXXXX,    KC_STOG,  XXXXXXX,                    XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX,    XXXXXXX,  XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
-                     _______,   _______,    _______, _______, _______,   _______, _______, _______, _______, _______
+  XXXXXXX, XXXXXXX, XXXXXXX ,  XXXXXXX ,    XXXXXXX,  XXXXXXX,                         XXXXXXX,    XXXXXXX, XXXXXXX,    KC_WAKE,    KC_SLEP,  KC_PWR,
+  QK_BOOT, XXXXXXX,KC_QWERTY,KC_COLEMAK,KC_P_DVORAK,KC_GAMING,                         XXXXXXX, KC_MS_BTN1, KC_MS_U, KC_MS_BTN2,    XXXXXXX,  KC_CAD,
+  XXXXXXX, XXXXXXX,  CG_TOGG,   XXXXXXX,    KC_STOG,  XXXXXXX,                      KC_MS_BTN4,    KC_MS_L, KC_MS_D,    KC_MS_R, KC_MS_BTN5, XXXXXXX,
+  XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX,    XXXXXXX,  XXXXXXX, KC_MS_BTN1, KC_MS_BTN2, XXXXXXX,    KC_MPRV, KC_MPLY,    KC_MNXT,    XXXXXXX, XXXXXXX,
+                     _______,   _______,    _______,  _______,    _______,    _______, _______,    _______, _______,    _______
   )
 };
 
@@ -200,7 +201,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|  MUTE |    | PLAY  |------+------+------+------+------+------|
  * |LShift|   "  |      |      |      |      |-------|    |-------|      |      |      |      |      |RShift|
  * `-----------------------------------------/       /    \       \-----------------------------------------'
- *          |Compose| LAlt | LCtrl| / Enter / LOWER /      \ RAISE \ RAISE \ | Space| RAlt | RGUI |
+ *          |       | LAlt | LCtrl| / Enter / LOWER /      \ RAISE \ RAISE \ | Space| RAlt | RGUI |
  *          |       |      |      |/       /       /        \       \       \|      |      |      |
  *          `---------------------'-------'-------'          '-------'-------'-------------------'
  */
@@ -439,27 +440,32 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 #endif
 
 #if defined(ENCODER_ENABLE) && !defined(ENCODER_MAP_ENABLE)
-#    define ON_TURN(leftSpin, rightSpin) \
-        if (clockwise) {                 \
-            tap_code(leftSpin);          \
-        } else {                         \
-            tap_code(rightSpin);         \
+
+#    define ON_TURN(anti_clockwise_turn, clockwise_turn) \
+        if (clockwise) {                                 \
+            tap_code(clockwise_turn);                    \
+        } else {                                         \
+            tap_code(anti_clockwise_turn);               \
         }
+
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         switch (get_highest_layer(layer_state)) {
-            case _RAISE:
-                ON_TURN(KC_MS_RIGHT, KC_MS_LEFT);
+            case _LOWER:
+                ON_TURN(KC_MPRV, KC_MNXT);
+                break;
+            case _ADJUST:
+                ON_TURN(KC_MS_LEFT, KC_MS_RIGHT);
                 break;
             default:
-                ON_TURN(KC_VOLU, KC_VOLU);
+                ON_TURN(KC_VOLD, KC_VOLU);
         }
     } else if (index == 1) {
         switch (get_highest_layer(layer_state)) {
             case _LOWER:
                 ON_TURN(KC_PGDN, KC_PGUP);
                 break;
-            case _RAISE:
+            case _ADJUST:
                 ON_TURN(KC_MS_DOWN, KC_MS_UP);
                 break;
             default:

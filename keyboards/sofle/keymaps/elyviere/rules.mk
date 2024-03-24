@@ -13,4 +13,4 @@ WPM_ENABLE = yes
 CONSOLE_ENABLE = no
 
 #Space saving
-EXTRAFLAGS += -flto
+# EXTRAFLAGS += -flto
