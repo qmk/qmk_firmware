@@ -47,4 +47,6 @@
 // 6 for 3x custom encoder settings, left, right, and press (18 bytes)
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 20
 
-
+// Galgo Firmware settings
+#define DEBOUNCE 15
+#define MIDI_ADVANCED
