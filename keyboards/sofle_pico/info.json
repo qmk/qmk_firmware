@@ -7,7 +7,7 @@
     "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
-            {"pin_a": "GP14", "pin_b": "GP15", "resolution": 4}
+            {"pin_a": "GP14", "pin_b": "GP15"}
         ]
     },
     "features": {
