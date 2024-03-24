@@ -78,6 +78,24 @@ def _find_invalid_encoder_index(info_data):
     return ret
 
 
+def _validate_info_json_list(keyboard, info_data):
+    """Non schema checks
+    """
+    config_files = find_info_json(keyboard)
+
+    # keyboard.json can only exist at the deepest part of the tree
+    keyboard_json_count = 0
+    for index, info_file in enumerate(config_files):
+        if Path(info_file).name == 'keyboard.json':
+            keyboard_json_count += 1
+            if index != 0 or keyboard_json_count > 1:
+                _log_error(info_data, f'Invalid keyboard.json location detected: {info_file}.')
+
+    # Moving forward keyboard.json should be used as a build target
+    if keyboard_json_count == 0:
+        _log_warning(info_data, 'Build marker "keyboard.json" not found.')
+
+
 def _validate_layouts(keyboard, info_data):  # noqa C901
     """Non schema checks
     """
@@ -176,6 +194,7 @@ def _validate(keyboard, info_data):
         validate(info_data, 'qmk.api.keyboard.v1')
 
         # Additional validation
+        _validate_info_json_list(keyboard, info_data)
         _validate_layouts(keyboard, info_data)
         _validate_keycodes(keyboard, info_data)
         _validate_encoders(keyboard, info_data)
@@ -878,14 +897,6 @@ def merge_info_jsons(keyboard, info_data):
     """Return a merged copy of all the info.json files for a keyboard.
     """
     config_files = find_info_json(keyboard)
-
-    # keyboard.json can only exist at the deepest part of the tree
-    keyboard_json_count = 0
-    for index, info_file in enumerate(config_files):
-        if Path(info_file).name == 'keyboard.json':
-            keyboard_json_count += 1
-            if index != 0 or keyboard_json_count > 1:
-                _log_error(info_data, f'Invalid keyboard.json location detected: {info_file}.')
 
     for info_file in config_files:
         # Load and validate the JSON data
