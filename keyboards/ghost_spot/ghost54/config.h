@@ -31,8 +31,12 @@
 #define SPLIT_OLED_ENABLE
 #define OLED_DISPLAY_128X64
 #define OLED_DISPLAY_ADDRESS 0x3C
-#define I2C_DRIVER I2CD1
+
+#undef I2C_DRIVER
+#define I2C_DRIVER I2CD0
+#undef I2C1_SDA_PIN
 #define I2C1_SDA_PIN GP4
+#undef I2C1_SCL_PIN
 #define I2C1_SCL_PIN GP5
 
 // Force master side determination by USB voltage detect (VBUS sensing) method instead of the default USB data detect method.
