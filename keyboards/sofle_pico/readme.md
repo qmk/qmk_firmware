@@ -18,6 +18,12 @@ Flashing example for this keyboard:
 
     make sofle_pico:default:flash
 
+Handedness should be programmed in EEPROM once, you can use these commands to
+flash the firmware and the EEPROM:
+
+    make sofle_pico:default:uf2-split-left
+    make sofle_pico:default:uf2-split-right
+    
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 ## Bootloader
