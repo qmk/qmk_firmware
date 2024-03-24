@@ -175,6 +175,7 @@ void slave_update_detected_host_os(os_variant_t os) {
     detected_os = os;
     last_time   = timer_read_fast();
     debouncing  = true;
+    process_detected_host_os_kb(os);
 }
 #endif
 
