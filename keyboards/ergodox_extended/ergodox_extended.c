@@ -47,11 +47,6 @@ uint8_t init_mcp23018(void) {
     mcp23018_status = 0x20;
 
     // I2C subsystem
-
-    // uint8_t sreg_prev;
-    // sreg_prev=SREG;
-    // cli();
-
     if (i2c_initialized == 0) {
         i2c_init();  // on pins D(1,0)
         i2c_initialized = true;
@@ -64,9 +59,16 @@ uint8_t init_mcp23018(void) {
     // - unused  : input  : 1
     // - input   : input  : 1
     // - driving : output : 0
-    uint8_t data[] = {0b00000000, 0b00111111};
+    // Rows:    GPA{6..0}
+    // Columns: GPB{0..6}
+    // Init process: Set up connection at 0b0100000<<1
+    // Setup:
+    // data[] has 2 2 byte values, to set up {GPIOA, GPIOB} pin directions
+    // Write to IODIR to set direction
+    // Then write the same 16 bits to GPPUX to set pullup
+#if DIODE_DIRECTION == COL2ROW
+    uint8_t data[] = {0b00000000, 0b01111111};
     mcp23018_status = i2c_writeReg(I2C_ADDR, IODIRA, data, 2, ERGODOX_EXTENDED_I2C_TIMEOUT);
-
     if (!mcp23018_status) {
         // set pull-up
         // - unused  : on  : 1
@@ -74,8 +76,18 @@ uint8_t init_mcp23018(void) {
         // - driving : off : 0
         mcp23018_status = i2c_writeReg(I2C_ADDR, GPPUA, data, 2, ERGODOX_EXTENDED_I2C_TIMEOUT);
     }
-
-    // SREG=sreg_prev;
+#else
+    /* uint8_t data[] = {0b01111111, 0b00000000}; */
+    uint8_t data[] = {0b00000000, 0b01111111};
+    mcp23018_status = i2c_writeReg(I2C_ADDR, IODIRA, data, 2, ERGODOX_EXTENDED_I2C_TIMEOUT);
+    if (!mcp23018_status) {
+        // set pull-up
+        // - unused  : on  : 1
+        // - input   : on  : 1
+        // - driving : off : 0
+        mcp23018_status = i2c_writeReg(I2C_ADDR, GPPUA, data, 2, ERGODOX_EXTENDED_I2C_TIMEOUT);
+    }
+#endif
 
     return mcp23018_status;
 }

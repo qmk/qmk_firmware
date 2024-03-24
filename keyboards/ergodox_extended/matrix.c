@@ -113,8 +113,8 @@ static matrix_row_t read_cols(uint8_t row) {
             return 0;
         } else {
             uint8_t data = 0;
-            // reading GPIOB (column port) since in mcp23018's sequential mode
-            // it is addressed directly after writing to GPIOA in select_row()
+            // reading GPIO{A,B} (column port) since in mcp23018's sequential mode
+            // it is addressed directly after writing to GPIO{B,A} in select_row()
             mcp23018_status = i2c_receive(I2C_ADDR, &data, 1, ERGODOX_EXTENDED_I2C_TIMEOUT);
             return ~data;
         }
@@ -166,7 +166,11 @@ static void select_row(uint8_t row) {
             // set other rows hi-Z : 1
             uint8_t data;
             data = 0xFF & ~(1 << row);
+#if (DIODE_DIRECTION == COL2ROW)
             mcp23018_status = i2c_writeReg(I2C_ADDR, GPIOA, &data, 1, ERGODOX_EXTENDED_I2C_TIMEOUT);
+#else
+            mcp23018_status = i2c_writeReg(I2C_ADDR, GPIOA, &data, 1, ERGODOX_EXTENDED_I2C_TIMEOUT);
+#endif
         }
     } else {
         // select on teensy
