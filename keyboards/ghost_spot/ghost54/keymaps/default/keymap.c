@@ -125,25 +125,102 @@ combo_t key_combos[] = {
     COMBO(layer2to3, TO(3)),
 };
 
+// Behaviour of the ENCODERS
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (get_highest_layer(layer_state|default_layer_state) == 0) {
+        if (index == 0) { // Alt+TAB and Alt+Shift+TAB
+            register_code(KC_LALT);
+            is_alt_tab_active = true;
+            if (clockwise) {
+                tap_code(KC_TAB);
+            } else {
+                register_code(KC_LSFT);
+                tap_code(KC_TAB);
+                unregister_code(KC_LSFT); // this fixes the getting stuck problem
+            }
+            alt_tab_timer = timer_read();
+        } else if (index == 1) {
+            if (clockwise) { // Scroll horizontally words
+                tap_code(C(KC_LEFT));
+            } else {
+                tap_code(C(KC_RIGHT));
+            }
+        }
+    } else if (get_highest_layer(layer_state|default_layer_state) == 1) {
+        if (index == 0) { // PGUP and PGDN
+            if (clockwise) {
+                tap_code(KC_PGDN);
+            } else {
+                tap_code(KC_PGUP);
+            }
+        } else if (index == 1) { // Scroll tabs
+            if (clockwise) {
+                tap_code16(C(KC_TAB));
+            } else {
+                tap_code16(S(C(KC_TAB)));
+            }
+        }
+    } else if (get_highest_layer(layer_state|default_layer_state) == 2) {
+        if (index == 0) { // PGUP and PGDN
+            if (clockwise) {
+                tap_code(KC_PGDN);
+            } else {
+                tap_code(KC_PGUP);
+            }
+        } else if (index == 1) { // Scroll tabs
+            if (clockwise) {
+                tap_code16(C(KC_TAB));
+            } else {
+                tap_code16(S(C(KC_TAB)));
+            }
+        }
+    } else if (get_highest_layer(layer_state|default_layer_state) == 3) {
+        if (index == 0) { // History Scrubbing
+            if (clockwise) {
+                tap_code(C(KC_Y));
+            } else {
+                tap_code(C(KC_Z));
+            }
+        } else if (index == 1) {
+            if (clockwise) { // Volume Control
+                tap_code16(KC_VOLU);
+            } else {
+                tap_code16(KC_VOLD);
+            }
+        }
+    }
+    return false;
+};
+
 
 #ifdef OLED_ENABLE
+
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    if (is_keyboard_master()) {
+        return OLED_ROTATION_90;
+    } else {
+        return OLED_ROTATION_270;
+    }
+    return rotation;
+}
 
 // Draw to OLED
 bool oled_task_user(void) {
 
+
     // Switch on current active layer
     switch (get_highest_layer(layer_state)) {
         case _WIN_DEFAULT :
-            oled_write("Main Layer", false);
+            oled_write("Main", false);
             break;
         case _WIN_NUMPAD :
-            oled_write("Numpad Layer", false);
+            oled_write("Numpad", false);
             break;
         case _WIN_SYMBOLS :
-            oled_write("Symbols Layer", false);
+            oled_write("Symbols", false);
             break;
         case _WIN_FKEYS :
-            oled_write("Function Layer", false);
+            oled_write("Function", false);
             break;
     }
 
