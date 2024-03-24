@@ -4,9 +4,6 @@
     "maintainer": "Ryan Neff <github@JellyTitan.com>",
     "bootloader": "rp2040",
     "bootloader_instructions": "Hold the BOOT button while plugging in the usb cable",
-    "build": {
-        "lto": false
-    },
     "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
