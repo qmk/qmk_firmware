@@ -33,6 +33,13 @@ static void         select_row(uint8_t row);
 
 static uint8_t mcp23018_reset_loop;
 
+keyboard_config_t keyboard_config;
+
+bool         i2c_initialized = 0;
+
+i2c_status_t mcp23018_status = 0x20;
+
+
 void matrix_init_custom(void) {
     // initialize row and col
 
@@ -81,6 +88,55 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     }
 
     return changed;
+}
+
+uint8_t init_mcp23018(void) {
+    mcp23018_status = 0x20;
+
+    // I2C subsystem
+    if (i2c_initialized == 0) {
+        i2c_init();  // on pins D(1,0)
+        i2c_initialized = true;
+        _delay_ms(1000);
+    }
+    // i2c_init(); // on pins D(1,0)
+    // _delay_ms(1000);
+
+    // set pin direction
+    // - unused  : input  : 1
+    // - input   : input  : 1
+    // - driving : output : 0
+    // Rows:    GPA{6..0}
+    // Columns: GPB{0..6}
+    // Init process: Set up connection at 0b0100000<<1
+    // Setup:
+    // data[] has 2 2 byte values, to set up {GPIOA, GPIOB} pin directions
+    // Write to IODIR to set direction
+    // Then write the same 16 bits to GPPUX to set pullup
+#if DIODE_DIRECTION == COL2ROW
+    uint8_t data[] = {0b00000000, 0b01111111};
+    mcp23018_status = i2c_writeReg(I2C_ADDR, IODIRA, data, 2, ERGODOX_EXTENDED_I2C_TIMEOUT);
+    if (!mcp23018_status) {
+        // set pull-up
+        // - unused  : on  : 1
+        // - input   : on  : 1
+        // - driving : off : 0
+        mcp23018_status = i2c_writeReg(I2C_ADDR, GPPUA, data, 2, ERGODOX_EXTENDED_I2C_TIMEOUT);
+    }
+#else
+    /* uint8_t data[] = {0b01111111, 0b00000000}; */
+    uint8_t data[] = {0b00000000, 0b01111111};
+    mcp23018_status = i2c_writeReg(I2C_ADDR, IODIRA, data, 2, ERGODOX_EXTENDED_I2C_TIMEOUT);
+    if (!mcp23018_status) {
+        // set pull-up
+        // - unused  : on  : 1
+        // - input   : on  : 1
+        // - driving : off : 0
+        mcp23018_status = i2c_writeReg(I2C_ADDR, GPPUA, data, 2, ERGODOX_EXTENDED_I2C_TIMEOUT);
+    }
+#endif
+
+    return mcp23018_status;
 }
 
 /* Column pin configuration
@@ -221,4 +277,34 @@ void matrix_power_up(void) {
         matrix[i] = 0;
     }
 
+}
+
+void matrix_init_kb(void) {
+    // (tied to Vcc for hardware convenience)
+    DDRB &= ~(1 << 4);   // set B(4) as input
+    PORTB &= ~(1 << 4);  // set B(4) internal pull-up disabled
+
+    // unused pins - C7, D4, D5, E6
+    // set as input with internal pull-up enabled
+    DDRC &= ~(1 << 7);
+    DDRD &= ~(1 << 5 | 1 << 4);
+    DDRE &= ~(1 << 6);
+    PORTC |= (1 << 7);
+    PORTD |= (1 << 5 | 1 << 4);
+    PORTE |= (1 << 6);
+
+    keyboard_config.raw = eeconfig_read_kb();
+    matrix_init_user();
+}
+
+// clang-format on
+
+void eeconfig_init_kb(void) {  // EEPROM is getting reset!
+    keyboard_config.raw = 0;
+    eeconfig_update_kb(keyboard_config.raw);
+    eeconfig_init_user();
+}
+
+void matrix_scan_kb(void) {
+    matrix_scan_user();
 }
