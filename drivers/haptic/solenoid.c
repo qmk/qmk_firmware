@@ -61,7 +61,7 @@ void solenoid_set_dwell(uint8_t dwell) {
  * @param index select which solenoid to check/stop
  */
 void solenoid_stop(uint8_t index) {
-    writePin(solenoid_pads[index], !solenoid_active_state[index]);
+    gpio_write_pin(solenoid_pads[index], !solenoid_active_state[index]);
     solenoid_on[index]      = false;
     solenoid_buzzing[index] = false;
 }
@@ -78,7 +78,7 @@ void solenoid_fire(uint8_t index) {
     solenoid_on[index]      = true;
     solenoid_buzzing[index] = true;
     solenoid_start[index]   = timer_read();
-    writePin(solenoid_pads[index], solenoid_active_state[index]);
+    gpio_write_pin(solenoid_pads[index], solenoid_active_state[index]);
 }
 
 /**
@@ -128,12 +128,12 @@ void solenoid_check(void) {
             if ((elapsed[i] % (SOLENOID_BUZZ_ACTUATED + SOLENOID_BUZZ_NONACTUATED)) < SOLENOID_BUZZ_ACTUATED) {
                 if (!solenoid_buzzing[i]) {
                     solenoid_buzzing[i] = true;
-                    writePin(solenoid_pads[i], solenoid_active_state[i]);
+                    gpio_write_pin(solenoid_pads[i], solenoid_active_state[i]);
                 }
             } else {
                 if (solenoid_buzzing[i]) {
                     solenoid_buzzing[i] = false;
-                    writePin(solenoid_pads[i], !solenoid_active_state[i]);
+                    gpio_write_pin(solenoid_pads[i], !solenoid_active_state[i]);
                 }
             }
         }
@@ -156,8 +156,8 @@ void solenoid_setup(void) {
 #else
         solenoid_active_state[i] = high;
 #endif
-        writePin(solenoid_pads[i], !solenoid_active_state[i]);
-        setPinOutput(solenoid_pads[i]);
+        gpio_write_pin(solenoid_pads[i], !solenoid_active_state[i]);
+        gpio_set_pin_output(solenoid_pads[i]);
         if ((!HAPTIC_OFF_IN_LOW_POWER) || (usb_device_state == USB_DEVICE_STATE_CONFIGURED)) {
             solenoid_fire(i);
         }
@@ -170,6 +170,6 @@ void solenoid_setup(void) {
  */
 void solenoid_shutdown(void) {
     for (uint8_t i = 0; i < NUMBER_OF_SOLENOIDS; i++) {
-        writePin(solenoid_pads[i], !solenoid_active_state[i]);
+        gpio_write_pin(solenoid_pads[i], !solenoid_active_state[i]);
     }
 }
