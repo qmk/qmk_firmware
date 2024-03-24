@@ -36,6 +36,7 @@
     },
     "processor": "RP2040",
     "rgb_matrix": {
+        "sleep": true,
         "animations": {
             "band_pinwheel_sat": true,
             "band_pinwheel_val": true,
