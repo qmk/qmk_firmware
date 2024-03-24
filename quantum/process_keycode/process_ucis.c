@@ -36,6 +36,8 @@ bool process_ucis(uint16_t keycode, keyrecord_t *record) {
                 case KC_ENTER:
                     ucis_finish();
                     return false;
+                default:
+                    return false;
             }
         }
     }
