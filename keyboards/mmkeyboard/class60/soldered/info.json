@@ -37,7 +37,7 @@
         "device_version": "0.0.1",
         "force_nkro": true,
         "pid": "0x3876",
-        "vid": "0x3874"
+        "vid": "0x4F66"
     },
     "community_layouts": ["60_ansi_tsangan"],
     "layouts": {
