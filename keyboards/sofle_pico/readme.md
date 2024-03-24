@@ -12,20 +12,20 @@ Remember you have to flash both halves of the keyboard for it to work!
 
 Make example for this keyboard (after setting up your build environment):
 
-    make sofle_pico:default
+    make sofle_pico:via
 
 Flashing example for this keyboard:
 
 ```bash
 # For flashing the left half...
-make sofle_pico:default:uf2-split-left
+make sofle_pico:via:uf2-split-left
 # or the qmk cli equivalent:
-qmk flash -kb sofle_pico --keymap default -bl uf2-split-left
+qmk flash -kb sofle_pico --keymap via -bl uf2-split-left
 
 # For flashing the right half...
-make sofle_pico:default:uf2-split-right
+make sofle_pico:via:uf2-split-right
 # or the qmk cli equivalent:
-qmk flash -kb sofle_pico --keymap default -bl uf2-split-right
+qmk flash -kb sofle_pico --keymap via -bl uf2-split-right
 ```
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
