@@ -1,54 +1,47 @@
-// Copyright 2024 Adam Coleman (@Gephorian)
-// SPDX-License-Identifier: GPL-2.0-or-later
-
 /*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
+Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2013 Oleg Kostyuk <cub.uanic@gmail.com>
+Copyright 2017 Erin Call <hello@erincall.com>
+Copyright 2020 Marcus Young <myoung34@my.apsu.edu>
 
-/* disable debug print */
-//#define NO_DEBUG
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
 
-/* disable print */
-//#define NO_PRINT
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #pragma once
 
-/* key matrix size */
-#define MATRIX_COLS 7
-#define MATRIX_ROWS_PER_SIDE (MATRIX_ROWS / 2)
-#define MATRIX_ROWS 14
-
+#define DIODE_DIRECTION COL2ROW
+#define MATRIX_ROWS 7
+#define MATRIX_COLS 14
 #define COL_EXPANDED { true, true, true, true, true, true, true, false, false, false, false, false, false, false }
-#define MATRIX_ONBOARD_COL_PINS { 0, 0, 0, 0, 0, 0, 0, B0, B1, B2, B3, D2, D3, C6 }
 #define MATRIX_ONBOARD_ROW_PINS { F0, F1, F4, F5, F6, F7, D7 }
-#define DIODE_DIRECTION ROW2COL
-#define EXPANDER_COL_REGISTER GPIOA
-#define EXPANDER_ROW_REGISTER GPIOB
-#define MATRIX_EXPANDER_COL_PINS { 6, 5, 4, 3, 2, 1, 0 }
-#define MATRIX_EXPANDER_ROW_PINS { 0, 1, 2, 3, 4, 5, 6 }
+#define MATRIX_ONBOARD_COL_PINS { 0, 0, 0, 0, 0, 0, 0, B0, B1, B2, B3, D2, D3, C6 }
+#define EXPANDER_COL_REGISTER GPIOB
+#define EXPANDER_ROW_REGISTER GPIOA
+#define MATRIX_EXPANDER_COL_PINS {0, 1, 2, 3, 4, 5, 6}
+#define MATRIX_EXPANDER_ROW_PINS {0, 1, 2, 3, 4, 5, 6}
 
-#define MOUSEKEY_INTERVAL           20
-#define MOUSEKEY_DELAY              0
-#define MOUSEKEY_TIME_TO_MAX        60
-#define MOUSEKEY_MAX_SPEED          7
-#define MOUSEKEY_WHEEL_DELAY        400
-#define MOUSEKEY_WHEEL_INTERVAL     MOUSEKEY_INTERVAL
-#define MOUSEKEY_WHEEL_MAX_SPEED    MOUSEKEY_MAX_SPEED
-#define MOUSEKEY_WHEEL_TIME_TO_MAX  MOUSEKEY_TIME_TO_MAX
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
+#define MOUSEKEY_INTERVAL     20
+#define MOUSEKEY_DELAY        0
+#define MOUSEKEY_TIME_TO_MAX  60
+#define MOUSEKEY_MAX_SPEED    7
+#define MOUSEKEY_WHEEL_DELAY  0
 
 /* key combination for command */
 #define IS_COMMAND() ( \
     get_mods() == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)) || \
     get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)) \
 )
+
+/* fix space cadet rollover issue */
+#define DISABLE_SPACE_CADET_ROLLOVER
