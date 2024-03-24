@@ -1,12 +1,12 @@
 # ergodox_extended
 
-![ergodox_extended](imgur.com image replace me!)
+![ergodox_extended](https://i.imgur.com/GKVULLC.png)
 
-*A short description of the keyboard/project*
+This version of the ErgoDox has 7 rows and 7 columns per side, for a total of 98 usable keys. This should result in less necessity for layer hopping and macros.
 
 * Keyboard Maintainer: [Adam Coleman](https://github.com/Gephorian)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: [ErgoDox Extended PCB](https://github.com/Gephorian/ergodox-extended)
+* Hardware Availability: Hardware is available only through a fab like JLCPCB, Elecrow, or PCBWay. Or, Oshpark if you're adventurous.
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -23,5 +23,5 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+* **Physical reset button**: Briefly press the button near the MCU on the PCB.
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
