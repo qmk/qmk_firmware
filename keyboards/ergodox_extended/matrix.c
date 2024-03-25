@@ -87,8 +87,6 @@ uint8_t expander_status;
 uint8_t expander_input_pin_mask;
 bool i2c_initialized = false;
 
-#define ROW_SHIFTER ((matrix_row_t)1)
-
 __attribute__ ((weak))
 void matrix_init_user(void) {}
 
@@ -103,18 +101,6 @@ void matrix_init_kb(void) {
 __attribute__ ((weak))
 void matrix_scan_kb(void) {
   matrix_scan_user();
-}
-
-inline
-uint8_t matrix_rows(void)
-{
-    return MATRIX_ROWS;
-}
-
-inline
-uint8_t matrix_cols(void)
-{
-    return MATRIX_COLS;
 }
 
 void matrix_init(void)
@@ -257,7 +243,7 @@ uint8_t matrix_scan(void)
 inline
 bool matrix_is_on(uint8_t row, uint8_t col)
 {
-    return (matrix[row] & (ROW_SHIFTER << col));
+    return (matrix[row] & (((matrix_row_t)1) << col));
 }
 
 inline
@@ -315,7 +301,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
         if (! col_expanded[col_index]) {
             uint8_t pin = onboard_col_pins[col_index];
             uint8_t pin_state = (_SFR_IO8(pin >> 4) & _BV(pin & 0xF));
-            current_matrix[current_row] |= pin_state ? 0 : (ROW_SHIFTER << col_index);
+            current_matrix[current_row] |= pin_state ? 0 : (((matrix_row_t)1) << col_index);
         }
     }
 
@@ -402,10 +388,10 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 
         if (column_state & (1 << current_row)) {
             // key closed; set state bit in matrix
-            current_matrix[current_row] |= (ROW_SHIFTER << current_col);
+            current_matrix[current_row] |= (((matrix_row_t)1) << current_col);
         } else {
             // key open; clear state bit in matrix
-            current_matrix[current_row] &= ~(ROW_SHIFTER << current_col);
+            current_matrix[current_row] &= ~(((matrix_row_t)1) << current_col);
         }
 
         // Determine whether the matrix changed state
