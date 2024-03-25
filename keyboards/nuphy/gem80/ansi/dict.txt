@@ -1,0 +1,14 @@
+fasle             -> false
+fales             -> false
+cosnt             -> const
+costn             -> const
+devlop            -> develop
+typoe             -> typo
+tihs              -> this
+titel             -> title
+calss             -> class
+fitler            -> filter
+lenght            -> length
+ouput             -> output
+widht             -> width
+

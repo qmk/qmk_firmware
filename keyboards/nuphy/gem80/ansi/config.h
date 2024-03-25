@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WORK_MODE THREE_MODE
 
 #define DYNAMIC_KEYMAP_MACRO_DELAY 8
+#define TAPPING_TERM 200
 #define TAP_CODE_DELAY 8
 
 #define DEV_MODE_PIN C0
@@ -49,13 +50,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SD1_RX_PIN B7
 #define SD1_RX_PAL_MODE 0
 
-#define EECONFIG_KB_DATA_SIZE 19 // I use user_config_t + 2 just in case #### 10 in JC //12 in official  // match used byte size of user_config_t + 1 (seems to need extra byte)
+#define EECONFIG_KB_DATA_SIZE 18 // I use user_config_t + 2 just in case #### 10 in JC //12 in official  // match used byte size of user_config_t + 1 (seems to need extra byte)
 #define RGB_MATRIX_LED_COUNT 101 // 93  // RGB总灯数 (88轴灯+5侧灯)
 
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CUSTOM_position_mode
 #define RGB_DEFAULT_COLOUR 168
 
-#define DEBOUNCE 12
-#define CAPS_LOCK_LED_SIDE      true
-#define CAPS_LOCK_LED_KEY       false
-#define USB_SLEEP_ENABLED       true
+#define DEBOUNCE 10
+#define CAPS_LOCK_LED_SIDE true
+#define CAPS_LOCK_LED_KEY false
+#define USB_SLEEP_ENABLED true
+
+// configurations for CAPS_WORD feature
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+#define CAPS_WORD_INVERT_ON_SHIFT
+

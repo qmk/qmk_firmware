@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "ansi.h"
 #include "usb_main.h"
 
+
 extern bool            f_rf_sw_press;
 extern bool            f_sleep_show;
 extern bool            f_dev_reset_press;
