@@ -28,8 +28,14 @@ static bool PIXEL_FRACTAL(effect_params_t* params) {
     if (g_rgb_timer > wait_timer) {
         RGB rgb = rgb_matrix_hsv_to_rgb(rgb_matrix_config.hsv);
         for (uint8_t h = 0; h < MATRIX_ROWS; ++h) {
+            if (g_led_config.matrix_co[h][MID_COL - 1] == NO_LED || g_led_config.matrix_co[h][MATRIX_COLS - MID_COL] == NO_LED) {
+                continue;
+            }
             // Light and copy columns outward
             for (uint8_t l = 0; l < MID_COL - 1; ++l) {
+                if (g_led_config.matrix_co[h][l] == NO_LED || g_led_config.matrix_co[h][MATRIX_COLS - 1 - l] == NO_LED) {
+                    continue;
+                }
                 if (led[h][l]) {
                     rgb_matrix_set_color(g_led_config.matrix_co[h][l], rgb.r, rgb.g, rgb.b);
                     rgb_matrix_set_color(g_led_config.matrix_co[h][MATRIX_COLS - 1 - l], rgb.r, rgb.g, rgb.b);
