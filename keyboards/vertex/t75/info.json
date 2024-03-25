@@ -6,13 +6,9 @@
     "diode_direction": "ROW2COL",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "rgb_matrix": false,
-        "rgblight": false
+        "nkro": true
     },
     "indicators": {
         "caps_lock": "B1" 
