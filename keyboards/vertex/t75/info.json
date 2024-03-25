@@ -30,8 +30,7 @@
         "rows": ["A0", "A7", "A6", "A5", "A4","A3"]
     },
     "indicators": {
-        "caps_lock": "B1",
-        "on_state": 1
+        "caps_lock": "B1"
     },
 
     "layouts": {
