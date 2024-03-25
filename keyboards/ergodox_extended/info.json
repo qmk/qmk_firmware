@@ -4,6 +4,10 @@
     "maintainer": "Gephorian",
     "bootloader": "atmel-dfu",
     "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
     },
     "processor": "atmega32u4",
     "url": "https://github.com/Gephorian/ergodox-extended",
