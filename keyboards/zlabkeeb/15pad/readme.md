@@ -5,7 +5,7 @@
 15PAD is a Macropad With 12 Keys & 3 Rotary Encoder, Designed And Manufactured In INDONESIA.
 
 -   Keyboard Maintainer: [zlabkeeb](https://github.com/zlabkeeb)
--   Hardware Supported: 15Pad PCB rev1, RP2040 ZERO
+-   Hardware Supported: 15Pad PCB, RP2040 ZERO
 -   Hardware Availability: (INDONESIA ONLY) Will be available at [Tokopedia](https://www.tokopedia.com/zahranetid)
 
 Make example for this keyboard (after setting up your build environment):
