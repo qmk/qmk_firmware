@@ -103,7 +103,7 @@ void matrix_scan_kb(void) {
   matrix_scan_user();
 }
 
-void matrix_init(void)
+void matrix_init_custom(void)
 {
     init_expander();
 
@@ -181,8 +181,9 @@ void init_expander(void) {
 
 }
 
-uint8_t matrix_scan(void)
+bool matrix_scan_custom(matrix_row_t current_matrix[])
 {
+    bool matrix_changed = false;
     if (expander_status) { // if there was an error
         if (++expander_reset_loop == 0) {
             // since expander_reset_loop is 8 bit - we'll try to reset once in 255 matrix scans
@@ -200,7 +201,7 @@ uint8_t matrix_scan(void)
 #if (DIODE_DIRECTION == COL2ROW)
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
 #       if (DEBOUNCE > 0)
-            bool matrix_changed = read_cols_on_row(matrix_debouncing, current_row);
+            matrix_changed = read_cols_on_row(matrix_debouncing, current_row);
 
             if (matrix_changed) {
                 debouncing = true;
@@ -214,7 +215,7 @@ uint8_t matrix_scan(void)
 #elif (DIODE_DIRECTION == ROW2COL)
     for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
 #       if (DEBOUNCE > 0)
-            bool matrix_changed = read_rows_on_col(matrix_debouncing, current_col);
+            matrix_changed = read_rows_on_col(matrix_debouncing, current_col);
 
             if (matrix_changed) {
                 debouncing = true;
@@ -236,34 +237,7 @@ uint8_t matrix_scan(void)
         }
 #   endif
 
-    matrix_scan_kb();
-    return 1;
-}
-
-inline
-bool matrix_is_on(uint8_t row, uint8_t col)
-{
-    return (matrix[row] & (((matrix_row_t)1) << col));
-}
-
-inline
-matrix_row_t matrix_get_row(uint8_t row)
-{
-#ifdef MATRIX_MASKED
-    return matrix[row] & matrix_mask[row];
-#else
-    return matrix[row];
-#endif
-}
-
-void matrix_print(void)
-{
-    print("\nr/c 0123456789ABCDEF\n");
-    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        print_hex8(row); print(": ");
-        print_bin_reverse16(matrix_get_row(row));
-        print("\n");
-    }
+    return matrix_changed;
 }
 
 #if (DIODE_DIRECTION == COL2ROW)
