@@ -63,7 +63,7 @@ bool qp_ellipse(painter_device_t device, uint16_t x, uint16_t y, uint16_t sizex,
     qp_dprintf("qp_ellipse: entry\n");
     painter_driver_t *driver = (painter_driver_t *)device;
     if (!driver || !driver->validate_ok) {
-        qp_dprintf("qp_ellipse: fail (validation_ok == false)\n");
+        qp_dprintf("qp_ellipse: fail (bad device handle)\n");
         return false;
     }
 

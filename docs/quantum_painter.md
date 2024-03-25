@@ -645,6 +645,17 @@ void housekeeping_task_user(void) {
 }
 ```
 
+#### ** Display Color Inversion **
+
+```c
+bool qp_gc9a01_set_inversion(painter_device_t device, bool invert);
+bool qp_ili9xxx_set_inversion(painter_device_t device, bool invert);
+bool qp_ssd1351_set_inversion(painter_device_t device, bool invert);
+bool qp_st77xx_set_inversion(painter_device_t device, bool invert);
+```
+
+This set of functions allow changing the inversion (ie: red is drawn blue, and so on) of a display, this may be needed when the default init sequence for a device does not match your hardware.
+
 <!-- tabs:end -->
 
 ### ** Drawing Primitives **
