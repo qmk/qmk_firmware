@@ -36,6 +36,7 @@
 #include "wait.h"
 #include "i2c_master.h"
 #include "eeprom.h"
+#include "eeprom_driver.h"
 #include "eeprom_i2c.h"
 
 // #define DEBUG_EEPROM_OUTPUT
@@ -60,6 +61,13 @@ void eeprom_driver_init(void) {
     gpio_write_pin(EXTERNAL_EEPROM_WP_PIN, 1);
     gpio_set_pin_input_high(EXTERNAL_EEPROM_WP_PIN);
 #endif
+}
+
+void eeprom_driver_format(bool erase) {
+    /* i2c eeproms do not need to be formatted before use */
+    if (erase) {
+        eeprom_driver_erase();
+    }
 }
 
 void eeprom_driver_erase(void) {
