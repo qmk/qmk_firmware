@@ -32,7 +32,8 @@
         "extrakey": true,
         "mousekey": false,
         "nkro": true,
-        "rgblight": true
+        "rgblight": true,
+        "key_lock": true
     },
     "rgblight": {
         "led_count": 12,
