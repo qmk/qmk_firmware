@@ -31,7 +31,7 @@
 
 
 #define WS2812_DI_PIN GP16 // The pin connected to the data pin of the LEDs
- #define RGBLED_NUM 1                     // The number of LEDs connected
+#define RGBLIGHT_LED_COUNT 1                     // The number of LEDs connected
 
 
 #define MAX_DEFERRED_EXECUTORS 32
