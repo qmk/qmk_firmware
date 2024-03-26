@@ -28,12 +28,7 @@
         "LAYOUT_ansi": "LAYOUT_65_ansi",
         "LAYOUT_iso": "LAYOUT_65_iso"
     },
-    "community_layouts": [
-        "65_ansi",
-        "65_ansi_blocker",
-        "65_iso",
-        "65_iso_blocker"
-    ],
+    "community_layouts": ["65_ansi", "65_ansi_blocker", "65_iso", "65_iso_blocker"],
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout": [

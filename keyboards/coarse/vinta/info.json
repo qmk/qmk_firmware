@@ -16,12 +16,7 @@
   "processor": "STM32F042",
   "bootloader": "stm32-dfu",
   "debounce": 0,
-  "community_layouts": [
-    "65_ansi",
-    "65_ansi_split_bs",
-    "65_ansi_blocker",
-    "65_ansi_blocker_split_bs"
-  ],
+  "community_layouts": ["65_ansi", "65_ansi_split_bs", "65_ansi_blocker", "65_ansi_blocker_split_bs"],
   "layout_aliases": {
     "LAYOUT_67_ansi": "LAYOUT_65_ansi_blocker",
     "LAYOUT_68_tada": "LAYOUT_65_ansi",
