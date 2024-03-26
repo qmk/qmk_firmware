@@ -25,3 +25,6 @@
 	path = lib/lvgl
 	url = https://github.com/qmk/lvgl.git
 	branch = release/v8.2
+[submodule "keyboards/pcilabs"]
+	path = keyboards/pcilabs
+	url = https://github.com/PCI-Labs/tmtng_firmware.git
