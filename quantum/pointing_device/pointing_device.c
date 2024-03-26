@@ -29,9 +29,10 @@
 
 extern const pointing_device_config_t pointing_device_configs[POINTING_DEVICE_COUNT];
 
-const report_mouse_t empty_report                   = {0};
-report_mouse_t       local_report                   = {0};
-uint8_t              buttons[POINTING_DEVICE_COUNT] = {0};
+const report_mouse_t     empty_report                                       = {0};
+report_mouse_t           local_report                                       = {0};
+uint8_t                  buttons[POINTING_DEVICE_COUNT]                     = {0};
+pointing_device_status_t pointing_device_init_status[POINTING_DEVICE_COUNT] = {0};
 
 #if defined(SPLIT_KEYBOARD)
 pointing_device_shared_report_t shared_report                     = {0};
@@ -188,13 +189,14 @@ bool pointing_device_report_ready(report_mouse_t* last_report, report_mouse_t* n
 
 __attribute__((weak)) void pointing_device_init(void) {
     for (uint8_t i = 0; i < POINTING_DEVICE_COUNT; i++) {
+        pointing_device_init_status[i] = NOT_READY;
 #if defined(SPLIT_KEYBOARD)
         if (!POINTING_DEVICE_THIS_SIDE(i)) {
             continue; // Skip if not this side
         }
 #endif
         if (pointing_device_configs[i].driver->init) {
-            pointing_device_configs[i].driver->init(pointing_device_configs[i].config);
+            pointing_device_init_status[i] = pointing_device_configs[i].driver->init(pointing_device_configs[i].comms_config, pointing_device_configs[i].device_config);
         }
         if (pointing_device_configs[i].motion.pin) {
             gpio_set_pin_input(pointing_device_configs[i].motion.pin);
@@ -257,7 +259,7 @@ __attribute__((weak)) bool pointing_device_is_ready(pointing_device_config_t dev
     static fast_timer_t last_check[POINTING_DEVICE_COUNT] = {0};
     bool                ready                             = false;
 
-    if (timer_elapsed_fast(last_check[index]) >= device_config.throttle) {
+    if (pointing_device_init_status[index] == OK && timer_elapsed_fast(last_check[index]) >= device_config.throttle) {
         last_check[index] = timer_read_fast();
         if (device_config.motion.pin) { // FIX ME
             if (gpio_read_pin(device_config.motion.pin) != device_config.motion.active_low) {
@@ -267,7 +269,7 @@ __attribute__((weak)) bool pointing_device_is_ready(pointing_device_config_t dev
             ready = true;
         }
     }
-
+    //pd_dprintf("Pointing Device %d Ready: %d Init: %d\n", index, ready, pointing_device_init_status[index]);
     return ready;
 }
 
@@ -280,9 +282,8 @@ bool pointing_deivce_task_get_pointing_reports(report_mouse_t* report) {
             continue; // skip processing devices not on this side
         }
 #endif
-        if (pointing_device_configs[i].driver->get_report && pointing_device_is_ready(pointing_device_configs[i], i)) { // get_report is not NULL and device is ready
+        if (pointing_device_configs[i].driver->get_report && pointing_device_is_ready(pointing_device_configs[i], i) && pointing_device_configs[i].driver->get_report(&loop_report, pointing_device_configs[i].comms_config, pointing_device_configs[i].device_config) == OK) { // get_report is not NULL, device is ready, report is valid
             device_was_ready = true;
-            loop_report      = pointing_device_configs[i].driver->get_report(pointing_device_configs[i].config);
             pointing_device_adjust_report(&loop_report, i);
             loop_report = pointing_device_task_kb_by_index(loop_report, i); // Maybe simpler to not pass pointer to user?
             buttons[i]  = loop_report.buttons;
@@ -352,7 +353,7 @@ uint16_t pointing_device_get_cpi_by_index(uint8_t index) {
         return shared_cpi[index].cpi;
     }
 #endif
-    return pointing_device_configs[index].driver->get_cpi(pointing_device_configs[index].config);
+    return pointing_device_configs[index].driver->get_cpi(pointing_device_configs[index].comms_config, pointing_device_configs[index].device_config);
 }
 
 /**
@@ -374,7 +375,7 @@ void pointing_device_set_cpi_by_index(uint16_t cpi, uint8_t index) {
         return;
     }
 #endif
-    pointing_device_configs[index].driver->set_cpi(pointing_device_configs[index].config, cpi);
+    pointing_device_configs[index].driver->set_cpi(cpi, pointing_device_configs[index].comms_config, pointing_device_configs[index].device_config);
 }
 
 /**

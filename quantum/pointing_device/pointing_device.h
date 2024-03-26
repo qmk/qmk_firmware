@@ -38,6 +38,17 @@ typedef enum {
     ROTATE_270,
 } pointing_device_rotations_t;
 typedef enum {
+    OK,
+    ERROR,
+    READY,
+    NOT_READY,
+    COMMS_ERROR,
+    INIT_FAILURE,
+    INVALID_DATA,
+    CONNECTED,
+    NOT_CONNECTED,
+} pointing_device_status_t;
+typedef enum {
     UNKNOWN,
     LEFT,
     RIGHT,
@@ -72,19 +83,20 @@ typedef struct {
 } pointing_device_motion_t;
 
 typedef struct {
-    void (*init)(const void *);
-    report_mouse_t (*get_report)(const void *);
-    void (*set_cpi)(const void *, uint16_t);
-    uint16_t (*get_cpi)(const void *);
+    pointing_device_status_t (*init)(const void *, const void *);
+    pointing_device_status_t (*get_report)(report_mouse_t *, const void *, const void *);
+    void (*set_cpi)(uint16_t, const void *, const void *);
+    uint16_t (*get_cpi)(const void *, const void *);
 } pointing_device_driver_t;
 
 typedef struct {
-    const pointing_device_driver_t *  driver;
+    const pointing_device_driver_t   *driver;
     const pointing_device_rotations_t rotation;
     const pointing_device_invert_t    invert;
     const uint8_t                     throttle;
-    const void *                      config;
     const pointing_device_motion_t    motion;
+    const void                       *comms_config;
+    const void                       *device_config;
 #if defined(SPLIT_KEYBOARD)
     const pointing_device_side_t side;
 #endif
@@ -187,6 +199,6 @@ bool           pointing_device_report_ready(report_mouse_t *last_report, report_
 void                            pointing_device_set_shared_report(pointing_device_shared_report_t report);
 pointing_device_shared_report_t pointing_device_get_shared_report(void);
 void                            pointing_device_set_shared_cpi(pointing_device_shared_cpi_t *cpi);
-pointing_device_shared_cpi_t *  pointing_device_get_shared_cpi(void);
+pointing_device_shared_cpi_t   *pointing_device_get_shared_cpi(void);
 void                            pointing_device_reset_shared_cpi_update_flags(void);
 bool                            pointing_device_check_shared_cpi_update_flags(void);
