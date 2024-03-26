@@ -1,5 +1,5 @@
-![SofleKeyboard default keymap](https://github.com/josefadamcik/SofleKeyboard/raw/master/Images/soflekeyboard.png)
-![SofleKeyboard adjust layer](https://github.com/josefadamcik/SofleKeyboard/raw/master/Images/soflekeyboard_layout_adjust.png)
+![SofleKeyboard default keymap](https://i.imgur.com/MZxVvm9.png)
+![SofleKeyboard adjust layer](https://i.imgur.com/f5sKy0I.png)
 
 
 # VIA keymap for Sofle Pico Keyboard
