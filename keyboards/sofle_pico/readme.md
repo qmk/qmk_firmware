@@ -16,11 +16,6 @@ Make example for this keyboard (after setting up your build environment):
 
 Flashing example for this keyboard:
 
-    make sofle_pico:default:flash
-
-Handedness should be programmed in EEPROM once, you can use these commands to
-flash the firmware and the EEPROM:
-
     make sofle_pico:default:uf2-split-left
     make sofle_pico:default:uf2-split-right
     
