@@ -27,24 +27,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "matrix.h"
 #include "i2c_master.h"
 #include "timer.h"
-
-#define I2C_TIMEOUT 100
-
-#define I2C_ADDR        (0b0100000<<1)
-#define IODIRA          0x00            // i/o direction register
-#define IODIRB          0x01
-#define GPPUA           0x0C            // GPIO pull-up resistor register
-#define GPPUB           0x0D
-#define GPIOA           0x12            // general purpose i/o port register (write modifies OLAT)
-#define GPIOB           0x13
+#include "config.h"
 
 void init_expander(void);
-
-/* Set 0 if debouncing isn't needed */
-
-#ifdef MATRIX_MASKED
-    extern const matrix_row_t matrix_mask[];
-#endif
 
 static const uint8_t onboard_row_pins[MATRIX_ROWS] = MATRIX_ONBOARD_ROW_PINS;
 static const uint8_t onboard_col_pins[MATRIX_COLS] = MATRIX_ONBOARD_COL_PINS;
@@ -52,8 +37,6 @@ static const bool col_expanded[MATRIX_COLS] = COL_EXPANDED;
 
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
-
-static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
 static const uint8_t expander_col_pins[MATRIX_COLS] = MATRIX_EXPANDER_COL_PINS;
 static void init_cols(void);
@@ -67,22 +50,6 @@ uint8_t expander_status;
 uint8_t expander_input_pin_mask;
 bool i2c_initialized = false;
 
-__attribute__ ((weak))
-void matrix_init_user(void) {}
-
-__attribute__ ((weak))
-void matrix_scan_user(void) {}
-
-__attribute__ ((weak))
-void matrix_init_kb(void) {
-  matrix_init_user();
-}
-
-__attribute__ ((weak))
-void matrix_scan_kb(void) {
-  matrix_scan_user();
-}
-
 void matrix_init_custom(void)
 {
     init_expander();
@@ -93,7 +60,6 @@ void matrix_init_custom(void)
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
         matrix[i] = 0;
-        matrix_debouncing[i] = 0;
     }
 
     matrix_init_kb();
