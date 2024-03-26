@@ -23,8 +23,12 @@
         "vid": "0xAF01",
         "pid": "0x0001"
     },
+    "layout_aliases": {
+        "LAYOUT_60_arrows": "LAYOUT_60_ansi_arrow"
+    },
+    "community_layouts": ["60_ansi_arrow"],
     "layouts": {
-        "LAYOUT_60_arrows": {
+        "LAYOUT_60_ansi_arrow": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
