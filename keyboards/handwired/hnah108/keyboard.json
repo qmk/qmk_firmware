@@ -91,10 +91,7 @@
         "LAYOUT_fullsize_ansi": "LAYOUT_fullsize_extended_ansi",
         "LAYOUT_fullsize_iso": "LAYOUT_fullsize_extended_iso"
     },
-    "community_layouts": [
-        "fullsize_extended_ansi",
-        "fullsize_extended_iso"
-    ],
+    "community_layouts": ["fullsize_extended_ansi", "fullsize_extended_iso"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
