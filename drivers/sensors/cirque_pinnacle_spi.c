@@ -8,7 +8,7 @@
 #define FILLER_BYTE 0xFC
 
 const cirque_rap_t                 cirque_rap_spi            = {.read = &cirque_read_spi, .write = &cirque_write_spi};
-const pointing_device_driver_t     cirque_driver_spi_default = {.init = cirque_pinnacle_init_spi, .get_report = cirque_pinnacle_get_report_spi, .set_cpi = cirque_pinnacle_set_scale, .get_cpi = cirque_pinnacle_get_scale};
+const pointing_device_driver_t     cirque_driver_spi_default = {.init = cirque_pinnacle_init_spi, .get_report = cirque_pinnacle_get_report_spi, .set_cpi = cirque_pinnacle_set_cpi, .get_cpi = cirque_pinnacle_get_cpi};
 const pointing_device_spi_config_t cirque_config_spi_default = {.cs = CIRQUE_PINNACLE_SPI_CS_PIN, .mode = CIRQUE_PINNACLE_SPI_MODE, .divisor = CIRQUE_PINNACLE_SPI_DIVISOR};
 
 /*  RAP Functions */
@@ -42,10 +42,11 @@ void cirque_write_spi(const void *config, uint8_t regaddr, uint8_t data) {
     spi_stop();
 }
 
-void cirque_pinnacle_init_spi(const void *config) {
+pointing_device_status_t cirque_pinnacle_init_spi(const void *comms_config, const void *device_config) {
     spi_init();
-    cirque_pinnacle_init(&cirque_rap_spi, &cirque_init_config_default, config);
+    return cirque_pinnacle_init(&cirque_rap_spi, comms_config, device_config);
 }
-report_mouse_t cirque_pinnacle_get_report_spi(const void *config) {
-    return cirque_pinnacle_get_report(&cirque_rap_spi, &cirque_init_config_default, config);
+
+pointing_device_status_t cirque_pinnacle_get_report_spi(report_mouse_t *return_report, const void *comms_config, const void *device_config) {
+    return cirque_pinnacle_get_report(return_report, &cirque_rap_spi, device_config, comms_config);
 }

@@ -25,7 +25,9 @@ const cirque_ranges_relative_t cirque_ranges_relative_default = {
     .y_range = 256,
 };
 
-const cirque_init_config_t cirque_init_config_default = {
+cirque_runtime_data_t cirque_runtime_data_default = {0};
+
+const cirque_device_config_t cirque_device_config_default = {
     .position_mode  = CIRQUE_PINNACLE_RELATIVE_MODE,
     .attenuation    = attenuate_2x,
     .default_scale  = 1024,
@@ -34,9 +36,8 @@ const cirque_init_config_t cirque_init_config_default = {
     .curved_overlay = true,
     .taps           = CIRQUE_SINGLE_TAP,
     .diameter_mm    = 40,
+    .runtime_data   = &cirque_runtime_data_default,
 };
-
-uint16_t scale_data = 1024;
 
 void cirque_pinnacle_clear_flags(const cirque_rap_t* cirque_rap, const void* config);
 void cirque_pinnacle_enable_feed(const cirque_rap_t* cirque_rap, const void* config, bool feedEnable);
@@ -57,18 +58,11 @@ void ClipCoordinates(cirque_ranges_absolute_t* ranges, cirque_absolute_data_t* c
     }
 }
 
-uint16_t cirque_pinnacle_get_scale(const void* config) {
-    return scale_data;
-}
-void cirque_pinnacle_set_scale(const void* config, uint16_t scale) {
-    scale_data = scale;
-}
-
 // Scales data to desired X & Y resolution
-void cirque_pinnacle_scale_data(const cirque_init_config_t* init_config, void* cirque_data, uint16_t xResolution, uint16_t yResolution) {
-    if (init_config->position_mode == CIRQUE_PINNACLE_ABSOLUTE_MODE) {
+void cirque_pinnacle_scale_data(const cirque_device_config_t* device_config, void* cirque_data, uint16_t xResolution, uint16_t yResolution) {
+    if (device_config->position_mode == CIRQUE_PINNACLE_ABSOLUTE_MODE) {
         cirque_absolute_data_t*   coordinates = cirque_data;
-        cirque_ranges_absolute_t* ranges      = (cirque_ranges_absolute_t*)init_config->ranges;
+        cirque_ranges_absolute_t* ranges      = (cirque_ranges_absolute_t*)device_config->ranges;
         uint32_t                  xTemp       = 0;
         uint32_t                  yTemp       = 0;
 
@@ -86,18 +80,17 @@ void cirque_pinnacle_scale_data(const cirque_init_config_t* init_config, void* c
         coordinates->yValue = (uint16_t)(yTemp * yResolution / ranges->y_range);
     } else {
         cirque_relative_data_t*   coordinates = cirque_data;
-        cirque_ranges_relative_t* ranges      = (cirque_ranges_relative_t*)init_config->ranges;
+        cirque_ranges_relative_t* ranges      = (cirque_ranges_relative_t*)device_config->ranges;
         int32_t                   xTemp = 0, yTemp = 0;
         ldiv_t                    temp;
-        static int32_t            xRemainder, yRemainder;
 
-        temp       = ldiv(((int32_t)coordinates->xDelta) * (int32_t)xResolution + xRemainder, (int32_t)ranges->x_range);
-        xTemp      = temp.quot;
-        xRemainder = temp.rem;
+        temp                                    = ldiv(((int32_t)coordinates->xDelta) * (int32_t)xResolution + device_config->runtime_data->xRemainder, (int32_t)ranges->x_range);
+        xTemp                                   = temp.quot;
+        device_config->runtime_data->xRemainder = temp.rem;
 
-        temp       = ldiv(((int32_t)coordinates->yDelta) * (int32_t)yResolution + yRemainder, (int32_t)ranges->y_range);
-        yTemp      = temp.quot;
-        yRemainder = temp.rem;
+        temp                                    = ldiv(((int32_t)coordinates->yDelta) * (int32_t)yResolution + device_config->runtime_data->yRemainder, (int32_t)ranges->y_range);
+        yTemp                                   = temp.quot;
+        device_config->runtime_data->yRemainder = temp.rem;
 
         coordinates->xDelta = (int16_t)xTemp;
         coordinates->yDelta = (int16_t)yTemp;
@@ -249,23 +242,39 @@ bool cirque_pinnacle_connected(const cirque_rap_t* cirque_rap, const void* confi
 }
 
 /*  Pinnacle-based TM040040/TM035035/TM023023 Functions  */
-void cirque_pinnacle_init(const cirque_rap_t* cirque_rap, const cirque_init_config_t* init_config, const void* config) {
+pointing_device_status_t cirque_pinnacle_init(const cirque_rap_t* cirque_rap, const void* comms_config, const cirque_device_config_t* device_config) {
+    device_config->runtime_data->last_scale = 0;
+    device_config->runtime_data->last_x     = 0;
+    device_config->runtime_data->last_y     = 0;
+    device_config->runtime_data->yRemainder = 0;
+    device_config->runtime_data->xRemainder = 0;
+    device_config->runtime_data->scale      = device_config->default_scale;
+#ifdef POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
+    device_config->runtime_data->cursor_glide_enable = true;
+
+    device_config->runtime_data->glide = {.config = {
+                                              .coef       = 102, /* Good default friction coef */
+                                              .interval   = 10,  /* 100sps */
+                                              .trigger_px = 10,  /* Default threshold in case of hover, set to 0 if you'd like */
+                                          }};
+#endif
+
     // send a RESET command now, in case QMK had a soft-reset without a power cycle
-    cirque_rap->write(config, CIRQUE_HOSTREG__SYSCONFIG1, CIRQUE_HOSTREG__SYSCONFIG1__RESET);
+    cirque_rap->write(comms_config, CIRQUE_HOSTREG__SYSCONFIG1, CIRQUE_HOSTREG__SYSCONFIG1__RESET);
     wait_ms(30); // Pinnacle needs 10-15ms to boot, so wait long enough before configuring
-    cirque_rap->write(config, CIRQUE_HOSTREG__SYSCONFIG1, CIRQUE_HOSTREG__SYSCONFIG1_DEFVAL);
+    cirque_rap->write(comms_config, CIRQUE_HOSTREG__SYSCONFIG1, CIRQUE_HOSTREG__SYSCONFIG1_DEFVAL);
     wait_us(50);
 
     // Host clears SW_CC flag
-    cirque_pinnacle_clear_flags(cirque_rap, config);
+    cirque_pinnacle_clear_flags(cirque_rap, comms_config);
 
-    if (init_config->position_mode == CIRQUE_PINNACLE_ABSOLUTE_MODE) {
-        cirque_rap->write(config, CIRQUE_HOSTREG__FEEDCONFIG2, CIRQUE_HOSTREG__FEEDCONFIG2_DEFVAL);
+    if (device_config->position_mode == CIRQUE_PINNACLE_ABSOLUTE_MODE) {
+        cirque_rap->write(comms_config, CIRQUE_HOSTREG__FEEDCONFIG2, CIRQUE_HOSTREG__FEEDCONFIG2_DEFVAL);
     } else {
         // FeedConfig2 (Feature flags for Relative Mode Only)
         uint8_t feedconfig2 = CIRQUE_HOSTREG__FEEDCONFIG2__GLIDE_EXTEND_DISABLE | CIRQUE_HOSTREG__FEEDCONFIG2__INTELLIMOUSE_MODE;
 
-        switch (init_config->taps) {
+        switch (device_config->taps) {
             case CIRQUE_SINGLE_TAP:
                 feedconfig2 |= CIRQUE_HOSTREG__FEEDCONFIG2__SECONDARY_TAP_DISABLE;
                 break;
@@ -276,46 +285,49 @@ void cirque_pinnacle_init(const cirque_rap_t* cirque_rap, const cirque_init_conf
                 break;
         }
 
-        if (init_config->scroll_enable == false) {
+        if (device_config->scroll_enable == false) {
             feedconfig2 |= CIRQUE_HOSTREG__FEEDCONFIG2__SCROLL_DISABLE;
         }
 
-        cirque_rap->write(config, CIRQUE_HOSTREG__FEEDCONFIG2, feedconfig2);
+        cirque_rap->write(comms_config, CIRQUE_HOSTREG__FEEDCONFIG2, feedconfig2);
     }
 
     // FeedConfig1 (Data Output Flags)
-    cirque_rap->write(config, CIRQUE_HOSTREG__FEEDCONFIG1, init_config->position_mode == CIRQUE_PINNACLE_ABSOLUTE_MODE ? CIRQUE_HOSTREG__FEEDCONFIG1__DATA_TYPE__REL0_ABS1 : CIRQUE_HOSTREG__FEEDCONFIG1_DEFVAL);
+    cirque_rap->write(comms_config, CIRQUE_HOSTREG__FEEDCONFIG1, device_config->position_mode == CIRQUE_PINNACLE_ABSOLUTE_MODE ? CIRQUE_HOSTREG__FEEDCONFIG1__DATA_TYPE__REL0_ABS1 : CIRQUE_HOSTREG__FEEDCONFIG1_DEFVAL);
 
-    if (init_config->position_mode == CIRQUE_PINNACLE_ABSOLUTE_MODE) {
+    if (device_config->position_mode == CIRQUE_PINNACLE_ABSOLUTE_MODE) {
         // Host sets z-idle packet count to 5 (default is 0x1E/30)
-        cirque_rap->write(config, CIRQUE_HOSTREG__ZIDLE, 5);
+        cirque_rap->write(comms_config, CIRQUE_HOSTREG__ZIDLE, 5);
     }
 
-    bool calibrate = cirque_pinnacle_set_adc_attenuation(cirque_rap, config, init_config->attenuation);
+    bool calibrate = cirque_pinnacle_set_adc_attenuation(cirque_rap, comms_config, device_config->attenuation);
 
-    if (init_config->curved_overlay) {
-        cirque_pinnacle_tune_edge_sensitivity(cirque_rap, config);
+    if (device_config->curved_overlay) {
+        cirque_pinnacle_tune_edge_sensitivity(cirque_rap, comms_config);
         calibrate = true;
     }
 
     if (calibrate) {
         // Force a calibration after setting ADC attenuation
-        cirque_pinnacle_calibrate(cirque_rap, config);
+        cirque_pinnacle_calibrate(cirque_rap, comms_config);
     }
 
-    cirque_pinnacle_enable_feed(cirque_rap, config, true);
+    cirque_pinnacle_enable_feed(cirque_rap, comms_config, true);
 
 #ifndef CIRQUE_PINNACLE_SKIP_SENSOR_CHECK
-    // touchpad_init = cirque_pinnacle_connected(cirque_rap, config); //FIX ME
+    if (!cirque_pinnacle_connected(cirque_rap, comms_config)) {
+        return NOT_CONNECTED;
+    }
 #endif
+    return OK;
 }
 
-void* cirque_pinnacle_read_data(const cirque_rap_t* cirque_rap, const cirque_init_config_t* init_config, const void* config) {
+void* cirque_pinnacle_read_data(const cirque_rap_t* cirque_rap, const cirque_device_config_t* device_config, const void* config) {
     uint8_t data_ready = 0;
     uint8_t data[6]    = {0};
     void*   result;
 
-    if (init_config->position_mode == CIRQUE_PINNACLE_ABSOLUTE_MODE) {
+    if (device_config->position_mode == CIRQUE_PINNACLE_ABSOLUTE_MODE) {
         static cirque_absolute_data_t absolute_result;
         result = &absolute_result;
         memset(result, 0, sizeof(cirque_absolute_data_t));
@@ -340,7 +352,7 @@ void* cirque_pinnacle_read_data(const cirque_rap_t* cirque_rap, const cirque_ini
     // Get ready for the next data sample
     cirque_pinnacle_clear_flags(cirque_rap, config);
 
-    if (init_config->position_mode == CIRQUE_PINNACLE_ABSOLUTE_MODE) {
+    if (device_config->position_mode == CIRQUE_PINNACLE_ABSOLUTE_MODE) {
         cirque_absolute_data_t* abso_result = result;
         // Decode data for absolute mode
         // Register 0x13 is unused in this mode (palm detection area)
@@ -381,14 +393,6 @@ void* cirque_pinnacle_read_data(const cirque_rap_t* cirque_rap, const cirque_ini
 }
 
 #ifdef POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
-static bool cursor_glide_enable = true;
-
-static cursor_glide_context_t glide = {.config = {
-                                           .coef       = 102, /* Good default friction coef */
-                                           .interval   = 10,  /* 100sps */
-                                           .trigger_px = 10,  /* Default threshold in case of hover, set to 0 if you'd like */
-                                       }};
-
 void cirque_pinnacle_enable_cursor_glide(bool enable) {
     cursor_glide_enable = enable;
 }
@@ -406,16 +410,13 @@ bool auto_mouse_activation(report_mouse_t mouse_report) {
 }
 #endif
 
-report_mouse_t cirque_pinnacle_get_report(const cirque_rap_t* cirque_rap, const cirque_init_config_t* init_config, const void* comms_config) {
-    if (init_config->position_mode == CIRQUE_PINNACLE_ABSOLUTE_MODE) {
-        report_mouse_t          temp_report = {0};
-        uint16_t                scale       = cirque_pinnacle_get_scale(comms_config);
-        cirque_absolute_data_t* touchData   = cirque_pinnacle_read_data(cirque_rap, init_config, comms_config);
+pointing_device_status_t cirque_pinnacle_get_report(report_mouse_t* return_report, const cirque_rap_t* cirque_rap, const cirque_device_config_t* device_config, const void* comms_config) {
+    if (device_config->position_mode == CIRQUE_PINNACLE_ABSOLUTE_MODE) {
+        cirque_absolute_data_t* touchData = cirque_pinnacle_read_data(cirque_rap, device_config, comms_config);
         mouse_xy_report_t       report_x = 0, report_y = 0;
-        static uint16_t         x = 0, y = 0, last_scale = 0;
 
-        if (init_config->taps) {
-            temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, false, POINTING_DEVICE_BUTTON1);
+        if (device_config->taps) {
+            return_report->buttons = pointing_device_handle_buttons(return_report->buttons, false, POINTING_DEVICE_BUTTON1);
         }
 
 #ifdef POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
@@ -434,7 +435,7 @@ report_mouse_t cirque_pinnacle_get_report(const cirque_rap_t* cirque_rap, const 
                 goto mouse_report_update;
             }
 #endif
-            return temp_report;
+            return INVALID_DATA;
         }
 
         if (touchData->touchDown) {
@@ -446,16 +447,16 @@ report_mouse_t cirque_pinnacle_get_report(const cirque_rap_t* cirque_rap, const 
 #endif
 
         // Scale coordinates to arbitrary X, Y resolution
-        // cirque_pinnacle_scale_data(init_config, touchData, scale, scale);
+        cirque_pinnacle_scale_data(device_config, touchData, device_config->runtime_data->scale, device_config->runtime_data->scale);
 
-        if (!cirque_pinnacle_gestures(&temp_report, touchData)) {
-            if (last_scale && scale == last_scale && x && y && touchData->xValue && touchData->yValue) {
-                report_x = CONSTRAIN_HID_XY((int16_t)(touchData->xValue - x));
-                report_y = CONSTRAIN_HID_XY((int16_t)(touchData->yValue - y));
+        if (!cirque_pinnacle_gestures(return_report, touchData)) {
+            if (device_config->runtime_data->last_scale && device_config->runtime_data->scale == device_config->runtime_data->last_scale && device_config->runtime_data->last_x && device_config->runtime_data->last_y && touchData->xValue && touchData->yValue) {
+                report_x = CONSTRAIN_HID_XY((int16_t)(touchData->xValue - device_config->runtime_data->last_x));
+                report_y = CONSTRAIN_HID_XY((int16_t)(touchData->yValue - device_config->runtime_data->last_y));
             }
-            x          = touchData->xValue;
-            y          = touchData->yValue;
-            last_scale = scale;
+            device_config->runtime_data->last_x     = touchData->xValue;
+            device_config->runtime_data->last_y     = touchData->yValue;
+            device_config->runtime_data->last_scale = device_config->runtime_data->scale;
 
 #ifdef POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
             if (cursor_glide_enable) {
@@ -475,30 +476,32 @@ report_mouse_t cirque_pinnacle_get_report(const cirque_rap_t* cirque_rap, const 
 #ifdef POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
     mouse_report_update:
 #endif
-        temp_report.x = report_x;
-        temp_report.y = report_y;
+        return_report->x = report_x;
+        return_report->y = report_y;
 
-        return temp_report;
+        return OK;
     } else {
         // Scale coordinates to arbitrary X, Y resolution
-        cirque_relative_data_t* touchData = cirque_pinnacle_read_data(cirque_rap, init_config, comms_config);
+        cirque_relative_data_t* touchData = cirque_pinnacle_read_data(cirque_rap, device_config, comms_config);
 
-        cirque_pinnacle_scale_data(init_config, touchData, cirque_pinnacle_get_scale(comms_config), cirque_pinnacle_get_scale(comms_config));
-        report_mouse_t temp_report = {0};
+        cirque_pinnacle_scale_data(device_config, touchData, device_config->runtime_data->scale, device_config->runtime_data->scale);
 
         if (touchData->valid) {
-            temp_report.buttons = touchData->buttons;
-            temp_report.x       = CONSTRAIN_HID_XY(touchData->xDelta);
-            temp_report.y       = CONSTRAIN_HID_XY(touchData->yDelta);
-            temp_report.v       = touchData->wheelCount;
+            return_report->buttons = touchData->buttons;
+            return_report->x       = CONSTRAIN_HID_XY(touchData->xDelta);
+            return_report->y       = CONSTRAIN_HID_XY(touchData->yDelta);
+            return_report->v       = touchData->wheelCount;
         }
-        return temp_report;
+        return OK;
     }
 }
 
-uint16_t cirque_pinnacle_get_cpi(void* config, const cirque_init_config_t* init_config) {
-    return CIRQUE_PINNACLE_PX_TO_INCH(cirque_pinnacle_get_scale(config), init_config->diameter_mm);
+uint16_t cirque_pinnacle_get_cpi(const void* comms_config, const void* device_config) {
+    cirque_device_config_t* cirque_config = (cirque_device_config_t*)device_config;
+    return CIRQUE_PINNACLE_PX_TO_INCH(cirque_config->runtime_data->scale, cirque_config->diameter_mm);
 }
-void cirque_pinnacle_set_cpi(void* config, const cirque_init_config_t* init_config, uint16_t cpi) {
-    cirque_pinnacle_set_scale(config, CIRQUE_PINNACLE_INCH_TO_PX(cpi, init_config->diameter_mm));
+
+void cirque_pinnacle_set_cpi(uint16_t cpi, const void* comms_config, const void* device_config) {
+    cirque_device_config_t* cirque_config = (cirque_device_config_t*)device_config;
+    cirque_config->runtime_data->scale    = CIRQUE_PINNACLE_INCH_TO_PX(cpi, cirque_config->diameter_mm);
 }
