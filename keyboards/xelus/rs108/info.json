@@ -24,8 +24,12 @@
     },
     "processor": "STM32F401",
     "bootloader": "stm32-dfu",
+    "layout_aliases": {
+        "LAYOUT_108_fullsize_ansi": "LAYOUT_fullsize_extended_ansi"
+    },
+    "community_layouts": ["fullsize_extended_ansi"],
     "layouts": {
-        "LAYOUT_108_fullsize_ansi": {
+        "LAYOUT_fullsize_extended_ansi": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
 
