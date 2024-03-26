@@ -17,8 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "user_kb.h"
 #include "ansi.h"
-#include "usb_main.h"
-
 
 extern bool            f_rf_sw_press;
 extern bool            f_sleep_show;
@@ -34,6 +32,7 @@ extern uint16_t        sleep_time_delay;
 extern user_config_t   user_config;
 extern DEV_INFO_STRUCT dev_info;
 extern uint8_t         rf_blink_cnt;
+uint8_t                win_lock_led = 16;
 
 extern void light_speed_contol(uint8_t fast);
 extern void light_level_control(uint8_t brighten);
@@ -45,6 +44,7 @@ extern void logo_side_colour_control(uint8_t dir);
 extern void logo_side_mode_control(uint8_t dir);
 extern void toggle_usb_sleep(void);
 
+
 /* qmk process record */
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     no_act_time     = 0;
@@ -53,6 +53,13 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) {
         return false;
     }
+
+#ifdef CONSOLE_ENABLE
+    uint8_t row     = record->event.key.row;
+    uint8_t col     = record->event.key.col;
+    uint8_t led_idx = get_led_index(row, col);
+    xprintf("KL: row: %u, column: %u, led_idx: %u, pressed: %u\n", row, col, led_idx, record->event.pressed);
+#endif
 
     switch (keycode) {
         case RF_DFU:
@@ -279,6 +286,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             return false;
         case WIN_LOCK:
             if (record->event.pressed) {
+                win_lock_led         = get_led_index(record->event.key.row, record->event.key.col);
                 keymap_config.no_gui = !keymap_config.no_gui;
                 eeconfig_update_keymap(keymap_config.raw);
                 break_all_key();
@@ -301,7 +309,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             return false;
 
         case TOG_USB_SLP:
-            if (record -> event.pressed) {
+            if (record->event.pressed) {
                 toggle_usb_sleep();
             }
             return false;
@@ -335,7 +343,7 @@ bool rgb_matrix_indicators_user(void) {
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (keymap_config.no_gui) {
-        rgb_matrix_set_color(16, 0x00, 0x80, 0x00);
+        rgb_matrix_set_color(win_lock_led, 0x00, 0x80, 0x00);
     }
 
     rgb_matrix_set_color(RGB_MATRIX_LED_COUNT - 1, 0, 0, 0);

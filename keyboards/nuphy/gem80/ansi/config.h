@@ -56,7 +56,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CUSTOM_position_mode
 #define RGB_DEFAULT_COLOUR 168
 
-#define DEBOUNCE 10
+#define DEBOUNCE 12
 #define CAPS_LOCK_LED_SIDE true
 #define CAPS_LOCK_LED_KEY false
 #define USB_SLEEP_ENABLED true

@@ -343,6 +343,7 @@ void sys_led_show(void) {
 #endif
 #if CAPS_LOCK_LED_KEY
             user_set_rgb_color(63, 0, 0x80, 0x80); // 63 is CAPS_LOCK position
+            // TODO: replace 63 with get_led_index(3,0) to make it consistent
 #endif
         }
     }
