@@ -539,6 +539,12 @@ int16_t qp_drawtext_recolor(painter_device_t device, uint16_t x, uint16_t y, pai
 #    define GC9A01_NUM_DEVICES 0
 #endif // QUANTUM_PAINTER_GC9A01_ENABLE
 
+#ifdef QUANTUM_PAINTER_GC9107_ENABLE
+#    include "qp_gc9107.h"
+#else // QUANTUM_PAINTER_GC9107_ENABLE
+#    define GC9107_NUM_DEVICES 0
+#endif // QUANTUM_PAINTER_GC9107_ENABLE
+
 #ifdef QUANTUM_PAINTER_SSD1351_ENABLE
 #    include "qp_ssd1351.h"
 #else // QUANTUM_PAINTER_SSD1351_ENABLE
