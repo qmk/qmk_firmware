@@ -17,7 +17,7 @@
         "vid": "0xFEED"
     },
     "layouts": {
-        "LAYOUT_ergodox": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0.5, "y": 0.35},
                 {"matrix": [0, 1], "x": 1.5, "y": 0.35},

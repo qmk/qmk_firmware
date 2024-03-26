@@ -20,14 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include <avr/io.h>
 #include "wait.h"
-#include "action_layer.h"
 #include "print.h"
-#include "debug.h"
 #include "util.h"
 #include "matrix.h"
 #include "i2c_master.h"
-#include "timer.h"
-#include "config.h"
 
 void init_expander(void);
 
@@ -61,8 +57,6 @@ void matrix_init_custom(void)
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
         matrix[i] = 0;
     }
-
-    matrix_init_kb();
 }
 
 void init_expander(void) {
