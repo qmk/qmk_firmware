@@ -91,20 +91,6 @@ bool oled_task_user(void) {
     return false;
 }
 
-/* Encoder */
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        // Volume control
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    }
-
-    return true;
-}
-
 /* Keyboard */
 void keyboard_post_init_user(void) {
     bme280_init();

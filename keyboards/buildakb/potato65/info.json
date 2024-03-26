@@ -12,7 +12,23 @@
         "pin": "B1"
     },
     "rgblight": {
-        "max_brightness": 240
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 14,
+        "max_brightness": 240,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "matrix_pins": {
         "cols": ["F6", "B0", "F1", "C7", "C6", "B6", "B5", "B4", "D7", "D6", "D4", "D5", "D3", "D2", "D1", "D0"],

@@ -19,6 +19,7 @@
 #include "hal_pal.h"
 #include "hal_pal_lld.h"
 #include "quantum.h"
+#include <math.h>
 
 // STM32-specific watchdog config calculations
 // timeout = 31.25us * PR * (RL + 1)
@@ -31,21 +32,21 @@
 #define STM32_IWDG_RL_MS(s) STM32_IWDG_RL_US(s * 1000.0)
 #define STM32_IWDG_RL_S(s) STM32_IWDG_RL_US(s * 1000000.0)
 
+#if !defined(PLANCK_WATCHDOG_TIMEOUT)
+#   define PLANCK_WATCHDOG_TIMEOUT 1.0
+#endif
+
 /* matrix state(1:on, 0:off) */
 static pin_t matrix_row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static pin_t matrix_col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 
 static matrix_row_t matrix_inverted[MATRIX_COLS];
 
-int8_t  encoder_LUT[]     = {0, -1, 1, 0, 1, 0, 0, -1, -1, 0, 0, 1, 0, 1, -1, 0};
-uint8_t encoder_state[8]  = {0};
-int8_t  encoder_pulses[8] = {0};
-uint8_t encoder_value[8]  = {0};
-
 void matrix_init_custom(void) {
     // actual matrix setup - cols
     for (int i = 0; i < MATRIX_COLS; i++) {
         setPinOutput(matrix_col_pins[i]);
+        writePinLow(matrix_col_pins[i]);
     }
 
     // rows
@@ -57,50 +58,22 @@ void matrix_init_custom(void) {
     setPinInputLow(B12);
     setPinInputLow(B13);
 
-    // setup watchdog timer for 1 second
+#ifndef PLANCK_WATCHDOG_DISABLE
     wdgInit();
 
     static WDGConfig wdgcfg;
-    wdgcfg.pr   = STM32_IWDG_PR_S(1.0);
-    wdgcfg.rlr  = STM32_IWDG_RL_S(1.0);
+    wdgcfg.pr   = STM32_IWDG_PR_S(PLANCK_WATCHDOG_TIMEOUT);
+    wdgcfg.rlr  = STM32_IWDG_RL_S(PLANCK_WATCHDOG_TIMEOUT);
     wdgcfg.winr = STM32_IWDG_WIN_DISABLED;
     wdgStart(&WDGD1, &wdgcfg);
-}
-
-bool encoder_update(uint8_t index, uint8_t state) {
-    bool    changed = false;
-    uint8_t i       = index;
-
-    encoder_pulses[i] += encoder_LUT[state & 0xF];
-
-    if (encoder_pulses[i] >= ENCODER_RESOLUTION) {
-        encoder_value[index]++;
-        changed = true;
-#ifdef ENCODER_MAP_ENABLE
-        encoder_exec_mapping(index, false);
-#else  // ENCODER_MAP_ENABLE
-        encoder_update_kb(index, false);
-#endif // ENCODER_MAP_ENABLE
-    }
-    if (encoder_pulses[i] <= -ENCODER_RESOLUTION) {
-        encoder_value[index]--;
-        changed = true;
-#ifdef ENCODER_MAP_ENABLE
-        encoder_exec_mapping(index, true);
-#else  // ENCODER_MAP_ENABLE
-        encoder_update_kb(index, true);
-#endif // ENCODER_MAP_ENABLE
-    }
-    encoder_pulses[i] %= ENCODER_RESOLUTION;
-#ifdef ENCODER_DEFAULT_POS
-    encoder_pulses[i] = 0;
 #endif
-    return changed;
 }
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
+#ifndef PLANCK_WATCHDOG_DISABLE
     // reset watchdog
     wdgReset(&WDGD1);
+#endif
 
     bool changed = false;
 
@@ -136,38 +109,16 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         changed |= old != current_matrix[row];
     }
 
-    // encoder-matrix functionality
-
-    // set up C/rows for encoder read
-    for (int i = 0; i < MATRIX_ROWS; i++) {
-        setPinOutput(matrix_row_pins[i]);
-        writePinHigh(matrix_row_pins[i]);
-    }
-
-    // set up A & B for reading
-    setPinInputHigh(B12);
-    setPinInputHigh(B13);
-
-    for (int i = 0; i < MATRIX_ROWS; i++) {
-        writePinLow(matrix_row_pins[i]);
-        wait_us(10);
-        uint8_t new_status = (palReadPad(GPIOB, 12) << 0) | (palReadPad(GPIOB, 13) << 1);
-        if ((encoder_state[i] & 0x3) != new_status) {
-            encoder_state[i] <<= 2;
-            encoder_state[i] |= new_status;
-            encoder_update(i, encoder_state[i]);
-        }
-        writePinHigh(matrix_row_pins[i]);
-    }
-
-    // revert A & B to matrix state
-    setPinInputLow(B12);
-    setPinInputLow(B13);
-
-    // revert C/rows to matrix state
-    for (int i = 0; i < MATRIX_ROWS; i++) {
-        setPinInputLow(matrix_row_pins[i]);
-    }
-
     return changed;
+}
+
+uint8_t encoder_quadrature_read_pin(uint8_t index, bool pad_b) {
+    pin_t pin = pad_b ? B13: B12;
+    setPinInputHigh(pin);
+    writePinLow(matrix_row_pins[index]);
+    wait_us(10);
+    uint8_t ret = readPin(pin) ? 1 : 0;
+    setPinInputLow(matrix_row_pins[index]);
+    setPinInputLow(pin);
+    return ret;
 }

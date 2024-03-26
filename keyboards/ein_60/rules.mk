@@ -13,4 +13,3 @@ AUDIO_ENABLE = no           # Audio output
 RGB_MATRIX_ENABLE = no      # Enable for pretty RGB matrix effects
 ENCODER_ENABLE = yes        # Enables the use of one or more encoders
 OLED_ENABLE = yes           # Enables the use of OLED displays
-OLED_DRIVER = SSD1306

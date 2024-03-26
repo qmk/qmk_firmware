@@ -11,7 +11,6 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 BLUETOOTH_ENABLE = yes      # Enable Bluetooth
-BLUETOOTH_DRIVER = BluefruitLE
 RGB_MATRIX_ENABLE = yes
 
 LTO_ENABLE = yes

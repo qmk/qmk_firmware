@@ -302,8 +302,9 @@ void matrix_init_user(void) {
 #endif
 }
 
-void led_set_user(uint8_t usb_led) {
-  lock_led_set(usb_led & (1<<USB_LED_NUM_LOCK), LED_NUM_LOCK);
-  lock_led_set(usb_led & (1<<USB_LED_CAPS_LOCK), LED_CAPS_LOCK);
-  lock_led_set(usb_led & (1<<USB_LED_SCROLL_LOCK), LED_SCROLL_LOCK);
+bool led_update_user(led_t led_state) {
+  lock_led_set(led_state.num_lock, LED_NUM_LOCK);
+  lock_led_set(led_state.caps_lock, LED_CAPS_LOCK);
+  lock_led_set(led_state.scroll_lock, LED_SCROLL_LOCK);
+  return false;
 }

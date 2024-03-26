@@ -16,5 +16,8 @@
         "on_state": 0
     },
     "processor": "atmega16u4",
-    "bootloader": "atmel-dfu"
+    "bootloader": "atmel-dfu",
+    "tapping": {
+        "toggle": 3
+    }
 }

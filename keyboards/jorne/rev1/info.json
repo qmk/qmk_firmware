@@ -14,7 +14,17 @@
     },
     "diode_direction": "COL2ROW",
     "split": {
-        "soft_serial_pin": "D2"
+        "soft_serial_pin": "D2",
+        "transport": {
+            "sync": {
+                "indicators": true,
+                "layer_state": true
+            }
+        }
+    },
+    "rgblight": {
+        "led_count": 56,
+        "split_count": [28, 28]
     },
     "ws2812": {
         "pin": "D3"

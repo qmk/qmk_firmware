@@ -12,7 +12,30 @@
         "pin": "B10"
     },
     "rgblight": {
-        "max_brightness": 200
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 1,
+        "max_brightness": 200,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        },
+        "default": {
+            "animation": "rainbow_mood"
+        },
+        "layers": {
+            "enabled": true,
+            "override_rgb": true
+        }
     },
     "matrix_pins": {
         "cols": ["A3", "A5", "A4", "B9", "B8", "B7", "B6", "B5", "B4", "B3", "A15", "B1", "A8", "B15", "B14", "B13"],
@@ -34,15 +57,15 @@
                 {"label": "F3", "matrix": [0, 3], "x": 3.5, "y": 0},
                 {"label": "F4", "matrix": [0, 4], "x": 4.5, "y": 0},
 
-                {"label": "F5", "matrix": [0, 5], "x": 6, "y": 0},
-                {"label": "F6", "matrix": [0, 6], "x": 7, "y": 0},
-                {"label": "F7", "matrix": [0, 7], "x": 8, "y": 0},
-                {"label": "F8", "matrix": [0, 8], "x": 9, "y": 0},
+                {"label": "F5", "matrix": [0, 5], "x": 5.75, "y": 0},
+                {"label": "F6", "matrix": [0, 6], "x": 6.75, "y": 0},
+                {"label": "F7", "matrix": [0, 7], "x": 7.75, "y": 0},
+                {"label": "F8", "matrix": [0, 8], "x": 8.75, "y": 0},
 
-                {"label": "F9", "matrix": [0, 9], "x": 10.5, "y": 0},
-                {"label": "F10", "matrix": [0, 10], "x": 11.5, "y": 0},
-                {"label": "F11", "matrix": [0, 11], "x": 12.5, "y": 0},
-                {"label": "F12", "matrix": [0, 13], "x": 13.5, "y": 0},
+                {"label": "F9", "matrix": [0, 9], "x": 10, "y": 0},
+                {"label": "F10", "matrix": [0, 10], "x": 11, "y": 0},
+                {"label": "F11", "matrix": [0, 11], "x": 12, "y": 0},
+                {"label": "F12", "matrix": [0, 13], "x": 13, "y": 0},
 
                 {"label": "PrtSc", "matrix": [0, 15], "x": 15, "y": 0},
 

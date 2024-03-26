@@ -16,7 +16,13 @@
         "pin": "B5"
     },
     "rgblight": {
-        "max_brightness": 40
+        "led_count": 4,
+        "max_brightness": 40,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true
+        }
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
@@ -24,6 +30,12 @@
         "direct": [
             ["D4", "D2", "E6", "B6", "D7", "C6", "C7", "B7"]
         ]
+    },
+    "features": {
+        "encoder": true
+    },
+    "encoder": {
+        "driver": "custom"
     },
     "layouts": {
         "LAYOUT": {

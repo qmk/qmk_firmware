@@ -8,6 +8,23 @@
         "pid": "0x0001",
         "device_version": "1.0.0"
     },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 16,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true
+        }
+    },
     "ws2812": {
         "pin": "F1"
     },
@@ -20,6 +37,9 @@
         "rotary": [
             {"pin_a": "B7", "pin_b": "D5"}
         ]
+    },
+    "qmk": {
+        "tap_keycode_delay": 10
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

@@ -13,6 +13,9 @@
         "rows": ["A2", "A1", "B8", "A10", "C15", "A15", "B7", "B6", "C14", "C13"]
     },
     "diode_direction": "COL2ROW",
+    "dynamic_keymap": {
+        "layer_count": 5
+    },
     "backlight": {
         "pin": "A6",
         "levels": 6,
@@ -22,6 +25,23 @@
         "caps_lock": "B1",
         "num_lock": "B12",
         "scroll_lock": "B13"
+    },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 16,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "ws2812": {
         "pin": "A8"
@@ -114,7 +134,7 @@
                 {"label": "Alt", "matrix": [9, 4], "x": 10, "y": 4, "w": 1.25},
                 {"label": "Alt", "matrix": [8, 5], "x": 11.25, "y": 4, "w": 1.25},
                 {"label": "GUI", "matrix": [9, 5], "x": 12.5, "y": 4, "w": 1.25},
-                {"label": "Fn", "matrix": [8, 6], "x": 13.75, "y": 9, "w": 1.25}
+                {"label": "Fn", "matrix": [8, 6], "x": 13.75, "y": 4, "w": 1.25}
             ]
         },
         "LAYOUT_60_ansi": {

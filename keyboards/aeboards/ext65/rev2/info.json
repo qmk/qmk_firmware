@@ -12,6 +12,21 @@
         "levels": 6,
         "breathing": true
     },
+    "rgblight": {
+        "led_count": 24,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
     "ws2812": {
         "pin": "B15",
         "driver": "spi"
@@ -23,8 +38,11 @@
         "cols": ["B14", "B6", "A0", "B1", "B0", "A7", "A6", "A5", "A4", "A3"],
         "rows": ["A10", "A9", "A8", "B7", "A2", "A1", "B12", "B11", "B10", "B2"]
     },
+    "layout_aliases": {
+        "LAYOUT_ext65": "LAYOUT"
+    },
     "layouts": {
-        "LAYOUT_ext65": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [1, 0], "x": 1, "y": 0},

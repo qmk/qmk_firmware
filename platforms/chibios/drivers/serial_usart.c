@@ -5,6 +5,7 @@
 #include "serial_usart.h"
 #include "serial_protocol.h"
 #include "synchronization_util.h"
+#include "chibios_config.h"
 
 #if defined(SERIAL_USART_CONFIG)
 static QMKSerialConfig serial_config = SERIAL_USART_CONFIG;

@@ -6,9 +6,6 @@
         "rows": ["F2", "D7", "D6", "D5", "D4", "D3", "F3"]
     },
     "diode_direction": "COL2ROW",
-    "rgblight": {
-        "led_count": 24
-    },
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

@@ -1,6 +1,6 @@
 #include "quantum.h"
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 
 	{0, C8_8,  C7_8, C6_8},   // LA17
 	{0, C9_8,  C7_7, C6_7},   // LA16
@@ -101,7 +101,7 @@ bool rgb_matrix_indicators_kb(void) {
     if (!rgb_matrix_indicators_user()) {
         return false;
     }
-    if (IS_LED_ON(host_keyboard_leds(), USB_LED_CAPS_LOCK)) {
+    if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(30, 0xFF, 0x00, 0x00);
     }
     return true;

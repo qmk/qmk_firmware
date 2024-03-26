@@ -21,195 +21,454 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include <string.h>
 #include "progmem.h"
+#include "util.h"
 
-typedef struct is31_led {
+// ======== DEPRECATED DEFINES - DO NOT USE ========
+#ifdef DRIVER_ADDR_1
+#    define IS31FL3737_I2C_ADDRESS_1 DRIVER_ADDR_1
+#endif
+#ifdef DRIVER_ADDR_2
+#    define IS31FL3737_I2C_ADDRESS_2 DRIVER_ADDR_2
+#endif
+#ifdef DRIVER_ADDR_3
+#    define IS31FL3737_I2C_ADDRESS_3 DRIVER_ADDR_3
+#endif
+#ifdef DRIVER_ADDR_4
+#    define IS31FL3737_I2C_ADDRESS_4 DRIVER_ADDR_4
+#endif
+#ifdef ISSI_TIMEOUT
+#    define IS31FL3737_I2C_TIMEOUT ISSI_TIMEOUT
+#endif
+#ifdef ISSI_PERSISTENCE
+#    define IS31FL3737_I2C_PERSISTENCE ISSI_PERSISTENCE
+#endif
+#ifdef ISSI_PWM_FREQUENCY
+#    define IS31FL3737_PWM_FREQUENCY ISSI_PWM_FREQUENCY
+#endif
+#ifdef ISSI_SWPULLUP
+#    define IS31FL3737_SW_PULLUP ISSI_SWPULLUP
+#endif
+#ifdef ISSI_CSPULLUP
+#    define IS31FL3737_CS_PULLDOWN ISSI_CSPULLUP
+#endif
+#ifdef ISSI_GLOBALCURRENT
+#    define IS31FL3737_GLOBAL_CURRENT ISSI_GLOBALCURRENT
+#endif
+
+#define is31_led is31fl3737_led_t
+#define g_is31_leds g_is31fl3737_leds
+
+#define PUR_0R IS31FL3737_PUR_0_OHM
+#define PUR_05KR IS31FL3737_PUR_0K5_OHM
+#define PUR_1KR IS31FL3737_PUR_1K_OHM
+#define PUR_2KR IS31FL3737_PUR_2K_OHM
+#define PUR_4KR IS31FL3737_PUR_4K_OHM
+#define PUR_8KR IS31FL3737_PUR_8K_OHM
+#define PUR_16KR IS31FL3737_PUR_16K_OHM
+#define PUR_32KR IS31FL3737_PUR_32K_OHM
+// ========
+
+#define IS31FL3737_REG_INTERRUPT_MASK 0xF0
+#define IS31FL3737_REG_INTERRUPT_STATUS 0xF1
+
+#define IS31FL3737_REG_COMMAND 0xFD
+
+#define IS31FL3737_COMMAND_LED_CONTROL 0x00
+#define IS31FL3737_COMMAND_PWM 0x01
+#define IS31FL3737_COMMAND_AUTO_BREATH 0x02
+#define IS31FL3737_COMMAND_FUNCTION 0x03
+
+#define IS31FL3737_FUNCTION_REG_CONFIGURATION 0x00
+#define IS31FL3737_FUNCTION_REG_GLOBAL_CURRENT 0x01
+#define IS31FL3737_FUNCTION_REG_SW_PULLUP 0x0F
+#define IS31FL3737_FUNCTION_REG_CS_PULLDOWN 0x10
+#define IS31FL3737_FUNCTION_REG_RESET 0x11
+
+#define IS31FL3737_REG_COMMAND_WRITE_LOCK 0xFE
+#define IS31FL3737_COMMAND_WRITE_LOCK_MAGIC 0xC5
+
+#define IS31FL3737_I2C_ADDRESS_GND 0x50
+#define IS31FL3737_I2C_ADDRESS_SCL 0x55
+#define IS31FL3737_I2C_ADDRESS_SDA 0x5A
+#define IS31FL3737_I2C_ADDRESS_VCC 0x5F
+
+#if defined(RGB_MATRIX_IS31FL3737)
+#    define IS31FL3737_LED_COUNT RGB_MATRIX_LED_COUNT
+#endif
+
+#if defined(IS31FL3737_I2C_ADDRESS_4)
+#    define IS31FL3737_DRIVER_COUNT 4
+#elif defined(IS31FL3737_I2C_ADDRESS_3)
+#    define IS31FL3737_DRIVER_COUNT 3
+#elif defined(IS31FL3737_I2C_ADDRESS_2)
+#    define IS31FL3737_DRIVER_COUNT 2
+#elif defined(IS31FL3737_I2C_ADDRESS_1)
+#    define IS31FL3737_DRIVER_COUNT 1
+#endif
+
+typedef struct is31fl3737_led_t {
     uint8_t driver : 2;
     uint8_t r;
     uint8_t g;
     uint8_t b;
-} __attribute__((packed)) is31_led;
+} PACKED is31fl3737_led_t;
 
-extern const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT];
+extern const is31fl3737_led_t PROGMEM g_is31fl3737_leds[IS31FL3737_LED_COUNT];
 
-void IS31FL3737_init(uint8_t addr);
-void IS31FL3737_write_register(uint8_t addr, uint8_t reg, uint8_t data);
-void IS31FL3737_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
+void is31fl3737_init_drivers(void);
+void is31fl3737_init(uint8_t index);
+void is31fl3737_write_register(uint8_t index, uint8_t reg, uint8_t data);
+void is31fl3737_select_page(uint8_t index, uint8_t page);
 
-void IS31FL3737_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
-void IS31FL3737_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
+void is31fl3737_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
+void is31fl3737_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
 
-void IS31FL3737_set_led_control_register(uint8_t index, bool red, bool green, bool blue);
+void is31fl3737_set_led_control_register(uint8_t index, bool red, bool green, bool blue);
 
 // This should not be called from an interrupt
 // (eg. from a timer interrupt).
 // Call this while idle (in between matrix scans).
 // If the buffer is dirty, it will update the driver with the buffer.
-void IS31FL3737_update_pwm_buffers(uint8_t addr, uint8_t index);
-void IS31FL3737_update_led_control_registers(uint8_t addr, uint8_t index);
+void is31fl3737_update_pwm_buffers(uint8_t index);
+void is31fl3737_update_led_control_registers(uint8_t index);
 
-#define PUR_0R 0x00   // No PUR resistor
-#define PUR_05KR 0x01 // 0.5k Ohm resistor in t_NOL
-#define PUR_1KR 0x02  // 1.0k Ohm resistor in t_NOL
-#define PUR_2KR 0x03  // 2.0k Ohm resistor in t_NOL
-#define PUR_4KR 0x04  // 4.0k Ohm resistor in t_NOL
-#define PUR_8KR 0x05  // 8.0k Ohm resistor in t_NOL
-#define PUR_16KR 0x06 // 16k Ohm resistor in t_NOL
-#define PUR_32KR 0x07 // 32k Ohm resistor in t_NOL
+void is31fl3737_flush(void);
 
-#define A_1 0x00
-#define A_2 0x01
-#define A_3 0x02
-#define A_4 0x03
-#define A_5 0x04
-#define A_6 0x05
-#define A_7 0x08
-#define A_8 0x09
-#define A_9 0x0A
-#define A_10 0x0B
-#define A_11 0x0C
-#define A_12 0x0D
+#define IS31FL3737_PDR_0_OHM 0b000   // No pull-down resistor
+#define IS31FL3737_PDR_0K5_OHM 0b001 // 0.5 kOhm resistor
+#define IS31FL3737_PDR_1K_OHM 0b010  // 1 kOhm resistor
+#define IS31FL3737_PDR_2K_OHM 0b011  // 2 kOhm resistor
+#define IS31FL3737_PDR_4K_OHM 0b100  // 4 kOhm resistor
+#define IS31FL3737_PDR_8K_OHM 0b101  // 8 kOhm resistor
+#define IS31FL3737_PDR_16K_OHM 0b110 // 16 kOhm resistor
+#define IS31FL3737_PDR_32K_OHM 0b111 // 32 kOhm resistor
 
-#define B_1 0x10
-#define B_2 0x11
-#define B_3 0x12
-#define B_4 0x13
-#define B_5 0x14
-#define B_6 0x15
-#define B_7 0x18
-#define B_8 0x19
-#define B_9 0x1A
-#define B_10 0x1B
-#define B_11 0x1C
-#define B_12 0x1D
+#define IS31FL3737_PUR_0_OHM 0b000   // No pull-up resistor
+#define IS31FL3737_PUR_0K5_OHM 0b001 // 0.5 kOhm resistor
+#define IS31FL3737_PUR_1K_OHM 0b010  // 1 kOhm resistor
+#define IS31FL3737_PUR_2K_OHM 0b011  // 2 kOhm resistor
+#define IS31FL3737_PUR_4K_OHM 0b100  // 4 kOhm resistor
+#define IS31FL3737_PUR_8K_OHM 0b101  // 8 kOhm resistor
+#define IS31FL3737_PUR_16K_OHM 0b110 // 16 kOhm resistor
+#define IS31FL3737_PUR_32K_OHM 0b111 // 32 kOhm resistor
 
-#define C_1 0x20
-#define C_2 0x21
-#define C_3 0x22
-#define C_4 0x23
-#define C_5 0x24
-#define C_6 0x25
-#define C_7 0x28
-#define C_8 0x29
-#define C_9 0x2A
-#define C_10 0x2B
-#define C_11 0x2C
-#define C_12 0x2D
+#define IS31FL3737_PWM_FREQUENCY_8K4_HZ 0b000
+#define IS31FL3737_PWM_FREQUENCY_4K2_HZ 0b001
+#define IS31FL3737_PWM_FREQUENCY_26K7_HZ 0b010
+#define IS31FL3737_PWM_FREQUENCY_2K1_HZ 0b011
+#define IS31FL3737_PWM_FREQUENCY_1K05_HZ 0b100
 
-#define D_1 0x30
-#define D_2 0x31
-#define D_3 0x32
-#define D_4 0x33
-#define D_5 0x34
-#define D_6 0x35
-#define D_7 0x38
-#define D_8 0x39
-#define D_9 0x3A
-#define D_10 0x3B
-#define D_11 0x3C
-#define D_12 0x3D
+#define SW1_CS1 0x00
+#define SW1_CS2 0x01
+#define SW1_CS3 0x02
+#define SW1_CS4 0x03
+#define SW1_CS5 0x04
+#define SW1_CS6 0x05
+#define SW1_CS7 0x08
+#define SW1_CS8 0x09
+#define SW1_CS9 0x0A
+#define SW1_CS10 0x0B
+#define SW1_CS11 0x0C
+#define SW1_CS12 0x0D
 
-#define E_1 0x40
-#define E_2 0x41
-#define E_3 0x42
-#define E_4 0x43
-#define E_5 0x44
-#define E_6 0x45
-#define E_7 0x48
-#define E_8 0x49
-#define E_9 0x4A
-#define E_10 0x4B
-#define E_11 0x4C
-#define E_12 0x4D
+#define SW2_CS1 0x10
+#define SW2_CS2 0x11
+#define SW2_CS3 0x12
+#define SW2_CS4 0x13
+#define SW2_CS5 0x14
+#define SW2_CS6 0x15
+#define SW2_CS7 0x18
+#define SW2_CS8 0x19
+#define SW2_CS9 0x1A
+#define SW2_CS10 0x1B
+#define SW2_CS11 0x1C
+#define SW2_CS12 0x1D
 
-#define F_1 0x50
-#define F_2 0x51
-#define F_3 0x52
-#define F_4 0x53
-#define F_5 0x54
-#define F_6 0x55
-#define F_7 0x58
-#define F_8 0x59
-#define F_9 0x5A
-#define F_10 0x5B
-#define F_11 0x5C
-#define F_12 0x5D
+#define SW3_CS1 0x20
+#define SW3_CS2 0x21
+#define SW3_CS3 0x22
+#define SW3_CS4 0x23
+#define SW3_CS5 0x24
+#define SW3_CS6 0x25
+#define SW3_CS7 0x28
+#define SW3_CS8 0x29
+#define SW3_CS9 0x2A
+#define SW3_CS10 0x2B
+#define SW3_CS11 0x2C
+#define SW3_CS12 0x2D
 
-#define G_1 0x60
-#define G_2 0x61
-#define G_3 0x62
-#define G_4 0x63
-#define G_5 0x64
-#define G_6 0x65
-#define G_7 0x68
-#define G_8 0x69
-#define G_9 0x6A
-#define G_10 0x6B
-#define G_11 0x6C
-#define G_12 0x6D
+#define SW4_CS1 0x30
+#define SW4_CS2 0x31
+#define SW4_CS3 0x32
+#define SW4_CS4 0x33
+#define SW4_CS5 0x34
+#define SW4_CS6 0x35
+#define SW4_CS7 0x38
+#define SW4_CS8 0x39
+#define SW4_CS9 0x3A
+#define SW4_CS10 0x3B
+#define SW4_CS11 0x3C
+#define SW4_CS12 0x3D
 
-#define H_1 0x70
-#define H_2 0x71
-#define H_3 0x72
-#define H_4 0x73
-#define H_5 0x74
-#define H_6 0x75
-#define H_7 0x78
-#define H_8 0x79
-#define H_9 0x7A
-#define H_10 0x7B
-#define H_11 0x7C
-#define H_12 0x7D
+#define SW5_CS1 0x40
+#define SW5_CS2 0x41
+#define SW5_CS3 0x42
+#define SW5_CS4 0x43
+#define SW5_CS5 0x44
+#define SW5_CS6 0x45
+#define SW5_CS7 0x48
+#define SW5_CS8 0x49
+#define SW5_CS9 0x4A
+#define SW5_CS10 0x4B
+#define SW5_CS11 0x4C
+#define SW5_CS12 0x4D
 
-#define I_1 0x80
-#define I_2 0x81
-#define I_3 0x82
-#define I_4 0x83
-#define I_5 0x84
-#define I_6 0x85
-#define I_7 0x88
-#define I_8 0x89
-#define I_9 0x8A
-#define I_10 0x8B
-#define I_11 0x8C
-#define I_12 0x8D
+#define SW6_CS1 0x50
+#define SW6_CS2 0x51
+#define SW6_CS3 0x52
+#define SW6_CS4 0x53
+#define SW6_CS5 0x54
+#define SW6_CS6 0x55
+#define SW6_CS7 0x58
+#define SW6_CS8 0x59
+#define SW6_CS9 0x5A
+#define SW6_CS10 0x5B
+#define SW6_CS11 0x5C
+#define SW6_CS12 0x5D
 
-#define J_1 0x90
-#define J_2 0x91
-#define J_3 0x92
-#define J_4 0x93
-#define J_5 0x94
-#define J_6 0x95
-#define J_7 0x98
-#define J_8 0x99
-#define J_9 0x9A
-#define J_10 0x9B
-#define J_11 0x9C
-#define J_12 0x9D
+#define SW7_CS1 0x60
+#define SW7_CS2 0x61
+#define SW7_CS3 0x62
+#define SW7_CS4 0x63
+#define SW7_CS5 0x64
+#define SW7_CS6 0x65
+#define SW7_CS7 0x68
+#define SW7_CS8 0x69
+#define SW7_CS9 0x6A
+#define SW7_CS10 0x6B
+#define SW7_CS11 0x6C
+#define SW7_CS12 0x6D
 
-#define K_1 0xA0
-#define K_2 0xA1
-#define K_3 0xA2
-#define K_4 0xA3
-#define K_5 0xA4
-#define K_6 0xA5
-#define K_7 0xA8
-#define K_8 0xA9
-#define K_9 0xAA
-#define K_10 0xAB
-#define K_11 0xAC
-#define K_12 0xAD
+#define SW8_CS1 0x70
+#define SW8_CS2 0x71
+#define SW8_CS3 0x72
+#define SW8_CS4 0x73
+#define SW8_CS5 0x74
+#define SW8_CS6 0x75
+#define SW8_CS7 0x78
+#define SW8_CS8 0x79
+#define SW8_CS9 0x7A
+#define SW8_CS10 0x7B
+#define SW8_CS11 0x7C
+#define SW8_CS12 0x7D
 
-#define L_1 0xB0
-#define L_2 0xB1
-#define L_3 0xB2
-#define L_4 0xB3
-#define L_5 0xB4
-#define L_6 0xB5
-#define L_7 0xB8
-#define L_8 0xB9
-#define L_9 0xBA
-#define L_10 0xBB
-#define L_11 0xBC
-#define L_12 0xBD
+#define SW9_CS1 0x80
+#define SW9_CS2 0x81
+#define SW9_CS3 0x82
+#define SW9_CS4 0x83
+#define SW9_CS5 0x84
+#define SW9_CS6 0x85
+#define SW9_CS7 0x88
+#define SW9_CS8 0x89
+#define SW9_CS9 0x8A
+#define SW9_CS10 0x8B
+#define SW9_CS11 0x8C
+#define SW9_CS12 0x8D
+
+#define SW10_CS1 0x90
+#define SW10_CS2 0x91
+#define SW10_CS3 0x92
+#define SW10_CS4 0x93
+#define SW10_CS5 0x94
+#define SW10_CS6 0x95
+#define SW10_CS7 0x98
+#define SW10_CS8 0x99
+#define SW10_CS9 0x9A
+#define SW10_CS10 0x9B
+#define SW10_CS11 0x9C
+#define SW10_CS12 0x9D
+
+#define SW11_CS1 0xA0
+#define SW11_CS2 0xA1
+#define SW11_CS3 0xA2
+#define SW11_CS4 0xA3
+#define SW11_CS5 0xA4
+#define SW11_CS6 0xA5
+#define SW11_CS7 0xA8
+#define SW11_CS8 0xA9
+#define SW11_CS9 0xAA
+#define SW11_CS10 0xAB
+#define SW11_CS11 0xAC
+#define SW11_CS12 0xAD
+
+#define SW12_CS1 0xB0
+#define SW12_CS2 0xB1
+#define SW12_CS3 0xB2
+#define SW12_CS4 0xB3
+#define SW12_CS5 0xB4
+#define SW12_CS6 0xB5
+#define SW12_CS7 0xB8
+#define SW12_CS8 0xB9
+#define SW12_CS9 0xBA
+#define SW12_CS10 0xBB
+#define SW12_CS11 0xBC
+#define SW12_CS12 0xBD
+
+// DEPRECATED - DO NOT USE
+
+#define A_1 SW1_CS1
+#define A_2 SW1_CS2
+#define A_3 SW1_CS3
+#define A_4 SW1_CS4
+#define A_5 SW1_CS5
+#define A_6 SW1_CS6
+#define A_7 SW1_CS7
+#define A_8 SW1_CS8
+#define A_9 SW1_CS9
+#define A_10 SW1_CS10
+#define A_11 SW1_CS11
+#define A_12 SW1_CS12
+
+#define B_1 SW2_CS1
+#define B_2 SW2_CS2
+#define B_3 SW2_CS3
+#define B_4 SW2_CS4
+#define B_5 SW2_CS5
+#define B_6 SW2_CS6
+#define B_7 SW2_CS7
+#define B_8 SW2_CS8
+#define B_9 SW2_CS9
+#define B_10 SW2_CS10
+#define B_11 SW2_CS11
+#define B_12 SW2_CS12
+
+#define C_1 SW3_CS1
+#define C_2 SW3_CS2
+#define C_3 SW3_CS3
+#define C_4 SW3_CS4
+#define C_5 SW3_CS5
+#define C_6 SW3_CS6
+#define C_7 SW3_CS7
+#define C_8 SW3_CS8
+#define C_9 SW3_CS9
+#define C_10 SW3_CS10
+#define C_11 SW3_CS11
+#define C_12 SW3_CS12
+
+#define D_1 SW4_CS1
+#define D_2 SW4_CS2
+#define D_3 SW4_CS3
+#define D_4 SW4_CS4
+#define D_5 SW4_CS5
+#define D_6 SW4_CS6
+#define D_7 SW4_CS7
+#define D_8 SW4_CS8
+#define D_9 SW4_CS9
+#define D_10 SW4_CS10
+#define D_11 SW4_CS11
+#define D_12 SW4_CS12
+
+#define E_1 SW5_CS1
+#define E_2 SW5_CS2
+#define E_3 SW5_CS3
+#define E_4 SW5_CS4
+#define E_5 SW5_CS5
+#define E_6 SW5_CS6
+#define E_7 SW5_CS7
+#define E_8 SW5_CS8
+#define E_9 SW5_CS9
+#define E_10 SW5_CS10
+#define E_11 SW5_CS11
+#define E_12 SW5_CS12
+
+#define F_1 SW6_CS1
+#define F_2 SW6_CS2
+#define F_3 SW6_CS3
+#define F_4 SW6_CS4
+#define F_5 SW6_CS5
+#define F_6 SW6_CS6
+#define F_7 SW6_CS7
+#define F_8 SW6_CS8
+#define F_9 SW6_CS9
+#define F_10 SW6_CS10
+#define F_11 SW6_CS11
+#define F_12 SW6_CS12
+
+#define G_1 SW7_CS1
+#define G_2 SW7_CS2
+#define G_3 SW7_CS3
+#define G_4 SW7_CS4
+#define G_5 SW7_CS5
+#define G_6 SW7_CS6
+#define G_7 SW7_CS7
+#define G_8 SW7_CS8
+#define G_9 SW7_CS9
+#define G_10 SW7_CS10
+#define G_11 SW7_CS11
+#define G_12 SW7_CS12
+
+#define H_1 SW8_CS1
+#define H_2 SW8_CS2
+#define H_3 SW8_CS3
+#define H_4 SW8_CS4
+#define H_5 SW8_CS5
+#define H_6 SW8_CS6
+#define H_7 SW8_CS7
+#define H_8 SW8_CS8
+#define H_9 SW8_CS9
+#define H_10 SW8_CS10
+#define H_11 SW8_CS11
+#define H_12 SW8_CS12
+
+#define I_1 SW9_CS1
+#define I_2 SW9_CS2
+#define I_3 SW9_CS3
+#define I_4 SW9_CS4
+#define I_5 SW9_CS5
+#define I_6 SW9_CS6
+#define I_7 SW9_CS7
+#define I_8 SW9_CS8
+#define I_9 SW9_CS9
+#define I_10 SW9_CS10
+#define I_11 SW9_CS11
+#define I_12 SW9_CS12
+
+#define J_1 SW10_CS1
+#define J_2 SW10_CS2
+#define J_3 SW10_CS3
+#define J_4 SW10_CS4
+#define J_5 SW10_CS5
+#define J_6 SW10_CS6
+#define J_7 SW10_CS7
+#define J_8 SW10_CS8
+#define J_9 SW10_CS9
+#define J_10 SW10_CS10
+#define J_11 SW10_CS11
+#define J_12 SW10_CS12
+
+#define K_1 SW11_CS1
+#define K_2 SW11_CS2
+#define K_3 SW11_CS3
+#define K_4 SW11_CS4
+#define K_5 SW11_CS5
+#define K_6 SW11_CS6
+#define K_7 SW11_CS7
+#define K_8 SW11_CS8
+#define K_9 SW11_CS9
+#define K_10 SW11_CS10
+#define K_11 SW11_CS11
+#define K_12 SW11_CS12
+
+#define L_1 SW12_CS1
+#define L_2 SW12_CS2
+#define L_3 SW12_CS3
+#define L_4 SW12_CS4
+#define L_5 SW12_CS5
+#define L_6 SW12_CS6
+#define L_7 SW12_CS7
+#define L_8 SW12_CS8
+#define L_9 SW12_CS9
+#define L_10 SW12_CS10
+#define L_11 SW12_CS11
+#define L_12 SW12_CS12
