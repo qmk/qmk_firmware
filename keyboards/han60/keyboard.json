@@ -27,12 +27,7 @@
         "LAYOUT_tsangan": "LAYOUT_60_ansi_tsangan",
         "LAYOUT_tsangan_arrowkeys": "LAYOUT_60_ansi_arrow_tsangan"
     },
-    "community_layouts": [
-        "60_ansi_tsangan",
-        "60_ansi_wkl",
-        "60_iso_tsangan",
-        "60_iso_wkl"
-    ],
+    "community_layouts": ["60_ansi_tsangan", "60_ansi_wkl", "60_iso_tsangan", "60_iso_wkl"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
