@@ -9,7 +9,7 @@
 #define READ_MASK 0xA0
 
 const cirque_rap_t                 cirque_rap_i2c            = {.read = &cirque_read_i2c, .write = &cirque_write_i2c};
-const pointing_device_driver_t     cirque_driver_i2c_default = {.init = cirque_pinnacle_init_i2c, .get_report = cirque_pinnacle_get_report_i2c, .set_cpi = cirque_pinnacle_set_scale, .get_cpi = cirque_pinnacle_get_scale};
+const pointing_device_driver_t     cirque_driver_i2c_default = {.init = cirque_pinnacle_init_i2c, .get_report = cirque_pinnacle_get_report_i2c, .set_cpi = cirque_pinnacle_set_cpi, .get_cpi = cirque_pinnacle_get_cpi};
 const pointing_device_i2c_config_t cirque_config_i2c_default = {.address = CIRQUE_PINNACLE_ADDR, .timeout = CIRQUE_PINNACLE_TIMEOUT};
 
 /*  RAP Functions */
@@ -33,10 +33,10 @@ void cirque_write_i2c(const void *config, uint8_t regaddr, uint8_t data) {
     }
 }
 
-void cirque_pinnacle_init_i2c(const void *config) {
+pointing_device_status_t cirque_pinnacle_init_i2c(const void *comms_config, const void *device_config) {
     i2c_init();
-    cirque_pinnacle_init(&cirque_rap_i2c, &cirque_init_config_default, config);
+    cirque_pinnacle_init(&cirque_rap_i2c, comms_config, device_config);
 }
-report_mouse_t cirque_pinnacle_get_report_i2c(const void *config) {
-    return cirque_pinnacle_get_report(&cirque_rap_i2c, &cirque_init_config_default, config);
+pointing_device_status_t cirque_pinnacle_get_report_i2c(report_mouse_t *return_report, const void *comms_config, const void *device_config) {
+    return cirque_pinnacle_get_report(return_report, &cirque_rap_i2c, device_config, comms_config);
 }

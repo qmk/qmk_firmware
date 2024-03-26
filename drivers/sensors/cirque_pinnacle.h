@@ -19,16 +19,36 @@ typedef enum {
     attenuate_3x = CIRQUE_EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_3X,
     attenuate_4x = CIRQUE_EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_4X,
 } cirque_attenuation;
+
 typedef struct {
-    cirque_position_mode position_mode; // absolute
-    cirque_attenuation   attenuation;
-    bool                 curved_overlay;
-    uint8_t              diameter_mm;   // 40
-    uint16_t             default_scale; // 1024
-    bool                 scroll_enable; // absolute = circular scroll, relative - side scroll
-    cirque_taps_enable   taps;
-    const void*          ranges;
-} cirque_init_config_t;
+    uint16_t x_range; // 56
+    uint16_t y_range; // 256
+} cirque_ranges_relative_t;
+
+typedef struct {
+    uint16_t scale;
+    uint16_t last_scale; // get report
+    uint16_t last_x;     // get report
+    uint16_t last_y;     // get report
+    int32_t  xRemainder; // scale data
+    int32_t  yRemainder; // scale data
+#ifdef POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
+    bool                   cursor_glide_enable;
+    cursor_glide_context_t glide;
+#endif
+} cirque_runtime_data_t;
+
+typedef struct {
+    cirque_position_mode   position_mode; // absolute
+    cirque_attenuation     attenuation;
+    bool                   curved_overlay;
+    uint8_t                diameter_mm;   // 40
+    uint16_t               default_scale; // 1024
+    bool                   scroll_enable; // absolute = circular scroll, relative - side scroll
+    cirque_taps_enable     taps;
+    const void*            ranges; // either cirque_ranges_absolute_t or cirque_ranges_relative_t
+    cirque_runtime_data_t* runtime_data;
+} cirque_device_config_t;
 
 typedef struct {
     uint16_t x_lower; // 127
@@ -38,11 +58,6 @@ typedef struct {
     uint16_t x_range; // upper-lower
     uint16_t y_range; // upper-lower
 } cirque_ranges_absolute_t;
-
-typedef struct {
-    uint16_t x_range; // 56
-    uint16_t y_range; // 256
-} cirque_ranges_relative_t;
 
 #if defined(POINTING_DEVICE_DRIVER_CIRQUE_PINNACLE_I2C)
 #    include "i2c_master.h"
@@ -92,34 +107,35 @@ typedef struct {
 } cirque_relative_data_t;
 
 typedef struct {
-    void (*read)(const void* config, uint8_t regaddr, uint8_t* data, uint8_t length);
-    void (*write)(const void* config, uint8_t regaddr, uint8_t data);
+    void (*read)(const void* comms_config, uint8_t regaddr, uint8_t* data, uint8_t length);
+    void (*write)(const void* comms_config, uint8_t regaddr, uint8_t data);
 } cirque_rap_t;
 
-void           cirque_pinnacle_init(const cirque_rap_t* cirque_rap, const cirque_init_config_t* init_config, const void* comms_config);
-void           cirque_pinnacle_calibrate(const cirque_rap_t* cirque_rap, const void* comms_config);
-void           cirque_pinnacle_cursor_smoothing(const cirque_rap_t* cirque_rap, const void* comms_config, bool enable);
-void*          cirque_pinnacle_read_data(const cirque_rap_t* cirque_rap, const cirque_init_config_t* init_config, const void* comms_config);
-void           cirque_pinnacle_scale_data(const cirque_init_config_t* init_config, void* cirque_data, uint16_t xResolution, uint16_t yResolution);
-uint16_t       cirque_pinnacle_get_scale(const void* comms_config);
-void           cirque_pinnacle_set_scale(const void* comms_config, uint16_t scale);
-report_mouse_t cirque_pinnacle_get_report(const cirque_rap_t* cirque_rap, const cirque_init_config_t* init_config, const void* comms_config);
+pointing_device_status_t cirque_pinnacle_init(const cirque_rap_t* cirque_rap, const void* comms_config, const cirque_device_config_t* device_config);
+void                     cirque_pinnacle_calibrate(const cirque_rap_t* cirque_rap, const void* comms_config);
+void                     cirque_pinnacle_cursor_smoothing(const cirque_rap_t* cirque_rap, const void* comms_config, bool enable);
+void*                    cirque_pinnacle_read_data(const cirque_rap_t* cirque_rap, const cirque_device_config_t* device_config, const void* comms_config);
+void                     cirque_pinnacle_scale_data(const cirque_device_config_t* device_config, void* cirque_data, uint16_t xResolution, uint16_t yResolution);
+uint16_t                 cirque_pinnacle_get_cpi(const void* comms_config, const void* device_config);
+void                     cirque_pinnacle_set_cpi(uint16_t scale, const void* comms_config, const void* device_config);
+pointing_device_status_t cirque_pinnacle_get_report(report_mouse_t* return_report, const cirque_rap_t* cirque_rap, const cirque_device_config_t* device_config, const void* comms_config);
 
 void cirque_read_i2c(const void* config, uint8_t regaddr, uint8_t* data, uint8_t count);
-void cirque_write_i2c(const void* config, uint8_t regaddr, uint8_t data);
+void cirque_write_i2c(const void* comms_config, uint8_t regaddr, uint8_t data);
 
-void cirque_read_spi(const void* config, uint8_t regaddr, uint8_t* data, uint8_t count);
-void cirque_write_spi(const void* config, uint8_t regaddr, uint8_t data);
+void cirque_read_spi(const void* comms_config, uint8_t regaddr, uint8_t* data, uint8_t count);
+void cirque_write_spi(const void* comms_config, uint8_t regaddr, uint8_t data);
 
-void           cirque_pinnacle_init_i2c(const void* config);
-report_mouse_t cirque_pinnacle_get_report_i2c(const void* config);
+pointing_device_status_t cirque_pinnacle_init_i2c(const void* comms_config, const void* device_config);
+pointing_device_status_t cirque_pinnacle_get_report_i2c(report_mouse_t* return_report, const void* comms_config, const void* device_config);
 
-void           cirque_pinnacle_init_spi(const void* config);
-report_mouse_t cirque_pinnacle_get_report_spi(const void* config);
+pointing_device_status_t cirque_pinnacle_init_spi(const void* comms_config, const void* device_config);
+pointing_device_status_t cirque_pinnacle_get_report_spi(report_mouse_t* return_report, const void* comms_config, const void* device_config);
 
 const cirque_ranges_absolute_t cirque_ranges_position_default;
 const cirque_ranges_relative_t cirque_ranges_relative_default;
-const cirque_init_config_t     cirque_init_config_default;
+const cirque_device_config_t   cirque_device_config_default;
+cirque_runtime_data_t cirque_runtime_data_default;
 
 const cirque_rap_t cirque_read_write_i2c;
 const cirque_rap_t cirque_read_write_spi;
