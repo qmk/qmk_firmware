@@ -42,10 +42,6 @@ void init_expander(void);
 
 /* Set 0 if debouncing isn't needed */
 
-#ifndef DEBOUNCE
-#   define DEBOUNCE 5
-#endif
-
 #if (DEBOUNCE > 0)
     static uint16_t debouncing_time;
     static bool debouncing = false;
