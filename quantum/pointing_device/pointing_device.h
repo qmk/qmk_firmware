@@ -30,34 +30,42 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef POINTING_DEVICE_COUNT
 #    define POINTING_DEVICE_COUNT 1
 #endif
+typedef enum {
+    PD_STATUS_OK,
+    PD_STATUS_ERROR,
+    PD_STATUS_READY,
+    PD_STATUS_NOT_READY,
+    PD_STATUS_COMMS_ERROR,
+    PD_STATUS_INIT_FAILURE,
+    PD_STATUS_INVALID_DATA,
+    PD_STATUS_CONNECTED,
+    PD_STATUS_NOT_CONNECTED,
+} pointing_device_status_t;
 
 typedef enum {
-    ROTATE_0,
-    ROTATE_90,
-    ROTATE_180,
-    ROTATE_270,
+    PD_ROTATE_0,
+    PD_ROTATE_90,
+    PD_ROTATE_180,
+    PD_ROTATE_270,
 } pointing_device_rotations_t;
+
 typedef enum {
-    OK,
-    ERROR,
-    READY,
-    NOT_READY,
-    COMMS_ERROR,
-    INIT_FAILURE,
-    INVALID_DATA,
-    CONNECTED,
-    NOT_CONNECTED,
-} pointing_device_status_t;
+    PD_ADJ_SUPPORT_NONE   = 0,
+    PD_ADJ_SUPPORT_ROTATE = 1,
+    PD_ADJ_SUPPORT_INVERT = 2,
+    PD_ADJ_SUPPORT_BOTH   = 3,
+} pointing_device_adjustments_supported_t;
+
 typedef enum {
-    UNKNOWN,
-    LEFT,
-    RIGHT,
+    PD_SIDE_UNKNOWN,
+    PD_SIDE_LEFT,
+    PD_SIDE_RIGHT,
 } pointing_device_side_t;
 typedef enum {
-    NONE,
-    INVERT_X,
-    INVERT_Y,
-    INVERT_XY,
+    PD_INVERT_NONE,
+    PD_INVERT_X,
+    PD_INVERT_Y,
+    PD_INVERT_XY,
 } pointing_device_invert_t;
 
 typedef struct {
@@ -166,7 +174,7 @@ typedef int16_t clamp_range_t;
 
 #define POINTING_DEVICE_NO_MOTION_PIN \
     { 0 }
-#define POINTING_DEVICE_THIS_SIDE(index) (pointing_device_configs[index].side == (is_keyboard_left() ? LEFT : RIGHT))
+#define POINTING_DEVICE_THIS_SIDE(index) (pointing_device_configs[index].side == (is_keyboard_left() ? PD_SIDE_LEFT : PD_SIDE_RIGHT))
 
 #define CONSTRAIN_HID(amt) ((amt) < INT8_MIN ? INT8_MIN : ((amt) > INT8_MAX ? INT8_MAX : (amt)))
 #define CONSTRAIN_HID_XY(amt) ((amt) < XY_REPORT_MIN ? XY_REPORT_MIN : ((amt) > XY_REPORT_MAX ? XY_REPORT_MAX : (amt)))

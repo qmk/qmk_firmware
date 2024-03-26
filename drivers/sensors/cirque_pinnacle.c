@@ -316,10 +316,10 @@ pointing_device_status_t cirque_pinnacle_init(const cirque_rap_t* cirque_rap, co
 
 #ifndef CIRQUE_PINNACLE_SKIP_SENSOR_CHECK
     if (!cirque_pinnacle_connected(cirque_rap, comms_config)) {
-        return NOT_CONNECTED;
+        return PD_STATUS_NOT_CONNECTED;
     }
 #endif
-    return OK;
+    return PD_STATUS_OK;
 }
 
 void* cirque_pinnacle_read_data(const cirque_rap_t* cirque_rap, const cirque_device_config_t* device_config, const void* config) {
@@ -435,7 +435,7 @@ pointing_device_status_t cirque_pinnacle_get_report(report_mouse_t* return_repor
                 goto mouse_report_update;
             }
 #endif
-            return INVALID_DATA;
+            return PD_STATUS_INVALID_DATA;
         }
 
         if (touchData->touchDown) {
@@ -479,7 +479,7 @@ pointing_device_status_t cirque_pinnacle_get_report(report_mouse_t* return_repor
         return_report->x = report_x;
         return_report->y = report_y;
 
-        return OK;
+        return PD_STATUS_OK;
     } else {
         // Scale coordinates to arbitrary X, Y resolution
         cirque_relative_data_t* touchData = cirque_pinnacle_read_data(cirque_rap, device_config, comms_config);
@@ -492,7 +492,7 @@ pointing_device_status_t cirque_pinnacle_get_report(report_mouse_t* return_repor
             return_report->y       = CONSTRAIN_HID_XY(touchData->yDelta);
             return_report->v       = touchData->wheelCount;
         }
-        return OK;
+        return PD_STATUS_OK;
     }
 }
 

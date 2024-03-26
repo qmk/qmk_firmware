@@ -370,9 +370,9 @@ pointing_device_status_t azoteq_iqs5xx_init(const void *i2c_config, const void *
         wait_ms(AZOTEQ_IQS5XX_REPORT_RATE + 1);
     }
     if (azoteq_iqs5xx_init_status == I2C_STATUS_SUCCESS) {
-        return OK;
+        return PD_STATUS_OK;
     } else {
-        return INIT_FAILURE;
+        return PD_STATUS_INIT_FAILURE;
     }
 };
 
@@ -425,8 +425,8 @@ pointing_device_status_t azoteq_iqs5xx_get_report(report_mouse_t *return_report,
             return_report->x = CONSTRAIN_HID_XY(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l));
             return_report->y = CONSTRAIN_HID_XY(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.y.h, base_data.y.l));
         }
-        return OK;
+        return PD_STATUS_OK;
     } else {
-        return ERROR;
+        return PD_STATUS_ERROR;
     }
 }
