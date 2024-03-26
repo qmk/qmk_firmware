@@ -49,12 +49,7 @@
     "layout_aliases": {
         "LAYOUT_tkl_ansi_split_bs_rshift_tsangan": "LAYOUT_tkl_ansi_tsangan_split_bs_rshift"
     },
-    "community_layouts": [
-        "tkl_ansi",
-        "tkl_ansi_split_bs_rshift",
-        "tkl_ansi_tsangan",
-        "tkl_ansi_tsangan_split_bs_rshift"
-    ],
+    "community_layouts": ["tkl_ansi", "tkl_ansi_split_bs_rshift", "tkl_ansi_tsangan", "tkl_ansi_tsangan_split_bs_rshift"],
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

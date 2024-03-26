@@ -12,11 +12,7 @@
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all"
     },
-    "community_layouts": [
-        "tkl_ansi",
-        "tkl_iso",
-        "tkl_jis"
-    ],
+    "community_layouts": ["tkl_ansi", "tkl_iso", "tkl_jis"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

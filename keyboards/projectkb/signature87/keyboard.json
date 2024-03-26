@@ -27,12 +27,7 @@
         "LAYOUT_tkl_tsangan_ansi": "LAYOUT_tkl_ansi_tsangan",
         "LAYOUT_wkl_ansi": "LAYOUT_tkl_ansi_wkl"
     },
-    "community_layouts": [
-        "tkl_ansi",
-        "tkl_ansi_split_bs_rshift",
-        "tkl_ansi_tsangan",
-        "tkl_ansi_tsangan_split_bs_rshift"
-    ],
+    "community_layouts": ["tkl_ansi", "tkl_ansi_split_bs_rshift", "tkl_ansi_tsangan", "tkl_ansi_tsangan_split_bs_rshift"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

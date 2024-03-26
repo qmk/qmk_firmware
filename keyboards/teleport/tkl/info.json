@@ -23,12 +23,7 @@
         "pid": "0x0004",
         "vid": "0x7470"
     },
-    "community_layouts": [
-        "tkl_ansi",
-        "tkl_ansi_split_bs_rshift",
-        "tkl_iso",
-        "tkl_iso_split_bs_rshift"
-    ],
+    "community_layouts": ["tkl_ansi", "tkl_ansi_split_bs_rshift", "tkl_iso", "tkl_iso_split_bs_rshift"],
     "layouts": {
         "LAYOUT_tkl_all": {
             "layout": [
