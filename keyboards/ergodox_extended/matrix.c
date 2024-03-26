@@ -42,15 +42,6 @@ void init_expander(void);
 
 /* Set 0 if debouncing isn't needed */
 
-#ifndef DEBOUNCE
-#   define DEBOUNCE 0
-#endif
-
-#if (DEBOUNCE > 0)
-    static uint16_t debouncing_time;
-    static bool debouncing = false;
-#endif
-
 #ifdef MATRIX_MASKED
     extern const matrix_row_t matrix_mask[];
 #endif
@@ -153,26 +144,8 @@ bool matrix_scan_custom(matrix_row_t matrix[])
     }
 
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
-#       if (DEBOUNCE > 0)
-            matrix_changed |= read_cols_on_row(matrix_debouncing, current_row);
-
-            if (matrix_changed) {
-                debouncing = true;
-                debouncing_time = timer_read();
-            }
-#       else
-            matrix_changed |= read_cols_on_row(matrix, current_row);
-#       endif
+        matrix_changed |= read_cols_on_row(matrix, current_row);
     }
-
-#   if (DEBOUNCE > 0)
-        if (debouncing && (timer_elapsed(debouncing_time) > DEBOUNCE)) {
-            for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-                matrix[i] = matrix_debouncing[i];
-            }
-            debouncing = false;
-        }
-#   endif
 
     return matrix_changed;
 }
