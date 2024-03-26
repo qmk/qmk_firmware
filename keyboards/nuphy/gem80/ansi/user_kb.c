@@ -451,13 +451,29 @@ void user_config_reset(void) {
     user_config.ee_logo_rgb             = logo_rgb;
     user_config.ee_logo_colour          = logo_colour;
     user_config.usb_sleep_toggle        = false;
+    user_config.caps_indication_type    = CAPS_INDICATOR_SIDE;
 
     eeconfig_update_kb_datablock(&user_config);
 }
-
+/**
+ * @brief toggle usb sleep on/off
+ */
 void toggle_usb_sleep(void) {
     f_usb_sleep_show             = 1;
     user_config.usb_sleep_toggle = !user_config.usb_sleep_toggle;
+    eeconfig_update_kb_datablock(&user_config);
+}
+
+/**
+ * @brief Toggle caps indication between side led / under key / off
+ */
+void toggle_caps_indication(void) {
+    if (user_config.caps_indication_type == CAPS_INDICATOR_OFF) {
+        user_config.caps_indication_type = CAPS_INDICATOR_SIDE; // set to initial state, when last state reached
+    } else {
+        user_config.caps_indication_type += 1;
+    }
+
     eeconfig_update_kb_datablock(&user_config);
 }
 

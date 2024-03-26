@@ -54,6 +54,7 @@ enum custom_keycodes {
     LOGO_SPI,
     LOGO_SPD,
     TOG_USB_SLP,
+    TOG_CAPS_IND,
 };
 
 #define MAC_PRT G(S(KC_3))

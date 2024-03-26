@@ -46,7 +46,6 @@ extern void logo_light_speed_contol(uint8_t fast);
 extern void logo_light_level_control(uint8_t brighten);
 extern void logo_side_colour_control(uint8_t dir);
 extern void logo_side_mode_control(uint8_t dir);
-extern void toggle_usb_sleep(void);
 
 /* qmk process record */
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
@@ -316,6 +315,13 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 toggle_usb_sleep();
             }
             return false;
+        case TOG_CAPS_IND:
+            if (record->event.pressed) {
+                toggle_caps_indication();
+            }
+
+            return false;
+
         case KC_SCRL:
             if (record->event.pressed) {
                 scroll_lock_led = get_led_index(record->event.key.row, record->event.key.col);

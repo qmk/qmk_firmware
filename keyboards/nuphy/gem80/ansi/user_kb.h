@@ -40,6 +40,13 @@ typedef enum {
 
 } TYPE_RX_STATE;
 
+typedef enum {
+    CAPS_INDICATOR_SIDE,
+    CAPS_INDICATOR_UNDER_KEY,
+    CAPS_INDICATOR_BOTH,
+    CAPS_INDICATOR_OFF,
+} CAPS_LOCK_INDICATION;
+
 #define RF_IDLE 0
 #define RF_PAIRING 1
 #define RF_LINKING 2
@@ -102,7 +109,7 @@ typedef enum {
 #define LINK_TIMEOUT (100 * 120)
 #define LINK_TIMEOUT_ALT (100 * 5)
 #define TIMER_STEP 10
-#define SLEEP_TIME_DELAY        (5 * 60 * 1000 / TIMER_STEP) // official 6 minutes, I set 5 so this formula is 5 minutes by 60 seconds each by 1000 to convert to ms and then divide by timer step (logic based)
+#define SLEEP_TIME_DELAY (5 * 60 * 1000 / TIMER_STEP) // official 6 minutes, I set 5 so this formula is 5 minutes by 60 seconds each by 1000 to convert to ms and then divide by timer step (logic based)
 // #define SLEEP_TIME_DELAY (1 * 60 * 1000 / TIMER_STEP) // NOTE: for test purpose only
 #define POWER_DOWN_DELAY (24)
 
@@ -148,6 +155,7 @@ typedef struct {
     uint8_t  sleep_enable;
     uint8_t  usb_sleep_toggle;
     uint16_t rf_link_timeout;
+    uint8_t  caps_indication_type;
     uint8_t  retain1;
     uint8_t  retain2;
 } user_config_t;
@@ -183,3 +191,5 @@ uint8_t uart_send_cmd(uint8_t cmd, uint8_t ack_cnt, uint8_t delayms);
 
 void sleep_handle(void);
 void led_power_handle(void);
+void toggle_caps_indication(void);
+void toggle_usb_sleep(void);

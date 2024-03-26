@@ -411,6 +411,10 @@
         {
             "name": "TOG USB\nSleep",
             "title": "Toggle USB Sleep"
+        },
+        {
+            "name": "TOG CAPS\nINDICATOR",
+            "title": "Toggle Caps Lock Indicator"
         }
     ]
 }
