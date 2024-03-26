@@ -89,13 +89,14 @@
   ],
   "matrix": {"rows": 5, "cols": 15},
   "customKeycodes": [
-    {"name": "BT DEV1","title": "BT Device 1","shortName": "DEV1"},
-    {"name": "BT DEV2","title": "BT Device 2","shortName": "DEV2"},
-    {"name": "BT DEV3","title": "BT Device 3","shortName": "DEV3"},
-    {"name": "BT DEV4","title": "BT Device 4","shortName": "DEV4"},
-    {"name": "BT DEV5","title": "BT Device 5","shortName": "DEV5"},
-    {"name": "2.4G","title": "2.4G","shortName": "DEV 2.4G"},
-    {"name": "USB","title": "USB","shortName": "DEV USB"}
+    {"name": "BT1","title": "BT1","shortName": "BT1"},
+    {"name": "BT2","title": "BT2","shortName": "BT2"},
+    {"name": "BT3","title": "BT3","shortName": "BT3"},
+    {"name": "",   "title": "", "shortName": ""},
+    {"name": "L_TOG",   "title": "L_TOG", "shortName": "L_TOG"},
+    {"name": "2G4",  "title": "IM_2G4",   "shortName": "2G4"},
+    {"name": "USB",  "title": "IM_USB",   "shortName": "USB"},
+    {"name": "IM_BATQ", "title": "BATQ",  "shortName": "BATQ"}
   ],
   "layouts": {
       "keymap":

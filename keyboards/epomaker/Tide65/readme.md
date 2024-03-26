@@ -1,16 +1,16 @@
-# L66
+# EPOMAKER TIDE 65
 
 * Keyboard Maintainer: [sdk66](https://github.com/sdk66)
-* Hardware Supported: L66
+* Hardware Supported: EPOMAKER TIDE 65
 * Hardware Availability: [xxx](https://www.xxx.com)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make l66_usb:default
+    make epomaker_tide_65:default
 
 Flashing example for this keyboard:
 
-    make l66_usb:default:flash
+    make epomaker_tide_65:default:flash
 
 To reset the board into bootloader mode, do one of the following:
 
