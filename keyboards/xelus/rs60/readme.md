@@ -9,7 +9,8 @@
 Make example for this keyboard (after setting up your build environment):
 
     make xelus/rs60/rev1:default
-    make xelus/rs60/rev2:default
+    make xelus/rs60/rev2_0:default
+    make xelus/rs60/rev2_1:default
 
 Reset your keyboard in 3 ways:
 
