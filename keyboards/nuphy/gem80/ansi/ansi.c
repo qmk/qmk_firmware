@@ -15,6 +15,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "action.h"
+#include "keycodes.h"
+#include "rgb_matrix.h"
 #include "user_kb.h"
 #include "ansi.h"
 
@@ -32,7 +35,8 @@ extern uint16_t        sleep_time_delay;
 extern user_config_t   user_config;
 extern DEV_INFO_STRUCT dev_info;
 extern uint8_t         rf_blink_cnt;
-uint8_t                win_lock_led = 16;
+uint8_t                win_lock_led    = 16;
+uint8_t                scroll_lock_led = 255;
 
 extern void light_speed_contol(uint8_t fast);
 extern void light_level_control(uint8_t brighten);
@@ -43,7 +47,6 @@ extern void logo_light_level_control(uint8_t brighten);
 extern void logo_side_colour_control(uint8_t dir);
 extern void logo_side_mode_control(uint8_t dir);
 extern void toggle_usb_sleep(void);
-
 
 /* qmk process record */
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
@@ -313,6 +316,15 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 toggle_usb_sleep();
             }
             return false;
+        case KC_SCRL:
+            if (record->event.pressed) {
+                scroll_lock_led = get_led_index(record->event.key.row, record->event.key.col);
+                register_code(KC_SCRL);
+            } else {
+                unregister_code(KC_SCRL);
+            }
+
+            return false;
 
         default:
             return true;
@@ -344,6 +356,10 @@ bool rgb_matrix_indicators_user(void) {
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (keymap_config.no_gui) {
         rgb_matrix_set_color(win_lock_led, 0x00, 0x80, 0x00);
+    }
+
+    if (host_keyboard_led_state().scroll_lock) {
+        rgb_matrix_set_color(scroll_lock_led, 0x00, 0x80, 0x00);
     }
 
     rgb_matrix_set_color(RGB_MATRIX_LED_COUNT - 1, 0, 0, 0);
