@@ -23,14 +23,10 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
-    "community_layouts": [
-        "60_iso_split_bs_rshift",
-        "60_iso_tsangan_split_bs_rshift",
-        "60_iso_wkl_split_bs_rshift"
-    ],
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_60_iso_split_bs_rshift"
     },
+    "community_layouts": ["60_iso_split_bs_rshift", "60_iso_tsangan_split_bs_rshift", "60_iso_wkl_split_bs_rshift"],
     "layouts": {
         "LAYOUT_60_iso_split_bs_rshift": {
             "layout": [
