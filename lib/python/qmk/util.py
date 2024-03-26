@@ -2,8 +2,22 @@
 """
 import contextlib
 import multiprocessing
+import sys
 
 from milc import cli
+
+maybe_exit_should_exit = True
+maybe_exit_reraise = False
+
+
+# Controls whether or not early `exit()` calls should be made
+def maybe_exit(rc):
+    if maybe_exit_should_exit:
+        sys.exit(rc)
+    if maybe_exit_reraise:
+        e = sys.exception()
+        if e:
+            raise e
 
 
 @contextlib.contextmanager

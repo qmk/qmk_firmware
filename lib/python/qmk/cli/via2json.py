@@ -11,6 +11,7 @@ from qmk.info import info_json
 from qmk.json_encoders import KeymapJSONEncoder
 from qmk.commands import parse_configurator_json, dump_lines
 from qmk.keymap import generate_json, list_keymaps, locate_keymap, parse_keymap_c
+from qmk.util import maybe_exit
 
 
 def _find_via_layout_macro(keyboard):
@@ -69,7 +70,7 @@ def _via_to_keymap(via_backup, keyboard_data, keymap_layout):
     layout_data = keyboard_data['layouts'].get(keymap_layout)
     if not layout_data:
         cli.log.error(f'LAYOUT macro {keymap_layout} is not a valid one for keyboard {cli.args.keyboard}!')
-        exit(1)
+        maybe_exit(1)
 
     layout_data = layout_data['layout']
     sorting_hat = list()
@@ -118,7 +119,7 @@ def via2json(cli):
     keymap_layout = cli.args.layout if cli.args.layout else _find_via_layout_macro(cli.args.keyboard)
     if not keymap_layout:
         cli.log.error(f"Couldn't find LAYOUT macro for keyboard {cli.args.keyboard}. Please specify it with the '-l' argument.")
-        exit(1)
+        maybe_exit(1)
 
     # Load the VIA backup json
     with cli.args.filename.open('r') as fd:
