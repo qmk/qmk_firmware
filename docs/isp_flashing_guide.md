@@ -293,6 +293,10 @@ For mass production purposes, it is possible to join the bootloader and QMK firm
  2. Remove the last line of the QMK firmware (which should be `:00000001FF` - this is just an "end of file" marker).
  3. Paste the contents of the bootloader `.hex` file onto a new line at the end of the QMK firmware file, with no empty lines between.
  4. Save it as a new file, for example `<keyboard>_<keymap>_production.hex`.
+ 
+The above method is a manual means of producing a production binary; alternatively this can be produced in the CLI with:
+
+```qmk compile -kb <keyboard> -km <keymap> -t production```
 
 You can then ISP flash this combined firmware instead, which allows you to skip the extra step of flashing the QMK firmware over USB.
 
