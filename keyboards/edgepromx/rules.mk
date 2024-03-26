@@ -29,6 +29,6 @@ CUSTOM_MATRIX = lite
 NO_USB_STARTUP_CHECK = yes
 
 SRC += matrix.c
-QUANTUM_LIB_SRC += i2c_master.c
+I2C_DRIVER_REQUIRED = yes
 
 LAYOUTS = ortho_4x12

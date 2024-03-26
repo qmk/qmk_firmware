@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "wait.h"
 #include "debug.h"
 #include "i2c_master.h"
-#include "edgepromx.h"
 
 extern i2c_status_t mcp23017_status;
 
