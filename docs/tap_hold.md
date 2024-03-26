@@ -4,6 +4,14 @@ While Tap-Hold options are fantastic, they are not without their issues.  We hav
 
 These options let you modify the behavior of the Tap-Hold keys.
 
+## Hold Tap :id=hold-tap
+
+By default, Tap-Hold only sends the record indicating the modifier hold after the logic has determined that we do not have a tap.
+
+?> `HOLD_TAP` changes this behavior, so that the modifier is set immediately, and if we later decide that we have a tap, we release the modifier and then send the tap records.
+
+This is very helpful when the modifier alters the behavior of some other device, such as what mouse clicks do.
+
 ## Tapping Term
 
 The crux of all of the following features is the tapping term setting.  This determines what is a tap and what is a hold.  The exact timing for this to feel natural can vary from keyboard to keyboard, from switch to switch, and from key to key.

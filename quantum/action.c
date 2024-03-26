@@ -510,6 +510,11 @@ void process_action(keyrecord_t *record, action_t action) {
                             } else
 #    endif
                             {
+#    ifdef HOLD_TAP
+                                ac_dprintf("HOLD_TOP: Unregister mods.\n");
+                                unregister_mods(mods);
+#    endif
+
                                 ac_dprintf("MODS_TAP: Tap: register_code\n");
                                 register_code(action.key.code);
                             }
@@ -694,6 +699,9 @@ void process_action(keyrecord_t *record, action_t action) {
                     if (event.pressed) {
                         if (tap_count > 0) {
                             ac_dprintf("KEYMAP_TAP_KEY: Tap: register_code\n");
+#        ifdef HOLD_TAP
+                            layer_off(action.layer_tap.val);
+#        endif
                             register_code(action.layer_tap.code);
                         } else {
                             ac_dprintf("KEYMAP_TAP_KEY: No tap: On on press\n");

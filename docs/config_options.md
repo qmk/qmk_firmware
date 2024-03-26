@@ -173,6 +173,9 @@ If you define these options you will enable the associated feature, which may in
   * See "[hold on other key press](tap_hold.md#hold-on-other-key-press)" for details
 * `#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY`
   * enables handling for per key `HOLD_ON_OTHER_KEY_PRESS` settings
+* `#define HOLD_TAP`
+  * alters the behavior of tap and hold so that the mod hold is immediate.
+  * See "[hold tap](tap_hold.md#hold-tap)" for details
 * `#define LEADER_TIMEOUT 300`
   * how long before the leader key times out
     * If you're having issues finishing the sequence before it times out, you may need to increase the timeout setting. Or you may want to enable the `LEADER_PER_KEY_TIMING` option, which resets the timeout after each key is tapped.

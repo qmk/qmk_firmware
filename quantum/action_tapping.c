@@ -179,6 +179,11 @@ bool process_tapping(keyrecord_t *keyp) {
             process_record_tap_hint(&tapping_key);
             waiting_buffer_scan_tap();
             debug_tapping_key();
+
+#    ifdef HOLD_TAP
+            // Hold and tap, process the key immediately.
+            process_record(keyp);
+#    endif
         } else {
             // the current key is just a regular key, pass it on for regular
             // processing
@@ -336,7 +341,9 @@ bool process_tapping(keyrecord_t *keyp) {
                 ac_dprintf("Tapping: End. Timeout. Not tap(0): ");
                 debug_event(event);
                 ac_dprintf("\n");
+#    ifndef HOLD_TAP
                 process_record(&tapping_key);
+#    endif
                 tapping_key = (keyrecord_t){0};
                 debug_tapping_key();
                 return false;
