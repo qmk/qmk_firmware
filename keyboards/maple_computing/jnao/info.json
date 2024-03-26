@@ -19,11 +19,7 @@
   },
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
-  "community_layouts": [
-    "ortho_5x12",
-    "ortho_4x12",
-    "planck_mit"
-  ],
+  "community_layouts": ["ortho_5x12", "ortho_4x12", "planck_mit"],
   "layouts": {
     "LAYOUT_ortho_5x12": {
       "layout": [
