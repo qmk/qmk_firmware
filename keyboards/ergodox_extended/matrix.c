@@ -135,7 +135,7 @@ void init_expander(void) {
 
 }
 
-bool matrix_scan_custom(matrix_row_t current_matrix[])
+bool matrix_scan_custom(matrix_row_t matrix[])
 {
     bool matrix_changed = false;
     if (expander_status) { // if there was an error
@@ -154,14 +154,14 @@ bool matrix_scan_custom(matrix_row_t current_matrix[])
 
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
 #       if (DEBOUNCE > 0)
-            matrix_changed = read_cols_on_row(matrix_debouncing, current_row);
+            matrix_changed |= read_cols_on_row(matrix_debouncing, current_row);
 
             if (matrix_changed) {
                 debouncing = true;
                 debouncing_time = timer_read();
             }
 #       else
-            read_cols_on_row(matrix, current_row);
+            matrix_changed |= read_cols_on_row(matrix, current_row);
 #       endif
     }
 
