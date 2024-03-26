@@ -189,7 +189,7 @@ bool pointing_device_report_ready(report_mouse_t* last_report, report_mouse_t* n
 
 __attribute__((weak)) void pointing_device_init(void) {
     for (uint8_t i = 0; i < POINTING_DEVICE_COUNT; i++) {
-        pointing_device_init_status[i] = NOT_READY;
+        pointing_device_init_status[i] = PD_STATUS_NOT_READY;
 #if defined(SPLIT_KEYBOARD)
         if (!POINTING_DEVICE_THIS_SIDE(i)) {
             continue; // Skip if not this side
@@ -224,25 +224,25 @@ void pointing_device_adjust_report(report_mouse_t* report, uint8_t index) {
     mouse_xy_report_t x = report->x;
     mouse_xy_report_t y = report->y;
     switch (pointing_device_configs[index].rotation) {
-        case ROTATE_90:
+        case PD_ROTATE_90:
             report->x = y;
             report->y = -x;
             break;
-        case ROTATE_180:
+        case PD_ROTATE_180:
             report->x = -x;
             report->y = -y;
             break;
-        case ROTATE_270:
+        case PD_ROTATE_270:
             report->x = -y;
             report->y = x;
             break;
         default:
             break;
     }
-    if (pointing_device_configs[index].invert == INVERT_X || pointing_device_configs[index].invert == INVERT_XY) {
+    if (pointing_device_configs[index].invert == PD_INVERT_X || pointing_device_configs[index].invert == PD_INVERT_XY) {
         report->x = -report->x;
     }
-    if (pointing_device_configs[index].invert == INVERT_Y || pointing_device_configs[index].invert == INVERT_XY) {
+    if (pointing_device_configs[index].invert == PD_INVERT_Y || pointing_device_configs[index].invert == PD_INVERT_XY) {
         report->y = -report->y;
     }
 }
@@ -259,7 +259,7 @@ __attribute__((weak)) bool pointing_device_is_ready(pointing_device_config_t dev
     static fast_timer_t last_check[POINTING_DEVICE_COUNT] = {0};
     bool                ready                             = false;
 
-    if (pointing_device_init_status[index] == OK && timer_elapsed_fast(last_check[index]) >= device_config.throttle) {
+    if (pointing_device_init_status[index] == PD_STATUS_OK && timer_elapsed_fast(last_check[index]) >= device_config.throttle) {
         last_check[index] = timer_read_fast();
         if (device_config.motion.pin) { // FIX ME
             if (gpio_read_pin(device_config.motion.pin) != device_config.motion.active_low) {
@@ -269,7 +269,7 @@ __attribute__((weak)) bool pointing_device_is_ready(pointing_device_config_t dev
             ready = true;
         }
     }
-    //pd_dprintf("Pointing Device %d Ready: %d Init: %d\n", index, ready, pointing_device_init_status[index]);
+    // pd_dprintf("Pointing Device %d Ready: %d Init: %d\n", index, ready, pointing_device_init_status[index]);
     return ready;
 }
 
@@ -282,7 +282,7 @@ bool pointing_deivce_task_get_pointing_reports(report_mouse_t* report) {
             continue; // skip processing devices not on this side
         }
 #endif
-        if (pointing_device_configs[i].driver->get_report && pointing_device_is_ready(pointing_device_configs[i], i) && pointing_device_configs[i].driver->get_report(&loop_report, pointing_device_configs[i].comms_config, pointing_device_configs[i].device_config) == OK) { // get_report is not NULL, device is ready, report is valid
+        if (pointing_device_configs[i].driver->get_report && pointing_device_is_ready(pointing_device_configs[i], i) && pointing_device_configs[i].driver->get_report(&loop_report, pointing_device_configs[i].comms_config, pointing_device_configs[i].device_config) == PD_STATUS_OK) { // get_report is not NULL, device is ready, report is valid
             device_was_ready = true;
             pointing_device_adjust_report(&loop_report, i);
             loop_report = pointing_device_task_kb_by_index(loop_report, i); // Maybe simpler to not pass pointer to user?
