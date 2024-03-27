@@ -73,11 +73,10 @@ void sleep_handle(void) {
     // sleep process;
     if (f_goto_sleep) {
         // reset all counters
-        f_goto_sleep       = 0;
-        rf_linking_time    = 0;
+        f_goto_sleep    = 0;
+        rf_linking_time = 0;
 
         if (user_config.sleep_enable) {
-
             // FIXME: commented in favor of light sleep
             //// bool deep_sleep = 1
             // // light sleep if charging? Charging event might keep waking MCU. To be confirmed...
@@ -103,8 +102,8 @@ void sleep_handle(void) {
     // wakeup check
     // we only arrive here on light sleep.
     if (f_wakeup_prepare && no_act_time < 10) { // activity wake up
-            f_wakeup_prepare = 0;
-            if (user_config.sleep_enable) exit_light_sleep();
+        f_wakeup_prepare = 0;
+        if (user_config.sleep_enable) exit_light_sleep();
     }
 
     // sleep check, won't reach here on deep sleep.
@@ -118,14 +117,12 @@ void sleep_handle(void) {
             }
         } else {
             usb_suspend_debounce = 0;
+            if (no_act_time >= sleep_time_delay && user_config.usb_sleep_toggle) {
+                f_goto_sleep = 1;
+            } else {
+                f_goto_sleep = 0;
+            }
         }
-#if USB_SLEEP_ENABLED
-        if (no_act_time >= sleep_time_delay && user_config.usb_sleep_toggle) {
-            f_goto_sleep = 1;
-        } else {
-            f_goto_sleep = 0;
-        }
-#endif
     } else {
         f_goto_sleep = 0;
         if (dev_info.rf_state == RF_CONNECT) {
@@ -138,5 +135,3 @@ void sleep_handle(void) {
         }
     }
 }
-
-

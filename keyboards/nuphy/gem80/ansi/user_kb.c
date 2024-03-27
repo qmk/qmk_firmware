@@ -452,7 +452,7 @@ void user_config_reset(void) {
     user_config.ee_logo_speed           = logo_speed;
     user_config.ee_logo_rgb             = logo_rgb;
     user_config.ee_logo_colour          = logo_colour;
-    user_config.usb_sleep_toggle        = false;
+    user_config.usb_sleep_toggle        = true;
     user_config.caps_indication_type    = CAPS_INDICATOR_SIDE;
     user_config.debounce_ms             = DEBOUNCE;
 

@@ -69,3 +69,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define RGB_MATRIX_SOLID_REACTIVE_GRADIENT_MODE
 
 #define DEBOUNCE_STEP 1
+
+
+// USB sleep workaround :D
+#define USB_SUSPEND_WAKEUP_DELAY 250
