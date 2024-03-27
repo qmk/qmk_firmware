@@ -25,6 +25,7 @@
         "max_brightness": 120
     },
     "split": {
+        "enabled": true,
         "soft_serial_pin": "D0",
         "bootmagic": {
             "matrix": [5, 0]

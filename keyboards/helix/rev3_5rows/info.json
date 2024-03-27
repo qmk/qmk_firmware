@@ -92,6 +92,7 @@
     ]
   },
   "split": {
+    "enabled": true,
     "soft_serial_pin": "D2"
   },
   "ws2812": {

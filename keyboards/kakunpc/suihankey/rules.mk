@@ -11,6 +11,5 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 OLED_ENABLE = yes
-SPLIT_KEYBOARD = no
 
 DEFAULT_FOLDER = kakunpc/suihankey/rev1

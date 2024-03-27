@@ -12,4 +12,3 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 OLED_ENABLE = yes           # OLED display
 ENCODER_ENABLE = yes        # Encoder support
-SPLIT_KEYBOARD = yes        # Split enable

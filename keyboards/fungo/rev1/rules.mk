@@ -12,6 +12,4 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 KEY_LOCK_ENABLE = yes       # kc_lock use
 
-
 OLED_ENABLE = no
-SPLIT_KEYBOARD = yes       # split type

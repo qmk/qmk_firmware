@@ -1,7 +1,6 @@
 # Build Options
 #   change yes to no to disable
 #
-SPLIT_KEYBOARD = yes
 BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control

@@ -1,1 +1,1 @@
-SPLIT_KEYBOARD = yes
+# File intentionally blank

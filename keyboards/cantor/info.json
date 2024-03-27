@@ -28,6 +28,7 @@
         ]
     },
     "split": {
+        "enabled": true,
         "bootmagic": {
             "matrix": [4, 5]
         },

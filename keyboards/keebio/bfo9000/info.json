@@ -14,7 +14,8 @@
     },
     "diode_direction": "COL2ROW",
     "split": {
-        "soft_serial_pin": "D0"
+      "enabled": true,
+      "soft_serial_pin": "D0"
     },
     "rgblight": {
       "led_count": 20,

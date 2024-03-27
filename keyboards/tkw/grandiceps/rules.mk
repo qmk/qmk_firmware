@@ -13,7 +13,6 @@ ENCODER_ENABLE = yes        # Enable rotary encoder support
 AUDIO_ENABLE = no           # Audio output
 KEYBOARD_SHARED_EP = yes    # Free up some extra endpoints - needed if console+mouse+extra
 
-SPLIT_KEYBOARD = yes
 SERIAL_DRIVER = usart
 OLED_ENABLE = yes
 OPT_DEFS += -DSTM32_DMA_REQUIRED=TRUE

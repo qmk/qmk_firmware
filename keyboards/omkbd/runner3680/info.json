@@ -1,4 +1,7 @@
 {
     "processor": "atmega32u4",
-    "bootloader": "caterina"
+    "bootloader": "caterina",
+    "split": {
+        "enabled": true
+    }
 }

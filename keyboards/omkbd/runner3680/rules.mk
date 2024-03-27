@@ -11,6 +11,4 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
-SPLIT_KEYBOARD = yes       # Enables split keyboard support
-
 DEFAULT_FOLDER = omkbd/runner3680/5x8

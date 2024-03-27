@@ -14,6 +14,7 @@
         ]
     },
     "split": {
+        "enabled": true,
         "soft_serial_pin": "D2"
     },
     "rgblight": {

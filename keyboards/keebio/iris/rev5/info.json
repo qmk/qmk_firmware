@@ -50,6 +50,7 @@
         "speaker": "C6"
     },
     "split": {
+        "enabled": true,
         "soft_serial_pin": "D0",
         "encoder": {
             "right": {

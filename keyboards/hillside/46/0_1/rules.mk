@@ -1,4 +1,3 @@
-SPLIT_KEYBOARD = yes        # Use shared split_common code
 LTO_ENABLE = yes            # Use link time optimization for smaller firmware
 
 # If you add a haptic board,

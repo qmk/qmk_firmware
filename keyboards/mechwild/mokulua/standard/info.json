@@ -22,6 +22,7 @@
         "tap_keycode_delay": 10
     },
     "split": {
+        "enabled": true
         "soft_serial_pin": "D3",
         "transport": {
             "sync": {

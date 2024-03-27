@@ -14,4 +14,3 @@ MOUSEKEY_ENABLE = yes
 NKRO_ENABLE = no            # Enable N-Key Rollover
 RGBLIGHT_ENABLE = yes
 SLEEP_LED_ENABLE = yes
-SPLIT_KEYBOARD = yes

@@ -19,6 +19,7 @@
     },
     "diode_direction": "ROW2COL",
     "split": {
+        "enabled": true,
         "soft_serial_pin": "A3"
     },
     "development_board": "stemcell"

@@ -19,6 +19,7 @@
         ]
     },
     "split": {
+        "enabled": true,
         "matrix_pins": {
             "right": {
                 "cols": ["B6", "C6", "C7", "D4", "D2", "D3", "D5", "B7"],

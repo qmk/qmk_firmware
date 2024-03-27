@@ -11,8 +11,6 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
-SPLIT_KEYBOARD = yes
-
 DEFAULT_FOLDER = rgbkb/zygomorph/rev1
 
 # Disable unsupported hardware
