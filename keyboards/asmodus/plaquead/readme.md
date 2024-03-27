@@ -1,6 +1,6 @@
 # Plaque A.D
 
-![Plaque A.D](https://i.imgur.com/axShuI3h.jpeg)
+![Plaque A.D](https://i.imgur.com/axShuI3.jpeg)
 
 A Hotswap Multi-layout F13 TKL PCB (h88c compatible) powered by RP2040.
 
