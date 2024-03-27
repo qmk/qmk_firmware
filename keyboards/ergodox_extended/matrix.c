@@ -71,6 +71,24 @@ static void init_cols(void) {
     }
 }
 
+static void unselect_row(uint8_t row)
+{
+    // No need to explicitly unselect expander pins--their I/O state is
+    // set simultaneously, with a single bitmask sent to i2c_write. When
+    // select_row selects a single pin, it implicitly unselects all the
+    // other ones.
+
+    // unselect on teensy
+    uint8_t pin = onboard_row_pins[row];
+    gpio_set_pin_input(pin);
+}
+
+static void unselect_rows(void) {
+    for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
+        unselect_row(x);
+    }
+}
+
 void matrix_init_custom(void)
 {
     init_expander();
@@ -82,6 +100,21 @@ void matrix_init_custom(void)
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
         matrix[i] = 0;
     }
+}
+
+static void select_row(uint8_t row) {
+    // select on expander, unless it's in an error state
+    if (! expander_status) {
+        // set active row low  : 0
+        // set other rows hi-Z : 1
+        uint8_t data = 0xFF & ~(1<<row);
+        i2c_write_register(I2C_ADDR, EXPANDER_ROW_REGISTER, &data, 1, I2C_TIMEOUT);
+    }
+
+    // select on teensy
+    uint8_t pin = onboard_row_pins[row];
+    gpio_set_pin_output(pin);
+    gpio_write_pin_low(pin);
 }
 
 static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
@@ -114,39 +147,6 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     unselect_row(current_row);
 
     return (last_row_value != current_matrix[current_row]);
-}
-
-static void select_row(uint8_t row) {
-    // select on expander, unless it's in an error state
-    if (! expander_status) {
-        // set active row low  : 0
-        // set other rows hi-Z : 1
-        uint8_t data = 0xFF & ~(1<<row);
-        i2c_write_register(I2C_ADDR, EXPANDER_ROW_REGISTER, &data, 1, I2C_TIMEOUT);
-    }
-
-    // select on teensy
-    uint8_t pin = onboard_row_pins[row];
-    gpio_set_pin_output(pin);
-    gpio_write_pin_low(pin);
-}
-
-static void unselect_row(uint8_t row)
-{
-    // No need to explicitly unselect expander pins--their I/O state is
-    // set simultaneously, with a single bitmask sent to i2c_write. When
-    // select_row selects a single pin, it implicitly unselects all the
-    // other ones.
-
-    // unselect on teensy
-    uint8_t pin = onboard_row_pins[row];
-    gpio_set_pin_input(pin);
-}
-
-static void unselect_rows(void) {
-    for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        unselect_row(x);
-    }
 }
 
 bool matrix_scan_custom(matrix_row_t matrix[])
