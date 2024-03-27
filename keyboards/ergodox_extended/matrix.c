@@ -21,8 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "matrix.h"
 #include "i2c_master.h"
 
-void init_expander(void);
-
 static const pin_t onboard_row_pins[MATRIX_ROWS] = MATRIX_ONBOARD_ROW_PINS;
 static const pin_t onboard_col_pins[MATRIX_COLS] = MATRIX_ONBOARD_COL_PINS;
 static const bool col_expanded[MATRIX_COLS] = COL_EXPANDED;
@@ -31,29 +29,11 @@ static const bool col_expanded[MATRIX_COLS] = COL_EXPANDED;
 static matrix_row_t matrix[MATRIX_ROWS];
 
 static const uint8_t expander_col_pins[MATRIX_COLS] = MATRIX_EXPANDER_COL_PINS;
-static void init_cols(void);
-static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row);
-static void unselect_rows(void);
-static void select_row(uint8_t row);
-static void unselect_row(uint8_t row);
 
 static uint8_t expander_reset_loop;
 uint8_t expander_status;
 uint8_t expander_input_pin_mask;
 bool i2c_initialized = false;
-
-void matrix_init_custom(void)
-{
-    init_expander();
-
-    unselect_rows();
-    init_cols();
-
-    // initialize matrix state: all keys off
-    for (uint8_t i=0; i < MATRIX_ROWS; i++) {
-        matrix[i] = 0;
-    }
-}
 
 void init_expander(void) {
     if (! i2c_initialized) {
@@ -79,31 +59,6 @@ void init_expander(void) {
         // - driving : off : 0
         expander_status = i2c_write_register(I2C_ADDR, GPPUA, data, sizeof(data), I2C_TIMEOUT);
     }
-
-}
-
-bool matrix_scan_custom(matrix_row_t matrix[])
-{
-    bool matrix_changed = false;
-    if (expander_status) { // if there was an error
-        if (++expander_reset_loop == 0) {
-            // since expander_reset_loop is 8 bit - we'll try to reset once in 255 matrix scans
-            // this will be approx bit more frequent than once per second
-            dprint("trying to reset expander\n");
-            init_expander();
-            if (expander_status) {
-                dprint("left side not responding\n");
-            } else {
-                dprint("left side attached\n");
-            }
-        }
-    }
-
-    for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
-        matrix_changed |= read_cols_on_row(matrix, current_row);
-    }
-
-    return matrix_changed;
 }
 
 static void init_cols(void) {
@@ -113,6 +68,19 @@ static void init_cols(void) {
             gpio_set_pin_input(pin);
             gpio_write_pin_high(pin);
         }
+    }
+}
+
+void matrix_init_custom(void)
+{
+    init_expander();
+
+    unselect_rows();
+    init_cols();
+
+    // initialize matrix state: all keys off
+    for (uint8_t i=0; i < MATRIX_ROWS; i++) {
+        matrix[i] = 0;
     }
 }
 
@@ -179,4 +147,28 @@ static void unselect_rows(void) {
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
         unselect_row(x);
     }
+}
+
+bool matrix_scan_custom(matrix_row_t matrix[])
+{
+    bool matrix_changed = false;
+    if (expander_status) { // if there was an error
+        if (++expander_reset_loop == 0) {
+            // since expander_reset_loop is 8 bit - we'll try to reset once in 255 matrix scans
+            // this will be approx bit more frequent than once per second
+            dprint("trying to reset expander\n");
+            init_expander();
+            if (expander_status) {
+                dprint("left side not responding\n");
+            } else {
+                dprint("left side attached\n");
+            }
+        }
+    }
+
+    for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
+        matrix_changed |= read_cols_on_row(matrix, current_row);
+    }
+
+    return matrix_changed;
 }
