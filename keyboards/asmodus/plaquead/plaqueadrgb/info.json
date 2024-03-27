@@ -29,6 +29,7 @@
         "layer_count": 6
     },
     "rgb_matrix": {
+        "center_point": [127, 32],
         "animations": {
             "alphas_mods": true,
             "gradient_up_down": true,

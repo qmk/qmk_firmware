@@ -14,18 +14,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 6
-
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 500U
 
 #define RP2040_FLASH_GENERIC_03H
 
 #ifdef RGB_MATRIX_ENABLE
-#define RGB_MATRIX_CENTER { 127, 32 }
-#define DRIVER_LED_TOTAL 134
-#define RGB_MATRIX_LED_COUNT 134
-
 #define CAPS_LOCK_LED_INDEX 54
 #define SCROLL_LOCK_LED_INDEX 1
 #endif
