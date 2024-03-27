@@ -26,6 +26,7 @@
     "layout_aliases": {
         "LAYOUT": "LAYOUT_tkl_f13_ansi_tsangan"
     },
+    "community_layouts": ["tkl_f13_ansi_tsangan"],
     "layouts": {
         "LAYOUT_tkl_f13_ansi_tsangan": {
             "layout": [
@@ -84,7 +85,7 @@
                 {"matrix": [2, 10], "x": 10.5, "y": 2.5},
                 {"matrix": [2, 11], "x": 11.5, "y": 2.5},
                 {"matrix": [2, 12], "x": 12.5, "y": 2.5},
-                {"matrix": [2, 13], "x": 13.5, "y": 2.5},
+                {"matrix": [2, 13], "x": 13.5, "y": 2.5, "w": 1.5},
 
                 {"matrix": [2, 14], "x": 15.25, "y": 2.5},
                 {"matrix": [2, 15], "x": 16.25, "y": 2.5},
@@ -189,7 +190,7 @@
                 {"matrix": [2, 10], "x": 10.5, "y": 2.5},
                 {"matrix": [2, 11], "x": 11.5, "y": 2.5},
                 {"matrix": [2, 12], "x": 12.5, "y": 2.5},
-                {"matrix": [2, 13], "x": 13.5, "y": 2.5},
+                {"matrix": [2, 13], "x": 13.5, "y": 2.5, "w": 1.5},
 
                 {"matrix": [2, 14], "x": 15.25, "y": 2.5},
                 {"matrix": [2, 15], "x": 16.25, "y": 2.5},
