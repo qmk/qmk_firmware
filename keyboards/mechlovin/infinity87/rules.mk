@@ -12,4 +12,4 @@ BACKLIGHT_ENABLE  = no      # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
-DEFAULT_FOLDER = mechlovin/infinity87/rgb_rev1
+DEFAULT_FOLDER = mechlovin/infinity87/rgb/rev1
