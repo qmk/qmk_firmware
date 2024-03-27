@@ -131,7 +131,7 @@ const azoteq_iqs5xx_device_config_t azoteq_iqs5xx_device_config_default = {
     .runtime_data = &azoteq_iqs5xx_runtime_data_default,
 };
 
-const pointing_device_driver_t     azoteq_iqs5xx_driver_default     = {.init = azoteq_iqs5xx_init, .get_report = azoteq_iqs5xx_get_report, .set_cpi = NULL, .get_cpi = NULL};
+const pointing_device_driver_t     azoteq_iqs5xx_driver_default     = {.init = azoteq_iqs5xx_init, .get_report = azoteq_iqs5xx_get_report, .set_cpi = azoteq_iqs5xx_set_cpi, .get_cpi = azoteq_iqs5xx_get_cpi};
 const pointing_device_i2c_config_t azoteq_iqs5xx_i2c_config_default = {.address = AZOTEQ_IQS5XX_ADDRESS, .timeout = AZOTEQ_IQS5XX_TIMEOUT_MS};
 
 i2c_status_t azoteq_iqs5xx_wake(const pointing_device_i2c_config_t *i2c_config) {
@@ -283,21 +283,23 @@ i2c_status_t azoteq_iqs5xx_reset_suspend(const pointing_device_i2c_config_t *i2c
     return status;
 }
 
-void azoteq_iqs5xx_set_cpi(uint16_t cpi, const pointing_device_i2c_config_t *i2c_config, const void *device_config) {
+void azoteq_iqs5xx_set_cpi(uint16_t cpi, const void *i2c_config, const void *device_config) {
+    pointing_device_i2c_config_t  *azoteq_iqs5xx_i2c_config    = (pointing_device_i2c_config_t *)i2c_config;
     azoteq_iqs5xx_device_config_t *azoteq_iqs5xx_device_config = (azoteq_iqs5xx_device_config_t *)device_config;
     if (azoteq_iqs5xx_device_config->runtime_data->azoteq_iqs5xx_product_number != AZOTEQ_IQS5XX_UNKNOWN) {
         azoteq_iqs5xx_resolution_t resolution = {0};
         resolution.x_resolution               = AZOTEQ_IQS5XX_SWAP_H_L_BYTES(MIN(azoteq_iqs5xx_device_config->runtime_data->azoteq_iqs5xx_xy_resolution.x_resolution, AZOTEQ_IQS5XX_INCH_TO_RESOLUTION_X(cpi)));
         resolution.y_resolution               = AZOTEQ_IQS5XX_SWAP_H_L_BYTES(MIN(azoteq_iqs5xx_device_config->runtime_data->azoteq_iqs5xx_xy_resolution.y_resolution, AZOTEQ_IQS5XX_INCH_TO_RESOLUTION_Y(cpi)));
-        i2c_write_register16(i2c_config->address << 1, AZOTEQ_IQS5XX_REG_X_RESOLUTION, (uint8_t *)&resolution, sizeof(azoteq_iqs5xx_resolution_t), i2c_config->timeout);
+        i2c_write_register16(azoteq_iqs5xx_i2c_config->address << 1, AZOTEQ_IQS5XX_REG_X_RESOLUTION, (uint8_t *)&resolution, sizeof(azoteq_iqs5xx_resolution_t), azoteq_iqs5xx_i2c_config->timeout);
     }
 }
 
-uint16_t azoteq_iqs5xx_get_cpi(const pointing_device_i2c_config_t *i2c_config, const void *device_config) {
+uint16_t azoteq_iqs5xx_get_cpi(const void *i2c_config, const void *device_config) {
+    pointing_device_i2c_config_t  *azoteq_iqs5xx_i2c_config    = (pointing_device_i2c_config_t *)i2c_config;
     azoteq_iqs5xx_device_config_t *azoteq_iqs5xx_device_config = (azoteq_iqs5xx_device_config_t *)device_config;
     if (azoteq_iqs5xx_device_config->runtime_data->azoteq_iqs5xx_product_number != AZOTEQ_IQS5XX_UNKNOWN) {
         azoteq_iqs5xx_resolution_t resolution = {0};
-        i2c_status_t               status     = i2c_read_register16(i2c_config->address << 1, AZOTEQ_IQS5XX_REG_X_RESOLUTION, (uint8_t *)&resolution, sizeof(azoteq_iqs5xx_resolution_t), i2c_config->timeout);
+        i2c_status_t               status     = i2c_read_register16(azoteq_iqs5xx_i2c_config->address << 1, AZOTEQ_IQS5XX_REG_X_RESOLUTION, (uint8_t *)&resolution, sizeof(azoteq_iqs5xx_resolution_t), azoteq_iqs5xx_i2c_config->timeout);
         if (status == I2C_STATUS_SUCCESS) {
             return AZOTEQ_IQS5XX_RESOLUTION_X_TO_INCH(AZOTEQ_IQS5XX_SWAP_H_L_BYTES(resolution.x_resolution));
         }
