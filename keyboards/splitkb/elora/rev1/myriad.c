@@ -155,6 +155,7 @@ static bool read_card_identity(uint8_t *data, uint16_t length, identity_record_t
 
 static myriad_card_t _detect_myriad(void) {
     setPinInput(MYRIAD_PRESENT);
+    wait_ms(100);
     // The pin has an external pull-up, and a Myriad card shorts it to ground.
     #ifndef MYRIAD_OVERRIDE_PRESENCE
     if (readPin(MYRIAD_PRESENT)) {

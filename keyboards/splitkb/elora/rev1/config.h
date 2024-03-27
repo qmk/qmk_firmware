@@ -48,6 +48,13 @@
 #define SPLIT_POINTING_ENABLE
 #define POINTING_DEVICE_COMBINED
 
+// Watchdog
+#define SPLIT_WATCHDOG_ENABLE
+#define SPLIT_WATCHDOG_TIMEOUT 3000
+
+// VBUS detection
+#define USB_VBUS_PIN GP25
+
 // Handedness
 #define SPLIT_HAND_PIN GP14
 
@@ -62,6 +69,7 @@
 // 3 onboard, 1 for Myriad
 #define NUM_ENCODERS_LEFT 4
 #define NUM_ENCODERS_RIGHT 4
+#define ENCODER_RESOLUTION 2
 
 // OLED display
 #ifdef OLED_ENABLE
