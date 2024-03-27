@@ -536,6 +536,13 @@ void raw_hid_send(uint8_t *data, uint8_t length) {
     send_report(USB_ENDPOINT_IN_RAW, data, length);
 }
 
+__attribute__((weak)) bool raw_hid_receive_user(uint8_t *data, uint8_t length) {
+    // Users should #include "raw_hid.h" in their own code
+    // and implement this function there. Leave this as weak linkage
+    // so users can opt to not handle data coming in.
+    return true;
+}
+
 __attribute__((weak)) void raw_hid_receive(uint8_t *data, uint8_t length) {
     // Users should #include "raw_hid.h" in their own code
     // and implement this function there. Leave this as weak linkage
@@ -545,7 +552,9 @@ __attribute__((weak)) void raw_hid_receive(uint8_t *data, uint8_t length) {
 void raw_hid_task(void) {
     uint8_t buffer[RAW_EPSIZE];
     while (receive_report(USB_ENDPOINT_OUT_RAW, buffer, sizeof(buffer))) {
-        raw_hid_receive(buffer, sizeof(buffer));
+        if (raw_hid_receive_user(buffer, sizeof(buffer))) {
+            raw_hid_receive(buffer, sizeof(buffer));
+        }
     }
 }
 

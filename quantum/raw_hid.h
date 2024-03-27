@@ -17,6 +17,15 @@
  *
  * \param data A pointer to the received data. Always 32 bytes in length.
  * \param length The length of the buffer. Always 32.
+ * \return true if the processing is to be handled over to raw_hid_receive
+ */
+bool raw_hid_receive_user(uint8_t *data, uint8_t length);
+
+/**
+ * \brief Callback, invoked when a raw HID report has been received from the host.
+ *
+ * \param data A pointer to the received data. Always 32 bytes in length.
+ * \param length The length of the buffer. Always 32.
  */
 void raw_hid_receive(uint8_t *data, uint8_t length);
 
