@@ -58,19 +58,19 @@ void backlight_task(void) {
     gpio_write_pin_high(Lcom3);
     gpio_write_pin_high(Lseg5);
     } else {
-    writePinLow(Lcom3);
+    gpio_write_pin_low(Lcom3);
     }
     if (host_leds.num_lock) {
     gpio_write_pin_high(Lcom7);
     gpio_write_pin_high(Lseg5);
     } else {
-    writePinLow(Lcom7);
+    gpio_write_pin_low(Lcom7);
     }
     if (host_leds.caps_lock) {
     gpio_write_pin_high(Lcom8);
     gpio_write_pin_high(Lseg5);
     } else {
-    writePinLow(Lcom8);
+    gpio_write_pin_low(Lcom8);
     }
 }
 

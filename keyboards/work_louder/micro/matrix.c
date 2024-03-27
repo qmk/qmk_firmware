@@ -23,7 +23,7 @@ static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 static inline void setPinOutput_writeLow(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
         setPinOutput(pin);
-        writePinLow(pin);
+        gpio_write_pin_low(pin);
     }
 }
 

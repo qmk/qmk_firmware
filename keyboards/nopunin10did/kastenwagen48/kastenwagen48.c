@@ -32,16 +32,16 @@ __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
 
     switch(get_highest_layer(state) % 4) {
     case 1:
-        writePinLow(LED_INDICATOR_TOP);
-        writePinLow(LED_INDICATOR_MID);
+        gpio_write_pin_low(LED_INDICATOR_TOP);
+        gpio_write_pin_low(LED_INDICATOR_MID);
         break;
     case 2:
-        writePinLow(LED_INDICATOR_TOP);
-        writePinLow(LED_INDICATOR_BOT);
+        gpio_write_pin_low(LED_INDICATOR_TOP);
+        gpio_write_pin_low(LED_INDICATOR_BOT);
         break;
     case 3:
-        writePinLow(LED_INDICATOR_MID);
-        writePinLow(LED_INDICATOR_BOT);
+        gpio_write_pin_low(LED_INDICATOR_MID);
+        gpio_write_pin_low(LED_INDICATOR_BOT);
         break;
     }
     return state;

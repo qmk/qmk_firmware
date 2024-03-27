@@ -19,11 +19,11 @@
 
 void matrix_init_kb(void) {
     setPinOutput(D3);
-    writePinLow(D3);
+    gpio_write_pin_low(D3);
     setPinOutput(D2);
-    writePinLow(D2);
+    gpio_write_pin_low(D2);
     setPinOutput(D0);
-    writePinLow(D0);
+    gpio_write_pin_low(D0);
 
     matrix_init_user();
 };

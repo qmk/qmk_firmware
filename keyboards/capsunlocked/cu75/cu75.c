@@ -25,7 +25,7 @@ void matrix_init_kb(void)
 #else
     // If we're not using the audio pin, drive it low
     setPinOutput(C6);
-    writePinLow(C6);
+    gpio_write_pin_low(C6);
 #endif
 }
 

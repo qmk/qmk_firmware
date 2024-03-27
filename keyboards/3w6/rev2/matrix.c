@@ -222,7 +222,7 @@ static void unselect_rows(void) {
     for (int pin_index = 0; pin_index < MATRIX_ROWS_PER_SIDE; pin_index++) {
         pin_t pin = matrix_row_pins_mcu[pin_index];
         setPinInput(pin);
-        writePinLow(pin);
+        gpio_write_pin_low(pin);
     }
 }
 
@@ -234,7 +234,7 @@ static void select_row(uint8_t row) {
         pin_t matrix_row_pins_mcu[MATRIX_ROWS_PER_SIDE] = MATRIX_ROW_PINS_L;
         pin_t pin                                       = matrix_row_pins_mcu[row];
         setPinOutput(pin);
-        writePinLow(pin);
+        gpio_write_pin_low(pin);
     } else {
         // select on tca9555
         if (tca9555_status) {  // if there was an error

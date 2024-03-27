@@ -62,7 +62,7 @@ static void board_set_master_led(board_info_t* board, uint8_t led_index, bool st
     pin_t pin                    = board->led_pins[led_index];
     board->led_status[led_index] = status;
     setPinOutput(pin);
-    status ? gpio_write_pin_high(pin) : writePinLow(pin);
+    status ? gpio_write_pin_high(pin) : gpio_write_pin_low(pin);
 }
 
 static void board_set_slave_led(board_info_t* board, uint8_t led_index, bool status) {
@@ -256,7 +256,7 @@ static bool board_read_cols_on_slave_row(board_info_t* board, matrix_row_t curre
 //
 static void board_select_master_row(board_info_t* board, uint8_t board_row) {
     setPinOutput(board->row_pins[board_row]);
-    writePinLow(board->row_pins[board_row]);
+    gpio_write_pin_low(board->row_pins[board_row]);
 }
 
 static void board_unselect_master_row(board_info_t* board, uint8_t board_row) { setPinInputHigh(board->row_pins[board_row]); }

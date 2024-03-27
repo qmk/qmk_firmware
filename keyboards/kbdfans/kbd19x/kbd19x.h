@@ -21,10 +21,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "led.h"
 
 inline void kbd19x_caps_led_on(void)    { gpio_write_pin_high(LED_CAPS_LOCK_PIN); }
-inline void kbd19x_caps_led_off(void)   { writePinLow(LED_CAPS_LOCK_PIN); }
+inline void kbd19x_caps_led_off(void)   { gpio_write_pin_low(LED_CAPS_LOCK_PIN); }
 
 inline void kbd19x_sclk_led_on(void)    { gpio_write_pin_high(LED_SCROLL_LOCK_PIN); }
-inline void kbd19x_sclk_led_off(void)   { writePinLow(LED_SCROLL_LOCK_PIN); }
+inline void kbd19x_sclk_led_off(void)   { gpio_write_pin_low(LED_SCROLL_LOCK_PIN); }
 
 inline void kbd19x_nmlk_led_on(void)    { gpio_write_pin_high(LED_NUM_LOCK_PIN); }
-inline void kbd19x_nmlk_led_off(void)   { writePinLow(LED_NUM_LOCK_PIN); }
+inline void kbd19x_nmlk_led_off(void)   { gpio_write_pin_low(LED_NUM_LOCK_PIN); }

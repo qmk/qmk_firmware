@@ -55,7 +55,7 @@ void init_row(void) {
     // Set all row pins as output and low
     for (uint8_t idx = 0; idx < MATRIX_ROWS; idx++) {
         setPinOutput(row_pins[idx]);
-        writePinLow(row_pins[idx]);
+        gpio_write_pin_low(row_pins[idx]);
     }
 }
 
@@ -63,7 +63,7 @@ void init_row(void) {
 void init_amux(void) {
     for (uint8_t idx = 0; idx < AMUX_COUNT; idx++) {
         setPinOutput(amux_en_pins[idx]);
-        writePinLow(amux_en_pins[idx]);
+        gpio_write_pin_low(amux_en_pins[idx]);
     }
     for (uint8_t idx = 0; idx < AMUX_SEL_PINS_COUNT; idx++) {
         setPinOutput(amux_sel_pins[idx]);
@@ -81,7 +81,7 @@ void select_amux_channel(uint8_t channel, uint8_t col) {
         writePin(amux_sel_pins[i], ch & (1 << i));
     }
     // re enable specified multiplexer
-    writePinLow(amux_en_pins[channel]);
+    gpio_write_pin_low(amux_en_pins[channel]);
 }
 
 // Disable all the unused multiplexers
@@ -96,9 +96,9 @@ void disable_unused_amux(uint8_t channel) {
 // Discharge the peak hold capacitor
 void discharge_capacitor(void) {
 #ifdef OPEN_DRAIN_SUPPORT
-    writePinLow(DISCHARGE_PIN);
+    gpio_write_pin_low(DISCHARGE_PIN);
 #else
-    writePinLow(DISCHARGE_PIN);
+    gpio_write_pin_low(DISCHARGE_PIN);
     setPinOutput(DISCHARGE_PIN);
 #endif
 }
@@ -123,7 +123,7 @@ int ec_init(void) {
     adc_read(adcMux);
 
     // Initialize discharge pin as discharge mode
-    writePinLow(DISCHARGE_PIN);
+    gpio_write_pin_low(DISCHARGE_PIN);
 #ifdef OPEN_DRAIN_SUPPORT
     setPinOutputOpenDrain(DISCHARGE_PIN);
 #else
@@ -212,7 +212,7 @@ uint16_t ec_readkey_raw(uint8_t channel, uint8_t row, uint8_t col) {
     select_amux_channel(channel, col);
 
     // Set the row pin to low state to avoid ghosting
-    writePinLow(row_pins[row]);
+    gpio_write_pin_low(row_pins[row]);
 
     ATOMIC_BLOCK_FORCEON {
         // Set the row pin to high state and have capacitor charge

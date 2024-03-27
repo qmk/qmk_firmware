@@ -29,11 +29,11 @@ uint8_t power_save_level;
 
 static uint32_t matrix_last_modified = 0;
 
-static inline void key_strobe_high(void) { writePinLow(B6); }
+static inline void key_strobe_high(void) { gpio_write_pin_low(B6); }
 static inline void key_strobe_low(void) { gpio_write_pin_high(B6); }
 static inline bool key_state(void) { return gpio_read_pin(D7); }
 static inline void key_prev_on(void) { gpio_write_pin_high(B7); }
-static inline void key_prev_off(void) { writePinLow(B7); }
+static inline void key_prev_off(void) { gpio_write_pin_low(B7); }
 static inline bool key_power_state(void) { return !gpio_read_pin(D6); }
 
 static inline void suspend_power_down_longer(void) {
@@ -48,7 +48,7 @@ void matrix_power_up(void) {
     PORTB = 0x40;
     // switch MOS FET on
     setPinOutput(D6);
-    writePinLow(D6);
+    gpio_write_pin_low(D6);
 }
 
 void matrix_power_down(void) {

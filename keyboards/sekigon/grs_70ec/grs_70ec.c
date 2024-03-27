@@ -21,7 +21,7 @@ void led_on(void) {
     gpio_write_pin_high(D2);
 }
 
-void led_off(void) { writePinLow(D2); }
+void led_off(void) { gpio_write_pin_low(D2); }
 
 void keyboard_post_init_kb(void) {
     led_on();

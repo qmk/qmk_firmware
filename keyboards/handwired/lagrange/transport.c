@@ -55,7 +55,7 @@ bool shake_hands(bool master) {
          * alignment. */
 
         if (master) {
-            writePinLow(SPI_SS_PIN);
+            gpio_write_pin_low(SPI_SS_PIN);
         }
 
         for (i = 0 ; i < 8 ; i += 1) {

@@ -9,19 +9,19 @@ void matrix_init_kb(void) {
 
   /* LED pins setup */
   setPinOutput(LED_CAPS_LOCK_PIN);
-  writePinLow(LED_CAPS_LOCK_PIN);
+  gpio_write_pin_low(LED_CAPS_LOCK_PIN);
 
   wait_ms(led_delay_ms);
   setPinOutput(LED_NUM_LOCK_PIN);   
-  writePinLow(LED_NUM_LOCK_PIN);
+  gpio_write_pin_low(LED_NUM_LOCK_PIN);
   wait_ms(led_delay_ms);
 
   setPinOutput(LED_SCROLL_LOCK_PIN);   
-  writePinLow(LED_SCROLL_LOCK_PIN);
+  gpio_write_pin_low(LED_SCROLL_LOCK_PIN);
   wait_ms(led_delay_ms);
 
   setPinOutput(LED_COMPOSE_PIN);   
-  writePinLow(LED_COMPOSE_PIN);
+  gpio_write_pin_low(LED_COMPOSE_PIN);
   wait_ms(led_delay_ms);
   gpio_write_pin_high(LED_COMPOSE_PIN);
 

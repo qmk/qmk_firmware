@@ -60,7 +60,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
 
         // Setup the output column pin
         setPinOutput(curr_col_pin);
-        writePinLow(curr_col_pin);
+        gpio_write_pin_low(curr_col_pin);
         matrix_wait_for_pin(curr_col_pin, 0);
 
         // Read the row ports
@@ -102,7 +102,7 @@ void matrix_wait_for_interrupt(void) {
     // Set up row/col pins and attach callback
     for (int i = 0; i < ARRAY_SIZE(col_pins); ++i) {
         setPinOutput(col_pins[i]);
-        writePinLow(col_pins[i]);
+        gpio_write_pin_low(col_pins[i]);
     }
     for (int i = 0; i < ARRAY_SIZE(row_pins); ++i) {
         setPinInputHigh(row_pins[i]);

@@ -13,7 +13,7 @@ void matrix_init_kb(void)
 #ifndef AUDIO_ENABLE
     // If we're not using the audio pin, drive it low
     setPinOutput(C6);
-    writePinLow(C6);
+    gpio_write_pin_low(C6);
 #endif
 #ifdef WATCHDOG_ENABLE
     // This is done after turning the layer LED red, if we're caught in a loop

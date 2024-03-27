@@ -39,10 +39,10 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
   switch (get_highest_layer(state)) {
     case 1:
       gpio_write_pin_high(F6);
-      writePinLow(F5);
+      gpio_write_pin_low(F5);
       break;
     case 2:
-      writePinLow(F6);
+      gpio_write_pin_low(F6);
       gpio_write_pin_high(F5);
       break;
     default:

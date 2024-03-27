@@ -14,9 +14,9 @@ void matrix_init_kb(void)
 
 void turn_off_leds(void)
 {
-    writePinLow(RED_LED);
-    writePinLow(BLUE_LED);
-    writePinLow(GREEN_LED);
+    gpio_write_pin_low(RED_LED);
+    gpio_write_pin_low(BLUE_LED);
+    gpio_write_pin_low(GREEN_LED);
 }
 
 void turn_on_led(pin_t pin)

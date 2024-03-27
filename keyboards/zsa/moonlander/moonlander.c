@@ -99,9 +99,9 @@ void keyboard_pre_init_kb(void) {
     setPinOutput(B4);
     setPinOutput(B3);
 
-    writePinLow(B5);
-    writePinLow(B4);
-    writePinLow(B3);
+    gpio_write_pin_low(B5);
+    gpio_write_pin_low(B4);
+    gpio_write_pin_low(B3);
 
     chThdCreateStatic(waLEDThread, sizeof(waLEDThread), NORMALPRIO - 16, LEDThread, NULL);
 

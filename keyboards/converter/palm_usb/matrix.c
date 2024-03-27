@@ -96,16 +96,16 @@ void pins_init(void) {
 
     //print ("pins setup\n");
     setPinOutput(VCC_PIN);
-    writePinLow(VCC_PIN);
+    gpio_write_pin_low(VCC_PIN);
 
 #if ( HANDSPRING == 0)
 
 #ifdef CY835
     setPinOutput(GND_PIN);
-    writePinLow(GND_PIN);
+    gpio_write_pin_low(GND_PIN);
 
     setPinOutput(PULLDOWN_PIN);
-    writePinLow(PULLDOWN_PIN);
+    gpio_write_pin_low(PULLDOWN_PIN);
 #endif
 
     setPinInput(DCD_PIN);
@@ -134,7 +134,7 @@ uint8_t rts_reset(void) {
     setPinOutput(RTS_PIN);
 
     if (firstread) {
-        writePinLow(RTS_PIN);
+        gpio_write_pin_low(RTS_PIN);
     } 
      wait_ms(10);
     gpio_write_pin_high(RTS_PIN);
@@ -223,7 +223,7 @@ uint8_t handspring_handshake(void) {
 }
 
 uint8_t handspring_reset(void) {
-    writePinLow(VCC_PIN);
+    gpio_write_pin_low(VCC_PIN);
     wait_ms(5);
     gpio_write_pin_high(VCC_PIN);
 

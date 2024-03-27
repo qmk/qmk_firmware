@@ -42,8 +42,8 @@ void matrix_init_custom(void) {
     // setPinInputHigh(SNES_IO);
     setPinOutput(SNES_CLOCK);
     setPinOutput(SNES_LATCH);
-    writePinLow(SNES_CLOCK);
-    writePinLow(SNES_LATCH);
+    gpio_write_pin_low(SNES_CLOCK);
+    gpio_write_pin_low(SNES_LATCH);
 
     // init rows
     setPinOutput(KBD_ROW0);
@@ -65,7 +65,7 @@ static matrix_row_t readRow(size_t row, int setupDelay) {
 
     // select the row
     setPinOutput(pin);
-    writePinLow(pin);
+    gpio_write_pin_low(pin);
     wait_us(setupDelay);
 
     // read the column data
@@ -117,10 +117,10 @@ static void readSnesController(matrix_row_t current_matrix[]) {
         // Shift next bit in
         gpio_write_pin_high(SNES_CLOCK);
         wait_us(SNES_CLOCK_PULSE_DURATION);
-        writePinLow(SNES_CLOCK);
+        gpio_write_pin_low(SNES_CLOCK);
     }
 
-    writePinLow(SNES_LATCH);
+    gpio_write_pin_low(SNES_LATCH);
 
     controller >>= 4;
 

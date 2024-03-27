@@ -27,8 +27,8 @@ bool shutdown_kb(bool jump_to_bootloader) {
         return false;
     }
     // Shutdown LEDs
-    writePinLow(LED_00);
-    writePinLow(LED_01);
+    gpio_write_pin_low(LED_00);
+    gpio_write_pin_low(LED_01);
     return true;
 }
 
@@ -52,8 +52,8 @@ void matrix_init_kb(void) {
         gpio_write_pin_high(LED_00);
         gpio_write_pin_high(LED_01);
         wait_ms(led_delay_ms);
-        writePinLow(LED_00);
-        writePinLow(LED_01);
+        gpio_write_pin_low(LED_00);
+        gpio_write_pin_low(LED_01);
         if (i < 1) {
             wait_ms(led_delay_ms);
         }

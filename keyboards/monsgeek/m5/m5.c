@@ -150,7 +150,7 @@ const snled27351_led_t PROGMEM g_snled27351_leds[SNLED27351_LED_COUNT] = {
 
 void keyboard_pre_init_kb(void) {
     setPinOutput(LED_WIN_LOCK_PIN); // LED3 Win Lock
-    writePinLow(LED_WIN_LOCK_PIN);
+    gpio_write_pin_low(LED_WIN_LOCK_PIN);
     keyboard_pre_init_user();
 }
 

@@ -115,9 +115,9 @@ void keyboard_pre_init_kb(void) {
     setPinOutput(B3);
     setPinOutput(B7);
 
-    writePinLow(B2);
-    writePinLow(B3);
-    writePinLow(B7);
+    gpio_write_pin_low(B2);
+    gpio_write_pin_low(B3);
+    gpio_write_pin_low(B7);
 
     keyboard_pre_init_user();
 }

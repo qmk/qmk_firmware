@@ -25,7 +25,7 @@ void led_init_ports(void) {
     gpio_write_pin_high(F5);
     
     setPinOutput(F4);
-    writePinLow(F4);
+    gpio_write_pin_low(F4);
 }
 
 bool led_update_kb(led_t led_state) {

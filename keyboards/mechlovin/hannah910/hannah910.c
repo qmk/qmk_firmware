@@ -37,20 +37,20 @@ layer_state_t layer_state_set_user(layer_state_t state)
     if (get_highest_layer(state) == 1) {
         gpio_write_pin_high(D2);
     } else {
-        writePinLow(D2);
+        gpio_write_pin_low(D2);
     }
   // if on layer 2, turn on D1 LED, otherwise off.
     if (get_highest_layer(state) == 2) {
         gpio_write_pin_high(D1);
     } else {
-        writePinLow(D1);
+        gpio_write_pin_low(D1);
     }
 
   // if on layer 3, turn on D0 LED, otherwise off.
     if (get_highest_layer(state) == 3) {
         gpio_write_pin_high(D0);
     } else {
-        writePinLow(D0);
+        gpio_write_pin_low(D0);
     }
 
     return state;

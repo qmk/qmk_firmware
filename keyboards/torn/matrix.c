@@ -31,7 +31,7 @@ static const mcp23018_pin_t secondary_col_pins[SPLIT_MATRIX_COLS] = SECONDARY_CO
 
 static void select_row(uint8_t row) {
     setPinOutput(row_pins[row]);
-    writePinLow(row_pins[row]);
+    gpio_write_pin_low(row_pins[row]);
 }
 
 static void unselect_row(uint8_t row) { setPinInputHigh(row_pins[row]); }

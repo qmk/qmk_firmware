@@ -180,12 +180,12 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
             );
             // unstrobe  row
             switch (row) {
-                case 0: writePinLow(B10); break;
-                case 1: writePinLow(B11); break;
-                case 2: writePinLow(B12); break;
-                case 3: writePinLow(B13); break;
-                case 4: writePinLow(B14); break;
-                case 5: writePinLow(B15); break;
+                case 0: gpio_write_pin_low(B10); break;
+                case 1: gpio_write_pin_low(B11); break;
+                case 2: gpio_write_pin_low(B12); break;
+                case 3: gpio_write_pin_low(B13); break;
+                case 4: gpio_write_pin_low(B14); break;
+                case 5: gpio_write_pin_low(B15); break;
                 case 6: break;
             }
 

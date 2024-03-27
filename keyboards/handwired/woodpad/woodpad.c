@@ -26,5 +26,5 @@ inline void numlock_led_on(void) {
 }
 
 inline void numlock_led_off(void) {
-    writePinLow(F7);
+    gpio_write_pin_low(F7);
 }

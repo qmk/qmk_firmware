@@ -28,7 +28,7 @@ void matrix_wait_for_port(stm32_gpio_t *port, uint32_t target_bitmask) {
 void shift_pulse_clock(void) {
         gpio_write_pin_high(COL_SHIFT_CLK_PIN);
         matrix_wait_for_pin(COL_SHIFT_CLK_PIN, 1);
-        writePinLow(COL_SHIFT_CLK_PIN);
+        gpio_write_pin_low(COL_SHIFT_CLK_PIN);
 }
 
 void matrix_init_custom(void) {
@@ -53,7 +53,7 @@ void matrix_init_custom(void) {
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     static matrix_row_t temp_matrix[MATRIX_ROWS] = {0};
 
-    writePinLow(COL_SHIFT_IN_PIN);
+    gpio_write_pin_low(COL_SHIFT_IN_PIN);
     matrix_wait_for_pin(COL_SHIFT_IN_PIN, 0);
 
     // Setup the output column pin

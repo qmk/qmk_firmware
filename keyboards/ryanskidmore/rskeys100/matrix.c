@@ -78,7 +78,7 @@ static void select_col(uint8_t col) {
 }
 
 static void shift_out(uint32_t value) {
-  writePinLow(SHR_LATCH);
+  gpio_write_pin_low(SHR_LATCH);
   uint8_t first_byte  = (value >> 16) & 0xFF;
   uint8_t second_byte  = (value >> 8) & 0xFF;
   uint8_t third_byte = (uint8_t)(value & 0xFF);
@@ -96,7 +96,7 @@ static void shift_out_single(uint8_t value) {
         if (value & 0b10000000) {
             gpio_write_pin_high(SHR_DATA);
         } else {
-            writePinLow(SHR_DATA);
+            gpio_write_pin_low(SHR_DATA);
         }
 
         shift_pulse();
@@ -106,5 +106,5 @@ static void shift_out_single(uint8_t value) {
 
 static inline void shift_pulse(void) {
     gpio_write_pin_high(SHR_CLOCK);
-    writePinLow(SHR_CLOCK);
+    gpio_write_pin_low(SHR_CLOCK);
 }

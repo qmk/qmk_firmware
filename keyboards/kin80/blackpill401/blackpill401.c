@@ -19,7 +19,7 @@
 void matrix_init_kb(void) {
   /* LED pins setup */
   setPinOutput(LED4_PIN);
-    writePinLow(LED4_PIN);
+    gpio_write_pin_low(LED4_PIN);
 
 	matrix_init_user();
 }

@@ -153,27 +153,27 @@ static void select_row(uint8_t col)
 {
     switch (col) {
         case 0:
-            writePinLow(B0);
-            writePinLow(B1);
-            writePinLow(B2);
+            gpio_write_pin_low(B0);
+            gpio_write_pin_low(B1);
+            gpio_write_pin_low(B2);
             break;
         case 1:
-            writePinLow(B0);
-            writePinLow(B1);
+            gpio_write_pin_low(B0);
+            gpio_write_pin_low(B1);
             break;
         case 2:
-            writePinLow(B0);
-            writePinLow(B2);
+            gpio_write_pin_low(B0);
+            gpio_write_pin_low(B2);
             break;
         case 3:
-            writePinLow(B0);
+            gpio_write_pin_low(B0);
             break;
         case 4:
-            writePinLow(B1);
-            writePinLow(B2);
+            gpio_write_pin_low(B1);
+            gpio_write_pin_low(B2);
             break;
         case 5:
-            writePinLow(B1);
+            gpio_write_pin_low(B1);
             break;
     }
 }
@@ -258,7 +258,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 static void select_col(uint8_t col)
 {
     setPinOutput(col_pins[col]);
-    writePinLow(col_pins[col]);
+    gpio_write_pin_low(col_pins[col]);
 }
 
 static void unselect_col(uint8_t col)

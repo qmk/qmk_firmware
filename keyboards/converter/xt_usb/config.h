@@ -34,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* hard reset: low pulse for 500ms and after that HiZ for safety */
 #define XT_RESET() do { \
-    writePinLow(XT_RST_PIN); \
+    gpio_write_pin_low(XT_RST_PIN); \
     setPinOutput(XT_RST_PIN); \
     wait_ms(500); \
     setPinInput(XT_RST_PIN); \

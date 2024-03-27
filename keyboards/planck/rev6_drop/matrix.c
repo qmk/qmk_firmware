@@ -27,7 +27,7 @@ void matrix_init_custom(void) {
     // actual matrix setup - cols
     for (int i = 0; i < MATRIX_COLS; i++) {
         setPinOutput(matrix_col_pins[i]);
-        writePinLow(matrix_col_pins[i]);
+        gpio_write_pin_low(matrix_col_pins[i]);
     }
 
     // rows
@@ -55,7 +55,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         }
 
         // unstrobe col
-        writePinLow(matrix_col_pins[col]);
+        gpio_write_pin_low(matrix_col_pins[col]);
 
         if (matrix_inverted[col] != data) {
             matrix_inverted[col] = data;

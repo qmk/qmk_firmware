@@ -57,7 +57,7 @@ void ws2812_poweroff(void) {
     if(!p_setup) return;
     p_setup = false;
     setPinInputLow(WS2812_DI_PIN);
-    writePinLow(RGB_EN_PIN);
+    gpio_write_pin_low(RGB_EN_PIN);
 }
 
 void keyboard_pre_init_kb() {
@@ -65,7 +65,7 @@ void keyboard_pre_init_kb() {
 
     setPinInputLow(MWPROTO_STATUS_PIN);
     setPinOutput(MWPROTO_WAKEUP_PIN);
-    writePinLow(MWPROTO_WAKEUP_PIN);
+    gpio_write_pin_low(MWPROTO_WAKEUP_PIN);
     wait_ms(2);
     gpio_write_pin_high(MWPROTO_WAKEUP_PIN);
 
@@ -84,7 +84,7 @@ void keyboard_post_init_kb(void) {
         "BUILD: " __DATE__ "\n"
     ); /* clang-format on */
 
-    writePinLow(MWPROTO_WAKEUP_PIN);
+    gpio_write_pin_low(MWPROTO_WAKEUP_PIN);
     wait_ms(50);
     sdPutI(&MWPROTO_DRIVER, 0xA5);
     sdPutI(&MWPROTO_DRIVER, 0x12);
@@ -132,7 +132,7 @@ uint32_t loop_10Hz(uint32_t trigger_time, void *cb_arg) {
         static uint32_t pmu_timer = 0;
         if(timer_elapsed32(pmu_timer) > 3000) {
             pmu_timer = timer_read32();
-            writePinLow(MWPROTO_WAKEUP_PIN);
+            gpio_write_pin_low(MWPROTO_WAKEUP_PIN);
             if(gpio_read_pin(MWPROTO_STATUS_PIN))
                 wait_us(500);
             else
@@ -151,7 +151,7 @@ uint32_t loop_10Hz(uint32_t trigger_time, void *cb_arg) {
        matrix[2] == 0 && matrix[3] == 0 && matrix[4] == 0 && matrix[5] == 0x201) {
         if(restore_tick++ > 50) {
             restore_tick = 0;
-            writePinLow(MWPROTO_WAKEUP_PIN);
+            gpio_write_pin_low(MWPROTO_WAKEUP_PIN);
             if(gpio_read_pin(MWPROTO_STATUS_PIN))
                 wait_us(500);
             else

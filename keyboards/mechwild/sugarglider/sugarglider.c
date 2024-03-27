@@ -23,9 +23,9 @@ void board_init(void) {
     setPinOutput(B12);
     setPinOutput(B13);
     setPinOutput(B14);
-    writePinLow(B12);
-    writePinLow(B13);
-    writePinLow(B14);
+    gpio_write_pin_low(B12);
+    gpio_write_pin_low(B13);
+    gpio_write_pin_low(B14);
     setPinOutput(C13);
 }
 

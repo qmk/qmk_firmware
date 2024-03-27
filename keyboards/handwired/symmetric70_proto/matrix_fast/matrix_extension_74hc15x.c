@@ -63,7 +63,7 @@ LOCAL_FUNC port_width_t readPortMultiplexer(uint8_t devid, pin_t port) {
 #define readMatrixPort(dev, port) \
     ((dev) == MCU_GPIO)? readPort(port): (IS_74HC15x(dev))? readPortMultiplexer((dev)-MCU_GPIOa, port):0
 
-#define INIT_74HC15X(x) setPinOutput(x); writePinLow(x);
+#define INIT_74HC15X(x) setPinOutput(x); gpio_write_pin_low(x);
 LOCAL_FUNC
 void init_74hc15x(void) {
     MAP(INIT_74HC15X, MATRIX_EXT_74HC15x)

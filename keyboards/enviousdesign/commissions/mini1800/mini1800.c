@@ -4,7 +4,7 @@
 
 void matrix_init_user(void) {
   setPinOutput(GP9); //init gpio
-  writePinLow(GP9);
+  gpio_write_pin_low(GP9);
   setPinOutput(GP11); //init and turn off inverted power led
   gpio_write_pin_high(GP11);
 }

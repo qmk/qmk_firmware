@@ -201,31 +201,31 @@ static void select_row(uint8_t row) {
         switch (row) {
             case 7:
                 setPinOutput(B0);
-                writePinLow(B0);
+                gpio_write_pin_low(B0);
                 break;
             case 8:
                 setPinOutput(B1);
-                writePinLow(B1);
+                gpio_write_pin_low(B1);
                 break;
             case 9:
                 setPinOutput(B2);
-                writePinLow(B2);
+                gpio_write_pin_low(B2);
                 break;
             case 10:
                 setPinOutput(B3);
-                writePinLow(B3);
+                gpio_write_pin_low(B3);
                 break;
             case 11:
                 setPinOutput(D2);
-                writePinLow(D2);
+                gpio_write_pin_low(D2);
                 break;
             case 12:
                 setPinOutput(D3);
-                writePinLow(D3);
+                gpio_write_pin_low(D3);
                 break;
             case 13:
                 setPinOutput(C6);
-                writePinLow(C6);
+                gpio_write_pin_low(C6);
                 break;
         }
     }

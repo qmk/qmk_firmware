@@ -228,7 +228,7 @@ static void select_row(uint8_t row) {
         pin_t matrix_row_pins_mcu[MATRIX_ROWS_PER_SIDE] = MATRIX_ROW_PINS_MCU;
         pin_t pin                                       = matrix_row_pins_mcu[row];
         setPinOutput(pin);
-        writePinLow(pin);
+        gpio_write_pin_low(pin);
     } else {
         // select on mcp23017
         if (mcp23017_status) {  // if there was an error

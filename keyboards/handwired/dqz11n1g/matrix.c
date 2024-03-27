@@ -67,7 +67,7 @@ static void select_row(uint8_t row) {
 static void unselect_row(uint8_t row) {
     pin_t pin = row_pins[row];
     if (pin != NO_PIN) {
-        writePinLow(pin);
+        gpio_write_pin_low(pin);
     }
 }
 
@@ -82,7 +82,7 @@ bool matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     matrix_row_t current_row_value = 0;
 
     /* Set shift register SH/~LD pin to "load" mode */
-    writePinLow(ROW_SHIFT_PIN);
+    gpio_write_pin_low(ROW_SHIFT_PIN);
     select_row(current_row);
     matrix_output_select_delay();
 

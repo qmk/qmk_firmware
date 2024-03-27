@@ -45,7 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // (Doesn't work on mac. There is no num lock, so it will be always off and lit)
 
 #ifdef NUM_NMOSFET
-#define RESET_NUM_LOCK_LED() writePinLow(NUM_LOCK_LED_PIN)
+#define RESET_NUM_LOCK_LED() gpio_write_pin_low(NUM_LOCK_LED_PIN)
 #ifdef NUM_INVERT
 #define UPDATE_NUM_LOCK_LED() writePin(NUM_LOCK_LED_PIN, !led_state.num_lock)
 #else
@@ -61,7 +61,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif // NUM_NMOSFET
 
 #ifdef CAPS_NMOSFET
-#define RESET_CAPS_LOCK_LED() writePinLow(CAPS_LOCK_LED_PIN)
+#define RESET_CAPS_LOCK_LED() gpio_write_pin_low(CAPS_LOCK_LED_PIN)
 #define UPDATE_CAPS_LOCK_LED() writePin(CAPS_LOCK_LED_PIN, led_state.caps_lock)
 #else
 #define RESET_CAPS_LOCK_LED() gpio_write_pin_high(CAPS_LOCK_LED_PIN)
@@ -69,7 +69,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif // CAPS_NMOSFET
 
 #ifdef SCROLL_NMOSFET
-#define RESET_SCROLL_LOCK_LED() writePinLow(SCROLL_LOCK_LED_PIN)
+#define RESET_SCROLL_LOCK_LED() gpio_write_pin_low(SCROLL_LOCK_LED_PIN)
 #define UPDATE_SCROLL_LOCK_LED() writePin(SCROLL_LOCK_LED_PIN, led_state.scroll_lock)
 #else
 #define RESET_SCROLL_LOCK_LED() gpio_write_pin_high(SCROLL_LOCK_LED_PIN)

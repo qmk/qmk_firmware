@@ -130,7 +130,7 @@ void matrix_print(void)
 static void select_row(uint8_t row)
 {
     setPinOutput(row_pins[row]);
-    writePinLow(row_pins[row]);
+    gpio_write_pin_low(row_pins[row]);
 }
 
 static void unselect_row(uint8_t row)
@@ -275,7 +275,7 @@ static void mux_pin_control(const uint8_t binary[]) {
     // set pin0
     setPinOutput(col_select_pins[0]);
     if(binary[2] == 0) {
-        writePinLow(col_select_pins[0]);
+        gpio_write_pin_low(col_select_pins[0]);
     }
     else {
         gpio_write_pin_high(col_select_pins[0]);
@@ -283,7 +283,7 @@ static void mux_pin_control(const uint8_t binary[]) {
     // set pin1
     setPinOutput(col_select_pins[1]);
     if(binary[1] == 0) {
-        writePinLow(col_select_pins[1]);
+        gpio_write_pin_low(col_select_pins[1]);
     }
     else {
         gpio_write_pin_high(col_select_pins[1]);
@@ -291,7 +291,7 @@ static void mux_pin_control(const uint8_t binary[]) {
     // set pin2
     setPinOutput(col_select_pins[2]);
     if(binary[0] == 0) {
-        writePinLow(col_select_pins[2]);
+        gpio_write_pin_low(col_select_pins[2]);
     }
     else {
         gpio_write_pin_high(col_select_pins[2]);

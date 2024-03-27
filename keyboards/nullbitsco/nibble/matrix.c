@@ -31,7 +31,7 @@ static void init_pins(void) {
     
     // Unselect cols
     for (uint8_t bit = 0; bit < MATRIX_MUX_COLS; bit++) {
-        writePinLow(col_pins[bit]);
+        gpio_write_pin_low(col_pins[bit]);
     }
 
     // Set rows to input, pullup

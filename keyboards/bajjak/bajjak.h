@@ -59,11 +59,11 @@ inline void bajjak_right_led_2_on(void)    { setPinOutput(B6); gpio_write_pin_hi
 inline void bajjak_right_led_3_on(void)    { setPinOutput(B7); gpio_write_pin_high(B7); }
 inline void bajjak_right_led_on(uint8_t led) { setPinOutput(led+4); gpio_write_pin_high(led+4); }
 
-inline void bajjak_board_led_off(void)     { setPinInput(D6); writePinLow(D6); }
-inline void bajjak_right_led_1_off(void)   { setPinInput(B5); writePinLow(B5); }
-inline void bajjak_right_led_2_off(void)   { setPinInput(B6); writePinLow(B6); }
-inline void bajjak_right_led_3_off(void)   { setPinInput(B7); writePinLow(B7); }
-inline void bajjak_right_led_off(uint8_t led) { setPinInput(led+4); writePinLow(led+4); }
+inline void bajjak_board_led_off(void)     { setPinInput(D6); gpio_write_pin_low(D6); }
+inline void bajjak_right_led_1_off(void)   { setPinInput(B5); gpio_write_pin_low(B5); }
+inline void bajjak_right_led_2_off(void)   { setPinInput(B6); gpio_write_pin_low(B6); }
+inline void bajjak_right_led_3_off(void)   { setPinInput(B7); gpio_write_pin_low(B7); }
+inline void bajjak_right_led_off(uint8_t led) { setPinInput(led+4); gpio_write_pin_low(led+4); }
 
 #ifdef LEFT_LEDS
 bool bajjak_left_led_1;

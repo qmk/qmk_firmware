@@ -56,7 +56,7 @@ void matrix_print(void) {}
 static inline void setPinOutput_writeLow(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
         setPinOutput(pin);
-        writePinLow(pin);
+        gpio_write_pin_low(pin);
     }
 }
 

@@ -257,8 +257,8 @@ uint8_t matrix_scan(void) {
   }  else if (vibrate > 0) {
     vibrate--;
   } else if (vibrate == 0) {
-    writePinLow(D7);
-    writePinLow(E6);
+    gpio_write_pin_low(D7);
+    gpio_write_pin_low(E6);
   }
 
   matrix_scan_kb();

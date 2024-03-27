@@ -36,7 +36,7 @@ static pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 static inline void setPinOutput_writeLow(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
         setPinOutput(pin);
-        writePinLow(pin);
+        gpio_write_pin_low(pin);
     }
 }
 
@@ -71,16 +71,16 @@ static void shiftOut(uint16_t dataOut) {
             if (dataOut & 0x1) {
                 gpio_write_pin_high(DATA_PIN_74HC595);
             } else {
-                writePinLow(DATA_PIN_74HC595);
+                gpio_write_pin_low(DATA_PIN_74HC595);
             }
             dataOut = dataOut >> 1;
             gpio_write_pin_high(CLOCK_PIN_74HC595);
             small_delay(2);
-            writePinLow(CLOCK_PIN_74HC595);
+            gpio_write_pin_low(CLOCK_PIN_74HC595);
         }
         gpio_write_pin_high(LATCH_PIN_74HC595);
         small_delay(2);
-        writePinLow(LATCH_PIN_74HC595);
+        gpio_write_pin_low(LATCH_PIN_74HC595);
     }
 }
 
@@ -89,14 +89,14 @@ static void shiftOut_single(uint8_t data) {
         if (data & 0x1) {
             gpio_write_pin_high(DATA_PIN_74HC595);
         } else {
-            writePinLow(DATA_PIN_74HC595);
+            gpio_write_pin_low(DATA_PIN_74HC595);
         }
         gpio_write_pin_high(CLOCK_PIN_74HC595);
         small_delay(2);
-        writePinLow(CLOCK_PIN_74HC595);
+        gpio_write_pin_low(CLOCK_PIN_74HC595);
         gpio_write_pin_high(LATCH_PIN_74HC595);
         small_delay(2);
-        writePinLow(LATCH_PIN_74HC595);
+        gpio_write_pin_low(LATCH_PIN_74HC595);
     }
 }
 

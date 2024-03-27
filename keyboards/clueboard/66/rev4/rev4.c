@@ -3,13 +3,13 @@
 void led_init_ports(void) {
     // Set our LED pins as output
     setPinOutput(B13); // LED1
-    writePinLow(B13);
+    gpio_write_pin_low(B13);
     setPinOutput(B14); // LED2
-    writePinLow(B14);
+    gpio_write_pin_low(B14);
     setPinOutput(A8); // LED3
-    writePinLow(A8);
+    gpio_write_pin_low(A8);
     setPinOutput(A0); // Capslock LED
-    writePinLow(A0);
+    gpio_write_pin_low(A0);
 }
 
 bool led_update_kb(led_t led_state) {

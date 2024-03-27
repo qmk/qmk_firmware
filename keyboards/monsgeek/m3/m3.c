@@ -137,9 +137,9 @@ enum __layers {
 
 void matrix_init_kb(void) {
     setPinOutput(LED_MAC_OS_PIN); // LDE2 MAC\WIN
-    writePinLow(LED_MAC_OS_PIN);
+    gpio_write_pin_low(LED_MAC_OS_PIN);
     setPinOutput(LED_WIN_LOCK_PIN); // LED3 Win Lock
-    writePinLow(LED_WIN_LOCK_PIN);
+    gpio_write_pin_low(LED_WIN_LOCK_PIN);
 }
 
 void housekeeping_task_kb(void){

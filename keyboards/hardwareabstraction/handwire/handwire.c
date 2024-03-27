@@ -36,7 +36,7 @@ void housekeeping_task_kb(void){
     if(buzzer_on){
         if(buzzer_active && timer_elapsed(buzzer_timer) > buzzer_dwell){
         buzzer_active = false;
-        writePinLow(BUZZER_PIN);
+        gpio_write_pin_low(BUZZER_PIN);
         }
     }
     housekeeping_task_user();
@@ -97,7 +97,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                     gpio_write_pin_high(BUZZER_PIN);
                 }
                 else{
-                    writePinLow(BUZZER_PIN);
+                    gpio_write_pin_low(BUZZER_PIN);
                 }
                 break;
 

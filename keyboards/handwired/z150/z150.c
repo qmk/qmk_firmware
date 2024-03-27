@@ -21,9 +21,9 @@ void matrix_init_kb(void) {
     setPinOutput(CAPS_LOCK_LED_PIN);
     setPinOutput(SCROLL_LOCK_LED_PIN);
 
-    writePinLow(NUM_LOCK_LED_PIN);
-    writePinLow(CAPS_LOCK_LED_PIN);
-    writePinLow(SCROLL_LOCK_LED_PIN);
+    gpio_write_pin_low(NUM_LOCK_LED_PIN);
+    gpio_write_pin_low(CAPS_LOCK_LED_PIN);
+    gpio_write_pin_low(SCROLL_LOCK_LED_PIN);
 
     matrix_init_user();
 }

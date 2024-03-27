@@ -57,7 +57,7 @@ static inline void charge_capacitor(uint8_t col) {
 
 static inline void clear_all_col_pins(void) {
     for (int col = 0; col < sizeof(col_pins); col++) {
-        writePinLow(col_pins[col]);
+        gpio_write_pin_low(col_pins[col]);
     }
 }
 
@@ -77,7 +77,7 @@ void select_mux(uint8_t row) {
 void init_col(void) {
     for (int idx = 0; idx < sizeof(col_pins); idx++) {
         setPinOutput(col_pins[idx]);
-        writePinLow(col_pins[idx]);
+        gpio_write_pin_low(col_pins[idx]);
     }
 }
 
@@ -86,7 +86,7 @@ void ec_init(ec_config_t const* const ec_config) {
     config = *ec_config;
 
     // initialize discharge pin as discharge mode
-    writePinLow(DISCHARGE_PIN);
+    gpio_write_pin_low(DISCHARGE_PIN);
     setPinOutput(DISCHARGE_PIN);
 
     // set analog reference

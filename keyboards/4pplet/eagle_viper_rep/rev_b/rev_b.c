@@ -32,11 +32,11 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 }
 /* Set indicator leds to indicate which layer is active */
 void setLayerLed(layer_state_t state){
-    writePinLow(LAYER_1);
-    writePinLow(LAYER_2);
-    writePinLow(LAYER_3);
-    writePinLow(LAYER_4);
-    writePinLow(LAYER_5);
+    gpio_write_pin_low(LAYER_1);
+    gpio_write_pin_low(LAYER_2);
+    gpio_write_pin_low(LAYER_3);
+    gpio_write_pin_low(LAYER_4);
+    gpio_write_pin_low(LAYER_5);
     switch (get_highest_layer(state)) {
         case 0:
             gpio_write_pin_high(LAYER_1);

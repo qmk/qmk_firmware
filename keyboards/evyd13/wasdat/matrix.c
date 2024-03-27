@@ -49,7 +49,7 @@ static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
  */
 static void select_col(uint8_t col) {
     if (col_pins[col] != NO_PIN) {
-        writePinLow(col_pins[col]);
+        gpio_write_pin_low(col_pins[col]);
     } else {
         sn74x138_set_addr(13 - col);
     }

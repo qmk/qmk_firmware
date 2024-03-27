@@ -38,15 +38,15 @@ void backlight_set(uint8_t level) {
     if (level & F_ROW_MASK) {
         gpio_write_pin_high(B1);
     } else {
-        writePinLow(B1);
+        gpio_write_pin_low(B1);
     }
 
     // WASD
     if (level & WASD_MASK) {
-        writePinLow(B2);
-        writePinLow(B3);
-        writePinLow(B4);
-        writePinLow(D7);
+        gpio_write_pin_low(B2);
+        gpio_write_pin_low(B3);
+        gpio_write_pin_low(B4);
+        gpio_write_pin_low(D7);
     } else {
         gpio_write_pin_high(B2);
         gpio_write_pin_high(B3);

@@ -26,7 +26,7 @@ void keyboard_post_init_kb(void) {
     {
         for(uint8_t col = 0; col < MATRIX_COLS; col++)
         {
-            writePinLow(pins[row][col]); //Disable internal pull-up resistors
+            gpio_write_pin_low(pins[row][col]); //Disable internal pull-up resistors
         }
     }
 
@@ -36,7 +36,7 @@ void keyboard_post_init_kb(void) {
 void cycle_leds(void) {
     for(uint8_t i = 0; i < 3; i++) {
         setPinInput(led_pins[i]);
-        writePinLow(led_pins[i]);
+        gpio_write_pin_low(led_pins[i]);
     }
 
     led_cycle_counter++;
@@ -46,11 +46,11 @@ void cycle_leds(void) {
         case 0:
             if (led_state[0]) { // Up Arrow
                 setPinInput(led_pins[0]);
-                writePinLow(led_pins[0]);
+                gpio_write_pin_low(led_pins[0]);
                 setPinOutput(led_pins[1]);
                 gpio_write_pin_high(led_pins[1]);
                 setPinOutput(led_pins[2]);
-                writePinLow(led_pins[2]);
+                gpio_write_pin_low(led_pins[2]);
             }
             break;
         case 1:
@@ -58,27 +58,27 @@ void cycle_leds(void) {
                 setPinOutput(led_pins[0]);
                 gpio_write_pin_high(led_pins[0]);
                 setPinOutput(led_pins[1]);
-                writePinLow(led_pins[1]);
+                gpio_write_pin_low(led_pins[1]);
                 setPinInput(led_pins[2]);
-                writePinLow(led_pins[2]);
+                gpio_write_pin_low(led_pins[2]);
             }
             break;
         case 2:
             if (led_state[2]) { // Left Arrow
                 setPinOutput(led_pins[0]);
-                writePinLow(led_pins[0]);
+                gpio_write_pin_low(led_pins[0]);
                 setPinOutput(led_pins[1]);
                 gpio_write_pin_high(led_pins[1]);
                 setPinInput(led_pins[2]);
-                writePinLow(led_pins[2]);
+                gpio_write_pin_low(led_pins[2]);
             }
             break;
         case 3:
             if (led_state[3]) { // Right Arrow
                 setPinInput(led_pins[0]);
-                writePinLow(led_pins[0]);
+                gpio_write_pin_low(led_pins[0]);
                 setPinOutput(led_pins[1]);
-                writePinLow(led_pins[1]);
+                gpio_write_pin_low(led_pins[1]);
                 setPinOutput(led_pins[2]);
                 gpio_write_pin_high(led_pins[2]);
             }
@@ -86,9 +86,9 @@ void cycle_leds(void) {
         case 4:
             if (led_state[4]) { // Space
                 setPinOutput(led_pins[0]);
-                writePinLow(led_pins[0]);
+                gpio_write_pin_low(led_pins[0]);
                 setPinInput(led_pins[1]);
-                writePinLow(led_pins[1]);
+                gpio_write_pin_low(led_pins[1]);
                 setPinOutput(led_pins[2]);
                 gpio_write_pin_high(led_pins[2]);
               }
@@ -98,9 +98,9 @@ void cycle_leds(void) {
                 setPinOutput(led_pins[0]);
                 gpio_write_pin_high(led_pins[0]);
                 setPinInput(led_pins[1]);
-                writePinLow(led_pins[1]);
+                gpio_write_pin_low(led_pins[1]);
                 setPinOutput(led_pins[2]);
-                writePinLow(led_pins[2]);
+                gpio_write_pin_low(led_pins[2]);
             }
             break;
         default:

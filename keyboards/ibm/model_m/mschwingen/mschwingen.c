@@ -79,7 +79,7 @@ void sleep_led_disable(void) {
 
 void sleep_led_enable(void) {
     suspend_active = true;
-    writePinLow(MODELM_STATUS_LED);
+    gpio_write_pin_low(MODELM_STATUS_LED);
 #ifdef KEYBOARD_ibm_model_m_mschwingen_led_ws2812
     led[0] = black;
     led[1] = black;
@@ -97,9 +97,9 @@ void keyboard_pre_init_kb(void) {
     setPinOutput(MODELM_LED_CAPSLOCK);
     setPinOutput(MODELM_LED_SCROLLOCK);
     setPinOutput(MODELM_LED_NUMLOCK);
-    writePinLow(MODELM_LED_CAPSLOCK);
-    writePinLow(MODELM_LED_SCROLLOCK);
-    writePinLow(MODELM_LED_NUMLOCK);
+    gpio_write_pin_low(MODELM_LED_CAPSLOCK);
+    gpio_write_pin_low(MODELM_LED_SCROLLOCK);
+    gpio_write_pin_low(MODELM_LED_NUMLOCK);
 #endif
     setPinOutput(MODELM_STATUS_LED);
     gpio_write_pin_high(MODELM_STATUS_LED);
@@ -113,7 +113,7 @@ void keyboard_pre_init_kb(void) {
     setPinOutput(SR_LOAD_PIN);
     setPinOutput(SR_CLK_PIN);
     setPinOutput(SR_DOUT_PIN);  // MOSI - unused
-    writePinLow(SR_CLK_PIN);
+    gpio_write_pin_low(SR_CLK_PIN);
 }
 
 #ifdef KEYBOARD_ibm_model_m_mschwingen_led_ws2812

@@ -49,9 +49,9 @@ void keyboard_post_init_kb(void) {
 
     // Turn off increased current limits
     setPinOutput(RGB_CURR_1500mA_OK_PIN);
-    writePinLow(RGB_CURR_1500mA_OK_PIN);
+    gpio_write_pin_low(RGB_CURR_1500mA_OK_PIN);
     setPinOutput(RGB_CURR_3000mA_OK_PIN);
-    writePinLow(RGB_CURR_3000mA_OK_PIN);
+    gpio_write_pin_low(RGB_CURR_3000mA_OK_PIN);
 
     // Turn on the RGB
     setPinOutput(RGB_POWER_ENABLE_PIN);
@@ -150,12 +150,12 @@ void housekeeping_task_kb(void) {
         switch (current_setting) {
             default:
             case USBPD_500MA:
-                writePinLow(RGB_CURR_1500mA_OK_PIN);
-                writePinLow(RGB_CURR_3000mA_OK_PIN);
+                gpio_write_pin_low(RGB_CURR_1500mA_OK_PIN);
+                gpio_write_pin_low(RGB_CURR_3000mA_OK_PIN);
                 break;
             case USBPD_1500MA:
                 gpio_write_pin_high(RGB_CURR_1500mA_OK_PIN);
-                writePinLow(RGB_CURR_3000mA_OK_PIN);
+                gpio_write_pin_low(RGB_CURR_3000mA_OK_PIN);
                 break;
             case USBPD_3000MA:
                 gpio_write_pin_high(RGB_CURR_1500mA_OK_PIN);
@@ -168,12 +168,12 @@ void housekeeping_task_kb(void) {
             default:
             case USBPD_500MA:
             case USBPD_1500MA:
-                writePinLow(RGB_CURR_1500mA_OK_PIN);
-                writePinLow(RGB_CURR_3000mA_OK_PIN);
+                gpio_write_pin_low(RGB_CURR_1500mA_OK_PIN);
+                gpio_write_pin_low(RGB_CURR_3000mA_OK_PIN);
                 break;
             case USBPD_3000MA:
                 gpio_write_pin_high(RGB_CURR_1500mA_OK_PIN);
-                writePinLow(RGB_CURR_3000mA_OK_PIN);
+                gpio_write_pin_low(RGB_CURR_3000mA_OK_PIN);
                 break;
         }
 #endif
@@ -201,7 +201,7 @@ void housekeeping_task_kb(void) {
         }
     } else {
         // Turn off RGB
-        writePinLow(RGB_POWER_ENABLE_PIN);
+        gpio_write_pin_low(RGB_POWER_ENABLE_PIN);
         // Disable the PWM output for the RGB
         if (rgb_matrix_is_enabled() != peripherals_on) {
             rgb_matrix_disable_noeeprom();

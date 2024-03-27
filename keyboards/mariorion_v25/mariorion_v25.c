@@ -33,17 +33,17 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 	switch (get_highest_layer(state)) {
 		case 1:
 			gpio_write_pin_high(INDICATOR_0);
-			writePinLow(INDICATOR_1);
-			writePinLow(INDICATOR_2);
+			gpio_write_pin_low(INDICATOR_1);
+			gpio_write_pin_low(INDICATOR_2);
 			break;
 		case 2:
-			writePinLow(INDICATOR_0);
+			gpio_write_pin_low(INDICATOR_0);
 			gpio_write_pin_high(INDICATOR_1);
-			writePinLow(INDICATOR_2);
+			gpio_write_pin_low(INDICATOR_2);
 			break;
 		case 3:
-			writePinLow(INDICATOR_0);
-			writePinLow(INDICATOR_1);
+			gpio_write_pin_low(INDICATOR_0);
+			gpio_write_pin_low(INDICATOR_1);
 			gpio_write_pin_high(INDICATOR_2);
 			break;
 		default:
@@ -56,9 +56,9 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 }
 
 void suspend_power_down_kb(void) {
-	writePinLow(INDICATOR_0);
-	writePinLow(INDICATOR_1);
-	writePinLow(INDICATOR_2);
+	gpio_write_pin_low(INDICATOR_0);
+	gpio_write_pin_low(INDICATOR_1);
+	gpio_write_pin_low(INDICATOR_2);
 
 	suspend_power_down_user();
 }

@@ -196,7 +196,7 @@ static void unselect_rows(void) {
 
     for (uint8_t row = 0; row < MATRIX_ROWS_PER_SIDE; row++) {
       setPinInput(row_pins[row]);
-      writePinLow(row_pins[row]);
+      gpio_write_pin_low(row_pins[row]);
     }
 }
 
@@ -212,6 +212,6 @@ static void select_row(uint8_t row) {
         }
     } else {
         setPinOutput(row_pins[row - MATRIX_ROWS_PER_SIDE]);
-        writePinLow(row_pins[row - MATRIX_ROWS_PER_SIDE]);
+        gpio_write_pin_low(row_pins[row - MATRIX_ROWS_PER_SIDE]);
     }
 }

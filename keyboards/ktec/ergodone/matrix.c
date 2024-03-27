@@ -122,12 +122,12 @@ static void unselect_rows(void) {
     setPinInput(F5);
     setPinInput(F6);
     setPinInput(F7);
-    writePinLow(B1);
-    writePinLow(B2);
-    writePinLow(F4);
-    writePinLow(F5);
-    writePinLow(F6);
-    writePinLow(F7);
+    gpio_write_pin_low(B1);
+    gpio_write_pin_low(B2);
+    gpio_write_pin_low(F4);
+    gpio_write_pin_low(F5);
+    gpio_write_pin_low(F6);
+    gpio_write_pin_low(F7);
 
     // Expander
     expander_unselect_rows();
@@ -138,27 +138,27 @@ static void unselect_row(uint8_t row) {
     switch (row) {
         case 0:
             setPinInput(F4);
-            writePinLow(F4);
+            gpio_write_pin_low(F4);
             break;
         case 1:
             setPinInput(F5);
-            writePinLow(F5);
+            gpio_write_pin_low(F5);
             break;
         case 2:
             setPinInput(F6);
-            writePinLow(F6);
+            gpio_write_pin_low(F6);
             break;
         case 3:
             setPinInput(F7);
-            writePinLow(F7);
+            gpio_write_pin_low(F7);
             break;
         case 4:
             setPinInput(B1);
-            writePinLow(B1);
+            gpio_write_pin_low(B1);
             break;
         case 5:
             setPinInput(B2);
-            writePinLow(B2);
+            gpio_write_pin_low(B2);
             break;
     }
 
@@ -171,27 +171,27 @@ static void select_row(uint8_t row) {
     switch (row) {
         case 0:
             setPinOutput(F4);
-            writePinLow(F4);
+            gpio_write_pin_low(F4);
             break;
         case 1:
             setPinOutput(F5);
-            writePinLow(F5);
+            gpio_write_pin_low(F5);
             break;
         case 2:
             setPinOutput(F6);
-            writePinLow(F6);
+            gpio_write_pin_low(F6);
             break;
         case 3:
             setPinOutput(F7);
-            writePinLow(F7);
+            gpio_write_pin_low(F7);
             break;
         case 4:
             setPinOutput(B1);
-            writePinLow(B1);
+            gpio_write_pin_low(B1);
             break;
         case 5:
             setPinOutput(B2);
-            writePinLow(B2);
+            gpio_write_pin_low(B2);
             break;
     }
 

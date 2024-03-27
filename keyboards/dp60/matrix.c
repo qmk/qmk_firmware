@@ -54,7 +54,7 @@ void matrix_init(void)
   //setPinOutput(F0);
   //gpio_write_pin_high(F0);
   setPinOutput(B4);
-  writePinLow(B4);
+  gpio_write_pin_low(B4);
 
   init_cols();
   init_rows();
@@ -191,72 +191,72 @@ static void select_col(uint8_t col) {
 
    switch (col) {
         case 0:
-          writePinLow(F0);
-          writePinLow(F1);
-          writePinLow(F4);
+          gpio_write_pin_low(F0);
+          gpio_write_pin_low(F1);
+          gpio_write_pin_low(F4);
           break;
         case 1:
           gpio_write_pin_high(F0);
-          writePinLow(F1);
-          writePinLow(F4);
+          gpio_write_pin_low(F1);
+          gpio_write_pin_low(F4);
           break;
         case 2:
-          writePinLow(F0);
+          gpio_write_pin_low(F0);
           gpio_write_pin_high(F1);
-          writePinLow(F4);
+          gpio_write_pin_low(F4);
           break;
         case 3:
           gpio_write_pin_high(F0);
           gpio_write_pin_high(F1);
-          writePinLow(F4);
+          gpio_write_pin_low(F4);
           break;
         case 4:
-          writePinLow(F0);
-          writePinLow(F1);
+          gpio_write_pin_low(F0);
+          gpio_write_pin_low(F1);
           gpio_write_pin_high(F4);
           break;
         case 5:
           gpio_write_pin_high(F0);
-          writePinLow(F1);
+          gpio_write_pin_low(F1);
           gpio_write_pin_high(F4);
           break;
         case 6:
-          writePinLow(F0);
+          gpio_write_pin_low(F0);
           gpio_write_pin_high(F1);
           gpio_write_pin_high(F4);
           break;
         case 7:
-          writePinLow(D2);
-          writePinLow(D3);
-          writePinLow(D5);
+          gpio_write_pin_low(D2);
+          gpio_write_pin_low(D3);
+          gpio_write_pin_low(D5);
           break;
         case 8:
           gpio_write_pin_high(D2);
-          writePinLow(D3);
-          writePinLow(D5);
+          gpio_write_pin_low(D3);
+          gpio_write_pin_low(D5);
           break;
         case 9:
-          writePinLow(D2);
+          gpio_write_pin_low(D2);
           gpio_write_pin_high(D3);
-          writePinLow(D5);
+          gpio_write_pin_low(D5);
           break;
         case 10:
           gpio_write_pin_high(D2);
           gpio_write_pin_high(D3);
-          writePinLow(D5);
+          gpio_write_pin_low(D5);
           break;
         case 11:
-          writePinLow(D2);
-          writePinLow(D3);
+          gpio_write_pin_low(D2);
+          gpio_write_pin_low(D3);
           gpio_write_pin_high(D5);
           break;
         case 12:
           gpio_write_pin_high(D2);
-          writePinLow(D3);
+          gpio_write_pin_low(D3);
           gpio_write_pin_high(D5);
           break;
         case 13:
-          writePinLow(D2);
+          gpio_write_pin_low(D2);
           gpio_write_pin_high(D3);
           gpio_write_pin_high(D5);
           break;

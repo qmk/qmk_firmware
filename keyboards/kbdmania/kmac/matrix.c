@@ -98,7 +98,7 @@ void matrix_print(void) {
 static void unselect_cols(void) {
     for (uint8_t x = 0; x < 6; x++) {
         setPinOutput(col_pins[x]);
-        writePinLow(col_pins[x]);
+        gpio_write_pin_low(col_pins[x]);
     }
 }
 

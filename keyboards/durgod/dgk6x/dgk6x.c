@@ -24,9 +24,9 @@ void off_all_leds(void) {
 }
 
 void on_all_leds(void) {
-    writePinLow(LED_CAPS_LOCK_PIN);
-    writePinLow(LED_WIN_LOCK_PIN);
-    writePinLow(LED_MR_LOCK_PIN);
+    gpio_write_pin_low(LED_CAPS_LOCK_PIN);
+    gpio_write_pin_low(LED_WIN_LOCK_PIN);
+    gpio_write_pin_low(LED_MR_LOCK_PIN);
 }
 
 /* WinLock and MR LEDs are non-standard. Need to override led init */

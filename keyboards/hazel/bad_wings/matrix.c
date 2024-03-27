@@ -49,7 +49,7 @@ bool sr_74hc595_spi_start(void) {
 
 bool sr_74hc595_spi_send_byte(uint8_t data) {
     sr_74hc595_spi_start();
-    writePinLow(SHIFTREG_MATRIX_COL_CS);
+    gpio_write_pin_low(SHIFTREG_MATRIX_COL_CS);
     matrix_io_delay();
     spi_write(data);
     matrix_io_delay();

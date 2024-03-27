@@ -50,7 +50,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #define XT_DATA_LO()               \
     do {                           \
-        writePinLow(XT_DATA_PIN);  \
+        gpio_write_pin_low(XT_DATA_PIN);  \
         setPinOutput(XT_DATA_PIN); \
     } while (0)
 
@@ -64,7 +64,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #define XT_CLOCK_LO()               \
     do {                            \
-        writePinLow(XT_CLOCK_PIN);  \
+        gpio_write_pin_low(XT_CLOCK_PIN);  \
         setPinOutput(XT_CLOCK_PIN); \
     } while (0)
 

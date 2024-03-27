@@ -95,7 +95,7 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
             gpio_write_pin_high(A14);
             break;
         default: //  for any other layers, or the default layer
-            writePinLow(A14);
+            gpio_write_pin_low(A14);
             break;
     }
     return layer_state_set_user(state);

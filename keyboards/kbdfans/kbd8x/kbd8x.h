@@ -20,10 +20,10 @@
 
 // Functions for setting LEDs on toggle keys
 inline void caps_led_on(void)     { gpio_write_pin_high(LED_CAPS_LOCK_PIN); }
-inline void caps_led_off(void)    { writePinLow(LED_CAPS_LOCK_PIN); }
+inline void caps_led_off(void)    { gpio_write_pin_low(LED_CAPS_LOCK_PIN); }
 
 inline void num_led_on(void)      { gpio_write_pin_high(LED_NUM_LOCK_PIN); }
-inline void num_led_off(void)     { writePinLow(LED_NUM_LOCK_PIN); }
+inline void num_led_off(void)     { gpio_write_pin_low(LED_NUM_LOCK_PIN); }
 
 inline void scroll_led_on(void)   { gpio_write_pin_high(LED_SCROLL_LOCK_PIN); }
-inline void scroll_led_off(void)  { writePinLow(LED_SCROLL_LOCK_PIN); }
+inline void scroll_led_off(void)  { gpio_write_pin_low(LED_SCROLL_LOCK_PIN); }

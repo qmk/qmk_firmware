@@ -43,7 +43,7 @@ void check_encoder_buttons(void) {
 	if (drawing_mode) {
             dprintf("Turning drawing mode off.\n");
             drawing_mode = false;
-            writePinLow(D6);
+            gpio_write_pin_low(D6);
 	    unregister_code(KC_BTN1);
 	} else {
             dprintf("Turning drawing mode on.\n");

@@ -35,13 +35,13 @@ void hhkb_led_on(uint8_t led) {
 void hhkb_led_off(uint8_t led) {
     switch (led) {
         case 1:
-            writePinLow(F4);
+            gpio_write_pin_low(F4);
             break;
         case 2:
-            writePinLow(F2);
+            gpio_write_pin_low(F2);
             break;
         case 3:
-            writePinLow(F0);
+            gpio_write_pin_low(F0);
             break;
     }
 }
@@ -49,7 +49,7 @@ void hhkb_led_off(uint8_t led) {
 void keyboard_pre_init_kb(void) {
     // BT power up
     setPinOutput(D5);
-    writePinLow(D5);
+    gpio_write_pin_low(D5);
 
     // Row selectors
     setPinOutput(B0);
@@ -77,13 +77,13 @@ void keyboard_pre_init_kb(void) {
     setPinOutput(F0);
     setPinOutput(F1);
     setPinOutput(F4);
-    writePinLow(F0);
-    writePinLow(F1);
-    writePinLow(F4);
+    gpio_write_pin_low(F0);
+    gpio_write_pin_low(F1);
+    gpio_write_pin_low(F4);
 
     // Turn on switch PCB
     setPinOutput(D6);
-    writePinLow(D6);
+    gpio_write_pin_low(D6);
 
     keyboard_pre_init_user();
 }
@@ -101,7 +101,7 @@ void suspend_power_down_kb(void) {
 
 void suspend_wakeup_init_kb(void) {
     // Power up BLE module
-    writePinLow(D5);
+    gpio_write_pin_low(D5);
     // Enable UART TX
     UCSR1B |= _BV(TXEN1);
 

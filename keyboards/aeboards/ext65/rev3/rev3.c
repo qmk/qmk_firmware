@@ -31,7 +31,7 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
         gpio_write_pin_high(LED_LAYERS_PIN);
         break;
       default: //  for any other layers, or the default layer
-        writePinLow(LED_LAYERS_PIN);
+        gpio_write_pin_low(LED_LAYERS_PIN);
         break;
       }
     return layer_state_set_user(state);
