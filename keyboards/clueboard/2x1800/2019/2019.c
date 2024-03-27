@@ -23,8 +23,8 @@ void matrix_init_kb(void) {
     gpio_set_pin_output(B6);
 
     // Set our Tilt Sensor pins as input
-    setPinInputHigh(SHAKE_PIN_A);
-    setPinInputHigh(SHAKE_PIN_B);
+    gpio_set_pin_input_high(SHAKE_PIN_A);
+    gpio_set_pin_input_high(SHAKE_PIN_B);
 
     // Run the keymap level init
     matrix_init_user();

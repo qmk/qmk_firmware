@@ -34,7 +34,7 @@ static matrix_row_t last_matrix[MATRIX_ROWS];  // raw values of last scan
     gpio_write_pin_low(row_pins[row]);
 }
 
- void unselect_row(uint8_t row) { setPinInputHigh(row_pins[row]); }
+ void unselect_row(uint8_t row) { gpio_set_pin_input_high(row_pins[row]); }
 
  bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
     // Store last value of row prior to reading
@@ -67,7 +67,7 @@ static matrix_row_t last_matrix[MATRIX_ROWS];  // raw values of last scan
     gpio_write_pin_low(col_pins[col]);
 }
 
- void unselect_col(uint8_t col) { setPinInputHigh(col_pins[col]); }
+ void unselect_col(uint8_t col) { gpio_set_pin_input_high(col_pins[col]); }
 
  bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {
     bool matrix_changed = false;
@@ -101,13 +101,13 @@ static matrix_row_t last_matrix[MATRIX_ROWS];  // raw values of last scan
 
  void unselect_rows(void) {
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        setPinInputHigh(row_pins[x]);
+        gpio_set_pin_input_high(row_pins[x]);
     }
 }
 
  void unselect_cols(void) {
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-        setPinInputHigh(col_pins[x]);
+        gpio_set_pin_input_high(col_pins[x]);
     }
 }
 

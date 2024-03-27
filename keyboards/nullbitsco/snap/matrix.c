@@ -50,13 +50,13 @@ static void init_pins(void) {
 
     // Set rows to input, pullup
     for (uint8_t pin = 0; pin < ROWS_PER_HAND; pin++) {
-        setPinInputHigh(row_pins[pin]);
+        gpio_set_pin_input_high(row_pins[pin]);
     }
 
     // Set extended pin (only on right side)
     if (!isLeftHand) {
         // Set extended pin to input, pullup
-        setPinInputHigh(MATRIX_EXT_PIN_RIGHT);
+        gpio_set_pin_input_high(MATRIX_EXT_PIN_RIGHT);
     }
 }
 

@@ -259,7 +259,7 @@ static void board_select_master_row(board_info_t* board, uint8_t board_row) {
     gpio_write_pin_low(board->row_pins[board_row]);
 }
 
-static void board_unselect_master_row(board_info_t* board, uint8_t board_row) { setPinInputHigh(board->row_pins[board_row]); }
+static void board_unselect_master_row(board_info_t* board, uint8_t board_row) { gpio_set_pin_input_high(board->row_pins[board_row]); }
 
 static void board_unselect_master_rows(board_info_t* board) {
     if (!board) {
@@ -296,7 +296,7 @@ static void board_master_init(void) {
         return;
     }
     for (uint8_t x = 0; x < NUM_COLS; x++) {
-        setPinInputHigh(board->col_pins[x]);
+        gpio_set_pin_input_high(board->col_pins[x]);
     }
     board->initialized = true;
 }

@@ -36,7 +36,7 @@ static void init_pins(void) {
 
     // Set rows to input, pullup
     for (uint8_t pin = 0; pin < MATRIX_ROWS; pin++) {
-        setPinInputHigh(row_pins[pin]);
+        gpio_set_pin_input_high(row_pins[pin]);
     }
 }
 

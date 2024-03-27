@@ -70,14 +70,14 @@ led_config_t g_led_config = {
 
 #if defined(SPLIT_HAND_MATRIX_GRID)
 static uint8_t peek_matrix_intersection(pin_t out_pin, pin_t in_pin) {
-    setPinInputHigh(in_pin);
+    gpio_set_pin_input_high(in_pin);
     gpio_set_pin_output(out_pin);
     gpio_write_pin_low(out_pin);
     // It's almost unnecessary, but wait until it's down to low, just in case.
     wait_us(1);
     uint8_t pin_state = gpio_read_pin(in_pin);
     // Set out_pin to a setting that is less susceptible to noise.
-    setPinInputHigh(out_pin);
+    gpio_set_pin_input_high(out_pin);
     matrix_io_delay();  // Wait for the pull-up to go HIGH.
     return pin_state;
 }

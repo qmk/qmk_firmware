@@ -96,7 +96,7 @@ void matrix_init_custom(void) {
 
     // initialize key pins
     for (uint8_t row_index = 0; row_index < MATRIX_ROWS; row_index++) {
-        setPinInputHigh(row_pins[row_index]);
+        gpio_set_pin_input_high(row_pins[row_index]);
     }
 }
 

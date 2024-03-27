@@ -70,7 +70,7 @@ void matrix_power_up(void) {
     init_cols();
 #ifdef DIP_SWITCH_PINS
     for (uint8_t i = 1; i < NUMBER_OF_DIP_SWITCHES; i++) {
-        setPinInputHigh(dip_switch_pad[i]);
+        gpio_set_pin_input_high(dip_switch_pad[i]);
     }
 #endif
 }

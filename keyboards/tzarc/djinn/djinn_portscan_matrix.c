@@ -39,10 +39,10 @@ static void dummy_vt_callback(virtual_timer_t *vtp, void *p) {}
 
 void matrix_init_custom(void) {
     for (int i = 0; i < MATRIX_ROWS; ++i) {
-        setPinInputHigh(row_pins[i]);
+        gpio_set_pin_input_high(row_pins[i]);
     }
     for (int i = 0; i < MATRIX_COLS; ++i) {
-        setPinInputHigh(col_pins[i]);
+        gpio_set_pin_input_high(col_pins[i]);
     }
 
     // Start a virtual timer so we'll still get periodic wakeups, now that USB SOF doesn't wake up the main loop
@@ -68,7 +68,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         uint32_t gpio_c = palReadPort(GPIOC);
 
         // Unselect the row pin
-        setPinInputHigh(curr_col_pin);
+        gpio_set_pin_input_high(curr_col_pin);
 
         // Construct the packed bitmask for the pins
         uint32_t readback = ~(((gpio_b & GPIOB_BITMASK) >> GPIOB_OFFSET) | (((gpio_c & GPIOC_BITMASK) >> GPIOC_OFFSET) << GPIOB_COUNT));
@@ -105,7 +105,7 @@ void matrix_wait_for_interrupt(void) {
         gpio_write_pin_low(col_pins[i]);
     }
     for (int i = 0; i < ARRAY_SIZE(row_pins); ++i) {
-        setPinInputHigh(row_pins[i]);
+        gpio_set_pin_input_high(row_pins[i]);
         palEnableLineEvent(row_pins[i], PAL_EVENT_MODE_BOTH_EDGES);
     }
 
@@ -116,10 +116,10 @@ void matrix_wait_for_interrupt(void) {
     for (int i = 0; i < ARRAY_SIZE(row_pins); ++i) {
         palDisableLineEvent(row_pins[i]);
         gpio_write_pin_high(row_pins[i]);
-        setPinInputHigh(row_pins[i]);
+        gpio_set_pin_input_high(row_pins[i]);
     }
     for (int i = 0; i < ARRAY_SIZE(col_pins); ++i) {
         gpio_write_pin_high(col_pins[i]);
-        setPinInputHigh(col_pins[i]);
+        gpio_set_pin_input_high(col_pins[i]);
     }
 }

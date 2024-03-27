@@ -19,7 +19,7 @@ uint16_t          dpi_array[] = GLIDEPOINT_DPI_OPTIONS;
 void board_init(void) {
     // B9 is configured as I2C1_SDA in the board file; that function must be
     // disabled before using B7 as I2C1_SDA.
-    setPinInputHigh(B9);
+    gpio_set_pin_input_high(B9);
     gpio_set_pin_output(B12);
     gpio_set_pin_output(B13);
     gpio_set_pin_output(B14);

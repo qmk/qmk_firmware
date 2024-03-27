@@ -120,11 +120,11 @@ void matrix_print(void)
  */
 static void init_rows(void)
 {
-  setPinInputHigh(E6);
-  setPinInputHigh(F6);
-  setPinInputHigh(F7);
-  setPinInputHigh(B7);
-  setPinInputHigh(D4);
+  gpio_set_pin_input_high(E6);
+  gpio_set_pin_input_high(F6);
+  gpio_set_pin_input_high(F7);
+  gpio_set_pin_input_high(B7);
+  gpio_set_pin_input_high(D4);
 }
 
 static uint8_t read_rows(void)

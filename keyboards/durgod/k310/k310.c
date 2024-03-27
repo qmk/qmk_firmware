@@ -75,7 +75,7 @@ static void hardware_reset_cb(void *arg) {
 #endif
 
 void keyboard_pre_init_kb(void) {
-    setPinInputHigh(HARDWARE_RESET_PIN);
+    gpio_set_pin_input_high(HARDWARE_RESET_PIN);
 
 #ifndef HW_RESET_PIN_DISABLED
     /* Jump to bootloader when the hardware reset button is pressed */

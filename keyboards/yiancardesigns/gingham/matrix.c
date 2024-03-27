@@ -25,7 +25,7 @@ static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 
 static void unselect_rows(void) {
     for(uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        setPinInputHigh(row_pins[x]);
+        gpio_set_pin_input_high(row_pins[x]);
     }
 }
 
@@ -35,7 +35,7 @@ static void select_row(uint8_t row) {
 }
 
 static void unselect_row(uint8_t row) {
-    setPinInputHigh(row_pins[row]);
+    gpio_set_pin_input_high(row_pins[row]);
 }
 
 static void init_pins(void) {
@@ -48,7 +48,7 @@ static void init_pins(void) {
 
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
         if ( (x > 0) && (x < 12) ) {
-            setPinInputHigh(col_pins[x]);
+            gpio_set_pin_input_high(col_pins[x]);
         }
     }
 }

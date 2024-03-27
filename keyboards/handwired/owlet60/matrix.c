@@ -135,13 +135,13 @@ static void select_row(uint8_t row)
 
 static void unselect_row(uint8_t row)
 {
-    setPinInputHigh(row_pins[row]);
+    gpio_set_pin_input_high(row_pins[row]);
 }
 
 static void unselect_rows(void)
 {
     for(uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        setPinInputHigh(row_pins[x]);
+        gpio_set_pin_input_high(row_pins[x]);
     }
 }
 
@@ -149,10 +149,10 @@ static void init_pins(void) {   // still need some fixing, this might not work
   unselect_rows();              // with the loop
   /*
   for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-    setPinInputHigh(col_pins[x]);
+    gpio_set_pin_input_high(col_pins[x]);
   }
   */
-  setPinInputHigh(dat_pin);
+  gpio_set_pin_input_high(dat_pin);
 }
 
 static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)

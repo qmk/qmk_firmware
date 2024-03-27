@@ -168,7 +168,7 @@ void matrix_print(void) {
 // Remember this means ROWS
 static void init_cols(void) {
     for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-      setPinInputHigh(col_pins[col]);
+      gpio_set_pin_input_high(col_pins[col]);
     }
 }
 

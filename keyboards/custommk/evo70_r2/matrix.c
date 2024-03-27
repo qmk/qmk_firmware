@@ -35,7 +35,7 @@ void matrix_init_custom(void) {
     //set all row pins as input with pullups
     for (int i = 0; i < MATRIX_ROWS; ++i) {
         gpio_write_pin_high(row_pins[i]);
-        setPinInputHigh(row_pins[i]);
+        gpio_set_pin_input_high(row_pins[i]);
     }
 
     //set all column pins high in ROW2COL matrix

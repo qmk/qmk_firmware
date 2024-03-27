@@ -16,7 +16,7 @@
 
 #include "quantum.h"
 
-void keyboard_pre_init_sub(void) { setPinInputHigh(A0); }
+void keyboard_pre_init_sub(void) { gpio_set_pin_input_high(A0); }
 
 void matrix_scan_sub_kb(void) {
     if (!gpio_read_pin(A0)) {

@@ -53,7 +53,7 @@ bool is_keyboard_master(void) {
 }
 
 void keyboard_pre_init_kb(void) {
-    setPinInputHigh(SPI_SS_PIN);
+    gpio_set_pin_input_high(SPI_SS_PIN);
 
     keyboard_pre_init_user();
 }

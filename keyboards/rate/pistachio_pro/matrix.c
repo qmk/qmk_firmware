@@ -30,7 +30,7 @@ static inline void setPinOutput_writeLow(pin_t pin) {
 }
 
 static inline void setPinInputHigh_atomic(pin_t pin) {
-    ATOMIC_BLOCK_FORCEON { setPinInputHigh(pin); }
+    ATOMIC_BLOCK_FORCEON { gpio_set_pin_input_high(pin); }
 }
 
 static void select_row(uint8_t row) {

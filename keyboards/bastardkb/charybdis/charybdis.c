@@ -371,7 +371,7 @@ void housekeeping_task_kb(void) {
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5_blackpill) || defined(KEYBOARD_bastardkb_charybdis_4x6_blackpill)
 void keyboard_pre_init_kb(void) {
-    setPinInputHigh(A0);
+    gpio_set_pin_input_high(A0);
     keyboard_pre_init_user();
 }
 

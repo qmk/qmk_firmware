@@ -56,8 +56,8 @@ void keyboard_post_init_kb(void) {
     gpio_set_pin_output(PICA40_RGB_POWER_PIN);
 
 #ifdef ENCODER_ENABLE
-    setPinInputHigh(ENCODER_PIN_A);
-    setPinInputHigh(ENCODER_PIN_B);
+    gpio_set_pin_input_high(ENCODER_PIN_A);
+    gpio_set_pin_input_high(ENCODER_PIN_B);
     transaction_register_rpc(ENCODER_SYNC, encoder_sync_slave_handler);
 #endif // ENCODER_ENABLE
 

@@ -34,18 +34,18 @@ void matrix_init_custom(void) {
     gpio_set_pin_output(D3);
 
     // input with pullup (matrix)
-    setPinInputHigh(B6);
-    setPinInputHigh(B2);
-    setPinInputHigh(B3);
-    setPinInputHigh(B1);
-    setPinInputHigh(F7);
-    setPinInputHigh(F6);
-    setPinInputHigh(F5);
-    setPinInputHigh(F4);
+    gpio_set_pin_input_high(B6);
+    gpio_set_pin_input_high(B2);
+    gpio_set_pin_input_high(B3);
+    gpio_set_pin_input_high(B1);
+    gpio_set_pin_input_high(F7);
+    gpio_set_pin_input_high(F6);
+    gpio_set_pin_input_high(F5);
+    gpio_set_pin_input_high(F4);
 
     // input with pullup (program and keypad buttons)
-    setPinInputHigh(B4);
-    setPinInputHigh(B5);
+    gpio_set_pin_input_high(B4);
+    gpio_set_pin_input_high(B5);
 
     // initialize row and col
     unselect_rows();

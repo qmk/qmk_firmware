@@ -117,7 +117,7 @@ static void init_pins(void) {
     for (int col = 0; col < MATRIX_COLS; col++) {
       pin_t pin = direct_pins[row][col];
       if (pin != NO_PIN) {
-        setPinInputHigh(pin);
+        gpio_set_pin_input_high(pin);
       }
     }
   }
@@ -221,7 +221,7 @@ static void unselect_rows(void)
 static void init_pins(void) {
   unselect_rows();
   for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-    setPinInputHigh(col_pins[x]);
+    gpio_set_pin_input_high(col_pins[x]);
   }
 }
 
@@ -263,20 +263,20 @@ static void select_col(uint8_t col)
 
 static void unselect_col(uint8_t col)
 {
-    setPinInputHigh(col_pins[col]);
+    gpio_set_pin_input_high(col_pins[col]);
 }
 
 static void unselect_cols(void)
 {
     for(uint8_t x = 0; x < MATRIX_COLS; x++) {
-        setPinInputHigh(col_pins[x]);
+        gpio_set_pin_input_high(col_pins[x]);
     }
 }
 
 static void init_pins(void) {
   unselect_cols();
   for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
-    setPinInputHigh(row_pins[x]);
+    gpio_set_pin_input_high(row_pins[x]);
   }
 }
 

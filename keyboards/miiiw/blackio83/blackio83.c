@@ -117,7 +117,7 @@ bool dip_switch_update_mask_kb(uint32_t state) {
         usbDisconnectBus(&USB_DRIVER);
         usbStop(&USB_DRIVER);
         shutdown_user(true);
-        setPinInputHigh(POWER_SWITCH_PIN);
+        gpio_set_pin_input_high(POWER_SWITCH_PIN);
         palEnableLineEvent(POWER_SWITCH_PIN, PAL_EVENT_MODE_RISING_EDGE);
         POWER_EnterSleep();
     }

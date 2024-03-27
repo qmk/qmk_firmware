@@ -128,13 +128,13 @@ static void init_cols(void) {
     // not needed, already done as part of init_mcp23018()
 
     // init on teensy
-    setPinInputHigh(F0);
-    setPinInputHigh(F1);
-    setPinInputHigh(F4);
-    setPinInputHigh(F5);
-    setPinInputHigh(F6);
-    setPinInputHigh(F7);
-    setPinInputHigh(D7);
+    gpio_set_pin_input_high(F0);
+    gpio_set_pin_input_high(F1);
+    gpio_set_pin_input_high(F4);
+    gpio_set_pin_input_high(F5);
+    gpio_set_pin_input_high(F6);
+    gpio_set_pin_input_high(F7);
+    gpio_set_pin_input_high(D7);
 }
 
 static matrix_row_t read_cols(uint8_t row) {

@@ -48,7 +48,7 @@ static void select_col(uint8_t col) {
 
 static void init_pins(void) {
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        setPinInputHigh(row_pins[x]);
+        gpio_set_pin_input_high(row_pins[x]);
     }
 }
 

@@ -34,26 +34,26 @@ static void select_row(uint8_t row) {
 }
 
 static void unselect_row(uint8_t row) {
-    setPinInputHigh(row_pins[row]);
+    gpio_set_pin_input_high(row_pins[row]);
 }
 
 static void unselect_rows(void) {
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        setPinInputHigh(row_pins[x]);
+        gpio_set_pin_input_high(row_pins[x]);
     }
 }
 
 static void init_pins(void) {
     unselect_rows();
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-        setPinInputHigh(col_pins[x]);
+        gpio_set_pin_input_high(col_pins[x]);
     }
-    setPinInputHigh(PIN_JU);
-    setPinInputHigh(PIN_JD);
-    setPinInputHigh(PIN_JL);
-    setPinInputHigh(PIN_JR);
-    setPinInputHigh(PIN_JC);
-    setPinInputHigh(PIN_TC);
+    gpio_set_pin_input_high(PIN_JU);
+    gpio_set_pin_input_high(PIN_JD);
+    gpio_set_pin_input_high(PIN_JL);
+    gpio_set_pin_input_high(PIN_JR);
+    gpio_set_pin_input_high(PIN_JC);
+    gpio_set_pin_input_high(PIN_TC);
 }
 
 static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {

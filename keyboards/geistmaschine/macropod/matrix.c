@@ -37,7 +37,7 @@ void pca9555_setup(void) {
 
 void matrix_init_custom(void) {
     // Encoder pushbutton on the MCU is connected to PD2
-    setPinInputHigh(D2);
+    gpio_set_pin_input_high(D2);
     pca9555_setup();
 }
 

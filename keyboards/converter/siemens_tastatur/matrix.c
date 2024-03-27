@@ -82,29 +82,29 @@ static void pal_cb(void* unused) {
 
 void matrix_init(void) {
     //Set I/O as pull-up inputs to read states
-    setPinInputHigh(A0);
-    setPinInputHigh(A1);
-    setPinInputHigh(A2);
-    setPinInputHigh(A3);
-    setPinInputHigh(A4);
-    setPinInputHigh(A5);
-    setPinInputHigh(A6);
-    setPinInputHigh(A7);
-    setPinInputHigh(A8);
-    setPinInputHigh(A9);
-    setPinInputHigh(A10);
-    setPinInputHigh(B3);
-    setPinInputHigh(B4);
-    setPinInputHigh(B5);
-    setPinInputHigh(B6);
-    setPinInputHigh(B7);
-    setPinInputHigh(B8);
-    setPinInputHigh(B9);
-    setPinInputHigh(B11);
-    setPinInputHigh(B12);
-    setPinInputHigh(B13);
-    setPinInputHigh(B14);
-    setPinInputHigh(B15);
+    gpio_set_pin_input_high(A0);
+    gpio_set_pin_input_high(A1);
+    gpio_set_pin_input_high(A2);
+    gpio_set_pin_input_high(A3);
+    gpio_set_pin_input_high(A4);
+    gpio_set_pin_input_high(A5);
+    gpio_set_pin_input_high(A6);
+    gpio_set_pin_input_high(A7);
+    gpio_set_pin_input_high(A8);
+    gpio_set_pin_input_high(A9);
+    gpio_set_pin_input_high(A10);
+    gpio_set_pin_input_high(B3);
+    gpio_set_pin_input_high(B4);
+    gpio_set_pin_input_high(B5);
+    gpio_set_pin_input_high(B6);
+    gpio_set_pin_input_high(B7);
+    gpio_set_pin_input_high(B8);
+    gpio_set_pin_input_high(B9);
+    gpio_set_pin_input_high(B11);
+    gpio_set_pin_input_high(B12);
+    gpio_set_pin_input_high(B13);
+    gpio_set_pin_input_high(B14);
+    gpio_set_pin_input_high(B15);
 
     memset(matrix, 0, MATRIX_ROWS * sizeof(matrix_row_t));
     memset(matrix_debouncing, 0, MATRIX_ROWS * sizeof(matrix_row_t));

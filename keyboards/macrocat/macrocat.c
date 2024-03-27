@@ -129,7 +129,7 @@ void encoder_triple_click(void) {
 void matrix_init_kb(void) {
     matrix_init_user();
 
-    setPinInputHigh(ENCODER_SWITCH);
+    gpio_set_pin_input_high(ENCODER_SWITCH);
 }
 void matrix_scan_kb(void) {
     matrix_scan_user();

@@ -82,13 +82,13 @@ static void expander_scan(void) {
  */
 static void init_cols(void) {
     // Pro Micro
-    setPinInputHigh(E6);
-    setPinInputHigh(D2);
-    setPinInputHigh(D3);
-    setPinInputHigh(D4);
-    setPinInputHigh(D7);
-    setPinInputHigh(C6);
-    setPinInputHigh(B4);
+    gpio_set_pin_input_high(E6);
+    gpio_set_pin_input_high(D2);
+    gpio_set_pin_input_high(D3);
+    gpio_set_pin_input_high(D4);
+    gpio_set_pin_input_high(D7);
+    gpio_set_pin_input_high(C6);
+    gpio_set_pin_input_high(B4);
 
     // Expander
     expander_init_cols();

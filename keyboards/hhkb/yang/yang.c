@@ -66,12 +66,12 @@ void keyboard_pre_init_kb(void) {
     gpio_write_pin_high(B6);
 
     // Key: input with pull-up
-    setPinInputHigh(D7);
+    gpio_set_pin_input_high(D7);
 
     // Unused pins on Pro2 ANSI
     // Input with pull up to save power
-    setPinInputHigh(C6);
-    setPinInputHigh(C7);
+    gpio_set_pin_input_high(C6);
+    gpio_set_pin_input_high(C7);
 
     // LED pin configuration
     gpio_set_pin_output(F0);

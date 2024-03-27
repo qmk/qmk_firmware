@@ -199,7 +199,7 @@ static matrix_row_t read_cols(uint8_t row) {
 
 static void unselect_row(uint8_t row) {
     pin_t matrix_row_pins_mcu[MATRIX_ROWS_PER_SIDE] = MATRIX_ROW_PINS_MCU;
-    setPinInputHigh(matrix_row_pins_mcu[row]);
+    gpio_set_pin_input_high(matrix_row_pins_mcu[row]);
 }
 
 static void unselect_rows(void) {
@@ -211,14 +211,14 @@ static void unselect_rows(void) {
     pin_t matrix_row_pins_mcu[MATRIX_ROWS_PER_SIDE] = MATRIX_ROW_PINS_MCU;
     for (int pin_index = 0; pin_index < MATRIX_ROWS_PER_SIDE; pin_index++) {
         pin_t pin = matrix_row_pins_mcu[pin_index];
-        setPinInputHigh(pin);
+        gpio_set_pin_input_high(pin);
     }
 }
 static void unselect_cols(void) {
     pin_t matrix_col_pins_mcu[MATRIX_COLS_PER_SIDE] = MATRIX_COL_PINS_MCU;
     for (int pin_index = 0; pin_index < MATRIX_COLS_PER_SIDE; pin_index++) {
         pin_t pin = matrix_col_pins_mcu[pin_index];
-        setPinInputHigh(pin);
+        gpio_set_pin_input_high(pin);
     }
 }
 
