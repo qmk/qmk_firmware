@@ -1,6 +1,6 @@
 # panc60
 
-![panc60](https://imgix.ttcdn.co/i/product/original/0/670893-eca4599c4aad489dbe62609ac2fed86e.jpeg?q=100&auto=format%2Ccompress&w=500)
+![panc60](https://i.imgur.com/ULL9X2zh.jpeg)
 
 The panc60 is a 60% PCB with backlight and rgb underglow.   
 
