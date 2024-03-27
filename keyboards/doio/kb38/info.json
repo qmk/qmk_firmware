@@ -12,8 +12,7 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgb_matrix": true,
-        "rgblight": false
+        "rgb_matrix": true
     },
     "matrix_pins": {
         "cols": ["F5", "F4", "F1", "F0", "B7", "B6", "B5", "B4"],

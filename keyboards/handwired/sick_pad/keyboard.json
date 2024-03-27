@@ -1,0 +1,55 @@
+{
+    "keyboard_name": "SiCK-PAD",
+    "manufacturer": "FedorSosnin",
+    "url": "https://www.thingiverse.com/thing:3682168",
+    "maintainer": "jmschneider",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0xDA20",
+        "device_version": "0.0.1"
+    },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": false,
+        "mousekey": false,
+        "nkro": false
+    },
+    "matrix_pins": {
+        "cols": ["B9", "B15", "B14", "B13"],
+        "rows": ["B0", "B1", "B2", "B3", "B4"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "board": "QMK_PROTON_C",
+    "community_layouts": ["numpad_5x4"],
+    "layouts": {
+        "LAYOUT_numpad_5x4": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+                {"matrix": [2, 3], "x": 3, "y": 1, "h": 2},
+
+                {"matrix": [3, 0], "x": 0, "y": 3},
+                {"matrix": [3, 1], "x": 1, "y": 3},
+                {"matrix": [3, 2], "x": 2, "y": 3},
+
+                {"matrix": [4, 1], "x": 0, "y": 4, "w": 2},
+                {"matrix": [4, 2], "x": 2, "y": 4},
+                {"matrix": [4, 3], "x": 3, "y": 3, "h": 2}
+            ]
+        }
+    }
+}

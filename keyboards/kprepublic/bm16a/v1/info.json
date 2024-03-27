@@ -18,8 +18,7 @@
         "command": false,
         "nkro": true,
         "backlight": true,
-        "rgblight": true,
-        "audio": false
+        "rgblight": true
     },
     "matrix_pins": {
         "rows": ["D3", "D5", "D1", "D2"],
