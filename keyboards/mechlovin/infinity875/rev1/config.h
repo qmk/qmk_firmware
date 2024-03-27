@@ -17,23 +17,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
- 
 
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
 #define MATRIX_ROW_PINS { D5, D2, D4, D3, D0, D1 }
 
-/* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
+
+#define RGB_MATRIX_LED_COUNT 42
+#define RGB_MATRIX_SLEEP // turn off effects when suspended
+#define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
