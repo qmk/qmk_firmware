@@ -151,7 +151,7 @@ void matrix_init(void) {
   gpio_set_pin_output(C7);
 
   //Capacitive Interrupt
-  setPinInput(D2);
+  gpio_set_pin_input(D2);
 
   capSetup();
   writeDataToTS(0x06, 0x12); //Calibrate capacitive touch IC

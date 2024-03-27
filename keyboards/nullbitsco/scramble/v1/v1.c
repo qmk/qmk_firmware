@@ -11,7 +11,7 @@ void set_scramble_LED(uint8_t mode) {
         break;
 
         case LED_DIM:
-            setPinInput(PIN_LED);
+            gpio_set_pin_input(PIN_LED);
         break;
 
         case LED_OFF:

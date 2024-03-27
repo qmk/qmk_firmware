@@ -266,7 +266,7 @@ static void board_unselect_master_rows(board_info_t* board) {
         return;
     }
     for (uint8_t x = 0; x < NUM_ROWS; x++) {
-        setPinInput(board->row_pins[x]);
+        gpio_set_pin_input(board->row_pins[x]);
     }
 }
 

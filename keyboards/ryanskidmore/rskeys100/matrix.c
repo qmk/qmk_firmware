@@ -32,12 +32,12 @@ static void    shift_out_single(uint8_t value);
 static void    shift_out(uint32_t value);
 
 void matrix_init_custom(void) {
-  setPinInput(ROW_A);
-  setPinInput(ROW_B);
-  setPinInput(ROW_C);
-  setPinInput(ROW_D);
-  setPinInput(ROW_E);
-  setPinInput(ROW_F);
+  gpio_set_pin_input(ROW_A);
+  gpio_set_pin_input(ROW_B);
+  gpio_set_pin_input(ROW_C);
+  gpio_set_pin_input(ROW_D);
+  gpio_set_pin_input(ROW_E);
+  gpio_set_pin_input(ROW_F);
 
   gpio_set_pin_output(SHR_DATA);
   gpio_set_pin_output(SHR_LATCH);

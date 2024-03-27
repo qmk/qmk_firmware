@@ -22,7 +22,7 @@ static inline void backlight_set_value(uint8_t index, uint8_t level) {
   if (level) {
       gpio_set_pin_output(backlight_pins[index]);
   } else {
-      setPinInput(backlight_pins[index]);
+      gpio_set_pin_input(backlight_pins[index]);
   }
 }
 

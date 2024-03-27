@@ -108,8 +108,8 @@ void pins_init(void) {
     gpio_write_pin_low(PULLDOWN_PIN);
 #endif
 
-    setPinInput(DCD_PIN);
-    setPinInput(RTS_PIN);
+    gpio_set_pin_input(DCD_PIN);
+    gpio_set_pin_input(RTS_PIN);
 #endif
 
 /* check that the other side isn't powered up. 

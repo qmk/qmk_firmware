@@ -32,7 +32,7 @@ static uint16_t      ecsm_sw_value[MATRIX_ROWS][MATRIX_COLS];
 
 static inline void discharge_capacitor(void) { gpio_set_pin_output(DISCHARGE_PIN); }
 static inline void charge_capacitor(uint8_t row) {
-    setPinInput(DISCHARGE_PIN);
+    gpio_set_pin_input(DISCHARGE_PIN);
     gpio_write_pin_high(row_pins[row]);
 }
 
@@ -81,7 +81,7 @@ int ecsm_init(ecsm_config_t const* const ecsm_config) {
     init_mux_sel();
 
     // set discharge pin to charge mode
-    setPinInput(DISCHARGE_PIN);
+    gpio_set_pin_input(DISCHARGE_PIN);
 
     return 0;
 }

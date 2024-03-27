@@ -24,7 +24,7 @@ static enum { UNKNOWN, LEFT, RIGHT } hand_side = UNKNOWN;
     if (hand_side == UNKNOWN) {
         #if defined(SPLIT_HAND_PIN)
             // Test pin SPLIT_HAND_PIN for High/Low, if low it's right hand
-            setPinInput(SPLIT_HAND_PIN);
+            gpio_set_pin_input(SPLIT_HAND_PIN);
             hand_side = gpio_read_pin(SPLIT_HAND_PIN) ? LEFT : RIGHT;
             return (hand_side == LEFT);
         #endif

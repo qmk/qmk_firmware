@@ -134,8 +134,8 @@ void keyboard_post_init_kb(void) {
         gpio_write_pin_high(A0);
     } else {
         if ((analogReadPin_my(B0) > 1000) || (analogReadPin_my(B1) > 1000)) {
-            setPinInput(A11);
-            setPinInput(A12);
+            gpio_set_pin_input(A11);
+            gpio_set_pin_input(A12);
         }
     }
 

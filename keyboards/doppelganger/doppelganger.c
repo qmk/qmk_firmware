@@ -40,6 +40,6 @@ __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
 
 // Override core logic as we reuse SPLIT_HAND_PIN within matrix pins
 bool is_keyboard_left(void) {
-    setPinInput(SPLIT_HAND_PIN);
+    gpio_set_pin_input(SPLIT_HAND_PIN);
     return gpio_read_pin(SPLIT_HAND_PIN);
 }

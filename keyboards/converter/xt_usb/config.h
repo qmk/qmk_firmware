@@ -37,7 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     gpio_write_pin_low(XT_RST_PIN); \
     gpio_set_pin_output(XT_RST_PIN); \
     wait_ms(500); \
-    setPinInput(XT_RST_PIN); \
+    gpio_set_pin_input(XT_RST_PIN); \
 } while (0)
 
 /* INT1 for falling edge of clock line */

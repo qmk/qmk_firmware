@@ -15,12 +15,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 void keyboard_pre_init_kb(void) {
     // Encoder pins
-    setPinInput(PIN_TW_SW);
-    setPinInput(PIN_RJ_SW);
-    setPinInput(PIN_RJ_DIR_A);
-    setPinInput(PIN_RJ_DIR_C);
-    setPinInput(PIN_RJ_DIR_B);
-    setPinInput(PIN_RJ_DIR_D);
+    gpio_set_pin_input(PIN_TW_SW);
+    gpio_set_pin_input(PIN_RJ_SW);
+    gpio_set_pin_input(PIN_RJ_DIR_A);
+    gpio_set_pin_input(PIN_RJ_DIR_C);
+    gpio_set_pin_input(PIN_RJ_DIR_B);
+    gpio_set_pin_input(PIN_RJ_DIR_D);
 
     keyboard_pre_init_user();
 }

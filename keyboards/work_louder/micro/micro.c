@@ -62,15 +62,15 @@ void work_louder_micro_led_3_on(void) {
 }
 
 void work_louder_micro_led_1_off(void) {
-    setPinInput(WORK_LOUDER_LED_PIN_1);
+    gpio_set_pin_input(WORK_LOUDER_LED_PIN_1);
     gpio_write_pin(WORK_LOUDER_LED_PIN_1, false);
 }
 void work_louder_micro_led_2_off(void) {
-    setPinInput(WORK_LOUDER_LED_PIN_2);
+    gpio_set_pin_input(WORK_LOUDER_LED_PIN_2);
     gpio_write_pin(WORK_LOUDER_LED_PIN_2, false);
 }
 void work_louder_micro_led_3_off(void) {
-    setPinInput(WORK_LOUDER_LED_PIN_3);
+    gpio_set_pin_input(WORK_LOUDER_LED_PIN_3);
     gpio_write_pin(WORK_LOUDER_LED_PIN_3, false);
 }
 

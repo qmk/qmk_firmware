@@ -195,7 +195,7 @@ static void unselect_rows(void) {
     // the other row bits high, and it's not changing to a different direction
 
     for (uint8_t row = 0; row < MATRIX_ROWS_PER_SIDE; row++) {
-      setPinInput(row_pins[row]);
+      gpio_set_pin_input(row_pins[row]);
       gpio_write_pin_low(row_pins[row]);
     }
 }

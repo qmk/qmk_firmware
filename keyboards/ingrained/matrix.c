@@ -180,7 +180,7 @@ static void init_cols(void) {
     pin_t matrix_col_pins_mcu[MATRIX_COLS_PER_SIDE] = MATRIX_COL_PINS_MCU;
     for (int pin_index = 0; pin_index < MATRIX_COLS_PER_SIDE; pin_index++) {
         pin_t pin = matrix_col_pins_mcu[pin_index];
-        setPinInput(pin);
+        gpio_set_pin_input(pin);
         gpio_write_pin_high(pin);
     }
 }
@@ -227,7 +227,7 @@ static void unselect_rows(void) {
     pin_t matrix_row_pins_mcu[MATRIX_ROWS_PER_SIDE] = MATRIX_ROW_PINS_MCU;
     for (int pin_index = 0; pin_index < MATRIX_ROWS_PER_SIDE; pin_index++) {
         pin_t pin = matrix_row_pins_mcu[pin_index];
-        setPinInput(pin);
+        gpio_set_pin_input(pin);
         gpio_write_pin_low(pin);
     }
 }

@@ -82,7 +82,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
 void matrix_init_custom(void) {
     // initialize key pins
-    setPinInput(ENC_SW);
+    gpio_set_pin_input(ENC_SW);
     init_pins();
 }
 

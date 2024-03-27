@@ -27,7 +27,7 @@ void matrix_init_kb(void)
 #ifdef AUDIO_ENABLE
     // audio_init() sets PB5 to output and drives it low, which breaks our matrix
     // so reset PB5 to input
-    setPinInput(B5);
+    gpio_set_pin_input(B5);
     gpio_write_pin_high(B5);
 #else
     // If we're not using the audio pin, drive it low

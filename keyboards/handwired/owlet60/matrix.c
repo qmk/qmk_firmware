@@ -201,8 +201,8 @@ void matrix_init(void) {
 
     matrix_init_kb();
 
-    setPinInput(D5);
-    setPinInput(B0);
+    gpio_set_pin_input(D5);
+    gpio_set_pin_input(B0);
 }
 
 // modified for per col read matrix scan

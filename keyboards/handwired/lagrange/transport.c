@@ -198,8 +198,8 @@ void transport_slave_init(void) {
      * leading to potential shorts. */
 
     gpio_set_pin_input_high(SPI_SS_PIN);
-    setPinInput(SPI_SCK_PIN);
-    setPinInput(SPI_MOSI_PIN);
+    gpio_set_pin_input(SPI_SCK_PIN);
+    gpio_set_pin_input(SPI_MOSI_PIN);
     gpio_set_pin_output(SPI_MISO_PIN);
 
     SPCR = _BV(SPE);

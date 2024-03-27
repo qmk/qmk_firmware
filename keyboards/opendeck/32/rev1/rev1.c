@@ -95,7 +95,7 @@ void keyboard_pre_init_kb(void) {
 
     // We don't use this feature of the IS31FL3731 but it is electrically connected
     // Make sure not to drive it
-    setPinInput(IS31FL3731_IRQ_PIN);
+    gpio_set_pin_input(IS31FL3731_IRQ_PIN);
 
     keyboard_pre_init_user();
 }

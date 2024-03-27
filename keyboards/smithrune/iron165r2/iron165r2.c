@@ -17,8 +17,8 @@
 #include "quantum.h"
 
 void board_init(void) {
-    setPinInput(B6);
-    setPinInput(B7);
+    gpio_set_pin_input(B6);
+    gpio_set_pin_input(B7);
 #if defined (LINE_RGBS)
     rgblight_set_effect_range(0,16);
 #elif defined (RUNE_RGBS)

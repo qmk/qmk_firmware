@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 
 void board_init(void) {
-    setPinInput(B10);
+    gpio_set_pin_input(B10);
 }
 
 void led_init_ports(void) {

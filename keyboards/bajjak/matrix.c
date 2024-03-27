@@ -175,13 +175,13 @@ static void unselect_rows(void) {
     // direction
 
     // unselect on teensy
-    setPinInput(B0);
-    setPinInput(B1);
-    setPinInput(B2);
-    setPinInput(B3);
-    setPinInput(D2);
-    setPinInput(D3);
-    setPinInput(C6);
+    gpio_set_pin_input(B0);
+    gpio_set_pin_input(B1);
+    gpio_set_pin_input(B2);
+    gpio_set_pin_input(B3);
+    gpio_set_pin_input(D2);
+    gpio_set_pin_input(D3);
+    gpio_set_pin_input(C6);
 }
 
 static void select_row(uint8_t row) {

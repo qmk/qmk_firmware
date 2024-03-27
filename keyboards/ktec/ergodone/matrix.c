@@ -116,12 +116,12 @@ static matrix_row_t read_cols(void) {
  */
 static void unselect_rows(void) {
     // Pro Micro
-    setPinInput(B1);
-    setPinInput(B2);
-    setPinInput(F4);
-    setPinInput(F5);
-    setPinInput(F6);
-    setPinInput(F7);
+    gpio_set_pin_input(B1);
+    gpio_set_pin_input(B2);
+    gpio_set_pin_input(F4);
+    gpio_set_pin_input(F5);
+    gpio_set_pin_input(F6);
+    gpio_set_pin_input(F7);
     gpio_write_pin_low(B1);
     gpio_write_pin_low(B2);
     gpio_write_pin_low(F4);
@@ -137,27 +137,27 @@ static void unselect_row(uint8_t row) {
     // Pro Micro
     switch (row) {
         case 0:
-            setPinInput(F4);
+            gpio_set_pin_input(F4);
             gpio_write_pin_low(F4);
             break;
         case 1:
-            setPinInput(F5);
+            gpio_set_pin_input(F5);
             gpio_write_pin_low(F5);
             break;
         case 2:
-            setPinInput(F6);
+            gpio_set_pin_input(F6);
             gpio_write_pin_low(F6);
             break;
         case 3:
-            setPinInput(F7);
+            gpio_set_pin_input(F7);
             gpio_write_pin_low(F7);
             break;
         case 4:
-            setPinInput(B1);
+            gpio_set_pin_input(B1);
             gpio_write_pin_low(B1);
             break;
         case 5:
-            setPinInput(B2);
+            gpio_set_pin_input(B2);
             gpio_write_pin_low(B2);
             break;
     }

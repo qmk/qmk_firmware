@@ -108,7 +108,7 @@ void charge_capacitor(uint8_t row) {
 #ifdef OPEN_DRAIN_SUPPORT
     gpio_write_pin_high(DISCHARGE_PIN);
 #else
-    setPinInput(DISCHARGE_PIN);
+    gpio_set_pin_input(DISCHARGE_PIN);
 #endif
     gpio_write_pin_high(row_pins[row]);
 }
