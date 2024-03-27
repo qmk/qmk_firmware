@@ -56,6 +56,11 @@ static uint8_t connection_errors = 0;
 
 volatile bool isLeftHand = true;
 
+static struct {
+    bool master;
+    bool left;
+} split_config;
+
 #if defined(SPLIT_USB_DETECT)
 _Static_assert((SPLIT_USB_TIMEOUT / SPLIT_USB_TIMEOUT_POLL) <= UINT16_MAX, "Please lower SPLIT_USB_TIMEOUT and/or increase SPLIT_USB_TIMEOUT_POLL.");
 static bool usbIsActive(void) {
@@ -118,63 +123,35 @@ void split_watchdog_task(void) {
 void matrix_io_delay(void);
 
 static uint8_t peek_matrix_intersection(pin_t out_pin, pin_t in_pin) {
-    setPinInputHigh(in_pin);
-    setPinOutput(out_pin);
-    writePinLow(out_pin);
+    gpio_set_pin_input_high(in_pin);
+    gpio_set_pin_output(out_pin);
+    gpio_write_pin_low(out_pin);
     // It's almost unnecessary, but wait until it's down to low, just in case.
     wait_us(1);
-    uint8_t pin_state = readPin(in_pin);
+    uint8_t pin_state = gpio_read_pin(in_pin);
     // Set out_pin to a setting that is less susceptible to noise.
-    setPinInputHigh(out_pin);
+    gpio_set_pin_input_high(out_pin);
     matrix_io_delay(); // Wait for the pull-up to go HIGH.
     return pin_state;
 }
 #endif
 
-__attribute__((weak)) bool is_keyboard_left(void) {
+__attribute__((weak)) bool is_keyboard_left_impl(void) {
 #if defined(SPLIT_HAND_PIN)
+    gpio_set_pin_input(SPLIT_HAND_PIN);
+    wait_us(100);
     // Test pin SPLIT_HAND_PIN for High/Low, if low it's right hand
 #    ifdef SPLIT_HAND_PIN_LOW_IS_LEFT
-    return !readPin(SPLIT_HAND_PIN);
+    return !gpio_read_pin(SPLIT_HAND_PIN);
 #    else
-    return readPin(SPLIT_HAND_PIN);
+    return gpio_read_pin(SPLIT_HAND_PIN);
 #    endif
 #elif defined(SPLIT_HAND_MATRIX_GRID)
-#    ifdef SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
-    return peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID);
-#    else
+#    ifdef SPLIT_HAND_MATRIX_GRID_LOW_IS_LEFT
     return !peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID);
+#    else
+    return peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID);
 #    endif
-#elif defined(EE_HANDS)
-    return eeconfig_read_handedness();
-#elif defined(MASTER_RIGHT)
-    return !is_keyboard_master();
-#endif
-
-    return is_keyboard_master();
-}
-
-__attribute__((weak)) bool is_keyboard_master(void) {
-    static enum { UNKNOWN, MASTER, SLAVE } usbstate = UNKNOWN;
-
-    // only check once, as this is called often
-    if (usbstate == UNKNOWN) {
-        usbstate = usbIsActive() ? MASTER : SLAVE;
-
-        // Avoid NO_USB_STARTUP_CHECK - Disable USB as the previous checks seem to enable it somehow
-        if (usbstate == SLAVE) {
-            usb_disconnect();
-        }
-    }
-
-    return (usbstate == MASTER);
-}
-
-// this code runs before the keyboard is fully initialized
-void split_pre_init(void) {
-#if defined(SPLIT_HAND_PIN)
-    setPinInput(SPLIT_HAND_PIN);
-    wait_us(100);
 #elif defined(EE_HANDS)
     if (!eeconfig_is_enabled()) {
         eeconfig_init();
@@ -193,12 +170,42 @@ void split_pre_init(void) {
         eeconfig_update_handedness(should_be_left);
     }
 #    endif // defined(INIT_EE_HANDS_LEFT) || defined(INIT_EE_HANDS_RIGHT)
+    return eeconfig_read_handedness();
+#elif defined(MASTER_RIGHT)
+    return !is_keyboard_master();
+#else
+    return is_keyboard_master();
 #endif
-    isLeftHand = is_keyboard_left();
+}
+
+__attribute__((weak)) bool is_keyboard_master_impl(void) {
+    bool is_master = usbIsActive();
+
+    // Avoid NO_USB_STARTUP_CHECK - Disable USB as the previous checks seem to enable it somehow
+    if (!is_master) {
+        usb_disconnect();
+    }
+    return is_master;
+}
+
+__attribute__((weak)) bool is_keyboard_left(void) {
+    return split_config.left;
+}
+
+__attribute__((weak)) bool is_keyboard_master(void) {
+    return split_config.master;
+}
+
+// this code runs before the keyboard is fully initialized
+void split_pre_init(void) {
+    split_config.master = is_keyboard_master_impl();
+    split_config.left   = is_keyboard_left_impl();
+
+    isLeftHand = is_keyboard_left(); // TODO: Remove isLeftHand
 
 #if defined(RGBLIGHT_ENABLE) && defined(RGBLED_SPLIT)
     uint8_t num_rgb_leds_split[2] = RGBLED_SPLIT;
-    if (isLeftHand) {
+    if (is_keyboard_left()) {
         rgblight_set_clipping_range(0, num_rgb_leds_split[0]);
     } else {
         rgblight_set_clipping_range(num_rgb_leds_split[0], num_rgb_leds_split[1]);

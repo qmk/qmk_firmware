@@ -34,6 +34,9 @@
             "rgb_test": true,
             "alternating": true,
             "twinkle": true
+        },
+        "default": {
+            "val": 0
         }
     },
     "processor": "atmega32u4",

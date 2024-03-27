@@ -9,7 +9,28 @@
         "force_nkro": true
     },
     "rgb_matrix": {
-        "driver": "is31fl3733"
+        "animations": {
+            "breathing": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "rainbow_moving_chevron": true,
+            "cycle_out_in": true,
+            "cycle_out_in_dual": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "dual_beacon": true,
+            "rainbow_beacon": true,
+            "raindrops": true,
+            "typing_heatmap": true,
+            "solid_reactive_simple": true,
+            "solid_reactive": true,
+            "multisplash": true
+        },
+        "driver": "snled27351",
+        "max_brightness": 200,
+        "react_on_keyup": true,
+        "sleep": true
     },
     "processor": "WB32FQ95",
     "bootloader": "wb32-dfu",
@@ -18,6 +39,16 @@
         "rows": ["B15", "C6", "C7", "C8", "C9", "A8"]
     },
     "diode_direction": "ROW2COL",
+    "dip_switch": {
+        "pins": ["A9"]
+    },
+    "eeprom": {
+        "driver": "wear_leveling",
+        "wear_leveling": {
+            "driver": "spi_flash",
+            "backing_size": 8192
+        }
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "B14", "pin_b": "B13", "resolution": 4}
