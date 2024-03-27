@@ -25,7 +25,7 @@ def mass_compile_targets(targets: List[BuildTarget], clean: bool, dry_run: bool,
     if dry_run:
         cli.log.info('Compilation targets:')
         for target in sorted(targets, key=lambda t: (t.keyboard, t.keymap)):
-            cli.log.info(f"{{fg_cyan}}qmk compile -kb {target[0]} -km {target[1]}{{fg_reset}}")
+            cli.log.info(f"{{fg_cyan}}qmk compile -kb {target.keyboard} -km {target.keymap}{{fg_reset}}")
     else:
         if clean:
             cli.run([make_cmd, 'clean'], capture_output=False, stdin=DEVNULL)
@@ -52,9 +52,9 @@ all: {keyboard_safe}_{keymap_name}_binary
 	{' '.join(command)} \\
 		>>"{build_log}" 2>&1 \\
 		|| cp "{build_log}" "{failed_log}"
-	@{{ grep '\[ERRORS\]' "{build_log}" >/dev/null 2>&1 && printf "Build %-64s \e[1;31m[ERRORS]\e[0m\\n" "{keyboard_name}:{keymap_name}" ; }} \\
-		|| {{ grep '\[WARNINGS\]' "{build_log}" >/dev/null 2>&1 && printf "Build %-64s \e[1;33m[WARNINGS]\e[0m\\n" "{keyboard_name}:{keymap_name}" ; }} \\
-		|| printf "Build %-64s \e[1;32m[OK]\e[0m\\n" "{keyboard_name}:{keymap_name}"
+	@{{ grep '\\[ERRORS\\]' "{build_log}" >/dev/null 2>&1 && printf "Build %-64s \\e[1;31m[ERRORS]\\e[0m\\n" "{keyboard_name}:{keymap_name}" ; }} \\
+		|| {{ grep '\\[WARNINGS\\]' "{build_log}" >/dev/null 2>&1 && printf "Build %-64s \\e[1;33m[WARNINGS]\\e[0m\\n" "{keyboard_name}:{keymap_name}" ; }} \\
+		|| printf "Build %-64s \\e[1;32m[OK]\\e[0m\\n" "{keyboard_name}:{keymap_name}"
 	@rm -f "{build_log}" || true
 """# noqa
                 )
@@ -108,4 +108,4 @@ def mass_compile(cli):
     else:
         targets = search_keymap_targets([('all', cli.config.mass_compile.keymap)], cli.args.filter)
 
-    return mass_compile_targets(targets, cli.args.clean, cli.args.dry_run, cli.config.mass_compile.no_temp, cli.config.mass_compile.parallel, **build_environment(cli.args.env))
+    return mass_compile_targets(targets, cli.args.clean, cli.args.dry_run, cli.args.no_temp, cli.config.mass_compile.parallel, **build_environment(cli.args.env))

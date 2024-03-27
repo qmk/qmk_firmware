@@ -18,7 +18,7 @@
 
 #ifdef RGB_MATRIX_ENABLE
 
-const aw20216s_led_t g_aw20216s_leds[RGB_MATRIX_LED_COUNT] = {
+const aw20216s_led_t PROGMEM g_aw20216s_leds[AW20216S_LED_COUNT] = {
 /* Refer to AW20216S manual for these locations
  *   driver
  *   |     R location

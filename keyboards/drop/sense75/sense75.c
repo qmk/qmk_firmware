@@ -3,7 +3,7 @@
 #ifdef RGB_MATRIX_ENABLE
 #    include "rgb_matrix.h"
 
-const is31fl3733_led_t PROGMEM g_is31fl3733_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT] = {
 // top underglow sd2-sd17
     { 0, B_2,  A_2,  C_2  },
     { 0, B_3,  A_3,  C_3  },

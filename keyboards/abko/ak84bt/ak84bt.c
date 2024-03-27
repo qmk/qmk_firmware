@@ -16,7 +16,7 @@
 
 #include QMK_KEYBOARD_H
 
-const is31fl3733_led_t PROGMEM g_is31fl3733_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT] = {
     {0, G_1,    I_1,    H_1},
     {0, G_3,    I_3,    H_3},
     {0, G_4,    I_4,    H_4},
