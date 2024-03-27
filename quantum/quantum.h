@@ -194,6 +194,10 @@ extern layer_state_t layer_state;
 #    include "digitizer.h"
 #endif
 
+#ifdef XAP_ENABLE
+#    include "xap.h"
+#endif
+
 #ifdef VIA_ENABLE
 #    include "via.h"
 #endif

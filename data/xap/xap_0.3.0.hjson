@@ -1,0 +1,396 @@
+{
+    version: 0.3.0
+
+    routes: {
+
+        0x06: {
+            routes: {
+
+                0x02: {
+                    type: router
+                    name: backlight
+                    define: BACKLIGHT
+                    description:
+                        '''
+                        This subsystem allows for control over the backlight subsystem.
+                        '''
+                    enable_if_preprocessor: defined(BACKLIGHT_ENABLE)
+                    routes: {
+                        0x01: {
+                            type: command
+                            name: Capabilities Query
+                            define: CAPABILITIES_QUERY
+                            description:
+                                '''
+                                backlight subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.
+                                '''
+                            return_type: u32
+                            return_purpose: capabilities
+                            return_constant: XAP_ROUTE_LIGHTING_BACKLIGHT_CAPABILITIES
+                        }
+                        0x02: {
+                            type: command
+                            name: Get Enabled Effects
+                            define: GET_ENABLED_EFFECTS
+                            description: Each bit should be considered as a "usable" effect id
+                            return_type: u8
+                            return_constant: ENABLED_BACKLIGHT_EFFECTS
+                        }
+                        0x03: {
+                            type: command
+                            name: Get Config
+                            define: GET_CONFIG
+                            description: Query the current config.
+                            return_type: struct
+                            return_struct_length: 3
+                            return_struct_members: [
+                                {
+                                    type: u8
+                                    name: enable
+                                },
+                                {
+                                    type: u8
+                                    name: mode
+                                },
+                                {
+                                    type: u8
+                                    name: val
+                                },
+                            ]
+                            return_execute: get_backlight_config
+                        }
+                        0x04: {
+                            type: command
+                            name: Set Config
+                            define: SET_CONFIG
+                            description: Set the current config.
+                            request_type: struct
+                            request_struct_length: 3
+                            request_struct_members: [
+                                {
+                                    type: u8
+                                    name: enable
+                                },
+                                {
+                                    type: u8
+                                    name: mode
+                                },
+                                {
+                                    type: u8
+                                    name: val
+                                },
+                            ]
+                            return_execute: set_backlight_config
+                        }
+                        0x05: {
+                            type: command
+                            name: Save Config
+                            define: SAVE_CONFIG
+                            description: Save the current config.
+                            return_execute: save_backlight_config
+                        }
+                    }
+                }
+
+                0x03: {
+                    type: router
+                    name: rgblight
+                    define: RGBLIGHT
+                    description:
+                        '''
+                        This subsystem allows for control over the rgblight subsystem.
+                        '''
+                    enable_if_preprocessor: defined(RGBLIGHT_ENABLE)
+                    routes: {
+                        0x01: {
+                            type: command
+                            name: Capabilities Query
+                            define: CAPABILITIES_QUERY
+                            description:
+                                '''
+                                rgblight subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.
+                                '''
+                            return_type: u32
+                            return_purpose: capabilities
+                            return_constant: XAP_ROUTE_LIGHTING_RGBLIGHT_CAPABILITIES
+                        }
+                        0x02: {
+                            type: command
+                            name: Get Enabled Effects
+                            define: GET_ENABLED_EFFECTS
+                            description: Each bit should be considered as a "usable" effect id
+                            return_type: u64
+                            return_constant: ENABLED_RGBLIGHT_EFFECTS
+                        }
+                        0x03: {
+                            type: command
+                            name: Get Config
+                            define: GET_CONFIG
+                            description: Query the current config.
+                            return_type: struct
+                            return_struct_length: 6
+                            return_struct_members: [
+                                {
+                                    type: u8
+                                    name: enable
+                                },
+                                {
+                                    type: u8
+                                    name: mode
+                                },
+                                {
+                                    type: u8
+                                    name: hue
+                                },
+                                {
+                                    type: u8
+                                    name: sat
+                                },
+                                {
+                                    type: u8
+                                    name: val
+                                },
+                                {
+                                    type: u8
+                                    name: speed
+                                },
+                            ]
+                            return_execute: get_rgblight_config
+                        }
+                        0x04: {
+                            type: command
+                            name: Set Config
+                            define: SET_CONFIG
+                            description: Set the current config.
+                            request_type: struct
+                            request_struct_length: 6
+                            request_struct_members: [
+                                {
+                                    type: u8
+                                    name: enable
+                                },
+                                {
+                                    type: u8
+                                    name: mode
+                                },
+                                {
+                                    type: u8
+                                    name: hue
+                                },
+                                {
+                                    type: u8
+                                    name: sat
+                                },
+                                {
+                                    type: u8
+                                    name: val
+                                },
+                                {
+                                    type: u8
+                                    name: speed
+                                },
+                            ]
+                            return_execute: set_rgblight_config
+                        }
+                        0x05: {
+                            type: command
+                            name: Save Config
+                            define: SAVE_CONFIG
+                            description: Save the current config.
+                            return_execute: save_rgblight_config
+                        }
+                    }
+                }
+
+                0x04: {
+                    type: router
+                    name: rgbmatrix
+                    define: RGB_MATRIX
+                    description:
+                        '''
+                        This subsystem allows for control over the rgb matrix subsystem.
+                        '''
+                    enable_if_preprocessor: defined(RGB_MATRIX_ENABLE)
+                    routes: {
+                        0x01: {
+                            type: command
+                            name: Capabilities Query
+                            define: CAPABILITIES_QUERY
+                            description:
+                                '''
+                                rgb matrix subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.
+                                '''
+                            return_type: u32
+                            return_purpose: capabilities
+                            return_constant: XAP_ROUTE_LIGHTING_RGB_MATRIX_CAPABILITIES
+                        }
+                        0x02: {
+                            type: command
+                            name: Get Enabled Effects
+                            define: GET_ENABLED_EFFECTS
+                            description: Each bit should be considered as a "usable" effect id
+                            return_type: u64
+                            return_constant: ENABLED_RGB_MATRIX_EFFECTS
+                        }
+                        0x03: {
+                            type: command
+                            name: Get Config
+                            define: GET_CONFIG
+                            description: Query the current config.
+                            return_type: struct
+                            return_struct_length: 7
+                            return_struct_members: [
+                                {
+                                    type: u8
+                                    name: enable
+                                },
+                                {
+                                    type: u8
+                                    name: mode
+                                },
+                                {
+                                    type: u8
+                                    name: hue
+                                },
+                                {
+                                    type: u8
+                                    name: sat
+                                },
+                                {
+                                    type: u8
+                                    name: val
+                                },
+                                {
+                                    type: u8
+                                    name: speed
+                                },
+                                {
+                                    type: u8
+                                    name: flags
+                                },
+                            ]
+                            return_execute: get_rgb_matrix_config
+                        }
+                        0x04: {
+                            type: command
+                            name: Set Config
+                            define: SET_CONFIG
+                            description: Set the current config.
+                            request_type: struct
+                            request_struct_length: 7
+                            request_struct_members: [
+                                {
+                                    type: u8
+                                    name: enable
+                                },
+                                {
+                                    type: u8
+                                    name: mode
+                                },
+                                {
+                                    type: u8
+                                    name: hue
+                                },
+                                {
+                                    type: u8
+                                    name: sat
+                                },
+                                {
+                                    type: u8
+                                    name: val
+                                },
+                                {
+                                    type: u8
+                                    name: speed
+                                },
+                                {
+                                    type: u8
+                                    name: flags
+                                },
+                            ]
+                            return_execute: set_rgb_matrix_config
+                        }
+                        0x05: {
+                            type: command
+                            name: Save Config
+                            define: SAVE_CONFIG
+                            description: Save the current config.
+                            return_execute: save_rgb_matrix_config
+                        }
+                    }
+                }
+            }
+        }
+
+        0x07: {
+            type: router
+            name: Audio
+            define: AUDIO
+            description:
+                '''
+                    This subsystem allows for control over the audio subsystem.
+                '''
+            enable_if_preprocessor: defined(AUDIO_ENABLE)
+            routes: {
+                0x01: {
+                    type: command
+                    name: Capabilities Query
+                    define: CAPABILITIES_QUERY
+                    description:
+                        '''
+                        Audio subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.
+                        '''
+                    return_type: u32
+                    return_purpose: capabilities
+                    return_constant: XAP_ROUTE_AUDIO_CAPABILITIES
+                }
+
+                0x03: {
+                    type: command
+                    name: Get Config
+                    define: GET_CONFIG
+                    description: Query the current config.
+                    return_type: struct
+                    return_struct_length: 2
+                    return_struct_members: [
+                        {
+                            type: u8
+                            name: enable
+                        },
+                        {
+                            type: u8
+                            name: clicky_enable
+                        },
+                    ]
+                    return_execute: get_audio_config
+                }
+                0x04: {
+                    type: command
+                    name: Set Config
+                    define: SET_CONFIG
+                    description: Set the current config.
+                    request_type: struct
+                    request_struct_length: 2
+                    request_struct_members: [
+                        {
+                            type: u8
+                            name: enable
+                        },
+                        {
+                            type: u8
+                            name: clicky_enable
+                        },
+                    ]
+                    return_execute: set_audio_config
+                }
+                0x05: {
+                    type: command
+                    name: Save Config
+                    define: SAVE_CONFIG
+                    description: Save the current config.
+                    return_execute: save_audio_config
+                }
+            }
+        }
+    }
+}

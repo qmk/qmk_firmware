@@ -18,7 +18,8 @@ import_names = {
     'pyserial': 'serial',
     'pyusb': 'usb.core',
     'qmk-dotty-dict': 'dotty_dict',
-    'pillow': 'PIL'
+    'pillow': 'PIL',
+    'Jinja2': 'jinja2'
 }
 
 safe_commands = [
@@ -58,6 +59,7 @@ subcommands = [
     'qmk.cli.generate.keyboard_h',
     'qmk.cli.generate.keycodes',
     'qmk.cli.generate.keycodes_tests',
+    'qmk.cli.generate.lighting_map',
     'qmk.cli.generate.make_dependencies',
     'qmk.cli.generate.rgb_breathe_table',
     'qmk.cli.generate.rules_mk',
@@ -88,6 +90,11 @@ subcommands = [
     'qmk.cli.userspace.list',
     'qmk.cli.userspace.remove',
     'qmk.cli.via2json',
+    'qmk.cli.xap',
+    'qmk.cli.xap.generate_docs',
+    'qmk.cli.xap.generate_json',
+    'qmk.cli.xap.generate_python',
+    'qmk.cli.xap.generate_qmk',
 ]
 
 
