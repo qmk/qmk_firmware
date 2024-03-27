@@ -114,8 +114,8 @@ static void init_cols(void) {
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
         if (! col_expanded[x]) {
             uint8_t pin = onboard_col_pins[x];
-            _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
-            _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
+            gpio_set_pin_input(pin);
+            gpio_write_pin_high(pin);
         }
     }
 }
@@ -142,7 +142,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
         if (! col_expanded[col_index]) {
             uint8_t pin = onboard_col_pins[col_index];
-            uint8_t pin_state = (_SFR_IO8(pin >> 4) & _BV(pin & 0xF));
+            uint8_t pin_state = gpio_read_pin(pin);
             current_matrix[current_row] |= pin_state ? 0 : (((matrix_row_t)1) << col_index);
         }
     }
@@ -163,8 +163,8 @@ static void select_row(uint8_t row) {
 
     // select on teensy
     uint8_t pin = onboard_row_pins[row];
-    _SFR_IO8((pin >> 4) + 1) |=  _BV(pin & 0xF); // OUT
-    _SFR_IO8((pin >> 4) + 2) &= ~_BV(pin & 0xF); // LOW
+    gpio_set_pin_output(pin);
+    gpio_write_pin_low(pin);
 }
 
 static void unselect_row(uint8_t row)
@@ -176,8 +176,7 @@ static void unselect_row(uint8_t row)
 
     // unselect on teensy
     uint8_t pin = onboard_row_pins[row];
-    _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // OUT
-    _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // LOW
+    gpio_set_pin_input(pin);
 }
 
 static void unselect_rows(void) {
