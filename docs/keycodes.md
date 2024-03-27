@@ -242,7 +242,7 @@ See also: [Audio](feature_audio.md)
 |`QK_AUDIO_TOGGLE`        |`AU_TOGG`|Toggles Audio state                        |
 |`QK_AUDIO_CLICKY_TOGGLE` |`CK_TOGG`|Toggles Audio clicky mode                  |
 |`QK_AUDIO_CLICKY_ON`     |`CK_ON`  |Turns on Audio clicky mode                 |
-|`QK_AUDIO_CLICKY_OFF`    |`CK_OFF` |Turns on Audio clicky mode                 |
+|`QK_AUDIO_CLICKY_OFF`    |`CK_OFF` |Turns off Audio clicky mode                |
 |`QK_AUDIO_CLICKY_UP`     |`CK_UP`  |Increases frequency of the clicks          |
 |`QK_AUDIO_CLICKY_DOWN`   |`CK_DOWN`|Decreases frequency of the clicks          |
 |`QK_AUDIO_CLICKY_RESET`  |`CK_RST` |Resets frequency to default                |
