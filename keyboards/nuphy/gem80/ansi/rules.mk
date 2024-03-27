@@ -4,13 +4,13 @@ SRC += side.c side_driver.c side_logo.c
 
 
 # enable some features
-AUTOCORRECT_ENABLE = yes
+# AUTOCORRECT_ENABLE = yes
 
 UART_DRIVER_REQUIRED = yes
 # DEBOUNCE_TYPE = asym_eager_defer_pk
 DEBOUNCE_TYPE = sym_eager_pk
 
-CAPS_WORD_ENABLE = yes
+# CAPS_WORD_ENABLE = yes
 
 LTO_ENABLE = yes
-CONSOLE_ENABLE = no
+# CONSOLE_ENABLE = yes
