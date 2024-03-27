@@ -95,6 +95,7 @@ typedef struct {
     pointing_device_status_t (*get_report)(report_mouse_t *, const void *, const void *);
     void (*set_cpi)(uint16_t, const void *, const void *);
     uint16_t (*get_cpi)(const void *, const void *);
+    pointing_device_adjustments_supported_t (*adjust)(const void *, const void *, pointing_device_rotations_t, pointing_device_invert_t, bool);
 } pointing_device_driver_t;
 
 typedef struct {
