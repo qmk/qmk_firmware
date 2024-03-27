@@ -1,4 +1,5 @@
 CUSTOM_MATRIX = lite
 ANALOG_DRIVER_REQUIRED = yes
-SRC += keyboards/cipulot/common/matrix.c keyboards/cipulot/common/ec_board.c keyboards/cipulot/common/ec_switch_matrix.c
+VPATH += keyboards/cipulot/common
+SRC += matrix.c ec_board.c ec_switch_matrix.c
 OPT = 2

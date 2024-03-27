@@ -6,6 +6,12 @@
     "build": {
         "lto": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": false,
@@ -47,7 +53,6 @@
         },
         "vid": "0x6369"
     },
-    "community_layouts": ["tkl_jis", "tkl_iso_tsangan", "tkl_ansi_tsangan"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
