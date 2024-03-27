@@ -32,6 +32,9 @@
         "pin": "GP2",
         "driver": "vendor"
     },
+    "dynamic_keymap": {
+        "layer_count": 6
+    },
     "rgb_matrix": {
         "animations": {
             "alphas_mods": true,
