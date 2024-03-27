@@ -27,8 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 void init_expander(void);
 
-static const uint8_t onboard_row_pins[MATRIX_ROWS] = MATRIX_ONBOARD_ROW_PINS;
-static const uint8_t onboard_col_pins[MATRIX_COLS] = MATRIX_ONBOARD_COL_PINS;
+static const pin_t onboard_row_pins[MATRIX_ROWS] = MATRIX_ONBOARD_ROW_PINS;
+static const pin_t onboard_col_pins[MATRIX_COLS] = MATRIX_ONBOARD_COL_PINS;
 static const bool col_expanded[MATRIX_COLS] = COL_EXPANDED;
 
 /* matrix state(1:on, 0:off) */
@@ -74,14 +74,14 @@ void init_expander(void) {
     }
 
     uint8_t data[] = { 0, expander_input_pin_mask};
-    expander_status = i2c_writeReg(I2C_ADDR, IODIRA, data, sizeof(data), I2C_TIMEOUT);
+    expander_status = i2c_write_register(I2C_ADDR, IODIRA, data, sizeof(data), I2C_TIMEOUT);
 
     if (!expander_status) {
         // set pull-up
         // - unused  : off : 0
         // - input   : on  : 1
         // - driving : off : 0
-        expander_status = i2c_writeReg(I2C_ADDR, GPPUA, data, sizeof(data), I2C_TIMEOUT);
+        expander_status = i2c_write_register(I2C_ADDR, GPPUA, data, sizeof(data), I2C_TIMEOUT);
     }
 
 }
@@ -134,7 +134,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     // Read columns from expander, unless it's in an error state
     if (! expander_status) {
         uint8_t data;
-        i2c_readReg(I2C_ADDR, EXPANDER_COL_REGISTER, &data, 1, I2C_TIMEOUT);
+        i2c_read_register(I2C_ADDR, EXPANDER_COL_REGISTER, &data, 1, I2C_TIMEOUT);
         current_matrix[current_row] |= (~data) & expander_input_pin_mask;
     }
 
@@ -158,7 +158,7 @@ static void select_row(uint8_t row) {
         // set active row low  : 0
         // set other rows hi-Z : 1
         uint8_t data = 0xFF & ~(1<<row);
-        i2c_writeReg(I2C_ADDR, EXPANDER_ROW_REGISTER, &data, 1, I2C_TIMEOUT);
+        i2c_write_register(I2C_ADDR, EXPANDER_ROW_REGISTER, &data, 1, I2C_TIMEOUT);
     }
 
     // select on teensy
