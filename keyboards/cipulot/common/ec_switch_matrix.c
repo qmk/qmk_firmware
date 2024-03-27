@@ -125,7 +125,7 @@ int ec_init(void) {
     // Initialize discharge pin as discharge mode
     gpio_write_pin_low(DISCHARGE_PIN);
 #ifdef OPEN_DRAIN_SUPPORT
-    setPinOutputOpenDrain(DISCHARGE_PIN);
+    gpio_set_pin_output_open_drain(DISCHARGE_PIN);
 #else
     setPinOutput(DISCHARGE_PIN);
 #endif

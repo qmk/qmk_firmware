@@ -17,11 +17,11 @@
 
 void led_init_ports(void) {
     // Set our LED pins as open drain outputs
-    setPinOutputOpenDrain(LED_CAPS_LOCK_PIN);
-    setPinOutputOpenDrain(LED_NUM_LOCK_PIN);
-    setPinOutputOpenDrain(LED_SCROLL_LOCK_PIN);
-    setPinOutputOpenDrain(LED_KANA_PIN);
-    setPinOutputOpenDrain(A14);
+    gpio_set_pin_output_open_drain(LED_CAPS_LOCK_PIN);
+    gpio_set_pin_output_open_drain(LED_NUM_LOCK_PIN);
+    gpio_set_pin_output_open_drain(LED_SCROLL_LOCK_PIN);
+    gpio_set_pin_output_open_drain(LED_KANA_PIN);
+    gpio_set_pin_output_open_drain(A14);
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
