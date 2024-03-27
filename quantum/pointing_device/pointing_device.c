@@ -197,6 +197,9 @@ __attribute__((weak)) void pointing_device_init(void) {
 #endif
         if (pointing_device_configs[i].driver->init) {
             pointing_device_init_status[i] = pointing_device_configs[i].driver->init(pointing_device_configs[i].comms_config, pointing_device_configs[i].device_config);
+            if (pointing_device_init_status[i] == PD_STATUS_OK && pointing_device_configs[i].driver->adjust) {
+                pointing_device_configs[i].driver->adjust(pointing_device_configs[i].comms_config, pointing_device_configs[i].device_config, pointing_device_configs[i].rotation, pointing_device_configs[i].invert, true);
+            }
         }
         if (pointing_device_configs[i].motion.pin) {
             gpio_set_pin_input(pointing_device_configs[i].motion.pin);
@@ -220,30 +223,34 @@ __attribute__((weak)) void pointing_device_keycode_handler(uint16_t keycode, boo
     }
 }
 
-void pointing_device_adjust_report(report_mouse_t* report, uint8_t index) {
+void pointing_device_adjust_report(report_mouse_t* report, uint8_t index, pointing_device_adjustments_supported_t adj_handled) {
     mouse_xy_report_t x = report->x;
     mouse_xy_report_t y = report->y;
-    switch (pointing_device_configs[index].rotation) {
-        case PD_ROTATE_90:
-            report->x = y;
-            report->y = -x;
-            break;
-        case PD_ROTATE_180:
-            report->x = -x;
-            report->y = -y;
-            break;
-        case PD_ROTATE_270:
-            report->x = -y;
-            report->y = x;
-            break;
-        default:
-            break;
+    if (adj_handled != PD_ADJ_SUPPORT_ROTATE) {
+        switch (pointing_device_configs[index].rotation) {
+            case PD_ROTATE_90:
+                report->x = y;
+                report->y = -x;
+                break;
+            case PD_ROTATE_180:
+                report->x = -x;
+                report->y = -y;
+                break;
+            case PD_ROTATE_270:
+                report->x = -y;
+                report->y = x;
+                break;
+            default:
+                break;
+        }
     }
-    if (pointing_device_configs[index].invert == PD_INVERT_X || pointing_device_configs[index].invert == PD_INVERT_XY) {
-        report->x = -report->x;
-    }
-    if (pointing_device_configs[index].invert == PD_INVERT_Y || pointing_device_configs[index].invert == PD_INVERT_XY) {
-        report->y = -report->y;
+    if (adj_handled != PD_ADJ_SUPPORT_INVERT) {
+        if (pointing_device_configs[index].invert == PD_INVERT_X || pointing_device_configs[index].invert == PD_INVERT_XY) {
+            report->x = -report->x;
+        }
+        if (pointing_device_configs[index].invert == PD_INVERT_Y || pointing_device_configs[index].invert == PD_INVERT_XY) {
+            report->y = -report->y;
+        }
     }
 }
 
@@ -283,8 +290,11 @@ bool pointing_deivce_task_get_pointing_reports(report_mouse_t* report) {
         }
 #endif
         if (pointing_device_configs[i].driver->get_report && pointing_device_is_ready(pointing_device_configs[i], i) && pointing_device_configs[i].driver->get_report(&loop_report, pointing_device_configs[i].comms_config, pointing_device_configs[i].device_config) == PD_STATUS_OK) { // get_report is not NULL, device is ready, report is valid
-            device_was_ready = true;
-            pointing_device_adjust_report(&loop_report, i);
+            device_was_ready                                    = true;
+            pointing_device_adjustments_supported_t adj_handled = PD_ADJ_SUPPORT_NONE;
+            if (pointing_device_configs[i].driver->adjust == NULL || (adj_handled = pointing_device_configs[i].driver->adjust(pointing_device_configs[i].comms_config, pointing_device_configs[i].device_config, pointing_device_configs[i].rotation, pointing_device_configs[i].invert, false)) != PD_ADJ_SUPPORT_BOTH) {
+                pointing_device_adjust_report(&loop_report, i, adj_handled);
+            }
             loop_report = pointing_device_task_kb_by_index(loop_report, i); // Maybe simpler to not pass pointer to user?
             buttons[i]  = loop_report.buttons;
             pointing_device_add_and_clamp_report(report, &loop_report);
