@@ -80,6 +80,12 @@ void keyboard_pre_init_kb(void) {
     setPinOutput(GP9);
     writePinHigh(GP9);
 
+    setPinOutput(ELORA_CC1_PIN);
+    writePinLow(ELORA_CC1_PIN);
+
+    setPinOutput(ELORA_CC2_PIN);
+    writePinLow(ELORA_CC2_PIN);
+
     // We have to get the SPI interface working quite early,
     // So make sure it is available well before we need it
     spi_init();
