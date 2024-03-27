@@ -14,5 +14,3 @@ RGB_MATRIX_ENABLE = yes
 AUDIO_ENABLE = no           # Audio output
 AUDIO_SUPPORTED = no
 KEY_LOCK_ENABLE = no
-
-LAYOUTS = ortho_4x12
