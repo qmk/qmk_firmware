@@ -1,0 +1,44 @@
+ {
+    "keyboard_name": "Plaque A.D",
+    "usb": {
+        "vid": "0x5A50",
+        "pid": "0x0875",
+        "device_version": "0.0.1"
+    },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "rgblight": true
+    },
+    "dynamic_keymap": {
+        "layer_count": 6
+    },
+    "indicators": {
+        "caps_lock": "GP28",
+        "scroll_lock": "GP2"
+    },
+    "rgblight": {
+        "led_count": 38,
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "sleep": true,
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "GP10",
+        "driver": "vendor"
+    }
+}
