@@ -21,6 +21,13 @@
         "rows": ["GP3", "GP1", "GP0", "GP25", "GP11", "GP9"],
         "cols": ["GP29", "GP27", "GP26", "GP24", "GP23", "GP22", "GP21", "GP20", "GP19", "GP18", "GP17", "GP16", "GP15", "GP14", "GP13", "GP5", "GP4"]
     },
+    "dynamic_keymap": {
+        "layer_count": 6
+    },
+    "indicators": {
+        "caps_lock": "GP28",
+        "scroll_lock": "GP2"
+    },
     "rgblight": {
         "led_count": 38,
         "hue_steps": 8,
