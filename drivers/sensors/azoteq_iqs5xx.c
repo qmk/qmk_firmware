@@ -131,7 +131,7 @@ const azoteq_iqs5xx_device_config_t azoteq_iqs5xx_device_config_default = {
     .runtime_data = &azoteq_iqs5xx_runtime_data_default,
 };
 
-const pointing_device_driver_t     azoteq_iqs5xx_driver_default     = {.init = azoteq_iqs5xx_init, .get_report = azoteq_iqs5xx_get_report, .set_cpi = azoteq_iqs5xx_set_cpi, .get_cpi = azoteq_iqs5xx_get_cpi};
+const pointing_device_driver_t     azoteq_iqs5xx_driver_default     = {.init = azoteq_iqs5xx_init, .get_report = azoteq_iqs5xx_get_report, .set_cpi = azoteq_iqs5xx_set_cpi, .get_cpi = azoteq_iqs5xx_get_cpi, .adjust = azoteq_iqs5xx_adjust};
 const pointing_device_i2c_config_t azoteq_iqs5xx_i2c_config_default = {.address = AZOTEQ_IQS5XX_ADDRESS, .timeout = AZOTEQ_IQS5XX_TIMEOUT_MS};
 
 i2c_status_t azoteq_iqs5xx_wake(const pointing_device_i2c_config_t *i2c_config) {
@@ -359,15 +359,7 @@ pointing_device_status_t azoteq_iqs5xx_init(const void *i2c_config, const void *
         azoteq_iqs5xx_init_status = azoteq_iqs5xx_set_report_rate(i2c_config, AZOTEQ_IQS5XX_REPORT_RATE, AZOTEQ_IQS5XX_ACTIVE, false);
         azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_event_mode(i2c_config, false, false);
         azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_reati(i2c_config, true, false);
-#if defined(AZOTEQ_IQS5XX_ROTATION_90)
-        azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_xy_config(i2c_config, false, true, true, true, false);
-#elif defined(AZOTEQ_IQS5XX_ROTATION_180)
-        azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_xy_config(i2c_config, true, true, false, true, false);
-#elif defined(AZOTEQ_IQS5XX_ROTATION_270)
-        azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_xy_config(i2c_config, true, false, true, true, false);
-#else
         azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_xy_config(i2c_config, false, false, false, true, false);
-#endif
         azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_gesture_config(i2c_config, azoteq_iqs5xx_device_config->gesture_config, true);
         wait_ms(AZOTEQ_IQS5XX_REPORT_RATE + 1);
     }
@@ -431,4 +423,38 @@ pointing_device_status_t azoteq_iqs5xx_get_report(report_mouse_t *return_report,
     } else {
         return PD_STATUS_ERROR;
     }
+}
+
+pointing_device_adjustments_supported_t azoteq_iqs5xx_adjust(const void *i2c_config, const void *device_config, pointing_device_rotations_t rotation, pointing_device_invert_t invert, bool init) {
+    pointing_device_i2c_config_t *azoteq_iqs5xx_i2c_config = (pointing_device_i2c_config_t *)i2c_config;
+    if (init) {
+        bool flip_x = false, flip_y = false, switch_xy = false;
+        switch (rotation) {
+            case PD_ROTATE_90:
+                flip_x    = false;
+                flip_y    = true;
+                switch_xy = true;
+                break;
+            case PD_ROTATE_180:
+                flip_x    = true;
+                flip_y    = true;
+                switch_xy = false;
+                break;
+            case PD_ROTATE_270:
+                flip_x    = true;
+                flip_y    = false;
+                switch_xy = true;
+                break;
+            default:
+                break;
+        }
+        if (invert == PD_INVERT_X || invert == PD_INVERT_XY) {
+            flip_x = !flip_x;
+        }
+        if (invert == PD_INVERT_Y || invert == PD_INVERT_XY) {
+            flip_y = !flip_y;
+        }
+        azoteq_iqs5xx_set_xy_config(azoteq_iqs5xx_i2c_config, flip_x, flip_y, switch_xy, true, true);
+    }
+    return PD_ADJ_SUPPORT_BOTH;
 }
