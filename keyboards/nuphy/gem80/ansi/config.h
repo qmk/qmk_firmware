@@ -58,7 +58,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define USB_SLEEP_ENABLED true
 
-#define DEBOUNCE 2
+#define DEBOUNCE 3
 // #define DEBUG_MATRIX_SCAN_RATE
 
 // configurations for CAPS_WORD feature
