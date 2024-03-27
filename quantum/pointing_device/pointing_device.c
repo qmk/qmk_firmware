@@ -177,6 +177,7 @@ __attribute__((weak)) bool pointing_device_send(void) {
     uint8_t buttons = local_mouse_report.buttons;
     memset(&local_mouse_report, 0, sizeof(local_mouse_report));
     local_mouse_report.buttons = buttons;
+
     memcpy(&old_report, &local_mouse_report, sizeof(local_mouse_report));
 
     return should_send_report || buttons;
@@ -282,7 +283,7 @@ __attribute__((weak)) bool pointing_device_task(void) {
         local_mouse_report  = pointing_device_adjust_by_defines_right(local_mouse_report);
         shared_mouse_report = pointing_device_adjust_by_defines(shared_mouse_report);
     }
-    local_mouse_report = is_keyboard_left() ? pointing_device_task_combined_kb(local_mouse_report, shared_mouse_report) : pointing_device_task_combined_kb(shared_mouse_report, local_mouse_report);
+    local_mouse_report = is_keyboard_left() ? pointing_device_task_combined(local_mouse_report, shared_mouse_report) : pointing_device_task_combined(shared_mouse_report, local_mouse_report);
 #else
     local_mouse_report = pointing_device_adjust_by_defines(local_mouse_report);
     local_mouse_report = pointing_device_task_kb(local_mouse_report);
@@ -290,6 +291,10 @@ __attribute__((weak)) bool pointing_device_task(void) {
     // automatic mouse layer function
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
     pointing_device_task_auto_mouse(local_mouse_report);
+#endif
+    // pointing device modes handling for single pointing device
+#if defined(POINTING_DEVICE_MODES_ENABLE) && !(defined(SPLIT_POINTING_ENABLE) && defined(POINTING_DEVICE_COMBINED))
+    local_mouse_report = pointing_device_modes_task(local_mouse_report);
 #endif
     // combine with mouse report to ensure that the combined is sent correctly
 #ifdef MOUSEKEY_ENABLE
@@ -393,7 +398,7 @@ static inline int8_t pointing_device_hv_clamp(int16_t value) {
 }
 
 /**
- * @brief clamps int16_t to int8_t
+ * @brief clamps clamp_range_t to mouse_xy_report_t
  *
  * @param[in] clamp_range_t value
  * @return mouse_xy_report_t clamped value
@@ -466,6 +471,44 @@ report_mouse_t pointing_device_adjust_by_defines_right(report_mouse_t mouse_repo
 }
 
 /**
+ * @brief Handle core combined pointing device tasks
+ *
+ * Takes 2 report_mouse_t structs allowing individual modification of either side and then returns pointing_device_task_combined_kb.
+ *
+ * NOTE: Only available when using both SPLIT_POINTING_ENABLE and POINTING_DEVICE_COMBINED
+ *
+ * @param[in] left_report report_mouse_t
+ * @param[in] right_report report_mouse_t
+ * @return pointing_device_task_combined_kb(left_report, right_report) by default
+ */
+report_mouse_t pointing_device_task_combined(report_mouse_t left_report, report_mouse_t right_report) {
+#    ifdef POINTING_DEVICE_MODES_ENABLE
+#        if POINTING_MODES_SINGLE_CONTROL
+    // only one side controlled at any one time
+    switch (get_pointing_mode_device()) {
+        case PM_RIGHT_DEVICE:
+            right_report = pointing_device_modes_task(right_report);
+            break;
+        default:
+            left_report = pointing_device_modes_task(left_report);
+    }
+#        else
+    // both sides controlled independently
+    // save current device id
+    uint8_t current_device = get_pointing_mode_device();
+    set_pointing_mode_device(PM_RIGHT_DEVICE);
+    right_report = pointing_device_modes_task(right_report);
+
+    set_pointing_mode_device(PM_LEFT_DEVICE);
+    left_report = pointing_device_modes_task(left_report);
+    // set device id back
+    set_pointing_mode_device(current_device);
+#        endif
+#    endif
+    return pointing_device_task_combined_kb(left_report, right_report);
+}
+
+/**
  * @brief Weak function allowing for keyboard level mouse report modification
  *
  * Takes 2 report_mouse_t structs allowing individual modification of sides at keyboard level then returns pointing_device_task_combined_user.
@@ -494,7 +537,7 @@ __attribute__((weak)) report_mouse_t pointing_device_task_combined_kb(report_mou
 __attribute__((weak)) report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, report_mouse_t right_report) {
     return pointing_device_combine_reports(left_report, right_report);
 }
-#endif
+#endif // defined(SPLIT_POINTING_ENABLE) && defined(POINTING_DEVICE_COMBINED)
 
 __attribute__((weak)) void pointing_device_keycode_handler(uint16_t keycode, bool pressed) {
     if IS_MOUSEKEY_BUTTON (keycode) {

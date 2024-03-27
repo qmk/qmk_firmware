@@ -384,8 +384,12 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef AUTOCORRECT_ENABLE
             process_autocorrect(keycode, record) &&
 #endif
+
 #ifdef TRI_LAYER_ENABLE
             process_tri_layer(keycode, record) &&
+#endif
+#if defined(POINTING_DEVICE_ENABLE) && defined(POINTING_DEVICE_MODES_ENABLE)
+            process_pointing_mode_records(keycode, record) &&
 #endif
             true)) {
         return false;

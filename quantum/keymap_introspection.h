@@ -67,3 +67,20 @@ combo_t* combo_get_raw(uint16_t combo_idx);
 combo_t* combo_get(uint16_t combo_idx);
 
 #endif // defined(COMBO_ENABLE)
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Pointing Mode Mapping
+
+#if defined(POINTING_MODE_MAP_ENABLE)
+
+// Get the number of pointing mode maps, stored in firmware
+uint8_t pointing_mode_map_count_raw(void);
+// Get the number of pointing mode maps, potentially stored dynamically
+uint8_t pointing_mode_map_count(void);
+
+// Get the keycode for the pointing mode map location, stored in firmware
+uint16_t keycode_at_pointing_mode_map_location_raw(uint8_t map_loc);
+// Get the keycode for the encoder mapping location, potentially stored dynamically
+uint16_t keycode_at_pointing_mode_map_location(uint8_t map_loc);
+
+#endif // defined(POINTING_MODE_MAP_ENABLE)

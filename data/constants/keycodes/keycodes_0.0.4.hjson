@@ -1,0 +1,13 @@
+{
+    "ranges": {
+        "0x52E0/0x000F": {
+            "define": "QK_POINTING_MODE_MO"
+        },
+        "0x52F0/0x000F": {
+            "define": "QK_POINTING_MODE_TG"
+        },
+        "0x5300/0x0002": {
+            "define": "QK_POINTING_MODE_UTIL"
+        }
+    }
+}
