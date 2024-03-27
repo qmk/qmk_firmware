@@ -77,7 +77,7 @@ uint8_t init_mcp23017(void) {
     // This means: we will write to the pins 0-4 on GPIOB (in select_rows)
     uint8_t buf[] = {0b11111111, 0b11110000};
     print("before transmit\n");
-    mcp23017_status = i2c_write_register(I2C_ADDR, IODIRA, buf, sizeof(buf), MCP23017_I2C_TIMEOUT)
+    mcp23017_status = i2c_write_register(I2C_ADDR, IODIRA, buf, sizeof(buf), MCP23017_I2C_TIMEOUT);
     uprintf("after transmit %i\n", mcp23017_status);
     if (!mcp23017_status) {
         // set pull-up
@@ -86,7 +86,7 @@ uint8_t init_mcp23017(void) {
         // - driving : off : 0
         // This means: we will read all the bits on GPIOA
         // This means: we will write to the pins 0-4 on GPIOB (in select_rows)
-        mcp23017_status = i2c_write_register(I2C_ADDR, GPPUA, buf, sizeof(buf), MCP23017_I2C_TIMEOUT)
+        mcp23017_status = i2c_write_register(I2C_ADDR, GPPUA, buf, sizeof(buf), MCP23017_I2C_TIMEOUT);
         uprintf("after transmit2 %i\n", mcp23017_status);
     }
     return mcp23017_status;
