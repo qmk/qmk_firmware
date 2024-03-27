@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "user_kb.h"
 #include <stdbool.h>
+#include <stdint.h>
 #include "config.h"
 #include "eeconfig.h"
 #include "mcu_pwr.h"
@@ -39,6 +40,7 @@ bool f_rf_sw_press     = 0;
 bool f_dev_reset_press = 0;
 bool f_rgb_test_press  = 0;
 bool f_bat_num_show    = 0;
+bool f_debounce_show   = 0;
 
 uint8_t        rf_blink_cnt          = 0;
 uint8_t        rf_sw_temp            = 0;
@@ -452,6 +454,7 @@ void user_config_reset(void) {
     user_config.ee_logo_colour          = logo_colour;
     user_config.usb_sleep_toggle        = false;
     user_config.caps_indication_type    = CAPS_INDICATOR_SIDE;
+    user_config.debounce_ms             = DEBOUNCE;
 
     eeconfig_update_kb_datablock(&user_config);
 }
@@ -597,4 +600,48 @@ uint8_t get_led_index(uint8_t row, uint8_t col) {
     };
 
     return 16;
+}
+
+/**
+ * @brief get LED if for first digit from double digit number. Esc = 0
+ */
+uint8_t two_digit_decimals_led(uint8_t value) {
+    if (value > 99) {
+        return get_led_index(0, 0);
+    }
+
+    uint8_t dec = value / 10;
+
+    uint8_t dec_led_idx = get_led_index(0, dec);
+
+    return dec_led_idx;
+}
+
+/**
+ * @brief get LED if for second digit from double digit number 0 = 0
+ */
+uint8_t two_digit_ones_led(uint8_t value) {
+    if (value > 99) {
+        return get_led_index(0, 0);
+    }
+
+    uint8_t ones = value % 10;
+    if (ones == 0) {
+        ones = 10;
+    }
+    uint8_t ones_led_idx = get_led_index(1, ones);
+
+    return ones_led_idx;
+}
+
+void adjust_debounce(uint8_t dir) {
+#if DEBOUNCE > 0
+    if (dir && user_config.debounce_ms < 99) {
+        user_config.debounce_ms += DEBOUNCE_STEP;
+        eeconfig_update_kb_datablock(&user_config);
+    } else if (!dir && user_config.debounce_ms > 0) {
+        user_config.debounce_ms -= DEBOUNCE_STEP;
+        eeconfig_update_kb_datablock(&user_config);
+    }
+#endif
 }

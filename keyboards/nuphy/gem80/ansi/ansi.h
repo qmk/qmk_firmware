@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "quantum.h"
+#include "quantum_keycodes.h"
 
 enum custom_keycodes {
     RF_DFU = QK_KB_0,
@@ -55,6 +55,9 @@ enum custom_keycodes {
     LOGO_SPD,
     TOG_USB_SLP,
     TOG_CAPS_IND,
+    DEBOUNCE_INC,
+    DEBOUNCE_DEC,
+    DEBOUNCE_SHOW,
 };
 
 #define MAC_PRT G(S(KC_3))

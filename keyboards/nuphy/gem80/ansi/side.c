@@ -19,7 +19,7 @@
 #define RF_LED_LINK_PERIOD 500
 #define RF_LED_PAIR_PERIOD 250
 #define SIDE_LINE 5
-#define CHARGING_SHIFT 0
+#define CHARGING_SHIFT 1
 #define RFLINK_SHIFT 0
 #define CHARGING_BREATHE 1
 
@@ -790,6 +790,9 @@ void low_bat_show(void) {
  * @brief  bat_percent_led.
  */
 void bat_percent_led(uint8_t bat_percent) {
+#ifdef CONSOLE_ENABLE
+        xprintf("BATTERY LEVEL: %u percents", bat_percent);
+#endif
     uint8_t i;
     uint8_t bat_end_led = 0;
     uint8_t bat_r, bat_g, bat_b;

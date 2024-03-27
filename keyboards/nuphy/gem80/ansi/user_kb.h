@@ -156,6 +156,7 @@ typedef struct {
     uint8_t  usb_sleep_toggle;
     uint16_t rf_link_timeout;
     uint8_t  caps_indication_type;
+    uint8_t  debounce_ms;
     uint8_t  retain1;
     uint8_t  retain2;
 } user_config_t;
@@ -193,3 +194,7 @@ void sleep_handle(void);
 void led_power_handle(void);
 void toggle_caps_indication(void);
 void toggle_usb_sleep(void);
+
+uint8_t two_digit_decimals_led(uint8_t value);
+uint8_t two_digit_ones_led(uint8_t value);
+void adjust_debounce(uint8_t dir);

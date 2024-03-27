@@ -27,6 +27,7 @@ extern bool            f_dev_reset_press;
 extern bool            f_bat_num_show;
 extern bool            f_rgb_test_press;
 extern bool            f_bat_hold;
+extern bool            f_debounce_show;
 extern uint16_t        no_act_time;
 extern uint8_t         rf_sw_temp;
 extern uint16_t        rf_sw_press_delay;
@@ -331,6 +332,23 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
 
             return false;
+        case DEBOUNCE_SHOW:
+            if (record->event.pressed) {
+                f_debounce_show = !f_debounce_show;
+            }
+            return false;
+
+        case DEBOUNCE_INC:
+            if (record->event.pressed) {
+                adjust_debounce(1);
+            }
+            return false;
+
+        case DEBOUNCE_DEC:
+            if (record->event.pressed) {
+                adjust_debounce(0);
+            }
+            return false;
 
         default:
             return true;
@@ -366,6 +384,11 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
     if (host_keyboard_led_state().scroll_lock) {
         rgb_matrix_set_color(scroll_lock_led, 0x00, 0x80, 0x00);
+    }
+
+    if (f_debounce_show) {
+        rgb_matrix_set_color(two_digit_decimals_led(user_config.debounce_ms), 0x00, 0x80, 0x00);
+        rgb_matrix_set_color(two_digit_ones_led(user_config.debounce_ms), 0x00, 0x80, 0x00);
     }
 
     rgb_matrix_set_color(RGB_MATRIX_LED_COUNT - 1, 0, 0, 0);

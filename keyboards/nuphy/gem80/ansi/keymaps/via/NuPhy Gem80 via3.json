@@ -415,6 +415,18 @@
         {
             "name": "TOG CAPS\nINDICATOR",
             "title": "Toggle Caps Lock Indicator"
+        },
+        {
+            "name": "DEBOUNCE\nINCREASE",
+            "title": "Increase Debounce"
+        },
+        {
+            "name": "DEBOUNCE\nDECREASE",
+            "title": "Decrease Debounce"
+        },
+        {
+            "name": "DEBOUNCE\nSHOW VAL",
+            "title": "Show Debounce Value"
         }
     ]
 }

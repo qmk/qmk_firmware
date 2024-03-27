@@ -68,3 +68,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // NOTE: uncomment if you want to have random colors in Reactive RGB effects
 // #define RGB_MATRIX_SOLID_REACTIVE_GRADIENT_MODE
 
+#define DEBOUNCE_STEP 1
