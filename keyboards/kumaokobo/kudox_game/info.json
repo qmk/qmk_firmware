@@ -3,6 +3,14 @@
     "manufacturer": "Kumao Kobo",
     "url": "",
     "maintainer": "Kumao Kobo",
+    "features": {
+        "bootmagic": false,
+        "command": true,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false
+    },
     "usb": {
         "vid": "0xABBA",
         "pid": "0x9696"

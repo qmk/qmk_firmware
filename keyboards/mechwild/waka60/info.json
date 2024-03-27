@@ -29,6 +29,16 @@
     "ws2812": {
         "pin": "A1"
     },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false,
+        "rgblight": true
+    },
     "matrix_pins": {
         "cols": ["B10", "B1", "B0", "A7", "A6", "A5", "A4"],
         "rows": ["B8", "B4", "B3", "B9", "A15", "B12", "B13", "B14", "B15", "A8"]

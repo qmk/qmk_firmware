@@ -3,6 +3,14 @@
     "manufacturer": "takashiski",
     "url": "https://skyhigh-works.hatenablog.com/",
     "maintainer": "takashiski",
+    "features": {
+        "bootmagic": false,
+        "command": true,
+        "console": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false
+    },
     "usb": {
         "vid": "0xFEED",
         "pid": "0x0000",

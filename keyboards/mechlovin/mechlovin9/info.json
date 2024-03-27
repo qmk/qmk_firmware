@@ -2,6 +2,14 @@
     "manufacturer": "Mechlovin Studio",
     "url": "",
     "maintainer": "Team Mechlovin",
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false
+    },
     "usb": {
         "vid": "0x4D4C"
     },

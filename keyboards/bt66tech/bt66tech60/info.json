@@ -9,6 +9,17 @@
         "device_version": "0.0.1",
         "force_nkro": true
     },
+    "features": {
+        "backlight": true,
+        "bootmagic": false,
+        "command": true,
+        "console": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgblight": true,
+        "sleep_led": true
+    },
     "matrix_pins": {
         "cols": ["B9", "B8", "B7", "B6", "B5", "B4", "B3", "B11", "A15", "A10", "A9", "B14", "B13", "B12"],
         "rows": ["B10", "B1", "B0", "A7", "A6"]

@@ -3,6 +3,15 @@
   "manufacturer": "Technomancy",
   "url": "",
   "maintainer": "qmk",
+  "features": {
+    "bootmagic": false,
+    "command": true,
+    "console": true,
+    "extrakey": true,
+    "mousekey": true,
+    "nkro": true,
+    "unicode": true
+  },
   "usb": {
     "vid": "0x1209",
     "pid": "0xA1E5",

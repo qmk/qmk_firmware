@@ -8,6 +8,14 @@
         "pid": "0x0002",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": false,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": true
+    },
     "matrix_pins": {
         "cols": ["D3", "D2", "D1", "D0", "D4", "C6", "D7", "E6", "B4", "B5", "F4", "F5"],
         "rows": ["F6", "B6", "B2"]
