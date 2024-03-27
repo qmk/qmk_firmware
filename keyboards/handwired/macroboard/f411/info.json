@@ -7,7 +7,5 @@
     "ws2812": {
         "driver": "pwm"
     },
-    "processor": "STM32F411",
-    "bootloader": "stm32-dfu",
-    "board": "BLACKPILL_STM32_F411"
+    "development_board": "blackpill_f411"
 }

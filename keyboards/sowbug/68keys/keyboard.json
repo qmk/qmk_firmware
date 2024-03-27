@@ -74,8 +74,7 @@
         "rows": ["C14", "C15", "A0", "A1", "A2"]
     },
     "diode_direction": "COL2ROW",
-    "processor": "STM32F103",
-    "bootloader": "stm32duino",
+    "development_board": "bluepill",
     "layout_aliases": {
         "LAYOUT_default": "LAYOUT"
     },
