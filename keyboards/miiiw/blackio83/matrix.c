@@ -34,7 +34,7 @@ static pin_t dip_switch_pad[] = DIP_SWITCH_PINS;
 
 void matrix_init_custom(void) {
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        setPinInputLow(row_pins[row]);
+        gpio_set_pin_input_low(row_pins[row]);
     }
     
     shift_init();
@@ -65,7 +65,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
 void matrix_power_up(void) {
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         palDisableLineEvent(row_pins[row]);
-        setPinInputLow(row_pins[row]);
+        gpio_set_pin_input_low(row_pins[row]);
     }
     init_cols();
 #ifdef DIP_SWITCH_PINS
@@ -78,12 +78,12 @@ void matrix_power_up(void) {
 void matrix_power_down(void) {
     unselect_cols();
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        setPinInputLow(row_pins[row]);
+        gpio_set_pin_input_low(row_pins[row]);
         palEnableLineEvent(row_pins[row], PAL_EVENT_MODE_RISING_EDGE);
     }
 #ifdef DIP_SWITCH_PINS
     for (uint8_t i = 1; i < NUMBER_OF_DIP_SWITCHES; i++) {
-        setPinInputLow(dip_switch_pad[i]);
+        gpio_set_pin_input_low(dip_switch_pad[i]);
     }
 #endif
 }

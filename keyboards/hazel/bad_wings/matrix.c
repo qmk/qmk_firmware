@@ -83,7 +83,7 @@ void matrix_init_custom(void) {
     // Set up the initial states for all the row pins
     for (int r = 0; r < SHIFTREG_ROWS; r++) {
         // Note: This needs to use the internal pull down resistors, and atmegas do *not* support that
-        setPinInputLow(rowPinsSR[r]);
+        gpio_set_pin_input_low(rowPinsSR[r]);
     }
 
     // Set the CS to low by default, and specify as an output pin

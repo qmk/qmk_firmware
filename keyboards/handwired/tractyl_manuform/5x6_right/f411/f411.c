@@ -53,7 +53,7 @@ __attribute__((weak)) void bootmagic_scan(void) {
 
 #ifdef USB_VBUS_PIN
 bool usb_vbus_state(void) {
-    setPinInputLow(USB_VBUS_PIN);
+    gpio_set_pin_input_low(USB_VBUS_PIN);
     wait_us(5);
     return gpio_read_pin(USB_VBUS_PIN);
 }

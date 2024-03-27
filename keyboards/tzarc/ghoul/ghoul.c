@@ -21,7 +21,7 @@ void matrix_init_custom(void) {
     spi_init();
 
     // Encoder pushbutton
-    setPinInputLow(ENCODER_PUSHBUTTON_PIN);
+    gpio_set_pin_input_low(ENCODER_PUSHBUTTON_PIN);
 }
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {

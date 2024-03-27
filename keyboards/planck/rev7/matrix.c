@@ -51,12 +51,12 @@ void matrix_init_custom(void) {
 
     // rows
     for (int i = 0; i < MATRIX_ROWS; i++) {
-        setPinInputLow(matrix_row_pins[i]);
+        gpio_set_pin_input_low(matrix_row_pins[i]);
     }
 
     // encoder A & B setup
-    setPinInputLow(B12);
-    setPinInputLow(B13);
+    gpio_set_pin_input_low(B12);
+    gpio_set_pin_input_low(B13);
 
 #ifndef PLANCK_WATCHDOG_DISABLE
     wdgInit();
@@ -118,7 +118,7 @@ uint8_t encoder_quadrature_read_pin(uint8_t index, bool pad_b) {
     gpio_write_pin_low(matrix_row_pins[index]);
     wait_us(10);
     uint8_t ret = gpio_read_pin(pin) ? 1 : 0;
-    setPinInputLow(matrix_row_pins[index]);
-    setPinInputLow(pin);
+    gpio_set_pin_input_low(matrix_row_pins[index]);
+    gpio_set_pin_input_low(pin);
     return ret;
 }

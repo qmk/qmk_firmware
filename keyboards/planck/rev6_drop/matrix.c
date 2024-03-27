@@ -32,7 +32,7 @@ void matrix_init_custom(void) {
 
     // rows
     for (int i = 0; i < MATRIX_ROWS; i++) {
-        setPinInputLow(matrix_row_pins[i]);
+        gpio_set_pin_input_low(matrix_row_pins[i]);
     }
 }
 

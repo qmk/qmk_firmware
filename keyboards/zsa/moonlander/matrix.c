@@ -79,13 +79,13 @@ void matrix_init_custom(void) {
     gpio_set_pin_output(B15);
 
     // inputs
-    setPinInputLow(A0);
-    setPinInputLow(A1);
-    setPinInputLow(A2);
-    setPinInputLow(A3);
-    setPinInputLow(A6);
-    setPinInputLow(A7);
-    setPinInputLow(B0);
+    gpio_set_pin_input_low(A0);
+    gpio_set_pin_input_low(A1);
+    gpio_set_pin_input_low(A2);
+    gpio_set_pin_input_low(A3);
+    gpio_set_pin_input_low(A6);
+    gpio_set_pin_input_low(A7);
+    gpio_set_pin_input_low(B0);
 
     mcp23018_init();
 }

@@ -29,18 +29,18 @@ static void select_col(uint8_t col) {
     gpio_write_pin_high(col_pins[col]);
 }
 
-static void unselect_col(uint8_t col) { setPinInputLow(col_pins[col]); }
+static void unselect_col(uint8_t col) { gpio_set_pin_input_low(col_pins[col]); }
 
 static void unselect_cols(void) {
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-        setPinInputLow(col_pins[x]);
+        gpio_set_pin_input_low(col_pins[x]);
     }
 }
 
 static void init_pins(void) {
     unselect_cols();
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        setPinInputLow(row_pins[x]);
+        gpio_set_pin_input_low(row_pins[x]);
     }
 }
 
