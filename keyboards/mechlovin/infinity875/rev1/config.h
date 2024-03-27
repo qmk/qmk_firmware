@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#ifdef RGBLIGHT_ENABLE
-#define WS2812_SPI_DRIVER SPID2 // default: SPID1
-#define WS2812_SPI_USE_CIRCULAR_BUFFER
-#endif
+#define RGB_MATRIX_LED_COUNT 42
+#define RGB_MATRIX_SLEEP // turn off effects when suspended
+#define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
