@@ -1,0 +1,7 @@
+MCU_LDSCRIPT = STM32F103xB
+
+DYNAMIC_KEYMAP_ENABLE = yes
+
+SRC +=   analog.c
+
+DEBOUNCE_TYPE = sym_eager_pr
