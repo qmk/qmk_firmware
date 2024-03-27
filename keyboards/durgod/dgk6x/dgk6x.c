@@ -44,7 +44,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         case GUI_TOG:
             if (record->event.pressed) {
                 // Toggle LED on key press
-                togglePin(LED_WIN_LOCK_PIN);
+                gpio_toggle_pin(LED_WIN_LOCK_PIN);
             }
             break;
     }
