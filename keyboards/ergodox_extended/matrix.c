@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include <avr/io.h>
 #include "wait.h"
-#include "print.h"
+#include "debug.h"
 #include "util.h"
 #include "matrix.h"
 #include "i2c_master.h"
@@ -93,12 +93,12 @@ bool matrix_scan_custom(matrix_row_t matrix[])
         if (++expander_reset_loop == 0) {
             // since expander_reset_loop is 8 bit - we'll try to reset once in 255 matrix scans
             // this will be approx bit more frequent than once per second
-            print("trying to reset expander\n");
+            dprint("trying to reset expander\n");
             init_expander();
             if (expander_status) {
-                print("left side not responding\n");
+                dprint("left side not responding\n");
             } else {
-                print("left side attached\n");
+                dprint("left side attached\n");
             }
         }
     }
