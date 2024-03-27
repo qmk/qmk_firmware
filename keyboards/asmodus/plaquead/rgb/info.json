@@ -18,7 +18,7 @@
     },
     "rgb_matrix": {
         "led_count": 136,
-        "center_point": [127, 32],
+        "center_point": [112, 32],
         "animations": {
             "alphas_mods": true,
             "gradient_up_down": true,
