@@ -21,7 +21,9 @@
         ]
     },
     "led_matrix": {
-        "driver": "is31fl3731"
+        "driver": "is31fl3731",
+        "max_brightness": 20,
+        "sleep": true
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

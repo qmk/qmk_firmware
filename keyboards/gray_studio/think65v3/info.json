@@ -46,6 +46,9 @@
             "snake": true,
             "static_gradient": true,
             "twinkle": true
+        },
+        "default": {
+            "animation": "rainbow_mood"
         }
     },
     "layout_aliases": {
