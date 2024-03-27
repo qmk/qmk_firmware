@@ -26,7 +26,7 @@ void matrix_init_kb(void) {
     // runs once when the firmware starts up
 
     matrix_init_user();
-    setPinOutput(E6);
+    gpio_set_pin_output(E6);
 }
 
 bool led_update_kb(led_t led_state) {

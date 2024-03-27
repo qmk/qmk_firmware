@@ -17,12 +17,12 @@
 #include "quantum.h"
 
 void keyoard_post_init_kb(void) {
-    setPinOutput(LED_CAPS_LOCK_PIN);
-    setPinOutput(LED_INDICATOR_1);
-    setPinOutput(LED_INDICATOR_2);
-    setPinOutput(LED_INDICATOR_3);
-    setPinOutput(LED_INDICATOR_4);
-    setPinOutput(LED_INDICATOR_5);
+    gpio_set_pin_output(LED_CAPS_LOCK_PIN);
+    gpio_set_pin_output(LED_INDICATOR_1);
+    gpio_set_pin_output(LED_INDICATOR_2);
+    gpio_set_pin_output(LED_INDICATOR_3);
+    gpio_set_pin_output(LED_INDICATOR_4);
+    gpio_set_pin_output(LED_INDICATOR_5);
 #ifndef LED_CAPS_LOCK_PIN
     gpio_write_pin(LED_CAPS_LOCK_PIN, 0);
 #endif

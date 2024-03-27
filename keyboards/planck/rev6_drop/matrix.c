@@ -26,7 +26,7 @@ static matrix_row_t matrix_inverted[MATRIX_COLS];
 void matrix_init_custom(void) {
     // actual matrix setup - cols
     for (int i = 0; i < MATRIX_COLS; i++) {
-        setPinOutput(matrix_col_pins[i]);
+        gpio_set_pin_output(matrix_col_pins[i]);
         gpio_write_pin_low(matrix_col_pins[i]);
     }
 

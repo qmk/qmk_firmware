@@ -17,13 +17,13 @@
 
 void matrix_init_kb(void) {
   // set CapsLock LED to output and low
-  setPinOutput(B0);
+  gpio_set_pin_output(B0);
   gpio_write_pin_low(B0);
   // set NumLock LED to output and low
-  setPinOutput(B1);
+  gpio_set_pin_output(B1);
   gpio_write_pin_low(B1);
   // set ScrollLock LED to output and low
-  setPinOutput(B2);
+  gpio_set_pin_output(B2);
   gpio_write_pin_low(B2);
 }
 

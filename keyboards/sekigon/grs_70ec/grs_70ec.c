@@ -17,7 +17,7 @@
 #include "grs_70ec.h"
 
 void led_on(void) {
-    setPinOutput(D2);
+    gpio_set_pin_output(D2);
     gpio_write_pin_high(D2);
 }
 
@@ -31,7 +31,7 @@ void keyboard_post_init_kb(void) {
 
 void keyboard_pre_init_kb(void) {
     // Turn on extern circuit
-    setPinOutput(F7);
+    gpio_set_pin_output(F7);
     gpio_write_pin_high(F7);
 
     keyboard_pre_init_user();

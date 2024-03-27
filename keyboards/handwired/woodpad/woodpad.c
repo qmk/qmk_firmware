@@ -17,7 +17,7 @@
 #include "woodpad.h"
 
 void keyboard_pre_init_kb(void) {
-    setPinOutput(F7);
+    gpio_set_pin_output(F7);
     keyboard_pre_init_user();
 }
 

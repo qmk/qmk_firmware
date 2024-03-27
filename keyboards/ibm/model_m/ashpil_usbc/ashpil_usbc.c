@@ -18,9 +18,9 @@
 
 void keyboard_pre_init_kb(void) {
   /* Setting status LEDs pins to output and +5V (off) */
-  setPinOutput(D5);
-  setPinOutput(D6);
-  setPinOutput(D7);
+  gpio_set_pin_output(D5);
+  gpio_set_pin_output(D6);
+  gpio_set_pin_output(D7);
   gpio_write_pin_high(D5);
   gpio_write_pin_high(D6);
   gpio_write_pin_high(D7);

@@ -39,9 +39,9 @@ void matrix_init_custom(void) {
   setPinInput(ROW_E);
   setPinInput(ROW_F);
 
-  setPinOutput(SHR_DATA);
-  setPinOutput(SHR_LATCH);
-  setPinOutput(SHR_CLOCK);
+  gpio_set_pin_output(SHR_DATA);
+  gpio_set_pin_output(SHR_LATCH);
+  gpio_set_pin_output(SHR_CLOCK);
 }
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {

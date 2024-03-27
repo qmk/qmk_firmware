@@ -22,11 +22,11 @@ void board_init(void) {
 }
 
 void keyboard_pre_init_kb(void) {
-  setPinOutput(B5);
-  setPinOutput(B6);
-  setPinOutput(B7);
-  setPinOutput(B8);
-  setPinOutput(B9);
+  gpio_set_pin_output(B5);
+  gpio_set_pin_output(B6);
+  gpio_set_pin_output(B7);
+  gpio_set_pin_output(B8);
+  gpio_set_pin_output(B9);
   keyboard_pre_init_user();
 }
 

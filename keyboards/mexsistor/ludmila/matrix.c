@@ -34,7 +34,7 @@ extern matrix_row_t matrix[MATRIX_ROWS];      // debounced values
 
 
 static void select_row(uint8_t row) {
-    setPinOutput(row_pins[row]);
+    gpio_set_pin_output(row_pins[row]);
     gpio_write_pin_low(row_pins[row]);
 }
 

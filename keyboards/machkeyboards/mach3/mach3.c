@@ -35,7 +35,7 @@ led_config_t g_led_config = { {
 #endif
 
 void keyboard_pre_init_kb(void) {
-  setPinOutput(F5);
+  gpio_set_pin_output(F5);
   gpio_write_pin_high(F5);
   
   keyboard_pre_init_user();

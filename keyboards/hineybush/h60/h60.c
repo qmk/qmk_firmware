@@ -19,7 +19,7 @@
 void matrix_init_kb(void) {
 	// put your keyboard start-up code here
 	// runs once when the firmware starts up
-   	setPinOutput(C6);
+   	gpio_set_pin_output(C6);
 }
 
 bool led_update_kb(led_t led_state) {

@@ -41,14 +41,14 @@ pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 
 static inline void setPinOutput_writeLow(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
-        setPinOutput(pin);
+        gpio_set_pin_output(pin);
         gpio_write_pin_low(pin);
     }
 }
 
 static inline void setPinOutput_writeHigh(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
-        setPinOutput(pin);
+        gpio_set_pin_output(pin);
         gpio_write_pin_high(pin);
     }
 }
@@ -173,9 +173,9 @@ static void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t curre
 }
 
 void matrix_init_custom(void) {
-    setPinOutput(HC595_DS);
-    setPinOutput(HC595_STCP);
-    setPinOutput(HC595_SHCP);
+    gpio_set_pin_output(HC595_DS);
+    gpio_set_pin_output(HC595_STCP);
+    gpio_set_pin_output(HC595_SHCP);
 
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
         if (row_pins[x] != NO_PIN) {

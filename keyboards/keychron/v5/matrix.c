@@ -35,14 +35,14 @@ static pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 
 static inline void setPinOutput_writeLow(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
-        setPinOutput(pin);
+        gpio_set_pin_output(pin);
         gpio_write_pin_low(pin);
     }
 }
 
 static inline void setPinOutput_writeHigh(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
-        setPinOutput(pin);
+        gpio_set_pin_output(pin);
         gpio_write_pin_high(pin);
     }
 }
@@ -155,13 +155,13 @@ static void unselect_cols(void) {
 }
 
 static void matrix_init_pins(void) {
-    setPinOutput(DATA_PIN);
-    setPinOutput(CLOCK_PIN);
-    setPinOutput(LATCH_PIN);
+    gpio_set_pin_output(DATA_PIN);
+    gpio_set_pin_output(CLOCK_PIN);
+    gpio_set_pin_output(LATCH_PIN);
 #ifdef MATRIX_UNSELECT_DRIVE_HIGH
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
         if (col_pins[x] != NO_PIN) {
-            setPinOutput(col_pins[x]);
+            gpio_set_pin_output(col_pins[x]);
         }
     }
 #endif

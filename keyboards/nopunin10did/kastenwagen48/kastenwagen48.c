@@ -19,9 +19,9 @@
 #ifndef LAYER_LED_DISABLE
 
 void keyboard_pre_init_kb(void) {
-    setPinOutput(LED_INDICATOR_TOP);
-    setPinOutput(LED_INDICATOR_MID);
-    setPinOutput(LED_INDICATOR_BOT);
+    gpio_set_pin_output(LED_INDICATOR_TOP);
+    gpio_set_pin_output(LED_INDICATOR_MID);
+    gpio_set_pin_output(LED_INDICATOR_BOT);
     keyboard_pre_init_user();
 }
 

@@ -17,11 +17,11 @@
 #include "quantum.h"
 
 void led_init_ports(void) {
-  setPinOutput(C0);
-  setPinOutput(D0);
-  setPinOutput(D1);
-  setPinOutput(C1);
-  setPinOutput(C6);
+  gpio_set_pin_output(C0);
+  gpio_set_pin_output(D0);
+  gpio_set_pin_output(D1);
+  gpio_set_pin_output(C1);
+  gpio_set_pin_output(C6);
 }
 
 __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {

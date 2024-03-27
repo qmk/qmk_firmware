@@ -18,9 +18,9 @@
 #include "selene.h"
 
 void matrix_init_kb(void){
-    setPinOutput(NUM_LOCK_PIN);
-    setPinOutput(CAPS_LOCK_PIN);
-    setPinOutput(SCROLL_LOCK_PIN);
+    gpio_set_pin_output(NUM_LOCK_PIN);
+    gpio_set_pin_output(CAPS_LOCK_PIN);
+    gpio_set_pin_output(SCROLL_LOCK_PIN);
 }
 
 void keyboard_post_init_user(void) {

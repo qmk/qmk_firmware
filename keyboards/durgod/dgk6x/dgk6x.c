@@ -31,9 +31,9 @@ void on_all_leds(void) {
 
 /* WinLock and MR LEDs are non-standard. Need to override led init */
 void led_init_ports(void) {
-    setPinOutput(LED_CAPS_LOCK_PIN);
-    setPinOutput(LED_WIN_LOCK_PIN);
-    setPinOutput(LED_MR_LOCK_PIN);
+    gpio_set_pin_output(LED_CAPS_LOCK_PIN);
+    gpio_set_pin_output(LED_WIN_LOCK_PIN);
+    gpio_set_pin_output(LED_MR_LOCK_PIN);
     off_all_leds();
 }
 

@@ -18,7 +18,7 @@
 void set_bitc_LED(uint8_t mode) {
     switch(mode) {
         case LED_ON:
-            setPinOutput(PIN_LED);
+            gpio_set_pin_output(PIN_LED);
             gpio_write_pin(PIN_LED, GPIO_STATE_HIGH);
         break;
 
@@ -27,7 +27,7 @@ void set_bitc_LED(uint8_t mode) {
         break;
 
         case LED_OFF:
-            setPinOutput(PIN_LED);
+            gpio_set_pin_output(PIN_LED);
             gpio_write_pin(PIN_LED, GPIO_STATE_LOW);
         break;
 

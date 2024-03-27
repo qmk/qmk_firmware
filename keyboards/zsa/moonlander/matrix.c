@@ -71,12 +71,12 @@ void matrix_init_custom(void) {
     dprintf("matrix init\n");
     // debug_matrix = true;
     // outputs
-    setPinOutput(B10);
-    setPinOutput(B11);
-    setPinOutput(B12);
-    setPinOutput(B13);
-    setPinOutput(B14);
-    setPinOutput(B15);
+    gpio_set_pin_output(B10);
+    gpio_set_pin_output(B11);
+    gpio_set_pin_output(B12);
+    gpio_set_pin_output(B13);
+    gpio_set_pin_output(B14);
+    gpio_set_pin_output(B15);
 
     // inputs
     setPinInputLow(A0);

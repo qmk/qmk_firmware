@@ -20,7 +20,7 @@ void keyboard_pre_init_kb(void) {
     setPinInputHigh(D0);
     setPinInputHigh(D1);
 
-    setPinOutput(B7);
+    gpio_set_pin_output(B7);
     gpio_write_pin_high(B7);
 
     keyboard_pre_init_user();

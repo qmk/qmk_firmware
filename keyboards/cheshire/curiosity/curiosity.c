@@ -1,9 +1,9 @@
 #include "quantum.h"
 
 void matrix_init_board(void){
-    setPinOutput(A8);
-    setPinOutput(A9);
-    setPinOutput(A10);
+    gpio_set_pin_output(A8);
+    gpio_set_pin_output(A9);
+    gpio_set_pin_output(A10);
 }
 
 bool led_update_kb(led_t led_state) {

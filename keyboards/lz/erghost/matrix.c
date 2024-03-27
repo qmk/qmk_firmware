@@ -285,12 +285,12 @@ static void init_pins(void) {
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
         setPinInputHigh(row_pins[x]);
     }
-    setPinOutput(B5);
-    setPinOutput(B7);
-    setPinOutput(F0);
-    setPinOutput(B0);
-    setPinOutput(F1);
-    setPinOutput(E6);
+    gpio_set_pin_output(B5);
+    gpio_set_pin_output(B7);
+    gpio_set_pin_output(F0);
+    gpio_set_pin_output(B0);
+    gpio_set_pin_output(F1);
+    gpio_set_pin_output(E6);
 }
 
 static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {

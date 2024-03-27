@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //Initialize B12 for in-switch caps lock
 void keyboard_pre_init_kb(void){
-    setPinOutput(B12);
+    gpio_set_pin_output(B12);
     keyboard_pre_init_user();
 }
 

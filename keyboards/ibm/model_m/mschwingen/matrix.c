@@ -34,7 +34,7 @@ static uint16_t row_bits[MATRIX_ROWS] = {
 static const pin_t col_pins[MATRIX_COLS] = {D1, D4, D7, B4, F7, F6, F5, F4};
 
 static void select_col(uint8_t col) {
-    setPinOutput(col_pins[col]);
+    gpio_set_pin_output(col_pins[col]);
     gpio_write_pin_low(col_pins[col]);
 }
 

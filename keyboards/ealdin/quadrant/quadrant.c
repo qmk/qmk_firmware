@@ -54,7 +54,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 }
 
 void keyboard_pre_init_kb(void) {
-    setPinOutput(F0);
+    gpio_set_pin_output(F0);
 
     keyboard_pre_init_user();
 }

@@ -71,7 +71,7 @@ led_config_t g_led_config = {
 #if defined(SPLIT_HAND_MATRIX_GRID)
 static uint8_t peek_matrix_intersection(pin_t out_pin, pin_t in_pin) {
     setPinInputHigh(in_pin);
-    setPinOutput(out_pin);
+    gpio_set_pin_output(out_pin);
     gpio_write_pin_low(out_pin);
     // It's almost unnecessary, but wait until it's down to low, just in case.
     wait_us(1);

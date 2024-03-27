@@ -18,7 +18,7 @@
 bool g_first_execution = false;
 
 void keyboard_pre_init_kb(void) {
-    setPinOutput(F1);
+    gpio_set_pin_output(F1);
 
     keyboard_pre_init_user();
 }

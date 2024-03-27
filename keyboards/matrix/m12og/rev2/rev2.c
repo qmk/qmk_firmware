@@ -5,9 +5,9 @@
 #include "quantum.h"
 
 void matrix_init_user(void) {
-	setPinOutput(C6);
-	setPinOutput(B2);
-	setPinOutput(B1);
+	gpio_set_pin_output(C6);
+	gpio_set_pin_output(B2);
+	gpio_set_pin_output(B1);
 }
 
 bool led_update_kb(led_t led_state) {

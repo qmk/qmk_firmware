@@ -209,9 +209,9 @@ static void unselect_row(uint8_t col)
 
 static void unselect_rows(void)
 {
-    setPinOutput(B0);
-    setPinOutput(B1);
-    setPinOutput(B2);
+    gpio_set_pin_output(B0);
+    gpio_set_pin_output(B1);
+    gpio_set_pin_output(B2);
 	// make all pins high to select Y7, nothing is connected to that (otherwise the first row will act weird)
     gpio_write_pin_high(B0);
     gpio_write_pin_high(B1);
@@ -257,7 +257,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
 static void select_col(uint8_t col)
 {
-    setPinOutput(col_pins[col]);
+    gpio_set_pin_output(col_pins[col]);
     gpio_write_pin_low(col_pins[col]);
 }
 

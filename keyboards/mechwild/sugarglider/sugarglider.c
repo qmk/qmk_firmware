@@ -20,13 +20,13 @@ void board_init(void) {
     // B9 is configured as I2C1_SDA in the board file; that function must be
     // disabled before using B7 as I2C1_SDA.
     setPinInputHigh(B9);
-    setPinOutput(B12);
-    setPinOutput(B13);
-    setPinOutput(B14);
+    gpio_set_pin_output(B12);
+    gpio_set_pin_output(B13);
+    gpio_set_pin_output(B14);
     gpio_write_pin_low(B12);
     gpio_write_pin_low(B13);
     gpio_write_pin_low(B14);
-    setPinOutput(C13);
+    gpio_set_pin_output(C13);
 }
 
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE

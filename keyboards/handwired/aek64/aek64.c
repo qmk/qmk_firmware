@@ -24,7 +24,7 @@ void keyboard_pre_init_user(void) {
   // Call the keyboard pre init code.
 
   // Set our LED pins as output
-  setPinOutput(C3);
+  gpio_set_pin_output(C3);
 }
 
 void matrix_init_kb(void) {

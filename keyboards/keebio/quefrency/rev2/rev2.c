@@ -2,7 +2,7 @@
 #include "split_util.h"
 
 void matrix_init_kb(void) {
-    setPinOutput(CAPS_LOCK_LED_PIN);
+    gpio_set_pin_output(CAPS_LOCK_LED_PIN);
     matrix_init_user();
 }
 

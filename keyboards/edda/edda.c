@@ -18,9 +18,9 @@ void keyboard_pre_init_kb(void) {
   keyboard_pre_init_user();
 
   // Set our LED pins as output
-  setPinOutput(B2);
-  setPinOutput(B1);
-  setPinOutput(B0);
+  gpio_set_pin_output(B2);
+  gpio_set_pin_output(B1);
+  gpio_set_pin_output(B0);
 }
 
 __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {

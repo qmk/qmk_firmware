@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // runs once when the firmware starts up
 void matrix_init_kb(void) {
     // Set the LEDs pins
-    setPinOutput(D5); // Layer 1 Status LED
+    gpio_set_pin_output(D5); // Layer 1 Status LED
 
     matrix_init_user();
 }

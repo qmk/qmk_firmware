@@ -63,7 +63,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 #elif (DIODE_DIRECTION == COL2ROW)
 
 static void select_row(uint8_t row) {
-    setPinOutput(row_pins[row]);
+    gpio_set_pin_output(row_pins[row]);
     gpio_write_pin_low(row_pins[row]);
 }
 
@@ -393,14 +393,14 @@ static void init_pins(void) {
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
         setPinInputHigh(row_pins[x]);
     }
-    setPinOutput(A0);
-    setPinOutput(A1);
-    setPinOutput(A2);
-    setPinOutput(B4);
-    setPinOutput(C7);
-    setPinOutput(C2);
-    setPinOutput(C3);
-    setPinOutput(C5);
+    gpio_set_pin_output(A0);
+    gpio_set_pin_output(A1);
+    gpio_set_pin_output(A2);
+    gpio_set_pin_output(B4);
+    gpio_set_pin_output(C7);
+    gpio_set_pin_output(C2);
+    gpio_set_pin_output(C3);
+    gpio_set_pin_output(C5);
 }
 
 static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {

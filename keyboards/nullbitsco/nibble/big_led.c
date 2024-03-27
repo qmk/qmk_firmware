@@ -24,12 +24,12 @@ void set_big_LED_rgb(uint8_t r_mode, uint8_t g_mode, uint8_t b_mode) {
 void set_big_LED_r(uint8_t mode) {
     switch(mode) {
         case LED_ON:
-            setPinOutput(BIG_LED_R_PIN);
+            gpio_set_pin_output(BIG_LED_R_PIN);
             gpio_write_pin(BIG_LED_R_PIN, GPIO_STATE_HIGH);
         break;
 
         case LED_OFF:
-            setPinOutput(BIG_LED_R_PIN);
+            gpio_set_pin_output(BIG_LED_R_PIN);
             gpio_write_pin(BIG_LED_R_PIN, GPIO_STATE_LOW);
         break;
 
@@ -41,12 +41,12 @@ void set_big_LED_r(uint8_t mode) {
 void set_big_LED_g(uint8_t mode) {
     switch(mode) {
         case LED_ON:
-            setPinOutput(BIG_LED_G_PIN);
+            gpio_set_pin_output(BIG_LED_G_PIN);
             gpio_write_pin(BIG_LED_G_PIN, GPIO_STATE_HIGH);
         break;
 
         case LED_OFF:
-            setPinOutput(BIG_LED_G_PIN);
+            gpio_set_pin_output(BIG_LED_G_PIN);
             gpio_write_pin(BIG_LED_G_PIN, GPIO_STATE_LOW);
         break;
 
@@ -58,12 +58,12 @@ void set_big_LED_g(uint8_t mode) {
 void set_big_LED_b(uint8_t mode) {
     switch(mode) {
         case LED_ON:
-            setPinOutput(BIG_LED_B_PIN);
+            gpio_set_pin_output(BIG_LED_B_PIN);
             gpio_write_pin(BIG_LED_B_PIN, GPIO_STATE_HIGH);
         break;
 
         case LED_OFF:
-            setPinOutput(BIG_LED_B_PIN);
+            gpio_set_pin_output(BIG_LED_B_PIN);
             gpio_write_pin(BIG_LED_B_PIN, GPIO_STATE_LOW);
         break;
 

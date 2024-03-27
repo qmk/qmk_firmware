@@ -6,7 +6,7 @@
 
 void keyboard_post_init_kb(void) {
     // Enable RGB current limiter and wait for a bit before allowing RGB to continue
-    setPinOutput(RGB_ENABLE_PIN);
+    gpio_set_pin_output(RGB_ENABLE_PIN);
     gpio_write_pin_high(RGB_ENABLE_PIN);
     wait_ms(20);
 
@@ -16,7 +16,7 @@ void keyboard_post_init_kb(void) {
 
 void matrix_init_custom(void) {
     // SPI Matrix
-    setPinOutput(SPI_MATRIX_CHIP_SELECT_PIN);
+    gpio_set_pin_output(SPI_MATRIX_CHIP_SELECT_PIN);
     gpio_write_pin_high(SPI_MATRIX_CHIP_SELECT_PIN);
     spi_init();
 

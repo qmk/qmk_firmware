@@ -18,8 +18,8 @@
 
 void keyboard_pre_init_kb(void) {
     // Set our LED pins as output.
-    setPinOutput(B1);
-    setPinOutput(B3);
+    gpio_set_pin_output(B1);
+    gpio_set_pin_output(B3);
 
     keyboard_pre_init_user();
 }

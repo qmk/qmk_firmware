@@ -30,13 +30,13 @@ void set_led_toggle(const uint8_t, const bool);
 
 static inline void init_lwr_rse_led(void) {
 #if defined(LED_LWR_PIN)
-    setPinOutput(LED_LWR_PIN);
+    gpio_set_pin_output(LED_LWR_PIN);
     gpio_write_pin(LED_LWR_PIN, false);
     wait_ms(30);
 #endif
 
 #if defined(LED_RSE_PIN)
-    setPinOutput(LED_RSE_PIN);
+    gpio_set_pin_output(LED_RSE_PIN);
     gpio_write_pin(LED_RSE_PIN, false);
     wait_ms(30);
 #endif

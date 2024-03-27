@@ -23,9 +23,9 @@ void matrix_init_kb(void) {
 	// put your keyboard start-up code here
 	// runs once when the firmware starts up
 
-	setPinOutput(INDICATOR_0);
-	setPinOutput(INDICATOR_1);
-	setPinOutput(INDICATOR_2);
+	gpio_set_pin_output(INDICATOR_0);
+	gpio_set_pin_output(INDICATOR_1);
+	gpio_set_pin_output(INDICATOR_2);
 	matrix_init_user();
 }
 

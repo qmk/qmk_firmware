@@ -126,29 +126,29 @@ void matrix_init(void) {
   i2c_init();
 
   //Motor enable
-  setPinOutput(E6);
+  gpio_set_pin_output(E6);
   //Motor PWM
-  setPinOutput(D7);
+  gpio_set_pin_output(D7);
 
   //Power LED
-  setPinOutput(B7);
+  gpio_set_pin_output(B7);
   gpio_write_pin_high(B7);
 
   //LEDs Columns
-  setPinOutput(F7);
-  setPinOutput(F6);
-  setPinOutput(F5);
-  setPinOutput(F4);
-  setPinOutput(F1);
-  setPinOutput(F0);
+  gpio_set_pin_output(F7);
+  gpio_set_pin_output(F6);
+  gpio_set_pin_output(F5);
+  gpio_set_pin_output(F4);
+  gpio_set_pin_output(F1);
+  gpio_set_pin_output(F0);
 
   //LEDs Rows
-  setPinOutput(D6);
-  setPinOutput(B4);
-  setPinOutput(B5);
-  setPinOutput(B6);
-  setPinOutput(C6);
-  setPinOutput(C7);
+  gpio_set_pin_output(D6);
+  gpio_set_pin_output(B4);
+  gpio_set_pin_output(B5);
+  gpio_set_pin_output(B6);
+  gpio_set_pin_output(C6);
+  gpio_set_pin_output(C7);
 
   //Capacitive Interrupt
   setPinInput(D2);

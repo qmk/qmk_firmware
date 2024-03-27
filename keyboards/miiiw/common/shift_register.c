@@ -23,12 +23,12 @@ static uint8_t shift_values[SHR_SERIES_NUM] = {0};
 
 void shift_init(void) {
 #ifdef SHR_OE_PIN
-    setPinOutput(SHR_OE_PIN);
+    gpio_set_pin_output(SHR_OE_PIN);
     gpio_write_pin_high(SHR_OE_PIN);
 #endif
-    setPinOutput(SHR_DATA_PIN);
-    setPinOutput(SHR_LATCH_PIN);
-    setPinOutput(SHR_CLOCK_PIN);
+    gpio_set_pin_output(SHR_DATA_PIN);
+    gpio_set_pin_output(SHR_LATCH_PIN);
+    gpio_set_pin_output(SHR_CLOCK_PIN);
 }
 
 void shift_enable(void) {

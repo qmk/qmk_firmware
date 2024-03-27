@@ -22,7 +22,7 @@ void matrix_io_delay(void) { __asm__ volatile("nop\nnop\nnop\n"); }
 void keyboard_pre_init_user(void) {
   // Call the keyboard pre init code.
   // Set our LED pins as output
-  setPinOutput(LED_LAYERS_PIN);
+  gpio_set_pin_output(LED_LAYERS_PIN);
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {

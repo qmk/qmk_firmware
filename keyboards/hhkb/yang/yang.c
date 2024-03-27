@@ -48,21 +48,21 @@ void hhkb_led_off(uint8_t led) {
 
 void keyboard_pre_init_kb(void) {
     // BT power up
-    setPinOutput(D5);
+    gpio_set_pin_output(D5);
     gpio_write_pin_low(D5);
 
     // Row selectors
-    setPinOutput(B0);
-    setPinOutput(B1);
-    setPinOutput(B2);
+    gpio_set_pin_output(B0);
+    gpio_set_pin_output(B1);
+    gpio_set_pin_output(B2);
 
     // Col selectors
-    setPinOutput(B3);
-    setPinOutput(B4);
-    setPinOutput(B5);
+    gpio_set_pin_output(B3);
+    gpio_set_pin_output(B4);
+    gpio_set_pin_output(B5);
 
     // Key strobe
-    setPinOutput(B6);
+    gpio_set_pin_output(B6);
     gpio_write_pin_high(B6);
 
     // Key: input with pull-up
@@ -74,15 +74,15 @@ void keyboard_pre_init_kb(void) {
     setPinInputHigh(C7);
 
     // LED pin configuration
-    setPinOutput(F0);
-    setPinOutput(F1);
-    setPinOutput(F4);
+    gpio_set_pin_output(F0);
+    gpio_set_pin_output(F1);
+    gpio_set_pin_output(F4);
     gpio_write_pin_low(F0);
     gpio_write_pin_low(F1);
     gpio_write_pin_low(F4);
 
     // Turn on switch PCB
-    setPinOutput(D6);
+    gpio_set_pin_output(D6);
     gpio_write_pin_low(D6);
 
     keyboard_pre_init_user();

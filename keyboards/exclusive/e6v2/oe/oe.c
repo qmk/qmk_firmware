@@ -1,8 +1,8 @@
 #include "quantum.h"
 
 void led_init_ports(void) {
-    setPinOutput(B2);
-    setPinOutput(B6);
+    gpio_set_pin_output(B2);
+    gpio_set_pin_output(B6);
 }
 
 bool led_update_kb(led_t led_state) {

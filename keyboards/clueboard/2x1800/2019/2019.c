@@ -17,10 +17,10 @@
 
 void matrix_init_kb(void) {
     // Set our LED pins as output
-    setPinOutput(D6);
-    setPinOutput(B4);
-    setPinOutput(B5);
-    setPinOutput(B6);
+    gpio_set_pin_output(D6);
+    gpio_set_pin_output(B4);
+    gpio_set_pin_output(B5);
+    gpio_set_pin_output(B6);
 
     // Set our Tilt Sensor pins as input
     setPinInputHigh(SHAKE_PIN_A);

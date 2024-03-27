@@ -179,7 +179,7 @@ void transport_master_init(void) {
      * before we call spi_start(). */
 
     gpio_write_pin_high(SPI_SS_PIN);
-    setPinOutput(SPI_SS_PIN);
+    gpio_set_pin_output(SPI_SS_PIN);
 
     spi_init();
 
@@ -200,7 +200,7 @@ void transport_slave_init(void) {
     setPinInputHigh(SPI_SS_PIN);
     setPinInput(SPI_SCK_PIN);
     setPinInput(SPI_MOSI_PIN);
-    setPinOutput(SPI_MISO_PIN);
+    gpio_set_pin_output(SPI_MISO_PIN);
 
     SPCR = _BV(SPE);
 

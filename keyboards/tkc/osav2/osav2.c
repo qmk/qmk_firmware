@@ -16,9 +16,9 @@
 #include "quantum.h"
 
 void keyboard_pre_init_kb(void) {
-    setPinOutput(C7);
-    setPinOutput(C6);
-    setPinOutput(B6);
+    gpio_set_pin_output(C7);
+    gpio_set_pin_output(C6);
+    gpio_set_pin_output(B6);
 
     keyboard_pre_init_user();
 }

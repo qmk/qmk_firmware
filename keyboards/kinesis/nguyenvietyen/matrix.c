@@ -28,10 +28,10 @@ static void select_rows(uint8_t row) {
 
 void matrix_init_custom(void) {
     // output low (multiplexers)
-    setPinOutput(D0);
-    setPinOutput(D1);
-    setPinOutput(D2);
-    setPinOutput(D3);
+    gpio_set_pin_output(D0);
+    gpio_set_pin_output(D1);
+    gpio_set_pin_output(D2);
+    gpio_set_pin_output(D3);
 
     // input with pullup (matrix)
     setPinInputHigh(B6);

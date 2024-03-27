@@ -39,8 +39,8 @@ void matrix_init_custom(void) {
     }
 
     //set all column pins high in ROW2COL matrix
-    setPinOutput(COL_SHIFT_IN_PIN);
-    setPinOutput(COL_SHIFT_CLK_PIN);
+    gpio_set_pin_output(COL_SHIFT_IN_PIN);
+    gpio_set_pin_output(COL_SHIFT_CLK_PIN);
     gpio_write_pin_high(COL_SHIFT_IN_PIN);
     matrix_wait_for_pin(COL_SHIFT_IN_PIN, 1);
 

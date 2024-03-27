@@ -56,12 +56,12 @@ void select_col(uint8_t col) {
 
 void matrix_init_custom(void) {
     /* Column output pins */
-    setPinOutput(D1);
-    setPinOutput(D2);
-    setPinOutput(D3);
-    setPinOutput(D4);
-    setPinOutput(D5);
-    setPinOutput(D6);
+    gpio_set_pin_output(D1);
+    gpio_set_pin_output(D2);
+    gpio_set_pin_output(D3);
+    gpio_set_pin_output(D4);
+    gpio_set_pin_output(D5);
+    gpio_set_pin_output(D6);
 
     /* Row input pins */
     gpio_write_pin_high(B0);

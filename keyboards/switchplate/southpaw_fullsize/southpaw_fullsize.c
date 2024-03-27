@@ -30,9 +30,9 @@ void matrix_init_kb(void) {
     // runs once when the firmware starts up
 
     // D3 Numlock, D4 Capslock, D5 Scrlock
-    setPinOutput(INDICATOR_NUM);
-    setPinOutput(INDICATOR_CAPS);
-    setPinOutput(INDICATOR_SCR);
+    gpio_set_pin_output(INDICATOR_NUM);
+    gpio_set_pin_output(INDICATOR_CAPS);
+    gpio_set_pin_output(INDICATOR_SCR);
 
     matrix_init_user();
 }

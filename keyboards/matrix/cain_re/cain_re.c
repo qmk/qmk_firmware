@@ -21,9 +21,9 @@
 
 void matrix_init_kb(void)
 {
-	setPinOutput(NUM_PIN);
-	setPinOutput(CAPS_PIN);
-	setPinOutput(SCROLL_PIN);
+	gpio_set_pin_output(NUM_PIN);
+	gpio_set_pin_output(CAPS_PIN);
+	gpio_set_pin_output(SCROLL_PIN);
 
 	matrix_init_user();
 }

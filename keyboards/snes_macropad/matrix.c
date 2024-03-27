@@ -40,15 +40,15 @@ void matrix_init_custom(void) {
     // todo: look into protocol for other strange snes controllers that use D1 and IO
     // setPinInputHigh(SNES_D1);
     // setPinInputHigh(SNES_IO);
-    setPinOutput(SNES_CLOCK);
-    setPinOutput(SNES_LATCH);
+    gpio_set_pin_output(SNES_CLOCK);
+    gpio_set_pin_output(SNES_LATCH);
     gpio_write_pin_low(SNES_CLOCK);
     gpio_write_pin_low(SNES_LATCH);
 
     // init rows
-    setPinOutput(KBD_ROW0);
-    setPinOutput(KBD_ROW1);
-    setPinOutput(KBD_ROW2);
+    gpio_set_pin_output(KBD_ROW0);
+    gpio_set_pin_output(KBD_ROW1);
+    gpio_set_pin_output(KBD_ROW2);
     gpio_write_pin_high(KBD_ROW0);
     gpio_write_pin_high(KBD_ROW1);
     gpio_write_pin_high(KBD_ROW2);
@@ -64,7 +64,7 @@ static matrix_row_t readRow(size_t row, int setupDelay) {
     const int pin = kbd_pin_map[row];
 
     // select the row
-    setPinOutput(pin);
+    gpio_set_pin_output(pin);
     gpio_write_pin_low(pin);
     wait_us(setupDelay);
 
@@ -76,7 +76,7 @@ static matrix_row_t readRow(size_t row, int setupDelay) {
         | (gpio_read_pin(KBD_COL3) ? 0 : 1 << 3);
 
     // deselect the row
-    setPinOutput(pin);
+    gpio_set_pin_output(pin);
     gpio_write_pin_high(pin);
 
     return ret;

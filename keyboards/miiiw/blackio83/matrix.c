@@ -100,7 +100,7 @@ static void init_cols(void) {
     shift_writeAll(0);
     for(uint8_t col = 0; col < MATRIX_COLS; col++) {
         if(col_pins[col] < H0) {
-            setPinOutput(col_pins[col]);
+            gpio_set_pin_output(col_pins[col]);
             gpio_write_pin_low(col_pins[col]);
         }
     }
@@ -132,7 +132,7 @@ static void unselect_cols(void) {
     shift_writeAll(1);
     for(uint8_t col = 0; col < MATRIX_COLS; col++) {
         if(col_pins[col] < H0) {
-            setPinOutput(col_pins[col]);
+            gpio_set_pin_output(col_pins[col]);
             gpio_write_pin_high(col_pins[col]);
         }
     }

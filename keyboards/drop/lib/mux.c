@@ -22,7 +22,7 @@
 #define C2_B5_SENSE B0
 
 static inline void digital_write(pin_t pin, uint8_t level) {
-    setPinOutput(pin);
+    gpio_set_pin_output(pin);
     gpio_write_pin(pin, level);
 }
 

@@ -23,8 +23,8 @@
 #define SCROLL_LED D4
 
 void keyboard_pre_init_kb(void) {
-    setPinOutput(CAPS_LED);
-    setPinOutput(SCROLL_LED);
+    gpio_set_pin_output(CAPS_LED);
+    gpio_set_pin_output(SCROLL_LED);
     keyboard_pre_init_user();
 }
 

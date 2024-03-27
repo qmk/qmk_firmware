@@ -53,7 +53,7 @@ bool should_set_rgblight = false;
 #endif // defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
 
 void keyboard_post_init_kb(void) {
-    setPinOutput(PICA40_RGB_POWER_PIN);
+    gpio_set_pin_output(PICA40_RGB_POWER_PIN);
 
 #ifdef ENCODER_ENABLE
     setPinInputHigh(ENCODER_PIN_A);

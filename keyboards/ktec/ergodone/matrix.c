@@ -170,27 +170,27 @@ static void select_row(uint8_t row) {
     // Pro Micro
     switch (row) {
         case 0:
-            setPinOutput(F4);
+            gpio_set_pin_output(F4);
             gpio_write_pin_low(F4);
             break;
         case 1:
-            setPinOutput(F5);
+            gpio_set_pin_output(F5);
             gpio_write_pin_low(F5);
             break;
         case 2:
-            setPinOutput(F6);
+            gpio_set_pin_output(F6);
             gpio_write_pin_low(F6);
             break;
         case 3:
-            setPinOutput(F7);
+            gpio_set_pin_output(F7);
             gpio_write_pin_low(F7);
             break;
         case 4:
-            setPinOutput(B1);
+            gpio_set_pin_output(B1);
             gpio_write_pin_low(B1);
             break;
         case 5:
-            setPinOutput(B2);
+            gpio_set_pin_output(B2);
             gpio_write_pin_low(B2);
             break;
     }

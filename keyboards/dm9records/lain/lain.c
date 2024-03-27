@@ -28,7 +28,7 @@ void lain_enable_leds_toggle(void) { lain_enable_leds(!lain_config.led_enabled);
 
 void led_init_ports(void) {
     for (uint8_t i = 0; i < LED_NUM; i++) {
-        setPinOutput(leds[i]);
+        gpio_set_pin_output(leds[i]);
         lain_set_led(leds[i], 0);
     }
 }

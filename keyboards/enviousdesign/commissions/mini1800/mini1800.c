@@ -3,9 +3,9 @@
 #include "quantum.h"
 
 void matrix_init_user(void) {
-  setPinOutput(GP9); //init gpio
+  gpio_set_pin_output(GP9); //init gpio
   gpio_write_pin_low(GP9);
-  setPinOutput(GP11); //init and turn off inverted power led
+  gpio_set_pin_output(GP11); //init and turn off inverted power led
   gpio_write_pin_high(GP11);
 }
 

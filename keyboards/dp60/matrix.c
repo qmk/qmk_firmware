@@ -51,9 +51,9 @@ void matrix_scan_user(void) {}
 
 void matrix_init(void)
 {
-  //setPinOutput(F0);
+  //gpio_set_pin_output(F0);
   //gpio_write_pin_high(F0);
-  setPinOutput(B4);
+  gpio_set_pin_output(B4);
   gpio_write_pin_low(B4);
 
   init_cols();
@@ -161,15 +161,15 @@ static uint8_t read_rows(void)
  */
 static void init_cols(void)
 {
-  setPinOutput(F0);
-  setPinOutput(F1);
-  setPinOutput(F4);
-  setPinOutput(F5);
+  gpio_set_pin_output(F0);
+  gpio_set_pin_output(F1);
+  gpio_set_pin_output(F4);
+  gpio_set_pin_output(F5);
 
-  setPinOutput(D2);
-  setPinOutput(D3);
-  setPinOutput(D5);
-  setPinOutput(D6);
+  gpio_set_pin_output(D2);
+  gpio_set_pin_output(D3);
+  gpio_set_pin_output(D5);
+  gpio_set_pin_output(D6);
 
   unselect_cols();
 }

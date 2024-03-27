@@ -2,13 +2,13 @@
 
 void led_init_ports(void) {
     // Set our LED pins as output
-    setPinOutput(B13); // LED1
+    gpio_set_pin_output(B13); // LED1
     gpio_write_pin_low(B13);
-    setPinOutput(B14); // LED2
+    gpio_set_pin_output(B14); // LED2
     gpio_write_pin_low(B14);
-    setPinOutput(A8); // LED3
+    gpio_set_pin_output(A8); // LED3
     gpio_write_pin_low(A8);
-    setPinOutput(A0); // Capslock LED
+    gpio_set_pin_output(A0); // Capslock LED
     gpio_write_pin_low(A0);
 }
 

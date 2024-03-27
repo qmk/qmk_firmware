@@ -16,11 +16,11 @@
 #include "quantum.h"
 
 void keyboard_pre_init_kb(void) {
-    setPinOutput(B1);
-    setPinOutput(B2);
+    gpio_set_pin_output(B1);
+    gpio_set_pin_output(B2);
     /* I will add function to these later */
-    // setPinOutput(B3);
-    // setPinOutput(E2);
+    // gpio_set_pin_output(B3);
+    // gpio_set_pin_output(E2);
 
     keyboard_pre_init_user();
 }

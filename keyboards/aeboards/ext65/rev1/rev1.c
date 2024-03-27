@@ -19,10 +19,10 @@
 void keyboard_pre_init_user(void) {
   // Call the keyboard pre init code.
   // Set our LED pins as output
-  setPinOutput(D5);
-  setPinOutput(D3);
-  setPinOutput(D2);
-  setPinOutput(D1);
+  gpio_set_pin_output(D5);
+  gpio_set_pin_output(D3);
+  gpio_set_pin_output(D2);
+  gpio_set_pin_output(D1);
 }
 
 bool led_update_kb(led_t led_state) {

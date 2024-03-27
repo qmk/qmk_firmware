@@ -211,7 +211,7 @@ static void select_row(uint8_t row) {
 
         }
     } else {
-        setPinOutput(row_pins[row - MATRIX_ROWS_PER_SIDE]);
+        gpio_set_pin_output(row_pins[row - MATRIX_ROWS_PER_SIDE]);
         gpio_write_pin_low(row_pins[row - MATRIX_ROWS_PER_SIDE]);
     }
 }

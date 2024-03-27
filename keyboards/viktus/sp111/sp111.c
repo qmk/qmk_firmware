@@ -24,9 +24,9 @@ void keyboard_pre_init_kb(void) {
 }
 
 void matrix_init_kb(void) {
-    setPinOutput(F0);
-    setPinOutput(F1);
-    setPinOutput(F4);
+    gpio_set_pin_output(F0);
+    gpio_set_pin_output(F1);
+    gpio_set_pin_output(F4);
 
     matrix_init_user();
 }

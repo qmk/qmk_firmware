@@ -18,9 +18,9 @@
 
 void keyboard_pre_init_user(void) {
     // Initialize indicator LED pins
-    setPinOutput(A14); // Num Lock
-    setPinOutput(A15); // Scroll Lock
-    setPinOutput(B3); // Caps Lock
+    gpio_set_pin_output(A14); // Num Lock
+    gpio_set_pin_output(A15); // Scroll Lock
+    gpio_set_pin_output(B3); // Caps Lock
 }
 
 bool led_update_kb(led_t led_state) {

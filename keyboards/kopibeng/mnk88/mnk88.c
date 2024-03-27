@@ -18,8 +18,8 @@
 
 void matrix_init_kb(void) {
     
-    setPinOutput(LED_CAPS_LOCK_PIN);
-	setPinOutput(LED_SCROLL_LOCK_PIN);
+    gpio_set_pin_output(LED_CAPS_LOCK_PIN);
+	gpio_set_pin_output(LED_SCROLL_LOCK_PIN);
 
 	matrix_init_user();
 }

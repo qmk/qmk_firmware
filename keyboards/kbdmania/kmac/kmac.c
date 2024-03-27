@@ -19,11 +19,11 @@
 #define WASD_MASK 0b10
 
 void backlight_init_ports(void) {
-    setPinOutput(B1);
-    setPinOutput(B2);
-    setPinOutput(B3);
-    setPinOutput(B4);
-    setPinOutput(D7);
+    gpio_set_pin_output(B1);
+    gpio_set_pin_output(B2);
+    gpio_set_pin_output(B3);
+    gpio_set_pin_output(B4);
+    gpio_set_pin_output(D7);
 }
 
 /* Backlight pin configuration

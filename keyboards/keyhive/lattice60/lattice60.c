@@ -21,8 +21,8 @@
 
 void keyboard_pre_init_kb(void){
     //init the LED pins as outputs
-    setPinOutput(LED1_PIN);
-    setPinOutput(LED2_PIN);
+    gpio_set_pin_output(LED1_PIN);
+    gpio_set_pin_output(LED2_PIN);
     //call any user initialization code
     keyboard_pre_init_user();
 }

@@ -47,7 +47,7 @@ void matrix_power_up(void) {
     DDRB  = 0xFF;
     PORTB = 0x40;
     // switch MOS FET on
-    setPinOutput(D6);
+    gpio_set_pin_output(D6);
     gpio_write_pin_low(D6);
 }
 
@@ -57,7 +57,7 @@ void matrix_power_down(void) {
     DDRB  = 0x00;
     PORTB = 0xFF;
     // switch MOS FET off
-    setPinOutput(D6);
+    gpio_set_pin_output(D6);
     gpio_write_pin_high(D6);
 }
 

@@ -94,14 +94,14 @@ void keyboard_pre_init_kb(void) {
     ws2812_setleds(led, RGBLIGHT_LED_COUNT);
 #else
     /* Set status LEDs pins to output and Low (on) */
-    setPinOutput(MODELM_LED_CAPSLOCK);
-    setPinOutput(MODELM_LED_SCROLLOCK);
-    setPinOutput(MODELM_LED_NUMLOCK);
+    gpio_set_pin_output(MODELM_LED_CAPSLOCK);
+    gpio_set_pin_output(MODELM_LED_SCROLLOCK);
+    gpio_set_pin_output(MODELM_LED_NUMLOCK);
     gpio_write_pin_low(MODELM_LED_CAPSLOCK);
     gpio_write_pin_low(MODELM_LED_SCROLLOCK);
     gpio_write_pin_low(MODELM_LED_NUMLOCK);
 #endif
-    setPinOutput(MODELM_STATUS_LED);
+    gpio_set_pin_output(MODELM_STATUS_LED);
     gpio_write_pin_high(MODELM_STATUS_LED);
     _delay_ms(50);
 #ifdef UART_DEBUG
@@ -110,9 +110,9 @@ void keyboard_pre_init_kb(void) {
     uprintf("\r\nHello world!\r\n");
 #endif
 
-    setPinOutput(SR_LOAD_PIN);
-    setPinOutput(SR_CLK_PIN);
-    setPinOutput(SR_DOUT_PIN);  // MOSI - unused
+    gpio_set_pin_output(SR_LOAD_PIN);
+    gpio_set_pin_output(SR_CLK_PIN);
+    gpio_set_pin_output(SR_DOUT_PIN);  // MOSI - unused
     gpio_write_pin_low(SR_CLK_PIN);
 }
 

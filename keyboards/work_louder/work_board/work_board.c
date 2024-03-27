@@ -111,9 +111,9 @@ bool rgb_matrix_indicators_kb(void) {
 }
 
 void keyboard_pre_init_kb(void) {
-    setPinOutput(B2);
-    setPinOutput(B3);
-    setPinOutput(B7);
+    gpio_set_pin_output(B2);
+    gpio_set_pin_output(B3);
+    gpio_set_pin_output(B7);
 
     gpio_write_pin_low(B2);
     gpio_write_pin_low(B3);

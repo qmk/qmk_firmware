@@ -32,7 +32,7 @@ static void unselect_rows(void);
 void matrix_init_custom(void) {
     /* initialize row pins */
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        setPinOutput(row_pins[row]);
+        gpio_set_pin_output(row_pins[row]);
     }
     unselect_rows();
 
@@ -54,7 +54,7 @@ void matrix_init_custom(void) {
     spi_start(slavePin, lsbFirst, mode, divisor);
 
     /* Initialize pin controlling the shift register's SH/~LD pin */
-    setPinOutput(ROW_SHIFT_PIN);
+    gpio_set_pin_output(ROW_SHIFT_PIN);
 }
 
 static void select_row(uint8_t row) {

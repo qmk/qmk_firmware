@@ -17,11 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "rev_b.h"
 
 void keyboard_pre_init_kb(void) {
-    setPinOutput(LAYER_1);
-    setPinOutput(LAYER_2);
-    setPinOutput(LAYER_3);
-    setPinOutput(LAYER_4);
-    setPinOutput(LAYER_5);
+    gpio_set_pin_output(LAYER_1);
+    gpio_set_pin_output(LAYER_2);
+    gpio_set_pin_output(LAYER_3);
+    gpio_set_pin_output(LAYER_4);
+    gpio_set_pin_output(LAYER_5);
     keyboard_pre_init_user();
 }
 

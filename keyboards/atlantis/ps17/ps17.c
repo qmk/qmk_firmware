@@ -13,9 +13,9 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 
 void keyboard_pre_init_kb(void) {
     /* Set indicator LEDs as outputs */
-    setPinOutput(LED_INDICATOR_0_PIN);
-    setPinOutput(LED_INDICATOR_1_PIN);
-    setPinOutput(LED_INDICATOR_2_PIN);
+    gpio_set_pin_output(LED_INDICATOR_0_PIN);
+    gpio_set_pin_output(LED_INDICATOR_1_PIN);
+    gpio_set_pin_output(LED_INDICATOR_2_PIN);
     keyboard_pre_init_user();
 }
 

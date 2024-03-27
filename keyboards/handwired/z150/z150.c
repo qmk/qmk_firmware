@@ -17,9 +17,9 @@
 #include "quantum.h"
 
 void matrix_init_kb(void) {
-    setPinOutput(NUM_LOCK_LED_PIN);
-    setPinOutput(CAPS_LOCK_LED_PIN);
-    setPinOutput(SCROLL_LOCK_LED_PIN);
+    gpio_set_pin_output(NUM_LOCK_LED_PIN);
+    gpio_set_pin_output(CAPS_LOCK_LED_PIN);
+    gpio_set_pin_output(SCROLL_LOCK_LED_PIN);
 
     gpio_write_pin_low(NUM_LOCK_LED_PIN);
     gpio_write_pin_low(CAPS_LOCK_LED_PIN);

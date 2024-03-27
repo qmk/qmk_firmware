@@ -25,7 +25,7 @@ void matrix_init_kb(void) {
     // runs once when the firmware starts up
 
     // Set our LED pins as output
-    setPinOutput(B0);
+    gpio_set_pin_output(B0);
     gpio_write_pin_low(B0);
 
     matrix_init_user();

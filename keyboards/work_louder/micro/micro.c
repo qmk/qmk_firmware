@@ -49,15 +49,15 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 #endif
 
 void work_louder_micro_led_1_on(void) {
-    setPinOutput(WORK_LOUDER_LED_PIN_1);
+    gpio_set_pin_output(WORK_LOUDER_LED_PIN_1);
     gpio_write_pin(WORK_LOUDER_LED_PIN_1, true);
 }
 void work_louder_micro_led_2_on(void) {
-    setPinOutput(WORK_LOUDER_LED_PIN_2);
+    gpio_set_pin_output(WORK_LOUDER_LED_PIN_2);
     gpio_write_pin(WORK_LOUDER_LED_PIN_2, true);
 }
 void work_louder_micro_led_3_on(void) {
-    setPinOutput(WORK_LOUDER_LED_PIN_3);
+    gpio_set_pin_output(WORK_LOUDER_LED_PIN_3);
     gpio_write_pin(WORK_LOUDER_LED_PIN_3, true);
 }
 

@@ -24,28 +24,28 @@
 #define ledCapSP (80+8)
 
 void backlight_init_ports(void) {
-    setPinOutput(Lseg0);
-    setPinOutput(Lseg1);
-    setPinOutput(Lseg2);
-    setPinOutput(Lseg3);
-    setPinOutput(Lseg4);
-    setPinOutput(Lseg5);
-    setPinOutput(Lcom0);
-    setPinOutput(Lcom1);
-    setPinOutput(Lcom2);
-    setPinOutput(Lcom3);
-    setPinOutput(Lcom4);
-    setPinOutput(Lcom5);
-    setPinOutput(Lcom6);
-    setPinOutput(Lcom7);
-    setPinOutput(Lcom8);
-    setPinOutput(Lcom9);
-    setPinOutput(Lcom10);
-    setPinOutput(Lcom11);
-    setPinOutput(Lcom12);
-    setPinOutput(Lcom13);
-    setPinOutput(Lcom14);
-    setPinOutput(Lcom15);
+    gpio_set_pin_output(Lseg0);
+    gpio_set_pin_output(Lseg1);
+    gpio_set_pin_output(Lseg2);
+    gpio_set_pin_output(Lseg3);
+    gpio_set_pin_output(Lseg4);
+    gpio_set_pin_output(Lseg5);
+    gpio_set_pin_output(Lcom0);
+    gpio_set_pin_output(Lcom1);
+    gpio_set_pin_output(Lcom2);
+    gpio_set_pin_output(Lcom3);
+    gpio_set_pin_output(Lcom4);
+    gpio_set_pin_output(Lcom5);
+    gpio_set_pin_output(Lcom6);
+    gpio_set_pin_output(Lcom7);
+    gpio_set_pin_output(Lcom8);
+    gpio_set_pin_output(Lcom9);
+    gpio_set_pin_output(Lcom10);
+    gpio_set_pin_output(Lcom11);
+    gpio_set_pin_output(Lcom12);
+    gpio_set_pin_output(Lcom13);
+    gpio_set_pin_output(Lcom14);
+    gpio_set_pin_output(Lcom15);
 }
 
 void backlight_set(uint8_t level) {

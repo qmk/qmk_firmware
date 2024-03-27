@@ -30,7 +30,7 @@ static matrix_row_t last_matrix[MATRIX_ROWS];  // raw values of last scan
 // matrix code
 
  void select_row(uint8_t row) {
-    setPinOutput(row_pins[row]);
+    gpio_set_pin_output(row_pins[row]);
     gpio_write_pin_low(row_pins[row]);
 }
 
@@ -63,7 +63,7 @@ static matrix_row_t last_matrix[MATRIX_ROWS];  // raw values of last scan
 }
 
  void select_col(uint8_t col) {
-    setPinOutput(col_pins[col]);
+    gpio_set_pin_output(col_pins[col]);
     gpio_write_pin_low(col_pins[col]);
 }
 

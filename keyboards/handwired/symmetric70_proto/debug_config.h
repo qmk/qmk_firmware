@@ -8,7 +8,7 @@
 #include <gpio.h>
 
 static inline void setDebugPinOutput_Low(void) {
-    setPinOutput(MATRIX_DEBUG_PIN);
+    gpio_set_pin_output(MATRIX_DEBUG_PIN);
     gpio_write_pin_low(MATRIX_DEBUG_PIN);
 }
 

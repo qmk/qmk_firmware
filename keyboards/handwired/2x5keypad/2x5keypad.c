@@ -5,9 +5,9 @@ void matrix_init_kb(void)
 {
     matrix_init_user();
 
-    setPinOutput(RED_LED);
-    setPinOutput(BLUE_LED);
-    setPinOutput(GREEN_LED);
+    gpio_set_pin_output(RED_LED);
+    gpio_set_pin_output(BLUE_LED);
+    gpio_set_pin_output(GREEN_LED);
 }
 
 

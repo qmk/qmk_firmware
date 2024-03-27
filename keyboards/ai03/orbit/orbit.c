@@ -19,13 +19,13 @@
 void led_init_ports(void) {
     // Initialize indicator LEDs to output
     if (isLeftHand) {
-        setPinOutput(C6);
-        setPinOutput(B6);
-        setPinOutput(B5);
+        gpio_set_pin_output(C6);
+        gpio_set_pin_output(B6);
+        gpio_set_pin_output(B5);
     } else {
-        setPinOutput(F6);
-        setPinOutput(F7);
-        setPinOutput(C7);
+        gpio_set_pin_output(F6);
+        gpio_set_pin_output(F7);
+        gpio_set_pin_output(C7);
     }
 
     set_layer_indicators(0);

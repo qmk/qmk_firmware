@@ -15,7 +15,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 void matrix_init_kb(void) {
     // Initialize indicator LEDs to output
-    setPinOutput(F7); // Caps
+    gpio_set_pin_output(F7); // Caps
     matrix_init_user();
 }
 

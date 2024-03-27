@@ -18,7 +18,7 @@
 
 void led_init_ports(void) {
     // * Set our LED pins as output
-    setPinOutput(B3);
+    gpio_set_pin_output(B3);
 }
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);

@@ -19,8 +19,8 @@
 void matrix_init_kb(void) {
 	// Initialize indicator LEDs to output
     
-    setPinOutput(B7); // Caps
-	setPinOutput(A5); // Slck
+    gpio_set_pin_output(B7); // Caps
+	gpio_set_pin_output(A5); // Slck
 
 	matrix_init_user();
 }

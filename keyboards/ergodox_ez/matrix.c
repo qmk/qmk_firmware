@@ -200,31 +200,31 @@ static void select_row(uint8_t row) {
         // Output low(DDR:1, PORT:0) to select
         switch (row) {
             case 7:
-                setPinOutput(B0);
+                gpio_set_pin_output(B0);
                 gpio_write_pin_low(B0);
                 break;
             case 8:
-                setPinOutput(B1);
+                gpio_set_pin_output(B1);
                 gpio_write_pin_low(B1);
                 break;
             case 9:
-                setPinOutput(B2);
+                gpio_set_pin_output(B2);
                 gpio_write_pin_low(B2);
                 break;
             case 10:
-                setPinOutput(B3);
+                gpio_set_pin_output(B3);
                 gpio_write_pin_low(B3);
                 break;
             case 11:
-                setPinOutput(D2);
+                gpio_set_pin_output(D2);
                 gpio_write_pin_low(D2);
                 break;
             case 12:
-                setPinOutput(D3);
+                gpio_set_pin_output(D3);
                 gpio_write_pin_low(D3);
                 break;
             case 13:
-                setPinOutput(C6);
+                gpio_set_pin_output(C6);
                 gpio_write_pin_low(C6);
                 break;
         }

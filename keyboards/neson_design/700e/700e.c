@@ -292,7 +292,7 @@ const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 
 void matrix_init_kb(void)
 {
-    setPinOutput(LED_CAPS_LOCK_PIN);
+    gpio_set_pin_output(LED_CAPS_LOCK_PIN);
     gpio_write_pin_low(LED_CAPS_LOCK_PIN);
 
     is31fl3731_init_drivers();

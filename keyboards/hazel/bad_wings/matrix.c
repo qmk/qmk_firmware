@@ -88,7 +88,7 @@ void matrix_init_custom(void) {
 
     // Set the CS to low by default, and specify as an output pin
     gpio_write_pin_high(SHIFTREG_MATRIX_COL_CS); // should be high when using SPI?
-    setPinOutput(SHIFTREG_MATRIX_COL_CS);
+    gpio_set_pin_output(SHIFTREG_MATRIX_COL_CS);
 
     // Since it's the init, deactivate all the columns. We'll activate once we get to the matrix scan
     clearColumns();

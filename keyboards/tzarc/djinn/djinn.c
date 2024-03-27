@@ -48,22 +48,22 @@ void keyboard_post_init_kb(void) {
     memset(&kb_state, 0, sizeof(kb_state));
 
     // Turn off increased current limits
-    setPinOutput(RGB_CURR_1500mA_OK_PIN);
+    gpio_set_pin_output(RGB_CURR_1500mA_OK_PIN);
     gpio_write_pin_low(RGB_CURR_1500mA_OK_PIN);
-    setPinOutput(RGB_CURR_3000mA_OK_PIN);
+    gpio_set_pin_output(RGB_CURR_3000mA_OK_PIN);
     gpio_write_pin_low(RGB_CURR_3000mA_OK_PIN);
 
     // Turn on the RGB
-    setPinOutput(RGB_POWER_ENABLE_PIN);
+    gpio_set_pin_output(RGB_POWER_ENABLE_PIN);
     gpio_write_pin_high(RGB_POWER_ENABLE_PIN);
 
 #ifdef EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN
-    setPinOutput(EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN);
+    gpio_set_pin_output(EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN);
     gpio_write_pin_high(EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN);
 #endif // EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN
 
     // Turn on the LCD
-    setPinOutput(LCD_POWER_ENABLE_PIN);
+    gpio_set_pin_output(LCD_POWER_ENABLE_PIN);
     gpio_write_pin_high(LCD_POWER_ENABLE_PIN);
 
     // Let the LCD get some power...

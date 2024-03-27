@@ -22,9 +22,9 @@
 
 void keyboard_pre_init_user(void) {
   /* Set CAPSLOCK indicator pin as output */
-  setPinOutput(D1);
+  gpio_set_pin_output(D1);
   /* Set NUMLOCK indicator pin as output */
-  setPinOutput(D2);
+  gpio_set_pin_output(D2);
 }
 
 bool led_update_kb(led_t led_state) {

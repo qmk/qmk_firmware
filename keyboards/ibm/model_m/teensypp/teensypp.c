@@ -17,9 +17,9 @@
 
 void led_init_ports(void) {
   /* Setting status LEDs pins to output and +5V (off) */
-  setPinOutput(B4);
-  setPinOutput(B5);
-  setPinOutput(B6);
+  gpio_set_pin_output(B4);
+  gpio_set_pin_output(B5);
+  gpio_set_pin_output(B6);
   gpio_write_pin_high(B4);
   gpio_write_pin_high(B5);
   gpio_write_pin_high(B6);

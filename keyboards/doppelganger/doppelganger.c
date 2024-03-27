@@ -16,8 +16,8 @@
 #include "quantum.h"
 
 void keyboard_pre_init_kb(void) {
-    setPinOutput(C6);
-    setPinOutput(B0);
+    gpio_set_pin_output(C6);
+    gpio_set_pin_output(B0);
 }
 
 bool led_update_kb(led_t led_state) {

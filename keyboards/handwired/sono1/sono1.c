@@ -18,11 +18,11 @@
 
 void matrix_init_kb(void) {
   /* LED pins setup */
-  setPinOutput(LED_KANA_PIN);
-  setPinOutput(LED_CAPS_LOCK_PIN);
-  setPinOutput(LED_CTRL_XFER_PIN);
-  setPinOutput(LED_NUM_LOCK_PIN);
-  setPinOutput(LED_KB_LOCK_PIN);
+  gpio_set_pin_output(LED_KANA_PIN);
+  gpio_set_pin_output(LED_CAPS_LOCK_PIN);
+  gpio_set_pin_output(LED_CTRL_XFER_PIN);
+  gpio_set_pin_output(LED_NUM_LOCK_PIN);
+  gpio_set_pin_output(LED_KB_LOCK_PIN);
   
   gpio_write_pin_high(LED_KANA_PIN);
   gpio_write_pin_high(LED_CAPS_LOCK_PIN);

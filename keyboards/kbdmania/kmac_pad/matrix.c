@@ -31,7 +31,7 @@ static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
  */
 static void unselect_cols(void) {
     for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-        setPinOutput(col_pins[col]);
+        gpio_set_pin_output(col_pins[col]);
         gpio_write_pin_low(col_pins[col]);
     }
 }

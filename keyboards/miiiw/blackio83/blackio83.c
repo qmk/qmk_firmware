@@ -49,7 +49,7 @@ void ws2812_poweron(void) {
     if(p_setup) return;
     p_setup = true;
     s_init = false;
-    setPinOutput(RGB_EN_PIN);
+    gpio_set_pin_output(RGB_EN_PIN);
     gpio_write_pin_high(RGB_EN_PIN);
 }
 
@@ -64,7 +64,7 @@ void keyboard_pre_init_kb() {
 	keyboard_pre_init_user();
 
     setPinInputLow(MWPROTO_STATUS_PIN);
-    setPinOutput(MWPROTO_WAKEUP_PIN);
+    gpio_set_pin_output(MWPROTO_WAKEUP_PIN);
     gpio_write_pin_low(MWPROTO_WAKEUP_PIN);
     wait_ms(2);
     gpio_write_pin_high(MWPROTO_WAKEUP_PIN);

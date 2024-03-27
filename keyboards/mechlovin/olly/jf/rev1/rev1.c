@@ -18,14 +18,14 @@
 
 
 void led_init_ports(void) {
-  setPinOutput(C0);
-  setPinOutput(D0);
-  setPinOutput(D1);
-  setPinOutput(C1);
-  setPinOutput(C6);
-  setPinOutput(B0);
-  setPinOutput(B1);
-  setPinOutput(B2);
+  gpio_set_pin_output(C0);
+  gpio_set_pin_output(D0);
+  gpio_set_pin_output(D1);
+  gpio_set_pin_output(C1);
+  gpio_set_pin_output(C6);
+  gpio_set_pin_output(B0);
+  gpio_set_pin_output(B1);
+  gpio_set_pin_output(B2);
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {

@@ -130,7 +130,7 @@ void keyboard_post_init_kb(void) {
     // and disable USB connectivity when the ADC value exceeds 1000,
     // to avoid affecting the serial usart communication between the left hand and the right hand.
     if (is_keyboard_left()) {
-        setPinOutput(A0);
+        gpio_set_pin_output(A0);
         gpio_write_pin_high(A0);
     } else {
         if ((analogReadPin_my(B0) > 1000) || (analogReadPin_my(B1) > 1000)) {

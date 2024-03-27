@@ -54,7 +54,7 @@ static adc_mux adcMux;
 void init_row(void) {
     // Set all row pins as output and low
     for (uint8_t idx = 0; idx < MATRIX_ROWS; idx++) {
-        setPinOutput(row_pins[idx]);
+        gpio_set_pin_output(row_pins[idx]);
         gpio_write_pin_low(row_pins[idx]);
     }
 }
@@ -62,11 +62,11 @@ void init_row(void) {
 // Initialize the multiplexers
 void init_amux(void) {
     for (uint8_t idx = 0; idx < AMUX_COUNT; idx++) {
-        setPinOutput(amux_en_pins[idx]);
+        gpio_set_pin_output(amux_en_pins[idx]);
         gpio_write_pin_low(amux_en_pins[idx]);
     }
     for (uint8_t idx = 0; idx < AMUX_SEL_PINS_COUNT; idx++) {
-        setPinOutput(amux_sel_pins[idx]);
+        gpio_set_pin_output(amux_sel_pins[idx]);
     }
 }
 
@@ -99,7 +99,7 @@ void discharge_capacitor(void) {
     gpio_write_pin_low(DISCHARGE_PIN);
 #else
     gpio_write_pin_low(DISCHARGE_PIN);
-    setPinOutput(DISCHARGE_PIN);
+    gpio_set_pin_output(DISCHARGE_PIN);
 #endif
 }
 
@@ -127,7 +127,7 @@ int ec_init(void) {
 #ifdef OPEN_DRAIN_SUPPORT
     gpio_set_pin_output_open_drain(DISCHARGE_PIN);
 #else
-    setPinOutput(DISCHARGE_PIN);
+    gpio_set_pin_output(DISCHARGE_PIN);
 #endif
 
     // Initialize drive lines

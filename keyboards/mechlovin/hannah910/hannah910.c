@@ -16,10 +16,10 @@
 #include "quantum.h"
 
 void led_init_ports(void) {
-  setPinOutput(B2);
-  setPinOutput(D0);
-  setPinOutput(D1);
-  setPinOutput(D2);
+  gpio_set_pin_output(B2);
+  gpio_set_pin_output(D0);
+  gpio_set_pin_output(D1);
+  gpio_set_pin_output(D2);
 
 }
 

@@ -17,7 +17,7 @@
 #include "quantum.h"
 
 void matrix_init_kb(void) {
-    setPinOutput(C6);
+    gpio_set_pin_output(C6);
   
     matrix_init_user();
 }

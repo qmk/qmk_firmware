@@ -18,7 +18,7 @@
 
 void matrix_init_kb(void) {
     // Set our LED pin as output
-    setPinOutput(LED);
+    gpio_set_pin_output(LED);
 
     matrix_init_user();
 }

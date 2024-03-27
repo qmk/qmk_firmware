@@ -2,9 +2,9 @@
 
 void led_init(void) {
 #if MCU == atmega32u2
-    setPinOutput(C4); // Set red LED pin as output
-    setPinOutput(C5); // Set blue LED pin as output
-    setPinOutput(D1); // Set green LED pin as output
+    gpio_set_pin_output(C4); // Set red LED pin as output
+    gpio_set_pin_output(C5); // Set blue LED pin as output
+    gpio_set_pin_output(D1); // Set green LED pin as output
 
     gpio_write_pin_high(C4); // Turn off red LED pin
     gpio_write_pin_high(C5); // Turn off blue LED pin
@@ -12,9 +12,9 @@ void led_init(void) {
 
 #else
 
-    setPinOutput(F4); // Set red LED pin as output
-    setPinOutput(F5); // Set blue LED pin as output
-    setPinOutput(D1); // Set green LED pin as output
+    gpio_set_pin_output(F4); // Set red LED pin as output
+    gpio_set_pin_output(F5); // Set blue LED pin as output
+    gpio_set_pin_output(D1); // Set green LED pin as output
 
     gpio_write_pin_high(F4); // Turn off red LED pin
     gpio_write_pin_high(F5); // Turn off blue LED pin

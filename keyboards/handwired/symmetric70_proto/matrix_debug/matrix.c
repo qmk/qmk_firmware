@@ -63,7 +63,7 @@ extern matrix_row_t matrix[MATRIX_ROWS];      // debounced values
 
 static inline void setPinOutput_writeLow(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
-        setPinOutput(pin);
+        gpio_set_pin_output(pin);
         gpio_write_pin_low(pin);
     }
 }
@@ -121,7 +121,7 @@ static void unselect_rows(void) {
 
 static void init_pins(void) {
 #        ifdef MATRIX_MUL_SELECT
-    setPinOutput(MATRIX_MUL_SELECT);
+    gpio_set_pin_output(MATRIX_MUL_SELECT);
     gpio_write_pin_low(MATRIX_MUL_SELECT);
 #        endif
     unselect_rows();

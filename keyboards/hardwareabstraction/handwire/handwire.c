@@ -28,7 +28,7 @@ enum custom_keycodes{
 
 // Documentation: custom_quantum_functions.md
 void keyboard_post_init_kb(void){
-    setPinOutput(BUZZER_PIN);
+    gpio_set_pin_output(BUZZER_PIN);
     keyboard_post_init_user();
 }
 

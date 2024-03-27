@@ -60,9 +60,9 @@ bool pointing_device_task(void){
 }
 
 void led_init(void) {
-    setPinOutput(D1);
-    setPinOutput(F5);
-    setPinOutput(F6);
+    gpio_set_pin_output(D1);
+    gpio_set_pin_output(F5);
+    gpio_set_pin_output(F6);
 
 	gpio_write_pin_high(D1);
     gpio_write_pin_high(F5);

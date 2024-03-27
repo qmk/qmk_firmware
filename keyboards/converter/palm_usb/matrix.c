@@ -95,16 +95,16 @@ void pins_init(void) {
  // set pins for pullups, Rts , power &etc. 
 
     //print ("pins setup\n");
-    setPinOutput(VCC_PIN);
+    gpio_set_pin_output(VCC_PIN);
     gpio_write_pin_low(VCC_PIN);
 
 #if ( HANDSPRING == 0)
 
 #ifdef CY835
-    setPinOutput(GND_PIN);
+    gpio_set_pin_output(GND_PIN);
     gpio_write_pin_low(GND_PIN);
 
-    setPinOutput(PULLDOWN_PIN);
+    gpio_set_pin_output(PULLDOWN_PIN);
     gpio_write_pin_low(PULLDOWN_PIN);
 #endif
 
@@ -131,7 +131,7 @@ uint8_t rts_reset(void) {
     firstread=gpio_read_pin(RTS_PIN);
    // printf("r%02X:", firstread);
 
-    setPinOutput(RTS_PIN);
+    gpio_set_pin_output(RTS_PIN);
 
     if (firstread) {
         gpio_write_pin_low(RTS_PIN);

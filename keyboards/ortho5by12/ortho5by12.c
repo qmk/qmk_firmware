@@ -16,8 +16,8 @@
 #include "quantum.h"
 
 void matrix_init_kb(void) {
-    setPinOutput(C4);
-    setPinOutput(C5);
+    gpio_set_pin_output(C4);
+    gpio_set_pin_output(C5);
 }
 
 bool led_update_kb(led_t led_state) {

@@ -1,8 +1,8 @@
 #include "idb_60.h"
 
 void keyboard_pre_init_kb(void) {
-    setPinOutput(C4);
-    setPinOutput(C5);
+    gpio_set_pin_output(C4);
+    gpio_set_pin_output(C5);
 }
 
 inline void _idb_60_caps_led_on(void) {

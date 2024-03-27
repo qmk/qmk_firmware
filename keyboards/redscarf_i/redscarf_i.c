@@ -18,9 +18,9 @@
 
 void keyboard_pre_init_kb(void) {
   // initialize top row leds
-  setPinOutput(F7);
-  setPinOutput(F6);
-  setPinOutput(F5);
+  gpio_set_pin_output(F7);
+  gpio_set_pin_output(F6);
+  gpio_set_pin_output(F5);
   // and then turn them off
   gpio_write_pin_high(F7);
   gpio_write_pin_high(F6);

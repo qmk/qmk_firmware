@@ -19,9 +19,9 @@
 void matrix_init_kb(void) {
 	// Initialize indicator LEDs to output
     
-    setPinOutput(LED_CAPS_LOCK_PIN); // Caps
-	setPinOutput(LED_SCROLL_LOCK_PIN); // Scroll lock
-    setPinOutput(INDICATOR_PIN_0); // Layer indicator on F13
+    gpio_set_pin_output(LED_CAPS_LOCK_PIN); // Caps
+	gpio_set_pin_output(LED_SCROLL_LOCK_PIN); // Scroll lock
+    gpio_set_pin_output(INDICATOR_PIN_0); // Layer indicator on F13
 
 	matrix_init_user();
 }

@@ -147,8 +147,8 @@ void spi_init(void) {
 #endif
 
 void keyboard_pre_init_kb(void) {
-    setPinOutput(C0);
-    setPinOutput(C15);
+    gpio_set_pin_output(C0);
+    gpio_set_pin_output(C15);
     keyboard_pre_init_user();
 };
 void housekeeping_task_kb(void) {
