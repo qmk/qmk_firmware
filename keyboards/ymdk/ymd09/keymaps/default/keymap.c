@@ -17,11 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [0] = LAYOUT(KC_KP_7, KC_KP_8, KC_KP_9,
+  [0] = LAYOUT_ortho_3x3(KC_KP_7, KC_KP_8, KC_KP_9,
                KC_KP_4, LT(1, KC_KP_5), KC_KP_6,
                KC_KP_1, KC_KP_2, KC_KP_3),
 
-  [1] = LAYOUT(RGB_RMOD, RGB_VAI, RGB_MOD,
+  [1] = LAYOUT_ortho_3x3(RGB_RMOD, RGB_VAI, RGB_MOD,
                RGB_HUI, KC_TRNS, RGB_SAI,
                RGB_HUD, RGB_VAD, RGB_SAD),
 

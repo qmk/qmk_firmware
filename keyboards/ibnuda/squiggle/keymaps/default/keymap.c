@@ -129,26 +129,26 @@ combo_t key_combos[] = {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[_BASE] = LAYOUT(
+[_BASE] = LAYOUT_split_3x5_2(
     KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,       KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,
     SH_A,   CT_S,   AL_D,   KC_F,   GU_G,       GU_H,   KC_J,   AL_K,   CT_L,   SH_SCLN,
     KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,       KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,
                             LW_BSPC,SFT_ESC,    ALT_ENT,RS_SPC
 ),
 
-[_RAISE] = LAYOUT(
+[_RAISE] = LAYOUT_split_3x5_2(
     KC_EXLM,KC_AT,  KC_UP,  KC_LCBR,KC_RCBR,    KC_BSLS,KC_7,   KC_8,   KC_9,   KC_ASTR ,
     KC_HASH,KC_LEFT,KC_DOWN,KC_RGHT,KC_DLR,     KC_EQL, KC_4,   KC_5,   KC_6,   KC_0 ,
     KC_LBRC,KC_RBRC,KC_LPRN,KC_RPRN,KC_AMPR,    KC_GRV, KC_1,   KC_2,   KC_3,   KC_PLUS ,
                             ADDDD,  _______,    ALT_ENT,RS_SPC
 ),
-[_LOWER] = LAYOUT(
+[_LOWER] = LAYOUT_split_3x5_2(
     KC_ESC, KC_QUES,KC_UNDS,KC_F1,  KC_F2,      KC_F3,  KC_F4,  KC_MINS,KC_SLSH,KC_BSPC ,
     KC_LSFT,KC_TAB, KC_PGUP,KC_F5,  KC_F6,      KC_F7,  KC_F8,  KC_HOME,KC_LALT,KC_ENT  ,
     KC_CAPS,KC_SCRL,KC_PGDN,KC_F9,  KC_F10,     KC_F11, KC_F12, KC_END, KC_INS, KC_SLSH ,
                             ADDDD,  _______,    KC_DEL, ADDDD
 ),
-[_ADJUST] = LAYOUT(
+[_ADJUST] = LAYOUT_split_3x5_2(
     _______,EXPLR,  KC_UP,  PRVTAB, PRVWIN,     NXTWIN, NXTTAB, _______,_______,LCKGUI,
     TSKMGR, KC_LEFT,KC_DOWN,KC_RGHT,UPTAB,      DNTAB,  KC_ENT, KC_LGUI,_______,CALDL,
     _______,CLSGUI, _______,CONPST, QK_BOOT,      _______,_______,_______,_______,_______,

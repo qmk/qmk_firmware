@@ -24,7 +24,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     |   prev  |  play   |   next  |	R ENC: vol up/down
     \-----------------------------'
     */
-    [0] = LAYOUT(
+    [0] = LAYOUT_ortho_2x3(
                 TO(1),     KC_MSTP,  KC_MUTE,
     		    KC_MPRV,   KC_MPLY,  KC_MNXT
     ),
@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     | move window | minimize | move window  | R ENC: change browser tab + change explorer window
     \---------------------------------------'
     */
-    [1] = LAYOUT(
+    [1] = LAYOUT_ortho_2x3(
 				TO(2),     		LGUI(KC_UP),    LGUI(KC_D),
 				LGUI(KC_LEFT),	LGUI(KC_DOWN),  LGUI(KC_RIGHT)
     ),
@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     |   cut   |   copy  |   paste  | R ENC: mouse wheel up/down
     \------------------------------'
     */
-    [2] = LAYOUT(
+    [2] = LAYOUT_ortho_2x3(
                 TO(3),     		KC_ESC,    		LCTL(LSFT(KC_ESC)),
     		    LCTL(KC_X),		LCTL(KC_C),     LCTL(KC_V)
     ),
@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     |   ctrl  |   play  |  pause  |	R ENC: mouse wheel up/down
     \-----------------------------'
     */
-    [3] = LAYOUT(
+    [3] = LAYOUT_ortho_2x3(
                 TO(0),     	LSFT(KC_R),    	KC_DEL,
     		    KC_LCTL,	KC_SPC,         KC_P
     ),

@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* 1: Code layer
     * ---- | Shift+CMD+B (Build VS Code) | DFU Mode
     * Shift+CMD+C (FF Console) | Ctrl+Alt+U (Upload PIO) | Ctrl+Alt+S (Serial PIO) */
-    [_CODE] = LAYOUT(
+    [_CODE] = LAYOUT_ortho_2x3(
             _______, S(G(KC_B)), QK_BOOT,
             G(A(KC_C)), C(A(KC_U)), C(A(KC_S))
     ),

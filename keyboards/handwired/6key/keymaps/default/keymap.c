@@ -21,11 +21,11 @@ enum layers{
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_MAIN] = LAYOUT(
+  [_MAIN] = LAYOUT_ortho_2x3(
     KC_Z, KC_Y, KC_A,
     KC_C, KC_D, KC_S
   ),
-  [_FN] = LAYOUT(
+  [_FN] = LAYOUT_ortho_2x3(
     KC_F13, KC_F14, KC_F15,
     KC_F16, KC_F17, KC_F18
   )

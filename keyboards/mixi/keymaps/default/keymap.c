@@ -16,7 +16,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * '------------------------------------------------'
      */
     [0] =
-        LAYOUT(
+        LAYOUT_ortho_3x3(
                 KC_MUTE,  KC_MPLY, MO(2)  ,
                 KC_MPRV,  KC_UP  , KC_MNXT,
                 KC_LEFT, KC_DOWN , KC_RGHT
@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * '---------------------------------------------------'
      */
     [1] =
-        LAYOUT(
+        LAYOUT_ortho_3x3(
                 RGB_TOG , KC_TRNS, KC_TRNS,
                 KC_TRNS , RGB_VAI, KC_TRNS,
                 RGB_RMOD, RGB_VAD, RGB_MOD
@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * '--------------------------------------'
      */
     [2] =
-        LAYOUT(
+        LAYOUT_ortho_3x3(
                 KC_NO  , KC_NO, KC_TRNS,
                 EE_CLR,  QK_BOOT, DB_TOGG,
                 KC_NO  , KC_NO, KC_NO

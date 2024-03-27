@@ -77,10 +77,12 @@
     "processor": "STM32F103",
     "bootloader": "stm32duino",
     "layout_aliases": {
-        "LAYOUT_default": "LAYOUT"
+        "LAYOUT": "LAYOUT_68_ansi",
+        "LAYOUT_default": "LAYOUT_68_ansi"
     },
+    "community_layouts": ["68_ansi"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_68_ansi": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},

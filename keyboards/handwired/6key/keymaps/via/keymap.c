@@ -16,19 +16,19 @@
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT(
+    [0] = LAYOUT_ortho_2x3(
         LCTL(KC_Z), LCTL(KC_Y), KC_A,
         KC_C,       KC_D,       KC_S
     ),
-    [1] = LAYOUT(
+    [1] = LAYOUT_ortho_2x3(
         KC_F13, KC_F14, KC_F15,
         KC_F16, KC_F17, KC_F18
     ),
-    [2] = LAYOUT(
+    [2] = LAYOUT_ortho_2x3(
         KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS
         ),
-    [3] = LAYOUT(
+    [3] = LAYOUT_ortho_2x3(
         KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS
         ),

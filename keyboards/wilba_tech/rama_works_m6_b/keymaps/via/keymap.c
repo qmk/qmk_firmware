@@ -2,15 +2,15 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-    LAYOUT(
+    LAYOUT_ortho_2x3(
         KC_1, KC_2, KC_3, KC_4, KC_5, KC_6),
 
-    LAYOUT(
+    LAYOUT_ortho_2x3(
         KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO),
 
-    LAYOUT(
+    LAYOUT_ortho_2x3(
         KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO),
 
-    LAYOUT(
+    LAYOUT_ortho_2x3(
         KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO) };
 

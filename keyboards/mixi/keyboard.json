@@ -54,8 +54,12 @@
             ["C6", "F7", "B6"]
         ]
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_ortho_3x3"
+    },
+    "community_layouts": ["ortho_3x3"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ortho_3x3": {
             "layout": [
                 {"x": 0, "y": 0, "matrix": [0, 0]},
                 {"x": 1, "y": 0, "matrix": [0, 1]},

@@ -23,8 +23,12 @@
     "diode_direction": "ROW2COL",
     "processor": "atmega32u4",
     "bootloader": "halfkay",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_tkl_ansi"
+    },
+    "community_layouts": ["tkl_ansi"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_tkl_ansi": {
             "layout": [
                 {"matrix": [3, 1], "x": 0, "y": 0},
 
