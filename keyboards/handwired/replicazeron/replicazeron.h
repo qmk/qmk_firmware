@@ -40,7 +40,7 @@ enum kb_layers {
 };
 
 enum kb_keycodes {
-    JOYMODE = SAFE_RANGE,
+    JOYMODE = QK_USER,
     AUTORUN,
     M_UP,
     M_DWN,
