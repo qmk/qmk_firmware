@@ -78,7 +78,7 @@ void select_amux_channel(uint8_t channel, uint8_t col) {
     gpio_write_pin_high(amux_en_pins[channel]);
     // Select the multiplexer channel
     for (uint8_t i = 0; i < AMUX_SEL_PINS_COUNT; i++) {
-        writePin(amux_sel_pins[i], ch & (1 << i));
+        gpio_write_pin(amux_sel_pins[i], ch & (1 << i));
     }
     // re enable specified multiplexer
     gpio_write_pin_low(amux_en_pins[channel]);

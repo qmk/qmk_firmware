@@ -24,7 +24,7 @@ void matrix_init_kb(void) {
 
 bool led_update_kb(led_t led_state) {
     if(led_update_user(led_state)) {
-        writePin(B0, led_state.caps_lock);
+        gpio_write_pin(B0, led_state.caps_lock);
     }
     return true;
 }

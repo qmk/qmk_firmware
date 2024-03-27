@@ -50,9 +50,9 @@ static inline void init_mux_sel(void) {
 
 static inline void select_mux(uint8_t col) {
     uint8_t ch = col_channels[col];
-    writePin(mux_sel_pins[0], ch & 1);
-    writePin(mux_sel_pins[1], ch & 2);
-    writePin(mux_sel_pins[2], ch & 4);
+    gpio_write_pin(mux_sel_pins[0], ch & 1);
+    gpio_write_pin(mux_sel_pins[1], ch & 2);
+    gpio_write_pin(mux_sel_pins[2], ch & 4);
 }
 
 static inline void init_row(void) {

@@ -82,7 +82,7 @@ static void shift_out(void) {
     while(n--){
         for (uint8_t i = 0; i < 8; i++) {
             gpio_write_pin_low(SHR_CLOCK_PIN);
-            writePin(SHR_DATA_PIN, shift_values[n] & (0x80 >> i));
+            gpio_write_pin(SHR_DATA_PIN, shift_values[n] & (0x80 >> i));
             gpio_write_pin_high(SHR_CLOCK_PIN);
 	    }
     }

@@ -36,9 +36,9 @@ void matrix_init_kb(void) {
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if(res) {
-        writePin(LED_NUM_LOCK_PIN, !led_state.num_lock);
-        writePin(LED_CAPS_LOCK_PIN, !led_state.caps_lock);
-        writePin(LED_CTRL_XFER_PIN, !led_state.scroll_lock);
+        gpio_write_pin(LED_NUM_LOCK_PIN, !led_state.num_lock);
+        gpio_write_pin(LED_CAPS_LOCK_PIN, !led_state.caps_lock);
+        gpio_write_pin(LED_CTRL_XFER_PIN, !led_state.scroll_lock);
     }
     return res;
 }

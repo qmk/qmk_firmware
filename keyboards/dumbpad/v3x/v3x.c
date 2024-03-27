@@ -68,8 +68,8 @@ bool shutdown_kb(bool jump_to_bootloader) {
 layer_state_t layer_state_set_kb(layer_state_t state) {
     // Layer LEDs act as binary indication of current layer
     uint8_t layer = get_highest_layer(state);
-    writePin(LED_00, layer & 0b1);
-    writePin(LED_01, (layer >> 1) & 0b1);
+    gpio_write_pin(LED_00, layer & 0b1);
+    gpio_write_pin(LED_01, (layer >> 1) & 0b1);
     uprintf("%d string", layer);
     return layer_state_set_user(state);
 }
@@ -101,6 +101,6 @@ void matrix_init_kb(void) {
 bool led_update_kb(led_t led_state) {
     if (!led_update_user(led_state)) return false;
     // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
-    writePin(LED_02, !led_state.num_lock);
+    gpio_write_pin(LED_02, !led_state.num_lock);
     return true;
 }

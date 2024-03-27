@@ -23,7 +23,7 @@
 
 static inline void digital_write(pin_t pin, uint8_t level) {
     setPinOutput(pin);
-    writePin(pin, level);
+    gpio_write_pin(pin, level);
 }
 
 uint16_t v_con_1 = 0;

@@ -363,7 +363,7 @@ bool led_update_kb(led_t led_state)
 {
     bool res = led_update_user(led_state);
     if (res) {
-        writePin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
+        gpio_write_pin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
 
         if (rgb_state.state != SELF_TESTING) {
             if (led_state.caps_lock) {

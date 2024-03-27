@@ -28,9 +28,9 @@ void keyboard_pre_init_kb(void) {
 
 bool led_update_kb(led_t led_state) {
     if(led_update_user(led_state)) {
-        writePin(D5, !led_state.num_lock);
-        writePin(D6, !led_state.caps_lock);
-        writePin(D7, !led_state.scroll_lock);
+        gpio_write_pin(D5, !led_state.num_lock);
+        gpio_write_pin(D6, !led_state.caps_lock);
+        gpio_write_pin(D7, !led_state.scroll_lock);
     }
     return true;
 }

@@ -25,6 +25,6 @@ void keyboard_post_init_kb(void) {
 
 // Function for layer indicator LED
 layer_state_t layer_state_set_kb(layer_state_t state) {
-    writePin(LAYER_INDICATOR_LED_PIN, !layer_state_cmp(state, 0));
+    gpio_write_pin(LAYER_INDICATOR_LED_PIN, !layer_state_cmp(state, 0));
     return layer_state_set_user(state);
 }

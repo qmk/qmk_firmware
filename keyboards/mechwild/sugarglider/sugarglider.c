@@ -110,10 +110,10 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if(res) {
-        writePin(B12, led_state.num_lock);     // Updates status LEDs
-        writePin(B13, led_state.caps_lock);    // Updates status LEDs
-        writePin(B14, led_state.scroll_lock);  // Updates status LEDs
-        writePin(C13, !led_state.caps_lock);   // Updates status LEDs, this is the LED on the blackpill itself
+        gpio_write_pin(B12, led_state.num_lock);     // Updates status LEDs
+        gpio_write_pin(B13, led_state.caps_lock);    // Updates status LEDs
+        gpio_write_pin(B14, led_state.scroll_lock);  // Updates status LEDs
+        gpio_write_pin(C13, !led_state.caps_lock);   // Updates status LEDs, this is the LED on the blackpill itself
     }
     return res;
 }

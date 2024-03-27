@@ -30,7 +30,7 @@ void led_init_ports(void) {
 
 bool led_update_kb(led_t led_state) {
     if(led_update_user(led_state)) {
-        writePin(F5, !led_state.caps_lock);
+        gpio_write_pin(F5, !led_state.caps_lock);
     }
 
     return true;

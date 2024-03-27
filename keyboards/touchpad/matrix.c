@@ -231,21 +231,21 @@ uint8_t matrix_scan(void) {
   for (uint8_t c = 0; c < 6; c++) {
     for (uint8_t r = 0; r < 6; r++) {
       switch (r) {
-        case 0: writePin(D6, matrix_is_on(r, c)); break;
-        case 1: writePin(B4, matrix_is_on(r, c)); break;
-        case 2: writePin(B5, matrix_is_on(r, c)); break;
-        case 3: writePin(B6, matrix_is_on(r, c)); break;
-        case 4: writePin(C6, matrix_is_on(r, c)); break;
-        case 5: writePin(C7, matrix_is_on(r, c)); break;
+        case 0: gpio_write_pin(D6, matrix_is_on(r, c)); break;
+        case 1: gpio_write_pin(B4, matrix_is_on(r, c)); break;
+        case 2: gpio_write_pin(B5, matrix_is_on(r, c)); break;
+        case 3: gpio_write_pin(B6, matrix_is_on(r, c)); break;
+        case 4: gpio_write_pin(C6, matrix_is_on(r, c)); break;
+        case 5: gpio_write_pin(C7, matrix_is_on(r, c)); break;
       }
 
       switch (c) {
-        case 0: writePin(F5, !matrix_is_on(r, c)); break;
-        case 1: writePin(F4, !matrix_is_on(r, c)); break;
-        case 2: writePin(F1, !matrix_is_on(r, c)); break;
-        case 3: writePin(F0, !matrix_is_on(r, c)); break;
-        case 4: writePin(F6, !matrix_is_on(r, c)); break;
-        case 5: writePin(F7, !matrix_is_on(r, c)); break;
+        case 0: gpio_write_pin(F5, !matrix_is_on(r, c)); break;
+        case 1: gpio_write_pin(F4, !matrix_is_on(r, c)); break;
+        case 2: gpio_write_pin(F1, !matrix_is_on(r, c)); break;
+        case 3: gpio_write_pin(F0, !matrix_is_on(r, c)); break;
+        case 4: gpio_write_pin(F6, !matrix_is_on(r, c)); break;
+        case 5: gpio_write_pin(F7, !matrix_is_on(r, c)); break;
       }
     }
   }

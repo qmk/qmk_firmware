@@ -106,11 +106,11 @@ static void select_col(uint8_t col) {
     if (col < 16) {
         uint8_t c = col + 8;
 
-        writePin(B6, c & 0b10000);
-        writePin(C6, c & 0b01000);
-        writePin(C7, c & 0b00100);
-        writePin(F1, c & 0b00010);
-        writePin(F0, c & 0b00001);
+        gpio_write_pin(B6, c & 0b10000);
+        gpio_write_pin(C6, c & 0b01000);
+        gpio_write_pin(C7, c & 0b00100);
+        gpio_write_pin(F1, c & 0b00010);
+        gpio_write_pin(F0, c & 0b00001);
     } else {
         gpio_write_pin_high(B5);
     }

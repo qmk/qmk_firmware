@@ -12,7 +12,7 @@ void lain_eeconfig_update_kb(void) { eeconfig_update_kb(lain_config.raw); }
 
 void lain_set_led(uint8_t no, bool flag) {
     led_states[no] = flag;
-    writePin(leds[no], lain_config.led_enabled ? flag : false);
+    gpio_write_pin(leds[no], lain_config.led_enabled ? flag : false);
 }
 
 void lain_enable_leds(bool flag) {
@@ -20,7 +20,7 @@ void lain_enable_leds(bool flag) {
     lain_eeconfig_update_kb();
 
     for (int i = 0; i < LED_NUM; i++) {
-        writePin(leds[i], lain_config.led_enabled ? led_states[i] : false);
+        gpio_write_pin(leds[i], lain_config.led_enabled ? led_states[i] : false);
     }
 }
 

@@ -142,7 +142,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
         // Select the col pin to read (active low)
 #        ifdef MATRIX_MUL_SELECT
-        writePin(MATRIX_MUL_SELECT, col_sel[col_index]);
+        gpio_write_pin(MATRIX_MUL_SELECT, col_sel[col_index]);
         waitInputPinDelay();
 #        endif
         uint8_t pin_state = gpio_read_pin(col_pins[col_index]);
@@ -161,7 +161,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
             is_pressed = false;
             for (uint8_t i = 0; i < ARRAY_SIZE(delay_ports); i++) {
 #            ifdef MATRIX_IO_DELAY_MULSEL
-                writePin(MATRIX_MUL_SELECT, delay_sel[i]);
+                gpio_write_pin(MATRIX_MUL_SELECT, delay_sel[i]);
                 waitInputPinDelay();
 #            endif
                 is_pressed |= ((readPort(delay_ports[i]) & delay_masks[i]) != delay_masks[i]);
@@ -175,7 +175,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
         for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
             MATRIX_DEBUG_DELAY_START();
 #            ifdef MATRIX_MUL_SELECT
-            writePin(MATRIX_MUL_SELECT, col_sel[col_index]);
+            gpio_write_pin(MATRIX_MUL_SELECT, col_sel[col_index]);
             waitInputPinDelay();
 #            endif
             while (gpio_read_pin(col_pins[col_index]) == 0) {
@@ -194,7 +194,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
                 MATRIX_DEBUG_DELAY_END();
                 MATRIX_DEBUG_DELAY_START();
 #            ifdef MATRIX_MUL_SELECT
-                writePin(MATRIX_MUL_SELECT, col_sel[col_index]);
+                gpio_write_pin(MATRIX_MUL_SELECT, col_sel[col_index]);
                 waitInputPinDelay();
 #            endif
                 state |= (gpio_read_pin(col_pins[col_index]) == 0);

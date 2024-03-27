@@ -146,8 +146,8 @@ void matrix_init_kb(void) {
 }
 
 void housekeeping_task_kb(void){
-    writePin(LED_MAC_OS_PIN, (get_highest_layer(default_layer_state) == 3));
-    writePin(LED_WIN_LOCK_PIN, keymap_config.no_gui);
+    gpio_write_pin(LED_MAC_OS_PIN, (get_highest_layer(default_layer_state) == 3));
+    gpio_write_pin(LED_WIN_LOCK_PIN, keymap_config.no_gui);
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {

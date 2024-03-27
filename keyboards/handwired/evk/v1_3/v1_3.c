@@ -30,15 +30,15 @@ void matrix_init_kb(void) {
 
 // Set LED based on layer
 __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
-    writePin(D5, layer_state_cmp(state, 1));
+    gpio_write_pin(D5, layer_state_cmp(state, 1));
     return state;
 }
 
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if (res) {
-        // writePin sets the pin high for 1 and low for 0.
-        writePin(D4, led_state.caps_lock);
+        // gpio_write_pin sets the pin high for 1 and low for 0.
+        gpio_write_pin(D4, led_state.caps_lock);
     }
     return res;
 }

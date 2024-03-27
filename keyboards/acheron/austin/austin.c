@@ -10,9 +10,9 @@ void keyboard_pre_init_kb(void) {
 
 bool led_update_kb(led_t led_state) {
     if (led_update_user(led_state)) {
-        writePin(A2, led_state.num_lock);
-        writePin(A0, led_state.caps_lock);
-        writePin(A1, led_state.scroll_lock);
+        gpio_write_pin(A2, led_state.num_lock);
+        gpio_write_pin(A0, led_state.caps_lock);
+        gpio_write_pin(A1, led_state.scroll_lock);
     }
     return true;
 }

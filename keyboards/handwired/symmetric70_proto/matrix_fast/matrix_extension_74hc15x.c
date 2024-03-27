@@ -47,9 +47,9 @@ static const pin_t sel_pins[] = { MATRIX_EXT_74HC15x };
 LOCAL_FUNC ALWAYS_INLINE void select74HC15x(uint8_t devid);
 LOCAL_FUNC
 void select74HC15x(uint8_t devid) {
-    writePin(sel_pins[0], devid&1);
+    gpio_write_pin(sel_pins[0], devid&1);
 #if defined(MATRIX_EXTENSION_74HC153)
-    writePin(sel_pins[1], devid&2);
+    gpio_write_pin(sel_pins[1], devid&2);
 #endif
 }
 

@@ -44,7 +44,7 @@ static void select_col(uint8_t col)
 {
     for (uint8_t bit = 0; bit < MATRIX_MUX_COLS; bit++) {
         uint8_t state = (col & (0b1 << bit)) >> bit;
-        writePin(col_pins[bit], state);
+        gpio_write_pin(col_pins[bit], state);
     }
 }
 

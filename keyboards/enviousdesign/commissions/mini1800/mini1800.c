@@ -11,7 +11,7 @@ void matrix_init_user(void) {
 
 //layer, capslock and numlock
 layer_state_t layer_state_set_user(layer_state_t state) {
-	writePin(GP9, layer_state_cmp(state, 1));
+	gpio_write_pin(GP9, layer_state_cmp(state, 1));
     return state;
 }
 

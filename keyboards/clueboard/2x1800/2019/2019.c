@@ -136,9 +136,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if(res) {
-        writePin(B4, !led_state.num_lock);
-        writePin(B5, !led_state.caps_lock);
-        writePin(B6, !led_state.scroll_lock);
+        gpio_write_pin(B4, !led_state.num_lock);
+        gpio_write_pin(B5, !led_state.caps_lock);
+        gpio_write_pin(B6, !led_state.scroll_lock);
     }
 
     return res;

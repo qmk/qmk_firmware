@@ -187,9 +187,9 @@ bool led_update_kb(led_t led_state) {
     dprintf("LED Update: %d %d %d", led_state.num_lock, led_state.caps_lock, led_state.scroll_lock);
 
     if (led_update_user(led_state)) {
-        if (!isRecording) writePin(MODELM_LED_NUMLOCK, !led_state.num_lock);
-        writePin(MODELM_LED_CAPSLOCK, !led_state.caps_lock);
-        writePin(MODELM_LED_SCROLLOCK, !led_state.scroll_lock);
+        if (!isRecording) gpio_write_pin(MODELM_LED_NUMLOCK, !led_state.num_lock);
+        gpio_write_pin(MODELM_LED_CAPSLOCK, !led_state.caps_lock);
+        gpio_write_pin(MODELM_LED_SCROLLOCK, !led_state.scroll_lock);
     }
     return true;
 }
@@ -198,7 +198,7 @@ void update_layer_leds(void) {
     if (isRecording && timer_elapsed(blink_cycle_timer) > 150) {
         blink_state = !blink_state;
         blink_cycle_timer = timer_read();
-        writePin(MODELM_LED_NUMLOCK, blink_state);
+        gpio_write_pin(MODELM_LED_NUMLOCK, blink_state);
     }
 }
 

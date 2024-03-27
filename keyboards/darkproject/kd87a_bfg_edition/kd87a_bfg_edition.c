@@ -153,7 +153,7 @@ void keyboard_pre_init_kb(void) {
     keyboard_pre_init_user();
 };
 void housekeeping_task_kb(void) {
-    writePin(C15, keymap_config.no_gui);
+    gpio_write_pin(C15, keymap_config.no_gui);
 };
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {

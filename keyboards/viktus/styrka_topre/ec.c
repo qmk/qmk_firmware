@@ -69,9 +69,9 @@ void init_mux_sel(void) {
 
 void select_mux(uint8_t row) {
     uint8_t ch = row_channels[row];
-    writePin(mux_sel_pins[0], ch & 1);
-    writePin(mux_sel_pins[1], ch & 2);
-    writePin(mux_sel_pins[2], ch & 4);
+    gpio_write_pin(mux_sel_pins[0], ch & 1);
+    gpio_write_pin(mux_sel_pins[1], ch & 2);
+    gpio_write_pin(mux_sel_pins[2], ch & 4);
 }
 
 void init_col(void) {

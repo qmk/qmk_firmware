@@ -42,9 +42,9 @@ bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if (res)
     {
-        writePin(INDICATOR_NUM, !led_state.num_lock);
-        writePin(INDICATOR_CAPS, !led_state.caps_lock);
-        writePin(INDICATOR_SCR, !led_state.scroll_lock);
+        gpio_write_pin(INDICATOR_NUM, !led_state.num_lock);
+        gpio_write_pin(INDICATOR_CAPS, !led_state.caps_lock);
+        gpio_write_pin(INDICATOR_SCR, !led_state.scroll_lock);
     }
     return res;
 }

@@ -25,6 +25,6 @@ void led_init_ports(void) {
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
-    writePin(A14, !layer_state_cmp(state, 1));
+    gpio_write_pin(A14, !layer_state_cmp(state, 1));
     return layer_state_set_user(state);
 }

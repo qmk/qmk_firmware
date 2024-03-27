@@ -111,8 +111,8 @@ void suspend_wakeup_init_kb(void) {
 layer_state_t layer_state_set_kb(layer_state_t state) {
     state = layer_state_set_user(state);
 
-    writePin(F1, IS_LAYER_ON_STATE(state, 1));
-    writePin(F0, IS_LAYER_ON_STATE(state, 2));
+    gpio_write_pin(F1, IS_LAYER_ON_STATE(state, 1));
+    gpio_write_pin(F0, IS_LAYER_ON_STATE(state, 2));
 
     return state;
 }
