@@ -20,4 +20,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 
 #define fn_led_on() writePinLow(D0)
-#define fn_led_off() writePinHigh(D0)
+#define fn_led_off() gpio_write_pin_high(D0)

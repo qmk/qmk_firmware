@@ -18,9 +18,9 @@
 
 /* Private Functions */
 void off_all_leds(void) {
-    writePinHigh(LED_CAPS_LOCK_PIN);
-    writePinHigh(LED_WIN_LOCK_PIN);
-    writePinHigh(LED_MR_LOCK_PIN);
+    gpio_write_pin_high(LED_CAPS_LOCK_PIN);
+    gpio_write_pin_high(LED_WIN_LOCK_PIN);
+    gpio_write_pin_high(LED_MR_LOCK_PIN);
 }
 
 void on_all_leds(void) {

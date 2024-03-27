@@ -53,7 +53,7 @@ bool sr_74hc595_spi_send_byte(uint8_t data) {
     matrix_io_delay();
     spi_write(data);
     matrix_io_delay();
-    writePinHigh(SHIFTREG_MATRIX_COL_CS);
+    gpio_write_pin_high(SHIFTREG_MATRIX_COL_CS);
     sr_74hc595_spi_stop();
     return true;
 }
@@ -87,7 +87,7 @@ void matrix_init_custom(void) {
     }
 
     // Set the CS to low by default, and specify as an output pin
-    writePinHigh(SHIFTREG_MATRIX_COL_CS); // should be high when using SPI?
+    gpio_write_pin_high(SHIFTREG_MATRIX_COL_CS); // should be high when using SPI?
     setPinOutput(SHIFTREG_MATRIX_COL_CS);
 
     // Since it's the init, deactivate all the columns. We'll activate once we get to the matrix scan

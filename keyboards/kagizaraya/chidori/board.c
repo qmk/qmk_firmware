@@ -62,7 +62,7 @@ static void board_set_master_led(board_info_t* board, uint8_t led_index, bool st
     pin_t pin                    = board->led_pins[led_index];
     board->led_status[led_index] = status;
     setPinOutput(pin);
-    status ? writePinHigh(pin) : writePinLow(pin);
+    status ? gpio_write_pin_high(pin) : writePinLow(pin);
 }
 
 static void board_set_slave_led(board_info_t* board, uint8_t led_index, bool status) {

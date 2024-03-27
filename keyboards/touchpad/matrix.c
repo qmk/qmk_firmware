@@ -132,7 +132,7 @@ void matrix_init(void) {
 
   //Power LED
   setPinOutput(B7);
-  writePinHigh(B7);
+  gpio_write_pin_high(B7);
 
   //LEDs Columns
   setPinOutput(F7);
@@ -251,8 +251,8 @@ uint8_t matrix_scan(void) {
   }
 
   if (vibrate == VIBRATE_LENGTH) {
-    writePinHigh(E6);
-    writePinHigh(D7);
+    gpio_write_pin_high(E6);
+    gpio_write_pin_high(D7);
     vibrate--;
   }  else if (vibrate > 0) {
     vibrate--;

@@ -48,7 +48,7 @@ void cycle_leds(void) {
                 setPinInput(led_pins[0]);
                 writePinLow(led_pins[0]);
                 setPinOutput(led_pins[1]);
-                writePinHigh(led_pins[1]);
+                gpio_write_pin_high(led_pins[1]);
                 setPinOutput(led_pins[2]);
                 writePinLow(led_pins[2]);
             }
@@ -56,7 +56,7 @@ void cycle_leds(void) {
         case 1:
             if (led_state[1]) { // Down Arrow
                 setPinOutput(led_pins[0]);
-                writePinHigh(led_pins[0]);
+                gpio_write_pin_high(led_pins[0]);
                 setPinOutput(led_pins[1]);
                 writePinLow(led_pins[1]);
                 setPinInput(led_pins[2]);
@@ -68,7 +68,7 @@ void cycle_leds(void) {
                 setPinOutput(led_pins[0]);
                 writePinLow(led_pins[0]);
                 setPinOutput(led_pins[1]);
-                writePinHigh(led_pins[1]);
+                gpio_write_pin_high(led_pins[1]);
                 setPinInput(led_pins[2]);
                 writePinLow(led_pins[2]);
             }
@@ -80,7 +80,7 @@ void cycle_leds(void) {
                 setPinOutput(led_pins[1]);
                 writePinLow(led_pins[1]);
                 setPinOutput(led_pins[2]);
-                writePinHigh(led_pins[2]);
+                gpio_write_pin_high(led_pins[2]);
             }
             break;
         case 4:
@@ -90,13 +90,13 @@ void cycle_leds(void) {
                 setPinInput(led_pins[1]);
                 writePinLow(led_pins[1]);
                 setPinOutput(led_pins[2]);
-                writePinHigh(led_pins[2]);
+                gpio_write_pin_high(led_pins[2]);
               }
             break;
          case 5:
             if (led_state[5]) { // Right Click
                 setPinOutput(led_pins[0]);
-                writePinHigh(led_pins[0]);
+                gpio_write_pin_high(led_pins[0]);
                 setPinInput(led_pins[1]);
                 writePinLow(led_pins[1]);
                 setPinOutput(led_pins[2]);

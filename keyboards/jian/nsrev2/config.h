@@ -64,7 +64,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define UPDATE_NUM_LOCK_LED() writePin(NUM_LOCK_LED_PIN, led_state.num_lock)
 #endif // NUM_INVERT
 #else
-#define RESET_NUM_LOCK_LED() writePinHigh(NUM_LOCK_LED_PIN)
+#define RESET_NUM_LOCK_LED() gpio_write_pin_high(NUM_LOCK_LED_PIN)
 #ifdef NUM_INVERT
 #define UPDATE_NUM_LOCK_LED() writePin(NUM_LOCK_LED_PIN, led_state.num_lock)
 #else
@@ -76,7 +76,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RESET_CAPS_LOCK_LED() writePinLow(CAPS_LOCK_LED_PIN)
 #define UPDATE_CAPS_LOCK_LED() writePin(CAPS_LOCK_LED_PIN, led_state.caps_lock)
 #else
-#define RESET_CAPS_LOCK_LED() writePinHigh(CAPS_LOCK_LED_PIN)
+#define RESET_CAPS_LOCK_LED() gpio_write_pin_high(CAPS_LOCK_LED_PIN)
 #define UPDATE_CAPS_LOCK_LED() writePin(CAPS_LOCK_LED_PIN, !led_state.caps_lock)
 #endif // CAPS_NMOSFET
 
@@ -84,6 +84,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RESET_SCROLL_LOCK_LED() writePinLow(SCROLL_LOCK_LED_PIN)
 #define UPDATE_SCROLL_LOCK_LED() writePin(SCROLL_LOCK_LED_PIN, led_state.scroll_lock)
 #else
-#define RESET_SCROLL_LOCK_LED() writePinHigh(SCROLL_LOCK_LED_PIN)
+#define RESET_SCROLL_LOCK_LED() gpio_write_pin_high(SCROLL_LOCK_LED_PIN)
 #define UPDATE_SCROLL_LOCK_LED() writePin(SCROLL_LOCK_LED_PIN, !led_state.scroll_lock)
 #endif // SCROLL_NMOSFET

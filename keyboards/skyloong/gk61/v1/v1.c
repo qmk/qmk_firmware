@@ -108,7 +108,7 @@ void suspend_power_down_kb() {
 }
 
 void suspend_wakeup_init_kb() {
-    writePinHigh(SNLED27351_SDB_PIN);
+    gpio_write_pin_high(SNLED27351_SDB_PIN);
 
     suspend_wakeup_init_user();
 }

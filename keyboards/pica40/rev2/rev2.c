@@ -113,7 +113,7 @@ void housekeeping_task_kb(void) {
             should_set_rgblight = true;
 
             if (is_layer_active) {
-                writePinHigh(PICA40_RGB_POWER_PIN);
+                gpio_write_pin_high(PICA40_RGB_POWER_PIN);
             } else {
                 writePinLow(PICA40_RGB_POWER_PIN);
             }

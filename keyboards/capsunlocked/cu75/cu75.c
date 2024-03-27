@@ -21,7 +21,7 @@ void matrix_init_kb(void)
     PLAY_SONG(test_sound);
     // Fix port B5
     setPinInput(B5);
-    writePinHigh(B5);
+    gpio_write_pin_high(B5);
 #else
     // If we're not using the audio pin, drive it low
     setPinOutput(C6);

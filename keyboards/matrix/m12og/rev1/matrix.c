@@ -26,7 +26,7 @@ static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 
 static void select_col(uint8_t col) {
     setPinOutput(col_pins[col]);
-    writePinHigh(col_pins[col]);
+    gpio_write_pin_high(col_pins[col]);
 }
 
 static void unselect_col(uint8_t col) { setPinInputLow(col_pins[col]); }

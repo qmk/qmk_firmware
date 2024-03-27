@@ -26,9 +26,9 @@ void keyboard_pre_init_kb(void) {
 }
 
 __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
-    writePinHigh(LED_INDICATOR_TOP);
-    writePinHigh(LED_INDICATOR_MID);
-    writePinHigh(LED_INDICATOR_BOT);
+    gpio_write_pin_high(LED_INDICATOR_TOP);
+    gpio_write_pin_high(LED_INDICATOR_MID);
+    gpio_write_pin_high(LED_INDICATOR_BOT);
 
     switch(get_highest_layer(state) % 4) {
     case 1:

@@ -82,7 +82,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         matrix_row_t data = 0;
 
         // strobe col
-        writePinHigh(matrix_col_pins[col]);
+        gpio_write_pin_high(matrix_col_pins[col]);
 
         // need wait to settle pin state
         wait_us(20);

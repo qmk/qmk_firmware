@@ -50,7 +50,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             if(!buzzer_active){
                 buzzer_active = true;
                 buzzer_timer = timer_read();
-                writePinHigh(BUZZER_PIN);
+                gpio_write_pin_high(BUZZER_PIN);
             }
         }
 
@@ -94,7 +94,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 if(buzzer_on == true){
                     buzzer_active = true;
                     buzzer_timer = timer_read();
-                    writePinHigh(BUZZER_PIN);
+                    gpio_write_pin_high(BUZZER_PIN);
                 }
                 else{
                     writePinLow(BUZZER_PIN);

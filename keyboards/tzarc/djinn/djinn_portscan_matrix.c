@@ -115,11 +115,11 @@ void matrix_wait_for_interrupt(void) {
     // Now that the interrupt has woken us up, reset all the row/col pins back to defaults
     for (int i = 0; i < ARRAY_SIZE(row_pins); ++i) {
         palDisableLineEvent(row_pins[i]);
-        writePinHigh(row_pins[i]);
+        gpio_write_pin_high(row_pins[i]);
         setPinInputHigh(row_pins[i]);
     }
     for (int i = 0; i < ARRAY_SIZE(col_pins); ++i) {
-        writePinHigh(col_pins[i]);
+        gpio_write_pin_high(col_pins[i]);
         setPinInputHigh(col_pins[i]);
     }
 }

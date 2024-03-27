@@ -154,7 +154,7 @@ void suspend_power_down_kb(void) {
 }
 
 void suspend_wakeup_init_kb(void) {
-    writePinHigh(IS31FL3743A_SDB_PIN);
+    gpio_write_pin_high(IS31FL3743A_SDB_PIN);
     suspend_wakeup_init_user();
 }
 #endif

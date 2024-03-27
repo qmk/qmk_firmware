@@ -18,11 +18,11 @@
 void led_init_ports(void) {
     // * Enable LED anodes (Vbus pin is replaced by B0 on some boards)
     setPinOutput(B0);
-    writePinHigh(B0);
+    gpio_write_pin_high(B0);
 
     // * Set our LED pins as output and high
     setPinOutput(F5);
-    writePinHigh(F5);
+    gpio_write_pin_high(F5);
     
     setPinOutput(F4);
     writePinLow(F4);

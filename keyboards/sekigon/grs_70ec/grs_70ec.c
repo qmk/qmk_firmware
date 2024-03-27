@@ -18,7 +18,7 @@
 
 void led_on(void) {
     setPinOutput(D2);
-    writePinHigh(D2);
+    gpio_write_pin_high(D2);
 }
 
 void led_off(void) { writePinLow(D2); }
@@ -32,7 +32,7 @@ void keyboard_post_init_kb(void) {
 void keyboard_pre_init_kb(void) {
     // Turn on extern circuit
     setPinOutput(F7);
-    writePinHigh(F7);
+    gpio_write_pin_high(F7);
 
     keyboard_pre_init_user();
 }

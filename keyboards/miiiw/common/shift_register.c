@@ -24,7 +24,7 @@ static uint8_t shift_values[SHR_SERIES_NUM] = {0};
 void shift_init(void) {
 #ifdef SHR_OE_PIN
     setPinOutput(SHR_OE_PIN);
-    writePinHigh(SHR_OE_PIN);
+    gpio_write_pin_high(SHR_OE_PIN);
 #endif
     setPinOutput(SHR_DATA_PIN);
     setPinOutput(SHR_LATCH_PIN);
@@ -42,7 +42,7 @@ void shift_enable(void) {
 
 void shift_disable(void) {
 #ifdef SHR_OE_PIN
-    writePinHigh(SHR_OE_PIN);
+    gpio_write_pin_high(SHR_OE_PIN);
 #endif
     writePinLow(SHR_DATA_PIN);
     writePinLow(SHR_LATCH_PIN);
@@ -83,8 +83,8 @@ static void shift_out(void) {
         for (uint8_t i = 0; i < 8; i++) {
             writePinLow(SHR_CLOCK_PIN);
             writePin(SHR_DATA_PIN, shift_values[n] & (0x80 >> i));
-            writePinHigh(SHR_CLOCK_PIN);
+            gpio_write_pin_high(SHR_CLOCK_PIN);
 	    }
     }
-    writePinHigh(SHR_LATCH_PIN);
+    gpio_write_pin_high(SHR_LATCH_PIN);
 }

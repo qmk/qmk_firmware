@@ -29,5 +29,5 @@ void turn_off_leds(void) {
     writePinLow(GREEN_LED);
 }
 void turn_on_led(pin_t pin) {
-    writePinHigh(pin);
+    gpio_write_pin_high(pin);
 }

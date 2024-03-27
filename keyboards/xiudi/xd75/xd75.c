@@ -34,7 +34,7 @@ void capslock_led_init(void) {
 }
 
 void capslock_led_off(void) {
-    writePinHigh(XD75_CAPSLOCK_LED);
+    gpio_write_pin_high(XD75_CAPSLOCK_LED);
 }
 
 void capslock_led_on(void) {
@@ -47,7 +47,7 @@ void gp100_led_init(void) {
 }
 
 void gp100_led_off(void) {
-    writePinHigh(XD75_GP100_LED);
+    gpio_write_pin_high(XD75_GP100_LED);
 }
 
 void gp100_led_on(void) {
@@ -64,5 +64,5 @@ void gp103_led_off(void) {
 }
 
 void gp103_led_on(void) {
-    writePinHigh(XD75_GP103_LED);
+    gpio_write_pin_high(XD75_GP103_LED);
 }

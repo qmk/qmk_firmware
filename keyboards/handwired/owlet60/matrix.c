@@ -278,7 +278,7 @@ static void mux_pin_control(const uint8_t binary[]) {
         writePinLow(col_select_pins[0]);
     }
     else {
-        writePinHigh(col_select_pins[0]);
+        gpio_write_pin_high(col_select_pins[0]);
     }
     // set pin1
     setPinOutput(col_select_pins[1]);
@@ -286,7 +286,7 @@ static void mux_pin_control(const uint8_t binary[]) {
         writePinLow(col_select_pins[1]);
     }
     else {
-        writePinHigh(col_select_pins[1]);
+        gpio_write_pin_high(col_select_pins[1]);
     }
     // set pin2
     setPinOutput(col_select_pins[2]);
@@ -294,6 +294,6 @@ static void mux_pin_control(const uint8_t binary[]) {
         writePinLow(col_select_pins[2]);
     }
     else {
-        writePinHigh(col_select_pins[2]);
+        gpio_write_pin_high(col_select_pins[2]);
     }
 }

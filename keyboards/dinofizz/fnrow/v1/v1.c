@@ -18,7 +18,7 @@
 void keyboard_pre_init_kb(void) {
     // Immediately set the LED pin as an output and set it ON
     setPinOutput(A15);
-    writePinHigh(A15);
+    gpio_write_pin_high(A15);
     
     keyboard_pre_init_user();
 }
@@ -28,7 +28,7 @@ void keyboard_post_init_kb(void) {
     // Finish with LED OFF
     writePinLow(A15);
     wait_ms(100);
-    writePinHigh(A15);
+    gpio_write_pin_high(A15);
     wait_ms(100);
     writePinLow(A15);
     

@@ -55,16 +55,16 @@ void keyboard_post_init_kb(void) {
 
     // Turn on the RGB
     setPinOutput(RGB_POWER_ENABLE_PIN);
-    writePinHigh(RGB_POWER_ENABLE_PIN);
+    gpio_write_pin_high(RGB_POWER_ENABLE_PIN);
 
 #ifdef EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN
     setPinOutput(EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN);
-    writePinHigh(EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN);
+    gpio_write_pin_high(EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN);
 #endif // EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN
 
     // Turn on the LCD
     setPinOutput(LCD_POWER_ENABLE_PIN);
-    writePinHigh(LCD_POWER_ENABLE_PIN);
+    gpio_write_pin_high(LCD_POWER_ENABLE_PIN);
 
     // Let the LCD get some power...
     wait_ms(150);
@@ -154,12 +154,12 @@ void housekeeping_task_kb(void) {
                 writePinLow(RGB_CURR_3000mA_OK_PIN);
                 break;
             case USBPD_1500MA:
-                writePinHigh(RGB_CURR_1500mA_OK_PIN);
+                gpio_write_pin_high(RGB_CURR_1500mA_OK_PIN);
                 writePinLow(RGB_CURR_3000mA_OK_PIN);
                 break;
             case USBPD_3000MA:
-                writePinHigh(RGB_CURR_1500mA_OK_PIN);
-                writePinHigh(RGB_CURR_3000mA_OK_PIN);
+                gpio_write_pin_high(RGB_CURR_1500mA_OK_PIN);
+                gpio_write_pin_high(RGB_CURR_3000mA_OK_PIN);
                 break;
         }
 #else
@@ -172,7 +172,7 @@ void housekeeping_task_kb(void) {
                 writePinLow(RGB_CURR_3000mA_OK_PIN);
                 break;
             case USBPD_3000MA:
-                writePinHigh(RGB_CURR_1500mA_OK_PIN);
+                gpio_write_pin_high(RGB_CURR_1500mA_OK_PIN);
                 writePinLow(RGB_CURR_3000mA_OK_PIN);
                 break;
         }
@@ -191,7 +191,7 @@ void housekeeping_task_kb(void) {
     // Enable/disable RGB
     if (peripherals_on) {
         // Turn on RGB
-        writePinHigh(RGB_POWER_ENABLE_PIN);
+        gpio_write_pin_high(RGB_POWER_ENABLE_PIN);
         // Modify the RGB state if different to the LCD state
         if (rgb_matrix_is_enabled() != peripherals_on) {
             // Wait for a small amount of time to allow the RGB capacitors to charge, before enabling RGB output

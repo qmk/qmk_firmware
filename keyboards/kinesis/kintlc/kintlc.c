@@ -23,5 +23,5 @@ void matrix_init_kb(void) {
 
     // Turn on the Teensy LC Power LED:
     setPinOutput(LED_POWER);
-    writePinHigh(LED_POWER);
+    gpio_write_pin_high(LED_POWER);
 }

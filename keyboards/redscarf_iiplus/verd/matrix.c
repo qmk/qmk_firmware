@@ -182,27 +182,27 @@ static void unselect_row(uint8_t col)
 {
     switch (col) {
         case 0:
-            writePinHigh(B0);
-            writePinHigh(B1);
-            writePinHigh(B2);
+            gpio_write_pin_high(B0);
+            gpio_write_pin_high(B1);
+            gpio_write_pin_high(B2);
             break;
         case 1:
-            writePinHigh(B0);
-            writePinHigh(B1);
+            gpio_write_pin_high(B0);
+            gpio_write_pin_high(B1);
             break;
         case 2:
-            writePinHigh(B0);
-            writePinHigh(B2);
+            gpio_write_pin_high(B0);
+            gpio_write_pin_high(B2);
             break;
         case 3:
-            writePinHigh(B0);
+            gpio_write_pin_high(B0);
             break;
         case 4:
-            writePinHigh(B1);
-            writePinHigh(B2);
+            gpio_write_pin_high(B1);
+            gpio_write_pin_high(B2);
             break;
         case 5:
-            writePinHigh(B1);
+            gpio_write_pin_high(B1);
             break;
     }
 }
@@ -213,9 +213,9 @@ static void unselect_rows(void)
     setPinOutput(B1);
     setPinOutput(B2);
 	// make all pins high to select Y7, nothing is connected to that (otherwise the first row will act weird)
-    writePinHigh(B0);
-    writePinHigh(B1);
-    writePinHigh(B2);
+    gpio_write_pin_high(B0);
+    gpio_write_pin_high(B1);
+    gpio_write_pin_high(B2);
 }
 
 static void init_pins(void) {

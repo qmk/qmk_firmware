@@ -22,12 +22,12 @@
 /* Private Functions */
 void off_all_leds(void) {
 #ifdef LED_NUM_LOCK_PIN
-    writePinHigh(LED_NUM_LOCK_PIN);
+    gpio_write_pin_high(LED_NUM_LOCK_PIN);
 #endif
-    writePinHigh(LED_CAPS_LOCK_PIN);
-    writePinHigh(LED_SCROLL_LOCK_PIN);
-    writePinHigh(LED_WIN_LOCK_PIN);
-    writePinHigh(LED_MR_LOCK_PIN);
+    gpio_write_pin_high(LED_CAPS_LOCK_PIN);
+    gpio_write_pin_high(LED_SCROLL_LOCK_PIN);
+    gpio_write_pin_high(LED_WIN_LOCK_PIN);
+    gpio_write_pin_high(LED_MR_LOCK_PIN);
 }
 
 void on_all_leds(void) {

@@ -74,7 +74,7 @@ void sleep_led_toggle(void) {}
 
 void sleep_led_disable(void) {
     suspend_active = false;
-    writePinHigh(MODELM_STATUS_LED);
+    gpio_write_pin_high(MODELM_STATUS_LED);
 }
 
 void sleep_led_enable(void) {
@@ -102,7 +102,7 @@ void keyboard_pre_init_kb(void) {
     writePinLow(MODELM_LED_NUMLOCK);
 #endif
     setPinOutput(MODELM_STATUS_LED);
-    writePinHigh(MODELM_STATUS_LED);
+    gpio_write_pin_high(MODELM_STATUS_LED);
     _delay_ms(50);
 #ifdef UART_DEBUG
     uart_init(115200);

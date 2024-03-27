@@ -61,7 +61,7 @@ static void select_col(uint8_t col) {
 static void unselect_col(uint8_t col) {
     if (col_pins[col] != NO_PIN) {
         setPinOutput(col_pins[col]);
-        writePinHigh(col_pins[col]);
+        gpio_write_pin_high(col_pins[col]);
     } else {
         sn74x138_set_enabled(false);
     }
@@ -72,7 +72,7 @@ static void unselect_cols(void) {
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
         if (col_pins[x] != NO_PIN) {
             setPinOutput(col_pins[x]);
-            writePinHigh(col_pins[x]);
+            gpio_write_pin_high(col_pins[x]);
         }
     }
 

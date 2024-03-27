@@ -21,13 +21,13 @@ extern uint8_t power_save_level;
 void hhkb_led_on(uint8_t led) {
     switch (led) {
         case 1:
-            writePinHigh(F4);
+            gpio_write_pin_high(F4);
             break;
         case 2:
-            writePinHigh(F2);
+            gpio_write_pin_high(F2);
             break;
         case 3:
-            writePinHigh(F0);
+            gpio_write_pin_high(F0);
             break;
     }
 }
@@ -63,7 +63,7 @@ void keyboard_pre_init_kb(void) {
 
     // Key strobe
     setPinOutput(B6);
-    writePinHigh(B6);
+    gpio_write_pin_high(B6);
 
     // Key: input with pull-up
     setPinInputHigh(D7);
@@ -93,7 +93,7 @@ void suspend_power_down_kb(void) {
         // Disable UART TX to avoid current leakage
         UCSR1B &= ~_BV(TXEN1);
         // Power down BLE module
-        writePinHigh(D5);
+        gpio_write_pin_high(D5);
     }
 
     suspend_power_down_user();

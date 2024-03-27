@@ -66,7 +66,7 @@ bool shake_hands(bool master) {
         }
 
         if (master) {
-            writePinHigh(SPI_SS_PIN);
+            gpio_write_pin_high(SPI_SS_PIN);
         }
     } while (i < 8);
 
@@ -178,7 +178,7 @@ void transport_master_init(void) {
      * above depends on it and the SPI master driver won't do it
      * before we call spi_start(). */
 
-    writePinHigh(SPI_SS_PIN);
+    gpio_write_pin_high(SPI_SS_PIN);
     setPinOutput(SPI_SS_PIN);
 
     spi_init();

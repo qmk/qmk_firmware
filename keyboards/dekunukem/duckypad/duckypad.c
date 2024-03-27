@@ -22,10 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 void keyboard_pre_init_kb(void) {
     setPinOutput(A0);
-    writePinHigh(A0);
+    gpio_write_pin_high(A0);
     writePinLow(A0);
     wait_ms(10);
-    writePinHigh(A0);
+    gpio_write_pin_high(A0);
 
     keyboard_pre_init_user();
 }

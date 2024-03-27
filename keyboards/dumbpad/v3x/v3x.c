@@ -83,9 +83,9 @@ void matrix_init_kb(void) {
     // runs once when the firmware starts up
     uint8_t led_delay_ms = 80;
     for (int i = 0; i < 2; i++) {
-        writePinHigh(LED_00);
-        writePinHigh(LED_01);
-        writePinHigh(LED_02);
+        gpio_write_pin_high(LED_00);
+        gpio_write_pin_high(LED_01);
+        gpio_write_pin_high(LED_02);
         wait_ms(led_delay_ms);
         writePinLow(LED_00);
         writePinLow(LED_01);

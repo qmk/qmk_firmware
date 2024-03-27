@@ -4,11 +4,11 @@
 #include "pointing_device.h"
 #include "quantum.h"
 
-#define red_led_off()   writePinHigh(F6)
+#define red_led_off()   gpio_write_pin_high(F6)
 #define red_led_on()    writePinLow(F6)
-#define blu_led_off()   writePinHigh(F5)
+#define blu_led_off()   gpio_write_pin_high(F5)
 #define blu_led_on()    writePinLow(F5)
-#define grn_led_off()   writePinHigh(D1)
+#define grn_led_off()   gpio_write_pin_high(D1)
 #define grn_led_on()    writePinLow(D1)
 
 #define red_led(flag)   if (flag) red_led_on(); else red_led_off()

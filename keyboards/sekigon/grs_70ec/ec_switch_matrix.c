@@ -33,7 +33,7 @@ static uint16_t      ecsm_sw_value[MATRIX_ROWS][MATRIX_COLS];
 static inline void discharge_capacitor(void) { setPinOutput(DISCHARGE_PIN); }
 static inline void charge_capacitor(uint8_t row) {
     setPinInput(DISCHARGE_PIN);
-    writePinHigh(row_pins[row]);
+    gpio_write_pin_high(row_pins[row]);
 }
 
 static inline void clear_all_row_pins(void) {

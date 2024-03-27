@@ -20,11 +20,11 @@
 void keyboard_pre_init_kb(void)
 {
     setPinOutput(D7);
-    writePinHigh(D7);
+    gpio_write_pin_high(D7);
     setPinOutput(D6);
-    writePinHigh(D6);
+    gpio_write_pin_high(D6);
     setPinOutput(D4);
-    writePinHigh(D4);
+    gpio_write_pin_high(D4);
 }
 
 bool led_update_kb(led_t led_state) {

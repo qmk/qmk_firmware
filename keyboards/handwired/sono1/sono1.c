@@ -24,11 +24,11 @@ void matrix_init_kb(void) {
   setPinOutput(LED_NUM_LOCK_PIN);
   setPinOutput(LED_KB_LOCK_PIN);
   
-  writePinHigh(LED_KANA_PIN);
-  writePinHigh(LED_CAPS_LOCK_PIN);
-  writePinHigh(LED_CTRL_XFER_PIN);
-  writePinHigh(LED_NUM_LOCK_PIN);
-  writePinHigh(LED_KB_LOCK_PIN);
+  gpio_write_pin_high(LED_KANA_PIN);
+  gpio_write_pin_high(LED_CAPS_LOCK_PIN);
+  gpio_write_pin_high(LED_CTRL_XFER_PIN);
+  gpio_write_pin_high(LED_NUM_LOCK_PIN);
+  gpio_write_pin_high(LED_KB_LOCK_PIN);
 
     matrix_init_user();
 }

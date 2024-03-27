@@ -36,7 +36,7 @@ void backlight_init_ports(void) {
 void backlight_set(uint8_t level) {
     // F-row
     if (level & F_ROW_MASK) {
-        writePinHigh(B1);
+        gpio_write_pin_high(B1);
     } else {
         writePinLow(B1);
     }
@@ -48,9 +48,9 @@ void backlight_set(uint8_t level) {
         writePinLow(B4);
         writePinLow(D7);
     } else {
-        writePinHigh(B2);
-        writePinHigh(B3);
-        writePinHigh(B4);
-        writePinHigh(D7);
+        gpio_write_pin_high(B2);
+        gpio_write_pin_high(B3);
+        gpio_write_pin_high(B4);
+        gpio_write_pin_high(D7);
     }
 }

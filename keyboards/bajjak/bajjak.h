@@ -53,11 +53,11 @@ uint8_t bajjak_left_leds_update(void);
 #endif
 
 
-inline void bajjak_board_led_on(void)      { setPinOutput(D6); writePinHigh(D6); }
-inline void bajjak_right_led_1_on(void)    { setPinOutput(B5); writePinHigh(B5); }
-inline void bajjak_right_led_2_on(void)    { setPinOutput(B6); writePinHigh(B6); }
-inline void bajjak_right_led_3_on(void)    { setPinOutput(B7); writePinHigh(B7); }
-inline void bajjak_right_led_on(uint8_t led) { setPinOutput(led+4); writePinHigh(led+4); }
+inline void bajjak_board_led_on(void)      { setPinOutput(D6); gpio_write_pin_high(D6); }
+inline void bajjak_right_led_1_on(void)    { setPinOutput(B5); gpio_write_pin_high(B5); }
+inline void bajjak_right_led_2_on(void)    { setPinOutput(B6); gpio_write_pin_high(B6); }
+inline void bajjak_right_led_3_on(void)    { setPinOutput(B7); gpio_write_pin_high(B7); }
+inline void bajjak_right_led_on(uint8_t led) { setPinOutput(led+4); gpio_write_pin_high(led+4); }
 
 inline void bajjak_board_led_off(void)     { setPinInput(D6); writePinLow(D6); }
 inline void bajjak_right_led_1_off(void)   { setPinInput(B5); writePinLow(B5); }

@@ -86,7 +86,7 @@ static void shift_out(uint32_t value) {
   shift_out_single(first_byte);
   shift_out_single(second_byte);
   shift_out_single(third_byte);
-  writePinHigh(SHR_LATCH);
+  gpio_write_pin_high(SHR_LATCH);
   /* We delay here to prevent multiple consecutive keys being triggered with a single switch press */
   _delay_us(10);
 }
@@ -94,7 +94,7 @@ static void shift_out(uint32_t value) {
 static void shift_out_single(uint8_t value) {
     for (uint8_t i = 0; i < 8; i++) {
         if (value & 0b10000000) {
-            writePinHigh(SHR_DATA);
+            gpio_write_pin_high(SHR_DATA);
         } else {
             writePinLow(SHR_DATA);
         }
@@ -105,6 +105,6 @@ static void shift_out_single(uint8_t value) {
 }
 
 static inline void shift_pulse(void) {
-    writePinHigh(SHR_CLOCK);
+    gpio_write_pin_high(SHR_CLOCK);
     writePinLow(SHR_CLOCK);
 }

@@ -22,11 +22,11 @@ void led_init_ports(void) {
   setPinOutput(D1);
   setPinOutput(F0);
   
-  writePinHigh(E6);
-  writePinHigh(B1);
-  writePinHigh(D0);
-  writePinHigh(D1);
-  writePinHigh(F0);
+  gpio_write_pin_high(E6);
+  gpio_write_pin_high(B1);
+  gpio_write_pin_high(D0);
+  gpio_write_pin_high(D1);
+  gpio_write_pin_high(F0);
 }
 
 bool led_update_kb(led_t led_state) {

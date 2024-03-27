@@ -7,7 +7,7 @@
 void keyboard_post_init_kb(void) {
     // Enable RGB current limiter and wait for a bit before allowing RGB to continue
     setPinOutput(RGB_ENABLE_PIN);
-    writePinHigh(RGB_ENABLE_PIN);
+    gpio_write_pin_high(RGB_ENABLE_PIN);
     wait_ms(20);
 
     // Offload to the user func
@@ -17,7 +17,7 @@ void keyboard_post_init_kb(void) {
 void matrix_init_custom(void) {
     // SPI Matrix
     setPinOutput(SPI_MATRIX_CHIP_SELECT_PIN);
-    writePinHigh(SPI_MATRIX_CHIP_SELECT_PIN);
+    gpio_write_pin_high(SPI_MATRIX_CHIP_SELECT_PIN);
     spi_init();
 
     // Encoder pushbutton

@@ -220,7 +220,7 @@ void suspend_power_down_kb() {
 
 void suspend_wakeup_init_kb() {
 #    ifdef RGB_MATRIX_ENABLE
-    writePinHigh(IS31FL3743A_SDB_PIN);
+    gpio_write_pin_high(IS31FL3743A_SDB_PIN);
 #    endif
      suspend_wakeup_init_user();
 }

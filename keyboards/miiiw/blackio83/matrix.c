@@ -108,7 +108,7 @@ static void init_cols(void) {
 
 static void select_col(uint8_t col) {
     if(col_pins[col] < H0){
-        writePinHigh(col_pins[col]);
+        gpio_write_pin_high(col_pins[col]);
         waitInputPinDelay();
         waitInputPinDelay();
         waitInputPinDelay();
@@ -133,7 +133,7 @@ static void unselect_cols(void) {
     for(uint8_t col = 0; col < MATRIX_COLS; col++) {
         if(col_pins[col] < H0) {
             setPinOutput(col_pins[col]);
-            writePinHigh(col_pins[col]);
+            gpio_write_pin_high(col_pins[col]);
         }
     }
 }

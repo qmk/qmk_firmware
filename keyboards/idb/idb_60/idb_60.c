@@ -14,11 +14,11 @@ inline void _idb_60_fn_led_on(void) {
 }
 
 inline void _idb_60_caps_led_off(void) {
-    writePinHigh(C5);
+    gpio_write_pin_high(C5);
 }
 
 inline void _idb_60_fn_led_off(void) {
-    writePinHigh(C4);
+    gpio_write_pin_high(C4);
 }
 
 // Capslock LED indicator

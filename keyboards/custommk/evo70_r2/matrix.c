@@ -26,7 +26,7 @@ void matrix_wait_for_port(stm32_gpio_t *port, uint32_t target_bitmask) {
 }
 
 void shift_pulse_clock(void) {
-        writePinHigh(COL_SHIFT_CLK_PIN);
+        gpio_write_pin_high(COL_SHIFT_CLK_PIN);
         matrix_wait_for_pin(COL_SHIFT_CLK_PIN, 1);
         writePinLow(COL_SHIFT_CLK_PIN);
 }
@@ -34,14 +34,14 @@ void shift_pulse_clock(void) {
 void matrix_init_custom(void) {
     //set all row pins as input with pullups
     for (int i = 0; i < MATRIX_ROWS; ++i) {
-        writePinHigh(row_pins[i]);
+        gpio_write_pin_high(row_pins[i]);
         setPinInputHigh(row_pins[i]);
     }
 
     //set all column pins high in ROW2COL matrix
     setPinOutput(COL_SHIFT_IN_PIN);
     setPinOutput(COL_SHIFT_CLK_PIN);
-    writePinHigh(COL_SHIFT_IN_PIN);
+    gpio_write_pin_high(COL_SHIFT_IN_PIN);
     matrix_wait_for_pin(COL_SHIFT_IN_PIN, 1);
 
     for (int i = 0; i < MATRIX_COLS; ++i) {
@@ -59,7 +59,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     // Setup the output column pin
     shift_pulse_clock();
 
-    writePinHigh(COL_SHIFT_IN_PIN);
+    gpio_write_pin_high(COL_SHIFT_IN_PIN);
     for (int current_col = 0; current_col < MATRIX_COLS; ++current_col) {
 
         // Read the column ports

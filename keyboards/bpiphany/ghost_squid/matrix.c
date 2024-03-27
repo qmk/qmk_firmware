@@ -64,14 +64,14 @@ void matrix_init_custom(void) {
     setPinOutput(D6);
 
     /* Row input pins */
-    writePinHigh(B0);
-    writePinHigh(B1);
-    writePinHigh(B2);
-    writePinHigh(B3);
-    writePinHigh(B4);
-    writePinHigh(B5);
-    writePinHigh(B6);
-    writePinHigh(C2);
+    gpio_write_pin_high(B0);
+    gpio_write_pin_high(B1);
+    gpio_write_pin_high(B2);
+    gpio_write_pin_high(B3);
+    gpio_write_pin_high(B4);
+    gpio_write_pin_high(B5);
+    gpio_write_pin_high(B6);
+    gpio_write_pin_high(C2);
 }
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {

@@ -183,7 +183,7 @@ static void init_cols(void) {
     for (int pin_index = 0; pin_index < MATRIX_COLS_PER_SIDE; pin_index++) {
         pin_t pin = matrix_col_pins_mcu[pin_index];
         setPinInput(pin);
-        writePinHigh(pin);
+        gpio_write_pin_high(pin);
     }
 }
 

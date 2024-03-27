@@ -43,7 +43,7 @@ static inline void setPinOutput_writeLow(pin_t pin) {
 static inline void setPinOutput_writeHigh(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
         setPinOutput(pin);
-        writePinHigh(pin);
+        gpio_write_pin_high(pin);
     }
 }
 
@@ -70,18 +70,18 @@ static void shiftOut(uint8_t dataOut) {
         for (uint8_t i = 0; i < 8; i++) {
             compiler_barrier();
             if (dataOut & 0x1) {
-                writePinHigh(DATA_PIN);
+                gpio_write_pin_high(DATA_PIN);
             } else {
                 writePinLow(DATA_PIN);
             }
             dataOut = dataOut >> 1;
             compiler_barrier();
-            writePinHigh(CLOCK_PIN);
+            gpio_write_pin_high(CLOCK_PIN);
             small_delay();
             writePinLow(CLOCK_PIN);
         }
         compiler_barrier();
-        writePinHigh(LATCH_PIN);
+        gpio_write_pin_high(LATCH_PIN);
         small_delay();
         writePinLow(LATCH_PIN);
         compiler_barrier();
@@ -92,16 +92,16 @@ static void shiftOut_single(uint8_t data) {
     ATOMIC_BLOCK_FORCEON {
         compiler_barrier();
         if (data & 0x1) {
-            writePinHigh(DATA_PIN);
+            gpio_write_pin_high(DATA_PIN);
         } else {
             writePinLow(DATA_PIN);
         }
         compiler_barrier();
-        writePinHigh(CLOCK_PIN);
+        gpio_write_pin_high(CLOCK_PIN);
         small_delay();
         writePinLow(CLOCK_PIN);
         compiler_barrier();
-        writePinHigh(LATCH_PIN);
+        gpio_write_pin_high(LATCH_PIN);
         small_delay();
         writePinLow(LATCH_PIN);
         compiler_barrier();

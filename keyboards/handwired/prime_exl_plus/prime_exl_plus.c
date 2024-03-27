@@ -41,7 +41,7 @@ bool led_update_kb(led_t led_state) {
 layer_state_t layer_state_set_kb(layer_state_t state)
 {
     if (get_highest_layer(state) == 1) {
-    writePinHigh(B2);
+    gpio_write_pin_high(B2);
 	} else {
 		writePinLow(B2);
     }

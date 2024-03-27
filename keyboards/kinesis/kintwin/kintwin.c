@@ -23,7 +23,7 @@ void matrix_init_kb(void) {
   setPinOutput(LED_COMPOSE_PIN);   
   writePinLow(LED_COMPOSE_PIN);
   wait_ms(led_delay_ms);
-  writePinHigh(LED_COMPOSE_PIN);
+  gpio_write_pin_high(LED_COMPOSE_PIN);
 
 	matrix_init_user();
 }

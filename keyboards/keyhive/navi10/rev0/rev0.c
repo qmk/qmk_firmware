@@ -22,7 +22,7 @@ void matrix_init_kb(void) {
   //set the indicator LED pin to Output
   setPinOutput(B5);
   //set HIGH for off.
-  writePinHigh(B5);
+  gpio_write_pin_high(B5);
 
   //call any user functions
   matrix_init_user();

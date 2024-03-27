@@ -3,7 +3,7 @@
 __attribute__((weak))
 void matrix_init_kb(void){
     setPinOutput(F4);
-    writePinHigh(F4);
+    gpio_write_pin_high(F4);
 }
 
 __attribute__((weak))

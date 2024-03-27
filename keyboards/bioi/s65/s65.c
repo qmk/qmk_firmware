@@ -15,7 +15,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 void keyboard_pre_init_kb(void) {
     setPinOutput(F0);
-    writePinHigh(F0);
+    gpio_write_pin_high(F0);
     keyboard_pre_init_user();
 }
 

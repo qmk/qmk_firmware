@@ -2,11 +2,11 @@
 
 #include "quantum.h"
 
-#define RED_LED_OFF() writePinHigh(F6)
+#define RED_LED_OFF() gpio_write_pin_high(F6)
 #define RED_LED_ON()  writePinLow(F6)
-#define BLU_LED_OFF() writePinHigh(F5)
+#define BLU_LED_OFF() gpio_write_pin_high(F5)
 #define BLU_LED_ON()  writePinLow(F5)
-#define GRN_LED_OFF() writePinHigh(D1)
+#define GRN_LED_OFF() gpio_write_pin_high(D1)
 #define GRN_LED_ON()  writePinLow(D1)
 
 #define SET_LED_OFF     (RED_LED_OFF(); GRN_LED_OFF(); BLU_LED_OFF(); )

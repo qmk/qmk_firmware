@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 void keyboard_pre_init_kb(void) {
   setPinOutput(E6);
-  writePinHigh(E6);
+  gpio_write_pin_high(E6);
 }
 
 bool led_update_kb(led_t led_state) {

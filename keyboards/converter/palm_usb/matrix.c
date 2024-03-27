@@ -137,7 +137,7 @@ uint8_t rts_reset(void) {
         writePinLow(RTS_PIN);
     } 
      wait_ms(10);
-    writePinHigh(RTS_PIN);
+    gpio_write_pin_high(RTS_PIN);
     
 
 /* the future is Arm 
@@ -225,7 +225,7 @@ uint8_t handspring_handshake(void) {
 uint8_t handspring_reset(void) {
     writePinLow(VCC_PIN);
     wait_ms(5);
-    writePinHigh(VCC_PIN);
+    gpio_write_pin_high(VCC_PIN);
 
     if ( handspring_handshake() ) {
         last_activity = timer_read();
@@ -249,7 +249,7 @@ void matrix_init(void)
 #endif
 
     print("power up\n");
-    writePinHigh(VCC_PIN);
+    gpio_write_pin_high(VCC_PIN);
 
     // wait for DCD strobe from keyboard - it will do this 
     // up to 3 times, then the board needs the RTS toggled to try again

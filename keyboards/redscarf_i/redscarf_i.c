@@ -22,9 +22,9 @@ void keyboard_pre_init_kb(void) {
   setPinOutput(F6);
   setPinOutput(F5);
   // and then turn them off
-  writePinHigh(F7);
-  writePinHigh(F6);
-  writePinHigh(F5);
+  gpio_write_pin_high(F7);
+  gpio_write_pin_high(F6);
+  gpio_write_pin_high(F5);
 }
 
 bool led_update_kb(led_t led_state) {
@@ -38,16 +38,16 @@ bool led_update_kb(led_t led_state) {
 layer_state_t layer_state_set_kb(layer_state_t state) {
   switch (get_highest_layer(state)) {
     case 1:
-      writePinHigh(F6);
+      gpio_write_pin_high(F6);
       writePinLow(F5);
       break;
     case 2:
       writePinLow(F6);
-      writePinHigh(F5);
+      gpio_write_pin_high(F5);
       break;
     default:
-      writePinHigh(F6);
-      writePinHigh(F5);
+      gpio_write_pin_high(F6);
+      gpio_write_pin_high(F5);
       break;
   }
   return state;

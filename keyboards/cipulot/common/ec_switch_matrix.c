@@ -75,7 +75,7 @@ void select_amux_channel(uint8_t channel, uint8_t col) {
     // Get the channel for the specified multiplexer
     uint8_t ch = amux_n_col_channels[channel][col];
     // momentarily disable specified multiplexer
-    writePinHigh(amux_en_pins[channel]);
+    gpio_write_pin_high(amux_en_pins[channel]);
     // Select the multiplexer channel
     for (uint8_t i = 0; i < AMUX_SEL_PINS_COUNT; i++) {
         writePin(amux_sel_pins[i], ch & (1 << i));
@@ -89,7 +89,7 @@ void disable_unused_amux(uint8_t channel) {
     // disable all the other multiplexers apart from the current selected one
     for (uint8_t idx = 0; idx < AMUX_COUNT; idx++) {
         if (idx != channel) {
-            writePinHigh(amux_en_pins[idx]);
+            gpio_write_pin_high(amux_en_pins[idx]);
         }
     }
 }
@@ -106,11 +106,11 @@ void discharge_capacitor(void) {
 // Charge the peak hold capacitor
 void charge_capacitor(uint8_t row) {
 #ifdef OPEN_DRAIN_SUPPORT
-    writePinHigh(DISCHARGE_PIN);
+    gpio_write_pin_high(DISCHARGE_PIN);
 #else
     setPinInput(DISCHARGE_PIN);
 #endif
-    writePinHigh(row_pins[row]);
+    gpio_write_pin_high(row_pins[row]);
 }
 
 // Initialize the peripherals pins

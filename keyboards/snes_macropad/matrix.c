@@ -49,9 +49,9 @@ void matrix_init_custom(void) {
     setPinOutput(KBD_ROW0);
     setPinOutput(KBD_ROW1);
     setPinOutput(KBD_ROW2);
-    writePinHigh(KBD_ROW0);
-    writePinHigh(KBD_ROW1);
-    writePinHigh(KBD_ROW2);
+    gpio_write_pin_high(KBD_ROW0);
+    gpio_write_pin_high(KBD_ROW1);
+    gpio_write_pin_high(KBD_ROW2);
 
     // init columns
     setPinInputHigh(KBD_COL0);
@@ -77,7 +77,7 @@ static matrix_row_t readRow(size_t row, int setupDelay) {
 
     // deselect the row
     setPinOutput(pin);
-    writePinHigh(pin);
+    gpio_write_pin_high(pin);
 
     return ret;
 }
@@ -103,7 +103,7 @@ static matrix_row_t getBits(uint16_t value, size_t bit0, size_t bit1, size_t bit
 static void readSnesController(matrix_row_t current_matrix[]) {
     uint16_t controller = 0;
 
-    writePinHigh(SNES_LATCH);
+    gpio_write_pin_high(SNES_LATCH);
 
     for (size_t bit = 0; bit < SNES_DATA_BITS; ++bit) {
         // Wait for shift register to setup the data line
@@ -115,7 +115,7 @@ static void readSnesController(matrix_row_t current_matrix[]) {
         // todo: maybe read D1 and IO here too
 
         // Shift next bit in
-        writePinHigh(SNES_CLOCK);
+        gpio_write_pin_high(SNES_CLOCK);
         wait_us(SNES_CLOCK_PULSE_DURATION);
         writePinLow(SNES_CLOCK);
     }

@@ -19,8 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
-inline void dk60_caps_led_on(void) { writePinHigh(E6); }
-inline void dk60_esc_led_on(void) { writePinHigh(F0); }
+inline void dk60_caps_led_on(void) { gpio_write_pin_high(E6); }
+inline void dk60_esc_led_on(void) { gpio_write_pin_high(F0); }
 
 inline void dk60_caps_led_off(void) { writePinLow(E6); }
 inline void dk60_esc_led_off(void) { writePinLow(F0); }

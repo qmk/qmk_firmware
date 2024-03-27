@@ -32,24 +32,24 @@ void matrix_init_kb(void) {
 layer_state_t layer_state_set_kb(layer_state_t state) {
 	switch (get_highest_layer(state)) {
 		case 1:
-			writePinHigh(INDICATOR_0);
+			gpio_write_pin_high(INDICATOR_0);
 			writePinLow(INDICATOR_1);
 			writePinLow(INDICATOR_2);
 			break;
 		case 2:
 			writePinLow(INDICATOR_0);
-			writePinHigh(INDICATOR_1);
+			gpio_write_pin_high(INDICATOR_1);
 			writePinLow(INDICATOR_2);
 			break;
 		case 3:
 			writePinLow(INDICATOR_0);
 			writePinLow(INDICATOR_1);
-			writePinHigh(INDICATOR_2);
+			gpio_write_pin_high(INDICATOR_2);
 			break;
 		default:
-			writePinHigh(INDICATOR_0);
-			writePinHigh(INDICATOR_1);
-			writePinHigh(INDICATOR_2);
+			gpio_write_pin_high(INDICATOR_0);
+			gpio_write_pin_high(INDICATOR_1);
+			gpio_write_pin_high(INDICATOR_2);
 			break;
 	}
 	return layer_state_set_user(state);
@@ -64,9 +64,9 @@ void suspend_power_down_kb(void) {
 }
 
 void suspend_wakeup_init_kb(void) {
-	writePinHigh(INDICATOR_0);
-	writePinHigh(INDICATOR_1);
-	writePinHigh(INDICATOR_2);
+	gpio_write_pin_high(INDICATOR_0);
+	gpio_write_pin_high(INDICATOR_1);
+	gpio_write_pin_high(INDICATOR_2);
 
 	suspend_wakeup_init_user();
 }

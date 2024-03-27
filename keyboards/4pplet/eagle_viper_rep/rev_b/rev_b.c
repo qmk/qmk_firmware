@@ -39,19 +39,19 @@ void setLayerLed(layer_state_t state){
     writePinLow(LAYER_5);
     switch (get_highest_layer(state)) {
         case 0:
-            writePinHigh(LAYER_1);
+            gpio_write_pin_high(LAYER_1);
             break;
         case 1:
-            writePinHigh(LAYER_2);
+            gpio_write_pin_high(LAYER_2);
             break;
         case 2:
-            writePinHigh(LAYER_3);
+            gpio_write_pin_high(LAYER_3);
             break;
         case 3:
-            writePinHigh(LAYER_4);
+            gpio_write_pin_high(LAYER_4);
             break;
         case 4:
-            writePinHigh(LAYER_5);
+            gpio_write_pin_high(LAYER_5);
             break;
     }
 }

@@ -37,7 +37,7 @@ static void unselect_cols(void) {
 }
 
 static void select_col(uint8_t col) {
-    writePinHigh(col_pins[col]);
+    gpio_write_pin_high(col_pins[col]);
 }
 
 static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {

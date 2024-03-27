@@ -48,7 +48,7 @@ void check_encoder_buttons(void) {
 	} else {
             dprintf("Turning drawing mode on.\n");
             drawing_mode = true;
-            writePinHigh(D6);
+            gpio_write_pin_high(D6);
 	    register_code(KC_BTN1);
 	}
     }

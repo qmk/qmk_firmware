@@ -50,7 +50,7 @@ void ws2812_poweron(void) {
     p_setup = true;
     s_init = false;
     setPinOutput(RGB_EN_PIN);
-    writePinHigh(RGB_EN_PIN);
+    gpio_write_pin_high(RGB_EN_PIN);
 }
 
 void ws2812_poweroff(void) {
@@ -67,7 +67,7 @@ void keyboard_pre_init_kb() {
     setPinOutput(MWPROTO_WAKEUP_PIN);
     writePinLow(MWPROTO_WAKEUP_PIN);
     wait_ms(2);
-    writePinHigh(MWPROTO_WAKEUP_PIN);
+    gpio_write_pin_high(MWPROTO_WAKEUP_PIN);
 
 	palSetLineMode(MWPROTO_TX_PIN, PAL_MODE_ALTERNATE(MWPROTO_TX_PAL_MODE) | PAL_OUTPUT_TYPE_OPENDRAIN);
 	sdStart(&MWPROTO_DRIVER, &mwproto_uart_config);
@@ -91,7 +91,7 @@ void keyboard_post_init_kb(void) {
     sdPutI(&MWPROTO_DRIVER, 0x01);
     sdPutI(&MWPROTO_DRIVER, 0x02);
     sdPutI(&MWPROTO_DRIVER, 0xB4);
-    writePinHigh(MWPROTO_WAKEUP_PIN);
+    gpio_write_pin_high(MWPROTO_WAKEUP_PIN);
 
     ws2812_poweron();
     loop10hz_token = defer_exec(LOOP_10HZ_PERIOD, loop_10Hz, NULL);
@@ -141,7 +141,7 @@ uint32_t loop_10Hz(uint32_t trigger_time, void *cb_arg) {
             sdPutI(&MWPROTO_DRIVER, 0x28);
             sdPutI(&MWPROTO_DRIVER, 0x00);
             sdPutI(&MWPROTO_DRIVER, 0x8D);
-            writePinHigh(MWPROTO_WAKEUP_PIN);
+            gpio_write_pin_high(MWPROTO_WAKEUP_PIN);
         }
     }
 
@@ -161,7 +161,7 @@ uint32_t loop_10Hz(uint32_t trigger_time, void *cb_arg) {
             sdPutI(&MWPROTO_DRIVER, 0x01);
             sdPutI(&MWPROTO_DRIVER, 0x0F);
             sdPutI(&MWPROTO_DRIVER, 0xB4);
-            writePinHigh(MWPROTO_WAKEUP_PIN);
+            gpio_write_pin_high(MWPROTO_WAKEUP_PIN);
             wait_ms(50);
             eeconfig_init();
     #ifdef RGB_MATRIX_ENABLE

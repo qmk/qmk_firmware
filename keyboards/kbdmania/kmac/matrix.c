@@ -112,7 +112,7 @@ static void select_col(uint8_t col) {
         writePin(F1, c & 0b00010);
         writePin(F0, c & 0b00001);
     } else {
-        writePinHigh(B5);
+        gpio_write_pin_high(B5);
     }
 }
 

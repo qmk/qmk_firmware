@@ -92,7 +92,7 @@ bool led_update_kb(led_t led_state) {
 layer_state_t layer_state_set_kb(layer_state_t state) {
     switch (get_highest_layer(state)) {
         case 1:
-            writePinHigh(A14);
+            gpio_write_pin_high(A14);
             break;
         default: //  for any other layers, or the default layer
             writePinLow(A14);
