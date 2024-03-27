@@ -74,7 +74,7 @@ static void read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 
     // Read each row sequentially
     for (uint8_t row_index = 0; row_index < ROWS_PER_HAND; row_index++) {
-        if (readPin(row_pins[row_index]) == 0) {
+        if (gpio_read_pin(row_pins[row_index]) == 0) {
             current_matrix[row_index] |= (COL_SHIFTER << current_col);
         } else {
             current_matrix[row_index] &= ~(COL_SHIFTER << current_col);
@@ -85,7 +85,7 @@ static void read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 static void read_ext_pin(matrix_row_t current_matrix[]) {
     // Read the state of the extended matrix pin
     if (!isLeftHand) {
-        if (readPin(MATRIX_EXT_PIN_RIGHT) == 0) {
+        if (gpio_read_pin(MATRIX_EXT_PIN_RIGHT) == 0) {
             current_matrix[EXT_PIN_ROW] |= (COL_SHIFTER << EXT_PIN_COL);
         } else {
             current_matrix[EXT_PIN_ROW] &= ~(COL_SHIFTER << EXT_PIN_COL);

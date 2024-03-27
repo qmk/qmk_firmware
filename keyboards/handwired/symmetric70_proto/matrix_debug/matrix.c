@@ -94,7 +94,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
         pin_t pin = direct_pins[current_row][col_index];
         if (pin != NO_PIN) {
-            current_row_value |= readPin(pin) ? 0 : (MATRIX_ROW_SHIFTER << col_index);
+            current_row_value |= gpio_read_pin(pin) ? 0 : (MATRIX_ROW_SHIFTER << col_index);
         }
     }
 
@@ -145,7 +145,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
         writePin(MATRIX_MUL_SELECT, col_sel[col_index]);
         waitInputPinDelay();
 #        endif
-        uint8_t pin_state = readPin(col_pins[col_index]);
+        uint8_t pin_state = gpio_read_pin(col_pins[col_index]);
 
         // Populate the matrix row with the state of the col pin
         current_row_value |= pin_state ? 0 : (MATRIX_ROW_SHIFTER << col_index);
@@ -178,7 +178,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
             writePin(MATRIX_MUL_SELECT, col_sel[col_index]);
             waitInputPinDelay();
 #            endif
-            while (readPin(col_pins[col_index]) == 0) {
+            while (gpio_read_pin(col_pins[col_index]) == 0) {
             }
             MATRIX_DEBUG_DELAY_END();
         }
@@ -197,7 +197,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
                 writePin(MATRIX_MUL_SELECT, col_sel[col_index]);
                 waitInputPinDelay();
 #            endif
-                state |= (readPin(col_pins[col_index]) == 0);
+                state |= (gpio_read_pin(col_pins[col_index]) == 0);
             }
             MATRIX_DEBUG_DELAY_END();
         } while (state);
@@ -251,7 +251,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
         matrix_row_t current_row_value = last_row_value;
 
         // Check row pin state
-        if (readPin(row_pins[row_index]) == 0) {
+        if (gpio_read_pin(row_pins[row_index]) == 0) {
             // Pin LO, set col bit
             current_row_value |= (MATRIX_ROW_SHIFTER << current_col);
             key_pressed = true;

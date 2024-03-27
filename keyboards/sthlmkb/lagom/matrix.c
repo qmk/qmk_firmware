@@ -59,7 +59,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
     {
         matrix_row_t last_row_value = current_matrix[row_index];
 
-        if (!readPin(row_pins[row_index]))
+        if (!gpio_read_pin(row_pins[row_index]))
         {
             current_matrix[row_index] |= (COL_SHIFTER << current_col);
         }

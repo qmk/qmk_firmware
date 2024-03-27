@@ -63,7 +63,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
         // skip reading when index equals (= pin itself)
         if (col_index != current_row) {
             // Check col pin pin_state
-            if (readPin(col_pins[col_index]) == 0) {
+            if (gpio_read_pin(col_pins[col_index]) == 0) {
                 // Pin LO, set col bit
                 current_matrix[current_row] |= (ROW_SHIFTER << col_index);
             } else {

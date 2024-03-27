@@ -65,12 +65,12 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
 }
 
 static uint8_t read_rows(void) {
-  return (readPin(ROW_F) << 5)
-         | (readPin(ROW_E) << 4)
-         | (readPin(ROW_D) << 3)
-         | (readPin(ROW_C) << 2)
-         | (readPin(ROW_B) << 1)
-         | (readPin(ROW_A) );
+  return (gpio_read_pin(ROW_F) << 5)
+         | (gpio_read_pin(ROW_E) << 4)
+         | (gpio_read_pin(ROW_D) << 3)
+         | (gpio_read_pin(ROW_C) << 2)
+         | (gpio_read_pin(ROW_B) << 1)
+         | (gpio_read_pin(ROW_A) );
 }
 
 static void select_col(uint8_t col) {

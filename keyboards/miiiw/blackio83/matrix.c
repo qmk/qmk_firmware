@@ -91,7 +91,7 @@ void matrix_power_down(void) {
 static uint8_t read_rows(void) {
     uint8_t row_value = 0;
     for(uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        row_value |= (readPin(row_pins[row]) << row);
+        row_value |= (gpio_read_pin(row_pins[row]) << row);
     }
     return row_value;
 }

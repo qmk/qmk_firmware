@@ -146,7 +146,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
         // Check row pin state
         // Use the otherwise unused row: 3, col: 0 for caps lock
         if (row_index == 3 && current_col == 0) {
-            if (readPin(E2) == 0) {
+            if (gpio_read_pin(E2) == 0) {
                 // Pin LO, set col bit
                 current_matrix[row_index] |= (ROW_SHIFTER << current_col);
             } else {
@@ -154,7 +154,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
                 current_matrix[row_index] &= ~(ROW_SHIFTER << current_col);
             }
         } else {
-            if (readPin(row_pins[row_index]) == 0) {
+            if (gpio_read_pin(row_pins[row_index]) == 0) {
                 // Pin HI, clear col bit
                 current_matrix[row_index] &= ~(ROW_SHIFTER << current_col);
             } else {

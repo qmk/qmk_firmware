@@ -33,7 +33,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     spi_stop();
 
     // Read from the encoder pushbutton
-    temp_matrix[5] = readPin(ENCODER_PUSHBUTTON_PIN) ? 1 : 0;
+    temp_matrix[5] = gpio_read_pin(ENCODER_PUSHBUTTON_PIN) ? 1 : 0;
 
     // Check if we've changed, return the last-read data
     bool changed = memcmp(current_matrix, temp_matrix, sizeof(temp_matrix)) != 0;

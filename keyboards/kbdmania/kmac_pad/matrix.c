@@ -51,7 +51,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
     if (current_col == 0) {
 
         matrix_row_t last_row_value = current_matrix[0];
-        if (readPin(row_pins[0]) == 0) {
+        if (gpio_read_pin(row_pins[0]) == 0) {
             // Pin LO, set col bit
             current_matrix[0] |= (1 << current_col);
         } else {
@@ -69,7 +69,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
     for (uint8_t row_index = 1; row_index < MATRIX_ROWS; row_index++) {
 
         matrix_row_t last_row_value = current_matrix[row_index];
-        if (readPin(row_pins[row_index]) == 0) {
+        if (gpio_read_pin(row_pins[row_index]) == 0) {
             // Pin HI, clear col bit
             current_matrix[row_index] &= ~(1 << current_col);
         } else {

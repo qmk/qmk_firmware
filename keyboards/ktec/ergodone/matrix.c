@@ -97,13 +97,13 @@ static void init_cols(void) {
 static matrix_row_t read_cols(void) {
     // clang-format off
     return expander_read_row() |
-        (readPin(D3) ? 0 : (1<<6)) |
-        (readPin(D2) ? 0 : (1<<5)) |
-        (readPin(D4) ? 0 : (1<<4)) |
-        (readPin(C6) ? 0 : (1<<3)) |
-        (readPin(D7) ? 0 : (1<<2)) |
-        (readPin(E6) ? 0 : (1<<1)) |
-        (readPin(B4) ? 0 : (1<<0)) ;
+        (gpio_read_pin(D3) ? 0 : (1<<6)) |
+        (gpio_read_pin(D2) ? 0 : (1<<5)) |
+        (gpio_read_pin(D4) ? 0 : (1<<4)) |
+        (gpio_read_pin(C6) ? 0 : (1<<3)) |
+        (gpio_read_pin(D7) ? 0 : (1<<2)) |
+        (gpio_read_pin(E6) ? 0 : (1<<1)) |
+        (gpio_read_pin(B4) ? 0 : (1<<0)) ;
     // clang-format on
 }
 

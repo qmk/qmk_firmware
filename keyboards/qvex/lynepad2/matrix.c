@@ -67,7 +67,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     wait_us(30);
 
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
-        uint8_t pin_state = readPin(col_pins[col_index]);
+        uint8_t pin_state = gpio_read_pin(col_pins[col_index]);
         current_matrix[current_row] |= pin_state ? 0 : (MATRIX_ROW_SHIFTER << col_index);
     }
 
@@ -83,16 +83,16 @@ static bool read_encoder_switches(matrix_row_t current_matrix[]) {
     current_matrix[3] = 0;
     current_matrix[4] = 0;
 
-    current_matrix[4] |= !readPin(PIN_TC) ? (1 << 1) : 0;
+    current_matrix[4] |= !gpio_read_pin(PIN_TC) ? (1 << 1) : 0;
 
-    if (!readPin(PIN_JC)) {
-        if (!readPin(PIN_JU)) {
+    if (!gpio_read_pin(PIN_JC)) {
+        if (!gpio_read_pin(PIN_JU)) {
             current_matrix[3] |= (1 << 0);
-        } else if (!readPin(PIN_JD)) {
+        } else if (!gpio_read_pin(PIN_JD)) {
             current_matrix[3] |= (1 << 1);
-        } else if (!readPin(PIN_JL)) {
+        } else if (!gpio_read_pin(PIN_JL)) {
             current_matrix[3] |= (1 << 2);
-        } else if (!readPin(PIN_JR)) {
+        } else if (!gpio_read_pin(PIN_JR)) {
             current_matrix[3] |= (1 << 3);
         } else {
             current_matrix[4] |= (1 << 0);

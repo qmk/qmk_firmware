@@ -60,7 +60,7 @@ static matrix_row_t read_cols(void) {
     // For each col...
     for (uint8_t col_index = 0; col_index < SPLIT_MATRIX_COLS; col_index++) {
         // Select the col pin to read (active low)
-        uint8_t pin_state = readPin(col_pins[col_index]);
+        uint8_t pin_state = gpio_read_pin(col_pins[col_index]);
 
         // Populate the matrix row with the state of the col pin
         state |= pin_state ? 0 : (MATRIX_ROW_SHIFTER << col_index);

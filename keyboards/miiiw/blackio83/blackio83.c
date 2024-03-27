@@ -133,7 +133,7 @@ uint32_t loop_10Hz(uint32_t trigger_time, void *cb_arg) {
         if(timer_elapsed32(pmu_timer) > 3000) {
             pmu_timer = timer_read32();
             writePinLow(MWPROTO_WAKEUP_PIN);
-            if(readPin(MWPROTO_STATUS_PIN))
+            if(gpio_read_pin(MWPROTO_STATUS_PIN))
                 wait_us(500);
             else
                 wait_us(1500);
@@ -152,7 +152,7 @@ uint32_t loop_10Hz(uint32_t trigger_time, void *cb_arg) {
         if(restore_tick++ > 50) {
             restore_tick = 0;
             writePinLow(MWPROTO_WAKEUP_PIN);
-            if(readPin(MWPROTO_STATUS_PIN))
+            if(gpio_read_pin(MWPROTO_STATUS_PIN))
                 wait_us(500);
             else
                 wait_us(1500);

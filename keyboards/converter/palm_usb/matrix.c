@@ -113,9 +113,9 @@ void pins_init(void) {
 #endif
 
 /* check that the other side isn't powered up. 
-    test=readPin(DCD_PIN);
+    test=gpio_read_pin(DCD_PIN);
     xprintf("b%02X:", test);
-    test=readPin(RTS_PIN);
+    test=gpio_read_pin(RTS_PIN);
     xprintf("%02X\n", test);
 */
  
@@ -128,7 +128,7 @@ uint8_t rts_reset(void) {
 // On boot, we keep rts as input, then switch roles here
 // on leaving sleep, we toggle the same way
 
-    firstread=readPin(RTS_PIN);
+    firstread=gpio_read_pin(RTS_PIN);
    // printf("r%02X:", firstread);
 
     setPinOutput(RTS_PIN);
@@ -264,7 +264,7 @@ void matrix_init(void)
     }
 
 #else  /// Palm / HP  device with DCD
-    while( !readPin(DCD_PIN) ) {;} 
+    while( !gpio_read_pin(DCD_PIN) ) {;} 
     print("dcd\n");
 
     rts_reset(); // at this point the keyboard should think all is well. 

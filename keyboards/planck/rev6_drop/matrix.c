@@ -51,7 +51,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
 
         // read row data
         for (int row = 0; row < MATRIX_ROWS; row++) {
-            data |= (readPin(matrix_row_pins[row]) << row);
+            data |= (gpio_read_pin(matrix_row_pins[row]) << row);
         }
 
         // unstrobe col

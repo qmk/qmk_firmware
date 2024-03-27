@@ -117,7 +117,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         matrix_io_delay();
 
         for (int r = 0; r < SHIFTREG_ROWS; r++) {
-            current_matrix[r] |= ((readPin(rowPinsSR[r]) ? 1 : 0) << c);
+            current_matrix[r] |= ((gpio_read_pin(rowPinsSR[r]) ? 1 : 0) << c);
         }
     }
 

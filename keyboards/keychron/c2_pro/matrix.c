@@ -61,7 +61,7 @@ static inline void setPinInput_high(pin_t pin) {
 
 static inline uint8_t readMatrixPin(pin_t pin) {
     if (pin != NO_PIN) {
-        return readPin(pin);
+        return gpio_read_pin(pin);
     } else {
         return 1;
     }

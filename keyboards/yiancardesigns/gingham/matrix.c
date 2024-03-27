@@ -92,7 +92,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
                 pin_state = pin_state & (1 << 1);
                 break;
             default :
-                pin_state = readPin(col_pins[col_index]);
+                pin_state = gpio_read_pin(col_pins[col_index]);
         }
 
         // Populate the matrix row with the state of the col pin

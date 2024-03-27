@@ -67,7 +67,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     // For each col...
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
         // Select the col pin to read (active low)
-        uint8_t pin_state = readPin(col_pins[col_index]);
+        uint8_t pin_state = gpio_read_pin(col_pins[col_index]);
 
         // Populate the matrix row with the state of the col pin
         current_matrix[current_row] |= pin_state ? 0 : (MATRIX_ROW_SHIFTER << col_index);
@@ -111,7 +111,7 @@ static bool read_encoder_switches(matrix_row_t current_matrix[], uint8_t current
     static uint8_t btn_1_array;
     bool           btn_1_pressed = 0;
     btn_1_array <<= 1;
-    btn_1_array |= readPin(ENC_SW);
+    btn_1_array |= gpio_read_pin(ENC_SW);
     (btn_1_array == 0b11111111) ? (btn_1_pressed = 1) : (btn_1_pressed = 0);
 
     // Populate the matrix row with the state of the encoder

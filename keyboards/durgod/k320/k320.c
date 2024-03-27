@@ -83,7 +83,7 @@ void keyboard_pre_init_kb(void) {
     palSetPadCallback(PAL_PORT(HARDWARE_RESET_PIN), PAL_PAD(HARDWARE_RESET_PIN), hardware_reset_cb, NULL);
 
     /* The interrupt is edge-triggered so check that it's not already pressed */
-    if (!readPin(HARDWARE_RESET_PIN)) {
+    if (!gpio_read_pin(HARDWARE_RESET_PIN)) {
         bootloader_jump();
     }
 #endif

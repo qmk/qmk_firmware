@@ -46,7 +46,7 @@ POSSIBILITY OF SUCH DAMAGE.
         writePinHigh(XT_DATA_PIN); \
     } while (0)
 
-#define XT_DATA_READ() readPin(XT_DATA_PIN)
+#define XT_DATA_READ() gpio_read_pin(XT_DATA_PIN)
 
 #define XT_DATA_LO()               \
     do {                           \
@@ -60,7 +60,7 @@ POSSIBILITY OF SUCH DAMAGE.
         writePinHigh(XT_CLOCK_PIN); \
     } while (0)
 
-#define XT_CLOCK_READ() readPin(XT_CLOCK_PIN)
+#define XT_CLOCK_READ() gpio_read_pin(XT_CLOCK_PIN)
 
 #define XT_CLOCK_LO()               \
     do {                            \

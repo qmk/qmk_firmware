@@ -89,7 +89,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
 
         // read row data
         for (int row = 0; row < MATRIX_ROWS; row++) {
-            data |= (readPin(matrix_row_pins[row]) << row);
+            data |= (gpio_read_pin(matrix_row_pins[row]) << row);
         }
 
         // unstrobe col
@@ -117,7 +117,7 @@ uint8_t encoder_quadrature_read_pin(uint8_t index, bool pad_b) {
     setPinInputHigh(pin);
     writePinLow(matrix_row_pins[index]);
     wait_us(10);
-    uint8_t ret = readPin(pin) ? 1 : 0;
+    uint8_t ret = gpio_read_pin(pin) ? 1 : 0;
     setPinInputLow(matrix_row_pins[index]);
     setPinInputLow(pin);
     return ret;

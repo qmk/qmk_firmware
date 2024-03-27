@@ -8,7 +8,7 @@ bool is_keyboard_left(void) {
     #elif defined(SPLIT_HAND_PIN)
         // Test pin SPLIT_HAND_PIN for High/Low, if low it's right hand
         setPinInputHigh(SPLIT_HAND_PIN);
-        bool x = !readPin(SPLIT_HAND_PIN);
+        bool x = !gpio_read_pin(SPLIT_HAND_PIN);
         setPinInput(SPLIT_HAND_PIN);
         return x;
     #elif defined(EE_HANDS)

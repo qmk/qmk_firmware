@@ -207,7 +207,7 @@ void touchClearCurrentDetections(void) {
 
 //Check interrupt pin
 uint8_t isTouchChangeDetected(void) {
-  return !readPin(D2);
+  return !gpio_read_pin(D2);
 }
 
 uint8_t matrix_scan(void) {

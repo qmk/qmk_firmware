@@ -9,7 +9,7 @@ void matrix_wait_for_pin(pin_t pin, uint8_t target_state) {
     rtcnt_t start = chSysGetRealtimeCounterX();
     rtcnt_t end   = start + 5000;
     while (chSysIsCounterWithinX(chSysGetRealtimeCounterX(), start, end)) {
-        if (readPin(pin) == target_state) {
+        if (gpio_read_pin(pin) == target_state) {
             break;
         }
     }

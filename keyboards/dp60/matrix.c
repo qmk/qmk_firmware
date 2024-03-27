@@ -129,11 +129,11 @@ static void init_rows(void)
 
 static uint8_t read_rows(void)
 {
-  return ((readPin(E6) ? 0 : (1 << 0)) |
-          (readPin(F6) ? 0 : (1 << 1)) |
-          (readPin(F7) ? 0 : (1 << 2)) |
-          (readPin(B7) ? 0 : (1 << 3)) |
-          (readPin(D4) ? 0 : (1 << 4)));
+  return ((gpio_read_pin(E6) ? 0 : (1 << 0)) |
+          (gpio_read_pin(F6) ? 0 : (1 << 1)) |
+          (gpio_read_pin(F7) ? 0 : (1 << 2)) |
+          (gpio_read_pin(B7) ? 0 : (1 << 3)) |
+          (gpio_read_pin(D4) ? 0 : (1 << 4)));
 }
 
 /*

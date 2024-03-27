@@ -10,10 +10,10 @@ static matrix_row_t read_row(uint8_t row) {
 
     // keypad and program buttons
     if (row == 12) {
-        return ~(readPin(B4) | (readPin(B5) << 1) | 0b11111100);
+        return ~(gpio_read_pin(B4) | (gpio_read_pin(B5) << 1) | 0b11111100);
     }
 
-    return ~(readPin(B6) | readPin(B2) << 1 | readPin(B3) << 2 | readPin(B1) << 3 | readPin(F7) << 4 | readPin(F6) << 5 | readPin(F5) << 6 | readPin(F4) << 7);
+    return ~(gpio_read_pin(B6) | gpio_read_pin(B2) << 1 | gpio_read_pin(B3) << 2 | gpio_read_pin(B1) << 3 | gpio_read_pin(F7) << 4 | gpio_read_pin(F6) << 5 | gpio_read_pin(F5) << 6 | gpio_read_pin(F4) << 7);
 }
 
 static void unselect_rows(void) {

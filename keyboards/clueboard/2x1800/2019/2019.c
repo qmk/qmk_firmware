@@ -65,7 +65,7 @@ void matrix_scan_kb(void) {
 #ifdef SHAKE_ENABLE
     // Read the current state of the tilt sensor. It is physically
     // impossible for both pins to register a low state at the same time.
-    uint8_t tilt_read = (readPin(SHAKE_PIN_A) << 4) | readPin(SHAKE_PIN_B);
+    uint8_t tilt_read = (gpio_read_pin(SHAKE_PIN_A) << 4) | gpio_read_pin(SHAKE_PIN_B);
 
     // Check to see if the tilt sensor has changed state since our last read
     if (tilt_state != tilt_read) {

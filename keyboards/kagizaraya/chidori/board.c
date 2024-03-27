@@ -282,7 +282,7 @@ static bool board_read_cols_on_master_row(board_info_t* board, matrix_row_t curr
     wait_us(30);
 
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
-        uint8_t pin_state = readPin(board->col_pins[col_index]);
+        uint8_t pin_state = gpio_read_pin(board->col_pins[col_index]);
         current_matrix[row] |= pin_state ? 0 : (1 << col_index);
     }
     board_unselect_master_row(board, board_row);

@@ -40,18 +40,18 @@ int16_t enc2RightPrev = 1;
 
 void matrix_scan_kb(void) {
     enc1CenterPrev = enc1Center;
-    enc1Center = readPin(PIN_TW_SW);
+    enc1Center = gpio_read_pin(PIN_TW_SW);
 
     enc2CenterPrev = enc2Center;
-    enc2Center = readPin(PIN_RJ_SW);
+    enc2Center = gpio_read_pin(PIN_RJ_SW);
     enc2UpPrev = enc2Up;
-    enc2Up = readPin(PIN_RJ_DIR_A);
+    enc2Up = gpio_read_pin(PIN_RJ_DIR_A);
     enc2DownPrev = enc2Down;
-    enc2Down = readPin(PIN_RJ_DIR_C);
+    enc2Down = gpio_read_pin(PIN_RJ_DIR_C);
     enc2LeftPrev = enc2Left;
-    enc2Left = readPin(PIN_RJ_DIR_B);
+    enc2Left = gpio_read_pin(PIN_RJ_DIR_B);
     enc2RightPrev = enc2Right;
-    enc2Right = readPin(PIN_RJ_DIR_D);
+    enc2Right = gpio_read_pin(PIN_RJ_DIR_D);
 
     // Ensure any user customizations are called (for some reason this wasn't happening by default)
     matrix_scan_user();

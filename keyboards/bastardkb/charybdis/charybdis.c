@@ -376,7 +376,7 @@ void keyboard_pre_init_kb(void) {
 }
 
 void matrix_scan_kb(void) {
-    if (!readPin(A0)) {
+    if (!gpio_read_pin(A0)) {
         reset_keyboard();
     }
     matrix_scan_user();

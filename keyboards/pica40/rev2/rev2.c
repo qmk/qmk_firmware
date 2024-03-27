@@ -11,7 +11,7 @@
 
 // custom handler that returns encoder B pin status from slave side
 void encoder_sync_slave_handler(uint8_t in_buflen, const void *in_data, uint8_t out_buflen, void *out_data) {
-    *(uint8_t *)out_data = readPin(ENCODER_PIN_B) ? 1 : 0;
+    *(uint8_t *)out_data = gpio_read_pin(ENCODER_PIN_B) ? 1 : 0;
 }
 
 void encoder_quadrature_init_pin(uint8_t index, bool pad_b) {}
@@ -22,7 +22,7 @@ uint8_t encoder_quadrature_read_pin(uint8_t index, bool pad_b) {
         transaction_rpc_recv(ENCODER_SYNC, sizeof(data), &data);
         return data;
     }
-    return readPin(ENCODER_PIN_A) ? 1 : 0;
+    return gpio_read_pin(ENCODER_PIN_A) ? 1 : 0;
 }
 
 #endif // ENCODER_ENABLE

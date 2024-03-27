@@ -173,7 +173,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
         // Select the col pin to read (active low)
         select_col_analog(col_index);
         wait_us(30);
-        uint8_t pin_state = readPin(dat_pin);
+        uint8_t pin_state = gpio_read_pin(dat_pin);
 
         // Populate the matrix row with the state of the col pin
         current_matrix[current_row] |=  pin_state ? 0 : (ROW_SHIFTER << col_index);

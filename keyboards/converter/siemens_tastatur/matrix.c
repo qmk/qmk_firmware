@@ -210,7 +210,7 @@ uint8_t matrix_scan(void) {
                  matrix[3] = 0x00;
     }
     //Special case for Shift
-    if (readPin(B11) == 0) { matrix[3] |= 0x01; }
+    if (gpio_read_pin(B11) == 0) { matrix[3] |= 0x01; }
 
     porta_buffer = 65535;
     portb_buffer = 65535;

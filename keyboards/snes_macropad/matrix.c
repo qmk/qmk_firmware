@@ -70,10 +70,10 @@ static matrix_row_t readRow(size_t row, int setupDelay) {
 
     // read the column data
     const matrix_row_t ret =
-          (readPin(KBD_COL0) ? 0 : 1 << 0)
-        | (readPin(KBD_COL1) ? 0 : 1 << 1)
-        | (readPin(KBD_COL2) ? 0 : 1 << 2)
-        | (readPin(KBD_COL3) ? 0 : 1 << 3);
+          (gpio_read_pin(KBD_COL0) ? 0 : 1 << 0)
+        | (gpio_read_pin(KBD_COL1) ? 0 : 1 << 1)
+        | (gpio_read_pin(KBD_COL2) ? 0 : 1 << 2)
+        | (gpio_read_pin(KBD_COL3) ? 0 : 1 << 3);
 
     // deselect the row
     setPinOutput(pin);
@@ -111,7 +111,7 @@ static void readSnesController(matrix_row_t current_matrix[]) {
 
         // Shift accumulated data and read data pin
         controller <<= 1;
-        controller |= readPin(SNES_D0) ? 0 : 1;
+        controller |= gpio_read_pin(SNES_D0) ? 0 : 1;
         // todo: maybe read D1 and IO here too
 
         // Shift next bit in
