@@ -427,6 +427,18 @@
         {
             "name": "DEBOUNCE\nSHOW VAL",
             "title": "Show Debounce Value"
+        },
+        {
+            "name": "SLP TIME\nINCREASE",
+            "title": "Increase Sleep Timeout"
+        },
+        {
+            "name": "SLP TIME\nDECREASE",
+            "title": "Decrease Sleep Timeout"
+        },
+        {
+            "name": "SLP TIME\nSHOW VAL",
+            "title": "Show Sleep Timeout Value"
         }
     ]
 }

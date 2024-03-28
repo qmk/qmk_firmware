@@ -109,7 +109,7 @@ typedef enum {
 #define LINK_TIMEOUT (100 * 120)
 #define LINK_TIMEOUT_ALT (100 * 5)
 #define TIMER_STEP 10
-#define SLEEP_TIME_DELAY (5 * 60 * 1000 / TIMER_STEP) // official 6 minutes, I set 5 so this formula is 5 minutes by 60 seconds each by 1000 to convert to ms and then divide by timer step (logic based)
+// #define SLEEP_TIME_DELAY (5 * 60 * 1000 / TIMER_STEP) // official 6 minutes, I set 5 so this formula is 5 minutes by 60 seconds each by 1000 to convert to ms and then divide by timer step (logic based)
 // #define SLEEP_TIME_DELAY (1 * 60 * 1000 / TIMER_STEP) // NOTE: for test purpose only
 #define POWER_DOWN_DELAY (24)
 
@@ -154,6 +154,7 @@ typedef struct {
     uint8_t  ee_logo_colour;
     uint8_t  sleep_enable;
     uint8_t  usb_sleep_toggle;
+    uint16_t  sleep_timeout;
     uint16_t rf_link_timeout;
     uint8_t  caps_indication_type;
     uint8_t  debounce_ms;
@@ -197,4 +198,6 @@ void toggle_usb_sleep(void);
 
 uint8_t two_digit_decimals_led(uint8_t value);
 uint8_t two_digit_ones_led(uint8_t value);
-void adjust_debounce(uint8_t dir);
+void    adjust_debounce(uint8_t dir);
+uint16_t get_sleep_timeout(void);
+void    adjust_sleep_timeout(uint8_t dir);

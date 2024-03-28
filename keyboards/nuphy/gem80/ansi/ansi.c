@@ -28,11 +28,11 @@ extern bool            f_bat_num_show;
 extern bool            f_rgb_test_press;
 extern bool            f_bat_hold;
 extern bool            f_debounce_show;
+extern bool            f_sleep_timeout_show;
 extern uint16_t        no_act_time;
 extern uint8_t         rf_sw_temp;
 extern uint16_t        rf_sw_press_delay;
 extern uint16_t        rf_linking_time;
-extern uint16_t        sleep_time_delay;
 extern user_config_t   user_config;
 extern DEV_INFO_STRUCT dev_info;
 extern uint8_t         rf_blink_cnt;
@@ -350,6 +350,24 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 
+        case SLEEP_TIMEOUT_SHOW:
+            if (record->event.pressed) {
+                f_sleep_timeout_show = !f_sleep_timeout_show;
+            }
+            return false;
+
+        case SLEEP_TIMEOUT_INC:
+            if (record->event.pressed) {
+                adjust_sleep_timeout(1);
+            }
+            return false;
+
+        case SLEEP_TIMEOUT_DEC:
+            if (record->event.pressed) {
+                adjust_sleep_timeout(0);
+            }
+            return false;
+
         default:
             return true;
     }
@@ -389,6 +407,11 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (f_debounce_show) {
         rgb_matrix_set_color(two_digit_decimals_led(user_config.debounce_ms), 0x00, 0x80, 0x00);
         rgb_matrix_set_color(two_digit_ones_led(user_config.debounce_ms), 0x00, 0x80, 0x00);
+    }
+
+    if (f_sleep_timeout_show) {
+        rgb_matrix_set_color(two_digit_decimals_led(user_config.sleep_timeout), 0x00, 0x80, 0x80);
+        rgb_matrix_set_color(two_digit_ones_led(user_config.sleep_timeout), 0x00, 0x80, 0x80);
     }
 
     rgb_matrix_set_color(RGB_MATRIX_LED_COUNT - 1, 0, 0, 0);

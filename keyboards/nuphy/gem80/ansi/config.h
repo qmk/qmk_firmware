@@ -50,7 +50,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SD1_RX_PIN B7
 #define SD1_RX_PAL_MODE 0
 
-#define EECONFIG_KB_DATA_SIZE 19 // I use user_config_t + 2 just in case #### 10 in JC //12 in official  // match used byte size of user_config_t + 1 (seems to need extra byte)
+#define EECONFIG_KB_DATA_SIZE 21 // I use user_config_t + 2 just in case #### 10 in JC //12 in official  // match used byte size of user_config_t + 1 (seems to need extra byte)
 #define RGB_MATRIX_LED_COUNT 101 // 93  // RGB总灯数 (88轴灯+5侧灯)
 
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CUSTOM_position_mode
@@ -70,7 +70,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DEBOUNCE_STEP 1
 
-
 // USB sleep workaround :D
 #define USB_SUSPEND_WAKEUP_DELAY 250
 
+// sleep timeout change step (minutes)
+#define SLEEP_TIMEOUT_STEP 1

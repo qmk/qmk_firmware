@@ -29,7 +29,6 @@ extern uint16_t        rf_link_timeout;
 extern uint16_t        no_act_time;
 extern bool            f_goto_sleep;
 extern bool            f_wakeup_prepare;
-extern uint16_t        sleep_time_delay;
 
 /**
  * @brief  Sleep Handle.
@@ -45,6 +44,8 @@ void sleep_handle(void) {
 
     // sleep process;
     if (!user_config.sleep_enable) return;
+    // get sleep_time_delay from eeprom
+    uint16_t        sleep_time_delay     = get_sleep_timeout();
 
     if (f_goto_sleep) {
         // reset all counters
@@ -86,7 +87,7 @@ void sleep_handle(void) {
         f_goto_sleep = 1;
     } else if (rf_linking_time >= user_config.rf_link_timeout) {
         rf_linking_time = 0;
-        f_goto_sleep = 1;
+        f_goto_sleep    = 1;
     } else if (dev_info.rf_state == RF_DISCONNECT) {
         rf_disconnect_time++;
         if (rf_disconnect_time > 5 * 20) { // 5 seconds

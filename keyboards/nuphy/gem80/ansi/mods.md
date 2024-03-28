@@ -40,7 +40,7 @@ Top-left LED will indicate USB sleep status.
 GREEN - USB sleep is enabled
 RED - USB sleep is disabled
 
-## Autocorrection
+<!-- ## Autocorrection
 
 This feature enabled by default, and it will autocorrect some common mistakes like "teh" to "the" or "dont" to "don't".
 
@@ -48,5 +48,5 @@ Dictionary is located in `nuphy/gem80/ansi/dict.txt` file.
 
 To re-generate header file ater dictionary changes run `qmk generate-autocorrect-data keyboards/nuphy/gem80/ansi/dict.txt` command. (I hope that default keyboard and keymap are set to gem80), otherwise use appropriate -kb -km values.
 
-If you want to disable this feature, set `AUTOCORRECT_ENABLE = no` in `nuphy/gem80/ansu/rules.mk` file.
+If you want to disable this feature, set `AUTOCORRECT_ENABLE = no` in `nuphy/gem80/ansu/rules.mk` file. -->
 
