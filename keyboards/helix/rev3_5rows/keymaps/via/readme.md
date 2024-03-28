@@ -1,4 +1,4 @@
-# The default VIA keymap for Helix rev3 5rows
+# The VIA keymap for Helix rev3 5rows
 
 ### Qwerty Layer (Base)
 ```
