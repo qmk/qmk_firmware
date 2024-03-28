@@ -1,5 +1,7 @@
 # SHARKOON SKILLER SGK50 S2
 
+![ISO](https://i.imgur.com/itgy5Bk.png)
+
 * Keyboard Maintainer: [JoyLee](https://github.com/itarze)
 * Hardware Supported: SHARKOON SKILLER SGK50 S2 PCB
 
