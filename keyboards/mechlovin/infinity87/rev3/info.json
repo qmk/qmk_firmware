@@ -7,5 +7,5 @@
     "features": {
         "console": true,
         "command": true
-    },
+    }
 }
