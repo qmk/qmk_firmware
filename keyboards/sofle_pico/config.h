@@ -27,15 +27,6 @@
 #    define ENCODER_MAP_KEY_DELAY 10
 #endif
 
-/* Mouse settings */
-#define MOUSEKEY_MOVE_DELTA 8
-#define MOUSEKEY_WHEEL_MAX_SPEED 42
-#define MOUSEKEY_WHEEL_TIME_TO_MAX 15
-#define POINTING_DEVICE_ROTATION_90
-#define SPLIT_POINTING_ENABLE
-#define POINTING_DEVICE_RIGHT
-#define POINTING_DEVICE_TASK_THROTTLE_MS 8
-
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS 50
 /* If you're setting colors per key, this is required */
