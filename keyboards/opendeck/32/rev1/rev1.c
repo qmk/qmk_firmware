@@ -90,12 +90,12 @@ led_config_t g_led_config = {
 
 void keyboard_pre_init_kb(void) {
     // Light power LED
-    setPinOutput(POWER_LED_PIN);
-    writePinLow(POWER_LED_PIN);
+    gpio_set_pin_output(POWER_LED_PIN);
+    gpio_write_pin_low(POWER_LED_PIN);
 
     // We don't use this feature of the IS31FL3731 but it is electrically connected
     // Make sure not to drive it
-    setPinInput(IS31FL3731_IRQ_PIN);
+    gpio_set_pin_input(IS31FL3731_IRQ_PIN);
 
     keyboard_pre_init_user();
 }

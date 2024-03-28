@@ -18,12 +18,12 @@
 
 void led_init_ports(void) {
     // * Set our LED pins as output
-    setPinOutput(B3);
+    gpio_set_pin_output(B3);
 }
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if(res) {
-        writePin(B3, led_state.caps_lock);
+        gpio_write_pin(B3, led_state.caps_lock);
         rgblight_set_effect_range(1, 30);
         if (led_state.scroll_lock) {
             rgblight_setrgb_at(255, 255, 255, 0);

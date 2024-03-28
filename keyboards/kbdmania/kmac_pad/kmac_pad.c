@@ -23,7 +23,7 @@ void keyboard_pre_init_kb(void) {
      * FN Pin PB3
      * PAD Pin PB1
      */
-    setPinOutput(B3);
-    setPinOutput(B1);
+    gpio_set_pin_output(B3);
+    gpio_set_pin_output(B1);
     keyboard_pre_init_user();
 }

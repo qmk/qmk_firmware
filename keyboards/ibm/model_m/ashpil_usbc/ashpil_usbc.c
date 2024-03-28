@@ -18,19 +18,19 @@
 
 void keyboard_pre_init_kb(void) {
   /* Setting status LEDs pins to output and +5V (off) */
-  setPinOutput(D5);
-  setPinOutput(D6);
-  setPinOutput(D7);
-  writePinHigh(D5);
-  writePinHigh(D6);
-  writePinHigh(D7);
+  gpio_set_pin_output(D5);
+  gpio_set_pin_output(D6);
+  gpio_set_pin_output(D7);
+  gpio_write_pin_high(D5);
+  gpio_write_pin_high(D6);
+  gpio_write_pin_high(D7);
 }
 
 bool led_update_kb(led_t led_state) {
     if(led_update_user(led_state)) {
-        writePin(D5, !led_state.num_lock);
-        writePin(D6, !led_state.caps_lock);
-        writePin(D7, !led_state.scroll_lock);
+        gpio_write_pin(D5, !led_state.num_lock);
+        gpio_write_pin(D6, !led_state.caps_lock);
+        gpio_write_pin(D7, !led_state.scroll_lock);
     }
     return true;
 }

@@ -17,16 +17,16 @@
 
 void keyboard_pre_init_kb(void) {
     // enable built in pullups to avoid timeouts when right hand not connected
-    setPinInputHigh(D0);
-    setPinInputHigh(D1);
+    gpio_set_pin_input_high(D0);
+    gpio_set_pin_input_high(D1);
 
     keyboard_pre_init_user();
 }
 
 void matrix_init_kb(void) {
-    setPinOutput(F0);
-    setPinOutput(F1);
-    setPinOutput(F4);
+    gpio_set_pin_output(F0);
+    gpio_set_pin_output(F1);
+    gpio_set_pin_output(F4);
 
     matrix_init_user();
 }
@@ -34,9 +34,9 @@ void matrix_init_kb(void) {
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if (res) {
-        writePin(F0, led_state.num_lock);
-        writePin(F1, led_state.caps_lock);
-        writePin(F4, led_state.scroll_lock);
+        gpio_write_pin(F0, led_state.num_lock);
+        gpio_write_pin(F1, led_state.caps_lock);
+        gpio_write_pin(F4, led_state.scroll_lock);
     }
     return res;
 }

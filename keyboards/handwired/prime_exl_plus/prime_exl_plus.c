@@ -17,22 +17,22 @@
 
 void matrix_init_kb(void) {
   // set CapsLock LED to output and low
-  setPinOutput(B0);
-  writePinLow(B0);
+  gpio_set_pin_output(B0);
+  gpio_write_pin_low(B0);
   // set NumLock LED to output and low
-  setPinOutput(B1);
-  writePinLow(B1);
+  gpio_set_pin_output(B1);
+  gpio_write_pin_low(B1);
   // set ScrollLock LED to output and low
-  setPinOutput(B2);
-  writePinLow(B2);
+  gpio_set_pin_output(B2);
+  gpio_write_pin_low(B2);
 }
 
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if(res) {
-        writePin(B1, led_state.num_lock);
-        writePin(B0, led_state.caps_lock);
-        //writePin(B2, led_state.scroll_lock);
+        gpio_write_pin(B1, led_state.num_lock);
+        gpio_write_pin(B0, led_state.caps_lock);
+        //gpio_write_pin(B2, led_state.scroll_lock);
     }
     return res;
 }
@@ -41,9 +41,9 @@ bool led_update_kb(led_t led_state) {
 layer_state_t layer_state_set_kb(layer_state_t state)
 {
     if (get_highest_layer(state) == 1) {
-    writePinHigh(B2);
+    gpio_write_pin_high(B2);
 	} else {
-		writePinLow(B2);
+		gpio_write_pin_low(B2);
     }
     return layer_state_set_user(state);
 }

@@ -18,8 +18,8 @@
 
 void matrix_init_kb(void) {
     
-    setPinOutput(LED_CAPS_LOCK_PIN);
-	setPinOutput(LED_SCROLL_LOCK_PIN);
+    gpio_set_pin_output(LED_CAPS_LOCK_PIN);
+	gpio_set_pin_output(LED_SCROLL_LOCK_PIN);
 
 	matrix_init_user();
 }
@@ -29,8 +29,8 @@ bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
 
     if(res) {
-        writePin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
-        writePin(LED_SCROLL_LOCK_PIN, led_state.scroll_lock);
+        gpio_write_pin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
+        gpio_write_pin(LED_SCROLL_LOCK_PIN, led_state.scroll_lock);
     }
     return res;
 }

@@ -17,6 +17,6 @@
 
 void keyboard_pre_init_kb(void) {
   // Enable top LED
-  setPinOutput(B3);
-  writePinLow(B3);
+  gpio_set_pin_output(B3);
+  gpio_write_pin_low(B3);
 }

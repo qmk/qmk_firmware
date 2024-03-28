@@ -18,9 +18,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 
 void keyboard_pre_init_kb(void) {
-    setPinOutput(D7);
-    setPinOutput(D6);
-    setPinOutput(D4);
+    gpio_set_pin_output(D7);
+    gpio_set_pin_output(D6);
+    gpio_set_pin_output(D4);
     
     keyboard_pre_init_user();
 }
@@ -28,9 +28,9 @@ void keyboard_pre_init_kb(void) {
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if(res) {
-        writePin(D7, led_state.num_lock);
-        writePin(D6, led_state.caps_lock);
-        writePin(D4, led_state.scroll_lock);
+        gpio_write_pin(D7, led_state.num_lock);
+        gpio_write_pin(D6, led_state.caps_lock);
+        gpio_write_pin(D4, led_state.scroll_lock);
     }
     return res;
 }

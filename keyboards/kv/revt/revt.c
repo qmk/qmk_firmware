@@ -18,8 +18,8 @@
 
 void matrix_init_kb(void) {
   // Turn status LED on
-  setPinOutput(C14);
-  writePinHigh(C14);
+  gpio_set_pin_output(C14);
+  gpio_write_pin_high(C14);
 
   matrix_init_user();
 }

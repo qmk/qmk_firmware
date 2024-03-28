@@ -118,9 +118,9 @@ void spi_init(void) {
         is_initialised = true;
 
         // Try releasing special pins for a short time
-        setPinInput(SPI_SCK_PIN);
-        setPinInput(SPI_MOSI_PIN);
-        setPinInput(SPI_MISO_PIN);
+        gpio_set_pin_input(SPI_SCK_PIN);
+        gpio_set_pin_input(SPI_MOSI_PIN);
+        gpio_set_pin_input(SPI_MISO_PIN);
 
         chThdSleepMilliseconds(10);
 

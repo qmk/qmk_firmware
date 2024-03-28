@@ -71,21 +71,21 @@ void matrix_init_custom(void) {
     dprintf("matrix init\n");
     // debug_matrix = true;
     // outputs
-    setPinOutput(B10);
-    setPinOutput(B11);
-    setPinOutput(B12);
-    setPinOutput(B13);
-    setPinOutput(B14);
-    setPinOutput(B15);
+    gpio_set_pin_output(B10);
+    gpio_set_pin_output(B11);
+    gpio_set_pin_output(B12);
+    gpio_set_pin_output(B13);
+    gpio_set_pin_output(B14);
+    gpio_set_pin_output(B15);
 
     // inputs
-    setPinInputLow(A0);
-    setPinInputLow(A1);
-    setPinInputLow(A2);
-    setPinInputLow(A3);
-    setPinInputLow(A6);
-    setPinInputLow(A7);
-    setPinInputLow(B0);
+    gpio_set_pin_input_low(A0);
+    gpio_set_pin_input_low(A1);
+    gpio_set_pin_input_low(A2);
+    gpio_set_pin_input_low(A3);
+    gpio_set_pin_input_low(A6);
+    gpio_set_pin_input_low(A7);
+    gpio_set_pin_input_low(B0);
 
     mcp23018_init();
 }
@@ -117,12 +117,12 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     for (uint8_t row = 0; row <= ROWS_PER_HAND; row++) {
         // strobe row
         switch (row) {
-            case 0: writePinHigh(B10); break;
-            case 1: writePinHigh(B11); break;
-            case 2: writePinHigh(B12); break;
-            case 3: writePinHigh(B13); break;
-            case 4: writePinHigh(B14); break;
-            case 5: writePinHigh(B15); break;
+            case 0: gpio_write_pin_high(B10); break;
+            case 1: gpio_write_pin_high(B11); break;
+            case 2: gpio_write_pin_high(B12); break;
+            case 3: gpio_write_pin_high(B13); break;
+            case 4: gpio_write_pin_high(B14); break;
+            case 5: gpio_write_pin_high(B15); break;
             case 6: break; // Left hand has 6 rows
         }
 
@@ -170,22 +170,22 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
             }
             // read col data
             data = (
-                (readPin(A0) << 0 ) |
-                (readPin(A1) << 1 ) |
-                (readPin(A2) << 2 ) |
-                (readPin(A3) << 3 ) |
-                (readPin(A6) << 4 ) |
-                (readPin(A7) << 5 ) |
-                (readPin(B0) << 6 )
+                (gpio_read_pin(A0) << 0 ) |
+                (gpio_read_pin(A1) << 1 ) |
+                (gpio_read_pin(A2) << 2 ) |
+                (gpio_read_pin(A3) << 3 ) |
+                (gpio_read_pin(A6) << 4 ) |
+                (gpio_read_pin(A7) << 5 ) |
+                (gpio_read_pin(B0) << 6 )
             );
             // unstrobe  row
             switch (row) {
-                case 0: writePinLow(B10); break;
-                case 1: writePinLow(B11); break;
-                case 2: writePinLow(B12); break;
-                case 3: writePinLow(B13); break;
-                case 4: writePinLow(B14); break;
-                case 5: writePinLow(B15); break;
+                case 0: gpio_write_pin_low(B10); break;
+                case 1: gpio_write_pin_low(B11); break;
+                case 2: gpio_write_pin_low(B12); break;
+                case 3: gpio_write_pin_low(B13); break;
+                case 4: gpio_write_pin_low(B14); break;
+                case 5: gpio_write_pin_low(B15); break;
                 case 6: break;
             }
 
