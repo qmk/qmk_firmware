@@ -1,0 +1,1 @@
+include $(CHIBIOS_CONTRIB)/os/hal/boards/EDGEPRO1/board.mk
