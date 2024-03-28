@@ -159,6 +159,11 @@
                     {"pin_a": "GP14", "pin_b": "GP15"}
                 ]
             }
+        },
+        "transport": {
+            "sync": {
+                "layer_state": true
+            }
         }
     },
     "tags": ["ortho", "split", "rgb", "encoder", "OLED", "128x64", "tenting_puck"],
