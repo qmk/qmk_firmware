@@ -1,7 +1,7 @@
-// fontconvert -f~/repos/Noto_Sans_Symbols_2/NotoSansSymbols2-Regular.ttf -s20 -r50 -v _Technical_ 0x2318 0x2318 0x2325 0x2326 0x232B 0x232B 0x2611 0x2611 
+// fontconvert -f~/repos/Noto_Sans_Symbols_2/NotoSansSymbols2-Regular.ttf -s20 -r50 -v _Technical2_ 0x2318 0x2318 0x2325 0x2326 0x232B 0x232B 0x2611 0x2611 
 // Visualize your font via https://tchapi.github.io/Adafruit-GFX-Font-Customiser
 
-const uint8_t NotoSansSymbols2_Regular_Technical_20pt16bBitmaps[] PROGMEM = {
+const uint8_t NotoSansSymbols2_Regular_Technical2_20pt16bBitmaps[] PROGMEM = {
   0x1F, 0x80, 0x1F, 0x83, 0xFE, 0x07, 0xFC, 0x70, 0xE0, 0x70, 0xEE, 0x07,
   0x0E, 0x07, 0xE0, 0x70, 0xE0, 0x7E, 0x07, 0x0E, 0x07, 0xE0, 0x70, 0xE0,
   0x7E, 0x07, 0x0E, 0x07, 0x70, 0x70, 0xE0, 0xE3, 0xFF, 0xFF, 0xFC, 0x1F,
@@ -49,7 +49,7 @@ const uint8_t NotoSansSymbols2_Regular_Technical_20pt16bBitmaps[] PROGMEM = {
   0x03, 0xC0, 0x30, 0x00, 0x3C, 0x00, 0x00, 0x03, 0xC0, 0x00, 0x00, 0x3C,
   0x00, 0x00, 0x03, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
 
-const GFXglyph NotoSansSymbols2_Regular_Technical_20pt16bGlyphs[] PROGMEM = {
+const GFXglyph NotoSansSymbols2_Regular_Technical2_20pt16bGlyphs[] PROGMEM = {
 // bmpOff,   w,   h,xAdv, xOff, yOff      range 0 (0x2318 - 0x2318)
   {     0,  28,  28,  32,    2,  -27 },   // 0x2318 uni2318  (#0)
   {     0,   0,   0,   0,    0,    0 },   // 0x2319 (skip)
@@ -817,9 +817,9 @@ const GFXglyph NotoSansSymbols2_Regular_Technical_20pt16bGlyphs[] PROGMEM = {
 // bmpOff,   w,   h,xAdv, xOff, yOff      range 3 (0x2611 - 0x2611)
   {   452,  28,  28,  32,    2,  -27 } }; // 0x2611 uni2611  (#4)
 
-const GFXfont NotoSansSymbols2_Regular_Technical_20pt16b PROGMEM = {
-  (uint8_t  *)NotoSansSymbols2_Regular_Technical_20pt16bBitmaps,
-  (GFXglyph *)NotoSansSymbols2_Regular_Technical_20pt16bGlyphs,
+const GFXfont NotoSansSymbols2_Regular_Technical2_20pt16b PROGMEM = {
+  (uint8_t  *)NotoSansSymbols2_Regular_Technical2_20pt16bBitmaps,
+  (GFXglyph *)NotoSansSymbols2_Regular_Technical2_20pt16bGlyphs,
   0x2318, // first
   0x2611, // last
   50   //height

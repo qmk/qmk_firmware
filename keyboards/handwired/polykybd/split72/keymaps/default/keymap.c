@@ -1135,7 +1135,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case KC_F24:return u" F24";
     case KC_LEFT_CTRL:
     case KC_RIGHT_CTRL:
-        return (g_local.flags&MODS_AS_TEXT)!=0 ? u"Ctrl" : TECHNICAL_COMMAND;
+        return (g_local.flags&MODS_AS_TEXT)!=0 ? u"Ctrl" : TECHNICAL_CONTROL;
     case KC_LEFT_ALT:
         return (g_local.flags&MODS_AS_TEXT)!=0 ? u"Alt" : TECHNICAL_OPTION;
     case KC_RIGHT_ALT:
@@ -1208,7 +1208,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     //The following entries will over-rule language specific enties in the follow langauge lookup table,
     //however with this we can control them by flags and so far those wehere not lanuage specific anyway.
     case KC_ENTER:      return (g_local.flags&MORE_TEXT)!=0 ? u"Enter"    : ARROWS_RETURN;
-    case KC_ESCAPE:	    return (g_local.flags&MORE_TEXT)!=0 ? u"Esc"      : u"Esc";
+    case KC_ESCAPE:	    return (g_local.flags&MORE_TEXT)!=0 ? u"Esc"      : TECHNICAL_ESCAPE;
     case KC_BACKSPACE:  return (g_local.flags&MORE_TEXT)!=0 ? u"Bksp"     : TECHNICAL_ERASELEFT;
     case KC_TAB:        return (g_local.flags&MORE_TEXT)!=0 ? u"Tab"      : ARROWS_TAB;
     case KC_SPACE:      return (g_local.flags&MORE_TEXT)!=0 ? u"Space"    : ICON_SPACE;
@@ -1484,23 +1484,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         } else {
             g_local.last_latin_kc = 0;
         }
-    } /*else {
-        switch (keycode) {
-            case KC_A ... KC_Z:
-                g_local.last_latin_kc = keycode;
-                if((get_mods() & MOD_MASK_ALT) == 0 && addlang) {
-                    const bool upper_case = ((get_mods() & MOD_MASK_SHIFT) || g_state.led_state.caps_lock);
-                    const uint8_t offset = upper_case ? 0 : 26;
-                    if(latin_ex_map[offset+keycode-KC_A][0]) {
-                        uint8_t variation = upper_case ? latin_ex[keycode-KC_A]>>4 : latin_ex[keycode-KC_A]&0xf;
-                        register_code16(UM(latin_rev_ex_map[offset+keycode-KC_A][variation]));
-                    }
-                }
-                break;
-            default:
-                break;
-         }
-    }*/
 
     return display_wakeup(record);
 }
@@ -2063,7 +2046,7 @@ void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
                         lang_list = "P2."
                     elif lang != languages[-1]:
                         lang_list += ","
-                cog.outl(f'memcpy(response, "{lang_list}", {len(lang_list)});')
+                cog.outl(f'memcpy(data, "{lang_list}", {len(lang_list)});')
                 ]]]*/
                 memcpy(data, "P2.EN,DE,FR,ES,PT,IT,TR,KO,JA", 29);
                 raw_hid_send(data, length);

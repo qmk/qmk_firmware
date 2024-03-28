@@ -2,35 +2,6 @@
 
 #include "lang/named_glyphs.h"
 
-enum unicode_names {
-    /*[[[cog
-    import cog
-    import os
-    import string
-    from openpyxl import load_workbook
-    wb = load_workbook(filename = os.path.join(os.path.abspath(os.path.dirname(cog.inFile)), "lang/lang_lut.xlsx"), data_only=True)
-    sheet = wb['named_glyphs']
-
-    idx = 0
-    glyph_index = 403
-    glyph_key = sheet["A403"].value
-    while glyph_key and glyph_key.startswith("PRIVATE_EMOJI"):
-        glyph_key = sheet[f"A{glyph_index}"].value
-        idx = idx + 1
-        glyph_index = glyph_index + 1
-    cog.outl(f'UM_A = {idx-1},')
-    ]]]*/
-    UM_A = 140,
-    //[[[end]]]
-    UM_AC,
-    UM_O,
-    UM_OC,
-    UM_U,
-    UM_UC,
-    SZ,
-    SZC
-};
-
 const uint32_t unicode_map[] PROGMEM = {
     /*[[[cog
     idx = 0
