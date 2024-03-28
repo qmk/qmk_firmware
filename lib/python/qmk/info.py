@@ -58,8 +58,13 @@ def _get_key_left_position(key):
 def _find_invalid_encoder_index(info_data):
     """Perform additional validation of encoders
     """
-    enc_count = len(info_data.get('encoder', {}).get('rotary', []))
-    enc_count += len(info_data.get('split', {}).get('encoder', {}).get('right', {}).get('rotary', []))
+    enc_left = info_data.get('encoder', {}).get('rotary', [])
+    enc_right = []
+
+    if info_data.get('split', {}).get('enabled', False):
+        enc_right = info_data.get('split', {}).get('encoder', {}).get('right', {}).get('rotary', enc_left)
+
+    enc_count = len(enc_left) + len(enc_right)
 
     ret = []
     layouts = info_data.get('layouts', {})
