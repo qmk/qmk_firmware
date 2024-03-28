@@ -8,6 +8,13 @@
         "pid": "0x000E",
         "device_version": "0.0.4"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "rgblight": true
+    },
     "rgblight": {
         "saturation_steps": 8,
         "brightness_steps": 8,
