@@ -52,3 +52,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_LED_COUNT 14    // Number of LEDs
 #define RGBLIGHT_SLEEP
 */
+#define SPLIT_WPM_ENABLE
+#define OLED_TIMEOUT 120000
+#define OLED_BRIGHTNESS 120
