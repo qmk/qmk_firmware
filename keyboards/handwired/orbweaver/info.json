@@ -13,6 +13,7 @@
         "nkro": true
     },
     "rgb_matrix": {
+        "center_point": [40, 30],
         "driver": "is31fl3731"
     },
     "matrix_pins": {

@@ -14,7 +14,6 @@
     "command": false,
     "console": true,
     "extrakey": true,
-    "lto": true,
     "midi": false,
     "mousekey": true,
     "nkro": false,
