@@ -131,6 +131,30 @@ Note that adding a diode at a previously unused intersection will effectively te
 
 While `MATRIX_MASKED` isn't necessary to use `SPLIT_HAND_MATRIX_GRID` successfully, without it you may experience issues trying to suspend your computer with your keyboard attached as the matrix will always report at least one key-press.
 
+
+For example, suppose you have the following keyboard.
+
+```c
+#define MATRIX_ROW_PINS { D4, C6, D7, E6, B4 }
+#define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2 }
+
+/* COL2ROW, ROW2COL*/
+#define DIODE_DIRECTION COL2ROW
+```
+
+<img width="1389" alt="1" src="https://github.com/BlueDrink9/qmk_firmware/assets/26474254/2ad78230-f1ce-4b1b-bbd8-cefc83bf8c1f">
+
+
+You can add a diode to the circuit as below and further configuration as below.
+
+<img width="1389" alt="2" src="https://github.com/BlueDrink9/qmk_firmware/assets/26474254/d9b10585-d058-470d-9706-8aa2408407c8">
+
+
+```c
+/* Split hand configration */
+#define SPLIT_HAND_MATRIX_GRID D4,B2
+```
+
 #### Handedness by EEPROM
 
 This method sets the keyboard's handedness by setting a flag in the persistent storage (`EEPROM`).  This is checked when the controller first starts up, and determines what half the keyboard is, and how to orient the keyboard layout. 
