@@ -20,6 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RP2040_FLASH_GENERIC_03H
 
 #ifdef RGB_MATRIX_ENABLE
-#define CAPS_LOCK_LED_INDEX 54
-#define SCROLL_LOCK_LED_INDEX 1
+#    define CAPS_LOCK_LED_INDEX 54
+#    define SCROLL_LOCK_LED_INDEX 1
 #endif
