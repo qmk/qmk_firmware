@@ -15,6 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "config.h"
+#include "rgb_matrix.h"
 #include "user_kb.h"
 #include "mcu_stm32f0xx.h"
 #include "mcu_pwr.h"
@@ -225,6 +226,10 @@ void enter_light_sleep(void) {
  * @note This is Nuphy's "open sourced" wake logic. It's not deep sleep.
  */
 void exit_light_sleep(void) {
+    // FIXME: hack to force enable all leds
+    rgb_led_powered_off = 1;
+    side_led_powered_off = 1;
+
     led_pwr_wake_handle();
 
     uart_send_cmd(CMD_HAND, 0, 1);
@@ -236,6 +241,11 @@ void exit_light_sleep(void) {
 
     // flag for RF wakeup workload.
     dev_info.rf_state = RF_WAKE;
+    // force LEDs to enable
+    // setPinOutput(DRIVER_LED_CS_PIN);
+    // writePinLow(DRIVER_LED_CS_PIN);
+    // setPinOutput(DRIVER_SIDE_CS_PIN);
+    // writePinLow(DRIVER_SIDE_CS_PIN);
 }
 
 void led_pwr_sleep_handle(void) {

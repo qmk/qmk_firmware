@@ -31,79 +31,38 @@ extern bool            f_goto_sleep;
 extern bool            f_wakeup_prepare;
 extern uint16_t        sleep_time_delay;
 
-void set_side_rgb(uint8_t r, uint8_t g, uint8_t b);
-void set_logo_rgb(uint8_t r, uint8_t g, uint8_t b);
-void side_rgb_refresh(void);
-
-void deep_sleep_handle(void) {
-    break_all_key(); // reset keys before sleeping for new QMK lifecycle to handle on wake.
-
-    // // Visual cue for deep sleep on side LED.
-    pwr_side_led_on();
-    wait_ms(50); // give some time to ensure LED powers on.
-    set_side_rgb(0x99, 0x00, 0x00);
-    set_logo_rgb(0x99, 0x00, 0x00);
-    side_rgb_refresh();
-    wait_ms(500);
-
-    // Sync again before sleeping. Without this, the wake keystroke is more likely to be lost.
-    dev_sts_sync();
-
-    enter_deep_sleep(); // puts the board in WFI mode and pauses the MCU
-    exit_deep_sleep();  // This gets called when there is an interrupt (wake) event.
-
-    // Change any LED's state so the LED driver flushes after turning on for solid colours.
-    // Without doing this, the WS2812 driver wouldn't flush as the previous state is the same as current.
-    rgb_matrix_set_color_all(0, 0, 0);
-    side_rgb_refresh();
-    no_act_time = 0; // required to not cause an immediate sleep on first wake
-}
-
 /**
  * @brief  Sleep Handle.
  */
 void sleep_handle(void) {
     static uint32_t delay_step_timer     = 0;
     static uint8_t  usb_suspend_debounce = 0;
+    static uint32_t rf_disconnect_time   = 0;
 
     /* 50ms interval */
     if (timer_elapsed32(delay_step_timer) < 50) return;
     delay_step_timer = timer_read32();
 
     // sleep process;
+    if (!user_config.sleep_enable) return;
+
     if (f_goto_sleep) {
         // reset all counters
-        f_goto_sleep    = 0;
-        rf_linking_time = 0;
+        f_goto_sleep       = 0;
+        rf_linking_time    = 0;
+        rf_disconnect_time = 0;
 
-        if (user_config.sleep_enable) {
-            // FIXME: commented in favor of light sleep
-            //// bool deep_sleep = 1
-            // // light sleep if charging? Charging event might keep waking MCU. To be confirmed...
-            // if (dev_info.rf_charge & 0x01) {
-            //     deep_sleep = 0;
-            // }
-            // or if it's in USB mode but USB state is suspended
-            // TODO: How to detect if USB is unplugged? I only use RF so not a big deal I guess...
-            // else if (dev_info.link_mode == LINK_USB && USB_DRIVER.state == USB_SUSPENDED) {
-            //     deep_sleep = 0;
-            // }
-            // FIXME: for no only light sleep enabled. Have to dig into that for some time....
-            // if (deep_sleep) {
-            //     deep_sleep_handle();
-            //     return; // don't need to do anything else
-            // } else {
-            enter_light_sleep();
-            // }
-        }
+        // // light sleep if charging? Charging event might keep waking MCU. To be confirmed...
+        // or if it's in USB mode but USB state is suspended
+        break_all_key();
+        enter_light_sleep();
         f_wakeup_prepare = 1; // only if light sleep.
     }
 
-    // wakeup check
-    // we only arrive here on light sleep.
-    if (f_wakeup_prepare && no_act_time < 10) { // activity wake up
+    // wakeup check, we only arrive here on light sleep.
+    if (f_wakeup_prepare && (no_act_time < 10)) { // activity wake up
         f_wakeup_prepare = 0;
-        if (user_config.sleep_enable) exit_light_sleep();
+        exit_light_sleep();
     }
 
     // sleep check, won't reach here on deep sleep.
@@ -117,21 +76,23 @@ void sleep_handle(void) {
             }
         } else {
             usb_suspend_debounce = 0;
-            if (no_act_time >= sleep_time_delay && user_config.usb_sleep_toggle) {
+            if (user_config.usb_sleep_toggle && no_act_time >= sleep_time_delay) {
                 f_goto_sleep = 1;
             } else {
                 f_goto_sleep = 0;
             }
         }
-    } else {
-        f_goto_sleep = 0;
-        if (dev_info.rf_state == RF_CONNECT) {
-            if (no_act_time >= sleep_time_delay) {
-                f_goto_sleep = 1;
-            }
-        } else if (rf_linking_time >= user_config.rf_link_timeout) {
-            rf_linking_time = 0;
-            f_goto_sleep    = 1;
+    } else if (no_act_time >= sleep_time_delay) {
+        f_goto_sleep = 1;
+    } else if (rf_linking_time >= user_config.rf_link_timeout) {
+        rf_linking_time = 0;
+        f_goto_sleep = 1;
+    } else if (dev_info.rf_state == RF_DISCONNECT) {
+        rf_disconnect_time++;
+        if (rf_disconnect_time > 5 * 20) { // 5 seconds
+            f_goto_sleep = 1;
         }
+    } else if (dev_info.rf_state == RF_CONNECT) {
+        rf_disconnect_time = 0;
     }
 }
