@@ -16,8 +16,7 @@
 
 #pragma once
 
-#include_next <mcuconf.h>
+#define HAL_USE_SPI TRUE
 
+#include_next <halconf.h>
 
-#undef STM32_SPI_USE_SPI2
-#define STM32_SPI_USE_SPI2 TRUE
