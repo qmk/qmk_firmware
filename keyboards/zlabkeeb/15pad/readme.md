@@ -6,7 +6,7 @@
 
 -   Keyboard Maintainer: [zlabkeeb](https://github.com/zlabkeeb)
 -   Hardware Supported: 15Pad PCB, RP2040 ZERO
--   Hardware Availability: (INDONESIA ONLY) Will be available at [Tokopedia](https://www.tokopedia.com/zahranetid)
+-   Hardware Availability: (INDONESIA ONLY) [Tokopedia](https://www.tokopedia.com/zahranetid/macropad-15pad-via-compatible)
 
 Make example for this keyboard (after setting up your build environment):
 
