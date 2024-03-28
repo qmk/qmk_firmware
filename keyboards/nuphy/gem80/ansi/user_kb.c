@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include "config.h"
 #include "eeconfig.h"
-#include "mcu_pwr.h"
 #include "color.h"
 #include "host.h"
 
@@ -42,6 +41,11 @@ bool f_rgb_test_press     = 0;
 bool f_bat_num_show       = 0;
 bool f_debounce_show      = 0;
 bool f_sleep_timeout_show = 0;
+// sleep control for leds
+bool side_led_powered_off = 0;
+bool rgb_led_powered_off  = 0;
+static bool rgb_led_on           = 0;
+static bool side_led_on          = 0;
 
 uint8_t        rf_blink_cnt          = 0;
 uint8_t        rf_sw_temp            = 0;
@@ -662,4 +666,71 @@ void adjust_sleep_timeout(uint8_t dir) {
 uint16_t get_sleep_timeout(void) {
     if (!user_config.sleep_enable) return 0;
     return user_config.sleep_timeout * 60 * 1000 / TIMER_STEP;
+}
+
+// power control for LEDs
+
+void pwr_rgb_led_off(void) {
+    if (!rgb_led_on) return;
+    // LED power supply off
+    setPinOutput(DC_BOOST_PIN);
+    writePinLow(DC_BOOST_PIN);
+    setPinInput(DRIVER_LED_CS_PIN);
+    rgb_led_on = 0;
+}
+
+void pwr_rgb_led_on(void) {
+    if (rgb_led_on) return;
+    // LED power supply on
+    setPinOutput(DC_BOOST_PIN);
+    writePinHigh(DC_BOOST_PIN);
+    setPinOutput(DRIVER_LED_CS_PIN);
+    writePinLow(DRIVER_LED_CS_PIN);
+    rgb_led_on = 1;
+}
+
+void pwr_side_led_off(void) {
+    if (!side_led_on) return;
+    setPinInput(DRIVER_SIDE_CS_PIN);
+    side_led_on = 0;
+}
+
+void pwr_side_led_on(void) {
+    if (side_led_on) return;
+    setPinOutput(DRIVER_SIDE_CS_PIN);
+    writePinLow(DRIVER_SIDE_CS_PIN);
+    side_led_on = 1;
+}
+
+bool is_rgb_led_on(void) {
+    return rgb_led_on;
+}
+
+bool is_side_led_on(void) {
+    return side_led_on;
+}
+
+void led_pwr_sleep_handle(void) {
+    // reset the flags.
+    side_led_powered_off = 0;
+    rgb_led_powered_off  = 0;
+
+    // power off leds if they were enabled
+    if (is_rgb_led_on()) {
+        rgb_led_powered_off = 1;
+        pwr_rgb_led_off();
+    }
+    if (is_side_led_on()) {
+        side_led_powered_off = 1;
+        pwr_side_led_off();
+    }
+}
+
+void led_pwr_wake_handle(void) {
+    if (rgb_led_powered_off) {
+        pwr_rgb_led_on();
+    }
+    if (side_led_powered_off) {
+        pwr_side_led_on();
+    }
 }

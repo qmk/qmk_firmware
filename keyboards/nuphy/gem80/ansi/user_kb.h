@@ -154,7 +154,7 @@ typedef struct {
     uint8_t  ee_logo_colour;
     uint8_t  sleep_enable;
     uint8_t  usb_sleep_toggle;
-    uint16_t  sleep_timeout;
+    uint16_t sleep_timeout;
     uint16_t rf_link_timeout;
     uint8_t  caps_indication_type;
     uint8_t  debounce_ms;
@@ -196,8 +196,16 @@ void led_power_handle(void);
 void toggle_caps_indication(void);
 void toggle_usb_sleep(void);
 
-uint8_t two_digit_decimals_led(uint8_t value);
-uint8_t two_digit_ones_led(uint8_t value);
-void    adjust_debounce(uint8_t dir);
+uint8_t  two_digit_decimals_led(uint8_t value);
+uint8_t  two_digit_ones_led(uint8_t value);
+void     adjust_debounce(uint8_t dir);
 uint16_t get_sleep_timeout(void);
-void    adjust_sleep_timeout(uint8_t dir);
+void     adjust_sleep_timeout(uint8_t dir);
+
+// led power control for sleep
+void pwr_rgb_led_off(void);
+void pwr_rgb_led_on(void);
+void pwr_side_led_off(void);
+void pwr_side_led_on(void);
+void led_pwr_sleep_handle(void);
+void led_pwr_wake_handle(void);

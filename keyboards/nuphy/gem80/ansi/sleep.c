@@ -20,7 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "user_kb.h"
 #include "hal_usb.h"
 #include "usb_main.h"
-#include "mcu_pwr.h"
+
+// sleep control for leds
+extern bool side_led_powered_off;
+extern bool rgb_led_powered_off;
 
 extern user_config_t   user_config;
 extern DEV_INFO_STRUCT dev_info;
@@ -29,6 +32,49 @@ extern uint16_t        rf_link_timeout;
 extern uint16_t        no_act_time;
 extern bool            f_goto_sleep;
 extern bool            f_wakeup_prepare;
+
+void clear_report_buffer(void);
+
+/**
+ * @brief  Light sleep by powering off LEDs.
+ * @note This is Nuphy's "open sourced" sleep logic. It's not deep sleep.
+ */
+void enter_light_sleep(void) {
+    if (dev_info.rf_state == RF_CONNECT)
+        uart_send_cmd(CMD_SET_CONFIG, 5, 5);
+    else
+        uart_send_cmd(CMD_SLEEP, 5, 5);
+
+    led_pwr_sleep_handle();
+    clear_report_buffer();
+}
+
+/**
+ * @brief  Power back up LEDs on exiting light sleep.
+ * @note This is Nuphy's "open sourced" wake logic. It's not deep sleep.
+ */
+void exit_light_sleep(void) {
+    // FIXME: hack to force enable all leds
+    rgb_led_powered_off  = 1;
+    side_led_powered_off = 1;
+
+    led_pwr_wake_handle();
+
+    uart_send_cmd(CMD_HAND, 0, 1);
+
+    if (dev_info.link_mode == LINK_USB) {
+        usb_lld_wakeup_host(&USB_DRIVER);
+        restart_usb_driver(&USB_DRIVER);
+    }
+
+    // flag for RF wakeup workload.
+    dev_info.rf_state = RF_WAKE;
+    // force LEDs to enable
+    // setPinOutput(DRIVER_LED_CS_PIN);
+    // writePinLow(DRIVER_LED_CS_PIN);
+    // setPinOutput(DRIVER_SIDE_CS_PIN);
+    // writePinLow(DRIVER_SIDE_CS_PIN);
+}
 
 /**
  * @brief  Sleep Handle.
@@ -45,7 +91,7 @@ void sleep_handle(void) {
     // sleep process;
     if (!user_config.sleep_enable) return;
     // get sleep_time_delay from eeprom
-    uint16_t        sleep_time_delay     = get_sleep_timeout();
+    uint16_t sleep_time_delay = get_sleep_timeout();
 
     if (f_goto_sleep) {
         // reset all counters
