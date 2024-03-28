@@ -2,12 +2,11 @@
 // Copyright 2023 @jasonhazel (Jason Hazel)
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "quantum.h"
-#include "spi_master.h"
-#include <string.h> /* memset */
-#include <unistd.h> /* close */
-#include "quantum.h"
 #include "matrix.h"
+#include <string.h>
+#include "spi_master.h"
+#include "debug.h"
+#include "wait.h"
 
 #if (!defined(SHIFTREG_MATRIX_COL_CS))
 #    error Missing shift register I/O pin definitions

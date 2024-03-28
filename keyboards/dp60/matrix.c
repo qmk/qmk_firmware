@@ -13,7 +13,10 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "quantum.h"
+#include "matrix.h"
+#include "print.h"
+#include "bitwise.h"
+#include "wait.h"
 
 #ifndef DEBOUNCE
 #    define DEBOUNCE 5

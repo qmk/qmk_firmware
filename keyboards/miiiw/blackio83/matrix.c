@@ -14,8 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
 #include "matrix.h"
+#include "wait.h"
 #include "common/shift_register.h"
 
 static uint8_t read_rows(void);

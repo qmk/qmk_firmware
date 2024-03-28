@@ -15,11 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "gpio.h"
-#include "hal_pal.h"
-#include "hal_pal_lld.h"
-#include "quantum.h"
+#include "matrix.h"
+#include <hal_pal.h>
 #include <math.h>
+#include "wait.h"
 
 // STM32-specific watchdog config calculations
 // timeout = 31.25us * PR * (RL + 1)

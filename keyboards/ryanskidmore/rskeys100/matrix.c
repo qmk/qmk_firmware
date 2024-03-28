@@ -17,10 +17,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <stdbool.h>
 #include "matrix.h"
 #include <util/delay.h>
-#include "quantum.h"
 
 static const uint32_t col_values[24] = SHR_COLS;
 

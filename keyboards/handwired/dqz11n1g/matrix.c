@@ -15,14 +15,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <stdint.h>
-#include <stdbool.h>
-#include <string.h>
-
-#include <avr/io.h>
-
 #include "spi_master.h"
-#include "quantum.h"
 #include "matrix.h"
 
 static pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;

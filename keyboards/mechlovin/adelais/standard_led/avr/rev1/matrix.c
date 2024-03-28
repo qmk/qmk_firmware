@@ -16,13 +16,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <stdint.h>
-#include <stdbool.h>
 #include "wait.h"
 #include "util.h"
 #include "matrix.h"
 #include "debounce.h"
-#include "quantum.h"
 
 #ifdef DIRECT_PINS
 static pin_t direct_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;

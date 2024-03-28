@@ -16,7 +16,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "quantum.h"
+#include "matrix.h"
+#include "debug.h"
+#include "timer.h"
+#include "wait.h"
+#include "suspend.h"
+#include <avr/interrupt.h>
 
 #ifdef BLUETOOTH_ENABLE
 #    include "adafruit_ble.h"

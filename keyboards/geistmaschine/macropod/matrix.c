@@ -14,8 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "matrix.h"
 #include "pca9555.h"
-#include "quantum.h"
+#include "timer.h"
 
 // PCA9555 i2c address, 0x20: A0 = 0, A1 = 0, A2 = 0
 #define IC1 0x20

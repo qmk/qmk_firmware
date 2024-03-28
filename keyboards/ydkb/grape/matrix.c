@@ -15,10 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <stdint.h>
-#include <stdbool.h>
 #include "matrix.h"
-#include "quantum.h"
 #include "sn74x138.h"
 
 static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;

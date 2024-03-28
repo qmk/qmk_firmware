@@ -14,7 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
+#include "matrix.h"
+#include "atomic_util.h"
+#include <string.h>
 
 #ifndef SHIFT_COL_START
 #    define SHIFT_COL_START 8
