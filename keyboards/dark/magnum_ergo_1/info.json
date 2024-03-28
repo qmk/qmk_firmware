@@ -17,16 +17,13 @@
         }
     },
     "features": {
-        "audio": false,
         "backlight": true,
         "bootmagic": true,
         "command": false,
         "console": false,
-        "encoder": false,
         "extrakey": true,
         "mousekey": false,
-        "nkro": true,
-        "rgblight": false
+        "nkro": true
     },
     "diode_direction": "COL2ROW",
     "backlight": {

@@ -22,9 +22,7 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgblight": true,
-        "backlight": false,
-        "audio": false
+        "rgblight": true
     },
     "rgblight": {
         "led_count": 8,

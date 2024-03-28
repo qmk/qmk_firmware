@@ -154,6 +154,7 @@ rgb_led_t rgb_matrix_ws2812_array[WS2812_LED_TOTAL];
 static void rgb_matrix_driver_init(void) {
     i2c_init();
     is31fl3733_init(0);
+    ws2812_init();
     for (uint8_t index = 0; index < IS31FL3733_LED_COUNT; index++) {
         bool enabled = true;
         is31fl3733_set_led_control_register(index, enabled, enabled, enabled);

@@ -11,11 +11,9 @@
     "command": false,
     "console": true,
     "extrakey": true,
-    "midi": false,
     "mousekey": true,
     "nkro": true,
-    "rgblight": true,
-    "unicode": false
+    "rgblight": true
   },
   "matrix_pins": {
     "cols": ["F4", "E6", "B1", "D2"],

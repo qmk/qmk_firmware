@@ -151,6 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 };
 
+#ifdef RGBLIGHT_ENABLE
 void eeconfig_init_user(void) {
   rgblight_enable();
   rgblight_sethsv(HSV_CYAN);
@@ -158,7 +159,7 @@ void eeconfig_init_user(void) {
   user_config.rgb_layer_change = true;
   eeconfig_update_user(user_config.raw);
 }
-
+#endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -168,21 +169,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         eeconfig_init();
       }
       return false;
-      break;
     case VRSN:
       if (record->event.pressed) {
         SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
       }
       return false;
-      break;
+#ifdef RGBLIGHT_ENABLE
     case RGB_SLD:
       if (record->event.pressed) {
-        #ifdef RGBLIGHT_ENABLE
           rgblight_mode(1);
-        #endif
       }
       return false;
-      break;
      case RGB_LYR:  // This allows me to use underglow as layer indication, or as normal
         if (record->event.pressed) {
             user_config.rgb_layer_change ^= 1; // Toggles the status
@@ -191,7 +188,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_state_set(layer_state);   // then immediately update the layer color
             }
         }
-        return false; break;
+        return false;
     case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT: // For any of the RGB codes (see quantum_keycodes.h, L400 for reference)
         if (record->event.pressed) { //This disables layer indication, as it's assumed that if you're changing this ... you want that disabled
             if (user_config.rgb_layer_change) {        // only if this is enabled
@@ -199,11 +196,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 eeconfig_update_user(user_config.raw); // write the setings to EEPROM
             }
         }
-        return true; break;
+        return true;
+#endif
  }
   return true;
 }
 
+#ifdef RGBLIGHT_ENABLE
 void matrix_init_user(void) {
   // Call the keymap level matrix init.
 
@@ -217,11 +216,7 @@ void matrix_init_user(void) {
     rgblight_mode_noeeprom(1);
   }
 }
-
-// Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {
-
-};
+#endif
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   ergodox_board_led_off();
@@ -231,39 +226,55 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   switch (get_highest_layer(state)) {
     case SYMB:
         ergodox_right_led_1_on();
+#ifdef RGBLIGHT_ENABLE
         if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_RED); rgblight_mode_noeeprom(1); }
+#endif
         break;
     case MDIA:
         ergodox_right_led_2_on();
+#ifdef RGBLIGHT_ENABLE
         if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_GREEN); rgblight_mode_noeeprom(1); }
+#endif
         break;
     case 3:
         ergodox_right_led_3_on();
+#ifdef RGBLIGHT_ENABLE
         if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_BLUE); rgblight_mode_noeeprom(1); }
+#endif
         break;
     case 4:
         ergodox_right_led_1_on();
         ergodox_right_led_2_on();
+#ifdef RGBLIGHT_ENABLE
         if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_ORANGE); rgblight_mode_noeeprom(1); }
+#endif
         break;
     case 5:
         ergodox_right_led_1_on();
         ergodox_right_led_3_on();
+#ifdef RGBLIGHT_ENABLE
         if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_YELLOW); rgblight_mode_noeeprom(1); }
+#endif
         break;
     case 6:
         ergodox_right_led_2_on();
         ergodox_right_led_3_on();
+#ifdef RGBLIGHT_ENABLE
         if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_PINK); rgblight_mode_noeeprom(1); }
+#endif
         break;
     case 7:
         ergodox_right_led_1_on();
         ergodox_right_led_2_on();
         ergodox_right_led_3_on();
+#ifdef RGBLIGHT_ENABLE
         if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_WHITE); rgblight_mode_noeeprom(1); }
+#endif
         break;
     default: //  for any other layers, or the default layer
+#ifdef RGBLIGHT_ENABLE
         if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_CYAN); rgblight_mode_noeeprom(1); }
+#endif
         break;
     }
   return state;

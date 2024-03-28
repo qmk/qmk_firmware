@@ -23,19 +23,12 @@
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "features": {
-        "audio": false,
         "bootmagic": true,
         "command": false,
         "console": false,
         "extrakey": true,
-        "midi": false,
         "mousekey": true,
-        "nkro": true,
-        "rgblight": false,
-        "unicode": false,
-        "bluetooth": false,
-        "backlight": false,
-        "sleep_led": false
+        "nkro": true
     },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_abnt2"

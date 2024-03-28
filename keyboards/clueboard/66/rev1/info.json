@@ -6,18 +6,12 @@
   "bootloader": "atmel-dfu",
   "diode_direction": "COL2ROW",
   "features": {
-    "audio": false,
-    "backlight": false,
-    "bluetooth": false,
     "bootmagic": false,
     "command": false,
     "console": true,
     "extrakey": true,
-    "midi": false,
     "mousekey": true,
-    "nkro": true,
-    "rgblight": false,
-    "unicode": false
+    "nkro": true
   },
   "indicators": {
     "caps_lock": "F0"

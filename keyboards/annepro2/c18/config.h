@@ -19,24 +19,11 @@
 
 #include "pin_defs.h"
 
-// key matrix size
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
-// layer size: MATRIX_ROWS * MATRIX_COLS * sizeof(uint16_t) = 140 bytes
-
 #define LINE_UART_TX B0
 #define LINE_UART_RX B1
 
 #define LINE_BT_UART_TX A4  // Master TX, BLE RX
 #define LINE_BT_UART_RX A5  // Master RX, BLE TX
-
-// outputs (rows are pulled low)
-#define MATRIX_ROW_PINS \
-    { B5, B4, B3, B2, D1 }
-
-// inputs (columns are sampled)
-#define MATRIX_COL_PINS \
-    { C4, C5, D0, B15, C11, A15, C12, C13, A8, A10, A11, A14, D2, D3 }
 
 // Obins stock firmware has something similar to this already enabled, but disabled by default in QMK
 #define PERMISSIVE_HOLD

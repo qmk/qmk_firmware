@@ -1,0 +1,128 @@
+{
+    "keyboard_name": "KB30-01",
+    "manufacturer": "DOIO",
+    "url": "",
+    "maintainer": "DOIO2022",
+    "usb": {
+        "vid": "0xD010",
+        "pid": "0x3001",
+        "device_version": "0.0.1"
+    },
+    "rgb_matrix": {
+        "animations": {
+            "alphas_mods": true,
+            "gradient_up_down": true,
+            "gradient_left_right": true,
+            "breathing": true,
+            "cycle_up_down": true,
+            "cycle_out_in": true,
+            "cycle_out_in_dual": true,
+            "rainbow_moving_chevron": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "dual_beacon": true,
+            "rainbow_beacon": true,
+            "rainbow_pinwheels": true,
+            "raindrops": true,
+            "jellybean_raindrops": true,
+            "hue_breathing": true,
+            "typing_heatmap": true,
+            "digital_rain": true,
+            "solid_reactive_simple": true,
+            "solid_reactive": true,
+            "solid_reactive_wide": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_cross": true,
+            "solid_reactive_multicross": true,
+            "solid_reactive_nexus": true,
+            "solid_reactive_multinexus": true,
+            "splash": true,
+            "multisplash": true,
+            "solid_splash": true,
+            "solid_multisplash": true
+        },
+        "default": {
+            "animation": "cycle_up_down"
+        },
+        "driver": "ws2812",
+        "max_brightness": 200,
+        "sleep": true
+    },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "oled": true,
+        "rgb_matrix": true
+    },
+    "matrix_pins": {
+        "cols": ["B14", "B13", "B12", "B0", "A7", "A9", "A8"],
+        "rows": ["B3", "B4", "B9", "B8", "A5", "A6"]
+    },
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B5", "pin_b": "B6"},
+            {"pin_a": "A1", "pin_b": "A2"},
+            {"pin_a": "A3", "pin_b": "A4", "resolution": 2}
+        ]
+    },
+    "ws2812": {
+        "pin": "A10"
+    },
+    "processor": "STM32F103",
+    "bootloader": "stm32duino",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+
+                {"matrix": [0, 4], "x": 4.25, "y": 0},
+                {"matrix": [0, 5], "x": 5.25, "y": 0},
+                {"matrix": [0, 6], "x": 6.25, "y": 0},
+
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [1, 3], "x": 3, "y": 1, "h": 2},
+
+                {"matrix": [1, 4], "x": 4.25, "y": 1},
+                {"matrix": [1, 5], "x": 5.25, "y": 1},
+                {"matrix": [1, 6], "x": 6.25, "y": 1},
+
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+
+                {"matrix": [2, 3], "x": 4.25, "y": 2},
+                {"matrix": [2, 4], "x": 5.25, "y": 2},
+                {"matrix": [2, 5], "x": 6.25, "y": 2},
+
+                {"matrix": [3, 0], "x": 0, "y": 3},
+                {"matrix": [3, 1], "x": 1, "y": 3},
+                {"matrix": [3, 2], "x": 2, "y": 3},
+                {"matrix": [3, 3], "x": 3, "y": 3, "h": 2},
+
+                {"matrix": [3, 5], "x": 5.25, "y": 3},
+
+                {"matrix": [4, 0], "x": 0, "y": 4, "w": 2},
+                {"matrix": [4, 1], "x": 2, "y": 4},
+
+                {"matrix": [4, 2], "x": 4.25, "y": 4},
+                {"matrix": [4, 3], "x": 5.25, "y": 4},
+                {"matrix": [4, 4], "x": 6.25, "y": 4},
+
+                {"matrix": [5, 4], "x": 7.75, "y": 1},
+                {"matrix": [5, 5], "x": 9.75, "y": 1},
+                {"matrix": [5, 6], "x": 7.75, "y": 2, "w": 3, "h": 3}
+            ]
+        }
+    }
+}

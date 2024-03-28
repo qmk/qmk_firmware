@@ -19,37 +19,57 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <stddef.h> // offsetof
 #include "eeprom.h"
+#include "util.h"
 
 #ifndef EECONFIG_MAGIC_NUMBER
-#    define EECONFIG_MAGIC_NUMBER (uint16_t)0xFEE6 // When changing, decrement this value to avoid future re-init issues
+#    define EECONFIG_MAGIC_NUMBER (uint16_t)0xFEE5 // When changing, decrement this value to avoid future re-init issues
 #endif
 #define EECONFIG_MAGIC_NUMBER_OFF (uint16_t)0xFFFF
 
-/* EEPROM parameter address */
-#define EECONFIG_MAGIC (uint16_t *)0
-#define EECONFIG_DEBUG (uint8_t *)2
-#define EECONFIG_DEFAULT_LAYER (uint8_t *)3
-#define EECONFIG_KEYMAP (uint16_t *)4
-#define EECONFIG_BACKLIGHT (uint8_t *)6
-#define EECONFIG_AUDIO (uint8_t *)7
-#define EECONFIG_RGBLIGHT (uint32_t *)8
-#define EECONFIG_UNICODEMODE (uint8_t *)12
-#define EECONFIG_STENOMODE (uint8_t *)13
-// EEHANDS for two handed boards
-#define EECONFIG_HANDEDNESS (uint8_t *)14
-#define EECONFIG_KEYBOARD (uint32_t *)15
-#define EECONFIG_USER (uint32_t *)19
-#define EECONFIG_UNUSED (uint8_t *)23
-// Mutually exclusive
-#define EECONFIG_LED_MATRIX (uint32_t *)24
-#define EECONFIG_RGB_MATRIX (uint64_t *)24
+// Dummy struct only used to calculate offsets
+typedef struct PACKED {
+    uint16_t magic;
+    uint8_t  debug;
+    uint8_t  default_layer;
+    uint16_t keymap;
+    uint8_t  backlight;
+    uint8_t  audio;
+    uint32_t rgblight;
+    uint8_t  unicode;
+    uint8_t  steno;
+    uint8_t  handedness;
+    uint32_t keyboard;
+    uint32_t user;
+    union { // Mutually exclusive
+        uint32_t led_matrix;
+        uint64_t rgb_matrix;
+    };
+    uint32_t haptic;
+    uint8_t  rgblight_ext;
+} eeprom_core_t;
 
-#define EECONFIG_HAPTIC (uint32_t *)32
-#define EECONFIG_RGBLIGHT_EXTENDED (uint8_t *)36
+/* EEPROM parameter address */
+#define EECONFIG_MAGIC (uint16_t *)(offsetof(eeprom_core_t, magic))
+#define EECONFIG_DEBUG (uint8_t *)(offsetof(eeprom_core_t, debug))
+#define EECONFIG_DEFAULT_LAYER (uint8_t *)(offsetof(eeprom_core_t, default_layer))
+#define EECONFIG_KEYMAP (uint16_t *)(offsetof(eeprom_core_t, keymap))
+#define EECONFIG_BACKLIGHT (uint8_t *)(offsetof(eeprom_core_t, backlight))
+#define EECONFIG_AUDIO (uint8_t *)(offsetof(eeprom_core_t, audio))
+#define EECONFIG_RGBLIGHT (uint32_t *)(offsetof(eeprom_core_t, rgblight))
+#define EECONFIG_UNICODEMODE (uint8_t *)(offsetof(eeprom_core_t, unicode))
+#define EECONFIG_STENOMODE (uint8_t *)(offsetof(eeprom_core_t, steno))
+#define EECONFIG_HANDEDNESS (uint8_t *)(offsetof(eeprom_core_t, handedness))
+#define EECONFIG_KEYBOARD (uint32_t *)(offsetof(eeprom_core_t, keyboard))
+#define EECONFIG_USER (uint32_t *)(offsetof(eeprom_core_t, user))
+#define EECONFIG_LED_MATRIX (uint32_t *)(offsetof(eeprom_core_t, led_matrix))
+#define EECONFIG_RGB_MATRIX (uint64_t *)(offsetof(eeprom_core_t, rgb_matrix))
+#define EECONFIG_HAPTIC (uint32_t *)(offsetof(eeprom_core_t, haptic))
+#define EECONFIG_RGBLIGHT_EXTENDED (uint8_t *)(offsetof(eeprom_core_t, rgblight_ext))
 
 // Size of EEPROM being used for core data storage
-#define EECONFIG_BASE_SIZE 37
+#define EECONFIG_BASE_SIZE ((uint8_t)sizeof(eeprom_core_t))
 
 // Size of EEPROM dedicated to keyboard- and user-specific data
 #ifndef EECONFIG_KB_DATA_SIZE

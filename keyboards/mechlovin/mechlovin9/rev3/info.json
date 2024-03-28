@@ -6,9 +6,6 @@
         "pid": "0x6509",
         "device_version": "0.0.3"
     },
-    "features": {
-        "backlight": false
-    },
     "bootmagic": {
         "matrix": [0, 13]
     },

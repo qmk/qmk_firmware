@@ -8,16 +8,13 @@
   "features": {
     "audio": true,
     "backlight": true,
-    "bluetooth": false,
     "bootmagic": false,
     "command": false,
     "console": true,
     "extrakey": true,
-    "midi": false,
     "mousekey": false,
     "nkro": true,
-    "rgblight": true,
-    "unicode": false
+    "rgblight": true
   },
   "indicators": {
     "caps_lock": "B4"

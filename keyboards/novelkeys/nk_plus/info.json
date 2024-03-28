@@ -14,15 +14,13 @@
         "rows": ["B2", "B1", "B0", "B10", "B3"]
     },
     "features": {
-        "backlight": false,
         "bootmagic": true,
         "command": false,
         "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgb_matrix": true,
-        "rgblight": false
+        "rgb_matrix": true
     },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",

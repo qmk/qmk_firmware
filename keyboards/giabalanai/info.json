@@ -36,9 +36,7 @@
         "bootmagic": false,
         "console": false,
         "mousekey": false,
-        "nkro": false,
-        "rgblight": false,
-        "audio": false
+        "nkro": false
     },
     "encoder": {
         "rotary": []

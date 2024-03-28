@@ -32,5 +32,11 @@
 #define PMW33XX_CS_PIN             B0
 #define POINTING_DEVICE_INVERT_Y
 
+
+#define ENCODER_BUTTON_COL 1
+#define ENCODER_BUTTON_ROW 0
 /* Custom encoder needs to specify just how many encoders we have */
 #define NUM_ENCODERS 1
+
+#define ENCODERS_PAD_A { F0 }
+#define ENCODERS_PAD_B { F4 }

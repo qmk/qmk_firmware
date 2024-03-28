@@ -1,20 +1,30 @@
 {
     "keyboard_name": "Jotanck",
     "manufacturer": "Jotix",
-    "url": "",
+    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/handwired/jotanck",
     "maintainer": "jotix",
     "usb": {
         "vid": "0x4A4F",
         "pid": "0x5458",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "tapping": {
+        "term": 175
+    },
+    "development_board": "promicro",
     "matrix_pins": {
         "cols": ["F4", "F5", "F6", "F7", "B1", "B3", "D3", "D2", "D1", "D0", "D4", "C6"],
         "rows": ["D7", "E6", "B6", "B2"]
     },
     "diode_direction": "COL2ROW",
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
     "community_layouts": ["ortho_4x12"],
     "layouts": {
         "LAYOUT_ortho_4x12": {

@@ -17,12 +17,10 @@
         }
     },
     "features": {
-        "audio": false,
         "backlight": true,
         "bootmagic": true,
         "command": false,
         "console": false,
-        "encoder": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -36,7 +34,7 @@
     },
     "indicators": {
         "caps_lock": "A10"
-    }
+    },
     "ws2812": {
         "pin": "B15"
     },

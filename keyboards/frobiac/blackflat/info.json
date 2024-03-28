@@ -7,17 +7,13 @@
     "processor": "atmega32u4",
     "diode_direction": "COL2ROW",
     "features": {
-        "audio": false,
-        "backlight": false,
         "bootmagic": false,
         "command": false,
         "console": false,
         "dynamic_macro": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": false,
-        "unicode": false,
-        "rgblight": false
+        "nkro": false
     },
     "build": {
         "lto": true

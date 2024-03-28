@@ -13,7 +13,6 @@
     "extrakey": true,
     "mousekey": true,
     "nkro": true,
-    "rgblight": false,
     "rgb_matrix": true
   },
   "ws2812": {

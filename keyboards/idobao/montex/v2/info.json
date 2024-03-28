@@ -10,9 +10,7 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "backlight": false,
-        "rgblight": false
+        "nkro": true
     },
     "ws2812": {
         "pin": "B1"

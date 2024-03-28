@@ -10,7 +10,6 @@
     "features": {
         "bootmagic": true,
         "nkro": true,
-        "backlight": false,
         "rgblight": true,
         "key_lock": true,
         "leader": true

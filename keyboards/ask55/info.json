@@ -5,18 +5,13 @@
     "development_board": "promicro",
     "diode_direction": "COL2ROW",
     "features": {
-        "audio": false,
-        "backlight": false,
-        "bluetooth": false,
         "bootmagic": true,
         "command": false,
         "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgblight": true,
-        "sleep_led": false,
-        "unicode": false
+        "rgblight": true
     },
     "matrix_pins": {
         "cols": ["E6", "D0", "D2", "D3", "D5", "D4", "D6", "D7", "B4", "B5", "B6", "C6", "C7", "F7"],

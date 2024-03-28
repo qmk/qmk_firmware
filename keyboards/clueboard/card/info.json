@@ -9,16 +9,13 @@
   "features": {
     "audio": true,
     "backlight": true,
-    "bluetooth": false,
     "bootmagic": false,
     "command": false,
     "console": true,
     "extrakey": true,
-    "midi": false,
     "mousekey": true,
     "nkro": false,
-    "rgblight": true,
-    "unicode": false
+    "rgblight": true
   },
   "build": {
     "lto": true

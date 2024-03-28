@@ -303,7 +303,7 @@ static const DACConfig dac_conf = {.init = AUDIO_DAC_OFF_VALUE, .datamode = DAC_
  */
 static const DACConversionGroup dac_conv_cfg = {.num_channels = 1U, .end_cb = dac_end, .error_cb = dac_error, .trigger = DAC_TRG(0b000)};
 
-void audio_driver_initialize(void) {
+void audio_driver_initialize_impl(void) {
     if ((AUDIO_PIN == A4) || (AUDIO_PIN_ALT == A4)) {
         palSetLineMode(A4, PAL_MODE_INPUT_ANALOG);
         dacStart(&DACD1, &dac_conf);
@@ -350,11 +350,11 @@ void audio_driver_initialize(void) {
     gptStart(&GPTD6, &gpt6cfg1);
 }
 
-void audio_driver_stop(void) {
+void audio_driver_stop_impl(void) {
     state = OUTPUT_SHOULD_STOP;
 }
 
-void audio_driver_start(void) {
+void audio_driver_start_impl(void) {
     gptStartContinuous(&GPTD6, 2U);
 
     for (uint8_t i = 0; i < AUDIO_MAX_SIMULTANEOUS_TONES; i++) {

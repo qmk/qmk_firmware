@@ -1,7 +1,8 @@
 // Copyright 2018-2022 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
+#include <ch.h>
+#include <hal.h>
 #include "quantum.h"
-#include <hal_pal.h>
 #include "djinn.h"
 
 #define GPIOB_BITMASK (1 << 13 | 1 << 14 | 1 << 15) // B13, B14, B15
@@ -34,6 +35,8 @@ void matrix_wait_for_port(stm32_gpio_t *port, uint32_t target_bitmask) {
     }
 }
 
+static void dummy_vt_callback(virtual_timer_t *vtp, void *p) {}
+
 void matrix_init_custom(void) {
     for (int i = 0; i < MATRIX_ROWS; ++i) {
         setPinInputHigh(row_pins[i]);
@@ -41,6 +44,11 @@ void matrix_init_custom(void) {
     for (int i = 0; i < MATRIX_COLS; ++i) {
         setPinInputHigh(col_pins[i]);
     }
+
+    // Start a virtual timer so we'll still get periodic wakeups, now that USB SOF doesn't wake up the main loop
+    static virtual_timer_t vt;
+    chVTObjectInit(&vt);
+    chVTSetContinuous(&vt, TIME_MS2I(10), dummy_vt_callback, NULL);
 }
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {

@@ -30,8 +30,6 @@
         "rows": ["C2", "D0", "B0", "C7", "C5"]
     },
     "features": {
-        "audio": false,
-        "backlight": false,
         "bootmagic": true,
         "command": false,
         "console": false,

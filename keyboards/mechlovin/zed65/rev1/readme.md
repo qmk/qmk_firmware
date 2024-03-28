@@ -1,6 +1,6 @@
 # zed65
 
-![Zed65](https://i.imgur.com/IbsSLb6h.jpeg)
+![Zed65](https://i.imgur.com/bWvbV7l.jpg)
 
 A 65% PCB with centered USB and JST-SH support, using APM32F103.
 

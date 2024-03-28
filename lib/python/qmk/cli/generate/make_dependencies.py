@@ -18,10 +18,11 @@ from qmk.path import normpath, FileType
 @cli.argument('-km', '--keymap', completer=keymap_completer, help='The keymap to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.subcommand('Generates the list of dependencies associated with a keyboard build and its generated files.', hidden=True)
 def generate_make_dependencies(cli):
-    """Generates the list of dependent info.json, rules.mk, and config.h files for a keyboard.
+    """Generates the list of dependent config files for a keyboard.
     """
     interesting_files = [
         'info.json',
+        'keyboard.json',
         'rules.mk',
         'post_rules.mk',
         'config.h',

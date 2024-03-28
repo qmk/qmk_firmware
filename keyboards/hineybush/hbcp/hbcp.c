@@ -49,21 +49,20 @@ bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if (res) {
         if (led_state.caps_lock) {
-            sethsv_raw(HSV_CAPS, (rgb_led_t *)&led[0]);
+            rgblight_sethsv_at(HSV_CAPS, 0);
         } else {
-            sethsv(HSV_BLACK, (rgb_led_t *)&led[0]);
+            rgblight_sethsv_at(HSV_BLACK, 0);
         }
         if (led_state.num_lock) {
-            sethsv_raw(HSV_NLCK, (rgb_led_t *)&led[1]);
+            rgblight_sethsv_at(HSV_NLCK, 1);
         } else {
-            sethsv(HSV_BLACK, (rgb_led_t *)&led[1]);
+            rgblight_sethsv_at(HSV_BLACK, 1);
         }
         if (led_state.scroll_lock) {
-            sethsv_raw(HSV_SCRL, (rgb_led_t *)&led[2]);
+            rgblight_sethsv_at(HSV_SCRL, 2);
         } else {
-            sethsv(HSV_BLACK, (rgb_led_t *)&led[2]);
+            rgblight_sethsv_at(HSV_BLACK, 2);
         }
-        rgblight_set();
     }
     return false;
 }

@@ -31,14 +31,6 @@
 #    include "sleep_led.h"
 #endif
 
-#ifdef CONSOLE_ENABLE
-void console_task(void);
-#endif
-
-#ifdef RAW_ENABLE
-void raw_hid_task(void);
-#endif
-
 /* This is from main.c of USBaspLoader */
 static void initForUsbConnectivity(void) {
     uint8_t i = 0;
@@ -136,7 +128,7 @@ static inline bool should_do_suspend(void) {
     return vusb_suspended;
 }
 
-void protocol_task(void) {
+void protocol_pre_task(void) {
 #if !defined(NO_USB_STARTUP_CHECK)
     if (should_do_suspend()) {
         dprintln("suspending keyboard");
@@ -159,7 +151,9 @@ void protocol_task(void) {
         vusb_wakeup();
     }
 #endif
+}
 
+void protocol_keyboard_task(void) {
     usbPoll();
 
     // TODO: configuration process is inconsistent. it sometime fails.
@@ -167,20 +161,8 @@ void protocol_task(void) {
     if (usbConfiguration && usbInterruptIsReady()) {
         keyboard_task();
     }
+}
 
-#ifdef RAW_ENABLE
-    usbPoll();
-
-    if (usbConfiguration && usbInterruptIsReady4()) {
-        raw_hid_task();
-    }
-#endif
-
-#ifdef CONSOLE_ENABLE
-    usbPoll();
-
-    if (usbConfiguration && usbInterruptIsReady3()) {
-        console_task();
-    }
-#endif
+void protocol_post_task(void) {
+    // do nothing
 }

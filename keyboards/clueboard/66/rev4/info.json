@@ -8,17 +8,12 @@
   "diode_direction": "COL2ROW",
   "features": {
     "audio": true,
-    "backlight": false,
-    "bluetooth": false,
     "bootmagic": false,
     "command": false,
     "console": true,
     "extrakey": true,
-    "midi": false,
     "mousekey": true,
-    "nkro": true,
-    "rgblight": false,
-    "unicode": false
+    "nkro": true
   },
   "matrix_pins": {
     "cols": ["B10", "B2", "B1", "B0", "A7", "B4", "B3", "B5"],

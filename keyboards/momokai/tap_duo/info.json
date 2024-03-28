@@ -12,6 +12,12 @@
         "pin": "F0"
     },
     "rgb_matrix": {
+        "default": {
+            "animation": "solid_color",
+            "hue": 0,
+            "sat": 0,
+            "val": 200
+        },
         "animations": {
             "gradient_left_right": true,
             "breathing": true,

@@ -16,9 +16,6 @@
         "console": false,
         "command": false,
         "nkro": true,
-        "backlight": false,
-        "rgblight": false,
-        "audio": false,
         "rgb_matrix": true
     },
     "diode_direction": "COL2ROW",

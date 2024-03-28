@@ -12,9 +12,7 @@
         "tri_layer": true,
         "console": false,
         "command": false,
-        "nkro": false,
-        "backlight": false,
-        "audio": false
+        "nkro": false
     },
     "usb": {
         "vid": "0x4B50",

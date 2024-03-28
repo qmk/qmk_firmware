@@ -1,0 +1,16 @@
+{
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false
+    },
+    "indicators": {
+        "caps_lock": "B7",
+        "num_lock": "C5",
+        "scroll_lock": "C6",
+        "on_state": 0
+    }
+}

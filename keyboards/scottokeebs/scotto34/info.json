@@ -21,7 +21,7 @@
     "url": "https://scottokeebs.com",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x1013",
+        "pid": "0x1019",
         "vid": "0x534B"
     },
     "ws2812": {
@@ -29,7 +29,21 @@
         "driver": "vendor"
     },
     "rgblight": {
-        "led_count": 1
+        "led_count": 5,
+        "default": {
+            "animation": "rainbow_swirl"
+        },
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "community_layouts": ["split_3x5_2"],
     "layouts": {

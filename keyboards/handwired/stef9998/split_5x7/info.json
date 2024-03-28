@@ -8,12 +8,21 @@
     "pid": "0x6063",
     "device_version": "1.0.0"
   },
+  "features": {
+    "bootmagic": false,
+    "command": true,
+    "console": false,
+    "extrakey": true,
+    "mousekey": true,
+    "nkro": false
+  },
   "matrix_pins": {
     "cols": ["B2", "B6", "B1", "B3", "F7", "F5", "F6"],
     "rows": ["C6", "D7", "E6", "B4", "B5"]
   },
   "diode_direction": "COL2ROW",
   "split": {
+    "enabled": true,
     "soft_serial_pin": "D0",
     "matrix_pins": {
       "right": {

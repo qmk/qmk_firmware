@@ -8,20 +8,25 @@
         "pid": "0xD750",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "led_matrix": true,
+        "rgblight": true
+    },
+    "build": {
+        "lto": true
+    },
     "rgblight": {
         "saturation_steps": 8,
         "brightness_steps": 8,
         "led_count": 26,
         "animations": {
             "breathing": true,
-            "rainbow_mood": true,
             "rainbow_swirl": true,
-            "snake": true,
-            "knight": true,
-            "christmas": true,
             "static_gradient": true,
-            "rgb_test": true,
-            "alternating": true,
             "twinkle": true
         }
     },

@@ -6,6 +6,10 @@
 #include "ws2812.h"
 #include "color.h"
 
+static inline void rgblite_init(void) {
+    ws2812_init();
+}
+
 static inline void rgblite_setrgb(RGB rgb) {
     rgb_led_t leds[RGBLIGHT_LED_COUNT] = {{.r = rgb.r, .g = rgb.g, .b = rgb.b}};
     ws2812_setleds(leds, RGBLIGHT_LED_COUNT);

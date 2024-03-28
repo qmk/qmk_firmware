@@ -1,0 +1,65 @@
+{
+  "keyboard_name": "bigKNOB",
+  "manufacturer": "leafcutterlabs",
+  "url": "",
+  "maintainer": "qmk",
+  "usb": {
+    "vid": "0xCEEB",
+    "pid": "0x0007",
+    "device_version": "0.0.1"
+  },
+  "encoder": {
+    "rotary": [
+      {"pin_a": "D0", "pin_b": "D2"}
+    ]
+  },
+  "rgblight": {
+    "led_count": 5,
+    "animations": {
+      "breathing": true,
+      "rainbow_mood": true,
+      "rainbow_swirl": true,
+      "snake": true,
+      "knight": true,
+      "christmas": true,
+      "static_gradient": true,
+      "rgb_test": true,
+      "alternating": true,
+      "twinkle": true
+    }
+  },
+  "ws2812": {
+    "pin": "C7"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
+  "features": {
+    "bootmagic": true,
+    "command": false,
+    "console": false,
+    "encoder": true,
+    "extrakey": true,
+    "mousekey": true,
+    "nkro": true,
+    "rgblight": true
+  },
+  "matrix_pins": {
+    "direct": [
+      ["B7", "D4", "D6", "F6", "F7"]
+    ]
+  },
+  "layout_aliases": {
+    "LAYOUT": "LAYOUT_ortho_1x5"
+  },
+  "layouts": {
+    "LAYOUT_ortho_1x5": {
+      "layout": [
+        {"x": 0, "y": 0, "matrix": [0, 0]},
+        {"x": 1, "y": 0, "matrix": [0, 1]},
+        {"x": 2, "y": 0, "matrix": [0, 2]},
+        {"x": 3, "y": 0, "matrix": [0, 3]},
+        {"x": 4, "y": 0, "matrix": [0, 4]}
+      ]
+    }
+  }
+}

@@ -14,9 +14,6 @@
         "console": false,
         "mousekey": true,
         "extrakey": true,
-        "audio": false,
-        "rgblight": false,
-        "backlight": false,
         "nkro": false
     },
     "ws2812": {

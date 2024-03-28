@@ -55,12 +55,13 @@ led_config_t g_led_config = {
        1,            1,             1,             1,             1,             1,             1,             1,             1,             1,             1,             1,             1,             1,                            1,
        1,            1,             1,             1,             1,             1,             1,             1,             1,             1,             1,             1,             1,             1,                            1,
        1,            1,             1,                                                          1,                                                          1,             1,             1,             1,             1,             1,
-    } 
+    }
 };
 
-
 bool led_matrix_indicators_kb(void) {
-    if (!led_matrix_indicators_user()) { return false; }
+    if (!led_matrix_indicators_user()) {
+        return false;
+    }
     if (host_keyboard_led_state().caps_lock) {
         led_matrix_set_value(87, 0xFF);
         led_matrix_set_value(47, 0xFF);
@@ -80,33 +81,25 @@ bool led_matrix_indicators_kb(void) {
     return true;
 }
 
-
 layer_state_t layer_state_set_kb(layer_state_t state) {
-  // if on layer 1, turn on L1 LED, otherwise off.
-    if (get_highest_layer(state) == 0) {
-        led_matrix_set_value(90, 0xFF);
-    } else {
-        led_matrix_set_value(90, 0x00);
-    }
-  // if on layer 2, turn on L2 LED, otherwise off.
-    if (get_highest_layer(state) == 1) {
-        led_matrix_set_value(91, 0xFF);
-    } else {
-        led_matrix_set_value(91, 0x00);
-    }
-
-  // if on layer 3, turn on L3 LED, otherwise off.
-    if (get_highest_layer(state) == 2) {
-        led_matrix_set_value(92, 0xFF);
-    } else {
-        led_matrix_set_value(92, 0x00);
-    }
-
-  // if on layer 4, turn on L4 LED, otherwise off.
-    if (get_highest_layer(state) == 3) {
-        led_matrix_set_value(93, 0xFF);
-    } else {
-        led_matrix_set_value(93, 0x00);
+    switch (get_highest_layer(state)) {
+        case 0:
+            led_matrix_set_value(90, 0xFF);
+            break;
+        case 1:
+            led_matrix_set_value(91, 0xFF);
+            break;
+        case 2:
+            led_matrix_set_value(92, 0xFF);
+            break;
+        case 3:
+            led_matrix_set_value(93, 0xFF);
+            break;
+        default:
+            led_matrix_set_value(90, 0x00);
+            led_matrix_set_value(91, 0x00);
+            led_matrix_set_value(92, 0x00);
+            led_matrix_set_value(93, 0x00);
     }
     return layer_state_set_user(state);
 }

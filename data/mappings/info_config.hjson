@@ -19,6 +19,8 @@
     // Audio
     "AUDIO_DEFAULT_ON": {"info_key": "audio.default.on", "value_type": "bool"},
     "AUDIO_DEFAULT_CLICKY_ON": {"info_key": "audio.default.clicky", "value_type": "bool"},
+    "AUDIO_POWER_CONTROL_PIN": {"info_key": "audio.power_control.pin"},
+    "AUDIO_POWER_CONTROL_PIN_ON_STATE": {"info_key": "audio.power_control.on_state", "value_type": "int" },
     "AUDIO_VOICES": {"info_key": "audio.voices", "value_type": "flag"},
     "SENDSTRING_BELL": {"info_key": "audio.macro_beep", "value_type": "flag"},
 

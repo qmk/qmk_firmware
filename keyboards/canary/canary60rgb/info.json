@@ -8,6 +8,19 @@
         "pid": "0x0621",
         "device_version": "0.0.1"
     },
+    "build": {
+        "lto": true
+    },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": true,
+        "rgblight": true,
+        "rgb_matrix": true
+    },
     "rgblight": {
         "saturation_steps": 8,
         "brightness_steps": 8,

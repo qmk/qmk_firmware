@@ -247,6 +247,8 @@ void rgblight_init(void) {
         rgblight_mode_noeeprom(rgblight_config.mode);
     }
 
+    rgblight_driver.init();
+
     is_rgblight_initialized = true;
 }
 

@@ -19,8 +19,7 @@ SWAP_HANDS_ENABLE= no   # Allow swapping hands of keyboard
 RGB_MATRIX_ENABLE = no # enable later
 
 # project specific files
-SRC += matrix.c \
-	   led_i2c.c
+SRC += matrix.c
 I2C_DRIVER_REQUIRED = yes
 
 # Disable unsupported hardware

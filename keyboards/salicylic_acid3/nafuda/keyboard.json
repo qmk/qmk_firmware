@@ -1,0 +1,59 @@
+{
+    "keyboard_name": "nafuda",
+    "manufacturer": "Salicylic_Acid",
+    "url": "https://salicylic-acid3.hatenablog.com/",
+    "maintainer": "Salicylic_acid3",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x3060",
+        "device_version": "0.1.2"
+    },
+    "rgblight": {
+        "hue_steps": 10,
+        "led_count": 7,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "D3"
+    },
+    "features": {
+        "bootmagic": false,
+        "command": true,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false,
+        "rgblight": true
+    },
+    "matrix_pins": {
+        "cols": ["F4", "F5", "F6"],
+        "rows": ["D1", "D0", "D4"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [1, 0], "x": 0, "y": 0.5},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 0.5},
+                {"matrix": [2, 0], "x": 0, "y": 1.5},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 1.5}
+            ]
+        }
+    }
+}

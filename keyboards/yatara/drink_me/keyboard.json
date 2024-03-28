@@ -1,0 +1,36 @@
+{
+  "keyboard_name": "Drink Me",
+  "manufacturer": "Yatara",
+  "url": "https://github.com/yatara-cc",
+  "maintainer": "yatara-cc",
+  "usb": {
+    "vid": "0x5961",
+    "pid": "0x1470",
+    "device_version": "0.0.1"
+  },
+  "processor": "atmega32u2",
+  "bootloader": "atmel-dfu",
+  "features": {
+    "bootmagic": true,
+    "command": false,
+    "console": false,
+    "extrakey": false,
+    "mousekey": false,
+    "nkro": false
+  },
+  "matrix_pins": {
+    "direct": [
+      ["B4", "B5", "B6", "B7"]
+    ]
+  },
+  "layouts": {
+    "LAYOUT": {
+      "layout": [
+        {"x": 0, "y": 0, "matrix": [0, 0]},
+        {"x": 1, "y": 0, "matrix": [0, 1]},
+        {"x": 2, "y": 0, "matrix": [0, 2]},
+        {"x": 3, "y": 0, "matrix": [0, 3]}
+      ]
+    }
+  }
+}

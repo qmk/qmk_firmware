@@ -22,10 +22,7 @@
         "console": false,
         "command": false,
         "nkro": false,
-        "backlight": false,
-        "rgblight": true,
-        "audio": false,
-        "key_lock": false
+        "rgblight": true
     },
     "rgblight": {
         "led_count": 18,
