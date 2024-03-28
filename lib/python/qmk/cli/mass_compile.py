@@ -35,18 +35,24 @@ def mass_compile_targets(targets: List[BuildTarget], clean: bool, dry_run: bool,
             for target in sorted(targets, key=lambda t: (t.keyboard, t.keymap)):
                 keyboard_name = target.keyboard
                 keymap_name = target.keymap
+                keyboard_safe = keyboard_name.replace('/', '_')
+                target_filename = target.target_name(**env)
                 target.configure(parallel=1)  # We ignore parallelism on a per-build basis as we defer to the parent make invocation
                 target.prepare_build(**env)  # If we've got json targets, allow them to write out any extra info to .build before we kick off `make`
                 command = target.compile_command(**env)
                 command[0] = '+@$(MAKE)'  # Override the make so that we can use jobserver to handle parallelism
-                keyboard_safe = keyboard_name.replace('/', '_')
+                extra_args = '_'.join([f"{k}_{v}" for k, v in target.extra_args.items()])
                 build_log = f"{QMK_FIRMWARE}/.build/build.log.{os.getpid()}.{keyboard_safe}.{keymap_name}"
                 failed_log = f"{QMK_FIRMWARE}/.build/failed.log.{os.getpid()}.{keyboard_safe}.{keymap_name}"
+                if len(extra_args) > 0:
+                    build_log += f".{extra_args}"
+                    failed_log += f".{extra_args}"
                 # yapf: disable
                 f.write(
                     f"""\
-all: {keyboard_safe}_{keymap_name}_binary
-{keyboard_safe}_{keymap_name}_binary:
+.PHONY: {target_filename}_binary
+all: {target_filename}_binary
+{target_filename}_binary:
 	@rm -f "{build_log}" || true
 	@echo "Compiling QMK Firmware for target: '{keyboard_name}:{keymap_name}'..." >>"{build_log}"
 	{' '.join(command)} \\
@@ -64,9 +70,9 @@ all: {keyboard_safe}_{keymap_name}_binary
                     # yapf: disable
                     f.write(
                         f"""\
-	@rm -rf "{QMK_FIRMWARE}/.build/{keyboard_safe}_{keymap_name}.elf" 2>/dev/null || true
-	@rm -rf "{QMK_FIRMWARE}/.build/{keyboard_safe}_{keymap_name}.map" 2>/dev/null || true
-	@rm -rf "{QMK_FIRMWARE}/.build/obj_{keyboard_safe}_{keymap_name}" || true
+	@rm -rf "{QMK_FIRMWARE}/.build/{target_filename}.elf" 2>/dev/null || true
+	@rm -rf "{QMK_FIRMWARE}/.build/{target_filename}.map" 2>/dev/null || true
+	@rm -rf "{QMK_FIRMWARE}/.build/obj_{target_filename}" || true
 """# noqa
                     )
                     # yapf: enable
