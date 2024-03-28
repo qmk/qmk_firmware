@@ -6,68 +6,71 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "pointing_device_internal.h"
+#include "pointing_device.h"
 
-#ifndef CIRQUE_PINNACLE_TIMEOUT
-#    define CIRQUE_PINNACLE_TIMEOUT 20 // I2C timeout in milliseconds
-#endif
+#define CIRQUE_PINNACLE_TIMEOUT 20
 
-#define CIRQUE_PINNACLE_ABSOLUTE_MODE 1
-#define CIRQUE_PINNACLE_RELATIVE_MODE 0
-#ifndef CIRQUE_PINNACLE_POSITION_MODE
-#    define CIRQUE_PINNACLE_POSITION_MODE CIRQUE_PINNACLE_ABSOLUTE_MODE
-#endif
+typedef enum { CIRQUE_PINNACLE_RELATIVE_MODE, CIRQUE_PINNACLE_ABSOLUTE_MODE } cirque_position_mode;
+typedef enum { CIRQUE_NO_TAP, CIRQUE_SINGLE_TAP, CIRQUE_DOUBLE_TAP } cirque_taps_enable;
 
-#define CIRQUE_PINNACLE_DEFAULT_SCALE 1024
-#ifndef CIRQUE_PINNACLE_DIAMETER_MM
-#    define CIRQUE_PINNACLE_DIAMETER_MM 40
-#endif
+typedef enum {
+    attenuate_1x = CIRQUE_EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_1X,
+    attenuate_2x = CIRQUE_EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_2X,
+    attenuate_3x = CIRQUE_EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_3X,
+    attenuate_4x = CIRQUE_EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_4X,
+} cirque_attenuation;
 
-#if CIRQUE_PINNACLE_POSITION_MODE
-// Coordinate scaling values
-#    ifndef CIRQUE_PINNACLE_X_LOWER
-#        define CIRQUE_PINNACLE_X_LOWER 127 // min "reachable" X value
-#    endif
-#    ifndef CIRQUE_PINNACLE_X_UPPER
-#        define CIRQUE_PINNACLE_X_UPPER 1919 // max "reachable" X value
-#    endif
-#    ifndef CIRQUE_PINNACLE_Y_LOWER
-#        define CIRQUE_PINNACLE_Y_LOWER 63 // min "reachable" Y value
-#    endif
-#    ifndef CIRQUE_PINNACLE_Y_UPPER
-#        define CIRQUE_PINNACLE_Y_UPPER 1471 // max "reachable" Y value
-#    endif
-#    ifndef CIRQUE_PINNACLE_X_RANGE
-#        define CIRQUE_PINNACLE_X_RANGE (CIRQUE_PINNACLE_X_UPPER - CIRQUE_PINNACLE_X_LOWER)
-#    endif
-#    ifndef CIRQUE_PINNACLE_Y_RANGE
-#        define CIRQUE_PINNACLE_Y_RANGE (CIRQUE_PINNACLE_Y_UPPER - CIRQUE_PINNACLE_Y_LOWER)
-#    endif
-#    if defined(POINTING_DEVICE_GESTURES_SCROLL_ENABLE)
-#        define CIRQUE_PINNACLE_CIRCULAR_SCROLL_ENABLE
-#    endif
-#else
-#    define CIRQUE_PINNACLE_X_RANGE 256
-#    define CIRQUE_PINNACLE_Y_RANGE 256
-#    if defined(POINTING_DEVICE_GESTURES_SCROLL_ENABLE)
-#        define CIRQUE_PINNACLE_SIDE_SCROLL_ENABLE
-#    endif
+typedef struct {
+    uint16_t x_range; // 56
+    uint16_t y_range; // 256
+} cirque_ranges_relative_t;
+
+typedef struct {
+    uint16_t scale;
+    uint16_t last_scale; // get report
+    uint16_t last_x;     // get report
+    uint16_t last_y;     // get report
+    int32_t  xRemainder; // scale data
+    int32_t  yRemainder; // scale data
+#ifdef POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
+    bool                   cursor_glide_enable;
+    cursor_glide_context_t glide;
 #endif
-#if !defined(POINTING_DEVICE_TASK_THROTTLE_MS)
-#    define POINTING_DEVICE_TASK_THROTTLE_MS 10 // Cirque Pinnacle in normal operation produces data every 10ms. Advanced configuration for pen/stylus usage might require lower values.
-#endif
-#if defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_i2c)
+} cirque_runtime_data_t;
+
+typedef struct {
+    cirque_position_mode   position_mode; // absolute
+    cirque_attenuation     attenuation;
+    bool                   curved_overlay;
+    uint8_t                diameter_mm;   // 40
+    uint16_t               default_scale; // 1024
+    bool                   scroll_enable; // absolute = circular scroll, relative - side scroll
+    cirque_taps_enable     taps;
+    const void*            ranges; // either cirque_ranges_absolute_t or cirque_ranges_relative_t
+    cirque_runtime_data_t* runtime_data;
+} cirque_device_config_t;
+
+typedef struct {
+    uint16_t x_lower; // 127
+    uint16_t x_upper; // 1919
+    uint16_t y_lower; // 63
+    uint16_t y_upper; // 1471
+    uint16_t x_range; // upper-lower
+    uint16_t y_range; // upper-lower
+} cirque_ranges_absolute_t;
+
+#if defined(POINTING_DEVICE_DRIVER_CIRQUE_PINNACLE_I2C)
 #    include "i2c_master.h"
 // Cirque's 7-bit I2C Slave Address
 #    ifndef CIRQUE_PINNACLE_ADDR
-#        define CIRQUE_PINNACLE_ADDR I2C_ADDRESS_DEFAULT
+#        define CIRQUE_PINNACLE_ADDR 0x2A
 #    endif
-#elif defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_spi)
+#endif
+
+#if defined(POINTING_DEVICE_DRIVER_CIRQUE_PINNACLE_SPI)
 #    include "spi_master.h"
 #    ifndef CIRQUE_PINNACLE_CLOCK_SPEED
 #        define CIRQUE_PINNACLE_CLOCK_SPEED 10000000
-#    endif
-#    ifndef CIRQUE_PINNACLE_SPI_LSBFIRST
-#        define CIRQUE_PINNACLE_SPI_LSBFIRST false
 #    endif
 #    ifndef CIRQUE_PINNACLE_SPI_MODE
 #        define CIRQUE_PINNACLE_SPI_MODE 1
@@ -78,41 +81,69 @@
 #        else
 #            define CIRQUE_PINNACLE_SPI_DIVISOR 64
 #        endif
-#        ifndef CIRQUE_PINNACLE_SPI_CS_PIN
-#            ifdef POINTING_DEVICE_CS_PIN
-#                define CIRQUE_PINNACLE_SPI_CS_PIN POINTING_DEVICE_CS_PIN
-#            else
-#                error "No Chip Select pin has been defined -- missing POINTING_DEVICE_CS_PIN or CIRQUE_PINNACLE_SPI_CS_PIN define"
-#            endif
-#        endif
 #    endif
 #endif
 
 #define DIVIDE_UNSIGNED_ROUND(numerator, denominator) (((numerator) + ((denominator) / 2)) / (denominator))
-#define CIRQUE_PINNACLE_INCH_TO_PX(inch) (DIVIDE_UNSIGNED_ROUND((inch) * (uint32_t)CIRQUE_PINNACLE_DIAMETER_MM * 10, 254))
-#define CIRQUE_PINNACLE_PX_TO_INCH(px) (DIVIDE_UNSIGNED_ROUND((px) * (uint32_t)254, CIRQUE_PINNACLE_DIAMETER_MM * 10))
+#define CIRQUE_PINNACLE_INCH_TO_PX(inch, mm) (DIVIDE_UNSIGNED_ROUND((inch) * (uint32_t)mm * 10, 254))
+#define CIRQUE_PINNACLE_PX_TO_INCH(px, mm) (DIVIDE_UNSIGNED_ROUND((px) * (uint32_t)254, mm * 10))
 
-// Convenient way to store and access measurements
 typedef struct {
-    bool valid; // true if valid data was read, false if no data was ready
-#if CIRQUE_PINNACLE_POSITION_MODE
+    bool     valid; // true if valid data was read, false if no data was ready
     uint16_t xValue;
     uint16_t yValue;
     uint16_t zValue;
     uint8_t  buttonFlags;
     bool     touchDown;
-#else
+} cirque_absolute_data_t;
+
+// Convenient way to store and access measurements
+typedef struct {
+    bool    valid; // true if valid data was read, false if no data was ready
     int16_t xDelta;
     int16_t yDelta;
     int8_t  wheelCount;
     uint8_t buttons;
-#endif
-} pinnacle_data_t;
+} cirque_relative_data_t;
 
-void            cirque_pinnacle_init(void);
-void            cirque_pinnacle_calibrate(void);
-void            cirque_pinnacle_cursor_smoothing(bool enable);
-pinnacle_data_t cirque_pinnacle_read_data(void);
-void            cirque_pinnacle_scale_data(pinnacle_data_t* coordinates, uint16_t xResolution, uint16_t yResolution);
-uint16_t        cirque_pinnacle_get_scale(void);
-void            cirque_pinnacle_set_scale(uint16_t scale);
+typedef struct {
+    void (*read)(const void* comms_config, uint8_t regaddr, uint8_t* data, uint8_t length);
+    void (*write)(const void* comms_config, uint8_t regaddr, uint8_t data);
+} cirque_rap_t;
+
+pointing_device_status_t cirque_pinnacle_init(const cirque_rap_t* cirque_rap, const void* comms_config, const cirque_device_config_t* device_config);
+void                     cirque_pinnacle_calibrate(const cirque_rap_t* cirque_rap, const void* comms_config);
+void                     cirque_pinnacle_cursor_smoothing(const cirque_rap_t* cirque_rap, const void* comms_config, bool enable);
+void*                    cirque_pinnacle_read_data(const cirque_rap_t* cirque_rap, const cirque_device_config_t* device_config, const void* comms_config);
+void                     cirque_pinnacle_scale_data(const cirque_device_config_t* device_config, void* cirque_data, uint16_t xResolution, uint16_t yResolution);
+uint16_t                 cirque_pinnacle_get_cpi(const void* comms_config, const void* device_config);
+void                     cirque_pinnacle_set_cpi(uint16_t scale, const void* comms_config, const void* device_config);
+pointing_device_status_t cirque_pinnacle_get_report(report_mouse_t* return_report, const cirque_rap_t* cirque_rap, const cirque_device_config_t* device_config, const void* comms_config);
+
+void cirque_read_i2c(const void* config, uint8_t regaddr, uint8_t* data, uint8_t count);
+void cirque_write_i2c(const void* comms_config, uint8_t regaddr, uint8_t data);
+
+void cirque_read_spi(const void* comms_config, uint8_t regaddr, uint8_t* data, uint8_t count);
+void cirque_write_spi(const void* comms_config, uint8_t regaddr, uint8_t data);
+
+pointing_device_status_t cirque_pinnacle_init_i2c(const void* comms_config, const void* device_config);
+pointing_device_status_t cirque_pinnacle_get_report_i2c(report_mouse_t* return_report, const void* comms_config, const void* device_config);
+
+pointing_device_status_t cirque_pinnacle_init_spi(const void* comms_config, const void* device_config);
+pointing_device_status_t cirque_pinnacle_get_report_spi(report_mouse_t* return_report, const void* comms_config, const void* device_config);
+
+const cirque_ranges_absolute_t cirque_ranges_position_default;
+const cirque_ranges_relative_t cirque_ranges_relative_default;
+const cirque_device_config_t   cirque_device_config_default;
+cirque_runtime_data_t cirque_runtime_data_default;
+
+const cirque_rap_t cirque_read_write_i2c;
+const cirque_rap_t cirque_read_write_spi;
+
+const pointing_device_driver_t     cirque_driver_i2c_default;
+const pointing_device_i2c_config_t cirque_config_i2c_default;
+
+const pointing_device_driver_t cirque_driver_spi_default;
+#if defined(CIRQUE_PINNACLE_SPI_CS_PIN)
+const pointing_device_spi_config_t cirque_config_spi_default;
+#endif
