@@ -22,6 +22,19 @@ enum layer_names {
     _WIN_FKEYS
 };
 
+bool is_alt_tab_active = false; // ADD this near the begining of keymap.c
+uint16_t alt_tab_timer = 0;     // we will be using them soon.
+
+//ALT TAB Encoder Timer
+void matrix_scan_user(void) { // The very important timer.
+  if (is_alt_tab_active) {
+    if (timer_elapsed(alt_tab_timer) > 1000) {
+      unregister_code(KC_LALT);
+      is_alt_tab_active = false;
+    }
+  }
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  * QWERTY
@@ -40,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [0] = LAYOUT(
-  MT(QK_BOOT, KC_ESC),KC_1,KC_2,KC_3, KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_PSCR,
+  MT(QK_BOOT, KC_ESC),PT_1,PT_2,PT_3, PT_4,    PT_5,                     PT_6,    PT_7,    PT_8,    PT_9,    PT_0,    KC_PSCR,
   KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    PT_ACUT,
   KC_LSFT,LGUI_T(KC_A),LALT_T(KC_S),LCTL_T(KC_D),LSFT_T(KC_F),KC_G,      KC_H,RSFT_T(KC_J),LCTL_T(KC_K),LALT_T(KC_L),LGUI_T(PT_CCED), PT_TILD,
   KC_LCTL,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,                     KC_N,    KC_M,    PT_COMM, PT_DOT,  PT_MINS, PT_MORD,
@@ -63,9 +76,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [1] = LAYOUT(
-  KC_ESC,   _______,KC_NUM,  KC_PSLS, KC_PAST, S(PT_TILD),               _______,  _______, _______,  _______, _______, KC_PSCR,
-  KC_TAB,   PT_EURO,KC_P7,   KC_P8,   KC_P9,   KC_MINS,                  _______,  KC_PGUP, KC_UP,    KC_PGDN, _______, _______,
-  KC_LSFT,LGUI_T(KC_P0),LALT_T(KC_P4),LCTL_T(KC_P5),LSFT_T(KC_P6),KC_PLUS,                  _______,  KC_LEFT, KC_DOWN,  KC_RIGHT,_______, _______,
+  KC_ESC,   _______,KC_NUM,  PT_SLSH, PT_ASTR, S(PT_TILD),               _______,  _______, _______,  _______, _______, KC_PSCR,
+  KC_TAB,   PT_EURO,KC_P7,   KC_P8,   KC_P9,   PT_MINS,                  _______,  KC_PGUP, KC_UP,    KC_PGDN, _______, _______,
+  KC_LSFT,LGUI_T(KC_P0),LALT_T(KC_P4),LCTL_T(KC_P5),LSFT_T(KC_P6),PT_PLUS,_______,  KC_LEFT, KC_DOWN,  KC_RIGHT,_______, _______,
   KC_LCTL,  _______,KC_P1,   KC_P2,   KC_P3,   PT_DOT,                   _______,  KC_HOME, KC_INSERT,KC_END,  _______, _______,
                     KC_ENT,  KC_SPC,  TO(0),   LGUI(KC_TAB),             KC_MPLY,  TO(2),   KC_BSPC,  KC_DEL
 ),
@@ -83,11 +96,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                          |      |      |/       /         \      \ |      |      |
  *                          `---------------------'           '------''-------------'
  */
+
 [2] = LAYOUT(
   KC_ESC,    _______,   _______,_______, _______, _______,               _______,   _______,    _______,    _______,      _______,   KC_PSCR,
-  KC_TAB,    _______,   _______,PT_LDAQ, PT_BSLS, ALGR(PT_8),            ALGR(PT_9),S(PT_7),    S(PT_LDAQ), ALGR(PT_PLUS),_______,   _______,
-  KC_LSFT,LGUI_T(S(PT_3)),LALT_T(ALGR(PT_2)),LCTL_T(PT_LABK), LSFT_T(S(PT_1)), S(PT_8),       S(PT_9),RSFT_T(S(PT_QUOT)),LCTL_T(S(PT_LABK)),LALT_T(S(PT_0)),LGUI_T(S(PT_BSLS)),_______,
-  KC_LCTL,   _______,   _______,KC_MINS, S(PT_2), ALGR(PT_7),            ALGR(PT_0),PT_QUOT,    S(PT_MINS), _______,      _______,   _______,
+  KC_TAB,    _______,   _______,PT_LDAQ, PT_BSLS, PT_LBRC,            PT_RBRC,PT_SLSH,    S(PT_LDAQ), ALGR(PT_PLUS),_______,   _______,
+  KC_LSFT,LGUI_T(PT_HASH),LALT_T(PT_AT),LCTL_T(PT_LABK), LSFT_T(PT_EXLM), S(PT_8),       S(PT_9),RSFT_T(PT_QUES),LCTL_T(PT_RABK),LALT_T(PT_EQL),LGUI_T(PT_PIPE),_______,
+  KC_LCTL,   _______,   _______,PT_MINS, S(PT_2), ALGR(PT_7),            ALGR(PT_0),PT_QUOT,    S(PT_MINS), _______,      _______,   _______,
                      KC_ENT,  KC_SPC,    TO(1),   LGUI(KC_TAB),          KC_MPLY,   TO(0),      KC_BSPC,    KC_DEL
 ),
 /* F Keys
@@ -104,6 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                          |      |      |/       /         \      \ |      |      |
  *                          `---------------------'           '------''-------------'
  */
+
 [3] = LAYOUT(
   KC_ESC,  _______,   KC_F10, KC_F11, KC_F12,_______,              _______, KC_F22, KC_F23, KC_F24, _______, KC_PSCR,
   KC_TAB,  _______,   KC_F7,  KC_F8,  KC_F9, _______,              _______, KC_F19, KC_F20, KC_F21, _______, _______,
@@ -206,7 +221,6 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 // Draw to OLED
 bool oled_task_user(void) {
-
 
     // Switch on current active layer
     switch (get_highest_layer(layer_state)) {
