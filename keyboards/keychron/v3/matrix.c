@@ -15,7 +15,6 @@
  */
 
 #include "matrix.h"
-#include "quantum.h"
 
 // Pin connected to DS of 74HC595
 #define DATA_PIN A7
