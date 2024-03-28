@@ -21,7 +21,7 @@ Once the host has paired, it can freely use the commands define in the Oryx_Comm
 #    define RAW_EPSIZE 32
 #endif
 
-#define ORYX_PROTOCOL_VERSION = 0x02
+#define ORYX_PROTOCOL_VERSION 0x03
 #define ORYX_STOP_BIT -2
 
 enum Oryx_Command_Code {
@@ -47,6 +47,8 @@ enum Oryx_Event_Code {
     ORYX_EVT_KEYDOWN,
     ORYX_EVT_KEYUP,
     ORYX_EVT_RGB_CONTROL,
+    ORYX_EVT_TOGGLE_SMART_LAYER,
+    ORYX_EVT_TRIGGER_SMART_LAYER,
     ORYX_EVT_GET_PROTOCOL_VERSION = 0XFE,
     ORYX_EVT_ERROR                = 0xFF,
 };
@@ -73,6 +75,8 @@ extern rawhid_state_t rawhid_state;
 void oryx_error(uint8_t code);
 void pairing_failed_event(void);
 void pairing_succesful_event(void);
+void toggle_smart_layer(void);
+void trigger_smart_layer(void);
 
 void oryx_layer_event(void);
 bool process_record_oryx(uint16_t keycode, keyrecord_t* record);
