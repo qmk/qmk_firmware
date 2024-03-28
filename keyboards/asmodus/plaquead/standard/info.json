@@ -3,7 +3,7 @@
     "usb": {
         "vid": "0x5A50",
         "pid": "0x0875",
-        "device_version": "0.0.1"
+        "device_version": "1.0.0"
     },
     "features": {
         "bootmagic": true,
