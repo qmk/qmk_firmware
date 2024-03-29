@@ -15,6 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <stdint.h>
 #include "user_kb.h"
 #include "uart.h" // qmk uart.h
 #include "rf_queue.h"
@@ -46,7 +47,7 @@ report_buffer_t report_buff_a = {0};
 report_buffer_t report_buff_b = {0};
 
 extern DEV_INFO_STRUCT dev_info;
-extern host_driver_t * m_host_driver;
+extern host_driver_t  *m_host_driver;
 extern host_driver_t   rf_host_driver;
 extern rf_queue_t      rf_queue;
 extern uint8_t         host_mode;
@@ -220,12 +221,14 @@ void rf_protocol_receive(void) {
                         dev_info.rf_led = Usart_Mgr.RXDBuf[6];
                     }
 
-                    dev_info.rf_charge = Usart_Mgr.RXDBuf[7];
-                    uint8_t bat_pct    = Usart_Mgr.RXDBuf[8];
-                    if (dev_info.rf_charge & 0x01) bat_pct = 100;
-                    if (bat_pct > 0 && bat_pct <= 100) {
+                    if ((Usart_Mgr.RXDBuf[7] & 0xfc) == 0) dev_info.rf_charge = Usart_Mgr.RXDBuf[7];
+
+                    if (Usart_Mgr.RXDBuf[8] <= 100) dev_info.rf_battery = Usart_Mgr.RXDBuf[8];
+                    // dev_info.rf_charge = Usart_Mgr.RXDBuf[7];
+                    if (dev_info.rf_battery > 0 && dev_info.rf_battery <= 100) {
                         update_bat_pct_rgb();
                     }
+
                 } else {
                     if (dev_info.rf_state != RF_INVAILD) {
                         if (error_cnt >= 5) {
@@ -259,6 +262,9 @@ void rf_protocol_receive(void) {
                 f_rf_read_data_ok = 1;
                 break;
             }
+            default:
+                Usart_Mgr.RXDState = RX_CMD_ERR;
+                return;
         }
 
         Usart_Mgr.RXDLen      = 0;
@@ -274,6 +280,7 @@ void rf_protocol_receive(void) {
  * @param  delayms: delay before sending.
  */
 uint8_t uart_send_cmd(uint8_t cmd, uint8_t wait_ack, uint8_t delayms) {
+    uint8_t i;
     wait_ms(delayms);
 
     memset(&Usart_Mgr.TXDBuf[0], 0, UART_MAX_LEN);
@@ -283,6 +290,18 @@ uint8_t uart_send_cmd(uint8_t cmd, uint8_t wait_ack, uint8_t delayms) {
     Usart_Mgr.TXDBuf[2] = 0x00;
 
     switch (cmd) {
+        case CMD_POWER_UP: {
+            Usart_Mgr.TXDBuf[3] = 1;
+            Usart_Mgr.TXDBuf[4] = 0;
+            Usart_Mgr.TXDBuf[5] = 0;
+            break;
+        }
+        case CMD_SNIF: {
+            Usart_Mgr.TXDBuf[3] = 1;
+            Usart_Mgr.TXDBuf[4] = 0;
+            Usart_Mgr.TXDBuf[5] = 0;
+            break;
+        }
         case CMD_SLEEP: {
             Usart_Mgr.TXDBuf[3] = 1;
             Usart_Mgr.TXDBuf[4] = 0;
@@ -343,24 +362,48 @@ uint8_t uart_send_cmd(uint8_t cmd, uint8_t wait_ack, uint8_t delayms) {
         }
 
         case CMD_SET_NAME: {
-            Usart_Mgr.TXDBuf[3]  = 17;
-            Usart_Mgr.TXDBuf[4]  = 1;
-            Usart_Mgr.TXDBuf[5]  = 15;
+            Usart_Mgr.TXDBuf[3]  = 14;                                                      // data len
+            Usart_Mgr.TXDBuf[4]  = 1;                                                       // type
+            Usart_Mgr.TXDBuf[5]  = 12;                                                      // data: ble name len
+            Usart_Mgr.TXDBuf[6]  = 'N';                                                     // data: ble name
+            Usart_Mgr.TXDBuf[7]  = 'u';                                                     // data: ble name
+            Usart_Mgr.TXDBuf[8]  = 'P';                                                     // data: ble name
+            Usart_Mgr.TXDBuf[9]  = 'h';                                                     // data: ble name
+            Usart_Mgr.TXDBuf[10] = 'y';                                                     // data: ble name
+            Usart_Mgr.TXDBuf[11] = ' ';                                                     // data: ble name
+            Usart_Mgr.TXDBuf[12] = 'G';                                                     // data: ble name
+            Usart_Mgr.TXDBuf[13] = 'e';                                                     // data: ble name
+            Usart_Mgr.TXDBuf[14] = 'm';                                                     // data: ble name
+            Usart_Mgr.TXDBuf[15] = '8';                                                     // data: ble name
+            Usart_Mgr.TXDBuf[16] = '0';                                                     // data: ble name
+            Usart_Mgr.TXDBuf[17] = '-';                                                     // data: ble name
+            Usart_Mgr.TXDBuf[18] = get_checksum(Usart_Mgr.TXDBuf + 4, Usart_Mgr.TXDBuf[3]); // sum
+            break;
+        }
+
+        case CMD_SET_24G_NAME: {
+            Usart_Mgr.TXDBuf[3]  = 38;
+            Usart_Mgr.TXDBuf[4]  = 38;
+            Usart_Mgr.TXDBuf[5]  = 3;
             Usart_Mgr.TXDBuf[6]  = 'N';
-            Usart_Mgr.TXDBuf[7]  = 'u';
-            Usart_Mgr.TXDBuf[8]  = 'P';
-            Usart_Mgr.TXDBuf[9]  = 'h';
-            Usart_Mgr.TXDBuf[10] = 'y';
-            Usart_Mgr.TXDBuf[11] = ' ';
-            Usart_Mgr.TXDBuf[12] = 'G';
-            Usart_Mgr.TXDBuf[13] = 'e';
-            Usart_Mgr.TXDBuf[14] = 'm';
-            Usart_Mgr.TXDBuf[15] = '8';
-            Usart_Mgr.TXDBuf[16] = '0';
-            Usart_Mgr.TXDBuf[17] = ' ';
-            Usart_Mgr.TXDBuf[18] = '-';
-            Usart_Mgr.TXDBuf[19] = ' ';
-            Usart_Mgr.TXDBuf[20] = get_checksum(Usart_Mgr.TXDBuf + 4, Usart_Mgr.TXDBuf[3]);
+            Usart_Mgr.TXDBuf[8]  = 'u';
+            Usart_Mgr.TXDBuf[10] = 'P';
+            Usart_Mgr.TXDBuf[12] = 'h';
+            Usart_Mgr.TXDBuf[14] = 'y';
+            Usart_Mgr.TXDBuf[16] = ' ';
+            Usart_Mgr.TXDBuf[18] = 'G';
+            Usart_Mgr.TXDBuf[20] = 'e';
+            Usart_Mgr.TXDBuf[22] = 'm';
+            Usart_Mgr.TXDBuf[24] = '8';
+            Usart_Mgr.TXDBuf[26] = '0';
+            Usart_Mgr.TXDBuf[28] = ' ';
+            Usart_Mgr.TXDBuf[30] = 'D';
+            Usart_Mgr.TXDBuf[32] = 'o';
+            Usart_Mgr.TXDBuf[34] = 'n';
+            Usart_Mgr.TXDBuf[36] = 'g';
+            Usart_Mgr.TXDBuf[38] = 'l';
+            Usart_Mgr.TXDBuf[40] = 'e';
+            Usart_Mgr.TXDBuf[42] = get_checksum(Usart_Mgr.TXDBuf + 4, Usart_Mgr.TXDBuf[3]); // sum
             break;
         }
 
@@ -369,6 +412,24 @@ uint8_t uart_send_cmd(uint8_t cmd, uint8_t wait_ack, uint8_t delayms) {
             Usart_Mgr.TXDBuf[4] = 0x00;
             Usart_Mgr.TXDBuf[5] = FUNC_VALID_LEN;
             Usart_Mgr.TXDBuf[6] = FUNC_VALID_LEN;
+            break;
+        }
+
+        case CMD_WRITE_DATA: {
+            func_tab[4] = dev_info.link_mode;
+            func_tab[5] = dev_info.rf_channel;
+            func_tab[6] = dev_info.ble_channel;
+
+            Usart_Mgr.TXDBuf[3] = FUNC_VALID_LEN + 2;
+            Usart_Mgr.TXDBuf[4] = 0;
+            Usart_Mgr.TXDBuf[5] = FUNC_VALID_LEN;
+
+            for (i = 0; i < FUNC_VALID_LEN; i++) {
+                Usart_Mgr.TXDBuf[6 + i] = func_tab[i];
+            }
+            Usart_Mgr.TXDBuf[6 + i] = get_checksum(func_tab, FUNC_VALID_LEN);
+            Usart_Mgr.TXDBuf[6 + i] += 0;
+            Usart_Mgr.TXDBuf[6 + i] += FUNC_VALID_LEN;
             break;
         }
 
@@ -424,8 +485,8 @@ void dev_sts_sync(void) {
     if (dev_info.link_mode == LINK_USB) {
         if (host_mode != HOST_USB_TYPE) {
             host_mode = HOST_USB_TYPE;
-            break_all_key();
             host_set_driver(m_host_driver);
+            break_all_key();
         }
         rf_blink_cnt = 0;
     } else {
@@ -449,7 +510,10 @@ void dev_sts_sync(void) {
             rf_blink_cnt     = 0;
 
             if (link_state_temp != RF_CONNECT) {
-                link_state_temp   = RF_CONNECT;
+                link_state_temp = RF_CONNECT;
+                if (dev_info.link_mode == LINK_RF_24) {
+                    uart_send_cmd(CMD_SET_24G_NAME, 10, 30);
+                }
                 rf_link_show_time = 0;
             }
         }
@@ -596,6 +660,7 @@ void rf_device_init(void) {
         uart_send_cmd(CMD_HAND, 0, 20);
         wait_ms(5);
         uart_receive_pro();
+        uart_receive_pro();
         if (f_rf_hand_ok) break;
     }
 
@@ -604,6 +669,7 @@ void rf_device_init(void) {
     while (timeout--) {
         uart_send_cmd(CMD_READ_DATA, 0, 20);
         wait_ms(5);
+        uart_receive_pro();
         uart_receive_pro();
         if (f_rf_read_data_ok) break;
     }
@@ -614,9 +680,10 @@ void rf_device_init(void) {
         uart_send_cmd(CMD_RF_STS_SYSC, 0, 20);
         wait_ms(5);
         uart_receive_pro();
+        uart_receive_pro();
         if (f_rf_sts_sysc_ok) break;
     }
 
     uart_send_cmd(CMD_SET_NAME, 10, 20);
+    uart_send_cmd(CMD_SET_24G_NAME, 10, 20);
 }
-
