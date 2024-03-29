@@ -53,11 +53,11 @@ static inline uint8_t readMatrixPin(pin_t pin) {
 }
 
 static inline void clockPulse(uint16_t n) {
-    writePinHigh(HC595_SH_PIN);
-    writePinHigh(HC595_ST_PIN);
+    gpio_write_pin_high(HC595_SH_PIN);
+    gpio_write_pin_high(HC595_ST_PIN);
     select_delay(n);
-    writePinLow(HC595_SH_PIN);
-    writePinLow(HC595_ST_PIN);
+    gpio_write_pin_low(HC595_SH_PIN);
+    gpio_write_pin_low(HC595_ST_PIN);
 }
 
 // matrix code
