@@ -45,7 +45,6 @@ _Static_assert(ARRAY_SIZE(amux_en_pins) == AMUX_COUNT, "AMUX_EN_PINS doesn't hav
 _Static_assert(AMUX_SEL_PINS_COUNT == EXPECTED_AMUX_SEL_PINS_COUNT), "AMUX_SEL_PINS doesn't have the minimum number of bits required address all the channels");
 // Check that number of elements in AMUX_COL_CHANNELS_SIZES is enough to specify the number of channels for all the multiplexers available
 _Static_assert(ARRAY_SIZE(amux_n_col_sizes) == AMUX_COUNT, "AMUX_COL_CHANNELS_SIZES doesn't have the minimum number of elements required to specify the number of channels for all the multiplexers available");
-
 // static ec_config_t config;
 static uint16_t sw_value[MATRIX_ROWS][MATRIX_COLS];
 
@@ -55,19 +54,19 @@ static adc_mux adcMux;
 void init_row(void) {
     // Set all row pins as output and low
     for (uint8_t idx = 0; idx < MATRIX_ROWS; idx++) {
-        setPinOutput(row_pins[idx]);
-        writePinLow(row_pins[idx]);
+        gpio_set_pin_output(row_pins[idx]);
+        gpio_write_pin_low(row_pins[idx]);
     }
 }
 
 // Initialize the multiplexers
 void init_amux(void) {
     for (uint8_t idx = 0; idx < AMUX_COUNT; idx++) {
-        setPinOutput(amux_en_pins[idx]);
-        writePinLow(amux_en_pins[idx]);
+        gpio_set_pin_output(amux_en_pins[idx]);
+        gpio_write_pin_low(amux_en_pins[idx]);
     }
     for (uint8_t idx = 0; idx < AMUX_SEL_PINS_COUNT; idx++) {
-        setPinOutput(amux_sel_pins[idx]);
+        gpio_set_pin_output(amux_sel_pins[idx]);
     }
 }
 
@@ -76,13 +75,13 @@ void select_amux_channel(uint8_t channel, uint8_t col) {
     // Get the channel for the specified multiplexer
     uint8_t ch = amux_n_col_channels[channel][col];
     // momentarily disable specified multiplexer
-    writePinHigh(amux_en_pins[channel]);
+    gpio_write_pin_high(amux_en_pins[channel]);
     // Select the multiplexer channel
     for (uint8_t i = 0; i < AMUX_SEL_PINS_COUNT; i++) {
-        writePin(amux_sel_pins[i], ch & (1 << i));
+        gpio_write_pin(amux_sel_pins[i], ch & (1 << i));
     }
     // re enable specified multiplexer
-    writePinLow(amux_en_pins[channel]);
+    gpio_write_pin_low(amux_en_pins[channel]);
 }
 
 // Disable all the unused multiplexers
@@ -90,28 +89,28 @@ void disable_unused_amux(uint8_t channel) {
     // disable all the other multiplexers apart from the current selected one
     for (uint8_t idx = 0; idx < AMUX_COUNT; idx++) {
         if (idx != channel) {
-            writePinHigh(amux_en_pins[idx]);
+            gpio_write_pin_high(amux_en_pins[idx]);
         }
     }
 }
 // Discharge the peak hold capacitor
 void discharge_capacitor(void) {
 #ifdef OPEN_DRAIN_SUPPORT
-    writePinLow(DISCHARGE_PIN);
+    gpio_write_pin_low(DISCHARGE_PIN);
 #else
-    writePinLow(DISCHARGE_PIN);
-    setPinOutput(DISCHARGE_PIN);
+    gpio_write_pin_low(DISCHARGE_PIN);
+    gpio_set_pin_output(DISCHARGE_PIN);
 #endif
 }
 
 // Charge the peak hold capacitor
 void charge_capacitor(uint8_t row) {
 #ifdef OPEN_DRAIN_SUPPORT
-    writePinHigh(DISCHARGE_PIN);
+    gpio_write_pin_high(DISCHARGE_PIN);
 #else
-    setPinInput(DISCHARGE_PIN);
+    gpio_set_pin_input(DISCHARGE_PIN);
 #endif
-    writePinHigh(row_pins[row]);
+    gpio_write_pin_high(row_pins[row]);
 }
 
 // Initialize the peripherals pins
@@ -124,11 +123,11 @@ int ec_init(void) {
     adc_read(adcMux);
 
     // Initialize discharge pin as discharge mode
-    writePinLow(DISCHARGE_PIN);
+    gpio_write_pin_low(DISCHARGE_PIN);
 #ifdef OPEN_DRAIN_SUPPORT
-    setPinOutputOpenDrain(DISCHARGE_PIN);
+    gpio_set_pin_output_open_drain(DISCHARGE_PIN);
 #else
-    setPinOutput(DISCHARGE_PIN);
+    gpio_set_pin_output(DISCHARGE_PIN);
 #endif
 
     // Initialize drive lines
@@ -213,7 +212,7 @@ uint16_t ec_readkey_raw(uint8_t channel, uint8_t row, uint8_t col) {
     select_amux_channel(channel, col);
 
     // Set the row pin to low state to avoid ghosting
-    writePinLow(row_pins[row]);
+    gpio_write_pin_low(row_pins[row]);
 
     ATOMIC_BLOCK_FORCEON {
         // Set the row pin to high state and have capacitor charge
@@ -232,6 +231,15 @@ uint16_t ec_readkey_raw(uint8_t channel, uint8_t row, uint8_t col) {
 // Update press/release state of key
 bool ec_update_key(matrix_row_t* current_row, uint8_t row, uint8_t col, uint16_t sw_value) {
     bool current_state = (*current_row >> col) & 1;
+
+    // Real Time Noise Floor Calibration
+    if (sw_value < (ec_config.noise_floor[row][col] - NOISE_FLOOR_THRESHOLD)) {
+        uprintf("Noise Floor Change: %d, %d, %d\n", row, col, sw_value);
+        ec_config.noise_floor[row][col]                             = sw_value;
+        ec_config.rescaled_mode_0_actuation_threshold[row][col]     = rescale(ec_config.mode_0_actuation_threshold, 0, 1023, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
+        ec_config.rescaled_mode_0_release_threshold[row][col]       = rescale(ec_config.mode_0_release_threshold, 0, 1023, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
+        ec_config.rescaled_mode_1_initial_deadzone_offset[row][col] = rescale(ec_config.mode_1_initial_deadzone_offset, 0, 1023, ec_config.noise_floor[row][col], eeprom_ec_config.bottoming_reading[row][col]);
+    }
 
     // Normal board-wide APC
     if (ec_config.actuation_mode == 0) {
@@ -258,7 +266,7 @@ bool ec_update_key(matrix_row_t* current_row, uint8_t row, uint8_t col, uint16_t
                     uprintf("Key pressed: %d, %d, %d\n", row, col, sw_value);
                 }
                 // Has key moved up enough to be released?
-                else if (sw_value < ec_config.extremum[row][col] - DEFAULT_MODE_1_RELEASE_OFFSET) {
+                else if (sw_value < ec_config.extremum[row][col] - ec_config.mode_1_release_offset) {
                     ec_config.extremum[row][col] = sw_value;
                     *current_row &= ~(1 << col);
                     uprintf("Key released: %d, %d, %d\n", row, col, sw_value);
@@ -272,7 +280,7 @@ bool ec_update_key(matrix_row_t* current_row, uint8_t row, uint8_t col, uint16_t
                     ec_config.extremum[row][col] = sw_value;
                 }
                 // Has key moved down enough to be pressed?
-                else if (sw_value > ec_config.extremum[row][col] + DEFAULT_MODE_1_ACTUATION_OFFSET) {
+                else if (sw_value > ec_config.extremum[row][col] + ec_config.mode_1_actuation_offset) {
                     ec_config.extremum[row][col] = sw_value;
                     *current_row |= (1 << col);
                     uprintf("Key pressed: %d, %d, %d\n", row, col, sw_value);
