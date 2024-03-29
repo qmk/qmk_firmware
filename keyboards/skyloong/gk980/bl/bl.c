@@ -27,7 +27,7 @@ bool shutdown_kb(bool jump_to_bootloader) {
     if (jump_to_bootloader) {
         backlight_enable_breathing();
     } else {
-        writePinLow(MAC_PIN);
+        gpio_write_pin_low(MAC_PIN);
     }
     return true;
 }
