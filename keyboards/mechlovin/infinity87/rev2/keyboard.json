@@ -9,10 +9,6 @@
         "custom": true,
         "custom_lite": true
     },
-    "matrix_size": {
-        "cols": 17,
-        "rows": 6
-    },
     "diode_direction": "ROW2COL",
     "features": {
         "console": false,
