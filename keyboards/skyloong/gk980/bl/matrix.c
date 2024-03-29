@@ -33,8 +33,8 @@ static inline void setPinOutput_writeLow(pin_t pin) {
 
 static inline void setPinOutput_writeHigh(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
-        setPinOutput(pin);
-        writePinHigh(pin);
+        gpio_set_pin_output(pin);
+        gpio_write_pin_high(pin);
     }
 }
 
