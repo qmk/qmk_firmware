@@ -791,28 +791,27 @@ void low_bat_show(void) {
  */
 void bat_percent_led(uint8_t bat_percent) {
 #ifdef CONSOLE_ENABLE
-        xprintf("BATTERY LEVEL: %u percents", bat_percent);
+    xprintf("BATTERY LEVEL: %u percents", bat_percent);
 #endif
     uint8_t i;
     uint8_t bat_end_led = 0;
     uint8_t bat_r, bat_g, bat_b;
 
-    if (bat_percent <= 20) {
+    if (bat_percent <= 20) { // 0-20
         bat_end_led = 0;
-        bat_r = 0x80, bat_g = 0, bat_b = 0;
-    } else if (bat_percent <= 40) {
+        bat_r = 0x80, bat_g = 0, bat_b = 0; // red
+    } else if (bat_percent <= 40) { // 20-40
         bat_end_led = 1;
-        bat_r = 0x80, bat_g = 0x40, bat_b = 0;
-    } else if (bat_percent <= 50) {
+        bat_r = 0x80, bat_g = 0x40, bat_b = 0; // orange
+    } else if (bat_percent <= 50) { // 40-50
         bat_end_led = 2;
-        bat_r = 0x80, bat_g = 0x40, bat_b = 0;
-    } else if (bat_percent <= 80) {
+        bat_r = 0x80, bat_g = 0x80, bat_b = 0; // yellow
+    } else if (bat_percent <= 80) { // 50-80
         bat_end_led = 3;
-        bat_r = 0x80, bat_g = 0x80, bat_b = 0;
-
-    } else {
+        bat_r = 0x20, bat_g = 0, bat_b = 0x80; // blue-purpleish
+    } else { // 80-100
         bat_end_led = 4;
-        bat_r = 0, bat_g = 0x80, bat_b = 0;
+        bat_r = 0, bat_g = 0x80, bat_b = 0; // green
     }
 
     if (f_charging) {
