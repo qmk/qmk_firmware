@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 //Matrix read rows set col:DIODE_DIRECTION == ROW2COL
 
-#include "quantum.h"
+#include "matrix.h"
 
 #define ReadDelayTime 120
 #define ClockTime 15
