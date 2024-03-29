@@ -1,7 +1,7 @@
 {
     "manufacturer": "Archetype",
     "keyboard_name": "Minerva LX",
-    "maintainer": "ToastyStoemp",
+    "maintainer": "Archetype",
     "backlight": {
         "pin": "GP7"
     },
