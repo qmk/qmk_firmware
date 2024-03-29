@@ -6,12 +6,6 @@
     "build": {
         "lto": true
     },
-    "qmk": {
-        "locking": {
-            "enabled": true,
-            "resync": true
-        }
-    },
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": false,
@@ -21,6 +15,12 @@
         "nkro": true
     },
     "processor": "STM32F411",
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x6BC1",
