@@ -46,7 +46,7 @@ static inline void setPinInputHigh_atomic(pin_t pin) {
 
 static inline uint8_t readMatrixPin(pin_t pin) {
     if (pin != NO_PIN) {
-        return (readPin(pin) == MATRIX_INPUT_PRESSED_STATE) ? 0 : 1;
+        return (gpio_read_pin(pin) == MATRIX_INPUT_PRESSED_STATE) ? 0 : 1;
     } else {
         return 1;
     }
