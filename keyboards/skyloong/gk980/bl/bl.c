@@ -3,7 +3,7 @@
 #include "quantum.h"
 
 void suspend_power_down_kb() {
-    writePinLow(MAC_PIN);
+    gpio_write_pin_low(MAC_PIN);
     suspend_power_down_user();
 }
 
