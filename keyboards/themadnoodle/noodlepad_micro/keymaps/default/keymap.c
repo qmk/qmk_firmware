@@ -3,6 +3,14 @@
 
 #include QMK_KEYBOARD_H
 
+<<<<<<< HEAD
+=======
+enum custom_keycodes {
+    L_IND = SAFE_RANGE, // Toggle the Layer Indicators Modes
+    L_CYC               // Cycle through the layers
+};
+
+>>>>>>> c73f7433b4 (Update keyboards/themadnoodle/noodlepad_micro/keymaps/default/keymap.c)
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* LAYER 0
