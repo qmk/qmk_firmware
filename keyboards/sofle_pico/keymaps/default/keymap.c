@@ -101,11 +101,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // clang-format on
 };
 
-/* Default timeout for displaying logo on boot. */
-#ifndef OLED_LOGO_TIMEOUT
-/* 10 second timeout. */
-#    define OLED_LOGO_TIMEOUT 10000
-#endif
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
