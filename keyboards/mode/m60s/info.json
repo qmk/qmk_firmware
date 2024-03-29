@@ -49,8 +49,8 @@
         "pin": "B9"
     },
     "community_layouts": [
-        "60_ansi",
-        "60_hhkb"
+        "60_hhkb",
+        "60_hhkb_ansi"
     ],
     "layouts": {
         "LAYOUT_60_hhkb": {
@@ -183,7 +183,7 @@
                 {"matrix": [5, 12], "x": 12.5, "y": 4}
             ]
         },
-        "LAYOUT_60_ansi": {
+        "LAYOUT_60_hhkb_ansi": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
