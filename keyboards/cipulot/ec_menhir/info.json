@@ -6,12 +6,6 @@
     "build": {
         "lto": true
     },
-    "qmk": {
-        "locking": {
-            "enabled": true,
-            "resync": true
-        }
-    },
     "diode_direction": "COL2ROW",
     "eeprom": {
         "driver": "wear_leveling",
@@ -27,6 +21,12 @@
         "nkro": true
     },
     "processor": "STM32G431",
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x6BB8",
