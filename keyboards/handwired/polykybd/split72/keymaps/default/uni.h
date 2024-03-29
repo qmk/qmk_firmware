@@ -4,6 +4,13 @@
 
 const uint32_t unicode_map[] PROGMEM = {
     /*[[[cog
+    import cog
+    import os
+    import string
+    from openpyxl import load_workbook
+    wb = load_workbook(filename = os.path.join(os.path.abspath(os.path.dirname(cog.inFile)), "lang/lang_lut.xlsx"), data_only=True)
+    sheet = wb['named_glyphs']
+
     idx = 0
     glyph_index = 1
     glyph_key = sheet[f"A{glyph_index}"].value

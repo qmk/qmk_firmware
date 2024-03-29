@@ -71,7 +71,6 @@
 #define MASC_ORDINAL_IND            	u"\x00BA"
 #define DBL_ANGLE_QMARK_R           	u"\x00BB"
 #define HALF_SIGN                   	u"\x00BD"
-#define ONE_HALF                    	u"\x00BD"
 #define INVERTED_QMARK              	u"\x00BF"
 #define A_WITH_GRAVE                	u"\x00C0"
 #define A_WITH_GRAVE                	u"\x00C0"

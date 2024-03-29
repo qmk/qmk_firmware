@@ -187,8 +187,15 @@ void kdisp_write_gfx_text(const GFXfont **fonts, uint8_t num_fonts, int8_t x, in
     int8_t y_cursor = y;
     while (*text != 0) {
         switch(*text) {
+            case u'\x18':
+                x_cursor = x;
+                y_cursor = y;
+                break;
             case u'\b':
                 x_cursor = x_cursor>1 ? x_cursor - 2 : 0;
+                break;
+            case u'\f':
+                y_cursor = y_cursor>1 ? y_cursor - 2 : 0;
                 break;
             case u'\t':
                 x_cursor += ((x_cursor-x)/40+1)*40;

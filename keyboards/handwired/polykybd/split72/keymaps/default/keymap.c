@@ -106,13 +106,13 @@ enum my_keycodes {
       for lang in languages:
           cog.out(f"KC_{lang}, ")
     ]]]*/
-    KC_LANG_EN, KC_LANG_DE, KC_LANG_FR, KC_LANG_ES, KC_LANG_PT, KC_LANG_IT, KC_LANG_TR, KC_LANG_KO, KC_LANG_JA, KC_LANG_AR, KC_LANG_GR,
+    KC_LANG_EN, KC_LANG_DE, KC_LANG_FR, KC_LANG_ES, KC_LANG_PT, KC_LANG_IT, KC_LANG_TR, KC_LANG_KO, KC_LANG_JA, KC_LANG_AR, KC_LANG_GR, 
     //[[[end]]]
     /*[[[cog
       for idx in range(10):
           cog.out(f"KC_LAT{idx}, ")
     ]]]*/
-    KC_LAT0, KC_LAT1, KC_LAT2, KC_LAT3, KC_LAT4, KC_LAT5, KC_LAT6, KC_LAT7, KC_LAT8, KC_LAT9,
+    KC_LAT0, KC_LAT1, KC_LAT2, KC_LAT3, KC_LAT4, KC_LAT5, KC_LAT6, KC_LAT7, KC_LAT8, KC_LAT9, 
     //[[[end]]]
     //Lables, no functionality:
     LBL_TEXT
@@ -1250,17 +1250,17 @@ const uint16_t* keycode_to_disp_overlay(uint16_t keycode, led_t state) {
 
     if( (get_mods() & MOD_MASK_CTRL) != 0) {
         switch(keycode) {
-            case KC_A: return u"    " BOX_WITH_CHECK_MARK;
-            case KC_C: return u"   " CLIPBOARD_COPY;
-            case KC_D: return u"    " PRIVATE_DELETE;
-            case KC_F: return u"   " PRIVATE_FIND;
-            case KC_X: return u"    " CLIPBOARD_CUT;
-            case KC_V: return u"    " CLIPBOARD_PASTE;
-            case KC_S: return u"    " PRIVATE_FLOPPY;
-            case KC_O: return u"     " FILE_OPEN;
-            case KC_P: return u"    " PRIVATE_PRINTER;
-            case KC_Z: return u"    " ARROWS_UNDO;
-            case KC_Y: return u"    " ARROWS_REDO;
+            case KC_A: return u"      " BOX_WITH_CHECK_MARK;
+            case KC_C: return u"     " CLIPBOARD_COPY;
+            case KC_D: return u"\t " PRIVATE_DELETE;
+            case KC_F: return u"    " PRIVATE_FIND;
+            case KC_X: return u"\t\b\b\b\b" CLIPBOARD_CUT;
+            case KC_V: return u"     " CLIPBOARD_PASTE;
+            case KC_S: return u"\t" PRIVATE_FLOPPY;
+            case KC_O: return u"\t" FILE_OPEN;
+            case KC_P: return u"\t\b\b" PRIVATE_PRINTER;
+            case KC_Z: return u"      " ARROWS_UNDO;
+            case KC_Y: return u"      " ARROWS_REDO;
             default: break;
         }
     } else if((get_mods() & MOD_MASK_GUI) != 0) {

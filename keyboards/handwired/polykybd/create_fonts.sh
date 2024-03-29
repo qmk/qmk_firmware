@@ -6,7 +6,7 @@ size_lat=14
 
 #echo "Enter Korean font size (eg. 19):"
 #read size_kr
-size_kr=19
+size_kr=21
 
 #echo "Enter Japanese font size (eg. 15):"
 #read size_jp
@@ -26,8 +26,8 @@ fontconvert -f~/repos/noto-sans/NotoSans-Regular.ttf "-s${size_lat}" -r44 -v _SZ
 fontconvert -f~/repos/noto-sans-jp/NotoSansJP-Regular.otf "-s${size_jp}" -v _Hiragana_ 0x3041 0x309f > "base/fonts/generated/NotoSansJP_Regular_Hiragana_${size_jp}pt.h"
 fontconvert -f~/repos/noto-sans-jp/NotoSansJP-Regular.otf "-s${size_jp}" -v _Punct_ 0x3001 0x3002 0x300c 0x300d > "base/fonts/generated/NotoSansJP_Regular_Punct_${size_jp}pt.h"
 fontconvert -f~/repos/noto-sans-jp/NotoSansJP-Regular.otf "-s${size_jp}" -v _PunctSupl_ 0x30fb 0x30fc > "base/fonts/generated/NotoSansJP_Regular_PunctSupl_${size_jp}pt.h"
-fontconvert -f~/repos/noto-sans-kr/NotoSansKR-Regular.otf "-s${size_kr}" -v _Vowels_ 0x1161 0x1169 0x116d 0x116e 0x1172 0x1175 > "base/fonts/generated/NotoSansKR_Regular_Vowels_${size_kr}pt.h"
-fontconvert -f~/repos/noto-sans-kr/NotoSansKR-Regular.otf "-s${size_kr}" -v _Consonants_ 0x1100 0x1112 > "base/fonts/generated/NotoSansKR_Regular_Consonants_${size_kr}pt.h"
+fontconvert -f~/repos/noto-serif-kr/NotoSerifKR-Regular.otf "-s${size_kr}" -r51 -v _Vowels_ 0x1161 0x1169 0x116d 0x116e 0x1172 0x1175 > "base/fonts/generated/NotoSerifKR_Regular_Vowels_${size_kr}pt.h"
+fontconvert -f~/repos/noto-serif-kr/NotoSerifKR-Regular.otf "-s${size_kr}" -v _Consonants_ 0x1100 0x1112 > "base/fonts/generated/NotoSerifKR_Regular_Consonants_${size_kr}pt.h"
 fontconvert -f~/repos/noto-sans-arabic/static/NotoSansArabic/NotoSansArabic-Regular.ttf "-s${size_ar}" -r40 -v _Isolated_ 0x60c 0x669 > "base/fonts/generated/NotoSansAR_Regular_Isolated_${size_ar}pt.h"
 fontconvert -f~/repos/noto-sans-arabic/static/NotoSansArabic/NotoSansArabic-Regular.ttf "-s${size_ar}" -r40 -v _FormsB_ 0xfef5 0xfef5 0xfefb 0xfefb > "base/fonts/generated/NotoSansAR_Regular_FormsB_${size_ar}pt.h"
 fontconvert -f~/repos/Noto_Emoji/static/NotoEmoji-Medium.ttf "-s20" -r50 -v _World_ -n0x11000 0x1F310 0x1F310 > "base/fonts/generated/3NotoEmoji_Medium_World_20pt.h"

@@ -36,12 +36,12 @@
 #include "generated/NotoSansJP_Regular_Hiragana_15pt.h"
 #include "generated/NotoSansJP_Regular_Punct_15pt.h"
 #include "generated/NotoSansJP_Regular_PunctSupl_15pt.h"
-#include "generated/NotoSansKR_Regular_Consonants_19pt.h"
-#include "generated/NotoSansKR_Regular_Vowels_19pt.h"
 #include "generated/NotoSans_Regular_GreekBase_14pt.h"
 #include "generated/NotoSans_Regular_GreekChi_14pt.h"
 #include "generated/NotoSans_Regular_GreekTonos_14pt.h"
 #include "generated/NotoSans_Regular_SZ_14pt.h"
+#include "generated/NotoSerifKR_Regular_Consonants_21pt.h"
+#include "generated/NotoSerifKR_Regular_Vowels_21pt.h"
 #include "gfx_icons.h"
 
 #include "FreeSansBold24pt7b.h"
@@ -84,11 +84,11 @@ const GFXfont* ALL_FONTS [] = {
   &NotoSansJP_Regular_Hiragana_15pt16b,
   &NotoSansJP_Regular_Punct_15pt16b,
   &NotoSansJP_Regular_PunctSupl_15pt16b,
-  &NotoSansKR_Regular_Consonants_19pt16b,
-  &NotoSansKR_Regular_Vowels_19pt16b,
   &NotoSans_Regular_GreekBase_14pt16b,
   &NotoSans_Regular_GreekChi_14pt16b,
   &NotoSans_Regular_GreekTonos_14pt16b,
   &NotoSans_Regular_SZ_14pt16b,
+  &NotoSerifKR_Regular_Consonants_21pt16b,
+  &NotoSerifKR_Regular_Vowels_21pt16b,
 };
 
