@@ -26,8 +26,8 @@ static inline void select_delay(uint16_t n) {
 
 static inline void setPinOutput_writeLow(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
-        setPinOutput(pin);
-        writePinLow(pin);
+        gpio_set_pin_output(pin);
+        gpio_write_pin_low(pin);
     }
 }
 
