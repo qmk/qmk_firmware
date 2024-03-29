@@ -22,3 +22,15 @@ Enter the bootloader in one way:
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
 
 * **Hardware reset**: Remove the capslock keycap, hold the little button beneath and plug in the keyboard.
+
+
+
+## Battery indication (level to color mapping)
+
+```
+0-20 red
+20-40 orange
+40-50 yellow
+50-80 blue-purpleish idk how to name that, you'll see :smile:
+80-100 green
+```
