@@ -4,13 +4,8 @@
 #include QMK_KEYBOARD_H
 
 enum custom_keycodes {
-#ifdef VIA_ENABLE    // If you are using VIA, you can use the same keycodes as the default keymap
-    L_IND = QK_KB_0, // Toggle the Layer Indicators Modes
-    L_CYC            // Cycle through the layers
-#else                // If you are not using VIA, you can use your own keycodes
-    L_IND = SAFE_RANGE,
-    L_CYC
-#endif
+    L_IND = SAFE_RANGE, // Toggle the Layer Indicators Modes
+    L_CYC               // Cycle through the layers
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
