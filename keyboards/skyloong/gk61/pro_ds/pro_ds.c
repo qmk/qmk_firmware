@@ -99,12 +99,12 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 
 
 void suspend_power_down_kb(void) {
-    writePinLow(SDB);
+    gpio_write_pin_low(AW20216S_SDB_PIN);
     suspend_power_down_user();
 }
 
 void suspend_wakeup_init_kb(void) {
-    writePinHigh(SDB);
+    gpio_write_pin_high(AW20216S_SDB_PIN);
     suspend_wakeup_init_user();
 }
 #endif
