@@ -1484,7 +1484,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         } else {
             g_local.last_latin_kc = 0;
         }
-
+    }
     return display_wakeup(record);
 }
 
@@ -1787,7 +1787,7 @@ void hex_to_u16_string(char* buffer, uint8_t buffer_len, uint8_t value) {
     }
 }
 
-void oled_update_buffer() {
+void oled_update_buffer(void) {
     uint16_t buffer[32];
 
     kdisp_set_buffer(0);

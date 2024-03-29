@@ -8,6 +8,7 @@
 #include "generated/3NotoEmoji_Medium_Settings_20pt.h"
 #include "generated/3NotoEmoji_Medium_World_20pt.h"
 #include "generated/3NotoSansSymbols2_Regular_Arrows_20pt.h"
+#include "generated/3NotoSansSymbols2_Regular_Checkmark_20pt.h"
 #include "generated/3NotoSansSymbols2_Regular_Diamond_20pt.h"
 #include "generated/3NotoSansSymbols2_Regular_Technical_20pt.h"
 #include "generated/3NotoSansSymbols_Regular_Technical_20pt.h"
@@ -55,6 +56,7 @@ const GFXfont* ALL_FONTS [] = {
   &NotoEmoji_Medium_Settings_20pt16b,
   &NotoEmoji_Medium_World_20pt16b,
   &NotoSansSymbols2_Regular_Arrows_20pt16b,
+  &NotoSansSymbols2_Regular_Checkmark_20pt16b,
   &NotoSansSymbols2_Regular_Diamond_20pt16b,
   &NotoSansSymbols2_Regular_Technical2_20pt16b,
   &NotoSansSymbols_Regular_Technical_20pt16b,
