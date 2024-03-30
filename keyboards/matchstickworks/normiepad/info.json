@@ -20,8 +20,9 @@
         "pid": "0x0003",
         "vid": "0x4D57"
     },
+    "community_layouts": ["numpad_6x4"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_numpad_6x4": {
             "layout": [
                 {"label": "Bksp", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "=", "matrix": [0, 1], "x": 1, "y": 0},
