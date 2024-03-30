@@ -8,6 +8,17 @@
     "pid": "0x6060",
     "device_version": "0.0.1"
   },
+  "features": {
+    "backlight": true,
+    "bootmagic": false,
+    "command": true,
+    "console": true,
+    "extrakey": true,
+    "mousekey": true,
+    "nkro": true,
+    "rgblight": true,
+    "sleep_led": true
+  },
   "matrix_pins": {
     "cols": ["B11", "B10", "B1", "B0", "A7", "A6", "A5", "A4", "A3", "A2", "A1", "A0", "C15", "C14"],
     "rows": ["B3", "B4", "B5", "B6", "B7"]
