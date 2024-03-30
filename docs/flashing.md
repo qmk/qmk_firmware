@@ -464,4 +464,4 @@ CLI Flashing sequence:
 3. Flash via QMK CLI eg. `qmk flash --keyboard handwired/onekey/rpi_pico --keymap default`
 4. Wait for the keyboard to become available
 
-<sup>1</sup>: This works only if QMK was compiled with `RP2040_BOOTLOADER_DOUBLE_TAP_RESET` defined.
+<sup>1</sup>: This works only if the controller has been flashed with QMK Firmware with `RP2040_BOOTLOADER_DOUBLE_TAP_RESET` defined.
