@@ -89,7 +89,10 @@ led_config_t g_led_config = { {
 #endif
 
 
-bool rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
     if (host_keyboard_led_state().caps_lock) {
         uint8_t b = rgb_matrix_get_val();
         if (b < CAPS_LOCK_VAL_STEP) {
