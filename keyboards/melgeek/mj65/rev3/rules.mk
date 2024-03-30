@@ -10,7 +10,7 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no          # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no           # Enable keyboard RGB underglow
 RGB_MATRIX_ENABLE = yes        # Use RGB matrix
-NO_USB_STARTUP_CHECK = no      # Disable initialization only when usb is plugged in
+
 RGB_MATRIX_SUPPORTED = yes
 RGBLIGHT_SUPPORTED   = no
 BACKLIGHT_SUPPORTED  = no

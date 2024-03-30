@@ -12,7 +12,6 @@ RGBLIGHT_ENABLE = no           # Enable keyboard RGB underglow
 
 AUDIO_ENABLE = no              # Audio output
 
-NO_USB_STARTUP_CHECK = no      # Disable initialization only when usb is plugged in
 RGB_MATRIX_ENABLE = yes
 
 RGB_MATRIX_SUPPORTED = yes
