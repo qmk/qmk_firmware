@@ -37,24 +37,27 @@ enum {
     BT_HST3,
     P2P4G,
     BAT_LVL,
-#else
-    BT_HST1 = _______,
-    BT_HST2 = _______,
-    BT_HST3 = _______,
-    P2P4G   = _______,
-    BAT_LVL = _______,
 #endif
-#ifdef DANANLOG_MATRIX
+#ifdef ANANLOG_MATRIX
     PROF1,
     PROF2,
     PROF3,
-#else
-    PROF1 = _______,
-    PROF2 = _______,
-    PROF3 = _______,
 #endif
     NEW_SAFE_RANGE,
 };
+
+#ifndef LK_WIRELESS_ENABLE
+    #define BT_HST1     KC_TRANS
+    #define BT_HST2     KC_TRANS
+    #define BT_HST3     KC_TRANS
+    #define P2P4G       KC_TRANS
+    #define BAT_LVL     KC_TRANS
+#endif
+#ifndef ANANLOG_MATRIX
+    #define PROF1 KC_TRANS
+    #define PROF2 KC_TRANS
+    #define PROF3 KC_TRANS
+#endif
 
 #define KC_TASK KC_TASK_VIEW
 #define KC_FILE KC_FILE_EXPLORER
