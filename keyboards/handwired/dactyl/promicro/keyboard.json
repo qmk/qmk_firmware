@@ -13,6 +13,15 @@
         "soft_serial_pin": "D0"
     },
     "development_board": "promicro",
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
+    "tapping": {
+        "permissive_hold": true
+    },
     "layout_aliases": {
         "LAYOUT_6x6": "LAYOUT"
     },
