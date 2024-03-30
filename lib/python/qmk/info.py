@@ -384,6 +384,12 @@ def _extract_encoders(info_data, config_c):
 
         info_data['encoder']['rotary'] = encoders
 
+    # TODO: some logic still assumes ENCODER_ENABLED would partially create encoder dict
+    if info_data.get('features', {}).get('encoder', False):
+        if 'encoder' not in info_data:
+            info_data['encoder'] = {}
+        info_data['encoder']['enabled'] = True
+
 
 def _extract_split_encoders(info_data, config_c):
     """Populate data about split encoder pins
