@@ -2237,6 +2237,9 @@ void backlight_init_drivers(void)
     is31fl3733_update_led_control_registers( 0 );
     is31fl3733_update_led_control_registers( 1 );
 #else
+#if defined(RGB_BACKLIGHT_DAWN60)
+    ws2812_init();
+#endif
     // Init the #1 driver
     is31fl3731_init( 0 );
     // Init the #2 driver (if used)

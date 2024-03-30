@@ -169,5 +169,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 // default color
 void keyboard_post_init_user(void) {
+    rgblite_init();
     rgblite_setrgb(RGB_GREEN);
 }

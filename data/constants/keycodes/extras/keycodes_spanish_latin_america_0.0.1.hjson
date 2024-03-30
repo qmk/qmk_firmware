@@ -335,5 +335,9 @@
             "key": "ES_CIRC",
             "label": "^",
         }
+        "ALGR(KC_NUHS)": {
+            "key": "ES_GRV",
+            "label": "`",
+        }
     }
 }
