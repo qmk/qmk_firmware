@@ -20,7 +20,7 @@ void sequence_transform_on_missed_rule_user(const st_trie_rule_t *rule) {
     if (!is_training_mode_active) return;
 
     flick_leds(1.5, 250);
-    uprintf("Could have used %s -> %s!\n", rule->sequence, rule->transform);
+    uprintf("Missed rule! %s -> %s\n", rule->sequence, rule->transform);
 
     if (is_hard_mode_active) {
         tap_code16(C(KC_BSPC));
@@ -59,7 +59,6 @@ uint16_t magic_keycode_cast(uint16_t keycode, keyrecord_t *record) {
         case KC_MINUS ... KC_SLASH:
             return KC_SPC;
 
-        case KC_F:
         case KC_H:
             return magic_double_tap_cast(keycode, record, DB_LTTR);
     }

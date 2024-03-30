@@ -10,12 +10,7 @@ void pass_td(tap_dance_state_t *state, void *user_data) {
 void exlm_td(tap_dance_state_t *state, void *user_data) {
     double_sequence_td(
         ,
-        execute_without_mods(
-            tap_code16(C(KC_LEFT));
-            tap_code16(KC_SPC);
-            tap_code16(C(KC_RIGHT));
-            send_lang_independant_string(" None:");
-        ),
+        send_lang_independant_string(" None:"),
         execute_without_mods(
             tap_code16(S(KC_ENT));
             tap_code16(S(KC_ENT));
