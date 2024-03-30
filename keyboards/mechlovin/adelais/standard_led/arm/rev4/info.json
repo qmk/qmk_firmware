@@ -1,4 +1,13 @@
 {
+    "features": {
+        "bootmagic": false,
+        "command": false,
+        "console": false,
+        "encoder": true,
+        "extrakey": false,
+        "mousekey": false,
+        "nkro": false
+    },
     "usb": {
         "pid": "0xAD03"
     },
