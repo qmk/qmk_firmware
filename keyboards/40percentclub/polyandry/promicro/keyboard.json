@@ -5,16 +5,5 @@
     },
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
-    "bootloader": "caterina",
-    "features": {
-        "bootmagic": true,
-        "mousekey": true,
-        "extrakey": true
-    },
-    "qmk": {
-        "locking": {
-            "enabled": true,
-            "resync": true
-        }
-    }
+    "bootloader": "caterina"
 }
