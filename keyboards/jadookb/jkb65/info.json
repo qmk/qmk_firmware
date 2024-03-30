@@ -2,6 +2,18 @@
     "manufacturer": "JadooKB",
     "url": "https://jadookb.com/",
     "maintainer": "Wizard-GG",
+    "build": {
+        "lto": true
+    },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgb_matrix": true
+    },
     "usb": {
         "vid": "0x4A4B",
         "pid": "0xEF6A"

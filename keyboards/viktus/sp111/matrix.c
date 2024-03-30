@@ -117,7 +117,7 @@ static void select_row_MCP23018(uint8_t row) {
 
 static uint16_t read_cols_MCP23018(void) {
     uint16_t tmp = 0xFFFF;
-    mcp23018_errors += !mcp23018_readPins_all(I2C_ADDR, &tmp);
+    mcp23018_errors += !mcp23018_read_pins_all(I2C_ADDR, &tmp);
 
     uint16_t state = ((tmp & 0b11111111) << 2) | ((tmp & 0b0110000000000000) >> 13);
     return (~state) & 0b1111111111;
