@@ -337,32 +337,31 @@ void sleep_sw_led_show(void)
  */
 void sys_led_show(void) {
     uint8_t caps_key_led_idx = get_led_index(3, 0);
+    bool    showIndicator    = false;
+
     if (dev_info.link_mode == LINK_USB) {
-        if (host_keyboard_led_state().caps_lock) {
-            switch (user_config.caps_indication_type) {
-                case CAPS_INDICATOR_SIDE:
-                    set_side_rgb(0X00, 0x80, 0x80); // highlight top-left side led to indicate caps lock enabled state
-
-                    break;
-                case CAPS_INDICATOR_UNDER_KEY:
-                    user_set_rgb_color(caps_key_led_idx, 0, 0x80, 0x80); // 63 is CAPS_LOCK position
-
-                    break;
-                case CAPS_INDICATOR_BOTH:
-                    set_side_rgb(0X00, 0x80, 0x80);                      // highlight top-left side led to indicate caps lock enabled state
-                    user_set_rgb_color(caps_key_led_idx, 0, 0x80, 0x80); // 63 is CAPS_LOCK position
-
-                    break;
-                case CAPS_INDICATOR_OFF:
-                default:
-                    break;
-            }
-        }
+        showIndicator = host_keyboard_led_state().caps_lock;
+    } else {
+        showIndicator = dev_info.rf_led & 0x02;
     }
+    if (showIndicator) {
+        switch (user_config.caps_indication_type) {
+            case CAPS_INDICATOR_SIDE:
+                set_side_rgb(0X00, 0x80, 0x80); // highlight top-left side led to indicate caps lock enabled state
 
-    else {
-        if (dev_info.rf_led & 0x02) {
-            set_side_rgb(0X00, 0x80, 0x80);
+                break;
+            case CAPS_INDICATOR_UNDER_KEY:
+                user_set_rgb_color(caps_key_led_idx, 0, 0x80, 0x80); // 63 is CAPS_LOCK position
+
+                break;
+            case CAPS_INDICATOR_BOTH:
+                set_side_rgb(0X00, 0x80, 0x80);                      // highlight top-left side led to indicate caps lock enabled state
+                user_set_rgb_color(caps_key_led_idx, 0, 0x80, 0x80); // 63 is CAPS_LOCK position
+
+                break;
+            case CAPS_INDICATOR_OFF:
+            default:
+                break;
         }
     }
 }
@@ -800,16 +799,16 @@ void bat_percent_led(uint8_t bat_percent) {
     if (bat_percent <= 20) { // 0-20
         bat_end_led = 0;
         bat_r = 0x80, bat_g = 0, bat_b = 0; // red
-    } else if (bat_percent <= 40) { // 20-40
+    } else if (bat_percent <= 40) {         // 20-40
         bat_end_led = 1;
         bat_r = 0x80, bat_g = 0x40, bat_b = 0; // orange
-    } else if (bat_percent <= 50) { // 40-50
+    } else if (bat_percent <= 50) {            // 40-50
         bat_end_led = 2;
         bat_r = 0x80, bat_g = 0x80, bat_b = 0; // yellow
-    } else if (bat_percent <= 80) { // 50-80
+    } else if (bat_percent <= 80) {            // 50-80
         bat_end_led = 3;
         bat_r = 0x20, bat_g = 0, bat_b = 0x80; // blue-purpleish
-    } else { // 80-100
+    } else {                                   // 80-100
         bat_end_led = 4;
         bat_r = 0, bat_g = 0x80, bat_b = 0; // green
     }
