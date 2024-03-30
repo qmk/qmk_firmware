@@ -3,6 +3,16 @@
   "manufacturer": "Bishop Keyboards",
   "url": "",
   "maintainer": "qmk",
+  "features": {
+    "backlight": true,
+    "bootmagic": false,
+    "command": true,
+    "console": false,
+    "extrakey": true,
+    "midi": true,
+    "mousekey": false,
+    "nkro": false
+  },
   "usb": {
     "vid": "0x1337",
     "pid": "0x6006"
