@@ -99,7 +99,7 @@ i2c_status_t left_write(uint8_t reg, uint8_t data)
 
   i2c_status_t ret;
 
-  ret = i2c_writeReg(I2C_ADDR, reg,  &data, sizeof(data), HOTDOX_I2C_TIMEOUT); 
+  ret = i2c_write_register(I2C_ADDR, reg,  &data, sizeof(data), HOTDOX_I2C_TIMEOUT); 
 
   return ret;
 }
@@ -112,7 +112,7 @@ i2c_status_t left_read(uint8_t reg, uint8_t *data)
   }
 
   i2c_status_t ret = 0;
-  ret = i2c_readReg(I2C_ADDR, reg, data, 1, HOTDOX_I2C_TIMEOUT);
+  ret = i2c_read_register(I2C_ADDR, reg, data, 1, HOTDOX_I2C_TIMEOUT);
 
   return ret;
 }

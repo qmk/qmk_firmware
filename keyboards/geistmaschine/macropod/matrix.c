@@ -55,7 +55,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
             pca9555_setup();
         }
         // Read the entire port into this byte, 1 = not pressed, 0 = pressed
-        bool ret = pca9555_readPins(IC1, PCA9555_PORT0, &pin_states);
+        bool ret = pca9555_read_pins(IC1, PCA9555_PORT0, &pin_states);
 
         // Update state
         if (ret) {
