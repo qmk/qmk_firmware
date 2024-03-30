@@ -77,9 +77,11 @@ void bluetooth_enter_disconnected_kb(uint8_t host_idx);
 void bluetooth_enter_pin_code_entry_kb(void);
 void bluetooth_exit_pin_code_entry_kb(void);
 
-void              bluetooth_task(void);
-void              bluetooth_pre_task(void);
-void              bluetooth_post_task(void);
+void bluetooth_task(void);
+void bluetooth_pre_task(void);
+void bluetooth_post_task(void);
+void send_string_task(void);
+
 bluetooth_state_t bluetooth_get_state(void);
 
 void bluetooth_low_battery_shutdown(void);

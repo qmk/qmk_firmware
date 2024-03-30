@@ -452,6 +452,15 @@ void bluetooth_task(void) {
     lpm_task();
 }
 
+void send_string_task(void) {
+    if (get_transport() == TRANSPORT_BLUETOOTH && bluetooth_get_state()== BLUETOOTH_CONNECTED) {
+        bluetooth_transport.task();
+#ifndef DISABLE_REPORT_BUFFER
+        report_buffer_task();
+#endif
+    }
+}
+
 bluetooth_state_t bluetooth_get_state(void) {
     return bt_state;
 };
