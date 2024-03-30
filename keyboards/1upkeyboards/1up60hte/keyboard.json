@@ -26,6 +26,12 @@
         "rows": ["B3", "B2", "B1", "B0", "D4"]
     },
     "diode_direction": "COL2ROW",
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "backlight": {
         "pin": "B7"
     },
