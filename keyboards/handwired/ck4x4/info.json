@@ -8,6 +8,14 @@
         "pid": "0x6464",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": false,
+        "command": true,
+        "console": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
     "matrix_pins": {
         "cols": ["B7", "B8", "B9", "B10"],
         "rows": ["B3", "B4", "B5", "B6"]

@@ -561,15 +561,6 @@ bool recv_midi_packet(MIDI_EventPacket_t *const event) {
     return receive_report(USB_ENDPOINT_OUT_MIDI, (uint8_t *)event, sizeof(MIDI_EventPacket_t));
 }
 
-void midi_ep_task(void) {
-    uint8_t buffer[MIDI_STREAM_EPSIZE];
-    while (receive_report(USB_ENDPOINT_OUT_MIDI, buffer, sizeof(buffer))) {
-        MIDI_EventPacket_t event;
-        // TODO: this seems totally wrong? The midi task will never see any
-        // packets if we consume them here
-        recv_midi_packet(&event);
-    }
-}
 #endif
 
 #ifdef VIRTSER_ENABLE
