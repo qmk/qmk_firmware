@@ -10,6 +10,14 @@
     "qmk": {
         "tap_keycode_delay": 60
     },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false
+    },
     "matrix_pins": {
         "cols": ["B0", "D7", "D6", "D5"],
         "rows": ["C0", "C1", "C2", "C3"]

@@ -15,13 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-  QMKBEST = SAFE_RANGE,
-  ALTCUT,
-  QMKURL
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [0] = LAYOUT_wkl( /* Base */
@@ -45,55 +38,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case ALTCUT:
-      if (record->event.pressed) {
-        // when keycode QMKBEST is pressed
-        send_string_with_delay_P(PSTR(SS_TAP(X_TAB)SS_TAP(X_T)SS_TAP(X_V)SS_TAP(X_B)), 20); // altium macro
-      } else {
-        // when keycode QMKBEST is released
-      }
-      break;
-    case QMKURL:
-      if (record->event.pressed) {
-        // when keycode QMKURL is pressed
-        SEND_STRING("https://qmk.fm/" SS_TAP(X_ENTER));
-      } else {
-        // when keycode QMKURL is released
-      }
-      break;
-  }
-  return true;
-}
-
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
 #ifdef RGBLIGHT_ENABLE
 // The first three LEDs are used as indicators for CAPS_LOCK, NUM_LOCK and SCROLL_LOCK.
 bool led_update_user(led_t led_state) {
     if (led_state.caps_lock) {
-        sethsv_raw(HSV_SOFT_RED, (rgb_led_t *)&led[0]);
+        rgblight_sethsv_at(HSV_SOFT_RED, 0);
     } else {
-        sethsv(HSV_BLACK, (rgb_led_t *)&led[0]);
+        rgblight_sethsv_at(HSV_BLACK, 0);
     }
     if (led_state.num_lock) {
-        sethsv_raw(HSV_WARM_WHITE, (rgb_led_t *)&led[1]);
+        rgblight_sethsv_at(HSV_WARM_WHITE, 1);
     } else {
-        sethsv(HSV_BLACK, (rgb_led_t *)&led[1]);
+        rgblight_sethsv_at(HSV_BLACK, 1);
     }
     if (led_state.scroll_lock) {
-        sethsv_raw(HSV_SOFT_BLUE, (rgb_led_t *)&led[2]);
+        rgblight_sethsv_at(HSV_SOFT_BLUE, 2);
     } else {
-        sethsv(HSV_BLACK, (rgb_led_t *)&led[2]);
+        rgblight_sethsv_at(HSV_BLACK, 2);
     }
-    rgblight_set();
     return false;
 }
 
