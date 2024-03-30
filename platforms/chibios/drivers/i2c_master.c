@@ -206,5 +206,5 @@ __attribute__((weak)) i2c_status_t i2c_ping_address(uint8_t address, uint16_t ti
     // Best effort instead tries reading register 0 which will either succeed or timeout.
     // This approach may produce false negative results for I2C devices that do not respond to a register 0 read request.
     uint8_t data = 0;
-    return i2c_readReg(address, 0, &data, sizeof(data), timeout);
+    return i2c_read_register(address, 0, &data, sizeof(data), timeout);
 }
