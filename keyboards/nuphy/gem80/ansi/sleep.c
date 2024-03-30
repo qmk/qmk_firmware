@@ -29,7 +29,7 @@ extern user_config_t   user_config;
 extern DEV_INFO_STRUCT dev_info;
 extern uint16_t        rf_linking_time;
 extern uint16_t        rf_link_timeout;
-extern uint16_t        no_act_time;
+extern uint32_t        no_act_time;
 extern bool            f_goto_sleep;
 extern bool            f_wakeup_prepare;
 
@@ -91,7 +91,7 @@ void sleep_handle(void) {
     // sleep process;
     if (!user_config.sleep_enable) return;
     // get sleep_time_delay from eeprom
-    uint16_t sleep_time_delay = get_sleep_timeout();
+    uint32_t sleep_time_delay = get_sleep_timeout();
 
     if (f_goto_sleep) {
         // reset all counters

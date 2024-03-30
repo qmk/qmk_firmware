@@ -29,7 +29,7 @@ extern bool            f_rgb_test_press;
 extern bool            f_bat_hold;
 extern bool            f_debounce_show;
 extern bool            f_sleep_timeout_show;
-extern uint16_t        no_act_time;
+extern uint32_t        no_act_time;
 extern uint8_t         rf_sw_temp;
 extern uint16_t        rf_sw_press_delay;
 extern uint16_t        rf_linking_time;

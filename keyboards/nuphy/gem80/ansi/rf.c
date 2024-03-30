@@ -54,7 +54,7 @@ extern uint8_t         host_mode;
 extern uint8_t         rf_blink_cnt;
 extern uint16_t        rf_link_show_time;
 extern uint16_t        rf_linking_time;
-extern uint16_t        no_act_time;
+extern uint32_t        no_act_time;
 extern bool            f_send_channel;
 extern bool            f_dial_sw_init_ok;
 

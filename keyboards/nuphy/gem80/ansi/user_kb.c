@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "eeconfig.h"
 #include "color.h"
 #include "host.h"
+#include "print.h"
 
 user_config_t   user_config;
 DEV_INFO_STRUCT dev_info = {
@@ -52,7 +53,7 @@ uint8_t        rf_sw_temp            = 0;
 uint8_t        host_mode             = 0;
 uint16_t       rf_linking_time       = 0;
 uint16_t       rf_link_show_time     = 0;
-uint16_t       no_act_time           = 0;
+uint32_t       no_act_time           = 0;
 uint16_t       dev_reset_press_delay = 0;
 uint16_t       rf_sw_press_delay     = 0;
 uint16_t       rgb_test_press_delay  = 0;
@@ -393,7 +394,7 @@ void timer_pro(void) {
 
     if (rf_link_show_time < RF_LINK_SHOW_TIME) rf_link_show_time++;
 
-    if (no_act_time < 0xffff) no_act_time++;
+    if (no_act_time < 0xffffffff) no_act_time++;
 
     if (rf_linking_time < 0xffff) rf_linking_time++;
 
@@ -663,7 +664,7 @@ void adjust_sleep_timeout(uint8_t dir) {
     }
 }
 
-uint16_t get_sleep_timeout(void) {
+uint32_t get_sleep_timeout(void) {
     if (!user_config.sleep_enable) return 0;
     return user_config.sleep_timeout * 60 * 1000 / TIMER_STEP;
 }

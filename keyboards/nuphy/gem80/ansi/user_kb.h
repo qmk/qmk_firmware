@@ -199,7 +199,7 @@ void toggle_usb_sleep(void);
 uint8_t  two_digit_decimals_led(uint8_t value);
 uint8_t  two_digit_ones_led(uint8_t value);
 void     adjust_debounce(uint8_t dir);
-uint16_t get_sleep_timeout(void);
+uint32_t get_sleep_timeout(void);
 void     adjust_sleep_timeout(uint8_t dir);
 
 // led power control for sleep
