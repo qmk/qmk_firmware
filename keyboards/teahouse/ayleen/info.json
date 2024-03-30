@@ -129,7 +129,7 @@
                 {"label": "lalt", "matrix": [10, 2], "x": 2.5, "y": 5.25, "w": 1.5},
                 {"label": "space", "matrix": [10, 3], "x": 4, "y": 5.25, "w": 7},
                 {"label": "ralt", "matrix": [10, 4], "x": 11, "y": 5.25, "w": 1.5},
-                {"label": "rwin", "matrix": [10, 5], "x": 12.5, "y": 5.25, "w": 1},
+                {"label": "rwin", "matrix": [10, 5], "x": 12.5, "y": 5.25},
                 {"label": "rctrl", "matrix": [10, 8], "x": 13.5, "y": 5.25, "w": 1.5},
                 {"label": "left", "matrix": [9, 3], "x": 15.25, "y": 5.25},
                 {"label": "down", "matrix": [9, 2], "x": 16.25, "y": 5.25},
