@@ -78,7 +78,7 @@ def _find_invalid_encoder_index(info_data):
     return ret
 
 
-def _validate_layouts(keyboard, info_data):
+def _validate_layouts(keyboard, info_data):  # noqa C901
     """Non schema checks
     """
     col_num = info_data.get('matrix_size', {}).get('cols', 0)
@@ -92,6 +92,11 @@ def _validate_layouts(keyboard, info_data):
     if len(layouts) == 0 or all(not layout.get('json_layout', False) for layout in layouts.values()):
         _log_error(info_data, 'No LAYOUTs defined! Need at least one layout defined in info.json.')
 
+    # Make sure all layouts are DD
+    for layout_name, layout_data in layouts.items():
+        if layout_data.get('c_macro', False):
+            _log_error(info_data, f'{layout_name}: Layout macro should not be defined within ".h" files.')
+
     # Make sure all matrix values are in bounds
     for layout_name, layout_data in layouts.items():
         for index, key_data in enumerate(layout_data['layout']):
@@ -101,6 +106,15 @@ def _validate_layouts(keyboard, info_data):
                 _log_error(info_data, f'{layout_name}: Matrix row for key {index} ({key_name}) is {row} but must be less than {row_num}')
             if col >= col_num:
                 _log_error(info_data, f'{layout_name}: Matrix column for key {index} ({key_name}) is {col} but must be less than {col_num}')
+
+    # Reject duplicate matrix locations
+    for layout_name, layout_data in layouts.items():
+        seen = set()
+        for index, key_data in enumerate(layout_data['layout']):
+            key = f"{key_data['matrix']}"
+            if key in seen:
+                _log_error(info_data, f'{layout_name}: Matrix location for key {index} is not unique {key_data}')
+            seen.add(key)
 
     # Warn if physical positions are offset (at least one key should be at x=0, and at least one key at y=0)
     for layout_name, layout_data in layouts.items():
@@ -369,6 +383,12 @@ def _extract_encoders(info_data, config_c):
             _log_warning(info_data, 'Encoder config is specified in both config.h and info.json (encoder.rotary) (Value: %s), the config.h value wins.' % info_data['encoder']['rotary'])
 
         info_data['encoder']['rotary'] = encoders
+
+    # TODO: some logic still assumes ENCODER_ENABLED would partially create encoder dict
+    if info_data.get('features', {}).get('encoder', False):
+        if 'encoder' not in info_data:
+            info_data['encoder'] = {}
+        info_data['encoder']['enabled'] = True
 
 
 def _extract_split_encoders(info_data, config_c):

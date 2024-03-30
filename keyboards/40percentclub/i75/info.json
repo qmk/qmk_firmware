@@ -3,6 +3,14 @@
   "manufacturer": "di0ib",
   "url": "",
   "maintainer": "qmk",
+  "features": {
+    "bootmagic": true,
+    "command": true,
+    "console": true,
+    "extrakey": true,
+    "mousekey": true,
+    "nkro": false
+  },
   "usb": {
     "vid": "0x4025",
     "pid": "0x0A0C",
