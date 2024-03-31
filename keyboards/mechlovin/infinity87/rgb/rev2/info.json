@@ -1,6 +1,9 @@
 {
     "processor": "STM32F103",
     "bootloader": "stm32duino",
+    "features": {
+        "rgblight": true
+    },
     "rgblight": {
         "led_count": 23,
         "sleep": true,
@@ -17,16 +20,11 @@
             "twinkle": true
         }
     },
-    "features": {
-        "rgblight": true,
-        "nkro": true
-    },
     "matrix_pins": {
         "cols": ["B12", "B13", "B14", "B15", "A8", "A9", "B11", "B10", "B2", "B1", "B0", "A7", "A6", "A5", "A2", "A1", "A0"],
         "rows": ["A10", "B3", "B4", "C13", "A4", "A3"]
     },
     "ws2812": {
         "pin": "B5"
-    },
-    "mcu_lcdscrpipt": "STM32F103xB_stm32duino"
+    }
 }

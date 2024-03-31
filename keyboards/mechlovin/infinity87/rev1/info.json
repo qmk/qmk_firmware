@@ -8,11 +8,18 @@
         "pin": "B0",
         "breathing": true
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "console": true,
+        "command": true,
+        "nkro": true
+    },
     "indicators": {
         "caps_lock": "A4",
         "scroll_lock": "A8"
     },
     "processor": "STM32F303",
-    "bootloader": "stm32-dfu",
-    "board": "QMK_PROTON_C"
+    "bootloader": "stm32-dfu"
 }
