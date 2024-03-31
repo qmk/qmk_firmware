@@ -151,10 +151,12 @@ bool pmw33xx_init(pointing_device_spi_config_t *spi_config, const pmw33xx_regs_c
     pmw33xx_write(spi_config, reg, reg->Angle_Tune, CONSTRAIN(ROTATIONAL_TRANSFORM_ANGLE, -127, 127));
     pmw33xx_write(spi_config, reg, reg->Lift_Config, PMW33XX_LIFTOFF_DISTANCE);
 
+#ifndef PMW33XX_SKIP_SIGNATURE_CHECK
     if (!pmw33xx_check_signature(spi_config, reg, firmware_signature)) {
         pd_dprintf("PMW33XX: firmware signature verification failed!\n");
         return false;
     }
+#endif
 
     return true;
 }
@@ -186,7 +188,7 @@ pmw33xx_report_t pmw33xx_read_burst(pointing_device_spi_config_t *spi_config, co
 
     spi_stop();
 
-    pd_dprintf("PMW33XX: motion: 0x%x dx: %i dy: %i\n", report.motion.w, report.delta_x, report.delta_y);
+    // pd_dprintf("PMW33XX: motion: 0x%x dx: %i dy: %i\n", report.motion.w, report.delta_x, report.delta_y);
 
     report.delta_x *= -1;
     report.delta_y *= -1;
@@ -194,18 +196,17 @@ pmw33xx_report_t pmw33xx_read_burst(pointing_device_spi_config_t *spi_config, co
     return report;
 }
 
-report_mouse_t pmw33xx_get_report(pointing_device_spi_config_t *spi_config, const pmw33xx_regs_common_t *reg) {
-    pmw33xx_report_t report       = pmw33xx_read_burst(spi_config, reg);
-    report_mouse_t   mouse_report = {0};
-    static bool      in_motion    = false;
+pointing_device_status_t pmw33xx_get_report(report_mouse_t *return_report, pointing_device_spi_config_t *spi_config, const pmw33xx_regs_common_t *reg) {
+    pmw33xx_report_t report    = pmw33xx_read_burst(spi_config, reg);
+    static bool      in_motion = false;
 
     if (report.motion.b.is_lifted) {
-        return mouse_report;
+        return PD_STATUS_NOT_READY;
     }
 
     if (!report.motion.b.is_motion) {
         in_motion = false;
-        return mouse_report;
+        return PD_STATUS_NOT_READY;
     }
 
     if (!in_motion) {
@@ -213,7 +214,7 @@ report_mouse_t pmw33xx_get_report(pointing_device_spi_config_t *spi_config, cons
         pd_dprintf("PWM33XX: starting motion\n");
     }
 
-    mouse_report.x = CONSTRAIN_HID_XY(report.delta_x);
-    mouse_report.y = CONSTRAIN_HID_XY(report.delta_y);
-    return mouse_report;
+    return_report->x = CONSTRAIN_HID_XY(report.delta_x);
+    return_report->y = CONSTRAIN_HID_XY(report.delta_y);
+    return PD_STATUS_OK;
 }

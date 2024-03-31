@@ -14,6 +14,7 @@
 #include <stdint.h>
 #include "spi_master.h"
 #include "util.h"
+#include "pointing_device.h"
 
 #if defined(POINTING_DEVICE_DRIVER_pmw3360)
 #    include "pmw3360.h"
@@ -85,9 +86,9 @@ _Static_assert(sizeof((pmw33xx_report_t){0}.motion) == 1, "pmw33xx_report_t.moti
 #define CONSTRAIN(amt, low, high) ((amt) < (low) ? (low) : ((amt) > (high) ? (high) : (amt)))
 
 bool __attribute__((cold)) pmw33xx_init(pointing_device_spi_config_t *spi_config, const pmw33xx_regs_common_t *reg, const uint8_t *firmware_data, const uint16_t firmware_length, const uint8_t *firmware_signature);
-uint16_t         pmw33xx_get_cpi(pointing_device_spi_config_t *spi_config, const pmw33xx_regs_common_t *reg);
-void             pmw33xx_set_cpi(pointing_device_spi_config_t *spi_config, const pmw33xx_regs_common_t *reg, uint16_t cpi);
-pmw33xx_report_t pmw33xx_read_burst(pointing_device_spi_config_t *spi_config, const pmw33xx_regs_common_t *reg);
-uint8_t          pmw33xx_read(pointing_device_spi_config_t *spi_config, const pmw33xx_regs_common_t *reg, uint8_t addr);
-bool             pmw33xx_write(pointing_device_spi_config_t *spi_config, const pmw33xx_regs_common_t *reg, uint8_t addr, uint8_t data);
-report_mouse_t   pmw33xx_get_report(pointing_device_spi_config_t *spi_config, const pmw33xx_regs_common_t *reg);
+uint16_t                   pmw33xx_get_cpi(pointing_device_spi_config_t *spi_config, const pmw33xx_regs_common_t *reg);
+void                       pmw33xx_set_cpi(pointing_device_spi_config_t *spi_config, const pmw33xx_regs_common_t *reg, uint16_t cpi);
+pmw33xx_report_t           pmw33xx_read_burst(pointing_device_spi_config_t *spi_config, const pmw33xx_regs_common_t *reg);
+uint8_t                    pmw33xx_read(pointing_device_spi_config_t *spi_config, const pmw33xx_regs_common_t *reg, uint8_t addr);
+bool                       pmw33xx_write(pointing_device_spi_config_t *spi_config, const pmw33xx_regs_common_t *reg, uint8_t addr, uint8_t data);
+pointing_device_status_t   pmw33xx_get_report(report_mouse_t *return_report, pointing_device_spi_config_t *spi_config, const pmw33xx_regs_common_t *reg);
