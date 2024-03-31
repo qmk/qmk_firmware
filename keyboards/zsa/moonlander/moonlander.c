@@ -18,6 +18,10 @@
 
 #include "moonlander.h"
 
+#ifndef MOONLANDER_THREAD_INTERVAL_MS
+#    define MOONLANDER_THREAD_INTERVAL_MS 100
+#endif // MOONLANDER_THREAD_INTERVAL_MS
+
 keyboard_config_t keyboard_config;
 
 bool mcp23018_leds[3] = {0, 0, 0};
@@ -82,7 +86,7 @@ void moonlander_led_task(void) {
     else {
         static layer_state_t state = 0;
         if (layer_state != state) {
-            layer_state_set_kb(layer_state);
+            state = layer_state_set_kb(layer_state);
         }
     }
 #endif
@@ -94,7 +98,7 @@ static THD_FUNCTION(LEDThread, arg) {
     chRegSetThreadName("LEDThread");
     while (true) {
         moonlander_led_task();
-        wait_ms(100);
+        wait_ms(MOONLANDER_THREAD_INTERVAL_MS);
     }
 }
 
