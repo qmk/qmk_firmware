@@ -9,19 +9,14 @@
         "device_version": "0.0.1"
     },
     "features": {
-        "audio": false,
-        "backlight": false,
-        "command": false,
-        "console": false,
         "extrakey": true,
-        "nkro": true,
-        "rgblight": false
+        "nkro": true
     },
     "qmk": {
         "locking": {
             "enabled": true,
             "resync": true
-        },
+        }
     },
     "layouts": {
         "LAYOUT_ortho_5x6": {
