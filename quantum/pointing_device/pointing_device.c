@@ -22,7 +22,9 @@
 #include "timer.h"
 #include "util.h"
 #include "keyboard.h"
-#include "split_util.h"
+#ifdef SPLIT_KEYBOARD
+#    include "split_util.h"
+#endif
 #ifdef MOUSEKEY_ENABLE
 #    include "mousekey.h"
 #endif
