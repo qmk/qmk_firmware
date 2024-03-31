@@ -54,7 +54,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_LEVELS 3
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
+#define DEBOUNCE 7
+
+/* Change USB Polling Rate to 1000hz */
+#define USB_POLLING_INTERVAL_MS 10
+#define QMK_KEYS_PER_SCAN 4
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
