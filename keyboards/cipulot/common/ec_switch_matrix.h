@@ -20,6 +20,7 @@
 #include <stdbool.h>
 #include "matrix.h"
 #include "eeconfig.h"
+#include "util.h"
 
 typedef struct PACKED {
     uint8_t  actuation_mode;                              // 0: normal board-wide APC, 1: Rapid trigger from specific board-wide actuation point, 2: Rapid trigger from resting point
