@@ -83,7 +83,7 @@ def _find_invalid_encoder_index(info_data):
     return ret
 
 
-def _validate_info_json_list(keyboard, info_data):
+def _validate_build_target(keyboard, info_data):
     """Non schema checks
     """
     keyboard_json_path = Path('keyboards') / keyboard / 'keyboard.json'
@@ -200,7 +200,7 @@ def _validate(keyboard, info_data):
         validate(info_data, 'qmk.api.keyboard.v1')
 
         # Additional validation
-        _validate_info_json_list(keyboard, info_data)
+        _validate_build_target(keyboard, info_data)
         _validate_layouts(keyboard, info_data)
         _validate_keycodes(keyboard, info_data)
         _validate_encoders(keyboard, info_data)
