@@ -4,6 +4,8 @@
 #include "suspend.h"
 #include "matrix.h"
 
+static matrix_row_t wakeup_matrix[MATRIX_ROWS];
+
 // TODO: Move to more correct location
 __attribute__((weak)) void matrix_power_up(void) {}
 __attribute__((weak)) void matrix_power_down(void) {}
@@ -44,8 +46,22 @@ bool suspend_wakeup_condition(void) {
     matrix_power_up();
     matrix_scan();
     matrix_power_down();
+
+    bool wakeup = false;
     for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
-        if (matrix_get_row(r)) return true;
+        wakeup_matrix[r] = matrix_get_row(r);
+        wakeup |= wakeup_matrix[r] != 0;
     }
-    return false;
+
+    return wakeup;
+}
+
+bool keypress_is_wakeup_key(uint8_t row, uint8_t col) {
+    return (wakeup_matrix[row] & ((matrix_row_t)1 << col));
+}
+
+void wakeup_matrix_handle_key_event(uint8_t row, uint8_t col, bool pressed) {
+    if (!pressed) {
+        wakeup_matrix[row] &= ~((matrix_row_t)1 << col);
+    }
 }
