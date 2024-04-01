@@ -2,12 +2,13 @@
     "rules_file_name": "./magic_sturdy/magic.txt",
     "sequence_token_symbols": {
         "★": "*",
-        "☆": "@",
-        "✪": "#",
-        "✤": "%"
+        "☆": "@"
     },
     "wordbreak_symbol": {
         "⎵": "^"
+    },
+    "token_aliases": {
+        "✤": "q"
     },
     "output_func_symbols": "↻⇑",
     "comment_str": "//",

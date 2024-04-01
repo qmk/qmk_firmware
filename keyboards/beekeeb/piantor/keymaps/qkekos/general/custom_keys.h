@@ -30,8 +30,6 @@ enum blender_keycode {
 
     US_AREP,
     US_REP,
-    DB_LTTR,
-    US_MG_Q
 };
 
 int custom_keys_pr(uint16_t, keyrecord_t*);
