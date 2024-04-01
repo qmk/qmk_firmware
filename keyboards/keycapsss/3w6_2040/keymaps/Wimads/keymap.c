@@ -315,9 +315,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
-            // clang-format off
+
         // Auto-Dead-Keys:  // requires "English(NL)" or "Nederlands" language setting + "US International" keyboard setting in Windows.
-        case ADK_A: case ADK_E: case ADK_U: case ADK_I: case ADK_O: case ADK_N: // clang-format on
+        case ADK_A:
+        case ADK_E:
+        case ADK_U:
+        case ADK_I:
+        case ADK_O:
+        case ADK_N:
             if (record->event.pressed && record->tap.count) {
                 // ON TAP:
                 if (index == -1 || auto_dead_key == KC_SPC) return true; // check for index and adk state to avoid conflict with multifunc keycodes
@@ -334,11 +339,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 // ON RELEASE:
                 auto_dead_key = KC_SPC;
                 return true;
-            } // clang-format off
-        // Dead keys
-        case KC_QUOT: case KC_GRV: case KC_TILD: case KC_CIRC: // clang-format on
+            }
+        case KC_QUOT:
+        case KC_GRV:
+        case KC_TILD:
+        case KC_CIRC:
             if (record->event.pressed && index == -1) {
-                // skip if multifunc keycode index active (else creates conflict with ADK_N)
                 tap_code16(keycode);            // tap dead key
                 unregister_mods(mod_shift);     // unregister shift (if it was pressed)
                 register_mods(adk_mod_shift);   // register auto_dead_key shift state
@@ -350,7 +356,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         default:
             // multifunc keycodes:
-            if (index != -1) { // if key is in multifunc map, then:
+            if (index != -1) {
                 if (record->event.pressed && auto_dead_key != KC_SPC) {
                     // when auto_dead_key is active:
                     unregister_mods(mod_shift);                 // unregister shift (if it was pressed)
