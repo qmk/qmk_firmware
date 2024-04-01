@@ -1,6 +1,6 @@
 # rose75
 
-![rose75](https://i.imgur.com/f64Ttibh.png)
+![rose75](https://i.imgur.com/f64Ttib.png)
 
 * Keyboard Maintainer: [Matthijs Muller](https://github.com/Smollchungus)
 * Hardware Supported: Rose75 Keyboard
