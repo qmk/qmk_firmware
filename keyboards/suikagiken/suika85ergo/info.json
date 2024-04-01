@@ -23,6 +23,9 @@
         "vid": "0x4B48",
         "pid": "0x0002"
     },
+    "dynamic_keymap": {
+        "layer_count": 2
+    },
     "build": {
         "debounce_type": "sym_eager_pk"
     },
