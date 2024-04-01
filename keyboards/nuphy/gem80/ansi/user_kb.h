@@ -163,6 +163,7 @@ typedef struct {
 } user_config_t;
 
 extern user_config_t user_config;
+extern bool          f_wakeup_prepare;
 
 void    dev_sts_sync(void);
 void    rf_uart_init(void);

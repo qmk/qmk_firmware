@@ -31,7 +31,6 @@ extern uint16_t        rf_linking_time;
 extern uint16_t        rf_link_timeout;
 extern uint32_t        no_act_time;
 extern bool            f_goto_sleep;
-extern bool            f_wakeup_prepare;
 
 void clear_report_buffer(void);
 
@@ -54,7 +53,7 @@ void enter_light_sleep(void) {
  * @note This is Nuphy's "open sourced" wake logic. It's not deep sleep.
  */
 void exit_light_sleep(void) {
-    // FIXME: hack to force enable all leds
+    // NOTE: hack to force enable all leds
     rgb_led_powered_off  = 1;
     side_led_powered_off = 1;
 
@@ -69,11 +68,6 @@ void exit_light_sleep(void) {
 
     // flag for RF wakeup workload.
     dev_info.rf_state = RF_WAKE;
-    // force LEDs to enable
-    // setPinOutput(DRIVER_LED_CS_PIN);
-    // writePinLow(DRIVER_LED_CS_PIN);
-    // setPinOutput(DRIVER_SIDE_CS_PIN);
-    // writePinLow(DRIVER_SIDE_CS_PIN);
 }
 
 /**
@@ -99,17 +93,11 @@ void sleep_handle(void) {
         rf_linking_time    = 0;
         rf_disconnect_time = 0;
 
-        // // light sleep if charging? Charging event might keep waking MCU. To be confirmed...
+        // light sleep if charging? Charging event might keep waking MCU. To be confirmed...
         // or if it's in USB mode but USB state is suspended
         break_all_key();
         enter_light_sleep();
         f_wakeup_prepare = 1; // only if light sleep.
-    }
-
-    // wakeup check, we only arrive here on light sleep.
-    if (f_wakeup_prepare && (no_act_time < 10)) { // activity wake up
-        f_wakeup_prepare = 0;
-        exit_light_sleep();
     }
 
     // sleep check, won't reach here on deep sleep.

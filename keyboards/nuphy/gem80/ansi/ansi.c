@@ -47,6 +47,28 @@ extern void logo_light_speed_contol(uint8_t fast);
 extern void logo_light_level_control(uint8_t brighten);
 extern void logo_side_colour_control(uint8_t dir);
 extern void logo_side_mode_control(uint8_t dir);
+extern void exit_light_sleep(void);
+
+bool pre_process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    no_act_time     = 0;
+    rf_linking_time = 0;
+
+    // wakeup check for light sleep/no sleep - fire this immediately to not lose wake keys.
+    if (f_wakeup_prepare) {
+#if CONSOLE_ENABLE
+        xprintf("Early wake with keycode |  %u | and record pressed? ( %u )", keycode, record->event.pressed);
+
+#endif
+        f_wakeup_prepare = 0;
+        if (user_config.sleep_enable) exit_light_sleep();
+    }
+
+    if (!pre_process_record_user(keycode, record)) {
+        return false;
+    }
+
+    return true;
+}
 
 /* qmk process record */
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
