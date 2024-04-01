@@ -8,7 +8,8 @@
         "⎵": "^"
     },
     "token_aliases": {
-        "✤": "q"
+        "✤": "q",
+        "✪": "l"
     },
     "output_func_symbols": "↻⇑",
     "comment_str": "//",
