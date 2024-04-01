@@ -571,6 +571,8 @@ static inline void generate_tick_event(void) {
     }
 }
 
+matrix_row_t matrix_previous[MATRIX_ROWS];
+
 /**
  * @brief This task scans the keyboards matrix and processes any key presses
  * that occur.
@@ -583,8 +585,6 @@ static bool matrix_task(void) {
         generate_tick_event();
         return false;
     }
-
-    static matrix_row_t matrix_previous[MATRIX_ROWS];
 
     matrix_scan();
     bool matrix_changed = false;
