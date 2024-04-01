@@ -14,6 +14,9 @@ void suspend_power_down_user(void);
 void suspend_power_down_kb(void);
 void suspend_power_down_quantum(void);
 
+bool keypress_is_wakeup_key(uint8_t row, uint8_t col);
+void wakeup_matrix_handle_key_event(uint8_t row, uint8_t col, bool pressed);
+
 #ifndef USB_SUSPEND_WAKEUP_DELAY
 #    define USB_SUSPEND_WAKEUP_DELAY 0
 #endif
