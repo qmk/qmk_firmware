@@ -50,3 +50,10 @@ To re-generate header file ater dictionary changes run `qmk generate-autocorrect
 
 If you want to disable this feature, set `AUTOCORRECT_ENABLE = no` in `nuphy/gem80/ansu/rules.mk` file. -->
 
+
+
+
+## Keybinds guide
+
+
+Here is a [list](gem80-guide.md) of keybinds that you can use to control your keyboard.

@@ -32,14 +32,11 @@ const uint8_t side_speed_table[6][5] = {
 };
 
 const uint8_t side_light_table[6] = {
-
     0, 22, 34, 55, 79, 106,
 };
 
 const uint8_t side_led_index_tab[SIDE_LINE] = {
-    0, 1, 2,
-
-    3, 4,
+    0, 1, 2, 3, 4,
 };
 
 bool f_charging = 1;
@@ -61,9 +58,6 @@ uint8_t                r_temp, g_temp, b_temp;
 extern DEV_INFO_STRUCT dev_info;
 extern bool            f_bat_hold;
 
-extern bool     f_sleep_show;
-extern bool     f_usb_sleep_show;
-extern bool     f_dial_sw_init_ok;
 extern uint8_t  logo_mode;
 extern uint8_t  logo_light;
 extern uint8_t  logo_speed;

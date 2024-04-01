@@ -164,6 +164,9 @@ typedef struct {
 
 extern user_config_t user_config;
 extern bool          f_wakeup_prepare;
+extern bool          f_sleep_show;
+extern bool          f_usb_sleep_show;
+extern bool          f_dial_sw_init_ok;
 
 void    dev_sts_sync(void);
 void    rf_uart_init(void);
