@@ -78,7 +78,7 @@ const uint8_t side_led_index_tab[SIDE_LINE][2] = {
 };
 
 extern DEV_INFO_STRUCT dev_info;
-extern user_config_t   user_config;
+extern kb_config_t     kb_config;
 extern uint8_t         rf_blink_cnt;
 extern uint16_t        rf_link_show_time;
 extern bool            f_bat_hold;
@@ -123,8 +123,8 @@ void side_light_contol(uint8_t dir) {
         } else
             side_light--;
     }
-    user_config.ee_side_light = side_light;
-    eeconfig_update_kb_datablock(&user_config);
+    kb_config.ee_side_light = side_light;
+    eeconfig_update_kb_datablock(&kb_config);
 }
 
 /**
@@ -140,8 +140,8 @@ void side_speed_contol(uint8_t dir) {
     } else {
         if ((side_speed) < SIDE_SPEED_MAX) side_speed++;
     }
-    user_config.ee_side_speed = side_speed;
-    eeconfig_update_kb_datablock(&user_config);
+    kb_config.ee_side_speed = side_speed;
+    eeconfig_update_kb_datablock(&kb_config);
 }
 
 /**
@@ -179,9 +179,9 @@ void side_colour_control(uint8_t dir) {
             }
         }
     }
-    user_config.ee_side_rgb    = side_rgb;
-    user_config.ee_side_colour = side_colour;
-    eeconfig_update_kb_datablock(&user_config);
+    kb_config.ee_side_rgb    = side_rgb;
+    kb_config.ee_side_colour = side_colour;
+    eeconfig_update_kb_datablock(&kb_config);
 }
 
 /**
@@ -203,8 +203,8 @@ void side_mode_control(uint8_t dir) {
         }
     }
     side_play_point          = 0;
-    user_config.ee_side_mode = side_mode;
-    eeconfig_update_kb_datablock(&user_config);
+    kb_config.ee_side_mode = side_mode;
+    eeconfig_update_kb_datablock(&kb_config);
 }
 
 /**
@@ -273,7 +273,7 @@ void sleep_sw_led_show(void) {
     }
 
     if (sleep_show_flag) {
-        if (user_config.sleep_enable) {
+        if (kb_config.sleep_enable) {
             r_temp = 0x00;
             g_temp = 0x80;
             b_temp = 0x00;
@@ -762,14 +762,14 @@ void device_reset_init(void) {
     rgb_matrix_set_speed(255 - RGB_MATRIX_SPD_STEP * 2);
     rgb_matrix_sethsv(255, 255, RGB_MATRIX_MAXIMUM_BRIGHTNESS - RGB_MATRIX_VAL_STEP * 2);
 
-    user_config.default_brightness_flag = 0xA5;
-    user_config.ee_side_mode            = side_mode;
-    user_config.ee_side_light           = side_light;
-    user_config.ee_side_speed           = side_speed;
-    user_config.ee_side_rgb             = side_rgb;
-    user_config.ee_side_colour          = side_colour;
-    user_config.sleep_enable            = true;
-    eeconfig_update_kb_datablock(&user_config);
+    kb_config.default_brightness_flag = 0xA5;
+    kb_config.ee_side_mode            = side_mode;
+    kb_config.ee_side_light           = side_light;
+    kb_config.ee_side_speed           = side_speed;
+    kb_config.ee_side_rgb             = side_rgb;
+    kb_config.ee_side_colour          = side_colour;
+    kb_config.sleep_enable            = true;
+    eeconfig_update_kb_datablock(&kb_config);
 }
 
 /**

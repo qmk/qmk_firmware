@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "usb_main.h"
 #include "rf_driver.h"
 
-user_config_t user_config;
+kb_config_t     kb_config;
 DEV_INFO_STRUCT dev_info = {
     .rf_baterry = 100,
     .link_mode  = LINK_USB,
@@ -397,23 +397,23 @@ void timer_pro(void) {
  * @brief  londing eeprom data.
  */
 void londing_eeprom_data(void) {
-    eeconfig_read_kb_datablock(&user_config);
-    if (user_config.default_brightness_flag != 0xA5) {
+    eeconfig_read_kb_datablock(&kb_config);
+    if (kb_config.default_brightness_flag != 0xA5) {
         /* first power on, set rgb matrix brightness at middle level*/
         rgb_matrix_sethsv(255, 255, RGB_MATRIX_MAXIMUM_BRIGHTNESS - RGB_MATRIX_VAL_STEP * 2);
-        user_config.default_brightness_flag = 0xA5;
-        user_config.ee_side_mode            = side_mode;
-        user_config.ee_side_light           = side_light;
-        user_config.ee_side_speed           = side_speed;
-        user_config.ee_side_rgb             = side_rgb;
-        user_config.ee_side_colour          = side_colour;
-        user_config.sleep_enable            = true;
-        eeconfig_update_kb_datablock(&user_config);
+        kb_config.default_brightness_flag = 0xA5;
+        kb_config.ee_side_mode            = side_mode;
+        kb_config.ee_side_light           = side_light;
+        kb_config.ee_side_speed           = side_speed;
+        kb_config.ee_side_rgb             = side_rgb;
+        kb_config.ee_side_colour          = side_colour;
+        kb_config.sleep_enable            = true;
+        eeconfig_update_kb_datablock(&kb_config);
     } else {
-        side_mode   = user_config.ee_side_mode;
-        side_light  = user_config.ee_side_light;
-        side_speed  = user_config.ee_side_speed;
-        side_rgb    = user_config.ee_side_rgb;
-        side_colour = user_config.ee_side_colour;
+        side_mode   = kb_config.ee_side_mode;
+        side_light  = kb_config.ee_side_light;
+        side_speed  = kb_config.ee_side_speed;
+        side_rgb    = kb_config.ee_side_rgb;
+        side_colour = kb_config.ee_side_colour;
     }
 }

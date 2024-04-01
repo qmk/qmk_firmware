@@ -139,7 +139,7 @@ typedef struct
     uint8_t sleep_enable;
     uint8_t retain1;
     uint8_t retain2;
-} user_config_t;
+} kb_config_t;
 
 void    dev_sts_sync(void);
 void    rf_uart_init(void);

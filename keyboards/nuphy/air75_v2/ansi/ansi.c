@@ -29,7 +29,7 @@ extern uint16_t  no_act_time;
 extern uint8_t   rf_sw_temp;
 extern uint16_t  rf_sw_press_delay;
 extern uint16_t  rf_linking_time;
-extern user_config_t user_config;
+extern kb_config_t kb_config;
 extern DEV_INFO_STRUCT dev_info;
 
 
@@ -197,10 +197,10 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
         case SLEEP_MODE:
             if (record->event.pressed) {
-                if(user_config.sleep_enable) user_config.sleep_enable = false;
-                else user_config.sleep_enable = true;
+                if(kb_config.sleep_enable) kb_config.sleep_enable = false;
+                else kb_config.sleep_enable = true;
                 f_sleep_show       = 1;
-                eeconfig_update_kb_datablock(&user_config);
+                eeconfig_update_kb_datablock(&kb_config);
             }
             return false;
 
