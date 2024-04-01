@@ -61,6 +61,7 @@ enum custom_keycodes {
     SLEEP_TIMEOUT_INC,
     SLEEP_TIMEOUT_DEC,
     SLEEP_TIMEOUT_SHOW,
+    MAC_GLOBE,
 };
 
 #define MAC_PRT G(S(KC_3))

@@ -220,6 +220,14 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 
+        case MAC_GLOBE:
+            if (record->event.pressed) {
+                host_consumer_send(0x029D);
+            } else {
+                host_consumer_send(0);
+            }
+            return false;
+
         case SIDE_VAI:
             if (record->event.pressed) {
                 light_level_control(1);

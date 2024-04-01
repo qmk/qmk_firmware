@@ -439,6 +439,10 @@
         {
             "name": "SLP TIME\nSHOW VAL",
             "title": "Show Sleep Timeout Value"
+        },
+        {
+            "name": "Mac\nGlobe",
+            "title": "Mac Globe"
         }
     ]
 }
