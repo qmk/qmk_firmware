@@ -86,14 +86,15 @@ def _find_invalid_encoder_index(info_data):
 def _validate_info_json_list(keyboard, info_data):
     """Non schema checks
     """
+    keyboard_json_path = Path('keyboards') / keyboard / 'keyboard.json'
     config_files = find_info_json(keyboard)
 
     # keyboard.json can only exist at the deepest part of the tree
     keyboard_json_count = 0
-    for index, info_file in enumerate(config_files):
-        if Path(info_file).name == 'keyboard.json':
+    for info_file in config_files:
+        if info_file.name == 'keyboard.json':
             keyboard_json_count += 1
-            if index != 0 or keyboard_json_count > 1:
+            if info_file != keyboard_json_path:
                 _log_error(info_data, f'Invalid keyboard.json location detected: {info_file}.')
 
     # Moving forward keyboard.json should be used as a build target
