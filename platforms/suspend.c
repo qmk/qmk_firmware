@@ -56,6 +56,20 @@ bool suspend_wakeup_condition(void) {
     return wakeup;
 }
 
+void wakeup_matrix_update(void) {
+    matrix_power_up();
+    matrix_scan();
+    matrix_power_down();
+
+    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+        matrix_row_t matrix_row = matrix_get_row(row);
+        matrix_row_t col_mask   = 1;
+        for (uint8_t col = 0; col < MATRIX_COLS; col++, col_mask <<= 1) {
+            wakeup_matrix_handle_key_event(row, col, matrix_row & col_mask);
+        }
+    }
+}
+
 bool keypress_is_wakeup_key(uint8_t row, uint8_t col) {
     return (wakeup_matrix[row] & ((matrix_row_t)1 << col));
 }
