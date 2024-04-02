@@ -47,6 +47,8 @@ typedef struct {
 // Tap dance enums
 enum {
     TMUX_SCROLL,
+    WIN_TAPDANCE,
+    ALT_TAPDANCE,
 };
 
 td_state_t cur_dance(tap_dance_state_t *state);
@@ -117,20 +119,20 @@ void tmux_reset(tap_dance_state_t *state, void *user_data);
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-//    ┌─────────┬───┬───┬──────┬──────┬─────┐                                                                 ┌─────┬───┬───┬───┬───┬──────────────┐
-//    │   tab   │ q │ w │  e   │  r   │  t  │                                                                 │  y  │ u │ i │ o │ p │      -       │
-//    ├─────────┼───┼───┼──────┼──────┼─────┤                                                                 ├─────┼───┼───┼───┼───┼──────────────┤
-//    │ CTL_ESC │ a │ s │  d   │  f   │  g  │                                                                 │  h  │ j │ k │ l │ ; │      '       │
-//    ├─────────┼───┼───┼──────┼──────┼─────┼───────────────┬─────────────────┬─────────────────┬─────────────┼─────┼───┼───┼───┼───┼──────────────┤
-//    │  lsft   │ z │ x │  c   │  v   │  b  │  OSL(NUMPAD)  │    CLOSE_TAB    │   REOPEN_TAB    │ OSL(SYMBOL) │  n  │ m │ , │ . │ / │ LT(SHIFT, \) │
-//    └─────────┴───┴───┼──────┼──────┼─────┼───────────────┼─────────────────┼─────────────────┼─────────────┼─────┼───┼───┼───┴───┴──────────────┘
-//                      │ lgui │ lalt │ ent │ OSM(MOD_LSFT) │ TD(TMUX_SCROLL) │ TD(TMUX_SCROLL) │    bspc     │ spc │ [ │ ] │
-//                      └──────┴──────┴─────┴───────────────┴─────────────────┴─────────────────┴─────────────┴─────┴───┴───┘
+//    ┌─────────┬───┬───┬──────────────────┬──────────────────┬─────┐                                                                 ┌─────┬───┬───┬───┬───┬──────────────┐
+//    │   tab   │ q │ w │        e         │        r         │  t  │                                                                 │  y  │ u │ i │ o │ p │      -       │
+//    ├─────────┼───┼───┼──────────────────┼──────────────────┼─────┤                                                                 ├─────┼───┼───┼───┼───┼──────────────┤
+//    │ CTL_ESC │ a │ s │        d         │        f         │  g  │                                                                 │  h  │ j │ k │ l │ ; │      '       │
+//    ├─────────┼───┼───┼──────────────────┼──────────────────┼─────┼───────────────┬─────────────────┬─────────────────┬─────────────┼─────┼───┼───┼───┼───┼──────────────┤
+//    │  lsft   │ z │ x │        c         │        v         │  b  │  OSL(NUMPAD)  │    CLOSE_TAB    │   REOPEN_TAB    │ OSL(SYMBOL) │  n  │ m │ , │ . │ / │ LT(SHIFT, \) │
+//    └─────────┴───┴───┼──────────────────┼──────────────────┼─────┼───────────────┼─────────────────┼─────────────────┼─────────────┼─────┼───┼───┼───┴───┴──────────────┘
+//                      │ TD(WIN_TAPDANCE) │ TD(ALT_TAPDANCE) │ ent │ OSM(MOD_LSFT) │ TD(TMUX_SCROLL) │ TD(TMUX_SCROLL) │    bspc     │ spc │ [ │ ] │
+//                      └──────────────────┴──────────────────┴─────┴───────────────┴─────────────────┴─────────────────┴─────────────┴─────┴───┴───┘
 [_QWERTY] = LAYOUT(
-  KC_TAB  , KC_Q , KC_W , KC_E    , KC_R    , KC_T   ,                                                                   KC_Y   , KC_U    , KC_I    , KC_O   , KC_P    , KC_MINUS               ,
-  CTL_ESC , KC_A , KC_S , KC_D    , KC_F    , KC_G   ,                                                                   KC_H   , KC_J    , KC_K    , KC_L   , KC_SCLN , KC_QUOTE               ,
-  KC_LSFT , KC_Z , KC_X , KC_C    , KC_V    , KC_B   , OSL(NUMPAD)   , CLOSE_TAB       , REOPEN_TAB      , OSL(SYMBOL) , KC_N   , KC_M    , KC_COMM , KC_DOT , KC_SLSH , LT(SHIFT, KC_BACKSLASH),
-                          KC_LGUI , KC_LALT , KC_ENT , OSM(MOD_LSFT) , TD(TMUX_SCROLL) , TD(TMUX_SCROLL) , KC_BSPC     , KC_SPC , KC_LBRC , KC_RBRC
+  KC_TAB  , KC_Q , KC_W , KC_E             , KC_R             , KC_T   ,                                                                   KC_Y   , KC_U    , KC_I    , KC_O   , KC_P    , KC_MINUS               ,
+  CTL_ESC , KC_A , KC_S , KC_D             , KC_F             , KC_G   ,                                                                   KC_H   , KC_J    , KC_K    , KC_L   , KC_SCLN , KC_QUOTE               ,
+  KC_LSFT , KC_Z , KC_X , KC_C             , KC_V             , KC_B   , OSL(NUMPAD)   , CLOSE_TAB       , REOPEN_TAB      , OSL(SYMBOL) , KC_N   , KC_M    , KC_COMM , KC_DOT , KC_SLSH , LT(SHIFT, KC_BACKSLASH),
+                          TD(WIN_TAPDANCE) , TD(ALT_TAPDANCE) , KC_ENT , OSM(MOD_LSFT) , TD(TMUX_SCROLL) , TD(TMUX_SCROLL) , KC_BSPC     , KC_SPC , KC_LBRC , KC_RBRC
 ),
 
 //    ┌─────┬──────┬──────┬────────────┬─────────────┬────────┐                         ┌────────┬──────┬──────┬──────┬──────┬────────┐
@@ -181,20 +183,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    _______ , _______ , _______    , _______ , _______ , _______ , _______ , _______             , _______ , _______
 ),
 
-//    ┌─────┬─────┬─────────┬─────────┬─────────┬──────────────────┐                       ┌─────┬─────┬─────┬─────┬─────┬─────┐
-//    │     │     │         │         │         │     RGB_TOG      │                       │     │     │     │     │     │     │
-//    ├─────┼─────┼─────────┼─────────┼─────────┼──────────────────┤                       ├─────┼─────┼─────┼─────┼─────┼─────┤
-//    │     │     │ RGB_HUI │ RGB_SAI │ RGB_VAI │ RGB_MODE_FORWARD │                       │     │     │     │     │     │     │
-//    ├─────┼─────┼─────────┼─────────┼─────────┼──────────────────┼─────┬─────┬─────┬─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-//    │     │     │ RGB_HUD │ RGB_SAD │ RGB_VAD │ RGB_MODE_REVERSE │     │     │     │     │     │     │     │     │     │     │
-//    └─────┴─────┴─────────┼─────────┼─────────┼──────────────────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┴─────┴─────┘
-//                          │         │         │                  │     │     │     │     │     │     │     │
-//                          └─────────┴─────────┴──────────────────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
+//    ┌─────┬─────┬─────────┬────────────┬─────────┬──────────────────┐                       ┌─────┬─────┬─────┬─────┬─────┬─────┐
+//    │     │     │         │            │         │     RGB_TOG      │                       │     │     │     │     │     │     │
+//    ├─────┼─────┼─────────┼────────────┼─────────┼──────────────────┤                       ├─────┼─────┼─────┼─────┼─────┼─────┤
+//    │     │     │ RGB_HUI │  RGB_SAI   │ RGB_VAI │ RGB_MODE_FORWARD │                       │     │     │     │     │     │     │
+//    ├─────┼─────┼─────────┼────────────┼─────────┼──────────────────┼─────┬─────┬─────┬─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+//    │     │     │ RGB_HUD │  RGB_SAD   │ RGB_VAD │ RGB_MODE_REVERSE │     │     │     │     │     │     │     │     │     │     │
+//    └─────┴─────┴─────────┼────────────┼─────────┼──────────────────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┴─────┴─────┘
+//                          │ TG(_MAGIC) │         │                  │     │     │     │     │     │     │     │
+//                          └────────────┴─────────┴──────────────────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
 [_MAGIC] = LAYOUT(
-  _______ , _______ , _______ , _______ , _______ , RGB_TOG          ,                                         _______ , _______ , _______ , _______ , _______ , _______,
-  _______ , _______ , RGB_HUI , RGB_SAI , RGB_VAI , RGB_MODE_FORWARD ,                                         _______ , _______ , _______ , _______ , _______ , _______,
-  _______ , _______ , RGB_HUD , RGB_SAD , RGB_VAD , RGB_MODE_REVERSE , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______,
-                                _______ , _______ , _______          , _______ , _______ , _______ , _______ , _______ , _______ , _______
+  _______ , _______ , _______ , _______    , _______ , RGB_TOG          ,                                         _______ , _______ , _______ , _______ , _______ , _______,
+  _______ , _______ , RGB_HUI , RGB_SAI    , RGB_VAI , RGB_MODE_FORWARD ,                                         _______ , _______ , _______ , _______ , _______ , _______,
+  _______ , _______ , RGB_HUD , RGB_SAD    , RGB_VAD , RGB_MODE_REVERSE , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______,
+                                TG(_MAGIC) , _______ , _______          , _______ , _______ , _______ , _______ , _______ , _______ , _______
 ),
 
 //    ┌─────┬─────┬──────────────────┬──────────────────┬──────────────────────┬──────────────────┐                       ┌────────────────────┬────────────────────┬─────────────────┬─────────────────┬──────────────────┬───────────────────┐
@@ -204,13 +206,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //    ├─────┼─────┼──────────────────┼──────────────────┼──────────────────────┼──────────────────┼─────┬─────┬─────┬─────┼────────────────────┼────────────────────┼─────────────────┼─────────────────┼──────────────────┼───────────────────┤
 //    │     │     │  WMGMT_LEFT_66   │   WMGMT_CENTER   │    WMGMT_RIGHT_66    │ WMGMT_BOTTOM_33  │     │     │     │     │ WMGMT_PREV_MONITOR │ WMGMT_NEXT_MONITOR │                 │                 │                  │                   │
 //    └─────┴─────┴──────────────────┼──────────────────┼──────────────────────┼──────────────────┼─────┼─────┼─────┼─────┼────────────────────┼────────────────────┼─────────────────┼─────────────────┴──────────────────┴───────────────────┘
-//                                   │                  │                      │                  │     │     │     │     │                    │                    │   WMGMT_BASE    │
+//                                   │   TG(_WINDOW)    │                      │                  │     │     │     │     │                    │                    │   WMGMT_BASE    │
 //                                   └──────────────────┴──────────────────────┴──────────────────┴─────┴─────┴─────┴─────┴────────────────────┴────────────────────┴─────────────────┘
 [_WINDOW] = LAYOUT(
   _______ , _______ , WMGMT_FULLSCREEN , _______          , WMGMT_NEXT_WALLPAPER , WMGMT_TOP_33     ,                                         WMGMT_MONITOR_1    , WMGMT_MONITOR_2    , WMGMT_MONITOR_3 , WMGMT_MONITOR_4 , WMGMT_TOPLEFT    , WMGMT_TOPRIGHT   ,
   _______ , _______ , WMGMT_LEFT_33    , WMGMT_HCENTER_33 , WMGMT_RIGHT_33       , WMGMT_VCENTER_33 ,                                         WMGMT_LEFT_50      , WMGMT_DOWN_50      , WMGMT_UP_50     , WMGMT_RIGHT_50  , WMGMT_BOTTOMLEFT , WMGMT_BOTTOMRIGHT,
   _______ , _______ , WMGMT_LEFT_66    , WMGMT_CENTER     , WMGMT_RIGHT_66       , WMGMT_BOTTOM_33  , _______ , _______ , _______ , _______ , WMGMT_PREV_MONITOR , WMGMT_NEXT_MONITOR , _______         , _______         , _______          , _______          ,
-                                         _______          , _______              , _______          , _______ , _______ , _______ , _______ , _______            , _______            , WMGMT_BASE
+                                         TG(_WINDOW)      , _______              , _______          , _______ , _______ , _______ , _______ , _______            , _______            , WMGMT_BASE
 )
 };
 
@@ -357,8 +359,52 @@ void tmux_reset(tap_dance_state_t *state, void *user_data) {
     tmuxtap_state.state = TD_NONE;
 }
 
+static td_tap_t wintap_state = {
+    .is_press_action = true,
+    .state = TD_NONE
+};
+void win_finished(tap_dance_state_t *state, void *user_data) {
+    wintap_state.state = cur_dance(state);
+    switch (wintap_state.state) {
+        case TD_SINGLE_TAP: register_code(KC_LGUI); break;
+        case TD_DOUBLE_TAP: layer_on(_WINDOW); break;
+        default: break;
+    }
+}
+void win_reset(tap_dance_state_t *state, void *user_data) {
+    switch (wintap_state.state) {
+        case TD_SINGLE_TAP: unregister_code(KC_LGUI); break;
+        case TD_DOUBLE_TAP: break;
+        default: break;
+    }
+    wintap_state.state = TD_NONE;
+}
+
+static td_tap_t alttap_state = {
+    .is_press_action = true,
+    .state = TD_NONE
+};
+void alt_finished(tap_dance_state_t *state, void *user_data) {
+    alttap_state.state = cur_dance(state);
+    switch (alttap_state.state) {
+        case TD_SINGLE_TAP: register_code(KC_LALT); break;
+        case TD_DOUBLE_TAP: layer_on(_MAGIC); break;
+        default: break;
+    }
+}
+void alt_reset(tap_dance_state_t *state, void *user_data) {
+    switch (alttap_state.state) {
+        case TD_SINGLE_TAP: unregister_code(KC_LALT); break;
+        case TD_DOUBLE_TAP: break;
+        default: break;
+    }
+    alttap_state.state = TD_NONE;
+}
+
 tap_dance_action_t tap_dance_actions[] = {
     [TMUX_SCROLL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tmux_finished, tmux_reset),
+    [WIN_TAPDANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, win_finished, win_reset),
+    [ALT_TAPDANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, alt_finished, alt_reset),
 };
 
 /*
@@ -368,8 +414,8 @@ combo_t key_combos[] = {
 };
  */
 
-layer_state_t layer_state_set_user(layer_state_t state) {
+/* layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, _NUMPAD, _SYMBOL, _WINDOW);
     state = update_tri_layer_state(state, _NUMPAD, _SHIFT, _MAGIC);
     return state;
-};
+}; */
