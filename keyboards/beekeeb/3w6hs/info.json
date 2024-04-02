@@ -12,6 +12,7 @@
     "processor": "RP2040",
     "bootloader": "rp2040",
     "features": {
+        "bootmagic": true,
         "mousekey": true,
         "extrakey": true
     },
