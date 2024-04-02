@@ -19,14 +19,17 @@ enum layers {
     _QWERTY = 0,
     _NUMPAD,
     _SYMBOL,
+    _MAGIC,
 };
 
+tap_dance_action_t tap_dance_actions[] = {};
 
 // Aliases for readability
 #define QWERTY   DF(_QWERTY)
 
 #define SYMBOL   MO(_SYMBOL)
 #define NUMPAD   MO(_NUMPAD)
+#define MAGIC    MO(_MAGIC)
 
 #define CTL_ESC  MT(MOD_LCTL, KC_ESC)
 #define CTL_QUOT MT(MOD_RCTL, KC_QUOTE)
@@ -44,19 +47,19 @@ enum layers {
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-//    ┌─────────┬───┬───┬──────┬──────┬─────┐                                             ┌─────┬───┬───┬───┬───┬──────┐
-//    │   tab   │ q │ w │  e   │  r   │  t  │                                             │  y  │ u │ i │ o │ p │  -   │
-//    ├─────────┼───┼───┼──────┼──────┼─────┤                                             ├─────┼───┼───┼───┼───┼──────┤
-//    │ CTL_ESC │ a │ s │  d   │  f   │  g  │                                             │  h  │ j │ k │ l │ ; │  '   │
-//    ├─────────┼───┼───┼──────┼──────┼─────┼────────┬─────────────┬─────────────┬────────┼─────┼───┼───┼───┼───┼──────┤
-//    │  lsft   │ z │ x │  c   │  v   │  b  │ NUMPAD │  CLOSE_TAB  │ REOPEN_TAB  │ SYMBOL │  n  │ m │ , │ . │ / │ rsft │
-//    └─────────┴───┴───┼──────┼──────┼─────┼────────┼─────────────┼─────────────┼────────┼─────┼───┼───┼───┴───┴──────┘
+//    ┌─────────┬───┬───┬──────┬──────┬─────┐                                             ┌─────┬───┬───┬───┬───┬──────────────┐
+//    │   tab   │ q │ w │  e   │  r   │  t  │                                             │  y  │ u │ i │ o │ p │      -       │
+//    ├─────────┼───┼───┼──────┼──────┼─────┤                                             ├─────┼───┼───┼───┼───┼──────────────┤
+//    │ CTL_ESC │ a │ s │  d   │  f   │  g  │                                             │  h  │ j │ k │ l │ ; │      '       │
+//    ├─────────┼───┼───┼──────┼──────┼─────┼────────┬─────────────┬─────────────┬────────┼─────┼───┼───┼───┼───┼──────────────┤
+//    │  lsft   │ z │ x │  c   │  v   │  b  │ NUMPAD │  CLOSE_TAB  │ REOPEN_TAB  │ SYMBOL │  n  │ m │ , │ . │ / │ LT(MAGIC, \) │
+//    └─────────┴───┴───┼──────┼──────┼─────┼────────┼─────────────┼─────────────┼────────┼─────┼───┼───┼───┴───┴──────────────┘
 //                      │ lgui │ lalt │ ent │  lsft  │ TMUX_LEADER │ TMUX_LEADER │  bspc  │ spc │ [ │ ] │
 //                      └──────┴──────┴─────┴────────┴─────────────┴─────────────┴────────┴─────┴───┴───┘
 [_QWERTY] = LAYOUT(
-  KC_TAB  , KC_Q , KC_W , KC_E    , KC_R    , KC_T   ,                                                 KC_Y   , KC_U    , KC_I    , KC_O   , KC_P    , KC_MINUS,
-  CTL_ESC , KC_A , KC_S , KC_D    , KC_F    , KC_G   ,                                                 KC_H   , KC_J    , KC_K    , KC_L   , KC_SCLN , KC_QUOTE,
-  KC_LSFT , KC_Z , KC_X , KC_C    , KC_V    , KC_B   , NUMPAD  , CLOSE_TAB   , REOPEN_TAB  , SYMBOL  , KC_N   , KC_M    , KC_COMM , KC_DOT , KC_SLSH , KC_RSFT ,
+  KC_TAB  , KC_Q , KC_W , KC_E    , KC_R    , KC_T   ,                                                 KC_Y   , KC_U    , KC_I    , KC_O   , KC_P    , KC_MINUS               ,
+  CTL_ESC , KC_A , KC_S , KC_D    , KC_F    , KC_G   ,                                                 KC_H   , KC_J    , KC_K    , KC_L   , KC_SCLN , KC_QUOTE               ,
+  KC_LSFT , KC_Z , KC_X , KC_C    , KC_V    , KC_B   , NUMPAD  , CLOSE_TAB   , REOPEN_TAB  , SYMBOL  , KC_N   , KC_M    , KC_COMM , KC_DOT , KC_SLSH , LT(MAGIC, KC_BACKSLASH),
                           KC_LGUI , KC_LALT , KC_ENT , KC_LSFT , TMUX_LEADER , TMUX_LEADER , KC_BSPC , KC_SPC , KC_LBRC , KC_RBRC
 ),
 
@@ -90,6 +93,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______ , KC_CIRCUMFLEX , KC_EQUAL , KC_HASH , KC_DLR  , KC_UNDERSCORE ,                                             KC_LEFT    , KC_DOWN  , KC_UP         , KC_RIGHT       , KC_TILDE , _______,
   _______ , KC_MINUS      , KC_LT    , KC_GT   , KC_PIPE , KC_AMPR       , KC_SLASH , _______    , _______ , TO(0)   , KC_PERCENT , KC_PLUS  , KC_LBRC       , KC_RBRC        , KC_SLSH  , _______,
                                        _______ , _______ , KC_BACKSLASH  , KC_COLON , KC_PERCENT , _______ , _______ , _______    , _______  , _______
+),
+
+//    ┌─────┬─────┬─────────┬─────────┬─────────┬──────────────────┐                       ┌─────┬─────┬─────┬─────┬─────┬─────┐
+//    │     │     │         │         │         │     RGB_TOG      │                       │     │     │     │     │     │     │
+//    ├─────┼─────┼─────────┼─────────┼─────────┼──────────────────┤                       ├─────┼─────┼─────┼─────┼─────┼─────┤
+//    │     │     │ RGB_HUI │ RGB_SAI │ RGB_VAI │ RGB_MODE_FORWARD │                       │     │     │     │     │     │     │
+//    ├─────┼─────┼─────────┼─────────┼─────────┼──────────────────┼─────┬─────┬─────┬─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+//    │     │     │ RGB_HUD │ RGB_SAD │ RGB_FAD │ RGB_MODE_REVERSE │     │     │     │     │     │     │     │     │     │     │
+//    └─────┴─────┴─────────┼─────────┼─────────┼──────────────────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┴─────┴─────┘
+//                          │         │         │                  │     │     │     │     │     │     │     │
+//                          └─────────┴─────────┴──────────────────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
+[_MAGIC] = LAYOUT(
+  _______ , _______ , _______ , _______ , _______ , RGB_TOG          ,                                         _______ , _______ , _______ , _______ , _______ , _______,
+  _______ , _______ , RGB_HUI , RGB_SAI , RGB_VAI , RGB_MODE_FORWARD ,                                         _______ , _______ , _______ , _______ , _______ , _______,
+  _______ , _______ , RGB_HUD , RGB_SAD , RGB_FAD , RGB_MODE_REVERSE , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______,
+                                _______ , _______ , _______          , _______ , _______ , _______ , _______ , _______ , _______ , _______
 )
 };
 

@@ -4,3 +4,4 @@ RGB_MATRIX_ENABLE = no     # Disable keyboard RGB matrix, as it is enabled by de
 RGBLIGHT_ENABLE = yes      # Enable keyboard RGB underglow
 
 CAPS_WORD_ENABLE = yes
+TAP_DANCE_ENABLE = yes
