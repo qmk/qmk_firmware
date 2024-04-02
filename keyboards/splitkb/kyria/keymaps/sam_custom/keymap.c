@@ -19,6 +19,7 @@ enum layers {
     _QWERTY = 0,
     _NUMPAD,
     _SYMBOL,
+    _SHIFT,
     _MAGIC,
     _WINDOW,
 };
@@ -60,7 +61,8 @@ void tmux_reset(tap_dance_state_t *state, void *user_data);
 #define SYMBOL   MO(_SYMBOL)
 #define NUMPAD   MO(_NUMPAD)
 #define MAGIC    MO(_MAGIC)
-#define WINDOW    MO(_WINDOW)
+#define WINDOW   MO(_WINDOW)
+#define SHIFT    MO(_SHIFT)
 
 #define CTL_ESC  MT(MOD_LCTL, KC_ESC)
 #define CTL_QUOT MT(MOD_RCTL, KC_QUOTE)
@@ -115,20 +117,20 @@ void tmux_reset(tap_dance_state_t *state, void *user_data);
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-//    ┌─────────┬───┬───┬──────┬──────┬─────┐                                                            ┌─────┬───┬───┬───┬───┬──────────────┐
-//    │   tab   │ q │ w │  e   │  r   │  t  │                                                            │  y  │ u │ i │ o │ p │      -       │
-//    ├─────────┼───┼───┼──────┼──────┼─────┤                                                            ├─────┼───┼───┼───┼───┼──────────────┤
-//    │ CTL_ESC │ a │ s │  d   │  f   │  g  │                                                            │  h  │ j │ k │ l │ ; │      '       │
-//    ├─────────┼───┼───┼──────┼──────┼─────┼───────────────┬─────────────────┬─────────────────┬────────┼─────┼───┼───┼───┼───┼──────────────┤
-//    │  lsft   │ z │ x │  c   │  v   │  b  │    NUMPAD     │    CLOSE_TAB    │   REOPEN_TAB    │ SYMBOL │  n  │ m │ , │ . │ / │ LT(MAGIC, \) │
-//    └─────────┴───┴───┼──────┼──────┼─────┼───────────────┼─────────────────┼─────────────────┼────────┼─────┼───┼───┼───┴───┴──────────────┘
-//                      │ lgui │ lalt │ ent │ OSM(MOD_LSFT) │ TD(TMUX_SCROLL) │ TD(TMUX_SCROLL) │  bspc  │ spc │ [ │ ] │
-//                      └──────┴──────┴─────┴───────────────┴─────────────────┴─────────────────┴────────┴─────┴───┴───┘
+//    ┌─────────┬───┬───┬──────┬──────┬─────┐                                                                 ┌─────┬───┬───┬───┬───┬──────────────┐
+//    │   tab   │ q │ w │  e   │  r   │  t  │                                                                 │  y  │ u │ i │ o │ p │      -       │
+//    ├─────────┼───┼───┼──────┼──────┼─────┤                                                                 ├─────┼───┼───┼───┼───┼──────────────┤
+//    │ CTL_ESC │ a │ s │  d   │  f   │  g  │                                                                 │  h  │ j │ k │ l │ ; │      '       │
+//    ├─────────┼───┼───┼──────┼──────┼─────┼───────────────┬─────────────────┬─────────────────┬─────────────┼─────┼───┼───┼───┼───┼──────────────┤
+//    │  lsft   │ z │ x │  c   │  v   │  b  │  OSL(NUMPAD)  │    CLOSE_TAB    │   REOPEN_TAB    │ OSL(SYMBOL) │  n  │ m │ , │ . │ / │ LT(SHIFT, \) │
+//    └─────────┴───┴───┼──────┼──────┼─────┼───────────────┼─────────────────┼─────────────────┼─────────────┼─────┼───┼───┼───┴───┴──────────────┘
+//                      │ lgui │ lalt │ ent │ OSM(MOD_LSFT) │ TD(TMUX_SCROLL) │ TD(TMUX_SCROLL) │    bspc     │ spc │ [ │ ] │
+//                      └──────┴──────┴─────┴───────────────┴─────────────────┴─────────────────┴─────────────┴─────┴───┴───┘
 [_QWERTY] = LAYOUT(
-  KC_TAB  , KC_Q , KC_W , KC_E    , KC_R    , KC_T   ,                                                               KC_Y   , KC_U    , KC_I    , KC_O   , KC_P    , KC_MINUS               ,
-  CTL_ESC , KC_A , KC_S , KC_D    , KC_F    , KC_G   ,                                                               KC_H   , KC_J    , KC_K    , KC_L   , KC_SCLN , KC_QUOTE               ,
-  KC_LSFT , KC_Z , KC_X , KC_C    , KC_V    , KC_B   , NUMPAD        , CLOSE_TAB       , REOPEN_TAB      , SYMBOL  , KC_N   , KC_M    , KC_COMM , KC_DOT , KC_SLSH , LT(MAGIC, KC_BACKSLASH),
-                          KC_LGUI , KC_LALT , KC_ENT , OSM(MOD_LSFT) , TD(TMUX_SCROLL) , TD(TMUX_SCROLL) , KC_BSPC , KC_SPC , KC_LBRC , KC_RBRC
+  KC_TAB  , KC_Q , KC_W , KC_E    , KC_R    , KC_T   ,                                                                   KC_Y   , KC_U    , KC_I    , KC_O   , KC_P    , KC_MINUS               ,
+  CTL_ESC , KC_A , KC_S , KC_D    , KC_F    , KC_G   ,                                                                   KC_H   , KC_J    , KC_K    , KC_L   , KC_SCLN , KC_QUOTE               ,
+  KC_LSFT , KC_Z , KC_X , KC_C    , KC_V    , KC_B   , OSL(NUMPAD)   , CLOSE_TAB       , REOPEN_TAB      , OSL(SYMBOL) , KC_N   , KC_M    , KC_COMM , KC_DOT , KC_SLSH , LT(SHIFT, KC_BACKSLASH),
+                          KC_LGUI , KC_LALT , KC_ENT , OSM(MOD_LSFT) , TD(TMUX_SCROLL) , TD(TMUX_SCROLL) , KC_BSPC     , KC_SPC , KC_LBRC , KC_RBRC
 ),
 
 //    ┌─────┬──────┬──────┬────────────┬─────────────┬────────┐                        ┌────────┬──────┬──────┬──────┬──────┬────────┐
@@ -151,16 +153,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //    │  `  │ ` │ { │  }  │  @  │ * │                       │  !   │  :   │  (  │  )   │ ; │     │
 //    ├─────┼───┼───┼─────┼─────┼───┤                       ├──────┼──────┼─────┼──────┼───┼─────┤
 //    │     │ ^ │ = │  #  │  $  │ _ │                       │ left │ down │ up  │ rght │ ~ │     │
-//    ├─────┼───┼───┼─────┼─────┼───┼───┬─────┬─────┬───────┼──────┼──────┼─────┼──────┼───┼─────┤
-//    │     │ - │ < │  >  │  |  │ & │ / │     │     │ TO(0) │  %   │  +   │  [  │  ]   │ / │     │
-//    └─────┴───┴───┼─────┼─────┼───┼───┼─────┼─────┼───────┼──────┼──────┼─────┼──────┴───┴─────┘
-//                  │     │     │ \ │ : │  %  │     │       │      │      │     │
-//                  └─────┴─────┴───┴───┴─────┴─────┴───────┴──────┴──────┴─────┘
+//    ├─────┼───┼───┼─────┼─────┼───┼─────┬─────┬─────┬─────┼──────┼──────┼─────┼──────┼───┼─────┤
+//    │     │ - │ < │  >  │  |  │ & │     │     │     │     │  %   │  +   │  [  │  ]   │ / │     │
+//    └─────┴───┴───┼─────┼─────┼───┼─────┼─────┼─────┼─────┼──────┼──────┼─────┼──────┴───┴─────┘
+//                  │     │     │ \ │  :  │  %  │     │     │      │      │     │
+//                  └─────┴─────┴───┴─────┴─────┴─────┴─────┴──────┴──────┴─────┘
 [_SYMBOL] = LAYOUT(
   KC_GRV  , KC_GRV        , KC_LCBR  , KC_RCBR , KC_AT   , KC_ASTR       ,                                             KC_EXCLAIM , KC_COLON , KC_LEFT_PAREN , KC_RIGHT_PAREN , KC_SCLN  , _______,
   _______ , KC_CIRCUMFLEX , KC_EQUAL , KC_HASH , KC_DLR  , KC_UNDERSCORE ,                                             KC_LEFT    , KC_DOWN  , KC_UP         , KC_RIGHT       , KC_TILDE , _______,
-  _______ , KC_MINUS      , KC_LT    , KC_GT   , KC_PIPE , KC_AMPR       , KC_SLASH , _______    , _______ , TO(0)   , KC_PERCENT , KC_PLUS  , KC_LBRC       , KC_RBRC        , KC_SLSH  , _______,
+  _______ , KC_MINUS      , KC_LT    , KC_GT   , KC_PIPE , KC_AMPR       , _______  , _______    , _______ , _______ , KC_PERCENT , KC_PLUS  , KC_LBRC       , KC_RBRC        , KC_SLSH  , _______,
                                        _______ , _______ , KC_BACKSLASH  , KC_COLON , KC_PERCENT , _______ , _______ , _______    , _______  , _______
+),
+
+//    ┌─────┬─────┬─────┬─────┬─────┬─────┐                       ┌─────┬─────┬─────┬─────┬─────┬─────┐
+//    │  `  │  !  │  @  │  #  │  $  │  %  │                       │  ^  │  &  │  *  │  (  │  )  │  \  │
+//    ├─────┼─────┼─────┼─────┼─────┼─────┤                       ├─────┼─────┼─────┼─────┼─────┼─────┤
+//    │     │     │     │     │     │     │                       │     │     │     │     │     │     │
+//    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┬─────┬─────┬─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+//    │     │     │     │     │     │     │     │     │     │     │     │     │     │     │     │     │
+//    └─────┴─────┴─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┴─────┴─────┘
+//                      │     │     │     │     │     │     │     │     │     │     │
+//                      └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
+[_SHIFT] = LAYOUT(
+  KC_GRV  , KC_EXCLAIM , KC_AT   , KC_HASH , KC_DLR  , KC_PERCENT ,                                         KC_CIRCUMFLEX , KC_AMPR , KC_ASTR , KC_LEFT_PAREN , KC_RIGHT_PAREN , KC_BACKSLASH,
+  _______ , _______    , _______ , _______ , _______ , _______    ,                                         _______       , _______ , _______ , _______       , _______        , _______     ,
+  _______ , _______    , _______ , _______ , _______ , _______    , _______ , _______ , _______ , _______ , _______       , _______ , _______ , _______       , _______        , _______     ,
+                                   _______ , _______ , _______    , _______ , _______ , _______ , _______ , _______       , _______ , _______
 ),
 
 //    ┌─────┬─────┬─────────┬─────────┬─────────┬──────────────────┐                       ┌─────┬─────┬─────┬─────┬─────┬─────┐
@@ -199,22 +217,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Hold NUMPAD and SYMBOL layers to get to MAGIC
     switch (keycode) {
-        case NUMPAD:
+        case OSL(NUMPAD):
             if (record->event.pressed) {
                 layer_on(_NUMPAD);
                 update_tri_layer(_NUMPAD, _SYMBOL, _WINDOW);
+                update_tri_layer(_SHIFT, _NUMPAD, _MAGIC);
             } else {
                 layer_off(_NUMPAD);
                 update_tri_layer(_NUMPAD, _SYMBOL, _WINDOW);
+                update_tri_layer(_SHIFT, _NUMPAD, _MAGIC);
             }
             return false;
-        case SYMBOL:
+        case OSL(SYMBOL):
             if (record->event.pressed) {
                 layer_on(_SYMBOL);
                 update_tri_layer(_NUMPAD, _SYMBOL, _WINDOW);
             } else {
                 layer_off(_SYMBOL);
                 update_tri_layer(_NUMPAD, _SYMBOL, _WINDOW);
+            }
+            return false;
+        case OSL(SHIFT):
+            if (record->event.pressed) {
+                layer_on(_SHIFT);
+                update_tri_layer(_SHIFT, _NUMPAD, _MAGIC);
+            } else {
+                layer_off(_SHIFT);
+                update_tri_layer(_SHIFT, _NUMPAD, _MAGIC);
             }
             return false;
         case UP_DIR:
@@ -265,6 +294,9 @@ bool oled_task_user(void) {
                 break;
             case _WINDOW:
                 oled_write_P(PSTR("Window\n"), false);
+                break;
+            case _SHIFT:
+                oled_write_P(PSTR("Shift\n"), false);
                 break;
             default:
                 oled_write_P(PSTR("Undefined\n"), false);
@@ -354,26 +386,8 @@ void tmux_reset(tap_dance_state_t *state, void *user_data) {
     tmuxtap_state.state = TD_NONE;
 }
 
-static td_tap_t numpad_layer_state = {
-    .is_press_action = true,
-    .state = TD_NONE
-};
-void numpad_layer_finished(tap_dance_state_t *state, void *user_data) {
-    numpad_layer_state.state = cur_dance(state);
-    switch (numpad_layer_state.state) {
-        case TD_SINGLE_TAP: set_oneshot_layer(_NUMPAD, ONESHOT_START);
-    }
-};
-void numpad_layer_reset(tap_dance_state_t *state, void *user_data) {
-    numpad_layer_state.state = cur_dance(state);
-    switch (numpad_layer_state.state) {
-        case TD_SINGLE_TAP: clear_oneshot_layer_state(ONESHOT_PRESSED);
-    }
-};
-
 tap_dance_action_t tap_dance_actions[] = {
-    [TMUX_SCROLL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tmux_finished, tmux_reset)
-    [NUMPAD_SL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, numpad_layer_finished, numpad_layer_reset)
+    [TMUX_SCROLL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tmux_finished, tmux_reset),
 };
 
 /*
