@@ -1,0 +1,111 @@
+{
+    "manufacturer": "Atlantis",
+    "keyboard_name": "PS17",
+    "maintainer": "mjbogusz",
+    "url": "https://qmk.fm/keyboards/",
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "bootloader_instructions": "To reset the board into bootloader mode, tap the Reset switch mounted on the bottom of the PCB.",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x414B",
+        "vid": "0x0015"
+    },
+    "build": {
+        "lto": true
+    },
+    "features": {
+        "bootmagic": false,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "encoder": true,
+        "rgb_matrix": true
+    },
+    "diode_direction": "COL2ROW",
+    "matrix_pins": {
+        "cols": ["F6", "F7", "D3", "D6"],
+        "rows": ["F0", "B4", "B5", "B6", "C6", "C7", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN"]
+    },
+    "ws2812": {
+        "pin": "B7"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D2", "pin_b": "D1"}
+        ]
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 1], "x": 0, "y": 0},
+
+                {"matrix": [1, 0], "x": 0, "y": 1.5},
+                {"matrix": [1, 1], "x": 1, "y": 1.5},
+                {"matrix": [1, 2], "x": 2, "y": 1.5},
+                {"matrix": [1, 3], "x": 3, "y": 1.5},
+
+                {"matrix": [2, 0], "x": 0, "y": 2.5},
+                {"matrix": [2, 1], "x": 1, "y": 2.5},
+                {"matrix": [2, 2], "x": 2, "y": 2.5},
+                {"matrix": [2, 3], "x": 3, "y": 2.5, "h": 2},
+
+                {"matrix": [3, 0], "x": 0, "y": 3.5},
+                {"matrix": [3, 1], "x": 1, "y": 3.5},
+                {"matrix": [3, 2], "x": 2, "y": 3.5},
+
+                {"matrix": [4, 0], "x": 0, "y": 4.5},
+                {"matrix": [4, 1], "x": 1, "y": 4.5},
+                {"matrix": [4, 2], "x": 2, "y": 4.5},
+                {"matrix": [4, 3], "x": 3, "y": 4.5, "h": 2},
+
+                {"matrix": [5, 0], "x": 0, "y": 5.5, "w": 2},
+                {"matrix": [5, 2], "x": 2, "y": 5.5}
+            ]
+        }
+    },
+    "rgb_matrix": {
+        "animations": {
+            "cycle_all": true,
+            "cycle_pinwheel": true,
+            "rainbow_beacon": true,
+            "pixel_rain": true
+        },
+        "driver": "ws2812",
+        "center_point": [126, 126],
+        "layout": [
+            {"flags": 4, "matrix": [1, 0], "x": 74, "y": 165},
+            {"flags": 4, "matrix": [1, 1], "x": 108, "y": 165},
+            {"flags": 4, "matrix": [1, 2], "x": 144, "y": 165},
+            {"flags": 4, "matrix": [1, 3], "x": 179, "y": 165},
+            {"flags": 4, "matrix": [2, 0], "x": 74, "y": 129},
+            {"flags": 4, "matrix": [2, 1], "x": 109, "y": 129},
+            {"flags": 4, "matrix": [2, 2], "x": 143, "y": 129},
+            {"flags": 4, "matrix": [2, 3], "x": 188, "y": 121},
+            {"flags": 4, "matrix": [3, 0], "x": 74, "y": 95},
+            {"flags": 4, "matrix": [3, 1], "x": 109, "y": 95},
+            {"flags": 4, "matrix": [3, 2], "x": 143, "y": 95},
+            {"flags": 4, "matrix": [4, 0], "x": 73, "y": 60},
+            {"flags": 4, "matrix": [4, 1], "x": 109, "y": 60},
+            {"flags": 4, "matrix": [4, 2], "x": 144, "y": 60},
+            {"flags": 4, "matrix": [4, 3], "x": 188, "y": 51},
+            {"flags": 4, "matrix": [5, 0], "x": 91, "y": 25},
+            {"flags": 4, "matrix": [5, 2], "x": 144, "y": 25},
+
+            {"flags": 2, "x": 61, "y": 26},
+            {"flags": 2, "x": 61, "y": 88},
+            {"flags": 2, "x": 61, "y": 158},
+            {"flags": 2, "x": 61, "y": 197},
+            {"flags": 2, "x": 61, "y": 232},
+            {"flags": 2, "x": 192, "y": 232},
+            {"flags": 2, "x": 192, "y": 196},
+            {"flags": 2, "x": 192, "y": 158},
+            {"flags": 2, "x": 192, "y": 87},
+            {"flags": 2, "x": 183, "y": 26},
+            {"flags": 2, "x": 127, "y": 24}
+        ],
+        "sleep": true
+    }
+}
