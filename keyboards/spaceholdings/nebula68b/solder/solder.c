@@ -16,7 +16,6 @@
 
 #include "quantum.h"
 
-#ifndef KEYBOARD_spaceholdings_nebula68b_hs
 #ifdef RGB_MATRIX_ENABLE
 // clang-format off
 led_config_t g_led_config = { {
@@ -39,5 +38,4 @@ led_config_t g_led_config = { {
     1, 1, 2, 1, 2, 4, 2, 1, 1, 1, 2, 1, 1, 1
 } };
 // clang-format on
-#endif
 #endif
