@@ -19,9 +19,6 @@
             "resync": true
         }
     },
-    "split": {
-        "enabled": true
-    },
     "matrix_pins": {
         "cols": ["B6", "B2", "B3", "B1", "F7"],
         "rows": ["D7", "E6", "B4", "B5"]
