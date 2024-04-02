@@ -217,35 +217,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Hold NUMPAD and SYMBOL layers to get to MAGIC
     switch (keycode) {
-        case OSL(NUMPAD):
-            if (record->event.pressed) {
-                layer_on(_NUMPAD);
-                update_tri_layer(_NUMPAD, _SYMBOL, _WINDOW);
-                update_tri_layer(_SHIFT, _NUMPAD, _MAGIC);
-            } else {
-                layer_off(_NUMPAD);
-                update_tri_layer(_NUMPAD, _SYMBOL, _WINDOW);
-                update_tri_layer(_SHIFT, _NUMPAD, _MAGIC);
-            }
-            return false;
-        case OSL(SYMBOL):
-            if (record->event.pressed) {
-                layer_on(_SYMBOL);
-                update_tri_layer(_NUMPAD, _SYMBOL, _WINDOW);
-            } else {
-                layer_off(_SYMBOL);
-                update_tri_layer(_NUMPAD, _SYMBOL, _WINDOW);
-            }
-            return false;
-        case OSL(SHIFT):
-            if (record->event.pressed) {
-                layer_on(_SHIFT);
-                update_tri_layer(_SHIFT, _NUMPAD, _MAGIC);
-            } else {
-                layer_off(_SHIFT);
-                update_tri_layer(_SHIFT, _NUMPAD, _MAGIC);
-            }
-            return false;
         case UP_DIR:
             if (record->event.pressed) {
                 SEND_STRING("../");
@@ -396,3 +367,9 @@ combo_t key_combos[] = {
     COMBO(dot_slash, UP_DIR)
 };
  */
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    state = update_tri_layer_state(state, _NUMPAD, _SYMBOL, _WINDOW);
+    state = update_tri_layer_state(state, _NUMPAD, _SHIFT, _MAGIC);
+    return state;
+};
