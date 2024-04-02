@@ -155,8 +155,8 @@ static void init_cols(void) {
     pin_t matrix_col_pins_mcu[MATRIX_COLS_PER_SIDE] = MATRIX_COL_PINS_L;
     for (int pin_index = 0; pin_index < MATRIX_COLS_PER_SIDE; pin_index++) {
         pin_t pin = matrix_col_pins_mcu[pin_index];
-        setPinInputHigh(pin);
-        writePinHigh(pin);
+        gpio_set_pin_input_high(pin);
+        gpio_write_pin_high(pin);
     }
 }
 
