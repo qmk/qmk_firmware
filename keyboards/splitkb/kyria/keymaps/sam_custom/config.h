@@ -37,6 +37,10 @@
 
 #define HOLD_ON_OTHER_KEY_PRESS
 
+#define TAPPING_TERM 175
+
+#define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
+
 // Disable stuff we don't need
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE

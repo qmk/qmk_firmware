@@ -20,9 +20,39 @@ enum layers {
     _NUMPAD,
     _SYMBOL,
     _MAGIC,
+    _WINDOW,
 };
 
-tap_dance_action_t tap_dance_actions[] = {};
+// Macro enums
+enum {
+    UP_DIR
+};
+
+typedef enum {
+    TD_NONE,
+    TD_UNKNOWN,
+    TD_SINGLE_TAP,
+    TD_SINGLE_HOLD,
+    TD_DOUBLE_TAP,
+    TD_DOUBLE_HOLD,
+    TD_DOUBLE_SINGLE_TAP, // Send two single taps
+} td_state_t;
+
+typedef struct {
+    bool is_press_action;
+    td_state_t state;
+} td_tap_t;
+
+// Tap dance enums
+enum {
+    TMUX_SCROLL,
+};
+
+td_state_t cur_dance(tap_dance_state_t *state);
+
+// For the x tap dance. Put it here so it can be used in any keymap
+void tmux_finished(tap_dance_state_t *state, void *user_data);
+void tmux_reset(tap_dance_state_t *state, void *user_data);
 
 // Aliases for readability
 #define QWERTY   DF(_QWERTY)
@@ -30,16 +60,54 @@ tap_dance_action_t tap_dance_actions[] = {};
 #define SYMBOL   MO(_SYMBOL)
 #define NUMPAD   MO(_NUMPAD)
 #define MAGIC    MO(_MAGIC)
+#define WINDOW    MO(_WINDOW)
 
 #define CTL_ESC  MT(MOD_LCTL, KC_ESC)
 #define CTL_QUOT MT(MOD_RCTL, KC_QUOTE)
 #define CTL_MINS MT(MOD_RCTL, KC_MINUS)
 #define ALT_ENT  MT(MOD_LALT, KC_ENT)
+
+// Tmux
 #define TMUX_LEADER LCTL(KC_A)
+
+// Tabs
 #define CLOSE_TAB LCTL(KC_W)
 #define REOPEN_TAB LCTL(LSFT(KC_T))
+
+// General Linux
 #define LINUX_COPY LCTL(LSFT(KC_C))
 #define LINUX_PASTE LCTL(LSFT(KC_V))
+
+// General Windows
+#define TASK_MANAGER LCTL(LSFT(KC_ESC))
+
+// Window Management
+#define WMGMT_BASE LSFT(LALT(LCTL(KC_0)))
+#define WMGMT_MONITOR_1 LALT(LGUI(LCTL(KC_1)))
+#define WMGMT_MONITOR_2 LALT(LGUI(LCTL(KC_2)))
+#define WMGMT_MONITOR_3 LALT(LGUI(LCTL(KC_3)))
+#define WMGMT_MONITOR_4 LALT(LGUI(LCTL(KC_4)))
+#define WMGMT_LEFT_50 LSFT(LALT(LCTL(KC_H)))
+#define WMGMT_DOWN_50 LSFT(LALT(LCTL(KC_J)))
+#define WMGMT_UP_50 LSFT(LALT(LCTL(KC_K)))
+#define WMGMT_RIGHT_50 LSFT(LALT(LCTL(KC_L)))
+#define WMGMT_PREV_MONITOR LSFT(LALT(LCTL(KC_M)))
+#define WMGMT_NEXT_MONITOR LSFT(LALT(LCTL(KC_N)))
+#define WMGMT_TOPLEFT LSFT(LALT(LCTL(KC_P)))
+#define WMGMT_TOPRIGHT LSFT(LALT(LCTL(KC_MINUS)))
+#define WMGMT_BOTTOMLEFT LSFT(LALT(LCTL(KC_SCLN)))
+#define WMGMT_BOTTOMRIGHT LSFT(LALT(LCTL(KC_QUOTE)))
+#define WMGMT_FULLSCREEN LSFT(LALT(LCTL(KC_F)))
+#define WMGMT_NEXT_WALLPAPER LSFT(LALT(LCTL(KC_R)))
+#define WMGMT_LEFT_33 LSFT(LALT(LCTL(KC_1)))
+#define WMGMT_HCENTER_33 LSFT(LALT(LCTL(KC_2)))
+#define WMGMT_RIGHT_33 LSFT(LALT(LCTL(KC_3)))
+#define WMGMT_TOP_33 LSFT(LALT(LCTL(KC_4)))
+#define WMGMT_VCENTER_33 LSFT(LALT(LCTL(KC_5)))
+#define WMGMT_BOTTOM_33 LSFT(LALT(LCTL(KC_6)))
+#define WMGMT_LEFT_66 LSFT(LALT(LCTL(KC_7)))
+#define WMGMT_RIGHT_66 LSFT(LALT(LCTL(KC_8)))
+#define WMGMT_CENTER LALT(LGUI(LCTL(KC_C)))
 
 // Note: LAlt/Enter (ALT_ENT) is not the same thing as the keyboard shortcut Alt+Enter.
 // The notation `mod/tap` denotes a key that activates the modifier `mod` when held down, and
@@ -47,20 +115,20 @@ tap_dance_action_t tap_dance_actions[] = {};
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-//    ┌─────────┬───┬───┬──────┬──────┬─────┐                                             ┌─────┬───┬───┬───┬───┬──────────────┐
-//    │   tab   │ q │ w │  e   │  r   │  t  │                                             │  y  │ u │ i │ o │ p │      -       │
-//    ├─────────┼───┼───┼──────┼──────┼─────┤                                             ├─────┼───┼───┼───┼───┼──────────────┤
-//    │ CTL_ESC │ a │ s │  d   │  f   │  g  │                                             │  h  │ j │ k │ l │ ; │      '       │
-//    ├─────────┼───┼───┼──────┼──────┼─────┼────────┬─────────────┬─────────────┬────────┼─────┼───┼───┼───┼───┼──────────────┤
-//    │  lsft   │ z │ x │  c   │  v   │  b  │ NUMPAD │  CLOSE_TAB  │ REOPEN_TAB  │ SYMBOL │  n  │ m │ , │ . │ / │ LT(MAGIC, \) │
-//    └─────────┴───┴───┼──────┼──────┼─────┼────────┼─────────────┼─────────────┼────────┼─────┼───┼───┼───┴───┴──────────────┘
-//                      │ lgui │ lalt │ ent │  lsft  │ TMUX_LEADER │ TMUX_LEADER │  bspc  │ spc │ [ │ ] │
-//                      └──────┴──────┴─────┴────────┴─────────────┴─────────────┴────────┴─────┴───┴───┘
+//    ┌─────────┬───┬───┬──────┬──────┬─────┐                                                            ┌─────┬───┬───┬───┬───┬──────────────┐
+//    │   tab   │ q │ w │  e   │  r   │  t  │                                                            │  y  │ u │ i │ o │ p │      -       │
+//    ├─────────┼───┼───┼──────┼──────┼─────┤                                                            ├─────┼───┼───┼───┼───┼──────────────┤
+//    │ CTL_ESC │ a │ s │  d   │  f   │  g  │                                                            │  h  │ j │ k │ l │ ; │      '       │
+//    ├─────────┼───┼───┼──────┼──────┼─────┼───────────────┬─────────────────┬─────────────────┬────────┼─────┼───┼───┼───┼───┼──────────────┤
+//    │  lsft   │ z │ x │  c   │  v   │  b  │    NUMPAD     │    CLOSE_TAB    │   REOPEN_TAB    │ SYMBOL │  n  │ m │ , │ . │ / │ LT(MAGIC, \) │
+//    └─────────┴───┴───┼──────┼──────┼─────┼───────────────┼─────────────────┼─────────────────┼────────┼─────┼───┼───┼───┴───┴──────────────┘
+//                      │ lgui │ lalt │ ent │ OSM(MOD_LSFT) │ TD(TMUX_SCROLL) │ TD(TMUX_SCROLL) │  bspc  │ spc │ [ │ ] │
+//                      └──────┴──────┴─────┴───────────────┴─────────────────┴─────────────────┴────────┴─────┴───┴───┘
 [_QWERTY] = LAYOUT(
-  KC_TAB  , KC_Q , KC_W , KC_E    , KC_R    , KC_T   ,                                                 KC_Y   , KC_U    , KC_I    , KC_O   , KC_P    , KC_MINUS               ,
-  CTL_ESC , KC_A , KC_S , KC_D    , KC_F    , KC_G   ,                                                 KC_H   , KC_J    , KC_K    , KC_L   , KC_SCLN , KC_QUOTE               ,
-  KC_LSFT , KC_Z , KC_X , KC_C    , KC_V    , KC_B   , NUMPAD  , CLOSE_TAB   , REOPEN_TAB  , SYMBOL  , KC_N   , KC_M    , KC_COMM , KC_DOT , KC_SLSH , LT(MAGIC, KC_BACKSLASH),
-                          KC_LGUI , KC_LALT , KC_ENT , KC_LSFT , TMUX_LEADER , TMUX_LEADER , KC_BSPC , KC_SPC , KC_LBRC , KC_RBRC
+  KC_TAB  , KC_Q , KC_W , KC_E    , KC_R    , KC_T   ,                                                               KC_Y   , KC_U    , KC_I    , KC_O   , KC_P    , KC_MINUS               ,
+  CTL_ESC , KC_A , KC_S , KC_D    , KC_F    , KC_G   ,                                                               KC_H   , KC_J    , KC_K    , KC_L   , KC_SCLN , KC_QUOTE               ,
+  KC_LSFT , KC_Z , KC_X , KC_C    , KC_V    , KC_B   , NUMPAD        , CLOSE_TAB       , REOPEN_TAB      , SYMBOL  , KC_N   , KC_M    , KC_COMM , KC_DOT , KC_SLSH , LT(MAGIC, KC_BACKSLASH),
+                          KC_LGUI , KC_LALT , KC_ENT , OSM(MOD_LSFT) , TD(TMUX_SCROLL) , TD(TMUX_SCROLL) , KC_BSPC , KC_SPC , KC_LBRC , KC_RBRC
 ),
 
 //    ┌─────┬──────┬──────┬────────────┬─────────────┬────────┐                        ┌────────┬──────┬──────┬──────┬──────┬────────┐
@@ -109,8 +177,54 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______ , _______ , RGB_HUI , RGB_SAI , RGB_VAI , RGB_MODE_FORWARD ,                                         _______ , _______ , _______ , _______ , _______ , _______,
   _______ , _______ , RGB_HUD , RGB_SAD , RGB_VAD , RGB_MODE_REVERSE , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______,
                                 _______ , _______ , _______          , _______ , _______ , _______ , _______ , _______ , _______ , _______
+),
+
+//    ┌─────┬─────┬──────────────────┬──────────────────┬──────────────────────┬──────────────────┐                       ┌────────────────────┬────────────────────┬─────────────────┬─────────────────┬──────────────────┬───────────────────┐
+//    │     │     │ WMGMT_FULLSCREEN │                  │ WMGMT_NEXT_WALLPAPER │   WMGMT_TOP_33   │                       │  WMGMT_MONITOR_1   │  WMGMT_MONITOR_2   │ WMGMT_MONITOR_3 │ WMGMT_MONITOR_4 │  WMGMT_TOPLEFT   │  WMGMT_TOPRIGHT   │
+//    ├─────┼─────┼──────────────────┼──────────────────┼──────────────────────┼──────────────────┤                       ├────────────────────┼────────────────────┼─────────────────┼─────────────────┼──────────────────┼───────────────────┤
+//    │     │     │  WMGMT_LEFT_33   │ WMGMT_HCENTER_33 │    WMGMT_RIGHT_33    │ WMGMT_VCENTER_33 │                       │   WMGMT_LEFT_50    │   WMGMT_DOWN_50    │   WMGMT_UP_50   │ WMGMT_RIGHT_50  │ WMGMT_BOTTOMLEFT │ WMGMT_BOTTOMRIGHT │
+//    ├─────┼─────┼──────────────────┼──────────────────┼──────────────────────┼──────────────────┼─────┬─────┬─────┬─────┼────────────────────┼────────────────────┼─────────────────┼─────────────────┼──────────────────┼───────────────────┤
+//    │     │     │  WMGMT_LEFT_66   │   WMGMT_CENTER   │    WMGMT_RIGHT_66    │ WMGMT_BOTTOM_33  │     │     │     │     │ WMGMT_PREV_MONITOR │ WMGMT_NEXT_MONITOR │                 │                 │                  │                   │
+//    └─────┴─────┴──────────────────┼──────────────────┼──────────────────────┼──────────────────┼─────┼─────┼─────┼─────┼────────────────────┼────────────────────┼─────────────────┼─────────────────┴──────────────────┴───────────────────┘
+//                                   │                  │                      │                  │     │     │     │     │                    │                    │   WMGMT_BASE    │
+//                                   └──────────────────┴──────────────────────┴──────────────────┴─────┴─────┴─────┴─────┴────────────────────┴────────────────────┴─────────────────┘
+[_WINDOW] = LAYOUT(
+  _______ , _______ , WMGMT_FULLSCREEN , _______          , WMGMT_NEXT_WALLPAPER , WMGMT_TOP_33     ,                                         WMGMT_MONITOR_1    , WMGMT_MONITOR_2    , WMGMT_MONITOR_3 , WMGMT_MONITOR_4 , WMGMT_TOPLEFT    , WMGMT_TOPRIGHT   ,
+  _______ , _______ , WMGMT_LEFT_33    , WMGMT_HCENTER_33 , WMGMT_RIGHT_33       , WMGMT_VCENTER_33 ,                                         WMGMT_LEFT_50      , WMGMT_DOWN_50      , WMGMT_UP_50     , WMGMT_RIGHT_50  , WMGMT_BOTTOMLEFT , WMGMT_BOTTOMRIGHT,
+  _______ , _______ , WMGMT_LEFT_66    , WMGMT_CENTER     , WMGMT_RIGHT_66       , WMGMT_BOTTOM_33  , _______ , _______ , _______ , _______ , WMGMT_PREV_MONITOR , WMGMT_NEXT_MONITOR , _______         , _______         , _______          , _______          ,
+                                         _______          , _______              , _______          , _______ , _______ , _______ , _______ , _______            , _______            , WMGMT_BASE
 )
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // Hold NUMPAD and SYMBOL layers to get to MAGIC
+    switch (keycode) {
+        case NUMPAD:
+            if (record->event.pressed) {
+                layer_on(_NUMPAD);
+                update_tri_layer(_NUMPAD, _SYMBOL, _WINDOW);
+            } else {
+                layer_off(_NUMPAD);
+                update_tri_layer(_NUMPAD, _SYMBOL, _WINDOW);
+            }
+            return false;
+        case SYMBOL:
+            if (record->event.pressed) {
+                layer_on(_SYMBOL);
+                update_tri_layer(_NUMPAD, _SYMBOL, _WINDOW);
+            } else {
+                layer_off(_SYMBOL);
+                update_tri_layer(_NUMPAD, _SYMBOL, _WINDOW);
+            }
+            return false;
+        case UP_DIR:
+            if (record->event.pressed) {
+                SEND_STRING("../");
+            }
+            break;
+    }
+    return true;
+}
 
 /* The default OLED and rotary encoder code can be found at the bottom of qmk_firmware/keyboards/splitkb/kyria/rev1/rev1.c
  * These default settings can be overriden by your own settings in your keymap.c
@@ -148,6 +262,9 @@ bool oled_task_user(void) {
                 break;
             case _MAGIC:
                 oled_write_P(PSTR("Magic\n"), false);
+                break;
+            case _WINDOW:
+                oled_write_P(PSTR("Window\n"), false);
                 break;
             default:
                 oled_write_P(PSTR("Undefined\n"), false);
@@ -198,3 +315,52 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return false;
 }
 #endif
+
+td_state_t cur_dance(tap_dance_state_t *state) {
+    if (state->count == 1) {
+        if (state->interrupted || !state->pressed) return TD_SINGLE_TAP;
+        // Key has not been interrupted, but the key is still held. Means you want to send a 'HOLD'.
+        else return TD_SINGLE_HOLD;
+    } else if (state->count == 2) {
+        // TD_DOUBLE_SINGLE_TAP is to distinguish between typing "pepper", and actually wanting a double tap
+        // action when hitting 'pp'. Suggested use case for this return value is when you want to send two
+        // keystrokes of the key, and not the 'double tap' action/macro.
+        if (state->interrupted) return TD_DOUBLE_SINGLE_TAP;
+        else if (state->pressed) return TD_DOUBLE_HOLD;
+        else return TD_DOUBLE_TAP;
+    }
+
+    return TD_UNKNOWN;
+}
+
+static td_tap_t tmuxtap_state = {
+    .is_press_action = true,
+    .state = TD_NONE
+};
+void tmux_finished(tap_dance_state_t *state, void *user_data) {
+    tmuxtap_state.state = cur_dance(state);
+    switch (tmuxtap_state.state) {
+        case TD_SINGLE_TAP: register_code16(LCTL(KC_A)); break;
+        case TD_DOUBLE_TAP: register_code16(LCTL(KC_A)); unregister_code16(LCTL(KC_A)); tap_code(KC_LBRC); break;
+        default: break;
+    }
+}
+void tmux_reset(tap_dance_state_t *state, void *user_data) {
+    switch (tmuxtap_state.state) {
+        case TD_SINGLE_TAP: unregister_code16(LCTL(KC_A)); break;
+        case TD_DOUBLE_TAP: break;
+        default: break;
+    }
+    tmuxtap_state.state = TD_NONE;
+}
+
+tap_dance_action_t tap_dance_actions[] = {
+    [TMUX_SCROLL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tmux_finished, tmux_reset)
+};
+
+/*
+const uint16_t PROGMEM dot_slash[] = {KC_DOT, KC_SLASH, COMBO_END};
+combo_t key_combos[] = {
+    COMBO(dot_slash, UP_DIR)
+};
+ */
