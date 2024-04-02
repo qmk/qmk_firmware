@@ -8,6 +8,12 @@
         "pid": "0x414C",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true
+    },
     "indicators": {
         "caps_lock": "B6",
         "on_state": 0

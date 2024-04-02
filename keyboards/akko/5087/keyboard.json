@@ -21,6 +21,12 @@
         "nkro": true,
         "rgb_matrix": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "dynamic_keymap": {
         "layer_count": 6
     },
