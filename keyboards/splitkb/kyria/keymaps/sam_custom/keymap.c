@@ -24,11 +24,6 @@ enum layers {
     _WINDOW,
 };
 
-// Macro enums
-enum {
-    UP_DIR
-};
-
 typedef enum {
     TD_NONE,
     TD_UNKNOWN,
@@ -52,10 +47,6 @@ enum {
 };
 
 td_state_t cur_dance(tap_dance_state_t *state);
-
-// For the x tap dance. Put it here so it can be used in any keymap
-void tmux_finished(tap_dance_state_t *state, void *user_data);
-void tmux_reset(tap_dance_state_t *state, void *user_data);
 
 // Aliases for readability
 #define QWERTY   DF(_QWERTY)
@@ -216,18 +207,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // Hold NUMPAD and SYMBOL layers to get to MAGIC
-    switch (keycode) {
-        case UP_DIR:
-            if (record->event.pressed) {
-                SEND_STRING("../");
-            }
-            break;
-    }
-    return true;
-}
-
 /* The default OLED and rotary encoder code can be found at the bottom of qmk_firmware/keyboards/splitkb/kyria/rev1/rev1.c
  * These default settings can be overriden by your own settings in your keymap.c
  * For your convenience, here's a copy of those settings so that you can uncomment them if you wish to apply your own modifications.
@@ -273,6 +252,7 @@ bool oled_task_user(void) {
                 break;
             default:
                 oled_write_P(PSTR("Undefined\n"), false);
+                break;
         }
 
         // Write host Keyboard LED Status to OLEDs
@@ -419,3 +399,27 @@ combo_t key_combos[] = {
     state = update_tri_layer_state(state, _NUMPAD, _SHIFT, _MAGIC);
     return state;
 }; */
+
+void caps_word_set_user(bool active) {
+    oled_write_P(active ? PSTR("CAPSWORD ") : PSTR("         "), false);
+};
+
+bool caps_word_press_user(uint16_t keycode) {
+    switch (keycode) {
+        // Keycodes that continue Caps Word, with shift applied.
+        case KC_A ... KC_Z:
+        case KC_MINS:
+            add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.
+            return true;
+
+        // Keycodes that continue Caps Word, without shifting.
+        case KC_1 ... KC_0:
+        case KC_BSPC:
+        case KC_DEL:
+        case KC_UNDS:
+            return true;
+
+        default:
+            return false;  // Deactivate Caps Word.
+    }
+};
