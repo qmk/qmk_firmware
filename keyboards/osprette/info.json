@@ -8,8 +8,7 @@
       "pid": "0x5052",
       "device_version": "1.0.0"
     },
-    "development_board": "elite_c",
-    "pin_compatible": "promicro",
+    "development_board": "promicro",
     "features": {
         "bootmagic": true,
         "extrakey": true,
