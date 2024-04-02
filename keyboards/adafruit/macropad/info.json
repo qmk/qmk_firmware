@@ -8,6 +8,16 @@
         "pid": "0x0108",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": false,
+        "extrakey": true,
+        "nkro": true,
+        "audio": true,
+        "encoder": true,
+        "rgb_matrix": true,
+        "oled": true
+    },
     "audio": {
         "power_control": {
             "pin": "GP14"
