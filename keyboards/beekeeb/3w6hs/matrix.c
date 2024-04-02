@@ -60,7 +60,7 @@ uint8_t init_tca9555(void) {
         // This means: we will write on pins 0 to 3 on port 1. read rest
         0b11110000,
     };
-    tca9555_status = i2c_writeReg(I2C_ADDR, IODIRA, conf, 2, I2C_TIMEOUT);
+    tca9555_status = i2c_write_register(I2C_ADDR, IODIRA, conf, 2, I2C_TIMEOUT);
 
     return tca9555_status;
 }
