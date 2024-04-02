@@ -23,9 +23,6 @@
         "rows": ["B2", "B6", "B4", "B5"]
     },
     "diode_direction": "ROW2COL",
-    "layout_aliases": {
-        "LAYOUT_split_3x5_2": "LAYOUT_pinky_cluster_34"
-    },
     "layouts": {
         "LAYOUT_pinky_cluster_34": {
             "layout": [
