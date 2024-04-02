@@ -23,6 +23,12 @@
     "diode_direction": "ROW2COL",
     "processor": "STM32F042",
     "bootloader": "stm32-dfu",
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

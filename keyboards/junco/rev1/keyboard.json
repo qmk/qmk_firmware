@@ -8,6 +8,9 @@
         "pid": "0x4A13",
         "device_version": "1.0.0"
     },
+    "features": {
+        "bootmagic": true
+    },
     "matrix_pins": {
         "cols": ["GP2", "GP3", "GP4", "GP5", "GP6", "GP7"],
         "rows": ["GP8", "GP9", "GP10", "GP11", "GP12"]
@@ -28,6 +31,7 @@
         ]
     },
     "split": {
+        "enabled": true,
         "encoder": {
             "right": {
                 "rotary": [
