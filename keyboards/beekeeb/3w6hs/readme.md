@@ -1,6 +1,6 @@
 # 3W6HS
 
-![3W6HS](https://i.imgur.com/CPxwGSth.jpeg)
+![3W6HS](https://i.imgur.com/CPxwGSt.jpeg)
 
 The 3W6HS is a hotswap, RP2040, low profile, split keyboard with 36 keys, modified from 3W6 by weteor.
 
