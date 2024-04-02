@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "satisfaction_core.h"
+#include "backlight.h"
 #include "eeprom.h"
 
 void pre_encoder_mode_change(void){
