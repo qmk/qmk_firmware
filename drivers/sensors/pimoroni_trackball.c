@@ -29,11 +29,15 @@
 #define PIMORONI_TRACKBALL_REG_RIGHT   0x05
 #define PIMORONI_TRACKBALL_REG_UP      0x06
 #define PIMORONI_TRACKBALL_REG_DOWN    0x07
+#define PIMORONI_TRACKBALL_REG_INT     0xF9
 // clang-format on
 
 static uint16_t precision = 128;
 
-uint16_t pimoroni_trackball_get_cpi(void) {
+const pointing_device_driver_t     pimoroni_trackball_driver_default = {.init = pimoroni_trackball_device_init, .get_report = pimoroni_trackball_get_raw_report, .set_cpi = pimoroni_trackball_set_cpi, .get_cpi = pimoroni_trackball_get_cpi};
+const pointing_device_i2c_config_t pimoroni_trackball_config_default = {.address = PIMORONI_TRACKBALL_ADDRESS, .timeout = PIMORONI_TRACKBALL_TIMEOUT};
+
+uint16_t pimoroni_trackball_get_cpi(const void* i2c_config) {
     return (precision * 125);
 }
 /**
@@ -46,7 +50,7 @@ uint16_t pimoroni_trackball_get_cpi(void) {
  *
  * @param cpi uint16_t
  */
-void pimoroni_trackball_set_cpi(uint16_t cpi) {
+void pimoroni_trackball_set_cpi(const void* i2c_config, uint16_t cpi) {
     if (cpi < 249) {
         precision = 1;
     } else {
@@ -54,16 +58,14 @@ void pimoroni_trackball_set_cpi(uint16_t cpi) {
     }
 }
 
-void pimoroni_trackball_set_rgbw(uint8_t r, uint8_t g, uint8_t b, uint8_t w) {
+void pimoroni_trackball_set_rgbw(const pointing_device_i2c_config_t* i2c_config, uint8_t r, uint8_t g, uint8_t b, uint8_t w) {
     uint8_t                              data[4] = {r, g, b, w};
-    __attribute__((unused)) i2c_status_t status  = i2c_write_register(PIMORONI_TRACKBALL_ADDRESS << 1, PIMORONI_TRACKBALL_REG_LED_RED, data, sizeof(data), PIMORONI_TRACKBALL_TIMEOUT);
-
+    __attribute__((unused)) i2c_status_t status  = i2c_writeReg(i2c_config->address << 1, PIMORONI_TRACKBALL_REG_LED_RED, data, sizeof(data), i2c_config->timeout);
     pd_dprintf("Trackball RGBW i2c_status_t: %d\n", status);
 }
 
-i2c_status_t read_pimoroni_trackball(pimoroni_data_t* data) {
-    i2c_status_t status = i2c_read_register(PIMORONI_TRACKBALL_ADDRESS << 1, PIMORONI_TRACKBALL_REG_LEFT, (uint8_t*)data, sizeof(*data), PIMORONI_TRACKBALL_TIMEOUT);
-
+i2c_status_t read_pimoroni_trackball(const pointing_device_i2c_config_t* i2c_config, pimoroni_data_t* data) {
+    i2c_status_t status = i2c_readReg(i2c_config->address << 1, PIMORONI_TRACKBALL_REG_LEFT, (uint8_t*)data, sizeof(*data), i2c_config->timeout);
 #ifdef POINTING_DEVICE_DEBUG
     static uint16_t d_timer;
     if (timer_elapsed(d_timer) > PIMORONI_TRACKBALL_DEBUG_INTERVAL) {
@@ -75,9 +77,23 @@ i2c_status_t read_pimoroni_trackball(pimoroni_data_t* data) {
     return status;
 }
 
-__attribute__((weak)) void pimoroni_trackball_device_init(void) {
+i2c_status_t pimoroni_trackball_enable_interrupt_pin(const pointing_device_i2c_config_t* i2c_config, bool int_pin_en) {
+    typedef struct __attribute__((packed)) {
+        bool    int_triggered : 1;
+        bool    int_pin_en : 1;
+        uint8_t _unknown : 6;
+    } pimoroni_trackball_reg_int_t;
+
+    pimoroni_trackball_reg_int_t int_reg = {0};
+    i2c_status_t                 status  = i2c_readReg(i2c_config->address << 1, PIMORONI_TRACKBALL_REG_INT, (uint8_t*)&int_reg, sizeof(uint8_t), i2c_config->timeout);
+    int_reg.int_pin_en                   = int_pin_en;
+    status                               = i2c_writeReg(i2c_config->address << 1, PIMORONI_TRACKBALL_REG_INT, (uint8_t*)&int_reg, sizeof(uint8_t), i2c_config->timeout);
+    return status;
+}
+
+__attribute__((weak)) void pimoroni_trackball_device_init(const void* i2c_config) {
     i2c_init();
-    pimoroni_trackball_set_rgbw(0x00, 0x00, 0x00, 0x00);
+    pimoroni_trackball_enable_interrupt_pin((pointing_device_i2c_config_t*)i2c_config, true);
 }
 
 int16_t pimoroni_trackball_get_offsets(uint8_t negative_dir, uint8_t positive_dir, uint8_t scale) {
@@ -91,4 +107,52 @@ int16_t pimoroni_trackball_get_offsets(uint8_t negative_dir, uint8_t positive_di
     }
     uint16_t magnitude = (scale * offset * offset * precision) >> 7;
     return isnegative ? -(int16_t)(magnitude) : (int16_t)(magnitude);
+}
+
+mouse_xy_report_t pimoroni_trackball_adapt_values(clamp_range_t* offset) {
+    if (*offset > XY_REPORT_MAX) {
+        *offset -= XY_REPORT_MAX;
+        return (mouse_xy_report_t)XY_REPORT_MAX;
+    } else if (*offset < XY_REPORT_MIN) {
+        *offset += XY_REPORT_MAX;
+        return (mouse_xy_report_t)XY_REPORT_MIN;
+    } else {
+        mouse_xy_report_t temp_return = *offset;
+        *offset                       = 0;
+        return temp_return;
+    }
+}
+
+report_mouse_t pimoroni_trackball_get_raw_report(const void* i2c_config) {
+    static uint16_t      debounce      = 0;
+    static uint8_t       error_count   = 0;
+    pimoroni_data_t      pimoroni_data = {0};
+    static clamp_range_t x_offset = 0, y_offset = 0;
+    report_mouse_t       mouse_report = {0};
+
+    if (error_count < PIMORONI_TRACKBALL_ERROR_COUNT) {
+        i2c_status_t status = read_pimoroni_trackball((pointing_device_i2c_config_t*)i2c_config, &pimoroni_data);
+
+        if (status == I2C_STATUS_SUCCESS) {
+            error_count = 0;
+
+            if (!(pimoroni_data.click & 128)) {
+                mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, false, POINTING_DEVICE_BUTTON1);
+                if (!debounce) {
+                    x_offset += pimoroni_trackball_get_offsets(pimoroni_data.right, pimoroni_data.left, PIMORONI_TRACKBALL_SCALE);
+                    y_offset += pimoroni_trackball_get_offsets(pimoroni_data.down, pimoroni_data.up, PIMORONI_TRACKBALL_SCALE);
+                    mouse_report.x = pimoroni_trackball_adapt_values(&x_offset);
+                    mouse_report.y = pimoroni_trackball_adapt_values(&y_offset);
+                } else {
+                    debounce--;
+                }
+            } else {
+                mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, true, POINTING_DEVICE_BUTTON1);
+                debounce             = PIMORONI_TRACKBALL_DEBOUNCE_CYCLES;
+            }
+        } else {
+            error_count++;
+        }
+    }
+    return mouse_report;
 }

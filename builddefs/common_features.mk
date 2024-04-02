@@ -120,45 +120,9 @@ ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
     MOUSE_ENABLE := yes
 endif
 
-VALID_POINTING_DEVICE_DRIVER_TYPES := adns5050 adns9800 analog_joystick azoteq_iqs5xx cirque_pinnacle_i2c cirque_pinnacle_spi paw3204 pmw3320 pmw3360 pmw3389 pimoroni_trackball custom
+POINTING_DEVICE_ENABLE ?= no
 ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
-    ifeq ($(filter $(POINTING_DEVICE_DRIVER),$(VALID_POINTING_DEVICE_DRIVER_TYPES)),)
-        $(call CATASTROPHIC_ERROR,Invalid POINTING_DEVICE_DRIVER,POINTING_DEVICE_DRIVER="$(POINTING_DEVICE_DRIVER)" is not a valid pointing device type)
-    else
-        OPT_DEFS += -DPOINTING_DEVICE_ENABLE
-        MOUSE_ENABLE := yes
-        VPATH += $(QUANTUM_DIR)/pointing_device
-        SRC += $(QUANTUM_DIR)/pointing_device/pointing_device.c
-        SRC += $(QUANTUM_DIR)/pointing_device/pointing_device_drivers.c
-        SRC += $(QUANTUM_DIR)/pointing_device/pointing_device_auto_mouse.c
-        ifneq ($(strip $(POINTING_DEVICE_DRIVER)), custom)
-            SRC += drivers/sensors/$(strip $(POINTING_DEVICE_DRIVER)).c
-            OPT_DEFS += -DPOINTING_DEVICE_DRIVER_$(strip $(shell echo $(POINTING_DEVICE_DRIVER) | tr '[:lower:]' '[:upper:]'))
-        endif
-        OPT_DEFS += -DPOINTING_DEVICE_DRIVER_$(strip $(POINTING_DEVICE_DRIVER))
-        ifeq ($(strip $(POINTING_DEVICE_DRIVER)), adns9800)
-            SPI_DRIVER_REQUIRED = yes
-        else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), analog_joystick)
-            ANALOG_DRIVER_REQUIRED = yes
-        else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), azoteq_iqs5xx)
-            I2C_DRIVER_REQUIRED = yes
-        else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), cirque_pinnacle_i2c)
-            I2C_DRIVER_REQUIRED = yes
-            SRC += drivers/sensors/cirque_pinnacle.c
-            SRC += drivers/sensors/cirque_pinnacle_gestures.c
-            SRC += $(QUANTUM_DIR)/pointing_device/pointing_device_gestures.c
-        else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), cirque_pinnacle_spi)
-            SPI_DRIVER_REQUIRED = yes
-            SRC += drivers/sensors/cirque_pinnacle.c
-            SRC += drivers/sensors/cirque_pinnacle_gestures.c
-            SRC += $(QUANTUM_DIR)/pointing_device/pointing_device_gestures.c
-        else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), pimoroni_trackball)
-            I2C_DRIVER_REQUIRED = yes
-        else ifneq ($(filter $(strip $(POINTING_DEVICE_DRIVER)),pmw3360 pmw3389),)
-            SPI_DRIVER_REQUIRED = yes
-            SRC += drivers/sensors/pmw33xx_common.c
-        endif
-    endif
+    include $(QUANTUM_DIR)/pointing_device/rules.mk
 endif
 
 QUANTUM_PAINTER_ENABLE ?= no
