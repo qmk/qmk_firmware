@@ -106,16 +106,16 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 
 
 void suspend_power_down_kb(void) {
-    writePinLow(SDB);
+    gpio_write_pin_low(SDB);
     suspend_power_down_user();
 }
 
 void suspend_wakeup_init_kb(void) {
-    writePinHigh(SDB);
+    gpio_write_pin_high(SDB);
     suspend_wakeup_init_user();
 }
 bool shutdown_kb(bool jump_to_bootloader) {
-    writePinLow(SDB);
+    gpio_write_pin_low(SDB);
     return true;
 }
 #endif
@@ -173,7 +173,7 @@ void board_init(void) {
     // JTAG-DP Disabled and SW-DP Disabled
     AFIO->MAPR = (AFIO->MAPR & ~AFIO_MAPR_SWJ_CFG_Msk) | AFIO_MAPR_SWJ_CFG_DISABLE;
 #    ifdef RGB_MATRIX_ENABLE
-    setPinOutput(SDB);
-    writePinHigh(SDB);
+    gpio_set_pin_output(SDB);
+    gpio_write_pin_high(SDB);
 #   endif
 }
