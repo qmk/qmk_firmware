@@ -223,8 +223,8 @@ static void select_row(uint8_t row) {
         // select on atmega32u4
         pin_t matrix_row_pins_mcu[MATRIX_ROWS_PER_SIDE] = MATRIX_ROW_PINS_L;
         pin_t pin                                       = matrix_row_pins_mcu[row];
-        setPinOutput(pin);
-        writePinLow(pin);
+        gpio_set_pin_output(pin);
+        gpio_write_pin_low(pin);
     } else {
         // select on tca9555
         if (tca9555_status) {  // if there was an error
