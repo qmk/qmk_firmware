@@ -160,7 +160,7 @@ bool via_command_kb(uint8_t *data, uint8_t length) {
             data[i++] = '.';
             itoa((DEVICE_VER >> 4) & 0xF, (char *)&data[i++], 16);
             data[i++] = '.';
-            itoa((DEVICE_VER >> 4) & 0xF, (char *)&data[i++], 16);
+            itoa(DEVICE_VER & 0xF, (char *)&data[i++], 16);
             data[i++] = ' ';
             memcpy(&data[i], QMK_BUILDDATE, sizeof(QMK_BUILDDATE));
             i += sizeof(QMK_BUILDDATE);
