@@ -8,9 +8,9 @@ enum layers {
     GAME,
     NUM,
     FUNCTION,
+    NAV_LEFT,
     NAV,
     ALT_NAV,
-    NAV_LEFT,
     NUMPAD,
     MEDIA,
     LOCK
