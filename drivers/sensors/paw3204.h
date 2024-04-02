@@ -20,10 +20,18 @@
 #include <stdbool.h>
 
 #ifndef PAW3204_SCLK_PIN
-#    error "No clock pin defined -- missing PAW3204_SCLK_PIN"
+#    ifdef POINTING_DEVICE_SCLK_PIN
+#        define PAW3204_SCLK_PIN POINTING_DEVICE_SCLK_PIN
+#    else
+#        error "No clock pin defined -- missing POINTING_DEVICE_SCLK_PIN or PAW3204_SCLK_PIN"
+#    endif
 #endif
 #ifndef PAW3204_SDIO_PIN
-#    error "No data pin defined -- missing PAW3204_SDIO_PIN"
+#    ifdef POINTING_DEVICE_SDIO_PIN
+#        define PAW3204_SDIO_PIN POINTING_DEVICE_SDIO_PIN
+#    else
+#        error "No data pin defined -- missing POINTING_DEVICE_SDIO_PIN or PAW3204_SDIO_PIN"
+#    endif
 #endif
 
 typedef struct {

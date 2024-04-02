@@ -4,15 +4,16 @@ The following table shows the current driver status for peripherals on RP2040 MC
 
 | System                                                           | Support                                        |
 | ---------------------------------------------------------------- | ---------------------------------------------- |
-| [ADC driver](adc_driver.md)                                      | Support planned (no ETA)                       |
-| [Audio](audio_driver.md)                                         | Support planned (no ETA)                       |
+| [ADC driver](adc_driver.md)                                      | :heavy_check_mark:                             |
+| [Audio](audio_driver.md#pwm-hardware)                            | :heavy_check_mark:                             |
+| [Backlight](feature_backlight.md)                                | :heavy_check_mark:                             |
 | [I2C driver](i2c_driver.md)                                      | :heavy_check_mark:                             |
 | [SPI driver](spi_driver.md)                                      | :heavy_check_mark:                             |
 | [WS2812 driver](ws2812_driver.md)                                | :heavy_check_mark: using `PIO` driver          |
 | [External EEPROMs](eeprom_driver.md)                             | :heavy_check_mark: using `I2C` or `SPI` driver |
 | [EEPROM emulation](eeprom_driver.md#wear_leveling-configuration) | :heavy_check_mark:                             |
 | [serial driver](serial_driver.md)                                | :heavy_check_mark: using `SIO` or `PIO` driver |
-| [UART driver](uart_driver.md)                                    | Support planned (no ETA)                       |
+| [UART driver](uart_driver.md)                                    | :heavy_check_mark: using `SIO` driver          |
 
 ## GPIO
 
@@ -37,8 +38,8 @@ QMK RP2040 support builds upon ChibiOS and thus follows their convention for act
 
 | RP2040 Peripheral | `mcuconf.h` values | `I2C_DRIVER` |
 | ----------------- | ------------------ | ------------ |
-| `I2C0`            | `RP_I2C_USE_I2C0`  | `I2CD1`      |
-| `I2C1`            | `RP_I2C_USE_I2C1`  | `I2CD2`      |
+| `I2C0`            | `RP_I2C_USE_I2C0`  | `I2CD0`      |
+| `I2C1`            | `RP_I2C_USE_I2C1`  | `I2CD1`      |
 
 To configure the I2C driver please read the [ChibiOS/ARM](i2c_driver.md#arm-configuration) section.
 
@@ -51,6 +52,13 @@ To configure the I2C driver please read the [ChibiOS/ARM](i2c_driver.md#arm-conf
 
 To configure the SPI driver please read the [ChibiOS/ARM](spi_driver.md#chibiosarm-configuration) section.
 
+### UART Driver
+
+| RP2040 Peripheral | `mcuconf.h` values | `UART_DRIVER` |
+| ----------------- | ------------------ | ------------- |
+| `UART0`           | `RP_SIO_USE_UART0` | `SIOD0`       |
+| `UART1`           | `RP_SIO_USE_UART1` | `SIOD1`       |
+
 ## Double-tap reset boot-loader entry :id=double-tap
 
 The double-tap reset mechanism is an alternate way in QMK to enter the embedded mass storage UF2 boot-loader of the RP2040. It enables bootloader entry by a fast double-tap of the reset pin on start up, which is similar to the behavior of AVR Pro Micros. This feature activated by default for the Pro Micro RP2040 board, but has to be configured for other boards. To activate it, add the following options to your keyboards `config.h` file:
@@ -58,7 +66,7 @@ The double-tap reset mechanism is an alternate way in QMK to enter the embedded 
 ```c
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET // Activates the double-tap behavior
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 200U // Timeout window in ms in which the double tap can occur.
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED_MASK 0U // Specify a optional status led which blinks when entering the bootloader
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP17 // Specify a optional status led by GPIO number which blinks when entering the bootloader
 ```
 
 ## Pre-defined RP2040 boards
@@ -73,7 +81,7 @@ This is the default board that is chosen, unless any other RP2040 board is selec
 | Driver configuration define                                                | Value                                |
 | -------------------------------------------------------------------------- | ------------------------------------ |
 | **I2C driver**                                                             |                                      |
-| `I2C_DRIVER`                                                               | `I2CD2`                              |
+| `I2C_DRIVER`                                                               | `I2CD1`                              |
 | `I2C1_SDA_PIN`                                                             | `GP2`                                |
 | `I2C1_SCL_PIN`                                                             | `GP3`                                |
 | **SPI driver**                                                             |                                      |
@@ -86,6 +94,10 @@ This is the default board that is chosen, unless any other RP2040 board is selec
 | `SOFT_SERIAL_PIN`                                                          | undefined, use `SERIAL_USART_TX_PIN` |
 | `SERIAL_USART_TX_PIN`                                                      | `GP0`                                |
 | `SERIAL_USART_RX_PIN`                                                      | `GP1`                                |
+| **UART driver**                                                            |                                      |
+| `UART_DRIVER`                                                              | `SIOD0`                              |
+| `UART_TX_PIN`                                                              | `GP0`                                |
+| `UART_RX_PIN`                                                              | `GP1`                                |
 
 ?> The pin-outs of Adafruit's KB2040 and Boardsource's Blok both deviate from the Sparkfun Pro Micro RP2040. Lookup the pin-out of these boards and adjust your keyboards pin definition accordingly if you want to use these boards.
 
@@ -123,3 +135,18 @@ As the RP2040 does not have any internal flash memory it depends on an external 
 | W25X10CL                   | `#define RP2040_FLASH_W25X10CL`    |
 | IS25LP080                  | `#define RP2040_FLASH_IS25LP080`   |
 | Generic 03H flash          | `#define RP2040_FLASH_GENERIC_03H` |
+
+## RP2040 Community Edition :id=rp2040_ce
+
+The "RP2040 Community Edition" standard is a pinout that was defined by a committee of designers on the BastardKB Discord server.
+
+These boards are designed to be a drop-in replacement for keyboards wanting an upgrade from ATmega32u4 based pro micros (eg. Elite-C).
+
+| Pinout Compatible Controllers                                                    |
+| -------------------------------------------------------------------------------- |
+| [0xB2 Splinky](https://github.com/plut0nium/0xB2/)                               |
+| [Elite-Pi](https://keeb.io/products/elite-pi-usb-c-pro-micro-replacement-rp2040) |
+| [Sea-Picro EXT](https://github.com/joshajohnson/sea-picro)                       |
+| [0xCB Helios](https://keeb.supply/products/0xcb-helios)                          |
+| [Frood](https://github.com/piit79/Frood)                                         |
+| [Liatris](https://splitkb.com/products/liatris)                                  |

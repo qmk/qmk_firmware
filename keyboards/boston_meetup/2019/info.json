@@ -1,9 +1,40 @@
 {
-  "keyboard_name": "Boston Meetup 2019", 
-  "url": "", 
-  "maintainer": "qmk", 
-  "layouts": {
-    "LAYOUT": {
- "layout": [{"label":"K00", "x":0, "y":0}, {"label":"K10", "x":0, "y":1}, {"label":"K11", "x":1, "y":1}, {"label":"K12", "x":2, "y":1}, {"label":"K13", "x":3, "y":1}, {"label":"K20", "x":0, "y":2}, {"label":"K21", "x":1, "y":2}, {"label":"K22", "x":2, "y":2}, {"label":"K23", "x":3, "y":2}, {"label":"K30", "x":0, "y":3}, {"label":"K31", "x":1, "y":3}, {"label":"K32", "x":2, "y":3}, {"label":"K33", "x":3, "y":3}]    }
-  }
+    "usb": {
+        "device_version": "20.1.9"
+    },
+    "rgb_matrix": {
+        "driver": "ws2812"
+    },
+    "matrix_pins": {
+        "cols": ["A7", "A8", "B2", "B10"],
+        "rows": ["A3", "B8", "B9", "B1"]
+    },
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B13", "pin_b": "B14"}
+        ]
+    },
+    "rgblight": {
+        "led_count": 10,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "B5"
+    },
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "board": "QMK_PROTON_C",
+    "debounce": 6
 }

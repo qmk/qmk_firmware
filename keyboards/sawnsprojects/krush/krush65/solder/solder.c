@@ -14,8 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "solder.h"
-#include "encoder_actions.h"
+#include "quantum.h"
 
    /*  Custom encoder control - handles CW/CCW turning of encoder
      *  Default behavior:

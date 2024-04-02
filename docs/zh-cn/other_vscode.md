@@ -107,10 +107,8 @@
 
 * [Git Extension Pack](https://marketplace.visualstudio.com/items?itemName=donjayamanne.git-extension-pack) - 提供了一系列的Git工具可以让你在QMK Firmware中使用Git便捷一些。
 * [EditorConfig for VS Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig) - _[可选]_ -  可以让你的代码更符合QMK规范。
-* [Bracket Pair Colorizer 2](https://marketplace.visualstudio.com/items?itemName=CoenraadS.bracket-pair-colorizer-2) - _[可选]_ - 可以给大括号着色，可以更好地阅读嵌套代码。
 * [GitHub Markdown Preview](https://marketplace.visualstudio.com/items?itemName=bierner.github-markdown-preview) - _[可选]_ - 使得VS Code下的markdown预览更符合Github的效果。
 * [VS Live Share Extension Pack](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare-pack) - _[可选]_ - 这个扩展允许他人访问你的工作区（或反之）进行协作，在你遇到问题需要他人帮助时挺有用。
-* [VIM Keymap](https://marketplace.visualstudio.com/items?itemName=GiuseppeCesarano.vim-keymap) - _[可选]_ - 为那些更喜欢VIM风格的按键操作的人所准备。这样的扩展还有挺多。
 
 安装扩展后需要重启VS Code。
 

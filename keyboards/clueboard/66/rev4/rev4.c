@@ -1,4 +1,4 @@
-#include "rev4.h"
+#include "quantum.h"
 
 void led_init_ports(void) {
     // Set our LED pins as output

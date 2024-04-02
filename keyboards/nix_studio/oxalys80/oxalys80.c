@@ -13,8 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "oxalys80.h"
 
+#include "quantum.h"
 
 void eeconfig_init_kb(void) {  // EEPROM is getting reset!
   rgblight_enable(); // Enable RGB by default

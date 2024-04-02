@@ -384,7 +384,7 @@
 #define EXTREG__TRACK_ADCCONFIG                                     0x0187
 // ADC-attenuation settings (held in BIT_7 and BIT_6)
 // 1X = most sensitive, 4X = least sensitive
-#    define EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_MASK             0x3F
+#    define EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_MASK             0xC0
 #        define EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_1X           0x00
 #        define EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_2X           0x40
 #        define EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_3X           0x80

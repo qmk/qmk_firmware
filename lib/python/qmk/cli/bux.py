@@ -19,7 +19,7 @@ def bux(cli):
     config.set_config('user', 'bux', bux + 1)
     cli.save_config()
 
-    buck = """
+    buck = r"""
 @@BBBBBBBBBBBBBBBBBBBBK    `vP8#####BE2~   x###g_     `S###q  n##}  -j#Bl.   vBBBBBBBBBBBBBBBBBBBB@@
 @B   `:!:                 ^#@#]-   `!t@@&. 7@@B@#^   _Q@Q@@R  y@@l:P@#1'                   `!!_   B@
 @B  r@@@B                 g@@|      ` N@@u 7@@iv@@u *#@z"@@R  y@@&@@Q-                    l@@@D   B@

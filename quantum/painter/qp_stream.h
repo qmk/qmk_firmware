@@ -41,18 +41,21 @@ typedef struct qp_stream_t qp_stream_t;
 uint32_t qp_stream_read_impl(void *output_buf, uint32_t member_size, uint32_t num_members, qp_stream_t *stream);
 uint32_t qp_stream_write_impl(const void *input_buf, uint32_t member_size, uint32_t num_members, qp_stream_t *stream);
 
+#define qp_stream_close(stream_ptr) (((qp_stream_t *)(stream_ptr))->close((qp_stream_t *)(stream_ptr)))
+
 #define STREAM_EOF ((int16_t)(-1))
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Stream definition
 
-struct qp_stream_t {
+typedef struct qp_stream_t {
     int16_t (*get)(qp_stream_t *stream);
     bool (*put)(qp_stream_t *stream, uint8_t c);
     int (*seek)(qp_stream_t *stream, int32_t offset, int origin);
     int32_t (*tell)(qp_stream_t *stream);
     bool (*is_eof)(qp_stream_t *stream);
-};
+    void (*close)(qp_stream_t *stream);
+} qp_stream_t;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Memory streams
@@ -77,6 +80,6 @@ typedef struct qp_file_stream_t {
     FILE *      file;
 } qp_file_stream_t;
 
-qp_file_stream_t qo_make_file_stream(FILE *f);
+qp_file_stream_t qp_make_file_stream(FILE *f);
 
 #endif // QP_STREAM_HAS_FILE_IO

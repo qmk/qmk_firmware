@@ -22,24 +22,17 @@ typedef union {
 #endif  // RGB_MATRIX_ENABLE
 
 enum {
-    KC_MCON = USER00,  // macOS Open Mission Control
-    KC_LPAD,           // macOS Open Launchpad
     #ifdef RGB_MATRIX_ENABLE
-    RGB_TPK,           // Toggle Per-Key
+    RGB_TPK = QK_KB_0,  // Toggle Per-Key
     RGB_TUG,           // Toggle Underglow
     #endif  // RGB_MATRIX_ENABLE
-    KB_VRSN = USER09   // debug, type version
+    KB_VRSN = QK_KB_9   // debug, type version
 };
 
 #ifndef RGB_MATRIX_ENABLE
     #define RGB_TPK _______
     #define RGB_TUG _______
 #endif
-
-enum macos_consumer_usages {
-    _AC_SHOW_ALL_WINDOWS = 0x29F,  // mapped to KC_MCON
-    _AC_SHOW_ALL_APPS    = 0x2A0   // mapped to KC_LPAD
-};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
@@ -59,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘ └───┴───┴───┘
      */
     [0] = LAYOUT_tkl_ansi(
-        KC_ESC,           KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR, KC_SLCK, KC_PAUS,
+        KC_ESC,           KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR, KC_SCRL, KC_PAUS,
         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_INS,  KC_HOME, KC_PGUP,
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL,  KC_END,  KC_PGDN,
         KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,
@@ -110,8 +103,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [2] = LAYOUT_tkl_ansi(
         _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        MACRO00, MACRO01, MACRO02, MACRO03, MACRO04, MACRO05, MACRO06, MACRO07, MACRO08, MACRO09, MACRO10, _______, _______, _______, _______, _______, _______,
-        _______, MACRO11, MACRO12, MACRO13, MACRO14, MACRO15, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        MC_0,    MC_1,    MC_2,    MC_3,    MC_4,    MC_5,    MC_6,    MC_7,    MC_8,    MC_9,    MC_10,   _______, _______, _______, _______, _______, _______,
+        _______, MC_11,   MC_12,   MC_13,   MC_14,   MC_15,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
         _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          _______,
         _______, _______, _______,                            _______,                            _______, _______, _______, _______, _______, _______, _______
@@ -180,7 +173,7 @@ void eeconfig_init_user(void) {
     id87_update_rgb_mode();
 }
 
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     // Caps Lock key stuff
 
     if (host_keyboard_led_state().caps_lock) {
@@ -198,6 +191,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     } else if (user_config.rgb_disable_perkey) {
         rgb_matrix_set_color(ID87_CAPS_LOCK_KEY_INDEX, HSV_OFF);  // off
     }
+    return false;
 }
 
 #endif  // RGB_MATRIX_ENABLE
@@ -273,23 +267,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (!record->event.pressed) {
                     SEND_STRING(QMK_KEYBOARD ":" QMK_KEYMAP " (v" QMK_VERSION ")");
                 }
-            }
-            return false;
-
-        // @see: https://github.com/qmk/qmk_firmware/issues/10111#issuecomment-752300353
-        case KC_MCON:
-            if (record->event.pressed) {
-                host_consumer_send(_AC_SHOW_ALL_WINDOWS);
-            } else {
-                host_consumer_send(0);
-            }
-            return false;
-
-        case KC_LPAD:
-            if (record->event.pressed) {
-                host_consumer_send(_AC_SHOW_ALL_APPS);
-            } else {
-                host_consumer_send(0);
             }
             return false;
 

@@ -1,10 +1,12 @@
 #include QMK_KEYBOARD_H
 
 
-#define _QWERTY 0
-#define _LOWER 1
-#define _RAISE 2
-#define _ADJUST 16
+enum layer_names {
+    _QWERTY,
+    _LOWER,
+    _RAISE,
+    _ADJUST,
+};
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -39,12 +41,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_RAISE] = LAYOUT(
- 
+
   KC_ESC,  KC_1,    KC_2,  KC_3,   KC_4,    KC_5,     _______,          _______,     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL,
   _______, KC_4,    KC_5,  KC_6,   KC_PLUS, _______,  _______,          _______,   _______,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, _______,
   KC_ENT,  KC_7,    KC_8,  KC_9,   KC_MINS, _______,  _______,          _______,   _______,   KC_NUHS, KC_NUBS, KC_MUTE, _______, KC_BSLS,
   _______, KC_COMM, KC_0,  KC_DOT, _______, KC_BSPC,                                 KC_BSPC, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
-  
+
   ),
 
   [_ADJUST] = LAYOUT(

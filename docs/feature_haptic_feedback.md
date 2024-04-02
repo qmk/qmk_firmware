@@ -4,11 +4,12 @@
 
 The following options are currently available for haptic feedback in `rules.mk`:
 
-```
+```make
 HAPTIC_ENABLE = yes
 
-HAPTIC_DRIVER += DRV2605L
-HAPTIC_DRIVER += SOLENOID
+HAPTIC_DRIVER = drv2605l
+# or
+HAPTIC_DRIVER = solenoid
 ```
 
 The following `config.h` settings are available for all types of haptic feedback:
@@ -32,21 +33,21 @@ The following `config.h` settings are available for all types of haptic feedback
 
 Not all keycodes below will work depending on which haptic mechanism you have chosen.
 
-| Name      | Description                                           |
-|-----------|-------------------------------------------------------|
-|`HPT_ON`   | Turn haptic feedback on                               |
-|`HPT_OFF`  | Turn haptic feedback off                              |
-|`HPT_TOG`  | Toggle haptic feedback on/off                         |
-|`HPT_RST`  | Reset haptic feedback config to default               |
-|`HPT_FBK`  | Toggle feedback to occur on keypress, release or both |
-|`HPT_BUZ`  | Toggle solenoid buzz on/off                           |
-|`HPT_MODI` | Go to next DRV2605L waveform                          |
-|`HPT_MODD` | Go to previous DRV2605L waveform                      |
-|`HPT_CONT` | Toggle continuous haptic mode on/off                  |
-|`HPT_CONI` | Increase DRV2605L continous haptic strength           |
-|`HPT_COND` | Decrease DRV2605L continous haptic strength           |
-|`HPT_DWLI` | Increase Solenoid dwell time                          |
-|`HPT_DWLD` | Decrease Solenoid dwell time                          |
+| Key                         | Aliases | Description                                           |
+|-----------------------------|---------|-------------------------------------------------------|
+|`QK_HAPTIC_ON`               |`HF_ON`  | Turn haptic feedback on                               |
+|`QK_HAPTIC_OFF`              |`HF_OFF` | Turn haptic feedback off                              |
+|`QK_HAPTIC_TOGGLE`           |`HF_TOGG`| Toggle haptic feedback on/off                         |
+|`QK_HAPTIC_RESET`            |`HF_RST` | Reset haptic feedback config to default               |
+|`QK_HAPTIC_FEEDBACK_TOGGLE`  |`HF_FDBK`| Toggle feedback to occur on keypress, release or both |
+|`QK_HAPTIC_BUZZ_TOGGLE`      |`HF_BUZZ`| Toggle solenoid buzz on/off                           |
+|`QK_HAPTIC_MODE_NEXT`        |`HF_NEXT`| Go to next DRV2605L waveform                          |
+|`QK_HAPTIC_MODE_PREVIOUS`    |`HF_PREV`| Go to previous DRV2605L waveform                      |
+|`QK_HAPTIC_CONTINUOUS_TOGGLE`|`HF_CONT`| Toggle continuous haptic mode on/off                  |
+|`QK_HAPTIC_CONTINUOUS_UP`    |`HF_CONU`| Increase DRV2605L continous haptic strength           |
+|`QK_HAPTIC_CONTINUOUS_DOWN`  |`HF_COND`| Decrease DRV2605L continous haptic strength           |
+|`QK_HAPTIC_DWELL_UP`         |`HF_DWLU`| Increase Solenoid dwell time                          |
+|`QK_HAPTIC_DWELL_DOWN`       |`HF_DWLD`| Decrease Solenoid dwell time                          |
 
 ### Solenoids
 
@@ -68,8 +69,8 @@ For relay switches, the hardware may already contain all of that ciruitry, and j
 |`SOLENOID_DEFAULT_DWELL`    | `12` ms              |Configures the default dwell time for the switch.             |
 |`SOLENOID_MIN_DWELL`        | `4` ms               |Sets the lower limit for the dwell.                           |
 |`SOLENOID_MAX_DWELL`        | `100` ms             |Sets the upper limit for the dwell.                           |
-|`SOLENOID_DWELL_STEP_SIZE`  | `1` ms               |The step size to use when `HPT_DWL*` keycodes are sent.       |
-|`SOLENOID_DEFAULT_BUZZ`     | `0` (disabled)       |On HPT_RST buzz is set "on" if this is "1"                    |
+|`SOLENOID_DWELL_STEP_SIZE`  | `1` ms               |The step size to use when `HF_DWL*` keycodes are sent.        |
+|`SOLENOID_DEFAULT_BUZZ`     | `0` (disabled)       |On `HF_RST` buzz is set "on" if this is "1"                   |
 |`SOLENOID_BUZZ_ACTUATED`    | `SOLENOID_MIN_DWELL` |Actuated-time when the switch is in buzz mode.                |
 |`SOLENOID_BUZZ_NONACTUATED` | `SOLENOID_MIN_DWELL` |Non-Actuated-time when the switch is in buzz mode.            |
 
@@ -92,30 +93,30 @@ This driver supports 2 different feedback motors. Set the following in your `con
 
 Eccentric Rotating Mass vibration motors (ERM) is motor with a off-set weight attached so when drive signal is attached, the off-set weight spins and causes a sinusoidal wave that translate into vibrations.
 
-```
-#define FB_ERM_LRA 0
-#define FB_BRAKEFACTOR 3 /* For 1x:0, 2x:1, 3x:2, 4x:3, 6x:4, 8x:5, 16x:6, Disable Braking:7 */
-#define FB_LOOPGAIN 1 /* For  Low:0, Medium:1, High:2, Very High:3 */
+```c
+#define DRV2605L_FB_ERM_LRA 0
+#define DRV2605L_FB_BRAKEFACTOR 3 /* For 1x:0, 2x:1, 3x:2, 4x:3, 6x:4, 8x:5, 16x:6, Disable Braking:7 */
+#define DRV2605L_FB_LOOPGAIN 1 /* For  Low:0, Medium:1, High:2, Very High:3 */
 
 /* Please refer to your datasheet for the optimal setting for your specific motor. */
-#define RATED_VOLTAGE 3
-#define V_PEAK 5
+#define DRV2605L_RATED_VOLTAGE 3
+#define DRV2605L_V_PEAK 5
 ```
 ##### LRA
 
 Linear resonant actuators (LRA, also know as a linear vibrator) works different from a ERM. A LRA has a weight and magnet suspended by springs and a voice coil. When the drive signal is applied, the weight would be vibrate on a single axis (side to side or up and down). Since the weight is attached to a spring, there is a resonance effect at a specific frequency. This frequency is where the LRA will operate the most efficiently. Refer to the motor's datasheet for the recommanded range for this frequency.
 
-``` 
-#define FB_ERM_LRA 1
-#define FB_BRAKEFACTOR 3 /* For 1x:0, 2x:1, 3x:2, 4x:3, 6x:4, 8x:5, 16x:6, Disable Braking:7 */
-#define FB_LOOPGAIN 1 /* For  Low:0, Medium:1, High:2, Very High:3 */
+```c
+#define DRV2605L_FB_ERM_LRA 1
+#define DRV2605L_FB_BRAKEFACTOR 3 /* For 1x:0, 2x:1, 3x:2, 4x:3, 6x:4, 8x:5, 16x:6, Disable Braking:7 */
+#define DRV2605L_FB_LOOPGAIN 1 /* For  Low:0, Medium:1, High:2, Very High:3 */
 
 /* Please refer to your datasheet for the optimal setting for your specific motor. */
-#define RATED_VOLTAGE 2
-#define V_PEAK 2.8
-#define V_RMS 2.0 
-#define V_PEAK 2.1
-#define F_LRA 205 /* resonance freq */
+#define DRV2605L_RATED_VOLTAGE 2
+#define DRV2605L_V_PEAK 2.8
+#define DRV2605L_V_RMS 2.0 
+#define DRV2605L_V_PEAK 2.1
+#define DRV2605L_F_LRA 205 /* resonance freq */
 ```
 
 #### DRV2605L waveform library
@@ -170,15 +171,15 @@ List of waveform sequences from the datasheet:
 | 42  | lg_dblclick_med_80  | 84  | transition_rampup_med_smooth1     |     |                                      |
 ### Optional DRV2605L defines
 
-```
-#define DRV_GREETING *sequence name or number*
+```c
+#define DRV2605L_GREETING *sequence name or number*
 ```
 If haptic feedback is enabled, the keyboard will vibrate to a specific sequence during startup. That can be selected using the following define:
 
+```c
+#define DRV2605L_DEFAULT_MODE *sequence name or number*
 ```
-#define DRV_MODE_DEFAULT *sequence name or number*
-```
-This will set what sequence HPT_RST will set as the active mode. If not defined, mode will be set to 1 when HPT_RST is pressed.
+This will set what sequence `HF_RST` will set as the active mode. If not defined, mode will be set to 1 when `HF_RST` is pressed.
 
 ### DRV2605L Continuous Haptic Mode
 

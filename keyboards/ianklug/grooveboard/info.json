@@ -1,15 +1,28 @@
 {
     "keyboard_name": "grooveboard",
+    "manufacturer": "ianklug",
     "url": "https://github.com/ianklug/grooveboard",
     "maintainer": "ianklug",
+    "usb": {
+        "vid": "0x4B4C",
+        "pid": "0x4742",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "matrix_pins": {
+        "direct": [
+            ["F7", "F6", "D1", "D2"]
+        ]
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"label": "k00", "x": 0, "y": 0, "w": 1, "h": 1},
-                {"label": "k01", "x": 1, "y": 0, "w": 1, "h": 1},
-                {"label": "k02", "x": 4, "y": 0, "w": 1, "h": 1},
-                {"label": "k03", "x": 5, "y": 0, "w": 1, "h": 1}
-			]
+                {"x": 0, "y": 0, "matrix": [0, 0]},
+                {"x": 1, "y": 0, "matrix": [0, 1]},
+                {"x": 4, "y": 0, "matrix": [0, 2]},
+                {"x": 5, "y": 0, "matrix": [0, 3]}
+            ]
         }
     }
 }

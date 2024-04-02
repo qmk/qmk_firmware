@@ -1,6 +1,6 @@
 #ifdef RGBLIGHT_ENABLE
 
-#include QMK_KEYBOARD_H
+#include "quantum.h"
 #include <stdio.h>
 
 extern rgblight_config_t rgblight_config;

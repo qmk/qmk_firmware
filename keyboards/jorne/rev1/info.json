@@ -1,0 +1,91 @@
+{
+    "keyboard_name": "Jorne",
+    "manufacturer": "joric",
+    "url": "https://github.com/joric/jorne/wiki",
+    "maintainer": "joric",
+    "usb": {
+        "vid": "0x4753",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
+    "matrix_pins": {
+        "cols": ["F4", "F5", "F6", "F7", "B1", "B3"],
+        "rows": ["D4", "C6", "D7", "E6"]
+    },
+    "diode_direction": "COL2ROW",
+    "split": {
+        "soft_serial_pin": "D2",
+        "transport": {
+            "sync": {
+                "indicators": true,
+                "layer_state": true
+            }
+        }
+    },
+    "rgblight": {
+        "led_count": 56,
+        "split_count": [28, 28]
+    },
+    "ws2812": {
+        "pin": "D3"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [3, 0], "x": 0, "y": 1.125},
+                {"matrix": [0, 0], "x": 1, "y": 0.375},
+                {"matrix": [0, 1], "x": 2, "y": 0.375},
+                {"matrix": [0, 2], "x": 3, "y": 0.125},
+                {"matrix": [0, 3], "x": 4, "y": 0},
+                {"matrix": [0, 4], "x": 5, "y": 0.125},
+                {"matrix": [0, 5], "x": 6, "y": 0.25},
+
+                {"matrix": [4, 5], "x": 10.5, "y": 0.25},
+                {"matrix": [4, 4], "x": 11.5, "y": 0.125},
+                {"matrix": [4, 3], "x": 12.5, "y": 0},
+                {"matrix": [4, 2], "x": 13.5, "y": 0.125},
+                {"matrix": [4, 1], "x": 14.5, "y": 0.375},
+                {"matrix": [4, 0], "x": 15.5, "y": 0.375},
+                {"matrix": [7, 0], "x": 16.5, "y": 1.125},
+
+                {"matrix": [1, 0], "x": 1, "y": 1.375},
+                {"matrix": [1, 1], "x": 2, "y": 1.375},
+                {"matrix": [1, 2], "x": 3, "y": 1.125},
+                {"matrix": [1, 3], "x": 4, "y": 1},
+                {"matrix": [1, 4], "x": 5, "y": 1.125},
+                {"matrix": [1, 5], "x": 6, "y": 1.25},
+
+                {"matrix": [5, 5], "x": 10.5, "y": 1.25},
+                {"matrix": [5, 4], "x": 11.5, "y": 1.125},
+                {"matrix": [5, 3], "x": 12.5, "y": 1},
+                {"matrix": [5, 2], "x": 13.5, "y": 1.125},
+                {"matrix": [5, 1], "x": 14.5, "y": 1.375},
+                {"matrix": [5, 0], "x": 15.5, "y": 1.375},
+
+                {"matrix": [2, 0], "x": 1, "y": 2.375},
+                {"matrix": [2, 1], "x": 2, "y": 2.375},
+                {"matrix": [2, 2], "x": 3, "y": 2.125},
+                {"matrix": [2, 3], "x": 4, "y": 2},
+                {"matrix": [2, 4], "x": 5, "y": 2.125},
+                {"matrix": [2, 5], "x": 6, "y": 2.25},
+
+                {"matrix": [6, 5], "x": 10.5, "y": 2.25},
+                {"matrix": [6, 4], "x": 11.5, "y": 2.125},
+                {"matrix": [6, 3], "x": 12.5, "y": 2},
+                {"matrix": [6, 2], "x": 13.5, "y": 2.125},
+                {"matrix": [6, 1], "x": 14.5, "y": 2.375},
+                {"matrix": [6, 0], "x": 15.5, "y": 2.375},
+
+                {"matrix": [3, 3], "x": 5, "y": 4},
+                {"matrix": [3, 4], "x": 6, "y": 4},
+                {"matrix": [3, 5], "x": 7, "y": 3.5, "h": 1.5},
+
+                {"matrix": [7, 5], "x": 9.5, "y": 3.5, "h": 1.5},
+                {"matrix": [7, 4], "x": 10.5, "y": 4},
+                {"matrix": [7, 3], "x": 11.5, "y": 4}
+            ]
+        }
+    }
+}

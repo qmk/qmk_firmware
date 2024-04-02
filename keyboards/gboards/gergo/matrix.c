@@ -17,16 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "matrix.h"
-#include <stdint.h>
-#include <stdbool.h>
-#include <avr/io.h>
 #include "wait.h"
-#include "action_layer.h"
-#include "print.h"
 #include "debug.h"
 #include "util.h"
 #include "debounce.h"
-#include QMK_KEYBOARD_H
+#include "gergo.h"
 
 #ifdef BALLER
 #include <avr/interrupt.h>
@@ -153,7 +148,7 @@ void matrix_init(void) {
   }
 
     debounce_init(MATRIX_ROWS);
-    matrix_init_quantum();
+    matrix_init_kb();
 }
 
 void matrix_power_up(void) {
@@ -260,7 +255,7 @@ uint8_t matrix_scan(void) {
     }
 
     debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
-    matrix_scan_quantum();
+    matrix_scan_kb();
 
     enableInterrupts();
 
@@ -302,19 +297,12 @@ static matrix_row_t read_cols(uint8_t row) {
             return 0;
         } else {
             uint8_t data = 0;
-            mcp23018_status = i2c_start(I2C_ADDR_WRITE, I2C_TIMEOUT);    if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(GPIOB, I2C_TIMEOUT);             if (mcp23018_status) goto out;
-            mcp23018_status = i2c_start(I2C_ADDR_READ, I2C_TIMEOUT);     if (mcp23018_status) goto out;
-            mcp23018_status = i2c_read_nack(I2C_TIMEOUT);                if (mcp23018_status < 0) goto out;
-            data = ~((uint8_t)mcp23018_status);
-            mcp23018_status = I2C_STATUS_SUCCESS;
-        out:
-            i2c_stop();
+            mcp23018_status = i2c_readReg(I2C_ADDR, GPIOB, &data, 1, I2C_TIMEOUT);
 
 #ifdef DEBUG_MATRIX
-            if (data != 0x00) xprintf("I2C: %d\n", data);
+            if (~data != 0x00) xprintf("I2C: %d\n", ~data);
 #endif
-            return data;
+            return ~data;
         }
     } else {
          /* read from teensy
@@ -355,11 +343,8 @@ static void select_row(uint8_t row)
         // select on mcp23018
         if (mcp23018_status) { // do nothing on error
         } else { // set active row low  : 0 // set other rows hi-Z : 1
-            mcp23018_status = i2c_start(I2C_ADDR_WRITE, I2C_TIMEOUT);        if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(GPIOA, I2C_TIMEOUT);                 if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(0xFF & ~(1<<row), I2C_TIMEOUT);      if (mcp23018_status) goto out;
-        out:
-            i2c_stop();
+            uint8_t data = 0xFF & ~(1<<row);
+            mcp23018_status = i2c_writeReg(I2C_ADDR, GPIOA, &data, 1, I2C_TIMEOUT);
         }
     } else {
         // Output low(DDR:1, PORT:0) to select

@@ -17,29 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4E49
-#define PRODUCT_ID      0x0002
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Nibiria
-#define PRODUCT         Stream15
-
-/* key matrix size */
-#define MATRIX_ROWS 3
-#define MATRIX_COLS 5
-
-#define MATRIX_COL_PINS { A1, A2, B11, B12, B13 }
-#define MATRIX_ROW_PINS { B10, B9, B8 }
-#define DIODE_DIRECTION COL2ROW
-
-
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    5
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

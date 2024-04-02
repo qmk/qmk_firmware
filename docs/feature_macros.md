@@ -27,13 +27,13 @@ You can define up to 32 macros in a `keymap.json` file, as used by [Configurator
         ],
         [
             {"action":"tap", "keycodes": ["F1"]},
-            {"action":"delay", "duration": "1000"},
+            {"action":"delay", "duration": 1000},
             {"action":"tap", "keycodes": ["PGDN"]}
         ]
     ],
     "layout": "LAYOUT_all",
     "layers": [
-        ["MACRO_0", "MACRO_1", "MACRO_2", "MACRO_3"]
+        ["QK_MACRO_0", "QK_MACRO_1", "QK_MACRO_2", "QK_MACRO_3"]
     ]
 }
 ```
@@ -52,7 +52,7 @@ If you type in a language other than English, or use a non-QWERTY layout like Co
     ],
     "layout": "LAYOUT_all",
     "layers": [
-        ["MACRO_0"]
+        ["QK_MACRO_0"]
     ]
 }
 ```
@@ -69,9 +69,9 @@ The current list of available languages is:
 | **italian_osx_iso** | **jis** | **latvian** | **lithuanian_azerty** |
 | **lithuanian_qwerty** | **norman** | **norwegian** | **portuguese** |
 | **portuguese_osx_iso** | **romanian** | **serbian_latin** | **slovak** |
-| **slovenian** | **spanish_dvorak** | **spanish** | **swedish** |
-| **turkish_f** | **turkish_q** | **uk** | **us_international** |
-| **workman** | **workman_zxcvm** |
+| **slovenian** | **spanish_dvorak** | **spanish_latin_america** | **spanish** |
+| **swedish** | **turkish_f** | **turkish_q** | **uk** |
+| **us_international** | **workman** | **workman_zxcvm** |
 
 ### Macro Basics
 
@@ -199,7 +199,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #### Advanced Macros
 
-In addition to the `process_record_user()` function, is the `post_process_record_user()` function. This runs after `process_record` and can be used to do things after a keystroke has been sent.  This is useful if you want to have a key pressed before and released after a normal key, for instance. 
+In addition to the `process_record_user()` function, is the `post_process_record_user()` function. This runs after `process_record` and can be used to do things after a keystroke has been sent.  This is useful if you want to have a key pressed before and released after a normal key, for instance.
 
 In this example, we modify most normal keypresses so that `F22` is pressed before the keystroke is normally sent, and release it __only after__ it's been released.
 
@@ -349,7 +349,7 @@ If the keycode is `KC_CAPS`, it waits `TAP_HOLD_CAPS_DELAY` milliseconds instead
 
 Like `tap_code(<kc>)`, but with a `delay` parameter for specifying arbitrary intervals before sending the unregister event.
 
-#### `register_code16(<kc>);`, `unregister_code16(<kc>);` and `tap_code16(<kc>);`
+#### `register_code16(<kc>);`, `unregister_code16(<kc>);`, `tap_code16(<kc>);` and `tap_code16_delay(<kc>, <delay>);`
 
 These functions work similar to their regular counterparts, but allow you to use modded keycodes (with Shift, Alt, Control, and/or GUI applied to them).
 
@@ -374,7 +374,7 @@ This will clear all keys besides the mods currently pressed.
 This macro will register `KC_LALT` and tap `KC_TAB`, then wait for 1000ms. If the key is tapped again, it will send another `KC_TAB`; if there is no tap, `KC_LALT` will be unregistered, thus allowing you to cycle through windows.
 
 ```c
-bool is_alt_tab_active = false; // ADD this near the begining of keymap.c
+bool is_alt_tab_active = false; // ADD this near the beginning of keymap.c
 uint16_t alt_tab_timer = 0;     // we will be using them soon.
 
 enum custom_keycodes {          // Make sure have the awesome keycode ready

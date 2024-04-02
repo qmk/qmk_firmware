@@ -77,7 +77,7 @@ void matrix_init(void) {
     debounce_init(MATRIX_ROWS);
 
     // This *must* be called for correct keyboard behavior
-    matrix_init_quantum();
+    matrix_init_kb();
 }
 
 uint8_t matrix_scan(void) {
@@ -89,7 +89,7 @@ uint8_t matrix_scan(void) {
     changed = debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
 
     // This *must* be called for correct keyboard behavior
-    matrix_scan_quantum();
+    matrix_scan_kb();
 
     return changed;
 }

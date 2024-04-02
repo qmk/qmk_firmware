@@ -15,7 +15,7 @@
 #include QMK_KEYBOARD_H
 
 enum my_keycodes {
-    RMT = USER00,
+    RMT = QK_KB_0,
     RMS,
     RMIH,
     RMDH,
@@ -80,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL,   KC_LGUI,   KC_LALT,                       KC_SPC,                              KC_RALT, MO(1),   KC_LEFT, KC_DOWN, KC_RGHT
     ),
     [1] = LAYOUT(
-        _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  RESET,  _______, _______, _______,
+        _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  QK_BOOT,  _______, _______, _______,
         _______,     RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______, _______, _______,
         _______,       RMT,  RMS,  RMIH,  RMDH,  RMIS,  RMDS,  RMIV,  RMDV, _______, _______, _______, _______,
         _______,            _______, _______, _______, _______, _______, NK_TOGG, _______, _______, _______, _______,        _______, _______,

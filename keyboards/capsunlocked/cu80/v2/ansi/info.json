@@ -1,0 +1,6 @@
+{
+    "keyboard_name": "CU80 v2 ANSI",
+    "usb": {
+        "pid": "0x0081"
+    }
+}

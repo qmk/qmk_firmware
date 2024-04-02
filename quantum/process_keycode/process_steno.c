@@ -15,7 +15,7 @@
  */
 #include "process_steno.h"
 #include "quantum_keycodes.h"
-#include "keymap_steno.h"
+#include "eeconfig.h"
 #include <string.h>
 #ifdef VIRTSER_ENABLE
 #    include "virtser.h"
@@ -127,10 +127,7 @@ static const uint16_t combinedmap_second[] PROGMEM = {STN_S2, STN_KL, STN_WL, ST
 #endif
 
 #ifdef STENO_ENABLE_ALL
-void steno_init() {
-    if (!eeconfig_is_enabled()) {
-        eeconfig_init();
-    }
+void steno_init(void) {
     mode = eeprom_read_byte(EECONFIG_STENOMODE);
 }
 
@@ -148,7 +145,7 @@ __attribute__((weak)) bool send_steno_chord_user(steno_mode_t mode, uint8_t chor
     return true;
 }
 
-__attribute__((weak)) bool postprocess_steno_user(uint16_t keycode, keyrecord_t *record, steno_mode_t mode, uint8_t chord[MAX_STROKE_SIZE], int8_t n_pressed_keys) {
+__attribute__((weak)) bool post_process_steno_user(uint16_t keycode, keyrecord_t *record, steno_mode_t mode, uint8_t chord[MAX_STROKE_SIZE], int8_t n_pressed_keys) {
     return true;
 }
 
@@ -173,13 +170,13 @@ bool process_steno(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
 #ifdef STENO_ENABLE_ALL
         case QK_STENO_BOLT:
-            if (IS_PRESSED(record->event)) {
+            if (record->event.pressed) {
                 steno_set_mode(STENO_MODE_BOLT);
             }
             return false;
 
         case QK_STENO_GEMINI:
-            if (IS_PRESSED(record->event)) {
+            if (record->event.pressed) {
                 steno_set_mode(STENO_MODE_GEMINI);
             }
             return false;
@@ -193,7 +190,7 @@ bool process_steno(uint16_t keycode, keyrecord_t *record) {
         }
 #endif // STENO_COMBINEDMAP
         case STN__MIN ... STN__MAX:
-            if (IS_PRESSED(record->event)) {
+            if (record->event.pressed) {
                 n_pressed_keys++;
                 switch (mode) {
 #ifdef STENO_ENABLE_BOLT
@@ -209,12 +206,12 @@ bool process_steno(uint16_t keycode, keyrecord_t *record) {
                     default:
                         return false;
                 }
-                if (!postprocess_steno_user(keycode, record, mode, chord, n_pressed_keys)) {
+                if (!post_process_steno_user(keycode, record, mode, chord, n_pressed_keys)) {
                     return false;
                 }
             } else { // is released
                 n_pressed_keys--;
-                if (!postprocess_steno_user(keycode, record, mode, chord, n_pressed_keys)) {
+                if (!post_process_steno_user(keycode, record, mode, chord, n_pressed_keys)) {
                     return false;
                 }
                 if (n_pressed_keys > 0) {

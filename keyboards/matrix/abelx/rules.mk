@@ -45,4 +45,5 @@ NO_USB_STARTUP_CHECK = yes  # Disable initialization only when usb is plugged in
 CUSTOM_MATRIX = lite
 # project specific files
 SRC += matrix.c tca6424.c aw9523b.c
-QUANTUM_LIB_SRC += i2c_master.c
+I2C_DRIVER_REQUIRED = yes
+WS2812_DRIVER_REQUIRED = yes

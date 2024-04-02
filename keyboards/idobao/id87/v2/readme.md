@@ -36,4 +36,4 @@ Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the [Escape] key *(the top left)* and plug in the keyboard
 * **Physical reset button**: Briefly press the button on the back of the PCB
-* **Keycode in layout**: Press the key mapped to `RESET` *(default is [Fn]+[Escape])*
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` *(default is [Fn]+[Escape])*

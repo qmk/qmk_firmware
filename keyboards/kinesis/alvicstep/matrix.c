@@ -116,7 +116,7 @@ uint8_t matrix_scan(void)
         if (matrix_debouncing[i] != row) {
             matrix_debouncing[i] = row;
             if (debouncing) {
-                debug("bounce!: "); debug_hex(debouncing); debug("\n");
+                dprintf("bounce!: %02X\n", debouncing);
             }
             debouncing = DEBOUNCE;
         }
@@ -132,7 +132,7 @@ uint8_t matrix_scan(void)
             }
         }
     }
-    matrix_scan_quantum();
+    matrix_scan_kb();
     return 1;
 }
 

@@ -24,4 +24,4 @@ Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (assigned to the top left key) and plug in the keyboard while holding it.
 * **Physical reset button**: Press and hold the boot0 button on the blackpill, tap  and release the nrst button on the blackpill, then release the boot0 button.
-* **Keycode in layout**: Press the key mapped to `RESET` if it is available.
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available.

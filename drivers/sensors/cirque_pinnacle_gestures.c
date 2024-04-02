@@ -20,12 +20,15 @@
 #include "pointing_device.h"
 #include "timer.h"
 #include "wait.h"
+#if defined(SPLIT_POINTING_ENABLE) && defined(POINTING_DEVICE_COMBINED)
+#    include "keyboard.h"
+#endif
 
-#if defined(CIRQUE_PINNACLE_TAP_ENABLE) || defined(CIRQUE_PINNACLE_CIRCULAR_SCROLL_ENABLE)
+#if (defined(CIRQUE_PINNACLE_TAP_ENABLE) || defined(CIRQUE_PINNACLE_CIRCULAR_SCROLL_ENABLE)) && CIRQUE_PINNACLE_POSITION_MODE
 static cirque_pinnacle_features_t features = {.tap_enable = true, .circular_scroll_enable = true};
 #endif
 
-#ifdef CIRQUE_PINNACLE_TAP_ENABLE
+#if defined(CIRQUE_PINNACLE_TAP_ENABLE) && CIRQUE_PINNACLE_POSITION_MODE
 static trackpad_tap_context_t tap;
 
 static report_mouse_t trackpad_tap(report_mouse_t mouse_report, pinnacle_data_t touchData) {
@@ -34,14 +37,6 @@ static report_mouse_t trackpad_tap(report_mouse_t mouse_report, pinnacle_data_t 
         if (!touchData.zValue) {
             if (timer_elapsed(tap.timer) < CIRQUE_PINNACLE_TAPPING_TERM && tap.timer != 0) {
                 mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, true, POINTING_DEVICE_BUTTON1);
-                pointing_device_set_report(mouse_report);
-                pointing_device_send();
-#    if TAP_CODE_DELAY > 0
-                wait_ms(TAP_CODE_DELAY);
-#    endif
-                mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, false, POINTING_DEVICE_BUTTON1);
-                pointing_device_set_report(mouse_report);
-                pointing_device_send();
             }
         }
         tap.timer = timer_read();
@@ -59,6 +54,9 @@ void cirque_pinnacle_enable_tap(bool enable) {
 #endif
 
 #ifdef CIRQUE_PINNACLE_CIRCULAR_SCROLL_ENABLE
+#    if !CIRQUE_PINNACLE_POSITION_MODE
+#        error "Circular scroll is not supported in relative mode"
+#    endif
 /* To set a trackpad exclusively as scroll wheel: outer_ring_pct = 100, trigger_px = 0, trigger_ang = 0 */
 static circular_scroll_context_t scroll = {.config = {.outer_ring_pct = 33,
                                                       .trigger_px     = 16,
@@ -92,18 +90,28 @@ static inline uint16_t atan2_16(int32_t dy, int32_t dx) {
 static circular_scroll_t circular_scroll(pinnacle_data_t touchData) {
     circular_scroll_t report = {0, 0, false};
     int8_t            x, y, wheel_clicks;
-    uint8_t           center = 256 / 2, mag;
+    uint8_t           center = INT8_MAX, mag;
     int16_t           ang, dot, det, opposite_side, adjacent_side;
     uint16_t          scale = cirque_pinnacle_get_scale();
 
     if (touchData.zValue) {
         /*
          * Place origin at center of trackpad, treat coordinates as vectors.
-         * Scale to fixed int8_t size; angles are independent of resolution.
+         * Scale to +/-INT8_MAX; angles are independent of resolution.
          */
         if (scale) {
-            x = (int8_t)((int32_t)touchData.xValue * 256 / scale - center);
-            y = (int8_t)((int32_t)touchData.yValue * 256 / scale - center);
+            /* Rotate coordinates into a consistent orientation */
+            report_mouse_t rot = {.x = (int8_t)((int32_t)touchData.xValue * INT8_MAX * 2 / scale - center), .y = (int8_t)((int32_t)touchData.yValue * INT8_MAX * 2 / scale - center)};
+#    if defined(SPLIT_POINTING_ENABLE) && defined(POINTING_DEVICE_COMBINED)
+            if (!is_keyboard_left()) {
+                rot = pointing_device_adjust_by_defines_right(rot);
+            } else
+#    endif
+            {
+                rot = pointing_device_adjust_by_defines(rot);
+            }
+            x = rot.x;
+            y = rot.y;
         } else {
             x = 0;
             y = 0;
@@ -125,15 +133,7 @@ static circular_scroll_t circular_scroll(pinnacle_data_t touchData) {
                  *   Horizontal if started from left half
                  * Flipped for left-handed
                  */
-#    if defined(POINTING_DEVICE_ROTATION_90)
-                scroll.axis = y < 0;
-#    elif defined(POINTING_DEVICE_ROTATION_180)
-                scroll.axis = x > 0;
-#    elif defined(POINTING_DEVICE_ROTATION_270)
-                scroll.axis = y > 0;
-#    else
                 scroll.axis = x < 0;
-#    endif
             }
         } else if (scroll.state == SCROLL_DETECTING) {
             report.suppress_touch = true;
@@ -208,6 +208,9 @@ bool cirque_pinnacle_gestures(report_mouse_t* mouse_report, pinnacle_data_t touc
     bool suppress_mouse_update = false;
 
 #ifdef CIRQUE_PINNACLE_CIRCULAR_SCROLL_ENABLE
+#    if !CIRQUE_PINNACLE_POSITION_MODE
+#        error "Circular scroll is not supported in relative mode"
+#    endif
     circular_scroll_t scroll_report;
     if (features.circular_scroll_enable) {
         scroll_report         = circular_scroll(touchData);
@@ -217,7 +220,7 @@ bool cirque_pinnacle_gestures(report_mouse_t* mouse_report, pinnacle_data_t touc
     }
 #endif
 
-#ifdef CIRQUE_PINNACLE_TAP_ENABLE
+#if defined(CIRQUE_PINNACLE_TAP_ENABLE) && CIRQUE_PINNACLE_POSITION_MODE
     if (features.tap_enable) {
         *mouse_report = trackpad_tap(*mouse_report, touchData);
     }

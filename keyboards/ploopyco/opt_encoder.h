@@ -16,7 +16,7 @@
  */
 #pragma once
 
-#include <stdbool.h>
+#include <stdint.h>
 
 #ifndef SCROLLER_AR_SIZE
 #    define SCROLLER_AR_SIZE 31
@@ -26,41 +26,7 @@
 #    define SCROLL_THRESH_RANGE_LIM 10
 #endif
 
-enum State { HIHI, HILO, LOLO, LOHI };
-
-extern enum State state;
-
-/* Variables used for scroll wheel functionality. */
-extern bool lohif;
-extern bool hilof;
-extern int  lowA;
-extern int  highA;
-extern bool cLowA;
-extern bool cHighA;
-extern int  lowIndexA;
-extern int  highIndexA;
-extern bool lowOverflowA;
-extern bool highOverflowA;
-extern int  lowB;
-extern int  highB;
-extern bool cLowB;
-extern bool cHighB;
-extern int  lowIndexB;
-extern int  highIndexB;
-extern bool lowOverflowB;
-extern bool highOverflowB;
-extern int  scrollThresholdA;
-extern int  scrollThresholdB;
-extern int  arLowA[SCROLLER_AR_SIZE];
-extern int  arHighA[SCROLLER_AR_SIZE];
-extern int  arLowB[SCROLLER_AR_SIZE];
-extern int  arHighB[SCROLLER_AR_SIZE];
-
-void calculateThresholdA(int curA);
-void calculateThresholdB(int curB);
-int  calculateThreshold(int cur, int* low, int* high, bool* cLow, bool* cHigh, int arLow[], int arHigh[], int* lowIndex, int* highIndex, bool* lowOverflow, bool* highOverflow);
-int  thresholdEquation(int lo, int hi);
-void incrementIndex(int* index, bool* ovflw);
-
 void opt_encoder_init(void);
-int  opt_encoder_handler(int curA, int curB);
+/* Return the rotation direction, positive value means clockwise, negative value
+ * means counter-clockwise */
+int8_t opt_encoder_handler(uint16_t curA, uint16_t curB);

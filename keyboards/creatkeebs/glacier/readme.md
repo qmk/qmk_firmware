@@ -17,7 +17,7 @@ A 80% keyboard
 Enter the bootloader in 2 ways:
 
 * Physical reset button: Press the `RESET` button on the back of the PCB.
-* Keycode in layout: Press the key mapped to `RESET` if it is available.
+* Keycode in layout: Press the key mapped to `QK_BOOT` if it is available.
 
 ### Building the Firmware
 Make example for this keyboard (after setting up your build environment):

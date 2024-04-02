@@ -1,23 +1,42 @@
 {
     "keyboard_name": "millipad",
+    "manufacturer": "Jirou",
     "url": "https://github.com/GLozares/millipad",
     "maintainer": "Jirou",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x1A1B",
+        "device_version": "0.0.1",
+        "force_nkro": true
+    },
+    "matrix_pins": {
+        "cols": ["F0", "F1", "F4", "D7", "D6", "D4"],
+        "rows": ["C6", "C7"]
+    },
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D3", "pin_b": "D2"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"label": "k00", "x": 0, "y": 0},
-                {"label": "k01", "x": 1, "y": 0},
-                {"label": "k02", "x": 2, "y": 0},
-				{"label": "k03", "x": 3, "y": 0},
-				{"label": "k04", "x": 4, "y": 0},
-				{"label": "k05", "x": 5, "y": 0},
-				
-				{"label": "k10", "x": 0, "y": 1},
-				{"label": "k11", "x": 1, "y": 1},
-				{"label": "k12", "x": 2, "y": 1},
-				{"label": "k13", "x": 3, "y": 1},
-				{"label": "k14", "x": 4, "y": 1},
-				{"label": "k15", "x": 5, "y": 1}
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [0, 4], "x": 4, "y": 0},
+                {"matrix": [0, 5], "x": 5, "y": 0},
+
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [1, 3], "x": 3, "y": 1},
+                {"matrix": [1, 4], "x": 4, "y": 1},
+                {"matrix": [1, 5], "x": 5, "y": 1}
             ]
         }
     }

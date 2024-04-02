@@ -17,41 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x416B
-#define PRODUCT_ID      0x0001
-#define DEVICE_VER      0x0011
-#define MANUFACTURER    Desiboards
-#define PRODUCT         hp69
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-#define MATRIX_ROW_PINS { B3, B7, A10, B9 ,A9}
-#define MATRIX_COL_PINS { B12, B15, B10, B13, B14, B11, B8, A0, A1, B5, B0, B2, B6, B1, B4}
-
-#define DIODE_DIRECTION COL2ROW
-
-#define RGB_DI_PIN A3
-#define RGBLED_NUM 20
-#define RGBLIGHT_ANIMATIONS
-#define RGBLIGHT_SLEEP
-
 #define AUDIO_PIN A5
 #define AUDIO_PIN_ALT A4
 #define AUDIO_PIN_ALT_AS_NEGATIVE
-
-#define LED_CAPS_LOCK_PIN A6
-#define LED_SCROLL_LOCK_PIN A7

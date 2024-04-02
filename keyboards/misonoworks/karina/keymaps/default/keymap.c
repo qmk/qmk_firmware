@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [META] = LAYOUT(
-        KC_NLCK,                                                                                  KC_TRNS,
+        KC_NUM,                                                                                   KC_TRNS,
                  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,
         KC_F11,  KC_F12,  KC_UP,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LBRC, KC_RBRC,
         KC_LSFT, KC_LEFT, KC_DOWN, KC_RGHT, KC_PPLS, KC_P2,   KC_P0,   KC_P1,   KC_TRNS, KC_TRNS,
@@ -56,7 +56,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         if (clockwise) {
             tap_code(KC_PGUP);
         } else {
-            tap_code(KC_PGDOWN);
+            tap_code(KC_PGDN);
         }
     }
     else if (index == 1) {

@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "typ65.h"
+#include "quantum.h"
 
 void keyboard_pre_init_kb (void) {
   setPinOutput(INDICATOR_0);
@@ -48,4 +48,20 @@ __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
             break;
     }
 	return state;
+}
+
+void suspend_power_down_kb(void) {
+    writePinLow(INDICATOR_0);
+    writePinLow(INDICATOR_1);
+    writePinLow(INDICATOR_2);
+
+    suspend_power_down_user();
+}
+
+void suspend_wakeup_init_kb(void) {
+    writePinHigh(INDICATOR_0);
+    writePinHigh(INDICATOR_1);
+    writePinHigh(INDICATOR_2);
+
+    suspend_wakeup_init_user();
 }

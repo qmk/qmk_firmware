@@ -5,6 +5,7 @@
 #include "cirque_pinnacle_regdefs.h"
 #include <stdint.h>
 #include <stdbool.h>
+#include "pointing_device_internal.h"
 
 #ifndef CIRQUE_PINNACLE_TIMEOUT
 #    define CIRQUE_PINNACLE_TIMEOUT 20 // I2C timeout in milliseconds
@@ -21,24 +22,35 @@
 #    define CIRQUE_PINNACLE_DIAMETER_MM 40
 #endif
 
+#if CIRQUE_PINNACLE_POSITION_MODE
 // Coordinate scaling values
-#ifndef CIRQUE_PINNACLE_X_LOWER
-#    define CIRQUE_PINNACLE_X_LOWER 127 // min "reachable" X value
-#endif
-#ifndef CIRQUE_PINNACLE_X_UPPER
-#    define CIRQUE_PINNACLE_X_UPPER 1919 // max "reachable" X value
-#endif
-#ifndef CIRQUE_PINNACLE_Y_LOWER
-#    define CIRQUE_PINNACLE_Y_LOWER 63 // min "reachable" Y value
-#endif
-#ifndef CIRQUE_PINNACLE_Y_UPPER
-#    define CIRQUE_PINNACLE_Y_UPPER 1471 // max "reachable" Y value
-#endif
-#ifndef CIRQUE_PINNACLE_X_RANGE
-#    define CIRQUE_PINNACLE_X_RANGE (CIRQUE_PINNACLE_X_UPPER - CIRQUE_PINNACLE_X_LOWER)
-#endif
-#ifndef CIRQUE_PINNACLE_Y_RANGE
-#    define CIRQUE_PINNACLE_Y_RANGE (CIRQUE_PINNACLE_Y_UPPER - CIRQUE_PINNACLE_Y_LOWER)
+#    ifndef CIRQUE_PINNACLE_X_LOWER
+#        define CIRQUE_PINNACLE_X_LOWER 127 // min "reachable" X value
+#    endif
+#    ifndef CIRQUE_PINNACLE_X_UPPER
+#        define CIRQUE_PINNACLE_X_UPPER 1919 // max "reachable" X value
+#    endif
+#    ifndef CIRQUE_PINNACLE_Y_LOWER
+#        define CIRQUE_PINNACLE_Y_LOWER 63 // min "reachable" Y value
+#    endif
+#    ifndef CIRQUE_PINNACLE_Y_UPPER
+#        define CIRQUE_PINNACLE_Y_UPPER 1471 // max "reachable" Y value
+#    endif
+#    ifndef CIRQUE_PINNACLE_X_RANGE
+#        define CIRQUE_PINNACLE_X_RANGE (CIRQUE_PINNACLE_X_UPPER - CIRQUE_PINNACLE_X_LOWER)
+#    endif
+#    ifndef CIRQUE_PINNACLE_Y_RANGE
+#        define CIRQUE_PINNACLE_Y_RANGE (CIRQUE_PINNACLE_Y_UPPER - CIRQUE_PINNACLE_Y_LOWER)
+#    endif
+#    if defined(POINTING_DEVICE_GESTURES_SCROLL_ENABLE)
+#        define CIRQUE_PINNACLE_CIRCULAR_SCROLL_ENABLE
+#    endif
+#else
+#    define CIRQUE_PINNACLE_X_RANGE 256
+#    define CIRQUE_PINNACLE_Y_RANGE 256
+#    if defined(POINTING_DEVICE_GESTURES_SCROLL_ENABLE)
+#        define CIRQUE_PINNACLE_SIDE_SCROLL_ENABLE
+#    endif
 #endif
 #if !defined(POINTING_DEVICE_TASK_THROTTLE_MS)
 #    define POINTING_DEVICE_TASK_THROTTLE_MS 10 // Cirque Pinnacle in normal operation produces data every 10ms. Advanced configuration for pen/stylus usage might require lower values.
@@ -67,7 +79,11 @@
 #            define CIRQUE_PINNACLE_SPI_DIVISOR 64
 #        endif
 #        ifndef CIRQUE_PINNACLE_SPI_CS_PIN
-#            error "No Chip Select pin has been defined -- missing CIRQUE_PINNACLE_SPI_CS_PIN define"
+#            ifdef POINTING_DEVICE_CS_PIN
+#                define CIRQUE_PINNACLE_SPI_CS_PIN POINTING_DEVICE_CS_PIN
+#            else
+#                error "No Chip Select pin has been defined -- missing POINTING_DEVICE_CS_PIN or CIRQUE_PINNACLE_SPI_CS_PIN define"
+#            endif
 #        endif
 #    endif
 #endif
@@ -86,9 +102,9 @@ typedef struct {
     uint8_t  buttonFlags;
     bool     touchDown;
 #else
-    uint8_t xDelta;
-    uint8_t yDelta;
-    uint8_t wheelCount;
+    int16_t xDelta;
+    int16_t yDelta;
+    int8_t  wheelCount;
     uint8_t buttons;
 #endif
 } pinnacle_data_t;

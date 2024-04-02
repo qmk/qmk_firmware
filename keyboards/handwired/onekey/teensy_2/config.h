@@ -16,17 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-#define PRODUCT Onekey Teensy 2.0
-
-#define MATRIX_COL_PINS { F4 }
-#define MATRIX_ROW_PINS { F5 }
-#define UNUSED_PINS
-
-#define BACKLIGHT_PIN B6
-
-#define RGB_DI_PIN F6
 
 #define ADC_PIN F6
 

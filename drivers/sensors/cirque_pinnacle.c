@@ -4,10 +4,10 @@
 // refer to documentation: Gen2 and Gen3 (Pinnacle ASIC) at https://www.cirque.com/documentation
 
 #include "cirque_pinnacle.h"
-#include "print.h"
-#include "debug.h"
 #include "wait.h"
 #include "timer.h"
+
+#include <stdlib.h>
 
 #ifndef CIRQUE_PINNACLE_ATTENUATION
 #    ifdef CIRQUE_PINNACLE_CURVED_OVERLAY
@@ -25,12 +25,7 @@ void cirque_pinnacle_enable_feed(bool feedEnable);
 void RAP_ReadBytes(uint8_t address, uint8_t* data, uint8_t count);
 void RAP_Write(uint8_t address, uint8_t data);
 
-#ifdef CONSOLE_ENABLE
-void print_byte(uint8_t byte) {
-    xprintf("%c%c%c%c%c%c%c%c|", (byte & 0x80 ? '1' : '0'), (byte & 0x40 ? '1' : '0'), (byte & 0x20 ? '1' : '0'), (byte & 0x10 ? '1' : '0'), (byte & 0x08 ? '1' : '0'), (byte & 0x04 ? '1' : '0'), (byte & 0x02 ? '1' : '0'), (byte & 0x01 ? '1' : '0'));
-}
-#endif
-
+#if CIRQUE_PINNACLE_POSITION_MODE
 /*  Logical Scaling Functions */
 // Clips raw coordinates to "reachable" window of sensor
 // NOTE: values outside this window can only appear as a result of noise
@@ -46,6 +41,7 @@ void ClipCoordinates(pinnacle_data_t* coordinates) {
         coordinates->yValue = CIRQUE_PINNACLE_Y_UPPER;
     }
 }
+#endif
 
 uint16_t cirque_pinnacle_get_scale(void) {
     return scale_data;
@@ -56,6 +52,7 @@ void cirque_pinnacle_set_scale(uint16_t scale) {
 
 // Scales data to desired X & Y resolution
 void cirque_pinnacle_scale_data(pinnacle_data_t* coordinates, uint16_t xResolution, uint16_t yResolution) {
+#if CIRQUE_PINNACLE_POSITION_MODE
     uint32_t xTemp = 0;
     uint32_t yTemp = 0;
 
@@ -71,10 +68,26 @@ void cirque_pinnacle_scale_data(pinnacle_data_t* coordinates, uint16_t xResoluti
     // scale coordinates to (xResolution, yResolution) range
     coordinates->xValue = (uint16_t)(xTemp * xResolution / CIRQUE_PINNACLE_X_RANGE);
     coordinates->yValue = (uint16_t)(yTemp * yResolution / CIRQUE_PINNACLE_Y_RANGE);
+#else
+    int32_t        xTemp = 0, yTemp = 0;
+    ldiv_t         temp;
+    static int32_t xRemainder, yRemainder;
+
+    temp       = ldiv(((int32_t)coordinates->xDelta) * (int32_t)xResolution + xRemainder, (int32_t)CIRQUE_PINNACLE_X_RANGE);
+    xTemp      = temp.quot;
+    xRemainder = temp.rem;
+
+    temp       = ldiv(((int32_t)coordinates->yDelta) * (int32_t)yResolution + yRemainder, (int32_t)CIRQUE_PINNACLE_Y_RANGE);
+    yTemp      = temp.quot;
+    yRemainder = temp.rem;
+
+    coordinates->xDelta = (int16_t)xTemp;
+    coordinates->yDelta = (int16_t)yTemp;
+#endif
 }
 
 // Clears Status1 register flags (SW_CC and SW_DR)
-void cirque_pinnacle_clear_flags() {
+void cirque_pinnacle_clear_flags(void) {
     RAP_Write(HOSTREG__STATUS1, HOSTREG__STATUS1_DEFVAL & ~(HOSTREG__STATUS1__COMMAND_COMPLETE | HOSTREG__STATUS1__DATA_READY));
     wait_us(50);
 }
@@ -142,14 +155,20 @@ void ERA_WriteByte(uint16_t address, uint8_t data) {
     cirque_pinnacle_clear_flags();
 }
 
-void cirque_pinnacle_set_adc_attenuation(uint8_t adcGain) {
+bool cirque_pinnacle_set_adc_attenuation(uint8_t adcGain) {
     uint8_t adcconfig = 0x00;
 
     ERA_ReadBytes(EXTREG__TRACK_ADCCONFIG, &adcconfig, 1);
-    adcconfig &= EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_MASK;
+    adcGain &= EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_MASK;
+    if (adcGain == (adcconfig & EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_MASK)) {
+        return false;
+    }
+    adcconfig &= ~EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_MASK;
     adcconfig |= adcGain;
     ERA_WriteByte(EXTREG__TRACK_ADCCONFIG, adcconfig);
     ERA_ReadBytes(EXTREG__TRACK_ADCCONFIG, &adcconfig, 1);
+
+    return true;
 }
 
 // Changes thresholds to improve detection of fingers
@@ -197,6 +216,20 @@ void cirque_pinnacle_cursor_smoothing(bool enable) {
     RAP_Write(HOSTREG__FEEDCONFIG3, feedconfig3);
 }
 
+// Check sensor is connected
+bool cirque_pinnacle_connected(void) {
+    uint8_t current_zidle = 0;
+    uint8_t temp_zidle    = 0;
+    RAP_ReadBytes(HOSTREG__ZIDLE, &current_zidle, 1);
+    RAP_Write(HOSTREG__ZIDLE, HOSTREG__ZIDLE_DEFVAL);
+    RAP_ReadBytes(HOSTREG__ZIDLE, &temp_zidle, 1);
+    if (temp_zidle == HOSTREG__ZIDLE_DEFVAL) {
+        RAP_Write(HOSTREG__ZIDLE, current_zidle);
+        return true;
+    }
+    return false;
+}
+
 /*  Pinnacle-based TM040040/TM035035/TM023023 Functions  */
 void cirque_pinnacle_init(void) {
 #if defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_spi)
@@ -207,32 +240,58 @@ void cirque_pinnacle_init(void) {
 
     touchpad_init = true;
 
-    // Host clears SW_CC flag
-    cirque_pinnacle_clear_flags();
-
     // send a RESET command now, in case QMK had a soft-reset without a power cycle
     RAP_Write(HOSTREG__SYSCONFIG1, HOSTREG__SYSCONFIG1__RESET);
     wait_ms(30); // Pinnacle needs 10-15ms to boot, so wait long enough before configuring
     RAP_Write(HOSTREG__SYSCONFIG1, HOSTREG__SYSCONFIG1_DEFVAL);
     wait_us(50);
 
-    // FeedConfig2 (Feature flags for Relative Mode Only)
+    // Host clears SW_CC flag
+    cirque_pinnacle_clear_flags();
+
+#if CIRQUE_PINNACLE_POSITION_MODE
     RAP_Write(HOSTREG__FEEDCONFIG2, HOSTREG__FEEDCONFIG2_DEFVAL);
+#else
+    // FeedConfig2 (Feature flags for Relative Mode Only)
+    uint8_t feedconfig2 = HOSTREG__FEEDCONFIG2__GLIDE_EXTEND_DISABLE | HOSTREG__FEEDCONFIG2__INTELLIMOUSE_MODE;
+#    if !defined(CIRQUE_PINNACLE_TAP_ENABLE)
+    feedconfig2 |= HOSTREG__FEEDCONFIG2__ALL_TAP_DISABLE;
+#    endif
+#    if !defined(CIRQUE_PINNACLE_SECONDARY_TAP_ENABLE)
+    feedconfig2 |= HOSTREG__FEEDCONFIG2__SECONDARY_TAP_DISABLE;
+#    elif !defined(CIRQUE_PINNACLE_TAP_ENABLE)
+#        error CIRQUE_PINNACLE_TAP_ENABLE must be defined for CIRQUE_PINNACLE_SECONDARY_TAP_ENABLE to work
+#    endif
+#    if !defined(CIRQUE_PINNACLE_SIDE_SCROLL_ENABLE)
+    feedconfig2 |= HOSTREG__FEEDCONFIG2__SCROLL_DISABLE;
+#    endif
+    RAP_Write(HOSTREG__FEEDCONFIG2, feedconfig2);
+#endif
 
     // FeedConfig1 (Data Output Flags)
     RAP_Write(HOSTREG__FEEDCONFIG1, CIRQUE_PINNACLE_POSITION_MODE ? HOSTREG__FEEDCONFIG1__DATA_TYPE__REL0_ABS1 : HOSTREG__FEEDCONFIG1_DEFVAL);
 
+#if CIRQUE_PINNACLE_POSITION_MODE
     // Host sets z-idle packet count to 5 (default is 0x1E/30)
     RAP_Write(HOSTREG__ZIDLE, 5);
+#endif
 
-    cirque_pinnacle_set_adc_attenuation(CIRQUE_PINNACLE_ATTENUATION);
+    bool calibrate = cirque_pinnacle_set_adc_attenuation(CIRQUE_PINNACLE_ATTENUATION);
+
 #ifdef CIRQUE_PINNACLE_CURVED_OVERLAY
     cirque_pinnacle_tune_edge_sensitivity();
+    calibrate = true;
 #endif
-    // Force a calibration after setting ADC attenuation
-    cirque_pinnacle_calibrate();
+    if (calibrate) {
+        // Force a calibration after setting ADC attenuation
+        cirque_pinnacle_calibrate();
+    }
 
     cirque_pinnacle_enable_feed(true);
+
+#ifndef CIRQUE_PINNACLE_SKIP_SENSOR_CHECK
+    touchpad_init = cirque_pinnacle_connected();
+#endif
 }
 
 pinnacle_data_t cirque_pinnacle_read_data(void) {
@@ -265,10 +324,27 @@ pinnacle_data_t cirque_pinnacle_read_data(void) {
 #else
     // Decode data for relative mode
     // Registers 0x16 and 0x17 are unused in this mode
-    result.buttons    = data[0] & 0x07; // bit0 = primary button, bit1 = secondary button, bit2 = auxilary button, if Taps enabled then also software-recognized taps are reported
-    result.xDelta     = data[1];
-    result.yDelta     = data[2];
-    result.wheelCount = data[3];
+    result.buttons = data[0] & 0x07; // Only three buttons are supported
+    if ((data[0] & 0x10) && data[1] != 0) {
+        result.xDelta = -((int16_t)256 - (int16_t)(data[1]));
+    } else {
+        result.xDelta = data[1];
+    }
+    if ((data[0] & 0x20) && data[2] != 0) {
+        result.yDelta = ((int16_t)256 - (int16_t)(data[2]));
+    } else {
+        result.yDelta = -((int16_t)data[2]);
+    }
+    result.wheelCount = ((int8_t*)data)[3];
+#endif
+
+#ifdef CIRQUE_PINNACLE_REACHABLE_CALIBRATION
+    static uint16_t xMin = UINT16_MAX, yMin = UINT16_MAX, yMax = 0, xMax = 0;
+    if (result.xValue < xMin) xMin = result.xValue;
+    if (result.xValue > xMax) xMax = result.xValue;
+    if (result.yValue < yMin) yMin = result.yValue;
+    if (result.yValue > yMax) yMax = result.yValue;
+    pd_dprintf("%s: xLo=%3d xHi=%3d yLo=%3d yHi=%3d\n", __FUNCTION__, xMin, xMax, yMin, yMax);
 #endif
 
     result.valid = true;

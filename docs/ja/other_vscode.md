@@ -106,10 +106,8 @@ VS Code のようなフル機能のエディタの使用は、プレーンテキ
 * [Git Extension Pack](https://marketplace.visualstudio.com/items?itemName=donjayamanne.git-extension-pack) -
 これは QMK ファームウェアで Git を簡単に使用できる Git 関連ツールを多数インスールします。
 * [EditorConfig for VS Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig) - _[オプション]_ -  QMK コーディング規約にコードを準拠させるのに役立ちます。
-* [Bracket Pair Colorizer 2](https://marketplace.visualstudio.com/items?itemName=CoenraadS.bracket-pair-colorizer-2) - _[オプション]_ - これはネストされたコードを参照しやすくするために、コード内の括弧を色分けします。
 * [GitHub Markdown Preview](https://marketplace.visualstudio.com/items?itemName=bierner.github-markdown-preview) - _[オプション]_ - VS Code の markdown プレビューを GithHub のようにします。
 * [VS Live Share Extension Pack](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare-pack) - _[オプション]_ - この拡張により、他の誰かがあなたのワークスペースにアクセスし(あるいは、あなたが他の誰かのワークスペースにアクセスし)、手伝うことができます。あなたが問題を抱えており、他の誰かの助けが必要な場合に便利です。
-* [VIM Keymap](https://marketplace.visualstudio.com/items?itemName=GiuseppeCesarano.vim-keymap) - _[オプション]_ - VIM スタイルのキーバインドを好む人向け。これには他のオプションもあります。
 
 いずれかの拡張機能をインストールしたら、再起動します。
 

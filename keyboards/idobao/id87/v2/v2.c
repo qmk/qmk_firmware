@@ -1,7 +1,7 @@
 // Copyright 2022 vinorodrigues (@vinorodrigues)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "v2.h"
+#include "quantum.h"
 
 #define __ NO_LED
 

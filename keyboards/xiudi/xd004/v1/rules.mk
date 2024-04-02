@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega16u2
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -19,5 +13,3 @@ RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 SPACE_CADET_ENABLE = no
 # Saves about 5% of space:
 LTO_ENABLE = yes
-
-#LAYOUTS = ortho_1x4

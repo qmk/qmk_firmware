@@ -17,9 +17,6 @@
 
 #pragma once
 
-// TESTING
-// extern uint8_t blinkLed;
-
 #include <ch.h>
 #include <hal.h>
 
@@ -29,7 +26,9 @@
  */
 
 /* The USB driver to use */
-#define USB_DRIVER USBD1
+#ifndef USB_DRIVER
+#    define USB_DRIVER USBD1
+#endif // USB_DRIVER
 
 /* Initialize the USB driver and bus */
 void init_usb_driver(USBDriver *usbp);
@@ -48,43 +47,6 @@ void usb_event_queue_init(void);
 /* Task to dequeue and execute any handlers for the USB events on the main thread */
 void usb_event_queue_task(void);
 
-/* ---------------
- * Keyboard header
- * ---------------
- */
-
-/* extern report_keyboard_t keyboard_report_sent; */
-
-/* keyboard IN request callback handler */
-void kbd_in_cb(USBDriver *usbp, usbep_t ep);
-
-/* start-of-frame handler */
-void kbd_sof_cb(USBDriver *usbp);
-
-#ifdef NKRO_ENABLE
-/* nkro IN callback hander */
-void nkro_in_cb(USBDriver *usbp, usbep_t ep);
-#endif /* NKRO_ENABLE */
-
-/* ------------
- * Mouse header
- * ------------
- */
-
-#ifdef MOUSE_ENABLE
-
-/* mouse IN request callback handler */
-void mouse_in_cb(USBDriver *usbp, usbep_t ep);
-#endif /* MOUSE_ENABLE */
-
-/* ---------------
- * Shared EP header
- * ---------------
- */
-
-/* shared IN request callback handler */
-void shared_in_cb(USBDriver *usbp, usbep_t ep);
-
 /* --------------
  * Console header
  * --------------
@@ -94,8 +56,5 @@ void shared_in_cb(USBDriver *usbp, usbep_t ep);
 
 /* Putchar over the USB console */
 int8_t sendchar(uint8_t c);
-
-/* Flush output (send everything immediately) */
-void console_flush_output(void);
 
 #endif /* CONSOLE_ENABLE */

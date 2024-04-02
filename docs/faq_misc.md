@@ -10,7 +10,7 @@ You probably don't want to "brick" your keyboard, making it impossible
 to rewrite firmware onto it.  Here are some of the parameters to show
 what things are (and likely aren't) too risky.
 
-- If your keyboard map does not include RESET, then, to get into DFU
+- If your keyboard map does not include QK_BOOT, then, to get into DFU
   mode, you will need to press the reset button on the PCB, which
   requires unscrewing the bottom.
 - Messing with tmk_core / common files might make the keyboard

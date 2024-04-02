@@ -1,0 +1,103 @@
+{
+    "keyboard_name": "SharkPCB rev. Beta",
+    "usb": {
+        "pid": "0x5369",
+        "device_version": "0.0.2"
+    },
+    "matrix_pins": {
+        "cols": ["A5", "A10", "C13", "B9", "B8", "B5", "B4", "B3", "A15", "A0", "A1", "A2"],
+        "rows": ["A8", "B14", "A4", "A3"]
+    },
+    "diode_direction": "COL2ROW",
+    "eeprom": {
+        "driver": "i2c"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "C15", "pin_b": "C14"}
+        ]
+    },
+    "rgblight": {
+        "led_count": 24,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "B15"
+    },
+    "backlight": {
+        "pin": "A6",
+        "levels": 20,
+        "breathing": true
+    },
+    "processor": "STM32F411",
+    "bootloader": "stm32-dfu",
+    "community_layouts": ["ortho_4x12"],
+    "layouts": {
+        "LAYOUT_ortho_4x12": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [0, 4], "x": 4, "y": 0},
+                {"matrix": [0, 5], "x": 5, "y": 0},
+                {"matrix": [0, 6], "x": 6, "y": 0},
+                {"matrix": [0, 7], "x": 7, "y": 0},
+                {"matrix": [0, 8], "x": 8, "y": 0},
+                {"matrix": [0, 9], "x": 9, "y": 0},
+                {"matrix": [0, 10], "x": 10, "y": 0},
+                {"matrix": [0, 11], "x": 11, "y": 0},
+
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [1, 3], "x": 3, "y": 1},
+                {"matrix": [1, 4], "x": 4, "y": 1},
+                {"matrix": [1, 5], "x": 5, "y": 1},
+                {"matrix": [1, 6], "x": 6, "y": 1},
+                {"matrix": [1, 7], "x": 7, "y": 1},
+                {"matrix": [1, 8], "x": 8, "y": 1},
+                {"matrix": [1, 9], "x": 9, "y": 1},
+                {"matrix": [1, 10], "x": 10, "y": 1},
+                {"matrix": [1, 11], "x": 11, "y": 1},
+
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+                {"matrix": [2, 3], "x": 3, "y": 2},
+                {"matrix": [2, 4], "x": 4, "y": 2},
+                {"matrix": [2, 5], "x": 5, "y": 2},
+                {"matrix": [2, 6], "x": 6, "y": 2},
+                {"matrix": [2, 7], "x": 7, "y": 2},
+                {"matrix": [2, 8], "x": 8, "y": 2},
+                {"matrix": [2, 9], "x": 9, "y": 2},
+                {"matrix": [2, 10], "x": 10, "y": 2},
+                {"matrix": [2, 11], "x": 11, "y": 2},
+
+                {"matrix": [3, 0], "x": 0, "y": 3},
+                {"matrix": [3, 1], "x": 1, "y": 3},
+                {"matrix": [3, 2], "x": 2, "y": 3},
+                {"matrix": [3, 3], "x": 3, "y": 3},
+                {"matrix": [3, 4], "x": 4, "y": 3},
+                {"matrix": [3, 5], "x": 5, "y": 3},
+                {"matrix": [3, 6], "x": 6, "y": 3},
+                {"matrix": [3, 7], "x": 7, "y": 3},
+                {"matrix": [3, 8], "x": 8, "y": 3},
+                {"matrix": [3, 9], "x": 9, "y": 3},
+                {"matrix": [3, 10], "x": 10, "y": 3},
+                {"matrix": [3, 11], "x": 11, "y": 3}
+            ]
+        }
+    }
+}

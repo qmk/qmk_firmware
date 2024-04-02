@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * .--------------------------------------.
      * | N/A          | N/A   | Hold: Layer 2 |
      * |--------------|-------|---------------|
-     * | QK_BOOT EEPROM | QK_BOOT | DEBUG MODE    |
+     * | Clear EEPROM | Bootloader | Debug    |
      * |--------------|-------|---------------|
      * | N/A          | N/A   | N/A           |
      * '--------------------------------------'
@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [2] =
         LAYOUT(
                 KC_NO  , KC_NO, KC_TRNS,
-                EEP_RST, QK_BOOT, DEBUG  ,
+                EE_CLR,  QK_BOOT, DB_TOGG,
                 KC_NO  , KC_NO, KC_NO
               ),
 
@@ -76,13 +76,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const rgblight_segment_t PROGMEM _base_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-        {0, RGBLED_NUM, HSV_BLUE}
+        {0, RGBLIGHT_LED_COUNT, HSV_BLUE}
         );
 const rgblight_segment_t PROGMEM _middle_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-        {0, RGBLED_NUM, HSV_GREEN}
+        {0, RGBLIGHT_LED_COUNT, HSV_GREEN}
         );
 const rgblight_segment_t PROGMEM _top_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-        {0, RGBLED_NUM, HSV_RED}
+        {0, RGBLIGHT_LED_COUNT, HSV_RED}
         );
 
 const rgblight_segment_t* const PROGMEM _rgb_layers[] =
