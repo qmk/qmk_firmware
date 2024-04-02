@@ -106,13 +106,13 @@ enum my_keycodes {
       for lang in languages:
           cog.out(f"KC_{lang}, ")
     ]]]*/
-    KC_LANG_EN, KC_LANG_DE, KC_LANG_FR, KC_LANG_ES, KC_LANG_PT, KC_LANG_IT, KC_LANG_TR, KC_LANG_KO, KC_LANG_JA, KC_LANG_AR, KC_LANG_GR, 
+    KC_LANG_EN, KC_LANG_DE, KC_LANG_FR, KC_LANG_ES, KC_LANG_PT, KC_LANG_IT, KC_LANG_TR, KC_LANG_KO, KC_LANG_JA, KC_LANG_AR, KC_LANG_GR,
     //[[[end]]]
     /*[[[cog
       for idx in range(10):
           cog.out(f"KC_LAT{idx}, ")
     ]]]*/
-    KC_LAT0, KC_LAT1, KC_LAT2, KC_LAT3, KC_LAT4, KC_LAT5, KC_LAT6, KC_LAT7, KC_LAT8, KC_LAT9, 
+    KC_LAT0, KC_LAT1, KC_LAT2, KC_LAT3, KC_LAT4, KC_LAT5, KC_LAT6, KC_LAT7, KC_LAT8, KC_LAT9,
     //[[[end]]]
     //Lables, no functionality:
     LBL_TEXT
@@ -205,6 +205,14 @@ static poly_sync_t g_local;
 
 static int32_t last_update = 0;
 
+#define NUM_SEGMENTS_PER_OVERLAY 15
+#define BYTES_PER_SEGMENT 24
+#define NUM_OVERLAYS 90
+#define NUM_VARIATIONS 4 // Normal(0), Ctrl(1), Shift(2), Alt(4)
+static bool use_overlay[NUM_OVERLAYS*NUM_VARIATIONS];
+static uint8_t overlays [NUM_OVERLAYS*NUM_VARIATIONS][72*40/8]; // ResX*ResY/PixelPerByte
+
+
 bool display_wakeup(keyrecord_t* record);
 void update_displays(enum refresh_mode mode);
 void set_displays(uint8_t contrast, bool idle);
@@ -212,21 +220,6 @@ void set_selected_displays(int8_t old_value, int8_t new_value);
 void toggle_stagger(bool new_state);
 void oled_update_buffer(void);
 void poly_suspend(void);
-
-uint16_t fletcher16(const uint8_t *data, int count )
-{
-   uint16_t sum1 = 0;
-   uint16_t sum2 = 0;
-   int index;
-
-   for ( index = 0; index < count; ++index )
-   {
-      sum1 = (sum1 + data[index]) % 255;
-      sum2 = (sum2 + sum1) % 255;
-   }
-
-   return (sum2 << 8) | sum1;
-}
 
 void save_user_eeconf(void) {
     poly_eeconf_t ee;
@@ -474,7 +467,7 @@ uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    ├────────┼───────┼───────┼───────┼───────┼───────┼───────┼────────╮  ╭────────┼───────┼───────┼───────┼───────┼───────┼───────┼────────┤
    │ Shift  │   z   │   x   │   c   │   v   │   b   │  Nuhs │  Num!  │  │   [    │   ]   │   n   │   m   │   ,   │   ;   │  Up   │ Shift  │
    └┬───────┼───────┼───────┼───────┼──────┬┴───────┼───────┼────────┤  ├────────┼───────┼───────┴┬──────┼───────┼───────┼───────┼───────┬┘
-    │ Ctrl  │  Os   │  Alt  │  Intl │      │  Space │  Del  │   Ret  │  │  Lang  │   /   │ Space  │      │   .   │  Left │  Down │ Right │
+    │ Ctrl  │  Os   │  Alt  │  Ctx  │      │  Space │  Del  │   Ret  │  │  Lang  │   /   │ Space  │      │   .   │  Left │  Down │ Right │
     └───────┴───────┴───────┴───────┘      └────────┴───────┴────────╯  └────────┴───────┴────────┘      └───────┴───────┴───────┴───────┘
 */
     [_L0] = LAYOUT_left_right_stacked(
@@ -1276,6 +1269,34 @@ const uint16_t* keycode_to_disp_overlay(uint16_t keycode, led_t state) {
     return NULL;
 }
 
+uint16_t adjust_overlay_idx_to_mod(uint16_t idx, uint8_t mods) {
+    //GUI as modifier not supported at the moment
+    switch(mods) {
+        case MOD_RALT:
+        case MOD_LALT: return idx + NUM_OVERLAYS*3; //ALT
+        case MOD_RSFT:
+        case MOD_LSFT: return idx + NUM_OVERLAYS*2; //SHIFT
+        case MOD_RCTL:
+        case MOD_LCTL: return idx + NUM_OVERLAYS;   //CTRL
+        default:return idx;
+    }
+}
+
+bool copy_overlay_to_buffer(uint16_t keycode, uint8_t mods) {
+    if(keycode>KC_RGUI) {
+        return false;
+    }
+    uint16_t idx = (keycode>KC_APP) ? (keycode - KC_LEFT_CTRL + 82) : (keycode>KC_NUM_LOCK ? keycode - KC_NUBS + 80 : keycode - KC_A);
+    if(idx>=90) {
+        return false;
+    }
+    idx = adjust_overlay_idx_to_mod(idx, mods);
+    if(!use_overlay[idx]) {
+        return false;
+    }
+    kdisp_draw_bitmap(28, 0, overlays[idx], 72, 40); //don't understnad why we start at offset 28... need to think about it
+    return true;
+}
 
 void update_displays(enum refresh_mode mode) {
     if(g_local.contrast<=DISP_OFF || (g_local.flags&DISP_IDLE)!=0) {
@@ -1284,10 +1305,11 @@ void update_displays(enum refresh_mode mode) {
 
     //uint8_t layer = get_highest_layer(layer_state);
 
-    led_t state = host_keyboard_led_state();
-    bool capital_case = ((get_mods() & MOD_MASK_SHIFT) != 0) || state.caps_lock;
+    const led_t state = host_keyboard_led_state();
+    const uint8_t mods = get_mods();
+    const bool capital_case = ((mods & MOD_MASK_SHIFT) != 0) || state.caps_lock;
     //the left side has an offset of 0, the right side an offset of MATRIX_ROWS_PER_SIDE
-    uint8_t offset = is_left_side() ? 0 : MATRIX_ROWS_PER_SIDE;
+    const uint8_t offset = is_left_side() ? 0 : MATRIX_ROWS_PER_SIDE;
     uint8_t start_row = 0;
 
     //select first display (and later on shift that 0 till the end)
@@ -1299,7 +1321,7 @@ void update_displays(enum refresh_mode mode) {
         sr_shift_out_buffer_latch(disp_row_0.bitmask, sizeof(struct display_info));
     }
 
-    uint8_t max_rows = mode == START_FIRST_HALF ? 3 : MATRIX_ROWS_PER_SIDE;
+    const uint8_t max_rows = mode == START_FIRST_HALF ? 3 : MATRIX_ROWS_PER_SIDE;
 
     uint8_t skip = 0;
     for (uint8_t r = start_row; r < max_rows; ++r) {
@@ -1331,7 +1353,9 @@ void update_displays(enum refresh_mode mode) {
                         } else {
                             kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 23, text);
                         }
-                        text = keycode_to_disp_overlay(keycode, state);
+                        if(!copy_overlay_to_buffer(keycode, mods)) {
+                            text = keycode_to_disp_overlay(keycode, state);
+                        }
                         if(text!=NULL) {
                             kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 23, text);
                         }
@@ -1709,6 +1733,7 @@ void keyboard_post_init_user(void) {
     //srand(halGetCounterValue());
 
     memset(&g_state, 0, sizeof(g_state));
+    memset(&use_overlay, 0, sizeof(use_overlay));
 
     transaction_register_rpc(USER_SYNC_POLY_DATA, user_sync_poly_data_handler);
 }
@@ -1989,15 +2014,40 @@ void suspend_wakeup_init_kb(void) {
     suspend_wakeup_init_user();
 }
 
+static uint16_t byte_counter = 0;
+void fill_overlay_buffer(uint8_t keycode, uint8_t mods, uint8_t segment_0_to_14, uint8_t* buffer_24bytes) {
+    if(keycode>KC_RGUI) {
+        uprint("Warning: Supplied overlay keycode not supported.\n");
+        return;
+    }
+    uint16_t idx = (keycode>KC_APP) ? (keycode - KC_LEFT_CTRL + 82) : (keycode>KC_NUM_LOCK ? keycode - KC_NUBS + 80 : keycode - KC_A);
+    if(idx>=90) {
+        uprint("Warning: Calculated index for overlay out of bounds. Dropping overlay.\n");
+        return;
+    }
+    idx = adjust_overlay_idx_to_mod(idx, mods);
+    memcpy(overlays[idx] + segment_0_to_14*BYTES_PER_SEGMENT, buffer_24bytes, BYTES_PER_SEGMENT);
+    byte_counter += BYTES_PER_SEGMENT;
+    if(segment_0_to_14==NUM_SEGMENTS_PER_OVERLAY-1) {
+        use_overlay[idx] = true;
+        uprintf("Received overlay for keycode 0x%x (modifiers: 0x%x): %d bytes, index %d.\n", keycode, mods, byte_counter, idx);
+        byte_counter = 0;
+    }
+}
+
+void disable_overlays(void) {
+    memset(&use_overlay, 0, sizeof(use_overlay));
+}
+
 void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
     const char * name = "P0.PolyKybd Split72";
 
     if(debug_enable && length < 33)
     {
-        char cmdstring[33];
-        memcpy(cmdstring, data, length);
-        cmdstring[length] = 0; // Make sure string ends with 0
-        dprintf("DEBUG: custom hid or via command, length=%d cmd=%s\n", length, cmdstring);
+        //char cmdstring[33];
+        //memcpy(cmdstring, data, length);
+        //cmdstring[length] = 0; // Make sure string ends with 0
+        dprintf("DEBUG: custom hid or via command, length=%d cmd=%c\n", length, data[1]);
     }
 
     if(length>1 && (data[0] == /*via_command_id::*/id_custom_save || data[0] == 'P')) {
@@ -2057,17 +2107,39 @@ void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
             case '3': //change language
                 if(data[3]< NUM_LANG) {
                     g_local.lang = data[3];
-                    data[2] = '.';
                     update_performed();
+                    memcpy(data, "P3.", 3);
                 } else {
                     memset(data, 0, length);
                     memcpy(data, "P3!", 3);
                 }
-                                break;
+                break;
+            case '4': //receive overlay e.g. P4:\4\4
+                {
+                    uint8_t keycode = data[3];
+                    uint8_t segment = data[5];
+                    if(keycode>=KC_A && keycode<=KC_RIGHT_GUI && segment<NUM_SEGMENTS_PER_OVERLAY) {
+                        uint8_t mods = data[4];
+                        fill_overlay_buffer(keycode, mods,segment, &data[6]);
+                        if(segment==NUM_SEGMENTS_PER_OVERLAY-1) {
+                            update_performed();
+                            request_disp_refresh();
+                        }
+                        memcpy(data, "P4.", 3);
+                    } else {
+                        memset(data, 0, length);
+                        memcpy(data, "P4!", 3);
+                    }
+                }
+                break;
+            case '5': //disable overlays
+                disable_overlays();
+                update_performed();
+                request_disp_refresh();
+                memcpy(data, "P5.", 3);
+                uprint("Overlays cleared.\n");
+                break;
             default:
-                //memcpy(response, "P??", 3);
-                //response[1] = data[1];
-                //raw_hid_send(response, length);
                 break;
         }
         #ifndef VIA_ENABLE
