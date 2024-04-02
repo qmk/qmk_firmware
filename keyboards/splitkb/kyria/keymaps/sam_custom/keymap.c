@@ -354,8 +354,26 @@ void tmux_reset(tap_dance_state_t *state, void *user_data) {
     tmuxtap_state.state = TD_NONE;
 }
 
+static td_tap_t numpad_layer_state = {
+    .is_press_action = true,
+    .state = TD_NONE
+};
+void numpad_layer_finished(tap_dance_state_t *state, void *user_data) {
+    numpad_layer_state.state = cur_dance(state);
+    switch (numpad_layer_state.state) {
+        case TD_SINGLE_TAP: set_oneshot_layer(_NUMPAD, ONESHOT_START);
+    }
+};
+void numpad_layer_reset(tap_dance_state_t *state, void *user_data) {
+    numpad_layer_state.state = cur_dance(state);
+    switch (numpad_layer_state.state) {
+        case TD_SINGLE_TAP: clear_oneshot_layer_state(ONESHOT_PRESSED);
+    }
+};
+
 tap_dance_action_t tap_dance_actions[] = {
     [TMUX_SCROLL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tmux_finished, tmux_reset)
+    [NUMPAD_SL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, numpad_layer_finished, numpad_layer_reset)
 };
 
 /*
