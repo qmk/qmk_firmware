@@ -23,4 +23,6 @@
 // #define NO_ACTION_TAPPING
 // #define NO_ACTION_ONESHOT
 
+#define PERMISSIVE_HOLD
+
 #define ACHORDION_STREAK

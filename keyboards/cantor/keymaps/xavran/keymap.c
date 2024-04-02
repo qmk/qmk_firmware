@@ -18,6 +18,7 @@ void matrix_scan_user(void) {
 }
 
 // TODO: check ctrl-alt-FX key combination
+// TODO: add volume keys
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [0] = LAYOUT_split_3x6_3(
@@ -29,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, LGUI_T(KC_A), LALT_T(KC_R), LSFT_T(KC_S), LCTL_T(KC_T), KC_D, KC_H, RCTL_T(KC_N), RSFT_T(KC_E), RALT_T(KC_I), RGUI_T(KC_O), KC_TRNS,
         //--------------------------------------------------------------------------
         //---------------------------------------------------------------------------------
-        KC_TRNS, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_K, KC_M, KC_COMM, KC_DOT, KC_LBRC, KC_TRNS,
+        KC_TRNS, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_K, KC_M, KC_COMM, LALT_T(KC_DOT), KC_LBRC, KC_TRNS,
         //--------------------------------------------------------------------------
         //---------------------------------------------------------------------------------
         KC_ESCAPE, LT(4, KC_TAB), KC_ENTER, LT(2, KC_SPACE), LT(1, KC_BSPC), LT(3, KC_DEL)
@@ -91,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [4] = LAYOUT_split_3x6_3(
         //--------------------------------------------------------------
         //---------------------------------------------------------------------------------
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, CW_TOGG, KC_TRNS, KC_PSCR,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, CW_TOGG, KC_TRNS, KC_PSCR, KC_TRNS,
         //--------------------------------------------------------------
         //---------------------------------------------------------------------------------
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_TRNS,
