@@ -379,6 +379,9 @@ typedef struct {
 #ifdef VIRTSER_ENABLE
             usb_driver_config_t serial_driver;
 #endif
+#if defined(RADIAL_DIAL_ENABLE) && !defined(RADIAL_DIAL_SHARED_EP)
+            usb_driver_config_t radial_dial_driver;
+#endif
         };
         usb_driver_config_t array[0];
     };
@@ -412,6 +415,15 @@ static usb_driver_configs_t drivers = {
 #    define CDC_OUT_MODE USB_EP_MODE_TYPE_BULK
     .serial_driver = QMK_USB_DRIVER_CONFIG(CDC, CDC_NOTIFICATION_EPNUM, false),
 #endif
+
+#if defined(RADIAL_DIAL_ENABLE) && !defined(RADIAL_DIAL_SHARED_EP)
+#    define RADIAL_DIAL_IN_CAPACITY 4
+#    define RADIAL_DIAL_OUT_CAPACITY 4
+#    define RADIAL_DIAL_IN_MODE USB_EP_MODE_TYPE_BULK
+#    define RADIAL_DIAL_OUT_MODE USB_EP_MODE_TYPE_BULK
+    .radial_dial_driver = QMK_USB_DRIVER_CONFIG(RADIAL_DIAL, 0, false),
+#endif
+
 };
 
 #define NUM_USB_DRIVERS (sizeof(drivers) / sizeof(usb_driver_config_t))
@@ -922,6 +934,47 @@ void send_digitizer(report_digitizer_t *report) {
     send_report(DIGITIZER_IN_EPNUM, report, sizeof(report_digitizer_t));
 #endif
 }
+
+/* ---------------------------------------------------------
+ *                 Radial Dial functions
+ * ---------------------------------------------------------
+ */
+
+#ifdef RADIAL_DIAL_ENABLE
+#    ifndef RADIAL_DIAL_SHARED_EP
+/* mouse IN callback hander (a mouse report has made it IN) */
+void radial_dial_in_cb(USBDriver *usbp, usbep_t ep) {
+    (void)usbp;
+    (void)ep;
+}
+#    endif
+
+void send_radial_dial(report_radial_dial_t *report) {
+    osalSysLock();
+    if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
+        osalSysUnlock();
+        return;
+    }
+
+    if (usbGetTransmitStatusI(&USB_DRIVER, RADIAL_DIAL_IN_EPNUM)) {
+        /* Need to either suspend, or loop and call unlock/lock during
+         * every iteration - otherwise the system will remain locked,
+         * no interrupts served, so USB not going through as well.
+         * Note: for suspend, need USB_USE_WAIT == TRUE in halconf.h */
+        if (osalThreadSuspendTimeoutS(&(&USB_DRIVER)->epc[RADIAL_DIAL_IN_EPNUM]->in_state->thread, TIME_MS2I(10)) == MSG_TIMEOUT) {
+            osalSysUnlock();
+            return;
+        }
+    }
+    usbStartTransmitI(&USB_DRIVER, RADIAL_DIAL_IN_EPNUM, (uint8_t *)report, sizeof(report_radial_dial_t));
+    osalSysUnlock();
+}
+
+#else  /* RADIAL_DIAL_ENABLE */
+void send_radial_dial(report_radial_dial_t *report) {
+    (void)report;
+}
+#endif /* RADIAL_DIAL_ENABLE */
 
 /* ---------------------------------------------------------
  *                   Console functions

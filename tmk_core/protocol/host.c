@@ -236,6 +236,14 @@ void host_digitizer_send(digitizer_t *digitizer) {
 
 __attribute__((weak)) void send_digitizer(report_digitizer_t *report) {}
 
+void host_radial_dial_send(report_radial_dial_t *report) {
+    if (!driver) return;
+#ifdef RADIAL_DIAL_SHARED_EP
+    report->report_id = REPORT_ID_RADIAL_DIAL;
+#endif
+    (*driver->send_radial_dial)(report);
+}
+
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
 void host_programmable_button_send(uint32_t data) {
     report_programmable_button_t report = {

@@ -37,7 +37,8 @@ enum hid_report_ids {
     REPORT_ID_PROGRAMMABLE_BUTTON,
     REPORT_ID_NKRO,
     REPORT_ID_JOYSTICK,
-    REPORT_ID_DIGITIZER
+    REPORT_ID_DIGITIZER,
+    REPORT_ID_RADIAL_DIAL
 };
 
 /* Mouse buttons */
@@ -240,6 +241,14 @@ typedef struct {
     uint8_t buttons[(JOYSTICK_BUTTON_COUNT - 1) / 8 + 1];
 #endif
 } PACKED report_joystick_t;
+
+typedef struct {
+#ifdef RADIAL_DIAL_SHARED_EP
+    uint8_t report_id;
+#endif
+    uint16_t button : 1;
+    int16_t  rotation : 15;
+} __attribute__((packed)) report_radial_dial_t;
 
 /* keycode to system usage */
 static inline uint16_t KEYCODE2SYSTEM(uint8_t key) {
