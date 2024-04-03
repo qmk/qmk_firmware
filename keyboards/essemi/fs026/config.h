@@ -18,13 +18,12 @@
 
 #define MATRIX_UNSELECT_DRIVE_HIGH
 
-#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR  1023
-#define TRANSIENT_EEPROM_SIZE  1024
+#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 1023
+#define TRANSIENT_EEPROM_SIZE 1024
 
 /* Ensure we jump to bootloader if the RESET keycode was pressed */
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 
 #ifndef NOP_FUDGE
-#define NOP_FUDGE 0.4
+#    define NOP_FUDGE 0.4
 #endif
-
