@@ -35,11 +35,8 @@
         "driver": "spi"
     },
     "features": {
-        "bootmagic": true,
-        "command": false,
-        "console": false,
-        "extrakey": true,
-        "mousekey": true,
+        "command": true,
+        "console": true,
         "nkro": true,
         "rgblight": true
     }
