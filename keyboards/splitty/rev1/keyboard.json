@@ -8,6 +8,10 @@
     "pid": "0x6052",
     "device_version": "0.0.1"
   },
+  "features": {
+    "mousekey": true,
+    "extrakey": true
+  },
   "split": {
     "enabled": true
   },

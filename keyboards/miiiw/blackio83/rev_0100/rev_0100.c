@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "blackio83.h"
+#include "rev_0100.h"
 #include "usb_main.h"
 #include "usb_util.h"
 
