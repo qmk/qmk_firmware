@@ -259,8 +259,7 @@ endif
 # HAL-OSAL files (optional).
 include $(CHIBIOS)/os/hal/hal.mk
 include $(CHIBIOS)/os/oslib/oslib.mk
--include $(CHIBIOS)/os/hal/osal/rt/osal.mk         # ChibiOS <= 19.x
--include $(CHIBIOS)/os/hal/osal/rt-nil/osal.mk     # ChibiOS >= 20.x
+include $(CHIBIOS)/os/hal/osal/rt-nil/osal.mk
 # RTOS files (optional).
 include $(CHIBIOS)/os/rt/rt.mk
 # Other files (optional).
