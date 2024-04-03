@@ -1,4 +1,6 @@
 {
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "bluetooth": {
         "driver": "bluefruit_le"
     }
