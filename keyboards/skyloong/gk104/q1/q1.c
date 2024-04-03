@@ -222,24 +222,17 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 }
 
 void suspend_power_down_kb() {
-#    ifdef RGB_MATRIX_ENABLE
-    writePinLow(SDB);
-#    endif
     writePinLow(MAC_PIN);
     s_serial_to_parallel(0);
     suspend_power_down_user();
 }
 
 void suspend_wakeup_init_kb() {
-#    ifdef RGB_MATRIX_ENABLE
-    writePinHigh(SDB);
-#    endif
     s_serial_to_parallel(IND);
     suspend_wakeup_init_user();
 }
 
 bool shutdown_kb(bool jump_to_bootloader) {
-    writePinLow(SDB);
     s_serial_to_parallel(0);
     return true;
 }
@@ -305,38 +298,7 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
         */
         IND = IND & (~SCR_ON);
     }
-   /*
-    switch (get_highest_layer(layer_state)) {
-    case 0:{
-       if (FN_ON) {
-            RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 255, 255, 255);
-            if (!rgb_matrix_get_flags()) {
-               RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 0, 0, 0);
-               RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 0, 0, 0);
-            }
-         }
-    } break;
 
-     case 1:{
-       if (FN_ON) {
-            RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 255, 255, 255);
-            if (!rgb_matrix_get_flags()) {
-               RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 0, 0, 0);
-               RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 0, 0, 0);
-            }
-        }
-    } break;
-
-     default:{
-         if (!rgb_matrix_get_flags()) {
-            RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 0, 0, 0);
-            RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 0, 0, 0);
-         }
-      }
-
-     return true;
-    }
-    */
     s_serial_to_parallel(IND);
     return true;
 }
@@ -345,10 +307,6 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 void board_init(void) {
     // JTAG-DP Disabled and SW-DP Disabled
     AFIO->MAPR = (AFIO->MAPR & ~AFIO_MAPR_SWJ_CFG_Msk) | AFIO_MAPR_SWJ_CFG_DISABLE;
-#   ifdef RGB_MATRIX_ENABLE
-    setPinOutput(SDB);
-    writePinHigh(SDB);
-#   endif
     setPinOutput(MAC_PIN);
     writePinHigh(MAC_PIN);
     s_serial_to_parallel(0xFF);

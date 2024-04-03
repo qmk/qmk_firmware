@@ -21,7 +21,6 @@
 #    define WIN_LOCK_INDEX 93
 #    define CAPS_LOCK_INDEX 58
 #    define SCR_LOCK_INDEX 14
-#    define SDB B5
 #endif // RGB_MATRIX_ENABLE
 
 
