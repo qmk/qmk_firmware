@@ -1,30 +1,36 @@
 {
-    "keyboard_name": "Dactyl Manuform 4x6",
-    "manufacturer": "tshort",
+    "keyboard_name": "Dactyl - Manuform(aire)",
+    "manufacturer": "MackanT",
     "url": "",
-    "maintainer": "qmk",
+    "maintainer": "MackanT",
     "usb": {
         "vid": "0x444D",
-        "pid": "0x3436",
-        "device_version": "0.0.1"
-    },
-    "rgblight": {
-        "led_count": 12
-    },
-    "ws2812": {
-        "pin": "D3"
+        "pid": "0x3536",
+        "device_version": "0.0.2"
     },
     "matrix_pins": {
         "cols": ["D4", "C6", "D7", "E6", "B4", "B5"],
-        "rows": ["F7", "B1", "B3", "B2", "B6"]
+        "rows": ["B6", "B2", "B3", "B1", "F7", "F6"]
     },
     "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": false,
+        "command": true,
+        "console": true,
+        "extrakey": true,
+        "mousekey": false,
+        "oled": true,
+        "nkro": false,
+        "rgblight": false,
+        "audio": false,
+        "backlight": false
+    },
     "split": {
+        "enabled": true,
         "soft_serial_pin": "D0"
     },
     "processor": "atmega32u4",
-    "development_board": "promicro",
-    "pin_compatible": "promicro",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -84,29 +90,25 @@
                 {"matrix": [9, 4], "x": 15, "y": 3},
                 {"matrix": [9, 5], "x": 16, "y": 3},
 
-                {"matrix": [4, 2], "x": 2, "y": 4},
-                {"matrix": [4, 3], "x": 3, "y": 4},
+                {"matrix": [4, 0], "x": 2, "y": 4},
+                {"matrix": [4, 1], "x": 3, "y": 4},
+                {"matrix": [4, 2], "x": 4, "y": 5},
+                {"matrix": [4, 3], "x": 5, "y": 5},
+                {"matrix": [4, 4], "x": 6, "y": 6},
+                {"matrix": [4, 5], "x": 7, "y": 6},
 
-                {"matrix": [10, 2], "x": 13, "y": 4},
-                {"matrix": [10, 3], "x": 14, "y": 4},
+                {"matrix": [10, 0], "x": 13, "y": 4},
+                {"matrix": [10, 1], "x": 14, "y": 4},
+                {"matrix": [10, 2], "x": 11, "y": 5},
+                {"matrix": [10, 3], "x": 12, "y": 5},
+                {"matrix": [10, 4], "x": 9, "y": 6},
+                {"matrix": [10, 5], "x": 10, "y": 6},
 
-                {"matrix": [4, 4], "x": 4, "y": 5},
-                {"matrix": [4, 5], "x": 5, "y": 5},
+                {"matrix": [5, 4], "x": 6, "y": 7},
+                {"matrix": [5, 5], "x": 7, "y": 7},
 
-                {"matrix": [10, 0], "x": 11, "y": 5},
-                {"matrix": [10, 1], "x": 12, "y": 5},
-
-                {"matrix": [5, 4], "x": 6, "y": 6},
-                {"matrix": [5, 5], "x": 7, "y": 6},
-
-                {"matrix": [11, 0], "x": 9, "y": 6},
-                {"matrix": [11, 1], "x": 10, "y": 6},
-
-                {"matrix": [5, 2], "x": 6, "y": 7},
-                {"matrix": [5, 3], "x": 7, "y": 7},
-
-                {"matrix": [11, 2], "x": 9, "y": 7},
-                {"matrix": [11, 3], "x": 10, "y": 7}
+                {"matrix": [11, 0], "x": 9, "y": 7},
+                {"matrix": [11, 1], "x": 10, "y": 7}
             ]
         }
     }

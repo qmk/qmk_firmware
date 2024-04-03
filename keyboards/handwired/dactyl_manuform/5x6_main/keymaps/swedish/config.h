@@ -1,6 +1,5 @@
 /*
 Copyright 2012 Jun Wako <wakojun@gmail.com>
-Copyright 2015 Jack Humbert
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -12,19 +11,14 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License
+You should have received a copy of the GNU General Public Licensel
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+
 #pragma once
 
-
-/* mouse config */
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
-/* Enables This makes it easier for fast typists to use dual-function keys */
-#define PERMISSIVE_HOLD
+#define MASTER_LEFT
+// #define MASTER_RIGHT
+//#define EE_HANDS
+// Rows are doubled-up
