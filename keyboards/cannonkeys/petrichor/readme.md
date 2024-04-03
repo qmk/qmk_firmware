@@ -1,6 +1,7 @@
-# Petrichor HS PCB
+# Petrichor PCB
 
-Petrichor Hotswap PCB from CannonKeys for the AKB Petrichor keyboard
+Petrichor PCB from CannonKeys for the AKB Petrichor keyboard
+(This firmware is used for both the hotswap and solderable variant)
 
 * Keyboard Maintainer: [Andrew Kannan](https://github.com/awkannan)
 * Hardware Supported: RP2040
@@ -9,11 +10,11 @@ Petrichor Hotswap PCB from CannonKeys for the AKB Petrichor keyboard
 
 Make example for this keyboard (after setting up your build environment):
 
-    make cannonkeys/petrichor_hs:default
+    make cannonkeys/petrichor:default
     
 Flashing example for this keyboard:
 
-    make cannonkeys/petrichor_hs:default:flash
+    make cannonkeys/petrichor:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
