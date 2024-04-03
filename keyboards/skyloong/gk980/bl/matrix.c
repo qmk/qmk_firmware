@@ -68,9 +68,9 @@ static bool select_col(uint8_t col) {
     setPinOutput_writeHigh(HC595_DS_PIN);
         for (uint8_t m = 0; m <= col; m++) {
            if(m == 0){
-               writePinLow(HC595_DS_PIN);
+               gpio_write_pin_low(HC595_DS_PIN);
             }else{
-               writePinHigh(HC595_DS_PIN);
+               gpio_write_pin_high(HC595_DS_PIN);
             }
            clockPulse(ClockTime);
         }
