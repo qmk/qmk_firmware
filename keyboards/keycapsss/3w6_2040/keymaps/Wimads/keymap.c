@@ -251,6 +251,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     const uint16_t  mod_shift     = get_mods() & MOD_MASK_SHIFT;  // track shift state for custom shift behaviours (defined in multifunc keycodes)
     static uint16_t auto_dead_key = KC_SPC;                       // keycode to send after dead key (defined in multifunc keycodes)
     static uint16_t adk_mod_shift = 0;                            // track shift state for auto_dead_key
+    static bool     cm_held       = 0;
 
     // macros:
     switch (keycode) {
