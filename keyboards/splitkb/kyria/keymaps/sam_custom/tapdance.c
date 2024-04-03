@@ -11,9 +11,12 @@ void tap_dance_tap_hold_finished(tap_dance_state_t *state, void *user_data) {
     tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
 
     if (state->pressed) {
-        if (state->count == 1) {
+        if (state->count == 1 && !state->interrupted) {
             register_code16(tap_hold->hold);
             tap_hold->held = tap_hold->hold;
+        } else {
+            register_code16(tap_hold->tap);
+            tap_hold->held = tap_hold->tap;
         }
     }
 }
@@ -111,4 +114,3 @@ tap_dance_action_t tap_dance_actions[] = {
     [ALT_TAPDANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, alt_finished, alt_reset),
     [AUTOTAB] = ACTION_TAP_DANCE_TAP_HOLD(KC_TAB, LALT(LCTL(KC_TAB))),
 };
-

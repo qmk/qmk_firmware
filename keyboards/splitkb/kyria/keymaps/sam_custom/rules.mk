@@ -1,3 +1,7 @@
+SRC += oled.c
+SRC += capsword.c
+SRC += tapdance.c
+
 # LEDs
 OLED_ENABLE = yes
 RGBLIGHT_ENABLE = yes      # Enable keyboard RGB underglow
