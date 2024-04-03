@@ -16,7 +16,7 @@
 #include "spi_master.h"
 #include "adns.h"
 #include "debug.h"
-#include "quantum.h"
+#include "wait.h"
 #include "pointing_device.h"
 #include "adns9800_srom_A6.h"
 

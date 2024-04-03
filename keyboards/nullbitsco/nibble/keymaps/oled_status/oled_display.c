@@ -13,8 +13,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "quantum.h"
+
 #include "oled_display.h"
+#include "keycodes.h"
+#include "progmem.h"
+#include "host.h"
+#include "timer.h"
+#include "wpm.h"
+#include "rgblight.h"
+#include "oled_driver.h"
 
 static const char PROGMEM oled_mode_messages[5][15] = {
     "",

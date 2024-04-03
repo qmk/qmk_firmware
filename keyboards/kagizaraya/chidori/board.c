@@ -19,7 +19,6 @@
 #include "print.h"
 #include "debug.h"
 #include "matrix.h"
-#include "quantum.h"
 #include "board.h"
 #include "i2c_master.h"
 
