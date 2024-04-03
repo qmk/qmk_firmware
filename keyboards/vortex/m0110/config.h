@@ -16,11 +16,6 @@
 
 #pragma once
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 /* External spi flash */
 #define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN B14
 
@@ -29,8 +24,3 @@
 #define SPI_SCK_PIN A5
 #define SPI_MOSI_PIN A7
 #define SPI_MISO_PIN A6
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
