@@ -101,19 +101,19 @@ layer_state_t layer_state_set_user(layer_state_t state) {
  */
 bool indicators_callback(void) {
     if ((eeprom_ec_config.num.enabled) && (host_keyboard_led_state().num_lock))
-        sethsv(eeprom_ec_config.num.h, eeprom_ec_config.num.s, eeprom_ec_config.num.v, (rgb_led_t *)&led[NUM_INDICATOR_INDEX]);
+        rgblight_sethsv_at(eeprom_ec_config.num.h, eeprom_ec_config.num.s, eeprom_ec_config.num.v, NUM_INDICATOR_INDEX);
     else
-        sethsv(0, 0, 0, (rgb_led_t *)&led[NUM_INDICATOR_INDEX]);
+        rgblight_sethsv_at(0, 0, 0, NUM_INDICATOR_INDEX);
 
     if ((eeprom_ec_config.caps.enabled) && (host_keyboard_led_state().caps_lock))
-        sethsv(eeprom_ec_config.caps.h, eeprom_ec_config.caps.s, eeprom_ec_config.caps.v, (rgb_led_t *)&led[CAPS_INDICATOR_INDEX]);
+        rgblight_sethsv_at(eeprom_ec_config.caps.h, eeprom_ec_config.caps.s, eeprom_ec_config.caps.v, CAPS_INDICATOR_INDEX);
     else
-        sethsv(0, 0, 0, (rgb_led_t *)&led[CAPS_INDICATOR_INDEX]);
+        rgblight_sethsv_at(0, 0, 0, CAPS_INDICATOR_INDEX);
 
     if ((eeprom_ec_config.scroll.enabled) && (host_keyboard_led_state().scroll_lock))
-        sethsv(eeprom_ec_config.scroll.h, eeprom_ec_config.scroll.s, eeprom_ec_config.scroll.v, (rgb_led_t *)&led[SCROLL_INDICATOR_INDEX]);
+        rgblight_sethsv_at(eeprom_ec_config.scroll.h, eeprom_ec_config.scroll.s, eeprom_ec_config.scroll.v, SCROLL_INDICATOR_INDEX);
     else
-        sethsv(0, 0, 0, (rgb_led_t *)&led[SCROLL_INDICATOR_INDEX]);
+        rgblight_sethsv_at(0, 0, 0, SCROLL_INDICATOR_INDEX);
 
     return true;
 }

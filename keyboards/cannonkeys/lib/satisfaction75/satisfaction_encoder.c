@@ -2,8 +2,10 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "satisfaction_core.h"
-#include "backlight.h"
 #include "eeprom.h"
+#ifdef BACKLIGHT_ENABLE
+#    include "backlight.h"
+#endif
 
 void pre_encoder_mode_change(void){
   if(encoder_mode == ENC_MODE_CLOCK_SET){
