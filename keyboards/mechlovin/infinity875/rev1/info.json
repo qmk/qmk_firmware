@@ -3,8 +3,7 @@
         "pid": "0x0875",
         "device_version": "0.0.1"
     },
-    "matrix_pins": {        
-        "cols": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+    "matrix_pins": {
         "rows": ["D5", "D2", "D4", "D3", "D0", "D1"],
         "custom": true,
         "custom_lite": true
@@ -21,11 +20,8 @@
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "features": {
-        "bootmagic": true,
         "command": false,
         "console": false,
-        "extrakey": true,
-        "mousekey": false,
         "nkro": false,
         "rgb_matrix": true
     },
