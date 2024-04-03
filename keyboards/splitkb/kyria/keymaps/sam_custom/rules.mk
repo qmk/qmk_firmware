@@ -16,3 +16,6 @@ MUSIC_ENABLE = no
 CAPS_WORD_ENABLE = yes
 TAP_DANCE_ENABLE = yes
 COMBO_ENABLE = no
+
+# Space saving
+LTO_ENABLE = yes

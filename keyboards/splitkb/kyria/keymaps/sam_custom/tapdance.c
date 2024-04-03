@@ -1,6 +1,6 @@
-#include "tapdance.h"
 #include "layers.h"
 #include "keymap.h"
+#include "tapdance.h"
 
 static td_tap_t tmuxtap_state = {
     .is_press_action = true,

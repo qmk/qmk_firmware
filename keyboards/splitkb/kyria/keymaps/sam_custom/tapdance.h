@@ -1,4 +1,6 @@
-# pragma once
+#pragma once
+#include QMK_KEYBOARD_H
+
 typedef enum {
     TD_NONE,
     TD_UNKNOWN,
