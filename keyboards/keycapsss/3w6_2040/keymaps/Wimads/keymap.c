@@ -20,9 +20,9 @@ enum layers {
 // Tap-hold keys:
 #define FFF_NUM LT(_NUM, KC_F)
 #define JJJ_NUM LT(_NUM, KC_J)
-#define SPC_SFT LSFT_T(KC_SPC)
-#define UND_SFT LSFT_T(KC_UNDS) // further defined in macro (because shifted keycodes in _T() is not possible)
-#define EQL_RLT RALT_T(KC_EQL)
+#define SPC_SFT KC_LSFT
+#define UND_SFT KC_RSFT // further defined in macro (because shifted keycodes in _T() is not possible)
+#define EQL_RLT KC_RALT
 // Auto-Dead-Key:   //auto-send space after deadkey, unless ADK_ key was held; requires "English(US)"+"Qwerty US" language+kbd settings in windows
 #define ADK_A LT(11, KC_A)
 #define ADK_E LT(11, KC_E)
@@ -194,8 +194,6 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
 // Tap-hold per key config:
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case UND_SFT:
-            return 250;
         case ADK_A:
         case ADK_E:
         case ADK_U:
@@ -243,18 +241,66 @@ int get_index_multifunc(uint16_t kc_record) { // find corresponding item in mult
 };
 ///..multifunc keycodes
 
+static uint32_t combi_mod_timer;
 /// Macros..
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // variables:
-    static bool     dotcomm_state = true;                         // true = dot; false = comma;
-    const int       index         = get_index_multifunc(keycode); // check if keycode is in multifunc map
-    const uint16_t  mod_shift     = get_mods() & MOD_MASK_SHIFT;  // track shift state for custom shift behaviours (defined in multifunc keycodes)
-    static uint16_t auto_dead_key = KC_SPC;                       // keycode to send after dead key (defined in multifunc keycodes)
-    static uint16_t adk_mod_shift = 0;                            // track shift state for auto_dead_key
-    static bool     cm_held       = 0;
+    static bool     dotcomm_state    = true;                         // true = dot; false = comma;
+    const int       index            = get_index_multifunc(keycode); // check if keycode is in multifunc map
+    const uint16_t  mod_shift        = get_mods() & MOD_MASK_SHIFT;  // track shift state for custom shift behaviours (defined in multifunc keycodes)
+    static uint16_t auto_dead_key    = KC_SPC;                       // keycode to send after dead key (defined in multifunc keycodes)
+    static uint16_t adk_mod_shift    = 0;                            // track shift state for auto_dead_key
+    static uint16_t combi_mod_1      = 0;
+    static uint16_t combi_mod_2      = 0;
+    static uint16_t combi_mod_cancel = KC_NO;
+    static bool     combi_mod_held   = 0;
+#define COMBI_MOD_TERM 500
 
+    if ((keycode < KC_LCTL || keycode > KC_RGUI) && record->event.pressed && !combi_mod_held && timer_read32() < 3 * COMBI_MOD_TERM) {
+        // when a non-mod-keycode is pressed && no combi-mod was held && not timed out:
+        tap_code16(combi_mod_cancel); // send combi-mod cancel code
+        combi_mod_cancel = KC_NO;     // reset combi-mod variables
+        combi_mod_1 = combi_mod_2 = 0;
+    }
     // macros:
     switch (keycode) {
+        case KC_LCTL ... KC_RGUI:
+            if (record->event.pressed && timer_read() >= COMBI_MOD_TERM) {
+                // if timer expired:
+                combi_mod_timer = timer_read32(); // reset timer
+                combi_mod_1     = keycode;        // overwrite first combi-mod by current keycode
+                combi_mod_2     = 0;              // reset second combi-mod
+                return true;                      // register current (1st) mod as normal
+            } else if (record->event.pressed && !combi_mod_2) {
+                // if within timer && no 2nd combi-mod is stored:
+                if (keycode != combi_mod_1) {
+                    combi_mod_timer = timer_read32(); // reset timer
+                    combi_mod_2     = keycode;        // store second combi-mod
+                    register_mods(combi_mod_1);       // register first combi-mod
+                    return true;                      // register current (2nd) mod as normal
+                } else {
+                    return true;
+                }
+            } else if (record->event.pressed) {
+                // if within timer && 2 combi-mods are stored:
+                combi_mod_timer = timer_read32(); // reset timer
+                register_mods(combi_mod_1);       // register 1st combi-mod
+                register_mods(combi_mod_2);       // register 2nd combi-mod
+                return true;                      // register current (3rd) mod as normal
+            } else {
+                // on key release:
+                // clang-format off
+                // store keycode to send on next non-modifier keypress:
+                if      (keycode == KC_LSFT)                                  combi_mod_cancel = KC_SPC;
+                else if (keycode == KC_RSFT)                                  combi_mod_cancel = S(KC_MINS);
+                else if (keycode == KC_RALT && layer_state_is(_NUM || _RNUM)) combi_mod_cancel = KC_EQL;
+                else                                                          combi_mod_cancel = KC_NO;
+                // clang-fromat on
+                unregister_mods(combi_mod_1);
+                unregister_mods(combi_mod_2);
+                return true;
+            }
+
         case CLEARKB: // clear keyboard
             if (record->event.pressed) {
                 clear_keyboard(); // clears all keys and modifiers that might be stuck
@@ -288,12 +334,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
 
         // special keycodes:
-        case UND_SFT:
-            if (record->event.pressed && record->tap.count) { // underscore when tapped
-                tap_code16(S(KC_UNDS));
-                return false;
-            }
-            return true; // shift when held
+
         case DOTCOMM:
             if (record->event.pressed && record->tap.count == 2) { // invert DOTCOMM state on double tap
                 dotcomm_state = !dotcomm_state;                    // invert state
