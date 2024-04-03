@@ -796,10 +796,10 @@ void bat_percent_led(uint8_t bat_percent) {
     } else if (bat_percent <= 40) {         // 20-40
         bat_end_led = 1;
         bat_r = 0x80, bat_g = 0x40, bat_b = 0; // orange
-    } else if (bat_percent <= 50) {            // 40-50
+    } else if (bat_percent <= 60) {            // 40-60
         bat_end_led = 2;
         bat_r = 0x80, bat_g = 0x80, bat_b = 0; // yellow
-    } else if (bat_percent <= 80) {            // 50-80
+    } else if (bat_percent <= 80) {            // 60-80
         bat_end_led = 3;
         bat_r = 0x20, bat_g = 0, bat_b = 0x80; // blue-purpleish
     } else {                                   // 80-100
