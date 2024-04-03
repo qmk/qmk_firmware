@@ -10,6 +10,9 @@
         "bluetooth": true,
         "console": false
     },
+    "build": {
+        "lto": true
+    },
     "bluetooth": {
         "driver": "bluefruit_le"
     }
