@@ -1,5 +1,6 @@
 # ProjectD 75% ISO 
-![ProjectD 75 ISO](https://imgur.com/pbGXTUdh.png)
+
+![ProjectD 75 ISO](https://imgur.com/pbGXTUd.png)
 
 A 75% keyboard with the WestBerry Q95 microcontroller integrated into PCB.
 
