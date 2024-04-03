@@ -35,16 +35,11 @@
 #    endif
 #endif
 
+// Tapping
 #define HOLD_ON_OTHER_KEY_PRESS
 #define TAPPING_TERM 175
-
 #define ONESHOT_TAP_TOGGLE 3
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
-
-// Disable stuff we don't need
-#undef LOCKING_SUPPORT_ENABLE
-#undef LOCKING_RESYNC_ENABLE
-#define NO_MUSIC_MODE
 
 // RGB effects
 // Commented out means the effect is ENABLED
@@ -94,3 +89,11 @@
 #undef ENABLE_RGB_MATRIX_MULTISPLASH
 #undef ENABLE_RGB_MATRIX_SOLID_SPLASH
 #undef ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
+
+// Space saving
+
+#undef LOCKING_SUPPORT_ENABLE
+#undef LOCKING_RESYNC_ENABLE
+#define NO_MUSIC_MODE
+#define DISABLE_LEADER
+#define LAYER_STATE_8BIT
