@@ -25,7 +25,14 @@
             "static_gradient": true,
             "twinkle": true
         },
-        "led_count": 3
+        "led_count": 3,
+        "layers": {
+            "enabled": true,
+            "override_rgb": false
+        },
+        "default": {
+            "animation": "rainbow_swirl"
+        }
     },
     "url": "https://cannonkeys.com",
     "usb": {
