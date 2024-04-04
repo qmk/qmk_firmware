@@ -1,6 +1,6 @@
 {
     "manufacturer": "Tommaso Visconti",
-    "keyboard_name": "handwired/ximi",
+    "keyboard_name": "Corne",
     "maintainer": "tommyblue",
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
@@ -23,8 +23,11 @@
     "url": "",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0000",
-        "vid": "0xFEED"
+        "pid": "0x0001",
+        "vid": "0x4653"
+    },
+    "build": {
+        "lto": true
     },
     "layouts": {
         "LAYOUT_split_3x6_3": {
