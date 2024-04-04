@@ -3,6 +3,19 @@
 
 #include QMK_KEYBOARD_H
 
+<<<<<<< HEAD
+=======
+enum custom_keycodes {
+#ifdef VIA_ENABLE // If you are using VIA, you can use the same keycodes as the default keymap
+    L_IND = QK_KB_0, // Toggle the Layer Indicators Modes
+    L_CYC            // Cycle through the layers
+#else // If you are not using VIA, you can use your own keycodes
+    L_IND = QK_USER,
+    L_CYC
+#endif
+};
+
+>>>>>>> f05206908c (Update keyboards/themadnoodle/noodlepad_micro/keymaps/via/keymap.c)
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* LAYER 0
