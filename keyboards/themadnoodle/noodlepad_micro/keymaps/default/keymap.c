@@ -4,7 +4,7 @@
 #include QMK_KEYBOARD_H
 
 enum custom_keycodes {
-    L_IND = SAFE_RANGE, // Toggle the Layer Indicators Modes
+    L_IND = QK_USER, // Toggle the Layer Indicators Modes
     L_CYC               // Cycle through the layers
 };
 
