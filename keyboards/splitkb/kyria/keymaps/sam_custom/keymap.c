@@ -18,20 +18,20 @@
 #include "tapdance.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-//    ┌─────────────┬───┬───┬──────────────────┬──────────────────┬─────┐                                                                 ┌─────┬───┬───┬───┬───┬────────────────────┐
-//    │ TD(AUTOTAB) │ q │ w │        e         │        r         │  t  │                                                                 │  y  │ u │ i │ o │ p │         -          │
-//    ├─────────────┼───┼───┼──────────────────┼──────────────────┼─────┤                                                                 ├─────┼───┼───┼───┼───┼────────────────────┤
-//    │   CTL_ESC   │ a │ s │        d         │        f         │  g  │                                                                 │  h  │ j │ k │ l │ ; │         '          │
-//    ├─────────────┼───┼───┼──────────────────┼──────────────────┼─────┼───────────────┬─────────────────┬─────────────────┬─────────────┼─────┼───┼───┼───┼───┼────────────────────┤
-//    │    lsft     │ z │ x │        c         │        v         │  b  │  OSL(NUMPAD)  │    CLOSE_TAB    │   REOPEN_TAB    │ OSL(SYMBOL) │  n  │ m │ , │ . │ / │ LT(SHIFT_MEDIA, \) │
-//    └─────────────┴───┴───┼──────────────────┼──────────────────┼─────┼───────────────┼─────────────────┼─────────────────┼─────────────┼─────┼───┼───┼───┴───┴────────────────────┘
-//                          │ TD(WIN_TAPDANCE) │ TD(ALT_TAPDANCE) │ ent │ OSM(MOD_LSFT) │ TD(TMUX_SCROLL) │ TD(TMUX_SCROLL) │    bspc     │ spc │ [ │ ] │
-//                          └──────────────────┴──────────────────┴─────┴───────────────┴─────────────────┴─────────────────┴─────────────┴─────┴───┴───┘
+//    ┌─────────────┬───┬───┬──────────────────┬──────────────────┬─────┐                                                               ┌─────┬───┬───┬───┬───┬────────────────────┐
+//    │ TD(AUTOTAB) │ q │ w │        e         │        r         │  t  │                                                               │  y  │ u │ i │ o │ p │         -          │
+//    ├─────────────┼───┼───┼──────────────────┼──────────────────┼─────┤                                                               ├─────┼───┼───┼───┼───┼────────────────────┤
+//    │   CTL_ESC   │ a │ s │        d         │        f         │  g  │                                                               │  h  │ j │ k │ l │ ; │         '          │
+//    ├─────────────┼───┼───┼──────────────────┼──────────────────┼─────┼─────────────────┬─────────────┬─────────────┬─────────────────┼─────┼───┼───┼───┼───┼────────────────────┤
+//    │    lsft     │ z │ x │        c         │        v         │  b  │ TD(TMUX_SCROLL) │  CLOSE_TAB  │ REOPEN_TAB  │ TD(TMUX_SCROLL) │  n  │ m │ , │ . │ / │ LT(SHIFT_MEDIA, \) │
+//    └─────────────┴───┴───┼──────────────────┼──────────────────┼─────┼─────────────────┼─────────────┼─────────────┼─────────────────┼─────┼───┼───┼───┴───┴────────────────────┘
+//                          │ TD(WIN_TAPDANCE) │ TD(ALT_TAPDANCE) │ ent │  OSM(MOD_LSFT)  │ OSL(NUMPAD) │ OSL(SYMBOL) │      bspc       │ spc │ [ │ ] │
+//                          └──────────────────┴──────────────────┴─────┴─────────────────┴─────────────┴─────────────┴─────────────────┴─────┴───┴───┘
 [_QWERTY] = LAYOUT(
-  TD(AUTOTAB) , KC_Q , KC_W , KC_E             , KC_R             , KC_T   ,                                                                   KC_Y   , KC_U    , KC_I    , KC_O   , KC_P    , KC_MINUS                     ,
-  CTL_ESC     , KC_A , KC_S , KC_D             , KC_F             , KC_G   ,                                                                   KC_H   , KC_J    , KC_K    , KC_L   , KC_SCLN , KC_QUOTE                     ,
-  KC_LSFT     , KC_Z , KC_X , KC_C             , KC_V             , KC_B   , OSL(NUMPAD)   , CLOSE_TAB       , REOPEN_TAB      , OSL(SYMBOL) , KC_N   , KC_M    , KC_COMM , KC_DOT , KC_SLSH , LT(SHIFT_MEDIA, KC_BACKSLASH),
-                              TD(WIN_TAPDANCE) , TD(ALT_TAPDANCE) , KC_ENT , OSM(MOD_LSFT) , TD(TMUX_SCROLL) , TD(TMUX_SCROLL) , KC_BSPC     , KC_SPC , KC_LBRC , KC_RBRC
+  TD(AUTOTAB) , KC_Q , KC_W , KC_E             , KC_R             , KC_T   ,                                                                 KC_Y   , KC_U    , KC_I    , KC_O   , KC_P    , KC_MINUS                     ,
+  CTL_ESC     , KC_A , KC_S , KC_D             , KC_F             , KC_G   ,                                                                 KC_H   , KC_J    , KC_K    , KC_L   , KC_SCLN , KC_QUOTE                     ,
+  KC_LSFT     , KC_Z , KC_X , KC_C             , KC_V             , KC_B   , TD(TMUX_SCROLL) , CLOSE_TAB   , REOPEN_TAB  , TD(TMUX_SCROLL) , KC_N   , KC_M    , KC_COMM , KC_DOT , KC_SLSH , LT(SHIFT_MEDIA, KC_BACKSLASH),
+                              TD(WIN_TAPDANCE) , TD(ALT_TAPDANCE) , KC_ENT , OSM(MOD_LSFT)   , OSL(NUMPAD) , OSL(SYMBOL) , KC_BSPC         , KC_SPC , KC_LBRC , KC_RBRC
 ),
 
 //    ┌─────┬──────┬──────┬────────────┬─────────────┬────────┐                         ┌──────┬──────┬──────┬──────┬──────┬────────┐
