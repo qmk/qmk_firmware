@@ -3,4 +3,8 @@
 
 #pragma once
 
+<<<<<<< HEAD
 #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL + 5
+=======
+#define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL + 5
+>>>>>>> 66a0986fcb (Update keyboards/themadnoodle/noodlepad_micro/config.h)
