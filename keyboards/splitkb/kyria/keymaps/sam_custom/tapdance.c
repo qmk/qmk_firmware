@@ -2,11 +2,6 @@
 #include "keymap.h"
 #include "tapdance.h"
 
-static td_tap_t tmuxtap_state = {
-    .is_press_action = true,
-    .state = TD_NONE
-};
-
 void tap_dance_tap_hold_finished(tap_dance_state_t *state, void *user_data) {
     tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
 
@@ -46,6 +41,10 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     return TD_UNKNOWN;
 }
 
+static td_tap_t tmuxtap_state = {
+    .is_press_action = true,
+    .state = TD_NONE
+};
 void tmux_finished(tap_dance_state_t *state, void *user_data) {
     tmuxtap_state.state = cur_dance(state);
     switch (tmuxtap_state.state) {

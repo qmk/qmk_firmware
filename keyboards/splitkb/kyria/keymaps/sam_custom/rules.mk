@@ -4,11 +4,11 @@ SRC += tapdance.c
 
 # LEDs
 OLED_ENABLE = yes
-RGBLIGHT_ENABLE = yes      # Enable keyboard RGB underglow
+RGBLIGHT_ENABLE = no      # Enable keyboard RGB underglow
+RGB_MATRIX_ENABLE = yes     # Disable keyboard RGB matrix, as it is enabled by default on rev3
 
 # Disable some stuff we don't need
 ENCODER_ENABLE = no       # Enables the use of one or more encoders
-RGB_MATRIX_ENABLE = no     # Disable keyboard RGB matrix, as it is enabled by default on rev3
 CONSOLE_ENABLE = no
 MOUSEKEY_ENABLE = no
 SPACE_CADET_ENABLE = no
@@ -19,7 +19,7 @@ MUSIC_ENABLE = no
 # Behaviors
 CAPS_WORD_ENABLE = yes
 TAP_DANCE_ENABLE = yes
-COMBO_ENABLE = no
+COMBO_ENABLE = yes
 
 # Space saving
 LTO_ENABLE = yes
